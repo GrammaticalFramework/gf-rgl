@@ -75,6 +75,7 @@ concrete CatEng of Cat = CommonX - [Pol,SC,CAdv] ** open ResEng, Prelude in {
     Ord = { s : Case => Str } ;
     Num  = {s,sp : Bool => Case => Str ; n : Number ; hasCard : Bool} ;
     Card = {s,sp : Bool => Case => Str ; n : Number} ;
+    ACard = {s : Case => Str ; n : Number} ;
     Quant = {s : Bool => Number => Str ; sp : Gender => Bool => Number => NPCase => Str; isDef : Bool} ;
 
 -- Numeral

@@ -83,6 +83,7 @@ abstract Cat = Common ** {
     Quant ;  -- quantifier ('nucleus' of Det)       e.g. "this/these"
     Num ;    -- number determining element          e.g. "seven"
     Card ;   -- cardinal number                     e.g. "seven"
+    ACard ;  -- adjective like cardinal             e.g. "few", "many"
     Ord ;    -- ordinal number (used in Det)        e.g. "seventh"
     DAP ;    -- determiner with adjective           e.g. "three small"
 

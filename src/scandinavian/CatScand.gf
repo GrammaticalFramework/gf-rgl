@@ -80,6 +80,7 @@ incomplete concrete CatScand of Cat =
     Predet = {s : Gender => Number => Str ; p : Str ; a : PredetAgr} ;
     Num = {s : NGender => Str ; isDet : Bool ; n : Number} ;
     Card = {s : NGender => Str ; n : Number} ;
+    ACard = {s : Str ; n : Number} ;
     Ord = {s : Str} ;
 
 -- Numeral
