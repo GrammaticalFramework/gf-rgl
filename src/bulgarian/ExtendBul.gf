@@ -70,6 +70,11 @@ lin
   GerundAdv, ByVP = \vp ->
     {s = vp.ad.s ++
          vp.s ! Imperf ! VGerund ++
+         case vp.vtype of {
+           VNormal => "" ;
+           VMedial c => reflClitics ! c ;
+           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
+         } ++
          vp.compl ! {gn=GSg Neut; p=P3}} ;
 
   InOrderToVP vp = 
