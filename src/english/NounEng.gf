@@ -77,8 +77,8 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
     NumDigits n = {s,sp = \\_ => n.s ! NCard ; n = n.n} ;
     OrdDigits n = {s    = n.s ! NOrd} ;
 
-    NumNumeral numeral = {s,sp = \\_ => numeral.s ! NCard; n = numeral.n} ;
-    OrdNumeral numeral = {s    = numeral.s ! NOrd} ;
+    NumNumeral numeral = {s,sp = \\d => numeral.s ! d ! NCard; n = numeral.n} ;
+    OrdNumeral numeral = {s    = numeral.s ! True ! NOrd} ;
 
     AdNum adn num = {s  = \\_,c => adn.s ++ num.s !False!c ;
                      sp = \\_,c => adn.s ++ num.sp!False!c ;
@@ -86,7 +86,7 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
 
     OrdSuperl a = {s = \\c => a.s ! AAdj Superl c } ;
 
-    OrdNumeralSuperl n a = {s = \\c => n.s ! NOrd ! Nom ++ a.s ! AAdj Superl c } ;
+    OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ a.s ! AAdj Superl c } ;
 
     DefArt = {
       s  = \\hasCard,n => artDef ;

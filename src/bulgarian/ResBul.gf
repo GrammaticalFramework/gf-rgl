@@ -644,8 +644,8 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
 -- For $Numeral$.
 
-    mkDigit : Str -> Str -> Str -> Str -> Str -> Str -> {s : DForm => CardOrd => Str} =
-      \dva, dvama, dve, vtori, dvaiset, dvesta ->
+    mkDigit : Str -> Str -> Str -> Str -> Str -> Str -> Str -> {s : DForm => CardOrd => Str} =
+      \dva, dvama, dve, vtori, dvaiset, dvesta, dvestata ->
       {s = table {
              unit                  => mkCardOrd dva dvama dve vtori ;
              teen nf               => case nf of {
@@ -661,7 +661,7 @@ resource ResBul = ParamX ** open Prelude, Predef in {
                                                       dvest+"а"        => dvest+"ен" ;
                                                       chetiristot+"ин" => chetiristot+"ен"
                                                     }
-                                      in mkCardOrd100 dvesta dvesten
+                                      in mkCardOrd100 dvesta dvestata dvesten
            }
       } ;
 
@@ -685,10 +685,16 @@ resource ResBul = ParamX ** open Prelude, Predef in {
                                   }
                } ;
 
-    mkCardOrd100 : Str -> Str -> CardOrd => Str =
-      \sto, stoten ->
+    mkCardOrd100 : Str -> Str -> Str -> CardOrd => Str =
+      \sto, stote, stoten ->
                table {
-                 NCard dg   => sto ;
+                 NCard (CFMasc Indef _) => sto ;
+                 NCard (CFMasc Def _)   => stote ;
+                 NCard (CFMascDefNom _) => stote ;
+                 NCard (CFFem  Indef)   => sto ;
+                 NCard (CFFem  Def)     => stote ;
+                 NCard (CFNeut Indef)   => sto ;
+                 NCard (CFNeut Def)     => stote ;
                  NOrd aform => let stotn = init (init stoten) + last stoten ;
                                in case aform of {
                                     ASg Masc Indef => stoten ;

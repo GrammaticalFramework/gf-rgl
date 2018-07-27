@@ -11,14 +11,14 @@ lincat
   Sub1000000 = {s : CardOrd => NumF => Str; n : Number} ;
 
 lin num x = {s = \\c => x.s ! c ! Formal; n=x.n} ;
-lin n2 = mkDigit "два"    "двама"    "две"    "втори"    "двайсет"    "двеста" ;
-lin n3 = mkDigit "три"    "трима"    "три"    "трети"    "трийсет"    "триста" ;
-lin n4 = mkDigit "четири" "четирима" "четири" "четвърти" "четирийсет" "четиристотин" ;
-lin n5 = mkDigit "пет"    "петима"   "пет"    "пети"     "петдесет"   "петстотин" ;
-lin n6 = mkDigit "шест"   "шестима"  "шест"   "шести"    "шейсет"     "шестстотин" ;
-lin n7 = mkDigit "седем"  "седмина"  "седем"  "седми"    "седемдесет" "седемстотин" ;
-lin n8 = mkDigit "осем"   "осмина"   "осем"   "осми"     "осемдесет"  "осемстотин" ;
-lin n9 = mkDigit "девет"  "деветима" "девет"  "девети"   "деветдесет" "деветстотин" ;
+lin n2 = mkDigit "два"    "двама"    "две"    "втори"    "двайсет"    "двеста" "двестата" ;
+lin n3 = mkDigit "три"    "трима"    "три"    "трети"    "трийсет"    "триста" "тристата" ;
+lin n4 = mkDigit "четири" "четирима" "четири" "четвърти" "четирийсет" "четиристотин" "четиристотинте" ;
+lin n5 = mkDigit "пет"    "петима"   "пет"    "пети"     "петдесет"   "петстотин" "петстотинте" ;
+lin n6 = mkDigit "шест"   "шестима"  "шест"   "шести"    "шейсет"     "шестстотин" "шестстотинте" ;
+lin n7 = mkDigit "седем"  "седмина"  "седем"  "седми"    "седемдесет" "седемстотин" "седемстотинте" ;
+lin n8 = mkDigit "осем"   "осмина"   "осем"   "осми"     "осемдесет"  "осемстотин" "осемстотинте" ;
+lin n9 = mkDigit "девет"  "деветима" "девет"  "девети"   "деветдесет" "деветстотин" "деветстотинте" ;
 
 lin pot01 =
       {s = table {
@@ -47,7 +47,7 @@ lin pot01 =
                           Informal => mkCardOrd "единайсет"  "единайсет"     "единайсет"  "единайсти"
                         } ;
              ten  nf => mkCardOrd "десет" "десетима" "десет" "десети" ;
-             hundred => mkCardOrd100 "сто" "стотен"
+             hundred => mkCardOrd100 "сто" "стоте" "стотен"
            }
       ;n = Sg
       } ;
@@ -72,15 +72,15 @@ lin pot2plus d e = {
 lin pot2as3 n = n ;
 lin pot3 n = {
   s = \\c,nf => case n.n of {
-                  Sg => mkCardOrd100 "хиляда" "хиляден" ! c ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "хиляди" "хиляден" ! c
+                  Sg => mkCardOrd100 "хиляда" "хилядата" "хиляден" ! c ;
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "хиляди" "хилядите" "хиляден" ! c
                 } ;
   n = Pl
   } ;
 lin pot3plus n m = {
   s = \\c,nf => case n.n of {
-                  Sg => mkCardOrd100 "хиляда" "хиляден" ! NCard (CFMasc Indef NonHuman) ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "хиляди" "хиляден" ! NCard (CFMasc Indef NonHuman)
+                  Sg => mkCardOrd100 "хиляда" "хилядата" "хиляден" ! NCard (CFMasc Indef NonHuman) ;
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "хиляди" "хилядите" "хиляден" ! NCard (CFMasc Indef NonHuman)
                 }
                 ++ case m.i of {False => []; True  => "и"} ++ m.s ! c ! nf ;
   n = Pl
