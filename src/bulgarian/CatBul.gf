@@ -81,7 +81,7 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
     VV = Verb ** {typ : VVType};
 
     A = {s : AForm => Str; adv : Str; isPre : Bool} ;
-    A2 = {s : AForm => Str; adv : Str; c2 : Str} ;
+    A2 = {s : AForm => Str; adv : Str; c2 : Preposition} ;
 
     N  = {s : NForm => Str; rel : AForm => Str; relPost : Bool; g : AGender} ;
     N2 = {s : NForm => Str; rel : AForm => Str; relPost : Bool; g : AGender} ** {c2 : Preposition} ;
@@ -103,7 +103,7 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
     VV = \s -> {s = \\_,_ => s; vtype = VNormal; typ = VVInf Perf};
 
 	A = \s -> {s = \\_ => s; adv = s; isPre = True};
-    A2 = \s -> {s = \\_ => s; adv = s; c2 = ""};
+    A2 = \s -> {s = \\_ => s; adv = s; c2 = {s=""; c=Acc}};
 
     N  = \s -> {s = \\_ => s; rel = \\_ => s; relPost = False; g = AMasc NonHuman};
     N2 = \s -> {s = \\_ => s; rel = \\_ => s; relPost = False; g = AMasc NonHuman; c2 = {s=""; c=Acc}};
@@ -141,7 +141,7 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
     Prep = linPrep ;
 
 	A = \a -> a.s ! ASg Masc Indef;
-    A2 = \a -> a.s ! ASg Masc Indef ++ a.c2;
+    A2 = \a -> a.s ! ASg Masc Indef ++ linPrep a.c2;
 
     N  = \n -> n.s ! NF Sg Indef;
     N2 = \n -> n.s ! NF Sg Indef ++ linPrep n.c2;

@@ -30,7 +30,7 @@ oper
   A2V : Type = A2 ;
 
   mkA2 : A -> Prep -> A2 ;
-  mkA2 a p = a ** {c2 = p.s ; lock_A2 = <>} ;
+  mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
   
   mkAS  : A -> AS ;
   mkAS  v = v ** {lock_A = <>} ;
