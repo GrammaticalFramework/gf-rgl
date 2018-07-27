@@ -120,8 +120,8 @@ oper
           VAorist    Pl P3 => chetoh + "а";
           VImperfect Sg P1 => chetqh;
           VImperfect Sg _  => case chete of {
-	                        rabot + "и" => rabot + "eше";
-	                        _           => chete + "ше"
+                                rabot + "и" => rabot + "eше";
+                                _           => chete + "ше"
                               };
           VImperfect Pl P1 => chetqh + "ме";
           VImperfect Pl P2 => chetqh + "те";
@@ -130,10 +130,15 @@ oper
                                    case chel of {
                                      pas+"ъл" => pas+"л";
                                      _        => chel
+                                   } ;
+                                 chel2 : Str =
+                                   case chel of {
+                                     w+"лязъл" => w+"лезл";
+                                     _         => chel
                                    }
                              in (mkAdjective chel
-                                             (chel+"ия")
-                                             (chel+"ият")
+                                             (chel2+"ия")
+                                             (chel2+"ият")
                                              (chel1+"a")
                                              (chel1+"ата")
                                              (chel1+"о")
