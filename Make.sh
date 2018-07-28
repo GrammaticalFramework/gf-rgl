@@ -39,7 +39,7 @@ fi
 # A few more definitions before we get started
 src="src"
 dist="dist"
-gfc="${gf} -batch -gf-lib-path=${src} -s "
+gfc="${gf} --batch --gf-lib-path=${src} --quiet "
 
 # Make directories if not present
 mkdir -p "${dist}/prelude"
@@ -47,24 +47,37 @@ mkdir -p "${dist}/present"
 mkdir -p "${dist}/alltenses"
 
 # Build: prelude
+echo "Building prelude"
 ${gfc} --gfo-dir="${dist}"/prelude "${src}"/prelude/*.gf
 
 # Gather all language modules for building
-modules=""
 for mod in $modules_langs; do
-  res=`find "${src}"/* -type f -name "${mod}???.gf"`
-  modules="${modules} $res"
+  for file in "${src}"/*/${mod}???.gf; do
+    [[ ! -e $file ]] && continue
+    modules="${modules} ${file}"
+  done
 done
 for mod in $modules_api; do
-  res=`find "${src}"/api -type f -name "${mod}???.gf"`
-  modules="${modules} $res"
+  for file in "${src}"/api/${mod}???.gf; do
+    [[ ! -e $file ]] && continue
+    modules="${modules} ${file}"
+  done
 done
 
 # Build: present
-${gfc} -no-pmcfg --gfo-dir="${dist}"/present -preproc=mkPresent "${modules}"
+echo "Building present"
+# ${gfc} -no-pmcfg --gfo-dir="${dist}"/present -preproc=mkPresent "${modules}"
+for module in $modules; do
+  ${gfc} --no-pmcfg --gfo-dir="${dist}"/present -preproc=mkPresent "${module}"
+done
 
 # Build: alltenses
-${gfc} -no-pmcfg --gfo-dir="${dist}"/alltenses "${modules}"
+echo "Building alltenses"
+# ${gfc} -no-pmcfg --gfo-dir="${dist}"/alltenses "${modules}"
+for module in $modules; do
+  ${gfc} --no-pmcfg --gfo-dir="${dist}"/alltenses "${module}"
+done
 
-# Install
+# Copy
+echo "Copying to ${dest}"
 cp -R ${dist}/* ${dest}
