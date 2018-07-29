@@ -90,12 +90,12 @@ lin
   youPolPlFem_Pron = youPol_Pron ;
 
 lin
-  PassVPSlash vp = insertObj (\\a => vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
+  PassVPSlash vp = insertObj (\\a => vp.ad.s ++ vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
                                      vp.compl1 ! a ++ vp.compl2 ! a) Pos (predV verbBe) ;
 
   PassAgentVPSlash vp np =
     insertObj (\\_ => "от" ++ np.s ! RObj CPrep) Pos
-                   (insertObj (\\a => vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
+                   (insertObj (\\a => vp.ad.s ++ vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
                                       vp.compl1 ! a ++ vp.compl2 ! a) Pos (predV verbBe)) ;
 
   UttVPShort vp = {
