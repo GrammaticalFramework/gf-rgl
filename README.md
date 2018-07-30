@@ -90,9 +90,14 @@ This build method tries to build all languages found in the `src` directory, eve
 
 ## Windows batch file: `Make.bat`
 
+**This script is still untested.**
+
 This method is provided as an alternative for Windows users who don't have Haskell installed.
 
-**COMING SOON**
+It is supposed to be a port of Make.sh and works in largely the same way.
+In particular, it accepts the same flags (in the same format) as described above.
+
+One difference is that the list of languages to be compiled is specified manually in the script in the `langs` variable.
 
 ## About this repository
 

@@ -1,7 +1,11 @@
 #!/bin/sh
 
+# ---
 # Non-Haskell RGL build script for Unix-based machines
+# ---
 
+# Modules to compile for each language
+# langs="Afr Amh Ara Eus Bul Cat Chi Dan Dut Eng Est Fin Fre Grc Gre Heb Hin Ger Ice Ina Ita Jpn Lat Lav Mlt Mon Nep Nor Nno Pes Pol Por Pnb Ron Rus Snd Spa Swe Tha Tur Urd"
 modules_langs="All Symbol Compatibility"
 modules_api="Try Symbolic"
 
@@ -42,7 +46,12 @@ fi
 # A few more definitions before we get started
 src="src"
 dist="dist"
-gfc="${gf} --batch --gf-lib-path=${src} --quiet "
+gfc="${gf} --batch --gf-lib-path=${src} --quiet"
+
+# Redirect stderr if not verbose
+if [ $verbose = false ]; then
+  exec 2> /dev/null
+fi
 
 # Make directories if not present
 mkdir -p "${dist}/prelude"
@@ -65,15 +74,10 @@ for mod in $modules_api; do
   done
 done
 
-# Redirect stderr if not verbose
-if [ $verbose = false ]; then
-  exec 2> /dev/null
-fi
-
 # Build: present
 echo "Building [present]"
 for module in $modules; do
-  ${gfc} --no-pmcfg --gfo-dir="${dist}"/present -preproc=mkPresent "${module}"
+  ${gfc} --no-pmcfg --gfo-dir="${dist}"/present --preproc=mkPresent "${module}"
 done
 
 # Build: alltenses
