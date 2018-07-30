@@ -78,11 +78,15 @@ clean
 
 ## Shell script: `Make.sh`
 
-This method is provided as an alternative for those who don't have Haskell installed. Simply run the script to build the entire RGL and install in the default location:
+This method is provided as an alternative for those who don't have Haskell installed.
+Simply run the script to build the entire RGL and install in the default location:
 
 You can pass the following flags:
 - `--dest=...` to manually specify the install location
 - `--gf=...` to specify the path to the `gf` executable, if not available on the system path
+- `--verbose` or `-v` to show all GF warnings and errors
+
+This build method tries to build all languages found in the `src` directory, even those which are not considered complete.
 
 ## Windows batch file: `Make.bat`
 

@@ -8,6 +8,7 @@ modules_api="Try Symbolic"
 # Defaults (may be overridden by options)
 gf="gf"
 dest=""
+verbose="false"
 
 # Check command line options
 for arg in "$@"; do
@@ -16,6 +17,8 @@ for arg in "$@"; do
       gf="${arg#*=}"; shift ;;
     --dest=*)
       dest="${arg#*=}"; shift ;;
+    --verbose|-v)
+      verbose="true"; shift ;;
     *) echo "Unknown option: ${arg}" ; exit 1 ;;
   esac
 done
@@ -25,7 +28,7 @@ if [ -z "$dest" ]; then
   dest="$GF_LIB_PATH"
 fi
 if [ -z "$dest" ] && [ -f "../gf-core/DATA_DIR" ]; then
-  dest=`cat ../gf-core/DATA_DIR`
+  dest=$(cat ../gf-core/DATA_DIR)
   if [ -n "$dest" ]; then dest="${dest}/lib"; fi
 fi
 if [ -z "$dest" ]; then
@@ -47,37 +50,38 @@ mkdir -p "${dist}/present"
 mkdir -p "${dist}/alltenses"
 
 # Build: prelude
-echo "Building prelude"
+echo "Building [prelude]"
 ${gfc} --gfo-dir="${dist}"/prelude "${src}"/prelude/*.gf
 
 # Gather all language modules for building
 for mod in $modules_langs; do
-  for file in "${src}"/*/${mod}???.gf; do
-    [[ ! -e $file ]] && continue
+  for file in "${src}"/*/"${mod}"???.gf; do
     modules="${modules} ${file}"
   done
 done
 for mod in $modules_api; do
-  for file in "${src}"/api/${mod}???.gf; do
-    [[ ! -e $file ]] && continue
+  for file in "${src}"/api/"${mod}"???.gf; do
     modules="${modules} ${file}"
   done
 done
 
+# Redirect stderr if not verbose
+if [ $verbose = false ]; then
+  exec 2> /dev/null
+fi
+
 # Build: present
-echo "Building present"
-# ${gfc} -no-pmcfg --gfo-dir="${dist}"/present -preproc=mkPresent "${modules}"
+echo "Building [present]"
 for module in $modules; do
   ${gfc} --no-pmcfg --gfo-dir="${dist}"/present -preproc=mkPresent "${module}"
 done
 
 # Build: alltenses
-echo "Building alltenses"
-# ${gfc} -no-pmcfg --gfo-dir="${dist}"/alltenses "${modules}"
+echo "Building [alltenses]"
 for module in $modules; do
   ${gfc} --no-pmcfg --gfo-dir="${dist}"/alltenses "${module}"
 done
 
 # Copy
 echo "Copying to ${dest}"
-cp -R ${dist}/* ${dest}
+cp -R "${dist}"/* "${dest}"
