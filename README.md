@@ -74,7 +74,7 @@ clean
 - You can _remove_ languages from the default list with `langs=-...`
 - `LANG` is a 3-letter language code, e.g. `Eng`, `Swe` etc.
 - The path to GF installed on your system can be specified via the `gf` flag (default is that the `gf` executable is in the global system path).
-- The `to` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
+- The `dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
 
 ## Shell script: `Make.sh`
 
