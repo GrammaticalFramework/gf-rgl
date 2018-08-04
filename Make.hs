@@ -1,4 +1,4 @@
-import Data.List (find,intersect,isPrefixOf,isSuffixOf)
+import Data.List (find,intersect,isPrefixOf,isSuffixOf,(\\))
 import Data.Maybe (fromJust,isJust,catMaybes)
 import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
@@ -7,7 +7,7 @@ import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
 import System.FilePath ((</>),takeFileName,addExtension,dropExtension)
 import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
-import Control.Monad (when)
+import Control.Monad (when,unless)
 
 main :: IO ()
 main = do
@@ -25,6 +25,7 @@ main = do
 -- | Build grammars into dist
 buildRGL :: [String] -> IO ()
 buildRGL args = do
+  checkArgs args
   let cmds = getCommands args
   let modes = getOptMode args
   info <- mkInfo
@@ -216,8 +217,21 @@ findModule file = do
   let searchdirs = map ((</>) sourceDir) langdirs
   findFile searchdirs file
 
+-- | Check arguments are valid, failing on error
+checkArgs :: [String] -> IO ()
+checkArgs args = do
+  let args'' = args \\ (getOptModules args)
+  let args' = flip filter args'' (\arg -> not
+        (  arg `elem` (map cmdName rglCommands)
+        || arg `elem` all_modes
+        || lang_flag `isPrefixOf` arg
+        || gf_flag `isPrefixOf` arg
+        || destination_flag `isPrefixOf` arg
+        ))
+  unless (null args') $ die $ "Unrecognised argument: " ++ unwords args'
+  return ()
+
 -- | Get commands from args
--- Fails on command error
 getCommands :: [String] -> [RGLCommand]
 getCommands args =
   let
@@ -232,19 +246,6 @@ getCommands args =
   in if null cmds0
        then [cmd | cmd <- rglCommands, cmdIsDef cmd]
        else cmds0
-
--- -- | Check arguments are valid
--- checkArgs :: [String] -> IO ()
--- checkArgs args = do
---   let args' = flip filter args (\arg -> not
---         (  arg `elem` (map cmdName rglCommands)
---         || arg `elem` all_modes
---         || lang_flag `isPrefixOf` arg
---         || gf_flag `isPrefixOf` arg
---         || destination_flag `isPrefixOf` arg
---         ))
---   unless (null args') $ die $ "Unrecognised flags: " ++ unwords args'
---   return ()
 
 -- | Get mode from args (may be missing)
 getOptMode :: [String] -> [Mode]
@@ -277,7 +278,6 @@ getOptLangs defaultLangs args =
                    else ls
 
 -- | Get module names from arguments
--- TODO check if they exist
 getOptModules :: [String] -> [FilePath]
 getOptModules = filter (isSuffixOf ".gf")
 
