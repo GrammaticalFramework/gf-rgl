@@ -62,7 +62,7 @@ clean
 `lang`,
 `api`,
 `compat`,
-`pgf`,
+<!-- `pgf`, -->
 `parse`
 (default is `all`)
 - `MODE` is one of:

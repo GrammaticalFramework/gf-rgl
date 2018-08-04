@@ -191,16 +191,16 @@ rglCommands =
   , RGLCommand "api"     False $ gfcp [t,sc]
   , RGLCommand "compat"  False $ gfcp [c]
 
-  , RGLCommand "pgf"     False $ \modes args bi ->
-     parallel_ [
-       do let dir = getRGLBuildDir bi mode
-          createDirectoryIfMissing True dir
-          sequence_ [run_gfc bi ["-s","-make","-name=Lang"++la,
-                                       dir ++ "/Lang" ++ la ++ ".gfo"]
-                      | l <- optl langsPGF args, let la = langCode l]
-          run_gfc bi (["-s","-make","-name=Lang"]++
-                           ["Lang" ++ langCode l ++ ".pgf"|l <- optl langsPGF args])
-       | mode <- modes]
+  -- , RGLCommand "pgf"     False $ \modes args bi ->
+  --    parallel_ [
+  --      do let dir = getRGLBuildDir bi mode
+  --         createDirectoryIfMissing True dir
+  --         sequence_ [run_gfc bi ["-s","-make","-name=Lang"++la,
+  --                                      dir ++ "/Lang" ++ la ++ ".gfo"]
+  --                     | l <- optl langsPGF args, let la = langCode l]
+  --         run_gfc bi (["-s","-make","-name=Lang"]++
+  --                          ["Lang" ++ langCode l ++ ".pgf"|l <- optl langsPGF args])
+  --      | mode <- modes]
 
   , RGLCommand "parse"   False $ \modes args bi ->
        gfc bi modes (summary parse) (map parse (optl langsParse args))
