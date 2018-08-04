@@ -64,12 +64,12 @@ clean
 `compat`,
 <!-- `pgf`, -->
 `parse`,
-or an explicit module name (e.g. `english/ExtraEng.gf`).
+or an explicit module name (e.g. `ExtraEng.gf`).
 - `MODE` is one of:
 `present`,
 `alltenses`
 (default is both).
-- `FILES` is a space separated list of module names (e.g. `english/ExtraEng.gf german/DictGer.gf`)
+- `FILES` is a space separated list of module names (e.g. `ExtraEng.gf DictGer.gf`)
 - You can _override_ the default language list with `--langs=...`
 - You can _add_ languages to the default list with `--langs=+...`
 - You can _remove_ languages from the default list with `langs=-...`

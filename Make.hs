@@ -4,10 +4,10 @@ import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
 import System.Exit (ExitCode(..),die)
 import System.Environment (getArgs,lookupEnv)
-import System.Process (rawSystem,readProcess)
-import System.FilePath ((</>),(<.>),takeFileName,addExtension,dropExtension)
-import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,doesFileExist)
-import Control.Monad (unless,when)
+import System.Process (rawSystem)
+import System.FilePath ((</>),takeFileName,addExtension,dropExtension)
+import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
+import Control.Monad (when)
 
 main :: IO ()
 main = do
@@ -159,16 +159,14 @@ rglCommands =
   , RGLCommand "modules"  False $ \modes args bi ->  do
       let modules = getOptModules args
       flip mapM_ modules $ \m -> do
-        -- TODO search for modules so that folder name is not needed
         -- TODO determine dependants, e.g. include ExtraEngAbs when specifying ExtraEng
-        let mfull = sourceDir </> m
-        ex <- doesFileExist mfull
-        if not ex
-        then die $ "Cannot find module: " ++ m
-        else flip mapM_ modes $ \mode -> do
-          let dst = getRGLBuildDir bi mode
-          putStrLn $ "Building [" ++ m ++ "] " ++ dst
-          run_gfc bi ["-s", "--gfo-dir="++dst, mfull]
+        mex <- findModule m
+        case mex of
+          Nothing -> die $ "Cannot find module: " ++ m
+          Just mfull -> flip mapM_ modes $ \mode -> do
+            let dst = getRGLBuildDir bi mode
+            putStrLn $ "Building [" ++ m ++ "] " ++ dst
+            run_gfc bi ["-s", "--gfo-dir="++dst, mfull]
 
   -- , RGLCommand "pgf"     False $ \modes args bi ->
   --    parallel_ [
@@ -210,6 +208,13 @@ rglCommands =
         shrink = case mode of
                    Present -> intersect langsPresent
                    _ -> id
+
+-- | Search all language dirs for module name
+findModule :: String -> IO (Maybe FilePath)
+findModule file = do
+  let langdirs = map langDir langs
+  let searchdirs = map ((</>) sourceDir) langdirs
+  findFile searchdirs file
 
 -- | Get commands from args
 -- Fails on command error
