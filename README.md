@@ -50,25 +50,26 @@ runghc Make.hs ...
 
 Where `...` is one of:
 ```
-build   [CMD] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...]
-copy    [--dest=...]
-install [CMD] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...] [--dest=...]
+build   [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...]
+copy    [FILES] [MODE] [--dest=...]
+install [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...] [--dest=...]
 clean
 ```
 
-- `CMD` is one of:
+- `CMDS` is one or more of:
 `prelude`,
-`all`,
+`all` (default),
 `lang`,
 `api`,
 `compat`,
 <!-- `pgf`, -->
-`parse`
-(default is `all`)
+`parse`,
+or an explicit module name (e.g. `english/ExtraEng.gf`).
 - `MODE` is one of:
 `present`,
 `alltenses`
-(default is both)
+(default is both).
+- `FILES` is a space separated list of module names (e.g. `english/ExtraEng.gf german/DictGer.gf`)
 - You can _override_ the default language list with `--langs=...`
 - You can _add_ languages to the default list with `--langs=+...`
 - You can _remove_ languages from the default list with `langs=-...`
@@ -79,7 +80,7 @@ clean
 ## Shell script: `Make.sh`
 
 This method is provided as an alternative for those who don't have Haskell installed.
-Simply run the script to build the entire RGL and install in the default location:
+Simply run the script to build the entire RGL and install in the default location.
 
 You can pass the following flags:
 - `--dest=...` to manually specify the install location
@@ -104,7 +105,7 @@ One difference is that the list of languages to be compiled is specified manuall
 On 2018-07-25, the monolithic [GF repository](https://github.com/GrammaticalFramework/GF)
 was split in two:
 
-1. [gf-core](https://github.com/GrammaticalFramework/gf-core) —  the GF compiler, shell and runtimes
+1. [gf-core](https://github.com/GrammaticalFramework/gf-core) — the GF compiler, shell and runtimes
 2. [gf-rgl](https://github.com/GrammaticalFramework/gf-rgl) — the resource grammar library
 
 The former repository is now archived and no longer updated.
