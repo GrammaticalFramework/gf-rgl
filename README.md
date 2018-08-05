@@ -51,7 +51,7 @@ runghc Make.hs ...
 Where `...` is one of:
 ```
 build   [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...]
-copy    [FILES] [MODE] [--dest=...]
+copy    [MODE] [--dest=...]
 install [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...] [--dest=...]
 clean
 ```
@@ -64,12 +64,11 @@ clean
 `compat`,
 <!-- `pgf`, -->
 `parse`,
-or an explicit module name (e.g. `ExtraEng.gf`).
+or an explicit module name (e.g. `ExtraEng.gf`. You don't need to specify to language subdirectory, but there is a restriction that the module must exist in a **direct** subdirectory of `src`).
 - `MODE` is one of:
 `present`,
 `alltenses`
 (default is both).
-- `FILES` is a space separated list of module names (e.g. `ExtraEng.gf DictGer.gf`)
 - You can _override_ the default language list with `--langs=...`
 - You can _add_ languages to the default list with `--langs=+...`
 - You can _remove_ languages from the default list with `langs=-...`

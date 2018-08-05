@@ -31,21 +31,21 @@ buildRGL args = do
   info <- mkInfo
   mapM_ (\cmd -> cmdAction cmd modes args info) cmds
 
--- | Copy from dist to install location
+-- | Copy everything from dist to install location
 copyRGL :: [String] -> IO ()
 copyRGL args = do
   let modes = getOptMode args
   info <- mkInfo
   gf_lib_dir <- maybe (die errLocation) return (infoInstallDir info)
-  let files = getOptModules args
-  if not (null files)
-  then do
-    -- Copy single files
-    sequence_ [copyOne (flip addExtension "gfo" . dropExtension . takeFileName $ file) (getRGLBuildDir info mode) (gf_lib_dir </> getRGLBuildSubDir mode)|file<-files, mode<-modes]
-  else do
+  -- let files = getOptModules args
+  -- if not (null files)
+  -- then do
+  --   -- Copy single files
+  --   sequence_ [copyOne (flip addExtension "gfo" . dropExtension . takeFileName $ file) (getRGLBuildDir info mode) (gf_lib_dir </> getRGLBuildSubDir mode)|file<-files, mode<-modes]
+  -- else do
     -- Copy everything
-    copyAll "prelude" (infoBuildDir info </> "prelude") (gf_lib_dir </> "prelude")
-    sequence_ [copyAll (show mode) (getRGLBuildDir info mode) (gf_lib_dir </> getRGLBuildSubDir mode)|mode<-modes]
+  copyAll "prelude" (infoBuildDir info </> "prelude") (gf_lib_dir </> "prelude")
+  sequence_ [copyAll (show mode) (getRGLBuildDir info mode) (gf_lib_dir </> getRGLBuildSubDir mode)|mode<-modes]
 
 -- | Error message when install location cannot be determined
 errLocation :: String
