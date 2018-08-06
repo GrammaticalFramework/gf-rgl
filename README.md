@@ -23,6 +23,24 @@ It will look for, in this order:
 - the file `../gf-core/DATA_DIR` (relative to this directory). This only works if you have the `gf-core` and `gf-rgl` repositories in the same top-level directory **and** you have already compiled GF from source.
 (This is considered a bit hacky and will probably disappear in the future).
 
+## Language config
+
+A list of all languages and their properties is maintained centrally in `languages.csv`.
+This file should be kept up-to-date and all build methods should read this config file.
+If you see something wrong, please report/fix it.
+
+Description of columns:
+- Code
+- Directory
+- Functor: (not used)
+- Unlexer
+- Present: languages that have notpresent marked
+- API: languages for which to compile Try
+- Symbolic: languages for which to compile Symbolic
+- Compatibility: languages for which Compatibility exists
+
+Columns can be a string, just `y`'s (where nothing means `n`) or just (`n`'s where nothing means `y`).
+
 ## Haskell script: `Make.hs`
 
 This build method gives you most options.

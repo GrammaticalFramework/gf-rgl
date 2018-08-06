@@ -1,4 +1,4 @@
-import Data.List (find,intersect,isPrefixOf,isSuffixOf,(\\))
+import Data.List (find,intersect,isPrefixOf,isSuffixOf,(\\),unfoldr)
 import Data.Maybe (fromJust,isJust,catMaybes)
 import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
@@ -163,7 +163,6 @@ rglCommands =
   , RGLCommand "modules"  False $ \modes args bi ->  do
       let modules = getOptModules args
       flip mapM_ modules $ \m -> do
-        -- TODO determine dependants, e.g. include ExtraEngAbs when specifying ExtraEng
         mex <- findModule m
         case mex of
           Nothing -> die $ "Cannot find module: " ++ m
@@ -172,50 +171,41 @@ rglCommands =
             putStrLn $ "Building [" ++ m ++ "] " ++ dst
             run_gfc bi [if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++dst, mfull]
 
-  -- , RGLCommand "pgf"     False $ \modes args bi ->
-  --    parallel_ [
-  --      do let dir = getRGLBuildDir bi mode
-  --         createDirectoryIfMissing True dir
-  --         sequence_ [run_gfc bi ["-s","-make","-name=Lang"++la,
-  --                                      dir ++ "/Lang" ++ la ++ ".gfo"]
-  --                     | l <- optl langsPGF args, let la = langCode l]
-  --         run_gfc bi (["-s","-make","-name=Lang"]++
-  --                          ["Lang" ++ langCode l ++ ".pgf"|l <- optl langsPGF args])
-  --      | mode <- modes]
-
-  , RGLCommand "parse"   False $ \modes args bi ->
-       gfc bi modes (summary parse) (map parse (optl langsParse args))
+  , RGLCommand "parse"   False $ \modes args bi -> do
+      langs <- loadLangs
+      let mylangs = (optml AllTenses langsParse args) langs
+      gfc bi modes (summary parse) (map parse mylangs)
   ]
   where
-    gfcp :: [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo])] -> [Mode] -> [String] -> Info -> IO ()
+    gfcp :: [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo] -> [LangInfo])] -> [Mode] -> [String] -> Info -> IO ()
     gfcp cs modes args bi = parallel_ [gfcp' bi mode args cs | mode <- modes]
 
-    gfcp' :: Info -> Mode -> [String] -> [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo])] -> IO ()
-    gfcp' bi mode args cs = gfcn bi mode (unwords ss) (concat fss)
-      where (ss,fss) = unzip [(summary f,map f as)|c<-cs,let (f,as)=c mode args]
+    gfcp' :: Info -> Mode -> [String] -> [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo] -> [LangInfo])] -> IO ()
+    gfcp' bi mode args cs = do
+      langs <- loadLangs
+      let (ss,fss) = unzip [ (summary f,map f (as langs)) | c<-cs, let (f,as) = c mode args]
+      gfcn bi mode (unwords ss) (concat fss)
 
     summary :: (LangInfo -> FilePath) -> FilePath
-    summary f = f (LangInfo "*" "*" Nothing Nothing)
+    summary f = f (LangInfo "*" "*" Nothing Nothing False False False False)
 
     l mode args = (lang,optml mode langsLang args)
     s mode args = (symbol,optml mode langsAPI args)
-    c mode args = (compat,optl langsCompat args)
+    c mode args = (compat,optml AllTenses langsCompat args)
     t mode args = (try,optml mode langsAPI args)
     sc mode args = (symbolic,optml mode langsSymbolic args)
 
-    optl :: [LangInfo] -> [String] -> [LangInfo]
-    optl = optml AllTenses
-
-    optml :: Mode -> [LangInfo] -> [String] -> [LangInfo]
-    optml mode ls args = getOptLangs (shrink ls) args
+    optml :: Mode -> ([LangInfo] -> [LangInfo]) -> [String] -> ([LangInfo] -> [LangInfo])
+    optml mode ls args = \langs -> getOptLangs langs (shrink langs) args
       where
-        shrink = case mode of
-                   Present -> intersect langsPresent
-                   _ -> id
+        shrink langs = case mode of
+                   Present -> langsPresent langs
+                   _ -> langs
 
 -- | Search all language dirs for module name
 findModule :: String -> IO (Maybe FilePath)
 findModule file = do
+  langs <- loadLangs
   let langdirs = map langDir langs
   let searchdirs = map ((</>) sourceDir) langdirs
   findFile searchdirs file
@@ -263,9 +253,9 @@ getOptMode args =
       [AllTenses|have "alltenses"]
     have mode = mode `elem` args
 
--- | List of languages overriding the definitions below
-getOptLangs :: [LangInfo] -> [String] -> [LangInfo]
-getOptLangs defaultLangs args =
+-- | List of languages overriding the default definitions
+getOptLangs :: [LangInfo] -> [LangInfo] -> [String] -> [LangInfo]
+getOptLangs langs defaultLangs args =
     case [ls | arg <- args,
                let (f,ls) = splitAt (length lang_flag) arg,
                f==lang_flag] of
@@ -318,93 +308,68 @@ data LangInfo = LangInfo
   , langDir :: String -- ^ directory name
   , langFunctor :: Maybe String -- ^ functor (not used)
   , langUnlexer :: Maybe String -- ^ decoding for postprocessing linearizations
-  } deriving (Eq)
+  , langPresent :: Bool
+  , langAPI :: Bool
+  , langSymbolic :: Bool
+  , langCompatibility :: Bool
+  } deriving (Show,Eq)
 
--- | List of all languages known to RGL
-langs :: [LangInfo]
-langs =
-  [ LangInfo "Afr" "afrikaans" Nothing Nothing
-  , LangInfo "Amh" "amharic" Nothing Nothing
-  , LangInfo "Ara" "arabic" Nothing Nothing
-  , LangInfo "Eus" "basque" Nothing Nothing
-  , LangInfo "Bul" "bulgarian" Nothing Nothing
-  , LangInfo "Cat" "catalan" (Just "Romance") Nothing
-  , LangInfo "Chi" "chinese" Nothing Nothing
-  , LangInfo "Dan" "danish" (Just "Scand") Nothing
-  , LangInfo "Dut" "dutch" Nothing Nothing
-  , LangInfo "Eng" "english" Nothing Nothing
-  , LangInfo "Est" "estonian" Nothing Nothing
-  , LangInfo "Fin" "finnish" Nothing Nothing
-  , LangInfo "Fre" "french" (Just "Romance") Nothing
-  , LangInfo "Grc" "ancient_greek" Nothing Nothing
-  , LangInfo "Gre" "greek" Nothing Nothing
-  , LangInfo "Heb" "hebrew" Nothing Nothing
-  , LangInfo "Hin" "hindi" (Just "Hindustani") (Just "to_devanagari")
-  , LangInfo "Ger" "german" Nothing Nothing
-  , LangInfo "Ice" "icelandic" Nothing Nothing
-  , LangInfo "Ina" "interlingua" Nothing Nothing
-  , LangInfo "Ita" "italian" (Just "Romance") Nothing
-  , LangInfo "Jpn" "japanese" Nothing Nothing
-  , LangInfo "Lat" "latin" Nothing Nothing
-  , LangInfo "Lav" "latvian" Nothing Nothing
-  , LangInfo "Mlt" "maltese" Nothing Nothing
-  , LangInfo "Mon" "mongolian" Nothing Nothing
-  , LangInfo "Nep" "nepali" Nothing Nothing
-  , LangInfo "Nor" "norwegian" (Just "Scand") Nothing
-  , LangInfo "Nno" "nynorsk" Nothing Nothing
-  , LangInfo "Pes" "persian" Nothing Nothing
-  , LangInfo "Pol" "polish" Nothing Nothing
-  , LangInfo "Por" "portuguese" (Just "Romance") Nothing
-  , LangInfo "Pnb" "punjabi" Nothing Nothing
-  , LangInfo "Ron" "romanian" Nothing Nothing
-  , LangInfo "Rus" "russian" Nothing Nothing
-  , LangInfo "Snd" "sindhi" Nothing Nothing
-  , LangInfo "Spa" "spanish" (Just "Romance") Nothing
-  , LangInfo "Swe" "swedish" (Just "Scand") Nothing
-  , LangInfo "Tha" "thai" Nothing (Just "to_thai")
-  , LangInfo "Tur" "turkish" Nothing Nothing
-  , LangInfo "Urd" "urdu" (Just "Hindustani") Nothing
-  ]
+-- | Load language information from config file
+loadLangs :: IO [LangInfo]
+loadLangs = do
+  lns <- readFile conffile >>= return . lines
+  mapM mkLangInfo (tail lns)
+  where
+    conffile = "languages.csv"
+    maybeBit bits n = if length bits >= (n+1) && length (bits !! n) > 0 then Just (bits !! n) else Nothing
+    boolBit bits n def = if length bits >= (n+1) && length (bits !! n) > 0 then (bits !! n == if def then "n" else "y") else def
+    mkLangInfo s =
+      let bits = separateBy ',' s in
+      if length bits < 2
+      then die $ "Invalid entry in " ++ conffile ++ ": " ++ s
+      else return $ LangInfo
+            { langCode = bits !! 0
+            , langDir = bits !! 1
+            , langFunctor = maybeBit bits 2
+            , langUnlexer = maybeBit bits 3
+            , langPresent = boolBit bits 4 False
+            , langAPI = boolBit bits 5 True
+            , langSymbolic = boolBit bits 6 True
+            , langCompatibility = boolBit bits 7 False
+            }
 
--- | Languagues for which to compile Lang
-langsLang :: [LangInfo]
-langsLang = langs
+-- | Separate a string on a character
+-- Source: https://stackoverflow.com/a/4978733/98600
+separateBy :: Eq a => a -> [a] -> [[a]]
+separateBy chr = unfoldr sep where
+  sep [] = Nothing
+  sep l  = Just . fmap (drop 1) . break (== chr) $ l
 
--- | Languages that have notpresent marked
-langsPresent :: [LangInfo]
-langsPresent = langsLang `except` ["Afr","Chi","Eus","Gre","Heb","Ice","Jpn","Mlt","Mon","Nep","Pes","Snd","Tha","Thb","Est"]
-
--- | Languages for which to compile Try
-langsAPI :: [LangInfo]
-langsAPI = langsLang `except` langsIncomplete
-
--- | Languages which compile but which are incomplete
-langsIncomplete :: [String]
-langsIncomplete = ["Amh","Ara","Grc","Heb","Ina","Lat","Tur"]
-
--- | Languages for which to compile Symbolic
-langsSymbolic :: [LangInfo]
-langsSymbolic  = langsAPI `except` ["Afr","Ice","Mon","Nep"]
-
--- | Languages for which to compile parsing grammars
-langsParse :: [LangInfo]
-langsParse = langs `only` ["Eng"]
-
--- | Languages for which langs.pgf is built
-langsPGF :: [LangInfo]
-langsPGF = langsLang `except` ["Ara","Hin","Ron","Tha"]
-
--- | Languages for which Compatibility exists (to be extended)
-langsCompat :: [LangInfo]
-langsCompat = langsLang `only` ["Cat","Eng","Fin","Fre","Ita","Lav","Spa","Swe"]
-
--- | Exclude langs from list by code
-except :: [LangInfo] -> [String] -> [LangInfo]
-except ls es = filter (flip notElem es . langCode) ls
+-- -- | Exclude langs from list by code
+-- exceptLangs :: [LangInfo] -> [String] -> [LangInfo]
+-- exceptLangs ls es = filter (flip notElem es . langCode) ls
 
 -- | Only specified langs by code
 only ::  [LangInfo] -> [String] -> [LangInfo]
 only ls es = filter (flip elem es . langCode) ls
+
+langsLang :: [LangInfo] -> [LangInfo]
+langsLang = id
+
+langsPresent :: [LangInfo] -> [LangInfo]
+langsPresent = filter langPresent
+
+langsAPI :: [LangInfo] -> [LangInfo]
+langsAPI = filter langAPI
+
+langsSymbolic :: [LangInfo] -> [LangInfo]
+langsSymbolic = filter langSymbolic
+
+langsCompat :: [LangInfo] -> [LangInfo]
+langsCompat = filter langCompatibility
+
+langsParse :: [LangInfo] -> [LangInfo]
+langsParse = flip only ["Eng"]
 
 -------------------------------------------------------------------------------
 -- Getting module paths/names
