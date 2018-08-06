@@ -191,7 +191,7 @@ rglCommands =
     summary f langs = unwords (map (drop (length sourceDir + 1) . f) langs)
     -- summary f _ = f (LangInfo "*" "*" Nothing Nothing False False False False)
 
-    l mode args = (lang,optml mode (const True) args)
+    l mode args = (lang,optml mode langAll args)
     s mode args = (symbol,optml mode langAPI args)
     c mode args = (compat,optml AllTenses langCompatibility args)
     t mode args = (try,optml mode langAPI args)
@@ -310,6 +310,7 @@ data LangInfo = LangInfo
   , langFunctor :: Maybe String -- ^ functor (not used)
   , langUnlexer :: Maybe String -- ^ decoding for postprocessing linearizations
   , langPresent :: Bool
+  , langAll :: Bool
   , langAPI :: Bool
   , langSymbolic :: Bool
   , langCompatibility :: Bool
@@ -323,7 +324,7 @@ loadLangs = do
   where
     conffile = "languages.csv"
     maybeBit bits n = if length bits >= (n+1) && length (bits !! n) > 0 then Just (bits !! n) else Nothing
-    boolBit bits n def = if length bits >= (n+1) && length (bits !! n) > 0 then (bits !! n == if def then "n" else "y") else def
+    boolBit bits n def = if length bits >= (n+1) && length (bits !! n) > 0 then (if def then bits !! n /= "n" else bits !! n == "y") else def
     mkLangInfo s =
       let bits = separateBy ',' s in
       if length bits < 2
@@ -334,9 +335,10 @@ loadLangs = do
             , langFunctor = maybeBit bits 2
             , langUnlexer = maybeBit bits 3
             , langPresent = boolBit bits 4 False
-            , langAPI = boolBit bits 5 True
-            , langSymbolic = boolBit bits 6 True
-            , langCompatibility = boolBit bits 7 False
+            , langAll = boolBit bits 5 True
+            , langAPI = boolBit bits 6 True
+            , langSymbolic = boolBit bits 7 True
+            , langCompatibility = boolBit bits 8 False
             }
 
 -- | Separate a string on a character

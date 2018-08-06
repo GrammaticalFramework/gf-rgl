@@ -35,6 +35,7 @@ Description of columns:
 - Functor: (not used)
 - Unlexer
 - Present: languages that have notpresent marked
+- All: languages for which to compile All
 - API: languages for which to compile Try
 - Symbolic: languages for which to compile Symbolic
 - Compatibility: languages for which Compatibility exists
