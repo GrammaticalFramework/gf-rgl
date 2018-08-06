@@ -50,9 +50,9 @@ runghc Make.hs ...
 
 Where `...` is one of:
 ```
-build   [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...]
+build   [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...] [--verbose|-v]
 copy    [MODE] [--dest=...]
-install [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...] [--dest=...]
+install [CMDS] [MODE] [--langs=[+|-]LANG,LANG,...] [--gf=...] [--dest=...] [--verbose|-v]
 clean
 ```
 

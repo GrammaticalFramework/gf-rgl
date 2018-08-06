@@ -88,6 +88,7 @@ data Info = Info
   { infoBuildDir :: FilePath -- ^ where to put built RGL modules (fixed)
   , infoInstallDir :: Maybe FilePath -- ^ install directory (found dynamically)
   , infoGFPath :: FilePath -- ^ path to GF
+  , infoVerbose :: Bool
   } deriving (Show)
 
 -- | Build info object from command line args
@@ -104,11 +105,13 @@ mkInfo = do
       case catMaybes [mflag,menvar,mbuilt] of
         [] -> Nothing
         p:_ -> Just p
+  let verbose = verbose_switch `elem` args || verbose_switch_short `elem` args
 
   return $ Info
     { infoBuildDir = "dist"
     , infoInstallDir = inst_dir
     , infoGFPath = maybe default_gf id (getFlag gf_flag args)
+    , infoVerbose = verbose
     }
   where
     default_gf = "gf"
@@ -150,7 +153,7 @@ rglCommands =
           prelude_dst_dir = infoBuildDir bi </> "prelude"
       createDirectoryIfMissing True prelude_dst_dir
       files <- getDirectoryContents prelude_src_dir
-      run_gfc bi (["-s", "--gfo-dir="++prelude_dst_dir] ++ [prelude_src_dir </> file | file <- files, file /= "." && file /= ".."])
+      run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++prelude_dst_dir] ++ [prelude_src_dir </> file | file <- files, file /= "." && file /= ".."])
 
   , RGLCommand "all"     True  $ gfcp [l,s,c,t,sc]
   , RGLCommand "lang"    False $ gfcp [l,s]
@@ -167,7 +170,7 @@ rglCommands =
           Just mfull -> flip mapM_ modes $ \mode -> do
             let dst = getRGLBuildDir bi mode
             putStrLn $ "Building [" ++ m ++ "] " ++ dst
-            run_gfc bi ["-s", "--gfo-dir="++dst, mfull]
+            run_gfc bi [if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++dst, mfull]
 
   -- , RGLCommand "pgf"     False $ \modes args bi ->
   --    parallel_ [
@@ -227,6 +230,7 @@ checkArgs args = do
         || lang_flag `isPrefixOf` arg
         || gf_flag `isPrefixOf` arg
         || destination_flag `isPrefixOf` arg
+        || arg `elem` [verbose_switch, verbose_switch_short]
         ))
   unless (null args') $ die $ "Unrecognised argument: " ++ unwords args'
   return ()
@@ -293,6 +297,13 @@ gf_flag = "--gf="
 -- | Flag for specifying RGL install location
 destination_flag :: String
 destination_flag = "--dest="
+
+-- | Switch for making verbose
+verbose_switch :: String
+verbose_switch = "--verbose"
+
+verbose_switch_short :: String
+verbose_switch_short = "-v"
 
 -- | Get flag value from list of args
 getFlag :: String -> [String] -> Maybe String
@@ -422,7 +433,7 @@ parse l = sourceDir </> "parse" </> ("Parse" ++ langCode l ++ ".gf")
 -- | Get unlexer flags for languages
 unlexer :: String -> [LangInfo] -> String
 unlexer abstr ls =
-  "-unlexer=\\\"" ++ unwords
+  "--unlexer=\\\"" ++ unwords
     [ abstr ++ langCode lang ++ "=" ++ fromJust unl
     | lang <- ls
     , let unl = langUnlexer lang
@@ -440,16 +451,16 @@ gfcn bi mode summary files = do
   let dir = getRGLBuildDir bi mode
       preproc = case mode of
                   AllTenses -> ""
-                  Present   -> "-preproc=mkPresent"
+                  Present   -> "--preproc=mkPresent"
   createDirectoryIfMissing True dir
   putStrLn $ "Building [" ++ show mode ++ "] " ++ summary
-  run_gfc bi (["-s", "-no-pmcfg", preproc, "--gfo-dir="++dir] ++ files)
+  run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--no-pmcfg", preproc, "--gfo-dir="++dir] ++ files)
 
 -- | Runs the gf executable in compile mode with the given arguments
 run_gfc :: Info -> [String] -> IO ()
 run_gfc bi args = do
   let
-    args' = ["-batch","-gf-lib-path="++sourceDir] ++ filter (not . null) args
+    args' = ["--batch","--gf-lib-path="++sourceDir] ++ filter (not . null) args
     gf = infoGFPath bi
   execute gf args'
 
