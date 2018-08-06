@@ -129,7 +129,7 @@ getRGLBuildSubDir mode =
 -- Build modes
 
 data Mode = AllTenses | Present
-  deriving (Show)
+  deriving (Show,Eq)
 
 all_modes :: [String]
 all_modes = ["alltenses","present"]
@@ -173,6 +173,7 @@ rglCommands =
 
   , RGLCommand "parse"   False $ \modes args bi -> do
       langs <- loadLangs
+      let langsParse = \l -> langCode l `elem` ["Eng"]
       let mylangs = (optml AllTenses langsParse args) langs
       gfc bi modes (summary parse) (map parse mylangs)
   ]
@@ -189,18 +190,17 @@ rglCommands =
     summary :: (LangInfo -> FilePath) -> FilePath
     summary f = f (LangInfo "*" "*" Nothing Nothing False False False False)
 
-    l mode args = (lang,optml mode langsLang args)
-    s mode args = (symbol,optml mode langsAPI args)
-    c mode args = (compat,optml AllTenses langsCompat args)
-    t mode args = (try,optml mode langsAPI args)
-    sc mode args = (symbolic,optml mode langsSymbolic args)
+    l mode args = (lang,optml mode (const True) args)
+    s mode args = (symbol,optml mode langAPI args)
+    c mode args = (compat,optml AllTenses langCompatibility args)
+    t mode args = (try,optml mode langAPI args)
+    sc mode args = (symbolic,optml mode langSymbolic args)
 
-    optml :: Mode -> ([LangInfo] -> [LangInfo]) -> [String] -> ([LangInfo] -> [LangInfo])
-    optml mode ls args = \langs -> getOptLangs langs (shrink langs) args
-      where
-        shrink langs = case mode of
-                   Present -> langsPresent langs
-                   _ -> langs
+    optml :: Mode -> (LangInfo -> Bool) -> [String] -> ([LangInfo] -> [LangInfo])
+    optml mode ls args =
+      \langs ->
+        let defLangs = filter (if mode == Present then langPresent else const True) (filter ls langs)
+        in getOptLangs langs defLangs args
 
 -- | Search all language dirs for module name
 findModule :: String -> IO (Maybe FilePath)
@@ -344,32 +344,6 @@ separateBy :: Eq a => a -> [a] -> [[a]]
 separateBy chr = unfoldr sep where
   sep [] = Nothing
   sep l  = Just . fmap (drop 1) . break (== chr) $ l
-
--- -- | Exclude langs from list by code
--- exceptLangs :: [LangInfo] -> [String] -> [LangInfo]
--- exceptLangs ls es = filter (flip notElem es . langCode) ls
-
--- | Only specified langs by code
-only ::  [LangInfo] -> [String] -> [LangInfo]
-only ls es = filter (flip elem es . langCode) ls
-
-langsLang :: [LangInfo] -> [LangInfo]
-langsLang = id
-
-langsPresent :: [LangInfo] -> [LangInfo]
-langsPresent = filter langPresent
-
-langsAPI :: [LangInfo] -> [LangInfo]
-langsAPI = filter langAPI
-
-langsSymbolic :: [LangInfo] -> [LangInfo]
-langsSymbolic = filter langSymbolic
-
-langsCompat :: [LangInfo] -> [LangInfo]
-langsCompat = filter langCompatibility
-
-langsParse :: [LangInfo] -> [LangInfo]
-langsParse = flip only ["Eng"]
 
 -------------------------------------------------------------------------------
 -- Getting module paths/names
