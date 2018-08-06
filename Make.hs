@@ -172,10 +172,10 @@ rglCommands =
             run_gfc bi [if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++dst, mfull]
 
   , RGLCommand "parse"   False $ \modes args bi -> do
-      langs <- loadLangs
+      langsAll <- loadLangs
       let langsParse = \l -> langCode l `elem` ["Eng"]
-      let mylangs = (optml AllTenses langsParse args) langs
-      gfc bi modes (summary parse) (map parse mylangs)
+      let langs = (optml AllTenses langsParse args) langsAll
+      gfc bi modes (summary parse langs) (map parse langs)
   ]
   where
     gfcp :: [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo] -> [LangInfo])] -> [Mode] -> [String] -> Info -> IO ()
@@ -183,12 +183,13 @@ rglCommands =
 
     gfcp' :: Info -> Mode -> [String] -> [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo] -> [LangInfo])] -> IO ()
     gfcp' bi mode args cs = do
-      langs <- loadLangs
-      let (ss,fss) = unzip [ (summary f,map f (as langs)) | c<-cs, let (f,as) = c mode args]
+      langsAll <- loadLangs
+      let (ss,fss) = unzip [ (summary f langs,map f langs) | c<-cs, let (f,as) = c mode args, let langs = as langsAll]
       gfcn bi mode (unwords ss) (concat fss)
 
-    summary :: (LangInfo -> FilePath) -> FilePath
-    summary f = f (LangInfo "*" "*" Nothing Nothing False False False False)
+    summary :: (LangInfo -> FilePath) -> [LangInfo] -> String
+    summary f langs = unwords (map (drop (length sourceDir + 1) . f) langs)
+    -- summary f _ = f (LangInfo "*" "*" Nothing Nothing False False False False)
 
     l mode args = (lang,optml mode (const True) args)
     s mode args = (symbol,optml mode langAPI args)
