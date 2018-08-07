@@ -4,8 +4,14 @@
 # Non-Haskell RGL build script for Unix-based machines
 # ---
 
+# Get languages from config
+langs=$(tail -n +2 languages.csv | awk -F ','  '{ if ($6 != "n") { print $1 } }')
+langs_present=$(tail -n +2 languages.csv | awk -F ','  '{ if ($5 == "y") { print $1 } }')
+langs_try=$(tail -n +2 languages.csv | awk -F ','  '{ if ($7 != "n") { print $1 } }')
+langs_symbolic=$(tail -n +2 languages.csv | awk -F ','  '{ if ($8 != "n") { print $1 } }')
+langs_compat=$(tail -n +2 languages.csv | awk -F ','  '{ if ($9 == "y") { print $1 } }')
+
 # Modules to compile for each language
-# langs="Afr Amh Ara Eus Bul Cat Chi Dan Dut Eng Est Fin Fre Grc Gre Heb Hin Ger Ice Ina Ita Jpn Lat Lav Mlt Mon Nep Nor Nno Pes Pol Por Pnb Ron Rus Snd Spa Swe Tha Tur Urd"
 modules_langs="All Symbol Compatibility"
 modules_api="Try Symbolic"
 
@@ -46,7 +52,7 @@ fi
 # A few more definitions before we get started
 src="src"
 dist="dist"
-gfc="${gf} --batch --gf-lib-path=${src} --quiet"
+gfc="${gf} --batch --quiet"
 
 # Redirect stderr if not verbose
 if [ $verbose = false ]; then
@@ -60,29 +66,35 @@ mkdir -p "${dist}/alltenses"
 
 # Build: prelude
 echo "Building [prelude]"
+if [ $verbose = true ]; then echo "${src}"/prelude/*.gf; fi
 ${gfc} --gfo-dir="${dist}"/prelude "${src}"/prelude/*.gf
 
 # Gather all language modules for building
-for mod in $modules_langs; do
-  for file in "${src}"/*/"${mod}"???.gf; do
-    modules="${modules} ${file}"
-  done
-done
-for mod in $modules_api; do
-  for file in "${src}"/api/"${mod}"???.gf; do
-    modules="${modules} ${file}"
+modules_present=
+modules_alltenses=
+for lang in $langs; do
+  for mod in $modules_langs $modules_api; do
+    if [ $mod == "Compatibility" ] && [[ "$langs_compat" != *"$lang"* ]]; then continue; fi
+    if [ $mod == "Try" ] && [[ "$langs_try" != *"$lang"* ]]; then continue; fi
+    if [ $mod == "Symbolic" ] && [[ "$langs_symbolic" != *"$lang"* ]]; then continue; fi
+    for file in "${src}"/*/"${mod}${lang}".gf; do
+      if [[ "$langs_present" = *"$lang"* ]]; then modules_present="${modules_present} ${file}"; fi
+      modules_alltenses="${modules_alltenses} ${file}"
+    done
   done
 done
 
 # Build: present
 echo "Building [present]"
-for module in $modules; do
+if [ $verbose = true ]; then echo $modules_present; fi
+for module in $modules_present; do
   ${gfc} --no-pmcfg --gfo-dir="${dist}"/present --preproc=mkPresent "${module}"
 done
 
 # Build: alltenses
 echo "Building [alltenses]"
-for module in $modules; do
+if [ $verbose = true ]; then echo $modules_alltenses; fi
+for module in $modules_alltenses; do
   ${gfc} --no-pmcfg --gfo-dir="${dist}"/alltenses "${module}"
 done
 

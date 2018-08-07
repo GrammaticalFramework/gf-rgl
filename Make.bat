@@ -6,6 +6,7 @@ REM Non-Haskell RGL build script for Windows machines
 REM ---
 
 REM Modules to compile for each language
+REM TODO read from languages.csv
 set langs=Afr Amh Ara Eus Bul Cat Chi Dan Dut Eng Est Fin Fre Grc Gre Heb Hin Ger Ice Ina Ita Jpn Lat Lav Mlt Mon Nep Nor Nno Pes Pol Por Pnb Ron Rus Snd Spa Swe Tha Tur Urd
 set modules_langs=All Symbol Compatibility
 set modules_api=Try Symbolic

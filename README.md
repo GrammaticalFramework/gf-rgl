@@ -27,18 +27,18 @@ It will look for, in this order:
 
 A list of all languages and their properties is maintained centrally in `languages.csv`.
 This file should be kept up-to-date and all build methods should read this config file.
-If you see something wrong, please report/fix it.
+**If you see something wrong, please report/fix it.**
 
 Description of columns:
-- Code
-- Directory
-- Functor: (not used)
-- Unlexer
-- Present: languages that have notpresent marked
-- All: languages for which to compile All
-- API: languages for which to compile Try
-- Symbolic: languages for which to compile Symbolic
-- Compatibility: languages for which Compatibility exists
+- Code, e,g, `Eng`
+- Directory, e.g. `english`
+- Functor (not used)
+- Unlexer (not used)
+- Present: languages that have `--# notpresent` marked
+- All: languages for which to compile `All`
+- Try: languages for which to compile `Try`
+- Symbolic: languages for which to compile `Symbolic`
+- Compatibility: languages for which to complile `Compatibility`
 
 Columns can be a string, just `y`'s (where nothing means `n`) or just (`n`'s where nothing means `y`).
 
@@ -86,12 +86,12 @@ or an explicit module name (e.g. `ExtraEng.gf`. You don't need to specify to lan
 `present`,
 `alltenses`
 (default is both).
+- `LANG` is a 3-letter language code, e.g. `Eng`, `Swe` etc.
 - You can _override_ the default language list with `--langs=...`
 - You can _add_ languages to the default list with `--langs=+...`
 - You can _remove_ languages from the default list with `langs=-...`
-- `LANG` is a 3-letter language code, e.g. `Eng`, `Swe` etc.
-- The path to GF installed on your system can be specified via the `gf` flag (default is that the `gf` executable is in the global system path).
-- The `dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
+- The path to GF installed on your system can be specified via the `--gf` flag (default is that the `gf` executable is in the global system path).
+- The `--dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
 
 ## Shell script: `Make.sh`
 
@@ -103,8 +103,6 @@ You can pass the following flags:
 - `--gf=...` to specify the path to the `gf` executable, if not available on the system path
 - `--verbose` or `-v` to show all GF warnings and errors
 
-This build method tries to build all languages found in the `src` directory, even those which are not considered complete.
-
 ## Windows batch file: `Make.bat`
 
 **This script is still untested.**
@@ -114,7 +112,7 @@ This method is provided as an alternative for Windows users who don't have Haske
 It is supposed to be a port of Make.sh and works in largely the same way.
 In particular, it accepts the same flags (in the same format) as described above.
 
-One difference is that the list of languages to be compiled is specified manually in the script in the `langs` variable.
+However it currently tries to build all modules for all languages and doesn't consider the details of which modules should be compiled for each language (specified in `languages.csv`)
 
 ## About this repository
 

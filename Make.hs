@@ -192,9 +192,9 @@ rglCommands =
     -- summary f _ = f (LangInfo "*" "*" Nothing Nothing False False False False)
 
     l mode args = (lang,optml mode langAll args)
-    s mode args = (symbol,optml mode langAPI args)
+    s mode args = (symbol,optml mode langTry args)
     c mode args = (compat,optml AllTenses langCompatibility args)
-    t mode args = (try,optml mode langAPI args)
+    t mode args = (try,optml mode langTry args)
     sc mode args = (symbolic,optml mode langSymbolic args)
 
     optml :: Mode -> (LangInfo -> Bool) -> [String] -> ([LangInfo] -> [LangInfo])
@@ -335,7 +335,7 @@ data LangInfo = LangInfo
   , langUnlexer :: Maybe String -- ^ decoding for postprocessing linearizations
   , langPresent :: Bool
   , langAll :: Bool
-  , langAPI :: Bool
+  , langTry :: Bool
   , langSymbolic :: Bool
   , langCompatibility :: Bool
   } deriving (Show,Eq)
@@ -360,7 +360,7 @@ loadLangs = do
             , langUnlexer = maybeBit bits 3
             , langPresent = boolBit bits 4 False
             , langAll = boolBit bits 5 True
-            , langAPI = boolBit bits 6 True
+            , langTry = boolBit bits 6 True
             , langSymbolic = boolBit bits 7 True
             , langCompatibility = boolBit bits 8 False
             }
