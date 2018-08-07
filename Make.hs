@@ -198,10 +198,10 @@ rglCommands =
     sc mode args = (symbolic,optml mode langSymbolic args)
 
     optml :: Mode -> (LangInfo -> Bool) -> [String] -> ([LangInfo] -> [LangInfo])
-    optml mode ls args =
-      \langs ->
-        let defLangs = filter (if mode == Present then langPresent else const True) (filter ls langs)
-        in getOptLangs langs defLangs args
+    optml mode pred args =
+      \langsAll ->
+        let langsDefault = filter (if mode == Present then langPresent else const True) (filter pred langsAll)
+        in  getOptLangs langsAll langsDefault args
 
 -------------------------------------------------------------------------------
 -- Getting module paths/names
@@ -327,6 +327,10 @@ getFlag flag args = fmap (drop (length flag)) $ find (isPrefixOf flag) args
 -------------------------------------------------------------------------------
 -- Languages of the RGL
 
+-- | Path to language config file
+configFile :: FilePath
+configFile = "languages.csv"
+
 -- | Information about a language
 data LangInfo = LangInfo
   { langCode :: String -- ^ 3-letter ISO 639-2/B code
@@ -343,16 +347,15 @@ data LangInfo = LangInfo
 -- | Load language information from config file
 loadLangs :: IO [LangInfo]
 loadLangs = do
-  lns <- readFile conffile >>= return . lines
+  lns <- readFile configFile >>= return . lines
   mapM mkLangInfo (tail lns)
   where
-    conffile = "languages.csv"
     maybeBit bits n = if length bits >= (n+1) && length (bits !! n) > 0 then Just (bits !! n) else Nothing
     boolBit bits n def = if length bits >= (n+1) && length (bits !! n) > 0 then (if def then bits !! n /= "n" else bits !! n == "y") else def
     mkLangInfo s =
       let bits = separateBy ',' s in
       if length bits < 2
-      then die $ "Invalid entry in " ++ conffile ++ ": " ++ s
+      then die $ "Invalid entry in " ++ configFile ++ ": " ++ s
       else return $ LangInfo
             { langCode = bits !! 0
             , langDir = bits !! 1
@@ -380,6 +383,7 @@ gfc bi modes summary files =
   parallel_ [gfcn bi mode summary files | mode<-modes]
 
 gfcn :: Info -> Mode -> String -> [String] -> IO ()
+gfcn _ _ _ [] = die $ "No files specified.\nMake sure the language is in " ++ configFile ++ " and that it supports the modes/modules specified."
 gfcn bi mode summary files = do
   let dir = getRGLBuildDir bi mode
       preproc = case mode of
@@ -393,7 +397,7 @@ gfcn bi mode summary files = do
 run_gfc :: Info -> [String] -> IO ()
 run_gfc bi args = do
   let
-    args' = ["--batch"] ++ filter (not . null) args
+    args' = ["--batch","--gf-lib-path="] ++ filter (not . null) args
     gf = infoGFPath bi
   execute gf args'
 
