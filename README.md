@@ -64,7 +64,7 @@ There is also `make clean` available.
 For more fine-grained control over the build process, you can run the build script directly:
 
 ```
-runghc Make.hs ...
+runghc Make ...
 ```
 
 Where `...` is one of:
@@ -81,8 +81,6 @@ clean
 `lang`,
 `api`,
 `compat`,
-<!-- `pgf`, -->
-`parse`,
 or an explicit module name (e.g. `ExtraEng.gf`. You don't need to specify to language subdirectory, but there is a restriction that the module must exist in a **direct** subdirectory of `src`).
 - `MODE` is one of:
 `present`,

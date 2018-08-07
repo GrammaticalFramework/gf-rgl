@@ -1,11 +1,11 @@
-import Data.List (find,intersect,isPrefixOf,isSuffixOf,(\\),unfoldr)
-import Data.Maybe (fromJust,isJust,catMaybes)
+import Data.List (find,isPrefixOf,isSuffixOf,(\\),unfoldr)
+import Data.Maybe (catMaybes)
 import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
 import System.Exit (ExitCode(..),die)
 import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
-import System.FilePath ((</>),takeFileName,addExtension,dropExtension)
+import System.FilePath ((</>)) -- ,takeFileName,addExtension,dropExtension)
 import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
 import Control.Monad (when,unless)
 
@@ -44,7 +44,7 @@ copyRGL args = do
   --   sequence_ [copyOne (flip addExtension "gfo" . dropExtension . takeFileName $ file) (getRGLBuildDir info mode) (gf_lib_dir </> getRGLBuildSubDir mode)|file<-files, mode<-modes]
   -- else do
     -- Copy everything
-  copyAll "prelude" (infoBuildDir info </> "prelude") (gf_lib_dir </> "prelude")
+  copyAll "Prelude" (infoBuildDir info </> "prelude") (gf_lib_dir </> "prelude")
   sequence_ [copyAll (show mode) (getRGLBuildDir info mode) (gf_lib_dir </> getRGLBuildSubDir mode)|mode<-modes]
 
 -- | Error message when install location cannot be determined
@@ -83,6 +83,11 @@ clean = do
 sourceDir :: FilePath
 sourceDir = "src"
 
+-- | Drop source directory prefix
+-- TODO use functions from System.FilePath
+dropSourceDir :: FilePath -> FilePath
+dropSourceDir = drop (length sourceDir + 1)
+
 -- | Information needed in build
 data Info = Info
   { infoBuildDir :: FilePath -- ^ where to put built RGL modules (fixed)
@@ -95,7 +100,6 @@ data Info = Info
 mkInfo :: IO Info
 mkInfo = do
   args <- getArgs
-
   -- Look for install location in a few different places
   let mflag = getFlag destination_flag args
   mbuilt <- catchIOError (readFile "../gf-core/DATA_DIR" >>= \d -> return (Just (d </> "lib"))) (\e -> return Nothing)
@@ -106,7 +110,6 @@ mkInfo = do
         [] -> Nothing
         p:_ -> Just p
   let verbose = verbose_switch `elem` args || verbose_switch_short `elem` args
-
   return $ Info
     { infoBuildDir = "dist"
     , infoInstallDir = inst_dir
@@ -148,18 +151,20 @@ data RGLCommand = RGLCommand
 rglCommands :: [RGLCommand]
 rglCommands =
   [ RGLCommand "prelude" True  $ \modes args bi -> do
-      putStrLn $ "Building [prelude]"
       let prelude_src_dir = sourceDir       </> "prelude"
           prelude_dst_dir = infoBuildDir bi </> "prelude"
       createDirectoryIfMissing True prelude_dst_dir
       files <- getDirectoryContents prelude_src_dir
-      run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++prelude_dst_dir] ++ [prelude_src_dir </> file | file <- files, file /= "." && file /= ".."])
+      let modules = [prelude_src_dir </> file | file <- files, file /= "." && file /= ".."]
+      putStrLn $ "Building [Prelude] " ++ unwords (map dropSourceDir modules)
+      run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++prelude_dst_dir] ++ modules)
 
   , RGLCommand "all"     True  $ gfcp [l,s,c,t,sc]
   , RGLCommand "lang"    False $ gfcp [l,s]
   , RGLCommand "api"     False $ gfcp [t,sc]
   , RGLCommand "compat"  False $ gfcp [c]
 
+  -- Special command, invoked when command ends in .gf
   , RGLCommand "modules"  False $ \modes args bi ->  do
       let modules = getOptModules args
       flip mapM_ modules $ \m -> do
@@ -168,14 +173,9 @@ rglCommands =
           Nothing -> die $ "Cannot find module: " ++ m
           Just mfull -> flip mapM_ modes $ \mode -> do
             let dst = getRGLBuildDir bi mode
-            putStrLn $ "Building [" ++ m ++ "] " ++ dst
+            putStrLn $ "Building [" ++ show mode ++ "] " ++ dropSourceDir mfull
             run_gfc bi [if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++dst, mfull]
 
-  , RGLCommand "parse"   False $ \modes args bi -> do
-      langsAll <- loadLangs
-      let langsParse = \l -> langCode l `elem` ["Eng"]
-      let langs = (optml AllTenses langsParse args) langsAll
-      gfc bi modes (summary parse langs) (map parse langs)
   ]
   where
     gfcp :: [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo] -> [LangInfo])] -> [Mode] -> [String] -> Info -> IO ()
@@ -188,7 +188,7 @@ rglCommands =
       gfcn bi mode (unwords ss) (concat fss)
 
     summary :: (LangInfo -> FilePath) -> [LangInfo] -> String
-    summary f langs = unwords (map (drop (length sourceDir + 1) . f) langs)
+    summary f langs = unwords (map (dropSourceDir . f) langs)
     -- summary f _ = f (LangInfo "*" "*" Nothing Nothing False False False False)
 
     l mode args = (lang,optml mode langAll args)
@@ -203,6 +203,9 @@ rglCommands =
         let defLangs = filter (if mode == Present then langPresent else const True) (filter ls langs)
         in getOptLangs langs defLangs args
 
+-------------------------------------------------------------------------------
+-- Getting module paths/names
+
 -- | Search all language dirs for module name
 findModule :: String -> IO (Maybe FilePath)
 findModule file = do
@@ -210,6 +213,27 @@ findModule file = do
   let langdirs = map langDir langs
   let searchdirs = map ((</>) sourceDir) langdirs
   findFile searchdirs file
+
+lang :: LangInfo -> FilePath
+lang l = sourceDir </> langDir l </> ("All" ++ langCode l ++ ".gf")
+
+compat :: LangInfo -> FilePath
+compat l = sourceDir </> langDir l </> ("Compatibility" ++ langCode l ++ ".gf")
+
+symbol :: LangInfo -> FilePath
+symbol l = sourceDir </> langDir l </> ("Symbol" ++ langCode l ++ ".gf")
+
+try :: LangInfo -> FilePath
+try l = sourceDir </> "api" </> ("Try" ++ langCode l ++ ".gf")
+
+syntax :: LangInfo -> FilePath
+syntax l = sourceDir </> "api" </> ("Syntax" ++ langCode l ++ ".gf")
+
+symbolic :: LangInfo -> FilePath
+symbolic l = sourceDir </> "api" </> ("Symbolic" ++ langCode l ++ ".gf")
+
+-------------------------------------------------------------------------------
+-- Argument helpers
 
 -- | Check arguments are valid, failing on error
 checkArgs :: [String] -> IO ()
@@ -347,39 +371,6 @@ separateBy :: Eq a => a -> [a] -> [[a]]
 separateBy chr = unfoldr sep where
   sep [] = Nothing
   sep l  = Just . fmap (drop 1) . break (== chr) $ l
-
--------------------------------------------------------------------------------
--- Getting module paths/names
-
-lang :: LangInfo -> FilePath
-lang l = sourceDir </> langDir l </> ("All" ++ langCode l ++ ".gf")
-
-compat :: LangInfo -> FilePath
-compat l = sourceDir </> langDir l </> ("Compatibility" ++ langCode l ++ ".gf")
-
-symbol :: LangInfo -> FilePath
-symbol l = sourceDir </> langDir l </> ("Symbol" ++ langCode l ++ ".gf")
-
-try :: LangInfo -> FilePath
-try l = sourceDir </> "api" </> ("Try" ++ langCode l ++ ".gf")
-
-syntax :: LangInfo -> FilePath
-syntax l = sourceDir </> "api" </> ("Syntax" ++ langCode l ++ ".gf")
-
-symbolic :: LangInfo -> FilePath
-symbolic l = sourceDir </> "api" </> ("Symbolic" ++ langCode l ++ ".gf")
-
-parse :: LangInfo -> FilePath
-parse l = sourceDir </> "parse" </> ("Parse" ++ langCode l ++ ".gf")
-
--- | Get unlexer flags for languages
-unlexer :: String -> [LangInfo] -> String
-unlexer abstr ls =
-  "--unlexer=\\\"" ++ unwords
-    [ abstr ++ langCode lang ++ "=" ++ fromJust unl
-    | lang <- ls
-    , let unl = langUnlexer lang
-    , isJust unl] ++ "\\\""
 
 -------------------------------------------------------------------------------
 -- Executing GF
