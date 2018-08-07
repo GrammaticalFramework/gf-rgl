@@ -112,7 +112,7 @@ lin
 
 lincat
   VPS   = {s : Agr => Str} ;
-  [VPS] = {s : Bool => Ints 3 => Agr => Str} ;
+  [VPS] = {s : Bool => Ints 4 => Agr => Str} ;
 
 lin
   BaseVPS x y = {s  = \\d,t,a=>x.s!a++linCoord!t++y.s!a} ;

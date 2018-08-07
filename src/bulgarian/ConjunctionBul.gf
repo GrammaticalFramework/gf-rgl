@@ -87,13 +87,13 @@ concrete ConjunctionBul of Conjunction =
        g = x.g} ;
 
   lincat
-    [S] = {s : Bool => Ints 3 => Str} ;
-    [Adv] = {s : Bool => Ints 3 => Str} ;
-    [AdV] = {s : Bool => Ints 3 => Str} ;
-    [IAdv] = {s : Bool => Ints 3 => QForm => Str} ;
-    [NP] = {s : Bool => Ints 3 => Role  => Str; gn : GenNum; p : PronPerson} ;
-    [AP] = {s : Bool => Ints 3 => AForm => Person => Str; isPre : Bool} ;
-    [RS] = {s : Bool => Ints 3 => Agr   => Str} ;
-    [CN] = {s : Bool => Ints 3 => NForm => Str; g : AGender} ;
+    [S] = {s : Bool => Ints 4 => Str} ;
+    [Adv] = {s : Bool => Ints 4 => Str} ;
+    [AdV] = {s : Bool => Ints 4 => Str} ;
+    [IAdv] = {s : Bool => Ints 4 => QForm => Str} ;
+    [NP] = {s : Bool => Ints 4 => Role  => Str; gn : GenNum; p : PronPerson} ;
+    [AP] = {s : Bool => Ints 4 => AForm => Person => Str; isPre : Bool} ;
+    [RS] = {s : Bool => Ints 4 => Agr   => Str} ;
+    [CN] = {s : Bool => Ints 4 => NForm => Str; g : AGender} ;
 
 }
