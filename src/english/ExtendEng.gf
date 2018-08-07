@@ -211,7 +211,7 @@ concrete ExtendEng of Extend =
     ptp = be.ptp ;
     inf = be.inf ;
     ad = \\_ => [] ;
-    s2 = \\a => vps.ad ! a ++ ppt ++ vps.p ++ ag ++ vps.s2 ! a ++ vps.c2 ; ---- place of agent
+    s2 = \\a => vps.ad ! a ++ ppt ++ vps.p  ++ vps.s2 ! a ++ ag ++ vps.c2 ; ---- place of agent
     isSimple = False ;
     ext = vps.ext
     } ;
