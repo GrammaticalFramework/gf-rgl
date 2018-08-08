@@ -1,7 +1,7 @@
 --# -path=.:../abstract:../common:../api
 
 concrete LangEng of Lang = 
-  GrammarEng,
+  GrammarEng
   LexiconEng
   ,ConstructionEng
   ,DocumentationEng --# notpresent
