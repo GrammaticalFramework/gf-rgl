@@ -2,6 +2,8 @@
 
 # GF Resource Grammar Library (RGL)
 
+[![Build Status](https://travis-ci.org/GrammaticalFramework/gf-rgl.svg?branch=master)](https://travis-ci.org/GrammaticalFramework/gf-rgl)
+
 The GF Resource Grammar Library is the standard library for Grammatical Framework. It covers the morphology and basic syntax of over 30 languages.
 
 For more about the RGL, see the [synopsis page](http://www.grammaticalframework.org/lib/doc/synopsis.html).
