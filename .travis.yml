@@ -1,0 +1,11 @@
+os: osx
+language: c
+
+install:
+  - mkdir bin
+  - mkdir rgl
+  - curl http://www.grammaticalframework.org/download/gf-3.9-bin-intel-mac.tar.gz > gf.tar.gz
+  - tar -C bin -zxf gf.tar.gz
+
+script:
+  - sh Make.sh --gf=./bin/gf --dest=./rgl
