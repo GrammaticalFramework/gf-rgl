@@ -3,6 +3,7 @@
 # ---
 # Non-Haskell RGL build script for Unix-based machines
 # ---
+set -e
 
 # Get languages from config
 langs=$(tail -n +2 languages.csv | awk -F ','  '{ if ($6 != "n") { print $1 } }')
@@ -73,6 +74,7 @@ for lang in $langs; do
     if [ $mod == "Try" ] && [[ "$langs_try" != *"$lang"* ]]; then continue; fi
     if [ $mod == "Symbolic" ] && [[ "$langs_symbolic" != *"$lang"* ]]; then continue; fi
     for file in "${src}"/*/"${mod}${lang}".gf; do
+      if [ ! -f "$file" ]; then continue; fi
       if [[ "$langs_present" = *"$lang"* ]]; then modules_present="${modules_present} ${file}"; fi
       modules_alltenses="${modules_alltenses} ${file}"
     done
