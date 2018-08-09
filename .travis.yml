@@ -1,11 +1,14 @@
-os: osx
+sudo: required
+
 language: c
 
-install:
-  - mkdir bin
+services:
+  - docker
+
+before_install:
+  - docker pull odanoburu/haskell-gf:3.9
   - mkdir rgl
-  - curl http://www.grammaticalframework.org/download/gf-3.9-bin-intel-mac.tar.gz > gf.tar.gz
-  - tar -C bin -zxf gf.tar.gz
 
 script:
-  - sh Make.sh --gf=./bin/gf --dest=./rgl
+  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/sh -c "cd /home/; runghc Make.hs build --langs=-Mon --dest=rgl ;"
+  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/sh -c "cd /home/; sh Make.sh --dest=rgl ;"
