@@ -54,11 +54,6 @@ src="src"
 dist="dist"
 gfc="${gf} --batch --quiet"
 
-# Redirect stderr if not verbose
-if [ $verbose = false ]; then
-  exec 2> /dev/null
-fi
-
 # Make directories if not present
 mkdir -p "${dist}/prelude"
 mkdir -p "${dist}/present"

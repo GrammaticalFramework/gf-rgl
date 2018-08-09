@@ -125,20 +125,20 @@ getRGLBuildDir info mode = infoBuildDir info </> getRGLBuildSubDir mode
 getRGLBuildSubDir :: Mode -> String
 getRGLBuildSubDir mode =
   case mode of
-    AllTenses -> "alltenses"
     Present   -> "present"
+    AllTenses -> "alltenses"
 
 -------------------------------------------------------------------------------
 -- Build modes
 
-data Mode = AllTenses | Present
+data Mode = Present | AllTenses
   deriving (Show,Eq)
 
 all_modes :: [String]
-all_modes = ["alltenses","present"]
+all_modes = ["present","alltenses"]
 
 default_modes :: [Mode]
-default_modes = [AllTenses,Present]
+default_modes = [Present,AllTenses]
 
 -- | An RGL build command
 data RGLCommand = RGLCommand
@@ -156,8 +156,9 @@ rglCommands =
       createDirectoryIfMissing True prelude_dst_dir
       files <- getDirectoryContents prelude_src_dir
       let modules = [prelude_src_dir </> file | file <- files, file /= "." && file /= ".."]
-      putStrLn $ "Building [Prelude] " ++ unwords (map dropSourceDir modules)
-      run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++prelude_dst_dir] ++ modules)
+      putStrLn $ "Building [Prelude]"
+      when (infoVerbose bi) $ putStrLn (unwords (map dropSourceDir modules))
+      run_gfc bi (["--gfo-dir="++prelude_dst_dir] ++ modules)
 
   , RGLCommand "all"     True  $ gfcp [l,s,c,t,sc]
   , RGLCommand "lang"    False $ gfcp [l,s]
@@ -174,7 +175,7 @@ rglCommands =
           Just mfull -> flip mapM_ modes $ \mode -> do
             let dst = getRGLBuildDir bi mode
             putStrLn $ "Building [" ++ show mode ++ "] " ++ dropSourceDir mfull
-            run_gfc bi [if infoVerbose bi then "--verbose" else "--quiet", "--gfo-dir="++dst, mfull]
+            run_gfc bi ["--gfo-dir="++dst, mfull]
 
   ]
   where
@@ -393,13 +394,14 @@ gfcn :: Info -> Mode -> String -> [FilePath] -> IO ()
 gfcn bi mode summary files = do
   let dir = getRGLBuildDir bi mode
       preproc = case mode of
-                  AllTenses -> ""
                   Present   -> "--preproc=mkPresent"
+                  AllTenses -> ""
   createDirectoryIfMissing True dir
   if length files > 0
   then do
-    putStrLn $ "Building [" ++ show mode ++ "] " ++ summary
-    run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--no-pmcfg", preproc, "--gfo-dir="++dir] ++ files)
+    putStrLn $ "Building [" ++ show mode ++ "]"
+    when (infoVerbose bi) (putStrLn summary)
+    run_gfc bi (["--no-pmcfg", preproc, "--gfo-dir="++dir] ++ files)
   else
     putStrLn $ "Skipping [" ++ show mode ++ "] (nothing to build)"
 
@@ -407,7 +409,7 @@ gfcn bi mode summary files = do
 run_gfc :: Info -> [String] -> IO ()
 run_gfc bi args = do
   let
-    args' = ["--batch"] ++ filter (not . null) args
+    args' = ["--batch", "--quiet"] ++ filter (not . null) args
     gf = infoGFPath bi
   execute gf args'
 

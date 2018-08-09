@@ -103,7 +103,7 @@ Simply run the script to build the entire RGL and install in the default locatio
 You can pass the following flags:
 - `--dest=...` to manually specify the install location
 - `--gf=...` to specify the path to the `gf` executable, if not available on the system path
-- `--verbose` or `-v` to show all GF warnings and errors
+- `--verbose` or `-v` to show a list of files being built (errors will always be shown)
 
 ## Windows batch file: `Make.bat`
 
