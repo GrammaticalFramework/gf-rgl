@@ -10,5 +10,5 @@ before_install:
   - mkdir rgl
 
 script:
-  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/sh -c "cd /home/; sh Make.sh --dest=rgl ;"
-  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/sh -c "cd /home/; runghc Make.hs build --langs=-Mon --dest=rgl ;"
+  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/sh -c "cd /home/; export GF_LIB_PATH=/home/rgl; runghc Make.hs build --langs=-Mon --dest=rgl ;"
+  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/sh -c "cd /home/; export GF_LIB_PATH=/home/rgl; sh Make.sh --dest=rgl ;"
