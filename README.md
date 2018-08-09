@@ -90,7 +90,7 @@ or an explicit module name (e.g. `ExtraEng.gf`. You don't need to specify to lan
 (default is both).
 - `LANG` is a 3-letter language code, e.g. `Eng`, `Swe` etc.
 - You can _override_ the default language list with `--langs=...`
-- You can _add_ languages to the default list with `--langs=+...`
+- ~~You can _add_ languages to the default list with `--langs=+...`~~
 - You can _remove_ languages from the default list with `langs=-...`
 - The path to GF installed on your system can be specified via the `--gf` flag (default is that the `gf` executable is in the global system path).
 - The `--dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
@@ -103,7 +103,7 @@ Simply run the script to build the entire RGL and install in the default locatio
 You can pass the following flags:
 - `--dest=...` to manually specify the install location
 - `--gf=...` to specify the path to the `gf` executable, if not available on the system path
-- `--verbose` or `-v` to show all GF warnings and errors
+- `--verbose` or `-v` to show a list of files being built (errors will always be shown)
 
 ## Windows batch file: `Make.bat`
 
