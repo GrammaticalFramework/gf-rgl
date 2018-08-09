@@ -184,8 +184,12 @@ rglCommands =
     gfcp' :: Info -> Mode -> [String] -> [Mode -> [String] -> (LangInfo -> FilePath,[LangInfo] -> [LangInfo])] -> IO ()
     gfcp' bi mode args cs = do
       langsAll <- loadLangs
+      -- f :: LangInfo -> FilePath
+      -- as :: [LangInfo] -> [LangInfo]
+      -- ss :: [String]
+      -- fss :: [[FilePath]]
       let (ss,fss) = unzip [ (summary f langs,map f langs) | c<-cs, let (f,as) = c mode args, let langs = as langsAll]
-      gfcn bi mode (unwords ss) (concat fss)
+      gfcn bi mode (unwords (filter (not.null) ss)) (concat fss)
 
     summary :: (LangInfo -> FilePath) -> [LangInfo] -> String
     summary f langs = unwords (map (dropSourceDir . f) langs)
@@ -280,21 +284,24 @@ getOptMode args =
 
 -- | List of languages overriding the default definitions
 getOptLangs :: [LangInfo] -> [LangInfo] -> [String] -> [LangInfo]
-getOptLangs langs defaultLangs args =
-    case [ls | arg <- args,
-               let (f,ls) = splitAt (length lang_flag) arg,
-               f==lang_flag] of
-      ('+':ls):_ -> foldr addLang defaultLangs (seps ls)
-      ('-':ls):_ -> foldr removeLang defaultLangs (seps ls)
-      ls:_ -> findLangs langs (seps ls)
-      _    -> defaultLangs
+getOptLangs allLangs defaultLangs args =
+  let x = [ ls
+          | arg <- args
+          , let (f,ls) = splitAt (length lang_flag) arg
+          , f == lang_flag
+          ]
+  in case x of
+    -- ('+':ls):_ -> foldr addLang defaultLangs (seps ls)
+    ('-':ls):_ -> foldr removeLang defaultLangs (seps ls)
+    ls:_ -> findLangs defaultLangs (seps ls)
+    _    -> defaultLangs
   where
     seps = words . map (\c -> if c==',' then ' ' else c)
     findLangs langs ls = [lang | lang <- langs, langCode lang `elem` ls]
     removeLang l ls = [lang | lang <- ls, langCode lang /= l]
-    addLang l ls = if null (findLangs ls [l])
-                   then findLangs langs [l]++ls
-                   else ls
+    -- addLang l ls = if null (findLangs ls [l])
+    --                then findLangs allLangs [l]++ls
+    --                else ls
 
 -- | Get module names from arguments
 getOptModules :: [String] -> [FilePath]
@@ -378,26 +385,29 @@ separateBy chr = unfoldr sep where
 -------------------------------------------------------------------------------
 -- Executing GF
 
-gfc :: Info -> [Mode] -> String -> [String] -> IO ()
+gfc :: Info -> [Mode] -> String -> [FilePath] -> IO ()
 gfc bi modes summary files =
   parallel_ [gfcn bi mode summary files | mode<-modes]
 
-gfcn :: Info -> Mode -> String -> [String] -> IO ()
-gfcn _ _ _ [] = die $ "No files specified.\nMake sure the language is in " ++ configFile ++ " and that it supports the modes/modules specified."
+gfcn :: Info -> Mode -> String -> [FilePath] -> IO ()
 gfcn bi mode summary files = do
   let dir = getRGLBuildDir bi mode
       preproc = case mode of
                   AllTenses -> ""
                   Present   -> "--preproc=mkPresent"
   createDirectoryIfMissing True dir
-  putStrLn $ "Building [" ++ show mode ++ "] " ++ summary
-  run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--no-pmcfg", preproc, "--gfo-dir="++dir] ++ files)
+  if length files > 0
+  then do
+    putStrLn $ "Building [" ++ show mode ++ "] " ++ summary
+    run_gfc bi ([if infoVerbose bi then "--verbose" else "--quiet", "--no-pmcfg", preproc, "--gfo-dir="++dir] ++ files)
+  else
+    putStrLn $ "Skipping [" ++ show mode ++ "] (nothing to build)"
 
 -- | Runs the gf executable in compile mode with the given arguments
 run_gfc :: Info -> [String] -> IO ()
 run_gfc bi args = do
   let
-    args' = ["--batch","--gf-lib-path="] ++ filter (not . null) args
+    args' = ["--batch"] ++ filter (not . null) args
     gf = infoGFPath bi
   execute gf args'
 

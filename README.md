@@ -90,7 +90,7 @@ or an explicit module name (e.g. `ExtraEng.gf`. You don't need to specify to lan
 (default is both).
 - `LANG` is a 3-letter language code, e.g. `Eng`, `Swe` etc.
 - You can _override_ the default language list with `--langs=...`
-- You can _add_ languages to the default list with `--langs=+...`
+- ~~You can _add_ languages to the default list with `--langs=+...`~~
 - You can _remove_ languages from the default list with `langs=-...`
 - The path to GF installed on your system can be specified via the `--gf` flag (default is that the `gf` executable is in the global system path).
 - The `--dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
