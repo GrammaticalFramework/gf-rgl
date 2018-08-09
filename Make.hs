@@ -409,7 +409,8 @@ gfcn bi mode summary files = do
 run_gfc :: Info -> [String] -> IO ()
 run_gfc bi args = do
   let
-    args' = ["--batch", "--quiet"] ++ filter (not . null) args
+    dir = infoBuildDir bi
+    args' = ["--batch", "--quiet", "--gf-lib-path="++dir] ++ filter (not . null) args
     gf = infoGFPath bi
   execute gf args'
 
