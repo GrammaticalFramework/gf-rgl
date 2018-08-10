@@ -79,11 +79,12 @@ clean
 
 - `CMDS` is one or more of:
 `prelude`,
-`all` (default),
+`all`,
 `lang`,
 `api`,
 `compat`,
 or an explicit module name (e.g. `ExtraEng.gf`. You don't need to specify to language subdirectory, but there is a restriction that the module must exist in a **direct** subdirectory of `src`).
+If ommitted, the default command is `prelude all`.
 - `MODE` is one of:
 `present`,
 `alltenses`
