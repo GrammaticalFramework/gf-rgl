@@ -53,7 +53,7 @@ fi
 # A few more definitions before we get started
 src="src"
 dist="dist"
-gfc="${gf} --batch --quiet"
+gfc="${gf} --batch --quiet --gf-lib-path=${dist}"
 
 # Make directories if not present
 mkdir -p "${dist}/prelude"
