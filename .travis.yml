@@ -1,0 +1,14 @@
+sudo: required
+
+language: c
+
+services:
+  - docker
+
+before_install:
+  - docker pull odanoburu/haskell-gf:3.9
+  - mkdir rgl
+
+script:
+  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/bash -c "cd /home/; export GF_LIB_PATH=/home/rgl ; runghc Make.hs build prelude all --verbose ;"
+  - docker run --mount src="$(pwd)",target=/home,type=bind odanoburu/haskell-gf:3.9 /bin/bash -c "cd /home/; export GF_LIB_PATH=/home/rgl; bash Make.sh --dest=rgl --verbose ;"

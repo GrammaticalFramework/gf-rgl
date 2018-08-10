@@ -2,6 +2,8 @@
 
 # GF Resource Grammar Library (RGL)
 
+[![Build Status](https://travis-ci.org/GrammaticalFramework/gf-rgl.svg?branch=master)](https://travis-ci.org/GrammaticalFramework/gf-rgl)
+
 The GF Resource Grammar Library is the standard library for Grammatical Framework. It covers the morphology and basic syntax of over 30 languages.
 
 For more about the RGL, see the [synopsis page](http://www.grammaticalframework.org/lib/doc/synopsis.html).
@@ -77,18 +79,19 @@ clean
 
 - `CMDS` is one or more of:
 `prelude`,
-`all` (default),
+`all`,
 `lang`,
 `api`,
 `compat`,
 or an explicit module name (e.g. `ExtraEng.gf`. You don't need to specify to language subdirectory, but there is a restriction that the module must exist in a **direct** subdirectory of `src`).
+If ommitted, the default command is `prelude all`.
 - `MODE` is one of:
 `present`,
 `alltenses`
 (default is both).
 - `LANG` is a 3-letter language code, e.g. `Eng`, `Swe` etc.
 - You can _override_ the default language list with `--langs=...`
-- You can _add_ languages to the default list with `--langs=+...`
+- ~~You can _add_ languages to the default list with `--langs=+...`~~
 - You can _remove_ languages from the default list with `langs=-...`
 - The path to GF installed on your system can be specified via the `--gf` flag (default is that the `gf` executable is in the global system path).
 - The `--dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
@@ -101,7 +104,7 @@ Simply run the script to build the entire RGL and install in the default locatio
 You can pass the following flags:
 - `--dest=...` to manually specify the install location
 - `--gf=...` to specify the path to the `gf` executable, if not available on the system path
-- `--verbose` or `-v` to show all GF warnings and errors
+- `--verbose` or `-v` to show a list of files being built (errors will always be shown)
 
 ## Windows batch file: `Make.bat`
 

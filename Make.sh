@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 # ---
 # Non-Haskell RGL build script for Unix-based machines
 # ---
+set -e
 
 # Get languages from config
 langs=$(tail -n +2 languages.csv | awk -F ','  '{ if ($6 != "n") { print $1 } }')
@@ -52,12 +53,7 @@ fi
 # A few more definitions before we get started
 src="src"
 dist="dist"
-gfc="${gf} --batch --quiet"
-
-# Redirect stderr if not verbose
-if [ $verbose = false ]; then
-  exec 2> /dev/null
-fi
+gfc="${gf} --batch --quiet --gf-lib-path=${dist}"
 
 # Make directories if not present
 mkdir -p "${dist}/prelude"
@@ -78,6 +74,7 @@ for lang in $langs; do
     if [ $mod == "Try" ] && [[ "$langs_try" != *"$lang"* ]]; then continue; fi
     if [ $mod == "Symbolic" ] && [[ "$langs_symbolic" != *"$lang"* ]]; then continue; fi
     for file in "${src}"/*/"${mod}${lang}".gf; do
+      if [ ! -f "$file" ]; then continue; fi
       if [[ "$langs_present" = *"$lang"* ]]; then modules_present="${modules_present} ${file}"; fi
       modules_alltenses="${modules_alltenses} ${file}"
     done
