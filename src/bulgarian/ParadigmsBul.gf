@@ -10,7 +10,9 @@ resource ParadigmsBul = MorphoFunsBul ** open
   flags coding=cp1251 ;
 
 oper
-  mkN001 : Str -> N ; -- numbers refer to Krustev, Bulg. Morph. in 187 Tables
+ -- numbers refer to Krustev, Bulg. Morph. in 187 Tables
+
+  mkN001 : Str -> N ;
   mkN001 base = {s = table {
                        NF Sg Indef => base ;
                        NF Sg Def   => base+"а" ;
@@ -22,6 +24,20 @@ oper
                      } ;
                  rel = \\_ => base ; relPost = False ;
                  g = AMasc NonHuman ;
+                 lock_N = <>
+                } ;
+  mkN001a : Str -> N ;
+  mkN001a base = {s = table {
+                       NF Sg Indef => base ;
+                       NF Sg Def   => base+"а" ;
+                       NF Pl Indef => base+"ове" ;
+                       NF Pl Def   => base+"овете" ;
+                       NFSgDefNom  => base+"ът" ;
+                       NFPlCount   => base+"ове" ;
+                       NFVocative  => base+"е"
+                     } ;
+                 rel = \\_ => base ; relPost = False ;
+                 g = AMasc Human ;
                  lock_N = <>
                 } ;
   mkN002 : Str -> N ;
@@ -1595,8 +1611,8 @@ oper
                           (v0+"ях")
                           (v0+"ал")
                           (v0+"ял")
-                          (v0+"ящ")
                           (v0+"ан")
+                          (v0+"ящ")
                           (v0+"и")
                           (v0+"яне") ;
   mkV152 : Str -> VTable ;
