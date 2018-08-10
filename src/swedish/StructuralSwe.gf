@@ -87,7 +87,7 @@ concrete StructuralSwe of Structural = CatSwe **
   there7to_Adv = ss "dit" ;
   there7from_Adv = ss "därifrån" ;
   therefore_PConj = ss "därför" ;
-  they_Pron = MorphoSwe.mkNP "de" "dem" "deras" "deras" "deras" Utr Pl P1 ;
+  they_Pron = MorphoSwe.mkNP "de" "dem" "deras" "deras" "deras" Utr Pl P3 ;
   this_Quant = 
     {s,sp = table {
        Sg => \\_,_ => genderForms ["den här"] ["det här"] ; 
