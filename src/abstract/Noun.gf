@@ -11,7 +11,7 @@ abstract Noun = Cat ** {
 -- - pronouns
 --
 --
-  fun
+  data
     DetCN   : Det -> CN -> NP ;   -- the man
     UsePN   : PN -> NP ;          -- John
     UsePron : Pron -> NP ;        -- he
@@ -64,7 +64,7 @@ abstract Noun = Cat ** {
 
 -- A $Card$ can  be modified by certain adverbs.
 
-  fun
+  data
     AdNum : AdN -> Card -> Card ;   -- almost 51
 
 -- An $Ord$ consists of either digits or numeral words.

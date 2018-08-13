@@ -16,7 +16,7 @@ abstract Conjunction = Cat ** {
 
 --2 Rules
 
-  fun
+  data
     ConjS    : Conj -> ListS -> S ;       -- he walks and she runs
     ConjRS   : Conj -> ListRS -> RS ;     -- who walks and whose mother runs
     ConjAP   : Conj -> ListAP -> AP ;     -- cold and warm

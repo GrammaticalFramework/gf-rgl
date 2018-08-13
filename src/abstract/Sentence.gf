@@ -56,7 +56,7 @@ abstract Sentence = Cat ** {
 -- combinations of tense, polarity, and
 -- anteriority, which are defined in [``Common`` Common.html].
 
-  fun
+  data
     UseCl    : Temp -> Pol -> Cl  -> S ;   -- she had not slept
     UseQCl   : Temp -> Pol -> QCl -> QS ;  -- who had not slept
     UseRCl   : Temp -> Pol -> RCl -> RS ;  -- that had not slept
