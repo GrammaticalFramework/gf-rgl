@@ -20,6 +20,7 @@ concrete CatTur of Cat = CommonX ** open ResTur, Prelude in {
     Quant = {s : Str; useGen : UseGen} ;
     Prep = {s : Str; c : Case} ;
     PrepNP = {s : Str} ;
+    DAP = {s : Number => Case => Str} ;
 
     Numeral = {s : CardOrd => Number => Case => Str ; n : Number} ;
     Digits  = {s : CardOrd => Number => Case => Str ; n : Number; tail : DTail} ;
