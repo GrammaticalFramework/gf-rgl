@@ -268,4 +268,6 @@ concrete StructuralTur of Structural = CatTur **
 
     otherwise_PConj = { s = "aksi takdirde" } ;
 
+    part_Prep = { s = "(TODO: part_Prep)" ; c = Nom } ;
+
 }
