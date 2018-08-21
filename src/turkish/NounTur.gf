@@ -10,7 +10,7 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
         case det.useGen of {
           NoGen => \\c => det.s ++ cn.s ! det.n ! c ;
           YesGen a => \\c => det.s ++ cn.gen ! det.n ! a ;
-          UseIndef => \\c => det.s ++ cn.s ! det.n ! Nom
+          UseIndef => \\c => det.s ++ cn.s ! det.n ! c
         } ;
       a = agrP3 det.n
       } ;
@@ -98,4 +98,98 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
       s = \\c => adv.s ++ np.s ! c;
       a = np.a
     } ;
+
+    AdNum adn num = {
+      s = \\n,c => adn.s ++ num.s ! n ! c
+    } ;
+
+    AdjDAP det ap = {
+      s = \\n,c => det.s ! n ! c ++ ap.s ! n ! c
+    } ;
+
+    -- TODO: further test how correct this is.
+    ApposCN cn np = {
+      s = \\n,c => cn.s ! n ! c ++ np.s ! c ;
+      gen = cn.gen
+    } ;
+
+    ComplN3 f x = {
+      s       = \\n, c => x.s ! Ablat ++ f.s ! n ! c ;
+      gen     = f.gen ;
+      c       = f.c2 ;
+      harmony = f.harmony ;
+    } ;
+
+    -- TODO: not entirely sure `CountNP` is sensible in Turkish but it should
+    -- look something like this.
+    CountNP det np = {
+      s = \\c => det.s ++ np.s ! Ablat ;
+      a = np.a
+    } ;
+
+    DetDAP d = { s = \\n,c => d.s } ;
+
+    -- TODO: further check the correctness of this.
+    DetNP det = {
+      s = \\c => det.s ;
+      a = {n = det.n ; p = P1}
+    } ;
+
+    ExtAdvNP np adv = {
+      s = \\c => np.s ! c ++ "," ++ adv.s ;
+      a = np.a
+    } ;
+
+    NumDigits n = {
+      s = n.s ! NCard ; n = n.n
+    } ;
+
+    OrdNumeralSuperl n a = {
+      s = \\num,cs => (n.s ! NOrd ! Sg ! cs) ++ a.s ! Sg ! cs
+    } ;
+
+    PPartNP np v2 = {
+      s = \\c => np.s ! c ++ v2.s ! (VPast np.a);
+      a = np.a
+    } ;
+
+    -- TODO: some tweaking will be needed when getting the
+    -- getting genitive constructions to work correctly.
+    --
+    -- Further check the correctness.
+    PartNP cn np = {
+      s   = \\n,c => np.s ! Gen ++ cn.s ! n ! Gen ;
+      gen = cn.gen
+    } ;
+
+    PossNP cn np = {
+      s   = \\n,c => np.s ! Gen ++ cn.s ! n ! c ;
+      gen = cn.gen
+    } ;
+
+    -- TODO: currently I am not able to generate trees for this but should be
+    -- quite close what is needed.
+    PredetNP pred np = {
+      s = \\c => pred.s ++ np.s ! c ;
+      a = np.a
+    } ;
+
+    SentCN cn sc = {
+      s = \\n,c => "(TODO: SentCN)" ;
+      gen = cn.gen
+    } ;
+
+    -- TODO: currently not able to generate trees.
+    RelCN cn rs = {
+      s   = \\n,c => "(TODO: RelCN)" ;
+      gen = cn.gen
+    } ;
+
+    RelNP np rs = {
+      s   = \\c => "(TODO: RelNP)" ;
+      gen = np.gen ;
+      a   = np.a ;
+      c   = np.c
+    } ;
+
 }
