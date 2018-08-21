@@ -23,13 +23,14 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
 
     agrP3 : Number -> Agr ;
     agrP3 n = {n = n; p = P3} ;
--- For $Adjective$
+    -- For $Adjective$
   oper
     Adjective = Noun ** { adv : Str } ;
--- For $Verb$.
+
+    -- For $Verb$.
 
   param
-    VForm = 
+    VForm =
        VProg      Agr
      | VPast      Agr
      | VFuture    Agr
@@ -38,6 +39,8 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
      | VInfinitive
      | Gerund Number Case
      ;
+
+    param ConjType = Infix | Mixfix ;
 
     UseGen = NoGen | YesGen Agr | UseIndef ;
 
@@ -73,8 +76,36 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     mkPrep : Str -> Case -> {s : Str; c : Case; lock_Prep : {}} =
       \s, c -> lin Prep {s=s; c=c};
 
+    mkNP : Noun -> Number -> Person -> {s : Case => Str; a : Agr} =
+      \noun, n, p -> {s = noun.s ! n; a = {n = n; p = p}} ;
+
     mkClause : Str -> Agr -> Verb -> {s : Str} =
       \np, a, v -> ss (np ++ v.s ! VProg a) ;
+
+    mkDet : Str -> Number -> UseGen -> {s : Str; n : Number; useGen : UseGen} =
+      \s, n, ug -> {s = s; n = n; useGen = ug} ;
+
+    mkConj : overload {
+      mkConj : Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} ;
+      mkConj : Str -> Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} ;
+    } ;
+
+    mkConj = overload {
+      mkConj : Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} =
+        \s -> {
+          s  = s  ;
+          s1 = s  ;
+          s2 = [] ;
+          ct = Infix
+        } ;
+      mkConj : Str -> Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} =
+        \s1, s2 -> {
+          s  = s1 ++ s2 ;
+          s1 = s1 ;
+          s2 = s2 ;
+          ct = Mixfix
+        } ;
+    } ;
 
     attachMe : Verb -> {s : Str} =
       \v ->
