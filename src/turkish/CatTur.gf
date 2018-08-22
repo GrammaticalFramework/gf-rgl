@@ -1,6 +1,4 @@
---# -path=.:../abstract:../common:../../prelude
-
-concrete CatTur of Cat = CommonX ** open ResTur, Prelude in {
+concrete CatTur of Cat = CommonX - [CAdv] ** open ResTur, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -22,6 +20,7 @@ concrete CatTur of Cat = CommonX ** open ResTur, Prelude in {
     Prep = {s : Str; c : Case} ;
     PrepNP = {s : Str} ;
     DAP = {s : Number => Case => Str} ;
+    CAdv = {s : Str; p : Str; c : Case} ;
 
     Numeral = {s : CardOrd => Number => Case => Str ; n : Number} ;
     Digits  = {s : CardOrd => Number => Case => Str ; n : Number; tail : DTail} ;
