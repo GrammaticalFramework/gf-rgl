@@ -270,4 +270,6 @@ concrete StructuralTur of Structural = CatTur **
 
     part_Prep = { s = "(TODO: part_Prep)" ; c = Nom } ;
 
+    at_most_AdN = ss "en fazla" ; 
+
 }
