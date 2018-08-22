@@ -9,4 +9,5 @@ concrete AdverbTur of Adverb = CatTur ** open ResTur, Prelude in {
     -- TODO: test this later; depends on less_CAdv.
     AdnCAdv cadv = {s = cadv.s ++ cadv.p} ;
 
+    SubjS = cc2
 }
