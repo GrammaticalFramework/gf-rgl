@@ -274,4 +274,6 @@ concrete StructuralTur of Structural = CatTur **
 
     at_least_AdN = ss "en az" ; 
 
+    as_CAdv = {s = "kadar"; p = "kadar"} ; 
+
 }
