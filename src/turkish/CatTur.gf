@@ -11,6 +11,7 @@ concrete CatTur of Cat = CommonX ** open ResTur, Prelude in {
     NP = {s : Case => Str ; a : Agr} ;
     VP = Verb ;
     VPSlash = VP ** {c : Prep} ;
+    Conj = {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} ;
 
     Pron = ResTur.Pron ;
     Det = {s : Str; n : Number; useGen : UseGen} ;
