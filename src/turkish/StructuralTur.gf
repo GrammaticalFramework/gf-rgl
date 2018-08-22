@@ -191,7 +191,7 @@ concrete StructuralTur of Structural = CatTur **
 
     language_title_Utt = {s = "Türkçe"} ;
 
-    more_CAdv = {s = "daha"; p = "daha"} ;
+    more_CAdv = {s = "daha"; p = "daha"; c = Nom} ;
 
     most_Predet = {s = "en çok"} ;
 
@@ -274,6 +274,6 @@ concrete StructuralTur of Structural = CatTur **
 
     at_least_AdN = ss "en az" ; 
 
-    as_CAdv = {s = "kadar"; p = "kadar"} ; 
+    as_CAdv = {s = "kadar"; p = "kadar"; c = Nom} ; 
 
 }
