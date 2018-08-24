@@ -26429,7 +26429,7 @@ lin
   nepri_ch_asten_A = mkA079 "непричастен" ;
   nepri_ja_znen_A = mkA076 "неприязнен" ;
   nepri_ja_znenost_N = mkN049 "неприязненост" ;
-  nepri_ja_zyn_N = mkN007 "неприязън" ;
+  nepri_ja_zyn_N = mkN049 "неприязън" ;
   nepri_ja_tel_N = mkN031a "неприятел" ;
   nepri_ja_telka_N = mkN041 "неприятелка" ;
   nepri_ja_telski_A = mkA078 "неприятелски" ;
