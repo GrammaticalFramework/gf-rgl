@@ -12,4 +12,8 @@ concrete ConjunctionTur of Conjunction =
       s = adv1.s
     } ;
 
+    BaseAdv adv1 adv2 = {
+      s = adv1.s
+    } ;
+
 }
