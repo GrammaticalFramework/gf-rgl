@@ -8,4 +8,8 @@ concrete ConjunctionTur of Conjunction =
       s = ap1.s ! Sg ! Nom
     } ;
 
+    BaseAdV adv1 adv2 = {
+      s = adv1.s
+    } ;
+
 }
