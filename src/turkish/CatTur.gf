@@ -4,6 +4,12 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
 
   lincat
 
+    S  = {s : Gerundification => Str} ;
+
+    -- TODO: parameterize by tense.
+    Cl = {s : Gerundification => Str} ;
+
+
     -- Noun
     CN = {s : Number => Case => Str; gen : Number => Agr => Str} ;
     NP = {s : Case => Str ; a : Agr} ;
