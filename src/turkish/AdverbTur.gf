@@ -20,8 +20,8 @@ concrete AdverbTur of Adverb = CatTur ** open ResTur, Prelude in {
     -- this "running" gerund is obtained with -DIK. This linearizations must be
     -- revisited once that is done.
     ComparAdvAdjS cadv a s = {
-      s = s.s ++ cadv.s ++ a.s ! Sg ! Nom
+      s = s.s ! SubordSuffixDik ++ cadv.s ++ a.s ! Sg ! Nom
     } ;
 
-    SubjS = cc2 ;
+    SubjS s1 s2 = {s = s1.s ++ s2.s ! SubordSuffixDik} ;
 }

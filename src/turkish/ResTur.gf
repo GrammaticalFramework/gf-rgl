@@ -82,8 +82,13 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     mkNP : Noun -> Number -> Person -> {s : Case => Str; a : Agr} =
       \noun, n, p -> {s = noun.s ! n; a = {n = n; p = p}} ;
 
-    mkClause : Str -> Agr -> Verb -> {s : Str} =
-      \np, a, v -> ss (np ++ v.s ! VProg a) ;
+    mkClause : Str -> Agr -> Verb -> {s : Gerundification => Str} =
+      \np, a, v -> {
+        s = table {
+          None            => np ++ v.s ! VProg a ;
+          SubordSuffixDik => np ++ v.s ! VNoun np.a.n Nom
+        }
+      } ;
 
     mkDet : Str -> Number -> UseGen -> {s : Str; n : Number; useGen : UseGen} =
       \s, n, ug -> {s = s; n = n; useGen = ug} ;
