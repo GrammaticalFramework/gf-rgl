@@ -270,7 +270,9 @@ resource ParadigmsTur = open
                   U_Har   => "TODO" ;
                   Uh_Har  => "TODO"
                 } ;
-              Gerund _  _    => mek
+              Gerund _  _    => mek ;
+              VNoun n c =>
+                base + "dik"
             }
         } ;
 
