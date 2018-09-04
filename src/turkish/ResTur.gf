@@ -40,6 +40,8 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
      | Gerund Number Case
      ;
 
+  param Gerundification = None | SubordSuffixDik ;
+
     param ConjType = Infix | Mixfix ;
 
     UseGen = NoGen | YesGen Agr | UseIndef ;
