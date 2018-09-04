@@ -38,6 +38,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
      | VImperative
      | VInfinitive
      | Gerund Number Case
+     | VNoun Number Case
      ;
 
   param Gerundification = None | SubordSuffixDik ;
