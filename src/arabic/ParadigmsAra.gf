@@ -215,7 +215,7 @@ resource ParadigmsAra = open
   mkV0  : V -> V0 ;
   mkVS  : V -> VS ;
   mkV2S : V -> Str -> V2S ;
---  mkVV  : V -> VV ;
+  mkVV  : V -> VV ;
   mkV2V : V -> Str -> Str -> V2V ;
   mkVA  : V -> VA ;
   mkV2A : V -> Str -> V2A ;
@@ -506,6 +506,8 @@ resource ParadigmsAra = open
 
   mkVS  v = v ** {lock_VS = <>} ;
   mkVQ  v = v ** {lock_VQ = <>} ;
+
+  mkVV v = lin VV v ** {isAux = False} ;
 
   V0 : Type = V ;
 ----  V2S, V2V, V2Q, V2A : Type = V2 ;

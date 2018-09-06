@@ -30,7 +30,6 @@ oper ComplN3 : N3 -> NP -> N2 = notYet "ComplN3" ;
 oper ComplVA : VA -> AP -> VP = notYet "ComplVA" ;
 oper ComplVQ : VQ -> QS -> VP = notYet "ComplVQ" ;
 oper ComplVS : VS -> S -> VP = notYet "ComplVS" ;
-oper ComplVV : VV -> VP -> VP = notYet "ComplVV" ;
 oper ConjAP : Conj -> ListAP -> AP = notYet "ConjAP" ;
 oper ConjAdv : Conj -> ListAdv -> Adv = notYet "ConjAdv" ;
 oper ConjNP : Conj -> ListNP -> NP = notYet "ConjNP" ;
@@ -94,7 +93,6 @@ oper UttImpPl : Pol -> Imp -> Utt = notYet "UttImpPl" ;
 oper UttImpPol : Pol -> Imp -> Utt = notYet "UttImpPol" ;
 oper UttVP : VP -> Utt = notYet "UttVP" ;
 oper VocNP : NP -> Voc = notYet "VocNP" ;
-oper it_Pron : Pron = notYet "it_Pron" ;
 oper pot3plus : Sub1000 -> Sub1000 -> Sub1000000 = notYet "pot3plus" ;
 oper which_IQuant : IQuant = notYet "which_IQuant" ;
 
