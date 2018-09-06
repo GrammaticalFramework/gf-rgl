@@ -112,7 +112,6 @@ concrete StructuralPor of Structural = CatPor **
     nothing_NP = pn2npNeg (mkPN "nada") ;
 
     on_Prep = mkPrep "sobre" ;
-  ---  one_Quant = {s = \\g,c => prepCase c ++ genForms "uno" "una" ! g} ;
     only_Predet = {s = \\_,c => prepCase c ++ "só" ; c = Nom ;
                    a = PNoAg} ;
     or_Conj = {s1 = [] ; s2 = "ou" ; n = Sg} ;
