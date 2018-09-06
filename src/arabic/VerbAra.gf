@@ -5,18 +5,20 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
   lin
     UseV = predV ;
 
+    SlashVV vv vps = vps ** predV vv ; ---- totally wrong /IL
     SlashV2a v = predV v ** {c2 = v.c2};
     Slash3V3 v np = insertObj np (predV v) ** {c2 = v.c2};
 
     ComplSlash vp np = insertObj np vp ;
 
---    ComplV3 v np np2 = insertObj np2 (insertObj np (predV v)) ;
+--    Complv3 v np np2 = insertObj np2 (insertObj np (predV v)) ;
 
 {-{s = \\_ => v.c2 ++ np.s ! Acc ++ v.c3 ++ np2.s ! Acc ;
                  a = {pgn = Per3 Masc Sg ; isPron = False} } --FIXME
       (predV v) ;-}
---
---    ComplVV v vp = insertObj (\\a => infVP v.isAux vp a) (predVV v) ;
+
+    -- First dummy implementation / IL 2018-09-06
+    ComplVV v vp = insertStr (linVP vp) (predV v) ;
 --
 --    ComplVS v s  = insertObj (\\_ => conjThat ++ s.s) (predV v) ;
 --    ComplVQ v q  = insertObj (\\_ => q.s ! QIndir) (predV v) ;

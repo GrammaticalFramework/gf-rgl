@@ -12,10 +12,14 @@ concrete PhraseAra of Phrase = CatAra ** open
     UttIAdv s = {s = \\g => s.s} ; ---- OK? AR
 
     UttQS qs = {s = \\g => qs.s ! QDir} ;
-    UttImpSg pol imp = {s = \\g => imp.s ! pol.p ! g ! ResAra.Sg} ;
---    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! Pl} ;
+    UttImpSg pol imp = {s = \\g => imp.s ! pol.p ! g ! ResAra.Sg ++ pol.s} ;
+    UttImpPl,UttImpPol = \pol,imp -> {s = \\g => imp.s ! pol.p ! g ! ResAra.Pl ++ pol.s} ;
 --
     UttIP ip = {s = \\_ => ip.s} ; ---- AR
+
+     -- AP = { s : Species => Gender => Number => State => Case => Str } ;
+    UttAP ap = {s = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom } ;  ---- OK? IL
+
 --    UttIAdv iadv = iadv ;
     UttNP np = {s = \\_ => np.s ! Nom} ;
 --    UttVP vp = {s = infVP False vp (agrP3 Sg)} ;
