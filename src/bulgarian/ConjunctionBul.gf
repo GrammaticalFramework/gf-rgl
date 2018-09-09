@@ -8,92 +8,92 @@ concrete ConjunctionBul of Conjunction =
 
   lin
     ConjS conj ss = {
-      s = conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj;
+      s = linCoord []!conj.sep ++ ss.s!conj.sep ++ conj.s ++ ss.s!4;
       } ;
 
     ConjAdv conj ss = {
-      s = conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj;
+      s = linCoord []!conj.sep ++ ss.s!conj.sep ++ conj.s ++ ss.s!4;
       } ;
 
     ConjAdV conj ss = {
-      s = conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj;
+      s = linCoord []!conj.sep ++ ss.s!conj.sep ++ conj.s ++ ss.s!4;
       p = Pos
       } ;
 
     ConjIAdv conj ss = {
-      s = \\qform => conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj!qform;
+      s = \\qform => linCoord []!conj.sep ++ ss.s!qform!conj.sep ++ conj.s ++ ss.s!qform!4;
       } ;
 
     ConjNP conj ss = {
-      s  = \\role => conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj!role;
+      s  = \\role => linCoord []!conj.sep ++ ss.s!role!conj.sep ++ conj.s ++ ss.s!role!4;
       gn = conjGenNum (gennum (AMasc NonHuman) conj.n) ss.gn;
       p  = ss.p
       } ;
 
     ConjAP conj ss = {
-      s     = \\aform,p => conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj!aform!p;
-      adv   =              conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.adv!conj.distr!conj.conj;
+      s     = \\aform,p => linCoord []!conj.sep ++ ss.s!aform!p!conj.sep ++ conj.s ++ ss.s!aform!p!4;
+      adv   =              ss.adv!conj.conj ++ conj.s ++ ss.adv!4;
       isPre = ss.isPre
       } ;
 
     ConjRS conj ss = {
-      s = \\role => conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj!role
+      s = \\role => linCoord []!conj.sep ++ ss.s!role!conj.sep ++ conj.s ++ ss.s!role!4;
       } ;
 
     ConjCN conj ss = {
-      s = \\nform => conj.s ++ (linCoordSep [])!conj.distr!conj.conj++ss.s!conj.distr!conj.conj!nform;
+      s = \\nform => linCoord []!conj.sep ++ ss.s!nform!conj.sep ++ conj.s ++ ss.s!nform!4;
       g = ss.g
       } ;
 
 -- These fun's are generated from the list cat's.
-    BaseS x y  = {s  = \\d,t=>x.s++linCoord!t++ y.s} ; 
-    ConsS x xs = {s  = \\d,t=>x.s++(linCoordSep comma)!d!t++xs.s!d!t} ;
+    BaseS x y  = {s  = table {4 => y.s;    _ => x.s}} ; 
+    ConsS x xs = {s  = table {4 => xs.s!4; t => x.s++linCoord bindComma!t++xs.s!t}} ;
 
-    BaseAdv x y  = {s  = \\d,t=>x.s++linCoord!t++ y.s} ; 
-    ConsAdv x xs = {s  = \\d,t=>x.s++(linCoordSep comma)!d!t++xs.s!d!t} ;
+    BaseAdv x y  = {s  = table {4 => y.s; _ => x.s}} ; 
+    ConsAdv x xs = {s  = table {4 => xs.s!4; t => x.s++linCoord bindComma!t++xs.s!t}} ;
 
-    BaseAdV x y  = {s  = \\d,t=>x.s++linCoord!t++ y.s} ; 
-    ConsAdV x xs = {s  = \\d,t=>x.s++(linCoordSep comma)!d!t++xs.s!d!t} ;
+    BaseAdV x y  = {s  = table {4 => y.s; _ => x.s}} ; 
+    ConsAdV x xs = {s  = table {4 => xs.s!4; t => x.s++linCoord bindComma!t++xs.s!t}} ;
 
-    BaseIAdv x y  = {s  = \\d,t,qform=>x.s!qform++linCoord!t++ y.s!qform} ; 
-    ConsIAdv x xs = {s  = \\d,t,qform=>x.s!qform++(linCoordSep comma)!d!t++xs.s!d!t!qform} ;
+    BaseIAdv x y  = {s  = \\qform=>table {4 => y.s!qform; _ => x.s!qform}} ; 
+    ConsIAdv x xs = {s  = \\qform=>table {4 => xs.s!qform!4; t => x.s!qform++linCoord bindComma!t++xs.s!qform!t}} ;
 
     BaseNP x y =
-      {s  = \\d,t,role=>x.s!role++linCoord!t++y.s!role; 
+      {s  = \\role=>table {4 => y.s!role; _ => x.s!role};
        gn = conjGenNum x.gn y.gn;
        p  = x.p} ;
     ConsNP x xs =
-      {s  = \\d,t,role=>x.s!role++(linCoordSep comma)!d!t++xs.s!d!t!role; 
+      {s  = \\role=>table {4 => xs.s!role!4; t => x.s!role++linCoord bindComma!t++xs.s!role!t};
        gn = conjGenNum xs.gn x.gn;
        p  = x.p} ;
 
     BaseAP x y =
-      {s  = \\d,t,aform,p => x.s!aform!p++linCoord!t++y.s!aform!p;
+      {s  = \\aform,p => table {4 => y.s!aform!p; _ => x.s!aform!p} ;
        isPre = andB x.isPre y.isPre} ; 
     ConsAP x xs =
-      {s  = \\d,t,aform,p =>x.s!aform!p++(linCoordSep comma)!d!t++xs.s!d!t!aform!p;
-       isPre = andB x.isPre xs.isPre} ; 
+      {s  = \\aform,p=>table {4 => xs.s!aform!p!4; t => x.s!aform!p++linCoord bindComma!t++xs.s!aform!p!t};
+       isPre = andB x.isPre xs.isPre} ;
 
     BaseRS x y =
-      {s = \\d,t,role=>x.s!role++linCoord!t++y.s!role} ;
+      {s = \\role=>table {4 => y.s!role; _ => x.s!role}} ;
     ConsRS x xs =
-      {s = \\d,t,role=>x.s!role++(linCoordSep comma)!d!t++xs.s!d!t!role} ;
+      {s = \\role=>table {4 => xs.s!role!4; t => x.s!role++linCoord bindComma!t++xs.s!role!t}} ;
 
     BaseCN x y =
-      {s = \\d,t,nform=>x.s!nform++linCoord!t++y.s!nform;
+      {s = \\nform=>table {4 => y.s!nform; _ => x.s!nform};
        g = x.g} ;
     ConsCN x xs =
-      {s = \\d,t,nform=>x.s!nform++(linCoordSep comma)!d!t++xs.s!d!t!nform;
+      {s = \\nform=>table {4 => xs.s!nform!4; t => x.s!nform++linCoord bindComma!t++xs.s!nform!t};
        g = x.g} ;
 
   lincat
-    [S] = {s : Bool => Ints 4 => Str} ;
-    [Adv] = {s : Bool => Ints 4 => Str} ;
-    [AdV] = {s : Bool => Ints 4 => Str} ;
-    [IAdv] = {s : Bool => Ints 4 => QForm => Str} ;
-    [NP] = {s : Bool => Ints 4 => Role  => Str; gn : GenNum; p : PronPerson} ;
-    [AP] = {s : Bool => Ints 4 => AForm => Person => Str; isPre : Bool} ;
-    [RS] = {s : Bool => Ints 4 => Agr   => Str} ;
-    [CN] = {s : Bool => Ints 4 => NForm => Str; g : AGender} ;
+    [S]    = {s : Ints 4 => Str} ;
+    [Adv]  = {s : Ints 4 => Str} ;
+    [AdV]  = {s : Ints 4 => Str} ;
+    [IAdv] = {s : QForm =>           Ints 4 => Str} ;
+    [NP]   = {s : Role  =>           Ints 4 => Str; gn : GenNum; p : PronPerson} ;
+    [AP]   = {s : AForm => Person => Ints 4 => Str; isPre : Bool} ;
+    [RS]   = {s : Agr   =>           Ints 4 => Str} ;
+    [CN]   = {s : NForm =>           Ints 4 => Str; g : AGender} ;
 
 }

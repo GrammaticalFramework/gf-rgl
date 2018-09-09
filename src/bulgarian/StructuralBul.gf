@@ -14,18 +14,18 @@ concrete StructuralBul of Structural = CatBul **
   at_least_AdN, at_most_AdN =  ss "почти" ; ---- AR
   although_Subj = ss ["въпреки че"] ;
   always_AdV = mkAdV "винаги" ;
-  and_Conj = {s=[]; conj=0; distr=False; n = Pl} ;
+  and_Conj = mkConj "и" Pl ;
   because_Subj = ss "защото" ;
   before_Prep = mkPrep "преди" ;
   behind_Prep = mkPrep "зад" ;
   between_Prep = mkPrep "между" ;
-  both7and_DConj = {s=[]; conj=0; distr=True; n = Pl} ;
+  both7and_DConj = mkConj "и" Pl ** {sep=0} ;
   but_PConj = ss "но" ;
   by8agent_Prep = mkPrep "чрез" ;
   by8means_Prep = mkPrep "чрез" ;
   can8know_VV, can_VV = mkVV (stateV (mkV166 "мога")) ;
   during_Prep = mkPrep ["по време на"] ;
-  either7or_DConj = {s=[]; conj=1; distr=True; n = Sg} ;
+  either7or_DConj = mkConj "или" Sg ** {sep=1} ;
   everybody_NP = mkNP "всеки" (GSg Masc) (NounP3 Pos);
   every_Det = mkDeterminerSg "всеки" "всяка" "всяко";
   everything_NP = mkNP "всичко" (GSg Neut) (NounP3 Pos);
@@ -75,7 +75,7 @@ concrete StructuralBul of Structural = CatBul **
   on_Prep = mkPrep "на" ;
 ----  one_Quant = mkDeterminer Sg "one" ; -- DEPRECATED
   only_Predet = {s = \\_ => "само"} ;
-  or_Conj = {s=[]; conj=1; distr=False; n = Sg} ;
+  or_Conj = mkConj "или" Sg ;
   otherwise_PConj = ss "иначе" ;
   part_Prep = mkPrep "от" ;
   please_Voc = ss "моля" ;

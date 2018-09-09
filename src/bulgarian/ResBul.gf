@@ -827,11 +827,8 @@ resource ResBul = ParamX ** open Prelude, Predef in {
                GPl      => "тези"
              } ;
 
-    linCoord : Ints 4 => Str ;
-    linCoord = table {0 => "и"; 1=>"или"; 2=>"нито"; 3=>"но"; 4=>"вместо"} ;
-
-    linCoordSep : Str -> Bool => Ints 4 => Str ;
-    linCoordSep s = table {True => linCoord; False=> \\_ => s} ;
+    linCoord : Str -> Ints 4 => Str ;
+    linCoord comma = table {0 => "и"; 1=>"или"; 2=>"нито"; 3=>comma; 4=>[]} ;
 
     hyphen : Str = SOFT_BIND ++ "-" ++ SOFT_BIND ;
 

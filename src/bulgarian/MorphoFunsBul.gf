@@ -268,6 +268,11 @@ oper
 
   noPrep : Prep = mkPrep [] Acc ;
 
+--2 Conjunctions
+
+  mkConj : Str -> Number -> Conj = 
+      \s,n -> {s = s; sep = 3; n = n; lock_Conj = <>} ;
+
 --2 Proper Names
 --
   mkPN : Str -> Gender -> PN ;
