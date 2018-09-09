@@ -277,9 +277,28 @@ resource ParadigmsTur = open
                   Uh_Har  => "TODO"
                 } ;
               Gerund _  _    => mek ;
-              VNoun n c =>
-                base + "dik"
-            }
+              VNoun n Gen =>
+                case aorHar.vow of {
+                  Ih_Har => base + "tiği" ;
+                  I_Har  => base + "tığı" ;
+                  U_Har  => base + "duğu" ;
+                  Uh_Har => base + "düğü"
+                } ;
+              VNoun n Ablat =>
+                case aorHar.vow of {
+                  Ih_Har => base + "tıktan" ;
+                  I_Har  => base + "tıktan" ;
+                  U_Har  => base + "duktan" ;
+                  Uh_Har => base + "dükten"
+                } ;
+              VNoun n _ =>
+                case aorHar.vow of {
+                  Ih_Har => base + "(TODO: makeVerb)" ;
+                  I_Har  => base + "(TODO: makeVerb)" ;
+                  U_Har  => base + "(TODO: makeVerb)" ;
+                  Uh_Har => base + "(TODO: makeVerb)"
+                }
+            } ;
         } ;
 
     -- Implementation of noun paradigms
