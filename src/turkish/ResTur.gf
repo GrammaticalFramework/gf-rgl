@@ -86,7 +86,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
       \np, a, v -> {
         s = table {
           None            => np ++ v.s ! VProg a ;
-          SubordSuffixDik => np ++ v.s ! VNoun np.a.n Nom
+          SubordSuffixDik => np ++ v.s ! VNoun a.n Nom
         }
       } ;
 
