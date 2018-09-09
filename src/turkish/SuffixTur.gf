@@ -95,6 +95,8 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     p1PlVerbalSuffix : Suffix = regSuffix "iz" "k" ;
     p2PlVerbalSuffix : Suffix = regSuffix21 "siniz" "niz" ;
     p3PlVerbalSuffix : Suffix = regSuffix "ler" "ler" ;
+    subordSuffixDik  : Suffix = regSuffix2 "dik" "dikler" ;
+    softSubordSuffixDik : Suffix = regSuffix2 "diğ" "dikler" ;
 
 --  Ordinal suffix for numbers
     ordNumSuffix     : Suffix = regSuffix21 "inci" "nci" ;
