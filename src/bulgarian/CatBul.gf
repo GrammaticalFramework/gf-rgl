@@ -68,7 +68,7 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
 
 -- Structural
 
-    Conj = {s : Str; distr : Bool; conj : Ints 4; n : Number} ;
+    Conj = {s : Str; sep : Ints 3; n : Number} ;
     Subj = {s : Str} ;
     Prep = {s : Str; c : Case} ;
 
@@ -126,11 +126,7 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
                                }
                       in linrefVP vp;
 
-    Conj = \conj -> let s = linCoord ! conj.conj 
-                    in case conj.distr of {
-                         True  => s ++ s;
-                         False => s
-                       } ;
+    Conj = \conj -> conj.s ;
 
     V, VS, VQ, VA = \v -> linrefVP (predV v);
     V2 = \v -> linrefVP (predV v) ++ linPrep v.c2 ;

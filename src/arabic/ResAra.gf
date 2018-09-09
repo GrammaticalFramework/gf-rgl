@@ -1035,6 +1035,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s2 : Str
       }; 
 
+    linVP : VP -> Str = \vp -> --used for the first dummy implementation of ComplVV --IL
+      vp.s ! Per3 Masc Sg ! VPPerf ++ vp.s2 ++
+        case vp.isPred of {
+          True  => vp.pred.s ! {g=Masc ; n=Sg} ! Acc ;
+          False => vp.obj.s } ;
+
     predV : Verb -> VP = \v ->
       { s = \\pgn,vf => 
           let gn = pgn2gn pgn in
@@ -1061,29 +1067,16 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _        => pgn
       };
 
-    insertObj : NP -> VP -> VP = \np,vp ->
-      { s = vp.s;
-        obj = {s = np.s ! Acc ; a = np.a};
-        s2 = vp.s2;
-        pred = vp.pred;
-        isPred = vp.isPred
-      };
+    insertObj : NP -> VP -> VP = \np,vp -> vp **
+      { obj = {s = np.s ! Acc ; a = np.a} };
 
-    insertPred : {s : AAgr => Case => Str} -> VP -> VP = \p,vp ->
-      { s = vp.s;
-        obj = vp.obj;
-        s2 = vp.s2;
-        pred = p;
+    insertPred : {s : AAgr => Case => Str} -> VP -> VP = \p,vp -> vp **
+      { pred = p;
         isPred = True
       };
 
-    insertStr : Str -> VP -> VP = \str,vp ->
-      { s = vp.s;
-        obj = vp.obj;
-        s2 = str;
-        pred = vp.pred;
-        isPred = vp.isPred
-      };
+    insertStr : Str -> VP -> VP = \str,vp -> vp **
+      { s2 = str };
 
     kaan : {s : AAgr => Case => Str} -> VP = \xabar -> 
       insertPred xabar (predV (v1hollow {f = "ك"; c = "و" ; l = "ن"} u) );

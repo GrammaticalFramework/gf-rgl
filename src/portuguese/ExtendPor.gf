@@ -5,7 +5,7 @@ concrete ExtendPor of Extend =
    [
      iFem_Pron, weFem_Pron, youFem_Pron, youPlFem_Pron, youPolPl_Pron, youPolFem_Pron, youPolPlFem_Pron, theyFem_Pron,
        ProDrop,
-       PassVPSlash, ExistsNP
+       PassVPSlash, ExistsNP, VPS
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarPor), (Syntax = SyntaxPor) **
@@ -17,6 +17,18 @@ concrete ExtendPor of Extend =
     Prelude,
     ParadigmsPor,
     (S = StructuralPor) in {
+
+  lincat
+    VPS = {s : Agr => Str} ;
+    [VPS] = {s1,s2 : Agr => Str} ;
+--    VPI = {s : VType => Agr => Str } ;
+
+  lin
+    BaseVPS = twotable Agr ;
+    ConsVPS = consrTable Agr comma ;
+
+--    MkVPS t p vp = mkVPS (lin Temp t) (lin Pol p) (lin VP vp) ;
+--TODO: write mkVPS oper
 
   lin
     ProDrop p = {

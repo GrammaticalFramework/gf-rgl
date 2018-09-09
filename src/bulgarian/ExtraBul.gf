@@ -57,26 +57,26 @@ concrete ExtraBul of ExtraBulAbs = CatBul **
 
   lincat
     VPI   = {s : Agr => Str} ;
-    [VPI] = {s : Bool => Ints 4 => Agr => Str} ;
+    [VPI] = {s : Agr => Ints 4 => Str} ;
 
   lin
-    BaseVPI x y = {s  = \\d,t,a=>x.s!a++linCoord!t++y.s!a} ;
-    ConsVPI x xs = {s  = \\d,t,a=>x.s!a++(linCoordSep bindComma)!d!t++xs.s!d!t!a} ;
+    BaseVPI x y = {s  = \\a=>table {4 => y.s!a;    _ => x.s!a}} ;
+    ConsVPI x xs = {s  = \\a=>table {4 => xs.s!a!4; t => x.s!a++linCoord bindComma!t++xs.s!a!t}};
 
     MkVPI vp = {s = daComplex Simul Pos vp ! Perf} ;
     ConjVPI conj vpi = {
-      s = \\a => conj.s++(linCoordSep [])!conj.distr!conj.conj++vpi.s!conj.distr!conj.conj!a;
+      s = \\a =>  linCoord []!conj.sep ++ vpi.s!a!conj.sep ++ conj.s ++ vpi.s!a!4
       } ;
     ComplVPIVV vv vpi = 
       insertObj (\\a => vpi.s ! a) Pos (predV vv) ;
 
   lincat
     VPS   = {s : Agr => Str} ;
-    [VPS] = {s : Bool => Ints 4 => Agr => Str} ;
+    [VPS] = {s : Agr => Ints 4 => Str} ;
 
   lin
-    BaseVPS x y = {s  = \\d,t,a=>x.s!a++linCoord!t++y.s!a} ;
-    ConsVPS x xs = {s  = \\d,t,a=>x.s!a++(linCoordSep bindComma)!d!t++xs.s!d!t!a} ;
+    BaseVPS x y  = {s  = \\a=>table {4 => y.s!a;    _ => x.s!a}} ;
+    ConsVPS x xs = {s  = \\a=>table {4 => xs.s!a!4; t => x.s!a++linCoord bindComma!t++xs.s!a!t}};
 
     PredVPS np vps = {s = np.s ! RSubj ++ vps.s ! personAgr np.gn np.p} ;
 
@@ -88,7 +88,7 @@ concrete ExtraBul of ExtraBulAbs = CatBul **
       } ;
       
     ConjVPS conj vps = {
-      s = \\a => conj.s++(linCoordSep [])!conj.distr!conj.conj++vps.s!conj.distr!conj.conj!a;
+      s = \\a => linCoord []!conj.sep ++ vps.s!a!conj.sep ++ conj.s ++ vps.s!a!4
       } ;
 
     PassVPSlash vp = insertObj (\\a => vp.ad.s ++ vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++

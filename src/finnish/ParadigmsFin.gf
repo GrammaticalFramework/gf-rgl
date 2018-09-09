@@ -411,10 +411,10 @@ mkVS = overload {
   accPrep : Prep =  
     lin Prep {c = NPAcc ; s = <[],[],\\_ => []>} ;
 
-  NK = {s : NForms ; lock_NK : {}} ;
-  AK = {s : NForms ; lock_AK : {}} ;
-  VK = {s : VForms ; lock_VK : {}} ;
-  AdvK = {s : Str ; lock_AdvK : {}} ;
+  NK = {s : NForms} ; --- lock_NK : {}} ;
+  AK = {s : NForms} ; --- lock_AK : {}} ;
+  VK = {s : VForms} ; --- lock_VK : {}} ;
+  AdvK = {s : Str} ; --- lock_AdvK : {}} ;
 
 
   mkN = overload {

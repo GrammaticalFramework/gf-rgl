@@ -112,11 +112,11 @@ lin
 
 lincat
   VPS   = {s : Agr => Str} ;
-  [VPS] = {s : Bool => Ints 4 => Agr => Str} ;
+  [VPS] = {s : Agr => Ints 4 => Str} ;
 
 lin
-  BaseVPS x y = {s  = \\d,t,a=>x.s!a++linCoord!t++y.s!a} ;
-  ConsVPS x xs = {s  = \\d,t,a=>x.s!a++(linCoordSep bindComma)!d!t++xs.s!d!t!a} ;
+  BaseVPS x y  = {s  = \\a=>table {4 => y.s!a;    _ => x.s!a}} ;
+  ConsVPS x xs = {s  = \\a=>table {4 => xs.s!a!4; t => x.s!a++linCoord bindComma!t++xs.s!a!t}};
 
   PredVPS np vps = {s = np.s ! RSubj ++ vps.s ! personAgr np.gn np.p} ;
 
@@ -128,7 +128,7 @@ lin
     } ;
       
   ConjVPS conj vps = {
-    s = \\a => conj.s++(linCoordSep [])!conj.distr!conj.conj++vps.s!conj.distr!conj.conj!a;
+    s = \\a => linCoord []!conj.sep ++ vps.s!a!conj.sep ++ conj.s ++ vps.s!a!4
     } ;
 
 lin
