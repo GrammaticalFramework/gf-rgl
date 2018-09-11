@@ -1,9 +1,14 @@
 concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
-  open CommonRomance, ResRomance, MorphoPor, Prelude in {
+  open CommonRomance, ResRomance, MorphoPor, Prelude, Predef in {
 
   flags coding=utf8 ;
 
+  param
+    DForm = unit | teen | ten | hundred ;
+
   lincat
+  --- cardinals are generally not inflected by gender, however 1 and 2
+  --- are, as are the hundreds from 2 to 9
     Digit = {s : DForm => CardOrd => Str} ;
     Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
     Sub100 = {s : CardOrd => Str ; n : Number} ;
@@ -44,10 +49,11 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
       "novecentos" "nono" "nonagésimo" "noningentésimo";
 
     pot01 =
-      let um = (mkTal "um" "onze" "dez" "cento" "primeiro"
+      let um = (mkTal "um" "onze" "dez" "centos" "primeiro"
                   "décimo" "centésimo").s in
       {s =\\f,g => case <f,g> of {
          <unit, NCard Fem> => "uma" ;
+         <hundred, NCard _> => "cento" ;
          _ => um ! f ! g
          } ;
        n = Sg
@@ -66,20 +72,32 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
     pot1as2 n = n ;
     pot2 d =
       let n = case d.n of {
-            Sg => mkTal [] [] [] "cem" [] [] "centésimo" ;
-            _ => d
+            Sg => cem ;
+            _ => d.s ! hundred
             }
-      in spl (n.s ! hundred) ;
+      in spl n ;
     pot2plus d e =
       {s = \\g => d.s ! hundred ! g
          ++ e_CardOrd g ++ e.s ! g ;
        n = Pl} ;
     pot2as3 n = n ;
-    pot3 n = spl (\\g => n.s ! NCard Masc ++ mil g) ;
-    pot3plus n m = {s = \\g => n.s ! NCard Masc
-                      ++ mil g ++ e_CardOrd g
-                      ++ m.s ! g ;
-                    n = Pl} ;
+    pot3 n =
+      let n = case n.n of {
+            Sg => [] ;
+            _ => n.s ! NCard Masc
+            } ;
+      in spl (\\g => n ++ mil g) ;
+    pot3plus n m =
+      let n = case n.n of {
+            Sg => [] ;
+            _ => n.s ! NCard Masc
+            } ;
+      in {s = \\g => n ++ mil g
+            -- actually, 'e' only if m is exact hundred (pot2) or
+            -- lower
+            ++ e_CardOrd g
+            ++ m.s ! g ;
+          n = Pl} ;
 
   oper
     mkTal : (_,_,_,_,_,_,_ : Str) -> {s : DForm => CardOrd => Str} =
@@ -88,8 +106,8 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
          <unit, NCard _>     => dois ;
          <teen, NCard _>     => doze ;
          <ten, NCard _>      => vinte ;
-         <hundred, NCard _>  => duzentos ;
-         <unit, NOrd g n>    => (regCard segundo) g n ;
+         <hundred, NCard g>  => regCard (tk 1 duzentos) g Pl ;
+         <unit, NOrd g n>    => regCard segundo g n ;
          <teen, NOrd g n>    => (regCard "décimo") g n ++ (regCard segundo) g n ;
          <ten, NOrd g n>     => regCard vigesimo g n ;
          <hundred, NOrd g n> => regCard duocentesimo g n
@@ -104,6 +122,13 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
       n = Pl
       } ;
 
+    cem : CardOrd => Str ;
+    cem = \\co =>
+      case co of {
+        NCard _ => "cem" ;
+        NOrd g n => regCard "centésimo" g n
+      } ;
+
     mil : CardOrd -> Str = \g ->
       (mkTal "mil" [] [] [] "milésimo" [] []).s ! unit ! g ;
 
@@ -111,9 +136,6 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
       NCard _ => "e" ;
       _ => []
       } ;
-
-  param
-    DForm = unit | teen | ten | hundred ;
 
 ---
 -- numerals as sequences of digits
