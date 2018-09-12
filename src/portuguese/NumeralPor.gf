@@ -60,43 +60,55 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
       } ;
 
     pot0 d = {s = d.s ; n = Pl} ;
+    
     pot110 = spl (pot01.s ! ten) ;
+    
     pot111 = spl (pot01.s ! teen) ;
+    
     pot1to19 d = spl (d.s ! teen) ;
+    
     pot0as1 n = {s = n.s ! unit ; n = n.n} ;
+    
     pot1 d = spl (d.s ! ten) ;
+    
     pot1plus d e =
       {s = \\g => d.s ! ten ! g
          ++ e_CardOrd g ++ e.s ! unit ! g ;
        n = Pl} ;
+    
     pot1as2 n = n ;
+    
     pot2 d =
       let n = case d.n of {
-            Sg => cem ;
+            Sg => mkNumStr "cem" "centésimo" ;
             _ => d.s ! hundred
             }
       in spl n ;
+    
     pot2plus d e =
       {s = \\g => d.s ! hundred ! g
          ++ e_CardOrd g ++ e.s ! g ;
        n = Pl} ;
+    
     pot2as3 n = n ;
+    
     pot3 n =
       let n = case n.n of {
             Sg => [] ;
             _ => n.s ! NCard Masc
             } ;
-      in spl (\\g => n ++ mil g) ;
+      in spl (\\co => n ++ mil ! co) ;
+    
     pot3plus n m =
       let n = case n.n of {
             Sg => [] ;
             _ => n.s ! NCard Masc
             } ;
-      in {s = \\g => n ++ mil g
+      in {s = \\co => n ++ mil ! co
             -- actually, 'e' only if m is exact hundred (pot2) or
             -- lower
-            ++ e_CardOrd g
-            ++ m.s ! g ;
+            ++ e_CardOrd co
+            ++ m.s ! co ;
           n = Pl} ;
 
   oper
@@ -122,15 +134,15 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
       n = Pl
       } ;
 
-    cem : CardOrd => Str ;
-    cem = \\co =>
+    mkNumStr : Str -> Str -> CardOrd => Str ;
+    mkNumStr cem centesimo = \\co =>
       case co of {
-        NCard _ => "cem" ;
-        NOrd g n => regCard "centésimo" g n
+        NCard _ => cem ;
+        NOrd g n => regCard centesimo g n
       } ;
 
-    mil : CardOrd -> Str = \g ->
-      (mkTal "mil" [] [] [] "milésimo" [] []).s ! unit ! g ;
+    mil : CardOrd => Str ;
+    mil = mkNumStr "mil" "milésimo" ;
 
     e_CardOrd : CardOrd -> Str = \co -> case co of {
       NCard _ => "e" ;
