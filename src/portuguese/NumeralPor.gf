@@ -60,45 +60,45 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
       } ;
 
     pot0 d = {s = d.s ; n = Pl} ;
-    
+
     pot110 = spl (pot01.s ! ten) ;
-    
+
     pot111 = spl (pot01.s ! teen) ;
-    
+
     pot1to19 d = spl (d.s ! teen) ;
-    
+
     pot0as1 n = {s = n.s ! unit ; n = n.n} ;
-    
+
     pot1 d = spl (d.s ! ten) ;
-    
+
     pot1plus d e =
       {s = \\g => d.s ! ten ! g
          ++ e_CardOrd g ++ e.s ! unit ! g ;
        n = Pl} ;
-    
+
     pot1as2 n = n ;
-    
+
     pot2 d =
       let n = case d.n of {
             Sg => mkNumStr "cem" "centésimo" ;
             _ => d.s ! hundred
             }
       in spl n ;
-    
+
     pot2plus d e =
       {s = \\g => d.s ! hundred ! g
          ++ e_CardOrd g ++ e.s ! g ;
        n = Pl} ;
-    
+
     pot2as3 n = n ;
-    
+
     pot3 n =
       let n = case n.n of {
             Sg => [] ;
             _ => n.s ! NCard Masc
             } ;
       in spl (\\co => n ++ mil ! co) ;
-    
+
     pot3plus n m =
       let n = case n.n of {
             Sg => [] ;
@@ -126,8 +126,12 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
          }
       } ;
 
-    regCard : Str -> Gender -> Number -> Str = \vigesimo ->
-      pronForms (adjPreto vigesimo) ;
+    regCard : Str -> Gender -> Number -> Str ;
+    regCard vigesimo = case vigesimo of {
+      -- to handle milhão case (in ParseExtend module)
+      milh + "ão" => \g, n -> genNumForms vigesimo vigesimo (milh + "ões") vigesimo ! g ! n;
+      _ => pronForms (adjPreto vigesimo)
+      } ;
 
     spl : (CardOrd => Str) -> {s : CardOrd => Str ; n : Number} = \s -> {
       s = s ;
