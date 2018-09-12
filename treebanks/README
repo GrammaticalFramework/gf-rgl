@@ -7,6 +7,7 @@ Available treebanks:
   rgl-exx.txt        -- an old text treebank for RGL copied from GF/test/exx-resource.gfs
   rgl-api-trees.txt  -- the examples of the library synopsis in core RGL terms
   ud-rgl-trees.txt   -- trees constructed from Universal Dependencies documentation by using words from the common RGL Lexicon
+  numeral-trees.txt -- trees representing a variety of numerals
 
 To run a treebank on a language:
 
