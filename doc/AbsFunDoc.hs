@@ -13,7 +13,7 @@ import Data.List
 main = do
   system "grep \" : \" ../src/abstract/*.gf | grep \" -- \" >absfuns.tmp"
   funs <- readFile "absfuns.tmp" >>= return . lines
-  deps <- readFile "../src/dep.labels" >>= return . lines
+  deps <- readFile "../src/Lang.labels" >>= return . lines
   let depmap = M.fromListWith (\x y -> x ++ [";"] ++ y) [(fun,deps) | fun:deps <- map words deps]
   let rows = sort $ filter (flip S.notMember hiddenModules . last) $ map (mkRow depmap) (map words funs)
   let entries = map (sepFields . addLink) rows
