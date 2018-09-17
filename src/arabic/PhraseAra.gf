@@ -18,7 +18,9 @@ concrete PhraseAra of Phrase = CatAra ** open
     UttIP ip = {s = \\_ => ip.s} ; ---- AR
 
      -- AP = { s : Species => Gender => Number => State => Case => Str } ;
-    UttAP ap = {s = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom } ;  ---- OK? IL
+    UttAP ap = {s = \\g => ap.s ! NoHum ! g ! ResAra.Sg ! Def ! Nom } ;  ---- OK? IL
+    -- Card =  {s : Gender => State => Case => Str } ;
+    UttCard c = {s =  \\g => c.s ! g ! Def ! Nom } ;  ---- OK? IL
 
 --    UttIAdv iadv = iadv ;
     UttNP np = {s = \\_ => np.s ! Nom} ;
