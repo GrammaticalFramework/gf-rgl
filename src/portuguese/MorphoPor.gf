@@ -8,8 +8,7 @@
 -- $ParadigmsPor$, which gives a higher-level access to this module.
 
 resource MorphoPor = CommonRomance, ResPor **
-  open PhonoPor, Prelude, Predef,
-  CatPor in {
+  open PhonoPor, Prelude, Predef, CatPor in {
 
   flags optimize=all ;
         coding=utf8 ;
