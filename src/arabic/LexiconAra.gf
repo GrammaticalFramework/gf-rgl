@@ -112,7 +112,7 @@ flags
   iron_N       = brkN "حدّ" "فَعِيل" "فَعائِل" Masc NoHum ;
   king_N       = brkN "ملك" "فَعِل" "فُعُول" Masc Hum ;
   know_V2      = dirV2 (regV "عَرِف") ;
---  know_V2      = dirV2 (v1 "عرف" i a) ;
+  know_VS      = mkVS (regV "عَرِف") ; -- or with ع ل م‎?
   lake_N       = sdfN "بحر" "فُعَيلة" Fem NoHum ;
   lamp_N       = brkN "صبح" "مِفعال" "مَفاعِيل" Masc NoHum ; --qanDIl, fAnUs
   learn_V2     = dirV2 (v5 "علم") ;
