@@ -41,14 +41,14 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 --
 -- Adjective
 
-    AP = {s : Species => Gender => NTable } ; 
+    AP = ResAra.AP ;
 
 -- Noun
 
     CN = ResAra.Noun ** {adj : NTable};
     NP, Pron = ResAra.NP; --{s : Case => Str ; a : Agr } ;
-    Num, Ord, Card = {s : Gender => State => Case => Str ;
-                n : Size };
+    Num, Ord, Card = ResAra.NumOrdCard ;
+
     Predet = ResAra.Predet ;
 
 -- DEPRECATED

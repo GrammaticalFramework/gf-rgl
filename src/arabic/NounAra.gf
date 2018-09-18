@@ -189,5 +189,6 @@ lin
   --    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s} ;
   --
   --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
-  --    ApposCN cn np =
+  ApposCN cn np = cn ** {
+    s = \\n,d,c => cn.s ! n ! d ! c ++ np.s ! c } ;
 }

@@ -109,6 +109,14 @@ resource ResAra = PatternsAra ** open  Prelude, Predef   in {
 --    Adj  : Type = {s : Gender => NTable} ;
     Adj  : Type = {s : AForm => Str} ;
     Verb : Type = {s : VForm => Str} ;
+
+    AP : Type = {s : Species => Gender => NTable } ;
+    uttAP : AP -> (Gender => Str) ;
+    uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
+
+    NumOrdCard : Type = {s : Gender => State => Case => Str ; n : Size };
+    uttNum : NumOrdCard -> (Gender => Str) ;
+    uttNum n = \\g => n.s ! g ! Def ! Nom ;  ----IL
     
   param
     VForm =
@@ -975,7 +983,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     mkIP : Str -> Number -> {s : Str ; n : Number} =
      \s,n -> {s = s ; n = n} ;
 
-    mkOrd : (_,_ : Str) -> {s : Gender => State => Case => Str ; n : Size } =
+    mkOrd : (_,_ : Str) -> NumOrdCard =
       \aysar,yusra -> 
       { s = \\g,s,c =>
           case g of {
