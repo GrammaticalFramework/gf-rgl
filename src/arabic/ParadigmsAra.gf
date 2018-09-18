@@ -180,7 +180,7 @@ resource ParadigmsAra = open
 --Verb Form V : tafa``ala 
   
   v5 : Str -> V ;
-  
+
 --Verb Form VI : tafaa`ala 
   
   v6 : Str -> V ;
@@ -194,7 +194,11 @@ resource ParadigmsAra = open
 -- Two-place verbs need a preposition, except the special case with direct object.
 -- (transitive verbs). Notice that a particle comes from the $V$.
 
-  mkV2  : V -> Preposition -> V2 ;
+  mkV2 = overload {
+    mkV2 : V -> V2 = dirV2 ;
+    mkV2 : V -> Preposition -> V2 = prepV2 ;
+    mkV2 : Str -> V2 = strV2;
+  } ;
 
   dirV2 : V -> V2 ;
 
@@ -497,8 +501,11 @@ resource ParadigmsAra = open
   mkAdA x = ss x ** {lock_AdA = <>} ;
   
   mkPreposition p = p ;
-  mkV2 v p = v ** {s = v.s ; c2 = p ; lock_V2 = <>} ;
-  dirV2 v = mkV2 v [] ;
+
+  prepV2 : V -> Preposition -> V2 = \v,p -> v ** {s = v.s ; c2 = p ; lock_V2 = <>} ;
+  strV2 : Str -> V2 = \str -> dirV2 (mkV str) ;
+
+  dirV2 v = prepV2 v [] ;
   
   mkV3 v p q = v ** {s = v.s ; c2 = p ; c3 = q ; lock_V3 = <>} ;
   dirV3 v p = mkV3 v [] p ;
