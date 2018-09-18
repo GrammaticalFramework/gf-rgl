@@ -5,7 +5,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
   lin
     UseV = predV ;
 
-    SlashVV vv vps = vps ** predV vv ; ---- totally wrong /IL
+    SlashVV vv vps = vps ** predV vv ; ----IL
     SlashV2a v = predV v ** {c2 = v.c2};
     Slash3V3 v np = insertObj np (predV v) ** {c2 = v.c2};
 
@@ -37,8 +37,9 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
 --
 --    PassV2 v = insertObj (\\_ => v.s ! VPPart) (predAux auxBe) ;
 --
-    --    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no 
---
+--    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no
+
+    CompCN cn = {s = \\agr,c => cn.s ! agr.n ! Indef ! c} ; ----IL
     CompAP ap = {s = \\agr,c => ap.s ! Hum ! agr.g ! agr.n ! Indef ! c} ; --FIXME
     CompNP np = {s = \\_,c => np.s ! c};
     CompAdv a = {s = \\_,_ => a.s} ;

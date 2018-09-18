@@ -310,6 +310,7 @@ flags
   night_N      = brkN "ليل" "فَعلة" "فَعالِي"    Fem NoHum;  --plural?
   nose_N       = brkN "؟نف" "فَعل" "فُعُول"      Masc NoHum;           
   person_N     = brkN "شخص" "فَعل" "أَفعال"     Masc Hum;             
+  question_N   = mkN "سؤال" ; ----IL
   rain_N       = brkN "مطر" "فَعَل" "أَفعال"    Masc NoHum;           
   road_N       = brkN "طرق" "فَعِيل" "فُعُل"     Fem NoHum;            
   root_N       = brkN "جذر" "فَعل" "فُعُول"      Masc NoHum ;          
