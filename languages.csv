@@ -1,7 +1,7 @@
 Code,Directory,Functor,Unlexer,Present,All,Try,Symbolic,Compatibility
 Afr,afrikaans,,,,,,n,
 Amh,amharic,,,,,n,n,
-Ara,arabic,,,,,n,n,
+Ara,arabic,,,,,,y,
 Eus,basque,,,,,,,
 Bul,bulgarian,,,y,,,,
 Cat,catalan,Romance,,y,,,,y
