@@ -95,8 +95,16 @@ concrete StructuralAra of Structural = CatAra **
   when_IAdv = ss "مَتَى" ;
 --  when_Subj = ss "وهن" ;
   where_IAdv = ss "أَينَ" ;
---  whichPl_IDet = mkDeterminer Pl ["وهِعه"] ;
---  whichSg_IDet = mkDeterminer Sg ["وهِعه"] ;
+  which_IQuant = {
+    s = \\s,c => case <c,s> of {
+		     <Nom,Indef> => "أيٌّ" ;
+		     <Nom,_>     => "أيُّ" ;
+		     <Acc,Indef> => "أيّاً" ;
+		     <Acc,_>     => "أيَّ" ;
+		     <Gen,Indef> => "أيٍّ" ;
+		     <Gen,_>     => "أيِّ"
+		     }
+    } ;
   whoSg_IP = mkIP "مَنْ" Sg ;
   whoPl_IP = mkIP "مَنْ" Pl ;
 --  why_IAdv = ss "وهي" ;
