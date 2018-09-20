@@ -71,7 +71,6 @@ concrete SentenceAra of Sentence = CatAra ** open
               np.s ! Nom ++ (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
           } 
       };
-    --    PredVP np vp = mkClause (np.s ! Nom) np.a vp ;
 
 --    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
@@ -91,14 +90,16 @@ concrete SentenceAra of Sentence = CatAra ** open
 --      mkClause (np.s ! Nom) np.a 
 --        (insertObj (\\a => infVP vv.isAux (predV v2) a) (predVV vv))  **
 --        {c2 = v2.c2} ;
---
---    AdvSlash slash adv = {
---      s  = \\t,a,b,o => slash.s ! t ! a ! b ! o ++ adv.s ;
---      c2 = slash.c2
---    } ;
---
---    SlashPrep cl prep = cl ** {c2 = prep.s} ;
---
+
+-- ClSlash
+
+    SlashVP np vps = PredVP np vps ** { c2 = vps.c2 } ;
+    AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
+    SlashPrep cl prep = cl ** {c2 = prep.s} ;
+
+--  SlashVS np vs sslash = TODO
+
+
 --    EmbedS  s  = {s = conjThat ++ s.s} ;
 --    EmbedQS qs = {s = qs.s ! QIndir} ;
 --    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr

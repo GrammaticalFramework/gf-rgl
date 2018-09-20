@@ -7,7 +7,7 @@
 ---- implement $Test$, it moreover contains regular lexical
 ---- patterns needed for $Lex$.
 --
-resource ResAra = PatternsAra ** open  Prelude, Predef   in {
+resource ResAra = PatternsAra ** open  Prelude, Predef, ParamX  in {
 
   flags optimize=noexpand ; coding=utf8 ;
 
@@ -114,7 +114,11 @@ resource ResAra = PatternsAra ** open  Prelude, Predef   in {
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
 
-    NumOrdCard : Type = {s : Gender => State => Case => Str ; n : Size };
+    NumOrdCard : Type = {
+      s : Gender => State => Case => Str ;
+      n : Size ;
+      } ;
+
     uttNum : NumOrdCard -> (Gender => Str) ;
     uttNum n = \\g => n.s ! g ! Def ! Nom ;  ----IL
     
@@ -980,8 +984,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
  
 
-    mkIP : Str -> Number -> {s : Str ; n : Number} =
-     \s,n -> {s = s ; n = n} ;
+    mkIP : Str -> Number -> IP =
+     \s,n -> {s = \\_g,_s,_c => s ; n = n} ;
 
     mkOrd : (_,_ : Str) -> NumOrdCard =
       \aysar,yusra -> 
@@ -1027,7 +1031,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s : Case => Str ; 
       a : Agr 
       } ;
-    
+
+    IP : Type = {
+      s : Gender  -- because of CompIP
+	=> State => Case -- because of PrepIP: e.g. "in which" chooses definite accusative
+	=> Str ;
+      n : Number
+      } ;
+
     param VPForm =
         VPPerf 
       | VPImpf Mood 
@@ -1089,6 +1100,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     kaan : {s : AAgr => Case => Str} -> VP = \xabar -> 
       insertPred xabar (predV (v1hollow {f = "ك"; c = "و" ; l = "ن"} u) );
 
+    -- Slash categories
+    VPSlash : Type = VP ** {c2 : Str} ;
+    ClSlash : Type = Cl ** {c2 : Str} ;
+
+    Cl  : Type = {s : Tense => Polarity => Order => Str} ;
+    QCl : Type = {s : Tense => Polarity => QForm => Str} ;
+
+--TODO:   slashRCl : ClSlash -> RP -> RCl ;
+    
   param
 
     Size = One | Two | ThreeTen | Teen | NonTeen | Hundreds | None ;
