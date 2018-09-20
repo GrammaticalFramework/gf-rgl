@@ -1,4 +1,4 @@
-concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude in {
+concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbAra in {
 
   flags optimize=all_subs ; coding = utf8 ;
 
@@ -12,13 +12,16 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude in {
         }
       };
 
+    -- ComplSlashIP vps ip = {} ;
 
 -- AR copied from PredVP
     QuestVP qp vp = 
       { s =\\t,p,_ => 
           let {
-----            o = Verbal ; ---- AR 
-            np = {s = table Case {_ => qp.s} ; a ={pgn = Per3 Masc qp.n ; isPron = False}} ;
+  ----            o = Verbal ; ---- AR
+	    objgn = pgn2gn vp.obj.a.pgn ;
+	    np = {s = qp.s ! objgn.g ! Def ; ----IL just guessing state
+		  a ={pgn = Per3 Masc qp.n ; isPron = False}} ;
             pgn = np.a.pgn ;
             gn = pgn2gn pgn;
             kataba  = vp.s ! pgn ! VPPerf ;
@@ -60,47 +63,48 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude in {
    ; ----  };
 
 
---    QuestSlash ip slash = {
---      s = \\t,a,p => 
---            let 
---              cls = slash.s ! t ! a ! p ;
---              who = slash.c2 ++ ip.s ! Acc --- stranding in ExtAra 
---            in table {
---              QDir   => who ++ cls ! OQuest ;
---              QIndir => who ++ cls ! ODir
---              }
---      } ;
---
-
 ---- AR guessed
-    QuestIAdv iadv cl = {s = \\t,p,_ => iadv.s ++ cl.s ! t ! p ! Verbal} ;
+   QuestIAdv iadv cl = {s = \\t,p,_ => iadv.s ++ cl.s ! t ! p ! Verbal} ;
 
---      s = \\t,a,p => 
---            let 
---              cls = cl.s ! t ! a ! p ;
---              why = iadv.s
---            in table {
---              QDir   => why ++ cls ! OQuest ;
---              QIndir => why ++ cls ! ODir
---              }
---      } ;
---
---    PrepIP p ip = {s = p.s ++ ip.s ! Nom} ;
---
---    AdvIP ip adv = {
---      s = \\c => ip.s ! c ++ adv.s ;
---      n = ip.n
---      } ;
--- 
+---- IL guessed
+   QuestIComp icomp np =
+     let vp = kaan (CompNP np) in
+      QuestVP icomp vp ;
 
----- AR guesses
-    IdetCN idet cn = {
-      s = idet.s ! Nom ++ cn.s ! idet.n ! Indef ! Nom ; 
-      n = idet.n
+   CompIP ip = ip ;
+   -- old, when IComp = Comp { s = \\{g=g ; n=_},c => ip.s ! g ! Def ! c } ; ----
+
+   CompIAdv iadv = mkIP iadv.s ResAra.Sg ;
+
+   --  QCl = {s : R.Tense => Polarity => QForm => Str} ;
+   QuestSlash ip cl = { ----IL just guessing
+      s = \\t,p,qf => case qf of {
+	QDir   => cl.s ! t ! p ! Verbal ++ cl.c2  ++ ip.s ! Masc ! Def ! Nom ; --VSO (purely guessing)
+	QIndir => cl.s ! t ! p ! Nominal ++ cl.c2 ++ ip.s ! Masc ! Def ! Nom } --SVO (purely guessing)
       } ;
-    IdetQuant idet num = {
-      s = \\c => idet.s ++ num.s ! Masc ! Indef ! c; 
-      n = ResAra.Sg ---- size of Num
-      } ;
---
+
+   PrepIP p ip = {s = p.s ++ ip.s ! Masc ! Def ! Acc} ; ----IL
+
+   AdvIP ip adv = ip ** {
+     s = \\g,s,c => ip.s ! g ! s ! c ++ adv.s ;
+     n = ip.n
+     } ;
+
+----IL guessed with help of L and Google translate
+   -- : IDet -> IP
+   IdetIP idet = idet ; -- Gender still matters if turned into IComp
+
+   -- : IDet -> CN -> IP
+   IdetCN idet cn = idet ** {
+     s = \\g,s,c => idet.s ! cn.g ! s ! c ++ -- gender is determined by the CN
+                     cn.s ! idet.n ! Indef ! Gen ; --idaafa
+     } ;
+
+   -- : IQuant -> Num -> IDet
+   IdetQuant iquant num = {
+     s = \\g,s,c =>
+          let gend = detGender g num.n -- gender flips with some numbers
+          in  iquant.s ! s ! c ++ num.s ! gend ! s ! c ;
+     n = sizeToNumber num.n
+     } ;
 }
