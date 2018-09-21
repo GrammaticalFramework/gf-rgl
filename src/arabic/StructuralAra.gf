@@ -50,7 +50,7 @@ concrete StructuralAra of Structural = CatAra **
 --  more_CAdv = ss "مْري" ;
   most_Predet = mkPredet  "أَكثَر" True ;
   much_Det = mkDet "الكَثِير مِنَ" Pl Const ;
---  must_VV = {
+  must_VV = mkVV (v1 "وجب" a i) "أن" ;
 --    s = table VVForm [["بي هَثي تْ"] ; "مُست" ; ["هَد تْ"] ; 
 --         ["هَد تْ"] ; ["هَثِنغ تْ"] ; "مُستنءت" ; ["هَدنءت تْ"]] ; ---- 
 --    isAux = True

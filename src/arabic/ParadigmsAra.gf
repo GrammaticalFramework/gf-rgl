@@ -219,7 +219,10 @@ resource ParadigmsAra = open
   mkV0  : V -> V0 ;
   mkVS  : V -> VS ;
   mkV2S : V -> Str -> V2S ;
-  mkVV  : V -> VV ;
+  mkVV = overload {
+    mkVV : V -> VV = regVV ;
+    mkVV : V -> Str -> VV = c2VV
+    } ;
   mkV2V : V -> Str -> Str -> V2V ;
   mkVA  : V -> VA ;
   mkV2A : V -> Str -> V2A ;
@@ -514,7 +517,8 @@ resource ParadigmsAra = open
   mkVS  v = v ** {lock_VS = <>} ;
   mkVQ  v = v ** {lock_VQ = <>} ;
 
-  mkVV v = lin VV v ** {isAux = False} ;
+  regVV : V -> VV = \v -> lin VV v ** {isAux = False; c2 = []} ;
+  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = prep} ;
 
   V0 : Type = V ;
 ----  V2S, V2V, V2Q, V2A : Type = V2 ;

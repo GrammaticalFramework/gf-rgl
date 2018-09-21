@@ -58,14 +58,20 @@ concrete SentenceAra of Sentence = CatAra ** open
           } in
           case o of { 
             Verbal => 
-              case <False, np.a.isPron> of {
----- AR workaround 18/12/2008              case <vp.obj.a.isPron, np.a.isPron> of {
+              --case <False, np.a.isPron> of { ---- AR workaround 18/12/2008
+	      case <vp.obj.a.isPron, np.a.isPron> of {
+		{- IL: I don't think we should do prodrop here. vStr drops the copula in present tense,
+		       so there's hardly anything left for a predicative clause: e.g.
+		          PredVP (UsePron i_Pron) (UseComp (CompCN (UseN car_N))) "I am a car"
+		       would be linearised just as "car", if we have both prodrop and copula drop.
+		       Leaving it up to someone who knows Arabic to decide what is better.
+		Original here:
+                <True,True>  => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p) ;
                 -- ya2kuluhu
-                <False,True> => (vStr t p) ++ vp.obj.s  ++ vp.s2 ++ (pred t p);
+                <False,True> => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p); -}
                 -- ya2kuluhu al-waladu, yakuluhu al-2awlaadu 
-                <False,False> => (vStr t p) ++ np.s ! Nom ++ vp.obj.s  ++ vp.s2 ++ (pred t p);
-                <True,False>  => (vStr t p) ++ vp.obj.s ++ np.s ! Nom ++ vp.s2 ++ (pred t p);
-                <True,True>  => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
+                <False> => (vStr t p) ++ np.s ! Nom ++ vp.obj.s ++ vp.s2 ++ (pred t p);
+                <True>  => (vStr t p) ++ vp.obj.s ++ np.s ! Nom ++ vp.s2 ++ (pred t p)
               };
             Nominal =>
               np.s ! Nom ++ (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
