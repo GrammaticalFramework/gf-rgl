@@ -8,12 +8,12 @@ lin
     number = sizeToNumber det.n;
     determiner : Case -> Str = \c -> 
       det.s ! cn.h ! (detGender cn.g det.n) ! c;
-    noun : Case -> Str = \c -> cn.s ! 
+    noun : Case -> NTable -> Str = \c,nt -> nt !
       number ! (nounState det.d number) ! (nounCase c det.n det.d)
     } in { 
       s = \\c => 
         case cnB4det det.isPron det.isNum det.n det.d of {
-          False => determiner c ++ noun c;
+          False => determiner c ++ noun c cn.s ++ noun c cn.adj ;
           --FIXME use the adj -> cn -> cn rule from below instead of 
           --repeating code
           True => cn.s ! number ! det.d ! c ++ det.s ! cn.h ! cn.g ! c 

@@ -1095,7 +1095,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
     insertStr : Str -> VP -> VP = \str,vp -> vp **
-      { s2 = str };
+      { s2 = vp.s2 ++ str };
 
     kaan : {s : AAgr => Case => Str} -> VP = \xabar -> 
       insertPred xabar (predV (v1hollow {f = "ك"; c = "و" ; l = "ن"} u) );
