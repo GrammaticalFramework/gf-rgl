@@ -15,6 +15,6 @@ concrete ExtendAra of Extend =
   in {
 
   lin
-    GenNP np = { s = \\_,_,_ => np.s ; d = Const ; isNum, isPron = False } ;
+    GenNP np = { s = \\_,_,_,_ => np.s ! Gen ; d = Const ; isNum, isPron = False } ;
 
 } ;
