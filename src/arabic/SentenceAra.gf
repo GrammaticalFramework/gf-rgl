@@ -120,7 +120,7 @@ concrete SentenceAra of Sentence = CatAra ** open
     UseQCl t ap qcl = --{s = cl.s ! t ! p ! Verbal } ;
       {s = 
          table {
-           QDir => "هَل" ++ qcl.s ! ResAra.Pres ! ap.p ! QDir;
+           QDir => qcl.s ! ResAra.Pres ! ap.p ! QDir;
            QIndir =>  qcl.s ! ResAra.Pres ! ap.p ! QIndir
          }
 {-         case t of {

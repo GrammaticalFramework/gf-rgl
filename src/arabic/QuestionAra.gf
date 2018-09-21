@@ -8,7 +8,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
       s = \\t,p => 
         table {
           QIndir => "إِذا" ++ cl.s ! t ! p ! Verbal ;
-          QDir => cl.s ! t ! p ! Verbal 
+          QDir => "هَل" ++ cl.s ! t ! p ! Verbal 
         }
       };
 
