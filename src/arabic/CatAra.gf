@@ -16,16 +16,18 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
 -- Sentence
 
-    Cl = {s : ResAra.Tense => Polarity => Order => Str} ;
---    Slash = {s : Tense => Anteriority => Polarity => Order => Str} ** {c2 : Str} ;
+    Cl = ResAra.Cl ; -- {s : ResAra.Tense => Polarity => Order => Str} ;
+    ClSlash = ResAra.ClSlash ;
     Imp = {s : Polarity => Gender => ResAra.Number => Str} ;
 
 -- Question
 
-    QCl = {s : ResAra.Tense => Polarity => QForm => Str} ;
-    IP = {s : Str ; n : ResAra.Number} ;
---    IAdv = {s : Str} ;    
-    IDet = {s : Case => Str ; n : ResAra.Number} ; ---- AR add Case
+    QCl = ResAra.QCl ; -- {s : ResAra.Tense => Polarity => QForm => Str} ;
+    IP,
+    IDet,
+    IComp = ResAra.IP ; -- {s : Gender => State => Case => Str ; n : ResAra.Number} ;
+    --    IAdv = {s : Str} ;
+    IQuant = {s : State => Case => Str} ;
 --
 ---- Relative
 --
@@ -35,7 +37,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 -- Verb
 
     VP = ResAra.VP ;
-    VPSlash = ResAra.VP ** {c2 : Str} ;
+    VPSlash = ResAra.VPSlash ; -- VP ** {c2:Str}
     Comp = ResAra.Comp ; --{s : AAgr => Case => Str} ; 
 --    SC = {s : Str} ;
 --
@@ -47,17 +49,10 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
     CN = ResAra.Noun ** {adj : NTable};
     NP, Pron = ResAra.NP; --{s : Case => Str ; a : Agr } ;
-    Num, Ord, Card = ResAra.NumOrdCard ;
-
+    Ord,
+    Num,
+    Card = ResAra.NumOrdCard ;
     Predet = ResAra.Predet ;
-
--- DEPRECATED
---    QuantSg, QuantPl = 
---      {s : Species => Gender => Case => Str; 
---       n : ResAra.Number; 
---       d : State; 
---       isNum : Bool;
---       isPron : Bool} ;
 
     Det = ResAra.Det ;
 --  {s : Species => Gender => Case => Str ; 
