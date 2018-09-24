@@ -280,7 +280,7 @@ resource ParadigmsAra = open
           l = dp 2 rootStr } in --last rootStr
     case <l, root.c> of {
       <"ّ",_>     => v1geminate rootStr vPerf vImpf ;
-      <"و"|"ي",_> => v1defective root vImpf ;
+      <"و"|"ي",_> => v1defective root vPerf vImpf ;
       <_,"و"|"ي"> => v1hollow root vImpf ;
       _		    => v1sound root vPerf vImpf 
     };

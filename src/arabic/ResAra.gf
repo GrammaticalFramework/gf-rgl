@@ -232,33 +232,45 @@ oper
   verbHollow : (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb = 
 	\xAf,xif,xyf,xuf,axAf,axaf,uxAf,uxaf,xaf,xAf',ppart ->
     let { perfPattern = patHollowPerf xAf xif xyf xuf ;
-		  impfPattern = patHollowImpf axAf axaf uxAf uxaf ;
-		  impPattern  = patHollowImp axaf xAf' ;
+          impfPattern = patHollowImpf axAf axaf uxAf uxaf ;
+          impPattern  = patHollowImp axaf xAf' ;
           jusPattern  = patHollowJus axaf axAf uxaf uxAf ;
  	} in
     { s = table {
         VPerf     v pgn => perfPattern ! v ! pgn  + suffixPerf ! pgn ;
-	    VImpf Ind v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfInd ! pgn ;
-	    VImpf Cnj v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfCJ Cnj ! pgn ;
-	    VImpf Jus v pgn => prefixImpf ! pgn + jusPattern ! v ! pgn +  suffixImpfCJ Jus ! pgn ;
-	    VImp	g	n	  =>			        impPattern ! g ! n +  suffixImpfCJ Jus ! (Per2 g n);
+        VImpf Ind v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfInd ! pgn ;
+        VImpf Cnj v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfCJ Cnj ! pgn ;
+        VImpf Jus v pgn => prefixImpf ! pgn + jusPattern ! v ! pgn +  suffixImpfCJ Jus ! pgn ;
+        VImp        g n	=>	              impPattern ! g ! n +  suffixImpfCJ Jus ! (Per2 g n);
         VPPart => ppart
         }
     } ;
   
   --macro for defective verbs:
-  verbDef: (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Vowel -> Verb =
-    \rama,ramay,rumi,rumu,rumiy,armi,armu,urma,Irmi,Irmu,ppart,vowel ->
+  verbDef : DefForms -> Vowel -> Verb =
+    \vforms,vImpf ->
     let {
-	  patPerf = patDefPerf rama ramay rumi rumu rumiy ;
-	  patImpfAct = patDefImpfAct armi armu ;
-	  patImp = patDefImp Irmi Irmu 
+       rama  = vforms ! 0 ; -- VPerf Act (Per3 Masc Sg)
+       ramay = vforms ! 1 ; -- VPerf Act (Per3 Fem  Pl)
+       rumi  = vforms ! 2 ; -- VPerf Pas (Per3 _    Sg)
+       rumu  = vforms ! 3 ; -- VPerf Pas (Per3 Masc Pl)
+       rumiy = vforms ! 4 ; -- VPerf Pas (Per3 Fem  Pl)
+       armi  = vforms ! 5 ; -- VImpf _ Act (Per1 _ _ | Per2/3 Fem _ | Per2/3 Masc Sg)
+       armu  = vforms ! 6 ; -- VImpf _ Act (Per2/3 Masc Pl)
+       urma  = vforms ! 7 ; -- VImpf _ Pas
+       Irmi  = vforms ! 8 ; -- VImp Masc Sg | VImp Fem _
+       Irmu  = vforms ! 9 ; -- VImp Masc Pl
+       ppart = vforms ! 10 ; -- VPPart
+
+       patPerf = patDefPerf rama ramay rumi rumu rumiy ;
+       patImpfAct = patDefImpfAct armi armu ;
+       patImp = patDefImp Irmi Irmu
     } in
     { s = table {
         VPerf v pgn => patPerf ! v ! pgn + (suffixPerfDef v) ! pgn ;
-	    VImpf m Act pgn => prefixImpf ! pgn + patImpfAct ! pgn + (suffixImpfDef Act vowel) ! m  ! pgn ;
-	    VImpf m Pas pgn => prefixImpf ! pgn + urma + (suffixImpfDef Pas vowel) ! m  ! pgn ;
-	    VImp g n =>  patImp ! g ! n + (suffixImpfDef Act vowel) ! Jus ! (Per2 g n) ;
+        VImpf m Act pgn => prefixImpf ! pgn + patImpfAct ! pgn + (suffixImpfDef Act vImpf) ! m ! pgn ;
+        VImpf m Pas pgn => prefixImpf ! pgn + urma + (suffixImpfDef Pas vImpf) ! m  ! pgn ;
+        VImp g n =>  patImp ! g ! n + (suffixImpfDef Act vImpf) ! Jus ! (Per2 g n) ;
         VPPart => ppart
         }
     } ;
@@ -268,15 +280,15 @@ oper
       Act => 
         table {
           Per3 Fem Pl => ramay ;
-	      Per3 _	_  => rama ;
-	      _		   => ramay
+	  Per3 _   _  => rama ;
+          _	      => ramay
 	    } ;
       Pas =>
         table {
           Per3 Masc Pl => rumu ;
-	      Per3 Fem Pl => rumy ;
-	      Per3 _	_  => rumi ;
-	      _		   => rumy
+          Per3 Fem Pl  => rumy ;
+          Per3 _   _   => rumi ;
+          _	       => rumy
 	    }
     } ;
   
@@ -284,15 +296,15 @@ oper
   patDefImpfAct :  (_,_ : Str) -> PerGenNum => Str = \rmi,rmu ->
   table {
     Per3 Masc Pl => rmu ;
-	Per2 Masc Pl => rmu ;
-	_			 => rmi
+    Per2 Masc Pl => rmu ;
+    _            => rmi
     } ;
   
   
   patDefImp : (_,_ : Str) -> Gender => Number => Str = \rmi, rmu ->
     table {
       Masc => table {Pl => rmu ; _ => rmi} ;
-      _	=> table {_ => rmi}
+      _	   => table {_ => rmi}
     } ;
   
 
@@ -368,18 +380,18 @@ v1sound : Root3 -> Vowel -> Vowel -> Verb =
   let {
     qf = {f = fcl.c ; c = fcl.l} ;
     qif = mkBilit (fvc ! vImpf) qf;
-	katab = mkStrong (patV1Perf ! vPerf) fcl ;
+    katab = mkStrong (patV1Perf ! vPerf) fcl ;
     kutib = mkStrong fucil fcl ;		--FIXME no passive if vPerf == u
-	ktub  = mkStrong (patV1Impf ! vImpf) fcl ;
-	aktub = "َ" + 
+    ktub  = mkStrong (patV1Impf ! vImpf) fcl ;
+    aktub = "َ" + 
       case fcl.f of {
         "و"|"ي" => qif ;
         _       => ktub
       };
     uktab = mkStrong ufcal fcl ;
-	euktub = case fcl.f of {
+    euktub = case fcl.f of {
       "؟"|"و"|"ي" => qif ;
-      _   => prefixImp ! vImpf + ktub
+       _         => prefixImp ! vImpf + ktub
       };
     maktUb = mkStrong mafcUl fcl 
   } in
@@ -446,52 +458,88 @@ v1geminate : Str -> Vowel -> Vowel -> Verb =
 patGem1 : Vowel => Pattern =
   table {
     a => facal ;
-	u => facul ;
-	i => facil
+    u => facul ;
+    i => facil
   } ;
 
 patGem2 : Vowel => Pattern =
   table {
     u => fucc ;
-	a => facc ;
-	i => ficc			--no such verb probably exists
+    a => facc ;
+    i => ficc                --no such verb probably exists
   } ;
 
 patGem3 : Vowel => Pattern =
   table {
     u => fcul ;
-	a => fcal ;
-	i => fcil			--no such verb probably exists
+    a => fcal ;
+    i => fcil                --no such verb probably exists
   } ;
 
-v1defective : Root3 -> Vowel -> Verb =
-	\rmy,vowel -> 
-  let {
-	rama = mkDefective faca rmy ;
-	ramay = mkStrong facalo rmy ;	   
-	rumi = mkDefective fuci rmy ;
-	rumu = mkDefective fucu rmy ;
-	rumiy = mkStrong fucilo rmy ;
-	rmi = mkDefective (patDef1 ! vowel)  rmy ;
-	armi = "َ" + rmi ;
-	rmu = mkDefective (patDef2 ! vowel) rmy ;	   
-	armu = "َ" + rmu ;
-	urma = mkDefective ufca rmy ;
-    eirmi = prefixImp ! vowel + rmi;
-    eirmu = prefixImp ! vowel + rmu;
-    marmiy = mkStrong mafcil rmy
-  } in verbDef rama ramay rumi rumu rumiy armi armu urma eirmi eirmu marmiy vowel ;
+DefForms : Type = Predef.Ints 10 => Str ;
+toDefForms : (x1,_,_,_,_,_,_,_,_,_,x11 : Str) -> DefForms =
+  \rama,ramay,rumi,rumu,rumiy,armi,armu,urma,eirmi,eirmu,marmiy ->
+  table {
+      0 => rama ;
+      1 => ramay ;
+      2 => rumi ;
+      3 => rumu ;
+      4 => rumiy ;
+      5 => armi ;
+      6 => armu ;
+      7 => urma ;
+      8 => eirmi ;
+      9 => eirmu ;
+      10 => marmiy
+      } ;
+
+
+def1Forms_vPerfA : Root3 -> Vowel -> DefForms = \rmy,vImpf ->
+ let {
+   rama = mkDefective faca rmy ;
+   ramay = mkStrong facalo rmy ;
+   rumi = mkDefective fuci rmy ;
+   rumu = mkDefective fucu rmy ;
+   rumiy = mkStrong fucilo rmy ;
+   rmi = mkDefective (patDef1 ! vImpf)  rmy ;
+   armi = "َ" + rmi ;
+   rmu = mkDefective (patDef2 ! vImpf) rmy ;
+   armu = "َ" + rmu ;
+   urma = mkDefective ufca rmy ;
+   eirmi = prefixImp ! vImpf + rmi;
+   eirmu = prefixImp ! vImpf + rmu;
+   marmiy = mkStrong mafcil rmy
+ } in toDefForms rama ramay rumi rumu rumiy armi armu urma eirmi eirmu marmiy ;
+
+v1defective : Root3 -> Vowel -> Vowel -> Verb = \rmy,vPerf,vImpf ->
+  case vPerf of {
+    i => v1defective_i rmy vImpf ;
+    _ => v1defective_a rmy vImpf
+  } ;
+
+v1defective_a : Root3 -> Vowel -> Verb = \rmy,vImpf ->
+  let vforms = def1Forms_vPerfA rmy vImpf
+   in verbDef vforms vImpf ;
+
+v1defective_i : Root3 -> Vowel -> Verb = \bqy,vImpf -> -- IL (conjugation 1d4)
+  let vforms_a = def1Forms_vPerfA bqy vImpf ;
+      baqI  = mkDefective facIl bqy ;
+      baqiy = mkDefective facil bqy ;
+      vforms_i = table { 0 => baqI ;
+                         1 => baqiy ;			 
+                         x => vforms_a ! x } ;
+   in verbDef vforms_i vImpf ;
 
 patDef1 : Vowel => Pattern =
   table {
     u => fcu ;
-	a => fca ;
-	i => fci			
+    a => fca ;
+    i => fci
   } ;
 
 patDef2 : Vowel => Pattern =
   table {
-	a => fca ;			
+    a => fca ;
     _ => fcu
   } ;
 
@@ -519,7 +567,7 @@ v2defective : Root3 -> Verb = \gny ->
     ugannu = "ُ" + gannu;
     uganna = "ُ" + ganna;
     mugannaY = "مُ" + ganna + "ى"
-  } in verbDef ganna gannay gunni gunnu gunniy uganni ugannu uganna ganni gannu mugannaY i;
+  } in verbDef (toDefForms ganna gannay gunni gunnu gunniy uganni ugannu uganna ganni gannu mugannaY) i;
 
 v3sound : Root3 -> Verb = 
   \tbc ->
@@ -547,21 +595,21 @@ v4sound : Root3 -> Verb =
 
 v4defective : Root3 -> Verb = \cTy ->
   let {
-	cTa = mkDefective fca cTy;
+    cTa = mkDefective fca cTy;
     cTu = mkDefective fcu cTy;
     cTi = mkDefective fci cTy;
     eacTa = "أَ" + cTa;
-	eacTay = mkStrong eafcal cTy ;	   
+    eacTay = mkStrong eafcal cTy ;
     ucTi = "ُ" + cTi;
-	eucTi = "أُ" + cTi;
+    eucTi = "أُ" + cTi;
     ucTu = "ُ" + cTu;
-	eucTu = "أُ" + cTu;
-	eucTiy = mkStrong eufcil cTy ;
+    eucTu = "أُ" + cTu;
+    eucTiy = mkStrong eufcil cTy ;
     ucTa = "ُ" + cTa;
     eacTi = "أَ" + cTi;
     eacTu = "أَ" + cTu;
     mucTaY = "م" + ucTa +"ى"
-  } in verbDef eacTa eacTay eucTi eucTu eucTiy ucTi ucTu ucTa eacTi eacTu mucTaY i;
+  } in verbDef (toDefForms eacTa eacTay eucTi eucTu eucTiy ucTi ucTu ucTa eacTi eacTu mucTaY) i;
 
 v5sound : Root3 -> Verb = 
   \nfs ->
@@ -599,15 +647,15 @@ v8sound : Root3 -> Verb =
 patV1Perf : Vowel => Pattern =
   table {
     a => facal ; --katab
-	u => facul ; --Hasun
-	i => facil   --rabiH
+    u => facul ; --Hasun
+    i => facil   --rabiH
   } ;
 
 patV1Impf : Vowel => Pattern =
   table {
     u => fcul ;  --ktub
-	a => fcal ;  --rbaH
-	i => fcil    --Hsin
+    a => fcal ;  --rbaH
+    i => fcil    --Hsin
   } ;
 
 endVowel : Mood => Str =
