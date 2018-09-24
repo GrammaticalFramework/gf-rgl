@@ -53,7 +53,9 @@ resource ParadigmsAra = open
    mkN : NTable -> Gender -> Species -> N                             -- loan words, irregular
      = mkFullN ;
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
-    = brkN ;
+     = brkN ;
+   mkN : N -> (attr : Str) -> N                                       -- Compound nouns
+     = \n,attr -> n ** { s = \\num,s,c => n.s ! num ! s ! c ++ attr } ; --- IL (TODO: all kinds of compounds)
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
    } ;
