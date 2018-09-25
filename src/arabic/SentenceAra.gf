@@ -4,6 +4,7 @@ concrete SentenceAra of Sentence = CatAra ** open
   ResAra,
   Prelude, 
   ResAra,
+  TenseX,
   ParamX,
   CommonX in {
 
@@ -111,31 +112,22 @@ concrete SentenceAra of Sentence = CatAra ** open
 --    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
 --
 
-    --FIXME, all tenses
-    UseCl  t ap cl = 
-      {s =  cl.s ! ResAra.Pres ! ap.p ! Verbal 
-{-         case t of {
-           TPres => cl.s ! ResAra.Pres ! p.p ! Verbal ;
-           TCond => cl.s ! ResAra.Pres ! p.p ! Verbal ;
-           TPast => cl.s ! ResAra.Past ! p.p ! Verbal ;
-           TFut => cl.s ! ResAra.Fut ! p.p ! Verbal 
-         } 
--}      };
+    UseCl t p cl =
+      {s = case <t.t,t.a> of { --- IL guessed tenses
+             <(Pres|Cond),Simul>  => cl.s ! ResAra.Pres ! p.p ! Verbal ;
+             <Fut        ,_    >  => cl.s ! ResAra.Fut ! p.p ! Verbal ;
+             <_          ,_    >  => cl.s ! ResAra.Past ! p.p ! Verbal
+           }
+      };
 
-    --FIXME, all tenses
-    UseQCl t ap qcl = --{s = cl.s ! t ! p ! Verbal } ;
-      {s = 
-         table {
-           QDir => qcl.s ! ResAra.Pres ! ap.p ! QDir;
-           QIndir =>  qcl.s ! ResAra.Pres ! ap.p ! QIndir
-         }
-{-         case t of {
-           TPres => "هَل" ++ qcl.s ! ResAra.Pres ! p.p ! q ;
-           TCond => "هَل" ++ qcl.s ! ResAra.Pres ! p.p ! q ;
-           TPast => "هَل" ++ qcl.s ! ResAra.Past ! p.p ! q ;
-           TFut  => "هَل" ++ qcl.s ! ResAra.Fut ! p.p ! q 
+    UseQCl t p qcl =
+      {s = \\q =>
+	 case <t.t,t.a> of { --- IL guessed tenses
+           <(Pres|Cond),Simul>  => qcl.s ! ResAra.Pres ! p.p ! q ;
+           <Fut        ,_    >  => qcl.s ! ResAra.Fut ! p.p ! q ;
+           <_          ,_    >  => qcl.s ! ResAra.Past ! p.p ! q
          } 
--}      };
+      };
 
 --    UseRCl t a p cl = {s = \\r => t.s ++ a.s ++ p.s ++ cl.s ! t.t ! a.a ! p.p ! r} ;
 
