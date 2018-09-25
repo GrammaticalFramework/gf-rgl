@@ -76,12 +76,11 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, ParamX  in {
 
     -- takes a weak pattern and a triliteral root and makes
     -- a word, deducing which root consonant is weak
-    mkWeak : Pattern -> Str -> Str = \pat,root ->
-      let fcl = mkRoot3 root in 
-      case root of {
-        _ + ("و"|"ي"|"ّ") => mkDefective   pat fcl;
-        _ + ("و"|"ي") + _ => mkHollow      pat fcl;
-        ("و"|"ي") + _     => mkAssimilated pat fcl
+    mkWeak : Pattern -> Root3 -> Str = \pat,fcl ->
+      case <fcl.f,fcl.c,fcl.l> of {
+       <_,_,("و"|"ي"|"ّ")> => mkDefective   pat fcl;
+       <_,("و"|"ي"),_>    => mkHollow      pat fcl;
+       <("و"|"ي"),_,_>    => mkAssimilated pat fcl
       };
 
     mkBilit : Pattern -> Root2 -> Str = \p,fcl ->
@@ -95,7 +94,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, ParamX  in {
         w@_ + "ف" + x@_ + "ع" + y@_ => 
           let pat = { h = w ; m1 = x; m2 = ""; t = y} in
           case <length rS : Ints 100> of {
-            6 | 5 => mkWeak pat rS ; --3=>
+            6 | 5 => mkWeak pat (mkRoot3 rS) ; --3=>
             4 | 3 => mkBilit pat (mkRoot2 rS) ; --2=>
             _ => rS ---- AR error "expected 3--6" 
           }
@@ -431,8 +430,8 @@ patHol3 : Vowel => Pattern =
 fvc : Vowel => Pattern =
   table {
     u => fuc ;
-	i => fic ;
-	a => fac
+    i => fic ;
+    a => fac
   } ;
 
 
@@ -545,22 +544,22 @@ patDef2 : Vowel => Pattern =
 
 v2sound : Root3 -> Verb = \qsm ->
   let {
-	qassam = mkStrong faccal qsm ;
+    qassam = mkStrong faccal qsm ;
     qussim = mkStrong fuccil qsm ;
-	qassim  = mkStrong faccil qsm ;
+    qassim  = mkStrong faccil qsm ;
     uqassim = "ُ" + qassim ;
-	uqassam = "ُ" + qassam ;
+    uqassam = "ُ" + qassam ;
     muqassam = "مُ" + qassam
   } in
   verb qassam qussim uqassim uqassam qassim muqassam;
 
 v2defective : Root3 -> Verb = \gny ->
   let {
-	ganna = mkDefective facca gny ;
-	gannay = mkStrong faccalo gny ;	   
-	gunni = mkDefective fucci gny ;
-	gunnu = mkDefective fuccu gny ;
-	gunniy = mkStrong fuccilo gny ;
+    ganna = mkDefective facca gny ;
+    gannay = mkStrong faccalo gny ;
+    gunni = mkDefective fucci gny ;
+    gunnu = mkDefective fuccu gny ;
+    gunniy = mkStrong fuccilo gny ;
     ganni = mkDefective facci gny;
     uganni = "ُ" + ganni;
     gannu = mkDefective faccu gny;
@@ -643,6 +642,20 @@ v8sound : Root3 -> Verb =
     eirtabiT = "إِ" + rtabiT ;
     murtabaT =  "م" + urtabaT
   } in verb eirtabaT eurtubiT artabiT urtabaT eirtabiT murtabaT;
+
+v8assimilated : Root3 -> Verb = --- IL 8a1
+  \wfq ->
+  let {
+    ttafiq = mkWeak ttacil wfq ;
+    ttafaq = mkWeak ttacal wfq ;
+    eittafaq = "إِ" + ttafaq ;
+    euttufiq = mkWeak euttucil wfq ;
+    attafiq = "َ" + ttafiq ;
+    uttafaq  = "ُ" + ttafaq ;
+    eittafiq = "إِ" + ttafiq ;
+    muttafaq =  "م" + uttafaq
+  } in verb eittafaq euttufiq attafiq uttafaq eittafiq muttafaq;
+
 
 patV1Perf : Vowel => Pattern =
   table {

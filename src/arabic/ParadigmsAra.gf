@@ -353,10 +353,10 @@ resource ParadigmsAra = open
     \rootStr ->
     let {
       rbT = mkRoot3 rootStr ;
-    } in {
-      s = (v8sound rbT).s ;
-      lock_V = <>
-    };
+      v8fun = case rbT.f of {
+	("و"|"ي"|"ّ") => v8assimilated ;
+	_            => v8sound }
+    } in lin V (v8fun rbT) ;
   
   Preposition = Str ;
   
@@ -562,6 +562,6 @@ formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
    } ;
 
 param VerbForm =
-  FormI |  FormIII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII  ;
+  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII  ;
 
 } ;
