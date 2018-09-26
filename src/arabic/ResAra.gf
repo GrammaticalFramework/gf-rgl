@@ -771,92 +771,113 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Dl => dual ((tk 2 HamrA') + "و") ! d ! c;
         Pl => sing Humr ! d ! c
         };
-      AComp d c => indeclN aHmar ! d ! c 
+      AComp d c => indeclN aHmar ! d ! c
     };
-  
+
   -- indeclinable nominal word (mamnuu3 mina S-Sarf)
   indeclN : Str -> State => Case => Str =
-    \aHmar -> \\s,c => Al!s + aHmar + indecl!c;
+    \aHmar -> \\s,c => defArt s aHmar + indecl!c;
 
-    -- takes 2 words, singular and broken plural, and gives the 
+    -- takes 2 words, singular and broken plural, and gives the
     -- complete noun inflection table
     reg : Str -> Str -> NTable =
       \kitAb,kutub ->
       table {
         Sg => sing kitAb ;
         Dl => dual kitAb ;
-        Pl => sing kutub 
+        Pl => sing kutub
       };
-    
-    --takes the sound noun in singular and gives the 
+
+    --takes the sound noun in singular and gives the
     --complete noun inflection table of sound feminine plural
     sndf : Str -> NTable  =
       \lawHa ->
       table {
         Sg => sing lawHa ;
         Dl => dual lawHa ;
-        Pl => plurF lawHa 
+        Pl => plurF lawHa
       };
-    
-    --takes the sound noun in singular and gives the 
+
+    --takes the sound noun in singular and gives the
     --complete inflection table of sound masculine plural nominals
     sndm : Str -> NTable =
       \muzAric ->
       table {
         Sg => sing muzAric ;
         Dl => dual muzAric ;
-        Pl => plurM muzAric 
+        Pl => plurM muzAric
       };
-    
+
     -- takes a singular or broken plural word and tests the ending to
     -- determine the declension and gives the corresponding inf table
-    sing : Str -> State => Case => Str = 
-      \word -> 
+    sing : Str -> State => Case => Str =
+      \word ->
       case word of {
-         lemma + "ِي" => \\s,c => Al ! s + lemma + dec2sg ! s ! c ;
-        _ + ("ا"|"ى") => \\s,c => Al ! s + word + dec3sg ! s ! c ;
-        _                 => \\s,c => Al ! s + word + dec1sg ! s ! c 
+         lemma + "ِي"   => \\s,c => defArt s lemma + dec2sg ! s ! c ;
+          _ + ("ا"|"ى") => \\s,c => defArt s word + dec3sg ! s ! c ;
+          _             => \\s,c => defArt s word + dec1sg ! s ! c
       };
+
 
     -- takes a singular word and tests the ending to
     -- determine the declension and gives the corresponding dual inf table
-    dual : Str -> State => Case => Str = 
-      \caSaA -> 
+    dual : Str -> State => Case => Str =
+      \caSaA ->
       case caSaA of {
-        lemma + ("ا"|"ى") => \\s,c => Al ! s + lemma + "ي" + dl ! s ! c ;
-        _                 => \\s,c => Al ! s + caSaA + dl ! s ! c 
+        lemma + ("ا"|"ى") => \\s,c => defArt s lemma + "ي" + dl ! s ! c ;
+        _                 => \\s,c => defArt s caSaA + dl ! s ! c
       };
 
-    -- takes a singular word and gives the corresponding sound 
+    -- takes a singular word and gives the corresponding sound
     --plural feminine table
-    plurF : Str -> State => Case => Str = 
-      \kalima -> 
-      \\s,c => Al ! s + (mkAt kalima) + f_pl ! s ! c ;
+    plurF : Str -> State => Case => Str =
+      \kalima ->
+      \\s,c => defArt s (mkAt kalima) + f_pl ! s ! c ;
 
-    -- takes a singular word and gives the corresponding sound 
+    -- takes a singular word and gives the corresponding sound
     --plural masculine table. FIXME: consider declension 3
-    plurM : Str -> State => Case => Str = 
-      \mucallim -> 
-      \\s,c => Al ! s + mucallim + m_pl ! s ! c ;
-
+    plurM : Str -> State => Case => Str =
+      \mucallim ->
+      \\s,c => defArt s mucallim + m_pl ! s ! c ;
 
     -- to add the Al prefix for Definite words
-    Al : State => Str = 
+    Al : State => Str =
       table {
-        Def => "ال";
+        Def => "ال" ;
         _   => ""
       };
 
-    --declection 1 (strong ending) of the singular or broken plural words
-    dec1sg : State => Case => Str = 
+    defArt : State -> Str -> Str = \st,stem ->
+      let arra = "الرَّ" ;
+          arri = "الرِّ" ;
+          arr  = "الرِّ" ;
+          atta = "التَ" ;
+          atti = "التِّ";
+          att  = "التّ" ;
+          al = "ال" ;
+      in case st of { -- TODO rest of the assimilations
+           Def => case stem of {
+                     ra@"رَ" + x => arra + x ;
+                     ri@"رِ" + x => arri + x ;
+                     r@"ر"  + x => arr + x ; -- no vowel specified
+                     ta@"تَ" + x => atta + x ;
+                     ti@"تِ" + x => atti + x ;
+                     t@"ت"  + x => att + x ; -- no vowel specified
+                     _          => al + stem
+                   } ;
+           _   => "" + stem
+      };
+
+    --declension 1 (strong ending) of the singular or broken plural words
+    dec1sg : State => Case => Str =
       table {
-        Indef => 
+        Indef =>
           table {
             Nom => "ٌ";
             Acc => "ً";
             Gen => "ٍ"
           };
-        _ => 
+        _ =>
           table { --think of ?axU, ?axA, (the five nouns)
             Nom => "ُ";
             Acc => "َ";
