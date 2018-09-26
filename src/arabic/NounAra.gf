@@ -172,13 +172,17 @@ lin
 --  MassDet = {s = \\_,_,_,_ => [] ; d = Indef;
 --             isNum = False; isPron = False} ;
 
-  UseN n = n ** {adj = \\_,_,_ => []};
-  --    ComplN2 f x = {s = \\n,c => f.s ! n ! Nom ++ f.c2 ++ x.s ! c} ;
-  --    ComplN3 f x = {s = \\n,c => f.s ! n ! Nom ++ f.c2 ++ x.s ! c ; c2 = f.c3} ;
-  --
-  --    UseN2 n = n ;
-  --    UseN3 n = n ;
-  --
+  UseN,
+  UseN2 = \n -> n ** {adj = \\_,_,_ => []};
+  Use2N3 n3 = n3 ;
+  Use3N3 n3 = n3 ** {c2 = n3.c3} ;
+
+  ComplN2 n2 np = UseN n2 **  --- IL
+    {s = \\n,s,c => n2.s ! n ! s ! c ++ n2.c2 ++ np.s ! Gen} ;
+
+
+  ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
+
   AdjCN ap cn = {
     s = \\n,d,c => cn.s ! n ! d ! c;
     adj = \\n,d,c => ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c ;

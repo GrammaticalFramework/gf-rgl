@@ -88,10 +88,9 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     A = ResAra.Adj ;
     A2 = ResAra.Adj ** {c2 : Str} ;
 
-    N, N2 = ResAra.Noun ;
---{s : ResAra.Number => State => Case => Str; g : Gender ; h = Species} ;
---    N2 = {s : ResAra.Number => Case => Str} ** {c2 : Str} ;??
-    N3 = ResAra.Noun ** {c2,c3 : Str} ;
+    N = ResAra.Noun ;
+    N2 = ResAra.Noun ** {c2 : Str} ;
+    N3 = ResAra.Noun ** {c2, c3 : Str} ;
     PN = {s : Case => Str; g : Gender; h : Species} ;
 
 }
