@@ -92,7 +92,11 @@ resource ParadigmsAra = open
 
 --3 Relational nouns
 
-  mkN2 : N -> Preposition -> N2 ;
+  mkN2 = overload {
+    mkN2 : N -> Preposition -> N2 = prepN2 ;
+    mkN2 : N -> N2 = \n -> lin N2 (n ** {c2 = []}) ;
+    mkN2 : Str -> N2 = \str -> lin N2 (smartN str ** {c2 = []})
+  } ;
 
   mkN3 : N -> Preposition -> Preposition -> N3 ;
 
@@ -402,7 +406,7 @@ resource ParadigmsAra = open
     };
 
 
-  mkN2 = \n,p -> n ** {lock_N2 = <> ; c2 = p} ;
+  prepN2 : N -> Str -> N2 = \n,p -> lin N2 (n ** {c2 = p}) ;
 
   mkN3 = \n,p,q -> n ** {lock_N3 = <> ; c2 = p ; c3 = q} ;
 
@@ -519,7 +523,7 @@ resource ParadigmsAra = open
   mkVS  v = v ** {lock_VS = <>} ;
   mkVQ  v = v ** {lock_VQ = <>} ;
 
-  regVV : V -> VV = \v -> lin VV v ** {isAux = False; c2 = []} ;
+  regVV : V -> VV = \v -> lin VV v ** {c2 = []} ;
   c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = prep} ;
 
   V0 : Type = V ;

@@ -39,7 +39,7 @@ flags
   break_V2     = dirV2 (regV "يَكسُر") ;
 --  break_V2     = dirV2 (v1 "كسر" a u) ;
   broad_A      = sndA "وسع" "فاعِل" ;
-  brother_N2   = brkN "؟خو" "فَع" "فِعلة" Masc Hum ; --FIXME
+  brother_N2   = mkN2 (brkN "؟خو" "فَع" "فِعلة" Masc Hum) ; --FIXME
   brown_A      = sndA "بني" "فُعِّل";
   butter_N     = sdfN "سبد" "فُعلة" Fem NoHum ;
   buy_V2       = dirV2 (v8 "شري") ;
@@ -78,7 +78,7 @@ flags
   empty_A      = sndA "فرغ" "فاعِل" ;
   enemy_N      = brkN "عدو" "فَعُلّ" "أَفعاء" Masc Hum ;
   factory_N    = brkN "صنع" "مَفعَل" "مَفاعِل" Masc NoHum ;
-  father_N2    = brkN "؟ب" "فَع" "أَفعاء" Masc Hum;
+  father_N2    = mkN2 (brkN "؟ب" "فَع" "أَفعاء" Masc Hum);
   fear_VS      = mkVS (v1 "خشي" i a );
   find_V2      = dirV2 (v1 "وجد" a i ) ;
   fish_N       = brkN "سمك" "فَعَلة" "أَفعال" Fem NoHum ;
@@ -133,7 +133,7 @@ flags
   meat_N       = brkN "لحم" "فَعلة" "فُعُول" Masc NoHum ;
   milk_N       = brkN "حلب" "فَعِيل" "فَعِيل" Masc NoHum ; --no plur
   moon_N       = brkN "قمر" "فَعَل" "أَفعال" Masc NoHum ;
-  mother_N2    = sdfN "؟م" "فُعّ" Fem Hum ;
+  mother_N2    = mkN2 (sdfN "؟م" "فُعّ" Fem Hum) ;
   mountain_N   = brkN "جبل" "فَعَل" "فِعال" Masc NoHum ;
   music_N      = mkN (reg "مُوسِيقَى" "مُوسِيقَى") Fem NoHum ; --no plur
   narrow_A     = sndA "ضيق" "فَعِّل" ;

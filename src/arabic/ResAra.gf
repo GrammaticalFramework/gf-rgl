@@ -1116,8 +1116,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     IP : Type = {
       s : Gender  -- because of CompIP
-	=> State => Case -- because of PrepIP: e.g. "in which" chooses definite accusative
-	=> Str ;
+       => State => Case -- because of PrepIP: e.g. "in which" chooses definite accusative
+       => Str ;
       n : Number
       } ;
 
@@ -1140,11 +1140,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- TODO: does verbal complement agree with the noun
     compVP : VP -> Comp = \vp -> ---- IL
      { s = table {
-	aagr@{g=g ; n=n} => \\c =>
-	  vp.s ! Per3 g n ! VPImpf Ind  ---- IL guesswork + https://arabic.desert-sky.net/g_modals.html
-	  ++ vp.s2
-	  ++ vp.pred.s ! aagr ! Acc
-          ++ vp.obj.s }
+         aagr@{g=g ; n=n} => \\c =>
+           vp.s ! Per3 g n ! VPImpf Ind  ---- IL guesswork + https://arabic.desert-sky.net/g_modals.html
+           ++ vp.s2
+           ++ vp.pred.s ! aagr ! Acc
+           ++ vp.obj.s }
       } ;
 
     predV : Verb -> VP = \v ->
