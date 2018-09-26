@@ -519,7 +519,7 @@ resource ParadigmsAra = open
   mkVS  v = v ** {lock_VS = <>} ;
   mkVQ  v = v ** {lock_VQ = <>} ;
 
-  regVV : V -> VV = \v -> lin VV v ** {isAux = False; c2 = []} ;
+  regVV : V -> VV = \v -> lin VV v ** {c2 = []} ;
   c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = prep} ;
 
   V0 : Type = V ;
