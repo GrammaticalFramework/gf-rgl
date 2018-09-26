@@ -1,4 +1,4 @@
-concrete StructuralAra of Structural = CatAra ** 
+concrete StructuralAra of Structural = CatAra **
   open MorphoAra, ResAra, ParadigmsAra, Prelude in {
 
   flags optimize=all ;  coding=utf8 ;
@@ -21,8 +21,8 @@ concrete StructuralAra of Structural = CatAra **
   by8agent_Prep = ss "بِ" ;
   by8means_Prep = ss "بِ" ;
 --  can8know_VV, can_VV = {
---    s = table VVForm [["بي َبلي تْ"] ; "عَن" ; "عُْلد" ; 
---         ["بّن َبلي تْ"] ; ["بِنغ َبلي تْ"] ; "عَنءت" ; "عُْلدنءت"] ; 
+--    s = table VVForm [["بي َبلي تْ"] ; "عَن" ; "عُْلد" ;
+--         ["بّن َبلي تْ"] ; ["بِنغ َبلي تْ"] ; "عَنءت" ; "عُْلدنءت"] ;
 --    isAux = True
 --    } ;
   during_Prep = ss "خِلَالَ" ;
@@ -51,8 +51,8 @@ concrete StructuralAra of Structural = CatAra **
   most_Predet = mkPredet  "أَكثَر" True ;
   much_Det = mkDet "الكَثِير مِنَ" Pl Const ;
   must_VV = mkVV (v1 "وجب" a i) "أن" ;
---    s = table VVForm [["بي هَثي تْ"] ; "مُست" ; ["هَد تْ"] ; 
---         ["هَد تْ"] ; ["هَثِنغ تْ"] ; "مُستنءت" ; ["هَدنءت تْ"]] ; ---- 
+--    s = table VVForm [["بي هَثي تْ"] ; "مُست" ; ["هَد تْ"] ;
+--         ["هَد تْ"] ; ["هَثِنغ تْ"] ; "مُستنءت" ; ["هَدنءت تْ"]] ; ----
 --    isAux = True
 --    } ;
   no_Utt = {s = \\_ => "لا"} ;
@@ -79,7 +79,7 @@ concrete StructuralAra of Structural = CatAra **
 --  there7from_Adv = ss ["فرْم تهري"] ;
 --  therefore_PConj = ss "تهرفْري" ;
 ----b  these_NP = indeclNP "هَؤُلَاء" Pl ;
- they_Pron = mkPron "هُمْ" "هُمْ" "هُمْ" (Per3 Masc Pl) ; 
+ they_Pron = mkPron "هُمْ" "هُمْ" "هُمْ" (Per3 Masc Pl) ;
   this_Quant = mkQuant7 "هَذا" "هَذِهِ" "هَذَان" "هَذَيْن" "هَاتَان" "هَاتَيْن" "هَؤُلَاء" Def;
 ----b  this_NP = indeclNP "هَذا" Sg ;
 ----b  those_NP = indeclNP "هَؤُلَاءكَ" Pl ;
@@ -97,13 +97,13 @@ concrete StructuralAra of Structural = CatAra **
   where_IAdv = ss "أَينَ" ;
   which_IQuant = {
     s = \\s,c => case <c,s> of {
-		     <Nom,Indef> => "أيٌّ" ;
-		     <Nom,_>     => "أيُّ" ;
-		     <Acc,Indef> => "أيّاً" ;
-		     <Acc,_>     => "أيَّ" ;
-		     <Gen,Indef> => "أيٍّ" ;
-		     <Gen,_>     => "أيِّ"
-		     }
+             <Nom,Indef> => "أيٌّ" ;
+             <Nom,_>     => "أيُّ" ;
+             <Acc,Indef> => "أيّاً" ;
+             <Acc,_>     => "أيَّ" ;
+             <Gen,Indef> => "أيٍّ" ;
+             <Gen,_>     => "أيِّ"
+             }
     } ;
   whoSg_IP = mkIP "مَنْ" Sg ;
   whoPl_IP = mkIP "مَنْ" Pl ;
@@ -115,7 +115,7 @@ concrete StructuralAra of Structural = CatAra **
   youPl_Pron = mkPron "أَنتُمْ" "كُمْ" "كُمْ" (Per2 Masc Sg) ;
   youPol_Pron = mkPron "أَنتِ" "كِ" "كِ" (Per2 Fem Sg) ;
 
-  have_V2      = dirV2 (regV "يَملِك") ; 
+  have_V2      = dirV2 (regV "يَملِك") ;
 
   lin language_title_Utt = {s = \\_ => "العربية"} ;
 

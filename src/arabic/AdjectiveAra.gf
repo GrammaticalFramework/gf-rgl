@@ -11,11 +11,11 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
           Pl => a.s ! APosit Fem Sg d c ;
           _  => a.s ! APosit g n d c
           }
-        } 
+        }
       };
 ---- guessed by AR
   ComparA a np = {
-    s = \\sp,g,n,st,c => a.s ! AComp st c ++ "مِنْ" ++ np.s ! Gen ; 
+    s = \\sp,g,n,st,c => a.s ! AComp st c ++ "مِنْ" ++ np.s ! Gen ;
     } ;
 --
 -- $SuperlA$ belongs to determiner syntax in $Noun$.
@@ -25,12 +25,12 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
      } ;
 --
 --    ReflA2 a = {
---      s = \\ag => a.s ! AAdj Posit ++ a.c2 ++ reflPron ! ag ; 
+--      s = \\ag => a.s ! AAdj Posit ++ a.c2 ++ reflPron ! ag ;
 --      isPre = False
 --      } ;
 --
 --    SentAP ap sc = {
---      s = \\a => ap.s ! a ++ sc.s ; 
+--      s = \\a => ap.s ! a ++ sc.s ;
 --      isPre = False
 --      } ;
 --

@@ -1,6 +1,6 @@
-concrete PhraseAra of Phrase = CatAra ** open 
-  ParamX, 
-  Prelude, 
+concrete PhraseAra of Phrase = CatAra ** open
+  ParamX,
+  Prelude,
   ResAra in {
   flags coding=utf8;
 

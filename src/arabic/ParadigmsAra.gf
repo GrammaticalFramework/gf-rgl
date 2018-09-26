@@ -4,12 +4,12 @@
 --
 -- Ali El Dada 2005--2006
 --
--- This is an API to the user of the resource grammar 
+-- This is an API to the user of the resource grammar
 -- for adding lexical items. It gives functions for forming
 -- expressions of open categories: nouns, adjectives, verbs.
--- 
+--
 -- Closed categories (determiners, pronouns, conjunctions) are
--- accessed through the resource syntax API, $Structural.gf$. 
+-- accessed through the resource syntax API, $Structural.gf$.
 --
 -- The main difference with $MorphoAra.gf$ is that the types
 -- referred to are compiled resource grammar types. We have moreover
@@ -20,12 +20,12 @@
 -- first we give a handful of patterns that aim to cover all
 -- regular cases. Then we give a worst-case function $mkC$, which serves as an
 -- escape to construct the most irregular words of type $C$.
--- 
+--
 -- The following modules are presupposed:
 
-resource ParadigmsAra = open 
-  Predef, 
-  Prelude, 
+resource ParadigmsAra = open
+  Predef,
+  Prelude,
   MorphoAra,
   OrthoAra,(ResAra=ResAra),
   CatAra
@@ -34,7 +34,7 @@ resource ParadigmsAra = open
   flags optimize = noexpand;  coding=utf8 ;
 
   oper
-    
+
 -- Prepositions are used in many-argument functions for rection.
 
   Preposition : Type ;
@@ -49,11 +49,13 @@ resource ParadigmsAra = open
    mkN : Species -> N -> N
      = \p,n -> n ** {h = p} ;
    mkN : (sg,pl : Str) -> Gender -> Species -> N
-     = \sg,pl -> mkFullN (reg sg pl) ;  
+     = \sg,pl -> mkFullN (reg sg pl) ;
    mkN : NTable -> Gender -> Species -> N                             -- loan words, irregular
      = mkFullN ;
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
-    = brkN ;
+     = brkN ;
+   mkN : N -> (attr : Str) -> N                                       -- Compound nouns
+     = \n,attr -> n ** { s = \\num,s,c => n.s ! num ! s ! c ++ attr } ; --- IL (TODO: all kinds of compounds)
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
    } ;
@@ -61,18 +63,18 @@ resource ParadigmsAra = open
 --This is used for loan words or anything that has untreated irregularities
 --in the interdigitization process of its words
   mkFullN : NTable -> Gender -> Species -> N ;
-  
---Takes a root string, a singular pattern string, a broken plural 
+
+--Takes a root string, a singular pattern string, a broken plural
 --pattern string, a gender, and species. Gives a noun.
   brkN : Str -> Str -> Str -> Gender -> Species -> N ;
-  
---Takes a root string, a singular pattern string, a gender, 
+
+--Takes a root string, a singular pattern string, a gender,
 --and species. Gives a noun whose plural is sound feminine.
   sdfN : Str -> Str -> Gender -> Species -> N ;
-    
---takes a root string, a singular pattern string, a gender, 
+
+--takes a root string, a singular pattern string, a gender,
 --and species. Gives a noun whose plural is sound masculine
-  sdmN : Str -> Str -> Gender -> Species -> N ; 
+  sdmN : Str -> Str -> Gender -> Species -> N ;
 
 
 --3 Proper names
@@ -88,7 +90,7 @@ resource ParadigmsAra = open
 
 
 
---3 Relational nouns 
+--3 Relational nouns
 
   mkN2 : N -> Preposition -> N2 ;
 
@@ -111,7 +113,7 @@ resource ParadigmsAra = open
 
 --Takes a root string and a pattern string
   sndA : (root,patt : Str) -> A ;
-    
+
 --Takes a root string only
   clrA : (root : Str) -> A ;  -- forms adjectives of type aFCal
 
@@ -140,7 +142,7 @@ resource ParadigmsAra = open
 
   mkPrep : Str -> Prep
     = \s -> lin Prep {s = mkPreposition s} ; -- preposition in the sense of RGL abstract syntax
-    
+
   mkPreposition : Str -> Preposition ;  -- just a string, for internal use
 
 
@@ -164,29 +166,29 @@ resource ParadigmsAra = open
 --Verb Form I : fa`ala, fa`ila, fa`ula
 
   v1 : Str -> Vowel -> Vowel -> V ;
-  
+
 --Verb Form II : fa``ala
-  
+
   v2 : Str -> V ;
-  
+
 --Verb Form III : faa`ala
-  
+
   v3 : Str -> V ;
-  
+
 --Verb Form IV : 'af`ala
-  
+
   v4 : Str -> V ;
-  
---Verb Form V : tafa``ala 
-  
+
+--Verb Form V : tafa``ala
+
   v5 : Str -> V ;
 
---Verb Form VI : tafaa`ala 
-  
+--Verb Form VI : tafaa`ala
+
   v6 : Str -> V ;
-  
+
 --Verb Form VIII 'ifta`ala
-  
+
   v8 : Str -> V ;
 
 --3 Two-place verbs
@@ -236,7 +238,7 @@ resource ParadigmsAra = open
 
 -- Notice: categories $AS, A2S, AV, A2V$ are just $A$,
 -- and the second argument is given
--- as an adverb. Likewise 
+-- as an adverb. Likewise
 -- $V0$ is just $V$.
 
   V0 : Type ;
@@ -250,7 +252,7 @@ resource ParadigmsAra = open
 -- hidden from the document.
 
   regV : Str -> V = \wo ->
-    let rau : Str * Vowel * Vowel = 
+    let rau : Str * Vowel * Vowel =
     case wo of {
       "يَ" + fc + "ُ" + l => <fc+l, a, u> ;
       "يَ" + fc + "ِ" + l => <fc+l, a, i> ;
@@ -260,43 +262,43 @@ resource ParadigmsAra = open
     }
     in v1 rau.p1 rau.p2 rau.p3 ;
 
-  v1 = \rootStr,vPerf,vImpf -> 
+  v1 = \rootStr,vPerf,vImpf ->
     let { raw = v1' rootStr vPerf vImpf } in
-    { s = \\vf => 
+    { s = \\vf =>
         case rootStr of {
           _ + "؟" + _ => rectifyHmz(raw.s ! vf);
-          _ => raw.s ! vf 
+          _ => raw.s ! vf
         };
       lock_V = <>
     } ;
-  
+
   va : Vowel = ResAra.a ;
 
-  v1' : Str ->  Vowel -> Vowel -> Verb = 
+  v1' : Str ->  Vowel -> Vowel -> Verb =
     \rootStr,vPerf,vImpf ->
     let { root = mkRoot3 rootStr ;
           l = dp 2 rootStr } in --last rootStr
     case <l, root.c> of {
       <"ّ",_>     => v1geminate rootStr vPerf vImpf ;
-      <"و"|"ي",_> => v1defective root vImpf ;
+      <"و"|"ي",_> => v1defective root vPerf vImpf ;
       <_,"و"|"ي"> => v1hollow root vImpf ;
-      _		    => v1sound root vPerf vImpf 
+      _		    => v1sound root vPerf vImpf
     };
-  
-  v2 = 
+
+  v2 =
     \rootStr ->
     let {
-      root = mkRoot3 rootStr 
+      root = mkRoot3 rootStr
     } in {
-      s = 
+      s =
         case root.l of {
           "و"|"ي" => (v2defective root).s;
           _       => (v2sound root).s
         };
       lock_V = <>
-    };              
-  
-  v3 = 
+    };
+
+  v3 =
     \rootStr ->
     let {
       tbc = mkRoot3 rootStr ;
@@ -304,21 +306,21 @@ resource ParadigmsAra = open
       s = (v3sound tbc).s  ;
       lock_V = <>
     };
-  
-  v4 = 
+
+  v4 =
     \rootStr ->
     let {
-      root = mkRoot3 rootStr 
+      root = mkRoot3 rootStr
     } in {
-      s = 
+      s =
         case root.l of {
           "و"|"ي" => (v4defective root).s;
           _       => (v4sound root).s
-        }; 
+        };
       lock_V = <>
     };
-  
-  
+
+
   v5 =
     \rootStr ->
     let { raw = v5' rootStr } in
@@ -329,16 +331,16 @@ resource ParadigmsAra = open
         };
       lock_V = <>
     };
-  
-  v5' : Str -> V = 
+
+  v5' : Str -> V =
     \rootStr ->
     let {
       nfs = mkRoot3 rootStr ;
     } in {
       s = (v5sound nfs).s  ; lock_V = <>
     };
-  
-  v6 = 
+
+  v6 =
     \rootStr ->
     let {
       fqm = mkRoot3 rootStr ;
@@ -346,31 +348,31 @@ resource ParadigmsAra = open
       s = (v6sound fqm).s  ;
       lock_V = <>
     };
-  
-  v8 = 
+
+  v8 =
     \rootStr ->
     let {
       rbT = mkRoot3 rootStr ;
-    } in {
-      s = (v8sound rbT).s ;
-      lock_V = <>
-    };
-  
+      v8fun = case rbT.f of {
+	("و"|"ي"|"ّ") => v8assimilated ;
+	_            => v8sound }
+    } in lin V (v8fun rbT) ;
+
   Preposition = Str ;
-  
+
   mkFullN nsc gen spec =
     { s = nsc; --NTable
-      g = gen; 
+      g = gen;
       h = spec;
       lock_N = <>
     };
-  
+
   brkN' : Str -> Str -> Str -> Gender -> Species -> N =
     \root,sg,pl,gen,spec ->
     let { kitAb = mkWord sg root;
           kutub = mkWord pl root
     } in mkFullN (reg kitAb kutub) gen spec;
-  
+
   brkN root sg pl gen spec =
     let { raw = brkN' root sg pl gen spec} in
     { s = \\n,d,c =>
@@ -381,31 +383,31 @@ resource ParadigmsAra = open
       g = gen;
       h = spec ; lock_N = <>
     };
-  
+
   sdfN =
     \root,sg,gen,spec ->
     let { kalima = mkWord sg root;
     } in mkFullN (sndf kalima) gen spec;
-  
+
   sdmN =
     \root,sg,gen,spec ->
     let { mucallim = mkWord sg root;
     } in mkFullN (sndm mucallim) gen spec;
 
-  mkFullPN = \str,gen,species -> 
+  mkFullPN = \str,gen,species ->
     { s = \\c => str + indecl!c ;
       g = gen;
       h = species;
       lock_PN = <>
     };
-    
-  
+
+
   mkN2 = \n,p -> n ** {lock_N2 = <> ; c2 = p} ;
-  
+
   mkN3 = \n,p,q -> n ** {lock_N3 = <> ; c2 = p ; c3 = q} ;
-  
+
   mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
-    { s = 
+    { s =
         table {
           Nom => ana;
           Acc => nI;
@@ -428,7 +430,7 @@ resource ParadigmsAra = open
       a = {pgn = Per3 Masc n; isPron = False };
       lock_NP = <>
     };
-  
+
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
     \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det ->
     { s = \\n,s,g,c =>
@@ -447,7 +449,7 @@ resource ParadigmsAra = open
       isNum = False;
       lock_Quant = <>
     };
-  
+
   mkQuant3 : (_,_,_ : Str) -> State -> Quant =
     \dalika,tilka,ula'ika,det ->
     { s = \\n,s,g,c =>
@@ -465,9 +467,9 @@ resource ParadigmsAra = open
 
   degrA : (posit,compar,plur : Str) -> A
     = \posit,compar,plur -> lin A {s = clr posit compar plur} ;
-  
+
   sndA root pat =
-    let  raw = sndA' root pat in { 
+    let  raw = sndA' root pat in {
       s = \\af =>
         case root of {
           _ + "؟" + _ => rectifyHmz(raw.s ! af);
@@ -475,7 +477,7 @@ resource ParadigmsAra = open
         };
       lock_A = <>
     };
-  
+
   sndA' : Str -> Str -> A =
     \root,pat ->
     let { kabIr = mkWord pat root;
@@ -487,7 +489,7 @@ resource ParadigmsAra = open
         };
       lock_A = <>
     };
-  
+
   clrA root =
     let { eaHmar = mkWord "أَفعَل" root;
           HamrA' = mkWord "فَعلاء" root;
@@ -496,20 +498,20 @@ resource ParadigmsAra = open
       s = clr eaHmar HamrA' Humr;
       lock_A = <>
     };
-  
+
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
-  
+
   mkAdv x = ss x ** {lock_Adv = <>} ;
   mkAdV x = ss x ** {lock_AdV = <>} ;
   mkAdA x = ss x ** {lock_AdA = <>} ;
-  
+
   mkPreposition p = p ;
 
   prepV2 : V -> Preposition -> V2 = \v,p -> v ** {s = v.s ; c2 = p ; lock_V2 = <>} ;
   strV2 : Str -> V2 = \str -> dirV2 (mkV str) ;
 
   dirV2 v = prepV2 v [] ;
-  
+
   mkV3 v p q = v ** {s = v.s ; c2 = p ; c3 = q ; lock_V3 = <>} ;
   dirV3 v p = mkV3 v [] p ;
   dirdirV3 v = dirV3 v [] ;
@@ -560,6 +562,6 @@ formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
    } ;
 
 param VerbForm =
-  FormI |  FormIII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII  ;
+  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII  ;
 
 } ;
