@@ -28,7 +28,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
 --    ComplVQ v q  = insertObj (\\_ => q.s ! QIndir) (predV v) ;
 --
 --    ComplVA  v    ap = insertObj (ap.s) (predV v) ;
---    ComplV2A v np ap = 
+--    ComplV2A v np ap =
 --      insertObj (\\_ => v.c2 ++ np.s ! Acc ++ ap.s ! np.a) (predV v) ;
 --
     UseComp xabar = kaan xabar ;

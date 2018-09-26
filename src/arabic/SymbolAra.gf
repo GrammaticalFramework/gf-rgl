@@ -29,7 +29,7 @@ lin
   SymbOrd n = {s = \\_,_,_ => n.s ; n = None } ;
   SymbNum n = SymbOrd n ** { n = ThreeTen } ; ----IL
 
-lincat 
+lincat
 
   Symb, [Symb] = SS ;
 
@@ -46,4 +46,3 @@ oper
    { pgn = Per3 Masc n ; isPron = False } ;
 
 }
-

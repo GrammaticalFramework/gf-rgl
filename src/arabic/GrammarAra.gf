@@ -1,8 +1,8 @@
 --# -path=.:../abstract:../common:prelude
 
-concrete GrammarAra of Grammar = 
-  NounAra, 
-  VerbAra, 
+concrete GrammarAra of Grammar =
+  NounAra,
+  VerbAra,
   AdjectiveAra,
   AdverbAra,
   NumeralAra,

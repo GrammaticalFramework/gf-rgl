@@ -11,10 +11,9 @@ concrete ExtendAra of Extend =
 
     Prelude,
     ResAra
-  
+
   in {
 
   lin
     GenNP np = { s = \\_,_,_,_ => np.s ! Gen ; d = Const ; isNum, isPron = False } ;
-
 } ;
