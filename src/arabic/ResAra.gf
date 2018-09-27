@@ -847,25 +847,19 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _   => ""
       };
 
+    -- "Sun letters": assimilate with def. article
+    sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
+
+    vow : pattern Str = #("َ" | "ِ" | "ُ") ;
     defArt : State -> Str -> Str = \st,stem ->
-      let arra = "الرَّ" ;
-          arri = "الرِّ" ;
-          arr  = "الرِّ" ;
-          atta = "التَ" ;
-          atti = "التِّ";
-          att  = "التّ" ;
-          al = "ال" ;
-      in case st of { -- TODO rest of the assimilations
-           Def => case stem of {
-                     ra@"رَ" + x => arra + x ;
-                     ri@"رِ" + x => arri + x ;
-                     r@"ر"  + x => arr + x ; -- no vowel specified
-                     ta@"تَ" + x => atta + x ;
-                     ti@"تِ" + x => atti + x ;
-                     t@"ت"  + x => att + x ; -- no vowel specified
-                     _          => al + stem
-                   } ;
-           _   => "" + stem
+      let al = "ال" in
+      case st of { -- TODO rest of the assimilations
+        Def =>
+          case stem of {
+            s@#sun + v@#vow + x => al + s + v + "ّ" + x ; -- vowel before shadda
+            s@#sun + x          => al + s + "ّ" + x;
+            x                   => al + x } ;
+        _   => stem
       };
 
     --declension 1 (strong ending) of the singular or broken plural words
