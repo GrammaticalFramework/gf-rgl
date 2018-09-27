@@ -145,8 +145,8 @@ concrete StructuralPor of Structural = CatPor **
     when_Subj = ss "quando" ** {m = Indic} ;
     where_IAdv = ss "onde" ;
     which_IQuant = {s = table {
-                      Sg => \\g,c => prepCase c ++ "que" ; --- qual
-                      Pl => \\g,c => prepCase c ++ "que"
+                      Sg => \\g,c => prepCase c ++ "qual" ; --- que
+                      Pl => \\g,c => prepCase c ++ "quais"
                       }
       } ;
     whoPl_IP = {s = \\c => prepCase c ++ "quem" ; a = aagr Masc Pl} ;
