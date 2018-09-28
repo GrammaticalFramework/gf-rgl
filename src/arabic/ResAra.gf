@@ -211,39 +211,46 @@ oper
       _			=> endVowel ! m
     } ;
 
-  --macro for geminate verbs: FIXME, change the misleading variable names
-  verbGeminate : (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
-	\xAf,xif,xyf,xuf,axAf,axaf,uxAf,uxaf,xaf,xAf',ppart ->
-    let { perfPattern = patHollowPerf xAf xif xyf xuf ;
-		  impfPattern = patHollowImpf axAf axaf uxAf uxaf ;
-		  impPattern  = patHollowImp xaf xAf'
-	} in
+
+  --macro for hollow verbs:
+  verbHollow : DefForms -> Verb =
+  \vforms ->
+    let { xAf = vforms ! 0 ; -- VPerf Act _
+          xif = vforms ! 1 ; -- VPerf Act (Per3 Fem Pl)
+          xIf = vforms ! 2 ; -- VPerf Pas _
+          xuf = vforms ! 3 ; -- VPerf Pas (Per3 Fem Pl)
+          axAf = vforms ! 4 ; -- VImpf Act _
+          axaf = vforms ! 5 ; -- VImpf Act (Per2/Per3 Fem Pl)
+          uxAf = vforms ! 6 ; -- VImpf Pas _
+          uxaf = vforms ! 7 ; -- VImpf Pas (Per2/Per3 Fem Pl)
+          impSg = vforms ! 8 ; -- VImp (Sg Masc / Pl Fem)
+          impPl = vforms ! 9 ; -- VImp (Pl Masc / Sg Fem)
+          ppart = vforms ! 10 ; -- VPPart
+
+          patPerf = patHollowPerf xAf xif xIf xuf ;
+          patImpf = patHollowImpf axAf axaf uxAf uxaf ;
+          patJus  = patHollowJus axaf axAf uxaf uxAf ;
+          patImp  = patHollowImp impSg impPl ;
+    } in
     { s = table {
-        VPerf     v pgn => perfPattern ! v ! pgn  + suffixPerf ! pgn ;
-	    VImpf Ind v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfInd ! pgn ;
-	    VImpf m   v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfCJ m ! pgn ;
-	    VImp	g	n	  =>			        impPattern ! g ! n +  suffixImpfCJ Jus ! (Per2 g n);
-        VPPart => ppart
+        VPerf     v pgn =>                    patPerf ! v ! pgn + suffixPerf ! pgn ;
+        VImpf Ind v pgn => prefixImpf ! pgn + patImpf ! v ! pgn + suffixImpfInd ! pgn ;
+        VImpf Cnj v pgn => prefixImpf ! pgn + patImpf ! v ! pgn + suffixImpfCJ Cnj ! pgn ;
+        VImpf Jus v pgn => prefixImpf ! pgn + patJus  ! v ! pgn + suffixImpfCJ Jus ! pgn ;
+        VImp        g n =>                    patImp  ! g ! n   + suffixImpfCJ Jus ! Per2 g n ;
+        VPPart          => ppart
         }
     } ;
 
-  --macro for hollow verbs:
-  verbHollow : (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
-	\xAf,xif,xyf,xuf,axAf,axaf,uxAf,uxaf,xaf,xAf',ppart ->
-    let { perfPattern = patHollowPerf xAf xif xyf xuf ;
-          impfPattern = patHollowImpf axAf axaf uxAf uxaf ;
-          impPattern  = patHollowImp axaf xAf' ;
-          jusPattern  = patHollowJus axaf axAf uxaf uxAf ;
- 	} in
-    { s = table {
-        VPerf     v pgn => perfPattern ! v ! pgn  + suffixPerf ! pgn ;
-        VImpf Ind v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfInd ! pgn ;
-        VImpf Cnj v pgn => prefixImpf ! pgn + impfPattern ! v ! pgn +  suffixImpfCJ Cnj ! pgn ;
-        VImpf Jus v pgn => prefixImpf ! pgn + jusPattern ! v ! pgn +  suffixImpfCJ Jus ! pgn ;
-        VImp        g n	=>	              impPattern ! g ! n +  suffixImpfCJ Jus ! (Per2 g n);
-        VPPart => ppart
-        }
-    } ;
+  --macro for geminate verbs: same behaviour as hollow verbs, except for jussive.
+  -- IL -- to be tested: there are no geminate verbs in LexiconAra
+  verbGeminate : DefForms -> Verb = \vforms ->
+    let verbHol = verbHollow vforms
+    in { s = table {
+           VImpf Jus v pgn => verbHol.s ! VImpf Cnj v pgn ;
+           x               => verbHol.s ! x
+           }
+       } ;
 
   --macro for defective verbs:
   verbDef : DefForms -> Vowel -> Verb =
@@ -266,11 +273,11 @@ oper
        patImp = patDefImp Irmi Irmu
     } in
     { s = table {
-        VPerf v pgn => patPerf ! v ! pgn + (suffixPerfDef v) ! pgn ;
-        VImpf m Act pgn => prefixImpf ! pgn + patImpfAct ! pgn + (suffixImpfDef Act vImpf) ! m ! pgn ;
-        VImpf m Pas pgn => prefixImpf ! pgn + urma + (suffixImpfDef Pas vImpf) ! m  ! pgn ;
-        VImp g n =>  patImp ! g ! n + (suffixImpfDef Act vImpf) ! Jus ! (Per2 g n) ;
-        VPPart => ppart
+        VPerf   v   pgn =>                    patPerf ! v ! pgn + suffixPerfDef v             ! pgn ;
+        VImpf m Act pgn => prefixImpf ! pgn + patImpfAct  ! pgn + suffixImpfDef Act vowImpf ! m ! pgn ;
+        VImpf m Pas pgn => prefixImpf ! pgn + urma              + suffixImpfDef Pas vowImpf ! m ! pgn ;
+        VImp        g n =>                    patImp ! g ! n    + suffixImpfDef Act vowImpf ! Jus ! Per2 g n ;
+        VPPart          => ppart
         }
     } ;
 
@@ -390,28 +397,28 @@ v1sound : Root3 -> Vowel -> Vowel -> Verb =
     uktab = mkStrong ufcal fcl ;
     euktub = case fcl.f of {
       "؟"|"و"|"ي" => qif ;
-       _         => prefixImp ! vImpf + ktub
+       _         => prefixImp ! vowImpf + ktub
       };
     maktUb = mkStrong mafcUl fcl
   } in
   verb katab kutib aktub uktab euktub maktUb ;
 
 v1hollow : Root3 -> Vowel -> Verb =
-  \xwf,vowel ->
+  \xwf,vowImpf ->
   let {
-	xAf = mkHollow fAc xwf ;
-	xif = mkHollow (patHol1 ! vowel) xwf ;
-	xyf = mkHollow fIc xwf ;
-	xuf = mkHollow (patHol2 ! vowel) xwf ;
-	xaf = mkHollow (fvc ! vowel) xwf ;
-	axaf= "َ" + xaf ;
-	uxAf= mkHollow ufAc xwf ;
-	uxaf= "ُ" + xaf ;
-	xAf'= mkHollow (patHol3 ! vowel) xwf ;
-	axAf= "َ" + xAf';
+    xif = mkHollow (patHol1 ! vowImpf) xwf ; -- VPerf Act (Per3 Fem Pl)
+    xAf = mkHollow fAc xwf ;                 -- VPerf Act _
+    xuf = mkHollow (patHol2 ! vowImpf) xwf ; -- VPerf Pas (Per3 Fem Pl)
+    xIf = mkHollow fIc xwf ;                 -- VPerf Pas _
+    xaf = mkHollow (fvc ! vowImpf) xwf ; -- VImp Sg Masc / Pl Fem
+    xAf'= mkHollow (fVc ! vowImpf) xwf ; -- VImp Pl Masc / Sg Fem
+    axaf= "َ" + xaf ;          -- VImpf Act (Per2/Per3 Fem Pl)
+    axAf= "َ" + xAf';          -- VImpf Act _
+    uxaf= "ُ" + xaf ;          -- VImpf Pas (Per2/Per3 Fem Pl)
+    uxAf= mkHollow ufAc xwf ; -- VImpf Pas _
     ppart = "مَ" + xAf' -- FIXME actually wierd anomalies happen with the a vowel..
 
-  }  in verbHollow xAf xif xyf xuf axAf axaf uxAf uxaf xaf xAf' ppart ;
+  } in verbHollow (toDefForms xAf xif xIf xuf axAf axaf uxAf uxaf xaf xAf' ppart) ;
 
 patHol1 : Vowel => Pattern =
   table { u => fuc ; _ => fic} ;
@@ -419,11 +426,11 @@ patHol1 : Vowel => Pattern =
 patHol2 : Vowel => Pattern =
   table { u => fic ; _ => fuc} ;
 
-patHol3 : Vowel => Pattern =
+fVc : Vowel => Pattern =
   table {
     u => fUc ;
-	i => fIc ;
-	a => fAc
+    i => fIc ;
+    a => fAc
   } ;
 
 --used in assimilated (wqf -> qif, wqc -> qac..) and hollow (qwl -> qul, xwf->xaf..)
@@ -452,7 +459,9 @@ v1geminate : Str -> Vowel -> Vowel -> Verb =
     umdad = "ُ" + mkStrong fcal mdd ;
     Umdud = (prefixImp ! vowImpf) + mdud;
     mamdUd = mkStrong mafcUl mdd
-  }  in verbGeminate madd madad mudd mudid amudd amdud umadd umdad Umdud mudd' mamdUd;
+   } in verbGeminate (toDefForms
+                        madd madad mudd mudid amudd amdud
+                        umadd umdad Umdud mudd' mamdUd) ;
 
 patGem1 : Vowel => Pattern =
   table {
@@ -475,7 +484,11 @@ patGem3 : Vowel => Pattern =
     i => fcil                --no such verb probably exists
   } ;
 
+-- IL -- Defective, hollow and geminate verbs all need 11 forms.
+      {- NB. the numbers don't always refer to the same forms!
+         The verb(Def|Hollow|Geminate) constructors pick the right forms. -}
 DefForms : Type = Predef.Ints 10 => Str ;
+
 toDefForms : (x1,_,_,_,_,_,_,_,_,_,x11 : Str) -> DefForms =
   \a,b,c,d,e,f,g,h,i,j,k ->
   table {
@@ -640,6 +653,42 @@ v8assimilated : Root3 -> Verb = --- IL 8a1
     muttafaq =  "م" + uttafaq
   } in verb eittafaq euttufiq attafiq uttafaq eittafiq muttafaq;
 
+v10sound : Root3 -> Verb = ---- IL 10s -- to be checked
+  \qtl ->
+  let {
+    _staqtal = "َستَ" + mkStrong fcal qtl ;
+    _staqtil = "َستَ" + mkStrong fcil qtl;
+    istaqtal = "اِ" + _staqtal ; -- VPerf Act
+    ustuqtil = "اُسْتُ" + mkStrong fcil qtl; -- VPerf Pas
+    astaqtil = "َ"  + _staqtil ; -- VImpf _ Act
+    astaqtal = "َ"  + _staqtal ;  -- VImpf _ Pas
+    istaqtil = "اِ" + _staqtil ; -- VImp
+    mustaqtal = "مُ" + _staqtal  -- VPPart
+  } in
+  verb istaqtal ustuqtil astaqtil astaqtal istaqtil mustaqtal ;
+
+v10hollow : Root3 -> Verb = ---- IL 10h -- to be checked
+  \xwf ->
+  let {
+    _staxaf = "سْتَ" + mkHollow fac xwf ;
+    _staxAf = "سْتَ" + mkHollow fAc xwf ;
+    _staxif = "سْتَ" + mkHollow fic xwf ;
+    _staxIf = "سْتَ" + mkHollow fIc xwf ;
+    istaxaf = "اِ" + _staxaf ;            -- VPerf Act (Per3 Fem Pl)
+    istaxAf = "اِ" + _staxAf ;            -- VPerf Act _
+    ustuxif = "اُسْتُ" + mkHollow fic xwf ; -- VPerf Pas (Per3 Fem Pl)
+    ustuxIf = "اُسْتُ" + mkHollow fIc xwf ; -- VPerf Pas _
+    istaxif = "اِ" + _staxif ;  -- VImp Sg Masc / Pl Fem
+    istaxIf = "اِ" + _staxIf ;  -- VImp Pl Masc / Sg Fem
+    astaxif = "َ" + _staxif ; -- VImpf Act (Per2/Per3 Fem Pl)
+    astaxIf = "َ" + _staxIf ; -- VImpf Act _
+    ustaxaf = "ُ" + _staxaf ; -- VImpf Pas (Per2/Per3 Fem Pl)
+    ustaxAf = "ُ" + _staxAf ; -- VImpf Pas _
+    ppart = "مُ" + _staxIf -- PPart ("weird anomalies" here too?)
+
+  }  in verbHollow (toDefForms
+                     istaxAf istaxaf ustuxIf ustuxif astaxIf astaxif
+                     ustaxAf ustaxaf istaxif istaxIf ppart) ;
 
 patV1Perf : Vowel => Pattern =
   table {
@@ -833,9 +882,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
 
     vow : pattern Str = #("َ" | "ِ" | "ُ") ;
-    defArt : State -> Str -> Str = \st,stem ->
+    defArt : State -> Str -> Str = \st,stem -> -- IL -- to be checked
       let al = "ال" in
-      case st of { -- TODO rest of the assimilations
+      case st of {
         Def =>
           case stem of {
             s@#sun + v@#vow + x => al + s + v + "ّ" + x ; -- vowel before shadda
