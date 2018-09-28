@@ -2,7 +2,8 @@
 
 concrete ConstructionPor of Construction = CatPor **
   open SyntaxPor, SymbolicPor, ParadigmsPor, BeschPor,
-       (L = LexiconPor), (E = ExtraPor), (B = IrregBeschPor), (R = ResPor), (C = CommonRomance),
+  (L = LexiconPor), (E = ExtraPor), (B = IrregBeschPor), (R = ResPor),
+  (S = SyntaxPor), (C = CommonRomance),
        Prelude in {
   flags coding=utf8 ;
 
@@ -62,7 +63,7 @@ oper
     timeunitAdv n time =
       let n_card : Card = lin Card n;
           n_hours_NP : NP = mkNP n_card time ;
-      in  SyntaxPor.mkAdv for_Prep n_hours_NP ;--| SyntaxPor.mkAdv (n_hours_NP.s ! R.Nom) ;
+      in  S.mkAdv for_Prep n_hours_NP | S.mkAdv to_Prep n_hours_NP ;--| S.mkAdv (n_hours_NP.s ! R.Nom) ;
 
   weekdayPunctualAdv w = lin Adv {s = w.s ! C.Sg} ;         -- lundi
   weekdayHabitualAdv w = SyntaxPor.mkAdv noPrep (mkNP the_Det w) ; -- il lunedí ----

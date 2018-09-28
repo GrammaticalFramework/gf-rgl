@@ -403,6 +403,7 @@ oper
 -- the first one or both can be absent.
 
   mkV3 = overload {
+    mkV3 : Str -> V3 = \s -> dirdirV3 (regV s) ;
     mkV3 : V -> V3 = dirdirV3 ; -- donner (+ accusative + dative)
     mkV3 : V -> Prep -> V3 = dirV3 ; -- placer (+ accusative) + dans
     mkV3 : V -> Prep -> Prep -> V3 = mmkV3 -- parler + dative + genitive

@@ -10,7 +10,7 @@ flags
 lin
    easy_A2V = mkA2V (mkA "fácil") dative genitive ;
    married_A2 = mkA2 (mkA "casado") dative ;
-   probable_AS = mkAS (mkA "provável") ;
+   probable_AS = mkAS (mkA "provável" "provável" "prováveis" "prováveis" "provavelmente") ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
    bad_A       = prefA (mkA (mkA "mau") (mkA "pior")) ;
