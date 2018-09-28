@@ -195,6 +195,8 @@ resource ParadigmsAra = open
 
   v8 : Str -> V ;
 
+  v10 : Str -> V ;
+
 --3 Two-place verbs
 
 -- Two-place verbs need a preposition, except the special case with direct object.
@@ -283,10 +285,12 @@ resource ParadigmsAra = open
     let { root = mkRoot3 rootStr ;
           l = dp 2 rootStr } in --last rootStr
     case <l, root.c> of {
-      <"ّ",_>     => v1geminate rootStr vPerf vImpf ;
-      <"و"|"ي",_> => v1defective root vPerf vImpf ;
+      <"ّ",_>      => v1geminate rootStr vPerf vImpf ;
+      <"و"|"ي",_> => case vPerf of {
+                       i => v1defective_i root vImpf ;
+                       _ => v1defective_a root vImpf } ;
       <_,"و"|"ي"> => v1hollow root vImpf ;
-      _		    => v1sound root vPerf vImpf
+      _           => v1sound root vPerf vImpf
     };
 
   v2 =
@@ -358,9 +362,18 @@ resource ParadigmsAra = open
     let {
       rbT = mkRoot3 rootStr ;
       v8fun = case rbT.f of {
-	("و"|"ي"|"ّ") => v8assimilated ;
-	_            => v8sound }
-    } in lin V (v8fun rbT) ;
+                ("و"|"ي"|"ّ") => v8assimilated ;
+                _            => v8sound }
+      } in lin V (v8fun rbT) ;
+
+  v10 =
+    \rootStr ->
+    let {
+      rbT = mkRoot3 rootStr ;
+      v10fun = case rbT.c of {
+                ("و"|"ي") => v10hollow ;
+                _         => v10sound }
+      } in lin V (v10fun rbT) ;
 
   Preposition = Str ;
 
@@ -562,10 +575,11 @@ formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
    FormV   => v5 s ;
    FormVI  => v6 s ;
 ---   FormVII  => v7 s ;
-   FormVIII => v8 s
+   FormVIII => v8 s ;
+   FormX   => v10 s
    } ;
 
 param VerbForm =
-  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII  ;
+  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII | FormX ;
 
 } ;

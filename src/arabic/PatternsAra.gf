@@ -48,7 +48,7 @@ flags coding=utf8 ;
     eiftacal = { h = "إِ"; m1 = "ْتَ" ; m2 = "َ"   ; t = ""   } ;
     eufcil   = { h = "أُ"; m1 = "ْ"   ; m2 = "ِ"   ; t = ""   } ;
     euftucil = { h = "أُ"; m1 = "ْتُ" ; m2 = "ِ"   ; t = ""   } ;
-    euttucil = euftucil ** { h =  "تُّأُ" ; m1 = "" } ; ---- IL assimilated VIII
+    euttucil = euftucil ** { h =  "اُتُّ" ; m1 = "ِ"  } ; ---- IL assimilated VIII
     afcul    = { h = "َ" ; m1 = "ْ"   ; m2 = "ُ"   ; t = ""   } ;
     faccalo  = { h = ""  ; m1 = "َ"   ; m2 = "َّ"  ; t = "ْ"  } ;
     facal    = { h = ""  ; m1 = "َ"   ; m2 = "َ"   ; t = ""   } ;
