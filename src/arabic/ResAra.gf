@@ -1,4 +1,4 @@
---# -path=.:../abstract:../common:../../prelude
+    --# -path=.:../abstract:../common:../../prelude
 --
 ----1 Arabic auxiliary operations.
 --
@@ -65,13 +65,13 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, ParamX  in {
     mkStrong : Pattern -> Root3 -> Str = \p,fcl ->
       p.h + fcl.f + p.m1 + fcl.c + p.m2 + fcl.l + p.t;
 
-    mkDefective: Pattern -> Root3 -> Str = \p,fcl ->
+    mkDefective : Pattern -> Root3 -> Str = \p,fcl ->
       p.h + fcl.f + p.m1 + fcl.c + p.t;
 
-    mkHollow: Pattern -> Root3 -> Str = \p,fcl ->
+    mkHollow : Pattern -> Root3 -> Str = \p,fcl ->
       p.h + fcl.f + p.m1 + fcl.l + p.t;
 
-    mkAssimilated: Pattern -> Root3 -> Str = \p,fcl ->
+    mkAssimilated : Pattern -> Root3 -> Str = \p,fcl ->
       p.h + fcl.c + p.m1 + fcl.l + p.t;
 
     -- takes a weak pattern and a triliteral root and makes
@@ -247,7 +247,7 @@ oper
 
   --macro for defective verbs:
   verbDef : DefForms -> Vowel -> Verb =
-    \vforms,vImpf ->
+    \vforms,vowImpf ->
     let {
        rama  = vforms ! 0 ; -- VPerf Act (Per3 Masc Sg)
        ramay = vforms ! 1 ; -- VPerf Act (Per3 Fem  Pl)
@@ -279,16 +279,16 @@ oper
       Act =>
         table {
           Per3 Fem Pl => ramay ;
-	  Per3 _   _  => rama ;
-          _	      => ramay
-	    } ;
+          Per3 _   _  => rama ;
+          _           => ramay
+          } ;
       Pas =>
         table {
           Per3 Masc Pl => rumu ;
           Per3 Fem Pl  => rumy ;
           Per3 _   _   => rumi ;
-          _	       => rumy
-	    }
+          _            => rumy
+        }
     } ;
 
   --ignores the vowel=u case, eg "دعو"
@@ -375,13 +375,13 @@ oper
 --now is used for the sound, assimilated (weak C1), and when C1 = hamza:
 
 v1sound : Root3 -> Vowel -> Vowel -> Verb =
-  \fcl,vPerf,vImpf ->
+  \fcl,vowPerf,vowImpf ->
   let {
     qf = {f = fcl.c ; c = fcl.l} ;
-    qif = mkBilit (fvc ! vImpf) qf;
-    katab = mkStrong (patV1Perf ! vPerf) fcl ;
-    kutib = mkStrong fucil fcl ;		--FIXME no passive if vPerf == u
-    ktub  = mkStrong (patV1Impf ! vImpf) fcl ;
+    qif = mkBilit (fvc ! vowImpf) qf;
+    katab = mkStrong (patV1Perf ! vowPerf) fcl ;
+    kutib = mkStrong fucil fcl ; --FIXME no passive if vowPerf == u
+    ktub  = mkStrong (patV1Impf ! vowImpf) fcl ;
     aktub = "َ" +
       case fcl.f of {
         "و"|"ي" => qif ;
@@ -436,21 +436,21 @@ fvc : Vowel => Pattern =
 
 
 v1geminate : Str -> Vowel -> Vowel -> Verb =
-  \rootStr,vPerf,vImpf ->
+  \rootStr,vowPerf,vowImpf ->
   let {
-	mdd = mkRoot3 rootStr ;	--fcc
-	md  = mkRoot2 rootStr ;	--fc
-	madd = mkBilit facc md ;
-	madad = mkStrong (patGem1 ! vPerf) mdd ;
-	mudd = mkBilit fucc md ;
-	mudid = mkStrong fucil mdd ;
-	mudd' = mkBilit (patGem2 ! vImpf) md ;
-	amudd = "َ" + mudd' ;
-	mdud = mkStrong (patGem3 ! vImpf) mdd ;
-	amdud = "َ" + mdud ;
-	umadd = "ُ" + madd ;
-	umdad = "ُ" + mkStrong fcal mdd ;
-	Umdud = (prefixImp ! vImpf) + mdud;
+    mdd = mkRoot3 rootStr ; --fcc
+    md  = mkRoot2 rootStr ; --fc
+    madd = mkBilit facc md ;
+    madad = mkStrong (patGem1 ! vowPerf) mdd ;
+    mudd = mkBilit fucc md ;
+    mudid = mkStrong fucil mdd ;
+    mudd' = mkBilit (patGem2 ! vowImpf) md ;
+    amudd = "َ" + mudd' ;
+    mdud = mkStrong (patGem3 ! vowImpf) mdd ;
+    amdud = "َ" + mdud ;
+    umadd = "ُ" + madd ;
+    umdad = "ُ" + mkStrong fcal mdd ;
+    Umdud = (prefixImp ! vowImpf) + mdud;
     mamdUd = mkStrong mafcUl mdd
   }  in verbGeminate madd madad mudd mudid amudd amdud umadd umdad Umdud mudd' mamdUd;
 
@@ -477,57 +477,41 @@ patGem3 : Vowel => Pattern =
 
 DefForms : Type = Predef.Ints 10 => Str ;
 toDefForms : (x1,_,_,_,_,_,_,_,_,_,x11 : Str) -> DefForms =
-  \rama,ramay,rumi,rumu,rumiy,armi,armu,urma,eirmi,eirmu,marmiy ->
+  \a,b,c,d,e,f,g,h,i,j,k ->
   table {
-      0 => rama ;
-      1 => ramay ;
-      2 => rumi ;
-      3 => rumu ;
-      4 => rumiy ;
-      5 => armi ;
-      6 => armu ;
-      7 => urma ;
-      8 => eirmi ;
-      9 => eirmu ;
-      10 => marmiy
-      } ;
+    0 => a ; 1 => b ; 2 => c ; 3 => d ; 4 => e ; 5 => f ; 6 => g ;
+    7 => h ; 8 => i ; 9 => j ; 10 => k
+  } ;
 
-
-def1Forms_vPerfA : Root3 -> Vowel -> DefForms = \rmy,vImpf ->
+def1Forms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
  let {
+   _rmi = mkDefective (patDef1 ! vowImpf) rmy ;
+   _rmu = mkDefective (patDef2 ! vowImpf) rmy ;
    rama = mkDefective faca rmy ;
    ramay = mkStrong facalo rmy ;
    rumi = mkDefective fuci rmy ;
    rumu = mkDefective fucu rmy ;
    rumiy = mkStrong fucilo rmy ;
-   rmi = mkDefective (patDef1 ! vImpf)  rmy ;
-   armi = "َ" + rmi ;
-   rmu = mkDefective (patDef2 ! vImpf) rmy ;
-   armu = "َ" + rmu ;
+   armi = "َ" + _rmi ;
+   armu = "َ" + _rmu ;
    urma = mkDefective ufca rmy ;
-   eirmi = prefixImp ! vImpf + rmi;
-   eirmu = prefixImp ! vImpf + rmu;
+   eirmi = prefixImp ! vowImpf + _rmi;
+   eirmu = prefixImp ! vowImpf + _rmu;
    marmiy = mkStrong mafcil rmy
  } in toDefForms rama ramay rumi rumu rumiy armi armu urma eirmi eirmu marmiy ;
 
-v1defective : Root3 -> Vowel -> Vowel -> Verb = \rmy,vPerf,vImpf ->
-  case vPerf of {
-    i => v1defective_i rmy vImpf ;
-    _ => v1defective_a rmy vImpf
-  } ;
+v1defective_a : Root3 -> Vowel -> Verb = \rmy,vowImpf ->
+  let vforms = def1Forms_perfA rmy vowImpf
+   in verbDef vforms vowImpf ;
 
-v1defective_a : Root3 -> Vowel -> Verb = \rmy,vImpf ->
-  let vforms = def1Forms_vPerfA rmy vImpf
-   in verbDef vforms vImpf ;
-
-v1defective_i : Root3 -> Vowel -> Verb = \bqy,vImpf -> -- IL (conjugation 1d4)
-  let vforms_a = def1Forms_vPerfA bqy vImpf ;
+v1defective_i : Root3 -> Vowel -> Verb = \bqy,vowImpf -> -- IL (conjugation 1d4)
+  let vforms_a = def1Forms_perfA bqy vowImpf ;
       baqI  = mkDefective facIl bqy ;
       baqiy = mkDefective facil bqy ;
       vforms_i = table { 0 => baqI ;
                          1 => baqiy ;
                          x => vforms_a ! x } ;
-   in verbDef vforms_i vImpf ;
+   in verbDef vforms_i vowImpf ;
 
 patDef1 : Vowel => Pattern =
   table {
@@ -681,65 +665,63 @@ endVowel : Mood => Str =
 prefixImp : Vowel => Str =
   table {
     u => "أُ" ;
-	_ => "إِ"
+    _ => "إِ"
   } ;
 
-patHollowPerf : (_,_,_,_ :Str) -> Voice => PerGenNum => Str = \xAf,xif,xyf,xuf ->
+patHollowPerf : (_,_,_,_ :Str) -> Voice => PerGenNum => Str = \xAf,xif,xIf,xuf ->
   table {
     Act =>
       table {
         Per3 Fem Pl => xif ;
-	    Per3 _	_  => xAf ;
-	    _		   => xif
-	  } ;
+        Per3 _   _  => xAf ;
+        _           => xif
+      } ;
     Pas =>
       table {
         Per3 Fem Pl => xuf ;
-	    Per3 _	_  => xyf ;
-	    _		   => xuf
-	  }
-  } ;
+        Per3 _   _  => xIf ;
+        _           => xuf
+      }
+   } ;
 
 --this is the pattern of imperfect  hollow (ind & conj) and geminate verbs (all)
 patHollowImpf : (_,_,_,_ :Str) -> Voice => PerGenNum => Str = \axAf,axaf,uxAf,uxaf ->
   table {
     Act =>
       table {
-	    Per3 Fem Pl => axaf ;
-	    Per2 Fem Pl => axaf ;
-	    _		=> axAf
-	  } ;
+      Per3 Fem Pl => axaf ;
+      Per2 Fem Pl => axaf ;
+      _		=> axAf
+    } ;
     Pas =>
       table {
-	    Per3 Fem Pl => uxaf ;
-	    Per2 Fem Pl => uxaf ;
-	    _		=> uxAf
-	  }
+      Per3 Fem Pl => uxaf ;
+      Per2 Fem Pl => uxaf ;
+      _		=> uxAf
+    }
   } ;
 
 patHollowJus : (_,_,_,_ : Str) -> Voice => PerGenNum => Str =\axaf,axAf,uxaf,uxAf->
   table {
     Act =>
       table {
-        Per3 g Sg    => axaf ;
-        Per3 Fem Pl  => axaf;
-        Per2 Fem Pl  => axaf;
-        Per2 Masc Sg => axaf;
-        Per1 _       => axaf;
-	    _		     => axAf
-	  } ;
+        Per3 _   Sg  => axaf ;
+        Per3 Fem Pl  => axaf ;
+        Per2 Fem Pl  => axaf ;
+        Per2 Masc Sg => axaf ;
+        Per1 _       => axaf ;
+        _            => axAf
+    } ;
     Pas =>
       table {
-        Per3 g Sg    => uxaf ;
-        Per3 Fem Pl  => uxaf;
-        Per2 Fem Pl  => uxaf;
-        Per2 Masc Sg => uxaf;
-        Per1 _       => uxaf;
-	    _		     => uxAf
-	  }
+        Per3 _   Sg  => uxaf ;
+        Per3 Fem Pl  => uxaf ;
+        Per2 Fem Pl  => uxaf ;
+        Per2 Masc Sg => uxaf ;
+        Per1 _       => uxaf ;
+        _            => uxAf
+    }
   } ;
-
-
 
 patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
   table {
