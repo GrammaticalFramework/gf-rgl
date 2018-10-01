@@ -6,8 +6,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
     UseV = predV ;
 
     SlashVV vv vps = vps ** predV vv ; ----IL
-    SlashV2a v = predV v ** {c2 = v.c2};
-    Slash3V3 v np = insertObj np (predV v) ** {c2 = v.c2};
+    SlashV2a v = predVSlash v ;
+    Slash3V3 v np = insertObj np (predVSlash v) ** {c2 = v.c3};
 
     ComplSlash vp np = insertObj np vp ;
 
