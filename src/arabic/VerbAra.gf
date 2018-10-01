@@ -17,12 +17,12 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
                  a = {pgn = Per3 Masc Sg ; isPron = False} } --FIXME
       (predV v) ;-}
 
-    ComplVV vv vp =  --- IL
-      predV vv ** {
-       s2   = vv.c2 ;     -- add the preposition of the VV. TODO: do we need a separate field in the VP?
-       pred = compVP vp ; -- add VP complement in pred. TODO: what agreement features are needed?
-       isPred = False } ; {- Despite verb complement being in pred, it's not predicative.
-                             Changing this to True causes PredVP to not include the verb. -}
+    ComplVV vv vp =  let vvVP = predV vv in --- IL
+      vp ** {
+        s = \\pgn,vpf => vvVP.s ! pgn ! vpf
+                      ++ vv.c2  -- أَنْ‎
+                      ++ vp.s ! pgn ! VPImpf Cnj
+      } ;
 
 --    ComplVS v s  = insertObj (\\_ => conjThat ++ s.s) (predV v) ;
 --    ComplVQ v q  = insertObj (\\_ => q.s ! QIndir) (predV v) ;
