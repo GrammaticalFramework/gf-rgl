@@ -20,7 +20,8 @@ concrete StructuralAra of Structural = CatAra **
 --  but_PConj = ss "بُت" ;
   by8agent_Prep = ss "بِ" ;
   by8means_Prep = ss "بِ" ;
---  can8know_VV, can_VV = {
+  can_VV = mkVV (mkV "طوع" FormX) ;
+--  can8know_VV = {
 --    s = table VVForm [["بي َبلي تْ"] ; "عَن" ; "عُْلد" ;
 --         ["بّن َبلي تْ"] ; ["بِنغ َبلي تْ"] ; "عَنءت" ; "عُْلدنءت"] ;
 --    isAux = True
@@ -50,7 +51,7 @@ concrete StructuralAra of Structural = CatAra **
 --  more_CAdv = ss "مْري" ;
   most_Predet = mkPredet  "أَكثَر" True ;
   much_Det = mkDet "الكَثِير مِنَ" Pl Const ;
-  must_VV = mkVV (v1 "وجب" a i) "أن" ;
+  must_VV = mkVV (v1 "وجب" a i) ;
 --    s = table VVForm [["بي هَثي تْ"] ; "مُست" ; ["هَد تْ"] ;
 --         ["هَد تْ"] ; ["هَثِنغ تْ"] ; "مُستنءت" ; ["هَدنءت تْ"]] ; ----
 --    isAux = True

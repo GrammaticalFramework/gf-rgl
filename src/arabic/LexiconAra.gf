@@ -330,7 +330,7 @@ flags
   wind_N       = brkN "ريح" "فِعل" "فِعال"      Fem NoHum;
   wing_N       = brkN "جنح" "فَعال" "أَفعِلة"   Masc NoHum ;
   worm_N       = brkN "دود" "فُعلة" "فِيعان"     Fem NoHum ;
-  year_N       = sdfN "سن"  "فَعة"              Fem NoHum   ;
+  year_N       = mkN  "سَنَة"  "سَنَوَات"       Fem NoHum   ;
 
   blow_V       = regV "يَنفُخ" ;
   breathe_V    = dirV2 (v5 "نفس") ;

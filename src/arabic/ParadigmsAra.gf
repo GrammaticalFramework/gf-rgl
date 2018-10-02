@@ -159,7 +159,7 @@ resource ParadigmsAra = open
       = regV ;
     mkV : (root : Str) -> (perf,impf : Vowel) -> V  -- verb form I ; vowel = a|i|u
       = v1 ;
-    mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormVIII (no VII) ; default vowels a u for I
+    mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormX (no VII, IX) ; default vowels a u for I
       = formV ;
     } ;
 
@@ -194,6 +194,8 @@ resource ParadigmsAra = open
 --Verb Form VIII 'ifta`ala
 
   v8 : Str -> V ;
+
+-- Verb Form X 'istaf`ala
 
   v10 : Str -> V ;
 
@@ -536,7 +538,7 @@ resource ParadigmsAra = open
   mkVS  v = v ** {lock_VS = <>} ;
   mkVQ  v = v ** {lock_VQ = <>} ;
 
-  regVV : V -> VV = \v -> lin VV v ** {c2 = []} ;
+  regVV : V -> VV = \v -> lin VV v ** {c2 = "أَنْ"} ;
   c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = prep} ;
 
   V0 : Type = V ;
@@ -557,8 +559,9 @@ resource ParadigmsAra = open
   mkA2V v p = mkA2 v p ** {lock_A2 = <>} ;
 
 
-smartN : Str -> N = \s -> case last s of {
-  "ة" => mkFullN (sndf s) Fem NoHum ;
+smartN : Str -> N = \s -> case s of {
+  _ + "ة" => mkFullN (sndf s) Fem NoHum ;
+  _ + "ة" + #vow => mkFullN (sndf s) Fem NoHum ;
   _ => mkFullN (sndm s) Masc NoHum
   } ;
 

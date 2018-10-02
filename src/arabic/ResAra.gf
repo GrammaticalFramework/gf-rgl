@@ -856,7 +856,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       \caSaA ->
       case caSaA of {
         lemma + ("ا"|"ى") => \\s,c => defArt s lemma + "ي" + dl ! s ! c ;
-        _                 => \\s,c => defArt s caSaA + dl ! s ! c
+        lemma + "ة" =>
+          \\s,c => defArt s (lemma + "ت") + dl ! s ! c ;
+        _  => \\s,c => defArt s caSaA + dl ! s ! c
       };
 
     -- takes a singular word and gives the corresponding sound
@@ -953,12 +955,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Const =>
           table {
             Nom => "َا";
-            _   => "َي"
+            _   => "َيْ‎"
           };
         _ =>
           table {
             Nom => "َانِ";
-            _   => "َينِ"
+            _   => "َيْنِ"
           }
       };
 
@@ -1189,6 +1191,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         isPred = False
       };
 
+   predVSlash : Verb ** {c2 : Str} -> VPSlash = \v ->
+     predV v ** {c2 = v.c2} ;
 
     -- in verbal sentences, the verb agrees with the subject
     -- in Gender but not in number
@@ -1198,8 +1202,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _        => pgn
       };
 
-    insertObj : NP -> VP -> VP = \np,vp -> vp **
-      { obj = {s = np.s ! Acc ; a = np.a} };
+    insertObj : NP -> VPSlash -> VP = \np,vp -> vp **
+      { obj = {s = vp.obj.s ++ vp.c2 ++ np.s ! Acc ; a = np.a} };
 
     insertPred : {s : AAgr => Case => Str} -> VP -> VP = \p,vp -> vp **
       { pred = p;
