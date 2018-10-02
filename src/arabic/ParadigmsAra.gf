@@ -559,8 +559,9 @@ resource ParadigmsAra = open
   mkA2V v p = mkA2 v p ** {lock_A2 = <>} ;
 
 
-smartN : Str -> N = \s -> case last s of {
-  "ة" => mkFullN (sndf s) Fem NoHum ;
+smartN : Str -> N = \s -> case s of {
+  _ + "ة" => mkFullN (sndf s) Fem NoHum ;
+  _ + "ة" + #vow => mkFullN (sndf s) Fem NoHum ;
   _ => mkFullN (sndm s) Masc NoHum
   } ;
 

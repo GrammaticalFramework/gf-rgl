@@ -856,7 +856,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       \caSaA ->
       case caSaA of {
         lemma + ("ا"|"ى") => \\s,c => defArt s lemma + "ي" + dl ! s ! c ;
-        _                 => \\s,c => defArt s caSaA + dl ! s ! c
+        lemma + "ة" =>
+          \\s,c => defArt s (lemma + "ت") + dl ! s ! c ;
+        _  => \\s,c => defArt s caSaA + dl ! s ! c
       };
 
     -- takes a singular word and gives the corresponding sound
@@ -953,12 +955,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Const =>
           table {
             Nom => "َا";
-            _   => "َي"
+            _   => "َيْ‎"
           };
         _ =>
           table {
             Nom => "َانِ";
-            _   => "َينِ"
+            _   => "َيْ‎نِ"
           }
       };
 
