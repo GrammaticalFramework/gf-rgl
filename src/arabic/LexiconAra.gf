@@ -1,12 +1,12 @@
 --# -path=.:prelude
 --
-concrete LexiconAra of Lexicon = CatAra ** open 
-  ParadigmsAra, 
+concrete LexiconAra of Lexicon = CatAra ** open
+  ParadigmsAra,
   ResAra,
   MorphoAra, --shouldn't open it here, only needed reg &sndf
-  Prelude in { 
+  Prelude in {
 
-flags 
+flags
   optimize=values ;  coding=utf8 ;
 
   lin
@@ -27,7 +27,7 @@ flags
   beg_V2V      = dirV2 (v5 "وسل") ;
   big_A        = sndA "كبر" "فَعِيل" ;
   bike_N       = sdfN "درج" "فَعّالة" Fem NoHum ;
-  bird_N       = brkN "طير" "فَعل" "فُعُول" Masc NoHum; 
+  bird_N       = brkN "طير" "فَعل" "فُعُول" Masc NoHum;
   black_A      = clrA "سود" ;
   blue_A       = clrA "زرق" ;
   boat_N       = brkN "قرب" "فاعِل" "فَواعِل" Masc NoHum ;
@@ -39,7 +39,7 @@ flags
   break_V2     = dirV2 (regV "يَكسُر") ;
 --  break_V2     = dirV2 (v1 "كسر" a u) ;
   broad_A      = sndA "وسع" "فاعِل" ;
-  brother_N2   = brkN "؟خو" "فَع" "فِعلة" Masc Hum ; --FIXME
+  brother_N2   = mkN2 (brkN "؟خو" "فَع" "فِعلة" Masc Hum) ; --FIXME
   brown_A      = sndA "بني" "فُعِّل";
   butter_N     = sdfN "سبد" "فُعلة" Fem NoHum ;
   buy_V2       = dirV2 (v8 "شري") ;
@@ -62,7 +62,7 @@ flags
   come_V       = v1 "جي؟" a i ; --check
   computer_N   = brkN "حسب" "فاعُول" "فَواعِيل" Masc NoHum ;
   country_N    = brkN "بلد" "فَعَل" "فِعال" Masc NoHum ;
-  cousin_N     = brkN "قرب" "فَعِيل" "أَفعِلاء" Masc Hum ; -- (<bn / bnt) (cam[ö] / xAl[ö]) 
+  cousin_N     = brkN "قرب" "فَعِيل" "أَفعِلاء" Masc Hum ; -- (<bn / bnt) (cam[ö] / xAl[ö])
   cow_N        = sdfN "بقر" "فَعلة" Fem NoHum ;
   die_V        = v1 "موت" a u ; --check
   dirty_A      = sndA "وسخ" "فَعِل" ;
@@ -78,7 +78,7 @@ flags
   empty_A      = sndA "فرغ" "فاعِل" ;
   enemy_N      = brkN "عدو" "فَعُلّ" "أَفعاء" Masc Hum ;
   factory_N    = brkN "صنع" "مَفعَل" "مَفاعِل" Masc NoHum ;
-  father_N2    = brkN "؟ب" "فَع" "أَفعاء" Masc Hum;
+  father_N2    = mkN2 (brkN "؟ب" "فَع" "أَفعاء" Masc Hum);
   fear_VS      = mkVS (v1 "خشي" i a );
   find_V2      = dirV2 (v1 "وجد" a i ) ;
   fish_N       = brkN "سمك" "فَعَلة" "أَفعال" Fem NoHum ;
@@ -99,7 +99,7 @@ flags
   harbour_N    = brkN "رف؟" "مَفعَل" "مَفاعِل" Masc NoHum ; --mInA', marsaY
   hate_V2      = dirV2 (regV "كَرِه") ;
   hat_N        = sdfN "قبع" "فُعَّلة" Fem NoHum ;
---  have_V2      = dirV2 (v1 "ملك" a i) ; 
+--  have_V2      = dirV2 (v1 "ملك" a i) ;
   hear_V2      = dirV2 (regV "سَمِع") ;
 --  hear_V2      = dirV2 (v1 "سمع" i a) ;
   hill_N       = brkN "هضب" "فَعلة" "فِعال" Fem NoHum ; --tallö, rAbiyö
@@ -119,7 +119,7 @@ flags
   leather_N    = brkN "جلد" "فِعل" "فُعُول" Masc NoHum ;
   leave_V2     = dirV2 (regV "يَترُك") ;
 --  leave_V2     = dirV2 (v1 "ترك" a u) ;
-  like_V2      = dirV2 (regV "هَوِي") ; 
+  like_V2      = dirV2 (regV "هَوِي") ;
 --  like_V2      = dirV2 (v1 "هوي" i a) ; --check
   listen_V2    = mkV2 (v8 "سمع") "إِلَى" ;
   live_V       = v1 "عيش" a i ; --check
@@ -133,7 +133,7 @@ flags
   meat_N       = brkN "لحم" "فَعلة" "فُعُول" Masc NoHum ;
   milk_N       = brkN "حلب" "فَعِيل" "فَعِيل" Masc NoHum ; --no plur
   moon_N       = brkN "قمر" "فَعَل" "أَفعال" Masc NoHum ;
-  mother_N2    = sdfN "؟م" "فُعّ" Fem Hum ;
+  mother_N2    = mkN2 (sdfN "؟م" "فُعّ" Fem Hum) ;
   mountain_N   = brkN "جبل" "فَعَل" "فِعال" Masc NoHum ;
   music_N      = mkN (reg "مُوسِيقَى" "مُوسِيقَى") Fem NoHum ; --no plur
   narrow_A     = sndA "ضيق" "فَعِّل" ;
@@ -175,8 +175,8 @@ flags
   school_N     = brkN "درس" "مَفعَلة" "مَفاعِل" Fem NoHum ;
   science_N    = brkN "علم" "فِعل" "فُعُول" Masc NoHum ;
   sea_N        = brkN "بحر" "فَعل" "فُعُول" Masc NoHum ;
-  seek_V2      = dirV2 (regV "يَطلُب") ; 
---  seek_V2      = dirV2 (v1 "طلب" a u) ; 
+  seek_V2      = dirV2 (regV "يَطلُب") ;
+--  seek_V2      = dirV2 (v1 "طلب" a u) ;
   see_V2       = dirV2 (v1 "ر؟ي" a a) ;
   sell_V3      = dirdirV3 (v1 "بيع" a i) ; --check
   send_V3      = dirdirV3 (v4 "رسل")  ;
@@ -239,7 +239,7 @@ flags
   do_V2        = dirV2 (regV "يَفعَل") ;
 --  do_V2        = dirV2 (v1 "فعل" a a ) ;
   now_Adv      = mkAdv "الآن" ;
-  already_Adv  = mkAdv "سابِقاً" ; 
+  already_Adv  = mkAdv "سابِقاً" ;
   song_N       = brkN "غني" "أَفعِلة" "أَفاعِي" Fem NoHum ;
   add_V3       = dirV3 (regV "يَجمَع") "وَ" ;
 --  add_V3       = dirV3 (v1 "جمع" a a) "وَ" ;
@@ -268,69 +268,69 @@ flags
   wide_A       = sndA "وسع" "فاعِل" ;
 
   animal_N     = sdfN "حيّ" "فَعَوان"           Masc NoHum ;
-  ashes_N      = brkN "رمد" "فَعال" "أَفعِلة"   Masc NoHum;           
-  back_N       = brkN "ظهر" "فَعل" "فُعُول"      Masc NoHum;           
-  bark_N       = brkN "نبح" "فَعل" "فُعال"      Masc NoHum;           
-  belly_N      = brkN "بطن" "فَعل" "فُعُول"      Fem  NoHum;           
-  blood_N      = brkN "دم"  "فَع" "فِعاء"       Masc NoHum;           
-  bone_N       = brkN "عظم" "فَعلة" "فِعال"     Fem  NoHum;           
-  breast_N     = brkN "صدر" "فَعل" "فُعُول"      Masc NoHum;           
-  cloud_N      = brkN "غيم" "فَعلة" "فُعُول"     Fem  NoHum;           
-  day_N        = brkN "يوم" "فَعل" "أَفّاع"     Masc NoHum;           
-  dust_N       = brkN "غبر" "فُعال" "أَفعِلة"   Masc NoHum;           
-  ear_N        = brkN "؟ذن" "فُعل" "أَفعال"     Fem NoHum;            
-  earth_N      = brkN "ترب" "فُعلة" "فُعَل"     Fem NoHum;            
-  egg_N        = sdfN "بيض" "فَعلة"             Fem NoHum;            
-  eye_N        = brkN "عين" "فَعل" "فُعُول"      Fem NoHum;            
-  fat_N        = brkN "دهن" "فُعل" "فُعُول"      Masc NoHum ;          
-  feather_N    = sdfN "ريش" "فِعلة"             Fem NoHum;            
-  fingernail_N = brkN "ظفر" "فُعل" "أَفاعِل"    Masc NoHum;           
-  fire_N       = brkN "نور" "فاع" "فِيعان"       Fem NoHum;            
-  flower_N     = brkN "زهر" "فَعلة" "فُعُول"     Fem NoHum;            
+  ashes_N      = brkN "رمد" "فَعال" "أَفعِلة"   Masc NoHum;
+  back_N       = brkN "ظهر" "فَعل" "فُعُول"      Masc NoHum;
+  bark_N       = brkN "نبح" "فَعل" "فُعال"      Masc NoHum;
+  belly_N      = brkN "بطن" "فَعل" "فُعُول"      Fem  NoHum;
+  blood_N      = brkN "دم"  "فَع" "فِعاء"       Masc NoHum;
+  bone_N       = brkN "عظم" "فَعلة" "فِعال"     Fem  NoHum;
+  breast_N     = brkN "صدر" "فَعل" "فُعُول"      Masc NoHum;
+  cloud_N      = brkN "غيم" "فَعلة" "فُعُول"     Fem  NoHum;
+  day_N        = brkN "يوم" "فَعل" "أَفّاع"     Masc NoHum;
+  dust_N       = brkN "غبر" "فُعال" "أَفعِلة"   Masc NoHum;
+  ear_N        = brkN "؟ذن" "فُعل" "أَفعال"     Fem NoHum;
+  earth_N      = brkN "ترب" "فُعلة" "فُعَل"     Fem NoHum;
+  egg_N        = sdfN "بيض" "فَعلة"             Fem NoHum;
+  eye_N        = brkN "عين" "فَعل" "فُعُول"      Fem NoHum;
+  fat_N        = brkN "دهن" "فُعل" "فُعُول"      Masc NoHum ;
+  feather_N    = sdfN "ريش" "فِعلة"             Fem NoHum;
+  fingernail_N = brkN "ظفر" "فُعل" "أَفاعِل"    Masc NoHum;
+  fire_N       = brkN "نور" "فاع" "فِيعان"       Fem NoHum;
+  flower_N     = brkN "زهر" "فَعلة" "فُعُول"     Fem NoHum;
   fog_N        = brkN "ضبّ" "فَعال" "فَعال"     Masc NoHum; --no plural ?
-  foot_N       = brkN "قدم" "فَعَل" "أَفعال"    Fem NoHum;            
-  forest_N     = sdfN "غيب" "فاعة"              Fem NoHum;            
-  grass_N      = brkN "عشب" "فُعلة" "أَفعال"    Fem NoHum;            
-  guts_N       = brkN "حشو" "فَعا" "أَفعاء"     Fem NoHum;            
-  hair_N       = sdfN "شعر" "فَعلة"             Fem NoHum ;           
-  hand_N       = brkN "يد"  "فَع" "أَفاعِي"      Fem NoHum  ;  
-  head_N       = brkN "ر؟س" "فَعل" "فُعُول"      Masc NoHum;           
-  heart_N      = brkN "قلب" "فَعل" "فُعُول"      Masc NoHum;           
-  horn_N       = brkN "قرن" "فَعل" "فُعُول"      Masc NoHum;           
-  husband_N    = brkN "زوج" "فَعل" "أَفعال"     Masc NoHum;           
-  ice_N        = brkN "ثلج" "فَعل" "فُعُول"      Masc NoHum;           
-  knee_N       = brkN "ركب" "فُعلة" "فُعَل"     Fem NoHum;            
-  leaf_N       = brkN "ورق" "فَعَلة" "أَفعال"   Fem NoHum;             
-  leg_N        = brkN "رجل" "فِعل" "أَفعُل"     Fem NoHum;            
-  liver_N      = brkN "كبد" "فَعِل" "أَفعال"    Masc NoHum ;          
-  louse_N      = sdfN "قمل" "فَعلة"             Fem NoHum;            
-  mouth_N      = brkN "فوه" "فُعل" "أَفعال"     Masc NoHum ;          
-  name_N       = brkN "؟سم" "فِعل" "فَعالِي"     Masc NoHum;       
-  neck_N       = brkN "رقب" "فَعَلة" "فِعال"    Fem NoHum;        
+  foot_N       = brkN "قدم" "فَعَل" "أَفعال"    Fem NoHum;
+  forest_N     = sdfN "غيب" "فاعة"              Fem NoHum;
+  grass_N      = brkN "عشب" "فُعلة" "أَفعال"    Fem NoHum;
+  guts_N       = brkN "حشو" "فَعا" "أَفعاء"     Fem NoHum;
+  hair_N       = sdfN "شعر" "فَعلة"             Fem NoHum ;
+  hand_N       = brkN "يد"  "فَع" "أَفاعِي"      Fem NoHum  ;
+  head_N       = brkN "ر؟س" "فَعل" "فُعُول"      Masc NoHum;
+  heart_N      = brkN "قلب" "فَعل" "فُعُول"      Masc NoHum;
+  horn_N       = brkN "قرن" "فَعل" "فُعُول"      Masc NoHum;
+  husband_N    = brkN "زوج" "فَعل" "أَفعال"     Masc NoHum;
+  ice_N        = brkN "ثلج" "فَعل" "فُعُول"      Masc NoHum;
+  knee_N       = brkN "ركب" "فُعلة" "فُعَل"     Fem NoHum;
+  leaf_N       = brkN "ورق" "فَعَلة" "أَفعال"   Fem NoHum;
+  leg_N        = brkN "رجل" "فِعل" "أَفعُل"     Fem NoHum;
+  liver_N      = brkN "كبد" "فَعِل" "أَفعال"    Masc NoHum ;
+  louse_N      = sdfN "قمل" "فَعلة"             Fem NoHum;
+  mouth_N      = brkN "فوه" "فُعل" "أَفعال"     Masc NoHum ;
+  name_N       = brkN "؟سم" "فِعل" "فَعالِي"     Masc NoHum;
+  neck_N       = brkN "رقب" "فَعَلة" "فِعال"    Fem NoHum;
   night_N      = brkN "ليل" "فَعلة" "فَعالِي"    Fem NoHum;  --plural?
-  nose_N       = brkN "؟نف" "فَعل" "فُعُول"      Masc NoHum;           
-  person_N     = brkN "شخص" "فَعل" "أَفعال"     Masc Hum;             
+  nose_N       = brkN "؟نف" "فَعل" "فُعُول"      Masc NoHum;
+  person_N     = brkN "شخص" "فَعل" "أَفعال"     Masc Hum;
   question_N   = mkN "سؤال" ; ----IL
-  rain_N       = brkN "مطر" "فَعَل" "أَفعال"    Masc NoHum;           
-  road_N       = brkN "طرق" "فَعِيل" "فُعُل"     Fem NoHum;            
-  root_N       = brkN "جذر" "فَعل" "فُعُول"      Masc NoHum ;          
-  rope_N       = brkN "حبل" "فَعل" "فِعال"      Masc NoHum;           
-  salt_N       = brkN "ملح" "فِعل" "أَفعال"     Masc NoHum;           
-  sand_N       = brkN "رمل" "فَعل" "فِعال"      Masc NoHum;           
-  seed_N       = brkN "بذر" "فَعل" "فُعُول"      Masc NoHum;           
-  skin_N       = brkN "جلد" "فِعل" "فُعُول"      Masc NoHum;           
+  rain_N       = brkN "مطر" "فَعَل" "أَفعال"    Masc NoHum;
+  road_N       = brkN "طرق" "فَعِيل" "فُعُل"     Fem NoHum;
+  root_N       = brkN "جذر" "فَعل" "فُعُول"      Masc NoHum ;
+  rope_N       = brkN "حبل" "فَعل" "فِعال"      Masc NoHum;
+  salt_N       = brkN "ملح" "فِعل" "أَفعال"     Masc NoHum;
+  sand_N       = brkN "رمل" "فَعل" "فِعال"      Masc NoHum;
+  seed_N       = brkN "بذر" "فَعل" "فُعُول"      Masc NoHum;
+  skin_N       = brkN "جلد" "فِعل" "فُعُول"      Masc NoHum;
   sky_N        = sdfN "سمو" "فَعاء"             Fem NoHum;
-  smoke_N      = brkN "دخن" "فُعال" "أَفعِلة"   Masc NoHum;           
-  snow_N       = brkN "ثلج" "فَعل" "فُعُول"      Masc NoHum;           
-  stick_N      = brkN "عصو" "فَعا" "فِعِي"       Masc NoHum ; --"عصو"  
-  tail_N       = brkN "ذنب" "فَعَل" "أَفعال"    Masc NoHum;           
-  tongue_N     = brkN "لسن" "فِعال" "أَفعِلة"   Masc NoHum;           
-  tooth_N      = brkN "سنّ" "فِعل" "أَفعال"     Masc NoHum ;          
-  wife_N       = sdfN "زوج" "فَعلة"             Fem Hum;              
-  wind_N       = brkN "ريح" "فِعل" "فِعال"      Fem NoHum;            
-  wing_N       = brkN "جنح" "فَعال" "أَفعِلة"   Masc NoHum ;           
-  worm_N       = brkN "دود" "فُعلة" "فِيعان"     Fem NoHum ;                       
-  year_N       = sdfN "سن"  "فَعة"              Fem NoHum   ;              
+  smoke_N      = brkN "دخن" "فُعال" "أَفعِلة"   Masc NoHum;
+  snow_N       = brkN "ثلج" "فَعل" "فُعُول"      Masc NoHum;
+  stick_N      = brkN "عصو" "فَعا" "فِعِي"       Masc NoHum ; --"عصو"
+  tail_N       = brkN "ذنب" "فَعَل" "أَفعال"    Masc NoHum;
+  tongue_N     = brkN "لسن" "فِعال" "أَفعِلة"   Masc NoHum;
+  tooth_N      = brkN "سنّ" "فِعل" "أَفعال"     Masc NoHum ;
+  wife_N       = sdfN "زوج" "فَعلة"             Fem Hum;
+  wind_N       = brkN "ريح" "فِعل" "فِعال"      Fem NoHum;
+  wing_N       = brkN "جنح" "فَعال" "أَفعِلة"   Masc NoHum ;
+  worm_N       = brkN "دود" "فُعلة" "فِيعان"     Fem NoHum ;
+  year_N       = sdfN "سن"  "فَعة"              Fem NoHum   ;
 
   blow_V       = regV "يَنفُخ" ;
   breathe_V    = dirV2 (v5 "نفس") ;

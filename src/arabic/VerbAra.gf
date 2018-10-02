@@ -17,14 +17,18 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
                  a = {pgn = Per3 Masc Sg ; isPron = False} } --FIXME
       (predV v) ;-}
 
-    -- First dummy implementation / IL 2018-09-06
-    ComplVV v vp = insertStr (linVP vp) (predV v) ;
---
+    ComplVV vv vp =  --- IL
+      predV vv ** {
+       s2   = vv.c2 ;     -- add the preposition of the VV. TODO: do we need a separate field in the VP?
+       pred = compVP vp ; -- add VP complement in pred. TODO: what agreement features are needed?
+       isPred = False } ; {- Despite verb complement being in pred, it's not predicative.
+                             Changing this to True causes PredVP to not include the verb. -}
+
 --    ComplVS v s  = insertObj (\\_ => conjThat ++ s.s) (predV v) ;
 --    ComplVQ v q  = insertObj (\\_ => q.s ! QIndir) (predV v) ;
 --
 --    ComplVA  v    ap = insertObj (ap.s) (predV v) ;
---    ComplV2A v np ap = 
+--    ComplV2A v np ap =
 --      insertObj (\\_ => v.c2 ++ np.s ! Acc ++ ap.s ! np.a) (predV v) ;
 --
     UseComp xabar = kaan xabar ;
@@ -35,7 +39,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
 --
 --    ReflV2 v = insertObj (\\a => v.c2 ++ reflPron ! a) (predV v) ;
 --
---    PassV2 v = insertObj (\\_ => v.s ! VPPart) (predAux auxBe) ;
+    PassV2 v = kaan {s = \\_,_ => v.s ! VPPart} ; ---- IL guessed
 --
 --    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no
 
