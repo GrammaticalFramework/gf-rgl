@@ -159,7 +159,7 @@ resource ParadigmsAra = open
       = regV ;
     mkV : (root : Str) -> (perf,impf : Vowel) -> V  -- verb form I ; vowel = a|i|u
       = v1 ;
-    mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormVIII (no VII) ; default vowels a u for I
+    mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormX (no VII, IX) ; default vowels a u for I
       = formV ;
     } ;
 
@@ -194,6 +194,8 @@ resource ParadigmsAra = open
 --Verb Form VIII 'ifta`ala
 
   v8 : Str -> V ;
+
+-- Verb Form X 'istaf`ala
 
   v10 : Str -> V ;
 
