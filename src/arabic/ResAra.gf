@@ -960,7 +960,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _ =>
           table {
             Nom => "َانِ";
-            _   => "َيْ‎نِ"
+            _   => "َيْنِ"
           }
       };
 
