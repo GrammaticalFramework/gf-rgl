@@ -6,7 +6,7 @@ concrete ExtendPor of Extend =
     GenNP, GenIP, GenModNP, GenModIP, iFem_Pron, weFem_Pron, youFem_Pron
       , youPlFem_Pron, youPolPl_Pron, youPolFem_Pron, youPolPlFem_Pron, theyFem_Pron
       , ProDrop, PassVPSlash, ExistsNP, VPS, ListVPS, BaseVPS, ConsVPS, PassVPSlash
-      , ExistsNP
+      , ExistsNP, CompoundN
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarPor), (Syntax = SyntaxPor) **
@@ -78,6 +78,14 @@ concrete ExtendPor of Extend =
       mkClause [] True False np.a
       (insertComplement (\\_ => (np.s ! Nom).ton)
          (predV (mkV "existir"))) ;
+
+  lin
+    CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
+      s = \\n => noun2.s ! n
+        ++ variants {genNumForms "do" "da" "dos" "das" ! noun.g ! n; "de"}
+        ++ noun.s ! n ;
+      g = noun2.g
+      } ;
 
   lin
     -- Romance
