@@ -307,6 +307,7 @@ oper
     mkV2V : V -> V2V ;
     mkV2V : V -> Prep -> Prep -> V2V ;
     } ;
+  auxV2V : V -> V2V ;
   mkVA  : V -> VA ;
 
   mkV2A : overload {
@@ -761,6 +762,8 @@ oper
     mkV2V : (x,y,z : Str) -> V2V = \x,y,z -> mmkV2 (irregV x y z) (mkPrep []) ** {c3 = mkComplement "att" ; lock_V2V = <>} ;
     mkV2V : (x,y,z,u,v,w : Str) -> V2V = \x,y,z,u,v,w -> mmkV2 (mkV x y z u v w) (mkPrep []) ** {c3 = mkComplement "att" ; lock_V2V = <>} ;
     } ;
+
+  auxV2V v = mkV2V v (mkPrep []) (mkPrep []) ;
 
   mkV2Q = overload {
     mkV2Q : V ->         V2Q = \v    -> lin V2Q (mmkV2 v (mkPrep [])) ; 
