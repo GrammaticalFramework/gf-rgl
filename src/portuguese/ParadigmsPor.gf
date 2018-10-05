@@ -432,6 +432,9 @@ oper
   mkVS  : V -> VS ;
   mkVS  v = v ** {m = \\_ => Indic ; lock_VS = <>} ;  ---- more moods
 
+  subjVS  : V -> VS ;
+  subjVS  v = v ** {m = \\_ => Conjunct ; lock_VS = <>} ;
+
   mkVV  : V -> VV ;
   -- plain infinitive: "quero falar"
   mkVV  v = v ** {c2 = complAcc ; lock_VV = <>} ;

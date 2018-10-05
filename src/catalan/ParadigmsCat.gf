@@ -258,6 +258,7 @@ oper
 
   mkV0  : V -> V0 ; --%
   mkVS  : V -> VS ;
+  subjVS  : V -> VS ;
   mkV2S : V -> Prep -> V2S ;
   mkVV  : V -> VV ;  -- plain infinitive: "vull parlar"
   deVV  : V -> VV ;  -- "acabar de parlar"
@@ -448,6 +449,7 @@ oper
 
   mkV0  v = v ** {lock_V0 = <>} ;
   mkVS  v = v ** {m = \\_ => Indic ; lock_VS = <>} ;  ---- more moods
+  subjVS  v = v ** {m = \\_ => Conjunct ; lock_VS = <>} ;
   mkV2S v p = mk2V2 v p ** {mn,mp = Indic ; lock_V2S = <>} ;
   mkVV  v = v ** {c2 = complAcc ; lock_VV = <>} ;
   deVV  v = v ** {c2 = complGen ; lock_VV = <>} ;
