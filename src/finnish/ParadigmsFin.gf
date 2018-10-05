@@ -642,6 +642,7 @@ mkVS = overload {
 
     mkA : (hyva,parempi,paras : N) -> (hyvin,paremmin,parhaiten : Str) -> A 
       = \h,p,ps,hn,pn,ph -> lin A (mkAdj h p ps hn pn ph) ;
+    mkA : V -> A = presPartA ;
     } ;
 
   mkA_1 : Str -> A = \x -> lin A (noun2adjDeg (mk1N x)) ;
@@ -667,7 +668,14 @@ mkVS = overload {
       (snoun2compar suuri)
       (snoun2superl suuri) ;   
 
+  
+  presPartA : SVerb -> A = \tullaSV ->
+    let tulla   = sverb2verb True tullaSV ;
+	tuleva : NForm => Str = \\nf => tulla.s ! PresPartAct (AN nf) ;
+        tuleva_SN = { s = tuleva ;
+		      h = tullaSV.h } ;
 
+     in noun2adjDeg tuleva_SN ;
 
 -- verbs
 
