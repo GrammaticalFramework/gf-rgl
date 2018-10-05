@@ -5,18 +5,18 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
   lin
 
     QuestCl cl = {
-      s = \\t,p => 
+      s = \\t,p =>
         table {
           QIndir => "إِذا" ++ cl.s ! t ! p ! Verbal ;
-          QDir => "هَل" ++ cl.s ! t ! p ! Verbal 
+          QDir => "هَل" ++ cl.s ! t ! p ! Verbal
         }
       };
 
     -- ComplSlashIP vps ip = {} ;
 
 -- AR copied from PredVP
-    QuestVP qp vp = 
-      { s =\\t,p,_ => 
+    QuestVP qp vp =
+      { s =\\t,p,_ =>
           let {
   ----            o = Verbal ; ---- AR
 	    objgn = pgn2gn vp.obj.a.pgn ;
@@ -28,38 +28,38 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
             yaktubu = vp.s ! pgn ! VPImpf Ind ;
             yaktuba = vp.s ! pgn ! VPImpf Cnj ;
             yaktub  = vp.s ! pgn ! VPImpf Jus ;
-            vStr : ResAra.Tense -> Polarity -> Str = 
+            vStr : ResAra.Tense -> Polarity -> Str =
               \tn,pl -> case<vp.isPred,tn,pl> of {
               <False, ResAra.Pres, Pos> => yaktubu ;
               <False, ResAra.Pres, Neg> => "لَا" ++ yaktubu ;
-              <True, ResAra.Pres, Pos> => "" ;      --no verb "to be" in present 
+              <True, ResAra.Pres, Pos> => "" ;      --no verb "to be" in present
               <True, ResAra.Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
               <_, ResAra.Past, Pos> => kataba ;
               <_, ResAra.Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, ResAra.Fut,  Pos> => "سَ" ++ yaktubu ; 
-              <_, ResAra.Fut,  Neg> => "لَنْ" ++ yaktuba 
+              <_, ResAra.Fut,  Pos> => "سَ" ++ yaktubu ;
+              <_, ResAra.Fut,  Neg> => "لَنْ" ++ yaktuba
               };
-            pred : ResAra.Tense -> Polarity -> Str = 
+            pred : ResAra.Tense -> Polarity -> Str =
               \tn,pl -> case <vp.isPred,tn,pl>  of {
               <True, ResAra.Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
               _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
               }         ;
-            
+
           } in
----          case o of { 
-----            _ => 
+---          case o of {
+----            _ =>
               case <False, np.a.isPron> of {
 ---- AR workaround 18/12/2008  case <vp.obj.a.isPron, np.a.isPron> of {
                 -- ya2kuluhu
                 <False,True> => (vStr t p) ++ vp.obj.s  ++ vp.s2 ++ (pred t p);
-                -- ya2kuluhu al-waladu, yakuluhu al-2awlaadu 
+                -- ya2kuluhu al-waladu, yakuluhu al-2awlaadu
                 <False,False> => (vStr t p) ++ np.s ! Nom ++ vp.obj.s  ++ vp.s2 ++ (pred t p);
                 <True,False>  => (vStr t p) ++ vp.obj.s ++ np.s ! Nom ++ vp.s2 ++ (pred t p);
                 <True,True>  => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
               };
      ----       Nominal =>
      ----         np.s ! Nom ++ (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
-         } 
+         }
    ; ----  };
 
 

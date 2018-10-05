@@ -2,10 +2,11 @@
 
 concrete ExtendPor of Extend =
   CatPor ** ExtendFunctor -
-   [
-     iFem_Pron, weFem_Pron, youFem_Pron, youPlFem_Pron, youPolPl_Pron, youPolFem_Pron, youPolPlFem_Pron, theyFem_Pron,
-       ProDrop,
-       PassVPSlash, ExistsNP, VPS
+  [
+    GenNP, GenIP, GenModNP, GenModIP, iFem_Pron, weFem_Pron, youFem_Pron
+      , youPlFem_Pron, youPolPl_Pron, youPolFem_Pron, youPolPlFem_Pron, theyFem_Pron
+      , ProDrop, PassVPSlash, ExistsNP, VPS, ListVPS, BaseVPS, ConsVPS, PassVPSlash
+      , ExistsNP, CompoundN
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarPor), (Syntax = SyntaxPor) **
@@ -18,14 +19,28 @@ concrete ExtendPor of Extend =
     ParadigmsPor,
     (S = StructuralPor) in {
 
+  lin
+    GenNP np =
+      let denp = (np.s ! ResPor.genitive).ton in {
+        s = \\_,_,_,_ => [] ;
+        sp = \\_,_,_ => denp ;
+        s2 = denp ;
+        isNeg = False ;
+      } ;
+
+     GenIP ip = {s = \\_,_,c => ip.s ! c} ;
+
+     GenModNP num np cn = DetCN (DetQuant (GenNP (lin NP np)) num) cn ;
+     GenModIP num ip cn = IdetCN (IdetQuant (GenIP (lin IP ip)) num) cn ;
+
   lincat
-    VPS = {s : Agr => Str} ;
-    [VPS] = {s1,s2 : Agr => Str} ;
+    VPS = {s : Agr => Mood => Str} ;
+    [VPS] = {s1,s2 : Agr => Mood => Str} ;
 --    VPI = {s : VType => Agr => Str } ;
 
   lin
-    BaseVPS = twotable Agr ;
-    ConsVPS = consrTable Agr comma ;
+    BaseVPS = twoTable2 Agr Mood ;
+    ConsVPS = consrTable2 Agr Mood comma ;
 
 --    MkVPS t p vp = mkVPS (lin Temp t) (lin Pol p) (lin VP vp) ;
 --TODO: write mkVPS oper
@@ -63,6 +78,14 @@ concrete ExtendPor of Extend =
       mkClause [] True False np.a
       (insertComplement (\\_ => (np.s ! Nom).ton)
          (predV (mkV "existir"))) ;
+
+  lin
+    CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
+      s = \\n => noun2.s ! n
+        ++ variants {genNumForms "do" "da" "dos" "das" ! noun.g ! n; "de"}
+        ++ noun.s ! n ;
+      g = noun2.g
+      } ;
 
   lin
     -- Romance

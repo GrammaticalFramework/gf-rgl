@@ -21,6 +21,9 @@ oper
            [table (P.Gender) [vilken;vilket] ; table (P.Gender) [vilka;vilka]] ; 
      det = d ; lock_IQuant = <>} ;
 
+  mkIDet : Str -> Str -> Number -> IDet = \utr,neutr,n ->
+    lin IDet {s = table NGender [utr;neutr]  ; n = n ; det = DIndef} ;
+
   mkQuant : Str -> Str -> Str -> Quant = \naagon,naagot,naagra ->
     lin Quant {s,sp = table {
        Sg => \\_,_ => table {Utr => naagon ; Neutr => naagot} ; 

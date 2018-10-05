@@ -3,7 +3,7 @@ resource OrthoAra = open Prelude, Predef in {
 flags coding=utf8 ;
 
   oper
-    
+
     rectifyHmz: Str -> Str = \word ->
       case word of {
         l@(""|"ال") + "؟" + v@("َ"|"ُ") + tail => l + "أ" + v + tail;
@@ -12,14 +12,14 @@ flags coding=utf8 ;
         head + "؟" + tail => head + (bHmz (dp 2 head) (take 2 tail)) + tail; --last head , take 1 tail
         _           => word
       };
-    
+
     --hamza at beginning of word (head)
     hHmz : Str -> Str = \d ->
       case d of {
         "ِ" => "إ";
 	    _	 => "أ"
       };
-    
+
     --hamza in middle of word (body)
     bHmz : Str -> Str -> Str = \d1,d2 ->
       case <d1,d2> of {
@@ -28,7 +28,7 @@ flags coding=utf8 ;
 	    <"َ",_> | <_,"َ"> => "أ";
 	    _				   => "ء"
       };
-    
+
     --hamza carrier sequence
     tHmz : Str -> Str = \d ->
       case d of {
@@ -37,5 +37,5 @@ flags coding=utf8 ;
 	    "َ" => "أ";
 	    "ْ"|"ا"|"و"|"ي" => "ء"
       };
-    
+
 }
