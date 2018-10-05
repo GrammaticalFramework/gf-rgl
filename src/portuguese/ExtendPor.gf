@@ -3,11 +3,33 @@
 concrete ExtendPor of Extend =
   CatPor ** ExtendFunctor -
   [
-    GenNP, GenIP, GenModNP, GenModIP, iFem_Pron, weFem_Pron, youFem_Pron
-      , youPlFem_Pron, youPolPl_Pron, youPolFem_Pron, youPolPlFem_Pron, theyFem_Pron
-      , ProDrop, PassVPSlash, ExistsNP, VPS, ListVPS, BaseVPS, ConsVPS, PassVPSlash
-      , ExistsNP, CompoundN
-   ]                   -- put the names of your own definitions here
+    BaseVPS,
+      CompoundAP,
+      CompoundN,
+      ConsVPS,
+      ExistsNP,
+      GenIP,
+      GenModIP,
+      GenModNP,
+      GenNP,
+      GerundCN,
+      IAdvAdv,
+      ICompAP,
+      iFem_Pron,
+      ListVPS,
+      PassVPSlash,
+      PassVPSlash,
+      ProDrop,
+      theyFem_Pron,
+      VPS,
+      weFem_Pron,
+      youFem_Pron,
+      youPlFem_Pron,
+      youPolFem_Pron,
+      youPolPl_Pron,
+      youPolPlFem_Pron
+   ]                   -- don't forget to put the names of your own
+                       -- definitions here
   with
     (Grammar = GrammarPor), (Syntax = SyntaxPor) **
   open
@@ -58,6 +80,19 @@ concrete ExtendPor of Extend =
       isNeg = False
       } ;
 
+    ICompAP ap = {
+      s =\\a => "o quão" ++ ap.s ! AF a.g a.n ;
+      cop = serCopula
+      } ;
+
+    IAdvAdv adv = {
+      s = "o quão" ++ adv.s
+      } ;
+
+    CompIQuant iq = {s = \\aa => iq.s ! aa.n ! aa.g ! Nom ; cop = serCopula} ;
+
+    PrepCN prep cn = {s = prep.s ++ prepCase prep.c ++ cn.s ! Sg} ;
+
   lin
     PassVPSlash vps =
       let auxvp = predV copula
@@ -85,6 +120,20 @@ concrete ExtendPor of Extend =
         ++ variants {genNumForms "do" "da" "dos" "das" ! noun.g ! n; "de"}
         ++ noun.s ! n ;
       g = noun2.g
+      } ;
+
+    CompoundAP noun adj = {
+      s = \\af => case af of {
+        AF g n => adj.s ! Posit ! AF noun.g n ++ "de" ++ noun.s ! n ;
+        -- do I need do(s)/da(s)?
+        _ => adj.s ! Posit ! AF noun.g Sg ++ "de" ++ noun.s ! Sg
+        } ;
+      isPre = adj.isPre
+      } ;
+
+    GerundCN vp = {
+      s = \\n => infVP vp {g = Masc ; n = n ; p = P3} ;
+      g = Masc
       } ;
 
   lin
