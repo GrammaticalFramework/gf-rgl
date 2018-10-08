@@ -61,6 +61,7 @@ oper
   infIness : InfForm ; -- e.g. "tekemässä"
   infElat  : InfForm ; -- e.g. "tekemästä"
   infIllat : InfForm ; -- e.g. "tekemään"
+  infAdess : InfForm ; -- e.g. "tekemällä"
   infPresPart : InfForm ; -- e.g. "tekevän"
   infPresPartAgr : InfForm ; -- e.g. "tekevänsä"
 
@@ -137,6 +138,19 @@ oper
       = \oma, asunto -> lin N {s = \\c => oma.s ! c + "_" + asunto.s ! c ; h = asunto.h} ;
       } ;
 
+   compN : N -> N -> N = \valkuainen,aine -> aine ** {
+     s = \\c => (StemFin.snoun2nounBind valkuainen).s ! NCompound + aine.s ! c
+     } ;
+
+   genCompN = overload {
+     genCompN : N -> N -> N = genitiveCompoundN Sg ;
+     genCompN : Number -> N -> N -> N = genitiveCompoundN
+     } ;
+
+   genitiveCompoundN : Number -> N -> N -> N = \n,veri,paine -> paine ** {
+     s = \\c => (StemFin.snoun2nounBind veri).s ! NCase n Gen + paine.s ! c 
+     } ;
+
 -- Nouns used as functions need a case, of which the default is
 -- the genitive.
 
@@ -177,17 +191,23 @@ oper
   } ;
 
   invarA : Str -> A  -- invariant adjective, e.g. "kelpo"
-    = \s -> lin A {s = \\_,_ => s ; h = Back} ; ----- stemming adds bogus endings
+    = \s -> lin A {s = \\_,_ => s ; h = Back ; p = [] ; hasPrefix = False} ; ----- stemming adds bogus endings
 
+  prefixA : Str -> A -> A = \pr,a -> a ** {
+    p = pr ;
+    hasPrefix = True
+    } ;
+    
 -- Two-place adjectives need a case for the second argument.
 
   mkA2 = overload {
     mkA2 : Str -> A2  -- e.g. "vihainen" (jollekin)
-    = \s -> mkA s ** {c2 = mkPrep allative ; lock_A2 = <>} ;
+      = \a -> let adj = mkA a ;
+               in lin A2 (adj ** {c2 = casePrep allative}) ;
     mkA2 : Str -> Prep -> A2  -- e.g. "jaollinen" (mkPrep adessive)
-    = \a,p -> mkA a ** {c2 = p ; lock_A2 = <>} ;
+    = \a,p ->  let adj = mkA a in lin A2 (adj ** {c2=p}) ;
     mkA2 : A -> Prep -> A2  -- e.g. "jaollinen" (mkPrep adessive)
-    = \a,p -> a ** {c2 = p ; lock_A2 = <>} ;
+    = \a,p -> lin A2 (a ** {c2 = p}) ;
     } ;
 
 
@@ -384,7 +404,10 @@ mkVS = overload {
   ablative = Ablat ;
   allative = Allat ;
 
-  infFirst = Inf1 ; infElat = Inf3Elat ; infIllat = Inf3Illat ; infIness = Inf3Iness ; infPresPart = InfPresPart ; infPresPartAgr = InfPresPartAgr ;
+  infFirst = Inf1 ;
+  infElat = Inf3Elat ; infIllat = Inf3Illat ;
+  infIness = Inf3Iness ; infAdess =  Inf3Adess ;
+  infPresPart = InfPresPart ; infPresPartAgr = InfPresPartAgr ;
 
   prePrep  : Case -> Str -> Prep = 
     \c,p -> lin Prep {c = NPCase c ; s = <tagFeature (tagPOS "ADP" p) "AdvType" "Pre", [],\\_ => []>} ; -- no possessive suffix
@@ -637,25 +660,26 @@ mkVS = overload {
   mkA = overload {
     mkA : Str -> A  = mkA_1 ;
     mkA : N -> A = \n -> noun2adjDeg n ** {lock_A = <>} ;
-    mkA : N -> (kivempaa,kivinta : Str) -> A = \n -> regAdjective n ;
+    mkA : N -> (kivempi,kivin : Str) -> A = \n -> regAdjective n ;
     mkA : (sana : AK) -> A = \w -> noun2adjDeg (nforms2snoun w.s) ;
 
     mkA : (hyva,parempi,paras : N) -> (hyvin,paremmin,parhaiten : Str) -> A 
-      = \h,p,ps,hn,pn,ph -> lin A (mkAdj h p ps hn pn ph) ;
-    mkA : V -> A = presPartA ;
+      = \h,p,ps,hn,pn,ph -> lin A (mkAdj h p ps hn pn ph ** {p=[]; hasPrefix=False}) ;
+    mkA : V -> A = presActA ;
     } ;
 
   mkA_1 : Str -> A = \x -> lin A (noun2adjDeg (mk1N x)) ;
 
 -- auxiliaries
-  mkAdjective : (_,_,_ : SAdj) -> A = \hyva,parempi,paras -> 
+  mkAdjective : (_,_,_ : SAdj) -> A = \hyva,parempi,paras -> lin A
     {s = table {
       Posit  => hyva.s ;
       Compar => parempi.s ;
       Superl => paras.s
       } ;
      h = hyva.h ;  ---- different for parempi, paras
-     lock_A = <>
+     p = [] ;
+     hasPrefix = False
     } ;
   regAdjective : SNoun -> Str -> Str -> A = \kiva, kivempi, kivin ->
     mkAdjective 
@@ -669,13 +693,21 @@ mkVS = overload {
       (snoun2superl suuri) ;   
 
   
-  presPartA : SVerb -> A = \tullaSV ->
-    let tulla   = sverb2verb True tullaSV ;
-	tuleva : NForm => Str = \\nf => tulla.s ! PresPartAct (AN nf) ;
-        tuleva_SN = { s = tuleva ;
-		      h = tullaSV.h } ;
+  presActA : SVerb -> A = \tulla ->
+    let tuleva : NForm => Str = \\nf => (sverb2verb True tulla).s ! PresPartAct (AN nf) ;
+     in noun2adjDeg { s = tuleva ; h = tulla.h } ;
 
-     in noun2adjDeg tuleva_SN ;
+  presPassA : SVerb -> A = \mennä ->
+    let mentävä : NForm => Str = \\nf => (sverb2verb True mennä).s ! PresPartPass (AN nf) ;
+     in noun2adjDeg { s = mentävä ; h = mennä.h } ;
+  
+  pastActA : SVerb -> A = \syntyä ->
+    let syntynyt : NForm => Str = \\nf => (sverb2verb True syntyä).s ! PastPartAct (AN nf) ;
+     in noun2adjDeg  { s = syntynyt ; h = syntyä.h } ;
+
+  pastPassA : SVerb -> A = \sulkea ->
+    let suljettu : NForm => Str = \\nf => (sverb2verb True sulkea).s ! PastPartPass (AN nf) ;
+     in noun2adjDeg  { s = suljettu ; h = sulkea.h } ;
 
 -- verbs
 

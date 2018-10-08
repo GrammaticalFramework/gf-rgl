@@ -16,7 +16,7 @@ concrete ConjunctionFin of Conjunction =
       isPron = False ; isNeg = ss.isNeg
       } ;
 
-    ConjAP conj ss = conjunctDistrTable2 Bool NForm conj ss ;
+    ConjAP conj ss = conjunctDistrTable2 Bool NForm conj ss ** { hasPrefix = False ; p = [] } ;
 
     ConjRS conj ss = conjunctDistrTable Agr conj ss ** {
       c = ss.c

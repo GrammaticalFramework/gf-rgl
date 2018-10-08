@@ -215,7 +215,9 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       } ;
 
     AdjCN ap cn = {
-      s = \\nf => ap.s ! True ! (n2nform nf) ++ cn.s ! nf ;
+      s = case ap.hasPrefix of {
+            True  => \\nf => ap.p ++ BIND ++ cn.s ! nf ;
+            False => \\nf => ap.s ! True ! (n2nform nf) ++ cn.s ! nf } ;
       h = cn.h } ;
 
     RelCN cn rs = {s = \\nf => cn.s ! nf ++ BIND ++ "," ++  rs.s ! agrP3 (numN nf) ;
