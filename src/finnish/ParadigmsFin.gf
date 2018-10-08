@@ -61,6 +61,7 @@ oper
   infIness : InfForm ; -- e.g. "tekemässä"
   infElat  : InfForm ; -- e.g. "tekemästä"
   infIllat : InfForm ; -- e.g. "tekemään"
+  infAdess : InfForm ; -- e.g. "tekemällä"
   infPresPart : InfForm ; -- e.g. "tekevän"
   infPresPartAgr : InfForm ; -- e.g. "tekevänsä"
 
@@ -390,7 +391,10 @@ mkVS = overload {
   ablative = Ablat ;
   allative = Allat ;
 
-  infFirst = Inf1 ; infElat = Inf3Elat ; infIllat = Inf3Illat ; infIness = Inf3Iness ; infPresPart = InfPresPart ; infPresPartAgr = InfPresPartAgr ;
+  infFirst = Inf1 ;
+  infElat = Inf3Elat ; infIllat = Inf3Illat ;
+  infIness = Inf3Iness ; infAdess =  Inf3Adess ;
+  infPresPart = InfPresPart ; infPresPartAgr = InfPresPartAgr ;
 
   prePrep  : Case -> Str -> Prep = 
     \c,p -> lin Prep {c = NPCase c ; s = <tagFeature (tagPOS "ADP" p) "AdvType" "Pre", [],\\_ => []>} ; -- no possessive suffix
