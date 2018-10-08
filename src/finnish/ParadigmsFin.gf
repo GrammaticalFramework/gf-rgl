@@ -177,17 +177,23 @@ oper
   } ;
 
   invarA : Str -> A  -- invariant adjective, e.g. "kelpo"
-    = \s -> lin A {s = \\_,_ => s ; h = Back} ; ----- stemming adds bogus endings
+    = \s -> lin A {s = \\_,_ => s ; h = Back ; p = [] ; hasPrefix = False} ; ----- stemming adds bogus endings
 
+  prefixA : Str -> A -> A = \pr,a -> a ** {
+    p = pr ;
+    hasPrefix = True
+    } ;
+    
 -- Two-place adjectives need a case for the second argument.
 
   mkA2 = overload {
     mkA2 : Str -> A2  -- e.g. "vihainen" (jollekin)
-    = \s -> mkA s ** {c2 = mkPrep allative ; lock_A2 = <>} ;
+      = \a -> let adj = mkA a ;
+               in lin A2 (adj ** {c2 = casePrep allative}) ;
     mkA2 : Str -> Prep -> A2  -- e.g. "jaollinen" (mkPrep adessive)
-    = \a,p -> mkA a ** {c2 = p ; lock_A2 = <>} ;
+    = \a,p ->  let adj = mkA a in lin A2 (adj ** {c2=p}) ;
     mkA2 : A -> Prep -> A2  -- e.g. "jaollinen" (mkPrep adessive)
-    = \a,p -> a ** {c2 = p ; lock_A2 = <>} ;
+    = \a,p -> lin A2 (a ** {c2 = p}) ;
     } ;
 
 
@@ -637,25 +643,26 @@ mkVS = overload {
   mkA = overload {
     mkA : Str -> A  = mkA_1 ;
     mkA : N -> A = \n -> noun2adjDeg n ** {lock_A = <>} ;
-    mkA : N -> (kivempaa,kivinta : Str) -> A = \n -> regAdjective n ;
+    mkA : N -> (kivempi,kivin : Str) -> A = \n -> regAdjective n ;
     mkA : (sana : AK) -> A = \w -> noun2adjDeg (nforms2snoun w.s) ;
 
     mkA : (hyva,parempi,paras : N) -> (hyvin,paremmin,parhaiten : Str) -> A 
-      = \h,p,ps,hn,pn,ph -> lin A (mkAdj h p ps hn pn ph) ;
-    mkA : V -> A = presPartA ;
+      = \h,p,ps,hn,pn,ph -> lin A (mkAdj h p ps hn pn ph ** {p=[]; hasPrefix=False}) ;
+    mkA : V -> A = presActA ;
     } ;
 
   mkA_1 : Str -> A = \x -> lin A (noun2adjDeg (mk1N x)) ;
 
 -- auxiliaries
-  mkAdjective : (_,_,_ : SAdj) -> A = \hyva,parempi,paras -> 
+  mkAdjective : (_,_,_ : SAdj) -> A = \hyva,parempi,paras -> lin A
     {s = table {
       Posit  => hyva.s ;
       Compar => parempi.s ;
       Superl => paras.s
       } ;
      h = hyva.h ;  ---- different for parempi, paras
-     lock_A = <>
+     p = [] ;
+     hasPrefix = False
     } ;
   regAdjective : SNoun -> Str -> Str -> A = \kiva, kivempi, kivin ->
     mkAdjective 
