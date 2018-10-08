@@ -138,6 +138,19 @@ oper
       = \oma, asunto -> lin N {s = \\c => oma.s ! c + "_" + asunto.s ! c ; h = asunto.h} ;
       } ;
 
+   compN : N -> N -> N = \valkuainen,aine -> aine ** {
+     s = \\c => (StemFin.snoun2nounBind valkuainen).s ! NCompound + aine.s ! c
+     } ;
+
+   genCompN = overload {
+     genCompN : N -> N -> N = genitiveCompoundN Sg ;
+     genCompN : Number -> N -> N -> N = genitiveCompoundN
+     } ;
+
+   genitiveCompoundN : Number -> N -> N -> N = \n,veri,paine -> paine ** {
+     s = \\c => (StemFin.snoun2nounBind veri).s ! NCase n Gen + paine.s ! c 
+     } ;
+
 -- Nouns used as functions need a case, of which the default is
 -- the genitive.
 
@@ -680,13 +693,21 @@ mkVS = overload {
       (snoun2superl suuri) ;   
 
   
-  presPartA : SVerb -> A = \tullaSV ->
-    let tulla   = sverb2verb True tullaSV ;
-	tuleva : NForm => Str = \\nf => tulla.s ! PresPartAct (AN nf) ;
-        tuleva_SN = { s = tuleva ;
-		      h = tullaSV.h } ;
+  presActA : SVerb -> A = \tulla ->
+    let tuleva : NForm => Str = \\nf => (sverb2verb True tulla).s ! PresPartAct (AN nf) ;
+     in noun2adjDeg { s = tuleva ; h = tulla.h } ;
 
-     in noun2adjDeg tuleva_SN ;
+  presPassA : SVerb -> A = \mennä ->
+    let mentävä : NForm => Str = \\nf => (sverb2verb True mennä).s ! PresPartPass (AN nf) ;
+     in noun2adjDeg { s = mentävä ; h = mennä.h } ;
+  
+  pastActA : SVerb -> A = \syntyä ->
+    let syntynyt : NForm => Str = \\nf => (sverb2verb True syntyä).s ! PastPartAct (AN nf) ;
+     in noun2adjDeg  { s = syntynyt ; h = syntyä.h } ;
+
+  pastPassA : SVerb -> A = \sulkea ->
+    let suljettu : NForm => Str = \\nf => (sverb2verb True sulkea).s ! PastPartPass (AN nf) ;
+     in noun2adjDeg  { s = suljettu ; h = sulkea.h } ;
 
 -- verbs
 
