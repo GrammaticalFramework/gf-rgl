@@ -18,7 +18,7 @@ incomplete concrete VerbScand of Verb = CatScand ** open CommonScand, ResScand, 
     ComplVV v vp = insertObjPost (\\a => v.c2.s ++ infVP vp a) (predV v) ;
     ComplVS v s  = insertObjPost (\\_ => conjThat ++ s.s ! Sub) (predV v) ;  --- insertExt ?
     ComplVQ v q  = insertObjPost (\\_ => q.s ! QIndir) (predV v) ;
-    ComplVA v ap = insertObjPost (\\a => ap.s ! agrAdjNP a DIndef) (predV v) ;
+    ComplVA v ap = insertObjPre  (\\a => ap.s ! agrAdjNP a DIndef) (predV v) ;
 
     SlashV2V v vp = predV v ** {
       n3 = \\a => v.c3.s ++ infVP vp a ; 
