@@ -62,6 +62,7 @@ oper
   infElat  : InfForm ; -- e.g. "tekemästä"
   infIllat : InfForm ; -- e.g. "tekemään"
   infAdess : InfForm ; -- e.g. "tekemällä"
+  infPart  : InfForm ; -- e.g. "tekemistä"
   infPresPart : InfForm ; -- e.g. "tekevän"
   infPresPartAgr : InfForm ; -- e.g. "tekevänsä"
 
@@ -406,7 +407,8 @@ mkVS = overload {
 
   infFirst = Inf1 ;
   infElat = Inf3Elat ; infIllat = Inf3Illat ;
-  infIness = Inf3Iness ; infAdess =  Inf3Adess ;
+  infIness = Inf3Iness ; infAdess = Inf3Adess ;
+  infPart = Inf4Part ;
   infPresPart = InfPresPart ; infPresPartAgr = InfPresPartAgr ;
 
   prePrep  : Case -> Str -> Prep = 
