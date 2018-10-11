@@ -73,8 +73,7 @@ flags
   drink_V2     = dirV2 (regV "شَرِب") ;
 --  drink_V2     = dirV2 (v1 "شرب" i a) ;
   easy_A2V     = mkA2 (sndA "سهل" "فَعل") "لِ" ;
-  eat_V2       = dirV2 (regV "يَ؟كُل") ;
---  eat_V2       = dirV2 (v1 "؟كل" a u) ;
+  eat_V2       = dirV2 (mkV "ء‎كل" FormI) ;
   empty_A      = sndA "فرغ" "فاعِل" ;
   enemy_N      = brkN "عدو" "فَعُلّ" "أَفعاء" Masc Hum ;
   factory_N    = brkN "صنع" "مَفعَل" "مَفاعِل" Masc NoHum ;
