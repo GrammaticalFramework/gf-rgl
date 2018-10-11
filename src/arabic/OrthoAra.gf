@@ -4,12 +4,22 @@ flags coding=utf8 ;
 
   oper
 
+  -- Definite article assimilation
+    vow : pattern Str = #("َ" | "ِ" | "ُ") ;
+
+
+    -- "Sun letters": assimilate with def. article
+    sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
+
+  -- Hamza
+    hamza : pattern Str = #("ء‎"|"؟") ;
+
     rectifyHmz: Str -> Str = \word ->
       case word of {
-        l@(""|"ال") + "؟" + v@("َ"|"ُ") + tail => l + "أ" + v + tail;
-        l@(""|"ال") + "؟" + v@("ِ") + tail => l + "إ" + v + tail;
-        head + v1@("ِ"|"ُ"|"َ"|"ْ"|"ا"|"ي"|"و") + "؟" + v2@(""|"ُ"|"َ"|"ْ"|"ِ") => head + v1 + (tHmz v1) + v2;
-        head + "؟" + tail => head + (bHmz (dp 2 head) (take 2 tail)) + tail; --last head , take 1 tail
+        l@(""|"ال") + #hamza + v@("َ"|"ُ") + tail => l + "أ" + v + tail;
+        l@(""|"ال") + #hamza + v@("ِ") + tail => l + "إ" + v + tail;
+        head + v1@("ِ"|"ُ"|"َ"|"ْ"|"ا"|"ي"|"و") + #hamza + v2@(""|"ُ"|"َ"|"ْ"|"ِ") => head + v1 + (tHmz v1) + v2;
+        head + #hamza + tail => head + (bHmz (dp 2 head) (take 2 tail)) + tail; --last head , take 1 tail
         _           => word
       };
 

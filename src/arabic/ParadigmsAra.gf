@@ -274,7 +274,7 @@ resource ParadigmsAra = open
     let { raw = v1' rootStr vPerf vImpf } in
     { s = \\vf =>
         case rootStr of {
-          _ + "؟" + _ => rectifyHmz(raw.s ! vf);
+          _ + #hamza + _ => rectifyHmz(raw.s ! vf);
           _ => raw.s ! vf
         };
       lock_V = <>
@@ -336,7 +336,7 @@ resource ParadigmsAra = open
     let { raw = v5' rootStr } in
     { s = \\vf =>
         case rootStr of {
-          _ + "؟" + _ => rectifyHmz(raw.s ! vf);
+          _ + #hamza + _ => rectifyHmz(raw.s ! vf);
           _ => raw.s ! vf
         };
       lock_V = <>
@@ -396,7 +396,7 @@ resource ParadigmsAra = open
     let { raw = brkN' root sg pl gen spec} in
     { s = \\n,d,c =>
         case root of {
-          _ + "؟" + _ => rectifyHmz(raw.s ! n ! d ! c);
+          _ + #hamza + _ => rectifyHmz(raw.s ! n ! d ! c);
           _ => raw.s ! n ! d ! c
         };
       g = gen;
@@ -491,7 +491,7 @@ resource ParadigmsAra = open
     let  raw = sndA' root pat in {
       s = \\af =>
         case root of {
-          _ + "؟" + _ => rectifyHmz(raw.s ! af);
+          _ + #hamza + _ => rectifyHmz(raw.s ! af);
         _ => raw.s ! af
         };
       lock_A = <>
