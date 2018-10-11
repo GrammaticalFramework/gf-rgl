@@ -7,7 +7,7 @@
 ---- implement $Test$, it moreover contains regular lexical
 ---- patterns needed for $Lex$.
 --
-resource ResAra = PatternsAra ** open  Prelude, Predef, ParamX  in {
+resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
   flags optimize=noexpand ; coding=utf8 ;
 
@@ -94,7 +94,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, ParamX  in {
         w@_ + "ف" + x@_ + "ع" + y@_ =>
           let pat = { h = w ; m1 = x; m2 = ""; t = y} in
           case <length rS : Ints 100> of {
-            6 | 5 => mkWeak pat (mkRoot3 rS) ; --3=>
+--            6 | 5 => mkWeak pat (mkRoot3 rS) ; --3=>
+            6 | 5 => mkHollow pat (mkRoot3 rS) ; --3=>
             4 | 3 => mkBilit pat (mkRoot2 rS) ; --2=>
             _ => rS ---- AR error "expected 3--6"
           }
@@ -880,10 +881,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _   => ""
       };
 
-    -- "Sun letters": assimilate with def. article
-    sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
-
-    vow : pattern Str = #("َ" | "ِ" | "ُ") ;
     defArt : State -> Str -> Str = \st,stem -> -- IL -- to be checked
       let al = "ال" in
       case st of {
