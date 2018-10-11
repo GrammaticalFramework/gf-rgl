@@ -639,7 +639,7 @@ resource MorphoFin = ResFin ** open Prelude in {
     in vForms12
       harkita
       (harkit + "sen")
-      (harkit + "se")
+      (harkit + "see")
       (harkit + "sev" + a + "t")
       (harkit + "k" + a + a)
       (harkit + a + a + "n")

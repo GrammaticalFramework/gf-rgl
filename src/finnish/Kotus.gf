@@ -106,11 +106,11 @@ oper
   d28A : Str -> NForms -- 1 jälsi
     = \s -> dArpi s (Predef.tk 2 s + "len") ;
   d29 : Str -> NForms -- 1 lapsi
-    = \s -> let lapsi = dArpi s (init s + "en") in 
-       table {2 => Predef.tk 3 s + "ta" ; i => lapsi ! i} ;
+    = \s -> let lapsi = dArpi s (init s + "en") ; a = vowHarmony s in 
+       table {2 => Predef.tk 3 s + "st" + a ; i => lapsi ! i} ;
   d30 : Str -> NForms -- 2 veitsi
-    = \s -> let lapsi = dArpi s (init s + "en") in 
-       table {2 => Predef.tk 3 s + "stä" ; i => lapsi ! i} ;
+    = \s -> let lapsi = dArpi s (init s + "en") ; a = vowHarmony s in 
+       table {2 => Predef.tk 3 s + "st" + a ; i => lapsi ! i} ;
   d31 : Str -> NForms -- 3 yksi
     = \s -> let 
         y = Predef.tk 3 s ;
