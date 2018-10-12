@@ -20,7 +20,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
     ComplVV vv vp =  let vvVP = predV vv in --- IL
       vp ** {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
-                      ++ vv.c2  -- أَنْ‎
+                      ++ vv.c2  -- أَنْ
                       ++ vp.s ! pgn ! VPImpf Cnj
       } ;
 

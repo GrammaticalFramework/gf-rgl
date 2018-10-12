@@ -438,7 +438,7 @@ resource ParadigmsAra = open
 
   -- e.g. al-jamii3, 2a7ad
   regNP : Str -> Number -> NP = \word,n ->
-    { s = \\c => word ++ vowel ! c ; ---- gives strange chars
+    { s = \\c => fixShd word (dec1sg ! Def ! c) ;
       a = {pgn = Per3 Masc n; isPron = False };
       lock_NP = <>
     };

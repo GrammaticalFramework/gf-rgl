@@ -11,8 +11,15 @@ flags coding=utf8 ;
     -- "Sun letters": assimilate with def. article
     sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
 
+  -- Shadda: https://www.unicode.org/L2/L2017/17253-arabic-ordering.pdf
+    fixShd : Str -> Str -> Str = \word,vowel ->
+      case word of {
+        x + "ّ" => x + vowel + "ّ" ;
+        x       => x + vowel
+      } ;
+
   -- Hamza
-    hamza : pattern Str = #("ء‎"|"؟") ;
+    hamza : pattern Str = #("ء"|"؟") ;
 
     rectifyHmz: Str -> Str = \word ->
       case word of {

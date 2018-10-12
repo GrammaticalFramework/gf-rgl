@@ -842,13 +842,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     -- takes a singular or broken plural word and tests the ending to
     -- determine the declension and gives the corresponding inf table
-    sing : Str -> State => Case => Str =
-      \word ->
-      case word of {
-         lemma + "ِي"   => \\s,c => defArt s lemma + dec2sg ! s ! c ;
-          _ + ("ا"|"ى") => \\s,c => defArt s word + dec3sg ! s ! c ;
-          _             => \\s,c => defArt s word + dec1sg ! s ! c
-      };
+    sing : Str -> State => Case => Str = \word ->
+      \\s,c => defArt s (case word of {
+         lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
+         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
+         _             => fixShd word  (dec1sg ! s ! c) 
+      }) ;
 
 
     -- takes a singular word and tests the ending to
@@ -952,7 +951,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Const =>
           table {
             Nom => "َا";
-            _   => "َيْ‎"
+            _   => "َيْ"
           };
         _ =>
           table {
