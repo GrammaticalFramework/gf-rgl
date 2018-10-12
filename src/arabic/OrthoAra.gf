@@ -12,7 +12,7 @@ flags coding=utf8 ;
     sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
 
   -- Hamza
-    hamza : pattern Str = #("ء‎"|"؟") ;
+    hamza : pattern Str = #("ء"|"؟") ;
 
     rectifyHmz: Str -> Str = \word ->
       case word of {

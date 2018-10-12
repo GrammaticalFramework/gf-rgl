@@ -73,7 +73,7 @@ flags
   drink_V2     = dirV2 (regV "شَرِب") ;
 --  drink_V2     = dirV2 (v1 "شرب" i a) ;
   easy_A2V     = mkA2 (sndA "سهل" "فَعل") "لِ" ;
-  eat_V2       = dirV2 (mkV "ء‎كل" FormI) ;
+  eat_V2       = dirV2 (mkV "ءكل" FormI) ;
   empty_A      = sndA "فرغ" "فاعِل" ;
   enemy_N      = brkN "عدو" "فَعُلّ" "أَفعاء" Masc Hum ;
   factory_N    = brkN "صنع" "مَفعَل" "مَفاعِل" Masc NoHum ;
@@ -111,7 +111,7 @@ flags
   iron_N       = brkN "حدّ" "فَعِيل" "فَعائِل" Masc NoHum ;
   king_N       = brkN "ملك" "فَعِل" "فُعُول" Masc Hum ;
   know_V2      = dirV2 (regV "عَرِف") ;
-  know_VS      = mkVS (regV "عَرِف") ; -- or with ع ل م‎?
+  know_VS      = mkVS (regV "عَرِف") ; -- or with ع ل م?
   lake_N       = sdfN "بحر" "فُعَيلة" Fem NoHum ;
   lamp_N       = brkN "صبح" "مِفعال" "مَفاعِيل" Masc NoHum ; --qanDIl, fAnUs
   learn_V2     = dirV2 (v5 "علم") ;

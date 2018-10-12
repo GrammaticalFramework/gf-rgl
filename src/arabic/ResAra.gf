@@ -952,7 +952,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Const =>
           table {
             Nom => "َا";
-            _   => "َيْ‎"
+            _   => "َيْ"
           };
         _ =>
           table {
