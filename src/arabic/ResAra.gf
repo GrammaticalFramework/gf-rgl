@@ -117,7 +117,9 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     NumOrdCard : Type = {
       s : Gender => State => Case => Str ;
       n : Size ;
+      isNum : Bool
       } ;
+
 
     uttNum : NumOrdCard -> (Gender => Str) ;
     uttNum n = \\g => n.s ! g ! Def ! Nom ;  ----IL
@@ -1085,21 +1087,26 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       case pgn of {
         Per3 gn nm => {g = gn; n = nm};
         Per2 gn nm => {g = gn; n = nm};
-        _ => {g = Masc; n = Sg} --randomly
+        Per1 nm    => {g = Masc;  --randomly
+                       n = case nm of {
+                              Sing => Sg ;
+                              Plur => Pl}
+                      }
       };
 
 
     mkIP : Str -> Number -> IP =
      \s,n -> {s = \\_g,_s,_c => s ; n = n} ;
 
-    mkOrd : (_,_ : Str) -> NumOrdCard =
-      \aysar,yusra ->
+    mkOrd : (_,_ : Str) -> Size -> NumOrdCard =
+      \aysar,yusra,sz ->
       { s = \\g,s,c =>
           case g of {
             Masc => (sing aysar) ! s ! c;
             Fem  => (sing yusra) ! s ! c
           };
-        n = None
+        n = sz ;
+        isNum = False
       };
 
 
