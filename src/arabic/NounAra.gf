@@ -78,10 +78,9 @@ lin
     n = num.n;
     d = quant.d;
     isPron = quant.isPron;
-    isNum =
-      case num.n of {
-        None => False;
-        _ => True
+    isNum = case num.n of {
+        None => ord.isNum ; -- ord may come from OrdDigits or OrdNumeral
+        _    => True
       }
     } ;
 
@@ -91,19 +90,12 @@ lin
     n = num.n;
     d = quant.d;
     isPron = quant.isPron;
-    isNum =
+    isNum = -- Num may come from NumCard : Card -> Num
       case num.n of {
         None => False;
-        _ => True
+        _    => True
       }
     } ;
-
-
-  --DEPRECATED
-  --    SgQuant quant = {s = quant.s ! Sg ; d = quant.d;
-  --                     isPron = quant.isPron; isNum = False} ;
-  --    PlQuant quant = {s = quant.s ! Pl ; d = quant.d;
-  --                     isPron = quant.isPron; isNum = False} ;
 
   PossPron p = {
     s = \\_,_,_,_ => p.s ! Gen;
@@ -113,37 +105,39 @@ lin
 
   NumSg = {
     s = \\_,_,_ => [] ;
-    n = One } ;
+    n = One ;
+    isNum = False } ;
 
   NumPl = {
     s = \\_,_,_ => [] ;
-    n = None } ;
+    n = None ;
+    isNum = False } ;
 
-  NumDigits digits = {
-    s = \\_,_,_ => digits.s;
-    n = digits.n
+  NumDigits digits = digits ** {
+    s = \\_,_,_ => digits.s ;
+    isNum = True
     };
 
-  NumNumeral numeral = {
+  NumNumeral numeral = numeral ** {
     s = numeral.s ! NCard ;
-    n = numeral.n
+    isNum = True
     };
 
   NumCard n = n ;
 
-  AdNum adn num = {
+  AdNum adn num = num ** {
     s = \\g,d,c => adn.s ++ num.s ! g ! d ! c ;
-    n = num.n } ;
+    } ;
 
-  OrdDigits digits = {
+  OrdDigits digits = digits ** {
     s = \\_,d,_ => Al ! d ++ digits.s;
-    n = digits.n
+    isNum = True
     };
 
   -- OrdNumeral : Numeral -> Ord ; -- fifty-first
-  OrdNumeral numeral = {
+  OrdNumeral numeral = numeral ** {
     s = numeral.s ! NOrd ;
-    n = numeral.n
+    isNum = True
     };
 
   -- FIXME, "the biggest house" would better translate into
@@ -151,7 +145,8 @@ lin
   -- DetCN (DetSg DefArt (OrdSuperl big_A)) (UseN house_N)
   OrdSuperl a = {
     s = \\_,d,c => a.s ! AComp d c;
-    n = One
+    n = One ;
+    isNum = False
     } ;
 
   DefArt = {
@@ -167,7 +162,8 @@ lin
     } ;
 
   MassNP cn = ---- AR
-    {s = cn.s ! Sg ! Indef ; a = {pgn = Per3 cn.g Sg ; isPron = False}} ;
+    {s = \\c => cn.s ! Sg ! Indef ! c ++ cn.adj ! Sg ! Indef ! c ; 
+     a = {pgn = Per3 cn.g Sg ; isPron = False}} ;
 
 --  MassDet = {s = \\_,_,_,_ => [] ; d = Indef;
 --             isNum = False; isPron = False} ;

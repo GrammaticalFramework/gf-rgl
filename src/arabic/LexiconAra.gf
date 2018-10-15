@@ -19,7 +19,8 @@ flags
   ask_V2Q      = dirV2 (regV "يَس؟َل") ;
 --  ask_V2Q      = dirV2 (v1 "س؟ل" a a) ;
   baby_N       = brkN "طفل" "فِعل" "أَفعال" Masc Hum;
-  bad_A        = sndA "سو؟" "فَيِّع" ;
+--  bad_A        = sndA "سو؟" "فَيِّع" ;
+  bad_A        = mkA "سَيِّئ" "سَيِّئَة" "سَيِّئِين" ;
   bank_N       = brkN "بنك" "فَعل" "فُعُول" Masc NoHum ;
   beautiful_A  = sndA "جمل" "فَعِيل" ;
   become_VA    = mkVA (v4 "صبح") ;
@@ -248,8 +249,8 @@ flags
   jump_V       = regV "يَقفِز" ;
 --  jump_V       = v1 "قفز" a i ;
 
-  left_Ord     = mkOrd "أَيسَر" "يُسرَى";
-  right_Ord    = mkOrd "أَيمَن" "يُمنَى" ;
+  left_Ord     = mkOrd "أَيسَر" "يُسرَى" One;
+  right_Ord    = mkOrd "أَيمَن" "يُمنَى" One;
 
   far_Adv      = mkAdv "بَعِيداً" ;
   correct_A    = sndA "صحّ" "فَعِيل" ;

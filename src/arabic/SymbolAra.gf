@@ -26,8 +26,8 @@ lin
   SymbS sy = sy ;
 
 
-  SymbOrd n = {s = \\_,_,_ => n.s ; n = None } ;
-  SymbNum n = SymbOrd n ** { n = ThreeTen } ; ----IL
+  SymbOrd n = {s = \\_,_,_ => n.s ; n = One ; isNum = False } ;
+  SymbNum n = SymbOrd n ** { n = ThreeTen ; isNum = True } ; ----IL
 
 lincat
 

@@ -478,7 +478,7 @@ resource ParadigmsAra = open
           <Hum,_,_,_>   => ula'ika;
           _              => tilka
         };
-      d = Def;
+      d = det;
       isPron = False;
       isNum = False;
       lock_Quant = <>
