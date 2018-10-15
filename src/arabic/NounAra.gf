@@ -162,7 +162,8 @@ lin
     } ;
 
   MassNP cn = ---- AR
-    {s = cn.s ! Sg ! Indef ; a = {pgn = Per3 cn.g Sg ; isPron = False}} ;
+    {s = \\c => cn.s ! Sg ! Indef ! c ++ cn.adj ! Sg ! Indef ! c ; 
+     a = {pgn = Per3 cn.g Sg ; isPron = False}} ;
 
 --  MassDet = {s = \\_,_,_,_ => [] ; d = Indef;
 --             isNum = False; isPron = False} ;
