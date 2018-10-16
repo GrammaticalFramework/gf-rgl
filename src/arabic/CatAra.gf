@@ -47,7 +47,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
 -- Noun
 
-    CN = ResAra.Noun ** {adj : NTable};
+    CN = ResAra.Noun ** {adj : NTable ; np : Case => Str};
     NP, Pron = ResAra.NP; --{s : Case => Str ; a : Agr } ;
     Num,
     Ord,

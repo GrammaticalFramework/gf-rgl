@@ -169,7 +169,9 @@ lin
 --             isNum = False; isPron = False} ;
 
   UseN,
-  UseN2 = \n -> n ** {adj = \\_,_,_ => []};
+  UseN2 = \n -> n ** {
+    adj = \\_,_,_ => [];
+    np  = \\_     => []};
   Use2N3 n3 = n3 ;
   Use3N3 n3 = n3 ** {c2 = n3.c3} ;
 
@@ -179,16 +181,12 @@ lin
 
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
 
-  AdjCN ap cn = {
-    s = \\n,d,c => cn.s ! n ! d ! c;
-    adj = \\n,d,c => ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c ;
-    g = cn.g;
-    h = cn.h
+  AdjCN ap cn = cn ** {
+    adj = \\n,d,c => ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
     };
   --    RelCN cn rs = {s = \\n,c => cn.s ! n ! c ++ rs.s ! {n = n ; p = P3}} ;
   --    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s} ;
   --
   --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
-  ApposCN cn np = cn ** {
-    s = \\n,d,c => cn.s ! n ! d ! c ++ np.s ! c } ;
+  ApposCN cn np = cn ** { np = np.s } ;
 }
