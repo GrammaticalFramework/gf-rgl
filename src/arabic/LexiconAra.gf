@@ -234,7 +234,7 @@ flags
   write_V2     = dirV2 (regV "يَكتُب") ;
 --  write_V2     = dirV2 (v1 "كتب" a u) ;
   yellow_A     = clrA "صفر" ;
-  young_A      = sndA "شبّ" "فاعّ" ;
+  young_A      = sndA "شبب" "فاعّ" ;
 
   do_V2        = dirV2 (regV "يَفعَل") ;
 --  do_V2        = dirV2 (v1 "فعل" a a ) ;
@@ -287,7 +287,7 @@ flags
   fingernail_N = brkN "ظفر" "فُعل" "أَفاعِل"    Masc NoHum;
   fire_N       = brkN "نور" "فاع" "فِيعان"       Fem NoHum;
   flower_N     = brkN "زهر" "فَعلة" "فُعُول"     Fem NoHum;
-  fog_N        = brkN "ضبّ" "فَعال" "فَعال"     Masc NoHum; --no plural ?
+  fog_N        = brkN "ضبب" "فَعال" "فَعال"     Masc NoHum; --no plural ?
   foot_N       = brkN "قدم" "فَعَل" "أَفعال"    Fem NoHum;
   forest_N     = sdfN "غيب" "فاعة"              Fem NoHum;
   grass_N      = brkN "عشب" "فُعلة" "أَفعال"    Fem NoHum;
@@ -305,7 +305,7 @@ flags
   liver_N      = brkN "كبد" "فَعِل" "أَفعال"    Masc NoHum ;
   louse_N      = sdfN "قمل" "فَعلة"             Fem NoHum;
   mouth_N      = brkN "فوه" "فُعل" "أَفعال"     Masc NoHum ;
-  name_N       = brkN "؟سم" "فِعل" "فَعالِي"     Masc NoHum;
+  name_N       = brkN "ءسم" "فِعل" "فَعالِي"     Masc NoHum;
   neck_N       = brkN "رقب" "فَعَلة" "فِعال"    Fem NoHum;
   night_N      = brkN "ليل" "فَعلة" "فَعالِي"    Fem NoHum;  --plural?
   nose_N       = brkN "؟نف" "فَعل" "فُعُول"      Masc NoHum;
