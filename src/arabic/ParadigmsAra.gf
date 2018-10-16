@@ -428,9 +428,9 @@ resource ParadigmsAra = open
   mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
     { s =
         table {
-          Nom => ana;
           Acc => nI;
-          Gen => I
+          Gen => I;
+          _   => ana
         };
       a = {pgn = pgn; isPron = True };
       lock_NP = <>
@@ -451,7 +451,7 @@ resource ParadigmsAra = open
     };
 
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
-    \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det ->
+    \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det -> lin Quant (baseQuant **
     { s = \\n,s,g,c =>
         case <s,g,c,n> of {
           <_,Masc,_,Sg>  => hava;
@@ -463,14 +463,11 @@ resource ParadigmsAra = open
           <Hum,_,_,Pl>   => hA'ulA;
           _              => havihi
         };
-      d = Def;
-      isPron = False;
-      isNum = False;
-      lock_Quant = <>
-    };
+      d = det
+    });
 
   mkQuant3 : (_,_,_ : Str) -> State -> Quant =
-    \dalika,tilka,ula'ika,det ->
+    \dalika,tilka,ula'ika,det -> lin Quant (baseQuant **
     { s = \\n,s,g,c =>
         case <s,g,c,n> of {
           <_,Masc,_,Sg>  => dalika;
@@ -478,11 +475,8 @@ resource ParadigmsAra = open
           <Hum,_,_,_>   => ula'ika;
           _              => tilka
         };
-      d = det;
-      isPron = False;
-      isNum = False;
-      lock_Quant = <>
-    };
+      d = det
+    });
 
   degrA : (posit,compar,plur : Str) -> A
     = \posit,compar,plur -> lin A {s = clr posit compar plur} ;

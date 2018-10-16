@@ -7,9 +7,10 @@ flags optimize = all ;--noexpand;
 
     mkDet : Str -> Number -> State -> Det
       = \word,num,state ->
-      { s = \\_,_,c => word + vowel ! c ;
+      { s = \\_,_,c => word + caseTbl ! c ;
         n = numberToSize num;
         d = state;  --only Const is used now. check StructuralAra
+        is1sg = False;
         isNum = False;
         isPron = False
       };
@@ -18,7 +19,7 @@ flags optimize = all ;--noexpand;
       = \word,decl ->
       { s = \\c =>
           case decl of {
-            True => word + vowel!c;
+            True => word + caseTbl!c;
             False => word
           };
         isDecl = decl
@@ -38,13 +39,6 @@ flags optimize = all ;--noexpand;
         d = state;
         isPron = False;
         isNum = True
-      };
-
-    vowel : Case => Str =
-      table {
-        Nom =>  "ُ";
-        Acc =>  "َ";
-        Gen =>  "ِ"
       };
 
 }

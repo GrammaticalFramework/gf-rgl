@@ -17,10 +17,14 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Vowel   = u | a | i ;
     Number  = Sg | Dl | Pl;
     Gender  = Masc | Fem ;
-    Case    = Nom | Acc | Gen ;
+    Case    = Nom | Acc | Gen 
+            | Bare ; -- 1st person poss. suff. overrides case
     Person  = P1 | P2 | P3 ;
     Species = NoHum | Hum ;
-    State   = Def | Indef | Const ;
+    State   = Def | Indef | Const
+            | Poss ; -- ة turns into ت
+                     -- sound masculine plural drops ن
+                     -- case vowel retained
     Mood    = Ind | Cnj | Jus ;
     Voice   = Act | Pas ;
     Tense   = Pres | Past | Fut ;
@@ -783,6 +787,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
 --Nominal Morphology
 
+  caseTbl : Case => Str =
+    table {
+      Bare => [] ;
+      Nom  => "ُ";
+      Acc  => "َ";
+      Gen  => "ِ"
+    };
+
 --takes the adjective lemma and gives the Posit table
   positAdj : Str -> Gender => NTable  =
     \kabIr ->
@@ -848,20 +860,22 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       \\s,c => defArt s (case word of {
          lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
          _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
+         lemma + "ة"   => case s of { 
+                            Poss => lemma + "ت" + dec1sg ! s ! c ;
+                            _    => word        + dec1sg ! s ! c
+                          } ;
          _             => fixShd word  (dec1sg ! s ! c) 
       }) ;
 
 
     -- takes a singular word and tests the ending to
     -- determine the declension and gives the corresponding dual inf table
-    dual : Str -> State => Case => Str =
-      \caSaA ->
-      case caSaA of {
-        lemma + ("ا"|"ى") => \\s,c => defArt s lemma + "ي" + dl ! s ! c ;
-        lemma + "ة" =>
-          \\s,c => defArt s (lemma + "ت") + dl ! s ! c ;
-        _  => \\s,c => defArt s caSaA + dl ! s ! c
-      };
+    dual : Str -> State => Case => Str = \caSaA ->
+      \\s,c => defArt s (case caSaA of {
+        lemma + ("ا"|"ى") => lemma + "ي" + dl ! s ! c ;
+        lemma + "ة"       => lemma + "ت" + dl ! s ! c ;
+        _                 => fixShd caSaA (dl ! s ! c)
+      });
 
     -- takes a singular word and gives the corresponding sound
     --plural feminine table
@@ -898,52 +912,39 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       table {
         Indef =>
           table {
+            Bare => [];
             Nom => "ٌ";
             Acc => "ً";
             Gen => "ٍ"
           };
-        _ =>
-          table { --think of ?axU, ?axA, (the five nouns)
-            Nom => "ُ";
-            Acc => "َ";
-            Gen => "ِ"
-          }
+        _ => caseTbl --think of ?axU, ?axA, (the five nouns)
+
       };
 
     --indeclinables (mamnuu3 mina S-Sarf)
     indecl :  Case => Str =
       table {
-        Nom => "ُ";
-        _ => "َ"
+        Gen => "َ" ;
+        x   => caseTbl ! x
       };
 
 
-    --declection 2 (ends in yaa')
-    dec2sg : State => Case => Str =
-      table {
-        Indef =>
-          table {
-            Acc => "ِياً";
-            _ => "ٍ"
-          };
-        _ =>
-          table {
-            Acc => "ِيَ";
-            _ => "ِي"
-          }
+    --declension 2 (ends in yaa')
+    dec2sg : State => Case => Str = \\s,c =>
+      case <s,c> of {
+        <_,   Bare> => [] ;
+        <Indef,Acc> => "ِياً" ;
+        <Indef>     => "ٍ" ;
+        <_,    Acc> => "ِيَ" ;
+        _           => "ِي"
       };
 
-    --declention 3 (ending in alif)
-    dec3sg : State => Case => Str =
-      table {
-        Indef =>
-          table {
-            _ => "ً"
-          };
-        _ =>
-          table {
-            _ => ""
-          }
+    --declension 3 (ending in alif)
+    dec3sg : State => Case => Str = \\s,c =>
+      case <s,c> of {
+        <Indef,Bare> => [] ;
+        <Indef>      => "ً" ;
+        _            => []
       };
 
 
@@ -957,12 +958,13 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           };
         _ =>
           table {
-            Nom => "َانِ";
-            _   => "َيْنِ"
+            Nom  => "َانِ";
+            Bare => "َيْن"; 
+            _    => "َيْنِ"
           }
       };
 
-    --sound mascualine plural suffixes
+    --sound masculine plural suffixes
     m_pl : State => Case => Str =
       table {
         Const =>
@@ -972,6 +974,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           };
         _ =>
           table {
+            Bare => "ِين"; 
             Nom => "ُونَ";
             _   => "ِينَ"
           }
@@ -982,11 +985,13 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       table {
         Indef =>
           table {
+            Bare => [];
             Nom => "ٌ";
             _   => "ٍ"
           };
         _ =>
           table {
+            Bare => [];
             Nom => "ُ";
             _   => "ِ"
           }
@@ -1030,11 +1035,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       case <s,n> of {
         <Const,Pl> => Def;   --kullu l-kutubi, bacDu l-kutubi
         <Const,Sg> => Indef; --kullu kitaabin
-        <Indef,_> => Indef;  --kitaabun
-        _ => Def             --Lkitaabu
+        <Indef> => Indef;    --kitaabun
+        <Poss>  => Poss;
+        _       => Def       --Lkitaabu
       };
 
-
+    possState : State -> State = \s ->
+      case s of { Poss => Def ;
+                  x    => x } ;
     --FIXME needs testing
     nounCase : Case -> Size -> State -> Case =
       \c,size,s ->
@@ -1112,14 +1120,24 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
   oper
 
-    Det : Type = {
-      s : Species => Gender => Case => Str ;
+    BaseQuant : Type = {
       d : State;
-      n : Size;
+      is1sg : Bool; -- To force no case marker for 1st person poss. suff.
       isNum : Bool;
       -- for genitive pronouns (suffixes). if true, then "cn ++ det"
       --should be used instead of "det ++ cn" when constructing the NP
-      isPron : Bool
+      isPron: Bool} ;
+
+    baseQuant = { d = Indef ;
+                  is1sg,isNum,isPron = False } ;
+
+    Quant : Type = BaseQuant ** {
+      s : ResAra.Number => Species => Gender => Case => Str
+      } ;
+
+    Det : Type = BaseQuant ** {
+      s : Species => Gender => Case => Str ;
+      n : Size
       } ;
 
     Predet : Type = {
