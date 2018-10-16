@@ -98,6 +98,7 @@ concrete StructuralAra of Structural = CatAra **
   where_IAdv = ss "أَينَ" ;
   which_IQuant = {
     s = \\s,c => case <c,s> of {
+             <Bare,_>    => "أيّ" ;
              <Nom,Indef> => "أيٌّ" ;
              <Nom,_>     => "أيُّ" ;
              <Acc,Indef> => "أيّاً" ;
