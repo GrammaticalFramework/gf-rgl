@@ -41,26 +41,19 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
 -- AR 7/12/2009 changed this to avoid duplication of consonants
     mkRoot3 : Str -> Root3 = \fcl -> case fcl of {
-      f@? + c@? + l => {f = f ; c = c ; l = l}
+      f@? + c@? + l => {f = f ; c = c ; l = l} ;
+      _ => error ("mkRoot3: too short root" ++ fcl)
       } ;
-{-
-    mkRoot3 : Str -> Root3 = \fcl ->
-      let { cl = drop 2 fcl; --drop 1 fcl
-	        l' = dp 2 fcl; --last fcl
-		    c' = take 2 cl} in --take 1 cl
-      {f = take 2 fcl; c = c'; --take 1 fcl
-       l = case l' of {
-         "ّ" => c';
-		 _	=> l'
-	     }
-      };
--}
 
     --for roots with 2 consonants (works also for assimilated strs, like fc~,
     --because the function discards anything after the first two characters
     mkRoot2 : Str -> Root2 = \fcl ->
-      let { cl = drop 2 fcl} in --drop 1 fcl
-      {f = take 2 fcl; c = take 2 cl}; --take 1
+      -- let { cl = drop 2 fcl} in --drop 1 fcl
+      -- {f = take 2 fcl; c = take 2 cl}; --take 1
+      case fcl of {
+       f@? + c@? + _ => { f = f ; c = c } ;
+       _ => error ("mkRoot2: too short root" ++ fcl)
+      };
 
     --opers to interdigitize (make words out of roots and patterns:
 
@@ -93,15 +86,23 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     --takes a pattern string and root string and makes a word
     mkWord : Str -> Str -> Str  =\pS, rS ->
       case pS of {
-        w@_ + "ف" + x@_ + "ع" + y@_ + "ل" + z@_ =>
-          mkStrong { h = w ; m1 = x; m2 = y; t = z} (mkRoot3 rS);
-        w@_ + "ف" + x@_ + "ع" + y@_ =>
+        w + "ف" + x + "ع" + y + "ل" + z =>
+          let pat = { h = w ; m1 = x; m2 = y; t = z} in
+          case rS of {
+            x@? + y@? + "ّ" => mkStrong pat (mkRoot3 (x+y+y)) ; -- In principle, shadda shouldn't be in the root, but if someone puts one, this should fix it. /IL
+            _               => mkStrong pat (mkRoot3 rS) } ;
+        w + "ف" + x + "ع" + y =>
           let pat = { h = w ; m1 = x; m2 = ""; t = y} in
-          case <length rS : Ints 100> of {
---            6 | 5 => mkWeak pat (mkRoot3 rS) ; --3=>
-            6 | 5 => mkHollow pat (mkRoot3 rS) ; --3=>
-            4 | 3 => mkBilit pat (mkRoot2 rS) ; --2=>
-            _ => rS ---- AR error "expected 3--6"
+          case rS of {
+               x + "ّ" => mkBilit pat (mkRoot2 x) ; -- fc~
+               x@? + y@? + ("و"|"ي")
+                       => mkDefective pat (mkRoot3 rS) ;
+               x@? + ("و"|"ي") + z@?
+                       => mkHollow pat (mkRoot3 rS) ;
+              ("و"|"ي") + y@? + z@? 
+                      => mkAssimilated pat (mkRoot3 rS) ;
+              ? + ? + _ => mkBilit pat (mkRoot2 rS) ; --2=>
+              _=> error rS ---- AR error "expected 3--6"
           }
       };
 
