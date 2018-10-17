@@ -107,19 +107,21 @@ resource ParadigmsAra = open
 
  mkA = overload {
    mkA : (root,patt : Str) -> A
-    = sndA ;
+    = \r,p -> lin A (sndA r p);
    mkA : (root : Str) -> A                -- forms adjectives with positive form aFCal
-    = clrA ;
-   mkA : (posit,compar,plur : Str) -> A
-    = degrA ;
+    = \r -> lin A (clrA r);
+   mkA : (root,sg,pl : Str) -> A
+    = \r,s,p -> lin A (brkA r s p) ;
+   -- mkA : (posit,compar,plur : Str) -> A
+   --  = degrA ;
    } ;
 
 
 --Takes a root string and a pattern string
-  sndA : (root,patt : Str) -> A ;
+  sndA : (root,patt : Str) -> Adj ;
 
 --Takes a root string only
-  clrA : (root : Str) -> A ;  -- forms adjectives of type aFCal
+  clrA : (root : Str) -> Adj ;  -- forms adjectives of type aFCal
 
 --3 Two-place adjectives
 --
@@ -405,8 +407,14 @@ resource ParadigmsAra = open
 
   sdfN =
     \root,sg,gen,spec ->
-    let { kalima = mkWord sg root;
-    } in mkFullN (sndf kalima) gen spec;
+    let { kalimaStr = mkWord sg root;
+          kalimaRaw = sndf kalimaStr;
+          kalima : NTable = \\n,d,c => case root of {
+            _ + #hamza + _ 
+              => rectifyHmz (kalimaRaw ! n ! d ! c);
+            _ => kalimaRaw ! n ! d ! c
+        };
+    } in mkFullN kalima gen spec;
 
   sdmN =
     \root,sg,gen,spec ->
@@ -478,6 +486,19 @@ resource ParadigmsAra = open
       d = det
     });
 
+  brkA : (root,sg,pl : Str) -> Adj = \root,sg,pl ->
+    let jadId  = mkWord sg root ;
+        jadIda = jadId + "َة" ;
+        judud  = mkWord pl root ;
+        akbar  = mkWord "أَفعَل" root ;
+        mascTbl = reg jadId judud ;
+        femTbl = reg jadIda judud ;
+     in { s = table {
+             APosit Masc n d c => mascTbl ! n ! d ! c ;
+             APosit Fem  n d c => femTbl ! n ! d ! c ;
+             AComp d c         => indeclN akbar ! d ! c }
+        } ;
+
   degrA : (posit,compar,plur : Str) -> A
     = \posit,compar,plur -> lin A {s = clr posit compar plur} ;
 
@@ -487,20 +508,18 @@ resource ParadigmsAra = open
         case root of {
           _ + #hamza + _ => rectifyHmz(raw.s ! af);
         _ => raw.s ! af
-        };
-      lock_A = <>
+        }
     };
 
-  sndA' : Str -> Str -> A =
+  sndA' : Str -> Str -> Adj =
     \root,pat ->
     let { kabIr = mkWord pat root;
           akbar = mkWord "أَفعَل" root
     } in {
       s = table {
-        APosit g n d c => (positAdj kabIr) ! g ! n ! d ! c ;
-        AComp d c => (indeclN akbar) ! d ! c
-        };
-      lock_A = <>
+        APosit g n d c  => positAdj kabIr ! g ! n ! d ! c ;
+        AComp d c => indeclN akbar ! d ! c
+        }
     };
 
   clrA root =
@@ -509,7 +528,6 @@ resource ParadigmsAra = open
           Humr   = mkWord "فُعل" root
     } in {
       s = clr eaHmar HamrA' Humr;
-      lock_A = <>
     };
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
