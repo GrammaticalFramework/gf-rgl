@@ -193,5 +193,15 @@ lin
   --    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s} ;
   --
   --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
-  ApposCN cn np = cn ** { np = np.s } ;
+  ApposCN cn np = cn ** { np = \\c => cn.np ! c ++ np.s ! c } ;
+
+  -- : CN -> NP -> CN ;     -- house of Paris, house of mine
+  PossNP cn np = cn ** {
+    s = \\n,_d,c => cn.s ! n ! Const ! c ;
+    np = \\c => cn.np ! c ++ np.s ! Gen
+    };
+
+
+  -- : CN -> NP -> CN ;     -- glass of wine
+  --PartNP
 }
