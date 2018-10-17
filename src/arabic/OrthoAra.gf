@@ -4,18 +4,16 @@ flags coding=utf8 ;
 
   oper
 
-  -- Definite article assimilation
-    vow : pattern Str = #("َ" | "ِ" | "ُ") ;
-
+    vow : pattern Str = #("َ" | "ِ" | "ُ" | "ً" | "ٍ" | "ٌ") ;
 
     -- "Sun letters": assimilate with def. article
     sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
 
   -- Shadda: https://www.unicode.org/L2/L2017/17253-arabic-ordering.pdf
-    fixShd : Str -> Str -> Str = \word,vowel ->
-      case word of {
-        x + "ّ" => x + vowel + "ّ" ;
-        x       => x + vowel
+    fixShd : Str -> Str -> Str = \word,suffix ->
+      case <word,suffix> of {
+        <x + "ّ", v@#vow + y> => x + v + "ّ" + y ;
+        _                     => word + suffix
       } ;
 
   -- Hamza
