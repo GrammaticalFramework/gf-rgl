@@ -286,10 +286,9 @@ resource ParadigmsAra = open
 
   v1' : Str ->  Vowel -> Vowel -> Verb =
     \rootStr,vPerf,vImpf ->
-    let { root = mkRoot3 rootStr ;
-          l = dp 2 rootStr } in --last rootStr
-    case <l, root.c> of {
-      <"ّ",_>      => v1geminate rootStr vPerf vImpf ;
+    let { root = mkRoot3 rootStr } in 
+    case <root.l, root.c> of {
+      <"ّ",    _> => v1geminate rootStr vPerf vImpf ;
       <"و"|"ي",_> => case vPerf of {
                        i => v1defective_i root vImpf ;
                        _ => v1defective_a root vImpf } ;

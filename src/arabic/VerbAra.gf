@@ -43,7 +43,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
 --
 --    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no
 
-    CompCN cn = {s = \\agr,c => cn.s ! agr.n ! Indef ! c} ; ----IL
+    CompCN cn = {s = \\agr,c => cn.s ! agr.n ! Indef ! c ++ cn.np ! c ++ cn.adj ! agr.n ! Indef ! c} ; ----IL
     CompAP ap = {s = \\agr,c => ap.s ! Hum ! agr.g ! agr.n ! Indef ! c} ; --FIXME
     CompNP np = {s = \\_,c => np.s ! c};
     CompAdv a = {s = \\_,_ => a.s} ;
