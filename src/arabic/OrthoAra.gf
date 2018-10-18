@@ -21,8 +21,11 @@ flags coding=utf8 ;
 
     rectifyHmz: Str -> Str = \word ->
       case word of {
+        l@(""|"ال") + ("أ"|"أَ") + #hamza + "ْ" + tail => l + "آ" + tail;
+        l@(""|"ال") + ("أ"|"أَ") + #hamza  + tail => l + "آ" + tail;
         l@(""|"ال") + #hamza + v@("َ"|"ُ") + tail => l + "أ" + v + tail;
-        l@(""|"ال") + #hamza + v@("ِ") + tail => l + "إ" + v + tail;
+        l@(""|"ال") + #hamza + v@("ِ")     + tail => l + "إ" + v + tail;
+
         head + v1@("ِ"|"ُ"|"َ"|"ْ"|"ا"|"ي"|"و") + #hamza + v2@(""|"ُ"|"َ"|"ْ"|"ِ") => head + v1 + (tHmz v1) + v2;
         head + #hamza + tail => head + (bHmz (dp 2 head) (take 2 tail)) + tail; --last head , take 1 tail
         _           => word
