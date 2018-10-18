@@ -1202,7 +1202,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           case vf of {
             VPPerf => v.s ! (VPerf Act pgn);
             VPImpf m => v.s ! (VImpf m Act pgn);
-            VPImp => v.s ! (VImp Masc Sg)--gn.g gn.n)
+            VPImp => v.s ! (VImp gn.g gn.n)
           };
         obj = {
           s = [] ;
