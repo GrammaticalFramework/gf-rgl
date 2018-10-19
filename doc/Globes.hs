@@ -44,6 +44,7 @@ languages = [
   "norsk",
   "پeرسن",
   "polski",
+  "português",
   "پنجابی",
   "Русский",
   "ٻولي",
