@@ -17,7 +17,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Vowel   = u | a | i ;
     Number  = Sg | Dl | Pl;
     Gender  = Masc | Fem ;
-    Case    = Nom | Acc | Gen 
+    Case    = Nom | Acc | Gen
             | Bare ; -- 1st person poss. suff. overrides case
     Person  = P1 | P2 | P3 ;
     Species = NoHum | Hum ;
@@ -99,7 +99,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
                        => mkDefective pat (mkRoot3 rS) ;
                x@? + ("و"|"ي") + z@?
                        => mkHollow pat (mkRoot3 rS) ;
-              ("و"|"ي") + y@? + z@? 
+              ("و"|"ي") + y@? + z@?
                       => mkAssimilated pat (mkRoot3 rS) ;
               ? + ? + _ => mkBilit pat (mkRoot2 rS) ; --2=>
               _=> error rS ---- AR error "expected 3--6"
@@ -118,6 +118,10 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     AP : Type = {s : Species => Gender => NTable } ;
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
+
+    CN : Type = Noun ** {adj : NTable ; np : Case => Str};
+    uttCN : CN -> (Gender => Str) ;
+    uttCN cn = \\_ => cn.s ! Sg ! Indef ! Bare ;
 
     NumOrdCard : Type = {
       s : Gender => State => Case => Str ;
@@ -861,11 +865,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       \\s,c => defArt s (case word of {
          lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
          _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
-         lemma + "ة"   => case s of { 
+         lemma + "ة"   => case s of {
                             Poss => lemma + "ت" + dec1sg ! s ! c ;
                             _    => word        + dec1sg ! s ! c
                           } ;
-         _             => fixShd word  (dec1sg ! s ! c) 
+         _             => fixShd word  (dec1sg ! s ! c)
       }) ;
 
 
@@ -960,7 +964,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _ =>
           table {
             Nom  => "َانِ";
-            Bare => "َيْن"; 
+            Bare => "َيْن";
             _    => "َيْنِ"
           }
       };
@@ -975,7 +979,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           };
         _ =>
           table {
-            Bare => "ِين"; 
+            Bare => "ِين";
             Nom => "ُونَ";
             _   => "ِينَ"
           }
