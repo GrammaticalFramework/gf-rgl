@@ -1,6 +1,6 @@
 import MkExxTable
-import System.Cmd
-import System.Environment
+import System.Process(system)
+import System.Environment(getArgs)
 import Data.Char
 import Data.List
 import qualified Data.ByteString.Char8 as BS
@@ -16,7 +16,7 @@ synopsis = "synopsis.txt"
 -- the language in which revealed examples are shown
 revealedLang = "Eng"
 
--- all languages shown
+-- all languages shown (a copy of this list appears in Makefile)
 apiExxFiles = ["api-examples-" ++ lang ++ ".txt" | lang <- words
 --   "Eng Chi"
   "Afr Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Ron Rus Snd Spa Swe Tha Urd"
