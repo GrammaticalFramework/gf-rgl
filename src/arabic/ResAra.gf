@@ -954,7 +954,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     --dual suffixes
     dl : State => Case => Str =
       table {
-        Const =>
+        (Const|Poss) =>
           table {
             Nom => "َا";
             _   => "َيْ"
@@ -970,7 +970,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     --sound masculine plural suffixes
     m_pl : State => Case => Str =
       table {
-        Const =>
+        (Const|Poss) =>
           table {
             Nom => "ُو";
             _   => "ِي"
@@ -1266,7 +1266,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     mkNum : Str -> Str -> Str ->
       {s : DForm => CardOrd => Gender => State => Case => Str} =
       \wAhid,awwal,Ula ->
-      let { wAhida = wAhid + "َة"} in
+      let wAhida : Str = case wAhid of {
+            x + "ة" => mkAt wAhid ;
+            _       => wAhid + "َة" } 
+      in
       { s= table {
           unit => table {
             NCard => table {
