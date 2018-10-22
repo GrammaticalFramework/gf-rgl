@@ -5,26 +5,28 @@ flags optimize=noexpand ;
 lin
 
   DetCN det cn = let {
-    number = sizeToNumber det.n;
-    state = possState det.d;
+    cas : Case -> Case = if_then_else Case det.is1sg Bare ;
+    number = sizeToNumber det.n ;
     determiner : Case -> Str = \c ->
-      det.s ! cn.h ! (detGender cn.g det.n) ! c;
-    noun : Case -> NTable -> Str = \c,nt -> 
-      let cas = if_then_else Case det.is1sg Bare c -- no case vowel with 1sg poss. suff.
-       in nt ! number 
-             ! nounState det.d number 
-             ! nounCase cas det.n det.d
+      det.s ! cn.h ! (detGender cn.g det.n) ! c ;
+    noun : Case -> Str = \c -> 
+      cn.s ! number 
+           ! nounState det.d number 
+           ! nounCase c det.n det.d ;
+    adj : Case -> Str = \c ->
+      cn.adj ! number
+             ! (definite ! det.d) -- Indef remains Indef, rest become Def
+             ! c
     } in {
       s = \\c =>
         case cnB4det det.isPron det.isNum det.n det.d of {
           False => determiner c 
-                ++ noun c cn.s -- deal with poss. suffix
-                ++ cn.adj ! number ! state ! c -- normal case+state
-                ++ cn.np ! c ;
-          True => noun c cn.s -- deal with poss. suffix
-            --   ++ determiner c    -- or this? 
-               ++ det.s ! cn.h ! cn.g ! c
-               ++ cn.adj ! number ! state ! c -- normal case+state
+                ++ noun c 
+                ++ adj c
+                ++ cn.np ! c ; 
+          True => noun (cas c) -- deal with possessive suffix
+               ++ determiner c 
+               ++ adj c 
                ++ cn.np ! c
         };  
       a = { pgn = agrP3 cn.h cn.g number;
@@ -45,23 +47,20 @@ lin
       };
     a = np.a
     } ;
-  {-
-  --should compile.. not working :( wierd error message.. bug?
+
+{-
   PPartNP np v2 =
     let x = case np.a.pgn of {
-      Per3 g n =>  ( positAdj (v2.s ! VPPart) ) ! g ! n ! Indef ;
-  _ => \\_ => [] -- not occuring anyway
-    } in {
-      s = \\c => np.s ! c ++ x ! c ;
-  a = np.a
-    };
-  -}
+      Per3 g n => positAdj (v2.s ! VPPart) ) ! g ! n ! Indef ; -- doesn't work because trying to glue runtime tokens
+      Per2 g n => \\_ => [] ;
+      _        => \\_ => []
+    } in np ** {
+      s = \\c => np.s ! c ++ v2.s ! VPPart ---- TODO: agreement
+      };
+-}
 
-  -- FIXME try parsing something like "this house now" and you'll get
-  -- an internal compiler error, but it still works.. wierd..
-  AdvNP np adv = {
-    s = \\c => np.s ! c ++ adv.s;
-    a = np.a
+  AdvNP np adv = np ** {
+    s = \\c => np.s ! c ++ adv.s
     };
 {-
   DetSg quant ord = {
@@ -104,7 +103,7 @@ lin
   PossPron p = {
     s = \\_,_,_,_ => p.s ! Gen;
     d = Poss;
-    is1sg = case p.a.pgn of { Per1 _ => True ; _ => False } ;
+    is1sg = case p.a.pgn of { Per1 Sing => True ; _ => False } ;
     isPron = True;
     isNum = False } ;
 

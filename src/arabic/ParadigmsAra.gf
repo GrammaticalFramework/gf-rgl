@@ -435,8 +435,8 @@ resource ParadigmsAra = open
   mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
     { s =
         table {
-          Acc => nI;
-          Gen => I;
+          Acc => BIND ++ nI; -- object suffix
+          Gen => BIND ++ I;  -- possessive suffix
           _   => ana
         };
       a = {pgn = pgn; isPron = True };
