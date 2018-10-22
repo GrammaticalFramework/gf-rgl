@@ -17,10 +17,14 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Vowel   = u | a | i ;
     Number  = Sg | Dl | Pl;
     Gender  = Masc | Fem ;
-    Case    = Nom | Acc | Gen ;
+    Case    = Nom | Acc | Gen
+            | Bare ; -- 1st person poss. suff. overrides case
     Person  = P1 | P2 | P3 ;
     Species = NoHum | Hum ;
-    State   = Def | Indef | Const ;
+    State   = Def | Indef | Const
+            | Poss ; -- ة turns into ت
+                     -- sound masculine plural drops ن
+                     -- case vowel retained
     Mood    = Ind | Cnj | Jus ;
     Voice   = Act | Pas ;
     Tense   = Pres | Past | Fut ;
@@ -37,26 +41,17 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
 -- AR 7/12/2009 changed this to avoid duplication of consonants
     mkRoot3 : Str -> Root3 = \fcl -> case fcl of {
-      f@? + c@? + l => {f = f ; c = c ; l = l}
+      f@? + c@? + l => {f = f ; c = c ; l = l} ;
+      _ => error ("mkRoot3: too short root" ++ fcl)
       } ;
-{-
-    mkRoot3 : Str -> Root3 = \fcl ->
-      let { cl = drop 2 fcl; --drop 1 fcl
-	        l' = dp 2 fcl; --last fcl
-		    c' = take 2 cl} in --take 1 cl
-      {f = take 2 fcl; c = c'; --take 1 fcl
-       l = case l' of {
-         "ّ" => c';
-		 _	=> l'
-	     }
-      };
--}
 
     --for roots with 2 consonants (works also for assimilated strs, like fc~,
     --because the function discards anything after the first two characters
     mkRoot2 : Str -> Root2 = \fcl ->
-      let { cl = drop 2 fcl} in --drop 1 fcl
-      {f = take 2 fcl; c = take 2 cl}; --take 1
+      case fcl of {
+       f@? + c@? + _ => { f = f ; c = c } ;
+       _ => error ("mkRoot2: too short root" ++ fcl)
+      };
 
     --opers to interdigitize (make words out of roots and patterns:
 
@@ -89,15 +84,23 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     --takes a pattern string and root string and makes a word
     mkWord : Str -> Str -> Str  =\pS, rS ->
       case pS of {
-        w@_ + "ف" + x@_ + "ع" + y@_ + "ل" + z@_ =>
-          mkStrong { h = w ; m1 = x; m2 = y; t = z} (mkRoot3 rS);
-        w@_ + "ف" + x@_ + "ع" + y@_ =>
+        w + "ف" + x + "ع" + y + "ل" + z =>
+          let pat = { h = w ; m1 = x; m2 = y; t = z} in
+          case rS of {
+            x@? + y@? + "ّ" => mkStrong pat (mkRoot3 (x+y+y)) ; -- In principle, shadda shouldn't be in the root, but if someone puts one, this should fix it. /IL
+            _               => mkStrong pat (mkRoot3 rS) } ;
+        w + "ف" + x + "ع" + y =>
           let pat = { h = w ; m1 = x; m2 = ""; t = y} in
-          case <length rS : Ints 100> of {
---            6 | 5 => mkWeak pat (mkRoot3 rS) ; --3=>
-            6 | 5 => mkHollow pat (mkRoot3 rS) ; --3=>
-            4 | 3 => mkBilit pat (mkRoot2 rS) ; --2=>
-            _ => rS ---- AR error "expected 3--6"
+          case rS of {
+               x + "ّ" => mkBilit pat (mkRoot2 x) ; -- fc~
+               x@? + y@? + ("و"|"ي")
+                       => mkDefective pat (mkRoot3 rS) ;
+               x@? + ("و"|"ي") + z@?
+                       => mkHollow pat (mkRoot3 rS) ;
+              ("و"|"ي") + y@? + z@?
+                      => mkAssimilated pat (mkRoot3 rS) ;
+              ? + ? + _ => mkBilit pat (mkRoot2 rS) ; --2=>
+              _=> error rS ---- AR error "expected 3--6"
           }
       };
 
@@ -114,6 +117,10 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
 
+    CN : Type = Noun ** {adj : NTable ; np : Case => Str};
+    uttCN : CN -> (Gender => Str) ;
+    uttCN cn = \\_ => cn.s ! Sg ! Indef ! Bare ;
+
     NumOrdCard : Type = {
       s : Gender => State => Case => Str ;
       n : Size ;
@@ -129,7 +136,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       VPerf Voice PerGenNum
       | VImpf Mood Voice PerGenNum
       | VImp Gender Number
-      | VPPart ;
+      | VPPart ; -- TODO: add gender and number (or check if easy to use BIND)
 
     PerGenNum =
       Per3 Gender Number
@@ -783,6 +790,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
 --Nominal Morphology
 
+  caseTbl : Case => Str =
+    table {
+      Bare => [] ;
+      Nom  => "ُ";
+      Acc  => "َ";
+      Gen  => "ِ"
+    };
+
 --takes the adjective lemma and gives the Posit table
   positAdj : Str -> Gender => NTable  =
     \kabIr ->
@@ -848,20 +863,22 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       \\s,c => defArt s (case word of {
          lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
          _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
-         _             => fixShd word  (dec1sg ! s ! c) 
+         lemma + "ة"   => case s of {
+                            Poss => lemma + "ت" + dec1sg ! s ! c ;
+                            _    => word        + dec1sg ! s ! c
+                          } ;
+         _             => fixShd word  (dec1sg ! s ! c)
       }) ;
 
 
     -- takes a singular word and tests the ending to
     -- determine the declension and gives the corresponding dual inf table
-    dual : Str -> State => Case => Str =
-      \caSaA ->
-      case caSaA of {
-        lemma + ("ا"|"ى") => \\s,c => defArt s lemma + "ي" + dl ! s ! c ;
-        lemma + "ة" =>
-          \\s,c => defArt s (lemma + "ت") + dl ! s ! c ;
-        _  => \\s,c => defArt s caSaA + dl ! s ! c
-      };
+    dual : Str -> State => Case => Str = \caSaA ->
+      \\s,c => defArt s (case caSaA of {
+        lemma + ("ا"|"ى") => lemma + "ي" + dl ! s ! c ;
+        lemma + "ة"       => lemma + "ت" + dl ! s ! c ;
+        _                 => fixShd caSaA (dl ! s ! c)
+      });
 
     -- takes a singular word and gives the corresponding sound
     --plural feminine table
@@ -898,80 +915,69 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       table {
         Indef =>
           table {
+            Bare => [];
             Nom => "ٌ";
             Acc => "ً";
             Gen => "ٍ"
           };
-        _ =>
-          table { --think of ?axU, ?axA, (the five nouns)
-            Nom => "ُ";
-            Acc => "َ";
-            Gen => "ِ"
-          }
+        _ => caseTbl --think of ?axU, ?axA, (the five nouns)
+
       };
 
     --indeclinables (mamnuu3 mina S-Sarf)
     indecl :  Case => Str =
       table {
-        Nom => "ُ";
-        _ => "َ"
+        Gen => "َ" ;
+        x   => caseTbl ! x
       };
 
 
-    --declection 2 (ends in yaa')
-    dec2sg : State => Case => Str =
-      table {
-        Indef =>
-          table {
-            Acc => "ِياً";
-            _ => "ٍ"
-          };
-        _ =>
-          table {
-            Acc => "ِيَ";
-            _ => "ِي"
-          }
+    --declension 2 (ends in yaa')
+    dec2sg : State => Case => Str = \\s,c =>
+      case <s,c> of {
+        <_,   Bare> => [] ;
+        <Indef,Acc> => "ِياً" ;
+        <Indef>     => "ٍ" ;
+        <_,    Acc> => "ِيَ" ;
+        _           => "ِي"
       };
 
-    --declention 3 (ending in alif)
-    dec3sg : State => Case => Str =
-      table {
-        Indef =>
-          table {
-            _ => "ً"
-          };
-        _ =>
-          table {
-            _ => ""
-          }
+    --declension 3 (ending in alif)
+    dec3sg : State => Case => Str = \\s,c =>
+      case <s,c> of {
+        <Indef,Bare> => [] ;
+        <Indef>      => "ً" ;
+        _            => []
       };
 
 
     --dual suffixes
     dl : State => Case => Str =
       table {
-        Const =>
+        (Const|Poss) =>
           table {
             Nom => "َا";
             _   => "َيْ"
           };
         _ =>
           table {
-            Nom => "َانِ";
-            _   => "َيْنِ"
+            Nom  => "َانِ";
+            Bare => "َيْن";
+            _    => "َيْنِ"
           }
       };
 
-    --sound mascualine plural suffixes
+    --sound masculine plural suffixes
     m_pl : State => Case => Str =
       table {
-        Const =>
+        (Const|Poss) =>
           table {
             Nom => "ُو";
             _   => "ِي"
           };
         _ =>
           table {
+            Bare => "ِين";
             Nom => "ُونَ";
             _   => "ِينَ"
           }
@@ -982,11 +988,13 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       table {
         Indef =>
           table {
+            Bare => [];
             Nom => "ٌ";
             _   => "ٍ"
           };
         _ =>
           table {
+            Bare => [];
             Nom => "ُ";
             _   => "ِ"
           }
@@ -1030,10 +1038,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       case <s,n> of {
         <Const,Pl> => Def;   --kullu l-kutubi, bacDu l-kutubi
         <Const,Sg> => Indef; --kullu kitaabin
-        <Indef,_> => Indef;  --kitaabun
-        _ => Def             --Lkitaabu
+        <Indef> => Indef;    --kitaabun
+        <Poss>  => Poss;
+        _       => Def       --Lkitaabu
       };
-
 
     --FIXME needs testing
     nounCase : Case -> Size -> State -> Case =
@@ -1112,14 +1120,24 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
   oper
 
-    Det : Type = {
-      s : Species => Gender => Case => Str ;
+    BaseQuant : Type = {
       d : State;
-      n : Size;
+      is1sg : Bool; -- To force no case marker for 1st person poss. suff.
       isNum : Bool;
       -- for genitive pronouns (suffixes). if true, then "cn ++ det"
       --should be used instead of "det ++ cn" when constructing the NP
-      isPron : Bool
+      isPron: Bool} ;
+
+    baseQuant = { d = Indef ;
+                  is1sg,isNum,isPron = False } ;
+
+    Quant : Type = BaseQuant ** {
+      s : ResAra.Number => Species => Gender => Case => Str
+      } ;
+
+    Det : Type = BaseQuant ** {
+      s : Species => Gender => Case => Str ;
+      n : Size
       } ;
 
     Predet : Type = {
@@ -1183,7 +1201,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           case vf of {
             VPPerf => v.s ! (VPerf Act pgn);
             VPImpf m => v.s ! (VImpf m Act pgn);
-            VPImp => v.s ! (VImp Masc Sg)--gn.g gn.n)
+            VPImp => v.s ! (VImp gn.g gn.n)
           };
         obj = {
           s = [] ;
@@ -1248,7 +1266,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     mkNum : Str -> Str -> Str ->
       {s : DForm => CardOrd => Gender => State => Case => Str} =
       \wAhid,awwal,Ula ->
-      let { wAhida = wAhid + "َة"} in
+      let wAhida : Str = case wAhid of {
+            x + "ة" => mkAt wAhid ;
+            _       => wAhid + "َة" } 
+      in
       { s= table {
           unit => table {
             NCard => table {

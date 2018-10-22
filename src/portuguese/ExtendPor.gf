@@ -18,7 +18,9 @@ concrete ExtendPor of Extend =
       iFem_Pron,
       ListVPS,
       PassVPSlash,
-      PassVPSlash,
+      PassAgentVPSlash,
+      PastPartAP,
+      PastPartAgentAP,
       ProDrop,
       theyFem_Pron,
       VPS,
@@ -94,31 +96,42 @@ concrete ExtendPor of Extend =
     PrepCN prep cn = {s = prep.s ++ prepCase prep.c ++ cn.s ! Sg} ;
 
   lin
-    PassVPSlash vps =
-      let auxvp = predV copula
-      in
-      insertComplement (\\a => let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) {
-        s = auxvp.s ;
-        agr = auxvp.agr ;
-        neg = vps.neg ;
-        clit1 = vps.clit1 ;
-        clit2 = vps.clit2 ;
-        clit3 = vps.clit3 ;
-        isNeg = vps.isNeg ;
-        comp  = vps.comp ;
-        ext   = vps.ext
+    PastPartAP vps = pastPartAP vps [] ;
+
+    PastPartAgentAP vps np = pastPartAP vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
+
+  oper
+    pastPartAP : VPSlash -> Str -> AP ;
+    pastPartAP vps agent = lin AP {
+      s = \\af => vps.comp ! (aform2aagr af ** {p = P3}) ++ vps.s.s ! VPart (aform2gender af) (aform2number af) ++ agent ;
+      isPre = False
       } ;
+
+  lin
+    PassVPSlash vps = passVPSlash vps [] ;
+
+    PassAgentVPSlash vps np = passVPSlash vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
 
     ExistsNP np =
       mkClause [] True False np.a
       (insertComplement (\\_ => (np.s ! Nom).ton)
          (predV (mkV "existir"))) ;
 
+  oper
+    passVPSlash : VPSlash -> Str -> VP = \vps, agent ->
+      let auxvp = predV auxPassive
+      in
+      vps ** {
+        s = auxvp.s ;
+        agr = auxvp.agr ;
+        comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
+      } ;
+
   lin
     CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
       s = \\n => noun2.s ! n
-        ++ variants {genNumForms "do" "da" "dos" "das" ! noun.g ! n; "de"}
-        ++ noun.s ! n ;
+        ++ variants {"de" ; genForms "do" "da" ! noun.g}
+        ++ noun.s ! Sg ;
       g = noun2.g
       } ;
 

@@ -19,5 +19,4 @@ oper
     a = if_then_else PAgr p (PAg Sg) PNoAg ---- e,g, "chacun de"; other possibilities?
     } ;
 
-
-}
+} ;
