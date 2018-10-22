@@ -21,7 +21,7 @@ concrete VerbEng of Verb = CatEng ** open ResEng, Prelude in {
     SlashV2S v s  = insertExtrac (conjThat ++ s.s) (predVc v) ;   ---- insertExtra?
 ---    SlashV2S v s  = insertObjc (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predVc v) ;
     SlashV2Q v q  = insertExtrac (q.s ! QIndir) (predVc v) ;
-    SlashV2A v ap = insertObjc (\\a => ap.s ! a) (predVc v) ; ----
+    SlashV2A v ap = insertObjc (\\a => v.c3 ++ ap.s ! a) (predVc v) ; ----
 
     ComplSlash vp np =
       let vp' = case vp.gapInMiddle of {
