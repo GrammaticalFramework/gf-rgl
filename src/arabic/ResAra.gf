@@ -48,8 +48,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     --for roots with 2 consonants (works also for assimilated strs, like fc~,
     --because the function discards anything after the first two characters
     mkRoot2 : Str -> Root2 = \fcl ->
-      -- let { cl = drop 2 fcl} in --drop 1 fcl
-      -- {f = take 2 fcl; c = take 2 cl}; --take 1
       case fcl of {
        f@? + c@? + _ => { f = f ; c = c } ;
        _ => error ("mkRoot2: too short root" ++ fcl)
@@ -138,7 +136,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       VPerf Voice PerGenNum
       | VImpf Mood Voice PerGenNum
       | VImp Gender Number
-      | VPPart ;
+      | VPPart ; -- TODO: add gender and number (or check if easy to use BIND)
 
     PerGenNum =
       Per3 Gender Number
@@ -1045,9 +1043,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _       => Def       --Lkitaabu
       };
 
-    possState : State -> State = \s ->
-      case s of { Poss => Def ;
-                  x    => x } ;
     --FIXME needs testing
     nounCase : Case -> Size -> State -> Case =
       \c,size,s ->
