@@ -22,9 +22,10 @@ LANGS=Afr Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Ml
 SRC_FILES=$S/abstract/Common.gf $S/abstract/Cat.gf $S/api/Constructors.gf $S/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
 
 EXAMPLES_OUT=$(patsubst %,api-examples-%.txt,$(LANGS))
+INCLUDES=synopsis-intro.txt categories-intro.txt synopsis-additional.txt synopsis-browse.txt synopsis-example.txt
 
-synopsis.html: $(EXAMPLES_OUT) $(SRC_FILES)
-	runghc MkSynopsis.hs >out
+synopsis.html: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
+	runghc MkSynopsis.hs
 
 categories-imagemap.html: categories.dot
 	dot -Tcmapx $^ > $@
@@ -34,7 +35,7 @@ abstract:
 	mv $S/abstract/*.html abstract
 
 
-api-examples.gfs: api-examples.txt
+api-examples.gfs: api-examples.txt MkExx.hs
 	runghc MkExx.hs < $< > $@
 
 
@@ -46,4 +47,4 @@ api-examples-%.txt: $(GF_alltenses)/Try%.gfo api-examples.gfs
 	GF_LIB_PATH=$(GF_LIB_PATH) $(GF) -retain -s $< <api-examples.gfs >$@
 
 clean:
-	rm -rf out synopsis.txt api-examples.gfs $(EXAMPLES_OUT)
+	rm -rf synopsis.txt api-examples.gfs $(EXAMPLES_OUT)
