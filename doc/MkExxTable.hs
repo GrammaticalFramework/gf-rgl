@@ -2,28 +2,31 @@ module MkExxTable (getApiExx, ApiExx, prApiEx, mkEx) where
 
 --import System.Cmd
 import System.Environment(getArgs)
+import Control.Monad(when)
 import qualified Data.Map as M
 import Data.Char
 
 main = do
   xx <- getArgs 
-  aexx <- getApiExx xx
+  aexx <- getApiExx' True xx
   return () -- putStrLn $ prApiExx aexx
 
 getApiExx :: [FilePath] -> IO ApiExx
-getApiExx xx = do
+getApiExx = getApiExx' False
+
+getApiExx' verbose xx = do
   s  <- readFile (head xx)
   let aet = getApiExxTrees $ filter validOutput $ mergeOutput $ lines s 
-  aeos <- mapM readApiExxOne xx
+  aeos <- mapM (readApiExxOne verbose) xx
   let aexx = mkApiExx $ ("API",aet) : aeos
 --  putStrLn $ prApiExx aexx
   return aexx
 
-readApiExxOne file = do
+readApiExxOne verbose file = do
   s <- readFile file
   let lang = reverse (take 3 (drop 4 (reverse file))) -- api-exx-*Eng*.txt
   let api = getApiExxOne $ filter validOutput $ mergeOutput $ lines s
-  putStrLn $ unlines $ prApiEx api ---
+  when verbose $ putStrLn $ unlines $ prApiEx api ---
   return (lang,api)
 
 -- map function -> language -> example
