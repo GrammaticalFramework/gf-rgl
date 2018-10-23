@@ -3,33 +3,44 @@
 concrete ExtendPor of Extend =
   CatPor ** ExtendFunctor -
   [
-    BaseVPS,
+    ApposNP,
+      BaseVPS,
+      ByVP,
+      CompBareCN,
+      ComplBareVS,
       CompoundAP,
       CompoundN,
       ConsVPS,
+      --EmptyRelSlash,
       ExistsNP,
       GenIP,
       GenModIP,
       GenModNP,
       GenNP,
+      GerundAdv,
       GerundCN,
+      GerundNP,
       IAdvAdv,
       ICompAP,
-      iFem_Pron,
+      InOrderToVP,
       ListVPS,
-      PassVPSlash,
       PassAgentVPSlash,
+      PassVPSlash,
       PastPartAP,
       PastPartAgentAP,
+      PresPartAP,
       ProDrop,
-      theyFem_Pron,
+      PurposeVP,
       VPS,
+      iFem_Pron,
+      theyFem_Pron,
       weFem_Pron,
+      WithoutVP,
       youFem_Pron,
       youPlFem_Pron,
       youPolFem_Pron,
-      youPolPl_Pron,
-      youPolPlFem_Pron
+      youPolPlFem_Pron,
+      youPolPl_Pron
    ]                   -- don't forget to put the names of your own
                        -- definitions here
   with
@@ -55,7 +66,18 @@ concrete ExtendPor of Extend =
      GenIP ip = {s = \\_,_,c => ip.s ! c} ;
 
      GenModNP num np cn = DetCN (DetQuant (GenNP (lin NP np)) num) cn ;
+
      GenModIP num ip cn = IdetCN (IdetQuant (GenIP (lin IP ip)) num) cn ;
+
+     CompBareCN cn = {
+       s = \\agr => cn.s ! agr.n ;
+       cop = serCopula
+       } ;
+
+     EmptyRelSlash cls = {
+       s = \\agr,t,a,p,m => cls.s ! agr ! DDir ! t ! a ! p ! m ++ cls.c2.s ;
+       c = Nom
+       } ;
 
   lincat
     VPS = {s : Agr => Mood => Str} ;
@@ -96,18 +118,15 @@ concrete ExtendPor of Extend =
     PrepCN prep cn = {s = prep.s ++ prepCase prep.c ++ cn.s ! Sg} ;
 
   lin
+    PresPartAP vp = {
+      s = \\af => gerVP vp (aform2aagr af ** {p = P3}) ;
+      isPre = False
+      } ;
+
     PastPartAP vps = pastPartAP vps [] ;
 
     PastPartAgentAP vps np = pastPartAP vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
 
-  oper
-    pastPartAP : VPSlash -> Str -> AP ;
-    pastPartAP vps agent = lin AP {
-      s = \\af => vps.comp ! (aform2aagr af ** {p = P3}) ++ vps.s.s ! VPart (aform2gender af) (aform2number af) ++ agent ;
-      isPre = False
-      } ;
-
-  lin
     PassVPSlash vps = passVPSlash vps [] ;
 
     PassAgentVPSlash vps np = passVPSlash vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
@@ -117,9 +136,22 @@ concrete ExtendPor of Extend =
       (insertComplement (\\_ => (np.s ! Nom).ton)
          (predV (mkV "existir"))) ;
 
+    PurposeVP vp = {
+      s = infVP vp (Ag Masc Sg P3)
+      } ;
+
+    ComplBareVS = ComplVS ;
+
   oper
-    passVPSlash : VPSlash -> Str -> VP = \vps, agent ->
-      let auxvp = predV auxPassive
+    pastPartAP : VPSlash -> Str -> AP ;
+    pastPartAP vps agent = lin AP {
+      s = \\af => vps.comp ! (aform2aagr af ** {p = P3}) ++ vps.s.s ! VPart (aform2gender af) (aform2number af) ++ agent ;
+      isPre = False
+      } ;
+    
+    passVPSlash : VPSlash -> Str -> VP ;
+    passVPSlash vps agent = let
+      auxvp = predV auxPassive
       in
       vps ** {
         s = auxvp.s ;
@@ -148,6 +180,42 @@ concrete ExtendPor of Extend =
       s = \\n => infVP vp {g = Masc ; n = n ; p = P3} ;
       g = Masc
       } ;
+
+    GerundNP vp = let
+      neutrAgr = Ag Masc Sg P3
+      in heavyNP {
+        s = \\_ => gerVP vp neutrAgr ;
+        a = neutrAgr
+      } ;
+
+    GerundAdv vp = {
+      s = gerundStr vp
+      } ;
+
+    WithoutVP vp = {
+      s = "sem" ++ gerundStr vp
+      } ;
+
+    ByVP vp = {
+      s = "by" ++ gerundStr vp
+      } ;
+
+    InOrderToVP vp = {
+      s = "a fim de" ++ gerundStr vp
+      } ;
+
+    ApposNP np1 np2 = np1 ** {
+      s = \\c => {
+        c1 = (np1.s ! c).c1  ++ (np2.s ! c).c1 ;
+        c2 = (np1.s ! c).c2 ++ (np2.s ! c).c2 ;
+        comp = (np1.s ! c).comp ++ (np2.s ! c).comp ;
+        ton = (np1.s ! c).ton ++ (np2.s ! c).ton
+        } ;
+      } ;
+
+  oper
+    gerundStr : VP -> Str ;
+    gerundStr vp = gerVP vp (Ag Masc Sg P3) ;
 
   lin
     -- Romance
