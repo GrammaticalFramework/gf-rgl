@@ -1,8 +1,6 @@
 
 
-
-
-
+Versions: [3.9 ./synopsis-v3.9.html] | latest (this one)
 
 
 =Introduction=
