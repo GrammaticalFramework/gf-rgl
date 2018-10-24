@@ -19,7 +19,7 @@ revealedLang = "Eng"
 -- all languages shown (a copy of this list appears in Makefile)
 apiExxFiles = ["api-examples-" ++ lang ++ ".txt" | lang <- words
 --   "Eng Chi"
-  "Afr Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Ron Rus Snd Spa Swe Tha Urd"
+  "Afr Ara Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Por Ron Rus Snd Spa Swe Tha Urd"
    ]
 
 main = do
@@ -244,6 +244,7 @@ syntaxAPI = srcPath "/api/Constructors.gf"
 structuralAPI = srcPath "/abstract/Structural.gf"
 paradigmFiles = [
   ("Afrikaans", srcPath "/afrikaans/ParadigmsAfr.gf"),
+  ("Arabic", srcPath "/arabic/ParadigmsAra.gf"),
   ("Basque", srcPath "/basque/ParadigmsEus.gf"),
   ("Bulgarian", srcPath "/bulgarian/ParadigmsBul.gf"),
   ("Catalan", srcPath "/catalan/ParadigmsCat.gf"),
@@ -269,6 +270,7 @@ paradigmFiles = [
   ("Nynorsk", srcPath "/nynorsk/ParadigmsNno.gf"),
   ("Polish", srcPath "/polish/ParadigmsPol.gf"),
   ("Punjabi", srcPath "/punjabi/ParadigmsPnb.gf"),
+  ("Portuguese", srcPath "/portuguese/ParadigmsPor.gf"),
   ("Romanian", srcPath "/romanian/ParadigmsRon.gf"),
   ("Russian", srcPath "/russian/ParadigmsRus.gf"),
   ("Sindhi", srcPath "/sindhi/ParadigmsSnd.gf"),

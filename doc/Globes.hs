@@ -21,7 +21,7 @@ interlingua = "Meaning"
 languages = [
   "afrikaans",
 --  "አማርኛ",
---  "العربية",
+  "العربية",
   "Български",
   "català",
   "中文",
@@ -45,6 +45,7 @@ languages = [
   "پeرسن",
   "polski",
   "پنجابی",
+  "português",
   "Русский",
   "ٻولي",
   "español",

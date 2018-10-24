@@ -16,7 +16,7 @@ synopsis: synopsis.html
 S=../src
 
 # List of languages extracted from MkSynopsis.hs
-LANGS=Afr Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Ron Rus Snd Spa Swe Tha Urd
+LANGS=Afr Ara Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Por Ron Rus Snd Spa Swe Tha Urd
 
 # This list was constructed by observing what files MkSynopsis.hs reads
 SRC_FILES=$S/abstract/Common.gf $S/abstract/Cat.gf $S/api/Constructors.gf $S/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
