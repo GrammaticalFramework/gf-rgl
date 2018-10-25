@@ -62,16 +62,57 @@ oper from_where_IAdv : IAdv = lin IAdv (ss "from where") ;
 
 lincat
   Timeunit = N ;
+  Hour = {s : Str ; am : Bool} ;
   Weekday = N ;
   Monthday = NP ;
   Month = N ;
   Year = NP ;
-lin
-  timeunitAdv n time =
-  let n_card : Card   = n ;
-      n_hours_NP : NP = mkNP n_card time ;
-  in  SyntaxEng.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
 
+  lin
+    timeunitAdv n time =
+      let n_card : Card   = n ;
+          n_hours_NP : NP = mkNP n_card time ;
+      in  SyntaxEng.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
+
+    oneHour = {s = "one" ; am = True} ;
+    twoHour = {s = "two" ; am = True} ;
+    threeHour = {s = "three" ; am = True} ;
+    fourHour = {s = "four" ; am = True} ;
+    fiveHour = {s = "five" ; am = True} ;
+    sixHour = {s = "six" ; am = True} ;
+    sevenHour = {s = "seven" ; am = True} ;
+    eightHour = {s = "eight" ; am = True} ;
+    nineHour = {s = "nine" ; am = True} ;
+    tenHour = {s = "ten" ; am = True} ;
+    elevenHour = {s = "eleven" ; am = True} ;
+    twelveHour = {s = "twelve" ; am = False} ;
+    thirteenHour = {s = "one" ; am = False} ;
+    fourteenHour = {s = "two" ; am = False} ;
+    fifteenHour = {s = "three" ; am = False} ;
+    sixteenHour = {s = "four" ; am = False} ;
+    seventeenHour = {s = "five" ; am = False} ;
+    eighteenHour = {s = "six" ; am = False} ;
+    nineteenHour = {s = "seven" ; am = False} ;
+    twentyHour = {s = "eight" ; am = False} ;
+    twentyOneHour = {s = "nine" ; am = False} ;
+    twentyTwoHour = {s = "ten" ; am = False} ;
+    twentyThreeHour = {s = "eleven" ; am = False} ;
+    twentyFourHour = {s = "twelve" ; am = True} ;
+
+    timeHour h = SyntaxEng.mkAdv at_Prep (symb (hourStr h)) ;
+    timeHourMinute h m = let
+      min = m.s ! True ! R.Nom
+      in
+      mkAdv (variants {at_Prep.s ++ h.s ++ min ; at_Prep.s ++ min ++ "past" ++ h.s}) ;
+
+  oper
+    at_Prep : Prep ;
+    at_Prep = mkPrep "at" ;
+
+    hourStr : Hour -> Str ;
+    hourStr h = h.s ++ ("" | "o'clock" | if_then_Str h.am "AM" "PM") ;
+
+  lin
   weekdayPunctualAdv w = SyntaxEng.mkAdv on_Prep (mkNP w) ;         -- on Sunday
   weekdayHabitualAdv w = SyntaxEng.mkAdv on_Prep (mkNP aPl_Det w) ; -- on Sundays
   weekdayNextAdv w = SyntaxEng.mkAdv (mkPrep "next") (mkNP w) ;     -- next Sunday

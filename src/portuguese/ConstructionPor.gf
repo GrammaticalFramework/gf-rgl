@@ -3,7 +3,7 @@
 concrete ConstructionPor of Construction = CatPor **
   open SyntaxPor, SymbolicPor, ParadigmsPor, BeschPor,
   (L = LexiconPor), (E = ExtraPor), (B = IrregBeschPor), (R = ResPor),
-  (S = SyntaxPor), (C = CommonRomance),
+  (S = SyntaxPor), (C = CommonRomance), CommonRomance,
        Prelude in {
   flags coding=utf8 ;
 
@@ -52,12 +52,17 @@ lin
 
   lincat
     Timeunit = N ;
+    Hour = {s : Str ; pe : Period ; n : Number} ;
     Weekday = N ;
     Monthday = NP ;
     Month = N ;
     Year = NP ;
-oper
-  noPrep : Prep = mkPrep [] ;
+
+  param
+    Period = Manhã | Tarde | Noite ;
+
+  oper
+    noPrep : Prep = mkPrep [] ;
 
   lin
     timeunitAdv n time =
@@ -65,6 +70,56 @@ oper
           n_hours_NP : NP = mkNP n_card time ;
       in  S.mkAdv for_Prep n_hours_NP | S.mkAdv to_Prep n_hours_NP ;--| S.mkAdv (n_hours_NP.s ! R.Nom) ;
 
+    oneHour = {s = "uma"; pe = Manhã ; n = Sg} ;
+    twoHour = {s = "duas" ; pe = Manhã ; n = Pl} ;
+    threeHour = {s = "três" ; pe = Manhã ; n = Pl} ;
+    fourHour = {s = "quatro" ; pe = Manhã ; n = Pl} ;
+    fiveHour = {s = "cinco" ; pe = Manhã ; n = Pl} ;
+    sixHour = {s = "seis" ; pe = Manhã ; n = Pl} ;
+    sevenHour = {s = "sete" ; pe = Manhã ; n = Pl} ;
+    eightHour = {s = "oito" ; pe = Manhã ; n = Pl} ;
+    nineHour = {s = "nove" ; pe = Manhã ; n = Pl} ;
+    tenHour = {s = "dez" ; pe = Manhã ; n = Pl} ;
+    elevenHour = {s = "onze" ; pe = Manhã ; n = Pl} ;
+    twelveHour = {s = "doze" ; pe = Tarde ; n = Pl} ;
+    thirteenHour = {s = "uma" ; pe = Tarde ; n = Sg } | {s = "treze" ; pe = Tarde ; n = Pl} ;
+    fourteenHour = {s = "duas" | "catorze" ; pe = Tarde ; n = Pl} ;
+    fifteenHour = {s = "três" | "quinze" ; pe = Tarde ; n = Pl} ;
+    sixteenHour = {s = "quatro" | "dezesseis" ; pe = Tarde ; n = Pl} ;
+    seventeenHour = {s = "cinco" | "dezessete" ; pe = Noite ; n = Pl} ;
+    eighteenHour = {s = "seis" | "dezoito" ; pe = Noite ; n = Pl} ;
+    nineteenHour = {s = "sete" | "dezenove" ; pe = Noite ; n = Pl} ;
+    twentyHour = {s = "oito" | "vinte" ; pe = Noite ; n = Pl} ;
+    twentyOneHour = {s = "nove" | "vinte e uma" ; pe = Noite ; n = Pl} ;
+    twentyTwoHour = {s = "dez" | "vinte e duas" ; pe = Noite ; n = Pl} ;
+    twentyThreeHour = {s = "onze" | "vinte e três" ; pe = Noite ; n = Pl} ;
+    twentyFourHour = {s = "zero" ; pe = Manhã ; n = Pl} | {s = "meia-noite" ; pe = Manhã ; n = Sg} ;
+
+    timeHour h = mkAdv (hourStr h) ;
+
+    timeHourMinute h m = let
+      min = m.s ! Masc ++ variants {"" ; numForms "minuto" "minutos" ! m.n}
+      in
+      mkAdv (a ! h.n ++ h.s ++ (hora ! h.n | "") ++ "e" ++ min ++ variants {"" ; period ! h.pe}) ;
+
+  oper
+    period : Period => Str ;
+    period = table {
+      Manhã => "da manhã" ;
+      Tarde => "da tarde" ;
+      Noite => "da noite"
+      } ;
+
+    a : Number => Str ;
+    a = numForms "à" "às" ;
+
+    hora : Number => Str ;
+    hora = numForms "hora" "horas" ;
+
+    hourStr : Hour -> Str ;
+    hourStr h = a ! h.n ++ h.s ++ variants {"" ; ("" | hora ! h.n) ++ period ! h.pe ; hora ! h.n} ;
+
+  lin
   weekdayPunctualAdv w = lin Adv {s = w.s ! C.Sg} ;         -- lundi
   weekdayHabitualAdv w = SyntaxPor.mkAdv noPrep (mkNP the_Det w) ; -- il lunedí ----
   weekdayLastAdv w = SyntaxPor.mkAdv noPrep (mkNP the_Det (mkCN (mkA "passado") w)) ; -- il lunedí scorso
