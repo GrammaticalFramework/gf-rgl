@@ -1,7 +1,7 @@
 --# -path=.:../abstract
 
 concrete ConstructionEng of Construction = CatEng **
-  open SyntaxEng, SymbolicEng, ParadigmsEng, (L = LexiconEng), (E = ExtendEng), (G = GrammarEng), (R = ResEng), (S = StructuralEng), Prelude in {
+  open SyntaxEng, SymbolicEng, ParadigmsEng, (L = LexiconEng), (E = ExtendEng), (G = GrammarEng), (R = ResEng), (Sy = SyntaxEng), (S = StructuralEng), Prelude in {
 
 
 lin
@@ -72,45 +72,48 @@ lincat
     timeunitAdv n time =
       let n_card : Card   = n ;
           n_hours_NP : NP = mkNP n_card time ;
-      in  SyntaxEng.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
+      in  Sy.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
 
-    oneHour = {s = "one" ; am = True} ;
-    twoHour = {s = "two" ; am = True} ;
-    threeHour = {s = "three" ; am = True} ;
-    fourHour = {s = "four" ; am = True} ;
-    fiveHour = {s = "five" ; am = True} ;
-    sixHour = {s = "six" ; am = True} ;
-    sevenHour = {s = "seven" ; am = True} ;
-    eightHour = {s = "eight" ; am = True} ;
-    nineHour = {s = "nine" ; am = True} ;
-    tenHour = {s = "ten" ; am = True} ;
-    elevenHour = {s = "eleven" ; am = True} ;
-    twelveHour = {s = "twelve" ; am = False} ;
-    thirteenHour = {s = "one" ; am = False} ;
-    fourteenHour = {s = "two" ; am = False} ;
-    fifteenHour = {s = "three" ; am = False} ;
-    sixteenHour = {s = "four" ; am = False} ;
-    seventeenHour = {s = "five" ; am = False} ;
-    eighteenHour = {s = "six" ; am = False} ;
-    nineteenHour = {s = "seven" ; am = False} ;
-    twentyHour = {s = "eight" ; am = False} ;
-    twentyOneHour = {s = "nine" ; am = False} ;
-    twentyTwoHour = {s = "ten" ; am = False} ;
-    twentyThreeHour = {s = "eleven" ; am = False} ;
-    twentyFourHour = {s = "twelve" ; am = True} ;
+    oneHour         = mkHour "1"  True ;
+    twoHour         = mkHour "2"  True ;
+    threeHour       = mkHour "3"  True ;
+    fourHour        = mkHour "4"  True ;
+    fiveHour        = mkHour "5"  True ;
+    sixHour         = mkHour "6"  True ;
+    sevenHour       = mkHour "7"  True ;
+    eightHour       = mkHour "8"  True ;
+    nineHour        = mkHour "9"  True ;
+    tenHour         = mkHour "10" True ;
+    elevenHour      = mkHour "11" True ;
+    twelveHour      = mkHour "12" False ;
+    thirteenHour    = mkHour "1"  False ;
+    fourteenHour    = mkHour "2"  False ;
+    fifteenHour     = mkHour "3"  False ;
+    sixteenHour     = mkHour "4"  False ;
+    seventeenHour   = mkHour "5"  False ;
+    eighteenHour    = mkHour "6"  False ;
+    nineteenHour    = mkHour "7"  False ;
+    twentyHour      = mkHour "8"  False ;
+    twentyOneHour   = mkHour "9"  False ;
+    twentyTwoHour   = mkHour "10" False ;
+    twentyThreeHour = mkHour "11" False ;
+    twentyFourHour  = mkHour "12" True ;
 
-    timeHour h = SyntaxEng.mkAdv at_Prep (symb (hourStr h)) ;
+    timeHour h = Sy.mkAdv at_Prep (symb (h.s ++ ampm ! h.am)) ;
     timeHourMinute h m = let
       min = m.s ! True ! R.Nom
       in
-      mkAdv (variants {at_Prep.s ++ h.s ++ min ; at_Prep.s ++ min ++ "past" ++ h.s}) ;
+      Sy.mkAdv at_Prep (symb (h.s ++ min ++ ampm ! h.am)) ;
 
   oper
+    mkHour : Str -> Bool -> {s : Str ; am : Bool} ;
+    mkHour n am = Sy.mkUtt (Sy.mkCard n) ** {am = am} ;
+
     at_Prep : Prep ;
     at_Prep = mkPrep "at" ;
 
-    hourStr : Hour -> Str ;
-    hourStr h = h.s ++ ("" | "o'clock" | if_then_Str h.am "AM" "PM") ;
+    ampm : Bool => Str ;
+    ampm = table {True => "a.m." ; False => "p.m."} ;
 
   lin
   weekdayPunctualAdv w = SyntaxEng.mkAdv on_Prep (mkNP w) ;         -- on Sunday
