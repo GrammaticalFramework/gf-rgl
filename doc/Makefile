@@ -22,10 +22,13 @@ LANGS=Afr Ara Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn La
 SRC_FILES=$S/abstract/Common.gf $S/abstract/Cat.gf $S/api/Constructors.gf $S/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
 
 EXAMPLES_OUT=$(patsubst %,api-examples-%.txt,$(LANGS))
-INCLUDES=synopsis-intro.txt categories-intro.txt synopsis-additional.txt synopsis-browse.txt synopsis-example.txt
+INCLUDES=synopsis-intro.txt categories-intro.txt categories-imagemap.html synopsis-additional.txt synopsis-browse.txt synopsis-example.txt
 
 synopsis.html: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
 	runghc MkSynopsis.hs
+
+categories.png: categories.dot
+	dot -Tpng $^ > $@
 
 categories-imagemap.html: categories.dot
 	dot -Tcmapx $^ > $@
