@@ -6,7 +6,7 @@ import System.Exit (ExitCode(..),die)
 import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
 import System.FilePath ((</>)) -- ,takeFileName,addExtension,dropExtension)
-import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
+import System.Directory (createDirectoryIfMissing,copyFileWithMetadata,getDirectoryContents,removeDirectoryRecursive,findFile)
 import Control.Monad (when,unless)
 
 main :: IO ()
@@ -61,14 +61,14 @@ copyOne :: String -> FilePath -> FilePath -> IO ()
 copyOne file from to = do
   putStrLn $ "Copying [" ++ file ++ "] " ++ to
   createDirectoryIfMissing True to
-  copyFile (from </> file) (to </> file)
+  copyFileWithMetadata (from </> file) (to </> file)
 
 -- | Copy all files between directories
 copyAll :: String -> FilePath -> FilePath -> IO ()
 copyAll msg from to = do
   putStrLn $ "Copying [" ++ msg ++ "] " ++ to
   createDirectoryIfMissing True to
-  mapM_ (\file -> when (file /= "." && file /= "..") $ copyFile (from </> file) (to </> file)) =<< getDirectoryContents from
+  mapM_ (\file -> when (file /= "." && file /= "..") $ copyFileWithMetadata (from </> file) (to </> file)) =<< getDirectoryContents from
 
 -- | Remove dist directory
 clean :: IO ()
