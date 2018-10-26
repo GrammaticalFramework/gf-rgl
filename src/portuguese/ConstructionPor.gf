@@ -59,68 +59,63 @@ lin
     Year = NP ;
 
   param
-    Period = Manhã | Tarde | Noite ;
+    Period = Manha | Tarde | Noite | None ;
 
   oper
     noPrep : Prep = mkPrep [] ;
 
-  -- lin
-  --   timeunitAdv n time =
-  --     let n_card : Card = lin Card n;
-  --         n_hours_NP : NP = mkNP n_card time ;
-  --     in  S.mkAdv for_Prep n_hours_NP | S.mkAdv to_Prep n_hours_NP ;--| S.mkAdv (n_hours_NP.s ! R.Nom) ;
+  lin
+    timeunitAdv n time =
+      let n_card : Card = lin Card n;
+          n_hours_NP : NP = mkNP n_card time ;
+      in  S.mkAdv for_Prep n_hours_NP | S.mkAdv to_Prep n_hours_NP ;--| S.mkAdv (n_hours_NP.s ! R.Nom) ;
 
-  --   oneHour         = mkHour "1" Manhã Sg ;
-  --   twoHour         = mkHour "2"  Manhã Pl ;
-  --   threeHour       = mkHour "3"  Manhã Pl ;
-  --   fourHour        = mkHour "4"  Manhã Pl ;
-  --   fiveHour        = mkHour "5"  Manhã Pl ;
-  --   sixHour         = mkHour "6"  Manhã Pl ;
-  --   sevenHour       = mkHour "7"  Manhã Pl ;
-  --   eightHour       = mkHour "8"  Manhã Pl ;
-  --   nineHour        = mkHour "9"  Manhã Pl ;
-  --   tenHour         = mkHour "10"  Manhã Pl ;
-  --   elevenHour      = mkHour "11"  Manhã Pl ;
-  --   twelveHour      = mkHour "12"  Tarde Pl ;
-  --   thirteenHour    = mkHour "13"  Tarde Sg ;
-  --   fourteenHour    = mkHour "14"  Tarde Pl ;
-  --   fifteenHour     = mkHour "15"  Tarde Pl ;
-  --   sixteenHour     = mkHour "16"  Tarde Pl ;
-  --   seventeenHour   = mkHour "17"  Noite Pl ;
-  --   eighteenHour    = mkHour "18"  Noite Pl ;
-  --   nineteenHour    = mkHour "19"  Noite Pl ;
-  --   twentyHour      = mkHour "20"  Noite Pl ;
-  --   twentyOneHour   = mkHour "21"  Noite Pl ;
-  --   twentyTwoHour   = mkHour "22"  Noite Pl ;
-  --   twentyThreeHour = mkHour "23"  Noite Pl ;
-  --   twentyFourHour  = mkHour "meia-noite" ; pe = Manhã ; n = Sg} ;
+    oneHour         = mkHour "1" Manha Sg ;
+    twoHour         = mkHour "2" Manha Pl ;
+    threeHour       = mkHour "3" Manha Pl ;
+    fourHour        = mkHour "4" Manha Pl ;
+    fiveHour        = mkHour "5" Manha Pl ;
+    sixHour         = mkHour "6" Manha Pl ;
+    sevenHour       = mkHour "7" Manha Pl ;
+    eightHour       = mkHour "8" Manha Pl ;
+    nineHour        = mkHour "9" Manha Pl ;
+    tenHour         = mkHour "10" Manha Pl ;
+    elevenHour      = mkHour "11" Manha Pl ;
+    twelveHour      = {s = "meio-dia" ; pe = None ; n = Sg} ;
+    thirteenHour    = mkHour "13" Tarde Pl ;
+    fourteenHour    = mkHour "14" Tarde Pl ;
+    fifteenHour     = mkHour "15" Tarde Pl ;
+    sixteenHour     = mkHour "16" Tarde Pl ;
+    seventeenHour   = mkHour "17" Tarde Pl ;
+    eighteenHour    = mkHour "18" Tarde Pl ;
+    nineteenHour    = mkHour "19" Noite Pl ;
+    twentyHour      = mkHour "20" Noite Pl ;
+    twentyOneHour   = mkHour "21" Noite Pl ;
+    twentyTwoHour   = mkHour "22" Noite Pl ;
+    twentyThreeHour = mkHour "23" Noite Pl ;
+    twentyFourHour  = {s = "meia-noite" ; pe = None ; n = Sg} ;
 
-  --   timeHour h = mkAdv (hourStr h) ;
+    timeHour h = mkAdv (a ! h.n ++ h.s ++ period ! h.pe) ;
 
-  --   timeHourMinute h m = let
-  --     min = m.s ! Masc ++ variants {"" ; numForms "minuto" "minutos" ! m.n}
-  --     in
-  --     mkAdv (a ! h.n ++ h.s ++ (hora ! h.n | "") ++ "e" ++ min ++ variants {"" ; period ! h.pe}) ;
+    timeHourMinute h m = let
+      min = m.s ! Masc
+      in
+      mkAdv (a ! h.n ++ h.s ++ "e" ++ min ++ period ! h.pe) ;
 
-  -- oper
-  --   mkHour : Str -> Period -> Number ;
-  --   mkHour num p n = S.mkUtt (S.mkCard num) ** {p = p ; n = n} ;
+  oper
+    mkHour : Str -> Period -> Number -> {s : Str ; pe : Period ; n : Number} ;
+    mkHour num pe n = S.mkUtt (S.mkCard num) ** {pe = pe ; n = n} ;
     
-  --   period : Period => Str ;
-  --   period = table {
-  --     Manhã => "da manhã" ;
-  --     Tarde => "da tarde" ;
-  --     Noite => "da noite"
-  --     } ;
+    period : Period => Str ;
+    period = table {
+      Manha => "da manhã" ;
+      Tarde => "da tarde" ;
+      Noite => "da noite" ;
+      None  => ""
+      } ;
 
-  --   a : Number => Str ;
-  --   a = numForms "à" "às" ;
-
-  --   hora : Number => Str ;
-  --   hora = numForms "hora" "horas" ;
-
-  --   hourStr : Hour -> Str ;
-  --   hourStr h = a ! h.n ++ h.s ++ variants {"" ; ("" | hora ! h.n) ++ period ! h.pe ; hora ! h.n} ;
+    a : Number => Str ;
+    a = numForms "à" "às" ;
 
   lin
   weekdayPunctualAdv w = lin Adv {s = w.s ! C.Sg} ;         -- lundi
