@@ -43,9 +43,9 @@ concrete StructuralAra of Structural = CatAra **
 --  how8many_IDet = mkDet "كَمْ" Pl Const ;   -- IL: check (was ["هْو مَني"]) ;
 --  if_Subj = ss "ِف" ;
   in8front_Prep = ss "مُقَابِلَ" ;
-  i_Pron  = mkPron "أَنَا" "نِي" "ِي" (Per1 Sing);
+  i_Pron  = mkPron "أَنَا" "نِي" "ي" (Per1 Sing);
   in_Prep = ss "فِي" ;
-  it_Pron  = mkPron "ِت" "ِت" "ِتس" (Per3 Masc Sg); -- IL: check
+  it_Pron = he_Pron ; -- was: it_Pron = mkPron "ِت" "ِت" "ِتس" (Per3 Masc Sg);
 --  less_CAdv = ss "لسّ" ;
   many_Det = mkDet "جَمِيع" Pl Const ;
 --  more_CAdv = ss "مْري" ;

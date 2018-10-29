@@ -1,6 +1,6 @@
 import MkExxTable
-import System.Cmd
-import System.Environment
+import System.Process(system)
+import System.Environment(getArgs)
 import Data.Char
 import Data.List
 import qualified Data.ByteString.Char8 as BS
@@ -16,10 +16,10 @@ synopsis = "synopsis.txt"
 -- the language in which revealed examples are shown
 revealedLang = "Eng"
 
--- all languages shown
+-- all languages shown (a copy of this list appears in Makefile)
 apiExxFiles = ["api-examples-" ++ lang ++ ".txt" | lang <- words
 --   "Eng Chi"
-  "Afr Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Ron Rus Snd Spa Swe Tha Urd"
+  "Afr Ara Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Por Ron Rus Snd Spa Swe Tha Urd"
    ]
 
 main = do
@@ -244,6 +244,7 @@ syntaxAPI = srcPath "/api/Constructors.gf"
 structuralAPI = srcPath "/abstract/Structural.gf"
 paradigmFiles = [
   ("Afrikaans", srcPath "/afrikaans/ParadigmsAfr.gf"),
+  ("Arabic", srcPath "/arabic/ParadigmsAra.gf"),
   ("Basque", srcPath "/basque/ParadigmsEus.gf"),
   ("Bulgarian", srcPath "/bulgarian/ParadigmsBul.gf"),
   ("Catalan", srcPath "/catalan/ParadigmsCat.gf"),
@@ -269,6 +270,7 @@ paradigmFiles = [
   ("Nynorsk", srcPath "/nynorsk/ParadigmsNno.gf"),
   ("Polish", srcPath "/polish/ParadigmsPol.gf"),
   ("Punjabi", srcPath "/punjabi/ParadigmsPnb.gf"),
+  ("Portuguese", srcPath "/portuguese/ParadigmsPor.gf"),
   ("Romanian", srcPath "/romanian/ParadigmsRon.gf"),
   ("Russian", srcPath "/russian/ParadigmsRus.gf"),
   ("Sindhi", srcPath "/sindhi/ParadigmsSnd.gf"),

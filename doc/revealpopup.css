@@ -24,6 +24,9 @@ table { border-collapse: collapse; }
 td, th { padding: 5px; }
 th { background: #9df; }
 td { background: white }
+h1,h2,h3,h4 { font-family: sans-serif; color: #303030;
+	      text-shadow: rgba(0,0,0,0.25) 2px 2px 5px;
+	    }
 
 /* Quick links */
 

@@ -97,4 +97,4 @@ done
 
 # Copy
 echo "Copying to ${dest}"
-cp -R "${dist}"/* "${dest}"
+cp -R -p "${dist}"/* "${dest}"

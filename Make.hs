@@ -1,3 +1,7 @@
+-- | Main build script for RGL
+-- There is no associated cabal file, but these dependencies are known:
+-- * directory >= 1.2.3.0
+
 import Data.List (find,isPrefixOf,isSuffixOf,(\\),unfoldr)
 import Data.Maybe (catMaybes)
 import System.IO (hPutStrLn,stderr)
@@ -6,7 +10,7 @@ import System.Exit (ExitCode(..),die)
 import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
 import System.FilePath ((</>)) -- ,takeFileName,addExtension,dropExtension)
-import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
+import System.Directory (createDirectoryIfMissing,copyFile,getModificationTime,setModificationTime,getDirectoryContents,removeDirectoryRecursive,findFile)
 import Control.Monad (when,unless)
 
 main :: IO ()
@@ -61,14 +65,20 @@ copyOne :: String -> FilePath -> FilePath -> IO ()
 copyOne file from to = do
   putStrLn $ "Copying [" ++ file ++ "] " ++ to
   createDirectoryIfMissing True to
-  copyFile (from </> file) (to </> file)
+  copyFileWithModificationTime (from </> file) (to </> file)
 
 -- | Copy all files between directories
 copyAll :: String -> FilePath -> FilePath -> IO ()
 copyAll msg from to = do
   putStrLn $ "Copying [" ++ msg ++ "] " ++ to
   createDirectoryIfMissing True to
-  mapM_ (\file -> when (file /= "." && file /= "..") $ copyFile (from </> file) (to </> file)) =<< getDirectoryContents from
+  mapM_ (\file -> when (file /= "." && file /= "..") $ copyFileWithModificationTime (from </> file) (to </> file)) =<< getDirectoryContents from
+
+-- | Copy a file together with its modification time but no other meta data
+copyFileWithModificationTime :: FilePath -> FilePath -> IO ()
+copyFileWithModificationTime source destination = do
+  copyFile source destination
+  getModificationTime source >>= setModificationTime destination
 
 -- | Remove dist directory
 clean :: IO ()
