@@ -3,13 +3,16 @@
 concrete ExtendPor of Extend =
   CatPor ** ExtendFunctor -
   [
-    ApposNP,
+    AdAdV,
+      ApposNP,
       BaseVPS,
       ByVP,
       CompBareCN,
       ComplBareVS,
+      ComplSlashPartLast,
       CompoundAP,
       CompoundN,
+      CompVP,
       ConsVPS,
       --EmptyRelSlash,
       ExistsNP,
@@ -28,12 +31,15 @@ concrete ExtendPor of Extend =
       PassVPSlash,
       PastPartAP,
       PastPartAgentAP,
+      PositAdVAdj,
       PresPartAP,
       ProDrop,
       PurposeVP,
       VPS,
       iFem_Pron,
       theyFem_Pron,
+      UttAdV,
+      UttVPShort,
       weFem_Pron,
       WithoutVP,
       youFem_Pron,
@@ -212,6 +218,28 @@ concrete ExtendPor of Extend =
         ton = (np1.s ! c).ton ++ (np2.s ! c).ton
         } ;
       } ;
+
+    AdAdV aa av = {
+      s = aa.s ++ av.s
+      } ;
+
+    UttAdV av = av ;
+
+    PositAdVAdj a = {
+      s = a.s ! Posit ! AA
+      } ;
+
+    --TODO: actually use ant
+    CompVP ant p vp = let
+      neg = negation ! p.p
+      in {
+        s = \\agr => ant.s ++ p.s ++ "de" ++ neg.p1 ++ infVP vp agr ;
+        cop = serCopula
+      } ;
+
+    UttVPShort = UttVP ;
+
+    ComplSlashPartLast = ComplSlash ;
 
   oper
     gerundStr : VP -> Str ;
