@@ -6,7 +6,7 @@ import Data.List (find,isPrefixOf,isSuffixOf,(\\),unfoldr)
 import Data.Maybe (catMaybes)
 import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
-import System.Exit (ExitCode(..),die)
+import System.Exit (ExitCode(..),exitFailure)
 import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
 import System.FilePath ((</>)) -- ,takeFileName,addExtension,dropExtension)
@@ -447,3 +447,8 @@ parallel_ ms = sequence_ ms
 
 putErrLn :: String -> IO ()
 putErrLn = hPutStrLn stderr
+
+die :: String -> IO a
+die s = do
+  hPutStrLn stderr s
+  exitFailure
