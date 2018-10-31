@@ -11,7 +11,7 @@ import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
 import System.FilePath ((</>)) -- ,takeFileName,addExtension,dropExtension)
 import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
-#if MIN_VERSION_directory(1,2,3)
+#if __GLASGOW_HASKELL__>=800
 import System.Directory (getModificationTime,setModificationTime)
 #endif
 import Control.Monad (when,unless)
@@ -81,7 +81,7 @@ copyAll msg from to = do
 copyFileWithModificationTime :: FilePath -> FilePath -> IO ()
 copyFileWithModificationTime source destination = do
   copyFile source destination
-#if MIN_VERSION_directory(1,2,3)
+#if __GLASGOW_HASKELL__>=800
   getModificationTime source >>= setModificationTime destination
 #endif
 
