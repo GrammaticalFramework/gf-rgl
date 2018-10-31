@@ -1,16 +1,19 @@
+{-# LANGUAGE CPP #-}
+
 -- | Main build script for RGL
--- There is no associated cabal file, but these dependencies are known:
--- * directory >= 1.2.3.0
 
 import Data.List (find,isPrefixOf,isSuffixOf,(\\),unfoldr)
 import Data.Maybe (catMaybes)
 import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
-import System.Exit (ExitCode(..),die)
+import System.Exit (ExitCode(..),exitFailure)
 import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
 import System.FilePath ((</>)) -- ,takeFileName,addExtension,dropExtension)
-import System.Directory (createDirectoryIfMissing,copyFile,getModificationTime,setModificationTime,getDirectoryContents,removeDirectoryRecursive,findFile)
+import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
+#if __GLASGOW_HASKELL__>=800
+import System.Directory (getModificationTime,setModificationTime)
+#endif
 import Control.Monad (when,unless)
 
 main :: IO ()
@@ -78,7 +81,9 @@ copyAll msg from to = do
 copyFileWithModificationTime :: FilePath -> FilePath -> IO ()
 copyFileWithModificationTime source destination = do
   copyFile source destination
+#if __GLASGOW_HASKELL__>=800
   getModificationTime source >>= setModificationTime destination
+#endif
 
 -- | Remove dist directory
 clean :: IO ()
@@ -447,3 +452,8 @@ parallel_ ms = sequence_ ms
 
 putErrLn :: String -> IO ()
 putErrLn = hPutStrLn stderr
+
+die :: String -> IO a
+die s = do
+  hPutStrLn stderr s
+  exitFailure
