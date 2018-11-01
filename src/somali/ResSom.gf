@@ -269,6 +269,9 @@ oper
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
+  -- Saeed page 79:
+  -- "… the reference form is the imperative singular form
+  -- since it corresponds to the form of the basic root."
   mkVerb : (x1,x2 : Str) -> Verb = \ark,qaat ->
     let stems : {p1 : Str ; p2 : Str} = case ark of {
           a + r@#c + k@#c => <ark + "i", a + r + a + voiced k> ;
@@ -288,11 +291,11 @@ oper
                _      => "n" } ;
    in { s = table {
           VPres (Sg1|Sg3 Masc) pol
-                        => qaat + if_then_Str pol "aa" "o" ;
+                        => qaat + if_then_Pol pol "aa" "o" ;
           VPres (Sg2|Sg3 Fem) pol
-                        => arag + t + if_then_Str pol "aa" "o" ;
+                        => arag + t + if_then_Pol pol "aa" "o" ;
           VPres (Pl1 _) pol
-                        => arag + n + if_then_Str pol "aa" "o"  ;
+                        => arag + n + if_then_Pol pol "aa" "o"  ;
           VPres Pl2 pol => arag + t + "aan" ;
           VPres Pl3 pol => qaat + "aan" ;
 
@@ -333,15 +336,15 @@ oper
 
   copula : Verb = {
     s = table {
-          VPres Sg1 pol    => if_then_Str pol "ahay" "ihi" ;
-          VPres Sg2 pol    => if_then_Str pol "tahay" "ihid" ;
-          VPres (Sg3 Masc) pol => if_then_Str pol "yahay" "aha" ;
-          VPres (Sg3 Fem)  pol => if_then_Str pol "tahay" "aha" ;
-          VPres (Pl1 _) pol => if_then_Str pol "nahay" "ihin" ;
-          VPres Pl2 pol     => if_then_Str pol "tihiin" "ihidin" ;
-          VPres Pl3 pol     => if_then_Str pol "yihiin" "aha" ;
+          VPres Sg1 pol    => if_then_Pol pol "ahay" "ihi" ;
+          VPres Sg2 pol    => if_then_Pol pol "tahay" "ihid" ;
+          VPres (Sg3 Masc|Impers) pol => if_then_Pol pol "yahay" "aha" ;
+          VPres (Sg3 Fem)  pol => if_then_Pol pol "tahay" "aha" ;
+          VPres (Pl1 _) pol => if_then_Pol pol "nahay" "ihin" ;
+          VPres Pl2 pol     => if_then_Pol pol "tihiin" "ihidin" ;
+          VPres Pl3 pol     => if_then_Pol pol "yihiin" "aha" ;
 
-          VPast (Sg1|Sg3 Masc)
+          VPast (Sg1|Sg3 Masc|Impers)
                           => "ahaa" ;
           VPast (Sg2|Sg3 Fem)
                           => "ahayd" ;
@@ -410,17 +413,34 @@ oper
       prepCombTable ! np.a ! combine vp.c2 noPrep ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
-  Clause : Type = {s : Bool => Str} ; -- TODO tense + ant
+  Clause : Type = {s : Tense => Anteriority => Polarity => Str} ;
   RClause,
   ClSlash,
   Sentence : Type = SS ; ---- TODO
 
-  stmarker : Agreement => Bool => Str = \\a,b =>
-    let stm = if_then_Str b "w" "m"
+  vf : Tense -> Anteriority -> Polarity -> Agreement -> Verb
+    -> {fin : Str ; inf : Str} = \t,ant,p,agr,vp ->
+     let pastV : Verb -> Str = \v ->
+           case p of { Neg => v.s ! VNegPast ;
+                       Pos => v.s ! VPast agr } ;
+         presV : Verb -> Str = \v -> v.s ! VPres agr p ;
+     in case <t,ant> of {
+       <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
+       <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
+       <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
+       <Past,Anter> => {fin = pastV copula  ; inf = vp.s ! VInf } ; ---- TODO: habitual aspect
+       <_Fut,Simul>  => {fin = presV copula ; inf = vp.s ! VFut} ;
+       <_Fut,Anter>  => {fin = pastV copula ; inf = vp.s ! VFut}
+       -- <Cond,Simul> => {fin = ? ; inf = ?} ; -- TODO conditional
+       -- <Cond,Anter> => {fin = ? ; inf = ?}   -- TODO conditional
+       } ;
+
+  stmarker : Agreement => Polarity => Str = \\a,b =>
+    let stm = if_then_Pol b "w" "m"
      in stm + subjpron ! a ;
 
-  stmarkerNoContr : Agreement => Bool => Str = \\a,b =>
-    let stm = if_then_Str b "waa" "ma"
+  stmarkerNoContr : Agreement => Polarity => Str = \\a,b =>
+    let stm = if_then_Pol b "waa" "ma"
      in stm ++ subjpron ! a ;
 
   subjpron : Agreement => Str = table {

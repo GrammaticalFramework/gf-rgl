@@ -79,23 +79,23 @@ lin
 
   -- : VPSlash -> VP ;
   ReflVP vps = ;
-
+-}
   -- : Comp -> VP ;
-  UseComp comp =
-     insertComp comp.s (copulaVP comp.copula)
-      ** {isPred = True} ;
-
+  UseComp comp = UseCopula ** comp ** {
+    isPred = True
+    } ;
+{-
   --  : V2 -> VP ;               -- be loved
   PassV2 v2 =
 
   -- : VP -> Adv -> VP ;  -- sleep here
-  AdvVP vp adv = ResSom.insertAdv adv vp ;
+  AdvVP vp adv = vp ** {adv = adv} ; ---- TODO: how about combining adverbs?
 
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
-  ExtAdvVP vp adv = ResSom.insertAdv (postfixSS (SOFT_BIND ++ ",") adv) vp ;
+  ExtAdvVP vp adv =  ;
 
   -- : AdV -> VP -> VP ;  -- always sleep
-  AdVVP adv vp = ResSom.insertAdv adv vp ;
+  AdVVP adv vp = vp ** {adv = adv} ;
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
   AdvVPSlash vps adv = vps ** { adv = vps.adv ++ adv.s } ;
@@ -110,7 +110,7 @@ lin
   --                          x      => x }} ;
 
 
-{-
+
 
 --2 Complements to copula
 
@@ -121,13 +121,11 @@ lin
   -- I am [a house that sleeps here]
   -- we are [houses that sleep here]
 
-  -- Complement : Type = { s : Agreement => {p1,p2 : Str}} ;
-
   -- : AP  -> Comp ;
   CompAP ap = {
     comp = \\a => <[], ap.s ! AF (getNum a) Abs> ;
     } ;
-
+{-}
   -- : CN  -> Comp ;
   CompCN cn = { } ;
 

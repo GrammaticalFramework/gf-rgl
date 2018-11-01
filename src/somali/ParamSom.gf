@@ -14,10 +14,10 @@ oper
   gbd : pattern Str = #("g" | "b" | "d") ;
 
   voiced : Str -> Str = \s -> case s of {
-     "k" => "g" ;
-     "t" => "d" ;
-     "p" => "b" ;
-      _  => s } ;
+    "k" => "g" ;
+    "t" => "d" ;
+    "p" => "b" ;
+    _   => s } ;
 
 --------------------------------------------------------------------------------
 -- Morphophonology
@@ -92,6 +92,7 @@ param
 -- TODO: is this necessary?
 param
   CardOrd = NCard | NOrd ;
+
 --------------------------------------------------------------------------------
 -- Prepositions
 
@@ -124,12 +125,16 @@ oper
 param
   VForm =
       VInf
-    | VPres Agreement Bool
+    | VPres Agreement Polarity
     | VNegPast
     | VPast Agreement
     | VFut -- agreement comes from auxiliary
     | VRel -- "som är/har/…" TODO is this used in other verbs?
     | VImp Number ; -- TODO negation
+
+oper
+  if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
+    case p of {Pos => t ; Neg => f } ;
 
 -- TODO:
 -- tre aspekter (enkel, progressiv, habituell),

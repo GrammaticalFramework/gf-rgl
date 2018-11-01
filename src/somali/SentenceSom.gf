@@ -8,22 +8,27 @@ lin
 --2 Clauses
 
   -- : NP -> VP -> Cl
-  PredVP np vp = let compl = vp.comp ! np.a in {
-    s = \\b =>
-         if_then_Str np.isPron [] (np.s ! Nom)
-      ++ compl.p1
-      ++ case <b,vp.isPred,np.a> of { --sentence type marker + subj. pronoun
-            <True,True,Sg3 _> => "waa" ;
-      --      _                 => stmarker ! np.a ! b } -- marker+pronoun contract
-            _ => case <np.isPron,b> of {
-                   <True,True>  => "waa" ++ np.s ! Nom ; -- to force some string from NP to show in the tree
-                   <True,False> => "ma"  ++ np.s ! Nom ;
-                   <False>      => stmarkerNoContr ! np.a ! b
-         }}
-      ++ vp.adv.s
-      ++ compl.p2            -- object pronoun for pronouns, empty for nouns
-      ++ vp.s ! VPres np.a b -- the verb inflected
-      ++ vp.adv.s2
+  PredVP np vp = {
+    s = \\t,a,p =>
+       let pred : {fin : Str ; inf : Str} = vf t a p np.a vp ;
+           subj : Str = if_then_Str np.isPron [] (np.s ! Nom) ;
+           obj  : {p1,p2 : Str} = vp.comp ! np.a ;
+           stm : Str =
+            case <p,vp.isPred,np.a> of {
+                 <Pos,True,Sg3 _> => "waa" ;
+                -- _                => stmarker ! np.a ! b } -- marker+pronoun contract
+                 _ => case <np.isPron,p> of {
+                        <True,Pos> => "waa" ++ np.s ! Nom ; -- to force some string from NP to show in the tree
+                        <True,Neg> => "ma"  ++ np.s ! Nom ;
+                        <False>    => stmarkerNoContr ! np.a ! p }} ;
+      in subj         -- subject if it's a noun
+      ++ obj.p1       -- object if it's a noun
+      ++ stm          -- sentence type marker + possible subj. pronoun
+      ++ vp.adv.s   ---- TODO: can it contract with obj. pronoun?
+      ++ obj.p2       -- object if it's a pronoun
+      ++ pred.fin     -- the verb inflected
+      ++ pred.inf     -- potential participle
+      ++ vp.adv.s2  ---- I have no idea /IL
     } ;
 {-
   -- : SC -> VP -> Cl ;         -- that she goes is good
@@ -63,10 +68,10 @@ lin
 
 --2 Sentences
 
-
+-}
   -- : Temp -> Pol -> Cl -> S ;
-  UseCl temp pol cl = { s = cl.s ! temp.t ! temp.a ! pol.p ! Stat } ;
-
+  UseCl temp pol cl = { s = cl.s ! temp.t ! temp.a ! pol.p } ;
+{-
   -- : Temp -> Pol -> RCl -> RS ;
   UseRCl temp pol cl = { s = cl.s ! temp.t ! temp.a ! pol.p } ;
 

@@ -23,7 +23,7 @@ lin
 --  PositAdAAdj a = { } ;
 -- Subordinate clauses can function as adverbs.
 
-    --: Subj -> S -> Adv ;
+    -- : Subj -> S -> Adv ;
 --  SubjS subj s = {} ;
 
 -- Comparison adverbs also work as numeral adverbs.
