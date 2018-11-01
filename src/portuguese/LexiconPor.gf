@@ -23,7 +23,7 @@ lin
    clean_A     = mkA "limpo" ;
    clever_A    = mkA "inteligente" ;
    cold_A      = mkA "frio" ;		-- fria
-   correct_A   = mkA "correto" | mkA "correcto" ;
+   correct_A   = mkA "correto" ;
    dirty_A     = mkA "sujo" ;
    dry_A       = mkA "seco" ;
    dull_A      = mkA "desafilado" ;
@@ -47,7 +47,7 @@ lin
    short_A     = mkA "curto" ; --- breve, pequeno, baixo
    small_A     = prefA (mkA "pequeno") ;
    smooth_A    = mkA "liso" ;     -- suave
-   straight_A  = mkA "direto" | mkA "directo" ; -- reto
+   straight_A  = mkA "direto" ; -- reto
    stupid_A    = mkA "estúpido" ;
    thick_A     = mkA "grosso" ;
    thin_A      = mkA "fino" ; -- delgado, magro
@@ -337,7 +337,7 @@ lin
    flow_V    = mkV "fluir" ; -- circular
    fly_V     = mkV "voar" ;
    freeze_V  = mkV "congelar" ;
-   go_V      = (mkV "ir") ;
+   go_V      = mkV (ir_Besch "ir") ;
    jump_V    = mkV "saltar" ;
    laugh_V   = mkV (rir_Besch "rir") ;
    lie_V     = reflV (mkV "mentir") ;

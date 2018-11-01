@@ -200,7 +200,7 @@ abstract Extend = Cat ** {
 -- Eng
   UncontractedNeg : Pol ;      -- do not, etc, as opposed to don't
   UttVPShort : VP -> Utt ;     -- have fun, as opposed to "to have fun"
-  ComplSlashPartLast : VPSlash -> NP -> VP ;
+  ComplSlashPartLast : VPSlash -> NP -> VP ; -- set it apart, as opposed to "set apart it"
 
 -- Romance
   DetNPMasc : Det -> NP ;
