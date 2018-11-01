@@ -12,27 +12,20 @@ set modules_langs=All Symbol Compatibility
 set modules_api=Try Symbolic
 
 REM Defaults (may be overridden by options)
-set gf=gf-default
+set gf=gf
 set dest=
 set verbose=false
 
 REM Check command line options
-set arg_gf_next=false
-set arg_dest_next=false
-for %%i in (%*) do (
-  if !arg_gf_next!==true (
-    set gf=%%i
-    set arg_gf_next=false
-  )
-  if !arg_dest_next!==true (
-    set dest=%%i
-    set arg_dest_next=false
-  )
-  if %%i==-v set verbose=true
-  if %%i==--verbose set verbose=true
-  if %%i==--gf set arg_gf_next=true
-  if %%i==--dest set arg_dest_next=true
-)
+:Loop
+if "%1"=="" goto Continue
+  if %1==-v set verbose=true
+  if %1==--verbose set verbose=true
+  if %1==--gf set gf=%2
+  if %1==--dest set dest=%2
+shift
+goto Loop
+:Continue
 
 REM Try to determine install location
 if "%dest%"=="" (
@@ -52,17 +45,17 @@ if "%dest%"=="" (
 REM A few more definitions before we get started
 set src=src
 set dist=dist
-set gfc=gf --batch --gf-lib-path=%src% --quiet
+set gfc=%gf% --batch --gf-lib-path=%src% --quiet
 
 REM Redirect stderr if not verbose
 if %verbose%==false (
-  set gfc=2>NUL !gfc!
+  set gfc=!gfc! 2>NUL
 )
 
 REM Make directories if not present
-mkdir %dist%\prelude
-mkdir %dist%\present
-mkdir %dist%\alltenses
+if not exist %dist%\prelude mkdir %dist%\prelude
+if not exist %dist%\present mkdir %dist%\present
+if not exist %dist%\alltenses mkdir %dist%\alltenses
 
 REM Build: prelude
 echo Building [prelude]
@@ -99,4 +92,4 @@ for %%m in (%modules%) do (
 
 REM Copy
 echo Copying to %dest%
-xcopy %dist% %dest% /d
+copy %dist% %dest%
