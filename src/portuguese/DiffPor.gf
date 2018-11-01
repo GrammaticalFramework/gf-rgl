@@ -148,7 +148,7 @@ instance DiffPor of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRo
     subjIf = "se" ;
 
   oper
-    relPron : Bool => AAgr => Case => Str = \\b,a,c =>
+    relPron : Bool => AAgr => Case => Str = \\_b,a,c =>
       case c of {
         Nom | Acc => "que" ;
         CPrep P_a => "cujo" ;
