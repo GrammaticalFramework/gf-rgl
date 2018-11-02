@@ -99,12 +99,12 @@ concrete StructuralAra of Structural = CatAra **
   which_IQuant = {
     s = \\s,c => case <c,s> of {
              <Bare,_>    => "أيّ" ;
-             <Nom,Indef> => "أيٌّ" ;
-             <Nom,_>     => "أيُّ" ;
+             <Nom,Indef> => "أيٌّ" ;
+             <Nom,_>     => "أيُّ" ;
              <Acc,Indef> => "أيّاً" ;
-             <Acc,_>     => "أيَّ" ;
-             <Gen,Indef> => "أيٍّ" ;
-             <Gen,_>     => "أيِّ"
+             <Acc,_>     => "أيَّ" ;
+             <Gen,Indef> => "أيٍّ" ;
+             <Gen,_>     => "أيِّ"
              }
     } ;
   whoSg_IP = mkIP "مَنْ" Sg ;

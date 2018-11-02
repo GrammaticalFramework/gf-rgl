@@ -904,8 +904,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       case st of {
         Def =>
           case stem of {
-            s@#sun + v@#vow + x => al + s + v + "ّ" + x ; -- vowel before shadda
-            s@#sun + x          => al + s + "ّ" + x;
+            s@#sun + x          => fixShd (al + s) ("ّ" + x) ;
             x                   => al + x } ;
         _   => stem
       };
