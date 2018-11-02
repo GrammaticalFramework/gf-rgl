@@ -18,12 +18,12 @@ set verbose=false
 
 REM Check command line options
 :Loop
-if "%1"=="" goto Continue
+  if '%1'=='' goto Continue
   if %1==-v set verbose=true
   if %1==--verbose set verbose=true
   if %1==--gf set gf=%2
   if %1==--dest set dest=%2
-shift
+  shift
 goto Loop
 :Continue
 
@@ -67,13 +67,15 @@ REM Gather all language modules for building
 set modules=
 for %%l in (%langs%) do (
   for %%m in (%modules_langs%) do (
-    for /r %src% %%m in (*%%m%%l.gf) do (
-      set modules=!modules! %%m
+    set patt=%%m%%l.gf
+    for /r %src% %%n in (!patt!) do (
+      if exist %%n set modules=!modules! %%n
     )
   )
   for %%m in (%modules_api%) do (
-    for /r %src%\api %%m in (*%%m%%l.gf) do (
-      set modules=!modules! %%m
+    set patt=%%m%%l.gf
+    for /r %src%\api %%n in (!patt!) do (
+      if exist %%n set modules=!modules! %%n
     )
   )
 )
