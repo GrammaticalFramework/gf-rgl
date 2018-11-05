@@ -45,11 +45,11 @@ if "%dest%"=="" (
 REM A few more definitions before we get started
 set src=src
 set dist=dist
-set gfc=%gf% --batch --gf-lib-path=%src% --quiet
+set gfc=%gf% --batch --gf-lib-path=%src%
 
-REM Redirect stderr if not verbose
+REM Add quiet flag if not verbose
 if %verbose%==false (
-  set gfc=!gfc! 2>NUL
+  set gfc=%gfc% --quiet
 )
 
 REM Make directories if not present
@@ -72,6 +72,8 @@ for %%l in (%langs%) do (
       if exist %%n set modules=!modules! %%n
     )
   )
+)
+for %%l in (%langs%) do (
   for %%m in (%modules_api%) do (
     set patt=%%m%%l.gf
     for /r %src%\api %%n in (!patt!) do (
@@ -83,12 +85,14 @@ for %%l in (%langs%) do (
 REM Build: present
 echo Building [present]
 for %%m in (%modules%) do (
+  if %verbose%==true echo %%m
   %gfc% --no-pmcfg --gfo-dir=%dist%\present --preproc=mkPresent %%m
 )
 
 REM Build: alltenses
 echo Building [alltenses]
 for %%m in (%modules%) do (
+  if %verbose%==true echo %%m
   %gfc% --no-pmcfg --gfo-dir=%dist%\alltenses %%m
 )
 
