@@ -1,4 +1,4 @@
-concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbAra in {
+concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbAra, SentenceAra in {
 
   flags optimize=all_subs ; coding = utf8 ;
 
@@ -14,90 +14,61 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
 
     -- ComplSlashIP vps ip = {} ;
 
--- AR copied from PredVP
+    --IL guessed
     QuestVP qp vp =
-      { s =\\t,p,_ =>
-          let {
-  ----            o = Verbal ; ---- AR
-	    objgn = pgn2gn vp.obj.a.pgn ;
-	    np = {s = qp.s ! objgn.g ! Def ; ----IL just guessing state
-		  a ={pgn = Per3 Masc qp.n ; isPron = False}} ;
-            pgn = np.a.pgn ;
-            gn = pgn2gn pgn;
-            kataba  = vp.s ! pgn ! VPPerf ;
-            yaktubu = vp.s ! pgn ! VPImpf Ind ;
-            yaktuba = vp.s ! pgn ! VPImpf Cnj ;
-            yaktub  = vp.s ! pgn ! VPImpf Jus ;
-            vStr : ResAra.Tense -> Polarity -> Str =
-              \tn,pl -> case<vp.isPred,tn,pl> of {
-              <False, ResAra.Pres, Pos> => yaktubu ;
-              <False, ResAra.Pres, Neg> => "لَا" ++ yaktubu ;
-              <True, ResAra.Pres, Pos> => "" ;      --no verb "to be" in present
-              <True, ResAra.Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
-              <_, ResAra.Past, Pos> => kataba ;
-              <_, ResAra.Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, ResAra.Fut,  Pos> => "سَ" ++ yaktubu ;
-              <_, ResAra.Fut,  Neg> => "لَنْ" ++ yaktuba
-              };
-            pred : ResAra.Tense -> Polarity -> Str =
-              \tn,pl -> case <vp.isPred,tn,pl>  of {
-              <True, ResAra.Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
-              _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
-              }         ;
+     let np = { s = qp.s ! vp.isPred ! Def ; 
+                a = { pgn = Per3 Masc qp.n ; 
+                      isPron = False } 
+              } ;
+         cl = PredVP np vp ;
+      in { s = \\t,p,_qf => cl.s ! t ! p ! Nominal } ;
 
-          } in
----          case o of {
-----            _ =>
-              case <False, np.a.isPron> of {
----- AR workaround 18/12/2008  case <vp.obj.a.isPron, np.a.isPron> of {
-                -- ya2kuluhu
-                <False,True> => (vStr t p) ++ vp.obj.s  ++ vp.s2 ++ (pred t p);
-                -- ya2kuluhu al-waladu, yakuluhu al-2awlaadu
-                <False,False> => (vStr t p) ++ np.s ! Nom ++ vp.obj.s  ++ vp.s2 ++ (pred t p);
-                <True,False>  => (vStr t p) ++ vp.obj.s ++ np.s ! Nom ++ vp.s2 ++ (pred t p);
-                <True,True>  => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
-              };
-     ----       Nominal =>
-     ----         np.s ! Nom ++ (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
-         }
-   ; ----  };
 
 
 ---- AR guessed
    QuestIAdv iadv cl = {s = \\t,p,_ => iadv.s ++ cl.s ! t ! p ! Verbal} ;
 
 ---- IL guessed
-   QuestIComp icomp np =
-     let vp = kaan (CompNP np) in
-      QuestVP icomp vp ;
+   -- : IComp -> NP -> QCl
+   QuestIComp ic np =
+     let vp = kaan (CompNP np) ;
+         ip = ic ** { s : Bool => State => Case => Str = \\_,_,_ => ic.s ! pgn2gn np.a.pgn } ;
+      in QuestVP ip vp ;
 
-   CompIP ip = ip ;
-   -- old, when IComp = Comp { s = \\{g=g ; n=_},c => ip.s ! g ! Def ! c } ; ----
+   -- : IP   -> IComp ;
+   CompIP ip = { 
+      s = \\_ => ip.s ! True -- True=IP will be a subject of predicative sentence
+                      ! Def ! Nom ; -- IP will be a subject
+      n = ip.n
+      } ;
 
-   CompIAdv iadv = mkIP iadv.s ResAra.Sg ;
+   CompIAdv iadv = { s = \\_ => iadv.s ; n = ResAra.Sg } ;
 
    --  QCl = {s : R.Tense => Polarity => QForm => Str} ;
    QuestSlash ip cl = { ----IL just guessing
-      s = \\t,p,qf => case qf of {
-	QDir   => cl.s ! t ! p ! Verbal ++ cl.c2  ++ ip.s ! Masc ! Def ! Nom ; --VSO (purely guessing)
-	QIndir => cl.s ! t ! p ! Nominal ++ cl.c2 ++ ip.s ! Masc ! Def ! Nom } --SVO (purely guessing)
+      s = \\t,p,qf => 
+         let o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
+          in cl.c2 ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
       } ;
 
-   PrepIP p ip = {s = p.s ++ ip.s ! Masc ! Def ! Acc} ; ----IL
+  --IL guessed
+  PrepIP p ip = {
+    s = p.s ++ ip.s ! False -- not used as a subject of predicative sentence
+                    ! Def ! Gen
+    } ;
 
-   AdvIP ip adv = ip ** {
-     s = \\g,s,c => ip.s ! g ! s ! c ++ adv.s ;
-     n = ip.n
-     } ;
+  AdvIP ip adv = ip ** {
+    s = \\g,s,c => ip.s ! g ! s ! c ++ adv.s ;
+    } ;
 
-----IL guessed with help of L and Google translate
    -- : IDet -> IP
-   IdetIP idet = idet ; -- Gender still matters if turned into IComp
+   IdetIP idet = idet ** { s = \\isPred => idet.s ! Masc } ;
 
    -- : IDet -> CN -> IP
    IdetCN idet cn = idet ** {
-     s = \\g,s,c => idet.s ! cn.g ! s ! c ++ -- gender is determined by the CN
-                     cn.s ! idet.n ! Indef ! Gen ; --idaafa
+     s = \\isPred,s,c 
+          => idet.s ! cn.g ! s ! c ++
+             cn.s ! idet.n ! Indef ! Gen ; --idaafa
      } ;
 
    -- : IQuant -> Num -> IDet

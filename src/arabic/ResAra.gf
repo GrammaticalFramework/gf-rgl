@@ -1102,8 +1102,17 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
 
-    mkIP : Str -> Number -> IP =
-     \s,n -> {s = \\_g,_s,_c => s ; n = n} ;
+    mkIP = overload { 
+       mkIP : Str -> Number -> IP = \maa,n -> {
+          s = \\_p,_s,_c => maa ; 
+          n = n 
+          } ;
+      mkIP : (_,_ : Str) -> Number -> IP = \maa,maadhaa,n -> {
+          s = table { True  => \\_s,_c => maa ; 
+                      False => \\_s,_c => maadhaa } ; 
+          n = n
+          } 
+      } ;
 
     mkOrd : (_,_ : Str) -> Size -> NumOrdCard =
       \aysar,yusra,sz ->
@@ -1151,6 +1160,13 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s : AAgr => Case => Str
       } ;
 
+    IComp : Type = {
+      s : AAgr     -- "how old": masc or fem for adjective
+                   -- no need for Case, IComp is only used by QuestIComp, as grammatical subject
+       => Str ;
+      n : Number
+      } ;
+
     Obj : Type = {
       s : Str ;
       a : Agr
@@ -1162,10 +1178,20 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       } ;
 
     IP : Type = {
-      s : Gender  -- because of CompIP
-       => State => Case -- because of PrepIP: e.g. "in which" chooses definite accusative
+      s : Bool -- different forms for "what is this" and "what do you do"
+       => State => Case   -- because of PrepIP: e.g. "in which" chooses definite accusative
        => Str ;
       n : Number
+      } ;
+
+    IDet : Type = {
+      s : Gender -- IdetCN needs to choose the gender of the CN
+        => State => Case => Str ; 
+      n : Number
+      } ;
+
+    IQuant : Type = {
+      s : State => Case => Str
       } ;
 
     param VPForm =

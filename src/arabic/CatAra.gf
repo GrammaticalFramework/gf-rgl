@@ -23,10 +23,9 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 -- Question
 
     QCl = ResAra.QCl ; -- {s : ResAra.Tense => Polarity => QForm => Str} ;
-    IP,
-    IDet,
-    IComp = ResAra.IP ; -- {s : Gender => State => Case => Str ; n : ResAra.Number} ;
-    --    IAdv = {s : Str} ;
+    IDet = ResAra.IDet ; -- {s : Gender => State => Case => Str ; n : Number} ;
+    IP   = ResAra.IP ;   -- {s : (isPred : Bool) => State => Case => Str ; n : Number} ;
+    IComp = ResAra.IComp ; -- 
     IQuant = {s : State => Case => Str} ;
 --
 ---- Relative
