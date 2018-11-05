@@ -92,6 +92,14 @@ for %%m in (%modules%) do (
   %gfc% --no-pmcfg --gfo-dir=%dist%\alltenses %%m
 )
 
+REM Make destination directories if not present
+if not exist %dest% mkdir %dest%
+if not exist %dest%\prelude mkdir %dest%\prelude
+if not exist %dest%\present mkdir %dest%\present
+if not exist %dest%\alltenses mkdir %dest%\alltenses
+
 REM Copy
 echo Copying to %dest%
-copy %dist% %dest%
+copy %dist%\prelude\*.gfo %dest%\prelude\
+copy %dist%\present\*.gfo %dest%\present\
+copy %dist%\alltenses\*.gfo %dest%\alltenses\
