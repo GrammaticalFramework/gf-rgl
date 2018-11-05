@@ -12,7 +12,8 @@ flags coding=utf8 ;
   -- Shadda: https://www.unicode.org/L2/L2017/17253-arabic-ordering.pdf
     fixShd : Str -> Str -> Str = \word,suffix ->
       case <word,suffix> of {
-        <x + "ّ", v@#vow + y> => x + v + "ّ" + y ;
+       -- <x + "ّ", v@#vow + y> => x + v + "ّ" + y ;
+        <x + v@#vow, "ّ" + y> => x + "ّ" + v + y ;
         _                     => word + suffix
       } ;
 

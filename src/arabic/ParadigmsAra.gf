@@ -39,23 +39,31 @@ resource ParadigmsAra = open
 
   Preposition : Type ;
 
+  Gender : Type ;
+  masc : Gender ;
+  fem : Gender ;
+
+  Species : Type ;
+  hum : Species ;
+  nohum : Species ;
+
+  Vowel : Type ;
+  va : Vowel ;
+  vi : Vowel ;
+  vu : Vowel ;
+
 --2 Nouns
 
 -- Overloaded operator for main cases
 
- mkN = overload {
-   mkN : (sg : Str) -> N                                     -- non-human regular nouns
-     = smartN ;
-   mkN : Species -> N -> N
-     = \p,n -> n ** {h = p} ;
-   mkN : (sg,pl : Str) -> Gender -> Species -> N
-     = \sg,pl -> mkFullN (reg sg pl) ;
-   mkN : NTable -> Gender -> Species -> N                             -- loan words, irregular
-     = mkFullN ;
-   mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
-     = brkN ;
-   mkN : N -> (attr : Str) -> N                                       -- Compound nouns
-     = \n,attr -> n ** { s = \\num,s,c => n.s ! num ! s ! c ++ attr } ; --- IL (TODO: all kinds of compounds)
+
+ mkN : overload {
+   mkN : (sg : Str) -> N ; -- non-human regular nouns
+   mkN : Species -> N -> N ;
+   mkN : (sg,pl : Str) -> Gender -> Species -> N ;
+   mkN : NTable -> Gender -> Species -> N ;  -- loan words, irregular
+   mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N ; -- broken plural
+   mkN : N -> (attr : Str) -> N ; -- Compound nouns
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
    } ;
@@ -156,13 +164,11 @@ resource ParadigmsAra = open
 
 -- Overloaded operations
 
-  mkV = overload {
-    mkV : (imperfect : Str) -> V
-      = regV ;
-    mkV : (root : Str) -> (perf,impf : Vowel) -> V  -- verb form I ; vowel = a|i|u
-      = v1 ;
-    mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormX (no VII, IX) ; default vowels a u for I
-      = formV ;
+  mkV : overload {
+    mkV : (imperfect : Str) -> V ;
+    mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- verb form I ; vowel = a|i|u
+    mkV : (root : Str) -> VerbForm -> V ;  -- FormI .. FormX (no VII, IX) ; default vowels a u for I
+    mkV : V -> (particle : Str) -> V -- V with a non-inflecting particle/phrasal verb
     } ;
 
 -- The verb in the imperfect tense gives the most information
@@ -261,6 +267,48 @@ resource ParadigmsAra = open
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
+
+  Preposition = Str ;
+
+  Gender = ResAra.Gender ;
+  masc = ResAra.Masc ;
+  fem = ResAra.Fem ;
+
+  Species = ResAra.Species ;
+  hum = ResAra.Hum ;
+  nohum = ResAra.NoHum ;
+
+  Vowel = ResAra.Vowel ;
+  va = ResAra.a ;
+  vu = ResAra.u ;
+  vi = ResAra.i ;
+
+ mkN = overload {
+   mkN : (sg : Str) -> N                                     -- non-human regular nouns
+     = smartN ;
+   mkN : Species -> N -> N
+     = \p,n -> n ** {h = p} ;
+   mkN : (sg,pl : Str) -> Gender -> Species -> N
+     = \sg,pl -> mkFullN (reg sg pl) ;
+   mkN : NTable -> Gender -> Species -> N                             -- loan words, irregular
+     = mkFullN ;
+   mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
+     = brkN ;
+   mkN : N -> (attr : Str) -> N                                       -- Compound nouns
+     = \n,attr -> n ** { s = \\num,s,c => n.s ! num ! s ! c ++ attr } ; --- IL (TODO: all kinds of compounds)
+   } ;
+
+  mkV = overload {
+    mkV : (imperfect : Str) -> V
+      = regV ;
+    mkV : (root : Str) -> (perf,impf : Vowel) -> V  -- verb form I ; vowel = a|i|u
+      = v1 ;
+    mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormX (no VII, IX) ; default vowels a u for I
+      = formV ;
+    mkV : V -> (particle : Str) -> V = \v,p -> 
+      v ** { s = \\vf => v.s ! vf ++ p } ;
+    } ;
+
   regV : Str -> V = \wo ->
     let rau : Str * Vowel * Vowel =
     case wo of {
@@ -282,7 +330,7 @@ resource ParadigmsAra = open
       lock_V = <>
     } ;
 
-  va : Vowel = ResAra.a ;
+
 
   v1' : Str ->  Vowel -> Vowel -> Verb =
     \rootStr,vPerf,vImpf ->
@@ -377,8 +425,6 @@ resource ParadigmsAra = open
                 ("و"|"ي") => v10hollow ;
                 _         => v10sound }
       } in lin V (v10fun rbT) ;
-
-  Preposition = Str ;
 
   mkFullN nsc gen spec =
     { s = nsc; --NTable

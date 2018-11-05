@@ -91,24 +91,24 @@ concrete StructuralAra of Structural = CatAra **
 --  very_AdA = ss "ثري" ;
 --  want_VV = P.mkVV (P.regV "وَنت") ;
   we_Pron = mkPron "نَحنُ" "نا" "نا" (Per1 Plur) ;
-  whatPl_IP = mkIP "ماذا" Pl ;
-  whatSg_IP = mkIP "ماذا" Sg ;
+  whatPl_IP = mkIP "ما" "ماذا" Pl ;
+  whatSg_IP = mkIP "ما" "ماذا" Sg ;
   when_IAdv = ss "مَتَى" ;
 --  when_Subj = ss "وهن" ;
   where_IAdv = ss "أَينَ" ;
   which_IQuant = {
     s = \\s,c => case <c,s> of {
              <Bare,_>    => "أيّ" ;
-             <Nom,Indef> => "أيٌّ" ;
-             <Nom,_>     => "أيُّ" ;
+             <Nom,Indef> => "أيٌّ" ;
+             <Nom,_>     => "أيُّ" ;
              <Acc,Indef> => "أيّاً" ;
-             <Acc,_>     => "أيَّ" ;
-             <Gen,Indef> => "أيٍّ" ;
-             <Gen,_>     => "أيِّ"
+             <Acc,_>     => "أيَّ" ;
+             <Gen,Indef> => "أيٍّ" ;
+             <Gen,_>     => "أيِّ"
              }
     } ;
-  whoSg_IP = mkIP "مَنْ" Sg ;
-  whoPl_IP = mkIP "مَنْ" Pl ;
+  whoSg_IP = mkIP "مَنْ" "مَنْ" Sg ;
+  whoPl_IP = mkIP "مَنْ" "مَنْ" Pl ;
 --  why_IAdv = ss "وهي" ;
   without_Prep = ss "بِدُونِ" ;
   with_Prep = ss "مَع" ;
