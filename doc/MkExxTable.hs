@@ -4,10 +4,9 @@ module MkExxTable (getApiExx, ApiExx, prApiEx, mkEx) where
 import System.Environment(getArgs)
 import Control.Monad(when)
 import qualified Data.Map as M
-import Data.Char
 
 main = do
-  xx <- getArgs 
+  xx <- getArgs
   aexx <- getApiExx' True xx
   return () -- putStrLn $ prApiExx aexx
 
@@ -16,7 +15,7 @@ getApiExx = getApiExx' False
 
 getApiExx' verbose xx = do
   s  <- readFile (head xx)
-  let aet = getApiExxTrees $ filter validOutput $ mergeOutput $ lines s 
+  let aet = getApiExxTrees $ filter validOutput $ mergeOutput $ lines s
   aeos <- mapM (readApiExxOne verbose) xx
   let aexx = mkApiExx $ ("API",aet) : aeos
 --  putStrLn $ prApiExx aexx
@@ -57,7 +56,7 @@ cleanUp = dropWhile (flip elem " >")
 --- this makes txt2tags loop...
 mergeOutput ls = ls
 mergeOutputt ls = case ls of
-  l@('>':_):ll -> let (ll1,ll2) = span ((/=">") . take 1) ll in unwords (l : map (unwords . words) ll1) : mergeOutput ll2 
+  l@('>':_):ll -> let (ll1,ll2) = span ((/=">") . take 1) ll in unwords (l : map (unwords . words) ll1) : mergeOutput ll2
   _:ll -> mergeOutput ll
   _ -> []
 
@@ -65,15 +64,15 @@ mergeOutputt ls = case ls of
 validOutput = (==">") . take 1
 
 mkApiExx :: [(String,ApiExxOne)] -> ApiExx
-mkApiExx ltes = 
-  M.fromList [(t, 
-      M.fromList [(l,maybe "NONE" id (M.lookup t te)) | (l,te) <- ltes]) 
+mkApiExx ltes =
+  M.fromList [(t,
+      M.fromList [(l,maybe "NONE" id (M.lookup t te)) | (l,te) <- ltes])
     | t <- M.keys firstL]
   where
     firstL = snd (head ltes)
 
 prApiExx :: ApiExx -> String
-prApiExx aexx = unlines 
+prApiExx aexx = unlines
   [unlines (t:prApiEx lexx) | (t,lexx) <- M.toList aexx]
 
 prApiEx :: M.Map String String -> [String]
@@ -81,7 +80,7 @@ prApiEx apexx = case M.toList apexx of
   (a,e):lexx -> (a ++ ": ``" ++ unwords (words e) ++ "``"):
                 [l ++ ": //" ++ mkEx l e ++ "//" | (l,e) <- lexx]
 
-mkEx l = unws . bind . mkE . words where 
+mkEx l = unws . bind . mkE . words where
   unws = if elem l ["Chi","Jpn","Tha"] then concat else unwords  -- remove spaces
   mkE e = case e of
     "atomic":"term":_ -> ["*"]
@@ -101,6 +100,6 @@ bind ws = case ws of
          "&+":ws2           -> bind ws2
          "Predef.BIND":ws2           -> bind ws2
          "Predef.SOFT_BIND":ws2           -> bind ws2
-         w : ws2            -> w : bind ws2
          w : "++" : ws2     -> w : bind ws2
+         w : ws2            -> w : bind ws2
          _ -> ws

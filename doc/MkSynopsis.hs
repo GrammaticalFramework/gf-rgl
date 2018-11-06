@@ -1,27 +1,35 @@
 import MkExxTable
 import System.Process(system)
 import System.Environment(getArgs)
+import System.FilePath((</>),(<.>))
 import Data.Char
 import Data.List
-import qualified Data.ByteString.Char8 as BS
 import qualified Data.Map as M
----import Debug.Trace ----
+import Text.Printf
+import Config
 
 type Cats = [(String,String,String)]
 type Rules = [(String,String,String)]
 
 -- the file generated
+synopsis :: FilePath
 synopsis = "synopsis.txt"
 
 -- the language in which revealed examples are shown
+revealedLang :: String
 revealedLang = "Eng"
 
 -- all languages shown (a copy of this list appears in Makefile)
-apiExxFiles = ["api-examples-" ++ lang ++ ".txt" | lang <- words
---   "Eng Chi"
-  "Afr Ara Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Por Ron Rus Snd Spa Swe Tha Urd"
-   ]
+apiExxFiles :: IO [FilePath]
+apiExxFiles = do
+  langs <- loadLangsFrom (".." </> configFile)
+  return $
+    [ "api-examples-" ++ (langCode lang) ++ ".txt"
+    | lang <- langs
+    , langSynopsis lang
+    ]
 
+main :: IO ()
 main = do
   xx <- getArgs
   let isLatex = case xx of
@@ -31,7 +39,7 @@ main = do
   cs2 <- getCats catAPI
   let cs = sortCats (cs1 ++ cs2)
   writeFile synopsis "GF Resource Grammar Library: Synopsis"
-  append "B. Bringert, T. Hallgren, and A. Ranta"
+  -- append "B. Bringert, T. Hallgren, and A. Ranta"
   space
   append "%!Encoding:utf-8"
   append "%!style(html): ./revealpopup.css"
@@ -66,7 +74,7 @@ main = do
   space
   link "Source 2:" structuralAPI
   space
-  apiExx <- getApiExx apiExxFiles
+  apiExx <- apiExxFiles >>= getApiExx
   rs <- getRules apiExx syntaxAPI
 ---  putStrLn $ unlines ["p -cat=" ++ last (words t) ++
 ---               " \"" ++ e ++ "\"" | (_,t,e) <- rs, not (null e)] ----
@@ -83,7 +91,7 @@ main = do
 --  delimit rs
   space
   title "Lexical Paradigms"
-  mapM_ (putParadigms isLatex cs) paradigmFiles
+  paradigmFiles >>= mapM_ (putParadigms isLatex cs)
   space
   include "synopsis-additional.txt"
   space
@@ -227,7 +235,6 @@ mkIdent = concatMap unspec where
     ':' -> "-"
     _   -> [c]
 
-
 mkCatTable :: Bool -> Cats -> [String]
 mkCatTable isLatex cs = inChunks chsize (\rs -> header ++ map mk1 rs) cs
  where
@@ -236,49 +243,36 @@ mkCatTable isLatex cs = inChunks chsize (\rs -> header ++ map mk1 rs) cs
   mk1 (name,expl,ex) = unwords ["|", showCat cs name, "|", expl, "|", typo ex, "|"]
   typo ex = if take 1 ex == "\"" then itf (init (tail ex)) else ex
 
-srcPath = ("../src" ++)
+srcPath = ((</>) "../src")
 
-commonAPI = srcPath "/abstract/Common.gf"
-catAPI    = srcPath "/abstract/Cat.gf"
-syntaxAPI = srcPath "/api/Constructors.gf"
-structuralAPI = srcPath "/abstract/Structural.gf"
-paradigmFiles = [
-  ("Afrikaans", srcPath "/afrikaans/ParadigmsAfr.gf"),
-  ("Arabic", srcPath "/arabic/ParadigmsAra.gf"),
-  ("Basque", srcPath "/basque/ParadigmsEus.gf"),
-  ("Bulgarian", srcPath "/bulgarian/ParadigmsBul.gf"),
-  ("Catalan", srcPath "/catalan/ParadigmsCat.gf"),
-  ("Chinese", srcPath "/chinese/ParadigmsChi.gf"),
-  ("Danish", srcPath "/danish/ParadigmsDan.gf"),
-  ("Dutch", srcPath "/dutch/ParadigmsDut.gf"),
-  ("English", srcPath "/english/ParadigmsEng.gf"),
-  ("Estonian", srcPath "/estonian/ParadigmsEst.gf"),
-  ("Finnish", srcPath "/finnish/ParadigmsFin.gf"),
-  ("French",  srcPath "/french/ParadigmsFre.gf"),
-  ("German",  srcPath "/german/ParadigmsGer.gf"),
-  ("Greek",  srcPath "/greek/ParadigmsGre.gf"),
-  ("Hindi", srcPath "/hindi/ParadigmsHin.gf"),
-  ("Icelandic", srcPath "/icelandic/ParadigmsIce.gf"),
---  ("Interlingua", srcPath "/interlingua/ParadigmsIna.gf"),
-  ("Italian",  srcPath "/italian/ParadigmsIta.gf"),
-  ("Japanese",  srcPath "/japanese/ParadigmsJpn.gf"),
-  ("Latvian",  srcPath "/latvian/ParadigmsLav.gf"),
-  ("Maltese",  srcPath "/maltese/ParadigmsMlt.gf"),
-  ("Mongolian",  srcPath "/mongolian/ParadigmsMon.gf"),
-  ("Nepali", srcPath "/nepali/ParadigmsNep.gf"),
-  ("Norwegian", srcPath "/norwegian/ParadigmsNor.gf"),
-  ("Nynorsk", srcPath "/nynorsk/ParadigmsNno.gf"),
-  ("Polish", srcPath "/polish/ParadigmsPol.gf"),
-  ("Punjabi", srcPath "/punjabi/ParadigmsPnb.gf"),
-  ("Portuguese", srcPath "/portuguese/ParadigmsPor.gf"),
-  ("Romanian", srcPath "/romanian/ParadigmsRon.gf"),
-  ("Russian", srcPath "/russian/ParadigmsRus.gf"),
-  ("Sindhi", srcPath "/sindhi/ParadigmsSnd.gf"),
-  ("Spanish",  srcPath "/spanish/ParadigmsSpa.gf"),
-  ("Swedish",  srcPath "/swedish/ParadigmsSwe.gf"),
-  ("Thai", srcPath "/thai/ParadigmsTha.gf"),
-  ("Urdu", srcPath "/urdu/ParadigmsUrd.gf")
-  ]
+commonAPI = srcPath "abstract/Common.gf"
+catAPI    = srcPath "abstract/Cat.gf"
+syntaxAPI = srcPath "api/Constructors.gf"
+structuralAPI = srcPath "abstract/Structural.gf"
+
+paradigmFiles :: IO [(String,FilePath)]
+paradigmFiles = do
+  langs <- loadLangsFrom (".." </> configFile)
+  return $
+    [ (name, srcPath $ printf "%s/Paradigms%s.gf" (langDir lang) (langCode lang))
+    | lang <- langs
+    , langSynopsis lang
+    , let name = formatName (langDir lang)
+    ]
+
+-- | Format language name from directory name
+-- "ancient_greek -> Ancient Greek"
+formatName :: String -> String
+formatName = unwords . map (\(s:ss) -> toUpper s : ss) . splitOn (=='_')
+
+-- | Split a string at given character, similar to words
+splitOn :: (Char -> Bool) -> String -> [String]
+splitOn _ "" = []
+splitOn f s = takeWhile (not.f) s : splitOn f rest
+  where
+    rest = case dropWhile (not.f) s of
+      "" -> []
+      _:xs -> xs
 
 append s = appendFile synopsis ('\n':s)
 title s = append $ "=" ++ s ++ "="
@@ -339,7 +333,7 @@ showTyp cs = unwords . map f . words
 
 -- to work around GHC 6.12 file input
 readFileC cod file = do
-  let tmp = file ++ ".tmp"
+  let tmp = file <.> "tmp"
   case cod of
     "utf8" -> readFile file
     _ -> do

@@ -1,4 +1,4 @@
-.PHONY: abstract synopsis index status
+.PHONY: all index status synopsis abstract
 
 all: synopsis
 
@@ -15,17 +15,17 @@ synopsis: synopsis.html
 
 S=../src
 
-# List of languages extracted from MkSynopsis.hs
-LANGS=Afr Ara Bul Cat Chi Dan Dut Eng Est Eus Fin Fre Ger Gre Hin Ice Ita Jpn Lav Mlt Mon Nep Nor Nno Pes Pnb Pol Por Ron Rus Snd Spa Swe Tha Urd
+# List of languages extracted from languages.csv, with 'Synopsis' column == y
+LANGS=$(shell cat ../languages.csv | cut -d',' -f1,10 | grep ',y' | cut -d',' -f1)
 
 # This list was constructed by observing what files MkSynopsis.hs reads
-SRC_FILES=$S/abstract/Common.gf $S/abstract/Cat.gf $S/api/Constructors.gf $S/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
+SRC_FILES=$(S)/abstract/Common.gf $(S)/abstract/Cat.gf $(S)/api/Constructors.gf $(S)/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
 
 EXAMPLES_OUT=$(patsubst %,api-examples-%.txt,$(LANGS))
 INCLUDES=synopsis-intro.txt categories-intro.txt categories-imagemap.html synopsis-additional.txt synopsis-browse.txt synopsis-example.txt
 
 synopsis.html: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
-	runghc MkSynopsis.hs
+	runghc -i.. MkSynopsis.hs
 
 categories.png: categories.dot
 	dot -Tpng $^ > $@
@@ -37,10 +37,8 @@ abstract:
 	$(GFDOC) -txthtml $S/abstract/*.gf
 	mv $S/abstract/*.html abstract
 
-
 api-examples.gfs: api-examples.txt MkExx.hs
 	runghc MkExx.hs < $< > $@
-
 
 # Since .gfo files aren't self-contained, the dependencies given here are
 # incomplete. But I am thinking that the Try%.gfo file will always be newer

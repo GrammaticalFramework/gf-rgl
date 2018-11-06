@@ -41,8 +41,10 @@ Description of columns:
 - Try: languages for which to compile `Try`
 - Symbolic: languages for which to compile `Symbolic`
 - Compatibility: languages for which to complile `Compatibility`
+- Synopsis: languages to include in the RGL synopsis document
 
-Columns can be a string, just `y`'s (where nothing means `n`) or just (`n`'s where nothing means `y`).
+Columns can be a string, just `y`'s (where nothing means `n`) or just (`n`'s where nothing means `y`),
+or a mixture of both `y`'s and `n`'s.
 
 ## Haskell script: `Make.hs`
 
@@ -108,11 +110,9 @@ You can pass the following flags:
 
 ## Windows batch file: `Make.bat`
 
-**This script is still untested.**
+This method is provided as an alternative for Windows users who don't have Haskell or Bash installed.
 
-This method is provided as an alternative for Windows users who don't have Haskell installed.
-
-It is supposed to be a port of Make.sh and works in largely the same way.
+It is supposed to be a port of `Make.sh` and works in largely the same way.
 In particular, it accepts the same flags (in the same format) as described above.
 
 However it currently tries to build all modules for all languages and doesn't consider the details of which modules should be compiled for each language (specified in `languages.csv`)
