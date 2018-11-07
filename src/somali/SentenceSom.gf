@@ -70,13 +70,13 @@ lin
 
 -}
   -- : Temp -> Pol -> Cl -> S ;
-  UseCl temp pol cl = { s = cl.s ! temp.t ! temp.a ! pol.p } ;
+  UseCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
 {-
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl temp pol cl = { s = cl.s ! temp.t ! temp.a ! pol.p } ;
+  UseRCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
-  UseQCl temp pol qcl = { s = qcl.s ! temp.t ! temp.a ! pol.p } ;
+  UseQCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
 
 -- An adverb can be added to the beginning of a sentence, either with comma ("externally")
 -- or without:
@@ -89,7 +89,7 @@ lin
 
 -- There's an SubjS already in AdverbSom -- should this be deprecated?
   -- : S -> Subj -> S -> S ;
-  SSubjS s1 subj s2 = AdvS (AE.SubjS subj s2) s1 ;
+  SSubjS s1 subj s2 = AdvS (AS.SubjS subj s2) s1 ;
 
 -- A sentence can be modified by a relative clause referring to its contents.
 
