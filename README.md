@@ -27,24 +27,24 @@ It will look for, in this order:
 
 ## Language config
 
-A list of all languages and their properties is maintained centrally in `languages.csv`.
+A list of all languages and their properties is maintained centrally in [`languages.csv`](languages.csv).
 This file should be kept up-to-date and all build methods should read this config file.
 **If you see something wrong, please report/fix it.**
 
-Description of columns:
-- Code, e,g, `Eng`
-- Directory, e.g. `english`
-- Functor (not used)
-- Unlexer (not used)
-- Present: languages that have `--# notpresent` marked
-- All: languages for which to compile `All`
-- Try: languages for which to compile `Try`
-- Symbolic: languages for which to compile `Symbolic`
-- Compatibility: languages for which to complile `Compatibility`
-- Synopsis: languages to include in the RGL synopsis document
+| Column        | Description                              | Default |
+|:--------------|:-----------------------------------------|:-------:|
+| Code          | e.g. `Eng`                               |    -    |
+| Directory     | folder name under `src`, e.g. `english`  |    -    |
+| Functor       | (not used)                               |    -    |
+| Unlexer       | (not used)                               |    -    |
+| Present       | language is marked with `--# notpresent` |    n    |
+| All           | compile `All` module                     |    y    |
+| Try           | compile `Try` module                     |    y    |
+| Symbolic      | compile `Symbolic` module                |    y    |
+| Compatibility | complile `Compatibility` module          |    n    |
+| Synopsis      | include language in the RGL synopsis     |    n    |
 
-Columns can be a string, just `y`'s (where nothing means `n`) or just (`n`'s where nothing means `y`),
-or a mixture of both `y`'s and `n`'s.
+If default is `y` then anything other than `n`, including the empty string, is treated as true (and vice versa when default is `n`).
 
 ## Haskell script: `Make.hs`
 
