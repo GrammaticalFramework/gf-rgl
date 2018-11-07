@@ -394,7 +394,7 @@ execute command args = do
 
 -- | For parallel RGL module compilation
 -- Unfortunately, this has no effect unless compiled with -threaded
-parallel_ :: (Foldable t, Monad m) => t (m a) -> m ()
+--parallel_ :: (Foldable t, Monad m) => t (m a) -> m ()
 parallel_ ms = sequence_ ms
   -- do c <- newChan
   --    ts <- sequence [ forkIO (m >> writeChan c ()) | m <- ms]
