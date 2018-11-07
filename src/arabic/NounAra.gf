@@ -90,7 +90,7 @@ lin
     } ;
 
   DetQuant quant num = quant ** {
-    s = \\h,g,c => quant.s ! Pl ! h ! g ! c
+    s = \\h,g,c => quant.s ! sizeToNumber num.n ! h ! g ! c
       ++ num.s ! g ! (toDef quant.d num.n) ! c ;
     n = num.n;
     isNum = -- Num may come from NumCard : Card -> Num
@@ -180,7 +180,7 @@ lin
   Use3N3 n3 = n3 ** {c2 = n3.c3} ;
 
   ComplN2 n2 np = UseN n2 **  --- IL
-    {s = \\n,s,c => n2.s ! n ! s ! c ++ n2.c2 ++ np.s ! Gen} ;
+    {s = \\n,s,c => n2.s ! n ! s ! c ++ n2.c2.s ++ np.s ! n2.c2.c} ;
 
 
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
@@ -188,7 +188,8 @@ lin
   AdjCN ap cn = cn ** {
     adj = \\n,d,c => ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
     };
-  --    RelCN cn rs = {s = \\n,c => cn.s ! n ! c ++ rs.s ! {n = n ; p = P3}} ;
+
+  RelCN cn rs = cn ** {s = \\n,s,c => cn.s ! n ! s ! c ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c};
   --    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s} ;
   --
   --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s} ;

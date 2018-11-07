@@ -39,20 +39,20 @@ concrete SentenceAra of Sentence = CatAra ** open
             yaktubu = vp.s ! pgn ! VPImpf Ind ;
             yaktuba = vp.s ! pgn ! VPImpf Cnj ;
             yaktub  = vp.s ! pgn ! VPImpf Jus ;
-            vStr : ResAra.Tense -> Polarity -> Str =
+            vStr : ParamX.Tense -> Polarity -> Str =
               \tn,pl -> case<vp.isPred,tn,pl> of {
-              <False, ResAra.Pres, Pos> => yaktubu ;
-              <False, ResAra.Pres, Neg> => "لَا" ++ yaktubu ;
-              <True, ResAra.Pres, Pos> => "" ;      --no verb "to be" in present
-              <True, ResAra.Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
-              <_, ResAra.Past, Pos> => kataba ;
-              <_, ResAra.Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, ResAra.Fut,  Pos> => "سَ" ++ yaktubu ;
-              <_, ResAra.Fut,  Neg> => "لَنْ" ++ yaktuba
+              <False, Pres, Pos> => yaktubu ;
+              <False, Pres, Neg> => "لَا" ++ yaktubu ;
+              <True, Pres, Pos> => "" ;      --no verb "to be" in present
+              <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
+              <_, Past, Pos> => kataba ;
+              <_, Past, Neg> => "لَمْ" ++ yaktub ;
+              <_, _Fut,  Pos> => "سَ" ++ yaktubu ;
+              <_, _Fut,  Neg> => "لَنْ" ++ yaktuba
               };
-            pred : ResAra.Tense -> Polarity -> Str =
+            pred : ParamX.Tense -> Polarity -> Str =
               \tn,pl -> case <vp.isPred,tn,pl>  of {
-              <True, ResAra.Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
+              <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
               _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
               };
 
@@ -102,7 +102,7 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     SlashVP np vps = PredVP np vps ** { c2 = vps.c2 } ;
     AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
-    SlashPrep cl prep = cl ** {c2 = prep.s} ;
+    SlashPrep cl prep = cl ** {c2 = prep} ;
 
 --  SlashVS np vs sslash = TODO
 
@@ -113,22 +113,23 @@ concrete SentenceAra of Sentence = CatAra ** open
 --
 
     UseCl t p cl =
-      {s = case <t.t,t.a> of { --- IL guessed tenses
-             <(Pres|Cond),Simul>  => cl.s ! ResAra.Pres ! p.p ! Verbal ;
-             <Fut        ,_    >  => cl.s ! ResAra.Fut ! p.p ! Verbal ;
-             <_          ,_    >  => cl.s ! ResAra.Past ! p.p ! Verbal
+      {s = t.s ++ p.s ++ 
+         case <t.t,t.a> of { --- IL guessed tenses
+             <(Pres|Cond),Simul>  => cl.s ! Pres ! p.p ! Nominal ;
+             <Fut        ,_    >  => cl.s ! Fut ! p.p ! Nominal ;
+             <_          ,_    >  => cl.s ! Past ! p.p ! Nominal
            }
       };
 
     UseQCl t p qcl =
-      {s = \\q =>
-     case <t.t,t.a> of { --- IL guessed tenses
-           <(Pres|Cond),Simul>  => qcl.s ! ResAra.Pres ! p.p ! q ;
-           <Fut        ,_    >  => qcl.s ! ResAra.Fut ! p.p ! q ;
-           <_          ,_    >  => qcl.s ! ResAra.Past ! p.p ! q
+      {s = \\q => t.s ++ p.s ++ 
+         case <t.t,t.a> of { --- IL guessed tenses
+           <(Pres|Cond),Simul>  => qcl.s ! Pres ! p.p ! q ;
+           <Fut        ,_    >  => qcl.s ! Fut ! p.p ! q ;
+           <_          ,_    >  => qcl.s ! Past ! p.p ! q
          }
       };
 
---    UseRCl t a p cl = {s = \\r => t.s ++ a.s ++ p.s ++ cl.s ! t.t ! a.a ! p.p ! r} ;
+    UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
 }

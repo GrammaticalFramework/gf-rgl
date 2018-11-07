@@ -10,7 +10,7 @@ concrete AdverbAra of Adverb = CatAra ** open ResAra, Prelude in {
 --      s = cadv.s ++ a.s ! AAdv ++ "تهَن" ++ s.s
 --      } ;
 
-    PrepNP prep np = {s = prep.s ++ np.s ! Gen} ;
+    PrepNP prep np = {s = prep.s ++ np.s ! prep.c} ;
 
 --    AdAdv = cc2 ;
 --

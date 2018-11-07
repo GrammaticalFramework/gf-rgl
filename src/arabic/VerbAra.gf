@@ -6,6 +6,11 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
     UseV = predV ;
 
     SlashVV vv vps = vps ** predV vv ; ----IL
+
+    -- TODO: --c3 is for verb, c2 is for dir.obj
+    --SlashV2V : V2V -> VP -> VPSlash ;  -- beg (her) to go
+    --SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
+
     SlashV2a v = predVSlash v ;
     Slash3V3 v np = insertObj np (predVSlash v) ** {c2 = v.c3};
 
@@ -20,7 +25,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
     ComplVV vv vp =  let vvVP = predV vv in --- IL
       vp ** {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
-                      ++ vv.c2  -- أَنْ
+                      ++ vv.c2.s  -- أَنْ
                       ++ vp.s ! pgn ! VPImpf Cnj
       } ;
 

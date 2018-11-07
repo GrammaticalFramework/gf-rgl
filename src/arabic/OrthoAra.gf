@@ -6,6 +6,8 @@ flags coding=utf8 ;
 
     vow : pattern Str = #("َ" | "ِ" | "ُ" | "ً" | "ٍ" | "ٌ") ;
 
+    weak : pattern Str = #("و"|"ي") ;
+
     -- "Sun letters": assimilate with def. article
     sun : pattern Str = #("ت"|"ث"|"د"|"ذ"|"ر"|"ز"|"س"|"ش"|"ص"|"ض"|"ط"|"ظ"|"ل"|"ن") ;
 
@@ -16,6 +18,12 @@ flags coding=utf8 ;
         <x + v@#vow, "ّ" + y> => x + "ّ" + v + y ;
         _                     => word + suffix
       } ;
+
+  -- IL: using this to reuse patterns for weak verbs, might be strange/wrong
+    rmSukun : Str -> Str = \s -> case s of {
+      x + "ْ" + y => x + y ;
+      _           => s
+    } ;
 
   -- Hamza
     hamza : pattern Str = #("ء"|"؟") ;

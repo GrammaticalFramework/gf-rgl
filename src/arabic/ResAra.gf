@@ -19,7 +19,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Gender  = Masc | Fem ;
     Case    = Nom | Acc | Gen
             | Bare ; -- 1st person poss. suff. overrides case
-    Person  = P1 | P2 | P3 ;
     Species = NoHum | Hum ;
     State   = Def | Indef | Const
             | Poss ; -- ة turns into ت
@@ -27,7 +26,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
                      -- case vowel retained
     Mood    = Ind | Cnj | Jus ;
     Voice   = Act | Pas ;
-    Tense   = Pres | Past | Fut ;
     Order   = Verbal | Nominal ;
 
   oper
@@ -108,10 +106,22 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     NTable = Number => State => Case => Str;
 
+    Preposition : Type = {s : Str ; c : Case} ;
     Noun : Type = {s : NTable ; g : Gender; h : Species} ;
---    Adj  : Type = {s : Gender => NTable} ;
+    Noun2 : Type = Noun ** {c2 : Preposition} ;
+    Noun3 : Type = Noun2 ** {c3 : Preposition} ;
+
+    mkPreposition = overload {
+      mkPreposition : Str -> Case -> Preposition = \s,c -> {s=s;c=c} ;
+      mkPreposition : Str -> Preposition = \s -> {s=s;c=Gen} ;
+    } ;
+
     Adj  : Type = {s : AForm => Str} ;
+    Adj2 : Type = Adj ** {c2 : Preposition} ;
+
     Verb : Type = {s : VForm => Str} ;
+    Verb2 : Type = Verb ** {c2 : Preposition} ;
+    Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
     AP : Type = {s : Species => Gender => NTable } ;
     uttAP : AP -> (Gender => Str) ;
@@ -126,7 +136,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       n : Size ;
       isNum : Bool
       } ;
-
 
     uttNum : NumOrdCard -> (Gender => Str) ;
     uttNum n = \\g => n.s ! g ! Def ! Nom ;  ----IL
@@ -263,8 +272,11 @@ oper
        } ;
 
   --macro for defective verbs:
-  verbDef : DefForms -> Vowel -> Verb =
-    \vforms,vowImpf ->
+  verbDef : DefForms -> Vowel -> Verb = verbDefBool False ;
+  verbDoubleDef : DefForms -> Vowel -> Verb = verbDefBool True ;
+
+  verbDefBool : Bool -> DefForms -> Vowel -> Verb =
+    \isDoubleDef,vforms,vowImpf ->
     let {
        rama  = vforms ! 0 ; -- VPerf Act (Per3 Masc Sg)
        ramay = vforms ! 1 ; -- VPerf Act (Per3 Fem  Pl)
@@ -280,13 +292,14 @@ oper
 
        patPerf = patDefPerf rama ramay rumi rumu rumiy ;
        patImpfAct = patDefImpfAct armi armu ;
-       patImp = patDefImp Irmi Irmu
+       patImp = patDefImp Irmi Irmu ;
+       suffixImpf = case isDoubleDef of {True => suffixImpfDoubleDef ; _ => suffixImpfDef}
     } in
     { s = table {
-        VPerf   v   pgn =>                    patPerf ! v ! pgn + suffixPerfDef v             ! pgn ;
-        VImpf m Act pgn => prefixImpf ! pgn + patImpfAct  ! pgn + suffixImpfDef Act vowImpf ! m ! pgn ;
-        VImpf m Pas pgn => prefixImpf ! pgn + urma              + suffixImpfDef Pas vowImpf ! m ! pgn ;
-        VImp        g n =>                    patImp ! g ! n    + suffixImpfDef Act vowImpf ! Jus ! Per2 g n ;
+        VPerf   v   pgn =>                    patPerf ! v ! pgn + suffixPerfDef v        ! pgn ;
+        VImpf m Act pgn => prefixImpf ! pgn + patImpfAct  ! pgn + suffixImpf Act vowImpf ! m ! pgn ;
+        VImpf m Pas pgn => prefixImpf ! pgn + urma              + suffixImpf Pas vowImpf ! m ! pgn ;
+        VImp        g n =>                    patImp ! g ! n    + suffixImpf Act vowImpf ! Jus ! Per2 g n ;
         VPPart          => ppart
         }
     } ;
@@ -352,7 +365,6 @@ oper
       Per1 Plur    => "نَا"
     } ;
 
-
   suffixImpfDef : Voice -> Vowel -> Mood => PerGenNum => Str = \vc,vw ->
     let {
       default : Mood -> Str = \m ->
@@ -389,6 +401,10 @@ oper
         }
     } ;
 
+  -- does this even happen other than with رءي? /IL
+  suffixImpfDoubleDef : Voice -> Vowel -> Mood => PerGenNum => Str = \vc,vw ->
+    \\m,p => rmSukun (suffixImpfDef vc vw ! m ! p) ;
+
 --now is used for the sound, assimilated (weak C1), and when C1 = hamza:
 
 v1sound : Root3 -> Vowel -> Vowel -> Verb =
@@ -406,8 +422,8 @@ v1sound : Root3 -> Vowel -> Vowel -> Verb =
       };
     uktab = mkStrong ufcal fcl ;
     euktub = case fcl.f of {
-      "؟"|"و"|"ي" => qif ;
-       _         => prefixImp ! vowImpf + ktub
+      "ء"|"و"|"ي" => qif ;
+       _          => prefixImp ! vowImpf + ktub
       };
     maktUb = mkStrong mafcUl fcl
   } in
@@ -506,7 +522,7 @@ toDefForms : (x1,_,_,_,_,_,_,_,_,_,x11 : Str) -> DefForms =
     7 => h ; 8 => i ; 9 => j ; 10 => k
   } ;
 
-def1Forms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
+v1DefForms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
  let {
    _rmi = mkDefective (patDef1 ! vowImpf) rmy ;
    _rmu = mkDefective (patDef2 ! vowImpf) rmy ;
@@ -524,11 +540,11 @@ def1Forms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
  } in toDefForms rama ramay rumi rumu rumiy armi armu urma eirmi eirmu marmiy ;
 
 v1defective_a : Root3 -> Vowel -> Verb = \rmy,vowImpf ->
-  let vforms = def1Forms_perfA rmy vowImpf
+  let vforms = v1DefForms_perfA rmy vowImpf
    in verbDef vforms vowImpf ;
 
 v1defective_i : Root3 -> Vowel -> Verb = \bqy,vowImpf -> -- IL (conjugation 1d4)
-  let vforms_a = def1Forms_perfA bqy vowImpf ;
+  let vforms_a = v1DefForms_perfA bqy vowImpf ;
       baqI  = mkDefective facIl bqy ;
       baqiy = mkDefective facil bqy ;
       vforms_i = table { 0 => baqI ;
@@ -599,23 +615,32 @@ v4sound : Root3 -> Verb =
   verb eaqnac euqnic uqnic uqnac eaqnic muqnac;
 
 
-v4defective : Root3 -> Verb = \cTy ->
+ v4DefForms : Root3 -> DefForms = \cTy ->
   let {
-    cTa = mkDefective fca cTy;
-    cTu = mkDefective fcu cTy;
-    cTi = mkDefective fci cTy;
-    eacTa = "أَ" + cTa;
-    eacTay = mkStrong eafcal cTy ;
-    ucTi = "ُ" + cTi;
-    eucTi = "أُ" + cTi;
-    ucTu = "ُ" + cTu;
-    eucTu = "أُ" + cTu;
-    eucTiy = mkStrong eufcil cTy ;
-    ucTa = "ُ" + cTa;
-    eacTi = "أَ" + cTi;
-    eacTu = "أَ" + cTu;
+    _cTa = mkDefective fca cTy;
+    _cTu = mkDefective fcu cTy;
+    _cTi = mkDefective fci cTy;
+    eacTa = "أَ" + _cTa;           -- VPerf Act (Per3 Masc Sg)
+    eacTay = mkStrong eafcal cTy ; -- VPerf Act (Per3 Fem  Pl)
+    eucTi = "أُ" + _cTi;           -- VPerf Pas (Per3 _    Sg)
+    eucTu = "أُ" + _cTu;           -- VPerf Pas (Per3 Masc Pl)
+    eucTiy = mkStrong eufcil cTy ; -- VPerf Pas (Per3 Fem  Pl)
+    ucTi = "ُ" + _cTi;  -- VImpf Act
+    ucTu = "ُ" + _cTu;  -- VImpf Act (Per2/3 Masc Pl)
+    ucTa = "ُ" + _cTa;  -- VImpf Pas
+    eacTi = "أَ" + _cTi; -- VImp (Masc Sg / Fem _)
+    eacTu = "أَ" + _cTu; -- VImp Masc Pl
     mucTaY = "م" + ucTa +"ى"
-  } in verbDef (toDefForms eacTa eacTay eucTi eucTu eucTiy ucTi ucTu ucTa eacTi eacTu mucTaY) i;
+  } in toDefForms eacTa eacTay eucTi eucTu eucTiy ucTi ucTu ucTa eacTi eacTu mucTaY ;
+
+v4defective : Root3 -> Verb = \cTy ->
+  verbDef (v4DefForms cTy) i ;
+
+v4doubleweak : Root3 -> Verb = \r'y ->
+  let ry = r'y ** {c = ""} ;
+      vforms : DefForms = \\x => rmSukun (v4DefForms ry ! x) ; -- only remove the first sukun
+   in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
+
 
 v5sound : Root3 -> Verb =
   \nfs ->
@@ -723,8 +748,8 @@ endVowel : Mood => Str =
 
 prefixImp : Vowel => Str =
   table {
-    u => "أُ" ;
-    _ => "إِ"
+    u => "اُ" ;
+    _ => "اِ"
   } ;
 
 patHollowPerf : (_,_,_,_ :Str) -> Voice => PerGenNum => Str = \xAf,xif,xIf,xuf ->
@@ -1237,7 +1262,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         isPred = False
       };
 
-   predVSlash : Verb ** {c2 : Str} -> VPSlash = \v ->
+   predVSlash : Verb2 -> VPSlash = \v ->
      predV v ** {c2 = v.c2} ;
 
     -- in verbal sentences, the verb agrees with the subject
@@ -1249,7 +1274,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp **
-      { obj = {s = vp.obj.s ++ vp.c2 ++ np.s ! Acc ; a = np.a} };
+      { obj = {s = vp.obj.s ++ vp.c2.s ++ np.s ! vp.c2.c ; a = np.a} };
 
     insertPred : {s : AAgr => Case => Str} -> VP -> VP = \p,vp -> vp **
       { pred = p;
@@ -1263,11 +1288,39 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       insertPred xabar (predV (v1hollow {f = "ك"; c = "و" ; l = "ن"} u) );
 
     -- Slash categories
-    VPSlash : Type = VP ** {c2 : Str} ;
-    ClSlash : Type = Cl ** {c2 : Str} ;
+    VPSlash : Type = VP ** {c2 : Preposition} ;
+    ClSlash : Type = Cl ** {c2 : Preposition} ;
 
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;
     QCl : Type = {s : Tense => Polarity => QForm => Str} ;
+
+    -- Relative
+  param
+    RAgr = RSg Gender | RPl Gender | RDl Gender Case ;
+
+  oper
+    agr2ragr = overload {
+      agr2ragr : Agr -> Case -> RAgr = \a,c ->
+        let gn = pgn2gn a.pgn in case <gn.n,gn.g,a> of {
+          <Sg,x> => RSg x ;
+          <Pl,x> => RPl x ;
+          <Dl,x> => RDl x c ;
+          _      => Predef.error "agr2ragr"} ;
+      agr2ragr : Number -> Case -> Gender -> RAgr = \n,c,g ->
+        case n of {
+          Sg => RSg g ;
+          Dl => RDl g c ;
+          Pl => RPl g }
+      } ;
+
+    -- ragr2agr : Number -> Case -> Gender -> RAgr = \ra ->
+    --   case ra of {
+    --     RSg x => Per3 Sg x ;
+    --     RPl x => Per3 Pl x ;
+    --     RDl x => Per3 Dl x } ;
+
+    RCl : Type = {s : Tense => Polarity => Agr => Case => Str} ;
+    RP  : Type = {s : RAgr => Str } ;
 
 --TODO:   slashRCl : ClSlash -> RP -> RCl ;
 

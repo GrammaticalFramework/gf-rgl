@@ -8,7 +8,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
       s = \\t,p =>
         table {
           QIndir => "إِذا" ++ cl.s ! t ! p ! Verbal ;
-          QDir => "هَل" ++ cl.s ! t ! p ! Verbal
+          QDir => "هَلْ" ++ cl.s ! t ! p ! Verbal
         }
       };
 
@@ -44,11 +44,11 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
 
    CompIAdv iadv = { s = \\_ => iadv.s ; n = ResAra.Sg } ;
 
-   --  QCl = {s : R.Tense => Polarity => QForm => Str} ;
+   --  QCl = {s : Tense => Polarity => QForm => Str} ;
    QuestSlash ip cl = { ----IL just guessing
       s = \\t,p,qf => 
          let o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
-          in cl.c2 ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
+          in cl.c2.s ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
       } ;
 
   --IL guessed

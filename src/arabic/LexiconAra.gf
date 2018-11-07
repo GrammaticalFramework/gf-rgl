@@ -24,7 +24,7 @@ flags
   beautiful_A  = sndA "جمل" "فَعِيل" ;
   become_VA    = mkVA (v4 "صبح") ;
   beer_N       = sdfN "بير" "فِعلة" Fem NoHum ;
-  beg_V2V      = dirV2 (v5 "وسل") ;
+  beg_V2V      = mkV2V (mkVV (v5 "وسل")) noPrep ;
   big_A        = sndA "كبر" "فَعِيل" ;
   bike_N       = sdfN "درج" "فَعّالة" Fem NoHum ;
   bird_N       = brkN "طير" "فَعل" "فُعُول" Masc NoHum;

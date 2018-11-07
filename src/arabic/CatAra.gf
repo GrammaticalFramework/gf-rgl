@@ -12,31 +12,31 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
     S  = {s : Str} ;
     QS = {s : QForm => Str} ;
---    RS = {s : Agr => Str} ;
+    RS = {s : Agr => Case => Str} ;
 
 -- Sentence
 
-    Cl = ResAra.Cl ; -- {s : ResAra.Tense => Polarity => Order => Str} ;
+    Cl = ResAra.Cl ; -- {s : Tense => Polarity => Order => Str} ;
     ClSlash = ResAra.ClSlash ;
     Imp = {s : Polarity => Gender => ResAra.Number => Str} ;
 
 -- Question
 
-    QCl = ResAra.QCl ; -- {s : ResAra.Tense => Polarity => QForm => Str} ;
+    QCl = ResAra.QCl ; -- {s : Tense => Polarity => QForm => Str} ;
     IDet = ResAra.IDet ; -- {s : Gender => State => Case => Str ; n : Number} ;
     IP   = ResAra.IP ;   -- {s : (isPred : Bool) => State => Case => Str ; n : Number} ;
     IComp = ResAra.IComp ; -- 
     IQuant = {s : State => Case => Str} ;
---
----- Relative
---
---    RCl = {s : Tense => Anteriority => Polarity => Agr => Str} ;
---    RP = {s : Case => Str ; a : RAgr} ;
---
+
+-- Relative
+
+    RCl = ResAra.RCl ;
+    RP = ResAra.RP ;
+
 -- Verb
 
     VP = ResAra.VP ;
-    VPSlash = ResAra.VPSlash ; -- VP ** {c2:Str}
+    VPSlash = ResAra.VPSlash ; -- VP ** {c2:Preposition}
     Comp = ResAra.Comp ; --{s : AAgr => Case => Str} ;
 --    SC = {s : Str} ;
 --
@@ -72,21 +72,21 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     Conj = {s : Str ; n : ResAra.Number} ;
 --    DConj = {s1,s2 : Str ; n : ResAra.Number} ;
 --    Subj = {s : Str} ;
-    Prep = {s : Str} ;
+    Prep = ResAra.Preposition ;
 
 -- Open lexical classes, e.g. Lexicon
 
     V, VS, VQ, VA = ResAra.Verb ; -- = {s : VForm => Str} ;
-    V2, V2A = ResAra.Verb ** {c2 : Str} ;
-    VV, V2V, V2S, V2Q = ResAra.Verb ** {c2 : Str} ; --- AR
-    V3 = ResAra.Verb ** {c2, c3 : Str} ;
+    V2, V2A = ResAra.Verb2 ;
+    VV, V2S, V2Q = ResAra.Verb2 ;
+    V2V, V3 = ResAra.Verb3 ;
 
     A = ResAra.Adj ;
-    A2 = ResAra.Adj ** {c2 : Str} ;
+    A2 = ResAra.Adj2 ;
 
     N = ResAra.Noun ;
-    N2 = ResAra.Noun ** {c2 : Str} ;
-    N3 = ResAra.Noun ** {c2, c3 : Str} ;
+    N2 = ResAra.Noun2 ;
+    N3 = ResAra.Noun3 ;
     PN = {s : Case => Str; g : Gender; h : Species} ;
 
 linref
