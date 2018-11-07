@@ -1296,6 +1296,34 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;
     QCl : Type = {s : Tense => Polarity => QForm => Str} ;
 
+    -- Relative
+  param
+    RAgr = RSg Gender | RPl Gender | RDl Gender Case ;
+
+  oper
+    agr2ragr = overload {
+      agr2ragr : Agr -> Case -> RAgr = \a,c ->
+        let gn = pgn2gn a.pgn in case <gn.n,gn.g,a> of {
+          <Sg,x> => RSg x ;
+          <Pl,x> => RPl x ;
+          <Dl,x> => RDl x c ;
+          _      => Predef.error "agr2ragr"} ;
+      agr2ragr : Number -> Case -> Gender -> RAgr = \n,c,g ->
+        case n of {
+          Sg => RSg g ;
+          Dl => RDl g c ;
+          Pl => RPl g }
+      } ;
+
+    -- ragr2agr : Number -> Case -> Gender -> RAgr = \ra ->
+    --   case ra of {
+    --     RSg x => Per3 Sg x ;
+    --     RPl x => Per3 Pl x ;
+    --     RDl x => Per3 Dl x } ;
+
+    RCl : Type = {s : Tense => Polarity => Agr => Case => Str} ;
+    RP  : Type = {s : RAgr => Str } ;
+
 --TODO:   slashRCl : ClSlash -> RP -> RCl ;
 
   param

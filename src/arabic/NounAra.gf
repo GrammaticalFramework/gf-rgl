@@ -188,7 +188,8 @@ lin
   AdjCN ap cn = cn ** {
     adj = \\n,d,c => ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
     };
-  --    RelCN cn rs = {s = \\n,c => cn.s ! n ! c ++ rs.s ! {n = n ; p = P3}} ;
+
+  RelCN cn rs = cn ** {s = \\n,s,c => cn.s ! n ! s ! c ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c};
   --    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s} ;
   --
   --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s} ;

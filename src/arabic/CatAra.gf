@@ -12,7 +12,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
     S  = {s : Str} ;
     QS = {s : QForm => Str} ;
---    RS = {s : Agr => Str} ;
+    RS = {s : Agr => Case => Str} ;
 
 -- Sentence
 
@@ -27,12 +27,12 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     IP   = ResAra.IP ;   -- {s : (isPred : Bool) => State => Case => Str ; n : Number} ;
     IComp = ResAra.IComp ; -- 
     IQuant = {s : State => Case => Str} ;
---
----- Relative
---
---    RCl = {s : Tense => Anteriority => Polarity => Agr => Str} ;
---    RP = {s : Case => Str ; a : RAgr} ;
---
+
+-- Relative
+
+    RCl = ResAra.RCl ;
+    RP = ResAra.RP ;
+
 -- Verb
 
     VP = ResAra.VP ;

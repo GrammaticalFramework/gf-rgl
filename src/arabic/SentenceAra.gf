@@ -129,6 +129,6 @@ concrete SentenceAra of Sentence = CatAra ** open
          }
       };
 
---    UseRCl t a p cl = {s = \\r => t.s ++ a.s ++ p.s ++ cl.s ! t.t ! a.a ! p.p ! r} ;
+    UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
 }
