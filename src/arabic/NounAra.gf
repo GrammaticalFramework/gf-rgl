@@ -90,7 +90,7 @@ lin
     } ;
 
   DetQuant quant num = quant ** {
-    s = \\h,g,c => quant.s ! Pl ! h ! g ! c
+    s = \\h,g,c => quant.s ! sizeToNumber num.n ! h ! g ! c
       ++ num.s ! g ! (toDef quant.d num.n) ! c ;
     n = num.n;
     isNum = -- Num may come from NumCard : Card -> Num
