@@ -16,13 +16,13 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
 -- Sentence
 
-    Cl = ResAra.Cl ; -- {s : ResAra.Tense => Polarity => Order => Str} ;
+    Cl = ResAra.Cl ; -- {s : Tense => Polarity => Order => Str} ;
     ClSlash = ResAra.ClSlash ;
     Imp = {s : Polarity => Gender => ResAra.Number => Str} ;
 
 -- Question
 
-    QCl = ResAra.QCl ; -- {s : ResAra.Tense => Polarity => QForm => Str} ;
+    QCl = ResAra.QCl ; -- {s : Tense => Polarity => QForm => Str} ;
     IDet = ResAra.IDet ; -- {s : Gender => State => Case => Str ; n : Number} ;
     IP   = ResAra.IP ;   -- {s : (isPred : Bool) => State => Case => Str ; n : Number} ;
     IComp = ResAra.IComp ; -- 

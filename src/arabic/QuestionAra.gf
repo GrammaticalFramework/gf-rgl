@@ -44,7 +44,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
 
    CompIAdv iadv = { s = \\_ => iadv.s ; n = ResAra.Sg } ;
 
-   --  QCl = {s : R.Tense => Polarity => QForm => Str} ;
+   --  QCl = {s : Tense => Polarity => QForm => Str} ;
    QuestSlash ip cl = { ----IL just guessing
       s = \\t,p,qf => 
          let o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing

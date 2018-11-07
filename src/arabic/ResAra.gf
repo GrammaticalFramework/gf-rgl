@@ -19,7 +19,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Gender  = Masc | Fem ;
     Case    = Nom | Acc | Gen
             | Bare ; -- 1st person poss. suff. overrides case
-    Person  = P1 | P2 | P3 ;
     Species = NoHum | Hum ;
     State   = Def | Indef | Const
             | Poss ; -- ة turns into ت
@@ -27,7 +26,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
                      -- case vowel retained
     Mood    = Ind | Cnj | Jus ;
     Voice   = Act | Pas ;
-    Tense   = Pres | Past | Fut ;
     Order   = Verbal | Nominal ;
 
   oper
