@@ -48,7 +48,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    QuestSlash ip cl = { ----IL just guessing
       s = \\t,p,qf => 
          let o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
-          in cl.c2 ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
+          in cl.c2.s ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
       } ;
 
   --IL guessed

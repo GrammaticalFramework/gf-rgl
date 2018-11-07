@@ -102,7 +102,7 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     SlashVP np vps = PredVP np vps ** { c2 = vps.c2 } ;
     AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
-    SlashPrep cl prep = cl ** {c2 = prep.s} ;
+    SlashPrep cl prep = cl ** {c2 = prep} ;
 
 --  SlashVS np vs sslash = TODO
 

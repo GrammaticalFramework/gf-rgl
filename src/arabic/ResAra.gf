@@ -108,10 +108,22 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     NTable = Number => State => Case => Str;
 
+    Preposition : Type = {s : Str ; c : Case} ;
     Noun : Type = {s : NTable ; g : Gender; h : Species} ;
---    Adj  : Type = {s : Gender => NTable} ;
+    Noun2 : Type = Noun ** {c2 : Preposition} ;
+    Noun3 : Type = Noun2 ** {c3 : Preposition} ;
+
+    mkPreposition = overload {
+      mkPreposition : Str -> Case -> Preposition = \s,c -> {s=s;c=c} ;
+      mkPreposition : Str -> Preposition = \s -> {s=s;c=Gen} ;
+    } ;
+
     Adj  : Type = {s : AForm => Str} ;
+    Adj2 : Type = Adj ** {c2 : Preposition} ;
+
     Verb : Type = {s : VForm => Str} ;
+    Verb2 : Type = Verb ** {c2 : Preposition} ;
+    Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
     AP : Type = {s : Species => Gender => NTable } ;
     uttAP : AP -> (Gender => Str) ;
@@ -1252,7 +1264,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         isPred = False
       };
 
-   predVSlash : Verb ** {c2 : Str} -> VPSlash = \v ->
+   predVSlash : Verb2 -> VPSlash = \v ->
      predV v ** {c2 = v.c2} ;
 
     -- in verbal sentences, the verb agrees with the subject
@@ -1264,7 +1276,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp **
-      { obj = {s = vp.obj.s ++ vp.c2 ++ np.s ! Acc ; a = np.a} };
+      { obj = {s = vp.obj.s ++ vp.c2.s ++ np.s ! vp.c2.c ; a = np.a} };
 
     insertPred : {s : AAgr => Case => Str} -> VP -> VP = \p,vp -> vp **
       { pred = p;
@@ -1278,8 +1290,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       insertPred xabar (predV (v1hollow {f = "ك"; c = "و" ; l = "ن"} u) );
 
     -- Slash categories
-    VPSlash : Type = VP ** {c2 : Str} ;
-    ClSlash : Type = Cl ** {c2 : Str} ;
+    VPSlash : Type = VP ** {c2 : Preposition} ;
+    ClSlash : Type = Cl ** {c2 : Preposition} ;
 
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;
     QCl : Type = {s : Tense => Polarity => QForm => Str} ;
