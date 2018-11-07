@@ -351,7 +351,7 @@ resource ParadigmsAra = open
     } in {
       s =
         case root.l of {
-          "و"|"ي" => (v2defective root).s;
+          #weak => (v2defective root).s;
           _       => (v2sound root).s
         };
       lock_V = <>
@@ -368,16 +368,12 @@ resource ParadigmsAra = open
 
   v4 =
     \rootStr ->
-    let {
-      root = mkRoot3 rootStr
-    } in {
-      s =
-        case root.l of {
-          "و"|"ي" => (v4defective root).s;
-          _       => (v4sound root).s
-        };
-      lock_V = <>
-    };
+    let root : Root3 = mkRoot3 rootStr ;
+        verb : Verb  = case rootStr of {
+          ? + #hamza + #weak => v4doubleweak root ;
+          _          + #weak => v4defective root  ;
+          _                  => v4sound root } ;
+    in lin V verb ;
 
 
   v5 =
