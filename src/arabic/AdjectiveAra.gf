@@ -37,7 +37,11 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
   AdAP ada ap = {
     s = \\sp,g,n,st,c => ada.s ++ ap.s ! sp ! g ! n ! st ! c
     } ;
---
---    UseA2 a = a ;
---
+
+  UseA2 = PositA ;
+
+  UseComparA a = {
+    s = \\h,g,n,d,c => a.s ! AComp d c 
+    };
+
 }

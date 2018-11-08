@@ -111,8 +111,8 @@ concrete SentenceAra of Sentence = CatAra ** open
 --    EmbedQS qs = {s = qs.s ! QIndir} ;
 --    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
 --
-
-    UseCl t p cl =
+    UseSlash,
+    UseCl = \t,p,cl ->
       {s = t.s ++ p.s ++ 
          case <t.t,t.a> of { --- IL guessed tenses
              <(Pres|Cond),Simul>  => cl.s ! Pres ! p.p ! Nominal ;
