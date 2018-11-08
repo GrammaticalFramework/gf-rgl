@@ -10,6 +10,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
 -- Tensed/Untensed
 
+    SSlash,
     S  = {s : Str} ;
     QS = {s : QForm => Str} ;
     RS = {s : Agr => Case => Str} ;

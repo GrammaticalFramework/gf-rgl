@@ -1130,12 +1130,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     mkIP = overload { 
        mkIP : Str -> Number -> IP = \maa,n -> {
           s = \\_p,_s,_c => maa ; 
-          n = n 
+          a = { pgn = agrP3 NoHum Masc n ; isPron = False }
           } ;
       mkIP : (_,_ : Str) -> Number -> IP = \maa,maadhaa,n -> {
           s = table { True  => \\_s,_c => maa ; 
                       False => \\_s,_c => maadhaa } ; 
-          n = n
+          a = { pgn = agrP3 NoHum Masc n ; isPron = False }
           } 
       } ;
 
@@ -1189,7 +1189,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s : AAgr     -- "how old": masc or fem for adjective
                    -- no need for Case, IComp is only used by QuestIComp, as grammatical subject
        => Str ;
-      n : Number
       } ;
 
     Obj : Type = {
@@ -1206,8 +1205,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s : Bool -- different forms for "what is this" and "what do you do"
        => State => Case   -- because of PrepIP: e.g. "in which" chooses definite accusative
        => Str ;
-      n : Number
+      a : Agr -- can be both subject and object of a QCl, needs full agr. info
       } ;
+
+    ip2np : IP -> Bool -> NP = \ip,isPred -> ip ** { s = ip.s ! isPred ! Def } ;
 
     IDet : Type = {
       s : Gender -- IdetCN needs to choose the gender of the CN
@@ -1313,16 +1314,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           Pl => RPl g }
       } ;
 
-    -- ragr2agr : Number -> Case -> Gender -> RAgr = \ra ->
-    --   case ra of {
-    --     RSg x => Per3 Sg x ;
-    --     RPl x => Per3 Pl x ;
-    --     RDl x => Per3 Dl x } ;
-
     RCl : Type = {s : Tense => Polarity => Agr => Case => Str} ;
     RP  : Type = {s : RAgr => Str } ;
-
---TODO:   slashRCl : ClSlash -> RP -> RCl ;
 
   param
 

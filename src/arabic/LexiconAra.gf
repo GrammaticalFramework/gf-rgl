@@ -295,7 +295,7 @@ flags
   hair_N       = sdfN "شعر" "فَعلة"             Fem NoHum ;
   hand_N       = brkN "يد"  "فَع" "أَفَاعِي"      Fem NoHum  ;
   head_N       = brkN "رءس" "فَعل" "فُعُول"      Masc NoHum;
-  heart_N      = brkN "قلب" "فَعل" "فُعُول"      Masc NoHum;
+  heart_N      = brkN "قلب" "فَعْل" "فُعُول"      Masc NoHum;
   horn_N       = brkN "قرن" "فَعل" "فُعُول"      Masc NoHum;
   husband_N    = brkN "زوج" "فَعل" "أَفعَال"     Masc NoHum;
   ice_N        = brkN "ثلج" "فَعل" "فُعُول"      Masc NoHum;

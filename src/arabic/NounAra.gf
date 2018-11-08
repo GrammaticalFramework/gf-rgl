@@ -190,6 +190,8 @@ lin
     };
 
   RelCN cn rs = cn ** {s = \\n,s,c => cn.s ! n ! s ! c ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c};
+
+  RelNP np rs = np ** {s = \\c => np.s ! c ++ rs.s ! np.a ! c} ;
   --    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s} ;
   --
   --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
@@ -200,7 +202,6 @@ lin
     s = \\n,_d,c => cn.s ! n ! Const ! c ;
     np = \\c => cn.np ! c ++ np.s ! Gen
     };
-
 
   -- : CN -> NP -> CN ;     -- glass of wine
   --PartNP

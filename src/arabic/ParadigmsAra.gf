@@ -370,13 +370,7 @@ resource ParadigmsAra = open
 
   v1 = \rootStr,vPerf,vImpf ->
     let { raw = v1' rootStr vPerf vImpf } in
-    { s = \\vf =>
-        case rootStr of {
-          _ + #hamza + _ => rectifyHmz(raw.s ! vf);
-          _ => raw.s ! vf
-        };
-      lock_V = <>
-    } ;
+    lin V { s = \\vf =>rectifyHmz (raw.s ! vf) } ;
 
   v1' : Str ->  Vowel -> Vowel -> Verb =
     \rootStr,vPerf,vImpf ->

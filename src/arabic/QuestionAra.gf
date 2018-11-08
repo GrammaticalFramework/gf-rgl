@@ -16,10 +16,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
 
     --IL guessed
     QuestVP qp vp =
-     let np = { s = qp.s ! vp.isPred ! Def ; 
-                a = { pgn = Per3 Masc qp.n ; 
-                      isPron = False } 
-              } ;
+     let np = ip2np qp vp.isPred ;
          cl = PredVP np vp ;
       in { s = \\t,p,_qf => cl.s ! t ! p ! Nominal } ;
 
@@ -32,17 +29,17 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    -- : IComp -> NP -> QCl
    QuestIComp ic np =
      let vp = kaan (CompNP np) ;
-         ip = ic ** { s : Bool => State => Case => Str = \\_,_,_ => ic.s ! pgn2gn np.a.pgn } ;
+         ip : ResAra.IP = np ** {
+            s = \\_,_,_ => ic.s ! pgn2gn np.a.pgn } ;
       in QuestVP ip vp ;
 
    -- : IP   -> IComp ;
-   CompIP ip = { 
+   CompIP ip = ip ** { 
       s = \\_ => ip.s ! True -- True=IP will be a subject of predicative sentence
                       ! Def ! Nom ; -- IP will be a subject
-      n = ip.n
       } ;
 
-   CompIAdv iadv = { s = \\_ => iadv.s ; n = ResAra.Sg } ;
+   CompIAdv iadv = { s = \\_ => iadv.s ; a = ResAra.Sg } ;
 
    --  QCl = {s : Tense => Polarity => QForm => Str} ;
    QuestSlash ip cl = { ----IL just guessing
@@ -62,13 +59,17 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
     } ;
 
    -- : IDet -> IP
-   IdetIP idet = idet ** { s = \\isPred => idet.s ! Masc } ;
+   IdetIP idet = idet ** { 
+     s = \\isPred => idet.s ! Masc ;
+     a = { pgn = agrP3 NoHum Masc idet.n ; isPron = False }
+     } ;
 
    -- : IDet -> CN -> IP
-   IdetCN idet cn = idet ** {
+   IdetCN idet cn = {
      s = \\isPred,s,c 
           => idet.s ! cn.g ! s ! c ++
              cn.s ! idet.n ! Indef ! Gen ; --idaafa
+     a = { pgn = agrP3 NoHum cn.g idet.n ; isPron = False }
      } ;
 
    -- : IQuant -> Num -> IDet
