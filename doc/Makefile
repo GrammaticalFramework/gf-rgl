@@ -24,8 +24,22 @@ SRC_FILES=$(S)/abstract/Common.gf $(S)/abstract/Cat.gf $(S)/api/Constructors.gf 
 EXAMPLES_OUT=$(patsubst %,api-examples-%.txt,$(LANGS))
 INCLUDES=synopsis-intro.txt categories-intro.txt categories-imagemap.html synopsis-additional.txt synopsis-browse.txt synopsis-example.txt
 
-synopsis.html: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
+synopsis.txt: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
 	runghc -i.. MkSynopsis.hs
+
+TMP=tmp.html
+synopsis.html: synopsis.txt
+	txt2tags --target=html --no-headers --quiet --toc --outfile=$@ --infile=$^
+	pandoc \
+		--from=html \
+		--to=html5 \
+		--standalone \
+		--template=_template.html \
+		--metadata='title:"GF Resource Grammar Library: Synopsis"' \
+		--variable='rel-root:../..' \
+		--output=$(TMP) \
+		$@
+	mv $(TMP) $@
 
 categories.png: categories.dot
 	dot -Tpng $^ > $@

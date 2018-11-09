@@ -29,17 +29,13 @@ apiExxFiles = do
     , langSynopsis lang
     ]
 
+-- | This function puts together a txt2tags file which is then converted to HTML by the Makefile
 main :: IO ()
 main = do
-  xx <- getArgs
-  let isLatex = case xx of
-        "-tex":_ -> True
-        _ -> False
   cs1 <- getCats commonAPI
   cs2 <- getCats catAPI
   let cs = sortCats (cs1 ++ cs2)
   writeFile synopsis "GF Resource Grammar Library: Synopsis"
-  -- append "B. Bringert, T. Hallgren, and A. Ranta"
   space
   append "%!Encoding:utf-8"
   append "%!style(html): ./revealpopup.css"
@@ -56,7 +52,7 @@ main = do
   append "%!postproc(html): '#quicklinks' '<script src=\"quicklinks.js\"></script>'"
   append "%!postproc(tex): '#quicklinks' ''"
   delimit $ addToolTips cs
-  include "synopsis-intro.txt"
+  include "synopsis-intro.txt" -- TODO dynamic language list
   title "Categories"
   space
   link "Source 1:" commonAPI
@@ -66,7 +62,7 @@ main = do
   append "==A hierarchic view==\n"
   include "categories-intro.txt"
   append "==Explanations==\n"
-  delimit $ mkCatTable isLatex cs
+  delimit $ mkCatTable cs
   space
   title "Syntax Rules and Structural Words"
   space
@@ -81,17 +77,17 @@ main = do
   rs2 <- getRules apiExx structuralAPI
   let rss = rs ++ rs2
 ---  mapM_ putStrLn [f ++ " " ++ e | (f,_,e) <- rss]
-  delimit $ mkSplitTables True isLatex apiExx cs rss
+  delimit $ mkSplitTables True apiExx cs rss
   space
 --  title "Structural Words"
 --  space
 --  link "Source:" structuralAPI
 --  space
---  rs <- rulesTable False isLatex cs structuralAPI
+--  rs <- rulesTable False cs structuralAPI
 --  delimit rs
   space
   title "Lexical Paradigms"
-  paradigmFiles >>= mapM_ (putParadigms isLatex cs)
+  paradigmFiles >>= mapM_ (putParadigms cs)
   space
   include "synopsis-additional.txt"
   space
@@ -107,9 +103,6 @@ main = do
   space
   append "#quicklinks"
   space
-  let format = if isLatex then "tex" else "html"
-  system $ "txt2tags -t" ++ format ++ " " ++ " --toc " ++ synopsis
-  if isLatex then (system $ "pdflatex synopsis.tex") >> return () else return ()
 
 addToolTips :: Cats -> [String]
 addToolTips = map f
@@ -130,10 +123,10 @@ getCats file = do
          (expl,ex) = span (/="e.g.") exp
        _ -> getrs rs ss2
 
-rulesTable :: ApiExx ->  Bool -> Bool -> Cats -> FilePath -> IO [String]
-rulesTable aexx hasEx isLatex cs file = do
+rulesTable :: ApiExx -> Bool -> Cats -> FilePath -> IO [String]
+rulesTable aexx hasEx cs file = do
   rs <- getRules aexx file
-  return $ mkTable hasEx isLatex aexx cs rs
+  return $ mkTable hasEx aexx cs rs
 
 
 getRules :: ApiExx -> FilePath -> IO Rules
@@ -161,14 +154,14 @@ getRules aexx file = do
            n:ws | last n == '.' && not (null (init n)) && all isDigit (init n) -> ws
            _ -> e
 
-putParadigms :: Bool -> Cats -> (String, FilePath) -> IO ()
-putParadigms isLatex cs (lang,file) = do
+putParadigms :: Cats -> (String, FilePath) -> IO ()
+putParadigms cs (lang,file) = do
   stitle ("Paradigms for " ++ lang)
   append "#LParadigms"
   space
   link "source" file
   space
-  rs <- rulesTable M.empty False isLatex cs file
+  rs <- rulesTable M.empty False cs file
   space
   delimit rs
   space
@@ -180,23 +173,23 @@ inChunks i f = concat . intersperse ["\n\n"] . map f . chunks i where
 
 -- Makes one table per result category.
 -- Adds a subsection header for each table.
-mkSplitTables :: Bool -> Bool -> ApiExx -> Cats -> Rules -> [String]
-mkSplitTables hasEx isLatex aexx cs = concatMap t . addLexicalCats cs . sortRules
+mkSplitTables :: Bool -> ApiExx -> Cats -> Rules -> [String]
+mkSplitTables hasEx aexx cs = concatMap t . addLexicalCats cs . sortRules
   where t (c, xs) = [subtitle c expl] ++ tableOrLink
          where
            expl = case [e | (n,e,_) <- cs, n == c] of
                         []  -> ""
                         e:_ -> e
-           tableOrLink = if null xs then parad else mkTable hasEx isLatex aexx cs xs
+           tableOrLink = if null xs then parad else mkTable hasEx aexx cs xs
            parad = [
              "Lexical category, constructors given in",
              "[lexical paradigms #RParadigms]."
              ]
 
-mkTable :: Bool -> Bool -> ApiExx -> Cats -> Rules -> [String]
-mkTable hasEx isLatex aexx cs = inChunks chsize (\rs -> header : map (unwords . row) rs)
+mkTable :: Bool -> ApiExx -> Cats -> Rules -> [String]
+mkTable hasEx aexx cs = inChunks chsize (\rs -> header : map (unwords . row) rs)
  where
-  chsize = if isLatex then 40 else 1000
+  chsize = 1000
   header = if hasEx then "|| Function  | Type  | Example  ||"
                     else "|| Function  | Type  | Explanation ||"
   row (name,typ,ex) =
@@ -235,11 +228,11 @@ mkIdent = concatMap unspec where
     ':' -> "-"
     _   -> [c]
 
-mkCatTable :: Bool -> Cats -> [String]
-mkCatTable isLatex cs = inChunks chsize (\rs -> header ++ map mk1 rs) cs
+mkCatTable :: Cats -> [String]
+mkCatTable cs = inChunks chsize (\rs -> header ++ map mk1 rs) cs
  where
   header = ["|| Category  | Explanation  | Example  ||"]
-  chsize = if isLatex then 40 else 1000
+  chsize = 1000
   mk1 (name,expl,ex) = unwords ["|", showCat cs name, "|", expl, "|", typo ex, "|"]
   typo ex = if take 1 ex == "\"" then itf (init (tail ex)) else ex
 
