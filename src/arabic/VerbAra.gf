@@ -44,7 +44,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
 --
 --    ReflV2 v = insertObj (\\a => v.c2 ++ reflPron ! a) (predV v) ;
 --
-    PassV2 v = kaan {s = \\_,_ => v.s ! VPPart} ; ---- IL guessed
+    PassV2 = passPredV ;
 --
 --    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no
 

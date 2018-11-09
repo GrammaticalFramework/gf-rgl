@@ -1263,6 +1263,17 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         isPred = False
       };
 
+    passPredV : Verb -> VP = \v ->
+      let actVP = predV v in actVP ** { 
+        s = \\pgn,vf =>
+          case vf of {
+            VPPerf   => v.s ! (VPerf   Pas pgn) ;
+            VPImpf m => v.s ! (VImpf m Pas pgn) ;
+            _        => actVP.s ! pgn ! vf
+        }
+      };
+
+
    predVSlash : Verb2 -> VPSlash = \v ->
      predV v ** {c2 = v.c2} ;
 
