@@ -1,109 +1,118 @@
-
 // Find an element with a certain tag containing a certain text.
-function findElement(tagname,text) {
-    var els=document.body.getElementsByTagName(tagname)
-    for(var i=0;i<els.length;i++)
-	if(els[i].innerText==text) return els[i]
-    return null
+function findElement (tagname, text) {
+  var els = document.body.getElementsByTagName(tagname)
+  for (var i = 0; i < els.length; i++) {
+    if (els[i].innerText === text) return els[i]
+  }
+  return null
 }
 
-function text(s) { return document.createTextNode(s); }
-
-function appendChildren(n,ds) {
-    if(Array.isArray(ds)) for(var i in ds) n.appendChild(ds[i]);
-    else if(typeof ds=="string")
-        n.appendChild(text(ds))
-    else
-	n.appendChild(ds)
+function text (s) {
+  return document.createTextNode(s)
 }
 
-function node(tag,cls,ds) {
-    var n=document.createElement(tag)
-    if(cls) n.className=cls
-    if(ds) appendChildren(n,ds)
-    return n
+function appendChildren (n, ds) {
+  if (Array.isArray(ds)) for (var i in ds) n.appendChild(ds[i])
+  else if (typeof ds === 'string') n.appendChild(text(ds))
+  else n.appendChild(ds)
 }
 
-function a(href,txt) {
-    var a=node("a","",txt)
-    a.href=href
-    return a
+function node (tag, cls, ds) {
+  var n = document.createElement(tag)
+  if (cls) n.className = cls
+  if (ds) appendChildren(n, ds)
+  return n
 }
 
-function tr(ds) { return node("tr","",ds) }
-function th(d) { return node("th","",d) }
-function td(d) { return node("td","",d) }
+function a (href, txt) {
+  var a = node('a', '', txt)
+  a.href = href
+  return a
+}
 
-function forAllLinks(list,f) {
-    for(var i=0;i<list.length;i++) {
-	var c=list[i].firstElementChild
-	if(c && c.tagName=="A" && c.href) f(c)
-    }
+function forAllLinks (list, f) {
+  for (var i = 0; i < list.length; i++) {
+    var c = list[i].firstElementChild
+    if (c && c.tagName === 'A' && c.href) f(c)
+  }
 }
 
 /* -------------------------------------------------------------------------- */
 
 // Extract links to the syntax rules
-function listrules(ul) {
-    var rules=[]
-    if(ul.tagName!="UL") return []
-    forAllLinks(ul.children,function(c) {
-	rules.push({href:c.href,text:c.innerText.split(" -")[0],
-		    full:c.innerText})
+function listrules (ul) {
+  var rules = []
+  if (ul.tagName !== 'UL') return []
+  forAllLinks(ul.children, function (c) {
+    rules.push({
+      href: c.href,
+      text: c.innerText.split(' -')[0],
+      full: c.innerText
     })
-    return rules
+  })
+  return rules
 }
 
 // Extract the links to the paradigm sections for all the languages
-function listlangs(ul) {
-    var langs=[]
-    if(ul.tagName!="UL") return []
-    forAllLinks(ul.children,function(c) {
-	if(/^Paradigms for /.test(c.innerText))
-	    langs.push({href:c.href,text:c.innerText.substr(14),
-			full:c.innerText})
-    })
-    return langs
-}
-
-function linklist(links) {
-    var d=node("td","quicklinks")
-    for(var i=0;i<links.length;i++) {
-	var l=a(links[i].href,links[i].text)
-	l.title=links[i].full
-	d.appendChild(l)
+function listlangs (ul) {
+  var langs = []
+  if (ul.tagName !== 'UL') return []
+  forAllLinks(ul.children, function (c) {
+    if (/^Paradigms for /.test(c.innerText)) {
+      langs.push({
+        href: c.href,
+        text: c.innerText.substr(14),
+        full: c.innerText
+      })
     }
-    return d
+  })
+  return langs
 }
 
-function quicklinks() {
-    // Find the detailed table of contents
-    var h1toc=findElement("h1","Table of Contents")
-    var ultoc=h1toc.nextElementSibling
-    while(ultoc && ultoc.tagName!="UL") ultoc=ultoc.nextElementSibling
+function linklist (links) {
+  var d = node('div')
+  for (var i = 0; i < links.length; i++) {
+    var l = a(links[i].href, links[i].text)
+    l.title = links[i].full
+    d.appendChild(l)
+    d.appendChild(text(' '))
+  }
+  return d
+}
 
-    var lis=ultoc.children
-    
-    var syntaxrules=[],langs=[]
+function quicklinks () {
+  // Find the detailed table of contents
+  var h1toc = findElement('h1', 'Table of Contents')
+  var ultoc = h1toc.nextElementSibling
+  while (ultoc && ultoc.tagName !== 'UL') {
+    ultoc = ultoc.nextElementSibling
+  }
 
-    // Find the Syntax Rules and Lexical Paradigms sections in the toc
-    for(var i=0;i<lis.length;i++) {
-	var li=lis[i],c=li.firstElementChild
-	if(c.tagName=="A") {
-	    if(/^Syntax Rules /.test(c.innerText))
-		syntaxrules=listrules(c.nextElementSibling)
-	    else if(c.innerText=="Lexical Paradigms")
-		langs=listlangs(c.nextElementSibling)
-	}
+  var lis = ultoc.children
+
+  var syntaxrules = []
+  var langs = []
+
+  // Find the Syntax Rules and Lexical Paradigms sections in the toc
+  for (var i = 0; i < lis.length; i++) {
+    var li = lis[i]
+    var c = li.firstElementChild
+    if (c.tagName === 'A') {
+      if (/^Syntax Rules /.test(c.innerText)) {
+        syntaxrules = listrules(c.nextElementSibling)
+      } else if (c.innerText === 'Lexical Paradigms') {
+        langs = listlangs(c.nextElementSibling)
+      }
     }
+  }
 
-    var table=node("table","quicklinks",
-	       [tr([th("Syntax"),th("Morphology")]),
-		tr([linklist(syntaxrules),linklist(langs)])])
-
-    return node("div","quicklinks",
-		[text("Quick links"),
-		 node("div","expand",table)])
+  return node(
+    'div',
+    'row',
+    [ node('div', 'col-5', [ node('h6', '', 'Syntax'), linklist(syntaxrules) ]),
+      node('div', 'col-7', [ node('h6', '', 'Morphology'), linklist(langs) ])
+    ]
+  )
 }
 
-document.body.appendChild(quicklinks())
+document.getElementById('quicklinks').appendChild(quicklinks())

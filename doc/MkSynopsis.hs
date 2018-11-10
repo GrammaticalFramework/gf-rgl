@@ -49,8 +49,6 @@ main = do
   append "%!postproc(html): '(SRC=\"categories.png\")'  '\\1 USEMAP=\"#categories\"'"
   append "%!postproc(html): '#LParadigms'  '<a name=\"RParadigms\"></a>'"
   append "%!postproc(tex): '#LParadigms' ''"
-  append "%!postproc(html): '#quicklinks' '<script src=\"quicklinks.js\"></script>'"
-  append "%!postproc(tex): '#quicklinks' ''"
   delimit $ addToolTips cs
   include "synopsis-intro.txt" -- TODO dynamic language list
   title "Categories"
@@ -100,8 +98,6 @@ main = do
   title "Table of Contents"
   space
   append "%%toc"
-  space
-  append "#quicklinks"
   space
 
 addToolTips :: Cats -> [String]

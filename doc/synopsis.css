@@ -1,0 +1,13 @@
+#quicklinks {
+  line-height: 130%;
+}
+
+#quicklinks.sidebar {
+  overflow-y: scroll;
+  height: 100%;
+  position: fixed;
+}
+
+#quicklinks a {
+  display: block;
+}

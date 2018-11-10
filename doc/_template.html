@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 $for(author-meta)$
   <meta name="author" content="$author-meta$" />
 $endfor$
@@ -29,32 +28,41 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
-<div class="container my-5">
+<div class="container-fluid my-4">
+<div class="row">
 
+  <nav class="col-md-3 col-xl-2 d-none d-md-block sidebar" id="quicklinks">
+    <h5>Quick links</h5>
+    <!-- filled dynamically via quicklinks.js -->
+  </nav>
+
+  <main role="main" class="col-md-9 col-xl-10 offset-md-3 offset-xl-2">
 $if(title)$
-<header id="title-block-header">
-<a href="$rel-root$" title="Home">
-  <img src="$rel-root$/doc/Logos/gf1.svg" height="200px" class="float-md-right mb-3 bg-white" alt="GF Logo">
-</a>
-<h1 class="title">$title$</h1>
+    <header id="title-block-header">
+      <a href="$rel-root$" title="Home">
+        <img src="$rel-root$/doc/Logos/gf1.svg" height="200px" class="float-md-right mb-3 bg-white" alt="GF Logo">
+      </a>
+      <h1 class="title">$title$</h1>
 $if(subtitle)$
-<p class="subtitle">$subtitle$</p>
+      <p class="subtitle">$subtitle$</p>
 $endif$
 $for(author)$
-<p class="author">$author$</p>
+      <p class="author">$author$</p>
 $endfor$
 $if(date)$
-<p class="date">$date$</p>
+      <p class="date">$date$</p>
 $endif$
-</header>
+    </header>
 $endif$
 $if(toc)$
-<nav id="$idprefix$TOC">
-$table-of-contents$
-</nav>
+    <nav id="$idprefix$TOC">
+      $table-of-contents$
+    </nav>
 $endif$
-$body$
-</div><!-- .container -->
+    $body$
+  </main>
+</div><!-- .row -->
+</div><!-- .container-fluid -->
 
 <footer class="bg-light mt-5 py-5">
   <div class="container">
@@ -102,6 +110,8 @@ $body$
     <div>
   <div>
 </footer>
+
+<script src="quicklinks.js"></script>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

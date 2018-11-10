@@ -28,13 +28,14 @@ synopsis.txt: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILE
 	runghc -i.. MkSynopsis.hs
 
 TMP=tmp.html
-synopsis.html: synopsis.txt
-	txt2tags --target=html --no-headers --quiet --toc --outfile=$@ --infile=$^
+synopsis.html: synopsis.txt _template.html
+	txt2tags --target=html --no-headers --quiet --toc --outfile=$@ --infile=$<
 	pandoc \
 		--from=html \
 		--to=html5 \
 		--standalone \
 		--template=_template.html \
+		--css=synopsis.css \
 		--metadata='title:"GF Resource Grammar Library: Synopsis"' \
 		--variable='rel-root:../..' \
 		--output=$(TMP) \
