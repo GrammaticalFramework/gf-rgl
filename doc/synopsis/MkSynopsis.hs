@@ -41,8 +41,6 @@ main = do
   writeFile outfile "GF Resource Grammar Library: Synopsis"
   space
   append "%!Encoding:utf-8"
-  append "%!style(html): ./revealpopup.css"
-  space
   append "%!postproc(html): '#divreveal'  '<div class=reveal>'"
   append "%!postproc(html): '#divpopup'  '<div class=popup>'"
   append "%!postproc(html): '#ediv'  '</div>'"
@@ -54,15 +52,18 @@ main = do
   append "%!postproc(tex): '#LParadigms' ''"
   delimit $ addToolTips cs
   include "intro.txt" -- TODO dynamic language list
+  space
   title "Categories"
   space
   link "Source 1:" commonAPI
   space
   link "Source 2:" catAPI
   space
-  append "==A hierarchic view==\n"
+  stitle "A hierarchic view"
+  space
   include "categories-intro.txt"
-  append "==Explanations==\n"
+  stitle "Explanations"
+  space
   delimit $ mkCatTable cs
   space
   title "Syntax Rules and Structural Words"
@@ -73,11 +74,8 @@ main = do
   space
   apiExx <- apiExxFiles >>= getApiExx
   rs <- getRules apiExx syntaxAPI
----  putStrLn $ unlines ["p -cat=" ++ last (words t) ++
----               " \"" ++ e ++ "\"" | (_,t,e) <- rs, not (null e)] ----
   rs2 <- getRules apiExx structuralAPI
   let rss = rs ++ rs2
----  mapM_ putStrLn [f ++ " " ++ e | (f,_,e) <- rss]
   delimit $ mkSplitTables True apiExx cs rss
   space
 --  title "Structural Words"
@@ -174,7 +172,7 @@ inChunks i f = concat . intersperse ["\n\n"] . map f . chunks i where
 -- Adds a subsection header for each table.
 mkSplitTables :: Bool -> ApiExx -> Cats -> Rules -> [String]
 mkSplitTables hasEx aexx cs = concatMap t . addLexicalCats cs . sortRules
-  where t (c, xs) = [subtitle c expl] ++ tableOrLink
+  where t (c, xs) = [subtitle c expl, "\n"] ++ tableOrLink
          where
            expl = case [e | (n,e,_) <- cs, n == c] of
                         []  -> ""
@@ -189,8 +187,8 @@ mkTable :: Bool -> ApiExx -> Cats -> Rules -> [String]
 mkTable hasEx aexx cs = inChunks chsize (\rs -> header : map (unwords . row) rs)
  where
   chsize = 1000
-  header = if hasEx then "|| Function  | Type  | Example  ||"
-                    else "|| Function  | Type  | Explanation ||"
+  header = if hasEx then "|| Function  | Type  | Example  |"
+                    else "|| Function  | Type  | Explanation |"
   row (name,typ,ex) =
          let ntyp = mkIdent (name ++ " : " ++ typ) in
          if hasEx then ["|", name', "|", typ', "|", ex' ntyp, "|"]
@@ -230,7 +228,7 @@ mkIdent = concatMap unspec where
 mkCatTable :: Cats -> [String]
 mkCatTable cs = inChunks chsize (\rs -> header ++ map mk1 rs) cs
  where
-  header = ["|| Category  | Explanation  | Example  ||"]
+  header = ["|| Category  | Explanation  | Example  |"]
   chsize = 1000
   mk1 (name,expl,ex) = unwords ["|", showCat cs name, "|", expl, "|", typo ex, "|"]
   typo ex = if take 1 ex == "\"" then itf (init (tail ex)) else ex
@@ -272,8 +270,7 @@ stitle s = append $ "==" ++ s ++ "=="
 include s = append $ "%!include: " ++ s
 space = append "\n"
 delimit ss = mapM_ append ss
-link s f = append $ s ++ " [``" ++ f ++ "`` " ++ fa ++ "]" where
-  fa = "http://www.grammaticalframework.org/lib" ++ dropWhile (=='.') f
+link s f = append $ s ++ " [``" ++ f ++ "`` " ++ f ++ "]"
 
 ttf s = "``" ++ s ++ "``"
 itf s = "//" ++ s ++ "//"
@@ -337,5 +334,5 @@ readFileC cod file = do
 coding file = case language file of
   "Bul" -> "CP1251" --- "ISO-8859-1"
   _     -> "utf8"
-
-language = reverse . take 3 . drop 3 . reverse
+  where
+    language = reverse . take 3 . drop 3 . reverse

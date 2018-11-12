@@ -10,17 +10,17 @@
 The ``Prelude`` defines commonly used utility functions, in particular for
 strings and booleans.
 
-|| Oper | Type               | Explanation            ||
+|| Oper | Type | Explanation |
 | ``SS`` | ``Type`` | the type ``{s : Str}``
 | ``ss`` | ``Str -> SS`` | record from string
 | ``nonExist`` | ``Str`` | missing form
 | ``optStr`` | ``Str -> Str`` | optional string
 | ``bothWays`` | ``(x,y : Str) -> Str`` | either ``x ++ y`` or ``y ++ x``
 | ``Bool`` | ``PType`` | values ``True`` and ``False``
-| ``andB`` | ``(_,_ : Bool) -> Bool`` | conjunction 
+| ``andB`` | ``(_,_ : Bool) -> Bool`` | conjunction
 | ``orB`` | ``(_,_ : Bool) -> Bool`` | disjunction
 | ``notB`` | ``Bool -> Bool`` | negation
-| ``if_then_else`` | ``(A:Type)->Bool->A->A->A`` | conditional 
+| ``if_then_else`` | ``(A:Type)->Bool->A->A->A`` | conditional
 | ``init`` | ``Str -> Str`` | drop last character
 | ``last`` | ``Str -> Str`` | return last character
 | ``glue`` | ``Str -> Str -> Str`` | glue tokens together
@@ -30,7 +30,7 @@ strings and booleans.
 
 These functions are hard-coded in GF. They are available without explicit opening, by the used of qualified names, e.g. ``Predef.tk``.
 
-|| operation | type | explanation ||
+|| Oper | Type | Explanation |
 | ``PBool`` | ``PType`` | ``PTrue | PFalse``
 | ``Error`` | ``Type`` | the empty type
 | ``Integer`` | ``Type`` | the type of integers
@@ -57,7 +57,7 @@ These functions are hard-coded in GF. They are available without explicit openin
 This module is used for defining formal languages, in particular ones that
 use precedence levels and parentheses for grouping subexpressions.
 
-|| Oper | Type               | Explanation            ||
+|| Oper | Type | Explanation |
 | ``Prec`` | ``PType``    | precedence levels 0..4
 | ``TermPrec`` | ``Type`` | string with precedence
 | ``mkPrec`` | ``Prec -> Str -> TermPrec`` | construct a ``TermPrec``
@@ -75,7 +75,7 @@ This module is used for embedding symbolic notation in natural-language
 text constructed by the resource grammar API. It works for all resource
 languages.
 
-|| Function | Type | Example ||
+|| Function | Type | Explanation |
 | ``symb`` | ``Str -> NP`` |                       //x//
 | ``symb`` | ``Int -> NP`` |                       //23//
 | ``symb`` | ``Float -> NP`` |                     //0.99//
@@ -89,10 +89,10 @@ languages.
 
 ==The Combinators module==
 
-This module gives shortcuts for defining predicates (``pred``) and function 
+This module gives shortcuts for defining predicates (``pred``) and function
 expressions (``app``). It works for all resource languages.
 
-|| Function | Type | Example ||
+|| Function | Type | Explanation |
 | ``pred`` | ``V  -> NP -> Cl`` |          //x converges//
 | ``pred`` | ``V2 -> NP -> NP -> Cl`` |    //x intersects y//
 | ``pred`` | ``V  -> NP -> NP -> Cl`` |    //x and y intersect//
@@ -100,7 +100,7 @@ expressions (``app``). It works for all resource languages.
 | ``pred`` | ``A2 -> NP -> NP -> Cl`` |    //x is divisible by y//
 | ``pred`` | ``A  -> NP -> NP -> Cl`` |    //x and y are equal//
 | ``pred`` | ``N  -> NP -> Cl`` |          //x is a maximum//
-| ``pred`` | ``N  -> NP -> NP -> Cl`` |    //x and y are inverses// 
+| ``pred`` | ``N  -> NP -> NP -> Cl`` |    //x and y are inverses//
 | ``pred`` | ``Adv -> NP -> Cl`` |         //x is in scope//
 | ``pred`` | ``Prep -> NP -> NP -> Cl`` |  //x is outside y//
 | ``app`` | ``N  -> NP`` |              //the bottom//
@@ -111,5 +111,3 @@ expressions (``app``). It works for all resource languages.
 | ``app`` | ``N2 -> NP -> CN`` |        //divisor of x//
 | ``app`` | ``N3 -> NP -> NP -> CN`` |  //path from x to y//
 | ``app`` | ``N2 -> NP -> NP -> CN`` |  //path between x and y//
-
-

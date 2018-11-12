@@ -17,7 +17,7 @@ LANGS=$(shell cat $(CONFIG) | cut -d',' -f1,10 | grep ',y' | cut -d',' -f1)
 SRC_FILES=$(S)/abstract/Common.gf $(S)/abstract/Cat.gf $(S)/api/Constructors.gf $(S)/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
 
 EXAMPLES_OUT=$(patsubst %,api-examples-%.txt,$(LANGS))
-INCLUDES=intro.txt categories-intro.txt categories-imagemap.html additional.txt browse.txt example.txt
+INCLUDES=intro.txt categories-intro.txt categories-imagemap.html categories.png additional.txt browse.txt example.txt
 
 TMP=tmp.html
 TEMPLATE=template.html
@@ -36,12 +36,13 @@ index.html: index.txt $(TEMPLATE)
 		--to=html5 \
 		--standalone \
 		--template=$(TEMPLATE) \
-		--css=synopsis.css \
+		--css="synopsis.css" \
 		--metadata='title:"GF Resource Grammar Library: Synopsis"' \
 		--variable='rel-root:$(ROOT)/..' \
 		--output=$(TMP) \
 		$@
 	mv $(TMP) $@
+	sed -i.bak "s/<table>/<table class=\"table w-auto\">/" $@ && rm "$@.bak"
 
 categories.png: categories.dot
 	dot -Tpng $^ > $@

@@ -53,20 +53,20 @@ The main contents are:
 - [Chapter 1 #toc2]: categories, with links to the functions for
 constructing trees in them.
 - [Chapter 2 #toc5]: syntactic construction functions, with cross-links and
-examples. 
+examples.
 - [Chapter 3 #toc85]: morphological paradigms.
 - [Chapter 4 #toc120]: additional libraries.
-- [Chapter 5 #toc126]: how to "browse" the library by 
+- [Chapter 5 #toc126]: how to "browse" the library by
 loading the grammars into the ``gf`` command editor.
 - [Chapter 6 #toc127]: a brief example of how application grammars can
-use the resource modules. 
+use the resource modules.
 - [Detailed table of contents #toc128].
 
 
 Other relevant documents:
 - [The RGL Status Document ./status.html]: the current status of different languages
   and the authors of each grammar
-- [The Resource Grammar Library coverage map http://www.postcrashgames.com/gf_world/] 
+- [The Resource Grammar Library coverage map http://www.postcrashgames.com/gf_world/]
 - [RGL Documentation and Publications ./rgl-publications.html]: links to publications and other documentation
 - [More modules gfdoc/sources.html]: extra modules, dictionaries, and
   the internals of the resource grammar
@@ -84,16 +84,7 @@ abstract functions and their Universal Dependency labels
   [PDF http://elanguage.net/journals/index.php/lilt/article/viewFile/214/158]
 - Paper "Grammars as Software Libraries" by A. Ranta
   (In Y. Bertot, G. Huet, J-J. Lévy, and G. Plotkin (eds.),
-   //From Semantics to Computer Science//, Cambridge University Press, 
+   //From Semantics to Computer Science//, Cambridge University Press,
    Cambridge, pp. 281--308, 2009).
   The library from a software engineering point of view.
   [PDF http://www.cse.chalmers.se/~aarne/old/articles/libraries-kahn.pdf]
-
-
-Many examples in [Chapter 2 #toc5] can be seen in multiple languages by hovering the
-mouse over the example, as shown in the following screenshot:
-
-[hovering.png]
-
-
-
