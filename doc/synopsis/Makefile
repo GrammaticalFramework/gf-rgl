@@ -1,0 +1,67 @@
+# Your GF_LIB_PATH must be set in order for this build script to work
+
+.PHONY: all index clean
+
+GF_alltenses=$(GF_LIB_PATH)/alltenses
+GF=gf
+GFDOC=gfdoc
+
+ROOT=../..
+S=$(ROOT)/src
+CONFIG=$(ROOT)/languages.csv
+
+# List of languages extracted from languages.csv, with 'Synopsis' column == y
+LANGS=$(shell cat $(CONFIG) | cut -d',' -f1,10 | grep ',y' | cut -d',' -f1)
+
+# This list was constructed by observing what files MkSynopsis.hs reads
+SRC_FILES=$(S)/abstract/Common.gf $(S)/abstract/Cat.gf $(S)/api/Constructors.gf $(S)/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
+
+EXAMPLES_OUT=$(patsubst %,api-examples-%.txt,$(LANGS))
+INCLUDES=intro.txt categories-intro.txt categories-imagemap.html additional.txt browse.txt example.txt
+
+TMP=tmp.html
+TEMPLATE=template.html
+
+all: index
+
+index: index.html
+
+index.txt: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
+	runghc -i$(ROOT) MkSynopsis.hs
+
+index.html: index.txt $(TEMPLATE)
+	txt2tags --target=html --no-headers --quiet --toc --outfile=$@ --infile=$<
+	pandoc \
+		--from=html \
+		--to=html5 \
+		--standalone \
+		--template=$(TEMPLATE) \
+		--css=synopsis.css \
+		--metadata='title:"GF Resource Grammar Library: Synopsis"' \
+		--variable='rel-root:$(ROOT)/..' \
+		--output=$(TMP) \
+		$@
+	mv $(TMP) $@
+
+categories.png: categories.dot
+	dot -Tpng $^ > $@
+
+categories-imagemap.html: categories.dot
+	dot -Tcmapx $^ > $@
+
+api-examples.gfs: api-examples.txt MkExx.hs
+	runghc MkExx.hs < $< > $@
+
+# Since .gfo files aren't self-contained, the dependencies given here are
+# incomplete. But I am thinking that the Try%.gfo file will always be newer
+# than any other files it depends on, so the rule will trigger when
+# needed anyway. //TH 2018-10-22
+api-examples-%.txt: $(GF_alltenses)/Try%.gfo api-examples.gfs
+	GF_LIB_PATH=$(GF_LIB_PATH) $(GF) -retain -s $< <api-examples.gfs >$@
+
+clean:
+	rm -rf \
+		index.txt \
+		index.html \
+		api-examples.gfs \
+		$(EXAMPLES_OUT)

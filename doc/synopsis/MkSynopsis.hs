@@ -6,14 +6,17 @@ import Data.Char
 import Data.List
 import qualified Data.Map as M
 import Text.Printf
-import Config
+import Config (loadLangsFrom, LangInfo (..))
+import qualified Config
 
 type Cats = [(String,String,String)]
 type Rules = [(String,String,String)]
 
 -- the file generated
-synopsis :: FilePath
-synopsis = "synopsis.txt"
+outfile :: FilePath
+outfile = "index.txt"
+
+configFile = ".." </> ".." </> Config.configFile
 
 -- the language in which revealed examples are shown
 revealedLang :: String
@@ -22,7 +25,7 @@ revealedLang = "Eng"
 -- all languages shown (a copy of this list appears in Makefile)
 apiExxFiles :: IO [FilePath]
 apiExxFiles = do
-  langs <- loadLangsFrom (".." </> configFile)
+  langs <- loadLangsFrom configFile
   return $
     [ "api-examples-" ++ (langCode lang) ++ ".txt"
     | lang <- langs
@@ -35,7 +38,7 @@ main = do
   cs1 <- getCats commonAPI
   cs2 <- getCats catAPI
   let cs = sortCats (cs1 ++ cs2)
-  writeFile synopsis "GF Resource Grammar Library: Synopsis"
+  writeFile outfile "GF Resource Grammar Library: Synopsis"
   space
   append "%!Encoding:utf-8"
   append "%!style(html): ./revealpopup.css"
@@ -50,7 +53,7 @@ main = do
   append "%!postproc(html): '#LParadigms'  '<a name=\"RParadigms\"></a>'"
   append "%!postproc(tex): '#LParadigms' ''"
   delimit $ addToolTips cs
-  include "synopsis-intro.txt" -- TODO dynamic language list
+  include "intro.txt" -- TODO dynamic language list
   title "Categories"
   space
   link "Source 1:" commonAPI
@@ -87,13 +90,13 @@ main = do
   title "Lexical Paradigms"
   paradigmFiles >>= mapM_ (putParadigms cs)
   space
-  include "synopsis-additional.txt"
+  include "additional.txt"
   space
-  include "synopsis-browse.txt"
+  include "browse.txt"
   space
   title "An Example of Usage"
   space
-  include "synopsis-example.txt"
+  include "example.txt"
   space
   title "Table of Contents"
   space
@@ -232,7 +235,7 @@ mkCatTable cs = inChunks chsize (\rs -> header ++ map mk1 rs) cs
   mk1 (name,expl,ex) = unwords ["|", showCat cs name, "|", expl, "|", typo ex, "|"]
   typo ex = if take 1 ex == "\"" then itf (init (tail ex)) else ex
 
-srcPath = ((</>) "../src")
+srcPath = ((</>) "../../src")
 
 commonAPI = srcPath "abstract/Common.gf"
 catAPI    = srcPath "abstract/Cat.gf"
@@ -241,7 +244,7 @@ structuralAPI = srcPath "abstract/Structural.gf"
 
 paradigmFiles :: IO [(String,FilePath)]
 paradigmFiles = do
-  langs <- loadLangsFrom (".." </> configFile)
+  langs <- loadLangsFrom configFile
   return $
     [ (name, srcPath $ printf "%s/Paradigms%s.gf" (langDir lang) (langCode lang))
     | lang <- langs
@@ -263,7 +266,7 @@ splitOn f s = takeWhile (not.f) s : splitOn f rest
       "" -> []
       _:xs -> xs
 
-append s = appendFile synopsis ('\n':s)
+append s = appendFile outfile ('\n':s)
 title s = append $ "=" ++ s ++ "="
 stitle s = append $ "==" ++ s ++ "=="
 include s = append $ "%!include: " ++ s
