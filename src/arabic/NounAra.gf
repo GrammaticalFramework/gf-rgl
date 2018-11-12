@@ -186,7 +186,7 @@ lin
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
 
   AdjCN ap cn = cn ** {
-    adj = \\n,d,c => ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
+    adj = \\n,d,c => cn.adj ! n ! d ! c ++ ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
     };
 
   RelCN cn rs = cn ** {s = \\n,s,c => cn.s ! n ! s ! c ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c};
