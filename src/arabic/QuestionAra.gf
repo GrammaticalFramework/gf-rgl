@@ -42,10 +42,11 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    CompIAdv iadv = { s = \\_ => iadv.s ; a = ResAra.Sg } ;
 
    --  QCl = {s : Tense => Polarity => QForm => Str} ;
-   QuestSlash ip cl = { ----IL just guessing
+   QuestSlash ip cls = { ----IL just guessing
       s = \\t,p,qf => 
-         let o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
-          in cl.c2.s ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
+        let cl : ResAra.Cl = complClSlash cls ; -- dummy conversion to Cl
+            o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
+          in cls.c2.s ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
       } ;
 
   --IL guessed

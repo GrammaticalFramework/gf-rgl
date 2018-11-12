@@ -26,7 +26,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
                      -- case vowel retained
     Mood    = Ind | Cnj | Jus ;
     Voice   = Act | Pas ;
-    Order   = Verbal | Nominal ;
+    Order   = Verbal | Nominal
+            | VOS ; -- Relative clauses with resumptive pronouns
 
   oper
 
@@ -1181,6 +1182,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     Agr = { pgn : PerGenNum; isPron : Bool} ;
     AAgr = { g : Gender ; n : Number} ;
 
+
+
     Comp : Type = {
       s : AAgr => Case => Str
       } ;
@@ -1228,7 +1231,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s : State => Case => Str
       } ;
 
-    param VPForm =
+  param VPForm =
         VPPerf
       | VPImpf Mood
       | VPImp ;
@@ -1236,7 +1239,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
   oper
 
     VP : Type = {
-      s : PerGenNum => VPForm => Str;
+      s : PerGenNum => VPForm => Str ;
       obj : Obj;
       pred : Comp;
       isPred : Bool; --indicates if there is a predicate (xabar)
@@ -1282,8 +1285,48 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
 
-   predVSlash : Verb2 -> VPSlash = \v ->
-     predV v ** {c2 = v.c2} ;
+    predVP : NP -> VP -> Cl = \np,vp ->
+      { s =\\t,p,o =>
+          let {
+            pgn =
+              case <o,np.a.isPron> of {
+                <Verbal, False> => verbalAgr np.a.pgn;
+                _               => np.a.pgn
+              };
+            gn = pgn2gn pgn;
+            kataba  = vp.s ! pgn ! VPPerf ;
+            yaktubu = vp.s ! pgn ! VPImpf Ind ;
+            yaktuba = vp.s ! pgn ! VPImpf Cnj ;
+            yaktub  = vp.s ! pgn ! VPImpf Jus ;
+            vStr : ParamX.Tense -> Polarity -> Str =
+              \tn,pl -> case <vp.isPred,tn,pl> of {
+              <False, Pres, Pos> => yaktubu ;
+              <False, Pres, Neg> => "لَا" ++ yaktubu ;
+              <True, Pres, Pos> => "" ;      --no verb "to be" in present
+              <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
+              <_, Past, Pos> => kataba ;
+              <_, Past, Neg> => "لَمْ" ++ yaktub ;
+              <_, _Fut,  Pos> => "سَ" ++ yaktubu ;
+              <_, _Fut,  Neg> => "لَنْ" ++ yaktuba
+              };
+            pred : ParamX.Tense -> Polarity -> Str =
+              \tn,pl -> case <vp.isPred,tn,pl>  of {
+              <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
+              _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
+              };
+
+          } in
+          -- If you want prodrop, use proDrop : NP -> NP for your subject. /IL
+          case o of {
+            Verbal => vStr t p ++ case vp.obj.a.isPron of {
+                            True  => vp.obj.s ++ np.s ! Nom ; -- obj. clitic attaches directly to the verb                                   
+                            False => np.s ! Nom ++ vp.obj.s }
+                   ++ vp.s2 ++ pred t p ;
+            Nominal => np.s ! Nom ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ;
+            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ np.s ! Nom
+
+          }
+      } ;
 
     -- in verbal sentences, the verb agrees with the subject
     -- in Gender but not in number
@@ -1305,17 +1348,36 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       { s2 = vp.s2 ++ str };
 
     kaan : {s : AAgr => Case => Str} -> VP = \xabar ->
-      insertPred xabar (predV (v1hollow {f = "ك"; c = "و" ; l = "ن"} u) );
+      insertPred xabar (predV copula);
 
+    copula : Verb = v1hollow {f = "ك"; c = "و" ; l = "ن"} u ;
     -- Slash categories
+
     VPSlash : Type = VP ** {c2 : Preposition} ;
-    ClSlash : Type = Cl ** {c2 : Preposition} ;
+    ClSlash : Type = VPSlash ** {subj : NP} ;
+
+    slashV2 : Verb2 -> VPSlash = \v ->
+      predV v ** {c2 = v.c2} ;
+
+    -- Add subject string, fix agreement to the subject,
+    -- but keep the structure as VP, because later on
+    -- we might need different word orders for the ClSlash.
+    predVPSlash : NP -> VPSlash -> ClSlash = \np,v -> v ** {
+      subj = np
+      } ;
+    
+    complClSlash = overload {
+      complClSlash : NP -> ClSlash -> Cl = \obj,cls ->
+        predVP cls.subj (insertObj obj cls) ;
+      complClSlash :       ClSlash -> Cl = \cls ->  
+        predVP cls.subj (insertObj emptyNP cls) -- Empty subject and object
+      } ;
 
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;
     QCl : Type = {s : Tense => Polarity => QForm => Str} ;
 
-    -- Relative
-  param
+  -- Relative
+  param 
     RAgr = RSg Gender | RPl Gender | RDl Gender Case ;
 
   oper
@@ -1323,9 +1385,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       agr2ragr : Agr -> Case -> RAgr = \a,c ->
         let gn = pgn2gn a.pgn in case <gn.n,gn.g,a> of {
           <Sg,x> => RSg x ;
-          <Pl,x> => RPl x ;
           <Dl,x> => RDl x c ;
-          _      => Predef.error "agr2ragr"} ;
+          <Pl,x> => RPl x } ;
       agr2ragr : Number -> Case -> Gender -> RAgr = \n,c,g ->
         case n of {
           Sg => RSg g ;

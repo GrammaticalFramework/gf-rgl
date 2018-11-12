@@ -11,8 +11,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
     --SlashV2V : V2V -> VP -> VPSlash ;  -- beg (her) to go
     --SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
 
-    SlashV2a v = predVSlash v ;
-    Slash3V3 v np = insertObj np (predVSlash v) ** {c2 = v.c3};
+    SlashV2a = slashV2 ;
+    Slash3V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3};
 
     ComplSlash vp np = insertObj np vp ;
 
@@ -37,6 +37,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
 --      insertObj (\\_ => v.c2 ++ np.s ! Acc ++ ap.s ! np.a) (predV v) ;
 --
     UseComp xabar = kaan xabar ;
+
+    UseCopula = predV copula ;
 
     AdvVP vp adv = insertStr adv.s vp ;
 

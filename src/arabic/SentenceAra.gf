@@ -26,58 +26,7 @@ concrete SentenceAra of Sentence = CatAra ** open
           }
       };
 -}
-    PredVP np vp =
-      { s =\\t,p,o =>
-          let {
-            pgn =
-              case <o,np.a.isPron> of {
-                <Verbal, False> => verbalAgr np.a.pgn;
-                _               => np.a.pgn
-              };
-            gn = pgn2gn pgn;
-            kataba  = vp.s ! pgn ! VPPerf ;
-            yaktubu = vp.s ! pgn ! VPImpf Ind ;
-            yaktuba = vp.s ! pgn ! VPImpf Cnj ;
-            yaktub  = vp.s ! pgn ! VPImpf Jus ;
-            vStr : ParamX.Tense -> Polarity -> Str =
-              \tn,pl -> case<vp.isPred,tn,pl> of {
-              <False, Pres, Pos> => yaktubu ;
-              <False, Pres, Neg> => "لَا" ++ yaktubu ;
-              <True, Pres, Pos> => "" ;      --no verb "to be" in present
-              <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
-              <_, Past, Pos> => kataba ;
-              <_, Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, _Fut,  Pos> => "سَ" ++ yaktubu ;
-              <_, _Fut,  Neg> => "لَنْ" ++ yaktuba
-              };
-            pred : ParamX.Tense -> Polarity -> Str =
-              \tn,pl -> case <vp.isPred,tn,pl>  of {
-              <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
-              _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
-              };
-
-          } in
-          case o of {
-            Verbal =>
-              --case <False, np.a.isPron> of { ---- AR workaround 18/12/2008
-          case <vp.obj.a.isPron, np.a.isPron> of {
-        {- IL: I don't think we should do prodrop here. vStr drops the copula in present tense,
-               so there's hardly anything left for a predicative clause: e.g.
-                  PredVP (UsePron i_Pron) (UseComp (CompCN (UseN car_N))) "I am a car"
-               would be linearised just as "car", if we have both prodrop and copula drop.
-               Leaving it up to someone who knows Arabic to decide what is better.
-        Original here:
-                <True,True>  => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p) ;
-                -- ya2kuluhu
-                <False,True> => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p); -}
-                -- ya2kuluhu al-waladu, yakuluhu al-2awlaadu
-                <False> => (vStr t p) ++ np.s ! Nom ++ vp.obj.s ++ vp.s2 ++ (pred t p);
-                <True>  => (vStr t p) ++ vp.obj.s ++ np.s ! Nom ++ vp.s2 ++ (pred t p)
-              };
-            Nominal =>
-              np.s ! Nom ++ (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
-          }
-      };
+    PredVP = predVP ;
 
 --    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
@@ -100,9 +49,13 @@ concrete SentenceAra of Sentence = CatAra ** open
 
 -- ClSlash
 
-    SlashVP np vps = PredVP np vps ** { c2 = vps.c2 } ;
+    SlashVP = predVPSlash ;
     AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
-    SlashPrep cl prep = cl ** {c2 = prep} ;
+
+-- SlashPrep : Cl -> Prep -> ClSlash
+-- Will be awkward to implement in the way ClSlash is now.
+-- ClSlash is implemented the way it is now for a good reason:
+-- we need to support different word orders.
 
 --  SlashVS np vs sslash = TODO
 
@@ -111,9 +64,9 @@ concrete SentenceAra of Sentence = CatAra ** open
 --    EmbedQS qs = {s = qs.s ! QIndir} ;
 --    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
 --
-    UseSlash,
-    UseCl = \t,p,cl ->
-      {s = t.s ++ p.s ++ 
+
+    UseCl t p cl =
+      {s = t.s ++ p.s ++
          case <t.t,t.a> of { --- IL guessed tenses
              <(Pres|Cond),Simul>  => cl.s ! Pres ! p.p ! Nominal ;
              <Fut        ,_    >  => cl.s ! Fut ! p.p ! Nominal ;
@@ -122,7 +75,7 @@ concrete SentenceAra of Sentence = CatAra ** open
       };
 
     UseQCl t p qcl =
-      {s = \\q => t.s ++ p.s ++ 
+      {s = \\q => t.s ++ p.s ++
          case <t.t,t.a> of { --- IL guessed tenses
            <(Pres|Cond),Simul>  => qcl.s ! Pres ! p.p ! q ;
            <Fut        ,_    >  => qcl.s ! Fut ! p.p ! q ;
@@ -132,4 +85,5 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
+    UseSlash t p cl = UseCl t p (complClSlash cl) ;
 }
