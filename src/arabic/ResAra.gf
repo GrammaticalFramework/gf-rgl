@@ -1201,6 +1201,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       a : Agr
       } ;
 
+    proDrop : NP -> NP = \np -> 
+      case np.a.isPron of {
+        True => np ** {s = \\_ => []};
+        _    => np
+      } ;
+
+    emptyNP : NP = {s = \\_ => [] ; a = {pgn = Per3 Masc Sg ; isPron = False}} ;
+
     IP : Type = {
       s : Bool -- different forms for "what is this" and "what do you do"
        => State => Case   -- because of PrepIP: e.g. "in which" chooses definite accusative

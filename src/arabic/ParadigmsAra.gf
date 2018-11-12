@@ -536,6 +536,8 @@ resource ParadigmsAra = open
       lock_NP = <>
     };
 
+  proDrop : NP -> NP = ResAra.proDrop ; -- Force a NP to lose its string, only contributing with its agreement.
+
   -- e.g. al-jamii3, 2a7ad
   regNP : Str -> Number -> NP = \word,n ->
     { s = \\c => fixShd word (dec1sg ! Def ! c) ;
