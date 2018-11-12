@@ -553,6 +553,12 @@ v1defective_i : Root3 -> Vowel -> Verb = \bqy,vowImpf -> -- IL (conjugation 1d4)
                          x => vforms_a ! x } ;
    in verbDef vforms_i vowImpf ;
 
+v1doubleweak : Root3 -> Verb = \r'y ->
+  let ry = r'y ** {c = ""} ;
+      vforms : DefForms = \\x => rmSukun (v1DefForms_perfA ry a ! x) ; -- only remove the first sukun
+   in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
+
+
 patDef1 : Vowel => Pattern =
   table {
     u => fcu ;
@@ -641,7 +647,6 @@ v4doubleweak : Root3 -> Verb = \r'y ->
   let ry = r'y ** {c = ""} ;
       vforms : DefForms = \\x => rmSukun (v4DefForms ry ! x) ; -- only remove the first sukun
    in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
-
 
 v5sound : Root3 -> Verb =
   \nfs ->
