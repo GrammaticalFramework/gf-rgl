@@ -374,15 +374,15 @@ resource ParadigmsAra = open
 
   v1' : Str ->  Vowel -> Vowel -> Verb =
     \rootStr,vPerf,vImpf ->
-    let { root = mkRoot3 rootStr } in 
-    case <root.l, root.c> of {
-      <"ّ",    _> => v1geminate rootStr vPerf vImpf ;
-      <"و"|"ي",_> => case vPerf of {
-                       i => v1defective_i root vImpf ;
-                       _ => v1defective_a root vImpf } ;
-      <_,"و"|"ي"> => v1hollow root vImpf ;
-      _           => v1sound root vPerf vImpf
-    };
+    let root = mkRoot3 rootStr
+     in case rootStr of {
+          _          + "ّ"   => v1geminate rootStr vPerf vImpf ;
+          ? + #hamza + #weak => v1doubleweak root ;
+          ? + ?      + #weak => case vPerf of {
+                                  i => v1defective_i root vImpf ;
+                                  _ => v1defective_a root vImpf } ;
+          ? + #weak + ?      => v1hollow root vImpf ;
+          _                  => v1sound root vPerf vImpf } ;
 
   v2 =
     \rootStr ->
@@ -535,6 +535,8 @@ resource ParadigmsAra = open
       a = {pgn = pgn; isPron = True };
       lock_NP = <>
     };
+
+  proDrop : NP -> NP = ResAra.proDrop ; -- Force a NP to lose its string, only contributing with its agreement.
 
   -- e.g. al-jamii3, 2a7ad
   regNP : Str -> Number -> NP = \word,n ->
