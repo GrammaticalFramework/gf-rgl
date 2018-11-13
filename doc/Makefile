@@ -16,7 +16,7 @@ synopsis: synopsis.html
 S=../src
 
 # List of languages extracted from languages.csv, with 'Synopsis' column == y
-LANGS=$(shell cat ../languages.csv | cut -d',' -f1,10 | grep ',y' | cut -d',' -f1)
+LANGS=$(shell cat ../languages.csv | cut -d',' -f1,11 | grep ',y' | cut -d',' -f1)
 
 # This list was constructed by observing what files MkSynopsis.hs reads
 SRC_FILES=$(S)/abstract/Common.gf $(S)/abstract/Cat.gf $(S)/api/Constructors.gf $(S)/abstract/Structural.gf $(patsubst %,$S/*/Paradigms%.gf,$(LANGS))
