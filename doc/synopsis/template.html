@@ -28,6 +28,9 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
+$for(include-before)$
+$include-before$
+$endfor$
 <div class="container-fluid my-4">
 <div class="row">
 
@@ -81,7 +84,7 @@ $endif$
         <h6 class="text-muted">Documentation</h6>
         <ul class="list-unstyled">
           <li><a href="$rel-root$/doc/gf-shell-reference.html">GF Shell Reference</a></li>
-          <li><a href="$rel-root$/lib/doc/synopsis.html">RGL Library Synopsis</a></li>
+          <li><a href="$rel-root$/lib/doc/synopsis/index.html">RGL Library Synopsis</a></li>
           <li><a href="$rel-root$/gf-book">The GF Book</a></li>
           <li><a href="$rel-root$/doc/gf-refman.html">Reference Manual</a></li>
           <li><a href="$rel-root$/doc/tutorial/gf-tutorial.html">Tutorial</a></li>
@@ -109,9 +112,9 @@ $endif$
     <div>
   <div>
 </footer>
-
-<script src="quicklinks.js"></script>
-
+$for(include-after)$
+$include-after$
+$endfor$
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

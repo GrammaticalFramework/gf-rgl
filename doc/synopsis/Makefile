@@ -29,6 +29,7 @@ index: index.html
 index.txt: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
 	runghc -i$(ROOT) MkSynopsis.hs
 
+TITLE=$(shell head -n 1 index.txt)
 index.html: index.txt $(TEMPLATE)
 	txt2tags --target=html --no-headers --quiet --toc --outfile=$@ --infile=$<
 	pandoc \
@@ -36,9 +37,11 @@ index.html: index.txt $(TEMPLATE)
 		--to=html5 \
 		--standalone \
 		--template=$(TEMPLATE) \
-		--css="synopsis.css" \
-		--metadata='title:"GF Resource Grammar Library: Synopsis"' \
+		--metadata='title:"$(TITLE)"' \
+		--variable='lang:en' \
 		--variable='rel-root:$(ROOT)/..' \
+		--css="synopsis.css" \
+		--include-after-body="quicklinks.html" \
 		--output=$(TMP) \
 		$@
 	mv $(TMP) $@
