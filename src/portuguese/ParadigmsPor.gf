@@ -203,9 +203,9 @@ oper
   regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ;
                      lock_A = <>} ;
 
-  mk2A : (espanhol,espanhola : Str) -> A ;
-  mk2A a b = compADeg {s = \\_ => (mkAdj2N (mkN a) (mkN b) (b + "mente")).s ; isPre = False ;
-                       lock_A = <>} ;
+  mk2A : (único,unicamente : Str) -> A ;
+  mk2A adj adv = compADeg {s = \\_ => (mkAdj2 adj adv).s ; isPre = False ;
+                           lock_A = <>} ;
 
   mk5A : (preto,preta,pretos,pretas,pretamente : Str) -> A ;
   mk5A a b c d e = compADeg {s = \\_ => (mkAdj a b c d e).s ;
