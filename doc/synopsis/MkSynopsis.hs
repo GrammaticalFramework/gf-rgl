@@ -1,6 +1,5 @@
 import MkExxTable
 import System.Process(system)
-import System.Environment(getArgs)
 import System.FilePath((</>),(<.>))
 import Data.Char
 import Data.List
@@ -24,19 +23,10 @@ configFile = ".." </> ".." </> Config.configFile
 revealedLang :: String
 revealedLang = "Eng"
 
--- all languages shown (a copy of this list appears in Makefile)
-apiExxFiles :: IO [FilePath]
-apiExxFiles = do
-  langs <- loadLangsFrom configFile
-  return $
-    [ "api-examples-" ++ (langCode lang) ++ ".txt"
-    | lang <- langs
-    , langSynopsis lang
-    ]
-
 -- | This function puts together a txt2tags file which is then converted to HTML by the Makefile
 main :: IO ()
 main = do
+  langs <- loadLangsFrom configFile >>= return . filter langSynopsis
   cs1 <- getCats commonAPI
   cs2 <- getCats catAPI
   let cs = sortCats (cs1 ++ cs2)
@@ -50,8 +40,10 @@ main = do
   append "%!postproc(html): '#EUL'  '</ul>'"
   append "%!postproc(html): '#LI'  '<li>'"
   append "%!postproc(html): '#LParadigms'  '<a name=\"RParadigms\"></a>'"
+  append ("%!postproc(html): '#LANGUAGE_COUNT'  '" ++ show (length langs) ++ "'")
+  append ("%!postproc(html): '#LANGUAGES'  '" ++ intercalate ", " (map langName langs) ++ ".'")
   delimit $ addToolTips cs
-  include "intro.txt" -- TODO dynamic language list
+  include "intro.txt"
   space
   title "Categories"
   space
@@ -72,7 +64,7 @@ main = do
   space
   link "Source 2:" structuralAPI
   space
-  apiExx <- apiExxFiles >>= getApiExx
+  apiExx <- getApiExx (apiExxFiles langs)
   rs <- getRules apiExx syntaxAPI
   rs2 <- getRules apiExx structuralAPI
   let rss = rs ++ rs2
@@ -87,7 +79,7 @@ main = do
   space
   title "Lexical Paradigms"
   append "#LParadigms"
-  paradigmFiles >>= mapM_ (putParadigms cs)
+  mapM_ (putParadigms cs) (paradigmFiles langs)
   space
   include "additional.txt"
   space
@@ -242,20 +234,18 @@ catAPI    = srcPath "abstract/Cat.gf"
 syntaxAPI = srcPath "api/Constructors.gf"
 structuralAPI = srcPath "abstract/Structural.gf"
 
-paradigmFiles :: IO [(String,FilePath)]
-paradigmFiles = do
-  langs <- loadLangsFrom configFile
-  return $
-    [ (name, srcPath $ printf "%s/Paradigms%s.gf" (langDir lang) (langCode lang))
-    | lang <- langs
-    , langSynopsis lang
-    , let name = formatName (langDir lang)
-    ]
+-- all languages shown (a copy of this list appears in Makefile)
+apiExxFiles :: [LangInfo] -> [FilePath]
+apiExxFiles langs =
+  [ "api-examples-" ++ (langCode lang) ++ ".txt"
+  | lang <- langs
+  ]
 
--- | Format language name from directory name
--- "ancient_greek -> Ancient Greek"
-formatName :: String -> String
-formatName = unwords . map (\(s:ss) -> toUpper s : ss) . splitOn (=='_')
+paradigmFiles :: [LangInfo] -> [(String,FilePath)]
+paradigmFiles langs =
+  [ (langName lang, srcPath $ printf "%s/Paradigms%s.gf" (langDir lang) (langCode lang))
+  | lang <- langs
+  ]
 
 -- | Split a string at given character, similar to words
 splitOn :: (Char -> Bool) -> String -> [String]
