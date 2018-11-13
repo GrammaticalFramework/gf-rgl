@@ -106,9 +106,10 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     --types of open classes:
 
     NTable = Number => State => Case => Str;
+    emptyNTable : NTable = \\n,s,c => [] ;
 
     Preposition : Type = {s : Str ; c : Case} ;
-    Noun : Type = {s : NTable ; g : Gender; h : Species} ;
+    Noun : Type = {s,s2 : NTable ; g : Gender; h : Species} ;
     Noun2 : Type = Noun ** {c2 : Preposition} ;
     Noun3 : Type = Noun2 ** {c3 : Preposition} ;
 
@@ -129,8 +130,13 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
 
     CN : Type = Noun ** {adj : NTable ; np : Case => Str};
+
+    useN : Noun -> CN = \n -> n ** {adj = \\_,_,_ => []; np = \\_ => []} ;
+
     uttCN : CN -> (Gender => Str) ;
-    uttCN cn = \\_ => cn.s ! Sg ! Indef ! Bare ;
+    uttCN cn = \\_ => cn.s   ! Sg ! Indef ! Bare ++ 
+                      cn.s2  ! Sg ! Indef ! Bare ++ 
+                      cn.adj  ! Sg ! Indef ! Bare ;
 
     NumOrdCard : Type = {
       s : Gender => State => Case => Str ;
@@ -1135,12 +1141,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     mkIP = overload { 
        mkIP : Str -> Number -> IP = \maa,n -> {
-          s = \\_p,_s,_c => maa ; 
+          s = \\_p,_g,_s,_c => maa ; 
           a = { pgn = agrP3 NoHum Masc n ; isPron = False }
           } ;
       mkIP : (_,_ : Str) -> Number -> IP = \maa,maadhaa,n -> {
-          s = table { True  => \\_s,_c => maa ; 
-                      False => \\_s,_c => maadhaa } ; 
+          s = table { True  => \\_g,_s,_c => maa ; 
+                      False => \\_g,_s,_c => maadhaa } ; 
           a = { pgn = agrP3 NoHum Masc n ; isPron = False }
           } 
       } ;
@@ -1206,7 +1212,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     NP : Type = {
       s : Case => Str ;
-      a : Agr
+      a : Agr ;
+      empty : Str -- to prevent ambiguities with prodrop
       } ;
 
     proDrop : NP -> NP = \np -> 
@@ -1215,17 +1222,22 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _    => np
       } ;
 
-    emptyNP : NP = {s = \\_ => [] ; a = {pgn = Per3 Masc Sg ; isPron = False}} ;
+    emptyNP : NP = {
+      s = \\_ => [] ; 
+      a = {pgn = Per3 Masc Sg ; isPron = False} ;
+      empty = []} ;
 
     IP : Type = {
       s : Bool -- different forms for "what is this" and "what do you do"
-       => State => Case   -- because of PrepIP: e.g. "in which" chooses definite accusative
+       => Gender -- because an IP can be made into an IComp
+       => State => Case -- because of PrepIP: e.g. "in which" chooses definite accusative
        => Str ;
-      a : Agr -- can be both subject and object of a QCl, needs full agr. info
+      a : Agr -- can be both subject and object of a QCl, needs full agr. info (stupid given that s depends on gender but meh)
       } ;
 
-    ip2np : IP -> Bool -> NP = \ip,isPred -> ip ** { s = ip.s ! isPred ! Def } ;
-
+    ip2np : IP -> Bool -> NP = \ip,isPred -> ip ** { s = ip.s ! isPred ! Masc ! Def ; empty = [] } ;
+    np2ip : NP -> IP = \np -> np ** {s = \\_,_,_ => np.s} ;
+    
     IDet : Type = {
       s : Gender -- IdetCN needs to choose the gender of the CN
         => State => Case => Str ; 
@@ -1289,7 +1301,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         }
       };
 
-
     predVP : NP -> VP -> Cl = \np,vp ->
       { s =\\t,p,o =>
           let {
@@ -1311,24 +1322,29 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
               <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
               <_, Past, Pos> => kataba ;
               <_, Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, _Fut,  Pos> => "سَ" ++ yaktubu ;
-              <_, _Fut,  Neg> => "لَنْ" ++ yaktuba
+              <_, Cond, _  > => yaktuba ;
+              <_, Fut,  Pos> => "سَ" ++ yaktubu ;
+              <_, Fut,  Neg> => "لَنْ" ++ yaktuba
               };
             pred : ParamX.Tense -> Polarity -> Str =
               \tn,pl -> case <vp.isPred,tn,pl>  of {
               <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
               _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
               };
+            subj = np.empty 
+                ++ case <vp.isPred,np.a.isPron> of {
+                          <False,True> => [] ; -- prodrop if it's not predicative
+                          _            => np.s ! Nom
+                   } ;
 
           } in
-          -- If you want prodrop, use proDrop : NP -> NP for your subject. /IL
           case o of {
             Verbal => vStr t p ++ case vp.obj.a.isPron of {
-                            True  => vp.obj.s ++ np.s ! Nom ; -- obj. clitic attaches directly to the verb                                   
-                            False => np.s ! Nom ++ vp.obj.s }
+                            True  => vp.obj.s ++ subj ; -- obj. clitic attaches directly to the verb                                   
+                            False => subj ++ vp.obj.s }
                    ++ vp.s2 ++ pred t p ;
-            Nominal => np.s ! Nom ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ;
-            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ np.s ! Nom
+            Nominal => subj ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ;
+            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ subj
 
           }
       } ;

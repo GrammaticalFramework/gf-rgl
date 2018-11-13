@@ -26,7 +26,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
       vp ** {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
                       ++ vv.c2.s  -- أَنْ
-                      ++ vp.s ! pgn ! VPImpf Cnj
+                      ++ vp.s ! pgn ! VPImpf Cnj ;
+        isPred = False
       } ;
 
 --    ComplVS v s  = insertObj (\\_ => conjThat ++ s.s) (predV v) ;

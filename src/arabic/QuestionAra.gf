@@ -29,14 +29,15 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    -- : IComp -> NP -> QCl
    QuestIComp ic np =
      let vp = kaan (CompNP np) ;
-         ip : ResAra.IP = np ** {
-            s = \\_,_,_ => ic.s ! pgn2gn np.a.pgn } ;
+         ip : ResAra.IP = np ** { -- NP's s is already present in VP, we only want its agr
+            s = \\_,_,_,_ => ic.s ! pgn2gn np.a.pgn } ;
       in QuestVP ip vp ;
 
    -- : IP   -> IComp ;
    CompIP ip = ip ** { 
-      s = \\_ => ip.s ! True -- True=IP will be a subject of predicative sentence
-                      ! Def ! Nom ; -- IP will be a subject
+      s = \\gn => ip.s ! True  -- True=IP will be a subject of predicative sentence
+                       ! gn.g  -- IComp agrees in gender with eventual head
+                       ! Def ! Nom ; -- IP will be a subject
       } ;
 
    CompIAdv iadv = { s = \\_ => iadv.s ; a = ResAra.Sg } ;
@@ -46,28 +47,29 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
       s = \\t,p,qf => 
         let cl : ResAra.Cl = complClSlash cls ; -- dummy conversion to Cl
             o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
-          in cls.c2.s ++ ip.s ! False ! Def ! Nom ++ cl.s ! t ! p ! o
+          in cls.c2.s ++ ip.s ! False ! Masc ! Def ! Nom ++ cl.s ! t ! p ! o
       } ;
 
   --IL guessed
   PrepIP p ip = {
     s = p.s ++ ip.s ! False -- not used as a subject of predicative sentence
+                    ! Masc ----
                     ! Def ! Gen
     } ;
 
   AdvIP ip adv = ip ** {
-    s = \\g,s,c => ip.s ! g ! s ! c ++ adv.s ;
+    s = \\isPred,g,s,c => ip.s ! isPred ! g ! s ! c ++ adv.s ;
     } ;
 
    -- : IDet -> IP
    IdetIP idet = idet ** { 
-     s = \\isPred => idet.s ! Masc ;
+     s = \\isPred => idet.s ;
      a = { pgn = agrP3 NoHum Masc idet.n ; isPron = False }
      } ;
 
    -- : IDet -> CN -> IP
    IdetCN idet cn = {
-     s = \\isPred,s,c 
+     s = \\isPred,g,s,c 
           => idet.s ! cn.g ! s ! c ++
              cn.s ! idet.n ! Indef ! Gen ; --idaafa
      a = { pgn = agrP3 NoHum cn.g idet.n ; isPron = False }

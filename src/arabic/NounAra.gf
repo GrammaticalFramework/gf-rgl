@@ -13,8 +13,8 @@ lin
       cn.s ! number 
            ! nounState det.d number 
            ! nounCase c det.n det.d ;
-    adj : Case -> Str = \c ->
-      cn.adj ! number
+    adj : NTable -> Case -> Str = \ntable,c ->
+      ntable ! number
              ! (definite ! det.d) -- Indef remains Indef, rest become Def
              ! c
     } in {
@@ -22,30 +22,34 @@ lin
         case cnB4det det.isPron det.isNum det.n det.d of {
           False => determiner c 
                 ++ noun c 
-                ++ adj c
+                ++ adj cn.s2 c
+                ++ adj cn.adj c
                 ++ cn.np ! c ; 
           True => noun (cas c) -- deal with possessive suffix
-               ++ determiner c 
-               ++ adj c 
+               ++ determiner c
+               ++ adj cn.s2 c
+               ++ adj cn.adj c 
                ++ cn.np ! c
         };  
       a = { pgn = agrP3 cn.h cn.g number;
-            isPron = False }
+            isPron = False } ;
+      empty = []
     };
 
   UsePN pn = {
     s =  pn.s;
-    a = {pgn = (Per3 pn.g Sg); isPron = False }
+    a = {pgn = Per3 pn.g Sg ; isPron = False} ;
+    empty = []
     };
 
   UsePron p = p ;
 
-  PredetNP pred np = {
+  PredetNP pred np = np ** {
     s = \\c => case pred.isDecl of {
       True => pred.s!c ++ np.s ! Gen ; -- akvaru l-awlAdi
       False => pred.s!c ++ np.s ! c
-      };
-    a = np.a
+      } ;
+    a = np.a ** {isPron=False}
     } ;
 
 {-
@@ -167,21 +171,18 @@ lin
 
   MassNP cn = ---- AR
     {s = \\c => cn.s ! Sg ! Indef ! c ++ cn.np ! c ++ cn.adj ! Sg ! Indef ! c ; 
-     a = {pgn = Per3 cn.g Sg ; isPron = False}} ;
+     a = {pgn = Per3 cn.g Sg ; isPron = False} ;
+     empty = []} ;
 
 --  MassDet = {s = \\_,_,_,_ => [] ; d = Indef;
 --             isNum = False; isPron = False} ;
 
   UseN,
-  UseN2 = \n -> n ** {
-    adj = \\_,_,_ => [];
-    np  = \\_     => []};
+  UseN2 = useN ;
   Use2N3 n3 = n3 ;
   Use3N3 n3 = n3 ** {c2 = n3.c3} ;
 
-  ComplN2 n2 np = UseN n2 **  --- IL
-    {s = \\n,s,c => n2.s ! n ! s ! c ++ n2.c2.s ++ np.s ! n2.c2.c} ;
-
+  ComplN2 n2 np = UseN n2 ** {np=np.s} ;
 
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
 
