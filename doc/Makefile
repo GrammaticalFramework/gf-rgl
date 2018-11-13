@@ -1,4 +1,4 @@
-.PHONY: all status synopsis abstract
+.PHONY: all status synopsis abstract sources
 
 GFDOC=gfdoc
 S=../src
@@ -9,6 +9,9 @@ status: status.html
 
 synopsis:
 	make -C synopsis
+
+sources:
+	make -C gfdoc sources.html
 
 status.html:
 	txt2tags -thtml status.txt

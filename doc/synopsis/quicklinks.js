@@ -115,4 +115,10 @@ function quicklinks () {
   )
 }
 
-document.getElementById('quicklinks').appendChild(quicklinks())
+appendChildren(
+  document.getElementById('quicklinks'),
+  [
+    node('h5', '', 'Quick links'),
+    quicklinks()
+  ]
+)
