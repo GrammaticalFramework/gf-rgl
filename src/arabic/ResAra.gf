@@ -106,9 +106,10 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     --types of open classes:
 
     NTable = Number => State => Case => Str;
+    emptyNTable : NTable = \\n,s,c => [] ;
 
     Preposition : Type = {s : Str ; c : Case} ;
-    Noun : Type = {s : NTable ; g : Gender; h : Species} ;
+    Noun : Type = {s,s2 : NTable ; g : Gender; h : Species} ;
     Noun2 : Type = Noun ** {c2 : Preposition} ;
     Noun3 : Type = Noun2 ** {c3 : Preposition} ;
 
@@ -129,8 +130,13 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
 
     CN : Type = Noun ** {adj : NTable ; np : Case => Str};
+
+    useN : Noun -> CN = \n -> n ** {adj = \\_,_,_ => []; np = \\_ => []} ;
+
     uttCN : CN -> (Gender => Str) ;
-    uttCN cn = \\_ => cn.s ! Sg ! Indef ! Bare ;
+    uttCN cn = \\_ => cn.s   ! Sg ! Indef ! Bare ++ 
+                      cn.s2  ! Sg ! Indef ! Bare ++ 
+                      cn.adj  ! Sg ! Indef ! Bare ;
 
     NumOrdCard : Type = {
       s : Gender => State => Case => Str ;
@@ -1206,7 +1212,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     NP : Type = {
       s : Case => Str ;
-      a : Agr
+      a : Agr ;
+      empty : Str -- to prevent ambiguities with prodrop
       } ;
 
     proDrop : NP -> NP = \np -> 
@@ -1215,7 +1222,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _    => np
       } ;
 
-    emptyNP : NP = {s = \\_ => [] ; a = {pgn = Per3 Masc Sg ; isPron = False}} ;
+    emptyNP : NP = {
+      s = \\_ => [] ; 
+      a = {pgn = Per3 Masc Sg ; isPron = False} ;
+      empty = []} ;
 
     IP : Type = {
       s : Bool -- different forms for "what is this" and "what do you do"

@@ -93,5 +93,6 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 linref
 
   CN = \cn -> uttCN cn ! Masc ;
+  N = \n -> uttCN (useN n) ! Masc ;
 
 }

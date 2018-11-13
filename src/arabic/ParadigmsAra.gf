@@ -70,7 +70,8 @@ resource ParadigmsAra = open
    mkN : (sg,pl : Str) -> Gender -> Species -> N ;
    mkN : NTable -> Gender -> Species -> N ;  -- loan words, irregular
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N ; -- broken plural
-   mkN : N -> (attr : Str) -> N ; -- Compound nouns
+   mkN : N -> (attr : Str) -> N ; -- Compound noun with invariant attribute
+   mkN : N -> N -> N ; -- Compound noun where both parts inflect
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
    } ;
@@ -97,6 +98,8 @@ resource ParadigmsAra = open
   mkPN = overload {
     mkPN : Str -> PN        -- Fem Hum if ends with ة, otherwise Masc Hum
      = smartPN ;
+    mkPN : N -> PN 
+     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! Bare}) ; -- no idea /IL
     mkPN : Str -> Gender -> Species -> PN
      = mkFullPN ;
     } ;
@@ -343,7 +346,12 @@ resource ParadigmsAra = open
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
      = brkN ;
    mkN : N -> (attr : Str) -> N                                       -- Compound nouns
-     = \n,attr -> n ** { s = \\num,s,c => n.s ! num ! s ! c ++ attr } ; --- IL (TODO: all kinds of compounds)
+     = \n,attr -> n ** {s2 = \\n,s,c => attr} ;
+   mkN : N -> N -> N                                                  -- Compound nouns
+     = \n1,n2 -> n1 ** {s2 =
+      \\n,s,c => n1.s2 ! n ! s ! c -- card
+              ++ n2.s  ! n ! s ! c -- type
+              ++ n2.s2 ! n ! s ! c} ; -- blood
    } ;
 
   mkV = overload {
@@ -464,6 +472,7 @@ resource ParadigmsAra = open
 
   mkFullN nsc gen spec =
     { s = nsc; --NTable
+      s2 = emptyNTable;
       g = gen;
       h = spec;
       lock_N = <>
@@ -476,14 +485,12 @@ resource ParadigmsAra = open
     } in mkFullN (reg kitAb kutub) gen spec;
 
   brkN root sg pl gen spec =
-    let { raw = brkN' root sg pl gen spec} in
+    let { raw = brkN' root sg pl gen spec} in raw **
     { s = \\n,d,c =>
         case root of {
           _ + #hamza + _ => rectifyHmz(raw.s ! n ! d ! c);
           _ => raw.s ! n ! d ! c
-        };
-      g = gen;
-      h = spec ; lock_N = <>
+        }
     };
 
   sdfN =
@@ -525,31 +532,31 @@ resource ParadigmsAra = open
       lin N3 (n ** {c2 = mkPreposition p ; c3 = mkPreposition q}) ;
   } ;
 
-  mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
-    { s =
+  mkPron : (_,_,_ : Str) -> PerGenNum -> Pron = \ana,nI,I,pgn ->
+    lin Pron { s =
         table {
           Acc => BIND ++ nI; -- object suffix
           Gen => BIND ++ I;  -- possessive suffix
           _   => ana
         };
       a = {pgn = pgn; isPron = True };
-      lock_NP = <>
+      empty = []
     };
 
   proDrop : NP -> NP = ResAra.proDrop ; -- Force a NP to lose its string, only contributing with its agreement.
 
   -- e.g. al-jamii3, 2a7ad
-  regNP : Str -> Number -> NP = \word,n ->
+  regNP : Str -> Number -> NP = \word,n -> lin NP
     { s = \\c => fixShd word (dec1sg ! Def ! c) ;
       a = {pgn = Per3 Masc n; isPron = False };
-      lock_NP = <>
+      empty = []
     };
 
   -- e.g. hadha, dhaalika
-  indeclNP : Str -> Number -> NP = \word,n ->
+  indeclNP : Str -> Number -> NP = \word,n -> lin NP
     { s = \\c => word ;
       a = {pgn = Per3 Masc n; isPron = False };
-      lock_NP = <>
+      empty = []
     };
 
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
