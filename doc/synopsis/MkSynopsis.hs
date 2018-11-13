@@ -49,7 +49,6 @@ main = do
   append "%!postproc(html): '#LI'  '<li>'"
   append "%!postproc(html): '(SRC=\"categories.png\")'  '\\1 USEMAP=\"#categories\"'"
   append "%!postproc(html): '#LParadigms'  '<a name=\"RParadigms\"></a>'"
-  append "%!postproc(tex): '#LParadigms' ''"
   delimit $ addToolTips cs
   include "intro.txt" -- TODO dynamic language list
   space
@@ -86,6 +85,7 @@ main = do
 --  delimit rs
   space
   title "Lexical Paradigms"
+  append "#LParadigms"
   paradigmFiles >>= mapM_ (putParadigms cs)
   space
   include "additional.txt"
@@ -154,7 +154,6 @@ getRules aexx file = do
 putParadigms :: Cats -> (String, FilePath) -> IO ()
 putParadigms cs (lang,file) = do
   stitle ("Paradigms for " ++ lang)
-  append "#LParadigms"
   space
   link "source" file
   space
