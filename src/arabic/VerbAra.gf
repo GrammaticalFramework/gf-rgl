@@ -11,8 +11,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
     --SlashV2V : V2V -> VP -> VPSlash ;  -- beg (her) to go
     --SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
 
-    SlashV2a v = predVSlash v ;
-    Slash3V3 v np = insertObj np (predVSlash v) ** {c2 = v.c3};
+    SlashV2a = slashV2 ;
+    Slash3V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3};
 
     ComplSlash vp np = insertObj np vp ;
 
@@ -26,7 +26,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
       vp ** {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
                       ++ vv.c2.s  -- أَنْ
-                      ++ vp.s ! pgn ! VPImpf Cnj
+                      ++ vp.s ! pgn ! VPImpf Cnj ;
+        isPred = False
       } ;
 
 --    ComplVS v s  = insertObj (\\_ => conjThat ++ s.s) (predV v) ;
@@ -38,13 +39,15 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra in {
 --
     UseComp xabar = kaan xabar ;
 
+    UseCopula = predV copula ;
+
     AdvVP vp adv = insertStr adv.s vp ;
 
 --    AdVVP adv vp = insertAdV adv.s vp ;
 --
 --    ReflV2 v = insertObj (\\a => v.c2 ++ reflPron ! a) (predV v) ;
 --
-    PassV2 v = kaan {s = \\_,_ => v.s ! VPPart} ; ---- IL guessed
+    PassV2 = passPredV ;
 --
 --    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no
 

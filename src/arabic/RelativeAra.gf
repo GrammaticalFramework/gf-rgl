@@ -13,19 +13,20 @@ concrete RelativeAra of Relative = CatAra **
      s = \\t,p,agr,c => 
        let 
          npS : Case => Str = \\_ => rp.s ! agr2ragr agr c ;
-         np = {s = npS ; a = agr} ;
+         np = emptyNP ** {s = npS ; a = agr} ;
          cl = Se.PredVP np vp ;
        in
        cl.s ! t ! p ! Nominal
      } ;
 
     -- : RP -> ClSlash -> RCl ; -- whom John loves 
-   RelSlash rp cl = cl ** {
+   RelSlash rp cls = cls ** {
      s = \\t,p,agr,c => 
         let obj = case (pgn2gn agr.pgn).g of {
-        			Fem  => St.she_Pron ;
+        			Fem  => St.she_Pron ; -- head is repeated as a clitic object pronoun
         			Masc => St.he_Pron } ;
-        in rp.s ! agr2ragr agr c ++ cl.s ! t ! p ! Nominal ++ cl.c2.s ++ obj.s ! cl.c2.c
+            cl : ResAra.Cl = complClSlash obj cls ;
+        in rp.s ! agr2ragr agr c ++ cl.s ! t ! p ! VOS
      } ;
 --
 --    FunRP p np rp = {

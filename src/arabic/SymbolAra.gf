@@ -17,10 +17,12 @@ lin
     let g = cn.g ; n = sizeToNumber det.n  in {
     s = \\c => det.s ! NoHum ! g ! c ++ cn.s ! Sg ! Def ! c ++ cn.adj ! n ! Def ! c ++ xs.s; ----IL word order?? Seems to be nontrivial according to ResAra comments.
     a = dummyAgrP3 n ;
+    empty = []
     } ;
   CNNumNP cn i = {
     s = \\c => cn.s ! Sg ! Def ! c ++ uttNum i ! Masc ;
     a = dummyAgrP3 Sg ;
+    empty = []
     } ;
 
   SymbS sy = sy ;

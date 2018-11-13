@@ -15,6 +15,7 @@ configFile = "languages.csv"
 -- | Information about a language
 data LangInfo = LangInfo
   { langCode :: String -- ^ 3-letter ISO 639-2/B code
+  , langName :: String -- ^ language name
   , langDir :: String -- ^ directory name
   , langFunctor :: Maybe String -- ^ functor (not used)
   , langUnlexer :: Maybe String -- ^ decoding for postprocessing linearizations
@@ -44,15 +45,16 @@ loadLangsFrom configFile = do
       then die $ "Invalid entry in " ++ configFile ++ ": " ++ s
       else return $ LangInfo
             { langCode = bits !! 0
-            , langDir = bits !! 1
-            , langFunctor = maybeBit bits 2
-            , langUnlexer = maybeBit bits 3
-            , langPresent = boolBit bits 4 False
-            , langAll = boolBit bits 5 True
-            , langTry = boolBit bits 6 True
-            , langSymbolic = boolBit bits 7 True
-            , langCompatibility = boolBit bits 8 False
-            , langSynopsis = boolBit bits 9 False
+            , langName = bits !! 1
+            , langDir = bits !! 2
+            , langFunctor = maybeBit bits 3
+            , langUnlexer = maybeBit bits 4
+            , langPresent = boolBit bits 5 False
+            , langAll = boolBit bits 6 True
+            , langTry = boolBit bits 7 True
+            , langSymbolic = boolBit bits 8 True
+            , langCompatibility = boolBit bits 9 False
+            , langSynopsis = boolBit bits 10 False
             }
 
 -- | Separate a string on a character
