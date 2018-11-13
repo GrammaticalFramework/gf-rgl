@@ -1141,12 +1141,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     mkIP = overload { 
        mkIP : Str -> Number -> IP = \maa,n -> {
-          s = \\_p,_s,_c => maa ; 
+          s = \\_p,_g,_s,_c => maa ; 
           a = { pgn = agrP3 NoHum Masc n ; isPron = False }
           } ;
       mkIP : (_,_ : Str) -> Number -> IP = \maa,maadhaa,n -> {
-          s = table { True  => \\_s,_c => maa ; 
-                      False => \\_s,_c => maadhaa } ; 
+          s = table { True  => \\_g,_s,_c => maa ; 
+                      False => \\_g,_s,_c => maadhaa } ; 
           a = { pgn = agrP3 NoHum Masc n ; isPron = False }
           } 
       } ;
@@ -1229,13 +1229,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     IP : Type = {
       s : Bool -- different forms for "what is this" and "what do you do"
-       => State => Case   -- because of PrepIP: e.g. "in which" chooses definite accusative
+       => Gender -- because an IP can be made into an IComp
+       => State => Case -- because of PrepIP: e.g. "in which" chooses definite accusative
        => Str ;
-      a : Agr -- can be both subject and object of a QCl, needs full agr. info
+      a : Agr -- can be both subject and object of a QCl, needs full agr. info (stupid given that s depends on gender but meh)
       } ;
 
-    ip2np : IP -> Bool -> NP = \ip,isPred -> ip ** { s = ip.s ! isPred ! Def } ;
-
+    ip2np : IP -> Bool -> NP = \ip,isPred -> ip ** { s = ip.s ! isPred ! Masc ! Def ; empty = [] } ;
+    np2ip : NP -> IP = \np -> np ** {s = \\_,_,_ => np.s} ;
+    
     IDet : Type = {
       s : Gender -- IdetCN needs to choose the gender of the CN
         => State => Case => Str ; 
