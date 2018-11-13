@@ -34,10 +34,16 @@ oper
       l@(""|"ال") + ("أ"|"أَ") + #hamza  + tail      => l + "آ" + tail;
       l@(""|"ال") + #hamza + v@("َ"|"ُ") + tail      => l + "أ" + v + tail;
       l@(""|"ال") + #hamza + v@("ِ")     + tail      => l + "إ" + v + tail;
-      head + v1@("ِ"|"ُ"|"َ"|"ْ"|"ا"|"ي"|"و") 
+      head + v1@(#vow|"ْ"|"ا"|"ي"|"و") 
            + #hamza + v2@(#vow|"ْ") + tail => 
-              case v2 of { "ْ" => head + v1 + tHmz v1      + tail ; -- unsure about this /IL
-                           _   => head + v1 + tHmz v1 + v2 + tail } ;
+              case v2 of { "ْ" => head + v1 + bHmz v1 v2      + tail ; -- unsure about this /IL
+                           _   => head + v1 + bHmz v1 v2 + v2 + tail } ;
+      head + v1@(#vow|"ْ"|"ا"|"ي"|"و") -- the same but it ends in vowel
+           + #hamza + v2@(#vow|"ْ") =>
+              case v2 of { "ْ" => head + v1 + tHmz v1 ;
+                           _   => head + v1 + tHmz v1 + v2 } ;
+      head + v1@(#vow|"ْ"|"ا"|"ي"|"و") -- the same but it ends without vowel
+           + #hamza => head + v1 + tHmz v1 ;
 
       head + #hamza + tail     => head + (bHmz (dp 2 head) (take 2 tail)) + tail; --last head , take 1 tail
       _                        => word
