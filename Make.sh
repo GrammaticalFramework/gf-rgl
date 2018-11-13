@@ -6,11 +6,11 @@
 set -e
 
 # Get languages from config
-langs=$(tail -n +2 languages.csv | awk -F ','  '{ if ($6 != "n") { print $1 } }')
-langs_present=$(tail -n +2 languages.csv | awk -F ','  '{ if ($5 == "y") { print $1 } }')
-langs_try=$(tail -n +2 languages.csv | awk -F ','  '{ if ($7 != "n") { print $1 } }')
-langs_symbolic=$(tail -n +2 languages.csv | awk -F ','  '{ if ($8 != "n") { print $1 } }')
-langs_compat=$(tail -n +2 languages.csv | awk -F ','  '{ if ($9 == "y") { print $1 } }')
+langs=$(tail -n +2 languages.csv | awk -F ','  '{ if ($7 != "n") { print $1 } }')
+langs_present=$(tail -n +2 languages.csv | awk -F ','  '{ if ($6 == "y") { print $1 } }')
+langs_try=$(tail -n +2 languages.csv | awk -F ','  '{ if ($8 != "n") { print $1 } }')
+langs_symbolic=$(tail -n +2 languages.csv | awk -F ','  '{ if ($9 != "n") { print $1 } }')
+langs_compat=$(tail -n +2 languages.csv | awk -F ','  '{ if ($10 == "y") { print $1 } }')
 
 # Modules to compile for each language
 modules_langs="All Symbol Compatibility"

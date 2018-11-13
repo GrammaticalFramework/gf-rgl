@@ -34,6 +34,7 @@ This file should be kept up-to-date and all build methods should read this confi
 | Column        | Description                              | Default |
 |:--------------|:-----------------------------------------|:-------:|
 | Code          | e.g. `Eng`                               |    -    |
+| Name          | language name in English, e.g. `English` |    -    |
 | Directory     | folder name under `src`, e.g. `english`  |    -    |
 | Functor       | (not used)                               |    -    |
 | Unlexer       | (not used)                               |    -    |
