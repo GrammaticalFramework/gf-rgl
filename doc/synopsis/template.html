@@ -31,14 +31,14 @@ $endfor$
 $for(include-before)$
 $include-before$
 $endfor$
-<div class="container-fluid my-4">
+<div class="container-fluid">
 <div class="row">
 
-  <nav class="col-md-3 col-xl-2 d-none d-md-block sidebar" id="quicklinks">
+  <nav class="col-md-3 col-xl-2 d-none d-md-block sidebar pt-4" id="quicklinks">
     <!-- filled dynamically via quicklinks.js -->
   </nav>
 
-  <main role="main" class="col-md-9 col-xl-10 offset-md-3 offset-xl-2">
+  <main role="main" class="col-md-9 col-xl-10 offset-md-3 offset-xl-2 pt-3">
 $if(title)$
     <header id="title-block-header">
       <a href="$rel-root$" title="Home">
@@ -66,7 +66,7 @@ $endif$
 </div><!-- .row -->
 </div><!-- .container-fluid -->
 
-<footer class="bg-light mt-5 py-5">
+<footer class="bg-light mt-5 py-5 position-relative">
   <div class="container">
     <div class="row">
       <div class="col-3">
