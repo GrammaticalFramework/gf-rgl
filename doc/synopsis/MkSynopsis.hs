@@ -16,6 +16,8 @@ type Rules = [(String,String,String)]
 outfile :: FilePath
 outfile = "index.txt"
 
+-- the languages.csv config file
+configFile :: FilePath
 configFile = ".." </> ".." </> Config.configFile
 
 -- the language in which revealed examples are shown
@@ -47,7 +49,6 @@ main = do
   append "%!postproc(html): '#UL'  '<ul>'"
   append "%!postproc(html): '#EUL'  '</ul>'"
   append "%!postproc(html): '#LI'  '<li>'"
-  append "%!postproc(html): '(SRC=\"categories.png\")'  '\\1 USEMAP=\"#categories\"'"
   append "%!postproc(html): '#LParadigms'  '<a name=\"RParadigms\"></a>'"
   delimit $ addToolTips cs
   include "intro.txt" -- TODO dynamic language list
@@ -202,6 +203,7 @@ mkTable hasEx aexx cs = inChunks chsize (\rs -> header : map (unwords . row) rs)
      expl typ = if null ex then itf "-" else itf ex
 
 -- make an example with hover-popup translations
+mkExample :: M.Map String String -> String -> String
 mkExample es ex = unwords [
   "#divreveal",
   itf (maybe ex (mkEx revealedLang) (M.lookup revealedLang es)),
@@ -232,6 +234,7 @@ mkCatTable cs = inChunks chsize (\rs -> header ++ map mk1 rs) cs
   mk1 (name,expl,ex) = unwords ["|", showCat cs name, "|", expl, "|", typo ex, "|"]
   typo ex = if take 1 ex == "\"" then itf (init (tail ex)) else ex
 
+srcPath :: FilePath -> FilePath
 srcPath = ((</>) "../../src")
 
 commonAPI = srcPath "abstract/Common.gf"
@@ -274,6 +277,7 @@ link s f = append $ s ++ " [``" ++ f ++ "`` " ++ f ++ "]"
 ttf s = "``" ++ s ++ "``"
 itf s = "//" ++ s ++ "//"
 
+hiddenLine :: String -> Bool
 hiddenLine s = case reverse (words s) of
   "--%":_ -> True
   _ -> False
@@ -301,7 +305,7 @@ addLexicalCats cs rss =
 resultCat :: (String,String,String) -> String
 resultCat (_,t,_) = last (words t)
 
-
+subtitle :: String -> String -> String
 subtitle cat expl = "==" ++ cat ++ e ++ "==" ++ "[" ++ cat ++ "]"
   where e = if null expl then "" else " - " ++ expl
 
@@ -320,6 +324,7 @@ showTyp cs = unwords . map f . words
                     && isUpper (head cat)
 
 -- to work around GHC 6.12 file input
+readFileC :: String -> FilePath -> IO String
 readFileC cod file = do
   let tmp = file <.> "tmp"
   case cod of
@@ -330,6 +335,7 @@ readFileC cod file = do
 
 -- 'intelligently' determine the coding of a file
 ---- AR 5/6/2016: now utf8 is used for all languages except Bul, where no characters are shown in documentation anyway
+coding :: FilePath -> String
 coding file = case language file of
   "Bul" -> "CP1251" --- "ISO-8859-1"
   _     -> "utf8"
