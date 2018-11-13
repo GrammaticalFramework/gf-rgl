@@ -1301,7 +1301,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         }
       };
 
-
     predVP : NP -> VP -> Cl = \np,vp ->
       { s =\\t,p,o =>
           let {
@@ -1323,24 +1322,29 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
               <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
               <_, Past, Pos> => kataba ;
               <_, Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, _Fut,  Pos> => "سَ" ++ yaktubu ;
-              <_, _Fut,  Neg> => "لَنْ" ++ yaktuba
+              <_, Cond, _  > => yaktuba ;
+              <_, Fut,  Pos> => "سَ" ++ yaktubu ;
+              <_, Fut,  Neg> => "لَنْ" ++ yaktuba
               };
             pred : ParamX.Tense -> Polarity -> Str =
               \tn,pl -> case <vp.isPred,tn,pl>  of {
               <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
               _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
               };
+            subj = np.empty 
+                ++ case <vp.isPred,np.a.isPron> of {
+                          <False,True> => [] ; -- prodrop if it's not predicative
+                          _            => np.s ! Nom
+                   } ;
 
           } in
-          -- If you want prodrop, use proDrop : NP -> NP for your subject. /IL
           case o of {
             Verbal => vStr t p ++ case vp.obj.a.isPron of {
-                            True  => vp.obj.s ++ np.s ! Nom ; -- obj. clitic attaches directly to the verb                                   
-                            False => np.s ! Nom ++ vp.obj.s }
+                            True  => vp.obj.s ++ subj ; -- obj. clitic attaches directly to the verb                                   
+                            False => subj ++ vp.obj.s }
                    ++ vp.s2 ++ pred t p ;
-            Nominal => np.s ! Nom ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ;
-            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ np.s ! Nom
+            Nominal => subj ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ;
+            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ subj
 
           }
       } ;

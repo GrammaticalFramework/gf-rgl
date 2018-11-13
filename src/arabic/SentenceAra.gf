@@ -68,18 +68,18 @@ concrete SentenceAra of Sentence = CatAra ** open
     UseCl t p cl =
       {s = t.s ++ p.s ++
          case <t.t,t.a> of { --- IL guessed tenses
-             <(Pres|Cond),Simul>  => cl.s ! Pres ! p.p ! Nominal ;
-             <Fut        ,_    >  => cl.s ! Fut ! p.p ! Nominal ;
-             <_          ,_    >  => cl.s ! Past ! p.p ! Nominal
+             <Pres,Simul>  => cl.s ! Pres ! p.p ! Nominal ;
+             <Pres,Anter>  => cl.s ! Past ! p.p ! Nominal ;
+             <x   ,_    >  => cl.s ! x ! p.p ! Nominal
            }
       };
 
     UseQCl t p qcl =
       {s = \\q => t.s ++ p.s ++
          case <t.t,t.a> of { --- IL guessed tenses
-           <(Pres|Cond),Simul>  => qcl.s ! Pres ! p.p ! q ;
-           <Fut        ,_    >  => qcl.s ! Fut ! p.p ! q ;
-           <_          ,_    >  => qcl.s ! Past ! p.p ! q
+           <Pres,Simul>  => qcl.s ! Pres ! p.p ! q ;
+           <Pres,Anter>  => qcl.s ! Past ! p.p ! q ;
+           <x   ,_    >  => qcl.s ! x ! p.p ! q
          }
       };
 
