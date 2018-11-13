@@ -43,12 +43,15 @@ index.html: index.txt $(TEMPLATE)
 		$@
 	mv $(TMP) $@
 	sed -i.bak "s/<table>/<table class=\"table w-auto\">/" $@ && rm "$@.bak"
+	sed -i.bak -e '/img src="categories.png"/r categories-imagemap.html' -e '/img src="categories.png"/d' $@ && rm "$@.bak"
 
 categories.png: categories.dot
 	dot -Tpng $^ > $@
 
 categories-imagemap.html: categories.dot
-	dot -Tcmapx $^ > $@
+	rm -f $@
+	echo '<img src="categories.png" usemap="#categories">' > $@
+	dot -Tcmapx $^ >> $@
 
 api-examples.gfs: api-examples.txt MkExx.hs
 	runghc MkExx.hs < $< > $@

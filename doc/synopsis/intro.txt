@@ -64,15 +64,14 @@ use the resource modules.
 
 
 Other relevant documents:
-- [The RGL Status Document ./status.html]: the current status of different languages
+- [The RGL Status Document ../status.html]: the current status of different languages
   and the authors of each grammar
 - [The Resource Grammar Library coverage map http://www.postcrashgames.com/gf_world/]
-- [RGL Documentation and Publications ./rgl-publications.html]: links to publications and other documentation
+- [RGL Documentation and Publications ../rgl-publications.html]: links to publications and other documentation
 - [More modules gfdoc/sources.html]: extra modules, dictionaries, and
   the internals of the resource grammar
-- [Internal abstract syntax ./absfuns.html]: synopsis of internal
+- [Internal abstract syntax ../absfuns.html]: synopsis of internal
 abstract functions and their Universal Dependency labels
-- [RGL Source Browser ./browse]: look up functions and their source code
 - [Minibar http://cloud.grammaticalframework.org/minibar/minibar.html]:
   find resource grammar expressions by parsing (select Grammar: LibraryBrowser)
   or test translations between all languages (select Grammar: ResourceDemo)

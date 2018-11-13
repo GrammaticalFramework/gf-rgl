@@ -8,7 +8,6 @@ of //C// that takes //D// as an argument. What the constructors exactly are,
 and what other arguments they take, is described by separate tables for
 each category.
 
-[categories.png]
 
 %!include(html): ''categories-imagemap.html''
 
