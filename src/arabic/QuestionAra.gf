@@ -7,8 +7,8 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
     QuestCl cl = {
       s = \\t,p =>
         table {
-          QIndir => "إِذا" ++ cl.s ! t ! p ! Verbal ;
-          QDir => "هَلْ" ++ cl.s ! t ! p ! Verbal
+          QIndir => "إِذا" ++ cl.s ! t ! p ! toOrder QIndir ;
+          QDir => "هَلْ" ++ cl.s ! t ! p ! toOrder QDir
         }
       };
 
@@ -18,12 +18,12 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
     QuestVP qp vp =
      let np = ip2np qp vp.isPred ;
          cl = PredVP np vp ;
-      in { s = \\t,p,_qf => cl.s ! t ! p ! Nominal } ;
+      in { s = \\t,p,qf => cl.s ! t ! p ! toOrder qf } ;
 
 
 
 ---- AR guessed
-   QuestIAdv iadv cl = {s = \\t,p,_ => iadv.s ++ cl.s ! t ! p ! Verbal} ;
+   QuestIAdv iadv cl = {s = \\t,p,qf => iadv.s ++ cl.s ! t ! p ! toOrder qf} ;
 
 ---- IL guessed
    -- : IComp -> NP -> QCl
@@ -46,7 +46,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    QuestSlash ip cls = { ----IL just guessing
       s = \\t,p,qf => 
         let cl : ResAra.Cl = complClSlash cls ; -- dummy conversion to Cl
-            o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
+            o = toOrder qf
           in cls.c2.s ++ ip.s ! False ! Masc ! Def ! Nom ++ cl.s ! t ! p ! o
       } ;
 

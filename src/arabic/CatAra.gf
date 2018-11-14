@@ -38,7 +38,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
     VP = ResAra.VP ;
     VPSlash = ResAra.VPSlash ; -- VP ** {c2:Preposition}
-    Comp = ResAra.Comp ; --{s : AAgr => Case => Str} ;
+    Comp = ResAra.Comp ** {obj : Obj ; isNP : Bool} ;
 --    SC = {s : Str} ;
 --
 -- Adjective
@@ -94,5 +94,6 @@ linref
 
   CN = \cn -> uttCN cn ! Masc ;
   N = \n -> uttCN (useN n) ! Masc ;
+  VP = \vp -> uttVP vp ! Masc ;
 
 }

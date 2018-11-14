@@ -1,8 +1,10 @@
 concrete ConstructionAra of Construction = CatAra ** open 
+  Prelude,
   ParadigmsAra,
   SyntaxAra,
   SymbolicAra,
   StructuralAra,
+  (E=ExtendAra),
   (R=ResAra),
   (L=LexiconAra) in {
 	
@@ -39,19 +41,26 @@ lin
 
 --  n_units_AP
 
+
+oper
+  -- hack used in the name constructions
+  toNP : Bool -> NP -> NP = \b -> if_then_else NP b R.emptyNP ;
+
+lin
   -- : NP -> NP -> Cl
-  have_name_Cl pe nm = 
-    let subjPron : Pron = case pe.a.isPron of {
-          True  => pe ;
-          False => case (R.pgn2gn pe.a.pgn).g of {
-                     R.Fem  => she_Pron ;
-                     R.Masc => he_Pron }
-        } ;
+  have_name_Cl np nm = 
+    let subjPron : Pron = R.np2pron np ;
+        me : NP = toNP np.a.isPron np ;
+        myName : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
+     in mkCl myName nm ;
 
-        myName : NP = mkNP (mkDet subjPron) L.name_N ;
-     in mkCl myName nm ; --TODO: now it only works for pronouns, drops the NP
-
---  what_name_QCl = 
+  -- : NP -> QCl
+  what_name_QCl np = 
+    let subjPron : Pron = R.np2pron np ;
+        me : R.NP = toNP np.a.isPron np ;
+        myName : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
+        what_IP : R.IP = R.mkIP "مَا هُوَ" R.Sg ;
+     in mkQCl what_IP myName ;
 
 --  how_old_QCl
 
@@ -76,7 +85,7 @@ lin
 oper mkLanguage : Str -> N = mkN ;
 
 ----------------------------------------------
----- lexicon of special names
+---- lexicon of snpcial names
 
 -- TODO in arabic
 lin second_Timeunit = mkN "second" ;
@@ -131,7 +140,7 @@ lin finnish_Language = mkLanguage "فِنْلَنْدِيّة" ;
 -- lin maltese_Language = mkLanguage "Maltese" ;
 -- lin nepali_Language = mkLanguage "Nepali" ;
 -- lin norwegian_Language = mkLanguage "Norwegian" ;
-lin persian_Language = mkLanguage "فَارِسيّة" ;
+lin nprsian_Language = mkLanguage "فَارِسيّة" ;
 -- lin polish_Language = mkLanguage "Polish" ;
 -- lin punjabi_Language = mkLanguage "Punjabi" ;
 -- lin romanian_Language = mkLanguage "Romanian" ;
