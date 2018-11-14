@@ -1,4 +1,4 @@
---# -path=.:../abstract:../common:../prelude
+--# -path=.:../abstract:../common:../api:../prelude
 
 concrete LangAra of Lang = 
   GrammarAra,
