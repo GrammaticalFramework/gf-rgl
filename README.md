@@ -31,19 +31,19 @@ A list of all languages and their properties is maintained centrally in [`langua
 This file should be kept up-to-date and all build methods should read this config file.
 **If you see something wrong, please report/fix it.**
 
-| Column        | Description                              | Default |
-|:--------------|:-----------------------------------------|:-------:|
-| Code          | e.g. `Eng`                               |    -    |
-| Name          | language name in English, e.g. `English` |    -    |
-| Directory     | folder name under `src`, e.g. `english`  |    -    |
-| Functor       | (not used)                               |    -    |
-| Unlexer       | (not used)                               |    -    |
-| Present       | language is marked with `--# notpresent` |    n    |
-| All           | compile `All` module                     |    y    |
-| Try           | compile `Try` module                     |    y    |
-| Symbolic      | compile `Symbolic` module                |    y    |
-| Compatibility | complile `Compatibility` module          |    n    |
-| Synopsis      | include language in the RGL synopsis     |    n    |
+| #  | Column        | Description                              | Default |
+|:---|:--------------|:-----------------------------------------|:-------:|
+| 1  | Code          | 3-letter language code, e.g. `Eng`       |    -    |
+| 2  | Name          | language name in English, e.g. `English` |    -    |
+| 3  | Directory     | folder name under `src`, e.g. `english`  |    -    |
+| 4  | Functor       | functor name (not used)                  |    -    |
+| 5  | Unlexer       | unlexer (not used)                       |    -    |
+| 6  | Present       | language is marked with `--# notpresent` |    n    |
+| 7  | All           | compile `All` module                     |    y    |
+| 8  | Try           | compile `Try` module                     |    y    |
+| 9  | Symbolic      | compile `Symbolic` module                |    y    |
+| 10 | Compatibility | complile `Compatibility` module          |    n    |
+| 11 | Synopsis      | include language in the RGL synopsis     |    n    |
 
 If default is `y` then anything other than `n`, including the empty string, is treated as true (and vice versa when default is `n`).
 
