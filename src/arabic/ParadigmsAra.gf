@@ -467,7 +467,10 @@ resource ParadigmsAra = open
       rbT = mkRoot3 rootStr ;
       v8fun = case rbT.f of {
                 ("و"|"ي"|"ّ") => v8assimilated ;
-                _            => v8sound }
+                _ => 
+                  case rbT.c of {
+                        #weak => v8hollow ;
+                        _     => v8sound }}
       } in lin V (v8fun rbT) ;
 
   v10 =

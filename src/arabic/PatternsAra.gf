@@ -77,6 +77,9 @@ flags coding=utf8 ;
     ficAl    = { h = ""  ; m1 = "ِ"   ; m2 = "َا"  ; t = ""   } ;
     ficlp    = { h = ""  ; m1 = "ِ"   ; m2 = "ْ"   ; t = "َة" } ;
     ftacal   = { h = ""  ; m1 = "ْتَ" ; m2 = "َ"   ; t = ""   } ;
+    ftical   = ftacal ** { m1 = "ْتِ" } ; -- IL hollow VIII
+    ftAcal   = ftacal ** { m1 = "ْتَا" } ; -- IL hollow VIII
+    ftIcal   = ftacal ** { m1 = "ْتِي" } ;  -- IL hollow VIII
     ftacil   = { h = ""  ; m1 = "ْتَ" ; m2 = "ِ"   ; t = ""   } ;
     ttacal   = ftacal ** { m1 = ""  ; h = "تَّ" } ; ---- IL assimilated VIII
     ttacil   = ftacil ** { m1 = ""  ; h = "تَّ" } ; ---- IL assimilated VIII

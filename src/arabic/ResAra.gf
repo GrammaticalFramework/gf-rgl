@@ -708,6 +708,28 @@ v8assimilated : Root3 -> Verb = --- IL 8a1
     muttafaq =  "م" + uttafaq
   } in verb eittafaq euttufiq attafiq uttafaq eittafiq muttafaq;
 
+v8hollow : Root3 -> Verb = -- IL 
+  \Hwj ->
+  let {
+    _Htaj = mkHollow ftacal Hwj ;
+    _HtAj = mkHollow ftAcal Hwj ;
+    _Htij = mkHollow ftical Hwj ;
+    _HtIj = mkHollow ftIcal Hwj ;
+    iHtaj = "اِ" + _Htaj ;  -- VPerf Act (Per3 Fem Pl)
+    iHtAj = "اِ" + _HtAj ;  -- VPerf Act _
+    uHtij = "اُ" + _Htij ;  -- VPerf Pas (Per3 Fem Pl)
+    uHtIj = "اُ" + _HtIj ;  -- VPerf Pas _
+    aHtaj = "َ" + _Htaj ; -- VImpf Act (Per2/Per3 Fem Pl)
+    aHtAj = "َ" + _HtAj ; -- VImpf Act _
+    uHtaj = "ُ" + _Htaj ; -- VImpf Pas (Per2/Per3 Fem Pl)
+    uHtAj = "ُ" + _Htaj ; -- VImpf Pas _
+    -- iHtaj again          -- VImp Sg Masc / Pl Fem
+    -- iHtAj again          -- VImp Pl Masc / Sg Fem
+    ppart = "مُ" + _HtAj  -- PPart
+
+  }  in verbHollow (toDefForms
+                     iHtAj iHtaj uHtIj uHtij aHtAj aHtaj
+                     uHtAj uHtaj iHtAj iHtaj ppart) ;
 v10sound : Root3 -> Verb = ---- IL 10s -- to be checked
   \qtl ->
   let {
