@@ -31,7 +31,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
   oper
 
-    --roots, patterns, and making words:
+-----------------------------------------------------------------------------
+-- General morphology with roots, patterns, and making words:
 
     Pattern : Type = {h, m1, m2, t : Str};
     Root    : Type = {f : Str};
@@ -109,7 +110,12 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     emptyNTable : NTable = \\n,s,c => [] ;
 
     Preposition : Type = {s : Str ; c : Case} ;
-    Noun : Type = {s,s2 : NTable ; g : Gender; h : Species} ;
+    Noun : Type = { 
+      s,s2 : NTable ; 
+      g : Gender ; 
+      h : Species ; 
+      isDual : Bool -- whether it takes dual instead of plural: eyes, twins, ...
+      } ;
     Noun2 : Type = Noun ** {c2 : Preposition} ;
     Noun3 : Type = Noun2 ** {c3 : Preposition} ;
 
@@ -117,6 +123,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       mkPreposition : Str -> Case -> Preposition = \s,c -> {s=s;c=c} ;
       mkPreposition : Str -> Preposition = \s -> {s=s;c=Gen} ;
     } ;
+
+    noPrep : Preposition = mkPreposition [] Nom ;
 
     Adj  : Type = {s : AForm => Str} ;
     Adj2 : Type = Adj ** {c2 : Preposition} ;
@@ -1138,18 +1146,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                       }
       };
 
+    gn2pgn : {g : Gender; n : Number} -> PerGenNum = \gn -> 
+      case gn of { {g = gn; n = nm} => Per3 gn nm } ;
 
-    mkIP = overload { 
-       mkIP : Str -> Number -> IP = \maa,n -> {
-          s = \\_p,_g,_s,_c => maa ; 
-          a = { pgn = agrP3 NoHum Masc n ; isPron = False }
-          } ;
-      mkIP : (_,_ : Str) -> Number -> IP = \maa,maadhaa,n -> {
-          s = table { True  => \\_g,_s,_c => maa ; 
-                      False => \\_g,_s,_c => maadhaa } ; 
-          a = { pgn = agrP3 NoHum Masc n ; isPron = False }
-          } 
-      } ;
+    -- these are chosen in many places, trying to be consistent
+    toOrder : QForm -> Order = \qf ->
+      case qf of { QIndir => Nominal ;
+                   QDir   => Verbal } ;
+
 
     mkOrd : (_,_ : Str) -> Size -> NumOrdCard =
       \aysar,yusra,sz ->
@@ -1163,7 +1167,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
 
-  oper
+
+-----------------------------------------------------------------------------
+-- Det, Quant
 
     BaseQuant : Type = {
       d : State;
@@ -1194,21 +1200,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     AAgr = { g : Gender ; n : Number} ;
 
 
-
-    Comp : Type = {
-      s : AAgr => Case => Str
-      } ;
-
-    IComp : Type = {
-      s : AAgr     -- "how old": masc or fem for adjective
-                   -- no need for Case, IComp is only used by QuestIComp, as grammatical subject
-       => Str ;
-      } ;
-
-    Obj : Type = {
-      s : Str ;
-      a : Agr
-      };
+-----------------------------------------------------------------------------
+-- NP, Pron
 
     NP : Type = {
       s : Case => Str ;
@@ -1216,16 +1209,79 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       empty : Str -- to prevent ambiguities with prodrop
       } ;
 
+    mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
+     { s =
+        table {
+          Acc => BIND ++ nI; -- object suffix
+          Gen => BIND ++ I;  -- possessive suffix
+          _   => ana
+        };
+      a = {pgn = pgn; isPron = True };
+      empty = []
+    };
+
     proDrop : NP -> NP = \np -> 
       case np.a.isPron of {
         True => np ** {s = \\_ => []};
         _    => np
       } ;
-
+    
     emptyNP : NP = {
       s = \\_ => [] ; 
       a = {pgn = Per3 Masc Sg ; isPron = False} ;
-      empty = []} ;
+      empty = [] } ;
+
+    agrNP : Agr -> NP = \agr -> emptyNP ** {a = agr} ;
+
+    i_Pron : NP = mkPron "أَنَا" "نِي" "ي" (Per1 Sing) ;
+    youSgMasc_Pron : NP = mkPron "أَنتَ" "كَ" "كَ" (Per2 Masc Sg) ;
+    youSgFem_Pron : NP = mkPron "أَنتِ" "كِ" "كِ" (Per2 Fem Sg) ;
+    youDlMasc_Pron : NP = mkPron "أَنتُمَا" "كُمَا" "كُمَا" (Per2 Masc Dl) ;
+    youDlFem_Pron : NP = mkPron "أَنتُمَا" "كُمَا" "كُمَا" (Per2 Fem Dl) ;
+    he_Pron : NP = mkPron "هُوَ" "هُ" "هُ" (Per3 Masc Sg) ;
+    she_Pron : NP = mkPron "هِيَ" "ها" "ها" (Per3 Fem Sg) ;
+    we_Pron : NP = mkPron "نَحنُ" "نا" "نا" (Per1 Plur) ;
+    youPlMasc_Pron : NP = mkPron "أَنتُمْ" "كُمْ" "كُمْ" (Per2 Masc Sg) ;
+    youPlFem_Pron : NP = mkPron "أَنتُنَّ" "كُنَّ" "كُنَّ" (Per2 Fem Sg) ;
+    theyMasc_Pron : NP = mkPron "هُمْ" "هُمْ" "هُمْ" (Per3 Masc Pl) ;
+    theyFem_Pron : NP = mkPron "هُنَّ" "هُنَّ" "هُنَّ" (Per3 Fem Pl) ;
+    theyDlMasc_Pron : NP = mkPron "هُمَا" "هُمَا" "هُمَا" (Per3 Masc Dl) ;
+    theyDlFem_Pron : NP = mkPron "هُمَا" "هُمَا" "هُمَا" (Per3 Fem Dl) ;
+
+    -- Used e.g. to encode the subject as an object clitic
+    -- or to find a possessive suffix corresponding to the NP.
+    -- If the NP is a pronoun, just use itself.
+    np2pron : NP -> NP = \np -> case np.a.isPron of {
+      True  => np ;
+      False => pgn2pron np.a.pgn
+      } ;
+
+    pgn2pron : PerGenNum -> NP = \pgn -> 
+      case pgn of {
+        Per1 Sing => i_Pron ;
+        Per1 Plur => we_Pron ;
+        Per2 Fem  Sg => youSgFem_Pron ;
+        Per2 Masc Sg => youSgMasc_Pron ;
+        Per2 Fem  Dl => youDlFem_Pron ;
+        Per2 Masc Dl => youDlMasc_Pron ;
+        Per2 Fem  Pl => youPlFem_Pron ;
+        Per2 Masc Pl => youPlMasc_Pron ;
+        Per3 Fem  Sg => she_Pron ;
+        Per3 Masc Sg => he_Pron ;
+        Per3 Fem  Dl => theyDlFem_Pron ;
+        Per3 Masc Dl => theyDlMasc_Pron ;
+        Per3 Fem  Pl => theyFem_Pron ;
+        Per3 Masc Pl => theyMasc_Pron 
+      } ;
+
+    pron2np : NP -> NP = \np -> np ** {
+      a = np.a ** {isPron=False} -- hack, sometimes we *don't* want prodrop
+    } ;
+
+    refl : Case => Str = \\c => "نَفْس" + caseTbl ! c ;
+
+-----------------------------------------------------------------------------
+-- IP, questions
 
     IP : Type = {
       s : Bool -- different forms for "what is this" and "what do you do"
@@ -1233,6 +1289,18 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
        => State => Case -- because of PrepIP: e.g. "in which" chooses definite accusative
        => Str ;
       a : Agr -- can be both subject and object of a QCl, needs full agr. info (stupid given that s depends on gender but meh)
+      } ;
+
+    mkIP = overload { 
+       mkIP : Str -> Number -> IP = \maa,n -> {
+          s = \\_p,_g,_s,_c => maa ; 
+          a = { pgn = agrP3 NoHum Masc n ; isPron = False }
+          } ;
+      mkIP : (_,_ : Str) -> Number -> IP = \maa,maadhaa,n -> {
+          s = table { True  => \\_g,_s,_c => maa ; 
+                      False => \\_g,_s,_c => maadhaa } ; 
+          a = { pgn = agrP3 NoHum Masc n ; isPron = False }
+          } 
       } ;
 
     ip2np : IP -> Bool -> NP = \ip,isPred -> ip ** { s = ip.s ! isPred ! Masc ! Def ; empty = [] } ;
@@ -1247,6 +1315,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     IQuant : Type = {
       s : State => Case => Str
       } ;
+
+    IComp : Type = {
+      s : AAgr     -- "how old": masc or fem for adjective
+                   -- no need for Case, IComp is only used by QuestIComp, as grammatical subject
+       => Str ;
+      } ;
+
+-----------------------------------------------------------------------------
+-- VP
 
   param VPForm =
         VPPerf
@@ -1263,16 +1340,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s2 : Str
       };
 
-    -- For complements of VV.
-    -- TODO: does verbal complement agree with the noun
-    compVP : VP -> Comp = \vp -> ---- IL
-     { s = table {
-         aagr@{g=g ; n=n} => \\c =>
-           vp.s ! Per3 g n ! VPImpf Ind  ---- IL guesswork + https://arabic.desert-sky.net/g_modals.html
-           ++ vp.s2
-           ++ vp.pred.s ! aagr ! Acc
-           ++ vp.obj.s }
-      } ;
+    uttVP : VP -> (Gender=>Str) = \vp ->
+     \\g => vp.s ! Per3 g Sg ! VPPerf 
+         ++ vp.obj.s ++ vp.pred.s ! {n = Sg ; g = g} ! Nom
+         ++ vp.s2 ;
 
     predV : Verb -> VP = \v ->
       { s = \\pgn,vf =>
@@ -1282,12 +1353,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             VPImpf m => v.s ! (VImpf m Act pgn);
             VPImp => v.s ! (VImp gn.g gn.n)
           };
-        obj = {
-          s = [] ;
-          a = {pgn = Per3 Masc Sg ; isPron = False}
-          }; --or anything!
+        obj = emptyObj ;
         s2 = [];
-        pred = { s = \\_,_ => []};
+        pred = {s = \\_,_ => []} ;
         isPred = False
       };
 
@@ -1357,10 +1425,24 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _        => pgn
       };
 
+-----------------------------------------------------------------------------
+-- Comp, arguments for VP
+
+    Comp : Type = {
+      s : AAgr => Case => Str ;
+      } ;
+
+    Obj : Type = {
+      s : Str ;
+      a : Agr -- default Agr in a VP without real Obj is Per3 Masc Sg
+      };
+
+    emptyObj : Obj = emptyNP ** {s=[]} ;
+
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp **
       { obj = {s = vp.obj.s ++ vp.c2.s ++ np.s ! vp.c2.c ; a = np.a} };
 
-    insertPred : {s : AAgr => Case => Str} -> VP -> VP = \p,vp -> vp **
+    insertPred : Comp -> VP -> VP = \p,vp -> vp **
       { pred = p;
         isPred = True
       };
@@ -1372,7 +1454,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       insertPred xabar (predV copula);
 
     copula : Verb = v1hollow {f = "ك"; c = "و" ; l = "ن"} u ;
-    -- Slash categories
+
+-----------------------------------------------------------------------------
+-- Slash categories
 
     VPSlash : Type = VP ** {c2 : Preposition} ;
     ClSlash : Type = VPSlash ** {subj : NP} ;
@@ -1397,7 +1481,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;
     QCl : Type = {s : Tense => Polarity => QForm => Str} ;
 
-  -- Relative
+-----------------------------------------------------------------------------
+-- Relative
+
   param 
     RAgr = RSg Gender | RPl Gender | RDl Gender Case ;
 
@@ -1417,6 +1503,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     RCl : Type = {s : Tense => Polarity => Agr => Case => Str} ;
     RP  : Type = {s : RAgr => Str } ;
+
+-----------------------------------------------------------------------------
+-- Num
 
   param
 
@@ -1505,6 +1594,4 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Masc => Fem;
         Fem => Masc
       };
-
-
 }

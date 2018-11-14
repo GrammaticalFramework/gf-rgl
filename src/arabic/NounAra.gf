@@ -6,7 +6,7 @@ lin
 
   DetCN det cn = let {
     cas : Case -> Case = if_then_else Case det.is1sg Bare ;
-    number = sizeToNumber det.n ;
+    number = case cn.isDual of {True => Dl ; _ => sizeToNumber det.n} ;
     determiner : Case -> Str = \c ->
       det.s ! cn.h ! (detGender cn.g det.n) ! c ;
     noun : Case -> Str = \c -> 
@@ -169,8 +169,11 @@ lin
     isNum,isPron,is1sg = False
     } ;
 
-  MassNP cn = ---- AR
-    {s = \\c => cn.s ! Sg ! Indef ! c ++ cn.np ! c ++ cn.adj ! Sg ! Indef ! c ; 
+  MassNP cn =
+    {s = \\c => cn.s ! Sg ! Indef ! c 
+       ++ cn.s2 ! Sg ! Indef ! c
+       ++ cn.np ! c 
+       ++ cn.adj ! Sg ! Indef ! c ; 
      a = {pgn = Per3 cn.g Sg ; isPron = False} ;
      empty = []} ;
 

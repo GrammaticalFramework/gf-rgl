@@ -76,6 +76,8 @@ resource ParadigmsAra = open
 ---    = sdfN ;
    } ;
 
+  dualN : N -> N ;
+
 --This is used for loan words or anything that has untreated irregularities
 --in the interdigitization process of its words
   mkFullN : NTable -> Gender -> Species -> N ;
@@ -261,7 +263,8 @@ resource ParadigmsAra = open
   mkV2S : V -> Str -> V2S ;
   mkVV = overload {
     mkVV : V -> VV = regVV ;
-    mkVV : V -> Str -> VV = c2VV
+    mkVV : V -> Str -> VV = c2VV ;
+    mkVV : V -> Preposition -> VV = prepVV
     } ;
   mkV2V : overload {
     mkV2V : V -> Str -> Str -> V2V ;
@@ -349,10 +352,16 @@ resource ParadigmsAra = open
      = \n,attr -> n ** {s2 = \\n,s,c => attr} ;
    mkN : N -> N -> N                                                  -- Compound nouns
      = \n1,n2 -> n1 ** {s2 =
-      \\n,s,c => n1.s2 ! n ! s ! c -- card
-              ++ n2.s  ! n ! s ! c -- type
-              ++ n2.s2 ! n ! s ! c} ; -- blood
+      \\n,s,c => n1.s2 ! n ! s ! c
+              ++ n2.s  ! n ! s ! c
+              ++ n2.s2 ! n ! s ! c} ;
    } ;
+
+  dualN : N -> N = \n -> n ** {isDual=True} ;
+
+  proDrop : NP -> NP ; -- Force a NP to lose its string, only contributing with its agreement.
+
+  mkPron : (_,_,_ : Str) -> PerGenNum -> Pron ;
 
   mkV = overload {
     mkV : (imperfect : Str) -> V
@@ -470,12 +479,12 @@ resource ParadigmsAra = open
                 _         => v10sound }
       } in lin V (v10fun rbT) ;
 
-  mkFullN nsc gen spec =
+  mkFullN nsc gen spec = lin N
     { s = nsc; --NTable
       s2 = emptyNTable;
       g = gen;
       h = spec;
-      lock_N = <>
+      isDual = False
     };
 
   brkN' : Str -> Str -> Str -> Gender -> Species -> N =
@@ -533,31 +542,19 @@ resource ParadigmsAra = open
   } ;
 
   mkPron : (_,_,_ : Str) -> PerGenNum -> Pron = \ana,nI,I,pgn ->
-    lin Pron { s =
-        table {
-          Acc => BIND ++ nI; -- object suffix
-          Gen => BIND ++ I;  -- possessive suffix
-          _   => ana
-        };
-      a = {pgn = pgn; isPron = True };
-      empty = []
-    };
+    lin Pron (ResAra.mkPron ana nI I pgn) ;
 
-  proDrop : NP -> NP = ResAra.proDrop ; -- Force a NP to lose its string, only contributing with its agreement.
+  proDrop : NP -> NP = \np -> lin NP (ResAra.proDrop np) ;
 
   -- e.g. al-jamii3, 2a7ad
-  regNP : Str -> Number -> NP = \word,n -> lin NP
-    { s = \\c => fixShd word (dec1sg ! Def ! c) ;
-      a = {pgn = Per3 Masc n; isPron = False };
-      empty = []
-    };
+  regNP : Str -> Number -> NP = \word,n -> lin NP (emptyNP ** { 
+    s = \\c => fixShd word (dec1sg ! Def ! c)
+    });
 
   -- e.g. hadha, dhaalika
-  indeclNP : Str -> Number -> NP = \word,n -> lin NP
-    { s = \\c => word ;
-      a = {pgn = Per3 Masc n; isPron = False };
-      empty = []
-    };
+  indeclNP : Str -> Number -> NP = \word,n -> lin NP (emptyNP ** { 
+    s = \\c => word
+    });
 
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
     \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det -> lin Quant (baseQuant **
@@ -666,7 +663,8 @@ resource ParadigmsAra = open
   mkVQ  v = v ** {lock_VQ = <>} ;
 
   regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ"} ;
-  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = noPrep} ;
+  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep} ;
+  prepVV : V -> Preposition -> VV = \v,prep -> regVV v ** {c2=prep} ;
 
   V0 : Type = V ;
 ----  V2S, V2V, V2Q, V2A : Type = V2 ;

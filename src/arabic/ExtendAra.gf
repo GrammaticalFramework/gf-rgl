@@ -6,7 +6,8 @@ concrete ExtendAra of Extend =
     StrandRelSlash, ExistPluralCN, ExistMassCN, ExistCN, EmptyRelSlash, DetNPMasc, DetNPFem,
     ComplBareVS, ComplDirectVS, ComplDirectVQ,
     ICompAP,
-    VPS, MkVPS
+    VPS, MkVPS,
+    ApposNP
 ]
   with (Grammar=GrammarAra)
   ** open
@@ -19,6 +20,9 @@ concrete ExtendAra of Extend =
 
   lin
     GenNP np = {s = \\_,_,_,_ => np.s ! Gen ; d = Const ; isNum,isPron,is1sg = False} ;
+
+    -- : NP -> NP -> NP
+    ApposNP np1 np2 = np2 ** {s = \\c => np1.s ! c ++ np2.s ! c} ;
 
     -- : AP -> IComp ;   -- "how old"
     ICompAP ap = {s = \\gn => "كَمْ" ++ ap.s ! NoHum ! gn.g ! gn.n ! Indef ! Acc} ;
