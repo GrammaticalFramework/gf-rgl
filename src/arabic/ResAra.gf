@@ -569,8 +569,15 @@ v1defective_i : Root3 -> Vowel -> Verb = \bqy,vowImpf -> -- IL (conjugation 1d4)
 
 v1doubleweak : Root3 -> Verb = \r'y ->
   let ry = r'y ** {c = ""} ;
-      vforms : DefForms = \\x => rmSukun (v1DefForms_perfA ry a ! x) ; -- only remove the first sukun
-   in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
+      vforms_doubleweak : DefForms = \\x => rmSukun (v1DefForms_perfA ry a ! x) ; -- only remove the first sukun
+      vforms_weak : DefForms = v1DefForms_perfA r'y a ;
+      vforms = table { 0 => vforms_weak ! 0 ; -- all perfect forms
+                       1 => vforms_weak ! 1 ;
+                       2 => vforms_weak ! 2 ;
+                       3 => vforms_weak ! 3 ;
+                       4 => vforms_weak ! 4 ;
+                       x => vforms_doubleweak ! x } ;
+   in verbDoubleDef vforms a ; -- sukun in suffixes is removed in verbDoubleDef
 
 
 patDef1 : Vowel => Pattern =
@@ -708,6 +715,28 @@ v8assimilated : Root3 -> Verb = --- IL 8a1
     muttafaq =  "م" + uttafaq
   } in verb eittafaq euttufiq attafiq uttafaq eittafiq muttafaq;
 
+v8hollow : Root3 -> Verb = -- IL 
+  \Hwj ->
+  let {
+    _Htaj = mkHollow ftacal Hwj ;
+    _HtAj = mkHollow ftAcal Hwj ;
+    _Htij = mkHollow ftical Hwj ;
+    _HtIj = mkHollow ftIcal Hwj ;
+    iHtaj = "اِ" + _Htaj ;  -- VPerf Act (Per3 Fem Pl)
+    iHtAj = "اِ" + _HtAj ;  -- VPerf Act _
+    uHtij = "اُ" + _Htij ;  -- VPerf Pas (Per3 Fem Pl)
+    uHtIj = "اُ" + _HtIj ;  -- VPerf Pas _
+    aHtaj = "َ" + _Htaj ; -- VImpf Act (Per2/Per3 Fem Pl)
+    aHtAj = "َ" + _HtAj ; -- VImpf Act _
+    uHtaj = "ُ" + _Htaj ; -- VImpf Pas (Per2/Per3 Fem Pl)
+    uHtAj = "ُ" + _Htaj ; -- VImpf Pas _
+    -- iHtaj again          -- VImp Sg Masc / Pl Fem
+    -- iHtAj again          -- VImp Pl Masc / Sg Fem
+    ppart = "مُ" + _HtAj  -- PPart
+
+  }  in verbHollow (toDefForms
+                     iHtAj iHtaj uHtIj uHtij aHtAj aHtaj
+                     uHtAj uHtaj iHtAj iHtaj ppart) ;
 v10sound : Root3 -> Verb = ---- IL 10s -- to be checked
   \qtl ->
   let {

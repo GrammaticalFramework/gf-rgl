@@ -168,6 +168,8 @@ resource ParadigmsAra = open
 
   mkAdA : Str -> AdA ;
 
+  mkInterj : Str -> Interj ;
+
 --2 Prepositions
 --
 -- A preposition as used for rection in the lexicon, as well as to
@@ -467,7 +469,10 @@ resource ParadigmsAra = open
       rbT = mkRoot3 rootStr ;
       v8fun = case rbT.f of {
                 ("و"|"ي"|"ّ") => v8assimilated ;
-                _            => v8sound }
+                _ => 
+                  case rbT.c of {
+                        #weak => v8hollow ;
+                        _     => v8sound }}
       } in lin V (v8fun rbT) ;
 
   v10 =
@@ -638,7 +643,7 @@ resource ParadigmsAra = open
   mkAdv x = lin Adv (ss x) ;
   mkAdV x = lin AdV (ss x) ;
   mkAdA x = lin AdA (ss x) ;
-
+  mkInterj x = lin Interj (ss x) ;
 
   dirV2 v = prepV2 v (casePrep acc) ;
 
