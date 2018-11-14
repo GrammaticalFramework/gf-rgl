@@ -168,6 +168,8 @@ resource ParadigmsAra = open
 
   mkAdA : Str -> AdA ;
 
+  mkInterj : Str -> Interj ;
+
 --2 Prepositions
 --
 -- A preposition as used for rection in the lexicon, as well as to
@@ -641,7 +643,7 @@ resource ParadigmsAra = open
   mkAdv x = lin Adv (ss x) ;
   mkAdV x = lin AdV (ss x) ;
   mkAdA x = lin AdA (ss x) ;
-
+  mkInterj x = lin Interj (ss x) ;
 
   dirV2 v = prepV2 v (casePrep acc) ;
 
