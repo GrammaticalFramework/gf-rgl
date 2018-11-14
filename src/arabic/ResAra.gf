@@ -569,8 +569,15 @@ v1defective_i : Root3 -> Vowel -> Verb = \bqy,vowImpf -> -- IL (conjugation 1d4)
 
 v1doubleweak : Root3 -> Verb = \r'y ->
   let ry = r'y ** {c = ""} ;
-      vforms : DefForms = \\x => rmSukun (v1DefForms_perfA ry a ! x) ; -- only remove the first sukun
-   in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
+      vforms_doubleweak : DefForms = \\x => rmSukun (v1DefForms_perfA ry a ! x) ; -- only remove the first sukun
+      vforms_weak : DefForms = v1DefForms_perfA r'y a ;
+      vforms = table { 0 => vforms_weak ! 0 ; -- all perfect forms
+                       1 => vforms_weak ! 1 ;
+                       2 => vforms_weak ! 2 ;
+                       3 => vforms_weak ! 3 ;
+                       4 => vforms_weak ! 4 ;
+                       x => vforms_doubleweak ! x } ;
+   in verbDoubleDef vforms a ; -- sukun in suffixes is removed in verbDoubleDef
 
 
 patDef1 : Vowel => Pattern =

@@ -28,7 +28,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
 ---- IL guessed
    -- : IComp -> NP -> QCl
    QuestIComp ic np =
-     let vp = kaan (CompNP np) ;
+     let vp = UseComp (CompNP np) ;
          ip : ResAra.IP = np ** { -- NP's s is already present in VP, we only want its agr
             s = \\_,_,_,_ => ic.s ! pgn2gn np.a.pgn } ;
       in QuestVP ip vp ;
