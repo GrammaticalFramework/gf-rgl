@@ -18,6 +18,8 @@ concrete IdiomAra of Idiom = CatAra ** open
   -- : NP  -> RS -> Cl ; -- it is I who did it
   --CleftNP np rs = 
 
+  -- TODO: check page 61 for existentials and clefts /IL
+
   -- : Adv -> S -> Cl ; -- it is here she slept
   CleftAdv adv s = 
   	let comp : Comp = {s = \\_,_ => adv.s ++ s.s} in ----
@@ -31,7 +33,7 @@ concrete IdiomAra of Idiom = CatAra ** open
 
 -- 7/12/2012 generalizations of these
 
-   -- : NP -> Adv -> Cl ;    -- there is a house in Paris
+  -- : NP -> Adv -> Cl ;    -- there is a house in Paris
   ExistNPAdv np adv = 
    	predVP emptyNP (insertStr adv.s (insertObj np (predV copula ** {c2=noPrep}))) ;
 

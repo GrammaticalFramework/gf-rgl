@@ -45,7 +45,7 @@ concrete StructuralAra of Structural = CatAra **
   in8front_Prep = mkPrep "مُقَابِلَ" ;
   i_Pron  = ResAra.i_Pron ;
   in_Prep = mkPrep "فِي" ;
-  it_Pron = he_Pron ; -- was: it_Pron = mkPron "ِت" "ِت" "ِتس" (Per3 Masc Sg);
+  it_Pron = emptyNP ** {s = \\_ => "هَذَا"} ; -- was: it_Pron = mkPron "ِت" "ِت" "ِتس" (Per3 Masc Sg);
 --  less_CAdv = ss "لسّ" ;
   many_Det = mkDet "جَمِيع" Pl Const ;
 --  more_CAdv = ss "مْري" ;

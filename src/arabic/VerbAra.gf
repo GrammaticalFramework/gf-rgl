@@ -64,7 +64,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     CompAdv a = {s   = \\_,_ => a.s ;
                  obj = emptyObj ; isNP = False} ;
 
-    CompCN cn = {s = \\agr,c => cn.s ! agr.n ! Indef ! Nom ++ cn.np ! Nom ++ cn.adj ! agr.n ! Indef ! Nom ;
+    CompCN cn = {s = \\agr,c => cn2str cn agr.n Indef Nom ;
                  obj = emptyObj ; isNP = False} ;
     CompNP np = {s = \\_,_ => [] ; obj = np ** {s = np.s ! Nom} ; isNP = True} ;
 --

@@ -137,14 +137,18 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
 
-    CN : Type = Noun ** {adj : NTable ; np : Case => Str};
+    CN : Type = Noun ** {np : Case => Str};
 
-    useN : Noun -> CN = \n -> n ** {adj = \\_,_,_ => []; np = \\_ => []} ;
+    -- All fields of NP
+    cn2str : CN -> Number -> State -> Case -> Str = \cn,n,s,c ->
+      cn.s   ! n ! s ! c ++
+      cn.s2  ! n ! s ! c ++
+      cn.np ! c ;
+
+    useN : Noun -> CN = \n -> n ** {np = \\_ => []} ;
 
     uttCN : CN -> (Gender => Str) ;
-    uttCN cn = \\_ => cn.s   ! Sg ! Indef ! Bare ++ 
-                      cn.s2  ! Sg ! Indef ! Bare ++ 
-                      cn.adj  ! Sg ! Indef ! Bare ;
+    uttCN cn = \\_ => cn2str cn Sg Indef Bare ;
 
     NumOrdCard : Type = {
       s : Gender => State => Case => Str ;
@@ -689,6 +693,33 @@ v6sound : Root3 -> Verb =
     mutafAqam = "م" + utafAqam
   } in verb tafAqam tufUqim atafAqam utafAqam tafAqam mutafAqam;
 
+-- v7sound : Root3 -> Verb = -- TODO 7s
+--   \fcl ->
+--   let {
+--     _facal = mkStrong facal fcl ;
+--     _facil = mkStrong facil fcl;
+--     infacal = "اِنْ" + _facal ; -- VPerf Act
+--      ; -- VPerf Pas
+--     anfacil = "َنْ" + _facil ; -- VImpf _ Act
+--      ; -- VImpf _ Pas
+--      ; -- VImp
+--       -- VPPart
+--   } in
+--   verb  ;
+
+v7geminate : Root3 -> Verb = -- IL 7g -- very likely wrong
+  \fcl ->
+  let {
+    _nfacc = "نْ" + mkHollow facc fcl ;
+    infacal = "اِنْ" + mkStrong facal fcl ; -- VPerf Act -- TODO use another constructor, this is wrong for 3rd person
+    unfucc = "اُنْ" + mkHollow fucc fcl ; -- VPerf Pas
+    anfacc = "َ"  + _nfacc ; -- VImpf _ Act
+    unfacc = "ُ"  + _nfacc ;  -- VImpf _ Pas
+    infacc = "اِ" + _nfacc ; -- VImp
+    munfacc = "مُ" +_nfacc  -- VPPart
+  } in
+  verb infacal unfucc anfacc unfacc infacc munfacc ;
+
 v8sound : Root3 -> Verb =
   \rbT ->
   let {
@@ -740,8 +771,8 @@ v8hollow : Root3 -> Verb = -- IL
 v10sound : Root3 -> Verb = ---- IL 10s -- to be checked
   \qtl ->
   let {
-    _staqtal = "َستَ" + mkStrong fcal qtl ;
-    _staqtil = "َستَ" + mkStrong fcil qtl;
+    _staqtal = "ستَ" + mkStrong fcal qtl ;
+    _staqtil = "ستَ" + mkStrong fcil qtl;
     istaqtal = "اِ" + _staqtal ; -- VPerf Act
     ustuqtil = "اُسْتُ" + mkStrong fcil qtl; -- VPerf Pas
     astaqtil = "َ"  + _staqtil ; -- VImpf _ Act

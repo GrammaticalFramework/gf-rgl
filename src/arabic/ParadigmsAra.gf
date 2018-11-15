@@ -218,7 +218,11 @@ resource ParadigmsAra = open
 
   v6 : Str -> V ;
 
---Verb Form VIII 'ifta`ala
+--Verb Form VII : tafaa`ala
+
+  v7 : Str -> V ;
+
+--Verb Form VIII infa`ala
 
   v8 : Str -> V ;
 
@@ -266,7 +270,8 @@ resource ParadigmsAra = open
   mkVV = overload {
     mkVV : V -> VV = regVV ;
     mkVV : V -> Str -> VV = c2VV ;
-    mkVV : V -> Preposition -> VV = prepVV
+    mkVV : V -> Preposition -> VV = prepVV ;
+    mkVV : V -> Preposition -> Preposition -> VV = prep2VV
     } ;
   mkV2V : overload {
     mkV2V : V -> Str -> Str -> V2V ;
@@ -462,6 +467,13 @@ resource ParadigmsAra = open
       s = (v6sound fqm).s  ;
       lock_V = <>
     };
+
+  v7 =
+    \rootStr ->
+    let {
+      fcl = mkRoot3 rootStr ;
+      v7fun = v7geminate ; -- TODO add rest
+      } in lin V (v7fun fcl) ;
 
   v8 =
     \rootStr ->
@@ -667,10 +679,10 @@ resource ParadigmsAra = open
   mkVS  v = v ** {lock_VS = <>} ;
   mkVQ  v = v ** {lock_VQ = <>} ;
 
-  regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ"} ;
-  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep} ;
-  prepVV : V -> Preposition -> VV = \v,prep -> regVV v ** {c2=prep} ;
-
+  regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;
+  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep ; sc = noPrep} ;
+  prepVV : V -> Preposition -> VV = \v,prep -> regVV v ** {c2=prep; sc=noPrep} ;
+  prep2VV : V -> (_,_ : Preposition) -> VV = \v,p1,p2 -> regVV v ** {c2=p1; sc=p2} ;
   V0 : Type = V ;
 ----  V2S, V2V, V2Q, V2A : Type = V2 ;
   AS, A2S, AV : Type = A ;
@@ -715,12 +727,12 @@ formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
    FormIV  => v4 s ;
    FormV   => v5 s ;
    FormVI  => v6 s ;
----   FormVII  => v7 s ;
+   FormVII  => v7 s ;
    FormVIII => v8 s ;
    FormX   => v10 s
    } ;
 
 param VerbForm =
-  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII | FormX ;
+  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVII | FormVIII | FormX ;
 
 } ;
