@@ -13,22 +13,20 @@ lin
       cn.s ! number 
            ! nounState det.d number 
            ! nounCase c det.n det.d ;
-    adj : NTable -> Case -> Str = \ntable,c ->
-      ntable ! number
-             ! (definite ! det.d) -- Indef remains Indef, rest become Def
-             ! c
+    adj : Case -> Str = \c ->
+      cn.s2 ! number
+            ! (definite ! det.d) -- Indef remains Indef, rest become Def
+            ! c
     } in {
       s = \\c =>
         case cnB4det det.isPron det.isNum det.n det.d of {
           False => determiner c 
                 ++ noun c 
-                ++ adj cn.s2 c
-                ++ adj cn.adj c
+                ++ adj c
                 ++ cn.np ! c ; 
           True => noun (cas c) -- deal with possessive suffix
                ++ determiner c
-               ++ adj cn.s2 c
-               ++ adj cn.adj c 
+               ++ adj c
                ++ cn.np ! c
         };  
       a = { pgn = agrP3 cn.h cn.g number;
@@ -170,10 +168,7 @@ lin
     } ;
 
   MassNP cn =
-    {s = \\c => cn.s ! Sg ! Indef ! c 
-       ++ cn.s2 ! Sg ! Indef ! c
-       ++ cn.np ! c 
-       ++ cn.adj ! Sg ! Indef ! c ; 
+    {s = \\c => cn2str cn Sg Indef c ; 
      a = {pgn = Per3 cn.g Sg ; isPron = False} ;
      empty = []} ;
 
@@ -190,20 +185,23 @@ lin
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
 
   AdjCN ap cn = cn ** {
-    adj = \\n,d,c => cn.adj ! n ! d ! c ++ ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
+    s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
     };
 
-  RelCN cn rs = cn ** {s = \\n,s,c => cn.s ! n ! s ! c ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c};
+  RelCN cn rs = cn ** {
+    s2 = \\n,s,c => cn.s2 ! n ! s ! c ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c};
 
   RelNP np rs = np ** {s = \\c => np.s ! c ++ rs.s ! np.a ! c} ;
-  --    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s} ;
-  --
-  --    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
+
+  AdvCN,
+  SentCN = \cn,ss -> cn ** {s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ss.s} ;
+
   ApposCN cn np = cn ** { np = \\c => cn.np ! c ++ np.s ! c } ;
 
   -- : CN -> NP -> CN ;     -- house of Paris, house of mine
   PossNP cn np = cn ** {
-    s = \\n,_d,c => cn.s ! n ! Const ! c ;
+    s  = \\n,_d,c => cn.s  ! n ! Const ! c ;
+    s2 = \\n,_d,c => cn.s2 ! n ! Const ! c ;
     np = \\c => cn.np ! c ++ np.s ! Gen
     };
 

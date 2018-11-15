@@ -71,7 +71,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    IdetCN idet cn = {
      s = \\isPred,g,s,c 
           => idet.s ! cn.g ! s ! c ++
-             cn.s ! idet.n ! Indef ! Gen ; --idaafa
+             cn2str cn idet.n Indef Gen ; --idaafa
      a = { pgn = agrP3 NoHum cn.g idet.n ; isPron = False }
      } ;
 
