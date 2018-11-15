@@ -22,7 +22,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
                       ++ vv.c2.s  -- أَنْ
                       ++ vp.s ! pgn ! VPImpf Cnj ;
-        isPred = False
+        isPred = False ;
+        sc = vv.sc
       } ;
 
     -- : VS -> S -> VP ;  -- say that she runs

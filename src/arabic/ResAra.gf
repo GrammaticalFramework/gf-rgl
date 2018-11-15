@@ -1363,6 +1363,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     VP : Type = {
       s : PerGenNum => VPForm => Str ;
+      sc : Preposition ; -- subject case: e.g.  يُمْكِنُ *لِ*Xِ
       obj : Obj;
       pred : Comp;
       isPred : Bool; --indicates if there is a predicate (xabar)
@@ -1382,6 +1383,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             VPImpf m => v.s ! (VImpf m Act pgn);
             VPImp => v.s ! (VImp gn.g gn.n)
           };
+        sc = noPrep ;
         obj = emptyObj ;
         s2 = [];
         pred = {s = \\_,_ => []} ;
@@ -1431,7 +1433,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             subj = np.empty 
                 ++ case <vp.isPred,np.a.isPron> of {
                           <False,True> => [] ; -- prodrop if it's not predicative
-                          _            => np.s ! Nom
+                          _            => vp.sc.s ++ np.s ! vp.sc.c
                    } ;
 
           } in

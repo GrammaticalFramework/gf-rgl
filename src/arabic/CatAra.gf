@@ -13,7 +13,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     SSlash,
     S  = {s : Str} ;
     QS = {s : QForm => Str} ;
-    RS = {s : Agr => Case => Str} ;
+    RS = {s : Agr => Case => Str} ; -- case because the relative pronoun inflects in case
 
 -- Sentence
 
@@ -79,7 +79,8 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
     V, VS, VQ, VA = ResAra.Verb ; -- = {s : VForm => Str} ;
     V2, V2A = ResAra.Verb2 ;
-    VV, V2S, V2Q = ResAra.Verb2 ;
+    VV = ResAra.Verb2 ** {sc : Preposition} ;
+    V2S, V2Q = ResAra.Verb2 ;
     V2V, V3 = ResAra.Verb3 ;
 
     A = ResAra.Adj ;
