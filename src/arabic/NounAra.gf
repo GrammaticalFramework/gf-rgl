@@ -25,7 +25,7 @@ lin
                 ++ adj c
                 ++ cn.np ! c ; 
           True => noun (cas c) -- deal with possessive suffix
-               ++ determiner c
+               ++ determiner c -- (nounCase c det.n det.d) --??
                ++ adj c
                ++ cn.np ! c
         };  
@@ -41,6 +41,8 @@ lin
     };
 
   UsePron p = p ;
+
+  DetNP det = emptyNP ** {s = det.s ! NoHum ! Masc} ; ----
 
   PredetNP pred np = np ** {
     s = \\c => case pred.isDecl of {
@@ -64,26 +66,15 @@ lin
   AdvNP np adv = np ** {
     s = \\c => np.s ! c ++ adv.s
     };
-{-
-  DetSg quant ord = {
-    s = \\h,g,c =>
-      quant.s ! Sg ! h ! g ! c ++ ord.s ! g ! quant.d ! c ;
-    n = One;
-    d = quant.d;
-    isPron = quant.isPron;
-    isNum =
-      case ord.n of {
-        None => False;
-        _ => True
-      }
-    } ;
--}
 
   DetQuantOrd quant num ord = quant ** {
-    s = \\h,g,c => quant.s ! Pl ! h ! g ! c
-      ++ num.s ! g ! (toDef quant.d num.n) ! c
+    s = \\h,g,c => let d = toDef quant.d num.n in
+         quant.s ! Pl ! h ! g ! c
+      ++ num.s ! g ! d ! c
       --FIXME check this:
-      ++ ord.s ! g ! (toDef quant.d num.n) ! c ;
+      ++ ord.s ! g 
+               ! case d of {Poss => Def ; _ => d}
+               ! c ;
     n = num.n;
     isNum = orB num.isNum ord.isNum ;
     -- ord may come from OrdDigits or OrdNumeral
@@ -172,8 +163,6 @@ lin
      a = {pgn = Per3 cn.g Sg ; isPron = False} ;
      empty = []} ;
 
---  MassDet = {s = \\_,_,_,_ => [] ; d = Indef;
---             isNum = False; isPron = False} ;
 
   UseN,
   UseN2 = useN ;
