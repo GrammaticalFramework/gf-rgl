@@ -71,7 +71,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    IdetCN idet cn = {
      s = \\isPred,g,s,c 
           => idet.s ! cn.g ! s ! c ++
-             cn2str cn idet.n Indef Gen ; --idaafa
+             cn2str cn idet.n idet.d Gen ;
      a = { pgn = agrP3 NoHum cn.g idet.n ; isPron = False }
      } ;
 
@@ -80,6 +80,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
      s = \\g,s,c =>
           let gend = detGender g num.n -- gender flips with some numbers
           in  iquant.s ! s ! c ++ num.s ! gend ! s ! c ;
-     n = sizeToNumber num.n
+     n = sizeToNumber num.n ;
+     d = Indef ---- TODO check
      } ;
 }

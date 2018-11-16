@@ -40,7 +40,11 @@ concrete StructuralAra of Structural = CatAra **
 --  here7to_Adv = ss ["تْ هري"] ;
 --  here7from_Adv = ss ["فرْم هري"] ;
   how_IAdv = ss "كَيفَ" ;
---  how8many_IDet = mkDet "كَمْ" Pl Const ;   -- IL: check (was ["هْو مَني"]) ;
+  how8many_IDet = {
+    s = \\g,s,c => "كَمْ عَدَد" + caseTbl ! c ;
+    n = Pl ; d = Def 
+    } ; -- IL
+    
 --  if_Subj = ss "ِف" ;
   in8front_Prep = mkPrep "مُقَابِلَ" ;
   i_Pron  = ResAra.i_Pron ;

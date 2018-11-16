@@ -1368,8 +1368,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     
     IDet : Type = {
       s : Gender -- IdetCN needs to choose the gender of the CN
-        => State => Case => Str ; 
-      n : Number
+        => State -- Needs to be retained variable for IP; PrepIP chooses the state of IP
+        => Case => Str ; 
+      n : Number ;
+      d : State -- in IdetCN, chooses the state of the CN
       } ;
 
     IQuant : Type = {
