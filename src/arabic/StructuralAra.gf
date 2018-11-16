@@ -44,7 +44,7 @@ concrete StructuralAra of Structural = CatAra **
     s = \\g,s,c => "كَمْ عَدَد" + caseTbl ! c ;
     n = Pl ; d = Def 
     } ; -- IL
-    
+
 --  if_Subj = ss "ِف" ;
   in8front_Prep = mkPrep "مُقَابِلَ" ;
   i_Pron  = ResAra.i_Pron ;
@@ -78,6 +78,7 @@ concrete StructuralAra of Structural = CatAra **
   something_NP = regNP "شَيْء" Sg ;
 --  somewhere_Adv = ss "سْموهري" ;
   that_Quant = mkQuant3 "ذَلِكَ" "تِلكَ" "أُلٱِكَ" Def;
+  that_Subj = ss "أنَّ" ;
 ----b  that_NP = indeclNP "ذَلِكَ" Sg ;
   there_Adv = ss "هُناك" ;
 --  there7to_Adv = ss "تهري" ;

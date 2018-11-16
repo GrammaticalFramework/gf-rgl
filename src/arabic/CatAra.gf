@@ -11,7 +11,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 -- Tensed/Untensed
 
     SSlash,
-    S  = {s : Str} ;
+    S  = {s : Order => Str} ; -- subordinate clause has nominal word order and subject in acc
     QS = {s : QForm => Str} ;
     RS = {s : Agr => Case => Str} ; -- case because the relative pronoun inflects in case
 

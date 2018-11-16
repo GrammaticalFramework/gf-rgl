@@ -3,19 +3,21 @@ concrete ConjunctionAra of Conjunction =
 
 lincat
 
-  [S],
+  [S] =  {s1,s2 : Order => Str} ;
   [Adv] = {s1,s2 : Str} ;
   [NP] = {s1,s2 : Case => Str ; a : Agr ; empty : Str} ;
   [AP] = {s1,s2 : Species => Gender => Number => State => Case => Str} ;
 
 lin
 
-  BaseS,
+
   BaseAdv = twoSS ;
-  ConsS,
   ConsAdv = consrSS comma ;
-  ConjS,
   ConjAdv = conjunctSS ;
+
+  BaseS = twoTable Order ;
+  ConsS = consrTable Order comma ;
+  ConjS = conjunctTable Order ;
 
   BaseNP x y = twoTable Case x y ** {
     a = conjAgr x.a y.a ;
@@ -31,9 +33,9 @@ lin
     empty = []
     } ;
 
-  BaseAP x y = twoTable5 Species  Gender  Number  State  Case x y  ;
-  ConsAP xs x = consrTable5 Species  Gender  Number  State  Case comma xs x ;
-  ConjAP conj ss = conjunctTable5 Species  Gender  Number  State  Case conj ss ;
+  BaseAP = twoTable5 Species Gender Number State Case ;
+  ConsAP = consrTable5 Species Gender Number State Case comma ;
+  ConjAP = conjunctTable5 Species Gender Number State Case ;
 
 
 oper
