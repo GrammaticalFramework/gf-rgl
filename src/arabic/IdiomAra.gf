@@ -1,6 +1,7 @@
-concrete IdiomAra of Idiom = CatAra ** open 
+concrete IdiomAra of Idiom = CatAra ** open
   Prelude,
   ResAra,
+  VerbAra,
   ParadigmsAra
  in {
 
@@ -8,34 +9,32 @@ concrete IdiomAra of Idiom = CatAra ** open
  lin
 
   -- : VP -> Cl ;        -- it is hot
-  ImpersCl vp = 
+  ImpersCl vp =
     let it : ResAra.NP = pron2np (pgn2pron vp.obj.a.pgn) ; -- if no obj, Per3 Masc Sg chosen by default
      in predVP it vp ;
 
   --  : VP -> Cl ;        -- one sleeps
-  GenericCl = predVP (regNP "المَرْء" Sg) ;    
+  GenericCl = predVP (regNP "المَرْء" Sg) ;
 
   -- : NP  -> RS -> Cl ; -- it is I who did it
-  --CleftNP np rs = 
-
-  -- TODO: check page 61 for existentials and clefts /IL
+  --CleftNP np rs =
 
   -- : Adv -> S -> Cl ; -- it is here she slept
-  CleftAdv adv s = 
-  	let comp : Comp = {s = \\_,_ => adv.s ++ s.s} in ----
-  	predVP he_Pron (kaan comp) ;
+  CleftAdv adv s =
+    let comp : Comp = CompAdv adv in
+    predVP he_Pron (UseComp comp) ;
 
    -- : NP -> Cl ;        -- there is a house
   ExistNP np =
-    predVP emptyNP (insertObj np (predV copula ** {c2=noPrep})) ; -- dummy /IL
+    predVP (emptyNP ** {s=\\c=>"هُنَاكَ"}) (UseComp (CompNP np)) ; -- IL
 
   -- ExistIP   : IP -> QCl ;       -- which houses are there
 
 -- 7/12/2012 generalizations of these
 
   -- : NP -> Adv -> Cl ;    -- there is a house in Paris
-  ExistNPAdv np adv = 
-   	predVP emptyNP (insertStr adv.s (insertObj np (predV copula ** {c2=noPrep}))) ;
+  ExistNPAdv np adv =
+    predVP (emptyNP ** {s=\\c=>"هُنَاكَ"}) (AdvVP (UseComp (CompNP np)) adv) ; -- IL
 
    -- ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
 
@@ -48,18 +47,16 @@ concrete IdiomAra of Idiom = CatAra ** open
 -- 3/12/2013 non-reflexive uses of "self"
 
   -- : VP -> VP ;        -- is at home himself; is himself at home
-  SelfAdvVP, 
+  SelfAdvVP,
   SelfAdVVP = \vp -> vp ** {
     s = \\pgn,vf => let pron : ResAra.NP = pgn2pron pgn in
-        vp.s ! pgn ! vf ++ refl ! Nom ++ pron.s ! Gen 
+        vp.s ! pgn ! vf ++ refl ! Nom ++ pron.s ! Gen
     } ;
 
   -- : NP -> NP ;        -- the president himself (is at home)
   SelfNP np = np ** {
-  	s = let pron : ResAra.NP = np2pron np ;
-  		 in \\c => np.s ! c ++ refl ! c ++ pron.s ! Gen
+    s = let pron : ResAra.NP = np2pron np ;
+        in \\c => np.s ! c ++ refl ! c ++ pron.s ! Gen
     } ;
 
-
 }
-

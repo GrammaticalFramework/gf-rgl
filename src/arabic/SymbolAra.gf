@@ -25,7 +25,7 @@ lin
     empty = []
     } ;
 
-  SymbS sy = sy ;
+  SymbS sy = {s = \\_ => sy.s} ;
 
 
   SymbOrd n = {s = \\_,_,_ => n.s ; n = One ; isNum = False } ;

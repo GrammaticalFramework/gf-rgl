@@ -27,7 +27,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Mood    = Ind | Cnj | Jus ;
     Voice   = Act | Pas ;
     Order   = Verbal | Nominal
-            | VOS ; -- Relative clauses with resumptive pronouns
+            | VOS      -- Relative clauses with resumptive pronouns
+            | Subord ; -- Nominal word order but subject in accusative
 
   oper
 
@@ -966,9 +967,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- determine the declension and gives the corresponding inf table
     sing : Str -> State => Case => Str = \word ->
       \\s,c => defArt s (case word of {
-         lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
-         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
-         lemma + "ة"   => case s of {
+        lemma + "ِيّ" => fixShd word  (decNisba ! s ! c) ;
+        lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
+        _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
+        lemma + "ة"   => case s of {
                             Poss => lemma + "ت" + dec1sg ! s ! c ;
                             _    => word        + dec1sg ! s ! c
                           } ;
@@ -1046,6 +1048,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _           => "ِي"
       };
 
+
     --declension 3 (ending in alif)
     dec3sg : State => Case => Str = \\s,c =>
       case <s,c> of {
@@ -1054,6 +1057,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _            => []
       };
 
+    --declension 2 (ends in yaa')
+    decNisba : State => Case => Str = \\s,c =>
+      case <s,c> of {
+        <_,   Bare> => [] ;
+        <Indef,Acc> => "اً" ;
+        <Indef>     => "ٍ" ;
+        <_,    Acc> => "َ" ;
+        _           => []
+      };
 
     --dual suffixes
     dl : State => Case => Str =
@@ -1282,7 +1294,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     proDrop : NP -> NP = \np -> 
       case np.a.isPron of {
-        True => np ** {s = \\_ => []};
+        True => np ** {s = table {Nom => [] ; x => np.s ! x}}; 
         _    => np
       } ;
     
@@ -1368,8 +1380,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     
     IDet : Type = {
       s : Gender -- IdetCN needs to choose the gender of the CN
-        => State => Case => Str ; 
-      n : Number
+        => State -- Needs to be retained variable for IP; PrepIP chooses the state of IP
+        => Case => Str ; 
+      n : Number ;
+      d : State -- in IdetCN, chooses the state of the CN
       } ;
 
     IQuant : Type = {
@@ -1461,10 +1475,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
               <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
               _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
               };
-            subj = np.empty 
-                ++ case <vp.isPred,np.a.isPron> of {
-                          <False,True> => [] ; -- prodrop if it's not predicative
-                          _            => vp.sc.s ++ np.s ! vp.sc.c
+            sc : Preposition = case o of {Subord => {s=[]; c=Acc} ; Dir => vp.sc} ;
+            subj = np.empty ++ sc.s 
+                ++ case vp.isPred of {
+                      False => (proDrop np).s ! sc.c ; -- prodrop if it's not predicative
+                      True  =>           np.s ! sc.c
                    } ;
 
           } in
@@ -1473,9 +1488,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                             True  => vp.obj.s ++ subj ; -- obj. clitic attaches directly to the verb                                   
                             False => subj ++ vp.obj.s }
                    ++ vp.s2 ++ pred t p ;
-            Nominal => subj ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ;
-            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ subj
-
+            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ subj ;
+            Nominal|Subord => subj ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p 
           }
       } ;
 

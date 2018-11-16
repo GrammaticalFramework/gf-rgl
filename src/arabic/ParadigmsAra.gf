@@ -76,7 +76,7 @@ resource ParadigmsAra = open
 ---    = sdfN ;
    } ;
 
-  dualN : N -> N ;
+  dualN : N -> N ; -- Force the plural of the N into dual (e.g. "twins")
 
 --This is used for loan words or anything that has untreated irregularities
 --in the interdigitization process of its words
@@ -130,22 +130,23 @@ resource ParadigmsAra = open
 -- Overloaded operator for main cases
 
  mkA = overload {
-   mkA : (root,patt : Str) -> A
+   mkA : (root,sg : Str) -> A             -- adjective with sound plural; takes root string and sg. pattern string
     = \r,p -> lin A (sndA r p);
-   mkA : (root : Str) -> A                -- forms adjectives with positive form aFCal
+   mkA : (root : Str) -> A                -- adjective with positive form aFCal
     = \r -> lin A (clrA r);
-   mkA : (root,sg,pl : Str) -> A
+   mkA : (root,sg,pl : Str) -> A          -- adjective with broken plural
     = \r,s,p -> lin A (brkA r s p) ;
-   -- mkA : (posit,compar,plur : Str) -> A
-   --  = degrA ;
    } ;
 
+  degrA : (posit,compar,plur : Str) -> A ;
 
 --Takes a root string and a pattern string
   sndA : (root,patt : Str) -> Adj ;
 
 --Takes a root string only
   clrA : (root : Str) -> Adj ;  -- forms adjectives of type aFCal
+
+  nisbaA : Str -> Adj ; -- forms relative adjectives by adding the suffix ِيّ
 
 --3 Two-place adjectives
 --
@@ -636,6 +637,14 @@ resource ParadigmsAra = open
         AComp d c => indeclN akbar ! d ! c
         }
     };
+
+  nisbaA : Str -> Adj = \Haal ->
+    let Haaliyy = Haal + "ِيّ" in {
+      s = table {
+        APosit g n d c  => positAdj Haaliyy ! g ! n ! d ! c ;
+        AComp d c => "أَكْثَر" ++ indeclN Haaliyy ! d ! c
+        }
+    } ;
 
   clrA root =
     let { eaHmar = mkWord "أَفعَل" root;

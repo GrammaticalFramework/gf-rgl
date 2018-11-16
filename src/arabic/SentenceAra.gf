@@ -66,11 +66,11 @@ concrete SentenceAra of Sentence = CatAra ** open
 --
 
     UseCl t p cl =
-      {s = t.s ++ p.s ++
+      {s = \\o => t.s ++ p.s ++
          case <t.t,t.a> of { --- IL guessed tenses
-             <Pres,Simul>  => cl.s ! Pres ! p.p ! Nominal ;
-             <Pres,Anter>  => cl.s ! Past ! p.p ! Nominal ;
-             <x   ,_    >  => cl.s ! x ! p.p ! Nominal
+             <Pres,Simul>  => cl.s ! Pres ! p.p ! o ;
+             <Pres,Anter>  => cl.s ! Past ! p.p ! o ;
+             <x   ,_    >  => cl.s ! x ! p.p ! o
            }
       };
 
