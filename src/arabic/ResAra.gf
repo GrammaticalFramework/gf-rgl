@@ -966,9 +966,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- determine the declension and gives the corresponding inf table
     sing : Str -> State => Case => Str = \word ->
       \\s,c => defArt s (case word of {
-         lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
-         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
-         lemma + "ة"   => case s of {
+        lemma + "ِيّ" => fixShd word  (decNisba ! s ! c) ;
+        lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
+        _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
+        lemma + "ة"   => case s of {
                             Poss => lemma + "ت" + dec1sg ! s ! c ;
                             _    => word        + dec1sg ! s ! c
                           } ;
@@ -1046,6 +1047,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _           => "ِي"
       };
 
+
     --declension 3 (ending in alif)
     dec3sg : State => Case => Str = \\s,c =>
       case <s,c> of {
@@ -1054,6 +1056,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _            => []
       };
 
+    --declension 2 (ends in yaa')
+    decNisba : State => Case => Str = \\s,c =>
+      case <s,c> of {
+        <_,   Bare> => [] ;
+        <Indef,Acc> => "اً" ;
+        <Indef>     => "ٍ" ;
+        <_,    Acc> => "َ" ;
+        _           => []
+      };
 
     --dual suffixes
     dl : State => Case => Str =
