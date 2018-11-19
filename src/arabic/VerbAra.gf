@@ -52,7 +52,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     AdvVP vp adv = insertStr adv.s vp ;
 
---    AdVVP adv vp = insertAdV adv.s vp ;
+    AdVVP adv = insertStr adv.s ;
+    AdVVPSlash adv vps = vps ** insertStr adv.s vps ;
 --
 --    ReflV2 v = insertObj (\\a => v.c2 ++ reflPron ! a) (predV v) ;
 --
