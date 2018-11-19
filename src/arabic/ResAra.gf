@@ -18,7 +18,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Number  = Sg | Dl | Pl;
     Gender  = Masc | Fem ;
     Case    = Nom | Acc | Gen
-            | Bare ; -- 1st person poss. suff. overrides case
+            | Bare -- 1st person poss. suff. overrides case
+            | Dat ; -- Hack to make the preposition لِ contract
     Species = NoHum | Hum ;
     State   = Def | Indef | Const
             | Poss ; -- ة turns into ت
@@ -126,6 +127,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     } ;
 
     noPrep : Preposition = mkPreposition [] Nom ;
+    datPrep : Preposition = mkPreposition ("لِ" ++ BIND) Dat ;
 
     Adj  : Type = {s : AForm => Str} ;
     Adj2 : Type = Adj ** {c2 : Preposition} ;
@@ -901,7 +903,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       Bare => [] ;
       Nom  => "ُ";
       Acc  => "َ";
-      Gen  => "ِ"
+      _Gen  => "ِ" -- dat is the same as gen, except in definite before لِ
     };
 
 --takes the adjective lemma and gives the Posit table
@@ -931,7 +933,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
   -- indeclinable nominal word (mamnuu3 mina S-Sarf)
   indeclN : Str -> State => Case => Str =
-    \aHmar -> \\s,c => defArt s aHmar + indecl!c;
+    \aHmar -> \\s,c => defArt s c aHmar + indecl!c;
 
     -- takes 2 words, singular and broken plural, and gives the
     -- complete noun inflection table
@@ -966,7 +968,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- takes a singular or broken plural word and tests the ending to
     -- determine the declension and gives the corresponding inf table
     sing : Str -> State => Case => Str = \word ->
-      \\s,c => defArt s (case word of {
+      \\s,c => defArt s c (case word of {
         lemma + "ِيّ" => fixShd word  (decNisba ! s ! c) ;
         lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
@@ -981,7 +983,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- takes a singular word and tests the ending to
     -- determine the declension and gives the corresponding dual inf table
     dual : Str -> State => Case => Str = \caSaA ->
-      \\s,c => defArt s (case caSaA of {
+      \\s,c => defArt s c (case caSaA of {
         lemma + ("ا"|"ى") => lemma + "ي" + dl ! s ! c ;
         lemma + "ة"       => lemma + "ت" + dl ! s ! c ;
         _                 => fixShd caSaA (dl ! s ! c)
@@ -991,13 +993,13 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     --plural feminine table
     plurF : Str -> State => Case => Str =
       \kalima ->
-      \\s,c => defArt s (mkAt kalima) + f_pl ! s ! c ;
+      \\s,c => defArt s c (mkAt kalima) + f_pl ! s ! c ;
 
     -- takes a singular word and gives the corresponding sound
     --plural masculine table. FIXME: consider declension 3
     plurM : Str -> State => Case => Str =
       \mucallim ->
-      \\s,c => defArt s mucallim + m_pl ! s ! c ;
+      \\s,c => defArt s c mucallim + m_pl ! s ! c ;
 
     -- to add the Al prefix for Definite words
     Al : State => Str =
@@ -1006,13 +1008,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         _   => ""
       };
 
-    defArt : State -> Str -> Str = \st,stem -> -- IL -- to be checked
+    defArt : State -> Case -> Str -> Str = \st,c,stem -> -- IL -- to be checked
       let al = "ال" in
-      case st of {
-        Def =>
+      case <st,c> of {
+        <Def,Dat> => "ل" + stem ; -- only happens before the preposition لِ
+        <Def> =>
           case stem of {
-            s@#sun + x          => fixShd (al + s) ("ّ" + x) ;
-            x                   => al + x } ;
+            s@#sun + x  => fixShd (al + s) ("ّ" + x) ;
+            x           => al + x } ;
         _   => stem
       };
 
@@ -1024,7 +1027,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             Bare => [];
             Nom => "ٌ";
             Acc => "ً";
-            Gen => "ٍ"
+            _Gen => "ٍ"
           };
         _ => caseTbl --think of ?axU, ?axA, (the five nouns)
 
@@ -1033,8 +1036,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     --indeclinables (mamnuu3 mina S-Sarf)
     indecl :  Case => Str =
       table {
-        Gen => "َ" ;
-        x   => caseTbl ! x
+        (Gen|Dat) => "َ" ;
+        x         => caseTbl ! x
       };
 
 
@@ -1284,9 +1287,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
      { s =
         table {
+          Nom => ana;
           Acc => BIND ++ nI; -- object suffix
-          Gen => BIND ++ I;  -- possessive suffix
-          _   => ana
+          Gen => BIND ++ I;   -- possessive suffix
+          Dat => I -- will only be used with preposition لِ, which already has a BIND
         };
       a = {pgn = pgn; isPron = True };
       empty = []
@@ -1612,16 +1616,16 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             NCard => table {
               Masc => \\s,c => (sing wAhid) ! s ! c ;
               --all fem are first declension:
-              Fem => \\s,c => defArt s wAhida + dec1sg ! s ! c
+              Fem => \\s,c => defArt s c wAhida + dec1sg ! s ! c
               };
             NOrd => table {
-              Masc => \\s,c => defArt s awwal + dec1sg ! s ! c;
+              Masc => \\s,c => defArt s c awwal + dec1sg ! s ! c;
               Fem => \\s,c => (sing Ula) ! s ! c
               }
             };
           ten => table {
-            NCard => \\_,s,c => defArt s wAhid + m_pl ! Indef ! c;
-            NOrd => \\_,s,c => defArt s awwal + m_pl ! Indef ! c
+            NCard => \\_,s,c => defArt s c wAhid + m_pl ! Indef ! c;
+            NOrd => \\_,s,c => defArt s c awwal + m_pl ! Indef ! c
             }
           }
       };
