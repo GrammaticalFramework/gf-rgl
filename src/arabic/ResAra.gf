@@ -972,9 +972,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         lemma + "ِيّ" => fixShd word  (decNisba ! s ! c) ;
         lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
+        lemma + ("ء"|"أ"|"ئ"|"ؤ") => word + dec1sgNoDoubleAlif ! s ! c ;
         lemma + "ة"   => case s of {
                             Poss => lemma + "ت" + dec1sg ! s ! c ;
-                            _    => word        + dec1sg ! s ! c
+                            _    => word        + dec1sgNoDoubleAlif ! s ! c
                           } ;
          _             => fixShd word  (dec1sg ! s ! c)
       }) ;
@@ -1026,11 +1027,18 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           table {
             Bare => [];
             Nom => "ٌ";
-            Acc => "ً";
+            Acc => "اً";
             _Gen => "ٍ"
           };
         _ => caseTbl --think of ?axU, ?axA, (the five nouns)
 
+      };
+
+    -- if a word ends in ء or ة, don't add alif for indef acc.  
+    dec1sgNoDoubleAlif : State => Case => Str = \\s,c =>
+      case <s,c> of {
+        <Indef,Acc> => "ً" ;
+        _           => dec1sg ! s ! c
       };
 
     --indeclinables (mamnuu3 mina S-Sarf)
@@ -1287,7 +1295,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
      { s =
         table {
-          Nom => ana;
+          (Nom|Bare) => ana;
           Acc => BIND ++ nI; -- object suffix
           Gen => BIND ++ I;   -- possessive suffix
           Dat => I -- will only be used with preposition لِ, which already has a BIND
@@ -1481,7 +1489,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
               <_, Past, Pos> => kataba ;
               <_, Past, Neg> => "لَمْ" ++ yaktub ;
               <_, Cond, _  > => yaktuba ;
-              <_, Fut,  Pos> => "سَ" ++ yaktubu ;
+              <_, Fut,  Pos> => glue "سَ" yaktubu ;
               <_, Fut,  Neg> => "لَنْ" ++ yaktuba
               };
             pred : ParamX.Tense -> Polarity -> Str =
@@ -1626,7 +1634,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             NCard => table {
               Masc => \\s,c => (sing wAhid) ! s ! c ;
               --all fem are first declension:
-              Fem => \\s,c => defArt s c wAhida + dec1sg ! s ! c
+              Fem => \\s,c => defArt s c wAhida + dec1sgNoDoubleAlif ! s ! c
               };
             NOrd => table {
               Masc => \\s,c => defArt s c awwal + dec1sg ! s ! c;
