@@ -10,7 +10,7 @@ flags
 lin
    easy_A2V = mkA2V (mkA "fácil") dative genitive ;
    married_A2 = mkA2 (mkA "casado") dative ;
-   probable_AS = mkAS (mkA "provável" "provável" "prováveis" "prováveis" "provavelmente") ;
+   probable_AS = mkAS (prefA (mkA "provável" "provavelmente")) ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
    bad_A       = prefA (mkA (mkA "mau") (mkA "pior")) ;
@@ -38,7 +38,7 @@ lin
    narrow_A    = mkA "estreito" ;
    near_A      = mkA "perto" ;
    new_A       = prefA (mkA "novo") ;
-   old_A       =  prefA (mkA "velho") ;
+   old_A       = prefA (mkA "velho") ;
    ready_A     = mkA "pronto" ;
    red_A       = mkA "vermelho" ;
    rotten_A    = mkA "podre" ;
@@ -58,7 +58,7 @@ lin
    white_A     = compADeg (mkA "branco") ;
    wide_A      = mkA "largo" ; -- extenso
    yellow_A    = mkA "amarelo" ;
-   young_A     = prefA (mkA "jovem" "jovem" "jovens" "jovens" "juvenilmente") ;
+   young_A     = prefA (mkA "jovem" "juvenilmente") ;
    already_Adv = mkAdv "já" ;
    far_Adv = mkAdv "longe" ; ----?
    now_Adv = mkAdv "agora" ;
