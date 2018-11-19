@@ -49,14 +49,12 @@ concrete IdiomAra of Idiom = CatAra ** open
   -- : VP -> VP ;        -- is at home himself; is himself at home
   SelfAdvVP,
   SelfAdVVP = \vp -> vp ** {
-    s = \\pgn,vf => let pron : ResAra.NP = pgn2pron pgn in
-        vp.s ! pgn ! vf ++ refl ! Nom ++ pron.s ! Gen
+    s = \\pgn,vf => vp.s ! pgn ! vf ++ reflPron Nom pgn
     } ;
 
   -- : NP -> NP ;        -- the president himself (is at home)
   SelfNP np = np ** {
-    s = let pron : ResAra.NP = np2pron np ;
-        in \\c => np.s ! c ++ refl ! c ++ pron.s ! Gen
+    s = \\c => np.s ! c ++ reflPron c (np.a.pgn)
     } ;
 
 }
