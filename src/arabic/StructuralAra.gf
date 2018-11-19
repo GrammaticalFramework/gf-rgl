@@ -94,7 +94,7 @@ concrete StructuralAra of Structural = CatAra **
   to_Prep = mkPrep "إِلى" ;
   under_Prep = mkPrep "تَحْتَ" ;
 --  very_AdA = ss "ثري" ;
---  want_VV = P.mkVV (P.regV "وَنت") ;
+  want_VV = mkVV (mkV "رود" FormIV) ;
   we_Pron = ResAra.we_Pron ;
   whatPl_IP = mkIP "ما" "ماذا" Pl ;
   whatSg_IP = mkIP "ما" "ماذا" Sg ;
@@ -108,8 +108,8 @@ concrete StructuralAra of Structural = CatAra **
              <Nom,_>     => "أيُّ" ;
              <Acc,Indef> => "أيّاً" ;
              <Acc,_>     => "أيَّ" ;
-             <Gen,Indef> => "أيٍّ" ;
-             <Gen,_>     => "أيِّ"
+             <_Gen,Indef> => "أيٍّ" ;
+             <_Gen,_>     => "أيِّ"
              }
     } ;
   whoSg_IP = mkIP "مَنْ" "مَنْ" Sg ;
