@@ -1354,8 +1354,18 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       a = np.a ** {isPron=False} -- hack, sometimes we *don't* want prodrop
     } ;
 
-    refl : Case => Str = \\c => "نَفْس" + caseTbl ! c ;
+    reflPron : Case -> PerGenNum -> Str = \c,pgn ->
+      let pron : NP = pgn2pron pgn
+       in "نَفْس" + caseTbl ! c ++ pron.s ! Gen ;
 
+    reflV : Verb -> Verb = \v -> v ** {
+      s = \\vf => case vf of {
+        VPerf _ pgn   => v.s ! vf ++ reflPron Acc pgn ;
+        VImpf _ _ pgn => v.s ! vf ++ reflPron Acc pgn ;
+        VImp g n      => v.s ! vf ++ reflPron Acc (Per2 g n) ;
+        VPPart        => v.s ! vf ++ reflPron Acc (Per3 Masc Sg) ----
+        }
+      } ;
 -----------------------------------------------------------------------------
 -- IP, questions
 

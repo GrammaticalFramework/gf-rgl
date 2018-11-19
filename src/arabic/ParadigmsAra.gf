@@ -185,51 +185,33 @@ resource ParadigmsAra = open
 -- Overloaded operations
 
   mkV : overload {
-    mkV : (imperfect : Str) -> V ;
+    mkV : (imperfect : Str) -> V ; -- The verb in Per3 Sg Masc imperfect tense gives the most information
     mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- verb form I ; vowel = a|i|u
     mkV : (root : Str) -> VerbForm -> V ;  -- FormI .. FormX (no VII, IX) ; default vowels a u for I
     mkV : V -> (particle : Str) -> V -- V with a non-inflecting particle/phrasal verb
     } ;
 
--- The verb in the imperfect tense gives the most information
+  -- regV : Str -> V ;
 
-  regV : Str -> V ;
+  reflV : V -> V ; -- نَفْس in the proper case and with possessive suffix, e.g.  نَفْسَكِ
 
---Verb Form I : fa`ala, fa`ila, fa`ula
+  v1 : Str -> Vowel -> Vowel -> V ; --Verb Form I : fa`ala, fa`ila, fa`ula
 
-  v1 : Str -> Vowel -> Vowel -> V ;
+  v2 : Str -> V ; --Verb Form II : fa``ala
 
---Verb Form II : fa``ala
+  v3 : Str -> V ; --Verb Form III : faa`ala
 
-  v2 : Str -> V ;
+  v4 : Str -> V ; --Verb Form IV : 'af`ala
 
---Verb Form III : faa`ala
+  v5 : Str -> V ; --Verb Form V : tafa``ala
 
-  v3 : Str -> V ;
+  v6 : Str -> V ; --Verb Form VI : tafaa`ala
 
---Verb Form IV : 'af`ala
+  v7 : Str -> V ; --Verb Form VII : infa`ala
 
-  v4 : Str -> V ;
+  v8 : Str -> V ; --Verb Form VIII ifta`ala
 
---Verb Form V : tafa``ala
-
-  v5 : Str -> V ;
-
---Verb Form VI : tafaa`ala
-
-  v6 : Str -> V ;
-
---Verb Form VII : tafaa`ala
-
-  v7 : Str -> V ;
-
---Verb Form VIII infa`ala
-
-  v8 : Str -> V ;
-
--- Verb Form X 'istaf`ala
-
-  v10 : Str -> V ;
+  v10 : Str -> V ; -- Verb Form X 'istaf`ala
 
 --3 Two-place verbs
 
@@ -359,10 +341,11 @@ resource ParadigmsAra = open
    mkN : N -> (attr : Str) -> N                                       -- Compound nouns
      = \n,attr -> n ** {s2 = \\n,s,c => attr} ;
    mkN : N -> N -> N                                                  -- Compound nouns
-     = \n1,n2 -> n1 ** {s2 =
-      \\n,s,c => n1.s2 ! n ! s ! c
-              ++ n2.s  ! n ! s ! c
-              ++ n2.s2 ! n ! s ! c} ;
+     = \n1,n2 -> n1 ** {
+          s  = \\n,_,c => n1.s ! n ! Const ! c ;
+          s2 = \\n,s,c => n1.s2 ! n ! s ! c
+                       ++ n2.s  ! n ! s ! c
+                       ++ n2.s2 ! n ! s ! c} ;
    } ;
 
   dualN : N -> N = \n -> n ** {isDual=True} ;
@@ -496,6 +479,8 @@ resource ParadigmsAra = open
                 ("و"|"ي") => v10hollow ;
                 _         => v10sound }
       } in lin V (v10fun rbT) ;
+
+  reflV v = lin V (ResAra.reflV v) ;
 
   mkFullN nsc gen spec = lin N
     { s = nsc; --NTable
