@@ -14,7 +14,8 @@ concrete AdverbAra of Adverb = CatAra ** open ResAra, Prelude in {
 
 --    AdAdv = cc2 ;
 --
---    SubjS = cc2 ;
+   -- : Subj -> S -> Adv ;              -- when she sleeps
+   SubjS subj s = {s = subj.s ++ s.s ! Subord} ;
 --    AdvSC s = s ; --- this rule give stack overflow in ordinary parsing
 --
 --    AdnCAdv cadv = {s = cadv.s ++ "تهَن"} ;
