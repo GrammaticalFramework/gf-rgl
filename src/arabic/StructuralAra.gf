@@ -120,7 +120,7 @@ concrete StructuralAra of Structural = CatAra **
   yes_Utt = {s = \\_ => "نَعَم"} ;
   youSg_Pron = youSgMasc_Pron ;
   youPl_Pron = youPlMasc_Pron ;
-  youPol_Pron = youSgFem_Pron ; -- arbitrary?
+  youPol_Pron = youPlFem_Pron ; -- arbitrary?
 
   have_V2      = dirV2 (regV "يَملِك") ;
 
