@@ -419,6 +419,7 @@ resource ParadigmsAra = open
     let root : Root3 = mkRoot3 rootStr ;
         verb : Verb  = case rootStr of {
           ? + #hamza + #weak => v4doubleweak root ;
+          ? + #weak + ?      => v4hollow root ;
           _          + #weak => v4defective root  ;
           _                  => v4sound root } ;
     in lin V verb ;
@@ -475,9 +476,10 @@ resource ParadigmsAra = open
     \rootStr ->
     let {
       rbT = mkRoot3 rootStr ;
-      v10fun = case rbT.c of {
-                ("و"|"ي") => v10hollow ;
-                _         => v10sound }
+      v10fun : Root3 -> Verb = case rootStr of {
+                ? + #weak + ? => v10hollow ;
+                ? + ? + #weak => v10defective ;
+                _             => v10sound }
       } in lin V (v10fun rbT) ;
 
   reflV v = lin V (ResAra.reflV v) ;

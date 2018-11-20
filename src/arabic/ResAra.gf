@@ -649,6 +649,28 @@ v4sound : Root3 -> Verb =
   } in
   verb eaqnac euqnic uqnic uqnac eaqnic muqnac;
 
+v4hollow : Root3 -> Verb =
+  \rwd ->
+  let {
+    earad = mkHollow eafac rwd ; -- VPerf Act (Per3 Fem Pl) etc.
+    earAd = mkHollow eafAc rwd ; -- VPerf Act
+    eurid = mkHollow eufic rwd ; -- VPerf Pas (Per3 Fem Pl) etc.
+    eurId = mkHollow eufIc rwd ; -- VPerf Pas
+
+    urid = mkHollow ufic rwd ; -- VImpf Act (Per2/Per3 Fem Pl)
+    urId = mkHollow ufIc rwd ; -- VImpf Act
+    urad = mkHollow ufac rwd ; -- VImpf Pas (Per2/Per3 Fem Pl)
+    urAd = mkHollow ufAc rwd ; -- VImpf Pas
+
+    earid = mkHollow eafic rwd ; -- VImp (Sg Masc / Pl Fem)
+    earId = mkHollow eafIc rwd ; -- VImp (Pl Masc / Sg Fem)
+
+    ppart = "م" + urAd ;
+
+  } in verbHollow (toDefForms
+                      earAd earad eurId eurid
+                      urId urid urAd urad
+                      earId earid ppart) ;
 
  v4DefForms : Root3 -> DefForms = \cTy ->
   let {
@@ -807,6 +829,29 @@ v10hollow : Root3 -> Verb = ---- IL 10h -- to be checked
   }  in verbHollow (toDefForms
                      istaxAf istaxaf ustuxIf ustuxif astaxIf astaxif
                      ustaxAf ustaxaf istaxif istaxIf ppart) ;
+
+v10defective : Root3 -> Verb = -- IL
+  \lqy ->
+  let {
+    _stalqa = "سْتَ" + mkDefective fca lqy ;
+    _stalqu = "سْتَ" + mkDefective fcu lqy ;
+    _stalqi = "سْتَ" + mkDefective fci lqy ;
+    _stulqi = "سْتُ" + mkDefective fci lqy ;
+
+    istalqa  = "اِ" + _stalqa ;               -- VPerf Act (Per3 Masc Sg)
+    istalqay = "اِسْتَ" + mkStrong fcal lqy ; -- VPerf Act (Per3 Fem Pl)
+    ustulqi = "اُ" + _stulqi; -- VPerf Pas (Per3 _ _)
+
+    astalqu = "َ" + _stalqu ; -- VImpf Act (Per2/3 Masc Pl)
+    astalqi = "َ" + _stalqi ; -- VImpf Act _
+    ustalqa = "ُ" + _stalqa ; -- VImpf Pas _
+    istalqi = "اِ" + _stalqi; -- VImp (Masc Sg / Fem _)
+    istalqu = "اِ" + _stalqu; -- VImp Masc Pl
+    mustalqin = "مُ" + _stalqi + "ت" ;
+
+  } in verbDef (toDefForms
+                  istalqa istalqay ustulqi ustulqi ustulqi
+                  astalqi astalqu ustalqa istalqi istalqu mustalqin) i ;
 
 patV1Perf : Vowel => Pattern =
   table {
