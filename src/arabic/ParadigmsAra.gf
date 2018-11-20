@@ -688,9 +688,9 @@ resource ParadigmsAra = open
   mkV2S v p = lin V2S (prepV2 v (mkPreposition p)) ;
   mkV2V = overload {
     mkV2V : V -> Str -> Str -> V2V = \v,p,q -> 
-      lin V2V (prepV3 v (mkPreposition p) (mkPreposition q)) ;
+      lin V2V (prepV3 v (mkPreposition p) (mkPreposition q) ** {sc = noPrep}) ;
     mkV2V : V -> Preposition -> Preposition -> V2V = \v,p,q ->
-      lin V2V (prepV3 v p q) ;
+      lin V2V (prepV3 v p q ** {sc = noPrep}) ;
     mkV2V : VV -> Preposition -> V2V = \vv,p ->
       lin V2V (vv ** {c2 = p ; c3 = vv.c2}) ;
   } ;

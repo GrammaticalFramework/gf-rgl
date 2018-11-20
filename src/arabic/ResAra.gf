@@ -1583,7 +1583,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     emptyObj : Obj = emptyNP ** {s=[]} ;
 
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp **
-      { obj = {s = vp.obj.s ++ vp.c2.s ++ np.s ! vp.c2.c ; a = np.a} };
+      { obj = {s = vp.obj.s -- old object, if there was one
+                ++ vp.c2.s ++ np.s ! vp.c2.c -- new object
+                ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V
+               a = np.a} };
 
     insertPred : Comp -> VP -> VP = \p,vp -> vp **
       { pred = p;
@@ -1601,11 +1604,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 -----------------------------------------------------------------------------
 -- Slash categories
 
-    VPSlash : Type = VP ** {c2 : Preposition} ;
+    VPSlash : Type = VP ** {c2 : Preposition ; agrObj : PerGenNum => Str} ;
     ClSlash : Type = VPSlash ** {subj : NP} ;
 
     slashV2 : Verb2 -> VPSlash = \v ->
-      predV v ** {c2 = v.c2} ;
+      predV v ** {c2 = v.c2 ; agrObj = \\_ => []} ;
 
     -- Add subject string, fix agreement to the subject,
     -- but keep the structure as VP, because later on
