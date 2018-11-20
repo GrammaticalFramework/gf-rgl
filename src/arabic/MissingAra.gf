@@ -3,11 +3,8 @@ resource MissingAra = open GrammarAra, Prelude in {
 -- temporary definitions to enable the compilation of RGL API
 oper AdAdv : AdA -> Adv -> Adv = notYet "AdAdv" ;
 oper AdVVP : AdV -> VP -> VP = notYet "AdVVP" ;
-oper AdjOrd : Ord -> AP = notYet "AdjOrd" ;
 oper AdnCAdv : CAdv -> AdN = notYet "AdnCAdv" ;
-oper AdvCN : CN -> Adv -> CN = notYet "AdvCN" ;
 oper AdvIAdv : IAdv -> Adv -> IAdv = notYet "AdvIAdv" ;
-oper AdvS : Adv -> S -> S = notYet "AdvS" ;
 oper BaseRS : RS -> RS -> ListRS = notYet "BaseRS" ;
 oper CAdvAP : CAdv -> AP -> NP -> AP = notYet "CAdvAP" ;
 oper CleftNP : NP -> RS -> Cl = notYet "CleftNP" ;
