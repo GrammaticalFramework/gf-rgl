@@ -114,7 +114,7 @@ resource ParadigmsAra = open
 
   mkN2 : overload {
     mkN2 : N -> Preposition -> N2 ; -- ready-made preposition
-    mkN2 : (mother : N) -> (of_ : Str) -> N2 ; -- preposition given as a string
+    mkN2 : N -> Str -> N2 ; -- preposition given as a string
     mkN2 : N -> N2 ; -- no preposition
     mkN2 : Str -> N2 ; -- no preposition, predictable inflection
   } ;
@@ -195,21 +195,21 @@ resource ParadigmsAra = open
 
   reflV : V -> V ; -- نَفْس in the proper case and with possessive suffix, e.g.  نَفْسَكِ
 
-  v1 : Str -> Vowel -> Vowel -> V ; --Verb Form I : fa`ala, fa`ila, fa`ula
+  v1 : Str -> Vowel -> Vowel -> V ; -- Verb Form I : fa`ala, fa`ila, fa`ula
 
-  v2 : Str -> V ; --Verb Form II : fa``ala
+  v2 : Str -> V ; -- Verb Form II : fa``ala
 
-  v3 : Str -> V ; --Verb Form III : faa`ala
+  v3 : Str -> V ; -- Verb Form III : faa`ala
 
-  v4 : Str -> V ; --Verb Form IV : 'af`ala
+  v4 : Str -> V ; -- Verb Form IV : 'af`ala
 
-  v5 : Str -> V ; --Verb Form V : tafa``ala
+  v5 : Str -> V ; -- Verb Form V : tafa``ala
 
-  v6 : Str -> V ; --Verb Form VI : tafaa`ala
+  v6 : Str -> V ; -- Verb Form VI : tafaa`ala
 
-  v7 : Str -> V ; --Verb Form VII : infa`ala
+  v7 : Str -> V ; -- Verb Form VII : infa`ala
 
-  v8 : Str -> V ; --Verb Form VIII ifta`ala
+  v8 : Str -> V ; -- Verb Form VIII ifta`ala
 
   v10 : Str -> V ; -- Verb Form X 'istaf`ala
 
@@ -419,6 +419,7 @@ resource ParadigmsAra = open
     let root : Root3 = mkRoot3 rootStr ;
         verb : Verb  = case rootStr of {
           ? + #hamza + #weak => v4doubleweak root ;
+          ? + #weak + ?      => v4hollow root ;
           _          + #weak => v4defective root  ;
           _                  => v4sound root } ;
     in lin V verb ;
@@ -475,9 +476,10 @@ resource ParadigmsAra = open
     \rootStr ->
     let {
       rbT = mkRoot3 rootStr ;
-      v10fun = case rbT.c of {
-                ("و"|"ي") => v10hollow ;
-                _         => v10sound }
+      v10fun : Root3 -> Verb = case rootStr of {
+                ? + #weak + ? => v10hollow ;
+                ? + ? + #weak => v10defective ;
+                _             => v10sound }
       } in lin V (v10fun rbT) ;
 
   reflV v = lin V (ResAra.reflV v) ;
@@ -686,9 +688,9 @@ resource ParadigmsAra = open
   mkV2S v p = lin V2S (prepV2 v (mkPreposition p)) ;
   mkV2V = overload {
     mkV2V : V -> Str -> Str -> V2V = \v,p,q -> 
-      lin V2V (prepV3 v (mkPreposition p) (mkPreposition q)) ;
+      lin V2V (prepV3 v (mkPreposition p) (mkPreposition q) ** {sc = noPrep}) ;
     mkV2V : V -> Preposition -> Preposition -> V2V = \v,p,q ->
-      lin V2V (prepV3 v p q) ;
+      lin V2V (prepV3 v p q ** {sc = noPrep}) ;
     mkV2V : VV -> Preposition -> V2V = \vv,p ->
       lin V2V (vv ** {c2 = p ; c3 = vv.c2}) ;
   } ;

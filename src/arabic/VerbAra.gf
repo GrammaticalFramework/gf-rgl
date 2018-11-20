@@ -7,12 +7,31 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     SlashVV vv vps = vps ** predV vv ; ----IL
 
-    -- TODO: --c3 is for verb, c2 is for dir.obj
-    --SlashV2V : V2V -> VP -> VPSlash ;  -- beg (her) to go
-    --SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
+    -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
+    SlashV2V v2v vp = let v2vVP = predV v2v in -- IL
+      vp ** {
+        s = v2vVP.s ;
+        agrObj = \\pgn => v2v.c3.s  -- أَنْ
+                       ++ vp.s ! pgn ! VPImpf Cnj ;
+        isPred = False ;
+        c2 = v2v.c2 ; -- for the direct object
+        sc = v2v.sc
+      } ;
+
+    -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
+    SlashV2VNP v2v np vps =  let v2vVP = predV v2v in -- IL
+      vps ** {
+        s = \\pgn,vpf => v2vVP.s ! pgn ! vpf
+                      ++ v2v.c2.s ++ np.s ! v2v.c2.c
+                      ++ v2v.c3.s  -- أَنْ
+                      ++ vps.s ! pgn ! VPImpf Cnj ;
+        isPred = False ;
+                    -- preposition for the direct object comes from VP
+        sc = v2v.sc
+      } ;
 
     SlashV2a = slashV2 ;
-    Slash3V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3};
+    Slash3V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3 ; agrObj = \\_ => []};
 
     ComplSlash vp np = insertObj np vp ;
 

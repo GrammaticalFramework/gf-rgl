@@ -86,4 +86,6 @@ concrete SentenceAra of Sentence = CatAra ** open
     UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
     UseSlash t p cl = UseCl t p (complClSlash cl) ;
+
+    AdvS adv s = s ** {s = \\o => adv.s ++ s.s ! o} ;
 }
