@@ -114,7 +114,7 @@ resource ParadigmsAra = open
 
   mkN2 : overload {
     mkN2 : N -> Preposition -> N2 ; -- ready-made preposition
-    mkN2 : (mother : N) -> (of_ : Str) -> N2 ; -- preposition given as a string
+    mkN2 : N -> Str -> N2 ; -- preposition given as a string
     mkN2 : N -> N2 ; -- no preposition
     mkN2 : Str -> N2 ; -- no preposition, predictable inflection
   } ;
@@ -195,21 +195,21 @@ resource ParadigmsAra = open
 
   reflV : V -> V ; -- نَفْس in the proper case and with possessive suffix, e.g.  نَفْسَكِ
 
-  v1 : Str -> Vowel -> Vowel -> V ; --Verb Form I : fa`ala, fa`ila, fa`ula
+  v1 : Str -> Vowel -> Vowel -> V ; -- Verb Form I : fa`ala, fa`ila, fa`ula
 
-  v2 : Str -> V ; --Verb Form II : fa``ala
+  v2 : Str -> V ; -- Verb Form II : fa``ala
 
-  v3 : Str -> V ; --Verb Form III : faa`ala
+  v3 : Str -> V ; -- Verb Form III : faa`ala
 
-  v4 : Str -> V ; --Verb Form IV : 'af`ala
+  v4 : Str -> V ; -- Verb Form IV : 'af`ala
 
-  v5 : Str -> V ; --Verb Form V : tafa``ala
+  v5 : Str -> V ; -- Verb Form V : tafa``ala
 
-  v6 : Str -> V ; --Verb Form VI : tafaa`ala
+  v6 : Str -> V ; -- Verb Form VI : tafaa`ala
 
-  v7 : Str -> V ; --Verb Form VII : infa`ala
+  v7 : Str -> V ; -- Verb Form VII : infa`ala
 
-  v8 : Str -> V ; --Verb Form VIII ifta`ala
+  v8 : Str -> V ; -- Verb Form VIII ifta`ala
 
   v10 : Str -> V ; -- Verb Form X 'istaf`ala
 
