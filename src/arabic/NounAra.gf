@@ -6,7 +6,12 @@ lin
 
   DetCN det cn = let {
     cas : Case -> Case = if_then_else Case det.is1sg Bare ;
-    number = case cn.isDual of {True => Dl ; _ => sizeToNumber det.n} ;
+    number = case cn.isDual of {
+                True => 
+                  case sizeToNumber det.n of {
+                         Sg => Sg ;
+                         _  => Dl } ;
+                False => sizeToNumber det.n } ;
     determiner : Case -> Str = \c ->
       det.s ! cn.h ! (detGender cn.g det.n) ! c ;
     noun : Case -> Str = \c -> 
