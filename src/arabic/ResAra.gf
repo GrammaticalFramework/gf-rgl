@@ -127,7 +127,15 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     } ;
 
     noPrep : Preposition = mkPreposition [] Nom ;
-    datPrep : Preposition = mkPreposition ("لِ" ++ BIND) Dat ;
+    liPrep : Preposition = mkPreposition (
+      pre { #pronSuffAndOther => "لِ" ;
+            #pronSuff         => "لَ" ;
+            _                 => "لِ" 
+          }  ++ BIND) Dat ;
+    biPrep : Preposition = mkPreposition ("بِ"++BIND) ;
+
+    pronSuff : pattern Str = #("كَ"|"كِ"|"كُمَا"|"كُمْ"|"كُنَّ"|"هُ"|"ها"|"هُمَا"|"هُمْ"|"هُنَّ") ;
+    pronSuffAndOther : pattern Str = #( "كَم" ) ; -- TODO list words that begin like pron.suff. but aren't
 
     Adj  : Type = {s : AForm => Str} ;
     Adj2 : Type = Adj ** {c2 : Preposition} ;
@@ -1341,9 +1349,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
      { s =
         table {
           (Nom|Bare) => ana;
-          Acc => BIND ++ nI; -- object suffix
-          Gen => BIND ++ I;   -- possessive suffix
-          Dat => I -- will only be used with preposition لِ, which already has a BIND
+          Acc => nI ; -- object suffix
+          Gen => I ;  -- possessive suffix
+          Dat => I -- will only be used with preposition لِ
         };
       a = {pgn = pgn; isPron = True };
       empty = []
@@ -1545,23 +1553,39 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
               <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
               _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
               };
-            sc : Preposition = case o of {Subord => {s=[]; c=Acc} ; Dir => vp.sc} ;
+            sc : Preposition = case o of {Subord => {s=[]; c=Acc} ; _ => vp.sc} ;
             subj = np.empty ++ sc.s
                 ++ case vp.isPred of {
                       False => (proDrop np).s ! sc.c ; -- prodrop if it's not predicative
                       True  =>           np.s ! sc.c
                    } ;
+          } in wordOrder o
+                  vp.obj.a.isPron np.a.isPron
+                  (vStr t p) 
+                  subj 
 
-          } in
-          case o of {
-            Verbal => vStr t p ++ case vp.obj.a.isPron of {
-                            True  => vp.obj.s ++ subj ; -- obj. clitic attaches directly to the verb
-                            False => subj ++ vp.obj.s }
-                   ++ vp.s2 ++ pred t p ;
-            VOS => vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p ++ subj ;
-            Nominal|Subord => subj ++ vStr t p ++ vp.obj.s ++ vp.s2 ++ pred t p
-          }
+                  (case <vp.isPred,vp.obj.a.isPron> of {
+                     <False,True> => BIND ++ vp.obj.s ;
+                     _            =>         vp.obj.s })
+
+                  (pred t p) 
+                  vp.s2
+
       } ;
+
+    -- seems complicated, but this is to share code between PredVP and ClSlash-using funs
+    wordOrder : Order -> (objIsPron,subjIsPron : Bool) -> (verb,subj,obj,pred,adv : Str) -> Str =
+      \o,objIsPron,subjIsPron,verb,subj,obj,pred,adv ->
+          case o of {
+            VOS    => verb ++ obj ++ pred ++ adv ++ subj ;
+            Verbal => verb ++ 
+              case objIsPron of {
+                    True  => obj ++ subj ; -- obj. clitic attaches directly to the verb
+                    False => subj ++ obj } ++ adv ++ pred ;
+            Nominal => subj ++ verb ++ obj ++ adv ++ pred ;
+            Subord  => if_then_Str subjIsPron BIND [] -- in subord. clause, subj. pronoun binds to the main verb
+                    ++ subj ++ verb ++ obj ++ adv ++ pred 
+          } ;
 
     -- in verbal sentences, the verb agrees with the subject
     -- in Gender but not in number
@@ -1580,9 +1604,13 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     Obj : Type = {
       s : Str ;
-      a : Agr -- default Agr in a VP without real Obj is Per3 Masc Sg
-      };
+      a : Agr -- default Agr in a VP without real Obj is Per3 Masc Sg.
+      };      -- need isPron for word order in predVP, and pgn for ImpersCl
 
+    Subj : Type = {s : Case => Str ; isPron : Bool} ;
+
+    np2subj : NP -> Subj = \np -> np ** {isPron = np.a.isPron} ;
+    subj2np : Subj -> NP = \su -> su ** {a = {pgn = emptyNP.a.pgn ; isPron = su.isPron} ; empty=[]} ;
     emptyObj : Obj = emptyNP ** {s=[]} ;
 
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp **
@@ -1608,7 +1636,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 -- Slash categories
 
     VPSlash : Type = VP ** {c2 : Preposition ; agrObj : PerGenNum => Str} ;
-    ClSlash : Type = VPSlash ** {subj : NP} ;
+    ClSlash : Type = VPSlash ** {subj : Subj} ;
 
     slashV2 : Verb2 -> VPSlash = \v ->
       predV v ** {c2 = v.c2 ; agrObj = \\_ => []} ;
@@ -1617,14 +1645,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- but keep the structure as VP, because later on
     -- we might need different word orders for the ClSlash.
     predVPSlash : NP -> VPSlash -> ClSlash = \np,v -> v ** {
-      subj = np
+      subj = np2subj np ;
+      s = \\_pgn,vf => v.s ! np.a.pgn ! vf -- so we can throw away subject's pgn
       } ;
 
     complClSlash = overload {
       complClSlash : NP -> ClSlash -> Cl = \obj,cls ->
-        predVP cls.subj (insertObj obj cls) ;
+        predVP (subj2np cls.subj) (insertObj obj cls) ;
       complClSlash :       ClSlash -> Cl = \cls ->
-        predVP cls.subj (insertObj emptyNP cls) -- Empty subject and object
+        predVP (subj2np cls.subj) (insertObj emptyNP cls) -- Empty subject and object
       } ;
 
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;

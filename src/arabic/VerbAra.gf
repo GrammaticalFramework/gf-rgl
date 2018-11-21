@@ -56,7 +56,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
       } ;
 
     -- : VA -> AP -> VP ;  -- they become red
-    ComplVA v ap = predV v ** {comp = CompAP ap} ;
+    ComplVA v ap = predV v ** {pred = CompAP ap} ;
 
 --    ComplV2A v np ap =
 --      insertObj (\\_ => v.c2 ++ np.s ! Acc ++ ap.s ! np.a) (predV v) ;

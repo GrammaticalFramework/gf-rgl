@@ -73,7 +73,7 @@ flags
   door_N       = brkN "بوب" "فاع" "أَفعَال" Masc NoHum ;
   drink_V2     = dirV2 (regV "شَرِب") ;
 --  drink_V2     = dirV2 (v1 "شرب" i a) ;
-  easy_A2V     = mkA2 (sndA "سهل" "فَعل") datPrep ;
+  easy_A2V     = mkA2 (sndA "سهل" "فَعل") liPrep ;
   eat_V2       = dirV2 (mkV "ءكل" FormI) ;
   empty_A      = sndA "فرغ" "فاعِل" ;
   enemy_N      = brkN "عدو" "فَعُلّ" "أَفعَاء" Masc Hum ;
@@ -203,7 +203,7 @@ flags
   switch8off_V2 = dirV2 (v4 "طفء") ;
   switch8on_V2 = dirV2 (v4 "شعل") ;
   table_N      = sdfN "طول" "فاعِلة" Fem NoHum ;
-  talk_V3      = mkV3 (v5 "حدث") datPrep (mkPrep "عَن") ;
+  talk_V3      = mkV3 (v5 "حدث") liPrep (mkPrep "عَن") ;
   teacher_N    = sdmN "علم" "مُفَعِّل" Masc Hum ; --mucal~imö
   teach_V2     = dirV2 (v2 "علم") ;
   television_N = mkN (sndf "تِلِفِزيُون") Masc NoHum ;

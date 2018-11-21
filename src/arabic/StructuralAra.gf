@@ -18,8 +18,8 @@ concrete StructuralAra of Structural = CatAra **
   between_Prep = mkPrep "بَيْنَ" ;
 --  both7and_DConj = sd2 "بْته" "َند" ** {n = Pl} ;
 --  but_PConj = ss "بُت" ;
-  by8agent_Prep = mkPrep "بِ" ;
-  by8means_Prep = mkPrep "بِ" ;
+  by8agent_Prep,
+  by8means_Prep = biPrep ;
   can_VV = mkVV (mkV "طوع" FormX) ;
 --  can8know_VV = {
 --    s = table VVForm [["بي َبلي تْ"] ; "عَن" ; "عُْلد" ;
@@ -34,6 +34,7 @@ concrete StructuralAra of Structural = CatAra **
 --  everywhere_Adv = ss "ثريوهري" ;
   few_Det = mkDet "بَعض" Pl Const ;
 --  first_Ord = ss "فِرست" ;
+  for_Prep = liPrep ;
   from_Prep = mkPrep "مِنَ" ;
   he_Pron = ResAra.he_Pron ;
   here_Adv = ss "هُنا" ;
@@ -68,7 +69,7 @@ concrete StructuralAra of Structural = CatAra **
 --  otherwise_PConj = ss "ْتهروِسي" ;
   part_Prep = mkPrep "مِنَ" ;
 --  please_Voc = ss "ةلَسي" ;
-  possess_Prep = mkPrep "ل" ;
+  possess_Prep = liPrep ;
 --  quite_Adv = ss "قُِتي" ;
   she_Pron = ResAra.she_Pron ;
 --  so_AdA = ss "سْ" ;
