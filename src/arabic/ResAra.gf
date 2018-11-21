@@ -127,7 +127,15 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     } ;
 
     noPrep : Preposition = mkPreposition [] Nom ;
-    datPrep : Preposition = mkPreposition ("لِ" ++ BIND) Dat ;
+    liPrep : Preposition = mkPreposition (
+      pre { #pronSuffAndOther => "لِ" ;
+            #pronSuff         => "لَ" ;
+            _                 => "لِ" 
+          }  ++ BIND) Dat ;
+    biPrep : Preposition = mkPreposition ("بِ"++BIND) ;
+
+    pronSuff : pattern Str = #("كَ"|"كِ"|"كُمَا"|"كُمْ"|"كُنَّ"|"هُ"|"ها"|"هُمَا"|"هُمْ"|"هُنَّ") ;
+    pronSuffAndOther : pattern Str = #( "كَم" ) ; -- TODO list words that begin like pron.suff. but aren't
 
     Adj  : Type = {s : AForm => Str} ;
     Adj2 : Type = Adj ** {c2 : Preposition} ;
@@ -1341,9 +1349,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
      { s =
         table {
           (Nom|Bare) => ana;
-          Acc => BIND ++ nI; -- object suffix
-          Gen => BIND ++ I;   -- possessive suffix
-          Dat => I -- will only be used with preposition لِ, which already has a BIND
+          Acc => nI ; -- object suffix
+          Gen => I ;  -- possessive suffix
+          Dat => I -- will only be used with preposition لِ
         };
       a = {pgn = pgn; isPron = True };
       empty = []
