@@ -1553,7 +1553,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
               <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
               _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
               };
-            sc : Preposition = case o of {Subord => {s=[]; c=Acc} ; Dir => vp.sc} ;
+            sc : Preposition = case o of {Subord => {s=[]; c=Acc} ; _ => vp.sc} ;
             subj = np.empty ++ sc.s
                 ++ case vp.isPred of {
                       False => (proDrop np).s ! sc.c ; -- prodrop if it's not predicative
@@ -1588,8 +1588,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     Obj : Type = {
       s : Str ;
-      a : Agr -- default Agr in a VP without real Obj is Per3 Masc Sg
-      };
+      a : Agr -- default Agr in a VP without real Obj is Per3 Masc Sg.
+      };      -- need isPron for word order in predVP, and pgn for ImpersCl
 
     emptyObj : Obj = emptyNP ** {s=[]} ;
 

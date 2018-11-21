@@ -33,9 +33,9 @@ concrete SentenceAra of Sentence = CatAra ** open
     ImpVP vp = {
       s = \\p,g,n =>
         case p of {
-          Pos => vp.s ! (Per2 g n) ! VPImp  ++ vp.obj.s  ++ vp.s2 ;
-          Neg => "لا" ++ vp.s ! (Per2 g n) ! (VPImpf Jus) ++ vp.obj.s ++ vp.s2
-        }
+          Pos =>          vp.s ! Per2 g n ! VPImp ;
+          Neg => "لَا" ++ vp.s ! Per2 g n ! VPImpf Jus
+        } ++ vp.obj.s  ++ vp.pred.s ! {g=g;n=n} ! Acc ++ vp.s2 
       };
 
 --

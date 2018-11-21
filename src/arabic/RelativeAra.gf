@@ -13,7 +13,7 @@ concrete RelativeAra of Relative = CatAra **
      s = \\t,p,agr,c => 
        let 
          npS : Case => Str = \\_ => rp.s ! agr2ragr agr c ;
-         np : NP = agrNP agr ** {s = npS} ;
+         np : ResAra.NP = agrNP agr ** {s = npS} ;
          cl = predVP np vp ;
        in
        cl.s ! t ! p ! Nominal
