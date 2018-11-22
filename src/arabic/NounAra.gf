@@ -99,7 +99,7 @@ lin
     } ;
 
   PossPron p = {
-    s = \\_,_,_,_ => p.s ! Gen;
+    s = \\_,_,_,_ => BIND ++ p.s ! Gen;
     d = Poss;
     is1sg = case p.a.pgn of { Per1 Sing => True ; _ => False } ;
     isPron = True;
@@ -195,7 +195,7 @@ lin
   -- : CN -> NP -> CN ;     -- house of Paris, house of mine
   PossNP cn np = cn ** {
     s  = \\n,_d,c => cn.s  ! n ! Const ! c ;
-    s2 = \\n,_d,c => cn.s2 ! n ! Const ! c ;
+    s2 = \\n,_d,c => cn.s2 ! n ! Const ! Gen ; -- unsure about this /IL
     np = \\c => cn.np ! c ++ np.s ! Gen
     };
 
