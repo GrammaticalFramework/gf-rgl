@@ -1484,14 +1484,17 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
   oper
 
-    VP : Type = {
-      s : PerGenNum => VPForm => Str ;
+    BaseVP : Type = { -- to minimise duplication of code for VPS
       sc : Preposition ; -- subject case: e.g.  يُمْكِنُ *لِ*Xِ
       obj : Obj;
       pred : Comp;
       isPred : Bool; --indicates if there is a predicate (xabar)
       s2 : Str
-      };
+      } ;
+
+    VP : Type = BaseVP ** {
+      s : PerGenNum => VPForm => Str ;
+      } ;
 
     uttVP : VP -> (Gender=>Str) = \vp ->
      \\g => vp.s ! Per3 g Sg ! VPPerf
@@ -1531,28 +1534,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                 <Verbal, False> => verbalAgr np.a.pgn;
                 _               => np.a.pgn
               };
-            gn = pgn2gn pgn;
-            kataba  = vp.s ! pgn ! VPPerf ;
-            yaktubu = vp.s ! pgn ! VPImpf Ind ;
-            yaktuba = vp.s ! pgn ! VPImpf Cnj ;
-            yaktub  = vp.s ! pgn ! VPImpf Jus ;
-            vStr : ParamX.Tense -> Polarity -> Str =
-              \tn,pl -> case <vp.isPred,tn,pl> of {
-              <False, Pres, Pos> => yaktubu ;
-              <False, Pres, Neg> => "لَا" ++ yaktubu ;
-              <True, Pres, Pos> => "" ;      --no verb "to be" in present
-              <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
-              <_, Past, Pos> => kataba ;
-              <_, Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, Cond, _  > => yaktuba ;
-              <_, Fut,  Pos> => glue "سَ" yaktubu ;
-              <_, Fut,  Neg> => "لَنْ" ++ yaktuba
-              };
-            pred : ParamX.Tense -> Polarity -> Str =
-              \tn,pl -> case <vp.isPred,tn,pl>  of {
-              <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
-              _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
-              };
             sc : Preposition = case o of {Subord => {s=[]; c=Acc} ; _ => vp.sc} ;
             subj = np.empty ++ sc.s
                 ++ case vp.isPred of {
@@ -1561,30 +1542,59 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                    } ;
           } in wordOrder o
                   vp.obj.a.isPron np.a.isPron
-                  (vStr t p) 
-                  subj 
-
+                  (vStr vp pgn t p) 
                   (case <vp.isPred,vp.obj.a.isPron> of {
                      <False,True> => BIND ++ vp.obj.s ;
                      _            =>         vp.obj.s })
-
-                  (pred t p) 
+                  (pred vp pgn t p) 
                   vp.s2
-
+                  subj
       } ;
 
-    -- seems complicated, but this is to share code between PredVP and ClSlash-using funs
-    wordOrder : Order -> (objIsPron,subjIsPron : Bool) -> (verb,subj,obj,pred,adv : Str) -> Str =
-      \o,objIsPron,subjIsPron,verb,subj,obj,pred,adv ->
+    -- seems complicated, but this is to share code with VPS and other similar structures
+    wordOrder : Order -> (objIsPron,subjIsPron : Bool) -> (verb,obj,pred,adv,subj : Str) -> Str =
+      \o,objIsPron,subjIsPron,verb,obj,pred,adv,subj ->
+          let cl = wordOrderNoSubj o objIsPron verb obj pred adv in
           case o of {
-            VOS    => verb ++ obj ++ pred ++ adv ++ subj ;
-            Verbal => verb ++ 
-              case objIsPron of {
-                    True  => obj ++ subj ; -- obj. clitic attaches directly to the verb
-                    False => subj ++ obj } ++ adv ++ pred ;
-            Nominal => subj ++ verb ++ obj ++ adv ++ pred ;
-            Subord  => if_then_Str subjIsPron BIND [] -- in subord. clause, subj. pronoun binds to the main verb
-                    ++ subj ++ verb ++ obj ++ adv ++ pred 
+            Subord => 
+              let bind = if_then_Str subjIsPron BIND [] -- in subord. clause, subj. pronoun binds to the main verb
+               in cl.before ++ bind ++ subj ++ cl.after ;
+            _  => cl.before         ++ subj ++ cl.after
+          } ;
+
+    wordOrderNoSubj : Order -> (objIsPron : Bool) -> (verb,obj,pred,adv : Str) -> {before,after : Str} =
+      \o,objIsPron,verb,obj,pred,adv ->
+        case o of {
+            VOS => {before = verb ++ obj ++ pred ++ adv; after = []} ;
+            Verbal => case objIsPron of {
+                        True  => {before = verb ++ obj ; after = adv ++ pred} ; -- obj. clitic attaches directly to the verb
+                        False => {before = verb ; after = obj ++ adv ++ pred} 
+                      } ;
+            (Nominal|Subord) => {before = [] ; after = verb ++ obj ++ adv ++ pred}
+          } ;
+
+    pred : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Str = \vp,pgn,tn,pl -> 
+      let gn = pgn2gn pgn
+       in case <vp.isPred,tn,pl> of {
+            <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
+            _                 => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
+          } ;
+
+    vStr : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Str = \vp,pgn,tn,pl -> 
+      let kataba  = vp.s ! pgn ! VPPerf ;
+          yaktubu = vp.s ! pgn ! VPImpf Ind ;
+          yaktuba = vp.s ! pgn ! VPImpf Cnj ;
+          yaktub  = vp.s ! pgn ! VPImpf Jus ;
+       in case <vp.isPred,tn,pl> of {
+            <False, Pres, Pos> => yaktubu ;
+            <False, Pres, Neg> => "لَا" ++ yaktubu ;
+            <True, Pres, Pos> => "" ;      --no verb "to be" in present
+            <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
+            <_, Past, Pos> => kataba ;
+            <_, Past, Neg> => "لَمْ" ++ yaktub ;
+            <_, Cond, _  > => yaktuba ;
+            <_, Fut,  Pos> => glue "سَ" yaktubu ;
+            <_, Fut,  Neg> => "لَنْ" ++ yaktuba
           } ;
 
     -- in verbal sentences, the verb agrees with the subject
@@ -1658,6 +1668,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;
     QCl : Type = {s : Tense => Polarity => QForm => Str} ;
+
+    forceOrder : Order -> Cl -> Cl = \o,cl ->
+      {s = \\t,p,_ => cl.s ! t ! p ! o} ;
 
 -----------------------------------------------------------------------------
 -- Relative
