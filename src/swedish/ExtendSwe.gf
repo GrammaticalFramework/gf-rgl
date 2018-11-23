@@ -8,7 +8,7 @@ concrete ExtendSwe of Extend = CatSwe **
     PassVPSlash, PassAgentVPSlash, UttVPShort, ByVP, InOrderToVP,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
-    ICompAP,
+    ICompAP,ProDrop,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
     Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
@@ -122,7 +122,7 @@ concrete ExtendSwe of Extend = CatSwe **
 
     ICompAP ap = {s = \\a => hur_IAdv.s ++ ap.s ! a} ;
 
-
+    ProDrop pro = pro ** {s = \\_ => []} ;
 
   lincat
     RNP     = {s : Agr => Str ; isPron : Bool} ;   ---- inherent Agr needed: han färgar sitt hår vitt. But also depends on subject
