@@ -6,15 +6,16 @@ concrete ExtendAra of Extend =
     StrandRelSlash, ExistPluralCN, ExistMassCN, ExistCN, EmptyRelSlash, DetNPMasc, DetNPFem,
     ComplBareVS, ComplDirectVS, ComplDirectVQ,
     ICompAP,
-    VPS, MkVPS,
+    VPS, MkVPS, PredVPS, BaseVPS, ConsVPS, ConjVPS,
     ApposNP
 ]
   with (Grammar=GrammarAra)
   ** open
 
-    Prelude,
+    ParamX,
     ResAra,
-    ParamX
+    Prelude,
+    Coordination
 
   in {
 
@@ -29,15 +30,30 @@ concrete ExtendAra of Extend =
 
   lincat
 
-    VPS = VP ;  -- finite VP's with tense and polarity
-
+    VPS   = {s : PerGenNum => Str} ;  -- finite VP's with tense and polarity
+    [VPS] = {s1,s2 : PerGenNum => Str} ;
   lin
     -- : Temp -> Pol -> VP -> VPS ; -- hasn't slept
-    MkVPS t p vp = lin VPS (vp ** {
-      s = \\pgn,vf => case <t.t,t.a> of { --- IL guessed tenses
-             <(Pres|Fut),Simul> => vp.s ! pgn ! VPImpf Ind ;
-             <Cond,_    > => vp.s ! pgn ! VPImpf Cnj ;
-             <_   ,_    > => vp.s ! pgn ! VPPerf
-           }
-      }) ;
+    MkVPS t p vp = {
+      s = \\pgn => let vps =
+        wordOrderNoSubj 
+          Nominal --  Nominal (=SVO) generalises best for ConjVPS.
+          vp.obj.a.isPron 
+          (vStr vp pgn t.t p.p)
+          (case <vp.isPred,vp.obj.a.isPron> of {
+                    <False,True> => BIND ++ vp.obj.s ;
+                    _            =>         vp.obj.s })
+          (pred vp pgn t.t p.p) 
+          vp.s2 
+      in vps.before ++ vps.after -- word order is SVO, so this is safe for just this case.
+      } ;
+
+    BaseVPS = twoTable PerGenNum ;
+    ConsVPS = consrTable PerGenNum comma ;
+    ConjVPS = conjunctTable PerGenNum ;
+
+    PredVPS np vps = {
+      s = \\_ => np.s ! Nom ++ vps.s ! np.a.pgn -- first quick version with order always Nominal.
+      } ;                                       -- if necessary, change VPS into {s : PerGenNum => Order => {before,after : Str}}
+
 }
