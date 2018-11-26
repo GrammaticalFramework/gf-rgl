@@ -36,9 +36,21 @@ if "%dest%"=="" (
   )
 )
 :BreakLibPath
+
+set DATA_DIR=..\gf-core\DATA_DIR
 if "%dest%"=="" (
-  REM TODO Look in ../gf-core/DATA_DIR
+  REM Look in already compiled GF folder
+  if exist %DATA_DIR% (
+    for /f "delims=" %%x in (%DATA_DIR%) do (
+      if not "%%x"=="" (
+        set dest=%%x\lib
+        goto BreakDataDir
+      )
+    )
+  )
 )
+:BreakDataDir
+
 if "%dest%"=="" (
   echo Unable to determine where to install the RGL. Please do one of the following:
   echo  - Pass the --dest=... flag to this script
