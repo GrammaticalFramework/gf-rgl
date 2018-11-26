@@ -72,7 +72,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
     Conj = {s : Str ; n : ResAra.Number} ;
 --    DConj = {s1,s2 : Str ; n : ResAra.Number} ;
---    Subj = {s : Str} ;
+    Subj = {s : Str ; o : Order} ;
     Prep = ResAra.Preposition ;
 
 -- Open lexical classes, e.g. Lexicon

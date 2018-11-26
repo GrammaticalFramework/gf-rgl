@@ -1231,7 +1231,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         <NonTeen,_> => Acc;
         <ThreeTen,_> => Gen;
         <Hundreds,_> => Gen;
-        <_,Const> => Gen;
+        <_,Const> => Gen; -- not sure if this is an actual rule /IL
         _     => c
       };
 
@@ -1534,7 +1534,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                 <Verbal, False> => verbalAgr np.a.pgn;
                 _               => np.a.pgn
               };
-            sc : Preposition = case o of {Subord => {s=[]; c=Acc} ; _ => vp.sc} ;
+            sc : Preposition = case o of { -- very unsure of this /IL
+                  Subord => {s=[]; c=Acc} ; -- to prevent weird stuff with VVs
+                  _ => case np.a.isPron of {True => noPrep; _ => vp.sc} 
+                } ;
             subj = np.empty ++ sc.s
                 ++ case vp.isPred of {
                       False => (proDrop np).s ! sc.c ; -- prodrop if it's not predicative

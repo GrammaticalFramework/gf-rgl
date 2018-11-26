@@ -62,8 +62,7 @@ concrete StructuralAra of Structural = CatAra **
 --    isAux = True
 --    } ;
   no_Utt = {s = \\_ => "لا"} ;
-  on_Prep = mkPrep "عَلى" ;
---- DEPREC  one_Quant = mkQuantNum "واحِد" Sg Indef ;
+  on_Prep = mkPrep "عَلَى" ;
   only_Predet = mkPredet "فَقَط" False;
 --  or_Conj = ss "ْر" ** {n = Sg} ;
 --  otherwise_PConj = ss "ْتهروِسي" ;
@@ -79,7 +78,7 @@ concrete StructuralAra of Structural = CatAra **
   something_NP = regNP "شَيْء" Sg ;
 --  somewhere_Adv = ss "سْموهري" ;
   that_Quant = mkQuant3 "ذَلِكَ" "تِلكَ" "أُلٱِكَ" Def;
-  that_Subj = ss "أنَّ" ;
+  that_Subj = mkSubj "أنَّ" ;
 ----b  that_NP = indeclNP "ذَلِكَ" Sg ;
   there_Adv = ss "هُناك" ;
 --  there7to_Adv = ss "تهري" ;
@@ -100,7 +99,7 @@ concrete StructuralAra of Structural = CatAra **
   whatPl_IP = mkIP "ما" "ماذا" Pl ;
   whatSg_IP = mkIP "ما" "ماذا" Sg ;
   when_IAdv = ss "مَتَى" ;
---  when_Subj = ss "وهن" ;
+  when_Subj = mkSubj "عِنْدَمَا" Verbal ;
   where_IAdv = ss "أَينَ" ;
   which_IQuant = {
     s = \\s,c => case <c,s> of {

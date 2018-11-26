@@ -50,6 +50,10 @@ resource ParadigmsAra = open
   masc : Gender ;
   fem : Gender ;
 
+  Number : Type ;
+  sg : Number ;
+  pl : Number ;
+
   Species : Type ;
   hum : Species ;
   nohum : Species ;
@@ -71,8 +75,8 @@ resource ParadigmsAra = open
    mkN : NTable -> Gender -> Species -> N ;  -- loan words, irregular
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N ; -- broken plural
    mkN : N -> (attr : Str) -> N ; -- Compound noun with invariant attribute
-   mkN : N -> N -> N ;            -- Compound noun where attribute inflects in state and case but not number
-   mkN : Number -> N -> N -> N ;  -- Compound noun where attribute inflects in state, case and number
+   mkN : N -> N -> N ;            -- Compound noun where attribute inflects in state and case. Attribute in singular.
+   mkN : Number -> N -> N -> N ;  -- Compound noun where attribute inflects in state and case. Attribute's number specified by 1st arg.
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
    } ;
@@ -102,7 +106,7 @@ resource ParadigmsAra = open
     mkPN : Str -> PN        -- Fem Hum if ends with ة, otherwise Masc Hum
      = smartPN ;
     mkPN : N -> PN
-     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! Bare}) ; -- no idea /IL
+     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! c ++ n.s2 ! Sg ! Const ! c }) ; -- no idea /IL
     mkPN : Str -> Gender -> Species -> PN
      = mkFullPN ;
     } ;
@@ -171,6 +175,11 @@ resource ParadigmsAra = open
   mkAdA : Str -> AdA ;
 
   mkInterj : Str -> Interj ;
+
+  mkSubj : overload {
+    mkSubj : Str -> Subj ;        -- Default order Subord (=noun first and in accusative)
+    mkSubj : Str -> Order -> Subj -- Specify word order
+  } ; 
 
 --2 Prepositions
 --
@@ -300,6 +309,10 @@ resource ParadigmsAra = open
   Gender = ResAra.Gender ;
   masc = ResAra.Masc ;
   fem = ResAra.Fem ;
+
+  Number = ResAra.Number ;
+  sg = ResAra.Sg ;
+  pl = ResAra.Pl ;
 
   Species = ResAra.Species ;
   hum = ResAra.Hum ;
@@ -603,9 +616,9 @@ resource ParadigmsAra = open
         mascTbl = reg jadId judud ;
         femTbl = reg jadIda judud ;
      in { s = table {
-             APosit Masc n d c => mascTbl ! n ! d ! c ;
-             APosit Fem  n d c => femTbl ! n ! d ! c ;
-             AComp d c         => indeclN akbar ! d ! c }
+             APosit Masc n d c => rectifyHmz (mascTbl ! n ! d ! c) ;
+             APosit Fem  n d c => rectifyHmz (femTbl ! n ! d ! c) ;
+             AComp d c         => rectifyHmz (indeclN akbar ! d ! c) }
         } ;
 
   degrA : (posit,compar,plur : Str) -> A
@@ -658,6 +671,11 @@ resource ParadigmsAra = open
   mkAdV x = lin AdV (ss x) ;
   mkAdA x = lin AdA (ss x) ;
   mkInterj x = lin Interj (ss x) ;
+
+  mkSubj = overload {
+    mkSubj : Str -> Subj = \s -> lin Subj {s = s ; o = Subord} ;
+    mkSubj : Str -> Order -> Subj = \s,o -> lin Subj {s = s ; o = o} ;
+  } ; 
 
   dirV2 v = prepV2 v (casePrep acc) ;
 
