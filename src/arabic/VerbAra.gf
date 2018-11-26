@@ -69,6 +69,12 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     UseCopula = predV copula ;
 
+    -- : VP -> Prep -> VPSlash ;  -- live in (it)
+    VPSlashPrep vp prep = vp ** {
+      c2 = prep ;
+      agrObj = \\_ => []
+      } ;
+
     AdvVP vp adv = insertStr adv.s vp ;
 
     AdVVP adv = insertStr adv.s ;
