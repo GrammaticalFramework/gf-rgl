@@ -172,6 +172,11 @@ resource ParadigmsAra = open
 
   mkInterj : Str -> Interj ;
 
+  mkSubj : overload {
+    mkSubj : Str -> Subj ;        -- Default order Subord (=noun first and in accusative)
+    mkSubj : Str -> Order -> Subj -- Specify word order
+  } ; 
+
 --2 Prepositions
 --
 -- A preposition as used for rection in the lexicon, as well as to
@@ -658,6 +663,11 @@ resource ParadigmsAra = open
   mkAdV x = lin AdV (ss x) ;
   mkAdA x = lin AdA (ss x) ;
   mkInterj x = lin Interj (ss x) ;
+
+  mkSubj = overload {
+    mkSubj : Str -> Subj = \s -> lin Subj {s = s ; o = Subord} ;
+    mkSubj : Str -> Order -> Subj = \s,o -> lin Subj {s = s ; o = o} ;
+  } ; 
 
   dirV2 v = prepV2 v (casePrep acc) ;
 
