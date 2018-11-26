@@ -69,6 +69,8 @@ lin
       let n_card : Card = lin Card n;
           n_hours_NP : NP = mkNP n_card time ;
       in  S.mkAdv for_Prep n_hours_NP | S.mkAdv to_Prep n_hours_NP ;--| S.mkAdv (n_hours_NP.s ! R.Nom) ;
+    timeunitRange l u time = {s = "de" ++ l.s ! time.g
+                                ++ "a" ++ u.s ! time.g ++ time.s ! u.n } ;
 
     oneHour         = mkHour "1" Manha Sg ;
     twoHour         = mkHour "2" Manha Pl ;
@@ -95,12 +97,12 @@ lin
     twentyThreeHour = mkHour "23" Noite Pl ;
     twentyFourHour  = {s = "meia-noite" ; pe = None ; n = Sg} ;
 
-    timeHour h = mkAdv (a ! h.n ++ h.s ++ period ! h.pe) ;
+    timeHour h = mkAdv (R.a ! Fem ! h.n ++ h.s ++ period ! h.pe) ;
 
     timeHourMinute h m = let
       min = m.s ! Masc
       in
-      mkAdv (a ! h.n ++ h.s ++ "e" ++ min ++ period ! h.pe) ;
+      mkAdv (R.a ! Fem ! h.n ++ h.s ++ "e" ++ min ++ period ! h.pe) ;
 
   oper
     mkHour : Str -> Period -> Number -> {s : Str ; pe : Period ; n : Number} ;
@@ -113,9 +115,6 @@ lin
       Noite => "da noite" ;
       None  => ""
       } ;
-
-    a : Number => Str ;
-    a = numForms "à" "às" ;
 
   lin
   weekdayPunctualAdv w = lin Adv {s = w.s ! C.Sg} ;         -- lundi

@@ -78,7 +78,8 @@ cat
   Year ;
 
 fun
-  timeunitAdv     : Card -> Timeunit -> Adv ; -- (for) three hours
+  timeunitAdv   : Card -> Timeunit -> Adv ; -- (for) three hours
+  timeunitRange : Card -> Card -> Timeunit -> Adv ; -- (cats live) ten to twenty years
 
   oneHour : Hour ;
   twoHour : Hour ;
@@ -105,8 +106,8 @@ fun
   twentyThreeHour : Hour ;
   twentyFourHour : Hour ;
 
-  timeHour : Hour -> Adv ; -- at three (o'clock / am / pm)
-  timeHourMinute : Hour -> Card -> Adv ; -- at forty past six
+  timeHour : Hour -> Adv ; -- at three a.m./p.m.
+  timeHourMinute : Hour -> Card -> Adv ; -- at six forty a.m./p.m.
 
   weekdayPunctualAdv : Weekday -> Adv ;  -- on Monday
   weekdayHabitualAdv : Weekday -> Adv ;  -- on Mondays
