@@ -9,7 +9,7 @@ import System.IO.Error (catchIOError)
 import System.Exit (ExitCode(..),exitFailure)
 import System.Environment (getArgs,lookupEnv)
 import System.Process (rawSystem)
-import System.FilePath ((</>)) -- ,takeFileName,addExtension,dropExtension)
+import System.FilePath ((</>),splitSearchPath) -- ,takeFileName,addExtension,dropExtension)
 import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
 #if __GLASGOW_HASKELL__>=800
 import System.Directory (getModificationTime,setModificationTime)
@@ -119,7 +119,7 @@ mkInfo = do
   -- Look for install location in a few different places
   let mflag = getFlag destination_flag args
   mbuilt <- catchIOError (readFile "../gf-core/DATA_DIR" >>= \d -> return (Just (d </> "lib"))) (\e -> return Nothing)
-  menvar <- lookupEnv "GF_LIB_PATH"
+  menvar <- lookupEnv "GF_LIB_PATH" >>= return . fmap (head . splitSearchPath)
   let
     inst_dir =
       case catMaybes [mflag,menvar,mbuilt] of

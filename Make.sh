@@ -36,7 +36,7 @@ done
 
 # Try to determine install location
 if [ -z "$dest" ]; then
-  dest="$GF_LIB_PATH"
+  dest=$(echo "$GF_LIB_PATH" | sed 's/:.*$//')
 fi
 if [ -z "$dest" ] && [ -f "../gf-core/DATA_DIR" ]; then
   dest=$(cat ../gf-core/DATA_DIR)

@@ -29,6 +29,7 @@ goto Loop
 
 REM Try to determine install location
 if "%dest%"=="" (
+  REM TODO Separate paths with search path separator ; and pick first one
   set dest=%GF_LIB_PATH%
 )
 if "%dest%"=="" (
