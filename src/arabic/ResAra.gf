@@ -1545,10 +1545,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                    } ;
           } in wordOrder o
                   vp.obj.a.isPron np.a.isPron
-                  (vStr vp pgn t p) 
-                  (case <vp.isPred,vp.obj.a.isPron> of {
-                     <False,True> => BIND ++ vp.obj.s ;
-                     _            =>         vp.obj.s })
+                  (vStr vp pgn t p)
+                  vp.obj.s
                   (pred vp pgn t p) 
                   vp.s2
                   subj
@@ -1626,11 +1624,18 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     subj2np : Subj -> NP = \su -> su ** {a = {pgn = emptyNP.a.pgn ; isPron = su.isPron} ; empty=[]} ;
     emptyObj : Obj = emptyNP ** {s=[]} ;
 
-    insertObj : NP -> VPSlash -> VP = \np,vp -> vp **
-      { obj = {s = vp.obj.s -- old object, if there was one
-                ++ vp.c2.s ++ np.s ! vp.c2.c -- new object
-                ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V
-               a = np.a} };
+    insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** { 
+      obj = {s = vp.obj.s -- old object, if there was one
+              ++ bindIfPron np vp -- new object, bind if pronoun and not pred
+              ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V
+             a = np.a} 
+      } ;
+
+    bindIfPron : NP -> {c2:Preposition; isPred:Bool} -> Str = \np,vp ->
+      let bind = case <vp.isPred,np.a.isPron> of {
+                 <False,True> => BIND ;
+                 _            => [] } 
+       in vp.c2.s ++ bind ++ np.s ! vp.c2.c ;
 
     insertPred : Comp -> VP -> VP = \p,vp -> vp **
       { pred = p;
@@ -1650,6 +1655,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     VPSlash : Type = VP ** {c2 : Preposition ; agrObj : PerGenNum => Str} ;
     ClSlash : Type = VPSlash ** {subj : Subj} ;
+
+    emptyVPslash : VP -> VPSlash = \vp -> vp ** {
+      c2 = noPrep ; agrObj = \\_ => []
+      } ;
 
     slashV2 : Verb2 -> VPSlash = \v ->
       predV v ** {c2 = v.c2 ; agrObj = \\_ => []} ;

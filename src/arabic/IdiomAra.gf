@@ -10,7 +10,9 @@ concrete IdiomAra of Idiom = CatAra ** open
 
   -- : VP -> Cl ;        -- it is hot
   ImpersCl vp =
-    let it : ResAra.NP = pron2np (pgn2pron vp.obj.a.pgn) ; -- if no obj, Per3 Masc Sg chosen by default
+    let it : ResAra.NP = case vp.isPred of {
+    		True  => pron2np (pgn2pron vp.obj.a.pgn) ;
+	        False => pgn2pron vp.obj.a.pgn } ; -- if no obj, Per3 Masc Sg chosen by default
      in predVP it vp ;
 
   --  : VP -> Cl ;        -- one sleeps
@@ -21,8 +23,9 @@ concrete IdiomAra of Idiom = CatAra ** open
 
   -- : Adv -> S -> Cl ; -- it is here she slept
   CleftAdv adv s =
-    let comp : Comp = CompAdv adv in
-    predVP he_Pron (UseComp comp) ;
+    let comp : Comp = CompAdv (lin Adv {s = adv.s ++ s.s ! Verbal}) ; -- no idea about word order /IL
+        pass_V = mkV "مضي" va vi ; -- switch to copula or some other verb if better /IL
+     in predVP emptyNP (UseV pass_V ** {isPred=True ; pred=comp}) ; -- very hacky /IL
 
    -- : NP -> Cl ;        -- there is a house
   ExistNP np =

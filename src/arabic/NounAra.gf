@@ -174,7 +174,7 @@ lin
   Use2N3 n3 = n3 ;
   Use3N3 n3 = n3 ** {c2 = n3.c3} ;
 
-  ComplN2 n2 np = UseN n2 ** {np=np.s} ;
+  ComplN2 n2 np = UseN n2 ** {np = \\c => n2.c2.s ++ np.s ! n2.c2.c} ;
 
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
 
