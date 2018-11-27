@@ -14,17 +14,19 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
         agrObj = \\pgn => v2v.c3.s  -- أَنْ
                        ++ vp.s ! pgn ! VPImpf Cnj ;
         isPred = False ;
-        c2 = v2v.c2 ; -- for the direct object
+        c2 = v2v.c2 ; -- preposition for the direct object
         sc = v2v.sc
       } ;
 
     -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
-    SlashV2VNP v2v np vps =  let v2vVP = predV v2v in -- IL
+    SlashV2VNP v2v np vps =  let v2vVP = slashV2 v2v in -- IL
       vps ** {
-        s = \\pgn,vpf => v2vVP.s ! pgn ! vpf
-                      ++ v2v.c2.s ++ np.s ! v2v.c2.c
+        s = \\pgn,vpf => v2vVP.s ! pgn ! vpf -- main verb agrees with subject
+                      ++ bindIfPron np v2vVP
                       ++ v2v.c3.s  -- أَنْ
-                      ++ vps.s ! pgn ! VPImpf Cnj ;
+                      ++ vps.s ! np.a.pgn ! VPImpf Cnj -- verb from old VP agrees with object
+                      ++ vps.obj.s ; -- otherwise obj appears in a weird place /IL
+        obj = emptyObj ;
         isPred = False ;
                     -- preposition for the direct object comes from VP
         sc = v2v.sc
