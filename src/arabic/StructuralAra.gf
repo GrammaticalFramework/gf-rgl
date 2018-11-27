@@ -46,7 +46,7 @@ concrete StructuralAra of Structural = CatAra **
     n = Pl ; d = Def 
     } ; -- IL
 
---  if_Subj = ss "ِف" ;
+  if_Subj = mkSubj "إِذَا" Verbal ;
   in8front_Prep = mkPrep "مُقَابِلَ" ;
   i_Pron  = ResAra.i_Pron ;
   in_Prep = mkPrep "فِي" ;

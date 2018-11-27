@@ -1656,6 +1656,10 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     VPSlash : Type = VP ** {c2 : Preposition ; agrObj : PerGenNum => Str} ;
     ClSlash : Type = VPSlash ** {subj : Subj} ;
 
+    emptyVPslash : VP -> VPSlash = \vp -> vp ** {
+      c2 = noPrep ; agrObj = \\_ => []
+      } ;
+
     slashV2 : Verb2 -> VPSlash = \v ->
       predV v ** {c2 = v.c2 ; agrObj = \\_ => []} ;
 

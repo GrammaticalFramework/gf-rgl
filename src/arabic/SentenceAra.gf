@@ -52,10 +52,8 @@ concrete SentenceAra of Sentence = CatAra ** open
     SlashVP = predVPSlash ;
     AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
 
--- SlashPrep : Cl -> Prep -> ClSlash
--- Will be awkward to implement in the way ClSlash is now.
--- ClSlash is implemented the way it is now for a good reason:
--- we need to support different word orders.
+-- : Cl -> Prep -> ClSlash
+--    SlashPrep cl prep = TODO
 
 --  SlashVS np vs sslash = TODO
 
