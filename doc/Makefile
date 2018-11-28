@@ -8,7 +8,7 @@ all: synopsis
 status: status.html
 
 synopsis:
-	make -C synopsis
+	make -C synopsis GF_LIB_PATH=../$(GF_LIB_PATH)
 
 sources:
 	make -C gfdoc sources.html
