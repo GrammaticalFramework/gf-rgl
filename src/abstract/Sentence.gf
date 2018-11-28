@@ -70,7 +70,7 @@ abstract Sentence = Cat ** {
 
 -- This covers subjunctive clauses, but they can also be added to the end.
 
-    SSubjS   : S -> Subj -> S -> S ;       -- I go home if she comes
+    SSubjS    : S -> Subj -> S -> S ;       -- I go home, if she comes
 
 -- A sentence can be modified by a relative clause referring to its contents.
 

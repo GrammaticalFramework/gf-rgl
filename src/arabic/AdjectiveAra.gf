@@ -21,7 +21,7 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
 -- $SuperlA$ belongs to determiner syntax in $Noun$.
 --
   ComplA2 a np = {
-    s = \\sp,g,n,st,c => a.s ! APosit g n st c ++ a.c2 ++ np.s ! Gen ;
+    s = \\sp,g,n,st,c => a.s ! APosit g n st c ++ a.c2.s ++ np.s ! a.c2.c ;
     } ;
 --
 --    ReflA2 a = {
@@ -37,7 +37,13 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
   AdAP ada ap = {
     s = \\sp,g,n,st,c => ada.s ++ ap.s ! sp ! g ! n ! st ! c
     } ;
---
---    UseA2 a = a ;
---
+
+  UseA2 = PositA ;
+
+  UseComparA a = {
+    s = \\h,g,n,d,c => a.s ! AComp d c 
+    };
+
+  -- : Ord -> AP ;       -- warmest
+  AdjOrd ord = {s = \\h,g,n,s,c => ord.s ! g ! s ! c} ;
 }

@@ -27,22 +27,25 @@ It will look for, in this order:
 
 ## Language config
 
-A list of all languages and their properties is maintained centrally in `languages.csv`.
+A list of all languages and their properties is maintained centrally in [`languages.csv`](languages.csv).
 This file should be kept up-to-date and all build methods should read this config file.
 **If you see something wrong, please report/fix it.**
 
-Description of columns:
-- Code, e,g, `Eng`
-- Directory, e.g. `english`
-- Functor (not used)
-- Unlexer (not used)
-- Present: languages that have `--# notpresent` marked
-- All: languages for which to compile `All`
-- Try: languages for which to compile `Try`
-- Symbolic: languages for which to compile `Symbolic`
-- Compatibility: languages for which to complile `Compatibility`
+| #  | Column        | Description                              | Default |
+|:---|:--------------|:-----------------------------------------|:-------:|
+| 1  | Code          | 3-letter language code, e.g. `Eng`       |    -    |
+| 2  | Name          | language name in English, e.g. `English` |    -    |
+| 3  | Directory     | folder name under `src`, e.g. `english`  |    -    |
+| 4  | Functor       | functor name (not used)                  |    -    |
+| 5  | Unlexer       | unlexer (not used)                       |    -    |
+| 6  | Present       | language is marked with `--# notpresent` |    n    |
+| 7  | All           | compile `All` module                     |    y    |
+| 8  | Try           | compile `Try` module                     |    y    |
+| 9  | Symbolic      | compile `Symbolic` module                |    y    |
+| 10 | Compatibility | complile `Compatibility` module          |    n    |
+| 11 | Synopsis      | include language in the RGL synopsis     |    n    |
 
-Columns can be a string, just `y`'s (where nothing means `n`) or just (`n`'s where nothing means `y`).
+If default is `y` then anything other than `n`, including the empty string, is treated as true (and vice versa when default is `n`).
 
 ## Haskell script: `Setup.hs`
 
@@ -108,11 +111,9 @@ You can pass the following flags:
 
 ## Windows batch file: `Setup.bat`
 
-**This script is still untested.**
+This method is provided as an alternative for Windows users who don't have Haskell or Bash installed.
 
-This method is provided as an alternative for Windows users who don't have Haskell installed.
-
-It is supposed to be a port of Setup.sh and works in largely the same way.
+It is supposed to be a port of `Setup.sh` and works in largely the same way.
 In particular, it accepts the same flags (in the same format) as described above.
 
 However it currently tries to build all modules for all languages and doesn't consider the details of which modules should be compiled for each language (specified in `languages.csv`)

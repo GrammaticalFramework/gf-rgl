@@ -26,67 +26,16 @@ concrete SentenceAra of Sentence = CatAra ** open
           }
       };
 -}
-    PredVP np vp =
-      { s =\\t,p,o =>
-          let {
-            pgn =
-              case <o,np.a.isPron> of {
-                <Verbal, False> => verbalAgr np.a.pgn;
-                _               => np.a.pgn
-              };
-            gn = pgn2gn pgn;
-            kataba  = vp.s ! pgn ! VPPerf ;
-            yaktubu = vp.s ! pgn ! VPImpf Ind ;
-            yaktuba = vp.s ! pgn ! VPImpf Cnj ;
-            yaktub  = vp.s ! pgn ! VPImpf Jus ;
-            vStr : ResAra.Tense -> Polarity -> Str =
-              \tn,pl -> case<vp.isPred,tn,pl> of {
-              <False, ResAra.Pres, Pos> => yaktubu ;
-              <False, ResAra.Pres, Neg> => "لَا" ++ yaktubu ;
-              <True, ResAra.Pres, Pos> => "" ;      --no verb "to be" in present
-              <True, ResAra.Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
-              <_, ResAra.Past, Pos> => kataba ;
-              <_, ResAra.Past, Neg> => "لَمْ" ++ yaktub ;
-              <_, ResAra.Fut,  Pos> => "سَ" ++ yaktubu ;
-              <_, ResAra.Fut,  Neg> => "لَنْ" ++ yaktuba
-              };
-            pred : ResAra.Tense -> Polarity -> Str =
-              \tn,pl -> case <vp.isPred,tn,pl>  of {
-              <True, ResAra.Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
-              _ => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
-              };
-
-          } in
-          case o of {
-            Verbal =>
-              --case <False, np.a.isPron> of { ---- AR workaround 18/12/2008
-          case <vp.obj.a.isPron, np.a.isPron> of {
-        {- IL: I don't think we should do prodrop here. vStr drops the copula in present tense,
-               so there's hardly anything left for a predicative clause: e.g.
-                  PredVP (UsePron i_Pron) (UseComp (CompCN (UseN car_N))) "I am a car"
-               would be linearised just as "car", if we have both prodrop and copula drop.
-               Leaving it up to someone who knows Arabic to decide what is better.
-        Original here:
-                <True,True>  => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p) ;
-                -- ya2kuluhu
-                <False,True> => (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p); -}
-                -- ya2kuluhu al-waladu, yakuluhu al-2awlaadu
-                <False> => (vStr t p) ++ np.s ! Nom ++ vp.obj.s ++ vp.s2 ++ (pred t p);
-                <True>  => (vStr t p) ++ vp.obj.s ++ np.s ! Nom ++ vp.s2 ++ (pred t p)
-              };
-            Nominal =>
-              np.s ! Nom ++ (vStr t p) ++ vp.obj.s ++ vp.s2 ++ (pred t p)
-          }
-      };
+    PredVP = predVP ;
 
 --    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
     ImpVP vp = {
       s = \\p,g,n =>
         case p of {
-          Pos => vp.s ! (Per2 g n) ! VPImp  ++ vp.obj.s  ++ vp.s2 ;
-          Neg => "لا" ++ vp.s ! (Per2 g n) ! (VPImpf Jus) ++ vp.obj.s ++ vp.s2
-        }
+          Pos =>          vp.s ! Per2 g n ! VPImp ;
+          Neg => "لَا" ++ vp.s ! Per2 g n ! VPImpf Jus
+        } ++ vp.obj.s  ++ vp.pred.s ! {g=g;n=n} ! Acc ++ vp.s2 
       };
 
 --
@@ -100,9 +49,11 @@ concrete SentenceAra of Sentence = CatAra ** open
 
 -- ClSlash
 
-    SlashVP np vps = PredVP np vps ** { c2 = vps.c2 } ;
+    SlashVP = predVPSlash ;
     AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
-    SlashPrep cl prep = cl ** {c2 = prep.s} ;
+
+-- : Cl -> Prep -> ClSlash
+--    SlashPrep cl prep = TODO
 
 --  SlashVS np vs sslash = TODO
 
@@ -113,22 +64,26 @@ concrete SentenceAra of Sentence = CatAra ** open
 --
 
     UseCl t p cl =
-      {s = case <t.t,t.a> of { --- IL guessed tenses
-             <(Pres|Cond),Simul>  => cl.s ! ResAra.Pres ! p.p ! Verbal ;
-             <Fut        ,_    >  => cl.s ! ResAra.Fut ! p.p ! Verbal ;
-             <_          ,_    >  => cl.s ! ResAra.Past ! p.p ! Verbal
+      {s = \\o => t.s ++ p.s ++
+         case <t.t,t.a> of { --- IL guessed tenses
+             <Pres,Simul>  => cl.s ! Pres ! p.p ! o ;
+             <Pres,Anter>  => cl.s ! Past ! p.p ! o ;
+             <x   ,_    >  => cl.s ! x ! p.p ! o
            }
       };
 
     UseQCl t p qcl =
-      {s = \\q =>
-     case <t.t,t.a> of { --- IL guessed tenses
-           <(Pres|Cond),Simul>  => qcl.s ! ResAra.Pres ! p.p ! q ;
-           <Fut        ,_    >  => qcl.s ! ResAra.Fut ! p.p ! q ;
-           <_          ,_    >  => qcl.s ! ResAra.Past ! p.p ! q
+      {s = \\q => t.s ++ p.s ++
+         case <t.t,t.a> of { --- IL guessed tenses
+           <Pres,Simul>  => qcl.s ! Pres ! p.p ! q ;
+           <Pres,Anter>  => qcl.s ! Past ! p.p ! q ;
+           <x   ,_    >  => qcl.s ! x ! p.p ! q
          }
       };
 
---    UseRCl t a p cl = {s = \\r => t.s ++ a.s ++ p.s ++ cl.s ! t.t ! a.a ! p.p ! r} ;
+    UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
+    UseSlash t p cl = UseCl t p (complClSlash cl) ;
+
+    AdvS adv s = s ** {s = \\o => adv.s ++ s.s ! o} ;
 }

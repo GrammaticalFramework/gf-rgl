@@ -34,7 +34,7 @@ flags optimize = all ;--noexpand;
           case g of {
             Masc => waHid;
             Fem => waHida
-          } in defArt state waHid + word + dec1sg ! state ! c;
+          } in defArt state c waHid + word + dec1sg ! state ! c;
         n = num;
         d = state;
         isPron = False;

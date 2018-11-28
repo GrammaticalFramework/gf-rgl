@@ -124,15 +124,15 @@ oper
        }
     } ;
 
-  mkAdj2N : (_,_: N) -> Str -> Adj = \mascN, femN, burramente ->
-    {s = table {
-       AF Masc n => mascN.s ! n ;
-       AF Fem  n => femN.s ! n ;
-       AA => burramente
-       }
+  mkAdj2 : (_,_: Str) -> Adj ;
+  mkAdj2 aj av = let
+    adj = mkAdjReg aj
+    in {
+      s = table {
+        AF g n => adj.s ! AF g n ;
+        AA => av
+        }
     } ;
-
-  mkAdjN : N -> Str -> Adj = \n, burramente -> mkAdj2N n n burramente ;
 
 -- Then the regular and invariant patterns.
 
@@ -174,7 +174,7 @@ oper
           "ã" => "a"
         } ;
         alemvo : Str = alem + v + "o" ;
-    in mkAdj alemão alemã (alemã + "s") (alemã + "es") (alemã + "amente") ;
+    in mkAdj alemão alemã (alemã + "s") (alemã + "es") (alemã + "mente") ;
 
   adjEuropeu : Str -> Adj = \europeu -> let europe = init europeu in
     mkAdj europeu (europe + "ia") (europeu + "s") (europe + "ias")
@@ -183,11 +183,13 @@ oper
   mkAdjReg : Str -> Adj = \a ->
     case a of {
       pret + "o" => adjPreto a ;
-      anarquist + v@("e" | "a") => adjUtil (anarquist + v) (anarquist + v + "s") ;
+      anarquist + v@("e" | "a") => adjUtil a (a + "s") ;
       ouvido + "r" => adjOuvidor a (ouvido + "ra") ;
       chin + "ês" => adjFrances a ;
       europ + "eu" => adjEuropeu a ;
       alem + "ão" => adjVo a ;
+      provav + v@("e" | "i") + "l" => adjUtil a (provav + "eis") ;
+      jove + "m" => adjUtil a (jove + "ns") ;
       _   => adjUtil a (a + "s")
     } ;
 

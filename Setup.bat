@@ -12,35 +12,45 @@ set modules_langs=All Symbol Compatibility
 set modules_api=Try Symbolic
 
 REM Defaults (may be overridden by options)
-set gf=gf-default
+set gf=gf
 set dest=
 set verbose=false
 
 REM Check command line options
-set arg_gf_next=false
-set arg_dest_next=false
-for %%i in (%*) do (
-  if !arg_gf_next!==true (
-    set gf=%%i
-    set arg_gf_next=false
-  )
-  if !arg_dest_next!==true (
-    set dest=%%i
-    set arg_dest_next=false
-  )
-  if %%i==-v set verbose=true
-  if %%i==--verbose set verbose=true
-  if %%i==--gf set arg_gf_next=true
-  if %%i==--dest set arg_dest_next=true
-)
+:Loop
+  if '%1'=='' goto Continue
+  if %1==-v set verbose=true
+  if %1==--verbose set verbose=true
+  if %1==--gf set gf=%2
+  if %1==--dest set dest=%2
+  shift
+goto Loop
+:Continue
 
 REM Try to determine install location
 if "%dest%"=="" (
-  set dest=%GF_LIB_PATH%
+  REM Separate paths with search path separator ; and pick first one
+  for %%p in ("%GF_LIB_PATH:;=";"%") do (
+    set dest=%%~p
+    goto BreakLibPath
+  )
 )
+:BreakLibPath
+
+set DATA_DIR=..\gf-core\DATA_DIR
 if "%dest%"=="" (
-  REM TODO Look in ../gf-core/DATA=DIR
+  REM Look in already compiled GF folder
+  if exist %DATA_DIR% (
+    for /f "delims=" %%x in (%DATA_DIR%) do (
+      if not "%%x"=="" (
+        set dest=%%x\lib
+        goto BreakDataDir
+      )
+    )
+  )
 )
+:BreakDataDir
+
 if "%dest%"=="" (
   echo Unable to determine where to install the RGL. Please do one of the following:
   echo  - Pass the --dest=... flag to this script
@@ -52,17 +62,17 @@ if "%dest%"=="" (
 REM A few more definitions before we get started
 set src=src
 set dist=dist
-set gfc=gf --batch --gf-lib-path=%src% --quiet
+set gfc=%gf% --batch --gf-lib-path=%src%
 
-REM Redirect stderr if not verbose
+REM Add quiet flag if not verbose
 if %verbose%==false (
-  set gfc=2>NUL !gfc!
+  set gfc=%gfc% --quiet
 )
 
 REM Make directories if not present
-mkdir %dist%\prelude
-mkdir %dist%\present
-mkdir %dist%\alltenses
+if not exist %dist%\prelude mkdir %dist%\prelude
+if not exist %dist%\present mkdir %dist%\present
+if not exist %dist%\alltenses mkdir %dist%\alltenses
 
 REM Build: prelude
 echo Building [prelude]
@@ -74,13 +84,17 @@ REM Gather all language modules for building
 set modules=
 for %%l in (%langs%) do (
   for %%m in (%modules_langs%) do (
-    for /r %src% %%m in (*%%m%%l.gf) do (
-      set modules=!modules! %%m
+    set patt=%%m%%l.gf
+    for /r %src% %%n in (!patt!) do (
+      if exist %%n set modules=!modules! %%n
     )
   )
+)
+for %%l in (%langs%) do (
   for %%m in (%modules_api%) do (
-    for /r %src%\api %%m in (*%%m%%l.gf) do (
-      set modules=!modules! %%m
+    set patt=%%m%%l.gf
+    for /r %src%\api %%n in (!patt!) do (
+      if exist %%n set modules=!modules! %%n
     )
   )
 )
@@ -88,15 +102,25 @@ for %%l in (%langs%) do (
 REM Build: present
 echo Building [present]
 for %%m in (%modules%) do (
+  if %verbose%==true echo %%m
   %gfc% --no-pmcfg --gfo-dir=%dist%\present --preproc=mkPresent %%m
 )
 
 REM Build: alltenses
 echo Building [alltenses]
 for %%m in (%modules%) do (
+  if %verbose%==true echo %%m
   %gfc% --no-pmcfg --gfo-dir=%dist%\alltenses %%m
 )
 
+REM Make destination directories if not present
+if not exist %dest% mkdir %dest%
+if not exist %dest%\prelude mkdir %dest%\prelude
+if not exist %dest%\present mkdir %dest%\present
+if not exist %dest%\alltenses mkdir %dest%\alltenses
+
 REM Copy
 echo Copying to %dest%
-xcopy %dist% %dest% /d
+copy %dist%\prelude\*.gfo %dest%\prelude\
+copy %dist%\present\*.gfo %dest%\present\
+copy %dist%\alltenses\*.gfo %dest%\alltenses\

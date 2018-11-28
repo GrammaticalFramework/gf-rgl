@@ -3,7 +3,6 @@
 concrete LexiconAra of Lexicon = CatAra ** open
   ParadigmsAra,
   ResAra,
-  MorphoAra, --shouldn't open it here, only needed reg &sndf
   Prelude in {
 
 flags
@@ -19,13 +18,13 @@ flags
   ask_V2Q      = dirV2 (regV "يَسءَل") ;
 --  ask_V2Q      = dirV2 (v1 "سءل" a a) ;
   baby_N       = brkN "طفل" "فِعل" "أَفعَال" Masc Hum;
---  bad_A        = sndA "سوء" "فَيِّع" ;
-  bad_A        = degrA "سَيِّئ" "سَيِّئَة" "سَيِّئِين" ;
+--  bad_A        = sndA "سوء" "فَيِّع" ;
+  bad_A        = degrA "سَيِّئ" "سَيِّئَة" "سَيِّئِين" ;
   bank_N       = brkN "بنك" "فَعل" "فُعُول" Masc NoHum ;
   beautiful_A  = sndA "جمل" "فَعِيل" ;
   become_VA    = mkVA (v4 "صبح") ;
   beer_N       = sdfN "بير" "فِعلة" Fem NoHum ;
-  beg_V2V      = dirV2 (v5 "وسل") ;
+  beg_V2V      = mkV2V (mkVV (v5 "وسل")) noPrep ;
   big_A        = sndA "كبر" "فَعِيل" ;
   bike_N       = sdfN "درج" "فَعّالة" Fem NoHum ;
   bird_N       = brkN "طير" "فَعل" "فُعُول" Masc NoHum;
@@ -42,11 +41,11 @@ flags
 --  break_V2     = dirV2 (v1 "كسر" a u) ;
   broad_A      = sndA "وسع" "فاعِل" ;
   brother_N2   = mkN2 (brkN "ءخو" "فَع" "فِعلة" Masc Hum) ; --FIXME dual
-  brown_A      = sndA "بني" "فُعِّل";
+  brown_A      = sndA "بني" "فُعِّل";
   butter_N     = sdfN "سبد" "فُعلة" Fem NoHum ;
   buy_V2       = dirV2 (v8 "شري") ;
   camera_N     = sdfN "كمر" "فاعِيلا" Fem NoHum ; -- |Alö taSwIr
-  cap_N        = sdfN "قبع" "فُعَّلة" Fem NoHum ; --qalnUsö
+  cap_N        = sdfN "قبع" "فُعَّلة" Fem NoHum ; --qalnUsö
   car_N        = sdfN "سير" "فَعّالة" Fem NoHum ;
   carpet_N     = sdfN "سجد" "فَعّالة" Fem NoHum ;
   cat_N        = brkN "هرّ" "فِعّ" "فِعَلَة" Fem NoHum ;
@@ -74,7 +73,7 @@ flags
   door_N       = brkN "بوب" "فاع" "أَفعَال" Masc NoHum ;
   drink_V2     = dirV2 (regV "شَرِب") ;
 --  drink_V2     = dirV2 (v1 "شرب" i a) ;
-  easy_A2V     = mkA2 (sndA "سهل" "فَعل") "لِ" ;
+  easy_A2V     = mkA2 (sndA "سهل" "فَعل") liPrep ;
   eat_V2       = dirV2 (mkV "ءكل" FormI) ;
   empty_A      = sndA "فرغ" "فاعِل" ;
   enemy_N      = brkN "عدو" "فَعُلّ" "أَفعَاء" Masc Hum ;
@@ -93,13 +92,13 @@ flags
   girl_N       = brkN "بنت" "فِعل" "فَعَال" Fem Hum ;
   glove_N      = sdfN "قفز" "فُعّال" Masc NoHum ;
   gold_N       = sdfN "ذهب" "فَعَل" Masc NoHum ;
-  good_A       = sndA "جود" "فَيِّع" ; -- Hasan, HisAn
+  good_A       = sndA "جود" "فَيِّع" ; -- Hasan, HisAn
   go_V         = regV "يَذهَب" ;
 --  go_V         = v1 "ذهب" a a ;
   green_A      = clrA "خضر" ;
   harbour_N    = brkN "رفء" "مَفعَل" "مَفاعِل" Masc NoHum ; --mInA', marsaY
   hate_V2      = dirV2 (regV "كَرِه") ;
-  hat_N        = sdfN "قبع" "فُعَّلة" Fem NoHum ;
+  hat_N        = sdfN "قبع" "فُعَّلة" Fem NoHum ;
 --  have_V2      = dirV2 (v1 "ملك" a i) ;
   hear_V2      = dirV2 (regV "سَمِع") ;
 --  hear_V2      = dirV2 (v1 "سمع" i a) ;
@@ -130,14 +129,14 @@ flags
   love_N       = brkN "حبّ" "فُعّ" "فُعّ" Masc NoHum ; -- no plur
   love_V2      = dirV2 (v1 "حبّ" a i) ;
   man_N        = brkN "رجل" "فَعُل" "فِعَال" Masc Hum ;
-  married_A2   = mkA2 (sndA "زوج" "مُتَفَعِّل") "مِن" ;
+  married_A2   = mkA2 (sndA "زوج" "مُتَفَعِّل") "مِن" ;
   meat_N       = brkN "لحم" "فَعلة" "فُعُول" Masc NoHum ;
   milk_N       = brkN "حلب" "فَعِيل" "فَعِيل" Masc NoHum ; --no plur
   moon_N       = brkN "قمر" "فَعَل" "أَفعَال" Masc NoHum ;
-  mother_N2    = mkN2 (sdfN "ءم" "فُعَّ" Fem Hum) ;
+  mother_N2    = mkN2 (sdfN "ءم" "فُعَّ" Fem Hum) ;
   mountain_N   = brkN "جبل" "فَعَل" "فِعَال" Masc NoHum ;
   music_N      = mkN (reg "مُوسِيقَى" "مُوسِيقَى") Fem NoHum ; --no plur
-  narrow_A     = sndA "ضيق" "فَعِّل" ;
+  narrow_A     = sndA "ضيق" "فَعِّل" ;
   new_A        = mkA "جدد" "فَعِيل" "فُعُل" ;
   newspaper_N  = brkN "صحف" "فَعِيلة" "فُعُل" Fem NoHum ;
   oil_N        = brkN "زيت" "فَعل" "فُعُول" Masc NoHum ;
@@ -155,7 +154,7 @@ flags
   play_V2      = dirV2 (regV "لَعِب") ;
 --  play_V2      = dirV2 (v1 "لعب" i a) ;
   policeman_N  = sdmN "شرط" "فِعلِي" Masc Hum ;
-  priest_N     = brkN "قسّ" "فِعِّيل" "أَفِعّة" Masc Hum ;
+  priest_N     = brkN "قسّ" "فِعِّيل" "أَفِعّة" Masc Hum ;
   probable_AS  = mkAS (sndA "مكن" "مُفعِل") ;
   queen_N      = sdfN "ملك" "فَعِلة" Fem Hum ;
   radio_N      = mkN (sndf "راديُو") Masc NoHum ;
@@ -169,7 +168,7 @@ flags
   river_N      = brkN "نهر" "فَعل" "أَفعَال" Masc NoHum ;
   rock_N       = brkN "صخر" "فَعلة" "فُعُول" Fem NoHum ;
   roof_N       = brkN "سطح" "فَعل" "أَفعُل" Masc NoHum ;
-  rubber_N     = brkN "مطط" "فَعَّال" "فَعَّال" Masc NoHum ; -- no hum
+  rubber_N     = brkN "مطط" "فَعَّال" "فَعَّال" Masc NoHum ; -- no hum
   run_V        = regV "يَركُض" ;
 --  run_V        = v1 "ركض" a u ;
   say_VS       = mkVS (v1 "قول" a u) ; --check
@@ -187,11 +186,11 @@ flags
   shoe_N       = brkN "حذو" "فِعَاء" "أَفعِية" Masc NoHum ;
   shop_N       = brkN "تجر" "مَفعَل" "مَفاعِل" Masc NoHum ;
   short_A      = sndA "قصر" "فَعِيل" ;
-  silver_N     = brkN "فضض" "فِعَّة" "فِعَل" Fem NoHum ;
+  silver_N     = brkN "فضض" "فِعَّة" "فِعَل" Fem NoHum ;
   sister_N     = brkN "ءخو" "فُعت" "فَعَوَات" Fem Hum ; --FIXME
   sleep_V      = v1 "نوم" i a ; --check
   small_A      = sndA "صغر" "فَعِيل" ;
-  snake_N      = sdfN "حيّ" "فَعَّة" Fem NoHum ;
+  snake_N      = sdfN "حيّ" "فَعَّة" Fem NoHum ;
   sock_N       = brkN "جرب" "فَوعَل" "فَواعِل" Masc NoHum ;
   speak_V2     = dirV2 (v5 "كلم") ;
   star_N       = brkN "نجم" "فَعل" "فُعُول" Masc NoHum ; --najmö
@@ -204,8 +203,8 @@ flags
   switch8off_V2 = dirV2 (v4 "طفء") ;
   switch8on_V2 = dirV2 (v4 "شعل") ;
   table_N      = sdfN "طول" "فاعِلة" Fem NoHum ;
-  talk_V3      = mkV3 (v5 "حدث") "لِ" "عَن" ;
-  teacher_N    = sdmN "علم" "مُفَعِّل" Masc Hum ; --mucal~imö
+  talk_V3      = mkV3 (v5 "حدث") liPrep (mkPrep "عَن") ;
+  teacher_N    = sdmN "علم" "مُفَعِّل" Masc Hum ; --mucal~imö
   teach_V2     = dirV2 (v2 "علم") ;
   television_N = mkN (sndf "تِلِفِزيُون") Masc NoHum ;
   thick_A      = sndA "سمك" "فَعِيل" ;
@@ -261,7 +260,7 @@ flags
   heavy_A      = sndA "ثقل" "فَعِيل" ;
   near_A       = sndA "قرب" "فَعِيل" ;
   rotten_A     = sndA "فسد" "فاعِل" ;
-  round_A      = sndA "دور" "مُفَعَّل" ;
+  round_A      = sndA "دور" "مُفَعَّل" ;
   sharp_A      = sndA "حدّ" "فاعّ" ;
   smooth_A     = sndA "نعم" "فاعِل" ;
   straight_A   = sndA "قوم" "مُستَفِيع" ;
@@ -277,7 +276,7 @@ flags
   bone_N       = brkN "عظم" "فَعلة" "فِعَال"     Fem  NoHum;
   breast_N     = brkN "صدر" "فَعل" "فُعُول"      Masc NoHum;
   cloud_N      = brkN "غيم" "فَعلة" "فُعُول"     Fem  NoHum;
-  day_N        = brkN "يوم" "فَعل" "أَفَّاع"     Masc NoHum;
+  day_N        = brkN "يوم" "فَعل" "أَفَّاع"     Masc NoHum;
   dust_N       = brkN "غبر" "فُعَال" "أَفعِلة"   Masc NoHum;
   ear_N        = brkN "ءذن" "فُعل" "أَفعَال"     Fem NoHum;
   earth_N      = brkN "ترب" "فُعلة" "فُعَل"     Fem NoHum;
@@ -296,7 +295,7 @@ flags
   hair_N       = sdfN "شعر" "فَعلة"             Fem NoHum ;
   hand_N       = brkN "يد"  "فَع" "أَفَاعِي"      Fem NoHum  ;
   head_N       = brkN "رءس" "فَعل" "فُعُول"      Masc NoHum;
-  heart_N      = brkN "قلب" "فَعل" "فُعُول"      Masc NoHum;
+  heart_N      = brkN "قلب" "فَعْل" "فُعُول"      Masc NoHum;
   horn_N       = brkN "قرن" "فَعل" "فُعُول"      Masc NoHum;
   husband_N    = brkN "زوج" "فَعل" "أَفعَال"     Masc NoHum;
   ice_N        = brkN "ثلج" "فَعل" "فُعُول"      Masc NoHum;
