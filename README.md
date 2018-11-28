@@ -12,9 +12,9 @@ For more about the RGL, see the [synopsis page](http://www.grammaticalframework.
 
 There are 3 ways to build and install the RGL:
 
-- Haskell script `Make.hs`
-- Shell script `Make.sh` (does not require Haskell)
-- Windows batch file `Make.bat` (does not require Haskell)
+- Haskell script `Setup.hs`
+- Shell script `Setup.sh` (does not require Haskell)
+- Windows batch file `Setup.bat` (does not require Haskell)
 
 ## Install locations
 
@@ -44,7 +44,7 @@ Description of columns:
 
 Columns can be a string, just `y`'s (where nothing means `n`) or just (`n`'s where nothing means `y`).
 
-## Haskell script: `Make.hs`
+## Haskell script: `Setup.hs`
 
 This build method gives you most options.
 You will need Haskell installed on your system.
@@ -66,7 +66,7 @@ There is also `make clean` available.
 For more fine-grained control over the build process, you can run the build script directly:
 
 ```
-runghc Make ...
+runghc Setup.hs ...
 ```
 
 Where `...` is one of:
@@ -96,7 +96,7 @@ If ommitted, the default command is `prelude all`.
 - The path to GF installed on your system can be specified via the `--gf` flag (default is that the `gf` executable is in the global system path).
 - The `--dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
 
-## Shell script: `Make.sh`
+## Shell script: `Setup.sh`
 
 This method is provided as an alternative for those who don't have Haskell installed.
 Simply run the script to build the entire RGL and install in the default location.
@@ -106,13 +106,13 @@ You can pass the following flags:
 - `--gf=...` to specify the path to the `gf` executable, if not available on the system path
 - `--verbose` or `-v` to show a list of files being built (errors will always be shown)
 
-## Windows batch file: `Make.bat`
+## Windows batch file: `Setup.bat`
 
 **This script is still untested.**
 
 This method is provided as an alternative for Windows users who don't have Haskell installed.
 
-It is supposed to be a port of Make.sh and works in largely the same way.
+It is supposed to be a port of Setup.sh and works in largely the same way.
 In particular, it accepts the same flags (in the same format) as described above.
 
 However it currently tries to build all modules for all languages and doesn't consider the details of which modules should be compiled for each language (specified in `languages.csv`)
