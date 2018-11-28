@@ -1534,9 +1534,13 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                 <Verbal, False> => verbalAgr np.a.pgn;
                 _               => np.a.pgn
               };
-            sc : Preposition = case o of { -- very unsure of this /IL
-                  Subord => {s=[]; c=Acc} ; -- to prevent weird stuff with VVs
-                  _ => case np.a.isPron of {True => noPrep; _ => vp.sc} 
+
+            -- very unsure about this /IL
+            sc : Preposition = case o of { 
+                  Subord => {s=[]; c=Acc} ;
+                  _ => case np.a.isPron of {
+                         True => noPrep ; -- to prevent weird stuff with VVs, might be overly specific
+                         _    => vp.sc } 
                 } ;
             subj = np.empty ++ sc.s
                 ++ case vp.isPred of {
@@ -1545,7 +1549,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                    } ;
           } in wordOrder o
                   vp.obj.a.isPron np.a.isPron
-                  (vStr vp pgn t p)
+                  (vStr vp pgn t p o)
                   vp.obj.s
                   (pred vp pgn t p) 
                   vp.s2
@@ -1581,21 +1585,29 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             _                 => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
           } ;
 
-    vStr : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Str = \vp,pgn,tn,pl -> 
+    vStr : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Order -> Str = \vp,pgn,tn,pl,o -> 
       let kataba  = vp.s ! pgn ! VPPerf ;
           yaktubu = vp.s ! pgn ! VPImpf Ind ;
           yaktuba = vp.s ! pgn ! VPImpf Cnj ;
           yaktub  = vp.s ! pgn ! VPImpf Jus ;
-       in case <vp.isPred,tn,pl> of {
-            <False, Pres, Pos> => yaktubu ;
-            <False, Pres, Neg> => "لَا" ++ yaktubu ;
-            <True, Pres, Pos> => "" ;      --no verb "to be" in present
-            <True, Pres, Neg> => "لَيسَ" ;--same here, just add negation particle
-            <_, Past, Pos> => kataba ;
-            <_, Past, Neg> => "لَمْ" ++ yaktub ;
-            <_, Cond, _  > => yaktuba ;
-            <_, Fut,  Pos> => glue "سَ" yaktubu ;
-            <_, Fut,  Neg> => "لَنْ" ++ yaktuba
+          -- Various negative particles
+          la    = "لَا" ;
+          laysa = "لَيسَ" ;  -- "neg. copula"
+          lam   = "لَمْ" ;   -- neg. past
+          alla  = "أَلَّا" ; -- neg. subjunctive
+          lan   = "لَنْ" ;   -- neg. future
+       in case <vp.isPred,tn,pl,o> of {
+            <False, Pres, Pos, _> => yaktubu ;
+            <False, Pres, Neg, _> => la ++ yaktubu ;
+            <True, Pres, Pos, _> => [] ;    --no verb "to be" in present
+            <True, Pres, Neg, _> => laysa ; --same here, just add negation particle
+            <_, Past, Pos, _> => kataba ;
+            <_, Past, Neg, _> => lam ++ yaktub ;
+            <_, Cond, Pos, _> => yaktuba ;
+            <_, Cond, Neg, _> => alla ++ yaktuba ;
+            <_, Fut,  Pos, _> => glue "سَ" yaktubu ;
+            <_, Fut,  Neg, Subord> => alla ++ yaktuba ; -- might be too specific for just one case /IL
+            <_, Fut,  Neg, _> => lan ++ yaktuba
           } ;
 
     -- in verbal sentences, the verb agrees with the subject
