@@ -32,6 +32,7 @@ index.txt: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
 TITLE=$(shell head -n 1 index.txt)
 index.html: index.txt $(TEMPLATE)
 	txt2tags --target=html --no-headers --quiet --toc --outfile=$@ --infile=$<
+	sed -i.bak "s/<A NAME=\"\(.*\)\"><\/A>/<div id=\"\1\"><\/div>/" $@
 	pandoc \
 		--from=html \
 		--to=html5 \
@@ -45,8 +46,9 @@ index.html: index.txt $(TEMPLATE)
 		--output=$(TMP) \
 		$@
 	mv $(TMP) $@
-	sed -i.bak "s/<table>/<table class=\"table w-auto\">/" $@ && rm "$@.bak"
-	sed -i.bak -e '/img src="categories.png"/r categories-imagemap.html' -e '/img src="categories.png"/d' $@ && rm "$@.bak"
+	sed -i.bak "s/<table>/<table class=\"table w-auto\">/" $@
+	sed -i.bak -e '/img src="categories.png"/r categories-imagemap.html' -e '/img src="categories.png"/d' $@
+	rm "$@.bak"
 
 categories.png: categories.dot
 	dot -Tpng $^ > $@
