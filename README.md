@@ -12,9 +12,9 @@ For more about the RGL, see the [synopsis page](http://www.grammaticalframework.
 
 There are 3 ways to build and install the RGL:
 
-- Haskell script `Make.hs`
-- Shell script `Make.sh` (does not require Haskell)
-- Windows batch file `Make.bat` (does not require Haskell)
+- Haskell script `Setup.hs`
+- Shell script `Setup.sh` (does not require Haskell)
+- Windows batch file `Setup.bat` (does not require Haskell)
 
 ## Install locations
 
@@ -31,23 +31,23 @@ A list of all languages and their properties is maintained centrally in [`langua
 This file should be kept up-to-date and all build methods should read this config file.
 **If you see something wrong, please report/fix it.**
 
-| Column        | Description                              | Default |
-|:--------------|:-----------------------------------------|:-------:|
-| Code          | e.g. `Eng`                               |    -    |
-| Name          | language name in English, e.g. `English` |    -    |
-| Directory     | folder name under `src`, e.g. `english`  |    -    |
-| Functor       | (not used)                               |    -    |
-| Unlexer       | (not used)                               |    -    |
-| Present       | language is marked with `--# notpresent` |    n    |
-| All           | compile `All` module                     |    y    |
-| Try           | compile `Try` module                     |    y    |
-| Symbolic      | compile `Symbolic` module                |    y    |
-| Compatibility | complile `Compatibility` module          |    n    |
-| Synopsis      | include language in the RGL synopsis     |    n    |
+| #  | Column        | Description                              | Default |
+|:---|:--------------|:-----------------------------------------|:-------:|
+| 1  | Code          | 3-letter language code, e.g. `Eng`       |    -    |
+| 2  | Name          | language name in English, e.g. `English` |    -    |
+| 3  | Directory     | folder name under `src`, e.g. `english`  |    -    |
+| 4  | Functor       | functor name (not used)                  |    -    |
+| 5  | Unlexer       | unlexer (not used)                       |    -    |
+| 6  | Present       | language is marked with `--# notpresent` |    n    |
+| 7  | All           | compile `All` module                     |    y    |
+| 8  | Try           | compile `Try` module                     |    y    |
+| 9  | Symbolic      | compile `Symbolic` module                |    y    |
+| 10 | Compatibility | complile `Compatibility` module          |    n    |
+| 11 | Synopsis      | include language in the RGL synopsis     |    n    |
 
 If default is `y` then anything other than `n`, including the empty string, is treated as true (and vice versa when default is `n`).
 
-## Haskell script: `Make.hs`
+## Haskell script: `Setup.hs`
 
 This build method gives you most options.
 You will need Haskell installed on your system.
@@ -69,7 +69,7 @@ There is also `make clean` available.
 For more fine-grained control over the build process, you can run the build script directly:
 
 ```
-runghc Make ...
+runghc Setup.hs ...
 ```
 
 Where `...` is one of:
@@ -99,7 +99,7 @@ If ommitted, the default command is `prelude all`.
 - The path to GF installed on your system can be specified via the `--gf` flag (default is that the `gf` executable is in the global system path).
 - The `--dest` flag can be used to manually specify where the compiled RGL modules should be copied/installed. This is the same place as `GF_LIB_PATH`.
 
-## Shell script: `Make.sh`
+## Shell script: `Setup.sh`
 
 This method is provided as an alternative for those who don't have Haskell installed.
 Simply run the script to build the entire RGL and install in the default location.
@@ -109,11 +109,11 @@ You can pass the following flags:
 - `--gf=...` to specify the path to the `gf` executable, if not available on the system path
 - `--verbose` or `-v` to show a list of files being built (errors will always be shown)
 
-## Windows batch file: `Make.bat`
+## Windows batch file: `Setup.bat`
 
 This method is provided as an alternative for Windows users who don't have Haskell or Bash installed.
 
-It is supposed to be a port of `Make.sh` and works in largely the same way.
+It is supposed to be a port of `Setup.sh` and works in largely the same way.
 In particular, it accepts the same flags (in the same format) as described above.
 
 However it currently tries to build all modules for all languages and doesn't consider the details of which modules should be compiled for each language (specified in `languages.csv`)

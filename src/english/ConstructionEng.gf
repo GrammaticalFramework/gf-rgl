@@ -74,6 +74,8 @@ lincat
           n_hours_NP : NP = mkNP n_card time ;
       in  Sy.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
 
+    timeunitRange l u time = {s = l.s ! True ! R.Nom ++ to_Prep.s ++ u.s ! True ! R.Nom ++ time.s ! R.Pl ! R.Nom} ;
+
     oneHour         = mkHour "1"  True ;
     twoHour         = mkHour "2"  True ;
     threeHour       = mkHour "3"  True ;

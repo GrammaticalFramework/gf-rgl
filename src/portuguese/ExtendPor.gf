@@ -4,6 +4,8 @@ concrete ExtendPor of Extend =
   CatPor ** ExtendFunctor -
   [
     AdAdV,
+      AdjAsCN,
+      AdjAsNP,
       ApposNP,
       BaseVPS,
       ByVP,
@@ -13,6 +15,7 @@ concrete ExtendPor of Extend =
       CompoundAP,
       CompoundN,
       CompVP,
+      ConjVPS,
       ConsVPS,
       --EmptyRelSlash,
       ExistsNP,
@@ -27,11 +30,13 @@ concrete ExtendPor of Extend =
       ICompAP,
       InOrderToVP,
       ListVPS,
+      MkVPS,
       PassAgentVPSlash,
       PassVPSlash,
       PastPartAP,
       PastPartAgentAP,
       PositAdVAdj,
+      PredVPS,
       PresPartAP,
       ProDrop,
       PurposeVP,
@@ -52,13 +57,13 @@ concrete ExtendPor of Extend =
   with
     (Grammar = GrammarPor), (Syntax = SyntaxPor) **
   open
-    GrammarPor,
-    ResPor,
-    MorphoPor,
-    Coordination,
-    Prelude,
-    ParadigmsPor,
-    (S = StructuralPor) in {
+  GrammarPor,
+  ResPor,
+  MorphoPor,
+  Coordination,
+  Prelude,
+  ParadigmsPor,
+  (S = StructuralPor) in {
 
   lin
     GenNP np =
@@ -85,17 +90,28 @@ concrete ExtendPor of Extend =
        c = Nom
        } ;
 
+  ---- these come from ExtraRomance: how to avoid the repetition?
+  ---- can't seem to be able to use two functors
   lincat
-    VPS = {s : Agr => Mood => Str} ;
-    [VPS] = {s1,s2 : Agr => Mood => Str} ;
---    VPI = {s : VType => Agr => Str } ;
+    VPS = {s : Mood => Agr => Bool => Str} ;
+    [VPS] = {s1,s2 : Mood => Agr => Bool => Str} ;
 
   lin
-    BaseVPS = twoTable2 Agr Mood ;
-    ConsVPS = consrTable2 Agr Mood comma ;
+    BaseVPS x y = twoTable3 Mood Agr Bool x y ;
+    ConsVPS = consrTable3 Mood Agr Bool comma ;
 
---    MkVPS t p vp = mkVPS (lin Temp t) (lin Pol p) (lin VP vp) ;
---TODO: write mkVPS oper
+    PredVPS np vpi = {
+      s = \\m => (np.s ! Nom).comp ++ vpi.s ! m ! np.a ! np.isNeg
+      } ;
+
+    MkVPS tm p vp = {
+      s = \\m,agr,isNeg =>
+        tm.s ++ p.s ++
+        (mkClausePol (orB isNeg vp.isNeg) [] False False agr vp).s
+          ! DDir ! tm.t ! tm.a ! p.p ! m
+      } ;
+
+    ConjVPS = conjunctDistrTable3 Mood Agr Bool ;
 
   lin
     ProDrop p = {
@@ -148,13 +164,23 @@ concrete ExtendPor of Extend =
 
     ComplBareVS = ComplVS ;
 
+    AdjAsCN ap = {
+      s =\\n => ap.s ! AF Masc n ;
+      g = Masc
+      } ;
+
+    AdjAsNP ap = heavyNP {
+      s = \\_c => ap.s ! AF Masc Sg ;
+      a = Ag Masc Sg P3
+      } ;
+
   oper
     pastPartAP : VPSlash -> Str -> AP ;
     pastPartAP vps agent = lin AP {
       s = \\af => vps.comp ! (aform2aagr af ** {p = P3}) ++ vps.s.s ! VPart (aform2gender af) (aform2number af) ++ agent ;
       isPre = False
       } ;
-    
+
     passVPSlash : VPSlash -> Str -> VP ;
     passVPSlash vps agent = let
       auxvp = predV auxPassive

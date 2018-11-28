@@ -44,4 +44,6 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
     s = \\h,g,n,d,c => a.s ! AComp d c 
     };
 
+  -- : Ord -> AP ;       -- warmest
+  AdjOrd ord = {s = \\h,g,n,s,c => ord.s ! g ! s ! c} ;
 }

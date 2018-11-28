@@ -7,8 +7,8 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
     QuestCl cl = {
       s = \\t,p =>
         table {
-          QIndir => "إِذا" ++ cl.s ! t ! p ! Verbal ;
-          QDir => "هَلْ" ++ cl.s ! t ! p ! Verbal
+          QIndir => "إِذا" ++ cl.s ! t ! p ! toOrder QIndir ;
+          QDir => "هَلْ" ++ cl.s ! t ! p ! toOrder QDir
         }
       };
 
@@ -18,17 +18,17 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
     QuestVP qp vp =
      let np = ip2np qp vp.isPred ;
          cl = PredVP np vp ;
-      in { s = \\t,p,_qf => cl.s ! t ! p ! Nominal } ;
+      in { s = \\t,p,qf => cl.s ! t ! p ! toOrder qf } ;
 
 
 
 ---- AR guessed
-   QuestIAdv iadv cl = {s = \\t,p,_ => iadv.s ++ cl.s ! t ! p ! Verbal} ;
+   QuestIAdv iadv cl = {s = \\t,p,qf => iadv.s ++ cl.s ! t ! p ! toOrder qf} ;
 
 ---- IL guessed
    -- : IComp -> NP -> QCl
    QuestIComp ic np =
-     let vp = kaan (CompNP np) ;
+     let vp = UseComp (CompNP np) ; -- puts NP in nominative
          ip : ResAra.IP = np ** { -- NP's s is already present in VP, we only want its agr
             s = \\_,_,_,_ => ic.s ! pgn2gn np.a.pgn } ;
       in QuestVP ip vp ;
@@ -46,7 +46,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    QuestSlash ip cls = { ----IL just guessing
       s = \\t,p,qf => 
         let cl : ResAra.Cl = complClSlash cls ; -- dummy conversion to Cl
-            o = case qf of { QDir => Nominal ; _ => Verbal } ; -- purely guessing
+            o = toOrder qf
           in cls.c2.s ++ ip.s ! False ! Masc ! Def ! Nom ++ cl.s ! t ! p ! o
       } ;
 
@@ -71,7 +71,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
    IdetCN idet cn = {
      s = \\isPred,g,s,c 
           => idet.s ! cn.g ! s ! c ++
-             cn.s ! idet.n ! Indef ! Gen ; --idaafa
+             cn2str cn idet.n idet.d Gen ;
      a = { pgn = agrP3 NoHum cn.g idet.n ; isPron = False }
      } ;
 
@@ -80,6 +80,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
      s = \\g,s,c =>
           let gend = detGender g num.n -- gender flips with some numbers
           in  iquant.s ! s ! c ++ num.s ! gend ! s ! c ;
-     n = sizeToNumber num.n
+     n = sizeToNumber num.n ;
+     d = Indef ---- TODO check
      } ;
 }

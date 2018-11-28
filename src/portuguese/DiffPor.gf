@@ -106,12 +106,18 @@ instance DiffPor of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRo
     partitive = \_,c -> prepCase c ;
 
   oper
+    a : Gender => Number => Str ;
+    a = genNumForms "a" "à" "aos" "às" ;
+
+    de : Gender => Number => Str ;
+    de = genNumForms "do" "da" "dos" "das" ;
+
     artDef : Bool -> Gender -> Number -> Case -> Str ;
     -- not sure if isNP is relevant
     artDef _isNP g n c = case c of {
       Nom | Acc => genNumForms "o" "a" "os" "as" ;
-      CPrep P_de => genNumForms "do" "da" "dos" "das" ;
-      CPrep P_a => genNumForms "ao" "à" "aos" "às" ;
+      CPrep P_de => de ;
+      CPrep P_a => a ;
       CPrep P_em => genNumForms "no" "na" "nos" "nas" ;
       CPrep P_por => genNumForms "pelo" "pela" "pelos" "pelas"
       } ! g ! n ;

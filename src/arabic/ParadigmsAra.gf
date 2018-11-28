@@ -50,6 +50,10 @@ resource ParadigmsAra = open
   masc : Gender ;
   fem : Gender ;
 
+  Number : Type ;
+  sg : Number ;
+  pl : Number ;
+
   Species : Type ;
   hum : Species ;
   nohum : Species ;
@@ -71,10 +75,13 @@ resource ParadigmsAra = open
    mkN : NTable -> Gender -> Species -> N ;  -- loan words, irregular
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N ; -- broken plural
    mkN : N -> (attr : Str) -> N ; -- Compound noun with invariant attribute
-   mkN : N -> N -> N ; -- Compound noun where both parts inflect
+   mkN : N -> N -> N ;            -- Compound noun where attribute inflects in state and case. Attribute in singular.
+   mkN : Number -> N -> N -> N ;  -- Compound noun where attribute inflects in state and case. Attribute's number specified by 1st arg.
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
    } ;
+
+  dualN : N -> N ; -- Force the plural of the N into dual (e.g. "twins")
 
 --This is used for loan words or anything that has untreated irregularities
 --in the interdigitization process of its words
@@ -98,8 +105,8 @@ resource ParadigmsAra = open
   mkPN = overload {
     mkPN : Str -> PN        -- Fem Hum if ends with ة, otherwise Masc Hum
      = smartPN ;
-    mkPN : N -> PN 
-     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! Bare}) ; -- no idea /IL
+    mkPN : N -> PN
+     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! c ++ n.s2 ! Sg ! Const ! c }) ; -- no idea /IL
     mkPN : Str -> Gender -> Species -> PN
      = mkFullPN ;
     } ;
@@ -112,7 +119,7 @@ resource ParadigmsAra = open
 
   mkN2 : overload {
     mkN2 : N -> Preposition -> N2 ; -- ready-made preposition
-    mkN2 : (mother : N) -> (of_ : Str) -> N2 ; -- preposition given as a string
+    mkN2 : N -> Str -> N2 ; -- preposition given as a string
     mkN2 : N -> N2 ; -- no preposition
     mkN2 : Str -> N2 ; -- no preposition, predictable inflection
   } ;
@@ -128,22 +135,23 @@ resource ParadigmsAra = open
 -- Overloaded operator for main cases
 
  mkA = overload {
-   mkA : (root,patt : Str) -> A
+   mkA : (root,sg : Str) -> A             -- adjective with sound plural; takes root string and sg. pattern string
     = \r,p -> lin A (sndA r p);
-   mkA : (root : Str) -> A                -- forms adjectives with positive form aFCal
+   mkA : (root : Str) -> A                -- adjective with positive form aFCal
     = \r -> lin A (clrA r);
-   mkA : (root,sg,pl : Str) -> A
+   mkA : (root,sg,pl : Str) -> A          -- adjective with broken plural
     = \r,s,p -> lin A (brkA r s p) ;
-   -- mkA : (posit,compar,plur : Str) -> A
-   --  = degrA ;
    } ;
 
+  degrA : (posit,compar,plur : Str) -> A ;
 
 --Takes a root string and a pattern string
   sndA : (root,patt : Str) -> Adj ;
 
 --Takes a root string only
   clrA : (root : Str) -> Adj ;  -- forms adjectives of type aFCal
+
+  nisbaA : Str -> Adj ; -- forms relative adjectives by adding the suffix ِيّ
 
 --3 Two-place adjectives
 --
@@ -166,6 +174,13 @@ resource ParadigmsAra = open
 
   mkAdA : Str -> AdA ;
 
+  mkInterj : Str -> Interj ;
+
+  mkSubj : overload {
+    mkSubj : Str -> Subj ;        -- Default order Subord (=noun first and in accusative)
+    mkSubj : Str -> Order -> Subj -- Specify word order
+  } ; 
+
 --2 Prepositions
 --
 -- A preposition as used for rection in the lexicon, as well as to
@@ -180,47 +195,33 @@ resource ParadigmsAra = open
 -- Overloaded operations
 
   mkV : overload {
-    mkV : (imperfect : Str) -> V ;
+    mkV : (imperfect : Str) -> V ; -- The verb in Per3 Sg Masc imperfect tense gives the most information
     mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- verb form I ; vowel = a|i|u
     mkV : (root : Str) -> VerbForm -> V ;  -- FormI .. FormX (no VII, IX) ; default vowels a u for I
     mkV : V -> (particle : Str) -> V -- V with a non-inflecting particle/phrasal verb
     } ;
 
--- The verb in the imperfect tense gives the most information
+  -- regV : Str -> V ;
 
-  regV : Str -> V ;
+  reflV : V -> V ; -- نَفْس in the proper case and with possessive suffix, e.g.  نَفْسَكِ
 
---Verb Form I : fa`ala, fa`ila, fa`ula
+  v1 : Str -> Vowel -> Vowel -> V ; -- Verb Form I : fa`ala, fa`ila, fa`ula
 
-  v1 : Str -> Vowel -> Vowel -> V ;
+  v2 : Str -> V ; -- Verb Form II : fa``ala
 
---Verb Form II : fa``ala
+  v3 : Str -> V ; -- Verb Form III : faa`ala
 
-  v2 : Str -> V ;
+  v4 : Str -> V ; -- Verb Form IV : 'af`ala
 
---Verb Form III : faa`ala
+  v5 : Str -> V ; -- Verb Form V : tafa``ala
 
-  v3 : Str -> V ;
+  v6 : Str -> V ; -- Verb Form VI : tafaa`ala
 
---Verb Form IV : 'af`ala
+  v7 : Str -> V ; -- Verb Form VII : infa`ala
 
-  v4 : Str -> V ;
+  v8 : Str -> V ; -- Verb Form VIII ifta`ala
 
---Verb Form V : tafa``ala
-
-  v5 : Str -> V ;
-
---Verb Form VI : tafaa`ala
-
-  v6 : Str -> V ;
-
---Verb Form VIII 'ifta`ala
-
-  v8 : Str -> V ;
-
--- Verb Form X 'istaf`ala
-
-  v10 : Str -> V ;
+  v10 : Str -> V ; -- Verb Form X 'istaf`ala
 
 --3 Two-place verbs
 
@@ -261,7 +262,9 @@ resource ParadigmsAra = open
   mkV2S : V -> Str -> V2S ;
   mkVV = overload {
     mkVV : V -> VV = regVV ;
-    mkVV : V -> Str -> VV = c2VV
+    mkVV : V -> Str -> VV = c2VV ;
+    mkVV : V -> Preposition -> VV = prepVV ;
+    mkVV : V -> Preposition -> Preposition -> VV = prep2VV
     } ;
   mkV2V : overload {
     mkV2V : V -> Str -> Str -> V2V ;
@@ -307,6 +310,10 @@ resource ParadigmsAra = open
   masc = ResAra.Masc ;
   fem = ResAra.Fem ;
 
+  Number = ResAra.Number ;
+  sg = ResAra.Sg ;
+  pl = ResAra.Pl ;
+
   Species = ResAra.Species ;
   hum = ResAra.Hum ;
   nohum = ResAra.NoHum ;
@@ -345,14 +352,26 @@ resource ParadigmsAra = open
      = mkFullN ;
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
      = brkN ;
-   mkN : N -> (attr : Str) -> N                                       -- Compound nouns
+   mkN : N -> (attr : Str) -> N                                       -- Compound nouns with noninflecting attribute
      = \n,attr -> n ** {s2 = \\n,s,c => attr} ;
-   mkN : N -> N -> N                                                  -- Compound nouns
-     = \n1,n2 -> n1 ** {s2 =
-      \\n,s,c => n1.s2 ! n ! s ! c -- card
-              ++ n2.s  ! n ! s ! c -- type
-              ++ n2.s2 ! n ! s ! c} ; -- blood
+   mkN : N -> N -> N                                                  -- Compound nouns where attribute inflects in state and case but not number
+     = attrN Sg ;
+   mkN : Number -> N -> N -> N                                        -- Compound nouns where attribute inflects in state, case and number
+     = attrN ;
    } ;
+
+  attrN : Number -> N -> N -> N = \num,n1,n2 -> n1 ** {
+    s  = \\n,_,c => n1.s ! n ! Const ! c ;
+    s2 = \\n,s,c => let c' = case c of {Dat => Gen; _ => c} in -- the Dat with liPrep hack only applies to the first word
+                    n1.s2 ! num ! s ! c' -- attribute doesn't change
+                 ++ n2.s  ! num ! s ! c'
+                 ++ n2.s2 ! num ! s ! c'} ;
+
+  dualN : N -> N = \n -> n ** {isDual=True} ;
+
+  proDrop : NP -> NP ; -- Force a NP to lose its string, only contributing with its agreement.
+
+  mkPron : (_,_,_ : Str) -> PerGenNum -> Pron ;
 
   mkV = overload {
     mkV : (imperfect : Str) -> V
@@ -361,7 +380,7 @@ resource ParadigmsAra = open
       = v1 ;
     mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormX (no VII, IX) ; default vowels a u for I
       = formV ;
-    mkV : V -> (particle : Str) -> V = \v,p -> 
+    mkV : V -> (particle : Str) -> V = \v,p ->
       v ** { s = \\vf => v.s ! vf ++ p } ;
     } ;
 
@@ -419,6 +438,7 @@ resource ParadigmsAra = open
     let root : Root3 = mkRoot3 rootStr ;
         verb : Verb  = case rootStr of {
           ? + #hamza + #weak => v4doubleweak root ;
+          ? + #weak + ?      => v4hollow root ;
           _          + #weak => v4defective root  ;
           _                  => v4sound root } ;
     in lin V verb ;
@@ -452,30 +472,43 @@ resource ParadigmsAra = open
       lock_V = <>
     };
 
+  v7 =
+    \rootStr ->
+    let {
+      fcl = mkRoot3 rootStr ;
+      v7fun = v7geminate ; -- TODO add rest
+      } in lin V (v7fun fcl) ;
+
   v8 =
     \rootStr ->
     let {
       rbT = mkRoot3 rootStr ;
       v8fun = case rbT.f of {
                 ("و"|"ي"|"ّ") => v8assimilated ;
-                _            => v8sound }
+                _ =>
+                  case rbT.c of {
+                        #weak => v8hollow ;
+                        _     => v8sound }}
       } in lin V (v8fun rbT) ;
 
   v10 =
     \rootStr ->
     let {
       rbT = mkRoot3 rootStr ;
-      v10fun = case rbT.c of {
-                ("و"|"ي") => v10hollow ;
-                _         => v10sound }
+      v10fun : Root3 -> Verb = case rootStr of {
+                ? + #weak + ? => v10hollow ;
+                ? + ? + #weak => v10defective ;
+                _             => v10sound }
       } in lin V (v10fun rbT) ;
 
-  mkFullN nsc gen spec =
+  reflV v = lin V (ResAra.reflV v) ;
+
+  mkFullN nsc gen spec = lin N
     { s = nsc; --NTable
       s2 = emptyNTable;
       g = gen;
       h = spec;
-      lock_N = <>
+      isDual = False
     };
 
   brkN' : Str -> Str -> Str -> Gender -> Species -> N =
@@ -498,7 +531,7 @@ resource ParadigmsAra = open
     let { kalimaStr = mkWord sg root;
           kalimaRaw = sndf kalimaStr;
           kalima : NTable = \\n,d,c => case root of {
-            _ + #hamza + _ 
+            _ + #hamza + _
               => rectifyHmz (kalimaRaw ! n ! d ! c);
             _ => kalimaRaw ! n ! d ! c
         };
@@ -526,38 +559,26 @@ resource ParadigmsAra = open
   prepN2 : N -> Preposition -> N2 = \n,p -> lin N2 (n ** {c2 = p}) ;
 
   mkN3 = overload {
-    mkN3 : N -> Preposition -> Preposition -> N3 = \n,p,q -> 
+    mkN3 : N -> Preposition -> Preposition -> N3 = \n,p,q ->
       lin N3 (n ** {c2 = p ; c3 = q}) ;
-    mkN3 : N -> Str -> Str -> N3 = \n,p,q -> 
+    mkN3 : N -> Str -> Str -> N3 = \n,p,q ->
       lin N3 (n ** {c2 = mkPreposition p ; c3 = mkPreposition q}) ;
   } ;
 
   mkPron : (_,_,_ : Str) -> PerGenNum -> Pron = \ana,nI,I,pgn ->
-    lin Pron { s =
-        table {
-          Acc => BIND ++ nI; -- object suffix
-          Gen => BIND ++ I;  -- possessive suffix
-          _   => ana
-        };
-      a = {pgn = pgn; isPron = True };
-      empty = []
-    };
+    lin Pron (ResAra.mkPron ana nI I pgn) ;
 
-  proDrop : NP -> NP = ResAra.proDrop ; -- Force a NP to lose its string, only contributing with its agreement.
+  proDrop : NP -> NP = \np -> lin NP (ResAra.proDrop np) ;
 
   -- e.g. al-jamii3, 2a7ad
-  regNP : Str -> Number -> NP = \word,n -> lin NP
-    { s = \\c => fixShd word (dec1sg ! Def ! c) ;
-      a = {pgn = Per3 Masc n; isPron = False };
-      empty = []
-    };
+  regNP : Str -> Number -> NP = \word,n -> lin NP (emptyNP ** {
+    s = \\c => fixShd word (dec1sg ! Def ! c)
+    });
 
   -- e.g. hadha, dhaalika
-  indeclNP : Str -> Number -> NP = \word,n -> lin NP
-    { s = \\c => word ;
-      a = {pgn = Per3 Masc n; isPron = False };
-      empty = []
-    };
+  indeclNP : Str -> Number -> NP = \word,n -> lin NP (emptyNP ** {
+    s = \\c => word
+    });
 
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
     \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det -> lin Quant (baseQuant **
@@ -595,9 +616,9 @@ resource ParadigmsAra = open
         mascTbl = reg jadId judud ;
         femTbl = reg jadIda judud ;
      in { s = table {
-             APosit Masc n d c => mascTbl ! n ! d ! c ;
-             APosit Fem  n d c => femTbl ! n ! d ! c ;
-             AComp d c         => indeclN akbar ! d ! c }
+             APosit Masc n d c => rectifyHmz (mascTbl ! n ! d ! c) ;
+             APosit Fem  n d c => rectifyHmz (femTbl ! n ! d ! c) ;
+             AComp d c         => rectifyHmz (indeclN akbar ! d ! c) }
         } ;
 
   degrA : (posit,compar,plur : Str) -> A
@@ -623,6 +644,14 @@ resource ParadigmsAra = open
         }
     };
 
+  nisbaA : Str -> Adj = \Haal ->
+    let Haaliyy = Haal + "ِيّ" in {
+      s = table {
+        APosit g n d c  => positAdj Haaliyy ! g ! n ! d ! c ;
+        AComp d c => "أَكْثَر" ++ indeclN Haaliyy ! d ! c
+        }
+    } ;
+
   clrA root =
     let { eaHmar = mkWord "أَفعَل" root;
           HamrA' = mkWord "فَعلاء" root;
@@ -641,23 +670,28 @@ resource ParadigmsAra = open
   mkAdv x = lin Adv (ss x) ;
   mkAdV x = lin AdV (ss x) ;
   mkAdA x = lin AdA (ss x) ;
+  mkInterj x = lin Interj (ss x) ;
 
+  mkSubj = overload {
+    mkSubj : Str -> Subj = \s -> lin Subj {s = s ; o = Subord} ;
+    mkSubj : Str -> Order -> Subj = \s,o -> lin Subj {s = s ; o = o} ;
+  } ; 
 
   dirV2 v = prepV2 v (casePrep acc) ;
 
   mkV3 = overload {
-    mkV3 : V -> Preposition -> Preposition -> V3 = \v,p,q -> 
+    mkV3 : V -> Preposition -> Preposition -> V3 = \v,p,q ->
       lin V3 (prepV3 v p q) ;
     mkV3 : V -> Str -> Str -> V3 = \v,p,q ->
-      lin V3 (v ** {s = v.s ; c2 = mkPreposition p ; c3 = mkPreposition q}) 
+      lin V3 (v ** {s = v.s ; c2 = mkPreposition p ; c3 = mkPreposition q})
     } ;
 
-  prepV3 : V -> Preposition -> Preposition -> Verb3 = \v,p,q -> 
+  prepV3 : V -> Preposition -> Preposition -> Verb3 = \v,p,q ->
     v ** {s = v.s ; c2 = p ; c3 = q} ;
 
   dirV3 = overload {
     dirV3 : V -> Preposition -> V3 = \v,p -> mkV3 v (casePrep acc) p ;
-    dirV3 : V -> Str -> V3 = \v,s -> mkV3 v (casePrep acc) (mkPreposition s) 
+    dirV3 : V -> Str -> V3 = \v,s -> mkV3 v (casePrep acc) (mkPreposition s)
     } ;
 
   dirdirV3 v = dirV3 v (casePrep acc) ;
@@ -665,9 +699,10 @@ resource ParadigmsAra = open
   mkVS  v = v ** {lock_VS = <>} ;
   mkVQ  v = v ** {lock_VQ = <>} ;
 
-  regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ"} ;
-  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = noPrep} ;
-
+  regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;
+  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep ; sc = noPrep} ;
+  prepVV : V -> Preposition -> VV = \v,prep -> regVV v ** {c2=prep; sc=noPrep} ;
+  prep2VV : V -> (_,_ : Preposition) -> VV = \v,p1,p2 -> regVV v ** {c2=p1; sc=p2} ;
   V0 : Type = V ;
 ----  V2S, V2V, V2Q, V2A : Type = V2 ;
   AS, A2S, AV : Type = A ;
@@ -676,10 +711,10 @@ resource ParadigmsAra = open
   mkV0  v = v ;
   mkV2S v p = lin V2S (prepV2 v (mkPreposition p)) ;
   mkV2V = overload {
-    mkV2V : V -> Str -> Str -> V2V = \v,p,q -> 
-      lin V2V (prepV3 v (mkPreposition p) (mkPreposition q)) ;
+    mkV2V : V -> Str -> Str -> V2V = \v,p,q ->
+      lin V2V (prepV3 v (mkPreposition p) (mkPreposition q) ** {sc = noPrep}) ;
     mkV2V : V -> Preposition -> Preposition -> V2V = \v,p,q ->
-      lin V2V (prepV3 v p q) ;
+      lin V2V (prepV3 v p q ** {sc = noPrep}) ;
     mkV2V : VV -> Preposition -> V2V = \vv,p ->
       lin V2V (vv ** {c2 = p ; c3 = vv.c2}) ;
   } ;
@@ -712,12 +747,12 @@ formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
    FormIV  => v4 s ;
    FormV   => v5 s ;
    FormVI  => v6 s ;
----   FormVII  => v7 s ;
+   FormVII  => v7 s ;
    FormVIII => v8 s ;
    FormX   => v10 s
    } ;
 
 param VerbForm =
-  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVIII | FormX ;
+  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVII | FormVIII | FormX ;
 
 } ;

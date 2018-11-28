@@ -33,9 +33,9 @@ concrete SentenceAra of Sentence = CatAra ** open
     ImpVP vp = {
       s = \\p,g,n =>
         case p of {
-          Pos => vp.s ! (Per2 g n) ! VPImp  ++ vp.obj.s  ++ vp.s2 ;
-          Neg => "لا" ++ vp.s ! (Per2 g n) ! (VPImpf Jus) ++ vp.obj.s ++ vp.s2
-        }
+          Pos =>          vp.s ! Per2 g n ! VPImp ;
+          Neg => "لَا" ++ vp.s ! Per2 g n ! VPImpf Jus
+        } ++ vp.obj.s  ++ vp.pred.s ! {g=g;n=n} ! Acc ++ vp.s2 
       };
 
 --
@@ -52,10 +52,8 @@ concrete SentenceAra of Sentence = CatAra ** open
     SlashVP = predVPSlash ;
     AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
 
--- SlashPrep : Cl -> Prep -> ClSlash
--- Will be awkward to implement in the way ClSlash is now.
--- ClSlash is implemented the way it is now for a good reason:
--- we need to support different word orders.
+-- : Cl -> Prep -> ClSlash
+--    SlashPrep cl prep = TODO
 
 --  SlashVS np vs sslash = TODO
 
@@ -66,11 +64,11 @@ concrete SentenceAra of Sentence = CatAra ** open
 --
 
     UseCl t p cl =
-      {s = t.s ++ p.s ++
+      {s = \\o => t.s ++ p.s ++
          case <t.t,t.a> of { --- IL guessed tenses
-             <Pres,Simul>  => cl.s ! Pres ! p.p ! Nominal ;
-             <Pres,Anter>  => cl.s ! Past ! p.p ! Nominal ;
-             <x   ,_    >  => cl.s ! x ! p.p ! Nominal
+             <Pres,Simul>  => cl.s ! Pres ! p.p ! o ;
+             <Pres,Anter>  => cl.s ! Past ! p.p ! o ;
+             <x   ,_    >  => cl.s ! x ! p.p ! o
            }
       };
 
@@ -86,4 +84,6 @@ concrete SentenceAra of Sentence = CatAra ** open
     UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
     UseSlash t p cl = UseCl t p (complClSlash cl) ;
+
+    AdvS adv s = s ** {s = \\o => adv.s ++ s.s ! o} ;
 }

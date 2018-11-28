@@ -10,6 +10,7 @@ concrete PhraseAra of Phrase = CatAra ** open
     UttQS qs = {s = \\g => qs.s ! QDir} ;
     UttImpSg pol imp = {s = \\g => imp.s ! pol.p ! g ! ResAra.Sg ++ pol.s} ;
     UttImpPl,UttImpPol = \pol,imp -> {s = \\g => imp.s ! pol.p ! g ! ResAra.Pl ++ pol.s} ;
+    UttInterj i = {s = \\g => i.s} ;
 
     UttIP ip = {s = \\g => ip.s ! False ! g ! Def ! Nom} ; --IL
     UttAP ap = {s = ResAra.uttAP ap} ; --IL
@@ -17,8 +18,8 @@ concrete PhraseAra of Phrase = CatAra ** open
 
     UttCN cn = {s = ResAra.uttCN cn } ; --IL
     UttNP np = {s = \\_ => np.s ! Nom} ;
-    UttVP vp = {s = \\g => (compVP vp).s ! {g=g ; n=Sg} ! Nom} ; --IL
-    UttS,
+    UttVP vp = {s = uttVP vp} ; --IL
+    UttS s = {s = \\_ => s.s ! Verbal} ;
     UttAdv,
     UttIAdv = \s -> {s = \\_ => s.s} ; ---- OK? AR
 --
