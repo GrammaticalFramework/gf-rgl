@@ -39,7 +39,7 @@ concrete ExtendAra of Extend =
         wordOrderNoSubj 
           Nominal --  Nominal (=SVO) generalises best for ConjVPS.
           vp.obj.a.isPron 
-          (vStr vp pgn t.t p.p)
+          (vStr vp pgn t.t p.p Nominal)
           (case <vp.isPred,vp.obj.a.isPron> of {
                     <False,True> => BIND ++ vp.obj.s ;
                     _            =>         vp.obj.s })
