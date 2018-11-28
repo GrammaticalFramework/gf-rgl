@@ -1,11 +1,12 @@
-* {"not"} PART neg head 
-* {"has","had","have","will","would","do","does","did"} AUX aux head 
-CompAP {"is","are","am","was","been","be"} VERB cop head
-CompCN {"is","are","am","was","been","be"} VERB cop head
-CompAP {"is","are","am","was","been","be"} VERB cop head
-CompAdv {"is","are","am","was","been","be"} VERB cop head
+UseV {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't"} PART neg head 
+UseV {"has","had","have","will","would","do","does","did"} AUX aux head 
+UseComp {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't"} PART neg head 
+UseComp {"has","had","have","will","would","do","does","did"} AUX aux head 
 UseComp {"is","are","am","was","been","be"} VERB cop head
-CompCN {"a","an"} DET det head
 ComplVV {"to"} PART mark xcomp
+ComplVS {"that"} PART mark xcomp
+ComplVS {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't"} PART neg head 
+ComplVS {"has","had","have","will","would","do","does","did"} AUX aux head 
+
 
 
