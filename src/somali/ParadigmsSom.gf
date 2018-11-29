@@ -48,18 +48,27 @@ oper
 
 --2 Adjectives
 
-  mkA : (yar : Str) -> CatSom.A ;
+  mkA : overload {
+    mkA : (yar : Str) -> A ;
+    mkA : (sg,pl : Str) -> A 
+  } ;
 
   -- mkA2 : Str -> Prep -> A2 ;
 
 --2 Verbs
 
--- Smart paradigms
-  mkV : Str -> V ;
+  -- Verbs
+  mkV : overload {
+    mkV : (imp : Str) -> V ;    -- Predictable verb: imperative form as argument
+    mkV : (imp,sg1,pl2 : Str) -> V ; -- Less predictable verb: imperative, 1st person singular and 2nd person plural
+    mkV : Str -> V -> V  -- Add a prefix to an existing verb, e.g. u baahan+ahay
+  } ;
+
+  copula : V ; -- The copula verb 'ahay'
 
   mkV2 : overload {
-    mkV2 : (akhri : Str) -> V2 ; -- Regular verbs, no preposition
-    mkV2 : (_ : Str) -> (_ku : Preposition) -> V2 ; -- Regular verb, prep.
+    mkV2 : (sug : Str) -> V2 ; -- Predictable verb: imperative form, no preposition
+    mkV2 : (sug : Str) -> (_ku : Preposition) -> V2 ; -- Regular verb, imperative and preposition
     mkV2 : V -> Preposition -> V2 ; -- Already constructed verb with preposition
     } ;
 
@@ -81,11 +90,11 @@ oper
 --2 Structural categories
 
   mkPrep = overload {
-    mkPrep : Str -> Prep = \s ->
+    mkPrep : Str -> CatSom.Prep = \s ->
       lin Prep (ResSom.mkPrep s s s s s s) ;
-    mkPrep : (x1,_,_,_,_,x6 : Str) -> Prep = \a,b,c,d,e,f ->
+    mkPrep : (x1,_,_,_,_,x6 : Str) -> CatSom.Prep = \a,b,c,d,e,f ->
       lin Prep (ResSom.mkPrep a b c d e f) ;
-    mkPrep : Preposition -> Prep = \p ->
+    mkPrep : Preposition -> CatSom.Prep = \p ->
       lin Prep (prepTable ! p) ;
   } ;
 
@@ -136,24 +145,33 @@ oper
     mkN : Str -> Gender -> N         = \s,g -> lin N (mkNg s g) ;
     mkN : (_,_ : Str) -> Gender -> N = \s,t,g -> lin N (nMaalin s t g) ;
     --mkN : N -> Gender -> N           = \n,g -> n ** {g = g }
-  } ;
+    } ;
 
   mkPN = overload {
     mkPN : Str -> PN = \s -> lin PN (mkPNoun s sgMasc) ;
     mkPN : Str -> Agr -> PN = \s,a -> lin PN (mkPNoun s a)
     } ;
 
-  mkA : (yar : Str) -> CatSom.A = \s -> lin A (mkAdj s) ;
+  mkA = overload {
+    mkA : (yar : Str)   -> A = \s -> lin A (duplA s) ;
+    mkA : (sg,pl : Str) -> A = \s,p -> lin A (mkAdj s p)
+    } ;
 
-  mkV : Str -> V = \s -> lin V (regV s) ;
+  mkV = overload {
+    mkV : (imp : Str) -> V = \v -> lin V (regV v) ;
+    mkV : (imp,pl2,sg1 : Str) -> V = \i,p,s -> lin V (mkVerb i p s) ;
+    mkV : Str -> V -> V = \s,v -> lin V (prefixV s v)
+  } ;
 
-  regV : Str -> Verb = \s -> cSug s ; --case s of {
-    -- _ + #c + #c + "o" => cJoogso s ;
-    -- _           + "o" => cQaado s ; ----
-    -- _           + "i" => cKari s ;
-    -- _          + "ee" => cYaree s ;
-    -- _                 => cSug s
-    -- } ;
+  copula = ResSom.copula ;
+
+  regV : Str -> Verb = \s -> case s of {
+--    _ + g@#c + s@#c + "o" => cJoogso s ;
+    _           + "o" => cQaado s ; ----
+    _           + "i" => cKari s ;
+    _          + "ee" => cYaree s ;
+    _                 => cSug s
+    } ;
 
   mkV2 = overload {
     mkV2 : Str -> V2 = \s -> lin V2 (regV s ** {c2 = noPrep}) ;

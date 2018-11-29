@@ -6,6 +6,7 @@ resource ParamSom = ParamX ** open Prelude in {
 oper
    --TODO: make patterns actually adjusted to Somali
   v : pattern Str = #("a" | "e" | "i" | "o" | "u") ;
+  vstar : pattern Str = #("a" | "e" | "i" | "o" | "u" | "y" | "w") ; -- semivowels included
   vv : pattern Str = #("aa" | "ee" | "ii" | "oo" | "uu") ;
   c : pattern Str = #("m"|"n"|"p"|"b"|"t"|"d"|"k"|"g"|"f"|"v"
                       |"s"|"h"|"l"|"j"|"r"|"z"|"c"|"q"|"y"|"w");
@@ -54,7 +55,7 @@ oper
 param
   Case = Nom | Abs ;
   Gender = Masc | Fem ;
-  Vowel = A | E | I | O | U ; -- For vowel assimilation
+  Vowel = vA | vE | vI | vO | vU ; -- For vowel assimilation
 
   Inclusion = Excl | Incl ;
   Agreement =
@@ -128,9 +129,8 @@ param
     | VPres Agreement Polarity
     | VNegPast
     | VPast Agreement
-    | VFut -- agreement comes from auxiliary
     | VRel -- "som är/har/…" TODO is this used in other verbs?
-    | VImp Number ; -- TODO negation
+    | VImp Number Polarity ; -- TODO negation
 
 oper
   if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
