@@ -303,8 +303,8 @@ resource ParadigmsAra = open
 -- Prepositions are used in many-argument functions for rection.
 
   Preposition = ResAra.Preposition ;
-  noPrep = {s=[]; c=nom} ;
-  casePrep c = {s=[]; c=c} ;
+  noPrep = {s=[]; c=nom; binds=False} ;
+  casePrep c = {s=[]; c=c; binds=False} ;
 
   Gender = ResAra.Gender ;
   masc = ResAra.Masc ;

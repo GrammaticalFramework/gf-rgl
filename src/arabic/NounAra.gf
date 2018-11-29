@@ -49,10 +49,10 @@ lin
 
   DetNP det = emptyNP ** {s = det.s ! NoHum ! Masc} ; ----
 
-  PredetNP pred np = np ** {
-    s = \\c => case pred.isDecl of {
-      True => pred.s!c ++ np.s ! Gen ; -- akvaru l-awlAdi
-      False => pred.s!c ++ np.s ! c
+  PredetNP det np = np ** {
+    s = \\c => case det.isDecl of {
+      True  => det.s ! c ++ bindIf np.a.isPron ++ np.s ! Gen ; -- akvaru l-awlAdi
+      False => det.s ! c ++ np.s ! c
       } ;
     a = np.a ** {isPron=False}
     } ;
@@ -174,7 +174,7 @@ lin
   Use2N3 n3 = n3 ;
   Use3N3 n3 = n3 ** {c2 = n3.c3} ;
 
-  ComplN2 n2 np = UseN n2 ** {np = \\c => n2.c2.s ++ np.s ! n2.c2.c} ;
+  ComplN2 n2 np = UseN n2 ** {np = \\c => n2.c2.s ++ bindIf n2.c2.binds ++ np.s ! n2.c2.c} ;
 
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
 

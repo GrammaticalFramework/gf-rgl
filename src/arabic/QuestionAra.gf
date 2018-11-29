@@ -47,7 +47,9 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
       s = \\t,p,qf => 
         let cl : ResAra.Cl = complClSlash cls ; -- dummy conversion to Cl
             o = toOrder qf
-          in cls.c2.s ++ ip.s ! False ! Masc ! Def ! Nom ++ cl.s ! t ! p ! o
+          in cls.c2.s ++ bindIf cls.c2.binds 
+          ++ ip.s ! False ! Masc ! Def ! Nom 
+          ++ cl.s ! t ! p ! o
       } ;
 
   --IL guessed
