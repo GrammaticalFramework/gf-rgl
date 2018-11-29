@@ -23,11 +23,11 @@ oper
                          Masc => wiil } ;
         defStems : Str -> Vowel => Str = \s -> case s of {
           ilk + "aha" =>
-               table { A => ilk+"ah" ;
-                       E => ilk+"eh" ;
-                       I => ilk+"ih" ;
-                       O => ilk+"oh" ;
-                       U => ilk+"uh"
+               table { vA => ilk+"ah" ;
+                       vE => ilk+"eh" ;
+                       vI => ilk+"ih" ;
+                       vO => ilk+"oh" ;
+                       vU => ilk+"uh"
                        } ;
           _ => table { _ => init s }
           } ;
@@ -242,24 +242,40 @@ oper
  -- Motsvarigheten till svenskans superlativ bildas med prepositionsklustret ugú som till sin betydelse närmast motsvarar svenskans allra, t.ex.
  -- ugu horrayntii (det att komma) allra först
 
-  Adjective : Type = { s : AForm => Str } ;
+  Adjective : Type = {s : AForm => Str} ;
   Adjective2 : Type = Adjective ** { c2 : Preposition } ;
 
-  mkAdj : Str -> Adjective = \yar ->
-    let yaryar = duplicate yar
-    in { s = table {
-           AF Sg Abs => yar ;
-           AF Pl Abs => yaryar ;
-           AF Sg Nom => yar + "i" ;
-           AF Pl Nom => yaryar + "i" }
-       } ;
 
-  duplicate : Str -> Str = \yar -> case yar of {
+  duplA : Str -> Adjective = \yar ->
+    let yaryar = duplicate yar
+    in mkAdj yar yaryar ;
+
+  mkAdj : (str,pl : Str) -> Adjective = \sg,pl -> {
+    s = table {
+          AF Sg Abs => sg ;
+          AF Pl Abs => pl ;
+          AF Sg Nom => sg + "i" ;
+          AF Pl Nom => pl + "i" }
+    } ;
+
+  duplicate : Str -> Str = \sg -> case sg of {
+    -- some hard-coded cases; in general, better to
+    -- use 2-paradigm mkAdj for irregular adjectives.
     "dheer" => "dhaadheer" ;
-    "weyn"  => "waaweyn" ; -- TODO eventually handle irregular adjectives elsewhere
-    y@#c + a@#v + r@#c + _ => y + a + r + yar ;
-    g@#c + aa@#vv      + _ => g + aa + yar ; --TODO: proper patterns
-    _                      => yar + ":plural" } ;
+    "weyn"  => "waaweyn" ;
+
+    -- general patterns
+    a@#v + d@#c + ? + ?  -- 4 letters of form CVXX
+        => a + d + sg ; -- ad+adag
+    g@#c + aa@#vv + _
+        => g + aa + sg ; -- gaa+gaaban
+    y@#c + a@#v + r@#c + _
+        => y + a + r + sg ; -- yar+yar ; fud+fudud
+    d@#c + h@#c + uu@#vv + _
+        => d + h + uu + sg ; -- dhuu+dhuuban
+    q@#c + a@#v + y@#vstar + b@#c + _
+        => q + a + y + b + sg ; --qayb+qaybsan, fiic+fiican
+    _   => sg + sg } ;
 
   AdjPhrase : Type = Adjective ;
 --------------------------------------------------------------------------------
@@ -272,25 +288,38 @@ oper
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
   -- since it corresponds to the form of the basic root."
-  mkVerb : (x1,x2 : Str) -> Verb = \ark,qaat ->
+  mkVerb : (imperative,sg1,pl2 : Str) -> Verb = \qaado,qaat,ark ->
     let stems : {p1 : Str ; p2 : Str} = case ark of {
-          a + r@#c + k@#c => <ark + "i", a + r + a + voiced k> ;
-          yar + "ee"      => <ark + "n", yar + "ey"> ;
-          _               => <ark + "n", ark> } ;
+          a + r@#c + k@#c -- two consonants need a vowel in between
+            => <ark + "i", a + r + a + voiced k> ;
+          _ + #c -- if the pl2 root ends in consonant, infinitive needs a vowel
+            => <ark + "i", ark> ;
+          yar + "ee"  -- double e turns into ey
+            => <ark + "n", yar + "ey"> ;
+          _ => <ark + "n", ark> -- no changes, just add n for infinitive
+        } ;
         arki = stems.p1 ;
         arag = stems.p2 ;
-        arkin = case last arki of { "n" => arki ; _ => arki + "n" } ;
-        t : Str = case arag of {
-               _ + ("i"|"y") => "s" ;
-               _             => "t" } ;
+        arkin = case last arki of { -- The negative past tense ends in n:
+                  "n" => arki ;         -- if infinitive ends in n, no change;
+                   _  => arki + "n" } ; -- otherwise add n.
+
+        -- Some predictable sound changes
+        t : Str = case arag of { -- kari+seen, noq+deen, (sug|joogsa|qaada)+teen,
+               _ + ("i"|"y") => "s" ;     -- t changes into s in front of i/y
+               _ + ("x"|"q"|"c") => "d" ; -- t changes into d in front of x/q/c
+               _             => "t" } ;   
         ay : Str = case ark of {
                _ + ("i"|"e") => "ey" ;
                _             => "ay" } ;
         n : Str = case arag of {
-               _ + #v => "nn" ;
+               _ + #v => "nn" ; -- n duplicates after vowel
                _      => "n" } ;
+        an : Str = case qaado of {
+               _ + "o" => "an" ; -- Allomorph for imperatives
+               _       => "in" } ;
    in { s = table {
-          VPres (Sg1|Sg3 Masc) pol
+          VPres (Sg1|Sg3 Masc|Impers) pol
                         => qaat + if_then_Pol pol "aa" "o" ;
           VPres (Sg2|Sg3 Fem) pol
                         => arag + t + if_then_Pol pol "aa" "o" ;
@@ -299,19 +328,22 @@ oper
           VPres Pl2 pol => arag + t + "aan" ;
           VPres Pl3 pol => qaat + "aan" ;
 
-          VPast (Sg1|Sg3 Masc)
+          VPast (Sg1|Sg3 Masc|Impers)
                         => qaat + ay ;
           VPast (Sg2|Sg3 Fem)
-                        => arag + t + ay ;
+                        => arag + t + ay ; -- t, d or s
           VPast (Pl1 _) => arag + n + ay ;
-          VPast Pl2     => arag + t + "een" ; -- kari+seen, (sug|joogsa|qaada)+teen
+          VPast Pl2     => arag + t + "een" ; -- t, d or s
           VPast Pl3     => qaat + "een" ;
 
-          VImp Sg          => arag ;
-          VImp Pl          => qaat + "a" ; -- TODO: allomorphs, page 86 in Saeed
-          VInf             => arki ;
-          VNegPast         => arkin ;
-          _  => "TODO" }
+          VImp Sg Pos   => qaado ;
+          VImp Pl Pos   => qaat + "a" ;
+          VImp Sg Neg   => arag + an ;
+          VImp Pl Neg   => qaat + "ina" ;
+
+          VInf          => arki ;
+          VRel          => arki ; -- TODO does this exist?
+          VNegPast      => arkin }
       } ;
 
 -------------------------
@@ -319,17 +351,28 @@ oper
 
   cSug, cKari, cYaree, cJoogso, cQaado : Str -> Verb ;
 
-  cSug sug = mkVerb sug sug ; -- TODO: stem/dictionary form of verbs with consonant clusters?
+  cSug sug =
+    let cabb : Str = case sug of {
+          _ + "b" => sug + "b" ; -- TODO: more duplication patterns
+          _       => sug }
+     in mkVerb sug cabb sug ;
 
-  cKari, cYaree = \kari -> mkVerb kari (kari+"y") ;
+  cKari, cYaree = \kari -> mkVerb kari (kari+"y") kari ;
 
   cJoogso joogso =
     let joogsa = init joogso + "a" ;
-     in mkVerb joogsa (joogsa + "d") ;
+     in mkVerb joogso (joogsa + "d") joogsa ;
 
   cQaado qaado =
     let qaa = drop 2 qaado
-     in mkVerb (qaa + "da") (qaa + "t") ;
+     in mkVerb qaado  -- Imperative sg, with the vowel
+              (qaa + "t")    -- Per1 Sg, Per3 Pl and Per3 Sg Masc
+              (qaa + "da") ; -- Per2 Pl and others
+
+  -- Constructs verbs like u baahan+ahay
+  prefixV : Str -> Verb -> Verb = \s,v -> {
+    s = \\vf => s + v.s ! vf
+  } ;
 
 ------------------
 -- Irregular verbs
@@ -343,6 +386,8 @@ oper
           VPres (Pl1 _) pol => if_then_Pol pol "nahay" "ihin" ;
           VPres Pl2 pol     => if_then_Pol pol "tihiin" "ihidin" ;
           VPres Pl3 pol     => if_then_Pol pol "yihiin" "aha" ;
+          VImp Sg pol       => if_then_Pol pol "ahaw" "ahaanin" ;
+          VImp Pl pol       => if_then_Pol pol "ahaada" "ahaanina" ;
 
           VPast (Sg1|Sg3 Masc|Impers)
                           => "ahaa" ;
@@ -352,26 +397,29 @@ oper
           VPast Pl2       => "ahaydeen" ;
           VPast Pl3       => "ahaayeen" ;
           VNegPast        => "ahi" ;
-          VRel => "ah" ;
-          _    => "TODO:copula" }
+          VRel            => "ah" ;
+          VInf            => "ahaan" }
      } ;
    -- I somaliskan används inte något kopulaverb motsvarande svenskans är mellan
    -- två substantivfraser som utgör subjekt respektive predikatsfyllnad.
    -- Observera också att kopulaverbet vara alltid hamnar efter det adjektiv
    -- som utgör predikatsfyllnaden.
-  have_V : Verb = {
+  have_V : Verb =
+   let hold_V = mkVerb "hayso" "haysat" "haysa" in {
     s = table {
-          VPres Sg1 _      => "leeyahay" ;
-          VPres Sg2 _      => "leedahay" ;
-          VPres (Sg3 Fem) _ => "leedahay" ;
-          VPres (Sg3 Masc)_ => "leeyahay" ;
-          VPres (Pl1 _) _  => "leenahay" ;
-          VPres Pl2     _  => "leedihiin" ;
-          VPres Pl3     _  => "leeyihiin" ;
-          VPast x          => "l" + copula.s ! VPast x ;
-          VRel => "leh" ;
-          _    => "TODO:have_V" } ;
+          VPres Sg1        Pos => "leeyahay" ;
+          VPres Sg2        Pos => "leedahay" ;
+          VPres (Sg3 Fem)  Pos => "leedahay" ;
+          VPres (Sg3 Masc|Impers) Pos
+                                => "leeyahay" ;
+          VPres (Pl1 _)    Pos => "leenahay" ;
+          VPres Pl2        Pos => "leedihiin" ;
+          VPres Pl3        Pos => "leeyihiin" ;
+          VPast x               => "l" + copula.s ! VPast x ;
+          VRel                  => "leh" ;
+          x                     => hold_V.s ! x }
     } ;
+          
 -- Till VERBFRASEN ansluter sig
 -- · satstypsmarkörer (waa, ma...),
 -- · subjekts-pronomenet la man,
@@ -418,6 +466,9 @@ oper
   ClSlash,
   Sentence : Type = SS ; ---- TODO
 
+  doonaa : Str -> Verb = \inf -> 
+    let doon : Verb = cSug "doon" in {s = \\vf => inf ++ doon.s ! vf} ;
+
   vf : Tense -> Anteriority -> Polarity -> Agreement -> Verb
     -> {fin : Str ; inf : Str} = \t,ant,p,agr,vp ->
      let pastV : Verb -> Str = \v ->
@@ -429,10 +480,10 @@ oper
        <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
        <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
        <Past,Anter> => {fin = pastV copula  ; inf = vp.s ! VInf } ; ---- TODO: habitual aspect
-       <_Fut,Simul>  => {fin = presV copula ; inf = vp.s ! VFut} ;
-       <_Fut,Anter>  => {fin = pastV copula ; inf = vp.s ! VFut}
-       -- <Cond,Simul> => {fin = ? ; inf = ?} ; -- TODO conditional
-       -- <Cond,Anter> => {fin = ? ; inf = ?}   -- TODO conditional
+       <Fut,Simul>  => {fin = presV (doonaa (vp.s ! VInf)) ; inf = []} ;
+       <Fut,Anter>  => {fin = pastV (doonaa (vp.s ! VInf)) ; inf = []} ;
+       <_,Simul>  => {fin = presV vp ; inf = []} ; -- TODO conditional
+       <_,Anter>  => {fin = pastV vp ; inf = []}   -- TODO conditional
        } ;
 
   stmarker : Agreement => Polarity => Str = \\a,b =>

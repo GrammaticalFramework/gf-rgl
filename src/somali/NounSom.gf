@@ -18,8 +18,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
            case <c,cn.hasMod,det.d> of {
               <Nom,True, Indef Sg> => {nf=Indef Sg ; c=Abs} ;
               <Nom,False,Indef Sg> => {nf=IndefNom ; c=Nom} ; -- special form for fem. nouns
-              <Nom,True,Def x A>   => {nf=Def x A ; c=Abs} ;
-              <Nom,False,Def x A>  => {nf=Def x U ; c=Nom} ;
+              <Nom,True,Def x vA>   => {nf=Def x vA ; c=Abs} ;
+              <Nom,False,Def x vA>  => {nf=Def x vU ; c=Nom} ;
               _                    => {nf=det.d ; c=c}
            } ;
           in cn.s ! nfc.nf
