@@ -18,8 +18,9 @@ oper
     {s : NPCase => Str ; a : Agr} = \i,my,g,n,p -> 
     { s = table {
         NCase Nom => i ;
-        NPAcc => my ;
-        NCase Loc | NPNomPoss => my -- works for normal genitives, "whose", etc.
+
+        NCase Loc | NPoss => my -- works for normal genitives, "whose", etc.
+
         } ;
       a = Ag g n p ;
     };

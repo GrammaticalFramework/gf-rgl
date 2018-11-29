@@ -3,12 +3,12 @@
 interface DiffBantu = open CommonBantu, Prelude in {
   flags coding=utf8 ;
 
--- HL: everything depending on Gender is not common, so it must not 
---     be in CommonBantu, but here in DiffBantu.
+
+
 oper 
   Gender : PType ;
-  firstGender : Gender ; -- G1
-  secondGender : Gender ; -- G2
+  firstGender : Gender ; 
+ secondGender : Gender ; -- G2
 
   Noun : Type  = {s : Number => Case => Str ; g : Gender};
   CNoun : Type = {s : Number => Case => Str ; g : Gender; s2 : Number => Str};
@@ -38,7 +38,9 @@ oper
     } ;
   verbAgr : Agr -> {g : Gender ; n : Number ; p : Person} = \a -> case a of {
     Ag g n p => {g = g ; n = n  ; p = p} 
-    } ; -- verbAgr = agrFeatures, why both? HL
+
+    } ; --
+
 
   detAgr : Agr -> {g : Gender ; p : Person} = \a -> case a of {
     Ag g _ p => {g = g; p = p} 
@@ -70,7 +72,7 @@ param
   PronForm= Pers | Poss Number Gender;
   DetForm = Sub | Obj Gender ;
 
--- HL: the above is material removed from CommonBantu and adapted --
+
 
 oper
   conjThan  : Str ; --one of them in bantu
@@ -84,8 +86,10 @@ param
   DForm ;
   AForm;
 oper
-  ProunSgprefix : Gender -> Str ; -- added, HL
-  ProunPlprefix : Gender -> Str ; -- added, HL
+
+  ProunSgprefix : Gender -> Str ; 
+  ProunPlprefix : Gender -> Str ; 
+
   Cardoneprefix  : Gender ->  Str;
  Cardtwoprefix  : Gender ->  Str;
  Allpredetprefix : Gender ->  Str;

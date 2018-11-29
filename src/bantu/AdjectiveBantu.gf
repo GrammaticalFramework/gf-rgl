@@ -21,7 +21,9 @@ incomplete concrete AdjectiveBantu of Adjective =
       } ;
 
     ComplA2 a np = {
-      s = \\g,n => a.s  !AComp g n  ++ a.c2 ++ np.s ! NPAcc; 
+
+      s = \\g,n => a.s  !AComp g n  ++ a.c2 ++ np.s ! NCase Nom; 
+
       isPre = False
       } ;
     ReflA2 a ={

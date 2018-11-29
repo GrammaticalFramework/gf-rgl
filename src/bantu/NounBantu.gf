@@ -23,8 +23,9 @@ lin
                      n=agr.n; g=agr.g 
     in {s = table {
           NCase c => pron.s!Pers ;
-          NPAcc => pron.s!Pers  ;
-          NPNomPoss => pron.s!Poss n g };
+
+          NPoss => pron.s!Poss n g };
+
         a = Ag agr.g agr.n agr.p;                             
     } ; 
   -- Predet -> NP -> NP
@@ -141,11 +142,13 @@ lin
   -- PossNP : CN -> NP -> CN
   -- e.g. 'house of Paris', 'house of mine'
   PossNP cn np =let agr = detAgr np.a in
-    {s = \\n,c => cn.s ! n ! Nom ++ possess_Prep.s! n!cn.g  ++ np.s ! NPNomPoss; 
+
+    {s = \\n,c => cn.s ! n ! Nom ++ possess_Prep.s! n!cn.g  ++ np.s ! NPoss; 
      s2 =\\n => []; g = cn.g} ;
   -- PartNP : CN -> NP -> CN
   -- e.g. 'glass of wine'
-  PartNP cn np = {s = \\n,c => cn.s ! n ! Nom ++ part_Prep.s! n!cn.g  ++ np.s ! NPAcc ; s2 =\\n => []; g = cn.g} ;
+  PartNP cn np = {s = \\n,c => cn.s ! n ! Nom ++ part_Prep.s! n!cn.g  ++ np.s ! NCase Nom ; s2 =\\n => []; g = cn.g} ;
+
     
   -- CountNP : Det -> NP -> NP
   -- e.g. 'three of them', 'some of the boys'
@@ -162,8 +165,10 @@ lin
       
   DetDAP d = { s=d.s; n=d.n };
     
-  ApposCN cn np = let agr = complAgr np.a in 
-    {s = \\n,c => np.s ! NCase Nom --++ possess_Prep.s!n!agr.g 
-       ++ cn.s !n ! Nom   ; s2 =\\n => ""; g = cn.g} ;
+
+ -- ApposCN cn np = let agr = complAgr np.a in 
+  --  {s = \\n,c => np.s ! NCase Nom --++ possess_Prep.s!n!agr.g 
+   --    ++ cn.s !n ! Nom   ; s2 =\\n => ""; g = cn.g} ;
+
   
 }
