@@ -4,10 +4,11 @@ interface DiffBantu = open CommonBantu, Prelude in {
   flags coding=utf8 ;
 
 
+
 oper 
   Gender : PType ;
   firstGender : Gender ; 
-  secondGender : Gender ; -- G2
+ secondGender : Gender ; -- G2
 
   Noun : Type  = {s : Number => Case => Str ; g : Gender};
   CNoun : Type = {s : Number => Case => Str ; g : Gender; s2 : Number => Str};
@@ -37,7 +38,9 @@ oper
     } ;
   verbAgr : Agr -> {g : Gender ; n : Number ; p : Person} = \a -> case a of {
     Ag g n p => {g = g ; n = n  ; p = p} 
+
     } ; --
+
 
   detAgr : Agr -> {g : Gender ; p : Person} = \a -> case a of {
     Ag g _ p => {g = g; p = p} 
@@ -70,6 +73,7 @@ param
   DetForm = Sub | Obj Gender ;
 
 
+
 oper
   conjThan  : Str ; --one of them in bantu
   conjThat  : Str ;
@@ -82,8 +86,10 @@ param
   DForm ;
   AForm;
 oper
+
   ProunSgprefix : Gender -> Str ; 
   ProunPlprefix : Gender -> Str ; 
+
   Cardoneprefix  : Gender ->  Str;
  Cardtwoprefix  : Gender ->  Str;
  Allpredetprefix : Gender ->  Str;

@@ -3,33 +3,33 @@ More modules in the GF Resource Grammar Library
 
 
 
-[back to synopsis ../synopsis.html]
+[Back to synopsis ../synopsis/index.html]
 
 ==Extra syntax modules==
 
 These modules give language-specific extra constructs not available via the common API.
 
-[common repository ../../src/abstract/Extra.gf] 
-[Romance (Cat, Fre, Ita, Spa) ../../src/romance/ExtraRomanceAbs.gf] 
-[Scandinavian (Dan, Nor, Swe) ../../src/scandinavian/ExtraScandAbs.gf]  
+[common repository ../../src/abstract/Extra.gf]
+[Romance (Cat, Fre, Ita, Spa) ../../src/romance/ExtraRomanceAbs.gf]
+[Scandinavian (Dan, Nor, Swe) ../../src/scandinavian/ExtraScandAbs.gf]
 
-[Afrikaans ../../src/afrikaans/ExtraAfrAbs.gf]  
-[Bulgarian ../../src/bulgarian/ExtraBulAbs.gf]  
-[Catalan ../../src/catalan/ExtraCatAbs.gf]  
-[Danish ../../src/danish/ExtraDanAbs.gf]  
-[Dutch ../../src/dutch/ExtraDutAbs.gf] 
-[English ../../src/english/ExtraEngAbs.gf]  
-[Finnish ../../src/finnish/ExtraFinAbs.gf]  
-[French ../../src/french/ExtraFreAbs.gf]  
-[German ../../src/german/ExtraGerAbs.gf]  
-[Italian ../../src/italian/ExtraItaAbs.gf] 
-[Norwegian ../../src/norwegian/ExtraNorAbs.gf]  
-[Persian ../../src/persian/ExtraPesAbs.gf]  
-[Polish ../../src/polish/ExtraPolAbs.gf]  
-[Punjabi ../../src/punjabi/ExtraPnbAbs.gf]  
-[Romanian ../../src/romanian/ExtraRonAbs.gf] 
-[Russian ../../src/russian/ExtraRusAbs.gf]  
-[Spanish ../../src/spanish/ExtraSpaAbs.gf]  
+[Afrikaans ../../src/afrikaans/ExtraAfrAbs.gf]
+[Bulgarian ../../src/bulgarian/ExtraBulAbs.gf]
+[Catalan ../../src/catalan/ExtraCatAbs.gf]
+[Danish ../../src/danish/ExtraDanAbs.gf]
+[Dutch ../../src/dutch/ExtraDutAbs.gf]
+[English ../../src/english/ExtraEngAbs.gf]
+[Finnish ../../src/finnish/ExtraFinAbs.gf]
+[French ../../src/french/ExtraFreAbs.gf]
+[German ../../src/german/ExtraGerAbs.gf]
+[Italian ../../src/italian/ExtraItaAbs.gf]
+[Norwegian ../../src/norwegian/ExtraNorAbs.gf]
+[Persian ../../src/persian/ExtraPesAbs.gf]
+[Polish ../../src/polish/ExtraPolAbs.gf]
+[Punjabi ../../src/punjabi/ExtraPnbAbs.gf]
+[Romanian ../../src/romanian/ExtraRonAbs.gf]
+[Russian ../../src/russian/ExtraRusAbs.gf]
+[Spanish ../../src/spanish/ExtraSpaAbs.gf]
 [Swedish ../../src/swedish/ExtraSweAbs.gf]
 
 
@@ -93,8 +93,3 @@ These modules are for internal use of resource grammarians, but the comments giv
 ==The Module Dependency Tree==
 
 [Syntax.png]
-
-
-
-
-

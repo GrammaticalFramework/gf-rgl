@@ -171,18 +171,22 @@ param
 
 -- These forms appear in complements to VV and V2V.
 
-  VVType = VVInf | VVIness | VVIllat | VVPresPart ;
+  VVType = VVInf | VVIness | VVIllat | VVPresPart | VVPart | VVAdess ;
 
 oper
   vvtype2infform : VVType -> InfForm = \vt -> case vt of {
     VVInf => Inf1 ;
     VVIness => Inf3Iness ;
     VVIllat => Inf3Illat ;
+    VVAdess => Inf3Adess ;
+    VVPart => Inf4Part ;
     VVPresPart => InfPresPart
     } ;
   infform2vvtype : InfForm -> VVType = \vt -> case vt of {
     Inf3Iness => VVIness ;
     Inf3Illat => VVIllat ;
+    Inf3Adess => VVAdess ;
+    Inf4Part => VVPart ;
     InfPresPart => VVPresPart ;
     _ => VVInf
     } ;

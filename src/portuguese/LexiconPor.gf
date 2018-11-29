@@ -10,7 +10,7 @@ flags
 lin
    easy_A2V = mkA2V (mkA "fácil") dative genitive ;
    married_A2 = mkA2 (mkA "casado") dative ;
-   probable_AS = mkAS (mkA "provável" "provável" "prováveis" "prováveis" "provavelmente") ;
+   probable_AS = mkAS (prefA (mkA "provável" "provavelmente")) ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
    bad_A       = prefA (mkA (mkA "mau") (mkA "pior")) ;
@@ -23,7 +23,7 @@ lin
    clean_A     = mkA "limpo" ;
    clever_A    = mkA "inteligente" ;
    cold_A      = mkA "frio" ;		-- fria
-   correct_A   = mkA "correto" | mkA "correcto" ;
+   correct_A   = mkA "correto" ;
    dirty_A     = mkA "sujo" ;
    dry_A       = mkA "seco" ;
    dull_A      = mkA "desafilado" ;
@@ -38,7 +38,7 @@ lin
    narrow_A    = mkA "estreito" ;
    near_A      = mkA "perto" ;
    new_A       = prefA (mkA "novo") ;
-   old_A       =  prefA (mkA "velho") ;
+   old_A       = prefA (mkA "velho") ;
    ready_A     = mkA "pronto" ;
    red_A       = mkA "vermelho" ;
    rotten_A    = mkA "podre" ;
@@ -47,7 +47,7 @@ lin
    short_A     = mkA "curto" ; --- breve, pequeno, baixo
    small_A     = prefA (mkA "pequeno") ;
    smooth_A    = mkA "liso" ;     -- suave
-   straight_A  = mkA "direto" | mkA "directo" ; -- reto
+   straight_A  = mkA "direto" ; -- reto
    stupid_A    = mkA "estúpido" ;
    thick_A     = mkA "grosso" ;
    thin_A      = mkA "fino" ; -- delgado, magro
@@ -58,7 +58,7 @@ lin
    white_A     = compADeg (mkA "branco") ;
    wide_A      = mkA "largo" ; -- extenso
    yellow_A    = mkA "amarelo" ;
-   young_A     = prefA (mkA "jovem" "jovem" "jovens" "jovens" "juvenilmente") ;
+   young_A     = prefA (mkA "jovem" "juvenilmente") ;
    already_Adv = mkAdv "já" ;
    far_Adv = mkAdv "longe" ; ----?
    now_Adv = mkAdv "agora" ;
@@ -337,7 +337,7 @@ lin
    flow_V    = mkV "fluir" ; -- circular
    fly_V     = mkV "voar" ;
    freeze_V  = mkV "congelar" ;
-   go_V      = (mkV "ir") ;
+   go_V      = mkV (ir_Besch "ir") ;
    jump_V    = mkV "saltar" ;
    laugh_V   = mkV (rir_Besch "rir") ;
    lie_V     = reflV (mkV "mentir") ;

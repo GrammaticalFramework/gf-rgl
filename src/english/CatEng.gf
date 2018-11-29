@@ -92,9 +92,9 @@ concrete CatEng of Cat = CommonX - [Pol,SC,CAdv] ** open ResEng, Prelude in {
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ, VA = Verb ; -- = {s : VForm => Str} ;
-    V2, V2A, V2Q, V2S = Verb ** {c2 : Str} ;
-    V3 = Verb ** {c2, c3 : Str} ;
+    V, VS, VQ, VA = Verb ;
+    V2, V2Q, V2S = Verb ** {c2 : Str} ;
+    V2A,V3 = Verb ** {c2, c3 : Str} ;
     VV = {s : VVForm => Str ; p : Str ; typ : VVType} ;
     V2V = Verb ** {c2,c3 : Str ; typ : VVType} ;
 
@@ -114,8 +114,8 @@ concrete CatEng of Cat = CommonX - [Pol,SC,CAdv] ** open ResEng, Prelude in {
     VPSlash = \s -> predV {s = \\_ => s; p = ""; isRefl = False} ** {c2 = ""; gapInMiddle = False; missingAdv = False } ;
 
     V, VS, VQ, VA = \s -> {s = \\_ => s; p = ""; isRefl = False} ;
-    V2, V2A, V2Q, V2S = \s -> {s = \\_ => s; p = ""; isRefl = False; c2=""} ;
-    V3 = \s -> {s = \\_ => s; p = ""; isRefl = False; c2,c3=""} ;
+    V2, V2Q, V2S = \s -> {s = \\_ => s; p = ""; isRefl = False; c2=""} ;
+    V3, V2A = \s -> {s = \\_ => s; p = ""; isRefl = False; c2,c3=""} ;
     VV = \s -> {s = \\_ => s; p = ""; isRefl = False; typ = VVInf} ;
     V2V = \s -> {s = \\_ => s; p = ""; isRefl = False; c2,c3="" ; typ = VVInf} ;
 

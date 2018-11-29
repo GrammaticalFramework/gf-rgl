@@ -309,7 +309,11 @@ oper
     isSimple = False
     } ;
     
-  insertObj : (Agr => Str) -> VP -> VP = insertObjPron False ;
+  insertObj    : (Agr => Str) -> VP -> VP = insertObjPron False ;
+  
+  insertObjPre : (Agr => Str) -> VP -> VP = \obj,vp -> vp ** {
+    n2 = \\a => obj ! a ++ vp.n2 ! a  -- e.g. ser inte *bra* ut
+    } ;
   
   insertObjPost : (Agr => Str) -> VP -> VP = \obj,vp -> vp ** {
     n2 = \\a => vp.n2 ! a ++ obj ! a ;

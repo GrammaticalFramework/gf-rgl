@@ -13,8 +13,10 @@ incomplete concrete AdverbBantu of Adverb =
       } ;
 
    PrepNP prep np = let agr = complAgr np.a
+
     in {s = prep.s!agr.n!agr.g ++ (np.s ! NCase Loc ) } ; 
        AdAdv = cc2 ;
+
     PositAdAAdj a = {s = a.s  !AAdj G1 Sg } ;
    
 

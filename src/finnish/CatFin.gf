@@ -42,7 +42,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 -- The $Bool$ tells whether usage is modifying (as opposed to
 -- predicative), e.g. "x on suurempi kuin y" vs. "y:tä suurempi luku".
 
-    AP = {s : Bool => NForm => Str} ; 
+    AP = {s : Bool => NForm => Str ; p : Str ; hasPrefix : Bool} ; 
 
 -- Noun
 
@@ -89,7 +89,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     V2V = SVerb1 ** {c2 : Compl ; vi : VVType} ; ---- infinitive form
     V3 = SVerb1 ** {c2, c3 : Compl} ;
 
-    A  = {s : Degree => SAForm => Str ; h : Harmony} ;
+    A  = {s : Degree => SAForm => Str ; h : Harmony ; p : Str ; hasPrefix : Bool} ;
     A2 = {s : Degree => SAForm => Str ; h : Harmony ; c2 : Compl} ;
 
     N  = SNoun ;

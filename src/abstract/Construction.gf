@@ -71,13 +71,43 @@ fun
 
 cat 
   Timeunit ;
+  Hour ;
   Weekday ;
   Month ;
   Monthday ;
   Year ;
 
 fun
-  timeunitAdv     : Card -> Timeunit -> Adv ; -- (for) three hours
+  timeunitAdv   : Card -> Timeunit -> Adv ; -- (for) three hours
+  timeunitRange : Card -> Card -> Timeunit -> Adv ; -- (cats live) ten to twenty years
+
+  oneHour : Hour ;
+  twoHour : Hour ;
+  threeHour : Hour ;
+  fourHour : Hour ;
+  fiveHour : Hour ;
+  sixHour : Hour ;
+  sevenHour : Hour ;
+  eightHour : Hour ;
+  nineHour : Hour ;
+  tenHour : Hour ;
+  elevenHour : Hour ;
+  twelveHour : Hour ;
+  thirteenHour : Hour ;
+  fourteenHour : Hour ;
+  fifteenHour : Hour ;
+  sixteenHour : Hour ;
+  seventeenHour : Hour ;
+  eighteenHour : Hour ;
+  nineteenHour : Hour ;
+  twentyHour : Hour ;
+  twentyOneHour : Hour ;
+  twentyTwoHour : Hour ;
+  twentyThreeHour : Hour ;
+  twentyFourHour : Hour ;
+
+  timeHour : Hour -> Adv ; -- at three a.m./p.m.
+  timeHourMinute : Hour -> Card -> Adv ; -- at six forty a.m./p.m.
 
   weekdayPunctualAdv : Weekday -> Adv ;  -- on Monday
   weekdayHabitualAdv : Weekday -> Adv ;  -- on Mondays

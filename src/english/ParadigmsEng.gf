@@ -321,7 +321,11 @@ oper
     } ;
   ingV2V : V -> Prep -> Prep -> V2V ; -- e.g. prevent (noPrep NP) (from VP-ing)
   mkVA  : V -> VA ; -- e.g. become (AP)
-  mkV2A : V -> Prep -> V2A ; -- e.g. paint (NP) (AP)
+  mkV2A : overload {
+    mkV2A : V -> V2A ; -- e.g. paint (NP) (AP)
+    mkV2A : V -> Prep -> V2A ; -- backwards compatibility
+    mkV2A : V -> Prep -> Prep -> V2A ; -- e.g. strike (NP) as (AP)
+    } ;
   mkVQ  : V -> VQ ; -- e.g. wonder (QS)
   mkV2Q : V -> Prep -> V2Q ; -- e.g. ask (NP) (QS)
 
@@ -601,7 +605,11 @@ mkInterj : Str -> Interj
 
   ingV2V v p t = lin V2V (prepV2 v p ** {c3 = t.s ; typ = VVPresPart}) ;
   mkVA  v = lin VA v ;
-  mkV2A v p = lin V2A (prepV2 v p) ;
+  mkV2A = overload {
+    mkV2A : V -> V2A = \v -> lin V2A (dirdirV3 v) ;
+    mkV2A : V -> Prep -> V2A = \v,p -> lin V2A (dirV3 v p) ;
+    mkV2A : V -> Prep -> Prep -> V2A = \v,p1,p2 -> lin V2A (prepPrepV3 v p1 p2) ;
+    } ;
   mkV2Q v p = lin V2Q (prepV2 v p) ;
 
   mkAS  v = v ;

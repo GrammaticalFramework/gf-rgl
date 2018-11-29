@@ -36,7 +36,7 @@ incomplete concrete SentenceScand of Sentence =
     SlashVS np vs slash = 
       mkClause
         (np.s ! nominative) np.a 
-        (insertObj (\\_ => conjThat ++ slash.s ! Sub) (predV vs)) **
+        (insertExt (conjThat ++ slash.s ! Sub) (predV vs)) **
       {n3 = slash.n3 ; c2 = slash.c2} ;
 
     EmbedS  s  = {s = conjThat ++ s.s ! Sub} ;

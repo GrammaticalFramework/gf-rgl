@@ -639,7 +639,7 @@ resource MorphoFin = ResFin ** open Prelude in {
     in vForms12
       harkita
       (harkit + "sen")
-      (harkit + "se")
+      (harkit + "see")
       (harkit + "sev" + a + "t")
       (harkit + "k" + a + a)
       (harkit + a + a + "n")
@@ -750,7 +750,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       vat = "v" + a + "t" ;
       liene = init lienee ;
       tulta = tult + a ;
-      tulevaP = (noun2adj (nhn (sKukko tuleva (tuleva + "n") (init tuleva + "ia")))).s  ;
+      tulevaP = (noun2adj (nhn (sKukko tuleva (tuleva + "n") (init tuleva + "i" + a)))).s  ;
       tultavaP = (noun2adj (nhn (sKukko (tulta + "v" + a) (tulta + "v" + a + "n") (tulta + "vi" + a)))).s  ;
       tulemaP = (noun2adj (nhn (sKukko tulema (tulema + "n") (init tulema + "i" + a)))).s  ;
 
@@ -855,10 +855,12 @@ resource MorphoFin = ResFin ** open Prelude in {
         "rk" + ("i" | "e") => ku + "rj" + o ;
         "lk" + _ => ku + "l" + o  ;
         "rk" + _ => ku + "r" + o  ;
-        ("hk" | "tk") + _ => kukko ;           -- *tahko-tahon, *pitkä-pitkän
+	"hki"           => ku + "hi" ;   -- for pyyhkiä, vihkiä
+        ("hk"|"tk") + _ => kukko ;       -- *tahko-tahon, *pitkä-pitkän
         ("f"|"s") + ("k" | "p" | "t") + _ => kukko ; -- *lasku-lasvun, *raspi-rasvin, *lastu-lasdun, *afta-aftan
         ("k"|"p") + "t" + _ => kukko ; -- *projekti-projekdin
-        x + "ku" => ku + x + "vu" ;
+        "uku" => ku + "uvu" ;
+	"yky" => ku + "yvy" ;
         x + "k" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x      + o ; 
         x + "p" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x + "v" + o ; 
         x + "t" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x + "d" + o ; 
@@ -882,8 +884,8 @@ resource MorphoFin = ResFin ** open Prelude in {
       ("tk" | "hk" | "sk" | "sp" | "st") + _ => nke ;       -- viuhke,kuiske 
       a + k@("k"|"p"|"t") + e@("e"|"a"|"ä"|"u"|"y"|"i"|"o"|"ö")  => a + k + k + e ;
       a + "d" + e@("e"|"a"|"ä"|"u"|"i"|"o"|"ö")  => a + "t" + e ; 
-      s + a@("a" | "ä") + "e" => s + a + "ke" ;       -- säe, tae
-      s + "ui"                      => s + "uki" ;     -- ruis
+      s + a@("a"|"ä"|"o"|"ö") + "e" => s + a + "ke" ;  -- säe, tae, koe
+      s + "u" + i@("i"|"e")         => s + "uk" + i ;  -- ruis, aueta
       s + "aa"                      => s + "aka" ;       -- taata
       s + "i" + a@("a" | "e" | "i") => s + "ik" + a ;       -- liata, siitä, pietä
       a + "v" + e@("e"|"a"|"ä"|"u"|"i") => a + "p" + e ;  -- taive/toive imposs

@@ -41,11 +41,19 @@ oper
               (s + "n")
               (init s + case a of {"a" => "o" ; _ => "ö"} + "j" + a) ;
   d09A : Str -> NForms -- 1040 ääniraita
-    = \s -> let a = last s in dSilakka s         
-              (weakGrade s + "n")
-              (init s + case a of {"a" => "o" ; _ => "ö"} + "j" + a) ;
+    = \s -> case s of {
+              x + "aaka" => dSilakka s (x+"aa'an") (x+"aakoja") ;
+              x + "aika" => dSilakka s (x+"ajan") (x+"aikoja") ; -- lots of compound words in NewDictFin that end in aika, but are not analysed as compounds
+              _  => let a = last s
+                     in dSilakka s         
+                          (weakGrade s + "n")
+                          (init s + case a of {"a" => "o" ; _ => "ö"} + "j" + a)
+    } ;
   d10 : Str -> NForms -- 2119 äänittäjä
-    = \s -> dSilakka s (s + "n") (init s + "i" + vowelHarmony (last s)) ;
+    = \s -> case s of {
+             x+"poika" => dSilakka s (x+"pojan") (x+"poikia") ;
+             _       => dSilakka s (s + "n") (init s + "i" + vowelHarmony (last s))
+    } ;
   d10A : Str -> NForms -- 284 änkkä
     = \s -> dSilakka s (weakGrade s + "n") (init s + "i" + vowelHarmony (last s)) ;
   d11 : Str -> NForms -- 46 ödeema
@@ -98,11 +106,11 @@ oper
   d28A : Str -> NForms -- 1 jälsi
     = \s -> dArpi s (Predef.tk 2 s + "len") ;
   d29 : Str -> NForms -- 1 lapsi
-    = \s -> let lapsi = dArpi s (init s + "en") in 
-       table {2 => Predef.tk 3 s + "ta" ; i => lapsi ! i} ;
+    = \s -> let lapsi = dArpi s (init s + "en") ; a = vowHarmony s in 
+       table {2 => Predef.tk 3 s + "st" + a ; i => lapsi ! i} ;
   d30 : Str -> NForms -- 2 veitsi
-    = \s -> let lapsi = dArpi s (init s + "en") in 
-       table {2 => Predef.tk 3 s + "stä" ; i => lapsi ! i} ;
+    = \s -> let lapsi = dArpi s (init s + "en") ; a = vowHarmony s in 
+       table {2 => Predef.tk 3 s + "st" + a ; i => lapsi ! i} ;
   d31 : Str -> NForms -- 3 yksi
     = \s -> let 
         y = Predef.tk 3 s ;

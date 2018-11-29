@@ -12,7 +12,9 @@ resource CommonBantu = ParamX ** open Prelude in {
 
   param
     Case = Nom | Loc ;
+
     NPCase = NCase Case | NPoss ;
+
     CardOrd = NCard | NOrd ;
 
   oper

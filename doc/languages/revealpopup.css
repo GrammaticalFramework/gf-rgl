@@ -1,0 +1,54 @@
+/* Popup boxes will have a light yellow background and a black border */
+div.popup {
+  display: none;
+  background: #ffc;
+  border: 1px solid black;
+}
+
+div.expand { display: none }
+
+div.reveal:hover div.popup {
+  display: block;
+  position: absolute;
+  margin-left: 3em;
+}
+.popup dl { margin: 5px; }
+
+tr:hover div.expand, div.quicklinks:hover > div.expand {
+  display: block;
+}
+
+/* Just some optional color and border styles: */
+body { background: #eee; }
+table { border-collapse: collapse; }
+td, th { padding: 5px; }
+th { background: #9df; }
+td { background: white }
+h1,h2,h3,h4 { font-family: sans-serif; color: #303030;
+	      text-shadow: rgba(0,0,0,0.25) 2px 2px 5px;
+	    }
+
+/* Quick links */
+
+/* To prevent Quick links from overlapping page header: */
+h1 { margin-right: 2.5em; }
+
+div.quicklinks {
+    position: fixed;
+    top:0; right:0;
+    max-height: 97%;
+    overflow: scroll;
+    background-color: rgba(255,255,192,0.9);
+    font-family: sans-serif;
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.33);
+    padding: 5px;
+}
+
+table.quicklinks th, td.quicklinks {
+    border: 1px solid black;
+    vertical-align: top;
+    font-size: 90%;
+    line-height: 130%;
+}
+div.quicklinks a { display: block; }
+

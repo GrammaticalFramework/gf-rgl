@@ -16,20 +16,22 @@ incomplete concrete VerbScand of Verb = CatScand ** open CommonScand, ResScand, 
       } ;
 
     ComplVV v vp = insertObjPost (\\a => v.c2.s ++ infVP vp a) (predV v) ;
-    ComplVS v s  = insertObjPost (\\_ => conjThat ++ s.s ! Sub) (predV v) ;  --- insertExt ?
-    ComplVQ v q  = insertObjPost (\\_ => q.s ! QIndir) (predV v) ;
-    ComplVA v ap = insertObjPost (\\a => ap.s ! agrAdjNP a DIndef) (predV v) ;
+    ComplVS v s  = insertExt (conjThat ++ s.s ! Sub) (predV v) ;  --- insertExt ?
+    ComplVQ v q  = insertExt (q.s ! QIndir) (predV v) ;
+    ComplVA v ap = insertObjPre  (\\a => ap.s ! agrAdjNP a DIndef) (predV v) ;
 
     SlashV2V v vp = predV v ** {
       n3 = \\a => v.c3.s ++ infVP vp a ; 
       c2 = v.c2
       } ;
     SlashV2S v s = predV v ** {
-      n3 = \\_ => conjThat ++ s.s ! Sub ;
+      n3  = \\_ => [] ;
+      ext = conjThat ++ s.s ! Sub ;
       c2 = v.c2
       } ; 
     SlashV2Q v q = predV v ** {
-      n3 = \\_ => q.s ! QIndir ;
+      n3  = \\_ => [] ;
+      ext = q.s ! QIndir ;
       c2 = v.c2
       } ;
     SlashV2A v ap = predV v ** {

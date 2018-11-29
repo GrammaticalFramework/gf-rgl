@@ -9,25 +9,27 @@ lin
   FloatPN i  = {s = \\c => i.s ; g = Masc ; h = NoHum } ; --IL
   NumPN i  = {s = \\c => uttNum i ! Masc ; g = Masc ; h = NoHum } ; --IL
   -- CNIntNP cn i = {
-  --   s = \\c => cn.s ! Sg ! Def ! c ++ uttNum i ! Masc ;
+  --   s = \\c => cn2str cn Sg Def c ++ uttNum i ! cn.g ;
   --   a = dummyAgrP3 Sg ;
   --   } ;
   --IL TODO: check out some opers regarding state in ResAra. These are just dummy values.
   CNSymbNP det cn xs =
     let g = cn.g ; n = sizeToNumber det.n  in {
-    s = \\c => det.s ! NoHum ! g ! c ++ cn.s ! Sg ! Def ! c ++ cn.adj ! n ! Def ! c ++ xs.s; ----IL word order?? Seems to be nontrivial according to ResAra comments.
+    s = \\c => det.s ! NoHum ! g ! c ++ cn2str cn n Def c ++ xs.s; ----IL word order?? Seems to be nontrivial according to ResAra comments.
     a = dummyAgrP3 n ;
+    empty = []
     } ;
   CNNumNP cn i = {
-    s = \\c => cn.s ! Sg ! Def ! c ++ uttNum i ! Masc ;
+    s = \\c => cn2str cn Sg Def c ++ uttNum i ! cn.g ;
     a = dummyAgrP3 Sg ;
+    empty = []
     } ;
 
-  SymbS sy = sy ;
+  SymbS sy = {s = \\_ => sy.s} ;
 
 
-  SymbOrd n = {s = \\_,_,_ => n.s ; n = None } ;
-  SymbNum n = SymbOrd n ** { n = ThreeTen } ; ----IL
+  SymbOrd n = {s = \\_,_,_ => n.s ; n = One ; isNum = False } ;
+  SymbNum n = SymbOrd n ** { n = ThreeTen ; isNum = True } ; ----IL
 
 lincat
 
