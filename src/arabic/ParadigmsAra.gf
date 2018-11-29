@@ -303,8 +303,8 @@ resource ParadigmsAra = open
 -- Prepositions are used in many-argument functions for rection.
 
   Preposition = ResAra.Preposition ;
-  noPrep = {s=[]; c=nom} ;
-  casePrep c = {s=[]; c=c} ;
+  noPrep = {s=[]; c=nom; binds=False} ;
+  casePrep c = {s=[]; c=c; binds=False} ;
 
   Gender = ResAra.Gender ;
   masc = ResAra.Masc ;
@@ -362,10 +362,9 @@ resource ParadigmsAra = open
 
   attrN : Number -> N -> N -> N = \num,n1,n2 -> n1 ** {
     s  = \\n,_,c => n1.s ! n ! Const ! c ;
-    s2 = \\n,s,c => let c' = case c of {Dat => Gen; _ => c} in -- the Dat with liPrep hack only applies to the first word
-                    n1.s2 ! num ! s ! c' -- attribute doesn't change
-                 ++ n2.s  ! num ! s ! c'
-                 ++ n2.s2 ! num ! s ! c'} ;
+    s2 = \\n,s,_ => n1.s2 ! num ! s ! Gen -- attribute doesn't change
+                 ++ n2.s  ! num ! s ! Gen
+                 ++ n2.s2 ! num ! s ! Gen} ;
 
   dualN : N -> N = \n -> n ** {isDual=True} ;
 

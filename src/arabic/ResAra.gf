@@ -111,7 +111,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     NTable = Number => State => Case => Str;
     emptyNTable : NTable = \\n,s,c => [] ;
 
-    Preposition : Type = {s : Str ; c : Case} ;
+    Preposition : Type = {s : Str ; c : Case ; binds : Bool} ;
+
     Noun : Type = {
       s,s2 : NTable ;
       g : Gender ;
@@ -122,17 +123,22 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Noun3 : Type = Noun2 ** {c3 : Preposition} ;
 
     mkPreposition = overload {
-      mkPreposition : Str -> Case -> Preposition = \s,c -> {s=s;c=c} ;
-      mkPreposition : Str -> Preposition = \s -> {s=s;c=Gen} ;
-    } ;
+      mkPreposition : Str -> Case -> Preposition = \s,c -> {s=s; c=c; binds=False} ;
+      mkPreposition : Str -> Preposition = \s -> {s=s; c=Gen; binds=False} ;
+      } ;
+
+    mkPrefix = overload {
+      mkPrefix : Str -> Preposition = \s -> {s=s; c=Gen; binds=True} ;
+      mkPrefix : Str -> Case -> Preposition = \s,c -> {s=s; c=c; binds=True}
+      } ;
 
     noPrep : Preposition = mkPreposition [] Nom ;
-    liPrep : Preposition = mkPreposition (
+    liPrep : Preposition = mkPrefix (
       pre { #pronSuffAndOther => "لِ" ;
             #pronSuff         => "لَ" ;
             _                 => "لِ" 
-          }  ++ BIND) Dat ;
-    biPrep : Preposition = mkPreposition ("بِ"++BIND) ;
+          }) Dat ;
+    biPrep : Preposition = mkPrefix "بِ" ;
 
     pronSuff : pattern Str = #("كَ"|"كِ"|"كُمَا"|"كُمْ"|"كُنَّ"|"هُ"|"ها"|"هُمَا"|"هُمْ"|"هُنَّ") ;
     pronSuffAndOther : pattern Str = #( "كَم" ) ; -- TODO list words that begin like pron.suff. but aren't
@@ -1537,7 +1543,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
             -- very unsure about this /IL
             sc : Preposition = case o of { 
-                  Subord => {s=[]; c=Acc} ;
+                  Subord => {s=[]; c=Acc; binds=False} ;
                   _ => case np.a.isPron of {
                          True => noPrep ; -- to prevent weird stuff with VVs, might be overly specific
                          _    => vp.sc } 
@@ -1643,10 +1649,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
              a = np.a} 
       } ;
 
+    bindIf : Bool -> Str = \b -> if_then_Str b BIND [] ;
+
     bindIfPron : NP -> {c2:Preposition; isPred:Bool} -> Str = \np,vp ->
-      let bind = case <vp.isPred,np.a.isPron> of {
-                 <False,True> => BIND ;
-                 _            => [] } 
+      let bind = case vp.isPred of {
+                   False => bindIf (orB np.a.isPron vp.c2.binds) ;
+                   True  => [] }
        in vp.c2.s ++ bind ++ np.s ! vp.c2.c ;
 
     insertPred : Comp -> VP -> VP = \p,vp -> vp **

@@ -21,7 +21,7 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
 -- $SuperlA$ belongs to determiner syntax in $Noun$.
 --
   ComplA2 a np = {
-    s = \\sp,g,n,st,c => a.s ! APosit g n st c ++ a.c2.s ++ np.s ! a.c2.c ;
+    s = \\sp,g,n,st,c => a.s ! APosit g n st c ++ a.c2.s ++ bindIf a.c2.binds ++ np.s ! a.c2.c ;
     } ;
 --
 --    ReflA2 a = {
