@@ -195,7 +195,7 @@ lin
   -- : CN -> NP -> CN ;     -- house of Paris, house of mine
   PossNP cn np = cn ** {
     s  = \\n,_d,c => cn.s  ! n ! Const ! c ;
-    s2 = \\n,_d,c => cn.s2 ! n ! Const ! Gen ; -- unsure about this /IL
+    s2 = \\n,_d,c => cn.s2 ! n ! Const ! Gen ;
     np = \\c => cn.np ! c ++ np.s ! Gen
     };
 
