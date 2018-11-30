@@ -150,6 +150,16 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Verb2 : Type = Verb ** {c2 : Preposition} ;
     Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
+    -- Sometimes a verb is only used in one form (per3 masc sg);
+    -- ideally, one would use an impersonal syntactic construction,
+    -- less ideally, hardcode the verb to only contain forms of one person.
+    forcePerson : PerGenNum -> Verb -> Verb = \pgn,verb -> verb ** {
+      s = \\vf => case vf of {
+                   VPerf   v _ => verb.s ! VPerf v pgn ;
+                   VImpf m v _ => verb.s ! VImpf m v pgn ;
+                   _           => verb.s ! vf }
+      } ;
+
     AP : Type = {s : Species => Gender => NTable } ;
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
@@ -1376,6 +1386,17 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     agrNP : Agr -> NP = \agr -> emptyNP ** {a = agr} ;
 
+    -- e.g. al-jamii3, 2a7ad
+    regNP : Str -> Number -> State -> NP = \word,n,s -> 
+      agrNP {pgn = Per3 Masc n ; isPron = False} ** {
+        s = \\c => fixShd word (dec1sg ! s ! c) ;
+        } ;
+
+    -- e.g. hadha, dhaalika
+    indeclNP : Str -> Number -> NP = \word,n -> emptyNP ** {
+      s = \\c => word
+      } ;
+
     i_Pron  : NP = mkPron "أَنَا" "نِي" "ي" (Per1 Sing) ;
     we_Pron : NP = mkPron "نَحنُ" "نا" "نا" (Per1 Plur) ;
 
@@ -1701,6 +1722,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     Cl  : Type = {s : Tense => Polarity => Order => Str} ;
     QCl : Type = {s : Tense => Polarity => QForm => Str} ;
 
+    -- To override the default order; forces all orders in a Cl to be the chosen order.
     forceOrder : Order -> Cl -> Cl = \o,cl ->
       {s = \\t,p,_ => cl.s ! t ! p ! o} ;
 
