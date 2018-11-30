@@ -12,7 +12,9 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
       vp ** {
         s = v2vVP.s ;
         agrObj = \\pgn => v2v.c3.s  -- أَنْ
-                       ++ vp.s ! pgn ! VPImpf Cnj ; -- this will agree with the object added by ComplSlash
+                       ++ vp.s ! pgn ! VPImpf Cnj -- this will agree with the object added by ComplSlash
+                       ++ vp.obj.s ;
+        obj = emptyObj ;
         isPred = False ;
         c2 = v2v.c2 ; -- preposition for the direct object
         sc = v2v.sc
