@@ -1386,6 +1386,17 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     agrNP : Agr -> NP = \agr -> emptyNP ** {a = agr} ;
 
+    -- e.g. al-jamii3, 2a7ad
+    regNP : Str -> Number -> State -> NP = \word,n,s -> 
+      agrNP {pgn = Per3 Masc n ; isPron = False} ** {
+        s = \\c => fixShd word (dec1sg ! s ! c) ;
+        } ;
+
+    -- e.g. hadha, dhaalika
+    indeclNP : Str -> Number -> NP = \word,n -> emptyNP ** {
+      s = \\c => word
+      } ;
+
     i_Pron  : NP = mkPron "أَنَا" "نِي" "ي" (Per1 Sing) ;
     we_Pron : NP = mkPron "نَحنُ" "نا" "نا" (Per1 Plur) ;
 

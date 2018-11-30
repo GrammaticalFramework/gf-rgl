@@ -571,15 +571,6 @@ resource ParadigmsAra = open
 
   proDrop : NP -> NP = \np -> lin NP (ResAra.proDrop np) ;
 
-  -- e.g. al-jamii3, 2a7ad
-  regNP : Str -> Number -> NP = \word,n -> lin NP (emptyNP ** {
-    s = \\c => fixShd word (dec1sg ! Def ! c)
-    });
-
-  -- e.g. hadha, dhaalika
-  indeclNP : Str -> Number -> NP = \word,n -> lin NP (emptyNP ** {
-    s = \\c => word
-    });
 
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
     \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det -> lin Quant (baseQuant **

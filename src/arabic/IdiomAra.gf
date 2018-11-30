@@ -16,7 +16,7 @@ concrete IdiomAra of Idiom = CatAra ** open
      in predVP it vp ;
 
   --  : VP -> Cl ;        -- one sleeps
-  GenericCl = predVP (regNP "المَرْء" Sg) ;
+  GenericCl = predVP (regNP "المَرْء" Sg Def) ;
 
   -- : NP  -> RS -> Cl ; -- it is I who did it
   --CleftNP np rs =
