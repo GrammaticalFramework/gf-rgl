@@ -145,6 +145,8 @@ resource ParadigmsAra = open
 
   degrA : (posit,compar,plur : Str) -> A ;
 
+  irregFemA : (masc : A) -> (fem : A) -> A ; -- adjective with irregular feminine. Takes two adjectives (masc. "regular" and fem. "regular") and puts them together.
+
 --Takes a root string and a pattern string
   sndA : (root,patt : Str) -> Adj ;
 
@@ -623,6 +625,8 @@ resource ParadigmsAra = open
   degrA : (posit,compar,plur : Str) -> A
     = \posit,compar,plur -> lin A {s = clr posit compar plur} ;
 
+
+
   sndA root pat =
     let  raw = sndA' root pat in {
       s = \\af =>
@@ -642,6 +646,13 @@ resource ParadigmsAra = open
         AComp d c => indeclN akbar ! d ! c
         }
     };
+
+  irregFemA : (masc : A) -> (fem : A) -> A = \m,f -> m ** {
+    s = table {
+      APosit Masc n d c => m.s ! APosit Masc n d c ;
+      APosit Fem  n d c => f.s ! APosit Masc n d c ; -- The fem. adjective is built as if the irregular fem. forms were Masc. This is on purpose.
+      x => m.s ! x }
+    } ;
 
   nisbaA : Str -> Adj = \Haal ->
     let Haaliyy = Haal + "ِيّ" in {
