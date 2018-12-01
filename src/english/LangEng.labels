@@ -1,12 +1,22 @@
-UseV {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't"} PART neg head 
-UseV {"has","had","have","will","would","do","does","did"} AUX aux head 
-UseComp {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't"} PART neg head 
-UseComp {"has","had","have","will","would","do","does","did"} AUX aux head 
-UseComp {"is","are","am","was","been","be"} VERB cop head
+UseV,ComplVV,ComplVS,ComplVQ,ComplVA,SlashV2a,SlashV2V,SlashV2A,SlashV2S,Slash2V3,Slash3V3,UseComp,ProgrVP,PassV2 {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't","isn't","aren't","wasn't","weren't"} PART neg head 
+UseV,ComplVV,ComplVS,ComplVQ,ComplVA,SlashV2a,SlashV2V,SlashV2A,SlashV2S,Slash2V3,Slash3V3,UseComp,ProgrVP,PassV2 {"has","had","have","will","would","do","does","did"} AUX aux head
+UseV,UseComp {"to"} PART mark head
+UseComp,ProgrVP,QuestIComp {"is","are","am","was","were","been","be"} VERB cop head
+CompCN {"a","an"} DET det head
+PassV2 {"is","are","am","was","were""been","be"} VERB auxpass head
 ComplVV {"to"} PART mark xcomp
 ComplVS {"that"} PART mark xcomp
-ComplVS {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't"} PART neg head 
-ComplVS {"has","had","have","will","would","do","does","did"} AUX aux head 
+EmbedVP {"to"} PART mark head
+EmbedS {"that"} PART mark head
+SentCN {"that","to"} PART mark acl
+ExtAdvS,SubjS {","} PUNCT punct head
+ExistNPAdv,ExistNP {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't","isn't","aren't","wasn't","weren't"} PART neg head 
+ExistNPAdv,ExistNP {"has","had","have","will","would","do","does","did"} AUX aux head 
+ExistNPAdv,ExistNP {"is","are","am","was","were""been","be"} VERB cop head
+ExistNPAdv,ExistNP {"there"} PART expl head
+PossNP,PartNP {"of"} ADP case nmod
+
+
 
 
 

@@ -66,8 +66,8 @@ RelSlash 	mark head
 ComplN2 	head nmod
 ComplN3 	nmod head
 AdvCN 	head nmod
-PossNP 	nmod head
-PartNP 	nmod head
+PossNP 	head nmod 
+PartNP 	head nmod 
 ExistNPAdv 	head nmod
 
 OrdNumeralSuperl 	nummod head  -- quite wrong; cannot find relevant details in the documentation; but most probably head lies outside the score of this function 
@@ -80,7 +80,7 @@ ApposNP 	head appos
 RelNP 	head acl
 RelCN 	head acl
 SentCN 	head acl
-SentAP 	amod acl
+SentAP 	head acl
 
 DetQuantOrd 	head nummod amod     -- quite wrong; again for same reason as DetQuant function
 DetCN 	det head
