@@ -27,6 +27,10 @@ use the resource modules.
 - [Detailed table of contents #toc128].
 
 
+The [RGL Browser http://www.grammaticalframework.org/~john/rgl-browser/] tool allows you to interactively browse through
+the library, view all functions in a module's scope, and quickly jump to their definitions.
+
+
 Other relevant documents:
 - [The RGL Status Document ../status.html]: the current status of different languages
   and the authors of each grammar
