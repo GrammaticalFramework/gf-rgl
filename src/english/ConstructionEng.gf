@@ -28,7 +28,8 @@ lin
   is_wrong_VP = mkVP (ParadigmsEng.mkA "wrong") ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
-
+----  n_units_of_NP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+  n_unit_CN card unit cn = mkCN (invarA ((mkUtt card).s ++ (mkUtt unit).s)) cn ;
 
   bottle_of_CN np = mkCN (lin N2 (mkN2 "bottle")) (lin NP np) ;
   cup_of_CN    np = mkCN (lin N2 (mkN2 "cup"))    (lin NP np) ;

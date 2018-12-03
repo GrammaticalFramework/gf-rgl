@@ -32,7 +32,8 @@ lin
   is_wrong_VP = mkVP have_V2 (mkNP (ParadigmsGer.mkN "Unrecht")) ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
- 
+  n_unit_CN card unit cn = mkCN (invarA (mkUtt (mkNP <lin Card card : Card> (lin CN unit))).s) cn ;
+
   bottle_of_CN np = N.ApposCN (mkCN (mkN "Flasche")) np ;
   cup_of_CN np    = N.ApposCN (mkCN (mkN "Tasse"))   np ;
   glass_of_CN np  = N.ApposCN (mkCN (mkN "Glas"))    np ;

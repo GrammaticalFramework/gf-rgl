@@ -20,7 +20,8 @@ lin
   what_name_QCl x = mkQCl (mkIComp whatSg_IP) (mkNP (E.GenNP x) L.name_N) ;
   how_old_QCl x = mkQCl (E.ICompAP (mkAP L.old_A)) (lin NP x) ;
   how_far_QCl x = mkQCl (E.IAdvAdv L.far_Adv) (lin NP x) ;
-
+  n_unit_CN card unit cn = mkCN (invarA (SyntaxFin.mkAdv (casePrep genitive) (mkNP <lin Card card : Card> (lin CN unit))).s) cn ;
+  
 -- some more things
   weather_adjCl ap = mkCl (mkVP (lin AP ap)) ;
    

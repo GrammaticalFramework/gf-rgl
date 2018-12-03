@@ -39,6 +39,7 @@ fun
 
   n_units_AP    : Card -> CN -> A  -> AP ;  -- x inches long
   n_units_of_NP : Card -> CN -> NP -> NP ;  -- x ounces of this flour
+  n_unit_CN     : Card -> CN -> CN -> CN ;  -- x gallon bottle
 
 
 -- containers
