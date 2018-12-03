@@ -29,10 +29,13 @@ index: index.html
 index.txt: MkSynopsis.hs MkExxTable.hs $(INCLUDES) $(EXAMPLES_OUT) $(SRC_FILES)
 	runghc -i$(ROOT) MkSynopsis.hs
 
-TITLE=$(shell head -n 1 index.txt)
-index.html: index.txt $(TEMPLATE)
+index-t2t.html: index.txt
 	txt2tags --target=html --no-headers --quiet --toc --outfile=$@ --infile=$<
 	sed -i.bak "s/<A NAME=\"\(.*\)\"><\/A>/<div id=\"\1\"><\/div>/" $@
+	rm "$@.bak"
+
+TITLE=$(shell head -n 1 index.txt)
+index.html: index-t2t.html $(TEMPLATE)
 	pandoc \
 		--from=html \
 		--to=html5 \
@@ -44,7 +47,7 @@ index.html: index.txt $(TEMPLATE)
 		--css="synopsis.css" \
 		--include-after-body="quicklinks.html" \
 		--output=$(TMP) \
-		$@
+		index-t2t.html
 	mv $(TMP) $@
 	sed -i.bak "s/<table>/<table class=\"table w-auto\">/" $@
 	sed -i.bak -e '/img src="categories.png"/r categories-imagemap.html' -e '/img src="categories.png"/d' $@

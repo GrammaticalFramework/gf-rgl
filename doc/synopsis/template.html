@@ -35,15 +35,15 @@ $endfor$
 <div class="container-fluid">
 <div class="row">
 
-  <nav class="col-md-3 col-xl-2 d-none d-md-block sidebar pt-4" id="quicklinks">
-    <!-- filled dynamically via quicklinks.js -->
-  </nav>
+  <button class="btn btn-light m-1" id="btn-quicklinks-toggle" style="position: fixed; top: 0; right: 0; z-index: 10;">
+    <i class="fas fa-bars"></i>
+  </button>
 
-  <main role="main" class="col-md-9 col-xl-10 offset-md-3 offset-xl-2 pt-3">
+  <main role="main" class="col my-3" style="overflow-x: scroll" id="main">
 $if(title)$
     <header id="title-block-header">
       <a href="$rel-root$" title="Home">
-        <img src="$rel-root$/doc/Logos/gf1.svg" height="200px" class="float-md-right mb-3 bg-white" alt="GF Logo">
+        <img src="$rel-root$/doc/Logos/gf1.svg" height="200px" class="float-md-left mb-3 mr-3 bg-white" alt="GF Logo">
       </a>
       <h1 class="title">$title$</h1>
 $if(subtitle)$
@@ -64,6 +64,11 @@ $if(toc)$
 $endif$
     $body$
   </main>
+
+  <nav class="d-none sidebar py-3 border-left bg-light" id="quicklinks">
+    <!-- filled dynamically via quicklinks.js -->
+  </nav>
+
 </div><!-- .row -->
 </div><!-- .container-fluid -->
 

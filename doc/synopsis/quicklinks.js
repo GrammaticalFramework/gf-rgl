@@ -122,3 +122,47 @@ appendChildren(
     quicklinks()
   ]
 )
+
+/* -------------------------------------------------------------------------- */
+
+// Toggle quicklinks
+function toggleSidebar () {
+  var m = document.getElementById('main')
+  var q = document.getElementById('quicklinks')
+  var mClasses = 'col-md-9 col-xl-10'
+  var qClasses = 'col-4 col-md-3 col-xl-2 offset-8 offset-md-9 offset-xl-10'
+  if (hasClass(q, 'd-none')) {
+    // Show
+    addClass(m, mClasses)
+    addClass(q, qClasses)
+    removeClass(q, 'd-none')
+  } else {
+    // Hide
+    removeClass(m, mClasses)
+    removeClass(q, qClasses)
+    addClass(q, 'd-none')
+  }
+}
+document.getElementById('btn-quicklinks-toggle').addEventListener('click', toggleSidebar)
+if (window.innerWidth >= 768) {
+  // Below 768 (== 'md' breakpoint) sidebar overlays content and best left hidden
+  toggleSidebar()
+}
+
+/* -------------------------------------------------------------------------- */
+
+// Helpers
+
+// Won't work on IE9; use className and split
+function addClass (elem, classnames) {
+  for (var c of classnames.split(' ')) elem.classList.add(c)
+}
+function removeClass (elem, classnames) {
+  for (var c of classnames.split(' ')) elem.classList.remove(c)
+}
+// function toggleClass (elem, classnames) {
+//   for (var c of classnames.split(' ')) elem.classList.toggle(c)
+// }
+function hasClass (elem, classname) {
+  return elem.classList.contains(classname)
+}
