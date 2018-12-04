@@ -127,7 +127,7 @@ concrete ExtendPor of Extend =
       } ;
 
     ICompAP ap = {
-      s =\\a => "o quão" ++ ap.s ! AF a.g a.n ;
+      s =\\a => "o quão" ++ ap.s ! (genNum2Aform a.g a.n) ;
       cop = serCopula
       } ;
 
@@ -165,12 +165,12 @@ concrete ExtendPor of Extend =
     ComplBareVS = ComplVS ;
 
     AdjAsCN ap = {
-      s =\\n => ap.s ! AF Masc n ;
+      s =\\n => ap.s ! (genNum2Aform Masc n) ;
       g = Masc
       } ;
 
     AdjAsNP ap = heavyNP {
-      s = \\_c => ap.s ! AF Masc Sg ;
+      s = \\_c => ap.s ! ASg Masc APred ;
       a = Ag Masc Sg P3
       } ;
 
@@ -200,10 +200,8 @@ concrete ExtendPor of Extend =
       } ;
 
     CompoundAP noun adj = {
-      s = \\af => case af of {
-        AF g n => adj.s ! Posit ! AF noun.g n ++ "de" ++ noun.s ! n ;
-        -- do I need do(s)/da(s)?
-        _ => adj.s ! Posit ! AF noun.g Sg ++ "de" ++ noun.s ! Sg
+      s = \\af => case (aform2aagr af) of {
+        {n = n} => adj.s ! Posit ! (genNum2Aform noun.g n) ++ "de" ++ noun.s ! n
         } ;
       isPre = adj.isPre
       } ;

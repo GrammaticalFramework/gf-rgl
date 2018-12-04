@@ -18,7 +18,7 @@ lin
   bad_A = prefA (mkADeg (regA "mauvais") (regA "pire")) ;
   bank_N = regGenN "banque" feminine ;
   beautiful_A = 
-    prefA (compADeg (mkA (pre {voyelle => "bel" ; _ => "beau" }) "belle" "beaux" "bellement")) ;
+    prefA (compADeg (mkA "beau" "bel" "beaux" "belle" "bellement")) ;
   become_VA = mkVA devenir_V ;
   beer_N = regGenN "bière" feminine ;
   beg_V2V = mkV2V (regV "demander") accusative dative ;
@@ -129,11 +129,11 @@ lin
   music_N = regGenN "musique" feminine ;
   narrow_A = regA "étroit" ;
   new_A = 
-    prefA (compADeg (mkA (pre {voyelle => "nouvel" ; _ => "nouveau" }) "nouvelle" "nouveaux" "nouvellement")) ;
+    prefA (compADeg (mkA "nouveau" "nouvel" "nouveaux" "nouvelle" "nouvellement")) ;
   newspaper_N = regGenN "journal" masculine ;
   oil_N = regGenN "huile" feminine ;
   old_A = 
-    prefA (compADeg (mkA (pre {voyelle => "vieil" ; _ => "vieux" }) "vieille" "vieux" "vieillement")) ; 
+    prefA (compADeg (mkA "vieux" "vieil" "vieux" "vieille" "vieillement")) ; 
   open_V2 = ouvrir_V2 ;
   paint_V2A = mkV2A (v2V peindre_V2) accusative (mkPrep "en") ;
   paper_N = regGenN "papier" masculine ;
