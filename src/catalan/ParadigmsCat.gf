@@ -327,7 +327,11 @@ oper
    compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; lock_A = <>} ;
   mk2A a b = compADeg {s = \\_ => (mkAdj2Reg a b).s ; isPre = False ; lock_A = <>} ;
   regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
-  prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
+  prefA = overload {
+    prefA : A -> A = \a -> a ** {isPre = True} ;
+    prefA : Str -> Str -> A = \bo,bon ->
+        compADeg (lin A {s = \\_ => (adjBo bo bon).s ; isPre = True}) ;
+  } ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
@@ -504,7 +508,10 @@ oper
   mkADeg : A -> A -> A ;
   compADeg : A -> A ;
   regADeg : Str -> A ;
-  prefA : A -> A ;
+  prefA : overload {
+    prefA : A -> A ; -- gran
+    prefA : (bo,bon : Str) -> A -- predicative masc, attributive masc
+    } ;
   prefixA = prefA ;
 
   mkV = overload {
