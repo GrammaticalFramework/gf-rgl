@@ -101,9 +101,9 @@ incomplete concrete NounRomance of Noun =
 
     AdNum adn num = {s = \\a => adn.s ++ num.s ! a ; isNum = num.isNum ; n = num.n} ;
 
-    OrdSuperl adj = {s = \\a => adj.s ! Superl ! AF a.g a.n} ;
+    OrdSuperl adj = {s = \\a => adj.s ! Superl ! genNum2Aform a.g a.n} ;
 
-    OrdNumeralSuperl num adj = {s = \\a => num.s ! NOrd a.g a.n ++ adj.s ! Superl ! AF a.g a.n} ; -- la terza più grande
+    OrdNumeralSuperl num adj = {s = \\a => num.s ! NOrd a.g a.n ++ adj.s ! Superl ! genNum2Aform a.g a.n} ; -- la terza più grande
     ---- could be discontinuous: la terza città più grande
 
     DefArt = {
@@ -153,7 +153,7 @@ incomplete concrete NounRomance of Noun =
       let
         g = cn.g
       in {
-        s = \\n => preOrPost ap.isPre (ap.s ! (AF g n)) (cn.s ! n) ;
+        s = \\n => preOrPost ap.isPre (ap.s ! genNumPos2Aform g n ap.isPre) (cn.s ! n) ;
         g = g ;
         } ;
 
@@ -188,9 +188,9 @@ incomplete concrete NounRomance of Noun =
     CountNP det np = heavyNPpol np.isNeg
       {s = \\c => det.s ! np.a.g ! c ++ (np.s ! genitive).ton ;
        a = np.a ** {n = det.n} } ;
-    
+
     AdjDAP det ap = {
-      s = \\g => det.s ! g ++ ap.s ! AF g det.n ;
+      s = \\g => det.s ! g ++ ap.s ! genNum2Aform g det.n ;
       n = det.n ;
       } ;
 

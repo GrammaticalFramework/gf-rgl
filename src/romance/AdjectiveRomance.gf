@@ -1,4 +1,4 @@
-incomplete concrete AdjectiveRomance of Adjective = 
+incomplete concrete AdjectiveRomance of Adjective =
   CatRomance ** open CommonRomance, ResRomance, Prelude in {
   flags coding=utf8;
   lin
@@ -8,11 +8,11 @@ incomplete concrete AdjectiveRomance of Adjective =
       isPre = a.isPre
       } ;
     ComparA a np = {
-      s = \\af => a.s ! Compar ! af ++ conjThan ++ (np.s ! Nom).ton ; 
+      s = \\af => a.s ! Compar ! af ++ conjThan ++ (np.s ! Nom).ton ;
       isPre = False
       } ;
     CAdvAP ad ap np = {
-      s = \\af => ad.s ++ ap.s ! af ++ ad.p ++ (np.s ! Nom).ton ; 
+      s = \\af => ad.s ++ ap.s ! af ++ ad.p ++ (np.s ! Nom).ton ;
       isPre = False
       } ;
     UseComparA a = {
@@ -20,29 +20,26 @@ incomplete concrete AdjectiveRomance of Adjective =
       isPre = a.isPre
       } ;
     AdjOrd ord = {
-      s = \\af => ord.s ! (case af of {
-        AF g n => aagr g n ; 
-        _ => aagr Masc Sg ----
-        }) ;
+      s = \\af => ord.s ! aform2aagr af ; ----
       isPre = False ----
       } ;
 
 -- $SuperlA$ belongs to determiner syntax in $Noun$.
 
     ComplA2 adj np = {
-      s = \\af => adj.s ! Posit ! af ++ appCompl adj.c2 np ; 
+      s = \\af => adj.s ! Posit ! af ++ appCompl adj.c2 np ;
       isPre = False
       } ;
 
     ReflA2 adj = {
-      s = \\af => 
+      s = \\af =>
              adj.s ! Posit ! af ++
              adj.c2.s ++ prepCase adj.c2.c ++ reflPron Sg P3 Nom ; --- agr
       isPre = False
       } ;
 
     SentAP ap sc = {
-      s = \\a => ap.s ! a ++ sc.s ! dative ; -- prête à dormir --- mood 
+      s = \\a => ap.s ! a ++ sc.s ! dative ; -- prête à dormir --- mood
       isPre = False
       } ;
 

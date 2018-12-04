@@ -78,10 +78,12 @@ oper
 
   mkAdj : (_,_,_,_,_ : Str) -> Adj = \solo,sola,soli,sole,solamente ->
     {s = table {
-       AF Masc n => numForms solo soli ! n ;
-       AF Fem  n => numForms sola sole ! n ;
-       AA        => solamente
-       }
+      ASg Masc _ => solo ;
+      ASg Fem  _ => sola ;
+      APl Masc   => soli ;
+      APl Fem    => sole ;
+      AA         => solamente
+      }
     } ;
 
 -- Then the regular and invariant patterns.
@@ -189,6 +191,6 @@ oper
 -- Determiners, traditionally called indefinite pronouns, are inflected
 -- in gender and number, like adjectives.
 
-  pronForms : Adj -> Gender -> Number -> Str = \tale,g,n -> tale.s ! AF g n ;
+  pronForms : Adj -> Gender -> Number -> Str = \tale,g,n -> tale.s ! genNum2Aform g n ;
 
 }

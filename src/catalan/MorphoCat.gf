@@ -96,9 +96,11 @@ oper
 
   mkAdj : (_,_,_,_,_ : Str) -> Adj = \prim,prima,prims,primes,primament ->
     {s = table {
-       AF Masc n => numForms prim prims ! n ;
-       AF Fem  n => numForms prima primes ! n ;
-       AA        => primament
+       ASg Masc _ => prim ; -- Bo is a special case, where attributive is "bon"
+       ASg Fem  _ => prima ;
+       APl Masc   => prims ;
+       APl Fem    => primes ;
+       AA         => primament
        }
     } ;
 
@@ -300,6 +302,6 @@ oper unaccent : Str -> Str = \vocal ->
 -- Determiners, traditionally called indefinite pronouns, are inflected
 -- in gender and number, like adjectives.
 
-  pronForms : Adj -> Gender -> Number -> Str = \tal,g,n -> tal.s ! AF g n ;
+  pronForms : Adj -> Gender -> Number -> Str = \tal,g,n -> tal.s ! genNum2Aform g n ;
 
 }
