@@ -1,25 +1,25 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
-concrete LexiconCat of Lexicon = CatCat ** open 
+concrete LexiconCat of Lexicon = CatCat ** open
   (M=MorphoCat), ParadigmsCat, BeschCat in {
 
-flags 
+flags
   coding=utf8 ;
   optimize=values ;
 
 oper
     regFN : Str -> N = \s -> femN (regN s) ;
-    regMN : Str -> N = \s -> regN s ; 
+    regMN : Str -> N = \s -> regN s ;
 	irregMN : Str -> Str -> N = \pa,pans -> M.mkNounIrreg pa pans masculine ** {lock_N=<>} ;
 	saberV : V = verbV (saber_99 "saber") ;
 
 lin
-   airplane_N = regMN "avió" ;  
+   airplane_N = regMN "avió" ;
 
    answer_V2S = mkV2S (verbV (compondre_26 "respondre")) dative ;
    apartment_N = regMN "pis" ;
    apple_N = regFN "poma" ;
-   art_N = regMN "art" ;    
+   art_N = regMN "art" ;
    ask_V2Q = mkV2Q (mkV "preguntar") dative ;
    baby_N = regMN "nadó" ;
    bad_A = mkADeg (regA "dolent") (regA "pitjor") ;
@@ -28,10 +28,10 @@ lin
    become_VA = reflV (mkV "tornar") ;  -- esdevenir
    beer_N = regFN "cervesa" ;
    beg_V2V = mkV2V (mkV "demanar") accusative dative ;
-   big_A = regADeg "gros" ;
+   big_A = mkA "gros" "grossa" ;
    bike_N = regFN "bicicleta" ;
    bird_N = regMN "ocell" ;
-   black_A = compADeg (mkA "negre" "negra" "negres" "negres" "negrament") ; 
+   black_A = compADeg (mkA "negre" "negra" "negres" "negres" "negrament") ;
    blue_A = compADeg (mkA "blau" "blava" "blaus" "blaves" "blavament") ;
    boat_N = regFN "barca" ;
    book_N = regMN "llibre" ;
@@ -55,15 +55,15 @@ lin
    cheese_N = regMN "formatge" ;
    child_N = regMN "nen" ;      -- nena
    church_N = regFN "església" ;
-   city_N =  regFN "ciutat" ;   
+   city_N =  regFN "ciutat" ;
    clean_A = regADeg "net" ;
    clever_A = regADeg "inteligent" ;
    close_V2 = dirV2 (verbV (trencar_112 "tancar")) ;
    coat_N = regMN "abric" ;
    cold_A = regADeg "fred" ;
    come_V = verbV (venir_117 "venir") ;
-   computer_N = regMN "ordinador" ;    
-   country_N = mkN "país" "països" masculine ; 
+   computer_N = regMN "ordinador" ;
+   country_N = mkN "país" "països" masculine ;
    cousin_N = regMN "cosí" ;
    cow_N = mkN "vaca" ;
    die_V = verbV (morir_71 "morir") ;
@@ -92,7 +92,7 @@ lin
    girl_N = regFN "noia" ;
    glove_N = regMN "guant" ;
    gold_N = regMN "or" ;
-   good_A = prefA (mkADeg (mkA "bo" "bona") (mkA "millor")) ;
+   good_A = mkA (prefA "bo" "bon") (mkA "millor") ;
    go_V = (verbV (anar_4 "anar")) ;
    green_A = regADeg "verd" ;
    harbour_N = regMN "port" ;
@@ -107,7 +107,7 @@ lin
    important_A = regADeg "important" ;
    industry_N = regFN "indústria" ;
    iron_N = regMN "ferro" ;
-   king_N = regMN "rei" ; 
+   king_N = regMN "rei" ;
    know_V2 = dirV2 saberV ;
    know_VQ = mkVQ saberV;
    know_VS = mkVS saberV;
@@ -133,7 +133,7 @@ lin
    music_N = regFN "música" ;
    narrow_A = regADeg "estret" ;
    new_A = prefixA (compADeg (mkA "nou" "nova" "nous" "noves" "novament")) ;
-   newspaper_N = regMN "diari" ;        -- periòdic  
+   newspaper_N = regMN "diari" ;        -- periòdic
    oil_N = regMN "oli" ;
    old_A =  regADeg "vell" ;
    open_V2 = dirV2 (verbV (obrir_77 "obrir")) ;
@@ -147,14 +147,14 @@ lin
    play_V2 = dirV2 (verbV (pregar_86 "jugar")) ;
    policeman_N = regMN "policia" ;  -- fem refers to the institution
    priest_N = regMN "capellà" ;     -- masc
-   probable_AS = mkAS (regA "probable") ; 
+   probable_AS = mkAS (regA "probable") ;
    queen_N = regN "reina" ;
    radio_N = regFN "ràdio" ;
    rain_V0 = mkV0 (verbV (moure_72 "ploure")) ;
    read_V2 = dirV2 (verbV (servir_101 "llegir")) ;
    red_A = regADeg "vermell" ;
    religion_N = mkN "religió" "religions" feminine ;
-   restaurant_N = regMN "restaurant" ;      
+   restaurant_N = regMN "restaurant" ;
    river_N = regMN "riu" ;
    rock_N = regFN "roca" ;
    roof_N = regFN "teulada" ;
@@ -163,7 +163,7 @@ lin
    say_VS = mkVS (verbV (dir_41 "dir")) ;
    school_N = regFN "escola" ;
    science_N = regFN "ciència" ;
-   sea_N = regMN "mar" ;            -- masc & fem 
+   sea_N = regMN "mar" ;            -- masc & fem
    seek_V2 = dirV2 (verbV (trencar_112 "buscar")) ;
    see_V2 = dirV2 (verbV (veure_118 "veure")) ;
    sell_V3 = dirV3 (verbV (vendre_116 "vendre")) dative ;
@@ -184,13 +184,13 @@ lin
    star_N = regFN "estrella" ;
    steel_N = regMN "acer" ;
    stone_N = regFN "pedra" ;
-   stove_N = regMN "forn" ; 
+   stove_N = regMN "forn" ;
    student_N = regN "estudiant" ;   -- used both for fem & masc
    stupid_A = regADeg "estúpid" ;
-   sun_N = regMN "sol" ;    
+   sun_N = regMN "sol" ;
    switch8off_V2 = dirV2 (verbV (pregar_86 "apagar")) ;
    switch8on_V2 = dirV2 (verbV (atendre_8 "encendre")) ;
-   table_N = regFN "taula" ; 
+   table_N = regFN "taula" ;
    talk_V3 = mkV3 (mkV "parlar") dative genitive ;
    teacher_N = regMN "mestre" ;     -- mestra
    teach_V2 = dirV2 (mkV "ensenyar") ;
@@ -228,7 +228,7 @@ lin
    add_V3 = dirV3 (mkV "afegir") dative ; -- also: (mkV "sumar")
    number_N = regMN "número" ;
    put_V2 = dirV2 (mkV "posar") ;
-   stop_V = mkV "aturar" ; 
+   stop_V = mkV "aturar" ;
    jump_V = mkV "saltar" ;
    left_Ord = M.mkOrd (regA "esquerra") ;
    right_Ord = M.mkOrd (regA "dreta") ;
@@ -269,7 +269,7 @@ lin
    fog_N = regFN "boira" ;
    foot_N = regMN "peu" ;
    forest_N = regMN "bosc" ;
-   grass_N = regFN "herba" ;             
+   grass_N = regFN "herba" ;
    guts_N = regMN "budell" ;
    hair_N = regMN "cabell" ;
    hand_N = regFN "mà" ;
@@ -290,7 +290,7 @@ lin
    nose_N = regMN "nas" ;
    person_N = regFN "persona" ;
    rain_N = regFN "pluja" ; -- pluges
-   road_N = regMN "carrer" ;               
+   road_N = regMN "carrer" ;
    root_N = regFN "arrel" ;
    rope_N = regN "corda" ;
    salt_N = regFN "sal" ;
@@ -300,14 +300,14 @@ lin
    sky_N = regMN "cel" ;
    smoke_N = regMN "fum" ;
    snow_N = regFN "neu" ;       -- fem
-   stick_N = regMN "bastó"  ;               
+   stick_N = regMN "bastó"  ;
    tail_N = regFN "cua" ;
    tongue_N = mkN "llengua" ; -- llengües
    tooth_N = regFN "dent" ;
    wife_N = regFN "esposa" ;
    wind_N = regMN "vent" ;
    wing_N = regFN "ala" ;
-   worm_N = regMN "cuc" ;             
+   worm_N = regMN "cuc" ;
    year_N = regMN "any" ;
    bite_V2 = dirV2 (verbV (pregar_86 "mossegar")) ;
    blow_V = mkV "bufar" ;
@@ -327,7 +327,7 @@ lin
    hold_V2 = dirV2 (verbV (obtenir_78 "sostenir")) ;
    hunt_V2 = dirV2 (verbV (començar_22 "caçar")) ;
    kill_V2 = dirV2 (mkV "matar") ;
-   laugh_V = verbV (riure_96 "riure") ; 
+   laugh_V = verbV (riure_96 "riure") ;
    lie_V = reflV (verbV (jeure_62 "jeure")) ;
    play_V = verbV (pregar_86 "jugar") ;
    pull_V2 = dirV2 (mkV "tibar") ;

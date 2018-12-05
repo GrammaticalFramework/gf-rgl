@@ -57,12 +57,16 @@ oper
 -- Adjectives are conveniently seen as gender-dependent nouns.
 -- Here are some patterns. First one that describes the worst case.
 
-  mkAdj : (_,_,_,_,_ : Str) -> Adj = \solo,sola,soli,sole,solamente ->
+  mkAdj : (x1,_,_,_,_,_,x7 : Str) -> Adj = \buen,solo,gran,sola,solos,solas,solamente ->
     {s = table {
-       AF Masc n => numForms solo soli ! n ;
-       AF Fem  n => numForms sola sole ! n ;
-       AA        => solamente
-       }
+      ASg Masc AAttr => buen ;
+      ASg Masc APred => solo ;
+      ASg Fem AAttr => gran ;
+      ASg Fem APred => sola ;
+      APl Masc   => solos ;
+      APl Fem    => solas ;
+      AA         => solamente
+      }
     } ;
 
 -- Then the regular and invariant patterns.
@@ -71,26 +75,36 @@ oper
     let
       sol = Predef.tk 1 solo
     in
-    mkAdj solo (sol + "a") (sol + "os") (sol + "as") (sol + "amente") ;
+    mkAdj solo solo (sol + "a") (sol + "a")
+         (sol + "os") (sol + "as") (sol + "amente") ;
 
   -- masculine and feminine are identical:
   -- adjectives ending with -e, -a and many but not all that end in a consonant
   adjUtil : Str -> Str -> Adj = \util,utiles ->
-    mkAdj util util utiles utiles (util + "mente") ;
+    mkAdj util util util util
+          utiles utiles (util + "mente") ;
 
   -- adjectives that end in consonant but have different masc and fem forms
   -- español, hablador ...
   adjEspanol : Str -> Str -> Adj = \espanol,espanola ->
-    mkAdj espanol espanola (espanol + "es") (espanol + "as") (espanola + "mente") ;
+    mkAdj espanol espanol espanola espanola
+          (espanol + "es") (espanol + "as") (espanola + "mente") ;
 
-  adjBlu : Str -> Adj = \blu ->
-    mkAdj blu blu blu blu blu ; ---
+  adjBueno : Str -> Adj = \bueno ->
+    let buen = init bueno in
+    mkAdj buen bueno (buen + "a") (buen + "a")
+          (buen + "os") (buen + "as") (buen + "amente") ;
+
+  adjGrande : Str -> Str -> Adj = \gran,grande ->
+    mkAdj gran grande gran grande
+          (grande + "s") (grande + "s") (grande + "mente") ;
 
  -- francés francesa franceses francesas
   adjEs : Str -> Adj = \francEs ->
     let franc  : Str = Predef.tk 2 francEs ;
         frances : Str = franc + "es" ;
-    in mkAdj francEs (frances + "a") (frances + "es") (frances + "as") (frances + "amente") ;
+    in mkAdj francEs francEs (frances + "a") (frances + "a")
+             (frances + "es") (frances + "as") (frances + "amente") ;
 
 
    -- alemán alemana alemanes alemanas
@@ -106,11 +120,13 @@ oper
           "ú" => "u"
         } ;
         alemVn : Str = alem + V + "n" ;
-    in mkAdj alemAn (alemVn + "a") (alemVn + "es")
-            (alemVn + "as") (alemVn + "amente") ;
+    in mkAdj alemAn alemAn (alemVn + "a") (alemVn + "a")
+             (alemVn + "es") (alemVn + "as") (alemVn + "amente") ;
 
   mkAdjReg : Str -> Adj = \solo ->
     case solo of {
+      "grande" => adjGrande "gran" "grande" ;
+      "bueno" => adjBueno solo ;
       _ + "o" => adjSolo solo ;
       _ + ("e" | "a") => adjUtil solo (solo + "s") ;
       _ + "és" => adjEs solo ;
@@ -153,11 +169,11 @@ oper
 -- Determiners, traditionally called indefinite pronouns, are inflected
 -- in gender and number, like adjectives.
 
-  pronForms : Adj -> Gender -> Number -> Str = \tale,g,n -> tale.s ! AF g n ;
+  pronForms : Adj -> Gender -> Number -> Str = \tale,g,n -> tale.s ! genNum2Aform g n ;
 
   mkOrdinal : A -> Ord = \adj->
   lin Ord {
-    s = \\ag => adj.s ! Posit ! AF ag.g ag.n ;
+    s = \\ag => adj.s ! Posit ! genNum2Aform ag.g ag.n ;
     } ;
 
   mkQuantifier : (ese,esa,esos,esas : Str) -> Quant = \ese,esa,esos,esas->

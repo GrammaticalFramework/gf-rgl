@@ -5,12 +5,12 @@
 -- Aarne Ranta 2004 - 2006
 -- Jordi Saludes 2008: Modified from ParadigmsSpa
 --
--- This is an API for the user of the resource grammar 
+-- This is an API for the user of the resource grammar
 -- for adding lexical items. It gives functions for forming
 -- expressions of open categories: nouns, adjectives, verbs.
--- 
+--
 -- Closed categories (determiners, pronouns, conjunctions) are
--- accessed through the resource syntax API, $Structural.gf$. 
+-- accessed through the resource syntax API, $Structural.gf$.
 --
 -- The main difference with $MorphoCat.gf$ is that the types
 -- referred to are compiled resource grammar types. We have moreover
@@ -24,11 +24,11 @@
 -- verbs, there is a fairly complete list of irregular verbs in
 -- [``IrregCat`` ../../catalan/IrregCat.gf].
 
-resource ParadigmsCat = 
-  open 
-    (Predef=Predef), 
-    Prelude, 
-    MorphoCat, 
+resource ParadigmsCat =
+  open
+    (Predef=Predef),
+    Prelude,
+    MorphoCat,
     BeschCat,
     CatCat in {
 
@@ -36,19 +36,19 @@ flags
 	optimize=all ;
 	coding = utf8 ;
 
---2 Parameters 
+--2 Parameters
 --
 -- To abstract over gender names, we define the following identifiers.
 
 oper
-  Gender : Type ; 
+  Gender : Type ;
 
   masculine : Gender ;
   feminine  : Gender ;
 
 -- To abstract over number names, we define the following.
 
-  Number : Type ; 
+  Number : Type ;
 
   singular : Number ;
   plural   : Number ;
@@ -70,7 +70,7 @@ oper
   mkN : overload {
 
 -- The regular function takes the singular form and the gender,
--- and computes the plural and the gender by a heuristic. 
+-- and computes the plural and the gender by a heuristic.
 -- The heuristic says that the gender is feminine for nouns
 -- ending with "a" or "z", and masculine for all other words.
 -- Nouns ending with "a", "o", "e" have the plural with "s",
@@ -89,23 +89,23 @@ oper
     } ;
 
 
---3 Compound nouns 
+--3 Compound nouns
 --
 -- Some nouns are ones where the first part is inflected as a noun but
--- the second part is not inflected. e.g. "número de telèfon". 
+-- the second part is not inflected. e.g. "número de telèfon".
 -- They could be formed in syntax, but we give a shortcut here since
 -- they are frequent in lexica.
 
   compN : N -> Str -> N ; -- compound, e.g. "número" +  "de telèfon"
 
 
---3 Relational nouns 
--- 
--- Relational nouns ("filla de x") need a case and a preposition. 
+--3 Relational nouns
+--
+-- Relational nouns ("filla de x") need a case and a preposition.
 
   mkN2 : N -> Prep -> N2 ; -- e.g. filla + genitive
 
--- The most common cases are the genitive "de" and the dative "a", 
+-- The most common cases are the genitive "de" and the dative "a",
 -- with the empty preposition.
 
   deN2 : N -> N2 ; -- relation with genitive
@@ -123,11 +123,11 @@ oper
 -- $N3$ are purely lexical categories. But you can use the $AdvCN$
 -- and $PrepNP$ constructions to build phrases like this.
 
--- 
+--
 --3 Proper names and noun phrases
 --
 -- Proper names need a string and a gender.
--- The default gender is feminine for names ending with "a", otherwise masculine. TODO 
+-- The default gender is feminine for names ending with "a", otherwise masculine. TODO
 
   mkPN : overload {
     mkPN : (Anna : Str) -> PN ; -- feminine for "-a", otherwise masculine
@@ -151,8 +151,8 @@ oper
 
     mkA : (fort,forta,forts,fortes,fortament : Str) -> A ; -- worst case
 
--- In the worst case, two separate adjectives are given: 
--- the positive ("bo"), and the comparative ("millor"). 
+-- In the worst case, two separate adjectives are given:
+-- the positive ("bo"), and the comparative ("millor").
 
     mkA : (bo : A) -> (millor : A) -> A -- special comparison (default with "mas")
     } ;
@@ -177,7 +177,7 @@ oper
 --2 Adverbs
 
 -- Adverbs are not inflected. Most lexical ones have position
--- after the verb. 
+-- after the verb.
 
   mkAdv : Str -> Adv ;
 
@@ -200,11 +200,11 @@ oper
 
     mkV : (cantar : Str) -> V ; -- regular in models I, IIa, IIb
 
--- Verbs with predictable alternation: 
+-- Verbs with predictable alternation:
 -- a) inchoative verbs, servir serveixo
 -- b) re verbs with c/g in root, vendre venc ; subj. vengui
 
-    mkV : (servir,serveixo : Str) -> V ; --inchoative verbs and "re" verbs whose 1st person ends in c 
+    mkV : (servir,serveixo : Str) -> V ; --inchoative verbs and "re" verbs whose 1st person ends in c
 
 -- Most irregular verbs are found in $IrregCat$. If this is not enough,
 -- the module $BeschCat$ gives all the patterns of the "Bescherelle"
@@ -229,7 +229,7 @@ oper
 --3 Two-place verbs
 --
 -- Two-place verbs need a preposition, except the special case with direct object.
--- (transitive verbs). 
+-- (transitive verbs).
 
   mkV2 : overload {
     mkV2 : Str -> V2 ; -- regular verb, direct object
@@ -274,9 +274,9 @@ oper
   mkAV  : A -> Prep -> AV ; --%
   mkA2V : A -> Prep -> Prep -> A2V ; --%
 
--- Notice: categories $AS, A2S, AV, A2V$ are just $A$, 
+-- Notice: categories $AS, A2S, AV, A2V$ are just $A$,
 -- and the second argument is given
--- as an adverb. Likewise 
+-- as an adverb. Likewise
 -- $V0$ is just $V$.
 
   V0 : Type ; --%
@@ -289,7 +289,7 @@ oper
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
-  Gender = MorphoCat.Gender ; 
+  Gender = MorphoCat.Gender ;
   Number = MorphoCat.Number ;
   masculine = Masc ;
   feminine = Fem ;
@@ -323,19 +323,23 @@ oper
 
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
-  mk5A a b c d e = 
+  mk5A a b c d e =
    compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; lock_A = <>} ;
   mk2A a b = compADeg {s = \\_ => (mkAdj2Reg a b).s ; isPre = False ; lock_A = <>} ;
   regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
-  prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
+  prefA = overload {
+    prefA : A -> A = \a -> a ** {isPre = True} ;
+    prefA : Str -> Str -> A = \bo,bon ->
+        compADeg (lin A {s = \\_ => (adjBo bo bon).s ; isPre = True}) ;
+  } ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
-  mkADeg a b = 
-   {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ; 
+  mkADeg a b =
+   {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ;
     isPre = a.isPre ; lock_A = <>} ;
-  compADeg a = 
-    {s = table {Posit => a.s ! Posit ; _ => \\f => "més" ++ a.s ! Posit ! f} ; 
+  compADeg a =
+    {s = table {Posit => a.s ! Posit ; _ => \\f => "més" ++ a.s ! Posit ! f} ;
      isPre = a.isPre ;
      lock_A = <>} ;
   regADeg a = compADeg (regA a) ;
@@ -356,7 +360,7 @@ oper
 
         _ + "re" => perdre_83 x ;
         _ + "er" => verbEr x ; --handles accents in infinitives and c/ç, g/j
-	_ + "ir" => dormir_44 x ; --inchoative verbs with regAltV 
+	_ + "ir" => dormir_44 x ; --inchoative verbs with regAltV
 	_ + "ur" => dur_45 x ;
 	_        => cantar_15 x } ;
 
@@ -384,10 +388,10 @@ oper
   mk3V x y z =
      let ure  = Predef.dp 3 x ;
 	 venc = Predef.dp 4 y ;
-	 gut  = Predef.dp 3 z 
+	 gut  = Predef.dp 3 z
      in  case <ure,venc,gut> of {
 	   <_+"re",_,"gut"> => regAltV x y ; --default participle of type dolgut
-	                                     
+
 	   --if these are overfitting, just comment out.
            --still doesn't catch creure, seure; mk4V with creiem as 4th arg?
 	   <"ure",_, "uit"> => coure_32 x ;    --coure coem cuit
@@ -425,7 +429,7 @@ oper
 
   special_ppV ve pa = {
     s = table {
-      VPart g n => (regA pa).s ! Posit ! AF g n ;
+      VPart g n => (regA pa).s ! Posit ! genNum2Aform g n ;
       p => ve.s ! p
       } ;
     lock_V = <> ;
@@ -489,7 +493,7 @@ oper
 -- To form a noun phrase that can also be plural,
 -- you can use the worst-case function.
 
-  makeNP : Str -> Gender -> Number -> NP ; 
+  makeNP : Str -> Gender -> Number -> NP ;
 
   mkA = overload {
     mkA : (util : Str) -> A  = regA ;
@@ -504,7 +508,10 @@ oper
   mkADeg : A -> A -> A ;
   compADeg : A -> A ;
   regADeg : Str -> A ;
-  prefA : A -> A ;
+  prefA : overload {
+    prefA : A -> A ; -- gran
+    prefA : (bo,bon : Str) -> A -- predicative masc, attributive masc
+    } ;
   prefixA = prefA ;
 
   mkV = overload {
@@ -521,7 +528,7 @@ oper
 
   mkV2 = overload {
     mkV2 : Str -> V2 = \s -> dirV2 (mkV s) ;
-    mkV2 : V -> V2 = dirV2 ;  
+    mkV2 : V -> V2 = dirV2 ;
     mkV2 : V -> Prep -> V2 = mk2V2
     } ;
   mk2V2  : V -> Prep -> V2 ;

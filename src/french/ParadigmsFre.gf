@@ -160,9 +160,12 @@ oper
 
     mkA : (banal,banale,banaux : Str) -> A ;
 
--- This is the worst-case paradigm for the positive forms.
+-- This is the worst-case paradigm for the positive forms, except for "vieux/vieil".
 
-    mkA : (banal,banale,banaux,banalement : Str) -> A ; -- worst-case adjective
+    mkA : (banal,banale,banaux,banalement : Str) -> A ; -- almost worst-case adjective
+
+-- This is the worst-case paradigm for the positive forms, used for "vieux/vieil".
+    mkA : (vieux,vieil,vieille,vieuxs,vieuxment : Str) -> A ; -- worst-case adjetive
 
 -- If comparison forms are irregular (i.e. not formed by "plus", e.g.
 -- "bon-meilleur"), the positive and comparative can be given as separate
@@ -387,7 +390,8 @@ oper
     mkPN : N -> PN = \x -> lin PN {s = x.s ! Sg ; g = x.g} ;
     } ;
 
-  mk4A a b c d = compADeg {s = \\_ => (mkAdj a c b d).s ; isPre = False ; lock_A = <>} ;
+  mk4A a b c d = mk5A a a b c d ;
+  mk5A a b c d e = compADeg {s = \\_ => (mkAdj' a b c d e).s ; isPre = False ; lock_A = <>} ;
   regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
   prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
 
@@ -398,6 +402,7 @@ oper
     mkA : (sec,seche : Str) -> A = \sec,seche -> mk4A sec seche (sec + "s") (seche + "ment") ; 
     mkA : (banal,banale,banaux : Str) -> A = \sec,seche,secs -> mk4A sec seche secs (seche + "ment") ; 
     mkA : (banal,banale,banaux,banalement : Str) -> A = mk4A ;
+    mkA : (vieux,vieil,vieille,vieuxs,vieuxment : Str) -> A = mk5A ;
     mkA : A -> A -> A = mkADeg
   };
 
@@ -471,6 +476,7 @@ oper
 
   regA : Str -> A ;
   mk4A : (banal,banale,banaux,banalement : Str) -> A ;
+  mk5A : (vieux,vieil,vieille,vieuxs,vieuxment : Str) -> A ; -- worst-case adjetive
 
   prefA : A -> A ;
 

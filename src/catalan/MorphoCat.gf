@@ -94,13 +94,18 @@ oper
 -- Here are some patterns. First one that describes the worst case.
 -- gcc M2.1
 
-  mkAdj : (_,_,_,_,_ : Str) -> Adj = \prim,prima,prims,primes,primament ->
+  mkAdjFull : (x1,_,_,_,_,x6 : Str) -> Adj = \bon,bo,prima,prims,primes,primament ->
     {s = table {
-       AF Masc n => numForms prim prims ! n ;
-       AF Fem  n => numForms prima primes ! n ;
-       AA        => primament
+       ASg Masc AAttr => bon ;
+       ASg Masc APred => bo ;
+       ASg Fem  _ => prima ;
+       APl Masc   => prims ;
+       APl Fem    => primes ;
+       AA         => primament
        }
     } ;
+
+  mkAdj : (x1,_,_,_,x5 : Str) -> Adj = \a,b,c,d,e -> mkAdjFull a a b c d e ;
 
 --- Then the regular and invariant patterns.
 
@@ -116,16 +121,15 @@ oper
     let fond = Predef.tk 1 fondo
     in  adjBlau fondo (fond + "a") ;
 
-  adjBo : Str -> Adj = \bo ->
-    mkAdj bo (bo + "na") (bo + "ns") (bo + "nes") (bo + "nament") ;
+  adjBo : (bo,bon : Str) -> Adj = \bo,bon ->
+    mkAdjFull bon bo (bon + "a") (bon + "s") (bon + "es") (bon + "ament") ;
 
   adjFidel : Str -> Adj = \fidel ->
     let fidels : Str = case (last fidel) of {
       _ + ("s"|"ç"|"x") => fidel + "os" ; --feliç; capaç
       _ => fidel + "s"
     } ;
-    in  mkAdj fidel fidel fidels fidels
-             (fidel + "ment") ;
+    in  mkAdj fidel fidel fidels fidels (fidel + "ment") ;
 
   --boig, boja, bojos, boges
   --lleig, lletja, lletjos, lletges
@@ -300,6 +304,6 @@ oper unaccent : Str -> Str = \vocal ->
 -- Determiners, traditionally called indefinite pronouns, are inflected
 -- in gender and number, like adjectives.
 
-  pronForms : Adj -> Gender -> Number -> Str = \tal,g,n -> tal.s ! AF g n ;
+  pronForms : Adj -> Gender -> Number -> Str = \tal,g,n -> tal.s ! genNum2Aform g n ;
 
 }

@@ -118,9 +118,9 @@ oper
   mkAdj : (_,_,_,_,_ : Str) -> Adj =
     \burro,burra,burros,burras,burramente ->
     {s = table {
-       AF Masc n => numForms burro burros ! n ;
-       AF Fem  n => numForms burra burras ! n ;
-       AA        => burramente
+       ASg g _ => genForms burro burra ! g ;
+       APl g   => genForms burros burras ! g ;
+       AA      => burramente
        }
     } ;
 
@@ -129,7 +129,8 @@ oper
     adj = mkAdjReg aj
     in {
       s = table {
-        AF g n => adj.s ! AF g n ;
+        ASg g _ => adj.s ! ASg g APred ;
+        APl g   => adj.s ! APl g ;
         AA => av
         }
     } ;
@@ -245,11 +246,11 @@ oper
 -- inflected in gender and number, like adjectives.
 
   pronForms : Adj -> Gender -> Number -> Str =
-    \tale,g,n -> tale.s ! AF g n ;
+    \tale,g,n -> tale.s ! (genNum2Aform g n) ;
 
   mkOrdinal : A -> Ord = \adj ->
   lin Ord {
-    s = \\ag => adj.s ! Posit ! AF ag.g ag.n ;
+    s = \\ag => adj.s ! Posit ! (genNum2Aform ag.g ag.n) ;
     } ;
 
   mkQuantifier : (esse,essa,esses,essas : Str) -> Quant = \esse,essa,esses,essas->

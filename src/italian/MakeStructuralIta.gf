@@ -15,7 +15,7 @@ oper
 
   mkPredet = overload {
     mkPredet : A -> Predet = \adj -> lin Predet {
-        s = \\a,c => prepCase c ++ adj.s ! Posit ! AF a.g a.n ;
+        s = \\a,c => prepCase c ++ adj.s ! Posit ! genNum2Aform a.g a.n ;
         c = Nom ;
         a = PNoAg
         } ;

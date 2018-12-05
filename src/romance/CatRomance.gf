@@ -134,8 +134,8 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     NP = \np -> (np.s ! Nom).comp ;
     Conj = \c -> c.s2 ;
 
-    A = \a -> a.s ! Posit ! AF Masc Sg ;
-    A2 = \a -> a.s ! Posit ! AF Masc Sg ++ a.c2.s ;
+    A = \a -> a.s ! Posit ! ASg Masc APred ;
+    A2 = \a -> a.s ! Posit ! ASg Masc APred ++ a.c2.s ;
 
     N = \n -> n.s ! Sg ;
     N2 = \n -> n.s ! Sg ++ n.c2.s ;

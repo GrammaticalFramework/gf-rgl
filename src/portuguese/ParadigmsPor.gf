@@ -366,7 +366,7 @@ oper
   -- deviant past participle, e.g. abrir - aberto
   special_ppV ve pa = {
     s = table {
-      VPart g n => (adjPreto pa).s ! AF g n ;
+      VPart g n => (adjPreto pa).s ! (genNum2Aform g n) ;
       p => ve.s ! p
       } ;
     lock_V = <> ;
