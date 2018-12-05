@@ -57,7 +57,7 @@ oper
 -- Adjectives are conveniently seen as gender-dependent nouns.
 -- Here are some patterns. First one that describes the worst case.
 
-  mkAdj : (x1,_,_,_,_,_,x7 : Str) -> Adj = \buen,gran,solo,sola,solos,solas,solamente ->
+  mkAdj : (x1,_,_,_,_,_,x7 : Str) -> Adj = \buen,solo,gran,sola,solos,solas,solamente ->
     {s = table {
       ASg Masc AAttrib => buen ;
       ASg Masc APredic => solo ;
