@@ -59,10 +59,10 @@ oper
 
   mkAdj : (x1,_,_,_,_,_,x7 : Str) -> Adj = \buen,solo,gran,sola,solos,solas,solamente ->
     {s = table {
-      ASg Masc AAttrib => buen ;
-      ASg Masc APredic => solo ;
-      ASg Fem AAttrib => gran ;
-      ASg Fem APredic => sola ;
+      ASg Masc AAttr => buen ;
+      ASg Masc APred => solo ;
+      ASg Fem AAttr => gran ;
+      ASg Fem APred => sola ;
       APl Masc   => solos ;
       APl Fem    => solas ;
       AA         => solamente

@@ -28,7 +28,7 @@ lin
    become_VA = reflV (mkV "tornar") ;  -- esdevenir
    beer_N = regFN "cervesa" ;
    beg_V2V = mkV2V (mkV "demanar") accusative dative ;
-   big_A = regADeg "gros" ;
+   big_A = mkA "gros" "grossa" ;
    bike_N = regFN "bicicleta" ;
    bird_N = regMN "ocell" ;
    black_A = compADeg (mkA "negre" "negra" "negres" "negres" "negrament") ;

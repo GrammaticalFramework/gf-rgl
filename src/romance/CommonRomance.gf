@@ -30,9 +30,9 @@ param
 -- Comparative adjectives are moreover inflected in degree
 -- (which in Romance is usually syntactic, though).
 
-  AForm = ASg Gender APosition | APl Gender| AA ;
+  AForm = ASg Gender APosition | APl Gender | AA ;
 
-  APosition = AAttrib | APred ;
+  APosition = AAttr | APred ;
 
 -- Gender is not morphologically determined for first and second person pronouns.
 
@@ -86,7 +86,7 @@ oper
 
   genNumPos2Aform : Gender -> Number -> Bool -> AForm ;
   genNumPos2Aform g n isPre = case n of {
-      Sg => ASg g (if_then_else APosition isPre AAttrib APred) ;
+      Sg => ASg g (if_then_else APosition isPre AAttr APred) ;
       Pl => APl g
       } ;
 

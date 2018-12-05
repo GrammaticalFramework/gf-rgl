@@ -96,8 +96,8 @@ oper
 
   mkAdjFull : (x1,_,_,_,_,x6 : Str) -> Adj = \bon,bo,prima,prims,primes,primament ->
     {s = table {
-       ASg Masc AAttrib => bon ;
-       ASg Masc APred   => bo ;
+       ASg Masc AAttr => bon ;
+       ASg Masc APred => bo ;
        ASg Fem  _ => prima ;
        APl Masc   => prims ;
        APl Fem    => primes ;
