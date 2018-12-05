@@ -454,6 +454,9 @@ mkInterj : Str -> Interj
 
   mkOrd : Str -> Ord = \x -> lin Ord { s = regGenitiveS x};
 
+  invarA : Str -> A ;
+  invarA a = mkAdjective a a a a ;
+
   mk2A a b = mkAdjective a a a b ;
   regA a = case a of {
     _ + ("a" | "e" | "i" | "o" | "u" | "y") + ? + _ + 
