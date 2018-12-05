@@ -59,7 +59,7 @@ oper
 
   mkAdj : (x1,_,_,_,_,_,x7 : Str) -> Adj = \buen,gran,solo,sola,solos,solas,solamente ->
     {s = table {
-      ASg Masc AAttrib => buen ; --pre {#vow|"h" => vieil ; _ => vieux } ;
+      ASg Masc AAttrib => buen ;
       ASg Masc APredic => solo ;
       ASg Fem AAttrib => gran ;
       ASg Fem APredic => sola ;
@@ -87,23 +87,23 @@ oper
   -- adjectives that end in consonant but have different masc and fem forms
   -- español, hablador ...
   adjEspanol : Str -> Str -> Adj = \espanol,espanola ->
-    mkAdj espanol espanola espanol espanola
+    mkAdj espanol espanol espanola espanola
           (espanol + "es") (espanol + "as") (espanola + "mente") ;
 
   adjBueno : Str -> Adj = \bueno ->
     let buen = init bueno in
-    mkAdj buen (buen + "a") bueno (buen + "a")
+    mkAdj buen bueno (buen + "a") (buen + "a")
           (buen + "os") (buen + "as") (buen + "amente") ;
 
   adjGrande : Str -> Str -> Adj = \gran,grande ->
-    mkAdj gran gran grande grande
+    mkAdj gran grande gran grande
           (grande + "s") (grande + "s") (grande + "mente") ;
 
  -- francés francesa franceses francesas
   adjEs : Str -> Adj = \francEs ->
     let franc  : Str = Predef.tk 2 francEs ;
         frances : Str = franc + "es" ;
-    in mkAdj francEs (frances + "a") francEs (frances + "a")
+    in mkAdj francEs francEs (frances + "a") (frances + "a")
              (frances + "es") (frances + "as") (frances + "amente") ;
 
 
@@ -120,7 +120,7 @@ oper
           "ú" => "u"
         } ;
         alemVn : Str = alem + V + "n" ;
-    in mkAdj alemAn (alemVn + "a") alemAn (alemVn + "a")
+    in mkAdj alemAn alemAn (alemVn + "a") (alemVn + "a")
              (alemVn + "es") (alemVn + "as") (alemVn + "amente") ;
 
   mkAdjReg : Str -> Adj = \solo ->

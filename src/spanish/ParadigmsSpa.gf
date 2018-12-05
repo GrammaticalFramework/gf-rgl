@@ -156,7 +156,9 @@ oper
 -- One-place adjectives compared with "mas" need five forms in the worst
 -- case (masc and fem singular, masc plural, adverbial).
 
-    mkA : (solo,sola,solos,solas,solamente : Str) -> A ; -- worst-case
+    mkA : (solo,sola,solos,solas,solamente : Str) -> A ; -- almost worst-case, except for buen/bueno gran/grande
+
+    mkA : (gran,grande,gran,grande,grandes,grandes,solamente : Str) -> A ; -- worst-case
 
 -- In the worst case, two separate adjectives are given:
 -- the positive ("bueno"), and the comparative ("mejor").
@@ -354,11 +356,12 @@ oper
 
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
-  mk5A a b c d e =
-   compADeg {s = \\_ => (mkAdj a b a b c d e).s ; isPre = False ; lock_A = <>} ;
+  mk7A a b c d e f g =
+    compADeg {s = \\_ => (mkAdj a b c d e f g).s ; isPre = False ; lock_A = <>} ;
 
-  mk2A a b =
-   compADeg {s = \\_ => (adjEspanol a b).s ; isPre = False ; lock_A = <>} ;
+  mk5A a b c d e = mk7A a a b b c d e ;
+
+  mk2A a b = compADeg {s = \\_ => (adjEspanol a b).s ; isPre = False ; lock_A = <>} ;
 
   regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
   prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
@@ -508,11 +511,13 @@ oper
     mkA : (util : Str) -> A  = regA ;
     mkA : (espanol,espanola : Str) -> A  = mk2A ;
     mkA : (solo,sola,solos,solas,solamente : Str) -> A = mk5A ;
+    mkA : (_,_,_,_,_,_,_ : Str) -> A = mk7A ;
     mkA : (bueno : A) -> (mejor : A) -> A = mkADeg ;
     mkA : (blanco : A) -> (hueso : Str) -> A = \blanco,hueso -> blanco **
       { s = \\x,y => blanco.s ! x ! y ++ hueso } ;
     } ;
 
+  mk7A : (_,_,_,_,_,_,_ : Str) -> A ;
   mk5A : (solo,sola,solos,solas,solamente : Str) -> A ;
   mk2A : (espanol,espanola : Str) -> A ;
   regA : Str -> A ;
