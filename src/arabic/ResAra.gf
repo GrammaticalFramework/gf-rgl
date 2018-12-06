@@ -75,9 +75,9 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     -- a word, deducing which root consonant is weak
     mkWeak : Pattern -> Root3 -> Str = \pat,fcl ->
       case <fcl.f,fcl.c,fcl.l> of {
-       <_,_,("و"|"ي"|"ّ")> => mkDefective   pat fcl;
-       <_,("و"|"ي"),_>    => mkHollow      pat fcl;
-       <("و"|"ي"),_,_>    => mkAssimilated pat fcl
+       <_,_,#weak|"ّ"> => mkDefective   pat fcl;
+       <_,#weak,_>     => mkHollow      pat fcl;
+       <#weak,_,_>     => mkAssimilated pat fcl
       };
 
     mkBilit : Pattern -> Root2 -> Str = \p,fcl ->
@@ -990,12 +990,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       APosit Masc n d c => case n of {
         Sg => indeclN aHmar ! d ! c ;
         Dl => dual aHmar ! d ! c ;
-        Pl => sing Humr ! d ! c
+        Pl => brkPl Humr ! d ! c
         };
       APosit Fem n d c => case n of {
         Sg => indeclN HamrA'  ! d ! c;
         Dl => dual ((tk 2 HamrA') + "و") ! d ! c;
-        Pl => sing Humr ! d ! c
+        Pl => brkPl Humr ! d ! c
         };
       AComp d c => indeclN aHmar ! d ! c
     };
@@ -1011,7 +1011,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       table {
         Sg => sing kitAb ;
         Dl => dual kitAb ;
-        Pl => sing kutub
+        Pl => brkPl kutub
       };
 
     --takes the sound noun in singular and gives the
@@ -1025,6 +1025,16 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
     --takes the sound noun in singular and gives the
+    --complete noun inflection table of sound feminine plural
+    sgMsndf : Str -> NTable  =
+      \lawHa ->
+      table {
+        Sg => sing lawHa ;
+        Dl => dual lawHa ;
+        Pl => singMplurF lawHa
+      };
+
+    --takes the sound noun in singular and gives the
     --complete inflection table of sound masculine plural nominals
     sndm : Str -> NTable =
       \muzAric ->
@@ -1034,20 +1044,38 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Pl => plurM muzAric
       };
 
+
     -- takes a singular or broken plural word and tests the ending to
     -- determine the declension and gives the corresponding inf table
-    sing : Str -> State => Case => Str = \word ->
+    brkPl : Str -> State => Case => Str = \word ->
       \\s,c => defArt s c (case word of {
         lemma + "ِيّ" => fixShd word  (decNisba ! s ! c) ;
         lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
-        lemma + ("ء"|"أ"|"ئ"|"ؤ") => word + dec1sgNoDoubleAlif ! s ! c ;
+        lemma + (#hamza|#hamzaseat)
+                      => word + dec1sgNoDoubleAlif ! s ! c ;
         lemma + "ة"   => case s of {
                             Poss => lemma + "ت" + dec1sg ! s ! c ;
                             _    => word        + dec1sgNoDoubleAlif ! s ! c
                           } ;
-         _             => fixShd word  (dec1sg ! s ! c)
+         _             => fixShd word (dec1sg ! s ! c) 
       }) ;
+
+    sing : Str -> State => Case => Str = \word ->
+      \\s,c => case word of {
+        -- This only applies for singular indefinite
+        x + y@? + #hamza => defArt s c (
+           case <s,c> of { -- if hamza was last, it's now in the body
+              <Indef,Acc> => 
+                  case y of {
+                    #vstar => word + dec1sgNoDoubleAlif ! Indef ! Acc ;
+                    _ => let an  : Str = dec1sg ! Indef ! Acc ;
+                             hmz : Str = bHmz x an ;
+                          in x + y + hmz + an } ;
+              _ => word + dec1sg ! s ! c }) ; 
+         -- The rest is identical with singulars and broken plurals
+        _ => brkPl word ! s ! c 
+      } ;
 
 
     -- takes a singular word and tests the ending to
@@ -1064,6 +1092,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     plurF : Str -> State => Case => Str =
       \kalima ->
       \\s,c => defArt s c (mkAt kalima) + f_pl ! s ! c ;
+
+    -- takes a singular masculine word and gives the corresponding
+    -- sound plural feminine table
+    singMplurF : Str -> State => Case => Str =
+      \ijra' ->
+      \\s,c => defArt s c (mkAtMasc ijra') + f_pl ! s ! c ;
 
     -- takes a singular word and gives the corresponding sound
     --plural masculine table. FIXME: consider declension 3
@@ -1196,6 +1230,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           }
       };
 
+    mkAtMasc : Str -> Str = \x ->
+      case x of {
+        y + "ة"  => y + "ات";
+        y + "ى"  => y + "يَات"; -- TODO check does this happen?
+        _        => x + "ات"
+      };
 
     mkAt : Str -> Str = \bayDo ->
       case bayDo of {
