@@ -89,7 +89,8 @@ abstract IrregGerAbs = Cat ** {
   fun meiden_V : V ;
   fun melken_V : V ;
   fun messen_V : V ;
-  fun mißlingen_V : V ;
+  fun mißlingen_V : V ;  -- old spelling
+  fun misslingen_V : V ;
   fun mögen_V : V ;
   fun müssen_V : V ;
   fun nehmen_V : V ;
@@ -193,4 +194,27 @@ abstract IrregGerAbs = Cat ** {
   fun zeihen_V : V ;
   fun ziehen_V : V ;
   fun zwingen_V : V ;
+
+
+-- old spellings, before the German orthography reform
+-- see https://en.wikipedia.org/wiki/German_orthography_reform_of_1996
+
+  fun beißen_old_V : V ;
+  fun fließen_old_V : V ;
+  fun fressen_old_V : V ;
+  fun genießen_old_V : V ;
+  fun gießen_old_V : V ;
+  fun lassen_old_V : V ;
+  fun messen_old_V : V ;
+  fun mißlingen_old_V : V ;
+  fun müssen_old_V : V ;
+  fun reißen_old_V : V ;
+  fun scheißen_old_V : V ;
+  fun schießen_old_V : V ;
+  fun schleißen_old_V : V ;
+  fun schließen_old_V : V ;
+  fun schmeißen_old_V : V ;
+  fun spleißen_old_V : V ;
+  fun sprießen_old_V : V ;
+  fun vergessen_old_V : V ;
 }
