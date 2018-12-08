@@ -58,7 +58,7 @@ categories.png: categories.dot
 
 categories-imagemap.html: categories.dot
 	rm -f $@
-	echo '<img src="categories.png" usemap="#categories">' > $@
+	echo '<img src="categories.png" usemap="#categoriesmap" alt="RGL categories">' > $@
 	dot -Tcmapx $^ >> $@
 
 api-examples.gfs: api-examples.txt MkExx.hs
