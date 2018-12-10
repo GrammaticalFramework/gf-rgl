@@ -21,7 +21,7 @@ concrete IdiomPor of Idiom = CatPor **
     ExistNP np =
       mkClause [] True False (agrP3 Masc Sg)
       (insertComplement (\\_ => (np.s ! Acc).ton) (predV B.haver_V)) ;
-    
+
     ExistIP ip = {
       s = \\t,a,p,_ =>
         ip.s ! Nom ++
@@ -52,4 +52,12 @@ concrete IdiomPor of Idiom = CatPor **
       mkImperative False P1 vp ! RPos ! Masc ! Pl ; --- fem
       } ;
 
-}
+    ImpP3 np vp = {
+      s = "deixe" ++ (np.s ! Nom).ton ++ infVP vp np.a ;
+        } ;
+
+    SelfAdvVP vp = vp ;
+    SelfAdVVP vp = vp ;
+    SelfNP np = np ;
+
+} ;
