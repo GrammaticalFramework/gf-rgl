@@ -171,7 +171,10 @@ oper
 -- "bon-meilleur"), the positive and comparative can be given as separate
 -- adjectives.
 
-    mkA : A -> A -> A -- irregular comparison, e.g. bon-meilleur
+    mkA : A -> A -> A ; -- irregular comparison, e.g. bon-meilleur
+
+    mkA : A -> CopulaType -> A -- force copula type
+      
   } ;
 
 -- The functions create by default postfix adjectives. To switch
@@ -391,9 +394,10 @@ oper
     } ;
 
   mk4A a b c d = mk5A a a b c d ;
-  mk5A a b c d e = compADeg {s = \\_ => (mkAdj' a b c d e).s ; isPre = False ; lock_A = <>} ;
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
-  prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
+  mk5A a b c d e = compADeg {s = \\_ => (mkAdj' a b c d e).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  prefA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
+  adjCopula a cop = a ** {copTyp = cop} ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
@@ -403,10 +407,11 @@ oper
     mkA : (banal,banale,banaux : Str) -> A = \sec,seche,secs -> mk4A sec seche secs (seche + "ment") ; 
     mkA : (banal,banale,banaux,banalement : Str) -> A = mk4A ;
     mkA : (vieux,vieil,vieille,vieuxs,vieuxment : Str) -> A = mk5A ;
-    mkA : A -> A -> A = mkADeg
+    mkA : A -> A -> A = mkADeg ;
+    mkA : A -> CopulaType -> A = adjCopula ;
   };
 
-  prefixA a = {s = a.s ; isPre = True ; lock_A = <>} ;
+  prefixA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
 
   mkAdv x = ss x ** {lock_Adv = <>} ;
   mkAdV x = ss x ** {lock_AdV = <>} ;
@@ -479,14 +484,15 @@ oper
   mk5A : (vieux,vieil,vieille,vieuxs,vieuxment : Str) -> A ; -- worst-case adjetive
 
   prefA : A -> A ;
+  adjCopula : A -> CopulaType -> A ;
 
   mkADeg a b = 
-    {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ; isPre = a.isPre ; lock_A = <>} ;
+    {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ; isPre = a.isPre ; copTyp = a.copTyp ; lock_A = <>} ;
   compADeg a = 
     {s = table {Posit => a.s ! Posit ; _ => \\f => "plus" ++ a.s ! Posit ! f} ; 
      isPre = a.isPre ;
+     copTyp = a.copTyp ;
      lock_A = <>} ;
-  prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
 
   mkV = overload {
     mkV : Str -> V = regV ;

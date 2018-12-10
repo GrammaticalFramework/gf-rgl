@@ -184,10 +184,14 @@ oper
 
 --2 Adjectives
   compADeg : A -> A ;
-  compADeg a = {s = table {Posit => a.s ! Posit ;
-                           _ => \\f => "mais" ++
-                             a.s ! Posit ! f} ;
-                isPre = a.isPre ; lock_A = <>} ;
+  compADeg a = lin A {
+    s = table {
+      Posit => a.s ! Posit ;
+      _ => \\f => "mais" ++  a.s ! Posit ! f
+      } ;
+    isPre = a.isPre ;
+    copTyp = a.copTyp
+    } ;
 
 {-  superlADeg : A -> A ;
   superlADeg a = {s = table {Posit => a.s ! Posit ;
@@ -200,24 +204,32 @@ oper
 --  regADeg a = compADeg (regA a) ;
 
   regA : Str -> A ;
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ;
-                     lock_A = <>} ;
+  regA a = compADeg (lin A {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula}) ;
 
   mk2A : (único,unicamente : Str) -> A ;
   mk2A adj adv = compADeg {s = \\_ => (mkAdj2 adj adv).s ; isPre = False ;
+                           copTyp = serCopula ;
                            lock_A = <>} ;
 
   mk5A : (preto,preta,pretos,pretas,pretamente : Str) -> A ;
   mk5A a b c d e = compADeg {s = \\_ => (mkAdj a b c d e).s ;
-                             isPre = False ; lock_A = <>} ;
+                             isPre = False ; copTyp = serCopula ;
+                             lock_A = <>} ;
+
+  adjCopula : A -> CopulaType -> A ;
+  adjCopula a cop = a ** {copTyp = cop} ;
 
   mkADeg : A -> A -> A ;
-  mkADeg a b = {s = table {Posit => a.s ! Posit ;
-                           _ => b.s ! Posit
---                          Compar => b.s ! Posit ;
---                           Superl => "o" ++ b.s ! Posit ;
-                  } ;
-                isPre = a.isPre ; lock_A = <>} ;
+  mkADeg a b = lin A {
+    s = table {
+      Posit => a.s ! Posit ;
+      _ => b.s ! Posit
+        -- Compar => b.s ! Posit ;
+        -- Superl => "o" ++ b.s ! Posit ;
+      } ;
+    isPre = a.isPre ;
+    copTyp = a.copTyp
+    } ;
 
   mkNonInflectA : A -> Str -> A ;
   mkNonInflectA = \blanco,hueso -> blanco ** {s = \\x,y => blanco.s ! x ! y ++ hueso } ;
@@ -245,7 +257,10 @@ oper
       = mkADeg ;
 
     mkA : (blanco : A) -> (hueso : Str) -> A  -- noninflecting component after the adjective
-    = mkNonInflectA ;
+      = mkNonInflectA ;
+
+    mkA : A -> CopulaType -> A -- force copula type
+      = adjCopula ;
     } ;
 
 -- The functions above create postfix adjectives. To switch them to
@@ -256,7 +271,7 @@ oper
     prefixA = prefA ;
 
     prefA : A -> A ;
-    prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
+    prefA a = lin A {s = a.s ; isPre = True ; copTyp = a.copTyp} ;
 
 --3 Two-place adjectives
 --
@@ -320,7 +335,7 @@ oper
         "or" | "ôr" => pôr_Besch ;
         _ => comprar_Besch -- hole
         }
-    in verboV (paradigm v) ;
+    in lin V (verboV (paradigm v)) ;
 
   mkV = overload {
 --- [ ] update
@@ -345,8 +360,8 @@ oper
 -- "Bescherelle" book. To use them in the category $V$, wrap them with
 -- the function
 
-    mkV : Verbum -> V = -- import verb constructed with BeschPor
-      verboV ;
+    mkV : Verbum -> V = \v -> -- import verb constructed with BeschPor
+      lin V (verboV v) ;
 
     -- particle verb
     mkV : V -> Str -> V =
@@ -516,6 +531,6 @@ oper
                   isPol = False ;
                   isNeg = False} ** {lock_NP = <>} ;
 
-  reflVerboV : Verbum -> V = \ve -> reflV (verboV ve) ;
+  reflVerboV : Verbum -> V = \ve -> reflV (lin V (verboV ve)) ;
 
 } ;
