@@ -9,14 +9,9 @@ ComplVS {"that"} PART mark xcomp
 EmbedVP {"to"} PART mark head
 EmbedS {"that"} PART mark head
 SentCN {"that","to"} PART mark acl
-ExtAdvS,SubjS {","} PUNCT punct head
+ConsNP,ExtAdvS,SubjS {","} PUNCT punct head
 ExistNPAdv,ExistNP {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't","isn't","aren't","wasn't","weren't"} PART neg head 
 ExistNPAdv,ExistNP {"has","had","have","will","would","do","does","did"} AUX aux head 
 ExistNPAdv,ExistNP {"is","are","am","was","were""been","be"} VERB cop head
 ExistNPAdv,ExistNP {"there"} PART expl head
 PossNP,PartNP {"of"} ADP case nmod
-
-
-
-
-

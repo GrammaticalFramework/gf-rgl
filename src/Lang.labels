@@ -180,7 +180,7 @@ AdV	ADV
 Adv	ADV
 CAdv	ADV
 Card	NUM
-Conj	CONJ
+Conj	CCONJ
 Det	DET
 Digits	NUM
 IAdv	ADV
@@ -193,7 +193,7 @@ N2	NOUN
 N3	NOUN
 Numeral	NUM
 Ord	NUM
-PConj	CONJ
+PConj	CCONJ
 PN	PROPN
 Predet	DET
 Prep	ADP
