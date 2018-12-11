@@ -12,44 +12,50 @@ instance DiffCat of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRo
 
 --------------------------------
 
-  param 
-    Prepos = P_de | P_a ;
+  param
+    Prepos = P_de | P_a | P_per ;
     VType = VHabere | VRefl ;
 
 oper
     dative   : Case = CPrep P_a ;
     genitive : Case = CPrep P_de ;
+    ablative : Case = CPrep P_per ;
 
     prepCase = \c -> case c of {
       Nom => [] ;
-      Acc => [] ; 
+      Acc => [] ;
       CPrep P_de => elisDe ;
+      CPrep P_per => "per" ;
       CPrep P_a  => "a"
       } ;
 
-        
+
     artDef : Bool -> Gender -> Number -> Case -> Str = \isNP,g,n,c ->
       case <g,n,c> of {        ---- TODO: check the NP forms
         <Masc,Sg, CPrep P_de> => pre {"del" ; ("de l'" ++ Predef.BIND) / vocalForta} ;
         <Masc,Sg, CPrep P_a>  => pre {"al"  ; ("a l'"  ++ Predef.BIND)  / vocalForta} ;
-        <Masc,Sg, _>    => elisEl ;
-        <Fem, Sg, _>    => prepCase c ++ elisLa ;
         <Masc,Pl, CPrep P_de> => "dels" ;
         <Fem, Pl, CPrep P_de> => ["de les"] ;
+        <Masc,Sg, CPrep P_per> => "pel" ;
+        <Fem, Sg, CPrep P_per> => ["per la"] ;
+        <Masc,Pl, CPrep P_per> => "pels" ;
+        <Fem, Pl, CPrep P_per> => ["per les"] ;
         <Masc,Pl, CPrep P_a>  => "als" ;
         <Fem, Pl, CPrep P_a>  => ["a les"] ;
+        <Masc,Sg, _>    => elisEl ;
+        <Fem, Sg, _>    => prepCase c ++ elisLa ;
         <Masc,   Pl, _ >   => "els" ;
         <Fem,   Pl, _ >   => "les"
         } ;
 
-        
+
 
     artIndef = \isNP,g,n,c -> case isNP of {
      True => case <n,c> of {
       <Sg,CPrep P_de>   => genForms ("d' ++ Predef.BIND ++ un") ("d' ++ Predef.BIND ++ una") ! g ;
       <Sg,_> => prepCase c ++ genForms "un" "una" ! g ;
       <Pl,CPrep P_de>   => genForms ("d' ++ Predef.BIND ++ uns") ("d' ++ Predef.BIND ++ unes") ! g ; -- AR 3/12/2014
-      <Pl,_> => prepCase c ++ genForms "uns" "unes" ! g 
+      <Pl,_> => prepCase c ++ genForms "uns" "unes" ! g
       } ;
      _ => case <n,c> of {
       <Sg,CPrep P_de>   => genForms ("d' ++ Predef.BIND ++ un") ("d' ++ Predef.BIND ++ una") ! g ;
@@ -58,7 +64,7 @@ oper
       }
      } ;
 
-      
+
 
     possCase = \_,_,c -> prepCase c ;
 
@@ -69,7 +75,7 @@ oper
 
     conjunctCase : Case -> Case = \c -> case c of {
       Nom => Nom ;
-      _ => Acc 
+      _ => Acc
       } ;
 
     auxVerb : VType -> (VF => Str) = \_ -> haver_V.s ;
@@ -78,7 +84,7 @@ oper
       vpAgrNone ;
 
   pronArg = \n,p,acc,dat ->
-      let 
+      let
         paccp = case acc of {
           CRefl   => <reflPron n p Acc, p,True> ;
           CPron ag an ap => <argPron ag an ap Acc, ap,True> ;
@@ -89,27 +95,27 @@ oper
           _ => <[],P2,False>
           }
        in case <paccp.p2, pdatp.p2> of {
-         ---- AR 8/6/2008 efficiency problem in pgf generation: 
+         ---- AR 8/6/2008 efficiency problem in pgf generation:
          ---- replace the case expr with
          ---- a constant produces an error in V3 predication with two pronouns
          ---- <P3,P3> => <"se" ++ paccp.p1, [],True> ;
          _       => <pdatp.p1 ++ paccp.p1, [],orB paccp.p3 pdatp.p3>
          } ;
-         
+
     --case <p,acc,dat> of {
     --    <Sg,P2,CRefl,CPron {n = Sg ; p = P1}> => <"te" ++ "me", []> ;
     --    <_,_,CPron {n = Sg ; p = P2},CPron {n = Sg ; p = P1}> => <"te" ++ "me", []> ;
 
    infForm _ _ _ _  = True ;
- 
+
    mkImperative b p vp =
-      \\pol,g,n => 
-        let 
+      \\pol,g,n =>
+        let
           pe    = case b of {True => P3 ; _ => p} ;
           agr   = {g = g ; n = n ; p = pe} ;
           refl  = case vp.s.vtyp of {
             VRefl => <reflPron n pe Acc,True> ;
-            _ => <[],False> 
+            _ => <[],False>
             } ;
 
           clpr  =  <vp.clit1 ++ vp.clit2, [],vp.clit3.hasClit> ;  ---- TODO: True if clit
@@ -139,10 +145,10 @@ oper
     subjIf = "si" ;
 
 
-   
+
     clitInf b cli inf = inf ++ bindIf b ++ cli ; --- JS copied from DiffSpa
 
-    relPron : Bool => AAgr => Case => Str = \\b,a,c => 
+    relPron : Bool => AAgr => Case => Str = \\b,a,c =>
       case c of {
         Nom | Acc => "que" ;
         CPrep P_a => "cuyo" ;
@@ -155,19 +161,19 @@ oper
 
     partQIndir = [] ; ---- ?
 
-    reflPron : Number -> Person -> Case -> Str = \n,p,c -> 
-        let pro = argPron Fem n p c 
+    reflPron : Number -> Person -> Case -> Str = \n,p,c ->
+        let pro = argPron Fem n p c
         in
-        case p of { 
+        case p of {
         P3 => case c of {
           Acc | CPrep P_a => "es" ;
           _ => "si"
           } ;
         _ => pro
-        } ; 
+        } ;
 
-    argPron : Gender -> Number -> Person -> Case -> Str = 
-      let 
+    argPron : Gender -> Number -> Person -> Case -> Str =
+      let
         cases : (x,y : Str) -> Case -> Str = \me,moi,c -> case c of {
           Acc | CPrep P_a => me ;
           _ => moi
@@ -177,8 +183,8 @@ oper
           CPrep P_a => leur ;
           _ => eux
           } ;
-      in 
-      \g,n,p -> case <g,n,p> of { 
+      in
+      \g,n,p -> case <g,n,p> of {
         <_,Sg,P1> => cases "em" "mí" ;
         <_,Sg,P2> => cases "et" "tú" ;
         <_,Pl,P1> => cases "ens" "nosaltres" ; --- nosotros
