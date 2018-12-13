@@ -1,7 +1,7 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
 concrete LexiconPor of Lexicon = CatPor ** open
-  (M=MorphoPor), ParadigmsPor, BeschPor, Prelude in {
+  (M=MorphoPor), ParadigmsPor, BeschPor, Prelude, (D = DiffPor) in {
 
 flags
   optimize=values ;
@@ -39,7 +39,7 @@ lin
    near_A      = mkA "perto" ;
    new_A       = prefA (mkA "novo") ;
    old_A       = prefA (mkA "velho") ;
-   ready_A     = mkA "pronto" ;
+   ready_A     = adjCopula (mkA "pronto") D.estarCopula ;
    red_A       = mkA "vermelho" ;
    rotten_A    = mkA "podre" ;
    round_A     = mkA "redondo" ;

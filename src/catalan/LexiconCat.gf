@@ -1,7 +1,7 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
 concrete LexiconCat of Lexicon = CatCat ** open
-  (M=MorphoCat), ParadigmsCat, BeschCat in {
+  (M=MorphoCat), ParadigmsCat, BeschCat, (D = DiffCat) in {
 
 flags
   coding=utf8 ;
@@ -361,7 +361,7 @@ lin
   language_N = mkN "llengua" ; -- llengües
   rule_N = regFN "regla" ;
   question_N = regFN "pregunta" ;
-  ready_A = regA "preparat" ;
+  ready_A = adjCopula (regA "preparat") D.estarCopula ;
   reason_N = regFN "raó" ;
   uncertain_A = regA "incert" ;
 

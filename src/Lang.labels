@@ -10,6 +10,7 @@ QuestIComp 	head nsubj	-- "where is John": John is clearly nsubj, but is where t
 QuestQVP 	nsubj head
 QuestSlash 	dobj head
 QuestVP 	nsubj head
+IdetCN		det head
 
 PredSCVP 	csubj head
 
@@ -84,8 +85,8 @@ SentAP 	head acl
 
 DetQuantOrd 	head nummod amod     -- quite wrong; again for same reason as DetQuant function
 DetCN 	det head
-IDetCN 	det head
-IDetQuant head empty
+IdetCN 	det head
+IdetQuant head nummod
 CountNP 	det head
 PredetNP 	det head
 PPartNP		head amod	-- only in core RGL

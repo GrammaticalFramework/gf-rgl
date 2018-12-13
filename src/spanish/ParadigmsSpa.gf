@@ -165,7 +165,9 @@ oper
 
     mkA : (bueno : A) -> (mejor : A) -> A ; -- special comparison (default with "mas")
 
-    mkA : (blanco : A) -> (hueso : Str) -> A -- noninflecting component after the adjective
+    mkA : (blanco : A) -> (hueso : Str) -> A ; -- noninflecting component after the adjective
+
+    mkA : A -> CopulaType -> A -- force copula type
     } ;
 
 -- The functions above create postfix adjectives. To switch
@@ -357,23 +359,24 @@ oper
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
   mk7A a b c d e f g =
-    compADeg {s = \\_ => (mkAdj a b c d e f g).s ; isPre = False ; lock_A = <>} ;
+    compADeg {s = \\_ => (mkAdj a b c d e f g).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
 
   mk5A a b c d e = mk7A a a b b c d e ;
 
-  mk2A a b = compADeg {s = \\_ => (adjEspanol a b).s ; isPre = False ; lock_A = <>} ;
+  mk2A a b = compADeg {s = \\_ => (adjEspanol a b).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
 
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
-  prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
+  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  adjCopula a cop = a ** {copTyp = cop} ;
+  prefA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
   mkADeg a b =
    {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ;
-    isPre = a.isPre ; lock_A = <>} ;
+    isPre = a.isPre ; copTyp = a.copTyp ; lock_A = <>} ;
   compADeg a =
     {s = table {Posit => a.s ! Posit ; _ => \\f => "más" ++ a.s ! Posit ! f} ;
-     isPre = a.isPre ;
+     isPre = a.isPre ; copTyp = a.copTyp ;
      lock_A = <>} ;
   regADeg a = compADeg (regA a) ;
 
@@ -515,12 +518,15 @@ oper
     mkA : (bueno : A) -> (mejor : A) -> A = mkADeg ;
     mkA : (blanco : A) -> (hueso : Str) -> A = \blanco,hueso -> blanco **
       { s = \\x,y => blanco.s ! x ! y ++ hueso } ;
+    mkA : A -> CopulaType -> A =
+      adjCopula ;
     } ;
 
   mk7A : (_,_,_,_,_,_,_ : Str) -> A ;
   mk5A : (solo,sola,solos,solas,solamente : Str) -> A ;
   mk2A : (espanol,espanola : Str) -> A ;
   regA : Str -> A ;
+  adjCopula : A -> CopulaType -> A ;
   mkADeg : A -> A -> A ;
   compADeg : A -> A ;
   regADeg : Str -> A ;

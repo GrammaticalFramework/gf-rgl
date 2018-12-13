@@ -5,7 +5,7 @@ UseComp,ProgrVP,QuestIComp {"is","are","am","was","were","been","be"} VERB cop h
 CompCN {"a","an"} DET det head
 PassV2 {"is","are","am","was","were""been","be"} VERB auxpass head
 ComplVV {"to"} PART mark xcomp
-ComplVS {"that"} PART mark xcomp
+ComplVS {"that"} PART mark ccomp
 EmbedVP {"to"} PART mark head
 EmbedS {"that"} PART mark head
 SentCN {"that","to"} PART mark acl
