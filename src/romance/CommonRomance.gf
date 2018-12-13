@@ -30,7 +30,9 @@ param
 -- Comparative adjectives are moreover inflected in degree
 -- (which in Romance is usually syntactic, though).
 
-  AForm = AF Gender Number | AA ;
+  AForm = ASg Gender APosition | APl Gender | AA ;
+
+  APosition = AAttr | APred ;
 
 -- Gender is not morphologically determined for first and second person pronouns.
 
@@ -49,18 +51,44 @@ oper
     } ;
 
 
+  -- genderpos2gender : GenderPosition -> {p1:Gender,p2:Number} = \gp -> case gp of {
+  --   MascSg _ => <Masc,Sg> ;
+  --   MascPl   => <Masc,Pl> ;
+  --   FemSg    => <Fem,Sg> ;
+  --   FemPl    => <Fem,Pl>
+  --   } ;
+
+
   aform2gender : AForm -> Gender = \a -> case a of {
-    AF g _ => g ;
-    _      => Masc -- "le plus lentement"
+    ASg g _ => g ;
+    APl g   => g ;
+    _       => Masc -- "le plus lentement"
     } ;
   aform2number : AForm -> Number = \a -> case a of {
-    AF _ n => n ;
+    APl _  => Pl ;
     _      => Sg -- "le plus lentement"
     } ;
   aform2aagr : AForm -> AAgr = \a -> case a of {
-    AF g n => aagr g n ;
-    _      => aagr Masc Sg -- "le plus lentement"
+    ASg g _ => aagr g Sg ;
+    APl g   => aagr g Pl ;
+    _       => aagr Masc Sg -- "le plus lentement"
     } ;
+  aagr2aform : AAgr -> AForm = \gn -> case gn of {
+    {g=g ; n=Sg} => ASg g APred ;
+    {g=g ; n=Pl} => APl g
+    } ;
+
+  genNum2Aform : Gender -> Number -> AForm ;
+  genNum2Aform g n = case n of {
+    Sg => ASg g APred ;
+    Pl => APl g
+    } ;
+
+  genNumPos2Aform : Gender -> Number -> Bool -> AForm ;
+  genNumPos2Aform g n isPre = case n of {
+      Sg => ASg g (if_then_else APosition isPre AAttr APred) ;
+      Pl => APl g
+      } ;
 
   conjGender : Gender -> Gender -> Gender = \m,n ->
     case m of {
@@ -236,7 +264,7 @@ oper
 
   oper
     mkOrd : {s : Degree => AForm => Str} -> {s : AAgr => Str} ;
-    mkOrd x = {s = \\ag => x.s ! Posit ! AF ag.g ag.n} ;
+    mkOrd x = {s = \\ag => x.s ! Posit ! aagr2aform ag } ;
 
 -- This is used in Spanish and Italian to bind clitics with preceding verb.
 

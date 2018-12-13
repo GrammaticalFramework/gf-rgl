@@ -13,18 +13,16 @@ to the relevant source files, which give more information. Some of the files hav
 not yet been prepared so that the machine generated documentation has the nicest
 possible format.
 
+% These hardcoded TOC links (chapter 4 onwards) need to be updated as new languages are added.
+
 The main contents are:
-- [Chapter 1 #toc2]: categories, with links to the functions for
-constructing trees in them.
-- [Chapter 2 #toc5]: syntactic construction functions, with cross-links and
-examples.
-- [Chapter 3 #toc85]: morphological paradigms.
-- [Chapter 4 #toc120]: additional libraries.
-- [Chapter 5 #toc126]: how to "browse" the library by
-loading the grammars into the ``gf`` command editor.
-- [Chapter 6 #toc127]: a brief example of how application grammars can
-use the resource modules.
-- [Detailed table of contents #toc128].
+- [Chapter 1 #toc2]: categories, with links to the functions for constructing trees in them.
+- [Chapter 2 #toc5]: syntactic construction functions, with cross-links and examples.
+- [Chapter 3 #toc85]: morphological (lexical) paradigms.
+- [Chapter 4 #toc121]: additional libraries.
+- [Chapter 5 #toc127]: how to "browse" the library by loading the grammars into the ``gf`` command editor.
+- [Chapter 6 #toc128]: a brief example of how application grammars can use the resource modules.
+- [Detailed table of contents #toc129].
 
 
 The [RGL Browser http://www.grammaticalframework.org/~john/rgl-browser/] tool allows you to interactively browse through

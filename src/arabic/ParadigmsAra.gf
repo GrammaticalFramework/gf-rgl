@@ -530,12 +530,11 @@ resource ParadigmsAra = open
   sdfN =
     \root,sg,gen,spec ->
     let { kalimaStr = mkWord sg root;
-          kalimaRaw = sndf kalimaStr;
-          kalima : NTable = \\n,d,c => case root of {
-            _ + #hamza + _
-              => rectifyHmz (kalimaRaw ! n ! d ! c);
-            _ => kalimaRaw ! n ! d ! c
-        };
+          kalimaRaw : NTable = case gen of {
+            Fem  =>    sndf kalimaStr ;
+            Masc => sgMsndf kalimaStr } ;
+          kalima : NTable = \\n,d,c =>
+            rectifyHmz (kalimaRaw ! n ! d ! c)
     } in mkFullN kalima gen spec;
 
   sdmN =

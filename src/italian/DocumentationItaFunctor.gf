@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 
-incomplete concrete DocumentationItaFunctor of Documentation = CatIta ** open 
+incomplete concrete DocumentationItaFunctor of Documentation = CatIta ** open
   Terminology, -- the interface to be instantiated
   ResIta,
   CommonRomance,
@@ -19,22 +19,22 @@ lincat
   Definition = {s : Str} ;
   Document = {s : Str} ;
   Tag = {s : Str} ;
-  
+
 {-
 -} --# notpresent
 
 oper
    heading : N -> Str = \n -> (nounHeading n).s ;
-   
+
 lin
   InflectionN, InflectionN3, InflectionN3 = \noun -> {
     t = "n" ;
-    s1 = heading1 (heading noun_Category ++ 
+    s1 = heading1 (heading noun_Category ++
                    case noun.g of {
-                     Masc => "("+heading masculine_Parameter+")" ; 
+                     Masc => "("+heading masculine_Parameter+")" ;
                      Fem  => "("+heading feminine_Parameter+")"
                    }) ;
-    s2 = frameTable ( 
+    s2 = frameTable (
            tr (th (heading singular_Parameter) ++ th  (heading plural_Parameter)) ++
            tr (td (noun.s ! Sg)                ++ td (noun.s ! Pl))
            )
@@ -45,8 +45,8 @@ lin
     s1 = heading1 (nounHeading adjective_Category).s ;
     s2 = frameTable (
            tr (th ""                            ++ th (heading singular_Parameter)  ++ th  (heading plural_Parameter)) ++
-           tr (th (heading masculine_Parameter) ++ td (adj.s ! Posit ! (AF Masc Sg)) ++ td (adj.s ! Posit ! (AF Masc Pl))) ++
-           tr (th (heading feminine_Parameter)  ++ td (adj.s ! Posit ! (AF Fem Sg))  ++ td (adj.s ! Posit ! (AF Fem Pl)))
+           tr (th (heading masculine_Parameter) ++ td (adj.s ! Posit ! (genNum2Aform Masc Sg)) ++ td (adj.s ! Posit ! (genNum2Aform Masc Pl))) ++
+           tr (th (heading feminine_Parameter)  ++ td (adj.s ! Posit ! (genNum2Aform Fem Sg))  ++ td (adj.s ! Posit ! (genNum2Aform Fem Pl)))
          )
     } ;
 
@@ -142,23 +142,23 @@ lin
   MkDocument d i e = ss (i.s1 ++ d.s ++ i.s2 ++ paragraph e.s) ;  -- explanation appended in a new paragraph
   MkTag i = ss i.t ;
 
-oper 
+oper
   verbExample : CatIta.Cl -> Str = \cl ->
-     (S.mkUtt cl).s 
+     (S.mkUtt cl).s
      ++ ";" ++ (S.mkUtt (S.mkS S.anteriorAnt cl)).s  --# notpresent
      ;
 
-  inflVerb : Verb -> Str = \verb -> 
-     let 
+  inflVerb : Verb -> Str = \verb ->
+     let
        vfin : CommonRomance.VF -> Str = \f ->
-         verb.s ! f ; 
+         verb.s ! f ;
 
        ttable : TMood -> Str = \tense ->
          frameTable (
-           tr (th "" ++ 
-               th (heading singular_Parameter) ++ 
-               th (heading plural_Parameter)) ++ 
-           tr (th "1.p" ++ 
+           tr (th "" ++
+               th (heading singular_Parameter) ++
+               th (heading plural_Parameter)) ++
+           tr (th "1.p" ++
                td (vfin (VFin tense Sg P1)) ++
                td (vfin (VFin tense Pl P1))) ++
            tr (th "2.p" ++
@@ -171,11 +171,11 @@ oper
 
        ttable2 : (Mood -> TMood) -> Str = \f ->
          frameTable (
-           tr (intagAttr "th" "colspan=2" "" ++ 
-               th (heading indicative_Parameter) ++ 
-               th (heading conjunctive_Parameter)) ++ 
+           tr (intagAttr "th" "colspan=2" "" ++
+               th (heading indicative_Parameter) ++
+               th (heading conjunctive_Parameter)) ++
            tr (intagAttr "th" "rowspan=3" (heading singular_Parameter) ++
-               th "1.p" ++ 
+               th "1.p" ++
                td (vfin (VFin (f Indic) Sg P1)) ++
                td (vfin (VFin (f Conjunct) Sg P1))) ++
            tr (th "2.p" ++
@@ -183,7 +183,7 @@ oper
                td (vfin (VFin (f Conjunct) Sg P2))) ++
            tr (th "3.p" ++
                td (vfin (VFin (f Indic) Sg P3)) ++
-               td (vfin (VFin (f Conjunct) Sg P3))) ++  
+               td (vfin (VFin (f Conjunct) Sg P3))) ++
            tr (intagAttr "th" "rowspan=3" (heading plural_Parameter) ++
                th "1.p" ++
                td (vfin (VFin (f Indic) Pl P1)) ++
@@ -191,7 +191,7 @@ oper
            tr (th "2.p" ++
                td (vfin (VFin (f Indic) Pl P2)) ++
                td (vfin (VFin (f Conjunct) Pl P2))) ++
-           tr (th "3.p" ++ 
+           tr (th "3.p" ++
                td (vfin (VFin (f Indic) Pl P3)) ++
                td (vfin (VFin (f Conjunct) Pl P3)))
            ) ;
@@ -210,17 +210,17 @@ oper
         paragraph (vfin (VInfin False)) ++
         heading2 (heading imperative_Parameter) ++
         frameTable (
-          tr (th "sg.2.p" ++ td (vfin (VImper SgP2))) ++ 
-          tr (th "pl.1.p" ++ td (vfin (VImper PlP1))) ++ 
+          tr (th "sg.2.p" ++ td (vfin (VImper SgP2))) ++
+          tr (th "pl.1.p" ++ td (vfin (VImper PlP1))) ++
           tr (th "pl.2.p" ++ td (vfin (VImper PlP2)))
           ) ++
         heading2 (heading participle_Parameter) ++
         frameTable (
           tr (th (heading past_Parameter)    ++ td (vfin (VPart Masc Sg))) ++
           tr (th (heading present_Parameter) ++ td (vfin VGer))
-          ) ; 
+          ) ;
 
 {- --# notpresent
--} 
+-}
 
 }

@@ -1,5 +1,5 @@
 --# -path=alltenses
-concrete ParseSpa of ParseEngAbs = 
+concrete ParseSpa of ParseEngAbs =
   TenseSpa,
 --  CatSpa,
   NounSpa - [PPartNP],
@@ -19,7 +19,7 @@ concrete ParseSpa of ParseEngAbs =
             VPI, VPIForm, VPIInf, VPIPresPart, ListVPI, VV, MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
             ClSlash, RCl, EmptyRelSlash],
 
-  DictEngSpa ** 
+  DictEngSpa **
 open MorphoSpa, ResSpa, ParadigmsSpa, SyntaxSpa, Prelude in {
 
 flags
@@ -30,11 +30,11 @@ flags
 lin
 -- missing from ExtraSpa; should not really be there either
 
-  GenNP np = 
+  GenNP np =
     let denp = (np.s ! ResSpa.genitive).ton in {
-      s = \\_,_,_,_ => [] ; 
+      s = \\_,_,_,_ => [] ;
       sp = \\_,_,_ => denp ;
-      s2 = denp ; 
+      s2 = denp ;
       isNeg = False ;
     } ;
 
@@ -48,7 +48,7 @@ lin
 
   another_Quant = mkQuantifier "otro" "otra" "otros" "otras" ;
   some_Quant = mkQuantifier "algún" "alguna" "algunos" "algunas" ;
-  anySg_Det = mkDeterminer "algún" "alguna" Sg False ; ---- also meaning "whichever" ? 
+  anySg_Det = mkDeterminer "algún" "alguna" Sg False ; ---- also meaning "whichever" ?
   each_Det = SyntaxSpa.every_Det ;
 
   but_Subj = {s = "pero" ; m = Indic} ; ---- strange to have this as Subj
@@ -70,7 +70,7 @@ lin
     g = cn.g
   } ;
 
-{-  
+{-
   DashCN noun1 noun2 = {
     s = \\n,c => noun1.s ! Sg ! Nom ++ "-" ++ noun2.s ! n ! c ;
     g = noun2.g
@@ -80,7 +80,7 @@ lin
     s = \\n,c => v.s ! VPresPart ;
     g = Neutr
   } ;
-  
+
   GerundAP v = {
     s = \\agr => v.s ! VPresPart ;
     isPre = True
@@ -89,7 +89,8 @@ lin
 
   PastPartAP v = {
     s = table {
-      AF g n => v.s ! VPart g n ;
+      ASg g _ => v.s ! VPart g Sg ;
+      APl g _ => v.s ! VPart g Pl ;
       _ => v.s ! VPart Masc Sg  ---- the adverb form
       } ;
     isPre = True
@@ -108,11 +109,11 @@ lin
                                            infVP v.typ vp ant.a p.p a)
                                    (predVc v) ;
 
-  SlashVPIV2V v p vpi = insertObjc (\\a => p.s ++ 
-                                           v.c3 ++ 
+  SlashVPIV2V v p vpi = insertObjc (\\a => p.s ++
+                                           v.c3 ++
                                            vpi.s ! VVAux ! a)
                                    (predVc v) ;
-  ComplVV v a p vp = insertObj (\\agr => a.s ++ p.s ++ 
+  ComplVV v a p vp = insertObj (\\agr => a.s ++ p.s ++
                                          infVP v.typ vp a.a p.p agr)
                                (predVV v) ;
 -}
@@ -126,10 +127,10 @@ lin
 
 {-
   CompQS qs = {s = \\_ => qs.s ! QIndir} ;
-  CompVP ant p vp = {s = \\a => ant.s ++ p.s ++ 
+  CompVP ant p vp = {s = \\a => ant.s ++ p.s ++
                                 infVP VVInf vp ant.a p.p a} ;
 
-  VPSlashVS vs vp = 
+  VPSlashVS vs vp =
     insertObj (\\a => infVP VVInf vp Simul CPos a) (predV vs) **
     {c2 = ""; gapInMiddle = False} ;
 
@@ -147,11 +148,11 @@ lin
     s = \\c => np1.s ! c ++ "," ++ np2.s ! npNom ;
     a = np1.a
   } ;
-  
+
   AdAdV = cc2 ;
-  
+
   UttAdV adv = adv;
 
--}    
+-}
 
 }

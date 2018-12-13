@@ -127,7 +127,7 @@ concrete ExtendPor of Extend =
       } ;
 
     ICompAP ap = {
-      s =\\a => "o quão" ++ ap.s ! AF a.g a.n ;
+      s =\\a => "o quão" ++ ap.s ! (genNum2Aform a.g a.n) ;
       cop = serCopula
       } ;
 
@@ -142,7 +142,8 @@ concrete ExtendPor of Extend =
   lin
     PresPartAP vp = {
       s = \\af => gerVP vp (aform2aagr af ** {p = P3}) ;
-      isPre = False
+      isPre = False ;
+      copTyp = serCopula
       } ;
 
     PastPartAP vps = pastPartAP vps [] ;
@@ -165,12 +166,12 @@ concrete ExtendPor of Extend =
     ComplBareVS = ComplVS ;
 
     AdjAsCN ap = {
-      s =\\n => ap.s ! AF Masc n ;
+      s =\\n => ap.s ! (genNum2Aform Masc n) ;
       g = Masc
       } ;
 
     AdjAsNP ap = heavyNP {
-      s = \\_c => ap.s ! AF Masc Sg ;
+      s = \\_c => ap.s ! ASg Masc APred ;
       a = Ag Masc Sg P3
       } ;
 
@@ -178,7 +179,8 @@ concrete ExtendPor of Extend =
     pastPartAP : VPSlash -> Str -> AP ;
     pastPartAP vps agent = lin AP {
       s = \\af => vps.comp ! (aform2aagr af ** {p = P3}) ++ vps.s.s ! VPart (aform2gender af) (aform2number af) ++ agent ;
-      isPre = False
+      isPre = False ;
+      copTyp = serCopula
       } ;
 
     passVPSlash : VPSlash -> Str -> VP ;
@@ -200,12 +202,11 @@ concrete ExtendPor of Extend =
       } ;
 
     CompoundAP noun adj = {
-      s = \\af => case af of {
-        AF g n => adj.s ! Posit ! AF noun.g n ++ "de" ++ noun.s ! n ;
-        -- do I need do(s)/da(s)?
-        _ => adj.s ! Posit ! AF noun.g Sg ++ "de" ++ noun.s ! Sg
+      s = \\af => case (aform2aagr af) of {
+        {n = n} => adj.s ! Posit ! (genNum2Aform noun.g n) ++ "de" ++ noun.s ! n
         } ;
-      isPre = adj.isPre
+      isPre = adj.isPre ;
+      copTyp = adj.copTyp
       } ;
 
     GerundCN vp = {
