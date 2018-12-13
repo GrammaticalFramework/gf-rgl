@@ -154,7 +154,10 @@ oper
 -- In the worst case, two separate adjectives are given:
 -- the positive ("bo"), and the comparative ("millor").
 
-    mkA : (bo : A) -> (millor : A) -> A -- special comparison (default with "mas")
+    mkA : (bo : A) -> (millor : A) -> A ; -- special comparison (default with "mas")
+
+    mkA : A -> CopulaType -> A -- force copula type
+      
     } ;
 
 -- The functions above create postfix adjectives. To switch
@@ -164,6 +167,7 @@ oper
 -- JS: What about vi bo -> bon vi ?
 
   prefixA : A -> A ; -- adjective before noun (default: after)
+  adjCopula : A -> CopulaType -> A ; -- force copula type
 
 
 --3 Two-place adjectives
@@ -324,23 +328,23 @@ oper
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
   mk5A a b c d e =
-   compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; lock_A = <>} ;
-  mk2A a b = compADeg {s = \\_ => (mkAdj2Reg a b).s ; isPre = False ; lock_A = <>} ;
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
+    compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  mk2A a b = compADeg {s = \\_ => (mkAdj2Reg a b).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
   prefA = overload {
     prefA : A -> A = \a -> a ** {isPre = True} ;
     prefA : Str -> Str -> A = \bo,bon ->
-        compADeg (lin A {s = \\_ => (adjBo bo bon).s ; isPre = True}) ;
+        compADeg (lin A {s = \\_ => (adjBo bo bon).s ; isPre = True ; copTyp = serCopula}) ;
   } ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
   mkADeg a b =
    {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ;
-    isPre = a.isPre ; lock_A = <>} ;
+    isPre = a.isPre ; copTyp = serCopula ; lock_A = <>} ;
   compADeg a =
     {s = table {Posit => a.s ! Posit ; _ => \\f => "més" ++ a.s ! Posit ! f} ;
-     isPre = a.isPre ;
+     isPre = a.isPre ; copTyp = a.copTyp ; 
      lock_A = <>} ;
   regADeg a = compADeg (regA a) ;
 
@@ -500,6 +504,7 @@ oper
     mkA : (lleig,lletja : Str) -> A = mk2A ;
     mkA : (fort,forta,forts,fortes,fortament : Str) -> A = mk5A ;
     mkA : (bo : A) -> (millor : A) -> A = mkADeg ;
+    mkA : A -> CopulaType -> A = adjCopula ;
     } ;
 
   mk5A : (fort,forta,forts,fortes,fortament : Str) -> A ;
@@ -513,6 +518,7 @@ oper
     prefA : (bo,bon : Str) -> A -- predicative masc, attributive masc
     } ;
   prefixA = prefA ;
+  adjCopula a cop = a ** {copTyp = cop} ;
 
   mkV = overload {
     mkV : (cantar : Str) -> V            = \x -> verbV (regV x) ;

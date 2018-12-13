@@ -91,7 +91,13 @@ incomplete concrete VerbRomance of Verb =
 
     UseCopula = predV copula ;
 
-    CompAP ap = {s = \\ag => let agr = complAgr ag in ap.s ! genNum2Aform agr.g agr.n ; cop = serCopula} ;
+    CompAP ap = {
+      s = \\ag =>
+        let
+          agr = complAgr ag
+        in ap.s ! genNum2Aform agr.g agr.n ;
+      cop = ap.copTyp
+      } ;
     CompCN cn = { s = \\ag =>
         let agr = complAgr ag in
         artIndef False cn.g agr.n Nom ++ cn.s ! agr.n ;
@@ -115,4 +121,5 @@ incomplete concrete VerbRomance of Verb =
     VPSlashPrep vp prep = vp ** {
       c2 = {s = prep.s ; c = prep.c ; isDir = False}
       } ;
-}
+
+} ;

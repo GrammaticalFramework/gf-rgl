@@ -1,7 +1,7 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
 concrete LexiconSpa of Lexicon = CatSpa ** open 
-  (M=MorphoSpa), ParadigmsSpa, BeschSpa in {
+  (M=MorphoSpa), ParadigmsSpa, (D = DiffSpa), BeschSpa in {
 
 flags 
     coding=utf8 ;
@@ -233,6 +233,7 @@ lin
    correct_A = regA "correcto" ;
    dry_A = regA "seco" ;
    dull_A = regA "desafilado" ;
+   ready_A = adjCopula (mkA "listo") D.estarCopula ;
    full_A = regA "lleno" ;
    heavy_A = regA "pesado" ;
    near_A = regA "cercano" ;
