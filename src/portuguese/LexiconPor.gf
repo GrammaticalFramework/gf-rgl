@@ -1,7 +1,7 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
 concrete LexiconPor of Lexicon = CatPor ** open
-  (M=MorphoPor), ParadigmsPor, BeschPor, Prelude, (D = DiffPor) in {
+  (M=MorphoPor), ParadigmsPor, BeschPor, Prelude, (D = DiffPor), (S = StructuralPor) in {
 
 flags
   optimize=values ;
@@ -9,7 +9,7 @@ flags
 
 lin
    easy_A2V = mkA2V (mkA "fácil") dative genitive ;
-   married_A2 = mkA2 (mkA "casado") dative ;
+   married_A2 = mkA2 (mkA "casado") S.with_Prep ;
    probable_AS = mkAS (prefA (mkA "provável" "provavelmente")) ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
@@ -318,13 +318,13 @@ lin
    sell_V3 = mkV3 (mkV "vender") dative ;
    send_V3 = mkV3 (mkV "enviar") dative ; -- mandar
    talk_V3 = mkV3 (mkV "falar") dative genitive ;
-   become_VA = reflV (mkV "virar") ;  --- convertirse en, volverse, ponerse
+   become_VA = reflV (mkV "tornar") ;
    know_VQ = mkVQ (mkV "saber") ;
    wonder_VQ = mkVQ (reflV (mkV "perguntar")) ;
    fear_VS = mkVS (mkV "temer") ;
    hope_VS = mkVS (mkV "esperar") ;
    know_VS = mkVS (mkV "saber") ;
-   say_VS = mkVS (mkV "dizer") ;
+   say_VS = mkVS (mkV (dizer_Besch "dizer")) ;
    -- V
    blow_V    = mkV "assoprar" ;
    breathe_V = mkV "respirar" ;

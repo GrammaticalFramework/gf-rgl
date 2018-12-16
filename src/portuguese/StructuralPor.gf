@@ -41,7 +41,7 @@ concrete StructuralPor of Structural = CatPor **
       Masc Pl P3 ;
 
     above_Prep = mkPrep "sobre" ;
-    after_Prep = {s = ["depois"] ; c = MorphoPor.genitive ;
+    after_Prep = {s = "depois" ; c = MorphoPor.genitive ;
                   isDir = False} ;
     all_Predet = {
       s = \\a,c => prepCase c ++ aagrForms "todo" "toda" "todos" "todas" ! a ;
@@ -60,7 +60,7 @@ concrete StructuralPor of Structural = CatPor **
     behind_Prep = {s = "atrás" ; c = MorphoPor.genitive ;
                    isDir = False} ;
     between_Prep = mkPrep "entre" ;
-    both7and_DConj = {s1,s2 = etConj.s ; n = Pl} ;
+    both7and_DConj = {s1 = "tanto" ; s2 = "quanto" ; n = Pl} ;
     but_PConj = ss "mas" ;
     by8agent_Prep = mkPrep [] ablative ; -- por
     by8means_Prep = mkPrep [] ablative ; -- por
@@ -68,9 +68,9 @@ concrete StructuralPor of Structural = CatPor **
     can_VV = mkVV B.poder_V ;
     during_Prep = mkPrep "durante" ;
     either7or_DConj = {s1,s2 = "ou" ; n = Sg} ;
-    everybody_NP = makeNP ["todos"] Masc Pl ;
+    everybody_NP = makeNP "todos" Masc Pl ;
     every_Det = mkDeterminer "cada" "cada" Sg False ;
-    everything_NP = pn2np (mkPN ["todo"] Masc) ;
+    everything_NP = pn2np (mkPN "tudo" Masc) ;
     everywhere_Adv = ss ["em toda parte"] ;
     except_Prep = mkPrep "exceto" ;
     few_Det = mkDeterminer "poucos" "poucas" Pl False ;
@@ -79,7 +79,7 @@ concrete StructuralPor of Structural = CatPor **
     from_Prep = complGen ; ---
     here_Adv = mkAdv "aqui" ;
     here7to_Adv = mkAdv ["para cá"] ;
-    here7from_Adv = mkAdv ["daqui"] ;
+    here7from_Adv = mkAdv "daqui" ;
     how_IAdv = ss "como" ;
     how8many_IDet = mkIDet "quantos" "quantas" Pl ;
     how8much_IAdv = ss "quanto" ;
@@ -98,12 +98,12 @@ concrete StructuralPor of Structural = CatPor **
     must_VV = mkVV (regV "dever") ;
     no_Quant =
       let
-        ningun : ParadigmsPor.Number => ParadigmsPor.Gender => Case => Str = table {
-          _ => \\g,c => prepCase c ++ genForms "nenhum" "nenhuma" ! g
-          }
+        nenhum : ParadigmsPor.Number => ParadigmsPor.Gender => Case => Str =
+          -- https://web.archive.org/web/20181003161105/http://sualingua.com.br/2009/05/08/nenhuns/
+          \\n,g,c => prepCase c ++ genNumForms "nenhum" "nenhuma" "nenhuns" "nenhumas" ! g ! n
       in {
-        s = \\_ => ningun ;
-        sp = ningun ;
+        s = \\_ => nenhum ;
+        sp = nenhum ;
         s2 = [] ; isNeg = True
       } ;
     no_Utt = ss "não" ;
@@ -124,12 +124,12 @@ concrete StructuralPor of Structural = CatPor **
     somebody_NP = pn2np (mkPN "alguém" Masc) ;
     somePl_Det = mkDeterminer "alguns" "algumas" Pl False ;
     someSg_Det = mkDeterminer "algum" "alguma" Sg False ;
-    something_NP = pn2np (mkPN ["algo"] Masc) ;
+    something_NP = pn2np (mkPN "algo" Masc) ;
     somewhere_Adv = ss ["em algum lugar"] ;
     that_Quant = mkQuantifier "esse" "essa" "esses" "essas" ;
     there_Adv = mkAdv "ali" ; -- lá
     there7to_Adv = mkAdv ["para lá"] ;
-    there7from_Adv = mkAdv ["dali"] ;
+    there7from_Adv = mkAdv "dali" ;
     therefore_PConj = ss ["por isso"] ;
 
     this_Quant = mkQuantifier "este" "esta" "estes" "estas" ;
@@ -139,8 +139,8 @@ concrete StructuralPor of Structural = CatPor **
     under_Prep = mkPrep "embaixo" ;
     very_AdA = ss "muito" ;
     want_VV = mkVV B.querer_V ;
-    whatSg_IP = {s = \\c => prepCase c ++ ["que"] ; a = aagr Masc Sg} ;
-    whatPl_IP = {s = \\c => prepCase c ++ ["que"] ; a = aagr Masc Pl} ; ---
+    whatSg_IP = {s = \\c => prepCase c ++ "que" ; a = aagr Masc Sg} ;
+    whatPl_IP = {s = \\c => prepCase c ++ "que" ; a = aagr Masc Pl} ; ---
     when_IAdv = ss "quando" ;
     when_Subj = ss "quando" ** {m = Indic} ;
     where_IAdv = ss "onde" ;

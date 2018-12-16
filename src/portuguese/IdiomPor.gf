@@ -57,7 +57,17 @@ concrete IdiomPor of Idiom = CatPor **
         } ;
 
     SelfAdvVP vp = vp ;
-    SelfAdVVP vp = vp ;
+
+    SelfAdVVP = insertComplement (
+      \\agr => case agr of {
+        {g = g ; n = n ; p = p} => table {
+          P1 => numForms "eu próprio" "nós próprios" ! n ;
+          P2 => genNumForms "você mesmo" "você mesma" "vocês mesmos" "vocês mesmas" ! g ! n ;
+          P3 => genNumForms "ele próprio" "ela própria" "eles mesmos" "elas mesmas" ! g ! n
+          } ! p
+        }
+      ) ;
+
     SelfNP np = np ;
 
 } ;
