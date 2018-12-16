@@ -1,0 +1,15 @@
+CompCN {"um"} DET det head
+ComplVS {"que"} SCONJ mark head
+EmbedS {"que"} PRON nsubj head
+EmbedVP {"de"} ADP mark head
+ExtAdvS,SubjS,VocNP {","} PUNCT punct head
+PassV2 {"era","sido"} AUX aux:pass head
+PredVP {"há"} AUX aux head
+PredVP {"se"} PRON expl head
+ProgrVP {"estavam"} AUX aux head
+SelfAdVVP {"ela"} PRON obl head
+SelfAdVVP {"própria"} DET det head
+SlashV2a,UseComp,UseV {"não"} ADV advmod head
+SlashV2V {"a"} ADP mark head
+UseComp,ProgrVP,QuestIComp {"é","sou","são","está","estão","estava"} VERB cop head
+UsePN {"de","por"} ADP case head
