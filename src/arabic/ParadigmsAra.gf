@@ -106,7 +106,7 @@ resource ParadigmsAra = open
     mkPN : Str -> PN        -- Fem Hum if ends with ة, otherwise Masc Hum
      = smartPN ;
     mkPN : N -> PN
-     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! c ++ n.s2 ! Sg ! Const ! c }) ; -- no idea /IL
+     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! c ++ n.s2 ! Sg ! Def ! c }) ; -- no idea /IL
     mkPN : Str -> Gender -> Species -> PN
      = mkFullPN ;
     } ;

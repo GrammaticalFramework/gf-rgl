@@ -22,13 +22,14 @@ lin
       n_hours_NP : NP = mkNP n_card time ;
   in  SyntaxAra.mkAdv during_Prep n_hours_NP | ParadigmsAra.mkAdv (n_hours_NP.s ! R.Nom) ;
 
-  -- random guesses
-  weekdayPunctualAdv w = SyntaxAra.mkAdv on_Prep (mkNP w) ;         -- on Sunday
-  weekdayHabitualAdv w = SyntaxAra.mkAdv on_Prep (mkNP w) ;         -- on Sundays
-  weekdayNextAdv w = SyntaxAra.mkAdv on_Prep (mkNP w) ;      -- next Sunday
-  weekdayLastAdv w = SyntaxAra.mkAdv on_Prep (mkNP w) ;     -- last Sunday
+  weekdayPunctualAdv w = ParadigmsAra.mkAdv ((mkNP w).s ! R.Nom) ;  -- on Sunday
+--  weekdayPunctualAdv w = SyntaxAra.mkAdv noPrep (mkNP w) ;  -- on Sunday
+  -- TODO
+  weekdayHabitualAdv,                    -- on Sundays
+  weekdayNextAdv,                        -- next Sunday
+  weekdayLastAdv = weekdayPunctualAdv ;  -- last Sunday
 
-  monthAdv m = SyntaxAra.mkAdv in_Prep (mkNP m) ;
+  monthAdv m = SyntaxAra.mkAdv R.biPrep (mkNP (mkN month_Timeunit m)) ;
   yearAdv y = SyntaxAra.mkAdv in_Prep y ;
 
   -- dummy
@@ -91,21 +92,21 @@ oper mkLanguage : Str -> N = mkN ;
 lin second_Timeunit = mkN "second" ;
 lin minute_Timeunit = mkN "minute" ;
 lin hour_Timeunit = mkN "hour" ;
-lin day_Timeunit = mkN "day" ;
+lin day_Timeunit = mkN "يَوْم" ;
 lin week_Timeunit = mkN "week" ;
-lin month_Timeunit = mkN "month" ;
+lin month_Timeunit = mkN "شَهْر" "أَشْهُر" masc nohum ;
 lin year_Timeunit = mkN "year" ;
 
-lin monday_Weekday = mkN "Monday" ;
-lin tuesday_Weekday = mkN "Tuesday" ;
-lin wednesday_Weekday = mkN "Wednesday" ;
-lin thursday_Weekday = mkN "Thursday" ;
-lin friday_Weekday = mkN "Friday" ;
-lin saturday_Weekday = mkN "Saturday" ;
-lin sunday_Weekday = mkN "Sunday" ;
+lin monday_Weekday = mkN day_Timeunit (mkN "إثْنَيْن") ;
+lin tuesday_Weekday = mkN day_Timeunit (mkN "ثُلَاثَاء") ;
+lin wednesday_Weekday = mkN day_Timeunit (mkN "أَرْبَعَاء") ;
+lin thursday_Weekday = mkN day_Timeunit (mkN "خَمِيس") ;
+lin friday_Weekday = mkN day_Timeunit (mkN "جُمْعَة") ;
+lin saturday_Weekday = mkN day_Timeunit (mkN "سَبْت") ;
+lin sunday_Weekday = mkN day_Timeunit (mkN "أَحَد") ;
 
-lin january_Month = mkN "January" ; 
-lin february_Month = mkN "February" ; 
+lin january_Month = mkN (mkN "كَانُون") (mkN "ثَانِي") ; -- TODO: something wrong with "ثَانِي"
+lin february_Month = mkN "شُبَاط" ;
 lin march_Month = mkN "March" ; 
 lin april_Month = mkN "April" ;
 lin may_Month = mkN "May" ;
@@ -140,7 +141,7 @@ lin finnish_Language = mkLanguage "فِنْلَنْدِيّة" ;
 -- lin maltese_Language = mkLanguage "Maltese" ;
 -- lin nepali_Language = mkLanguage "Nepali" ;
 -- lin norwegian_Language = mkLanguage "Norwegian" ;
-lin nprsian_Language = mkLanguage "فَارِسيّة" ;
+lin persian_Language = mkLanguage "فَارِسيّة" ;
 -- lin polish_Language = mkLanguage "Polish" ;
 -- lin punjabi_Language = mkLanguage "Punjabi" ;
 -- lin romanian_Language = mkLanguage "Romanian" ;
