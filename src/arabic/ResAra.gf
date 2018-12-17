@@ -162,7 +162,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     AP : Type = {s : Species => Gender => NTable } ;
     uttAP : AP -> (Gender => Str) ;
-    uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
+    uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Indef ! Bare ; ----IL
 
     CN : Type = Noun ** {np : Case => Str};
 
@@ -184,7 +184,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       } ;
 
     uttNum : NumOrdCard -> (Gender => Str) ;
-    uttNum n = \\g => n.s ! g ! Def ! Nom ;  ----IL
+    uttNum n = \\g => n.s ! g ! Def ! Bare ;  ----IL
 
   param
     VForm =
@@ -1572,9 +1572,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       { s = \\pgn,vf =>
           let gn = pgn2gn pgn in
           case vf of {
-            VPPerf => v.s ! (VPerf Act pgn);
-            VPImpf m => v.s ! (VImpf m Act pgn);
-            VPImp => v.s ! (VImp gn.g gn.n)
+            VPPerf => v.s ! VPerf Act pgn ;
+            VPImpf m => v.s ! VImpf m Act pgn ;
+            VPImp => v.s ! VImp gn.g gn.n
           };
         sc = noPrep ;
         obj = emptyObj ;
@@ -1587,8 +1587,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       let actVP = predV v in actVP ** {
         s = \\pgn,vf =>
           case vf of {
-            VPPerf   => v.s ! (VPerf   Pas pgn) ;
-            VPImpf m => v.s ! (VImpf m Pas pgn) ;
+            VPPerf   => v.s ! VPerf   Pas pgn ;
+            VPImpf m => v.s ! VImpf m Pas pgn ;
             _        => actVP.s ! pgn ! vf
         }
       };

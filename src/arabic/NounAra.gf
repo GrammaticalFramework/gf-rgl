@@ -168,7 +168,6 @@ lin
      a = {pgn = Per3 cn.g Sg ; isPron = False} ;
      empty = []} ;
 
-
   UseN,
   UseN2 = useN ;
   Use2N3 n3 = n3 ;
