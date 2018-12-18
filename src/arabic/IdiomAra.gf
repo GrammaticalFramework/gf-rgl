@@ -11,8 +11,8 @@ concrete IdiomAra of Idiom = CatAra ** open
   -- : VP -> Cl ;        -- it is hot
   ImpersCl vp =
     let it : ResAra.NP = case vp.isPred of {
-    		True  => pron2np (pgn2pron vp.obj.a.pgn) ;
-	        False => pgn2pron vp.obj.a.pgn } ; -- if no obj, Per3 Masc Sg chosen by default
+    		True  => pron2np (gn2pron vp.obj.a.gn) ;
+	      False => gn2pron vp.obj.a.gn } ; -- if no obj, Per3 Masc Sg chosen by default
      in predVP it vp ;
 
   --  : VP -> Cl ;        -- one sleeps

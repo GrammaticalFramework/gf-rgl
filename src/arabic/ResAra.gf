@@ -1388,9 +1388,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       isDecl : Bool
       };
 
-    Agr = { pgn : PerGenNum; isPron : Bool} ;
-    AAgr = { g : Gender ; n : Number} ;
+    Agr = {pgn : PerGenNum; isPron : Bool} ;
+    AgrLite = {gn : AAgr ; isPron : Bool} ; --used in ImpersCl
+    AAgr = {g : Gender ; n : Number} ;
 
+    agrLite : Agr -> AgrLite = \a -> a ** {gn = pgn2gn a.pgn} ;
 
 -----------------------------------------------------------------------------
 -- NP, Pron
@@ -1480,6 +1482,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Per3 Fem  Pl => theyFem_Pron ;
         Per3 Masc Pl => theyMasc_Pron
       } ;
+
+    gn2pron : AAgr -> NP = \gn ->
+      pgn2pron (gn2pgn gn) ;
 
     pron2np : NP -> NP = \np -> np ** {
       a = np.a ** {isPron=False} -- hack, sometimes we *don't* want prodrop
@@ -1694,20 +1699,20 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     Obj : Type = {
       s : Str ;
-      a : Agr -- default Agr in a VP without real Obj is Per3 Masc Sg.
+      a : AgrLite -- default Agr in a VP without real Obj is Per3 Masc Sg.
       };      -- need isPron for word order in predVP, and pgn for ImpersCl
 
     Subj : Type = {s : Case => Str ; isPron : Bool} ;
 
     np2subj : NP -> Subj = \np -> np ** {isPron = np.a.isPron} ;
     subj2np : Subj -> NP = \su -> su ** {a = {pgn = emptyNP.a.pgn ; isPron = su.isPron} ; empty=[]} ;
-    emptyObj : Obj = emptyNP ** {s=[]} ;
+    emptyObj : Obj = {a = {gn = {g=Masc ; n=Sg} ; isPron = False}; s = []} ;
 
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** { 
       obj = {s = vp.obj.s -- old object, if there was one
               ++ bindIfPron np vp -- new object, bind if pronoun and not pred
               ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V
-             a = np.a} 
+             a = agrLite np.a} 
       } ;
 
     bindIf : Bool -> Str = \b -> if_then_Str b BIND [] ;
