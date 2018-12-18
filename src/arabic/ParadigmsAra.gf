@@ -27,7 +27,9 @@ resource ParadigmsAra = open
   Predef,
   Prelude,
   MorphoAra,
-  OrthoAra,(ResAra=ResAra),
+  OrthoAra,
+  (ResAra=ResAra),
+  (A=AdjectiveAra),
   CatAra
   in {
 
@@ -75,8 +77,10 @@ resource ParadigmsAra = open
    mkN : NTable -> Gender -> Species -> N ;  -- loan words, irregular
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N ; -- broken plural
    mkN : N -> (attr : Str) -> N ; -- Compound noun with invariant attribute
-   mkN : N -> N -> N ;            -- Compound noun where attribute inflects in state and case. Attribute in singular.
-   mkN : Number -> N -> N -> N ;  -- Compound noun where attribute inflects in state and case. Attribute's number specified by 1st arg.
+   mkN : N -> N -> N ;            -- Compound noun with singular genitive attribute, but inflects in state.
+   mkN : Number -> N -> N -> N ;  -- Compound noun with genitive attribute, but inflects in state. Attribute's number specified by 1st arg.
+   mkN : N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state, case and number.
+   mkN : N -> AP -> N  ;          -- Force AP modifier into the noun. AP inflects in state, case and number.
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
    } ;
@@ -106,7 +110,7 @@ resource ParadigmsAra = open
     mkPN : Str -> PN        -- Fem Hum if ends with ة, otherwise Masc Hum
      = smartPN ;
     mkPN : N -> PN
-     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! c ++ n.s2 ! Sg ! Const ! c }) ; -- no idea /IL
+     = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! c ++ n.s2 ! Sg ! Def ! c }) ; -- no idea /IL
     mkPN : Str -> Gender -> Species -> PN
      = mkFullPN ;
     } ;
@@ -360,6 +364,11 @@ resource ParadigmsAra = open
      = attrN Sg ;
    mkN : Number -> N -> N -> N                                        -- Compound nouns where attribute inflects in state, case and number
      = attrN ;
+   mkN : N -> A -> N 
+     = mkAN ;
+   mkN : N -> AP -> N 
+     = mkAPN
+
    } ;
 
   attrN : Number -> N -> N -> N = \num,n1,n2 -> n1 ** {
@@ -367,6 +376,13 @@ resource ParadigmsAra = open
     s2 = \\n,s,_ => n1.s2 ! num ! s ! Gen -- attribute doesn't change
                  ++ n2.s  ! num ! s ! Gen
                  ++ n2.s2 ! num ! s ! Gen} ;
+
+  mkAN : N -> A -> N = \n,a -> mkAPN n (A.PositA a) ;
+
+  mkAPN : N -> AP -> N = \n,ap -> n ** {
+    s2 = \\num,s,c => n.s2 ! num ! s ! c
+                   ++ ap.s ! n.h ! n.g ! num ! s ! c
+    } ;
 
   dualN : N -> N = \n -> n ** {isDual=True} ;
 

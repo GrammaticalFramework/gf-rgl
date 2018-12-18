@@ -64,7 +64,7 @@ concrete StructuralAra of Structural = CatAra **
   no_Utt = {s = \\_ => "لا"} ;
   on_Prep = mkPrep "عَلَى" ;
   only_Predet = mkPredet "فَقَط" False;
---  or_Conj = ss "ْر" ** {n = Sg} ;
+  or_Conj = ss "أَوْ" ** {n = Sg} ;
 --  otherwise_PConj = ss "ْتهروِسي" ;
   part_Prep = mkPrep "مِنَ" ;
 --  please_Voc = ss "ةلَسي" ;

@@ -162,7 +162,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     AP : Type = {s : Species => Gender => NTable } ;
     uttAP : AP -> (Gender => Str) ;
-    uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Def ! Nom ; ----IL
+    uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Indef ! Bare ; ----IL
 
     CN : Type = Noun ** {np : Case => Str};
 
@@ -184,7 +184,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       } ;
 
     uttNum : NumOrdCard -> (Gender => Str) ;
-    uttNum n = \\g => n.s ! g ! Def ! Nom ;  ----IL
+    uttNum n = \\g => n.s ! g ! Def ! Bare ;  ----IL
 
   param
     VForm =
@@ -1155,7 +1155,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     --declension 2 (ends in yaa')
     dec2sg : State => Case => Str = \\s,c =>
       case <s,c> of {
-        <_,   Bare> => [] ;
         <Indef,Acc> => "ِياً" ;
         <Indef>     => "ٍ" ;
         <_,    Acc> => "ِيَ" ;
@@ -1311,13 +1310,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- e.g. some determiners act as adjectives modifying the noun they count
     -- 'the three children, two children'
     -- e.g. possesive pronouns: his book ('kitaabuhu'
-    cnB4det : Bool -> Bool -> Size -> State -> Bool = \isPron,isNum,s,d ->
-      case <isPron,isNum,s,d> of {
-        <True,_,_,_> => True;
-        <_,False,_,_> => False; --non-numerals
-        <_,True,_,Def> => True; --definite numbers act as adjectives
-        <_,True,Two,_> => True; --numerals one and two always adjectives
-        <_,True,One,_> => True; --numerals one and two always adjectives
+    cnB4det : Det -> Bool = \det ->
+      case <det.isEmpty,det.isPron,det.isNum,det.n,det.d> of {
+        <True,_,_,_,_> => True; -- hack to make liPrep work
+        <_,True,_,_,_> => True;
+        <_,_,False,_,_> => False; --non-numerals
+        <_,_,True,_,Def> => True; --definite numbers act as adjectives
+        <_,_,True,Two,_> => True; --numerals one and two always adjectives
+        <_,_,True,One,_> => True; --numerals one and two always adjectives
         _ => False
       };
 
@@ -1369,10 +1369,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       isNum : Bool;
       -- for genitive pronouns (suffixes). if true, then "cn ++ det"
       --should be used instead of "det ++ cn" when constructing the NP
-      isPron: Bool} ;
+      isPron: Bool;
+      isEmpty: Bool} ; -- to know if liPrep should attach to the noun
 
     baseQuant = { d = Indef ;
-                  is1sg,isNum,isPron = False } ;
+                  is1sg,isNum,isPron,isEmpty = False } ;
 
     Quant : Type = BaseQuant ** {
       s : ResAra.Number => Species => Gender => Case => Str
@@ -1388,9 +1389,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       isDecl : Bool
       };
 
-    Agr = { pgn : PerGenNum; isPron : Bool} ;
-    AAgr = { g : Gender ; n : Number} ;
+    Agr = {pgn : PerGenNum; isPron : Bool} ;
+    AgrLite = {gn : AAgr ; isPron : Bool} ; --used in ImpersCl
+    AAgr = {g : Gender ; n : Number} ;
 
+    agrLite : Agr -> AgrLite = \a -> a ** {gn = pgn2gn a.pgn} ;
 
 -----------------------------------------------------------------------------
 -- NP, Pron
@@ -1480,6 +1483,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         Per3 Fem  Pl => theyFem_Pron ;
         Per3 Masc Pl => theyMasc_Pron
       } ;
+
+    gn2pron : AAgr -> NP = \gn ->
+      pgn2pron (gn2pgn gn) ;
 
     pron2np : NP -> NP = \np -> np ** {
       a = np.a ** {isPron=False} -- hack, sometimes we *don't* want prodrop
@@ -1572,9 +1578,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       { s = \\pgn,vf =>
           let gn = pgn2gn pgn in
           case vf of {
-            VPPerf => v.s ! (VPerf Act pgn);
-            VPImpf m => v.s ! (VImpf m Act pgn);
-            VPImp => v.s ! (VImp gn.g gn.n)
+            VPPerf => v.s ! VPerf Act pgn ;
+            VPImpf m => v.s ! VImpf m Act pgn ;
+            VPImp => v.s ! VImp gn.g gn.n
           };
         sc = noPrep ;
         obj = emptyObj ;
@@ -1587,8 +1593,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       let actVP = predV v in actVP ** {
         s = \\pgn,vf =>
           case vf of {
-            VPPerf   => v.s ! (VPerf   Pas pgn) ;
-            VPImpf m => v.s ! (VImpf m Pas pgn) ;
+            VPPerf   => v.s ! VPerf   Pas pgn ;
+            VPImpf m => v.s ! VImpf m Pas pgn ;
             _        => actVP.s ! pgn ! vf
         }
       };
@@ -1609,7 +1615,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                          True => noPrep ; -- to prevent weird stuff with VVs, might be overly specific
                          _    => vp.sc } 
                 } ;
-            subj = np.empty ++ sc.s
+            subj = np.empty ++ sc.s ++ bindIf sc.binds
                 ++ case vp.isPred of {
                       False => (proDrop np).s ! sc.c ; -- prodrop if it's not predicative
                       True  =>           np.s ! sc.c
@@ -1694,20 +1700,20 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     Obj : Type = {
       s : Str ;
-      a : Agr -- default Agr in a VP without real Obj is Per3 Masc Sg.
+      a : AgrLite -- default Agr in a VP without real Obj is Per3 Masc Sg.
       };      -- need isPron for word order in predVP, and pgn for ImpersCl
 
     Subj : Type = {s : Case => Str ; isPron : Bool} ;
 
     np2subj : NP -> Subj = \np -> np ** {isPron = np.a.isPron} ;
     subj2np : Subj -> NP = \su -> su ** {a = {pgn = emptyNP.a.pgn ; isPron = su.isPron} ; empty=[]} ;
-    emptyObj : Obj = emptyNP ** {s=[]} ;
+    emptyObj : Obj = {a = {gn = {g=Masc ; n=Sg} ; isPron = False}; s = []} ;
 
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** { 
       obj = {s = vp.obj.s -- old object, if there was one
               ++ bindIfPron np vp -- new object, bind if pronoun and not pred
               ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V
-             a = np.a} 
+             a = agrLite np.a} 
       } ;
 
     bindIf : Bool -> Str = \b -> if_then_Str b BIND [] ;
@@ -1844,29 +1850,30 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       { s = table {
           unit => table {
               NCard => table {
-                Masc => \\s,c => Al ! s + "ٱِثن" + dl ! s ! c ;
-                Fem => \\s,c => Al ! s + "ٱِثنَت" + dl ! s ! c
+                Masc => \\s,c => defArt s c "ٱِثن" + dl ! s ! c ;
+                Fem => \\s,c => defArt s c "ٱِثنَت" + dl ! s ! c
                 };
               NOrd => table {
-                Masc => \\s,c => Al ! s + "ثان" + dec2sg ! s ! c ;
-                Fem => \\s,c => Al ! s + "ثانِيَة" + dec1sg ! s ! c
+                Masc => \\s,c => defArt s c "ثَان" + dec2sg ! s ! c ;
+                Fem => \\s,c => defArt s c "ثَانِيَة" + dec1sg ! s ! c
+
                 }
             };
-          ten => \\_,_,s,c => Al ! s + "عِشر" + m_pl ! Indef ! c
+          ten => \\_,_,s,c => defArt s c "عِشر" + m_pl ! Indef ! c
           }
       };
 
     num100 : State => Case => Str =
-      \\s,c => Al ! s + "مِٱَة" + dec1sg ! s ! c;
+      \\s,c => defArt s c "مِٱَة" + dec1sg ! s ! c;
 
     num200 : State => Case => Str =
-      \\s,c => Al ! s + "مِٱَة" + dl ! s ! c ;
+      \\s,c => defArt s c "مِٱَة" + dl ! s ! c ;
 
     num1000 : State => Case => Str =
-      \\s,c => Al ! s + "أَلف" + dec1sg ! s ! c;
+      \\s,c => defArt s c "أَلف" + dec1sg ! s ! c;
 
     num2000 : State => Case => Str =
-      \\s,c => Al ! s + "أَلف" + dl ! s ! c ;
+      \\s,c => defArt s c "أَلف" + dl ! s ! c ;
 
     teen : Gender => Str =
       table {

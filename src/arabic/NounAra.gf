@@ -13,7 +13,7 @@ lin
                          _  => Dl } ;
                 False => sizeToNumber det.n } ;
     determiner : Case -> Str = \c ->
-      det.s ! cn.h ! (detGender cn.g det.n) ! c ;
+      det.s ! cn.h ! detGender cn.g det.n ! c ;
     noun : Case -> Str = \c -> 
       cn.s ! number 
            ! nounState det.d number 
@@ -23,16 +23,17 @@ lin
             ! (definite ! det.d) -- Indef remains Indef, rest become Def
             ! c
     } in {
-      s = \\c =>
-        case cnB4det det.isPron det.isNum det.n det.d of {
-          False => determiner c 
-                ++ noun c 
-                ++ adj c
-                ++ cn.np ! c ; 
+      s = \\c => -- Dat is just a hack for liPrep
+        let c' = case c of {Dat => Gen ; x => x} in
+        case cnB4det det of {
+          False => determiner c'
+                ++ noun c'
+                ++ adj c'
+                ++ cn.np ! c' ;
           True => noun (cas c) -- deal with possessive suffix
-               ++ determiner c -- (nounCase c det.n det.d) --??
-               ++ adj c
-               ++ cn.np ! c
+               ++ determiner c'
+               ++ adj c'
+               ++ cn.np ! c'
         };  
       a = { pgn = agrP3 cn.h cn.g number;
             isPron = False } ;
@@ -81,10 +82,10 @@ lin
                ! case d of {Poss => Def ; _ => d}
                ! c ;
     n = num.n;
-    isNum = orB num.isNum ord.isNum ;
+    isNum = orB num.isNum ord.isNum  ;
     -- ord may come from OrdDigits or OrdNumeral
     -- num may come from NumCard : Card -> Num
-
+    isEmpty = False
     } ;
 
   DetQuant quant num = quant ** {
@@ -95,15 +96,18 @@ lin
       case num.n of {
         None => False;
         _    => num.isNum
-      }
+      } ;
+    isEmpty = 
+      case quant.isEmpty of {
+        True => notB num.isNum ;
+        _    => False }
     } ;
 
-  PossPron p = {
+  PossPron p = baseQuant ** {
     s = \\_,_,_,_ => BIND ++ p.s ! Gen;
     d = Poss;
     is1sg = case p.a.pgn of { Per1 Sing => True ; _ => False } ;
-    isPron = True;
-    isNum = False } ;
+    isPron = True} ;
 
   NumSg = {
     s = \\_,_,_ => [] ;
@@ -154,20 +158,21 @@ lin
   DefArt = {
     s = \\_,_,_,_ => [];
     d = Def ;
-    isNum,isPron,is1sg = False
+    isNum,isPron,is1sg = False ;
+    isEmpty = True
     } ;
 
   IndefArt = {
     s = \\_,_,_,_ => [];
     d = Indef ;
-    isNum,isPron,is1sg = False
+    isNum,isPron,is1sg = False ;
+    isEmpty = True
     } ;
 
   MassNP cn =
     {s = \\c => cn2str cn Sg Indef c ; 
      a = {pgn = Per3 cn.g Sg ; isPron = False} ;
      empty = []} ;
-
 
   UseN,
   UseN2 = useN ;
