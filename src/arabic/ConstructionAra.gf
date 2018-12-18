@@ -1,4 +1,4 @@
-concrete ConstructionAra of Construction = CatAra ** open 
+concrete ConstructionAra of Construction = CatAra ** open
   Prelude,
   ParadigmsAra,
   SyntaxAra,
@@ -7,7 +7,7 @@ concrete ConstructionAra of Construction = CatAra ** open
   (E=ExtendAra),
   (R=ResAra),
   (L=LexiconAra) in {
-	
+
 lincat
   Timeunit = N ;
   Weekday = N ;
@@ -17,7 +17,7 @@ lincat
 
 lin
 
-  timeunitAdv n time = 
+  timeunitAdv n time =
   let n_card : Card   = n ;
       n_hours_NP : NP = mkNP n_card time ;
   in  SyntaxAra.mkAdv during_Prep n_hours_NP | ParadigmsAra.mkAdv (n_hours_NP.s ! R.Nom) ;
@@ -29,7 +29,13 @@ lin
   weekdayNextAdv,                        -- next Sunday
   weekdayLastAdv = weekdayPunctualAdv ;  -- last Sunday
 
-  monthAdv m = SyntaxAra.mkAdv R.biPrep (mkNP (mkN month_Timeunit m)) ;
+  monthAdv january =
+    let january_CN : CN = mkCN month_Timeunit (mkNP (mkPN january)) ;
+        january_NP : NP = R.emptyNP **
+           {s = \\c => R.cn2str january_CN R.Sg R.Const c ;
+            a = {pgn = R.Per3 january_CN.g R.Sg ; isPron = False}} ;
+     in SyntaxAra.mkAdv R.biPrep january_NP ;
+
   yearAdv y = SyntaxAra.mkAdv in_Prep y ;
 
   -- dummy
@@ -49,14 +55,14 @@ oper
 
 lin
   -- : NP -> NP -> Cl
-  have_name_Cl np nm = 
+  have_name_Cl np nm =
     let subjPron : Pron = R.np2pron np ;
         me : NP = toNP np.a.isPron np ;
         myName : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
      in mkCl myName nm ;
 
   -- : NP -> QCl
-  what_name_QCl np = 
+  what_name_QCl np =
     let subjPron : Pron = R.np2pron np ;
         me : R.NP = toNP np.a.isPron np ;
         myName : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
@@ -105,18 +111,18 @@ lin friday_Weekday = mkN day_Timeunit (mkN "جُمْعَة") ;
 lin saturday_Weekday = mkN day_Timeunit (mkN "سَبْت") ;
 lin sunday_Weekday = mkN day_Timeunit (mkN "أَحَد") ;
 
-lin january_Month = mkN (mkN "كَانُون") (mkN "ثَانِي") ; -- TODO: something wrong with "ثَانِي"
+lin january_Month = mkN (mkN "كَانُون") (mkAP (mkOrd (mkNumeral n2_Unit))) ;
 lin february_Month = mkN "شُبَاط" ;
-lin march_Month = mkN "March" ; 
-lin april_Month = mkN "April" ;
-lin may_Month = mkN "May" ;
-lin june_Month = mkN "June" ;
-lin july_Month = mkN "July" ;
-lin august_Month = mkN "August" ;
-lin september_Month = mkN "September" ;
-lin october_Month = mkN "October" ;
-lin november_Month = mkN "November" ;
-lin december_Month = mkN "December" ;
+lin march_Month = mkN "آذَار" ;
+lin april_Month = mkN "نَيْسَان" ;
+lin may_Month = mkN "أَيَّار" ;
+lin june_Month = mkN "حَزِيرَان" ;
+lin july_Month = mkN "تَمُّوز" ;
+lin august_Month = mkN "آب" ;
+lin september_Month = mkN "أَيْلُول" ;
+lin october_Month = mkN (mkN "تِشْرِين") (mkAP (mkOrd (mkNumeral n1_Unit))) ;
+lin november_Month = mkN (mkN "تِشْرِين") (mkAP (mkOrd (mkNumeral n2_Unit))) ;
+lin december_Month = mkN (mkN "كَانُون") (mkAP (mkOrd (mkNumeral n1_Unit))) ;
 
 -- lin afrikaans_Language = mkLanguage "Afrikaans" ;
 -- lin amharic_Language = mkLanguage "Amharic" ;
