@@ -22,9 +22,14 @@ PossNP,PartNP {"of"} ADP case nmod
 @V  Inf Pres PastPart PresPart Past
 @V2 Inf Pres PastPart PresPart Past
 @VS Inf Pres PastPart PresPart Past
-@Quant Sg Pl Sg Pl
+@Quant Sg Pl Sg Pl -- and many more
 @Det Nom Gen Acc
 @A Pos PosGen Comp CompGen Sup SupGen
+@"am" PresSg1
+@"is" PresSg3
+@"are" PresPl
+
+
 
 
 
