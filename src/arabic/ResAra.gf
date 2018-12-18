@@ -1849,29 +1849,30 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       { s = table {
           unit => table {
               NCard => table {
-                Masc => \\s,c => Al ! s + "ٱِثن" + dl ! s ! c ;
-                Fem => \\s,c => Al ! s + "ٱِثنَت" + dl ! s ! c
+                Masc => \\s,c => defArt s c "ٱِثن" + dl ! s ! c ;
+                Fem => \\s,c => defArt s c "ٱِثنَت" + dl ! s ! c
                 };
               NOrd => table {
-                Masc => \\s,c => Al ! s + "ثان" + dec2sg ! s ! c ;
-                Fem => \\s,c => Al ! s + "ثانِيَة" + dec1sg ! s ! c
+                Masc => \\s,c => defArt s c "ثَان" + dec2sg ! s ! c ;
+                Fem => \\s,c => defArt s c "ثَانِيَة" + dec1sg ! s ! c
+
                 }
             };
-          ten => \\_,_,s,c => Al ! s + "عِشر" + m_pl ! Indef ! c
+          ten => \\_,_,s,c => defArt s c "عِشر" + m_pl ! Indef ! c
           }
       };
 
     num100 : State => Case => Str =
-      \\s,c => Al ! s + "مِٱَة" + dec1sg ! s ! c;
+      \\s,c => defArt s c "مِٱَة" + dec1sg ! s ! c;
 
     num200 : State => Case => Str =
-      \\s,c => Al ! s + "مِٱَة" + dl ! s ! c ;
+      \\s,c => defArt s c "مِٱَة" + dl ! s ! c ;
 
     num1000 : State => Case => Str =
-      \\s,c => Al ! s + "أَلف" + dec1sg ! s ! c;
+      \\s,c => defArt s c "أَلف" + dec1sg ! s ! c;
 
     num2000 : State => Case => Str =
-      \\s,c => Al ! s + "أَلف" + dl ! s ! c ;
+      \\s,c => defArt s c "أَلف" + dl ! s ! c ;
 
     teen : Gender => Str =
       table {
