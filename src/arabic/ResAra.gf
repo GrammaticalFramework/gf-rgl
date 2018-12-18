@@ -1155,7 +1155,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     --declension 2 (ends in yaa')
     dec2sg : State => Case => Str = \\s,c =>
       case <s,c> of {
-        <_,   Bare> => [] ;
         <Indef,Acc> => "ِياً" ;
         <Indef>     => "ٍ" ;
         <_,    Acc> => "ِيَ" ;
@@ -1311,13 +1310,14 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- e.g. some determiners act as adjectives modifying the noun they count
     -- 'the three children, two children'
     -- e.g. possesive pronouns: his book ('kitaabuhu'
-    cnB4det : Bool -> Bool -> Size -> State -> Bool = \isPron,isNum,s,d ->
-      case <isPron,isNum,s,d> of {
-        <True,_,_,_> => True;
-        <_,False,_,_> => False; --non-numerals
-        <_,True,_,Def> => True; --definite numbers act as adjectives
-        <_,True,Two,_> => True; --numerals one and two always adjectives
-        <_,True,One,_> => True; --numerals one and two always adjectives
+    cnB4det : Det -> Bool = \det ->
+      case <det.isEmpty,det.isPron,det.isNum,det.n,det.d> of {
+        <True,_,_,_,_> => True; -- hack to make liPrep work
+        <_,True,_,_,_> => True;
+        <_,_,False,_,_> => False; --non-numerals
+        <_,_,True,_,Def> => True; --definite numbers act as adjectives
+        <_,_,True,Two,_> => True; --numerals one and two always adjectives
+        <_,_,True,One,_> => True; --numerals one and two always adjectives
         _ => False
       };
 
@@ -1369,10 +1369,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       isNum : Bool;
       -- for genitive pronouns (suffixes). if true, then "cn ++ det"
       --should be used instead of "det ++ cn" when constructing the NP
-      isPron: Bool} ;
+      isPron: Bool;
+      isEmpty: Bool} ; -- to know if liPrep should attach to the noun
 
     baseQuant = { d = Indef ;
-                  is1sg,isNum,isPron = False } ;
+                  is1sg,isNum,isPron,isEmpty = False } ;
 
     Quant : Type = BaseQuant ** {
       s : ResAra.Number => Species => Gender => Case => Str
@@ -1614,7 +1615,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                          True => noPrep ; -- to prevent weird stuff with VVs, might be overly specific
                          _    => vp.sc } 
                 } ;
-            subj = np.empty ++ sc.s
+            subj = np.empty ++ sc.s ++ bindIf sc.binds
                 ++ case vp.isPred of {
                       False => (proDrop np).s ! sc.c ; -- prodrop if it's not predicative
                       True  =>           np.s ! sc.c

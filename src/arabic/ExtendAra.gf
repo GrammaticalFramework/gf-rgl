@@ -20,7 +20,7 @@ concrete ExtendAra of Extend =
   in {
 
   lin
-    GenNP np = {s = \\_,_,_,_ => np.s ! Gen ; d = Const ; isNum,isPron,is1sg = False} ;
+    GenNP np = baseQuant ** {s = \\_,_,_,_ => np.s ! Gen ; d = Const} ;
 
     -- : NP -> NP -> NP
     ApposNP np1 np2 = np2 ** {s = \\c => np1.s ! c ++ np2.s ! c} ;
