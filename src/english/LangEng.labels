@@ -16,6 +16,14 @@ ExistNPAdv,ExistNP {"is","are","am","was","were""been","be"} VERB cop head
 ExistNPAdv,ExistNP {"there"} PART expl head
 PossNP,PartNP {"of"} ADP case nmod
 
+@Pron Nom Acc
+@N Sg SgGen Pl PlGen
+@V  Inf Pres PastPart PresPart Past
+@V2 Inf Pres PastPart PresPart Past
+@VS Inf Pres PastPart PresPart Past
+@Quant Sg Pl Sg Pl
+@Det Nom Gen Acc
+@A Pos PosGen Comp CompGen Sup SupGen
 
 
 
