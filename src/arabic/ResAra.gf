@@ -1049,8 +1049,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- determine the declension and gives the corresponding inf table
     brkPl : Str -> State => Case => Str = \word ->
       \\s,c => defArt s c (case word of {
-        lemma + "ِيّ" => fixShd word  (decNisba ! s ! c) ;
-        lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ;
+        lemma + "ِيّ" => fixShd word  (dec1sg ! s ! c) ; -- nisba
+        lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ; -- 2nd declension
         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
         lemma + (#hamza|#hamzaseat)
                       => word + dec1sgNoDoubleAlif ! s ! c ;
@@ -1168,16 +1168,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         <Indef,Bare> => [] ;
         <Indef>      => "ً" ;
         _            => []
-      };
-
-    --declension 2 (ends in yaa')
-    decNisba : State => Case => Str = \\s,c =>
-      case <s,c> of {
-        <_,   Bare> => [] ;
-        <Indef,Acc> => "اً" ;
-        <Indef>     => "ٍ" ;
-        <_,    Acc> => "َ" ;
-        _           => []
       };
 
     --dual suffixes
