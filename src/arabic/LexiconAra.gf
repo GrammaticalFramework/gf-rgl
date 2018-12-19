@@ -18,8 +18,7 @@ flags
   ask_V2Q      = dirV2 (regV "يَسءَل") ;
 --  ask_V2Q      = dirV2 (v1 "سءل" a a) ;
   baby_N       = brkN "طفل" "فِعل" "أَفعَال" Masc Hum;
---  bad_A        = sndA "سوء" "فَيِّع" ;
-  bad_A        = degrA "سَيِّئ" "سَيِّئَة" "سَيِّئِين" ;
+  bad_A        = sndA "سوء" "فَيِّع" ;
   bank_N       = brkN "بنك" "فَعل" "فُعُول" Masc NoHum ;
   beautiful_A  = sndA "جمل" "فَعِيل" ;
   become_VA    = mkVA (v4 "صبح") ;

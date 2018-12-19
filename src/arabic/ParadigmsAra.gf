@@ -368,7 +368,6 @@ resource ParadigmsAra = open
      = mkAN ;
    mkN : N -> AP -> N 
      = mkAPN
-
    } ;
 
   attrN : Number -> N -> N -> N = \num,n1,n2 -> n1 ** {

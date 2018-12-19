@@ -45,7 +45,7 @@ concrete StructuralAra of Structural = CatAra **
     s = \\g,s,c => "كَمْ عَدَد" + caseTbl ! c ;
     n = Pl ; d = Def 
     } ; -- IL
-
+  how8much_IAdv = ss "كَمْ" ;
   if_Subj = mkSubj "إِذَا" Verbal ;
   in8front_Prep = mkPrep "مُقَابِلَ" ;
   i_Pron  = ResAra.i_Pron ;

@@ -4,7 +4,6 @@ resource MissingAra = open GrammarAra, Prelude in {
 oper AdAdv : AdA -> Adv -> Adv = notYet "AdAdv" ;
 oper AdVVP : AdV -> VP -> VP = notYet "AdVVP" ;
 oper AdnCAdv : CAdv -> AdN = notYet "AdnCAdv" ;
-oper AdvIAdv : IAdv -> Adv -> IAdv = notYet "AdvIAdv" ;
 oper BaseRS : RS -> RS -> ListRS = notYet "BaseRS" ;
 oper CAdvAP : CAdv -> AP -> NP -> AP = notYet "CAdvAP" ;
 oper CleftNP : NP -> RS -> Cl = notYet "CleftNP" ;

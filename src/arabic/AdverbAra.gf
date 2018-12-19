@@ -11,7 +11,7 @@ concrete AdverbAra of Adverb = CatAra ** open ResAra, Prelude in {
     --   s = cadv.s ++ a.s ! AAdv ++ "مِنْ" ++ s.s
     --   } ;
 
-    PrepNP prep np = {s = prep.s ++ bindIf prep.binds ++ np.s ! prep.c} ;
+    PrepNP prep np = {s = prep.s ++ bindIf (orB np.a.isPron prep.binds) ++ np.s ! prep.c} ;
 
     AdAdv ad av = cc2 av ad ;
 
