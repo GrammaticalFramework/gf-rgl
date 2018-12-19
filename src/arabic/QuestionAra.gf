@@ -63,26 +63,28 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
     s = \\isPred,g,s,c => ip.s ! isPred ! g ! s ! c ++ adv.s ;
     } ;
 
-   -- : IDet -> IP
-   IdetIP idet = idet ** { 
-     s = \\isPred => idet.s ;
-     a = { pgn = agrP3 NoHum Masc idet.n ; isPron = False }
-     } ;
+  AdvIAdv iadv adv = {s = iadv.s ++ adv.s} ;
 
-   -- : IDet -> CN -> IP
-   IdetCN idet cn = {
-     s = \\isPred,g,s,c 
+  -- : IDet -> IP
+  IdetIP idet = idet ** { 
+    s = \\isPred => idet.s ;
+    a = { pgn = agrP3 NoHum Masc idet.n ; isPron = False }
+    } ;
+
+  -- : IDet -> CN -> IP
+  IdetCN idet cn = {
+    s = \\isPred,g,s,c 
           => idet.s ! cn.g ! s ! c ++
              cn2str cn idet.n idet.d Gen ;
-     a = { pgn = agrP3 NoHum cn.g idet.n ; isPron = False }
-     } ;
+    a = { pgn = agrP3 NoHum cn.g idet.n ; isPron = False }
+    } ;
 
    -- : IQuant -> Num -> IDet
-   IdetQuant iquant num = {
-     s = \\g,s,c =>
+  IdetQuant iquant num = {
+    s = \\g,s,c =>
           let gend = detGender g num.n -- gender flips with some numbers
           in  iquant.s ! s ! c ++ num.s ! gend ! s ! c ;
-     n = sizeToNumber num.n ;
-     d = Indef ---- TODO check
-     } ;
+    n = sizeToNumber num.n ;
+    d = Indef ---- TODO check
+    } ;
 }
