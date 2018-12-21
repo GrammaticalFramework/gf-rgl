@@ -80,6 +80,7 @@ resource ParadigmsAra = open
    mkN : N -> N -> N ;            -- Compound noun with singular genitive attribute, but inflects in state.
    mkN : Number -> N -> N -> N ;  -- Compound noun with genitive attribute, but inflects in state. Attribute's number specified by 1st arg.
    mkN : N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state, case and number.
+   mkN : Number -> N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state and case. Adjective's number specified by 1st arg.
    mkN : N -> AP -> N  ;          -- Force AP modifier into the noun. AP inflects in state, case and number.
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
@@ -102,6 +103,8 @@ resource ParadigmsAra = open
 --takes a root string, a singular pattern string, a gender,
 --and species. Gives a noun whose plural is sound masculine
   sdmN : Str -> Str -> Gender -> Species -> N ;
+
+
 
 
 --3 Proper names
@@ -185,7 +188,7 @@ resource ParadigmsAra = open
   mkSubj : overload {
     mkSubj : Str -> Subj ;        -- Default order Subord (=noun first and in accusative)
     mkSubj : Str -> Order -> Subj -- Specify word order
-  } ; 
+  } ;
 
 --2 Prepositions
 --
@@ -364,9 +367,11 @@ resource ParadigmsAra = open
      = attrN Sg ;
    mkN : Number -> N -> N -> N                                        -- Compound nouns where attribute inflects in state, case and number
      = attrN ;
-   mkN : N -> A -> N 
+   mkN : N -> A -> N
      = mkAN ;
-   mkN : N -> AP -> N 
+   mkN : Number -> N -> A -> N
+     = \num,n,a -> mkAPNumN n (A.PositA a) num ;
+   mkN : N -> AP -> N
      = mkAPN
    } ;
 
@@ -382,6 +387,11 @@ resource ParadigmsAra = open
     s2 = \\num,s,c => n.s2 ! num ! s ! c
                    ++ ap.s ! n.h ! n.g ! num ! s ! c
     } ;
+
+  mkAPNumN : N -> AP -> Number -> N = \n,ap,forceNum -> n ** {
+    s2 = \\num,s,c => n.s2 ! num ! s ! c
+                   ++ ap.s ! Hum ! n.g ! forceNum ! s ! c
+    } ; -- Hum because we want to override the smartness in number agreement
 
   dualN : N -> N = \n -> n ** {isDual=True} ;
 
@@ -543,13 +553,15 @@ resource ParadigmsAra = open
     };
 
   sdfN =
-    \root,sg,gen,spec ->
-    let { kalimaStr = mkWord sg root;
-          kalimaRaw : NTable = case gen of {
+    \root,sg,gen,spec -> let {
+      kalimaStr = case root of {
+        x@? + y@? + "ي" => mkDefectiveAlifMaqsura (mkPat sg) (mkRoot3 root) ;
+        _               => mkWord sg root } ;
+      kalimaRaw : NTable = case gen of {
             Fem  =>    sndf kalimaStr ;
-            Masc => sgMsndf kalimaStr } ;
-          kalima : NTable = \\n,d,c =>
-            rectifyHmz (kalimaRaw ! n ! d ! c)
+            Masc => sgMsndf kalimaStr } ; -- TODO this isn't actually the case of gender, add an argument
+      kalima : NTable = \\n,d,c =>
+         rectifyHmz (kalimaRaw ! n ! d ! c)
     } in mkFullN kalima gen spec;
 
   sdmN =
@@ -690,7 +702,7 @@ resource ParadigmsAra = open
   mkSubj = overload {
     mkSubj : Str -> Subj = \s -> lin Subj {s = s ; o = Subord} ;
     mkSubj : Str -> Order -> Subj = \s,o -> lin Subj {s = s ; o = o} ;
-  } ; 
+  } ;
 
   dirV2 v = prepV2 v (casePrep acc) ;
 

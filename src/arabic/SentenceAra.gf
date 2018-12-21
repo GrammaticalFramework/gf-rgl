@@ -58,10 +58,10 @@ concrete SentenceAra of Sentence = CatAra ** open
 --  SlashVS np vs sslash = TODO
 
 
---    EmbedS  s  = {s = conjThat ++ s.s} ;
---    EmbedQS qs = {s = qs.s ! QIndir} ;
---    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
---
+  EmbedS  s  = {s = "أَنْ" ++ s.s ! Verbal} ;
+  EmbedQS qs = {s = qs.s ! QIndir} ;
+  EmbedVP vp = {s = uttVP vp ! Masc} ;
+
 
     UseCl t p cl =
       {s = \\o => t.s ++ p.s ++
