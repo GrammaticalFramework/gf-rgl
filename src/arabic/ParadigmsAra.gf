@@ -80,6 +80,7 @@ resource ParadigmsAra = open
    mkN : N -> N -> N ;            -- Compound noun with singular genitive attribute, but inflects in state.
    mkN : Number -> N -> N -> N ;  -- Compound noun with genitive attribute, but inflects in state. Attribute's number specified by 1st arg.
    mkN : N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state, case and number.
+   mkN : Number -> N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state and case. Adjective's number specified by 1st arg.
    mkN : N -> AP -> N  ;          -- Force AP modifier into the noun. AP inflects in state, case and number.
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
@@ -368,6 +369,8 @@ resource ParadigmsAra = open
      = attrN ;
    mkN : N -> A -> N
      = mkAN ;
+   mkN : Number -> N -> A -> N
+     = \num,n,a -> mkAPNumN n (A.PositA a) num ;
    mkN : N -> AP -> N
      = mkAPN
    } ;
@@ -384,6 +387,11 @@ resource ParadigmsAra = open
     s2 = \\num,s,c => n.s2 ! num ! s ! c
                    ++ ap.s ! n.h ! n.g ! num ! s ! c
     } ;
+
+  mkAPNumN : N -> AP -> Number -> N = \n,ap,forceNum -> n ** {
+    s2 = \\num,s,c => n.s2 ! num ! s ! c
+                   ++ ap.s ! Hum ! n.g ! forceNum ! s ! c
+    } ; -- Hum because we want to override the smartness in number agreement
 
   dualN : N -> N = \n -> n ** {isDual=True} ;
 
