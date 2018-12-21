@@ -104,6 +104,8 @@ resource ParadigmsAra = open
   sdmN : Str -> Str -> Gender -> Species -> N ;
 
 
+
+
 --3 Proper names
 
   mkPN = overload {
@@ -185,7 +187,7 @@ resource ParadigmsAra = open
   mkSubj : overload {
     mkSubj : Str -> Subj ;        -- Default order Subord (=noun first and in accusative)
     mkSubj : Str -> Order -> Subj -- Specify word order
-  } ; 
+  } ;
 
 --2 Prepositions
 --
@@ -364,9 +366,9 @@ resource ParadigmsAra = open
      = attrN Sg ;
    mkN : Number -> N -> N -> N                                        -- Compound nouns where attribute inflects in state, case and number
      = attrN ;
-   mkN : N -> A -> N 
+   mkN : N -> A -> N
      = mkAN ;
-   mkN : N -> AP -> N 
+   mkN : N -> AP -> N
      = mkAPN
    } ;
 
@@ -543,13 +545,15 @@ resource ParadigmsAra = open
     };
 
   sdfN =
-    \root,sg,gen,spec ->
-    let { kalimaStr = mkWord sg root;
-          kalimaRaw : NTable = case gen of {
+    \root,sg,gen,spec -> let {
+      kalimaStr = case root of {
+        x@? + y@? + "ي" => mkDefectiveAlifMaqsura (mkPat sg) (mkRoot3 root) ;
+        _               => mkWord sg root } ;
+      kalimaRaw : NTable = case gen of {
             Fem  =>    sndf kalimaStr ;
-            Masc => sgMsndf kalimaStr } ;
-          kalima : NTable = \\n,d,c =>
-            rectifyHmz (kalimaRaw ! n ! d ! c)
+            Masc => sgMsndf kalimaStr } ; -- TODO this isn't actually the case of gender, add an argument
+      kalima : NTable = \\n,d,c =>
+         rectifyHmz (kalimaRaw ! n ! d ! c)
     } in mkFullN kalima gen spec;
 
   sdmN =
@@ -690,7 +694,7 @@ resource ParadigmsAra = open
   mkSubj = overload {
     mkSubj : Str -> Subj = \s -> lin Subj {s = s ; o = Subord} ;
     mkSubj : Str -> Order -> Subj = \s,o -> lin Subj {s = s ; o = o} ;
-  } ; 
+  } ;
 
   dirV2 v = prepV2 v (casePrep acc) ;
 

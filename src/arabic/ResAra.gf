@@ -55,6 +55,13 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
        _ => error ("mkRoot2: too short root" ++ fcl)
       };
 
+    mkPat : Str -> Pattern = \pat ->
+      case pat of {
+        w + "ف" + x + "ع" + y + "ل" + z 
+          => { h = w ; m1 = x; m2 = y; t = z} ;
+        w + "ف" + x + ("ع"|"ل") + y
+          => { h = w ; m1 = x; m2 = ""; t = y}
+      } ;
     --opers to interdigitize (make words out of roots and patterns:
 
   oper
@@ -64,6 +71,9 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     mkDefective : Pattern -> Root3 -> Str = \p,fcl ->
       p.h + fcl.f + p.m1 + fcl.c + p.t;
+
+    mkDefectiveAlifMaqsura : Pattern -> Root3 -> Str = \p,fcl ->
+      p.h + fcl.f + p.m1 + fcl.c + p.t + "َى" ;
 
     mkHollow : Pattern -> Root3 -> Str = \p,fcl ->
       p.h + fcl.f + p.m1 + fcl.l + p.t;
@@ -85,14 +95,13 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     --takes a pattern string and root string and makes a word
     mkWord : Str -> Str -> Str  =\pS, rS ->
+      let pat = mkPat pS in
       case pS of {
         w + "ف" + x + "ع" + y + "ل" + z =>
-          let pat = { h = w ; m1 = x; m2 = y; t = z} in
           case rS of {
-            x@? + y@? + "ّ" => mkStrong pat (mkRoot3 (x+y+y)) ; -- In principle, shadda shouldn't be in the root, but if someone puts one, this should fix it. /IL
+            x@? + y@? + "ّ" => mkStrong pat (mkRoot3 (x+y+y)) ; -- In principle, shadda shouldn't be in the root when dealing with strong inflection, but if someone puts one, this should fix it. /IL
             _               => mkStrong pat (mkRoot3 rS) } ;
         w + "ف" + x + "ع" + y =>
-          let pat = { h = w ; m1 = x; m2 = ""; t = y} in
           case rS of {
                x + "ّ" => mkBilit pat (mkRoot2 x) ; -- fc~
                x@? + y@? + ("و"|"ي")
@@ -1016,7 +1025,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     --takes the sound noun in singular and gives the
     --complete noun inflection table of sound feminine plural
-    sndf : Str -> NTable  =
+    sndf : Str -> NTable =
       \lawHa ->
       table {
         Sg => sing lawHa ;
@@ -1049,7 +1058,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     -- determine the declension and gives the corresponding inf table
     brkPl : Str -> State => Case => Str = \word ->
       \\s,c => defArt s c (case word of {
-        lemma + "ِيّ" => fixShd word  (dec1sg ! s ! c) ; -- nisba
         lemma + "ِي"  => fixShd lemma (dec2sg ! s ! c) ; -- 2nd declension
         _ + ("ا"|"ى") => fixShd word  (dec3sg ! s ! c) ;
         lemma + (#hamza|#hamzaseat)
@@ -1219,6 +1227,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
           }
       };
 
+    -- TODO: this isn't actually because of gender, it "just happens".
+    -- Refactor the whole sdfN and make variant with a parameter 
+    -- whether to insert a و or ه or something else /IL
     mkAtMasc : Str -> Str = \x ->
       case x of {
         y + "ة"  => y + "ات";
