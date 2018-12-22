@@ -1,15 +1,15 @@
---# -path=alltenses:.:../abstract
+--# -path=alltenses:.:../abstract:../common:../prelude:../romance:../api
 
 concrete ConstructionPor of Construction = CatPor **
   open SyntaxPor, SymbolicPor, ParadigmsPor, BeschPor,
-  (L = LexiconPor), (E = ExtraPor), (B = IrregBeschPor), (R = ResPor),
+  (L = LexiconPor), (B = IrregBeschPor), (R = ResPor),
   (S = SyntaxPor), (C = CommonRomance), CommonRomance,
        Prelude in {
   flags coding=utf8 ;
 
 lin
-  hungry_VP = E.ComplCN have_V2 (mkCN (mkN "fome" feminine)) ;
-  thirsty_VP = E.ComplCN have_V2 (mkCN (mkN "sede" feminine)) ;
+  hungry_VP = mkVP have_V2 (mkNP (mkN "fome" feminine)) ;
+  thirsty_VP = mkVP have_V2 (mkNP (mkN "sede" feminine)) ;
   tired_VP = mkVP (mkA "cansado") ;
   scared_VP = mkVP (mkA "assustado") ;
   ill_VP = mkVP (mkA "doente") ;
@@ -26,7 +26,7 @@ lin
 -- some more things
   weather_adjCl ap = mkCl (mkVP (mkVA B.fazer_V) (lin AP ap)) ;
 
-  is_right_VP = E.ComplCN have_V2 (mkCN (mkN "razão")) ;
+  is_right_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "certo")) ;
   is_wrong_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "errado")) ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
