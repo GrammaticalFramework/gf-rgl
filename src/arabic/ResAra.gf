@@ -1494,7 +1494,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
 
     reflPron : Case -> PerGenNum -> Str = \c,pgn ->
       let pron : NP = pgn2pron pgn
-       in "نَفْس" + caseTbl ! c ++ pron.s ! Gen ;
+       in "نَفْس" + caseTbl ! c ++ BIND ++ pron.s ! Gen ;
 
     reflV : Verb -> Verb = \v -> v ** {
       s = \\vf => case vf of {
