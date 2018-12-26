@@ -6,8 +6,11 @@ flags optimize = all ;--noexpand;
   oper
 
     mkDet : Str -> Number -> State -> Det
-      = \word,num,state -> baseQuant **
-      { s = \\_,_,c => word + caseTbl ! c ;
+      = mkDetDecl True ;
+
+    mkDetDecl : Bool -> Str -> Number -> State -> Det
+      = \decl,word,num,state -> baseQuant **
+      { s = \\_,_,c => word + if_then_Str decl (caseTbl ! c) [] ;
         n = numberToSize num;
         d = state;  --only Const is used now. check StructuralAra
       } ;

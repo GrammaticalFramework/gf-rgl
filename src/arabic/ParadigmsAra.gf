@@ -362,7 +362,7 @@ resource ParadigmsAra = open
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
      = brkN ;
    mkN : N -> (attr : Str) -> N                                       -- Compound nouns with noninflecting attribute
-     = \n,attr -> n ** {s2 = \\n,s,c => attr} ;
+     = \n,attr -> n ** {s2 = \\num,s,c => n.s2 ! num ! s ! c ++ attr} ;
    mkN : N -> N -> N                                                  -- Compound nouns where attribute inflects in state and case but not number
      = attrN Sg ;
    mkN : Number -> N -> N -> N                                        -- Compound nouns where attribute inflects in state, case and number
@@ -723,8 +723,8 @@ resource ParadigmsAra = open
 
   dirdirV3 v = dirV3 v (casePrep acc) ;
 
-  mkVS  v = v ** {lock_VS = <>} ;
-  mkVQ  v = v ** {lock_VQ = <>} ;
+  mkVS v = lin VS (v ** {o = Subord}) ;
+  mkVQ v = lin VQ v ;
 
   regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;
   c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep ; sc = noPrep} ;

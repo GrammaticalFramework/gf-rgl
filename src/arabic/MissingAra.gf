@@ -22,7 +22,6 @@ oper PredSCVP : SC -> VP -> Cl = notYet "PredSCVP" ;
 oper ProgrVP : VP -> VP = notYet "ProgrVP" ;
 oper ReflA2 : A2 -> AP = notYet "ReflA2" ;
 oper ReflVP : VPSlash -> VP = notYet "ReflVP" ;
-oper SentAP : AP -> SC -> AP = notYet "SentAP" ;
 oper SentCN : CN -> SC -> CN = notYet "SentCN" ;
 oper SlashPrep : Cl -> Prep -> ClSlash = notYet "SlashPrep" ;
 oper Slash2V3 : V3 -> NP -> VPSlash = notYet "Slash2V3" ;

@@ -51,7 +51,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     -- : VS -> S -> VP ;  -- say that she runs
     ComplVS vs s = predV vs ** { -- IL
-      obj = emptyObj ** {s = s.s ! Subord} 
+      obj = emptyObj ** {s = s.s ! vs.o} 
       } ;
 
     -- : VQ -> QS -> VP ;  -- wonder who runs

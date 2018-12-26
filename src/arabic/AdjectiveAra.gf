@@ -29,11 +29,10 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
 --      isPre = False
 --      } ;
 --
---    SentAP ap sc = {
---      s = \\a => ap.s ! a ++ sc.s ;
---      isPre = False
---      } ;
---
+  SentAP ap sc = ap ** {
+    s = \\sp,g,n,st,c => ap.s ! sp ! g ! n ! st ! c ++ sc.s ;
+    } ;
+
   AdAP ada ap = {
     s = \\sp,g,n,st,c => ap.s ! sp ! g ! n ! st ! c ++ ada.s
     } ;

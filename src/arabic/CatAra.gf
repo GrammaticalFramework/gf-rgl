@@ -77,10 +77,11 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ, VA = ResAra.Verb ; -- = {s : VForm => Str} ;
+    V, VQ, VA = ResAra.Verb ; -- = {s : VForm => Str} ;
     V2, V2A = ResAra.Verb2 ;
     VV = ResAra.Verb2 ** {sc : Preposition} ; -- c2 is for verb
     V2S, V2Q = ResAra.Verb2 ;
+    VS = ResAra.Verb ** {o : Order} ;
     V3 = ResAra.Verb3 ;
     V2V = ResAra.Verb3 ** {sc : Preposition} ; -- c3 is for verb, c2 is for dir.obj
 
