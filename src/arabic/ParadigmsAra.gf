@@ -362,7 +362,7 @@ resource ParadigmsAra = open
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
      = brkN ;
    mkN : N -> (attr : Str) -> N                                       -- Compound nouns with noninflecting attribute
-     = \n,attr -> n ** {s2 = \\n,s,c => attr} ;
+     = \n,attr -> n ** {s2 = \\num,s,c => n.s2 ! num ! s ! c ++ attr} ;
    mkN : N -> N -> N                                                  -- Compound nouns where attribute inflects in state and case but not number
      = attrN Sg ;
    mkN : Number -> N -> N -> N                                        -- Compound nouns where attribute inflects in state, case and number

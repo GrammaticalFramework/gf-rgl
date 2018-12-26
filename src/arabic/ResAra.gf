@@ -1759,6 +1759,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       s = \\_pgn,vf => v.s ! np.a.pgn ! vf -- so we can throw away subject's pgn
       } ;
 
+    -- TODO: what to do with vp.c2 if there is no object /IL
     complClSlash = overload {
       complClSlash : NP -> ClSlash -> Cl = \obj,cls ->
         predVP (subj2np cls.subj) (insertObj obj cls) ;
