@@ -723,8 +723,8 @@ resource ParadigmsAra = open
 
   dirdirV3 v = dirV3 v (casePrep acc) ;
 
-  mkVS  v = v ** {lock_VS = <>} ;
-  mkVQ  v = v ** {lock_VQ = <>} ;
+  mkVS v = lin VS (v ** {o = Subord}) ;
+  mkVQ v = lin VQ v ;
 
   regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;
   c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep ; sc = noPrep} ;
