@@ -10,4 +10,7 @@ oper
   mkIQuant : Str -> IQuant = \s ->
     {s = \\n,c => s ; lock_IQuant = <>} ; ----
 
+  mkDet : N -> Number -> Det = \s,n ->
+    MorphoFin.mkDet n s ;
+    
 }
