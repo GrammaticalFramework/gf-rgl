@@ -933,6 +933,10 @@ caseTable : Number -> CommonNoun -> Case => Str = \n,cn ->
     isNeg = pol
     } ;
 
+  partDet : Bool -> Number -> CommonNoun -> (PDet ** {sp : Case => Str}) = \isNeg,num,cn ->
+    mkDetPol isNeg num cn ** {isNum = True} ;
+
+
 -- Here we define personal and relative pronouns.
 -- Personal pronouns have possessive suffix (hänen talonsa) but "se" doesn't (sen talo)
 

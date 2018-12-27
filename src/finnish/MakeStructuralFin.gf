@@ -10,7 +10,12 @@ oper
   mkIQuant : Str -> IQuant = \s ->
     {s = \\n,c => s ; lock_IQuant = <>} ; ----
 
+  mkIDet : Bool -> Str -> N -> Number -> IDet = \isNum,pref,s,n ->
+    lin IDet {s = \\c => pref ++ s.s ! NCase n c ; n = n ; isNum = isNum} ;
+
   mkDet : N -> Number -> Det = \s,n ->
-    MorphoFin.mkDet n s ;
-    
+    lin Det (MorphoFin.mkDet n s) ;
+  partDet : N -> Number -> Det = \s,n ->
+    lin Det (MorphoFin.partDet False n s) ;
+
 }
