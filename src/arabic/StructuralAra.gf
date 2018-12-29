@@ -114,7 +114,7 @@ concrete StructuralAra of Structural = CatAra **
     } ;
   whoSg_IP = mkIP "مَنْ" "مَنْ" Sg ;
   whoPl_IP = mkIP "مَنْ" "مَنْ" Pl ;
---  why_IAdv = ss "وهي" ;
+  why_IAdv = ss "لِمَاذَا" ;
   without_Prep = mkPrep "بِدُونِ" ;
   with_Prep = mkPrep "مَع" ;
   yes_Utt = {s = \\_ => "نَعَم"} ;
