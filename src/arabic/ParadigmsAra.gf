@@ -199,6 +199,13 @@ resource ParadigmsAra = open
     mkPrep : Str -> Prep ;
     mkPrep : Str -> Case -> Prep
   } ;  -- preposition in the sense of RGL abstract syntax
+
+--2 Conjunctions
+  mkConj : overload {
+    mkConj : Str -> Conj ; -- and
+    mkConj : Str -> Str -> Conj ; -- either … or
+  } ;
+
 --2 Verbs
 
 -- Overloaded operations
@@ -591,6 +598,13 @@ resource ParadigmsAra = open
     mkN3 : N -> Str -> Str -> N3 = \n,p,q ->
       lin N3 (n ** {c2 = mkPreposition p ; c3 = mkPreposition q}) ;
   } ;
+
+  mkConj = overload {
+    mkConj : Str -> Conj = \s -> lin Conj {s1 = [] ; s2 = s ; n = Sg} ;
+    mkConj : Str -> Str -> Conj = \s1,s2 -> lin Conj {s1 = s1 ; s2 = s2 ; n = Sg} ;
+    mkConj : Str -> Number -> Conj = \s,n -> lin Conj {s1 = [] ; s2 = s ; n = n} ;
+    mkConj : Str -> Str -> Number -> Conj = \s1,s2,n -> lin Conj {s1 = s1 ; s2 = s2 ; n = n}
+    } ;
 
   mkPron : (_,_,_ : Str) -> PerGenNum -> Pron = \ana,nI,I,pgn ->
     lin Pron (ResAra.mkPron ana nI I pgn) ;

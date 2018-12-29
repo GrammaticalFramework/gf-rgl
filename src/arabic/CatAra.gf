@@ -70,8 +70,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
 -- Structural
 
-    Conj = {s : Str ; n : ResAra.Number} ;
---    DConj = {s1,s2 : Str ; n : ResAra.Number} ;
+    Conj = {s1,s2 : Str; n : ResAra.Number} ;
     Subj = {s : Str ; o : Order} ;
     Prep = ResAra.Preposition ;
 
