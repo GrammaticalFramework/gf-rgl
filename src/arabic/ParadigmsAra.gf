@@ -150,6 +150,8 @@ resource ParadigmsAra = open
     = \r,s,p -> lin A (brkA r s p) ;
    } ;
 
+  idaafaA : N -> A -> A ; -- first argument will be in constructus but inflect in case, adjective in genitive, but inflect in gender, number and definiteness. e.g. غَيْرُ طَيِّبٍ
+
   degrA : (posit,compar,plur : Str) -> A ;
 
   irregFemA : (masc : A) -> (fem : A) -> A ; -- adjective with irregular feminine. Takes two adjectives (masc. "regular" and fem. "regular") and puts them together.
@@ -659,7 +661,11 @@ resource ParadigmsAra = open
   degrA : (posit,compar,plur : Str) -> A
     = \posit,compar,plur -> lin A {s = clr posit compar plur} ;
 
-
+  idaafaA : N -> A -> A = \ghayr,tayyib -> tayyib ** {
+    s = table {
+      APosit g n d c => ghayr.s ! n ! Const ! c ++ tayyib.s ! APosit g n d c ;
+      AComp d c => ghayr.s ! Sg ! Const ! c ++ tayyib.s ! AComp d c }
+    } ;
 
   sndA root pat =
     let  raw = sndA' root pat in {
