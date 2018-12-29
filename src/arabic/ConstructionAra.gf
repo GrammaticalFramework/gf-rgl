@@ -69,7 +69,12 @@ lin
         what_IP : R.IP = R.mkIP "مَا هُوَ" R.Sg ;
      in mkQCl what_IP myName ;
 
---  how_old_QCl
+  how_old_QCl np =
+    let subjPron : Pron = R.np2pron np ;
+        me : R.NP = toNP np.a.isPron np ;
+        age_N = mkN "عُمر" ;
+        myAge : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
+     in mkQCl what_IP myAge ;
 
 --  hungry_VP =
 --  thirsty_VP =
