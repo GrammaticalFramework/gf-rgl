@@ -11,12 +11,12 @@ concrete StructuralAra of Structural = CatAra **
   almost_AdN = ss "حَوَالي" ; -- or  "تَقرِيبا"
 --  although_Subj = ss "َلتهُْغه" ;
 --  always_AdV = ss "َلوَيس" ;
-  and_Conj = ss "وَ" ** {n = Pl} ;
+  and_Conj = mkConj "وَ" Pl ;
 --  because_Subj = ss "بعَُسي" ;
   before_Prep = mkPrep "قَبْلَ" ;
   behind_Prep = mkPrep "خَلْفَ" ;
   between_Prep = mkPrep "بَيْنَ" ;
---  both7and_DConj = sd2 "بْته" "َند" ** {n = Pl} ;
+  both7and_DConj = mkConj "كِلا" "وَ" Pl ;
 --  but_PConj = ss "بُت" ;
   by8agent_Prep,
   by8means_Prep = biPrep ;
@@ -64,7 +64,7 @@ concrete StructuralAra of Structural = CatAra **
   no_Utt = {s = \\_ => "لا"} ;
   on_Prep = mkPrep "عَلَى" ;
   only_Predet = mkPredet "فَقَط" False;
-  or_Conj = ss "أَوْ" ** {n = Sg} ;
+  or_Conj = mkConj "أَوْ" ;
 --  otherwise_PConj = ss "ْتهروِسي" ;
   part_Prep = mkPrep "مِنَ" ;
 --  please_Voc = ss "ةلَسي" ;

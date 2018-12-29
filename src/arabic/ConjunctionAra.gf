@@ -13,11 +13,11 @@ lin
 
   BaseAdv = twoSS ;
   ConsAdv = consrSS comma ;
-  ConjAdv = conjunctSS ;
+  ConjAdv = conjunctDistrSS ;
 
   BaseS = twoTable Order ;
   ConsS = consrTable Order comma ;
-  ConjS = conjunctTable Order ;
+  ConjS = conjunctDistrTable Order ;
 
   BaseNP x y = twoTable Case x y ** {
     a = conjAgr x.a y.a ;
@@ -27,7 +27,7 @@ lin
     a = conjAgr xs.a x.a ;
     empty = []
     } ;
-  ConjNP conj ss = conjunctTable Case conj ss ** {
+  ConjNP conj ss = conjunctDistrTable Case conj ss ** {
     a = let gn = pgn2gn ss.a.pgn in 
         {pgn = Per3 gn.g (conjNumber conj.n gn.n) ; isPron = False} ;
     empty = []
@@ -35,7 +35,7 @@ lin
 
   BaseAP = twoTable5 Species Gender Number State Case ;
   ConsAP = consrTable5 Species Gender Number State Case comma ;
-  ConjAP = conjunctTable5 Species Gender Number State Case ;
+  ConjAP = conjunctDistrTable5 Species Gender Number State Case ;
 
 
 oper
@@ -74,9 +74,9 @@ oper
     \P,Q,R,T,S,or,xs ->
     {s = \\p,q,r,t,s => xs.s1 ! p ! q ! r ! t ! s ++ or.s ++ xs.s2 ! p ! q ! r ! t ! s} ;
 
-  -- conjunctDistrTable5 : 
-  --   (P,Q,R,T,S : PType) -> ConjunctionDistr -> ListTable5 P Q R T S -> 
-  --      {s : P => Q => R => T => S => Str} = 
-  --   \P,Q,R,T,S,or,xs ->
-  --   {s = \\p,q,r,t,s => or.s1++ xs.s1 ! p ! q ! r ! t ! s ++ or.s2 ++ xs.s2 ! p ! q ! r ! t ! s} ;
+  conjunctDistrTable5 : 
+    (P,Q,R,T,S : PType) -> ConjunctionDistr -> ListTable5 P Q R T S -> 
+       {s : P => Q => R => T => S => Str} = 
+    \P,Q,R,T,S,or,xs ->
+    {s = \\p,q,r,t,s => or.s1++ xs.s1 ! p ! q ! r ! t ! s ++ or.s2 ++ xs.s2 ! p ! q ! r ! t ! s} ;
 }

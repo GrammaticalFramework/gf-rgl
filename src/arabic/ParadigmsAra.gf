@@ -150,6 +150,8 @@ resource ParadigmsAra = open
     = \r,s,p -> lin A (brkA r s p) ;
    } ;
 
+  idaafaA : N -> A -> A ; -- first argument will be in constructus but inflect in case, adjective in genitive, but inflect in gender, number and definiteness. e.g. غَيْرُ طَيِّبٍ
+
   degrA : (posit,compar,plur : Str) -> A ;
 
   irregFemA : (masc : A) -> (fem : A) -> A ; -- adjective with irregular feminine. Takes two adjectives (masc. "regular" and fem. "regular") and puts them together.
@@ -199,6 +201,13 @@ resource ParadigmsAra = open
     mkPrep : Str -> Prep ;
     mkPrep : Str -> Case -> Prep
   } ;  -- preposition in the sense of RGL abstract syntax
+
+--2 Conjunctions
+  mkConj : overload {
+    mkConj : Str -> Conj ; -- and
+    mkConj : Str -> Str -> Conj ; -- either … or
+  } ;
+
 --2 Verbs
 
 -- Overloaded operations
@@ -267,7 +276,10 @@ resource ParadigmsAra = open
 -- questions, verb phrases, and adjectives.
 
   mkV0  : V -> V0 ;
-  mkVS  : V -> VS ;
+  -- mkVS = overload {
+  --   mkVS : V -> VS ;
+  --   mkVS : V -> Str -> VS
+  --   } ;
   mkV2S : V -> Str -> V2S ;
   mkVV = overload {
     mkVV : V -> VV = regVV ;
@@ -539,7 +551,9 @@ resource ParadigmsAra = open
 
   brkN' : Str -> Str -> Str -> Gender -> Species -> N =
     \root,sg,pl,gen,spec ->
-    let { kitAb = mkWord sg root;
+    let { kitAb = case root of {
+            ? + ? + "ي" => mkDefectiveAlifMaqsura (mkPat sg) (mkRoot3 root) ;
+            _           => mkWord sg root };
           kutub = mkWord pl root
     } in mkFullN (reg kitAb kutub) gen spec;
 
@@ -592,6 +606,13 @@ resource ParadigmsAra = open
       lin N3 (n ** {c2 = mkPreposition p ; c3 = mkPreposition q}) ;
   } ;
 
+  mkConj = overload {
+    mkConj : Str -> Conj = \s -> lin Conj {s1 = [] ; s2 = s ; n = Sg} ;
+    mkConj : Str -> Str -> Conj = \s1,s2 -> lin Conj {s1 = s1 ; s2 = s2 ; n = Sg} ;
+    mkConj : Str -> Number -> Conj = \s,n -> lin Conj {s1 = [] ; s2 = s ; n = n} ;
+    mkConj : Str -> Str -> Number -> Conj = \s1,s2,n -> lin Conj {s1 = s1 ; s2 = s2 ; n = n}
+    } ;
+
   mkPron : (_,_,_ : Str) -> PerGenNum -> Pron = \ana,nI,I,pgn ->
     lin Pron (ResAra.mkPron ana nI I pgn) ;
 
@@ -642,7 +663,11 @@ resource ParadigmsAra = open
   degrA : (posit,compar,plur : Str) -> A
     = \posit,compar,plur -> lin A {s = clr posit compar plur} ;
 
-
+  idaafaA : N -> A -> A = \ghayr,tayyib -> tayyib ** {
+    s = table {
+      APosit g n d c => ghayr.s ! n ! Const ! c ++ tayyib.s ! APosit g n d c ;
+      AComp d c => ghayr.s ! Sg ! Const ! c ++ tayyib.s ! AComp d c }
+    } ;
 
   sndA root pat =
     let  raw = sndA' root pat in {
@@ -723,7 +748,10 @@ resource ParadigmsAra = open
 
   dirdirV3 v = dirV3 v (casePrep acc) ;
 
-  mkVS v = lin VS (v ** {o = Subord}) ;
+  mkVS = overload {
+    mkVS : V -> VS = \v -> lin VS (v ** {o = Subord; s2 = []}) ;
+    mkVS : V -> Str -> VS =  \v,s -> lin VS (v ** {o = Subord; s2 = s}) 
+    } ;
   mkVQ v = lin VQ v ;
 
   regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;

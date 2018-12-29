@@ -15,7 +15,6 @@ oper DetNP : Det -> NP = notYet "DetNP" ;
 oper ExistIP : IP -> QCl = notYet "ExistIP" ;
 oper FunRP : Prep -> NP -> RP -> RP = notYet "FunRP" ;
 oper ImpPl1 : VP -> Utt = notYet "ImpPl1" ;
-oper ImpersCl : VP -> Cl = notYet "ImpersCl" ;
 oper PConjConj : Conj -> PConj = notYet "PConjConj" ;
 oper PPartNP : NP -> V2 -> NP = notYet "PPartNP" ;
 oper PredSCVP : SC -> VP -> Cl = notYet "PredSCVP" ;

@@ -221,7 +221,7 @@ oper
   --PerfAct, PerfPas, ImpfAct, ImpfPas, Imp, PPart
   verb : (_,_,_,_,_,_ : Str) -> Verb =
     \katab,kutib,aktub,uktab,euktub,maktUb -> {
-      s = table {
+      s = \\vf => rectifyHmz (case vf of {
         VPerf Act pgn     => katab + suffixPerf ! pgn ;
         VPerf Pas pgn     => kutib + suffixPerf ! pgn ;
         VImpf Ind Act pgn => prefixImpf!pgn + aktub + suffixImpfInd !pgn;
@@ -230,7 +230,7 @@ oper
         VImpf m Pas pgn => prefixImpf !pgn + uktab + suffixImpfCJ m !pgn;
         VImp  g n  => euktub + suffixImpfCJ Jus ! (Per2 g n);
         VPPart     => maktUb
-        }
+        })
     } ;
 
   --affixes of sound verbs

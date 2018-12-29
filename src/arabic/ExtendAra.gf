@@ -50,7 +50,7 @@ concrete ExtendAra of Extend =
 
     BaseVPS = twoTable PerGenNum ;
     ConsVPS = consrTable PerGenNum comma ;
-    ConjVPS = conjunctTable PerGenNum ;
+    ConjVPS = conjunctDistrTable PerGenNum ;
 
     PredVPS np vps = {
       s = \\_ => np.s ! Nom ++ vps.s ! np.a.pgn -- first quick version with order always Nominal.
