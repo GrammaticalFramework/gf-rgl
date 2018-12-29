@@ -12,23 +12,8 @@ concrete SentenceAra of Sentence = CatAra ** open
   flags optimize=all_subs ; coding=utf8 ;
 
   lin
-{-
-    PredVP np vp =
-      { s = \\t,p,o =>
-          case o of {
-            Verbal =>
-              case vp.comp.a.isPron of {
-                False => vp.s ! t ! p ! Verbal ! np.a ++ np.s ! Nom ++ vp.comp.s ! Acc ;
-                True  => vp.s ! t ! p ! Verbal ! np.a ++ vp.comp.s ! Acc ++ np.s ! Nom
-              };
-            Nominal =>
-              np.s ! Nom ++ vp.s ! t ! p ! Nominal ! np.a ++ vp.comp.s ! Acc
-          }
-      };
--}
-    PredVP = predVP ;
 
---    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
+    PredVP = predVP ;
 
     ImpVP vp = {
       s = \\p,g,n =>
@@ -57,11 +42,9 @@ concrete SentenceAra of Sentence = CatAra ** open
 
 --  SlashVS np vs sslash = TODO
 
-
-  EmbedS  s  = {s = "أَنْ" ++ s.s ! Verbal} ;
-  EmbedQS qs = {s = qs.s ! QIndir} ;
-  EmbedVP vp = {s = uttVP vp ! Masc} ;
-
+    EmbedS  s  = {s = "أَنْ" ++ s.s ! Verbal} ;
+    EmbedQS qs = {s = qs.s ! QIndir} ;
+    EmbedVP vp = {s = uttVP vp ! Masc} ;
 
     UseCl t p cl =
       {s = \\o => t.s ++ p.s ++

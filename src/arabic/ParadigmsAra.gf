@@ -551,7 +551,9 @@ resource ParadigmsAra = open
 
   brkN' : Str -> Str -> Str -> Gender -> Species -> N =
     \root,sg,pl,gen,spec ->
-    let { kitAb = mkWord sg root;
+    let { kitAb = case root of {
+            ? + ? + "ي" => mkDefectiveAlifMaqsura (mkPat sg) (mkRoot3 root) ;
+            _           => mkWord sg root };
           kutub = mkWord pl root
     } in mkFullN (reg kitAb kutub) gen spec;
 
