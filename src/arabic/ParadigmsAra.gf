@@ -274,7 +274,10 @@ resource ParadigmsAra = open
 -- questions, verb phrases, and adjectives.
 
   mkV0  : V -> V0 ;
-  mkVS  : V -> VS ;
+  -- mkVS = overload {
+  --   mkVS : V -> VS ;
+  --   mkVS : V -> Str -> VS
+  --   } ;
   mkV2S : V -> Str -> V2S ;
   mkVV = overload {
     mkVV : V -> VV = regVV ;
@@ -737,7 +740,10 @@ resource ParadigmsAra = open
 
   dirdirV3 v = dirV3 v (casePrep acc) ;
 
-  mkVS v = lin VS (v ** {o = Subord}) ;
+  mkVS = overload {
+    mkVS : V -> VS = \v -> lin VS (v ** {o = Subord; s2 = []}) ;
+    mkVS : V -> Str -> VS =  \v,s -> lin VS (v ** {o = Subord; s2 = s}) 
+    } ;
   mkVQ v = lin VQ v ;
 
   regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;

@@ -80,7 +80,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     V2, V2A = ResAra.Verb2 ;
     VV = ResAra.Verb2 ** {sc : Preposition} ; -- c2 is for verb
     V2S, V2Q = ResAra.Verb2 ;
-    VS = ResAra.Verb ** {o : Order} ;
+    VS = ResAra.Verb ** {o : Order; s2 : Str} ;
     V3 = ResAra.Verb3 ;
     V2V = ResAra.Verb3 ** {sc : Preposition} ; -- c3 is for verb, c2 is for dir.obj
 
