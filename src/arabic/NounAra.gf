@@ -7,16 +7,16 @@ lin
   DetCN det cn = let {
     cas : Case -> Case = if_then_else Case det.is1sg Bare ;
     number = case cn.isDual of {
-                True => 
+                True =>
                   case sizeToNumber det.n of {
                          Sg => Sg ;
                          _  => Dl } ;
                 False => sizeToNumber det.n } ;
     determiner : Case -> Str = \c ->
       det.s ! cn.h ! detGender cn.g det.n ! c ;
-    noun : Case -> Str = \c -> 
-      cn.s ! number 
-           ! nounState det.d number 
+    noun : Case -> Str = \c ->
+      cn.s ! number
+           ! nounState det.d number
            ! nounCase c det.n det.d ;
     adj : Case -> Str = \c ->
       cn.s2 ! number
@@ -29,12 +29,14 @@ lin
           False => determiner c'
                 ++ noun c'
                 ++ adj c'
-                ++ cn.np ! c' ;
+                ++ bindIf cn.np.binds -- ?
+                ++ cn.np.s ! c' ;
           True => noun (cas c) -- deal with possessive suffix
                ++ determiner c'
                ++ adj c'
-               ++ cn.np ! c'
-        };  
+               ++ bindIf cn.np.binds -- ?
+               ++ cn.np.s ! c'
+        };
       a = { pgn = agrP3 cn.h cn.g number;
             isPron = False } ;
       empty = []
@@ -78,7 +80,7 @@ lin
          quant.s ! Pl ! h ! g ! c
       ++ num.s ! g ! d ! c
       --FIXME check this:
-      ++ ord.s ! g 
+      ++ ord.s ! g
                ! case d of {Poss => Def ; _ => d}
                ! c ;
     n = num.n;
@@ -97,7 +99,7 @@ lin
         None => False;
         _    => num.isNum
       } ;
-    isEmpty = 
+    isEmpty =
       case quant.isEmpty of {
         True => notB num.isNum ;
         _    => False }
@@ -170,7 +172,7 @@ lin
     } ;
 
   MassNP cn =
-    {s = \\c => cn2str cn Sg Indef c ; 
+    {s = \\c => cn2str cn Sg Indef c ;
      a = {pgn = Per3 cn.g Sg ; isPron = False} ;
      empty = []} ;
 
@@ -179,12 +181,15 @@ lin
   Use2N3 n3 = n3 ;
   Use3N3 n3 = n3 ** {c2 = n3.c3} ;
 
-  ComplN2 n2 np = UseN n2 ** {np = \\c => n2.c2.s ++ bindIf n2.c2.binds ++ np.s ! n2.c2.c} ;
+  ComplN2 n2 np = UseN n2 ** {
+    np = {s = \\c => n2.c2.s ++ bindIf n2.c2.binds ++ np.s ! n2.c2.c ;
+          binds = False}
+    } ;
 
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
 
   AdjCN ap cn = cn ** {
-    s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c 
+    s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ap.s ! cn.h ! cn.g ! n ! (definite ! d) ! c
     };
 
   RelCN cn rs = cn ** {
@@ -195,13 +200,17 @@ lin
   AdvCN,
   SentCN = \cn,ss -> cn ** {s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ss.s} ;
 
-  ApposCN cn np = cn ** { np = \\c => cn.np ! c ++ np.s ! c } ;
+  ApposCN cn np = cn ** {
+    np = {s = \\c => cn.np.s ! c ++ np.s ! c ;
+          binds = False} -- even if it's pron, it shouldn't be a suffix
+    } ;
 
   -- : CN -> NP -> CN ;     -- house of Paris, house of mine
   PossNP cn np = cn ** {
     s  = \\n,_d,c => cn.s  ! n ! Const ! c ;
     s2 = \\n,_d,c => cn.s2 ! n ! Const ! Gen ;
-    np = \\c => cn.np ! c ++ np.s ! Gen
+    np = {s = \\c => cn.np.s ! c ++ np.s ! Gen ;
+          binds = np.a.isPron} ; -- will be weird if the CN's np field already has something. but that'd be weird in any case, binds or not. /IL
     };
 
   -- : CN -> NP -> CN ;     -- glass of wine

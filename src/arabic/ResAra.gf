@@ -57,7 +57,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     mkPat : Str -> Pattern = \pat ->
       case pat of {
-        w + "ف" + x + "ع" + y + "ل" + z 
+        w + "ف" + x + "ع" + y + "ل" + z
           => { h = w ; m1 = x; m2 = y; t = z} ;
         w + "ف" + x + ("ع"|"ل") + y
           => { h = w ; m1 = x; m2 = ""; t = y}
@@ -145,7 +145,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     liPrep : Preposition = mkPrefix (
       pre { #pronSuffAndOther => "لِ" ;
             #pronSuff         => "لَ" ;
-            _                 => "لِ" 
+            _                 => "لِ"
           }) Dat ;
     biPrep : Preposition = mkPrefix "بِ" ;
 
@@ -173,15 +173,16 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Indef ! Bare ; ----IL
 
-    CN : Type = Noun ** {np : Case => Str};
+    CN : Type = Noun ** {np : {s : Case => Str ; binds : Bool}};
 
     -- All fields of NP
     cn2str : CN -> Number -> State -> Case -> Str = \cn,n,s,c ->
       cn.s   ! n ! s ! c ++
       cn.s2  ! n ! s ! c ++
-      cn.np ! c ;
+      bindIf cn.np.binds ++
+      cn.np.s ! c ;
 
-    useN : Noun -> CN = \n -> n ** {np = \\_ => []} ;
+    useN : Noun -> CN = \n -> n ** {np = {s = \\_ => []; binds = False}} ;
 
     uttCN : CN -> (Gender => Str) ;
     uttCN cn = \\_ => cn2str cn Sg Indef Bare ;
@@ -1066,7 +1067,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                             Poss => lemma + "ت" + dec1sg ! s ! c ;
                             _    => word        + dec1sgNoDoubleAlif ! s ! c
                           } ;
-         _             => fixShd word (dec1sg ! s ! c) 
+         _             => fixShd word (dec1sg ! s ! c)
       }) ;
 
     sing : Str -> State => Case => Str = \word ->
@@ -1074,15 +1075,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         -- This only applies for singular indefinite
         x + y@? + #hamza => defArt s c (
            case <s,c> of { -- if hamza was last, it's now in the body
-              <Indef,Acc> => 
+              <Indef,Acc> =>
                   case y of {
                     #vstar => word + dec1sgNoDoubleAlif ! Indef ! Acc ;
                     _ => let an  : Str = dec1sg ! Indef ! Acc ;
                              hmz : Str = bHmz x an ;
                           in x + y + hmz + an } ;
-              _ => word + dec1sg ! s ! c }) ; 
+              _ => word + dec1sg ! s ! c }) ;
          -- The rest is identical with singulars and broken plurals
-        _ => brkPl word ! s ! c 
+        _ => brkPl word ! s ! c
       } ;
 
 
@@ -1228,7 +1229,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       };
 
     -- TODO: this isn't actually because of gender, it "just happens".
-    -- Refactor the whole sdfN and make variant with a parameter 
+    -- Refactor the whole sdfN and make variant with a parameter
     -- whether to insert a و or ه or something else /IL
     mkAtMasc : Str -> Str = \x ->
       case x of {
@@ -1431,7 +1432,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     agrNP : Agr -> NP = \agr -> emptyNP ** {a = agr} ;
 
     -- e.g. al-jamii3, 2a7ad
-    regNP : Str -> Number -> State -> NP = \word,n,s -> 
+    regNP : Str -> Number -> State -> NP = \word,n,s ->
       agrNP {pgn = Per3 Masc n ; isPron = False} ** {
         s = \\c => fixShd word (dec1sg ! s ! c) ;
         } ;
@@ -1610,11 +1611,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
               };
 
             -- very unsure about this /IL
-            sc : Preposition = case o of { 
+            sc : Preposition = case o of {
                   Subord => {s=[]; c=Acc; binds=False} ;
                   _ => case np.a.isPron of {
                          True => noPrep ; -- to prevent weird stuff with VVs, might be overly specific
-                         _    => vp.sc } 
+                         _    => vp.sc }
                 } ;
             subj = np.empty ++ sc.s ++ bindIf sc.binds
                 ++ case vp.isPred of {
@@ -1625,7 +1626,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
                   vp.obj.a.isPron np.a.isPron
                   (vStr vp pgn t p o)
                   vp.obj.s
-                  (pred vp pgn t p) 
+                  (pred vp pgn t p)
                   vp.s2
                   subj
       } ;
@@ -1635,7 +1636,7 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
       \o,objIsPron,subjIsPron,verb,obj,pred,adv,subj ->
           let cl = wordOrderNoSubj o objIsPron verb obj pred adv in
           case o of {
-            Subord => 
+            Subord =>
               let bind = if_then_Str subjIsPron BIND [] -- in subord. clause, subj. pronoun binds to the main verb
                in cl.before ++ bind ++ subj ++ cl.after ;
             _  => cl.before         ++ subj ++ cl.after
@@ -1647,19 +1648,19 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
             VOS => {before = verb ++ obj ++ pred ++ adv; after = []} ;
             Verbal => case objIsPron of {
                         True  => {before = verb ++ obj ; after = adv ++ pred} ; -- obj. clitic attaches directly to the verb
-                        False => {before = verb ; after = obj ++ adv ++ pred} 
+                        False => {before = verb ; after = obj ++ adv ++ pred}
                       } ;
             (Nominal|Subord) => {before = [] ; after = verb ++ obj ++ adv ++ pred}
           } ;
 
-    pred : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Str = \vp,pgn,tn,pl -> 
+    pred : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Str = \vp,pgn,tn,pl ->
       let gn = pgn2gn pgn
        in case <vp.isPred,tn,pl> of {
             <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
             _                 => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
           } ;
 
-    vStr : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Order -> Str = \vp,pgn,tn,pl,o -> 
+    vStr : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Order -> Str = \vp,pgn,tn,pl,o ->
       let kataba  = vp.s ! pgn ! VPPerf ;
           yaktubu = vp.s ! pgn ! VPImpf Ind ;
           yaktuba = vp.s ! pgn ! VPImpf Cnj ;
@@ -1710,11 +1711,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     subj2np : Subj -> NP = \su -> su ** {a = {pgn = emptyNP.a.pgn ; isPron = su.isPron} ; empty=[]} ;
     emptyObj : Obj = {a = {gn = {g=Masc ; n=Sg} ; isPron = False}; s = []} ;
 
-    insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** { 
+    insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** {
       obj = {s = vp.obj.s -- old object, if there was one
               ++ bindIfPron np vp -- new object, bind if pronoun and not pred
               ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V
-             a = agrLite np.a} 
+             a = agrLite np.a}
       } ;
 
     bindIf : Bool -> Str = \b -> if_then_Str b BIND [] ;
