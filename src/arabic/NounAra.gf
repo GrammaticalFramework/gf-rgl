@@ -106,7 +106,7 @@ lin
   PossPron p = baseQuant ** {
     s = \\_,_,_,_ => BIND ++ p.s ! Gen;
     d = Poss;
-    is1sg = case p.a.pgn of { Per1 Sing => True ; _ => False } ;
+    is1sg = is1sg p.a ;
     isPron = True} ;
 
   NumSg = {

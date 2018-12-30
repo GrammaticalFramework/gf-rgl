@@ -1181,9 +1181,15 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     --dual suffixes
     dl : State => Case => Str =
       table {
-        (Const|Poss) =>
+        Const =>
           table {
             Nom => "َا";
+            _   => "َيْ"
+          };
+        Poss =>
+          table {
+            Nom => "َا" ; -- wrong for 1st person poss. suff
+            Bare => "َيَّ" ; -- this covers 1st person for genitive and accusative
             _   => "َيْ"
           };
         _ =>
