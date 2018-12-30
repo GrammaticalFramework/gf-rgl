@@ -173,16 +173,15 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Indef ! Bare ; ----IL
 
-    CN : Type = Noun ** {np : {s : Case => Str ; binds : Bool}};
+    CN : Type = Noun ** {np : Case => Str};
 
     -- All fields of NP
     cn2str : CN -> Number -> State -> Case -> Str = \cn,n,s,c ->
-      cn.s   ! n ! s ! c ++
-      cn.s2  ! n ! s ! c ++
-      bindIf cn.np.binds ++
-      cn.np.s ! c ;
+      cn.s  ! n ! s ! c ++
+      cn.s2 ! n ! s ! c ++
+      cn.np ! c ;
 
-    useN : Noun -> CN = \n -> n ** {np = {s = \\_ => []; binds = False}} ;
+    useN : Noun -> CN = \n -> n ** {np = \\_ => []} ;
 
     uttCN : CN -> (Gender => Str) ;
     uttCN cn = \\_ => cn2str cn Sg Indef Bare ;
@@ -1396,6 +1395,8 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     AAgr = {g : Gender ; n : Number} ;
 
     agrLite : Agr -> AgrLite = \a -> a ** {gn = pgn2gn a.pgn} ;
+    is1sg : Agr -> Bool = \a ->
+      case a.pgn of {Per1 Sing => True; _ => False} ;
 
 -----------------------------------------------------------------------------
 -- NP, Pron

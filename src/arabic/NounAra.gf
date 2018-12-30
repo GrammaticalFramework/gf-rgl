@@ -27,15 +27,13 @@ lin
         let c' = case c of {Dat => Gen ; x => x} in
         case cnB4det det of {
           False => determiner c'
-                ++ noun c'
+                ++ noun c'          
                 ++ adj c'
-                ++ bindIf cn.np.binds -- ?
-                ++ cn.np.s ! c' ;
-          True => noun (cas c) -- deal with possessive suffix
+                ++ cn.np ! c' ;
+          True => noun (cas c) -- deal with possessive suffix + dative hack
                ++ determiner c'
                ++ adj c'
-               ++ bindIf cn.np.binds -- ?
-               ++ cn.np.s ! c'
+               ++ cn.np ! c'
         };
       a = { pgn = agrP3 cn.h cn.g number;
             isPron = False } ;
@@ -182,8 +180,7 @@ lin
   Use3N3 n3 = n3 ** {c2 = n3.c3} ;
 
   ComplN2 n2 np = UseN n2 ** {
-    np = {s = \\c => n2.c2.s ++ bindIf n2.c2.binds ++ np.s ! n2.c2.c ;
-          binds = False}
+    np = \\c => n2.c2.s ++ bindIf n2.c2.binds ++ np.s ! n2.c2.c
     } ;
 
   ComplN3 n3 np = ComplN2 n3 np ** {c2 = n3.c3} ;
@@ -201,16 +198,21 @@ lin
   SentCN = \cn,ss -> cn ** {s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ss.s} ;
 
   ApposCN cn np = cn ** {
-    np = {s = \\c => cn.np.s ! c ++ np.s ! c ;
-          binds = False} -- even if it's pron, it shouldn't be a suffix
+    np = \\c => cn.np ! c ++ np.s ! c
     } ;
 
   -- : CN -> NP -> CN ;     -- house of Paris, house of mine
   PossNP cn np = cn ** {
-    s  = \\n,_d,c => cn.s  ! n ! Const ! c ;
-    s2 = \\n,_d,c => cn.s2 ! n ! Const ! Gen ;
-    np = {s = \\c => cn.np.s ! c ++ np.s ! Gen ;
-          binds = np.a.isPron} ; -- will be weird if the CN's np field already has something. but that'd be weird in any case, binds or not. /IL
+    s  = \\n,d,c => cn.s  ! n ! case d of {Poss=>d ; _=>Const} ! c ;
+    s2 = \\n,d,c => cn.s2 ! n ! case d of {Poss=>d ; _=>Const} ! Gen ;
+    np = \\c => cn.np ! c 
+          ++ case is1sg np.a of {
+                True => "لَدَي" ++ np.empty ;
+                False => 
+                  case np.a.isPron of {
+                    True => "لَدَي" ++ BIND ++ np.s ! Gen ;
+                    False =>  np.s ! Gen }
+             }
     };
 
   -- : CN -> NP -> CN ;     -- glass of wine
