@@ -132,7 +132,7 @@ flags
   meat_N       = brkN "لحم" "فَعلة" "فُعُول" Masc NoHum ;
   milk_N       = brkN "حلب" "فَعِيل" "فَعِيل" Masc NoHum ; --no plur
   moon_N       = brkN "قمر" "فَعَل" "أَفعَال" Masc NoHum ;
-  mother_N2    = mkN2 (sdfN "ءم" "فُعَّ" Fem Hum) ;
+  mother_N2    = mkN2 (mkN "أُمّ" "أُمَّات" Fem Hum) ;
   mountain_N   = brkN "جبل" "فَعَل" "فِعَال" Masc NoHum ;
   music_N      = mkN (reg "مُوسِيقَى" "مُوسِيقَى") Fem NoHum ; --no plur
   narrow_A     = sndA "ضيق" "فَعِّل" ;
