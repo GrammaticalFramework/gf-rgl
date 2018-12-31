@@ -148,6 +148,13 @@ resource ParadigmsAra = open
     = \r -> lin A (clrA r);
    mkA : (root,sg,pl : Str) -> A          -- adjective with broken plural
     = \r,s,p -> lin A (brkA r s p) ;
+   mkA : A -> Str -> A = \a,s -> a ** {   -- add non-inflecting component after adjective
+    s = table {af => a.s ! af ++ s}
+    } ;
+   mkA : Str -> A -> A = \s,a -> a ** {   -- add non-inflecting component before adjective
+    s = table {af => s ++ a.s ! af}
+    }
+
    } ;
 
   idaafaA : N -> A -> A ; -- first argument will be in constructus but inflect in case, adjective in genitive, but inflect in gender, number and definiteness. e.g. غَيْرُ طَيِّبٍ
