@@ -35,7 +35,22 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
       } ;
 
     SlashV2a = slashV2 ;
-    Slash3V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3 ; agrObj = \\_ => []};
+    Slash2V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3 ; agrObj = \\_ => []};
+
+    Slash3V3 v np =
+      let vp = slashV2 v ** {c2 = 
+            v.c2 ** {
+              s = case np.a.isPron of {
+                    True => case v.c2.binds of {
+                        True  => v.c2.s ; -- to make sure there's something for the object to attach to
+                        False => v.c2.s ++ "إِيَّا" } ; -- see https://en.wiktionary.org/wiki/%D8%A5%D9%8A%D8%A7#Particle /IL
+                    False => v.c2.s }
+            }
+          }
+       in vp ** {
+            c2 = v.c3 ; 
+            agrObj = \\_ => bindIfPron np vp -- will be emptied when insertObj is called /IL
+          } ;
 
     ComplSlash vp np = insertObj np vp ;
 
