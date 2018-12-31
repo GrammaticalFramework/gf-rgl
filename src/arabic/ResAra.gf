@@ -1721,8 +1721,9 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** {
       obj = {s = vp.obj.s -- old object, if there was one
               ++ bindIfPron np vp -- new object, bind if pronoun and not pred
-              ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V
-             a = agrLite np.a}
+              ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V and Slash3V3
+             a = agrLite np.a} ;
+      agrObj = \\_ => []
       } ;
 
     bindIf : Bool -> Str = \b -> if_then_Str b BIND [] ;

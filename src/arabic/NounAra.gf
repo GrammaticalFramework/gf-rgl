@@ -27,7 +27,7 @@ lin
         let c' = case c of {Dat => Gen ; x => x} in
         case cnB4det det of {
           False => determiner c'
-                ++ noun c'          
+                ++ noun c'
                 ++ adj c'
                 ++ cn.np ! c' ;
           True => noun (cas c) -- deal with possessive suffix + dative hack
@@ -205,10 +205,10 @@ lin
   PossNP cn np = cn ** {
     s  = \\n,d,c => cn.s  ! n ! case d of {Poss=>d ; _=>Const} ! c ;
     s2 = \\n,d,c => cn.s2 ! n ! case d of {Poss=>d ; _=>Const} ! Gen ;
-    np = \\c => cn.np ! c 
+    np = \\c => cn.np ! c
           ++ case is1sg np.a of {
                 True => "لَدَي" ++ np.empty ;
-                False => 
+                False =>
                   case np.a.isPron of {
                     True => "لَدَي" ++ BIND ++ np.s ! Gen ;
                     False =>  np.s ! Gen }

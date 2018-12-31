@@ -40,7 +40,7 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
   UseA2 = PositA ;
 
   UseComparA a = {
-    s = \\h,g,n,d,c => a.s ! AComp d c 
+    s = \\h,g,n,d,c => a.s ! AComp d c
     };
 
   -- : Ord -> AP ;       -- warmest

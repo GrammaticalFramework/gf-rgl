@@ -43,7 +43,7 @@ concrete StructuralAra of Structural = CatAra **
   how_IAdv = ss "كَيفَ" ;
   how8many_IDet = {
     s = \\g,s,c => "كَمْ عَدَد" + caseTbl ! c ;
-    n = Pl ; d = Def 
+    n = Pl ; d = Def
     } ; -- IL
   how8much_IAdv = ss "كَمْ" ;
   if_Subj = mkSubj "إِذَا" Verbal ;

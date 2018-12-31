@@ -20,7 +20,7 @@ concrete SentenceAra of Sentence = CatAra ** open
         case p of {
           Pos =>          vp.s ! Per2 g n ! VPImp ;
           Neg => "لَا" ++ vp.s ! Per2 g n ! VPImpf Jus
-        } ++ vp.obj.s  ++ vp.pred.s ! {g=g;n=n} ! Acc ++ vp.s2 
+        } ++ vp.obj.s  ++ vp.pred.s ! {g=g;n=n} ! Acc ++ vp.s2
       };
 
 --

@@ -1,4 +1,4 @@
-concrete RelativeAra of Relative = CatAra ** 
+concrete RelativeAra of Relative = CatAra **
   open ResAra in {
  flags coding=utf8;
 
@@ -10,8 +10,8 @@ concrete RelativeAra of Relative = CatAra **
 
    -- : RP -> VP -> RCl ;      -- who loves John
    RelVP rp vp = {
-     s = \\t,p,agr,c => 
-       let 
+     s = \\t,p,agr,c =>
+       let
          npS : Case => Str = \\_ => rp.s ! agr2ragr agr c ;
          np : ResAra.NP = agrNP agr ** {s = npS} ;
          cl = predVP np vp ;
@@ -19,9 +19,9 @@ concrete RelativeAra of Relative = CatAra **
        cl.s ! t ! p ! Nominal
      } ;
 
-    -- : RP -> ClSlash -> RCl ; -- whom John loves 
+    -- : RP -> ClSlash -> RCl ; -- whom John loves
    RelSlash rp cls = cls ** {
-     s = \\t,p,agr,c => 
+     s = \\t,p,agr,c =>
         let --empty : Agr -> NP = emptyNP ;
             obj : ResAra.NP = pgn2pron agr.pgn ; -- head is repeated as a clitic object pronoun
             cl : ResAra.Cl = complClSlash obj cls ;
@@ -45,6 +45,6 @@ concrete RelativeAra of Relative = CatAra **
         RDl Fem  Bare => "اَللَّتَيْن" ;
         RDl Fem  Nom  => "اَللَّتَانِ" ;
         RDl Fem  _    => "اَللَّتَيْنِ"
-        } 
+        }
       } ;
 }

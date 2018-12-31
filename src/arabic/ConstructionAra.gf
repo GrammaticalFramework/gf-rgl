@@ -46,10 +46,19 @@ lin
   intYear = symb ;
   intMonthday = symb ;
 
---  n_units_AP
-
+  -- : Card -> CN -> A -> AP
+  n_units_AP card cn a =
+    let ap = mkAP a in ap ** {
+      s = \\s,g,n,d,c =>
+           ap.s ! s ! g ! n ! d ! c
+        ++ (mkAdv R.biPrep (mkNP amount_N)).s
+        ++ (mkNP card cn).s ! R.Bare ---- ? /IL
+      } ;
 
 oper
+
+  amount_N : N = mkN "مِقْدَار" "مَقَادِير‎" masc nohum ;
+
   -- hack used in the name constructions
   toNP : Bool -> NP -> NP = \b -> if_then_else NP b R.emptyNP ;
 

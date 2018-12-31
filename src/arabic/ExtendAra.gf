@@ -36,15 +36,15 @@ concrete ExtendAra of Extend =
     -- : Temp -> Pol -> VP -> VPS ; -- hasn't slept
     MkVPS t p vp = {
       s = \\pgn => let vps =
-        wordOrderNoSubj 
+        wordOrderNoSubj
           Nominal --  Nominal (=SVO) generalises best for ConjVPS.
-          vp.obj.a.isPron 
+          vp.obj.a.isPron
           (vStr vp pgn t.t p.p Nominal)
           (case <vp.isPred,vp.obj.a.isPron> of {
                     <False,True> => BIND ++ vp.obj.s ;
                     _            =>         vp.obj.s })
-          (pred vp pgn t.t p.p) 
-          vp.s2 
+          (pred vp pgn t.t p.p)
+          vp.s2
       in vps.before ++ vps.after -- word order is SVO, so this is safe for just this case.
       } ;
 

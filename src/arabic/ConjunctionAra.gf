@@ -1,4 +1,4 @@
-concrete ConjunctionAra of Conjunction = 
+concrete ConjunctionAra of Conjunction =
   CatAra ** open ResAra, Coordination, Prelude in {
 
 lincat
@@ -28,7 +28,7 @@ lin
     empty = []
     } ;
   ConjNP conj ss = conjunctDistrTable Case conj ss ** {
-    a = let gn = pgn2gn ss.a.pgn in 
+    a = let gn = pgn2gn ss.a.pgn in
         {pgn = Per3 gn.g (conjNumber conj.n gn.n) ; isPron = False} ;
     empty = []
     } ;
@@ -53,30 +53,25 @@ oper
 
   -- move to predef?
 
-  ListTable5 : PType -> PType -> PType -> PType -> PType -> Type = \P,Q,R,T,S -> 
-    {s1,s2 : P => Q => R => T => S => Str} ; 
+  ListTable5 : PType -> PType -> PType -> PType -> PType -> Type = \P,Q,R,T,S ->
+    {s1,s2 : P => Q => R => T => S => Str} ;
 
-  twoTable5 : (P,Q,R,T,S : PType) -> (_,_ : {s : P => Q => R => T => S => Str}) -> 
-              ListTable5 P Q R T S = 
+  twoTable5 : (P,Q,R,T,S : PType) -> (_,_ : {s : P => Q => R => T => S => Str}) ->
+              ListTable5 P Q R T S =
     \_,_,_,_,_,x,y ->
-    {s1 = x.s ; s2 = y.s} ; 
+    {s1 = x.s ; s2 = y.s} ;
 
-  consrTable5 : 
-    (P,Q,R,T,S : PType) -> Str -> {s : P => Q => R => T => S => Str} -> 
+  consrTable5 :
+    (P,Q,R,T,S : PType) -> Str -> {s : P => Q => R => T => S => Str} ->
        ListTable5 P Q R T S -> ListTable5 P Q R T S =
      \P,Q,R,T,S,c,x,xs ->
-    {s1 = \\p,q,r,t,s => xs.s1 ! p ! q ! r ! t ! s ++ c ++ xs.s2 ! p ! q ! r ! t ! s ; 
+    {s1 = \\p,q,r,t,s => xs.s1 ! p ! q ! r ! t ! s ++ c ++ xs.s2 ! p ! q ! r ! t ! s ;
      s2 = x.s
-    } ; 
+    } ;
 
-  conjunctTable5 : 
-    (P,Q,R,T,S : PType) -> Conjunction -> ListTable5 P Q R T S -> {s : P => Q => R => T => S => Str} = 
-    \P,Q,R,T,S,or,xs ->
-    {s = \\p,q,r,t,s => xs.s1 ! p ! q ! r ! t ! s ++ or.s ++ xs.s2 ! p ! q ! r ! t ! s} ;
-
-  conjunctDistrTable5 : 
-    (P,Q,R,T,S : PType) -> ConjunctionDistr -> ListTable5 P Q R T S -> 
-       {s : P => Q => R => T => S => Str} = 
+  conjunctDistrTable5 :
+    (P,Q,R,T,S : PType) -> ConjunctionDistr -> ListTable5 P Q R T S ->
+       {s : P => Q => R => T => S => Str} =
     \P,Q,R,T,S,or,xs ->
     {s = \\p,q,r,t,s => or.s1++ xs.s1 ! p ! q ! r ! t ! s ++ or.s2 ++ xs.s2 ! p ! q ! r ! t ! s} ;
 }
