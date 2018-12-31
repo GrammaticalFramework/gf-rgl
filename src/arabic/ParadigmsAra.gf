@@ -283,10 +283,10 @@ resource ParadigmsAra = open
 -- questions, verb phrases, and adjectives.
 
   mkV0  : V -> V0 ;
-  -- mkVS = overload {
-  --   mkVS : V -> VS ;
-  --   mkVS : V -> Str -> VS
-  --   } ;
+  mkVS : overload {
+    mkVS : V -> VS ;
+    mkVS : V -> Str -> VS
+    } ;
   mkV2S : V -> Str -> V2S ;
   mkVV = overload {
     mkVV : V -> VV = regVV ;

@@ -38,7 +38,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     Slash2V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3 ; agrObj = \\_ => []};
 
     Slash3V3 v np =
-      let vp = slashV2 v ** {c2 = 
+      let vp = slashV2 v ** {c2 =
             v.c2 ** {
               s = case np.a.isPron of {
                     True => case v.c2.binds of {
@@ -48,7 +48,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
             }
           }
        in vp ** {
-            c2 = v.c3 ; 
+            c2 = v.c3 ;
             agrObj = \\_ => bindIfPron np vp -- will be emptied when insertObj is called /IL
           } ;
 
@@ -66,7 +66,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     -- : VS -> S -> VP ;  -- say that she runs
     ComplVS vs s = predV vs ** { -- IL
-      obj = emptyObj ** {s = vs.s2 ++ s.s ! vs.o} 
+      obj = emptyObj ** {s = vs.s2 ++ s.s ! vs.o}
       } ;
 
     -- : VQ -> QS -> VP ;  -- wonder who runs
@@ -83,7 +83,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     UseComp xabar =
       case xabar.isNP of {
         False => kaan xabar ;
-        True  => predV copula ** {obj = xabar.obj ; isPred=True} 
+        True  => predV copula ** {obj = xabar.obj ; isPred=True}
       } ;
 
     UseCopula = predV copula ;
@@ -112,8 +112,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     CompCN cn = {s = \\agr,c => cn2str cn agr.n Indef Nom ;
                  obj = emptyObj ; isNP = False} ;
-    CompNP np = {s = \\_,_ => [] ; 
-                 obj = {s = np.s ! Nom ; a = agrLite np.a} ; 
+    CompNP np = {s = \\_,_ => [] ;
+                 obj = {s = np.s ! Nom ; a = agrLite np.a} ;
                  isNP = True} ;
 --
 --

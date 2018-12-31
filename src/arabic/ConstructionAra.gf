@@ -47,11 +47,11 @@ lin
   intMonthday = symb ;
 
   -- : Card -> CN -> A -> AP
-  n_units_AP card cn a = 
+  n_units_AP card cn a =
     let ap = mkAP a in ap ** {
-      s = \\s,g,n,d,c => 
-           ap.s ! s ! g ! n ! d ! c 
-        ++ (mkAdv R.biPrep (mkNP amount_N)).s 
+      s = \\s,g,n,d,c =>
+           ap.s ! s ! g ! n ! d ! c
+        ++ (mkAdv R.biPrep (mkNP amount_N)).s
         ++ (mkNP card cn).s ! R.Bare ---- ? /IL
       } ;
 
