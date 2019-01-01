@@ -122,7 +122,8 @@ concrete StructuralAra of Structural = CatAra **
   youPl_Pron = youPlMasc_Pron ;
   youPol_Pron = youPlFem_Pron ; -- arbitrary?
 
-  have_V2      = dirV2 (regV "يَملِك") ;
+  have_V2 = mkV2 ladaa_V (casePrep nom) ; -- "X has Y" literally "Y<nom> is on X<nom>"
+  --have_V2 = dirV2 (regV "يَملِك") ; -- "X<nom> owns/possesses Y<acc>"
 
   lin language_title_Utt = {s = \\_ => "العربية"} ;
 
