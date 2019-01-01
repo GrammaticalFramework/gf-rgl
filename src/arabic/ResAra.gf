@@ -1466,7 +1466,6 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     theyMasc_Pron   : NP = mkPron "هُمْ"  "هُمْ"  "هُمْ"  (Per3 Masc Pl) ;
     theyFem_Pron    : NP = mkPron "هُنَّ" "هُنَّ" "هُنَّ" (Per3 Fem  Pl) ;
 
-
     -- Used e.g. to encode the subject as an object clitic
     -- or to find a possessive suffix corresponding to the NP.
     -- If the NP is a pronoun, just use itself.
@@ -1512,6 +1511,23 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
         VPPart        => v.s ! vf ++ reflPron Acc (Per3 Masc Sg) ----
         }
       } ;
+
+  ladaa_V : Verb =
+    let laday : PerGenNum -> Str = \pgn -> case pgn of {
+          Per1 Sing    => "لَدَيَّ" ;
+          Per3 Masc Sg => "لَدَيْهِ" ;    -- vowel assimilation
+          Per3 Masc Dl => "لَدَيْهِمَا" ; -- vowel assimilation
+          Per3 Masc Pl => "لَدَيْهِم" ;   -- vowel assimilation
+          Per3 Fem  Pl => "لَدَيْهِنَّ" ; -- vowel assimilation
+          _            => "لَدَيْ" + (pgn2pron pgn).s ! Gen
+        } ;
+     in { s = table {
+      VImpf Ind Act pgn  => laday pgn ;
+      vf@(VImpf _ _ pgn) => copula.s ! vf ++ laday pgn ;
+      vf@(VPerf _ pgn)   => copula.s ! vf ++ laday pgn ;
+      vf@(VImp g n)      => copula.s ! vf ++ laday (Per2 g n) ;
+      VPPart             => copula.s ! VPPart ++ "لَدَى" }
+    } ;
 -----------------------------------------------------------------------------
 -- IP, questions
 
