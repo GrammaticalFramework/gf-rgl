@@ -323,12 +323,14 @@ oper
         }
     } ;
 
-  --macro for geminate verbs: same behaviour as hollow verbs, except for jussive.
-  -- IL -- to be tested: there are no geminate verbs in LexiconAra
+  -- macro for geminate verbs: same behaviour as hollow verbs,
+  -- except for jussive and imperative. /IL
   verbGeminate : DefForms -> Verb = \vforms ->
-    let verbHol = verbHollow vforms
-    in { s = table {
+    let verbHol = verbHollow vforms ;
+        patImp = patGeminateImp (vforms ! 8) (vforms ! 9)
+    in { s = table { -- Jussive and imperative have fatha instead of sukun
            VImpf Jus v pgn => verbHol.s ! VImpf Cnj v pgn ;
+           VImp        g n => patImp ! g ! n + suffixImpfCJ Cnj ! Per2 g n ;
            x               => verbHol.s ! x
            }
        } ;
@@ -1000,6 +1002,12 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
   table {
     Masc => table { Sg => xaf ; _ => xAf} ;
     Fem  => table { Pl => xaf ; _ => xAf}
+  } ;
+
+patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
+  \\g,n => case <g,n> of {
+      <Fem,Pl> => facic ;
+      _        => facc
   } ;
 
 --Nominal Morphology
