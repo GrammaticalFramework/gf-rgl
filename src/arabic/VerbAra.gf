@@ -5,7 +5,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
   lin
     UseV = predV ;
 
-    SlashVV vv vps = vps ** predV vv ; ----IL
+    -- : VV -> VPSlash -> VPSlash
+    SlashVV vv vps = vps ** ComplVV vv vps ;
 
     -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
     SlashV2V v2v vp = let v2vVP = predV v2v in -- IL
