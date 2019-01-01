@@ -1729,8 +1729,11 @@ patHollowImp : (_,_ :Str) -> Gender => Number => Str =\xaf,xAf ->
     bindIf : Bool -> Str = \b -> if_then_Str b BIND [] ;
 
     bindIfPron : NP -> {c2:Preposition; isPred:Bool} -> Str = \np,vp ->
-      let bind = case vp.isPred of {
-                   False => bindIf (orB np.a.isPron vp.c2.binds) ;
+      let notNom : Case -> Bool = \c -> case c of {Nom => False; _=>True} ;
+          bind = case vp.isPred of {
+                   False => bindIf (
+                              orB (andB np.a.isPron (notNom vp.c2.c)) --if np is pron, not in nominative
+                                   vp.c2.binds) ;
                    True  => [] }
        in vp.c2.s ++ bind ++ np.s ! vp.c2.c ;
 
