@@ -29,7 +29,6 @@ concrete ExtendAra of Extend =
     ICompAP ap = {s = \\gn => "كَمْ" ++ ap.s ! NoHum ! gn.g ! gn.n ! Indef ! Acc} ;
 
   lincat
-
     VPS   = {s : PerGenNum => Str} ;  -- finite VP's with tense and polarity
     [VPS] = {s1,s2 : PerGenNum => Str} ;
   lin
@@ -40,14 +39,14 @@ concrete ExtendAra of Extend =
           Nominal --  Nominal (=SVO) generalises best for ConjVPS.
           vp.obj.a.isPron
           (vStr vp pgn t.t p.p Nominal)
-          (case <vp.isPred,vp.obj.a.isPron> of {
-                    <False,True> => BIND ++ vp.obj.s ;
-                    _            =>         vp.obj.s })
+          vp.obj.s -- BIND is taken care of when the VP was made, no need to add one here
           (pred vp pgn t.t p.p)
           vp.s2
       in vps.before ++ vps.after -- word order is SVO, so this is safe for just this case.
       } ;
 
+    -- maybe more robust to use إِيَّا as object carrier if the VPS
+    -- consists of several VPSs; like it's done in Slash3V3 /IL
     BaseVPS = twoTable PerGenNum ;
     ConsVPS = consrTable PerGenNum comma ;
     ConjVPS = conjunctDistrTable PerGenNum ;
