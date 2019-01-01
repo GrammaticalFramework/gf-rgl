@@ -448,7 +448,7 @@ resource ParadigmsAra = open
     \rootStr,vPerf,vImpf ->
     let root = mkRoot3 rootStr
      in case rootStr of {
-          _          + "ّ"   => v1geminate rootStr vPerf vImpf ;
+          x@? + y@?  + "ّ"   => v1geminate (x+y+y) vPerf vImpf ;
           ? + #hamza + #weak => v1doubleweak root ;
           ? + ?      + #weak => case vPerf of {
                                   i => v1defective_i root vImpf ;
@@ -519,10 +519,10 @@ resource ParadigmsAra = open
 
   v7 =
     \rootStr ->
-    let {
-      fcl = mkRoot3 rootStr ;
-      v7fun = v7geminate ; -- TODO add rest
-      } in lin V (v7fun fcl) ;
+    let verb = case rootStr of {
+          x@? + y@? + "ّ" => v7geminate (x+y+y) ;
+          _               => v7sound (mkRoot3 rootStr) }
+    in lin V verb ;
 
   v8 =
     \rootStr ->
@@ -757,7 +757,7 @@ resource ParadigmsAra = open
 
   mkVS = overload {
     mkVS : V -> VS = \v -> lin VS (v ** {o = Subord; s2 = []}) ;
-    mkVS : V -> Str -> VS =  \v,s -> lin VS (v ** {o = Subord; s2 = s}) 
+    mkVS : V -> Str -> VS =  \v,s -> lin VS (v ** {o = Subord; s2 = s})
     } ;
   mkVQ v = lin VQ v ;
 
