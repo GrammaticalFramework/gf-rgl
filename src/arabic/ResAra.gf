@@ -171,7 +171,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
 
     AP : Type = {s : Species => Gender => NTable } ;
     uttAP : AP -> (Gender => Str) ;
-    uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Indef ! Bare ; ----IL
+    uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Const ! Bare ; ----IL
 
     CN : Type = Noun ** {np : Case => Str};
 
@@ -193,7 +193,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       } ;
 
     uttNum : NumOrdCard -> (Gender => Str) ;
-    uttNum n = \\g => n.s ! g ! Def ! Bare ;  ----IL
+    uttNum n = \\g => n.s ! g ! Const ! Bare ;
 
   param
     VForm =
