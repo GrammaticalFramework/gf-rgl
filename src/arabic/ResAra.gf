@@ -555,8 +555,10 @@ v1geminateForms : Str -> Vowel -> Vowel -> DefForms =
     umdad = "ُ" + mkStrong fcal mdd ;
     Umdud = (prefixImp ! vowImpf) + mdud;
     mamdUd = mkStrong mafcUl mdd
-   } in toDefForms madd madad mudd mudid amudd amdud
-                   umadd umdad Umdud mudd' mamdUd ;
+   } in toDefForms 
+          madd madad mudd mudid   -- VPerf
+          amudd amdud umadd umdad -- VImpf
+          Umdud mudd' mamdUd ;
 
 patGem1 : Vowel => Pattern =
   table {
@@ -613,7 +615,10 @@ v1defForms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
    eirmi = prefixImp ! vowImpf + _rmi;
    eirmu = prefixImp ! vowImpf + _rmu;
    marmiy = mkStrong mafcil rmy
- } in toDefForms rama ramay rumi rumu rumiy armi armu urma eirmi eirmu marmiy ;
+ } in toDefForms 
+        rama ramay rumi rumu rumiy -- VPerf
+        armi armu urma             -- VImpf
+        eirmi eirmu marmiy ;
 
 v1defective_a : Root3 -> Vowel -> Verb = \rmy,vowImpf ->
   let vforms = v1defForms_perfA rmy vowImpf
@@ -678,7 +683,10 @@ v2defective : Root3 -> Verb = \gny ->
     ugannu = "ُ" + gannu;
     uganna = "ُ" + ganna;
     mugannaY = "مُ" + ganna + "ى"
-  } in verbDef (toDefForms ganna gannay gunni gunnu gunniy uganni ugannu uganna ganni gannu mugannaY) i;
+  } in verbDef (toDefForms 
+          ganna gannay gunni gunnu gunniy -- VPerf
+          uganni ugannu uganna            -- VImpf
+          ganni gannu mugannaY) i ;
 
 v3sound : Root3 -> Verb =
   \tbc ->
@@ -722,8 +730,8 @@ v4hollow : Root3 -> Verb =
     ppart = "م" + urAd ;
 
   } in verbHollow (toDefForms
-                      earAd earad eurId eurid
-                      urId urid urAd urad
+                      earAd earad eurId eurid -- VPerf
+                      urId urid urAd urad     -- VImpf
                       earId earid ppart) ;
 
  v4DefForms : Root3 -> DefForms = \cTy ->
@@ -742,7 +750,9 @@ v4hollow : Root3 -> Verb =
     eacTi = "أَ" + _cTi; -- VImp (Masc Sg / Fem _)
     eacTu = "أَ" + _cTu; -- VImp Masc Pl
     mucTaY = "م" + ucTa +"ى"
-  } in toDefForms eacTa eacTay eucTi eucTu eucTiy ucTi ucTu ucTa eacTi eacTu mucTaY ;
+  } in toDefForms eacTa eacTay eucTi eucTu eucTiy -- VPerf
+                  ucTi ucTu ucTa                  -- VImpf
+                  eacTi eacTu mucTaY ;
 
 v4defective : Root3 -> Verb = \cTy ->
   verbDef (v4DefForms cTy) i ;
@@ -808,13 +818,39 @@ v7geminate : Str -> Verb = \fcl ->
          n => "ُنْ" + vforms ! n -- doesn't exist for form 7
     }) ;
 
+v8geminate : Str -> Verb = 
+  \rootStr ->
+  let {
+    mdd = mkRoot3 rootStr ; --fcc
+    md  = mkRoot2 rootStr ; --fc
+    _mtadd = mkBilit ftacc md ;
+    _mtadad = mkStrong ftacal mdd ;
+    _mtadid = mkStrong ftacil mdd ;
+    _mtudd = mkBilit ftucc md ;
+    _mtudid = mkStrong ftucil mdd ;
+    imtadd = "اِ" + _mtadd ;
+    imtadad = "اِ" + _mtadad ;
+    umtudd = "اُ" + _mtudd ;
+    umtudid = "اُ" + _mtudid ;
+    amtadd = "َ" + _mtadd ;
+    amtadid = "َ" + _mtadid ;
+    umtadd = "ُ" + _mtadd ;
+    umtadad = "ُ" + _mtadad ;
+    imtadid = "اِ" + _mtadid ;
+    mumtadd = "مُ" + _mtadd ;
+  } in verbGeminate (toDefForms 
+        imtadd imtadad umtudd umtudid -- VPerf
+        amtadd amtadid umtadd umtadad -- VPres
+        imtadd imtadid mumtadd) ;
+
+
 v8sound : Root3 -> Verb =
   \rbT ->
   let {
     rtabiT = mkStrong ftacil rbT ;
     rtabaT = mkStrong ftacal rbT ;
     eirtabaT = "إِ" + rtabaT ;
-    eurtubiT = mkStrong euftucil rbT ;
+    eurtubiT = "أُ" + mkStrong ftucil rbT ;
     artabiT = "َ" + rtabiT ;
     urtabaT  = "ُ" + rtabaT ;
     eirtabiT = "إِ" + rtabiT ;
@@ -827,7 +863,7 @@ v8assimilated : Root3 -> Verb = --- IL 8a1
     ttafiq = mkWeak ttacil wfq ;
     ttafaq = mkWeak ttacal wfq ;
     eittafaq = "إِ" + ttafaq ;
-    euttufiq = mkWeak euttucil wfq ;
+    euttufiq = mkWeak euttucil wfq ; -- TODO check
     attafiq = "َ" + ttafiq ;
     uttafaq  = "ُ" + ttafaq ;
     eittafiq = "إِ" + ttafiq ;
@@ -856,6 +892,7 @@ v8hollow : Root3 -> Verb = -- IL
   }  in verbHollow (toDefForms
                      iHtAj iHtaj uHtIj uHtij aHtAj aHtaj
                      uHtAj uHtaj iHtAj iHtaj ppart) ;
+
 v10sound : Root3 -> Verb = -- IL 10s -- to be checked
   \qtl ->
   let {
@@ -915,6 +952,31 @@ v10defective : Root3 -> Verb = -- IL
   } in verbDef (toDefForms
                   istalqa istalqay ustulqi ustulqi ustulqi
                   astalqi astalqu ustalqa istalqi istalqu mustalqin) i ;
+
+v10geminate : Str -> Verb = \fcl ->
+  let vforms = v1geminateForms fcl a i ;
+      _stafacc = "سْتَ" + vforms ! 0 ;
+      _stafcac = "سْتَ" + mkStrong fcal (mkRoot3 fcl) ;
+      _staficc = "سْت" + vforms ! 4 ; -- vowel is in the stem from vforms
+      _stafcic = "سْت" + vforms ! 5 ; -- vowel is in the stem from vforms
+      istafacc = "اِ" + _stafacc ;  -- VPerf Act
+      istafcac = "اِ" + _stafcac ;  -- VPerf Act Pl3F
+      astaficc = "َ" + _staficc ;   -- VImpf Act
+      astafcic = "َ" + _stafcic ;   -- VImpf Act Pl3F
+      istaficc = "اِ" + _staficc ;  -- VImp
+      istafcic = "اِ" + _stafcic ;  -- VImp PlF
+      mustafacc = "مُ" + _stafacc ; -- VPPart
+   in verbGeminate (table {
+         0 => istafacc ;
+         1 => istafcac ;
+         4 => astaficc ;
+         5 => astafcic ;
+         8 => istaficc ;
+         9 => istafcic ;
+         10 => mustafacc ;
+         n@(2|3) => "ُسْتُ" + vforms ! n ; -- ???
+         n@(6|7) => "ُسْتَ" + vforms ! n -- ???
+    }) ;
 
 patV1Perf : Vowel => Pattern =
   table {
@@ -1120,7 +1182,6 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
          -- The rest is identical with singulars and broken plurals
         _ => brkPl word ! s ! c
       } ;
-
 
     -- takes a singular word and tests the ending to
     -- determine the declension and gives the corresponding dual inf table
@@ -1447,6 +1508,11 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
       s : Case => Str ;
       a : Agr ;
       empty : Str -- to prevent ambiguities with prodrop
+      } ;
+
+    -- hack, but better to have it here than to define ad hoc in every application grammar /IL
+    forceCase : NP -> Case -> NP = \np,c -> np ** {
+      s = \\_ => np.s ! c
       } ;
 
     mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->

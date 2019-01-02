@@ -448,7 +448,7 @@ resource ParadigmsAra = open
     \rootStr,vPerf,vImpf ->
     let root = mkRoot3 rootStr
      in case rootStr of {
-          x@? + y@?  + "ّ"   => v1geminate (x+y+y) vPerf vImpf ;
+          f@? + c@?  + "ّ"   => v1geminate (f+c+c) vPerf vImpf ;
           ? + #hamza + #weak => v1doubleweak root ;
           ? + ?      + #weak => case vPerf of {
                                   i => v1defective_i root vImpf ;
@@ -519,32 +519,34 @@ resource ParadigmsAra = open
 
   v7 =
     \rootStr ->
-    let verb = case rootStr of {
-          x@? + y@? + "ّ" => v7geminate (x+y+y) ;
-          _               => v7sound (mkRoot3 rootStr) }
-    in lin V verb ;
+    let {
+      fcl = mkRoot3 rootStr ;
+      verb : Verb = case rootStr of {
+        f@? + c@? + "ّ" => v7geminate (f+c+c) ;
+        _               => v7sound fcl }
+      } in lin V verb ;
 
   v8 =
     \rootStr ->
     let {
-      rbT = mkRoot3 rootStr ;
-      v8fun = case rbT.f of {
-                ("و"|"ي"|"ّ") => v8assimilated ;
-                _ =>
-                  case rbT.c of {
-                        #weak => v8hollow ;
-                        _     => v8sound }}
-      } in lin V (v8fun rbT) ;
+      fcl = mkRoot3 rootStr ;
+      verb : Verb  = case rootStr of {
+          f@? + c@? + "ّ" => v8geminate (f+c+c) ; 
+          #weak + ? + ?   => v8assimilated fcl ;
+          ? + #weak + ?   => v8hollow fcl ;
+          _               => v8sound fcl }
+      } in lin V verb ;
 
   v10 =
     \rootStr ->
     let {
-      rbT = mkRoot3 rootStr ;
-      v10fun : Root3 -> Verb = case rootStr of {
-                ? + #weak + ? => v10hollow ;
-                ? + ? + #weak => v10defective ;
-                _             => v10sound }
-      } in lin V (v10fun rbT) ;
+      fcl = mkRoot3 rootStr ;
+      verb : Verb = case rootStr of {
+          f@? + c@? + "ّ" => v10geminate (f+c+c) ;
+          ? + #weak + ?   => v10hollow fcl ;
+          ? + ? + #weak   => v10defective fcl ;
+          _               => v10sound fcl }
+      } in lin V verb ;
 
   reflV v = lin V (ResAra.reflV v) ;
 
@@ -815,6 +817,6 @@ formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
    } ;
 
 param VerbForm =
-  FormI | FormII |  FormIII |  FormIV |  FormV |  FormVI | FormVII | FormVIII | FormX ;
+  FormI | FormII | FormIII | FormIV | FormV | FormVI | FormVII | FormVIII | FormX ;
 
 } ;

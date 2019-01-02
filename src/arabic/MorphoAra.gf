@@ -5,8 +5,19 @@ flags optimize = all ;--noexpand;
 
   oper
 
-    mkDet : Str -> Number -> State -> Det
-      = mkDetDecl True ;
+    mkDet = overload {
+      mkDet : Str -> Number -> State -> Det
+        = mkDetDecl True ;
+      mkDet : (m,f : Str) -> Number -> State -> Det 
+        = \m,f,n,d ->
+        let detM = mkDetDecl True m n d ;
+            detF = mkDetDecl True f n d ;
+         in detM ** {
+              s = \\h,g,c => case g of {
+                        Fem  => detF.s ! h ! g ! c ;
+                        Masc => detM.s ! h ! g ! c }
+              } 
+    } ;
 
     mkDetDecl : Bool -> Str -> Number -> State -> Det
       = \decl,word,num,state -> baseQuant **
