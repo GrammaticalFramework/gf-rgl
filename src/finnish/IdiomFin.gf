@@ -75,7 +75,7 @@ concrete IdiomFin of Idiom = CatFin **
       } ;
 
   ExistNPAdv np adv =
-      mkClause (\_ -> adv.s) np.a (insertObj 
+      mkClausePol np.isNeg (\_ -> adv.s) np.a (insertObj 
         (\\_,b,_ => np.s ! NPSep) (predV vpVerbOlla)) ;
 
   ExistIPAdv ip adv =
