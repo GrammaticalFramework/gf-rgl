@@ -1121,7 +1121,6 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
         _ => brkPl word ! s ! c
       } ;
 
-
     -- takes a singular word and tests the ending to
     -- determine the declension and gives the corresponding dual inf table
     dual : Str -> State => Case => Str = \caSaA ->
@@ -1447,6 +1446,11 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
       s : Case => Str ;
       a : Agr ;
       empty : Str -- to prevent ambiguities with prodrop
+      } ;
+
+    -- hack, but better to have it here than to define ad hoc in every application grammar /IL
+    forceCase : NP -> Case -> NP = \np,c -> np ** {
+      s = \\_ => np.s ! c
       } ;
 
     mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
