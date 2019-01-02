@@ -57,8 +57,6 @@ flags coding=utf8 ;
     ufIc     = fIc ** { h = "ُ" } ;
     ufac     = fac ** { h = "ُ" } ;
     ufAc     = fAc ** { h = "ُ" } ;
-    euftucil = { h = "أُ"; m1 = "ْتُ" ; m2 = "ِ"   ; t = ""   } ;
-    euttucil = euftucil ** { h =  "اُتُّ" ; m1 = "ِ"  } ; ---- IL assimilated VIII
     afcul    = { h = "َ" ; m1 = "ْ"   ; m2 = "ُ"   ; t = ""   } ;
     faccalo  = { h = ""  ; m1 = "َ"   ; m2 = "َّ"  ; t = "ْ"  } ;
     facal    = { h = ""  ; m1 = "َ"   ; m2 = "َ"   ; t = ""   } ;
@@ -86,11 +84,15 @@ flags coding=utf8 ;
     ficl     = { h = ""  ; m1 = "ِ"   ; m2 = "ْ"   ; t = ""   } ;
     ficAl    = { h = ""  ; m1 = "ِ"   ; m2 = "َا"  ; t = ""   } ;
     ficlp    = { h = ""  ; m1 = "ِ"   ; m2 = "ْ"   ; t = "َة" } ;
+    ftacc    = facc ** {m1 = "ْتَ"} ;
+    ftucc    = facc ** {m1 = "ْتُ"} ;
     ftacal   = { h = ""  ; m1 = "ْتَ" ; m2 = "َ"   ; t = ""   } ;
     ftical   = ftacal ** { m1 = "ْتِ" } ; -- IL hollow VIII
     ftAcal   = ftacal ** { m1 = "ْتَا" } ; -- IL hollow VIII
     ftIcal   = ftacal ** { m1 = "ْتِي" } ;  -- IL hollow VIII
     ftacil   = { h = ""  ; m1 = "ْتَ" ; m2 = "ِ"   ; t = ""   } ;
+    ftucil   = fucil ** { m1 = "ْتُ" } ;
+    euttucil = { h =  "اُتُّ" ; m1 = "ِ" ; m2 = "" ; t = "" } ; ---- IL assimilated VIII
     ttacal   = ftacal ** { m1 = ""  ; h = "تَّ" } ; ---- IL assimilated VIII
     ttacil   = ftacil ** { m1 = ""  ; h = "تَّ" } ; ---- IL assimilated VIII
     fuccAl   = { h = ""  ; m1 = "ُ"   ; m2 = "َّا" ; t = ""   } ;
