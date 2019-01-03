@@ -28,7 +28,8 @@ matching, so that the suffixing functions dp and tk are in heavy use.
 
 ## Known issues
 
-The object case in passives may come out wrong.
+* The object case in passives may come out wrong.
+* If a possessive suffix is added for a NP that is built out of N2 or N3, the possessive suffix will go after the complements, and not after the head noun as it's supposed to.
 
 
 ## Supplementary files
