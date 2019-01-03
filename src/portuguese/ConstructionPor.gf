@@ -2,7 +2,7 @@
 
 concrete ConstructionPor of Construction = CatPor **
   open SyntaxPor, SymbolicPor, ParadigmsPor, BeschPor,
-  (L = LexiconPor), (B = IrregBeschPor), (R = ResPor),
+  (L = LexiconPor), (B = DiffPor), (R = ResPor),
   (S = SyntaxPor), (C = CommonRomance), CommonRomance,
        Prelude in {
   flags coding=utf8 ;
@@ -24,7 +24,7 @@ lin
   how_far_QCl x = mkQCl (lin IAdv (ss "a que distância")) (mkCl x B.estar_V) ;
 
 -- some more things
-  weather_adjCl ap = mkCl (mkVP (mkVA B.fazer_V) (lin AP ap)) ;
+  weather_adjCl ap = mkCl (mkVP (mkVA (mkV (fazer_Besch "fazer"))) (lin AP ap)) ;
 
   is_right_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "certo")) ;
   is_wrong_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "errado")) ;

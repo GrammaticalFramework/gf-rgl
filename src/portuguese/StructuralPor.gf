@@ -1,15 +1,13 @@
+--# -path=.:../romance:../common:../abstract:../prelude
 concrete StructuralPor of Structural = CatPor **
   open PhonoPor, MorphoPor, ParadigmsPor, BeschPor, DiffPor,
-  MakeStructuralPor, (X = ConstructX), (B=IrregBeschPor)
+  MakeStructuralPor, (X = ConstructX), (B=LexiconPor)
   , Prelude in {
 
   flags optimize=all ;
         coding=utf8 ;
 
   lin
-    -- have_V3
-    -- have_not_V3
-
     --- Prons
     i_Pron =
       mkPronoun
@@ -65,7 +63,7 @@ concrete StructuralPor of Structural = CatPor **
     by8agent_Prep = mkPrep [] ablative ; -- por
     by8means_Prep = mkPrep [] ablative ; -- por
     can8know_VV = mkVV B.saber_V ;
-    can_VV = mkVV B.poder_V ;
+    can_VV = mkVV (mkV (poder_Besch "poder")) ;
     during_Prep = mkPrep "durante" ;
     either7or_DConj = {s1,s2 = "ou" ; n = Sg} ;
     everybody_NP = makeNP "todos" Masc Pl ;
@@ -138,7 +136,7 @@ concrete StructuralPor of Structural = CatPor **
     to_Prep = complDat ;
     under_Prep = mkPrep "embaixo" ;
     very_AdA = ss "muito" ;
-    want_VV = mkVV B.querer_V ;
+    want_VV = mkVV (mkV (querer_Besch "querer")) ;
     whatSg_IP = {s = \\c => prepCase c ++ "que" ; a = aagr Masc Sg} ;
     whatPl_IP = {s = \\c => prepCase c ++ "que" ; a = aagr Masc Pl} ; ---
     when_IAdv = ss "quando" ;
@@ -166,4 +164,4 @@ concrete StructuralPor of Structural = CatPor **
     that_Subj = {s = "que" ; m = Conjunct} ;
 
   lin language_title_Utt = ss "português" ;
-}
+} ;
