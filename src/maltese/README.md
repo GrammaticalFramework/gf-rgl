@@ -2,14 +2,14 @@
 
 ## Language info
 
-English name: Maltese
-Autonym: Malti
-ISO code: Mlt
+- English name: Maltese
+- Autonym: Malti
+- ISO code: Mlt
 
 ## Authors
 
 Mainly written by John J. Camilleri, 2009-2013.
-with some contributions by Angelo Zammit, 2012.
+With some contributions by Angelo Zammit, 2012.
 
 ## Publications
 
