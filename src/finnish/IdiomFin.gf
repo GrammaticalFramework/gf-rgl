@@ -35,9 +35,9 @@ concrete IdiomFin of Idiom = CatFin **
       (insertExtrapos ("kun" ++ s.s)
         (insertObj (\\_,_,_ => ad.s) (predV olla))) ;
 
-    ImpersCl vp = mkClause noSubj (agrP3 Sg) vp ;
+    ImpersCl vp = mkClausePol vp.vptyp.isNeg noSubj (agrP3 Sg) vp ;
 
-    GenericCl vp = mkClause noSubj (agrP3 Sg) (passVP vp (casePrep nominative)) ;
+    GenericCl vp = mkClausePol vp.vptyp.isNeg noSubj (agrP3 Sg) (passVP vp (casePrep nominative)) ;
 
     ProgrVP vp = 
       let 
