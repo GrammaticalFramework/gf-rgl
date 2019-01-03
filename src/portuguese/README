@@ -18,6 +18,10 @@ Portuguese verbs, divided in paradigms following the following books:
 - Ryan, M. A. Conjugação dos Verbos em Português. Ática, 1991.
 - Freire, A. N. Bescherelle: portugais, les verbes. Hatier, 2008.
 
+** IrregBeschPor
+In this lexicon module you will find Portuguese verbs defined using
+the paradigms in BeschPor. Please contribute to this list!
+
 * history and applications
 - mini resource grammars: a [[https://github.com/GrammaticalFramework/gf-summerschool-2018/tree/master/resource][version]] for [[http://school.grammaticalframework.org/2018/][GFSS2018]], [[https://github.com/GrammaticalFramework/gf-contrib/tree/master/mini][mini]] and [[https://github.com/GrammaticalFramework/gf-contrib/tree/master/mini/newmini][newmini]]
 - [[https://github.com/odanoburu/gf-matrix][gf-matrix]]: porting the matrix MRS treebank to GF
