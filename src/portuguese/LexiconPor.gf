@@ -1,7 +1,7 @@
---# -path=.:../romance:../common:../abstract:../../prelude
+--# -path=.:../romance:../common:../abstract:../prelude
 
 concrete LexiconPor of Lexicon = CatPor ** open
-  (M=MorphoPor), ParadigmsPor, BeschPor, Prelude, (D = DiffPor), (S = StructuralPor) in {
+  (M=MorphoPor), ParadigmsPor, BeschPor, Prelude, (D = DiffPor) in {
 
 flags
   optimize=values ;
@@ -9,7 +9,7 @@ flags
 
 lin
    easy_A2V = mkA2V (mkA "fácil") dative genitive ;
-   married_A2 = mkA2 (mkA "casado") S.with_Prep ;
+   married_A2 = mkA2 (mkA "casado") (mkPrep "com") ;
    probable_AS = mkAS (prefA (mkA "provável" "provavelmente")) ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
@@ -276,7 +276,7 @@ lin
    hate_V2       = mkV2 (mkV (odiar_Besch "odiar")) ;
    hear_V2       = mkV2 (mkV "ouvir") ;
    hit_V2        = mkV2 (mkV "bater") ;
-   hold_V2       = mkV2 (mkV (ter_Besch "ter")) ;
+   hold_V2       = mkV2 ter_V ;
    hunt_V2       = mkV2 (mkV "caçar") ;
    kill_V2       = mkV2 (mkV "matar") ;
    know_V2       = mkV2 (mkV "conhecer") ;
@@ -319,11 +319,11 @@ lin
    send_V3 = mkV3 (mkV "enviar") dative ; -- mandar
    talk_V3 = mkV3 (mkV "falar") dative genitive ;
    become_VA = reflV (mkV "tornar") ;
-   know_VQ = mkVQ (mkV "saber") ;
+   know_VQ = mkVQ saber_V ;
    wonder_VQ = mkVQ (reflV (mkV "perguntar")) ;
    fear_VS = mkVS (mkV "temer") ;
    hope_VS = mkVS (mkV "esperar") ;
-   know_VS = mkVS (mkV "saber") ;
+   know_VS = mkVS saber_V ;
    say_VS = mkVS (mkV (dizer_Besch "dizer")) ;
    -- V
    blow_V    = mkV "assoprar" ;
@@ -361,4 +361,12 @@ lin
    walk_V    = mkV "caminhar" ;
    -- interj
    alas_Interj = ss "infelizmente" ;
+
+  oper
+    saber_V : V ;
+    saber_V = mkV (saber_Besch "saber") ;
+
+    ter_V : V ;
+    ter_V = mkV (ter_Besch "ter") ;
+
 } ;

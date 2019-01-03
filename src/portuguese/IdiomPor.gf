@@ -1,5 +1,5 @@
 concrete IdiomPor of Idiom = CatPor **
-  open (P = ParamX), MorphoPor, ParadigmsPor, BeschPor, (B = IrregBeschPor), Prelude in {
+  open (P = ParamX), MorphoPor, ParadigmsPor, BeschPor, (B = DiffPor), Prelude in {
 
   flags optimize=all_subs ;
 

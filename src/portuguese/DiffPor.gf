@@ -1,4 +1,4 @@
---# -path=.:../romance:../abstract:../common:prelude
+--# -path=.:../romance:../abstract:../common:../prelude
 
 instance DiffPor of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
 
