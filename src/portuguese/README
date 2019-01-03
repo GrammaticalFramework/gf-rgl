@@ -1,0 +1,38 @@
+# -*- mode:org -*-
+#+TITLE: Portuguese
+
+The Portuguese Resource Grammar is built using the Romance functor at
+=romance/=. It mostly follows Brazilian Portuguese.
+
+* language information
+- English name: Portuguese
+- Autonym: Português
+- ISO code: Por
+
+* data
+# post data sources and add IrregPor and DictPor
+** BeschPor
+The =BeschPor= module contains the complete inflection tables for all
+Portuguese verbs, divided in paradigms following the following books:
+
+- Ryan, M. A. Conjugação dos Verbos em Português. Ática, 1991.
+- Freire, A. N. Bescherelle: portugais, les verbes. Hatier, 2008.
+
+** IrregBeschPor
+In this lexicon module you will find Portuguese verbs defined using
+the paradigms in BeschPor. Please contribute to this list!
+
+* history and applications
+- mini resource grammars: a [[https://github.com/GrammaticalFramework/gf-summerschool-2018/tree/master/resource][version]] for [[http://school.grammaticalframework.org/2018/][GFSS2018]], [[https://github.com/GrammaticalFramework/gf-contrib/tree/master/mini][mini]] and [[https://github.com/GrammaticalFramework/gf-contrib/tree/master/mini/newmini][newmini]]
+- [[https://github.com/odanoburu/gf-matrix][gf-matrix]]: porting the matrix MRS treebank to GF
+- [[https://github.com/odanoburu/gf-contrib/tree/cade-demo/cade-2011][Portuguese concrete]] for the grammar from the paper:
+  : Ranta, A. Translating between language and logic: what is easy and what is difficult. International Conference on Automated Deduction, 2011, LNCS/LNAI.
+- [[http://github.com/grammaticalframework/gf-wordnet][gf-wordnet]]: [incomplete]
+- Portuguese concrete for the [[https://github.com/GrammaticalFramework/gf-summerschool-2018/tree/master/application][Doctor grammar]] from [[http://school.grammaticalframework.org/2018/][GFSS2018]]
+
+* bibliography
+- Cuconato, B. ; Rademaker, A. A computational grammar for
+  Portuguese. PROPOR demonstration session, 2018 [[[http://www.lbd.dcc.ufmg.br/curadoria/minger/recentinsertion/propor-demo/2018/pdf/001.pdf][pdf]]]
+
+* maintainer
+bruno cuconato (@odanoburu)
