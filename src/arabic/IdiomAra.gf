@@ -9,10 +9,10 @@ concrete IdiomAra of Idiom = CatAra ** open
  lin
 
   -- : VP -> Cl ;        -- it is hot
-  ImpersCl vp =
-    let it : ResAra.NP = case vp.isPred of {
-    		True  => pron2np (gn2pron vp.obj.a.gn) ;
-	      False => gn2pron vp.obj.a.gn } ; -- if no obj, Per3 Masc Sg chosen by default
+  -- "it is a girl" becomes "she is a girl";
+  -- "it is twins" becomes "they<dual> are<dual> twins".
+  ImpersCl vp =            -- if no obj, default Per3 Masc Sg
+    let it : ResAra.NP = gn2pron vp.obj.a.gn ;
      in predVP it vp ;
 
   --  : VP -> Cl ;        -- one sleeps
