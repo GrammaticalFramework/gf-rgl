@@ -22,7 +22,7 @@ lin
       cn.s2 ! number
             ! (definite ! det.d) -- Indef remains Indef, rest become Def
             ! c
-    } in {
+    } in emptyNP ** {
       s = \\c => -- Dat is just a hack for liPrep
         let c' = case c of {Dat => Gen ; x => x} in
         case cnB4det det of {
@@ -37,13 +37,12 @@ lin
         };
       a = { pgn = agrP3 cn.h cn.g number;
             isPron = False } ;
-      empty = []
-    };
+      isHeavy = cn.isHeavy
+    } ;
 
-  UsePN pn = {
-    s =  pn.s;
-    a = {pgn = Per3 pn.g Sg ; isPron = False} ;
-    empty = []
+  UsePN pn = emptyNP ** {
+    s = pn.s;
+    a = {pgn = Per3 pn.g Sg ; isPron = False}
     };
 
   UsePron p = p ;
@@ -70,7 +69,8 @@ lin
 -}
 
   AdvNP np adv = np ** {
-    s = \\c => np.s ! c ++ adv.s
+    s = \\c => np.s ! c ++ adv.s ;
+    isHeavy = True ;
     };
 
   DetQuantOrd quant num ord = quant ** {
@@ -169,10 +169,11 @@ lin
     isEmpty = True
     } ;
 
-  MassNP cn =
-    {s = \\c => cn2str cn Sg Indef c ;
-     a = {pgn = Per3 cn.g Sg ; isPron = False} ;
-     empty = []} ;
+  MassNP cn = emptyNP ** {
+    s = \\c => cn2str cn Sg Indef c ;
+    a = {pgn = Per3 cn.g Sg ; isPron = False} ;
+    isHeavy = cn.isHeavy ;
+    } ;
 
   UseN,
   UseN2 = useN ;
@@ -190,12 +191,22 @@ lin
     };
 
   RelCN cn rs = cn ** {
-    s2 = \\n,s,c => cn.s2 ! n ! s ! c ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c};
+    s2 = \\n,s,c => cn.s2 ! n ! s ! c
+        ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c ;
+    isHeavy = True
+    } ;
 
-  RelNP np rs = np ** {s = \\c => np.s ! c ++ rs.s ! np.a ! c} ;
+
+  RelNP np rs = np ** {
+    s = \\c => np.s ! c ++ rs.s ! np.a ! c ;
+    isHeavy = True
+    } ;
 
   AdvCN,
-  SentCN = \cn,ss -> cn ** {s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ss.s} ;
+  SentCN = \cn,ss -> cn ** {
+    s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ss.s ;
+    isHeavy = True
+    } ;
 
   ApposCN cn np = cn ** {
     np = \\c => cn.np ! c ++ np.s ! c
