@@ -189,7 +189,8 @@ oper
       chin + "ês" => adjFrances a ;
       europ + "eu" => adjEuropeu a ;
       alem + "ão" => adjVo a ;
-      provav + v@("e" | "i") + "l" => adjUtil a (provav + "eis") ;
+      provav + v@("e" | "i") + "l" => adjUtil a (provav + "eis") ; -- fails at pueril
+      nomina + "l" => adjUtil a (nomina + "is") ;
       jove + "m" => adjUtil a (jove + "ns") ;
       _   => adjUtil a (a + "s")
     } ;
