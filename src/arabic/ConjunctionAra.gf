@@ -5,7 +5,7 @@ lincat
 
   [S] =  {s1,s2 : Order => Str} ;
   [Adv] = {s1,s2 : Str} ;
-  [NP] = {s1,s2 : Case => Str ; a : Agr ; empty : Str} ;
+  [NP] = {s1,s2 : Case => Str ; a : Agr ; empty : Str; isHeavy : Bool} ;
   [AP] = {s1,s2 : Species => Gender => Number => State => Case => Str} ;
 
 lin
@@ -21,16 +21,19 @@ lin
 
   BaseNP x y = twoTable Case x y ** {
     a = conjAgr x.a y.a ;
-    empty = []
+    empty = [] ;
+    isHeavy = True ;
     } ;
   ConsNP xs x = consrTable Case comma xs x ** {
     a = conjAgr xs.a x.a ;
-    empty = []
+    empty = [] ;
+    isHeavy = True ;
     } ;
   ConjNP conj ss = conjunctDistrTable Case conj ss ** {
     a = let gn = pgn2gn ss.a.pgn in
         {pgn = Per3 gn.g (conjNumber conj.n gn.n) ; isPron = False} ;
-    empty = []
+    empty = [] ;
+    isHeavy = True ;
     } ;
 
   BaseAP = twoTable5 Species Gender Number State Case ;

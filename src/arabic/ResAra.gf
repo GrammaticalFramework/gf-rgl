@@ -173,7 +173,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     uttAP : AP -> (Gender => Str) ;
     uttAP ap = \\g => ap.s ! NoHum ! g ! Sg ! Const ! Bare ; ----IL
 
-    CN : Type = Noun ** {np : Case => Str};
+    CN : Type = Noun ** {np : Case => Str ; isHeavy : Bool};
 
     -- All fields of NP
     cn2str : CN -> Number -> State -> Case -> Str = \cn,n,s,c ->
@@ -181,7 +181,9 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       cn.s2 ! n ! s ! c ++
       cn.np ! c ;
 
-    useN : Noun -> CN = \n -> n ** {np = \\_ => []} ;
+    useN : Noun -> CN = \n -> n ** {
+      np = \\_ => [] ;
+      isHeavy = False } ;
 
     uttCN : CN -> (Gender => Str) ;
     uttCN cn = \\_ => cn2str cn Sg Indef Bare ;
@@ -555,7 +557,7 @@ v1geminateForms : Str -> Vowel -> Vowel -> DefForms =
     umdad = "ُ" + mkStrong fcal mdd ;
     Umdud = (prefixImp ! vowImpf) + mdud;
     mamdUd = mkStrong mafcUl mdd
-   } in toDefForms 
+   } in toDefForms
           madd madad mudd mudid   -- VPerf
           amudd amdud umadd umdad -- VImpf
           Umdud mudd' mamdUd ;
@@ -615,7 +617,7 @@ v1defForms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
    eirmi = prefixImp ! vowImpf + _rmi;
    eirmu = prefixImp ! vowImpf + _rmu;
    marmiy = mkStrong mafcil rmy
- } in toDefForms 
+ } in toDefForms
         rama ramay rumi rumu rumiy -- VPerf
         armi armu urma             -- VImpf
         eirmi eirmu marmiy ;
@@ -683,7 +685,7 @@ v2defective : Root3 -> Verb = \gny ->
     ugannu = "ُ" + gannu;
     uganna = "ُ" + ganna;
     mugannaY = "مُ" + ganna + "ى"
-  } in verbDef (toDefForms 
+  } in verbDef (toDefForms
           ganna gannay gunni gunnu gunniy -- VPerf
           uganni ugannu uganna            -- VImpf
           ganni gannu mugannaY) i ;
@@ -818,7 +820,7 @@ v7geminate : Str -> Verb = \fcl ->
          n => "ُنْ" + vforms ! n -- doesn't exist for form 7
     }) ;
 
-v8geminate : Str -> Verb = 
+v8geminate : Str -> Verb =
   \rootStr ->
   let {
     mdd = mkRoot3 rootStr ; --fcc
@@ -838,7 +840,7 @@ v8geminate : Str -> Verb =
     umtadad = "ُ" + _mtadad ;
     imtadid = "اِ" + _mtadid ;
     mumtadd = "مُ" + _mtadd ;
-  } in verbGeminate (toDefForms 
+  } in verbGeminate (toDefForms
         imtadd imtadad umtudd umtudid -- VPerf
         amtadd amtadid umtadd umtadad -- VPres
         imtadd imtadid mumtadd) ;
@@ -1507,6 +1509,7 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
     NP : Type = {
       s : Case => Str ;
       a : Agr ;
+      isHeavy : Bool ; -- overrides verbal word order, if the subject is very complicated; e.g. built out of RelNP or similar
       empty : Str -- to prevent ambiguities with prodrop
       } ;
 
@@ -1516,15 +1519,14 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
       } ;
 
     mkPron : (_,_,_ : Str) -> PerGenNum -> NP = \ana,nI,I,pgn ->
-     { s =
+     emptyNP ** {s =
         table {
           (Nom|Bare) => ana;
           Acc => nI ; -- object suffix
           Gen => I ;  -- possessive suffix
           Dat => I -- will only be used with preposition لِ
         };
-      a = {pgn = pgn; isPron = True };
-      empty = []
+      a = {pgn = pgn; isPron = True}
     };
 
     proDrop : NP -> NP = \np ->
@@ -1536,6 +1538,7 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
     emptyNP : NP = {
       s = \\_ => [] ;
       a = {pgn = Per3 Masc Sg ; isPron = False} ;
+      isHeavy = False ;
       empty = [] } ;
 
     agrNP : Agr -> NP = \agr -> emptyNP ** {a = agr} ;
@@ -1653,7 +1656,7 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
           }
       } ;
 
-    ip2np : IP -> Bool -> NP = \ip,isPred -> ip ** { s = ip.s ! isPred ! Masc ! Def ; empty = [] } ;
+    ip2np : IP -> Bool -> NP = \ip,isPred -> emptyNP ** ip ** {s = ip.s ! isPred ! Masc ! Def} ;
     np2ip : NP -> IP = \np -> np ** {s = \\_,_,_ => np.s} ;
 
     IDet : Type = {
@@ -1748,7 +1751,7 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
                       True  =>           np.s ! sc.c
                    } ;
           } in wordOrder o
-                  vp.obj.a.isPron np.a.isPron
+                  vp.obj.a.isPron np.a.isPron np.isHeavy
                   (vStr vp pgn t p o)
                   vp.obj.s
                   (pred vp pgn t p)
@@ -1757,14 +1760,24 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
       } ;
 
     -- seems complicated, but this is to share code with VPS and other similar structures
-    wordOrder : Order -> (objIsPron,subjIsPron : Bool) -> (verb,obj,pred,adv,subj : Str) -> Str =
-      \o,objIsPron,subjIsPron,verb,obj,pred,adv,subj ->
+    wordOrder : Order -> (objIsPron,subjIsPron,subjIsHeavy : Bool) -> (verb,obj,pred,adv,subj : Str) -> Str =
+      \o,objIsPron,subjIsPron,subjIsHeavy,verb,obj,pred,adv,subj ->
           let cl = wordOrderNoSubj o objIsPron verb obj pred adv in
           case o of {
+            -- If subject is pronoun, affix it in Subord word order.
             Subord =>
-              let bind = if_then_Str subjIsPron BIND [] -- in subord. clause, subj. pronoun binds to the main verb
+              let bind = if_then_Str subjIsPron BIND []
                in cl.before ++ bind ++ subj ++ cl.after ;
-            _  => cl.before         ++ subj ++ cl.after
+
+            -- If subject is "heavy" (e.g. contains a relative clause),
+            Verbal =>  -- then override Verbal word order.
+              case subjIsHeavy of {
+                True  => subj ++ cl.before ++ cl.after ;
+                False => cl.before ++ subj ++ cl.after
+              } ;
+
+            -- Any other word order, no special checks.
+            _  => cl.before ++ subj ++ cl.after
           } ;
 
     wordOrderNoSubj : Order -> (objIsPron : Bool) -> (verb,obj,pred,adv : Str) -> {before,after : Str} =
@@ -1833,7 +1846,7 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
     Subj : Type = {s : Case => Str ; isPron : Bool} ;
 
     np2subj : NP -> Subj = \np -> np ** {isPron = np.a.isPron} ;
-    subj2np : Subj -> NP = \su -> su ** {a = {pgn = emptyNP.a.pgn ; isPron = su.isPron} ; empty=[]} ;
+    subj2np : Subj -> NP = \su -> emptyNP ** su ** {a = {pgn = emptyNP.a.pgn ; isPron = su.isPron}} ;
     emptyObj : Obj = {a = {gn = {g=Masc ; n=Sg} ; isPron = False}; s = []} ;
 
     insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** {
