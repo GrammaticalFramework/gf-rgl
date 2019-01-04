@@ -15,6 +15,7 @@ concrete ExtendAra of Extend =
     ParamX,
     ResAra,
     Prelude,
+    RelativeAra,
     Coordination
 
   in {
@@ -27,6 +28,9 @@ concrete ExtendAra of Extend =
 
     -- : AP -> IComp ;   -- "how old"
     ICompAP ap = {s = \\gn => "كَمْ" ++ ap.s ! NoHum ! gn.g ! gn.n ! Indef ! Acc} ;
+
+    -- : ClSlash -> RCl  -- he lives in
+    EmptyRelSlash = RelSlash (IdRP ** {s = \\_ => []}) ;
 
   lincat
     VPS   = {s : PerGenNum => Str} ;  -- finite VP's with tense and polarity
