@@ -25,7 +25,18 @@ Catalan verbs, divided in paradigms following
 
 ### Known issues
 
-Clitic pronouns do not combine like they are supposed to.
+Clitic pronouns do not combine like they are supposed to. For example:
+
+```
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (Slash2V3 give_V3 (UsePron he_Pron))) (UsePron it_Pron))
+LangCat: jo ho vull donar li
+LangEng: I want to give him it
+Lang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (Slash3V3 give_V3 (UsePron it_Pron)) (UsePron he_Pron)))
+LangCat: jo vull donar ho li
+LangEng: I want to give him it
+```
+
+Neither of the Catalan versions are correct; it should be *(jo) vull donar-li-ho* or *(jo) li ho vull donar*.
 
 ### Supplementary files
 
