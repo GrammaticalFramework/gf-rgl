@@ -3,7 +3,6 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
  flags coding = utf8 ;
   lin
 
-
   PositA a = {
     s = \\h,g,n,d,c => case h of {
         Hum => a.s ! APosit g n d c;
@@ -32,6 +31,9 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
   AdAP ada ap = {
     s = \\sp,g,n,st,c => ap.s ! sp ! g ! n ! st ! c ++ ada.s
     } ;
+
+  AdvAP,
+  SentAP = \ap,ss -> AdAP ss ap ;
 
   UseA2 = PositA ;
 

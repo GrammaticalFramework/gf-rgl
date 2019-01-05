@@ -19,21 +19,15 @@ lin
   ConsS = consrTable Order comma ;
   ConjS = conjunctDistrTable Order ;
 
-  BaseNP x y = twoTable Case x y ** {
-    a = conjAgr x.a y.a ;
-    empty = [] ;
-    isHeavy = True ;
+  BaseNP x y = emptyNP ** twoTable Case x y ** {
+    a = conjAgr x.a y.a
     } ;
-  ConsNP xs x = consrTable Case comma xs x ** {
-    a = conjAgr xs.a x.a ;
-    empty = [] ;
-    isHeavy = True ;
+  ConsNP xs x = emptyNP ** consrTable Case comma xs x ** {
+    a = conjAgr xs.a x.a
     } ;
-  ConjNP conj ss = conjunctDistrTable Case conj ss ** {
+  ConjNP conj ss = emptyNP ** conjunctDistrTable Case conj ss ** {
     a = let gn = pgn2gn ss.a.pgn in
-        {pgn = Per3 gn.g (conjNumber conj.n gn.n) ; isPron = False} ;
-    empty = [] ;
-    isHeavy = True ;
+        {pgn = Per3 gn.g (conjNumber conj.n gn.n) ; isPron = False}
     } ;
 
   BaseAP = twoTable5 Species Gender Number State Case ;
