@@ -1,4 +1,4 @@
---# -path=.:../romance:../common:../abstract:../../prelude
+--# -path=.:../romance:../common:../abstract:../prelude
 
 --1 Portuguese Lexical Paradigms
 --
@@ -128,6 +128,9 @@ oper
   compN : N -> Str -> N ; -- compound, e.g. "número" + "de telefone"
   compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; lock_N = <>} ;
 
+  compNN : N -> N -> N ; -- compound, e.g. "forma" + "finita"
+  compNN x y = x ** {s = \\n => x.s ! n ++ y.s ! n} ;
+
 --3 Relational nouns
 --
 -- Relational nouns ("filha de x") need a case and a preposition.
@@ -192,16 +195,6 @@ oper
     isPre = a.isPre ;
     copTyp = a.copTyp
     } ;
-
-{-  superlADeg : A -> A ;
-  superlADeg a = {s = table {Posit => a.s ! Posit ;
-                             Compar => a.s ! Compar ;
-                             Superl => a.s ! Compar}} ;
-    -}
-
-  -- redundant
---  regADeg : Str -> A ;
---  regADeg a = compADeg (regA a) ;
 
   regA : Str -> A ;
   regA a = compADeg (lin A {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula}) ;
