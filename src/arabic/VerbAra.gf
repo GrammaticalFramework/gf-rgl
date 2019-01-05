@@ -99,9 +99,12 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     AdVVP adv = insertStr adv.s ;
     AdVVPSlash adv vps = vps ** insertStr adv.s vps ;
---
---    ReflV2 v = insertObj (\\a => v.c2 ++ reflPron ! a) (predV v) ;
---
+
+    -- : VPSlash -> VP ;         -- love himself
+    ReflVP vps = vps ** {
+      s = \\pgn,vf => vps.s ! pgn ! vf ++ reflPron Acc pgn
+      } ;
+
     PassV2 = passPredV ;
 --
 --    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no

@@ -23,14 +23,10 @@ concrete AdjectiveAra of Adjective = CatAra ** open ResAra, Prelude in {
   ComplA2 a np = {
     s = \\sp,g,n,st,c => a.s ! APosit g n st c ++ a.c2.s ++ bindIf a.c2.binds ++ np.s ! a.c2.c ;
     } ;
---
---    ReflA2 a = {
---      s = \\ag => a.s ! AAdj Posit ++ a.c2 ++ reflPron ! ag ;
---      isPre = False
---      } ;
---
-  SentAP ap sc = ap ** {
-    s = \\sp,g,n,st,c => ap.s ! sp ! g ! n ! st ! c ++ sc.s ;
+
+  -- full PerGenNum should be added to make this work properly
+  ReflA2 a = {
+    s = \\sp,g,n,st,c => a.s ! APosit g n st c ++ a.c2.s ++ reflPron c (gn2pgn {g=g;n=n})
     } ;
 
   AdAP ada ap = {
