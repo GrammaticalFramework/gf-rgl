@@ -27,7 +27,7 @@ oper
    heading : N -> Str = \n -> (nounHeading n).s ;
 
 lin
-  InflectionN, InflectionN3, InflectionN3 = \noun -> {
+  InflectionN, InflectionN2, InflectionN3 = \noun -> {
     t = "n" ;
     s1 = heading1 (heading noun_Category ++
                    case noun.g of {
@@ -111,8 +111,8 @@ lin
   InflectionVV v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v (S.mkVP (L.sleep_V)))) ;
-    s2 = inflVerb v
+         paragraph (verbExample (S.mkCl S.she_NP (lin VV v) (S.mkVP L.sleep_V))) ;
+    s2 = inflVerb (lin VV v)
     } ;
 
   InflectionVS v = {
@@ -223,4 +223,4 @@ oper
 {- --# notpresent
 -}
 
-}
+} ;

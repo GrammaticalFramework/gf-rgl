@@ -30,7 +30,9 @@ lin
   is_wrong_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "errado")) ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
-
+  -- n_units_of_NP card cn np = variants {} ;
+  -- n_unit_CN card cn cn = variants {} ;
+  
   bottle_of_CN np = mkCN (lin N2 (mkN2 (mkN "garrafa" feminine) part_Prep)) np ;
   cup_of_CN    np = mkCN (lin N2 (mkN2 (mkN "copo") part_Prep)) np ;
   glass_of_CN  np = mkCN (lin N2 (mkN2 (mkN "taça") part_Prep)) np ;
@@ -52,7 +54,7 @@ lin
 
   lincat
     Timeunit = N ;
-    Hour = {s : Str ; pe : Period ; n : Number} ;
+    Hour = {s : Str ; pe : Period ; n : ParadigmsPor.Number} ;
     Weekday = N ;
     Monthday = NP ;
     Month = N ;
@@ -97,15 +99,15 @@ lin
     twentyThreeHour = mkHour "23" Noite Pl ;
     twentyFourHour  = {s = "meia-noite" ; pe = None ; n = Sg} ;
 
-    timeHour h = mkAdv (R.a ! Fem ! h.n ++ h.s ++ period ! h.pe) ;
+    timeHour h = ParadigmsPor.mkAdv (R.a ! Fem ! h.n ++ h.s ++ period ! h.pe) ;
 
     timeHourMinute h m = let
       min = m.s ! Masc
       in
-      mkAdv (R.a ! Fem ! h.n ++ h.s ++ "e" ++ min ++ period ! h.pe) ;
+      ParadigmsPor.mkAdv (R.a ! Fem ! h.n ++ h.s ++ "e" ++ min ++ period ! h.pe) ;
 
   oper
-    mkHour : Str -> Period -> Number -> {s : Str ; pe : Period ; n : Number} ;
+    mkHour : Str -> Period -> ParadigmsPor.Number -> {s : Str ; pe : Period ; n : ParadigmsPor.Number} ;
     mkHour num pe n = S.mkUtt (S.mkCard num) ** {pe = pe ; n = n} ;
     
     period : Period => Str ;
