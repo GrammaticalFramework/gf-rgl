@@ -3,12 +3,12 @@ The standard way of building an application has the following modules.
 
 An abstract syntax:
 ```
-  abstract Music = {    
-  cat 
-    Kind, 
+  abstract Music = {
+  cat
+    Kind ;
     Property ;
-  fun 
-    PropKind : Kind -> Property -> Kind ; 
+  fun
+    PropKind : Kind -> Property -> Kind ;
     Song : Kind ;
     American : Property ;
   }
@@ -23,8 +23,8 @@ A domain lexicon interface:
 ```
 A functor on ``Syntax`` and the domain lexicon interface:
 ```
-  incomplete concrete MusicI of Music = open Syntax, MusicLex in {
-  lincat 
+  incomplete concrete MusicI of Music = open Syntax, LexMusic in {
+  lincat
     Kind = CN ;
     Property = AP ;
   lin
@@ -35,7 +35,7 @@ A functor on ``Syntax`` and the domain lexicon interface:
 ```
 For each language, an instance of the domain lexicon:
 ```
-  instance LexMusicGer of LexMusic = CatGer ** open ParadigmsGer in {    
+  instance LexMusicGer of LexMusic = CatGer ** open ParadigmsGer in {
   oper
     song_N = mkN "Lied" "Lieder" neuter ;
     american_A = mkA "amerikanisch" ;
