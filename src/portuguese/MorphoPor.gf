@@ -14,8 +14,6 @@ resource MorphoPor = CommonRomance, ResPor **
         coding=utf8 ;
 --2 Nouns
 --
--- The following macro is useful for creating the forms of
--- number-dependent tables, such as common nouns.
 
 oper
 -- For example:
@@ -43,29 +41,40 @@ oper
   nomCanal : Str -> Number => Str = \canal ->
     numForms canal (init canal + "is") ;
 
-  acuteVowel : Str -> Str = \v ->
+  nomReptil : Str -> Number => Str = \reptil ->
+    numForms reptil (tk 2 reptil + "eis") ;
+
+  nomNounNoun : Str -> Str -> Number => Str = \couve,flor ->
+    let couves = mkNomReg' couve ;
+        flores = mkNomReg' flor
+    in numForms (couve + "-" + flor) (couves.s ! Pl + "-" + flores.s ! Pl) ;
+
+  nomVerbNoun : Str -> Str -> Number => Str = \guarda,chuva ->
+    let chuvas = mkNomReg' chuva
+    in numForms (guarda + "-" + chuva) (guarda + "-" + chuvas.s ! Pl) ;
+
+  nomChapeudesol : Str -> Str -> Str -> Number => Str = \chapeu,de,sol ->
+    let chapeus = mkNomReg' chapeu
+    in numForms (chapeu + "-" + de + "-" + sol) (chapeus.s ! Pl + "-" + de + "-" + sol) ;
+
+  vowelToAcute : Str -> Str = \v ->
     case v of {
       "a" => "á" ;
       "e" => "é" ;
       "i" => "í" ;
       "o" => "ó" ;
       "u" => "ú" ;
-      _ => error "input must be vowel character."
+      _ => error "input '" ++ v ++ "' must be vowel character."
     } ;
 
-  nomReptil : Str -> Number => Str = \reptil ->
-    numForms reptil (tk 2 reptil + "eis") ;
-
-  nomFenol : Str -> Number => Str = \fenol ->
-    case fenol of {
-      fen + v@("a"|"e"|"i"|"o"|"u") + "l" => numForms fenol (fen + acuteVowel v + "is")
-    };
-
-  nomVowelL : Str -> Number => Str = \nom ->
-    -- papel -> papéis, móvel -> móveis
-    case occurs "áéíúó" nom of {
-      PTrue => nomCanal nom ;
-      PFalse => nomFenol nom
+  acuteToVowel : Str -> Str = \v ->
+    case v of {
+      "á" => "a" ;
+      "é" => "e" ;
+      "í" => "i" ;
+      "ó" => "o" ;
+      "ú" => "u" ;
+      _ => error "input '" ++ v ++ "' must be an acute vowel character."
     } ;
 
 -- Common nouns are inflected in number and have an inherent gender.
@@ -76,38 +85,65 @@ oper
   mkNounIrreg : Str -> Str -> Gender -> Noun = \mec,mecs ->
     mkNoun (numForms mec mecs) ;
 
-  smartGenNoun : Str -> Gender -> Noun = \vinho,g -> case vinho of {
-    rapa + ("z"|"s") => -- capataz/Masc, flor/Fem, obus/Masc
-      mkNoun (nomRapaz vinho) g ;
-    can  + "al" => -- canal/Masc, vogal/Fem
-      mkNoun (nomCanal vinho) g ;
-    pap + "el" => -- cascavel/Fem, infiel/Masc
-      mkNoun (nomVowelL vinho) g ;
-    home  + "m" => -- homem/Masc, nuvem/nuvens
-      mkNoun (nomNuvem vinho) g ;
-    tóra + "x" => -- tórax/Masc, xerox/Fem
-      mkNoun (nomAreia vinho) g ;
-    _ =>
-      mkNoun (nomVinho vinho) g
-    } ;
+  smartGenNoun : Str -> Gender -> Noun =
+    \vinho,g -> mkNomReg vinho ** {g = g} ;
 
   mkNomReg : Str -> Noun = \vinho -> case vinho of {
-    cas   + ("a" | "ã" | "dade" | "tude" | "ise" | "ite")  =>
-      -- casa, artesã, saudade, juventude, marquise, artrite
+    chapéu + "-" + de + "-" + sol => mkNoun (nomChapeudesol chapéu de sol) Masc ;
+
+    -- use nomVerbNoun for compounds of verb+noun
+    couve + "-" + flor => mkNoun (nomNounNoun couve flor) Masc ;
+
+    _ => mkNomReg' vinho
+
+    } ;
+
+  mkNomReg' : Str -> Noun = \vinho -> case vinho of {
+
+    -- casa, artesã, saudade, juventude, marquise, artrite
+    cas + ("a"|"ã"|"dade"|"tude"|"ise"|"ite")  =>
       mkNoun (nomVinho vinho) Fem ;
-    va + "gem" =>
-      mkNoun (nomNuvem vinho) Fem ;
-    certid  + "ão" => -- other rules depend on stress, can this be built with gf?
-      mkNoun (nomFalcao vinho) Fem ;
-    proble + ("ma" | "n" | "o" | "á") => -- problema, líquen, carro, maracujá
+
+    va + "gem" => mkNoun (nomNuvem vinho) Fem ;
+
+    -- if syllable stress is not on -ão, orthographical rules say that
+    -- it should be marked with an accented letter
+    s + ("ó"|"â"|"á"|"ê"|"é"|"ô"|"í"|"ú") + t + "ão"
+      => mkNoun (nomVinho vinho) Masc ; -- although gender is still not predictable, counterexample *bênção
+
+    -- fails for e.g. *coração, but the productive morpheme -ção is
+    -- feminine (https://en.wiktionary.org/wiki/-%C3%A7%C3%A3o#Suffix)
+    revolu + "ção" => mkNoun (nomFalcao vinho) Fem ;
+
+    certid + "ão" =>
+      mkNoun (nomFalcao vinho) Masc ;
+
+    -- problema, carro, maracujá
+    proble + ("ma"|"o"|"á") =>
       mkNoun (nomVinho vinho) Masc ;
-    can + "r" => -- feminine words ending with 'r' usually are also masculine
-      mkNoun (nomRapaz vinho) Masc ;
-    can  + ("i" | "u") + "l"  =>  -- canil, azul | what about fóssil?
-      mkNoun (nomCanal vinho) Masc ;
-    fen + "ol" => mkNoun (nomVowelL vinho) Masc ;
+
+    ma + ("r"|"z"|"n") => mkNoun (nomRapaz vinho) Masc ;
+
+    -- fóssil, míssil, móbil, portátil, útil
+    f + ("ó"|"á"|"é"|"í"|"ú") + s + "il" => mkNoun (nomReptil vinho) Masc ;
+
+    can  + ("a"|"e"|"o"|"u") + "l"  => mkNoun (nomCanal vinho) Masc ;
+
+    can + "il" => mkNoun (numForms vinho (can + "is")) Masc ;
+
+    home  + "m" => mkNoun (nomNuvem vinho) Masc ;
+
+    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + acuteToVowel v + "ses")) Masc ;
+
+    ônibu + "s" => mkNoun (nomAreia vinho) Masc ;
+
     urub + "u" => mkNoun (nomVinho vinho) Masc ;
-    _           => smartGenNoun vinho Masc
+
+    -- tórax/Masc, xerox/Fem
+    tóra + "x" => mkNoun (nomAreia vinho) Masc ;
+
+    _           => mkNoun (nomVinho vinho) Masc
+
     } ;
 
 --2 Adjectives
