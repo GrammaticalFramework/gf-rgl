@@ -85,9 +85,6 @@ oper
   mkNounIrreg : Str -> Str -> Gender -> Noun = \mec,mecs ->
     mkNoun (numForms mec mecs) ;
 
-  smartGenNoun : Str -> Gender -> Noun =
-    \vinho,g -> mkNomReg vinho ** {g = g} ;
-
   mkNomReg : Str -> Noun = \vinho -> case vinho of {
     chapéu + "-" + de + "-" + sol => mkNoun (nomChapeudesol chapéu de sol) Masc ;
 
