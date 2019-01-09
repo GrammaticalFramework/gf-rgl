@@ -462,9 +462,10 @@ resource ParadigmsAra = open
       root = mkRoot3 rootStr
     } in {
       s =
-        case root.l of {
-          #weak => (v2defective root).s;
-          _       => (v2sound root).s
+        case rootStr of {
+--          #weak + ? + ? =>
+          ? + ? + #weak => (v2defective root).s;
+          _             => (v2sound root).s
         };
       lock_V = <>
     };
