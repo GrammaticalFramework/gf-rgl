@@ -64,17 +64,17 @@ oper
       "i" => "í" ;
       "o" => "ó" ;
       "u" => "ú" ;
-      _ => error "input '" ++ v ++ "' must be vowel character."
+      _ => error ("input '" ++ v ++ "' must be vowel character.")
     } ;
 
-  acuteToVowel : Str -> Str = \v ->
+  diacriticToVowel : Str -> Str = \v ->
     case v of {
-      "á" => "a" ;
-      "é" => "e" ;
+      ("á"|"â"|"ã") => "a" ;
+      ("é"|"ê") => "e" ;
       "í" => "i" ;
-      "ó" => "o" ;
+      ("ó"|"ô"|"õ") => "o" ;
       "ú" => "u" ;
-      _ => error "input '" ++ v ++ "' must be an acute vowel character."
+      _ => error ("input '" ++ v ++ "' must be a vowel character with an accent.")
     } ;
 
 -- Common nouns are inflected in number and have an inherent gender.
@@ -130,7 +130,7 @@ oper
 
     home  + "m" => mkNoun (nomNuvem vinho) Masc ;
 
-    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + acuteToVowel v + "ses")) Masc ;
+    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + diacriticToVowel v + "ses")) Masc ;
 
     ônibu + "s" => mkNoun (nomAreia vinho) Masc ;
 

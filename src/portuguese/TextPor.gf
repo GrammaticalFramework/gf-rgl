@@ -1,4 +1,5 @@
-concrete TextPor of Text = CommonX - [Temp,TTAnt,Tense,TPres,TPast,TFut,TCond] ** open Prelude in {
+concrete TextPor of Text = CommonX - [Temp,TTAnt,Tense,TPres,TPast,TFut,TCond]
+  ** open Prelude in {
 
   flags coding=utf8 ;
 
