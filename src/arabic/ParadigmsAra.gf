@@ -159,7 +159,7 @@ resource ParadigmsAra = open
 
   idaafaA : N -> A -> A ; -- first argument will be in constructus but inflect in case, adjective in genitive, but inflect in gender, number and definiteness. e.g. غَيْرُ طَيِّبٍ
 
-  degrA : (posit,compar,plur : Str) -> A ;
+  degrA : (masc,fem,plur : Str) -> A ; -- adjective where masculine singular is also the comparative form.
 
   irregFemA : (masc : A) -> (fem : A) -> A ; -- adjective with irregular feminine. Takes two adjectives (masc. "regular" and fem. "regular") and puts them together.
 
@@ -450,6 +450,7 @@ resource ParadigmsAra = open
      in case rootStr of {
           f@? + c@?  + "ّ"   => v1geminate (f+c+c) vPerf vImpf ;
           ? + #hamza + #weak => v1doubleweak root ;
+          #weak + ?  + #weak => v1assimilated_defective root vPerf vImpf ;
           ? + ?      + #weak => case vPerf of {
                                   i => v1defective_i root vImpf ;
                                   _ => v1defective_a root vImpf } ;
@@ -462,9 +463,10 @@ resource ParadigmsAra = open
       root = mkRoot3 rootStr
     } in {
       s =
-        case root.l of {
-          #weak => (v2defective root).s;
-          _       => (v2sound root).s
+        case rootStr of {
+--          #weak + ? + ? =>
+          ? + ? + #weak => (v2defective root).s;
+          _             => (v2sound root).s
         };
       lock_V = <>
     };
@@ -531,7 +533,7 @@ resource ParadigmsAra = open
     let {
       fcl = mkRoot3 rootStr ;
       verb : Verb  = case rootStr of {
-          f@? + c@? + "ّ" => v8geminate (f+c+c) ; 
+          f@? + c@? + "ّ" => v8geminate (f+c+c) ;
           #weak + ? + ?   => v8assimilated fcl ;
           ? + #weak + ?   => v8hollow fcl ;
           _               => v8sound fcl }
@@ -669,8 +671,8 @@ resource ParadigmsAra = open
              AComp d c         => rectifyHmz (indeclN akbar ! d ! c) }
         } ;
 
-  degrA : (posit,compar,plur : Str) -> A
-    = \posit,compar,plur -> lin A {s = clr posit compar plur} ;
+  degrA : (masc,fem,plur : Str) -> A
+    = \masc,fem,plur -> lin A {s = clr masc fem plur} ;
 
   idaafaA : N -> A -> A = \ghayr,tayyib -> tayyib ** {
     s = table {
@@ -777,6 +779,12 @@ resource ParadigmsAra = open
   mkV2V = overload {
     mkV2V : V -> Str -> Str -> V2V = \v,p,q ->
       lin V2V (prepV3 v (mkPreposition p) (mkPreposition q) ** {sc = noPrep}) ;
+    mkV2V : V2 -> V2V = \v2 ->
+      lin V2V (v2 ** {c2 = v2.c2 ; c3,sc = noPrep}) ;
+    mkV2V : V2 -> Preposition -> V2V = \v2,p ->
+      lin V2V (v2 ** {c2 = v2.c2 ; c3 = p ; sc = noPrep}) ;
+    mkV2V : V2 -> Preposition -> Preposition -> V2V = \v2,p,q->
+      lin V2V (v2 ** {c2 = v2.c2 ; c3 = p ; sc = q}) ;
     mkV2V : V -> Preposition -> Preposition -> V2V = \v,p,q ->
       lin V2V (prepV3 v p q ** {sc = noPrep}) ;
     mkV2V : VV -> Preposition -> V2V = \vv,p ->

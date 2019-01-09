@@ -622,17 +622,20 @@ v1defForms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
         armi armu urma             -- VImpf
         eirmi eirmu marmiy ;
 
+v1defForms_perfI : Root3 -> Vowel -> DefForms = \bqy,vowImpf ->
+  let vforms_a = v1defForms_perfA bqy vowImpf ;
+      baqI  = mkDefective facIl bqy ;
+      baqiy = mkDefective facil bqy ;
+   in table { 0 => baqI ;
+              1 => baqiy ;
+              x => vforms_a ! x } ;
+
 v1defective_a : Root3 -> Vowel -> Verb = \rmy,vowImpf ->
   let vforms = v1defForms_perfA rmy vowImpf
    in verbDef vforms vowImpf ;
 
 v1defective_i : Root3 -> Vowel -> Verb = \bqy,vowImpf -> -- IL (conjugation 1d4)
-  let vforms_a = v1defForms_perfA bqy vowImpf ;
-      baqI  = mkDefective facIl bqy ;
-      baqiy = mkDefective facil bqy ;
-      vforms_i = table { 0 => baqI ;
-                         1 => baqiy ;
-                         x => vforms_a ! x } ;
+  let vforms_i = v1defForms_perfI bqy vowImpf ;
    in verbDef vforms_i vowImpf ;
 
 v1doubleweak : Root3 -> Verb = \r'y ->
@@ -647,6 +650,19 @@ v1doubleweak : Root3 -> Verb = \r'y ->
                        x => vforms_doubleweak ! x } ;
    in verbDoubleDef vforms a ; -- sukun in suffixes is removed in verbDoubleDef
 
+v1assimilated_defective : Root3 -> Vowel -> Vowel -> Verb = \root,vPerf,vImpf ->
+  let vffun = case vPerf of {i => v1defForms_perfI ; _ => v1defForms_perfA} ;
+      vforms_def : DefForms = vffun root vImpf ;
+      vforms_ass : DefForms = \\x => rmSukun (vffun (root ** {f = ""}) vImpf ! x) ;
+      vforms : DefForms =
+         table { 4 => vforms_ass ! 4 ;
+                 5 => vforms_ass ! 5 ;
+                 6 => vforms_ass ! 6 ;
+                 7 => vforms_ass ! 7 ;
+                 8 => vforms_ass ! 8 ;
+                 9 => vforms_ass ! 9 ;
+                 x => vforms_def ! x } ;
+   in verbDef vforms vImpf ;
 
 patDef1 : Vowel => Pattern =
   table {
