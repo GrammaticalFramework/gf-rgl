@@ -56,7 +56,7 @@ concrete IdiomPor of Idiom = CatPor **
       s = "deixe" ++ (np.s ! Nom).ton ++ infVP vp np.a ;
         } ;
 
-    SelfAdvVP vp = vp ;
+    SelfAdvVP vp = variants {} ;
 
     SelfAdVVP = insertComplement (
       \\agr => case agr of {
@@ -68,6 +68,6 @@ concrete IdiomPor of Idiom = CatPor **
         }
       ) ;
 
-    SelfNP np = np ;
+    SelfNP np = variants {} ;
 
 } ;

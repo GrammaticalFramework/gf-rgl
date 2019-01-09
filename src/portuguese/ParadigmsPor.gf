@@ -182,27 +182,24 @@ oper
 
 --2 Adjectives
   compADeg : A -> A ;
-  compADeg a = lin A {
+  compADeg a = a ** {
     s = table {
       Posit => a.s ! Posit ;
       _ => \\f => "mais" ++  a.s ! Posit ! f
       } ;
-    isPre = a.isPre ;
-    copTyp = a.copTyp
     } ;
 
+  liftAdj : Adj -> A ;
+  liftAdj adj = compADeg (lin A {s = \\_ => adj.s ; isPre = False ; copTyp = serCopula}) ;
+
   regA : Str -> A ;
-  regA a = compADeg (lin A {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula}) ;
+  regA a = liftAdj (mkAdjReg a) ;
 
   mk2A : (único,unicamente : Str) -> A ;
-  mk2A adj adv = compADeg {s = \\_ => (mkAdj2 adj adv).s ; isPre = False ;
-                           copTyp = serCopula ;
-                           lock_A = <>} ;
+  mk2A adj adv = liftAdj (mkAdj2 adj adv) ;
 
   mk5A : (preto,preta,pretos,pretas,pretamente : Str) -> A ;
-  mk5A a b c d e = compADeg {s = \\_ => (mkAdj a b c d e).s ;
-                             isPre = False ; copTyp = serCopula ;
-                             lock_A = <>} ;
+  mk5A a b c d e = liftAdj (mkAdj a b c d e) ;
 
   adjCopula : A -> CopulaType -> A ;
   adjCopula a cop = a ** {copTyp = cop} ;
@@ -218,6 +215,9 @@ oper
     isPre = a.isPre ;
     copTyp = a.copTyp
     } ;
+
+  invarA : Str -> A ;
+  invarA a = liftAdj (adjBlu a) ;
 
   mkNonInflectA : A -> Str -> A ;
   mkNonInflectA = \blanco,hueso -> blanco ** {s = \\x,y => blanco.s ! x ! y ++ hueso } ;

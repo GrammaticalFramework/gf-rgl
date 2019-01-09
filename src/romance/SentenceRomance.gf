@@ -113,19 +113,8 @@ incomplete concrete SentenceRomance of Sentence =
 ----            VPAgrClit g n => verb ! VPart g n  
 ----            } ;
 
-          vpss : Str * Str = case <te,a> of {
+          vpss : Str * Str = chooseTA te a verb vaux num per m part ;
 
-            <RPast,Simul> => <verb ! VFin (VImperf m) num per, []> ; --# notpresent
-            <RPast,Anter> => <vaux ! VFin (VImperf m) num per, part> ; --# notpresent
-            <RFut,Simul>  => <verb ! VFin (VFut) num per, []> ; --# notpresent
-            <RFut,Anter>  => <vaux ! VFin (VFut) num per, part> ; --# notpresent
-            <RCond,Simul> => <verb ! VFin (VCondit) num per, []> ; --# notpresent
-            <RCond,Anter> => <vaux ! VFin (VCondit) num per, part> ; --# notpresent
-            <RPasse,Simul> => <verb ! VFin (VPasse) num per, []> ; --# notpresent
-            <RPasse,Anter> => <vaux ! VFin (VPasse) num per, part> ; --# notpresent
-            <RPres,Anter> => <vaux ! VFin (VPres m) num per, part> ; --# notpresent
-            <RPres,Simul> => <verb ! VFin (VPres m) num per, []> 
-            } ;
           fin = vpss.p1 ;
           inf = vpss.p2 ;
           hypt = verbHyphen vp.s ; -- in French, -t- in some cases, otherwise - ; empty in other langs
