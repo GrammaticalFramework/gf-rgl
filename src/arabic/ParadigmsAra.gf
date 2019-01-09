@@ -450,6 +450,7 @@ resource ParadigmsAra = open
      in case rootStr of {
           f@? + c@?  + "ّ"   => v1geminate (f+c+c) vPerf vImpf ;
           ? + #hamza + #weak => v1doubleweak root ;
+          #weak + ?  + #weak => v1assimilated_defective root vPerf vImpf ;
           ? + ?      + #weak => case vPerf of {
                                   i => v1defective_i root vImpf ;
                                   _ => v1defective_a root vImpf } ;
