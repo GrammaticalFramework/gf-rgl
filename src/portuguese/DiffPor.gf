@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:../prelude
 
-instance DiffPor of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
+instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
 
   flags optimize=noexpand ;
         coding=utf8 ;
@@ -199,6 +199,23 @@ instance DiffPor of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRo
     vpAgrClit : Agr -> VPAgr = \a ->
       vpAgrNone ;
 
+  oper
+    chooseTA : RTense -> Anteriority
+      -> (VF => Str) -> (VF => Str)
+      -> Number -> Person -> Mood -> Str -> Str * Str ;
+    chooseTA t a verb vaux n p m part = case <t,a> of {
+    <RPast,Simul>  => <verb ! VFin VPasse n p, []> ; --# notpresent
+    <RPast,Anter>  => <vaux ! VFin (VImperf m) n p, part> ; --# notpresent
+    <RFut,Simul>   => <verb ! VFin VFut n p, []> ; --# notpresent
+    <RFut,Anter>   => <vaux ! VFin VFut n p, part> ; --# notpresent
+    <RCond,Simul>  => <verb ! VFin VCondit n p, []> ; --# notpresent
+    <RCond,Anter>  => <vaux ! VFin VCondit n p, part> ; --# notpresent
+    <RPasse,Simul> => <verb ! VFin VPasse n p, []> ; --# notpresent
+    <RPasse,Anter> => <vaux ! VFin VPasse n p, part> ; --# notpresent
+    <RPres,Anter>  => <verb ! VFin (VImperf m) n p, []> ; --# notpresent
+    <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
+    } ;
+
 -- oper's opers
   oper
     argPron : Gender -> Number -> Person -> Case -> Str =
@@ -216,8 +233,8 @@ instance DiffPor of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRo
       \g,n,p -> case <<g,n,p> : Gender * Number * Person> of {
         <_,Sg,P1> => cases "me" "mim" ;
         <_,Sg,P2> => cases "te" "ti" ;
-        <_,Pl,P1> => cases "nos" "nós" ; --- nosotros
-        <_,Pl,P2> => cases "vos" "vós" ; --- vosotros
+        <_,Pl,P1> => cases "nos" "nós" ;
+        <_,Pl,P2> => cases "vos" "vós" ;
         <Fem,Sg,P3> => cases3 "a" "sua" "ela" ;
         <_,  Sg,P3> => cases3 "o" "seu" "ele" ;
         <Fem,Pl,P3> => cases3 "as" "suas" "elas" ;
