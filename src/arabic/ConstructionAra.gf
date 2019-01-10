@@ -57,7 +57,7 @@ lin
 
 oper
 
-  amount_N : N = mkN "مِقْدَار" "مَقَادِير‎" masc nohum ;
+  amount_N : N = mkN "مِقْدَار" "مَقَادِير" masc nohum ;
 
   -- hack used in the name constructions
   toNP : Bool -> NP -> NP = \b -> if_then_else NP b R.emptyNP ;
