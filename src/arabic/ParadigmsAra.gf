@@ -72,7 +72,7 @@ resource ParadigmsAra = open
 
  mkN : overload {
    mkN : (sg : Str) -> N ; -- non-human regular nouns
-   mkN : Species -> N -> N ;
+   mkN : Species -> N -> N ; -- specify humanness, for a noun constructed as non-human
    mkN : (sg,pl : Str) -> Gender -> Species -> N ;
    mkN : NTable -> Gender -> Species -> N ;  -- loan words, irregular
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N ; -- broken plural
@@ -80,7 +80,7 @@ resource ParadigmsAra = open
    mkN : N -> N -> N ;            -- Compound noun with singular genitive attribute, but inflects in state.
    mkN : Number -> N -> N -> N ;  -- Compound noun with genitive attribute, but inflects in state. Attribute's number specified by 1st arg.
    mkN : N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state, case and number.
-   mkN : Number -> N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state and case. Adjective's number specified by 1st arg.
+   mkN : Number -> N -> A -> N ;  -- Force adjective modifier into the noun. Adjective inflects in state and case. Adjective's number specified by 1st arg.
    mkN : N -> AP -> N  ;          -- Force AP modifier into the noun. AP inflects in state, case and number.
 ---   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
 ---    = sdfN ;
@@ -88,24 +88,11 @@ resource ParadigmsAra = open
 
   dualN : N -> N ; -- Force the plural of the N into dual (e.g. "twins")
 
---This is used for loan words or anything that has untreated irregularities
---in the interdigitization process of its words
-  mkFullN : NTable -> Gender -> Species -> N ;
+  mkFullN : NTable -> Gender -> Species -> N ; -- This is used for loan words or anything that has untreated irregularities in the interdigitization process of its words
 
---Takes a root string, a singular pattern string, a broken plural
---pattern string, a gender, and species. Gives a noun.
-  brkN : Str -> Str -> Str -> Gender -> Species -> N ;
+  sdfN : Str -> Str -> Gender -> Species -> N ; -- Takes a root string, a singular pattern string, a gender, and species. Gives a noun whose plural is sound feminine.
 
---Takes a root string, a singular pattern string, a gender,
---and species. Gives a noun whose plural is sound feminine.
-  sdfN : Str -> Str -> Gender -> Species -> N ;
-
---takes a root string, a singular pattern string, a gender,
---and species. Gives a noun whose plural is sound masculine
-  sdmN : Str -> Str -> Gender -> Species -> N ;
-
-
-
+  sdmN : Str -> Str -> Gender -> Species -> N ; -- Takes a root string, a singular pattern string, a gender, and species. Gives a noun whose plural is sound masculine
 
 --3 Proper names
 
@@ -142,19 +129,18 @@ resource ParadigmsAra = open
 -- Overloaded operator for main cases
 
  mkA = overload {
-   mkA : (root,sg : Str) -> A             -- adjective with sound plural; takes root string and sg. pattern string
-    = \r,p -> lin A (sndA r p);
    mkA : (root : Str) -> A                -- adjective with positive form aFCal
     = \r -> lin A (clrA r);
-   mkA : (root,sg,pl : Str) -> A          -- adjective with broken plural
+   mkA : (root,sg : Str) -> A             -- adjective with sound plural, takes root string and sg. pattern string
+    = \r,p -> lin A (sndA r p);
+   mkA : (root,sg,pl : Str) -> A          -- adjective with broken plural, same for both fem. and masc.
     = \r,s,p -> lin A (brkA r s p) ;
-   mkA : A -> Str -> A = \a,s -> a ** {   -- add non-inflecting component after adjective
-    s = table {af => a.s ! af ++ s}
-    } ;
-   mkA : Str -> A -> A = \s,a -> a ** {   -- add non-inflecting component before adjective
-    s = table {af => s ++ a.s ! af}
-    }
-
+   mkA : (isSoundFem : Bool) -> (root,sg,pl : Str) -> A -- adjective with broken plural, boolean argument whether feminine is sound (True) or shared with masc (False)
+    = \b,r,s,p -> lin A (brkABool b r s p) ;
+   mkA : A -> Str -> A -- add non-inflecting component after adjective
+     = \a,s -> a ** {s = table {af => a.s ! af ++ s}} ;
+   mkA : Str -> A -> A -- add non-inflecting component before adjective
+     = \s,a -> a ** {s = table {af => s ++ a.s ! af}}
    } ;
 
   idaafaA : N -> A -> A ; -- first argument will be in constructus but inflect in case, adjective in genitive, but inflect in gender, number and definiteness. e.g. غَيْرُ طَيِّبٍ
@@ -162,12 +148,6 @@ resource ParadigmsAra = open
   degrA : (masc,fem,plur : Str) -> A ; -- adjective where masculine singular is also the comparative form.
 
   irregFemA : (masc : A) -> (fem : A) -> A ; -- adjective with irregular feminine. Takes two adjectives (masc. "regular" and fem. "regular") and puts them together.
-
---Takes a root string and a pattern string
-  sndA : (root,patt : Str) -> Adj ;
-
---Takes a root string only
-  clrA : (root : Str) -> Adj ;  -- forms adjectives of type aFCal
 
   nisbaA : Str -> Adj ; -- forms relative adjectives by adding the suffix ِيّ
 
@@ -568,6 +548,10 @@ resource ParadigmsAra = open
           kutub = mkWord pl root
     } in mkFullN (reg kitAb kutub) gen spec;
 
+
+--Takes a root string, a singular pattern string, a broken plural
+--pattern string, a gender, and species. Gives a noun.
+  brkN : Str -> Str -> Str -> Gender -> Species -> N ;
   brkN root sg pl gen spec =
     let { raw = brkN' root sg pl gen spec} in raw **
     { s = \\n,d,c =>
@@ -658,18 +642,25 @@ resource ParadigmsAra = open
       d = det
     });
 
-  brkA : (root,sg,pl : Str) -> Adj = \root,sg,pl ->
+  brkA : (root,sg,pl : Str) -> Adj -- also broken feminine
+    = brkABool False ;
+
+  brkABool : Bool -> (root,sg,pl : Str) -> Adj = \isSndFem,root,sg,pl ->
     let jadId  = mkWord sg root ;
         jadIda = jadId + "َة" ;
         judud  = mkWord pl root ;
+        jadIdAt = case isSndFem of {
+                    True => jadId + "َات" ;
+                    False => judud
+                  } ;
         akbar  = mkWord "أَفعَل" root ;
         mascTbl = reg jadId judud ;
-        femTbl = reg jadIda judud ;
-     in { s = table {
-             APosit Masc n d c => rectifyHmz (mascTbl ! n ! d ! c) ;
-             APosit Fem  n d c => rectifyHmz (femTbl ! n ! d ! c) ;
-             AComp d c         => rectifyHmz (indeclN akbar ! d ! c) }
-        } ;
+        femTbl = reg jadIda jadIdAt ;
+       in { s = table {
+               APosit Masc n d c => rectifyHmz (mascTbl ! n ! d ! c) ;
+               APosit Fem  n d c => rectifyHmz (femTbl ! n ! d ! c) ;
+               AComp d c         => rectifyHmz (indeclN akbar ! d ! c) }
+          } ;
 
   degrA : (masc,fem,plur : Str) -> A
     = \masc,fem,plur -> lin A {s = clr masc fem plur} ;
@@ -680,8 +671,8 @@ resource ParadigmsAra = open
       AComp d c => ghayr.s ! Sg ! Const ! c ++ tayyib.s ! AComp d c }
     } ;
 
-  sndA root pat =
-    let  raw = sndA' root pat in {
+  sndA : Str -> Str -> A = \root,pat ->
+    let  raw = sndA' root pat in lin A {
       s = \\af =>
         case root of {
           _ + #hamza + _ => rectifyHmz(raw.s ! af);
@@ -707,19 +698,22 @@ resource ParadigmsAra = open
       x => m.s ! x }
     } ;
 
-  nisbaA : Str -> Adj = \Haal ->
-    let Haaliyy = Haal + "ِيّ" in {
+  nisbaA Haal =
+    let Haaliyy : Str = case Haal of {
+          x + "ِيّ" => Haal ; -- if the ending is already given, don't add it
+          _         => Haal + "ِيّ" -- intended usage: give only stem
+        } in lin A {
       s = table {
         APosit g n d c  => positAdj Haaliyy ! g ! n ! d ! c ;
         AComp d c => "أَكْثَر" ++ indeclN Haaliyy ! d ! c
         }
     } ;
 
-  clrA root =
+  clrA : Str -> A = \root ->
     let { eaHmar = mkWord "أَفعَل" root;
           HamrA' = mkWord "فَعلاء" root;
           Humr   = mkWord "فُعل" root
-    } in {
+    } in lin A {
       s = clr eaHmar HamrA' Humr;
     };
 
