@@ -204,7 +204,7 @@ instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open
       -> (VF => Str) -> (VF => Str)
       -> Number -> Person -> Mood -> Str -> Str * Str ;
     chooseTA t a verb vaux n p m part = case <t,a> of {
-    <RPast,Simul>  => <verb ! VFin VPasse n p, []> ; --# notpresent
+    <RPast,Simul>  => <verb ! VFin (VImperf m) n p, []> ; --# notpresent
     <RPast,Anter>  => <vaux ! VFin (VImperf m) n p, part> ; --# notpresent
     <RFut,Simul>   => <verb ! VFin VFut n p, []> ; --# notpresent
     <RFut,Anter>   => <vaux ! VFin VFut n p, part> ; --# notpresent
@@ -212,7 +212,7 @@ instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open
     <RCond,Anter>  => <vaux ! VFin VCondit n p, part> ; --# notpresent
     <RPasse,Simul> => <verb ! VFin VPasse n p, []> ; --# notpresent
     <RPasse,Anter> => <vaux ! VFin VPasse n p, part> ; --# notpresent
-    <RPres,Anter>  => <verb ! VFin (VImperf m) n p, []> ; --# notpresent
+    <RPres,Anter>  => <verb ! VFin VPasse n p, []> ; --# notpresent
     <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
     } ;
 
