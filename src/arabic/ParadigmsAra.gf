@@ -708,7 +708,10 @@ resource ParadigmsAra = open
     } ;
 
   nisbaA : Str -> Adj = \Haal ->
-    let Haaliyy = Haal + "ِيّ" in {
+    let Haaliyy = case Haal of {
+          x + "ِيّ" => Haal ; -- if the ending is already given, don't add it
+          _         => Haal + "ِيّ" -- intended usage: give only stem
+        } in {
       s = table {
         APosit g n d c  => positAdj Haaliyy ! g ! n ! d ! c ;
         AComp d c => "أَكْثَر" ++ indeclN Haaliyy ! d ! c

@@ -61,6 +61,7 @@ concrete StructuralAra of Structural = CatAra **
 --         ["هَد تْ"] ; ["هَثِنغ تْ"] ; "مُستنءت" ; ["هَدنءت تْ"]] ; ----
 --    isAux = True
 --    } ;
+  nothing_NP = regNP "لَا شَيْء" Sg Def ;
   no_Utt = {s = \\_ => "لا"} ;
   on_Prep = mkPrep "عَلَى" ;
   only_Predet = mkPredet "فَقَط" False;
