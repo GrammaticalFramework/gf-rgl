@@ -1,26 +1,40 @@
 # -*- mode:org -*-
 #+TITLE: Portuguese
 
-The Portuguese Resource Grammar is built using the Romance functor at
-=romance/=. It mostly follows Brazilian Portuguese.
-
 * language information
 - English name: Portuguese
 - Autonym: Português
 - ISO code: Por
 
+* implementation information
+The Portuguese Resource Grammar is built using the Romance functor at
+=romance/=, and it mostly follows Brazilian Portuguese.
+
+Romance instantiations differ mostly in their morphological modules
+and in the constructions defined in the =Diff*= modules. One relevant
+difference for Portuguese is that it uses the /pretérito perfeito/
+instead of the auxiliary verb in the present + participle for the RGL
+present anterior tense.
+
 * data
-# post data sources and add IrregPor and DictPor
-** BeschPor
+The code used to generate the modules below is in this [[http://gitlab.com/odanoburu/gf-pt][repository]].
+
+** Dict
+This module contains nouns and adjectives defined from the forms in
+this [[https://github.com/LFG-PTBR/MorphoBr/][morphological resource]].
+
+** Besch
 The =BeschPor= module contains the complete inflection tables for all
 Portuguese verbs, divided in paradigms following the following books:
 
 - Ryan, M. A. Conjugação dos Verbos em Português. Ática, 1991.
 - Freire, A. N. Bescherelle: portugais, les verbes. Hatier, 2008.
 
-** IrregBeschPor
+** Irreg
 In this lexicon module you will find Portuguese verbs defined using
-the paradigms in BeschPor. Please contribute to this list!
+the paradigms in =BeschPor=. Please contribute to this list by editing
+this [[https://gitlab.com/odanoburu/gf-pt/blob/master/tools/besch/verbs.besch][file]]! (you need only add the verb lemma in the correct paradigm
+line)
 
 * history and applications
 - mini resource grammars: a [[https://github.com/GrammaticalFramework/gf-summerschool-2018/tree/master/resource][version]] for [[http://school.grammaticalframework.org/2018/][GFSS2018]], [[https://github.com/GrammaticalFramework/gf-contrib/tree/master/mini][mini]] and [[https://github.com/GrammaticalFramework/gf-contrib/tree/master/mini/newmini][newmini]]
