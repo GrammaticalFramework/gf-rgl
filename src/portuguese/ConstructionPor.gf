@@ -33,7 +33,10 @@ lin
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn))))
                               (lin A a) ;
   n_units_of_NP card cn np = mkNP card (mkCN (lin N2 cn) np) ;
-  n_unit_CN card cn cn = mkCN (invarA ("de" ++ card.s ! cn.g ++ cn.s ! card.n)) cn ;
+  n_unit_CN card cn cn =
+    let s : Str = "de" ++ card.s ! cn.g ++ cn.s ! card.n ;
+        adj : A = mkA s s s s s ;
+    in mkCN adj cn ;
   
   bottle_of_CN np = mkCN (lin N2 (mkN2 (mkN "garrafa" feminine) part_Prep)) np ;
   cup_of_CN    np = mkCN (lin N2 (mkN2 (mkN "copo") part_Prep)) np ;

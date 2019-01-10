@@ -130,7 +130,7 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
     regCard vigesimo = case vigesimo of {
       -- to handle milhão case (in ParseExtend module)
       milh + "ão" => \g, n -> genNumForms vigesimo vigesimo (milh + "ões") vigesimo ! g ! n;
-      _ => pronForms (adjPreto vigesimo)
+      _ => pronForms (mkAdjReg vigesimo)
       } ;
 
     spl : (CardOrd => Str) -> {s : CardOrd => Str ; n : Number} = \s -> {

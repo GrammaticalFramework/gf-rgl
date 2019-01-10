@@ -195,8 +195,11 @@ oper
   regA : Str -> A ;
   regA a = liftAdj (mkAdjReg a) ;
 
-  mk2A : (único,unicamente : Str) -> A ;
-  mk2A adj adv = liftAdj (mkAdj2 adj adv) ;
+  mk2A : (patrão,patroa : Str) -> A ;
+  mk2A ms fs = liftAdj (mkAdjReg2 ms fs) ;
+
+  mk4A : (bobão,bobona,bobões,bobonas : Str) -> A ;
+  mk4A a b c d = liftAdj (mkAdj4 a b c d) ;
 
   mk5A : (preto,preta,pretos,pretas,pretamente : Str) -> A ;
   mk5A a b c d e = liftAdj (mkAdj a b c d e) ;
@@ -205,50 +208,59 @@ oper
   adjCopula a cop = a ** {copTyp = cop} ;
 
   mkADeg : A -> A -> A ;
-  mkADeg a b = lin A {
+  mkADeg a b = a ** {
     s = table {
       Posit => a.s ! Posit ;
       _ => b.s ! Posit
         -- Compar => b.s ! Posit ;
         -- Superl => "o" ++ b.s ! Posit ;
-      } ;
-    isPre = a.isPre ;
-    copTyp = a.copTyp
+      }
     } ;
 
   invarA : Str -> A ;
-  invarA a = liftAdj (adjBlu a) ;
+  invarA a = liftAdj (mkAdj4 a a a a) ;
 
   mkNonInflectA : A -> Str -> A ;
-  mkNonInflectA = \blanco,hueso -> blanco ** {s = \\x,y => blanco.s ! x ! y ++ hueso } ;
+  mkNonInflectA blanco hueso = blanco ** {
+    s = \\x,y => blanco.s ! x ! y ++ hueso
+    } ;
 
   mkA = overload {
 
--- For regular adjectives, all forms are derived from the masculine
--- singular. The types of adjectives that are recognized are "alto",
--- "fuerte", "util". Comparison is formed by "mas".
+    -- For regular adjectives, all forms are derived from the
+    -- masculine singular. The types of adjectives that are recognized
+    -- are "alto", "fuerte", "util". Comparison is formed by "mas".
     mkA : (bobo : Str) -> A
       = regA ; -- predictable adjective
 
--- Some adjectives need the feminine form separately.
+    -- Some adjectives need the feminine form separately.
     mkA : (espanhol,espanhola : Str) -> A
       = mk2A ;
 
--- One-place adjectives compared with "mais" need five forms in the
--- worst case (masc and fem singular, masc plural, adverbial).
-    mkA : (bobo,boba,bobos,bobas,bobamente : Str) -> A = mk5A ;
+    -- Very rarely (if ever) does one need to specify the adverbial
+    -- form.
+    mkA : (burrão,burrona,burrões,burronas : Str) -> A
+      = mk4A ;
 
--- In the worst case, two separate adjectives are given: the positive
--- ("bueno"), and the comparative ("mejor").
-    -- special comparison with "mais" as default
+    -- One-place adjectives compared with "mais" need five forms in
+    -- the worst case (masc and fem singular, masc and fem plural,
+    -- adverbial).
+    mkA : (gabarolas,gabarolas,gabarolas,gabarolas,gabarolamente : Str) -> A = mk5A ;
+
+    -- In the worst case, two separate adjectives are given: the positive
+    -- ("bom"), and the comparative ("melhor").  special comparison with
+    -- "mais" as default
     mkA : (bom : A) -> (melhor : A) -> A
       = mkADeg ;
 
-    mkA : (blanco : A) -> (hueso : Str) -> A  -- noninflecting component after the adjective
+    -- noninflecting component after the adjective
+    mkA : (blanco : A) -> (hueso : Str) -> A
       = mkNonInflectA ;
 
-    mkA : A -> CopulaType -> A -- force copula type
+    -- force copula type
+    mkA : A -> CopulaType -> A
       = adjCopula ;
+
     } ;
 
 -- The functions above create postfix adjectives. To switch them to
@@ -369,7 +381,7 @@ oper
   -- deviant past participle, e.g. abrir - aberto
   special_ppV ve pa = {
     s = table {
-      VPart g n => (adjPreto pa).s ! (genNum2Aform g n) ;
+      VPart g n => (mkAdjReg pa).s ! (genNum2Aform g n) ;
       p => ve.s ! p
       } ;
     lock_V = <> ;

@@ -64,7 +64,7 @@ oper
       "i" => "í" ;
       "o" => "ó" ;
       "u" => "ú" ;
-      _ => error ("input '" ++ v ++ "' must be vowel character.")
+      _ => error ("input" ++ v ++ "must be vowel character.")
     } ;
 
   diacriticToVowel : Str -> Str = \v ->
@@ -74,7 +74,7 @@ oper
       "í" => "i" ;
       ("ó"|"ô"|"õ") => "o" ;
       "ú" => "u" ;
-      _ => error ("input '" ++ v ++ "' must be a vowel character with an accent.")
+      _ => error ("input" ++ v ++ "must be a vowel character with an accent.")
     } ;
 
 -- Common nouns are inflected in number and have an inherent gender.
@@ -130,7 +130,7 @@ oper
 
     home  + "m" => mkNoun (nomNuvem vinho) Masc ;
 
-    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + diacriticToVowel v + "ses")) Masc ;
+    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + (diacriticToVowel v) + "ses")) Masc ;
 
     ônibu + "s" => mkNoun (nomAreia vinho) Masc ;
 
@@ -157,75 +157,42 @@ oper
        }
     } ;
 
-  mkAdj2 : (_,_: Str) -> Adj ;
-  mkAdj2 aj av = let
-    adj = mkAdjReg aj
+  mkAdj4 : (_,_,_,_ : Str) -> Adj ;
+  mkAdj4 ms fs mp fp =
+    let adv : Str = case fs of {
+          exeg + vo@("é"|"á"|"í"|"ó"|"ú"|"ê"|"ô") + tica
+            => exeg + (diacriticToVowel vo) + tica ;
+
+          comu + "m" => comu ; -- for Brazilian Portuguese
+
+          _          => fs
+          } + "mente" ;
     in {
       s = table {
-        ASg g _ => adj.s ! ASg g APred ;
-        APl g   => adj.s ! APl g ;
-        AA => av
+        ASg g _ => genForms ms fs ! g ;
+        APl g   => genForms mp fp ! g ;
+        AA      => adv
         }
     } ;
 
--- Then the regular and invariant patterns.
+  mkAdjFromNouns : Noun -> Noun -> Adj ;
+  mkAdjFromNouns nm nf = mkAdj4 (nm.s ! Sg) (nf.s ! Sg) (nm.s ! Pl) (nf.s ! Pl) ;
 
-  adjPreto : Str -> Adj = \preto ->
-    let
-      pret = Predef.tk 1 preto
-    in
-    mkAdj preto (pret + "a") (pret + "os") (pret + "as") (pret + "amente") ;
+  mkAdjReg2 : Str -> Str -> Adj ;
+  mkAdjReg2 ms fs = mkAdjFromNouns (mkNomReg ms) (mkNomReg fs) ;
 
-  -- masculine and feminine are identical:
-  -- adjectives ending with -e, -a and many but not all that end in a
-  -- consonant
-  adjUtil : Str -> Str -> Adj = \útil,úteis ->
-    mkAdj útil útil úteis úteis (útil + "mente") ;
-
-  -- adjectives that end in consonant but have different masc and fem
-  -- forms español, hablador ...
-  adjOuvidor : Str -> Str -> Adj = \ouvidor,ouvidora ->
-    mkAdj ouvidor ouvidora (ouvidor + "es") (ouvidor + "as") (ouvidora + "mente") ;
-
-  adjBlu : Str -> Adj = \blu ->
-    mkAdj blu blu blu blu blu ; --- blasé
-
- -- francês francesa franceses francesas
-  adjFrances : Str -> Adj = \francês ->
-    let franc  : Str = Predef.tk 2 francês ;
-        frances : Str = franc + "es" ;
-    in mkAdj francês (frances + "a") (frances + "es") (frances + "as") (frances + "amente") ;
-
-
-  -- alemão alemã alemães alemãs
-  -- is there really a need for this? is it as useful as the spanish
-  -- one?
-  adjVo : Str -> Adj = \alemão ->
-    let alemã : Str = init alemão ;
-        alem  : Str = init alemã ;
-        ã : Str = last alemã ;
-        v : Str = case ã of {
-          "ã" => "a"
-        } ;
-        alemvo : Str = alem + v + "o" ;
-    in mkAdj alemão alemã (alemã + "s") (alemã + "es") (alemã + "mente") ;
-
-  adjEuropeu : Str -> Adj = \europeu -> let europe = init europeu in
-    mkAdj europeu (europe + "ia") (europeu + "s") (europe + "ias")
-      (europe + "iamente") ;
-
+  -- smart paradigm for adjectives amounts to guessing the feminine
+  -- form from the masculine form given, and then using the noun smart
+  -- paradigm for the plural forms
   mkAdjReg : Str -> Adj = \a ->
-    case a of {
-      pret + "o" => adjPreto a ;
-      anarquist + v@("e" | "a") => adjUtil a (a + "s") ;
-      ouvido + "r" => adjOuvidor a (ouvido + "ra") ;
-      chin + "ês" => adjFrances a ;
-      europ + "eu" => adjEuropeu a ;
-      alem + "ão" => adjVo a ;
-      provav + v@("e" | "i") + "l" => adjUtil a (provav + "eis") ; -- fails at pueril
-      nomina + "l" => adjUtil a (nomina + "is") ;
-      jove + "m" => adjUtil a (jove + "ns") ;
-      _   => adjUtil a (a + "s")
+    let mkAdj : Str -> Adj = mkAdjReg2 a ;
+    in case a of {
+      alem   + "ão" => mkAdj (alem + "ã") ; -- fails for patrão/patroa
+      pret   + "o"  => mkAdj (pret + "a") ;
+      ouvido + "r"  => mkAdj (ouvido + "ra") ;
+      chin   + "ês" => mkAdj (chin + "esa") ;
+      europ  + "eu" => mkAdj (europ + "eia") ;
+      _             => mkAdj a
     } ;
 
 --2 Personal pronouns
@@ -314,4 +281,4 @@ oper
         n = number
         } ;
 
-}
+} ;
