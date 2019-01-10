@@ -64,7 +64,7 @@ oper
       "i" => "í" ;
       "o" => "ó" ;
       "u" => "ú" ;
-      _ => error ("input '" ++ v ++ "' must be vowel character.")
+      _ => error ("input" ++ v ++ "must be vowel character.")
     } ;
 
   diacriticToVowel : Str -> Str = \v ->
@@ -74,7 +74,7 @@ oper
       "í" => "i" ;
       ("ó"|"ô"|"õ") => "o" ;
       "ú" => "u" ;
-      _ => error ("input '" ++ v ++ "' must be a vowel character with an accent.")
+      _ => error ("input" ++ v ++ "must be a vowel character with an accent.")
     } ;
 
 -- Common nouns are inflected in number and have an inherent gender.
@@ -130,7 +130,7 @@ oper
 
     home  + "m" => mkNoun (nomNuvem vinho) Masc ;
 
-    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + diacriticToVowel v + "ses")) Masc ;
+    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + (diacriticToVowel v) + "ses")) Masc ;
 
     ônibu + "s" => mkNoun (nomAreia vinho) Masc ;
 
@@ -158,19 +158,21 @@ oper
     } ;
 
   mkAdj4 : (_,_,_,_ : Str) -> Adj ;
-  mkAdj4 ms fs mp fp = {
-    s = table {
-      ASg g _ => genForms ms fs ! g ;
-      APl g   => genForms mp fp ! g ;
-      AA      => case fs of {
-        exeg + v@("é"|"á"|"í"|"ó"|"ú"|"ê"|"ô") + tica
-          => exeg + (diacriticToVowel v) + tica + "mente" ;
+  mkAdj4 ms fs mp fp =
+    let adv : Str = case fs of {
+          exeg + vo@("é"|"á"|"í"|"ó"|"ú"|"ê"|"ô") + tica
+            => exeg + (diacriticToVowel vo) + tica ;
 
-        comu + "m" => comu + "mente" ; -- for Brazilian Portuguese
+          comu + "m" => comu ; -- for Brazilian Portuguese
 
-        _          => fs + "mente"
+          _          => fs
+          } + "mente" ;
+    in {
+      s = table {
+        ASg g _ => genForms ms fs ! g ;
+        APl g   => genForms mp fp ! g ;
+        AA      => adv
         }
-      }
     } ;
 
   mkAdjFromNouns : Noun -> Noun -> Adj ;

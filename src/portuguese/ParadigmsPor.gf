@@ -245,7 +245,7 @@ oper
     -- One-place adjectives compared with "mais" need five forms in
     -- the worst case (masc and fem singular, masc and fem plural,
     -- adverbial).
-    mkA : (bobo,boba,bobos,bobas,bobamente : Str) -> A = mk5A ;
+    mkA : (gabarolas,gabarolas,gabarolas,gabarolas,gabarolamente : Str) -> A = mk5A ;
 
     -- In the worst case, two separate adjectives are given: the positive
     -- ("bom"), and the comparative ("melhor").  special comparison with
