@@ -62,7 +62,7 @@ concrete StructuralPor of Structural = CatPor **
     but_PConj = ss "mas" ;
     by8agent_Prep = mkPrep [] ablative ; -- por
     by8means_Prep = mkPrep [] ablative ; -- por
-    can8know_VV = mkVV B.saber_V ;
+    can8know_VV = mkVV B.know_V ;
     can_VV = mkVV (mkV (poder_Besch "poder")) ;
     during_Prep = mkPrep "durante" ;
     either7or_DConj = {s1,s2 = "ou" ; n = Sg} ;
@@ -160,7 +160,7 @@ concrete StructuralPor of Structural = CatPor **
 
   lin
     as_CAdv = X.mkCAdv "tão" conjThan ; ----
-    have_V2 = dirV2 B.ter_V ;
+    have_V2 = dirV2 B.have_V ;
     that_Subj = {s = "que" ; m = Conjunct} ;
 
   lin language_title_Utt = ss "português" ;

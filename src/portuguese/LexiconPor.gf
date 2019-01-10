@@ -276,7 +276,7 @@ lin
    hate_V2       = mkV2 (mkV (odiar_Besch "odiar")) ;
    hear_V2       = mkV2 (mkV "ouvir") ;
    hit_V2        = mkV2 (mkV "bater") ;
-   hold_V2       = mkV2 ter_V ;
+   hold_V2       = mkV2 have_V ;
    hunt_V2       = mkV2 (mkV "caçar") ;
    kill_V2       = mkV2 (mkV "matar") ;
    know_V2       = mkV2 (mkV "conhecer") ;
@@ -319,11 +319,11 @@ lin
    send_V3 = mkV3 (mkV "enviar") dative ; -- mandar
    talk_V3 = mkV3 (mkV "falar") dative genitive ;
    become_VA = reflV (mkV "tornar") ;
-   know_VQ = mkVQ saber_V ;
+   know_VQ = mkVQ know_V ;
    wonder_VQ = mkVQ (reflV (mkV "perguntar")) ;
    fear_VS = mkVS (mkV "temer") ;
    hope_VS = mkVS (mkV "esperar") ;
-   know_VS = mkVS saber_V ;
+   know_VS = mkVS know_V ;
    say_VS = mkVS (mkV (dizer_Besch "dizer")) ;
    -- V
    blow_V    = mkV "assoprar" ;
@@ -363,10 +363,10 @@ lin
    alas_Interj = ss "infelizmente" ;
 
   oper
-    saber_V : V ;
-    saber_V = mkV (saber_Besch "saber") ;
+    know_V : V ;
+    know_V = mkV (saber_Besch "saber") ;
 
-    ter_V : V ;
-    ter_V = mkV (ter_Besch "ter") ;
+    have_V : V ;
+    have_V = mkV (ter_Besch "ter") ;
 
 } ;
