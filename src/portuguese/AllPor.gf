@@ -2,6 +2,6 @@
 
 concrete AllPor of AllPorAbs =
   LangPor,
-  IrregPor,
   ExtendPor
-  ** {} ;
+  ** open ExtraPor, IrregPor
+  in {} ;
