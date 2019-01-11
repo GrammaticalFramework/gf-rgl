@@ -102,12 +102,13 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     -- : VPSlash -> VP ;         -- love himself
     ReflVP vps = vps ** {
-      s = \\pgn,vf => vps.s ! pgn ! vf ++ reflPron Acc pgn
+      s = \\pgn,vf => vps.s ! pgn ! vf
+                   ++ vps.c2.s ++ bindIf vps.c2.binds
+                   ++ reflPron vps.c2.c pgn ;
+      c2 = noPrep
       } ;
 
     PassV2 = passPredV ;
---
---    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no
 
     CompAP ap = {s   = \\agr,c => ap.s ! Hum ! agr.g ! agr.n ! Indef ! c ; --FIXME
                  obj = emptyObj ; isNP = False} ;
