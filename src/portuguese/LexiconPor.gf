@@ -10,12 +10,12 @@ flags
 lin
    easy_A2V = mkA2V (mkA "fácil") dative genitive ;
    married_A2 = mkA2 (mkA "casado") (mkPrep "com") ;
-   probable_AS = mkAS (prefA (mkA "provável")) ;
+   probable_AS = mkAS (prefixA (mkA "provável")) ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
-   bad_A       = prefA (mkA (mkA "mau") (mkA "pior")) ;
-   beautiful_A = prefA (mkA "belo") ;    -- bela
-   big_A       = prefA (mkA "grande") ;
+   bad_A       = prefixA (mkA (mkA "mau") (mkA "pior")) ;
+   beautiful_A = prefixA (mkA "belo") ;    -- bela
+   big_A       = prefixA (mkA "grande") ;
    black_A     = mkA "preto" ;	-- preta
    blue_A      = mkA "azul" ;
    broad_A     = mkA "largo" ;
@@ -29,7 +29,7 @@ lin
    dull_A      = mkA "desafilado" ;
    empty_A     = mkA "vazio" ;
    full_A      = mkA "cheio" ;
-   good_A      = prefA (mkA (mkA "bom") (mkA "melhor")) ; ---- adv?
+   good_A      = prefixA (mkA (mkA "bom") (mkA "melhor")) ; ---- adv?
    green_A     = mkA "verde" ;
    heavy_A     = mkA "pesado" ;
    hot_A       = mkA "quente" ;
@@ -37,15 +37,15 @@ lin
    long_A      = mkA "longo" ;
    narrow_A    = mkA "estreito" ;
    near_A      = mkA "perto" ;
-   new_A       = prefA (mkA "novo") ;
-   old_A       = prefA (mkA "velho") ;
+   new_A       = prefixA (mkA "novo") ;
+   old_A       = prefixA (mkA "velho") ;
    ready_A     = adjCopula (mkA "pronto") D.estarCopula ;
    red_A       = mkA "vermelho" ;
    rotten_A    = mkA "podre" ;
    round_A     = mkA "redondo" ;
    sharp_A     = mkA "afiado" ; -- pontiagudo
    short_A     = mkA "curto" ; --- breve, pequeno, baixo
-   small_A     = prefA (mkA "pequeno") ;
+   small_A     = prefixA (mkA "pequeno") ;
    smooth_A    = mkA "liso" ;     -- suave
    straight_A  = mkA "direto" ; -- reto
    stupid_A    = mkA "estúpido" ;
@@ -58,7 +58,7 @@ lin
    white_A     = compADeg (mkA "branco") ;
    wide_A      = mkA "largo" ; -- extenso
    yellow_A    = mkA "amarelo" ;
-   young_A     = prefA (mkA "jovem") ;
+   young_A     = prefixA (mkA "jovem") ;
    already_Adv = mkAdv "já" ;
    far_Adv = mkAdv "longe" ; ----?
    now_Adv = mkAdv "agora" ;
@@ -256,7 +256,7 @@ lin
    paris_PN = mkPN "Paris" feminine ;
    -- V
    rain_V0 = mkV0 (mkV (chover_Besch "chover")) ;
-   paint_V2A = mkV2A (mkV "pintar") accusative (mkPrep "em") ;
+   paint_V2A = mkV2A (mkV "pintar") accusative (mkPrep "de") ;
    ask_V2Q = mkV2Q (mkV "perguntar") dative ;
    answer_V2S = mkV2S (mkV "responder") dative ;
    beg_V2V = mkV2V (mkV "rogar") accusative dative ;   -- pedir
@@ -321,7 +321,7 @@ lin
    become_VA = reflV (mkV "tornar") ;
    know_VQ = mkVQ know_V ;
    wonder_VQ = mkVQ (reflV (mkV "perguntar")) ;
-   fear_VS = mkVS (mkV "temer") ;
+   fear_VS = subjVS (mkV "temer") ;
    hope_VS = mkVS (mkV "esperar") ;
    know_VS = mkVS know_V ;
    say_VS = mkVS (mkV (dizer_Besch "dizer")) ;
