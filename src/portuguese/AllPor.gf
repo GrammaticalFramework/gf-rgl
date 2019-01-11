@@ -3,5 +3,5 @@
 concrete AllPor of AllPorAbs =
   LangPor,
   ExtendPor
-  ** open ExtraPor, DictPor, IrregPor
+  ** open ExtraPor, IrregPor
   in {} ;
