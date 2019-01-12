@@ -11,7 +11,15 @@ oper
     lin IDet {s = s ; n = n} ;
   mkIQuant : Str -> Str -> IQuant = \s,n ->
     lin IQuant {s = table {Sg => s ; Pl => n}} ;
-  mkDet : Str -> Number -> Det = \s,n ->
-    lin Det (mkDeterminer n s) ;
+    
+  mkDet = overload {
+    mkDet : Str -> Number -> Det = \s,n ->
+      lin Det (mkDeterminer n s) ;
+    mkDet : Str -> Det -> Det = \s,d ->
+      d ** {
+        s = s ++ d.s ;
+	sp = \\g,b,c => s ++ d.sp ! g ! b ! c ;
+      } ;
+    } ;
 
 }
