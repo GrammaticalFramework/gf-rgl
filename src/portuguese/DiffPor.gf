@@ -72,11 +72,20 @@ instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open
       in
       neg.p1 ++ verb ++ bindIf refl.p2 ++ refl.p1 ++ bindIf clpr.p3 ++ clpr.p1 ++ compl ;
 
+  param
+    Copula = SerCop | EstarCop | FicarCop ;
+
   oper
-    CopulaType = Bool ;
-    selectCopula = \isEstar -> case isEstar of {True => estar_V ; False => copula} ;
-    serCopula = False ;
-    estarCopula = True ;
+    CopulaType = Copula ;
+    selectCopula coptyp = case coptyp of {
+      SerCop => copula ;
+      EstarCop => estar_V ;
+      FicarCop => ficar_V
+      } ;
+
+    serCopula = SerCop ;
+    estarCopula = EstarCop ;
+    ficarCopula = FicarCop ;
 
   oper
     -- the other Cases are defined in ResRomance

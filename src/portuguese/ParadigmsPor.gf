@@ -256,7 +256,7 @@ oper
     mkA : (blanco : A) -> (hueso : Str) -> A -- noninflecting component after the adjective
       = mkNonInflectA ;
 
-    mkA : A -> CopulaType -> A -- force copula type, e.g. "João está doente", "João é doente"
+    mkA : A -> CopulaType -> A -- force copula type, e.g. "João está doente", "João é doente". Choose among ``serCopula``, ``estarCopula``, and ``ficarCopula``
       = adjCopula ;
 
     } ;
