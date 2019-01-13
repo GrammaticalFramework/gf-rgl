@@ -52,7 +52,7 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   oper mkImperative : Bool -> Person -> VP -> RPolarity => Gender => Number => Str ;
 
--- To render the copula (ser/estar in Spa,Cat)
+-- To render the copula (ser/estar in Spa,Cat,Por)
 
   oper CopulaType : PType ;
   oper selectCopula : CopulaType -> Verb ;
