@@ -44,7 +44,7 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     EmbedS  s  = {s = "أَنْ" ++ s.s ! Verbal} ;
     EmbedQS qs = {s = qs.s ! QIndir} ;
-    EmbedVP vp = {s = uttVP vp ! Masc} ;
+    EmbedVP vp = {s = uttVP VPPerf vp ! Masc} ; -- TODO: use VPGer once it's more stable
 
     UseCl t p cl =
       {s = \\o => t.s ++ p.s ++

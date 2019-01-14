@@ -202,7 +202,8 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       VPerf Voice PerGenNum
       | VImpf Mood Voice PerGenNum
       | VImp Gender Number
-      | VPPart ; -- TODO: add gender and number (or check if easy to use BIND)
+      | VPPart -- TODO: add gender and number (or check if easy to use BIND)
+      | Masdar ; -- verbal noun
 
     PerGenNum =
       Per3 Gender Number
@@ -221,8 +222,8 @@ oper
 
   --macro for sound verb
   --PerfAct, PerfPas, ImpfAct, ImpfPas, Imp, PPart
-  verb : (x1,_,_,_,_,x6 : Str) -> Verb =
-    \katab,kutib,aktub,uktab,euktub,maktUb -> {
+  verb : (x1,_,_,_,_,_,x7 : Str) -> Verb =
+    \katab,kutib,aktub,uktab,euktub,maktUb,katb -> {
       s = \\vf => rectifyHmz (case vf of {
         VPerf Act pgn     => katab + suffixPerf ! pgn ;
         VPerf Pas pgn     => kutib + suffixPerf ! pgn ;
@@ -231,7 +232,8 @@ oper
         VImpf m Act pgn => prefixImpf!pgn + aktub + suffixImpfCJ m ! pgn;
         VImpf m Pas pgn => prefixImpf !pgn + uktab + suffixImpfCJ m !pgn;
         VImp  g n  => euktub + suffixImpfCJ Jus ! (Per2 g n);
-        VPPart     => maktUb
+        VPPart     => maktUb ;
+        Masdar     => katb
         })
     } ;
   verb' : SoundForms -> Verb = \vforms ->
@@ -241,7 +243,8 @@ oper
        uktab = vforms ! 3 ;
        euktub = vforms ! 4 ;
        maktUb = vforms ! 5 ;
-    in verb katab kutib aktub uktab euktub maktUb ;
+       katb   = vforms ! 6 ;
+    in verb katab kutib aktub uktab euktub maktUb katb ;
   --affixes of sound verbs
 
   suffixPerf : PerGenNum => Str =
@@ -309,6 +312,7 @@ oper
           impSg = vforms ! 8 ; -- VImp (Sg Masc / Pl Fem)
           impPl = vforms ! 9 ; -- VImp (Pl Masc / Sg Fem)
           ppart = vforms ! 10 ; -- VPPart
+          masdar = vforms ! 11 ; -- verbal noun
 
           patPerf = patHollowPerf xAf xif xIf xuf ;
           patImpf = patHollowImpf axAf axaf uxAf uxaf ;
@@ -321,7 +325,8 @@ oper
         VImpf Cnj v pgn => prefixImpf ! pgn + patImpf ! v ! pgn + suffixImpfCJ Cnj ! pgn ;
         VImpf Jus v pgn => prefixImpf ! pgn + patJus  ! v ! pgn + suffixImpfCJ Jus ! pgn ;
         VImp        g n =>                    patImp  ! g ! n   + suffixImpfCJ Jus ! Per2 g n ;
-        VPPart          => ppart
+        VPPart          => ppart ;
+        Masdar          => masdar
         }
     } ;
 
@@ -355,6 +360,7 @@ oper
        Irmi  = vforms ! 8 ; -- VImp Masc Sg | VImp Fem _
        Irmu  = vforms ! 9 ; -- VImp Masc Pl
        ppart = vforms ! 10 ; -- VPPart
+       masdar = vforms ! 11 ; -- verbal noun
 
        patPerf = patDefPerf rama ramay rumi rumu rumiy ;
        patImpfAct = patDefImpfAct armi armu ;
@@ -366,7 +372,8 @@ oper
         VImpf m Act pgn => prefixImpf ! pgn + patImpfAct  ! pgn + suffixImpf Act vowImpf ! m ! pgn ;
         VImpf m Pas pgn => prefixImpf ! pgn + urma              + suffixImpf Pas vowImpf ! m ! pgn ;
         VImp        g n =>                    patImp ! g ! n    + suffixImpf Act vowImpf ! Jus ! Per2 g n ;
-        VPPart          => ppart
+        VPPart          => ppart ;
+        Masdar          => masdar
         }
     } ;
 
@@ -473,8 +480,8 @@ oper
 
 --now is used for the sound, assimilated (weak C1), and when C1 = hamza:
 
-v1soundForms : Root3 -> Vowel -> Vowel -> SoundForms =
-  \fcl,vowPerf,vowImpf ->
+v1soundForms : Root3 -> Vowel -> Vowel -> (masdar:Str) -> SoundForms =
+  \fcl,vowPerf,vowImpf,masdar ->
   let {
     qf = {f = fcl.c ; c = fcl.l} ;
     qif = mkBilit (fvc ! vowImpf) qf;
@@ -493,13 +500,13 @@ v1soundForms : Root3 -> Vowel -> Vowel -> SoundForms =
       };
     maktUb = mkStrong mafcUl fcl
   } in
-  toSoundForms katab kutib aktub uktab euktub maktUb ;
+  toSoundForms katab kutib aktub uktab euktub maktUb masdar ;
 
-v1sound : Root3 -> Vowel -> Vowel -> Verb = \fcl,vp,vi ->
-  verb' (v1soundForms fcl vp vi) ;
+v1sound : Root3 -> Vowel -> Vowel -> (masdar:Str) -> Verb = \fcl,vp,vi,masdar ->
+  verb' (v1soundForms fcl vp vi masdar) ;
 
-v1hollow : Root3 -> Vowel -> Verb =
-  \xwf,vowImpf ->
+v1hollow : Root3 -> Vowel -> (masdar:Str) -> Verb =
+  \xwf,vowImpf,masdar ->
   let {
     xif = mkHollow (patHol1 ! vowImpf) xwf ; -- VPerf Act (Per3 Fem Pl)
     xAf = mkHollow fAc xwf ;                 -- VPerf Act _
@@ -513,7 +520,7 @@ v1hollow : Root3 -> Vowel -> Verb =
     uxAf= mkHollow ufAc xwf ; -- VImpf Pas _
     ppart = "مَ" + xAf' -- FIXME actually wierd anomalies happen with the a vowel..
 
-  } in verbHollow (toDefForms xAf xif xIf xuf axAf axaf uxAf uxaf xaf xAf' ppart) ;
+  } in verbHollow (toDefForms xAf xif xIf xuf axAf axaf uxAf uxaf xaf xAf' ppart masdar) ;
 
 patHol1 : Vowel => Pattern =
   table { u => fuc ; _ => fic} ;
@@ -536,12 +543,12 @@ fvc : Vowel => Pattern =
     a => fac
   } ;
 
-v1geminate : Str -> Vowel -> Vowel -> Verb =
-  \r,vp,vi ->
-  verbGeminate (v1geminateForms r vp vi) ;
+v1geminate : Str -> Vowel -> Vowel -> (masdar:Str) -> Verb =
+  \r,vp,vi,masdar ->
+  verbGeminate (v1geminateForms r vp vi masdar) ;
 
-v1geminateForms : Str -> Vowel -> Vowel -> DefForms =
-  \rootStr,vowPerf,vowImpf ->
+v1geminateForms : Str -> Vowel -> Vowel -> (masdar:Str) -> DefForms =
+  \rootStr,vowPerf,vowImpf,masdar ->
   let {
     mdd = mkRoot3 rootStr ; --fcc
     md  = mkRoot2 rootStr ; --fc
@@ -560,7 +567,7 @@ v1geminateForms : Str -> Vowel -> Vowel -> DefForms =
    } in toDefForms
           madd madad mudd mudid   -- VPerf
           amudd amdud umadd umdad -- VImpf
-          Umdud mudd' mamdUd ;
+          Umdud mudd' mamdUd masdar ;
 
 patGem1 : Vowel => Pattern =
   table {
@@ -586,23 +593,23 @@ patGem3 : Vowel => Pattern =
 -- IL -- Defective, hollow and geminate verbs all need 11 forms.
       {- NB. the numbers don't always refer to the same forms!
          The verb(Def|Hollow|Geminate) constructors pick the right forms. -}
-SoundForms : Type = Predef.Ints 5  => Str ;
-DefForms   : Type = Predef.Ints 10 => Str ;
+SoundForms : Type = Predef.Ints 6  => Str ;
+DefForms   : Type = Predef.Ints 11 => Str ;
 
-toSoundForms : (x1,_,_,_,_,x6 : Str) -> SoundForms =
-  \a,b,c,d,e,f ->
+toSoundForms : (x1,_,_,_,_,_,x7 : Str) -> SoundForms =
+  \a,b,c,d,e,f,g ->
   table {
-    0 => a ; 1 => b ; 2 => c ; 3 => d ; 4 => e ; 5 => f
+    0 => a ; 1 => b ; 2 => c ; 3 => d ; 4 => e ; 5 => f ; 6 => g
   } ;
 
-toDefForms : (x1,_,_,_,_,_,_,_,_,_,x11 : Str) -> DefForms =
-  \a,b,c,d,e,f,g,h,i,j,k ->
+toDefForms : (x1,_,_,_,_,_,_,_,_,_,_,x12 : Str) -> DefForms =
+  \a,b,c,d,e,f,g,h,i,j,k,l ->
   table {
     0 => a ; 1 => b ; 2 => c ; 3 => d ; 4 => e ; 5 => f ;
-    6 => g ; 7 => h ; 8 => i ; 9 => j ; 10 => k
+    6 => g ; 7 => h ; 8 => i ; 9 => j ; 10 => k ; 11 => l
   } ;
 
-v1defForms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
+v1defForms_perfA : Root3 -> Vowel -> (masdar:Str) -> DefForms = \rmy,vowImpf,masdar ->
  let {
    _rmi = mkDefective (patDef1 ! vowImpf) rmy ;
    _rmu = mkDefective (patDef2 ! vowImpf) rmy ;
@@ -620,28 +627,28 @@ v1defForms_perfA : Root3 -> Vowel -> DefForms = \rmy,vowImpf ->
  } in toDefForms
         rama ramay rumi rumu rumiy -- VPerf
         armi armu urma             -- VImpf
-        eirmi eirmu marmiy ;
+        eirmi eirmu marmiy masdar ;
 
-v1defForms_perfI : Root3 -> Vowel -> DefForms = \bqy,vowImpf ->
-  let vforms_a = v1defForms_perfA bqy vowImpf ;
+v1defForms_perfI : Root3 -> Vowel -> (masdar:Str) -> DefForms = \bqy,vowImpf,masdar ->
+  let vforms_a = v1defForms_perfA bqy vowImpf masdar ;
       baqI  = mkDefective facIl bqy ;
       baqiy = mkDefective facil bqy ;
    in table { 0 => baqI ;
               1 => baqiy ;
               x => vforms_a ! x } ;
 
-v1defective_a : Root3 -> Vowel -> Verb = \rmy,vowImpf ->
-  let vforms = v1defForms_perfA rmy vowImpf
+v1defective_a : Root3 -> Vowel -> (masdar:Str) -> Verb = \rmy,vowImpf,masdar ->
+  let vforms = v1defForms_perfA rmy vowImpf masdar
    in verbDef vforms vowImpf ;
 
-v1defective_i : Root3 -> Vowel -> Verb = \bqy,vowImpf -> -- IL (conjugation 1d4)
-  let vforms_i = v1defForms_perfI bqy vowImpf ;
+v1defective_i : Root3 -> Vowel -> (masdar:Str) -> Verb = \bqy,vowImpf,masdar -> -- IL (conjugation 1d4)
+  let vforms_i = v1defForms_perfI bqy vowImpf masdar ;
    in verbDef vforms_i vowImpf ;
 
-v1doubleweak : Root3 -> Verb = \r'y ->
+v1doubleweak : Root3 -> (masdar:Str) -> Verb = \r'y,masdar ->
   let ry = r'y ** {c = ""} ;
-      vforms_doubleweak : DefForms = \\x => rmSukun (v1defForms_perfA ry a ! x) ; -- only remove the first sukun
-      vforms_weak : DefForms = v1defForms_perfA r'y a ;
+      vforms_doubleweak : DefForms = \\x => rmSukun (v1defForms_perfA ry a masdar ! x) ; -- only remove the first sukun
+      vforms_weak : DefForms = v1defForms_perfA r'y a masdar ;
       vforms = table { 0 => vforms_weak ! 0 ; -- all perfect forms
                        1 => vforms_weak ! 1 ;
                        2 => vforms_weak ! 2 ;
@@ -650,10 +657,10 @@ v1doubleweak : Root3 -> Verb = \r'y ->
                        x => vforms_doubleweak ! x } ;
    in verbDoubleDef vforms a ; -- sukun in suffixes is removed in verbDoubleDef
 
-v1assimilated_defective : Root3 -> Vowel -> Vowel -> Verb = \root,vPerf,vImpf ->
-  let vffun = case vPerf of {i => v1defForms_perfI ; _ => v1defForms_perfA} ;
-      vforms_def : DefForms = vffun root vImpf ;
-      vforms_ass : DefForms = \\x => rmSukun (vffun (root ** {f = ""}) vImpf ! x) ;
+v1assimilated_defective : Root3 -> Vowel -> Vowel -> (masdar:Str) -> Verb = \root,vPerf,vImpf,msdr ->
+  let vffun = case vPerf of {i => v1defForms_perfI ; _ => v1defForms_perfA } ;
+      vforms_def : DefForms = vffun root vImpf msdr ;
+      vforms_ass : DefForms = \\x => rmSukun (vffun (root ** {f = ""}) vImpf msdr ! x) ;
       vforms : DefForms =
          table { 4 => vforms_ass ! 4 ;
                  5 => vforms_ass ! 5 ;
@@ -684,9 +691,10 @@ v2sound : Root3 -> Verb = \qsm ->
     qassim  = mkStrong faccil qsm ;
     uqassim = "ُ" + qassim ;
     uqassam = "ُ" + qassam ;
-    muqassam = "مُ" + qassam
+    muqassam = "مُ" + qassam ;
+    taqsIm = "تَ" + mkStrong fcIl qsm ;
   } in
-  verb qassam qussim uqassim uqassam qassim muqassam ;
+  verb qassam qussim uqassim uqassam qassim muqassam taqsIm ;
 
 v2defective : Root3 -> Verb = \gny ->
   let {
@@ -700,11 +708,12 @@ v2defective : Root3 -> Verb = \gny ->
     gannu = mkDefective faccu gny;
     ugannu = "ُ" + gannu;
     uganna = "ُ" + ganna;
-    mugannaY = "مُ" + ganna + "ى"
+    mugannaY = "مُ" + ganna + "ى";
+    tagniya = "TODO" ;
   } in verbDef (toDefForms
           ganna gannay gunni gunnu gunniy -- VPerf
           uganni ugannu uganna            -- VImpf
-          ganni gannu mugannaY) i ;
+          ganni gannu mugannaY tagniya) i ;
 
 v3sound : Root3 -> Verb =
   \tbc ->
@@ -714,8 +723,9 @@ v3sound : Root3 -> Verb =
     tAbic = mkStrong fAcil tbc ;
     utAbic  = "ُ" + tAbic ;
     utAbac = mkStrong ufAcal tbc ;
-    mutAbac = "م" + utAbac
-  } in verb tAbac twbic utAbic utAbac tAbic mutAbac;
+    mutAbac = "م" + utAbac ;
+    mutAbacAt = mutAbac + "َاَة"
+  } in verb tAbac twbic utAbic utAbac tAbic mutAbac mutAbacAt ;
 
 v4sound : Root3 -> Verb =
   \qnc ->
@@ -725,9 +735,10 @@ v4sound : Root3 -> Verb =
     uqnic = mkStrong ufcil qnc;
     uqnac = mkStrong ufcal qnc;
     eaqnic = mkStrong eafcil qnc;
-    muqnac = "م" + uqnac
+    muqnac = "م" + uqnac;
+    eiqnAc = mkStrong eifcAl qnc
   } in
-  verb eaqnac euqnic uqnic uqnac eaqnic muqnac;
+  verb eaqnac euqnic uqnic uqnac eaqnic muqnac eiqnAc;
 
 v4hollow : Root3 -> Verb =
   \rwd ->
@@ -746,11 +757,12 @@ v4hollow : Root3 -> Verb =
     earId = mkHollow eafIc rwd ; -- VImp (Pl Masc / Sg Fem)
 
     ppart = "م" + urAd ;
+    eirAdat = mkWeak eifcAl rwd + "َة" ;
 
   } in verbHollow (toDefForms
                       earAd earad eurId eurid -- VPerf
                       urId urid urAd urad     -- VImpf
-                      earId earid ppart) ;
+                      earId earid ppart eirAdat) ;
 
  v4DefForms : Root3 -> DefForms = \cTy ->
   let {
@@ -767,10 +779,11 @@ v4hollow : Root3 -> Verb =
     ucTa = "ُ" + _cTa;  -- VImpf Pas
     eacTi = "أَ" + _cTi; -- VImp (Masc Sg / Fem _)
     eacTu = "أَ" + _cTu; -- VImp Masc Pl
-    mucTaY = "م" + ucTa +"ى"
+    mucTaY = "م" + ucTa +"ى" ;
+    eicTA' = "TODO" ;
   } in toDefForms eacTa eacTay eucTi eucTu eucTiy -- VPerf
                   ucTi ucTu ucTa                  -- VImpf
-                  eacTi eacTu mucTaY ;
+                  eacTi eacTu mucTaY eicTA' ;
 
 v4defective : Root3 -> Verb = \cTy ->
   verbDef (v4DefForms cTy) i ;
@@ -787,8 +800,9 @@ v5sound : Root3 -> Verb =
     tunuffis = mkStrong tufuccil nfs ;
     atanaffas  = "َ" + tanaffas ;
     utanaffas = "ُ" + tanaffas ;
-    mutanaffas = "م" + tanaffas
-  } in verb tanaffas tunuffis atanaffas utanaffas tanaffas mutanaffas;
+    mutanaffas = "م" + tanaffas ;
+    tanaffus = mkStrong tafaccul nfs
+  } in verb tanaffas tunuffis atanaffas utanaffas tanaffas mutanaffas tanaffus;
 
 v6sound : Root3 -> Verb =
   \fqm ->
@@ -797,11 +811,13 @@ v6sound : Root3 -> Verb =
     tufUqim = mkStrong tufUcil fqm ;
     atafAqam = "َ" + tafAqam ;
     utafAqam = "ُ" + tafAqam ;
-    mutafAqam = "م" + utafAqam
-  } in verb tafAqam tufUqim atafAqam utafAqam tafAqam mutafAqam;
+    mutafAqam = "م" + utafAqam ;
+    tafAqum = mkStrong tafAcul fqm ;
+  } in verb tafAqam tufUqim atafAqam utafAqam tafAqam mutafAqam tafAqum;
 
 v7sound : Root3 -> Verb = \fcl ->
-  let vforms = v1soundForms fcl a i ;
+  let inficAl = "اِ" + mkStrong ficAl fcl ;
+      vforms = v1soundForms fcl a i inficAl ;
       _nfacil = "نْ" + mkStrong facil fcl ;
       infacal = "اِنْ" + vforms ! 0 ;
       anfacil = "َ" + _nfacil ;
@@ -816,7 +832,8 @@ v7sound : Root3 -> Verb = \fcl ->
       }) ;
 
 v7geminate : Str -> Verb = \fcl ->
-  let vforms = v1geminateForms fcl a i ;
+  let inficAc = "اِنْ" + mkStrong ficAl (mkRoot3 fcl) ;
+      vforms = v1geminateForms fcl a i inficAc ;
       _nfacc = "نْ" + vforms ! 0  ;
       _nfacic = "نْ" + mkStrong facil (mkRoot3 fcl) ;
       infacc = "اِ" + _nfacc ;        -- VPerf Act
@@ -836,6 +853,21 @@ v7geminate : Str -> Verb = \fcl ->
          n => "ُنْ" + vforms ! n -- doesn't exist for form 7
     }) ;
 
+v8sound : Root3 -> Verb =
+  \rbT ->
+  let {
+    rtabiT = mkStrong ftacil rbT ;
+    rtabaT = mkStrong ftacal rbT ;
+    rtibAT = mkStrong fticAl rbT ;
+    eirtabaT = "إِ" + rtabaT ;
+    eurtubiT = "أُ" + mkStrong ftucil rbT ;
+    artabiT = "َ" + rtabiT ;
+    urtabaT  = "ُ" + rtabaT ;
+    eirtabiT = "إِ" + rtabiT ;
+    murtabaT =  "م" + urtabaT ;
+    irtibAT = "اِ" + rtibAT ;
+  } in verb eirtabaT eurtubiT artabiT urtabaT eirtabiT murtabaT irtibAT;
+
 v8geminate : Str -> Verb =
   \rootStr ->
   let {
@@ -846,6 +878,7 @@ v8geminate : Str -> Verb =
     _mtadid = mkStrong ftacil mdd ;
     _mtudd = mkBilit ftucc md ;
     _mtudid = mkStrong ftucil mdd ;
+    _mtidAd = mkStrong fticAl mdd ;
     imtadd = "اِ" + _mtadd ;
     imtadad = "اِ" + _mtadad ;
     umtudd = "اُ" + _mtudd ;
@@ -856,37 +889,26 @@ v8geminate : Str -> Verb =
     umtadad = "ُ" + _mtadad ;
     imtadid = "اِ" + _mtadid ;
     mumtadd = "مُ" + _mtadd ;
+    imtidAd = "اِ" + _mtidAd ;
   } in verbGeminate (toDefForms
         imtadd imtadad umtudd umtudid -- VPerf
         amtadd amtadid umtadd umtadad -- VPres
-        imtadd imtadid mumtadd) ;
-
-
-v8sound : Root3 -> Verb =
-  \rbT ->
-  let {
-    rtabiT = mkStrong ftacil rbT ;
-    rtabaT = mkStrong ftacal rbT ;
-    eirtabaT = "إِ" + rtabaT ;
-    eurtubiT = "أُ" + mkStrong ftucil rbT ;
-    artabiT = "َ" + rtabiT ;
-    urtabaT  = "ُ" + rtabaT ;
-    eirtabiT = "إِ" + rtabiT ;
-    murtabaT =  "م" + urtabaT
-  } in verb eirtabaT eurtubiT artabiT urtabaT eirtabiT murtabaT;
+        imtadd imtadid mumtadd imtidAd) ;
 
 v8assimilated : Root3 -> Verb = --- IL 8a1
   \wfq ->
   let {
     ttafiq = mkWeak ttacil wfq ;
     ttafaq = mkWeak ttacal wfq ;
-    eittafaq = "إِ" + ttafaq ;
+    ttifAq = mkWeak tticAl wfq ;
+    ittafaq = "اِ" + ttafaq ;
     euttufiq = mkWeak euttucil wfq ; -- TODO check
     attafiq = "َ" + ttafiq ;
     uttafaq  = "ُ" + ttafaq ;
-    eittafiq = "إِ" + ttafiq ;
-    muttafaq =  "م" + uttafaq
-  } in verb eittafaq euttufiq attafiq uttafaq eittafiq muttafaq;
+    ittafiq = "اِ" + ttafiq ;
+    muttafaq =  "م" + uttafaq ;
+    ittifAq = "اِ" + ttifAq ;
+  } in verb ittafaq euttufiq attafiq uttafaq ittafiq muttafaq ittifAq;
 
 v8hollow : Root3 -> Verb = -- IL
   \Hwj ->
@@ -905,25 +927,28 @@ v8hollow : Root3 -> Verb = -- IL
     uHtAj = "ُ" + _Htaj ; -- VImpf Pas _
     -- iHtaj again          -- VImp Sg Masc / Pl Fem
     -- iHtAj again          -- VImp Pl Masc / Sg Fem
-    ppart = "مُ" + _HtAj  -- PPart
+    ppart = "مُ" + _HtAj ;  -- PPart
+    iHtiyAj = "TODO" ;
 
   }  in verbHollow (toDefForms
                      iHtAj iHtaj uHtIj uHtij aHtAj aHtaj
-                     uHtAj uHtaj iHtAj iHtaj ppart) ;
+                     uHtAj uHtaj iHtAj iHtaj ppart iHtiyAj) ;
 
 v10sound : Root3 -> Verb = -- IL 10s -- to be checked
   \qtl ->
   let {
     _staqtal = "ستَ" + mkStrong fcal qtl ;
-    _staqtil = "ستَ" + mkStrong fcil qtl;
+    _staqtil = "ستَ" + mkStrong fcil qtl ;
+    _stiqtAl = "ستِ" + mkStrong fcAl qtl ;
     istaqtal = "اِ" + _staqtal ; -- VPerf Act
     ustuqtil = "اُسْتُ" + mkStrong fcil qtl; -- VPerf Pas
     astaqtil = "َ"  + _staqtil ; -- VImpf _ Act
     astaqtal = "َ"  + _staqtal ;  -- VImpf _ Pas
     istaqtil = "اِ" + _staqtil ; -- VImp
-    mustaqtal = "مُ" + _staqtal  -- VPPart
+    mustaqtal = "مُ" + _staqtal ;  -- VPPart
+    istiqtAl = "اِ" + _stiqtAl ;
   } in
-  verb istaqtal ustuqtil astaqtil astaqtal istaqtil mustaqtal ;
+  verb istaqtal ustuqtil astaqtil astaqtal istaqtil mustaqtal istiqtAl ;
 
 v10hollow : Root3 -> Verb = -- IL 10h -- to be checked
   \xwf ->
@@ -942,11 +967,12 @@ v10hollow : Root3 -> Verb = -- IL 10h -- to be checked
     astaxIf = "َ" + _staxIf ; -- VImpf Act _
     ustaxaf = "ُ" + _staxaf ; -- VImpf Pas (Per2/Per3 Fem Pl)
     ustaxAf = "ُ" + _staxAf ; -- VImpf Pas _
-    ppart = "مُ" + _staxIf -- PPart ("weird anomalies" here too?)
+    ppart = "مُ" + _staxIf ; -- PPart ("weird anomalies" here too?)
+    istixAfat = "TODO ficAlp" ;
 
   } in verbHollow (toDefForms
                      istaxAf istaxaf ustuxIf ustuxif astaxIf astaxif
-                     ustaxAf ustaxaf istaxif istaxIf ppart) ;
+                     ustaxAf ustaxaf istaxif istaxIf ppart istixAfat) ;
 
 v10defective : Root3 -> Verb = -- IL
   \lqy ->
@@ -967,12 +993,16 @@ v10defective : Root3 -> Verb = -- IL
     istalqu = "اِ" + _stalqu; -- VImp Masc Pl
     mustalqin = "مُ" + _stalqi + "ت" ;
 
+    lq' = lqy ** {l = "ء"} ;
+    istilqA' = "اِسْتِ" + mkStrong fcAl lq' ;
+
   } in verbDef (toDefForms
                   istalqa istalqay ustulqi ustulqi ustulqi
-                  astalqi astalqu ustalqa istalqi istalqu mustalqin) i ;
+                  astalqi astalqu ustalqa
+                  istalqi istalqu mustalqin istilqA') i ;
 
 v10geminate : Str -> Verb = \fcl ->
-  let vforms = v1geminateForms fcl a i ;
+  let vforms = v1geminateForms fcl a i "dummy masdar" ;
       _stafacc = "سْتَ" + vforms ! 0 ;
       _stafcac = "سْتَ" + mkStrong fcal (mkRoot3 fcl) ;
       _staficc = "سْت" + vforms ! 4 ; -- vowel is in the stem from vforms
@@ -984,6 +1014,7 @@ v10geminate : Str -> Verb = \fcl ->
       istaficc = "اِ" + _staficc ;  -- VImp
       istafcic = "اِ" + _stafcic ;  -- VImp PlF
       mustafacc = "مُ" + _stafacc ; -- VPPart
+      istifcAc = "اِسْتِ" + mkStrong fcAl (mkRoot3 fcl) ;
    in verbGeminate (table {
          0 => istafacc ;
          1 => istafcac ;
@@ -992,6 +1023,7 @@ v10geminate : Str -> Verb = \fcl ->
          8 => istaficc ;
          9 => istafcic ;
          10 => mustafacc ;
+         11 => istifcAc ;
          n@(2|3) => "ُسْتُ" + vforms ! n ; -- ???
          n@(6|7) => "ُسْتَ" + vforms ! n -- ???
     }) ;
@@ -1629,7 +1661,7 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
         VPerf _ pgn   => v.s ! vf ++ reflPron Acc pgn ;
         VImpf _ _ pgn => v.s ! vf ++ reflPron Acc pgn ;
         VImp g n      => v.s ! vf ++ reflPron Acc (Per2 g n) ;
-        VPPart        => v.s ! vf ++ reflPron Acc (Per3 Masc Sg) ----
+        _             => v.s ! vf ++ reflPron Acc (Per3 Masc Sg) ----
         }
       } ;
 
@@ -1647,7 +1679,8 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
       vf@(VImpf _ _ pgn) => copula.s ! vf ++ laday pgn ;
       vf@(VPerf _ pgn)   => copula.s ! vf ++ laday pgn ;
       vf@(VImp g n)      => copula.s ! vf ++ laday (Per2 g n) ;
-      VPPart             => copula.s ! VPPart ++ "لَدَى" }
+      x                  => copula.s ! x ++ "لَدَى" }
+
     } ;
 -----------------------------------------------------------------------------
 -- IP, questions
@@ -1699,7 +1732,8 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
   param VPForm =
         VPPerf
       | VPImpf Mood
-      | VPImp ;
+      | VPImp
+      | VPGer ;
 
   oper
 
@@ -1715,8 +1749,8 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
       s : PerGenNum => VPForm => Str ;
       } ;
 
-    uttVP : VP -> (Gender=>Str) = \vp ->
-     \\g => vp.s ! Per3 g Sg ! VPPerf
+    uttVP : VPForm -> VP -> (Gender=>Str) = \vpf,vp ->
+     \\g => vp.s ! Per3 g Sg ! vpf
          ++ vp.obj.s ++ vp.pred.s ! {n = Sg ; g = g} ! Nom
          ++ vp.s2 ;
 
@@ -1726,7 +1760,8 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
           case vf of {
             VPPerf => v.s ! VPerf Act pgn ;
             VPImpf m => v.s ! VImpf m Act pgn ;
-            VPImp => v.s ! VImp gn.g gn.n
+            VPImp => v.s ! VImp gn.g gn.n ;
+            VPGer => v.s ! Masdar
           };
         sc = noPrep ;
         obj = emptyObj ;
@@ -1895,7 +1930,7 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
     kaan : {s : AAgr => Case => Str} -> VP = \xabar ->
       insertPred xabar (predV copula);
 
-    copula : Verb = v1hollow {f = "ك"; c = "و" ; l = "ن"} u ;
+    copula : Verb = v1hollow {f = "ك"; c = "و" ; l = "ن"} u "كَوْن" ;
 
 -----------------------------------------------------------------------------
 -- Slash categories

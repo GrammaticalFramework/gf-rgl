@@ -96,6 +96,6 @@ linref
 
   CN = \cn -> uttCN cn ! Masc ;
   N = \n -> uttCN (useN n) ! Masc ;
-  VP = \vp -> uttVP vp ! Masc ;
+  VP = \vp -> uttVP VPPerf vp ! Masc ;
 
 }

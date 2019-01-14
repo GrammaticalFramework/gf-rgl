@@ -47,6 +47,7 @@ flags coding=utf8 ;
     eafcilp  = { h = "أَ"; m1 = "ْ"   ; m2 = "ِ"   ; t = "َة" } ;
     eafcal   = { h = "أَ"; m1 = "ْ"   ; m2 = "َ"   ; t = ""   } ;
     eafcAl   = { h = "أَ"; m1 = "ْ"   ; m2 = "َا"  ; t = ""   } ;
+    eifcAl   = { h = "إِ"; m1 = "ْ"   ; m2 = "َا"  ; t = ""   } ;
     eafcil   = { h = "أَ"; m1 = "ْ"   ; m2 = "ِ"   ; t = ""   } ;
     eafcul   = { h = "أَ"; m1 = "ْ"   ; m2 = "ُ"   ; t = ""   } ;
     eiftacal = { h = "إِ"; m1 = "ْتَ" ; m2 = "َ"   ; t = ""   } ;
@@ -82,11 +83,14 @@ flags coding=utf8 ;
     fcil     = { h = ""  ; m1 = "ْ"   ; m2 = "ِ"   ; t = ""   } ;
     fcul     = { h = ""  ; m1 = "ْ"   ; m2 = "ُ"   ; t = ""   } ;
     ficl     = { h = ""  ; m1 = "ِ"   ; m2 = "ْ"   ; t = ""   } ;
+    fcIl     = fcil ** {m2 = "ِي"} ;
+    fcAl     = fcal ** {m2 = "َا"} ;
     ficAl    = { h = ""  ; m1 = "ِ"   ; m2 = "َا"  ; t = ""   } ;
     ficlp    = { h = ""  ; m1 = "ِ"   ; m2 = "ْ"   ; t = "َة" } ;
     ftacc    = facc ** {m1 = "ْتَ"} ;
     ftucc    = facc ** {m1 = "ْتُ"} ;
     ftacal   = { h = ""  ; m1 = "ْتَ" ; m2 = "َ"   ; t = ""   } ;
+    fticAl   = ficAl ** { m1 = "ْتِ" } ; -- IL hollow VIII
     ftical   = ftacal ** { m1 = "ْتِ" } ; -- IL hollow VIII
     ftAcal   = ftacal ** { m1 = "ْتَا" } ; -- IL hollow VIII
     ftIcal   = ftacal ** { m1 = "ْتِي" } ;  -- IL hollow VIII
@@ -95,6 +99,7 @@ flags coding=utf8 ;
     euttucil = { h =  "اُتُّ" ; m1 = "ِ" ; m2 = "" ; t = "" } ; ---- IL assimilated VIII
     ttacal   = ftacal ** { m1 = ""  ; h = "تَّ" } ; ---- IL assimilated VIII
     ttacil   = ftacil ** { m1 = ""  ; h = "تَّ" } ; ---- IL assimilated VIII
+    tticAl   = ficAl ** { h = "تِّ" } ;             ---- IL assimilated VIII
     fuccAl   = { h = ""  ; m1 = "ُ"   ; m2 = "َّا" ; t = ""   } ;
     fuccil   = { h = ""  ; m1 = "ُ"   ; m2 = "ِّ"  ; t = ""   } ;
     fuccilo  = { h = ""  ; m1 = "ُ"   ; m2 = "ِّ"  ; t = "ْ"  } ;
@@ -112,7 +117,9 @@ flags coding=utf8 ;
     mafcUl   = { h = "مَ"; m1 = "ْ"   ; m2 = "ُو"  ; t = ""   } ;
     mafcil   = { h = "مَ"; m1 = "ْ"   ; m2 = "ِ"  ; t = ""   } ;
     tafAcal  = { h = "تَ"; m1 = "َا"  ; m2 = "َ"   ; t = ""   } ;
+    tafAcul  = { h = "تَ"; m1 = "َا"  ; m2 = "ُ"   ; t = ""   } ;
     tafaccal = { h = "تَ"; m1 = "َ"   ; m2 = "َّ"  ; t = ""   } ;
+    tafaccul = { h = "تَ"; m1 = "َ"   ; m2 = "ُّ"  ; t = ""   } ;
     tufuccil = { h = "تُ"; m1 = "ُ"   ; m2 = "ِّ"  ; t = ""   } ;
     tufUcil  = { h = "تُ"; m1 = "ُو"  ; m2 = "ِ"   ; t = ""   } ;
     ufAcal   = { h = "ُ" ; m1 = "َا"  ; m2 = "َ"   ; t = ""   } ;
