@@ -1749,8 +1749,8 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
       s : PerGenNum => VPForm => Str ;
       } ;
 
-    uttVP : VP -> (Gender=>Str) = \vp ->
-     \\g => vp.s ! Per3 g Sg ! VPPerf
+    uttVP : VPForm -> VP -> (Gender=>Str) = \vpf,vp ->
+     \\g => vp.s ! Per3 g Sg ! vpf
          ++ vp.obj.s ++ vp.pred.s ! {n = Sg ; g = g} ! Nom
          ++ vp.s2 ;
 
