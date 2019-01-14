@@ -201,16 +201,20 @@ resource ParadigmsAra = open
 
   mkV : overload {
     mkV : (imperfect : Str) -> V ; -- The verb in Per3 Sg Masc imperfect tense gives the most information
-    mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- verb form I ; vowel = a|i|u
-    mkV : (root : Str) -> VerbForm -> V ;  -- FormI .. FormX (no VII, IX) ; default vowels a u for I
+    mkV : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V ; -- verb form I ; vowel = a|i|u ; unpredictable masdar given as an argument.
+    mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- verb form I ; vowel = a|i|u ; dummy masdar inserted. This function is here only to keep compatibility for the old API; for new grammars, use the constructor with masdar as an argument.
+    mkV : (root : Str) -> VerbForm -> V ;  -- FormI .. FormX (no IX) ; default vowels a u for I, and dummy masdar. Forms II-X have predictable masdar.
     mkV : V -> (particle : Str) -> V -- V with a non-inflecting particle/phrasal verb
     } ;
 
-  -- regV : Str -> V ;
-
   reflV : V -> V ; -- نَفْس in the proper case and with possessive suffix, e.g.  نَفْسَكِ
 
-  v1 : Str -> Vowel -> Vowel -> V ; -- Verb Form I : fa`ala, fa`ila, fa`ula
+  v1 = overload {
+    v1 : Str -> (perf,impf : Vowel) -> (masdar : Str) -> V -- Verb Form I : fa`ala, fa`ila, fa`ula. Verbal noun (masdar) given as the third argument.
+     = v1masdar ;
+    v1 : Str -> (perf,impf : Vowel) -> V -- To keep compatibility for the old API; dummy masdar inserted.
+     = v1dummymasdar ;
+  } ;
 
   v2 : Str -> V ; -- Verb Form II : fa``ala
 
@@ -401,8 +405,10 @@ resource ParadigmsAra = open
   mkV = overload {
     mkV : (imperfect : Str) -> V
       = regV ;
-    mkV : (root : Str) -> (perf,impf : Vowel) -> V  -- verb form I ; vowel = a|i|u
-      = v1 ;
+    mkV : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V  -- verb form I ; vowel = a|i|u
+      = v1masdar ;
+    mkV : (root : Str) -> (perf,impf : Vowel) -> V  -- verb form I ; vowel = a|i|u ; dummy masdar
+      = v1dummymasdar ;
     mkV : (root : Str) -> VerbForm -> V             -- FormI .. FormX (no VII, IX) ; default vowels a u for I
       = formV ;
     mkV : V -> (particle : Str) -> V = \v,p ->
@@ -418,46 +424,50 @@ resource ParadigmsAra = open
       f@? + "َ" + c@? + "ِ" + l  => <f+c+l, i, a> ;
       _ => Predef.error ("regV not applicable to" ++ wo)
     }
-    in v1 rau.p1 rau.p2 rau.p3 ;
+    in v1dummymasdar rau.p1 rau.p2 rau.p3 ;
 
-  v1 = \rootStr,vPerf,vImpf ->
-    let { raw = v1' rootStr vPerf vImpf } in
-    lin V { s = \\vf =>rectifyHmz (raw.s ! vf) } ;
+  v1masdar : Str -> (perf,impf : Vowel) -> (masdar : Str) -> V =
+    \rootStr,vPerf,vImpf,msdr ->
+      let { raw = v1' rootStr vPerf vImpf msdr }
+       in lin V { s = \\vf =>rectifyHmz (raw.s ! vf) } ;
 
-  v1' : Str ->  Vowel -> Vowel -> Verb =
-    \rootStr,vPerf,vImpf ->
+  v1dummymasdar : Str -> (p,i : Vowel) -> V = \rootStr,vPerf,vImpf ->
+    let { dummyMasdar = mkStrong facl (mkRoot3 rootStr) ;
+          raw = v1' rootStr vPerf vImpf dummyMasdar }
+     in lin V { s = \\vf =>rectifyHmz (raw.s ! vf) } ;
+
+  v1' : Str -> (p,i : Vowel) -> (masdar : Str) -> Verb =
+    \rootStr,vPerf,vImpf,masdar ->
     let root = mkRoot3 rootStr
      in case rootStr of {
-          f@? + c@?  + "ّ"   => v1geminate (f+c+c) vPerf vImpf ;
-          ? + #hamza + #weak => v1doubleweak root ;
-          #weak + ?  + #weak => v1assimilated_defective root vPerf vImpf ;
+          f@? + c@?  + "ّ"   => v1geminate (f+c+c) vPerf vImpf masdar ;
+          ? + #hamza + #weak => v1doubleweak root masdar ;
+          #weak + ?  + #weak => v1assimilated_defective root vPerf vImpf masdar ;
           ? + ?      + #weak => case vPerf of {
-                                  i => v1defective_i root vImpf ;
-                                  _ => v1defective_a root vImpf } ;
-          ? + #weak + ?      => v1hollow root vImpf ;
-          _                  => v1sound root vPerf vImpf } ;
+                                  i => v1defective_i root vImpf masdar ;
+                                  _ => v1defective_a root vImpf masdar } ;
+          ? + #weak + ?      => v1hollow root vImpf masdar ;
+          _                  => v1sound root vPerf vImpf masdar } ;
 
   v2 =
     \rootStr ->
     let {
       root = mkRoot3 rootStr
-    } in {
+    } in lin V {
       s =
         case rootStr of {
 --          #weak + ? + ? =>
           ? + ? + #weak => (v2defective root).s;
           _             => (v2sound root).s
-        };
-      lock_V = <>
+        }
     };
 
   v3 =
     \rootStr ->
     let {
       tbc = mkRoot3 rootStr ;
-    } in {
-      s = (v3sound tbc).s  ;
-      lock_V = <>
+    } in lin V {
+      s = (v3sound tbc).s
     };
 
   v4 =
@@ -473,30 +483,28 @@ resource ParadigmsAra = open
 
   v5 =
     \rootStr ->
-    let { raw = v5' rootStr } in
+    let { raw = v5' rootStr } in raw **
     { s = \\vf =>
         case rootStr of {
           _ + #hamza + _ => rectifyHmz(raw.s ! vf);
           _ => raw.s ! vf
-        };
-      lock_V = <>
+        }
     };
 
   v5' : Str -> V =
     \rootStr ->
     let {
       nfs = mkRoot3 rootStr ;
-    } in {
-      s = (v5sound nfs).s  ; lock_V = <>
+    } in lin V {
+      s = (v5sound nfs).s
     };
 
   v6 =
     \rootStr ->
     let {
       fqm = mkRoot3 rootStr ;
-    } in {
-      s = (v6sound fqm).s  ;
-      lock_V = <>
+    } in lin V {
+      s = (v6sound fqm).s
     };
 
   v7 =
