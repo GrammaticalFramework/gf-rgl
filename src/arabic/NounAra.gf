@@ -204,7 +204,7 @@ lin
 
   AdvCN,
   SentCN = \cn,ss -> cn ** {
-    s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ss.s ;
+    np = \\c => cn.np ! c ++ ss.s ;
     isHeavy = True
     } ;
 
