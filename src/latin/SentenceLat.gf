@@ -45,12 +45,13 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 --    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
 --
     UseCl  t p cl = -- Temp -> Pol-> Cl -> S
-      {
-	s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! VQFalse ! SOV
-    } ;
-    UseQCl t p cl = {
-      s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! q
-    } ;
+      (combineClause cl (lin Tense t) t.a (lin Pol p) VQFalse) ;
+
+    -- TO FIX
+    --UseQCl t p cl =
+      --      s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p ! q
+      -- { s = \\q => combineSentence (combineClause cl t t.a p VQFalse) ! PreV ! VSO } ; 
+
 --    UseRCl t p cl = {
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
 --      c = cl.c
@@ -60,11 +61,13 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 --      c2 = cl.c2
 --    } ;
 --
---    AdvS a s = {s = a.s ++ "," ++ s.s} ;
+    -- AdvS : Adv -> S -> S
+    AdvS adv s = { s = s.s ; o = s.o ; v = s.v ; neg = s.neg ; t = s.t ; p = s.p ; sadv = adv.s ! Posit ++ s.sadv } ;
 
 -- This covers subjunctive clauses, but they can also be added to the end.
---  SSubjS : S -> Subj -> S -> S ;       -- I go home if she comes
-    SSubjS s1 subj s2 = ss ( subj.s ++ s2.s ++ s1.s );
+    --  SSubjS : S -> Subj -> S -> S ;       -- I go home if she comes
+    -- TO FIX
+--    SSubjS s1 subj s2 = { s =  \\_ => subj.s ++ s2.s ! PreS ++ s1.s ! PreS ; sadv = lin Adv (mkAdverb []) } ;
     
 --    RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ;
 --

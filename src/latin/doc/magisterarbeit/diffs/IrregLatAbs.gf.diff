@@ -1,0 +1,18 @@
+diff --git a/lib/src/latin/IrregLatAbs.gf b/lib/src/latin/IrregLatAbs.gf
+new file mode 100644
+index 0000000..a5e86f7
+--- /dev/null
++++ b/lib/src/latin/IrregLatAbs.gf
+@@ -0,0 +1,12 @@
++abstract IrregLatAbs = Cat ** {
++  fun
++    science_N : N ;
++    be_V : V ;
++    can_VV : VV ;
++    bring_V : V ;
++    want_V : V ;
++    go_V : V;
++    become_V : V;
++    rain_V : V;
++    hate_V : V;
++}

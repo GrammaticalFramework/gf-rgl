@@ -1,0 +1,26 @@
+diff --git a/lib/src/latin/GrammarLat.gf b/lib/src/latin/GrammarLat.gf
+index efa7f69..09966e9 100644
+--- a/lib/src/latin/GrammarLat.gf
++++ b/lib/src/latin/GrammarLat.gf
+@@ -1,19 +1,18 @@
+ --# -path=.:../abstract:../common:prelude
+ 
+ concrete GrammarLat of Grammar = 
+   NounLat, 
+   VerbLat, 
+   AdjectiveLat,
+   AdverbLat,
+   NumeralLat,
+   SentenceLat,
+ --  QuestionLat,
+ --  RelativeLat,
+ --  ConjunctionLat,
+---  PhraseLat,
++  PhraseLat,
+   TextX,
+-  StructuralLat,
++  StructuralLat
+ --  IdiomLat
+-  TenseX
+   ** {
+ } ;

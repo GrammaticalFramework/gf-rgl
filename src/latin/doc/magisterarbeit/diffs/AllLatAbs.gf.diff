@@ -1,0 +1,13 @@
+diff --git a/lib/src/latin/AllLatAbs.gf b/lib/src/latin/AllLatAbs.gf
+index 7b7af3f..ba468a1 100644
+--- a/lib/src/latin/AllLatAbs.gf
++++ b/lib/src/latin/AllLatAbs.gf
+@@ -1 +1,7 @@
+-abstract AllLatAbs = Lang ;
++--# -path=.:../abstract:../common:prelude
++
++abstract AllLatAbs = 
++  Lang,
++  IrregLatAbs-[can_VV,go_V],
++  ExtraLatAbs
++  ** {} ;

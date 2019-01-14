@@ -1,0 +1,13 @@
+diff --git a/lib/src/latin/AllLat.gf b/lib/src/latin/AllLat.gf
+index 79f9117..902c652 100644
+--- a/lib/src/latin/AllLat.gf
++++ b/lib/src/latin/AllLat.gf
+@@ -1,6 +1,6 @@
+ --# -path=.:../abstract:../common:prelude
+ 
+ concrete AllLat of AllLatAbs = 
+-  LangLat
+---  ExtraLat
++  LangLat,
++  ExtraLat
+   ** {} ;

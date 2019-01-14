@@ -1,0 +1,20 @@
+graph {
+node[fontsize = 11];
+n0[label = "1 : S", style = "solid", shape = "plaintext"] ;
+n0_0[label = "2 : NP", style = "solid", shape = "plaintext"] ;
+n0 -- n0_0 [style = "solid"];
+n0_0_0[label = "4 : Det", style = "solid", shape = "plaintext"] ;
+n0_0 -- n0_0_0 [style = "solid"];
+n0_0_0_0[label = "der", fontname = "Times-Italic", style = "solid", shape = "plaintext"];
+n0_0_0 -- n0_0_0_0 [style = "solid"]
+n1_0_0[label = "3 : N", style = "solid", shape = "plaintext"] ;
+n1_0_0_0[label = "Mann", fontname = "Times-Italic", style = "solid", shape = "plaintext"];
+n1_0_0 -- n1_0_0_0 [style = "solid"];
+n0_0 -- n1_0_0 [style = "solid"];
+n1_0[label = "5 : VP", style = "solid", shape = "plaintext"] ;
+n0 -- n1_0 [style = "solid"];
+n0_1_0[label = "6 : V", style = "solid", shape = "plaintext"] ;
+n1_0 -- n0_1_0 [style = "solid"];
+n0_1_0_0[label = "schläft", fontname = "Times-Italic", style = "solid", shape = "plaintext"];
+n0_1_0 -- n0_1_0_0 [style = "solid"];
+}

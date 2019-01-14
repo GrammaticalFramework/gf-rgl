@@ -1,0 +1,16 @@
+diff --git a/lib/src/latin/ExtraLat.gf b/lib/src/latin/ExtraLat.gf
+index 9dad2f9..e6c8728 100644
+--- a/lib/src/latin/ExtraLat.gf
++++ b/lib/src/latin/ExtraLat.gf
+@@ -1,3 +1,11 @@
+ concrete ExtraLat of ExtraLatAbs = CatLat ** 
+   open ResLat, Coordination, Prelude in {
++  lin
++    UsePronNonDrop p = -- Pron -> NP
++      {
++	g = p.g ;
++	n = p.n ;
++	p = p.p ;
++	s = p.pers ! PronNonDrop ! PronRefl ;
++      } ;
+ } 

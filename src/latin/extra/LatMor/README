@@ -1,0 +1,83 @@
+This package contains compiled transducer for the Latin morphology LatMor.  
+
+It is available under the Creative Commons license CC-BY-NC-SA
+(see https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+LatMor is a finite-state morphological analyzer which can be used to
+analyze and generate inflected Latin wordforms. LatMor 
+
+Developers: Uwe Springmann, Dietmar Najock and Helmut Schmid
+
+Platform: In order to use the transducers, you have to install the
+          SFST tools first, which are available at
+          http://www.cis.uni-muenchen.de/~schmid/tools/SFST/
+
+
+LatMor comprises the following transducers which serve specific purposes:
+
+latmor.a
+analyzes and generates inflected Latin wordforms with ASCII encoding
+
+latmor-robust.a
+similar to latmor.a, but also recognizes capitalized wordforms and
+wordforms with the letter 'j'
+
+latmor-ascii-macron.a
+similar to latmor.a, but marks long vowels in the lemma with makrons.
+
+latmor-gen.a
+can be used to generate the full set of inflected wordfroms for a
+given lemma or a certain subset thereof.
+
+latmor-makronizer.a
+maps each Latin wordform to all possible makronized forms of it.
+A makronized wordform marks long vowels with makrons.
+
+
+Examples:
+
+> fst-mor latmor.a
+analyze> laudat
+laudare<V><pres><ind><active><sg><3>
+# entering an empty line switches between analysis and generation mode
+analyze> 
+generate> laudare<V><pres><ind><active><sg><3>
+laudat
+generate> laudare<V><pres><ind><active><pl><3>
+laudant
+# enter "q" to quit
+generate> q
+
+> fst-mor latmor-robust.a
+analyze> iure
+ius<N><neut><sg><abl>
+analyze> jure
+<i2j>ius<N><neut><sg><abl>
+analyze> Jure
+<Cap><i2j>ius<N><neut><sg><abl>
+analyze> JURE
+<UC><i2j>ius<N><neut><sg><abl>
+analyze> q
+
+> fst-mor latmor-ascii-macron.a
+reading transducer...
+finished.
+analyze> iure
+iūs<N><neut><sg><abl>
+analyze> laudat
+laudāre<V><pres><ind><active><sg><3>
+analyze> q
+
+> fst-mor latmor-makronizer.a
+analyze> sequeris
+sequeris
+sequēris
+analyze> status
+status
+statūs
+
+
+Batch mode application using fst-infl:
+echo laudat | fst-infl latmor.a
+> laudat
+laudare<V><pres><ind><active><sg><3>

@@ -1,0 +1,1 @@
+concrete ExtendLat of Extend = ExtendFunctor with (Grammar=GrammarLat);

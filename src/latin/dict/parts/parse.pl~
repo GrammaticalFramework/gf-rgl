@@ -1,0 +1,164 @@
+use strict;
+use warnings;
+
+my $wordform = "[\\w()/.\\s-]+" ;
+my $comment = "(\\[.*)" ;
+my $gender = "(F|M|N|C|X)";
+my $vtype = "(TRANS|INTRANS|DEP|SEMIDEP)";
+my $case = "(ABL|ACC|GEN|DAT)" ;
+my $declension = "\\((1st|2nd|3rd|4th|5th)\\)";
+my $interjection = "#($wordform)\\s+INTERJ\\s+$comment";
+my $adverb = "#(($wordform,\\s+)*$wordform)\\s+ADV\\s+$comment";
+my $adjective = "#(($wordform,\\s+)*$wordform)\\s+ADJ\\s+$comment";
+my $conjunction = "#($wordform)\\s+CONJ\\s+$comment";
+my $noun = "#(($wordform,\\s+)*$wordform)\\s+N\\s+$gender\\s+$comment";
+my $noun2 = "#(($wordform,\\s+)*$wordform)\\s+N\\s+$declension\\s+$gender\\s+$comment";
+my $noun3 = "#(($wordform,\\s+)*$wordform)\\s+N\\s+ADJ\\s+$comment";
+my $prep = "#($wordform)\\s+PREP\\s+$case\\s+$comment";
+my $verb = "#(($wordform,\\s+)*$wordform)\\s+V\\s+$comment";
+my $verb2 = "#(($wordform,\\s+)*$wordform)\\s+V\\s+$declension\\s+$comment";
+my $verb3 = "#(($wordform,\\s+)*$wordform)\\s+V\\s+$vtype\\s+$comment";
+my $verb4 = "#(($wordform,\\s+)*$wordform)\\s+V\\s+$declension\\s+$vtype\\s+$comment";
+my $verb5 = "#(($wordform,\\s+)*$wordform)\\s+V\\s+$declension\\s+$case\\s+$comment";
+
+my $absheader = "abstract DictLatAbs = Cat ** {\n-- extracted from http://archives.nd.edu/whitaker/dictpage.htm\n\tfun";
+my $concheader = "concrete DictLat of DictLatAbs = CatLat ** open Prelude,ParadigmsLat in {\n-- extracted from http://archives.nd.edu/whitaker/dictpage.htm\n  lin";
+my $footer = "}";
+
+open(my $absfh, ">", "DictLatAbs.gf") or die "Can't open > DictLatAbs.gf: $!";
+open(my $concfh, ">", "DictLat.gf") or die "Can't open > DictLatAbs.gf: $!";
+
+print $absfh "$absheader\n";
+print $concfh "$concheader\n";
+
+while (my $l = <>) {
+    if ($l =~ /$interjection/)
+    {
+	# print "INTERJ Word: $1 -- Comment: $2\n";
+	my $wf = $1 ; 
+	$wf =~ s/\s$//g;
+	print $absfh "    ".$wf."_Interj : Interj ;\n" ;
+	print $concfh "    ".$wf."_Interj = ss \"$wf\" ; \n";
+    }
+    elsif ($l =~ /$adverb/)
+    {
+	# print "ADV Word: $1 -- Comment: $3\n";
+	my $wf = $1 ; # all word forms in one string
+	my $comment = $3;
+	my @wfs = split /\s*,\s+/, $1; # word forms split into a list
+	map { s/\s$// } @wfs;
+	print $absfh "    ".$wfs[0]."_Adv : Adv ;\n" ;
+	if (@wfs == 1)
+	{
+	    print $concfh "    ".$wfs[0]."_Adv = ss \"".$wfs[0]."\" ;\n";
+	}
+	else
+	{
+	    # Comparison levels are missing so far
+	    print $concfh "-- ".$wfs[0]."_Adv : $wf -- $comment\n";
+	}
+    }
+    elsif ($l =~ /$adjective/)
+    {
+	print "ADJ Word: $1 -- Comment: $3\n";
+	my $wf = $1 ; # all word forms in one string
+	my $comment = $3;
+	my @wfs = split /\s*,\s+/, $1; # word forms split into a list
+	map { s/[\s.]$// } @wfs;
+	# Word forms contain variations -> Ignore
+	print $absfh "    ".$wfs[0]."_Adj : Adj ;\n" ;
+	if ($wf =~ /\/\(\)/ )
+	    print $concfh "-- ".$wfs[0]."_Adj : $wf -- $comment\n";
+	{
+	}
+	# Abbreviations -> Ignore
+	elsif ($wf =~ /abbr\./) {
+	    print $concfh "-- ".$wfs[0]."_Adj : $wf -- $comment\n";
+	}
+	# Three word forms -> regular adjective?!?
+	elsif (@wfs == 3)
+	{
+	    print $concfh "    ".$wfs[0]."_Adj = mkA \"".$wfs[0]."\" ;\n";
+	}
+	# Too many word forms
+	else
+	{
+	    print $concfh "-- ".$wfs[0]."_Adj : $wf -- $comment\n";
+	}
+    }
+    elsif ($l =~ /$conjunction/)
+    {
+	# print "CONJ Word: $1 -- Comment: $2\n";
+	my $wf = $1 ;
+	my $comment = $2;
+	$wf =~ s/\s$//g;
+	print $absfh "    ".$wf."_Conj : Conj ;\n" ;
+	# We don't get enough information for our grammar from the lexicon
+	# print $concfh "    ".$wf."_Conj = ss \"$wf\" ; \n";
+	print $concfh "-- ".$wf."_Conj -- $comment\n";
+	
+    }
+    elsif ($l =~ /$noun/)
+    {
+	
+	my $wf = $1 ;
+	my $gender = $3;
+	my $comment = $4;
+	my @wfs = split /\s*,\s+/, $1; # word forms split into a list
+	print $absfh "    ".$wfs[0]."_N : N ;\n" ;
+	if ($wf =~ /\/\(\)/ )
+	{
+	    print $concfh "-- ".$wfs[0]."_N : $wf -- $gender -- $comment\n";
+	}
+	elsif ($wf =~ /abb(r?)\./)
+	{	    
+	    print $concfh "-- ".$wfs[0]."_N : $wf -- $gender -- $comment\n";
+	}
+	else
+	{
+	    print "N1 Word: $1 -- Gender: $3 -- Comment: $4\n";
+	}
+	    
+    }
+    elsif ($l =~ /$noun2/)
+    {
+	print "N Word: $1 -- Gender: $4 -- Declension: $3 -- Comment: $5\n";
+    }
+    elsif ($l =~ /$noun3/)
+    {
+	print "N Word: $1 -- Comment: $3\n";
+    }
+    elsif ($l =~ /$prep/)
+    {
+	print "PREP Word: $1 -- Case: $2 -- Comment: $3\n";
+    }
+    elsif ($l =~ /$verb/)
+    {
+	print "V Word: $1 -- Comment: $3\n";
+    }
+    elsif ($l =~ /$verb2/)
+    {
+	print "V Word: $1 -- Declension: $3 -- Comment: $4\n";
+    }
+    elsif ($l =~ /$verb3/)
+    {
+	print "V Word: $1 -- VType: $3 -- Comment: $4\n";
+    }
+    elsif ($l =~ /$verb4/)
+    {
+	print "V Word: $1 -- Declension: $3 -- VType: $4 -- Comment: $5\n";
+    }
+    elsif ($l =~ /$verb5/)
+    {
+	print "V Word: $1 -- Declension: $3 -- Case: $4 -- Comment: $5\n";
+    }
+    else
+    {
+	print "MISSING: $l\n";
+    }
+}
+
+print $absfh "$footer\n";
+print $concfh "$footer\n";
+close($absfh);
+close($concfh);

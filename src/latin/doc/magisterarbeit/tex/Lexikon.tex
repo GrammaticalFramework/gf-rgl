@@ -1,0 +1,141 @@
+Den Beginn dieser Grammatikimplementierung bildete die Erstellung des minimal nötigen Lexikons. Durch die abstrakte Syntax der Ressource Grammar Library für Lexika\footnote{vgl. \textbf{Lexicon.gf} und \textbf{Structural.gf} im Ordner \textbf{lib/src/abstract}} ist eine Liste von etwas über 450 englischen Bezeichnern für Worte vorgegeben, die in jeder Sprache umgesetzt werden sollten. \par
+Für die Erstellung eines Lexikon, wie es in einer Grammatik verwendet werden kann, sind zwei Schritte nötig. Einerseits müssen für jeden vorgegebenen Bezeichner, in diesem Falle alle lexikalischen Regeln aus dem abstrakten Lexikon, die entsprechenden Zeichenketten der gewünschten Sprache zugeordnet werden. Andererseits muss das Lexikon auch all jene Informationen enthalten, die zum Bilden der Vollformen und zur Konstruktion grammatischer Einheiten nötig sind. So z.B. bei Nomen das Geschlecht, wenn es nicht von der Grundform abgeleitet werden kann. \par
+Der erste Schritt ist also, einfach das Lexikon einer anderen Sprache, in diesem Falle Englisch, zu kopieren. Normalerweise ist es vernünftig, mit einer Sprache zu beginnen, die der zu implementierenden Sprache möglichst nahe steht.\footnote{vgl. \cite{RANTA2011} S. 224f.}. Allerdings wurde dieser Schritt bereits von Aarne Ranta dadurch begonnen die englischen lexikalischen Ressourcen zu kopieren und anzupassen. Anschließend werden zunächst alle Zeichenketten durch mögliche lateinische Entsprechungen ersetzt. Um eine möglichst exakte Übersetzung für die verschiedenen Lexikoneinträge zu finden, mussten teilweise verschiedene Vorgehensweisen bemüht werden. Hauptsächlich wurden hier, soweit möglich, gedruckte Wörterbücher für die Übersetzung verwendet, gelegentlich waren aber auch Onlineresourcen unumgänglich. \par
+Des weiteren wird der Übersetzungsschritt von den englischen Bezeichnern zu deutschen Entsprechungen, die für die weitere Übersetzung in das Lateinische verwendet wurden, nicht genauer erläutert. Es sei nur so viel gesagt, dass die Bedeutung der meisten Bezeichner ohne weitere Hilfsmittel ersichtlich ist. In den Fällen, in denen Unklarheiten herrschten, wurde ein bekanntes Onlinewörterbuch\footnote{\url{http://dict.leo.org/}} zur Klärung verwendet.\par
+\subsection{Wörterbücher}
+\label{subsec:woerterbuch}
+Um eine passende lateinische Übersetzung für die Lexikoneinträge zu finden, wurde primär der deutsch-lateinische Teil eines handelsüblichen Schulwörterbuchs (\cite{LANGENSCHEIDT1981}) verwendet, soweit ein entsprechender Eintrag in diesem Wörterbuch zu finden war. \par
+Allerdings gibt es bereits an diesem Punkt diverse Herausforderungen. Denn eine Art von Wörtern, die allgemein zu Problemen bei der Übersetzung, und somit auch bei der Erstellung dieses Lexikons, führten, sind Wörter mit ambiger Bedeutung, oder auch homonyme Begriffe, wie das häufig als Beispiel angeführte Wort "`Bank"' bzw. "`bank"', das in vielen Sprachen mehrere verschiedene Bedeutungen haben kann, z.B. im Deutschen als Sitzgelegenheit und als Geldinstitut oder im Englischen als Geldinstitut oder als Ufer eines Flusses.\footnote{vgl. \cite{METZLER2004} Homonymie: S. 3927} Für diesen und ähnliche Begriffe wurde willkürlich eine der plausiblen Bedeutungen gewählt, da keine Hinweise zur gewünschten Bedeutung in der Grammar Library gefunden werden konnten. Die Entscheidung eine einzige Bedeutung zu wählen, und nicht verschiedene Bedeutungen als Varianten des Wortes zu implementieren, muss getroffen werden um die Anzahl der möglichen Übersetzungen eines Ausdrucks möglichst gering zu halten. Für den Umgang mit ambigen Wörtern in einem Lexikon für das Grammatical Framework gibt es keine klaren Regeln, die angebrachteste Methode scheint aber zu sein, für jede Bedeutung einen eigenen Bezeichner zu wählen. So wäre möglicherweise in einem Lexikon \texttt{bank1\_N} die Sitzgelegenheit und würde im englischen mit "`bench"' übersetzt und \texttt{bank2\_N} das Geldinstitut, das mit "`bank"' übersetzt würde.\par
+Ein weiteres Problem bei einer so alten Sprache wie Latein ist, dass bei vielen, meist moderneren Begriffen, nicht immer entsprechende Wörterbucheinträge gefunden werden können. Zwar gibt es auch andere Wörterbücher, wie das Schulwörterbuch von PONS (\cite{PONS2012}), das einen umfangreicheren deutsch-lateinischen Teil enthält. Es deckt mehr moderne Begriffe ab, allerdings gibt es auch dort Begriffe, für die kein Eintrag zu finden ist. Für diesen Fall müssen neben den bewährten gedruckten Wörterbüchern auch andere Quellen, vor allem Onlinequellen zu Rate gezogen werden. Einige davon werden im Folgenden kurz gezeigt.\par
+\subsection{Onlinequellen}
+\label{subsec:online}
+Als mögliche Lösung bei der Suche nach Übersetzungen, die im Wörterbuch nicht zu finden sind, bietet sich die Nutzung von, meist  kollaborativen, Internetquellen an. Eine der interessantesten Quellen für moderne Begriffe aus dem Bereich der Substantive ist wohl die lateinische Wikipedia\footnote{\url{http://la.wikipedia.org/wiki/Pagina_prima}}. Obwohl Latein als tote Sprache gilt, existieren dort über 90000 lateinische Artikel\footnote{\url{http://la.wikipedia.org/wiki/Specialis:Census}; Stand: 30.7.2013}, die von einer recht lebendigen Gemeinschaft gepflegt werden. Natürlich muss man immer bedenken, dass es keine Garantie für die Qualität von kollaborativen Onlinequellen gibt. Allerdings hat sich das Prinzip der Wikipedia ja auch in anderen Sprachen bewährt, wenn auch die Qualitätssicherung durch manuelle Korrekturen, und damit auch die Qualität der einzelnen Artikel, direkt mit der Größe der an dem Projekt arbeitenden Community zusammenhängt. Neben der Wikipedia, die vom Konzept her eigentlich eine allgemeine Enzyklopädie ist, und nur im Nebeneffekt linguistische Ressourcen zur Verfügung stellt, gibt es noch weitere Internetquellen, die bei der Erstellung eines Lexikons helfen können. So gibt es das deutsche Lateinportal Auxilium-online.net\footnote{\url{http://www.auxilium-online.net/}}, das englischsprachige Wiktionary\footnote{\url{http://en.wiktionary.org/}} und die Lateinressourcen bei der Perseus Digital Library\footnote{\url{http://www.perseus.tufts.edu/hopper/}}. \par
+Auxilium-online.net bezeichnet sich selbst als das größte deutschsprachige Lateinportal im Internet und bietet ein kostenloses Onlinewörterbuch, sowohl in der Richtung Lateinisch-Deutsch als auch in umgekehrter Richtung, das von registrierten Benutzern erweitert und korrigiert werden kann. Allerdings liegt bei diesem Wörterbuch der Schwerpunkt auch eher auf dem klassischen Vokabular. \par
+Das englischsprachige Wiktionary hilft zwar nicht direkt bei der Suche nach einer Übersetzung aus einer anderen Sprache, es bietet aber für ein umfangreiches Vokabular sowohl eine morphologische Analyse für viele Wortformen als auch detaillierte Informationen über Verwendung und Formenbildung für lateinische Vokabeln. \par
+Die Perseus Digital Library und vor allem die darin enthaltenen Wörterbücher fallen eher in die Kategorie klassischer, gedruckter Wörterbücher, was primär daher rührt, dass diese Wörterbücher Digitalisate seit Jahrzehnten bewährter Wörterbücher sind.\footnote{\textit{A Latin Dictionary. Founded on Andrews' edition of Freund's Latin dictionary. revised, enlarged, and in great part rewritten by. Charlton T. Lewis, Ph.D. and. Charles Short, LL.D. Oxford. Clarendon Press. 1879.} (\persalatin) und \textit{Lewis, Charlton, T. An Elementary Latin Dictionary. New York, Cincinnati, and Chicago. American Book Company. 1890.} (\perselemlat)} Jedoch bietet Perseus die Möglichkeit einer erweiterten Suchfunktion sowie einer Angabe zur Wortfrequenz im verfügbaren Korpus. \par
+Eine der Onlinequellen für moderne lateinische Begriffe, die offizielle Liste des Vatikans zur Übersetzung moderner Alltagsbegriffe\footnote{\vatlatinitas}, wurde nicht verwendet, da sie nur zwischen Latein und Italienisch übersetzt. Dies würde aus verschiedenen Gründen zu Problemen führen.
+\subsection{Geschlossene Kategorien}
+\label{subsec:geschlossene}
+\begin{lstlisting}[float=h!tp,caption={Für \textbf{StructuralLat.gf} nötige \texttt{lincat}-Definitionen für geschlossene Kategorien},label={GF-Structural-Lincat},basicstyle=\small]
+param
+  PronReflForm = PronRefl | PronNonRefl ;
+  PronDropForm = PronDrop | PronNonDrop;
+  Agr = Ag Gender Number Case ;
+oper
+  Determiner : Type = 
+    { s : Gender => Case => Str ; n : Number } ;
+  Preposition : Type = {s : Str ; c : Case} ;
+  NounPhrase : Type = 
+    { s : Case => Str ; 
+      g : Gender ; n : Number ; p : Person } ;
+  Pronoun : Type = {
+    pers : PronDropForm => PronReflForm => Case => Str ;
+    poss : PronReflForm => Agr => Str ;
+    g : Gender ; n : Number ; p : Person ;
+    } ;
+lincat
+---- Structural
+  Conj = {s1,s2 : Str ; n : Number} ;
+  Prep = Preposition ;
+---- Question
+  IDet = Determiner ; --{s : Str ; n : Number} ;
+  IP = {s : Case => Str ; n : Number} ;
+  IQuant = {s : Agr => Str} ;
+---- Noun
+  NP = NounPhrase ;
+  Det = Determiner ;
+  Predet = {s : Str} ;
+  Pron = Pronoun ;
+  Quant = Quantifier ;
+---- Common
+  CAdv = {s,p : Str} ; 
+\end{lstlisting}
+Das Lexikon einer Ressource Grammar ist unterteilt in zwei Dateien. Die erste Datei, \textbf{StructuralLat.gf}, enthält die Einträge für die geschlossenen Kategorien, so wie einige weitere Einträge die eher eine strukturelle als eine lexikalische Bedeutung haben. Die meisten Wortarten in diesem Teil des Lexikons gehören zu den so genannten Partikeln, die nicht flektiert werden. Dazu gehören vor allem Adverbien, Präpositionen und Konjunktionen.\footnote{vgl. \cite{BAYER-LINDAUER1994} S.12}. Die zweite Datei \textbf{LexiconLat.gf} wird im nächsten Abschnitt näher beschrieben und enthält einige Vokabeln der offenen Kategorien. \par
+Adverbien gehören eigentlich nicht zu den geschlossenen Kategorien, jedoch gibt es eine gewisse Anzahl von Adverbien und adverbial benutzten Wörtern, die den meisten Sprachen gemein sind, weswegen sie als strukturelle Bestandteile aufgefasst werden können. Meist werden Adverbien aus Adjektiven gebildet, weswegen man sie zu den offenen Kategorien rechnen sollte. Allerdings gibt es im  Bereich der lokalen Adverbien (auf die Fragen wo?, wohin?, woher?) sowie vergleichende Adverbien gibt es nur ein eingeschränktes Vokabular, das zu Recht zu den geschlossenen Kategorien gerechnet werden kann.\footnote{vgl. \cite{BAYER-LINDAUER1994} S.44} 
+in \textbf{Structural.gf} konkret als \texttt{Adv}\footnote{verb-phrase-modifying adverb vgl. \cite{RANTA2011} S. 298} gekennzeichnet, sind im Falle der Ressource Grammar Library die Bezeichner \texttt{everywhere\_Adv}, \texttt{here\_Adv}, \texttt{here7to\_Adv}, \texttt{here7from\_Adv}, \texttt{somewhere\_Adv}, \texttt{there\_Adv}, \texttt{there7to\_Adv} und \texttt{there7from\_Adv}. Betrachtet man die Übersetzung dieser Bezeichner, so stellt sich heraus, dass die lateinischen Wörter \textit{ubique}, \textit{hic}, \textit{huc}, \textit{hinc}, \textit{usquam}, \textit{ibi}, \textit{eo} und \textit{inde} in der Lateingrammatik nicht als Adverbien, sondern als Pronominaladverbien, aufgeführt werden, also eher zur geschlossenen Kategorie der Pronomen, allerdings mit adverbialer Verwendung, gehören. \par
+Zur selben grammatischen Kategorie gehören die meisten der im Grammatical Framework als \texttt{IAdv}\footnote{interrogative adverb vgl. \cite{RANTA2011} S. 298} bezeichneten Vokabeln \texttt{how\_IAdv} (lat. \textit{qui}), \texttt{when\_IAdv} (lat. \textit{quando}) und \texttt{where\_IAdv} (lat. \textit{ubi}). Das Wort \texttt{how8much\_IAdv} (lat. \textit{quantum}) wird als korrellatives Pronomen bezeichnet, lediglich das Fragewort \texttt{why\_IAdv} (lat. \textit{cur}) ist in der gegebenen Grammatik nicht explizit eingeordnet, hat aber offensichtlich eine verwandtschaftliche Beziehung zu (Interrogativ-)Pronomen\footnote {vgl. wer? -  lat. \textit{quis}, Dat. \textit{cur}}. Man kann also sagen, dass hier alle als eine Form von Adverbien markierte Einträge Pronominaladverbien sind.\par
+Die Einträge für die eben genannten Kategorien sind allerdings recht einfach, da sie meist nur die Zeichenkette mit einer einzigen Form enthalten. Anders verhält es sich bei den Interogativpronomen (\texttt{IP}) und Interrogativquantifikatoren (\texttt{IQuant}), denn diese bilden im Fall der Interrogativpronomen kasusabhängige Formen, im Falle der Quantifikatoren sind die Formen zusätzlich von Genus und Numerus abhängig. Da es jedoch nur wenige Einträge dieser Kategorien gibt, ist es nicht rentabel für sie eine zentrale, morphologische Funktion zu definieren. Deshalb müssen alle Formen direkt im Lexikon gelistet werden. \par
+Eine weitere geschlossene Kategorie bilden die vergleichenden Adverbien. Dies sind Ausdrücke bestehend aus zwei Adverbien, die zusammen ein Verhältnis zwischen zwei Objekten ausdrücken, zwischen welche sie gesetzt werden. So drückt \texttt{less\_CAdv} (lat. \textit{minus ... quam}) aus, dass etwas kleiner oder geringer ist als etwas anderes, und \texttt{more\_CAdv} (lat. \textit{magis ... quam}) drückt aus, dass etwas größer ist. Dagegen drückt \texttt{as\_CAdv} (lat. \textit{ita ... ut}) die Gleichheit zweier Dinge aus. Objekte dieser Kategorie werden mit der Funktion \texttt{mkCAdv} aus den beiden Zeichenketten erstellt. \par
+Eine weitere recht interessante Kategorie ist die Kategorie der Determinantia. Diese werden meist auf Basis von Adjektiven gebildet. Dadurch ist es möglich auf die Wortformenbildung von Adjektiven zurückzugreifen, um mit aus einzigen Wortform alle nötigen Formen bilden zu können. \par
+Die letzte hier zu erwähnende einfache Kategorie von Wörtern sind Präpositionen. Präpositionen werden gemeinhin verwendet um die Funktion verschiedener Nomen-Objekte genauer zu spezifizieren. So geben Präposition auch einen Kasus an, mit dem sie verwendet werden.\footnote{vgl. \cite{BAYER-LINDAUER1994} S. 160f.} Allerdings haben die Kasus im Lateinischen bereits eine relativ feste Funktion, die in anderen Sprachen durch Präpositionen zusammen mit einem entsprechenden Kasus ausgedrückt werden. Deshalb gibt es in dieser Lateingrammatik auch einige "`leere"' Präpositionen, die also keine Zeichenkette produzieren, aber die Verwendung eines bestimmten Falles erzwingen. Zu diesen Präpositionen gehören unter anderem \texttt{part\_Prep} und \texttt{posses\_Prep}, deren Bedeutung schon allein durch einen Genitiv ausgedrückt wird. Andere, recht häufige, Präpositionen wie \textit{in} können dagegen auch mit mehreren Fällen benutzt werden. Dies wird im Grammatical Framework durch so genannte freie Variationen ermöglicht (Listing \ref{GF-Structural-in}). So kann \textit{in} entweder zusammen mit Akkusativ oder Ablativ gebraucht werden.
+\begin{lstlisting}[float=h!tp,label={GF-Structural-in},caption={Beispiel für freie Variation (vgl. \textbf{StructuralLat.gf})}]
+in_Prep = mkPrep "in" ( variants { Abl ; Acc } ) ; \
+  -- (Langenscheidts)
+\end{lstlisting}
+Kurz zu erwähnen sind auch Konjunktionen. Denn sie bestehen nicht nur aus einer einzelnen Zeichenkette, sondern aus einem Verbund aus zwei Zeichenketten, denn es gibt Konjunktionen wie z.B im Deutschen ``sowohl ... als auch ...'', die aus zwei teilen Bestehen, von denen der erste vor die erste zu verbindende Phrase gesetzt wird und der zweite zwischen die Teile. Dieser Verbundtyp wird durch eine Hilfsfunktion namens \texttt{sd2} erzeugt, die allgemein in der Datei \textbf{Prelude.gf}\footnote{im Ordner \textbf{lib/src/prelude}} definiert ist. \par
+\begin{lstlisting}[float=h!tp,caption={Erzeugung des \texttt{NP}-Objekts für \texttt{everything\_NP} (vgl. \textbf{ResLat.gf} und \textbf{StructuralLat.gf})},label={GF-Structural-Everything},basicstyle=\small]
+oper
+  regNP : (_,_,_,_,_,_ : Str) 
+    -> Gender -> Number -> NounPhrase =
+    \nom,acc,gen,dat,abl,voc,g,n ->
+    {
+      s = table Case [ nom ; acc ; gen ; dat ; abl ; voc ] ;
+      g = g ;
+      n = n ;
+      p = P3 
+    } ;
+lin
+  everything_NP = regNP "omnia" "omnia" "omnium" "omnis" 
+    "omnis" "omnia" Neutr Pl ; 
+\end{lstlisting}
+Des weiteren sind hier auch einige komplette Nominalphrasen enthalten. Viele davon werden wieder durch Pronomenformen ausgedrückt, wie z.B. \texttt{everybody\_NP}, \texttt{somebody\_NP}, \texttt{something\_NP}, \texttt{nobody\_NP} und \texttt{nothing\_NP}. Diese werden allgemein durch Formen von Indefinitpronomina gebildet. Allerdings müssen diese \texttt{NP}-Objekte unter Berücksichtigung aller Kasus-Formen, dem Genus und dem Numerus mit Hilfe der Funktion \texttt{regNP} (Listing \ref{GF-Structural-Everything} erzeugt werden. Die Tabellenschreibweise im \texttt{s}-Feld ist eine weitere Kurzform für Tabellen.\footnote{Allgemeine Form \texttt{table $Typ_1$ [$v_1 ; \dots ; v_n$ ] ;} mit $Typ_1=V_1| \dots |V_n$ ist gleichbedeutend mit \texttt{table \{$V_1 => v_1 ; \dots ; V_n => v_n$\}}} Lediglich \texttt{everything\_NP} wird passender durch das Nomen \textit{omnis} im Plural ausgedrückt.
+Es gibt in diesem Teil des Lexikons noch einige weitere einfache Kategorien wie satzbeginnende Konjunktionen, deren Einträge allerdings selbsterklärend sind, so dass sie hier nicht gesondert aufgeführt werden müssen.
+\FloatBarrier
+\subsection{Offene Kategorien}
+\label{subsec:offene}
+\begin{lstlisting}[float=h!tp,caption={Für \textbf{LexiconLat.gf} nötige \texttt{lincat}-Definitionen für offene Kategorien},label={GF-Lexicon-Lincat},basicstyle=\small]
+param 
+  VActForm  = VAct VAnter VTense Number Person ;
+-- No anteriority because perfect forms are built 
+-- using participle
+  VPassForm = VPass VTense Number Person ; 
+  VInfForm  = VInfActPres | VInfActPerf Gender | 
+    VInfActFut Gender | VInfPassPres | VInfPassPerf Gender |
+    VinfPassFut ;
+  VImpForm  = VImp1 Number | VImp2 Number Person ;
+  VGerund   = VGenAcc | VGenGen |VGenDat | VGenAbl ;
+  VSupine   = VSupAcc | VSupAbl ;
+  VPartForm = VActPres | VActFut | VPassPerf ;
+oper
+  Noun : Type = {s : Number => Case => Str ; g : Gender} ;
+  VV : Type = Verb ** { isAux : Bool } ;
+  Verb : Type = {
+    act   : VActForm => Str ;
+    pass  : VPassForm => Str ;
+    inf   : VInfForm => Str ;
+    imp   : VImpForm => Str ;
+    ger   : VGerund => Str ;
+    geriv : Agr => Str ; 
+    sup   : VSupine => Str ;
+    part  : VPartForm =>Agr => Str ;
+    } ;
+    Adjective : Type = {
+      s : Degree => Agr => Str ;
+      comp_adv : Str ; 
+      super_adv : Str 
+      } ;
+lincat
+---- Open lexical classes, e.g. Lexicon
+  V, VS, VQ, VA = Verb ; 
+  V2, V2A, V2Q, V2S = Verb ** {c : Prep } ;
+  V3 = Verb ** {c2, c3 : Prep} ;
+  VV = VV ;
+  V2V = Verb ** {c2 : Str ; isAux : Bool} ;
+  A = Adjective ;
+  N = Noun ;
+  N2 = Noun ** { c : Prep } ;
+  N3 = Noun ** { c : Prep ; c2 : Prep } ;
+  PN = Noun ;
+  A2 = Adjective ** { c : Prep} ;
+\end{lstlisting}
+Das Lexikon der offenen Kategorien, \textbf{LexiconLat.gf}, enthält eine kleine Anzahl aus Wörtern aus den offenen Kategorien, vornehmlich Nomen, Verben und Adjektive. Der Umfang der Einträge ist dabei abhängig von der Menge an Informationen, die nötig ist um das gesamte Paradigma des Wortes zu generieren. Wovon dies abhängig ist, wird im Kapitel über die Morphologie genau beschrieben. Im allgemeinen ist, bei regelmäßiger Deklination\footnote{Nomenflexion} und Konjugation\footnote{Verbflexion}, eine einzelne Wortform ausreichen, um daraus das gesamte Paradigma, also die Menge aller Wortformen, abhängig von den variablen Merkmalen, zu erzeugen. \par
+Deshalb ist es bei den Nomen der ersten, zweiten, vierten und fünften Deklination, was man unter diesen Deklinationsklassen versteht, wird im Abschnitt über die Morphologie genauer erläutert, meist nicht nötig weitere Informationen anzugeben als die Nominativ-Singular-Form. Allerdings gibt es Ausnahmen, z.B. wenn bei einem Wort das Genus vom üblichen Geschlecht abweicht, das normalerweise mit der entsprechenden Endung kodiert wird. Also ist sowohl für Nomen der dritten Deklination, so wie für Nomen der anderen Deklinationsklassen nötig, statt einer Wortform zwei Wortformen, den Nominativ und Genitiv Singular, und das Geschlecht anzugeben. \par
+Bei einigen Nomen, wie z.B. Bezeichnungen für Tiere, kann das entsprechende Nomen bei gleicher Wortform beide Genera annehmen. Deshalb wird in diesem Falle die Funktion zum Erzeugen des Paradigmas mit freier Variation über die möglichen Geschlechter, meist Femininum und Maskulinum, versehen (vgl. Listing \ref{GF-Structural-in}). Andere Nomen haben dagegen sowohl eine männliche als auch eine weibliche Form, wobei diese meist sehr klar den üblicherweise entsprechenden Deklinationsklassen entsprechen. So gibt es im englischen nur ein geschlechtsunspezifisches Nomen für Cousin und Cousine. Deshalb heißt das entsprechende Symbol \texttt{cousin\_N}. Die lateinische Übersetzung ist aber \textit{consobrinus} für den männlichen Cousin und \textit{consobrina} für das weibliche Pendant. In diesem Falle wird über die Zeichenkette variiert, aus der das Nomen-Objekt erzeugt wird.\par 
+Ein besonderer Nomeneintrag ist auch der Eintrag für \texttt{camera\_N}, denn die Übersetzung dieses Begriffs im Lateinischen kann nicht durch einen einzelnen Begriff ausgedrückt werden. Stattdessen wird es mit \textit{camera photographica} paraphrasiert. Deshalb muss für diesen Ausdruck zunächst einmal die Phrase aus ihren Bestandteilen konstruiert werden bevor sie in die Form eines einfachen Nomens gebracht wird. Dazu werden sowohl Syntaxfunktionen verwendet, die im Abschnitt  \ref{sec:syntax} beschrieben werden, um die Phrase zu erzeugen, als auch eine Hilfsfunktion \texttt{useCNasN}\footnote{vgl. \textbf{ResLat.gf}}, die die Phrase in die Form eines einfachen Nomens bringt. Da der Typ \texttt{N} nur eine Untermenge der Felder des Typs \texttt{CN} besitzt, ist die Umwandlung trivial, da lediglich alle im \texttt{N}-Typ vorhandene Felder übernommen werden.\par
+Eine weitere Form speziellerer Nomen sind Nomen, die nur im Plural vorkommen können. Dies wird im Lexikoneintrag dadurch kodiert, dass das Nomen durch eine weitere Funktion namens \texttt{pluralN} gefiltert wird. Die Bedeutung dieser Funktion wird im Laufe der Morphologie genauer geschildert. Ein solches Nomen ist \texttt{science\_N} das mit \textit{literae}, der Pluralform von \textit{litera} (Buchstabe), übersetzt wird. \par
+Zusätzlich zu den einfachen Nomen gibt es Relationalnomen, die eine Beziehung zwischen Objekten ausdrücken. Ein Beispiel hierfür ist das Wort "`Vater"', das neben seiner einfachen Verwendung, auch die Verwendung im Sinne ``Vater von ...'' haben kann. Deshalb benötigen diese Nomen neben ihrer einfachen Wortform auch die Information, wie diese Beziehung zu anderen Objekten ausgedrückt werden kann. Dies wird allgemein durch Präpositionen kodiert, das heißt diese Nomen haben in ihrem Lexikoneintrag zusätzlich zu den Wortformen, die nötig sind das Paradigma zu generieren, auch die Informationen zur Verwendung in Form der Angabe eines oder mehrerer Präpositionen. \par
+Nun bleiben noch einige der moderneren Begriffe aus dem Bereich der Nomen zu nennen, nämlich \texttt{airplane\_N}, \texttt{bank\_N}, \texttt{bike\_N}, \texttt{car\_N}, \texttt{computer\_N}, \texttt{fridge\_N}, \texttt{paper\_N}, \texttt{planet\_N}, \texttt{plastic\_N}, \texttt{radio\_N}, \texttt{train\_N} und noch einige mehr. Die Übersetzungen dieser Begriffe wurden mit den in den Abschnitten \ref{subsec:woerterbuch} und \ref{subsec:online} genannten Quellen erfolgreich bewältigt. Abgesehen vom Auffinden einer möglichen Übersetzung ist es relativ unproblematisch gewesen, die Lexikoneinträge zu erstellen. \par
+Die Einträge für Adjektive in diesem Lexikon sind alles in allem unproblematisch. Adjektive der ersten und zweiten Deklination können wieder aus einer einzigen Wortform, der maskulinen Nominativ-Singular-Form, erstellt werden. Lediglich bei Adjektiven der dritten Deklination wird, wie bei den Nomen, zusätzlich die Genitiv-Singular-Form benötigt. Es gibt auch im Bereich des Testlexikons \textbf{LexiconLat.gf} kein Adjektiv, bei dem das Erstellen des Eintrags in irgendeiner Form Probleme bereitet hat. \par
+Bei den regelmäßigen Verben der ersten, zweiten und vierten Konjugation ist die einzige benötigte Information im Lexikon die Infinitiv-Präsens-Form. Dafür werden bei unregelmäßigen Verben und Verben der dritten Konjugation, wenn vorhanden, vier Verbformen benötigt. Dazu gehören neben dem Infinitiv die 1.-""Person-""Präsens-""Indikativ-""Aktiv, die 1.-""Per\-son-""Per\-fekt-""In\-di\-ka\-tiv-""Ak\-tiv und das Par\-ti\-zip-""Per\-fekt-""Passiv. \par
+Die einzigen Verben, deren Übersetzung problematisch war, sind \texttt{switch8off\_V2} und \texttt{switch8on\_V2}. Da hier auch nicht die Wikipedia von Hilfe sein konnte, wurden zwei nahe liegende lateinische Begriffe gewählt, deren Bedeutung näherungsweise passend erschienen, nämlich \textit{exstinguere} (löschen) und \textit{accendere} (entzünden). Obwohl es keine direkten Übersetzungen sind, ist die Verwendung insofern gerechtfertigt, dass das entsprechende italienische Wort für ``einschalten'' auch \textit{accendere} sein kann und \textit{exstinguere} das Gegenteil davon ist. \par
+Hiermit sind alle problematischen oder interessanten Aspekte des Lexikons erläutert. Wie die Paradigmen aus diesen Lexikoneinträgen erzeugt werden können, wird im kommenden Abschnitt über die lateinische Morphologie ausführlich erläutert.

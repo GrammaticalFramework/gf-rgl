@@ -1,0 +1,10 @@
+digraph {
+  rankdir=LR ;
+  node [shape = record, fontsize = 11] ;
+   
+  struct0[label = "<n0>the | <n1>man | <n2>sleeps"] ;
+  struct0:n0:e -> struct1:n0:w ;
+  struct0:n1:e -> struct1:n1:w ;
+  struct0:n2:e -> struct1:n2:w ;
+  struct1[label = "<n0>der | <n1>Mann | <n2>schläft"] ;
+}

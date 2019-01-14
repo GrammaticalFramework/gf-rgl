@@ -1,0 +1,14 @@
+graph {
+node[fontsize = 11];
+n0[label = "mkS : S", style = "solid", shape = "plaintext"] ;
+n0_0[label = "mkNP : NP", style = "solid", shape = "plaintext"] ;
+n0 -- n0_0 [style = "solid"];
+n0_0_0[label = "der_Det : Det", style = "solid", shape = "plaintext"] ;
+n0_0 -- n0_0_0 [style = "solid"];
+n1_0_0[label = "Mann_N : N", style = "solid", shape = "plaintext"] ;
+n0_0 -- n1_0_0 [style = "solid"];
+n1_0[label = "mkVP : VP", style = "solid", shape = "plaintext"] ;
+n0 -- n1_0 [style = "solid"];
+n0_1_0[label = "schlafen_V : V", style = "solid", shape = "plaintext"] ;
+n1_0 -- n0_1_0 [style = "solid"];
+}

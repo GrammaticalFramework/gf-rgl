@@ -1,0 +1,11 @@
+digraph {
+  rankdir=LR ;
+  node [shape = plaintext, fontsize = 11] ;
+  r1 [label = "0. ROOT"] ;
+  n0 [label = "1. the"] ;
+  n1 [label = "2. man"] ;
+  n3 [label = "3. sleeps"] ;
+  n1 -> n0 [label = "dep"] ;
+  n3 -> n1 [label = "dep"] ;
+  r1 -> n3 [label = "dep"] ;
+}

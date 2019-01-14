@@ -1,0 +1,17 @@
+diff --git a/lib/src/latin/LangLat.gf b/lib/src/latin/LangLat.gf
+index e727a11..a61a880 100644
+--- a/lib/src/latin/LangLat.gf
++++ b/lib/src/latin/LangLat.gf
+@@ -1,10 +1,12 @@
+ --# -path=.:../abstract:../common:../prelude
+ 
+ concrete LangLat of Lang = 
+   GrammarLat,
++  ParadigmsLat,
++  ConjunctionLat,
+   LexiconLat
+   ** {
+ 
+ flags startcat = Phr ; unlexer = text ; lexer = text ;
+ 
+ } ;

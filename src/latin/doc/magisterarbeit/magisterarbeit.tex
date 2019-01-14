@@ -1,0 +1,147 @@
+\documentclass[fontsize=12pt,abstract=on,titlepage,bibliography=totoc,ngerman,listof=totoc]{scrreprt}
+
+%\usepackage[utf8]{inputenc}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[ngerman]{babel}
+\usepackage{fontspec}
+\usepackage[a4paper, left=3cm, right=3cm, top=3cm]{geometry}
+\usepackage{amsmath}
+%\usepackage{qtree}
+\usepackage{listings}
+\usepackage{floatrow}
+%\usepackage{capt-of}
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\usepackage[section]{placeins}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{arydshln}
+\usepackage[style=alphabetic-verb,backend=biber]{biblatex}
+\usepackage{rotating}
+\usepackage{tocloft}
+\usepackage{tocbasic}
+
+\setlength{\parindent}{10pt} 
+\floatstyle{plain}
+
+\newfloat{program}{thp}{lop}
+\floatname{program}{Beispiel}
+
+\interfootnotelinepenalty=10000
+
+\setlength{\cftbeforetoctitleskip}{50pt} 
+
+\renewcommand{\abstractname}{Zusammenfassung}
+
+\urldef\persalatin\url{http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3atext%3a1999.04.0059}
+\urldef\perselemlat\url{http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3atext%3a1999.04.0060}
+\urldef\vatlatinitas\url{http://www.vatican.va/roman_curia/institutions_connected/latinitas/documents/rc_latinitas_20040601_lexicon_it.html}
+\lstdefinelanguage{gf}
+{
+  morekeywords={abstract, flags, cat, fun, incomplete, concrete, of, open, in, lincat, lin, resource, param, oper, variants, table, interface, instance, def, data, lindef, printname,},
+  sensitive=false,
+  morecomment=[l]{--},
+  morestring=[b]",
+  stringstyle={\textit}
+}
+\lstset{language=gf,captionpos=b,numbers=left, numberstyle=\tiny, numbersep=5pt, basicstyle=\ttfamily}
+
+\bibliography{MA.ebib}
+\begin{document}
+\setcounter{tocdepth}{2}
+\date{31.10.2013}
+\makeatletter
+\begin{titlepage}
+{\sffamily
+  \begin{center}
+    \vspace{4cm}
+    \begin{LARGE}
+      Hausarbeit \\
+      zur Erlangung des Magistergrades \\
+      an der Ludwig-Maximilians-Universität München \\[3cm]
+    \end{LARGE}
+    {\Huge Erstellen einer Grammatik für das Lateinische im "`Grammatical Framework"' \\[4cm] }
+    {\LARGE vorgelegt von Herbert Lange \\ Matrikelnummer 8063320 \\[5.5cm] }
+  \end{center}
+  \parindent0mm
+  \begin{LARGE} 
+    Fach: Computerlinguistik  \\[0.5cm]
+    Referent: Prof. Dr. Klaus U. Schulz \\[0.5cm]
+    München, den \@date 
+  \end{LARGE}
+}
+\end{titlepage}
+\input{tex/Abstract.tex}
+\makeatother
+\tableofcontents
+%\pagebreak
+\clearpage
+\setcounter{page}{1}
+\chapter{Einleitung}
+\label{chap:einleitung}
+\input{tex/Einleitung.tex}
+% \pagebreak
+\chapter{Grundlagen}
+\label{chap:grundlagen}
+\section{Das Grammatical Framework}
+\label{sec:gf}
+\input{tex/GF.tex}
+\pagebreak
+\FloatBarrier
+\section{Die Lateinische Sprache}
+\label{sec:latein}
+\input{tex/Latein.tex}
+\pagebreak
+\FloatBarrier
+\chapter{Grammatikerstellung}
+\label{chap:grammatik}
+Nach der Einführung in die Grundlagen in Kapitel \ref{chap:grundlagen}, die nötig sind um im Grammatical Framework eine Grammatik zu entwickeln, folgt nun eine Schilderung der konkreten Schritte die angewendet wurden, um diese Lateingrammatik zu entwickeln. \par
+Es sei noch anzumerken, dass es bereits einen Versuch von Aarne Ranta, einem der Autoren des Grammatical Frameworks, gab, eine Lateingrammatik für die Ressource Grammar Library des Grammatical Frameworks zu entwickeln. Die vorliegende Arbeit baut auf der Arbeit Rantas auf, kann aber insofern als selbständige und vollwertige Arbeit angesehen werden, da Rantas Implementierung sehr rudimentär und noch nicht funktionstüchtig war und seit ca. 2005 nicht mehr weiterentwickelt wurde. \par
+Die Gliederung dieses Kapitels folgt dem gewählten Vorgehen bei der Implementierung. Die Begründung für die Reihenfolge der einzelnen Schritte wird jeweils zu Beginn der einzelnen Kapitel kurz dargelegt. In diesem Sinne wird zunächst die Erstellung des Lexikons, als zweites die Umsetzung der lateinischen Morphologie und schließlich die Syntaxregeln in dieser Lateingrammatik beschrieben.
+\pagebreak
+\section{Lexikon}
+\label{sec:lexikon}
+\input{tex/Lexikon.tex}
+\FloatBarrier
+\pagebreak
+\section{Morphologie}
+\label{sec:morpho}
+\input{tex/Morphologie.tex}
+\FloatBarrier
+\pagebreak
+\section{Syntax}
+\label{sec:syntax}
+\input{tex/Syntax.tex}
+\FloatBarrier
+\pagebreak
+\chapter{Fazit}
+\label{chap:fazit}
+\input{tex/Fazit.tex}
+\FloatBarrier
+\pagebreak
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+%\chapter*{Bibliographie}
+%\bibliographystyle{natdin}
+\printbibliography
+\pagebreak
+\chapter*{Tabellen- und Abbildungsverzeichnis}
+\addcontentsline{toc}{chapter}{Tabellen- und Abbildungsverzeichnis}
+\listoftables
+\listoffigures
+\lstlistoflistings
+%\nopagebreak[4]
+%\listof{program}{Beispiele}
+%\chapter*{Lebenslauf}
+%\addcontentsline{toc}{chapter}{Lebenslauf}
+%\input{tex/Lebenslauf.tex}
+\chapter*{Eigenständigkeitserklärung}
+\addcontentsline{toc}{chapter}{Eigenständigkeitserklärung}
+\input{tex/Erklaerung.tex}
+%\part{Anhang}
+%\label{part:anhang}
+%\section{Quelltext}
+%\label{sec:quelltext}
+%\input{tex/Source.tex}
+\end{document}

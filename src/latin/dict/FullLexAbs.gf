@@ -1,0 +1,1 @@
+abstract FullLexAbs = Lexicon, DictLatAbs-[do_V2,leg_N,man_N] ;

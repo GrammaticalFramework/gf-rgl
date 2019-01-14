@@ -1,0 +1,362 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+%\documentclass[12pt]{beamer}
+%\documentclass{beamer}
+\documentclass[compress,table]{beamer} % compresses the navigation bar on top
+
+\mode<presentation> {
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+% best themes (ordered by preference)
+\usetheme{Madrid} % has no navigation overview per slide
+%\usetheme{Boadilla}% has no navigation overview per slide
+%\usetheme{Warsaw} % navigation on top, title and author below
+%\usetheme{PaloAlto} % nav at side, title and author also at side
+%\usetheme{Berkeley}
+
+%\usetheme{Szeged}
+%\usetheme{Copenhagen}
+%\usetheme{Luebeck}
+
+%\usetheme{Malmoe}
+%\usetheme{Bergen}
+%\usetheme{CambridgeUS}
+%\usetheme{AnnArbor}
+%\usetheme{Marburg}
+
+% not so nice themes
+%\usetheme{default}
+%\usetheme{Antibes}
+%\usetheme{Berlin}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Montpellier}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+\usecolortheme{dolphin}
+
+%\usecolortheme{beaver}
+%\usecolortheme{whale}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seahorse}
+
+%\usecolortheme{albatross}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{seagull}
+%\usecolortheme{wolverine}
+}
+
+
+
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+\setbeamertemplate{headline}{} % removes the top bar
+%\setbeamertemplate{enumerate items}[circle]
+%\setbeamertemplate{enumerate items}[square]
+\setbeamertemplate{enumerate items}[default]
+\newcommand{\nologo}{\setbeamertemplate{logo}{}}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{ulem} % needed for \sout (strike-out text)
+\usepackage{hyperref} % can be used to create links to labels
+\usepackage{appendixnumberbeamer} % use appendix, to avoid counting backup slides
+\usepackage{multirow} % needed for \multirow{}{}{}
+
+\usepackage{listings}
+
+\lstdefinelanguage{gf}
+{
+  morekeywords={abstract, flags, cat, fun, incomplete, concrete, of, open, in, lincat, lin, resource, param, oper, variants, table, interface, instance, def, data, lindef, printname,},
+  sensitive=false,
+  morecomment=[l]{-{}-},
+  morestring=[b]",
+  stringstyle={\textit}
+}
+\lstset{language=gf,captionpos=b,numbers=none, numberstyle=\tiny, numbersep=5pt, basicstyle=\footnotesize\ttfamily, escapeinside={\%*}{*)},}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+
+% The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Latin grammar]{Implementation of a Latin Grammar in Grammatical Framework}
+
+\author[Herbert Lange]{Herbert Lange\inst{1}}
+
+\institute[University of Gothenburg]{
+\begin{columns}
+  \begin{column}{5.5cm}
+    \centering
+    \inst{1} Computer Science and Engineering\\University of Gothenburg and Chalmers University of Technology\\Gothenburg, Sweden
+    \textit{herbert.lange@cse.gu.se}
+  \end{column} 
+\end{columns}
+}
+
+\date[DATeCH 2017]{DATeCH 2017, Göttingen, June 1st-2nd} % CPSS
+
+\logo{\includegraphics[width=0.5\textwidth]{LO_CH-GU.eps}}
+\begin{document}
+
+\begin{frame}
+  \titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}{Overview} % Table of contents slide, comment this block out to remove it
+%% Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\tableofcontents%[hideallsubsections]%[pausesections]
+\end{frame}
+
+\section{Background}
+\subsection{Latin}
+
+\begin{frame}{Latin}
+  \begin{itemize}
+  \item Indo-European language
+  \item development almost from 240 b.c. to the beginning
+    of the 20th century (and in some fields still continues)
+  \item Usual focus on classic period (from the first public speeches of M. Tullius Cicero (ca.
+    80 b.c. to ca. 117 a.d.)
+  \item Strong inflectional and synthetic language
+  \item Rather free word order (but strong tendencies within certain text domains and time periods, also not all combinations seem to be acceptable)
+  \end{itemize}
+\end{frame}
+
+%% {\nologo
+%%   \begin{frame}
+%%     \includegraphics[width=\textwidth]{Life-of-Brian-Latin-2}
+%%   \end{frame}
+%% }
+
+\subsection{Grammatical Framework}
+\begin{frame}{Grammatical Framework}
+  \begin{itemize}
+  \item Modern grammar formalism based on type theory and inspired by functional programming languages (especially Haskell)
+  \item Variant of context-free grammars extended by so called tables and records
+  \item Expressivity equivalent to Parallel Multiple Context-Free Grammars (PMCFG) (mildly context-sensitive)
+  \item Separation in Abstract and Concrete Syntax
+  \item Open Source
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Example}
+  \begin{lstlisting}
+param Number = Sg | Pl ;
+param Case = Nom | Acc | Dat | Abl | Voc ;
+param Gen = Masc | Fem | Neutr ;
+
+lincat N = { s : Number => Case => Str ; g : Gender } ;
+
+lin
+  man_N = {
+    s = table {
+      Sg => table {
+         Nom => "vir" ; Acc => "virum " ; Gen => "viri" ;
+         Dat => "viro" ; Abl => "viro" ; Voc => "vir" } ;
+      Pl => table {
+         Nom => "viri" ; Acc => "viros" ; Gen => "virorum" ;
+         Dat => "viris" ; Abl => "viris" ; Voc => "viri" ; }
+  } ;
+  g = Masc
+}
+  \end{lstlisting}
+  % Here I should come up with a minimal example of a grammar with tables and records
+\end{frame}
+
+\subsection{Resource Grammar Library}
+
+\begin{frame}{Resource Grammar Library}
+  \begin{itemize}
+  \item Grammarians equivalent to a Programming Languages standard library
+  \item Common basis for multilingual applications (and machine translation)
+  \item Also Open Source, and this grammar is part of it
+  \end{itemize}
+\end{frame}
+
+\section{Grammar}
+
+\begin{frame}{General Concept}
+  \begin{itemize}
+  \item Originally: Translate information from a standard (school) grammar book into a computerized form
+  \item Implement the RGL abstract syntax
+  \item Now: Application-specific resources especially for language learning
+  \item Constituent grammar not dependency grammar (not as cool but conversion between GF trees and UD is possible)
+  \end{itemize}
+\end{frame}
+\subsection{Lexicon}
+\begin{frame}{Lexicon}
+  \begin{itemize}
+  \item Basic Lexicon with ca 350 entries
+  \item Contains mostly base forms, uses morphological rules to generate the whole paradigms
+  \item Main problem: modern concepts (e.g. refrigerator) and homonyms (e.g. bank)
+  \item Use of web-based and collaborative resources (e.g. Latin Wikipedia, Wiktionary)
+  \item Work in progress: Adopt other lexical resources
+  \end{itemize}
+\end{frame}
+\subsection{Morphology}
+\begin{frame}{Morphology}
+  \begin{itemize}
+  \item Strongly inflectional but quite regular morphology
+  \item Use as little information as possible to generate the whole paradigm (smart paradigms)
+  \item Several inflection classes for different lexical categories
+  \item Use tables for word forms depending on grammatical features
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\begin{table}
+  \resizebox{\textwidth}{!}{
+        \begin{tabular}{l|l|l|l}
+          Word class & Inherent & Parametric & No. of Inflection classes\\
+          \hline
+          Noun & Gender & Number, Case & 5\\
+          Adjective & & Degree, Gender, Number, Case & 3\\
+          Verb (active) & & Anteriority, Tense, Number, Person & 4 regular, 4 deponent \\
+          Determiner & Number & Gender, Case \\
+      \end{tabular}}
+    \end{table}
+     \begin{table}[h]
+      {\small
+        \begin{tabular}{l|l}
+          Feature & Values \\
+          \hline
+          Gender & Feminine, Masculine, Neuter \\
+          Number & Singular, Plural \\
+          Case & Nominative, Genitive, Dative, Accusative, Ablative, Vocative\\
+          Degree & Positive, Comparative, Superlative \\
+          Anteriority & Anterior, Simultaneous \\
+          Tense & Present Indicative, Present Subjunctive, Imperfect Indicative, \\
+          & Imperfect Subjunctive, Future Indicative, Future Subjunctive\\
+          Person & 1, 2, 3 \\
+      \end{tabular}}
+    \end{table}
+\end{frame}
+\subsection{Syntax}
+\begin{frame}{Syntax}
+  \begin{itemize}
+  \item Syntax rules use basic and smaller parts to assemble larger parts up to the sentence level
+  \item Challenge: Free word order
+  \item Decision what parts can be completely assembled at what point (and what has to be kept apart)
+  \item Use records to keep parts of a phrase separate
+  \item Postpone decision on word order as long as possible
+  \end{itemize}
+\end{frame}
+
+\section{Results}
+
+\begin{frame}{Results}
+  \begin{itemize}
+  \item Comprehensive Latin morphology
+  \item Implemented about 1/3 of the RGL syntactic functions (but some of them are rather obscure)
+  \item Already usable in applications
+  \item Future: Adding rules as they are needed and large-scale evaluation
+  \end{itemize}
+\end{frame}
+\section{Applications}
+
+\begin{frame}{Applications}
+  \begin{itemize}
+  \item Our main focus: Language learning\\
+    Grammar-based and gamified computer-aided language learning application for beginner's level
+  \item Other possible applications in Digital Humanities\\
+    Giving access to cultural heritage e.g. with a translation app for epigraphs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  {\huge
+  Thanks for your attention \\[3em]
+  \pause
+  Questions? \\[2em]
+  }
+  Source:\\ \url{wwww.grammaticalframework.org} and \url{https://github.com/daherb/GF-latin}
+\end{frame}
+% backup slides
+\appendix
+
+%% {\nologo 
+%%   \begin{frame}
+%%     \begin{center} \includegraphics[scale=0.5]{delirant-isti-romani} \end{center}
+%% \end{frame}
+%% }
+
+
+{\nologo 
+  \begin{frame}[fragile]
+    \begin{lstlisting}[basicstyle=\tiny\ttfamily]
+noun : Str -> Noun = \lexform -> 
+case lexform of {
+- - noun1, noun2us/um/er, noun4 and noun5 are the functions for the different
+- - declension classes. The 2nd class is split in three subclasses
+_ + "a"  => noun1 lexform ;
+_ + "us" => noun2us lexform ;
+_ + "um" => noun2um lexform ;
+- - "Predef.tk n word" removes a suffix of length n from word
+_ + ( "er" | "ir" ) => noun2er lexform ( (Predef.tk 2 lexform) + "ri" ) ;
+_ + "u"  => noun4u lexform ;
+_ + "es" => noun5 lexform ;
+- - Predef.error stops with a given error message
+_  => Predef.error ("3rd declinsion cannot be applied " ++
+      "to just one noun form " ++ lexform)
+} ;
+  \end{lstlisting}
+\end{frame}
+}
+
+{\nologo 
+  \begin{frame}[fragile]
+    \begin{lstlisting}[basicstyle=\tiny\ttfamily]
+mkClause : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
+  s = \\tense,anter,pol,vqf,order => case order of {
+    SVO => np.s ! Nom ++ negation pol ++ vp.compl ! Ag np.g np.n Nom ++ vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ vp.obj ;
+    VSO => negation pol ++ vp.compl ! Ag np.g np.n Nom ++ vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ np.s ! Nom ++ vp.obj ;
+    VOS => negation pol ++ vp.compl ! Ag np.g np.n Nom ++ vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ vp.obj ++ np.s ! Nom ;
+    OSV => vp.obj ++ np.s ! Nom ++ negation pol ++ vp.compl ! Ag np.g np.n Nom ++ vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ;
+    OVS => vp.obj ++ negation pol ++ vp.compl ! Ag np.g np.n Nom ++ vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ np.s ! Nom ;
+    SOV => np.s ! Nom ++ vp.obj ++ negation pol ++ vp.compl ! Ag np.g np.n Nom ++ vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf 
+  } 
+} ;
+\end{lstlisting}
+\end{frame}
+}
+\end{document} 
+
+
+
+

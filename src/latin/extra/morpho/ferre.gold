@@ -1,0 +1,260 @@
+act (VAct VAnt (VPres VInd) Sg P1) : tuli
+act (VAct VAnt (VPres VInd) Sg P2) : tulisti
+act (VAct VAnt (VPres VInd) Sg P3) : tulit
+act (VAct VAnt (VPres VInd) Pl P1) : tulimus
+act (VAct VAnt (VPres VInd) Pl P2) : tulistis
+act (VAct VAnt (VPres VInd) Pl P3) : tulerunt
+act (VAct VAnt (VPres VConj) Sg P1) : tulerim
+act (VAct VAnt (VPres VConj) Sg P2) : tuleris
+act (VAct VAnt (VPres VConj) Sg P3) : tulerit
+act (VAct VAnt (VPres VConj) Pl P1) : tulerimus
+act (VAct VAnt (VPres VConj) Pl P2) : tuleritis
+act (VAct VAnt (VPres VConj) Pl P3) : tulerint
+act (VAct VAnt (VImpf VInd) Sg P1) : tuleram
+act (VAct VAnt (VImpf VInd) Sg P2) : tuleras
+act (VAct VAnt (VImpf VInd) Sg P3) : tulerat
+act (VAct VAnt (VImpf VInd) Pl P1) : tuleramus
+act (VAct VAnt (VImpf VInd) Pl P2) : tuleratis
+act (VAct VAnt (VImpf VInd) Pl P3) : tulerant
+act (VAct VAnt (VImpf VConj) Sg P1) : tulissem
+act (VAct VAnt (VImpf VConj) Sg P2) : tulisses
+act (VAct VAnt (VImpf VConj) Sg P3) : tulisset
+act (VAct VAnt (VImpf VConj) Pl P1) : tulissemus
+act (VAct VAnt (VImpf VConj) Pl P2) : tulissetis
+act (VAct VAnt (VImpf VConj) Pl P3) : tulissent
+act (VAct VAnt VFut Sg P1) : tulero
+act (VAct VAnt VFut Sg P2) : tuleris
+act (VAct VAnt VFut Sg P3) : tulerit
+act (VAct VAnt VFut Pl P1) : tulerimus
+act (VAct VAnt VFut Pl P2) : tuleritis
+act (VAct VAnt VFut Pl P3) : tulerint
+act (VAct VSim (VPres VInd) Sg P1) : fero
+act (VAct VSim (VPres VInd) Sg P2) : fers
+act (VAct VSim (VPres VInd) Sg P3) : fert
+act (VAct VSim (VPres VInd) Pl P1) : ferimus
+act (VAct VSim (VPres VInd) Pl P2) : fertis
+act (VAct VSim (VPres VInd) Pl P3) : ferunt
+act (VAct VSim (VPres VConj) Sg P1) : feram
+act (VAct VSim (VPres VConj) Sg P2) : feras
+act (VAct VSim (VPres VConj) Sg P3) : ferat
+act (VAct VSim (VPres VConj) Pl P1) : feramus
+act (VAct VSim (VPres VConj) Pl P2) : feratis
+act (VAct VSim (VPres VConj) Pl P3) : ferant
+act (VAct VSim (VImpf VInd) Sg P1) : ferebam
+act (VAct VSim (VImpf VInd) Sg P2) : ferebas
+act (VAct VSim (VImpf VInd) Sg P3) : ferebat
+act (VAct VSim (VImpf VInd) Pl P1) : ferebamus
+act (VAct VSim (VImpf VInd) Pl P2) : ferebatis
+act (VAct VSim (VImpf VInd) Pl P3) : ferebant
+act (VAct VSim (VImpf VConj) Sg P1) : ferrem
+act (VAct VSim (VImpf VConj) Sg P2) : ferres
+act (VAct VSim (VImpf VConj) Sg P3) : ferret
+act (VAct VSim (VImpf VConj) Pl P1) : ferremus
+act (VAct VSim (VImpf VConj) Pl P2) : ferretis
+act (VAct VSim (VImpf VConj) Pl P3) : ferrent
+act (VAct VSim VFut Sg P1) : feram
+act (VAct VSim VFut Sg P2) : feres
+act (VAct VSim VFut Sg P3) : feret
+act (VAct VSim VFut Pl P1) : feremus
+act (VAct VSim VFut Pl P2) : feretis
+act (VAct VSim VFut Pl P3) : ferent
+ger VGenAcc : ferendum
+ger VGenGen : ferendi
+ger VGenDat : ferendo
+ger VGenAbl : ferendo
+geriv (Ag Masc Sg Nom) : ferendus
+geriv (Ag Masc Sg Acc) : ferendum
+geriv (Ag Masc Sg Gen) : ferendi
+geriv (Ag Masc Sg Dat) : ferendo
+geriv (Ag Masc Sg Abl) : ferendo
+geriv (Ag Masc Sg Voc) : ferende
+geriv (Ag Masc Pl Nom) : ferendi
+geriv (Ag Masc Pl Acc) : ferendos
+geriv (Ag Masc Pl Gen) : ferendorum
+geriv (Ag Masc Pl Dat) : ferendis
+geriv (Ag Masc Pl Abl) : ferendis
+geriv (Ag Masc Pl Voc) : ferendi
+geriv (Ag Fem Sg Nom) : ferenda
+geriv (Ag Fem Sg Acc) : ferendam
+geriv (Ag Fem Sg Gen) : ferendae
+geriv (Ag Fem Sg Dat) : ferendae
+geriv (Ag Fem Sg Abl) : ferenda
+geriv (Ag Fem Sg Voc) : ferenda
+geriv (Ag Fem Pl Nom) : ferendae
+geriv (Ag Fem Pl Acc) : ferendas
+geriv (Ag Fem Pl Gen) : ferendarum
+geriv (Ag Fem Pl Dat) : ferendis
+geriv (Ag Fem Pl Abl) : ferendis
+geriv (Ag Fem Pl Voc) : ferendae
+geriv (Ag Neutr Sg Nom) : ferendum
+geriv (Ag Neutr Sg Acc) : ferendum
+geriv (Ag Neutr Sg Gen) : ferendi
+geriv (Ag Neutr Sg Dat) : ferendo
+geriv (Ag Neutr Sg Abl) : ferendo
+geriv (Ag Neutr Sg Voc) : ferendum
+geriv (Ag Neutr Pl Nom) : ferenda
+geriv (Ag Neutr Pl Acc) : ferenda
+geriv (Ag Neutr Pl Gen) : ferendorum
+geriv (Ag Neutr Pl Dat) : ferendis
+geriv (Ag Neutr Pl Abl) : ferendis
+geriv (Ag Neutr Pl Voc) : ferenda
+imp (VImp1 Sg) : fer
+imp (VImp1 Pl) : ferte
+imp (VImp2 Sg P1) : 
+imp (VImp2 Sg P2) : ferto
+imp (VImp2 Sg P3) : ferto
+imp (VImp2 Pl P1) : 
+imp (VImp2 Pl P2) : fertote
+imp (VImp2 Pl P3) : ferunto
+inf VInfActPres : ferre
+inf (VInfActPerf Masc) : tulisse
+inf (VInfActPerf Fem) : tulisse
+inf (VInfActPerf Neutr) : tulisse
+inf (VInfActFut Masc) : laturum – laturus
+inf (VInfActFut Fem) : laturam – latura
+inf (VInfActFut Neutr) : laturum – laturum
+inf VInfPassPres : ferri
+inf (VInfPassPerf Masc) : latus
+inf (VInfPassPerf Fem) : lata
+inf (VInfPassPerf Neutr) : latum
+inf VinfPassFut : latum
+part VActPres (Ag Masc Sg Nom) : ferens
+part VActPres (Ag Masc Sg Acc) : ferentem
+part VActPres (Ag Masc Sg Gen) : ferentis
+part VActPres (Ag Masc Sg Dat) : ferenti
+part VActPres (Ag Masc Sg Abl) : ferente
+part VActPres (Ag Masc Sg Voc) : ferens
+part VActPres (Ag Masc Pl Nom) : ferentes
+part VActPres (Ag Masc Pl Acc) : ferentes
+part VActPres (Ag Masc Pl Gen) : ferentium
+part VActPres (Ag Masc Pl Dat) : ferentibus
+part VActPres (Ag Masc Pl Abl) : ferentibus
+part VActPres (Ag Masc Pl Voc) : ferentes
+part VActPres (Ag Fem Sg Nom) : ferens
+part VActPres (Ag Fem Sg Acc) : ferentem
+part VActPres (Ag Fem Sg Gen) : ferentis
+part VActPres (Ag Fem Sg Dat) : ferenti
+part VActPres (Ag Fem Sg Abl) : ferente
+part VActPres (Ag Fem Sg Voc) : ferens
+part VActPres (Ag Fem Pl Nom) : ferentes
+part VActPres (Ag Fem Pl Acc) : ferentes
+part VActPres (Ag Fem Pl Gen) : ferentium
+part VActPres (Ag Fem Pl Dat) : ferentibus
+part VActPres (Ag Fem Pl Abl) : ferentibus
+part VActPres (Ag Fem Pl Voc) : ferentes
+part VActPres (Ag Neutr Sg Nom) : ferens
+part VActPres (Ag Neutr Sg Acc) : ferens
+part VActPres (Ag Neutr Sg Gen) : ferentis
+part VActPres (Ag Neutr Sg Dat) : ferenti
+part VActPres (Ag Neutr Sg Abl) : ferente
+part VActPres (Ag Neutr Sg Voc) : ferens
+part VActPres (Ag Neutr Pl Nom) : ferentia
+part VActPres (Ag Neutr Pl Acc) : ferentia
+part VActPres (Ag Neutr Pl Gen) : ferentium
+part VActPres (Ag Neutr Pl Dat) : ferentibus
+part VActPres (Ag Neutr Pl Abl) : ferentibus
+part VActPres (Ag Neutr Pl Voc) : ferentia
+part VActFut (Ag Masc Sg Nom) : laturus
+part VActFut (Ag Masc Sg Acc) : laturum
+part VActFut (Ag Masc Sg Gen) : laturi
+part VActFut (Ag Masc Sg Dat) : laturo
+part VActFut (Ag Masc Sg Abl) : laturo
+part VActFut (Ag Masc Sg Voc) : lature
+part VActFut (Ag Masc Pl Nom) : laturi
+part VActFut (Ag Masc Pl Acc) : laturos
+part VActFut (Ag Masc Pl Gen) : laturorum
+part VActFut (Ag Masc Pl Dat) : laturis
+part VActFut (Ag Masc Pl Abl) : laturis
+part VActFut (Ag Masc Pl Voc) : laturi
+part VActFut (Ag Fem Sg Nom) : latura
+part VActFut (Ag Fem Sg Acc) : laturam
+part VActFut (Ag Fem Sg Gen) : laturae
+part VActFut (Ag Fem Sg Dat) : laturae
+part VActFut (Ag Fem Sg Abl) : latura
+part VActFut (Ag Fem Sg Voc) : latura
+part VActFut (Ag Fem Pl Nom) : laturae
+part VActFut (Ag Fem Pl Acc) : laturas
+part VActFut (Ag Fem Pl Gen) : laturarum
+part VActFut (Ag Fem Pl Dat) : laturis
+part VActFut (Ag Fem Pl Abl) : laturis
+part VActFut (Ag Fem Pl Voc) : laturae
+part VActFut (Ag Neutr Sg Nom) : laturum
+part VActFut (Ag Neutr Sg Acc) : laturum
+part VActFut (Ag Neutr Sg Gen) : laturi
+part VActFut (Ag Neutr Sg Dat) : laturo
+part VActFut (Ag Neutr Sg Abl) : laturo
+part VActFut (Ag Neutr Sg Voc) : laturum
+part VActFut (Ag Neutr Pl Nom) : latura
+part VActFut (Ag Neutr Pl Acc) : latura
+part VActFut (Ag Neutr Pl Gen) : laturorum
+part VActFut (Ag Neutr Pl Dat) : laturis
+part VActFut (Ag Neutr Pl Abl) : laturis
+part VActFut (Ag Neutr Pl Voc) : latura
+part VPassPerf (Ag Masc Sg Nom) : latus
+part VPassPerf (Ag Masc Sg Acc) : latum
+part VPassPerf (Ag Masc Sg Gen) : lati
+part VPassPerf (Ag Masc Sg Dat) : lato
+part VPassPerf (Ag Masc Sg Abl) : lato
+part VPassPerf (Ag Masc Sg Voc) : late
+part VPassPerf (Ag Masc Pl Nom) : lati
+part VPassPerf (Ag Masc Pl Acc) : latos
+part VPassPerf (Ag Masc Pl Gen) : latorum
+part VPassPerf (Ag Masc Pl Dat) : latis
+part VPassPerf (Ag Masc Pl Abl) : latis
+part VPassPerf (Ag Masc Pl Voc) : lati
+part VPassPerf (Ag Fem Sg Nom) : lata
+part VPassPerf (Ag Fem Sg Acc) : latam
+part VPassPerf (Ag Fem Sg Gen) : latae
+part VPassPerf (Ag Fem Sg Dat) : latae
+part VPassPerf (Ag Fem Sg Abl) : lata
+part VPassPerf (Ag Fem Sg Voc) : lata
+part VPassPerf (Ag Fem Pl Nom) : latae
+part VPassPerf (Ag Fem Pl Acc) : latas
+part VPassPerf (Ag Fem Pl Gen) : latarum
+part VPassPerf (Ag Fem Pl Dat) : latis
+part VPassPerf (Ag Fem Pl Abl) : latis
+part VPassPerf (Ag Fem Pl Voc) : latae
+part VPassPerf (Ag Neutr Sg Nom) : latum
+part VPassPerf (Ag Neutr Sg Acc) : latum
+part VPassPerf (Ag Neutr Sg Gen) : lati
+part VPassPerf (Ag Neutr Sg Dat) : lato
+part VPassPerf (Ag Neutr Sg Abl) : lato
+part VPassPerf (Ag Neutr Sg Voc) : latum
+part VPassPerf (Ag Neutr Pl Nom) : lata
+part VPassPerf (Ag Neutr Pl Acc) : lata
+part VPassPerf (Ag Neutr Pl Gen) : latorum
+part VPassPerf (Ag Neutr Pl Dat) : latis
+part VPassPerf (Ag Neutr Pl Abl) : latis
+part VPassPerf (Ag Neutr Pl Voc) : lata
+pass (VPass (VPres VInd) Sg P1) : feror
+pass (VPass (VPres VInd) Sg P2) : ferris
+pass (VPass (VPres VInd) Sg P3) : fertur
+pass (VPass (VPres VInd) Pl P1) : ferimur
+pass (VPass (VPres VInd) Pl P2) : ferimini
+pass (VPass (VPres VInd) Pl P3) : feruntur
+pass (VPass (VPres VConj) Sg P1) : ferar
+pass (VPass (VPres VConj) Sg P2) : feraris
+pass (VPass (VPres VConj) Sg P3) : feratur
+pass (VPass (VPres VConj) Pl P1) : feramur
+pass (VPass (VPres VConj) Pl P2) : feramini
+pass (VPass (VPres VConj) Pl P3) : ferantur
+pass (VPass (VImpf VInd) Sg P1) : ferebar
+pass (VPass (VImpf VInd) Sg P2) : ferebaris
+pass (VPass (VImpf VInd) Sg P3) : ferebatur
+pass (VPass (VImpf VInd) Pl P1) : ferebamur
+pass (VPass (VImpf VInd) Pl P2) : ferebamini
+pass (VPass (VImpf VInd) Pl P3) : ferebantur
+pass (VPass (VImpf VConj) Sg P1) : ferrer
+pass (VPass (VImpf VConj) Sg P2) : ferreris
+pass (VPass (VImpf VConj) Sg P3) : ferretur
+pass (VPass (VImpf VConj) Pl P1) : ferremur
+pass (VPass (VImpf VConj) Pl P2) : ferremini
+pass (VPass (VImpf VConj) Pl P3) : ferrentur
+pass (VPass VFut Sg P1) : ferar
+pass (VPass VFut Sg P2) : fereris
+pass (VPass VFut Sg P3) : feretur
+pass (VPass VFut Pl P1) : feremur
+pass (VPass VFut Pl P2) : feremini
+pass (VPass VFut Pl P3) : ferentur
+sup VSupAcc : latum
+sup VSupAbl : latu

@@ -1,0 +1,11 @@
+diff --git a/lib/src/latin/ExtraLatAbs.gf b/lib/src/latin/ExtraLatAbs.gf
+new file mode 100644
+index 0000000..f2d1729
+--- /dev/null
++++ b/lib/src/latin/ExtraLatAbs.gf
+@@ -0,0 +1,5 @@
++abstract ExtraLatAbs = Extra ** {
++  fun
++    UsePronNonDrop : Pron -> NP ; 
++
++}

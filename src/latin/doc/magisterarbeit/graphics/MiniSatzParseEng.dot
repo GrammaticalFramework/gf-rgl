@@ -1,0 +1,39 @@
+graph {
+edge[style="solid"]; node[shape="plaintext", fontsize=11]; 
+subgraph {rank=same;
+  n5[label="S"]; 
+}
+ 
+subgraph {rank=same;
+  n2[label="NP"]; 
+  n4[label="VP"]; 
+  edge[style="invis"]; 
+  n2  --  n4 ;
+}
+n5 -- n2;
+n5 -- n4;
+ 
+subgraph {rank=same;
+  n0[label="Det"]; 
+  n1[label="N"]; 
+  n3[label="V"]; 
+  edge[style="invis"]; 
+  n0  --  n1  --  n3 ;
+}
+n2 -- n0;
+n2 -- n1;
+n4 -- n3;
+ 
+edge[style="dashed"]; node[shape="plaintext"]; 
+subgraph {rank=same;
+  n100000[label="the", fontname = "Times-Italic"]; 
+  n100001[label="man", fontname = "Times-Italic"]; 
+  n100002[label="sleeps", fontname = "Times-Italic"]; 
+  edge[style="invis"]; 
+  n100000  --  n100001  --  n100002 ;
+}
+n0 -- n100000;
+n1 -- n100001;
+n3 -- n100002;
+ 
+}
