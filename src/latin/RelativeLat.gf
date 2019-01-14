@@ -1,4 +1,4 @@
---concrete RelativeLat of Relative = CatLat ** open ResLat in {
+concrete RelativeLat of Relative = CatLat ** open ResLat in {
 --
 --  flags optimize=all_subs ;
 --
@@ -51,4 +51,4 @@
 --      a = RNoAg
 --      } ;
 --
---}
+}

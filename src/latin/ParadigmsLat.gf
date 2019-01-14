@@ -24,9 +24,15 @@ resource ParadigmsLat = open
 -- To abstract over gender names, we define the following identifiers.
 
 oper
-  masculine : Gender ;
-  feminine  : Gender ;
-  neuter    : Gender ;
+  masculine : Gender = Masc ;
+  feminine  : Gender = Fem ;
+  neuter    : Gender = Neutr ;
+  nom : Case = Nom ;
+  acc : Case = Acc ;
+  gen : Case = Gen ;
+  dat : Case = Dat ;
+  abl : Case = Abl ;
+  voc : Case = ResLat.Voc ;
 
   mkN = overload {
     mkN : (verbum : Str) -> N 
@@ -36,21 +42,28 @@ oper
   } ;
   
   mkA = overload {
-    mkA : (verbum : Str) -> A 
+    mkA : (verbum : Str) -> A -- Nominative masculine
       = \n -> lin A ( adj n ** {isPre = False } ) ;
-    mkA : (verbum, verbi : Str) -> A 
+    mkA : (verbum, verbi : Str) -> A -- Nominative and Genitive masculine
       = \x,y -> lin A ( adj123 x y ** {isPre = False } ) ;
-    mkA : (bonus,bona,bonum : N) -> A 
-      = \x,y,z -> 
-      let compsup = comp_super x ;
-	  advs : Str * Str = 
-	    case x.s!Sg!Nom of {
-	      -- Bayer-Lindauer 50 4
-	      idon + #vowel + "us" => < "magis" , "maxime" > ;
-	      _ => < "" , "" >
-	    };
-      in
-      lin A ( mkAdjective x y z < compsup.p1 , advs.p2 > < compsup.p2 , advs.p2> ** {isPre = False } ) ;
+    -- mkA : (bonus,bona,bonum : N) -> A 
+    --   = \x,y,z -> 
+    --   let compsup = comp_super x ;
+    -- 	  advs : Str * Str = 
+    -- 	    case x.s!Sg!Nom of {
+    -- 	      -- Bayer-Lindauer 50 4
+    -- 	      idon + #vowel + "us" => < "magis" , "maxime" > ;
+    -- 	      _ => < "" , "" >
+    -- 	    };
+    --   in
+    --   lin A ( mkAdjective x y z < compsup.p1 , advs.p2 > < compsup.p2 , advs.p2> ** {isPre = False } ) ;
+    mkA : (bonus,bona,bonum : Str) -> A -- Nominative masculine, feminine and neuter
+      = \x,y,z -> lin A (adjfull x y z ) ;
+    mkA : (verbum : Str) -> (comparable : Bool) -> A
+      = \n,b -> lin A ( case b of {
+	True => adj n ;
+	False => let a = adj n in { s = table { Posit => a.s ! Posit ; _ => \\_ => nonExist } ; adv = a.adv }
+      } ** { isPre = False } )
   } ;
   
 
@@ -63,9 +76,12 @@ oper
       = \v,x,y -> lin V ( verb_ippp v x y nonExist ) ;
   } ;
 
-  V0 : Type = V ;
-  mkV0 : V -> V0 = \v -> lin V0 v ; -- Same as in english, don't know if it's working
-
+  V0 : Type = V;
+  mkV0 = overload {
+    mkV0 : V -> V0 = \v -> lin V0 v ; -- Same as in english, don't know if it's working
+    mkV0 : Str -> V0 = \v -> lin V0 (mkImpersonal v) ;
+    } ;
+  
   mkV2 = overload {
     mkV2 : (amare : Str) -> V2
       = \v -> lin V2 ( verb v ** { c = lin Prep ( mkPrep "" Acc ) } ) ; 
@@ -75,13 +91,26 @@ oper
       = \v,p -> lin V2 ( v ** { c = p } ) ; 
     } ;
 
-  masculine = Masc ;
-  feminine = Fem ;
-  neuter = Neutr ;
 
-  mkAdv : Str -> Adv
-    = \s -> lin Adv {s = s} ;
+  mkAdv = overload {
+    mkAdv : Str -> Adv
+      = \s -> lin Adv (mkAdverb s) ;
+    mkAdv : (pos,comp,super : Str) -> Adv
+      = \p,c,s -> lin Adv (mkFullAdverb p c s);
+    mkAdv : (pos,comp : Str) -> Adv
+      = \p,c -> lin Adv (mkFullAdverb p c nonExist);
+    };
+  
+  pluralN = ResLat.pluralN ;
+  singularN = ResLat.singularN ;
 
+  mkConj : Str -> Str -> Number -> Coordinator -> Conjunction = mkConjunction ;
+
+  mkPrep : Str -> Case -> Preposition  = mkPreposition ;
+
+  mkPron = mkPronoun ;
+
+  mkNum = mkNumeral ;
 -- To be implemented, just place holders
   mkPN : N -> PN = \n -> lin PN n ;
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 ( n ** { c = p } );
