@@ -116,8 +116,8 @@ oper
       mkNoun (nomFalcao vinho) Masc ;
 
     -- problema, carro, maracujá
-    proble + ("ma"|"o"|"á") =>
-      mkNoun (nomVinho vinho) Masc ;
+    -- proble + ("ma"|"o"|"á") =>
+    --   mkNoun (nomVinho vinho) Masc ;
 
     ma + ("r"|"z"|"n") => mkNoun (nomRapaz vinho) Masc ;
 
@@ -134,7 +134,7 @@ oper
 
     ônibu + "s" => mkNoun (nomAreia vinho) Masc ;
 
-    urub + "u" => mkNoun (nomVinho vinho) Masc ;
+    --urub + "u" => mkNoun (nomVinho vinho) Masc ;
 
     -- tórax/Masc, xerox/Fem
     tóra + "x" => mkNoun (nomAreia vinho) Masc ;
