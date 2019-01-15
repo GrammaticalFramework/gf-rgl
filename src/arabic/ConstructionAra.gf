@@ -85,9 +85,12 @@ lin
         myAge : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
      in mkQCl what_IP myAge ;
 
---  hungry_VP =
---  thirsty_VP =
+  hungry_VP = mkVP hungry_A ;
+  thirsty_VP = mkVP thirsty_A ;
 
+oper
+  hungry_A = mkA "جءع" "فَاعِل" ;
+  thirsty_A = mkA True "عطش" "فَعْلَان" "فَعْلَى" ;
 lincat Language = N ;
 
 lin InLanguage l = mkAdv in_Prep (mkNP l) ;
