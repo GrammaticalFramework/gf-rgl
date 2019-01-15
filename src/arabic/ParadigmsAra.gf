@@ -474,6 +474,7 @@ resource ParadigmsAra = open
     \rootStr ->
     let root : Root3 = mkRoot3 rootStr ;
         verb : Verb  = case rootStr of {
+          #weak + ? + ?      => v4assimilated root ;
           ? + #hamza + #weak => v4doubleweak root ;
           ? + #weak + ?      => v4hollow root ;
           _          + #weak => v4defective root  ;

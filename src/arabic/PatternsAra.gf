@@ -48,6 +48,7 @@ flags coding=utf8 ;
     eafcal   = { h = "أَ"; m1 = "ْ"   ; m2 = "َ"   ; t = ""   } ;
     eafcAl   = { h = "أَ"; m1 = "ْ"   ; m2 = "َا"  ; t = ""   } ;
     eifcAl   = { h = "إِ"; m1 = "ْ"   ; m2 = "َا"  ; t = ""   } ;
+    eIfcAl   = eifcAl ** {h = "إِي"} ;
     eafcil   = { h = "أَ"; m1 = "ْ"   ; m2 = "ِ"   ; t = ""   } ;
     eafcul   = { h = "أَ"; m1 = "ْ"   ; m2 = "ُ"   ; t = ""   } ;
     eiftacal = { h = "إِ"; m1 = "ْتَ" ; m2 = "َ"   ; t = ""   } ;

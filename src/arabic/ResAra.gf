@@ -727,8 +727,7 @@ v3sound : Root3 -> Verb =
     mutAbacAt = mutAbac + "َاَة"
   } in verb tAbac twbic utAbic utAbac tAbic mutAbac mutAbacAt ;
 
-v4sound : Root3 -> Verb =
-  \qnc ->
+v4soundForms : Root3 -> SoundForms = \qnc ->
   let {
     eaqnac = mkStrong eafcal qnc;
     euqnic = mkStrong eufcil qnc;
@@ -738,7 +737,17 @@ v4sound : Root3 -> Verb =
     muqnac = "م" + uqnac;
     eiqnAc = mkStrong eifcAl qnc
   } in
-  verb eaqnac euqnic uqnic uqnac eaqnic muqnac eiqnAc;
+  toSoundForms eaqnac euqnic uqnic uqnac eaqnic muqnac eiqnAc;
+
+v4sound : Root3 -> Verb = \qnc ->
+  verb' (v4soundForms qnc) ;
+
+-- TODO: other differences
+v4assimilated : Root3 -> Verb = \wqf ->
+  let eIqAf = mkStrong eIfcAl (wqf ** {f=""}) ;
+      vforms_snd = v4soundForms wqf ;
+      vforms_ass = table {6 => eIqAf ; n => vforms_snd ! n}
+  in verb' vforms_ass ;
 
 v4hollow : Root3 -> Verb =
   \rwd ->
