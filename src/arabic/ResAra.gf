@@ -41,7 +41,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Root2   : Type = Root ** {c : Str} ;
     Root3   : Type = Root2 ** {l : Str} ;
 
--- AR 7/12/2009 changed this to avoid duplication of consonants
     mkRoot3 : Str -> Root3 = \fcl -> case fcl of {
       f@? + c@? + l => {f = f ; c = c ; l = l} ;
       _ => error ("mkRoot3: too short root" ++ fcl)
@@ -237,13 +236,13 @@ oper
         })
     } ;
   verb' : SoundForms -> Verb = \vforms ->
-   let katab = vforms ! 0 ;
-       kutib = vforms ! 1 ;
-       aktub = vforms ! 2 ;
-       uktab = vforms ! 3 ;
-       euktub = vforms ! 4 ;
-       maktUb = vforms ! 5 ;
-       katb   = vforms ! 6 ;
+   let katab = vforms ! 0 ; -- VPerf Act
+       kutib = vforms ! 1 ; -- VPerf Pas
+       aktub = vforms ! 2 ; -- VImpf _ Act
+       uktab = vforms ! 3 ; -- VImpf _ Pas
+       euktub = vforms ! 4 ; -- VImp
+       maktUb = vforms ! 5 ; -- VPPart
+       katb   = vforms ! 6 ; -- Masdar
     in verb katab kutib aktub uktab euktub maktUb katb ;
   --affixes of sound verbs
 
@@ -1041,6 +1040,18 @@ v10geminate : Str -> Verb = \fcl ->
          n@(2|3) => "ُسْتُ" + vforms ! n ; -- ???
          n@(6|7) => "ُسْتَ" + vforms ! n -- ???
     }) ;
+
+v11sound : Root3 -> Verb = \fclb ->
+  let faclabat = mkStrong facalp fclb ;
+      faclib = mkStrong facil fclb ;
+      faclab = mkStrong facal fclb ;
+      vforms = table {
+        2 => "ُ" + faclib ; -- VImpf Act
+        3 => "ُ" + faclab ; -- VImpf Pas
+        5 => "مُ" + faclab ; -- VPPart
+        n => v1soundForms fclb a i faclabat ! n
+      } ;
+   in verb' vforms ;
 
 patV1Perf : Vowel => Pattern =
   table {
