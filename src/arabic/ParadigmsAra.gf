@@ -201,36 +201,39 @@ resource ParadigmsAra = open
 
   mkV : overload {
     mkV : (imperfect : Str) -> V ; -- The verb in Per3 Sg Masc imperfect tense gives the most information
-    mkV : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V ; -- verb form I ; vowel = a|i|u ; unpredictable masdar given as an argument.
-    mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- verb form I ; vowel = a|i|u ; dummy masdar inserted. This function is here only to keep compatibility for the old API; for new grammars, use the constructor with masdar as an argument.
-    mkV : (root : Str) -> VerbForm -> V ;  -- FormI .. FormX (no IX) ; default vowels a u for I, and dummy masdar. Forms II-X have predictable masdar.
+    mkV : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V ; -- Verb form I. Vowel is one of {va,vi,vu}. Unpredictable masdar given as an argument.
+    mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- Like above, but dummy masdar inserted. This function is here only to keep compatibility for the old API; for new grammars, use the constructor with masdar as an argument.
+    mkV : (root,masdar : Str) -> VerbForm -> V ;  -- FormI…FormXI (no IX). XI is quadriliteral. For FormI, default vowels are va and vu, and dummy masdar is inserted. Forms II-XI have predictable masdar, so this constructor works fine.
+    mkV : (root : Str) -> VerbForm -> V ;  -- Like above, but dummy masdar inserted for FormI verbs. No difference for FormII-FormXI, because they have predictable masdar.
     mkV : V -> (particle : Str) -> V -- V with a non-inflecting particle/phrasal verb
     } ;
 
   reflV : V -> V ; -- نَفْس in the proper case and with possessive suffix, e.g.  نَفْسَكِ
 
   v1 = overload {
-    v1 : Str -> (perf,impf : Vowel) -> (masdar : Str) -> V -- Verb Form I : fa`ala, fa`ila, fa`ula. Verbal noun (masdar) given as the third argument.
+    v1 : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V -- Verb Form I: fa`ala, fa`ila, fa`ula. Verbal noun (masdar) given as the third argument.
      = v1masdar ;
-    v1 : Str -> (perf,impf : Vowel) -> V -- To keep compatibility for the old API; dummy masdar inserted.
+    v1 : (root : Str) -> (perf,impf : Vowel) -> V -- To keep compatibility for the old API; dummy masdar inserted.
      = v1dummymasdar ;
   } ;
 
-  v2 : Str -> V ; -- Verb Form II : fa``ala
+  v2 : Str -> V ; -- Verb Form II: fa``ala
 
-  v3 : Str -> V ; -- Verb Form III : faa`ala
+  v3 : Str -> V ; -- Verb Form III: faa`ala
 
-  v4 : Str -> V ; -- Verb Form IV : 'af`ala
+  v4 : Str -> V ; -- Verb Form IV: 'af`ala
 
-  v5 : Str -> V ; -- Verb Form V : tafa``ala
+  v5 : Str -> V ; -- Verb Form V: tafa``ala
 
-  v6 : Str -> V ; -- Verb Form VI : tafaa`ala
+  v6 : Str -> V ; -- Verb Form VI: tafaa`ala
 
-  v7 : Str -> V ; -- Verb Form VII : infa`ala
+  v7 : Str -> V ; -- Verb Form VII: infa`ala
 
-  v8 : Str -> V ; -- Verb Form VIII ifta`ala
+  v8 : Str -> V ; -- Verb Form VIII: ifta`ala
 
-  v10 : Str -> V ; -- Verb Form X 'istaf`ala
+  v10 : Str -> V ; -- Verb Form X: 'istaf`ala
+
+  v11 : Str -> V ; -- Verb Form XI (quadriliteral): fa`laba
 
 --3 Two-place verbs
 
@@ -474,6 +477,7 @@ resource ParadigmsAra = open
     \rootStr ->
     let root : Root3 = mkRoot3 rootStr ;
         verb : Verb  = case rootStr of {
+          #weak + ? + ?      => v4assimilated root ;
           ? + #hamza + #weak => v4doubleweak root ;
           ? + #weak + ?      => v4hollow root ;
           _          + #weak => v4defective root  ;
@@ -537,6 +541,17 @@ resource ParadigmsAra = open
           ? + ? + #weak   => v10defective fcl ;
           _               => v10sound fcl }
       } in lin V verb ;
+
+  v11 =
+    \rootStr ->
+    let fcl : Root3 = case rootStr of {
+          f@? + c@? + l@? + b@? => {f=f ; c=c+"ْ"+l ; l=b} ;
+          _ => Predef.error "v11: implement quadriliterals properly"
+        } ;
+        verb : Verb  = case rootStr of {
+          _ => v11sound fcl -- TODO more cases?
+        } ;
+    in lin V verb ;
 
   reflV v = lin V (ResAra.reflV v) ;
 
@@ -815,18 +830,19 @@ smartPN : Str -> PN = \s -> case last s of {
   } ;
 
 formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
-   FormI   => v1 s a u ;
-   FormII  => v2 s ;
-   FormIII => v3 s ;
-   FormIV  => v4 s ;
-   FormV   => v5 s ;
-   FormVI  => v6 s ;
+   FormI    => v1 s a u ;
+   FormII   => v2 s ;
+   FormIII  => v3 s ;
+   FormIV   => v4 s ;
+   FormV    => v5 s ;
+   FormVI   => v6 s ;
    FormVII  => v7 s ;
    FormVIII => v8 s ;
-   FormX   => v10 s
+   FormX    => v10 s ;
+   FormXI   => v11 s
    } ;
 
 param VerbForm =
-  FormI | FormII | FormIII | FormIV | FormV | FormVI | FormVII | FormVIII | FormX ;
+  FormI | FormII | FormIII | FormIV | FormV | FormVI | FormVII | FormVIII | FormX | FormXI ;
 
 } ;

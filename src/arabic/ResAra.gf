@@ -41,7 +41,6 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
     Root2   : Type = Root ** {c : Str} ;
     Root3   : Type = Root2 ** {l : Str} ;
 
--- AR 7/12/2009 changed this to avoid duplication of consonants
     mkRoot3 : Str -> Root3 = \fcl -> case fcl of {
       f@? + c@? + l => {f = f ; c = c ; l = l} ;
       _ => error ("mkRoot3: too short root" ++ fcl)
@@ -237,13 +236,13 @@ oper
         })
     } ;
   verb' : SoundForms -> Verb = \vforms ->
-   let katab = vforms ! 0 ;
-       kutib = vforms ! 1 ;
-       aktub = vforms ! 2 ;
-       uktab = vforms ! 3 ;
-       euktub = vforms ! 4 ;
-       maktUb = vforms ! 5 ;
-       katb   = vforms ! 6 ;
+   let katab = vforms ! 0 ; -- VPerf Act
+       kutib = vforms ! 1 ; -- VPerf Pas
+       aktub = vforms ! 2 ; -- VImpf _ Act
+       uktab = vforms ! 3 ; -- VImpf _ Pas
+       euktub = vforms ! 4 ; -- VImp
+       maktUb = vforms ! 5 ; -- VPPart
+       katb   = vforms ! 6 ; -- Masdar
     in verb katab kutib aktub uktab euktub maktUb katb ;
   --affixes of sound verbs
 
@@ -709,11 +708,11 @@ v2defective : Root3 -> Verb = \gny ->
     ugannu = "ُ" + gannu;
     uganna = "ُ" + ganna;
     mugannaY = "مُ" + ganna + "ى";
-    tagniya = "TODO" ;
+    tagniyat = "تَ" + mkStrong fcil (gny ** {l="ي"}) + "َة" ;
   } in verbDef (toDefForms
           ganna gannay gunni gunnu gunniy -- VPerf
           uganni ugannu uganna            -- VImpf
-          ganni gannu mugannaY tagniya) i ;
+          ganni gannu mugannaY tagniyat) i ;
 
 v3sound : Root3 -> Verb =
   \tbc ->
@@ -727,8 +726,7 @@ v3sound : Root3 -> Verb =
     mutAbacAt = mutAbac + "َاَة"
   } in verb tAbac twbic utAbic utAbac tAbic mutAbac mutAbacAt ;
 
-v4sound : Root3 -> Verb =
-  \qnc ->
+v4soundForms : Root3 -> SoundForms = \qnc ->
   let {
     eaqnac = mkStrong eafcal qnc;
     euqnic = mkStrong eufcil qnc;
@@ -738,7 +736,17 @@ v4sound : Root3 -> Verb =
     muqnac = "م" + uqnac;
     eiqnAc = mkStrong eifcAl qnc
   } in
-  verb eaqnac euqnic uqnic uqnac eaqnic muqnac eiqnAc;
+  toSoundForms eaqnac euqnic uqnic uqnac eaqnic muqnac eiqnAc;
+
+v4sound : Root3 -> Verb = \qnc ->
+  verb' (v4soundForms qnc) ;
+
+-- TODO: other differences
+v4assimilated : Root3 -> Verb = \wqf ->
+  let eIqAf = mkStrong eIfcAl (wqf ** {f=""}) ;
+      vforms_snd = v4soundForms wqf ;
+      vforms_ass = table {6 => eIqAf ; n => vforms_snd ! n}
+  in verb' vforms_ass ;
 
 v4hollow : Root3 -> Verb =
   \rwd ->
@@ -757,7 +765,7 @@ v4hollow : Root3 -> Verb =
     earId = mkHollow eafIc rwd ; -- VImp (Pl Masc / Sg Fem)
 
     ppart = "م" + urAd ;
-    eirAdat = mkWeak eifcAl rwd + "َة" ;
+    eirAdat = mkHollow eifcAl rwd + "َة" ;
 
   } in verbHollow (toDefForms
                       earAd earad eurId eurid -- VPerf
@@ -780,7 +788,7 @@ v4hollow : Root3 -> Verb =
     eacTi = "أَ" + _cTi; -- VImp (Masc Sg / Fem _)
     eacTu = "أَ" + _cTu; -- VImp Masc Pl
     mucTaY = "م" + ucTa +"ى" ;
-    eicTA' = "TODO" ;
+    eicTA' = mkStrong eifcAl (cTy ** {l="ء"}) ;
   } in toDefForms eacTa eacTay eucTi eucTu eucTiy -- VPerf
                   ucTi ucTu ucTa                  -- VImpf
                   eacTi eacTu mucTaY eicTA' ;
@@ -790,7 +798,12 @@ v4defective : Root3 -> Verb = \cTy ->
 
 v4doubleweak : Root3 -> Verb = \r'y ->
   let ry = r'y ** {c = ""} ;
-      vforms : DefForms = \\x => rmSukun (v4DefForms ry ! x) ; -- only remove the first sukun
+      r' = ry  ** {l = "ء"} ;
+      eirA'at = mkStrong eifcAl r' + "َة" ;
+      vforms : DefForms = table {
+        11 => rmSukun eirA'at ;
+        n  => rmSukun (v4DefForms ry ! n) -- only remove the first sukun
+      } ;
    in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
 
 v5sound : Root3 -> Verb =
@@ -928,7 +941,7 @@ v8hollow : Root3 -> Verb = -- IL
     -- iHtaj again          -- VImp Sg Masc / Pl Fem
     -- iHtAj again          -- VImp Pl Masc / Sg Fem
     ppart = "مُ" + _HtAj ;  -- PPart
-    iHtiyAj = "TODO" ;
+    iHtiyAj = "اِ" + mkStrong fticAl (Hwj ** {c="ي"}) ;
 
   }  in verbHollow (toDefForms
                      iHtAj iHtaj uHtIj uHtij aHtAj aHtaj
@@ -968,7 +981,7 @@ v10hollow : Root3 -> Verb = -- IL 10h -- to be checked
     ustaxaf = "ُ" + _staxaf ; -- VImpf Pas (Per2/Per3 Fem Pl)
     ustaxAf = "ُ" + _staxAf ; -- VImpf Pas _
     ppart = "مُ" + _staxIf ; -- PPart ("weird anomalies" here too?)
-    istixAfat = "TODO ficAlp" ;
+    istixAfat = "اِسْتِ" + mkHollow fAc xwf + "َة" ;
 
   } in verbHollow (toDefForms
                      istaxAf istaxaf ustuxIf ustuxif astaxIf astaxif
@@ -1027,6 +1040,18 @@ v10geminate : Str -> Verb = \fcl ->
          n@(2|3) => "ُسْتُ" + vforms ! n ; -- ???
          n@(6|7) => "ُسْتَ" + vforms ! n -- ???
     }) ;
+
+v11sound : Root3 -> Verb = \fclb ->
+  let faclabat = mkStrong facalp fclb ;
+      faclib = mkStrong facil fclb ;
+      faclab = mkStrong facal fclb ;
+      vforms = table {
+        2 => "ُ" + faclib ; -- VImpf Act
+        3 => "ُ" + faclab ; -- VImpf Pas
+        5 => "مُ" + faclab ; -- VPPart
+        n => v1soundForms fclb a i faclabat ! n
+      } ;
+   in verb' vforms ;
 
 patV1Perf : Vowel => Pattern =
   table {
