@@ -194,7 +194,7 @@ resource ResAra = PatternsAra ** open  Prelude, Predef, OrthoAra, ParamX  in {
       } ;
 
     uttNum : NumOrdCard -> (Gender => Str) ;
-    uttNum n = \\g => n.s ! g ! Const ! Bare ;
+    uttNum n = \\g => n.s ! Fem ! Const ! Bare ;
 
   param
     VForm =
@@ -2031,8 +2031,8 @@ patGeminateImp : (_,_ :Str) -> Gender => Number => Str = \facc,facic ->
 
     regNum : Str -> Str ->
       {s : DForm => CardOrd => Gender => State => Case => Str} =
-      \xams,xAmis ->
-      let { xamsa = xams + "َة";
+      \xams{-card-}, xAmis{-ord-} ->
+      let { xamsa = xams ; -- + "َة";
             xAmisa = xAmis +  "َة"} in
       mkNum xamsa xAmis xAmisa;
 
