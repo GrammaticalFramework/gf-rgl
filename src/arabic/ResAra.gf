@@ -709,11 +709,11 @@ v2defective : Root3 -> Verb = \gny ->
     ugannu = "ُ" + gannu;
     uganna = "ُ" + ganna;
     mugannaY = "مُ" + ganna + "ى";
-    tagniya = "TODO" ;
+    tagniyat = "تَ" + mkStrong fcil (gny ** {l="ي"}) + "َة" ;
   } in verbDef (toDefForms
           ganna gannay gunni gunnu gunniy -- VPerf
           uganni ugannu uganna            -- VImpf
-          ganni gannu mugannaY tagniya) i ;
+          ganni gannu mugannaY tagniyat) i ;
 
 v3sound : Root3 -> Verb =
   \tbc ->
@@ -757,7 +757,7 @@ v4hollow : Root3 -> Verb =
     earId = mkHollow eafIc rwd ; -- VImp (Pl Masc / Sg Fem)
 
     ppart = "م" + urAd ;
-    eirAdat = mkWeak eifcAl rwd + "َة" ;
+    eirAdat = mkHollow eifcAl rwd + "َة" ;
 
   } in verbHollow (toDefForms
                       earAd earad eurId eurid -- VPerf
@@ -780,7 +780,7 @@ v4hollow : Root3 -> Verb =
     eacTi = "أَ" + _cTi; -- VImp (Masc Sg / Fem _)
     eacTu = "أَ" + _cTu; -- VImp Masc Pl
     mucTaY = "م" + ucTa +"ى" ;
-    eicTA' = "TODO" ;
+    eicTA' = mkStrong eifcAl (cTy ** {l="ء"}) ;
   } in toDefForms eacTa eacTay eucTi eucTu eucTiy -- VPerf
                   ucTi ucTu ucTa                  -- VImpf
                   eacTi eacTu mucTaY eicTA' ;
@@ -790,7 +790,12 @@ v4defective : Root3 -> Verb = \cTy ->
 
 v4doubleweak : Root3 -> Verb = \r'y ->
   let ry = r'y ** {c = ""} ;
-      vforms : DefForms = \\x => rmSukun (v4DefForms ry ! x) ; -- only remove the first sukun
+      r' = ry  ** {l = "ء"} ;
+      eirA'at = mkStrong eifcAl r' + "َة" ;
+      vforms : DefForms = table {
+        11 => rmSukun eirA'at ;
+        n  => rmSukun (v4DefForms ry ! n) -- only remove the first sukun
+      } ;
    in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
 
 v5sound : Root3 -> Verb =
@@ -928,7 +933,7 @@ v8hollow : Root3 -> Verb = -- IL
     -- iHtaj again          -- VImp Sg Masc / Pl Fem
     -- iHtAj again          -- VImp Pl Masc / Sg Fem
     ppart = "مُ" + _HtAj ;  -- PPart
-    iHtiyAj = "TODO" ;
+    iHtiyAj = "اِ" + mkStrong fticAl (Hwj ** {c="ي"}) ;
 
   }  in verbHollow (toDefForms
                      iHtAj iHtaj uHtIj uHtij aHtAj aHtaj
@@ -968,7 +973,7 @@ v10hollow : Root3 -> Verb = -- IL 10h -- to be checked
     ustaxaf = "ُ" + _staxaf ; -- VImpf Pas (Per2/Per3 Fem Pl)
     ustaxAf = "ُ" + _staxAf ; -- VImpf Pas _
     ppart = "مُ" + _staxIf ; -- PPart ("weird anomalies" here too?)
-    istixAfat = "TODO ficAlp" ;
+    istixAfat = "اِسْتِ" + mkHollow fAc xwf + "َة" ;
 
   } in verbHollow (toDefForms
                      istaxAf istaxaf ustuxIf ustuxif astaxIf astaxif
