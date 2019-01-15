@@ -105,7 +105,7 @@ oper
   -- for which heuristic).
   mkN = overload {
 
-    mkN : (luz : Str) -> N -- predictable nouns
+    mkN : (revolução : Str) -> N -- predictable nouns
       = regN ;
 
     mkN : (alemão, alemães : Str) -> N -- force noun plural, guess gender
@@ -114,7 +114,7 @@ oper
     mkN : (mapa : Str) -> Gender -> N -- force gender, guess plural
       = \s,g -> regN s ** {g = g} ;
 
-    mkN : (bastão,bastões : Str) -> Gender -> N -- the worst case demands two forms (singular + plural) and the gender.
+    mkN : (mão,mãos : Str) -> Gender -> N -- the worst case demands two forms (singular + plural) and the gender.
       = mk2N
     } ;
 
@@ -256,7 +256,7 @@ oper
     mkA : (blanco : A) -> (hueso : Str) -> A -- noninflecting component after the adjective
       = mkNonInflectA ;
 
-    mkA : A -> CopulaType -> A -- force copula type, e.g. "João está doente", "João é doente". Choose among ``serCopula``, ``estarCopula``, and ``ficarCopula``
+    mkA : A -> CopulaType -> A -- force copula type, e.g. "João está doente" instead of "João é doente". Choose among ``serCopula``, ``estarCopula``, and ``ficarCopula``.
       = adjCopula ;
 
     } ;
