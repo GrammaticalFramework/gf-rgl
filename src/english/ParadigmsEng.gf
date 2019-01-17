@@ -313,7 +313,8 @@ oper
   mkVS  : V -> VS ; -- sentence-compl e.g. say (that S)
   mkV2S : V -> Prep -> V2S ; -- e.g. tell (NP) (that S)
   mkVV  : V -> VV ; -- e.g. want (to VP)
-  infVV : V -> VV ; -- e.g. want (to VP)
+  auxVV : V -> VV ; -- e.g. must (VP)
+  infVV : V -> VV ; -- e.g. must (VP) (old name of auxVV)
   ingVV : V -> VV ; -- e.g. start (VPing)
   mkV2V : overload {
     mkV2V : Str -> V2V ;
@@ -579,8 +580,13 @@ mkInterj : Str -> Interj
     p = v.p ; 
     typ = VVInf
     } ;
-  infVV  v = lin VV {
-    s = table {VVF vf => v.s ! vf ; _ => v.s ! VInf} ;
+  auxVV, infVV = \v -> lin VV {
+    s = table {
+          VVF vf => v.s ! vf ; 
+          VVPresNeg => v.s ! VPres ++ "not" ; 
+          VVPastNeg => v.s ! VPast ++ "not" ; --# notpresent
+          _ => v.s ! VInf
+          } ;
     p = v.p ; 
     typ = VVAux
     } ;
