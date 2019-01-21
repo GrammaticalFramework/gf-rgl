@@ -647,12 +647,9 @@ oper
      rumi = mkDefective fuci rmy ;
      rumu = mkDefective fucu rmy ;
      rumiy = mkStrong fucilo rmy ;
-     armi = "َ" + _rmi ;
-     armu = "َ" + _rmu ;
-     ad3i = case vowImpf of {
-              u => "َ" + mkDefective fci rmy ;
-              _ => armu
-            } ;
+     ad3i = "َ" + mkDefective fci rmy ; -- Per2 Sg Fem: always i
+     armu = "َ" + _rmu ;                -- Per2/Per3 Pl Masc: always u/a
+     armi = "َ" + _rmi ;                -- rest of the forms: depends on vowImpf
      urma = mkDefective ufca rmy ;
      eirmi = prefixImp ! vowImpf + _rmi;
      eirmu = prefixImp ! vowImpf + _rmu;
@@ -822,7 +819,7 @@ v4doubleweak : Root3 -> Verb = \r'y ->
       r' = ry  ** {l = "ء"} ;
       eirA'at = mkStrong eifcAl r' + "َة" ;
       vforms : DefForms = table {
-        11 => rmSukun eirA'at ;
+        12 => rmSukun eirA'at ;
         n  => rmSukun (v4DefForms ry ! n) -- only remove the first sukun
       } ;
    in verbDoubleDef vforms i ; -- sukun in suffixes is removed in verbDoubleDef
