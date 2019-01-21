@@ -520,18 +520,20 @@ oper
         table {
           Per3 Masc Pl => "وْنَ" ;
           Per2 Masc Pl => "وْنَ" ;
-          Per3 g    Dl => "يَانِ" ;
-          Per2 g    Dl => "يَانِ" ;
+          (Per3 _ Dl|Per2 _ Dl) => case vw of {
+                     u => "وَانِ" ;
+                     _ => "يَانِ" } ;
           Per3 Fem  Pl => "يْنَ" ;
           Per2 Fem  _  => "يْنَ" ;
           _            => default Ind
         } ;
-      m =>
+      m => -- TODO: check whether to remove sukuns
         table {
           Per3 Masc Pl => "وْا" ;
           Per2 Masc Pl => "وْا" ;
-          Per3 g    Dl => "يَا" ;
-          Per2 g    Dl => "يَا" ;
+          (Per3 _ Dl|Per2 _ Dl) => case vw of {
+                     u => "وَا" ;
+                     _ => "يَا" } ;
           Per3 Fem  Pl => "يْنَ" ;
           Per2 Fem  Pl => "يْنَ" ;
           Per2 Fem  Sg => "ي" ;
