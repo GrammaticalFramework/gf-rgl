@@ -2,9 +2,10 @@
 
 concrete ExtendFin of Extend =
   CatFin ** ExtendFunctor - [
-    VPI2,VPS2,MkVPS2,ConjVPS2,ComplVPS2,MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
-    ,ExistCN, ExistMassCN
-    ,CompoundN
+    VPI2,VPS2,MkVPS,MkVPS2,ConjVPS2,ComplVPS2, ConsVPS, BaseVPS, ListVPS, VPS, ConjVPS,PredVPS,
+    MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
+    ,ExistCN, ExistMassCN, ICompAP
+    ,CompoundN, GenNP, GenIP
     ]
   with
     (Grammar = GrammarFin) **
@@ -55,7 +56,7 @@ oper
 
     MkVPS t p vp = mkVPS t p (lin VP vp) ;
     ConjVPS c xs = conjunctDistrTable Agr c xs  ;
-    PredVPS np vps = {s = np.s ! npNom ++ vps.s ! np.a} ;
+    PredVPS np vps = {s = np.s ! NPCase Nom ++ vps.s ! np.a} ;
 
 
     MkVPI vp = mkVPI vp ;
@@ -116,4 +117,34 @@ lin
       s  = \\c => ukkos_ ++ BIND ++ n2.s ! c ;
       h  = n2.h
       } ;
+
+---- copied from VerbFin.CompAP, should be shared
+    ICompAP ap = {
+      s = \\agr => 
+          let
+            n = complNumAgr agr ;
+            c = case n of {
+              Sg => Nom ;  -- minä olen iso ; te olette iso
+              Pl => ResFin.Part   -- me olemme isoja ; te olette isoja
+              }            --- definiteness of NP ?
+          in "kuinka" ++ ap.s ! False ! (NCase n c)
+      } ;
+
+  lin
+    GenNP np = {
+      s1,sp = \\_,_ => np.s ! NPCase Gen ;
+      s2 = case np.isPron of { -- "isän auto", "hänen autonsa"  
+             True => table {Front => BIND ++ possSuffixFront np.a ; 
+                            Back  => BIND ++ possSuffix np.a } ;
+             False => \\_ => []
+             } ;
+      isNum  = False ;
+      isPoss = np.isPron ; --- also gives "sen autonsa"
+      isDef  = True ; --- "Jussin kolme autoa ovat" ; thus "...on" is missing
+      isNeg = False 
+     } ;
+
+    GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
+
+
 }
