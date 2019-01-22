@@ -129,14 +129,15 @@ resource ParadigmsAra = open
      = \s,a -> a ** {s = table {af => s ++ a.s ! af}}
    } ;
 
-  nisbaA : Str -> Adj ; -- forms relative adjectives by adding the suffix ِيّ
+  nisbaA : Str -> Adj ; -- Forms relative adjectives with the suffix ِيّ. Takes either the stem and adds يّ, or the whole word ending in يّ and just adds declension.
 
-  idaafaA : N -> A -> A ; -- first argument will be in constructus but inflect in case, adjective in genitive, but inflect in gender, number and definiteness. e.g. غَيْرُ طَيِّبٍ
+  idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ طَيِّبٍ 'not good'. Noun is in constructus but inflects in case. Adjective is in genitive, but inflects in gender, number and definiteness.
 
-  degrA : (masc,fem,plur : Str) -> A ; -- adjective where masculine singular is also the comparative form. Indeclinable singular, basic triptote declension for dual and plural.
+  degrA : (masc,fem,plur : Str) -> A ; -- Adjective where masculine singular is also the comparative form. Indeclinable singular, basic triptote declension for dual and plural.
 
-  irregFemA : (masc : A) -> (fem : A) -> A ; -- adjective with irregular feminine. Takes two adjectives (masc. "regular" and fem. "regular") and puts them together.
+  irregFemA : (masc : A) -> (fem : A) -> A ; -- Adjective with irregular feminine. Takes two adjectives (masc. regular and fem. "regular", with fem. forms in the masc fields,) and puts them together.
 
+  invarGenderA : A -> A ; -- Forms an adjective that has no feminine form. Takes a regular adjective and forces the masculine forms into the fem. table.
 
 --3 Two-place adjectives
 --
@@ -729,6 +730,9 @@ resource ParadigmsAra = open
       APosit Fem  n d c => f.s ! APosit Masc n d c ; -- The fem. adjective is built as if the irregular fem. forms were Masc. This is on purpose.
       x => m.s ! x }
     } ;
+
+  invarGenderA = \m ->
+    irregFemA m m ;
 
   nisbaA Haal =
     let Haaliyy : Str = case Haal of {
