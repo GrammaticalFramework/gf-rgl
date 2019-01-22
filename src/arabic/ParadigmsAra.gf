@@ -199,7 +199,7 @@ resource ParadigmsAra = open
     mkV : (imperfect : Str) -> V ; -- Verb of Form I in 3rd person masculine imperfect tense. Dummy masdar inserted.
     mkV : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V ; -- Verb form I. Vowel is one of {va,vi,vu}. Unpredictable masdar given as an argument.
     mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- Like above, but dummy masdar inserted. This function is here only to keep compatibility for the old API; for new grammars, use the constructor with masdar as an argument.
-    mkV : (root,masdar : Str) -> VerbForm -> V ;  -- FormI…FormXI (no IX). XI is quadriliteral. For FormI, default vowels are va and vu, and dummy masdar is inserted. Forms II-XI have predictable masdar, so this constructor works fine.
+    mkV : (root,masdar : Str) -> VerbForm -> V ;  -- FormI…FormXI (no IX). XI is quadriliteral. For FormI, default vowels are va and vu. The given masdar is used for FormI, but currently ignored for Forms II-XI.
     mkV : (root : Str) -> VerbForm -> V ;  -- Like above, but dummy masdar inserted for FormI verbs. No difference for FormII-FormXI, because they have predictable masdar.
     mkV : V -> (particle : Str) -> V -- V with a non-inflecting particle/phrasal verb
     } ;
