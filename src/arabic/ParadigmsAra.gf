@@ -42,11 +42,6 @@ resource ParadigmsAra = open
   acc : Case ;
   gen : Case ;
 
--- Prepositions are used in many-argument functions for rection.
-  Preposition : Type ;
-  noPrep : Preposition ;
-  casePrep : Case -> Preposition ;
-   --- TODO: continue, add all over the grammar
 
   Gender : Type ;
   masc : Gender ;
@@ -156,7 +151,7 @@ resource ParadigmsAra = open
 -- Two-place adjectives need a preposition for their second argument.
 
   mkA2 : overload {
-    mkA2 : A -> Preposition -> A2 ;
+    mkA2 : A -> Prep -> A2 ;
     mkA2 : A -> Str -> A2
   } ;
 
@@ -185,9 +180,14 @@ resource ParadigmsAra = open
 -- build $PP$s in the resource API. Requires a string and a case.
 
   mkPrep : overload {
-    mkPrep : Str -> Prep ;
-    mkPrep : Str -> Case -> Prep
-  } ;  -- preposition in the sense of RGL abstract syntax
+    mkPrep : Str -> Prep ; -- Build a preposition out of the given string, with genitive case.
+    mkPrep : Str -> Case -> Prep ; -- Build a preposition out of the given string and case.
+    mkPrep : Case -> Prep ; -- Just a case, no preposition.
+  } ;
+
+  liPrep : Prep ; -- The preposition لِ, binding to its head. Vowel assimilation and def. article elision implemented.
+  biPrep : Prep ; -- The preposition بِ, binding to its head.
+  noPrep : Prep ; -- No preposition at all, "complement case" is nominative.
 
 --2 Conjunctions
   mkConj : overload {
@@ -242,8 +242,8 @@ resource ParadigmsAra = open
 
   mkV2 : overload {
     mkV2 : V -> V2 ; -- No preposition
-    mkV2 : V -> Str -> V2 ; -- Preposition as string, default case genitive
-    mkV2 : V -> Preposition -> V2 ; -- Ready-made preposition
+    mkV2 : V -> Str -> V2 ; -- Prep as string, default case genitive
+    mkV2 : V -> Prep -> V2 ; -- Ready-made preposition
     mkV2 : Str -> V2 ; -- Predictable verb conjugation, no preposition
   } ;
 
@@ -255,11 +255,11 @@ resource ParadigmsAra = open
 -- the first one or both can be absent.
 
   mkV3 : overload {
-    mkV3 : V -> Preposition -> Preposition -> V3 ; -- speak, with, about
+    mkV3 : V -> Prep -> Prep -> V3 ; -- speak, with, about
     mkV3 : V -> (to : Str)  -> (about:Str) -> V3  -- like above, but with strings as arguments (default complement case genitive)
   } ;
   dirV3 : overload {
-    dirV3 : V -> Preposition -> V3 ; -- give,_,to
+    dirV3 : V -> Prep -> V3 ; -- give,_,to
     dirV3 : V -> (to : Str)  -> V3   -- like above, but with string as argument (default complement case genitive)
   } ;
   dirdirV3 : V -> V3 ;               -- give,_,_
@@ -278,13 +278,13 @@ resource ParadigmsAra = open
   mkVV = overload {
     mkVV : V -> VV = regVV ;
     mkVV : V -> Str -> VV = c2VV ;
-    mkVV : V -> Preposition -> VV = prepVV ;
-    mkVV : V -> Preposition -> Preposition -> VV = prep2VV
+    mkVV : V -> Prep -> VV = prepVV ;
+    mkVV : V -> Prep -> Prep -> VV = prep2VV
     } ;
   mkV2V : overload {
     mkV2V : V -> Str -> Str -> V2V ;
-    mkV2V : V -> Preposition -> Preposition -> V2V ;
-    mkV2V : VV -> Preposition -> V2V
+    mkV2V : V -> Prep -> Prep -> V2V ;
+    mkV2V : VV -> Prep -> V2V
   } ;
   mkVA  : V -> VA ;
   mkV2A : V -> Str -> V2A ;
@@ -315,12 +315,6 @@ resource ParadigmsAra = open
   acc = ResAra.Acc ;
   gen = ResAra.Gen ;
 
--- Prepositions are used in many-argument functions for rection.
-
-  Preposition = ResAra.Preposition ;
-  noPrep = {s=[]; c=nom; binds=False} ;
-  casePrep c = {s=[]; c=c; binds=False} ;
-
   Gender = ResAra.Gender ;
   masc = ResAra.Masc ;
   fem = ResAra.Fem ;
@@ -342,14 +336,21 @@ resource ParadigmsAra = open
     mkPrep : Str -> Prep = \s ->
       lin Prep (mkPreposition s) ;
     mkPrep : Str -> Case -> Prep = \s,c ->
-      lin Prep (mkPreposition s c)
+      lin Prep (mkPreposition s c) ;
+    mkPrep : Case -> Prep = \c ->
+      lin Prep (casePrep c) ;
     } ;
 
+  noPrep = lin Prep {s=[]; c=nom; binds=False} ;
+  biPrep = lin Prep ResAra.biPrep ;
+  liPrep = lin Prep ResAra.liPrep ;
+
+  casePrep : Case -> Prep = \c -> lin Prep {s=[]; c=c; binds=False} ;
 
   mkV2 = overload {
     mkV2 : V -> V2 = dirV2 ;
     mkV2 : V -> Str -> V2 = \v,p -> prepV2 v (mkPreposition p);
-    mkV2 : V -> Preposition -> V2 = prepV2 ;
+    mkV2 : V -> Prep -> V2 = prepV2 ;
     mkV2 : Str -> V2 = strV2;
   } ;
 
@@ -609,7 +610,7 @@ resource ParadigmsAra = open
     };
 
   mkN2 = overload {
-    mkN2 : N -> Preposition -> N2 = prepN2 ;
+    mkN2 : N -> Prep -> N2 = prepN2 ;
     mkN2 : N -> Str -> N2 = \n,s -> prepN2 n (mkPreposition s);
     mkN2 : N -> N2 = \n -> lin N2 (n ** {c2 = noPrep}) ;
     mkN2 : Str -> N2 = \str -> lin N2 (smartN str ** {c2 = noPrep})
@@ -618,7 +619,7 @@ resource ParadigmsAra = open
   prepN2 : N -> Preposition -> N2 = \n,p -> lin N2 (n ** {c2 = p}) ;
 
   mkN3 = overload {
-    mkN3 : N -> Preposition -> Preposition -> N3 = \n,p,q ->
+    mkN3 : N -> Prep -> Prep -> N3 = \n,p,q ->
       lin N3 (n ** {c2 = p ; c3 = q}) ;
     mkN3 : N -> Str -> Str -> N3 = \n,p,q ->
       lin N3 (n ** {c2 = mkPreposition p ; c3 = mkPreposition q}) ;
@@ -742,7 +743,7 @@ resource ParadigmsAra = open
     };
 
   mkA2 = overload {
-    mkA2 : A -> Preposition -> A2 = prepA2 ;
+    mkA2 : A -> Prep -> A2 = prepA2 ;
     mkA2 : A -> Str -> A2 = \a,p -> prepA2 a (mkPreposition p)
     } ;
 
@@ -761,7 +762,7 @@ resource ParadigmsAra = open
   dirV2 v = prepV2 v (casePrep acc) ;
 
   mkV3 = overload {
-    mkV3 : V -> Preposition -> Preposition -> V3 = \v,p,q ->
+    mkV3 : V -> Prep -> Prep -> V3 = \v,p,q ->
       lin V3 (prepV3 v p q) ;
     mkV3 : V -> Str -> Str -> V3 = \v,p,q ->
       lin V3 (v ** {s = v.s ; c2 = mkPreposition p ; c3 = mkPreposition q})
@@ -771,7 +772,7 @@ resource ParadigmsAra = open
     v ** {s = v.s ; c2 = p ; c3 = q} ;
 
   dirV3 = overload {
-    dirV3 : V -> Preposition -> V3 = \v,p -> mkV3 v (casePrep acc) p ;
+    dirV3 : V -> Prep -> V3 = \v,p -> mkV3 v (casePrep acc) p ;
     dirV3 : V -> Str -> V3 = \v,s -> mkV3 v (casePrep acc) (mkPreposition s)
     } ;
 
@@ -785,8 +786,8 @@ resource ParadigmsAra = open
 
   regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;
   c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep ; sc = noPrep} ;
-  prepVV : V -> Preposition -> VV = \v,prep -> regVV v ** {c2=prep; sc=noPrep} ;
-  prep2VV : V -> (_,_ : Preposition) -> VV = \v,p1,p2 -> regVV v ** {c2=p1; sc=p2} ;
+  prepVV : V -> Prep -> VV = \v,prep -> regVV v ** {c2=prep; sc=noPrep} ;
+  prep2VV : V -> (_,_ : Prep) -> VV = \v,p1,p2 -> regVV v ** {c2=p1; sc=p2} ;
   V0 : Type = V ;
 ----  V2S, V2V, V2Q, V2A : Type = V2 ;
   AS, A2S, AV : Type = A ;
@@ -799,13 +800,13 @@ resource ParadigmsAra = open
       lin V2V (prepV3 v (mkPreposition p) (mkPreposition q) ** {sc = noPrep}) ;
     mkV2V : V2 -> V2V = \v2 ->
       lin V2V (v2 ** {c2 = v2.c2 ; c3,sc = noPrep}) ;
-    mkV2V : V2 -> Preposition -> V2V = \v2,p ->
+    mkV2V : V2 -> Prep -> V2V = \v2,p ->
       lin V2V (v2 ** {c2 = v2.c2 ; c3 = p ; sc = noPrep}) ;
-    mkV2V : V2 -> Preposition -> Preposition -> V2V = \v2,p,q->
+    mkV2V : V2 -> Prep -> Prep -> V2V = \v2,p,q->
       lin V2V (v2 ** {c2 = v2.c2 ; c3 = p ; sc = q}) ;
-    mkV2V : V -> Preposition -> Preposition -> V2V = \v,p,q ->
+    mkV2V : V -> Prep -> Prep -> V2V = \v,p,q ->
       lin V2V (prepV3 v p q ** {sc = noPrep}) ;
-    mkV2V : VV -> Preposition -> V2V = \vv,p ->
+    mkV2V : VV -> Prep -> V2V = \vv,p ->
       lin V2V (vv ** {c2 = p ; c3 = vv.c2}) ;
   } ;
   mkVA  v   = v ** {lock_VA = <>} ;
