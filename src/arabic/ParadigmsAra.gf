@@ -37,84 +37,75 @@ resource ParadigmsAra = open
 
   oper
 
-  Case : Type ;
-  nom : Case ;
-  acc : Case ;
-  gen : Case ;
+  Case : Type ; -- Argument to mkPrep
+  nom : Case ; -- Nominative
+  acc : Case ; -- Accusative
+  gen : Case ; -- Genitive
 
+  Gender : Type ; -- Argument to mkN and mkPN
+  masc : Gender ; -- Masculine
+  fem : Gender ; -- Feminine
 
-  Gender : Type ;
-  masc : Gender ;
-  fem : Gender ;
+  Number : Type ; -- Argument to mkConj ("NP and NP" plural; "NP or NP" singular), and special cases of mkN, where nominal attribute is included in the N.
+  sg : Number ; -- Singular
+  pl : Number ; -- Plural
 
-  Number : Type ;
-  sg : Number ;
-  pl : Number ;
+  Species : Type ; -- Argument to mkN.
+  hum : Species ;  -- Human nouns (teacher, woman, brother, …)
+  nohum : Species ; -- Any other nouns (house, dog, …)
 
-  Species : Type ;
-  hum : Species ;
-  nohum : Species ;
-
-  Vowel : Type ;
-  va : Vowel ;
-  vi : Vowel ;
-  vu : Vowel ;
+  Vowel : Type ; -- Argument to mkV, when constructing verbs of Form I.
+  va : Vowel ; -- a (fatha) as the perfect or imperfect vowel, e.g. فعَل
+  vi : Vowel ; -- i (kasra) as the perfect or imperfect vowel, e.g  فعِل
+  vu : Vowel ; -- u (damma) as the perfect or imperfect vowel, e.g. فعُل
 
 --2 Nouns
 
 -- Overloaded operator for main cases
 
+  mkN : overload {
+    mkN : (sg : Str) -> N ; -- Non-human regular noun.
+    mkN : Species -> N -> N ; -- Specify humanness, for a noun constructed as non-human.
+    mkN : (sg,pl : Str) -> Gender -> Species -> N ; -- Basic triptote declension. The argument can be sound or broken plural. For irregular/weak roots, safer to use brkN, sdfN or sdmN.
+    mkN : (root,sgPat,plPat : Str) -> Gender -> Species -> N ; -- Broken plural (same as brkN). Detects irregularities in root, like ي -> ى.
+    mkN : N -> (attr : Str) -> N ; -- Compound noun with invariant attribute.
+    mkN :           N -> N -> N ;  -- Compound noun with singular genitive attribute, but inflects in state.
+    mkN : Number -> N -> N -> N ;  -- Compound noun with genitive attribute, but inflects in state. Attribute's number specified by 1st arg.
+    mkN :           N -> A -> N ;  -- Force adjective modifier into the noun. Adjective inflects in state, case and number.
+    mkN : Number -> N -> A -> N ;  -- Force adjective modifier into the noun. Adjective inflects in state and case. Adjective's number specified by 1st arg.
+    mkN : N -> AP -> N  ;          -- Force AP modifier into the noun. AP inflects in state, case and number.
+    } ;
 
- mkN : overload {
-   mkN : (sg : Str) -> N ; -- non-human regular nouns
-   mkN : Species -> N -> N ; -- specify humanness, for a noun constructed as non-human
-   mkN : (sg,pl : Str) -> Gender -> Species -> N ;
-   mkN : NTable -> Gender -> Species -> N ;  -- loan words, irregular
-   mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N ; -- broken plural
-   mkN : N -> (attr : Str) -> N ; -- Compound noun with invariant attribute
-   mkN : N -> N -> N ;            -- Compound noun with singular genitive attribute, but inflects in state.
-   mkN : Number -> N -> N -> N ;  -- Compound noun with genitive attribute, but inflects in state. Attribute's number specified by 1st arg.
-   mkN : N -> A -> N ;            -- Force adjective modifier into the noun. Adjective inflects in state, case and number.
-   mkN : Number -> N -> A -> N ;  -- Force adjective modifier into the noun. Adjective inflects in state and case. Adjective's number specified by 1st arg.
-   mkN : N -> AP -> N  ;          -- Force AP modifier into the noun. AP inflects in state, case and number.
----   mkN : (root,sgPatt : Str) -> Gender -> Species -> N                -- sound feminine plural
----    = sdfN ;
-   } ;
+  brkN : (root,sgPat,brokenPlPat : Str) -> Gender -> Species -> N ; -- Takes a root string, a singular pattern string, a broken plural pattern string, a gender, and species. Gives a noun.
+
+  sdfN : (root,sgPat : Str) -> Gender -> Species -> N ; -- Takes a root string, a singular pattern string, a gender, and species. Gives a noun whose plural is sound feminine.
+
+  sdmN : (root,sgPat : Str) -> Gender -> Species -> N ; -- Takes a root string, a singular pattern string, a gender, and species. Gives a noun whose plural is sound masculine
 
   dualN : N -> N ; -- Force the plural of the N into dual (e.g. "twins")
-
-  mkFullN : NTable -> Gender -> Species -> N ; -- This is used for loan words or anything that has untreated irregularities in the interdigitization process of its words
-
-  sdfN : Str -> Str -> Gender -> Species -> N ; -- Takes a root string, a singular pattern string, a gender, and species. Gives a noun whose plural is sound feminine.
-
-  sdmN : Str -> Str -> Gender -> Species -> N ; -- Takes a root string, a singular pattern string, a gender, and species. Gives a noun whose plural is sound masculine
 
 --3 Proper names
 
   mkPN = overload {
-    mkPN : Str -> PN        -- Fem Hum if ends with ة, otherwise Masc Hum
+    mkPN : Str -> PN  -- Predictable PN from a Str: fem hum if ends with ة, otherwise masc hum.
      = smartPN ;
-    mkPN : N -> PN
+    mkPN : N -> PN    -- Make a PN out of N.
      = \n -> lin PN (n ** {s = \\c => n.s ! Sg ! Const ! c ++ n.s2 ! Sg ! Def ! c }) ; -- no idea /IL
-    mkPN : Str -> Gender -> Species -> PN
+    mkPN : Str -> Gender -> Species -> PN -- PN out of string, gender and species.
      = mkFullPN ;
     } ;
-
-  mkFullPN : Str -> Gender -> Species -> PN ;
-
-
 
 --3 Relational nouns
 
   mkN2 : overload {
-    mkN2 : N -> Preposition -> N2 ; -- ready-made preposition
+    mkN2 : N -> Prep -> N2 ; -- ready-made preposition
     mkN2 : N -> Str -> N2 ; -- preposition given as a string
     mkN2 : N -> N2 ; -- no preposition
     mkN2 : Str -> N2 ; -- no preposition, predictable inflection
   } ;
 
   mkN3 : overload {
-    mkN3 : N -> Preposition -> Preposition -> N3 ; -- ready-made prepositions
+    mkN3 : N -> Prep -> Prep -> N3 ; -- ready-made prepositions
     mkN3 : N -> Str -> Str -> N3 ;  -- prepositions given as strings
   } ;
 
@@ -126,9 +117,9 @@ resource ParadigmsAra = open
  mkA = overload {
    mkA : (root : Str) -> A                -- adjective with positive form aFCal
     = \r -> lin A (clrA r);
-   mkA : (root,sg : Str) -> A             -- adjective with sound plural, takes root string and sg. pattern string
+   mkA : (root,sgPat : Str) -> A             -- adjective with sound plural, takes root string and sg. pattern string
     = \r,p -> lin A (sndA r p);
-   mkA : (root,sg,pl : Str) -> A          -- adjective with broken plural, same for both fem. and masc.
+   mkA : (root,sgPat,plPat : Str) -> A          -- adjective with broken plural, same for both fem. and masc.
     = \r,s,p -> lin A (brkA r s p) ;
    mkA : (isSoundFem : Bool) -> (root,sg,pl : Str) -> A -- adjective with broken plural, boolean argument whether feminine is sound (True) or shared with masc (False)
     = \b,r,s,p -> lin A (brkABool b r s p) ;
@@ -138,13 +129,14 @@ resource ParadigmsAra = open
      = \s,a -> a ** {s = table {af => s ++ a.s ! af}}
    } ;
 
+  nisbaA : Str -> Adj ; -- forms relative adjectives by adding the suffix ِيّ
+
   idaafaA : N -> A -> A ; -- first argument will be in constructus but inflect in case, adjective in genitive, but inflect in gender, number and definiteness. e.g. غَيْرُ طَيِّبٍ
 
-  degrA : (masc,fem,plur : Str) -> A ; -- adjective where masculine singular is also the comparative form.
+  degrA : (masc,fem,plur : Str) -> A ; -- adjective where masculine singular is also the comparative form. Indeclinable singular, basic triptote declension for dual and plural.
 
   irregFemA : (masc : A) -> (fem : A) -> A ; -- adjective with irregular feminine. Takes two adjectives (masc. "regular" and fem. "regular") and puts them together.
 
-  nisbaA : Str -> Adj ; -- forms relative adjectives by adding the suffix ِيّ
 
 --3 Two-place adjectives
 --
@@ -193,6 +185,8 @@ resource ParadigmsAra = open
   mkConj : overload {
     mkConj : Str -> Conj ; -- and
     mkConj : Str -> Str -> Conj ; -- either … or
+    mkConj : Str -> Number -> Conj ; -- and, pl
+    mkConj : Str -> Str -> Number -> Conj ; -- either, or, sg
   } ;
 
 --2 Verbs
@@ -200,7 +194,8 @@ resource ParadigmsAra = open
 -- Overloaded operations
 
   mkV : overload {
-    mkV : (imperfect : Str) -> V ; -- The verb in Per3 Sg Masc imperfect tense gives the most information
+    mkV : (imperfect,masdar : Str) -> V ; -- Verb of Form I in 3rd person masculine imperfect tense. Unpredictable masdar given as an argument.
+    mkV : (imperfect : Str) -> V ; -- Verb of Form I in 3rd person masculine imperfect tense. Dummy masdar inserted.
     mkV : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V ; -- Verb form I. Vowel is one of {va,vi,vu}. Unpredictable masdar given as an argument.
     mkV : (root : Str) -> (perf,impf : Vowel) -> V ; -- Like above, but dummy masdar inserted. This function is here only to keep compatibility for the old API; for new grammars, use the constructor with masdar as an argument.
     mkV : (root,masdar : Str) -> VerbForm -> V ;  -- FormI…FormXI (no IX). XI is quadriliteral. For FormI, default vowels are va and vu, and dummy masdar is inserted. Forms II-XI have predictable masdar, so this constructor works fine.
@@ -364,9 +359,7 @@ resource ParadigmsAra = open
      = \p,n -> n ** {h = p} ;
    mkN : (sg,pl : Str) -> Gender -> Species -> N
      = \sg,pl -> mkFullN (reg sg pl) ;
-   mkN : NTable -> Gender -> Species -> N                             -- loan words, irregular
-     = mkFullN ;
-   mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
+   mkN : (root,sgPat,brokenPlPat : Str) -> Gender -> Species -> N   -- broken plural
      = brkN ;
    mkN : N -> (attr : Str) -> N                                       -- Compound nouns with noninflecting attribute
      = \n,attr -> n ** {s2 = \\num,s,c => n.s2 ! num ! s ! c ++ attr} ;
@@ -407,8 +400,10 @@ resource ParadigmsAra = open
   mkPron : (_,_,_ : Str) -> PerGenNum -> Pron ;
 
   mkV = overload {
+    mkV : (imperfect,masdar : Str) -> V
+      = \v,m -> regV v m ;
     mkV : (imperfect : Str) -> V
-      = regV ;
+      = \v -> regV v ;
     mkV : (root : Str) -> (perf,impf : Vowel) -> (masdar : Str) -> V  -- verb form I ; vowel = a|i|u
       = v1masdar ;
     mkV : (root : Str) -> (perf,impf : Vowel) -> V  -- verb form I ; vowel = a|i|u ; dummy masdar
@@ -419,16 +414,27 @@ resource ParadigmsAra = open
       v ** { s = \\vf => v.s ! vf ++ p } ;
     } ;
 
-  regV : Str -> V = \wo ->
-    let rau : Str * Vowel * Vowel =
-    case wo of {
-      "يَ" + fc + "ُ" + l => <fc+l, a, u> ;
-      "يَ" + fc + "ِ" + l => <fc+l, a, i> ;
-      "يَ" + fc + "َ" + l => <fc+l, a, a> ;
-      f@? + "َ" + c@? + "ِ" + l  => <f+c+l, i, a> ;
-      _ => Predef.error ("regV not applicable to" ++ wo)
-    }
-    in v1dummymasdar rau.p1 rau.p2 rau.p3 ;
+  regV = overload {
+    regV : (v,msdr : Str) -> V = \wo,msdr ->
+      let rau : Str * Vowel * Vowel =
+      case wo of {
+        "يَ" + fc + "ُ" + l => <fc+l, a, u> ;
+        "يَ" + fc + "ِ" + l => <fc+l, a, i> ;
+        "يَ" + fc + "َ" + l => <fc+l, a, a> ;
+        f@? + "َ" + c@? + "ِ" + l  => <f+c+l, i, a> ;
+        _ => Predef.error ("regV not applicable to" ++ wo)
+      }
+      in v1masdar rau.p1 rau.p2 rau.p3 msdr ;
+    regV : Str -> V = \wo ->
+      let rau : Str * Vowel * Vowel =
+      case wo of {
+        "يَ" + fc + "ُ" + l => <fc+l, a, u> ;
+        "يَ" + fc + "ِ" + l => <fc+l, a, i> ;
+        "يَ" + fc + "َ" + l => <fc+l, a, a> ;
+        f@? + "َ" + c@? + "ِ" + l  => <f+c+l, i, a> ;
+        _ => Predef.error ("regV not applicable to" ++ wo)
+      } in v1dummymasdar rau.p1 rau.p2 rau.p3
+  } ;
 
   v1masdar : Str -> (perf,impf : Vowel) -> (masdar : Str) -> V =
     \rootStr,vPerf,vImpf,msdr ->
@@ -556,6 +562,7 @@ resource ParadigmsAra = open
 
   reflV v = lin V (ResAra.reflV v) ;
 
+  mkFullN : NTable -> Gender -> Species -> N ; -- This is used for loan words or anything that has untreated irregularities in the interdigitization process of its words
   mkFullN nsc gen spec = lin N
     { s = nsc; --NTable
       s2 = emptyNTable;
@@ -572,10 +579,6 @@ resource ParadigmsAra = open
           kutub = mkWord pl root
     } in mkFullN (reg kitAb kutub) gen spec;
 
-
---Takes a root string, a singular pattern string, a broken plural
---pattern string, a gender, and species. Gives a noun.
-  brkN : Str -> Str -> Str -> Gender -> Species -> N ;
   brkN root sg pl gen spec =
     let { raw = brkN' root sg pl gen spec} in raw **
     { s = \\n,d,c =>
@@ -602,6 +605,7 @@ resource ParadigmsAra = open
     let { mucallim = mkWord sg root;
     } in mkFullN (sndm mucallim) gen spec;
 
+  mkFullPN : Str -> Gender -> Species -> PN ;
   mkFullPN = \str,gen,species ->
     { s = \\c => str + indecl!c ;
       g = gen;
@@ -626,10 +630,14 @@ resource ParadigmsAra = open
   } ;
 
   mkConj = overload {
-    mkConj : Str -> Conj = \s -> lin Conj {s1 = [] ; s2 = s ; n = Sg} ;
-    mkConj : Str -> Str -> Conj = \s1,s2 -> lin Conj {s1 = s1 ; s2 = s2 ; n = Sg} ;
-    mkConj : Str -> Number -> Conj = \s,n -> lin Conj {s1 = [] ; s2 = s ; n = n} ;
-    mkConj : Str -> Str -> Number -> Conj = \s1,s2,n -> lin Conj {s1 = s1 ; s2 = s2 ; n = n}
+    mkConj : Str -> Conj =
+      \s -> lin Conj {s1 = [] ; s2 = s ; n = Sg} ;
+    mkConj : Str -> Str -> Conj =
+     \s1,s2 -> lin Conj {s1 = s1 ; s2 = s2 ; n = Sg} ;
+    mkConj : Str -> Number -> Conj =
+      \s,n -> lin Conj {s1 = [] ; s2 = s ; n = n} ;
+    mkConj : Str -> Str -> Number -> Conj =
+      \s1,s2,n -> lin Conj {s1 = s1 ; s2 = s2 ; n = n}
     } ;
 
   mkPron : (_,_,_ : Str) -> PerGenNum -> Pron = \ana,nI,I,pgn ->
