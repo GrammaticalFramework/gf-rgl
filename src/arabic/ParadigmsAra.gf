@@ -3,6 +3,7 @@
 --1 Arabic Lexical Paradigms
 --
 -- Ali El Dada 2005--2006
+-- Inari Listenmaa 2018-
 --
 -- This is an API to the user of the resource grammar
 -- for adding lexical items. It gives functions for forming
@@ -26,9 +27,8 @@
 resource ParadigmsAra = open
   Predef,
   Prelude,
-  MorphoAra,
+  ResAra,
   OrthoAra,
-  (ResAra=ResAra),
   (A=AdjectiveAra),
   CatAra
   in {
@@ -723,8 +723,9 @@ resource ParadigmsAra = open
 
   nisbaA Haal =
     let Haaliyy : Str = case Haal of {
-          x + "ِيّ" => Haal ; -- if the ending is already given, don't add it
-          _         => Haal + "ِيّ" -- intended usage: give only stem
+          x + "يّ"      => Haal ; -- if the ending is already given, don't add it
+          x + ("ا"|"ة") => x + "ِيّ" ; -- drop final alif or ta marbuta
+          _             => Haal + "ِيّ"
         } in lin A {
       s = table {
         APosit g n d c  => positAdj Haaliyy ! g ! n ! d ! c ;
