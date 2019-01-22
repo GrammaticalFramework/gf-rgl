@@ -4,7 +4,7 @@ concrete ExtendFin of Extend =
   CatFin ** ExtendFunctor - [
     VPI2,VPS2,MkVPS,MkVPS2,ConjVPS2,ComplVPS2, ConsVPS, BaseVPS, ListVPS, VPS, ConjVPS,PredVPS,
     MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
-    ,ExistCN, ExistMassCN, ICompAP
+    ,ExistCN, ExistMassCN, ICompAP, ByVP
     ,CompoundN, GenNP, GenIP
     ]
   with
@@ -146,5 +146,6 @@ lin
 
     GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
 
+    ByVP vp = lin Adv {s = S.infVP vp.s.sc Pos (Ag Sg P3) vp Inf3Adess} ; ---- Agr ?
 
 }
