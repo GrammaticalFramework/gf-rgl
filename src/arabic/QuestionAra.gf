@@ -21,7 +21,7 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
       in { s = \\t,p,qf => cl.s ! t ! p ! toOrder qf } ;
 
 ---- AR guessed
-   QuestIAdv iadv cl = {s = \\t,p,qf => iadv.s ++ cl.s ! t ! p ! toOrder qf} ;
+   QuestIAdv iadv cl = {s = \\t,p,qf => iadv.s ++ cl.s ! t ! p ! Verbal} ;
 
 ---- IL guessed
    -- : IComp -> NP -> QCl
