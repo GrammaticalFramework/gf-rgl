@@ -272,10 +272,14 @@ resource ParadigmsAra = open
     } ;
   mkV2S : V -> Str -> V2S ;
   mkVV = overload {
-    mkVV : V -> VV = regVV ;
-    mkVV : V -> Str -> VV = c2VV ;
-    mkVV : V -> Prep -> VV = prepVV ;
-    mkVV : V -> Prep -> Prep -> VV = prep2VV
+    mkVV : V -> VV -- Make VV out of a V; أَنْ as the complementiser, default subject case (nominative).
+     = regVV ;
+    mkVV : V -> Str -> VV -- String argument as the complementiser, default subject case (nominative).
+     = c2VV ;
+    mkVV : V -> Prep -> VV -- Prep argument as the complementiser, default subject case (nominative).
+     = prepVV ;
+    mkVV : V -> Prep -> Prep -> VV -- First Prep argument is the complementiser, second Prep is subject case. For instance, أَنْ and لِ to get "يُمْكِنُ أَنْ يَفْعَلَ لِشَيْءٍ".
+     = prep2VV
     } ;
   mkV2V : overload {
     mkV2V : V -> Str -> Str -> V2V ;
