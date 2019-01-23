@@ -70,6 +70,8 @@ oper
           _                 => "لِ"
         }) Dat ;
   biPrep : Preposition = mkPrefix "بِ" ;
+  accPrep : Preposition = mkPreposition [] Acc ; -- default object case in VP
+  genPrep : Preposition = mkPreposition [] Gen ; -- default object case in N2
 
   pronSuff : pattern Str = #("كَ"|"كِ"|"كُمَا"|"كُمْ"|"كُنَّ"|"هُ"|"ها"|"هُمَا"|"هُمْ"|"هُنَّ") ;
   pronSuffAndOther : pattern Str = #( "كَم" ) ; -- TODO list words that begin like pron.suff. but aren't
