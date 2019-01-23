@@ -423,10 +423,12 @@ oper
   -- Sometimes a verb is only used in one form (per3 masc sg);
   -- ideally, one would use an impersonal syntactic construction,
   -- less ideally, hardcode the verb to only contain forms of one person.
-  forcePerson : PerGenNum -> Verb -> Verb = \pgn,verb -> verb ** {
+  forcePerson : PerGenNum -> Verb -> Verb = \pgn,verb ->
+    let gn = pgn2gn pgn in verb ** {
     s = \\vf => case vf of {
                   VPerf   v _ => verb.s ! VPerf v pgn ;
                   VImpf m v _ => verb.s ! VImpf m v pgn ;
+                  VImp _g _n  => verb.s ! VImp gn.g gn.n ;
                   _           => verb.s ! vf }
     } ;
 
