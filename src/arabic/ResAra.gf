@@ -444,13 +444,14 @@ oper
     sc : Preposition ; -- subject case: e.g.  يُمْكِنُ *لِ*Xِ
     obj : Obj;
     pred : Comp;
-    isPred : Bool; --indicates if there is a predicate (xabar)
+    isPred : Bool; -- indicates if there is a predicate (xabar)
     s2 : Str
     } ;
 
   VP : Type = BaseVP ** {
-      s : PerGenNum => VPForm => Str ;
-      } ;
+    s : PerGenNum => VPForm => Str ;
+    isPoss : Bool; -- special case for have_V2, to get negation right /IL
+    } ;
 
   uttVP : VPForm -> VP -> (Gender=>Str) = \vpf,vp ->
    \\g => vp.s ! Per3 g Sg ! vpf
@@ -470,7 +471,7 @@ oper
       obj = emptyObj ;
       s2 = [];
       pred = {s = \\_,_ => []} ;
-      isPred = False
+      isPred,isPoss = False
     };
 
   passPredV : Verb -> VP = \v ->
@@ -614,7 +615,8 @@ oper
         lam   = "لَمْ" ;   -- neg. past
         alla  = "أَلَّا" ; -- neg. subjunctive
         lan   = "لَنْ" ;   -- neg. future
-     in case <vp.isPred,tn,pl,o> of {
+     in case <vp.isPred,tn,pl,o,vp.isPoss> of {
+          <False, Pres, Neg, _, True> => laysa ! Per3 Masc Sg ++ yaktubu ; -- special case for have_V2
           <False, Pres, Pos, _> => yaktubu ;
           <False, Pres, Neg, _> => la ++ yaktubu ;
           <True, Pres, Pos, _> => [] ;    --no verb "to be" in present
@@ -647,7 +649,12 @@ oper
     } ;
 
   slashV2 : Verb2 -> VPSlash = \v ->
-    predV v ** {c2 = v.c2 ; agrObj = \\_ => []} ;
+    predV v ** {
+      c2 = v.c2 ; agrObj = \\_ => [] ;
+      isPoss = case v.c2.c of {
+                 Nom => True ; -- for have_V2
+                 _   => False } ;
+      } ;
 
   -- Add subject string, fix agreement to the subject,
   -- but keep the structure as VP, because later on
