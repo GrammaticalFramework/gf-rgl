@@ -643,7 +643,7 @@ oper
   ClSlash : Type = VPSlash ** {subj : Subj} ;
 
   emptyVPslash : VP -> VPSlash = \vp -> vp ** {
-    c2 = noPrep ; agrObj = \\_ => []
+    c2 = accPrep ; agrObj = \\_ => []
     } ;
 
   slashV2 : Verb2 -> VPSlash = \v ->

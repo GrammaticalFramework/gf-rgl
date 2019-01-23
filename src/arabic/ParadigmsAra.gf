@@ -107,10 +107,10 @@ resource ParadigmsAra = open
 --3 Relational nouns
 
   mkN2 : overload {
-    mkN2 : N -> Preposition -> N2 ; -- ready-made preposition
-    mkN2 : N -> Str -> N2 ; -- preposition given as a string
-    mkN2 : N -> N2 ; -- no preposition
-    mkN2 : Str -> N2 ; -- no preposition, predictable inflection
+    mkN2 : N -> Prep -> N2 ; -- Noun and a ready-made preposition.
+    mkN2 : N -> Str -> N2 ; -- Noun, preposition given as a string, complement case genitive.
+    mkN2 : N -> N2 ;   -- Noun, no preposition, complement case genitive.
+    mkN2 : Str -> N2 ; -- Predictable inflection, no preposition, complement case genitive.
   } ;
 
   mkN3 : overload {
@@ -343,7 +343,7 @@ resource ParadigmsAra = open
       lin Prep (casePrep c) ;
     } ;
 
-  noPrep = lin Prep {s=[]; c=nom; binds=False} ;
+  noPrep = lin Prep ResAra.noPrep ;
   biPrep = lin Prep ResAra.biPrep ;
   liPrep = lin Prep ResAra.liPrep ;
 
@@ -614,8 +614,8 @@ resource ParadigmsAra = open
   mkN2 = overload {
     mkN2 : N -> Prep -> N2 = prepN2 ;
     mkN2 : N -> Str -> N2 = \n,s -> prepN2 n (mkPreposition s);
-    mkN2 : N -> N2 = \n -> lin N2 (n ** {c2 = noPrep}) ;
-    mkN2 : Str -> N2 = \str -> lin N2 (smartN str ** {c2 = noPrep})
+    mkN2 : N -> N2 = \n -> prepN2 n genPrep;
+    mkN2 : Str -> N2 = \str -> prepN2 (smartN str) genPrep;
   } ;
 
   prepN2 : N -> Preposition -> N2 = \n,p -> lin N2 (n ** {c2 = p}) ;
@@ -764,7 +764,7 @@ resource ParadigmsAra = open
     mkSubj : Str -> Order -> Subj = \s,o -> lin Subj {s = s ; o = o} ;
   } ;
 
-  dirV2 v = prepV2 v (casePrep acc) ;
+  dirV2 v = prepV2 v accPrep ;
 
   mkV3 = overload {
     mkV3 : V -> Prep -> Prep -> V3 = \v,p,q ->
