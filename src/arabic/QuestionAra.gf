@@ -8,20 +8,18 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
       s = \\t,p =>
         table {
           QIndir => "إِذا" ++ cl.s ! t ! p ! toOrder QIndir ;
-          QDir => "هَلْ" ++ cl.s ! t ! p ! toOrder QDir
+          QDir => "هَلْ" ++ cl.s ! t ! p ! Verbal -- yes/no question
         }
       };
 
     -- ComplSlashIP vps ip = {} ;
 
-    --IL guessed
     QuestVP qp vp =
      let np = ip2np qp vp.isPred ;
          cl = PredVP np vp ;
       in { s = \\t,p,qf => cl.s ! t ! p ! toOrder qf } ;
 
----- AR guessed
-   QuestIAdv iadv cl = {s = \\t,p,qf => iadv.s ++ cl.s ! t ! p ! toOrder qf} ;
+   QuestIAdv iadv cl = {s = \\t,p,qf => iadv.s ++ cl.s ! t ! p ! Verbal} ; -- Verbal word order, because there is no pre-existing question word /IL
 
 ---- IL guessed
    -- : IComp -> NP -> QCl

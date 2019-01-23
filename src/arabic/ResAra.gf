@@ -681,8 +681,8 @@ oper
 
   -- these are chosen in many places, trying to be consistent
   toOrder : QForm -> Order = \qf ->
-    case qf of { QIndir => Nominal ;
-                 QDir   => Verbal } ;
+    case qf of { QDir   => Nominal ; -- works for wh-questions, not for y/n
+                 QIndir => Verbal } ;
 
 -----------------------------------------------------------------------------
 -- Relative
