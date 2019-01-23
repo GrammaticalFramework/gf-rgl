@@ -385,6 +385,23 @@ oper
       }
     } ;
 
+  laysa : PerGenNum => Str = table {
+    Per1 Sing => "لَسْتُ" ;
+    Per1 Plur => "لَسْنَا" ;
+    Per2 Fem  Sg => "لَسْتِ" ;
+    Per2 Masc Sg => "لَسْتَ" ;
+    Per2 _    Dl => "لَسْتُمَا" ;
+    Per2 Fem  Pl => "لَسْتُنَّ" ;
+    Per2 Masc Pl => "لَسْتُمْ" ;
+    Per3 Fem  Sg => "لَيْسَتْ" ;
+    Per3 Masc Sg => "لَيْسَ" ;
+    Per3 Fem  Dl => "لَيْسَتَا"  ;
+    Per3 Masc Dl => "لَيْسَا" ;
+    Per3 Fem  Pl => "لَسْنَ" ;
+    Per3 Masc Pl => "لَيْسُوا"
+    } ;
+
+
   ladaa_V : Verb =
     let laday : PerGenNum -> Str = \pgn -> case pgn of {
           Per1 Sing    => "لَدَيَّ" ;
@@ -592,7 +609,6 @@ oper
         yaktub  = vp.s ! pgn ! VPImpf Jus ;
         -- Various negative particles
         la    = "لَا" ;
-        laysa = "لَيسَ" ;  -- "neg. copula"
         lam   = "لَمْ" ;   -- neg. past
         alla  = "أَلَّا" ; -- neg. subjunctive
         lan   = "لَنْ" ;   -- neg. future
@@ -600,7 +616,7 @@ oper
           <False, Pres, Pos, _> => yaktubu ;
           <False, Pres, Neg, _> => la ++ yaktubu ;
           <True, Pres, Pos, _> => [] ;    --no verb "to be" in present
-          <True, Pres, Neg, _> => laysa ; --same here, just add negation particle
+          <True, Pres, Neg, _> => laysa ! pgn ; -- negative copula
           <_, Past, Pos, _> => kataba ;
           <_, Past, Neg, _> => lam ++ yaktub ;
           <_, Cond, Pos, _> => yaktuba ;
