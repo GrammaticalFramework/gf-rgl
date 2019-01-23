@@ -385,6 +385,23 @@ oper
       }
     } ;
 
+  laysa : PerGenNum => Str = table {
+    Per1 Sing => "لَسْتُ" ;
+    Per1 Plur => "لَسْنَا" ;
+    Per2 Fem  Sg => "لَسْتِ" ;
+    Per2 Masc Sg => "لَسْتَ" ;
+    Per2 _    Dl => "لَسْتُمَا" ;
+    Per2 Fem  Pl => "لَسْتُنَّ" ;
+    Per2 Masc Pl => "لَسْتُمْ" ;
+    Per3 Fem  Sg => "لَيْسَتْ" ;
+    Per3 Masc Sg => "لَيْسَ" ;
+    Per3 Fem  Dl => "لَيْسَتَا"  ;
+    Per3 Masc Dl => "لَيْسَا" ;
+    Per3 Fem  Pl => "لَسْنَ" ;
+    Per3 Masc Pl => "لَيْسُوا"
+    } ;
+
+
   ladaa_V : Verb =
     let laday : PerGenNum -> Str = \pgn -> case pgn of {
           Per1 Sing    => "لَدَيَّ" ;
@@ -406,10 +423,12 @@ oper
   -- Sometimes a verb is only used in one form (per3 masc sg);
   -- ideally, one would use an impersonal syntactic construction,
   -- less ideally, hardcode the verb to only contain forms of one person.
-  forcePerson : PerGenNum -> Verb -> Verb = \pgn,verb -> verb ** {
+  forcePerson : PerGenNum -> Verb -> Verb = \pgn,verb ->
+    let gn = pgn2gn pgn in verb ** {
     s = \\vf => case vf of {
                   VPerf   v _ => verb.s ! VPerf v pgn ;
                   VImpf m v _ => verb.s ! VImpf m v pgn ;
+                  VImp _g _n  => verb.s ! VImp gn.g gn.n ;
                   _           => verb.s ! vf }
     } ;
 
@@ -425,13 +444,14 @@ oper
     sc : Preposition ; -- subject case: e.g.  يُمْكِنُ *لِ*Xِ
     obj : Obj;
     pred : Comp;
-    isPred : Bool; --indicates if there is a predicate (xabar)
+    isPred : Bool; -- indicates if there is a predicate (xabar)
     s2 : Str
     } ;
 
   VP : Type = BaseVP ** {
-      s : PerGenNum => VPForm => Str ;
-      } ;
+    s : PerGenNum => VPForm => Str ;
+    isPoss : Bool; -- special case for have_V2, to get negation right /IL
+    } ;
 
   uttVP : VPForm -> VP -> (Gender=>Str) = \vpf,vp ->
    \\g => vp.s ! Per3 g Sg ! vpf
@@ -451,7 +471,7 @@ oper
       obj = emptyObj ;
       s2 = [];
       pred = {s = \\_,_ => []} ;
-      isPred = False
+      isPred,isPoss = False
     };
 
   passPredV : Verb -> VP = \v ->
@@ -592,15 +612,15 @@ oper
         yaktub  = vp.s ! pgn ! VPImpf Jus ;
         -- Various negative particles
         la    = "لَا" ;
-        laysa = "لَيسَ" ;  -- "neg. copula"
         lam   = "لَمْ" ;   -- neg. past
         alla  = "أَلَّا" ; -- neg. subjunctive
         lan   = "لَنْ" ;   -- neg. future
-     in case <vp.isPred,tn,pl,o> of {
+     in case <vp.isPred,tn,pl,o,vp.isPoss> of {
+          <False, Pres, Neg, _, True> => laysa ! Per3 Masc Sg ++ yaktubu ; -- special case for have_V2
           <False, Pres, Pos, _> => yaktubu ;
           <False, Pres, Neg, _> => la ++ yaktubu ;
           <True, Pres, Pos, _> => [] ;    --no verb "to be" in present
-          <True, Pres, Neg, _> => laysa ; --same here, just add negation particle
+          <True, Pres, Neg, _> => laysa ! pgn ; -- negative copula
           <_, Past, Pos, _> => kataba ;
           <_, Past, Neg, _> => lam ++ yaktub ;
           <_, Cond, Pos, _> => yaktuba ;
@@ -625,11 +645,16 @@ oper
   ClSlash : Type = VPSlash ** {subj : Subj} ;
 
   emptyVPslash : VP -> VPSlash = \vp -> vp ** {
-    c2 = noPrep ; agrObj = \\_ => []
+    c2 = accPrep ; agrObj = \\_ => []
     } ;
 
   slashV2 : Verb2 -> VPSlash = \v ->
-    predV v ** {c2 = v.c2 ; agrObj = \\_ => []} ;
+    predV v ** {
+      c2 = v.c2 ; agrObj = \\_ => [] ;
+      isPoss = case v.c2.c of {
+                 Nom => True ; -- for have_V2
+                 _   => False } ;
+      } ;
 
   -- Add subject string, fix agreement to the subject,
   -- but keep the structure as VP, because later on
@@ -656,8 +681,8 @@ oper
 
   -- these are chosen in many places, trying to be consistent
   toOrder : QForm -> Order = \qf ->
-    case qf of { QIndir => Nominal ;
-                 QDir   => Verbal } ;
+    case qf of { QDir   => Nominal ; -- works for wh-questions, not for y/n
+                 QIndir => Verbal } ;
 
 -----------------------------------------------------------------------------
 -- Relative

@@ -70,6 +70,8 @@ oper
           _                 => "لِ"
         }) Dat ;
   biPrep : Preposition = mkPrefix "بِ" ;
+  accPrep : Preposition = mkPreposition [] Acc ; -- default object case in VP
+  genPrep : Preposition = mkPreposition [] Gen ; -- default object case in N2
 
   pronSuff : pattern Str = #("كَ"|"كِ"|"كُمَا"|"كُمْ"|"كُنَّ"|"هُ"|"ها"|"هُمَا"|"هُمْ"|"هُنَّ") ;
   pronSuffAndOther : pattern Str = #( "كَم" ) ; -- TODO list words that begin like pron.suff. but aren't
@@ -652,136 +654,110 @@ oper
   normalAlif : Root3 -> Bool = \r -> case r.l of {"و" => True ; _ => False} ;
 
   verbDefBool : Bool -> Bool -> DefForms -> Vowel -> Verb =
-    \isDoubleDef,alif,vforms,vowImpf ->
-    let {
-       rama  = vforms ! 0 ; -- VPerf Act (Per3 Masc Sg)
-       ramay = vforms ! 1 ; -- VPerf Act (Per3 Fem  Pl)
-       rumi  = vforms ! 2 ; -- VPerf Pas (Per3 _    Sg)
-       rumu  = vforms ! 3 ; -- VPerf Pas (Per3 Masc Pl)
-       rumiy = vforms ! 4 ; -- VPerf Pas (Per3 Fem  Pl)
-       armi  = vforms ! 5 ; -- VImpf _ Act (Per1 _ _ | Per3 Fem _ | Per2/3 Masc Sg)
-       armu  = vforms ! 6 ; -- VImpf _ Act (Per2/3 Masc Pl)
-       ad3i  = vforms ! 7 ; -- VImpf _ Act (Per2 Fem)
-       urma  = vforms ! 8 ; -- VImpf _ Pas
-       Irmi  = vforms ! 9 ; -- VImp Masc Sg | VImp Fem _
-       Irmu  = vforms ! 10 ; -- VImp Masc Pl
-       ppart = vforms ! 11 ; -- VPPart
-       masdar = vforms ! 12 ; -- verbal noun
+    \isDoubleDef,normalAlif,vforms,vowImpf -> { s = table {
+      VPerf   v   pgn =>                    patPerf ! v ! pgn + suffixPerf v         ! pgn ;
+      VImpf m Act pgn => prefixImpf ! pgn + patImpfAct  ! pgn + suffixImpf Act ! m   ! pgn ;
+      VImpf m Pas pgn => prefixImpf ! pgn + urma              + suffixImpf Pas ! m   ! pgn ;
+      VImp        g n =>                    patImp ! g ! n    + suffixImpf Act ! Jus ! Per2 g n ;
+      VPPart          => ppart ;
+      Masdar          => masdar }
+    } where {
+      rama  = vforms ! 0 ; -- VPerf Act (Per3 Masc Sg)
+      ramay = vforms ! 1 ; -- VPerf Act (Per3 Fem  Pl)
+      rumi  = vforms ! 2 ; -- VPerf Pas (Per3 _    Sg)
+      rumu  = vforms ! 3 ; -- VPerf Pas (Per3 Masc Pl)
+      rumiy = vforms ! 4 ; -- VPerf Pas (Per3 Fem  Pl)
+      armi  = vforms ! 5 ; -- VImpf _ Act (Per1 _ _ | Per3 Fem _ | Per2/3 Masc Sg)
+      armu  = vforms ! 6 ; -- VImpf _ Act (Per2/3 Masc Pl)
+      ad3i  = vforms ! 7 ; -- VImpf _ Act (Per2 Fem)
+      urma  = vforms ! 8 ; -- VImpf _ Pas
+      Irmi  = vforms ! 9 ; -- VImp Masc Sg | VImp Fem _
+      Irmu  = vforms ! 10 ; -- VImp Masc Pl
+      ppart = vforms ! 11 ; -- VPPart
+      masdar = vforms ! 12 ; -- verbal noun
 
-       patPerf = patDefPerf rama ramay rumi rumu rumiy ;
-       patImpfAct = patDefImpfAct armi armu ad3i ;
-       patImp = patDefImp Irmi Irmu ;
-       suffixImpf = case isDoubleDef of {True => suffixImpfDoubleDef ; _ => suffixImpfDef}
-    } in
-    { s = table {
-        VPerf   v   pgn =>                    patPerf ! v ! pgn + suffixPerfDef v alif   ! pgn ;
-        VImpf m Act pgn => prefixImpf ! pgn + patImpfAct  ! pgn + suffixImpf Act vowImpf ! m ! pgn ;
-        VImpf m Pas pgn => prefixImpf ! pgn + urma              + suffixImpf Pas vowImpf ! m ! pgn ;
-        VImp        g n =>                    patImp ! g ! n    + suffixImpf Act vowImpf ! Jus ! Per2 g n ;
-        VPPart          => ppart ;
-        Masdar          => masdar
-        }
-    } ;
-
-      patDefPerf : (_,_,_,_,_ :Str) -> Voice => PerGenNum => Str = \rama,ramay,rumi,rumu,rumy ->
-        table {
-          Act =>
-            table {
-              Per3 Fem Pl => ramay ;
-              Per3 _   _  => rama ;
-              _           => ramay
-              } ;
-          Pas =>
-            table {
-              Per3 Masc Pl => rumu ;
-              Per3 Fem Pl  => rumy ;
-              Per3 _   _   => rumi ;
-              _            => rumy
-            }
+      patPerf : Voice => PerGenNum => Str = table {
+        Act => table {
+          Per3 Fem Pl => ramay ;
+          Per3 _   _  => rama ;
+          _           => ramay } ;
+        Pas => table {
+          Per3 Masc Pl => rumu ;
+          Per3 Fem Pl  => rumiy ;
+          Per3 _   _   => rumi ;
+          _            => rumiy }
         } ;
 
-      --now includes the vowel=u case, eg "دعو" /IL 2019-01-18
-      patDefImpfAct :  (x1,_,x3 : Str) -> PerGenNum => Str = \rmi,rmu,d3i ->
-        table {
-        Per3 Masc Pl => rmu ;
-        Per2 Masc Pl => rmu ;
-        Per2 Fem  Sg => d3i ; -- for 1d3:    d3i different, rmi = rmu
-        _            => rmi   -- for others: rmu different, rmi = d3i
+      patImpfAct : PerGenNum => Str = table {
+        Per3 Masc Pl => armu ;
+        Per2 Masc Pl => armu ;
+        Per2 Fem  Sg => ad3i ; -- for 1d3:    d3i different, rmi = rmu
+        _            => armi   -- for others: rmu different, rmi = d3i
         } ;
 
+      patImp : Gender => Number => Str = \\g,n =>
+        case <g,n> of { <Masc,Pl> => Irmu ; _ => Irmi } ;
 
-      patDefImp : (_,_ : Str) -> Gender => Number => Str = \rmi, rmu ->
-        table {
-          Masc => table {Pl => rmu ; _ => rmi} ;
-          _    => table {_ => rmi}
-        } ;
-
-
-      suffixPerfDef : Voice -> Bool -> PerGenNum => Str = \v,normalAlif ->
-        let p3ms = case v of {
+      suffixPerf : Voice -> PerGenNum => Str = \vc ->
+        let p3ms = case vc of {
                      Act => if_then_Str normalAlif "ا" "ى" ;
                      Pas => "يَ" } ;
-            ya = case v of {
+            ya = case vc of {
                    Act => "" ;
                    Pas => "يَ" }
-        in
-        table {
-          Per3 Masc Sg => p3ms ;
-          Per3 Masc Dl => "يَا" ;
-          Per3 Masc Pl => "وْا" ;
-          Per3 Fem  Sg => ya + "تْ" ;
-          Per3 Fem  Dl => ya + "تَا" ;
-          Per3 Fem  Pl => "نَ" ;
-          Per2 Masc Sg => "تَ" ;
-          Per2 _    Dl => "تُمَا" ;
-          Per2 Masc Pl => "تُمْ" ;
-          Per2 Fem  Sg => "تِ" ;
-          Per2 Fem  Pl => "تُنَّ" ;
-          Per1 Sing    => "تُ" ;
-          Per1 Plur    => "نَا"
-        } ;
+         in table {
+              Per3 Masc Sg => p3ms ;
+              Per3 Masc Dl => "يَا" ;
+              Per3 Masc Pl => "وْا" ;
+              Per3 Fem  Sg => ya + "تْ" ;
+              Per3 Fem  Dl => ya + "تَا" ;
+              Per3 Fem  Pl => "نَ" ;
+              Per2 Masc Sg => "تَ" ;
+              Per2 _    Dl => "تُمَا" ;
+              Per2 Masc Pl => "تُمْ" ;
+              Per2 Fem  Sg => "تِ" ;
+              Per2 Fem  Pl => "تُنَّ" ;
+              Per1 Sing    => "تُ" ;
+              Per1 Plur    => "نَا"
+            } ;
 
-      suffixImpfDef : Voice -> Vowel -> Mood => PerGenNum => Str = \vc,vw ->
-        let {
-          default : Mood -> Str = \m ->
-            case vc of {
+      suffixImpfDef : Voice -> Mood => PerGenNum => Str = \vc ->
+        let default : Mood -> Str = \m -> case vc of {
               Pas => case m of {Jus => "" ; _ => "ى"} ;
-              Act => case vw of {
+              Act => case vowImpf of {
                 u => case m of {Ind => "و" ; Cnj => "وَ" ; Jus => ""} ;
                 i => case m of {Ind => "ي" ; Cnj => "يَ" ; Jus => ""} ;
-                a => case m of {Ind => "ى" ; Cnj => "ى" ; Jus => ""}
-                }
+                a => case m of {Ind => "ى" ; Cnj => "ى"  ; Jus => ""} }
             }
-        } in
-        table {
-          Ind =>
-            table {
-              Per3 Masc Pl => "وْنَ" ;
-              Per2 Masc Pl => "وْنَ" ;
-              (Per3 _ Dl|Per2 _ Dl) => case vw of {
-                         u => "وَانِ" ;
-                         _ => "يَانِ" } ;
-              Per3 Fem  Pl => "يْنَ" ;
-              Per2 Fem  _  => "يْنَ" ;
-              _            => default Ind
-            } ;
-          m => -- TODO: check whether to remove sukuns
-            table {
-              Per3 Masc Pl => "وْا" ;
-              Per2 Masc Pl => "وْا" ;
-              (Per3 _ Dl|Per2 _ Dl) => case vw of {
-                         u => "وَا" ;
-                         _ => "يَا" } ;
-              Per3 Fem  Pl => "يْنَ" ;
-              Per2 Fem  Pl => "يْنَ" ;
-              Per2 Fem  Sg => "ي" ;
-              _            => default m
-            }
+         in table { -- TODO: check whether to remove sukuns
+              Ind => table {
+                Per3 Masc Pl => "وْنَ" ;
+                Per2 Masc Pl => "وْنَ" ;
+                (Per3 _ Dl|Per2 _ Dl) => case vowImpf of {
+                           u => "وَانِ" ;
+                           _ => "يَانِ" } ;
+                Per3 Fem  Pl => "يْنَ" ;
+                Per2 Fem  _  => "يْنَ" ;
+                _            => default Ind
+              } ;
+              mood => table {
+                Per3 Masc Pl => "وْا" ;
+                Per2 Masc Pl => "وْا" ;
+                (Per3 _ Dl|Per2 _ Dl) => case vowImpf of {
+                           u => "وَا" ;
+                           _ => "يَا" } ;
+                Per3 Fem  Pl => "يْنَ" ;
+                Per2 Fem  Pl => "يْنَ" ;
+                Per2 Fem  Sg => "ي" ;
+                _            => default mood
+              }
         } ;
 
-      -- does this even happen other than with رءي? /IL
-      suffixImpfDoubleDef : Voice -> Vowel -> Mood => PerGenNum => Str = \vc,vw ->
-        \\m,p => rmSukun (suffixImpfDef vc vw ! m ! p) ;
+      suffixImpf : Voice -> Mood => PerGenNum => Str = \vc -> case isDoubleDef of {
+        False => suffixImpfDef vc ;
+        True  => \\m,p => rmSukun (suffixImpfDef vc ! m ! p) } ;
+
+  } ;
   ------------------------------------------------------------
   -- Common affixes
 
