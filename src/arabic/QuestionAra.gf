@@ -83,4 +83,13 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
     n = sizeToNumber num.n ;
     d = Indef ---- TODO check
     } ;
+
+-- IL guessed all following
+lincat
+  QVP = ResAra.VP ;          -- buy what where
+lin
+  ComplSlashIP vps ip = ComplSlash vps (ip2np ip False) ; -- : VPSlash -> IP -> QVP ;   -- buys what
+  AdvQVP = AdvVP ;    -- : VP  -> IAdv -> QVP ;   -- lives where
+  AddAdvQVP = AdvVP ; -- : QVP -> IAdv -> QVP ;   -- buys what where
+  QuestQVP = QuestVP ;   -- : IP -> QVP -> QCl ;  -- who buys what where
 }
