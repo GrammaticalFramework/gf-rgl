@@ -38,12 +38,12 @@ concrete QuestionAra of Question = CatAra ** open ResAra, ParamX, Prelude, VerbA
 
    CompIAdv iadv = { s = \\_ => iadv.s ; a = ResAra.Sg } ;
 
-   --  QCl = {s : Tense => Polarity => QForm => Str} ;
-   QuestSlash ip cls = { ----IL just guessing
-      s = \\t,p,qf =>
-        let cl : ResAra.Cl = complClSlash cls ; -- dummy conversion to Cl
+   -- : IP -> ClSlash -> QCl ; -- whom does John love
+  QuestSlash ip cls = {
+    s = \\t,p,qf =>        -- remove cls's c2 so it won't show up in the wrong place
+        let cl : ResAra.Cl = complClSlash (cls ** {c2=noPrep});
             o = toOrder qf
-          in cls.c2.s ++ bindIf cls.c2.binds
+          in cls.c2.s ++ bindIf cls.c2.binds -- Put cls's c2 ("with") before the IP ("whom")
           ++ ip.s ! False ! Masc ! Def ! Nom
           ++ cl.s ! t ! p ! o
       } ;
