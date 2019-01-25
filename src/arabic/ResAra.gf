@@ -664,13 +664,13 @@ oper
     s = \\_pgn,vf => v.s ! np.a.pgn ! vf -- so we can throw away subject's pgn
     } ;
 
-  -- TODO: what to do with vp.c2 if there is no object /IL
   complClSlash = overload {
     complClSlash : NP -> ClSlash -> Cl = \obj,cls ->
       predVP (subj2np cls.subj) (insertObj obj cls) ;
     complClSlash :       ClSlash -> Cl = \cls ->
       predVP (subj2np cls.subj) (insertObj emptyNP cls) -- Empty subject and object
-    } ;
+    } ; -- If VP has a c2, its placement should be handled in the function that calls complClSlash.
+        -- See QuestSlash (in QuestionAra) for an example.
 
   Cl  : Type = {s : Tense => Polarity => Order => Str} ;
   QCl : Type = {s : Tense => Polarity => QForm => Str} ;
