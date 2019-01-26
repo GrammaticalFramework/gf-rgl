@@ -31,7 +31,10 @@ concrete IdiomAra of Idiom = CatAra ** open
   ExistNP np =
     predVP (emptyNP ** {s=\\c=>"هُنَاكَ"}) (UseComp (CompNP np)) ; -- IL
 
-  -- ExistIP   : IP -> QCl ;       -- which houses are there
+  -- : IP -> QCl ;       -- which houses are there
+  ExistIP ip = let cl = ExistNP (ip2np ip False) in {
+    s = \\t,p,q => cl.s ! t ! p ! Nominal -- IL guessed
+    } ;
 
 -- 7/12/2012 generalizations of these
 
