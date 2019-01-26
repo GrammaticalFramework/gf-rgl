@@ -88,13 +88,12 @@ resource ParadigmsAra = open
      = smartPN ;
     mkPN : N -> PN    -- Make a PN out of N. The PN is in construct state.
      = \n -> lin PN (n ** {
-          s = \\c => n.s ! Sg ! Const ! c 
+          s = \\c => n.s ! Sg ! Const ! c
                   ++ n.s2 ! Sg ! Def ! c -- NB this hack works for idaafa constructions (if you used mkN : N -> N -> N), but wrong for mkN : N -> A -> N. /IL
         }) ;
     mkPN : Str -> Gender -> Species -> PN -- Make a PN out of string, gender and species.
      = mkFullPN ;
   } ;
-
 
 --3 Relational nouns
 
@@ -109,7 +108,6 @@ resource ParadigmsAra = open
     mkN3 : N -> Preposition -> Preposition -> N3 ; -- ready-made prepositions
     mkN3 : N -> Str -> Str -> N3 ;  -- prepositions given as strings
   } ;
-
 
 --2 Adjectives
 
@@ -268,29 +266,34 @@ resource ParadigmsAra = open
 
   mkV0  : V -> V0 ;
   mkVS : overload {
-    mkVS : V -> VS ;
-    mkVS : V -> Str -> VS
+    mkVS : V -> VS ; -- Takes a V, returns a VS with default complementiser أَنَّ.
+    mkVS : V -> Str -> VS -- Takes a V and a complementiser.
     } ;
-  mkV2S : V -> Str -> V2S ;
+  mkV2S : overload {
+    mkV2S : V -> V2S ;  -- Takes a V, returns a V2S with default complementiser أَنَّ and accusative as the direct object case.
+    mkV2S : VS -> V2S ; -- Takes a VS, returns a V2S with accusative as the object case, retaining the VS's complementiser.
+    mkV2S : V2 -> V2S ; -- Takes a V2, returns a V2S with default complementiser أَنَّ, retaining the V2's direct object case.
+    mkV2S : V -> Prep -> Str -> V2S ; -- Takes V, preposition and complementiser.
+  } ;
   mkVV = overload {
-    mkVV : V -> VV -- Make VV out of a V; أَنْ as the complementiser, default subject case (nominative).
+    mkVV : V -> VV -- Takes a V, returns a VV with default complementiser أَنَّ.
      = regVV ;
-    mkVV : V -> Str -> VV -- String argument as the complementiser, default subject case (nominative).
-     = c2VV ;
-    mkVV : V -> Prep -> VV -- Prep argument as the complementiser, default subject case (nominative).
-     = prepVV ;
-    mkVV : V -> Prep -> Prep -> VV -- First Prep argument is the complementiser, second Prep is subject case. For instance, أَنْ and لِ to get "يُمْكِنُ أَنْ يَفْعَلَ لِشَيْءٍ".
-     = prep2VV
+    mkVV : V -> Str -> VV -- Takes a V and a complementiser.
+     = s2VV ;
     } ;
   mkV2V : overload {
-    mkV2V : V -> Str -> Str -> V2V ;
-    mkV2V : V -> Prep -> Prep -> V2V ;
-    mkV2V : VV -> Prep -> V2V
+    mkV2V : V -> V2V ; -- Takes a V, returns a V2V with default complementiser أَنْ and accusative as the direct object case.
+    mkV2V : VV -> V2V ; -- Takes VV, returns V2V with accusative as the object case, retaining the VV's complementiser.
+    mkV2V : V -> Prep -> Str -> V2V ; -- Takes V, preposition and complementiser.
+  } ;
+  subjCase : overload {
+    subjCase : VV -> Prep -> VV ; -- Change the subject case of a VV. (Default is nominative; use any other case or preposition.)
+    subjCase : V2V -> Prep -> V2V ; -- Change the subject case to a V2V. (Default is nominative; use any other case or preposition.)
   } ;
   mkVA  : V -> VA ;
-  mkV2A : V -> Str -> V2A ;
+  mkV2A : V -> Str -> V2A ; -- Takes a V and an object case/preposition. NB. V2A = V2, see mkV2 for more constructors.
   mkVQ  : V -> VQ ;
-  mkV2Q : V -> Str -> V2Q ;
+  mkV2Q : V -> Str -> V2Q ; -- Takes a V and an object case/preposition. NB. V2Q = V2, see mkV2 for more constructors.
 
   mkAS  : A -> AS ;
   mkA2S : A -> Str -> A2S ;
@@ -797,36 +800,54 @@ resource ParadigmsAra = open
   dirdirV3 v = dirV3 v (casePrep acc) ;
 
   mkVS = overload {
-    mkVS : V -> VS = \v -> lin VS (v ** {o = Subord; s2 = []}) ;
+    mkVS : V -> VS = \v -> lin VS (v ** {o = Subord; s2 = anna}) ;
     mkVS : V -> Str -> VS =  \v,s -> lin VS (v ** {o = Subord; s2 = s})
     } ;
   mkVQ v = lin VQ v ;
 
-  regVV : V -> VV = \v -> lin VV v ** {c2 = mkPreposition "أَنْ" ; sc = noPrep} ;
-  c2VV : V -> Str -> VV = \v,prep -> regVV v ** {c2 = mkPreposition prep ; sc = noPrep} ;
-  prepVV : V -> Prep -> VV = \v,prep -> regVV v ** {c2=prep; sc=noPrep} ;
-  prep2VV : V -> (_,_ : Prep) -> VV = \v,p1,p2 -> regVV v ** {c2=p1; sc=p2} ;
+  -- Complementisers for V*V and V*S
+  an : Str = "أَنْ" ;
+  anna : Str = "أَنَّ" ;
+
+  regVV : V -> VV = \v -> lin VV v ** {s2=an ; sc=noPrep} ;
+  s2VV : V -> Str -> VV = \v,compl -> regVV v ** {s2=compl; sc=noPrep} ;
+  prepVV : V -> Prep -> VV = \v,prep -> regVV v ** {s2=an ; sc=prep} ;
+  prep2VV : V -> Prep -> Str -> VV = \v,p,c -> regVV v ** {s2=c; sc=p} ;
   V0 : Type = V ;
 ----  V2S, V2V, V2Q, V2A : Type = V2 ;
   AS, A2S, AV : Type = A ;
   A2V : Type = A2 ;
 
   mkV0  v = v ;
-  mkV2S v p = lin V2S (prepV2 v (mkPreposition p)) ;
+  mkV2S = overload {
+    mkV2S : V -> V2S
+      = \v -> lin V2S (prepV2 v accPrep ** {s2=anna ; o=Subord}) ;
+    mkV2S : V2 -> V2S
+      = \v2 -> lin V2S (v2 ** {s2=anna ; o=Subord}) ;
+    mkV2S : V -> Preposition -> V2S
+      = \v,p -> lin V2S ((prepV2 v p) ** {s2=anna ; o=Subord})
+    } ;
+
   mkV2V = overload {
-    mkV2V : V -> Str -> Str -> V2V = \v,p,q ->
-      lin V2V (prepV3 v (mkPreposition p) (mkPreposition q) ** {sc = noPrep}) ;
-    mkV2V : V2 -> V2V = \v2 ->
-      lin V2V (v2 ** {c2 = v2.c2 ; c3,sc = noPrep}) ;
-    mkV2V : V2 -> Prep -> V2V = \v2,p ->
-      lin V2V (v2 ** {c2 = v2.c2 ; c3 = p ; sc = noPrep}) ;
-    mkV2V : V2 -> Prep -> Prep -> V2V = \v2,p,q->
-      lin V2V (v2 ** {c2 = v2.c2 ; c3 = p ; sc = q}) ;
-    mkV2V : V -> Prep -> Prep -> V2V = \v,p,q ->
-      lin V2V (prepV3 v p q ** {sc = noPrep}) ;
+    mkV2V : V -> V2V = \v ->
+      lin V2V (v ** {c2=accPrep ; s2=an ; sc=noPrep}) ;
+    mkV2V : VV -> V2V = \vv ->
+      lin V2V (vv ** {c2 = accPrep}) ;
     mkV2V : VV -> Prep -> V2V = \vv,p ->
-      lin V2V (vv ** {c2 = p ; c3 = vv.c2}) ;
+      lin V2V (vv ** {c2 = p}) ;
+    mkV2V : V -> Prep -> Str -> V2V = \v,p,q ->
+      lin V2V (v ** {c2 = p ; s2 = q ; sc = noPrep}) ;
+    mkV2V : V2 -> V2V = \v2 ->
+      lin V2V (v2 ** {s2 = an ; sc = noPrep}) ;
+    mkV2V : V2 -> Str -> V2V = \v2,c ->
+      lin V2V (v2 ** {c2 = v2.c2 ; s2 = c ; sc = noPrep}) ;
   } ;
+
+  subjCase = overload {
+    subjCase : VV -> Prep -> VV = \vv,p -> vv ** {sc=p} ;
+    subjCase : V2V -> Prep -> V2V = \vv,p -> vv ** {sc=p}
+  } ;
+
   mkVA  v   = v ** {lock_VA = <>} ;
   mkV2A v p = lin V2A (prepV2 v (mkPreposition p));
   mkV2Q v p = lin V2Q (prepV2 v (mkPreposition p));

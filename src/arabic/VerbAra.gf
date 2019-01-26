@@ -12,7 +12,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     SlashV2V v2v vp = let v2vVP = predV v2v in -- IL
       vp ** {
         s = v2vVP.s ;
-        agrObj = \\pgn => v2v.c3.s  -- أَنْ
+        agrObj = \\pgn => v2v.s2  -- أَنْ
                        ++ vp.s ! pgn ! VPImpf Cnj -- this will agree with the object added by ComplSlash
                        ++ vp.obj.s ;
         obj = emptyObj ;
@@ -26,13 +26,20 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
       vps ** {
         s = \\pgn,vpf => v2vVP.s ! pgn ! vpf -- main verb agrees with subject
                       ++ bindIfPron np v2vVP
-                      ++ v2v.c3.s  -- أَنْ
+                      ++ v2v.s2  -- أَنْ
                       ++ vps.s ! np.a.pgn ! VPImpf Cnj -- verb from old VP agrees with object
                       ++ vps.obj.s ; -- otherwise obj appears in a weird place /IL
         obj = emptyObj ;
         isPred = False ;
                     -- preposition for the direct object comes from VP
         sc = v2v.sc
+      } ;
+
+    -- : V2S -> S -> VPSlash ;  -- answer (to him) that it is good
+    SlashV2S v2s s = slashV2 v2s ** { -- IL
+      agrObj = -- this is put into agrObj even though it doesn't depend on agr, because insertObj puts agrObj *after* the new object.
+        \\pgn => v2s.s2 -- أَنَّ
+              ++ s.s ! v2s.o ;
       } ;
 
     SlashV2a = slashV2 ;
@@ -59,7 +66,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     ComplVV vv vp = let vvVP = predV vv in -- IL
       vp ** {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
-                      ++ vv.c2.s  -- أَنْ
+                      ++ vv.s2  -- أَنْ
                       ++ vp.s ! pgn ! VPImpf Cnj ;
         isPred = False ;
         sc = vv.sc
@@ -67,7 +74,8 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     -- : VS -> S -> VP ;  -- say that she runs
     ComplVS vs s = predV vs ** { -- IL
-      obj = emptyObj ** {s = vs.s2 ++ s.s ! vs.o}
+      obj = emptyObj ** {s = vs.s2 -- أَنَّ
+                          ++ s.s ! vs.o}
       } ;
 
     -- : VQ -> QS -> VP ;  -- wonder who runs

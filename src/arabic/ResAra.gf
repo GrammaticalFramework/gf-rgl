@@ -505,7 +505,7 @@ oper
   insertObj : NP -> VPSlash -> VP = \np,vp -> vp ** {
     obj = {s = vp.obj.s -- old object, if there was one
             ++ bindIfPron np vp -- new object, bind if pronoun and not pred
-            ++ vp.agrObj ! np.a.pgn ; -- only used for SlashV2V and Slash3V3
+            ++ vp.agrObj ! np.a.pgn ; -- used for SlashV2V, Slash3V3 and SlashV2S
            a = agrLite np.a} ;
     agrObj = \\_ => []
     } ;
