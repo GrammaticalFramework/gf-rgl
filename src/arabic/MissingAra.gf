@@ -21,10 +21,8 @@ oper SentCN : CN -> SC -> CN = notYet "SentCN" ;
 oper SlashPrep : Cl -> Prep -> ClSlash = notYet "SlashPrep" ;
 oper SlashV2A : V2A -> AP -> VPSlash = notYet "SlashV2A" ;
 oper SlashV2Q : V2Q -> QS -> VPSlash = notYet "SlashV2Q" ;
-oper SlashV2S : V2S -> S -> VPSlash = notYet "SlashV2S" ;
 oper SlashVS : NP -> VS -> SSlash -> ClSlash = notYet "SlashVS" ;
 oper SubjS : Subj -> S -> Adv = notYet "SubjS" ;
 oper VocNP : NP -> Voc = notYet "VocNP" ;
 oper pot3plus : Sub1000 -> Sub1000 -> Sub1000000 = notYet "pot3plus" ;
-
 }

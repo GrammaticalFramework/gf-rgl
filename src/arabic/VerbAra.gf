@@ -35,6 +35,13 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
         sc = v2v.sc
       } ;
 
+    -- : V2S -> S -> VPSlash ;  -- answer (to him) that it is good
+    SlashV2S v2s s = slashV2 v2s ** { -- IL
+      agrObj = -- this is put into agrObj even though it doesn't depend on agr, because insertObj puts agrObj *after* the new object.
+        \\pgn => v2s.s2 -- أَنَّ
+              ++ s.s ! v2s.o ;
+      } ;
+
     SlashV2a = slashV2 ;
     Slash2V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3 ; agrObj = \\_ => []};
 
