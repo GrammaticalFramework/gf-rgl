@@ -11,7 +11,7 @@ flags
   lin
 
   airplane_N   = sdfN "طءر" "فاعِلة" Fem NoHum ;
-  answer_V2S   = dirV2 (v3 "جوب") ;
+  answer_V2S   = mkV2S (v3 "جوب") ;
   apartment_N  = brkN "شقّ" "فِعّة" "فِعَل" Fem NoHum ;
   apple_N      = sdfN "تفح" "فِعّالة" Fem NoHum ;
   art_N        = brkN "فنن" "فَعّ" "فُعُول" Masc NoHum ;
