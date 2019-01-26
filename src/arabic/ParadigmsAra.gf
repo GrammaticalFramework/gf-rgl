@@ -88,13 +88,12 @@ resource ParadigmsAra = open
      = smartPN ;
     mkPN : N -> PN    -- Make a PN out of N. The PN is in construct state.
      = \n -> lin PN (n ** {
-          s = \\c => n.s ! Sg ! Const ! c 
+          s = \\c => n.s ! Sg ! Const ! c
                   ++ n.s2 ! Sg ! Def ! c -- NB this hack works for idaafa constructions (if you used mkN : N -> N -> N), but wrong for mkN : N -> A -> N. /IL
         }) ;
     mkPN : Str -> Gender -> Species -> PN -- Make a PN out of string, gender and species.
      = mkFullPN ;
   } ;
-
 
 --3 Relational nouns
 
@@ -109,7 +108,6 @@ resource ParadigmsAra = open
     mkN3 : N -> Preposition -> Preposition -> N3 ; -- ready-made prepositions
     mkN3 : N -> Str -> Str -> N3 ;  -- prepositions given as strings
   } ;
-
 
 --2 Adjectives
 

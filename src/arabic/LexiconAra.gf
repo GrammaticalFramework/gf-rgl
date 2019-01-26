@@ -142,7 +142,7 @@ flags
   old_A        = sndA "قدم" "فَعِيل" ;
   open_V2      = dirV2 (regV "يَفتَح") ;
 --  open_V2      = dirV2 (v1 "فتح" a a ) ;
-  paint_V2A    = mkV2A (regV "يَدهَن" ) [] ;
+  paint_V2A    = dirV2 (regV "يَدهَن" ) ;
 --  paint_V2A    = mkV2A (v1 "دهن" a a ) [] ;
   paper_N      = brkN "ورق" "فَعَلة" "أَفعَال" Fem NoHum ;
   paris_PN     = mkPN "بارِيس" Fem NoHum  ;
