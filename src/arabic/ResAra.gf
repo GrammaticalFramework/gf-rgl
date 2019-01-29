@@ -61,6 +61,9 @@ oper
   is1sg : Agr -> Bool = \a ->
     case a.pgn of {Per1 Sing => True; _ => False} ;
 
+  someSg_Det = mkDet "أَحَد" Sg Const ;
+  somePl_Det = mkDet "بَعض" Pl Const ;
+
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
     \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det -> lin Quant (baseQuant **
     { s = \\n,s,g,c =>
