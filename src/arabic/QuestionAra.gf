@@ -14,7 +14,7 @@ lin
 
   -- : IP -> VP -> QCl ;      -- who walks
   QuestVP qp vp =
-   let np = ip2np qp vp.isPred ;
+   let np = ip2np qp (case vp.vtype of {Copula=>True ; _=>False}) ;
        cl = PredVP np vp ;
     in { s = \\t,p,qf => cl.s ! t ! p ! toOrder qf } ;
 

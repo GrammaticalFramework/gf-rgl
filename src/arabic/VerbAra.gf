@@ -16,7 +16,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
                        ++ vp.s ! pgn ! VPImpf Cnj -- this will agree with the object added by ComplSlash
                        ++ vp.obj.s ;
         obj = emptyObj ;
-        isPred = False ;
+        vtype = NotPred ;
         c2 = v2v.c2 ; -- preposition for the direct object
         sc = v2v.sc
       } ;
@@ -30,7 +30,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
                       ++ vps.s ! np.a.pgn ! VPImpf Cnj -- verb from old VP agrees with object
                       ++ vps.obj.s ; -- otherwise obj appears in a weird place /IL
         obj = emptyObj ;
-        isPred = False ;
+        vtype = NotPred ;
                     -- preposition for the direct object comes from VP
         sc = v2v.sc
       } ;
@@ -68,7 +68,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
                       ++ vv.s2  -- أَنْ
                       ++ vp.s ! pgn ! VPImpf Cnj ;
-        isPred = False ;
+        vtype = NotPred ;
         sc = vv.sc
       } ;
 
@@ -92,7 +92,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     UseComp xabar =
       case xabar.isNP of {
         False => kaan xabar ;
-        True  => predV copula ** {obj = xabar.obj ; isPred=True}
+        True  => predV copula ** {obj = xabar.obj ; vtype=Copula}
       } ;
 
     UseCopula = predV copula ;
