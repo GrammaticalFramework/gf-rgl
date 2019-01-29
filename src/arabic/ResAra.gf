@@ -61,6 +61,37 @@ oper
   is1sg : Agr -> Bool = \a ->
     case a.pgn of {Per1 Sing => True; _ => False} ;
 
+  someSg_Det = mkDet "أَحَد" Sg Const ;
+  somePl_Det = mkDet "بَعض" Pl Const ;
+
+  mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
+    \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det -> lin Quant (baseQuant **
+    { s = \\n,s,g,c =>
+        case <s,g,c,n> of {
+          <_,Masc,_,Sg>  => hava;
+          <_,Fem,_,Sg>   => havihi;
+          <_,Masc,Nom,Dl>=> havAn;
+          <_,Masc,_,Dl>  => havayn;
+          <_,Fem,Nom,Dl> => hAtAn;
+          <_,Fem,_,Dl>   => hAtayn;
+          <Hum,_,_,Pl>   => hA'ulA;
+          _              => havihi
+        };
+      d = det
+    });
+
+  mkQuant3 : (_,_,_ : Str) -> State -> Quant =
+    \dalika,tilka,ula'ika,det -> lin Quant (baseQuant **
+    { s = \\n,s,g,c =>
+        case <s,g,c,n> of {
+          <_,Masc,_,Sg>  => dalika;
+          <_,Fem,_,Sg>   => tilka;
+          <Hum,_,_,_>   => ula'ika;
+          _              => tilka
+        };
+      d = det
+    });
+
   mkDet = overload {
     mkDet : Str -> Number -> State -> Det
       = mkDetDecl True ;
@@ -438,19 +469,25 @@ param
          | VPImp
          | VPGer ;
 
+  VType = -- indicates if there is a predicate (xabar): 
+          Copula  -- 1) disappears in equational sentences
+                  -- 2) its argument ('xabar') is in the pred field
+                  -- 3) it is negated with laysa
+         | Have   -- stays in eq. sentence, argument is in obj field, but is negated with laysa.
+         | NotPred ; -- any other verb but copula and have_V2
+
 oper
 
   BaseVP : Type = { -- to minimise duplication of code for VPS
     sc : Preposition ; -- subject case: e.g.  يُمْكِنُ *لِ*Xِ
     obj : Obj;
     pred : Comp;
-    isPred : Bool; -- indicates if there is a predicate (xabar)
+    vtype : VType ; -- copula, have_V2 or normal verb
     s2 : Str
     } ;
 
   VP : Type = BaseVP ** {
     s : PerGenNum => VPForm => Str ;
-    isPoss : Bool; -- special case for have_V2, to get negation right /IL
     } ;
 
   uttVP : VPForm -> VP -> (Gender=>Str) = \vpf,vp ->
@@ -471,7 +508,7 @@ oper
       obj = emptyObj ;
       s2 = [];
       pred = {s = \\_,_ => []} ;
-      isPred,isPoss = False
+      vtype = NotPred
     };
 
   passPredV : Verb -> VP = \v ->
@@ -512,18 +549,18 @@ oper
 
   bindIf : Bool -> Str = \b -> if_then_Str b BIND [] ;
 
-  bindIfPron : NP -> {c2:Preposition; isPred:Bool} -> Str = \np,vp ->
+  bindIfPron : NP -> {c2:Preposition; vtype:VType} -> Str = \np,vp ->
     let notNom : Case -> Bool = \c -> case c of {Nom => False; _=>True} ;
-        bind = case vp.isPred of {
-                 False => bindIf (
-                            orB (andB np.a.isPron (notNom vp.c2.c)) --if np is pron, not in nominative
-                                 vp.c2.binds) ;
-                 True  => [] }
+        bind = case vp.vtype of {
+                 Copula => [] ;
+                 _ => bindIf (orB (andB np.a.isPron (notNom vp.c2.c)) --if np is pron, not in nominative
+                                  vp.c2.binds)
+                 }
      in vp.c2.s ++ bind ++ np.s ! vp.c2.c ;
 
   insertPred : Comp -> VP -> VP = \p,vp -> vp **
     { pred = p;
-      isPred = True
+      vtype = Copula
     };
 
   insertStr : Str -> VP -> VP = \str,vp -> vp **
@@ -553,9 +590,9 @@ oper
                        _    => vp.sc }
               } ;
           subj = np.empty ++ sc.s ++ bindIf sc.binds
-              ++ case vp.isPred of {
-                    False => (proDrop np).s ! sc.c ; -- prodrop if it's not predicative
-                    True  =>           np.s ! sc.c
+              ++ case vp.vtype of {
+                    Copula =>      np.s ! sc.c ;
+                    _ => (proDrop np).s ! sc.c -- prodrop if it's not predicative
                  } ;
       in wordOrder o
            vp.obj.a.isPron np.a.isPron np.isHeavy
@@ -600,9 +637,9 @@ oper
 
   pred : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Str = \vp,pgn,tn,pl ->
     let gn = pgn2gn pgn
-     in case <vp.isPred,tn,pl> of {
-          <True, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
-          _                 => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
+     in case <vp.vtype,tn,pl> of {
+          <Copula, Pres, Pos> => vp.pred.s ! gn ! Nom; --xabar marfooc
+          _                   => vp.pred.s ! gn ! Acc --xabar kaana wa laysa manSoob
         } ;
 
   vStr : VP -> PerGenNum -> ParamX.Tense -> Polarity -> Order -> Str = \vp,pgn,tn,pl,o ->
@@ -615,12 +652,12 @@ oper
         lam   = "لَمْ" ;   -- neg. past
         alla  = "أَلَّا" ; -- neg. subjunctive
         lan   = "لَنْ" ;   -- neg. future
-     in case <vp.isPred,tn,pl,o,vp.isPoss> of {
-          <False, Pres, Neg, _, True> => laysa ! Per3 Masc Sg ++ yaktubu ; -- special case for have_V2
-          <False, Pres, Pos, _> => yaktubu ;
-          <False, Pres, Neg, _> => la ++ yaktubu ;
-          <True, Pres, Pos, _> => [] ;    --no verb "to be" in present
-          <True, Pres, Neg, _> => laysa ! pgn ; -- negative copula
+     in case <vp.vtype,tn,pl,o> of {
+          <Have, Pres, Neg, _,> => laysa ! Per3 Masc Sg ++ yaktubu ; -- special case for have_V2
+          <Copula, Pres, Pos, _> => [] ;    --no verb "to be" in present
+          <Copula, Pres, Neg, _> => laysa ! pgn ; -- negative copula
+          <_, Pres, Pos, _> => yaktubu ;
+          <_, Pres, Neg, _> => la ++ yaktubu ;
           <_, Past, Pos, _> => kataba ;
           <_, Past, Neg, _> => lam ++ yaktub ;
           <_, Cond, Pos, _> => yaktuba ;
@@ -651,9 +688,9 @@ oper
   slashV2 : Verb2 -> VPSlash = \v ->
     predV v ** {
       c2 = v.c2 ; agrObj = \\_ => [] ;
-      isPoss = case v.c2.c of {
-                 Nom => True ; -- for have_V2
-                 _   => False } ;
+      vtype = case v.c2.c of {
+                 Nom => Have ; -- for have_V2
+                 _   => NotPred } ;
       } ;
 
   -- Add subject string, fix agreement to the subject,

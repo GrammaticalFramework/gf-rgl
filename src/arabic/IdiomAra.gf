@@ -25,7 +25,7 @@ concrete IdiomAra of Idiom = CatAra ** open
   CleftAdv adv s =
     let comp : Comp = CompAdv (lin Adv {s = adv.s ++ s.s ! Verbal}) ; -- no idea about word order /IL
         pass_V = mkV "مضي" va vi ; -- switch to copula or some other verb if better /IL
-     in predVP emptyNP (UseV pass_V ** {isPred=True ; pred=comp}) ; -- very hacky /IL
+     in predVP emptyNP (UseV pass_V ** {vtype=Copula ; pred=comp}) ; -- very hacky /IL
 
    -- : NP -> Cl ;        -- there is a house
   ExistNP np =
