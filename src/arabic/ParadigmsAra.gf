@@ -657,32 +657,12 @@ resource ParadigmsAra = open
 
 
   mkQuant7 : (_,_,_,_,_,_,_ : Str) -> State -> Quant =
-    \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det -> lin Quant (baseQuant **
-    { s = \\n,s,g,c =>
-        case <s,g,c,n> of {
-          <_,Masc,_,Sg>  => hava;
-          <_,Fem,_,Sg>   => havihi;
-          <_,Masc,Nom,Dl>=> havAn;
-          <_,Masc,_,Dl>  => havayn;
-          <_,Fem,Nom,Dl> => hAtAn;
-          <_,Fem,_,Dl>   => hAtayn;
-          <Hum,_,_,Pl>   => hA'ulA;
-          _              => havihi
-        };
-      d = det
-    });
+    \hava,havihi,havAn,havayn,hAtAn,hAtayn,hA'ulA,det ->
+    lin Quant (ResAra.mkQuant7 hava havihi havAn havayn hAtAn hAtayn hA'ulA det) ;
 
   mkQuant3 : (_,_,_ : Str) -> State -> Quant =
-    \dalika,tilka,ula'ika,det -> lin Quant (baseQuant **
-    { s = \\n,s,g,c =>
-        case <s,g,c,n> of {
-          <_,Masc,_,Sg>  => dalika;
-          <_,Fem,_,Sg>   => tilka;
-          <Hum,_,_,_>   => ula'ika;
-          _              => tilka
-        };
-      d = det
-    });
+    \dalika,tilka,ula'ika,det ->
+    lin Quant (ResAra.mkQuant3 dalika tilka ula'ika det) ;
 
   brkA : (root,sg,pl : Str) -> Adj -- also broken feminine
     = brkABool False ;
