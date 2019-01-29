@@ -100,7 +100,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     -- : VP -> Prep -> VPSlash ;  -- live in (it)
     VPSlashPrep vp prep = vp ** {
       c2 = prep ;
-      agrObj = \\_ => []
+      agrObj = \\_ => [] -- to make it into VPSlash, VP didn't have that field before
       } ;
 
     AdvVP vp adv = insertStr adv.s vp ;
