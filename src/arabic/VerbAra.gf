@@ -111,9 +111,11 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     -- : VPSlash -> VP ;         -- love himself
     ReflVP vps = vps ** {
       s = \\pgn,vf => vps.s ! pgn ! vf
+                   ++ vps.obj.s -- only relevant if the VPSlash has been through VPSlashPrep
                    ++ vps.c2.s ++ bindIf vps.c2.binds
                    ++ reflPron vps.c2.c pgn ;
-      c2 = noPrep
+      c2 = accPrep ;
+      obj = emptyObj ; -- because old obj was moved in s
       } ;
 
     PassV2 = passPredV ;
