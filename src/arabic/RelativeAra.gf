@@ -1,5 +1,5 @@
 concrete RelativeAra of Relative = CatAra **
-  open ResAra in {
+  open Prelude,ResAra in {
  flags coding=utf8;
 
  lin
@@ -13,7 +13,7 @@ concrete RelativeAra of Relative = CatAra **
      s = \\t,p,agr,c =>
        let
          npS : Case => Str = \\_ => rp.s ! agr2ragr agr c ;
-         np : ResAra.NP = agrNP agr ** {s = npS} ;
+         np : ResAra.NP = agrNP {pgn=agr;isPron=False} ** {s = npS} ;
          cl = predVP np vp ;
        in
        cl.s ! t ! p ! Nominal
@@ -23,7 +23,7 @@ concrete RelativeAra of Relative = CatAra **
    RelSlash rp cls = cls ** {
      s = \\t,p,agr,c =>
         let --empty : Agr -> NP = emptyNP ;
-            obj : ResAra.NP = pgn2pron agr.pgn ; -- head is repeated as a clitic object pronoun
+            obj : ResAra.NP = pgn2pron agr ; -- head is repeated as a clitic object pronoun
             cl : ResAra.Cl = complClSlash obj cls ;
         in rp.s ! agr2ragr agr c ++ cl.s ! t ! p ! VOS
      } ;

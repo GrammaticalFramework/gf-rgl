@@ -114,7 +114,7 @@ lin
     s = \\_,_,_,_ => BIND ++ p.s ! Gen;
     d = Poss;
     is1sg = is1sg p.a ;
-    isPron = True} ;
+    isPron = p.a.isPron} ;
 
   NumSg = {
     s = \\_,_,_ => [] ;
@@ -199,13 +199,13 @@ lin
 
   RelCN cn rs = cn ** {
     s2 = \\n,s,c => cn.s2 ! n ! s ! c
-        ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c ;
+        ++ rs.s ! Per3 cn.g n ! c ;
     isHeavy = True
     } ;
 
 
   RelNP np rs = np ** {
-    s = \\c => np.s ! c ++ rs.s ! np.a ! c ;
+    s = \\c => np.s ! c ++ rs.s ! np.a.pgn ! c ;
     isHeavy = True
     } ;
 
