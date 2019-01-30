@@ -114,7 +114,7 @@ lin
     s = \\_,_,_,_ => BIND ++ p.s ! Gen;
     d = Poss;
     is1sg = is1sg p.a ;
-    isPron = True} ;
+    isPron = p.a.isPron} ;
 
   NumSg = {
     s = \\_,_,_ => [] ;
