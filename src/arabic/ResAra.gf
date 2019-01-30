@@ -469,7 +469,7 @@ param
          | VPImp
          | VPGer ;
 
-  VType = -- indicates if there is a predicate (xabar): 
+  VType = -- indicates if there is a predicate (xabar):
           Copula  -- 1) disappears in equational sentences
                   -- 2) its argument ('xabar') is in the pred field
                   -- 3) it is negated with laysa
@@ -729,8 +729,8 @@ param
 
 oper
   agr2ragr = overload {
-    agr2ragr : Agr -> Case -> RAgr = \a,c ->
-      let gn = pgn2gn a.pgn in case <gn.n,gn.g,a> of {
+    agr2ragr : PerGenNum -> Case -> RAgr = \pgn,c ->
+      let gn = pgn2gn pgn in case <gn.n,gn.g,a> of {
         <Sg,x> => RSg x ;
         <Dl,x> => RDl x c ;
         <Pl,x> => RPl x } ;
@@ -741,7 +741,7 @@ oper
         Pl => RPl g }
     } ;
 
-  RCl : Type = {s : Tense => Polarity => Agr => Case => Str} ;
+  RCl : Type = {s : Tense => Polarity => PerGenNum => Case => Str} ;
   RP  : Type = {s : RAgr => Str } ;
 
 -----------------------------------------------------------------------------
