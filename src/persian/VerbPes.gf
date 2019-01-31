@@ -41,9 +41,10 @@ concrete VerbPes of Verb = CatPes ** open ResPes in {
     ReflVP v = insertObjPre (\\a =>  reflPron ! a) v ;
     PassV2 v = predV v ; -- need to be fixed
     CompAP ap ={s = \\_ => ap.s ! bEzafa} ; -- check form of adjective
-    CompNP np = {s = \\a => np.s ! NPC bEzafa} ;
     CompAdv adv = {s = \\_ => adv.s } ;
     CompCN cn = {s = \\a => cn.s ! bEzafa !  giveNumber a } ;
+    -- IL 2019-01-31 changed bEzafa to enClic according to
+    -- https://sites.la.utexas.edu/persian_online_resources/nouns/noun-in-a-predicative-position/
+    CompNP np = {s = \\a => np.s ! NPC enClic} ;
 
- 
 }
