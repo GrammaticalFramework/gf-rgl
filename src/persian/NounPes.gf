@@ -11,34 +11,26 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
         <True,False>  => det.s ++ cn.s ! bEzafa ! Sg
      };
       a = agrPesP3 det.n ;
-      animacy = cn.animacy 
+      animacy = cn.animacy
       } ;
 
     UsePN pn = {s = \\_ => pn.s ; a = agrPesP3 Sg ; animacy = pn.animacy } ;
     UsePron p = {s = \\_ => p.s ; a = p.a ; animacy = Animate} ;
 
-    PredetNP pred np = {
-      s = \\ez => pred.s ++ np.s ! ez ;
-      a = np.a;
-      animacy = np.animacy
+    PredetNP pred np = np ** {
+      s = \\ez => pred.s ++ np.s ! ez
       } ;
 
-    PPartNP np v2 = {
-      s =  \\ez => np.s ! ez ++ partNP (v2.s ! Root1)    ;
-      a = np.a ;
-      animacy = np.animacy
+    PPartNP np v2 = np ** {
+      s = \\ez => np.s ! ez ++ partNP (v2.s ! Root1)
       } ;
 
-    RelNP np rs = {
-	  s = \\ez => np.s ! ez  ++ rs.s ! np.a ;
-      a = np.a ;
-      animacy = np.animacy
+    RelNP np rs = np ** {
+      s = \\ez => np.s ! ez ++ rs.s ! np.a
       } ;
 
-    AdvNP np adv = {
-      s = \\ez => np.s ! NPC aEzafa ++ adv.s ;
-      a = np.a  ;
-      animacy = np.animacy
+    AdvNP np adv = np ** {
+      s = \\ez => np.s ! NPC aEzafa ++ adv.s
       } ;
 
     DetQuantOrd quant num ord = {
@@ -84,7 +76,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     MassNP cn = {s =\\c => case c of {
       NPC bEzafa => cn.s ! bEzafa ! Sg ;
       NPC aEzafa => cn.s ! aEzafa ! Sg ;
-      NPC enClic => cn.s ! enClic ! Sg 
+      NPC enClic => cn.s ! enClic ! Sg
       };
       a = agrPesP3 Sg ;
       animacy = cn.animacy
@@ -92,7 +84,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     UseN n = n ;
     UseN2 n = n ;
- 
+
     Use2N3 f = {
       s = f.s;
       c = f.c2;
@@ -111,30 +103,26 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       s = \\ez,n => f.s ! ez ! n  ++ f.c ++ x.s ! NPC ez ;
       animacy = f.animacy;
       definitness = True
-	   };
+     };
     ComplN3 f x = {
-      s = \\ez,n => f.s ! ez ! n ++ f.c2 ++ x.s ! NPC ez ; 
+      s = \\ez,n => f.s ! ez ! n ++ f.c2 ++ x.s ! NPC ez ;
       c = f.c3;
       animacy = f.animacy;
       definitness = True;
       } ;
 
-    AdjCN ap cn = {
-      s = \\ez,n =>  cn.s ! aEzafa ! n ++ ap.s ! ez; -- check the form of adjective and also cn.s!ez!n changed from cn.s!aEzafa!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
-      animacy = cn.animacy ;
-      definitness = cn.definitness
+    AdjCN ap cn = cn ** {
+      s = \\ez,n =>  cn.s ! aEzafa ! n ++ ap.s ! ez -- check the form of adjective and also cn.s!ez!n changed from cn.s!aEzafa!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
       } ;
 
-    RelCN cn rs = {
-      s = \\ez,n => cn.s ! enClic ! n ++ rs.s ! agrPesP3 n ; 
-      animacy = cn.animacy ;
-      definitness = cn.definitness
+    RelCN cn rs = cn ** {
+      s = \\ez,n => cn.s ! enClic ! n ++ rs.s ! agrPesP3 n ;
       } ;
-      
-    AdvCN cn ad = {s = \\ez,n => cn.s ! aEzafa ! n ++ ad.s ; animacy = cn.animacy ; definitness = cn.definitness} ;
 
-    SentCN cn sc = {s = \\ez,n => cn.s ! ez ! n ++ sc.s ; animacy = cn.animacy ; definitness = cn.definitness} ;
+    AdvCN cn ad = cn ** {s = \\ez,n => cn.s ! aEzafa ! n ++ ad.s} ;
 
-    ApposCN cn np = {s = \\ez,n => cn.s ! ez ! n  ++ np.s ! NPC aEzafa ; animacy = cn.animacy ; definitness = True} ; -- ezafa form of city to be used
+    SentCN cn sc = cn ** {s = \\ez,n => cn.s ! ez ! n ++ sc.s} ;
+
+    ApposCN cn np = cn ** {s = \\ez,n => cn.s ! ez ! n ++ np.s ! NPC aEzafa ; definitness = True} ; -- ezafa form of city to be used
 
 }
