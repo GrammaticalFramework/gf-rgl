@@ -3,13 +3,13 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = {
-      s =  \\_ => case <det.isNum,det.fromPron> of {
-                 <False,True> => cn.s ! aEzafa ! det.n ++ det.s ; -- det.n  ;
-		 <False,False> => det.s  ++ cn.s ! bEzafa ! det.n ; -- det.n  ;
-		 <True,True> => cn.s ! aEzafa ! Sg ++ det.s ;
-		 <True,False> =>  det.s ++ cn.s ! bEzafa ! Sg 
-		 };
+    DetCN det cn = { s = \\_ =>
+      case <det.isNum,det.fromPron> of {
+        <False,True>  => cn.s ! aEzafa ! det.n ++ det.s ;
+        <False,False> => det.s ++ cn.s ! bEzafa ! det.n ;
+        <True,True>   => cn.s ! aEzafa ! Sg ++ det.s ; -- noun modified by a number is invariably singular
+        <True,False>  => det.s ++ cn.s ! bEzafa ! Sg
+     };
       a = agrPesP3 det.n ;
       animacy = cn.animacy 
       } ;
@@ -42,17 +42,17 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     DetQuantOrd quant num ord = {
-        s = quant.s ! num.n ++ num.s ++ ord.s ;
-	isNum = True;
-	fromPron = quant.fromPron ;
+      s = quant.s ! num.n ++ num.s ++ ord.s ;
+      isNum = orB num.isNum ord.isNum ;
+      fromPron = quant.fromPron ;
       n = num.n
       } ;
 
     DetQuant quant num = {
-        s = quant.s ! num.n ++ num.s;
-	isNum = True ; -- this does not work in case of 'these women' but  works in case of 'five women' 
-	fromPron = quant.fromPron ;
-	  n = num.n 
+      s = quant.s ! num.n ++ num.s;
+      isNum = num.isNum;
+      fromPron = quant.fromPron ;
+      n = num.n
       } ;
 
     DetNP det = {
@@ -63,20 +63,20 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     PossPron p = {s = \\_ => p.ps ; a = p.a ; fromPron = True} ;
 
-    NumSg = {s = [] ; n = Sg} ;
-    NumPl = {s = [] ; n = Pl} ;
+    NumSg = {s = [] ; n = Sg ; isNum = False} ;
+    NumPl = {s = [] ; n = Pl ; isNum = False} ;
 -- from here
-    NumCard n = n ** {hasCard = True} ;
+    NumCard n = n ** {isNum = True} ;
 
-    NumDigits n = {s = n.s ! NCard ; n = n.n} ;
-    OrdDigits n = {s = n.s ! NOrd; n = n.n} ;
+    NumDigits n = n ** {s = n.s ! NCard; isNum = True} ;
+    OrdDigits n = n ** {s = n.s ! NOrd ; isNum = True} ;
 
-    NumNumeral numeral = {s = numeral.s ! NCard; n = numeral.n} ;
-    OrdNumeral numeral = {s = numeral.s ! NOrd ; n = numeral.n} ;
+    NumNumeral n = n ** {s = n.s ! NCard; isNum = True} ;
+    OrdNumeral n = n ** {s = n.s ! NOrd ; isNum = True} ;
 -- to here
-    AdNum adn num = {s = adn.s ++ num.s ; n = num.n} ;
+    AdNum adn num = num ** {s = adn.s ++ num.s} ;
 
-    OrdSuperl a = {s = a.s ! bEzafa ++ taryn; n = Sg} ; -- check the form of adjective
+    OrdSuperl a = {s = a.s ! bEzafa ++ taryn; n = Sg ; isNum=False} ; -- check the form of adjective
 
     DefArt = {s = \\_ => [] ; a = defaultAgrPes ; fromPron = False} ;
     IndefArt = {s = table { Sg => IndefArticle ; Pl => []} ; a =defaultAgrPes ; fromPron = False} ;
