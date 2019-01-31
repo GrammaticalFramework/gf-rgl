@@ -21,7 +21,9 @@ The code used to generate the modules below is in this [[http://gitlab.com/odano
 
 ** Dict
 This module contains nouns and adjectives defined from the forms in
-this [[https://github.com/LFG-PTBR/MorphoBr/][morphological resource]].
+this [[https://github.com/LFG-PTBR/MorphoBr/][morphological resource]]. Variants are not used. =fun= names are
+the word's lemmas, plus optional distinguishing feature (e.g.,
+/número_N/ for /número/ but /abade_Fem_N/ for /abadessa/).
 
 ** Besch
 The =BeschPor= module contains the complete inflection tables for all
