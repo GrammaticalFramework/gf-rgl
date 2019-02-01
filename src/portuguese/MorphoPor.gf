@@ -143,7 +143,7 @@ oper
 
     } ;
 
---2 Adjectives
+--3 Adjectives
 --
 -- Adjectives are conveniently seen as gender-dependent nouns.  Here
 -- are some patterns. First one that describes the worst case.
@@ -195,7 +195,7 @@ oper
       _             => mkAdj a
     } ;
 
---2 Personal pronouns
+--4 Personal pronouns
 --
 -- All the eight personal pronouns can be built by the following macro.
 -- The use of "ne" as atonic genitive is debatable.
@@ -241,7 +241,7 @@ oper
     (pronAgr pron g n p) ** pronLin você o lhe Você ;
 
 
---2 Determiners
+--5 Determiners
 --
 -- Determiners, traditionally called indefinite pronouns, are
 -- inflected in gender and number, like adjectives.
