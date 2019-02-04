@@ -1,6 +1,6 @@
---# -path=.:../abstract:../../prelude:../common
+--# -path=.:../abstract:../prelude:../common
 --
-----1 Pnbu Lexical Paradigms
+----1 Persian Lexical Paradigms
 
 resource ParadigmsPes = open
   Predef,
@@ -23,14 +23,26 @@ oper
   singular = Sg ; plural = Pl;
 
   animate = Animate ; inanimate = Inanimate ; --i
-  mkN01 : Str -> Animacy -> Noun ;
-  mkN01 str ani = mkN str (str ++ "ها") ani;
-  mkN02 : Str -> Animacy -> Noun ;
-  mkN02 str ani = case (last str) of {
-    "ه" => mkN str ((init str) + "گان") ani ;
-    ("ا"|"و") => mkN str (str + "یان") ani ;
-    _ => mkN str (str+"ان") ani
+  mkN01 : (sg : Str) -> Animacy -> Noun ; -- Takes singular form and animacy, forms plural with ها
+  mkN01 sg ani =
+    let pl = zwnj sg "ها" ; -- Using zero-width non-joiner, defined in ResPes
+    in MorphoPes.mkN sg pl ani ;
+
+  mkN02 : (sg : Str) -> Animacy -> Noun ; -- Takes singular form and animacy, pattern matches singular and forms plural with either گان, یان or ان
+  mkN02 str ani = case last str of {
+    "ه"       => MorphoPes.mkN str (init str + "گان") ani ;
+    ("ا"|"و") => MorphoPes.mkN str (str + "یان")      ani ;
+    _         => MorphoPes.mkN str (str + "ان")       ani
   };
+
+  mkN = overload {
+    mkN : (sg : Str) -> N -- Takes singular form, returns an inanimate noun with ها as the plural form
+      = \sg -> mkN01 sg inanimate ;
+    mkN : (sg,pl : Str) -> N -- Takes singular and plural form, returns an inanimate noun
+      = \sg,pl -> MorphoPes.mkN sg pl inanimate ;
+    mkN : (sg,pl : Str) -> Animacy -> N -- Worst-case constructor: takes singular and plural forms and animacy
+      = \sg,pl,ani -> MorphoPes.mkN sg pl ani
+  } ;
 {-
 
 --2 Nouns
