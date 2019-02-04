@@ -60,8 +60,12 @@ resource ResPes =  ParamX **  open Prelude,Predef in {
     contrNeg : Bool -> Polarity -> CPolarity = \b,p -> case p of {
     Pos => CPos ;
     Neg => CNeg b
-    } ;  
+    } ;
     
+    -- Zero-width non-joiner, used for certain morphemes
+    -- See https://en.wikipedia.org/wiki/Persian_alphabet#Word_boundaries
+    ZWNJ : Str = "‌" ;
+    zwnj : Str -> Str -> Str = \s1,s2 -> s1 + ZWNJ + s2 ;
  -----------------------
  --- Verb Phrase
  -----------------------

@@ -1,8 +1,8 @@
---# -path=.:../abstract:../common:../hindustani
+--# -path=.:../abstract:../common
 
 concrete LangPes of Lang = 
-  GrammarPes,
-  LexiconPes
+  GrammarPes
+  ,LexiconPes
   ** {
 
 flags startcat = Phr ; unlexer=unwords ; lexer=words ;
