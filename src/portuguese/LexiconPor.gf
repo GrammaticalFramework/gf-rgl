@@ -347,7 +347,7 @@ lin
    sew_V     = mkV "costurar" ;
    sing_V    = mkV "cantar" ;
    sit_V     = reflV (mkV "sentar") ;
-   sleep_V   = mkV "dormir" ;
+   sleep_V   = mkV (dormir_Besch "dormir") ;
    smell_V   = mkV "cheirar" ;
    spit_V    = mkV "cuspir" ;
    stand_V   = mkV (estar_Besch "estar") ; ---- "estar de pé" ;
