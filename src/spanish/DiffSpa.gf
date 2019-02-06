@@ -112,27 +112,27 @@ instance DiffSpa of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits,contractInf] = o
 
     infForm _ _ _ _  = True ;
 
-    mkImperative b p vp =
-      \\pol,g,n => 
-        let 
-          pe    = case b of {True => P3 ; _ => p} ;
-          agr   = {g = g ; n = n ; p = pe} ;
-          refl  = case vp.s.vtyp of {
-            VRefl => <reflPron n pe Acc,True> ;
-            _ => <[],False> 
-            } ;
 
-          clpr  =  <vp.clit1 ++ vp.clit2, [],vp.clit3.hasClit> ; 
-----          clpr  = <[],[],False> ; ----e pronArg agr.n agr.p vp.clAcc vp.clDat ;
-----e          verb  = case <aag.n, pol,pe> of {
-----e            <Sg,Neg,P2> => (vp.s ! VPInfinit Simul clpr.p3).inf ! aag ;
-----e            _ => (vp.s ! VPImperat).fin ! agr
-----e            } ;
-          verb  = vp.s.s ! vImper n pe ;
-          neg   = vp.neg ! pol ;
-          compl = neg.p2 ++ clpr.p2 ++ vp.comp ! agr ++ vp.ext ! pol
-        in
-        neg.p1 ++ verb ++ bindIf refl.p2 ++ refl.p1 ++ bindIf clpr.p3 ++ clpr.p1 ++ compl ;
+    mkImperative isPol p vp =
+      \\pol,g,n => case pol of {
+        RPos   => neg.p1 ++ imper ++ bindIf refl.isRefl ++ refl.pron
+          ++ bindIf hasClit ++ clit ++ compl ;
+        RNeg _ => neg.p1 ++ refl.pron ++ clit ++ subj ++ compl
+      } where {
+        pe   = case isPol of {True => P3 ; _ => p} ;
+        refl = case vp.s.vtyp of {
+          VRefl => {pron = reflPron n pe Acc ; isRefl = True} ;
+          _     => {pron = [] ; isRefl = False}
+          } ;
+        clit    = vp.clit1 ++ vp.clit2 ;
+        hasClit = vp.clit3.hasClit ;
+        imper   = vp.s.s ! vImper n pe ;
+        subj    = vp.s.s ! VFin (VPres Conjunct) n pe ;
+        neg     = vp.neg ! pol ;
+        agr     = {g = g ; n = n ; p = pe} ;
+        compl   = neg.p2 ++ vp.comp ! agr ++ vp.ext ! pol
+      } ;
+
 
     CopulaType = Bool ;
     selectCopula = \isEstar -> case isEstar of {True => estar_V ; False => copula} ;

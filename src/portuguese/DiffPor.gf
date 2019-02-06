@@ -55,22 +55,31 @@ instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open
       defaultPronArg ;
 
   oper
-    mkImperative b p vp =
-      \\pol,g,n =>
-        let
-          pe    = case b of {True => P3 ; _ => p} ;
-          agr   = {g = g ; n = n ; p = pe} ;
-          refl  = case vp.s.vtyp of {
-            VRefl => <reflPron n pe Acc,True> ;
-            _ => <[],False>
-            } ;
+    mkImperative isPol p vp =
+      \\pol,g,n => case pol of {
+        RPos   => neg.p1 ++ imper ++ bindHyphenIf refl.isRefl ++ refl.pron
+          ++ bindIf hasClit ++ clit ++ compl ;
+        RNeg _ => neg.p1 ++ refl.pron ++ clit ++ subj ++ compl
+      } where {
+        pe   = case isPol of {True => P2 ; _ => P3} ;
+        refl = case vp.s.vtyp of {
+          VRefl => {pron = reflPron n pe Acc ; isRefl = True} ;
+          _     => {pron = [] ; isRefl = False}
+          } ;
+        clit    = vp.clit1 ++ vp.clit2 ;
+        hasClit = vp.clit3.hasClit ;
+        imper   = vp.s.s ! vImper n pe ;
+        subj    = vp.s.s ! VFin (VPres Conjunct) n p ;
+        neg     = vp.neg ! pol ;
+        agr     = {g = g ; n = n ; p = pe} ;
+        compl   = neg.p2 ++ vp.comp ! agr ++ vp.ext ! pol
+      } ;
 
-          clpr  =  <vp.clit1 ++ vp.clit2, [],vp.clit3.hasClit> ;
-          verb  = vp.s.s ! vImper n pe ;
-          neg   = vp.neg ! pol ;
-          compl = neg.p2 ++ clpr.p2 ++ vp.comp ! agr ++ vp.ext ! pol
-      in
-      neg.p1 ++ verb ++ bindIf refl.p2 ++ refl.p1 ++ bindIf clpr.p3 ++ clpr.p1 ++ compl ;
+    bindHyphenIf : Bool -> Str ;
+    bindHyphenIf b = case b of {
+      True => BIND ++ "-" ++ BIND ;
+      _    => []
+      } ;
 
   param
     Copula = SerCop | EstarCop | FicarCop ;

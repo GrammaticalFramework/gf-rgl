@@ -45,4 +45,4 @@ concrete ExtraPor of ExtraPorAbs = ExtraRomancePor **
 
     UseComp_estar comp = insertComplement comp.s (predV B.estar_V) ;
 
-}
+} ;

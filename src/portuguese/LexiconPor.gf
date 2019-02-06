@@ -39,7 +39,7 @@ lin
    near_A      = mkA "perto" ;
    new_A       = prefixA (mkA "novo") ;
    old_A       = prefixA (mkA "velho") ;
-   ready_A     = adjCopula (mkA "pronto") D.estarCopula ;
+   ready_A     = mkA (mkA "pronto") D.estarCopula ;
    red_A       = mkA "vermelho" ;
    rotten_A    = mkA "podre" ;
    round_A     = mkA "redondo" ;
@@ -52,7 +52,7 @@ lin
    thick_A     = mkA "grosso" ;
    thin_A      = mkA "fino" ; -- delgado, magro
    ugly_A      = mkA "feio" ;
-   uncertain_A = mkA "incerto" ;
+   uncertain_A = mkA (mkA "incerto") D.estarCopula ;
    warm_A      = mkA "quente" ;
    wet_A       = mkA "molhado" ;
    white_A     = compADeg (mkA "branco") ;
@@ -191,7 +191,7 @@ lin
    question_N   = mkN "pergunta" ;
    radio_N      = mkN "rádio" ;
    rain_N       = mkN "chuva" ;
-   reason_N     = mkN "razão" ;
+   reason_N     = mkN "razão" feminine ;
    religion_N   = mkN "religião" ;
    restaurant_N = mkN "restaurante" ;
    river_N      = mkN "rio" ;
@@ -232,7 +232,7 @@ lin
    table_N      = mkN "mesa" ;
    tail_N       = mkN "rabo" ;
    teacher_N    = mkN "professor" ;
-   television_N = mkN "televisão" ;
+   television_N = mkN "televisão" feminine ;
    tongue_N     = mkN "língua" ;
    tooth_N      = mkN "dente" ;
    train_N      = mkN "trem" ;
@@ -278,7 +278,7 @@ lin
    hit_V2        = mkV2 (mkV "bater") ;
    hold_V2       = mkV2 have_V ;
    hunt_V2       = mkV2 (mkV "caçar") ;
-   kill_V2       = mkV2 (mkV "matar") ;
+   kill_V2       = mkV2 (mkV "matar" "morto") ;
    know_V2       = mkV2 (mkV "conhecer") ;
    learn_V2      = mkV2 (mkV "aprender") ;
    leave_V2      = mkV2 (mkV "partir") ;
@@ -301,7 +301,7 @@ lin
    squeeze_V2    = mkV2 (mkV "apertar") ;
    stab_V2       = mkV2 (mkV (recear_Besch "esfaquear")) ;
    suck_V2       = mkV2 (mkV "chupar") ;
-   switch8off_V2 = mkV2 (mkV "apagar") ;
+   switch8off_V2 = mkV2 (mkV "desligar") ;
    switch8on_V2  = mkV2 (mkV "ligar") ; -- acender
    teach_V2      = mkV2 (mkV "ensinar") ;
    throw_V2      = mkV2 (mkV "jogar") ;
