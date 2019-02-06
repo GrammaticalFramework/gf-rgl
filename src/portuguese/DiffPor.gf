@@ -58,7 +58,7 @@ instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open
     mkImperative isPol p vp =
       \\pol,g,n => case pol of {
         RPos   => neg.p1 ++ imper ++ bindHyphenIf refl.isRefl ++ refl.pron
-          ++ bindIf hasClit ++ clit ++ compl ;
+          ++ bindHyphenIf hasClit ++ clit ++ compl ;
         RNeg _ => neg.p1 ++ refl.pron ++ clit ++ subj ++ compl
       } where {
         pe   = case isPol of {True => P2 ; _ => P3} ;
