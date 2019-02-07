@@ -106,7 +106,8 @@ oper
  mkV : Str -> Str -> V
       = \s1, s2 -> mkVerb s1 s2 ** {lock_V = <>} ;
   -- mkVerb takes both the Infinitive and the present root(root2) and is applied for iregular verbs
-  haveVerb : V = M.haveVerb ;
+  haveVerb : V = lin V M.haveVerb ;
+  beVerb : V = lin V M.beVerb ;
   mkV_1 : Str -> V
       = \s -> mkVerb1 s ** {lock_V = <>} ;
 

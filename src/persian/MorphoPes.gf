@@ -146,7 +146,7 @@ oper
 
   mkVerb : (x1,x2 : Str) -> Verb = \inf,root2 ->
     let root1 = tk 1 inf ;
-        impRoot = impRoot root2 
+        impRoot = impRoot root2
      in { s = table {
        Root1    => root1 ;
        Root2    => root2 ;
@@ -154,7 +154,7 @@ oper
        Imp Pos Sg => addBh impRoot ;
        Imp Pos Pl => addBh impRoot + "ید" ;
        Imp Neg Sg => "ن" + impRoot ;
-       Imp Neg Pl => "ن" +  impRoot + "ید" ;     
+       Imp Neg Pl => "ن" +  impRoot + "ید" ;
        Vvform ag  => mkvVform root2 ag ;
        VF p t ag  => mkCmnVF root1 root2 p t ag }
     } ;
@@ -279,7 +279,7 @@ oper
       Ag Pl P2 => zwnj s "اید" ;
       Ag Pl P3 => zwnj s "اند" } ;
 
-  pluperfectSuffix : Agr -> Str -> Str = \ag,s -> s ++ 
+  pluperfectSuffix : Agr -> Str -> Str = \ag,s -> s ++
     case ag of { -- not suffix, just using consistent naming scheme :-P /IL
       Ag Sg P1 => "بودم" ;
       Ag Sg P2 => "بودی" ;
@@ -293,7 +293,7 @@ oper
 ----------------------------------
 
   haveVerb : Verb = {s = table {
-    Root1 => "داشت" ; 
+    Root1 => "داشت" ;
     Root2 => "دار" ;
     Inf   => "داشتن" ;
     Imp Pos Sg => "بدار" ;
@@ -315,5 +315,16 @@ oper
           _ => mkCmnVF dasht dar pol t ag
         } ;
 
-
+  beVerb : Verb = { s = table {
+    Vvform agr => imperfectSuffixD agr "باش" ;
+    Imp Pos Sg => "باش" ;
+    Imp Pos Pl => "باشید" ;
+    Imp Neg Sg => "نباش" ;
+    Imp Neg Pl => "نباشید" ;
+    Inf => "بودن" ;
+    Root1 => "بود" ;
+    Root2 => "باش" ;
+    VF pol tense agr => mkCmnVF "بود" "باش" pol tense agr
+   }
+  } ;
 }

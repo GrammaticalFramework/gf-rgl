@@ -1,8 +1,7 @@
 --# -path=.:prelude:alltenses
 
 concrete LexiconPes of Lexicon = CatPes **
---open ResPnb, Prelude in {
-  open ParadigmsPes, MorphoPes, Prelude in {
+  open ParadigmsPes, Prelude in {
 
   flags
     optimize=values ;
@@ -94,11 +93,11 @@ concrete LexiconPes of Lexicon = CatPes **
   go_V = mkV "رفتن" "رو";
   green_A = mkA "سبز" ;
   harbour_N = mkN "بندر" "بنادر" inanimate;
---  hate_V2 = mkV2 (compoundV "متنفر" (mkToBe "بودن" "باش" "هست")) "از" False; -- needs from/ verb to be
+  hate_V2 = mkV2 (compoundV "متنفر" beVerb) "از" False; -- needs from/ verb to be
   hat_N = mkN01 "کلاه" inanimate;
   hear_V2 = mkV2 (mkV "شنیدن" "شنو") "را" ;
   hill_N = mkN01 "تپه" inanimate;
---  hope_VS = compoundV "امیدوار" (mkToBe "بودن" "باش" "هست");
+  hope_VS = compoundV "امیدوار" beVerb;
   horse_N = mkN01 "اسب" animate;
   hot_A = mkA "داغ" ["داغ داغ"] ;
   house_N = mkN01 "خانه" inanimate;
@@ -120,7 +119,7 @@ concrete LexiconPes of Lexicon = CatPes **
   long_A = mkA "بلند" ;
   lose_V2 = mkV2 (compoundV "گم" doVerb) "را" ;
   love_N = mkN01 "عشق" inanimate;
-  love_V2 = mkV2 (compoundV "دوست" haveVerb) "را"; -- also possible: love_V2 = mkV2 (compoundV "عاشق" (mkToBe "بودن" "باش" "هست"));
+  love_V2 = mkV2 (compoundV "دوست" haveVerb) "را"; -- also possible: love_V2 = mkV2 (compoundV "عاشق" beVerb);
   man_N = mkN02 "مرد" animate;
   married_A2 = mkA "متأهل" "";
   meat_N = mkN01 "گوشت" inanimate;
@@ -314,7 +313,7 @@ concrete LexiconPes of Lexicon = CatPes **
   burn_V = mkV "سوختن" "سوز" ;
   dig_V = mkV_2 "کندن" ;
   fall_V = mkV_1 "افتادن" ;
-  --float_V = compoundV "شناور" (mkToBe "بودن" "باش" "هست") ;
+  float_V = compoundV "شناور" beVerb ;
   flow_V = compoundV "جاری" (mkV "شدن" "شو") ;
   fly_V = compoundV "پرواز" doVerb ;
   freeze_V = compoundV "یخ" hitVerb ;
