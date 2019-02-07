@@ -5,7 +5,8 @@
 resource ParadigmsPes = open
   Predef,
   Prelude,
-  MorphoPes,
+  ResPes,
+  (M=MorphoPes),
   CatPes
   in {
 
@@ -26,22 +27,22 @@ oper
   mkN01 : (sg : Str) -> Animacy -> Noun ; -- Takes singular form and animacy, forms plural with ها
   mkN01 sg ani =
     let pl = zwnj sg "ها" ; -- Using zero-width non-joiner, defined in ResPes
-    in MorphoPes.mkN sg pl ani ;
+    in M.mkN sg pl ani ;
 
   mkN02 : (sg : Str) -> Animacy -> Noun ; -- Takes singular form and animacy, pattern matches singular and forms plural with either گان, یان or ان
   mkN02 str ani = case last str of {
-    "ه"       => MorphoPes.mkN str (init str + "گان") ani ;
-    ("ا"|"و") => MorphoPes.mkN str (str + "یان")      ani ;
-    _         => MorphoPes.mkN str (str + "ان")       ani
+    "ه"       => M.mkN str (init str + "گان") ani ;
+    ("ا"|"و") => M.mkN str (str + "یان")      ani ;
+    _         => M.mkN str (str + "ان")       ani
   };
 
   mkN = overload {
     mkN : (sg : Str) -> N -- Takes singular form, returns an inanimate noun with ها as the plural form
       = \sg -> mkN01 sg inanimate ;
     mkN : (sg,pl : Str) -> N -- Takes singular and plural form, returns an inanimate noun
-      = \sg,pl -> MorphoPes.mkN sg pl inanimate ;
+      = \sg,pl -> M.mkN sg pl inanimate ;
     mkN : (sg,pl : Str) -> Animacy -> N -- Worst-case constructor: takes singular and plural forms and animacy
-      = \sg,pl,ani -> MorphoPes.mkN sg pl ani
+      = \sg,pl,ani -> M.mkN sg pl ani
   } ;
 {-
 
@@ -68,8 +69,8 @@ oper
 
 
 -- Personal Pronouns
-  personalPN : Str -> Number -> PPerson -> Pron
-    = \str,nn,p -> lin Pron {s = str ; a = AgPes nn p ; ps = str};
+  personalPN : Str -> Number -> Person -> Pron
+    = \str,nn,p -> lin Pron {s = str ; a = Ag nn p ; ps = str};
 {-
 -- Demonstration Pronouns
   demoPN : Str -> Str -> Str -> Quant =
@@ -105,7 +106,8 @@ oper
  mkV : Str -> Str -> V
       = \s1, s2 -> mkVerb s1 s2 ** {lock_V = <>} ;
   -- mkVerb takes both the Infinitive and the present root(root2) and is applied for iregular verbs
-  haveVerb : V = mkHave ;
+  haveVerb : V = lin V M.haveVerb ;
+  beVerb : V = lin V M.beVerb ;
   mkV_1 : Str -> V
       = \s -> mkVerb1 s ** {lock_V = <>} ;
 
@@ -156,48 +158,30 @@ oper
 -}
   mkQuant = overload {
 --    mkQuant : Pron -> Quant = \p -> {s = \\_,_,c => p.s!c ;a = p.a ; lock_Quant = <>};
-    mkQuant :  Str -> Str -> Quant = \sg,pl -> makeQuant sg pl;
+    mkQuant :  Str -> Str -> Quant
+      = \sg,pl -> makeQuant sg pl;
   } ;
-{-
+
 --2 Conjunctions
-  mkConj : overload {
-    mkConj : Str -> Conj ;                  -- and (plural agreement)
-    mkConj : Str -> Number -> Conj ;        -- or (agrement number given as argument)
-    mkConj : Str -> Str -> Conj ;           -- both ... and (plural)
-    mkConj : Str -> Str -> Number -> Conj ; -- either ... or (agrement number given as argument)
+  mkConj = overload {
+    mkConj : Str -> Conj                  -- and (plural agreement)
+      = \y -> mk2Conj [] y plural ;
+    mkConj : Str -> Number -> Conj        -- or (agrement number given as argument)
+      = \y,n -> mk2Conj [] y n ;
+    mkConj : Str -> Str -> Conj          -- both ... and (plural)
+      = \x,y -> mk2Conj x y plural ;
+    mkConj : Str -> Str -> Number -> Conj -- either ... or (agrement number given as argument)
+     = mk2Conj
   } ;
- mkConj = overload {
-    mkConj : Str -> Conj = \y -> mk2Conj [] y plural ;
-    mkConj : Str -> Number -> Conj = \y,n -> mk2Conj [] y n ;
-    mkConj : Str -> Str -> Conj = \x,y -> mk2Conj x y plural ;
-    mkConj : Str -> Str -> Number -> Conj = mk2Conj ;
-  } ;
+
+
+
+--.
+
+
 
   mk2Conj : Str -> Str -> Number -> Conj = \x,y,n ->
-    lin Conj (sd2 x y ** {n = n}) ;
-
---  mkV0  : V -> V0 ;
---  mkVS  : V -> VS ;
---  mkV2S : V -> Prep -> V2S ;
-  mkVV  : V -> VV = \v ->  lin VV (v ** {isAux = False});
+   lin Conj (sd2 x y ** {n = n}) ;
 
 
---  mkV2V : V -> Prep -> Prep -> V2V ;
---  mkVA  : V -> VA ;
---  mkV2A : V -> Prep -> V2A ;
---  mkVQ  : V -> VQ ;
---  mkV2Q : V -> Prep -> V2Q ;
---
---  mkAS  : A -> AS ;
---  mkA2S : A -> Prep -> A2S ;
---  mkAV  : A -> AV ;
---  mkA2V : A -> Prep -> A2V ;
---  mkA2V a p = a ** {c2 = p.s } ;
---
----- Notice: Categories $V0, AS, A2S, AV, A2V$ are just $A$.
----- $V0$ is just $V$; the second argument is treated as adverb.
---
---  V0 : Type ;
---  AS, A2S, AV, A2V : Type ;
---}
 }

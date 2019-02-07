@@ -12,7 +12,7 @@ concrete PhrasePes of Phrase = CatPes ** open Prelude, ResPes in {
     UttIP ip = {s = ip.s } ; --- Acc also
     UttIAdv iadv = iadv ;
     UttNP np = {s = np.s ! NPC bEzafa} ;
-    UttVP vp = {s = vp.ad  ++ vp.comp ! (AgPes Sg PPers3 )  ++ vp.obj.s ++ vp.inf ++ vp.vComp ! (AgPes Sg PPers3) ++ vp.embComp} ;
+    UttVP vp = {s = vp.ad ++ vp.comp ! Ag Sg P3 ++ vp.obj.s ++ vp.inf ++ vp.vComp ! Ag Sg P3 ++ vp.embComp} ;
     UttAdv adv = {s = adv.s } ;
 	UttCN cn = {s = cn.s ! bEzafa ! Sg };
     UttCard n = n ;

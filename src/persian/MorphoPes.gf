@@ -1,25 +1,82 @@
 --# -path=.:../../prelude
 --
-----1 A Simple Punjabi Resource Morphology
+----1 A Simple Persian Resource Morphology
 ----
 ----  Shafqat Virk, Aarne Ranta,2010
 ----
 ---- This resource morphology contains definitions needed in the resource
----- syntax. To build a lexicon, it is better to use $ParadigmsPnb$, which
+---- syntax. To build a lexicon, it is better to use $ParadigmsPes$, which
 ---- gives a higher-level access to this module.
 --
-resource MorphoPes = ResPes ** open Prelude,Predef in {
+resource MorphoPes = ParamX ** open Prelude,Predef in {
 
   flags optimize=all ;
    coding = utf8;
 
-----2 Nouns
+---- Orthography
 
 oper
-    
-    mkN : (x1,x2 : Str) -> Animacy -> Noun = 
-      \sg,pl,ani -> {
-      s = table {
+  -- Zero-width non-joiner, used for certain morphemes
+  -- See https://en.wikipedia.org/wiki/Persian_alphabet#Word_boundaries
+  ZWNJ : Str = "‌" ;
+  zwnj : Str -> Str -> Str = \s1,s2 -> s1 + ZWNJ + s2 ;
+
+---- Nouns
+param
+  Animacy = Animate | Inanimate ;
+  Ezafa = bEzafa | aEzafa | enClic ;
+  Agr = Ag Number Person ;
+
+------------------------------------------
+-- Agreement transformations
+-----------------------------------------
+oper
+  toAgr : Number -> Person -> Agr = \n,p -> Ag n p ;
+
+  fromAgr : Agr -> {n : Number ; p : Person } = \agr -> case agr of {
+    Ag n p => {n = n ; p = p}
+  } ;
+
+  conjAgr : Agr -> Agr -> Agr = \a0,b0 ->
+    let a = fromAgr a0 ; b = fromAgr b0
+     in toAgr (conjNumber a.n b.n) b.p ;
+
+  giveNumber : Agr -> Number = \a -> case a of {
+     Ag n _ => n
+  } ;
+
+  defaultAgr : Agr = agrP3 Sg ;
+  agrP3 : Number -> Agr = \n -> Ag n P3 ;
+  agrP1 : Number -> Agr = \n -> Ag n P1 ;
+
+-------------------------
+-- Ezafa construction
+------------------------
+oper
+
+  mkEzafa : Str -> Str ;
+  mkEzafa str = case str of {
+      st + "اه" => str ;
+      st + "وه" => str ;
+      st + "ه"  => st + "ۀ" ; -- str ++ "ی" ;
+      st + "او" => str ;
+      st + "وو" => str ;
+      st + "و"  => str + "ی" ;
+      st + "ا"  => str + "ی" ;
+      _ => str
+  	};
+  mkEnclic : Str -> Str ;
+  mkEnclic str = case str of {
+      st + "ا" => str ++ "یی" ;
+      st + "و" => str ++ "یی" ;
+      st + "ی" => str ++ "یی" ; -- TODO
+      st + "ه" => str ++ "یی" ;
+      _        => str + "ی"
+    } ;
+
+  Noun = {s : Ezafa => Number => Str ; animacy : Animacy ; definitness : Bool } ;
+  mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> {
+    s = table {
          bEzafa => table { Sg => sg ;
                            Pl => pl
                         } ;
@@ -28,480 +85,246 @@ oper
                          } ;
          enClic => table { Sg => mkEnclic sg ;
                            Pl => mkEnclic pl
-                         }                
+                         }
           };
       animacy = ani ;
       definitness = True
-      } ;
-    
-    
-    
+  } ;
+
 -- masculine nouns end with alif, choTi_hay, ain Translitration: (a, h, e)
 -- Arabic nouns ends with h. also taken as Masc
-  ------------------------------------------------------------------
-----Verbs
-------------------------------------------------------------------
-{- 
- mkVerb : (x1,x2 : Str) -> Verb = \inf,root2 ->
-   let root1  = (tk 1 inf) ;    
-    in { 
-     s = table {
 
-     Root1     => root1 ;
-     Root2     => root2 ;
-     Inf      => inf ;
+---------------------
+--Determiners
+--------------------
+Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; fromPron : Bool} ;
 
-     VF tense aspect person number   => (mkCmnVF root1 root2 tense aspect person number).s 
---     Caus1 tense person number gender => (mkCmnVF root1 tense person number gender).s ;
---     Caus2 tense person number gender => (mkCmnVF root2 tense person number gender).s 
-    }
-  } ;
+ makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
+   s = str;
+   isNum = b;
+   fromPron = False ;
+   n = n
+ };
 
---1. Basic stem form, direct & indirect causatives exists
--- v1 nechna nechaana nechwana
-
-  mkVerb1 : (_: Str) -> Verb = \inf ->
-   let root1  = (tk 1 inf) ; 
-       root2 = (tk 3 inf)  ;    
-    in { 
-     s = table {
-
-     Root1     => root1 ;
-     Root2     => root2 ;
-     Inf      => inf ;
-
-     VF tense aspect person number   => (mkCmnVF root1 root2 tense aspect person number).s 
---     Caus1 tense person number gender => (mkCmnVF root1 tense person number gender).s ;
---     Caus2 tense person number gender => (mkCmnVF root2 tense person number gender).s 
-    }
-  } ;
-
-
-mkVerb2 : (_: Str) -> Verb = \inf ->
-   let root1  = (tk 1 inf) ; 
-       root2 = (tk 2 inf)  ;    
-    in { 
-     s = table {
-
-     Root1     => root1 ;
-     Root2     => root2 ;
-     Inf      => inf ;
-
-     VF tense aspect person number   => (mkCmnVF root1 root2 tense aspect person number).s 
---     Caus1 tense person number gender => (mkCmnVF root1 tense person number gender).s ;
---     Caus2 tense person number gender => (mkCmnVF root2 tense person number gender).s 
-    }
-  } ;
-
-
-
-mkCmnVF : Str -> Str -> VTense -> PAspect -> PPerson -> Number -> {s:Str}= \root1,root2,t,a,p,n ->
-  {s  = (mkCmnVF1 root1 root2 t a p n).s ;
-   };
-  
-
- mkCmnVF1 : Str -> Str -> VTense -> PAspect -> PPerson -> Number -> {s:Str}= \root1,root2,t,a,p,n ->
-  {s = let khordh = root1 + "ه";
-           mekhor = "می" ++ root2 ;
-	   mekhord = "می" ++ root1 ;
-	   mekhordh = "می" ++ khordh ;
-	   khah = "خواه" ;
-	   mekhah = "می" ++ khah ;
-	   bvdh = "بوده"
-  in
-  case <t,a,p,n> of {
-    <PPresent,PPerf,PPers1,Sg> => khordh ++ "ام" ;
-    <PPresent,PPerf,PPers1,Pl> => khordh ++ "ایم" ;
-    <PPresent,PPerf,PPers2,Sg> => khordh ++ "ای" ;
-    <PPresent,PPerf,PPers2,Pl> => khordh ++ "اید" ;
-    <PPresent,PPerf,PPers3,Sg> => khordh ++ "است" ;
-    <PPresent,PPerf,PPers3,Pl> => khordh ++ "اند" ;
-    
-    <PPresent,PImperf,PPers1,Sg> => mekhor + "م" ; -- toHave need to have khor instead of mekhor
-    <PPresent,PImperf,PPers1,Pl> => mekhor + "یم" ;
-    <PPresent,PImperf,PPers2,Sg> => mekhor + "ی" ;
-    <PPresent,PImperf,PPers2,Pl> => mekhor + "ید" ;
-    <PPresent,PImperf,PPers3,Sg> => mekhor + "د" ;
-    <PPresent,PImperf,PPers3,Pl> => mekhor + "ند" ;
-    
-    <PPresent,Aorist,PPers1,Sg> => "" ;
-    <PPresent,Aorist,PPers1,Pl> => "" ;
-    <PPresent,Aorist,PPers2,Sg> => "" ;
-    <PPresent,Aorist,PPers2,Pl> => "" ;
-    <PPresent,Aorist,PPers3,Sg> => "" ;
-    <PPresent,Aorist,PPers3,Pl> => "" ;
-    
-    <PPast,PPerf,PPers1,Sg> => khordh ++ "بودم" ;
-    <PPast,PPerf,PPers1,Pl> => khordh ++ "بودیم" ;
-    <PPast,PPerf,PPers2,Sg> => khordh ++ "بودی" ;
-    <PPast,PPerf,PPers2,Pl> => khordh ++ "بودید" ;
-    <PPast,PPerf,PPers3,Sg> => khordh ++ "بود" ;
-    <PPast,PPerf,PPers3,Pl> => khordh ++ "بودند" ;
-    
-    <PPast,PImperf,PPers1,Sg> => mekhord + "م" ; -- toHave need to have khor instead of mekhor
-    <PPast,PImperf,PPers1,Pl> => mekhord + "یم" ;
-    <PPast,PImperf,PPers2,Sg> => mekhord  + "ی";
-    <PPast,PImperf,PPers2,Pl> => mekhord + "ید" ;
-    <PPast,PImperf,PPers3,Sg> => mekhord ;
-    <PPast,PImperf,PPers3,Pl> => mekhord + "ند" ;
-    
-    <PPast,Aorist,PPers1,Sg> => root1 + "م" ;
-    <PPast,Aorist,PPers1,Pl> => root1 + "یم" ;
-    <PPast,Aorist,PPers2,Sg> => root1  + "ی";
-    <PPast,Aorist,PPers2,Pl> => root1 + "ید" ;
-    <PPast,Aorist,PPers3,Sg> => root1 ;
-    <PPast,Aorist,PPers3,Pl> => root1 + "ند" ;
-    
-    -- check this one
-    <PFut,PPerf,PPers1,Sg> => "" ;
-    <PFut,PPerf,PPers1,Pl> => "" ;
-    <PFut,PPerf,PPers2,Sg> => "" ;
-    <PFut,PPerf,PPers2,Pl> => "" ;
-    <PFut,PPerf,PPers3,Sg> => "" ;
-    <PFut,PPerf,PPers3,Pl> => "" ;
-    
-    <PFut,PImperf,PPers1,Sg> => mekhah + "م"   ++ addBh root2 + "م" ;
-    <PFut,PImperf,PPers1,Pl> => mekhah + "یم" ++  addBh root2 + "یم" ;
-    <PFut,PImperf,PPers2,Sg> => mekhah + "ی" ++  addBh root2 + "ی" ;
-    <PFut,PImperf,PPers2,Pl> => mekhah + "ید" ++  addBh root2 + "ید" ;
-    <PFut,PImperf,PPers3,Sg> => mekhah + "د" ++  addBh root2 + "د" ;
-    <PFut,PImperf,PPers3,Pl> => mekhah + "ند" ++  addBh root2 + "ند" ;
-    
-    <PFut,Aorist,PPers1,Sg> => khah + "م"  ++ root1  ;
-    <PFut,Aorist,PPers1,Pl> => khah + "یم"  ++ root1 ;
-    <PFut,Aorist,PPers2,Sg> => khah + "ی"  ++ root1 ;
-    <PFut,Aorist,PPers2,Pl> => khah + "ید"  ++ root1 ;
-    <PFut,Aorist,PPers3,Sg> => khah + "د"  ++ root1 ;
-    <PFut,Aorist,PPers3,Pl> => khah + "ند"  ++ root1  ;
-    
-    
-    <Infr_Past,PPerf,PPers1,Sg> => khordh ++ bvdh ++ "ام" ;
-    <Infr_Past,PPerf,PPers1,Pl> => khordh ++ bvdh ++ "ایم" ;
-    <Infr_Past,PPerf,PPers2,Sg> => khordh ++ bvdh ++ "ای" ;
-    <Infr_Past,PPerf,PPers2,Pl> => khordh ++ bvdh ++ "اید" ;
-    <Infr_Past,PPerf,PPers3,Sg> => khordh ++ bvdh ++ "است" ;
-    <Infr_Past,PPerf,PPers3,Pl> => khordh ++ bvdh ++ "اند" ;
-    
-    <Infr_Past,PImperf,PPers1,Sg> => mekhordh ++ "ام" ;  -- toHave need to have khordh instead of mekhor
-    <Infr_Past,PImperf,PPers1,Pl> => mekhordh ++ "ایم" ;
-    <Infr_Past,PImperf,PPers2,Sg> => mekhordh ++ "ای" ;
-    <Infr_Past,PImperf,PPers2,Pl> => mekhordh ++ "اید" ;
-    <Infr_Past,PImperf,PPers3,Sg> => mekhordh ++ "است" ;
-    <Infr_Past,PImperf,PPers3,Pl> => mekhordh ++ "اند" ;
-    
-    
-    -- check this one
-    <Infr_Past,Aorist,PPers1,Sg> => "" ;
-    <Infr_Past,Aorist,PPers1,Pl> => "" ;
-    <Infr_Past,Aorist,PPers2,Sg> => "" ;
-    <Infr_Past,Aorist,PPers2,Pl> => "" ;
-    <Infr_Past,Aorist,PPers3,Sg> => "" ;
-    <Infr_Past,Aorist,PPers3,Pl> => "" 
-    
-    
-  }
- } ;
- -}
- mkVerb : (x1,x2 : Str) -> Verb = \inf,root2 ->
-   let root1  = (tk 1 inf) ;
-   impRoot = mkimpRoot root2;
-    in { 
-     s = table {
-
-     Root1     => root1 ;
-     Root2     => root2 ;
-     Inf      => inf ;
-     Imp Pos Sg => addBh impRoot ;
-     Imp Pos Pl => (addBh impRoot) + "ید" ;
-     Imp Neg Sg => "ن" + impRoot ;
-     Imp Neg Pl => "ن" +  impRoot + "ید" ;
-
-     VF pol tense person number   => (mkCmnVF root1 root2 pol tense person number).s ;
---     VF Neg tense person number   => addN (mkCmnVF root1 root2 tense person number).s ;
-     Vvform (AgPes number person) => (mkvVform root2 number person).s
-   }
-  } ;
-
- mkVerb1 : (_: Str) -> Verb = \inf ->
-   let root1  = (tk 1 inf) ; 
-       root2 = (tk 3 inf)  ;
-       impRoot = mkimpRoot root2 ;
-    in { 
-     s = table {
-
-     Root1     => root1 ;
-     Root2     => root2 ;
-     Inf      => inf ;
-     Imp Pos Sg => addBh impRoot ;
-     Imp Pos Pl => (addBh impRoot) + "ید" ;
-     Imp Neg Sg => "ن" + impRoot ;
-     Imp Neg Pl => "ن" +  impRoot + "ید" ;
-
-     VF pol tense person number   => (mkCmnVF root1 root2 pol tense person number).s ;
---     VF Neg tense person number   => addN (mkCmnVF root1 root2 tense person number).s ;
-     Vvform (AgPes number person) => (mkvVform root2 number person).s
-     }
-    };
-    
-  
-mkVerb2 : (_: Str) -> Verb = \inf ->
-   let root1  = (tk 1 inf) ; 
-       root2 = (tk 2 inf)  ;
-       impRoot = mkimpRoot root2 ;
-    in { 
-     s = table {
-
-     Root1     => root1 ;
-     Root2     => root2 ;
-     Inf      => inf ;
-     Imp Pos Sg => addBh impRoot ;
-     Imp Pos Pl => (addBh impRoot) + "ید" ;
-     Imp Neg Sg => "ن" + impRoot ;
-     Imp Neg Pl => "ن" +  impRoot + "ید" ;
-
-     VF pol tense person number   => (mkCmnVF root1 root2 pol tense person number).s ;
---     VF Neg tense person number   => addN (mkCmnVF root1 root2 tense person number).s ;
-     Vvform (AgPes number person) => (mkvVform root2 number person).s
-    }
-  } ;
-  
-  mkHave : Verb = 
-  
-     { 
-     s = table {
-
-     Root1     => "داشت" ;
-     Root2     => "دار" ;
-     Inf      => "داشتن" ;
-     Imp Pos Sg => ["داشته باش"] ;
-     Imp Pos Pl => ["داشته باشید"];
-     Imp Neg Sg => ["نداشته باش"]  ;
-     Imp Neg Pl => ["نداشته باشید"] ;
-
-     VF pol tense person number   => (toHave pol tense number person).s ;
---     VF Neg tense person number   => addN (mkCmnVF root1 root2 tense person number).s ;
-     Vvform (AgPes Sg PPers1) => ["داشته باشم"] ;
-     Vvform (AgPes Sg PPers2) => ["داشته باشی"] ;
-     Vvform (AgPes Sg PPers3) => ["داشته باشد"] ;
-     Vvform (AgPes Pl PPers1) => ["داشته باشیم"] ;
-     Vvform (AgPes Pl PPers2) => ["داشته باشید"] ;
-     Vvform (AgPes Pl PPers3) => ["داشته باشند"] 
-    }
-  } ;
-  
-  
-mkCmnVF : Str -> Str -> Polarity -> VTense2 ->  PPerson -> Number -> {s:Str}= \root1,root2,pol,t,p,n ->
-  {s  = (mkCmnVF1 root1 root2 pol t p n).s ;
-   };
-  
-
- mkCmnVF1 : Str -> Str -> Polarity -> VTense2 -> PPerson -> Number -> {s:Str}= \root1,root2,pol,t,p,n ->
-  {s = let khordh = root1 + "ه";
-           nkhordh = (addN root1) + "ه" ;
-           mekhor = "می" ++ root2 ;
-	   nmekhor =  "نمی" ++ root2 ;
-	   mekhord = "می" ++ root1 ;
-	   nmekhord = "نمی" ++ root1 ;
-	   mekhordh = "می" ++ khordh ;
-	   nmekhordh = "نمی" ++ khordh ;
-	   khah = "خواه" ;
-	   nkhah = "نخواه" ;
-	   mekhah = "می" ++ khah ;
-	   nmekhah = "نمی" ++ khah ;
-	   bvdh = "بوده"
-  in
-  case <pol,t,p,n> of {
-    <Pos,PPresent2 PrPerf,PPers1,Sg> => khordh ++ "ام" ;  
-    <Pos,PPresent2 PrPerf,PPers1,Pl> => khordh ++ "ایم" ;
-    <Pos,PPresent2 PrPerf,PPers2,Sg> => khordh ++ "ای" ;
-    <Pos,PPresent2 PrPerf,PPers2,Pl> => khordh ++ "اید" ;
-    <Pos,PPresent2 PrPerf,PPers3,Sg> => khordh ++ "است" ;
-    <Pos,PPresent2 PrPerf,PPers3,Pl> => khordh ++ "اند" ;
-    
-    <Pos,PPresent2 PrImperf,PPers1,Sg> => mekhor + "م" ;
-    <Pos,PPresent2 PrImperf,PPers1,Pl> => mekhor + "یم" ;
-    <Pos,PPresent2 PrImperf,PPers2,Sg> => mekhor + "ی" ;
-    <Pos,PPresent2 PrImperf,PPers2,Pl> => mekhor + "ید" ;
-    <Pos,PPresent2 PrImperf,PPers3,Sg> => mekhor + "د" ;
-    <Pos,PPresent2 PrImperf,PPers3,Pl> => mekhor + "ند" ;
-    
-    
-    <Pos,PPast2 PstPerf,PPers1,Sg> => khordh ++ "بودم" ;
-    <Pos,PPast2 PstPerf,PPers1,Pl> => khordh ++ "بودیم" ;
-    <Pos,PPast2 PstPerf,PPers2,Sg> => khordh ++ "بودی" ;
-    <Pos,PPast2 PstPerf,PPers2,Pl> => khordh ++ "بودید" ;
-    <Pos,PPast2 PstPerf,PPers3,Sg> => khordh ++ "بود" ;
-    <Pos,PPast2 PstPerf,PPers3,Pl> => khordh ++ "بودند" ;
-    
-    <Pos,PPast2 PstImperf,PPers1,Sg> => mekhord + "م" ;
-    <Pos,PPast2 PstImperf,PPers1,Pl> => mekhord + "یم" ;
-    <Pos,PPast2 PstImperf,PPers2,Sg> => mekhord  + "ی";
-    <Pos,PPast2 PstImperf,PPers2,Pl> => mekhord + "ید" ;
-    <Pos,PPast2 PstImperf,PPers3,Sg> => mekhord ;
-    <Pos,PPast2 PstImperf,PPers3,Pl> => mekhord + "ند" ;
-    
-    <Pos,PPast2 PstAorist,PPers1,Sg> => root1 + "م" ;
-    <Pos,PPast2 PstAorist,PPers1,Pl> => root1 + "یم" ;
-    <Pos,PPast2 PstAorist,PPers2,Sg> => root1  + "ی";
-    <Pos,PPast2 PstAorist,PPers2,Pl> => root1 + "ید" ;
-    <Pos,PPast2 PstAorist,PPers3,Sg> => root1 ;
-    <Pos,PPast2 PstAorist,PPers3,Pl> => root1 + "ند" ;
-    
-   {- 
-    <Pos,PFut2 FtImperf,PPers1,Sg> => mekhah + "م"   ++ addBh root2 + "م" ;
-    <Pos,PFut2 FtImperf,PPers1,Pl> => mekhah + "یم" ++  addBh root2 + "یم" ;
-    <Pos,PFut2 FtImperf,PPers2,Sg> => mekhah + "ی" ++  addBh root2 + "ی" ;
-    <Pos,PFut2 FtImperf,PPers2,Pl> => mekhah + "ید" ++  addBh root2 + "ید" ;
-    <Pos,PFut2 FtImperf,PPers3,Sg> => mekhah + "د" ++  addBh root2 + "د" ;
-    <Pos,PFut2 FtImperf,PPers3,Pl> => mekhah + "ند" ++  addBh root2 + "ند" ;
-    -}
-    <Pos,PFut2 FtAorist,PPers1,Sg> => khah + "م"  ++ root1  ;
-    <Pos,PFut2 FtAorist,PPers1,Pl> => khah + "یم"  ++ root1 ;
-    <Pos,PFut2 Ftorist,PPers2,Sg> => khah + "ی"  ++ root1 ;
-    <Pos,PFut2 FtAorist,PPers2,Pl> => khah + "ید"  ++ root1 ;
-    <Pos,PFut2 FtAorist,PPers3,Sg> => khah + "د"  ++ root1 ;
-    <Pos,PFut2 FtAorist,PPers3,Pl> => khah + "ند"  ++ root1  ;
-    
-    
-    <Pos,Infr_Past2 InfrPerf,PPers1,Sg> => khordh ++ bvdh ++ "ام" ;
-    <Pos,Infr_Past2 InfrPerf,PPers1,Pl> => khordh ++ bvdh ++ "ایم" ;
-    <Pos,Infr_Past2 InfrPerf,PPers2,Sg> => khordh ++ bvdh ++ "ای" ;
-    <Pos,Infr_Past2 InfrPerf,PPers2,Pl> => khordh ++ bvdh ++ "اید" ;
-    <Pos,Infr_Past2 InfrPerf,PPers3,Sg> => khordh ++ bvdh ++ "است" ;
-    <Pos,Infr_Past2 InfrPerf,PPers3,Pl> => khordh ++ bvdh ++ "اند" ;
-    
-    <Pos,Infr_Past2 InfrImperf,PPers1,Sg> => mekhordh ++ "ام" ;
-    <Pos,Infr_Past2 InfrImperf,PPers1,Pl> => mekhordh ++ "ایم" ;
-    <Pos,Infr_Past2 InfrImperf,PPers2,Sg> => mekhordh ++ "ای" ;
-    <Pos,Infr_Past2 InfrImperf,PPers2,Pl> => mekhordh ++ "اید" ;
-    <Pos,Infr_Past2 InfrImperf,PPers3,Sg> => mekhordh ++ "است" ;
-    <Pos,Infr_Past2 InfrImperf,PPers3,Pl> => mekhordh ++ "اند" ;
-    
- -- negatives
- 
-    <Neg,PPresent2 PrPerf,PPers1,Sg> => addN khordh ++ "ام" ;  
-    <Neg,PPresent2 PrPerf,PPers1,Pl> => addN khordh ++ "ایم" ;
-    <Neg,PPresent2 PrPerf,PPers2,Sg> => addN khordh ++ "ای" ;
-    <Neg,PPresent2 PrPerf,PPers2,Pl> => addN khordh ++ "اید" ;
-    <Neg,PPresent2 PrPerf,PPers3,Sg> => addN khordh ++ "است" ;
-    <Neg,PPresent2 PrPerf,PPers3,Pl> => addN khordh ++ "اند" ;
-    
-    
-    <Neg,PPresent2 PrImperf,PPers1,Sg> => nmekhor + "م" ;
-    <Neg,PPresent2 PrImperf,PPers1,Pl> => nmekhor + "یم" ;
-    <Neg,PPresent2 PrImperf,PPers2,Sg> => nmekhor + "ی" ;
-    <Neg,PPresent2 PrImperf,PPers2,Pl> => nmekhor + "ید" ;
-    <Neg,PPresent2 PrImperf,PPers3,Sg> => nmekhor + "د" ;
-    <Neg,PPresent2 PrImperf,PPers3,Pl> => nmekhor + "ند" ;
-         
-    <Neg,PPast2 PstPerf,PPers1,Sg> => nkhordh ++ "بودم" ;
-    <Neg,PPast2 PstPerf,PPers1,Pl> => nkhordh ++ "بودیم" ;
-    <Neg,PPast2 PstPerf,PPers2,Sg> => nkhordh ++ "بودی" ;
-    <Neg,PPast2 PstPerf,PPers2,Pl> => nkhordh ++ "بودید" ;
-    <Neg,PPast2 PstPerf,PPers3,Sg> => nkhordh ++ "بود" ;
-    <Neg,PPast2 PstPerf,PPers3,Pl> => nkhordh ++ "بودند" ;
-      
-    <Neg,PPast2 PstImperf,PPers1,Sg> => nmekhord + "م" ;
-    <Neg,PPast2 PstImperf,PPers1,Pl> => nmekhord + "یم" ;
-    <Neg,PPast2 PstImperf,PPers2,Sg> => nmekhord  + "ی";
-    <Neg,PPast2 PstImperf,PPers2,Pl> => nmekhord + "ید" ;
-    <Neg,PPast2 PstImperf,PPers3,Sg> => nmekhord ;
-    <Neg,PPast2 PstImperf,PPers3,Pl> => nmekhord + "ند" ;
-  
- 
-    <Neg,PPast2 PstAorist,PPers1,Sg> => addN root1 + "م" ;
-    <Neg,PPast2 PstAorist,PPers1,Pl> => addN root1 + "یم" ;
-    <Neg,PPast2 PstAorist,PPers2,Sg> => addN root1  + "ی";
-    <Neg,PPast2 PstAorist,PPers2,Pl> => addN root1 + "ید" ;
-    <Neg,PPast2 PstAorist,PPers3,Sg> => addN root1 ;
-    <Neg,PPast2 PstAorist,PPers3,Pl> => addN root1 + "ند" ;
-      
- {-     
-    <Neg,PFut2 FtImperf,PPers1,Sg> => nmekhah + "م"   ++ addBh root2 + "م" ;
-    <Neg,PFut2 FtImperf,PPers1,Pl> => nmekhah + "یم" ++  addBh root2 + "یم" ;
-    <Neg,PFut2 FtImperf,PPers2,Sg> => nmekhah + "ی" ++  addBh root2 + "ی" ;
-    <Neg,PFut2 FtImperf,PPers2,Pl> => nmekhah + "ید" ++  addBh root2 + "ید" ;
-    <Neg,PFut2 FtImperf,PPers3,Sg> => nmekhah + "د" ++  addBh root2 + "د" ;
-    <Neg,PFut2 FtImperf,PPers3,Pl> => nmekhah + "ند" ++  addBh root2 + "ند" ;
- -}   
-    <Neg,PFut2 FtAorist,PPers1,Sg> => nkhah + "م"  ++ root1  ;
-    <Neg,PFut2 FtAorist,PPers1,Pl> => nkhah + "یم"  ++ root1 ;
-    <Neg,PFut2 Ftorist,PPers2,Sg> => nkhah + "ی"  ++ root1 ;
-    <Neg,PFut2 FtAorist,PPers2,Pl> => nkhah + "ید"  ++ root1 ;
-    <Neg,PFut2 FtAorist,PPers3,Sg> => nkhah + "د"  ++ root1 ;
-    <Neg,PFut2 FtAorist,PPers3,Pl> => nkhah + "ند"  ++ root1  ;
-    
-   
-    <Neg,Infr_Past2 InfrPerf,PPers1,Sg> => nkhordh ++ bvdh ++ "ام" ;
-    <Neg,Infr_Past2 InfrPerf,PPers1,Pl> => nkhordh ++ bvdh ++ "ایم" ;
-    <Neg,Infr_Past2 InfrPerf,PPers2,Sg> => nkhordh ++ bvdh ++ "ای" ;
-    <Neg,Infr_Past2 InfrPerf,PPers2,Pl> => nkhordh ++ bvdh ++ "اید" ;
-    <Neg,Infr_Past2 InfrPerf,PPers3,Sg> => nkhordh ++ bvdh ++ "است" ;
-    <Neg,Infr_Past2 InfrPerf,PPers3,Pl> => nkhordh ++ bvdh ++ "اند" ;
-    
-    <Neg,Infr_Past2 InfrImperf,PPers1,Sg> => nmekhordh ++ "ام" ;
-    <Neg,Infr_Past2 InfrImperf,PPers1,Pl> => nmekhordh ++ "ایم" ;
-    <Neg,Infr_Past2 InfrImperf,PPers2,Sg> => nmekhordh ++ "ای" ;
-    <Neg,Infr_Past2 InfrImperf,PPers2,Pl> => nmekhordh ++ "اید" ;
-    <Neg,Infr_Past2 InfrImperf,PPers3,Sg> => nmekhordh ++ "است" ;
-    <Neg,Infr_Past2 InfrImperf,PPers3,Pl> => nmekhordh ++ "اند" 
-   
-     
-     }
-     
-   } ;
-   
-  mkvVform : Str -> Number -> PPerson -> {s: Str} = \root2,n,p ->
-  {s =
-    case <n,p> of {
-     <Sg,PPers1> => addBh root2 + "م" ;
-     <Sg,PPers2> => addBh root2 + "ی" ;
-     <Sg,PPers3> => addBh root2 + "د" ;
-     <Pl,PPers1> => addBh root2 + "یم" ;
-     <Pl,PPers2> => addBh root2 + "ید" ;
-     <Pl,PPers3> => addBh root2 + "ند" 
-     }
-    };
-
- mkimpRoot : Str -> Str ;
- mkimpRoot root =
-             case root of {
-                   st + "ی" => st ;
-                   _        => root
-                   };
-
-
-addBh : Str -> Str ;
-addBh str = 
-            case (take 1 str) of { 
-	       "ا" => "بی" + str ;  
-	       "آ" => "بیا" + (drop 1 str) ;
-	       _    => "ب" + str
-       };
-       
- ---------------------
- --Determiners
- --------------------
- 
- makeDet : Str -> Number -> Bool -> {s: Str ; n : Number ; isNum : Bool ; fromPron : Bool} =\str,n,b -> {
-      s = str;
-      isNum = b;
-      fromPron = False ;
-      n = n
-   };
- makeQuant : Str -> Str  -> {s : Number => Str ; a : AgrPes ; fromPron : Bool } = \sg,pl -> {
-            s = table {Sg => sg ; Pl => pl} ;
-            fromPron = False ;
-	    a = agrPesP3 Sg
-	    };
+ makeQuant : Str -> Str  -> {s : Number => Str ; a : Agr; fromPron : Bool } = \sg,pl -> {
+   s = table {Sg => sg ; Pl => pl} ;
+   fromPron = False ;
+   a = agrP3 Sg
+ };
 ---------------------------
 -- Adjectives
 --------------------------
-mkAdj : Str -> Str -> Adjective = \adj,adv -> {
- s = table { bEzafa => adj;
-             aEzafa => mkEzafa adj ;
-             enClic => mkEnclic adj
-            } ;
-  adv = adv          
-  };
+ Adjective : Type = {s : Ezafa => Str ; adv : Str} ;
+
+ mkAdj : Str -> Str -> Adjective = \adj,adv -> {
+   s = table { bEzafa => adj;
+               aEzafa => mkEzafa adj ;
+               enClic => mkEnclic adj
+             } ;
+   adv = adv
+   };
+
+------------------------------------------------------------------
+-- Verbs
+------------------------------------------------------------------
+param
+  VerbForm1 = VF Polarity VTense2 Agr
+            | Vvform Agr
+            | Imp Polarity Number
+            | Inf | Root1 | Root2 ;
+  VTense2   = PPresent2 PrAspect
+            | PPast2 PstAspect
+            | PFut2 FtAspect
+            | Infr_Past2 InfrAspect;
+  PrAspect  = PrPerf | PrImperf ;
+  PstAspect = PstPerf | PstImperf | PstAorist ;
+  FtAspect  = FtAorist ; -- just keep FtAorist
+  InfrAspect = InfrPerf | InfrImperf ;
+
+oper
+  Verb = {s : VerbForm1 => Str} ;
+
+  mkVerb : (x1,x2 : Str) -> Verb = \inf,root2 ->
+    let root1 = tk 1 inf ;
+        impRoot = impRoot root2
+     in { s = table {
+       Root1    => root1 ;
+       Root2    => root2 ;
+       Inf      => inf ;
+       Imp Pos Sg => addBh impRoot ;
+       Imp Pos Pl => addBh impRoot + "ید" ;
+       Imp Neg Sg => "ن" + impRoot ;
+       Imp Neg Pl => "ن" +  impRoot + "ید" ;
+       Vvform ag  => mkvVform root2 ag ;
+       VF p t ag  => mkCmnVF root1 root2 p t ag }
+    } ;
+
+  -- Verbs that end in یدن, ادن or ودن
+  -- Also some verbs that don't: دانستن with stem دان
+  mkVerb1 : (_: Str) -> Verb = \inf -> mkVerb inf (tk 3 inf) ;
+
+  -- Most verbs that end in C+تن or C+دن
+  mkVerb2 : (_: Str) -> Verb = \inf -> mkVerb inf (tk 2 inf) ;
+
+  mkCmnVF : Str -> Str -> Polarity -> VTense2 -> Agr -> Str = \root1,root2,pol,t,ag ->
+    let khordh = root1 + "ه";
+        nkhordh = addN khordh ;
+        mekhor = zwnj "می" root2 ;
+        nmekhor =  zwnj "نمی" root2 ;
+        mekhord = zwnj "می" root1 ;
+        nmekhord = zwnj "نمی" root1 ;
+        mekhordh = zwnj "می" khordh ;
+        nmekhordh = zwnj "نمی" khordh ;
+        khah = "خواه" ;
+        nkhah = "نخواه" ;
+        -- mekhah = zwnj "می" khah ;
+        -- nmekhah = zwnj "نمی" khah ;
+        bvdh = "بوده" ;
+        impfSuff : Str -> Str = imperfectSuffix ag ;
+        impfSuffD : Str -> Str = imperfectSuffixD ag ;
+        perfSuff : Str -> Str = perfectSuffix ag ;
+        pluperfSuff : Str -> Str = pluperfectSuffix ag
+     in case <pol,t> of {
+        <Pos,PPresent2 PrImperf> => impfSuffD mekhor ;
+        <Pos,PPresent2 PrPerf>   => perfSuff khordh ;
+
+        <Pos,PPast2 PstPerf>   => pluperfSuff khordh ;
+        <Pos,PPast2 PstImperf> => impfSuff mekhord ;
+        <Pos,PPast2 PstAorist> => impfSuff root1 ;
+
+        <Pos,PFut2 FtAorist> => impfSuffD khah ++ root1;
+
+        <Pos,Infr_Past2 InfrPerf>   => khordh ++ perfSuff bvdh ;
+        <Pos,Infr_Past2 InfrImperf> => perfSuff khordh ;
+
+     -- negatives
+        <Meg,PPresent2 PrImperf> => impfSuffD nmekhor ;
+        <Neg,PPresent2 PrPerf> => perfSuff nkhordh ;
+
+        <Neg,PPast2 PstPerf> => pluperfSuff nkhordh ;
+        <Neg,PPast2 PstImperf> => impfSuff nmekhord ;
+        <Neg,PPast2 PstAorist> => impfSuff (addN root1) ;
+
+        <Neg,PFut2 FtAorist> => impfSuffD nkhah ++ root1 ;
+
+        <Neg,Infr_Past2 InfrPerf>   => nkhordh ++ perfSuff bvdh ;
+        <Neg,Infr_Past2 InfrImperf> => perfSuff nmekhordh
+
+        -- <Pos,PFut2 FtImperf> => perfSuffD mekhah ++ addBh (perfSuffD root2) ;
+        -- <Neg,PFut2 FtImperf> => perfSuffD nmekhah ++ addBh (perfSuffD root2) ;
+      } ;
+
+  mkvVform : Str -> Agr -> Str = \root2,ag ->
+    addBh (imperfectSuffixD ag root2) ;
+
+  impRoot : Str -> Str = \root -> case root of {
+    st + "ی" => st ;
+    _        => root
+    };
+
+-------------------
+-- making negatives
+-------------------
+  addN : Str -> Str ;
+  addN str =
+    case str of {
+      "ا" + st => "نی" + str ;
+      "آ" + st => "نیا" + st ;
+       _        => "ن" + str } ;
+
+  addBh : Str -> Str ;
+  addBh str =
+    case str of {
+      "ا" + st => "بی" + str ;
+      "آ" + st => "بیا" + st ;
+      _        => "ب" + str
+         };
+
+  -- TODO: is this needed anywhere? what does it do? /IL
+  addBh2 : Str -> Str ; -- should use drop instead but it gives linking error
+  addBh2 str1 =
+    case str1 of {
+      "می" + str =>
+         case str of {
+           "ا" + st => Prelude.glue "بی" str ;
+           "آ" + st => Prelude.glue "بیا" st ;
+            _       => Prelude.glue "ب" str
+                      };
+      _          => "" -- ????
+    };
+
+-------------------
+-- Common suffixes
+-------------------
+  imperfectSuffix : Agr -> Str -> Str = \ag,s -> s +
+    case ag of {
+      Ag Sg P1 => "م" ;
+      Ag Sg P2 => "ی" ;
+      Ag Sg P3 => [] ;
+      Ag Pl P1 => "یم" ;
+      Ag Pl P2 => "ید" ;
+      Ag Pl P3 => "ند" } ;
+
+  imperfectSuffixD : Agr -> Str -> Str = \ag,s ->
+    case ag of {
+      Ag Sg P3 => s + "د" ;
+      _ => imperfectSuffix ag s } ;
+
+  perfectSuffix : Agr -> Str -> Str = \ag,s ->
+    case ag of {
+      Ag Sg P1 => zwnj s "ام" ;
+      Ag Sg P2 => zwnj s "ای" ;
+      Ag Sg P3 => s ++ "است" ; -- no ZWNJ
+      Ag Pl P1 => zwnj s "ایم" ;
+      Ag Pl P2 => zwnj s "اید" ;
+      Ag Pl P3 => zwnj s "اند" } ;
+
+  pluperfectSuffix : Agr -> Str -> Str = \ag,s -> s ++
+    case ag of { -- not suffix, just using consistent naming scheme :-P /IL
+      Ag Sg P1 => "بودم" ;
+      Ag Sg P2 => "بودی" ;
+      Ag Sg P3 => "بود" ;
+      Ag Pl P1 => "بودیم" ;
+      Ag Pl P2 => "بودید" ;
+      Ag Pl P3 => "بودند" } ;
+
+----------------------------------
+-- Irregular verbs
+----------------------------------
+
+  haveVerb : Verb = {s = table {
+    Root1 => "داشت" ;
+    Root2 => "دار" ;
+    Inf   => "داشتن" ;
+    Imp Pos Sg => "بدار" ;
+    Imp Pos Pl => "بدارید" ;
+    Imp Neg Sg => "ندار" ;
+    Imp Neg Pl => "ندارید" ;
+    Vvform agr => mkvVform "دار" agr ;
+    VF pol tense agr => toHave pol tense agr
+    }
+  } ;
+
+  toHave : Polarity -> VTense2 -> Agr -> Str = \pol,t,ag ->
+    let dar =  "دار" ;
+        ndar = addN dar ;
+        dasht = "داشت"
+     in case <pol,t> of {
+          <Pos,PPresent2 PrImperf> => imperfectSuffixD ag dar ;
+          <Neg,PPresent2 PrImperf> => imperfectSuffixD ag ndar ;
+          _ => mkCmnVF dasht dar pol t ag
+        } ;
+
+  beVerb : Verb = { s = table {
+    Vvform agr => imperfectSuffixD agr "باش" ;
+    Imp Pos Sg => "باش" ;
+    Imp Pos Pl => "باشید" ;
+    Imp Neg Sg => "نباش" ;
+    Imp Neg Pl => "نباشید" ;
+    Inf => "بودن" ;
+    Root1 => "بود" ;
+    Root2 => "باش" ;
+    VF pol tense agr => mkCmnVF "بود" "باش" pol tense agr
+   }
+  } ;
 }

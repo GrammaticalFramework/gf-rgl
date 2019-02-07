@@ -7,20 +7,19 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     PredVP np vp = mkClause np vp ;
 
-    PredSCVP sc vp = mkSClause ("این" ++ sc.s) (defaultAgrPes) vp ;
+    PredSCVP sc vp = mkSClause ("این" ++ sc.s) (defaultAgr) vp ;
 
     ImpVP vp = {
-      s = \\pol,n => 
-        let 
-          agr   = AgPes (numImp n) PPers2 ;
-	  in case pol of {
-          CPos =>  vp.ad ++ vp.comp ! agr  ++ vp.obj.s ++ vp.vComp ! agr ++  ((vp.s ! VPImp Pos (numImp n)).inf) ++ vp.embComp;
-	  CNeg _ =>  vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++  ((vp.s ! VPImp Neg (numImp n)).inf) ++ vp.embComp
-	  } ;     
+      s = \\pol,n =>
+        let agr = Ag (numImp n) P2 ;
+        in case pol of {
+             CPos   => vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.s ! VPImp Pos (numImp n) ++ vp.embComp;
+             CNeg _ => vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.s ! VPImp Neg (numImp n) ++ vp.embComp
+	  } ;
     } ;
 
 
-    SlashVP np vp = 
+    SlashVP np vp =
       mkSlClause np vp ** {c2 = vp.c2} ;
 
     AdvSlash slash adv = slash ** {
@@ -33,17 +32,17 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
       c2 = { s = prep.s ; ra = [] ; c = VIntrans}
       } ;
 
-    SlashVS np vs slash = 
-      mkSlClause  np 
+    SlashVS np vs slash =
+      mkSlClause  np
         (insertObj2 (conjThat ++ slash.s) (predV vs))  **
         {c2 = slash.c2} ;
 
     EmbedS  s  = {s = conjThat ++ s.s} ;
     EmbedQS qs = {s = qs.s ! QIndir} ;
-    EmbedVP vp = {s = vp.obj.s ++ vp.inf ++ vp.comp ! defaultAgrPes} ; --- agr
+    EmbedVP vp = {s = vp.obj.s ++ vp.inf ++ vp.comp ! defaultAgr} ; --- agr
 
 
-    UseCl  temp p cl = 
+    UseCl  temp p cl =
 	 { s = case <temp.t,temp.a> of {
 	  <Pres,Simul> => temp.s ++ p.s ++ cl.s ! VPres ! p.p ! ODir;
           <Pres,Anter> => temp.s ++ p.s ++ cl.s ! VPerfPres ! p.p ! ODir;
@@ -52,7 +51,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
           <Fut,Simul>  => temp.s ++ p.s ++ cl.s ! VFut ! p.p ! ODir;
           <Fut,Anter>  => temp.s ++ p.s ++ cl.s ! VPerfFut ! p.p ! ODir;
           <Cond,Simul> => temp.s ++ p.s ++ cl.s ! VCondSimul ! p.p ! ODir;
-          <Cond,Anter> => temp.s ++ p.s ++ cl.s ! VCondAnter ! p.p ! ODir -- this needs to be fixed by making SubjPerf in ResPnb		  
+          <Cond,Anter> => temp.s ++ p.s ++ cl.s ! VCondAnter ! p.p ! ODir -- this needs to be fixed by making SubjPerf in ResPnb
 
    };
   } ;
@@ -65,8 +64,8 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
           <Fut,Simul>  => temp.s ++ p.s ++ cl.s ! VFut ! p.p ! q;
           <Fut,Anter>  => temp.s ++ p.s ++ cl.s ! VPerfFut ! p.p ! q;
           <Cond,Simul> => temp.s ++ p.s ++ cl.s ! VCondSimul ! p.p ! q;
-          <Cond,Anter> => temp.s ++ p.s ++ cl.s ! VCondAnter ! p.p ! q		  
- 
+          <Cond,Anter> => temp.s ++ p.s ++ cl.s ! VCondAnter ! p.p ! q
+
    };
   } ;
 
@@ -80,10 +79,10 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
           <Fut,Anter>  => temp.s ++ p.s ++ rcl.s ! VPerfFut ! p.p ! ODir ! q;
           <Cond,Simul> => temp.s ++ p.s ++ rcl.s ! VCondSimul ! p.p ! ODir ! q;
           <Cond,Anter> => temp.s ++ p.s ++ rcl.s ! VCondAnter ! p.p ! ODir ! q
-     };		  
+     };
       c = rcl.c
     } ;
-    
+
     UseSlash temp p clslash = {
       s = temp.s ++ p.s ++ clslash.subj ++
           case <temp.t,temp.a> of {
@@ -95,13 +94,13 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
             <Fut,Anter>  => clslash.vp ! VPerfFut ! p.p ! ODir;
             <Cond,Simul> => clslash.vp ! VCondSimul ! p.p ! ODir;
             <Cond,Anter> => clslash.vp ! VCondSimul ! p.p ! ODir
-     };		  
+     };
       c2 = clslash.c2
     } ;
 
     AdvS a s = {s = a.s ++ s.s} ;
 
-    RelS s r = {s = s.s ++ r.s ! agrPesP3 Sg} ;
+    RelS s r = {s = s.s ++ r.s ! agrP3 Sg} ;
     SSubjS s sj s = { s = s.s ++ sj.s ++ s.s};
 
 }

@@ -10,11 +10,11 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
         <True,True>   => cn.s ! aEzafa ! Sg ++ det.s ; -- noun modified by a number is invariably singular
         <True,False>  => det.s ++ cn.s ! bEzafa ! Sg
      };
-      a = agrPesP3 det.n ;
+      a = agrP3 det.n ;
       animacy = cn.animacy
       } ;
 
-    UsePN pn = {s = \\_ => pn.s ; a = agrPesP3 Sg ; animacy = pn.animacy } ;
+    UsePN pn = {s = \\_ => pn.s ; a = agrP3 Sg ; animacy = pn.animacy } ;
     UsePron p = {s = \\_ => p.s ; a = p.a ; animacy = Animate} ;
 
     PredetNP pred np = np ** {
@@ -49,7 +49,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     DetNP det = {
       s = \\_ => det.s  ; ---- case
-      a = agrPesP3 det.n ;
+      a = agrP3 det.n ;
       animacy = Inanimate
       } ;
 
@@ -70,15 +70,15 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     OrdSuperl a = {s = a.s ! bEzafa ++ taryn; n = Sg ; isNum=False} ; -- check the form of adjective
 
-    DefArt = {s = \\_ => [] ; a = defaultAgrPes ; fromPron = False} ;
-    IndefArt = {s = table { Sg => IndefArticle ; Pl => []} ; a =defaultAgrPes ; fromPron = False} ;
+    DefArt = {s = \\_ => [] ; a = defaultAgr ; fromPron = False} ;
+    IndefArt = {s = table { Sg => IndefArticle ; Pl => []} ; a =defaultAgr ; fromPron = False} ;
 
     MassNP cn = {s =\\c => case c of {
       NPC bEzafa => cn.s ! bEzafa ! Sg ;
       NPC aEzafa => cn.s ! aEzafa ! Sg ;
       NPC enClic => cn.s ! enClic ! Sg
       };
-      a = agrPesP3 Sg ;
+      a = agrP3 Sg ;
       animacy = cn.animacy
       } ;
 
@@ -116,7 +116,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     RelCN cn rs = cn ** {
-      s = \\ez,n => cn.s ! enClic ! n ++ rs.s ! agrPesP3 n ;
+      s = \\ez,n => cn.s ! enClic ! n ++ rs.s ! agrP3 n ;
       } ;
 
     AdvCN cn ad = cn ** {s = \\ez,n => cn.s ! aEzafa ! n ++ ad.s} ;
