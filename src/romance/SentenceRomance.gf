@@ -122,7 +122,7 @@ incomplete concrete SentenceRomance of Sentence =
 
         case d of {
           DDir => 
-            subj ++ neg.p1 ++ clit ++ fin ++ neg.p2 ++ inf ++ compl ++ ext ;
+            clause neg clit fin inf compl subj ext ;
           DInv => 
             invertedClause vp.s.vtyp <te, a, num, per> hasClit neg hypt clit fin inf compl subj ext
           }

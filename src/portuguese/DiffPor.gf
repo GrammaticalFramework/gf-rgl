@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:../prelude
 
-instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
+instance DiffPor of DiffRomance - [chooseTA,partAgr,invertedClause,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
 
   flags optimize=noexpand ;
         coding=utf8 ;
@@ -232,9 +232,15 @@ instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open
     <RPasse,Anter> => <vaux ! VFin VPasse n p, part> ; --# notpresent
     <RPres,Anter>  => <verb ! VFin VPasse n p, []> ; --# notpresent
     <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
-    } ;
+      } ;
 
--- oper's opers
+  oper
+    invertedClause : VType -> (RTense * Anteriority * Number * Person) -> Bool
+      -> (Str * Str) -> Str -> (clit,fin,inf,compl,subj,ext : Str) -> Str ;
+    invertedClause _ _ _ neg _ clit fin inf compl subj ext =
+      clause neg clit fin inf compl subj ext ; -- no inversion actually
+
+  -- oper's opers
   oper
     argPron : Gender -> Number -> Person -> Case -> Str =
       let

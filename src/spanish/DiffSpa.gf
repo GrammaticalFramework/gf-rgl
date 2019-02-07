@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:prelude
 
-instance DiffSpa of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits,contractInf] = open CommonRomance, PhonoSpa, BeschSpa, Prelude in {
+instance DiffSpa of DiffRomance - [invertedClause,partAgr,vpAgrSubj,vpAgrClits,contractInf] = open CommonRomance, PhonoSpa, BeschSpa, Prelude in {
 
   flags optimize=noexpand ;
     coding=utf8 ;
@@ -217,5 +217,11 @@ instance DiffSpa of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits,contractInf] = o
     subjPron = \_ -> [] ;
 
     polNegDirSubj = RPos ;
+
+  oper
+    invertedClause : VType -> (RTense * Anteriority * Number * Person) -> Bool
+      -> (Str * Str) -> Str -> (clit,fin,inf,compl,subj,ext : Str) -> Str ;
+    invertedClause _ _ _ neg _ clit fin inf compl subj ext =
+      clause neg clit fin inf compl subj ext ; -- no inversion actually
 
 }
