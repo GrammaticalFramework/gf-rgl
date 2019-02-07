@@ -34,6 +34,11 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       Neg => CNeg b
     } ;
 
+    cpol2pol : CPolarity -> Polarity = \cp -> case cp of {
+      CPos => Pos ;
+      _    => Neg
+    } ;
+
  -----------------------
  --- Verb Phrase
  -----------------------
@@ -144,7 +149,7 @@ oper
 
   insertVV : (Agr => Str) -> VPH -> VPH = \obj1,vp -> vp ** {
     wish = True ;
-    vComp = \\a => vp.comp ! a ++ obj1 ! a ;
+    vComp = \\a => vp.comp ! a ++ conjThat ++ obj1 ! a ;
   } ;
 
   insertObj2 : (Str) -> VPH -> VPH = \obj1,vp -> vp ** {

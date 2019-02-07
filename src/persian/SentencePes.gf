@@ -10,12 +10,12 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
     PredSCVP sc vp = mkSClause ("این" ++ sc.s) (defaultAgr) vp ;
 
     ImpVP vp = {
-      s = \\pol,n =>
+      s = \\cpol,n =>
         let agr = Ag (numImp n) P2 ;
-        in case pol of {
-             CPos   => vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.s ! VPImp Pos (numImp n) ++ vp.embComp;
-             CNeg _ => vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.s ! VPImp Neg (numImp n) ++ vp.embComp
-	  } ;
+            pol = cpol2pol cpol ;
+         in case vp.wish of {
+              True  => vp.s ! VPImp pol (numImp n) ++ vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.embComp;
+              False => vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.s ! VPImp pol (numImp n) ++ vp.embComp }
     } ;
 
 
