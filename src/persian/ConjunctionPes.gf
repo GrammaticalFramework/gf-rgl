@@ -12,7 +12,7 @@ concrete ConjunctionPes of Conjunction =
     ConjAdv = conjunctDistrSS ;
 --    ConjAdv conj advs = conjunctDistrTable Gender conj advs ;
 
-    ConjNP conj ss = conjunctDistrTable NPCase conj ss ** {
+    ConjNP conj ss = ss ** conjunctDistrTable NPCase conj ss ** {
       a = conjAgr (agrP3 conj.n) ss.a ;
       animacy = ss.animacy ;
       } ;
@@ -28,9 +28,9 @@ concrete ConjunctionPes of Conjunction =
 --    BaseAdv x y = twoTable Gender x y  ;
     ConsAdv = consrSS comma ;
 --    ConsAdv xs x = consrTable Gender comma xs x ;
-    BaseNP x y = twoTable NPCase x y ** {a = conjAgr x.a y.a ; animacy = y.animacy } ; -- check animacy
+    BaseNP x y = y ** twoTable NPCase x y ** {a = conjAgr x.a y.a ; animacy = y.animacy } ; -- check animacy
     BaseRS x y = twoTable Agr x y ** {c = x.c};
-    ConsNP xs x = consrTable NPCase comma xs x ** {a = conjAgr xs.a x.a ; animacy = xs.animacy } ; --  InaandB xs.animacy x.animacy} ;
+    ConsNP xs x = xs ** consrTable NPCase comma xs x ** {a = conjAgr xs.a x.a ; animacy = xs.animacy } ; --  InaandB xs.animacy x.animacy} ;
     ConsRS xs x = consrTable Agr comma xs x ** { c = xs.c};
 --    BaseAP x y = twoTable3 Number Gender Case x y ; -- ** {isPre = andB x.isPre y.isPre} ;
     BaseAP x y = twoTable Ezafa x y ** {adv = x.adv};
@@ -39,7 +39,7 @@ concrete ConjunctionPes of Conjunction =
   lincat
     [S] = {s1,s2 : Str} ;
     [Adv] = {s1,s2 : Str} ;
-    [NP] = {s1,s2 : NPCase => Str ; a : Agr ; animacy : Animacy } ;
+    [NP] = {s1,s2 : NPCase => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
     [AP] = {s1,s2 :  Ezafa => Str ; adv : Str} ;
     [RS] = {s1,s2 : Agr => Str };
 

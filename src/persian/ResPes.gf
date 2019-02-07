@@ -25,13 +25,19 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
   oper
 
     Compl : Type = {s : Str ; ra : Str ; c : VType} ;
-    NP : Type = {s : NPCase => Str ; a : Agr ; animacy : Animacy } ;
+    CN : Type = Noun ** {hasAdj : Bool} ; -- for getting the right form when NP/CN is a predicate
+    NP : Type = {s : NPCase => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
     VPHSlash : Type = VPH ** {c2 : Compl} ;
 
   oper
     contrNeg : Bool -> Polarity -> CPolarity = \b,p -> case p of {
       Pos => CPos ;
       Neg => CNeg b
+    } ;
+
+    cpol2pol : CPolarity -> Polarity = \cp -> case cp of {
+      CPos => Pos ;
+      _    => Neg
     } ;
 
  -----------------------
@@ -144,7 +150,7 @@ oper
 
   insertVV : (Agr => Str) -> VPH -> VPH = \obj1,vp -> vp ** {
     wish = True ;
-    vComp = \\a => vp.comp ! a ++ obj1 ! a ;
+    vComp = \\a => vp.comp ! a ++ conjThat ++ obj1 ! a ;
   } ;
 
   insertObj2 : (Str) -> VPH -> VPH = \obj1,vp -> vp ** {

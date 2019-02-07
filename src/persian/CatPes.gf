@@ -53,7 +53,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 
 ---- Noun
 
-    CN = ResPes.Noun ;
+    CN = ResPes.CN ;
 
     NP = ResPes.NP ;
     Pron = {s : Str ; ps : Str ; a : Agr};
