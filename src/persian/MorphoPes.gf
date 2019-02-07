@@ -55,23 +55,24 @@ oper
 oper
 
   mkEzafa : Str -> Str ;
-  mkEzafa str = case str of {
-      st + "اه" => str ;
-      st + "وه" => str ;
+  mkEzafa str = let kasre = "ِ" in
+    case str of {
+      st + "اه" => str + kasre ;
+      st + "وه" => str + kasre ;
       st + "ه"  => st + "ۀ" ; -- str ++ "ی" ;
-      st + "او" => str ;
-      st + "وو" => str ;
+      st + "او" => str + kasre ;
+      st + "وو" => str + kasre ;
       st + "و"  => str + "ی" ;
       st + "ا"  => str + "ی" ;
-      _ => str
-  	};
+      _ => str + kasre
+    };
+
   mkEnclic : Str -> Str ;
   mkEnclic str = case str of {
-      st + "ا" => str ++ "یی" ;
-      st + "و" => str ++ "یی" ;
-      st + "ی" => str ++ "یی" ; -- TODO
-      st + "ه" => str ++ "یی" ;
-      _        => str + "ی"
+      st + ("ا"|"و") => zwnj str "یی" ; -- ی after a long vowel to help pronunciation
+      st + "اه"      =>      str + "ی" ; -- here ه is a consonant, so single ی
+      st + ("ی"|"ه") => zwnj str "ای" ; -- after ی or ه as a vowel, add an alif to help pronunciation
+      _               =>      str + "ی" -- any other case: just a single ی
     } ;
 
   Noun = {s : Ezafa => Number => Str ; animacy : Animacy ; definitness : Bool } ;
