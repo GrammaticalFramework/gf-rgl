@@ -3,19 +3,18 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = { s = \\_ =>
-      case <det.isNum,det.fromPron> of {
-        <False,True>  => cn.s ! aEzafa ! det.n ++ det.s ;
-        <False,False> => det.s ++ cn.s ! bEzafa ! det.n ;
-        <True,True>   => cn.s ! aEzafa ! Sg ++ det.s ; -- noun modified by a number is invariably singular
-        <True,False>  => det.s ++ cn.s ! bEzafa ! Sg
-     };
+    DetCN det cn = cn ** {s = \\npc =>
+      case <det.isNum,det.fromPron,npc> of {
+        <False,False,NPC ez> => det.s ++ cn.s ! ez ! det.n ; -- det is not from Pron, retain NPForm.
+        <False,True>         => cn.s ! aEzafa ! det.n ++ det.s ; -- det is from Pron, cn is in aEzafa.
+        <True,False,NPC ez>  => det.s ++ cn.s ! ez ! Sg ; -- noun modified by a number is invariably singular
+        <True,True>          => cn.s ! aEzafa ! Sg ++ det.s
+      } ;
       a = agrP3 det.n ;
-      animacy = cn.animacy
       } ;
 
-    UsePN pn = {s = \\_ => pn.s ; a = agrP3 Sg ; animacy = pn.animacy } ;
-    UsePron p = {s = \\_ => p.s ; a = p.a ; animacy = Animate} ;
+    UsePN pn = pn ** {s = \\_ => pn.s ; a = agrP3 Sg ; hasAdj = False} ;
+    UsePron p = p ** {s = \\_ => p.s ; animacy = Animate ; hasAdj = False} ;
 
     PredetNP pred np = np ** {
       s = \\ez => pred.s ++ np.s ! ez
@@ -50,6 +49,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     DetNP det = {
       s = \\_ => det.s  ; ---- case
       a = agrP3 det.n ;
+      hasAdj = False ;
       animacy = Inanimate
       } ;
 
@@ -73,47 +73,42 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     DefArt = {s = \\_ => [] ; a = defaultAgr ; fromPron = False} ;
     IndefArt = {s = table { Sg => IndefArticle ; Pl => []} ; a =defaultAgr ; fromPron = False} ;
 
-    MassNP cn = {s =\\c => case c of {
+    MassNP cn = cn ** {s =\\c => case c of {
       NPC bEzafa => cn.s ! bEzafa ! Sg ;
       NPC aEzafa => cn.s ! aEzafa ! Sg ;
       NPC enClic => cn.s ! enClic ! Sg
       };
       a = agrP3 Sg ;
-      animacy = cn.animacy
       } ;
 
-    UseN n = n ;
-    UseN2 n = n ;
+    UseN n = n ** {hasAdj=False};
+    UseN2 n = n ** {hasAdj=False};
 
-    Use2N3 f = {
-      s = f.s;
+    Use2N3 f = f ** {
       c = f.c2;
-      animacy = f.animacy;
       definitness = True
       } ;
 
-   Use3N3 f = {
-      s = f.s ;
+   Use3N3 f = f ** {
       c = f.c3;
-      animacy = f.animacy;
       definitness = True
       } ;
 
-    ComplN2 f x = {
+    ComplN2 f x = f ** {
       s = \\ez,n => f.s ! ez ! n  ++ f.c ++ x.s ! NPC ez ;
-      animacy = f.animacy;
-      definitness = True
+      definitness = True ;
+      hasAdj = False ;
      };
-    ComplN3 f x = {
+    ComplN3 f x = f ** {
       s = \\ez,n => f.s ! ez ! n ++ f.c2 ++ x.s ! NPC ez ;
       c = f.c3;
-      animacy = f.animacy;
       definitness = True;
       } ;
 
     AdjCN ap cn = cn ** {
-      s = \\ez,n =>  cn.s ! aEzafa ! n ++ ap.s ! ez -- check the form of adjective and also cn.s!ez!n changed from cn.s!aEzafa!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
-      } ;
+      s = \\ez,n => cn.s ! aEzafa ! n ++ ap.s ! ez ; -- check the form of adjective and also cn.s!ez!n changed from cn.s!aEzafa!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
+      hasAdj = True
+     } ;
 
     RelCN cn rs = cn ** {
       s = \\ez,n => cn.s ! enClic ! n ++ rs.s ! agrP3 n ;

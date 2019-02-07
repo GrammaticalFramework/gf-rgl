@@ -1,4 +1,4 @@
-concrete VerbPes of Verb = CatPes ** open ResPes in {
+concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
 
   flags coding = utf8;
   flags optimize=all_subs ;
@@ -42,9 +42,19 @@ concrete VerbPes of Verb = CatPes ** open ResPes in {
     PassV2 v = predV v ; -- need to be fixed
     CompAP ap ={s = \\_ => ap.s ! bEzafa} ; -- check form of adjective
     CompAdv adv = {s = \\_ => adv.s } ;
-    CompCN cn = {s = \\a => cn.s ! bEzafa !  giveNumber a } ;
-    -- IL 2019-01-31 changed bEzafa to enClic according to
-    -- https://sites.la.utexas.edu/persian_online_resources/nouns/noun-in-a-predicative-position/
-    CompNP np = {s = \\a => np.s ! NPC enClic} ;
+
+    -- see https://sites.la.utexas.edu/persian_online_resources/nouns/noun-in-a-predicative-position/
+    CompCN cn = {
+      s = \\a => cn.s ! case cn.hasAdj of {
+                          False => bEzafa ;
+                          True  => enClic }
+                      ! giveNumber a
+      } ;
+
+    CompNP np = {
+      s = \\a => np.s ! case np.hasAdj of {
+                          False => NPC bEzafa ;
+                          True  => NPC enClic }
+      } ;
 
 }

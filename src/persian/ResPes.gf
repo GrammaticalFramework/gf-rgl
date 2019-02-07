@@ -25,7 +25,8 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
   oper
 
     Compl : Type = {s : Str ; ra : Str ; c : VType} ;
-    NP : Type = {s : NPCase => Str ; a : Agr ; animacy : Animacy } ;
+    CN : Type = Noun ** {hasAdj : Bool} ; -- for getting the right form when NP/CN is a predicate
+    NP : Type = {s : NPCase => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
     VPHSlash : Type = VPH ** {c2 : Compl} ;
 
   oper
