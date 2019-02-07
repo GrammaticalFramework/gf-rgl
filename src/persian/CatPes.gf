@@ -7,7 +7,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 
     S  = {s : Str} ;
     QS = {s : QForm => Str} ;
-    RS = {s : AgrPes => Str } ; -- c for it clefts
+    RS = {s : Agr => Str } ; -- c for it clefts
     SSlash = {s : Str ; c2 : ResPes.Compl} ;
 
 ---- Sentence
@@ -32,7 +32,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 ---- Relative
 
     RCl = {
-      s : ResPes.VPHTense => Polarity => Order => AgrPes => Str ;
+      s : ResPes.VPHTense => Polarity => Order => Agr => Str ;
     --  c : Case
       } ;
     RP = {s: Str ; a:RAgr};
@@ -42,7 +42,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     VP = ResPes.VPH ;
 
     VPSlash = ResPes.VPHSlash ;
-    Comp = {s : AgrPes => Str} ;
+    Comp = {s : Agr => Str} ;
 
 ---- Adv
     Adv = {s : Str} ;
@@ -56,13 +56,13 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     CN = ResPes.Noun ;
 
     NP = ResPes.NP ;
-    Pron = {s : Str ; ps : Str ; a : AgrPes};
+    Pron = {s : Str ; ps : Str ; a : Agr};
     Det = ResPes.Determiner ;
     Predet = {s : Str} ;
     Num  = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Str; n : Number} ;
     Ord = {s : Str; n : Number ; isNum : Bool} ;
-    Quant = {s: Number => Str ; a:AgrPes ; fromPron : Bool};
+    Quant = {s: Number => Str ; a:Agr ; fromPron : Bool};
     Art = {s : Str} ;
 
 ---- Numeral
