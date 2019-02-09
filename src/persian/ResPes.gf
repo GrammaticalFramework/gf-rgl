@@ -150,7 +150,8 @@ oper
 
   insertVV : (Agr => Str) -> VPH -> VPH = \obj1,vp -> vp ** {
     wish = True ;
-    vComp = \\a => vp.comp ! a ++ conjThat ++ obj1 ! a ;
+--    vComp = \\a => vp.comp ! a ++ conjThat ++ obj1 ! a ; -- TODO: do we insert conjThat here or in infVV? /IL
+    vComp = \\a => vp.comp ! a ++ obj1 ! a ;
   } ;
 
   insertObj2 : (Str) -> VPH -> VPH = \obj1,vp -> vp ** {
