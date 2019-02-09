@@ -40,6 +40,7 @@ concrete ExtendPor of Extend =
       PresPartAP,
       ProDrop,
       PurposeVP,
+      UseComp_estar,
       VPS,
       iFem_Pron,
       theyFem_Pron,
@@ -273,7 +274,11 @@ concrete ExtendPor of Extend =
     gerundStr vp = gerVP vp (Ag Masc Sg P3) ;
 
   lin
+    UncontractedNeg = {s = [] ; p = RNeg False} ;
+    
     -- Romance
+    UseComp_estar comp = insertComplement comp.s (predV estar_V) ;
+    
     iFem_Pron = pronAgr S.i_Pron Fem Sg P1 ;
     weFem_Pron = pronAgr S.we_Pron Fem Pl P1 ;
     youFem_Pron = pronAgr S.youSg_Pron Fem Sg P3 ;
