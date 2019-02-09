@@ -54,8 +54,9 @@ oper
 ------------------------
 oper
 
-  mkEzafa : Str -> Str ;
-  mkEzafa str = let kasre = "ِ" in
+  mkEzafa : Str -> Str = \str ->
+    --let kasre = "ِ" in -- TODO: Eventually use this
+    let kasre = "" in
     case str of {
       st + "اه" => str + kasre ;
       st + "وه" => str + kasre ;
