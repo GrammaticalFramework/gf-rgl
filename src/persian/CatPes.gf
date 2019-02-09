@@ -76,16 +76,16 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
-    Prep = {s : Str };
+    Prep = {s : Str};
 ---- Open lexical classes, e.g. Lexicon
-    V, VS, VQ, VA = ResPes.Verb ; -- = {s : VForm => Str} ;
+    V, VS, VQ, VA = ResPes.Verb ;
 
     V2, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
     V3 = ResPes.Verb ** {c2, c3 : Str} ;
     VV = ResPes.Verb ** {isAux : Bool} ;
-    V2V = ResPes.Verb ** {c1 : Str ; c2 : Str  ; isAux : Bool} ;
-    A = ResPes.Adjective ; --- {s : Gender => Number => Case => Str} ;
-    A2 = ResPes.Adjective ** { c2 : Str} ;
+    V2V = ResPes.Verb ** {c1 : Str ; c2 : Str ; isAux : Bool} ;
+    A = ResPes.Adjective ;
+    A2 = ResPes.Adjective ** {c2 : Str} ;
 
     N = ResPes.Noun ;
 
