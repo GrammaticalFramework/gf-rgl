@@ -63,6 +63,10 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   oper iAdvQuestionInv : Direct = DInv ; -- except Fre
 
+  oper iCompQuestionInv : Direct = DInv ; -- for Cat,Por,Spa where otherInv will be DDir
+
+  oper otherInv : Direct = DInv ; -- except Cat, Por, Spa
+
 --2 Constants that must derivatively depend on language
 
   param NPForm = Ton Case | Aton Case | Poss {g : Gender ; n : Number} ; --- AAgr
