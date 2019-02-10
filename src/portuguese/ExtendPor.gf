@@ -75,21 +75,32 @@ concrete ExtendPor of Extend =
         isNeg = False ;
       } ;
 
-     GenIP ip = {s = \\_,_,c => ip.s ! c} ;
+    GenIP ip = {s = \\_,_,c => ip.s ! c} ;
 
-     GenModNP num np cn = DetCN (DetQuant (GenNP (lin NP np)) num) cn ;
+    GenRP nu cn = {
+      s = \\_b,_aagr,_c => cujo ! g ! n ++ num ++ cn.s ! n ;
+      a = aagr g n ;
+      hasAgr = True
+      } where {
+        cujo = genNumForms "cujo" "cuja" "cujos" "cujas" ;
+        g = cn.g ;
+        n = nu.n ;
+        num = if_then_Str nu.isNum (nu.s ! g) []
+      } ;
 
-     GenModIP num ip cn = IdetCN (IdetQuant (GenIP (lin IP ip)) num) cn ;
+    GenModNP num np cn = DetCN (DetQuant (GenNP (lin NP np)) num) cn ;
 
-     CompBareCN cn = {
-       s = \\agr => cn.s ! agr.n ;
-       cop = serCopula
-       } ;
+    GenModIP num ip cn = IdetCN (IdetQuant (GenIP (lin IP ip)) num) cn ;
 
-     EmptyRelSlash cls = {
-       s = \\agr,t,a,p,m => cls.s ! agr ! DDir ! t ! a ! p ! m ++ cls.c2.s ;
-       c = Nom
-       } ;
+    CompBareCN cn = {
+      s = \\agr => cn.s ! agr.n ;
+      cop = serCopula
+      } ;
+
+    EmptyRelSlash cls = {
+      s = \\agr,t,a,p,m => cls.s ! agr ! DDir ! t ! a ! p ! m ++ cls.c2.s ;
+      c = Nom
+      } ;
 
   ---- these come from ExtraRomance: how to avoid the repetition?
   ---- can't seem to be able to use two functors
@@ -275,10 +286,10 @@ concrete ExtendPor of Extend =
 
   lin
     UncontractedNeg = {s = [] ; p = RNeg False} ;
-    
+
     -- Romance
     UseComp_estar comp = insertComplement comp.s (predV estar_V) ;
-    
+
     iFem_Pron = pronAgr S.i_Pron Fem Sg P1 ;
     weFem_Pron = pronAgr S.we_Pron Fem Pl P1 ;
     youFem_Pron = pronAgr S.youSg_Pron Fem Sg P3 ;
