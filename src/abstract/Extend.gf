@@ -206,6 +206,8 @@ abstract Extend = Cat ** {
   DetNPMasc : Det -> NP ;
   DetNPFem  : Det -> NP ;
 
+  UseComp_estar : Comp -> VP ; -- (Cat, Spa, Por) "está cheio" instead of "é cheio"
+  
   iFem_Pron      : Pron ; -- I (Fem)
   youFem_Pron    : Pron ; -- you (Fem)
   weFem_Pron     : Pron ; -- we (Fem)

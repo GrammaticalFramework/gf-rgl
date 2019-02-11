@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:../prelude
 
-instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
+instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
 
   flags optimize=noexpand ;
         coding=utf8 ;
@@ -95,6 +95,10 @@ instance DiffPor of DiffRomance - [chooseTA,partAgr,vpAgrSubj,vpAgrClits] = open
     serCopula = SerCop ;
     estarCopula = EstarCop ;
     ficarCopula = FicarCop ;
+
+  oper
+    iAdvQuestionInv : Direct = DDir ;
+    otherInv : Direct = DDir ;
 
   oper
     -- the other Cases are defined in ResRomance

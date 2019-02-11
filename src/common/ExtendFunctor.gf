@@ -76,7 +76,7 @@ lin
   Cons_nr_RNP = variants {} ;     -- NP -> RNPList -> RNPList ; -- John, my family, myself
   ComplGenVV = variants {} ;     -- VV -> Ant -> Pol -> VP -> VP ; -- want not to have slept
   ComplSlashPartLast = ComplSlash ;
-  SlashV2V = variants {} ;     -- V2V -> Ant -> Pol -> VPS -> VPSlash ; -- force (her) not to have slept
+  --SlashV2V = variants {} ;     -- V2V -> Ant -> Pol -> VPS -> VPSlash ; -- force (her) not to have slept
   CompoundN = variants {} ;     -- N -> N -> N ; -- control system / controls system / control-system
   CompoundAP = variants {} ;     -- N -> A -> AP ; -- language independent / language-independent
   GerundCN = variants {} ;     -- VP -> CN ; -- publishing of the document (can get a determiner)
@@ -96,6 +96,7 @@ lin
   DetNPMasc = DetNP ;
   DetNPFem = DetNP ;
 
+  UseComp_estar = UseComp ; -- DEFAULT UseComp
   iFem_Pron = i_Pron ; -- DEFAULT I (masc)
   youFem_Pron = youSg_Pron ; -- DEFAULT you (masc)
   weFem_Pron = we_Pron ;  -- DEFAULT we (masc)

@@ -18,6 +18,8 @@ concrete ExtendSpa of Extend =
     -- put your own definitions here
 
   lin
+    UseComp_estar comp = insertComplement comp.s (predV estar_V) ;
+    
     iFem_Pron =  mkPronoun
       "yo" "me" "me" "mí"
       "mi" "mi" "mis" "mis"

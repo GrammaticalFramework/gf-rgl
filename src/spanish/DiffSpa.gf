@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:prelude
 
-instance DiffSpa of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits,contractInf] = open CommonRomance, PhonoSpa, BeschSpa, Prelude in {
+instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,vpAgrSubj,vpAgrClits,contractInf] = open CommonRomance, PhonoSpa, BeschSpa, Prelude in {
 
   flags optimize=noexpand ;
     coding=utf8 ;
@@ -138,6 +138,9 @@ instance DiffSpa of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits,contractInf] = o
     selectCopula = \isEstar -> case isEstar of {True => estar_V ; False => copula} ;
     serCopula = False ;
     estarCopula = True ;
+
+    iAdvQuestionInv : Direct = DDir ;
+    otherInv : Direct = DDir ;
 
     negation : RPolarity => (Str * Str) = table {
       RPos => <[],[]> ;
