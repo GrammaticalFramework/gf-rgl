@@ -61,7 +61,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
           ++ bindHyphenIf hasClit ++ clit ++ compl ;
         RNeg _ => neg.p1 ++ refl.pron ++ clit ++ subj ++ compl
       } where {
-        pe   = case isPol of {True => P2 ; _ => P3} ;
+        pe : Person  = case <isPol,p> of {<_,P1> => P1 ; <True,_> => P2 ; <_,_> => P3} ;
         refl = case vp.s.vtyp of {
           VRefl => {pron = reflPron n pe Acc ; isRefl = True} ;
           _     => {pron = [] ; isRefl = False}
