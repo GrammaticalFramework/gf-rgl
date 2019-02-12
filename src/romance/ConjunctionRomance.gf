@@ -13,7 +13,7 @@ incomplete concrete ConjunctionRomance of Conjunction =
       a = conjAgr (Ag Masc conj.n P3) ss.a ;
       hasClit = False ; isNeg = ss.isNeg
       }) ;
-    ConjAP conj ss = conjunctDistrTable AForm conj ss ** {
+    ConjAP conj ss = conjunctDistrTable2 Person AForm conj ss ** {
       isPre = ss.isPre ;
       copTyp = ss.copTyp
       } ;
@@ -41,8 +41,8 @@ incomplete concrete ConjunctionRomance of Conjunction =
       s2 = \\c => xs.s2 ! c ; ----e (conjunctCase c) ; 
       a = conjAgr x.a xs.a ; isNeg = orB x.isNeg xs.isNeg
       } ;
-    BaseAP x y = twoTable AForm x y ** {isPre = andB x.isPre y.isPre ; copTyp = y.copTyp} ;
-    ConsAP x xs = consrTable AForm comma x xs ** {isPre = andB x.isPre xs.isPre ; copTyp = xs.copTyp} ;
+    BaseAP x y = twoTable2 Person AForm x y ** {isPre = andB x.isPre y.isPre ; copTyp = y.copTyp} ;
+    ConsAP x xs = consrTable2 Person AForm comma x xs ** {isPre = andB x.isPre xs.isPre ; copTyp = xs.copTyp} ;
     BaseRS x y = twoTable2 Mood Agr x y ** {c = y.c} ;
     ConsRS xs x = consrTable2 Mood Agr comma xs x ** {c = xs.c} ;
     BaseIAdv = twoSS ;
@@ -56,7 +56,7 @@ incomplete concrete ConjunctionRomance of Conjunction =
     [AdV] = {s1,s2 : Str} ;
     [IAdv] = {s1,s2 : Str} ;
     [NP] = {s1,s2 : Case => Str ; a : Agr ; isNeg : Bool} ;
-    [AP] = {s1,s2 : AForm  => Str ; isPre : Bool ; copTyp : CopulaType} ;
+    [AP] = {s1,s2 : Person => AForm  => Str ; isPre : Bool ; copTyp : CopulaType} ;
     [RS] = {s1,s2 : Mood => Agr => Str ; c : Case} ;
     [CN] = {s1,s2 : Number => Str ; g : Gender} ;
 

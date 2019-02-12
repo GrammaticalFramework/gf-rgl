@@ -170,7 +170,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,vpAgrSubj,vp
     reflPron : Number -> Person -> Case -> Str = \n,p,c -> 
         let pro = argPron Fem n p c 
         in
-        case p of { 
+      case p of {
         P3 => case c of {
           Acc | CPrep P_a => "se" ;
           _ => "sí"

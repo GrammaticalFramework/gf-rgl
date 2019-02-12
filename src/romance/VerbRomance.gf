@@ -11,7 +11,7 @@ incomplete concrete VerbRomance of Verb =
     ComplVS v s  = insertExtrapos (\\b => conjThat ++ s.s ! (v.m ! b)) (predV v) ;
     ComplVQ v q  = insertExtrapos (\\_ => q.s ! QIndir) (predV v) ;
     ComplVA v ap =
-      insertComplement (\\a => let agr = complAgr a in ap.s ! genNum2Aform agr.g agr.n) (predV v) ;
+      insertComplement (\\a => let agr = verbAgr a in ap.s ! agr.p ! genNum2Aform agr.g agr.n) (predV v) ;
 
     SlashV2a v = mkVPSlash v.c2 (predV v) ;
 
@@ -50,7 +50,7 @@ incomplete concrete VerbRomance of Verb =
       in
       mkVPSlash v.c2
         (insertComplement
-          (\\_ => v.c3.s ++ prepCase v.c3.c ++ ap.s ! af)
+          (\\a => let agr = verbAgr a in v.c3.s ++ prepCase v.c3.c ++ ap.s ! agr.p ! af)
           (predV v)) ;
 
     ComplSlash vp np = insertObject vp.c2 np vp ;
@@ -58,7 +58,7 @@ incomplete concrete VerbRomance of Verb =
     ReflVP v = case v.c2.isDir of {
       True  => insertRefl v ;
       False => insertComplement
-                 (\\a => let agr = verbAgr a in v.c2.s ++ reflPron agr.n  agr.p v.c2.c) v
+                 (\\a => let agr = verbAgr a in v.c2.s ++ reflPron agr.n agr.p v.c2.c) v
       } ;
 
     SlashVV v vp =
@@ -94,8 +94,8 @@ incomplete concrete VerbRomance of Verb =
     CompAP ap = {
       s = \\ag =>
         let
-          agr = complAgr ag
-        in ap.s ! genNum2Aform agr.g agr.n ;
+          agr = verbAgr ag
+        in ap.s ! agr.p ! genNum2Aform agr.g agr.n ;
       cop = ap.copTyp
       } ;
     CompCN cn = { s = \\ag =>

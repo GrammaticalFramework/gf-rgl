@@ -153,7 +153,8 @@ incomplete concrete NounRomance of Noun =
       let
         g = cn.g
       in {
-        s = \\n => preOrPost ap.isPre (ap.s ! genNumPos2Aform g n ap.isPre) (cn.s ! n) ;
+        s = \\n => preOrPost ap.isPre (ap.s ! P3 ! genNumPos2Aform g n ap.isPre)
+                                      (cn.s ! n) ;
         g = g ;
         } ;
 
@@ -190,7 +191,7 @@ incomplete concrete NounRomance of Noun =
        a = np.a ** {n = det.n} } ;
 
     AdjDAP det ap = {
-      s = \\g => det.s ! g ++ ap.s ! genNum2Aform g det.n ;
+      s = \\g => det.s ! g ++ ap.s ! P3 ! genNum2Aform g det.n ;
       n = det.n ;
       } ;
 

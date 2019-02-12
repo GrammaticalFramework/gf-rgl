@@ -18,7 +18,7 @@ incomplete concrete PhraseRomance of Phrase =
     UttVP vp = {s = infVP vp (agrP3 Fem Sg)} ; --- Agr
     UttAdv adv = adv ;
     UttCN n = {s = n.s ! Sg} ;
-    UttAP ap = {s = ap.s ! genNum2Aform Masc Sg} ;
+    UttAP ap = {s = ap.s ! P3 ! genNum2Aform Masc Sg} ;
     UttCard n = {s = n.s ! Masc} ;
     UttInterj i = i ;
 
