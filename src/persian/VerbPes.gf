@@ -45,10 +45,10 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
 
     -- see https://sites.la.utexas.edu/persian_online_resources/nouns/noun-in-a-predicative-position/
     CompCN cn = {
-      s = \\a => cn.s ! case cn.hasAdj of {
-                          False => bEzafa ;
-                          True  => enClic }
-                      ! giveNumber a
+      s = \\a =>
+        case cn.hasAdj of {
+          False => cn.s ! bEzafa ! Sg ;
+          True  => cn.s ! enClic ! giveNumber a }
       } ;
 
     CompNP np = {
