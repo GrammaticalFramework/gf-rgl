@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:prelude
 
-instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,vpAgrSubj,vpAgrClits,contractInf] = open CommonRomance, PhonoSpa, BeschSpa, Prelude in {
+instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAgrSubj,vpAgrClits,contractInf] = open CommonRomance, PhonoSpa, BeschSpa, Prelude in {
 
   flags optimize=noexpand ;
     coding=utf8 ;
@@ -207,11 +207,9 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,vpAgrSubj,vp
       _ => False
       } ;
 
-    auxPassive : Verb = verbBeschH (estar_2 "estar") ;
+    copula, essere_V : Verb = verbBeschH (ser_1 "ser") ;
 
-    copula : Verb = verbBeschH (ser_1 "ser") ;
-
-    estar_V : Verb = verbBeschH (estar_2 "estar") ;
+    estar_V, stare_V, auxPassive : Verb = verbBeschH (estar_2 "estar") ;
     
     haber_V : Verb = verbBeschH (haber_3 "haber") ;
 

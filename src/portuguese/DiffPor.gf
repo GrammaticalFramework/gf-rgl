@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:../prelude
 
-instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
+instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,stare_V,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
 
   flags optimize=noexpand ;
         coding=utf8 ;
@@ -87,8 +87,8 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
   oper
     CopulaType = Copula ;
     selectCopula coptyp = case coptyp of {
-      SerCop => copula ;
-      EstarCop => estar_V ;
+      SerCop => essere_V ;
+      EstarCop => stare_V ;
       FicarCop => ficar_V
       } ;
 
@@ -263,14 +263,14 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
         <_,  Pl,P3> => cases3 "os" "seus" "eles"
       } ;
 
-    estar_V : Verb = verboV (estar_Besch "estar") ;
+    essere_V : Verb = verboV (ser_Besch "ser") ;
+    stare_V : Verb = verboV (estar_Besch "estar") ;
 
     haver_V : Verb = verboV (haver_Besch "haver") ;
-
     ficar_V : Verb = verboV (ficar_Besch "ficar") ;
 
     verboV : Verbum -> Verb ;
     -- make a verb of type haver
     verboV v = verbBesch v ** {vtyp = VHabere ; p = [] ; lock_V = <>} ;
 
-}
+} ;
