@@ -189,4 +189,12 @@ oper
     <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
     } ;
 
+  insertAdV : Str -> VP -> VP ;
+  insertAdV co vp = vp ** {
+    neg = \\b => let vpn = vp.neg ! b
+      -- hacky: the AdV is directly attached to the verb, so we put it
+      -- in the neg field
+      in {p1 = co ++ vpn.p1 ; p2 = vpn.p2}
+    } ;
+
 } ;

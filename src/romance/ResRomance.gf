@@ -133,12 +133,6 @@ oper
     comp  = \\a => vp.comp ! a ++ co ;
     } ;
 
-  insertAdV : Str -> VP -> VP ;
-  insertAdV co vp = vp ** {
-    neg = \\b => let vpn = vp.neg ! b
-      in {p1 = vpn.p1 ; p2 = vpn.p2 ++ co}
-    } ;
-
   insertClit3 : Str -> VP -> VP = \co,vp -> {
     s     = vp.s ;
     agr   = vp.agr ;

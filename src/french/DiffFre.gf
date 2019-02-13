@@ -2,6 +2,7 @@
 
 instance DiffFre of DiffRomance - [
   imperClit,
+  insertAdV,
   invertedClause,
   verbHyphen,
   iAdvQuestionInv
@@ -313,5 +314,13 @@ instance DiffFre of DiffRomance - [
   bindHyphensT : Str = bindHyphen ++ "t" ++ bindHyphen ;
 
   verbHyphen : Verb -> Str = \v -> v.s ! (VInfin True) ; --- kluge: use this field to store - or -t-
+
+  insertAdV : Str -> VP -> VP ;
+  insertAdV co vp = vp ** {
+    neg = \\b => let vpn = vp.neg ! b
+      -- hacky: the AdV is directly attached to the verb, so we put it
+      -- in the neg field
+      in {p1 = vpn.p1 ; p2 = vpn.p2 ++ co}
+    } ;
 
 }
