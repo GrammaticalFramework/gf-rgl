@@ -60,7 +60,7 @@ oper
     case str of {
       st + "اه" => str + kasre ;
       st + "وه" => str + kasre ;
-      st + "ه"  => st + "ۀ" ; -- str ++ "ی" ;
+      st + "ه"  => zwnj str "ی" ;-- alt. st + "ۀ" ;
       st + "او" => str + kasre ;
       st + "وو" => str + kasre ;
       st + "و"  => str + "ی" ;
@@ -71,7 +71,8 @@ oper
   mkEnclic : Str -> Str ;
   mkEnclic str = case str of {
       st + ("ا"|"و") => zwnj str "یی" ; -- ی after a long vowel to help pronunciation
-      st + "اه"      =>      str + "ی" ; -- here ه is a consonant, so single ی
+      st + "اه"      => zwnj str "ی" ; -- here ه is a consonant, so single ی
+--      st + "اه"      =>  str + "ی" ; -- old version, no ZWNJ
       st + ("ی"|"ه") => zwnj str "ای" ; -- after ی or ه as a vowel, add an alif to help pronunciation
       _               =>      str + "ی" -- any other case: just a single ی
     } ;
