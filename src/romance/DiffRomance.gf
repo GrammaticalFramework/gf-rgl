@@ -189,4 +189,9 @@ oper
     <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
     } ;
 
+  oper
+    essere_V : Verb ;
+    stare_V : Verb ;
+    stare_V = essere_V ;
+
 } ;

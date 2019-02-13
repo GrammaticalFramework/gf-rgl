@@ -46,7 +46,7 @@ concrete IdiomPor of Idiom = CatPor **
            in
            vp.s.s ! VGer ++ clpr.p1 ++ obj
         )
-        (predV B.estar_V) ;
+        (predV B.stare_V) ;
 
     ImpPl1 vp = {s =
       mkImperative False P1 vp ! RPos ! Masc ! Pl ; --- fem

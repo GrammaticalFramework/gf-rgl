@@ -2,7 +2,7 @@
 
 concrete ConstructionPor of Construction = CatPor **
   open SyntaxPor, SymbolicPor, ParadigmsPor, BeschPor,
-  (L = LexiconPor), (B = DiffPor), (R = ResPor),
+  (L = LexiconPor), (D = DiffPor), (R = ResPor),
   (S = SyntaxPor), (C = CommonRomance), CommonRomance,
        Prelude in {
   flags coding=utf8 ;
@@ -22,13 +22,13 @@ lin
 
   what_name_QCl x = mkQCl how_IAdv (mkCl (lin NP x) (reflV (mkV "chamar"))) ;
   how_old_QCl x = mkQCl (mkIP how8many_IDet L.year_N) x have_V2 ;
-  how_far_QCl x = mkQCl (lin IAdv (ss "a que distância")) (mkCl x B.estar_V) ;
+  how_far_QCl x = mkQCl (lin IAdv (ss "a que distância")) (mkCl x D.stare_V) ;
 
 -- some more things
   weather_adjCl ap = mkCl (mkVP (mkVA (mkV (fazer_Besch "fazer"))) (lin AP ap)) ;
 
-  is_right_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "certo")) ;
-  is_wrong_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "errado")) ;
+  is_right_VP = mkVP (mkVA D.stare_V) (mkAP (mkA "certo")) ;
+  is_wrong_VP = mkVP (mkVA D.stare_V) (mkAP (mkA "errado")) ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn))))
                               (lin A a) ;
@@ -225,4 +225,4 @@ lin thai_Language      = mkLanguage "tailandês" ;
 lin turkish_Language   = mkLanguage "turco" ;
 lin urdu_Language      = mkLanguage "urdu" ;
 
-}
+} ;

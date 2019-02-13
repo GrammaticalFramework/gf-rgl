@@ -1,5 +1,5 @@
 --# -path=.:../romance:../abstract:../common:prelude
-instance DiffCat of DiffRomance - [partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoCat, BeschCat, Prelude in {
+instance DiffCat of DiffRomance - [partAgr,stare_V,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoCat, BeschCat, Prelude in {
 
   flags optimize=noexpand ;
   coding=utf8 ;
@@ -199,12 +199,10 @@ oper
       _ => False
       } ;
 
-    auxPassive : Verb = verbBeschH (estar_54 "estar") ;
+    haver_V, auxPassive : Verb = verbBeschH (estar_54 "estar") ;
 
-    copula = verbBeschH (ser_52 "ser") ;
-    estar_V = verbBeschH (estar_54 "estar") ;
-
-    haver_V : Verb = verbBeschH (haver_59 "haver" True) ;
+    essere_V, copula = verbBeschH (ser_52 "ser") ;
+    stare_V, estar_V = verbBeschH (estar_54 "estar") ;
 
     verbBeschH : Verbum -> Verb = \v -> verbBesch v ** {vtyp = VHabere ; p = []} ;
 
