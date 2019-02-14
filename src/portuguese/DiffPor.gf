@@ -8,7 +8,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
   param
     Prepos = P_de | P_a | P_em | P_por ;
 
-    VType = VHabere | VRefl ;
+    VType = VTer | VHaver | VRefl ;
 
   oper
     partAgr : VType -> Bool ;
@@ -159,7 +159,12 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
     possCase = \_,_,c -> prepCase c ;
 
   oper
-    auxVerb : VType -> (VF => Str) = \_ -> haver_V.s ;
+    auxVerb : VType -> (VF => Str) ;
+    auxVerb vt = case vt of {
+      VTer   => ter_V.s ;
+      VHaver => haver_V.s ;
+      _      => ter_V.s
+      } ;
 
     negation : RPolarity => (Str * Str) = table {
       RPos => <[],[]> ;
@@ -266,11 +271,12 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
     essere_V : Verb = verboV (ser_Besch "ser") ;
     stare_V : Verb = verboV (estar_Besch "estar") ;
 
+    ter_V   : Verb = verboV (ter_Besch "ter") ;
     haver_V : Verb = verboV (haver_Besch "haver") ;
     ficar_V : Verb = verboV (ficar_Besch "ficar") ;
 
     verboV : Verbum -> Verb ;
     -- make a verb of type haver
-    verboV v = verbBesch v ** {vtyp = VHabere ; p = [] ; lock_V = <>} ;
+    verboV v = verbBesch v ** {vtyp = VTer ; p = [] } ;
 
 } ;

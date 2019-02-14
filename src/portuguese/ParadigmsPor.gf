@@ -298,6 +298,18 @@ oper
 
 --2 Verbs
 
+  VType : Type ; -- verb is reflexive / verb uses auxiliar X
+  VType = MorphoPor.VType ;
+
+  auxTer : VType ; -- "ter" as auxiliary verb
+  auxTer = VTer ;
+
+  auxHaver : VType ; -- "haver" as auxiliary verb
+  auxHaver = VHaver ;
+
+  auxRefl : VType ; -- verb is reflexive
+  auxRefl = VRefl ;
+
   regV : Str -> V ; --%
   regV s = case s of {
     chamar + "-se" => reflV (regV' chamar) ;
@@ -361,6 +373,9 @@ oper
 
     mkV : V -> Str -> V -- particle verb
       = \v,p -> v ** {p = p} ;
+
+    mkV : V -> VType -> V -- choose auxiliary verb or make verb reflexive
+      = \v,vt -> v ** {vtyp = vt} ;
 
     } ;
 
