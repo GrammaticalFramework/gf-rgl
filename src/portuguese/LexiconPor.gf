@@ -281,7 +281,7 @@ lin
    kill_V2       = mkV2 (mkV "matar" "morto") ;
    know_V2       = mkV2 (mkV "conhecer") ;
    learn_V2      = mkV2 (mkV "aprender") ;
-   leave_V2      = mkV2 (mkV "partir") ;
+   leave_V2      = mkV2 (mkV "partir") genitive ;
    like_V2       = mkV2 (mkV "gostar") genitive ;
    listen_V2     = mkV2 (mkV "escutar") ;
    lose_V2       = mkV2 (mkV (perder_Besch "perder")) ;
