@@ -29,7 +29,7 @@ concrete IdiomAra of Idiom = CatAra ** open
 
    -- : NP -> Cl ;        -- there is a house
   ExistNP np =
-    predVP (emptyNP ** {s=\\c=>"هُنَاكَ"}) (UseComp (CompNP np)) ; -- IL
+    predVP (indeclNP "هُنَاكَ" Sg) (UseComp (CompNP np)) ; -- IL
 
   -- : IP -> QCl ;       -- which houses are there
   ExistIP ip = let cl = ExistNP (ip2np ip False) in {
@@ -40,7 +40,7 @@ concrete IdiomAra of Idiom = CatAra ** open
 
   -- : NP -> Adv -> Cl ;    -- there is a house in Paris
   ExistNPAdv np adv =
-    predVP (emptyNP ** {s=\\c=>"هُنَاكَ"}) (AdvVP (UseComp (CompNP np)) adv) ; -- IL
+    predVP (indeclNP "هُنَاكَ" Sg) (AdvVP (UseComp (CompNP np)) adv) ; -- IL
 
    -- ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
 
