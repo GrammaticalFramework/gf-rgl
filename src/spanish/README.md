@@ -24,6 +24,28 @@ and in the constructions defined in the =Diff*= modules. Some relevant features:
 
 ### Known issues
 
+* Verbs with dative subject don't actually have it. Example:
+
+```
+Lang> p "I like grammars" | l
+I like grammars
+yo gusto gramáticas
+```
+
+This is not a massive problem per se, the application grammarian just needs to know this is the case. If your application grammar has a function like the following:
+
+```haskell
+fun Like : NP -> NP -> Cl ;
+```
+
+then you just need to linearise it as follows:
+
+```haskell
+lin Like subj obj = mkCl obj like_V2 subj ;
+```
+
+(Why don't we have it? Verbs like *gustar* inflect according to the logical *object* of the sentence; this would mean we'd need 2-dimensional inflection tables for verbs, and while that's a cool thing, it's also expensive and not needed for anything else.)
+
 * Contractions with *con* and pronouns: *con* + *mí*/*ti*/… should be *conmigo*/*contigo*/…, but the contraction is not implemented.
 
 * Clitic pronouns and their combinations:
