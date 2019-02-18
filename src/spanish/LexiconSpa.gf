@@ -108,7 +108,7 @@ lin
    lamp_N = regN "lámpara" ;
    learn_V2 = dirV2 (regV "aprender") ;
    leather_N = regN "cuero" ;
-   leave_V2 = dirV2 (regV "partir") ;	-- irse, dejar
+   leave_V2 = mkV2 (mkV "partir") genitive ;	-- irse, dejar
    like_V2 = dirV2 (regV "gustar") ;
    listen_V2 = dirV2 (regV "escuchar") ;
    live_V = verboV (vivir_7 "vivir") ;

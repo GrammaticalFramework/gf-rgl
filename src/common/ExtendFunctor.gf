@@ -105,10 +105,12 @@ lin
   youPolFem_Pron = youPol_Pron ;  -- DEFAULT you polite (masc)
   youPolPl_Pron = youPl_Pron ;  -- DEFAULT you plural (masc)
   youPolPlFem_Pron = youPl_Pron ;  -- DEFAULT you plural (masc)
+  UncontractedNeg = variants {} ; -- do not, etc, as opposed to don't
   UttAccNP = UttNP ; -- him (accusative) ; DEFAULT he
   UttDatNP np = UttAccNP (lin NP np) ; -- him(dative) ; DEFAULT he
   UttAccIP = UttIP ; -- whom (accusative) ; DEFAULT who
   UttDatIP ip = UttAccIP (lin IP ip) ; -- whom (dative) ; DEFAULT who
+  UttVPShort = UttVP ; -- have fun, as opposed to "to have fun" ; DEFAULT UttVP
 
 oper
   quoted : Str -> Str = \s -> "\"" ++ s ++ "\"" ; ---- TODO bind ; move to Prelude?

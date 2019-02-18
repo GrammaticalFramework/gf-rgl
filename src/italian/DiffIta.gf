@@ -226,7 +226,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
 
     auxPassive : Verb = venire_V ;
 
-    copula = verbBesch (essere_1 "essere") ** {vtyp = VEsse ; p = []} ;
+    copula, essere_V = verbBesch (essere_1 "essere") ** {vtyp = VEsse ; p = []} ;
     avere_V = verbBesch (avere_2 "avere") ** {vtyp = VHabere ; p = []} ;
     venire_V = verbBesch (venire_110 "venire") ** {vtyp = VEsse ; p = []} ;
 

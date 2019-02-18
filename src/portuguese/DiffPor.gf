@@ -1,6 +1,6 @@
 --# -path=.:../romance:../abstract:../common:../prelude
 
-instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
+instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,stare_V,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoPor, BeschPor, Prelude in {
 
   flags optimize=noexpand ;
         coding=utf8 ;
@@ -8,7 +8,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
   param
     Prepos = P_de | P_a | P_em | P_por ;
 
-    VType = VHabere | VRefl ;
+    VType = VTer | VHaver | VRefl ;
 
   oper
     partAgr : VType -> Bool ;
@@ -61,7 +61,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
           ++ bindHyphenIf hasClit ++ clit ++ compl ;
         RNeg _ => neg.p1 ++ refl.pron ++ clit ++ subj ++ compl
       } where {
-        pe   = case isPol of {True => P2 ; _ => P3} ;
+        pe : Person  = case <isPol,p> of {<_,P1> => P1 ; <True,_> => P2 ; <_,_> => P3} ;
         refl = case vp.s.vtyp of {
           VRefl => {pron = reflPron n pe Acc ; isRefl = True} ;
           _     => {pron = [] ; isRefl = False}
@@ -87,8 +87,8 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
   oper
     CopulaType = Copula ;
     selectCopula coptyp = case coptyp of {
-      SerCop => copula ;
-      EstarCop => estar_V ;
+      SerCop => essere_V ;
+      EstarCop => stare_V ;
       FicarCop => ficar_V
       } ;
 
@@ -159,7 +159,12 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
     possCase = \_,_,c -> prepCase c ;
 
   oper
-    auxVerb : VType -> (VF => Str) = \_ -> haver_V.s ;
+    auxVerb : VType -> (VF => Str) ;
+    auxVerb vt = case vt of {
+      VTer   => ter_V.s ;
+      VHaver => haver_V.s ;
+      _      => ter_V.s
+      } ;
 
     negation : RPolarity => (Str * Str) = table {
       RPos => <[],[]> ;
@@ -263,14 +268,15 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,vpA
         <_,  Pl,P3> => cases3 "os" "seus" "eles"
       } ;
 
-    estar_V : Verb = verboV (estar_Besch "estar") ;
+    essere_V : Verb = verboV (ser_Besch "ser") ;
+    stare_V : Verb = verboV (estar_Besch "estar") ;
 
+    ter_V   : Verb = verboV (ter_Besch "ter") ;
     haver_V : Verb = verboV (haver_Besch "haver") ;
-
     ficar_V : Verb = verboV (ficar_Besch "ficar") ;
 
     verboV : Verbum -> Verb ;
     -- make a verb of type haver
-    verboV v = verbBesch v ** {vtyp = VHabere ; p = [] ; lock_V = <>} ;
+    verboV v = verbBesch v ** {vtyp = VTer ; p = [] } ;
 
-}
+} ;
