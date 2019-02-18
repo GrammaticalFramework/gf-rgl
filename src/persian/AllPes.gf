@@ -1,4 +1,4 @@
---# -path=.:../abstract:../common:../prelude
+--# -path=.:abstract:prelude:api:common
 
 concrete AllPes of AllPesAbs =
   LangPes,
