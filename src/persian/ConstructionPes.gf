@@ -1,3 +1,4 @@
+--# -path=.:abstract:prelude:api:common
 concrete ConstructionPes of Construction = CatPes ** open
   Prelude,
   ParadigmsPes,
