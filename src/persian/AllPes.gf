@@ -1,4 +1,4 @@
---# -path=.:abstract:prelude:api:common
+--# -path=.:alltenses:prelude:../api:../common
 
 concrete AllPes of AllPesAbs =
   LangPes,
