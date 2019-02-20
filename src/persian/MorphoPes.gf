@@ -71,7 +71,7 @@ oper
     case str of {
       st + "اه" => str + kasre ;
       st + "وه" => str + kasre ;
-      st + "ه"  => st + "ۀ" ; -- str ++ "ی" ;
+      st + "ه"  => zwnj str "ی" ;-- alt. st + "ۀ" ;
       st + "او" => str + kasre ;
       st + "وو" => str + kasre ;
       st + "و"  => str + "ی" ;
