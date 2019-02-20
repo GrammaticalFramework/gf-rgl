@@ -50,25 +50,23 @@ oper
   agrP1 : Number -> Agr = \n -> Ag n P1 ;
 
 -------------------------
--- Ezafe construction
+-- Mod construction
 ------------------------
 oper
 
+  mkPossStem : Str -> Str = \str ->
+   case str of {
+    _ + "اه"  => str ;
+    _ + "او"  => str ;
+    _ + "وه"  => str ;
+    _ + ("ا"|"و") => str + "ی" ;
+    _ + "ه"        => zwnj str "ا" ;
+    _ => str
 
-mkPossStem : Str -> Str = \str ->
-
-  case str of {
-_+ "اه" => str ;
-_+ "او" => str ;
-_+ "وه" => str ;
-_+ ("ا"|"و") => str + "ی" ;
-_+ "ه" => zwnj str "ا" ;
-_ => str } ;
-
-
+   } ;
 
   mkEzafe : Str -> Str = \str ->
-  --let kasre = "ِ" in -- TODO: Eventually use this
+    --let kasre = "ِ" in -- TODO: Eventually use this
     let kasre = "" in
     case str of {
       st + "اه" => str + kasre ;
@@ -84,25 +82,25 @@ _ => str } ;
   mkEnclic : Str -> Str ;
   mkEnclic str = case str of {
       st + ("ا"|"و") => zwnj str "یی" ; -- ی after a long vowel to help pronunciation
-      st + "اه"      =>      str + "ی" ; -- here ه is a consonant, so single ی
+      st + "اه"      => str + "ی" ; -- here ه is a consonant, so single ی
       st + ("ی"|"ه") => zwnj str "ای" ; -- after ی or ه as a vowel, add an alif to help pronunciation
       _               =>      str + "ی" -- any other case: just a single ی
     } ;
 
-    Noun = {s : Number => Mod => Str ; animacy : Animacy} ;
-    mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> {
-      s = table {
-           Sg => table {Bare => sg ;
-                        Ezafe => mkEzafe sg ;
-                        Clitic => mkEnclic sg ;
-                        Poss => mkPossStem sg } ;
-           Pl => table {Bare => pl ;
-                        Ezafe => mkEzafe pl ;
-                        Clitic => mkEnclic pl ;
-                        Poss => mkPossStem pl }
-      } ;
-     animacy = ani
-    } ;
+  Noun = {s : Number => Mod => Str ; animacy : Animacy} ;
+  mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> {
+    s = table {
+         Sg => table {Bare => sg ;
+                      Ezafe => mkEzafe sg ;
+                      Clitic => mkEnclic sg ;
+                      Poss => "TODO: singular possessive" } ;
+         Pl => table {Bare => pl ;
+                      Ezafe => mkEzafe pl ;
+                      Clitic => mkEnclic pl ;
+                      Poss => "TODO: plural possessive" }
+    }
+   animacy = ani ;
+  } ;
 
 -- masculine nouns end with alif, choTi_hay, ain Translitration: (a, h, e)
 -- Arabic nouns ends with h. also taken as Masc
@@ -110,18 +108,18 @@ _ => str } ;
 ---------------------
 --Determiners
 --------------------
-Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; mod : Mod} ;
+Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; fromPron : Bool} ;
 
  makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
    s = str;
    isNum = b;
-   mod = Bare ;
+   fromPron = False ;
    n = n
  };
 
- makeQuant : Str -> Str  -> {s : Number => Str ; a : Agr; mod : Mod } = \sg,pl -> {
+ makeQuant : Str -> Str  -> {s : Number => Str ; a : Agr; fromPron : Bool } = \sg,pl -> {
    s = table {Sg => sg ; Pl => pl} ;
-   mod = Bare ;
+   fromPron = False ;
    a = agrP3 Sg
  };
 ---------------------------
@@ -131,7 +129,7 @@ Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; mod : Mod} ;
 
  mkAdj : Str -> Str -> Adjective = \adj,adv -> {
    s = table { Bare => adj;
-               Ezafe => mkEzafe adj ;
+               Ezafe => mkMod adj ;
                Clitic => mkEnclic adj ;
                Poss => mkPossStem adj
              } ;
