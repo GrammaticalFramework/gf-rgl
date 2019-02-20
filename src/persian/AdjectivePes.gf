@@ -7,14 +7,14 @@ concrete AdjectivePes of Adjective = CatPes ** open ResPes, Prelude in {
  	UseComparA a = a;
 
     ComparA a np = {
-        s =\\ez => a.s ! ez ++ "تر" ++ "از" ++ np.s ! NPC bEzafa  ;
+        s =\\ez => a.s ! ez ++ "تر" ++ "از" ++ np.s !  Bare  ;
 	adv = a.adv
        } ;
 
 ---- $SuperlA$ belongs to determiner syntax in $Noun$.
 
     ComplA2 a np = {
-      s =\\ez => np.s ! NPC bEzafa ++ a.c2 ++ a.s  ! ez ;
+      s =\\ez => np.s !  Bare ++ a.c2 ++ a.s  ! ez ;
       adv = a.adv
      } ;
 
@@ -34,15 +34,15 @@ concrete AdjectivePes of Adjective = CatPes ** open ResPes, Prelude in {
       } ;
 
     UseA2 a = a ;
-	
+
 	CAdvAP  cadv ap np = {
-	 s =\\ez =>  cadv.s ++  np.s ! NPC bEzafa ++ ap.s ! ez ;
+	 s =\\ez =>  cadv.s ++  np.s !  Bare ++ ap.s ! ez ;
 	 adv = ap.adv
 	 };
-   
+
     AdjOrd ord =  { s =\\_ => ord.s ; adv = ""};
-    
-    
+
+
 
      AdvAP ap adv = {s =\\ez => ap.s ! ez ++ adv.s ; adv = ap.adv};
 }

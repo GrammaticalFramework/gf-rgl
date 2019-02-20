@@ -4,7 +4,7 @@ concrete ExtraPes of ExtraPesAbs = CatPes **
   flags coding = utf8;
 
   lin
-    GenNP np = {s = \\_ => np.s ! NPC aEzafa ; a = np.a ; fromPron = True} ; -- changed  from fromPron=False for Phrasebook
+    GenNP np = {s = \\_ => np.s ! Ezafe ; a = np.a ; mod = True} ; -- changed  from mod=False for Phrasebook
 
 --    each_Det = mkDet  "هر کwی" "هر کwی" "هر کwی" "هر کwی" Sg ;
 --    have_V = mkV "رکh-ن";

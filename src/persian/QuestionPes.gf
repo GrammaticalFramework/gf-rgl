@@ -32,7 +32,7 @@ concrete QuestionPes of Question = CatPes ** open ResPes, Prelude in {
                       	};
 
     QuestIComp icomp np =
-     let cl = mkSClause (np.s ! NPC bEzafa ++ icomp.s) np.a (predAux auxBe);
+     let cl = mkSClause (np.s !  Bare ++ icomp.s) np.a (predAux auxBe);
 	   in {
        s = \\t,p,qf => case qf of {
 	      QDir =>   cl.s ! t ! p ! ODir;
@@ -48,7 +48,9 @@ concrete QuestionPes of Question = CatPes ** open ResPes, Prelude in {
       } ;
 
     IdetCN idet cn = {
-      s = case idet.isNum of {False => idet.s ++ cn.s ! bEzafa ! idet.n ; True => idet.s ++ cn.s ! bEzafa ! Sg} ;
+      s = case idet.isNum of {
+             False => idet.s ++ cn.s ! idet.n ! Bare ;
+             True => idet.s ++ cn.s ! Sg ! Bare} ;
 	  n = idet.n;
       } ;
 

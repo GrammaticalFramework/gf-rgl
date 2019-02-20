@@ -9,9 +9,9 @@ concrete ExtendPes of Extend =
 
 lin
   -- NP -> Quant ; -- this man's
-  GenNP np = np ** { 
-    s = \\num => np.s ! NPC bEzafa ; -- the possessed will get aEzafa, possesser is just unmarked; https://sites.la.utexas.edu/persian_online_resources/language-specific-grammar/ezfe/
-    fromPron = True -- not necessarily from Pron, but it should come after the noun, and if fromPron=True, then DetCN places determiner after cn.
+  GenNP np = np ** {
+    mod = Ezafe ; -- the possessed will get Ezafe
+    s = \\num => np.s ! Bare -- possesser is unmarked; https://sites.la.utexas.edu/persian_online_resources/language-specific-grammar/ezfe/
   } ;
 
 }

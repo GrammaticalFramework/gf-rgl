@@ -32,8 +32,8 @@ resource ResPes =  ParamX **  open Prelude,Predef in {
     InfrAspect = InfrPerf | InfrImperf ;
  
     AgrPes = AgPes Number PPerson;
-    Ezafa = bEzafa | aEzafa | enClic;
-    NPCase = NPC Ezafa ;
+    Ezafa = Bare | Ezafe | enClic;
+    NPCase = Ezafa ;
     CardOrd = NCard | NOrd ;
     RAgr = RNoAg | RAg AgrPes ;
  --   RCase = RC Number Case ;
@@ -53,7 +53,7 @@ resource ResPes =  ParamX **  open Prelude,Predef in {
     Adjective = {s:Ezafa => Str ; adv : Str} ;
     
     NP : Type = {s : NPCase => Str ; a : AgrPes ; animacy : Animacy } ;
-    Determiner = {s : Str ; n :Number ; isNum : Bool ; fromPron : Bool} ;
+    Determiner = {s : Str ; n :Number ; isNum : Bool ; mod : Bool} ;
     VPHSlash = VPH ** {c2 : Compl} ;
     
   oper
@@ -260,8 +260,8 @@ oper
   
 	conjThat : Str = "kh" ;
  {-   checkPron : NP -> Str -> Str = \np,str ->  case (np.isPron) of {
-                                True => np.s ! NPC Obl;
-                                False => np.s ! NPC Obl ++ str} ;
+                                True => np.s ! Obl;
+                                False => np.s ! Obl ++ str} ;
 		
     insertEmbCompl : VPH -> Str -> VPH = \vp,emb -> {
      s = vp.s ;
@@ -292,7 +292,7 @@ Clause : Type = {s : VPHTense => Polarity => Order => Str} ;
 mkClause : NP -> VPH -> Clause = \np,vp -> {
       s = \\vt,b,ord => 
         let 
-          subj = np.s ! NPC bEzafa;
+          subj = np.s ! Bare;
           agr  = np.a ;
 	  n    = (fromAgr agr).n;
 	  p    = (fromAgr agr).p;
@@ -795,7 +795,7 @@ addBh2 str1 =
 -- Noun Phrase
 -----------------------------
 {-toNP : Str -> Str = \pn, npc -> case npc of {
-      NPC c => pn !  c ;
+      c => pn !  c ;
       NPObj => pn !  Dir ;
       NPErg => pn !  Obl 
       } ;
