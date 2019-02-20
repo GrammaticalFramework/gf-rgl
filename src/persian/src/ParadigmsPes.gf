@@ -57,7 +57,7 @@ oper
 
  
 -- Personal Pronouns     
-  personalPN : Str -> Number -> PPerson -> Pron =
+  personalPron : Str -> Number -> PPerson -> Pron =
      \str,nn,p ->  {s = str ; a = AgPes nn p ; ps = str ; lock_Pron = <>};
 {-
 -- Demonstration Pronouns     

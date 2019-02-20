@@ -2,16 +2,16 @@ concrete AdverbPes of Adverb = CatPes ** open ResPes, Prelude in {
 
   flags coding = utf8;
   lin
- --   PositAdvAdj a = {s = a.s ! bEzafa  } ;
+ --   PositAdvAdj a = {s = a.s ! Bare  } ;
      PositAdvAdj a = {s = a.adv  } ;
     ComparAdvAdj cadv a np = {
-      s = a.adv ++ cadv.p ++ cadv.s ++ np.s ! NPC bEzafa  ;  
+      s = a.adv ++ cadv.p ++ cadv.s ++ np.s ! Bare  ;  
       } ;
     ComparAdvAdjS cadv a s = {
       s =  a.adv  ++ cadv.p ++ cadv.s  ++  s.s;
       } ;
 
-    PrepNP prep np = {s =  prep.s ++ np.s ! NPC bEzafa } ;
+    PrepNP prep np = {s =  prep.s ++ np.s ! Bare } ;
 
     AdAdv ada adv = { s =  ada.s ++ adv.s} ;
 

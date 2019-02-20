@@ -9,7 +9,7 @@ concrete IdiomPes of Idiom = CatPes ** open Prelude,Predef, ResPes in {
     GenericCl vp = mkSClause "A:dm" (agrPesP3 Sg) vp ;
 
     CleftNP np rs = 
-	 let cl = mkSClause (np.s ! NPC bEzafa) (np.a) (predAux auxBe);
+	 let cl = mkSClause (np.s ! Bare) (np.a) (predAux auxBe);
 	  in 
 	   {s = \\t,p,o =>  cl.s ! t ! p ! o ++ rs.s ! np.a };
 	  
@@ -17,7 +17,7 @@ concrete IdiomPes of Idiom = CatPes ** open Prelude,Predef, ResPes in {
         
     ExistNP np = 
       mkSClause " " (agrPesP3 (fromAgr np.a).n) 
-        (insertObj (\\_ => np.s ! NPC bEzafa) (predAux auxBe)) ;
+        (insertObj (\\_ => np.s ! Bare) (predAux auxBe)) ;
 
     ExistIP ip = 
      let cl = mkSClause ( ip.s ) (agrPesP3 ip.n) (predAux auxBe); 
@@ -33,7 +33,7 @@ concrete IdiomPes of Idiom = CatPes ** open Prelude,Predef, ResPes in {
 
 
     ImpPl1 vp = {s = "byAyyd" ++ (vp.s ! VVForm (agrPesP1 Pl)).inf} ;
-	ImpP3 np vp = {s = "bgWAryd" ++ np.s!NPC bEzafa ++ (vp.s ! VVForm (AgPes (fromAgr np.a).n (fromAgr np.a).p)).inf};
+	ImpP3 np vp = {s = "bgWAryd" ++ np.s!Bare ++ (vp.s ! VVForm (AgPes (fromAgr np.a).n (fromAgr np.a).p)).inf};
 
 
 }
