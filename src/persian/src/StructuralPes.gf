@@ -31,7 +31,7 @@ concrete StructuralPes of Structural = CatPes **
 --  first_Ord = {s = "Avlyn" ; n = Sg} ; --DEPRECATED
   for_Prep = ss "brAy" ;
   from_Prep = ss "Az" ;
-  he_Pron = personalPN "Av"  Sg PPers3 ;
+  he_Pron = personalPron "Av"  Sg PPers3 ;
   here_Adv = ss "AynjA" ;
   here7to_Adv = ss "AynjA" ;
   here7from_Adv = ss "AynjA" ;
@@ -40,9 +40,9 @@ concrete StructuralPes of Structural = CatPes **
   how8much_IAdv  = ss "c^qdr" ;
   if_Subj = ss "Agr" ;
   in8front_Prep = ss "jlvy" ;
-  i_Pron = personalPN "mn" Sg PPers1;
+  i_Pron = personalPron "mn" Sg PPers1;
   in_Prep = ss "dr" ;
-  it_Pron  = personalPN "A:n" Sg PPers3;
+  it_Pron  = personalPron "A:n" Sg PPers3;
   less_CAdv = {s = "kmtr" ; p = ""} ;
   many_Det = mkDet ["tcdAd zyAdy"] Pl True; -- check
   more_CAdv = {s = "byCtr" ; p = "" } ; 
@@ -73,7 +73,7 @@ concrete StructuralPes of Structural = CatPes **
   please_Voc = ss "lTfAa." ;
   possess_Prep = ss "" ; -- will be handeled in Ezafeh
   quite_Adv = ss "kAmlAa." ;
-  she_Pron = personalPN "Av" Sg PPers3 ;
+  she_Pron = personalPron "Av" Sg PPers3 ;
   so_AdA = ss "bsyAr" ; 
 --  somebody_NP = MassNP (UseN (MorphoPnb.mkN11 "kwy" ));
   someSg_Det = mkDet "mqdAry" Sg True ;
@@ -86,7 +86,7 @@ concrete StructuralPes of Structural = CatPes **
   there7to_Adv = ss "A:njA" ;
   there7from_Adv = ss "A:njA" ;
   therefore_PConj = ss ["bh hmyn dlyl"] ; 
-  they_Pron = personalPN ["A:n hA"] Pl PPers3 ; 
+  they_Pron = personalPron ["A:n hA"] Pl PPers3 ; 
   this_Quant = mkQuant "Ayn" "Ayn" ;  
   through_Prep = ss ["Az Tryq"] ;
   too_AdA = ss "Kyly" ; 
@@ -94,7 +94,7 @@ concrete StructuralPes of Structural = CatPes **
   under_Prep = ss "zyr" ** {lock_Prep = <>};
   very_AdA = ss "Kyly" ;
   want_VV = mkV "KvAstn" "KvAh" ** { isAux = False} ; 
-  we_Pron = personalPN "mA" Pl PPers1 ;
+  we_Pron = personalPron "mA" Pl PPers1 ;
   whatSg_IP = {s = ["c^h c^yzy"] ; n = Sg } ;
   whatPl_IP = {s = ["c^h c^yzhAyy"] ; n = Pl } ;
   when_IAdv = ss "ky" ; 
@@ -110,9 +110,9 @@ concrete StructuralPes of Structural = CatPes **
   with_Prep = ss "bA";
 --  yes_Phr = ss "blh" ;
   yes_Utt = ss "blh" ;
-  youSg_Pron = personalPN "tv" Sg PPers2 ;
-  youPl_Pron = personalPN "CmA" Pl PPers2 ;
-  youPol_Pron = personalPN "CmA"  Pl PPers2  ; 
+  youSg_Pron = personalPron "tv" Sg PPers2 ;
+  youPl_Pron = personalPron "CmA" Pl PPers2 ;
+  youPol_Pron = personalPron "CmA"  Pl PPers2  ; 
 --  no_Quant =  demoPN "hyc^" ; 
   not_Predet = {s="nh"} ;
   if_then_Conj = sd2 "Agr" "A:ngAh" ** {n = Sg} ; 

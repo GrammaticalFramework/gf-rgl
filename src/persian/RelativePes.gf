@@ -6,19 +6,19 @@ concrete RelativePes of Relative = CatPes ** open ResPes in {
   lin
 
     RelCl cl = {
-      s = \\t,p,o,agr =>  "که" ++ cl.s ! t ! p ! o ; 
-	};				    
+      s = \\t,p,o,agr =>  "که" ++ cl.s ! t ! p ! o ;
+	};
 -- RelVP and RelSlash slows the linking process a lot this is why it is commented for test purposes
 
     RelVP rp vp = {
-      s = \\t,p,o,ag => 
-        let 
+      s = \\t,p,o,ag =>
+        let
           agr = case rp.a of {
             RNoAg => ag ;
             RAg a => a
             } ;
 		 cl = mkSClause (rp.s) agr vp;
-		  
+
 --          cl = case t of {
 --                VPImpPast =>  mkSClause (rp.s ! (giveNumber agr) ! Obl) agr vp;
 --				_         =>  mkSClause (rp.s ! (giveNumber agr) ! Dir) agr vp
@@ -27,22 +27,22 @@ concrete RelativePes of Relative = CatPes ** open ResPes in {
         cl.s ! t ! p ! ODir ;
 --      c = Dir
       } ;
-      
+
 
 ---- Pied piping: "ت wهعه we رe لْْکنگ". Stranding and empty
----- relative are defined in $ExtraHin.gf$ ("تهت we رe لْْکنگ ت", 
+---- relative are defined in $ExtraHin.gf$ ("تهت we رe لْْکنگ ت",
 ---- "we رe لْْکنگ ت").
 --
     RelSlash rp slash = {
-      s = \\t,p,o,agr => rp.s ++ slash.c2.s ++ slash.subj ++ slash.vp ! t ! p ! o  ;--case t of { ---- AR 18/8/2017 is this the right place of subj? 
+      s = \\t,p,o,agr => rp.s ++ slash.c2.s ++ slash.subj ++ slash.vp ! t ! p ! o  ;--case t of { ---- AR 18/8/2017 is this the right place of subj?
 --	       VPImpPast => rp.s !  (giveNumber agr) Obl ++ slash.c2.s ++  slash.s ! t ! p ! o ;
---		   _         => rp.s !  (giveNumber agr) Dir ++ slash.c2.s ++  slash.s ! t ! p ! o 
+--		   _         => rp.s !  (giveNumber agr) Dir ++ slash.c2.s ++  slash.s ! t ! p ! o
 --		   };
 --      c = Dir
       } ;
 
     FunRP p np rp = {
-      s = np.s ! NPC enClic ++ rp.s ++  p.s ++ getPron np.animacy (fromAgr np.a).n   ; -- need to make a special form of relative np by addY
+      s = np.s !  Clitic ++ rp.s ++  p.s ++ getPron np.animacy (fromAgr np.a).n   ; -- need to make a special form of relative np by addY
       a = RAg np.a
       } ;
 
@@ -50,5 +50,5 @@ concrete RelativePes of Relative = CatPes ** open ResPes in {
       s = "که" ;
       a = RNoAg
       } ;
- 
+
 }

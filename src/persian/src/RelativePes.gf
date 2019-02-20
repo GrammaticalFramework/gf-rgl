@@ -42,7 +42,7 @@ concrete RelativePes of Relative = CatPes ** open ResPes in {
       } ;
 
     FunRP p np rp = {
-      s = np.s ! NPC enClic ++ rp.s ++  p.s ++ getPron np.animacy (fromAgr np.a).n   ; -- need to make a special form of relative np by addY
+      s = np.s ! enClic ++ rp.s ++  p.s ++ getPron np.animacy (fromAgr np.a).n   ; -- need to make a special form of relative np by addY
       a = RAg np.a
       } ;
 

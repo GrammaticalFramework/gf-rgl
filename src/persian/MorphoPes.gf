@@ -24,7 +24,7 @@ oper
 ---- Nouns
 param
   Animacy = Animate | Inanimate ;
-  Ezafa = bEzafa | aEzafa | enClic ;
+  Mod = Bare | Ezafe | Clitic | Poss ;
   Agr = Ag Number Person ;
 
 ------------------------------------------
@@ -50,12 +50,25 @@ oper
   agrP1 : Number -> Agr = \n -> Ag n P1 ;
 
 -------------------------
--- Ezafa construction
+-- Ezafe construction
 ------------------------
 oper
 
-  mkEzafa : Str -> Str = \str ->
-    --let kasre = "ِ" in -- TODO: Eventually use this
+
+mkPossStem : Str -> Str = \str ->
+
+  case str of {
+_+ "اه" => str ;
+_+ "او" => str ;
+_+ "وه" => str ;
+_+ ("ا"|"و") => str + "ی" ;
+_+ "ه" => zwnj str "ا" ;
+_ => str } ;
+
+
+
+  mkEzafe : Str -> Str = \str ->
+  --let kasre = "ِ" in -- TODO: Eventually use this
     let kasre = "" in
     case str of {
       st + "اه" => str + kasre ;
@@ -76,22 +89,20 @@ oper
       _               =>      str + "ی" -- any other case: just a single ی
     } ;
 
-  Noun = {s : Ezafa => Number => Str ; animacy : Animacy ; definitness : Bool } ;
-  mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> {
-    s = table {
-         bEzafa => table { Sg => sg ;
-                           Pl => pl
-                        } ;
-         aEzafa => table { Sg => mkEzafa sg ;
-                           Pl => mkEzafa pl
-                         } ;
-         enClic => table { Sg => mkEnclic sg ;
-                           Pl => mkEnclic pl
-                         }
-          };
-      animacy = ani ;
-      definitness = True
-  } ;
+    Noun = {s : Number => Mod => Str ; animacy : Animacy} ;
+    mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> {
+      s = table {
+           Sg => table {Bare => sg ;
+                        Ezafe => mkEzafe sg ;
+                        Clitic => mkEnclic sg ;
+                        Poss => mkPossStem sg } ;
+           Pl => table {Bare => pl ;
+                        Ezafe => mkEzafe pl ;
+                        Clitic => mkEnclic pl ;
+                        Poss => mkPossStem pl }
+      } ;
+     animacy = ani
+    } ;
 
 -- masculine nouns end with alif, choTi_hay, ain Translitration: (a, h, e)
 -- Arabic nouns ends with h. also taken as Masc
@@ -99,29 +110,30 @@ oper
 ---------------------
 --Determiners
 --------------------
-Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; fromPron : Bool} ;
+Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; mod : Mod} ;
 
  makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
    s = str;
    isNum = b;
-   fromPron = False ;
+   mod = Bare ;
    n = n
  };
 
- makeQuant : Str -> Str  -> {s : Number => Str ; a : Agr; fromPron : Bool } = \sg,pl -> {
+ makeQuant : Str -> Str  -> {s : Number => Str ; a : Agr; mod : Mod } = \sg,pl -> {
    s = table {Sg => sg ; Pl => pl} ;
-   fromPron = False ;
+   mod = Bare ;
    a = agrP3 Sg
  };
 ---------------------------
 -- Adjectives
 --------------------------
- Adjective : Type = {s : Ezafa => Str ; adv : Str} ;
+ Adjective : Type = {s : Mod => Str ; adv : Str} ;
 
  mkAdj : Str -> Str -> Adjective = \adj,adv -> {
-   s = table { bEzafa => adj;
-               aEzafa => mkEzafa adj ;
-               enClic => mkEnclic adj
+   s = table { Bare => adj;
+               Ezafe => mkEzafe adj ;
+               Clitic => mkEnclic adj ;
+               Poss => mkPossStem adj
              } ;
    adv = adv
    };

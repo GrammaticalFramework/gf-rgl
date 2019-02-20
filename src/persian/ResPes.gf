@@ -14,7 +14,6 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
     Order = ODir | OQuest ;
     PMood = Del | Imper | PCond ;
 
-    NPCase = NPC Ezafa ;
     CardOrd = NCard | NOrd ;
     RAgr = RNoAg | RAg Agr ;
  --   RCase = RC Number Case ;
@@ -26,7 +25,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
     Compl : Type = {s : Str ; ra : Str ; c : VType} ;
     CN : Type = Noun ** {hasAdj : Bool} ; -- for getting the right form when NP/CN is a predicate
-    NP : Type = {s : NPCase => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
+    NP : Type = {s : Mod => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
     VPHSlash : Type = VPH ** {c2 : Compl} ;
 
   oper
@@ -191,8 +190,8 @@ oper
 
 	conjThat : Str = "که" ;
  {-   checkPron : NP -> Str -> Str = \np,str ->  case (np.isPron) of {
-                                True => np.s ! NPC Obl;
-                                False => np.s ! NPC Obl ++ str} ;
+                                True => np.s !  Obl;
+                                False => np.s !  Obl ++ str} ;
 
     insertEmbCompl : VPH -> Str -> VPH = \vp,emb -> vp ** {
      embComp = vp.embComp ++ emb;
@@ -248,7 +247,7 @@ oper
     quest = table
               { ODir => [];
                 OQuest => "آیا" } ;
-    subj = np.s ! NPC bEzafa ;
+    subj = np.s !  Bare ;
     vp = \\vt,b,ord =>
       let vps = clTable vp ! np.a ! vt ! b
        in vp.ad ++ vp.comp ! np.a ++ vp.obj.s ++ vps ++ vp.vComp ! np.a ++ vp.embComp
@@ -361,8 +360,8 @@ taryn = "ترین" ;
 -----------------------------
 -- Noun Phrase
 -----------------------------
-{-toNP : Str -> Str = \pn, npc -> case npc of {
-      NPC c => pn !  c ;
+{-toNP : Str -> Str = \pn,  -> case  of {
+       c => pn !  c ;
       NPObj => pn !  Dir ;
       NPErg => pn !  Obl
       } ;
