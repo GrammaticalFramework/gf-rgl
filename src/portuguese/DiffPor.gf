@@ -129,7 +129,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
 
   oper
     a : Gender => Number => Str ;
-    a = genNumForms "a" "à" "aos" "às" ;
+    a = genNumForms "ao" "à" "aos" "às" ;
 
     de : Gender => Number => Str ;
     de = genNumForms "do" "da" "dos" "das" ;

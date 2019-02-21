@@ -281,7 +281,6 @@ lin encobrir_V = mkV (dormir_Besch "encobrir") ;
 lin recobrir_V = mkV (dormir_Besch "recobrir") ;
 lin explodir_V = mkV (dormir_Besch "explodir") ;
 lin engolir_V = mkV (dormir_Besch "engolir") ;
-lin tossir_V = mkV (dormir_Besch "tossir") ;
 lin erguer_V = mkV (erguer_Besch "erguer") ;
 lin soerguer_V = mkV (erguer_Besch "soerguer") ;
 lin estar_V = mkV (estar_Besch "estar") ;

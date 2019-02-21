@@ -114,8 +114,14 @@ oper
     mkN : (mapa : Str) -> Gender -> N -- force gender, guess plural
       = \s,g -> regN s ** {g = g} ;
 
-    mkN : (mão,mãos : Str) -> Gender -> N -- the worst case demands two forms (singular + plural) and the gender.
-      = mk2N
+    mkN : (mão, mãos : Str) -> Gender -> N -- the worst case demands two forms (singular + plural) and the gender.
+      = mk2N ;
+
+    mkN : (número : N) -> (de_telefone : Str) -> N -- compound noun with non-inflecting second art, e.g. "número" + "de telefone"
+      = compN ;
+
+    mkN : (forma, finita : N) -> N -- compound with inflecting second part, e.g. "forma" + "finita"
+      = compNN
     } ;
 
 --3 Compound nouns
@@ -125,10 +131,10 @@ oper
 -- could be formed in syntax, but we give a shortcut here since they
 -- are frequent in lexica.
 
-  compN : N -> Str -> N ; -- compound with non-inflecting second part, e.g. "número" + "de telefone"
-  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; lock_N = <>} ;
+  compN : N -> Str -> N ; --%
+  compN x y = x ** {s = \\n => x.s ! n ++ y} ;
 
-  compNN : N -> N -> N ; -- compound with inflecting second part, e.g. "forma" + "finita"
+  compNN : N -> N -> N ; --%
   compNN x y = x ** {s = \\n => x.s ! n ++ y.s ! n} ;
 
 --3 Relational nouns
