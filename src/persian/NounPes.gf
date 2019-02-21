@@ -91,11 +91,11 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       definitness = True
       } ;
 
-    ComplN2 f x = f ** {
-      s = \\n,ez => f.s ! n ! Ezafe ++ f.c ++ x.s !  ez ;
-      definitness = True ;
-      hasAdj = False ;
+    ComplN2 n2 np = n2 ** {
+      s = \\n,m => n2.s ! n ! Ezafe ++ n2.c ++ np.s ! m ;
+      hasAdj = False
      };
+
     ComplN3 f x = f ** {
       s = \\n,ez => f.s ! n ! Ezafe  ++ f.c2 ++ x.s !  ez ;
       c = f.c3;
@@ -103,18 +103,18 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     AdjCN ap cn = cn ** {
-      s = \\n,ez => cn.s! n! Ezafe ++ ap.s ! ez ; -- check the form of adjective and also cn.s!ez!n changed from cn.s!Ezafe!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
+      s = \\n,ez => cn.s ! n ! Ezafe ++ ap.s ! ez ; -- check the form of adjective and also cn.s!ez!n changed from cn.s!Ezafe!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
       hasAdj = True
      } ;
 
     RelCN cn rs = cn ** {
-      s = \\n,ez => cn.s ! n! Clitic  ++ rs.s ! agrP3 n ;
+      s = \\n,ez => cn.s ! n ! Clitic ++ rs.s ! agrP3 n ;
       } ;
 
-    AdvCN cn ad = cn ** {s = \\n,ez => cn.s ! n ! Ezafe ++ ad.s} ;
+    AdvCN cn ad = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ ad.s} ;
 
-    SentCN cn sc = cn ** {s = \\n,ez => cn.s ! n ! ez ++ sc.s} ;
+    SentCN cn sc = cn ** {s = \\n,m => cn.s ! n ! m ++ sc.s} ;
 
-    ApposCN cn np = cn ** {s = \\n,ez => cn.s ! n ! ez ++ np.s !  Ezafe ; definitness = True} ; -- ezafa form of city to be used
+    ApposCN cn np = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ np.s ! m ; definitness = True} ;
 
 }
