@@ -47,7 +47,9 @@ oper
     cmpdN : Str -> N -> N -- Compound noun with an invariable modifier /before/ the head. NB. no ezāfe.
       = mkCmpdNoun1 ; --  e.g. تخم مرغ 'chicken /egg/'
     cmpdN : N -> Str -> N -- Compound noun with an invariable modifier /after/ the head. NB. no ezāfe.
-      = mkCmpdNoun2   --  e.g. مأمور پلیس '/officer/ police'.
+      = mkCmpdNoun2 ;  --  e.g. مأمور پلیس '/officer/ police'.
+    cmpdN : N -> N -> N -- Compound noun with ezafe (Nی N)
+      = \n1,n2 -> n1 ** {s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! n ! m} ;
     } ;
 
 -- Proper names
