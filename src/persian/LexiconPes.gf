@@ -361,7 +361,7 @@ concrete LexiconPes of Lexicon = CatPes **
   rule_N = mkN "قانون" "قوانین" inanimate;
 
 ---- added 4/6/2007
-    john_PN = mkPN "جان" inanimate;
+    john_PN = mkPN "جان" animate;
     question_N = mkN01 "سؤال" inanimate; -- has variant "پرسش"
     ready_A = mkA "آماده" ["با آمادگی"] ;
     reason_N = mkN "دلیل" "دلایل" inanimate;
