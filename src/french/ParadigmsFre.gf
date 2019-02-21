@@ -393,8 +393,8 @@ oper
     mkPN : N -> PN = \x -> lin PN {s = x.s ! Sg ; g = x.g} ;
     } ;
 
-  mk4A a b c d = mk5A a a b c d ;
-  mk5A a b c d e = compADeg {s = \\_ => (mkAdj' a b c d e).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  mk4A masc fem mascpl aa = mk5A masc masc fem mascpl aa ;
+  mk5A masc masc fem mascpl aa = compADeg {s = \\_ => (mkAdj' masc masc mascpl fem aa).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
   regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
   prefA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
   adjCopula a cop = a ** {copTyp = cop} ;

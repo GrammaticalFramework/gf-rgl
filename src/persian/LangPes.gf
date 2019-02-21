@@ -1,10 +1,7 @@
---# -path=.:../abstract:../common
+--# -path=.:alltenses:prelude:../api:../common
 
-concrete LangPes of Lang = 
+concrete LangPes of Lang =
   GrammarPes
   ,LexiconPes
-  ** {
-
-flags startcat = Phr ; unlexer=unwords ; lexer=words ;
-
-}
+  ,ConstructionPes
+  ** {} ;

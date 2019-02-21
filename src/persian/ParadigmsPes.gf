@@ -17,26 +17,24 @@ resource ParadigmsPes = open
 
 oper
   Animacy : Type ; -- Argument to mkN
-  animate : Animacy ;
-  inanimate : Animacy ;
+  animate : Animacy ; -- e.g. /mkN "خواهر" animate/ to get the plural خواهران.
+  inanimate : Animacy ; -- default animacy for mkN, not needed unless you want to make the animacy explicit or force a plural with ها.
 
-  Number : Type ; -- Argument to
-  singular : Number ;
-  plural : Number ;
+  Number : Type ; -- Argument to mkDet and mkConj
+  singular : Number ; -- e.g. mkConj "یا" singular
+  plural : Number ; -- e.g. mkConj "و" plural
 
 
 --2 Nouns
 
   mkN = overload {
-    mkN : (sg : Str) -> N -- Takes singular form, returns an inanimate noun with ها as the plural form
+    mkN : (sg : Str) -> N -- Takes singular form, returns an inanimate noun with ها as the plural form.
       = \sg -> mkN01 sg inanimate ;
-    mkN : (sg : Str) -> Animacy -> N -- Takes singular form and animacy. Inaminate plural ها. Animate plural ان or an allomorph of it (یان or گان) depending on the singular form.
+    mkN : (sg : Str) -> Animacy -> N -- Takes singular form and animacy. Inanimate plural ها. Animate plural ان or an allomorph of it (یان or گان) depending on the singular form.
       = \sg,ani -> case ani of {
           Inanimate => mkN01 sg ani ;
           Animate   => mkN02 sg ani } ;
-    -- mkN : (sg,pl : Str) -> N -- Takes singular and plural form, returns an inanimate noun
-    --   = \sg,pl -> M.mkN sg pl inanimate ;
-    mkN : (sg,pl : Str) -> Animacy -> N -- Worst-case constructor: takes singular and plural forms and animacy. Use for e.g. loanwords with Arabic plural.
+    mkN : (sg,pl : Str) -> Animacy -> N -- Worst-case constructor: takes singular and plural forms and animacy. Use for e.g. loanwords with Arabic plural, or animate nouns with ها as plural.
       = \sg,pl,ani -> M.mkN sg pl ani
   } ;
 
@@ -93,9 +91,10 @@ oper
       = \s1, s2 -> lin V (mkVerb s1 s2)
   } ;
 
-  haveVerb : V = lin V M.haveVerb ; -- The verb "have", to be used for light verb constructions: e.g. compoundV "دوست" haveVerb. NB. this has different imperative and VV forms from StructuralPes.have_V2.
-  beVerb : V = lin V M.beVerb ; -- The verb "be", to be used for light verb constructions: e.g. compoundV "عاشق" beVerb.
-
+  haveVerb : V  -- The verb "have", to be used for light verb constructions: e.g. compoundV "دوست" haveVerb. NB. this has different imperative and VV forms from StructuralPes.have_V2.
+    = lin V M.haveVerb ;
+  beVerb : V  -- The verb "be", to be used for light verb constructions: e.g. compoundV "عاشق" beVerb.
+    = lin V M.beVerb ;
   mkV2 : overload {
     mkV2 : Str -> V2 ; -- Predictable V2 out of string. No preposition, را for direct object.
     mkV2 : V -> V2 ; -- V2 out of V. No preposition, را for direct object.
@@ -103,10 +102,10 @@ oper
   } ;
 
 
-  mkV3 : V -> Str -> Str -> V3 ; -- Takes a verb and two prepositions (can be empty), e.g. speak, with, about
+  mkV3 : V -> (dir,indir : Str) -> V3 ; -- Takes a verb and two prepositions as strings (can be empty). If the verb takes را for direct object, it's the first Str argument. e.g. talk, با, دربارۀ
     mkV3 v p q = lin V3 (v ** {c2 = p ; c3 = q}) ;
 
-  mkV2V : V -> (cV : Str) -> (cN : Str) -> (isAux : Bool) -> V2V ; -- Verb, complementiser for the verb, complementiser for the noun, whether it's auxiliary.
+  mkV2V : V -> (cV, cN : Str) -> (isAux : Bool) -> V2V ; -- Verb, complementiser for the verb, complementiser for the noun, whether it's auxiliary.
     mkV2V v s1 s2 b = lin V2V (v ** {isAux = b ; c1 = s1 ; c2 = s2}) ;
 
 -- compund verbs
@@ -114,11 +113,12 @@ oper
     compoundV : Str -> V -> V -- Invariable prefix to a verb, e.g. compoundV "دوست" haveVerb
   } ;
 
-  invarV : Str -> V -- for verbs like  " بایستن " ("must"), which don't inflect
+  invarV : Str -> V -- for verbs like  بایستن ('must'), which don't inflect
     = \s -> lin V {s = \\_ => s} ;
 
 ----2 Adverbs
-  mkAdv : Str -> Adv = \str -> lin Adv {s = str} ; -- Takes a string, returns an adverb.
+  mkAdv : Str -> Adv -- Takes a string, returns an adverb.
+    = \str -> lin Adv {s = str} ;
 
 ----2 Prepositions
 
@@ -171,7 +171,9 @@ oper
 
   mkN01 : (sg : Str) -> Animacy -> Noun ; -- Takes singular form and animacy, forms plural with ها
   mkN01 sg ani =
-    let pl = zwnj sg "ها" ; -- Using zero-width non-joiner, defined in ResPes
+    let pl : Str = case last sg of {
+       --"د"|"ذ"|"ر"|"ز"|"ژ" => sg + "ها" ; -- these letters are separated by default
+         _                     => zwnj sg "ها" } ; -- Using zero-width non-joiner, defined in MorphoPes
     in M.mkN sg pl ani ;
 
   mkN02 : (sg : Str) -> Animacy -> Noun ; -- Takes singular form and animacy, pattern matches singular and forms plural with either گان, یان or ان
@@ -195,8 +197,8 @@ oper
 
 
    -- Personal Pronouns
-  personalPN : Str -> Number -> Person -> Pron -- Hidden from public API, confusing naming. /IL
-    = \str,nn,p -> lin Pron {s = str ; a = Ag nn p ; ps = str};
+  personalPron : (nom:Str) -> (poss:Str) -> Number -> Person -> Pron -- Hidden from public API, confusing naming. /IL
+    = \nom,poss,nn,p -> lin Pron {s = nom ; a = Ag nn p ; ps = poss};
    {-
     -- Demonstrative Pronouns
      demoPN : Str -> Str -> Str -> Quant =

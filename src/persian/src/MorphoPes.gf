@@ -20,10 +20,10 @@ oper
     mkN : (x1,x2 : Str) -> Animacy -> Noun = 
       \sg,pl,ani -> {
       s = table {
-         bEzafa => table { Sg => sg ;
+         Bare => table { Sg => sg ;
                            Pl => pl
                         } ;
-         aEzafa => table { Sg => mkEzafa sg ;
+         Ezafe => table { Sg => mkEzafa sg ;
                            Pl => mkEzafa pl
                          } ;
          enClic => table { Sg => mkEnclic sg ;
@@ -483,23 +483,23 @@ addBh str =
  --Determiners
  --------------------
  
- makeDet : Str -> Number -> Bool -> {s: Str ; n : Number ; isNum : Bool ; fromPron : Bool} =\str,n,b -> {
+ makeDet : Str -> Number -> Bool -> {s: Str ; n : Number ; isNum : Bool ; mod : Bool} =\str,n,b -> {
       s = str;
       isNum = b;
-      fromPron = False ;
+      mod = False ;
       n = n
    };
- makeQuant : Str -> Str  -> {s : Number => Str ; a : AgrPes ; fromPron : Bool } = \sg,pl -> {
+ makeQuant : Str -> Str  -> {s : Number => Str ; a : AgrPes ; mod : Bool } = \sg,pl -> {
             s = table {Sg => sg ; Pl => pl} ;
-            fromPron = False ;
+            mod = False ;
 	    a = agrPesP3 Sg
 	    };
 ---------------------------
 -- Adjectives
 --------------------------
 mkAdj : Str -> Str -> Adjective = \adj,adv -> {
- s = table { bEzafa => adj;
-             aEzafa => mkEzafa adj ;
+ s = table { Bare => adj;
+             Ezafe => mkEzafa adj ;
              enClic => mkEnclic adj
             } ;
   adv = adv          
