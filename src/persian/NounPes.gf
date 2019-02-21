@@ -3,12 +3,12 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = cn ** {s = \\npc =>
-      case <det.isNum,det.fromPron,npc> of {
-        <False,False,NPC ez> => det.s ++ cn.s ! ez ! det.n ; -- det is not from Pron, retain NPForm.
-        <False,True>         => cn.s ! aEzafa ! det.n ++ det.s ; -- det is from Pron, cn is in aEzafa.
-        <True,False,NPC ez>  => det.s ++ cn.s ! ez ! Sg ; -- noun modified by a number is invariably singular
-        <True,True>          => cn.s ! aEzafa ! Sg ++ det.s
+    DetCN det cn = cn ** {s = \\mod =>
+      case <det.isNum,det.mod> of {
+        <False,Bare> => det.s ++ cn.s ! det.n ! mod  ; -- det is not from Pron, retain NPForm.
+        <False,X>         => cn.s ! det.n ! X  ++ det.s ; -- det is from Pron, cn is in Ezafe.
+        <True,Bare>  => det.s ++ cn.s ! Sg ! mod  ; -- noun modified by a number is invariably singular
+        <True,X>          => cn.s ! Sg ! X ++ det.s
       } ;
       a = agrP3 det.n ;
       } ;
@@ -29,20 +29,20 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     AdvNP np adv = np ** {
-      s = \\ez => np.s ! NPC aEzafa ++ adv.s
+      s = \\ez => np.s !  Ezafe ++ adv.s
       } ;
 
     DetQuantOrd quant num ord = {
       s = quant.s ! num.n ++ num.s ++ ord.s ;
       isNum = orB num.isNum ord.isNum ;
-      fromPron = quant.fromPron ;
+      mod = quant.mod ;
       n = num.n
       } ;
 
     DetQuant quant num = {
       s = quant.s ! num.n ++ num.s;
       isNum = num.isNum;
-      fromPron = quant.fromPron ;
+      mod = quant.mod ;
       n = num.n
       } ;
 
@@ -53,7 +53,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       animacy = Inanimate
       } ;
 
-    PossPron p = {s = \\_ => p.ps ; a = p.a ; fromPron = True} ;
+    PossPron p = {s = \\_ => BIND ++ p.ps ; a = p.a ; mod = Poss} ;
 
     NumSg = {s = [] ; n = Sg ; isNum = False} ;
     NumPl = {s = [] ; n = Pl ; isNum = False} ;
@@ -68,17 +68,14 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 -- to here
     AdNum adn num = num ** {s = adn.s ++ num.s} ;
 
-    OrdSuperl a = {s = a.s ! bEzafa ++ taryn; n = Sg ; isNum=False} ; -- check the form of adjective
+    OrdSuperl a = {s = a.s ! Bare ++ taryn; n = Sg ; isNum=False} ; -- check the form of adjective
 
-    DefArt = {s = \\_ => [] ; a = defaultAgr ; fromPron = False} ;
-    IndefArt = {s = table { Sg => IndefArticle ; Pl => []} ; a =defaultAgr ; fromPron = False} ;
+    DefArt = {s = \\_ => [] ; a = defaultAgr ; mod = Bare} ;
+    IndefArt = {s = table { Sg => IndefArticle ; Pl => []} ; a =defaultAgr ; mod = Bare} ;
 
-    MassNP cn = cn ** {s =\\c => case c of {
-      NPC bEzafa => cn.s ! bEzafa ! Sg ;
-      NPC aEzafa => cn.s ! aEzafa ! Sg ;
-      NPC enClic => cn.s ! enClic ! Sg
-      };
-      a = agrP3 Sg ;
+    MassNP cn = cn ** {
+      s = cn.s ! Sg ;
+      a = agrP3 Sg
       } ;
 
     UseN n = n ** {hasAdj=False};
@@ -95,29 +92,29 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     ComplN2 f x = f ** {
-      s = \\ez,n => f.s ! ez ! n  ++ f.c ++ x.s ! NPC ez ;
+      s = \\n,ez => f.s ! n ! Ezafe ++ f.c ++ x.s !  ez ;
       definitness = True ;
       hasAdj = False ;
      };
     ComplN3 f x = f ** {
-      s = \\ez,n => f.s ! ez ! n ++ f.c2 ++ x.s ! NPC ez ;
+      s = \\n,ez => f.s ! n ! Ezafe  ++ f.c2 ++ x.s !  ez ;
       c = f.c3;
       definitness = True;
       } ;
 
     AdjCN ap cn = cn ** {
-      s = \\ez,n => cn.s ! aEzafa ! n ++ ap.s ! ez ; -- check the form of adjective and also cn.s!ez!n changed from cn.s!aEzafa!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
+      s = \\n,ez => cn.s! n! Ezafe ++ ap.s ! ez ; -- check the form of adjective and also cn.s!ez!n changed from cn.s!Ezafe!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
       hasAdj = True
      } ;
 
     RelCN cn rs = cn ** {
-      s = \\ez,n => cn.s ! enClic ! n ++ rs.s ! agrP3 n ;
+      s = \\n,ez => cn.s ! n! Clitic  ++ rs.s ! agrP3 n ;
       } ;
 
-    AdvCN cn ad = cn ** {s = \\ez,n => cn.s ! aEzafa ! n ++ ad.s} ;
+    AdvCN cn ad = cn ** {s = \\n,ez => cn.s ! n ! Ezafe ++ ad.s} ;
 
-    SentCN cn sc = cn ** {s = \\ez,n => cn.s ! ez ! n ++ sc.s} ;
+    SentCN cn sc = cn ** {s = \\n,ez => cn.s ! n ! ez ++ sc.s} ;
 
-    ApposCN cn np = cn ** {s = \\ez,n => cn.s ! ez ! n ++ np.s ! NPC aEzafa ; definitness = True} ; -- ezafa form of city to be used
+    ApposCN cn np = cn ** {s = \\n,ez => cn.s ! n ! ez ++ np.s !  Ezafe ; definitness = True} ; -- ezafa form of city to be used
 
 }

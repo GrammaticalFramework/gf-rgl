@@ -52,10 +52,19 @@ lin
 
   InLanguage l = S.mkAdv in_Prep (mkNP l) ;
 
-    -- arabic_Language,
   english_Language = mkLanguage "انگلیسی" ;
   finnish_Language = mkLanguage "فنلاند" ;
   swedish_Language = mkLanguage "سوئدی" ;
+  arabicLanguage = mkLanguage "عربی" ;
+  finnishLanguage = mkLanguage "فنلاندی" ;
+  frenchLanguage = mkLanguage "فرانسوی" ;
+  persianLanguage = mkLanguage "فارسی" ;
+  romanianLanguage = mkLanguage "رومانیایی" ;
+  polishLanguage = mkLanguage "لهستانی" ;
+  bulgarianLanguage = mkLanguage "بلغاری" ;
+  somaliLanguage = mkLanguage "سومالیایی" ;
+  turkishLanguage = mkLanguage "ترکی" ;
+  kurdishLanguage = mkLanguage "کردی" ;
 
   -- : Card -> CN -> A -> AP
   n_units_AP card cn a =
