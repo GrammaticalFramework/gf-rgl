@@ -101,7 +101,7 @@ oper
 
 
   mkV3 : V -> (dir,indir : Str) -> V3 ; -- Takes a verb and two prepositions as strings (can be empty). If the verb takes را for direct object, it's the first Str argument. e.g. talk, با, دربارۀ
-    mkV3 v p q = lin V3 (v ** {c2 = p ; c3 = q}) ;
+    mkV3 v p q = lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
 
   mkV2V : V -> (cV, cN : Str) -> (isAux : Bool) -> V2V ; -- Verb, complementiser for the verb, complementiser for the noun, whether it's auxiliary.
     mkV2V v s1 s2 b = lin V2V (v ** {isAux = b ; c1 = s1 ; c2 = s2}) ;
@@ -253,15 +253,20 @@ oper
 
   mkV2 = overload {
     mkV2 : Str -> V2 -- Predictable V2 with
-      = \s -> lin V2 (regV s ** {c2 = {s = [] ; ra = "را" ; c = VTrans}}) ;
+      = \s -> lin V2 (regV s ** {c2 = prepOrRa "را"}) ;
     mkV2 : V -> V2
-      = \v -> lin V2 (v ** {c2 = {s = [] ; ra = "را" ; c = VTrans}}) ;
+      = \v -> lin V2 (v ** {c2 = prepOrRa "را"}) ;
     mkV2 : V -> Prep -> V2
-      = \v,p -> lin V2 (v ** {c2 = {ra = [] ; s = p.s ; c = VTrans}}) ;
+      = \v,p -> lin V2 (v ** {c2 = prepOrRa p.s}) ;
     mkV2 : V -> Str -> V2
-      = \v,ra -> lin V2 (v ** {c2 = {ra = ra ; s = [] ; c = VTrans}}) ;
+      = \v,ra -> lin V2 (v ** {c2 = prepOrRa ra}) ;
     mkV2 : V -> Str -> Bool -> V2
-      = \v,p,b -> lin V2 (v ** {c2 = {ra = [] ; s = p ; c = VTrans}}) ;
+      = \v,p,b -> lin V2 (v ** {c2 = {ra = [] ; s = p}}) ;
+    } ;
+
+  prepOrRa : Str -> Compl = \s -> case s of {
+    "را" => {s = [] ; ra = "را"} ;
+    prep  => {s = prep ; ra = []}
     } ;
 
   mkN2 = overload {
@@ -273,10 +278,11 @@ oper
 
   mkN3 = overload {
     mkN3 : N -> Str -> Str -> N3
-      = \n,p,q -> lin N3 (n ** {c2=p ; c3=q}) ;
+      = \n,p,q -> lin N3 (n ** {c2 = p ; c3 = q}) ;
     mkN3 : N -> Prep -> Str -> Str -> N3 -- hidden from public API
-      = \n,p,q,r -> lin N3 (n ** {c2 = p.s ; c3 = q ; c4 = r}) -- there is no c4
+      = \n,p,q,r -> lin N3 (n ** {c2 =  p.s ; c3 = q ; c4 = r}) -- there is no c4
   } ;
+
 
   mkQuant = overload {
 --    mkQuant : Pron -> Quant = \p -> {s = \\_,_,c => p.s!c ;a = p.a ; lock_Quant = <>};

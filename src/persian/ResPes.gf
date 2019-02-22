@@ -59,18 +59,18 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 oper
 
   VPH : Type = {
-      s    : VPHForm => Str ;
-      obj  : {s : Str ; a : Agr} ; -- direct object of a verb
-      subj : VType ;
-      comp : Agr => Str; -- complements of a verb; those other than a direct object. e.g. indirect object of ditransitive verbs.
-      vComp : Agr => Str; -- when a verb is used as a complement of an auxiliary verb, we store it in this field. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
-      ad  : Str;
+      s     : VPHForm => Str ;
+      comp  : Agr => Str; -- complements of a verb, agr for e.g. CompCN "I am human/we are humans"
+      vComp : Agr => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
+      obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
+      subj  : VType ;
+      ad    : Str ;
       embComp : Str ; -- when a declarative or interrogative sentence is used as a complement of a verb.
-      wish : Bool ;
+      wish : Bool ; -- whether a VV has been added
       } ;
 
   showVPH : VPHForm -> Agr -> VPH -> Str = \vf,agr,vp ->
-   vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.s ! vf ++ vp.vComp ! agr ++ vp.embComp ;
+    vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.s ! vf ++ vp.vComp ! agr ++ vp.embComp ;
 
   Compl : Type = {s : Str ; ra : Str} ;
 
@@ -127,13 +127,13 @@ oper
        VPStem2 => verb.s ! Root2 ;
        VPInf => verb.s ! Inf;
        VPImp pol n =>verb.s ! Imp pol n };
-    obj = {s = [] ; a = defaultAgr} ;
     subj = VIntrans ;
-    ad = [];
+    ad,
+    obj,
     embComp = [];
     wish = False ;
+    comp,
     vComp = \\_ => [] ;
-    comp = \\_ => []
     } ;
 
    predVc : (Verb ** {c2,c1 : Str}) -> VPHSlash = \verb ->
@@ -144,31 +144,32 @@ oper
 ---------------------
 -- VP complementation
 ---------------------
+  appComp : Compl -> Str -> Str = \c2,obj ->
+    c2.s ++ obj ++ c2.ra ;
 
   insertComp : (Agr => Str) -> VPH -> VPH = \obj,vp -> vp ** {
     comp = \\a => vp.comp ! a ++ obj ! a
-  } ;
+    } ;
 
   insertCompPre : (Agr=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
-      comp = \\a => vp.c2.s ++ obj ! a ++ vp.c2.ra ++ vp.comp ! a
+    comp = \\a => appComp vp.c2 (obj ! a) ++ vp.comp ! a
     } ;
 
   insertVV : (Agr => Str) -> VPH -> VPH = \obj1,vp -> vp ** {
     wish = True ;
     vComp = \\a => vp.comp ! a ++ obj1 ! a ; -- IL why this is vp.comp and not vp.vComp??
-  } ;
+    } ;
 
   embComp : Str -> VPH -> VPH = \str,vp -> vp ** {
     embComp = vp.embComp ++ str ;
-  } ;
-
-  insertObj : Str -> VPH -> VPH = \str,vp -> vp ** {
-    obj = vp.obj ** {s = str ++ vp.obj.s}
     } ;
 
-  -- TODO: comp or obj? /IL
-  insertObjPre : NP -> VPHSlash -> VPH = \np,vp -> vp ** {
-    comp = \\a => vp.c2.s ++ np.s ! Bare ++ vp.c2.ra ++ np.compl ++ vp.comp ! a
+  insertObj : Str -> VPH -> VPH = \str,vp -> vp ** {
+    obj = vp.obj ++ str
+    } ;
+
+  complSlash : VPHSlash -> NP -> VPH = \vp,np -> vp ** {
+    comp = \\a => appComp vp.c2 (np.s ! Bare) ++ np.compl ++ vp.comp ! a
   } ;
 
 ---- AR 14/9/2017 trying to fix isAux = True case by inserting conjThat
@@ -231,7 +232,7 @@ oper
     subj = np.s !  Bare ;
     vp = \\vt,b,ord =>
       let vps = clTable vp ! np.a ! vt ! b
-       in vp.ad ++ vp.comp ! np.a ++ vp.obj.s ++ vps ++ vp.vComp ! np.a ++ vp.embComp
+       in vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps ++ vp.vComp ! np.a ++ vp.embComp
   };
 
 --Clause : Type = {s : VPHTense => Polarity => Order => Str} ;
@@ -239,8 +240,18 @@ oper
     s = \\vt,b,ord =>
       let vps = clTable vp ! agr ! vt ! b ;
           quest = case ord of { ODir => [] ; OQuest => "آیا" }
-       in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vps ++ vp.vComp ! agr ++ vp.embComp
+       in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vps ++ vp.vComp ! agr ++ vp.embComp
   };
+
+  ta2vt : Tense -> Anteriority -> VPHTense = \t,a -> case <t,a> of {
+    <Pres,Simul> => VPres ;
+    <Pres,Anter> => VPerfPres ;
+    <Past,Simul> => VPast  ;
+    <Past,Anter> => VPerfPast ;
+    <Fut,Simul>  => VFut ;
+    <Fut,Anter>  => VPerfFut ;
+    <Cond,Simul> => VCondSimul ;
+    <Cond,Anter> => VCondSimul } ;
 
   predAux : Aux -> VPH = \verb -> {
     s = \\vh => case vh of {
@@ -258,7 +269,7 @@ oper
        VPInf => "بودن";
 	     VPImp _ _ => [] -- need to be confirmed
 		 };
-	    obj = {s = [] ; a = defaultAgr} ;
+	    obj = [] ;
 		  subj = VIntrans ;
 		  ad = [];
       embComp = [];
