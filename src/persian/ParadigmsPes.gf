@@ -265,9 +265,9 @@ oper
 
   mkN2 = overload {
     mkN2 : N -> Str -> N2
-      = \n,c -> lin N2 (n ** {c = c}) ;
+      = \n,c -> lin N2 (n ** {c = c ; compl=[]}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API
-      = \n,p,c -> lin N2 (n ** {c = p.s ; c2 = c}) -- there is no c2
+      = \n,p,c -> lin N2 (n ** {c = p.s ; c2 = c; compl=[]}) -- there is no c2
   } ;
 
   mkN3 = overload {

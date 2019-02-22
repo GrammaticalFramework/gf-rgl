@@ -24,7 +24,10 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
   oper
 
     Compl : Type = {s : Str ; ra : Str ; c : VType} ;
-    CN : Type = Noun ** {hasAdj : Bool} ; -- for getting the right form when NP/CN is a predicate
+    CN : Type = Noun ** {
+      hasAdj : Bool ; -- to get the right form when CN is a predicate
+      compl : Str     -- to make possessive suffix attach to the right word
+      } ;
     NP : Type = {s : Mod => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
     VPHSlash : Type = VPH ** {c2 : Compl} ;
 

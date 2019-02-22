@@ -35,7 +35,7 @@ concrete LexiconPes of Lexicon = CatPes **
   bread_N = mkN01 "نان" inanimate;
   break_V2 = mkV2 (mkV "شکستن" "شکن") "را";
   broad_A = mkA "وسیع" ;
-  brother_N2 = (mkN01 "برادر" animate) ** {c=""};
+  brother_N2 = mkN2 (mkN01 "برادر" animate) [];
   brown_A = mkA ["قهوه ای"] ;
   butter_N = mkN01 "کره" inanimate;
   buy_V2 = mkV2 (mkV_1 "خریدن") "را";
@@ -75,7 +75,7 @@ concrete LexiconPes of Lexicon = CatPes **
   empty_A = mkA "خالی" ;
   enemy_N = mkN02 "دشمن" animate;
   factory_N = mkN01 "کارخانه" inanimate;
-  father_N2 = (mkN02 "پدر" animate) ** {c=""};
+  father_N2 = mkN2 (mkN02 "پدر" animate) [];
   fear_VS = mkV_1 "ترسیدن";
   find_V2 = mkV2 (compoundV "پیدا" doVerb) "را";
   fish_N = mkN01 "ماهی" animate;
@@ -125,7 +125,7 @@ concrete LexiconPes of Lexicon = CatPes **
   meat_N = mkN01 "گوشت" inanimate;
   milk_N = mkN01 "شیر" inanimate;
   moon_N = mkN01 "ماه" inanimate; -- is this not a proper noun?
-  mother_N2 = (mkN02 "مادر" animate) ** {c=""};
+  mother_N2 = mkN2 (mkN02 "مادر" animate) [] ;
   mountain_N = mkN01 "کوه" inanimate;
   music_N = mkN "موسیقی" "موسیقی" animate;
   narrow_A = mkA "باریک" ;
