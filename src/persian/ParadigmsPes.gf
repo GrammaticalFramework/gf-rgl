@@ -92,6 +92,7 @@ oper
     = lin V M.haveVerb ;
   beVerb : V  -- The verb "be", to be used for light verb constructions: e.g. compoundV "عاشق" beVerb.
     = lin V M.beVerb ;
+
   mkV2 : overload {
     mkV2 : Str -> V2 ; -- Predictable V2 out of string. No preposition, را for direct object.
     mkV2 : V -> V2 ; -- V2 out of V. No preposition, را for direct object.

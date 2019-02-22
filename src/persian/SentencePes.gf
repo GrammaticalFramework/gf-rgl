@@ -34,12 +34,12 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     SlashVS np vs slash =
       mkSlClause  np
-        (insertObj2 (conjThat ++ slash.s) (predV vs))  **
+        (embComp (conjThat ++ slash.s) (predV vs))  **
         {c2 = slash.c2} ;
 
     EmbedS  s  = {s = conjThat ++ s.s} ;
     EmbedQS qs = {s = qs.s ! QIndir} ;
-    EmbedVP vp = {s = vp.obj.s ++ vp.inf ++ vp.comp ! defaultAgr} ; --- agr
+    EmbedVP vp = {s = showVPH VPInf defaultAgr vp} ; --- agr
 
 
     UseCl  temp p cl =

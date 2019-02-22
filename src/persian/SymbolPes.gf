@@ -12,15 +12,18 @@ concrete SymbolPes of Symbol = CatPes ** open Prelude, ResPes in {
   NumPN i = {s = i.s ; animacy = Inanimate} ;
   CNIntNP cn i = cn ** {
     s = \\ez => cn.s ! Sg ! Ezafe   ++ i.s ;
-    a = agrP3 Sg
+    a = agrP3 Sg ;
+    compl = cn.compl ! Sg
     } ;
   CNSymbNP det cn xs = cn ** {
     s = \\ez => det.s ++ cn.s ! det.n  ! Ezafe ++ xs.s ;
-    a = agrP3 det.n
+    a = agrP3 det.n ;
+    compl = cn.compl ! det.n
     } ;
   CNNumNP cn i = cn ** {
     s = \\ez => cn.s ! Sg ! Ezafe ++ i.s ;
-    a = agrP3 Sg
+    a = agrP3 Sg ;
+    compl = cn.compl ! Sg
     } ;
 
   SymbS sy = sy ;

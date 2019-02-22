@@ -9,13 +9,14 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
               True  => Sg ; -- noun modified by a number is invariably singular
               False => det.n } ;
          in case det.mod of {
-              Bare => det.s ++ cn.s ! num ! m ++ cn.compl ; -- det doesn't require a special form, keep the Mod=>Str table
-              x    => cn.s ! num ! x ++ det.s ++ cn.compl } ; -- det requires a special form
+              Bare => det.s ++ cn.s ! num ! m ; -- det doesn't require a special form, keep the Mod=>Str table
+              x    => cn.s ! num ! x ++ det.s } ; -- det requires a special form
       a = agrP3 det.n ;
+      compl = cn.compl ! det.n
       } ;
 
-    UsePN pn = pn ** {s = \\_ => pn.s ; a = agrP3 Sg ; hasAdj = False} ;
-    UsePron p = p ** {s = \\_ => p.s ; animacy = Animate ; hasAdj = False} ;
+    UsePN pn = emptyNP ** pn ** {s = \\_ => pn.s} ;
+    UsePron p = emptyNP ** p ** {s = \\_ => p.s ; animacy = Animate} ;
 
     PredetNP pred np = np ** {
       s = \\ez => pred.s ++ np.s ! ez
@@ -51,7 +52,8 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       s = \\_ => det.s  ; ---- case
       a = agrP3 det.n ;
       hasAdj = False ;
-      animacy = Inanimate
+      animacy = Inanimate ;
+      compl = []
       } ;
 
     PossPron p = {s = \\_ => BIND ++ p.ps ; a = p.a ; mod = Poss} ;
@@ -76,25 +78,26 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     MassNP cn = cn ** {
       s = cn.s ! Sg ;
-      a = agrP3 Sg
+      a = agrP3 Sg ;
+      compl = cn.compl ! Sg
       } ;
 
-    UseN n = n ** {hasAdj=False; compl=[]};
-    UseN2 n = n ** {hasAdj=False; compl=[]};
+    UseN,
+    UseN2 = useN ;
 
-    Use2N3 f = f ** {
-      c = f.c2;
+    Use2N3 n3 = useN n3 ** {
+      c = n3.c2 ;
       compl = []
       } ;
 
-   Use3N3 f = f ** {
-      c = f.c3;
+    Use3N3 n3 = useN n3 ** {
+      c = n3.c3 ;
       compl = []
       } ;
 
     ComplN2 n2 np = n2 ** {
       s = \\n,m => n2.s ! n ! Ezafe ;
-      compl = n2.compl ++ n2.c ++ np.s ! Bare ;
+      compl = \\_ => n2.compl ++ n2.c ++ np.s ! Bare ;
       hasAdj = False
      };
 
@@ -110,12 +113,13 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
      } ;
 
     RelCN cn rs = cn ** {
-      s = \\n,ez => cn.s ! n ! Clitic ++ rs.s ! agrP3 n ;
+      s = \\n,ez => cn.s ! n ! Clitic ;
+      compl = \\n => rs.s ! agrP3 n ;
       } ;
 
     AdvCN cn ad = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ ad.s} ;
 
-    SentCN cn sc = cn ** {s = \\n,m => cn.s ! n ! m ++ sc.s} ;
+    SentCN cn sc = cn ** {compl = \\n => sc.s} ;
 
     -- correct for /city Paris/, incorrect for /king John/
     -- ApposNP in ExtendPes works for /king John/ (no ezafe).
