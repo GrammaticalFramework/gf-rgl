@@ -4,9 +4,9 @@ concrete PhrasePes of Phrase = CatPes ** open Prelude, ResPes in {
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
     UttQS qs = {s = qs.s ! QDir} ;
-    UttImpSg pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Sg False} ;
-    UttImpPl pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Pl False} ;
-    UttImpPol pol imp = {s = pol.s ++ imp.s ! contrNeg True pol.p ! ImpF Sg True} ;
+    UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Sg False} ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Pl False} ;
+    UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Sg True} ;
 
     UttS,
     UttIP, --- Acc also

@@ -7,12 +7,11 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     PredVP np vp = mkClause np vp ;
 
-    PredSCVP sc vp = mkSClause ("این" ++ sc.s) (defaultAgr) vp ;
+    PredSCVP sc vp = mkSClause ("این" ++ sc.s) defaultAgr vp ;
 
     ImpVP vp = {
-      s = \\cpol,n =>
+      s = \\pol,n =>
         let agr = Ag (numImp n) P2 ;
-            pol = cpol2pol cpol ;
          in case vp.wish of {
               True  => vp.s ! VPImp pol (numImp n) ++ vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.embComp;
               False => vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vp.vComp ! agr ++ vp.s ! VPImp pol (numImp n) ++ vp.embComp }

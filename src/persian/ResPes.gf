@@ -16,16 +16,12 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
     CardOrd = NCard | NOrd ;
     RAgr = RNoAg | RAg Agr ;
- --   RCase = RC Number Case ;
-
-    CPolarity = CPos
-              | CNeg Bool;  -- contracted or not
 
   oper
     CN : Type = Noun ** {
       hasAdj : Bool ;    -- to get the right form when CN is a predicate
       compl : Number => Str -- to make possessive suffix attach to the right word
-                         -- dep. on Agr because of RelCN
+                            -- dep. on Number because of RelCN
       } ;
 
     NP : Type = {
@@ -55,16 +51,6 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
     cn2str : CN -> Str = \cn ->
       cn.s ! Sg ! Bare ++ cn.compl ! Sg ;
-
-    contrNeg : Bool -> Polarity -> CPolarity = \b,p -> case p of {
-      Pos => CPos ;
-      Neg => CNeg b
-    } ;
-
-    cpol2pol : CPolarity -> Polarity = \cp -> case cp of {
-      CPos => Pos ;
-      _    => Neg
-    } ;
 
  -----------------------
  --- Verb Phrase
