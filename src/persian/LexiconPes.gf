@@ -142,7 +142,7 @@ concrete LexiconPes of Lexicon = CatPes **
   planet_N = mkN01 "سیّاره" inanimate;
   plastic_N = mkN01 "پلاستیک" inanimate; -- is uncountable
   play_V2 = mkV2 (mkV "نواختن" "نواز") "را" ;
-  policeman_N = mkCmpdNoun2 (mkN02 "مأمور" animate) "پلیس";
+  policeman_N = cmpdN (mkN02 "مأمور" animate) (mkN "پلیس");
   priest_N = mkN01 "کشیش" animate;
 --  probable_AS = mkAS (regA "محتمل") ;
   queen_N = mkN01 "ملکه" animate;
@@ -265,7 +265,7 @@ concrete LexiconPes of Lexicon = CatPes **
   fingernail_N = mkN01 "ناخن" inanimate;
   fire_N = mkN01 "آتش" inanimate;
   flower_N = mkN01 "گل" inanimate;
-  fog_N = mkN01 "مه" inanimate;
+  fog_N = mkN "مه" (mkN "مه") ;
   foot_N = mkN01 "پا" inanimate;
   forest_N = mkN01 "جنگل" inanimate;
   grass_N = mkN01 "چمن" inanimate;
@@ -361,7 +361,7 @@ concrete LexiconPes of Lexicon = CatPes **
   rule_N = mkN "قانون" "قوانین" inanimate;
 
 ---- added 4/6/2007
-    john_PN = mkPN "جان" inanimate;
+    john_PN = mkPN "جان" animate;
     question_N = mkN01 "سؤال" inanimate; -- has variant "پرسش"
     ready_A = mkA "آماده" ["با آمادگی"] ;
     reason_N = mkN "دلیل" "دلایل" inanimate;

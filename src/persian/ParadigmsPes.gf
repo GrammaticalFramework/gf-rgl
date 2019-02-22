@@ -17,25 +17,20 @@ resource ParadigmsPes = open
 
 oper
   Animacy : Type ; -- Argument to mkN
-  animate : Animacy ; -- e.g. /mkN "خواهر" animate/ to get the plural خواهران.
-  inanimate : Animacy ; -- default animacy for mkN, not needed unless you want to make the animacy explicit or force a plural with ها.
+  human : Animacy ; -- e.g. /mkN "خواهر" human/ to get the plural خواهران.
+  nonhuman : Animacy ; -- default animacy for mkN, not needed unless you want to make the animacy explicit or force a plural with ها.
 
   Number : Type ; -- Argument to mkDet and mkConj
   singular : Number ; -- e.g. mkConj "یا" singular
   plural : Number ; -- e.g. mkConj "و" plural
 
-
 --2 Nouns
 
-  mkN = overload {
-    mkN : (sg : Str) -> N -- Takes singular form, returns an inanimate noun with ها as the plural form.
-      = \sg -> mkN01 sg inanimate ;
-    mkN : (sg : Str) -> Animacy -> N -- Takes singular form and animacy. Inanimate plural ها. Animate plural ان or an allomorph of it (یان or گان) depending on the singular form.
-      = \sg,ani -> case ani of {
-          Inanimate => mkN01 sg ani ;
-          Animate   => mkN02 sg ani } ;
-    mkN : (sg,pl : Str) -> Animacy -> N -- Worst-case constructor: takes singular and plural forms and animacy. Use for e.g. loanwords with Arabic plural, or animate nouns with ها as plural.
-      = \sg,pl,ani -> M.mkN sg pl ani
+  mkN : overload {
+    mkN : (sg : Str) -> N ; -- Takes singular form, returns a nonhuman noun with ها as the plural form.
+    mkN : (sg : Str) -> Animacy -> N ; -- Takes singular form and animacy. Nonhuman plural ها. Human plural ان or an allomorph of it (یان or گان) depending on the singular form.
+    mkN : (sg,pl : Str) -> Animacy -> N ; -- Worst-case constructor: takes singular, plural and animacy. Use for loanwords with Arabic plural, human plurals with ها and nonhuman plurals with ان or its allomorphs.
+    mkN : (possStem : Str) -> N -> N -- Noun with an unexpected possessive stem, e.g. مه where ه is a consonant, not vowel.
   } ;
 
   mkN2 : overload {
@@ -52,7 +47,9 @@ oper
     cmpdN : Str -> N -> N -- Compound noun with an invariable modifier /before/ the head. NB. no ezāfe.
       = mkCmpdNoun1 ; --  e.g. تخم مرغ 'chicken /egg/'
     cmpdN : N -> Str -> N -- Compound noun with an invariable modifier /after/ the head. NB. no ezāfe.
-      = mkCmpdNoun2   --  e.g. مأمور پلیس '/officer/ police'.
+      = mkCmpdNoun2 ;  --  e.g. مأمور پلیس '/officer/ police'.
+    cmpdN : N -> N -> N -- Compound noun with ezafe (Nی N)
+      = \n1,n2 -> n1 ** {s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! n ! m} ;
     } ;
 
 -- Proper names
@@ -133,7 +130,6 @@ oper
 --  } ;
 -}
 
-
 --2 Conjunctions
   mkConj = overload {
     mkConj : Str -> Conj                  -- and (plural agreement)
@@ -159,8 +155,11 @@ oper
   plural = Pl;
 
   Animacy = ResPes.Animacy ;
-  animate = Animate ;
-  inanimate = Inanimate ;
+  human = Animate ;
+  nonhuman = Inanimate ;
+
+  animate = human ;
+  inanimate = nonhuman ;
 
 -- Removed mkV_1, mkV_2, mkN01 and mkN02 from public API, still available for
 -- any applications that open ParadigmsPes. /IL 2019-02-08
@@ -168,6 +167,31 @@ oper
     = \s -> lin V (mkVerb1 s) ;
   mkV_2 : Str -> V
     = \s -> lin V (mkVerb2 s) ;
+
+
+  mkN = overload {
+    mkN : (sg : Str) -> N -- Takes singular form, returns a noun with ها as the plural form.
+      = \sg -> mkN01 sg inanimate ;
+    mkN : (sg,pl : Str) -> N -- Takes singular and plural forms. Use for ان or its allomorphs, and loanwords with Arabic plural.
+      = \sg,pl -> M.mkN sg pl inanimate ;
+    mkN : (possStem : Str) -> N -> N -- Noun with an unexpected possessive stem, e.g. مه where ه is a consonant, not vowel.
+      = \ps,n -> possStemN ps n ;
+
+    -- hidden from API
+    mkN : (sg : Str) -> Animacy -> N -- Takes singular form and animacy. Inanimate plural ها. Animate plural ان or an allomorph of it (یان or گان) depending on the singular form.
+      = \sg,ani -> case ani of {
+          Inanimate => mkN01 sg ani ;
+          Animate   => mkN02 sg ani } ;
+    mkN : (sg,pl : Str) -> Animacy -> N -- Worst-case constructor: takes singular and plural forms and animacy. Use for e.g. loanwords with Arabic plural, or animate nouns with ها as plural.
+      = \sg,pl,ani -> M.mkN sg pl ani
+  } ;
+
+  possStemN : Str -> N -> N = \possStem,n -> n ** {
+    s = table {num => table {Poss => possStem ;
+                             mod  => n.s ! num ! mod}
+              }
+
+  } ;
 
   mkN01 : (sg : Str) -> Animacy -> Noun ; -- Takes singular form and animacy, forms plural with ها
   mkN01 sg ani =
