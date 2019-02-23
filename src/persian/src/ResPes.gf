@@ -162,7 +162,7 @@ oper
       } ;
 -}	
    insertObjc : (AgrPes => Str) -> VPHSlash -> VPHSlash = \obj,vp -> 
-    insertObj obj vp ** {c2 = vp.c2} ;
+    insertComp obj vp ** {c2 = vp.c2} ;
     insertVVc : (AgrPes => Str) -> VPHSlash -> VPHSlash = \obj,vp -> 
     insertVV obj vp ** {c2 = vp.c2} ;
     
@@ -170,7 +170,7 @@ oper
  insertSubj : PPerson -> Str -> Str = \p,s -> 
       case p of { Pers1 => s ++ "wN" ; _ => s ++ "E"};
   -}   
-    insertObj : (AgrPes => Str) -> VPH -> VPH = \obj1,vp -> {
+    insertComp : (AgrPes => Str) -> VPH -> VPH = \obj1,vp -> {
      s = vp.s ;
      obj = vp.obj ;
      subj = vp.subj ;
@@ -195,7 +195,7 @@ oper
      comp = vp.comp  
      } ;
      
-    insertObj2 : (Str) -> VPH -> VPH = \obj1,vp -> {
+    embComp : (Str) -> VPH -> VPH = \obj1,vp -> {
      s = vp.s;
      obj = vp.obj ;
      subj = vp.subj ;
@@ -221,8 +221,8 @@ oper
      } ;
 	 
     
-    insertObjc2 : Str -> VPHSlash -> VPHSlash = \obj,vp -> 
-    insertObj2 obj vp ** {c2 = vp.c2} ;
+    embCompSlash : Str -> VPHSlash -> VPHSlash = \obj,vp -> 
+    embComp obj vp ** {c2 = vp.c2} ;
     insertObjc3 : Str -> VPHSlash -> VPHSlash = \obj,vp -> 
     insertObj3 obj vp ** {c2 = vp.c2} ;
 {-

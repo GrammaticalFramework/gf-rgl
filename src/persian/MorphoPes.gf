@@ -329,6 +329,7 @@ oper
           _ => mkCmnVF dasht dar pol t ag
         } ;
 
+  -- TODO: merge with auxBe in ResPes
   beVerb : Verb = { s = table {
     Vvform agr => imperfectSuffixD agr "باش" ;
     Imp Pos Sg => "باش" ;
@@ -338,7 +339,18 @@ oper
     Inf => "بودن" ;
     Root1 => "بود" ;
     Root2 => "باش" ;
-    VF pol tense agr => mkCmnVF "بود" "باش" pol tense agr
-   }
+    VF pol tense agr =>
+      let impfSuff = imperfectSuffix agr ;
+          perfSuff = perfectSuffix agr
+      in case <pol,tense,agr> of {
+       <Pos,PPresent2 PrImperf,Ag Sg P3> => "است" ;
+       <Pos,PPresent2 PrImperf>          => impfSuff "هست" ;
+       <Pos,PPresent2 PrPerf>            => perfSuff "بوده" ;
+       <Neg,PPresent2 PrImperf,Ag Sg P3> => "نیست" ;
+       <Neg,PPresent2 PrImperf>          => impfSuff "نیست" ;
+       <Neg,PPresent2 PrPerf>            => perfSuff "نبوده" ;
+       _                                 => mkCmnVF "بود" "باش" pol tense agr
+       }
+    }
   } ;
 }

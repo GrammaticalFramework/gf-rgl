@@ -16,28 +16,41 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
     CardOrd = NCard | NOrd ;
     RAgr = RNoAg | RAg Agr ;
- --   RCase = RC Number Case ;
-
-    CPolarity = CPos
-              | CNeg Bool;  -- contracted or not
 
   oper
+    CN : Type = Noun ** {
+      hasAdj : Bool ;    -- to get the right form when CN is a predicate
+      compl : Number => Str -- to make possessive suffix attach to the right word
+                            -- dep. on Number because of RelCN
+      } ;
 
-    Compl : Type = {s : Str ; ra : Str ; c : VType} ;
-    CN : Type = Noun ** {hasAdj : Bool} ; -- for getting the right form when NP/CN is a predicate
-    NP : Type = {s : Mod => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
-    VPHSlash : Type = VPH ** {c2 : Compl} ;
+    NP : Type = {
+      s : Mod => Str ; -- NP can appear with a clitic, need to keep Mod open
+      a : Agr ;
+      hasAdj : Bool ; -- to get the right form when NP is a predicate
+      compl : Str ;   -- to make possessive suffix attach to the right word
+      animacy : Animacy -- to get the right relative pronoun
+      } ;
 
   oper
-    contrNeg : Bool -> Polarity -> CPolarity = \b,p -> case p of {
-      Pos => CPos ;
-      Neg => CNeg b
+    emptyNP : NP = {
+      s = \\_ => [] ;
+      a = defaultAgr ;
+      hasAdj = False ;
+      animacy = Inanimate ;
+      compl = []
+      } ;
+
+    useN : Noun -> CN = \n -> n ** {
+      hasAdj = False ;
+      compl = \\_ => []
     } ;
 
-    cpol2pol : CPolarity -> Polarity = \cp -> case cp of {
-      CPos => Pos ;
-      _    => Neg
-    } ;
+    np2str : NP -> Str = \np ->
+      np.s ! Bare ++ np.compl ;
+
+    cn2str : CN -> Str = \cn ->
+      cn.s ! Sg ! Bare ++ cn.compl ! Sg ;
 
  -----------------------
  --- Verb Phrase
@@ -45,17 +58,24 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
 oper
 
- VPH : Type = {
-      s    : VPHForm => Str ; -- {inf : Str} ;
-      obj  : {s : Str ; a : Agr} ;
-      subj : VType ;
-      comp : Agr => Str;
-      vComp : Agr => Str;
-      inf : Str;
-      ad  : Str;
-      embComp : Str ;
-      wish : Bool ;
+  VPH : Type = {
+      s     : VPHForm => Str ;
+      comp  : Agr => Str; -- complements of a verb, agr for e.g. CompCN "I am human/we are humans"
+      vComp : Agr => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
+      obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
+      subj  : VType ;
+      ad    : Str ;
+      embComp : Str ; -- when a declarative or interrogative sentence is used as a complement of a verb.
+      wish : Bool ; -- whether a VV has been added
       } ;
+
+  showVPH : VPHForm -> Agr -> VPH -> Str = \vf,agr,vp ->
+    vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.s ! vf ++ vp.vComp ! agr ++ vp.embComp ;
+
+  Compl : Type = {s : Str ; ra : Str} ;
+
+  VPHSlash : Type = VPH ** {c2 : Compl} ;
+
  param
 
     VPHForm =
@@ -66,6 +86,7 @@ oper
      | VVForm Agr
      | VPStem1
      | VPStem2
+     | VPInf
      ;
 
     VPHTense =
@@ -81,7 +102,6 @@ oper
      | VRoot1  -- AR 22/3/2018 for mustCl past after Nasrin
     ;
 
-
     VType = VIntrans | VTrans | VTransPost ;
 
  VPPTense =
@@ -90,8 +110,6 @@ oper
 	  |VPFutr Anteriority
 	  |VPCond Anteriority ;
 oper
---s (Vvform (Ag Sg P1)) : بخوانم
-
 
   predV : Verb -> VPH = \verb -> {
     s = \\vh =>
@@ -107,100 +125,64 @@ oper
        VVForm agr => verb.s ! Vvform agr ;
        VPStem1 => verb.s ! Root1 ;
        VPStem2 => verb.s ! Root2 ;
+       VPInf => verb.s ! Inf;
        VPImp pol n =>verb.s ! Imp pol n };
-    obj = {s = [] ; a = defaultAgr} ;
     subj = VIntrans ;
-    inf = verb.s ! Inf;
-    ad = [];
+    ad,
+    obj,
     embComp = [];
     wish = False ;
+    comp,
     vComp = \\_ => [] ;
-    comp = \\_ => []
     } ;
 
    predVc : (Verb ** {c2,c1 : Str}) -> VPHSlash = \verb ->
-    predV verb ** {c2 = {s = verb.c1 ; ra = [] ; c = VTrans} } ;
-----------------------
--- Verb Phrase complimantation
-------------------------
-{-
-  insertObject : NP -> VPHSlash -> VPH = \np,vps -> vps ** {
---      obj =  {s = variants { vps.obj.s  ++ np.s ++ vps.c2.s ; vps.obj.s  ++ np.s  }  ; a = np.a} ;
-      obj =  {s = case vps.c2.s of {
-                 "را" =>  np.s ++ vps.c2.s  ++ vps.obj.s;
-		 _    =>  vps.c2.s ++ np.s ++ vps.obj.s
-	     };
-		 a = np.a} ;
-      subj = vps.c2.c ;
-      } ;
--}
-   insertObjc : (Agr => Str) -> VPHSlash -> VPHSlash = \obj,vp ->
-    insertObj obj vp ** {c2 = vp.c2} ;
-  insertVVc : (Agr => Str) -> VPHSlash -> VPHSlash = \obj,vp ->
-    insertVV obj vp ** {c2 = vp.c2} ;
+    predV verb ** {c2 = {s = verb.c1 ; ra = []} } ;
 
- {-
- insertSubj : Person -> Str -> Str = \p,s ->
-      case p of { Pers1 => s ++ "wN" ; _ => s ++ "E"};
-  -}
-  insertObj : (Agr => Str) -> VPH -> VPH = \obj1,vp -> vp ** {
-    comp = \\a => vp.comp ! a  ++ obj1 ! a
-  } ;
+
+
+---------------------
+-- VP complementation
+---------------------
+  appComp : Compl -> Str -> Str = \c2,obj ->
+    c2.s ++ obj ++ c2.ra ;
+
+  insertComp : (Agr => Str) -> VPH -> VPH = \obj,vp -> vp ** {
+    comp = \\a => vp.comp ! a ++ obj ! a
+    } ;
+
+  insertCompPre : (Agr=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
+    comp = \\a => appComp vp.c2 (obj ! a) ++ vp.comp ! a
+    } ;
 
   insertVV : (Agr => Str) -> VPH -> VPH = \obj1,vp -> vp ** {
     wish = True ;
---    vComp = \\a => vp.comp ! a ++ conjThat ++ obj1 ! a ; -- TODO: do we insert conjThat here or in infVV? /IL
-    vComp = \\a => vp.comp ! a ++ obj1 ! a ;
+    vComp = \\a => vp.comp ! a ++ obj1 ! a ; -- IL why this is vp.comp and not vp.vComp??
+    } ;
+
+  embComp : Str -> VPH -> VPH = \str,vp -> vp ** {
+    embComp = vp.embComp ++ str ;
+    } ;
+
+  insertObj : Str -> VPH -> VPH = \str,vp -> vp ** {
+    obj = vp.obj ++ str
+    } ;
+
+  complSlash : VPHSlash -> NP -> VPH = \vp,np -> vp ** {
+    comp = \\a => appComp vp.c2 (np.s ! Bare) ++ np.compl ++ vp.comp ! a
   } ;
-
-  insertObj2 : (Str) -> VPH -> VPH = \obj1,vp -> vp ** {
-    embComp = vp.embComp ++ obj1;
-  } ;
-
-  insertObj3 : (Str) -> VPH -> VPH = \obj1,vp -> vp ** {
-    obj = {s = obj1 ++ vp.obj.s ; a = vp.obj.a };
-  } ;
-
-
-  insertObjc2 : Str -> VPHSlash -> VPHSlash = \obj,vp ->
-    insertObj2 obj vp ** {c2 = vp.c2} ;
-  insertObjc3 : Str -> VPHSlash -> VPHSlash = \obj,vp ->
-    insertObj3 obj vp ** {c2 = vp.c2} ;
-{-
-	infVP : Bool -> VPH -> Agr -> Str = \isAux,vp,a ->
-     vp.obj.s ++ vp.inf ++ vp.comp ! a ;
- -}
 
 ---- AR 14/9/2017 trying to fix isAux = True case by inserting conjThat
 ---- but don't know yet how False should be affect
-    infVV : Bool -> VPH -> {s : Agr => Str} = \isAux,vp -> {
-      s = \\agr => case isAux of {
-	      True  => conjThat ++ vp.ad ++ vp.comp ! agr ++ vp.s ! VVForm agr ;
-	      False => vp.ad ++ vp.comp ! agr ++ vp.s ! VVForm agr }
-      } ;
+  infVV : Bool -> VPH -> (Agr => Str) = \isAux,vp ->
+    \\agr => if_then_Str isAux conjThat [] ++ showVPH (VVForm agr) agr vp ;
 
-    insertObjPre : (Agr => Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
-    -- comp = \\a => case vp.c2.s of {"را" =>   obj ! a  ++ vp.c2.s ++ vp.comp ! a ; _ => vp.c2.s ++ obj ! a ++ vp.comp ! a}  -- gives linking error
-      comp = \\a =>  vp.c2.s ++ obj ! a  ++ vp.c2.ra ++ vp.comp ! a
-    } ;
+  insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
+    ad = vp.ad ++ ad ;
+  } ;
 
-    insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
-     ad = vp.ad ++ ad ;
-    } ;
+  conjThat : Str = "که" ;
 
-	conjThat : Str = "که" ;
- {-   checkPron : NP -> Str -> Str = \np,str ->  case (np.isPron) of {
-                                True => np.s !  Obl;
-                                False => np.s !  Obl ++ str} ;
-
-    insertEmbCompl : VPH -> Str -> VPH = \vp,emb -> vp ** {
-     embComp = vp.embComp ++ emb;
-    } ;
-
-    insertTrans : VPH -> VType -> VPH = \vp,vtype -> vp ** {
-     subj = case vtype of {VIntrans => VTransPost ; VTrans => VTrans ; _ => vtype} ; -- still some problem not working properly
-    } ;
--}
 ---------------------------
 --- Clauses
 ---------------------------
@@ -250,7 +232,7 @@ oper
     subj = np.s !  Bare ;
     vp = \\vt,b,ord =>
       let vps = clTable vp ! np.a ! vt ! b
-       in vp.ad ++ vp.comp ! np.a ++ vp.obj.s ++ vps ++ vp.vComp ! np.a ++ vp.embComp
+       in vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps ++ vp.vComp ! np.a ++ vp.embComp
   };
 
 --Clause : Type = {s : VPHTense => Polarity => Order => Str} ;
@@ -258,8 +240,18 @@ oper
     s = \\vt,b,ord =>
       let vps = clTable vp ! agr ! vt ! b ;
           quest = case ord of { ODir => [] ; OQuest => "آیا" }
-       in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj.s ++ vps ++ vp.vComp ! agr ++ vp.embComp
+       in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vps ++ vp.vComp ! agr ++ vp.embComp
   };
+
+  ta2vt : Tense -> Anteriority -> VPHTense = \t,a -> case <t,a> of {
+    <Pres,Simul> => VPres ;
+    <Pres,Anter> => VPerfPres ;
+    <Past,Simul> => VPast  ;
+    <Past,Anter> => VPerfPast ;
+    <Fut,Simul>  => VFut ;
+    <Fut,Anter>  => VPerfFut ;
+    <Cond,Simul> => VCondSimul ;
+    <Cond,Anter> => VCondSimul } ;
 
   predAux : Aux -> VPH = \verb -> {
     s = \\vh => case vh of {
@@ -274,12 +266,11 @@ oper
 	     VVForm  agr => []; -- to be checked => verb.s ! Vvform agr ;
 	     VPStem1 => [];
 	     VPStem2 => "بود" ;
+       VPInf => "بودن";
 	     VPImp _ _ => [] -- need to be confirmed
---	     _ => []
 		 };
-	    obj = {s = [] ; a = defaultAgr} ;
+	    obj = [] ;
 		  subj = VIntrans ;
-		  inf = "بودن";
 		  ad = [];
       embComp = [];
 	    wish = False ;
@@ -360,16 +351,8 @@ taryn = "ترین" ;
 -----------------------------
 -- Noun Phrase
 -----------------------------
-{-toNP : Str -> Str = \pn,  -> case  of {
-       c => pn !  c ;
-      NPObj => pn !  Dir ;
-      NPErg => pn !  Obl
-      } ;
--}
 
  partNP : Str -> Str = \str -> (Prelude.glue str "ه") ++ "شده" ;
--- partNP : Str -> Str = \str ->  str + "ه" ++ "شده" ;
-
 
 -----------------------------------
 -- Reflexive Pronouns
@@ -392,6 +375,5 @@ taryn = "ترین" ;
     <Inanimate,Sg> => "آن" ;
     <Inanimate,Pl> => zwnj "آن" "ها"
    };
-
 
 }

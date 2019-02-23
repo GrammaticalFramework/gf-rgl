@@ -17,7 +17,7 @@ concrete IdiomPes of Idiom = CatPes ** open Prelude,Predef, ResPes in {
         
     ExistNP np = 
       mkSClause " " (agrPesP3 (fromAgr np.a).n) 
-        (insertObj (\\_ => np.s ! Bare) (predAux auxBe)) ;
+        (insertComp (\\_ => np.s ! Bare) (predAux auxBe)) ;
 
     ExistIP ip = 
      let cl = mkSClause ( ip.s ) (agrPesP3 ip.n) (predAux auxBe); 
@@ -28,7 +28,7 @@ concrete IdiomPes of Idiom = CatPes ** open Prelude,Predef, ResPes in {
 		  }
 		};
 
---    ProgrVP vp = insertObj (\\a => vp.obj.s ++ vp.ad ++ vp.comp ! a ++ (vp.s ! VPStem).inf ++ raha (fromAgr a).g (fromAgr a).n ) (predAux auxBe) ;
+--    ProgrVP vp = insertComp (\\a => vp.obj.s ++ vp.ad ++ vp.comp ! a ++ (vp.s ! VPStem).inf ++ raha (fromAgr a).g (fromAgr a).n ) (predAux auxBe) ;
     ProgrVP vp =  (predProg vp) ;
 
 

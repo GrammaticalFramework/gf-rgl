@@ -39,7 +39,7 @@ concrete ConjunctionPes of Conjunction =
   lincat
     [S] = {s1,s2 : Str} ;
     [Adv] = {s1,s2 : Str} ;
-    [NP] = {s1,s2 : Mod => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
+    [NP] = {s1,s2 : Mod => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool; compl:Str} ;
     [AP] = {s1,s2 :  Mod => Str ; adv : Str} ;
     [RS] = {s1,s2 : Agr => Str };
 

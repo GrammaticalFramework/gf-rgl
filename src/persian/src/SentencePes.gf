@@ -32,7 +32,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     SlashVS np vs slash = 
       mkClause  np 
-        (insertObj2 (conjThat ++ slash.s) (predV vs))  **
+        (embComp (conjThat ++ slash.s) (predV vs))  **
         {c2 = slash.c2} ;
 
     EmbedS  s  = {s = conjThat ++ s.s} ;

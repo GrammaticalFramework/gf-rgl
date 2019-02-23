@@ -3,18 +3,20 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = cn ** {s = \\mod =>
-      case <det.isNum,det.mod> of {
-        <False,Bare> => det.s ++ cn.s ! det.n ! mod  ; -- det is not from Pron, retain NPForm.
-        <False,X>         => cn.s ! det.n ! X  ++ det.s ; -- det is from Pron, cn is in Ezafe.
-        <True,Bare>  => det.s ++ cn.s ! Sg ! mod  ; -- noun modified by a number is invariably singular
-        <True,X>          => cn.s ! Sg ! X ++ det.s
-      } ;
+    DetCN det cn = cn ** {
+      s = \\m =>
+        let num : Number = case det.isNum of {
+              True  => Sg ; -- noun modified by a number is invariably singular
+              False => det.n } ;
+         in case det.mod of {
+              Bare => det.s ++ cn.s ! num ! m ; -- det doesn't require a special form, keep the Mod=>Str table
+              x    => cn.s ! num ! x ++ det.s } ; -- det requires a special form
       a = agrP3 det.n ;
+      compl = cn.compl ! det.n
       } ;
 
-    UsePN pn = pn ** {s = \\_ => pn.s ; a = agrP3 Sg ; hasAdj = False} ;
-    UsePron p = p ** {s = \\_ => p.s ; animacy = Animate ; hasAdj = False} ;
+    UsePN pn = emptyNP ** pn ** {s = \\_ => pn.s} ;
+    UsePron p = emptyNP ** p ** {s = \\_ => p.s ; animacy = Animate} ;
 
     PredetNP pred np = np ** {
       s = \\ez => pred.s ++ np.s ! ez
@@ -29,7 +31,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     AdvNP np adv = np ** {
-      s = \\ez => np.s !  Ezafe ++ adv.s
+      s = \\ez => np.s ! Ezafe ++ adv.s
       } ;
 
     DetQuantOrd quant num ord = {
@@ -50,7 +52,8 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       s = \\_ => det.s  ; ---- case
       a = agrP3 det.n ;
       hasAdj = False ;
-      animacy = Inanimate
+      animacy = Inanimate ;
+      compl = []
       } ;
 
     PossPron p = {s = \\_ => BIND ++ p.ps ; a = p.a ; mod = Poss} ;
@@ -71,50 +74,55 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     OrdSuperl a = {s = a.s ! Bare ++ taryn; n = Sg ; isNum=False} ; -- check the form of adjective
 
     DefArt = {s = \\_ => [] ; a = defaultAgr ; mod = Bare} ;
-    IndefArt = {s = table { Sg => IndefArticle ; Pl => []} ; a =defaultAgr ; mod = Bare} ;
+    IndefArt = {s = table {Sg => IndefArticle ; Pl => []} ; a = defaultAgr ; mod = Bare} ;
 
     MassNP cn = cn ** {
       s = cn.s ! Sg ;
-      a = agrP3 Sg
+      a = agrP3 Sg ;
+      compl = cn.compl ! Sg
       } ;
 
-    UseN n = n ** {hasAdj=False};
-    UseN2 n = n ** {hasAdj=False};
+    UseN,
+    UseN2 = useN ;
 
-    Use2N3 f = f ** {
-      c = f.c2;
-      definitness = True
+    Use2N3 n3 = useN n3 ** {
+      c = n3.c2 ;
+      compl = []
       } ;
 
-   Use3N3 f = f ** {
-      c = f.c3;
-      definitness = True
+    Use3N3 n3 = useN n3 ** {
+      c = n3.c3 ;
+      compl = []
       } ;
 
     ComplN2 n2 np = n2 ** {
-      s = \\n,m => n2.s ! n ! Ezafe ++ n2.c ++ np.s ! m ;
+      s = \\n,m => n2.s ! n ! Ezafe ;
+      compl = \\_ => n2.compl ++ n2.c ++ np.s ! Bare ;
       hasAdj = False
      };
 
-    ComplN3 f x = f ** {
-      s = \\n,ez => f.s ! n ! Ezafe  ++ f.c2 ++ x.s !  ez ;
-      c = f.c3;
-      definitness = True;
+    ComplN3 n3 np = n3 ** {
+      s = \\n,m => n3.s ! n ! Ezafe ;
+      compl = n3.c2 ++ np.s ! Bare ;
+      c = n3.c3;
       } ;
 
     AdjCN ap cn = cn ** {
-      s = \\n,ez => cn.s ! n ! Ezafe ++ ap.s ! ez ; -- check the form of adjective and also cn.s!ez!n changed from cn.s!Ezafe!n to have correct enclicitic form other wise it creats wrong enclictic form of old man
+      s = \\n,ez => cn.s ! n ! Ezafe ++ ap.s ! ez ;
       hasAdj = True
      } ;
 
     RelCN cn rs = cn ** {
-      s = \\n,ez => cn.s ! n ! Clitic ++ rs.s ! agrP3 n ;
+      s = \\n,ez => cn.s ! n ! Clitic ;
+      compl = \\n => rs.s ! agrP3 n ;
       } ;
 
     AdvCN cn ad = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ ad.s} ;
 
-    SentCN cn sc = cn ** {s = \\n,m => cn.s ! n ! m ++ sc.s} ;
+    SentCN cn sc = cn ** {compl = \\n => sc.s} ;
 
-    ApposCN cn np = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ np.s ! m ; definitness = True} ;
+    -- correct for /city Paris/, incorrect for /king John/
+    -- ApposNP in ExtendPes works for /king John/ (no ezafe).
+    ApposCN cn np = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ np.s ! m} ;
 
 }

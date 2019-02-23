@@ -17,16 +17,15 @@ lin
 
   ExistNP np =
     mkSClause " " (agrP3 (fromAgr np.a).n)
-        (insertObj (\\_ => np.s ! Bare) (predAux auxBe)) ;
+        (insertComp (\\_ => np.s ! Bare) (predAux auxBe)) ;
 
   ExistIP ip =
     let cl = mkSClause ( ip.s ) (agrP3 ip.n) (predAux auxBe);
-	  in {
-       s = \\t,p,qf => case qf of {
-	      QDir =>   cl.s ! t ! p ! ODir;
+    in {s = \\t,p,qf => case qf of {
+          QDir =>   cl.s ! t ! p ! ODir;
           QIndir => cl.s ! t! p ! ODir
-		  }
-		};
+          }
+       };
 
 
   ProgrVP vp = predProg vp ;
