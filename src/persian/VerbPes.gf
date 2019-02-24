@@ -32,7 +32,7 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
        in complSlash vvVPS np ** {c2 = vps.c2} ;
 
 
-    UseComp comp = insertComp comp.s (predAux auxBe) ;
+    UseComp comp = insertComp comp.s (predV beVerb) ;
 
     AdvVP vp adv = insertAdV adv.s vp ;
 

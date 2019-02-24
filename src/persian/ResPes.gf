@@ -59,7 +59,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 oper
 
   VPH : Type = {
-      s     : VPHForm => Str ;
+      s     : VerbForm => Str ;
       comp  : Agr => Str; -- complements of a verb, agr for e.g. CompCN "I am human/we are humans"
       vComp : Agr => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
       obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
@@ -69,7 +69,7 @@ oper
       wish : Bool ; -- whether a VV has been added
       } ;
 
-  showVPH : VPHForm -> Agr -> VPH -> Str = \vf,agr,vp ->
+  showVPH : VerbForm -> Agr -> VPH -> Str = \vf,agr,vp ->
     vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.s ! vf ++ vp.vComp ! agr ++ vp.embComp ;
 
   Compl : Type = {s : Str ; ra : Str} ;
@@ -78,63 +78,24 @@ oper
 
  param
 
-    VPHForm =
-       VPTense Polarity VPPTense Agr -- 9 * 12
---     | VPReq
-       | VPImp Polarity Number
---     | VPReqFut
-     | VVForm Agr
-     | VPStem1
-     | VPStem2
-     | VPInf
-     ;
-
     VPHTense =
-       VPres  -- impf hum       nahim    "I گْ"
-     | VPast  -- impf Ta        nahim    "I weنت"
-     | VFut      -- fut            na/nahim "I سهلل گْ"
-     | VPerfPres -- perf hum       na/nahim "I هوe گْنe"
-     | VPerfPast -- perf Ta        na/nahim "I هد گْنe"
-     | VPerfFut
-     | VCondSimul
-     | VCondAnter -- subj           na       "I می گْ"
+     TA Tense Anteriority
      | VVVForm -- AR 21/3/2018 for mustCl after Nasrin
      | VRoot1  -- AR 22/3/2018 for mustCl past after Nasrin
     ;
 
     VType = VIntrans | VTrans | VTransPost ;
 
- VPPTense =
-	  VPPres Anteriority
-	  |VPPast Anteriority
-	  |VPFutr Anteriority
-	  |VPCond Anteriority ;
 oper
 
-  predV : Verb -> VPH = \verb -> {
-    s = \\vh =>
-     case vh of {
-       VPTense pol (VPPres Simul) agr => verb.s ! VF pol (PPresent2 PrImperf) agr ;
-       VPTense pol (VPPres Anter) agr => verb.s ! VF pol (PPresent2 PrPerf) agr ;
-       VPTense pol (VPPast Simul) agr => verb.s ! VF pol (PPast2 PstAorist) agr ;
-       VPTense pol (VPPast Anter) agr => verb.s ! VF pol (PPast2 PstPerf) agr ;
-       VPTense pol (VPFutr Simul) agr => verb.s ! VF pol (PFut2 FtAorist) agr ;
-       VPTense pol (VPFutr Anter) agr => verb.s ! VF pol (PPresent2 PrPerf) agr ; -- this is to be confirmed
-       VPTense pol (VPCond Simul) agr => verb.s ! VF pol (PPast2 PstImperf) agr ;
-       VPTense pol (VPCond Anter) agr => verb.s ! VF pol (PPast2 PstImperf) agr ;
-       VVForm agr => verb.s ! Vvform agr ;
-       VPStem1 => verb.s ! Root1 ;
-       VPStem2 => verb.s ! Root2 ;
-       VPInf => verb.s ! Inf;
-       VPImp pol n =>verb.s ! Imp pol n };
+  predV : Verb -> VPH = \verb -> verb ** {
     subj = VIntrans ;
     ad,
     obj,
     embComp = [];
     wish = False ;
     comp,
-    vComp = \\_ => [] ;
-    } ;
+    vComp = \\_ => [] } ;
 
    predVc : (Verb ** {c2,c1 : Str}) -> VPHSlash = \verb ->
     predV verb ** {c2 = {s = verb.c1 ; ra = []} } ;
@@ -175,7 +136,7 @@ oper
 ---- AR 14/9/2017 trying to fix isAux = True case by inserting conjThat
 ---- but don't know yet how False should be affect
   infVV : Bool -> VPH -> (Agr => Str) = \isAux,vp ->
-    \\agr => if_then_Str isAux conjThat [] ++ showVPH (VVForm agr) agr vp ;
+    \\agr => if_then_Str isAux conjThat [] ++ showVPH (Vvform agr) agr vp ;
 
   insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
     ad = vp.ad ++ ad ;
@@ -192,34 +153,23 @@ oper
 ---- AR 18/9/2017 intermediate SClause to preserve SOV in e.g. QuestionPes.QuestSlash
 
   clTable : VPH -> (Agr => VPHTense => Polarity => Str) = \vp ->
-    \\agr,vt,b => case <b,vt> of {
-      <Pos,VPres>     => vp.s ! VPTense Pos (VPPres Simul) agr ;
-      <Neg,VPres>     => vp.s ! VPTense Neg (VPPres Simul) agr ;
-      <Pos,VPerfPres> => vp.s ! VPTense Pos (VPPres Anter) agr ;
-      <Neg,VPerfPres> => vp.s ! VPTense Neg (VPPres Anter) agr ;
-      <Pos,VPast>     => vp.s !  VPTense Pos (VPPast Simul) agr ;
-      <Neg,VPast>     => vp.s !  VPTense Neg (VPPast Simul) agr ;
-      <Pos,VPerfPast> => vp.s !  VPTense Pos (VPPast Anter) agr ;
-      <Pos,VFut>      => case vp.wish of {
-                           True  => vp.s ! VPTense Pos (VPPres Simul) agr ;
-                           False => vp.s ! VPTense Pos (VPFutr Simul) agr };
-      <Pos,VPerfFut>  => case vp.wish of {
-                           True  => vp.s ! VPTense Pos (VPPres Anter) agr ;
-                           False => vp.s ! VPTense Pos (VPFutr Anter) agr };  -- verb form need to be confirmed
-      <Neg,VPerfPast> => vp.s ! VPTense Neg (VPPast Anter) agr ;
-      <Neg,VFut>      => case vp.wish of {
-                           True  => vp.s ! VPTense Neg (VPPres Simul) agr ;
-                           False => vp.s ! VPTense Neg (VPFutr Simul) agr };
-      <Neg,VPerfFut>  => case vp.wish of {
-                           True => vp.s ! VPTense Neg (VPPres Anter) agr ;
-                           False => vp.s ! VPTense Neg (VPFutr Anter) agr };  -- verb form need to be confirmed
-      <Pos,VCondSimul> => vp.s ! VPTense Pos (VPCond Simul) agr ;
-      <Pos,VCondAnter> => vp.s ! VPTense Pos (VPCond Anter) agr; -- verb form to be confirmed
-      <Neg,VCondSimul> => vp.s ! VPTense Neg (VPCond Simul) agr ;
-      <Neg,VCondAnter> => vp.s ! VPTense Neg (VPCond Anter) agr ; -- verb form to be confirmed
-      <_,  VVVForm>    => vp.s ! VVForm agr ; -- AR 21/3/2018
-      <_,  VRoot1>     => vp.s ! VPStem1 {- ++ Predef.Bind ++ "ه" -}             -- AR 22/3/2018
-      };
+    \\agr,vt,pol => case vt of {
+      TA Pres Simul => vp.s ! VF pol (VFPres PrImperf) agr ;
+      TA Pres Anter => vp.s ! VF pol (VFPres PrPerf) agr ;
+      TA Past Simul => vp.s ! VF pol (VFPast PstAorist) agr ;
+      TA Past Anter => vp.s ! VF pol (VFPast PstPerf) agr ;
+      TA Fut  Simul => case vp.wish of {
+                         True  => vp.s ! VF pol (VFPres PrImperf) agr ;
+                         False => vp.s ! VF pol (VFFut FtAorist) agr } ;
+      TA Fut  Anter => case vp.wish of {
+                         _True  => vp.s ! VF pol (VFPres PrPerf) agr } ;
+                         --False => vp.s ! VF pol (VFFut FtAorist) agr } ; -- verb form need to be confirmed
+      TA Cond Simul => vp.s ! VF pol (VFPast PstImperf) agr ;
+      TA Cond Anter => vp.s ! VF pol (VFPast PstImperf) agr ; -- verb form to be confirmed
+      VVVForm    => vp.s ! Vvform agr ; -- AR 21/3/2018
+      VRoot1     => vp.s ! Root1 {- ++ Predef.Bind ++ "ه" -}             -- AR 22/3/2018
+
+      } ;
 
   mkClause : NP -> VPH -> Clause = \np,vp ->
     let cls = mkSlClause np vp
@@ -243,110 +193,19 @@ oper
        in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vps ++ vp.vComp ! agr ++ vp.embComp
   };
 
-  ta2vt : Tense -> Anteriority -> VPHTense = \t,a -> case <t,a> of {
-    <Pres,Simul> => VPres ;
-    <Pres,Anter> => VPerfPres ;
-    <Past,Simul> => VPast  ;
-    <Past,Anter> => VPerfPast ;
-    <Fut,Simul>  => VFut ;
-    <Fut,Anter>  => VPerfFut ;
-    <Cond,Simul> => VCondSimul ;
-    <Cond,Anter> => VCondSimul } ;
-
-  predAux : Aux -> VPH = \verb -> {
-    s = \\vh => case vh of {
-	     VPTense pol (VPPres Simul) agr => verb.inf ! AX pol (AuxPresent PrImperf) agr ;
-	     VPTense pol (VPPres Anter) agr => verb.inf ! AX pol (AuxPresent PrPerf) agr ;
-	     VPTense pol (VPPast Simul) agr => verb.inf ! AX pol (AuxPast PstAorist) agr ;
-	     VPTense pol (VPPast Anter) agr => verb.inf ! AX pol (AuxPresent PrPerf) agr ;
-	     VPTense pol (VPFutr Simul) agr => verb.inf ! AX pol (AuxFut FtAorist) agr ;
-	     VPTense pol (VPFutr Anter) agr => verb.inf ! AX pol (AuxFut FtAorist) agr ; -- this is to be confirmed
-	     VPTense pol (VPCond Simul) agr => verb.inf ! AX pol (AuxFut FtAorist)  agr ;
-	     VPTense pol (VPCond Anter) agr => verb.inf ! AX pol (AuxPast PstImperf)  agr ;
-	     VVForm  agr => []; -- to be checked => verb.s ! Vvform agr ;
-	     VPStem1 => [];
-	     VPStem2 => "بود" ;
-       VPInf => "بودن";
-	     VPImp _ _ => [] -- need to be confirmed
-		 };
-	    obj = [] ;
-		  subj = VIntrans ;
-		  ad = [];
-      embComp = [];
-	    wish = False ;
-      vComp = \\_ => [] ;
-      comp = \\_ => []
-    } ;
-
-  Aux = {
-      inf :  AuxForm => Str ;
-    } ;
-
-  auxBe : Aux = {
-    inf  =  table {
-     AX pol tense ag => mkAux pol tense ag
-    } ;
-    } ;
-
-  -- TODO: find out how much overlap with beVerb in MorphoPes /IL
-  mkAux : Polarity -> AuxTense -> Agr -> Str = \pol,t,ag ->
-    let bodh = "بوده" ;
-        nbodh = "نبوده" ;
-        hast = "هست" ;
-        nhast = "نیست" ;
-        bod  = "بود" ;
-        khah = "خواه" ;
-        nbod  = "نبود" ;
-        nkhah = "نخواه" ;
-        impfSuff : Str -> Str = imperfectSuffix ag ;
-        impfSuffD : Str -> Str = imperfectSuffixD ag ;
-        perfSuff : Str -> Str = perfectSuffix ag
-    in case <pol,t,ag> of {
-      <Pos,AuxPresent PrImperf,Ag Sg P3> => "است" ;
-      <Pos,AuxPresent PrImperf>       => impfSuff hast ;
-      <Pos,AuxPresent PrPerf>         => perfSuff bodh ;
-
-      <Pos,AuxPast PstPerf>   => [] ;
-      <Pos,AuxPast PstImperf> => zwnj "می" (impfSuff bod) ;
-      <Pos,AuxPast PstAorist> =>            impfSuff bod ;
-
-      <Pos,AuxFut FtAorist> => impfSuffD khah ++ bod ;
-
-    -- negatives
-      <Neg,AuxPresent PrImperf> => impfSuff nhast ;
-      <Neg,AuxPresent PrPerf>   => perfSuff nbodh ;
-
-      <Neg,AuxPast PstPerf>   => [] ;
-      <Neg,AuxPast PstImperf> => zwnj "نمی" (impfSuff bod) ;
-      <Neg,AuxPast PstAorist> =>              impfSuff nbod ;
-
-      <Neg,AuxFut FtAorist> => impfSuffD nkhah ++ bod
-    } ;
-
-  param
-   AuxTense = AuxPresent PrAspect | AuxPast PstAspect | AuxFut FtAspect ;
-   AuxForm = AX Polarity AuxTense Agr ;
-
-
- oper
-
   predProg : VPH -> VPH = \verb -> verb ** {
     s = \\vh => case vh of {
-	    VPTense pol (VPPres Simul) agr => toHave Pos (PPresent2 PrImperf) agr ++ verb.s ! VPTense pol (VPPres Simul) agr ;
-      VPTense pol (VPPast Simul) agr => toHave Pos (PPast2 PstAorist) agr ++ verb.s ! VPTense pol (VPCond Simul) agr ;
-      VPTense pol (VPCond Simul) agr => toHave Pos (PPast2 PstAorist) agr ++ verb.s ! VPTense pol (VPCond Simul) agr ;
-      VPTense pol (VPCond Anter) agr => toHave Pos (PPast2 PstAorist) agr ++ verb.s ! VPTense pol (VPCond Anter) agr ;
-       -- VPTense pol (VPFutr Anter) agr => verb.s ! VPTense pol (VPFutr Anter) agr ; -- this is to be confirmed
+	    VF pol (VFPres PrImperf) agr => haveVerb.s ! VF Pos (VFPres PrImperf) agr ++ verb.s ! VF pol (VFPres PrImperf) agr ;
+      VF pol (VFPast PstAorist) agr => haveVerb.s ! VF Pos (VFPast PstAorist) agr ++ verb.s ! VF pol (VFPast PstAorist) agr ;
+      VF pol (VFPast PstImperf) agr => haveVerb.s ! VF Pos (VFPast PstAorist) agr ++ verb.s ! VF pol (VFPast PstImperf) agr ;
 	    _ => verb.s ! vh } ;
     subj = VIntrans
     } ;
 
-
-
-IndefArticle : Str ;
-IndefArticle = "یک";
-taryn : Str ;
-taryn = "ترین" ;
+  IndefArticle : Str ;
+  IndefArticle = "یک";
+  taryn : Str ;
+  taryn = "ترین" ;
 
 -----------------------------
 -- Noun Phrase
