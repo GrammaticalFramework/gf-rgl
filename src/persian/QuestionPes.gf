@@ -32,7 +32,7 @@ concrete QuestionPes of Question = CatPes ** open ResPes, Prelude in {
                       	};
 
     QuestIComp icomp np =
-     let cl = mkSClause (np.s !  Bare ++ icomp.s) np.a (predAux auxBe);
+     let cl = mkSClause (np.s !  Bare ++ icomp.s) np.a (predV beVerb);
 	   in {
        s = \\t,p,qf => case qf of {
 	      QDir =>   cl.s ! t ! p ! ODir;

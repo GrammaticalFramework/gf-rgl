@@ -13,10 +13,9 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
       s = \\pol,n =>
         let agr = Ag (numImp n) P2 ;
          in case vp.wish of {
-              True  => vp.s ! VPImp pol (numImp n) ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ++ vp.embComp;
-              False => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ++ vp.s ! VPImp pol (numImp n) ++ vp.embComp }
+              True  => vp.s ! Imp pol (numImp n) ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ++ vp.embComp;
+              False => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ++ vp.s ! Imp pol (numImp n) ++ vp.embComp }
     } ;
-
 
     SlashVP np vp =
       mkSlClause np vp ** {c2 = vp.c2} ;
@@ -38,22 +37,22 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     EmbedS  s  = {s = conjThat ++ s.s} ;
     EmbedQS qs = {s = qs.s ! QIndir} ;
-    EmbedVP vp = {s = showVPH VPInf defaultAgr vp} ; --- agr
+    EmbedVP vp = {s = showVPH Inf defaultAgr vp} ; --- agr
 
 
-    UseCl temp p cl = let vt = ta2vt temp.t temp.a in {
+    UseCl temp p cl = let vt = TA temp.t temp.a in {
       s = temp.s ++ p.s ++ cl.s ! vt ! p.p ! ODir
       } ;
 
-    UseQCl temp p qcl  = let vt = ta2vt temp.t temp.a in {
+    UseQCl temp p qcl  = let vt = TA temp.t temp.a in {
       s = \\q => temp.s ++ p.s ++ qcl.s ! vt ! p.p ! q;
       } ;
 
-    UseRCl temp p rcl = let vt = ta2vt temp.t temp.a in rcl ** {
+    UseRCl temp p rcl = let vt = TA temp.t temp.a in rcl ** {
       s = \\q => temp.s ++ p.s ++ rcl.s ! vt ! p.p ! ODir ! q
       } ;
 
-    UseSlash temp p cls = let vt = ta2vt temp.t temp.a in cls ** {
+    UseSlash temp p cls = let vt = TA temp.t temp.a in cls ** {
       s = temp.s ++ p.s ++ cls.subj ++ cls.vp ! vt ! p.p ! ODir
       } ;
 

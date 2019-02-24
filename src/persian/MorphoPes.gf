@@ -142,21 +142,21 @@ Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; mod : Mod} ;
 -- Verbs
 ------------------------------------------------------------------
 param
-  VerbForm1 = VF Polarity VTense2 Agr
+  VerbForm = VF Polarity VTense Agr
             | Vvform Agr
             | Imp Polarity Number
             | Inf | Root1 | Root2 ;
-  VTense2   = PPresent2 PrAspect
-            | PPast2 PstAspect
-            | PFut2 FtAspect
-            | Infr_Past2 InfrAspect;
+  VTense   = VFPres PrAspect
+            | VFPast PstAspect
+            | VFFut FtAspect
+            | VFInfrPast InfrAspect;
   PrAspect  = PrPerf | PrImperf ;
   PstAspect = PstPerf | PstImperf | PstAorist ;
   FtAspect  = FtAorist ; -- just keep FtAorist
   InfrAspect = InfrPerf | InfrImperf ;
 
 oper
-  Verb = {s : VerbForm1 => Str} ;
+  Verb = {s : VerbForm => Str} ;
 
   mkVerb : (x1,x2 : Str) -> Verb = \inf,root2 ->
     let root1 = tk 1 inf ;
@@ -180,7 +180,7 @@ oper
   -- Most verbs that end in C+تن or C+دن
   mkVerb2 : (_: Str) -> Verb = \inf -> mkVerb inf (tk 2 inf) ;
 
-  mkCmnVF : Str -> Str -> Polarity -> VTense2 -> Agr -> Str = \root1,root2,pol,t,ag ->
+  mkCmnVF : Str -> Str -> Polarity -> VTense -> Agr -> Str = \root1,root2,pol,t,ag ->
     let khordh = root1 + "ه";
         nkhordh = addN khordh ;
         mekhor = zwnj "می" root2 ;
@@ -199,33 +199,33 @@ oper
         perfSuff : Str -> Str = perfectSuffix ag ;
         pluperfSuff : Str -> Str = pluperfectSuffix ag
      in case <pol,t> of {
-        <Pos,PPresent2 PrImperf> => impfSuffD mekhor ;
-        <Pos,PPresent2 PrPerf>   => perfSuff khordh ;
+        <Pos,VFPres PrImperf> => impfSuffD mekhor ;
+        <Pos,VFPres PrPerf>   => perfSuff khordh ;
 
-        <Pos,PPast2 PstPerf>   => pluperfSuff khordh ;
-        <Pos,PPast2 PstImperf> => impfSuff mekhord ;
-        <Pos,PPast2 PstAorist> => impfSuff root1 ;
+        <Pos,VFPast PstPerf>   => pluperfSuff khordh ;
+        <Pos,VFPast PstImperf> => impfSuff mekhord ;
+        <Pos,VFPast PstAorist> => impfSuff root1 ;
 
-        <Pos,PFut2 FtAorist> => impfSuffD khah ++ root1;
+        <Pos,VFFut FtAorist> => impfSuffD khah ++ root1;
 
-        <Pos,Infr_Past2 InfrPerf>   => khordh ++ perfSuff bvdh ;
-        <Pos,Infr_Past2 InfrImperf> => perfSuff khordh ;
+        <Pos,VFInfrPast InfrPerf>   => khordh ++ perfSuff bvdh ;
+        <Pos,VFInfrPast InfrImperf> => perfSuff khordh ;
 
      -- negatives
-        <Meg,PPresent2 PrImperf> => impfSuffD nmekhor ;
-        <Neg,PPresent2 PrPerf> => perfSuff nkhordh ;
+        <Neg,VFPres PrImperf> => impfSuffD nmekhor ;
+        <Neg,VFPres PrPerf> => perfSuff nkhordh ;
 
-        <Neg,PPast2 PstPerf> => pluperfSuff nkhordh ;
-        <Neg,PPast2 PstImperf> => impfSuff nmekhord ;
-        <Neg,PPast2 PstAorist> => impfSuff (addN root1) ;
+        <Neg,VFPast PstPerf> => pluperfSuff nkhordh ;
+        <Neg,VFPast PstImperf> => impfSuff nmekhord ;
+        <Neg,VFPast PstAorist> => impfSuff (addN root1) ;
 
-        <Neg,PFut2 FtAorist> => impfSuffD nkhah ++ root1 ;
+        <Neg,VFFut FtAorist> => impfSuffD nkhah ++ root1 ;
 
-        <Neg,Infr_Past2 InfrPerf>   => nkhordh ++ perfSuff bvdh ;
-        <Neg,Infr_Past2 InfrImperf> => perfSuff nmekhordh
+        <Neg,VFInfrPast InfrPerf>   => nkhordh ++ perfSuff bvdh ;
+        <Neg,VFInfrPast InfrImperf> => perfSuff nmekhordh
 
-        -- <Pos,PFut2 FtImperf> => perfSuffD mekhah ++ addBh (perfSuffD root2) ;
-        -- <Neg,PFut2 FtImperf> => perfSuffD nmekhah ++ addBh (perfSuffD root2) ;
+        -- <Pos,VFFut FtImperf> => perfSuffD mekhah ++ addBh (perfSuffD root2) ;
+        -- <Neg,VFFut FtImperf> => perfSuffD nmekhah ++ addBh (perfSuffD root2) ;
       } ;
 
   mkvVform : Str -> Agr -> Str = \root2,ag ->
@@ -315,19 +315,13 @@ oper
     Imp Neg Sg => "ندار" ;
     Imp Neg Pl => "ندارید" ;
     Vvform agr => mkvVform "دار" agr ;
-    VF pol tense agr => toHave pol tense agr
+    VF pol tense agr => case <pol,tense> of {
+         <Pos,VFPres PrImperf> => imperfectSuffixD agr "دار"  ;
+         <Neg,VFPres PrImperf> => imperfectSuffixD agr (addN "دار") ;
+         _ =>  mkCmnVF "داشت" "دار" pol tense agr
+         }
     }
   } ;
-
-  toHave : Polarity -> VTense2 -> Agr -> Str = \pol,t,ag ->
-    let dar =  "دار" ;
-        ndar = addN dar ;
-        dasht = "داشت"
-     in case <pol,t> of {
-          <Pos,PPresent2 PrImperf> => imperfectSuffixD ag dar ;
-          <Neg,PPresent2 PrImperf> => imperfectSuffixD ag ndar ;
-          _ => mkCmnVF dasht dar pol t ag
-        } ;
 
   -- TODO: merge with auxBe in ResPes
   beVerb : Verb = { s = table {
@@ -343,13 +337,15 @@ oper
       let impfSuff = imperfectSuffix agr ;
           perfSuff = perfectSuffix agr
       in case <pol,tense,agr> of {
-       <Pos,PPresent2 PrImperf,Ag Sg P3> => "است" ;
-       <Pos,PPresent2 PrImperf>          => impfSuff "هست" ;
-       <Pos,PPresent2 PrPerf>            => perfSuff "بوده" ;
-       <Neg,PPresent2 PrImperf,Ag Sg P3> => "نیست" ;
-       <Neg,PPresent2 PrImperf>          => impfSuff "نیست" ;
-       <Neg,PPresent2 PrPerf>            => perfSuff "نبوده" ;
-       _                                 => mkCmnVF "بود" "باش" pol tense agr
+       <Pos,VFPres PrImperf,Ag Sg P3> => "است" ;
+       <Neg,VFPres PrImperf,Ag Sg P3> => "نیست" ;
+       <Pos,VFPres PrImperf>          => impfSuff "هست" ;
+       <Neg,VFPres PrImperf>          => impfSuff "نیست" ;
+       <Pos,VFPres PrPerf>            => perfSuff "بوده" ;
+       <Neg,VFPres PrPerf>            => perfSuff "نبوده" ;
+       <Pos,VFPast PstImperf>         => impfSuff "بود" ;
+       <Neg,VFPast PstImperf>         => impfSuff "نبود" ;
+       _                              => mkCmnVF "بود" "باش" pol tense agr
        }
     }
   } ;
