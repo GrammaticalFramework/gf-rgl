@@ -21,6 +21,11 @@ oper
   ZWNJ : Str = "‌" ;
   zwnj : Str -> Str -> Str = \s1,s2 -> s1 + ZWNJ + s2 ;
 
+  -- kasre : Str = "ِ" ; -- To enable vowels for TTS input
+  -- fatha : Str = "َ" ;
+  kasre,fatha : Str = [] ;
+
+
 ---- Nouns
 param
   Animacy = Animate | Inanimate ;
@@ -55,21 +60,17 @@ oper
 oper
 
 
-mkPossStem : Str -> Str = \str ->
-
-  case str of {
-_+ "اه" => str ;
-_+ "او" => str ;
-_+ "وه" => str ;
-_+ ("ا"|"و") => str + "ی" ;
-_+ "ه" => zwnj str "ا" ;
-_ => str } ;
+  mkPossStem : Str -> Str = \str ->
+    case str of {
+      _ + ("اه"|"او"|"وه")
+                    => str + fatha ;
+      _ + ("ا"|"و") => str + fatha + "ی" ;
+      _ + "ه"       => zwnj str "ا" ;
+      _             => str + fatha } ;
 
 
 
   mkEzafe : Str -> Str = \str ->
-  --let kasre = "ِ" in -- TODO: Eventually use this
-    let kasre = "" in
     case str of {
       st + "اه" => str + kasre ;
       st + "وه" => str + kasre ;
