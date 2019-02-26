@@ -24,6 +24,10 @@ oper
   singular : Number ; -- e.g. mkConj "یا" singular
   plural : Number ; -- e.g. mkConj "و" plural
 
+  VVForm : Type ; -- Argument to mkVV
+  subjunctive : VVForm ; -- The verbal complement of VV is in subjunctive
+  indicative : VVForm ;  -- The verbal complement of VV is in indicative
+
 --2 Nouns
 
   mkN : overload {
@@ -88,6 +92,15 @@ oper
       = \s1, s2 -> lin V (mkVerb s1 s2)
   } ;
 
+  compoundV : overload {
+    compoundV : Str -> V -> V -- Invariable prefix to a verb, e.g. compoundV "دوست" haveVerb
+  } ;
+
+  invarV : Str -> V  -- no inflection at all
+    = \s -> lin V (M.invarV s);
+  defV : (inf,pres,past : Str) -> V -- no personal forms, but past/present difference, like بایستن ('must'),
+    = \i,pr,pa -> lin V (M.defectiveVerb i pr pa) ;
+
   haveVerb : V  -- The verb "have", to be used for light verb constructions: e.g. compoundV "دوست" haveVerb. NB. this has different imperative and VV forms from StructuralPes.have_V2.
     = lin V M.haveVerb ;
   beVerb : V  -- The verb "be", to be used for light verb constructions: e.g. compoundV "عاشق" beVerb.
@@ -99,20 +112,22 @@ oper
     mkV2 : (listen : V) -> (to : Prep) -> V2 -- V2 out of V. Use given preposition, no را for direct object.
   } ;
 
-
   mkV3 : V -> (dir,indir : Str) -> V3 ; -- Takes a verb and two prepositions as strings (can be empty). If the verb takes را for direct object, it's the first Str argument. e.g. talk, با, دربارۀ
     mkV3 v p q = lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
 
-  mkV2V : V -> (cV, cN : Str) -> (isAux : Bool) -> V2V ; -- Verb, complementiser for the verb, complementiser for the noun, whether it's auxiliary.
-    mkV2V v s1 s2 b = lin V2V (v ** {isAux = b ; c1 = s1 ; c2 = s2}) ;
-
--- compund verbs
-  compoundV : overload {
-    compoundV : Str -> V -> V -- Invariable prefix to a verb, e.g. compoundV "دوست" haveVerb
+  mkVV = overload {
+    mkVV : V -> VV -- takes its VP complement in subjunctive. Is auxiliary.
+     = \v -> v ** {isAux = True ; compl = subjunctive ; isDef = False} ;
+    mkVV : VVForm -> V -> VV -- takes its VP complement in the given VVForm
+     = \vvf,v -> v ** {isAux = True ; compl = vvf ; isDef = False} ;
+    mkVV : (isAux : Bool) -> VVForm -> V -> VV -- takes its VP complement in the given VVForm. Whether it's auxiliary (T/F) given as the first argument.
+     = \isAux,vvf,v -> v ** {isAux = isAux ; compl = vvf ; isDef = False}
   } ;
 
-  invarV : Str -> V -- for verbs like  بایستن ('must'), which don't inflect
-    = \s -> lin V {s = \\_ => s} ;
+  mkV2V : V -> (cV, cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the verb, complementiser for the noun, whether it's auxiliary.
+   = \v,s1,s2,b -> let vv : VV = mkVV b subjunctive v in
+    lin V2V (vv ** {c1 = s1 ; c2 = s2}) ;
+
 
 ----2 Adverbs
   mkAdv : Str -> Adv -- Takes a string, returns an adverb.
@@ -161,6 +176,10 @@ oper
 
   animate = human ;
   inanimate = nonhuman ;
+
+  VVForm = ResPes.VVForm ;
+  subjunctive = ResPes.Subj ;
+  indicative = Indic ;
 
 -- Removed mkV_1, mkV_2, mkN01 and mkN02 from public API, still available for
 -- any applications that open ParadigmsPes. /IL 2019-02-08
@@ -240,9 +259,9 @@ oper
 
   compoundV = overload {
     compoundV : Str -> V -> V
-      = \s,v -> v ** {s = \\vf => s ++ v.s ! vf} ;
+      = \s,v -> v ** {prefix = s} ;
     compoundV : Str -> V2 -> V -- hidden from public API
-      = \s,v -> lin V {s = \\vf => s ++ v.s ! vf} ;
+      = \s,v -> lin V (v ** {prefix = s}) ;
   };
 
   regV : Str -> V = \inf ->

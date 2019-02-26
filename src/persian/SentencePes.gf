@@ -12,9 +12,9 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
     ImpVP vp = {
       s = \\pol,n =>
         let agr = Ag (numImp n) P2 ;
-         in case vp.wish of {
-              True  => vp.s ! Imp pol (numImp n) ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ++ vp.embComp;
-              False => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ++ vp.s ! Imp pol (numImp n) ++ vp.embComp }
+         in case vp.defVV of {
+              True  => vp.s ! VImp pol (numImp n) ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! Simul ++ vp.embComp;
+              False => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! Simul ++ vp.s ! VImp pol (numImp n) ++ vp.embComp }
     } ;
 
     SlashVP np vp =
@@ -59,6 +59,6 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
     AdvS a s = {s = a.s ++ s.s} ;
 
     RelS s r = {s = s.s ++ r.s ! agrP3 Sg} ;
-    SSubjS s sj s = { s = s.s ++ sj.s ++ s.s};
+    SSubjS s1 sj s2 = { s = s1.s ++ sj.s ++ s2.s};
 
 }

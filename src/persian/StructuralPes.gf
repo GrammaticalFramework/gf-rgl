@@ -21,7 +21,7 @@ concrete StructuralPes of Structural = CatPes **
   by8agent_Prep = ss "توسط" ;
   by8means_Prep = ss "با" ;
 --  can8know_VV,can_VV = mkV "سکن" ** { isAux = True} ;
-  can_VV = mkV_1 " توانستن " ** { isAux = True} ; ---- AR
+  can_VV = mkVV (mkV_1 "توانستن") ; ---- AR
   during_Prep = ss ["در طول"] ;
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
 --  everybody_NP =  MassNP (UseN (MorphoPnb.mkN11 ["هر کwی"])); -- not a good way coz need to include NounPnb
@@ -49,29 +49,16 @@ concrete StructuralPes of Structural = CatPes **
   more_CAdv = {s = "بیشتر" ; p = "" } ;
   most_Predet = ss "اکثر";
   much_Det = mkDet ["مقدار زیادی"]  Pl ;
-  must_VV = invarV " بایستن " ** {isAux = True} ;  ---- AR
---  must_VV = {
---    s = table {
---      VVF VInf => ["هوe تْ"] ;
---      VVF VPres => "مست" ;
---      VVF VPPart => ["هد تْ"] ;
---      VVF VPresPart => ["هونگ تْ"] ;
---      VVF VPast => ["هد تْ"] ;      --# notpresent
---      VVPastNeg => ["هدn'ت تْ"] ;      --# notpresent
---      VVPresNeg => "مستn'ت"
---      } ;
---    isAux = True
---    } ;
------b  no_Phr = ss "نْ" ;
-
-
+  must_VV =
+    let must_V : V = defV "بایستن" "باید" "بایست" ;
+     in mkVV must_V ;
+   -- TODO:  ** {isDef=True} ; past tense forms with مجبور+beVerb
   no_Utt = ss "نه" ;
   on_Prep = ss "روی" ;
---  one_Quant = demoPN "یک"  ; -- DEPRECATED
   only_Predet = ss "فقط" ;
   or_Conj = sd2 [] "یا" ** {n = Sg} ;
   otherwise_PConj = ss ["درغیراین صورت"] ;
-  part_Prep = ss "از" ; -- the object following it should be in Ezafa form
+  part_Prep = ss "از" ; -- TODO: the object following it should be in Ezafa form
   please_Voc = ss "لطفاً" ;
   possess_Prep = ss "" ; -- will be handeled in Ezafeh
   quite_Adv = ss "کاملاً" ;
@@ -95,7 +82,7 @@ concrete StructuralPes of Structural = CatPes **
   to_Prep = ss "به" ** {lock_Prep = <>};
   under_Prep = ss "زیر" ** {lock_Prep = <>};
   very_AdA = ss "خیلی" ;
-  want_VV = mkV "خواستن" "خواه" ** { isAux = False} ;
+  want_VV = mkVV False subjunctive (mkV "خواستن" "خواه") ; --not aux
   we_Pron = personalPron "ما"   "مان" Pl P1 ;
   whatSg_IP = {s = ["چه چیزی"] ; n = Sg } ;
   whatPl_IP = {s = ["چه چیزهایی"] ; n = Pl } ;
@@ -136,16 +123,16 @@ concrete StructuralPes of Structural = CatPes **
 -- MorphoPes.haveVerb: "have" as auxiliary.
 have_V2 = haveVerb ** {
   s = table {
-        R.Imp Pos Sg => "داشته باش" ;
-        R.Imp Pos Pl => "داشته باشید" ;
-        R.Imp Neg Sg => "نداشته باش" ;
-        R.Imp Neg Pl => "نداشته باشید" ;
-        Vvform (Ag Sg P1) => "داشته باشم" ;
-        Vvform (Ag Sg P2) => "داشته باشی" ;
-        Vvform (Ag Sg P3) => "داشته باشد" ;
-        Vvform (Ag Pl P1) => "داشته باشیم" ;
-        Vvform (Ag Pl P2) => "داشته باشید" ;
-        Vvform (Ag Pl P3) => "داشته باشند" ;
+        VImp Pos Sg => "داشته باش" ;
+        VImp Pos Pl => "داشته باشید" ;
+        VImp Neg Sg => "نداشته باش" ;
+        VImp Neg Pl => "نداشته باشید" ;
+        VSubj _ (Ag Sg P1) => "داشته باشم" ;
+        VSubj _ (Ag Sg P2) => "داشته باشی" ;
+        VSubj _ (Ag Sg P3) => "داشته باشد" ;
+        VSubj _ (Ag Pl P1) => "داشته باشیم" ;
+        VSubj _ (Ag Pl P2) => "داشته باشید" ;
+        VSubj _ (Ag Pl P3) => "داشته باشند" ;
         x => haveVerb.s ! x } ;
   c2 = {
     s  = [] ;

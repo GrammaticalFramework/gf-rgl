@@ -30,8 +30,10 @@ lin
 
   ProgrVP vp = predProg vp ;
 
-  ImpPl1 vp = {s = "بیایید" ++ vp.s ! Vvform (agrP1 Pl)} ;
-	ImpP3 np vp = {s = "بگذارید" ++ np.s!Bare ++ vp.s ! Vvform np.a};
+  ImpPl1 vp = let a = agrP1 Pl in
+    {s = "بیایید" ++ showVPH (VSubj Pos a) a vp } ;
+	ImpP3 np vp =
+    {s = "بگذارید" ++ np.s ! Bare ++ showVPH (VSubj Pos np.a) np.a vp};
 
 
 }
