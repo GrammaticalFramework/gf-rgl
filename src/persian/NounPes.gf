@@ -23,7 +23,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     PPartNP np v2 = np ** {
-      s = \\ez => np.s ! ez ++ partNP (v2.s ! Root1)
+      s = \\ez => np.s ! ez ++ partNP v2
       } ;
 
     RelNP np rs = np ** {

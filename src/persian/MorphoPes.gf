@@ -21,6 +21,11 @@ oper
   ZWNJ : Str = "‌" ;
   zwnj : Str -> Str -> Str = \s1,s2 -> s1 + ZWNJ + s2 ;
 
+  -- kasre : Str = "ِ" ; -- To enable vowels for TTS input
+  -- fatha : Str = "َ" ;
+  kasre,fatha : Str = [] ;
+
+
 ---- Nouns
 param
   Animacy = Animate | Inanimate ;
@@ -55,21 +60,17 @@ oper
 oper
 
 
-mkPossStem : Str -> Str = \str ->
-
-  case str of {
-_+ "اه" => str ;
-_+ "او" => str ;
-_+ "وه" => str ;
-_+ ("ا"|"و") => str + "ی" ;
-_+ "ه" => zwnj str "ا" ;
-_ => str } ;
+  mkPossStem : Str -> Str = \str ->
+    case str of {
+      _ + ("اه"|"او"|"وه")
+                    => str + fatha ;
+      _ + ("ا"|"و") => str + fatha + "ی" ;
+      _ + "ه"       => zwnj str "ا" ;
+      _             => str + fatha } ;
 
 
 
   mkEzafe : Str -> Str = \str ->
-  --let kasre = "ِ" in -- TODO: Eventually use this
-    let kasre = "" in
     case str of {
       st + "اه" => str + kasre ;
       st + "وه" => str + kasre ;
@@ -142,36 +143,67 @@ Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; mod : Mod} ;
 -- Verbs
 ------------------------------------------------------------------
 param
-  VerbForm = VF Polarity VTense Agr
-            | Vvform Agr
-            | Imp Polarity Number
-            | Inf | Root1 | Root2 ;
-  VTense   = VFPres PrAspect
-            | VFPast PstAspect
-            | VFFut FtAspect
-            | VFInfrPast InfrAspect;
-  PrAspect  = PrPerf | PrImperf ;
-  PstAspect = PstPerf | PstImperf | PstAorist ;
-  FtAspect  = FtAorist ; -- just keep FtAorist
-  InfrAspect = InfrPerf | InfrImperf ;
+  VerbForm = Inf       -- kardan
+           | PastStem  -- kard -- Also used for future stem
+           | PresStem  -- kon -- Also imperative stem
+           | PerfStem  -- kardeh  -- Perfect, pluperfect
+           | PastPart  -- konandeh
+           | ImpPrefix Polarity -- mi/nmi, except for be and have
+           | VAor  Polarity Agr  -- konam
+           | VPerf Polarity Agr  -- kardeh am/nkardeh am
+           | VPast Polarity Agr  -- kardam/nkardam
+           | VSubj Polarity Agr  -- bekonam/nakonam
+           | VImp Polarity Number -- bekon,bekonid/nakon,nakonid
+           ;
 
 oper
-  Verb = {s : VerbForm => Str} ;
+  impRoot : Str -> Str = \root -> case root of {
+    st + "ی" => st ;
+    _        => root
+    };
 
-  mkVerb : (x1,x2 : Str) -> Verb = \inf,root2 ->
-    let root1 = tk 1 inf ;
-        impRoot = impRoot root2
-     in { s = table {
-       Root1    => root1 ;
-       Root2    => root2 ;
-       Inf      => inf ;
-       Imp Pos Sg => addBh impRoot ;
-       Imp Pos Pl => addBh impRoot + "ید" ;
-       Imp Neg Sg => "ن" + impRoot ;
-       Imp Neg Pl => "ن" +  impRoot + "ید" ;
-       Vvform ag  => mkvVform root2 ag ;
-       VF p t ag  => mkCmnVF root1 root2 p t ag }
-    } ;
+  mkVerb : (inf,pres : Str) -> Verb = \kardan,kon -> {
+    s = table {
+      Inf => kardan ;
+      PastStem => kard ;
+      PresStem => kon ;
+      PerfStem => kardeh ;
+      PastPart => kon + "نده" ;
+      ImpPrefix Pos => "می" + ZWNJ ++ BIND ;
+      ImpPrefix Neg => "نمی" + ZWNJ ++ BIND ;
+      VAor  _   agr => imperfectSuffixD agr kon ; -- for reg verbs, negation comes from prefix
+      VPerf pol agr => perfectSuffix agr (addN pol kardeh) ;
+      VPast pol agr => imperfectSuffix agr (addN pol kard) ;
+      VSubj Pos agr => addBh (imperfectSuffixD agr kon) ;
+      VSubj Neg agr => addN (imperfectSuffixD agr kon) ;
+      VImp Pos Sg => addBh imp ;
+      VImp Pos Pl => addBh imp + "ید" ;
+      VImp Neg Sg => addN imp ;
+      VImp Neg Pl => addN imp + "ید" } ;
+    prefix = [] -- For compound verbs
+  } where {
+      kard = tk 1 kardan ;
+      kardeh = kard + "ه" ;
+      imp = impRoot kon ;
+  } ;
+
+  invarV : (inv : Str) -> Verb = \s -> -- truly invariable
+    let invReg = defectiveVerb s s s in invReg **
+     {s = table {ImpPrefix p => invReg.s ! ImpPrefix p ; _ => s}} ;
+
+  defectiveVerb : (inf,pres,past : Str) -> Verb = \bayestan,bayad,bayest ->
+    let invReg = mkVerb bayestan bayad in invReg **
+      {s = \\vf => case vf of {
+            VAor  pol _ => addN pol bayad ;
+            VImp  pol _ => addN pol bayad ;
+            VSubj pol _ => addN pol bayad ;
+            VPast pol _ => addN pol bayest ;
+            VPerf pol _ => addN pol bayest ;
+            _ => invReg.s ! vf }
+      } ;
+--
+oper
+  Verb = {s : VerbForm => Str ; prefix : Str} ;
 
   -- Verbs that end in یدن, ادن or ودن
   -- Also some verbs that don't: دانستن with stem دان
@@ -180,67 +212,16 @@ oper
   -- Most verbs that end in C+تن or C+دن
   mkVerb2 : (_: Str) -> Verb = \inf -> mkVerb inf (tk 2 inf) ;
 
-  mkCmnVF : Str -> Str -> Polarity -> VTense -> Agr -> Str = \root1,root2,pol,t,ag ->
-    let khordh = root1 + "ه";
-        nkhordh = addN khordh ;
-        mekhor = zwnj "می" root2 ;
-        nmekhor =  zwnj "نمی" root2 ;
-        mekhord = zwnj "می" root1 ;
-        nmekhord = zwnj "نمی" root1 ;
-        mekhordh = zwnj "می" khordh ;
-        nmekhordh = zwnj "نمی" khordh ;
-        khah = "خواه" ;
-        nkhah = "نخواه" ;
-        -- mekhah = zwnj "می" khah ;
-        -- nmekhah = zwnj "نمی" khah ;
-        bvdh = "بوده" ;
-        impfSuff : Str -> Str = imperfectSuffix ag ;
-        impfSuffD : Str -> Str = imperfectSuffixD ag ;
-        perfSuff : Str -> Str = perfectSuffix ag ;
-        pluperfSuff : Str -> Str = pluperfectSuffix ag
-     in case <pol,t> of {
-        <Pos,VFPres PrImperf> => impfSuffD mekhor ;
-        <Pos,VFPres PrPerf>   => perfSuff khordh ;
-
-        <Pos,VFPast PstPerf>   => pluperfSuff khordh ;
-        <Pos,VFPast PstImperf> => impfSuff mekhord ;
-        <Pos,VFPast PstAorist> => impfSuff root1 ;
-
-        <Pos,VFFut FtAorist> => impfSuffD khah ++ root1;
-
-        <Pos,VFInfrPast InfrPerf>   => khordh ++ perfSuff bvdh ;
-        <Pos,VFInfrPast InfrImperf> => perfSuff khordh ;
-
-     -- negatives
-        <Neg,VFPres PrImperf> => impfSuffD nmekhor ;
-        <Neg,VFPres PrPerf> => perfSuff nkhordh ;
-
-        <Neg,VFPast PstPerf> => pluperfSuff nkhordh ;
-        <Neg,VFPast PstImperf> => impfSuff nmekhord ;
-        <Neg,VFPast PstAorist> => impfSuff (addN root1) ;
-
-        <Neg,VFFut FtAorist> => impfSuffD nkhah ++ root1 ;
-
-        <Neg,VFInfrPast InfrPerf>   => nkhordh ++ perfSuff bvdh ;
-        <Neg,VFInfrPast InfrImperf> => perfSuff nmekhordh
-
-        -- <Pos,VFFut FtImperf> => perfSuffD mekhah ++ addBh (perfSuffD root2) ;
-        -- <Neg,VFFut FtImperf> => perfSuffD nmekhah ++ addBh (perfSuffD root2) ;
-      } ;
-
-  mkvVform : Str -> Agr -> Str = \root2,ag ->
-    addBh (imperfectSuffixD ag root2) ;
-
-  impRoot : Str -> Str = \root -> case root of {
-    st + "ی" => st ;
-    _        => root
-    };
-
 -------------------
 -- making negatives
 -------------------
-  addN : Str -> Str ;
-  addN str =
+  addN = overload {
+    addN : Str -> Str = addN' ;
+    addN : Polarity -> Str -> Str = \p,s ->
+      case p of {Pos => s ; Neg => addN' s}
+  } ;
+
+  addN' : Str -> Str = \str ->
     case str of {
       "ا" + st => "نی" + str ;
       "آ" + st => "نیا" + st ;
@@ -293,60 +274,34 @@ oper
       Ag Pl P2 => zwnj s "اید" ;
       Ag Pl P3 => zwnj s "اند" } ;
 
-  pluperfectSuffix : Agr -> Str -> Str = \ag,s -> s ++
-    case ag of { -- not suffix, just using consistent naming scheme :-P /IL
-      Ag Sg P1 => "بودم" ;
-      Ag Sg P2 => "بودی" ;
-      Ag Sg P3 => "بود" ;
-      Ag Pl P1 => "بودیم" ;
-      Ag Pl P2 => "بودید" ;
-      Ag Pl P3 => "بودند" } ;
+  pluperfAux : Polarity -> Agr -> Str = \pol,agr ->
+    addN pol (imperfectSuffix agr "بود") ;
 
+  futAux : Polarity -> Agr -> Str = \pol,agr ->
+    addN pol (imperfectSuffixD agr "خواه") ;
+
+  subjAux : Polarity -> Agr -> Str = \pol,agr ->
+    addN pol (imperfectSuffixD agr "باش") ;
 ----------------------------------
 -- Irregular verbs
 ----------------------------------
 
-  haveVerb : Verb = {s = table {
-    Root1 => "داشت" ;
-    Root2 => "دار" ;
-    Inf   => "داشتن" ;
-    Imp Pos Sg => "بدار" ;
-    Imp Pos Pl => "بدارید" ;
-    Imp Neg Sg => "ندار" ;
-    Imp Neg Pl => "ندارید" ;
-    Vvform agr => mkvVform "دار" agr ;
-    VF pol tense agr => case <pol,tense> of {
-         <Pos,VFPres PrImperf> => imperfectSuffixD agr "دار"  ;
-         <Neg,VFPres PrImperf> => imperfectSuffixD agr (addN "دار") ;
-         _ =>  mkCmnVF "داشت" "دار" pol tense agr
-         }
-    }
-  } ;
+  haveVerb : Verb = haveRegV ** {s = table {
+    ImpPrefix _ => [] ;
+    vf          => haveRegV.s ! vf }
+  } where { haveRegV = mkVerb "داشتن" "دار" } ;
 
-  -- TODO: merge with auxBe in ResPes
-  beVerb : Verb = { s = table {
-    Vvform agr => imperfectSuffixD agr "باش" ;
-    Imp Pos Sg => "باش" ;
-    Imp Pos Pl => "باشید" ;
-    Imp Neg Sg => "نباش" ;
-    Imp Neg Pl => "نباشید" ;
-    Inf => "بودن" ;
-    Root1 => "بود" ;
-    Root2 => "باش" ;
-    VF pol tense agr =>
-      let impfSuff = imperfectSuffix agr ;
-          perfSuff = perfectSuffix agr
-      in case <pol,tense,agr> of {
-       <Pos,VFPres PrImperf,Ag Sg P3> => "است" ;
-       <Neg,VFPres PrImperf,Ag Sg P3> => "نیست" ;
-       <Pos,VFPres PrImperf>          => impfSuff "هست" ;
-       <Neg,VFPres PrImperf>          => impfSuff "نیست" ;
-       <Pos,VFPres PrPerf>            => perfSuff "بوده" ;
-       <Neg,VFPres PrPerf>            => perfSuff "نبوده" ;
-       <Pos,VFPast PstImperf>         => impfSuff "بود" ;
-       <Neg,VFPast PstImperf>         => impfSuff "نبود" ;
-       _                              => mkCmnVF "بود" "باش" pol tense agr
-       }
-    }
-  } ;
+  beVerb : Verb = beRegV ** {s = table {
+    ImpPrefix _ => [] ;
+    VAor Pos (Ag Sg P3) => "است" ;
+    VAor Pos agr => imperfectSuffix agr "هست" ;
+    VAor Neg agr => imperfectSuffix agr "نیست" ;
+    VSubj pol agr => addN pol (imperfectSuffixD agr "باش") ;
+    VImp Pos Sg => "باش" ;
+    VImp Pos Pl => "باشید" ;
+    VImp Neg Sg => "نباش" ;
+    VImp Neg Pl => "نباشید" ;
+    vf          => beRegV.s ! vf }
+  } where { beRegV = mkVerb "بودن" "باش" } ;
+
 }
