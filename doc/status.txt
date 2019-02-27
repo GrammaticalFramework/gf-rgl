@@ -26,7 +26,7 @@ are marked in the table
 | Dut   | Dutch        | +     | +    | ++    | +   | +    | +   | +    | +     | -    | + | +      | -      | *AR,FJ
 | Eng   | English      | +     | +    | ++    | +   | +    | +   | +    | +     | +    | + | ++     | +      | *AR,BB,KA
 | Est   | Estonian     | +     | -    | ++    | +   | +    | +   | -    | -     | +    | + | +      | +      | *KK,*IL
-| Eus   | Basquw       | +     | -    | ++    | +   | +    | +   | -    | -     | -    | - | -      | +      | *IL
+| Eus   | Basque       | +     | -    | ++    | +   | +    | +   | -    | -     | -    | - | -      | +      | *IL
 | Fin   | Finnish      | +     | +    | ++    | +   | +    | +   | +    | -     | +    | + | ++     | +      | *AR,*IL
 | Fre   | French       | +     | +    | ++    | +   | +    | +   | +    | +     | +    | + | ++     | -      | *AR,RE
 | Ger   | German       | +     | +    | ++    | +   | +    | +   | +    | +     | +    | + | ++     | -      | *AR,HH,EG
@@ -56,7 +56,7 @@ are marked in the table
 | Swa   | Swahili      | +     | -    | -     | -   | -    | -   | -    | -     | -    | - | -      | +      | *WN,JM
 | Swe   | Swedish      | +     | +    | ++    | +   | +    | +   | +    | +     | +    | + | ++     | +      | *MA,*AR,MF
 | Tha   | Thai         | +     | -    | ++    | +   | +    | +   | +    | -     | -    | + | +      | -      | *AR,CK
-| Tsn   | Tswana       | -     | -    | -     | -   | -    | -   | -    | -     | -    | - | -      | -      | *LPs,AB
+| Tsn   | Tswana       | -     | -    | -     | -   | -    | -   | -    | -     | -    | - | -      | -      | *LP,AB
 | Tur   | Turkish      | +     | -    | ++    | +   | -    | -   | -    | -     | +    | - | -      | -      | *SC,KA
 | Urd   | Urdu         | +     | +    | ++    | +   | +    | +   | +    | -     | -    | - | +      | +      | *SV,MH
 
@@ -95,8 +95,8 @@ AB Ansu Berg,
 AD Ali El Dada,
 AR Aarne Ranta,
 AS Adam Slaski,
-BC Bruno Cuconato,
 BB Björn Bringert,
+BC Bruno Cuconato,
 BT Bjarki Traustason,
 CK Chotiros Kairoje,
 CP Chen Peng,
@@ -147,8 +147,7 @@ ZL Zhuo Lin Qiqige
 
 ==Rules==
 
-Only components available at http://grammaticalframework.org are indicated in the table
-(exceptions: Ancient Greek, Mongolian, to appear soon).
+Only components available at http://grammaticalframework.org are indicated in the table.
 
 If you want to work on a language already in the table, please be kind and contact the
 active authors of it.
