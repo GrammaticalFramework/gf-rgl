@@ -57,8 +57,15 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
  -----------------------
 param
   VVForm = Indic | Subj ;
+  VVTense = VVPres | VVPerf | VVPast ; -- VVPast Anteriority ???
 
 oper
+
+  -- TODO: all forms
+  ta2vvt : TAnt -> VVTense = \ta -> case ta of {
+    TA Pres Anter => VVPerf ;
+    TA Past _     => VVPast ;
+    _ => VVPres } ;
 
   VV : Type = Verb ** {
       isAux : Bool ;
@@ -67,21 +74,22 @@ oper
       } ;
 
   VPH : Type = Verb ** {
-      comp  : Agr => Str; -- complements of a verb, agr for e.g. CompCN "I am human/we are humans"
-      vComp : Agr => Anteriority => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
+      comp  : Agr => Str; -- complements of a verb, agr for ReflVP "I/you see myself/yourself" and CompCN "I am human/we are humans"
+      vComp : Agr => VVTense => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
       obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
       subj  : VType ;
       ad    : Str ;
       embComp : Str ; -- when a declarative or interrogative sentence is used as a complement of a verb.
-      defVV : Bool ; -- whether a defective VV has been added
+      isVV  : Bool ; -- whether a VV has been added
+      isDef : Bool ; -- whether a the VV is defective
       } ;
 
   showVPH = overload {
-    showVPH : VerbForm -> Agr -> VPH -> Str = showVPH' Simul ;
-    showVPH : Anteriority -> VerbForm -> Agr -> VPH -> Str = showVPH'
+    showVPH : VerbForm -> Agr -> VPH -> Str = showVPH' VVPres ;
+    showVPH : VVTense -> VerbForm -> Agr -> VPH -> Str = showVPH'
   } ;
 
-  showVPH' : Anteriority -> VerbForm -> Agr -> VPH -> Str =
+  showVPH' : VVTense -> VerbForm -> Agr -> VPH -> Str =
     \ant,vf,agr,vp -> vp.ad ++ vp.comp ! agr ++ vp.obj
                    ++ vp.prefix ++ vp.s ! vf
                    ++ vp.vComp ! agr ! ant ++ vp.embComp ;
@@ -91,14 +99,9 @@ oper
   VPHSlash : Type = VPH ** {c2 : Compl} ;
 
  param
+    TAnt = TA Tense Anteriority ;
 
-    VPHTense =
-     TA Tense Anteriority
-     | VVVForm -- AR 21/3/2018 for mustCl after Nasrin
-     | VRoot1  -- AR 22/3/2018 for mustCl past after Nasrin
-    ;
-
-    VType = VIntrans | VTrans | VTransPost ;
+    VType = VIntrans | VTrans | VTransPost ; -- TODO: find out if needed
 
 oper
 
@@ -107,14 +110,12 @@ oper
     ad,
     obj,
     embComp = [];
-    defVV = False ;
+    isDef,isVV = False ;
     comp = \\_ => [] ;
     vComp = \\_,_ => [] } ;
 
    predVc : (Verb ** {c2,c1 : Str}) -> VPHSlash = \verb ->
     predV verb ** {c2 = {s = verb.c1 ; ra = []} } ;
-
-
 
 ---------------------
 -- VP complementation
@@ -130,11 +131,11 @@ oper
     comp = \\a => appComp vp.c2 (obj ! a) ++ vp.comp ! a
     } ;
 
-  insertVV : Bool -> (Agr => Anteriority => Str) -> VPH -> VPH =
-    \isDef,infcl,vp -> vp ** {
-      defVV = True; --isDef ;
-      vComp = \\agr,ant => vp.vComp ! agr ! ant ++ infcl ! agr ! ant ;
-    } ;
+  insertVV : VV -> VPH -> VPH = \vv,vp -> predV vv ** {
+    vComp = \\a,t => vp.vComp ! a ! t ++ complVV vv vp ! a ! t ;
+    isVV = True ;
+    isDef = vv.isDef ;
+  } ;
 
   embComp : Str -> VPH -> VPH = \str,vp -> vp ** {
     embComp = vp.embComp ++ str ;
@@ -150,14 +151,20 @@ oper
 
 ---- AR 14/9/2017 trying to fix isAux = True case by inserting conjThat
 ---- but don't know yet how False should be affect
-  infVV : VV -> VPH -> (Agr => Anteriority => Str) = \vv,vp ->
+  complVV : VV -> VPH -> (Agr => VVTense => Str) = \vv,vp ->
     \\agr,ant => if_then_Str vv.isAux conjThat [] ++
-      case <ant,vv.compl> of {
-        <_Simul,Subj> => showVPH (VSubj Pos agr) agr vp ;
-        <_Simul,Indic> => showVPH (VAor Pos agr) agr vp
-        -- TODO: confirm <Anter,_> => showVPH PerfStem agr vp ++ subjAux Pos agr
-    } ;
+      case <ant,vv.compl,vv.isDef> of {
+        -- Auxiliaries with full inflection: complement in subjunctive
+        <_,_,False>    => showVPH (VSubj Pos agr) agr vp ; --
 
+       -- Auxiliaries with defective inflection: complement inflects in tense
+        <VVPres,Subj,True>  => showVPH (VSubj Pos agr) agr vp ;
+        <VVPres,Indic,True> => showVPH (VAor Pos agr) agr vp ;
+        <VVPast,_,True>       => showVPH (VPast Pos agr) agr vp ;
+--        <VVPast Anter> => showVPH PerfStem agr vp ++ pluperfAux Pos agr ; -- TODO do we need this?
+        <VVPerf,_,True>       => showVPH PerfStem agr vp ++ subjAux Pos agr ;
+        _ => showVPH (VSubj Pos agr) agr vp ---- TODO more forms ?
+    } ;
 
   insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
     ad = vp.ad ++ ad ;
@@ -168,37 +175,35 @@ oper
 ---------------------------
 --- Clauses
 ---------------------------
-  Clause : Type = {s : VPHTense => Polarity => Order => Str} ;
-  SlClause : Type = {quest : Order => Str ; subj : Str ; vp : VPHTense => Polarity => Order => Str} ;
-
+  Clause : Type = {s : TAnt => Polarity => Order => Str} ;
+  SlClause : Type = {quest : Order => Str ; subj : Str ; vp : TAnt => Polarity => Order => Str} ;
 ---- AR 18/9/2017 intermediate SClause to preserve SOV in e.g. QuestionPes.QuestSlash
 
-  clTable : VPH -> (Agr => VPHTense => Polarity => Str) = \vp ->
+ -- TODO: check the VV forms with defective verbs
+  clTable : VPH -> (Agr => TAnt => Polarity => Str) = \vp ->
     \\agr,vt,pol => vp.prefix ++ case vt of {
       TA Pres Simul => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ; -- for reg. verbs, VAor pol is invariant and negation comes in ImpPrefix.
       TA Pres Anter => vp.s ! VPerf pol agr ;
       TA Past Simul => vp.s ! VPast pol agr ;
       TA Past Anter =>
-         case vp.defVV of {
+         case vp.isDef of {
            True  => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ;
            False => vp.s ! PerfStem ++ pluperfAux pol agr } ;
       TA Fut  Simul =>
-         case vp.defVV of {
+         case vp.isDef of {
            True  => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ;
            False => futAux pol agr ++ vp.s ! PastStem
          } ; -- PastStem is, despite the name, used for future too. /IL
       TA Fut  Anter =>
-         case vp.defVV of {
+         case vp.isDef of {
            True  => vp.s ! VPerf pol agr ;
            False => "خواسته" ++ pluperfAux pol agr ++ vp.s ! PastStem
          } ; -- verb form need to be confirmed
       TA Cond Simul => vp.s ! VSubj pol agr ;
       TA Cond Anter =>
-         case vp.defVV of {
+         case vp.isDef of {
            True  => vp.s ! VSubj pol agr ;
-           False => vp.s ! PerfStem ++ subjAux pol agr } ; -- verb form to be confirmed
-      VVVForm    => vp.s ! VSubj Pos agr ; -- AR 21/3/2018
-      VRoot1     => vp.s ! PastStem        -- AR 22/3/2018
+           False => vp.s ! PerfStem ++ subjAux pol agr } -- verb form to be confirmed
   } ;
 
   mkClause : NP -> VPH -> Clause = \np,vp ->
@@ -210,25 +215,21 @@ oper
               { ODir => [];
                 OQuest => "آیا" } ;
     subj = np.s !  Bare ;
-    vp = \\vt,b,ord =>
-      let vps = clTable vp ! np.a ! vt ! b ;
-          ant = case vp.defVV of {
-                  True  => case vt of {TA Pres _ => Simul ; TA _ a => Anter ; _ => Simul}  ;
-                  False => Simul }
+    vp = \\ta,p,ord =>
+      let vps = clTable vp ! np.a ! ta ! p ;
+          vvt = ta2vvt ta ;
        in vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps
-       ++ vp.vComp ! np.a ! ant ++ vp.embComp
+       ++ vp.vComp ! np.a ! vvt ++ vp.embComp
   };
 
---Clause : Type = {s : VPHTense => Polarity => Order => Str} ;
+--Clause : Type = {s : TAnt => Polarity => Order => Str} ;
   mkSClause : Str -> Agr -> VPH -> Clause = \subj,agr,vp -> {
-    s = \\vt,b,ord =>
-      let vps = clTable vp ! agr ! vt ! b ;
+    s = \\ta,p,ord =>
+      let vps = clTable vp ! agr ! ta ! p ;
           quest = case ord of { ODir => [] ; OQuest => "آیا" } ;
-          ant = case vp.defVV of {
-                  True  => case vt of {TA Pres _ => Simul ; TA _ a => Anter ; _ => Simul}  ;
-                  False => Simul }
+          vvt = ta2vvt ta ;
        in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj
-       ++ vps ++ vp.vComp ! agr ! ant ++ vp.embComp
+       ++ vps ++ vp.vComp ! agr ! vvt ++ vp.embComp
   };
 
   predProg : VPH -> VPH = \verb -> verb ** {
@@ -236,10 +237,7 @@ oper
       ImpPrefix _ => [] ;
       VAor  p a => haveVerb.s ! VAor  Pos a ++ verb.s ! ImpPrefix p ++ verb.s ! VAor Pos a ;
       VPast p a => haveVerb.s ! VPast Pos a ++ verb.s ! ImpPrefix p ++ verb.s ! VPast Pos a ; -- negation in ImpPrefix
-	    -- VF pol (VFPres PrImperf) agr => haveVerb.s ! VF Pos (VFPres PrImperf) agr ++ verb.s ! VF pol (VFPres PrImperf) agr ;
-      -- VF pol (VFPast PstAorist) agr => haveVerb.s ! VF Pos (VFPast PstAorist) agr ++ verb.s ! VF pol (VFPast PstAorist) agr ;
-      -- VF pol (VFPast PstImperf) agr => haveVerb.s ! VF Pos (VFPast PstAorist) agr ++ verb.s ! VF pol (VFPast PstImperf) agr ;
-	    _ => verb.s ! vh } ;
+	    _ => verb.s ! vh } ; -- TODO more forms
     subj = VIntrans
     } ;
 
