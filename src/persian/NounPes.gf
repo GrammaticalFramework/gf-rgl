@@ -86,18 +86,18 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     UseN2 = useN ;
 
     Use2N3 n3 = useN n3 ** {
-      c = n3.c2 ;
+      c2 = n3.c2 ;
       compl = []
       } ;
 
     Use3N3 n3 = useN n3 ** {
-      c = n3.c3 ;
+      c2 = n3.c3 ;
       compl = []
       } ;
 
     ComplN2 n2 np = n2 ** {
       s = \\n,m => n2.s ! n ! Ezafe ;
-      compl = \\_ => n2.compl ++ n2.c ++ np.s ! Bare ;
+      compl = \\_ => n2.compl ++ n2.c2 ++ np.s ! Bare ;
       hasAdj = False
      };
 

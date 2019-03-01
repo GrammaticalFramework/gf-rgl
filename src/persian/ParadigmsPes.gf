@@ -289,10 +289,14 @@ oper
     } ;
 
   mkN2 = overload {
+    mkN2 : Str -> N2 -- Predictable N2 without complement
+      = \s -> lin N2 (mkN01 s inanimate ** {c2,compl = []}) ;
+    mkN2 : N -> N2 -- N2 from without complement
+      = \n -> lin N2 (n ** {c2,compl = []}) ;
     mkN2 : N -> Str -> N2
-      = \n,c -> lin N2 (n ** {c = c ; compl=[]}) ;
+      = \n,c -> lin N2 (n ** {c2 = c ; compl = []}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API
-      = \n,p,c -> lin N2 (n ** {c = p.s ; c2 = c; compl=[]}) -- there is no c2
+      = \n,p,c -> lin N2 (n ** {c2 = p.s; compl = []})
   } ;
 
   mkN3 = overload {
