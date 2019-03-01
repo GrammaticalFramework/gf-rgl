@@ -13,7 +13,7 @@ lin
 	  in
 	   {s = \\t,p,o =>  cl.s ! t ! p ! o ++ rs.s ! np.a };
 
-  CleftAdv ad ss = { s = \\t,b,o => ad.s ++ ss.s};
+  CleftAdv ad ss = { s = \\t,b,o => ad.s ++ ss.s ! Indic};
 
   ExistNP np =
     mkSClause " " (agrP3 (fromAgr np.a).n)

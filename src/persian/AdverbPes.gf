@@ -8,7 +8,7 @@ concrete AdverbPes of Adverb = CatPes ** open ResPes, Prelude in {
       s = a.adv ++ cadv.p ++ cadv.s ++ np.s !  Bare  ;
       } ;
     ComparAdvAdjS cadv a s = {
-      s =  a.adv  ++ cadv.p ++ cadv.s  ++  s.s;
+      s =  a.adv  ++ cadv.p ++ cadv.s  ++  s.s ! Indic;
       } ;
 
     PrepNP prep np = {s =  prep.s ++ np.s !  Bare } ;
@@ -16,7 +16,7 @@ concrete AdverbPes of Adverb = CatPes ** open ResPes, Prelude in {
     AdAdv ada adv = { s =  ada.s ++ adv.s} ;
 
 --    SubjS = cc2 ;
-    SubjS sub snt = {s = sub.s  ++ "که" ++ snt.s } ;
+    SubjS sub snt = {s = sub.s  ++ "که" ++ snt.s ! sub.compl} ;
     AdnCAdv cadv = {s =  cadv.s ++ "از"} ;
 
 }

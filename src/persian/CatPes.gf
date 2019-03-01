@@ -5,10 +5,10 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
   lincat
 ------ Tensed/Untensed
 
-    S  = {s : Str} ;
+    S  = {s : VVForm => Str} ; -- as a complement to Subj
     QS = {s : QForm => Str} ;
     RS = {s : Agr => Str } ; -- c for it clefts
-    SSlash = {s : Str ; c2 : ResPes.Compl} ;
+    SSlash = {s : VVForm => Str ; c2 : ResPes.Compl} ;
 
 ---- Sentence
 
@@ -75,7 +75,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     Conj = {s1,s2 : Str ; n : Number} ;
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
-    Subj = {s : Str} ;
+    Subj = {s : Str ; compl : VVForm} ; -- subjunctive or indicative
     Prep = {s : Str};
 ---- Open lexical classes, e.g. Lexicon
     V, VS, VQ, VA = ResPes.Verb ;

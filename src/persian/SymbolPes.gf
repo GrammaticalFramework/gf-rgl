@@ -26,7 +26,7 @@ concrete SymbolPes of Symbol = CatPes ** open Prelude, ResPes in {
     compl = cn.compl ! Sg
     } ;
 
-  SymbS sy = sy ;
+  SymbS sy = {s = \\_ => sy.s} ;
   SymbNum sy = { s = sy.s ; n = Pl } ;
   SymbOrd sy = { s = sy.s ++ "wN" ; n = Pl; isNum=False} ;
 

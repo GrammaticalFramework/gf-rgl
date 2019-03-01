@@ -9,10 +9,10 @@ concrete StructuralPes of Structural = CatPes **
   after_Prep = ss ["بعد از"] ;
   all_Predet = ss ["همه ی"] ;
   almost_AdA, almost_AdN = ss "تقریباً" ;
-  although_Subj = ss ["با وجود این"] ;
+  although_Subj = mkSubj "با وجود این" ;
   always_AdV = ss "همیشه" ;
   and_Conj = sd2 [] "و" ** {n = Pl} ;
-  because_Subj = ss ["برای این"] ;
+  because_Subj = mkSubj "برای این" ;
   before_Prep = ss ["قبل از"] ;
   behind_Prep = ss "پشت" ;
   between_Prep = ss "بین" ;
@@ -39,7 +39,7 @@ concrete StructuralPes of Structural = CatPes **
   how_IAdv = ss "چطور" ;
   how8many_IDet = {s = "چند" ; n = Pl ; isNum = True} ;
   how8much_IAdv  = ss "چقدر" ;
-  if_Subj = ss "اگر" ;
+  if_Subj = mkSubj subjunctive "اگر" ;
   in8front_Prep = ss "جلوی" ;
   i_Pron = personalPron "من"   "م" Sg P1;
   in_Prep = ss "در" ;
@@ -70,7 +70,7 @@ concrete StructuralPes of Structural = CatPes **
 --  something_NP = MassNP (UseN (MorphoPnb.mkN11 "چیزی"));
   somewhere_Adv = ss "جایی" ;
   that_Quant = mkQuant "آن" "آن";
-  that_Subj = ss "آن";
+  that_Subj = mkSubj "آن";
   there_Adv = ss "آنجا" ;
   there7to_Adv = ss "آنجا" ;
   there7from_Adv = ss "آنجا" ;
@@ -87,7 +87,7 @@ concrete StructuralPes of Structural = CatPes **
   whatSg_IP = {s = ["چه چیزی"] ; n = Sg } ;
   whatPl_IP = {s = ["چه چیزهایی"] ; n = Pl } ;
   when_IAdv = ss "کی" ;
-  when_Subj = ss "وقتی" ;
+  when_Subj = mkSubj "وقتی" ;
   where_IAdv = ss "کجا" ;
   which_IQuant = {s = "کدام" ; n = Sg} ;
   whichPl_IDet = {s = "کدام" ; n = Pl ; isNum = False} ;

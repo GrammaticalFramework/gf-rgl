@@ -158,7 +158,12 @@ oper
      = mk2Conj
   } ;
 
-
+  mkSubj = overload {
+    mkSubj : Str -> Subj -- Takes its verbal complement in indicative.
+      = \s -> lin Subj {s=s ; compl=indicative} ;
+    mkSubj : VVForm -> Str -> Subj -- Specify whether it takes complement in subjunctive or indicative.
+      = \vvf,s -> lin Subj {s=s ; compl=vvf}
+  } ;
 
 --.
 --2 Definitions of paradigms
