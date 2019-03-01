@@ -124,9 +124,15 @@ oper
      = \isAux,vvf,v -> v ** {isAux = isAux ; compl = vvf ; isDef = False}
   } ;
 
-  mkV2V : V -> (cV, cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the verb, complementiser for the noun, whether it's auxiliary.
-   = \v,s1,s2,b -> let vv : VV = mkVV b subjunctive v in
-    lin V2V (vv ** {c1 = s1 ; c2 = s2}) ;
+  mkV2V = overload {
+    mkV2V : V -> (cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the noun, whether it's auxiliary.
+      = \v,s,b -> let vv : VV = mkVV b subjunctive v in
+        lin V2V (vv ** {c2 = prepOrRa s}) ;
+     mV2V : VV -> (cN : Str) -> V2V -- V2V out of VV + complementiser for the noun
+      = \vv,s -> lin V2V (vv ** {c2 = prepOrRa s}) ;
+     mV2V : VV -> V2V -- V2V out of VV, را for direct object
+      = \vv -> lin V2V (vv ** {c2 = prepOrRa "را"})
+  } ;
 
 
 ----2 Adverbs

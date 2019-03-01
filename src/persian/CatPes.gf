@@ -83,7 +83,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     V2, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
     V3 = ResPes.Verb ** {c2, c3 : Compl} ;
     VV = ResPes.VV ;
-    V2V = ResPes.VV ** {c1 : Str ; c2 : Str} ;
+    V2V = ResPes.VV ** {c2 : Compl} ;
     A = ResPes.Adjective ;
     A2 = ResPes.Adjective ** {c2 : Str} ;
 
