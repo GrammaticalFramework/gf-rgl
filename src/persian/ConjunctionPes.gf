@@ -7,7 +7,7 @@ concrete ConjunctionPes of Conjunction =
 
   lin
 
-    ConjS  = conjunctDistrSS  ;
+    ConjS  = conjunctDistrTable VVForm  ;
 
     ConjAdv = conjunctDistrSS ;
 --    ConjAdv conj advs = conjunctDistrTable Gender conj advs ;
@@ -22,12 +22,12 @@ concrete ConjunctionPes of Conjunction =
 
 ---- These fun's are generated from the list cat's.
 
-    BaseS = twoSS ;
-    ConsS = consrSS comma ;
+    BaseS = twoTable VVForm ;
+    ConsS = consrTable VVForm comma ;
+
     BaseAdv = twoSS ;
---    BaseAdv x y = twoTable Gender x y  ;
     ConsAdv = consrSS comma ;
---    ConsAdv xs x = consrTable Gender comma xs x ;
+
     BaseNP x y = y ** twoTable Mod x y ** {a = conjAgr x.a y.a ; animacy = y.animacy } ; -- check animacy
     BaseRS x y = twoTable Agr x y ** {c = x.c};
     ConsNP xs x = xs ** consrTable Mod comma xs x ** {a = conjAgr xs.a x.a ; animacy = xs.animacy } ; --  InaandB xs.animacy x.animacy} ;
@@ -37,7 +37,7 @@ concrete ConjunctionPes of Conjunction =
     ConsAP xs x = consrTable Mod comma xs x ** {adv = x.adv}; -- Table3 Number Gender Case comma xs x ;-- ** {isPre = andB xs.isPre x.isPre} ;
 
   lincat
-    [S] = {s1,s2 : Str} ;
+    [S] = {s1,s2 : VVForm => Str} ;
     [Adv] = {s1,s2 : Str} ;
     [NP] = {s1,s2 : Mod => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool; compl:Str} ;
     [AP] = {s1,s2 :  Mod => Str ; adv : Str} ;

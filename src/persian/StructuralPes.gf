@@ -9,10 +9,10 @@ concrete StructuralPes of Structural = CatPes **
   after_Prep = ss ["بعد از"] ;
   all_Predet = ss ["همه ی"] ;
   almost_AdA, almost_AdN = ss "تقریباً" ;
-  although_Subj = ss ["با وجود این"] ;
+  although_Subj = mkSubj "با وجود این" ;
   always_AdV = ss "همیشه" ;
   and_Conj = sd2 [] "و" ** {n = Pl} ;
-  because_Subj = ss ["برای این"] ;
+  because_Subj = mkSubj "برای این" ;
   before_Prep = ss ["قبل از"] ;
   behind_Prep = ss "پشت" ;
   between_Prep = ss "بین" ;
@@ -24,12 +24,11 @@ concrete StructuralPes of Structural = CatPes **
   can_VV = mkVV (mkV_1 "توانستن") ; ---- AR
   during_Prep = ss ["در طول"] ;
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
---  everybody_NP =  MassNP (UseN (MorphoPnb.mkN11 ["هر کwی"])); -- not a good way coz need to include NounPnb
+--  everybody_NP =  R.indeclNP "هر کwی";
   every_Det = mkDet "هر" Sg ;
---  everything_NP = MassNP (UseN (MorphoPnb.mkN11 ["هر XE"]));
+--  everything_NP = R.indeclNP ["هر XE"]));
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
---  first_Ord = {s = "اولین" ; n = Sg} ; --DEPRECATED
   for_Prep = ss "برای" ;
   from_Prep = ss "از" ;
   he_Pron = personalPron "او"   "ش"  Sg P3 ;
@@ -39,7 +38,7 @@ concrete StructuralPes of Structural = CatPes **
   how_IAdv = ss "چطور" ;
   how8many_IDet = {s = "چند" ; n = Pl ; isNum = True} ;
   how8much_IAdv  = ss "چقدر" ;
-  if_Subj = ss "اگر" ;
+  if_Subj = mkSubj subjunctive "اگر" ;
   in8front_Prep = ss "جلوی" ;
   i_Pron = personalPron "من"   "م" Sg P1;
   in_Prep = ss "در" ;
@@ -64,13 +63,13 @@ concrete StructuralPes of Structural = CatPes **
   quite_Adv = ss "کاملاً" ;
   she_Pron = personalPron "او"   "ش" Sg P3 ;
   so_AdA = ss "بسیار" ;
---  somebody_NP = MassNP (UseN (MorphoPnb.mkN11 "کwی" ));
+  somebody_NP = R.indeclNP "کwی" ;
   someSg_Det = mkDet "مقداری" Sg True ;
   somePl_Det = mkDet "چند" Pl True ;
---  something_NP = MassNP (UseN (MorphoPnb.mkN11 "چیزی"));
+  something_NP = R.indeclNP "چیزی" ;
   somewhere_Adv = ss "جایی" ;
   that_Quant = mkQuant "آن" "آن";
-  that_Subj = ss "آن";
+  that_Subj = mkSubj "آن";
   there_Adv = ss "آنجا" ;
   there7to_Adv = ss "آنجا" ;
   there7from_Adv = ss "آنجا" ;
@@ -87,7 +86,7 @@ concrete StructuralPes of Structural = CatPes **
   whatSg_IP = {s = ["چه چیزی"] ; n = Sg } ;
   whatPl_IP = {s = ["چه چیزهایی"] ; n = Pl } ;
   when_IAdv = ss "کی" ;
-  when_Subj = ss "وقتی" ;
+  when_Subj = mkSubj "وقتی" ;
   where_IAdv = ss "کجا" ;
   which_IQuant = {s = "کدام" ; n = Sg} ;
   whichPl_IDet = {s = "کدام" ; n = Pl ; isNum = False} ;
@@ -107,9 +106,9 @@ concrete StructuralPes of Structural = CatPes **
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;
   at_least_AdN = ss "حداقل" ;
   at_most_AdN = ss "حداکثر";
---  nothing_NP = MassNP (UseN (MorphoPnb.mkN11 "هیچ چیز" ));
+  nothing_NP = R.indeclNP "هیچ" ;
   except_Prep = ss ["به جز"] ;
---  nobody_NP = MassNP (UseN (MorphoPnb.mkN11 "هیچ کس"));
+  nobody_NP = R.indeclNP "هیچ کس";
 
   as_CAdv = {s = ["به اندازه ی"] ; p = ""} ;
 
@@ -136,8 +135,7 @@ have_V2 = haveVerb ** {
         x => haveVerb.s ! x } ;
   c2 = {
     s  = [] ;
-    ra = [] ; --- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
-    c = R.VTrans
+    ra = [] --- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
     }
   } ;
 }

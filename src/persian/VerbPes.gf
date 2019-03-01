@@ -13,18 +13,18 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     ComplSlash = complSlash ;
 
     ComplVV = insertVV ;
-    ComplVS v s  = embComp (conjThat ++ s.s) (predV v) ;
+    ComplVS v s  = embComp (conjThat ++ s.s ! Indic) (predV v) ;
     ComplVQ v q  = embComp (conjThat ++ q.s ! QIndir) (predV v) ;
     ComplVA v ap = insertObj (ap.s ! Bare) (predV v) ; -- check form of adjective
 
     SlashVV vv vps = vps ** insertVV vv vps ;
-    SlashV2S v s  = v ** embComp (conjThat ++ s.s) (predV v) ;
+    SlashV2S v s  = v ** embComp (conjThat ++ s.s ! Indic) (predV v) ;
     SlashV2Q v q  = v ** embComp (q.s ! QIndir) (predV v) ;
     SlashV2A v ap = v ** insertObj (ap.s ! Bare) (predV v) ; ---- paint it red , check form of adjective
-    SlashV2V v vp = insertVV v vp ** {c2 = {s = v.c1 ; ra = []}} ;
+    SlashV2V v vp = v ** insertVV v vp ; -- ** {c2 = {s = v.c1 ; ra = []}} ;
     SlashV2VNP v2v np vps =
-      let vvVP : VPH = insertVV v2v vps ;
-          vvVPS = vvVP ** {c2={s=v2v.c1 ; ra=v2v.c2}} ; -- TODO find out if it's a general rule; only one V2V in the lexicon /IL
+      let vvVPS : VPHSlash = vps ** insertVV v2v vps ;
+--          vvVPS = vvVP ** {c2={s=v2v.c1 ; ra=v2v.c2}} ; -- TODO find out if it's a general rule; only one V2V in the lexicon /IL
        in complSlash vvVPS np ** {c2 = vps.c2} ;
 
     AdvVP vp adv = insertAdV adv.s vp ;

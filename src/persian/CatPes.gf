@@ -5,10 +5,10 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
   lincat
 ------ Tensed/Untensed
 
-    S  = {s : Str} ;
+    S  = {s : VVForm => Str} ; -- as a complement to Subj
     QS = {s : QForm => Str} ;
     RS = {s : Agr => Str } ; -- c for it clefts
-    SSlash = {s : Str ; c2 : ResPes.Compl} ;
+    SSlash = {s : VVForm => Str ; c2 : ResPes.Compl} ;
 
 ---- Sentence
 
@@ -75,7 +75,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     Conj = {s1,s2 : Str ; n : Number} ;
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
-    Subj = {s : Str} ;
+    Subj = {s : Str ; compl : VVForm} ; -- subjunctive or indicative
     Prep = {s : Str};
 ---- Open lexical classes, e.g. Lexicon
     V, VS, VQ, VA = ResPes.Verb ;
@@ -83,13 +83,13 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     V2, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
     V3 = ResPes.Verb ** {c2, c3 : Compl} ;
     VV = ResPes.VV ;
-    V2V = ResPes.VV ** {c1 : Str ; c2 : Str} ;
+    V2V = ResPes.VV ** {c2 : Compl} ;
     A = ResPes.Adjective ;
     A2 = ResPes.Adjective ** {c2 : Str} ;
 
     N = ResPes.Noun ;
 
-    N2 = ResPes.Noun ** {c : Str ; compl : Str}; -- when N3 is made to N2, need to retain compl
+    N2 = ResPes.Noun ** {c2 : Str ; compl : Str}; -- when N3 is made to N2, need to retain compl
     N3 = ResPes.Noun ** {c2 : Str ; c3 : Str} ;
     PN = {s : Str ; animacy : Animacy} ;
 

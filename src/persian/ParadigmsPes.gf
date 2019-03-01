@@ -112,10 +112,37 @@ oper
     mkV2 : (listen : V) -> (to : Prep) -> V2 -- V2 out of V. Use given preposition, no را for direct object.
   } ;
 
-  mkV3 : V -> (dir,indir : Str) -> V3 ; -- Takes a verb and two prepositions as strings (can be empty). If the verb takes را for direct object, it's the first Str argument. e.g. talk, با, دربارۀ
-    mkV3 v p q = lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
+  mkV3 = overload {
+    mkV3 : Str -> V3 -- Predictable V3, را for direct object, no prepositions.
+     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = prepOrRa []}) ;
+    mkV3 : V -> (dir,indir : Str) -> V3 -- Takes a verb and two prepositions or را as strings (can be empty).
+     = \v,p,q -> lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q})
+  } ;
+
+  mkVQ = overload {
+   mkVQ : Str -> VQ -- predictable verb with question complement
+    = \s -> lin VQ (regV s) ;
+   mkVQ : V -> VQ -- VQ out of a verb
+    = \v -> lin VQ v
+  } ;
+
+  mkVA = overload {
+    mkVA : Str -> VA -- predictable verb with adjective complement
+      = \s -> lin VA (regV s) ;
+    mkVA : V -> VA -- VA out of a verb
+      = \v -> lin VA v
+    } ;
+
+  mkVS = overload {
+   mkVS : Str -> VS -- predictable verb with sentence complement
+    = \s -> lin VS (regV s) ;
+   mkVS : V -> VS -- VS out of a verb
+    = \v -> lin VS v
+  } ;
 
   mkVV = overload {
+    mkVV : Str -> VV -- Predictable VV, subjunctive complement, is auxiliary.
+     = \s -> lin VV (regV s ** {isAux = True ; compl = subjunctive ; isDef = False}) ;
     mkVV : V -> VV -- takes its VP complement in subjunctive. Is auxiliary.
      = \v -> v ** {isAux = True ; compl = subjunctive ; isDef = False} ;
     mkVV : VVForm -> V -> VV -- takes its VP complement in the given VVForm
@@ -124,9 +151,15 @@ oper
      = \isAux,vvf,v -> v ** {isAux = isAux ; compl = vvf ; isDef = False}
   } ;
 
-  mkV2V : V -> (cV, cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the verb, complementiser for the noun, whether it's auxiliary.
-   = \v,s1,s2,b -> let vv : VV = mkVV b subjunctive v in
-    lin V2V (vv ** {c1 = s1 ; c2 = s2}) ;
+  mkV2V = overload {
+    mkV2V : V -> (cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the noun, whether it's auxiliary.
+      = \v,s,b -> let vv : VV = mkVV b subjunctive v in
+        lin V2V (vv ** {c2 = prepOrRa s}) ;
+     mV2V : VV -> (cN : Str) -> V2V -- V2V out of VV + complementiser for the noun
+      = \vv,s -> lin V2V (vv ** {c2 = prepOrRa s}) ;
+     mV2V : VV -> V2V -- V2V out of VV, را for direct object
+      = \vv -> lin V2V (vv ** {c2 = prepOrRa "را"})
+  } ;
 
 
 ----2 Adverbs
@@ -158,7 +191,12 @@ oper
      = mk2Conj
   } ;
 
-
+  mkSubj = overload {
+    mkSubj : Str -> Subj -- Takes its verbal complement in indicative.
+      = \s -> lin Subj {s=s ; compl=indicative} ;
+    mkSubj : VVForm -> Str -> Subj -- Specify whether it takes complement in subjunctive or indicative.
+      = \vvf,s -> lin Subj {s=s ; compl=vvf}
+  } ;
 
 --.
 --2 Definitions of paradigms
@@ -289,10 +327,14 @@ oper
     } ;
 
   mkN2 = overload {
+    mkN2 : Str -> N2 -- Predictable N2 without complement
+      = \s -> lin N2 (mkN01 s inanimate ** {c2,compl = []}) ;
+    mkN2 : N -> N2 -- N2 from without complement
+      = \n -> lin N2 (n ** {c2,compl = []}) ;
     mkN2 : N -> Str -> N2
-      = \n,c -> lin N2 (n ** {c = c ; compl=[]}) ;
+      = \n,c -> lin N2 (n ** {c2 = c ; compl = []}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API
-      = \n,p,c -> lin N2 (n ** {c = p.s ; c2 = c; compl=[]}) -- there is no c2
+      = \n,p,c -> lin N2 (n ** {c2 = p.s; compl = []})
   } ;
 
   mkN3 = overload {
