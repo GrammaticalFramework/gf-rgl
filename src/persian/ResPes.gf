@@ -40,6 +40,8 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       animacy = Inanimate ;
       compl = []
       } ;
+    indeclNP : Str -> NP = \s ->
+      emptyNP ** {s = \\m => s} ;
 
     useN : Noun -> CN = \n -> n ** {
       hasAdj = False ;

@@ -24,12 +24,11 @@ concrete StructuralPes of Structural = CatPes **
   can_VV = mkVV (mkV_1 "توانستن") ; ---- AR
   during_Prep = ss ["در طول"] ;
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
---  everybody_NP =  MassNP (UseN (MorphoPnb.mkN11 ["هر کwی"])); -- not a good way coz need to include NounPnb
+--  everybody_NP =  R.indeclNP "هر کwی";
   every_Det = mkDet "هر" Sg ;
---  everything_NP = MassNP (UseN (MorphoPnb.mkN11 ["هر XE"]));
+--  everything_NP = R.indeclNP ["هر XE"]));
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
---  first_Ord = {s = "اولین" ; n = Sg} ; --DEPRECATED
   for_Prep = ss "برای" ;
   from_Prep = ss "از" ;
   he_Pron = personalPron "او"   "ش"  Sg P3 ;
@@ -64,10 +63,10 @@ concrete StructuralPes of Structural = CatPes **
   quite_Adv = ss "کاملاً" ;
   she_Pron = personalPron "او"   "ش" Sg P3 ;
   so_AdA = ss "بسیار" ;
---  somebody_NP = MassNP (UseN (MorphoPnb.mkN11 "کwی" ));
+  somebody_NP = R.indeclNP "کwی" ;
   someSg_Det = mkDet "مقداری" Sg True ;
   somePl_Det = mkDet "چند" Pl True ;
---  something_NP = MassNP (UseN (MorphoPnb.mkN11 "چیزی"));
+  something_NP = R.indeclNP "چیزی" ;
   somewhere_Adv = ss "جایی" ;
   that_Quant = mkQuant "آن" "آن";
   that_Subj = mkSubj "آن";
@@ -107,9 +106,9 @@ concrete StructuralPes of Structural = CatPes **
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;
   at_least_AdN = ss "حداقل" ;
   at_most_AdN = ss "حداکثر";
---  nothing_NP = MassNP (UseN (MorphoPnb.mkN11 "هیچ چیز" ));
+  nothing_NP = R.indeclNP "هیچ" ;
   except_Prep = ss ["به جز"] ;
---  nobody_NP = MassNP (UseN (MorphoPnb.mkN11 "هیچ کس"));
+  nobody_NP = R.indeclNP "هیچ کس";
 
   as_CAdv = {s = ["به اندازه ی"] ; p = ""} ;
 
