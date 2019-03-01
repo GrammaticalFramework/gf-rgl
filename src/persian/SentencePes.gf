@@ -13,9 +13,9 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
       s = \\pol,n =>
         let agr = Ag (numImp n) P2 ;
             vps = vp.prefix ++ vp.s ! VImp pol (numImp n)
-         in case vp.isVV of {
-              True  => vps ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp ;
-              False => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vps ++ vp.embComp }
+         in case vp.vvtype of {
+              NoVV => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vps ++ vp.embComp ;
+              _    => vps ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp }
     } ;
 
     SlashVP np vp =

@@ -56,6 +56,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
  --- Verb Phrase
  -----------------------
 param
+  VVType = NoVV | FullVV | DefVV ;
   VVForm = Indic | Subj ;
   VVTense = VVPres | VVPerf | VVPast ; -- VVPast Anteriority ???
   TAnt = TA Tense Anteriority ;
@@ -80,8 +81,7 @@ oper
       obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
       ad    : Str ;
       embComp : Str ; -- when a declarative or interrogative sentence is used as a complement of a verb.
-      vvtype  : Bool ; -- whether a VV has been added
-      isDef : Bool ; -- whether a the VV is defective
+      vvtype  : VVType ; -- no VV, fully inflecting VV or defective VV
       } ;
 
   showVPH = overload {
@@ -103,7 +103,7 @@ oper
     ad,
     obj,
     embComp = [];
-    isDef,isVV = False ;
+    vvtype = NoVV ;
     comp = \\_ => [] ;
     vComp = \\_,_ => [] } ;
 
@@ -126,8 +126,7 @@ oper
 
   insertVV : VV -> VPH -> VPH = \vv,vp -> predV vv ** {
     vComp = \\a,t => vp.vComp ! a ! t ++ complVV vv vp ! a ! t ;
-    isVV = True ;
-    isDef = vv.isDef ;
+    vvType = case vv.isDef of {True => DefVV ; _ => FullVV} ;
   } ;
 
   embComp : Str -> VPH -> VPH = \str,vp -> vp ** {
@@ -146,16 +145,16 @@ oper
 ---- but don't know yet how False should be affect
   complVV : VV -> VPH -> (Agr => VVTense => Str) = \vv,vp ->
     \\agr,ant => if_then_Str vv.isAux conjThat [] ++
-      case <ant,vv.compl,vv.isDef> of {
-        -- Auxiliaries with full inflection: complement in subjunctive
-        <_,_,False>    => showVPH (VSubj Pos agr) agr vp ; --
-
+      case <ant,vv.isDef,vv.compl> of {
        -- Auxiliaries with defective inflection: complement inflects in tense
-        <VVPres,Subj,True>  => showVPH (VSubj Pos agr) agr vp ;
-        <VVPres,Indic,True> => showVPH (VAor Pos agr) agr vp ;
-        <VVPast,_,True>       => showVPH (VPast Pos agr) agr vp ;
+        <VVPast,True,_> => showVPH (VPast Pos agr) agr vp ;
 --        <VVPast Anter> => showVPH PerfStem agr vp ++ pluperfAux Pos agr ; -- TODO do we need this?
-        <VVPerf,_,True>       => showVPH PerfStem agr vp ++ subjAux Pos agr ;
+        <VVPerf,True,_> => showVPH PerfStem agr vp ++ subjAux Pos agr ;
+
+        -- Auxiliaries that take indicative (full or defective inflection)
+        <VVPres,_,Indic> => showVPH (VAor Pos agr) agr vp ;
+
+       -- Default: complement in subjunctive
         _ => showVPH (VSubj Pos agr) agr vp ---- TODO more forms ?
     } ;
 
@@ -179,24 +178,24 @@ oper
       TA Pres Anter => vp.s ! VPerf pol agr ;
       TA Past Simul => vp.s ! VPast pol agr ;
       TA Past Anter =>
-         case vp.isDef of {
-           True  => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ;
-           False => vp.s ! PerfStem ++ pluperfAux pol agr } ;
+         case vp.vvtype of {
+           DefVV => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ;
+           _ => vp.s ! PerfStem ++ pluperfAux pol agr } ;
       TA Fut  Simul =>
-         case vp.isDef of {
-           True  => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ;
-           False => futAux pol agr ++ vp.s ! PastStem
+         case vp.vvtype of {
+           DefVV => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ;
+           _ => futAux pol agr ++ vp.s ! PastStem
          } ; -- PastStem is, despite the name, used for future too. /IL
       TA Fut  Anter =>
-         case vp.isDef of {
-           True  => vp.s ! VPerf pol agr ;
-           False => "خواسته" ++ pluperfAux pol agr ++ vp.s ! PastStem
+         case vp.vvtype of {
+           DefVV => vp.s ! VPerf pol agr ;
+           _ => "خواسته" ++ pluperfAux pol agr ++ vp.s ! PastStem
          } ; -- verb form need to be confirmed
       TA Cond Simul => vp.s ! VSubj pol agr ;
       TA Cond Anter =>
-         case vp.isDef of {
-           True  => vp.s ! VSubj pol agr ;
-           False => vp.s ! PerfStem ++ subjAux pol agr } -- verb form to be confirmed
+         case vp.vvtype of {
+           DefVV => vp.s ! VSubj pol agr ;
+           _ => vp.s ! PerfStem ++ subjAux pol agr } -- verb form to be confirmed
   } ;
 
   mkClause : NP -> VPH -> Clause = \np,vp ->
