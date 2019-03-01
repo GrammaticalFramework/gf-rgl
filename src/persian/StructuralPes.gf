@@ -20,7 +20,7 @@ concrete StructuralPes of Structural = CatPes **
   but_PConj = ss "اما" ;
   by8agent_Prep = ss "توسط" ;
   by8means_Prep = ss "با" ;
---  can8know_VV,can_VV = mkV "سکن" ** { isAux = True} ;
+--  can8know_VV,can_VV = mkVV (mkV "سکن") ;
   can_VV = mkVV (mkV_1 "توانستن") ; ---- AR
   during_Prep = ss ["در طول"] ;
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
@@ -50,9 +50,9 @@ concrete StructuralPes of Structural = CatPes **
   most_Predet = ss "اکثر";
   much_Det = mkDet ["مقدار زیادی"]  Pl ;
   must_VV =
-    let must_V : V = defV "بایستن" "باید" "بایست" ;
-     in mkVV must_V ;
-   -- TODO:  ** {isDef=True} ; past tense forms with مجبور+beVerb
+    let must : VV = mkVV False subjunctive (defV "بایستن" "باید" "باید") ; -- "بایست" is different meaning?
+     in must ** {isDef=True} ;
+   -- TODO: past tense forms with مجبور+beVerb
   no_Utt = ss "نه" ;
   on_Prep = ss "روی" ;
   only_Predet = ss "فقط" ;

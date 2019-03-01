@@ -194,6 +194,7 @@ oper
   defectiveVerb : (inf,pres,past : Str) -> Verb = \bayestan,bayad,bayest ->
     let invReg = mkVerb bayestan bayad in invReg **
       {s = \\vf => case vf of {
+            ImpPrefix _ => [] ;
             VAor  pol _ => addN pol bayad ;
             VImp  pol _ => addN pol bayad ;
             VSubj pol _ => addN pol bayad ;

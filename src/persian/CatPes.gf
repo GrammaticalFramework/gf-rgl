@@ -15,13 +15,13 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     Cl = ResPes.Clause ;
     ClSlash = {
       subj : Str ;
-      vp : ResPes.VPHTense => Polarity => Order => Str ;
+      vp : ResPes.TAnt => Polarity => Order => Str ;
       c2 : ResPes.Compl
       } ;
     Imp = {s : Polarity => ImpForm => Str} ;
 
 ---- Question
-    QCl = {s : ResPes.VPHTense => Polarity => QForm => Str} ;
+    QCl = {s : ResPes.TAnt => Polarity => QForm => Str} ;
 
     IP = {s: Str ; n : Number};
 
@@ -32,7 +32,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 ---- Relative
 
     RCl = {
-      s : ResPes.VPHTense => Polarity => Order => Agr => Str ;
+      s : ResPes.TAnt => Polarity => Order => Agr => Str ;
     --  c : Case
       } ;
     RP = {s: Str ; a:RAgr};
