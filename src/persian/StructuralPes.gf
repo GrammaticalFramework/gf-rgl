@@ -136,8 +136,7 @@ have_V2 = haveVerb ** {
         x => haveVerb.s ! x } ;
   c2 = {
     s  = [] ;
-    ra = [] ; --- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
-    c = R.VTrans
+    ra = [] --- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
     }
   } ;
 }

@@ -58,6 +58,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 param
   VVForm = Indic | Subj ;
   VVTense = VVPres | VVPerf | VVPast ; -- VVPast Anteriority ???
+  TAnt = TA Tense Anteriority ;
 
 oper
 
@@ -77,10 +78,9 @@ oper
       comp  : Agr => Str; -- complements of a verb, agr for ReflVP "I/you see myself/yourself" and CompCN "I am human/we are humans"
       vComp : Agr => VVTense => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
       obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
-      subj  : VType ;
       ad    : Str ;
       embComp : Str ; -- when a declarative or interrogative sentence is used as a complement of a verb.
-      isVV  : Bool ; -- whether a VV has been added
+      vvtype  : Bool ; -- whether a VV has been added
       isDef : Bool ; -- whether a the VV is defective
       } ;
 
@@ -98,15 +98,8 @@ oper
 
   VPHSlash : Type = VPH ** {c2 : Compl} ;
 
- param
-    TAnt = TA Tense Anteriority ;
-
-    VType = VIntrans | VTrans | VTransPost ; -- TODO: find out if needed
-
-oper
 
   predV : Verb -> VPH = \verb -> verb ** {
-    subj = VIntrans ;
     ad,
     obj,
     embComp = [];
@@ -214,7 +207,7 @@ oper
     quest = table
               { ODir => [];
                 OQuest => "آیا" } ;
-    subj = np.s !  Bare ;
+    subj = np.s ! Bare ;
     vp = \\ta,p,ord =>
       let vps = clTable vp ! np.a ! ta ! p ;
           vvt = ta2vvt ta ;
@@ -238,7 +231,6 @@ oper
       VAor  p a => haveVerb.s ! VAor  Pos a ++ verb.s ! ImpPrefix p ++ verb.s ! VAor Pos a ;
       VPast p a => haveVerb.s ! VPast Pos a ++ verb.s ! ImpPrefix p ++ verb.s ! VPast Pos a ; -- negation in ImpPrefix
 	    _ => verb.s ! vh } ; -- TODO more forms
-    subj = VIntrans
     } ;
 
   IndefArticle : Str ;
