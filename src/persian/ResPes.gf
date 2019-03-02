@@ -96,10 +96,21 @@ oper
                    ++ vp.prefix ++ vp.s ! vf
                    ++ vp.vComp ! agr ! ant ++ vp.embComp ;
 
+  -- A hack: we reuse the obj field for the VP complement in
+  -- SlashV2V and this is needed to get the right word order for complVV.
+  showVPHvv : VerbForm -> Agr -> VPH -> Str = \vf,agr,vp ->
+      vp.comp ! agr ++ vp.prefix ++ vp.s ! vf ++ vp.ad
+   ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp ;
+
   Compl : Type = {s : Str ; ra : Str} ;
 
-  VPHSlash : Type = VPH ** {c2 : Compl} ;
+  VPHSlash : Type = VPH ** {
+    c2 : Compl ;        -- prep or ra for the complement
+    agrObj : Agr => Str -- used for SlashV2V
+    } ;
 
+  vs : Compl -> {c2 : Compl; agrObj : Agr => Str} = \c ->
+    {c2 = c ; agrObj = \\_ => []} ;
 
   predV : Verb -> VPH = \verb -> verb ** {
     ad,
@@ -109,8 +120,8 @@ oper
     comp = \\_ => [] ;
     vComp = \\_,_ => [] } ;
 
-   predVc : (Verb ** {c2,c1 : Str}) -> VPHSlash = \verb ->
-    predV verb ** {c2 = {s = verb.c1 ; ra = []} } ;
+   predVc : (Verb ** {c2 : Compl}) -> VPHSlash = \verb ->
+    predV verb ** vs verb.c2 ;
 
 ---------------------
 -- VP complementation
@@ -140,7 +151,9 @@ oper
     } ;
 
   complSlash : VPHSlash -> NP -> VPH = \vp,np -> vp ** {
-    comp = \\a => appComp vp.c2 (np.s ! Bare) ++ np.compl ++ vp.comp ! a
+    comp = \\a => appComp vp.c2 (np.s ! Bare)
+               ++ np.compl ++ vp.comp ! a ;
+    obj = vp.obj ++ vp.agrObj ! np.a -- "beg her to buy", buy agrees with her
   } ;
 
 ---- AR 14/9/2017 trying to fix isAux = True case by inserting conjThat
@@ -149,15 +162,15 @@ oper
     \\agr,ant => if_then_Str vv.isAux conjThat [] ++
       case <ant,vv.isDef,vv.compl> of {
        -- Auxiliaries with defective inflection: complement inflects in tense
-        <VVPast,True,_> => showVPH (VPast Pos agr) agr vp ;
+        <VVPast,True,_> => showVPHvv (VPast Pos agr) agr vp ;
 --        <VVPast Anter> => showVPH PerfStem agr vp ++ pluperfAux Pos agr ; -- TODO do we need this?
-        <VVPerf,True,_> => showVPH PerfStem agr vp ++ subjAux Pos agr ;
+        <VVPerf,True,_> => showVPHvv PerfStem agr vp ++ subjAux Pos agr ;
 
         -- Auxiliaries that take indicative (full or defective inflection)
-        <VVPres,_,Indic> => showVPH (VAor Pos agr) agr vp ;
+        <VVPres,_,Indic> => showVPHvv (VAor Pos agr) agr vp ;
 
        -- Default: complement in subjunctive
-        _ => showVPH (VSubj Pos agr) agr vp ---- TODO more forms ?
+        _ => showVPHvv (VSubj Pos agr) agr vp ---- TODO more forms ?
     } ;
 
   insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
