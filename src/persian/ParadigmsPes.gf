@@ -89,12 +89,11 @@ oper
     mkV : (inf : Str) -> V -- Takes infinitive. Use for predictable verbs: if it ends in vowel+دن, the present stem removes the vowel as well. If it ends in consonant+تن or consonant+دن, present stem only removes تن/دن.
       = regV ;
     mkV : (inf,pres : Str) -> V -- Takes infinitive and present root. Use for unpredictable verbs, e.g. دانستن with present stem دان, or irregular, e.g. کردن with present stem کن.
-      = \s1, s2 -> lin V (mkVerb s1 s2)
+      = \s1, s2 -> lin V (mkVerb s1 s2) ;
+    mkV : Str -> V -> V -- Invariable prefix to a verb, e.g. mkV "دوست" haveVerb
+      = compoundV ;
   } ;
 
-  compoundV : overload {
-    compoundV : Str -> V -> V -- Invariable prefix to a verb, e.g. compoundV "دوست" haveVerb
-  } ;
 
   invarV : Str -> V  -- no inflection at all
     = \s -> lin V (M.invarV s);
@@ -116,7 +115,9 @@ oper
     mkV3 : Str -> V3 -- Predictable V3, را for direct object, no prepositions.
      = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = prepOrRa []}) ;
     mkV3 : V -> (dir,indir : Str) -> V3 -- Takes a verb and two prepositions or را as strings (can be empty).
-     = \v,p,q -> lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q})
+     = \v,p,q -> lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
+    mkV3 : V -> (dir,indir : Prep) -> V3 -- Takes a verb and two prepositions
+     = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q})
   } ;
 
   mkVQ = overload {
@@ -128,9 +129,11 @@ oper
 
   mkVA = overload {
     mkVA : Str -> VA -- predictable verb with adjective complement
-      = \s -> lin VA (regV s) ;
+      = \s -> lin VA (regV s ** {c2 = prepOrRa []}) ;
     mkVA : V -> VA -- VA out of a verb
-      = \v -> lin VA v
+      = \v -> lin VA (v ** {c2 = prepOrRa []}) ;
+    mkVA : V -> Prep -> VA -- VA out of a verb and preposition
+      = \v,p -> lin VA (v ** {c2 = p}) ;
     } ;
 
   mkVS = overload {
@@ -169,7 +172,7 @@ oper
 ----2 Prepositions
 
   mkPrep : Str -> Prep ; -- Takes a string, returns a preposition.
-  mkPrep str = lin Prep {s = str};
+  mkPrep str = lin Prep {s = str ; ra = []} ;
 {-
 --3 Determiners and quantifiers
 
@@ -295,6 +298,7 @@ oper
    mkCmpdNoun2 : N -> Str -> N
      = \noun,s -> noun ** {s =\\ez,n => noun.s ! ez ! n  ++ s};
 
+-- hidden from public API
   compoundV = overload {
     compoundV : Str -> V -> V
       = \s,v -> v ** {prefix = s} ;
@@ -309,8 +313,10 @@ oper
     in lin V (mkVerb inf pres) ;
 
   mkV2 = overload {
-    mkV2 : Str -> V2 -- Predictable V2 with
+    mkV2 : Str -> V2 -- Predictable V2 with را
       = \s -> lin V2 (regV s ** {c2 = prepOrRa "را"}) ;
+    mkV2 : Str -> V -> V2 -- Compound V2 with را
+      = \s,v -> lin V2 (v ** {prefix = s ; c2 = prepOrRa "را"}) ;
     mkV2 : V -> V2
       = \v -> lin V2 (v ** {c2 = prepOrRa "را"}) ;
     mkV2 : V -> Prep -> V2
@@ -325,6 +331,8 @@ oper
     "را" => {s = [] ; ra = "را"} ;
     prep  => {s = prep ; ra = []}
     } ;
+
+  mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s} ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 -- Predictable N2 without complement
