@@ -76,11 +76,11 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str ; compl : VVForm} ; -- subjunctive or indicative
-    Prep = {s : Str};
+    Prep = Compl ;
 ---- Open lexical classes, e.g. Lexicon
-    V, VS, VQ, VA = ResPes.Verb ;
+    V, VS, VQ = ResPes.Verb ;
 
-    V2, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
+    V2, VA, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
     V3 = ResPes.Verb ** {c2, c3 : Compl} ;
     VV = ResPes.VV ;
     V2V = ResPes.VV ** {c2 : Compl} ;

@@ -5,32 +5,32 @@ concrete StructuralPes of Structural = CatPes **
   coding = utf8;
 
   lin
-  above_Prep = ss "بالای" ;
-  after_Prep = ss ["بعد از"] ;
+  above_Prep = mkPrep "بالای" ;
+  after_Prep = mkPrep ["بعد از"] ;
   all_Predet = ss ["همه ی"] ;
   almost_AdA, almost_AdN = ss "تقریباً" ;
   although_Subj = mkSubj "با وجود این" ;
   always_AdV = ss "همیشه" ;
   and_Conj = sd2 [] "و" ** {n = Pl} ;
   because_Subj = mkSubj "برای این" ;
-  before_Prep = ss ["قبل از"] ;
-  behind_Prep = ss "پشت" ;
-  between_Prep = ss "بین" ;
+  before_Prep = mkPrep ["قبل از"] ;
+  behind_Prep = mkPrep "پشت" ;
+  between_Prep = mkPrep "بین" ;
   both7and_DConj = sd2 "هم" ["و هم"] ** {n = Pl} ;
   but_PConj = ss "اما" ;
-  by8agent_Prep = ss "توسط" ;
-  by8means_Prep = ss "با" ;
+  by8agent_Prep = mkPrep "توسط" ;
+  by8means_Prep = mkPrep "با" ;
 --  can8know_VV,can_VV = mkVV (mkV "سکن") ;
   can_VV = mkVV (mkV_1 "توانستن") ; ---- AR
-  during_Prep = ss ["در طول"] ;
+  during_Prep = mkPrep ["در طول"] ;
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
 --  everybody_NP =  R.indeclNP "هر کwی";
   every_Det = mkDet "هر" Sg ;
 --  everything_NP = R.indeclNP ["هر XE"]));
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
-  for_Prep = ss "برای" ;
-  from_Prep = ss "از" ;
+  for_Prep = mkPrep "برای" ;
+  from_Prep = mkPrep "از" ;
   he_Pron = personalPron "او"   "ش"  Sg P3 ;
   here_Adv = ss "اینجا" ;
   here7to_Adv = ss "اینجا" ;
@@ -39,9 +39,9 @@ concrete StructuralPes of Structural = CatPes **
   how8many_IDet = {s = "چند" ; n = Pl ; isNum = True} ;
   how8much_IAdv  = ss "چقدر" ;
   if_Subj = mkSubj subjunctive "اگر" ;
-  in8front_Prep = ss "جلوی" ;
+  in8front_Prep = mkPrep "جلوی" ;
   i_Pron = personalPron "من"   "م" Sg P1;
-  in_Prep = ss "در" ;
+  in_Prep = mkPrep "در" ;
   it_Pron  = personalPron "آن"  "ش" Sg P3;
   less_CAdv = {s = "کمتر" ; p = ""} ;
   many_Det = mkDet ["تعداد زیادی"] Pl True; -- check
@@ -53,13 +53,13 @@ concrete StructuralPes of Structural = CatPes **
      in must ** {isDef=True} ;
    -- TODO: past tense forms with مجبور+beVerb
   no_Utt = ss "نه" ;
-  on_Prep = ss "روی" ;
+  on_Prep = mkPrep "روی" ;
   only_Predet = ss "فقط" ;
   or_Conj = sd2 [] "یا" ** {n = Sg} ;
   otherwise_PConj = ss ["درغیراین صورت"] ;
-  part_Prep = ss "از" ; -- TODO: the object following it should be in Ezafa form
+  part_Prep = mkPrep "از" ; -- TODO: the object following it should be in Ezafa form
   please_Voc = ss "لطفاً" ;
-  possess_Prep = ss "" ; -- will be handeled in Ezafeh
+  possess_Prep = mkPrep "" ; -- will be handeled in Ezafeh
   quite_Adv = ss "کاملاً" ;
   she_Pron = personalPron "او"   "ش" Sg P3 ;
   so_AdA = ss "بسیار" ;
@@ -76,10 +76,10 @@ concrete StructuralPes of Structural = CatPes **
   therefore_PConj = ss ["به همین دلیل"] ;
   they_Pron = personalPron "آن ها"   "شان" Pl P3 ;
   this_Quant = mkQuant "این" "این" ;
-  through_Prep = ss ["از طریق"] ;
+  through_Prep = mkPrep ["از طریق"] ;
   too_AdA = ss "خیلی" ;
-  to_Prep = ss "به" ** {lock_Prep = <>};
-  under_Prep = ss "زیر" ** {lock_Prep = <>};
+  to_Prep = mkPrep "به" ** {lock_Prep = <>};
+  under_Prep = mkPrep "زیر" ** {lock_Prep = <>};
   very_AdA = ss "خیلی" ;
   want_VV = mkVV False subjunctive (mkV "خواستن" "خواه") ; --not aux
   we_Pron = personalPron "ما"   "مان" Pl P1 ;
@@ -94,8 +94,8 @@ concrete StructuralPes of Structural = CatPes **
   whoSg_IP = {s = ["چه کسی"] ; n =  Sg}  ;
   whoPl_IP = {s = ["چه کسانی"] ;n = Pl} ;
   why_IAdv = ss "چرا" ;
-  without_Prep = ss "بدون" ;
-  with_Prep = ss "با";
+  without_Prep = mkPrep "بدون" ;
+  with_Prep = mkPrep "با";
 --  yes_Phr = ss "بله" ;
   yes_Utt = ss "بله" ;
   youSg_Pron = personalPron "تو" "ت" Sg P2 ;
@@ -107,7 +107,7 @@ concrete StructuralPes of Structural = CatPes **
   at_least_AdN = ss "حداقل" ;
   at_most_AdN = ss "حداکثر";
   nothing_NP = R.indeclNP "هیچ" ;
-  except_Prep = ss ["به جز"] ;
+  except_Prep = mkPrep ["به جز"] ;
   nobody_NP = R.indeclNP "هیچ کس";
 
   as_CAdv = {s = ["به اندازه ی"] ; p = ""} ;
