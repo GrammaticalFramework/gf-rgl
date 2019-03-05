@@ -56,7 +56,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     CN = ResPes.CN ;
 
     NP = ResPes.NP ;
-    Pron = {s : Str ; ps : Str ; a : Agr};
+    Pron = ResPes.Pron ;
     Det = ResPes.Determiner ;
     Predet = {s : Str} ;
     Num  = {s : Str ; n : Number ; isNum : Bool} ;

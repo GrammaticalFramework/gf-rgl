@@ -281,9 +281,6 @@ oper
    } ;
 
 
-   -- Personal Pronouns
-  personalPron : (nom:Str) -> (poss:Str) -> Number -> Person -> Pron -- Hidden from public API, confusing naming. /IL
-    = \nom,poss,nn,p -> lin Pron {s = nom ; a = Ag nn p ; ps = poss};
    {-
     -- Demonstrative Pronouns
      demoPN : Str -> Str -> Str -> Quant =
@@ -320,7 +317,7 @@ oper
     mkV2 : V -> V2
       = \v -> lin V2 (v ** {c2 = prepOrRa "را"}) ;
     mkV2 : V -> Prep -> V2
-      = \v,p -> lin V2 (v ** {c2 = prepOrRa p.s}) ;
+      = \v,p -> lin V2 (v ** {c2 = p}) ;
     mkV2 : V -> Str -> V2
       = \v,ra -> lin V2 (v ** {c2 = prepOrRa ra}) ;
     mkV2 : V -> Str -> Bool -> V2

@@ -99,7 +99,7 @@ oper
   -- A hack: we reuse the obj field for the VP complement in
   -- SlashV2V and this is needed to get the right word order for complVV.
   showVPHvv : VerbForm -> Agr -> VPH -> Str = \vf,agr,vp ->
-      vp.comp ! agr ++ vp.prefix ++ vp.s ! vf ++ vp.ad
+      vp.ad ++ vp.comp ! agr ++ vp.prefix ++ vp.s ! vf
    ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp ;
 
   Compl : Type = {s : Str ; ra : Str} ;
@@ -236,6 +236,7 @@ oper
           quest = case ord of { ODir => [] ; OQuest => "آیا" } ;
           vvt = ta2vvt ta ;
        in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj
+--       in quest ++ vp.ad ++ subj ++ vp.comp ! agr ++ vp.obj -- TODO check which word order is better /IL
        ++ vps ++ vp.vComp ! agr ! vvt ++ vp.embComp
   };
 
@@ -253,13 +254,13 @@ oper
   taryn = "ترین" ;
 
 -----------------------------
--- Noun Phrase
+-- Noun phrase
 -----------------------------
 
  partNP : Verb -> Str = \v -> v.prefix ++ v.s ! PerfStem ++ "شده" ;
 
 -----------------------------------
--- Reflexive Pronouns
+-- Reflexive pronouns
 -----------------------------------
 
   reflPron : Agr => Str = table {
@@ -279,5 +280,24 @@ oper
     <Inanimate,Sg> => "آن" ;
     <Inanimate,Pl> => zwnj "آن" "ها"
    };
+
+-----------------------------------
+-- Personal pronouns
+-----------------------------------
+
+  Pron : Type = {s : Str ; ps : Str ; a : Agr} ;
+
+  mkPron : (nom:Str) -> (poss:Str) -> Number -> Person -> Pron -- Hidden from public API, confusing naming. /IL
+    = \nom,poss,nn,p -> lin Pron {s = nom ; a = Ag nn p ; ps = poss};
+
+
+  agr2pron : Agr => Pron = table {
+    Ag Sg P1 => mkPron "من"   "م" Sg P1 ;
+    Ag Sg P2 => mkPron "تو"   "ت" Sg P2 ;
+    Ag Sg P3 => mkPron "او"   "ش"  Sg P3 ;
+    Ag Pl P1 => mkPron "ما"   "مان" Pl P1 ;
+    Ag Pl P2 => mkPron "شما"  "تان" Pl P2 ;
+    Ag Pl P3 => mkPron (zwnj "آن" "ها")  "شان" Pl P3
+    } ;
 
 }
