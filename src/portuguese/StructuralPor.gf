@@ -67,7 +67,7 @@ concrete StructuralPor of Structural = CatPor **
     during_Prep = mkPrep "durante" ;
     either7or_DConj = {s1,s2 = "ou" ; n = Sg} ;
     everybody_NP = makeNP "todos" Masc Pl ;
-    every_Det = mkDeterminer "cada" "cada" Sg False ;
+    every_Det = mkDeterminer "todo" "toda" Sg False ;
     everything_NP = pn2np (mkPN "tudo" Masc) ;
     everywhere_Adv = ss ["em toda parte"] ;
     except_Prep = mkPrep "exceto" ;
@@ -105,7 +105,7 @@ concrete StructuralPor of Structural = CatPor **
         s2 = [] ; isNeg = True
       } ;
     no_Utt = ss "não" ;
-    not_Predet = {s = \\a,c => prepCase c ++ "não" ; c = Nom ; a = PNoAg} ;
+    not_Predet = {s = \\a,c => prepCase c ++ "nem" ; c = Nom ; a = PNoAg} ;
     nobody_NP = pn2npNeg (mkPN "ninguém") ;
     nothing_NP = pn2npNeg (mkPN "nada") ;
 
