@@ -69,7 +69,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
         clit    = vp.clit1 ++ vp.clit2 ;
         hasClit = vp.clit3.hasClit ;
         imper   = vp.s.s ! vImper n pe ;
-        subj    = vp.s.s ! VFin (VPres Conjunct) n p ;
+        subj    = vp.s.s ! VFin (VPres Conjunct) n pe ;
         neg     = vp.neg ! pol ;
         agr     = {g = g ; n = n ; p = pe} ;
         compl   = neg.p2 ++ vp.comp ! agr ++ vp.ext ! pol
