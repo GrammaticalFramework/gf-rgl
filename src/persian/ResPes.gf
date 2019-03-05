@@ -99,7 +99,7 @@ oper
   -- A hack: we reuse the obj field for the VP complement in
   -- SlashV2V and this is needed to get the right word order for complVV.
   showVPHvv : VerbForm -> Agr -> VPH -> Str = \vf,agr,vp ->
-      vp.comp ! agr ++ vp.prefix ++ vp.s ! vf ++ vp.ad
+      vp.ad ++ vp.comp ! agr ++ vp.prefix ++ vp.s ! vf
    ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp ;
 
   Compl : Type = {s : Str ; ra : Str} ;
@@ -236,6 +236,7 @@ oper
           quest = case ord of { ODir => [] ; OQuest => "آیا" } ;
           vvt = ta2vvt ta ;
        in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj
+--       in quest ++ vp.ad ++ subj ++ vp.comp ! agr ++ vp.obj -- TODO check which word order is better /IL
        ++ vps ++ vp.vComp ! agr ! vvt ++ vp.embComp
   };
 
