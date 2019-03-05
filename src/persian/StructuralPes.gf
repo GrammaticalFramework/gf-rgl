@@ -31,7 +31,7 @@ concrete StructuralPes of Structural = CatPes **
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
   for_Prep = mkPrep "برای" ;
   from_Prep = mkPrep "از" ;
-  he_Pron = personalPron "او"   "ش"  Sg P3 ;
+  he_Pron = R.agr2pron ! Ag Sg P3 ;
   here_Adv = ss "اینجا" ;
   here7to_Adv = ss "اینجا" ;
   here7from_Adv = ss "اینجا" ;
@@ -40,9 +40,9 @@ concrete StructuralPes of Structural = CatPes **
   how8much_IAdv  = ss "چقدر" ;
   if_Subj = mkSubj subjunctive "اگر" ;
   in8front_Prep = mkPrep "جلوی" ;
-  i_Pron = personalPron "من"   "م" Sg P1;
+  i_Pron = R.agr2pron ! Ag Sg P1;
   in_Prep = mkPrep "در" ;
-  it_Pron  = personalPron "آن"  "ش" Sg P3;
+  it_Pron  = R.agr2pron ! Ag Sg P3;
   less_CAdv = {s = "کمتر" ; p = ""} ;
   many_Det = mkDet ["تعداد زیادی"] Pl True; -- check
   more_CAdv = {s = "بیشتر" ; p = "" } ;
@@ -61,7 +61,7 @@ concrete StructuralPes of Structural = CatPes **
   please_Voc = ss "لطفاً" ;
   possess_Prep = mkPrep "" ; -- will be handeled in Ezafeh
   quite_Adv = ss "کاملاً" ;
-  she_Pron = personalPron "او"   "ش" Sg P3 ;
+  she_Pron = R.agr2pron ! Ag Sg P3 ;
   so_AdA = ss "بسیار" ;
   somebody_NP = R.indeclNP "کwی" ;
   someSg_Det = mkDet "مقداری" Sg True ;
@@ -74,7 +74,7 @@ concrete StructuralPes of Structural = CatPes **
   there7to_Adv = ss "آنجا" ;
   there7from_Adv = ss "آنجا" ;
   therefore_PConj = ss ["به همین دلیل"] ;
-  they_Pron = personalPron "آن ها"   "شان" Pl P3 ;
+  they_Pron = R.agr2pron ! Ag Pl P3 ;
   this_Quant = mkQuant "این" "این" ;
   through_Prep = mkPrep ["از طریق"] ;
   too_AdA = ss "خیلی" ;
@@ -82,7 +82,7 @@ concrete StructuralPes of Structural = CatPes **
   under_Prep = mkPrep "زیر" ** {lock_Prep = <>};
   very_AdA = ss "خیلی" ;
   want_VV = mkVV False subjunctive (mkV "خواستن" "خواه") ; --not aux
-  we_Pron = personalPron "ما"   "مان" Pl P1 ;
+  we_Pron = R.agr2pron ! Ag Pl P1 ;
   whatSg_IP = {s = ["چه چیزی"] ; n = Sg } ;
   whatPl_IP = {s = ["چه چیزهایی"] ; n = Pl } ;
   when_IAdv = ss "کی" ;
@@ -98,9 +98,9 @@ concrete StructuralPes of Structural = CatPes **
   with_Prep = mkPrep "با";
 --  yes_Phr = ss "بله" ;
   yes_Utt = ss "بله" ;
-  youSg_Pron = personalPron "تو" "ت" Sg P2 ;
-  youPl_Pron = personalPron "شما"  "تان" Pl P2 ;
-  youPol_Pron = personalPron "شما"  "تان" Pl P2  ;
+  youSg_Pron = R.agr2pron ! Ag Sg P2 ;
+  youPl_Pron = R.agr2pron ! Ag Pl P2 ;
+  youPol_Pron = R.agr2pron ! Ag Pl P2  ;
 --  no_Quant =  demoPN "هیچ" ;
   not_Predet = {s="نه"} ;
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;

@@ -281,9 +281,6 @@ oper
    } ;
 
 
-   -- Personal Pronouns
-  personalPron : (nom:Str) -> (poss:Str) -> Number -> Person -> Pron -- Hidden from public API, confusing naming. /IL
-    = \nom,poss,nn,p -> lin Pron {s = nom ; a = Ag nn p ; ps = poss};
    {-
     -- Demonstrative Pronouns
      demoPN : Str -> Str -> Str -> Quant =

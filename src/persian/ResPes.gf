@@ -253,13 +253,13 @@ oper
   taryn = "ترین" ;
 
 -----------------------------
--- Noun Phrase
+-- Noun phrase
 -----------------------------
 
  partNP : Verb -> Str = \v -> v.prefix ++ v.s ! PerfStem ++ "شده" ;
 
 -----------------------------------
--- Reflexive Pronouns
+-- Reflexive pronouns
 -----------------------------------
 
   reflPron : Agr => Str = table {
@@ -279,5 +279,24 @@ oper
     <Inanimate,Sg> => "آن" ;
     <Inanimate,Pl> => zwnj "آن" "ها"
    };
+
+-----------------------------------
+-- Personal pronouns
+-----------------------------------
+
+  Pron : Type = {s : Str ; ps : Str ; a : Agr} ;
+
+  mkPron : (nom:Str) -> (poss:Str) -> Number -> Person -> Pron -- Hidden from public API, confusing naming. /IL
+    = \nom,poss,nn,p -> lin Pron {s = nom ; a = Ag nn p ; ps = poss};
+
+
+  agr2pron : Agr => Pron = table {
+    Ag Sg P1 => mkPron "من"   "م" Sg P1 ;
+    Ag Sg P2 => mkPron "تو"   "ت" Sg P2 ;
+    Ag Sg P3 => mkPron "او"   "ش"  Sg P3 ;
+    Ag Pl P1 => mkPron "ما"   "مان" Pl P1 ;
+    Ag Pl P2 => mkPron "شما"  "تان" Pl P2 ;
+    Ag Pl P3 => mkPron (zwnj "آن" "ها")  "شان" Pl P3
+    } ;
 
 }
