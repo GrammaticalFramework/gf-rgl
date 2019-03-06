@@ -322,7 +322,7 @@ lin
    know_VQ = mkVQ know_V ;
    wonder_VQ = mkVQ (reflV (mkV "perguntar")) ;
    fear_VS = subjVS (mkV "temer") ;
-   hope_VS = mkVS (mkV "esperar") ;
+   hope_VS = subjVS (mkV "esperar") ;
    know_VS = mkVS know_V ;
    say_VS = mkVS (mkV (dizer_Besch "dizer")) ;
    -- V
