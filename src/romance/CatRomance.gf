@@ -55,7 +55,7 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
 
 -- Adjective
 
-    AP = {s : AForm => Str ; isPre : Bool ; copTyp : CopulaType} ;
+    AP = {s : Person => AForm => Str ; isPre : Bool ; copTyp : CopulaType} ;
 
 -- Noun
 
