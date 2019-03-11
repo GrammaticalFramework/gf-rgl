@@ -100,7 +100,7 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
     } ;
 
     AdNum adn num = {
-      s = \\n,c => adn.s ++ num.s ! n ! c
+      s = \\n,c => num.s ! n ! adn.c ++ adn.s
     } ;
 
     AdjDAP det ap = {

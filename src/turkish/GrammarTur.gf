@@ -10,11 +10,11 @@ concrete GrammarTur of Grammar =
   QuestionTur,
   RelativeTur,
   ConjunctionTur,
-  TextX,
+  TextX - [CAdv, AdN],
   StructuralTur,
   PhraseTur,
   IdiomTur,
-  TenseX
+  TenseX - [CAdv, AdN]
   ** {
 
   flags startcat = Phr ;

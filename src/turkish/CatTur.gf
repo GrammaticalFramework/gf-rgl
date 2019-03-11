@@ -1,10 +1,14 @@
---# -path=.:../abstract:../common:../../prelude
-
-concrete CatTur of Cat = CommonX ** open ResTur, Prelude in {
+concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
 
   flags optimize=all_subs ;
 
   lincat
+
+    S  = {s : Gerundification => Str} ;
+
+    -- TODO: parameterize by tense.
+    Cl = {s : Gerundification => Str} ;
+
 
     -- Noun
     CN = {s : Number => Case => Str; gen : Number => Agr => Str} ;
@@ -22,6 +26,8 @@ concrete CatTur of Cat = CommonX ** open ResTur, Prelude in {
     Prep = {s : Str; c : Case} ;
     PrepNP = {s : Str} ;
     DAP = {s : Number => Case => Str} ;
+    CAdv = {s : Str; p : Str; c : Case} ;
+    AdN = {s : Str; c : Case} ;
 
     Numeral = {s : CardOrd => Number => Case => Str ; n : Number} ;
     Digits  = {s : CardOrd => Number => Case => Str ; n : Number; tail : DTail} ;
