@@ -57,7 +57,8 @@ prefixes = [
   ]
 
 allLanguages = [
-   ("Afr","afrikaans")
+   ("",   "abstract")
+  ,("Afr","afrikaans")
   ,("Ara","arabic")
 ---  ,("Bul","bulgarian") ---- todo convert to utf8
   ,("Cat","catalan")
