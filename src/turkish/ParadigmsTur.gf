@@ -51,7 +51,14 @@ resource ParadigmsTur = open
       mkV3 : (konusmak : V) -> Prep -> Prep -> V3 ;
     } ;
 
-    mkV2S : V -> V2S = \verb -> lin V2S (verb ** {c = no_Prep}) ;
+    mkV2A : V -> V2A = \verb -> lin V2A (verb ** {c = noPrep}) ;
+    mkV2V : V -> V2V = \verb -> lin V2V (verb ** {c = noPrep}) ;
+    mkV2S : V -> V2S = \verb -> lin V2S (verb ** {c = noPrep}) ;
+
+    mkVA : V -> VA = \verb -> verb ;
+    mkVV : V -> VV = \verb -> verb ;
+    mkVS : V -> VS = \verb -> verb ;
+    mkVQ : V -> VQ = \verb -> verb ;
 
     -- worst-case function
     -- bases of all forms are required.
@@ -78,14 +85,14 @@ resource ParadigmsTur = open
 
     mkV2 = overload {
       -- sormak
-      mkV2 : V -> V2 = \verb -> verb ** lin V2 {c = no_Prep} ;
+      mkV2 : V -> V2 = \verb -> verb ** lin V2 {c = noPrep} ;
       -- (bir şeyden) korkmak
       mkV2 : V -> Prep -> V2 = \verb,c -> verb ** lin V2 {c = c} ;
     } ;
 
     mkV3 = overload {
       -- (birine bir şeyi) satmak
-      mkV3 : V -> V3 = \verb -> verb ** lin V3 {c1 = no_Prep; c2 = no_Prep} ;
+      mkV3 : V -> V3 = \verb -> verb ** lin V3 {c1 = noPrep; c2 = noPrep} ;
       -- (biri ile bir şeyi) konuşmak
       mkV3 : V -> Prep -> Prep -> V3 =
         \verb,c1,c2 -> verb ** lin V3 {c1 = c1; c2 = c2} ;
@@ -110,7 +117,11 @@ resource ParadigmsTur = open
       mkN : (zeytin, yag : N) -> N ;
     } ;
 
-    mkN2 : Str -> N2 ;
+    mkN : overload {
+      -- regular noun, only nominative case is needed
+      mkN2 : Str -> N2 ;
+      mkN2 : N -> N2 ;
+    } ;
 
     mkN3 : Str -> N3 ;
 
@@ -191,6 +202,9 @@ resource ParadigmsTur = open
   -- Adverbs
 
   mkAdv : Str -> Adv ;
+  mkAdV : Str -> AdV ;
+  mkAdA : Str -> AdA ;
+  mkAdN : Str -> Case -> AdN ;
 
   --Implementation of verb paradigms
 
@@ -456,12 +470,20 @@ resource ParadigmsTur = open
         \n1,n2 -> linkNoun n1 n2 Indef Con ;
     } ;
 
-    mkN2 base = (mkN base) ** lin N2 {c = lin Prep {s=[]; c=Gen}} ;
+    mkN2 = overload {
+      mkN2 : Str -> N2 =
+        \base -> (mkN base) ** lin N2 {c = lin Prep {s=[]; c=Gen}} ;
+      mkN2 : N -> N2 =
+        \n -> n ** lin N2 {c = lin Prep {s=[]; c=Gen}} ;
+    } ;
 
     mkN3 base = (mkN base) ** lin N3 {c1,c2 = lin Prep {s=[]; c=Gen}} ;
 
     -- Implementation for adverb paradigms.
     mkAdv s = lin Adv { s = s } ;
+    mkAdV s = lin AdV { s = s } ;
+    mkAdA s = lin AdA { s = s } ;
+    mkAdN s c = lin AdN { s = s; c = c } ;
 
     -- Implementation of adjactive paradigms
     mkA = overload {

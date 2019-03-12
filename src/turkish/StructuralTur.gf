@@ -209,15 +209,15 @@ concrete StructuralTur of Structural = CatTur **
     where_IAdv = {s = "nerede"} ;
 
     can8know_VV = {
-      s = "(TODO: can8know_VV)"
+      s = \\_ => "(TODO: can8know_VV)"
     } ;
 
     can_VV = {
-      s = "(TODO: can_VV)"
+      s = \\_ => "(TODO: can_VV)"
     } ;
 
     must_VV = {
-      s = "(TODO: must_VV)"
+      s = \\_ => "(TODO: must_VV)"
     } ;
 
     not_Predet = {
@@ -246,7 +246,7 @@ concrete StructuralTur of Structural = CatTur **
 
     -- TODO: this depends on the linearization for `ComplVV` and is really a
     -- morphological construct so it might be a bit tricky to implement.
-    want_VV = { s = "(TODO: want_VV)" } ;
+    want_VV = { s = \\_ => "(TODO: want_VV)" } ;
 
     whatPl_IP = { s = "neler" } ;
 

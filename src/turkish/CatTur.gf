@@ -36,8 +36,8 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
     AP = {s : Number => Case => Str} ;
 
     -- Open lexical classes, e.g. Lexicon
-    V, VS, VQ, VA = Verb ;
-    V2, V2Q, V2V, V2A, V2S = Verb ** {c : Prep} ;
+    V, VS, VV, VQ, VA = Verb ;
+    V2, V2S, V2V, V2Q, V2A = Verb ** {c : Prep} ;
     V3 = Verb ** {c1,c2 : Prep} ;
 
     A = Adjective ;
