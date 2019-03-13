@@ -38,15 +38,23 @@ lincat
 
   -- Open lexical classes, e.g. Lexicon
   V  = {s : VForm => Str ; p : Str ; refl : Str}; ----AR: +p particle
+  VA = {s : VForm => Str ; p : Str ; refl : Str};
   VS = {s : VForm => Str ; p : Str ; refl : Str};
   VQ = {s : VForm => Str};
   VV = {s : VForm => Str};
   V2 = {s : VForm => Str; c2 : Prep ; p : Str ; refl : Str};  ----AR: +p particle
   V3 = {s : VForm => Str; c2 : Prep ; c3 : Prep ; p : Str ; refl : Str};
+  V2A = {s : VForm => Str; p : Str ; refl : Str};
+  V2S = {s : VForm => Str; p : Str ; refl : Str};
+  V2Q = {s : VForm => Str; p : Str ; refl : Str};
+  V2V = {s : VForm => Str; p : Str ; refl : Str};
 
   A = {s : AForm => Str};
-  
+  A2 = {s : AForm => Str; c : Prep};
+
   N = {s : Case => Number => Str; g : AGender};
+  N2 = {s : Case => Number => Str; g : AGender; c : Prep} ;
+
   PN = {s : Case => Str; g : AGender; n : Number};
 
 }
