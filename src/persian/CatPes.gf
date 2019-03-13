@@ -62,8 +62,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     Num  = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Str; n : Number} ;
     Ord = {s : Str; n : Number ; isNum : Bool} ;
-    Quant = {s: Number => Str ; a:Agr ; mod : Mod};
-    Art = {s : Str} ;
+    Quant = ResPes.Quant ;
 
 ---- Numeral
 

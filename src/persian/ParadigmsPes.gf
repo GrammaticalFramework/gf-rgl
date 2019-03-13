@@ -53,7 +53,9 @@ oper
     cmpdN : N -> Str -> N -- Compound noun with an invariable modifier /after/ the head. NB. no ezāfe.
       = mkCmpdNoun2 ;  --  e.g. مأمور پلیس '/officer/ police'.
     cmpdN : N -> N -> N -- Compound noun with ezafe (Nی N)
-      = \n1,n2 -> n1 ** {s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! n ! m} ;
+      = \n1,n2 -> n1 ** {
+           s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! n ! m ;
+           isCmpd = IsCmpd} ;
     } ;
 
 -- Proper names
@@ -290,10 +292,14 @@ oper
      \s1,s2,s3,s4,n,g -> let p = mkIntPronForm s1 s2 s3 s4 in { s = p.s ; n = n ; g = g ;  lock_IP = <>};
    -}
 
-   mkCmpdNoun1 : Str -> N -> N
-     = \s,noun -> noun ** {s =\\ez,n => s ++ noun.s ! ez ! n};
-   mkCmpdNoun2 : N -> Str -> N
-     = \noun,s -> noun ** {s =\\ez,n => noun.s ! ez ! n  ++ s};
+  mkCmpdNoun1 : Str -> N -> N = \s,noun ->
+    noun ** {
+      s = \\ez,n => s ++ noun.s ! ez ! n ;
+      isCmpd = IsCmpd} ;
+  mkCmpdNoun2 : N -> Str -> N = \noun,s ->
+    noun ** {
+      s = \\ez,n => noun.s ! ez ! n ++ s ;
+      isCmpd = IsCmpd};
 
 -- hidden from public API
   compoundV = overload {

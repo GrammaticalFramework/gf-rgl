@@ -8,9 +8,15 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
         let num : Number = case det.isNum of {
               True  => Sg ; -- noun modified by a number is invariably singular
               False => det.n } ;
-         in case det.mod of {
-              Bare => det.s ++ cn.s ! num ! m ; -- det doesn't require a special form, keep the Mod=>Str table
-              x    => cn.s ! num ! x ++ det.s } ; -- det requires a special form
+            mod : Mod = case <cn.isCmpd,det.mod> of {
+              <IsCmpd,Poss> => Ezafe ; -- If CN is compound and Det is poss.pron, don't use poss.suff but Ezafe and full form of pronoun
+              _           => det.mod } ;
+            detStr : Str = case cn.isCmpd of {
+              IsCmpd => det.sp ;
+              NotCmpd => det.sp } ;
+         in case mod of {
+              Bare => detStr ++ cn.s ! num ! m ; -- det doesn't require a special form, keep the Mod=>Str table
+              x    => cn.s ! num ! x ++ detStr } ; -- det requires a special form
       a = agrP3 det.n ;
       compl = cn.compl ! det.n
       } ;
@@ -35,28 +41,35 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     DetQuantOrd quant num ord = {
-      s = quant.s ! num.n ++ num.s ++ ord.s ;
+      s = quant.s ! num.n ! NotCmpd ++ num.s ++ ord.s ;
+      sp = quant.s ! num.n ! IsCmpd ;  -- only matters for PossPron
       isNum = orB num.isNum ord.isNum ;
       mod = quant.mod ;
       n = num.n
       } ;
 
     DetQuant quant num = {
-      s = quant.s ! num.n ++ num.s;
+      s = quant.s ! num.n ! NotCmpd ++ num.s ;
+      sp = quant.s ! num.n ! IsCmpd ; -- only matters for PossPron
       isNum = num.isNum;
       mod = quant.mod ;
       n = num.n
       } ;
 
     DetNP det = {
-      s = \\_ => det.s  ; ---- case
+      s = \\_ => det.sp ;
       a = agrP3 det.n ;
       hasAdj = False ;
       animacy = Inanimate ;
       compl = []
       } ;
 
-    PossPron p = {s = \\_ => BIND ++ p.ps ; a = p.a ; mod = Poss} ;
+    PossPron p = {
+       s = \\_ => table {
+              NotCmpd => BIND ++ p.ps ;
+              IsCmpd  => p.s } ; -- is a compound
+       a = p.a ;
+       mod = Poss} ; -- make into Ezafe if DetCN if N is compound
 
     NumSg = {s = [] ; n = Sg ; isNum = False} ;
     NumPl = {s = [] ; n = Pl ; isNum = False} ;
@@ -73,8 +86,8 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     OrdSuperl a = {s = a.s ! Bare ++ taryn; n = Sg ; isNum=False} ; -- check the form of adjective
 
-    DefArt = {s = \\_ => [] ; a = defaultAgr ; mod = Bare} ;
-    IndefArt = {s = table {Sg => IndefArticle ; Pl => []} ; a = defaultAgr ; mod = Bare} ;
+    DefArt = {s = \\_,_ => [] ; mod = Bare} ;
+    IndefArt = {s = table {Sg => \\_ => IndefArticle ; Pl => \\_ => []} ; mod = Bare} ;
 
     MassNP cn = cn ** {
       s = cn.s ! Sg ;
