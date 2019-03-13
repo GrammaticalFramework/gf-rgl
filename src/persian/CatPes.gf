@@ -1,4 +1,4 @@
-concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
+concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -44,9 +44,6 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     VPSlash = ResPes.VPHSlash ;
     Comp = {s : Agr => Str} ;
 
----- Adv
-    Adv = {s : Str} ;
-
 ---- Adjective
 
     AP = ResPes.Adjective ;
@@ -62,8 +59,7 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     Num  = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Str; n : Number} ;
     Ord = {s : Str; n : Number ; isNum : Bool} ;
-    Quant = {s: Number => Str ; a:Agr ; mod : Mod};
-    Art = {s : Str} ;
+    Quant = ResPes.Quant ;
 
 ---- Numeral
 

@@ -31,6 +31,7 @@ param
   Animacy = Animate | Inanimate ;
   Mod = Bare | Ezafe | Clitic | Poss ;
   Agr = Ag Number Person ;
+  CmpdStatus = IsCmpd | NotCmpd ;
 
 ------------------------------------------
 -- Agreement transformations
@@ -90,9 +91,14 @@ oper
       _               =>      str + "ی" -- any other case: just a single ی
     } ;
 
-    Noun = {s : Number => Mod => Str ; animacy : Animacy} ;
-    mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> {
-      s = table {
+  Noun = {
+    s : Number => Mod => Str ;
+    animacy : Animacy ;
+    isCmpd : CmpdStatus       -- Affects possession: awkward to use poss. suff. with compound nouns
+  } ;
+
+  mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> indeclN sg ** {
+    s = table {
            Sg => table {Bare => sg ;
                         Ezafe => mkEzafe sg ;
                         Clitic => mkEnclic sg ;
@@ -100,10 +106,13 @@ oper
            Pl => table {Bare => pl ;
                         Ezafe => mkEzafe pl ;
                         Clitic => mkEnclic pl ;
-                        Poss => mkPossStem pl }
-      } ;
-     animacy = ani
-    } ;
+                        Poss => mkPossStem pl }}
+  } ;
+
+  indeclN : Str -> Noun = \s -> {
+    s = \\_,_ => s ;
+    animacy = Inanimate ; isCmpd = NotCmpd
+  } ;
 
 -- masculine nouns end with alif, choTi_hay, ain Translitration: (a, h, e)
 -- Arabic nouns ends with h. also taken as Masc
@@ -111,20 +120,30 @@ oper
 ---------------------
 --Determiners
 --------------------
-Determiner : Type = {s : Str ; n :Number ; isNum : Bool ; mod : Mod} ;
+  BaseQuant : Type = {
+    mod : Mod } ;
 
- makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
-   s = str;
-   isNum = b;
-   mod = Bare ;
-   n = n
- };
+  Determiner : Type = BaseQuant ** {
+    s : Str ;
+    sp : Str ; -- stand-alone form for DetNP and possessive pronouns with compound nouns
+    n : Number ;
+    isNum : Bool
+  } ;
 
- makeQuant : Str -> Str  -> {s : Number => Str ; a : Agr; mod : Mod } = \sg,pl -> {
-   s = table {Sg => sg ; Pl => pl} ;
-   mod = Bare ;
-   a = agrP3 Sg
- };
+  Quant : Type = BaseQuant ** {
+    s : Number => CmpdStatus => Str} ;
+
+  makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
+    s,sp = str;
+    isNum = b;
+    mod = Bare ;
+    n = n
+  };
+
+  makeQuant : Str -> Str -> Quant = \sg,pl -> {
+    s = table {Sg => \\_ => sg ; Pl => \\_ => pl} ;
+    mod = Bare ;
+  };
 ---------------------------
 -- Adjectives
 --------------------------
