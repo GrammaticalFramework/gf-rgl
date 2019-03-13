@@ -3,6 +3,7 @@
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
     GenNP, ApposNP, ICompAP
+    ,GerundNP,GerundCN,GerundAdv
     ]
   with (Grammar=GrammarPes)
   ** open Prelude, ResPes in {
@@ -20,4 +21,13 @@ lin
   } ;
 
   ICompAP ap = {s = "چقدر" ++ ap.s ! Bare} ;
+  -- : VP -> CN ;          -- publishing of the document (can get a determiner)
+  GerundCN vp = useN (indeclN (showVPH Inf defaultAgr vp)) ;
+
+  -- : VP -> NP ;          -- publishing the document (by nature definite)
+  GerundNP vp = indeclNP (showVPH Inf defaultAgr vp) ;
+
+  -- : VP -> Adv ;         -- publishing the document (prepositionless adverb)
+  GerundAdv vp = lin Adv {s = showVPH Inf defaultAgr vp} ;
+
 }

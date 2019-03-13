@@ -97,7 +97,7 @@ oper
     isCmpd : CmpdStatus       -- Affects possession: awkward to use poss. suff. with compound nouns
   } ;
 
-  mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> {
+  mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> indeclN sg ** {
     s = table {
            Sg => table {Bare => sg ;
                         Ezafe => mkEzafe sg ;
@@ -106,10 +106,13 @@ oper
            Pl => table {Bare => pl ;
                         Ezafe => mkEzafe pl ;
                         Clitic => mkEnclic pl ;
-                        Poss => mkPossStem pl }
-      } ;
-     animacy = ani ; isCmpd = NotCmpd
-    } ;
+                        Poss => mkPossStem pl }}
+  } ;
+
+  indeclN : Str -> Noun = \s -> {
+    s = \\_,_ => s ;
+    animacy = Inanimate ; isCmpd = NotCmpd
+  } ;
 
 -- masculine nouns end with alif, choTi_hay, ain Translitration: (a, h, e)
 -- Arabic nouns ends with h. also taken as Masc
