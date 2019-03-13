@@ -1,4 +1,4 @@
-concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
+concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -43,9 +43,6 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 
     VPSlash = ResPes.VPHSlash ;
     Comp = {s : Agr => Str} ;
-
----- Adv
-    Adv = {s : Str} ;
 
 ---- Adjective
 
