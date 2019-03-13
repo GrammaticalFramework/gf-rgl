@@ -2,7 +2,7 @@
 
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
-    GenNP, ApposNP
+    GenNP, ApposNP, ICompAP
     ]
   with (Grammar=GrammarPes)
   ** open Prelude, ResPes in {
@@ -18,4 +18,6 @@ lin
   ApposNP np1 np2 = np1 ** {
     s = \\m => np1.s ! m ++ np2.s ! m
   } ;
+
+  ICompAP ap = {s = "چقدر" ++ ap.s ! Bare} ;
 }
