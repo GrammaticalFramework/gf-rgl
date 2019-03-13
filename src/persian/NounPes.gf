@@ -12,8 +12,8 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
               <IsCmpd,Poss> => Ezafe ; -- If CN is compound and Det is poss.pron, don't use poss.suff but Ezafe and full form of pronoun
               _           => det.mod } ;
             detStr : Str = case cn.isCmpd of {
-              IsCmpd => det.sp ;
-              NotCmpd => det.sp } ;
+              NotCmpd => det.s ; -- possessive suffix
+              IsCmpd  => det.sp } ; -- full form
          in case mod of {
               Bare => detStr ++ cn.s ! num ! m ; -- det doesn't require a special form, keep the Mod=>Str table
               x    => cn.s ! num ! x ++ detStr } ; -- det requires a special form
@@ -42,7 +42,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     DetQuantOrd quant num ord = {
       s = quant.s ! num.n ! NotCmpd ++ num.s ++ ord.s ;
-      sp = quant.s ! num.n ! IsCmpd ;  -- only matters for PossPron
+      sp = quant.s ! num.n ! IsCmpd ++ num.s ++ ord.s ;  -- only matters for PossPron
       isNum = orB num.isNum ord.isNum ;
       mod = quant.mod ;
       n = num.n
@@ -50,7 +50,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     DetQuant quant num = {
       s = quant.s ! num.n ! NotCmpd ++ num.s ;
-      sp = quant.s ! num.n ! IsCmpd ; -- only matters for PossPron
+      sp = quant.s ! num.n ! IsCmpd ++ num.s ; -- only matters for PossPron
       isNum = num.isNum;
       mod = quant.mod ;
       n = num.n
