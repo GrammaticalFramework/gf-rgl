@@ -282,6 +282,8 @@ oper
       = \a,c -> lin A2 (mkAdj a a ** {c2 = c})
    } ;
 
+   preA : (adj,adv : Str) -> A = \adj,adv ->
+     lin A ((mkAdj adj adv) ** {isPre=True}) ;
 
    {-
     -- Demonstrative Pronouns
