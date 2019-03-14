@@ -222,7 +222,7 @@ oper
     quest = table
               { ODir => [];
                 OQuest => "آیا" } ;
-    subj = np.s ! Bare ;
+    subj = np2str np ;
     vp = \\ta,p,ord =>
       let vps = clTable vp ! np.a ! ta ! p ;
           vvt = ta2vvt ta ;
