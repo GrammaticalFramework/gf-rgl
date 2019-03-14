@@ -99,7 +99,7 @@ oper
   -- A hack: we reuse the obj field for the VP complement in
   -- SlashV2V and this is needed to get the right word order for complVV.
   showVPHvv : VerbForm -> Agr -> VPH -> Str = \vf,agr,vp ->
-      vp.ad ++ vp.comp ! agr ++ vp.prefix ++ vp.s ! vf
+      vp.comp ! agr ++ vp.prefix ++ vp.s ! vf  -- vp.ad is missing on purpose! we add it in insertVV.
    ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp ;
 
   Compl : Type = {s : Str ; ra : Str} ;
@@ -140,6 +140,7 @@ oper
   insertVV : VV -> VPH -> VPH = \vv,vp -> predV vv ** {
     vComp = \\a,t => vp.vComp ! a ! t ++ complVV vv vp ! a ! t ;
     vvType = case vv.isDef of {True => DefVV ; _ => FullVV} ;
+    ad = vp.ad  -- because complVV doesn't include ad! for word order.
   } ;
 
   embComp : Str -> VPH -> VPH = \str,vp -> vp ** {
@@ -221,7 +222,7 @@ oper
     quest = table
               { ODir => [];
                 OQuest => "آیا" } ;
-    subj = np.s ! Bare ;
+    subj = np2str np ;
     vp = \\ta,p,ord =>
       let vps = clTable vp ! np.a ! ta ! p ;
           vvt = ta2vvt ta ;

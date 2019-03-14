@@ -3,7 +3,7 @@
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
     GenNP, ApposNP, ICompAP
-    ,GerundNP,GerundCN,GerundAdv
+    ,GerundNP,GerundCN,GerundAdv,EmbedPresPart
     ]
   with (Grammar=GrammarPes)
   ** open Prelude, ResPes in {
@@ -30,4 +30,6 @@ lin
   -- : VP -> Adv ;         -- publishing the document (prepositionless adverb)
   GerundAdv vp = lin Adv {s = showVPH Inf defaultAgr vp} ;
 
+  --  : VP -> SC ;
+  EmbedPresPart vp = lin SC {s = showVPH Inf defaultAgr vp} ;
 }

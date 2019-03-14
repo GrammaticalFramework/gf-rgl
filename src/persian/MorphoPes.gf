@@ -147,7 +147,11 @@ oper
 ---------------------------
 -- Adjectives
 --------------------------
- Adjective : Type = {s : Mod => Str ; adv : Str} ;
+  Adjective : Type = {
+    s : Mod => Str ;
+    adv : Str ;
+    isPre : Bool
+    } ;
 
  mkAdj : Str -> Str -> Adjective = \adj,adv -> {
    s = table { Bare => adj;
@@ -155,7 +159,7 @@ oper
                Clitic => mkEnclic adj ;
                Poss => mkPossStem adj
              } ;
-   adv = adv
+   adv = adv ; isPre = False
    };
 
 ------------------------------------------------------------------

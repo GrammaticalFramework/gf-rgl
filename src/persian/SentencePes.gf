@@ -37,7 +37,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
         {c2 = slash.c2} ;
 
     EmbedS  s  = {s = conjThat ++ s.s ! Indic} ;
-    EmbedQS qs = {s = qs.s ! QIndir} ;
+    EmbedQS qs = qs ;
     EmbedVP vp = {s = showVPH Inf defaultAgr vp} ; --- agr
 
 
@@ -48,7 +48,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
       } ;
 
     UseQCl temp p qcl  = let vt = TA temp.t temp.a in {
-      s = \\q => temp.s ++ p.s ++ qcl.s ! vt ! p.p ! q;
+      s = temp.s ++ p.s ++ qcl.s ! vt ! p.p ;
       } ;
 
     UseRCl temp p rcl = let vt = TA temp.t temp.a in rcl ** {
