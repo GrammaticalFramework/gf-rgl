@@ -14,12 +14,12 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
 
     ComplVV = insertVV ;
     ComplVS v s  = embComp (conjThat ++ s.s ! Indic) (predV v) ;
-    ComplVQ v q  = embComp (conjThat ++ q.s ! QIndir) (predV v) ;
+    ComplVQ v q  = embComp (conjThat ++ q.s)         (predV v) ;
     ComplVA v ap = insertObj (appComp v.c2 (ap.s ! Bare)) (predV v) ; -- check form of adjective
 
     SlashVV vv vps = vps ** ComplVV vv vps ;
     SlashV2S v s  = predVc v ** embComp (conjThat ++ s.s ! Indic) (predV v) ;
-    SlashV2Q v q  = predVc v ** embComp (q.s ! QIndir) (predV v) ;
+    SlashV2Q v q  = predVc v ** embComp q.s (predV v) ;
     SlashV2A v ap = predVc v ** insertObj (appComp v.c2 (ap.s ! Bare)) (predV v) ; ---- paint it red , check form of adjective
 
     -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
