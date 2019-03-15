@@ -46,6 +46,10 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
       c2 = vps.c2 --  preposition for the direct object comes from VPSlash
     } ;
 
+  -- : VP -> Prep -> VPSlash ;
+  VPSlashPrep vp prep = vp ** vs prep ;
+
+
     AdvVP vp adv = insertAdV adv.s vp ;
     AdVVP adv vp = insertAdV adv.s vp ;
     ReflVP v = insertCompPre reflPron v ;
