@@ -135,6 +135,10 @@ oper
     comp = \\a => appComp vp.c2 (obj ! a) ++ vp.comp ! a
     } ;
 
+  insertCompPost : (Agr=>Mod=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
+    comp = \\a =>  vp.comp ! a ++ appComp vp.c2 (obj ! a)
+    } ;
+
   insertVV : VV -> VPH -> VPH = \vv,vp -> predV vv ** {
     vComp = \\a,t => vp.vComp ! a ! t ++ complVV vv vp ! a ! t ;
     vvType = case vv.isDef of {True => DefVV ; _ => FullVV} ;
