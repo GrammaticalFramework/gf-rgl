@@ -29,7 +29,7 @@ concrete StructuralPes of Structural = CatPes **
 --  everything_NP = R.indeclNP ["هر XE"]));
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
-  for_Prep = mkPrep "برای" ;
+  for_Prep = mkPrep "برای" Ezafe ;
   from_Prep = mkPrep "از" ;
   he_Pron = R.agr2pron ! Ag Sg P3 ;
   here_Adv = ss "اینجا" ;
@@ -44,7 +44,7 @@ concrete StructuralPes of Structural = CatPes **
   in_Prep = mkPrep "در" ;
   it_Pron  = R.agr2pron ! Ag Sg P3;
   less_CAdv = {s = "کمتر" ; p = ""} ;
-  many_Det = mkDet ["تعداد زیادی"] Pl True; -- check
+  many_Det = mkDet "بسیار" Pl False Ezafe ;
   more_CAdv = {s = "بیشتر" ; p = "" } ;
   most_Predet = ss "اکثر";
   much_Det = mkDet ["مقدار زیادی"]  Pl ;
@@ -133,9 +133,6 @@ have_V2 = haveVerb ** {
         VSubj _ (Ag Pl P2) => "داشته باشید" ;
         VSubj _ (Ag Pl P3) => "داشته باشند" ;
         x => haveVerb.s ! x } ;
-  c2 = {
-    s  = [] ;
-    ra = [] --- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
-    }
+  c2 = prepOrRa [] -- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
   } ;
 }

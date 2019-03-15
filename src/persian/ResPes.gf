@@ -102,7 +102,7 @@ oper
       vp.comp ! agr ++ vp.prefix ++ vp.s ! vf  -- vp.ad is missing on purpose! we add it in insertVV.
    ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp ;
 
-  Compl : Type = {s : Str ; ra : Str} ;
+  Compl : Type = {s : Str ; ra : Str ; mod : Mod} ;
 
   VPHSlash : Type = VPH ** {
     c2 : Compl ;        -- prep or ra for the complement
@@ -126,14 +126,14 @@ oper
 ---------------------
 -- VP complementation
 ---------------------
-  appComp : Compl -> Str -> Str = \c2,obj ->
-    c2.s ++ obj ++ c2.ra ;
+  appComp : Compl -> (Mod=>Str) -> Str = \c2,obj ->
+    c2.s ++ obj ! c2.mod ++ c2.ra ;
 
   insertComp : (Agr => Str) -> VPH -> VPH = \obj,vp -> vp ** {
     comp = \\a => vp.comp ! a ++ obj ! a
     } ;
 
-  insertCompPre : (Agr=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
+  insertCompPre : (Agr=>Mod=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
     comp = \\a => appComp vp.c2 (obj ! a) ++ vp.comp ! a
     } ;
 
@@ -152,8 +152,7 @@ oper
     } ;
 
   complSlash : VPHSlash -> NP -> VPH = \vp,np -> vp ** {
-    comp = \\a => appComp vp.c2 (np.s ! Bare)
-               ++ np.compl ++ vp.comp ! a ;
+    comp = \\a => appComp vp.c2 np.s ++ vp.comp ! a ;
     obj = vp.obj ++ vp.agrObj ! np.a -- "beg her to buy", buy agrees with her
   } ;
 
@@ -264,14 +263,13 @@ oper
 -- Reflexive pronouns
 -----------------------------------
 
-  reflPron : Agr => Str = table {
-    Ag Sg P1 => "خودم" ;
-    Ag Sg P2 => "خودت" ;
-    Ag Sg P3 => "خودش" ;
-    Ag Pl P1 => "خودمان" ;
-    Ag Pl P2 => "خودتان" ;
-    Ag Pl P3 => "خودشان"
-
+  reflPron : Agr => Mod => Str = table {
+    Ag Sg P1 => modTable "خودم" ;
+    Ag Sg P2 => modTable "خودت" ;
+    Ag Sg P3 => modTable "خودش" ;
+    Ag Pl P1 => modTable "خودمان" ;
+    Ag Pl P2 => modTable "خودتان" ;
+    Ag Pl P3 => modTable "خودشان"
     } ;
 
   getPron : Animacy -> Number -> Str = \ani,number ->

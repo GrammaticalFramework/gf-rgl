@@ -28,6 +28,10 @@ oper
   subjunctive : VVForm ; -- The verbal complement of VV is in subjunctive
   indicative : VVForm ;  -- The verbal complement of VV is in indicative
 
+  Mod : Type ; -- Argument to mkDet and mkPrep
+  ezafe : Mod ; -- e.g. mkPrep "برای" ezafe
+  -- poss : Mod ; -- TODO is this needed?
+  --clitic : Mod ; -- TODO is this needed?
 --2 Nouns
 
   mkN : overload {
@@ -66,9 +70,11 @@ oper
 
   mkDet = overload {
     mkDet : Str -> Number -> Det -- Takes a string, number (sg/pl) and returns a det which is not a numeral
-      = \s1,n -> lin Det (makeDet s1 n False);
-    mkDet : Str -> Number -> Bool -> Det -- Takes a string, number (sg/pl) and a Boolean for whether the det is a numeral
-      = \s1,n,b -> lin Det (makeDet s1 n b)
+      = \s,n -> lin Det (makeDet s n False);
+    mkDet : Str -> Number -> Bool -> Det -- As above + a Boolean for whether the det is a numeral
+      = \s,n,b -> lin Det (makeDet s n b) ;
+    mkDet : Str -> Number -> Bool -> Mod -> Det -- As above + Mod for which form the determiner expects its argument to be (default bare)
+      = \s,n,b,m -> lin Det (makeDet s n b ** {mod=m})
   };
 
  {-
@@ -173,8 +179,13 @@ oper
 
 ----2 Prepositions
 
-  mkPrep : Str -> Prep ; -- Takes a string, returns a preposition.
-  mkPrep str = lin Prep {s = str ; ra = []} ;
+  mkPrep = overload {
+    mkPrep : Str -> Prep -- Takes a string, returns a preposition.
+     = \str -> lin Prep {s = str ; ra = [] ; mod = Bare} ;
+    mkPrep : Str -> Mod -> Prep -- Takes a string and Mod (so far only option is ezafe), returns a preposition.
+     = \str,m -> lin Prep {s = str ; ra = [] ; mod=m}
+  } ;
+
 {-
 --3 Determiners and quantifiers
 
@@ -223,6 +234,9 @@ oper
   VVForm = ResPes.VVForm ;
   subjunctive = ResPes.Subj ;
   indicative = Indic ;
+
+  Mod = ResPes.Mod ;
+  ezafe = ResPes.Ezafe ;
 
 -- Removed mkV_1, mkV_2, mkN01 and mkN02 from public API, still available for
 -- any applications that open ParadigmsPes. /IL 2019-02-08
@@ -329,15 +343,15 @@ oper
     mkV2 : V -> Str -> V2
       = \v,ra -> lin V2 (v ** {c2 = prepOrRa ra}) ;
     mkV2 : V -> Str -> Bool -> V2
-      = \v,p,b -> lin V2 (v ** {c2 = {ra = [] ; s = p}}) ;
+      = \v,p,b -> lin V2 (v ** {c2 = {ra = [] ; s = p ; mod=Bare}}) ;
     } ;
 
   prepOrRa : Str -> Compl = \s -> case s of {
-    "را" => {s = [] ; ra = "را"} ;
-    prep  => {s = prep ; ra = []}
+    "را" => {s = [] ; ra = "را" ; mod=Bare} ;
+    prep  => {s = prep ; ra = []; mod=Bare}
     } ;
 
-  mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s} ;
+  mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare} ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 -- Predictable N2 without complement
