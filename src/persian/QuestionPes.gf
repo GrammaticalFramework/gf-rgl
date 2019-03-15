@@ -22,7 +22,7 @@ concrete QuestionPes of Question = CatPes ** open ResPes, Prelude in {
     };
 
   QuestIComp icomp np =
-   let cl = mkSClause (np.s ! Bare ++ icomp.s) np.a (predV beVerb)
+   let cl = mkSClause (np2str np ++ icomp.s) np.a (predV beVerb)
     in {s = \\t,p => cl.s ! t ! p ! ODir};
 
     PrepIP p ip = {s = p.s ++ ip.s } ;

@@ -28,7 +28,6 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       s : Mod => Str ; -- NP can appear with a clitic, need to keep Mod open
       a : Agr ;
       hasAdj : Bool ; -- to get the right form when NP is a predicate
-      compl : Str ;   -- to make possessive suffix attach to the right word
       animacy : Animacy -- to get the right relative pronoun
       } ;
 
@@ -38,7 +37,6 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       a = defaultAgr ;
       hasAdj = False ;
       animacy = Inanimate ;
-      compl = []
       } ;
     indeclNP : Str -> NP = \s ->
       emptyNP ** {s = \\m => s} ;
@@ -49,7 +47,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
     } ;
 
     np2str : NP -> Str = \np ->
-      np.s ! Bare ++ np.compl ;
+      np.s ! Bare ;
 
     cn2str : CN -> Str = \cn ->
       cn.s ! Sg ! Bare ++ cn.compl ! Sg ;
