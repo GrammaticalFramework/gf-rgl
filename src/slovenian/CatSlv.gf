@@ -54,6 +54,7 @@ lincat
 
   N = {s : Case => Number => Str; g : AGender};
   N2 = {s : Case => Number => Str; g : AGender; c : Prep} ;
+  N3 = {s : Case => Number => Str; g : AGender; c : Prep} ;
 
   PN = {s : Case => Str; g : AGender; n : Number};
 
