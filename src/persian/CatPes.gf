@@ -6,8 +6,8 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 ------ Tensed/Untensed
 
     S  = {s : VVForm => Str} ; -- as a complement to Subj
-    QS = {s : QForm => Str} ;
-    RS = {s : Agr => Str } ; -- c for it clefts
+    QS = {s : Str} ;
+    RS = {s : Agr => Str } ;
     SSlash = {s : VVForm => Str ; c2 : ResPes.Compl} ;
 
 ---- Sentence
@@ -21,7 +21,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
     Imp = {s : Polarity => ImpForm => Str} ;
 
 ---- Question
-    QCl = {s : ResPes.TAnt => Polarity => QForm => Str} ;
+    QCl = {s : ResPes.TAnt => Polarity => Str} ;
 
     IP = {s: Str ; n : Number};
 
@@ -58,7 +58,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
     Predet = {s : Str} ;
     Num  = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Str; n : Number} ;
-    Ord = {s : Str; n : Number ; isNum : Bool} ;
+    Ord = {s : Str; n : Number ; isNum,isPre : Bool} ;
     Quant = ResPes.Quant ;
 
 ---- Numeral

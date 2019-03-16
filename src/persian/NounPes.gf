@@ -77,14 +77,14 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     NumCard n = n ** {isNum = True} ;
 
     NumDigits n = n ** {s = n.s ! NCard; isNum = True} ;
-    OrdDigits n = n ** {s = n.s ! NOrd ; isNum = True} ;
+    OrdDigits n = n ** {s = n.s ! NOrd ; isNum = True ; isPre=False} ;
 
     NumNumeral n = n ** {s = n.s ! NCard; isNum = True} ;
-    OrdNumeral n = n ** {s = n.s ! NOrd ; isNum = True} ;
+    OrdNumeral n = n ** {s = n.s ! NOrd ; isNum = True ; isPre=False} ;
 -- to here
     AdNum adn num = num ** {s = adn.s ++ num.s} ;
 
-    OrdSuperl a = {s = a.s ! Bare ++ taryn; n = Sg ; isNum=False} ; -- check the form of adjective
+    OrdSuperl a = {s = a.s ! Bare ++ taryn; n = Sg ; isNum=False ; isPre = True} ; -- check the form of adjective
 
     DefArt = {s = \\_,_ => [] ; mod = Bare} ;
     IndefArt = {s = table {Sg => \\_ => IndefArticle ; Pl => \\_ => []} ; mod = Bare} ;
@@ -121,7 +121,9 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     AdjCN ap cn = cn ** {
-      s = \\n,ez => cn.s ! n ! Ezafe ++ ap.s ! ez ;
+      s = \\n,m => case ap.isPre of {
+              True  => ap.s ! Bare ++ cn.s ! n ! m ; -- TODO check mod of ap
+              False => cn.s ! n ! Ezafe ++ ap.s ! m } ;
       hasAdj = True
      } ;
 
