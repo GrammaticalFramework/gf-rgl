@@ -15,10 +15,9 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
               NotCmpd => det.s ; -- possessive suffix
               IsCmpd  => det.sp } ; -- full form
          in case mod of {
-              Bare => detStr ++ cn.s ! num ! m ; -- det doesn't require a special form, keep the Mod=>Str table
-              x    => cn.s ! num ! x ++ detStr } ; -- det requires a special form
-      a = agrP3 det.n ;
-      compl = cn.compl ! det.n
+              Bare => detStr ++ cn.s ! num ! m ++ cn.compl ! det.n ; -- det doesn't require a special form, keep the Mod=>Str table
+              x    => cn.s ! num ! x ++ detStr ++ cn.compl ! det.n } ; -- det requires a special form
+      a = agrP3 det.n
       } ;
 
     UsePN pn = emptyNP ** pn ** {s = \\_ => pn.s} ;
@@ -33,7 +32,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     RelNP np rs = np ** {
-      s = \\ez => np.s ! ez ++ rs.s ! np.a
+      s = \\m => np.s ! Clitic ++ rs.s ! np.a
       } ;
 
     AdvNP np adv = np ** {
@@ -61,7 +60,6 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       a = agrP3 det.n ;
       hasAdj = False ;
       animacy = Inanimate ;
-      compl = []
       } ;
 
     PossPron p = {
@@ -69,7 +67,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
               NotCmpd => BIND ++ p.ps ;
               IsCmpd  => p.s } ; -- is a compound
        a = p.a ;
-       mod = Poss} ; -- make into Ezafe if DetCN if N is compound
+       mod = Poss} ; -- is changed into Ezafe in DetCN, if the CN is compound
 
     NumSg = {s = [] ; n = Sg ; isNum = False} ;
     NumPl = {s = [] ; n = Pl ; isNum = False} ;
@@ -90,9 +88,8 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     IndefArt = {s = table {Sg => \\_ => IndefArticle ; Pl => \\_ => []} ; mod = Bare} ;
 
     MassNP cn = cn ** {
-      s = cn.s ! Sg ;
+      s = \\m => cn.s ! Sg ! m ++ cn.compl ! Sg ;
       a = agrP3 Sg ;
-      compl = cn.compl ! Sg
       } ;
 
     UseN,
@@ -110,13 +107,13 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     ComplN2 n2 np = n2 ** {
       s = \\n,m => n2.s ! n ! Ezafe ;
-      compl = \\_ => n2.compl ++ n2.c2 ++ np.s ! Bare ;
+      compl = \\_ => n2.compl ++ n2.c2 ++ np2str np ;
       hasAdj = False
      };
 
     ComplN3 n3 np = n3 ** {
       s = \\n,m => n3.s ! n ! Ezafe ;
-      compl = n3.c2 ++ np.s ! Bare ;
+      compl = n3.c2 ++ np2str np ;
       c = n3.c3;
       } ;
 
@@ -129,15 +126,21 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     RelCN cn rs = cn ** {
       s = \\n,ez => cn.s ! n ! Clitic ;
-      compl = \\n => rs.s ! agrP3 n ;
+      compl = \\n => cn.compl ! n ++ rs.s ! agrP3 n ;
       } ;
 
-    AdvCN cn ad = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ ad.s} ;
+    AdvCN cn ad = cn ** {
+      s = \\n,m => cn.s ! n ! Ezafe ;
+      compl = \\n => cn.compl ! n ++ ad.s} ;
 
-    SentCN cn sc = cn ** {compl = \\n => sc.s} ;
+    SentCN cn sc = cn ** {compl = \\n => cn.compl ! n ++ sc.s} ;
 
     -- correct for /city Paris/, incorrect for /king John/
     -- ApposNP in ExtendPes works for /king John/ (no ezafe).
     ApposCN cn np = cn ** {s = \\n,m => cn.s ! n ! Ezafe ++ np.s ! m} ;
 
+    --  : CN -> NP -> CN ;     -- house of Paris, house of mine
+    PossNP cn np = cn ** {
+      s = \\n,m => cn.s ! n ! Ezafe ; -- TODO or here for "<house of mine> <on the hill>"
+      compl = \\n => cn.compl ! n ++ np2str np } ; -- "<house> <on the hill of mine>"
 }
