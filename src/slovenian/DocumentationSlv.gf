@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common
-concrete DocumentationSlv of Documentation = CatSlv,LexiconSlv ** open 
+concrete DocumentationSlv of Documentation = CatSlv ** open 
   ResSlv,
   HTML in {
 flags coding=utf8 ;
