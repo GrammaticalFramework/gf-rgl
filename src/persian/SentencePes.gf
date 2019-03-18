@@ -52,7 +52,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
       } ;
 
     UseRCl temp p rcl = let vt = TA temp.t temp.a in rcl ** {
-      s = \\q => temp.s ++ p.s ++ rcl.s ! vt ! p.p ! ODir ! q
+      s = \\a => temp.s ++ p.s ++ rcl.s ! vt ! p.p ! a
       } ;
 
     UseSlash temp p cls = cls ** {
@@ -63,7 +63,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     AdvS a s = {s = \\vvf => a.s ++ s.s ! vvf} ;
 
-    RelS s r = {s = \\vvf => s.s ! vvf ++ r.s ! agrP3 Sg} ;
+    RelS s r = {s = \\vvf => s.s ! vvf ++ rs2str Ke (agrP3 Sg) r} ;
     SSubjS s1 sj s2 = {s = \\vvf => s1.s ! vvf ++ sj.s ++ s2.s ! sj.compl};
 
 }

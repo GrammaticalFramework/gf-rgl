@@ -7,7 +7,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
     S  = {s : VVForm => Str} ; -- as a complement to Subj
     QS = {s : Str} ;
-    RS = {s : Agr => Str } ;
+    RS = {s : Agr => Str ; rp : RelPron => Str} ;
     SSlash = {s : VVForm => Str ; c2 : ResPes.Compl} ;
 
 ---- Sentence
@@ -32,10 +32,10 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 ---- Relative
 
     RCl = {
-      s : ResPes.TAnt => Polarity => Order => Agr => Str ;
-    --  c : Case
+      s : ResPes.TAnt => Polarity => Agr => Str ;
+      rp : RelPron => Str
       } ;
-    RP = {s: Str ; a:RAgr};
+    RP = {s : RelPron => Str ; a : RAgr};
 
 ---- Verb
 
