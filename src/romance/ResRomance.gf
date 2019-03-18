@@ -215,7 +215,7 @@ oper
           clit = refl ++ vp.clit1 ++ vp.clit2 ++ vp.clit3.s ; ---- refl first?
 
           verb = vp.s.s ;
-          vaux = auxVerb vp.s.vtyp ;
+          vaux = auxVerb vtyp ;
 
 ---- VPAgr : this is where it really matters
           part = case vp.agr.p2 of {
