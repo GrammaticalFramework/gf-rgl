@@ -12,10 +12,9 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
   param
     Order = ODir | OQuest ;
-    PMood = Del | Imper | PCond ;
-
     CardOrd = NCard | NOrd ;
     RAgr = RNoAg | RAg Agr ;
+    RelPron = Ance | Ke ; -- https://en.wiktionary.org/wiki/%D8%A2%D9%86%DA%86%D9%87
 
   oper
     CN : Type = Noun ** {
@@ -24,11 +23,16 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
                             -- dep. on Number because of RelCN
       } ;
 
-    NP : Type = {
+    NP : Type = BaseNP ** {
       s : Mod => Str ; -- NP can appear with a clitic, need to keep Mod open
+      } ;
+
+    BaseNP : Type = {
       a : Agr ;
       hasAdj : Bool ; -- to get the right form when NP is a predicate
-      animacy : Animacy -- to get the right relative pronoun
+      animacy : Animacy ; -- to get the right pronoun in FunRP
+      relpron : RelPron ; -- contraction for "that which"
+      empty : Str -- to prevent metavariables in case of rel.pron. contraction
       } ;
 
   oper
@@ -37,7 +41,10 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       a = defaultAgr ;
       hasAdj = False ;
       animacy = Inanimate ;
+      relpron = Ke ;
+      empty = []
       } ;
+
     indeclNP : Str -> NP = \s ->
       emptyNP ** {s = \\m => s} ;
 
@@ -51,6 +58,9 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
     cn2str : CN -> Str = \cn ->
       cn.s ! Sg ! Bare ++ cn.compl ! Sg ;
+
+    rs2str : RelPron -> Agr -> {s : Agr => Str ; rp : RelPron => Str} -> Str =
+      \ke,agr,rs -> rs.rp ! ke ++ rs.s ! agr ;
 
  -----------------------
  --- Verb Phrase

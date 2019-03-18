@@ -11,7 +11,7 @@ lin
   CleftNP np rs =
 	 let cl = mkSClause (np2str np) (np.a) (predV beVerb);
 	  in
-	   {s = \\t,p,o =>  cl.s ! t ! p ! o ++ rs.s ! np.a };
+	   {s = \\t,p,o =>  cl.s ! t ! p ! o ++ rs2str Ke np.a rs};
 
   CleftAdv ad ss = { s = \\t,b,o => ad.s ++ ss.s ! Indic};
 

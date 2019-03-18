@@ -3,7 +3,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = cn ** {
+    DetCN det cn = emptyNP ** cn ** {
       s = \\m =>
         let num : Number = case det.isNum of {
               True  => Sg ; -- noun modified by a number is invariably singular
@@ -32,7 +32,9 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     RelNP np rs = np ** {
-      s = \\m => np.s ! Clitic ++ rs.s ! np.a
+      s = \\m => case np.relpron of {
+              Ance => np.empty      ++ rs2str np.relpron np.a rs ;
+              Ke   => np.s ! Clitic ++ rs2str np.relpron np.a rs }
       } ;
 
     AdvNP np adv = np ** {
@@ -55,11 +57,12 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       n = num.n
       } ;
 
-    DetNP det = {
+    DetNP det = emptyNP ** {
       s = \\_ => det.sp ;
       a = agrP3 det.n ;
       hasAdj = False ;
       animacy = Inanimate ;
+      relpron = Ance -- TODO check if this works for all Dets
       } ;
 
     PossPron p = {
@@ -87,7 +90,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     DefArt = {s = \\_,_ => [] ; mod = Bare} ;
     IndefArt = {s = table {Sg => \\_ => IndefArticle ; Pl => \\_ => []} ; mod = Bare} ;
 
-    MassNP cn = cn ** {
+    MassNP cn = emptyNP ** cn ** {
       s = \\m => cn.s ! Sg ! m ++ cn.compl ! Sg ;
       a = agrP3 Sg ;
       } ;
@@ -126,7 +129,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     RelCN cn rs = cn ** {
       s = \\n,ez => cn.s ! n ! Clitic ;
-      compl = \\n => cn.compl ! n ++ rs.s ! agrP3 n ;
+      compl = \\n => cn.compl ! n ++ rs2str Ke (agrP3 n) rs ;
       } ;
 
     AdvCN cn ad = cn ** {

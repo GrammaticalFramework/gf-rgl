@@ -18,7 +18,7 @@ concrete ConjunctionPes of Conjunction =
       } ;
 
     ConjAP conj ss = ss ** conjunctDistrTable Mod conj ss ; -- Adv isn't changed
-    ConjRS conj rs = conjunctDistrTable Agr conj rs ** { c = rs.c};
+    ConjRS conj rs = rs ** conjunctDistrTable Agr conj rs ;
 
 ---- These fun's are generated from the list cat's.
 
@@ -29,17 +29,17 @@ concrete ConjunctionPes of Conjunction =
     ConsAdv = consrSS comma ;
 
     BaseNP x y = y ** twoTable Mod x y ** {a = conjAgr x.a y.a ; animacy = y.animacy } ; -- check animacy
-    BaseRS x y = twoTable Agr x y ** {c = x.c};
+    BaseRS x y = x ** twoTable Agr x y ;
     ConsNP xs x = xs ** consrTable Mod comma xs x ** {a = conjAgr xs.a x.a ; animacy = xs.animacy } ; --  InaandB xs.animacy x.animacy} ;
-    ConsRS xs x = consrTable Agr comma xs x ** { c = xs.c};
+    ConsRS xs x = xs ** consrTable Agr comma xs x ;
     BaseAP x y = y ** twoTable Mod x y ;
     ConsAP xs x = xs ** consrTable Mod comma xs x ; -- Table3 Number Gender Case comma xs x ;-- ** {isPre = andB xs.isPre x.isPre} ;
 
   lincat
     [S] = {s1,s2 : VVForm => Str} ;
     [Adv] = {s1,s2 : Str} ;
-    [NP] = {s1,s2 : Mod => Str ; a : Agr ; animacy : Animacy ; hasAdj : Bool} ;
-    [AP] = {s1,s2 :  Mod => Str ; adv : Str ; isPre : Bool} ;
-    [RS] = {s1,s2 : Agr => Str };
+    [NP] = {s1,s2 : Mod => Str} ** BaseNP ;
+    [AP] = {s1,s2 : Mod => Str ; adv : Str ; isPre : Bool} ;
+    [RS] = {s1,s2 : Agr => Str ; rp : RelPron => Str} ;
 
 }
