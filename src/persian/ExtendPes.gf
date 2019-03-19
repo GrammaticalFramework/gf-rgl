@@ -2,7 +2,7 @@
 
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
-    GenNP, ApposNP, ICompAP
+    GenNP, ApposNP, ICompAP, AdvIsNP
     ,GerundNP,GerundCN,GerundAdv,EmbedPresPart
     ]
   with (Grammar=GrammarPes)
@@ -30,6 +30,9 @@ lin
   -- : VP -> Adv ;         -- publishing the document (prepositionless adverb)
   GerundAdv vp = lin Adv {s = showVPH Inf defaultAgr vp} ;
 
-  --  : VP -> SC ;
+  -- : VP -> SC ;
   EmbedPresPart vp = lin SC {s = showVPH Inf defaultAgr vp} ;
+
+  -- : Adv -> NP -> Cl -- here is the car / here are the cars
+  AdvIsNP adv np = mkClause (indeclNP adv.s ** {a = np.a}) (UseComp (CompNP np)) ;
 }
