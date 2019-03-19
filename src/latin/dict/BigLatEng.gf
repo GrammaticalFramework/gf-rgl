@@ -1,1 +1,0 @@
-concrete BigLatEng of BigLatAbs = GrammarEng, DictLatEng ;
