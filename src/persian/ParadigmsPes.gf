@@ -214,6 +214,9 @@ oper
       = \vvf,s -> lin Subj {s=s ; compl=vvf}
   } ;
 
+  mkInterj : Str -> Interj 
+    = \s -> lin Interj {s=s} ;
+    
 --.
 --2 Definitions of paradigms
 
