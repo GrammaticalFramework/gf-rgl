@@ -95,7 +95,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     FocusAdv = variants {} ;     -- Adv -> S -> Utt ; -- today I will sleep
     FocusAdV = variants {} ;     -- AdV -> S -> Utt ; -- never will I sleep
       FocusAP = variants {} ;     -- AP -> NP -> Utt ; -- green was the tree
-    
+
   lin
     EmbedPresPart = variants {} ;     -- VP -> SC ; -- looking at Mary (is fun)
 
@@ -118,6 +118,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     ExistCN cn = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;
     ExistMassCN cn = ExistNP (MassNP cn) ;
     ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
+    AdvIsNP adv np = mkClause adv.s False False np.a (UseComp_estar (CompNP np)) ;
 
   lin
     ComplBareVS = ComplVS ;     -- VS -> S -> VP ; -- say she runs ; DEFAULT say that she runs
@@ -176,7 +177,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     PurposeVP vp = {
       s = infVP vp (Ag Masc Sg P3)
       } ;
-    
+
     WithoutVP = variants {} ;     -- VP -> Adv ; -- without publishing the document
 
     ByVP vp = {
