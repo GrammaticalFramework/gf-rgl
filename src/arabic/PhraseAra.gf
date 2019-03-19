@@ -18,7 +18,7 @@ concrete PhraseAra of Phrase = CatAra ** open
 
     UttCN cn = {s = ResAra.uttCN cn } ; --IL
     UttNP np = {s = \\_ => np.s ! Nom} ;
-    UttVP vp = {s = uttVP vp} ; --IL
+    UttVP vp = {s = uttVP VPPerf vp} ; --IL
     UttS s = {s = \\_ => s.s ! Verbal} ;
     UttAdv,
     UttIAdv = \s -> {s = \\_ => s.s} ; ---- OK? AR

@@ -27,9 +27,9 @@ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (U
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompCN (AdjCN (PositA clever_A) (UseN man_N))))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAdv (PrepNP from_Prep (DetCN (DetQuant DefArt NumSg) (UseN city_N)))))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAP (PositA clever_A)))))) NoVoc
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAdv today_Adv))))) NoVoc
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (ImpersCl (AdvVP UseCopula today_Adv)))) NoVoc
 PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whatSg_IP) (DetNP (DetQuant that_Quant NumSg))))) NoVoc
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAdv (SubjS because_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAP (PositA clever_A))))))))))) NoVoc
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (ImpersCl (UseComp (CompAdv (SubjS because_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAP (PositA clever_A))))))))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (ComplVA become_VA (PositA clever_A))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (ProgrVP (UseV sleep_V))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv (DetCN (DetQuant IndefArt NumSg) (UseN cow_N)) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN forest_N)))))) NoVoc

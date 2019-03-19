@@ -57,7 +57,7 @@ lin
 
 oper
 
-  amount_N : N = mkN "مِقْدَار" "مَقَادِير‎" masc nohum ;
+  amount_N : N = mkN "مِقْدَار" "مَقَادِير" masc nohum ;
 
   -- hack used in the name constructions
   toNP : Bool -> NP -> NP = \b -> if_then_else NP b R.emptyNP ;
@@ -85,9 +85,12 @@ lin
         myAge : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
      in mkQCl what_IP myAge ;
 
---  hungry_VP =
---  thirsty_VP =
+  hungry_VP = mkVP hungry_A ;
+  thirsty_VP = mkVP thirsty_A ;
 
+oper
+  hungry_A = mkA "جءع" "فَاعِل" ;
+  thirsty_A = mkA True "عطش" "فَعْلَان" "فَعْلَى" ;
 lincat Language = N ;
 
 lin InLanguage l = mkAdv in_Prep (mkNP l) ;

@@ -264,6 +264,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
         isPron = False ; isNeg = det.isNeg
       } ;
 
+    DetDAP d = d ;
 
   oper
     numN : NForm -> Number = \nf -> case nf of {

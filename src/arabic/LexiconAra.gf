@@ -11,7 +11,7 @@ flags
   lin
 
   airplane_N   = sdfN "طءر" "فاعِلة" Fem NoHum ;
-  answer_V2S   = dirV2 (v3 "جوب") ;
+  answer_V2S   = mkV2S (v3 "جوب") ;
   apartment_N  = brkN "شقّ" "فِعّة" "فِعَل" Fem NoHum ;
   apple_N      = sdfN "تفح" "فِعّالة" Fem NoHum ;
   art_N        = brkN "فنن" "فَعّ" "فُعُول" Masc NoHum ;
@@ -142,7 +142,7 @@ flags
   old_A        = sndA "قدم" "فَعِيل" ;
   open_V2      = dirV2 (regV "يَفتَح") ;
 --  open_V2      = dirV2 (v1 "فتح" a a ) ;
-  paint_V2A    = mkV2A (regV "يَدهَن" ) [] ;
+  paint_V2A    = dirV2 (regV "يَدهَن" ) ;
 --  paint_V2A    = mkV2A (v1 "دهن" a a ) [] ;
   paper_N      = brkN "ورق" "فَعَلة" "أَفعَال" Fem NoHum ;
   paris_PN     = mkPN "بارِيس" Fem NoHum  ;

@@ -1,5 +1,5 @@
 concrete StructuralAra of Structural = CatAra **
-  open MorphoAra, ResAra, ParadigmsAra, Prelude in {
+  open MorphoAra, ResAra, ParadigmsAra, (N=NounAra), Prelude in {
 
   flags optimize=all ;  coding=utf8 ;
 
@@ -38,8 +38,8 @@ concrete StructuralAra of Structural = CatAra **
   from_Prep = mkPrep "مِنَ" ;
   he_Pron = ResAra.he_Pron ;
   here_Adv = ss "هُنا" ;
---  here7to_Adv = ss ["تْ هري"] ;
---  here7from_Adv = ss ["فرْم هري"] ;
+  here7to_Adv = ss "إلَىَ هُنَا" ;
+  here7from_Adv = ss "مِنْ هُنَا" ;
   how_IAdv = ss "كَيفَ" ;
   how8many_IDet = {
     s = \\g,s,c => "كَمْ عَدَد" + caseTbl ! c ;
@@ -47,10 +47,11 @@ concrete StructuralAra of Structural = CatAra **
     } ; -- IL
   how8much_IAdv = ss "كَمْ" ;
   if_Subj = mkSubj "إِذَا" Verbal ;
+  --whether_Subj = mkSubj "مَا إِذَا" Verbal ;
   in8front_Prep = mkPrep "مُقَابِلَ" ;
   i_Pron  = ResAra.i_Pron ;
   in_Prep = mkPrep "فِي" ;
-  it_Pron = emptyNP ** {s = \\_ => "هَذَا"} ; -- was: it_Pron = mkPron "ِت" "ِت" "ِتس" (Per3 Masc Sg);
+  it_Pron = N.DetNP (N.DetQuant this_Quant N.NumSg) ; -- was: it_Pron = mkPron "ِت" "ِت" "ِتس" (Per3 Masc Sg);
 --  less_CAdv = ss "لسّ" ;
   many_Det = mkDet "جَمِيع" Pl Const ;
 --  more_CAdv = ss "مْري" ;
@@ -61,6 +62,7 @@ concrete StructuralAra of Structural = CatAra **
 --         ["هَد تْ"] ; ["هَثِنغ تْ"] ; "مُستنءت" ; ["هَدنءت تْ"]] ; ----
 --    isAux = True
 --    } ;
+  nothing_NP = regNP "لَا شَيْء" Sg Def ;
   no_Utt = {s = \\_ => "لا"} ;
   on_Prep = mkPrep "عَلَى" ;
   only_Predet = mkPredet "فَقَط" False;
@@ -71,10 +73,10 @@ concrete StructuralAra of Structural = CatAra **
   possess_Prep = liPrep ;
 --  quite_Adv = ss "قُِتي" ;
   she_Pron = ResAra.she_Pron ;
---  so_AdA = ss "سْ" ;
+  so_AdA = very_AdA ;
   somebody_NP = regNP "أَحَد" Sg Indef ;
-  someSg_Det = mkDet "أَحَد" Sg Const ;
-  somePl_Det = mkDet "بَعض" Pl Const ;
+  someSg_Det = ResAra.someSg_Det ;
+  somePl_Det = ResAra.somePl_Det ;
   something_NP = regNP "شَيْء" Sg Indef ;
 --  somewhere_Adv = ss "سْموهري" ;
   that_Quant = mkQuant3 "ذَلِكَ" "تِلكَ" "أُلٱِكَ" Def;
@@ -86,14 +88,14 @@ concrete StructuralAra of Structural = CatAra **
 --  therefore_PConj = ss "تهرفْري" ;
 ----b  these_NP = indeclNP "هَؤُلَاء" Pl ;
   they_Pron = theyMasc_Pron ;
-  this_Quant = mkQuant7 "هَذا" "هَذِهِ" "هَذَان" "هَذَيْن" "هَاتَان" "هَاتَيْن" "هَؤُلَاء" Def;
+  this_Quant = mkQuant7 "هَذَا" "هَذِهِ" "هَذَان" "هَذَيْن" "هَاتَان" "هَاتَيْن" "هَؤُلَاء" Def ;
 ----b  this_NP = indeclNP "هَذا" Sg ;
 ----b  those_NP = indeclNP "هَؤُلَاءكَ" Pl ;
   through_Prep = mkPrep "عَبْرَ" ;
---  too_AdA = ss "تّْ" ;
+  too_AdA = very_AdA ;
   to_Prep = mkPrep "إِلَى" ;
   under_Prep = mkPrep "تَحْتَ" ;
---  very_AdA = ss "ثري" ;
+  very_AdA = ss "جِدَّاً" ;
   want_VV = mkVV (mkV "رود" FormIV) ;
   we_Pron = ResAra.we_Pron ;
   whatPl_IP = mkIP "ما" "ماذا" Pl ;
@@ -116,7 +118,7 @@ concrete StructuralAra of Structural = CatAra **
   whoPl_IP = mkIP "مَنْ" "مَنْ" Pl ;
   why_IAdv = ss "لِمَاذَا" ;
   without_Prep = mkPrep "بِدُونِ" ;
-  with_Prep = mkPrep "مَع" ;
+  with_Prep = mkPrep "مَعَ" ;
   yes_Utt = {s = \\_ => "نَعَم"} ;
   youSg_Pron = youSgMasc_Pron ;
   youPl_Pron = youPlMasc_Pron ;

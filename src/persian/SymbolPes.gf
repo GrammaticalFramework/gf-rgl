@@ -10,27 +10,24 @@ concrete SymbolPes of Symbol = CatPes ** open Prelude, ResPes in {
   IntPN i  = {s = i.s ; animacy = Inanimate} ;
   FloatPN i = {s = i.s ; animacy = Inanimate} ;
   NumPN i = {s = i.s ; animacy = Inanimate} ;
-  CNIntNP cn i = {
-    s = \\ez => cn.s ! aEzafa ! Sg  ++ i.s ;
-    a = agrPesP3 Sg ;
-    animacy = cn.animacy
+  CNIntNP cn i = emptyNP ** cn ** {
+    s = \\ez => cn.s ! Sg ! Ezafe ++ i.s ++ cn.compl ! Sg ;
+    a = agrP3 Sg
     } ;
-  CNSymbNP det cn xs = {
-    s = \\ez => det.s ++ cn.s ! aEzafa ! det.n   ++  xs.s ; 
-    a = agrPesP3 det.n ;
-    animacy = cn.animacy
+  CNSymbNP det cn xs = emptyNP ** cn ** {
+    s = \\ez => det.s ++ cn.s ! det.n ! Ezafe ++ xs.s ++ cn.compl ! det.n ;
+    a = agrP3 det.n
     } ;
-  CNNumNP cn i = {
-    s = \\ez => cn.s ! aEzafa ! Sg   ++ i.s ;
-    a = agrPesP3 Sg ;
-    animacy = cn.animacy
+  CNNumNP cn i = emptyNP ** cn ** {
+    s = \\ez => cn.s ! Sg ! Ezafe ++ i.s ++ cn.compl ! Sg ;
+    a = agrP3 Sg ;
     } ;
 
-  SymbS sy = sy ; 
+  SymbS sy = {s = \\_ => sy.s} ;
   SymbNum sy = { s = sy.s ; n = Pl } ;
-  SymbOrd sy = { s = sy.s ++ "wN" ; n = Pl} ;
+  SymbOrd sy = { s = sy.s ++ "wN" ; n = Pl; isNum,isPre=False} ;
 
-lincat 
+lincat
 
   Symb, [Symb] = SS ;
 
@@ -40,12 +37,6 @@ lin
   BaseSymb = infixSS "تE" ;
   ConsSymb = infixSS "" ;
 
---oper
-    -- Note: this results in a space before 's, but there's
-    -- not mauch we can do about that.
---    addGenitiveS : Str ;
---    addGenitiveS s =
---     s ++ "از" ;
-
+  -- TODO: what are wN and تE? /IL
 
 }

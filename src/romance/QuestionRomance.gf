@@ -29,7 +29,7 @@ incomplete concrete QuestionRomance of Question =
                     \d -> slash.s ! ip.a ! d ! t ! a ! p ! Indic ;
               who = slash.c2.s ++ ip.s ! slash.c2.c
             in table {
-              QDir   => who ++ cls DInv ;
+              QDir   => who ++ cls otherInv ;
               QIndir => who ++ cls DDir
               }
       } ;
@@ -39,7 +39,7 @@ incomplete concrete QuestionRomance of Question =
             let 
               ord = case q of {
                 QDir   => iAdvQuestionInv ;
-                QIndir => iAdvQuestionInv 
+                QIndir => iAdvQuestionInv
               } ;
               cls = cl.s ! ord ! t ! a ! p ! Indic ;
               why = iadv.s
@@ -51,7 +51,7 @@ incomplete concrete QuestionRomance of Question =
             let 
               vp  = predV (selectCopula icomp.cop) ;
               cls = (mkClause (np.s ! Nom).comp np.hasClit np.isPol np.a vp).s ! 
-                       DInv ! t ! a ! p ! Indic ;
+                       iCompQuestionInv ! t ! a ! p ! Indic ;
               why = icomp.s ! complAgr np.a ;
             in why ++ cls
       } ;

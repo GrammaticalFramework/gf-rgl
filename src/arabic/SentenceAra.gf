@@ -44,7 +44,7 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     EmbedS  s  = {s = "أَنْ" ++ s.s ! Verbal} ;
     EmbedQS qs = {s = qs.s ! QIndir} ;
-    EmbedVP vp = {s = uttVP vp ! Masc} ;
+    EmbedVP vp = {s = uttVP VPPerf vp ! Masc} ; -- TODO: use VPGer once it's more stable
 
     UseCl t p cl =
       {s = \\o => t.s ++ p.s ++
@@ -66,7 +66,9 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
-    UseSlash t p cl = UseCl t p (complClSlash cl) ;
+    -- If the cls has a c2, the preposition will just hang there without an object.
+    -- If this bothers you, call complClSlash to cls ** {c2=noPrep}. /IL
+    UseSlash t p cls = UseCl t p (complClSlash cls) ;
 
     AdvS adv s = s ** {s = \\o => adv.s ++ s.s ! o} ;
 }

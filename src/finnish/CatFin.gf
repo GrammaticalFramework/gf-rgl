@@ -51,7 +51,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     CN   = {s : NForm => Str ; h : Harmony} ;
     Pron = {s : NPForm => Str ; a : Agr ; hasPoss : Bool ; poss : Str} ;
     NP   = {s : NPForm => Str ; a : Agr ; isPron : Bool ; isNeg : Bool} ;
-    Det  = {
+    DAP, Det = {
       s1 : Case => Str ;       -- minun kolme
       s2 : Harmony => Str ;    -- -ni (Front for -nsä, Back for -nsa)
       sp : Case => Str ;       -- se   (substantival form)

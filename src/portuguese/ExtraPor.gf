@@ -1,7 +1,7 @@
 -- the Extra* modules are to be deprecated in favour of the Extend*
 -- module.
 concrete ExtraPor of ExtraPorAbs = ExtraRomancePor **
-  open CommonRomance, PhonoPor, MorphoPor, ParadigmsPor, ParamX, ResPor, BeschPor, (B = IrregBeschPor), (E = ExtendPor),
+  open CommonRomance, PhonoPor, MorphoPor, ParadigmsPor, ParamX, ResPor, BeschPor, (B = IrregPor), (E = ExtendPor),
   Prelude in {
   flags coding=utf8 ;
 
@@ -45,4 +45,4 @@ concrete ExtraPor of ExtraPorAbs = ExtraRomancePor **
 
     UseComp_estar comp = insertComplement comp.s (predV B.estar_V) ;
 
-}
+} ;

@@ -47,7 +47,14 @@ lin
 
   UsePron p = p ;
 
-  DetNP det = emptyNP ** {s = det.s ! NoHum ! Masc} ; ----
+  DetNP det = case det.isEmpty of {
+    True => case <det.d,det.n> of {  -- if the s field is empty, make up some other determiner
+              <Def,One>   => he_Pron ;
+              <Def,_>     => theyMasc_Pron ;
+              <Indef,One> => emptyNP ** {s = someSg_Det.s ! NoHum ! Masc} ;
+              _           => emptyNP ** {s = somePl_Det.s ! NoHum ! Masc}
+            } ;
+    False => emptyNP ** {s = det.s ! NoHum ! Masc} } ;
 
   PredetNP det np = np ** {
     s = \\c => case det.isDecl of {
@@ -75,7 +82,7 @@ lin
 
   DetQuantOrd quant num ord = quant ** {
     s = \\h,g,c => let d = toDef quant.d num.n in
-         quant.s ! Pl ! h ! g ! c
+         quant.s ! Pl ! h ! g ! c -- TODO what is this Pl? Was there when I started /IL
       ++ num.s ! g ! d ! c
       --FIXME check this:
       ++ ord.s ! g
@@ -107,7 +114,7 @@ lin
     s = \\_,_,_,_ => BIND ++ p.s ! Gen;
     d = Poss;
     is1sg = is1sg p.a ;
-    isPron = True} ;
+    isPron = p.a.isPron} ;
 
   NumSg = {
     s = \\_,_,_ => [] ;
@@ -192,19 +199,19 @@ lin
 
   RelCN cn rs = cn ** {
     s2 = \\n,s,c => cn.s2 ! n ! s ! c
-        ++ rs.s ! {pgn=Per3 cn.g n ; isPron=False} ! c ;
+        ++ rs.s ! Per3 cn.g n ! c ;
     isHeavy = True
     } ;
 
 
   RelNP np rs = np ** {
-    s = \\c => np.s ! c ++ rs.s ! np.a ! c ;
+    s = \\c => np.s ! c ++ rs.s ! np.a.pgn ! c ;
     isHeavy = True
     } ;
 
   AdvCN,
   SentCN = \cn,ss -> cn ** {
-    s2 = \\n,d,c => cn.s2 ! n ! d ! c ++ ss.s ;
+    np = \\c => cn.np ! c ++ ss.s ;
     isHeavy = True
     } ;
 

@@ -246,9 +246,7 @@ instance DiffFre of DiffRomance - [
 
     getVTypT : VType -> VBool = \t -> case t of {VTyp _ b => b} ; -- only in Fre
 
-    auxPassive : Verb = copula ;
-
-    copula : Verb = {s = table VF ["être";bindHyphen;"suis";"es";"est";"sommes";"êtes";"sont";"sois";"sois"
+    copula, auxPassive, essere_V : Verb = {s = table VF ["être";bindHyphen;"suis";"es";"est";"sommes";"êtes";"sont";"sois";"sois"
 ;"soit";"soyons";"soyez";"soient";
 "étais";"étais";"était";"étions";"étiez";"étaient";--# notpresent
 "fusse";"fusses";"fût";"fussions";"fussiez";"fussent";--# notpresent
@@ -314,4 +312,4 @@ instance DiffFre of DiffRomance - [
 
   verbHyphen : Verb -> Str = \v -> v.s ! (VInfin True) ; --- kluge: use this field to store - or -t-
 
-}
+} ;

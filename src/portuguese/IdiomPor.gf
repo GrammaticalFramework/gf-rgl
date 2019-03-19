@@ -46,7 +46,7 @@ concrete IdiomPor of Idiom = CatPor **
            in
            vp.s.s ! VGer ++ clpr.p1 ++ obj
         )
-        (predV B.estar_V) ;
+        (predV B.stare_V) ;
 
     ImpPl1 vp = {s =
       mkImperative False P1 vp ! RPos ! Masc ! Pl ; --- fem
@@ -56,7 +56,7 @@ concrete IdiomPor of Idiom = CatPor **
       s = "deixe" ++ (np.s ! Nom).ton ++ infVP vp np.a ;
         } ;
 
-    SelfAdvVP vp = vp ;
+    SelfAdvVP vp = variants {} ;
 
     SelfAdVVP = insertComplement (
       \\agr => case agr of {
@@ -68,6 +68,6 @@ concrete IdiomPor of Idiom = CatPor **
         }
       ) ;
 
-    SelfNP np = np ;
+    SelfNP np = variants {} ;
 
 } ;

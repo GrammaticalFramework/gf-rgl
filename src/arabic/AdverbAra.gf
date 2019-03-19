@@ -13,7 +13,7 @@ concrete AdverbAra of Adverb = CatAra ** open ResAra, Prelude in {
 
     PrepNP prep np = {s = prep.s ++ bindIf (orB np.a.isPron prep.binds) ++ np.s ! prep.c} ;
 
-    AdAdv ad av = cc2 av ad ;
+    AdAdv ad av = cc2 ad av ;
 
     -- : Subj -> S -> Adv ;              -- when she sleeps
     SubjS subj s = {s = subj.s ++ s.s ! subj.o} ;

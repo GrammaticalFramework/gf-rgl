@@ -1,8 +1,8 @@
 --# -path=.:../abstract:../common:../prelude
 
- concrete GrammarPes of Grammar = 
-  NounPes, 
-  VerbPes, 
+ concrete GrammarPes of Grammar =
+  NounPes,
+  VerbPes,
   AdjectivePes,
   AdverbPes,
   NumeralPes,
@@ -10,16 +10,14 @@
   QuestionPes,
   RelativePes,
   ConjunctionPes,
-  
+
   PhrasePes,
-  TextPes - [Adv], 
+  TextPes,
   StructuralPes,
-  TenseX - [Adv],
-  IdiomPes 
+  TenseX,
+  IdiomPes
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;
 
 }
-
-

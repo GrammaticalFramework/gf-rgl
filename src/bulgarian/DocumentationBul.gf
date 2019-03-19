@@ -95,7 +95,7 @@ lin
           tr (th "членувано" ++ td (a.s ! (APl Def)))
         ) ++
         heading1 ("Наречие") ++
-        paragraph (a.s ! (ASg Neut Indef)) ;
+        paragraph (a.adv) ;
     s3= ""
     } ;
 

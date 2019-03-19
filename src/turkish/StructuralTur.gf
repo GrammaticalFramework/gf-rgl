@@ -114,8 +114,8 @@ concrete StructuralTur of Structural = CatTur **
     many_Det       = mkDet "birçok" Sg NoGen ;
     every_Det      = mkDet "her"    Sg NoGen ;
     all_Predet     = {s = "her"} ;
-    almost_AdA     = {s = "neredeyse"} ;
-    almost_AdN     = {s = "neredeyse"} ;
+    almost_AdA     = {s = "neredeyse"; c = Nom} ;
+    almost_AdN     = {s = "neredeyse"; c = Nom} ;
 
     by8agent_Prep  = mkPrep "tarafından" Gen ;
     by8means_Prep  = mkPrep "tarafından" Gen ;
@@ -191,7 +191,9 @@ concrete StructuralTur of Structural = CatTur **
 
     language_title_Utt = {s = "Türkçe"} ;
 
-    more_CAdv = {s = "daha"; p = "daha"} ;
+    more_CAdv = {s = "fazla"; p = "fazla"; c = Ablat} ;
+
+    less_CAdv = {s = "az"; p = "az"; c = Ablat} ;
 
     most_Predet = {s = "en çok"} ;
 
@@ -207,15 +209,15 @@ concrete StructuralTur of Structural = CatTur **
     where_IAdv = {s = "nerede"} ;
 
     can8know_VV = {
-      s = "(TODO: can8know_VV)"
+      s = \\_ => "(TODO: can8know_VV)"
     } ;
 
     can_VV = {
-      s = "(TODO: can_VV)"
+      s = \\_ => "(TODO: can_VV)"
     } ;
 
     must_VV = {
-      s = "(TODO: must_VV)"
+      s = \\_ => "(TODO: must_VV)"
     } ;
 
     not_Predet = {
@@ -244,7 +246,7 @@ concrete StructuralTur of Structural = CatTur **
 
     -- TODO: this depends on the linearization for `ComplVV` and is really a
     -- morphological construct so it might be a bit tricky to implement.
-    want_VV = { s = "(TODO: want_VV)" } ;
+    want_VV = { s = \\_ => "(TODO: want_VV)" } ;
 
     whatPl_IP = { s = "neler" } ;
 
@@ -270,10 +272,10 @@ concrete StructuralTur of Structural = CatTur **
 
     part_Prep = { s = "(TODO: part_Prep)" ; c = Nom } ;
 
-    at_most_AdN = ss "en fazla" ; 
+    at_most_AdN = { s = "en fazla";  c = Nom } ;
 
-    at_least_AdN = ss "en az" ; 
+    at_least_AdN = { s = "en az"; c = Nom } ;
 
-    as_CAdv = {s = "kadar"; p = "kadar"} ; 
+    as_CAdv = {s = "kadar"; p = "kadar"; c = Nom} ; 
 
 }

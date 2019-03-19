@@ -62,12 +62,12 @@ concrete StructuralPor of Structural = CatPor **
     but_PConj = ss "mas" ;
     by8agent_Prep = mkPrep [] ablative ; -- por
     by8means_Prep = mkPrep [] ablative ; -- por
-    can8know_VV = mkVV B.saber_V ;
+    can8know_VV = mkVV B.know_V ;
     can_VV = mkVV (mkV (poder_Besch "poder")) ;
     during_Prep = mkPrep "durante" ;
     either7or_DConj = {s1,s2 = "ou" ; n = Sg} ;
     everybody_NP = makeNP "todos" Masc Pl ;
-    every_Det = mkDeterminer "cada" "cada" Sg False ;
+    every_Det = mkDeterminer "todo" "toda" Sg False ;
     everything_NP = pn2np (mkPN "tudo" Masc) ;
     everywhere_Adv = ss ["em toda parte"] ;
     except_Prep = mkPrep "exceto" ;
@@ -105,7 +105,7 @@ concrete StructuralPor of Structural = CatPor **
         s2 = [] ; isNeg = True
       } ;
     no_Utt = ss "não" ;
-    not_Predet = {s = \\a,c => prepCase c ++ "não" ; c = Nom ; a = PNoAg} ;
+    not_Predet = {s = \\a,c => prepCase c ++ "nem" ; c = Nom ; a = PNoAg} ;
     nobody_NP = pn2npNeg (mkPN "ninguém") ;
     nothing_NP = pn2npNeg (mkPN "nada") ;
 
@@ -160,8 +160,9 @@ concrete StructuralPor of Structural = CatPor **
 
   lin
     as_CAdv = X.mkCAdv "tão" conjThan ; ----
-    have_V2 = dirV2 B.ter_V ;
+    have_V2 = dirV2 B.have_V ;
     that_Subj = {s = "que" ; m = Conjunct} ;
 
   lin language_title_Utt = ss "português" ;
+
 } ;
