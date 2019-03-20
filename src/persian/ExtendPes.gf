@@ -2,7 +2,7 @@
 
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
-    GenNP, ApposNP, ICompAP, AdvIsNP
+    GenNP, ApposNP, ICompAP, AdvIsNP, InOrderToVP, ByVP
     ,GerundNP,GerundCN,GerundAdv,EmbedPresPart
     ]
   with (Grammar=GrammarPes)
@@ -10,7 +10,7 @@ concrete ExtendPes of Extend =
 
 lin
   -- NP -> Quant ; -- this man's
-  GenNP np = np ** {
+  GenNP np = makeQuant [] [] ** np ** {
     mod = Ezafe ; -- the possessed will get Ezafe
     s = \\num,cmpd => np2str np -- possesser is unmarked; https://sites.la.utexas.edu/persian_online_resources/language-specific-grammar/ezfe/
   } ;
@@ -35,4 +35,14 @@ lin
 
   -- : Adv -> NP -> Cl -- here is the car / here are the cars
   AdvIsNP adv np = mkClause (indeclNP adv.s ** {a = np.a}) (UseComp (CompNP np)) ;
+
+  -- : VP -> Adv ;         -- by publishing the document
+  ByVP vp = lin Adv {s = with_Prep.s ++ showVPH Inf defaultAgr vp} ;
+
+  -- : VP -> Adv ;         -- (in order) to publish the document
+  InOrderToVP vp = lin Adv {s = for_Prep.s ++ showVPH PerfStem defaultAgr vp} ;
+
+
+
+
 }

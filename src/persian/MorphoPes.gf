@@ -119,7 +119,7 @@ oper
 --Determiners
 --------------------
   BaseQuant : Type = {
-    mod : Mod } ;
+    mod : Mod} ;
 
   Determiner : Type = BaseQuant ** {
     s : Str ;
@@ -129,7 +129,8 @@ oper
   } ;
 
   Quant : Type = BaseQuant ** {
-    s : Number => CmpdStatus => Str} ;
+    s : Number => CmpdStatus => Str ;
+    isDef : Bool } ;
 
   makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
     s,sp = str;
@@ -141,6 +142,7 @@ oper
   makeQuant : Str -> Str -> Quant = \sg,pl -> {
     s = table {Sg => \\_ => sg ; Pl => \\_ => pl} ;
     mod = Bare ;
+    isDef = True
   };
 ---------------------------
 -- Adjectives

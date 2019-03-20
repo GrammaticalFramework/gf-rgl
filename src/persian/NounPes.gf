@@ -41,17 +41,27 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       s = \\ez => np.s ! Ezafe ++ adv.s
       } ;
 
-    DetQuantOrd quant num ord = {
-      s = quant.s ! num.n ! NotCmpd ++ num.s ++ ord.s ;
-      sp = quant.s ! num.n ! IsCmpd ++ num.s ++ ord.s ;  -- only matters for PossPron
+    DetQuantOrd quant num ord =
+      let cs : CmpdStatus => Str = case <num.isNum,num.n,quant.isDef> of {
+            <True,Sg,False> => \\_ => num.s ++ ord.s ;
+            _ => \\c => quant.s ! num.n ! c ++ num.s ++ ord.s} ;
+
+      in {
+      s = cs ! NotCmpd ;
+      sp = cs ! IsCmpd ; -- only matters for PossPron
       isNum = orB num.isNum ord.isNum ;
       mod = quant.mod ;
       n = num.n
       } ;
 
-    DetQuant quant num = {
-      s = quant.s ! num.n ! NotCmpd ++ num.s ;
-      sp = quant.s ! num.n ! IsCmpd ++ num.s ; -- only matters for PossPron
+    DetQuant quant num =
+      let cs : CmpdStatus => Str = case <num.isNum,num.n,quant.isDef> of {
+            <True,Sg,False> => \\_ => num.s ;
+            _ => \\c => quant.s ! num.n ! c ++ num.s } ;
+
+      in {
+      s = cs ! NotCmpd ;
+      sp = cs ! IsCmpd ; -- only matters for PossPron
       isNum = num.isNum;
       mod = quant.mod ;
       n = num.n
@@ -65,7 +75,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       relpron = Ance -- TODO check if this works for all Dets
       } ;
 
-    PossPron p = {
+    PossPron p = DefArt ** {
        s = \\_ => table {
               NotCmpd => BIND ++ p.ps ;
               IsCmpd  => p.s } ; -- is a compound
@@ -87,8 +97,8 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     OrdSuperl a = {s = a.s ! Bare ++ taryn; n = Sg ; isNum=False ; isPre = True} ; -- check the form of adjective
 
-    DefArt = {s = \\_,_ => [] ; mod = Bare} ;
-    IndefArt = {s = table {Sg => \\_ => IndefArticle ; Pl => \\_ => []} ; mod = Bare} ;
+    DefArt = makeQuant [] [] ;
+    IndefArt = makeQuant IndefArticle [] ** {isDef = False} ;
 
     MassNP cn = emptyNP ** cn ** {
       s = \\m => cn.s ! Sg ! m ++ cn.compl ! Sg ;

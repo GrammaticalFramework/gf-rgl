@@ -151,7 +151,7 @@ oper
 
   insertVV : VV -> VPH -> VPH = \vv,vp -> predV vv ** {
     vComp = \\a,t => vp.vComp ! a ! t ++ complVV vv vp ! a ! t ;
-    vvType = case vv.isDef of {True => DefVV ; _ => FullVV} ;
+    vvtype = case vv.isDef of {True => DefVV ; _ => FullVV} ;
     ad = vp.ad  -- because complVV doesn't include ad! for word order.
   } ;
 

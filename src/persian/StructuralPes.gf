@@ -57,9 +57,9 @@ concrete StructuralPes of Structural = CatPes **
   only_Predet = ss "فقط" ;
   or_Conj = sd2 [] "یا" ** {n = Sg} ;
   otherwise_PConj = ss ["درغیراین صورت"] ;
-  part_Prep = mkPrep "از" ; -- TODO: the object following it should be in Ezafa form
+  part_Prep = mkPrep "از" Ezafe ;
   please_Voc = ss "لطفاً" ;
-  possess_Prep = mkPrep "" ; -- will be handeled in Ezafeh
+  possess_Prep = mkPrep [] Ezafe ;
   quite_Adv = ss "کاملاً" ;
   she_Pron = R.agr2pron ! Ag Sg P3 ;
   so_AdA = ss "بسیار" ;

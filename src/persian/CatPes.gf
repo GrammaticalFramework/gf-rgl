@@ -18,7 +18,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
       vp : ResPes.TAnt => Polarity => Order => Str ;
       c2 : ResPes.Compl
       } ;
-    Imp = {s : Polarity => ImpForm => Str} ;
+    Imp = {s : Polarity => Number => Str} ;
 
 ---- Question
     QCl = {s : ResPes.TAnt => Polarity => Str} ;
