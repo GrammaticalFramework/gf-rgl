@@ -2,7 +2,7 @@
 
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
-    GenNP, ApposNP, ICompAP, AdvIsNP
+    GenNP, ApposNP, ICompAP, AdvIsNP, InOrderToVP, ByVP
     ,GerundNP,GerundCN,GerundAdv,EmbedPresPart
     ]
   with (Grammar=GrammarPes)
@@ -35,4 +35,14 @@ lin
 
   -- : Adv -> NP -> Cl -- here is the car / here are the cars
   AdvIsNP adv np = mkClause (indeclNP adv.s ** {a = np.a}) (UseComp (CompNP np)) ;
+
+  -- : VP -> Adv ;         -- by publishing the document
+  ByVP vp = lin Adv {s = with_Prep.s ++ showVPH Inf defaultAgr vp} ;
+
+  -- : VP -> Adv ;         -- (in order) to publish the document
+  InOrderToVP vp = lin Adv {s = for_Prep.s ++ showVPH PerfStem defaultAgr vp} ;
+
+
+
+
 }
