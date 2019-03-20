@@ -11,8 +11,8 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     ImpVP vp = {
       s = \\pol,n =>
-        let agr = Ag (numImp n) P2 ;
-            vps = vp.prefix ++ vp.s ! VImp pol (numImp n)
+        let agr = Ag n P2 ;
+            vps = vp.prefix ++ vp.s ! VImp pol n
          in case vp.vvtype of {
               NoVV => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vps ++ vp.embComp ;
               _    => vps ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp }
