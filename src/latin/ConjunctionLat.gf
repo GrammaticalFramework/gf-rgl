@@ -53,9 +53,9 @@ concrete ConjunctionLat of Conjunction =
     --
 
     -- BaseS : S -> S -> ListS
-    BaseS x y = {
-      l = \\c => { s1 = x ; s2 = y } ;
-      } ;
+--    BaseS x y = {
+--      l = \\c => { s1 = x ; s2 = y } ;
+--      } ;
     
     -- ConsS : S -> ListS -> ListS
     -- TO FIX
@@ -111,7 +111,7 @@ concrete ConjunctionLat of Conjunction =
       { l = \\_ => consrTable Agr and_Conj.s2 x (xs.l ! Comma ) } ;
 --
   lincat
-    [S] = { l : Coordinator => {s1,s2 : S} } ; -- TO FIX
+--    [S] = { l : Coordinator => {s1,s2 : S} } ; -- TO FIX
     [Adv] = { l: Coordinator => {s1,s2 : Str}} ;
     [NP] = {l : Coordinator => {s1,s2 : Case => Str} ; g : Gender ; n : Number ; p : Person ; adv : Str ; preap : AP ; postap : AP ; isBase : Bool } ;
     [AP] = {l : Coordinator => {s1,s2 : Agr => Str } } ;
