@@ -3,7 +3,7 @@ concrete ExtraLat of ExtraLatAbs =
   open ResLat, ParadigmsLat, Coordination, Prelude in {
   lincat CS = Str ;
   lin
-    useS s = combineSentence s ! SPreO ! PreO ! SOV ;
+    useS s = combineSentence s ! SPreO ! PreO ! CPreV ! SOV ;
     -- PastPartAP      : VPSlash -> AP ;         -- lost (opportunity) ; (opportunity) lost in space
 --    PastPartAP vp = { s = vp.part ! VPassPerf } ;
     
