@@ -237,8 +237,12 @@ oper
     vp = \\ta,p,ord =>
       let vps = clTable vp ! np.a ! ta ! p ;
           vvt = ta2vvt ta ;
-       in vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps
-       ++ vp.vComp ! np.a ! vvt ++ vp.embComp
+       in case vp.vvtype of {
+            DefVV
+              => vps ++ vp.ad ++ vp.comp ! np.a ++ vp.obj
+              ++ vp.vComp ! np.a ! vvt ++ vp.embComp ;
+            _ => vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps
+              ++ vp.vComp ! np.a ! vvt ++ vp.embComp }
   };
 
 --Clause : Type = {s : TAnt => Polarity => Order => Str} ;

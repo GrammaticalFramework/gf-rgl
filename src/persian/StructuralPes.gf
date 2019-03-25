@@ -126,12 +126,7 @@ have_V2 = haveVerb ** {
         VImp Pos Pl => "داشته باشید" ;
         VImp Neg Sg => "نداشته باش" ;
         VImp Neg Pl => "نداشته باشید" ;
-        VSubj _ (Ag Sg P1) => "داشته باشم" ;
-        VSubj _ (Ag Sg P2) => "داشته باشی" ;
-        VSubj _ (Ag Sg P3) => "داشته باشد" ;
-        VSubj _ (Ag Pl P1) => "داشته باشیم" ;
-        VSubj _ (Ag Pl P2) => "داشته باشید" ;
-        VSubj _ (Ag Pl P3) => "داشته باشند" ;
+        VSubj p agr => "داشته" ++ subjAux p agr ;
         x => haveVerb.s ! x } ;
   c2 = prepOrRa [] -- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
   } ;

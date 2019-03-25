@@ -58,7 +58,7 @@ oper
       = mkCmpdNoun2 ;  --  e.g. مأمور پلیس '/officer/ police'.
     cmpdN : N -> N -> N -- Compound noun with ezafe (Nی N)
       = \n1,n2 -> n1 ** {
-           s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! n ! m ;
+           s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! Sg ! m ;
            isCmpd = IsCmpd} ;
     } ;
 
@@ -214,9 +214,9 @@ oper
       = \vvf,s -> lin Subj {s=s ; compl=vvf}
   } ;
 
-  mkInterj : Str -> Interj 
+  mkInterj : Str -> Interj
     = \s -> lin Interj {s=s} ;
-    
+
 --.
 --2 Definitions of paradigms
 
