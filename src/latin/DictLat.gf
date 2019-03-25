@@ -21036,7 +21036,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     incola_C_N = mkN "incola" ; -- [XXXDX] :: inhabitant; resident, dweller; resident alien; foreigner (Plater);
     incolatus_A = mkA "incolatus" "incolata" "incolatum" ; -- [EXXFP] :: unfiltered, unstrained; unpurified;
     incolatus_M_N = mkN "incolatus" "incolatus " masculine ; -- [XXXIO] :: residence (in a town) without citizenship; status of resident alien; (exile?);
-    incolo_V = mkV "incolere" "incolo" "incolui" nonExist ; -  -- Declension: 3rd -- Comment: [XXXCO] :: live, dwell/reside (in); inhabit; sojourn;
+    incolo_V = mkV "incolere" "incolo" "incolui" nonExist ; -- Declension: 3rd -- Comment: [XXXCO] :: live, dwell/reside (in); inhabit; sojourn;
     incolomis_A = mkA "incolomis" "incolomis" "incolome" ; -- [FXXFM] :: unharmed, uninjured; alive, safe; unimpaired; (= incolumis);
     incolumis_A = mkA "incolumis" "incolumis" "incolume" ; -- [XXXBX] :: unharmed, uninjured; alive, safe; unimpaired;
     incolumitas_F_N = mkN "incolumitas" "incolumitatis " feminine ; -- [XXXDX] :: safety;
