@@ -101,7 +101,7 @@ concrete StructuralPes of Structural = CatPes **
   youSg_Pron = R.agr2pron ! Ag Sg P2 ;
   youPl_Pron = R.agr2pron ! Ag Pl P2 ;
   youPol_Pron = R.agr2pron ! Ag Pl P2  ;
---  no_Quant =  demoPN "هیچ" ;
+  no_Quant = mkQuant "هیچ" "هیچ" ;
   not_Predet = {s="نه"} ;
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;
   at_least_AdN = ss "حداقل" ;
