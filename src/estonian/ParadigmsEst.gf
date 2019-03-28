@@ -84,6 +84,9 @@ oper
 
 
   mkAdv : Str -> Adv ; 
+  mkAdV : Str -> AdV ; 
+  mkAdN : Str -> AdN ; 
+  mkAdA : Str -> AdA ; 
 
   mkConj : overload {
     mkConj : Str -> Conj ; -- just one word, default number Sg: e.g. "ja"
@@ -204,6 +207,7 @@ oper
 
   mkV3     : overload {
      mkV3 : V -> Prep -> Prep -> V3 ;  -- e.g. rääkima, allative, elative
+     mkV3 : V                 -> V3 ;
      mkV3 : Str               -> V3 ;  -- string, default cases accusative + allative
   } ;
   dirV3    : V -> Case -> V3 ;          -- liigutama, (accusative), illative
@@ -304,6 +308,9 @@ oper
 
 
   mkAdv : Str -> Adv = \str -> {s = str ; lock_Adv = <>} ;
+  mkAdV : Str -> AdV = \str -> {s = str ; lock_AdV = <>} ;
+  mkAdN : Str -> AdN = \str -> {s = str ; lock_AdN = <>} ;
+  mkAdA : Str -> AdA = \str -> {s = str ; lock_AdA = <>} ;
 
 
   
@@ -831,6 +838,9 @@ oper
 
   mkV3 = overload {
     mkV3 : V -> Prep -> Prep -> V3 = \v,p,q -> v ** {c2 = p ; c3 = q ; lock_V3 = <>} ; 
+    mkV2 : V                 -> V3 = \v   -> v ** {c2 = accPrep ; 
+							     c3 = (casePrep allative) ; 
+							     lock_V3 = <>} ; 
     mkV2 : Str               -> V3 = \str   -> (mkV str) ** {c2 = accPrep ; 
 							     c3 = (casePrep allative) ; 
 							     lock_V3 = <>} ; 
@@ -864,17 +874,22 @@ oper
 --  mkV2S v p = mk2V2 v p ** {lock_V2S = <>} ;
   mkV2V = overload {
     mkV2V : V -> Prep -> V2V = \v,p -> mkV2Vf v p infMa ;
+    mkV2V : V         -> V2V = \v   -> mkV2Vf v (casePrep genitive) infMa ;
     mkV2V : Str       -> V2V = \str -> mkV2Vf (mkV str) (casePrep genitive) infMa ;
   } ; 
   mkV2Vf v p f = mk2V2 v p ** {vi = f ; lock_V2V = <>} ;
 
   mkVA = overload {
     mkVA : V -> Prep -> VA = \v,p -> v ** {c2 = p ; lock_VA = <>} ;
+    mkVA : V         -> VA = \v   -> v ** {c2 = casePrep translative ; lock_VA = <>} ;
     mkVA : Str       -> VA = \str -> (mkV str) ** {c2 = casePrep translative ; lock_VA = <>} ;
   } ;
 
   mkV2A = overload { 
     mkV2A : V -> Prep -> Prep -> V2A = \v,p,q -> v ** {c2 = p ; c3 = q ; lock_V2A = <>} ;
+    mkV2A : V                 -> V2A = \v     -> v ** {c2 = casePrep genitive ; 
+							                           c3 = casePrep translative ; 
+                                                       lock_V2A = <>} ;
     mkV2A : Str               -> V2A = \str -> (mkV str) ** {c2 = casePrep genitive ; 
 							    c3 = casePrep translative ; 
 							    lock_V2A = <>} ;
