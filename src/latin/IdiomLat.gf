@@ -1,4 +1,4 @@
---concrete IdiomLat of Idiom = CatLat ** open Prelude, ResLat in {
+concrete IdiomLat of Idiom = CatLat ** open Prelude, ResLat in {
 --
 --  flags optimize=all_subs ;
 --
@@ -26,5 +26,4 @@
 --
 --    ImpPl1 vp = {s = "let's" ++ infVP True vp (AgP1 Pl)} ;
 --
---}
---
+}

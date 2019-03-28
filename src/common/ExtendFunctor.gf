@@ -29,10 +29,10 @@ lin
   MkVPI vp = variants {} ;     -- Temp -> Pol -> VP -> VPI ; -- to sleep / hasn't slept
   ConjVPI = variants {} ;     -- Conj -> [VPI] -> VPI ; -- has walked and won't sleep
   ComplVPIVV = variants {} ;     -- VV -> VPI -> VP ; -- want to sleep and to walk
-  MkVPS2 = variants {} ;     --     : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved       
+  MkVPS2 = variants {} ;     --     : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
   ConjVPS2 = variants {} ;     --   : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates
   ComplVPS2 = variants {} ;     --  : VPS2 -> NP -> VPS ;               -- has loved and now hates that person
-  MkVPI2 = variants {} ;     --     : Ant  -> Pol -> VPSlash -> VPI2 ;  -- to have loved       
+  MkVPI2 = variants {} ;     --     : Ant  -> Pol -> VPSlash -> VPI2 ;  -- to have loved
   ConjVPI2 = variants {} ;     --   : Conj -> [VPI2] -> VPI2 ;          -- to love and have hated
   ComplVPI2 = variants {} ;     --  : VPI2 -> NP -> VPI ;               -- to love and hate that person
   ProDrop pro = pro ;     -- am tired ; DEFAULT I am tired (no pro drop)
@@ -54,6 +54,7 @@ lin
   ExistCN cn = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;
   ExistMassCN cn = ExistNP (MassNP cn) ;
   ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
+  AdvIsNP adv np = PredVP np (UseComp (CompAdv adv)) ;  -- here is the tree / here are the trees
   PurposeVP = variants {} ;     -- VP -> Adv ; -- to become happy
   ComplBareVS = ComplVS ;     -- VS -> S -> VP ; -- say she runs ; DEFAULT say that she runs
   SlashBareV2S = SlashV2S ;     -- V2S -> S -> VPSlash ; -- answer (to him) it is good ; DEFAULT answer that it is good

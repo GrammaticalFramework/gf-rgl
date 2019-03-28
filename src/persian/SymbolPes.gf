@@ -10,20 +10,17 @@ concrete SymbolPes of Symbol = CatPes ** open Prelude, ResPes in {
   IntPN i  = {s = i.s ; animacy = Inanimate} ;
   FloatPN i = {s = i.s ; animacy = Inanimate} ;
   NumPN i = {s = i.s ; animacy = Inanimate} ;
-  CNIntNP cn i = cn ** {
-    s = \\ez => cn.s ! Sg ! Ezafe   ++ i.s ;
-    a = agrP3 Sg ;
-    compl = cn.compl ! Sg
+  CNIntNP cn i = emptyNP ** cn ** {
+    s = \\ez => cn.s ! Sg ! Ezafe ++ i.s ++ cn.compl ! Sg ;
+    a = agrP3 Sg
     } ;
-  CNSymbNP det cn xs = cn ** {
-    s = \\ez => det.s ++ cn.s ! det.n  ! Ezafe ++ xs.s ;
-    a = agrP3 det.n ;
-    compl = cn.compl ! det.n
+  CNSymbNP det cn xs = emptyNP ** cn ** {
+    s = \\ez => det.s ++ cn.s ! det.n ! Ezafe ++ xs.s ++ cn.compl ! det.n ;
+    a = agrP3 det.n
     } ;
-  CNNumNP cn i = cn ** {
-    s = \\ez => cn.s ! Sg ! Ezafe ++ i.s ;
+  CNNumNP cn i = emptyNP ** cn ** {
+    s = \\ez => cn.s ! Sg ! Ezafe ++ i.s ++ cn.compl ! Sg ;
     a = agrP3 Sg ;
-    compl = cn.compl ! Sg
     } ;
 
   SymbS sy = {s = \\_ => sy.s} ;
@@ -40,12 +37,6 @@ lin
   BaseSymb = infixSS "تE" ;
   ConsSymb = infixSS "" ;
 
---oper
-    -- Note: this results in a space before 's, but there's
-    -- not mauch we can do about that.
---    addGenitiveS : Str ;
---    addGenitiveS s =
---     s ++ "از" ;
-
+  -- TODO: what are wN and تE? /IL
 
 }

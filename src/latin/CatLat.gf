@@ -1,4 +1,4 @@
-concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
+concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -6,7 +6,7 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
 
 ---- Tensed/Untensed
 --
-    S  = {s : Str} ;
+    S  = Sentence ;
     QS = {s : QForm => Str} ;
 --    RS = {s : Agr => Str ; c : Case} ; -- c for it clefts
 --    SSlash = {s : Str ; c2 : Str} ;
@@ -15,11 +15,12 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
 --
     Cl = Clause ;
     ClSlash = Clause ;
-    Imp = {s : Polarity => ImpForm => Str} ;
+    Imp = {s : Polarity => VImpForm => Str} ;
 --
 ---- Question
---
-    QCl = {s : ResLat.Tense => Anteriority => Polarity => QForm => Str } ;
+    --
+    -- TO FIX
+    QCl = Clause ; -- {s : ResLat.Tense => Anteriority => Polarity => QForm => Str } ;
     IP = {s : Case => Str ; n : Number} ;
     IComp = {s : Str} ;    
     IDet = Determiner ; --{s : Str ; n : Number} ;
@@ -36,37 +37,35 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
 ---- Verb
 --
     VP = ResLat.VerbPhrase ;
-    VPSlash = VP ** {c2 : Preposition} ;
+    VPSlash = ResLat.ObjectVerbPhrase ; -- VP ** {c2 : Preposition} ;
     Comp = {s : Agr => Str} ; 
 --
 ---- Adjective
 --
 --    AP = Adjective ** {isPre : Bool} ; ---- {s : Agr => Str ; isPre : Bool} ; 
-    AP = 
-      { 
-	s : Agr => Str ;
---	isPre : Bool ; -- should have no use in latin because adjectives can appear variably before and after nouns
-      } ;
+    AP = AdjectivePhrase ;
+ 
 --
 ---- Noun
 --
-    CN = ResLat.ComplexNoun ;
+    CN = ResLat.CommonNoun ;
     NP = ResLat.NounPhrase ;
     Pron = ResLat.Pronoun ;
     Det = Determiner ;
-    Predet, Ord = {s : Str} ;
+    Predet = {s : Str} ;
+    Ord = Ordinal ;
     Num  = {s : Gender => Case => Str ; n : Number} ;
---    Card = {s : Str ; n : Number} ;
+    Card = {s : Gender => Case => Str ; n : Number} ;
     Quant = Quantifier ;
 --
 ---- Numeral
 --
---    Numeral = {s : CardOrd => Str ; n : Number} ;
+    Numeral = ResLat.Numeral ;
     Digits  = {s : Str ; unit : Unit} ;
 --
 ---- Structural
 --
-    Conj = {s1,s2 : Str ; n : Number} ;
+    Conj = ResLat.Conjunction; --{s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
     Prep = ResLat.Preposition ;
 --
@@ -79,10 +78,16 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
     V2V = Verb ** {c2 : Str ; isAux : Bool} ;
 
     A = Adjective ;
-
+    Adv = Adverb ;
+    
     N = Noun ;
     N2 = Noun ** { c : Prep } ;
     N3 = Noun ** { c : Prep ; c2 : Prep } ;
     PN = Noun ;
     A2 = Adjective ** { c : Prep} ;
+
+  linref
+    NP = \np -> np.preap.s ! Ag np.g np.n Nom ++ np.s ! Nom ++ np.postap.s ! Ag np.g np.n Nom ;
+    VP = \vp -> vp.adv ++ vp.inf !  VInfActPres ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ;
+    S = \s -> combineSentence s ! SPreO ! PreO ! SOV ;
 }

@@ -29,7 +29,7 @@ concrete StructuralPes of Structural = CatPes **
 --  everything_NP = R.indeclNP ["هر XE"]));
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
-  for_Prep = mkPrep "برای" ;
+  for_Prep = mkPrep "برای" Ezafe ;
   from_Prep = mkPrep "از" ;
   he_Pron = R.agr2pron ! Ag Sg P3 ;
   here_Adv = ss "اینجا" ;
@@ -44,7 +44,7 @@ concrete StructuralPes of Structural = CatPes **
   in_Prep = mkPrep "در" ;
   it_Pron  = R.agr2pron ! Ag Sg P3;
   less_CAdv = {s = "کمتر" ; p = ""} ;
-  many_Det = mkDet ["تعداد زیادی"] Pl True; -- check
+  many_Det = mkDet "بسیار" Pl False Ezafe ;
   more_CAdv = {s = "بیشتر" ; p = "" } ;
   most_Predet = ss "اکثر";
   much_Det = mkDet ["مقدار زیادی"]  Pl ;
@@ -57,9 +57,9 @@ concrete StructuralPes of Structural = CatPes **
   only_Predet = ss "فقط" ;
   or_Conj = sd2 [] "یا" ** {n = Sg} ;
   otherwise_PConj = ss ["درغیراین صورت"] ;
-  part_Prep = mkPrep "از" ; -- TODO: the object following it should be in Ezafa form
+  part_Prep = mkPrep "از" Ezafe ;
   please_Voc = ss "لطفاً" ;
-  possess_Prep = mkPrep "" ; -- will be handeled in Ezafeh
+  possess_Prep = mkPrep [] Ezafe ;
   quite_Adv = ss "کاملاً" ;
   she_Pron = R.agr2pron ! Ag Sg P3 ;
   so_AdA = ss "بسیار" ;
@@ -101,7 +101,7 @@ concrete StructuralPes of Structural = CatPes **
   youSg_Pron = R.agr2pron ! Ag Sg P2 ;
   youPl_Pron = R.agr2pron ! Ag Pl P2 ;
   youPol_Pron = R.agr2pron ! Ag Pl P2  ;
---  no_Quant =  demoPN "هیچ" ;
+  no_Quant = mkQuant "هیچ" "هیچ" ;
   not_Predet = {s="نه"} ;
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;
   at_least_AdN = ss "حداقل" ;
@@ -126,16 +126,8 @@ have_V2 = haveVerb ** {
         VImp Pos Pl => "داشته باشید" ;
         VImp Neg Sg => "نداشته باش" ;
         VImp Neg Pl => "نداشته باشید" ;
-        VSubj _ (Ag Sg P1) => "داشته باشم" ;
-        VSubj _ (Ag Sg P2) => "داشته باشی" ;
-        VSubj _ (Ag Sg P3) => "داشته باشد" ;
-        VSubj _ (Ag Pl P1) => "داشته باشیم" ;
-        VSubj _ (Ag Pl P2) => "داشته باشید" ;
-        VSubj _ (Ag Pl P3) => "داشته باشند" ;
+        VSubj p agr => "داشته" ++ subjAux p agr ;
         x => haveVerb.s ! x } ;
-  c2 = {
-    s  = [] ;
-    ra = [] --- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
-    }
+  c2 = prepOrRa [] -- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
   } ;
 }

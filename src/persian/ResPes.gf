@@ -12,10 +12,9 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
   param
     Order = ODir | OQuest ;
-    PMood = Del | Imper | PCond ;
-
     CardOrd = NCard | NOrd ;
     RAgr = RNoAg | RAg Agr ;
+    RelPron = Ance | Ke ; -- https://en.wiktionary.org/wiki/%D8%A2%D9%86%DA%86%D9%87
 
   oper
     CN : Type = Noun ** {
@@ -24,12 +23,16 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
                             -- dep. on Number because of RelCN
       } ;
 
-    NP : Type = {
+    NP : Type = BaseNP ** {
       s : Mod => Str ; -- NP can appear with a clitic, need to keep Mod open
+      } ;
+
+    BaseNP : Type = {
       a : Agr ;
       hasAdj : Bool ; -- to get the right form when NP is a predicate
-      compl : Str ;   -- to make possessive suffix attach to the right word
-      animacy : Animacy -- to get the right relative pronoun
+      animacy : Animacy ; -- to get the right pronoun in FunRP
+      relpron : RelPron ; -- contraction for "that which"
+      empty : Str -- to prevent metavariables in case of rel.pron. contraction
       } ;
 
   oper
@@ -38,8 +41,10 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       a = defaultAgr ;
       hasAdj = False ;
       animacy = Inanimate ;
-      compl = []
+      relpron = Ke ;
+      empty = []
       } ;
+
     indeclNP : Str -> NP = \s ->
       emptyNP ** {s = \\m => s} ;
 
@@ -49,10 +54,13 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
     } ;
 
     np2str : NP -> Str = \np ->
-      np.s ! Bare ++ np.compl ;
+      np.s ! Bare ;
 
     cn2str : CN -> Str = \cn ->
       cn.s ! Sg ! Bare ++ cn.compl ! Sg ;
+
+    rs2str : RelPron -> Agr -> {s : Agr => Str ; rp : RelPron => Str} -> Str =
+      \ke,agr,rs -> rs.rp ! ke ++ rs.s ! agr ;
 
  -----------------------
  --- Verb Phrase
@@ -102,7 +110,7 @@ oper
       vp.comp ! agr ++ vp.prefix ++ vp.s ! vf  -- vp.ad is missing on purpose! we add it in insertVV.
    ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp ;
 
-  Compl : Type = {s : Str ; ra : Str} ;
+  Compl : Type = {s : Str ; ra : Str ; mod : Mod} ;
 
   VPHSlash : Type = VPH ** {
     c2 : Compl ;        -- prep or ra for the complement
@@ -126,20 +134,24 @@ oper
 ---------------------
 -- VP complementation
 ---------------------
-  appComp : Compl -> Str -> Str = \c2,obj ->
-    c2.s ++ obj ++ c2.ra ;
+  appComp : Compl -> (Mod=>Str) -> Str = \c2,obj ->
+    c2.s ++ obj ! c2.mod ++ c2.ra ;
 
   insertComp : (Agr => Str) -> VPH -> VPH = \obj,vp -> vp ** {
     comp = \\a => vp.comp ! a ++ obj ! a
     } ;
 
-  insertCompPre : (Agr=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
+  insertCompPre : (Agr=>Mod=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
     comp = \\a => appComp vp.c2 (obj ! a) ++ vp.comp ! a
+    } ;
+
+  insertCompPost : (Agr=>Mod=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
+    comp = \\a =>  vp.comp ! a ++ appComp vp.c2 (obj ! a)
     } ;
 
   insertVV : VV -> VPH -> VPH = \vv,vp -> predV vv ** {
     vComp = \\a,t => vp.vComp ! a ! t ++ complVV vv vp ! a ! t ;
-    vvType = case vv.isDef of {True => DefVV ; _ => FullVV} ;
+    vvtype = case vv.isDef of {True => DefVV ; _ => FullVV} ;
     ad = vp.ad  -- because complVV doesn't include ad! for word order.
   } ;
 
@@ -152,8 +164,7 @@ oper
     } ;
 
   complSlash : VPHSlash -> NP -> VPH = \vp,np -> vp ** {
-    comp = \\a => appComp vp.c2 (np.s ! Bare)
-               ++ np.compl ++ vp.comp ! a ;
+    comp = \\a => appComp vp.c2 np.s ++ vp.comp ! a ;
     obj = vp.obj ++ vp.agrObj ! np.a -- "beg her to buy", buy agrees with her
   } ;
 
@@ -226,8 +237,12 @@ oper
     vp = \\ta,p,ord =>
       let vps = clTable vp ! np.a ! ta ! p ;
           vvt = ta2vvt ta ;
-       in vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps
-       ++ vp.vComp ! np.a ! vvt ++ vp.embComp
+       in case vp.vvtype of {
+            DefVV
+              => vps ++ vp.ad ++ vp.comp ! np.a ++ vp.obj
+              ++ vp.vComp ! np.a ! vvt ++ vp.embComp ;
+            _ => vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps
+              ++ vp.vComp ! np.a ! vvt ++ vp.embComp }
   };
 
 --Clause : Type = {s : TAnt => Polarity => Order => Str} ;
@@ -264,14 +279,13 @@ oper
 -- Reflexive pronouns
 -----------------------------------
 
-  reflPron : Agr => Str = table {
-    Ag Sg P1 => "خودم" ;
-    Ag Sg P2 => "خودت" ;
-    Ag Sg P3 => "خودش" ;
-    Ag Pl P1 => "خودمان" ;
-    Ag Pl P2 => "خودتان" ;
-    Ag Pl P3 => "خودشان"
-
+  reflPron : Agr => Mod => Str = table {
+    Ag Sg P1 => modTable "خودم" ;
+    Ag Sg P2 => modTable "خودت" ;
+    Ag Sg P3 => modTable "خودش" ;
+    Ag Pl P1 => modTable "خودمان" ;
+    Ag Pl P2 => modTable "خودتان" ;
+    Ag Pl P3 => modTable "خودشان"
     } ;
 
   getPron : Animacy -> Number -> Str = \ani,number ->

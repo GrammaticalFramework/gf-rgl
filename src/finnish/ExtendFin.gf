@@ -5,7 +5,7 @@ concrete ExtendFin of Extend =
     VPI2,VPS2,MkVPS,MkVPS2,ConjVPS2,ComplVPS2, ConsVPS, BaseVPS, ListVPS, VPS, ConjVPS,PredVPS,
     MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
     ,ExistCN, ExistMassCN, ICompAP, ByVP
-    ,CompoundN, GenNP, GenIP
+    ,CompoundN, GenNP, GenIP, AdvIsNP
     ]
   with
     (Grammar = GrammarFin) **
@@ -120,7 +120,7 @@ lin
 
 ---- copied from VerbFin.CompAP, should be shared
     ICompAP ap = {
-      s = \\agr => 
+      s = \\agr =>
           let
             n = complNumAgr agr ;
             c = case n of {
@@ -133,19 +133,20 @@ lin
   lin
     GenNP np = {
       s1,sp = \\_,_ => np.s ! NPCase Gen ;
-      s2 = case np.isPron of { -- "isän auto", "hänen autonsa"  
-             True => table {Front => BIND ++ possSuffixFront np.a ; 
+      s2 = case np.isPron of { -- "isän auto", "hänen autonsa"
+             True => table {Front => BIND ++ possSuffixFront np.a ;
                             Back  => BIND ++ possSuffix np.a } ;
              False => \\_ => []
              } ;
       isNum  = False ;
       isPoss = np.isPron ; --- also gives "sen autonsa"
       isDef  = True ; --- "Jussin kolme autoa ovat" ; thus "...on" is missing
-      isNeg = False 
+      isNeg = False
      } ;
 
     GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
 
     ByVP vp = lin Adv {s = S.infVP vp.s.sc Pos (Ag Sg P3) vp Inf3Adess} ; ---- Agr ?
 
+    AdvIsNP adv np = S.mkClause (\_ -> adv.s) np.a (UseComp (CompNP np)) ;
 }

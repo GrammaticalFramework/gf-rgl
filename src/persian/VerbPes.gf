@@ -15,12 +15,12 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     ComplVV = insertVV ;
     ComplVS v s  = embComp (conjThat ++ s.s ! Indic) (predV v) ;
     ComplVQ v q  = embComp (conjThat ++ q.s)         (predV v) ;
-    ComplVA v ap = insertObj (appComp v.c2 (ap.s ! Bare)) (predV v) ; -- check form of adjective
+    ComplVA v ap = insertObj (appComp v.c2 ap.s)     (predV v) ; -- check form of adjective
 
     SlashVV vv vps = vps ** ComplVV vv vps ;
     SlashV2S v s  = predVc v ** embComp (conjThat ++ s.s ! Indic) (predV v) ;
     SlashV2Q v q  = predVc v ** embComp q.s (predV v) ;
-    SlashV2A v ap = predVc v ** insertObj (appComp v.c2 (ap.s ! Bare)) (predV v) ; ---- paint it red , check form of adjective
+    SlashV2A v ap = predVc v ** insertObj (appComp v.c2 ap.s)     (predV v) ; ---- paint it red , check form of adjective
 
     -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
     SlashV2V v2v vp = predVc v2v ** {
@@ -36,15 +36,19 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
     SlashV2VNP v2v np vps = predVc v2v ** {
       comp = \\a => if_then_Str v2v.isAux conjThat [] -- that
-                 ++ appComp v2v.c2 (np.s ! Bare) ;    -- I
-                                                        -- ∅ is placed in comp
-      vComp = \\_,_ => showVPH (case v2v.compl of {      -- buy
+                 ++ appComp v2v.c2 np.s ;             -- I
+                                                      -- ∅ is placed in comp
+      vComp = \\_,_ => showVPH (case v2v.compl of {   -- buy
                                   Subj  => VSubj Pos np.a ;
                                   Indic => VAor  Pos np.a })
                                np.a -- agreement fixed to np.a
                                <vps : VPH> ;
       c2 = vps.c2 --  preposition for the direct object comes from VPSlash
     } ;
+
+  -- : VP -> Prep -> VPSlash ;
+  VPSlashPrep vp prep = vp ** vs prep ;
+
 
     AdvVP vp adv = insertAdV adv.s vp ;
     AdVVP adv vp = insertAdV adv.s vp ;

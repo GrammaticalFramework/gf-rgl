@@ -91,22 +91,20 @@ oper
       _               =>      str + "ی" -- any other case: just a single ی
     } ;
 
+  modTable : Str -> Mod => Str = \str ->
+    table {Bare => str ;
+           Ezafe => mkEzafe str ;
+           Clitic => mkEnclic str ;
+           Poss => mkPossStem str } ;
+
   Noun = {
     s : Number => Mod => Str ;
     animacy : Animacy ;
-    isCmpd : CmpdStatus       -- Affects possession: awkward to use poss. suff. with compound nouns
+    isCmpd : CmpdStatus -- Affects possession: awkward to use poss. suff. with compound nouns
   } ;
 
   mkN : (x1,x2 : Str) -> Animacy -> Noun = \sg,pl,ani -> indeclN sg ** {
-    s = table {
-           Sg => table {Bare => sg ;
-                        Ezafe => mkEzafe sg ;
-                        Clitic => mkEnclic sg ;
-                        Poss => mkPossStem sg } ;
-           Pl => table {Bare => pl ;
-                        Ezafe => mkEzafe pl ;
-                        Clitic => mkEnclic pl ;
-                        Poss => mkPossStem pl }}
+    s = table {Sg => modTable sg ; Pl => modTable pl}
   } ;
 
   indeclN : Str -> Noun = \s -> {
@@ -121,7 +119,7 @@ oper
 --Determiners
 --------------------
   BaseQuant : Type = {
-    mod : Mod } ;
+    mod : Mod} ;
 
   Determiner : Type = BaseQuant ** {
     s : Str ;
@@ -131,7 +129,8 @@ oper
   } ;
 
   Quant : Type = BaseQuant ** {
-    s : Number => CmpdStatus => Str} ;
+    s : Number => CmpdStatus => Str ;
+    isDef : Bool } ;
 
   makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
     s,sp = str;
@@ -143,6 +142,7 @@ oper
   makeQuant : Str -> Str -> Quant = \sg,pl -> {
     s = table {Sg => \\_ => sg ; Pl => \\_ => pl} ;
     mod = Bare ;
+    isDef = True
   };
 ---------------------------
 -- Adjectives
@@ -312,6 +312,7 @@ oper
 
   haveVerb : Verb = haveRegV ** {s = table {
     ImpPrefix _ => [] ;
+    VAor Neg agr => imperfectSuffix agr (addN "دار") ;
     vf          => haveRegV.s ! vf }
   } where { haveRegV = mkVerb "داشتن" "دار" } ;
 
