@@ -31,7 +31,7 @@ oper
   Mod : Type ; -- Argument to mkDet and mkPrep
   ezafe : Mod ; -- e.g. mkPrep "برای" ezafe
   -- poss : Mod ; -- TODO is this needed?
-  --clitic : Mod ; -- TODO is this needed?
+  -- clitic : Mod ; -- TODO is this needed?
 --2 Nouns
 
   mkN : overload {
@@ -163,6 +163,8 @@ oper
     mkVV : (isAux : Bool) -> VVForm -> V -> VV -- takes its VP complement in the given VVForm. Whether it's auxiliary (T/F) given as the first argument.
      = \isAux,vvf,v -> v ** {isAux = isAux ; compl = vvf ; isDef = False}
   } ;
+
+  defVV : VV -> VV = \vv -> vv ** {isDef=True} ;
 
   mkV2V = overload {
     mkV2V : V -> (cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the noun, whether it's auxiliary.

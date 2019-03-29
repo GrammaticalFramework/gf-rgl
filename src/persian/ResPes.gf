@@ -137,12 +137,6 @@ oper
                     Add => v.s ! PerfStem ++ v.prefix ;
                     Replace => v.prefix
              } ;
-    -- s = table {
-    --       ImpPrefix p => becomeVerb.s ! ImpPrefix p ;
-    --       x           => case verb.passive of {
-    --                             Add => verb.s ! PerfStem ;
-    --                             Replace => []}
-    --                      ++ becomeVerb.s ! x }
   } ;
 -- ---------------------
 -- VP complementation
