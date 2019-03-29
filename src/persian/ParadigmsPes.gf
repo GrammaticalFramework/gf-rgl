@@ -112,6 +112,8 @@ oper
     = lin V M.haveVerb ;
   beVerb : V  -- The verb "be", to be used for light verb constructions: e.g. compoundV "عاشق" beVerb.
     = lin V M.beVerb ;
+  doVerb : V -- The verb "do", to be used for light verb constructions. In passive, is replaced by شدن.
+    = lin V M.doVerb ;
 
   mkV2 : overload {
     mkV2 : Str -> V2 ; -- Predictable V2 out of string. No preposition, را for direct object.

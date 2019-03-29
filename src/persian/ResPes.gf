@@ -131,7 +131,20 @@ oper
    predVc : (Verb ** {c2 : Compl}) -> VPHSlash = \verb ->
     predV verb ** vs verb.c2 ;
 
----------------------
+  passV : Verb -> VPH = \v -> predV v ** {
+    s = becomeVerb.s ;
+    prefix = case v.passive of {
+                    Add => v.s ! PerfStem ++ v.prefix ;
+                    Replace => v.prefix
+             } ;
+    -- s = table {
+    --       ImpPrefix p => becomeVerb.s ! ImpPrefix p ;
+    --       x           => case verb.passive of {
+    --                             Add => verb.s ! PerfStem ;
+    --                             Replace => []}
+    --                      ++ becomeVerb.s ! x }
+  } ;
+-- ---------------------
 -- VP complementation
 ---------------------
   appComp : Compl -> (Mod=>Str) -> Str = \c2,obj ->

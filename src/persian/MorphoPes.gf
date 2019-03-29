@@ -179,6 +179,8 @@ param
            | VImp Polarity Number -- bekon,bekonid/nakon,nakonid
            ;
 
+  Passive = Add       -- ateš zadan -> ateš zade šodan
+          | Replace ; -- gom kardan -> gom   ∅   šodan
 oper
   impRoot : Str -> Str = \root -> case root of {
     st + "ی" => st ;
@@ -203,7 +205,8 @@ oper
       VImp Pos Pl => addBh imp + "ید" ;
       VImp Neg Sg => addN imp ;
       VImp Neg Pl => addN imp + "ید" } ;
-    prefix = [] -- For compound verbs
+    prefix = [] ;-- For compound verbs
+    passive = Add ;
   } where {
       kard = tk 1 kardan ;
       kardeh = kard + "ه" ;
@@ -227,7 +230,7 @@ oper
       } ;
 --
 oper
-  Verb = {s : VerbForm => Str ; prefix : Str} ;
+  Verb = {s : VerbForm => Str ; prefix : Str ; passive : Passive} ;
 
   -- Verbs that end in یدن, ادن or ودن
   -- Also some verbs that don't: دانستن with stem دان
@@ -328,5 +331,9 @@ oper
     VImp Neg Pl => "نباشید" ;
     vf          => beRegV.s ! vf }
   } where { beRegV = mkVerb "بودن" "باش" } ;
+
+  doVerb = mkVerb "کردن" "کن" ** {passive=Replace} ;
+
+  becomeVerb : Verb = mkVerb "شدن" "شو" ;
 
 }
