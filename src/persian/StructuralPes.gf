@@ -7,7 +7,7 @@ concrete StructuralPes of Structural = CatPes **
   lin
   above_Prep = mkPrep "بالای" ;
   after_Prep = mkPrep ["بعد از"] ;
-  all_Predet = ss ["همه ی"] ;
+  all_Predet = ss (zwnj "همه" "ی") ;
   almost_AdA, almost_AdN = ss "تقریباً" ;
   although_Subj = mkSubj "با وجود این" ;
   always_AdV = ss "همیشه" ;
