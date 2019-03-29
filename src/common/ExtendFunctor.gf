@@ -96,7 +96,7 @@ lin
 
   DetNPMasc = DetNP ;
   DetNPFem = DetNP ;
-
+  SubjRelNP = RelNP ;
   UseComp_estar = UseComp ; -- DEFAULT UseComp
   iFem_Pron = i_Pron ; -- DEFAULT I (masc)
   youFem_Pron = youSg_Pron ; -- DEFAULT you (masc)
