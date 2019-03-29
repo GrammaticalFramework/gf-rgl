@@ -28,6 +28,7 @@ resource ParadigmsCat =
   open
     (Predef=Predef),
     Prelude,
+    DiffCat,
     MorphoCat,
     BeschCat,
     CatCat in {
@@ -64,6 +65,9 @@ oper
 
   mkPrep : Str -> Prep ; -- other preposition
 
+  CopulaType : Type ;
+  serCopula : CopulaType ;
+  estarCopula : CopulaType ;
 
 --2 Nouns
 
@@ -157,7 +161,7 @@ oper
     mkA : (bo : A) -> (millor : A) -> A ; -- special comparison (default with "mas")
 
     mkA : A -> CopulaType -> A -- force copula type
-      
+
     } ;
 
 -- The functions above create postfix adjectives. To switch
@@ -295,10 +299,13 @@ oper
 
   Gender = MorphoCat.Gender ;
   Number = MorphoCat.Number ;
+  CopulaType = DiffCat.CopulaType ;
   masculine = Masc ;
   feminine = Fem ;
   singular = Sg ;
   plural = Pl ;
+  serCopula = DiffCat.serCopula ;
+  estarCopula = DiffCat.estarCopula ;
 
   accusative = complAcc ** {lock_Prep = <>} ;
   genitive = complGen ** {lock_Prep = <>} ;
@@ -344,7 +351,7 @@ oper
     isPre = a.isPre ; copTyp = serCopula ; lock_A = <>} ;
   compADeg a =
     {s = table {Posit => a.s ! Posit ; _ => \\f => "més" ++ a.s ! Posit ! f} ;
-     isPre = a.isPre ; copTyp = a.copTyp ; 
+     isPre = a.isPre ; copTyp = a.copTyp ;
      lock_A = <>} ;
   regADeg a = compADeg (regA a) ;
 

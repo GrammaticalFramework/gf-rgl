@@ -28,6 +28,7 @@ resource ParadigmsSpa =
     (Predef=Predef),
     Prelude,
     MorphoSpa,
+    DiffSpa,
     BeschSpa,
     CatSpa in {
 
@@ -59,6 +60,10 @@ oper
   accusative : Prep ; -- direct object
   genitive   : Prep ; -- preposition "de" and its contractions
   dative     : Prep ; -- preposition "a" and its contractions
+
+  CopulaType : Type ;
+  serCopula : CopulaType ;
+  estarCopula : CopulaType ;
 
   mkPrep : overload {
     mkPrep : Str -> Prep ; -- other preposition
@@ -322,10 +327,13 @@ oper
 
   Gender = MorphoSpa.Gender ;
   Number = MorphoSpa.Number ;
+  CopulaType = DiffSpa.CopulaType ;
   masculine = Masc ;
   feminine = Fem ;
   singular = Sg ;
   plural = Pl ;
+  serCopula = DiffSpa.serCopula ;
+  estarCopula = DiffSpa.estarCopula ;
 
   accusative = complAcc ** {lock_Prep = <>} ;
   genitive = complGen ** {lock_Prep = <>} ;
