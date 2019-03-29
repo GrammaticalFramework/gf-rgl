@@ -61,11 +61,11 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
       Fem Sg P3 ;
 
     youPolPl_Pron = mkPronoun
-      "ustedes" "los" "les" "usted"
+      "ustedes" "los" "les" "ustedes"
       "su" "su" "sus" "sus"
       Masc Pl P3 ;
     youPolPlFem_Pron = mkPronoun
-      "ustedes" "las" "les" "usted"
+      "ustedes" "las" "les" "ustedes"
       "su" "su" "sus" "sus"
       Fem Pl P3 ;
 
