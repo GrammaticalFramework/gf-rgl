@@ -1,5 +1,6 @@
 --# -path=.:../abstract:../common:../prelude
 
 concrete AllSlv of AllSlvAbs = 
-  LangSlv
+  LangSlv,
+  ExtendSlv
   ** {} ;
