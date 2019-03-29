@@ -52,12 +52,12 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
 
     AdvVP vp adv = insertAdV adv.s vp ;
     AdVVP adv vp = insertAdV adv.s vp ;
-    ReflVP v = insertCompPre reflPron v ;
-    PassV2 v = predV v ; -- need to be fixed
+    ReflVP = insertCompPre reflPron ;
+    PassV2 = passV ;
 
     UseComp comp = insertComp comp.s (predV beVerb) ;
     CompAP ap = {s = \\_ => ap.s ! Bare} ; -- check form of adjective
-    CompAdv adv = {s = \\_ => adv.s } ;
+    CompAdv adv = {s = \\_ => adv.s} ;
 
     -- see https://sites.la.utexas.edu/persian_online_resources/nouns/noun-in-a-predicative-position/
     CompCN cn = {

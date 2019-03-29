@@ -369,7 +369,6 @@ concrete LexiconPes of Lexicon = CatPes **
     uncertain_A = mkA "نامعلوم" ["با تردید"];
 
 oper
-  doVerb = mkV "کردن" "کن" ;
   takeVerb = mkV "گرفتن" "گیر" ;
   hitVerb = mkV "زدن" "زن" ;
   giveVerb = mkV "دادن" "ده" ;
