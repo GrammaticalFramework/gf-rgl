@@ -51,7 +51,11 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     --   s = \\agr,t,a,p,m => cls.s ! agr ! DDir ! t ! a ! p ! m ++ cls.c2.s ;
     --   c = Nom
     --   } ;
-
+    SubjRelNP np rs = heavyNPpol np.isNeg {
+      s = \\c => (np.s ! c).ton ++ rs.s ! Conjunct ! np.a ;
+      a = np.a ;
+      hasClit = False
+      } ;
   lin
     PredVPS np vpi = {
       s = \\m => (np.s ! Nom).comp ++ vpi.s ! m ! np.a ! np.isNeg

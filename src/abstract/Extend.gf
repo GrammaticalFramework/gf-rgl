@@ -211,6 +211,8 @@ abstract Extend = Cat ** {
 
   UseComp_estar : Comp -> VP ; -- (Cat, Spa, Por) "está cheio" instead of "é cheio"
 
+  SubjRelNP : NP -> RS -> NP ; -- Force RS in subjunctive: lo que les *resulte* mejor
+
   iFem_Pron      : Pron ; -- I (Fem)
   youFem_Pron    : Pron ; -- you (Fem)
   weFem_Pron     : Pron ; -- we (Fem)
