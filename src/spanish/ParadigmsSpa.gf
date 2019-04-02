@@ -156,7 +156,7 @@ oper
 
 -- Some adjectives need the feminine form separately.
 
-    mkA : (espanol,espanola : Str) -> A ;
+    mkA : (español,española : Str) -> A ;
 
 -- One-place adjectives compared with "mas" need five forms in the worst
 -- case (masc and fem singular, masc plural, adverbial).
@@ -182,6 +182,8 @@ oper
 
   prefixA : A -> A ; -- adjective before noun (default after noun)
 
+  invarA : Str -> A  -- invariable adjective
+   = \s -> mkA s s s s s ;
 
 --3 Two-place adjectives
 --
