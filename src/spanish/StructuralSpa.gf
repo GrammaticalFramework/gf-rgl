@@ -1,5 +1,5 @@
-concrete StructuralSpa of Structural = CatSpa ** 
-  open PhonoSpa, MorphoSpa, ParadigmsSpa, BeschSpa, 
+concrete StructuralSpa of Structural = CatSpa **
+  open PhonoSpa, MorphoSpa, ParadigmsSpa, BeschSpa,
        MakeStructuralSpa, (X = ConstructX), Prelude in {
 
   flags optimize=all ;
@@ -10,7 +10,7 @@ lin
   -- have_not_V3
 
   above_Prep = mkPrep "sobre" ;
-  after_Prep = {s = ["despues"] ; c = MorphoSpa.genitive ; isDir = False} ;
+  after_Prep = mkPrep "después" genitive ;
   all_Predet = {
     s = \\a,c => prepCase c ++ aagrForms "todo" "toda" "todos" "todas" ! a ;
     c = Nom ;
@@ -32,7 +32,7 @@ lin
   by8means_Prep = mkPrep "por" ;
   can8know_VV = mkVV (verboV (saber_71 "saber")) ;
   can_VV = mkVV (verboV (poder_58 "poder")) ;
-  during_Prep = mkPrep "durante" ; 
+  during_Prep = mkPrep "durante" ;
   either7or_DConj = {s1,s2 = "o" ; n = Sg} ;
   everybody_NP = makeNP ["todos"] Masc Pl ;
   every_Det = mkDeterminer "cada" "cada" Sg False ;
@@ -43,8 +43,8 @@ lin
 ---  first_Ord = {s = \\ag => (regA "primero").s ! Posit ! AF ag.g ag.n} ;
   for_Prep = mkPrep "para" ;
   from_Prep = complGen ; ---
-  he_Pron = 
-    mkPronoun 
+  he_Pron =
+    mkPronoun
      "él" "lo" "le" "él"
      "su" "su" "sus" "sus"
       Masc Sg P3 ;
@@ -57,13 +57,13 @@ lin
   if_Subj = ss "si" ** {m = Indic} ;
   if_then_Conj = {s1 = "si" ; s2 = "entonces" ; n = Sg ; lock_Conj = <>} ;
   in8front_Prep = {s = "delante" ; c = MorphoSpa.genitive ; isDir = False} ;
-  i_Pron = 
+  i_Pron =
     mkPronoun
       "yo" "me" "me" "mí"
       "mi" "mi" "mis" "mis"
       Masc Sg P1 ;
   in_Prep = mkPrep "en" ;
-  it_Pron = 
+  it_Pron =
     mkPronoun
       "eso" "lo" "le" "eso"
       "su" "su" "sus" "sus"
@@ -101,7 +101,7 @@ lin
   please_Voc = ss ["por favor"] ;
   possess_Prep = complGen ;
   quite_Adv = ss "bastante" ;
-  she_Pron = 
+  she_Pron =
     mkPronoun
       "ella" "la" "le" "ella"
       "su" "su" "sus" "sus"
@@ -109,7 +109,7 @@ lin
   so_AdA = ss "tanto" ;
   somebody_NP = pn2np (mkPN "alguien" Masc) ;
   somePl_Det = mkDeterminer "algunos" "algunas" Pl False ;
-  someSg_Det = mkDeterminer "algún" "alguna" Sg False ; 
+  someSg_Det = mkDeterminer "algún" "alguna" Sg False ;
   something_NP = pn2np (mkPN ["algo"] Masc) ;
   somewhere_Adv = ss ["en alguna parte"] ;
   that_Quant = mkQuantifier "ese" "esa" "esos" "esas" ;
@@ -128,8 +128,8 @@ lin
   under_Prep = mkPrep "bajo" ;
   very_AdA = ss "muy" ;
   want_VV = mkVV (verboV (querer_64 "querer")) ;
-  we_Pron = 
-    mkPronoun 
+  we_Pron =
+    mkPronoun
       "nosotros" "nos" "nos" "nosotros"
       "nuestro" "nuestra" "nuestros" "nuestras"
       Masc Pl P1 ;
@@ -139,8 +139,8 @@ lin
   when_Subj = ss "cuando" ** {m = Indic} ;
   where_IAdv = ss "dónde" ;
   which_IQuant = {s = table {
-    Sg => \\g,c => prepCase c ++ "cual" ; 
-    Pl => \\g,c => prepCase c ++ "cuales" 
+    Sg => \\g,c => prepCase c ++ "cual" ;
+    Pl => \\g,c => prepCase c ++ "cuales"
     }
    } ;
   whoPl_IP = {s = \\c => prepCase c ++ "quién" ; a = aagr Masc Pl} ;
@@ -149,7 +149,7 @@ lin
   without_Prep = mkPrep "sin" ;
   with_Prep = mkPrep "con" ;
   yes_Utt = ss "sí" ;
-  youSg_Pron = mkPronoun 
+  youSg_Pron = mkPronoun
     "tú" "te" "te" "ti"
     "tu" "tu" "tus" "tus"
     Masc Sg P2 ;
@@ -166,7 +166,7 @@ lin
 
 oper
   etConj : {s : Str ; n : MorphoSpa.Number} = {s = pre {
-    "y" ; 
+    "y" ;
     "y" / strs {"ya" ; "ye" ; "yo" ; "yu"} ;
     "e" / strs {"i" ; "hi" ; "y"}
     }} ** {n = Pl} ;
@@ -178,4 +178,3 @@ lin
 
   lin language_title_Utt = ss "español" ;
 }
-
