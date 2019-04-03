@@ -30612,7 +30612,9 @@ fun parroquia_N : N ;
 fun parsec_N : N ;
 fun parsimonia_N : N ;
 fun parsismo_N : N ;
-fun parte_N : N ;
+fun parte_N : N ; -- parte_1_N is more common, this is an alias for it
+fun parte_1_N : N ; -- part, section, portion
+fun parte_2_N : N ; -- message, report, dispatch
 fun parte_alícuota_A : A ;
 fun parte_anterior_N : N ;
 fun parte_del_cuerpo_N : N ;
