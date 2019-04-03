@@ -85,7 +85,7 @@ lin
    girl_N = regN "niña" ;
    glove_N = regN "guante" ;
    gold_N = regN "oro" ;
-   good_A = prefA (mkADeg (regA "bueno") (regA "mejor")) ; ---- adv?
+   good_A = prefA (mkA (mkA "buen" "bueno" "buena" "buena" "buenos" "buenas" "bien")) (mkA "mejor")) ;
    go_V = (verboV (ir_46 "ir")) ;
    green_A = regADeg "verde" ;
    harbour_N = regN "puerto" ;
