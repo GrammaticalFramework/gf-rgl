@@ -1,9 +1,9 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
-concrete LexiconSpa of Lexicon = CatSpa ** open 
+concrete LexiconSpa of Lexicon = CatSpa ** open
   (M=MorphoSpa), ParadigmsSpa, (D = DiffSpa), BeschSpa in {
 
-flags 
+flags
     coding=utf8 ;
   optimize=values ;
 
@@ -12,7 +12,7 @@ lin
    answer_V2S = mkV2S (regV "responder") dative ;
    apartment_N = regN "apartamento" ;
    apple_N = regN "manzana" ;
-   art_N = regN "arte" ;	
+   art_N = regN "arte" ;
    ask_V2Q = mkV2Q (regV "preguntar") dative ;
    baby_N = regN "bebé" ;		-- can be used for both fem. & masc.
    bad_A = prefA (mkADeg (regA "malo") (regA "peor")) ;
@@ -70,7 +70,7 @@ lin
    eat_V2 = dirV2 (regV "comer") ;
    empty_A = regADeg "vacío" ;
    enemy_N = regN "enemigo" ;		-- enemiga
-   factory_N = regN "fábrica" ;	
+   factory_N = regN "fábrica" ;
    father_N2 = deN2 (regN "padre") ;
    fear_VS = mkVS (regV "temer") ;
    find_V2 = dirV2 (verboV (encontrar_38 "encontrar")) ;
@@ -85,7 +85,7 @@ lin
    girl_N = regN "niña" ;
    glove_N = regN "guante" ;
    gold_N = regN "oro" ;
-   good_A = prefA (mkADeg (regA "bueno") (regA "mejor")) ; ---- adv?
+   good_A = prefA (mkA (mkA "buen" "bueno" "buena" "buena" "buenos" "buenas" "bien") (mkA "mejor")) ;
    go_V = (verboV (ir_46 "ir")) ;
    green_A = regADeg "verde" ;
    harbour_N = regN "puerto" ;
@@ -126,7 +126,7 @@ lin
    music_N = mkN "música" ;
    narrow_A = regADeg "estrecho" ;
    new_A = prefA (regADeg "nuevo") ;
-   newspaper_N = mkN "periódico" ;		-- diario  
+   newspaper_N = mkN "periódico" ;		-- diario
    oil_N = mkN "aceite" ;
    old_A =  prefA (regADeg "viejo") ;
    open_V2 = dirV2 (special_ppV (regV "abrir") "abierto") ;
@@ -140,7 +140,7 @@ lin
    play_V2 = dirV2 (verboV (jugar_47 "jugar")) ;
    policeman_N = mkN "policía" masculine ;	-- fem refers to the institution
    priest_N = mkN "cura" masculine ;		-- masc
-   probable_AS = mkAS (regA "probable") ;	
+   probable_AS = mkAS (regA "probable") ;
    queen_N = mkN "reina" ;
    question_N = mkN "pregunta" ;
    radio_N = mkN "radio" feminine ;
@@ -158,7 +158,7 @@ lin
    say_VS = mkVS (verboV (decir_28 "decir")) ;
    school_N = regN "escuela" ;
    science_N = regN "ciencia" ;
-   sea_N = regN "mar" ;			-- masc & fem 
+   sea_N = regN "mar" ;			-- masc & fem
    seek_V2 = dirV2 (regV "buscar") ;
    see_V2 = dirV2 (verboV (ver_83 "ver")) ;
    sell_V3 = dirV3 (regV "vender") dative ;
@@ -182,10 +182,10 @@ lin
    stove_N = regN "horno" ;		-- estufa
    student_N = regN "estudiante" ;	-- used both for fem & masc
    stupid_A = regADeg "estúpido" ;
-   sun_N = regN "sol" ;	
+   sun_N = regN "sol" ;
    switch8off_V2 = dirV2 (regV "apagar") ;
    switch8on_V2 = dirV2 (regV "prender") ;
-   table_N = regN "mesa" ; 
+   table_N = regN "mesa" ;
    talk_V3 = mkV3 (regV "hablar") dative genitive ;
    teacher_N = regN "maestro" ;		-- maestra
    teach_V2 = dirV2 (regV "enseñar") ;
@@ -205,7 +205,7 @@ lin
    warm_A = regADeg "caliente" ;
    war_N = mkN "guerra" ;
    watch_V2 = dirV2 (regV "mirar") ;		-- ver
-   water_N = mkN "agua" ; 
+   water_N = mkN "agua" ;
    white_A = compADeg (regA "blanco") ;
    window_N = regN "ventana" ;
    wine_N = regN "vino" ;
@@ -215,7 +215,7 @@ lin
    wood_N = regN "madera" ;
    write_V2 = dirV2 (special_ppV (regV "escribir") "escrito") ;
    yellow_A = regADeg "amarillo" ;
-   young_A = prefA (mkA "joven" "joven" "jóvenes" "jóvenes" "jovenamente") ; 
+   young_A = prefA (mkA "joven" "joven" "jóvenes" "jóvenes" "jovenamente") ;
 
    do_V2 =  dirV2 (verboV (hacer_44 "hacer")) ;
    now_Adv = mkAdv "ahora" ;
@@ -224,7 +224,7 @@ lin
    add_V3 = dirV3 (regV "sumar") dative ;
    number_N = regN "número" ;
    put_V2 = dirV2 (verboV (poner_60 "poner")) ;
-   stop_V = regV "parar" ; 
+   stop_V = regV "parar" ;
    jump_V = regV "saltar" ;
 
   left_Ord = M.mkOrd (regA "izquierda") ;

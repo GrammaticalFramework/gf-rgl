@@ -70,12 +70,12 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
       Fem Pl P3 ;
 
     ICompAP ap = {
-      s =\\a => "que tan" ++ ap.s ! (genNum2Aform a.g a.n) ;
+      s =\\a => "qué tan" ++ ap.s ! (genNum2Aform a.g a.n) ;
       cop = serCopula
       } ;
 
     IAdvAdv adv = {
-      s = "que tan" ++ adv.s
+      s = "qué tan" ++ adv.s
       } ;
 
     ExistsNP np =
@@ -85,7 +85,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
 
     CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
       s = \\n => noun2.s ! n
-        ++ variants {"de" ; genForms "do" "da" ! noun.g}
+        ++ variants {"de" ; genForms "del" "de la" ! noun.g}
         ++ noun.s ! Sg ;
       g = noun2.g
       } ;
