@@ -35258,6 +35258,7 @@ fun reproductivo_A : A ;
 fun reproductor_A : A ;
 fun reproductor_N : N ;
 fun reproductor_de_casetes_N : N ;
+fun reprogramar_V : V ;
 fun repromulgar_V : V ;
 fun reptil_A : A ;
 fun reptil_N : N ;
@@ -42639,5 +42640,12 @@ fun lactancia_N : N ;
 fun emergencia_A : A ;
 fun acrocianosis_N : N ;
 fun cribado_N : N ;
+fun bastoncillo_N : N ;
+fun de_verdad_Adv : Adv ;
+fun monitoreo_N : N ;
+fun monitorear_V : V ;
+fun levemente_Adv : Adv ;
+fun amamantamiento_N : N ;
+fun inducción_N : N ;
 
 }
