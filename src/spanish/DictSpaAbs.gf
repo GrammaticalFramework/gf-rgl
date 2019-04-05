@@ -7932,6 +7932,7 @@ fun camarógrafo_N : N ;
 fun camarón_N : N ;
 fun cambalache_N : N ;
 fun cambiable_A : A ;
+fun cambiador_N : N ;
 fun cambiante_A : A ;
 fun cambiar_N : N ;
 fun cambiar_V : V ;
@@ -19726,6 +19727,8 @@ fun freno_N : N ;
 fun freno_de_pies_N : N ;
 fun frenológico_A : A ;
 fun frente_N : N ;
+fun frente_1_N : N ; -- forehead
+fun frente_2_N : N ; -- front
 fun frente_de_onda_N : N ;
 fun frente_popular_N : N ;
 fun frenéticamente_Adv : Adv ;
@@ -23057,6 +23060,7 @@ fun individual_A : A ;
 fun individualidad_N : N ;
 fun individualismo_N : N ;
 fun individualización_N : N ;
+fun individualizado_A : A ;
 fun individualmente_Adv : Adv ;
 fun individuo_N : N ;
 fun indivisible_A : A ;
@@ -23073,6 +23077,7 @@ fun indonesa_N : N ;
 fun indonés_N : N ;
 fun inducir_V : V ;
 fun inductancia_N : N ;
+fun inductivo_A : A ;
 fun inductor_N : N ;
 fun indudable_A : A ;
 fun indudablemente_Adv : Adv ;
@@ -42647,5 +42652,6 @@ fun monitorear_V : V ;
 fun levemente_Adv : Adv ;
 fun amamantamiento_N : N ;
 fun inducción_N : N ;
-
+fun cosido_A : A ;
+fun legañoso_A : A ;
 }
