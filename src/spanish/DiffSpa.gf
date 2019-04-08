@@ -13,7 +13,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
     contractInf : Bool -> Bool -> Bool = orB ; --- the effect of this is that the clitic is bound to the infinitive: matarte
 --------------------------------
 
-  param 
+  param
     Prepos = P_de | P_a ;
     VType = VHabere | VRefl ;
 
@@ -23,7 +23,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
 
     prepCase = \c -> case c of {
       Nom => [] ;
-      Acc => [] ; 
+      Acc => [] ;
       CPrep P_de => "de" ;
       CPrep P_a  => "a"
       } ;
@@ -52,11 +52,11 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
     artIndef = \isNP,g,n,c -> case isNP of {
       True => case n of {
         Sg  => prepCase c ++ genForms "uno"  "una" ! g ;
-        _   => prepCase c ++ genForms "unos" "unas" ! g  
+        _   => prepCase c ++ genForms "unos" "unas" ! g
         } ;
       _ => case n of {
         Sg  => prepCase c ++ genForms "un"   "una" ! g ;
-        _   => prepCase c 
+        _   => prepCase c
         }
       } ;
 
@@ -73,7 +73,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
 
     conjunctCase : Case -> Case = \c -> case c of {
       Nom => Nom ;
-      _ => Acc 
+      _ => Acc
       } ;
 
     auxVerb : VType -> (VF => Str) = \_ -> haber_V.s ;
@@ -81,8 +81,8 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
     vpAgrClit : Agr -> VPAgr = \a ->
       vpAgrNone ;
 
-    pronArg = \n,p,acc,dat -> 
-      let 
+    pronArg = \n,p,acc,dat ->
+      let
         paccp = case acc of {
           CRefl   => <reflPron n p Acc, p,True> ;
           CPron ag an ap => <argPron ag an ap Acc, ap,True> ;
@@ -101,7 +101,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
           } ;
         defaultPronArg = <pdatp.p1 ++ paccp.p1, [], peither>
 ----        defaultPronArg = <pdatp.p1 ++ paccp.p1, [], orB paccp.p3 pdatp.p3>
-      in 
+      in
       ----  case <<paccp.p2, pdatp.p2> : Person * Person> of {
       ----     <P3,P3> => <"se" ++ paccp.p1, [], True> ;
       ----     _ => defaultPronArg
@@ -116,14 +116,15 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
     mkImperative isPol p vp =
       \\pol,g,n => case pol of {
         RPos   => neg.p1 ++ imper ++ bindIf refl.isRefl ++ refl.pron
-          ++ bindIf hasClit ++ clit ++ compl ;
-        RNeg _ => neg.p1 ++ refl.pron ++ clit ++ subj ++ compl
+          ++ bindIf hasClit ++ clit ++ particle ++ compl ;
+        RNeg _ => neg.p1 ++ refl.pron ++ clit ++ subj ++ particle ++ compl
       } where {
         pe   = case isPol of {True => P3 ; _ => p} ;
         refl = case vp.s.vtyp of {
           VRefl => {pron = reflPron n pe Acc ; isRefl = True} ;
           _     => {pron = [] ; isRefl = False}
           } ;
+        particle = vp.s.p ;
         clit    = vp.clit1 ++ vp.clit2 ;
         hasClit = vp.clit3.hasClit ;
         imper   = vp.s.s ! vImper n pe ;
@@ -154,7 +155,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
 
     clitInf b cli inf = inf ++ bindIf b ++ cli ;
 
-    relPron : Bool => AAgr => Case => Str = \\b,a,c => 
+    relPron : Bool => AAgr => Case => Str = \\b,a,c =>
       case c of {
         Nom | Acc => "que" ;
         CPrep P_a => "cuyo" ;
@@ -167,19 +168,19 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
 
     partQIndir = [] ; ---- ?
 
-    reflPron : Number -> Person -> Case -> Str = \n,p,c -> 
-        let pro = argPron Fem n p c 
+    reflPron : Number -> Person -> Case -> Str = \n,p,c ->
+        let pro = argPron Fem n p c
         in
-        case p of { 
+        case p of {
         P3 => case c of {
           Acc | CPrep P_a => "se" ;
           _ => "sí"
           } ;
         _ => pro
-        } ; 
+        } ;
 
-    argPron : Gender -> Number -> Person -> Case -> Str = 
-      let 
+    argPron : Gender -> Number -> Person -> Case -> Str =
+      let
         cases : (x,y : Str) -> Case -> Str = \me,moi,c -> case c of {
           Acc | CPrep P_a => me ;
           _ => moi
@@ -189,8 +190,8 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
           CPrep P_a => leur ;
           _ => eux
           } ;
-      in 
-      \g,n,p -> case <<g,n,p> : Gender * Number * Person> of { 
+      in
+      \g,n,p -> case <<g,n,p> : Gender * Number * Person> of {
         <_,Sg,P1> => cases "me" "mí" ;
         <_,Sg,P2> => cases "te" "tí" ;
         <_,Pl,P1> => cases "nos" "nosotras" ; --- nosotros
@@ -210,7 +211,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
     copula, essere_V : Verb = verbBeschH (ser_1 "ser") ;
 
     estar_V, stare_V, auxPassive : Verb = verbBeschH (estar_2 "estar") ;
-    
+
     haber_V : Verb = verbBeschH (haber_3 "haber") ;
 
     verbBeschH : Verbum -> Verb = \v -> verbBesch v ** {vtyp = VHabere ; p = []} ;
