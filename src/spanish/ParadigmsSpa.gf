@@ -436,6 +436,23 @@ oper
     _  => verboV (regAlternVEr x y)
     } ;
 
+  -- hack for verbs like parecer.
+  -- NB. doesn't work properly for gustar, which agrees with the object.
+  dativeV : V -> V = \parecer -> parecer ** {
+    s = table {
+           VFin m n p => case <n,p> of {
+                <Sg,P1> => "me" ;
+                <Sg,P2> => "te" ;
+                <Sg,P3> => "le" ;
+                <Pl,P1> => "nos" ;
+                <Pl,P2> => "os" ;
+                <Pl,P3> => "les" } ++ parecer.s ! VFin m Sg P3 ;
+           VImper n => case n of {
+                SgP2 => "que te" ;
+                PlP1 => "que nos" ;
+                PlP2 => "que os" } ++ parecer.s ! VFin (VPres Conjunct) Sg P3 ;
+           x => parecer.s ! x }
+  } ;
 
 
   mk2V2 v p = lin V2 (v ** {c2 = p}) ;
