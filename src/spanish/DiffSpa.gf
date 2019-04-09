@@ -197,7 +197,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
         <_,Pl,P1> => cases "nos" "nosotras" ; --- nosotros
         <_,Pl,P2> => cases "vos" "vosotras" ; --- vosotros
         <Fem,Sg,P3> => cases3 "la" "le" "ella" ;
-        <_,  Sg,P3> => cases3 "lo" "le" "èl" ;
+        <_,  Sg,P3> => cases3 "lo" "le" "él" ;
         <Fem,Pl,P3> => cases3 "las" "les" "ellas" ;
         <_,  Pl,P3> => cases3 "los" "les" "ellos"
         } ;
