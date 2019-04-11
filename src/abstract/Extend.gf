@@ -137,7 +137,8 @@ abstract Extend = Cat ** {
 
 -- proper structure of "it is AP to VP"
 
-    PredAPVP : AP -> VP -> Cl ;   -- it is good to walk
+    PredAPVP : AP -> VP -> Cl ;      -- it is good to walk
+    PredIAdvVP : IAdv -> VP -> QCl ; -- how to walk?
 
 -- to use an AP as CN or NP without CN
 

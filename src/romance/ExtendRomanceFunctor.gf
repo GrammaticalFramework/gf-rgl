@@ -190,6 +190,8 @@ incomplete concrete ExtendRomanceFunctor of Extend =
 
     InOrderToVP = variants {} ;     -- VP -> Adv ; -- (in order) to publish the document
 
+    PredIAdvVP iadv vp = {s = \\_,_,_,_ => iadv.s ++ infStr vp} ;
+
     ApposNP np1 np2 = np1 ** {
       s = \\c => {
         c1 = (np1.s ! c).c1  ++ (np2.s ! c).c1 ;
