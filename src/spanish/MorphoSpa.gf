@@ -164,6 +164,71 @@ oper
     hasClit = True ; isPol = False
     } ;
 
+oper
+  -- To retrieve a matching pronoun for an NP argument.
+  -- Used in application grammars, please don't remove. /IL
+  agr2pron : Agr => Pron = table {
+    {g=Masc ; n=Sg ; p=P1}
+      => mkPronoun
+           "yo" "me" "me" "mí"
+           "mi" "mi" "mis" "mis"
+            Masc Sg P1 ;
+    {g=Masc ; n=Sg ; p=P2}
+      => mkPronoun
+           "tú" "te" "te" "ti"
+           "tu" "tu" "tus" "tus"
+            Masc Sg P2 ;
+    {g=Masc ; n=Sg ; p=P3}
+      => mkPronoun
+           "él" "lo" "le" "él"
+           "su" "su" "sus" "sus"
+            Masc Sg P3 ;
+    {g=Masc ; n=Pl ; p=P1}
+      => mkPronoun
+           "nosotros" "nos" "nos" "nosotros"
+           "nuestro" "nuestra" "nuestros" "nuestras"
+            Masc Pl P1 ;
+    {g=Masc ; n=Pl ; p=P2}
+      => mkPronoun
+           "vosotros" "os" "os" "vosotros"
+           "vuestro" "vuestra" "vuestros" "vuestras"
+            Masc Pl P2 ;
+    {g=Masc ; n=Pl ; p=P3}
+      => mkPronoun
+           "ellos" "los" "les" "ellos"
+           "su" "su" "sus" "sus"
+            Masc Pl P3 ;
+    {g=Fem ; n=Sg ; p=P1}
+      => mkPronoun
+           "yo" "me" "me" "mí"
+           "mi" "mi" "mis" "mis"
+            Fem Sg P1 ;
+    {g=Fem ; n=Sg ; p=P2}
+      => mkPronoun
+           "tú" "te" "te" "ti"
+           "tu" "tu" "tus" "tus"
+            Fem Sg P2 ;
+    {g=Fem ; n=Sg ; p=P3}
+      => mkPronoun
+           "ella" "la" "le" "ella"
+           "su" "su" "sus" "sus"
+            Fem Sg P3 ;
+    {g=Fem ; n=Pl ; p=P1}
+      => mkPronoun
+           "nosotras" "nos" "nos" "nosotras"
+           "nuestro" "nuestra" "nuestros" "nuestras"
+            Fem Pl P1 ;
+    {g=Fem ; n=Pl ; p=P2}
+      => mkPronoun
+           "vosotras" "os" "os" "vosotras"
+           "vuestro" "vuestra" "vuestros" "vuestras"
+            Fem Pl P2 ;
+    {g=Fem ; n=Pl ; p=P3}
+      => mkPronoun
+           "ellas" "las" "les" "ellas"
+           "su" "su" "sus" "sus"
+            Fem Pl P3
+    } ;
 
 --2 Determiners
 --
