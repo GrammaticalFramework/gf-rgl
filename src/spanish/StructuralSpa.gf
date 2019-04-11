@@ -51,7 +51,7 @@ lin
   here_Adv = mkAdv "aquí" ;
   here7to_Adv = mkAdv ["para aquí"] ;
   here7from_Adv = mkAdv ["de aquí"] ;
-  how_IAdv = ss "como" ;
+  how_IAdv = ss "cómo" ;
   how8many_IDet = mkIDet "cuántos" "cuántas" Pl ;
   how8much_IAdv = ss "cuánto" ;
   if_Subj = ss "si" ** {m = Indic} ;
@@ -139,8 +139,8 @@ lin
   when_Subj = ss "cuando" ** {m = Indic} ;
   where_IAdv = ss "dónde" ;
   which_IQuant = {s = table {
-    Sg => \\g,c => prepCase c ++ "cual" ;
-    Pl => \\g,c => prepCase c ++ "cuales"
+    Sg => \\g,c => prepCase c ++ "cuál" ;
+    Pl => \\g,c => prepCase c ++ "cuáles"
     }
    } ;
   whoPl_IP = {s = \\c => prepCase c ++ "quién" ; a = aagr Masc Pl} ;
