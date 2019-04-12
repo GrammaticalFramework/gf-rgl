@@ -138,12 +138,19 @@ abstract Extend = Cat ** {
 -- proper structure of "it is AP to VP"
 
     PredAPVP : AP -> VP -> Cl ;      -- it is good to walk
-    PredIAdvVP : IAdv -> VP -> QCl ; -- how to walk?
 
 -- to use an AP as CN or NP without CN
 
     AdjAsCN : AP -> CN ;   -- a green one ; en grön (Swe)
     AdjAsNP : AP -> NP ;   -- green (is good)
+
+-- infinitive complement for IAdv
+
+    PredIAdvVP : IAdv -> VP -> QCl ; -- how to walk?
+
+-- alternative SC, with "what"
+
+    WhatSSC : S -> SC  ;   -- what we did (was fun)
 
 -- reflexive noun phrases: a generalization of Verb.ReflVP, which covers just reflexive pronouns
 -- This is necessary in languages like Swedish, which have special reflexive possessives.

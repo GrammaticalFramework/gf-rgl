@@ -8,7 +8,7 @@ concrete ExtendSwe of Extend = CatSwe **
     PassVPSlash, PassAgentVPSlash, UttVPShort, ByVP, InOrderToVP,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
-    ICompAP,ProDrop,
+    ICompAP,ProDrop,WhatSSC,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
     Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
@@ -230,4 +230,6 @@ concrete ExtendSwe of Extend = CatSwe **
     } ;
 
     AdvIsNP adv np = PredVP {s = \\_ => adv.s ; a = np.a ; isPron = False} (UseComp (CompNP np)) ;
+
+    WhatSSC s = {s = "det" ++ s.s ! Main} ;
 }
