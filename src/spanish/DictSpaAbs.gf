@@ -10311,6 +10311,7 @@ fun colmillo_N : N ;
 fun colmo_N : N ;
 fun colocación_N : N ;
 fun colocación_de_minas_N : N ;
+fun colocado_A : A ;
 fun colocar_V : V ;
 fun colocar_burlete_V : V ;
 fun colocar_en_barracas_V : V ;

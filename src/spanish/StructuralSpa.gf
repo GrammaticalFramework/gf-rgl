@@ -43,11 +43,7 @@ lin
 ---  first_Ord = {s = \\ag => (regA "primero").s ! Posit ! AF ag.g ag.n} ;
   for_Prep = mkPrep "para" ;
   from_Prep = complGen ; ---
-  he_Pron =
-    mkPronoun
-     "él" "lo" "le" "él"
-     "su" "su" "sus" "sus"
-      Masc Sg P3 ;
+  he_Pron = agr2pron ! {g=Masc ; n=Sg ; p=P3} ;
   here_Adv = mkAdv "aquí" ;
   here7to_Adv = mkAdv ["para aquí"] ;
   here7from_Adv = mkAdv ["de aquí"] ;
@@ -57,11 +53,7 @@ lin
   if_Subj = ss "si" ** {m = Indic} ;
   if_then_Conj = {s1 = "si" ; s2 = "entonces" ; n = Sg ; lock_Conj = <>} ;
   in8front_Prep = {s = "delante" ; c = MorphoSpa.genitive ; isDir = False} ;
-  i_Pron =
-    mkPronoun
-      "yo" "me" "me" "mí"
-      "mi" "mi" "mis" "mis"
-      Masc Sg P1 ;
+  i_Pron = agr2pron ! {g=Masc ; n=Sg ; p=P1} ;
   in_Prep = mkPrep "en" ;
   it_Pron =
     mkPronoun
@@ -101,11 +93,7 @@ lin
   please_Voc = ss ["por favor"] ;
   possess_Prep = complGen ;
   quite_Adv = ss "bastante" ;
-  she_Pron =
-    mkPronoun
-      "ella" "la" "le" "ella"
-      "su" "su" "sus" "sus"
-      Fem Sg P3 ;
+  she_Pron = agr2pron ! {g=Fem ; n=Sg ; p=P3} ;
   so_AdA = ss "tanto" ;
   somebody_NP = pn2np (mkPN "alguien" Masc) ;
   somePl_Det = mkDeterminer "algunos" "algunas" Pl False ;
@@ -117,10 +105,7 @@ lin
   there7to_Adv = mkAdv ["para allí"] ;
   there7from_Adv = mkAdv ["de allí"] ;
   therefore_PConj = ss ["por eso"] ;
-  they_Pron = mkPronoun
-    "ellos" "los" "les" "ellos"
-    "su" "su" "sus" "sus"
-    Masc Pl P3 ;
+  they_Pron = agr2pron ! {g=Masc ; n=Pl ; p=P3} ;
   this_Quant = mkQuantifier "este" "esta" "estos" "estas" ;
   through_Prep = mkPrep "por" ;
   too_AdA = ss "demasiado" ;
@@ -128,11 +113,7 @@ lin
   under_Prep = mkPrep "bajo" ;
   very_AdA = ss "muy" ;
   want_VV = mkVV (verboV (querer_64 "querer")) ;
-  we_Pron =
-    mkPronoun
-      "nosotros" "nos" "nos" "nosotros"
-      "nuestro" "nuestra" "nuestros" "nuestras"
-      Masc Pl P1 ;
+  we_Pron = agr2pron ! {g=Masc ; n=Pl ; p=P1} ;
   whatSg_IP = {s = \\c => prepCase c ++ ["qué"] ; a = aagr Masc Sg} ;
   whatPl_IP = {s = \\c => prepCase c ++ ["qué"] ; a = aagr Masc Pl} ; ---
   when_IAdv = ss "cuándo" ;
@@ -149,15 +130,8 @@ lin
   without_Prep = mkPrep "sin" ;
   with_Prep = mkPrep "con" ;
   yes_Utt = ss "sí" ;
-  youSg_Pron = mkPronoun
-    "tú" "te" "te" "ti"
-    "tu" "tu" "tus" "tus"
-    Masc Sg P2 ;
-  youPl_Pron =
-    mkPronoun
-      "vosotros" "os" "os" "vosotros"
-      "vuestro" "vuestra" "vuestros" "vuestras"
-      Masc Pl P2 ;
+  youSg_Pron = agr2pron ! {g=Masc ; n=Sg ; p=P2} ;
+  youPl_Pron = agr2pron ! {g=Masc ; n=Pl ; p=P2} ;
   youPol_Pron =
     mkPronoun
       "usted" "lo" "le" "usted"
