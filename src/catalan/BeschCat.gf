@@ -68,7 +68,7 @@ let absol_ = Predef.tk 3 absoldre in
  VP (Pass Sg  Fem) => absol_ + "ta" ;
  VP (Pass Pl  Masc) => absol_ + "ts" ;
  VP (Pass Sg  Masc) => absol_ + "t" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -129,7 +129,7 @@ let adm_ = Predef.tk 4 admetre in
  VP (Pass Pl  Masc) => adm_ + "esos" ;
  VI Part =>  adm_ + "ès" ;
  VP (Pass Sg  Masc) => adm_ + "ès" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -190,7 +190,7 @@ let ajup_ = Predef.tk 2 ajupir in
  VP (Pass Sg  Fem) => ajup_ + "ida" ;
  VP (Pass Pl  Masc) => ajup_ + "its" ;
  VP (Pass Sg  Masc) => ajup_ + "it" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -251,7 +251,7 @@ let x_ = Predef.tk 4 anar in
  VP (Pass Sg  Fem) => x_ + "anada" ;
  VP (Pass Pl  Masc) => x_ + "anats" ;
  VP (Pass Sg  Masc) => x_ + "anat" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -312,7 +312,7 @@ let apar_ = Predef.tk 5 aparèixer in
  VP (Pass Pl  Masc) => apar_ + "eguts" ;
  VP (Pass Sg  Masc) => apar_ + "egut" ;
  VI Infn => apar_ + "èixer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -373,7 +373,7 @@ let a_ = Predef.tk 7 aprendre in
  VP (Pass Sg  Fem) => a_ + "presa" ;
  VP (Pass Pl  Masc) => a_ + "presos" ;
  VP (Pass Sg  Masc) => a_ + "près" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- argüir-- is not in the used source .
@@ -435,7 +435,7 @@ let at_ = Predef.tk 5 atendre in
  VP (Pass Sg  Masc) => at_ + "ès" ;
  VP (Pres Ind Sg  P3) => at_ + "én" ;
  VP (Imp Sg  P2) => at_ + "én" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 oper atènyer_59  : Str -> Verbum = \atènyer -> 
@@ -495,7 +495,7 @@ oper atènyer_59  : Str -> Verbum = \atènyer ->
         VP (Pass Sg Fem) => at_ + "esa" ;
         VP (Pass Pl Masc) => at_ + "esos" ;
         VP (Pass Pl Fem) => at_ + "eses";
-        VP (Imp Sg P1) => variants {} 
+        VP (Imp Sg P1) => nonExist 
         }
       } ;
 oper batre_10 : Str -> Verbum = \batre ->
@@ -555,7 +555,7 @@ let bat_ = Predef.tk 2 batre in
  VP (Pass Sg  Fem) => bat_ + "uda" ;
  VP (Pass Pl  Masc) => bat_ + "uts" ;
  VP (Pass Sg  Masc) => bat_ + "ut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -616,7 +616,7 @@ let be_ = Predef.tk 3 beure in
  VP (Pass Sg  Fem) => be_ + "guda" ;
  VP (Pass Pl  Masc) => be_ + "guts" ;
  VP (Pass Sg  Masc) => be_ + "gut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- bullir-- is not in the used source .
@@ -678,7 +678,7 @@ let ca_ = Predef.tk 3 cabre in
  VP (Pass Sg  Fem) => ca_ + "buda" ;
  VP (Pass Pl  Masc) => ca_ + "buts" ;
  VP (Pass Sg  Masc) => ca_ + "but" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- caldre-- is not in the used source .
@@ -740,7 +740,7 @@ let cant_ = Predef.tk 2 cantar in
  VP (Pass Sg  Fem) => cant_ + "ada" ;
  VP (Pass Pl  Masc) => cant_ + "ats" ;
  VP (Pass Sg  Masc) => cant_ + "at" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -801,7 +801,7 @@ let canvi_ = Predef.tk 2 canviar in
  VP (Pass Sg  Fem) => canvi_ + "ada" ;
  VP (Pass Pl  Masc) => canvi_ + "ats" ;
  VP (Pass Sg  Masc) => canvi_ + "at" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- carvendre-- is not in the used source .
@@ -863,7 +863,7 @@ let x_ = Predef.tk 5 caure in
  VP (Pass Sg  Fem) => x_ + "caiguda" ;
  VP (Pass Pl  Masc) => x_ + "caiguts" ;
  VP (Pass Sg  Masc) => x_ + "caigut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -924,7 +924,7 @@ let clo_ = Predef.tk 3 cloure in
  VP (Pass Sg  Fem) => clo_ + "sa" ;
  VP (Pass Pl  Masc) => clo_ + "sos" ;
  VP (Pass Sg  Masc) => clo_ + "s" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -985,7 +985,7 @@ let cob_ = Predef.tk 3 cobrir in
  VP (Pass Sg  Fem) => cob_ + "erta" ;
  VP (Pass Pl  Masc) => cob_ + "erts" ;
  VP (Pass Sg  Masc) => cob_ + "ert" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1046,7 +1046,7 @@ let c_ = Predef.tk 5 collir in
  VP (Pass Sg  Fem) => c_ + "ollida" ;
  VP (Pass Pl  Masc) => c_ + "ollits" ;
  VP (Pass Sg  Masc) => c_ + "ollit" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1107,7 +1107,7 @@ let comen_ = Predef.tk 3 començar in
  VP (Pass Sg  Fem) => comen_ + "çada" ;
  VP (Pass Pl  Masc) => comen_ + "çats" ;
  VP (Pass Sg  Masc) => comen_ + "çat" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1168,7 +1168,7 @@ let commo_ = Predef.tk 3 commoure in
  VP (Pass Sg  Fem) => commo_ + "guda" ;
  VP (Pass Pl  Masc) => commo_ + "guts" ;
  VP (Pass Sg  Masc) => commo_ + "gut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1229,7 +1229,7 @@ let compla_ = Predef.tk 3 complaure in
  VP (Pass Sg  Fem) => compla_ + "guda" ;
  VP (Pass Pl  Masc) => compla_ + "guts" ;
  VP (Pass Sg  Masc) => compla_ + "gut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1290,7 +1290,7 @@ let compl_ = Predef.tk 2 complir in
  VP (Pass Sg  Fem) => compl_ + "erta" ;
  VP (Pass Pl  Masc) => compl_ + "erts" ;
  VP (Pass Sg  Masc) => compl_ + "ert" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1351,7 +1351,7 @@ let compo_ = Predef.tk 4 compondre in
  VP (Pass Sg  Fem) => compo_ + "sta" ;
  VP (Pass Pl  Masc) => compo_ + "sts" ;
  VP (Pass Sg  Masc) => compo_ + "st" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1412,7 +1412,7 @@ let con_ = Predef.tk 5 conèixer in
  VP (Pass Pl  Masc) => con_ + "eguts" ;
  VP (Pass Sg  Masc) => con_ + "egut" ;
  VI Infn => con_ + "èixer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1473,7 +1473,7 @@ let conf_ = Predef.tk 5 confondre in
  VP (Pass Pl  Masc) => conf_ + "osos" ;
  VI Part =>  conf_ + "ós" ;
  VP (Pass Sg  Masc) => conf_ + "ós" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1534,7 +1534,7 @@ let constr_ = Predef.tk 5 constrènyer in
  VP (Pass Pl  Masc) => constr_ + "ets" ;
  VP (Pass Sg  Masc) => constr_ + "et" ;
  VI Infn => constr_ + "ènyer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1595,7 +1595,7 @@ let c_ = Predef.tk 5 córrer in
  VP (Pass Pl  Masc) => c_ + "orreguts" ;
  VP (Pass Sg  Masc) => c_ + "orregut" ;
  VI Infn => c_ + "órrer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1656,7 +1656,7 @@ let c_ = Predef.tk 4 cosir in
  VP (Pass Sg  Fem) => c_ + "osida" ;
  VP (Pass Pl  Masc) => c_ + "osits" ;
  VP (Pass Sg  Masc) => c_ + "osit" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1717,7 +1717,7 @@ let c_ = Predef.tk 4 coure in
  VP (Pass Sg  Fem) => c_ + "uita" ;
  VP (Pass Pl  Masc) => c_ + "uits" ;
  VP (Pass Sg  Masc) => c_ + "uit" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1778,7 +1778,7 @@ let cr_ = Predef.tk 5 créixer in
  VP (Pass Pl  Masc) => cr_ + "escuts" ;
  VP (Pass Sg  Masc) => cr_ + "escut" ;
  VI Infn => cr_ + "éixer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -1839,7 +1839,7 @@ let cr_ = Predef.tk 4 creure in
  VP (Pass Sg  Masc) => cr_ + "egut" ;
  VP (Impf Ind Pl  P1)  => cr_ + "èiem" ;--# notpresent
  VP (Impf Ind Pl  P2) => cr_ + "èieu" ;--# notpresent
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- cruixir-- is not in the used source .
@@ -1901,7 +1901,7 @@ let dep_ = Predef.tk 5 dependre in
  VP (Pres Ind Sg  P3) => dep_ + "èn" ;
  VP (Pass Sg  Masc) => dep_ + "ès" ;
  VP (Imp Sg  P2) => dep_ + "én" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- descloure-- is not in the used source .
@@ -1964,7 +1964,7 @@ let desf_ = Predef.tk 2 desfer in
  VP (Pass Sg  Fem) => desf_ + "eta" ;
  VP (Pass Pl  Masc) => desf_ + "ets" ;
  VP (Pass Sg  Masc) => desf_ + "et" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2078,7 +2078,7 @@ let x_ = Predef.tk 5 deure in
  VP (Pass Pl  Masc) => x_ + "guts" ;
  VP (Pass Sg  Masc) => x_ + "gut" ;
 -}
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2139,7 +2139,7 @@ let d_ = Predef.tk 2 dir in
  VP (Pass Sg  Fem) => d_ + "ita" ;
  VP (Pass Pl  Masc) => d_ + "its" ;
  VP (Pass Sg  Masc) => d_ + "it" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2200,7 +2200,7 @@ let dol_ = Predef.tk 3 doldre in
  VP (Pass Sg  Fem) => dol_ + "guda" ;
  VP (Pass Pl  Masc) => dol_ + "guts" ;
  VP (Pass Sg  Masc) => dol_ + "gut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2261,7 +2261,7 @@ let d_ = Predef.tk 4 donar in
  VP (Pres Ind Sg  P2) => d_ + "ónes" ;
  VP (Pres Ind Sg  P3) => d_ + "óna" ;
  VP (Imp Sg  P2) => d_ + "óna" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2322,7 +2322,7 @@ let dorm_ = Predef.tk 2 dormir in
  VP (Pass Sg  Fem) => dorm_ + "ida" ;
  VP (Pass Pl  Masc) => dorm_ + "its" ;
  VP (Pass Sg  Masc) => dorm_ + "it" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2383,7 +2383,7 @@ let d_ = Predef.tk 2 dur in
  VP (Pass Sg  Fem) => d_ + "uta" ;
  VP (Pass Pl  Masc) => d_ + "uts" ;
  VP (Pass Sg  Masc) => d_ + "ut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- eixir-- is not in the used source .
@@ -2446,7 +2446,7 @@ let enve_ = Predef.tk 3 envejar in
  VP (Pass Sg  Fem) => enve_ + "jada" ;
  VP (Pass Pl  Masc) => enve_ + "jats" ;
  VP (Pass Sg  Masc) => enve_ + "jat" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2507,7 +2507,7 @@ let esc_ = Predef.tk 4 escopir in
  VP (Pass Sg  Fem) => esc_ + "opida" ;
  VP (Pass Pl  Masc) => esc_ + "opits" ;
  VP (Pass Sg  Masc) => esc_ + "opit" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2568,7 +2568,7 @@ let escri_ = Predef.tk 3 escriure in
  VP (Pass Sg  Fem) => escri_ + "ta" ;
  VP (Pass Pl  Masc) => escri_ + "ts" ;
  VP (Pass Sg  Masc) => escri_ + "t" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2629,7 +2629,7 @@ let esgla_ = Predef.tk 3 esglaiar in
  VP (Pres Sub Sg  P3) => esgla_ + "ï" ;
  VP (Imp Pl  P3) => esgla_ + "ïn" ;
  VP (Imp Sg  P3) => esgla_ + "ï" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2690,7 +2690,7 @@ let x_ = Predef.tk 3 ser in
  VP (Pass Sg  Fem) => x_ + "estada" ;
  VP (Pass Pl  Masc) => x_ + "estats" ;
  VP (Pass Pl  Fem) => x_ + "estades" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2751,7 +2751,7 @@ let establ_ = Predef.tk 2 establir in
  VP (Pass Sg  Fem) => establ_ + "erta" ;
  VP (Pass Pl  Masc) => establ_ + "erts" ;
  VP (Pass Sg  Masc) => establ_ + "ert" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2812,7 +2812,7 @@ let es_ = Predef.tk 3 estar in
  VP (Pass Sg  Fem) => es_ + "tada" ;
  VP (Pass Pl  Masc) => es_ + "tats" ;
  VP (Pass Pl  Fem) => es_ + "tades" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2873,7 +2873,7 @@ let evacu_ = Predef.tk 2 evacuar in
  VP (Pass Sg  Fem) => evacu_ + "ada" ;
  VP (Pass Pl  Masc) => evacu_ + "ats" ;
  VP (Pass Sg  Masc) => evacu_ + "at" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2934,7 +2934,7 @@ let f_ = Predef.tk 2 fer in
  VP (Pass Sg  Fem) => f_ + "eta" ;
  VP (Pass Pl  Masc) => f_ + "ets" ;
  VP (Pass Sg  Masc) => f_ + "et" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -2995,7 +2995,7 @@ let fo_ = Predef.tk 4 fondre in
  VP (Pass Sg  Fem) => fo_ + "sa" ;
  VP (Pass Pl  Masc) => fo_ + "sos" ;
  VP (Pass Sg  Masc) => fo_ + "s" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3056,7 +3056,7 @@ let fu_ = Predef.tk 3 fugir in
  VP (Pass Sg  Fem) => fu_ + "gida" ;
  VP (Pass Pl  Masc) => fu_ + "gits" ;
  VP (Pass Sg  Masc) => fu_ + "git" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 oper haver_59  : Str -> Bool -> Verbum = \haver,flag -> 
@@ -3108,14 +3108,14 @@ oper haver_59  : Str -> Bool -> Verbum = \haver,flag ->
         VP (Cond Pl P2) => h_ + "auríeu" ; --# notpresent
         VP (Cond Pl P3) => h_ + "aurien" ; --# notpresent
 
-        VP (Imp _ _) => h_ + "aver" ; ---- variants {} ;
+        VP (Imp _ _) => h_ + "aver" ; ---- nonExist ;
 {-
-        VP (Imp Sg P1) => variants {} ;
-        VP (Imp Sg P2) => variants {} ;
-        VP (Imp Sg P3) => variants {} ;
-        VP (Imp Pl P1) => variants {} ;
-        VP (Imp Pl P2) => variants {} ;
-        VP (Imp Pl P3) => variants {} ;
+        VP (Imp Sg P1) => nonExist ;
+        VP (Imp Sg P2) => nonExist ;
+        VP (Imp Sg P3) => nonExist ;
+        VP (Imp Pl P1) => nonExist ;
+        VP (Imp Pl P2) => nonExist ;
+        VP (Imp Pl P3) => nonExist ;
 -}
         VP (Pass Sg Masc) => h_ + "agut" ;
         VP (Pass Sg Fem) => h_ + "aguda" ;
@@ -3181,7 +3181,7 @@ let impr_ = Predef.tk 4 imprimir in
  VP (Pass Sg  Fem) => impr_ + "esa" ;
  VP (Pass Pl  Masc) => impr_ + "esos" ;
  VP (Pass Sg  Masc) => impr_ + "ès" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3242,7 +3242,7 @@ let j_ = Predef.tk 4 jeure in
  VP (Pass Sg  Fem) => j_ + "aguda" ;
  VP (Pass Pl  Masc) => j_ + "aguts" ;
  VP (Pass Sg  Masc) => j_ + "agut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3303,7 +3303,7 @@ let llo_ = Predef.tk 2 lloar in
  VP (Pass Sg  Fem) => llo_ + "ada" ;
  VP (Pass Pl  Masc) => llo_ + "ats" ;
  VP (Pass Sg  Masc) => llo_ + "at" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3364,7 +3364,7 @@ let llu_ = Predef.tk 2 lluir in
  VP (Pass Sg  Fem) => llu_ + "ïda" ;
  VP (Pass Pl  Masc) => llu_ + "ïts" ;
  VP (Pass Sg  Masc) => llu_ + "ït" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- malvendre-- is not in the used source .
@@ -3426,7 +3426,7 @@ let ment_ = Predef.tk 2 mentir in
  VP (Pass Sg  Fem) => ment_ + "ida" ;
  VP (Pass Pl  Masc) => ment_ + "its" ;
  VP (Pass Sg  Masc) => ment_ + "it" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3487,7 +3487,7 @@ let menyspre_ = Predef.tk 2 menysprear in
  VP (Pass Sg  Fem) => menyspre_ + "ada" ;
  VP (Pass Pl  Masc) => menyspre_ + "ats" ;
  VP (Pass Sg  Masc) => menyspre_ + "at" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3548,7 +3548,7 @@ let mer_ = Predef.tk 5 merèixer in
  VP (Pass Pl  Masc) => mer_ + "escuts" ;
  VP (Pass Sg  Masc) => mer_ + "escut" ;
  VI Infn => mer_ + "èixer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- metre-- is not in the used source .
@@ -3611,7 +3611,7 @@ let m_ = Predef.tk 4 morir in
  VP (Pass Sg  Fem) => m_ + "orta" ;
  VP (Pass Pl  Masc) => m_ + "orts" ;
  VP (Pass Sg  Masc) => m_ + "ort" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3672,7 +3672,7 @@ let mo_ = Predef.tk 3 moure in
  VP (Pass Sg  Fem) => mo_ + "guda" ;
  VP (Pass Pl  Masc) => mo_ + "guts" ;
  VP (Pass Sg  Masc) => mo_ + "gut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- munyir-- is not in the used source .
@@ -3734,7 +3734,7 @@ let n_ = Predef.tk 5 néixer in
  VP (Pass Sg  Fem) => n_ + "ascuda" ;
  VP (Pass Pl  Masc) => n_ + "ascuts" ;
  VP (Pass Sg  Masc) => n_ + "ascut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- noure-- is not in the used source .
@@ -3797,7 +3797,7 @@ let x_ = Predef.tk 5 obrir in
  VP (Pass Sg  Fem) => x_ + "erta" ;
  VP (Pass Pl  Masc) => x_ + "erts" ;
  VP (Pass Sg  Masc) => x_ + "ert" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3858,7 +3858,7 @@ let ob_ = Predef.tk 5 obtenir in
  VP (Pass Sg  Fem) => ob_ + "tinguda" ;
  VP (Pass Pl  Masc) => ob_ + "tinguts" ;
  VP (Pass Sg  Masc) => ob_ + "tingut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- oir-- is not in the used source .
@@ -3920,7 +3920,7 @@ let x_ = Predef.tk 6 omplir in
  VP (Pass Sg  Fem) => x_ + "erta" ;
  VP (Pass Pl  Masc) => x_ + "erts" ;
  VP (Pass Sg  Masc) => x_ + "ert" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -3981,7 +3981,7 @@ let pat_ = Predef.tk 2 patir in
  VP (Pass Sg  Fem) => pat_ + "ida" ;
  VP (Pass Pl  Masc) => pat_ + "its" ;
  VP (Pass Sg  Masc) => pat_ + "it" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- péixer-- is not in the used source .
@@ -4043,7 +4043,7 @@ let perd_ = Predef.tk 2 perdre in
  VP (Pass Sg  Fem) => perd_ + "uda" ;
  VP (Pass Pl  Masc) => perd_ + "uts" ;
  VP (Pass Sg  Masc) => perd_ + "ut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4104,7 +4104,7 @@ let pert_ = Predef.tk 5 pertànyer in
  VP (Pass Pl  Masc) => pert_ + "anguts" ;
  VP (Pass Sg  Masc) => pert_ + "angut" ;
  VI Infn => pert_ + "ànyer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4165,7 +4165,7 @@ let p_ = Predef.tk 4 poder in
  VP (Pass Sg  Fem) => p_ + "oguda" ;
  VP (Pass Pl  Masc) => p_ + "oguts" ;
  VP (Pass Sg  Masc) => p_ + "ogut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4226,7 +4226,7 @@ let preg_ = Predef.tk 2 pregar in
  VP (Pass Sg  Fem) => preg_ + "ada" ;
  VP (Pass Pl  Masc) => preg_ + "ats" ;
  VP (Pass Sg  Masc) => preg_ + "at" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4287,7 +4287,7 @@ let x_ = Predef.tk 7 prendre in
  VP (Pass Sg  Fem) => x_ + "presa" ;
  VP (Pass Pl  Masc) => x_ + "presos" ;
  VP (Pass Sg  Masc) => x_ + "pres" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4348,7 +4348,7 @@ let prev_ = Predef.tk 4 prevenir in
  VP (Pass Sg  Fem) => prev_ + "inguda" ;
  VP (Pass Pl  Masc) => prev_ + "inguts" ;
  VP (Pass Sg  Masc) => prev_ + "ingut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- pruir-- is not in the used source .
@@ -4411,7 +4411,7 @@ let ra_ = Predef.tk 3 raure in
  VP (Pass Sg  Fem) => ra_ + "sa" ;
  VP (Pass Pl  Masc) => ra_ + "sos" ;
  VP (Pass Sg  Masc) => ra_ + "s" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4472,7 +4472,7 @@ let re_ = Predef.tk 3 rebre in
  VP (Pass Sg  Fem) => re_ + "buda" ;
  VP (Pass Pl  Masc) => re_ + "buts" ;
  VP (Pass Sg  Masc) => re_ + "but" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4533,7 +4533,7 @@ let recl_ = Predef.tk 4 recloure in
  VP (Pass Pl  Masc) => recl_ + "osos" ;
  VI Part =>  recl_ + "òs" ;
  VP (Pass Sg  Masc) => recl_ + "òs" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4594,7 +4594,7 @@ let redu_ = Predef.tk 2 reduir in
  VP (Pass Sg  Fem) => redu_ + "ïda" ;
  VP (Pass Pl  Masc) => redu_ + "ïts" ;
  VP (Pass Sg  Masc) => redu_ + "ït" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- reeixir-- is not in the used source .
@@ -4656,7 +4656,7 @@ let r_ = Predef.tk 4 riure in
  VP (Pass Sg  Fem) => r_ + "iguda" ;
  VP (Pass Pl  Masc) => r_ + "iguts" ;
  VP (Pass Sg  Masc) => r_ + "igut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4717,7 +4717,7 @@ let rom_ = Predef.tk 5 romandre in
  VP (Pass Pl  Masc) => rom_ + "asos" ;
  VI Part =>  rom_ + "às" ;
  VP (Pass Sg  Masc) => rom_ + "às" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- rompre-- is not in the used source .
@@ -4779,7 +4779,7 @@ let x_ = Predef.tk 5 saber in
  VP (Pass Sg  Fem) => x_ + "sabuda" ;
  VP (Pass Pl  Masc) => x_ + "sabuts" ;
  VP (Pass Sg  Masc) => x_ + "sabut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4840,7 +4840,7 @@ let sent_ = Predef.tk 2 sentir in
  VP (Pass Sg  Fem) => sent_ + "ida" ;
  VP (Pass Pl  Masc) => sent_ + "its" ;
  VP (Pass Sg  Masc) => sent_ + "it" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4901,7 +4901,7 @@ let serv_ = Predef.tk 2 servir in
  VP (Pass Sg  Fem) => serv_ + "ida" ;
  VP (Pass Pl  Masc) => serv_ + "its" ;
  VP (Pass Sg  Masc) => serv_ + "it" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -4976,7 +4976,7 @@ let s_ = Predef.tk 4 seure in
  VP (Impf Ind Pl  P2) => s_ + "èieu" ;--# notpresent
 -- VP (Impf Ind Pl  P1)  => s_ + "éiem" ;--# notpresent
 -- VP (Impf Ind Pl  P2) => s_ + "éieu" ;--# notpresent
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5037,7 +5037,7 @@ let sof_ = Predef.tk 3 sofrir in
  VP (Pass Sg  Fem) => sof_ + "erta" ;
  VP (Pass Pl  Masc) => sof_ + "erts" ;
  VP (Pass Sg  Masc) => sof_ + "ert" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- soler-- is not in the used source .
@@ -5099,7 +5099,7 @@ let s_ = Predef.tk 5 sortir in
  VP (Pass Sg  Fem) => s_ + "ortida" ;
  VP (Pass Pl  Masc) => s_ + "ortits" ;
  VP (Pass Sg  Masc) => s_ + "ortit" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5160,7 +5160,7 @@ let supl_ = Predef.tk 2 suplir in
  VP (Pass Sg  Fem) => supl_ + "erta" ;
  VP (Pass Pl  Masc) => supl_ + "erts" ;
  VP (Pass Sg  Masc) => supl_ + "ert" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5221,7 +5221,7 @@ let t_ = Predef.tk 4 témer in
  VP (Pass Pl  Masc) => t_ + "emuts" ;
  VP (Pass Sg  Masc) => t_ + "emut" ;
  VI Infn => t_ + "émer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5282,7 +5282,7 @@ let x_ = Predef.tk 5 tenir in
  VP (Pass Sg  Fem) => x_ + "tinguda" ;
  VP (Pass Pl  Masc) => x_ + "tinguts" ;
  VP (Pass Sg  Masc) => x_ + "tingut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5343,7 +5343,7 @@ let tor_ = Predef.tk 3 torçar in
  VP (Pass Sg  Fem) => tor_ + "çada" ;
  VP (Pass Pl  Masc) => tor_ + "çats" ;
  VP (Pass Sg  Masc) => tor_ + "çat" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5417,7 +5417,7 @@ let t_ = Predef.tk 5 tòrcer in
  VP (Pass Sg  Masc) => t_ + "ort" ;
 -- VP (Pass Sg  Masc) => t_ + "orçut" ;
  VI Infn => t_ + "òrcer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- tossir-- is not in the used source .
@@ -5479,7 +5479,7 @@ let tren_ = Predef.tk 3 trencar in
  VP (Pass Sg  Fem) => tren_ + "cada" ;
  VP (Pass Pl  Masc) => tren_ + "cats" ;
  VP (Pass Sg  Masc) => tren_ + "cat" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5540,7 +5540,7 @@ let tr_ = Predef.tk 4 treure in
  VP (Pass Sg  Fem) => tr_ + "eta" ;
  VP (Pass Pl  Masc) => tr_ + "ets" ;
  VP (Pass Sg  Masc) => tr_ + "et" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5601,7 +5601,7 @@ let val_ = Predef.tk 2 valer in
  VP (Pass Sg  Fem) => val_ + "guda" ;
  VP (Pass Pl  Masc) => val_ + "guts" ;
  VP (Pass Sg  Masc) => val_ + "gut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5662,7 +5662,7 @@ let v_ = Predef.tk 5 vèncer in
  VP (Pass Pl  Masc) => v_ + "ençuts" ;
  VP (Pass Sg  Masc) => v_ + "ençut" ;
  VI Infn => v_ + "èncer" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5723,7 +5723,7 @@ let ven_ = Predef.tk 3 vendre in
  VP (Pass Sg  Fem) => ven_ + "uda" ;
  VP (Pass Pl  Masc) => ven_ + "uts" ;
  VP (Pass Sg  Masc) => ven_ + "ut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5784,7 +5784,7 @@ let v_ = Predef.tk 4 venir in
  VP (Pass Sg  Fem) => v_ + "inguda" ;
  VP (Pass Pl  Masc) => v_ + "inguts" ;
  VP (Pass Sg  Masc) => v_ + "ingut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5845,7 +5845,7 @@ let v_ = Predef.tk 4 veure in
  VP (Pass Sg  Fem) => v_ + "ista" ;
  VP (Pass Pl  Masc) => v_ + "ists" ;
  VP (Pass Sg  Masc) => v_ + "ist" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -5906,7 +5906,7 @@ let vi_ = Predef.tk 3 viure in
  VP (Pass Sg  Fem) => vi_ + "scuda" ;
  VP (Pass Pl  Masc) => vi_ + "scuts" ;
  VP (Pass Sg  Masc) => vi_ + "scut" ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
@@ -6023,7 +6023,7 @@ let x_ = Predef.tk 4 voler in
  VP (Pass Pl  Masc) => x_ + "olguts" ;
  VP (Pass Sg  Masc) => x_ + "olgut" ;
 -}
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 -- Verbs: conversion from full verbs to present-tense verbs.
@@ -6107,7 +6107,7 @@ in {s = table {
  VP (Pass Pl  Masc) => venç + "uts" ;
  VP (Pass Sg  Masc) => venç + "ut" ;
  VI Infn => vèncer ;
-VP (Imp Sg P1) => variants {} 
+VP (Imp Sg P1) => nonExist 
 }
 } ;
 
