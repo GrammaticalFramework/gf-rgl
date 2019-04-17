@@ -315,7 +315,8 @@ oper
 
   haveVerb : Verb = haveRegV ** {s = table {
     ImpPrefix _ => [] ;
-    VAor Neg agr => imperfectSuffix agr (addN "دار") ;
+    VAor Neg agr  => imperfectSuffix agr (addN "دار") ;
+    VSubj pol agr => haveRegV.s ! VPerf pol agr ;
     vf          => haveRegV.s ! vf }
   } where { haveRegV = mkVerb "داشتن" "دار" } ;
 
