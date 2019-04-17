@@ -64,6 +64,7 @@ lin
   FrontComplDirectVQ  = variants {} ; -- NP -> VQ -> Utt -> Cl ;      -- "where", she asked
   PredAPVP ap vp = ImpersCl (UseComp (CompAP (SentAP ap (EmbedVP vp)))) ; -- DEFAULT it is (good to walk)
   PredIAdvVP iadv vp = QuestIAdv iadv (GenericCl vp) ; -- DEFAULT how does one walk
+  WhatSSC = EmbedS ; -- DEFAULT that we did (was fun)
   AdjAsCN = variants {} ;     -- AP -> CN ; -- a green one ; en grön (Swe)
   AdjAsNP = variants {} ;     -- AP -> NP ; -- green (is good)
   ReflRNP = variants {} ;     -- VPSlash -> RNP -> VP ; -- love my family and myself

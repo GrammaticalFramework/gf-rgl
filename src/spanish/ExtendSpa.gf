@@ -61,6 +61,8 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
       s = "qué tan" ++ adv.s
       } ;
 
+    WhatSSC s = {s = \\_ => "lo que" ++ s.s ! Indic} ; --- mood
+
     ExistsNP np =
       mkClause [] True False np.a
       (insertComplement (\\_ => (np.s ! Nom).ton)

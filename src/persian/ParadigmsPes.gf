@@ -185,7 +185,7 @@ oper
 
   mkPrep = overload {
     mkPrep : Str -> Prep -- Takes a string, returns a preposition.
-     = \str -> lin Prep {s = str ; ra = [] ; mod = Bare} ;
+     = \str -> lin Prep (prepOrRa str) ;
     mkPrep : Str -> Mod -> Prep -- Takes a string and Mod (so far only option is ezafe), returns a preposition.
      = \str,m -> lin Prep {s = str ; ra = [] ; mod=m}
   } ;
