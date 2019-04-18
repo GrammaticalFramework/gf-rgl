@@ -148,9 +148,9 @@ oper
 
   mkVS = overload {
    mkVS : Str -> VS -- predictable verb with sentence complement
-    = \s -> lin VS (regV s) ;
+    = \s -> lin VS (regV s ** {compl=subjunctive}) ;
    mkVS : V -> VS -- VS out of a verb
-    = \v -> lin VS v
+    = \v -> lin VS (v ** {compl=subjunctive})
   } ;
 
   mkVV = overload {

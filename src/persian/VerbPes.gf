@@ -13,7 +13,7 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     ComplSlash = complSlash ;
 
     ComplVV = insertVV ;
-    ComplVS v s  = embComp (conjThat ++ s.s ! Indic) (predV v) ;
+    ComplVS v s  = embComp (conjThat ++ s.s ! v.compl) (predV v) ;
     ComplVQ v q  = embComp (conjThat ++ q.s)         (predV v) ;
     ComplVA v ap = insertObj (appComp v.c2 ap.s)     (predV v) ; -- check form of adjective
 
