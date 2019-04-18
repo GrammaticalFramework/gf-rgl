@@ -131,11 +131,13 @@ oper
    predVc : (Verb ** {c2 : Compl}) -> VPHSlash = \verb ->
     predV verb ** vs verb.c2 ;
 
-  passV : Verb -> VPH = \v -> predV v ** {
+  passV : Verb -> VPH = \v -> passVP (predV v) ;
+
+  passVP : VPH -> VPH = \vp -> vp ** {
     s = becomeVerb.s ;
-    prefix = case v.passive of {
-                    Add => v.s ! PerfStem ++ v.prefix ;
-                    Replace => v.prefix
+    prefix = case vp.passive of {
+                    Add => vp.s ! PerfStem ++ vp.prefix ;
+                    Replace => vp.prefix
              } ;
   } ;
 -- ---------------------

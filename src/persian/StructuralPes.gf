@@ -26,7 +26,7 @@ concrete StructuralPes of Structural = CatPes **
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
 --  everybody_NP =  R.indeclNP "هر کwی";
   every_Det = mkDet "هر" Sg ;
---  everything_NP = R.indeclNP ["هر XE"]));
+  everything_NP = DetCN (mkDet "همه" Sg) (UseN (mkN "چیز")) ;
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
   for_Prep = mkPrep "برای" Ezafe ;
