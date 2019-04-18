@@ -150,7 +150,8 @@ oper
   Adjective : Type = {
     s : Mod => Str ;
     adv : Str ;
-    isPre : Bool
+    isPre : Bool ;        -- as attributive
+    afterPrefix : Bool ;  -- as predicative, does it go between the prefix and the light verb
     } ;
 
  mkAdj : Str -> Str -> Adjective = \adj,adv -> {
@@ -159,7 +160,7 @@ oper
                Clitic => mkEnclic adj ;
                Poss => mkPossStem adj
              } ;
-   adv = adv ; isPre = False
+   adv = adv ; isPre = False ; afterPrefix = True ;
    };
 
 ------------------------------------------------------------------
