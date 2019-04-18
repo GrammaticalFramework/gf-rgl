@@ -48,7 +48,7 @@ concrete ConjunctionPes of Conjunction =
             isCmpd : CmpdStatus;
             hasAdj : Bool ;
             compl : Number => Str} ;
-    [AP] = {s1,s2 : Mod => Str ; adv : Str ; isPre : Bool} ;
+    [AP] = {s1,s2 : Mod => Str ; adv : Str ; isPre,afterPrefix : Bool} ;
     [RS] = {s1,s2 : Agr => Str ; rp : RelPron => Str} ;
 
 oper

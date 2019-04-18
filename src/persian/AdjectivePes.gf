@@ -43,7 +43,8 @@ concrete AdjectivePes of Adjective = CatPes ** open ResPes, Prelude in {
   AdjOrd ord = {
     s = \\_ => ord.s ;
     adv = ord.s ;
-    isPre = ord.isPre
+    isPre = ord.isPre ;
+    afterPrefix = False ;
     } ;
 
   AdvAP ap adv = ap ** {

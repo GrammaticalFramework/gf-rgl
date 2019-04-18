@@ -88,6 +88,7 @@ oper
     mkA : Str -> A ; -- Regular adjective, same form for adjective and adverb.
     mkA : (adj,adv : Str) -> A -- Different forms for adjective and adverb.
   } ;
+  prefixA : A -> A ; -- Adjective that comes before the noun
 
   mkA2 : (married,to : Str) -> A2 -- Takes string and complementiser, returns A2.
     = \a,c -> lin A2 (mkAdj a a ** {c2 = c}) ;
@@ -148,9 +149,9 @@ oper
 
   mkVS = overload {
    mkVS : Str -> VS -- predictable verb with sentence complement
-    = \s -> lin VS (regV s) ;
+    = \s -> lin VS (regV s ** {compl=subjunctive}) ;
    mkVS : V -> VS -- VS out of a verb
-    = \v -> lin VS v
+    = \v -> lin VS (v ** {compl=subjunctive})
   } ;
 
   mkVV = overload {
@@ -302,6 +303,8 @@ oper
     mkA : Str -> Str -> A2 -- Takes string and complementiser, returns A2. Hidden from public API, confusing naming. /IL
       = \a,c -> lin A2 (mkAdj a a ** {c2 = c})
    } ;
+
+   prefixA a = a ** {isPre=True};
 
    preA : (adj,adv : Str) -> A = \adj,adv ->
      lin A ((mkAdj adj adv) ** {isPre=True}) ;
