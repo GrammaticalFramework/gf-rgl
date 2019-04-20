@@ -61,7 +61,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
       s = "qué tan" ++ adv.s
       } ;
 
-    WhatSSC s = {s = \\_ => "lo que" ++ s.s ! Indic} ; --- mood
+    EmbedSSlash s = {s = \\_ => "lo que" ++ s.s ! {g=Masc ; n=Sg} ! Indic} ;
 
     ExistsNP np =
       mkClause [] True False np.a

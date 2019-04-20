@@ -5,7 +5,8 @@ concrete ExtendAra of Extend =
     GenNP, ApposNP, ICompAP, DetNPMasc, DetNPFem,
     EmptyRelSlash, PredAPVP,
     ComplDirectVS, ComplDirectVQ, -- because of Utt
-    VPS, MkVPS, PredVPS, BaseVPS, ConsVPS, ConjVPS
+    VPS, MkVPS, PredVPS, BaseVPS, ConsVPS, ConjVPS,
+    EmbedSSlash
 ]
   with (Grammar=GrammarAra)
   ** open
@@ -45,6 +46,9 @@ lin
 
   -- : ClSlash -> RCl  -- he lives in
   EmptyRelSlash = RelSlash (IdRP ** {s = \\_ => []}) ;
+
+  -- : SSlash -> SC
+  EmbedSSlash = Grammar.EmbedS ;
 
 lincat
   VPS   = {s : PerGenNum => Str} ;  -- finite VP's with tense and polarity
