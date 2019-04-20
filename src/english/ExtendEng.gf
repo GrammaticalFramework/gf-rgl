@@ -15,7 +15,7 @@ concrete ExtendEng of Extend =
     FocusAP, FocusAdV, FocusAdv, FocusObj, GenIP, GenModIP, GenModNP, GenNP, GenRP,
     GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, MkVPS, NominalizeVPSlashNP,
     PassAgentVPSlash, PassVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj, PredVPS, PredVPSVV, PredetRNP, PrepCN,
-    WhatSSC, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
+    EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
     UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
    ]
   with
@@ -193,7 +193,7 @@ concrete ExtendEng of Extend =
 
    PredIAdvVP iadv vp = {s = \\t,a,p,q => iadv.s ++ infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
-   WhatSSC s = {s = \\_ => "what" ++ s.s} ;
+   EmbedSSlash s = {s = \\_ => "what" ++ s.s ++ s.c2} ;
 
    NominalizeVPSlashNP vpslash np =
      let vp : ResEng.VP = insertObjPre (\\_ => vpslash.c2 ++ np.s ! NPAcc) vpslash ;

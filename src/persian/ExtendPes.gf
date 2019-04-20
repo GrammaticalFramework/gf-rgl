@@ -3,7 +3,7 @@
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
     GenNP, ApposNP, ICompAP, AdvIsNP, InOrderToVP, ByVP
-    ,GerundNP,GerundCN,GerundAdv,EmbedPresPart
+    ,GerundNP,GerundCN,GerundAdv,EmbedPresPart,EmbedSSlash
     ]
   with (Grammar=GrammarPes)
   ** open Prelude, ResPes in {
@@ -32,6 +32,9 @@ lin
 
   -- : VP -> SC ;
   EmbedPresPart vp = lin SC {s = showVPH Inf defaultAgr vp} ;
+
+  -- : SSlash -> SC
+  EmbedSSlash ss = {s = conjThat ++ ss.s ! Indic ++ ss.c2.s} ;
 
   -- : Adv -> NP -> Cl -- here is the car / here are the cars
   AdvIsNP adv np = mkClause (indeclNP adv.s ** {a = np.a}) (UseComp (CompNP np)) ;
