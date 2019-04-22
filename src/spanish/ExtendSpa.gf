@@ -5,6 +5,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  CompoundAP,
  CompoundN,
  ExistsNP,
+ EmbedSSlash,
  GenRP,
  GenRP,
  IAdvAdv,
