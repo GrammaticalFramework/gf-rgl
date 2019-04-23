@@ -33,7 +33,7 @@ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (ImpersCl (UseComp (CompAd
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (ComplVA become_VA (PositA clever_A))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (ProgrVP (UseV sleep_V))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv (DetCN (DetQuant IndefArt NumSg) (UseN cow_N)) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN forest_N)))))) NoVoc
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePron she_Pron) (SlashV2a do_V2))))) (UseComp (CompAP (PositA important_A)))))) NoVoc
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredSCVP (EmbedSSlash (UseSlash (TTAnt TPast ASimul) PPos (SlashVP (UsePron she_Pron) (SlashV2a do_V2)))) (UseComp (CompAP (PositA important_A)))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredSCVP (EmbedS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (AdvVP (PassV2 see_V2) (PrepNP by8agent_Prep everything_NP))))) NoVoc
 PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) (UseComp (CompAdv here_Adv))))) NoVoc
 PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN book_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a like_V2))))) NoVoc
