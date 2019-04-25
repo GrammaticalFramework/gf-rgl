@@ -72,7 +72,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str ; compl : VVForm} ; -- subjunctive or indicative
-    VS = ResPes.Verb ** {compl : VVForm} ; -- subjunctive or indicative 
+    VS = ResPes.Verb ** {compl : VVForm} ; -- subjunctive or indicative
     Prep = Compl ;
 ---- Open lexical classes, e.g. Lexicon
     V, VQ = ResPes.Verb ;

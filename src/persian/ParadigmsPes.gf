@@ -124,7 +124,7 @@ oper
 
   mkV3 = overload {
     mkV3 : Str -> V3 -- Predictable V3, را for direct object, no prepositions.
-     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = prepOrRa []}) ;
+     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = noPrep}) ;
     mkV3 : V -> (dir,indir : Str) -> V3 -- Takes a verb and two prepositions or را as strings (can be empty).
      = \v,p,q -> lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
     mkV3 : V -> (dir,indir : Prep) -> V3 -- Takes a verb and two prepositions
@@ -140,9 +140,9 @@ oper
 
   mkVA = overload {
     mkVA : Str -> VA -- predictable verb with adjective complement
-      = \s -> lin VA (regV s ** {c2 = prepOrRa []}) ;
+      = \s -> lin VA (regV s ** {c2 = noPrep}) ;
     mkVA : V -> VA -- VA out of a verb
-      = \v -> lin VA (v ** {c2 = prepOrRa []}) ;
+      = \v -> lin VA (v ** {c2 = noPrep}) ;
     mkVA : V -> Prep -> VA -- VA out of a verb and preposition
       = \v,p -> lin VA (v ** {c2 = p}) ;
     } ;
@@ -360,6 +360,7 @@ oper
     "را" => {s = [] ; ra = "را" ; mod=Bare} ;
     prep  => {s = prep ; ra = []; mod=Bare}
     } ;
+  noPrep = prepOrRa [] ;
 
   mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare} ;
 
