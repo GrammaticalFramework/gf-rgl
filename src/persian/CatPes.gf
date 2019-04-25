@@ -86,8 +86,8 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
     N = ResPes.Noun ;
 
-    N2 = ResPes.Noun ** {c2 : Str ; compl : Str}; -- when N3 is made to N2, need to retain compl
-    N3 = ResPes.Noun ** {c2 : Str ; c3 : Str} ;
+    N2 = ResPes.Noun ** {c2 : Compl ; compl : Str}; -- when N3 is made to N2, need to retain compl
+    N3 = ResPes.Noun ** {c2 : Compl ; c3 : Compl} ;
     PN = {s : Str ; animacy : Animacy} ;
 
 }

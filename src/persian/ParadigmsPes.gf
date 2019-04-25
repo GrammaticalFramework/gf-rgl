@@ -42,11 +42,13 @@ oper
   } ;
 
   mkN2 : overload {
-    mkN2 : (key : N) -> (to : Str) -> N2 -- Takes a noun and a complementiser, returns a N2.
+    mkN2 : (key : N) -> (to : Str) -> N2 ; -- Takes a noun and a complementiser as a string, returns a N2.
+    mkN2 : (key : N) -> (to : Prep) -> N2 -- Takes a noun and a complementiser as a Prep, returns a N2.
   } ;
 
   mkN3 : overload {
-    mkN3 : (distance : N) -> (from,to : Str) -> N3 -- Takes a noun and two complementisers, returns a N3.
+    mkN3 : (distance : N) -> (from,to : Str) -> N3 ; -- Takes a noun and two complementisers as strings, returns a N3.
+    mkN3 : (distance : N) -> (from,to : Prep) -> N3 -- Takes a noun and two complementisers as Preps, returns a N3.
   } ;
 
 -- Compound Nouns
@@ -366,20 +368,22 @@ oper
 
   mkN2 = overload {
     mkN2 : Str -> N2 -- Predictable N2 without complement
-      = \s -> lin N2 (mkN01 s inanimate ** {c2,compl = []}) ;
+      = \s -> lin N2 (mkN01 s inanimate ** {c2 = noPrep ; compl = []}) ;
     mkN2 : N -> N2 -- N2 from without complement
-      = \n -> lin N2 (n ** {c2,compl = []}) ;
+      = \n -> lin N2 (n ** {c2 = noPrep ; compl = []}) ;
     mkN2 : N -> Str -> N2
-      = \n,c -> lin N2 (n ** {c2 = c ; compl = []}) ;
+      = \n,c -> lin N2 (n ** {c2 = prepOrRa c ; compl = []}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API
-      = \n,p,c -> lin N2 (n ** {c2 = p.s; compl = []})
+      = \n,p,c -> lin N2 (n ** {c2 = p; compl = []})
   } ;
 
   mkN3 = overload {
     mkN3 : N -> Str -> Str -> N3
+      = \n,p,q -> lin N3 (n ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
+    mkN3 : N -> Prep -> Prep -> N3
       = \n,p,q -> lin N3 (n ** {c2 = p ; c3 = q}) ;
     mkN3 : N -> Prep -> Str -> Str -> N3 -- hidden from public API
-      = \n,p,q,r -> lin N3 (n ** {c2 =  p.s ; c3 = q ; c4 = r}) -- there is no c4
+      = \n,p,q,r -> lin N3 (n ** {c2 =  p ; c3 = prepOrRa q ; c4 = r}) -- there is no c4
   } ;
 
 
