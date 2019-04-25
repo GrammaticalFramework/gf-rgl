@@ -71,7 +71,11 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
     Conj = {s1,s2 : Str ; n : Number} ;
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
-    Subj = {s : Str ; compl : VVForm} ; -- subjunctive or indicative
+    Subj = {
+      s : Str ;
+      compl : VVForm ;  -- subjunctive or indicative
+      relpron : RelPron -- choose between که and آنچه
+      } ;
     VS = ResPes.Verb ** {compl : VVForm} ; -- subjunctive or indicative
     Prep = Compl ;
 ---- Open lexical classes, e.g. Lexicon

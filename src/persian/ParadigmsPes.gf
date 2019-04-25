@@ -216,9 +216,9 @@ oper
 
   mkSubj = overload {
     mkSubj : Str -> Subj -- Takes its verbal complement in indicative.
-      = \s -> lin Subj {s=s ; compl=indicative} ;
+      = \s -> mkSubj' s ;
     mkSubj : VVForm -> Str -> Subj -- Specify whether it takes complement in subjunctive or indicative.
-      = \vvf,s -> lin Subj {s=s ; compl=vvf}
+      = \vvf,s -> mkSubj' s ** {compl=vvf}
   } ;
 
   mkInterj : Str -> Interj
@@ -247,6 +247,13 @@ oper
 
   Mod = ResPes.Mod ;
   ezafe = ResPes.Ezafe ;
+
+
+  mkSubj' : Str -> Subj ;
+  mkSubj' s = lin Subj (case s of {
+    "آن" => {s = [] ; relpron = Ance ; compl = indicative} ;
+     _    => {s = s ; relpron = Ke ; compl = indicative}
+    }) ;
 
 -- Removed mkV_1, mkV_2, mkN01 and mkN02 from public API, still available for
 -- any applications that open ParadigmsPes. /IL 2019-02-08
