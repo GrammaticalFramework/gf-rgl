@@ -72,7 +72,7 @@ lin pot3plus n m = {
     } ;
 -}
     D_0 = mkDig "0" ;
-    D_1 = mk3Dig "1" "" Pl;
+    D_1 = mk3Dig "1" "" Sg ;
     D_2 = mk2Dig "2" "";
     D_3 = mk2Dig "3" "سوم" ;
     D_4 = mkDig "4" ;
