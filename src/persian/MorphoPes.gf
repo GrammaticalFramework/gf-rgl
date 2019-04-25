@@ -25,6 +25,10 @@ oper
   -- fatha : Str = "َ" ;
   kasre,fatha : Str = [] ;
 
+  -- for appComp
+  -- runtimeKasre : Str -> Str = \s -> glue s kasre ;
+  runtimeKasre : Str -> Str = \s -> s ;
+
 
 ---- Nouns
 param

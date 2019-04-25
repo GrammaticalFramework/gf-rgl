@@ -149,7 +149,9 @@ oper
 -- VP complementation
 ---------------------
   appComp : Compl -> (Mod=>Str) -> Str = \c2,obj ->
-    c2.s ++ obj ! c2.mod ++ c2.ra ;
+    case c2.mod of {
+      Ezafe => runtimeKasre c2.s ++ obj ! Bare   ++ c2.ra ;
+      _     =>              c2.s ++ obj ! c2.mod ++ c2.ra } ;
 
   insertComp : (Agr => Str) -> VPH -> VPH = \obj,vp -> vp ** {
     comp = \\a => vp.comp ! a ++ obj ! a
