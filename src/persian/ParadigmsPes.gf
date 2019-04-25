@@ -363,14 +363,15 @@ oper
     prep  => {s = prep ; ra = []; mod=Bare}
     } ;
   noPrep = prepOrRa [] ;
+  ezafePrep = {s = [] ; ra = [] ; mod=Ezafe} ;
 
   mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare} ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 -- Predictable N2 without complement
-      = \s -> lin N2 (mkN01 s inanimate ** {c2 = noPrep ; compl = []}) ;
+      = \s -> lin N2 (mkN01 s inanimate ** {c2 = ezafePrep ; compl = []}) ;
     mkN2 : N -> N2 -- N2 from without complement
-      = \n -> lin N2 (n ** {c2 = noPrep ; compl = []}) ;
+      = \n -> lin N2 (n ** {c2 = ezafePrep ; compl = []}) ;
     mkN2 : N -> Str -> N2
       = \n,c -> lin N2 (n ** {c2 = prepOrRa c ; compl = []}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API
