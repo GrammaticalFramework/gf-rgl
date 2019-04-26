@@ -119,14 +119,14 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     ComplN2 n2 np = n2 ** {
-      s = \\n,m => n2.s ! n ! Ezafe ;
-      compl = \\_ => n2.compl ++ n2.c2 ++ np2str np ;
+      s = \\n,m => n2.s ! n ! n2.c2.mod ;
+      compl = \\_ => n2.compl ++ n2.c2.s ++ np2str np ;
       hasAdj = False
      };
 
     ComplN3 n3 np = n3 ** {
-      s = \\n,m => n3.s ! n ! Ezafe ;
-      compl = n3.c2 ++ np2str np ;
+      s = \\n,m => n3.s ! n ! n3.c2.mod ;
+      compl = n3.c2.s ++ np2str np ;
       c = n3.c3;
       } ;
 

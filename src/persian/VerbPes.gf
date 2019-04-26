@@ -13,9 +13,13 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     ComplSlash = complSlash ;
 
     ComplVV = insertVV ;
-    ComplVS v s  = embComp (conjThat ++ s.s ! Indic) (predV v) ;
+    ComplVS v s  = embComp (conjThat ++ s.s ! v.compl) (predV v) ;
     ComplVQ v q  = embComp (conjThat ++ q.s)         (predV v) ;
-    ComplVA v ap = insertObj (appComp v.c2 ap.s)     (predV v) ; -- check form of adjective
+    ComplVA v ap = let adjStr = appComp v.c2 ap.s  in
+      case ap.afterPrefix of {
+        True  => predV (v ** {prefix = v.prefix ++ adjStr}) ;
+        False => insertObj adjStr (predV v) -- check form of adjective
+      } ;
 
     SlashVV vv vps = vps ** ComplVV vv vps ;
     SlashV2S v s  = predVc v ** embComp (conjThat ++ s.s ! Indic) (predV v) ;

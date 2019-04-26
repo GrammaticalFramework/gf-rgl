@@ -158,8 +158,8 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
     relPron : Bool => AAgr => Case => Str = \\b,a,c =>
       case c of {
         Nom | Acc => "que" ;
-        CPrep P_a => "cuyo" ;
-        _ => prepCase c ++ "cuyo"
+        CPrep P_de => "cuyo" ;
+        _ => prepCase c ++ "que"
         } ;
 
     pronSuch : AAgr => Str = aagrForms "tál" "tál" "tales" "tales" ;

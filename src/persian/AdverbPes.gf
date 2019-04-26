@@ -16,7 +16,12 @@ concrete AdverbPes of Adverb = CatPes ** open ResPes, Prelude in {
     AdAdv ada adv = { s =  ada.s ++ adv.s} ;
 
 --    SubjS = cc2 ;
-    SubjS sub snt = {s = sub.s  ++ conjThat ++ snt.s ! sub.compl} ;
+    SubjS sub snt = {
+       s = case sub.relpron of {
+            Ke   => sub.s ++ conjThat ++ snt.s ! sub.compl ;
+            Ance => "آنچه" ++ snt.s ! sub.compl }
+    } ;
+
     AdnCAdv cadv = {s =  cadv.s ++ "از"} ;
 
 }

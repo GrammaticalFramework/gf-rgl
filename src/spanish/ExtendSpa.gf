@@ -5,6 +5,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  CompoundAP,
  CompoundN,
  ExistsNP,
+ EmbedSSlash,
  GenRP,
  GenRP,
  IAdvAdv,
@@ -60,6 +61,8 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
     IAdvAdv adv = {
       s = "qué tan" ++ adv.s
       } ;
+
+    EmbedSSlash s = {s = \\_ => "lo que" ++ s.s ! {g=Masc ; n=Sg} ! Indic} ;
 
     ExistsNP np =
       mkClause [] True False np.a

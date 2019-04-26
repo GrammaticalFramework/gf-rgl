@@ -223,7 +223,15 @@ incomplete concrete ExtendRomanceFunctor of Extend =
 
   lin
     DetNPMasc = DetNP ;
-    DetNPFem = DetNP ;
+    DetNPFem det =
+      let
+        g = Fem ;
+        n = det.n
+      in heavyNPpol det.isNeg {
+           s = det.sp ! g ;
+           a = agrP3 g n ;
+           hasClit = False
+           } ;
 
   lin
     iFem_Pron = i_Pron ; -- DEFAULT I (masc)

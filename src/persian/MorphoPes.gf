@@ -25,6 +25,10 @@ oper
   -- fatha : Str = "َ" ;
   kasre,fatha : Str = [] ;
 
+  -- for appComp
+  -- runtimeKasre : Str -> Str = \s -> glue s kasre ;
+  runtimeKasre : Str -> Str = \s -> s ;
+
 
 ---- Nouns
 param
@@ -150,7 +154,8 @@ oper
   Adjective : Type = {
     s : Mod => Str ;
     adv : Str ;
-    isPre : Bool
+    isPre : Bool ;        -- as attributive
+    afterPrefix : Bool ;  -- as predicative, does it go between the prefix and the light verb
     } ;
 
  mkAdj : Str -> Str -> Adjective = \adj,adv -> {
@@ -159,7 +164,7 @@ oper
                Clitic => mkEnclic adj ;
                Poss => mkPossStem adj
              } ;
-   adv = adv ; isPre = False
+   adv = adv ; isPre = False ; afterPrefix = True ;
    };
 
 ------------------------------------------------------------------
@@ -315,7 +320,8 @@ oper
 
   haveVerb : Verb = haveRegV ** {s = table {
     ImpPrefix _ => [] ;
-    VAor Neg agr => imperfectSuffix agr (addN "دار") ;
+    VAor Neg agr  => imperfectSuffixD agr (addN "دار") ;
+    VSubj pol agr => haveRegV.s ! VPerf pol agr ;
     vf          => haveRegV.s ! vf }
   } where { haveRegV = mkVerb "داشتن" "دار" } ;
 

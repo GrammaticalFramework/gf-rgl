@@ -8,6 +8,7 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
      GenRP,
      ICompAP,
      InOrderToVP,
+     EmbedSSlash,
      WithoutVP,
      iFem_Pron,
      theyFem_Pron,
@@ -59,6 +60,9 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
   oper
     exist_V : V ;
     exist_V = mkV "existir" ;
+
+  lin
+    EmbedSSlash s = {s = \\_ => "o que" ++ s.s ! {g = Masc ; n = Sg} ! Indic} ;
 
   lin
     CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english

@@ -238,7 +238,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
     <RCond,Simul>  => <verb ! VFin VCondit n p, []> ; --# notpresent
     <RCond,Anter>  => <vaux ! VFin VCondit n p, part> ; --# notpresent
     <RPasse,Simul> => <verb ! VFin VPasse n p, []> ; --# notpresent
-    <RPasse,Anter> => <vaux ! VFin VPasse n p, part> ; --# notpresent
+    <RPasse,Anter>  => <vaux ! VFin (VPres m) n p, part> ; --# notpresent
     <RPres,Anter>  => <verb ! VFin VPasse n p, []> ; --# notpresent
     <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
     } ;
