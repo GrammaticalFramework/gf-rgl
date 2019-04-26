@@ -378,6 +378,7 @@ param
 	  VPass VFut          Pl P3 => -- Future I
 	    ( case fut_I_base of {
 		_ + "bi" => ( init fut_I_base ) + "u" ;
+		"eri" => "eru" ; -- handle copula properly
 		_ => fut_I_base
 		}
 	    ) + passPresEnding Pl P3 ;
