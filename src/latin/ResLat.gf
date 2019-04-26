@@ -1159,7 +1159,7 @@ oper
   Preposition : Type = {s : Str ; c : Case ; isPost : Bool } ;
 
   -- conjunctions
-param Coordinator = And | Or | If | Neither | Because | Comma | Colon | Empty ;
+param Coordinator = And | Or | If | Neither | Because | Comma | Colon | Empty | Missing ; -- Missing means not implemented yet
 oper
   Conjunction : Type = { s1 : Str ; s2 : Str ; n : Number ; c : Coordinator };
   mkConjunction : Str -> Str -> Number -> Coordinator -> Conjunction = \s1,s2,num,coord -> { s1 = s1; s2 = s2 ; n = num ; c = coord } ;
