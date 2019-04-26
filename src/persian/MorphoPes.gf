@@ -207,9 +207,9 @@ oper
       VSubj Pos agr => addBh (imperfectSuffixD agr kon) ;
       VSubj Neg agr => addN (imperfectSuffixD agr kon) ;
       VImp Pos Sg => addBh imp ;
-      VImp Pos Pl => addBh imp + "ید" ;
+      VImp Pos Pl => addBh kon + "ید" ;
       VImp Neg Sg => addN imp ;
-      VImp Neg Pl => addN imp + "ید" } ;
+      VImp Neg Pl => addN kon + "ید" } ;
     prefix = [] ;-- For compound verbs
     passive = Add ;
   } where {
@@ -338,7 +338,15 @@ oper
     vf          => beRegV.s ! vf }
   } where { beRegV = mkVerb "بودن" "باش" } ;
 
-  doVerb = mkVerb "کردن" "کن" ** {passive=Replace} ;
+  doVerb : Verb = doRegV ** {s = table {
+    VSubj pol agr => addN pol (imperfectSuffixD agr "کن") ;
+    VImp Pos Sg => "کن" ;
+    VImp Pos Pl => "کنید" ;
+    VImp Neg Sg => "نکن" ;
+    VImp Neg Pl => "نکنید" ;
+    vf          => doRegV.s ! vf } ;
+    passive = Replace
+  } where { doRegV = mkVerb "کردن" "کن" } ;
 
   becomeVerb : Verb = mkVerb "شدن" "شو" ;
 
