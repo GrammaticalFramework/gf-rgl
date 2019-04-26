@@ -40,7 +40,7 @@ lin
   AdvIsNP adv np = mkClause (indeclNP adv.s ** {a = np.a}) (UseComp (CompNP np)) ;
 
   -- : VP -> Adv ;         -- by publishing the document
-  ByVP vp = lin Adv {s = with_Prep.s ++ showVPH Inf defaultAgr vp} ;
+  ByVP vp = lin Adv {s = with_Prep.s ++ showVPH' VO False VVPres Inf defaultAgr vp } ;
 
   -- : VP -> Adv ;         -- (in order) to publish the document
   InOrderToVP vp = lin Adv {s = for_Prep.s ++ showVPH PerfStem defaultAgr vp} ;
