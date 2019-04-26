@@ -104,7 +104,11 @@ oper
   pluralN = ResLat.pluralN ;
   singularN = ResLat.singularN ;
 
-  mkConj : Str -> Str -> Number -> Coordinator -> Conjunction = mkConjunction ;
+  mkConj = overload {
+    mkConj : Str -> Str -> Str -> Number -> Coordinator -> Conjunction = mkConjunction ;
+    mkConj : Str -> Str -> Number -> Coordinator -> Conjunction = \s1,s2,n,c -> mkConjunction s1 s2 [] n c ;
+    mkConj : Str -> Coordinator -> Conjunction = \s,c -> mkConjunction [] s [] Sg c ;
+  } ;
 
   mkPrep : Str -> Case -> Preposition  = mkPreposition ;
 

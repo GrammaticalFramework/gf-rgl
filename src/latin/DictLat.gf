@@ -1370,7 +1370,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abusque_Adv = mkAdv "abusque" ; -- [XXXCO] :: all the way from; from/since the time of;
     abusus_M_N = mkN "abusus" "abusus " masculine ; -- [XXXEO] :: abusing, misuse, wasting; using up;
     abyssus_F_N = mkN "abyssus" ; -- [EEXDX] :: deep, sea; abyss; hell, infernal pit; bowels of the earth; primal chaos;
--- ac_Conj : Conj ac -- [XXXAO] :: and, and also, and besides;
+    ac_Conj = mkConj "ac" Missing ;  -- [XXXAO] :: and, and also, and besides;
     acacia_F_N = mkN "acacia" ; -- [XAXCO] :: acacia, gum arabic tree; gum of this or related trees. gum arabic;
     academicus_A = mkA "academicus" "academica" "academicum" ; -- [XXXCO] :: academic; of the Academy/Academic philosophy/Cicero's Academics (views);
 -- TODO acalanthis_N : N1 acalanthis, acalanthidos/is  -- F -- [XAXCS] :: small song-bird (of dark-green color); thistle-finch, goldfinch;
@@ -1661,7 +1661,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     acrozymus_A = mkA "acrozymus" "acrozyma" "acrozymum" ; -- [DXXFS] :: slightly leavened;
     acrufolius_A = mkA "acrufolius" "acrufolia" "acrufolium" ; -- [XAXFO] :: having prickly leaves; made of holly/holly-wood;
     acrum_N_N = mkN "acrum" ; -- [XXXFS] :: promontory/headland (pl.);
--- acsi_Conj : Conj acsi -- [XXXCW] :: as if; (ac si);
+    acsi_Conj = mkConj "acsi" Missing ; -- [XXXCW] :: as if; (ac si);
     acta_F_N = mkN "acta" ; -- [XXXCO] :: sea-shore (as resort); beach; holiday (pl.), life of ease; party at seaside;
     actaea_F_N = mkN "actaea" ; -- [XAXNO] :: baneberry (Actaea spicata) (poisonous) (also called Herb Christopher);
     actarius_M_N = mkN "actarius" ; -- [DLXCS] :: short-hand writer, clerk, account/book-keeper, secretary;
@@ -2310,11 +2310,11 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     adproximo_V2 = mkV2 (mkV "adproximare") ; -- [DXXFS] :: be/draw/come close/near to, approach;
     adpugno_V2 = mkV2 (mkV "adpugnare") ; -- [XXXCO] :: attack, assault;
     adpulsus_M_N = mkN "adpulsus" "adpulsus " masculine ; -- [XXXCO] :: bringing/driving to (cattle) (/right to); landing; approach; influence, impact;
--- adque_Conj : Conj adque -- [XXXCO] :: and, as well as, as soon as; together with; and even; and too/also/now; yet;
--- adqui_Conj : Conj adqui -- [XXXES] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
+    adque_Conj = mkConj "adque" Missing ; -- [XXXCO] :: and, as well as, as soon as; together with; and even; and too/also/now; yet;
+    adqui_Conj = mkConj "adqui" Missing ; -- [XXXES] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
     adquietantia_F_N = mkN "adquietantia" ; -- [FLBFY] :: safety; exemption; surrender;
     adquieto_V = mkV "adquietare" ; -- [FLXFJ] :: discharge (a debt);
--- adquin_Conj : Conj adquin -- [XXXEO] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
+    adquin_Conj = mkConj "adquin" Missing ; -- [XXXEO] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
     adquisitio_F_N = mkN "adquisitio" "adquisitionis " feminine ; -- [XXXDO] :: acquisition; additional source of supply;
     adquisitrix_F_N = mkN "adquisitrix" "adquisitricis " feminine ; -- [XXXIO] :: acquirer (female);
     adquisitus_A = mkA "adquisitus" "adquisita" "adquisitum" ; -- [XXXFO] :: strained, recherche;
@@ -3317,7 +3317,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     alietum_N_N = mkN "alietum" ; -- [EAXFW] :: osprey;
     alifer_A = mkA "alifer" "alifera" "aliferum" ; -- [XXXFO] :: winged;
     aliger_A = mkA "aliger" "aligera" "aligerum" ; -- [XXXCO] :: winged, having wings; moving with the speed of flight;
--- alii_Conj : Conj alii -- [XXXCC] :: some ... others (alii ... alii);
+    alii_Conj = mkConj "alii" "alii" Pl Missing ; -- [XXXCC] :: some ... others (alii ... alii);
     alimentarius_A = mkA "alimentarius" "alimentaria" "alimentarium" ; -- [XLXEO] :: of maintenance by (public) charity, welfare; charity supported;
     alimentarius_M_N = mkN "alimentarius" ; -- [XLXEO] :: person whose maintenance is provided by (public/private) charity/alms/by a will;
     alimentum_N_N = mkN "alimentum" ; -- [XXXBO] :: food/nourishment, provisions; sustenance, maintenance, livelihood; alms; fuel;
@@ -3378,7 +3378,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     alium_N_N = mkN "alium" ; -- [XAXCO] :: garlic, garlic plant;
     aliunde_Adv = mkAdv "aliunde" ; -- [XXXBO] :: from another person/place, from elsewhere/a different source/cause/material;
 -- BLACKLISTED alius_A : A2 alius, alia, aliud  -- blacklisted -- [XXXAQ] :: other, another; different, changed; [alii...alii => some...others]; (A+G);
--- alius_Conj : Conj alius -- [XXXCO] :: the_one ... the_other  (alius ... alius);
+    alius_Conj = mkConj "alius" "alius" Sg Missing ;  -- [XXXCO] :: the_one ... the_other  (alius ... alius);
     aliusmodi_Adv = mkAdv "aliusmodi" ; -- [XXXCN] :: of another kind; in another way/different fashion; somehow else;
     aliuta_Adv = mkAdv "aliuta" ; -- [XXXEO] :: in another way/manner, otherwise;
     allaboro_V = mkV "allaborare" ; -- [XXXEO] :: make a special effort; take trouble to;
@@ -3476,7 +3476,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     altarium_N_N = mkN "altarium" ; -- [EEXDW] :: altar; high altar;
     alte_Adv =mkAdv "alte" "altius" "altissime" ; -- [XXXAO] :: high, on high, from above, loftily; deep, deeply; far, remotely; profoundly;
     alter_A = mkA "alter" "altera" "alterum" ; -- [XXXAO] :: |second/further/next/other/latter/some person/thing (PRONominal ADJ); either;
--- alter_Conj : Conj alter -- [XXXCO] :: the_one ... the_other (alter ... alter); otherwise;
+    alter_Conj = mkConj "alter" "alter" Sg Missing ; -- [XXXCO] :: the_one ... the_other (alter ... alter); otherwise;
     alteramentum_N_N = mkN "alteramentum" ; -- [DXXFS] :: alteration, change;
     alteras_Adv = mkAdv "alteras" ; -- [XXXEO] :: at another time; at one time ... at another;
     alteratio_F_N = mkN "alteratio" "alterationis " feminine ; -- [FXXDE] :: alteration, change;
@@ -3939,7 +3939,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     amylo_V2 = mkV2 (mkV "amylare") ; -- [DXXES] :: mix with starch;
     amylum_N_N = mkN "amylum" ; -- [XXXDO] :: fine meal; starch; gruel;
     amystis_F_N = mkN "amystis" "amystidis " feminine ; -- [XXXFO] :: drink taken in one draught;
--- an_Conj : Conj an -- [XXXAO] :: |whether; (utrum ... an = whether ... or); or; either;
+    an_Conj = mkConj "utrum" "an" Sg Missing ; -- [XXXAO] :: |whether; (utrum ... an = whether ... or); or; either;
     anabaptismus_M_N = mkN "anabaptismus" ; -- [DEXFS] :: second baptism;
     anabaptista_F_N = mkN "anabaptista" ; -- [GEXEE] :: Anabaptists (pl.);  (Protestant sect);
     anabasis_F_N = mkN "anabasis" "anabasis " feminine ; -- [XAXNO] :: plant name applied by Pliny to any equisetum (e.g., horsetail, mare's tail);
@@ -4201,7 +4201,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     annata_F_N = mkN "annata" ; -- [HEXFE] :: annates (w/media),  a tax on benefices in the 1917 Code
     annato_V = mkV "annatare" ; -- [XXXCO] :: swim to/up to; swim beside/alongside;
     annavigo_V = mkV "annavigare" ; -- [XXXNO] :: sail to/up to/towards; sail beside/alongside;
--- anne_Conj : Conj anne -- [XXXEO] :: |whether (or not) (an-ne);
+    anne_Conj = mkConj "anne" Missing ; -- [XXXEO] :: |whether (or not) (an-ne);
     annego_V2 = mkV2 (mkV "annegare") ; -- [XXXFO] :: refuse; withhold;
     annexio_F_N = mkN "annexio" "annexionis " feminine ; -- [DXXFS] :: tying/binding to, connecting; annexation;
     annexus_A = mkA "annexus" "annexa" "annexum" ; -- [XXXDO] :: attached, linked, joined; contiguous (to); related by blood; concerned;
@@ -4218,7 +4218,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     anno_V = mkV "annare" ; -- [XXXCO] :: swim to/towards, approach by swimming; sail to/towards; brought by sea (goods);
     anno_V2 = mkV2 (mkV "annare") ; -- [DXXFS] :: pass/live through a year;
     annodo_V2 = mkV2 (mkV "annodare") ; -- [XAXEO] :: cut (shoot) right back, cut flush; cut off knots, cut away suckers;
--- annon_Conj : Conj annon -- [XXXCO] :: can it be that (introducing a question expecting a positive answer);
+    annon_Conj = mkConj "annon" Missing ; -- [XXXCO] :: can it be that (introducing a question expecting a positive answer);
     annona_F_N = mkN "annona" ; -- [XXXBO] :: year's produce; provisions; allotment/rations; wheat/food; price of grain/food;
     annonarius_A = mkA "annonarius" "annonaria" "annonarium" ; -- [XXXEO] :: of/concerned with the grain supply;
     annonor_V = mkV "annonari" ; -- [DXXFS] :: collect provisions;
@@ -4341,7 +4341,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     anteportanus_A = mkA "anteportanus" "anteportana" "anteportanum" ; -- [XYXIO] :: epithet of Hercules;
     antepotens_A = mkA "antepotens" "antepotentis"; -- [XXXFO] :: superior in power/fortune, strongest; exceeding;
     antepreparatorius_A = mkA "antepreparatorius" "antepreparatoria" "antepreparatorium" ; -- [HXXFE] :: pre-preparatory, antepreparatory;
--- antequam_Conj : Conj antequam -- [XXXAO] :: before, sooner than; until;
+    antequam_Conj = mkConj "antequam" Missing ; -- [XXXAO] :: before, sooner than; until;
     anteridion_N_N = mkN "anteridion" "anteridii " neuter ; -- [XTXFS] :: little prop/support;
     anterior_A = mkA "anterior" "anterior" "anterius" ; -- [XXXEO] :: earlier, previous, former; that is before, foremost;
     anterioritas_F_N = mkN "anterioritas" "anterioritatis " feminine ; -- [GXXEK] :: antecedence;
@@ -5684,7 +5684,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     assumptivus_A = mkA "assumptivus" "assumptiva" "assumptivum" ; -- [XGXEO] :: based on extraneous arguments (rhet., of the treatment of a case);
     assus_A = mkA "assus" "assa" "assum" ; -- [XXXCO] :: roasted, baked; dry (from sunbathing); dry (w/o mortar); w/unaccompanied voice;
     assuspiro_V = mkV "assuspirare" ; -- [XXXFO] :: sigh in response (to) (w/DAT);
--- ast_Conj : Conj ast -- [XXXBO] :: but, on the other hand/contrary; but yet; at least; in that event; if further;
+    ast_Conj = mkConj "ast" Missing ; -- [XXXBO] :: but, on the other hand/contrary; but yet; at least; in that event; if further;
     asta_F_N = mkN "asta" ; -- [XWXBO] :: spear, javelin; spear stuck in ground for public auction/centumviral court;
     astacus_M_N = mkN "astacus" ; -- [XAXNO] :: lobster/crayfish; kind of crab (L+S);
     astaphis_F_N = mkN "astaphis" "astaphidis " feminine ; -- [XAXNO] :: stavesacre (Delphinium staphisagria);
@@ -5767,7 +5767,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     asymptota_F_N = mkN "asymptota" ; -- [GXXEK] :: asymptote (math.);
     asyndeton_N_N = mkN "asyndeton" "asyndeti " neuter ; -- [DGXFS] :: rhetorical omission of connecting particle; (pure Latin dissolutio);
     asyndetus_A = mkA "asyndetus" "asyndeta" "asyndetum" ; -- [DSXES] :: standing without any connection with/reference to constellations (stars);
--- at_Conj : Conj at -- [XXXAO] :: but, but on the other hand; on the contrary; while, whereas; but yet; at least;
+    at_Conj = mkConj "at" Missing ; -- [XXXAO] :: but, but on the other hand; on the contrary; while, whereas; but yet; at least;
     atamussim_Adv = mkAdv "atamussim" ; -- [XXXES] :: according to a ruler/level, exactly, accurately;
     atat_Interj = ss "atat" ; -- [XXXFO] :: ah! oh! alas! (expression of sudden enlightenment/surprise/fear/warning); 
     atatae_Interj = ss "atatae" ; -- [XXXFO] :: ah! oh! alas! (expression of sudden enlightenment/surprise/fear/warning); 
@@ -5778,7 +5778,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     atavus_M_N = mkN "atavus" ; -- [XXXCO] :: great-great-great grandfather; (father of abavus/abavia); ancestor, forefather;
     atechnos_A = mkA "atechnos" "atechnos" "atechnon" ; -- [XXXFO] :: inartistic;
     ategro_V2 = mkV2 (mkV "ategrare") ; -- [DEXES] :: pour out wine in sacrifices;
--- atenim_Conj : Conj atenim -- [XXXEO] :: but/yet in spite of what has been said; but/yet nevertheless/all the same;
+    atenim_Conj = mkConj "atenim" Missing ; -- [XXXEO] :: but/yet in spite of what has been said; but/yet nevertheless/all the same;
 -- SLASHSTUFF ater_A : A2 ater, atra -um, atrior -or -us, aterrimus -a -um  -- [XXXAO] :: |deadly, terrible, grisly (esp. connected with underworld); poisonous; spiteful;
     atermum_N_N = mkN "atermum" ; -- [XAXNO] :: plant (tough, stubborn pest?);
     atheismus_M_N = mkN "atheismus" ; -- [FEXEE] :: atheism;
@@ -5808,9 +5808,9 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     atomus_A = mkA "atomus" "atoma" "atomum" ; -- [XSXNO] :: indivisible, atomic, that cannot be cut;
     atomus_F_N = mkN "atomus" ; -- [XXXCO] :: atom, ultimate component of matter, particle incapable of being divided;
     atopto_V2 = mkV2 (mkV "atoptare") ; -- [XXXBO] :: adopt, select, secure, pick out; wish/name for oneself; adopt legally;
--- atque_Conj : Conj atque -- [XXXAO] :: and, as well/soon as; together with; and moreover/even; and too/also/now; yet;
--- atqui_Conj : Conj atqui -- [XXXBO] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
--- atquin_Conj : Conj atquin -- [XXXBO] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
+    atque_Conj = mkConj "atque" Missing ; -- [XXXAO] :: and, as well/soon as; together with; and moreover/even; and too/also/now; yet;
+    atqui_Conj = mkConj "atqui" Missing ; -- [XXXBO] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
+    atquin_Conj = mkConj "atquin" Missing ; -- [XXXBO] :: but, yet, notwithstanding, however, rather, well/but now; and yet, still;
     atractylis_F_N = mkN "atractylis" "atractylidis " feminine ; -- [XAXNO] :: plant of the genus Carthamus, spindle-thistle (used as antidote to poisons);
     atramentarium_N_N = mkN "atramentarium" ; -- [DXXES] :: inkstand; inkpot, inkwell;
     atramentum_N_N = mkN "atramentum" ; -- [XXXCO] :: writing-ink; blacking, black pigment/ink; [~ sepiae => cuttle-fish ink];
@@ -5964,7 +5964,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     audacter_Adv =mkAdv "audacter" "audacius" "audacissime" ; -- [XXXBO] :: boldly, audaciously, confidently, proudly, fearlessly; impudently, rashly;
     audaculus_A = mkA "audaculus" "audacula" "audaculum" ; -- [XXXEO] :: bold (little/bit), courageous; audacious, impudent, impertinent;
     audax_A = mkA "audax" "audacis"; -- [XXXAO] :: bold, daring; courageous; reckless, rash; audacious, presumptuous; desperate;
--- audem_Conj : Conj audem -- [XXXEO] :: but (postpositive), on the other hand/contrary; while, however; moreover, also;
+    audem_Conj = mkConj "audem" Missing ; -- [XXXEO] :: but (postpositive), on the other hand/contrary; while, however; moreover, also;
     audens_A = mkA "audens" "audentis"; -- [XXXCO] :: daring, bold, courageous; characterized by boldness/license of expression;
     audenter_Adv =mkAdv "audenter" "audentius" "audentissime" ; -- [XXXCO] :: boldly, fearlessly; audaciously, presumptuously, rashly;
     audentia_F_N = mkN "audentia" ; -- [XXXDO] :: boldness, courage, enterprise; boldness/license of expression;
@@ -6147,8 +6147,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     ausum_N_N = mkN "ausum" ; -- [XXXCO] :: daring/bold deed, exploit, venture; attempt; presumptuous act, outrage; crime;
 -- TODO ausum_V : V1 ausum, -, -, -  -- [XXXAO] :: intend, be prepared; dare (to go/do), act boldly, risk; (SUB for audeo-kludge);
     ausus_M_N = mkN "ausus" "ausus " masculine ; -- [XXXCO] :: daring, initiative; ventures (pl.);
--- aut_Conj : Conj aut -- [XXXAO] :: or, or rather/else; either...or (aut...aut) (emphasizing one);
--- autem_Conj : Conj autem -- [XXXAO] :: but (postpositive), on the other hand/contrary; while, however; moreover, also;
+    aut_Conj = mkConj "aut" Missing ; -- [XXXAO] :: or, or rather/else; either...or (aut...aut) (emphasizing one);
+    autem_Conj = mkConj "autem" Missing ; -- [XXXAO] :: but (postpositive), on the other hand/contrary; while, however; moreover, also;
     autenta_M_N = mkN "autenta" ; -- [FLXES] :: chief prince, head;
     autenticus_A = mkA "autenticus" "autentica" "autenticum" ; -- [FDXEO] :: original (document), genuine, authentic; that comes from the author;
     autentus_M_N = mkN "autentus" ; -- [FLXES] :: chief prince, head;
@@ -6584,10 +6584,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     bastardus_M_N = mkN "bastardus" ; -- [FLXEM] :: bastard; bastard  son;
     basterna_F_N = mkN "basterna" ; -- [DXXES] :: sedan chair/litter (enclosed on all sides, carried by mules);
     basternarius_M_N = mkN "basternarius" ; -- [DXXES] :: bearer of a sedan chair/litter;
--- bat_Conj : Conj bat -- [XXXEO] :: but, while, however; (contemptuous parity of "at" - b-b-but);
+    bat_Conj = mkConj "bat" Missing ; -- [XXXEO] :: but, while, however; (contemptuous parity of "at" - b-b-but);
     batalaria_F_N = mkN "batalaria" ; -- [XWXFS] :: kind of warship;
     batallum_N_N = mkN "batallum" ; -- [FXXFE] :: clapper (of bell);
--- batenim_Conj : Conj batenim -- [XXXEO] :: but, yet, nevertheless, however; (contemptuous parity of "atenim" - b-b-but);
+    batenim_Conj = mkConj "batenim" Missing ; -- [XXXEO] :: but, yet, nevertheless, however; (contemptuous parity of "atenim" - b-b-but);
     bathrum_N_N = mkN "bathrum" ; -- [XXXIO] :: base, pedestal;
     batia_F_N = mkN "batia" ; -- [XAXNO] :: fish; (perh. skate or ray);
     batiaca_F_N = mkN "batiaca" ; -- [XXXFS] :: drinking vessel, cup, goblet;
@@ -14284,7 +14284,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     cummitio_F_N = mkN "cummitio" "cummitionis " feminine ; -- [XXXFO] :: application of gum;
     cumprime_Adv = mkAdv "cumprime" ; -- [XXXFO] :: especially, particularly;
     cumprimis_Adv = mkAdv "cumprimis" ; -- [XXXDO] :: chiefly, pre-eminently, in the highest degree; first of all; (cum primis);
--- cumquam_Conj : Conj cumquam -- [XXXFO] :: ever; [in combination sicumquam => if ever];
+    cumquam_Conj = mkConj "cumquam" Missing ; -- [XXXFO] :: ever; [in combination sicumquam => if ever];
     cumque_Adv = mkAdv "cumque" ; -- [XXXEO] :: at any time; -ever, -soever; appended to give generalized/indefinite force;
     cumulate_Adv =mkAdv "cumulate" "cumulatius" "cumulatissime" ; -- [XXXCO] :: abundantly, copiously, liberally; in rich abundance;
     cumulatim_Adv = mkAdv "cumulatim" ; -- [XXXEO] :: abundantly, in abundance, copiously, liberally; in heaps (L+S);
@@ -14316,7 +14316,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     cunctum_N_N = mkN "cunctum" ; -- [XXXCO] :: all (pl.) (N); all with a stated/implied exception;
     cunctus_A = mkA "cunctus" "cuncta" "cunctum" ; -- [XXXAO] :: altogether (usu. pl.), in a body; every, all, entire; total/complete; whole of;
     cunctus_M_N = mkN "cunctus" ; -- [XXXCO] :: all (pl.) (M); all with a stated/implied exception;
--- cuncumque_Conj : Conj cuncumque -- [XXXFO] :: whenever;
+    cuncumque_Conj = mkConj "cuncumque" Missing ; -- [XXXFO] :: whenever;
     cuneatim_Adv = mkAdv "cuneatim" ; -- [XWXEO] :: in a closely packed/wedge formation; in the form of a wedge, wedge-shaped;
     cuneatio_F_N = mkN "cuneatio" "cuneationis " feminine ; -- [XXXFO] :: action of making wedge-shaped/tapering; wedge-shaped point (nose) (L+S);
     cuneatus_A = mkA "cuneatus" "cuneata" "cuneatum" ; -- [XXXDO] :: wedge-shaped, cuneiform; tapering; pointed like a wedge (L+S);
@@ -16899,7 +16899,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     donator_M_N = mkN "donator" "donatoris " masculine ; -- [XXXEE] :: giver, donor;
     donatrix_F_N = mkN "donatrix" "donatricis " feminine ; -- [XXXES] :: female donor;
     donatus_M_N = mkN "donatus" "donatus " masculine ; -- [FXXEE] :: gift, present;
--- donec_Conj : Conj donec -- [XXXAX] :: while, as long as, until;
+    donec_Conj = mkConj "donec" Missing ; -- [XXXAX] :: while, as long as, until;
     dono_V = mkV "donare" ; -- [XXXAX] :: present, grant; forgive; give (gifts), bestow;
     donum_N_N = mkN "donum" ; -- [XXXAX] :: gift, present; offering;
 -- TODO dorcas_N : N1 dorcas, dorcados/is  -- F -- [XAXEC] :: gazelle, antelope;
@@ -16989,9 +16989,9 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     dulcoratus_A = mkA "dulcoratus" "dulcorata" "dulcoratum" ; -- [XXXFS] :: sweetened;
     dulcoro_V2 = mkV2 (mkV "dulcorare") ; -- [EXXES] :: sweeten;
     dulia_F_N = mkN "dulia" ; -- [FEXFE] :: religious veneration given to a creature;
--- dum_Conj : Conj dum -- [XXXAX] :: while, as long as, until; provided that;
+    dum_Conj = mkConj "dum" Missing ; -- [XXXAX] :: while, as long as, until; provided that;
     dumetum_N_N = mkN "dumetum" ; -- [XXXDX] :: thicket;
--- dummodo_Conj : Conj dummodo -- [XXXDX] :: provided (that) (+ subj);
+    dummodo_Conj = mkConj "dummodo" Missing ; -- [XXXDX] :: provided (that) (+ subj);
     dumosus_A = mkA "dumosus" "dumosa" "dumosum" ; -- [XXXDX] :: overgrown with thorn, briar or the like;
     dumtaxat_Adv = mkAdv "dumtaxat" ; -- [XXXBO] :: to this extent, no more than; as long as; only, precisely; merely; at any rate;
     dumus_M_N = mkN "dumus" ; -- [XXXDX] :: thorn or briar bush;
@@ -17479,8 +17479,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     enhydris_F_N = mkN "enhydris" "enhydridis " feminine ; -- [DAXNS] :: water-snake (Pliny);
     enico_V2 = mkV2 (mkV "enicare") ; -- [XXXCO] :: kill/slay; deprive of life; kill off; exhaust/wear out, plague/torture to death;
     enigma_N_N = mkN "enigma" "enigmatis " neuter ; -- [FXXCE] :: puzzle, enigma, riddle, obscure expression/saying;
--- enim_Conj : Conj enim -- [XXXAX] :: namely (postpos.); indeed; in fact; for; I mean, for instance, that is to say;
--- enimvero_Conj : Conj enimvero -- [XXXBO] :: to be sure, certainly; well, upon by word; but, on the other hand; what is more;
+    enim_Conj = mkConj "enim" Missing ; -- [XXXAX] :: namely (postpos.); indeed; in fact; for; I mean, for instance, that is to say;
+    enimvero_Conj = mkConj "enimvero" Missing ; -- [XXXBO] :: to be sure, certainly; well, upon by word; but, on the other hand; what is more;
     eniteo_V = mkV "enitere" ; -- [XXXDX] :: shine forth/out; be outstanding/conspicuous;
 -- TODO enitesco_V : V2 enitesco, enitescere, enitui, -  -- Declension: 3rd -- Comment: [XXXDX] :: become bright, gleam; stand out;
     enixe_Adv =mkAdv "enixe" "enixius" "enixissime" ; -- [XXXCO] :: earnestly, assiduously, with strenuous efforts;
@@ -17724,10 +17724,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     esuritio_F_N = mkN "esuritio" "esuritionis " feminine ; -- [XXXDO] :: hunger; state of hunger; hungering (L+S);
     esuritor_M_N = mkN "esuritor" "esuritoris " masculine ; -- [XXXFO] :: hungry man/person; one suffering from hunger;
     esus_M_N = mkN "esus" "esus " masculine ; -- [XXXEO] :: eating, taking of food;
--- et_Conj : Conj et -- [XXXAX] :: and, and even; also, even;  (et ... et = both ... and);
+    et_Conj = mkConj "et" Missing ; -- [XXXAX] :: and, and even; also, even;  (et ... et = both ... and);
     etas_F_N = mkN "etas" "etatis " feminine ; -- [EXXAO] :: lifetime, age, generation; period; stage, period of life, time, era;
 -- IGNORED etc_N : N1 etc., abb.  -- N -- [GXXBZ] :: etcetra, and so forth; abb. etc.; (in use in modern Latin texts if not before);
--- etenim_Conj : Conj etenim -- [XXXBX] :: and indeed, because, since, as a matter of fact (independent reason, emphasis);
+    etenim_Conj = mkConj "etenim" Missing ; -- [XXXBX] :: and indeed, because, since, as a matter of fact (independent reason, emphasis);
 -- SLASHSTUFF eternus_A : A2 eternus, eterna -um, eternior -or -us, eternissimus -a -um  -- [EXXAO] :: eternal, everlasting, imperishable; perpetual; having no beginning/end;
     etesia_M_N = mkN "etesia" ; -- [XXXDX] :: etesian winds (pl.), NW winds blowing during dog days in Eastern Mediterranean;
     etheca_F_N = mkN "etheca" ; -- [FEXEE] :: portico (pl.); gallery;
@@ -17745,12 +17745,12 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     ethologia_F_N = mkN "ethologia" ; -- [XGXEO] :: characterization, delineation of character; character sketch; ethnology (Ecc);
     ethologicus_A = mkA "ethologicus" "ethologica" "ethologicum" ; -- [GXXEE] :: ethnological, of ethnology;
     ethologus_M_N = mkN "ethologus" ; -- [XDXEO] :: mimic, one who portrays character with gestures;
--- etiam_Conj : Conj etiam -- [XXXAO] :: |now too, as yet, still, even now; yet again; likewise; (particle); (et-iam);
+    etiam_Conj = mkConj "etiam" Missing ; -- [XXXAO] :: |now too, as yet, still, even now; yet again; likewise; (particle); (et-iam);
     etiamnum_Adv = mkAdv "etiamnum" ; -- [XXXDX] :: even now, still, yet;
     etiamnunc_Adv = mkAdv "etiamnunc" ; -- [XXXDX] :: even now, still, yet;
--- etiamsi_Conj : Conj etiamsi -- [XXXDX] :: even if, although;
--- etiamtum_Conj : Conj etiamtum -- [XXXDX] :: even then; yet;
--- etsi_Conj : Conj etsi -- [XXXBX] :: although, though, even if; albeit; I know that but;
+    etiamsi_Conj = mkConj "etiamsi" Missing ; -- [XXXDX] :: even if, although;
+    etiamtum_Conj = mkConj "etiamtum" Missing ; -- [XXXDX] :: even then; yet;
+    etsi_Conj = mkConj "etsi" Missing ; -- [XXXBX] :: although, though, even if; albeit; I know that but;
     etymologia_F_N = mkN "etymologia" ; -- [XGXEC] :: etymology;
     eu_Interj = ss "eu" ; -- [XXXDX] :: well done! bravo!; splendid! (sometimes ironic); 
     eucharis_A = mkA "eucharis" "eucharis" "euchare" ; -- [EXXEP] :: gracious;
@@ -20494,7 +20494,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     idoneus_A = mkA "idoneus" "idonea" "idoneum" ; -- [XXXBO] :: |substantial, solvent; having money to meet obligations, backed by resources;
 -- IGNORED idos_N : N1 idos, undeclined  -- N -- [BXHFO] :: form; visible aspect of object;
     iens_A = mkA "iens" "euntis"; -- [XXXBO] :: going; (PRES PPL of eo);
--- igitur_Conj : Conj igitur -- [XXXAO] :: therefore (postpositive), so/then; consequently; accordingly; well/in that case;
+    igitur_Conj = mkConj "igitur" Missing ; -- [XXXAO] :: therefore (postpositive), so/then; consequently; accordingly; well/in that case;
     ignarus_A = mkA "ignarus" "ignara" "ignarum" ; -- [XXXBX] :: ignorant; unaware, having no experience of; senseless; strange;
     ignavia_F_N = mkN "ignavia" ; -- [XXXDX] :: idleness, laziness; faintheartedness;
 -- SLASHSTUFF ignavus_A : A2 ignavus, ignava -um, ignavior -or -us, ignavissimus -a -um  -- [XXXBO] :: lazy/idle/sluggish; spiritless; cowardly, faint-hearted; ignoble, mean; useless;
@@ -22433,7 +22433,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     italicus_A = mkA "italicus" "italica" "italicum" ; -- [XXXDX] :: of Italy, Italian;
     italus_A = mkA "italus" "itala" "italum" ; -- [XXXDX] :: of Italy, Italian;
     itaque_Adv = mkAdv "itaque" ; -- [XXXAX] :: and so, accordingly; thus, therefore, consequently;
--- itaque_Conj : Conj itaque -- [XXXAX] :: and so, therefore;
+    itaque_Conj = mkConj "itaque" Missing ; -- [XXXAX] :: and so, therefore;
     item_Adv = mkAdv "item" ; -- [XXXAX] :: likewise; besides, also, similarly;
     iter_N_N = mkN "iter" "itineris " neuter ; -- [XXXAX] :: journey; road; passage, path; march [route magnum => forced march];
     iteratio_F_N = mkN "iteratio" "iterationis " feminine ; -- [XXXEZ] :: repetition (Collins);
@@ -23124,7 +23124,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     licentiosus_A = mkA "licentiosus" "licentiosa" "licentiosum" ; -- [XXXEO] :: unrestrained, unbridled; wanton, licentious; free;
     liceo_V = mkV "licere" ; -- [XXXDX] :: fetch (price); (with ABL or GEN);
     liceor_V = mkV "liceri" ; -- [XXXCO] :: bid on/for, bid, bid at auction; make a bid;
--- licet_Conj : Conj licet -- [XXXCO] :: although, granted that; (with subjunctive);
+    licet_Conj = mkConj "licet" Missing ; -- [XXXCO] :: although, granted that; (with subjunctive);
     licet_V0 = mkV0 "licet" ; -- [XXXAX] :: it is permitted, one may; it is all right, lawful, allowed, permitted;
     lichanos_M_N = mkN "lichanos" "lichani " masculine ; -- [XDHFO] :: second highest tetrachord note; (lychanos/lichanos);
     lichen_M_N = mkN "lichen" "lichenis " masculine ; -- [XAXCO] :: lichen; liverwort?; skin disease, tetter, eczema, ringworm; gum/resin as cure;
@@ -24396,7 +24396,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     modifico_V = mkV "modificare" ; -- [XXXES] :: limit; control; observe due measure;
     modius_M_N = mkN "modius" ; -- [XXXDX] :: peck; Roman dry measure; (about 2 gallons/8000 cc);
     modo_Adv = mkAdv "modo" ; -- [XXXAX] :: only, merely; just now/recently, lately; presently;
--- modo_Conj : Conj modo -- [XXXDX] :: but, if only; but only;
+    modo_Conj = mkConj "modo" Missing ; -- [XXXDX] :: but, if only; but only;
     modulamen_N_N = mkN "modulamen" "modulaminis " neuter ; -- [EDXES] :: melody;
     modulate_Adv =mkAdv "modulate" "modulatius" "modulatissime" ; -- [XDXDO] :: melodiously, in a musical manner;
     modulatio_F_N = mkN "modulatio" "modulationis " feminine ; -- [DDXCS] :: |singing, playing; melody, song; rhythmic/regular measure; marching in time;
@@ -24831,8 +24831,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
 -- IGNORED nadir_N : N1 nadir, undeclined  -- N -- [GXXEK] :: nadir;
     nae_Adv = mkAdv "nae" ; -- [XXXEO] :: truly, indeed, verily, assuredly; (particle of assurance); (w/personal PRON);
     naevus_M_N = mkN "naevus" ; -- [XXXDX] :: mole (on the body); birthmark;
--- nam_Conj : Conj nam -- [XXXAX] :: for, on the other hand; for instance;
--- namque_Conj : Conj namque -- [XXXAX] :: for and in fact, on the other hand; insomuch as (strengthened nam);
+    nam_Conj = mkConj "nam" Missing ; -- [XXXAX] :: for, on the other hand; for instance;
+    namque_Conj = mkConj "namque" Missing ; -- [XXXAX] :: for and in fact, on the other hand; insomuch as (strengthened nam);
     nanus_M_N = mkN "nanus" ; -- [XXXEC] :: dwarf;
     naphtha_F_N = mkN "naphtha" ; -- [XSXES] :: naphtha; flammable/volitile petro-liquid;
     naptha_F_N = mkN "naptha" ; -- [EXXFW] :: naphtha; (Vulgate Prayer of Azariah 1:23); flammable/volitile petro-liquid;
@@ -24938,14 +24938,14 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nazista_M_N = mkN "nazista" ; -- [GXXEK] :: Nazi;
     nazoreus_M_N = mkN "nazoreus" ; -- [EEXFW] :: Nazarite; man set apart to the service of God; (1 Maccabees 3:49);
     ne_Adv = mkAdv "ne" ; -- [XXXCO] :: |truly, indeed, verily, assuredly; (particle of assurance); (w/personal PRON);
--- ne_Conj : Conj ne -- [XXXAX] :: that not, lest; (for negative of IMP);
+    ne_Conj = mkConj "ne" Missing ; -- [XXXAX] :: that not, lest; (for negative of IMP);
     nebrida_M_N = mkN "nebrida" ; -- [XEXFS] :: Ceres priest;
     nebula_F_N = mkN "nebula" ; -- [XSXBO] :: mist, fog; cloud (dust/smoke/confusion/error); thin film, veneer; obscurity;
     nebulo_M_N = mkN "nebulo" "nebulonis " masculine ; -- [XXXCO] :: rascal, scoundrel; worthless person;
     nebulosus_A = mkA "nebulosus" "nebulosa" "nebulosum" ; -- [XXXCO] :: misty, foggy; characterized by/subject to/resembling mist, vaporous; obscure;
     nec_Adv = mkAdv "nec" ; -- [XXXDX] :: nor; and not, not, neither, not even;
--- nec_Conj : Conj nec -- [XXXAX] :: nor, and..not; not..either, not even;
--- necdum_Conj : Conj necdum -- [XXXBX] :: and/but not yet;
+    nec_Conj = mkConj "nec" Missing ; -- [XXXAX] :: nor, and..not; not..either, not even;
+    necdum_Conj = mkConj "necdum" Missing ; -- [XXXBX] :: and/but not yet;
     necessaria_F_N = mkN "necessaria" ; -- [XXXCO] :: connection (female), she closely connected by friendship/family/obligation;
     necessarie_Adv = mkAdv "necessarie" ; -- [XXXEO] :: necessarily; indispensably; as a necessary consequence;
     necessario_Adv = mkAdv "necessario" ; -- [XXXCO] :: unavoidably, without option; necessarily, of necessity; inevitably/unavoidably;
@@ -24964,7 +24964,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     neclegens_A = mkA "neclegens" "neclegentis"; -- [XXXBO] :: heedless, neglectful, careless; unconcerned, indifferent; slovenly; unruly;
     neclegenter_Adv =mkAdv "neclegenter" "neclegentius" "neclegentissime" ; -- [XXXCO] :: heedlessly, neglectfully, carelessly; unconcernedly, indifferently; slovenly;
     neclegentia_F_N = mkN "neclegentia" ; -- [XXXCO] :: heedlessness, neglect; carelessness, negligence; coldness; disrespect;
--- necne_Conj : Conj necne -- [XXXDX] :: or not;
+    necne_Conj = mkConj "necne" Missing ; -- [XXXDX] :: or not;
     necnon_Adv = mkAdv "necnon" ; -- [XXXDX] :: nor; and not, not, neither, not even; and also, and indeed;
     neco_V2 = mkV2 (mkV "necare") ; -- [BXXFO] :: kill/murder; put to death; suppress, destroy; kill (plant); quench/drown (fire);
     necopinans_A = mkA "necopinans" "necopinantis"; -- [XXXDX] :: not expecting; unawares;
@@ -24978,7 +24978,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nectareus_A = mkA "nectareus" "nectarea" "nectareum" ; -- [XXXDX] :: sweet as nectar;
     necubi_Adv = mkAdv "necubi" ; -- [XXXDX] :: lest anywhere/at any place; lest on any occasion; that nowhere;
     necunde_Adv = mkAdv "necunde" ; -- [XXXDX] :: lest from anywhere;
--- nedum_Conj : Conj nedum -- [XXXDX] :: still less; not to speak of; much more;
+    nedum_Conj = mkConj "nedum" Missing ; -- [XXXDX] :: still less; not to speak of; much more;
     nefandus_A = mkA "nefandus" "nefanda" "nefandum" ; -- [XXXBX] :: impious, wicked; abominable;
     nefarie_Adv = mkAdv "nefarie" ; -- [XXXES] :: wickedly, impiously; nefariously, abominably; heinously;
     nefarium_N_N = mkN "nefarium" ; -- [XXXES] :: crime; wicked/impious/nefarious/heinous act;
@@ -25013,7 +25013,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nemorensis_A = mkA "nemorensis" "nemorensis" "nemorense" ; -- [XAXEC] :: of woods or groves; sylvan;
     nemorivagus_A = mkA "nemorivagus" "nemorivaga" "nemorivagum" ; -- [XXXDX] :: forest-roving;
     nemorosus_A = mkA "nemorosus" "nemorosa" "nemorosum" ; -- [XXXDX] :: well-wooded;
--- nempe_Conj : Conj nempe -- [XXXDX] :: truly, certainly, of course;
+    nempe_Conj = mkConj "nempe" Missing ;  -- [XXXDX] :: truly, certainly, of course;
     nemus_N_N = mkN "nemus" "nemoris " neuter ; -- [XXXAX] :: wood, forest;
     nenia_F_N = mkN "nenia" ; -- [XXXDX] :: funeral dirge sung; incantation, jingle;
     neo_V = mkV "nere" ; -- [XXXDX] :: spin; weave; produce by spinning;
@@ -25034,8 +25034,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nequando_Adv = mkAdv "nequando" ; -- [XXXCW] :: lest, lest ever; never, not ever;
     nequaquam_Adv = mkAdv "nequaquam" ; -- [XXXBX] :: by no means;
     neque_Adv = mkAdv "neque" ; -- [XXXDX] :: nor; and not, not, neither;
--- neque_Conj : Conj neque -- [XXXAX] :: nor [neque..neque=>neither..nor; neque solum..sed etiam=>not only..but also];
--- nequedum_Conj : Conj nequedum -- [XXXDX] :: and/but not yet;
+    neque_Conj = mkConj "neque" Missing ; -- [XXXAX] :: nor [neque..neque=>neither..nor; neque solum..sed etiam=>not only..but also];
+    nequedum_Conj = mkConj "nequedum" Missing ; -- [XXXDX] :: and/but not yet;
 -- TODO nequeo_V : V1 nequeo, nequire, nequivi(ii), nequitus  -- [XXXBX] :: be unable, cannot;
     nequicquam_Adv = mkAdv "nequicquam" ; -- [XXXDX] :: in vain;
 -- IGNORED nequior_A : A2 nequior, undeclined  -- [XXXCO] :: more wicked/licentious/depraved/vile; worse; more useless/worthless; (nequam);
@@ -25050,7 +25050,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nervus_M_N = mkN "nervus" ; -- [XXXAS] :: |string/cord; bowstring; bow; (leather) thong; fetter (for prisoner); prison;
     nescius_A = mkA "nescius" "nescia" "nescium" ; -- [XXXBX] :: unaware, not knowing, ignorant;
     nete_F_N = mkN "nete" "netes " feminine ; -- [XDXFO] :: highest note in tetrachord; last/undermost string;
--- neu_Conj : Conj neu -- [XXXBX] :: or not, and not; (for negative of IMP); [neve ... neve => neither ... nor ];
+    neu_Conj = mkConj "neu" Missing ; -- [XXXBX] :: or not, and not; (for negative of IMP); [neve ... neve => neither ... nor ];
     neuma_F_N = mkN "neuma" ; -- [FDXEM] :: |prolonged/breathing notes in plainsong; plainsong notation signs;
     neuma_N_N = mkN "neuma" "neumatis " neuter ; -- [FDXDM] :: neume/neum; prolonged group of notes sung to single syllable (in plainsong);
     neuronum_N_N = mkN "neuronum" ; -- [HSXEK] :: neuron, nerve cell;
@@ -25062,14 +25062,14 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     neutro_Adv = mkAdv "neutro" ; -- [XXXDX] :: to neither side;
     neutronium_N_N = mkN "neutronium" ; -- [HSXEK] :: neutron;
     neutrubi_Adv = mkAdv "neutrubi" ; -- [XXXFS] :: in neither place; neither way;
--- neve_Conj : Conj neve -- [XXXDX] :: or not, and not; (for negative of IMP); [neve ... neve => neither ... nor ];
+    neve_Conj = mkConj "neve" Missing ; -- [XXXDX] :: or not, and not; (for negative of IMP); [neve ... neve => neither ... nor ];
     nex_F_N = mkN "nex" "necis " feminine ; -- [XXXBX] :: death; murder;
     nexilis_A = mkA "nexilis" "nexilis" "nexile" ; -- [XXXDX] :: woven together, intertwined;
 -- TODO nexo_V : V2 nexo, nexere, nexi, -  -- Declension: 3rd -- Comment: [XXXFS] :: tie together; bind together; (see also nectere);
     nexum_N_N = mkN "nexum" ; -- [XLXCO] :: obligation between creditor/debtor; (pre-300 BC debtor bondman for non-payment);
     nexus_M_N = mkN "nexus" "nexus " masculine ; -- [XXXDX] :: obligation between creditor and debtor;
     ni_Adv = mkAdv "ni" ; -- [XXXBX] :: if ...  not; unless; [quid ni? => why not?];
--- ni_Conj : Conj ni -- [XXXDX] :: if ...  not; unless;
+    ni_Conj = mkConj "ni" Missing ; -- [XXXDX] :: if ...  not; unless;
     niceterium_N_N = mkN "niceterium" ; -- [XXXEC] :: reward of victory, prize;
     nichelium_N_N = mkN "nichelium" ; -- [GSXEK] :: nickel;
 -- IGNORED nichil_N : N1 nichil, undeclined  -- N -- [FXXDM] :: nothing; no; trifle/thing not worth mentioning; nonentity; nonsense; no concern;
@@ -25111,7 +25111,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nimius_A = mkA "nimius" "nimia" "nimium" ; -- [XXXAX] :: excessive, too great;
     ninguis_F_N = mkN "ninguis" "ninguis " feminine ; -- [XSXEO] :: snow; drifts of snow (pl.);
 -- IGNORED nisan_N : N1 nisan, undeclined  -- N -- [EXQEW] :: Nisan, Jewish month; (1st in ecclesiastic year); (late January-early February);
--- nisi_Conj : Conj nisi -- [XXXAX] :: if not; except, unless;
+    nisi_Conj = mkConj "nisi" Missing ; -- [XXXAX] :: if not; except, unless;
     nisus_M_N = mkN "nisus" "nisus " masculine ; -- [XXXDX] :: pressing upon/down; pressure, push; endeavor; exertion; strong muscular effort;
     nitedula_F_N = mkN "nitedula" ; -- [XAXEC] :: dormouse;
     nitella_F_N = mkN "nitella" ; -- [XAXFS] :: small mouse; dormouse;
@@ -25172,7 +25172,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nonnemo_M_N = mkN "nonnemo" "nonneminis " masculine ; -- [XXXDX] :: some persons, a few;
     nonnihil_Adv = mkAdv "nonnihil" ; -- [XXXDX] :: in some measure;
 -- IGNORED nonnihil_N : N1 nonnihil, undeclined  -- N -- [XXXDX] :: certain amount;
--- nonnisi_Conj : Conj nonnisi -- [XXXDO] :: not unless; not except; only (on specific terms);
+    nonnisi_Conj = mkConj "nonnisi" Missing ; -- [XXXDO] :: not unless; not except; only (on specific terms);
 -- SLASHSTUFF nonnullus_A : A2 nonnullus, nonnulla, nonnullum (gen -ius)  -- [XXXBX] :: some, several, a few; one and another; considerable;
     nonnullus_M_N = mkN "nonnullus" ; -- [XXXDX] :: some (pl.), several, a few;
     nonnumquam_Adv = mkAdv "nonnumquam" ; -- [XXXDX] :: sometimes;
@@ -27793,7 +27793,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     postalis_A = mkA "postalis" "postalis" "postale" ; -- [GXXEK] :: postal;
     postatus_A = mkA "postatus" "postata" "postatum" ; -- [XXXEX] :: door-guarding; posted at door;
     postea_Adv = mkAdv "postea" ; -- [XXXAX] :: afterwards;
--- posteaquam_Conj : Conj posteaquam -- [XXXDX] :: after;
+    posteaquam_Conj = mkConj "posteaquam" Missing ; -- [XXXDX] :: after;
     posterga_Adv = mkAdv "posterga" ; -- [EXXFP] :: behind; behind one's back;
     postergum_Adv = mkAdv "postergum" ; -- [EXXFP] :: behind; behind one's back;
     posterioritas_F_N = mkN "posterioritas" "posterioritatis " feminine ; -- [EXXFP] :: inferior/later position;
@@ -27828,7 +27828,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     postnatus_M_N = mkN "postnatus" ; -- [FLXFJ] :: eldest son;
     postpartor_M_N = mkN "postpartor" "postpartoris " masculine ; -- [XLXEC] :: heir;
     postputo_V2 = mkV2 (mkV "postputare") ; -- [XXXES] :: consider less important; disregard;
--- postquam_Conj : Conj postquam -- [XXXAX] :: after;
+    postquam_Conj = mkConj "postquam" Missing ; -- [XXXAX] :: after;
     postremitas_F_N = mkN "postremitas" "postremitatis " feminine ; -- [EXXFP] :: inferior/later position;
     postremo_Adv = mkAdv "postremo" ; -- [XXXDX] :: at last, finally;
     postremum_Adv = mkAdv "postremum" ; -- [XXXDX] :: for the last time, last of all; finally;
@@ -28317,7 +28317,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     pristis_F_N = mkN "pristis" "pristis " feminine ; -- [XAXCO] :: sea monster; whale; sawfish; light oared vessel;
     prius_Adv = mkAdv "prius" ; -- [XXXAX] :: earlier, before, previously, first;
     prius_N_N = mkN "prius" "prioris " neuter ; -- [XXXDX] :: earlier times/events/actions; a logically prior proposition
--- priusquam_Conj : Conj priusquam -- [XXXBX] :: before; until; sooner than;
+    priusquam_Conj = mkConj "priusquam" Missing ; -- [XXXBX] :: before; until; sooner than;
     privatim_Adv = mkAdv "privatim" ; -- [XXXDX] :: in private; as a private citizen;
     privatus_A = mkA "privatus" "privata" "privatum" ; -- [XXXBX] :: private; personal; ordinary;
     privatus_M_N = mkN "privatus" ; -- [XXXDX] :: private citizen;
@@ -28692,7 +28692,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     proturbero_V = mkV "proturberare" ; -- [DXXDS] :: bulge/swell out; grow forth; stand out (Sax); be prominent, project;
     proturbo_V2 = mkV2 (mkV "proturbare") ; -- [XXXDX] :: drive/push away/out of the way; drive out in confusion; repulse; pitch forward;
     protus_A = mkA "protus" "prota" "protum" ; -- [EXXEM] :: first; original;
--- prout_Conj : Conj prout -- [XXXBX] :: as, just as; exactly as;
+    prout_Conj = mkConj "prout" Missing ; -- [XXXBX] :: as, just as; exactly as;
     provectio_F_N = mkN "provectio" "provectionis " feminine ; -- [FXXEM] :: promotion, progress;
     provectus_A = mkA "provectus" "provecta" "provectum" ; -- [XXXDX] :: advanced, late; elderly;
     proventus_M_N = mkN "proventus" "proventus " masculine ; -- [XXXDX] :: outcome, result; success;
@@ -29087,27 +29087,27 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     qualum_N_N = mkN "qualum" ; -- [XXXDX] :: wicker basket;
     qualus_M_N = mkN "qualus" ; -- [XXXDX] :: wicker basket;
     quam_Adv = mkAdv "quam" ; -- [XXXAX] :: how, how much; as, than; [quam + superlative => as ... as possible];
--- quam_Conj : Conj quam -- [XXXDX] :: how, than;
+    quam_Conj = mkConj "quam" Missing ; -- [XXXDX] :: how, than;
     quamde_Adv = mkAdv "quamde" ; -- [BXXFS] :: how, how much; as; (archaic form of quam);
     quamdiu_Adv = mkAdv "quamdiu" ; -- [XXXBO] :: |for the preceding period until; up to the time that; inasmuch as; (quam diu);
     quamlibet_Adv = mkAdv "quamlibet" ; -- [XXXDX] :: however, however much;
--- quamobrem_Conj : Conj quamobrem -- [XXXDX] :: why, for what reason, on what account; on account of which, where/there-fore;
+    quamobrem_Conj = mkConj "quamobrem" Missing ; -- [XXXDX] :: why, for what reason, on what account; on account of which, where/there-fore;
     quamprimum_Adv = mkAdv "quamprimum" ; -- [XXXEO] :: to the highest degree possible;
--- quamquam_Conj : Conj quamquam -- [XXXDX] :: though, although; yet; nevertheless;
+    quamquam_Conj = mkConj "quamquam" Missing ; -- [XXXDX] :: though, although; yet; nevertheless;
     quamtocius_Adv = mkAdv "quamtocius" ; -- [FXXEM] :: as soon as possible; completely (?), all (Nelson);
     quamtotius_Adv = mkAdv "quamtotius" ; -- [FXXEM] :: as soon as possible; completely (?), all (Nelson);
     quamvis_Adv = mkAdv "quamvis" ; -- [XXXAX] :: however much; although;
--- quamvis_Conj : Conj quamvis -- [XXXDX] :: however much; although;
+    quamvis_Conj = mkConj "quamvis" Missing ; -- [XXXDX] :: however much; although;
     quandiu_Adv = mkAdv "quandiu" ; -- [XXXBO] :: |for the preceding period until; up to the time that; inasmuch as; (quam diu);
     quandiucumque_Adv = mkAdv "quandiucumque" ; -- [XXXIO] :: for as long as; (rel adv);
     quandius_Adv = mkAdv "quandius" ; -- [XXXIO] :: for as long as; up to the time that;
     quando_Adv = mkAdv "quando" ; -- [XXXAX] :: when (interog), at what time; at any time (indef adv);
--- quando_Conj : Conj quando -- [XXXDX] :: when, since, because; [si quando => if ever];
+    quando_Conj = mkConj "quando" Missing ; -- [XXXDX] :: when, since, because; [si quando => if ever];
     quandocumque_Adv = mkAdv "quandocumque" ; -- [XXXCO] :: whenever, at whatever time; at some time or other/any time; as often/soon as;
     quandocunque_Adv = mkAdv "quandocunque" ; -- [XXXCO] :: whenever, at whatever time; at some time or other/any time; as often/soon as;
     quandoque_Adv = mkAdv "quandoque" ; -- [XXXCO] :: whenever, at whatever time; at some time or other/any time/ever; whereas;
--- quandoquidem_Conj : Conj quandoquidem -- [XXXDX] :: since, seeing that;
--- quanquam_Conj : Conj quanquam -- [XXXDX] :: though, although; yet; nevertheless;
+    quandoquidem_Conj = mkConj "quandoquidem" Missing ; -- [XXXDX] :: since, seeing that;
+    quanquam_Conj = mkConj "quanquam" Missing ; -- [XXXDX] :: though, although; yet; nevertheless;
     quantillus_A = mkA "quantillus" "quantilla" "quantillum" ; -- [XXXES] :: how little?;
     quantitas_F_N = mkN "quantitas" "quantitatis " feminine ; -- [XXXBO] :: magnitude/multitude, quantity, degree, size; (specified) amount/quantity/sum;
     quantitativus_A = mkA "quantitativus" "quantitativa" "quantitativum" ; -- [GXXEK] :: quantitative;
@@ -29135,7 +29135,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     quarzeus_A = mkA "quarzeus" "quarzea" "quarzeum" ; -- [GXXEK] :: in quartz;
     quarzicus_A = mkA "quarzicus" "quarzica" "quarzicum" ; -- [GTXEK] :: quartz-adjusted;
     quasi_Adv = mkAdv "quasi" ; -- [XXXAX] :: as if, just as if, as though; as it were; about;
--- quasi_Conj : Conj quasi -- [XXXDX] :: as if, just as if, as though; as it were; about;
+    quasi_Conj = mkConj "quasi" Missing ; -- [XXXDX] :: as if, just as if, as though; as it were; about;
     quasillum_N_N = mkN "quasillum" ; -- [XXXEC] :: little basket;
     quasillus_M_N = mkN "quasillus" ; -- [XXXEC] :: little basket;
     quassatio_F_N = mkN "quassatio" "quassationis " feminine ; -- [XXXDX] :: violent shaking;
@@ -29150,7 +29150,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     quatriduum_N_N = mkN "quatriduum" ; -- [XXXBO] :: period of four days; [~o => in the four days from now, within four day of];
     quattuorvir_M_N = mkN "quattuorvir" ; -- [XXXDX] :: body of four men/officials (pl.); board of chief magistrates;
     quattuorviratus_M_N = mkN "quattuorviratus" "quattuorviratus " masculine ; -- [XLXES] :: quattuorvir's office;
--- que_Conj : Conj que -- [FXXET] :: and; (while properly attached as enclitic sometimes copyists make mistakes);
+    que_Conj = mkConj [] [] "que" Pl Missing ; -- [FXXET] :: and; (while properly attached as enclitic sometimes copyists make mistakes);
     quemadmodum_Adv = mkAdv "quemadmodum" ; -- [XXXBX] :: in what way, how; as, just as; to the extent that;
 -- TODO queo_V : V1 queo, quire, quivi(ii), quitus  -- [XXXBX] :: be able;
     quercetum_N_N = mkN "quercetum" ; -- [XAXEC] :: oak forest;
@@ -29168,7 +29168,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     querulus_A = mkA "querulus" "querula" "querulum" ; -- [XXXDX] :: complaining, querulous; giving forth a mournful sound;
     questus_M_N = mkN "questus" "questus " masculine ; -- [XXXDX] :: complaint;
     qui_Adv = mkAdv "qui" ; -- [XXXAO] :: how?; how so; in what way; by what/which means; whereby; at whatever price;
--- quia_Conj : Conj quia -- [XXXAX] :: because;
+    quia_Conj = mkConj "quia" Missing ; -- [XXXAX] :: because;
     quianam_Adv = mkAdv "quianam" ; -- [XXXDX] :: why ever?;
 -- IGNORED quiddam_N : N1 quiddam, undeclined  -- N -- [XXXDS] :: something;
     quidditas_F_N = mkN "quidditas" "quidditatis " feminine ; -- [FEXCF] :: quiddity, what a thing is, essence of a thing; (answers question quid est res);
@@ -29179,7 +29179,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     quiete_Adv =mkAdv "quiete" "quietius" "quietissime" ; -- [XXXDX] :: quietly, peacefully, calmly, serenely;
 -- SLASHSTUFF quietus_A : A2 quietus, quieta -um, quietior -or -us, quietissimus -a -um  -- [XXXDX] :: at rest; quiet, tranquil, calm, peaceful; orderly; neutral; still; idle;
     quin_Adv = mkAdv "quin" ; -- [XXXAX] :: why not, in fact;
--- quin_Conj : Conj quin -- [XXXDX] :: so that not, without; that not; but that; that; [quin etiam => moreover];
+    quin_Conj = mkConj "quin" Missing ; -- [XXXDX] :: so that not, without; that not; but that; that; [quin etiam => moreover];
     quinaria_F_N = mkN "quinaria" ; -- [XTXFO] :: five quarter-digit bore of pipe used as measure of capacity;
     quinarius_A = mkA "quinarius" "quinaria" "quinarium" ; -- [XXXCO] :: containing five each; grouped-by-fives; made of sheet five digits wide (pipe);
     quinarius_M_N = mkN "quinarius" ; -- [XLXEO] :: quinarius (Roman coin worth five asses, half a denarius);
@@ -29220,17 +29220,17 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     quisquilia_F_N = mkN "quisquilia" ; -- [XXXEC] :: rubbish (pl.), sweepings, refuse;
     qum_Abl_Prep = mkPrep "qum" Abl ; -- [BXXEO] :: |under command/at the head of; having/containing/including; using/by means of;
     quo_Adv = mkAdv "quo" ; -- [XXXDX] :: where, to what place; to what purpose; for which reason, therefore;
--- quo_Conj : Conj quo -- [XXXDX] :: whither, in what place, where;
--- quoad_Conj : Conj quoad -- [XXXDX] :: as long as, until;
+    quo_Conj = mkConj "quo" Missing ; -- [XXXDX] :: whither, in what place, where;
+    quoad_Conj = mkConj "quoad" Missing ; -- [XXXDX] :: as long as, until;
     quoadusque_Adv = mkAdv "quoadusque" ; -- [XXXCS] :: until that;
--- quocirca_Conj : Conj quocirca -- [XXXDX] :: on account of which; wherefore;
+    quocirca_Conj = mkConj "quocirca" Missing ; -- [XXXDX] :: on account of which; wherefore;
     quocumque_Adv = mkAdv "quocumque" ; -- [XXXCO] :: wherever, to/in any place/quarter to which/whatever, whithersoever; anywhere;
     quocunque_Adv = mkAdv "quocunque" ; -- [XXXCO] :: wherever, to/in any place/quarter to which/whatever, whithersoever; anywhere;
     quod_Adv = mkAdv "quod" ; -- [XXXDX] :: with respect to which;
--- quod_Conj : Conj quod -- [XXXDX] :: because, as far as, insofar as; [quod si => but if];
+    quod_Conj = mkConj "quod" Missing ; -- [XXXDX] :: because, as far as, insofar as; [quod si => but if];
     quodammodo_Adv = mkAdv "quodammodo" ; -- [XXXEC] :: in a certain way, in a certain measure;
--- quodnisi_Conj : Conj quodnisi -- [XXXDX] :: but if not; and if not; (introduces conditional); (quodnisi = quod nisi);
--- quodsi_Conj : Conj quodsi -- [XXXDX] :: but if; and if; (introduces conditional); (quodsi = quod si)
+    quodnisi_Conj = mkConj "quodnisi" Missing ; -- [XXXDX] :: but if not; and if not; (introduces conditional); (quodnisi = quod nisi);
+    quodsi_Conj = mkConj "quodsi" Missing ; -- [XXXDX] :: but if; and if; (introduces conditional); (quodsi = quod si)
     quoiquoimodi_Adv = mkAdv "quoiquoimodi" ; -- [BXXCS] :: of what kind/sort/nature soever;
     quojas_A = mkA "quojas" "quojatis"; -- [AXXCO] :: of what country/town/locality?; whence? (L+S);
     quojatis_A = mkA "quojatis" "quojatis"; -- [XXXCO] :: of what country/town/locality?; whence? (L+S);
@@ -29240,14 +29240,14 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     quolibet_Adv = mkAdv "quolibet" ; -- [XXXDX] :: whithersoever you please;
     quom_Abl_Prep = mkPrep "quom" Abl ; -- [BXXDO] :: |under command/at the head of; having/containing/including; using/by means of;
     quom_Adv = mkAdv "quom" ; -- [BXXAO] :: |as soon; while, as (well as); whereas, in that, seeing that; on/during which;
--- quominus_Conj : Conj quominus -- [XXXDX] :: that not, from (quo minus);
+    quominus_Conj = mkConj "quominus" Missing ; -- [XXXDX] :: that not, from (quo minus);
     quomodo_Adv = mkAdv "quomodo" ; -- [XXXAX] :: how, in what way; just as;
     quomodocumque_Adv = mkAdv "quomodocumque" ; -- [XXXCO] :: however, no matter what way; in whatever way; somehow; in some degree or other;
     quomodocunque_Adv = mkAdv "quomodocunque" ; -- [XXXCO] :: however, no matter what way; in whatever way; somehow; in some degree or other;
     quomodonam_Adv = mkAdv "quomodonam" ; -- [XXXEC] :: how then?;
     quonam_Adv = mkAdv "quonam" ; -- [XXXDX] :: to whatever place;
     quondam_Adv = mkAdv "quondam" ; -- [XXXAX] :: formerly, once, at one time; some day, hereafter;
--- quoniam_Conj : Conj quoniam -- [XXXAX] :: because, since, seeing that;
+    quoniam_Conj = mkConj "quoniam" Missing ; -- [XXXAX] :: because, since, seeing that;
     quopiam_Adv = mkAdv "quopiam" ; -- [XXXDX] :: somewhere;
     quoquam_Adv = mkAdv "quoquam" ; -- [XXXDX] :: to any place, anywhere;
     quoque_Adv = mkAdv "quoque" ; -- [XXXAO] :: likewise/besides/also/too; not only; even/actually; (after word emphasized);
@@ -29284,7 +29284,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     quousque_Adv = mkAdv "quousque" ; -- [XXXDX] :: until what time?  till when?  how long?;
     qur_Adv = mkAdv "qur" ; -- [XXXEO] :: why, wherefore, for what reason? (impatience); on account of which?; because;
     quum_Abl_Prep = mkPrep "quum" Abl ; -- [DXXCS] :: with, together with, at the same time with; under; at; along with, amid;
--- quum_Conj : Conj quum -- [DXXCS] :: when, while, as, since, although; as soon;
+    quum_Conj = mkConj "quum" Missing ; -- [DXXCS] :: when, while, as, since, although; as soon;
     quur_Adv = mkAdv "quur" ; -- [XXXEO] :: why, wherefore, for what reason? (impatience); on account of which?; because;
 -- IGNORED rabbi_N : N1 rabbi, undeclined  -- M -- [DEQEE] :: rabbi; teacher, master; (Hebrew);
     rabbinus_M_N = mkN "rabbinus" ; -- [GEXEK] :: rabbi;
@@ -30701,7 +30701,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
 -- IGNORED secus_N : N1 secus, undeclined  -- N -- [XBXDS] :: sex;
     secutor_M_N = mkN "secutor" "secutoris " masculine ; -- [XXXDS] :: pursuer; attendant;
     secuutus_M_N = mkN "secuutus" ; -- [FXXEN] :: follower, pursuer;
--- sed_Conj : Conj sed -- [XXXAX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
+    sed_Conj = mkConj [] "sed" [] Sg Or ; -- [XXXAX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
     sedatio_F_N = mkN "sedatio" "sedationis " feminine ; -- [XXXDS] :: calming;
     sedatus_A = mkA "sedatus" "sedata" "sedatum" ; -- [XXXDX] :: calm, untroubled; quiet;
     sedda_F_N = mkN "sedda" ; -- [AXXBS] :: |sedan/carrying chair; toilet seat, stool; work-stool; coach/wagon seat; saddle;
@@ -31067,11 +31067,11 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     sessorium_N_N = mkN "sessorium" ; -- [XXXDX] :: chair; residence, dwelling, habitation;
     sestertium_N_N = mkN "sestertium" ; -- [XXXDS] :: 1000 sestertii; two and a half feet; (measure of depth/width);
     sestertius_M_N = mkN "sestertius" ; -- [XXXDX] :: sesterce; [semis-tertius => 2 1/2 assses, small silver coin];
--- set_Conj : Conj set -- [XXXBX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
+    set_Conj = mkConj "set" Missing ; -- [XXXBX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
     seta_F_N = mkN "seta" ; -- [XXXCO] :: hair; (coarse/stiff); bristle; brush; morbid internal growth; fishing-leader;
     setius_Adv = mkAdv "setius" ; -- [XXXDX] :: less, worse; [nihilo setius => none the less, nevertheless];
 -- IGNORED setthim_N : N1 setthim, undeclined  -- N -- [EXQEW] :: shittim/setim wood, wood of shittah tree/acacia wood; (not the tree); (Hebrew);
--- seu_Conj : Conj seu -- [XXXAX] :: or if; or; [sive ... sive => whether ... or, either ... or];
+    seu_Conj = mkConj "seu" Missing ; -- [XXXAX] :: or if; or; [sive ... sive => whether ... or, either ... or];
     severitas_F_N = mkN "severitas" "severitatis " feminine ; -- [XXXDX] :: strictness, severity;
     severitudo_F_N = mkN "severitudo" "severitudinis " feminine ; -- [XXXFS] :: severity; austerity;
 -- SLASHSTUFF severus_A : A2 severus, severa -um, severior -or -us, severissimus -a -um  -- [XXXBX] :: stern, strict, severe; grave, austere; weighty, serious; unadorned, plain;
@@ -31104,7 +31104,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     sexualitas_F_N = mkN "sexualitas" "sexualitatis " feminine ; -- [GBXEK] :: sexuality;
     sexus_M_N = mkN "sexus" "sexus " masculine ; -- [XXXAS] :: sex; (male or female); (also for plants); sexual organs;
 -- IGNORED sexus_N : N1 sexus, undeclined  -- N -- [XBXDS] :: sex; (male or female);
--- si_Conj : Conj si -- [XXXAX] :: if, if only; whether; [quod si/si quis or quid => but if/if anyone or anything];
+    si_Conj = mkConj "si" Missing ; -- [XXXAX] :: if, if only; whether; [quod si/si quis or quid => but if/if anyone or anything];
 -- IGNORED siban_N : N1 siban, undeclined  -- N -- [EXQEW] :: Sivan/Siban; third month of the Jewish ecclesiastical year;
     sibilo_V = mkV "sibilare" ; -- [XXXDX] :: hiss; hiss at;
     sibilum_N_N = mkN "sibilum" ; -- [XXXDX] :: hissing, whistling; hiss of contempt or disfavor;
@@ -31130,10 +31130,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     siclus_M_N = mkN "siclus" ; -- [DLQDS] :: shekel; (Jewish coin);
     sicubi_Adv = mkAdv "sicubi" ; -- [XXXDX] :: if anywhere, if at any place;
     sicula_F_N = mkN "sicula" ; -- [XXXFO] :: small dagger; penis;
--- sicumquam_Conj : Conj sicumquam -- [XXXFO] :: if ever; [si cumquam => if ever];
+    sicumquam_Conj = mkConj "sicumquam" Missing ; -- [XXXFO] :: if ever; [si cumquam => if ever];
     sicunde_Adv = mkAdv "sicunde" ; -- [XXXDX] :: if from any place or source;
     sicut_Adv = mkAdv "sicut" ; -- [XXXAX] :: as, just as; like; in same way; as if; as it certainly is; as it were;
--- sicut_Conj : Conj sicut -- [XXXDX] :: as, just as; like; in same way; as if; as it certainly is; as it were;
+    sicut_Conj = mkConj "sicut" Missing ; -- [XXXDX] :: as, just as; like; in same way; as if; as it certainly is; as it were;
     sicuti_Adv = mkAdv "sicuti" ; -- [XXXDX] :: as, just as; like; in same way; as if; as it certainly is; as it were;
     sidereus_A = mkA "sidereus" "siderea" "sidereum" ; -- [XXXBX] :: starry; relating to stars; heavenly; star-like;
 -- TODO sido_V : V2 sido, sidere, sidi, -  -- Declension: 3rd -- Comment: [XXXDX] :: settle; sink down; sit down; run aground;
@@ -31239,7 +31239,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     simultas_F_N = mkN "simultas" "simultatis " feminine ; -- [XXXDX] :: enmity, rivalry; hatred;
     simulus_A = mkA "simulus" "simula" "simulum" ; -- [XXXDX] :: flatnosed, snub-nosed;
     simus_A = mkA "simus" "sima" "simum" ; -- [XBXCO] :: flatnosed, snub-nosed; having flattened nose; flatten/splayed (nose/other);
--- sin_Conj : Conj sin -- [XXXBX] :: but if; if on the contrary;
+    sin_Conj = mkConj "sin" Missing ; -- [XXXBX] :: but if; if on the contrary;
     sinapis_F_N = mkN "sinapis" "sinapis " feminine ; -- [XXXEC] :: mustard;
     sinceris_A = mkA "sinceris" "sinceris" "sincere" ; -- [XXXEO] :: pure, w/no admixture of foreign material; clear/unclouded; free from fever;
     sinceritas_F_N = mkN "sinceritas" "sinceritatis " feminine ; -- [XXXCO] :: integrity, honesty, straightforwardness; soundness, physical wholeness; purity;
@@ -31282,7 +31282,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     sipunculus_M_N = mkN "sipunculus" ; -- [XXXEO] :: small tube/pipe (through which water is forced); jet (of a fountain);
     sipus_M_N = mkN "sipus" ; -- [XXXFO] :: pipe/tube (for distributing water);
     siquando_Adv = mkAdv "siquando" ; -- [XXXDX] :: if when; at what time; if/when some day; if at any time (assumed probable);
--- siquidem_Conj : Conj siquidem -- [XXXBX] :: accordingly; if indeed/in fact/it is possible, even supposing; since/in that;
+    siquidem_Conj = mkConj "siquidem" Missing ; -- [XXXBX] :: accordingly; if indeed/in fact/it is possible, even supposing; since/in that;
     siremps_Adv = mkAdv "siremps" ; -- [XXXDS] :: like, the same;
     sirempse_Adv = mkAdv "sirempse" ; -- [XXXDS] :: like, the same;
     sirpea_F_N = mkN "sirpea" ; -- [XAXEC] :: basket-work;
@@ -31312,7 +31312,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     situla_F_N = mkN "situla" ; -- [XXXDO] :: basin/urn/jar; bucket, vessel for drawing/holding water; urn/basin on monument;
     situs_A = mkA "situs" "sita" "situm" ; -- [XXXDX] :: laid up, stored; positioned, situated; centered (on);
     situs_M_N = mkN "situs" "situs " masculine ; -- [XXXBX] :: situation, position, site; structure; neglect, disuse, stagnation; mold;
--- sive_Conj : Conj sive -- [XXXAX] :: or if; or; [sive ... sive => whether ... or];
+    sive_Conj = mkConj "sive" Missing ; -- [XXXAX] :: or if; or; [sive ... sive => whether ... or];
     smalto_V = mkV "smaltare" ; -- [GXXEK] :: enamel;
     smaltum_N_N = mkN "smaltum" ; -- [GXXEK] :: enamel;
     smaragdachates_F_N = mkN "smaragdachates" "smaragdachatae " feminine ; -- [XXHNO] :: precious stone (described as a variety of agate);
@@ -32658,14 +32658,14 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     tamarix_F_N = mkN "tamarix" "tamaricis " feminine ; -- [XAXEC] :: tamarisk; (evergreen bush/shrub/tree genus Tamarix); (also myrica);
     tamdiu_Adv = mkAdv "tamdiu" ; -- [XXXDX] :: so long, for so long a time; so very long; all this time;
     tamen_Adv = mkAdv "tamen" ; -- [XXXAX] :: yet, nevertheless, still;
--- tametsi_Conj : Conj tametsi -- [XXXDX] :: even if, although, though;
+    tametsi_Conj = mkConj "tametsi" Missing ; -- [XXXDX] :: even if, although, though;
     taminius_A = mkA "taminius" "taminia" "taminium" ; -- [XAXFS] :: taminian. species of wild grape;
     tamisium_N_N = mkN "tamisium" ; -- [FXXEM] :: sieve, sifter;
--- tamquam_Conj : Conj tamquam -- [XXXAX] :: as, just as, just as if; as it were, so to speak; as much as; so as;
+    tamquam_Conj = mkConj "tamquam" Missing ; -- [XXXAX] :: as, just as, just as if; as it were, so to speak; as much as; so as;
     tandem_Adv = mkAdv "tandem" ; -- [XXXBS] :: finally; at last, in the end; after some time, eventually; at length;
     tangens_F_N = mkN "tangens" "tangentis " feminine ; -- [GSXEK] :: tangent (math);
     tangibilis_A = mkA "tangibilis" "tangibilis" "tangibile" ; -- [XXXES] :: touchable; tangible;
--- tanquam_Conj : Conj tanquam -- [XXXDX] :: as, just as, just as if; as it were, so to speak; as much as; so as;
+    tanquam_Conj = mkConj "tanquam" Missing ; -- [XXXDX] :: as, just as, just as if; as it were, so to speak; as much as; so as;
     tantillus_A = mkA "tantillus" "tantilla" "tantillum" ; -- [XXXDX] :: so small, so small a quantity;
     tantisper_Adv = mkAdv "tantisper" ; -- [XXXCO] :: for such time (as); for so long (as); for the present/meantime; all the time;
     tantopere_Adv = mkAdv "tantopere" ; -- [XXXDX] :: so much, so hard;
@@ -33580,7 +33580,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     tulipa_F_N = mkN "tulipa" ; -- [GAXEK] :: tulip;
     tullianum_N_N = mkN "tullianum" ; -- [XXICO] :: underground execution chamber in prison of Rome; (built by Servus Tullius?);
     tum_Adv = mkAdv "tum" ; -- [XXXAX] :: then, next; besides; at that time; [cum...tum => not only...but also];
--- tum_Conj : Conj tum -- [XXXDS] :: moreover; (frequent in Cicero and before; rare after);
+    tum_Conj = mkConj "tum" Missing ; -- [XXXDS] :: moreover; (frequent in Cicero and before; rare after);
     tumba_F_N = mkN "tumba" ; -- [FXXEM] :: tomb;
     tumbarius_M_N = mkN "tumbarius" ; -- [FXXEM] :: tomb-keeper;
     tumbus_M_N = mkN "tumbus" ; -- [FXXEM] :: tomb;
@@ -33701,7 +33701,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     uberte_Adv = mkAdv "uberte" ; -- [EXXCN] :: abundantly; copiously;
     ubertim_Adv = mkAdv "ubertim" ; -- [XXXDX] :: abundantly; copiously (weeping);
     ubi_Adv = mkAdv "ubi" ; -- [XXXBX] :: where; in what place; (time) when, whenever; as soon as; in which; with whom;
--- ubi_Conj : Conj ubi -- [XXXAX] :: where, whereby;
+    ubi_Conj = mkConj "ubi" Missing ; -- [XXXAX] :: where, whereby;
     ubicumque_Adv = mkAdv "ubicumque" ; -- [XXXDX] :: wherever, in whatever place; in any place, wherever that may be, somewhere;
     ubinam_Adv = mkAdv "ubinam" ; -- [XXXDX] :: where in the world?;
     ubiquaque_Adv = mkAdv "ubiquaque" ; -- [XXXDX] :: everywhere;
@@ -33902,7 +33902,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     usurpatio_F_N = mkN "usurpatio" "usurpationis " feminine ; -- [XLXBO] :: |assertion of right/privilege by use; usage; constant carrying out (practices);
     usurpo_V = mkV "usurpare" ; -- [XXXDX] :: seize upon, usurp; use;
     usus_M_N = mkN "usus" "usus " masculine ; -- [XXXAX] :: use, enjoyment; experience, skill, advantage; custom;
--- ut_Conj : Conj ut -- [XXXAX] :: to (+ subjunctive), in order that/to; how, as, when, while; even if;
+    ut_Conj = mkConj "ut" Missing ; -- [XXXAX] :: to (+ subjunctive), in order that/to; how, as, when, while; even if;
     utcumque_Adv = mkAdv "utcumque" ; -- [XXXBO] :: whatever, as far as; in whatever manner/degree. no matter how/to what extent;
     utcunque_Adv = mkAdv "utcunque" ; -- [XXXBO] :: whatever, as far as; in whatever manner/degree. no matter how/to what extent;
     utens_A = mkA "utens" "utentis"; -- [XXXFO] :: having money to spend;
@@ -33912,7 +33912,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     uter_N_N = mkN "uter" "utris " neuter ; -- [XXXDS] :: skin; wine/water skin; bag/bottle made of skin/hide; (inflated for flotation);
     uterum_N_N = mkN "uterum" ; -- [XXXDX] :: womb; belly, abdomen;
     uterus_M_N = mkN "uterus" ; -- [XXXDX] :: womb; belly, abdomen;
--- uti_Conj : Conj uti -- [XXXAX] :: in order that; that, so that; as, when; [ut primum => as soon as];
+    uti_Conj = mkConj "uti" Missing ; -- [XXXAX] :: in order that; that, so that; as, when; [ut primum => as soon as];
     utibilis_A = mkA "utibilis" "utibilis" "utibile" ; -- [BXXES] :: useful; serviceable;
     utilis_A = mkA "utilis" "utilis" "utile" ; -- [XXXAX] :: useful, profitable, practical, helpful, advantageous;
     utilitas_F_N = mkN "utilitas" "utilitatis " feminine ; -- [XXXBX] :: usefulness, advantage;
@@ -33942,8 +33942,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     utrubique_Adv = mkAdv "utrubique" ; -- [XXXCO] :: in both places; on both parts/sides/cases/instances; on one side and the other;
     utrum_Adv = mkAdv "utrum" ; -- [XXXBO] :: whether; (introducing an indirect question); [utrum...an => whether...or];
     utrumlibet_Adv = mkAdv "utrumlibet" ; -- [EXXFZ] :: on either side; whichever/wherever (side) you please;
--- utrumnam_Conj : Conj utrumnam -- [EXXFP] :: whether; (Vulgate 1 Samuel 10:22);
--- utut_Conj : Conj utut -- [XXXCO] :: however; in whatever way;
+    utrumnam_Conj = mkConj "utrumnam" Missing ; -- [EXXFP] :: whether; (Vulgate 1 Samuel 10:22);
+    utut_Conj = mkConj "utut" Missing ; -- [XXXCO] :: however; in whatever way;
     uva_F_N = mkN "uva" ; -- [XXXBX] :: grape;
 -- TODO uvesco_V : V2 uvesco, uvescere, -, -  -- Declension: 3rd -- Comment: [XXXDX] :: become wet;
     uvidulus_A = mkA "uvidulus" "uvidula" "uvidulum" ; -- [XXXDX] :: wet, damp;
@@ -34104,7 +34104,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     vehementer_Adv =mkAdv "vehementer" "vehementius" "vehementissime" ; -- [XXXDX] :: vehemently, vigorously; exceedingly, very much;
     vehiculum_N_N = mkN "vehiculum" ; -- [XXXDX] :: carriage, vehicle;
     vel_Adv = mkAdv "vel" ; -- [XXXBX] :: even, actually; or even, in deed; or;
--- vel_Conj : Conj vel -- [XXXAX] :: or; [vel ... vel => either ... or];
+    vel_Conj = mkConj "vel" Missing ; -- [XXXAX] :: or; [vel ... vel => either ... or];
     velamen_N_N = mkN "velamen" "velaminis " neuter ; -- [XXXCO] :: veil;  for nun/Muslim); covering (esp. clothing for body/parts);
     velamentum_N_N = mkN "velamentum" ; -- [XXXDX] :: cover, olive-branch wrapped in wool carried by a suppliant;
     velarium_N_N = mkN "velarium" ; -- [XXXDS] :: awning; covering (over theater);
@@ -34292,7 +34292,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     veru_N_N = mkN "veru" "verus " neuter ; -- [XXXCO] :: spit (for roasting meat); point of javelin/weapon; spiked railing (pl.);
     verum_Adv = mkAdv "verum" ; -- [XXXDX] :: yes; in truth; certainly; truly, to be sure; however;   (rare form, usu. vero);
     verum_N_N = mkN "verum" ; -- [XXXDX] :: truth, reality, fact;
--- verumtamen_Conj : Conj verumtamen -- [XXXDX] :: but yet, nevertheless, but even so, still (resuming after digression);
+    verumtamen_Conj = mkConj "verumtamen" Missing ; -- [XXXDX] :: but yet, nevertheless, but even so, still (resuming after digression);
 -- SLASHSTUFF verus_A : A2 verus, vera -um, verior -or -us, verissimus -a -um  -- [XXXAX] :: true, real, genuine, actual; properly named; well founded; right, fair, proper;
     verutum_N_N = mkN "verutum" ; -- [XXXDX] :: dart;
     verutus_A = mkA "verutus" "veruta" "verutum" ; -- [XXXEC] :: armed with a javelin;

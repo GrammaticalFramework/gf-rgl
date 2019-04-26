@@ -1161,8 +1161,9 @@ oper
   -- conjunctions
 param Coordinator = And | Or | If | Neither | Because | Comma | Colon | Empty | Missing ; -- Missing means not implemented yet
 oper
-  Conjunction : Type = { s1 : Str ; s2 : Str ; n : Number ; c : Coordinator };
-  mkConjunction : Str -> Str -> Number -> Coordinator -> Conjunction = \s1,s2,num,coord -> { s1 = s1; s2 = s2 ; n = num ; c = coord } ;
+  Conjunction : Type = { s1 : Str ; s2 : Str ; s3 : Str ; n : Number ; c : Coordinator } ; -- s1 is in the beginning of the coordination phrase, s2 in the middle and s3 is a potential enclitic, s is the prefered number of the coordination phrase and c is the parameter to define which string to put within the phrase
+  mkConjunction : Str -> Str -> Str -> Number -> Coordinator -> Conjunction =
+\s1,s2,s3,num,coord -> { s1 = s1; s2 = s2 ; s3 = s3 ; n = num ; c = coord } ;
   
   VPSlash = VerbPhrase ** {c : Preposition} ;
 
