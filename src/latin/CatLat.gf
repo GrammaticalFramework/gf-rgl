@@ -93,4 +93,5 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     V, VS, VQ, VA = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
     V2, V2A, V2Q, V2S = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
     Pron = \p -> p.pers.s ! PronNonDrop ! PronNonRefl ! Nom ;
+    Conj = \c -> c.s1 ++ c.s2 ;
 }
