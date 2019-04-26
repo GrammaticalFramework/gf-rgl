@@ -65,7 +65,7 @@ concrete LexiconPes of Lexicon = CatPes **
   cow_N = mkN01 "گاو" animate;
   die_V = mkV "مردن" "میر" ;
   dirty_A = mkA "کثیف" ;
-  distance_N3 = (mkN "فاصله" "فواصل" inanimate ) ** {c2="از" ; c3 = "تا"};
+  distance_N3 = mkN3 (mkN "فاصله" "فواصل" inanimate ) "از"  "تا" ;
   doctor_N = mkN01 "دکتر" animate; -- has variant "پزشک", but only a doctor in medicine
   dog_N = mkN01 "سگ" animate;
   door_N = mkN01 "در" inanimate;

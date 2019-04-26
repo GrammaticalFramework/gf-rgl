@@ -42,11 +42,13 @@ oper
   } ;
 
   mkN2 : overload {
-    mkN2 : (key : N) -> (to : Str) -> N2 -- Takes a noun and a complementiser, returns a N2.
+    mkN2 : (key : N) -> (to : Str) -> N2 ; -- Takes a noun and a complementiser as a string, returns a N2.
+    mkN2 : (key : N) -> (to : Prep) -> N2 -- Takes a noun and a complementiser as a Prep, returns a N2.
   } ;
 
   mkN3 : overload {
-    mkN3 : (distance : N) -> (from,to : Str) -> N3 -- Takes a noun and two complementisers, returns a N3.
+    mkN3 : (distance : N) -> (from,to : Str) -> N3 ; -- Takes a noun and two complementisers as strings, returns a N3.
+    mkN3 : (distance : N) -> (from,to : Prep) -> N3 -- Takes a noun and two complementisers as Preps, returns a N3.
   } ;
 
 -- Compound Nouns
@@ -124,7 +126,7 @@ oper
 
   mkV3 = overload {
     mkV3 : Str -> V3 -- Predictable V3, را for direct object, no prepositions.
-     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = prepOrRa []}) ;
+     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = noPrep}) ;
     mkV3 : V -> (dir,indir : Str) -> V3 -- Takes a verb and two prepositions or را as strings (can be empty).
      = \v,p,q -> lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
     mkV3 : V -> (dir,indir : Prep) -> V3 -- Takes a verb and two prepositions
@@ -140,9 +142,9 @@ oper
 
   mkVA = overload {
     mkVA : Str -> VA -- predictable verb with adjective complement
-      = \s -> lin VA (regV s ** {c2 = prepOrRa []}) ;
+      = \s -> lin VA (regV s ** {c2 = noPrep}) ;
     mkVA : V -> VA -- VA out of a verb
-      = \v -> lin VA (v ** {c2 = prepOrRa []}) ;
+      = \v -> lin VA (v ** {c2 = noPrep}) ;
     mkVA : V -> Prep -> VA -- VA out of a verb and preposition
       = \v,p -> lin VA (v ** {c2 = p}) ;
     } ;
@@ -214,9 +216,9 @@ oper
 
   mkSubj = overload {
     mkSubj : Str -> Subj -- Takes its verbal complement in indicative.
-      = \s -> lin Subj {s=s ; compl=indicative} ;
+      = \s -> mkSubj' s ;
     mkSubj : VVForm -> Str -> Subj -- Specify whether it takes complement in subjunctive or indicative.
-      = \vvf,s -> lin Subj {s=s ; compl=vvf}
+      = \vvf,s -> mkSubj' s ** {compl=vvf}
   } ;
 
   mkInterj : Str -> Interj
@@ -245,6 +247,13 @@ oper
 
   Mod = ResPes.Mod ;
   ezafe = ResPes.Ezafe ;
+
+
+  mkSubj' : Str -> Subj ;
+  mkSubj' s = lin Subj (case s of {
+    "آن" => {s = [] ; relpron = Ance ; compl = indicative} ;
+     _    => {s = s ; relpron = Ke ; compl = indicative}
+    }) ;
 
 -- Removed mkV_1, mkV_2, mkN01 and mkN02 from public API, still available for
 -- any applications that open ParadigmsPes. /IL 2019-02-08
@@ -360,25 +369,29 @@ oper
     "را" => {s = [] ; ra = "را" ; mod=Bare} ;
     prep  => {s = prep ; ra = []; mod=Bare}
     } ;
+  noPrep = prepOrRa [] ;
+  ezafePrep = {s = [] ; ra = [] ; mod=Ezafe} ;
 
   mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare} ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 -- Predictable N2 without complement
-      = \s -> lin N2 (mkN01 s inanimate ** {c2,compl = []}) ;
+      = \s -> lin N2 (mkN01 s inanimate ** {c2 = ezafePrep ; compl = []}) ;
     mkN2 : N -> N2 -- N2 from without complement
-      = \n -> lin N2 (n ** {c2,compl = []}) ;
+      = \n -> lin N2 (n ** {c2 = ezafePrep ; compl = []}) ;
     mkN2 : N -> Str -> N2
-      = \n,c -> lin N2 (n ** {c2 = c ; compl = []}) ;
+      = \n,c -> lin N2 (n ** {c2 = prepOrRa c ; compl = []}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API
-      = \n,p,c -> lin N2 (n ** {c2 = p.s; compl = []})
+      = \n,p,c -> lin N2 (n ** {c2 = p; compl = []})
   } ;
 
   mkN3 = overload {
     mkN3 : N -> Str -> Str -> N3
+      = \n,p,q -> lin N3 (n ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
+    mkN3 : N -> Prep -> Prep -> N3
       = \n,p,q -> lin N3 (n ** {c2 = p ; c3 = q}) ;
     mkN3 : N -> Prep -> Str -> Str -> N3 -- hidden from public API
-      = \n,p,q,r -> lin N3 (n ** {c2 =  p.s ; c3 = q ; c4 = r}) -- there is no c4
+      = \n,p,q,r -> lin N3 (n ** {c2 =  p ; c3 = prepOrRa q ; c4 = r}) -- there is no c4
   } ;
 
 
