@@ -15,6 +15,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
     CardOrd = NCard | NOrd ;
     RAgr = RNoAg | RAg Agr ;
     RelPron = Ance | Ke ; -- https://en.wiktionary.org/wiki/%D8%A2%D9%86%DA%86%D9%87
+    WordOrder = OV | VO ; -- for showVPH
 
   oper
     CN : Type = Noun ** {
@@ -102,18 +103,22 @@ oper
       } ;
 
   showVPH = overload {
-    showVPH : VerbForm -> Agr -> VPH -> Str = showVPH' False VVPres ;
-    showVPH : VVTense -> VerbForm -> Agr -> VPH -> Str = showVPH' False
+    showVPH : VerbForm -> Agr -> VPH -> Str = showVPH' OV False VVPres ;
+    showVPH : VVTense -> VerbForm -> Agr -> VPH -> Str = showVPH' OV False
   } ;
 
-  showVPH' : Bool -> VVTense -> VerbForm -> Agr -> VPH -> Str =
-    \showImpPref,ant,vf,agr,vp ->
+  showVPH' : WordOrder -> Bool -> VVTense -> VerbForm -> Agr -> VPH -> Str =
+    \wo,showImpPref,ant,vf,agr,vp ->
        let impPref = case showImpPref of {
          True => vp.s ! ImpPrefix Pos ;
          False => [] }
-        in vp.ad ++ vp.comp ! agr ++ vp.obj
-        ++ vp.prefix ++ impPref ++ vp.s ! vf
-        ++ vp.vComp ! agr ! ant ++ vp.embComp ;
+        in case wo of {
+         OV => vp.ad ++ vp.comp ! agr ++ vp.obj
+            ++ vp.prefix ++ impPref ++ vp.s ! vf
+            ++ vp.vComp ! agr ! ant ++ vp.embComp ;
+         VO => vp.prefix ++ vp.s ! vf ++ vp.ad
+            ++ vp.comp ! agr ++ vp.obj ++ impPref
+            ++ vp.vComp ! agr ! ant ++ vp.embComp } ;
 
   Compl : Type = {s : Str ; ra : Str ; mod : Mod} ;
 
@@ -189,7 +194,7 @@ oper
     \\agr,ant => if_then_Str vv.isAux conjThat [] ++
       case <ant,vv.isDef,vv.compl> of {
        -- Auxiliaries with defective inflection: complement inflects in tense
-        <VVPast Indic,True,>  => showVPH' True VVPres (VPast Pos agr) agr vp ;
+        <VVPast Indic,True,>  => showVPH' OV True VVPres (VPast Pos agr) agr vp ;
         <VVPast Indic,_,_>    => showVPH (VPast Pos agr) agr vp ;
         <VVPast Subj>         => showVPH PerfStem agr vp ++ subjAux Pos agr ;
 
