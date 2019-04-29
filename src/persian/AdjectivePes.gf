@@ -14,7 +14,7 @@ concrete AdjectivePes of Adjective = CatPes ** open ResPes, Prelude in {
 ---- $SuperlA$ belongs to determiner syntax in $Noun$.
 
   ComplA2 a np = a ** {
-    s = \\m => np2str np ++ a.c2 ++ a.s ! m ;
+    s = \\m => a.c2 ++ np2str np ++ a.s ! m ;
     adv = np2str np ++ a.c2 ++ a.adv
     } ;
 

@@ -150,10 +150,12 @@ oper
     } ;
 
   mkVS = overload {
-   mkVS : Str -> VS -- predictable verb with sentence complement
+   mkVS : Str -> VS -- predictable verb with sentence complement in subjunctive.
     = \s -> lin VS (regV s ** {compl=subjunctive}) ;
-   mkVS : V -> VS -- VS out of a verb
-    = \v -> lin VS (v ** {compl=subjunctive})
+   mkVS : V -> VS -- VS out of a verb, sentence complement in subjunctive.
+    = \v -> lin VS (v ** {compl=subjunctive}) ;
+   mkVS : VVForm -> V -> VS -- sentence complement given as argument
+    = \vvf,v -> lin VS (v ** {compl=vvf}) ;
   } ;
 
   mkVV = overload {
@@ -168,6 +170,19 @@ oper
   } ;
 
   defVV : VV -> VV = \vv -> vv ** {isDef=True} ;
+
+  mkV2S = overload {
+    mkV2S : Str -> V2S -- predictable morphology, direct object with را, sentence complement in subjunctive.
+     = \s -> lin V2S (regV s ** {compl=subjunctive ; c2 = prepOrRa "را"}) ;
+    mkV2S : V -> V2S  -- direct object with را, sentence complement in subjunctive.
+     = \v -> lin V2S (v ** {compl=subjunctive ; c2 = prepOrRa "را"}) ;
+    mkV2S : Prep -> VVForm -> V -> V2S  -- direct object and mood for sentence complement as arguments.
+     = \prep,vvf,v -> lin V2S (v ** {compl=vvf ; c2 = prep}) ;
+    mkV2S : V2 -> V2S -- direct object given by V2, sentence complement in subjunctive.
+     = \v2 -> lin V2S (v2 ** {compl=subjunctive}) ;
+    mkV2S : VS -> V2S -- direct object with را, sentence complement given by VS.
+     = \vs -> lin V2S (vs ** {c2 = prepOrRa "را"})
+    } ;
 
   mkV2V = overload {
     mkV2V : V -> (cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the noun, whether it's auxiliary.
