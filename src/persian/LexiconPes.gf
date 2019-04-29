@@ -10,7 +10,7 @@ concrete LexiconPes of Lexicon = CatPes **
   lin
 
   airplane_N = mkN01 "هواپیما" inanimate ;
-  answer_V2S = mkV2  (compoundV "جواب" giveVerb) "به" False;
+  answer_V2S = mkV2S (mkV2  (compoundV "جواب" giveVerb) "به" False) ;
   apartment_N = mkN01 "آپارتمان" inanimate;
   apple_N = mkN01 "سیب" inanimate;
   art_N = mkN01 "هنر" inanimate;

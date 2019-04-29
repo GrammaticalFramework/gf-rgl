@@ -77,11 +77,12 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
       relpron : RelPron -- choose between که and آنچه
       } ;
     VS = ResPes.Verb ** {compl : VVForm} ; -- subjunctive or indicative
+    V2S = ResPes.Verb ** {c2 : Compl ; compl : VVForm} ;
     Prep = Compl ;
 ---- Open lexical classes, e.g. Lexicon
     V, VQ = ResPes.Verb ;
 
-    V2, VA, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
+    V2, VA, V2A, V2Q = ResPes.Verb ** {c2 : Compl} ;
     V3 = ResPes.Verb ** {c2, c3 : Compl} ;
     VV = ResPes.VV ;
     V2V = ResPes.VV ** {c2 : Compl} ;
