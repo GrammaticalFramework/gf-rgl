@@ -54,7 +54,7 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
   VPSlashPrep vp prep = vp ** vs prep ;
 
 
-    AdvVP vp adv = insertAdV adv.s vp ;
+    AdvVP vp adv = insertAdv adv.s vp ;
     AdVVP adv vp = insertAdV adv.s vp ;
     ReflVP = insertCompPre reflPron ;
     PassV2 = passV ;
@@ -64,6 +64,7 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     CompAdv adv = {s = \\_ => adv.s} ;
 
     -- see https://sites.la.utexas.edu/persian_online_resources/nouns/noun-in-a-predicative-position/
+    -- TODO: extend this to all verbs, when NP is indefinite
     CompCN cn = {
       s = \\a => cn.s ! giveNumber a
                       ! case cn.hasAdj of {

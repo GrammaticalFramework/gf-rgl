@@ -70,7 +70,7 @@ param
   VVType = NoVV | FullVV | DefVV ;
   VVForm = Indic | Subj ; ---| SubjPast ; -- TODO extend this to VV, VS and Subj
   VVTense = VVPres | VVPast VVForm ;
-  TAnt = TA Tense Anteriority ;
+  TAnt = Ind Tense Anteriority | Sub Anteriority ;
 
 oper
 
@@ -78,10 +78,10 @@ oper
   -- قاتل نمی توانسته آنجا بوده باشد، چون او آن زمان در پاریس بوده
   -- The form is created in complVV, but not currently used in other functions. /IL
   ta2vvt : TAnt -> VVType -> VVTense = \ta,vvtype -> case ta of {
-    TA Pres Anter |
-    TA Past _     => VVPast Indic ;
-    TA Cond Simul => VVPres ;
-    TA Cond Anter =>
+    Ind Pres Anter |
+    Ind Past _     => VVPast Indic ;
+    Ind Cond Simul => VVPres ;
+    Ind Cond Anter =>
        case vvtype of {
           DefVV => VVPast Indic ;
           _     => VVPres } ;
@@ -205,8 +205,12 @@ oper
         _ => showVPH (VSubj Pos agr) agr vp
     } ;
 
-  insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
+  insertAdv : Str -> VPH -> VPH = \ad,vp -> vp ** {
     ad = vp.ad ++ ad ;
+  } ;
+
+  insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
+    ad = ad ++ vp.ad ;
   } ;
 
   conjThat : Str = "که" ;
@@ -220,23 +224,23 @@ oper
 
   clTable : VPH -> (Agr => TAnt => Polarity => Str) = \vp ->
     \\agr,vt,pol => vp.prefix ++ case vt of {
-      TA Pres Simul => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ; -- for reg. verbs, VAor pol is invariant and negation comes in ImpPrefix.
-      TA Pres Anter => vp.s ! VPerf pol agr ;
-      TA Past Simul => vp.s ! VPast pol agr ; -- Past Simul: simple past
-      TA Past Anter | TA Cond _ =>   -- Past Anter & Cond _: continuous past
+      Ind Pres Simul => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ; -- for reg. verbs, VAor pol is invariant and negation comes in ImpPrefix.
+      Ind Pres Anter => vp.s ! VPerf pol agr ;
+      Ind Past Simul => vp.s ! VPast pol agr ; -- Past Simul: simple past
+      Ind Past Anter | Ind Cond _ =>   -- Past Anter & Cond _: continuous past
         case vp.vvtype of {
           DefVV => vp.s ! VPast pol agr ;
           _ => vp.s ! ImpPrefix pol ++ vp.s ! VPast Pos agr } ;
-      TA Fut  Simul =>
+      Ind Fut  Simul =>
          case vp.vvtype of {
            DefVV => vp.s ! ImpPrefix pol ++ vp.s ! VAor pol agr ;
            _ => futAux pol agr ++ vp.s ! PastStem
          } ; -- PastStem is, despite the name, used for future too. /IL
-      TA Fut  Anter =>
+      Ind Fut  Anter =>
          case vp.vvtype of {
            DefVV => vp.s ! VPerf pol agr ;
-           _ => futAux pol agr ++ vp.s ! PastStem
-         }
+           _ => futAux pol agr ++ vp.s ! PastStem } ;
+      Sub _ => vp.s ! VSubj pol agr -- TODO: anterior subjunctive ?
   } ;
 
   mkClause : NP -> VPH -> Clause = \np,vp ->

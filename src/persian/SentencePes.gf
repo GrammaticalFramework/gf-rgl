@@ -43,22 +43,22 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     UseCl temp p cl = {
       s = \\vvf => temp.s ++ p.s ++ case vvf of {
-            Indic => cl.s ! TA temp.t temp.a ! p.p ! ODir ;
-            Subj  => cl.s ! TA Cond   temp.a ! p.p ! ODir }
+            Indic => cl.s ! Ind temp.t temp.a ! p.p ! ODir ;
+            Subj  => cl.s ! Sub        temp.a ! p.p ! ODir }
       } ;
 
-    UseQCl temp p qcl  = let vt = TA temp.t temp.a in {
+    UseQCl temp p qcl  = let vt = Ind temp.t temp.a in {
       s = temp.s ++ p.s ++ qcl.s ! vt ! p.p ;
       } ;
 
-    UseRCl temp p rcl = let vt = TA temp.t temp.a in rcl ** {
+    UseRCl temp p rcl = let vt = Ind temp.t temp.a in rcl ** {
       s = \\a => temp.s ++ p.s ++ rcl.s ! vt ! p.p ! a
       } ;
 
     UseSlash temp p cls = cls ** {
       s = \\vvf => temp.s ++ p.s ++ cls.subj ++ case vvf of {
-            Indic => cls.vp ! TA temp.t temp.a ! p.p ! ODir ;
-            Subj  => cls.vp ! TA Cond   temp.a ! p.p ! ODir }
+            Indic => cls.vp ! Ind temp.t temp.a ! p.p ! ODir ;
+            Subj  => cls.vp ! Sub        temp.a ! p.p ! ODir }
       } ;
 
     AdvS a s = {s = \\vvf => a.s ++ s.s ! vvf} ;
