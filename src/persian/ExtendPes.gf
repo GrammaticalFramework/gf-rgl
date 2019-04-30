@@ -43,9 +43,9 @@ lin
   ByVP vp = lin Adv {s = with_Prep.s ++ showVPH' VO False VVPres Inf defaultAgr vp } ;
 
   -- : VP -> Adv ;         -- (in order) to publish the document
-  InOrderToVP vp = lin Adv {s = for_Prep.s ++ showVPH PerfStem defaultAgr vp} ;
-
-
-
-
+  InOrderToVP vp = lin Adv {s = for_Prep.s
+    ++ case vp.passive of {
+         Replace => showVPH PerfStem defaultAgr <vp ** {s = \\vf => []} : VP> ; -- only show prefix
+         _ => showVPH PerfStem defaultAgr vp}
+   } ;
 }
