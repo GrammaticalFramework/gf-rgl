@@ -205,8 +205,12 @@ oper
         _ => showVPH (VSubj Pos agr) agr vp
     } ;
 
-  insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
+  insertAdv : Str -> VPH -> VPH = \ad,vp -> vp ** {
     ad = vp.ad ++ ad ;
+  } ;
+
+  insertAdV : Str -> VPH -> VPH = \ad,vp -> vp ** {
+    ad = ad ++ vp.ad ;
   } ;
 
   conjThat : Str = "که" ;
