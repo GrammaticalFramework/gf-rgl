@@ -22,9 +22,9 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
       } ;
 
     SlashVV vv vps = vps ** ComplVV vv vps ;
-    SlashV2S v s  = predVc v ** embComp (conjThat ++ s.s ! Indic) (predV v) ;
-    SlashV2Q v q  = predVc v ** embComp q.s (predV v) ;
-    SlashV2A v ap = predVc v ** insertObj (appComp v.c2 ap.s)     (predV v) ; ---- paint it red , check form of adjective
+    SlashV2S v s  = predVc v ** ComplVS v s ;
+    SlashV2Q v q  = predVc v ** ComplVQ v q ;
+    SlashV2A v ap = predVc v ** insertObj (appComp v.c2 ap.s) (predV v) ; ---- paint it red , check form of adjective
 
     -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
     SlashV2V v2v vp = predVc v2v ** {

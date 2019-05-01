@@ -7,7 +7,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     PredVP np vp = mkClause np vp ;
 
-    PredSCVP sc vp = mkSClause ("این" ++ sc.s) defaultAgr vp ;
+    PredSCVP sc vp = mkSClause sc.s defaultAgr vp ;
 
     ImpVP vp = {
       s = \\pol,n =>
