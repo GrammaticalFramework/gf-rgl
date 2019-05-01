@@ -34,7 +34,10 @@ lin
   EmbedPresPart vp = lin SC {s = showVPH Inf defaultAgr vp} ;
 
   -- : SSlash -> SC
-  EmbedSSlash ss = {s = conjThat ++ ss.s ! Indic ++ ss.c2.s} ;
+  -- Not optimal: complement with آن should go after subject, but SSlash is already fixed.
+  -- You can get the more idiomatic word order by using other RGL functions, so it's
+  -- less critical to tweak this function and SSlash (pretty marginal category). /IL
+  EmbedSSlash ss = {s = "آنچه" ++ appComp ss.c2 (\\_ => "آن") ++ ss.s ! Indic} ;
 
   -- : Adv -> NP -> Cl -- here is the car / here are the cars
   AdvIsNP adv np = mkClause (indeclNP adv.s ** {a = np.a}) (UseComp (CompNP np)) ;
