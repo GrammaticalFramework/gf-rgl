@@ -16,16 +16,19 @@ oper
 
 
   mkN = overload {
-    mkN : (fish : Str) -> NClass -> N
+    mkN : (fish : Str) -> Gender -> N
       = \fish,nclass -> lin N (mkNoun fish fish nclass) ;
-    mkN : (man,men : Str) -> NClass -> N
+    mkN : (man,men : Str) -> Gender -> N
       = \man,men,nclass -> lin N (mkNoun man men nclass) ;
     } ;
 
-  mkV = overload {
-    mkV : (cry : Str) -> V
-      = \cry -> lin V (mkVerb cry) ;
-    };
+
+  mkV  : Str -> Verb = \root ->{s =root; morphs= mkVerbMorphs};
+  mkV2 : Str -> Verb2 = \root ->mkV root **  {comp =[]};
+  --mkV = overload {
+    --mkV : (cry : Str) -> V
+      --= \cry -> lin V (mkVerb cry) ; -- what does it mean to create a lin on the fly
+    --};
 
 
 {- Note: The following is copied from the file swahili/ParadigmsSwa.gf

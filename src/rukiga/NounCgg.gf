@@ -4,10 +4,16 @@ concrete NounCgg of Noun = CatCgg **
   open ResCgg, Prelude in {
 
 lin 
-
-  UsePron pron = pron; -- the result of use pron is a NounPhrase
-
-  DetCN det cn = mkDeterminer det cn; --Should be nemed mkDetCN
+  
+  --UsePN   : PN -> NP ;          -- John
+  UsePN pn = {s = \\ _ =>  pn.s; agr = pn.a}; -- John
+  
+  UsePron pron = { s = pron.s; agr = pron.agr};  --: Pron -> NP ;            -- he
+  --UsePron pron = pron; -- the result of use pron is a NounPhrase
+  --MassNP     : CN -> NP ;            -- (beer)
+  MassNP cn = {s = \\_ =>cn.s ! Complete ! Pl; agr = AgP3 Pl cn.gender};   --: CN -> NP ; -- milk
+  --DetCN det cn = mkDeterminer det cn; --Should be nemed mkDetCN
+  DetCN  det cn =  mkDetCN det cn;       -- the man
     {-
     case det.pos of{ 
                      PreDeterminer =>{s = det.s ++ cn.s!det.ntype!det.num} ;
@@ -17,7 +23,54 @@ lin
   UseN noun = noun ;
 
   --Noun = {s : NounType=>Number => Str ; nc : NClass} ;
-  AdjCN ap cn = {s=\\ntype, num=>cn.s!ntype!num ++ ap.s!AgP3 num cn.nc; nc=cn.nc};
+  --AdjCN ap cn = {s=\\ntype, num=>cn.s!ntype!num ++ ap.s!AgP3 num cn.nc; nc=cn.nc};
+    AdjCN ap cn = 
+      case <ap.isPre, ap.isProper, > of {
+          <True, True> => { 
+                    s = \\ ns, num =>ap.s ++ cn.s ! ns ! num ; 
+                    gender = cn.gender 
+                  };
+          <False, False> => case ap.isPrep of {
+                     False  =>  { 
+                            s = \\ ns, num => cn.s ! ns ! num ++ mkAdjPronIVClitic (AgP3 num cn.gender) 
+                                 ++ ap.post ; 
+                              gender = cn.gender   
+                          };
+                     True  =>  { 
+                            s = \\ ns, num => (cn.s ! ns ! num) ++ 
+                                mkGenPrepNoIVClitic (AgP3 num cn.gender) ++ ap.post ; 
+                            gender = cn.gender 
+                          }
+                  };
+          <True, False> => { 
+                    s = \\ ns, num => mkAdjPronIVClitic (AgP3 num cn.gender) 
+                               ++ ap.s ++ (cn.s ! ns ! num) ; 
+                    gender = cn.gender 
+                  };
+          <False, True> => { 
+                     s = \\ ns, num => (cn.s ! ns ! num) ++ ap.post ; 
+                     gender = cn.gender
+                  }                   
+
+    };        -- big house
+
+
+    {-
+      A predeterminer is any word that modifies a noun Phrase.
+      These Predeterminers are found in Structural
+    -}
+    --PredetNP : Predet -> NP -> NP ; -- only the man 
+    PredetNP predet np = let a = np.agr;
+                             nomS = np.s ! Nom; --It does not matter which. Just pick out one.
+                             accS = np.s ! Acc;
+                         in
+                          case <predet.isMWE, predet.isInflected> of {
+                              <False, True>  => {s = \\_ =>nomS ++ mkPredetPref a ++ Predef.BIND ++ predet.s ; agr = a};
+                              <True, True >  => {s = \\_ =>nomS ++ mkPredetPref a ++ Predef.BIND ++ predet.s  ++
+                                                 mkPredetPref a ++ Predef.BIND ++ predet.s2; agr = a};
+                              <False,False>  => {s = \\_ =>nomS ++ predet.s ; agr = a};
+                              <True,False>   => {s = \\_ =>nomS ++ predet.s ++ predet.s2; agr = a} -- never seen this case              
+                          };
 
 --    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
 {-
@@ -25,15 +78,15 @@ lin
 -}
 --DetQuant quant num = {s = quant.s ++ num.s ; ntype = Complete ; num = num.n ; pos = PostDeterminer } ;
 
-  NumSg = {s=[]; n=Sg};
-  NumPl = {s=[]; n=Pl};
+  --NumSg = {s=[]; n=Sg};
+  --NumPl = {s=[]; n=Pl};
   -- NumCard card = {...};
 
-  IndefArt = {s=[]};
-  DefArt = {s=[]} ;
+  --IndefArt = {s=[]};
+  --DefArt = {s=[]} ;
 
 -- AdvCN   : CN -> Adv -> CN ;   -- house on the hill
-   AdvCN cn adv ={s=\\ntype,num =>cn.s!ntype!num ++ adv.s!(AgP3 num cn.nc); nc=cn.nc};
+   --AdvCN cn adv ={s=\\ntype,num =>cn.s!ntype!num ++ adv.s!(AgP3 num cn.nc); nc=cn.nc};
 {-
 --1 Noun: Nouns, noun phrases, and determiners
 

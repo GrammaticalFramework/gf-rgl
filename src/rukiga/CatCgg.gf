@@ -4,7 +4,18 @@ concrete CatCgg of Cat = CommonX -[Adv]**
   open (Res=ResCgg), Prelude in {
 
 lincat
-
+  
+  --Pol = {s : Str ; isTrue: Bool}; -- TRUE= Positive, FALSE=Negative, s filed is left empty for parsing
+  {-
+  Temp is a parameter for temporal features such as Simul and Anteriority:
+      TRUE =  Simultainity
+      FALSE = Anteriority
+  -}
+  --Temp = {s : Str ; isPres : Bool} ;
+  --cat
+  Imp = {s : Bool => Str} ;
+      
+  QS = {s : Str} ;
   -- Note: SS is a shorthand for {s:Str}, defined in Prelude.gf
   -- You must change some of the lincats (e.g., for NP, Det and Pron) so that everything works
 
@@ -21,12 +32,16 @@ lincat
   Det = Res.Determiner ;          -- determiner phrase                   e.g. "those seven"
   Quant = SS ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
   Num = Res.Numer ;               -- number determining element          e.g. "seven"
-  AP = Res.AdjectivalPhrase;
+  AP = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool} ;--Res.AdjectivalPhrase;
   A  = Res.Adjective;
-  Comp = Res.AdjectivalPhrase;    -- complement of copula, such as AP  e.g. "very warm"
+  Comp = Res.Comp;    -- complement of copula, such as AP  e.g. "very warm"
   V2 = Res.Verb2;
-  Adv = Res.Adv;
+  Adv = Res.Adverb;
   VPSlash = Res.VPSlash;
+  PN = Res.ProperNoun; -- ProperNoun : Type = {s: Str ; a:Agreement ; isPlace : Bool};
+  Conj = Res.Conjunction; -- Conjunction: Type = {s : AgrConj =>Str ;s2 : Str ; n : Number} ; -- conjunction e.g. "and"
+  -- see Structural for explanation of this structure
+  Predet = {s : Str ; s2 : Str; isMWE : Bool; isInflected : Bool}; -- predeterminer (prefixed Quant)      e.g. "all"
 {-
 --1 Cat: the Category System
 

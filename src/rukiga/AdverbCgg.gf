@@ -4,16 +4,21 @@ concrete AdverbCgg of Adverb = CatCgg **
   open ResCgg, Prelude in {
 
 lin
-  --PrepNP      : Prep -> NP -> Adv --adverb of place pg 118 part (c)
+  --PrepNP      : Prep -> NP -> Adv -- Verb Phrase modifyingadverb such as everywhere
+
+  --adverb of place pg 118 part (c)
   -- some prepositions can only operate with CN but not PN
   -- how can we distinguish NPs i.e if they are CN or PN?
   -- because aha is used for CN while aha-ri is used for PN Omubazi
   -- nigukora ahari John
   -- The nounPhrase must carry information about its derivation
-  PrepNP prep np = {s = \\ agr => prep.s ++ np . s}; -- aha meza
+  
+  {-Assumed that a PrepNP is always Acc-}
+  PrepNP prep np = {s = prep.s ++ np.s ! Acc;  agr = AgrNo}; -- aha meza 
   
   --PositAdvAdj : A -> Adv ;                 -- warmly
-  PositAdvAdj a = a;
+  --"Impossible to implement because each is lexically different word."
+  --PositAdvAdj a = a;
 
 {-
 abstract Adverb = Cat ** {

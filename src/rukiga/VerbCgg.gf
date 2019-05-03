@@ -1,37 +1,48 @@
 --# -path=.:../prelude:../abstract:../common
 
-concrete VerbCgg of Verb = CatCgg ** open ResCgg in {
+concrete VerbCgg of Verb = CatCgg ** open ResCgg, Prelude in {
 
 lin
 
-  UseV verb = verb ;
+      UseV v = {s = v.s ; morphs = v.morphs; comp =[]; isCompApStem = False; agr = AgrNo};  --: V   -> VP; -- sleep --ignoring object agreement
 
---    UseComp  : Comp -> VP ;            -- be warm
+--    UseComp  : Comp -> VP ;            -- be warm means complement of a copula especially adjectival Phrase
 --VerbPhrase: Type ={s:Agr=>Polarity=>Tense=>Anteriority=>Str};
-UseComp comp = mkComp comp ; --its not generating any sentence
+      --AdjectivalPhrase : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
+      UseComp comp = {
+        s = comp.s;  --Assuming there is no AP which is prepositional
+        morphs=\\form,morphs=>[] ; 
+        comp = [] ; 
+        isCompApStem = False; 
+        agr = AgrNo}; --its not generating any sentence
 
---    CompAP   : AP  -> Comp ;            -- (be) small
-      CompAP ap = ap;
+--    CompAP   : AP  -> Comp;            -- (be) small
+      CompAP ap = {s=ap.s};
 
 --    CompNP   : NP  -> Comp ;            -- (be) the man
-      CompNP np = {s =\\agr=>
-            case np.agr of{
-                 agr => np.s;
-                 _   => []   
-            } 
-        };
+      CompNP np = {s= np.s ! Acc}; --{s =[] ; post =np.s; isPre = False; isProper = Bool; isPrep: Bool};
 
 --    CompAdv  : Adv -> Comp ;            -- (be) here
       CompAdv adv =adv;
 
 
 --    SlashV2a : V2        -> VPSlash ;  -- love (it)
-     SlashV2a v2 = {s=v2.s; c=v2.c};
+      SlashV2a v2 ={ 
+        s =v2.s;
+        morphs = v2.morphs;
+        comp = []
+      };
 --    ComplSlash : VPSlash -> NP -> VP ; -- love it
-
+      ComplSlash vpslash np ={ 
+        s =vpslash.s;
+        morphs = vpslash.morphs; 
+        comp = vpslash.comp ++  np.s ! Acc;
+        isCompApStem = False; 
+        agr = AgrYes np.agr
+      };
 --   AdvVP    : VP -> Adv -> VP ;        -- sleep here
---   VerbPhrase: Type ={s:Agr=>Polarity=>Tense=>Anteriority=>Str};
-     AdvVP vp adv ={s=\\agr,pol,tense,anter=>vp.s!agr!pol!tense!anter ++ adv.s!agr};
+--   VerbPhrase: Type = {s:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist};
+     AdvVP vp adv ={s=vp.s; morphs = vp.morphs; comp = adv.s; isCompApStem = False; agr = AgrNo};
 {-
 --1 The construction of verb phrases
 

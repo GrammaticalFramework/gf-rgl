@@ -4,28 +4,119 @@ concrete StructuralCgg of Structural = CatCgg **
   open ResCgg, ParadigmsCgg, (C = ConstructX), Prelude in {
 
 lin
-
+  
+  a_Det = {s =[] ; ntype = Complete; num = Sg; pos = PreDeterminer};     --: Det ; indefinite singular ---s
+  aPl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; -- : Det ;indefinite plural   ---s
+  the_Det = {s =[]; ntype = Complete; num = Sg; pos = PreDeterminer};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
+  
   every_Det = {s = "buri"; ntype=Incomplete; num=Sg; pos=PreDeterminer} ;
   few_Det = {s="kye"; ntype =Complete; num=Pl; pos=PostDeterminer} ;
   many_Det ={s="ingi"; ntype =Complete; num=Pl; pos=PostDeterminer} ;
 
-  i_Pron = {s = table {Nom = "nyowe"; Acc = "nyowe"}; agr = AgMUBAP1 Sg};
-  youSg_Pron {s = table {Nom = "iwe"; Acc = "we"}; agr=AgMUBAP2 Sg };
-  she_Pron = {s = table {Nom = "uwe"; Acc = "uwe"}; agr=AgP3 Sg MU_BA};
-  he_Pron = {s= table {Nom = "uwe"; Acc = "uwe"}; agr=AgP3 Sg MU_BA};
-  it_Pron = {s = table {Nom = "kyo"; Acc = "kyo"}; agr=AgP3 Sg KI_BI}; -- should form an it_Pron_NClass in extra module
-  we_Pron = {s = table {Nom = "itwe"; Acc = "itwe"}; agr = AgMUBAP1 Pl};
-  youPl_Pron ={s = table {Nom = "imwe"; Acc = "imwe"}; agr = AgMUBAP2 Pl};
-  they_Pron = {s= table {Nom = "bo"; Acc = "bo"}; agr=AgP3 Pl MU_BA};--But there are lots of other representations from other noun classes in extra module
+  i_Pron         = mkPron "nyowe" "nyowe" (AgMUBAP1 Sg);
+  youSg_Pron     = mkPron "iwe" "we" (AgMUBAP2 Sg); 
+  he_Pron, she_Pron = mkPron "uwe" "uwe" (AgP3 Sg MU_BA);
+  we_Pron        = mkPron "itwe" "itwe" (AgMUBAP1 Pl);
+  youPl_Pron     = mkPron "imwe" "imwe" (AgMUBAP2 Pl);
+  they_Pron      = mkPron "bo" "bo" (AgP3 Pl MU_BA);
+  it_Pron = mkPron "kyo" "kyo" (AgP3 Sg KI_BI); -- should form an it_Pron_NClass in extra module
+  
   behind_Prep ={s="enyuma ya"};
   between_Prep = {s="hagati ya"};
   to_Prep ={s="aha"};
-  in_Prep ={s="omu"};
-  on_Prep ={s="aha"};
+  -- several words depending on use omuri??
+  in_Prep        = mkPrep "omu" "omuri";
+  --aha-ri Kamukuzi??? works for places 
+  on_Prep        = mkPrep "aha" "ahari";
+  
+--na --please this string varies with vowels use combine_morphemes or 
+--combine_words when using it.
+with_Prep      = mkPrep "na" []; 
+
   from_Prep ={s="kuruga"};
   under_Prep = {s="hansi ya"};
+  
+  ---Structural
+  {-
+    --there are several and i.e. 
+    -- na (two nouns, 2 Noun Phrases, 2 Pronouns, 2 relative subject clauses, )
+    --kandi (clauses having a commonality of subjects, object or tense)
+    --the best structure is a table 
+    --mkConjunction "na" "kandi" and_Conj ;
+ -}
+     and_Conj  = {
+      s = table {
+          AConj Other => "kandi";
+          _ => "na"
+        };
+        
+      s2 =[];
+      n  = Pl 
+      };
 
 
+
+
+  {-
+
+      TODO: Look at the grammar books by Mpairwe & Kahangi Pg 155
+      and investigate or to find out its arguments but for now
+      I will assume nari works on all types of 
+      ConjArg (Conjunction Arguments)
+
+      nari is the general or
+      
+      These are candidates for Extra module if they are not specific
+      to the type of argument.
+      nînga for Runynakore and 
+
+      nainga for rukiga
+  -}
+
+    
+    or_Conj = {
+      s = \\ _ => "nari"; 
+      s2 =[];
+      n  = Sg 
+    };
+    
+   have_V2 ={s= "ine"; morphs = mkVerbMorphs; comp = []};  --: V2 ;
+{-
+  All Predeterminers are given here.
+  Initial analysis shows that 
+   a) They appear after the noun phrase but some may be multi-word expressions for a single word in eblish.
+   b) They appear to agree with the noun class particle. But nothing in the literature states about
+      their morphological structure.  The stems can be guessed by removing the two letter
+      suffix at the begining of the word. However, there are exceptions such as "not" which is not
+      inflected according to noun class 
+  c) A table of concords must be built to accomodate every instance and this can only be done 
+    using an analysis of some of the words in the dictionary(Mapirwe and Kahagi).
+    I am incluned to say use of the table of self-standing pronouns is sufficient.
+  d) An investigation of the tone systems would also be worthwhile.
+  
+
+  Example sentences:
+  1. All these chickens
+  2. once a day
+  3. only the man
+-}
+all_Predet = {s  = "òna"; s2 = []; isMWE = False; isInflected =True};
+only_Predet = {s = "nka"; s2 = []; isMWE = False; isInflected =True};
+{-
+-- how do we deal with superlatives. There seems to be no distinction between countable
+-- and uncountable when it comes to superlatioves
+-}
+most_Predet = {s = "rikukíra"; s2 = "îngi"; isMWE = True; isInflected =True}; 
+not_Predet  = {s = "ti"; s2 = []; isMWE = False; isInflected =False};
+
+
+
+
+{-Section for Adverbs-}
+always_AdV = {s = "obutóòsha"; agr = AgrNo};
+everywhere_Adv = {s = "hóòna"; agr = AgrNo}; -- adverb of place.
+here_Adv = {s = "hanu"; agr = AgrNo};
+{-End of Adverbs Adverbs-}
 
 {-variants
     NOTE: Please add them to the abstract syntax, ask aarne 

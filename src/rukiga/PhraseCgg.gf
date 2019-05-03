@@ -5,13 +5,21 @@ concrete PhraseCgg of Phrase = CatCgg ** open Prelude, ResCgg in {
 lin
 
   UttS sent = sent ;
-
+  UttQS     qs = qs ; --: QS -> Utt ;-- does John walk
   PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
   NoPConj = {s = ""} ;
   NoVoc = {s = ""} ;
 
-
+  -- Utterances are formed from sentences, questions, and imperatives.
+  UttNP     np = {s= np.s!Acc}; --: NP -> Utt ;
+  UttAdv   adv = {s = adv.s}; --: Adv -> Utt ;        -- in the house
+  UttImpSg  pol imp = {s = 
+    case pol.isTrue of {
+        True  => imp.s!True;
+        False => (mkSubjClitic (AgMUBAP2 Sg)) ++ imp.s!False          
+      }
+    };--: Pol -> Imp -> Utt ; -- (do not) walk ----s
 {-
 --1 Phrase: Phrases and Utterances
 

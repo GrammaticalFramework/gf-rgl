@@ -4,13 +4,85 @@ concrete SentenceCgg of Sentence = CatCgg **
   open Prelude, ResCgg in {  
 
 lin 
-  PredVP np vp = {s=\\pol,tense,anter => np.s ++ vp.s!np.agr!pol!tense!anter};--formation of a clause. Error for always picking third person. change to general case
   {-creating a sentence-}
-  UseCl temp pol cl = {
-      s = temp.s ++ pol.s ++ cl.s !pol.p ! temp.t ! temp.a
-    } ;
+  --UseCl temp pol cl = {
+  --    s = temp.s ++ pol.s ++ cl.s !pol.p ! temp.t ! temp.a
+  --  } ;
+--2 Sentences
+  --UseCl    : Temp -> Pol -> Cl  -> S ;   -- she had not slept
+  UseCl  temp pol cl = let 
+                subj = cl.subj;
+                clitic = mkSubjClitic cl.subjAgr;
+                simul = cl.morphs ! Pres; --this is not delivering the string
+                ant = cl.morphs ! PastPart; --this is not delivering the string
+                root = cl.root;
+                presRestOfVerb = cl.morphs ! Pres ! RestOfVerb;
+                pastRestOfVerb = cl.morphs ! PastPart ! RestOfVerb;
 
+                compl = cl.compl
+                in 
+  case <temp.isPres, pol.isTrue> of {
+      <True, True> => {s = subj ++ clitic ++ --Predef.BIND ++ 
+              root ++ Predef.BIND ++ presRestOfVerb ++ compl};
+      {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
+      <True, False> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
+                root ++ presRestOfVerb ++ compl};
+      <False, True> => {s = subj ++ clitic ++ --Predef.BIND ++ 
+                ant!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
+      <False, False> =>{s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
+                  ant!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+    };  --: Temp -> Pol -> QCl  -> QS ; -- has John walked
 
+UseQCl   = UseCl; -- : Temp -> Pol -> Cl   -> S ;  -- John has not walked
+QuestCl cl = cl;  --: Cl -> QCl ; -- does John (not) walk
+PredVP np vp = case vp.isCompApStem of{
+            False    => {
+                      subj = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                      subjAgr = np.agr;
+                      root = vp.s;
+                      morphs = vp.morphs;
+                      {-
+                      inf  = mkVerbInrf vp.root;
+                    pres  = mkVerbPres vp.root; 
+                    past  = mkVerbPast vp.root; 
+                    presPart  = mkVerbPresPart vp.root; 
+                    pastPart  = mkVerbPastPart vp.root;                              -- subject
+                    -}
+                    --root = vp.root ;
+                      compl = vp.comp
+                      };
+            True    =>  {
+                      subj = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                      subjAgr = np.agr;
+                      root = vp.s;
+                      morphs = vp.morphs;
+                      {-
+                      inf  = mkVerbInrf vp.root;
+                    pres  = mkVerbPres vp.root; 
+                    past  = mkVerbPast vp.root; 
+                    presPart  = mkVerbPresPart vp.root; 
+                    pastPart  = mkVerbPastPart vp.root;                              -- subject
+                    -}
+                    --root = vp.root ;
+                      compl = mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
+                    }
+      };--: NP -> VP -> Cl ; -- John walks / John does not walk
+{-
+    Note: It seems mkSubjClitic comes with a Predef.BIND already
+    prepared for the next token to bind.
+    Reason: When I add a BIND command, I get two bind tokens in the linearizations
+    -}
+    ImpVP  vp = {
+          s =table{
+            True=> vp.s ++ Predef.BIND ++ vp.morphs!Inf!RestOfVerb ++ vp.comp;
+            False =>  case vp.isCompApStem of {   -- How do I make the number dynamic use case?
+                    True =>vp.morphs!Pres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                          vp.morphs!Inf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.comp;
+                    False  => vp.morphs!Pres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                          vp.morphs!Inf!RestOfVerb ++ vp.comp
+                }
+          } 
+    };  --: VP -> Imp ;                 -- walk / do not walk
 {-
 --1 Sentence: Sentences, Clauses, and Imperatives
 
