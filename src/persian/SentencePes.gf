@@ -14,8 +14,8 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
         let agr = Ag n P2 ;
             vps = vp.prefix ++ vp.s ! VImp pol n
          in case vp.vvtype of {
-              NoVV => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vps ++ vp.embComp ;
-              _    => vps ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp }
+              NoVV => vp.ad ++ vp.comp ! agr ! OV ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vps ++ vp.embComp ;
+              _    => vps ++ vp.ad ++ vp.comp ! agr ! OV {-TODO check if legit-} ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp }
     } ;
 
     SlashVP np vp =
@@ -38,7 +38,7 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     EmbedS  s  = {s = conjThat ++ s.s ! Indic} ;
     EmbedQS qs = qs ;
-    EmbedVP vp = {s = showVPH Inf defaultAgr vp} ; --- agr
+    EmbedVP vp = {s = infVP vp} ; --- agr
 
 
     UseCl temp p cl = {

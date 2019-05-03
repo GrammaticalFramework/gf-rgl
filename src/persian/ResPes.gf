@@ -32,6 +32,8 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       a : Agr ;
       hasAdj : Bool ; -- to get the right form when NP is a predicate
       animacy : Animacy ; -- to get the right pronoun in FunRP
+      isClitic : Bool ; -- if isPron, becomes clitic as a direct object
+      clitic : Str ;
       relpron : RelPron ; -- contraction for "that which"
       empty : Str -- to prevent metavariables in case of rel.pron. contraction
       } ;
@@ -42,6 +44,8 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       a = defaultAgr ;
       hasAdj = False ;
       animacy = Inanimate ;
+      isClitic = False ;
+      clitic = [] ;
       relpron = Ke ;
       empty = []
       } ;
@@ -94,7 +98,7 @@ oper
       } ;
 
   VPH : Type = Verb ** {
-      comp  : Agr => Str; -- complements of a verb, agr for ReflVP "I/you see myself/yourself" and CompCN "I am human/we are humans"
+      comp  : Agr => WordOrder => Str; -- complements of a verb, agr for ReflVP "I/you see myself/yourself" and CompCN "I am human/we are humans"
       vComp : Agr => VVTense => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
       obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
       ad    : Str ;
@@ -107,20 +111,23 @@ oper
     showVPH : VVTense -> VerbForm -> Agr -> VPH -> Str = showVPH' OV False
   } ;
 
+  showVPHwithImpPrefix = showVPH' OV True VVPres ;
+  infVP : VPH -> Str = showVPH' VO False VVPres Inf defaultAgr ;
+
   showVPH' : WordOrder -> Bool -> VVTense -> VerbForm -> Agr -> VPH -> Str =
     \wo,showImpPref,ant,vf,agr,vp ->
        let impPref = case showImpPref of {
          True => vp.s ! ImpPrefix Pos ;
          False => [] }
         in case wo of {
-         OV => vp.ad ++ vp.comp ! agr ++ vp.obj
+         OV => vp.ad ++ vp.comp ! agr ! wo ++ vp.obj
             ++ vp.prefix ++ impPref ++ vp.s ! vf
             ++ vp.vComp ! agr ! ant ++ vp.embComp ;
          VO => vp.prefix ++ vp.s ! vf ++ vp.ad
-            ++ vp.comp ! agr ++ vp.obj ++ impPref
+            ++ vp.comp ! agr ! wo ++ vp.obj ++ impPref
             ++ vp.vComp ! agr ! ant ++ vp.embComp } ;
 
-  Compl : Type = {s : Str ; ra : Str ; mod : Mod} ;
+  Compl : Type = {s : Str ; ra : Str ; mod : Mod ; isPrep : Bool} ;
 
   VPHSlash : Type = VPH ** {
     c2 : Compl ;        -- prep or ra for the complement
@@ -135,7 +142,7 @@ oper
     obj,
     embComp = [];
     vvtype = NoVV ;
-    comp = \\_ => [] ;
+    comp = \\_,_ => [] ;
     vComp = \\_,_ => [] } ;
 
    predVc : (Verb ** {c2 : Compl}) -> VPHSlash = \verb ->
@@ -145,29 +152,34 @@ oper
 
   passVP : VPH -> VPH = \vp -> vp ** {
     s = becomeVerb.s ;
-    prefix = case vp.passive of {
-                    Add => vp.s ! PerfStem ++ vp.prefix ;
-                    Replace => vp.prefix
+    prefix = case vp.lightverb of {
+               Kardan => vp.prefix ;
+               _ => vp.s ! PerfStem ++ vp.prefix
+
              } ;
   } ;
 -- ---------------------
 -- VP complementation
 ---------------------
-  appComp : Compl -> (Mod=>Str) -> Str = \c2,obj ->
-    case c2.mod of {
-      Ezafe => runtimeKasre c2.s ++ obj ! Bare   ++ c2.ra ;
-      _     =>              c2.s ++ obj ! c2.mod ++ c2.ra } ;
+  appCompVP : Compl -> (Mod=>Str) -> (WordOrder=>Str) = \c2,obj ->
+    \\wo => let ra = case wo of {VO => [] ; OV => c2.ra} in
+     case c2.mod of {
+        Ezafe => runtimeKasre c2.s ++ obj ! Bare   ++ ra ;
+        _     =>              c2.s ++ obj ! c2.mod ++ ra } ;
+
+  -- for use outside VP, word order is redundant, ra should be retained.
+  appComp : Compl -> (Mod=>Str) -> Str = \c2,obj -> appCompVP c2 obj ! OV ;
 
   insertComp : (Agr => Str) -> VPH -> VPH = \obj,vp -> vp ** {
-    comp = \\a => vp.comp ! a ++ obj ! a
+    comp = \\a,wo => vp.comp ! a ! wo ++ obj ! a
     } ;
 
   insertCompPre : (Agr=>Mod=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
-    comp = \\a => appComp vp.c2 (obj ! a) ++ vp.comp ! a
+    comp = \\a,wo => appCompVP vp.c2 (obj ! a) ! wo ++ vp.comp ! a ! wo
     } ;
 
   insertCompPost : (Agr=>Mod=>Str) -> VPHSlash -> VPH = \obj,vp -> vp ** {
-    comp = \\a =>  vp.comp ! a ++ appComp vp.c2 (obj ! a)
+    comp = \\a,wo =>  vp.comp ! a ! wo ++ appCompVP vp.c2 (obj ! a) ! wo
     } ;
 
   insertVV : VV -> VPH -> VPH = \vv,vp -> predV vv ** {
@@ -184,7 +196,18 @@ oper
     } ;
 
   complSlash : VPHSlash -> NP -> VPH = \vp,np -> vp ** {
-    comp = \\a => appComp vp.c2 np.s ++ vp.comp ! a ;
+    comp = \\a,wo =>
+        case <np.isClitic,vp.c2.isPrep> of {
+          <True,False> => [] ; -- clitic is attached to the verb or prefix
+          <True,True> => appCompVP vp.c2 (\\_ => (BIND ++ np.clitic)) ! wo ++ vp.comp ! a ! wo ;
+          _ => appCompVP vp.c2 np.s ! wo ++ vp.comp ! a ! wo
+
+        } ;
+    s = case <np.isClitic,vp.c2.isPrep> of {
+          <True,False> -- if it has no prep, the clitic is attached to the verb (or prefix, if it's a light verb).
+            => (addClitic vp.lightverb np.clitic vp).s ;
+          _ => vp.s
+        } ;
     obj = vp.obj ++ vp.agrObj ! np.a -- "beg her to buy", buy agrees with her
   } ;
 
@@ -194,7 +217,7 @@ oper
     \\agr,ant => if_then_Str vv.isAux conjThat [] ++
       case <ant,vv.isDef,vv.compl> of {
        -- Auxiliaries with defective inflection: complement inflects in tense
-        <VVPast Indic,True,>  => showVPH' OV True VVPres (VPast Pos agr) agr vp ;
+        <VVPast Indic,True,>  => showVPHwithImpPrefix (VPast Pos agr) agr vp ;
         <VVPast Indic,_,_>    => showVPH (VPast Pos agr) agr vp ;
         <VVPast Subj>         => showVPH PerfStem agr vp ++ subjAux Pos agr ;
 
@@ -257,9 +280,9 @@ oper
           vvt = ta2vvt ta vp.vvtype ;
        in case vp.vvtype of {
             DefVV
-              => vps ++ vp.ad ++ vp.comp ! np.a ++ vp.obj
+              => vps ++ vp.ad ++ vp.comp ! np.a ! OV ++ vp.obj
               ++ vp.vComp ! np.a ! vvt ++ vp.embComp ;
-            _ => vp.ad ++ vp.comp ! np.a ++ vp.obj ++ vps
+            _ => vp.ad ++ vp.comp ! np.a ! OV ++ vp.obj ++ vps
               ++ vp.vComp ! np.a ! vvt ++ vp.embComp }
   };
 
@@ -269,7 +292,7 @@ oper
       let vps = clTable vp ! agr ! ta ! p ;
           quest = case ord of { ODir => [] ; OQuest => "آیا" } ;
           vvt = ta2vvt ta vp.vvtype ;
-       in quest ++ subj ++ vp.ad ++ vp.comp ! agr ++ vp.obj
+       in quest ++ subj ++ vp.ad ++ vp.comp ! agr ! OV ++ vp.obj
        ++ vps ++ vp.vComp ! agr ! vvt ++ vp.embComp
   };
 
