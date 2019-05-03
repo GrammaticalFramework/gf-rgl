@@ -2,7 +2,7 @@
 
 concrete ExtendPes of Extend =
   CatPes ** ExtendFunctor - [
-    GenNP, ApposNP, ICompAP, AdvIsNP, InOrderToVP, ByVP
+    GenNP, ApposNP, ICompAP, AdvIsNP, InOrderToVP, ByVP, AdjAsNP, ComplBareVS
     ,GerundNP,GerundCN,GerundAdv,EmbedPresPart,EmbedSSlash
     ]
   with (Grammar=GrammarPes)
@@ -19,6 +19,12 @@ lin
   ApposNP np1 np2 = np1 ** {
     s = \\m => np1.s ! m ++ np2.s ! m
   } ;
+
+  -- : AP -> NP
+  AdjAsNP ap = emptyNP ** ap ;
+
+  -- : VS  -> S  -> VP
+  ComplBareVS vs s = embComp (s.s ! vs.compl) (predV vs) ;
 
   ICompAP ap = {s = "چقدر" ++ ap.s ! Bare} ;
   -- : VP -> CN ;          -- publishing of the document (can get a determiner)
