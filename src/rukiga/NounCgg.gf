@@ -72,6 +72,12 @@ lin
                               <True,False>   => {s = \\_ =>nomS ++ predet.s ++ predet.s2; agr = a} -- never seen this case              
                           };
 
+      --AdvNP   : NP -> Adv -> NP ;    -- Paris today
+      AdvNP np adv = {s= table{ Nom => np.s!Nom ++ adv.s; Acc => np.s !Acc ++ adv.s}; agr = np.agr };
+
+
+      {-What the hell does this mean?-}
+      --ExtAdvNP: NP -> Adv -> NP ;    -- boys, such as ..
 --    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
 {-
   Need sample quatitifiers in Runynakore. Immediate, Far, Distant. so DetQuant is commented out
