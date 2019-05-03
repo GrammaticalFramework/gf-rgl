@@ -15,7 +15,7 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     ComplVV = insertVV ;
     ComplVS v s  = embComp (conjThat ++ s.s ! v.compl) (predV v) ;
     ComplVQ v q  = embComp (conjThat ++ q.s)         (predV v) ;
-    ComplVA v ap = let adjStr = appComp v.c2 ap.s  in
+    ComplVA v ap = let adjStr = appComp v.c2 ap.s in
       case ap.afterPrefix of {
         True  => predV (v ** {prefix = v.prefix ++ adjStr}) ;
         False => insertObj adjStr (predV v) -- check form of adjective
@@ -39,10 +39,10 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
 
     -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
     SlashV2VNP v2v np vps = predVc v2v ** {
-      comp = \\a => if_then_Str v2v.isAux conjThat [] -- that
-                 ++ appComp v2v.c2 np.s ;             -- I
-                                                      -- ∅ is placed in comp
-      vComp = \\_,_ => showVPH (case v2v.compl of {   -- buy
+      comp = \\a,wo => if_then_Str v2v.isAux conjThat [] -- that
+                 ++ appCompVP v2v.c2 np.s ! wo ;         -- I
+                                                         -- ∅ is placed in comp
+      vComp = \\_,_ => showVPH (case v2v.compl of {      -- buy
                                   Subj  => VSubj Pos np.a ;
                                   Indic => VAor  Pos np.a })
                                np.a -- agreement fixed to np.a

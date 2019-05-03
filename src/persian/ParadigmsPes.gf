@@ -205,7 +205,7 @@ oper
     mkPrep : Str -> Prep -- Takes a string, returns a preposition.
      = \str -> lin Prep (prepOrRa str) ;
     mkPrep : Str -> Mod -> Prep -- Takes a string and Mod (so far only option is ezafe), returns a preposition.
-     = \str,m -> lin Prep {s = str ; ra = [] ; mod=m}
+     = \str,m -> lin Prep ((prepOrRa str) ** {mod=m})
   } ;
 
 {-
@@ -354,7 +354,10 @@ oper
 -- hidden from public API
   compoundV = overload {
     compoundV : Str -> V -> V
-      = \s,v -> v ** {prefix = s} ;
+      = \s,v -> v ** {
+          prefix = s ;
+          lightverb = case v.lightverb of {Kardan => Kardan ; _ => Light}
+        } ;
     compoundV : Str -> V2 -> V -- hidden from public API
       = \s,v -> lin V (v ** {prefix = s}) ;
   };
@@ -377,23 +380,26 @@ oper
     mkV2 : V -> Str -> V2
       = \v,ra -> lin V2 (v ** {c2 = prepOrRa ra}) ;
     mkV2 : V -> Str -> Bool -> V2
-      = \v,p,b -> lin V2 (v ** {c2 = {ra = [] ; s = p ; mod=Bare}}) ;
+      = \v,p,b -> lin V2 (v ** {c2 = prepOrRa p}) ;
     } ;
 
   prepOrRa : Str -> Compl = \s -> case s of {
-    "را" => {s = [] ; ra = "را" ; mod=Bare} ;
-    prep  => {s = prep ; ra = []; mod=Bare}
+    ra@("را"|"")
+         => {s = [] ; ra = ra   ; mod=Bare ; isPrep = False} ;
+    prep => {s = prep ; ra = [] ; mod=Bare ; isPrep = True}
     } ;
   noPrep = prepOrRa [] ;
-  ezafePrep = {s = [] ; ra = [] ; mod=Ezafe} ;
 
-  mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare} ;
+  -- NB. The 'mod' field has different meaning for verbs and N2s.
+  ezafeForN2 = {s = [] ; ra = [] ; mod=Ezafe ; isPrep = False} ;
+
+  mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare ; isPrep = False} ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 -- Predictable N2 without complement
-      = \s -> lin N2 (mkN01 s inanimate ** {c2 = ezafePrep ; compl = []}) ;
+      = \s -> lin N2 (mkN01 s inanimate ** {c2 = ezafeForN2 ; compl = []}) ;
     mkN2 : N -> N2 -- N2 from without complement
-      = \n -> lin N2 (n ** {c2 = ezafePrep ; compl = []}) ;
+      = \n -> lin N2 (n ** {c2 = ezafeForN2 ; compl = []}) ;
     mkN2 : N -> Str -> N2
       = \n,c -> lin N2 (n ** {c2 = prepOrRa c ; compl = []}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API

@@ -22,16 +22,16 @@ lin
 
   ICompAP ap = {s = "چقدر" ++ ap.s ! Bare} ;
   -- : VP -> CN ;          -- publishing of the document (can get a determiner)
-  GerundCN vp = useN (indeclN (showVPH Inf defaultAgr vp)) ;
+  GerundCN vp = useN (indeclN (infVP vp)) ;
 
   -- : VP -> NP ;          -- publishing the document (by nature definite)
-  GerundNP vp = indeclNP (showVPH Inf defaultAgr vp) ;
+  GerundNP vp = indeclNP (infVP vp) ;
 
   -- : VP -> Adv ;         -- publishing the document (prepositionless adverb)
-  GerundAdv vp = lin Adv {s = showVPH Inf defaultAgr vp} ;
+  GerundAdv vp = lin Adv {s = infVP vp} ;
 
   -- : VP -> SC ;
-  EmbedPresPart vp = lin SC {s = showVPH Inf defaultAgr vp} ;
+  EmbedPresPart vp = lin SC {s = infVP vp} ;
 
   -- : SSlash -> SC
   -- Not optimal: complement with آن should go after subject, but SSlash is already fixed.
@@ -47,8 +47,8 @@ lin
 
   -- : VP -> Adv ;         -- (in order) to publish the document
   InOrderToVP vp = lin Adv {s = for_Prep.s
-    ++ case vp.passive of {
-         Replace => showVPH PerfStem defaultAgr <vp ** {s = \\vf => []} : VP> ; -- only show prefix
+    ++ case vp.lightverb of {
+         Kardan => showVPH PerfStem defaultAgr <vp ** {s = \\vf => []} : VP> ; -- only show prefix
          _ => showVPH PerfStem defaultAgr vp}
    } ;
 }

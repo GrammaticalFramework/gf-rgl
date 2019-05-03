@@ -184,13 +184,35 @@ param
            | VImp Polarity Number -- bekon,bekonid/nakon,nakonid
            ;
 
-  Passive = Add       -- ateš zadan -> ateš zade šodan
-          | Replace ; -- gom kardan -> gom   ∅   šodan
+  -- Affects clitic placement and passive
+  LightVerb = NotLight | Light  -- ateš zadan -> ateš zade šodan
+            | Kardan ;          -- gom kardan -> gom   ∅   šodan
 oper
   impRoot : Str -> Str = \root -> case root of {
     st + "ی" => st ;
     _        => root
     };
+
+  modifyFiniteForms : (Str -> Str) -> Verb -> Verb = \f,v -> v ** {s =
+    table {
+      vf@(VAor _ _
+         | VPerf _ _
+         | VPast _ _
+         | VSubj _ _
+         | VImp _ _)
+         => f (v.s ! vf) ;
+      vf => v.s ! vf }
+    } ;
+
+  addClitic : LightVerb -> Str -> Verb -> Verb = \light,cl,v -> v ** {s =
+    let f : Str -> Str = case light of {
+          NotLight => \s -> glue s cl ;
+          _ => \s -> BIND ++ cl ++ s } -- hack: put clitic before the verb, so it attaches to the prefix
+    in table {
+          Inf => glue (v.s ! Inf) cl ;
+          vf => (modifyFiniteForms f v).s ! vf }
+       } ;
+
 
   mkVerb : (inf,pres : Str) -> Verb = \kardan,kon -> {
     s = table {
@@ -211,7 +233,7 @@ oper
       VImp Neg Sg => addN imp ;
       VImp Neg Pl => addN kon + "ید" } ;
     prefix = [] ;-- For compound verbs
-    passive = Add ;
+    lightverb = NotLight ;
   } where {
       kard = tk 1 kardan ;
       kardeh = kard + "ه" ;
@@ -235,7 +257,7 @@ oper
       } ;
 --
 oper
-  Verb = {s : VerbForm => Str ; prefix : Str ; passive : Passive} ;
+  Verb = {s : VerbForm => Str ; prefix : Str ; lightverb : LightVerb} ;
 
   -- Verbs that end in یدن, ادن or ودن
   -- Also some verbs that don't: دانستن with stem دان
@@ -345,7 +367,7 @@ oper
     VImp Neg Sg => "نکن" ;
     VImp Neg Pl => "نکنید" ;
     vf          => doRegV.s ! vf } ;
-    passive = Replace
+    lightverb = Kardan
   } where { doRegV = mkVerb "کردن" "کن" } ;
 
   becomeVerb : Verb = mkVerb "شدن" "شو" ;
