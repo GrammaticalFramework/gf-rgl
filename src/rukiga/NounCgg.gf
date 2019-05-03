@@ -73,11 +73,11 @@ lin
                           };
 
       --AdvNP   : NP -> Adv -> NP ;    -- Paris today
-      AdvNP np adv = {s= table{ Nom => np.s!Nom ++ adv.s; Acc => np.s !Acc ++ adv.s}; agr = np.agr };
-
+      AdvNP np adv = {s= \\c => np.s ! c ++ adv.s; agr = np.agr };
+      --PPartNP : NP -> V2  -> NP ;    -- the man seen use the Passive form of the verb see. abantu abarebirwe
 
       {-What the hell does this mean?-}
-      --ExtAdvNP: NP -> Adv -> NP ;    -- boys, such as ..
+      ExtAdvNP np adv = {s= \\c => np.s ! c  ++ embedInCommas adv.s; agr = np.agr}; -- how do I do the adverbial clause?
 --    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
 {-
   Need sample quatitifiers in Runynakore. Immediate, Far, Distant. so DetQuant is commented out

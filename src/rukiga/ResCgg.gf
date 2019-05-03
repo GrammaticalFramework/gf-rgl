@@ -442,6 +442,40 @@ oper
 
     };
 
+    -- TThis is for demonstrative pronouns which can also be use as Quantifiers
+    -- How can it be done without code repeation?
+    mkThisTheseQuantorDem :Agreement -> Str = \a -> case a of {
+              AgMUBAP1 n => mkClitics "ogu" "aba" n;
+              --AgMUBAP1 Pl => "aba" ;
+              AgMUBAP2 n => mkClitics "ogu" "aba" n; --probably an error check your grammar book
+              --AgMUBAP2 Pl => "aba" ;
+              AgP3 n MU_BA => mkClitics "ogu" "aba" n;
+              --AgP3 Pl MU_BA => "aba" ;
+              AgP3 Pl ZERO_BU => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "bwo" ;
+              AgP3 Pl (KA_BU | RU_BU) => mkClitic "bwo" ;
+              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "byo" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "go";
+              AgP3 (Sg | Pl) HA  => mkClitic "ho" ; -- of place HA 
+              AgP3 (Sg | Pl) MU => mkClitic "mwo" ; -- of place  MU
+              AgP3 (Sg | Pl) KU => mkClitic "yo" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "ryo" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "ko" ;
+              AgP3 Sg KI_BI   => mkClitic "kyo" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "kwo" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "gwo" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "rwo" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "two" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "yo" ;
+              AgP3 Pl ZERO_MI =>mkClitic "yo" ;
+              AgP3 Pl MU_MI => mkClitic "yo";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "zo" ;
+              AgP3 Sg GU_GA => mkClitic "gwo" ;
+              AgP3 Pl GU_GA => mkClitic "go" ;
+              _  => mkClitic "XXXThis_That" -- error checking for any case not catered for
+
+    };
+
     -- Adjectival Prefixes without initial vowel with the semantics for adjectives used in Imperative negative form
     mkAdjPronNoIVClitic : Agreement -> Str = \a -> case a of {
               AgMUBAP1 n => mkClitics "mu" "ba" n;
@@ -768,9 +802,26 @@ oper
   VPSlash : Type = {s:Str; morphs: VMorphs; comp: Str};
   
 
-  Clause : Type = {
-    s : Tense => Anteriority => Polarity => Str
-    } ;
+  {-
+	      -- Clause is a combination of a Subject, Verb and Object(s)
+	      -- i.e. Subj, verb with polarity and temp features and verb complement
+	      -- which is the Objects, NPs PPs APs etc.
+	 -}
+      Clause : Type = {   -- word order is fixed in S and QS
+      subj : Str ;
+      subjAgr : Agreement;
+      root : Str;
+      morphs : VFormMini => VerbMorphPos =>Str;
+      {-
+      inf  : Str;
+      pres  : Str; 
+      past  : Str; 
+      presPart  : Str; 
+      pastPart  : Str;                              -- subject
+      --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+      -}
+      compl : Str                              -- after verb: complement, adverbs
+      } ;
   Comp : Type = {s:Str};
 
 

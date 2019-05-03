@@ -15,9 +15,9 @@ lin
   UttNP     np = {s= np.s!Acc}; --: NP -> Utt ;
   UttAdv   adv = {s = adv.s}; --: Adv -> Utt ;        -- in the house
   UttImpSg  pol imp = {s = 
-    case pol.isTrue of {
-        True  => imp.s!True;
-        False => (mkSubjClitic (AgMUBAP2 Sg)) ++ imp.s!False          
+    case pol.p of {
+        Pos  => imp.s!True;
+        Neg => (mkSubjClitic (AgMUBAP2 Sg)) ++ imp.s!False          
       }
     };--: Pol -> Imp -> Utt ; -- (do not) walk ----s
 {-

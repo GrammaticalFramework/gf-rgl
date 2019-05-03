@@ -118,6 +118,10 @@ everywhere_Adv = {s = "hóòna"; agr = AgrNo}; -- adverb of place.
 here_Adv = {s = "hanu"; agr = AgrNo};
 {-End of Adverbs Adverbs-}
 
+{-Begining of Quantifiers-}
+
+{-End of Quantifiers-}
+
 {-variants
     NOTE: Please add them to the abstract syntax, ask aarne 
     or creat you own abstract Lexicon which inherits from the 

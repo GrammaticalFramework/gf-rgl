@@ -13,14 +13,13 @@ lincat
   -}
   --Temp = {s : Str ; isPres : Bool} ;
   --cat
-  Imp = {s : Bool => Str} ;
-      
+  Imp = {s : Bool => Str} ;  
   QS = {s : Str} ;
   -- Note: SS is a shorthand for {s:Str}, defined in Prelude.gf
   -- You must change some of the lincats (e.g., for NP, Det and Pron) so that everything works
 
   S = SS ;                        -- declarative sentence                e.g. "she lived here"
-  Cl = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
+  Cl, QCl = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
 
   V = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
   VP = Res.VerbPhrase ;           -- verb phrase                         e.g. "is very warm"

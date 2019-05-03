@@ -13,23 +13,23 @@ lin
   UseCl  temp pol cl = let 
                 subj = cl.subj;
                 clitic = mkSubjClitic cl.subjAgr;
-                simul = cl.morphs ! Pres; --this is not delivering the string
-                ant = cl.morphs ! PastPart; --this is not delivering the string
+                simul = cl.morphs ! VFPres; --this is not delivering the string
+                ant = cl.morphs ! VFPastPart; --this is not delivering the string
                 root = cl.root;
-                presRestOfVerb = cl.morphs ! Pres ! RestOfVerb;
-                pastRestOfVerb = cl.morphs ! PastPart ! RestOfVerb;
+                presRestOfVerb = cl.morphs ! VFPres ! RestOfVerb;
+                pastRestOfVerb = cl.morphs ! VFPastPart ! RestOfVerb;
 
                 compl = cl.compl
                 in 
-  case <temp.isPres, pol.isTrue> of {
-      <True, True> => {s = subj ++ clitic ++ --Predef.BIND ++ 
+  case <temp.a, pol.p> of {
+      <Simul, Pos> => {s = subj ++ clitic ++ --Predef.BIND ++ 
               root ++ Predef.BIND ++ presRestOfVerb ++ compl};
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
-      <True, False> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
+      <Simul, Neg> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
                 root ++ presRestOfVerb ++ compl};
-      <False, True> => {s = subj ++ clitic ++ --Predef.BIND ++ 
+      <Anter, Pos> => {s = subj ++ clitic ++ --Predef.BIND ++ 
                 ant!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
-      <False, False> =>{s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
+      <Anter, Neg> =>{s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
                   ant!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
     };  --: Temp -> Pol -> QCl  -> QS ; -- has John walked
 
@@ -74,12 +74,12 @@ PredVP np vp = case vp.isCompApStem of{
     -}
     ImpVP  vp = {
           s =table{
-            True=> vp.s ++ Predef.BIND ++ vp.morphs!Inf!RestOfVerb ++ vp.comp;
+            True=> vp.s ++ Predef.BIND ++ vp.morphs!VFInf!RestOfVerb ++ vp.comp;
             False =>  case vp.isCompApStem of {   -- How do I make the number dynamic use case?
-                    True =>vp.morphs!Pres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
-                          vp.morphs!Inf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.comp;
-                    False  => vp.morphs!Pres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
-                          vp.morphs!Inf!RestOfVerb ++ vp.comp
+                    True =>vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                          vp.morphs!VFInf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.comp;
+                    False  => vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                          vp.morphs!VFInf!RestOfVerb ++ vp.comp
                 }
           } 
     };  --: VP -> Imp ;                 -- walk / do not walk
