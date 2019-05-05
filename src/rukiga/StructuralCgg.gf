@@ -140,6 +140,17 @@ those_Quant = {s =[]; s2 = mkThose; doesAgree = True};
 no_Quant = {s ="tihariho"; s2 =\\_=> []; doesAgree = False};--: Quant ;
 {-End of Quantifiers-}
 
+{-Begining of verb-phrase-complement verb VV-} -- A verb whose complement is a verb phrase
+ --can8know_VV : VV ; -- can (capacity)
+
+
+
+
+
+{-End of verb-phrase-complement verb -}
+
+
+
 
 
   

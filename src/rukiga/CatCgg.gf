@@ -43,6 +43,7 @@ lincat
   Predet = {s : Str ; s2 : Str; isMWE : Bool; isInflected : Bool}; -- predeterminer (prefixed Quant)      e.g. "all"
   RP = {s : Res.RCase => Res.Agreement => Str ; rObjVariant2: Res.Agreement => Str} ;
 
+  --VV =
 {-
 --1 Cat: the Category System
 

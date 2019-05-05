@@ -43,6 +43,10 @@ lin
 --   AdvVP    : VP -> Adv -> VP ;        -- sleep here
 --   VerbPhrase: Type = {s:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist};
      AdvVP vp adv ={s=vp.s; morphs = vp.morphs; comp = adv.s; isCompApStem = False; agr = AgrNo};
+
+
+
+
 {-
 --1 The construction of verb phrases
 
@@ -54,9 +58,6 @@ abstract Verb = Cat ** {
 
 -- Verb phrases are constructed from verbs by providing their
 -- complements. There is one rule for each verb category.
-
-  data
-    UseV     : V   -> VP ;        -- sleep
 
     ComplVV  : VV  -> VP -> VP ;  -- want to run
     ComplVS  : VS  -> S  -> VP ;  -- say that she runs

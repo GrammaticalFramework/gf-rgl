@@ -2,6 +2,7 @@
 
 concrete RelativeCgg of Relative = CatCgg ** open ResCgg in {
 
+lin
 {-
 	--IdRP  : RP ;                      -- which
 
@@ -18,7 +19,7 @@ concrete RelativeCgg of Relative = CatCgg ** open ResCgg in {
 
 -}
 
-IdRP = {s = mkmkRPs; rObjVariant2 = mkRObjV2};        --: RP ;                      -- which
+	IdRP = {s = mkRPs; rObjVariant2 = mkRObjV2};        --: RP ;                      -- which
 
 
 

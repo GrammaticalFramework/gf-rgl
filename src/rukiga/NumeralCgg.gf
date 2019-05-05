@@ -3,6 +3,125 @@
 concrete NumeralCgg of Numeral = CatCgg [Numeral,Digits] **
   open ResCgg in {
 
+lincat 
+  Digit = { s : Str; unit : { s:Str ; g : Gender; stem : Str}; ten : { s:Str ; g : Gender} };
+  Sub10 = { s : Str; unit : { s:Str ; g : Gender; stem : Str}; ten : { s:Str ; g : Gender}; n:Number};
+  Sub100     = {s : Str ; g:Gender; n : Number} ;
+  Sub1000    = {s : Str ; g:Gender; n : Number} ;
+  Sub1000000 = {s : Str ; g:Gender; n : Number} ;
+
+lin num x = x ;
+lin n2 = mkNum "biri" "ibiri" ZERO_ZERO "abiri" I_MA;
+
+lin n3 = mkNum "shatu" "ishatu" I_ZERO "ashatu"  I_MA;
+lin n4 = mkNum "na"  "ina" I_ZERO "ana" I_MA ;
+lin n5 = mkNum "taano"  "itaano" I_ZERO "ataano" I_MA ;
+lin n6 = mkNum "kaaga"  "mukaaga" MU_MI "nkaaga" N_ZERO;
+lin n7 = mkNum "shanju" "mushanju" MU_MI "nshanju" N_ZERO;
+lin n8 = mkNum "naana" "munaana" MU_MI "kinaana" KI_ZERO ;
+lin n9 = mkNum "enda" "mwenda" MU_MI "kyenda" KI_ZERO ;
+
+
+lin pot01  = mkNum "mwe" "emwe" ZERO_ZERO "ikumi" I_MA  ** {n = Sg} ; -- 1
+lin pot0 d = d ** {n = Pl} ; -- Sub10 d * 1
+lin pot110 = {s = "ikumi" ; g= I_MA; n = Pl}; --10 -Sub100
+lin pot111 = {s = "ikumi na emwe" ; g = ZERO_ZERO; n = Pl}; --11
+lin pot1to19 d = {s = "ikumi ne" ++ d.unit.s; g=d.unit.g } ** {n = Pl} ; --12-19
+lin pot0as1 n =  {s = n.unit.s; g=n.unit.g}  ** {n = n.n} ; --Sub100 -- coercion of 1..9
+lin pot1 d = {s = d.ten.s; g = d.ten.g} ** {n = Pl} ;
+
+lin pot1plus d e = {s = d.ten.s ++ "na" ++ e.unit.s; g = ZERO_ZERO; n=Pl };      --Sub100 ;         -- d * 10 + n
+
+lin pot1as2 n = {s = n.s; g = ZERO_ZERO; n=n.n} ;
+
+lin pot2 d = let 
+                  numStr = case  d.unit.g of{
+                                  MU_MI => d.unit.s;
+                                  _     => d.ten.s
+                            };
+             in {s = "magana" ++ numStr; g = ZERO_ZERO}  ** {n = Pl} ;
+{-
+lin pot2plus d e = let 
+                      unitFigure = case  <d.n> of{
+                                          Sg => "igana";
+                                          _  => "magana"
+                                };
+                      
+                      numStr = case  <d.unit.g> of{
+                                        MU_MI => d.unit.s;
+                                        _     => d.ten.s
+                              };
+                   in {s = unitFigure ++ numStr ++ "na" ++ e.unit.s; g = ZERO_ZERO}  ** {n = Pl} ; -- Sub10 -> Sub100 -> Sub1000 ; * 100 + n
+-}
+
+lin pot2as3 n = n ;
+lin pot3 n = let 
+                unitFigure = case  <n.n> of{
+                                    <Sg> => "rukumi";
+                                      _  => "enkumi" ++ n.s
+                          };
+              in {s = unitFigure; g = ZERO_ZERO; n=n.n}; -- Sub1000 -> Sub1000000 ;                -- m * 1000
+
+lin pot3plus n m = let 
+                      thousand = case  <n.n> of{
+                                          <Sg> => "akairira";
+                                          _    => "obusirira" ++ n.s
+                          };
+                    in { s = thousand  ++ m.s; g = ZERO_ZERO; n = n.n} ;
+
+-- numerals as sequences of digits
+{-
+  lincat 
+    Dig = TDigit ;
+
+  lin
+    IDig d = d ** {tail = T1} ;
+
+    IIDig d i = {
+      s = \\o,c => d.s ! NCard ! Nom ++ commaIf i.tail ++ i.s ! o ! c ;
+      n = Pl ;
+      tail = inc i.tail
+    } ;
+
+    D_0 = mkDig "0" ;
+    D_1 = mk3Dig "1" "1st" Sg ;
+    D_2 = mk2Dig "2" "2nd" ;
+    D_3 = mk2Dig "3" "3rd" ;
+    D_4 = mkDig "4" ;
+    D_5 = mkDig "5" ;
+    D_6 = mkDig "6" ;
+    D_7 = mkDig "7" ;
+    D_8 = mkDig "8" ;
+    D_9 = mkDig "9" ;
+
+  oper
+    commaIf : DTail -> Str = \t -> case t of {
+      T3 => BIND ++ "," ++ BIND ;
+      _  => BIND
+      } ;
+
+    inc : DTail -> DTail = \t -> case t of {
+      T1 => T2 ;
+      T2 => T3 ;
+      T3 => T1
+      } ;
+
+    mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
+    mkDig : Str -> TDigit = \c -> mk2Dig c (c + "th") ;
+
+    mk3Dig : Str -> Str -> Number -> TDigit = \c,o,n -> {
+      s = table {NCard => regGenitiveS c ; NOrd => regGenitiveS o} ;
+      n = n
+      } ;
+
+    TDigit = {
+      n : Number ;
+      s : CardOrd => Case => Str
+    } ;
+
+-}
+
+
 {-
 --1 Numerals
 

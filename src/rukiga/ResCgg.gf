@@ -24,7 +24,7 @@ param
 					  MU |  KU  |  ZERO_BU  |  ZERO_BI | ZERO_MA |  
 					  ZERO_MI |  ZERO_TU |  ZERO_N  | I_ZERO  |  
 					  RI_ZERO |  KU_ZERO | MU_ZERO |  RU_ZERO |  
-					  KA_ZERO |ZERO_BAA | N_ZERO;
+					  KA_ZERO |ZERO_BAA | N_ZERO | KI_ZERO;
 	Case = Acc | Nom ; -- we need to include Gen because we shall need it with Gen Pronouns
 	RCase = RSuj | RObj |RGen;
   PersonalPronounType = SubjM | Obj  | RelSubj | RelObj |
@@ -63,6 +63,9 @@ param
 
 -}
 NounState  = Complete | Incomplete ; 
+
+
+
 
 oper
   -- the is for Common Nouns only 
@@ -1026,4 +1029,29 @@ oper
 
   --Conjunctions
   Conjunction : Type = {s : AgrConj =>Str ;s2 : Str ; n : Number} ;
+
+  -- For $Numeral$.
+param
+	--2 For $Numeral$
+
+    CardOrd = NCard;
+    --DForm   = Unit Gender| Ten Gender | N20_50 Gender| N60_n70 Gender; -- | hundred | thousand | tenThousand | hundredThousand | million ;
+oper
+  mkNum : Str ->Str -> Gender ->Str-> Gender -> --Str-> Gender->Str-> Gender-> Str -> Gender
+  	{
+  		s : Str; 
+  		unit          : { s:Str ; g : Gender; stem : Str};
+  		ten           : { s:Str ; g : Gender}
+  		--twenty_fifty  : { s:str ; g : gender; stem : Str};
+  		--sixty_seventy : { s:str ; g : gender; stem : Str};
+  		--eighty_ninety : { s:str ; g : gender; stem : Str};
+  	} = 
+    \biri,ibiri, g1, abiri,g2  ->
+    {
+    	s = [];
+    	unit = {s = "ibiri";  g = g1; stem ="biri"};
+    	ten  = {s = "abiri" ; g = g2};
+    };
+
+  
 }
