@@ -26,7 +26,7 @@ param
 					  RI_ZERO |  KU_ZERO | MU_ZERO |  RU_ZERO |  
 					  KA_ZERO |ZERO_BAA | N_ZERO;
 	Case = Acc | Nom ; -- we need to include Gen because we shall need it with Gen Pronouns
-
+	RCase = RSuj | RObj |RGen;
   PersonalPronounType = SubjM | Obj  | RelSubj | RelObj |
                           AdjPron2 | -- aAdjectival Prefixes with initial vowel with the semantics of "the" e.g. -- omuntu o-mu-rungi 
                           AdjPron  | -- without initial vowel i.e. -- omuntu mu-rungi           
@@ -46,7 +46,7 @@ param
   Agreement =  AgP3 Number Gender | AgMUBAP1 Number |AgMUBAP2 Number ;
   AgrExist = AgrNo | AgrYes Agreement;
   Position = PostDeterminer | PreDeterminer ;
-  
+  Variants = V1|V2;
 	--Functional forms of the regular verb
 	Mood = Infinitive | Imperative | Subjunctive | Perfective;
 	VerbCat = Simple | Prepositional | Causative;
@@ -441,38 +441,140 @@ oper
               _  => mkClitic "XXXPredPref" -- error checking for any case not catered for
 
     };
+    
+    -- TThis is for demonstrative pronouns which can also be use as Quantifiers
+    -- How can it be done without code repeation?
+    mkThese  = table{
+              --AgMUBAP1 Sg => mkClitic "ogu";
+              AgMUBAP1 Pl => mkClitic "aba" ;
+              --AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
+              AgMUBAP2 Pl => mkClitic "aba" ;
+              --AgP3 Sg MU_BA => mkClitic "ogu";
+              AgP3 Pl MU_BA => mkClitic "aba" ;
+              AgP3 Pl ZERO_BU => mkClitic "obu" ;
+              --AgP3 Sg BU_MA => mkClitic "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
+              AgP3 ( Pl) HA  => mkClitic "aha" ; -- of place HA 
+              AgP3 ( Pl) MU => mkClitic "omu" ; -- of place  MU
+              AgP3 ( Pl) KU => mkClitic "oku" ; -- of place KU
+              --AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
+              --AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
+              --AgP3 Sg KI_BI   => mkClitic "eki" ;
+              --AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
+              --AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
+              --AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
+              --AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
+              AgP3 Pl ZERO_MI =>mkClitic "egi" ;
+              AgP3 Pl MU_MI => mkClitic "egi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
+              --AgP3 Sg GU_GA => mkClitic "ogu" ;
+              AgP3 Pl GU_GA => mkClitic "aga" ;
+              _  => mkClitic "XXXThese" -- error checking for any case not catered for
+
+    };
 
     -- TThis is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
-    mkThisTheseQuantorDem :Agreement -> Str = \a -> case a of {
-              AgMUBAP1 n => mkClitics "ogu" "aba" n;
-              --AgMUBAP1 Pl => "aba" ;
-              AgMUBAP2 n => mkClitics "ogu" "aba" n; --probably an error check your grammar book
-              --AgMUBAP2 Pl => "aba" ;
-              AgP3 n MU_BA => mkClitics "ogu" "aba" n;
-              --AgP3 Pl MU_BA => "aba" ;
-              AgP3 Pl ZERO_BU => mkClitic "obu" ;
-              AgP3 Sg BU_MA => mkClitic "bwo" ;
-              AgP3 Pl (KA_BU | RU_BU) => mkClitic "bwo" ;
-              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "byo" ;
-              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "go";
-              AgP3 (Sg | Pl) HA  => mkClitic "ho" ; -- of place HA 
-              AgP3 (Sg | Pl) MU => mkClitic "mwo" ; -- of place  MU
-              AgP3 (Sg | Pl) KU => mkClitic "yo" ; -- of place KU
-              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "ryo" ;
-              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "ko" ;
-              AgP3 Sg KI_BI   => mkClitic "kyo" ;
-              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "kwo" ;
-              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "gwo" ;
-              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "rwo" ;
-              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "two" ;
-              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "yo" ;
-              AgP3 Pl ZERO_MI =>mkClitic "yo" ;
-              AgP3 Pl MU_MI => mkClitic "yo";
-              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "zo" ;
-              AgP3 Sg GU_GA => mkClitic "gwo" ;
-              AgP3 Pl GU_GA => mkClitic "go" ;
-              _  => mkClitic "XXXThis_That" -- error checking for any case not catered for
+    mkThis  = table{
+              AgMUBAP1 Sg => mkClitic "ogu";
+              --AgMUBAP1 Pl => mkClitic "aba" ;
+              AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
+              --AgMUBAP2 Pl => mkClitic "aba" ;
+              AgP3 Sg MU_BA => mkClitic "ogu";
+              --AgP3 Pl MU_BA => mkClitic "aba" ;
+              --AgP3 Pl ZERO_BU => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "obu" ;
+              --AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
+              --AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
+              --AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
+              AgP3 (Sg ) HA  => mkClitic "aha" ; -- of place HA 
+              AgP3 (Sg ) MU => mkClitic "omu" ; -- of place  MU
+              AgP3 (Sg ) KU => mkClitic "oku" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
+              AgP3 Sg KI_BI   => mkClitic "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              --AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
+              --AgP3 Pl ZERO_MI =>mkClitic "egi" ;
+              --AgP3 Pl MU_MI => mkClitic "egi";
+              --AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
+              AgP3 Sg GU_GA => mkClitic "ogu" ;
+              --AgP3 Pl GU_GA => mkClitic "aga" ;
+              _  => mkClitic "XXXThis" -- error checking for any case not catered for
+
+    };
+
+    -- TThis is for demonstrative pronouns which can also be use as Quantifiers
+    -- How can it be done without code repeation?
+    mkThose  = table{
+              --AgMUBAP1 Sg => mkClitic "ogu";
+              AgMUBAP1 Pl => mkClitic "abo" ;
+              --AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
+              AgMUBAP2 Pl => mkClitic "abo" ;
+              --AgP3 Sg MU_BA => mkClitic "ogu";
+              AgP3 Pl MU_BA => mkClitic "abo" ;
+              AgP3 Pl ZERO_BU => mkClitic "obwo" ;
+              --AgP3 Sg BU_MA => mkClitic "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obwo" ;
+              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebyo" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "ago";
+              AgP3 ( Pl) HA  => mkClitic "aho" ; -- of place HA 
+              AgP3 ( Pl) MU => mkClitic "omwo" ; -- of place  MU
+              AgP3 ( Pl) KU => mkClitic "okwo" ; -- of place KU
+              --AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
+              --AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
+              --AgP3 Sg KI_BI   => mkClitic "eki" ;
+              --AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
+              --AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
+              --AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otwo" ;
+              --AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
+              AgP3 Pl ZERO_MI =>mkClitic "egyo" ;
+              AgP3 Pl MU_MI => mkClitic "egyo";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezo" ;
+              --AgP3 Sg GU_GA => mkClitic "ogu" ;
+              AgP3 Pl GU_GA => mkClitic "ago" ;
+              _  => mkClitic "XXXThose" -- error checking for any case not catered for
+
+    };
+
+    -- TThis is for demonstrative pronouns which can also be use as Quantifiers
+    -- How can it be done without code repeation?
+    mkThat  = table {
+              AgMUBAP1 Sg => mkClitic "ogwo";
+              --AgMUBAP1 Pl => mkClitic "aba" ;
+              AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
+              --AgMUBAP2 Pl => mkClitic "aba" ;
+              AgP3 Sg MU_BA => mkClitic "ogu";
+              --AgP3 Pl MU_BA => mkClitic "aba" ;
+              --AgP3 Pl ZERO_BU => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "obwo" ;
+              --AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
+              --AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
+              --AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
+              AgP3 (Sg ) HA  => mkClitic "aho" ; -- of place HA 
+              AgP3 (Sg ) MU => mkClitic "omwo" ; -- of place  MU
+              AgP3 (Sg ) KU => mkClitic "okwo" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eryo" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "ako" ;
+              AgP3 Sg KI_BI   => mkClitic "ekyo" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "okwo" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogwo" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "orwo" ;
+              --AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egyo" ;
+              --AgP3 Pl ZERO_MI =>mkClitic "egi" ;
+              --AgP3 Pl MU_MI => mkClitic "egi";
+              --AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
+              AgP3 Sg GU_GA => mkClitic "ogwo" ;
+              --AgP3 Pl GU_GA => mkClitic "aga" ;
+              _  => mkClitic "XXXThat" -- error checking for any case not catered for
 
     };
 
@@ -539,6 +641,103 @@ oper
               _  => mkClitic "Error mkGenPrepNoIVClitic" -- error checking for any case not catered for
 
     };
+
+    mkRPs : RCase => Agreement =>Str = table{
+     RSubj => table {
+     		  AgMUBAP1 Sg => mkClitic "o";
+              AgMUBAP1 Pl => mkClitic "aba" ;
+              AgMUBAP2 Sg => mkClitic "o"; 
+              AgMUBAP2 Pl => mkClitic "aba" ;
+              AgP3 Sg MU_BA => mkClitic "o";
+              AgP3 Pl MU_BA => mkClitic "aba" ;
+              AgP3 Pl ZERO_BU => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  mkClitic "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
+              AgP3 (Sg ) HA  => mkClitic "aha" ; -- of place HA 
+              AgP3 (Sg ) MU => mkClitic "aha" ; -- of place  MU
+              AgP3 (Sg ) KU => mkClitic "e" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
+              AgP3 Sg KI_BI   => mkClitic "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "e" ;
+              AgP3 Pl ZERO_MI =>mkClitic "e" ;
+              AgP3 Pl MU_MI => mkClitic "e";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
+              AgP3 Sg GU_GA => mkClitic "ogu" ;
+              AgP3 Pl GU_GA => mkClitic "aga" ;
+              _  => mkClitic "XXXThat" -- error checking for any case not catered for
+ 				
+ 				};
+ 		RObj => table {
+     		  AgMUBAP1 Sg => mkClitic "ou"; 
+              AgMUBAP1 Pl => mkClitic "abu" ; --note: abu or abi is used. GF does not allow free variation. However, abu is more natural
+              AgMUBAP2 Sg => mkClitic "ou"; --probably an error check your grammar book
+              AgMUBAP2 Pl => mkClitic "abu" ;
+              AgP3 Sg MU_BA => mkClitic "o";
+              AgP3 Pl MU_BA => mkClitic "abu" ;
+              AgP3 Pl ZERO_BU => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "agu";
+              AgP3 (Sg ) HA  => mkClitic "ahu" ; -- of place HA 
+              AgP3 (Sg ) MU => mkClitic "ahu" ; -- of place  MU
+              AgP3 (Sg ) KU => mkClitic "ei" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aku" ;
+              AgP3 Sg KI_BI   => mkClitic "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "ei" ;
+              AgP3 Pl ZERO_MI =>mkClitic "ei" ;
+              AgP3 Pl MU_MI => mkClitic "ei";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
+              AgP3 Sg GU_GA => mkClitic "ogu" ;
+              AgP3 Pl GU_GA => mkClitic "agu" ;
+              _  => mkClitic "XXXThat" -- error checking for any case not catered for
+ 				
+ 				}
+ 			};
+
+ 		mkRObjV2 : Agreement=> Str =table {
+     		  AgMUBAP1  Sg => mkClitic "ou"; 
+              AgMUBAP1  Pl => mkClitic "abi" ; --note: abu or abi is used. GF does not allow free variation. However, abu is more natural
+              AgMUBAP2 Sg => mkClitic "ou"; --probably an error check your grammar book
+              AgMUBAP2 Pl => mkClitic "abi" ;
+              AgP3 Sg MU_BA => mkClitic "ou";
+              AgP3 Pl MU_BA => mkClitic "abi" ;
+              AgP3 Pl ZERO_BU => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "agi";
+              AgP3 (Sg ) HA  => mkClitic "ahi" ; -- of place HA 
+              AgP3 (Sg ) MU => mkClitic "ahu" ; -- of place  MU
+              AgP3 (Sg ) KU => mkClitic "ei" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aki" ;
+              AgP3 Sg KI_BI   => mkClitic "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "ei" ;
+              AgP3 Pl ZERO_MI =>mkClitic "ei" ;
+              AgP3 Pl MU_MI => mkClitic "ei";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
+              AgP3 Sg GU_GA => mkClitic "ogu" ;
+              AgP3 Pl GU_GA => mkClitic "agi" ;
+              _  => mkClitic "XXXThat" -- error checking for any case not catered for
+ 				
+ 			}; 
 
     -- type for Determier necessary for catCgg.gf
     Determiner : Type = {s : Str ; ntype : NounState ; num : Number ; pos : Position };
@@ -736,18 +935,18 @@ oper
                           --IDobjM => [];
                           RestOfVerb =>"a"
                         };
-                    VFPastPart => table{
-                      PreVerb => [];
-                      PriNegM => []; 
-                      --ObjRel => [];
-                      --SubjMarker =[]; 
-                      SecNegM => "ta"; 
-                      TAMarker => "ku"; 
-                      PersistiveMarker => [];
-                      --DObjM => [];
-                      --IDobjM => [];
-                      RestOfVerb =>"a"
-                    };
+                VFPastPart => table{
+                  PreVerb => [];
+                  PriNegM => []; 
+                  --ObjRel => [];
+                  --SubjMarker =[]; 
+                  SecNegM => "ta"; 
+                  TAMarker => "ku"; 
+                  PersistiveMarker => [];
+                  --DObjM => [];
+                  --IDobjM => [];
+                  RestOfVerb =>"irwe"
+                };
 
             --mkVerbPast:Str -> Str =\root -> Predef.BIND ++"ti" ++ Predef.BIND ++ "PriNegM" ++ Predef.BIND ++ "TM1" ++ Predef.BIND ++ "Empy" ++ Predef.BIND ++ "TM2" ++ Predef.BIND ++ "Empty" ++ Predef.BIND ++ "stem" ++ Predef.BIND ++ root ++ Predef.BIND ++ "ire"; 
             VFPast => table{

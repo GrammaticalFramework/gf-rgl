@@ -29,7 +29,7 @@ lincat
   NP = Res.NounPhrase;            -- noun phrase (subject or object)     e.g. "the red house"
   Pron = Res.Pronoun ;            -- personal pronoun                    e.g. "she"
   Det = Res.Determiner ;          -- determiner phrase                   e.g. "those seven"
-  Quant = SS ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
+  Quant = {s : Str ; s2 :Res.Agreement => Str; doesAgree : Bool} ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
   Num = Res.Numer ;               -- number determining element          e.g. "seven"
   AP = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool} ;--Res.AdjectivalPhrase;
   A  = Res.Adjective;
@@ -41,6 +41,8 @@ lincat
   Conj = Res.Conjunction; -- Conjunction: Type = {s : AgrConj =>Str ;s2 : Str ; n : Number} ; -- conjunction e.g. "and"
   -- see Structural for explanation of this structure
   Predet = {s : Str ; s2 : Str; isMWE : Bool; isInflected : Bool}; -- predeterminer (prefixed Quant)      e.g. "all"
+  RP = {s : Res.RCase => Res.Agreement => Str ; rObjVariant2: Res.Agreement => Str} ;
+
 {-
 --1 Cat: the Category System
 

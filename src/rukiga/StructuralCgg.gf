@@ -3,6 +3,16 @@
 concrete StructuralCgg of Structural = CatCgg ** 
   open ResCgg, ParadigmsCgg, (C = ConstructX), Prelude in {
 
+
+{-variants
+    NOTE: Please add them to the abstract syntax, ask aarne 
+    or creat you own abstract Lexicon which inherits from the 
+    standard one. See how english does it. i.e. use DictCggAbs.gf for the funs.
+    and DictCgg.gf for the lins.
+
+    Actually use and extend module for Structural
+-}
+
 lin
   
   a_Det = {s =[] ; ntype = Complete; num = Sg; pos = PreDeterminer};     --: Det ; indefinite singular ---s
@@ -119,22 +129,20 @@ here_Adv = {s = "hanu"; agr = AgrNo};
 {-End of Adverbs Adverbs-}
 
 {-Begining of Quantifiers-}
-
-{-End of Quantifiers-}
-
-{-variants
-    NOTE: Please add them to the abstract syntax, ask aarne 
-    or creat you own abstract Lexicon which inherits from the 
-    standard one. See how english does it. i.e. use DictCggAbs.gf for the funs.
-    and DictCgg.gf for the lins.
-
-    Actually use and extend module for Structural
--}
-
   {-
-        For DetQuant function to work, we need sample quatitifiers in Runynakore. Roximal, Medial, Distant
+        For DetQuant function to work, we need sample quatitifiers in Runynakore. Proximal, Medial, Distant
         We need a table to provide all of these.
   -}
+that_Quant  = {s =[]; s2 = mkThat; doesAgree = True}; --: Quant ;
+this_Quant = {s =[]; s2 = mkThis; doesAgree = True}; --: Quant ;
+these_Quant = {s =[]; s2 = mkThese; doesAgree = True};
+those_Quant = {s =[]; s2 = mkThose; doesAgree = True};
+no_Quant = {s ="tihariho"; s2 =\\_=> []; doesAgree = False};--: Quant ;
+{-End of Quantifiers-}
+
+
+
+  
 {-	
 --1 Structural: Structural Words
 --

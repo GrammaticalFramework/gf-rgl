@@ -3,6 +3,26 @@
 concrete RelativeCgg of Relative = CatCgg ** open ResCgg in {
 
 {-
+	--IdRP  : RP ;                      -- which
+
+	Apparently IdRP means Identity Relative Pronoun i.e. the most atomic part
+	of a relative pronoun. The abstract syntax seems to alude that more 
+	Relative pronouns can be formed when such a relative subject or object marker is affixed to 
+	a prepositional Phrase.
+	In Runynakore and Rukiga, relative pronouns depend on
+	Noun Class , Gender  and the case of the noun they 
+	refer to.
+
+	Since this involves a table of two tables, we use ResCgg to prepare all possibilities
+
+
+-}
+
+IdRP = {s = mkmkRPs; rObjVariant2 = mkRObjV2};        --: RP ;                      -- which
+
+
+
+{-
 --1 Relative clauses and pronouns
 
 abstract Relative = Cat ** {
