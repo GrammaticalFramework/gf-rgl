@@ -4,17 +4,21 @@ concrete VerbCgg of Verb = CatCgg ** open ResCgg, Prelude in {
 
 lin
 
-      UseV v = {s = v.s ; morphs = v.morphs; comp =[]; isCompApStem = False; agr = AgrNo};  --: V   -> VP; -- sleep --ignoring object agreement
+      UseV v = {s = v.s ; pres =v.pres; perf = v.perf; morphs = v.morphs; comp =[]; isCompApStem = False; agr = AgrNo; isRegular = v.isRegular};  --: V   -> VP; -- sleep --ignoring object agreement
 
 --    UseComp  : Comp -> VP ;            -- be warm means complement of a copula especially adjectival Phrase
 --VerbPhrase: Type ={s:Agr=>Polarity=>Tense=>Anteriority=>Str};
       --AdjectivalPhrase : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
       UseComp comp = {
         s = comp.s;  --Assuming there is no AP which is prepositional
+        pres =[]; 
+        perf = [];
         morphs=\\form,morphs=>[] ; 
         comp = [] ; 
         isCompApStem = False; 
-        agr = AgrNo}; --its not generating any sentence
+        agr = AgrNo;
+        isRegular = False
+        }; --its not generating any sentence
 
 --    CompAP   : AP  -> Comp;            -- (be) small
       CompAP ap = {s=ap.s};
@@ -29,20 +33,61 @@ lin
 --    SlashV2a : V2        -> VPSlash ;  -- love (it)
       SlashV2a v2 ={ 
         s =v2.s;
+        pres =v2.pres; 
+        perf = v2.perf;
         morphs = v2.morphs;
-        comp = []
+        comp = [];
+        comp2 =[];
+        isRegular =v2.isRegular
       };
+      --Slash2V3 : V3  -> NP -> VPSlash ;  -- give it (to her)
+      Slash2V3 v3 np ={
+        s =v3.s;
+        pres =v3.pres; 
+        perf = v3.perf;
+        morphs = v3.morphs; 
+        comp =  np.s ! Acc;
+        comp2 =[];
+        isRegular = v3.isRegular
+      };
+
+      --Slash3V3 : V3  -> NP -> VPSlash ;  -- give (it) to her
+      Slash3V3  v3 np ={
+        s =v3.s;
+        pres =v3.pres; 
+        perf = v3.perf;
+        morphs = v3.morphs; 
+        comp = []; 
+        comp2 = np.s ! Acc;
+        isRegular = v3.isRegular
+      };
+
 --    ComplSlash : VPSlash -> NP -> VP ; -- love it
       ComplSlash vpslash np ={ 
         s =vpslash.s;
+        pres =vpslash.pres; 
+        perf = vpslash.perf;
         morphs = vpslash.morphs; 
         comp = vpslash.comp ++  np.s ! Acc;
+        comp2 =vpslash.comp2; --should be empty
         isCompApStem = False; 
-        agr = AgrYes np.agr
+        agr = AgrYes np.agr;
+        isRegular = vpslash.isRegular
       };
 --   AdvVP    : VP -> Adv -> VP ;        -- sleep here
 --   VerbPhrase: Type = {s:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist};
-     AdvVP vp adv ={s=vp.s; morphs = vp.morphs; comp = adv.s; isCompApStem = False; agr = AgrNo};
+     AdvVP vp adv =
+      {
+        s=vp.s; 
+        pres =vp.pres; 
+        perf = vp.perf; 
+        morphs = vp.morphs; 
+        comp = adv.s;
+        comp2 = []; 
+        isCompApStem = False; 
+        agr = AgrNo;
+        isRegular = vp.isRegular
+      };
 
 
 

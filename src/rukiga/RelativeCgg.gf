@@ -1,6 +1,6 @@
 --# -path=.:../prelude:../abstract:../common
 
-concrete RelativeCgg of Relative = CatCgg ** open ResCgg in {
+concrete RelativeCgg of Relative = CatCgg ** open Prelude, ResCgg in {
 
 lin
 {-
@@ -25,25 +25,37 @@ lin
 	-- a pronoun similar to "such that".
 	RelCl cl = { 
       s = "kugira ngu" ++ cl.s ; 
-      subjAgr = cl.subjAgr; 
+      subjAgr = AgrYes cl.subjAgr;
+      rp = mkRPs;
+      rObjVariant2 = mkRObjV2;
       root = cl.root;
       morphs = cl.morphs;
-      compl =cl.compl                              
+      compl =cl.compl;
+      isCompApStem = False;
+      agr = AgrNo                              
       }; -- such that John loves her. why does it need any case?
 
 	-- The more proper ways are from a verb phrase 
 	-- (formed in [``Verb`` Verb.html]) or a sentence 
 	-- with a missing noun phrase (formed in [``Sentence`` Sentence.html]).
 	--RelVP    : RP -> VP -> RCl ;      -- who loves John
-	{-
-	RelVP rp vp ={ 
+	
+	RelVP rp vp =
+	{ 
       s = []; 
-      subjAgr = cl.subjAgr; 
-      root = cl.root;
-      morphs = cl.morphs;
-      compl =cl.compl                              
+      subjAgr = AgrNo; 
+      rp = rp.s;
+      rObjVariant2 = rp.rObjVariant2;
+      root = vp.s;
+      morphs = vp.morphs;
+      compl =vp.comp;
+      isCompApStem = vp.isCompApStem;
+      agr = vp.agr                            
       };
-     -}
+	
+      --RelSlash : RP -> ClSlash -> RCl ; -- whom John loves
+
+
 	{-
 --1 Relative clauses and pronouns
 

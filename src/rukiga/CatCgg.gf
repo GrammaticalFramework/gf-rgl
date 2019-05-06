@@ -22,6 +22,8 @@ lincat
   Cl, QCl = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
 
   V = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
+  V2,V2Q, V2S = Res.Verb2;
+  V2A,V3 = Res.Verb3;    -- three-place verb                    e.g. "show"
   VP = Res.VerbPhrase ;           -- verb phrase                         e.g. "is very warm"
 
   N = Res.Noun ;                  -- common noun                         e.g. "house"
@@ -34,7 +36,7 @@ lincat
   AP = {s : Str ; position1 : Res.Position1; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
   A  = Res.Adjective;
   Comp = Res.Comp;    -- complement of copula, such as AP  e.g. "very warm"
-  V2 = Res.Verb2;
+
   Adv = Res.Adverb;
   VPSlash = Res.VPSlash;
   PN = Res.ProperNoun; -- ProperNoun : Type = {s: Str ; a:Agreement ; isPlace : Bool};
@@ -43,12 +45,24 @@ lincat
   Predet = {s : Str ; s2 : Str; isMWE : Bool; isInflected : Bool}; -- predeterminer (prefixed Quant)      e.g. "all"
   RP = {s : Res.RCase => Res.Agreement => Str ; rObjVariant2: Res.Agreement => Str} ;
   RCl ={ 
-      s : Str ; 
-      subjAgr : Res.Agreement; 
+      s : Str ; --subject
+      rp: Res.RCase => Res.Agreement => Str;
+      rObjVariant2: Res.Agreement => Str;
+      subjAgr : Res.AgrExist; 
       root : Str;
       morphs : Res.VFormMini => Res.VerbMorphPos =>Str;
-      compl : Str                              -- after verb: complement, adverbs
+      compl : Str; -- after verb: complement, adverbs
+      agr : Res.AgrExist
       } ;
+  --VPSlash ={s:Str; morphs: VMorphs};  --VPSlash ; -- verb phrase missing complement    e.g. "give to John"
+  --ClSlash;-- clause missing NP (S/NP in GPSG)    e.g. "she looks at"
+  ClSlash = {   
+        s : Str ; --subject
+        subjAgr : Res.Agreement;
+        root : Str;
+        morphs : Res.VFormMini => Res.VerbMorphPos =>Str --; compl : Str -- after verb: complement, adverbs                              
+        } ;
+
   --VV =
 {-
 --1 Cat: the Category System

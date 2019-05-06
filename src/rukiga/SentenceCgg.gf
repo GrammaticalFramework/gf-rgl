@@ -83,6 +83,25 @@ PredVP np vp = case vp.isCompApStem of{
                 }
           } 
     };  --: VP -> Imp ;                 -- walk / do not walk
+
+--2 Clauses missing object noun phrases
+
+-- This category is a variant of the 'slash category' $S/NP$ of
+-- GPSG and categorial grammars, which in turn replaces
+-- movement transformations in the formation of questions
+-- and relative clauses. Except $SlashV2$, the construction 
+-- rules can be seen as special cases of function composition, in
+-- the style of CCG.
+-- *Note* the set is not complete and lacks e.g. verbs with more than 2 places.
+
+    --SlashVP   : NP -> VPSlash -> ClSlash ;      -- (whom) he sees
+    --SlashVP np vpslash =
+
+    --AdvSlash  : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
+    --SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks 
+    --SlashVS   : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
+
+
 {-
 --1 Sentence: Sentences, Clauses, and Imperatives
 

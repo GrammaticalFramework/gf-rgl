@@ -11,7 +11,8 @@ oper
     } ;
 
   mkV : overload {
-    mkV : (cry : Str) -> V ; 
+    mkV : (cry : Str) -> V ;
+    mkV : (cry, pres, perf :Str) -> V;
     } ;
 
 
@@ -20,11 +21,40 @@ oper
       = \fish,nclass -> lin N (mkNoun fish fish nclass) ;
     mkN : (man,men : Str) -> Gender -> N
       = \man,men,nclass -> lin N (mkNoun man men nclass) ;
+    };
+
+  mkV = overload {
+    mkV  : Str -> Verb  
+    = \root -> lin V (smartVerb root);  --{s =root; pres =[]; perf = []; morphs= mkVerbMorphs; isRegular = True}; --only those verbs whose conjugation involves change of last letter and are done in the same way in both runyankore and rukiga
+    mkV  : Str -> Str ->Str -> Verb 
+    = \root, restPres, restPerf ->lin V (mkVerb root restPres restPerf); --{s =root; pres =restPres; perf = restPerf; morphs= mkVerbMorphs; isRegular = False};
+  };
+  
+  mkV2 = overload {
+    mkV2 : Str -> Verb2 = \root ->mkV root **  {comp =[]};
+    mkV2 : Str -> Str ->Str -> Verb2 = \root, s1, s2 ->mkV root s1 s2 **  {comp =[]};
+  };
+  mkV3 = overload {
+    mkV3 : Str -> Verb3 = \root ->mkV2 root ** {comp2 =[]};
+    mkV3 : Str -> Str ->Str -> Verb3 = \root ,s1,s2 ->mkV2 root s1 s2 ** {comp2 =[]};
+  };
+
+  {-
+  --V2V verbs
+  mkV2V = overload {
+    mkV2V : Str -> V2V = \s -> lin V2V (dirV2 (regV s) ** {c3 = [] ; typ = VVAux}) ;
+    mkV2V : V -> V2V = \v -> lin V2V (dirV2 v ** {c3 = [] ; typ = VVAux}) ;
+    mkV2V : V -> Prep -> Prep -> V2V = \v,p,t -> lin V2V (prepV2 v p ** {c3 = t.s ; typ = VVAux}) ;
     } ;
 
 
-  mkV  : Str -> Verb = \root ->{s =root; morphs= mkVerbMorphs};
-  mkV2 : Str -> Verb2 = \root ->mkV root **  {comp =[]};
+  mkV2V : overload {
+    mkV2V : Str -> V2V ;
+    mkV2V : V -> V2V ;
+    mkV2V : V -> Prep -> Prep -> V2V ;  -- e.g. want (noPrep NP) (to VP)
+    } ;
+
+  -}
   --mkV = overload {
     --mkV : (cry : Str) -> V
       --= \cry -> lin V (mkVerb cry) ; -- what does it mean to create a lin on the fly

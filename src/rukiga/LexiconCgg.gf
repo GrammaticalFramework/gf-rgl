@@ -97,12 +97,18 @@ lin
   find_V2 = mkV2 "bon" ; --: V2 ; -- many words; kureeba, kubóna,kushanga, kumamya,kujumbura
   kill_V2 = mkV2 "it"; --: V2 ;
   love_V2 = mkV2 "kûnd"; --: V2 ;
-  read_V2 = mkV2 "shoma";--: V2 ;
+  read_V2 = mkV2 "shom";--: V2 ;
   see_V2 = mkV2 "reeb"; --: V2 ;
   teach_V2 = mkV2 "shomes" ; --: V2 ; or kwegyesa
   understand_V2 = mkV2 "étegyerez"; --: V2 ;
   wait_V2 = mkV2 "tegyerez"; --: V2 ;
 
+  -- ditransitive verbs
+  add_V3  = mkV3 "gáìt";
+  give_V3 = mkV3 "héére" "za" "ize";
+  sell_V3 = mkV3 "gu" "za" "rize";
+  send_V3 = mkV3 "tum" ;
+  talk_V3 = mkV3 "gamb";
   
 
 -- Intransitive verbs
@@ -122,6 +128,9 @@ lin
   --far_Adv = mkAdv "hare";
   
   --today_Adv = mkAdv "erizooba" AgrNo;
+
+  
+
 
   {-
   --Old LexiconCgg.gf

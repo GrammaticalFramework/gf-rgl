@@ -90,7 +90,7 @@ with_Prep      = mkPrep "na" [];
       n  = Sg 
     };
     
-   have_V2 ={s= "ine"; morphs = mkVerbMorphs; comp = []};  --: V2 ;
+   have_V2 ={s= "ine"; pres=[]; perf =[]; morphs = mkVerbMorphs; comp = []; isRegular=False};  --: V2 ;
 {-
   All Predeterminers are given here.
   Initial analysis shows that 

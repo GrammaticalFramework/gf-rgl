@@ -91,6 +91,22 @@ oper
         };
       gender = g
     } ;
+
+    mkVerb : Str ->Str ->Str ->Verb = \rad, end1,end2 ->{
+    	s = rad;
+    	pres = end1;
+    	perf = end2;
+    	morphs = mkVerbMorphs;
+    	isRegular = False;
+	};
+	--These are regular verbs with {a-ire} entry in the dictionary
+	smartVerb : Str ->Verb = \rad ->{
+    	s = rad;
+    	pres = [];
+    	perf = [];
+    	morphs = mkVerbMorphs;
+    	isRegular = True;
+	};
   
   {-  Smart paradigm
       This operation needs thorough testing with all nouns from a file
@@ -816,7 +832,7 @@ oper
         VFormMini =  VFInf | VFPres | VFPast | VFPastAnt | VFPresAnt | VFPresProg | VFPresPart |VFPastPart;
       oper
       --Verb : Type = {s : VFormMini => Str};
-      Verb : Type = {s : Str; morphs: VFormMini => VerbMorphPos=> Str};
+      Verb : Type = {s : Str; pres:Str; perf:Str; morphs: VFormMini => VerbMorphPos=> Str; isRegular:Bool};
       
       GVerb : Type = {s : Bool =>Str ; morphs: VFormMini => VerbMorphPos =>Str; isAux : Bool};
       {-
@@ -830,6 +846,7 @@ oper
         the compPrep. Actually, it is going to be empty in the next version
       -}
       Verb2 : Type = Verb ** {comp:Str};
+      Verb3 : Type = Verb2 ** {comp2 : Str} ;
       {-
         Given a root, can you form the different verbforms?
       -}
@@ -839,7 +856,7 @@ oper
                        RestOfVerb;
       oper
       VMorphs : Type = VFormMini => VerbMorphPos => Str;
-      VerbPhrase: Type = {s:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist};
+      VerbPhrase: Type = {s:Str; pres:Str; perf:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist; isRegular:Bool};
       -- in VP formation, all verbs are lifted to GVerb, but morphology doesn't need to know this
      verb2gverb : Verb ->Str -> GVerb = \v, ba -> {
             s = table{
@@ -889,7 +906,7 @@ oper
         These can be increased further. Note: Only those tenses clossest to the english equivalent 
         have been chosen. The full resource shall require even more.
       -}
-      mkVerbMorphs: VMorphs = table{
+      mkVerbMorphs:VMorphs = table{
             VFInf => table{ 
                           PreVerb => "ku";
                           PriNegM => []; 
@@ -992,6 +1009,8 @@ oper
 
       };
 
+
+
   --oper
     --Concatenates two strings at runtime without spaces
 
@@ -1001,7 +1020,7 @@ oper
   Numer : Type = { s: Str ; n : Number};
 
   --VPSlash : Type = VerbPhrase ** { c : Str };
-  VPSlash : Type = {s:Str; morphs: VMorphs; comp: Str};
+  VPSlash : Type = {s:Str; pres:Str; perf:Str; morphs: VMorphs; comp: Str; comp2:Str; isRegular:Bool}; --comp is empty
   
 
   {-
@@ -1010,20 +1029,20 @@ oper
 	      -- which is the Objects, NPs PPs APs etc.
 	 -}
       Clause : Type = {   -- word order is fixed in S and QS
-      s : Str ;
-      subjAgr : Agreement;
-      root : Str;
-      morphs : VFormMini => VerbMorphPos =>Str;
-      {-
-      inf  : Str;
-      pres  : Str; 
-      past  : Str; 
-      presPart  : Str; 
-      pastPart  : Str;                              -- subject
-      --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
-      -}
-      compl : Str                              -- after verb: complement, adverbs
-      } ;
+	      s : Str ; --subject
+	      subjAgr : Agreement;
+	      root : Str;
+	      morphs : VFormMini => VerbMorphPos =>Str;
+	      {-
+	      inf  : Str;
+	      pres  : Str; 
+	      past  : Str; 
+	      presPart  : Str; 
+	      pastPart  : Str;                              -- subject
+	      --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+	      -}
+	      compl : Str -- after verb: complement, adverbs                              
+	      } ;
   Comp : Type = {s:Str};
 
 
