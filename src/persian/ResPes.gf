@@ -112,7 +112,10 @@ oper
   } ;
 
   showVPHwithImpPrefix = showVPH' OV True VVPres ;
-  infVP : VPH -> Str = showVPH' VO False VVPres Inf defaultAgr ;
+  infVP = overload {
+    infVP : VPH -> Str = showVPH' VO False VVPres Inf defaultAgr ; -- word order VO, VerbForm infinitive
+    infVP : VerbForm -> VPH -> Str = \vf,vp -> showVPH' VO False VVPres vf defaultAgr vp -- VO as word order, but VerbForm can be any (e.g. present participle or perfect stem)
+  } ;
 
   showVPH' : WordOrder -> Bool -> VVTense -> VerbForm -> Agr -> VPH -> Str =
     \wo,showImpPref,ant,vf,agr,vp ->
