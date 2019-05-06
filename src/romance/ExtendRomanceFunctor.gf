@@ -123,6 +123,12 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     ExistMassCN cn = ExistNP (MassNP cn) ;
     ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
     AdvIsNP adv np = mkClause adv.s False False np.a (UseComp_estar (CompNP np)) ;
+    AdvIsNPAP adv np ap = -- <aquí:Adv> está <documentada:AP> <la examinación:NP>
+      let emptyN : N = lin N {s = \\_ => [] ; g = np.a.g} ; -- To match the gender of the N
+          indef : Quant = IndefArt ** {s = \\b,n,g,c => []} ;
+          det : Det = case np.a.n of {Sg => DetQuant indef NumSg ; Pl => DetQuant indef NumPl} ;
+          apAsNP : NP = DetCN det (AdjCN ap (UseN emptyN)) ; -- NP where the string comes only from AP
+       in AdvIsNP adv (ApposNP apAsNP np) ;
 
   lin
     ComplBareVS = ComplVS ;     -- VS -> S -> VP ; -- say she runs ; DEFAULT say that she runs
