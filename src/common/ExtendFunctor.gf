@@ -54,7 +54,8 @@ lin
   ExistCN cn = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;
   ExistMassCN cn = ExistNP (MassNP cn) ;
   ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
-  AdvIsNP adv np = PredVP np (UseComp (CompAdv adv)) ;  -- here is the tree / here are the trees
+  AdvIsNP adv np = PredVP np (UseComp (CompAdv adv)) ;  -- here is the tree / here are the trees ; DEFAULT the tree is  here
+  AdvIsNPAP adv np ap = PredVP np (AdvVP (UseComp (CompAP ap)) adv) ; -- here are the instructions documented ; DEFAULT the instructions are documented here
   PurposeVP = variants {} ;     -- VP -> Adv ; -- to become happy
   ComplBareVS = ComplVS ;     -- VS -> S -> VP ; -- say she runs ; DEFAULT say that she runs
   SlashBareV2S = SlashV2S ;     -- V2S -> S -> VPSlash ; -- answer (to him) it is good ; DEFAULT answer that it is good

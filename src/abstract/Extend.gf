@@ -117,6 +117,7 @@ abstract Extend = Cat ** {
 
 -- generalisation of existential, with adverb as a parameter
     AdvIsNP : Adv -> NP -> Cl ;  -- here is the tree / here are the trees
+    AdvIsNPAP : Adv -> NP -> AP -> Cl ; -- here are the instructions documented
 
 -- infinitive for purpose AR 21/8/2013
 
