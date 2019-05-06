@@ -25,13 +25,13 @@ concrete ExtraLat of ExtraLatAbs =
     ConjNPque conj nps = 
       {
 	s = case conj.c of {
-	  And => case nps.isBase of {
-            False => (conjunctDistrTable Case conj (nps.l ! And)).s ;
-            True => \\c => (nps.l ! And).s1 ! c ++ (nps.l ! And).s2 ! c ++ BIND ++ "que" 
+	  Et => case nps.isBase of {
+            False => \\cse => coord conj.c {init = (nps.s ! Et).init ! cse ; last = (nps.s ! Et).last ! cse } ;-- (conjunctDistrTable Case conj (nps.s ! Et)).s ;
+            True => \\cse => (nps.s ! Et).init ! cse ++ (nps.s ! Et).last ! cse ++ BIND ++ "que" 
 	    } ;
-	  c => (conjunctDistrTable Case conj (nps.l ! And)).s
+	  c => \\cse => coord conj.c {init = (nps.s ! c).init ! cse ; last = (nps.s ! c).last ! cse } -- (conjunctDistrTable Case conj (nps.l ! Et)).s
 	  } ;
-	n = case conj.c of { And => Pl ; _ => nps.n } ;
+	n = case conj.c of { Et => Pl ; _ => nps.n } ;
       	g = nps.g ;
       	p = nps.p ;
       	adv = nps.adv ;
