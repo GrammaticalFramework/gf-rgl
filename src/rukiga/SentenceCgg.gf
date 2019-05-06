@@ -11,7 +11,7 @@ lin
 --2 Sentences
   --UseCl    : Temp -> Pol -> Cl  -> S ;   -- she had not slept
   UseCl  temp pol cl = let 
-                subj = cl.subj;
+                subj = cl.s;
                 clitic = mkSubjClitic cl.subjAgr;
                 simul = cl.morphs ! VFPres; --this is not delivering the string
                 ant = cl.morphs ! VFPastPart; --this is not delivering the string
@@ -37,7 +37,7 @@ UseQCl   = UseCl; -- : Temp -> Pol -> Cl   -> S ;  -- John has not walked
 QuestCl cl = cl;  --: Cl -> QCl ; -- does John (not) walk
 PredVP np vp = case vp.isCompApStem of{
             False    => {
-                      subj = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                      s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                       subjAgr = np.agr;
                       root = vp.s;
                       morphs = vp.morphs;
@@ -52,7 +52,7 @@ PredVP np vp = case vp.isCompApStem of{
                       compl = vp.comp
                       };
             True    =>  {
-                      subj = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                      s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                       subjAgr = np.agr;
                       root = vp.s;
                       morphs = vp.morphs;

@@ -31,7 +31,7 @@ lincat
   Det = Res.Determiner ;          -- determiner phrase                   e.g. "those seven"
   Quant = {s : Str ; s2 :Res.Agreement => Str; doesAgree : Bool} ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
   Num = Res.Numer ;               -- number determining element          e.g. "seven"
-  AP = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool} ;--Res.AdjectivalPhrase;
+  AP = {s : Str ; position1 : Res.Position1; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
   A  = Res.Adjective;
   Comp = Res.Comp;    -- complement of copula, such as AP  e.g. "very warm"
   V2 = Res.Verb2;
@@ -42,7 +42,13 @@ lincat
   -- see Structural for explanation of this structure
   Predet = {s : Str ; s2 : Str; isMWE : Bool; isInflected : Bool}; -- predeterminer (prefixed Quant)      e.g. "all"
   RP = {s : Res.RCase => Res.Agreement => Str ; rObjVariant2: Res.Agreement => Str} ;
-
+  RCl ={ 
+      s : Str ; 
+      subjAgr : Res.Agreement; 
+      root : Str;
+      morphs : Res.VFormMini => Res.VerbMorphPos =>Str;
+      compl : Str                              -- after verb: complement, adverbs
+      } ;
   --VV =
 {-
 --1 Cat: the Category System

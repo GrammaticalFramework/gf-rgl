@@ -20,10 +20,31 @@ lin
 -}
 
 	IdRP = {s = mkRPs; rObjVariant2 = mkRObjV2};        --: RP ;                      -- which
+	--RelCl    : Cl -> RCl ;            -- such that John loves her
+	-- The simplest way to form a relative clause is from a clause by
+	-- a pronoun similar to "such that".
+	RelCl cl = { 
+      s = "kugira ngu" ++ cl.s ; 
+      subjAgr = cl.subjAgr; 
+      root = cl.root;
+      morphs = cl.morphs;
+      compl =cl.compl                              
+      }; -- such that John loves her. why does it need any case?
 
-
-
-{-
+	-- The more proper ways are from a verb phrase 
+	-- (formed in [``Verb`` Verb.html]) or a sentence 
+	-- with a missing noun phrase (formed in [``Sentence`` Sentence.html]).
+	--RelVP    : RP -> VP -> RCl ;      -- who loves John
+	{-
+	RelVP rp vp ={ 
+      s = []; 
+      subjAgr = cl.subjAgr; 
+      root = cl.root;
+      morphs = cl.morphs;
+      compl =cl.compl                              
+      };
+     -}
+	{-
 --1 Relative clauses and pronouns
 
 abstract Relative = Cat ** {

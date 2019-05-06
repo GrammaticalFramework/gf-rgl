@@ -46,6 +46,7 @@ param
   Agreement =  AgP3 Number Gender | AgMUBAP1 Number |AgMUBAP2 Number ;
   AgrExist = AgrNo | AgrYes Agreement;
   Position = PostDeterminer | PreDeterminer ;
+  Position1 = Post | Pre;
   Variants = V1|V2;
 	--Functional forms of the regular verb
 	Mood = Infinitive | Imperative | Subjunctive | Perfective;
@@ -337,13 +338,12 @@ oper
       using arne's technique
     -}
     --AdjectivalPhrase : Type {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool} ;
-    AdjectivalPhrase : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
-    Adjective : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
-    mkAdjective: Str -> Bool -> Bool -> Bool -> Adjective = \ a , isPre, isProper, isPrep -> case isPre of {
-      True => { s = a ; post = [] ; isPre = True; isProper = isProper; isPrep = isPrep}; 
-      --this is supposed to be a concatenation use bind and I will do so later
-      False => { s = [] ; post = a; isPre = False; isProper = isProper; isPrep = isPrep} -- requires agreement later
-      };
+    AdjectivalPhrase : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
+    --Adjective : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
+    Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
+    mkAdjective: Str -> Position1 -> Bool -> Bool -> Adjective = \ a , pos, isProper, isPrep -> 
+     { s = a ; position1 = pos ; isPre = True; isProper = isProper; isPrep = isPrep}; 
+      
     {-
         TO DO:
         --Subject prefixes / particles of clitics using bind
@@ -1010,7 +1010,7 @@ oper
 	      -- which is the Objects, NPs PPs APs etc.
 	 -}
       Clause : Type = {   -- word order is fixed in S and QS
-      subj : Str ;
+      s : Str ;
       subjAgr : Agreement;
       root : Str;
       morphs : VFormMini => VerbMorphPos =>Str;

@@ -25,30 +25,30 @@ lin
   --Noun = {s : NounType=>Number => Str ; nc : NClass} ;
   --AdjCN ap cn = {s=\\ntype, num=>cn.s!ntype!num ++ ap.s!AgP3 num cn.nc; nc=cn.nc};
     AdjCN ap cn = 
-      case <ap.isPre, ap.isProper, > of {
-          <True, True> => { 
+      case <ap.position1, ap.isProper, > of {
+          <Pre, True> => { 
                     s = \\ ns, num =>ap.s ++ cn.s ! ns ! num ; 
                     gender = cn.gender 
                   };
-          <False, False> => case ap.isPrep of {
+          <Post, False> => case ap.isPrep of {
                      False  =>  { 
                             s = \\ ns, num => cn.s ! ns ! num ++ mkAdjPronIVClitic (AgP3 num cn.gender) 
-                                 ++ ap.post ; 
+                                 ++ ap.s; 
                               gender = cn.gender   
                           };
                      True  =>  { 
                             s = \\ ns, num => (cn.s ! ns ! num) ++ 
-                                mkGenPrepNoIVClitic (AgP3 num cn.gender) ++ ap.post ; 
+                                mkGenPrepNoIVClitic (AgP3 num cn.gender) ++ ap.s ; 
                             gender = cn.gender 
                           }
                   };
-          <True, False> => { 
+          <Pre, False> => { 
                     s = \\ ns, num => mkAdjPronIVClitic (AgP3 num cn.gender) 
                                ++ ap.s ++ (cn.s ! ns ! num) ; 
                     gender = cn.gender 
                   };
-          <False, True> => { 
-                     s = \\ ns, num => (cn.s ! ns ! num) ++ ap.post ; 
+          <Post, True> => { 
+                     s = \\ ns, num => (cn.s ! ns ! num) ++ ap.s ; 
                      gender = cn.gender
                   }                   
 

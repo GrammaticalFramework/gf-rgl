@@ -62,26 +62,26 @@ lin
   paris_PN = mkPN "Paris" (AgP3 Sg N_N) True; --Noun class for places???
  
   --Adjectives
-  bad_A    = mkAdjective "bi" False False False; --False means the adjective is a stem and comes after the complete noun
+  bad_A    = mkAdjective "bi" Post False False; --False means the adjective is a stem and comes after the complete noun
   --beautiful_A = mkAdjective "rungi" False;
-  big_A = mkAdjective "hango" False False False;
-  black_A = mkAdjective "kwirangura" False False False;
-  blue_A = mkAdjective "buuru" False True True ;
-  clean_A = mkAdjective "yonjo" False False False; --: A ;
-  cold_A = mkAdjective "rikufuka" False False False; --: A ;
-  good_A =mkAdjective "rungi" False False False; --: A ;
-  heavy_A = mkAdjective "rikuremeera" False False False; --: A ; --notice ri as a verb is
-  hot_A = mkAdjective "rikwotsya" False False False; -- rikutagata -- problematic words like hot we need a new set of clitics
-  new_A = mkAdjective "sya" False False False; --: A ;
-  old_A = mkAdjective "kúru" False False False; --: A ;
-  ready_A = mkAdjective "eteekateekire" False False False; --: A ;
-  red_A = mkAdjective "ríkutukura" False False False; --: A ;
-  small_A = mkAdjective "kye" False False False;
-  warm_A = mkAdjective "rikutagata" False False False;--: A ;
-  white_A = mkAdjective "rikwera" False False False;--: A ;
-  yellow_A = mkAdjective "kinekye" False True True;--: A ; or yero, or kyenju
-  young_A = mkAdjective "to" False False False;--: A ;
-  green_A =mkAdjective "kijubwe" False False True;
+  big_A = mkAdjective "hango" Post False False;
+  black_A = mkAdjective "kwirangura" Post False False;
+  blue_A = mkAdjective "buuru" Post True True ;
+  clean_A = mkAdjective "yonjo" Post False False; --: A ;
+  cold_A = mkAdjective "rikufuka" Post False False; --: A ;
+  good_A =mkAdjective "rungi" Post False False; --: A ;
+  heavy_A = mkAdjective "rikuremeera" Post False False; --: A ; --notice ri as a verb is
+  hot_A = mkAdjective "rikwotsya" Post False False; -- rikutagata -- problematic words like hot we need a new set of clitics
+  new_A = mkAdjective "sya" Post False False; --: A ;
+  old_A = mkAdjective "kúru" Post False False; --: A ;
+  ready_A = mkAdjective "eteekateekire" Post False False; --: A ;
+  red_A = mkAdjective "ríkutukura" Post False False; --: A ;
+  small_A = mkAdjective "kye" Post False False;
+  warm_A = mkAdjective "rikutagata" Post False False;--: A ;
+  white_A = mkAdjective "rikwera" Post False False;--: A ;
+  yellow_A = mkAdjective "kinekye" Post True True;--: A ; or yero, or kyenju
+  young_A = mkAdjective "to" Post False False;--: A ;
+  green_A =mkAdjective "kijubwe" Post False True;
 
   --ditransitive verbs
   --bite_V2 = mkV2 "rum";
