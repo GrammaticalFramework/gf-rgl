@@ -367,12 +367,12 @@ oper
 	"çar"    => començar_22 x ;
 	"gir"    => fugir_58 x ;
 	"ure"    => beure_11 x ;
-	"xer"    => créixer_33 x ; --conèixer,aparèixer with regAltV
+	"xer"    => créixer_33 x True ; --conèixer,aparèixer with regAltV
 
         _ + "re" => perdre_83 x ;
         _ + "er" => verbEr x ; --handles accents in infinitives and c/ç, g/j
 	_ + "ir" => dormir_44 x ; --inchoative verbs with regAltV
-	_ + "ur" => dur_45 x ;
+	_ + "ur" => dur_45 x True ;
 	_        => cantar_15 x } ;
 
   regAltV x y =
@@ -384,15 +384,15 @@ oper
 	   <"ure",_+"c"> => regV x ; --caure,viure etc. with non-smart paradigms
 
 	   --small set of irregular verbs that have unique P1 Sg
-	   <_+"ir","tinc">  => tenir_108 x ; --tenir, obtenir, ...
-	   <_+"ir","vinc">  => venir_117 x ; --venir, prevenir, ...
+	   <_+"ir","tinc">  => tenir_108 x 0 ; --tenir, obtenir, ...
+	   <_+"ir","vinc">  => venir_117 x True ; --venir, prevenir, ...
            <_+"er",_+"ig">  => fer_56 x ;
-	   <_+"re",_+"ig">  => veure_118 x ;
-	   <_+"ar",_+"ig">  => anar_4 x ;
+	   <_+"re",_+"ig">  => veure_118 x 0 ;
+	   <_+"ar",_+"ig">  => anar_4 x 0 ;
 
 	   <"xer" ,_+ "c">  => conèixer_27 x ; --créixer, merèixer with regV
-           <_+"er",_+ "c">  => valer_114 x ;
-	   <_+"re",_+ "c">  => doldre_42 x ; --participles of type dolgut
+           <_+"er",_+ "c">  => valer_114 x True ;
+	   <_+"re",_+ "c">  => doldre_42 x True ; --participles of type dolgut
 	                                     --for absolt, pres, ... use mk3V
 	   <_ ,_>           => regV x } ;
 
@@ -406,25 +406,25 @@ oper
 	   --if these are overfitting, just comment out.
            --still doesn't catch creure, seure; mk4V with creiem as 4th arg?
 	   <"ure",_, "uit"> => coure_32 x ;    --coure coem cuit
-	   <"ure",_,_+"it"> => escriure_50 x ; --escriure escrivim escrit
-	   <"ure",_,_+"et"> => treure_113 x ;  --treure traiem tret
-           <"ure",_,_+"st"> => veure_118 x ;   --veure veiem vist
+	   <"ure",_,_+"it"> => escriure_50 x True ; --escriure escrivim escrit
+	   <"ure",_,_+"et"> => treure_113 x True ;  --treure traiem tret
+           <"ure",_,_+"st"> => veure_118 x 0 ;   --veure veiem vist
            <"ure",_, "cut"> => viure_119 x ;   --viure vivim viscut
 
-	   <"dre",_,_+"st"> => compondre_26 x ; --compondre compost
+	   <"dre",_,_+"st"> => compondre_26 x True ; --compondre compost
 
-	   <"rir", _+"ixo",_+"rt"> => cobrir_20 x ;  --cob|rir cob|ert
-	   <_+"ir",_+"ixo",_+"rt"> => complir_25 x ; --compl|ir compl|ert
+	   <"rir", _+"ixo",_+"rt"> => cobrir_20 x True ;  --cob|rir cob|ert
+	   <_+"ir",_+"ixo",_+"rt"> => complir_25 x True ; --compl|ir compl|ert
 
-	   <_+"ir",_+"ixo",_+"ït"> => lluir_64 x ; --lluir lluïm lluït
+	   <_+"ir",_+"ixo",_+"ït"> => lluir_64 x 0 ; --lluir lluïm lluït
 
-	   <"dre",_,"nut"> => vendre_116 x ;
+	   <"dre",_,"nut"> => vendre_116 x True ;
 
 	   <_+"re",_+"c",_+"t"> => absoldre_1 x ; --c in sgP1 and subj, not in part
 
 	   <_+"re",_,_+"es"> => prendre_87 x ;
 	   <_+"re",_,_+"ès"> => atendre_8 x ;
-	   <_+"re",_,_+"as"> => raure_91 x ;
+	   <_+"re",_,_+"as"> => raure_91 x True ;
 	   <_+"re",_,_+"às"> => romandre_97 x ;
 	   <_+"re",_,_+"os"> => cloure_19 x ;
 	   <_+"re",_,_+"ós"> => confondre_28 x ;

@@ -42,7 +42,7 @@ concrete SentenceAra of Sentence = CatAra ** open
 
 --  SlashVS np vs sslash = TODO
 
-    EmbedS  s  = {s = "أَنْ" ++ s.s ! Verbal} ;
+    EmbedS  s  = {s = "مَا" ++ s.s ! Verbal} ;
     EmbedQS qs = {s = qs.s ! QIndir} ;
     EmbedVP vp = {s = uttVP VPPerf vp ! Masc} ; -- TODO: use VPGer once it's more stable
 

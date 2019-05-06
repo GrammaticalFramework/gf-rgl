@@ -26,7 +26,7 @@ concrete StructuralPes of Structural = CatPes **
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
 --  everybody_NP =  R.indeclNP "هر کwی";
   every_Det = mkDet "هر" Sg ;
---  everything_NP = R.indeclNP ["هر XE"]));
+  everything_NP = DetCN (mkDet "همه" Sg) (UseN (mkN "چیز")) ;
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
   for_Prep = mkPrep "برای" Ezafe ;
@@ -101,12 +101,12 @@ concrete StructuralPes of Structural = CatPes **
   youSg_Pron = R.agr2pron ! Ag Sg P2 ;
   youPl_Pron = R.agr2pron ! Ag Pl P2 ;
   youPol_Pron = R.agr2pron ! Ag Pl P2  ;
-  no_Quant = mkQuant "هیچ" "هیچ" ;
+  no_Quant = mkQuant "هیچ" "هیچ" ; -- TODO: takes object in clitic form + is always singular + VP is negated
   not_Predet = {s="نه"} ;
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;
   at_least_AdN = ss "حداقل" ;
   at_most_AdN = ss "حداکثر";
-  nothing_NP = R.indeclNP "هیچ" ;
+  nothing_NP = R.indeclNP "هیچ چیز" ;
   except_Prep = mkPrep ["به جز"] ;
   nobody_NP = R.indeclNP "هیچ کس";
 
@@ -114,7 +114,7 @@ concrete StructuralPes of Structural = CatPes **
 
 ----  have_V2 = mkV2 (mkV "داشتن" "دار") "را" ;
 
- language_title_Utt = ss "پeرسن" ;
+ language_title_Utt = ss "فارسی" ;
 
 ---- AR from Nasrin
 

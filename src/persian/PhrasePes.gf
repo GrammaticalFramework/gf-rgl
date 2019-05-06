@@ -16,7 +16,7 @@ concrete PhrasePes of Phrase = CatPes ** open Prelude, ResPes in {
     UttNP np = {s = np2str np} ;
   	UttCN cn = {s = cn2str cn};
     UttAP ap = {s = ap.s ! Bare} ;
-    UttVP vp = {s = showVPH Inf defaultAgr vp} ;
+    UttVP vp = {s = infVP vp} ;
 
     PConjConj conj = {s = conj.s2} ;
 

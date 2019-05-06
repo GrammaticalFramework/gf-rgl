@@ -12,7 +12,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
 ---- Sentence
 
-    Cl = ResPes.Clause ;
+    Cl = ResPes.Clause ; -- TODO: like romance does "no tiene ningún", i.e.  negative quant/det/NP forces negation in Cl and S
     ClSlash = {
       subj : Str ;
       vp : ResPes.TAnt => Polarity => Order => Str ;
@@ -71,12 +71,18 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
     Conj = {s1,s2 : Str ; n : Number} ;
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
-    Subj = {s : Str ; compl : VVForm} ; -- subjunctive or indicative
+    Subj = {
+      s : Str ;
+      compl : VVForm ;  -- subjunctive or indicative
+      relpron : RelPron -- choose between که and آنچه
+      } ;
+    VS = ResPes.Verb ** {compl : VVForm} ; -- subjunctive or indicative
+    V2S = ResPes.Verb ** {c2 : Compl ; compl : VVForm} ;
     Prep = Compl ;
 ---- Open lexical classes, e.g. Lexicon
-    V, VS, VQ = ResPes.Verb ;
+    V, VQ = ResPes.Verb ;
 
-    V2, VA, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
+    V2, VA, V2A, V2Q = ResPes.Verb ** {c2 : Compl} ;
     V3 = ResPes.Verb ** {c2, c3 : Compl} ;
     VV = ResPes.VV ;
     V2V = ResPes.VV ** {c2 : Compl} ;
@@ -85,8 +91,8 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
     N = ResPes.Noun ;
 
-    N2 = ResPes.Noun ** {c2 : Str ; compl : Str}; -- when N3 is made to N2, need to retain compl
-    N3 = ResPes.Noun ** {c2 : Str ; c3 : Str} ;
+    N2 = ResPes.Noun ** {c2 : Compl ; compl : Str}; -- when N3 is made to N2, need to retain compl
+    N3 = ResPes.Noun ** {c2 : Compl ; c3 : Compl} ;
     PN = {s : Str ; animacy : Animacy} ;
 
 }

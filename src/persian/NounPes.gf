@@ -21,7 +21,13 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     UsePN pn = emptyNP ** pn ** {s = \\_ => pn.s} ;
-    UsePron p = emptyNP ** p ** {s = \\_ => p.s ; animacy = Animate} ;
+    UsePron p = emptyNP ** p ** {
+       s = \\_ => p.s ;
+       clitic = p.ps ;
+       isClitic = case p.a of {
+                  Ag Sg P3 => True ;
+                  _ => False } ;
+       animacy = Animate} ;
 
     PredetNP pred np = np ** {
       s = \\ez => pred.s ++ np.s ! ez
@@ -72,6 +78,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       a = agrP3 det.n ;
       hasAdj = False ;
       animacy = Inanimate ;
+      --TODO: isClitic, clitic
       relpron = Ance -- TODO check if this works for all Dets
       } ;
 
@@ -119,20 +126,20 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     ComplN2 n2 np = n2 ** {
-      s = \\n,m => n2.s ! n ! Ezafe ;
-      compl = \\_ => n2.compl ++ n2.c2 ++ np2str np ;
+      s = \\n,m => n2.s ! n ! n2.c2.mod ;
+      compl = \\_ => n2.compl ++ n2.c2.s ++ np2str np ;
       hasAdj = False
      };
 
     ComplN3 n3 np = n3 ** {
-      s = \\n,m => n3.s ! n ! Ezafe ;
-      compl = n3.c2 ++ np2str np ;
+      s = \\n,m => n3.s ! n ! n3.c2.mod ;
+      compl = n3.c2.s ++ np2str np ;
       c = n3.c3;
       } ;
 
     AdjCN ap cn = cn ** {
       s = \\n,m => case ap.isPre of {
-              True  => ap.s ! Bare ++ cn.s ! n ! m ; -- TODO check mod of ap
+              True  => ap.s ! Bare ++ cn.s ! n ! m ;
               False => cn.s ! n ! Ezafe ++ ap.s ! m } ;
       hasAdj = True
      } ;

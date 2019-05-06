@@ -25,6 +25,10 @@ oper
   -- fatha : Str = "َ" ;
   kasre,fatha : Str = [] ;
 
+  -- for appComp
+  -- runtimeKasre : Str -> Str = \s -> glue s kasre ;
+  runtimeKasre : Str -> Str = \s -> s ;
+
 
 ---- Nouns
 param
@@ -150,7 +154,8 @@ oper
   Adjective : Type = {
     s : Mod => Str ;
     adv : Str ;
-    isPre : Bool
+    isPre : Bool ;        -- as attributive
+    afterPrefix : Bool ;  -- as predicative, does it go between the prefix and the light verb
     } ;
 
  mkAdj : Str -> Str -> Adjective = \adj,adv -> {
@@ -159,7 +164,7 @@ oper
                Clitic => mkEnclic adj ;
                Poss => mkPossStem adj
              } ;
-   adv = adv ; isPre = False
+   adv = adv ; isPre = False ; afterPrefix = True ;
    };
 
 ------------------------------------------------------------------
@@ -179,13 +184,35 @@ param
            | VImp Polarity Number -- bekon,bekonid/nakon,nakonid
            ;
 
-  Passive = Add       -- ateš zadan -> ateš zade šodan
-          | Replace ; -- gom kardan -> gom   ∅   šodan
+  -- Affects clitic placement and passive
+  LightVerb = NotLight | Light  -- ateš zadan -> ateš zade šodan
+            | Kardan ;          -- gom kardan -> gom   ∅   šodan
 oper
   impRoot : Str -> Str = \root -> case root of {
     st + "ی" => st ;
     _        => root
     };
+
+  modifyFiniteForms : (Str -> Str) -> Verb -> Verb = \f,v -> v ** {s =
+    table {
+      vf@(VAor _ _
+         | VPerf _ _
+         | VPast _ _
+         | VSubj _ _
+         | VImp _ _)
+         => f (v.s ! vf) ;
+      vf => v.s ! vf }
+    } ;
+
+  addClitic : LightVerb -> Str -> Verb -> Verb = \light,cl,v -> v ** {s =
+    let f : Str -> Str = case light of {
+          NotLight => \s -> glue s cl ;
+          _ => \s -> BIND ++ cl ++ s } -- hack: put clitic before the verb, so it attaches to the prefix
+    in table {
+          Inf => glue (v.s ! Inf) cl ;
+          vf => (modifyFiniteForms f v).s ! vf }
+       } ;
+
 
   mkVerb : (inf,pres : Str) -> Verb = \kardan,kon -> {
     s = table {
@@ -202,11 +229,11 @@ oper
       VSubj Pos agr => addBh (imperfectSuffixD agr kon) ;
       VSubj Neg agr => addN (imperfectSuffixD agr kon) ;
       VImp Pos Sg => addBh imp ;
-      VImp Pos Pl => addBh imp + "ید" ;
+      VImp Pos Pl => addBh kon + "ید" ;
       VImp Neg Sg => addN imp ;
-      VImp Neg Pl => addN imp + "ید" } ;
+      VImp Neg Pl => addN kon + "ید" } ;
     prefix = [] ;-- For compound verbs
-    passive = Add ;
+    lightverb = NotLight ;
   } where {
       kard = tk 1 kardan ;
       kardeh = kard + "ه" ;
@@ -230,7 +257,7 @@ oper
       } ;
 --
 oper
-  Verb = {s : VerbForm => Str ; prefix : Str ; passive : Passive} ;
+  Verb = {s : VerbForm => Str ; prefix : Str ; lightverb : LightVerb} ;
 
   -- Verbs that end in یدن, ادن or ودن
   -- Also some verbs that don't: دانستن with stem دان
@@ -315,7 +342,7 @@ oper
 
   haveVerb : Verb = haveRegV ** {s = table {
     ImpPrefix _ => [] ;
-    VAor Neg agr  => imperfectSuffix agr (addN "دار") ;
+    VAor Neg agr  => imperfectSuffixD agr (addN "دار") ;
     VSubj pol agr => haveRegV.s ! VPerf pol agr ;
     vf          => haveRegV.s ! vf }
   } where { haveRegV = mkVerb "داشتن" "دار" } ;
@@ -333,7 +360,15 @@ oper
     vf          => beRegV.s ! vf }
   } where { beRegV = mkVerb "بودن" "باش" } ;
 
-  doVerb = mkVerb "کردن" "کن" ** {passive=Replace} ;
+  doVerb : Verb = doRegV ** {s = table {
+    VSubj pol agr => addN pol (imperfectSuffixD agr "کن") ;
+    VImp Pos Sg => "کن" ;
+    VImp Pos Pl => "کنید" ;
+    VImp Neg Sg => "نکن" ;
+    VImp Neg Pl => "نکنید" ;
+    vf          => doRegV.s ! vf } ;
+    lightverb = Kardan
+  } where { doRegV = mkVerb "کردن" "کن" } ;
 
   becomeVerb : Verb = mkVerb "شدن" "شو" ;
 
