@@ -1049,8 +1049,8 @@ oper
     \biri,ibiri, g1, abiri,g2  ->
     {
     	s = [];
-    	unit = {s = "ibiri";  g = g1; stem ="biri"};
-    	ten  = {s = "abiri" ; g = g2};
+    	unit = {s = ibiri;  g = g1; stem ="biri"};
+    	ten  = {s = abiri ; g = g2};
     };
 
   

@@ -64,7 +64,7 @@ lin pot3 n = let
 
 lin pot3plus n m = let 
                       thousand = case  <n.n> of{
-                                          <Sg> => "akairira";
+                                          <Sg> => "akasirira";
                                           _    => "obusirira" ++ n.s
                           };
                     in { s = thousand  ++ m.s; g = ZERO_ZERO; n = n.n} ;
