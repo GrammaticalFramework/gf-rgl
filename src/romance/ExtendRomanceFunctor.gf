@@ -125,7 +125,8 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     AdvIsNP adv np = mkClause adv.s False False np.a (UseComp_estar (CompNP np)) ;
     AdvIsNPAP adv np ap = -- <aquí:Adv> está <documentada:AP> <la examinación:NP>
       let emptyN : N = lin N {s = \\_ => [] ; g = np.a.g} ; -- To match the gender of the N
-          det : Det = case np.a.n of {Sg => DetQuant IndefArt NumSg ; Pl => DetQuant IndefArt NumPl} ;
+          indef : Quant = IndefArt ** {s = \\b,n,g,c => []} ;
+          det : Det = case np.a.n of {Sg => DetQuant indef NumSg ; Pl => DetQuant indef NumPl} ;
           apAsNP : NP = DetCN det (AdjCN ap (UseN emptyN)) ; -- NP where the string comes only from AP
        in AdvIsNP adv (ApposNP apAsNP np) ;
 
