@@ -1,6 +1,7 @@
 --# -path=.:../prelude:../abstract:../common
 
 concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
+--1 Question: Questions and Interrogative Pronouns
 
 {-
 --1 Question: Questions and Interrogative Pronouns

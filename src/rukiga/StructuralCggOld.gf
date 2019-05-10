@@ -1,6 +1,6 @@
 --# -path=.:../prelude:../abstract:../common
 
-concrete StructuralCgg of Structural = CatCgg ** 
+concrete StructuralCggOld of Structural = CatCgg ** 
   open ResCgg, ParadigmsCgg, (C = ConstructX), Prelude in {
 
 
@@ -23,17 +23,15 @@ lin
   few_Det = {s="kye"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=PostDeterminer; doesAgree = False} ;
   many_Det ={s="ingi"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=PostDeterminer; doesAgree = False} ;
   
-  i_Pron            = {s = table{Gen => glueGen (AgMUBAP1 Sg); _=> mkSStand (AgMUBAP1 Sg)}; third = \\_,_=>[];  agr = AgrYes (AgMUBAP1 Sg)};--mkPron "nyowe" "nyowe" (AgMUBAP1 Sg);
-  youSg_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Sg); _=>mkSStand (AgMUBAP2 Sg)}; third = \\_,_=>[];  agr = AgrYes(AgMUBAP2 Sg)};--mkPron "iwe" "we" (AgMUBAP2 Sg); 
-  he_Pron, she_Pron = {s = table{Gen => glueGen (AgP3 Sg MU_BA); _=>mkSStand (AgP3 Sg MU_BA)}; third = \\_,_=>[];  agr = AgrYes(AgP3 Sg MU_BA)};--mkPron "uwe" "uwe" (AgP3 Sg MU_BA);
-  we_Pron           = {s = table{Gen => glueGen (AgMUBAP1 Pl); _=>mkSStand (AgMUBAP1 Pl)}; third = \\_,_=>[];  agr = AgrYes (AgMUBAP1 Pl)}; --mkPron "itwe" "itwe" (AgMUBAP1 Pl);
-  youPl_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Pl); _=>mkSStand (AgMUBAP2 Pl)}; third = \\_,_=>[]; agr =AgrYes (AgMUBAP2 Pl)};--mkPron "imwe" "imwe" (AgMUBAP2 Pl);    they_Pron         = {s = table{Gen => glueGen  AgP3 Pl MU_BA; _=>mkSStand (AgP3 Pl MU_BA)}; third = \\_,_=>[]; itP3Required=False};--mkPron "bo" "bo" (AgP3 Pl MU_BA);
-  -- default implementation Using KI_BI. Use mkmkGenPrepNoIVClitic and 
-  it_Pron = {
-    s = \\_=>[]; 
-    third = \\agr => table{Gen =>glueGen agr; _ => mkSStand agr}; 
-    agr = AgrNo
-    }; --mkPron "kyo" "kyo" (AgP3 Sg KI_BI); -- should form an it_Pron_NClass in extra module
+  i_Pron            = {s = table{Gen => glueGen (AgMUBAP1 Sg); _=> mkSStand (AgMUBAP1 Sg)}; third = \\_,_=>[]; itP3Required=False};--mkPron "nyowe" "nyowe" (AgMUBAP1 Sg);
+  youSg_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Sg); _=>mkSStand (AgMUBAP2 Sg)}; third = \\_,_=>[]; itP3Required=False};--mkPron "iwe" "we" (AgMUBAP2 Sg); 
+  --he_Pron, she_Pron = {s = table{Gen => glueGen (AgP3 Sg MU_BA); _=>mkSStand (AgP3 Sg MU_BA)}; third = \\_,_=>[]; itP3Required=False};--mkPron "uwe" "uwe" (AgP3 Sg MU_BA);
+  --we_Pron           = {s = table{Gen => glueGen AgMUBAP1 Pl); _=>mkSStand (AgMUBAP1 Pl)}; third = \\_,_=>[]; itP3Required=False}; --mkPron "itwe" "itwe" (AgMUBAP1 Pl);
+  --youPl_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Pl); _=>mkSStand (AgMUBAP2 Pl)}; third = \\_,_=>[]; itP3Required=False};--mkPron "imwe" "imwe" (AgMUBAP2 Pl);
+  --they_Pron         = {s = table{Gen => glueGen  (AgP3 Pl MU_BA); _=>mkSStand (AgP3 Pl MU_BA)}; third = \\_,_=>[]; itP3Required=False};--mkPron "bo" "bo" (AgP3 Pl MU_BA);
+  
+  --default implementation Using KI_BI. Use mkmkGenPrepNoIVClitic and 
+  --it_Pron = {s = \\_=>[]; third = table{Gen => \\agr => glueGen agr; _=>\\agr => mkSStand agr}; itP3Required=True}; --mkPron "kyo" "kyo" (AgP3 Sg KI_BI); -- should form an it_Pron_NClass in extra module
   
   behind_Prep ={s="enyuma ya"};
   between_Prep = {s="hagati ya"};
@@ -138,10 +136,11 @@ lin
           --For DetQuant function to work, we need sample quatitifiers in Runynakore. Proximal, Medial, Distant
           --We need a table to provide all of these.
     
-  that_Quant  = {s={s = \\_=>[]; third =\\_,_=>[]; agr = AgrNo}; s2 = mkThat; doesAgree = True; isPron = False}; --: Quant ;
-  this_Quant =  {s={s = \\_=>[]; third =\\_,_=>[]; agr = AgrNo}; s2 = mkThis; doesAgree = True; isPron = False}; --: Quant ;
-    
-  no_Quant = {s ={s=\\_=>"tihariho";third =\\_,_=>[]; agr=AgrNo}; s2 =\\_=> []; doesAgree = False; isPron = False};--: Quant ;
+  that_Quant  = {s={s=\\_ =>[]; agr=AgrNo}; s2 = mkThat; doesAgree = True; isPron = False}; --: Quant ;
+  this_Quant =  {s={s=\\_ =>[]; agr=AgrNo}; s2 = mkThis; doesAgree = True; isPron = False}; --: Quant ;
+  --these_Quant = {s =[]; s2 = mkThese; doesAgree = True};
+  --those_Quant = {s =[]; s2 = mkThose; doesAgree = True};
+  no_Quant = {s ={s=\\_=>"tihariho";agr=AgrNo}; s2 =\\_=> []; doesAgree = False; isPron = False};--: Quant ;
   {-End of Quantifiers-}
 
 

@@ -31,13 +31,13 @@ lincat
   NP = Res.NounPhrase;            -- noun phrase (subject or object)     e.g. "the red house"
   Pron = Res.Pronoun ;            -- personal pronoun                    e.g. "she"
   Det = Res.Determiner ;          -- determiner phrase                   e.g. "those seven"
-  Quant = {s : Str ; s2 :Res.Agreement => Str; doesAgree : Bool} ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
+  Quant = {s : Res.Pronoun; s2 :Res.Agreement => Str; doesAgree : Bool; isPron: Bool} ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
   Num = Res.Numer ;               -- number determining element          e.g. "seven"
   AP = {s : Str ; position1 : Res.Position1; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
   A  = Res.Adjective;
   Comp = Res.Comp;    -- complement of copula, such as AP  e.g. "very warm"
 
-  Adv = Res.Adverb;
+  Adv = Res.Adverb; --Verb Phrase modifying adverb
   VPSlash = Res.VPSlash;
   PN = Res.ProperNoun; -- ProperNoun : Type = {s: Str ; a:Agreement ; isPlace : Bool};
   Conj = Res.Conjunction; -- Conjunction: Type = {s : AgrConj =>Str ;s2 : Str ; n : Number} ; -- conjunction e.g. "and"

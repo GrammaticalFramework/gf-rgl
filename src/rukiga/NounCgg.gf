@@ -8,7 +8,12 @@ lin
   --UsePN   : PN -> NP ;          -- John
   UsePN pn = {s = \\ _ =>  pn.s; agr = pn.a}; -- John
   
-  UsePron pron = { s = pron.s; agr = pron.agr};  --: Pron -> NP ;            -- he
+  UsePron pron = 
+    let default3PAgr = (AgP3 Sg KI_BI)
+    in case <pron.agr> of {
+            <(AgrYes a)> => {s = pron.s;  agr = a};  --: Pron -> NP ;            -- he
+            <_>        =>   {s = pron.third !default3PAgr; agr = default3PAgr}
+       };
   --UsePron pron = pron; -- the result of use pron is a NounPhrase
   --MassNP     : CN -> NP ;            -- (beer)
   MassNP cn = {s = \\_ =>cn.s ! Complete ! Pl; agr = AgP3 Pl cn.gender};   --: CN -> NP ; -- milk
@@ -80,37 +85,44 @@ lin
 
       {-What the hell does this mean?-}
       ExtAdvNP np adv = {s= \\c => np.s ! c  ++ embedInCommas adv.s; agr = np.agr}; -- how do I do the adverbial clause?
---    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
-      
-      -- The determiner has a fine-grained structure, in which a 'nucleus'
--- quantifier and an optional numeral can be discerned.
-   --DetQuant    : Quant -> Num ->        Det ;  -- these five
-   DetQuant  quant num = {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree}; --
-                              
-   --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
-   --DetQuantOrd quant num ord = {};
+  --    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
+        
+        -- The determiner has a fine-grained structure, in which a 'nucleus'
+  -- quantifier and an optional numeral can be discerned.
+     --DetQuant    : Quant -> Num ->        Det ;  -- these five
+     DetQuant  quant num = {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree}; --
+                                
+     --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
+     --DetQuantOrd quant num ord = {};
 
-  NumSg = {s=[]; n=Sg};
-  NumPl = {s=[]; n=Pl};
-  -- NumCard card = {...};
-  --Quant = {s : Str ; s2 :Res.Agreement => Str; doesAgree : Bool} ;
-  IndefArt = {s=[]; s2 = \\_=>[]; doesAgree = False};
-  DefArt = {s=[]; s2 = \\_=>[]; doesAgree = False}; -- noun with initial vowel
+    NumSg = {s=[]; n=Sg};
+    NumPl = {s=[]; n=Pl};
+    -- NumCard card = {...};
+    --Quant = {s : Res.Pronoun; s2 :Res.Agreement => Str; doesAgree : Bool; isPron: Bool} ;
+    IndefArt = {s={s=\\_=>[]; third = \\_,_=>[];agr = AgrNo }; s2 = \\_=>[]; doesAgree = False; isPron=False};
+    DefArt = {s={s =\\_=>[]; third = \\_,_=>[]; agr = AgrNo }; s2 = \\_=>[]; doesAgree = False; isPron = False}; -- noun with initial vowel
 
-  --NumDigits  : Digits  -> Card ;  -- 51
-  NumDigits dig  = {s = dig.s!NCard ; n=dig.n};
-  --NumNumeral : Numeral -> Card ;  -- fifty-one
-  NumNumeral numeral = {s=numeral.s!NCard; n=numeral.n};
-  --OrdDigits  : Digits  -> Ord ;  -- 51st
-  OrdDigits dig ={s=dig.s!NOrd ; position1 = Post};
+    --NumDigits  : Digits  -> Card ;  -- 51
+    NumDigits dig  = {s = dig.s!NCard ; n=dig.n};
+    --NumNumeral : Numeral -> Card ;  -- fifty-one
+    NumNumeral numeral = {s=numeral.s!NCard; n=numeral.n};
+    --OrdDigits  : Digits  -> Ord ;  -- 51st
+    OrdDigits dig ={s=dig.s!NOrd ; position1 = Post};
 
-  --OrdNumeral : Numeral -> Ord ;  -- fifty-first
-  OrdNumeral numeral ={s=numeral.s!NOrd; position1 = Post};
-  --OrdSuperl  : A       -> Ord ;  -- warmest
-  --Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
-  OrdSuperl a = {s= \\c => a.s ++ "kukira" ++ (mkAdjPronIVClitic  c) ++ BIND ++ "ona"; position1 = a.position1};
--- AdvCN   : CN -> Adv -> CN ;   -- house on the hill
-   --AdvCN cn adv ={s=\\ntype,num =>cn.s!ntype!num ++ adv.s!(AgP3 num cn.nc); nc=cn.nc};
+    --OrdNumeral : Numeral -> Ord ;  -- fifty-first
+    OrdNumeral numeral ={s=numeral.s!NOrd; position1 = Post};
+    --OrdSuperl  : A       -> Ord ;  -- warmest
+    --Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
+    OrdSuperl a = {s= \\c => a.s ++ "kukira" ++ (mkAdjPronIVClitic  c) ++ BIND ++ "ona"; position1 = a.position1};
+  -- AdvCN   : CN -> Adv -> CN ;   -- house on the hill
+     AdvCN cn adv ={s=\\ntype,num =>cn.s!ntype!num ++ adv.s; gender=cn.gender};
+  -- Pronouns have possessive forms. Genitives of other kinds
+  -- of noun phrases are not given here, since they are not possible
+  -- in e.g. Romance languages. They can be found in $Extra$ modules.
+
+    --PossPron : Pron -> Quant ;    -- my (house)
+    PossPron pron = {s =pron; s2 =\\_=> []; doesAgree = True; isPron = True};
+
 {-
 --1 Noun: Nouns, noun phrases, and determiners
 
