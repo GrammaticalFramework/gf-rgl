@@ -133,8 +133,8 @@ here_Adv = {s = "hanu"; agr = AgrNo};
         For DetQuant function to work, we need sample quatitifiers in Runynakore. Proximal, Medial, Distant
         We need a table to provide all of these.
   -}
-that_Quant  = {s =[]; s2 = mkThat; doesAgree = True}; --: Quant ;
-this_Quant = {s =[]; s2 = mkThis; doesAgree = True}; --: Quant ;
+that_Quant  = {s=[]; s2 = mkThat; doesAgree = True}; --: Quant ;
+this_Quant =  {s=[]; s2 = mkThis; doesAgree = True}; --: Quant ;
 these_Quant = {s =[]; s2 = mkThese; doesAgree = True};
 those_Quant = {s =[]; s2 = mkThose; doesAgree = True};
 no_Quant = {s ="tihariho"; s2 =\\_=> []; doesAgree = False};--: Quant ;

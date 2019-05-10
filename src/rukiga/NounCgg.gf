@@ -1,7 +1,7 @@
 --# -path=.:../prelude:../abstract:../common
 
 concrete NounCgg of Noun = CatCgg **
-  open ResCgg, Prelude in {
+  open ResCgg, Prelude, Predef in {
 
 lin 
   
@@ -76,7 +76,7 @@ lin
       AdvNP np adv = {s= \\c => np.s ! c ++ adv.s; agr = np.agr };
       --PPartNP : NP -> V2  -> NP ;    -- the man seen use the Passive form of the verb see. abantu abarebirwe
       PPartNP np v2 = 
-        {s= \\c => np.s!c ++ mkSubjClitic np.agr ++ v2.s ++ Predef.BIND ++ v2.morphs!VFPastPart!RestOfVerb; agr = np.agr};
+        {s= \\c => np.s!c ++ mkSubjClitic np.agr ++ v2.s ++ BIND ++ v2.morphs!VFPastPart!RestOfVerb; agr = np.agr};
 
       {-What the hell does this mean?-}
       ExtAdvNP np adv = {s= \\c => np.s ! c  ++ embedInCommas adv.s; agr = np.agr}; -- how do I do the adverbial clause?
@@ -88,23 +88,27 @@ lin
    DetQuant  quant num = {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree}; --
                               
    --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
+   --DetQuantOrd quant num ord = {};
 
-
-
-
-
-{-
-  Need sample quatitifiers in Runynakore. Immediate, Far, Distant. so DetQuant is commented out
--}
---DetQuant quant num = {s = quant.s ++ num.s ; ntype = Complete ; num = num.n ; pos = PostDeterminer } ;
-
-  --NumSg = {s=[]; n=Sg};
-  --NumPl = {s=[]; n=Pl};
+  NumSg = {s=[]; n=Sg};
+  NumPl = {s=[]; n=Pl};
   -- NumCard card = {...};
+  --Quant = {s : Str ; s2 :Res.Agreement => Str; doesAgree : Bool} ;
+  IndefArt = {s=[]; s2 = \\_=>[]; doesAgree = False};
+  DefArt = {s=[]; s2 = \\_=>[]; doesAgree = False}; -- noun with initial vowel
 
-  --IndefArt = {s=[]};
-  --DefArt = {s=[]} ;
+  --NumDigits  : Digits  -> Card ;  -- 51
+  NumDigits dig  = {s = dig.s!NCard ; n=dig.n};
+  --NumNumeral : Numeral -> Card ;  -- fifty-one
+  NumNumeral numeral = {s=numeral.s!NCard; n=numeral.n};
+  --OrdDigits  : Digits  -> Ord ;  -- 51st
+  OrdDigits dig ={s=dig.s!NOrd ; position1 = Post};
 
+  --OrdNumeral : Numeral -> Ord ;  -- fifty-first
+  OrdNumeral numeral ={s=numeral.s!NOrd; position1 = Post};
+  --OrdSuperl  : A       -> Ord ;  -- warmest
+  --Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
+  OrdSuperl a = {s= \\c => a.s ++ "kukira" ++ (mkAdjPronIVClitic  c) ++ BIND ++ "ona"; position1 = a.position1};
 -- AdvCN   : CN -> Adv -> CN ;   -- house on the hill
    --AdvCN cn adv ={s=\\ntype,num =>cn.s!ntype!num ++ adv.s!(AgP3 num cn.nc); nc=cn.nc};
 {-

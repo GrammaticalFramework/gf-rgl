@@ -62,9 +62,10 @@ lincat
         root : Str;
         morphs : Res.VFormMini => Res.VerbMorphPos =>Str --; compl : Str -- after verb: complement, adverbs                              
         } ;
-  Numeral = {s : Str ; g : Res.Gender;  n: Res.Number} ;
+  Numeral = {s : Res.CardOrd=>Res.Agreement=> Str ; g : Res.Gender;  n: Res.Number} ;
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
-
+  Ord  = {s :Res.Agreement=>Str; position1:Res.Position1} ;
+  Card = {s :Res.Agreement=>Str; n : Res.Number} ;
   --VV =
 {-
 --1 Cat: the Category System

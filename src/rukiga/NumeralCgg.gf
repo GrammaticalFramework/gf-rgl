@@ -11,7 +11,7 @@ lincat
   Sub1000000 = {s : Str ; g:Gender; n : Number} ;
 
 
-lin num x = x ; --Numeral = {s : Res.CardOrd => Res.Agreement => Str ; n : Res.Number} ;
+lin num x = {s = \\_,_=> x.s; g=x.g; n=x.n} ; --Numeral = {s : Res.CardOrd => Res.Agreement => Str ; n : Res.Number} ;
 lin n2 = mkNum "biri"  "ibiri" ZERO_ZERO "abiri" I_MA True;
 lin n3 = mkNum "shatu"  "ishatu" I_ZERO "ashatu"  I_MA True;
 lin n4 = mkNum "na" "ina" I_ZERO "ana" I_MA True;
