@@ -1,7 +1,7 @@
 --# -path=.:../prelude:../abstract:../common
 
 concrete CatCgg of Cat = CommonX -[Adv]**
-  open (Res=ResCgg), Prelude in {
+  open (Res=ResCgg), Prelude, (Px=ParamX) in {
 
 lincat
   
@@ -62,6 +62,8 @@ lincat
         root : Str;
         morphs : Res.VFormMini => Res.VerbMorphPos =>Str --; compl : Str -- after verb: complement, adverbs                              
         } ;
+  Numeral = {s : Str ; g : Res.Gender;  n: Res.Number} ;
+  Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
 
   --VV =
 {-

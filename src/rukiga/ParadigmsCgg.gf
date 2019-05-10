@@ -39,6 +39,21 @@ oper
     mkV3 : Str -> Str ->Str -> Verb3 = \root ,s1,s2 ->mkV2 root s1 s2 ** {comp2 =[]};
   };
 
+  
+  {-
+  prepV2 v p = lin V2 {s = v.s ; p = v.p ; c2 = p.s ; isRefl = v.isRefl} ;
+  dirV2 v = prepV2 v noPrep ;
+  
+  --2 Prepositions
+--
+-- A preposition as used for rection in the lexicon, as well as to
+-- build $PP$s in the resource API, just requires a string.
+
+  mkPrep : Str -> Prep ; -- e.g. "in front of"
+  --mkPost : Str -> Prep ; -- e.g. "ago" 
+  noPrep : Prepostion; -- no preposition
+  noPrep = mkPrep [] ;
+  -}
   {-
   --V2V verbs
   mkV2V = overload {

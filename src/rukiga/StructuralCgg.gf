@@ -14,14 +14,14 @@ concrete StructuralCgg of Structural = CatCgg **
 -}
 
 lin
+  --Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool };
+  a_Det = {s =[] ; s2 = \\_ => []; ntype = Complete; num = Sg; pos = PreDeterminer; doesAgree = False};     --: Det ; indefinite singular ---s
+  aPl_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Pl; pos = PreDeterminer; doesAgree = False}; -- : Det ;indefinite plural   ---s
+  the_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Sg; pos = PreDeterminer; doesAgree = False};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
   
-  a_Det = {s =[] ; ntype = Complete; num = Sg; pos = PreDeterminer};     --: Det ; indefinite singular ---s
-  aPl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; -- : Det ;indefinite plural   ---s
-  the_Det = {s =[]; ntype = Complete; num = Sg; pos = PreDeterminer};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
-  
-  every_Det = {s = "buri"; ntype=Incomplete; num=Sg; pos=PreDeterminer} ;
-  few_Det = {s="kye"; ntype =Complete; num=Pl; pos=PostDeterminer} ;
-  many_Det ={s="ingi"; ntype =Complete; num=Pl; pos=PostDeterminer} ;
+  every_Det = {s ="buri"; s2 = \\_ => []; ntype=Incomplete; num=Sg; pos=PreDeterminer; doesAgree = False} ;
+  few_Det = {s="kye"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=PostDeterminer; doesAgree = False} ;
+  many_Det ={s="ingi"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=PostDeterminer; doesAgree = False} ;
 
   i_Pron         = mkPron "nyowe" "nyowe" (AgMUBAP1 Sg);
   youSg_Pron     = mkPron "iwe" "we" (AgMUBAP2 Sg); 

@@ -61,7 +61,11 @@ lin
         comp2 = np.s ! Acc;
         isRegular = v3.isRegular
       };
+      --SlashV2V : V2V -> VP -> VPSlash ;  -- beg (her) to go
 
+    --SlashV2S : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
+    --SlashV2Q : V2Q -> QS -> VPSlash ;  -- ask (him) who came
+    --SlashV2A : V2A -> AP -> VPSlash ;  -- paint (it) red
 --    ComplSlash : VPSlash -> NP -> VP ; -- love it
       ComplSlash vpslash np ={ 
         s =vpslash.s;

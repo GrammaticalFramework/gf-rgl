@@ -123,6 +123,8 @@ lin
   travel_V = mkV "gyend";--: V ;
   walk_V = mkV "tabur"; --: V ; or kuribata
 
+  --Verbs that have a noun Phrase complement and a verb phrase complement (V2V)
+  --beg_V2V : V2V ;
   --Adverbs
   now_Adv = mkAdv "hati" AgrNo;
   --far_Adv = mkAdv "hare";

@@ -26,8 +26,8 @@ param
 					  RI_ZERO |  KU_ZERO | MU_ZERO |  RU_ZERO |  
 					  KA_ZERO |ZERO_BAA | N_ZERO | KI_ZERO;
 	Case = Acc | Nom ; -- we need to include Gen because we shall need it with Gen Pronouns
-	RCase = RSuj | RObj |RGen;
-  PersonalPronounType = SubjM | Obj  | RelSubj | RelObj |
+	RCase = RSuj | RObj;
+  	PersonalPronounType = SubjM | Obj  | RelSubj | RelObj |
                           AdjPron2 | -- aAdjectival Prefixes with initial vowel with the semantics of "the" e.g. -- omuntu o-mu-rungi 
                           AdjPron  | -- without initial vowel i.e. -- omuntu mu-rungi           
                           --GenPron  | -- different types of pronouns
@@ -661,6 +661,39 @@ oper
 
     };
 
+    -- Genetive Preposition: simple "of" with Initil vowel
+    mkGenPrepWithIVClitic : Agreement => Str = table {
+              AgMUBAP1 n => mkClitics "owa" "aba" n;
+              --AgMUBAP1 Pl => "aba" ;
+              AgMUBAP2 n => mkClitics "owa" "aba" n; --probably an error check your grammar book
+              --AgMUBAP2 Pl => "aba" ;
+              AgP3 n MU_BA => mkClitics "owa" "aba" n;
+              --AgP3 Pl MU_BA => "aba" ;
+              AgP3 Pl ZERO_BU => mkClitic "obwa" ;
+              AgP3 Sg BU_MA => mkClitic "obwa" ;
+              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obwa" ;
+              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebya" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
+              AgP3 (Sg | Pl) HA => mkClitic "aha" ; -- of place HA 
+              AgP3 (Sg | Pl) MU => mkClitic "amwa" ; -- of place MU
+              AgP3 (Sg | Pl) KU => mkClitic "aya" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "arya" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
+              AgP3 Sg KI_BI   => mkClitic "ekya" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "okwa" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogwa" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "orwa" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otwa" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "eya" ;
+              AgP3 Pl ZERO_MI =>mkClitic "eya" ;
+              AgP3 Pl MU_MI => mkClitic "emi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "eza" ;
+              AgP3 Sg GU_GA => mkClitic "ogwa" ;
+              AgP3 Pl GU_GA => mkClitic "aga" ;
+              _  => mkClitic "Error mkGenPrepWithIVClitic" -- error checking for any case not catered for
+
+    };
+
     mkRPs : RCase => Agreement =>Str = table{
      RSubj => table {
      		  AgMUBAP1 Sg => mkClitic "o";
@@ -759,14 +792,16 @@ oper
  			}; 
 
     -- type for Determier necessary for catCgg.gf
-    Determiner : Type = {s : Str ; ntype : NounState ; num : Number ; pos : Position };
+    Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool };
     mkDet : Str -> NounState -> Number -> Position -> Determiner 
       = \ det, ns, num,pos ->
         {
           s = det;
+          s2 = \\_=>[];
           ntype = ns;
           num = num;
           pos = pos;
+          doesAgree = False
         };
 
     -- Pronouns must have agreement because they are used 
@@ -1053,24 +1088,34 @@ oper
 param
 	--2 For $Numeral$
 
-    CardOrd = NCard;
+    CardOrd = NCard | NOrd;
     --DForm   = Unit Gender| Ten Gender | N20_50 Gender| N60_n70 Gender; -- | hundred | thousand | tenThousand | hundredThousand | million ;
 oper
-  mkNum : Str ->Str -> Gender ->Str-> Gender -> --Str-> Gender->Str-> Gender-> Str -> Gender
+  mkNum : Str ->Str -> Gender ->Str-> Gender -> Bool-> --Str-> Gender->Str-> Gender-> Str -> Gender
   	{
   		s : Str; 
   		unit          : { s:Str ; g : Gender; stem : Str};
-  		ten           : { s:Str ; g : Gender}
+  		ten           : { s:Str ; g : Gender};
+  		ordinal :Str;
   		--twenty_fifty  : { s:str ; g : gender; stem : Str};
   		--sixty_seventy : { s:str ; g : gender; stem : Str};
   		--eighty_ninety : { s:str ; g : gender; stem : Str};
+  		isOrdDifferent: Bool -- If the ordinal number is different from the cardinal
   	} = 
-    \biri,ibiri, g1, abiri,g2  ->
-    {
-    	s = [];
-    	unit = {s = ibiri;  g = g1; stem ="biri"};
-    	ten  = {s = abiri ; g = g2};
-    };
-
-  
+    \biri, ibiri, g1, abiri,g2, isOrdDifferent  -> case isOrdDifferent of {
+																True =>{
+																    	s = [];
+																    	unit = {s = ibiri;  g = g1; stem =biri};
+																    	ten  = {s = abiri ; g = g2};
+																    	ordinal = "ka" + biri;
+																    	isOrdDifferent = isOrdDifferent
+																		};
+																False =>{
+																    	s = [];
+																    	unit = {s = ibiri;  g = g1; stem =biri};
+																    	ten  = {s = abiri ; g = g2};
+																    	ordinal = [];
+																    	isOrdDifferent = isOrdDifferent
+																		}
+	 };
 }

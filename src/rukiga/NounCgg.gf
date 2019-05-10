@@ -81,6 +81,18 @@ lin
       {-What the hell does this mean?-}
       ExtAdvNP np adv = {s= \\c => np.s ! c  ++ embedInCommas adv.s; agr = np.agr}; -- how do I do the adverbial clause?
 --    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
+      
+      -- The determiner has a fine-grained structure, in which a 'nucleus'
+-- quantifier and an optional numeral can be discerned.
+   --DetQuant    : Quant -> Num ->        Det ;  -- these five
+   DetQuant  quant num = {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree}; --
+                              
+   --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
+
+
+
+
+
 {-
   Need sample quatitifiers in Runynakore. Immediate, Far, Distant. so DetQuant is commented out
 -}
