@@ -463,38 +463,38 @@ oper
     
     -- TThis is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
-    mkThese  = table{
-              --AgMUBAP1 Sg => mkClitic "ogu";
+    mkThis  = table{
+              AgMUBAP1 Sg => mkClitic "ogu";
               AgMUBAP1 Pl => mkClitic "aba" ;
-              --AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
+              AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
               AgMUBAP2 Pl => mkClitic "aba" ;
-              --AgP3 Sg MU_BA => mkClitic "ogu";
+              AgP3 Sg MU_BA => mkClitic "ogu";
               AgP3 Pl MU_BA => mkClitic "aba" ;
               AgP3 Pl ZERO_BU => mkClitic "obu" ;
-              --AgP3 Sg BU_MA => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "obu" ;
               AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
               AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
               AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
               AgP3 ( Pl) HA  => mkClitic "aha" ; -- of place HA 
               AgP3 ( Pl) MU => mkClitic "omu" ; -- of place  MU
               AgP3 ( Pl) KU => mkClitic "oku" ; -- of place KU
-              --AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
-              --AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
-              --AgP3 Sg KI_BI   => mkClitic "eki" ;
-              --AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
-              --AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
-              --AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
+              AgP3 Sg KI_BI   => mkClitic "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
               AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
-              --AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
               AgP3 Pl ZERO_MI =>mkClitic "egi" ;
               AgP3 Pl MU_MI => mkClitic "egi";
               AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
-              --AgP3 Sg GU_GA => mkClitic "ogu" ;
+              AgP3 Sg GU_GA => mkClitic "ogu" ;
               AgP3 Pl GU_GA => mkClitic "aga" ;
-              _  => mkClitic "XXXThese" -- error checking for any case not catered for
+              _  => mkClitic "XXXThisThese" -- error checking for any case not catered for
 
     };
-
+    {-
     -- TThis is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
     mkThis  = table{
@@ -527,42 +527,42 @@ oper
               --AgP3 Pl GU_GA => mkClitic "aga" ;
               _  => mkClitic "XXXThis" -- error checking for any case not catered for
 
-    };
-
-    -- TThis is for demonstrative pronouns which can also be use as Quantifiers
+    	};
+	
+    -- This is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
-    mkThose  = table{
-              --AgMUBAP1 Sg => mkClitic "ogu";
-              AgMUBAP1 Pl => mkClitic "abo" ;
-              --AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
-              AgMUBAP2 Pl => mkClitic "abo" ;
-              --AgP3 Sg MU_BA => mkClitic "ogu";
-              AgP3 Pl MU_BA => mkClitic "abo" ;
+    mkThat  = table{
+              AgMUBAP1 Sg => mkClitic ""; --"ogwo";
+              AgMUBAP1 Pl => mkClitic ""; --"abo" ;
+              AgMUBAP2 Sg => mkClitic ""; --"ogu"; --probably an error check your grammar book
+              AgMUBAP2 Pl => mkClitic ""; --"abo" ;
+              AgP3 Sg MU_BA => mkClitic ""; --"ogu";
+              AgP3 Pl MU_BA => mkClitic ""; --"abo" ;
               AgP3 Pl ZERO_BU => mkClitic "obwo" ;
-              --AgP3 Sg BU_MA => mkClitic "obu" ;
+              AgP3 Sg BU_MA => mkClitic "obwo" ;
               AgP3 Pl (KA_BU | RU_BU) => mkClitic "obwo" ;
               AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebyo" ;
               AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "ago";
               AgP3 ( Pl) HA  => mkClitic "aho" ; -- of place HA 
               AgP3 ( Pl) MU => mkClitic "omwo" ; -- of place  MU
               AgP3 ( Pl) KU => mkClitic "okwo" ; -- of place KU
-              --AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
-              --AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
-              --AgP3 Sg KI_BI   => mkClitic "eki" ;
-              --AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
-              --AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
-              --AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eryo" ;
+              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "ekyo" ;
+              AgP3 Sg KI_BI   => mkClitic "ekyo" ;
+              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "okwo" ;
+              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogwo" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "orwo" ;
               AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otwo" ;
-              --AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
+              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egyo" ;
               AgP3 Pl ZERO_MI =>mkClitic "egyo" ;
               AgP3 Pl MU_MI => mkClitic "egyo";
               AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezo" ;
-              --AgP3 Sg GU_GA => mkClitic "ogu" ;
+              AgP3 Sg GU_GA => mkClitic "ogwo" ;
               AgP3 Pl GU_GA => mkClitic "ago" ;
-              _  => mkClitic "XXXThose" -- error checking for any case not catered for
+              _  => mkClitic "XXXThatThose" -- error checking for any case not catered for
 
     };
-
+  -}
     -- TThis is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
     mkThat  = table {

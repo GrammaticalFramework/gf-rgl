@@ -135,8 +135,8 @@ here_Adv = {s = "hanu"; agr = AgrNo};
   -}
 that_Quant  = {s=[]; s2 = mkThat; doesAgree = True}; --: Quant ;
 this_Quant =  {s=[]; s2 = mkThis; doesAgree = True}; --: Quant ;
-these_Quant = {s =[]; s2 = mkThese; doesAgree = True};
-those_Quant = {s =[]; s2 = mkThose; doesAgree = True};
+--these_Quant = {s =[]; s2 = mkThese; doesAgree = True};
+--those_Quant = {s =[]; s2 = mkThose; doesAgree = True};
 no_Quant = {s ="tihariho"; s2 =\\_=> []; doesAgree = False};--: Quant ;
 {-End of Quantifiers-}
 
