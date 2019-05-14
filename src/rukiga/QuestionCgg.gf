@@ -14,11 +14,17 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
     --QuestIComp  : IComp -> NP -> QCl ;   -- where is John
 
     --IdetCN    : IDet -> CN -> IP ;       -- which five songs
-    IdentCN idet cn = case idet.requiresSubjPrefix  of {
-                            True => {s = \\n => cn!n!Complete ++ mkSubjPrefix mkAgreement(cn.gender P3 n) ++ idet.s};
-                            False => { s = \\n => cn!n!Complete ++ idet.s}
+    
+    IdetCN idet cn = case idet.requiresSubjPrefix  of {
+                            True => {s =  cn.s!idet.n!Complete ++ mkSubjPrefix (mkAgreement cn.gender P3 idet.n) ++ idet.s; other =[]; n = idet.n; isVerbSuffix=False; requiresIPPrefix=True; aux= "ni"; endOfSentence = True};
+                            False => { s = cn.s!idet.n!Complete ++ idet.s; isVerbSuffix=False; other =[]; n=idet.n; requiresIPPrefix=True; aux= "ni"; endOfSentence = True}
                         };
     --IdetIP    : IDet       -> IP ;       -- which five
+    --Noun Class has been ignored
+    IdetIP idet = { s = idet.s ; other = idet.s; isVerbSuffix=False; n=idet.n; requiresIPPrefix=True; aux= "ni"; endOfSentence = True};
+
+    --IdetQuant : IQuant -> Num -> IDet ;  -- which (five)
+    --IdetQuant iquant num = { s = iquant.s ! num.n  ; requiresSubjPrefix=True};
 {-
 --1 Question: Questions and Interrogative Pronouns
 

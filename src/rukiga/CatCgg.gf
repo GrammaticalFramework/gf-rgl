@@ -66,9 +66,9 @@ lincat
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
   Ord  = {s :Res.Agreement=>Str; position1:Res.Position1} ;
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
-  IP   = {s :Str ; n : Res.Number; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str};
+  IP   = {s :Str ; other:Str; n : Res.Number; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str; endOfSentence:Bool}; -- other holds the Idet without a prefix
   IAdv = {s : Str ; requiresSubjPrefix: Bool};
-  IDet = {s : Str ; requiresSubjPrefix: Bool};
+  IDet = {s : Str ; n : Res.Number; requiresSubjPrefix: Bool};
   IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};
   --VV =
 
