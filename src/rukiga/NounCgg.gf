@@ -76,7 +76,7 @@ lin
                               <False,False>  => {s = \\_ =>nomS ++ predet.s ; agr = a};
                               <True,False>   => {s = \\_ =>nomS ++ predet.s ++ predet.s2; agr = a} -- never seen this case              
                           };
-
+      
       --AdvNP   : NP -> Adv -> NP ;    -- Paris today
       AdvNP np adv = {s= \\c => np.s ! c ++ adv.s; agr = np.agr };
       --PPartNP : NP -> V2  -> NP ;    -- the man seen use the Passive form of the verb see. abantu abarebirwe
@@ -86,7 +86,7 @@ lin
       {-What the hell does this mean?-}
       ExtAdvNP np adv = {s= \\c => np.s ! c  ++ embedInCommas adv.s; agr = np.agr}; -- how do I do the adverbial clause?
   --    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
-        
+     RelNP np rs ={s = \\c => np.s ! c ++ rs.s; agr =np.agr};   
         -- The determiner has a fine-grained structure, in which a 'nucleus'
   -- quantifier and an optional numeral can be discerned.
      --DetQuant    : Quant -> Num ->        Det ;  -- these five
@@ -95,8 +95,8 @@ lin
      --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
      --DetQuantOrd quant num ord = {};
 
-    NumSg = {s=[]; n=Sg};
-    NumPl = {s=[]; n=Pl};
+    NumSg = {s=[]; n=Sg}; --Num
+    NumPl = {s=[]; n=Pl}; --Num
     -- NumCard card = {...};
     --Quant = {s : Res.Pronoun; s2 :Res.Agreement => Str; doesAgree : Bool; isPron: Bool} ;
     IndefArt = {s={s=\\_=>[]; third = \\_,_=>[];agr = AgrNo }; s2 = \\_=>[]; doesAgree = False; isPron=False};
@@ -122,6 +122,22 @@ lin
 
     --PossPron : Pron -> Quant ;    -- my (house)
     PossPron pron = {s =pron; s2 =\\_=> []; doesAgree = True; isPron = True};
+
+    --3 Conjoinable determiners and ones with adjectives
+
+    --AdjDAP : DAP -> AP -> DAP ;    -- the large (one)
+    {-
+    AdjDAP dap ap ={
+      s = dap.s ++ ap.s ; 
+      s2: Res.Agreement; 
+      ntype : NounState ; 
+      num : Number ; 
+      pos : Position; 
+      doesAgree: Bool };
+    -}
+    --DetDAP : Det -> DAP ;          -- this (or that) 
+
+
 
 {-
 --1 Noun: Nouns, noun phrases, and determiners

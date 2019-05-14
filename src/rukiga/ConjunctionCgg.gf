@@ -2,8 +2,18 @@
 
 concrete ConjunctionCgg of Conjunction = CatCgg **
   open ResCgg, Coordination, Prelude in {
-
-
+{-
+lincat
+  [S] = {s1,s2 : Str} ;
+  [Adv] = {s1,s2 : Str} ;
+  [AdV] = {s1,s2 : Str} ;
+  [IAdv] = {s1,s2 : Str} ;
+  [NP] = {s1,s2 : NPCase => Str ; a : Agr} ;
+  [AP] = {s1,s2 : Agr => Str ; isPre : Bool};
+  [RS] = {s1,s2 : Agr => Str ; c : NPCase};
+  [CN] = {s1,s2 : Number => Case => Str};
+  [DAP] = {s1,s2 : Str ; n : Number};
+ -}
 {-
 --1 Conjunction: Coordination
 

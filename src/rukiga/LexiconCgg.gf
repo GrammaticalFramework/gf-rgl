@@ -84,16 +84,16 @@ lin
   green_A =mkAdjective "kijubwe" Post False True;
 
   --ditransitive verbs
-  --bite_V2 = mkV2 "rum";
+  bite_V2 = mkV2 "rum";
   break_V2 = mkV2 "hend"; --: V2 ;
   buy_V2   = mkV2 "gur" ;  --: V2 ;
-  --close_V2 = mkV2 "king";
-  --count_V2 = mkV2 "bar";
-  --cut_V2 = mkV2 "shar";
-  --do_V2 = mkV2 "kor";
+  close_V2 = mkV2 "king";
+  count_V2 = mkV2 "ba" "ra" "zire";
+  cut_V2 = mkV2 "sha" "ra" "zire";
+  do_V2 = mkV2 "ko" "ra" "zire";
   drink_V2 = mkV2 "nyw";
   eat_V2 = mkV2 "ry";
-  --fear_V2 = mkV2 "tiin";
+  fear_V2 = mkV2 "tiin";
   find_V2 = mkV2 "bon" ; --: V2 ; -- many words; kureeba, kubóna,kushanga, kumamya,kujumbura
   kill_V2 = mkV2 "it"; --: V2 ;
   love_V2 = mkV2 "kûnd"; --: V2 ;

@@ -7,8 +7,28 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
 
   lin
     --QuestCl     : Cl -> QCl ;            -- does John walk
-    QuestCl cl = cl;
+    QuestCl cl = cl ** {posibleSubAgr = mkSubjCliticTable;};
     --QuestVP     : IP -> VP -> QCl ;      -- who walks
+    
+    QuestVP ip vp = {
+      s =  ip.s;
+      subjAgr = NONE; -- no option but to just pick one
+      posibleSubAgr = mkSubjCliticTable;
+      root = vp.s;
+      pres = vp.pres;
+      perf = vp.perf;
+      morphs = vp.morphs;
+      {-
+      inf  : Str;
+      pres  : Str; 
+      past  : Str; 
+      presPart  : Str; 
+      pastPart  : Str;                              -- subject
+      --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+      -}
+      compl = vp.comp -- after verb: complement, adverbs                              
+    } ;
+
     --QuestSlash  : IP -> ClSlash -> QCl ; -- whom does John love
     --QuestIAdv   : IAdv -> Cl -> QCl ;    -- why does John walk
     --QuestIComp  : IComp -> NP -> QCl ;   -- where is John

@@ -309,6 +309,44 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           _        => mkClitic "SubjNotKnown" --for checking if there is some class unaccounted for
       };
 
+
+      mkSubjCliticTable : Agreement => Str = table {
+          AgMUBAP1 n => mkClitics "n" "tu" n;
+          --AgMUBAP1 Pl => "tu" ;
+          AgMUBAP2 n => mkClitics "o" "mu" n;
+          --AgMUBAP2 Pl => "mu" ;
+          AgP3 n MU_BA  => mkClitics "a" "ba" n;
+          --AgP3 Pl MU_BA  => "ba" ;          
+          AgP3 Sg KI_BI   => mkClitic "ki" ;
+          AgP3 Pl (KI_BI | ZERO_BI)   => mkClitic "bi" ;
+          AgP3 Sg (RU_N | RU_MA | RU_ZERO | RU_BU)   => mkClitic "ru" ; 
+          AgP3 Pl RU_N => mkClitic "zi"; --| "i"; 
+          AgP3 Sg N_N => mkClitic "e";
+          AgP3 Pl N_N => mkClitic "zi"; --| "i";
+          AgP3 Sg (MU_MI | MU_ZERO)   => mkClitic "gu" ; 
+          AgP3 Pl MU_MI   => "e" ;
+          AgP3 Sg (RI_MA | RI_ZERO | I_ZERO) =>mkClitic  "ri"; 
+          AgP3 Pl (RI_MA | BU_MA | KU_MA | ZERO_MA | I_MA |RU_MA)  => mkClitic "ga" ;
+          AgP3 Sg (KA_BU | KA_ZERO | KA_TU)   => mkClitic "ka" ; 
+          AgP3 Pl (KA_BU | RU_BU)  => mkClitic "bu" ;
+          AgP3 Sg ZERO_BU  => mkClitic "bu" ; 
+          AgP3 Pl ZERO_BU  => mkClitic "bu" ;
+          AgP3 Sg ZERO_BI  => mkClitic "bi" ; 
+          AgP3 Sg ZERO_MA  => mkClitic "ga" ;
+          AgP3 Pl RI_ZERO  => mkClitic "ga" ;
+          AgP3 Sg KU_ZERO  => mkClitic "ku" ;
+          AgP3 Pl KU_ZERO  => mkClitic "ku" ;
+          AgP3 Pl MU_ZERO  => mkClitic "gu" ;
+          AgP3 Pl RU_ZERO  => mkClitic "ru" ;
+          AgP3 Sg ZERO_TU  => mkClitic "tu" ;
+          AgP3 Pl ZERO_TU  => mkClitic "tu" ;
+          AgP3 Sg (ZERO_MI | ZERO_ZERO)  => mkClitic "" ;
+          AgP3 Pl ZERO_MI  => mkClitic "e" ;
+          AgP3 Pl KA_ZERO  => mkClitic "" ;
+          _        => mkClitic "SubjNotKnown" --for checking if there is some class unaccounted for
+      };
+
+
        {-Object particle may be used as 
           1. a prefix: e.g mu-kwate = catch him,
           2. an infix: o-mu-kwate   = you catch him

@@ -19,8 +19,9 @@ lincat
   -- You must change some of the lincats (e.g., for NP, Det and Pron) so that everything works
 
   S = SS ;                        -- declarative sentence                e.g. "she lived here"
-  Cl, QCl = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
-
+  Cl  = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
+  QCl = Res.Clause ** {posibleSubAgr: Res.Agreement =>Str} ; 
+  RS = {s : Str} ; -- relative                            e.g. "in which she lived"
   V = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
   V2,V2Q, V2S = Res.Verb2;
   V2A,V3 = Res.Verb3;    -- three-place verb                    e.g. "show"
@@ -70,10 +71,13 @@ lincat
   IAdv = {s : Str ; requiresSubjPrefix: Bool};
   IDet = {s : Str ; n : Res.Number; requiresSubjPrefix: Bool};
   IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};
+  DAP = Res.Determiner ;;    
+
   --VV =
 
 linref
-  Cl, QCl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres;
+  Cl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres;
+  QCl =\qcl -> qcl.s ++ qcl.posibleSubAgr ! (Res.mkAgreement Res.MU_BA Res.P3 Res.Sg) ++ qcl.root ++ BIND ++ qcl.pres;
   VP =\vp -> vp.s ++ BIND ++ vp.pres;
 {-
 --1 Cat: the Category System

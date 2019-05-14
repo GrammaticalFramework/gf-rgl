@@ -13,11 +13,11 @@ lin
   UseCl  temp pol cl = let 
                 subj = cl.s;
                 clitic = mkSubjClitic cl.subjAgr;
-                simul = cl.morphs ! VFPres; --this is not delivering the string
+                simul = cl.pres; --morphs ! VFPres; --this is not delivering the string
                 ant = cl.morphs ! VFPastPart; --this is not delivering the string
                 root = cl.root;
                 presRestOfVerb = cl.morphs ! VFPres ! RestOfVerb;
-                pastRestOfVerb = cl.morphs ! VFPastPart ! RestOfVerb;
+                pastRestOfVerb = cl.perf; --morphs ! VFPastPart ! RestOfVerb;
 
                 compl = cl.compl
                 in 
@@ -34,7 +34,7 @@ lin
     };  --: Temp -> Pol -> QCl  -> QS ; -- has John walked
 
   UseQCl   = UseCl; -- : Temp -> Pol -> Cl   -> S ;  -- John has not walked
-  QuestCl cl = cl;  --: Cl -> QCl ; -- does John (not) walk
+  QuestCl qcl = qcl;  --: Cl -> QCl ; -- does John (not) walk
 
   PredVP np vp = case vp.isCompApStem of{
               False    => {
@@ -92,6 +92,10 @@ lin
               }
         } 
   };  --: VP -> Imp ;                 -- walk / do not walk
+
+  -- A sentence can be modified by a relative clause referring to its contents.
+
+    RelS     : S -> RS -> S ;              -- she sleeps, which is good
 
 --2 Clauses missing object noun phrases
 
