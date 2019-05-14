@@ -36,6 +36,7 @@ param
   Mod = Bare | Ezafe | Clitic | Poss ;
   Agr = Ag Number Person ;
   CmpdStatus = IsCmpd | NotCmpd ;
+  Degr = Positive | Comparative ;
 
 ------------------------------------------
 -- Agreement transformations
@@ -151,21 +152,30 @@ oper
 ---------------------------
 -- Adjectives
 --------------------------
-  Adjective : Type = {
-    s : Mod => Str ;
+  BaseAdjective : Type = {
     adv : Str ;
     isPre : Bool ;        -- as attributive
     afterPrefix : Bool ;  -- as predicative, does it go between the prefix and the light verb
     } ;
 
- mkAdj : Str -> Str -> Adjective = \adj,adv -> {
-   s = table { Bare => adj;
-               Ezafe => mkEzafe adj ;
-               Clitic => mkEnclic adj ;
-               Poss => mkPossStem adj
-             } ;
-   adv = adv ; isPre = False ; afterPrefix = True ;
-   };
+  Adjective : Type = BaseAdjective ** {
+    s : Degr => Mod => Str } ;
+
+  AP : Type =  BaseAdjective ** {
+    s : Mod => Str } ;
+
+  mkAdj = overload {
+    mkAdj : Str -> Str -> Adjective = \adj,adv -> {
+       s = table { Positive => modTable adj ;
+                   Comparative => modTable (adj + "تر") -- Regular comparative.
+                 } ;
+       adv = adv ; isPre = False ; afterPrefix = True } ;
+    mkAdj : Str -> Str -> Str -> Adjective = \pos,cmp,adv -> {
+       s = table { Positive => modTable pos ;
+                   Comparative => modTable cmp -- Irregular comparative, e.g. xub-behtar
+                 } ;
+       adv = adv ; isPre = False ; afterPrefix = True }
+    } ;
 
 ------------------------------------------------------------------
 -- Verbs
