@@ -577,9 +577,10 @@ oper
   predVP : NP -> VP -> Cl = \np,vp -> {
     s = \\t,p,o =>
       let pgn =
-            case <o,np.a.isPron> of {
-              <Verbal, False> => verbalAgr np.a.pgn;
-              _               => np.a.pgn
+            case <o,vp.vtype,np.a.isPron> of {
+              <Verbal, Copula, False> => np.a.pgn;
+              <Verbal, _,      False> => verbalAgr np.a.pgn;
+              _                       => np.a.pgn
             };
 
           -- very unsure about this /IL
