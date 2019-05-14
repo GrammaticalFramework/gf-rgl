@@ -71,7 +71,7 @@ lincat
   IAdv = {s : Str ; requiresSubjPrefix: Bool};
   IDet = {s : Str ; n : Res.Number; requiresSubjPrefix: Bool};
   IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};
-  DAP = Res.Determiner ;;    
+  DAP = Res.Determiner ;    
 
   --VV =
 

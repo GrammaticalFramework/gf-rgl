@@ -95,7 +95,7 @@ lin
 
   -- A sentence can be modified by a relative clause referring to its contents.
 
-    RelS     : S -> RS -> S ;              -- she sleeps, which is good
+    --RelS     : S -> RS -> S ;              -- she sleeps, which is good
 
 --2 Clauses missing object noun phrases
 
