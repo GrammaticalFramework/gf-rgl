@@ -1,7 +1,7 @@
 --# -path=.:../prelude:../abstract:../common
 
-concrete CatCgg of Cat = CommonX -[Adv]**
-  open (Res=ResCgg), Prelude, (Px=ParamX) in {
+concrete CatCgg of Cat = CommonX -[Adv,IAdv]**
+  open (Res=ResCgg), Prelude, (Px=ParamX), Predef in {
 
 lincat
   
@@ -66,7 +66,13 @@ lincat
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
   Ord  = {s :Res.Agreement=>Str; position1:Res.Position1} ;
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
+  IP   = {s :Str ; n : Res.Number; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str};
+  IAdv   = {s :Str ; requiresSubjPrefix: Bool};
   --VV =
+
+linref
+  Cl, QCl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres;
+  VP =\vp -> vp.s ++ BIND ++ vp.pres;
 {-
 --1 Cat: the Category System
 

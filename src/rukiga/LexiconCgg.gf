@@ -121,7 +121,7 @@ lin
   sleep_V = mkV "nyama" ; --: V ;--Kugwejegyera, kubyama
   swim_V = mkV "og"; --: V ;
   travel_V = mkV "gyend";--: V ;
-  walk_V = mkV "tabur"; --: V ; or kuribata
+  walk_V = mkV "ribá" "ta" "si"; --: V ; or kuribata Runynakore it is different
 
   --Verbs that have a noun Phrase complement and a verb phrase complement (V2V)
   --beg_V2V : V2V ;

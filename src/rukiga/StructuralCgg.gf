@@ -156,11 +156,15 @@ lin
 
   {-End of verb-phrase-complement verb -}
 
+  {-Beggining of Interrogative Pronoun-}
 
-
-
-
-  
+  whatPl_IP = { s= "ki"; n = Pl;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]} ; -- what (plural)
+  whatSg_IP = { s= "ki"; n = Sg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]} ; --: IP ; -- what (singular)
+  whoPl_IP  = { s= "ha"; n = Pl; isVerbSuffix = True; requiresIPPrefix = False; aux="ni"} ;--: IP ;  -- who (plural)
+  whoSg_IP =  { s= "ha"; n = Sg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]} ; --: IP ;  -- who (singular)
+  --You may need to use booleans to indicate that you need these tables rather than carrying them.
+  how_IAdv = {s ="ta"; requiresSubjPrefix = True};  --: IAdv ;
+  --how8much_IAdv = {s ="kwiga"; s2requireSubjPrefix = True};--: IAdv ;
 {-	
 --1 Structural: Structural Words
 --

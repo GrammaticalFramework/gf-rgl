@@ -11,10 +11,10 @@ concrete GrammarCgg of Grammar =
   RelativeCgg,
   ConjunctionCgg,
   PhraseCgg,
-  TextX -[Adv],
+  TextX -[Adv, IAdv],
   StructuralCgg,
   IdiomCgg,
-  TenseX -[Adv]
+  TenseX -[Adv,IAdv]
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

@@ -2,7 +2,16 @@
 
 concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
 --1 Question: Questions and Interrogative Pronouns
+-- A question can be formed from a clause ('yes-no question') or
+-- with an interrogative.
 
+  lin
+    --QuestCl     : Cl -> QCl ;            -- does John walk
+    QuestCl cl = cl;
+    --QuestVP     : IP -> VP -> QCl ;      -- who walks
+    --QuestSlash  : IP -> ClSlash -> QCl ; -- whom does John love
+    --QuestIAdv   : IAdv -> Cl -> QCl ;    -- why does John walk
+    --QuestIComp  : IComp -> NP -> QCl ;   -- where is John
 {-
 --1 Question: Questions and Interrogative Pronouns
 

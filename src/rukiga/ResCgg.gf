@@ -793,6 +793,39 @@ oper
 		}
  	};
 
+ 	mkIPPref : Agreement =>Str = table{	
+	  AgMUBAP1 Sg => mkClitic "o";
+      AgMUBAP1 Pl => mkClitic "ba" ;
+      AgMUBAP2 Sg => mkClitic "o"; 
+      AgMUBAP2 Pl => mkClitic "ba" ;
+      AgP3 Sg MU_BA => mkClitic "o";
+      AgP3 Pl MU_BA => mkClitic "ba" ;
+      AgP3 Pl ZERO_BU => mkClitic "bu" ;
+      AgP3 Sg BU_MA => mkClitic "bu" ;
+      AgP3 Pl (KA_BU | RU_BU) => mkClitic "bu" ;
+      AgP3 Pl (KI_BI | ZERO_BI) =>  mkClitic "bi" ;
+      AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "ga";
+      AgP3 (Sg ) HA  => mkClitic "ha" ; -- of place HA 
+      AgP3 (Sg ) MU => mkClitic "ha" ; -- of place  MU
+      AgP3 (Sg ) KU => mkClitic "e" ; -- of place KU
+      AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "ri" ;
+      AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "ka" ;
+      AgP3 Sg KI_BI   => mkClitic "ki" ;
+      AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "ku" ;
+      AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "gu" ;
+      AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "ru" ;
+      AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "tu" ;
+      AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "e" ;
+      AgP3 Pl ZERO_MI =>mkClitic "e" ;
+      AgP3 Pl MU_MI => mkClitic "e";
+      AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "zi" ;
+      AgP3 Sg GU_GA => mkClitic "gu" ;
+      AgP3 Pl GU_GA => mkClitic "ga" ;
+      _  => mkClitic "XXXThat" -- error checking for any case not catered for
+ 				
+ 	};
+	 
+
  		mkRObjV2 : Agreement=> Str =table {
      		  AgMUBAP1  Sg => mkClitic "ou"; 
               AgMUBAP1  Pl => mkClitic "abi" ; --note: abu or abi is used. GF does not allow free variation. However, abu is more natural
@@ -944,8 +977,16 @@ oper
      be_GVerb : GVerb = {
         s= table{True => "ri"; False =>"b" }; 
         morphs = \\form, morphs =>[]; 
+        
+
         isAux = True};
 
+      
+
+
+
+     --be1_Verb: Verb = {s="b"; pres = "e"; perf="a"; morphs = mkVerbMorphs};
+     --be2_Verb: Verb = {s="ri"; pres = "e"; perf="a"; morphs = mkVerbMorphs};
       {-
       --copulative conjugations of ni and ri as used for adjectives
       
@@ -1102,6 +1143,8 @@ oper
 	      s : Str ; --subject
 	      subjAgr : Agreement;
 	      root : Str;
+	      pres: Str;
+	      perf: Str;
 	      morphs : VFormMini => VerbMorphPos =>Str;
 	      {-
 	      inf  : Str;

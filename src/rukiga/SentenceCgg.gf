@@ -33,56 +33,65 @@ lin
                   ant!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
     };  --: Temp -> Pol -> QCl  -> QS ; -- has John walked
 
-UseQCl   = UseCl; -- : Temp -> Pol -> Cl   -> S ;  -- John has not walked
-QuestCl cl = cl;  --: Cl -> QCl ; -- does John (not) walk
-PredVP np vp = case vp.isCompApStem of{
-            False    => {
-                      s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
-                      subjAgr = np.agr;
-                      root = vp.s;
-                      morphs = vp.morphs;
-                      {-
-                      inf  = mkVerbInrf vp.root;
-                    pres  = mkVerbPres vp.root; 
-                    past  = mkVerbPast vp.root; 
-                    presPart  = mkVerbPresPart vp.root; 
-                    pastPart  = mkVerbPastPart vp.root;                              -- subject
-                    -}
-                    --root = vp.root ;
-                      compl = vp.comp
-                      };
-            True    =>  {
-                      s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
-                      subjAgr = np.agr;
-                      root = vp.s;
-                      morphs = vp.morphs;
-                      {-
-                      inf  = mkVerbInrf vp.root;
-                    pres  = mkVerbPres vp.root; 
-                    past  = mkVerbPast vp.root; 
-                    presPart  = mkVerbPresPart vp.root; 
-                    pastPart  = mkVerbPastPart vp.root;                              -- subject
-                    -}
-                    --root = vp.root ;
-                      compl = mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
-                    }
-      };--: NP -> VP -> Cl ; -- John walks / John does not walk
-{-
+  UseQCl   = UseCl; -- : Temp -> Pol -> Cl   -> S ;  -- John has not walked
+  QuestCl cl = cl;  --: Cl -> QCl ; -- does John (not) walk
+
+  PredVP np vp = case vp.isCompApStem of{
+              False    => {
+                        s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                        subjAgr = np.agr;
+                        pres = vp.pres;
+                        perf = vp.perf;
+                        root = vp.s;
+                        morphs = vp.morphs;
+                        {-
+                        inf  = mkVerbInrf vp.root;
+                      pres  = mkVerbPres vp.root; 
+                      past  = mkVerbPast vp.root; 
+                      presPart  = mkVerbPresPart vp.root; 
+                      pastPart  = mkVerbPastPart vp.root;                              -- subject
+                      -}
+                      --root = vp.root ;
+                        compl = vp.comp
+                        };
+              True    =>  {
+                        s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                        subjAgr = np.agr;
+                        pres = vp.pres;
+                        perf = vp.perf;
+                        root = vp.s;
+                        morphs = vp.morphs;
+                        {-
+                        inf  = mkVerbInrf vp.root;
+                      pres  = mkVerbPres vp.root; 
+                      past  = mkVerbPast vp.root; 
+                      presPart  = mkVerbPresPart vp.root; 
+                      pastPart  = mkVerbPastPart vp.root;                              -- subject
+                      -}
+                      --root = vp.root ;
+                        compl = mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
+                      }
+        };--: NP -> VP -> Cl ; -- John walks / John does not walk
+    
+
+  
+    {-
     Note: It seems mkSubjClitic comes with a Predef.BIND already
     prepared for the next token to bind.
     Reason: When I add a BIND command, I get two bind tokens in the linearizations
     -}
-    ImpVP  vp = {
-          s =table{
-            True=> vp.s ++ Predef.BIND ++ vp.morphs!VFInf!RestOfVerb ++ vp.comp;
-            False =>  case vp.isCompApStem of {   -- How do I make the number dynamic use case?
-                    True =>vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
-                          vp.morphs!VFInf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.comp;
-                    False  => vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
-                          vp.morphs!VFInf!RestOfVerb ++ vp.comp
-                }
-          } 
-    };  --: VP -> Imp ;                 -- walk / do not walk
+
+  ImpVP  vp = {
+        s =table{
+          True=> vp.s ++ Predef.BIND ++ vp.morphs!VFInf!RestOfVerb ++ vp.comp;
+          False =>  case vp.isCompApStem of {   -- How do I make the number dynamic use case?
+                  True =>vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                        vp.morphs!VFInf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.comp;
+                  False  => vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                        vp.morphs!VFInf!RestOfVerb ++ vp.comp
+              }
+        } 
+  };  --: VP -> Imp ;                 -- walk / do not walk
 
 --2 Clauses missing object noun phrases
 
@@ -100,6 +109,9 @@ PredVP np vp = case vp.isCompApStem of{
     --AdvSlash  : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
     --SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks 
     --SlashVS   : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
+
+
+
 
 
 {-
