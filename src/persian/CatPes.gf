@@ -46,7 +46,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
 ---- Adjective
 
-    AP = ResPes.Adjective ;
+    AP = ResPes.AP ;
 
 ---- Noun
 

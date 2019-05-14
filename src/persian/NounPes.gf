@@ -102,7 +102,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 -- to here
     AdNum adn num = num ** {s = adn.s ++ num.s} ;
 
-    OrdSuperl a = {s = a.s ! Bare ++ taryn; n = Sg ; isNum=False ; isPre = True} ; -- check the form of adjective
+    OrdSuperl a = {s = a.s ! Comparative ! Bare ++ BIND ++ "ین" ; n = Sg ; isNum=False ; isPre = True} ;
 
     DefArt = makeQuant [] [] ;
     IndefArt = makeQuant IndefArticle [] ** {isDef = False} ;
