@@ -43,7 +43,7 @@ param
   -}
   ConjArg = Nn_Nn | Nps_Nps | Pns_Pns | RelSubjCls | Other;
   AgrConj = AConj ConjArg;
-  Agreement =  AgP3 Number Gender | AgMUBAP1 Number |AgMUBAP2 Number; --Default is AgP3 Sg KI_BI
+  Agreement =  AgP3 Number Gender | AgMUBAP1 Number |AgMUBAP2 Number | NONE; --Default is AgP3 Sg KI_BI
   AgrExist = AgrNo | AgrYes Agreement;
   Position = PostDeterminer | PreDeterminer ;
   Position1 = Post | Pre;
@@ -70,27 +70,25 @@ NounState  = Complete | Incomplete ;
 
 oper
   -- the is for Common Nouns only 
-  Noun : Type = {s : NounState => Number => Str ; gender : Gender} ;
+  Noun : Type = {s :  Number=>  NounState=> Str ; gender : Gender} ;
 
   ivs : pattern Str = #("a" | "e" | "o"); --pattern for initial vowels
   
   human_relations: pattern Str = --expand this list
   	#("Taata" | "Maama" | "Shwento" | "Shwenkuru" | "Nyinento" | "Nyinenkuru");
 
+  	
   mkNoun : Str -> Str ->Gender ->Noun = \sg,pl, g -> {
-     s = table {
-       Complete   => table { Sg => sg ; Pl => pl};
-       Incomplete => table { 
-       	Sg => case sg of {
-         	  	(#ivs + _) => Predef.drop 1 sg;
-         	   			_ => sg };
-       	Pl => case pl of {
-       			(#ivs + _) => Predef.drop 1 pl;
-         		 		_  => pl }
-   				}
-        };
-      gender = g
-    } ;
+  	s = table {
+	     		Sg => table {Complete => sg; Incomplete => Predef.drop 1 sg};
+	     		Pl => table {Complete => pl; Incomplete => Predef.drop 1 pl}
+     		};
+     	gender = g
+	 	
+	 };
+	 
+
+      
 
     mkVerb : Str ->Str ->Str ->Verb = \rad, end1,end2 ->{
     	s = rad;
@@ -231,6 +229,49 @@ oper
           Pl => mkClitic pl
         } ;
 
+mkAgreement: Gender -> Person -> Number ->Agreement =\g,p,n ->
+			case <g,p,n> of{
+				 <MU_BA, P1, n> => AgMUBAP1 n;
+				 <MU_BA, P2, n> => AgMUBAP2 n;
+				 <g,P3,n>       => AgP3 n g;
+				 <_,_,_,>       => NONE 
+
+			};   
+mkSubjPrefix : Agreement -> Str =\a ->case a of {
+          AgMUBAP1 n => mkClitics "n" "tu" n;
+          --AgMUBAP1 Pl => "tu" ;
+          AgMUBAP2 n => mkClitics "o" "mu" n;
+          --AgMUBAP2 Pl => "mu" ;
+          AgP3 n MU_BA  => mkClitics "a" "ba" n;
+          --AgP3 Pl MU_BA  => "ba" ;          
+          AgP3 Sg KI_BI   => mkClitic "ki" ;
+          AgP3 Pl (KI_BI | ZERO_BI)   => mkClitic "bi" ;
+          AgP3 Sg (RU_N | RU_MA | RU_ZERO | RU_BU)   => mkClitic "ru" ; 
+          AgP3 Pl RU_N => mkClitic "zi"; --| "i"; 
+          AgP3 Sg N_N => mkClitic "e";
+          AgP3 Pl N_N => mkClitic "zi"; --| "i";
+          AgP3 Sg (MU_MI | MU_ZERO)   => mkClitic "gu" ; 
+          AgP3 Pl MU_MI   => "e" ;
+          AgP3 Sg (RI_MA | RI_ZERO | I_ZERO) =>mkClitic  "ri"; 
+          AgP3 Pl (RI_MA | BU_MA | KU_MA | ZERO_MA | I_MA |RU_MA)  => mkClitic "ga" ;
+          AgP3 Sg (KA_BU | KA_ZERO | KA_TU)   => mkClitic "ka" ; 
+          AgP3 Pl (KA_BU | RU_BU)  => mkClitic "bu" ;
+          AgP3 Sg ZERO_BU  => mkClitic "bu" ; 
+          AgP3 Pl ZERO_BU  => mkClitic "bu" ;
+          AgP3 Sg ZERO_BI  => mkClitic "bi" ; 
+          AgP3 Sg ZERO_MA  => mkClitic "ga" ;
+          AgP3 Pl RI_ZERO  => mkClitic "ga" ;
+          AgP3 Sg KU_ZERO  => mkClitic "ku" ;
+          AgP3 Pl KU_ZERO  => mkClitic "ku" ;
+          AgP3 Pl MU_ZERO  => mkClitic "gu" ;
+          AgP3 Pl RU_ZERO  => mkClitic "ru" ;
+          AgP3 Sg ZERO_TU  => mkClitic "tu" ;
+          AgP3 Pl ZERO_TU  => mkClitic "tu" ;
+          AgP3 Sg (ZERO_MI | ZERO_ZERO)  => mkClitic "" ;
+          AgP3 Pl ZERO_MI  => mkClitic "e" ;
+          AgP3 Pl KA_ZERO  => mkClitic "" ;
+          _        => mkClitic "SubjNotKnown" --for checking if there is some class unaccounted for
+      };
     mkSubjClitic : Agreement -> Str = \a ->
       case a of {
           AgMUBAP1 n => mkClitics "n" "tu" n;
@@ -920,8 +961,8 @@ oper
          <PostDeterminer> => {s = \\_=>
           let 
             subjClitic = mkSubjClitic (AgP3 det.num cn.gender) 
-          in  cn.s!det.ntype!det.num ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender};
-        <PreDeterminer> => { s =\\_ => det.s ++ cn.s ! det.ntype ! det.num; agr = AgP3 det.num cn.gender} --;
+          in  cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender};
+        <PreDeterminer> => { s =\\_ => det.s ++ cn.s !det.num  ! det.ntype; agr = AgP3 det.num cn.gender} --;
         --<PostDeterminer, PFalse> => {s = \\_=> cn.s!det.ntype!det.num; agr = AgP3 det.num cn.gender }    
          };
   

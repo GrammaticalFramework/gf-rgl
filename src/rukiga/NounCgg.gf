@@ -16,7 +16,7 @@ lin
        };
   --UsePron pron = pron; -- the result of use pron is a NounPhrase
   --MassNP     : CN -> NP ;            -- (beer)
-  MassNP cn = {s = \\_ =>cn.s ! Complete ! Pl; agr = AgP3 Pl cn.gender};   --: CN -> NP ; -- milk
+  MassNP cn = {s = \\_ =>cn.s ! Pl ! Complete; agr = AgP3 Pl cn.gender};   --: CN -> NP ; -- milk
   --DetCN det cn = mkDeterminer det cn; --Should be nemed mkDetCN
   DetCN  det cn =  mkDetCN det cn;       -- the man
     {-
@@ -32,28 +32,28 @@ lin
     AdjCN ap cn = 
       case <ap.position1, ap.isProper, > of {
           <Pre, True> => { 
-                    s = \\ ns, num =>ap.s ++ cn.s ! ns ! num ; 
+                    s = \\ num, ns =>ap.s ++ cn.s ! num ! ns ; 
                     gender = cn.gender 
                   };
           <Post, False> => case ap.isPrep of {
                      False  =>  { 
-                            s = \\ ns, num => cn.s ! ns ! num ++ mkAdjPronIVClitic (AgP3 num cn.gender) 
+                            s = \\ num, ns => cn.s  ! num ! ns ++ mkAdjPronIVClitic (AgP3 num cn.gender) 
                                  ++ ap.s; 
                               gender = cn.gender   
                           };
                      True  =>  { 
-                            s = \\ ns, num => (cn.s ! ns ! num) ++ 
+                            s = \\ num, ns => (cn.s  ! num ! ns) ++ 
                                 mkGenPrepNoIVClitic (AgP3 num cn.gender) ++ ap.s ; 
                             gender = cn.gender 
                           }
                   };
           <Pre, False> => { 
-                    s = \\ ns, num => mkAdjPronIVClitic (AgP3 num cn.gender) 
-                               ++ ap.s ++ (cn.s ! ns ! num) ; 
+                    s = \\ num, ns => mkAdjPronIVClitic (AgP3 num cn.gender) 
+                               ++ ap.s ++ (cn.s ! num ! ns) ; 
                     gender = cn.gender 
                   };
           <Post, True> => { 
-                     s = \\ ns, num => (cn.s ! ns ! num) ++ ap.s ; 
+                     s = \\ num, ns => (cn.s  ! num ! ns) ++ ap.s ; 
                      gender = cn.gender
                   }                   
 

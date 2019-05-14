@@ -165,6 +165,14 @@ lin
   --You may need to use booleans to indicate that you need these tables rather than carrying them.
   how_IAdv = {s ="ta"; requiresSubjPrefix = True};  --: IAdv ;
   --how8much_IAdv = {s ="kwiga"; s2requireSubjPrefix = True};--: IAdv ;
+
+  when_IAdv = {s ="ryari"; requiresSubjPrefix = False}; --: IAdv ;
+  where_IAdv = {s ="nkahe"; requiresSubjPrefix = False}; --: IAdv ;
+  why_IAdv  = {s ="ahabweki"; requiresSubjPrefix = False};--: IAdv ;
+  
+  how8many_IDet  ={s ="ngahe"; requiresSubjPrefix = False};--: IDet ;
+
+  which_IQuant ={s =\\_ =>"ha"; requiresSubjPrefix = False};--: IQuant ;
 {-	
 --1 Structural: Structural Words
 --

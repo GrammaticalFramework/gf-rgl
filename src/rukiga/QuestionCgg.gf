@@ -12,6 +12,13 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
     --QuestSlash  : IP -> ClSlash -> QCl ; -- whom does John love
     --QuestIAdv   : IAdv -> Cl -> QCl ;    -- why does John walk
     --QuestIComp  : IComp -> NP -> QCl ;   -- where is John
+
+    --IdetCN    : IDet -> CN -> IP ;       -- which five songs
+    IdentCN idet cn = case idet.requiresSubjPrefix  of {
+                            True => {s = \\n => cn!n!Complete ++ mkSubjPrefix mkAgreement(cn.gender P3 n) ++ idet.s};
+                            False => { s = \\n => cn!n!Complete ++ idet.s}
+                        };
+    --IdetIP    : IDet       -> IP ;       -- which five
 {-
 --1 Question: Questions and Interrogative Pronouns
 

@@ -67,7 +67,9 @@ lincat
   Ord  = {s :Res.Agreement=>Str; position1:Res.Position1} ;
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
   IP   = {s :Str ; n : Res.Number; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str};
-  IAdv   = {s :Str ; requiresSubjPrefix: Bool};
+  IAdv = {s : Str ; requiresSubjPrefix: Bool};
+  IDet = {s : Str ; requiresSubjPrefix: Bool};
+  IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};
   --VV =
 
 linref
