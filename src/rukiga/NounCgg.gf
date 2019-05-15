@@ -59,6 +59,8 @@ lin
 
     };        -- big house
 
+    --RelCN   : CN -> RS  -> CN ;   -- house that John bought
+    RelCN cn rs = {s=\\n,ns => cn.s !n ! ns ++ rs.s; gender = cn.gender };
 
     {-
       A predeterminer is any word that modifies a noun Phrase.
@@ -102,9 +104,10 @@ lin
       doesAgree = True
     };
 
-    NumSg = {s=[]; n=Sg}; --Num
-    NumPl = {s=[]; n=Pl}; --Num
-    -- NumCard card = {...};
+    NumSg = {s=\\_=>[]; n=Sg}; --Num
+    NumPl = {s=\\_=>[]; n=Pl}; --Num
+    --NumCard : Card -> Num ; -- one/five [explicit numeral]
+    NumCard card = {s =\\agr =>card.s ! agr; n=card.n };
     --Quant = {s : Res.Pronoun; s2 :Res.Agreement => Str; doesAgree : Bool; isPron: Bool} ;
     IndefArt = {s={s=\\_=>[]; third = \\_,_=>[];agr = AgrNo }; s2 = \\_=>[]; doesAgree = False; isPron=False};
     DefArt = {s={s =\\_=>[]; third = \\_,_=>[]; agr = AgrNo }; s2 = \\_=>[]; doesAgree = False; isPron = False}; -- noun with initial vowel
@@ -120,7 +123,10 @@ lin
     OrdNumeral numeral ={s=numeral.s!NOrd; position1 = Post};
     --OrdSuperl  : A       -> Ord ;  -- warmest
     --Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
-    OrdSuperl a = {s= \\c => a.s ++ "kukira" ++ (mkAdjPronIVClitic  c) ++ BIND ++ "ona"; position1 = a.position1};
+    OrdSuperl a = {s= \\c =>  "okukirayo" ++ a.s ++ (mkAdjPronIVClitic  c) ++ BIND ++ "ona"; position1 = a.position1};
+  -- One can combine a numeral and a superlative.
+  --OrdNumeralSuperl : Numeral -> A -> Ord ; -- third largest
+    OrdNumeralSuperl numeral a = {s= \\c =>  numeral.s !NOrd !c ++ "omu" ++ "kukirayo" ++ "obu" ++ BIND ++ a.s; position1 = a.position1};
   -- AdvCN   : CN -> Adv -> CN ;   -- house on the hill
      AdvCN cn adv ={s=\\ntype,num =>cn.s!ntype!num ++ adv.s; gender=cn.gender};
   -- Pronouns have possessive forms. Genitives of other kinds
@@ -196,6 +202,13 @@ SentCN cn sc = {s = \\ n, ns => cn.s!n!ns  ++ sc.s; gender = cn.gender};
     Use2N3 n3 = {s = n3.s; gender = n3.gender; c2 = n3.c2};
     --Use3N3  : N3 -> N2 ;          -- distance (to Paris)
     Use3N3 n3 = {s = n3.s; gender = n3.gender; c2 = n3.c3};
+
+    -- (New 13/3/2013 AR; Structural.possess_Prep and part_Prep should be deprecated in favour of these.)
+
+    --PossNP  : CN -> NP -> CN ;     -- house of Paris, house of mine
+    PossNP  cn np ={s =\\n,ns => cn.s! n ! ns ++ mkGenPrepNoIVClitic np.agr ++ np.s ! Nom; gender = cn.gender};
+    --PartNP  : CN -> NP -> CN ;     -- glass of wine
+    PartNP cn np ={s =\\n,ns => cn.s! n ! ns ++ mkGenPrepNoIVClitic np.agr ++ np.s ! Nom; gender = cn.gender};
 {-
 --1 Noun: Nouns, noun phrases, and determiners
 

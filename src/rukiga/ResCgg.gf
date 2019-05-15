@@ -24,9 +24,9 @@ param
 					  MU |  KU  |  ZERO_BU  |  ZERO_BI | ZERO_MA |  
 					  ZERO_MI |  ZERO_TU |  ZERO_N  | I_ZERO  |  
 					  RI_ZERO |  KU_ZERO | MU_ZERO |  RU_ZERO |  
-					  KA_ZERO |ZERO_BAA | N_ZERO | KI_ZERO;
+					  KA_ZERO |ZERO_BAA | N_ZERO | KI_ZERO | Null;
 	Case = Acc | Nom |Gen; -- we need to include Gen because we shall need it with Gen Pronouns
-	RCase = RSuj | RObj;
+	RCase = RSubj | RObj;
   	PersonalPronounType = SubjM | Obj  | RelSubj | RelObj |
                           AdjPron2 | -- aAdjectival Prefixes with initial vowel with the semantics of "the" e.g. -- omuntu o-mu-rungi 
                           AdjPron  | -- without initial vowel i.e. -- omuntu mu-rungi           
@@ -1280,7 +1280,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
   	glueGen: Agreement ->Str = \ a -> mkGenPrepNoIVClitic a ++ BIND ++ mkGenAdjSuffix a;
 
   --Number determining element
-  Numer : Type = { s: Str ; n : Number};
+  Numer : Type = { s: Agreement => Str ; n : Number};
 
   --VPSlash : Type = VerbPhrase ** { c : Str };
   VPSlash : Type = {s:Str; pres:Str; perf:Str; morphs: VMorphs; comp: Str; comp2:Str; isRegular:Bool}; --comp is empty
@@ -1348,4 +1348,12 @@ oper
 																    	isOrdDifferent = isOrdDifferent
 																		}
 	 };
+
+	 getGender : Agreement -> Gender =\agr ->
+	  case agr of {
+	  	(AgP3 n g) => g;
+	  	(AgMUBAP1 n) => MU_BA;
+	  	(AgMUBAP2 n) => MU_BA;
+	  	 NONE => Null
+	};
 }
