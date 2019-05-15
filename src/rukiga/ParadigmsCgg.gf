@@ -62,17 +62,17 @@ oper
   
   mkN2 : N -> Prep -> N2 ;
   mkN2  : N -> Prep -> N2 = \n,p -> case p.isGenPrep of{
-                                          False => n ** {c2 =\\_=> p.s; lock_N2 = <>} ; 
-                                          True  => n ** {c2 = mkGenPrepWithIVClitic; lock_N2 = <>}
+                                          False => lin N2 (n ** {c2 =\\_=> p.s}) ; 
+                                          True  => lin N2 (n ** {c2 = mkGenPrepWithIVClitic}) --avoiding lock_C fields
                                         };
   -- Three-place relational nouns ("the connection from x to y") need two prepositions.
 
   mkN3 : N -> Prep -> Prep -> N3 ; -- e.g. connection from x to y
   mkN3 = \n,p,q -> case <p.isGenPrep,q.isGenPrep> of{
-                        <False,False>  => n ** {c2 =\\_=> p.s; c3 =\\_=> q.s; lock_N3 = <>} ; 
-                        <True, False>  => n ** {c2 = mkGenPrepWithIVClitic ; c3 =\\_=> q.s; lock_N3 = <>} ;
-                        <Fasle,True>   => n ** {c2 =\\_=> p.s ; c3 = mkGenPrepWithIVClitic; lock_N3 = <>} ;
-                        <True,True>   =>  n ** {c2 = mkGenPrepWithIVClitic; c3 = mkGenPrepWithIVClitic; lock_N3 = <>}
+                        <False,False>  => lin N3 ( lin N2 (n ** {c2 =\\_=> p.s}) ** {c3 =\\_=> q.s}); --method of avoiding lock_C fields
+                        <True, False>  => n ** {c2 = mkGenPrepWithIVClitic ; c3 =\\_=> q.s; lock_N2 = <>;lock_N3 = <>} ;
+                        <False,True>   => n ** {c2 =\\_=> p.s ; c3 = mkGenPrepWithIVClitic; lock_N2 = <>;lock_N3 = <>} ;
+                        <True,True>    => n ** {c2 = mkGenPrepWithIVClitic; c3 = mkGenPrepWithIVClitic; lock_N2 = <>; lock_N3 = <>}
                                         };
   {-
   prepV2 v p = lin V2 {s = v.s ; p = v.p ; c2 = p.s ; isRefl = v.isRefl} ;

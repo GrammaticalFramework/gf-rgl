@@ -133,7 +133,7 @@ lin
 
   father_N2 = mkN2 (mkN "tata" MU_BA) (mkPrep [] [] True) ;
 
-  distance_N3 = mkN3 (mkN "oburaingwa" ZERO_BU) (mkPrep "kurunga" "" False) (mkPrep "mpáka" "" False);
+  distance_N3 = mkN3 (mkN "orugyendo" ZERO_BU) (mkPrep "kurunga" "" False) (mkPrep "mpáka" "" False); --could orugyendo work in its place?
   
 
 oper
