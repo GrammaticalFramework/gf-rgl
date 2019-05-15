@@ -21,7 +21,7 @@ concrete StructuralPes of Structural = CatPes **
   by8agent_Prep = mkPrep "توسط" ;
   by8means_Prep = mkPrep "با" ;
 --  can8know_VV,can_VV = mkVV (mkV "سکن") ;
-  can_VV = mkVV (mkV_1 "توانستن") ; ---- AR
+  can_VV = let isAux = False in mkVV isAux subjunctive (mkV_1 "توانستن") ; ---- AR
   during_Prep = mkPrep ["در طول"] ;
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
 --  everybody_NP =  R.indeclNP "هر کwی";

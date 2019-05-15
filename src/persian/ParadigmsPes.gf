@@ -323,9 +323,7 @@ oper
 
   mkA = overload {
     mkA : Str -> A -- Regular adjective, same adj and adv forms.
-       = \str -> lin A (case str of {
-          _ + " " + _ => mkAdj str str str ;
-          _           => mkAdj str str }) ;
+       = \str -> lin A (mkAdj str str) ;
     mkA : Str-> Str -> A -- Takes adj and adv forms
        = \str,adv -> lin A (mkAdj str adv);
     mkA : (pos,compar,adv : Str) -> A -- positive, comparative and adverb
@@ -333,6 +331,10 @@ oper
     mkA : Str -> Str -> A2 -- Takes string and complementiser, returns A2. Hidden from public API, confusing naming. /IL
       = \a,c -> lin A2 (mkAdj a a ** {c2 = c})
    } ;
+
+  -- Mostly for things that are not really adjectives, like adverbials /IL
+  invarA : Str -> A = \str ->
+    lin A (<mkAdj str str : Adjective> ** {s = \\_,_ => str}) ;
 
    prefixA a = a ** {isPre=True};
 
