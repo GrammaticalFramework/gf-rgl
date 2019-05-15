@@ -40,6 +40,40 @@ oper
   };
 
   
+  --3 Relational nouns 
+
+  mkN2 : overload {
+    mkN2 : Str -> N2 ; -- reg. noun, prep. "of" --% 
+    mkN2 : N -> N2 ; -- e.g. wife of (default prep. to)
+    mkN2 : N -> Str -> N2 ; -- access to --%
+    mkN2 : N -> Prep -> N2 ; -- e.g. access to
+    mkN2 : Str -> Str -> N2 ; -- access to (regular noun) --%
+  } ;
+
+  --3 Relational nouns 
+
+  mkN2 : overload {
+    mkN2 : Str -> N2; -- reg. noun, prep. "of" --% 
+    mkN2 : N -> N2 ; -- e.g. wife of (default prep. to)
+    mkN2 : N -> Str -> N2 ; -- access to --%
+    mkN2 : N -> Prep -> N2 ; -- e.g. access to
+    mkN2 : Str -> Str -> N2 ; -- access to (regular noun) --%
+  } ;
+  
+  mkN2 : N -> Prep -> N2 ;
+  mkN2  : N -> Prep -> N2 = \n,p -> case p.isGenPrep of{
+                                          False => n ** {c2 =\\_=> p.s; lock_N2 = <>} ; 
+                                          True  => n ** {c2 = mkGenPrepWithIVClitic; lock_N2 = <>}
+                                        };
+  -- Three-place relational nouns ("the connection from x to y") need two prepositions.
+
+  mkN3 : N -> Prep -> Prep -> N3 ; -- e.g. connection from x to y
+  mkN3 = \n,p,q -> case <p.isGenPrep,q.isGenPrep> of{
+                        <False,False>  => n ** {c2 =\\_=> p.s; c3 =\\_=> q.s; lock_N3 = <>} ; 
+                        <True, False>  => n ** {c2 = mkGenPrepWithIVClitic ; c3 =\\_=> q.s; lock_N3 = <>} ;
+                        <Fasle,True>   => n ** {c2 =\\_=> p.s ; c3 = mkGenPrepWithIVClitic; lock_N3 = <>} ;
+                        <True,True>   =>  n ** {c2 = mkGenPrepWithIVClitic; c3 = mkGenPrepWithIVClitic; lock_N3 = <>}
+                                        };
   {-
   prepV2 v p = lin V2 {s = v.s ; p = v.p ; c2 = p.s ; isRefl = v.isRefl} ;
   dirV2 v = prepV2 v noPrep ;

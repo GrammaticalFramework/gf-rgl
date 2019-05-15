@@ -71,8 +71,10 @@ lincat
   IAdv = {s : Str ; requiresSubjPrefix: Bool};
   IDet = {s : Str ; n : Res.Number; requiresSubjPrefix: Bool};
   IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};
-  DAP = Res.Determiner ;    
-
+  DAP = Res.Determiner ;
+  N2  = Res.Noun ** {c2 : Res.Agreement =>Str};    -- relational noun                     e.g. "son"   
+  Prep = Res.Preposition;  -- preposition, or just case           e.g. "in"
+  N3   = N2 ** {c3 : Res.Agreement =>Str};
   --VV =
 
 linref

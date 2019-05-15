@@ -131,7 +131,21 @@ lin
   
   --today_Adv = mkAdv "erizooba" AgrNo;
 
+  father_N2 = mkN2 (mkN "tata" MU_BA) (mkPrep [] [] True) ;
+
+  distance_N3 = mkN3 (mkN "oburaingwa" ZERO_BU) (mkPrep "kurunga" "" False) (mkPrep "mpáka" "" False);
   
+
+oper
+  aboutP = mkPrep "about" ;
+  atP = mkPrep "at" ;
+  forP = mkPrep "for" ;
+  fromP = mkPrep "kurunga" "" False;
+  inP = mkPrep "omu" "omuri" False;
+  onP = mkPrep "aha" "ahari" False;
+  toP = mkPrep "aha" [] False;
+
+
 
 
   {-

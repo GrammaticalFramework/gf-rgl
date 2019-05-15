@@ -35,20 +35,20 @@ lin
     agr = AgrNo
     }; --mkPron "kyo" "kyo" (AgP3 Sg KI_BI); -- should form an it_Pron_NClass in extra module
   
-  behind_Prep ={s="enyuma ya"};
-  between_Prep = {s="hagati ya"};
-  to_Prep ={s="aha"};
+  behind_Prep = mkPrep "enyuma ya" [] False;
+  between_Prep =mkPrep "hagati ya" [] False;
+  to_Prep = mkPrep "aha" [] False;
   -- several words depending on use omuri??
-  in_Prep        = mkPrep "omu" "omuri";
+  in_Prep        = mkPrep "omu" "omuri" False;
   --aha-ri Kamukuzi??? works for places 
-  on_Prep        = mkPrep "aha" "ahari";
+  on_Prep        = mkPrep "aha" "ahari" False;
   
 --na --please this string varies with vowels use combine_morphemes or 
 --combine_words when using it.
-  with_Prep      = mkPrep "na" []; 
+  with_Prep      = mkPrep "na" [] False; 
 
-  from_Prep ={s="kuruga"};
-  under_Prep = {s="hansi ya"};
+  from_Prep =mkPrep "kurunga" "" False;
+  under_Prep = mkPrep "hansi ya" "" False;
   
   ---Structural
   {-
@@ -173,6 +173,35 @@ lin
   how8many_IDet  ={s ="ngahe"; other =[]; n =Pl; requiresSubjPrefix = False; endOfSentence = True};--: IDet ;
 
   which_IQuant ={s =\\_ =>"ha"; requiresSubjPrefix = False};--: IQuant ;
+
+
+  almost_AdN = {s="hihi"}; --: AdN ; -- what about nika
+  at_least_AdN ={s= " hakiri"}; --: AdN ; --need advice from linguist. What about akakye?
+
+  {-
+    The following require some reflection from a linguist.
+  -}
+  someSg_Det =
+    {
+      s =[]; 
+      s2 =\\agr => mkSubjCliticTableSg ! agr ++ "mwe"; 
+      ntype = Complete;
+      num = Sg;
+      pos = PreDeterminer;
+      doesAgree = True
+    };
+  somePl_Det  =
+    {
+      s =[]; 
+      s2 =\\agr => mkSubjCliticTablePl ! agr ++ "mwe"; 
+      ntype = Complete;
+      num = Pl;
+      pos = PreDeterminer;
+      doesAgree = True
+    };--: Det ;
+  --somebody_NP = {}; --: NP ;
+  --something_NP : NP ;
+  --somewhere_Adv : Adv ;
 {-	
 --1 Structural: Structural Words
 --

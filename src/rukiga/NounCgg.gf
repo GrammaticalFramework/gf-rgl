@@ -89,11 +89,18 @@ lin
      RelNP np rs ={s = \\c => np.s ! c ++ rs.s; agr =np.agr};   
         -- The determiner has a fine-grained structure, in which a 'nucleus'
   -- quantifier and an optional numeral can be discerned.
-     --DetQuant    : Quant -> Num ->        Det ;  -- these five
+     --DetQuant    : Quant -> Num -> Det ;  -- these five
      DetQuant  quant num = {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree}; --
                                 
      --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
-     --DetQuantOrd quant num ord = {};
+     DetQuantOrd quant num ord = {
+      s =[]; 
+      s2 =\\agr => mkThis!agr ++ quant.s2 ! agr ++ ord.s!agr; 
+      ntype = Complete;
+      num = num.n;
+      pos = PreDeterminer;
+      doesAgree = True
+    };
 
     NumSg = {s=[]; n=Sg}; --Num
     NumPl = {s=[]; n=Pl}; --Num
@@ -126,19 +133,69 @@ lin
     --3 Conjoinable determiners and ones with adjectives
 
     --AdjDAP : DAP -> AP -> DAP ;    -- the large (one)
-    {-
-    AdjDAP dap ap ={
-      s = dap.s ++ ap.s ; 
-      s2: Res.Agreement; 
-      ntype : NounState ; 
-      num : Number ; 
-      pos : Position; 
-      doesAgree: Bool };
-    -}
-    --DetDAP : Det -> DAP ;          -- this (or that) 
+    
+    AdjDAP dap ap = 
+                { s = dap.s ++ ap.s ; 
+                  s2 = dap.s2; 
+                  ntype = dap.ntype ; 
+                  num = dap.num ; 
+                  pos = dap.pos; 
+                  doesAgree= True 
+                };
+    
+    --DetDAP : Det -> DAP ;          -- this (or that)
+    DetDAP det =det;
+
+    --AdNum : AdN -> Card -> Card ;   -- almost 51
+    AdNum  adn card = {s = \\a => adn.s ++ card.s ! a; n = card.n};
+    --ComplN2 : N2->NP -> CN
+    
+    ComplN2 n2 np =
+      { s = \\n, ns => n2.s ! n ! ns ++ n2.c2 ! mkAgreement n2.gender P1 n ++ np.s !Acc; 
+      gender=n2.gender};
+    --ComplN3 : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
+    
+    ComplN3 n3 np = 
+        {s = \\n, ns => n3.s ! n ! ns ++ n3.c2 ! mkAgreement n3.gender P1 n ++ np.s !Acc;
+           c2 = n3.c3; 
+        gender=n3.gender};
+   
+  --2 Apposition
+
+-- This is certainly overgenerating.
+
+  --ApposCN : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
+  ApposCN cn np ={s = \\n, ns => cn.s! n!ns ++ np.s !Nom; gender = cn.gender};
+  -- This is different from the partitive, as shown by many languages.
+
+  --CountNP : Det -> NP -> NP ;    -- three of them, some of the boys
+  CountNP det np = case det.doesAgree of {
+                        True  => {s=\\c=> np.s!c ++ det.s2 ! np.agr; agr = np.agr};
+                        False => {s=\\c=> np.s!c ++ det.s; agr = np.agr} 
+                      };
+
+--Determiners can form noun phrases directly.
+  --DetNP   : Det -> NP ;  -- these five
+  DetNP det = case det.doesAgree of {
+                        True  => {s=\\_=> det.s2 ! AgP3 Sg KI_BI; agr = AgP3 Sg KI_BI};
+                        False => {s=\\c=> det.s; agr = AgP3 Sg KI_BI} 
+                      };
+-- Nouns can also be modified by embedded sentences and questions.
+-- For some nouns this makes little sense, but we leave this for applications
+-- to decide. Sentential complements are defined in [Verb Verb.html].
+--SentCN  : CN -> SC  -> CN
+SentCN cn sc = {s = \\ n, ns => cn.s!n!ns  ++ sc.s; gender = cn.gender}; 
 
 
+-- Relational nouns can also be used without their arguments.
+-- The semantics is typically derivative of the relational meaning.
 
+    --UseN2   : N2 -> CN ;          -- mother
+    UseN2 n2  = {s = n2.s; gender = n2.gender};
+    --Use2N3  : N3 -> N2 ;          -- distance (from this city)
+    Use2N3 n3 = {s = n3.s; gender = n3.gender; c2 = n3.c2};
+    --Use3N3  : N3 -> N2 ;          -- distance (to Paris)
+    Use3N3 n3 = {s = n3.s; gender = n3.gender; c2 = n3.c3};
 {-
 --1 Noun: Nouns, noun phrases, and determiners
 
