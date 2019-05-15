@@ -44,7 +44,7 @@ concrete StructuralPes of Structural = CatPes **
   in_Prep = mkPrep "در" ;
   it_Pron  = R.agr2pron ! Ag Sg P3;
   less_CAdv = {s = "کمتر" ; p = ""} ;
-  many_Det = mkDet "بسیار" Pl False Ezafe ;
+  many_Det = let isNum, isNeg = False in  mkDet "بسیار" Pl isNum isNeg Ezafe ;
   more_CAdv = {s = "بیشتر" ; p = "" } ;
   most_Predet = ss "اکثر";
   much_Det = mkDet ["مقدار زیادی"]  Pl ;
@@ -101,12 +101,12 @@ concrete StructuralPes of Structural = CatPes **
   youSg_Pron = R.agr2pron ! Ag Sg P2 ;
   youPl_Pron = R.agr2pron ! Ag Pl P2 ;
   youPol_Pron = R.agr2pron ! Ag Pl P2  ;
-  no_Quant = mkQuant "هیچ" "هیچ" ; -- TODO: takes object in clitic form + is always singular + VP is negated
+  no_Quant = mkQuant "هیچ" "هیچ" Clitic True ;
   not_Predet = {s="نه"} ;
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;
   at_least_AdN = ss "حداقل" ;
   at_most_AdN = ss "حداکثر";
-  nothing_NP = R.indeclNP "هیچ چیز" ;
+  nothing_NP = R.indeclNP "هیچ چیز" ** {isNeg = True} ;
   except_Prep = mkPrep ["به جز"] ;
   nobody_NP = R.indeclNP "هیچ کس";
 

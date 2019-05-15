@@ -102,6 +102,16 @@ oper
            Clitic => mkEnclic str ;
            Poss => mkPossStem str } ;
 
+  -- Can happen that a complement (of N2, or e.g. PossNP) wants one form
+  -- and determiner wants another form. Heuristic: whichever wants Bare loses.
+  -- Will have to see if this works 100%, the grammar books I've seen
+  -- aren't very clear about this, just basing on some data. /IL
+  replaceBare : Mod -> (Mod=>Str) -> (Mod=>Str) = \m,tbl ->
+    table {
+      Bare => tbl ! m ;
+      mod  => tbl ! mod
+    } ;
+
   Noun = {
     s : Number => Mod => Str ;
     animacy : Animacy ;
@@ -124,7 +134,9 @@ oper
 --Determiners
 --------------------
   BaseQuant : Type = {
-    mod : Mod} ;
+    mod : Mod ;
+    isNeg : Bool
+  } ;
 
   Determiner : Type = BaseQuant ** {
     s : Str ;
@@ -137,16 +149,18 @@ oper
     s : Number => CmpdStatus => Str ;
     isDef : Bool } ;
 
-  makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
+  makeDet : Str -> Number -> (isNum, isNeg : Bool) -> Determiner = \str,n,isNum,isNeg -> {
     s,sp = str;
-    isNum = b;
+    isNum = isNum;
+    isNeg = isNeg ;
     mod = Bare ;
     n = n
   };
 
-  makeQuant : Str -> Str -> Quant = \sg,pl -> {
+  makeQuant : Str -> Str -> Mod -> (isNeg : Bool) -> Quant = \sg,pl,mod,isNeg -> {
     s = table {Sg => \\_ => sg ; Pl => \\_ => pl} ;
-    mod = Bare ;
+    mod = mod ;
+    isNeg = isNeg ;
     isDef = True
   };
 ---------------------------
@@ -222,7 +236,6 @@ oper
           Inf => glue (v.s ! Inf) cl ;
           vf => (modifyFiniteForms f v).s ! vf }
        } ;
-
 
   mkVerb : (inf,pres : Str) -> Verb = \kardan,kon -> {
     s = table {

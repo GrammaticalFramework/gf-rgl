@@ -15,9 +15,11 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
               NotCmpd => det.s ; -- possessive suffix
               IsCmpd  => det.sp } ; -- full form
          in case mod of {
-              Bare => detStr ++ cn.s ! num ! m ++ cn.compl ! det.n ; -- det doesn't require a special form, keep the Mod=>Str table
-              x    => cn.s ! num ! x ++ detStr ++ cn.compl ! det.n } ; -- det requires a special form
-      a = agrP3 det.n
+              Bare   => detStr ++ cn.s ! num ! m      ++ cn.compl ! det.n ; -- det doesn't require a special form, keep the Mod=>Str table
+              Clitic => detStr ++ cn.s ! num ! Clitic ++ cn.compl ! det.n ; -- In RGL this is only for no_Quant. If other determiners with different word order take Clitic, will change. /IL
+              x      => cn.s ! num ! x ++ detStr ++ cn.compl ! det.n } ; -- Ezafe or Poss: comes after noun, Mod table is overwritten to the given form
+      a = agrP3 det.n ;
+      isNeg = det.isNeg ; -- affects polarity in Cl: "*nothing is real" -> "nothing isn't real"
       } ;
 
     UsePN pn = emptyNP ** pn ** {s = \\_ => pn.s} ;
@@ -49,28 +51,27 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     DetQuantOrd quant num ord =
       let cs : CmpdStatus => Str = case <num.isNum,num.n,quant.isDef> of {
-            <True,Sg,False> => \\_ => num.s ++ ord.s ;
+            <True,Sg,False> => \\_ => num.s ++ ord.s ; -- to prevent "a 1"
             _ => \\c => quant.s ! num.n ! c ++ num.s ++ ord.s} ;
 
-      in {
+      in quant ** {
       s = cs ! NotCmpd ;
       sp = cs ! IsCmpd ; -- only matters for PossPron
       isNum = orB num.isNum ord.isNum ;
       mod = quant.mod ;
-      n = num.n
+      n = case quant.isNeg of {True => Sg ; _ => num.n} ;
       } ;
 
     DetQuant quant num =
       let cs : CmpdStatus => Str = case <num.isNum,num.n,quant.isDef> of {
-            <True,Sg,False> => \\_ => num.s ;
+            <True,Sg,False> => \\_ => num.s ; -- to prevent "a 1"
             _ => \\c => quant.s ! num.n ! c ++ num.s } ;
-
-      in {
+      in quant ** {
       s = cs ! NotCmpd ;
       sp = cs ! IsCmpd ; -- only matters for PossPron
       isNum = num.isNum;
       mod = quant.mod ;
-      n = num.n
+      n = case quant.isNeg of {True => Sg ; _ => num.n} ;
       } ;
 
     DetNP det = emptyNP ** {
@@ -104,8 +105,8 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     OrdSuperl a = {s = a.s ! Comparative ! Bare ++ BIND ++ "ین" ; n = Sg ; isNum=False ; isPre = True} ;
 
-    DefArt = makeQuant [] [] ;
-    IndefArt = makeQuant IndefArticle [] ** {isDef = False} ;
+    DefArt = makeQuant [] [] Bare False ;
+    IndefArt = makeQuant IndefArticle [] Bare False ** {isDef = False} ;
 
     MassNP cn = emptyNP ** cn ** {
       s = \\m => cn.s ! Sg ! m ++ cn.compl ! Sg ;
@@ -126,13 +127,13 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       } ;
 
     ComplN2 n2 np = n2 ** {
-      s = \\n,m => n2.s ! n ! n2.c2.mod ;
+      s = \\n => replaceBare n2.c2.mod (n2.s ! n) ;
       compl = \\_ => n2.compl ++ n2.c2.s ++ np2str np ;
       hasAdj = False
      };
 
     ComplN3 n3 np = n3 ** {
-      s = \\n,m => n3.s ! n ! n3.c2.mod ;
+      s = \\n => replaceBare n3.c2.mod (n3.s ! n) ;
       compl = n3.c2.s ++ np2str np ;
       c = n3.c3;
       } ;
@@ -161,6 +162,6 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 
     --  : CN -> NP -> CN ;     -- house of Paris, house of mine
     PossNP cn np = cn ** {
-      s = \\n,m => cn.s ! n ! Ezafe ; -- TODO or here for "<house of mine> <on the hill>"
+      s = \\n => replaceBare Ezafe (cn.s ! n) ; -- alternative: place np2str np here for "<house of mine> <on the hill>"
       compl = \\n => cn.compl ! n ++ np2str np } ; -- "<house> <on the hill of mine>"
 }
