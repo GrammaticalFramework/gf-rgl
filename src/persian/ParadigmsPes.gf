@@ -72,11 +72,13 @@ oper
 
   mkDet = overload {
     mkDet : Str -> Number -> Det -- Takes a string, number (sg/pl) and returns a det which is not a numeral
-      = \s,n -> lin Det (makeDet s n False);
-    mkDet : Str -> Number -> Bool -> Det -- As above + a Boolean for whether the det is a numeral
-      = \s,n,b -> lin Det (makeDet s n b) ;
-    mkDet : Str -> Number -> Bool -> Mod -> Det -- As above + Mod for which form the determiner expects its argument to be (default bare)
-      = \s,n,b,m -> lin Det (makeDet s n b ** {mod=m})
+      = \s,n -> lin Det (makeDet s n False False);
+    mkDet : Str -> Number -> (isNum : Bool) -> Det -- As above + a Boolean for whether the det is a numeral
+      = \s,n,b -> lin Det (makeDet s n b False) ;
+    mkDet : Str -> Number -> (isNum, isNeg : Bool) -> Det -- As above + a Boolean for whether the det is negative
+      = \s,n,nu,ne -> lin Det (makeDet s n nu ne) ;
+    mkDet : Str -> Number -> (isNum, isNeg : Bool) -> Mod -> Det -- As above + Mod for which form the determiner expects its argument to be (default bare)
+      = \s,n,nu,ne,m -> lin Det (makeDet s n nu ne ** {mod=m})
   };
 
  {-
@@ -423,7 +425,11 @@ oper
   mkQuant = overload {
 --    mkQuant : Pron -> Quant = \p -> {s = \\_,_,c => p.s!c ;a = p.a ; lock_Quant = <>};
     mkQuant :  Str -> Str -> Quant -- hidden from public API
-      = \sg,pl -> makeQuant sg pl;
+      = \sg,pl -> makeQuant sg pl Bare False;
+    mkQuant :  Str -> Str -> (isNeg : Bool) -> Quant -- hidden from public API
+      = \sg,pl,isneg -> makeQuant sg pl Bare isneg;
+    mkQuant :  Str -> Str -> Mod -> (isNeg : Bool) -> Quant -- hidden from public API
+      = \sg,pl,mod,isneg -> makeQuant sg pl mod isneg;
   } ;
 
 }

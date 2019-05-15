@@ -30,6 +30,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
 
     BaseNP : Type = {
       a : Agr ;
+      isNeg : Bool ;  -- negative determiner forces negation in Cl and S
       hasAdj : Bool ; -- to get the right form when NP is a predicate
       animacy : Animacy ; -- to get the right pronoun in FunRP
       isClitic : Bool ; -- if isPron, becomes clitic as a direct object
@@ -42,6 +43,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
     emptyNP : NP = {
       s = \\_ => [] ;
       a = defaultAgr ;
+      isNeg = False ;
       hasAdj = False ;
       animacy = Inanimate ;
       isClitic = False ;
@@ -102,6 +104,7 @@ oper
       vComp : Agr => VVTense => Str; -- when a verb is used as a complement of an auxiliary verb. Unlike ‘comp’ or ‘obj’, this type of complement follows the auxiliary verb.
       obj   : Str ; -- object of a verb; so far only used for A ("paint it black")
       ad    : Str ;
+      isNeg : Bool ; -- whether the object is a negative NP: "*there is nothing" -> "there isn't nothing"
       embComp : Str ; -- when a declarative or interrogative sentence is used as a complement of a verb.
       vvtype  : VVType ; -- no VV, fully inflecting VV or defective VV
       } ;
@@ -145,6 +148,7 @@ oper
     obj,
     embComp = [];
     vvtype = NoVV ;
+    isNeg = False ;
     comp = \\_,_ => [] ;
     vComp = \\_,_ => [] } ;
 
@@ -202,7 +206,7 @@ oper
     comp = \\a,wo =>
         case <np.isClitic,vp.c2.isPrep> of {
           <True,False> => [] ; -- clitic is attached to the verb or prefix
-          <True,True> => appCompVP vp.c2 (\\_ => (BIND ++ np.clitic)) ! wo ++ vp.comp ! a ! wo ;
+          <True,True> => appCompVP vp.c2 (\\_ => BIND ++ np.clitic) ! wo ++ vp.comp ! a ! wo ;
           _ => appCompVP vp.c2 np.s ! wo ++ vp.comp ! a ! wo
 
         } ;
@@ -211,7 +215,8 @@ oper
             => (addClitic vp.lightverb np.clitic vp).s ;
           _ => vp.s
         } ;
-    obj = vp.obj ++ vp.agrObj ! np.a -- "beg her to buy", buy agrees with her
+    obj = vp.obj ++ vp.agrObj ! np.a ; -- "beg her to buy", buy agrees with her
+    isNeg = np.isNeg
   } ;
 
 ---- AR 14/9/2017 trying to fix isAux = True case by inserting conjThat
@@ -279,7 +284,8 @@ oper
                 OQuest => "آیا" } ;
     subj = np2str np ;
     vp = \\ta,p,ord =>
-      let vps = clTable vp ! np.a ! ta ! p ;
+      let pol = case orB np.isNeg vp.isNeg of {True => Neg ; _ => p} ;
+          vps = clTable vp ! np.a ! ta ! pol ;
           vvt = ta2vvt ta vp.vvtype ;
        in case vp.vvtype of {
             DefVV
@@ -292,7 +298,8 @@ oper
 --Clause : Type = {s : TAnt => Polarity => Order => Str} ;
   mkSClause : Str -> Agr -> VPH -> Clause = \subj,agr,vp -> {
     s = \\ta,p,ord =>
-      let vps = clTable vp ! agr ! ta ! p ;
+      let pol = case vp.isNeg of {True => Neg ; _ => p} ;
+          vps = clTable vp ! agr ! ta ! pol ;
           quest = case ord of { ODir => [] ; OQuest => "آیا" } ;
           vvt = ta2vvt ta vp.vvtype ;
        in quest ++ subj ++ vp.ad ++ vp.comp ! agr ! OV ++ vp.obj

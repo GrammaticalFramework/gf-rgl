@@ -12,7 +12,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
 ---- Sentence
 
-    Cl = ResPes.Clause ; -- TODO: like romance does "no tiene ningún", i.e.  negative quant/det/NP forces negation in Cl and S
+    Cl = ResPes.Clause ;
     ClSlash = {
       subj : Str ;
       vp : ResPes.TAnt => Polarity => Order => Str ;

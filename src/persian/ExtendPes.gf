@@ -10,7 +10,7 @@ concrete ExtendPes of Extend =
 
 lin
   -- NP -> Quant ; -- this man's
-  GenNP np = makeQuant [] [] ** np ** {
+  GenNP np = makeQuant [] [] Ezafe False ** np ** {
     mod = Ezafe ; -- the possessed will get Ezafe
     s = \\num,cmpd => np2str np -- possesser is unmarked; https://sites.la.utexas.edu/persian_online_resources/language-specific-grammar/ezfe/
   } ;
