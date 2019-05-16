@@ -7,6 +7,10 @@ lin
 
 PositA a = a;
 
+    -- The superlative use is covered in $Ord$.
+
+        --AdjOrd  : Ord -> AP ;       -- warmest
+        AdjOrd ord = {s= ord.s; position1= ord.position1};
 {-
 abstract Adjective = Cat ** {
 

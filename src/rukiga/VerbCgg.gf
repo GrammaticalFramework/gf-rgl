@@ -41,7 +41,7 @@ lin
         }; --its not generating any sentence
 
 --    CompAP   : AP  -> Comp;            -- (be) small
-      CompAP ap = {s=ap.s};
+      CompAP ap = {s=ap.s! AgP3 Sg KI_BI}; -- used a hack.
 
 --    CompNP   : NP  -> Comp ;            -- (be) the man
       CompNP np = {s= np.s ! Acc}; --{s =[] ; post =np.s; isPre = False; isProper = Bool; isPrep: Bool};
@@ -309,10 +309,10 @@ lin
     pres =va.pres; 
     perf=va.perf; 
     morphs = va.morphs; 
-    comp=ap.s ;
+    comp=[] ;
     comp2 = [];
-    ap =[]; 
-    isCompApStem = False; 
+    ap = ap.s! AgP3 Sg KI_BI; 
+    isCompApStem = True; 
     agr = AgrNo; 
     isRegular = va.isRegular; 
     adv =[]; 

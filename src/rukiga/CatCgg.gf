@@ -29,7 +29,7 @@ lincat
   Det = Res.Determiner ;          -- determiner phrase                   e.g. "those seven"
   Quant = {s : Res.Pronoun; s2 :Res.Agreement => Str; doesAgree : Bool; isPron: Bool} ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
   Num = Res.Numer ;               -- number determining element          e.g. "seven"
-  AP = {s : Str ; position1 : Res.Position1; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
+  AP = {s :Res.Agreement=> Str ; position1 : Res.Position1; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
   A  = Res.Adjective;
   Comp = Res.Comp;    -- complement of copula, such as AP  e.g. "very warm"
 
