@@ -5,16 +5,10 @@ concrete CatCgg of Cat = CommonX -[Adv,IAdv]**
 
 lincat
   
-  --Pol = {s : Str ; isTrue: Bool}; -- TRUE= Positive, FALSE=Negative, s filed is left empty for parsing
-  {-
-  Temp is a parameter for temporal features such as Simul and Anteriority:
-      TRUE =  Simultainity
-      FALSE = Anteriority
-  -}
-  --Temp = {s : Str ; isPres : Bool} ;
-  --cat
-  Imp = {s : Bool => Str} ;  
+  
+  Imp = {s : Bool => Str} ;
   QS = {s : Str} ;
+
   -- Note: SS is a shorthand for {s:Str}, defined in Prelude.gf
   -- You must change some of the lincats (e.g., for NP, Det and Pron) so that everything works
 
@@ -25,8 +19,9 @@ lincat
   V,VS, VQ, VA = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
   V2,V2Q, V2S = Res.Verb2;
   V2A,V3 = Res.Verb3;    -- three-place verb                    e.g. "show"
+  
   VP = Res.VerbPhrase ;           -- verb phrase                         e.g. "is very warm"
-
+  
   N = Res.Noun ;                  -- common noun                         e.g. "house"
   CN = Res.Noun ;                 -- common noun (without determiner)    e.g. "red house"
   NP = Res.NounPhrase;            -- noun phrase (subject or object)     e.g. "the red house"
@@ -83,7 +78,7 @@ linref
   VP =\vp -> vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2;
   VPSlash =\vpslash -> vpslash.s ++ BIND ++ vpslash.pres;
 
-{-
+
 --1 Cat: the Category System
 
 -- The category system is central to the library in the sense
@@ -103,7 +98,7 @@ linref
 -- Moreover, the list categories $ListAdv, ListAP, ListNP, ListS$
 -- are defined on $Conjunction$ and only used locally there.
 
-
+{-
 abstract Cat = Common ** {
 
   cat

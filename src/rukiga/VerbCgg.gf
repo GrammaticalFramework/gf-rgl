@@ -18,7 +18,7 @@ lin
         adv =[];
         containsAdv =False;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
         };  --: V   -> VP; -- sleep --ignoring object agreement
 
   --  UseComp  : Comp -> VP ; -- be warm means complement of a copula especially adjectival Phrase
@@ -37,7 +37,7 @@ lin
         adv = [];
         containsAdv =False;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
         }; --its not generating any sentence
 
 --    CompAP   : AP  -> Comp;            -- (be) small
@@ -48,9 +48,11 @@ lin
 
 --    CompAdv  : Adv -> Comp ;            -- (be) here
       CompAdv adv =adv;
-
+      {-
+          This has been a hack to simply pick the sigular and complete noun.
+      -}
       --CompCN   : CN  -> Comp ;            -- (be) a man/men
-      CompCN   cn =  ;            -- (be) a man/men
+      CompCN   cn = {s =cn.s ! Sg ! Complete} ;            -- (be) a man/men
 --    SlashV2a : V2        -> VPSlash ;  -- love (it)
       SlashV2a v2 ={ 
         s =v2.s;
@@ -64,7 +66,7 @@ lin
         adv=[];
         containsAdv =False;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
       };
       --Slash2V3 : V3  -> NP -> VPSlash ;  -- give it (to her)
       Slash2V3 v3 np ={
@@ -79,7 +81,7 @@ lin
         adv = [];
         containsAdv =False;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
       };
 
       --Slash3V3 : V3  -> NP -> VPSlash ;  -- give (it) to her
@@ -95,7 +97,7 @@ lin
         adv = [];
         containsAdv =False;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
       };
       --SlashVV    : VV  -> VPSlash -> VPSlash ;       -- want to buy
       SlashVV vv vpslash ={
@@ -110,7 +112,7 @@ lin
         adv = [];
         containsAdv = False;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
       };
       --SlashV2V : V2V -> VP -> VPSlash ;  -- beg (her) to go
 
@@ -132,7 +134,7 @@ lin
         adv = [];
         containsAdv =False;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
       };
 --   AdvVP    : VP -> Adv -> VP ;        -- sleep here
 --   VerbPhrase: Type = {s:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist};
@@ -151,25 +153,25 @@ lin
         adv = [];
         containsAdv =True;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
       };
 
   -- AdVVP    : AdV -> VP -> VP ;        -- always sleep
-  AdVVP adv vp = {
+  AdVVP adV vp = {
       s=vp.s; 
       pres =vp.pres; 
       perf = vp.perf; 
       morphs = vp.morphs; 
-      comp = [];
-      comp2 =[];
+      comp = vp.comp;
+      comp2 =vp.comp;
       ap = [];
       isCompApStem = False; 
       agr = AgrNo;
       isRegular = vp.isRegular;
-      adv = adv.s;
-      containsAdv =True;
-      adV =[];
-      containsAdV = False;
+      adv = [];
+      containsAdv =False;
+      adV =adV.s;
+      containsAdV = True
       };
 
     --AdvVPSlash : VPSlash -> Adv -> VPSlash ;  -- use (it) here
@@ -183,14 +185,14 @@ lin
         pres =vpslash.pres; 
         perf = vpslash.perf;
         morphs = vpslash.morphs; 
-        comp = []; 
-        comp2 = np.s ! Acc;
+        comp = vpslash.comp; 
+        comp2 = vpslash.comp2;
         ap = [];
-        isRegular = v3.isRegular;
+        isRegular = vpslash.isRegular;
         adv = adv.s;
         containsAdv =True;
         adV =[];
-        containsAdV = False;
+        containsAdV = False
       };
     -- Adverb directly attached to verb
     --AdVVPSlash : AdV -> VPSlash -> VPSlash ;  -- always use (it)
@@ -203,14 +205,14 @@ lin
         pres =vpslash.pres; 
         perf = vpslash.perf;
         morphs = vpslash.morphs; 
-        comp = adV.s; 
-        comp2 = np.s ! Acc;
+        comp = vpslash.comp; 
+        comp2 = vpslash.comp2;
         ap = [];
-        isRegular = v3.isRegular;
+        isRegular = vpslash.isRegular;
         adv = [];
         containsAdv =False;
-        adV =[];
-        containsAdV = False;
+        adV =adV.s;
+        containsAdV = True
       };
   -- Verb phrases are constructed from verbs by providing their
   -- complements. There is one rule for each verb category.
@@ -234,7 +236,7 @@ lin
                                         adv =[]; 
                                         containsAdv =False;
                                         adV =[];
-                                        containsAdV = False;
+                                        containsAdV = False
                                     };
                           _      => {
                                       s= vv.s ++ BIND ++ vv.pres ++ vpPres; 
@@ -250,7 +252,7 @@ lin
                                       adv =[]; 
                                       containsAdv =False;
                                       adV =[];
-                                      containsAdV = False;
+                                      containsAdV = False
                                     }
                   };
 
@@ -269,7 +271,7 @@ lin
     adv =[]; 
     containsAdv =False;
     adV =[];
-    containsAdV = False;
+    containsAdV = False
   };
 
   {-
@@ -290,7 +292,7 @@ lin
     adv =[]; 
     containsAdv =False;
     adV =[];
-    containsAdV = False;
+    containsAdV = False
   };
 
   {-
@@ -316,7 +318,7 @@ lin
     adv =[]; 
     containsAdv =False;
     adV =[];
-    containsAdV = False;
+    containsAdV = False
   };
 
   -- Copula alone
@@ -330,7 +332,7 @@ lin
                             adv = []; 
                             containsAdv = False;
                             adV =[];
-                            containsAdV = False;
+                            containsAdV = False
                   };
 {-
 --1 The construction of verb phrases

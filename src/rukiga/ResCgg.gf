@@ -1123,7 +1123,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
       						adv:Str; 
       						containsAdv: Bool;
       						adV:Str;
-      						containsAdv:Bool
+      						containsAdV:Bool
       					};
       -- in VP formation, all verbs are lifted to GVerb, but morphology doesn't need to know this
      verb2gverb : Verb ->Str -> GVerb = \v, ba -> {
@@ -1384,4 +1384,11 @@ oper
 	  	(AgMUBAP2 n) => MU_BA;
 	  	 NONE => Null
 	};
+  getNumber : Agreement -> Number =\agr ->
+    case agr of {
+      (AgP3 n g) => n;
+      (AgMUBAP1 n) => n;
+      (AgMUBAP2 n) => n;
+       NONE => Sg --default -- a hack
+  };
 }
