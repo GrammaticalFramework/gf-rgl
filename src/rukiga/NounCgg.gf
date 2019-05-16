@@ -32,28 +32,28 @@ lin
     AdjCN ap cn = 
       case <ap.position1, ap.isProper, > of {
           <Pre, True> => { 
-                    s = \\ num, ns =>ap.s ++ cn.s ! num ! ns ; 
+                    s = \\ num, ns =>ap.s ! AgP3 Sg KI_BI ++ cn.s ! num ! ns ; 
                     gender = cn.gender 
                   };
           <Post, False> => case ap.isPrep of {
                      False  =>  { 
                             s = \\ num, ns => cn.s  ! num ! ns ++ mkAdjPronIVClitic (AgP3 num cn.gender) 
-                                 ++ ap.s; 
+                                 ++ ap.s ! AgP3 Sg KI_BI; 
                               gender = cn.gender   
                           };
                      True  =>  { 
                             s = \\ num, ns => (cn.s  ! num ! ns) ++ 
-                                mkGenPrepNoIVClitic (AgP3 num cn.gender) ++ ap.s ; 
+                                mkGenPrepNoIVClitic (AgP3 num cn.gender) ++ ap.s ! AgP3 Sg KI_BI; 
                             gender = cn.gender 
                           }
                   };
           <Pre, False> => { 
                     s = \\ num, ns => mkAdjPronIVClitic (AgP3 num cn.gender) 
-                               ++ ap.s ++ (cn.s ! num ! ns) ; 
+                               ++ ap.s ! AgP3 Sg KI_BI ++ (cn.s ! num ! ns) ; 
                     gender = cn.gender 
                   };
           <Post, True> => { 
-                     s = \\ num, ns => (cn.s  ! num ! ns) ++ ap.s ; 
+                     s = \\ num, ns => (cn.s  ! num ! ns) ++ ap.s ! AgP3 Sg KI_BI; 
                      gender = cn.gender
                   }                   
 
@@ -141,7 +141,7 @@ lin
     --AdjDAP : DAP -> AP -> DAP ;    -- the large (one)
     
     AdjDAP dap ap = 
-                { s = dap.s ++ ap.s ; 
+                { s = dap.s ++ ap.s! AgP3 Sg KI_BI ; -- does no harm since they are all same strings
                   s2 = dap.s2; 
                   ntype = dap.ntype ; 
                   num = dap.num ; 

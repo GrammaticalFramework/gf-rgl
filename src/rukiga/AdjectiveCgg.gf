@@ -5,12 +5,14 @@ concrete AdjectiveCgg of Adjective = CatCgg **
 
 lin
 
-PositA a = a;
+    PositA a = {s=\\_=> a.s; position1= a.position1; isProper = a.isProper; isPrep = a.isPrep};
 
     -- The superlative use is covered in $Ord$.
 
-        --AdjOrd  : Ord -> AP ;       -- warmest
-        AdjOrd ord = {s= ord.s; position1= ord.position1};
+    --AdjOrd  : Ord -> AP ;       -- warmest
+    AdjOrd ord = {s= \\agr =>  ord.s!agr ; position1= ord.position1; isProper = False; isPrep = False};
+    -- UseComparA : A  -> AP ;     -- warmer
+    UseComparA a ={s =\\_ => a.s ++ BIND ++ "ho" ++ "kukira"; position1= a.position1; isProper = a.isProper; isPrep = a.isPrep};
 {-
 abstract Adjective = Cat ** {
 
