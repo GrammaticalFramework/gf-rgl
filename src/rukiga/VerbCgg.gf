@@ -4,20 +4,40 @@ concrete VerbCgg of Verb = CatCgg ** open ResCgg, Prelude in {
 
 lin
 
-      UseV v = {s = v.s ; pres =v.pres; perf = v.perf; morphs = v.morphs; comp =[]; isCompApStem = False; agr = AgrNo; isRegular = v.isRegular};  --: V   -> VP; -- sleep --ignoring object agreement
+      UseV v = {
+        s = v.s ; 
+        pres =v.pres; 
+        perf = v.perf; 
+        morphs = v.morphs; 
+        comp =[];
+        comp2 = [];
+        ap =[];
+        isCompApStem = False; 
+        agr = AgrNo; 
+        isRegular = v.isRegular;
+        adv =[];
+        containsAdv =False;
+        adV =[];
+        containsAdV = False;
+        };  --: V   -> VP; -- sleep --ignoring object agreement
 
---    UseComp  : Comp -> VP ;            -- be warm means complement of a copula especially adjectival Phrase
---VerbPhrase: Type ={s:Agr=>Polarity=>Tense=>Anteriority=>Str};
-      --AdjectivalPhrase : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
+  --  UseComp  : Comp -> VP ; -- be warm means complement of a copula especially adjectival Phrase
+  --AdjectivalPhrase : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
       UseComp comp = {
         s = comp.s;  --Assuming there is no AP which is prepositional
         pres =[]; 
         perf = [];
-        morphs=\\form,morphs=>[] ; 
-        comp = [] ; 
+        morphs=\\form,morphs=>[]; 
+        comp = [];
+        comp2 = [];
+        ap = [];
         isCompApStem = False; 
         agr = AgrNo;
-        isRegular = False
+        isRegular = False;
+        adv = [];
+        containsAdv =False;
+        adV =[];
+        containsAdV = False;
         }; --its not generating any sentence
 
 --    CompAP   : AP  -> Comp;            -- (be) small
@@ -29,7 +49,8 @@ lin
 --    CompAdv  : Adv -> Comp ;            -- (be) here
       CompAdv adv =adv;
 
-
+      --CompCN   : CN  -> Comp ;            -- (be) a man/men
+      CompCN   cn =  ;            -- (be) a man/men
 --    SlashV2a : V2        -> VPSlash ;  -- love (it)
       SlashV2a v2 ={ 
         s =v2.s;
@@ -38,7 +59,12 @@ lin
         morphs = v2.morphs;
         comp = [];
         comp2 =[];
-        isRegular =v2.isRegular
+        ap =[];
+        isRegular =v2.isRegular;
+        adv=[];
+        containsAdv =False;
+        adV =[];
+        containsAdV = False;
       };
       --Slash2V3 : V3  -> NP -> VPSlash ;  -- give it (to her)
       Slash2V3 v3 np ={
@@ -48,7 +74,12 @@ lin
         morphs = v3.morphs; 
         comp =  np.s ! Acc;
         comp2 =[];
-        isRegular = v3.isRegular
+        ap =[];
+        isRegular = v3.isRegular;
+        adv = [];
+        containsAdv =False;
+        adV =[];
+        containsAdV = False;
       };
 
       --Slash3V3 : V3  -> NP -> VPSlash ;  -- give (it) to her
@@ -59,7 +90,27 @@ lin
         morphs = v3.morphs; 
         comp = []; 
         comp2 = np.s ! Acc;
-        isRegular = v3.isRegular
+        ap = [];
+        isRegular = v3.isRegular;
+        adv = [];
+        containsAdv =False;
+        adV =[];
+        containsAdV = False;
+      };
+      --SlashVV    : VV  -> VPSlash -> VPSlash ;       -- want to buy
+      SlashVV vv vpslash ={
+        s =vv.s;
+        pres =vv.pres; 
+        perf = vv.perf;
+        morphs = vv.morphs; 
+        comp = vpslash.s ++ BIND ++ vpslash.pres; 
+        comp2 = [];
+        ap = [];
+        isRegular = vv.isRegular;
+        adv = [];
+        containsAdv = False;
+        adV =[];
+        containsAdV = False;
       };
       --SlashV2V : V2V -> VP -> VPSlash ;  -- beg (her) to go
 
@@ -74,9 +125,14 @@ lin
         morphs = vpslash.morphs; 
         comp = vpslash.comp ++  np.s ! Acc;
         comp2 =vpslash.comp2; --should be empty
+        ap = [];
         isCompApStem = False; 
         agr = AgrYes np.agr;
-        isRegular = vpslash.isRegular
+        isRegular = vpslash.isRegular;
+        adv = [];
+        containsAdv =False;
+        adV =[];
+        containsAdV = False;
       };
 --   AdvVP    : VP -> Adv -> VP ;        -- sleep here
 --   VerbPhrase: Type = {s:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist};
@@ -87,15 +143,195 @@ lin
         perf = vp.perf; 
         morphs = vp.morphs; 
         comp = adv.s;
-        comp2 = []; 
+        comp2 = [];
+        ap =[];
         isCompApStem = False; 
         agr = AgrNo;
-        isRegular = vp.isRegular
+        isRegular = vp.isRegular;
+        adv = [];
+        containsAdv =True;
+        adV =[];
+        containsAdV = False;
       };
 
+  -- AdVVP    : AdV -> VP -> VP ;        -- always sleep
+  AdVVP adv vp = {
+      s=vp.s; 
+      pres =vp.pres; 
+      perf = vp.perf; 
+      morphs = vp.morphs; 
+      comp = [];
+      comp2 =[];
+      ap = [];
+      isCompApStem = False; 
+      agr = AgrNo;
+      isRegular = vp.isRegular;
+      adv = adv.s;
+      containsAdv =True;
+      adV =[];
+      containsAdV = False;
+      };
 
+    --AdvVPSlash : VPSlash -> Adv -> VPSlash ;  -- use (it) here
+    {-
+        FUTURE:
+        The problem here could rise from the agreement if the adverb agrees.
+        We could change the type of adv to be Agreement => Str such that we have NONE.
+    -}
+    AdvVPSlash vpslash adv ={
+        s =vpslash.s;
+        pres =vpslash.pres; 
+        perf = vpslash.perf;
+        morphs = vpslash.morphs; 
+        comp = []; 
+        comp2 = np.s ! Acc;
+        ap = [];
+        isRegular = v3.isRegular;
+        adv = adv.s;
+        containsAdv =True;
+        adV =[];
+        containsAdV = False;
+      };
+    -- Adverb directly attached to verb
+    --AdVVPSlash : AdV -> VPSlash -> VPSlash ;  -- always use (it)
+    {- NOTE:
+      This is a hack mainly because we need a separate field for AdV type
 
+    -}
+    AdVVPSlash adV vpslash ={
+        s =vpslash.s;
+        pres =vpslash.pres; 
+        perf = vpslash.perf;
+        morphs = vpslash.morphs; 
+        comp = adV.s; 
+        comp2 = np.s ! Acc;
+        ap = [];
+        isRegular = v3.isRegular;
+        adv = [];
+        containsAdv =False;
+        adV =[];
+        containsAdV = False;
+      };
+  -- Verb phrases are constructed from verbs by providing their
+  -- complements. There is one rule for each verb category.
 
+  {- NOTE: This is a hack
+  --ComplVV  : VV  -> VP -> VP ;  -- want to run
+  --This function requires the remodelling of VP to accomodate two Verbs.
+  --
+  -}
+  ComplVV vv vp = let vpPres = vp.s ++ BIND ++ vp.pres;
+                  in case vv.whenUsed of {
+                          VVPerf => {
+                                        s= vv.s ++ BIND ++ vv.perf ++ vpPres; 
+                                        pres =vv.pres; perf=vv.perf; 
+                                        morphs = vv.morphs; 
+                                        comp=vp.comp ;
+                                        comp2 = vp.comp2;
+                                        ap = [];
+                                        isCompApStem = False; agr = AgrNo; 
+                                        isRegular = vv.isRegular; 
+                                        adv =[]; 
+                                        containsAdv =False;
+                                        adV =[];
+                                        containsAdV = False;
+                                    };
+                          _      => {
+                                      s= vv.s ++ BIND ++ vv.pres ++ vpPres; 
+                                      pres =vv.pres; 
+                                      perf=vv.perf; 
+                                      morphs = vv.morphs; 
+                                      comp=vp.comp ;
+                                      comp2 = vp.comp2;
+                                      ap = []; 
+                                      isCompApStem = False; 
+                                      agr = AgrNo; 
+                                      isRegular = vv.isRegular; 
+                                      adv =[]; 
+                                      containsAdv =False;
+                                      adV =[];
+                                      containsAdV = False;
+                                    }
+                  };
+
+  --ComplVS  : VS  -> S  -> VP ;  -- say that she runs
+  ComplVS vs s = {
+    s= vs.s; 
+    pres =vs.pres; 
+    perf=vs.perf; 
+    morphs = vs.morphs; 
+    comp=s.s ;
+    comp2 = []; 
+    ap = [];
+    isCompApStem = False; 
+    agr = AgrNo; 
+    isRegular = vs.isRegular; 
+    adv =[]; 
+    containsAdv =False;
+    adV =[];
+    containsAdV = False;
+  };
+
+  {-
+    This function may need revision as I have not met such kinds of questions
+  -}
+  --ComplVQ  : VQ  -> QS -> VP ;  -- wonder who runs
+  ComplVQ vq qs = {
+    s= vq.s; 
+    pres =vq.pres; 
+    perf=vq.perf; 
+    morphs = vq.morphs; 
+    comp=qs.s ;
+    comp2 = [];
+    ap = []; 
+    isCompApStem = False; 
+    agr = AgrNo; 
+    isRegular = vq.isRegular; 
+    adv =[]; 
+    containsAdv =False;
+    adV =[];
+    containsAdV = False;
+  };
+
+  {-
+    The adgectival Phrase is comlicated here.
+
+    The VP has to accomodate the whole structure of the Adjectival Phrase
+
+    For the timebeing, we can use the isCompApStem field but we need a separate field
+  -}
+  --ComplVA  : VA  -> AP -> VP ;  -- they become red
+  --AP = {s : Str ; position1 : Res.Position1; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
+  ComplVA va ap = {
+    s= va.s; 
+    pres =va.pres; 
+    perf=va.perf; 
+    morphs = va.morphs; 
+    comp=ap.s ;
+    comp2 = [];
+    ap =[]; 
+    isCompApStem = False; 
+    agr = AgrNo; 
+    isRegular = va.isRegular; 
+    adv =[]; 
+    containsAdv =False;
+    adV =[];
+    containsAdV = False;
+  };
+
+  -- Copula alone
+  --UseCopula : VP ;                    -- be
+  UseCopula = mkBecome ** {
+                            comp=[]; 
+                            comp2 = [];
+                            ap = [];
+                            isCompApStem = False; 
+                            agr = AgrNo;
+                            adv = []; 
+                            containsAdv = False;
+                            adV =[];
+                            containsAdV = False;
+                  };
 {-
 --1 The construction of verb phrases
 

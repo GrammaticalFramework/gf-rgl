@@ -123,6 +123,20 @@ lin
   travel_V = mkV "gyend";--: V ;
   walk_V = mkV "ribá" "ta" "si"; --: V ; or kuribata Runynakore it is different
 
+  -- A verb whose complement is a sentence
+  fear_VS = mkVS (lin V (mkV "tin")); --: VS ;
+  hope_VS = mkVS (lin V (mkV "siga")); --: VS ; -- a bit complicated because what we normally use is nyine amatsiko i.e usin the noun. The verb should be kwesiga but this seems borrowed from Luganda
+  know_VS = mkVS (lin V (mkV "manya")); --: VS ;
+  say_VS  = mkVS (lin V (mkV "gi" "ra" "zire"));--: VS ;
+
+  -- verbs whose complements are questions
+  know_VQ = mkVQ (lin V (mkV "many")); --: VQ ;
+  --wonder_VQ : VQ ;
+  
+  -- Verb whose complement is an adjective
+  become_VA  = mkVA (lin V mkBecome);--: VA ;
+  
+
   --Verbs that have a noun Phrase complement and a verb phrase complement (V2V)
   --beg_V2V : V2V ;
   --Adverbs
@@ -131,9 +145,10 @@ lin
   
   --today_Adv = mkAdv "erizooba" AgrNo;
 
-  father_N2 = mkN2 (mkN "tata" MU_BA) (mkPrep [] [] True) ;
+  father_N2 = mkN2 (mkN "tata" MU_BA) (lin Prep (mkPrep [] [] True)) ;
 
-  distance_N3 = mkN3 (mkN "orugyendo" ZERO_BU) (mkPrep "kurunga" "" False) (mkPrep "mpáka" "" False); --could orugyendo work in its place?
+  distance_N3 = mkN3 (mkN "orugyendo" ZERO_BU) (lin Prep (mkPrep "kurunga" "" False)) (lin Prep (mkPrep "mpáka" "" False)); --could orugyendo work in its place?
+  
   
 
 oper

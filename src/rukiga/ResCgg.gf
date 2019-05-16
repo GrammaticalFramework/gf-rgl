@@ -64,7 +64,7 @@ param
 
 -}
 NounState  = Complete | Incomplete ; 
-
+VVMood = VVImp | VVPerf | VVBoth;
 
 
 
@@ -1109,7 +1109,22 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
                        RestOfVerb;
       oper
       VMorphs : Type = VFormMini => VerbMorphPos => Str;
-      VerbPhrase: Type = {s:Str; pres:Str; perf:Str; morphs: VMorphs ; comp:Str ; isCompApStem : Bool; agr : AgrExist; isRegular:Bool};
+      VerbPhrase: Type = {
+      						s:Str; 
+      						pres:Str; 
+      						perf:Str; 
+      						morphs: VMorphs ; 
+      						isRegular:Bool;
+      						comp:Str ; 
+      						comp2:Str;
+      						ap : Str;
+      						isCompApStem : Bool; 
+      						agr : AgrExist; 
+      						adv:Str; 
+      						containsAdv: Bool;
+      						adV:Str;
+      						containsAdv:Bool
+      					};
       -- in VP formation, all verbs are lifted to GVerb, but morphology doesn't need to know this
      verb2gverb : Verb ->Str -> GVerb = \v, ba -> {
             s = table{
@@ -1129,12 +1144,12 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
      be_GVerb : GVerb = {
         s= table{True => "ri"; False =>"b" }; 
         morphs = \\form, morphs =>[]; 
-        
-
         isAux = True};
 
-      
+     
 
+       mkBecome :  Verb  ={
+       	s = "b" ; pres="a"; perf="ire"; morphs= mkVerbMorphs; isRegular=False};
 
 
      --be1_Verb: Verb = {s="b"; pres = "e"; perf="a"; morphs = mkVerbMorphs};
@@ -1283,7 +1298,20 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
   Numer : Type = { s: Agreement => Str ; n : Number};
 
   --VPSlash : Type = VerbPhrase ** { c : Str };
-  VPSlash : Type = {s:Str; pres:Str; perf:Str; morphs: VMorphs; comp: Str; comp2:Str; isRegular:Bool}; --comp is empty
+  VPSlash : Type = {
+  					s:Str; 
+  					pres:Str; 
+  					perf:Str; 
+  					morphs: VMorphs; 
+  					comp: Str; 
+  					comp2:Str; 
+  					ap:Str; 
+  					isRegular:Bool; 
+  					adv:Str; 
+  					containsAdv:Bool;
+  					adV:Str;
+  					containsAdV:Bool
+  					}; --comp is empty
   
 
   {-

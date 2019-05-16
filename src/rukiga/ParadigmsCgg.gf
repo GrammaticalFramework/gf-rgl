@@ -74,6 +74,15 @@ oper
                         <False,True>   => n ** {c2 =\\_=> p.s ; c3 = mkGenPrepWithIVClitic; lock_N2 = <>;lock_N3 = <>} ;
                         <True,True>    => n ** {c2 = mkGenPrepWithIVClitic; c3 = mkGenPrepWithIVClitic; lock_N2 = <>; lock_N3 = <>}
                                         };
+  
+   mkVS  : V -> VS ; -- sentence-compl e.g. say (that S)
+   mkVS  v = lin VS v ;
+   mkVQ  : V -> VQ ; -- e.g. wonder (QS)
+   mkVQ  v = lin VQ v ;
+  
+   mkVA  : V -> VA ; -- e.g. become (AP)  
+   mkVA  v = lin VA v ;
+
   {-
   prepV2 v p = lin V2 {s = v.s ; p = v.p ; c2 = p.s ; isRefl = v.isRefl} ;
   dirV2 v = prepV2 v noPrep ;
