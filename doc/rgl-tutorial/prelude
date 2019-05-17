@@ -1,0 +1,15 @@
+\documentclass[a4paper,landscape]{slides}
+\usepackage[latin1]{inputenc}
+%\usepackage[utf8]{inputenc}
+\newcommand{\nnewslide}[1]{\newpage {\huge \textbf{#1} \\}\\}
+\newcommand{\newslide}[1]{\newpage {\large \textbf{#1} \\}\\}
+\newcommand{\snewslide}[1]{\newpage {\large \textbf{#1} \\}\\}
+\newcommand{\bequ}{\begin{quote}}
+\newcommand{\enqu}{\end{quote}}
+
+\setlength{\topmargin}{-20mm}
+\setlength{\oddsidemargin}{-8mm}
+\setlength{\evensidemargin}{-8mm}
+\setlength{\textwidth}{250mm}
+\setlength{\textheight}{170mm}
+%%%
