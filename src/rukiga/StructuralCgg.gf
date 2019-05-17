@@ -200,17 +200,24 @@ lin
       doesAgree = True
     };--: Det ;
   
- want_VV =  {s = "yend"; pres="da"; perf = "zire"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
- can8know_VV = {s = "baas"; pres="a"; perf = "ize"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
- can_VV =  {s = "baas"; pres="a"; perf = "ize"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
- -- must_VV used especially in the perfective mood: see dictionary entry shemerera on Pg 501 of Mpairwe
- -- must has no passive form
- must_VV = {s = "shemere"; pres="ra"; perf = "ire"; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
-  --somebody_NP = {}; --: NP ;
-  --something_NP : NP ;
-  --somewhere_Adv : Adv ;
+   want_VV =  {s = "yend"; pres="da"; perf = "zire"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
+   can8know_VV = {s = "baas"; pres="a"; perf = "ize"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
+   can_VV =  {s = "baas"; pres="a"; perf = "ize"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
+   -- must_VV used especially in the perfective mood: see dictionary entry shemerera on Pg 501 of Mpairwe
+   -- must has no passive form
+   must_VV = {s = "shemere"; pres="ra"; perf = "ire"; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
+    --somebody_NP = {}; --: NP ;
+    --something_NP : NP ;
+    --somewhere_Adv : Adv ;
 
-that_Subj = ss "that" ;
+  that_Subj = ss "ngu" ;
+
+  --Adjective modifying Adverbs
+  almost_AdA = {s="haihi"; position1=Pre}; --: AdA ;
+  --quite_Adv ss "kimwe"; --: AdA ; used in the pr
+  so_AdA = {s="munônga"; position1=Post};--: AdA ;
+  too_AdA = {s="munônga"; position1=Post}; --: AdA ;
+  very_AdA  = {s="munônga"; position1=Post}; --: AdA ;
 {-	
 --1 Structural: Structural Words
 --

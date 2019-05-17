@@ -13,7 +13,17 @@ lin
     AdjOrd ord = {s= \\agr =>  ord.s!agr ; position1= ord.position1; isProper = False; isPrep = False};
     -- UseComparA : A  -> AP ;     -- warmer
     UseComparA a ={s =\\_ => a.s ++ BIND ++ "ho" ++ "kukira"; position1= a.position1; isProper = a.isProper; isPrep = a.isPrep};
-{-
+
+    -- An adjectival phrase can be modified by an *adadjective*, such as "very".
+    {-NOTE: AdA is an adjective modifying adverb-}
+    --AdAP    : AdA -> AP -> AP ; -- very warm
+    
+    AdAP ada ap = case ada.position1 of {
+                        Post => {s = \\agr => ap.s ! agr ++ ada.s; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep};
+                        Pre => {s = \\agr => ada.s ++ ap.s!agr ; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep}
+                    };
+
+{-                      
 abstract Adjective = Cat ** {
 
   fun

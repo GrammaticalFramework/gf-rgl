@@ -1,6 +1,6 @@
 --# -path=.:../prelude:../abstract:../common
 
-concrete CatCgg of Cat = CommonX -[Adv,IAdv]**
+concrete CatCgg of Cat = CommonX -[Adv,IAdv, AdA]**
   open (Res=ResCgg), Prelude, (Px=ParamX), Predef in {
 
 lincat
@@ -71,7 +71,7 @@ lincat
   Prep = Res.Preposition;  -- preposition, or just case           e.g. "in"
   N3   = N2 ** {c3 : Res.Agreement =>Str};
   VV = Res.Verb ** {inf:Str; whenUsed: Res.VVMood}; --inf is the other verb
-
+  AdA = {s:Str; position1:Res.Position1};
 linref
   Cl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres;
   QCl =\qcl -> qcl.s ++ qcl.posibleSubAgr ! (Res.mkAgreement Res.MU_BA Res.P3 Res.Sg) ++ qcl.root ++ BIND ++ qcl.pres;
