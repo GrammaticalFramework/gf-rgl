@@ -18,7 +18,14 @@ lin
   
   --PositAdvAdj : A -> Adv ;                 -- warmly
   --"Impossible to implement because each is lexically different word."
-  --PositAdvAdj a = a;
+  {-
+  PositAdvAdj a = case <a.isProper, a.position1> of {
+                        <True, True>   =>{ s= a}
+                        <False, False> =>
+                        <True, False>  =>
+                        <_,_>          =>
+    };
+  -}
 
 {-
 abstract Adverb = Cat ** {
