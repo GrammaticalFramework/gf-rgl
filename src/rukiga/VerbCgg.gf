@@ -222,7 +222,7 @@ lin
   --This function requires the remodelling of VP to accomodate two Verbs.
   --
   -}
-  ComplVV vv vp = let vpPres = vp.s ++ BIND ++ vp.pres;
+  ComplVV vv vp = let vpPres = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres;
                   in case vv.whenUsed of {
                           VVPerf => {
                                         s= vv.s ++ BIND ++ vv.perf ++ vpPres; 

@@ -126,7 +126,7 @@ lin
     OrdNumeral numeral ={s=numeral.s!NOrd; position1 = Post};
     --OrdSuperl  : A       -> Ord ;  -- warmest
     --Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
-    OrdSuperl a = {s= \\c =>  "okukirayo" ++ a.s ++ (mkAdjPronIVClitic  c) ++ BIND ++ "ona"; position1 = a.position1};
+    OrdSuperl a = {s= \\c =>  "okukirayo" ++ (mkAdjPronIVClitic  c) ++ "obu" ++ BIND ++ a.s; position1 = a.position1} ;--{s= \\c =>  "okukirayo" ++ (mkAdjPronIVClitic  c) ++ a.s ++  ++ BIND ++ "ona"; position1 = a.position1};
   -- One can combine a numeral and a superlative.
   --OrdNumeralSuperl : Numeral -> A -> Ord ; -- third largest
     OrdNumeralSuperl numeral a = {s= \\c =>  numeral.s !NOrd !c ++ "omu" ++ "kukirayo" ++ "obu" ++ BIND ++ a.s; position1 = a.position1};

@@ -27,6 +27,41 @@ lin
         Neg => (mkSubjClitic (AgMUBAP2 Pl)) ++ imp.s!ImpNeg        
       }
     };
+
+  --UttAdv    : Adv  -> Utt ;               -- here
+  UttAdv adv = {s= adv.s};
+
+  --can be improved upon
+  UttVP vp  = {s = vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2 ++ vp.ap };
+
+  UttAP ap  = {s=ap.s!(AgP3 Sg KI_BI)};
+
+  -- There are also 'one-word utterances'. A typical use of them is
+  -- as answers to questions.
+  -- *Note*. This list is incomplete. More categories could be covered.
+  -- Moreover, in many languages e.g. noun phrases in different cases
+  -- can be used.
+
+    --UttIP     : IP   -> Utt ;               -- who
+    UttIP ip ={s=ip.s};
+    --UttIAdv   : IAdv -> Utt ;               -- why
+    UttIAdv iAdv = case iAdv.requiresSubjPrefix of {
+                        True  => {s= mkSubjClitic (AgP3 Sg MU_BA) ++ iAdv.s};
+                        False => {s= iAdv.s}
+                      };
+    
+    --UttNP     : NP   -> Utt ;               -- this man
+    --UttNP np = {s= np.s!Nom};
+    --UttAdv    : Adv  -> Utt ;               -- here
+    --UttAdv adv ={s = adv.s};
+    --UttVP     : VP   -> Utt ;               -- to sleep
+    --UttCN     : CN   -> Utt ;               -- house
+    UttCN cn ={s=cn.s!Sg!Complete};
+    --UttCard   : Card -> Utt ;               -- five
+    UttCard card ={s = card.s!(AgP3 Sg MU_BA)};
+    --UttAP     : AP   -> Utt ;               -- fine
+    --UttInterj : Interj -> Utt ;             -- alas
+    UttInterj interj =interj;
 {-
 --1 Phrase: Phrases and Utterances
 

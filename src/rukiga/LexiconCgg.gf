@@ -149,7 +149,7 @@ lin
 
   distance_N3 = mkN3 (mkN "orugyendo" ZERO_BU) (lin Prep (mkPrep "kurunga" "" False)) (lin Prep (mkPrep "mpáka" "" False)); --could orugyendo work in its place?
   
-  
+  alas_Interj ={s="ninkasharwe"}; --: Interj ;
 
 oper
   aboutP = mkPrep "about" ;
