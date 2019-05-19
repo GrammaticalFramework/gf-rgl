@@ -83,8 +83,8 @@ lin
 
   ImpVP  vp = {
         s =table{
-          True=> vp.s ++ Predef.BIND ++ vp.morphs!VFInf!RestOfVerb ++ vp.comp;
-          False =>  case vp.isCompApStem of {   -- How do I make the number dynamic use case?
+          ImpPos  => vp.s ++ Predef.BIND ++ vp.morphs!VFInf!RestOfVerb ++ vp.comp;
+          ImpNeg =>  case vp.isCompApStem of {   -- How do I make the number dynamic use case?
                   True =>vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
                         vp.morphs!VFInf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.comp;
                   False  => vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 

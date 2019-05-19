@@ -35,6 +35,8 @@ param
                           GenPrep2 |
                           GenAdj   |
                           SStandPron ; --Self-standing pronouns
+  
+  ImpPol = ImpPos | ImpNeg;
   {-
     --there are several and i.e. 
     -- na (two nouns, 2 Noun Phrases, 2 Pronouns, 2 relative subject clauses, )

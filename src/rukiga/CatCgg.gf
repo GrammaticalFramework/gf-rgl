@@ -6,7 +6,7 @@ concrete CatCgg of Cat = CommonX -[Adv,IAdv, AdA]**
 lincat
   
   
-  Imp = {s : Bool => Str} ;
+  Imp = {s : Res. ImpPol=> Str} ;
   QS = {s : Str} ;
 
   -- Note: SS is a shorthand for {s:Str}, defined in Prelude.gf
