@@ -72,9 +72,9 @@ lin
                              accS = np.s ! Acc;
                          in
                           case <predet.isMWE, predet.isInflected> of {
-                              <False, True>  => {s = \\_ =>nomS ++ mkPredetPref a ++ Predef.BIND ++ predet.s ; agr = a};
-                              <True, True >  => {s = \\_ =>nomS ++ mkPredetPref a ++ Predef.BIND ++ predet.s  ++
-                                                 mkPredetPref a ++ Predef.BIND ++ predet.s2; agr = a};
+                              <False, True>  => {s = \\_ =>nomS ++ mkPredetPref a ++ predet.s ; agr = a};
+                              <True, True >  => {s = \\_ =>nomS ++ mkPredetPref a ++ predet.s  ++
+                                                 mkPredetPref a  ++ predet.s2; agr = a};
                               <False,False>  => {s = \\_ =>nomS ++ predet.s ; agr = a};
                               <True,False>   => {s = \\_ =>nomS ++ predet.s ++ predet.s2; agr = a} -- never seen this case              
                           };
@@ -92,7 +92,10 @@ lin
         -- The determiner has a fine-grained structure, in which a 'nucleus'
   -- quantifier and an optional numeral can be discerned.
      --DetQuant    : Quant -> Num -> Det ;  -- these five
-     DetQuant  quant num = {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree}; --
+     DetQuant  quant num = case quant.isPron of {
+                                True => {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree};
+                                False => {s= quant.s.s ! Nom; s2 =\\_ =>[]; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree} --
+          };
                                 
      --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
      DetQuantOrd quant num ord = {

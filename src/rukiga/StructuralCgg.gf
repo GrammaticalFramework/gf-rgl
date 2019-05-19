@@ -218,6 +218,8 @@ lin
   so_AdA = {s="munônga"; position1=Post};--: AdA ;
   too_AdA = {s="munônga"; position1=Post}; --: AdA ;
   very_AdA  = {s="munônga"; position1=Post}; --: AdA ;
+
+  please_Voc = ss ", nyabura we"; --: Voc ;
 {-	
 --1 Structural: Structural Words
 --

@@ -20,6 +20,13 @@ lin
         Neg => (mkSubjClitic (AgMUBAP2 Sg)) ++ imp.s!ImpNeg        
       }
     };--: Pol -> Imp -> Utt ; -- (do not) walk ----s
+  --UttImpPl  : Pol -> Imp -> Utt ;         -- (don't) love yourselves
+  UttImpPl pol imp ={s = 
+    case pol.p of {
+        Pos  => imp.s!ImpPos;
+        Neg => (mkSubjClitic (AgMUBAP2 Pl)) ++ imp.s!ImpNeg        
+      }
+    };
 {-
 --1 Phrase: Phrases and Utterances
 
