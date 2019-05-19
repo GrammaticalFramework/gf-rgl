@@ -220,6 +220,10 @@ lin
   very_AdA  = {s="munônga"; position1=Post}; --: AdA ;
 
   please_Voc = ss ", nyabura we"; --: Voc ;
+
+  but_PConj = ss "báìtu"; --: PConj ; -- variants béìtu
+  otherwise_PConj = ss "okûndi"; --: PConj ;
+  therefore_PConj = ss "n'ahabwe'êkyo";  --: PConj ;
 {-	
 --1 Structural: Structural Words
 --
