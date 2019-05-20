@@ -41,8 +41,8 @@ abstract functions and their Universal Dependency labels
 - [Minibar http://cloud.grammaticalframework.org/minibar/minibar.html]:
   find resource grammar expressions by parsing (select Grammar: LibraryBrowser)
   or test translations between all languages (select Grammar: ResourceDemo)
-- [Resource Grammar Tutorial http://www.grammaticalframework.org/doc/gf-lrec-2010.pdf]
-  as presented in LREC-2010.
+- [Resource Grammar Tutorial http://www.grammaticalframework.org/lib/doc/rgl-tutorial/index.html],
+  as previously presented in LREC-2010.
 - Paper "The GF Resource Grammar Library" by A. Ranta
   (//Linguistic Issues in Language Technology//, 2 (2), 2009). An overview of
   the library with linguistic motivations.
