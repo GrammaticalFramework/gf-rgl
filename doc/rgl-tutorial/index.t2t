@@ -1,50 +1,20 @@
+GF Resource Grammar Tutorial
 Creating Linguistic Resources with the Grammatical Framework
 Aarne Ranta
-LREC Tutorial, Malta, 17 May 2010
 
 
 
-%!postproc(tex) : "\\documentclass{article}" ""
-%!postproc(tex) : "\\subsubsection\*" "\\snewslide"
-%!postproc(tex) : "\\subsection\*" "\\newslide"
-%!postproc(tex) : "\\section\*" "\\nnewslide"
-%!postproc(tex) : "\\includegraphics" "\\includegraphics[width=\\textwidth]"
-%!postproc(tex) : #MOLTOLOGO "includegraphics[width=60mm]{molto_logo.png}"
-%!postproc(tex) : #ALIGNEX "includegraphics[width=\\textwidth]{align-zero.png}"
-%!postproc(tex) : #ABSANDCNC "includegraphics[width=\\textwidth]{abs-and-cnc.jpg}"
-%!postproc(tex) : #ZEROFRIDGE "includegraphics[width=60mm]{zero-fridge.jpg}"
-%!postproc(tex) : #ABSTREE "includegraphics[width=50mm]{abstract.jpg}"
-%!postproc(tex) : #PARSETREE "includegraphics[width=50mm]{parse.jpg}"  
-%!postproc(tex) : #ABSANDPARSE "includegraphics[width=50mm]{abstract.jpg} \\includegraphics[width=50mm]{parse.jpg}\\includegraphics[width=50mm]{dutparse.jpg}"
-%!postproc(tex) : #ALIGNMENT "includegraphics[width=50mm]{engdut.jpg}"
-%!postproc(tex) : #TESTDEP "includegraphics[width=60mm]{langdep.png}"
-%!postproc(tex) : #FACEMOD "includegraphics[width=100mm]{facemod.jpg}"
-%!postproc(tex) : #ARAV "includegraphics[width=90mm]{arav.jpg}"
-%!postproc(tex) : #HINDI "includegraphics[width=90mm]{hindi.jpg}"
-%!postproc(tex) : #ARABNUM "includegraphics[width=100mm]{arabnum.jpg}"
-
-%!postproc(tex) : #Syntax "includegraphics[width=\\textwidth]{Syntax.jpg}"
-%!preproc(tex): "#NEW" ""
-%!postproc(tex) : "#SMALL" "small"
-%!postproc(tex) : "#HUGE" "huge"
-%!postproc(tex) : "#TINY" "tiny"
-%!postproc(tex) : "#NORMAL" "normalsize"
-%!postproc(tex) : "#BEGNOTPRINTED" "notprinted{"
-%!postproc(tex) : "#ENDNOTPRINTED" "}"
+==Introduction==
 
 
-#NEW
-
-//Notice//. This tutorial is an updated versions of the one used at the
-GF Summer School 2009
-([``grammaticalframework.org/summerschool.html`` http://www.grammaticalframework.org/summerschool.html]). It was first presented on an
- on-line course in April 2009.
-  The
- summer school in August 2009
-   had
+This tutorial was given at LREC in Malta, 17 May 2010,
+and is an updated versions of the one used at the
+[GF Summer School 2009 http://www.grammaticalframework.org/summerschool.html].
+It was first presented on an on-line course in April 2009.
+The summer school in August 2009 had
  30 participants from 20 countries.
- 15 new languages were started. Since the summer school, 
-  the library has grown from 12 to 16 languages.
+ 15 new languages were started.
+Since that first summer school, the library has grown from 12 to over 30 languages.
 
 
 The goal of this tutorial is to introduce
@@ -55,19 +25,18 @@ and the linguistic concepts in the resource grammar library.
 
 
 For more details, we recommend
-- the tutorial on the GF homepage 
-  [``grammaticalframework.org`` http://grammaticalframework.org/]
-- the article //The GF Resource Grammar Library//, LiLT 2(2), 2009. 
-  Freely available in 
+- the tutorial on the [GF homepage http://grammaticalframework.org/]
+- the article //The GF Resource Grammar Library//, LiLT 2(2), 2009.
+  Freely available in
   [``elanguage.net/journals/index.php/lilt/article/viewFile/214/158`` http://elanguage.net/journals/index.php/lilt/article/viewFile/214/158]
-- GF Book by A. Ranta, forthcoming at CSLI Publications
+- [GF Book http://www.grammaticalframework.org/gf-book] by A. Ranta, by CSLI Publications
 
 
-The code examples in this tutorial are available in
+The code examples in this tutorial are available at
 
-[``code.haskell.org/gf/examples/lrec-tutorial/`` http://code.haskell.org/gf/examples/lrec-tutorial/].
+[``https://github.com/GrammaticalFramework/gf-contrib/tree/master/lrec-tutorial`` https://github.com/GrammaticalFramework/gf-contrib/tree/master/lrec-tutorial].
 
-We cannot stress enough the importance of your own work on the 
+We cannot stress enough the importance of your own work on the
 code examples and exercises using the GF system!
 
 
@@ -129,7 +98,7 @@ A grammar is a declarative program that defines
 
 Many languages related by a common **abstract syntax**
 
-#ABSANDCNC
+[abs-and-cnc.jpg]
 
 ===The GF program===
 
@@ -147,16 +116,16 @@ Morphology and basic syntax
 
 Common API for different languages
 
-Currently (May 2010) 17 languages: 
+Currently (May 2010) 17 languages:
 Bulgarian, Catalan, Danish, Dutch, English,
-Finnish, French, German, Interlingua, 
-Italian, Norwegian, Polish, Romanian, 
+Finnish, French, German, Interlingua,
+Italian, Norwegian, Polish, Romanian,
 Russian, Spanish, Swedish, Urdu.
 
-Under construction for at least 19 languages: 
-Afrikaans, Amharic, Arabic, Baatonum, Esperanto, 
-Farsi, Greek (Ancient), Hebrew, Icelandic, Japanese, 
-Latin, Latvian, Maltese, Mongol, Portuguese, 
+Under construction for at least 19 languages:
+Afrikaans, Amharic, Arabic, Baatonum, Esperanto,
+Farsi, Greek (Ancient), Hebrew, Icelandic, Japanese,
+Latin, Latvian, Maltese, Mongol, Portuguese,
 Swahili, Thai, Tswana, Turkish.
 
 
@@ -172,7 +141,7 @@ Dialogue systems: TALK, see
 Translation: MOLTO, see
 [``www.molto-project.eu`` http://www.molto-project.eu]
 
-#MOLTOLOGO
+[molto_logo.png]
 
 
 ===GF run-time system===
@@ -180,9 +149,9 @@ Translation: MOLTO, see
 PGF grammars can be **embedded** in Haskell, Java, and Prolog programs
 
 They can be used in **web servers**
-- fridge magnet demo: 
+- fridge magnet demo:
 [``grammaticalframework.org:41296/fridge`` http://grammaticalframework.org:41296/fridge]
-- translator demo: 
+- translator demo:
 [``grammaticalframework.org:41296/translate`` http://grammaticalframework.org:41296/translate]
 
 
@@ -205,32 +174,30 @@ The //Developers// method is recommended for resource grammar developers:
 
 ===Starting the GF shell===
 
-#SMALL
 
 The command ``gf`` starts the GF shell:
 ```
 $ gf
-                              
-         *  *  *              
-      *           *           
-    *               *         
-   *                          
-   *                          
-   *        * * * * * *       
-   *        *         *       
-    *       * * * *  *        
-      *     *      *          
-         *  *  *              
-                              
-This is GF version 3.1.6. 
-License: see help -license.   
+
+         *  *  *
+      *           *
+    *               *
+   *
+   *
+   *        * * * * * *
+   *        *         *
+    *       * * * *  *
+      *     *      *
+         *  *  *
+
+This is GF version 3.1.6.
+License: see help -license.
 Bug reports: http://code.google.com/p/grammatical-framework/issues/list
 
 Languages:
-> 
+>
 ```
 
-#NORMAL
 
 
 
@@ -262,16 +229,16 @@ These are the simplest grammars usable in GF. Example:
   Love.  V2 ::= "loves" ;
 ```
 The first item in each rule is a **syntactic function**, used
-for building **trees**: 
+for building **trees**:
 ``Pred`` = predication, ``Compl`` = complementation.
 
-The second item is a **category**: 
+The second item is a **category**:
 S = Sentence, NP = Noun Phrase, VP = Verb Phrase, V2 = 2-place Verb.
 
 
 ===Importing and parsing===
 
-Copy or write the above grammar in file ``zero.cf``. 
+Copy or write the above grammar in file ``zero.cf``.
 
 To use a grammar in GF: ``import`` = ``i``
 ```
@@ -311,7 +278,7 @@ To **pipe** a command to another one: ``|``
 
 ===Graphical view of abstract trees===
 
-#ABSTREE
+[abstract.jpg]
 
 In Mac:
 ```
@@ -326,7 +293,7 @@ You need the Graphviz program to see the view.
 
 ===Graphical view of parse trees===
 
-#PARSETREE
+[parse.jpg]
 
 ```
 > p "John loves Mary" | visualize_parse -view=open
@@ -352,7 +319,7 @@ The main idea of GF: separate these two things.
 ===Separating abstract and concrete syntax===
 
 A context-free rule is converted to two **judgements** in GF:
-- ``fun``, declaring a syntactic function 
+- ``fun``, declaring a syntactic function
 - ``lin``, giving its **linearization rule**
 
 
@@ -383,7 +350,7 @@ The grammar is divided to two **modules**
 - a **concrete** module, judgement forms ``lincat`` and ``lin``
 
 
-|| Judgement           | reading ||
+|| Judgement           | reading |
 | ``cat``//C//         | //C// is a category
 | ``fun`` //f// : //T// | //f// is a function of type //T//
 | ``lincat`` //C// ``=`` //L// | //C// has linearization type //L//
@@ -396,7 +363,7 @@ The grammar is divided to two **modules**
 
 ```
 abstract Zero = {
-  cat  
+  cat
     S ; NP ; VP ; V2 ;
   fun
     Pred  : NP -> VP -> S ;
@@ -496,7 +463,7 @@ concrete ZeroLat of Zero = {
     John = table {Nom => "Ioannes" ; Acc => "Ioannem"} ;
     Mary = table {Nom => "Maria" ; Acc => "Mariam"} ;
     Love = "amat" ;
-  param 
+  param
     Case = Nom | Acc ;
 }
 ```
@@ -569,7 +536,23 @@ The values of fields are picked by **projection** (``.``)
 
 ===Concrete syntax, Hebrew===
 
-[ZeroHeb.jpg]
+```
+concrete ZeroHeb of Zero = {
+  flags coding=utf8 ;
+  lincat
+    S = Str ;
+    NP = {s : Str ; g : Gender} ;
+    VP, V2 = Gender => Str ;
+  lin
+    Pred np vp = np.s ++ vp ! np.g ;
+    Compl v2 np = table {g => v2 ! g ++ "××ª" ++ np.s} ;
+    John = {s = "×’'×•×Ÿ" ; g = Masc} ;
+    Mary = {s = "×ž×¨×™" ; g = Fem} ;
+    Love = table {Masc => "××•×”×‘" ; Fem => "××•×”×‘×ª"} ;
+  param
+    Gender = Masc | Fem ;
+}
+```
 
 The verb **agrees** to the gender of the subject.
 
@@ -613,7 +596,6 @@ From this we infer that French nouns have variable number and inherent gender
 
 ==Visualizing trees and word alignment==
 
-%#ABSANDPARSE
 [abstract.jpg] [parse.jpg] [dutparse.jpg]
 
 
@@ -637,7 +619,7 @@ Delete the intervening tree, combining links directly from L1 to L2
 
 ===Word alignment via trees===
 
-#ALIGNMENT
+[engdut.jpg]
 
 ```
   > parse "John loves Mary" | aw -view=open
@@ -658,14 +640,14 @@ Compile the grammar to PGF:
 ```
 The resulting file ``Zero.pgf`` can be e.g. included in fridge magnets:
 
-#ZEROFRIDGE
+[zero-fridge.jpg]
 
 
 ==Scaling up the grammar==
 
 ``Zero.gf`` is a tiny fragment of the Resource Grammar
 
-The current Resource Grammar has 80 categories, 200 
+The current Resource Grammar has 80 categories, 200
 syntactic functions, and a minimal lexicon of 500 words.
 
 Even ``S, NP, VP, V2`` will need richer linearization types.
@@ -696,17 +678,17 @@ Moreover: common nouns, adjectives
 
 1. Install ``gf`` on your computer.
 
-2. Learn and try out the commands 
+2. Learn and try out the commands
   ``align_words``,
   ``empty``,
-  ``generate_random``,  
+  ``generate_random``,
   ``generate_trees``,
   ``help``,
   ``import``,
   ``linearize``,
-  ``parse``, 
+  ``parse``,
   ``put_string``,
-  ``quit``, 
+  ``quit``,
   ``read_file``,
   ``translation_quiz``,
   ``unicode_table``,
@@ -714,7 +696,7 @@ Moreover: common nouns, adjectives
   ``visualize_tree``,
   ``write_file``.
 
-3. Write a concrete syntax of ``Zero`` for yet another language 
+3. Write a concrete syntax of ``Zero`` for yet another language
   (e.g. your summer school project language).
 
 4. Extend the ``Zero`` grammar with ten new noun phrases and verbs.
@@ -724,7 +706,6 @@ Moreover: common nouns, adjectives
   //is old//.
 
 
-#NEW
 
 =Morphological Paradigms and Lexicon Building=
 
@@ -772,12 +753,12 @@ Export to SQL, XFST, ...
 
 In abstract syntax: an object of a basic type, such as ``Love : V2``
 
-In concrete syntax, 
+In concrete syntax,
 - primarily: an **inflection table**, the collection of all forms
 - secundarily: a string, i.e. a single form
 
 
-Thus //love//, //loves//, //loved// are 
+Thus //love//, //loves//, //loved// are
 - distinct words as strings
 - forms of the same word as an inflection table or an abstract syntax object
 
@@ -798,7 +779,7 @@ categories.
 
 ===The main lexical categories in the resource grammar===
 
-|| ``cat`` | name           | example   ||
+|| ``cat`` | name           | example   |
 | ``N``   | noun           | //house//
 | ``A``   | adjective      | //small//
 | ``V``   | verb           | //sleep//
@@ -808,7 +789,7 @@ categories.
 
 ===Typical feature design===
 
-|| ``cat`` | variable                     | inherent   ||
+|| ``cat`` | variable                     | inherent   |
 | ``N``    | number, case                 | gender
 | ``A``    | number, case, gender, degree | position
 | ``V``    | tense, number, person, ...   | auxiliary
@@ -826,14 +807,14 @@ Lexicon: abstract and concrete syntax
 ```
   abstract Lex = {fun Walk : V ; ...}
 
-  concrete LexEng of Lex = 
+  concrete LexEng of Lex =
     open MorphoEng in {lin Walk = regV "walk" ; ...}
 ```
 The same resource can be used (``open``ed) in many lexica.
 
 Abstract and concrete are **top-level** - they define trees, parsing, linearization.
 
-Resource modules and ``oper``s are not top-level - they are "thrown away" after 
+Resource modules and ``oper``s are not top-level - they are "thrown away" after
 compilation (i.e. not preserved in PGF).
 
 
@@ -898,7 +879,7 @@ which takes a string and returns an inflection table.
 
 Let's first define the paradigm for regular verbs:
 ```
-  regVerb : Str -> Verb = \walk -> 
+  regVerb : Str -> Verb = \walk ->
     mkVerb walk (walk + "s") (walk + "ed") (walk + "ed") (walk + "ing") ;
 ```
 This will work for //walk//, //interest//, //play//.
@@ -910,13 +891,13 @@ It will not work for //sing//, //kiss//, //use//, //cry//, //fly//, //stop//.
 
 For verbs ending with //s//, //x//, //z//, //ch//
 ```
-  s_regVerb : Str -> Verb = \kiss -> 
+  s_regVerb : Str -> Verb = \kiss ->
     mkVerb kiss (kiss + "es") (kiss + "ed") (kiss + "ed") (kiss + "ing") ;
 ```
 For verbs ending with //e//
 ```
-  e_regVerb : Str -> Verb = \use -> 
-    let us = init use 
+  e_regVerb : Str -> Verb = \use ->
+    let us = init use
     in  mkVerb use (use + "s") (us + "ed") (us + "ed") (us + "ing") ;
 ```
 Notice:
@@ -929,15 +910,15 @@ Notice:
 
 For verbs ending with //y//
 ```
-  y_regVerb : Str -> Verb = \cry -> 
-    let cr = init cry 
+  y_regVerb : Str -> Verb = \cry ->
+    let cr = init cry
     in
     mkVerb cry (cr + "ies") (cr + "ied") (cr + "ied") (cry + "ing") ;
 ```
 For verbs ending with //ie//
 ```
-  ie_regVerb : Str -> Verb = \die -> 
-    let dy = Predef.tk 2 die + "y" 
+  ie_regVerb : Str -> Verb = \die ->
+    let dy = Predef.tk 2 die + "y"
     in
     mkVerb die (die + "s") (die + "d") (die + "d") (dy + "ing") ;
 ```
@@ -1026,14 +1007,14 @@ stop stops stoped stoped stoping
 
 Use the Prelude function ``last``
 ```
-  dupRegVerb : Str -> Verb = \stop -> 
-    let stopp = stop + last stop 
+  dupRegVerb : Str -> Verb = \stop ->
+    let stopp = stop + last stop
     in
     mkVerb stop (stop + "s") (stopp + "ed") (stopp + "ed") (stopp + "ing") ;
 ```
 String pattern: relevant consonant preceded by a vowel
 ```
-  _ + ("a"|"e"|"i"|"o"|"u") + ("b"|"d"|"g"|"m"|"n"|"p"|"r"|"s"|"t") 
+  _ + ("a"|"e"|"i"|"o"|"u") + ("b"|"d"|"g"|"m"|"n"|"p"|"r"|"s"|"t")
                                                          => dupRegVerb v ;
 ```
 
@@ -1065,19 +1046,19 @@ Duplication depends on stress, which is not marked in English:
 
 This means that we occasionally have to give more forms than one.
 
-We knew this already for irregular verbs. 
+We knew this already for irregular verbs.
 And we cannot write patterns for each of them either, because e.g.
 //lie// can be both //lie, lied, lied// or //lie, lay, lain//.
 
 
 ===A paradigm for irregular verbs===
 
-Arguments: three forms instead of one. 
+Arguments: three forms instead of one.
 
 Pattern matching done in regular verbs can be reused.
 ```
-  irregVerb : (_,_,_ : Str) -> Verb = \sing,sang,sung -> 
-    let v = smartVerb sing 
+  irregVerb : (_,_,_ : Str) -> Verb = \sing,sang,sung ->
+    let v = smartVerb sing
     in
     mkVerb sing (v.s ! VPres) sang sung (v.s ! VPresPart) ;
 ```
@@ -1173,7 +1154,7 @@ Notice: pattern variable ``cr`` matches like ``_`` but gets bound.
 Boringly, we need abstract and concrete modules even for one language.
 ```
   abstract Lex = {         concrete LexEng = open Morpho in {
-    cat V ;                  lincat V = Verb ;                
+    cat V ;                  lincat V = Verb ;
     fun                      lin
       play_V  : V ;            play_V  = mkV "play" ;
       sleep_V : V ;            sleep_V = mkV "sleep" "slept" "slept" ;
@@ -1195,7 +1176,7 @@ Alt 1. From a morphological POS-tagged word list: trivial
 Alt 2. From a plain word list, POS-tagged: start assuming regularity, generate,
 correct, and add forms by iteration
 ```
-  V play    ===>   V play played played      ===> 
+  V play    ===>   V play played played      ===>
   V sleep          V sleep sleeped sleeped          V sleep slept slept
 ```
 Example: Finnish nouns need 1.42 forms in average (to generate 26 forms).
@@ -1206,7 +1187,7 @@ Example: Finnish nouns need 1.42 forms in average (to generate 26 forms).
 
 Semitic languages, e.g. Arabic: //kataba// has forms //kaAtib//, //yaktubu//, ...
 
-Traditional analysis: 
+Traditional analysis:
 - word = **root** + **pattern**
 - root = three consonants (**radicals**)
 - pattern = function from root to string (notation: string with variables //F,C,L// for
@@ -1272,9 +1253,9 @@ It is a typical catch-all value.
 Patterns are coded by using the letters ``F``, ``C``, ``L``.
 ```
   getPattern : Str -> Pattern = \s -> case s of {
-    F + "F" + FC + "CC" + CL + "L" + L => 
+    F + "F" + FC + "CC" + CL + "L" + L =>
       dfill {F = F ; FC = FC ; CL = CL ; L = L} ;
-    F + "F" + FC + "C" + CL + "L" + L => 
+    F + "F" + FC + "C" + CL + "L" + L =>
       fill {F = F ; FC = FC ; CL = CL ; L = L} ;
     _ => Predef.error ("cannot get pattern from" ++ s)
     } ;
@@ -1298,7 +1279,7 @@ Now we can try:
 
 ===Parameters for the Arabic verb type===
 
-Inflection in tense, number, person, gender. 
+Inflection in tense, number, person, gender.
 ```
   param
     Number = Sg | Dl | Pl ;
@@ -1313,29 +1294,28 @@ But not in all combinations. For instance: no first person dual.
 
 ===Example of Arabic verb inflection===
 
-#ARAV
+[arav.jpg]
 
 
 ===Arabic verb type: implementation===
 
 We use an **algebraic datatype** to include only the meaningful combinations.
 ```
-  param VPer = 
+  param VPer =
      Vp3   Number Gender
-   | Vp2Sg Gender 
+   | Vp2Sg Gender
    | Vp2Dl
    | Vp2Pl Gender
    | Vp1Sg
    | Vp1Pl ;
 
-  oper Verb : Type = {s : Tense => VPer => Str} ;  
+  oper Verb : Type = {s : Tense => VPer => Str} ;
 ```
 Thus 2*(3*2 + 2 + 1 + 2 + 1 + 1) = 26 forms, not 2*3*2*3 = 36.
 
 
 ===An Arabic verb paradigm===
 
-#SMALL
 
 ```
   pattV_u : Tense -> VPer -> Pattern = \t,v -> getPattern (case t of {
@@ -1357,7 +1337,6 @@ Thus 2*(3*2 + 2 + 1 + 2 + 1 + 1) = 26 forms, not 2*3*2*3 = 36.
     } ;
 ```
 
-#NORMAL
 
 
 ===Applying an Arabic paradigm===
@@ -1365,9 +1344,9 @@ Thus 2*(3*2 + 2 + 1 + 2 + 1 + 1) = 26 forms, not 2*3*2*3 = 36.
 Testing in the resource module:
 ```
   > cc -all u_Verb "ktb"
-  kataba katabato katabaA katabataA katabuwA katabona katabota kataboti 
-  katabotumaA katabotum katabotunv2a katabotu katabonaA yakotubu takotubu 
-  yakotubaAni takotubaAni yakotubuwna yakotubna takotubu takotubiyna 
+  kataba katabato katabaA katabataA katabuwA katabona katabota kataboti
+  katabotumaA katabotum katabotunv2a katabotu katabonaA yakotubu takotubu
+  yakotubaAni takotubaAni yakotubuwna yakotubna takotubu takotubiyna
   takotubaAni takotubuwna takotubona A?akotubu nakotubu
 ```
 Building a lexicon:
@@ -1408,13 +1387,12 @@ target language. Start with feature design and finish with a smart paradigm.
 
 4. Bootstrap a GF lexicon (abstract + concrete) of 100 words in your target language.
 
-5. (Recreational GF hacking.) 
+5. (Recreational GF hacking.)
 Write an operation similar to ``verbTable`` for printing nice inflection tables
 in HTML.
 
 
 
-#NEW
 
 
 =Basics of a Linguistic Syntax Implementation=
@@ -1434,7 +1412,7 @@ Module extension and dependency graphs
 
 Ergativity in Hindi/Urdu
 
-//Don't worry if the details of this lecture feel difficult!// 
+//Don't worry if the details of this lecture feel difficult!//
 //Syntax **is** difficult and this is why resource grammars are so useful!//
 
 
@@ -1458,19 +1436,19 @@ A lot of work, easy to get wrong!
 
 ===The key categories===
 
-|| ``cat`` | name              | example ||
+|| ``cat`` | name              | example |
 | ``Cl``   | clause            | //every young man loves Mary//
 | ``VP``   | verb phrase       | //loves Mary//
 | ``V2``   | two-place verb    | //loves//
 | ``NP``   | noun phrase       | //every young man//
 | ``CN``   | common noun       | //young man//
-| ``Det``  | determiner        | //every// 
+| ``Det``  | determiner        | //every//
 | ``AP``   | adjectival phrase | //young//
 
 
 ===The key functions===
 
-|| ``fun``                       | name                   | example ||
+|| ``fun``                       | name                   | example |
 | ``PredVP  : NP  -> VP -> Cl``  | predication            | //every man loves Mary//
 | ``ComplV2 : V2  -> NP -> VP``  | complementation        | //loves Mary//
 | ``DetCN   : Det -> CN -> NP``  | determination          | //every man//
@@ -1481,7 +1459,7 @@ A lot of work, easy to get wrong!
 
 ===Feature design===
 
-|| ``cat`` | variable             | inherent ||
+|| ``cat`` | variable             | inherent |
 | ``Cl``   | tense                | -
 | ``VP``   | tense, agr           | -
 | ``V2``   | tense, agr           | case
@@ -1529,39 +1507,37 @@ It is similar to lambda abstraction (``\x,y -> t`` in a function type).
 
 English
 
-|| np.agr    | present         | past           | future            ||
+|| np.agr    | present         | past           | future            |
 | Sg Per1 | //I sleep//     | //I slept//    | //I will sleep//
 | Sg Per3 | //she sleeps//  | //she slept//  | //she will sleep//
 | Pl Per1 | //we sleep//    | //we slept//   | //we will sleep//
 
 Italian ("I am tired", "she is tired", "we are tired")
 
-#SMALL
 
-|| np.agr        | present               | past                    | future            ||
-| Masc Sg Per1 | //io sono stanco//    | //io ero stanco//       | //io sarò stanco//
-| Fem  Sg Per3 | //lei è stanca//      | //lei era stanca//      | //lei sarà stanca//
+|| np.agr        | present               | past                    | future            |
+| Masc Sg Per1 | //io sono stanco//    | //io ero stanco//       | //io sarÃ² stanco//
+| Fem  Sg Per3 | //lei Ã¨ stanca//      | //lei era stanca//      | //lei sarÃ  stanca//
 | Fem  Pl Per1 | //noi siamo stanche// | //noi eravamo stanche// | //noi saremo stanche//
 
-#NORMAL
 
 
 ===Predication: variations===
 
-Word order: 
-- //will I sleep// (English), //è stanca lei// (Italian)
+Word order:
+- //will I sleep// (English), //Ã¨ stanca lei// (Italian)
 
 
-Pro-drop: 
+Pro-drop:
 - //io sono stanco// vs. //sono stanco// (Italian)
 
 
-Ergativity: 
+Ergativity:
 - ergative case of transitive verb subject; agreement to object (Hindi)
 
 
-Variable subject case: 
-- //minä olen lapsi// vs. //minulla on lapsi// (Finnish,
+Variable subject case:
+- //minÃ¤ olen lapsi// vs. //minulla on lapsi// (Finnish,
  "I am a child" (nominative) vs. "I have a child" (adessive))
 
 
@@ -1583,22 +1559,22 @@ lin ComplV2 v2 vp = {s = \\t,a => v2.s ! t ! a ++ np.s ! v2.c}
 
 English
 
-|| v2.case     | infinitive VP ||
+|| v2.case     | infinitive VP |
 | Acc          | //love me//
 | //at// + Acc | //look at me//
 
 Finnish
 
-|| v2.case              | VP, infinitive           | translation ||
-| Accusative            | //tavata minut//         | "meet me" 
+|| v2.case              | VP, infinitive           | translation |
+| Accusative            | //tavata minut//         | "meet me"
 | Partitive             | //rakastaa minua//       | "love me"
-| Elative               | //pitää minusta//        | "like me"
-| Genitive + //perään// | //katsoa minun perääni// | "look after me"
+| Elative               | //pitÃ¤Ã¤ minusta//        | "like me"
+| Genitive + //perÃ¤Ã¤n// | //katsoa minun perÃ¤Ã¤ni// | "look after me"
 
 
 ===Complementation: variations===
 
-**Prepositions**: 
+**Prepositions**:
 a two-place verb usually involves a preposition in addition case
 ```
   lincat V2 = {s : Tense => Agr => Str ; c : Case ; prep : Str}
@@ -1629,44 +1605,44 @@ lin DetCN det cn = {
   a = agr cn.g det.n Per3
   }
 
-oper agr : Gender -> Number -> Person -> Agr 
+oper agr : Gender -> Number -> Person -> Agr
 ```
 
 ===Determination: examples===
 
 English
 
-|| Det.num     | NP               ||
+|| Det.num     | NP               |
 | Sg           | //every house//
 | Pl           | //these houses//
 
 Italian ("this wine",  "this pizza", "those pizzas")
 
-|| Det.num | CN.gen | NP               ||
+|| Det.num | CN.gen | NP               |
 | Sg       | Masc   | //questo vino//
 | Sg       | Fem    | //questa pizza//
 | Pl       | Fem    | //quelle pizze//
 
 Finnish ("every house", "these houses")
 
-|| Det.num     | NP, nominative    | NP, inessive  ||
+|| Det.num     | NP, nominative    | NP, inessive  |
 | Sg           | //jokainen talo// | //jokaisessa talossa//
-| Pl           | //nämä talot//    | //näissä taloissa//
+| Pl           | //nÃ¤mÃ¤ talot//    | //nÃ¤issÃ¤ taloissa//
 
 
 
 ===Determination: variations===
 
-Systamatic number variation: 
+Systamatic number variation:
 - //this-these//, //the-the//, //il-i// (Italian "the-the")
 
 
-"Zero" determiners: 
+"Zero" determiners:
 - //talo// ("a house") vs. //talo// ("the house") (Finnish)
 - //a house// vs. //houses// (English), //une maison// vs. //des maisons// (French)
 
 
-Specificity parameter of nouns: 
+Specificity parameter of nouns:
 - //varje hus// vs. //det huset// (Swedish, "every house" vs. "that house")
 
 
@@ -1692,18 +1668,18 @@ lin AdjCN ap cn = {
 
 English
 
-|| CN, singular   | CN, plural     ||
+|| CN, singular   | CN, plural     |
 | //new house//  | //new houses//
 
 Italian ("red wine", "red house")
 
-|| CN.gen | CN, singular     | CN, plural  ||
+|| CN.gen | CN, singular     | CN, plural  |
 |  Masc   | //vino rosso//   | //vini rossi//
 |  Fem    | //casa rossa//   | //case rosse//
 
 Finnish ("red house")
 
-|| CN, sg, nominative | CN, sg, ablative       | CN, pl, essive ||
+|| CN, sg, nominative | CN, sg, ablative       | CN, pl, essive |
 | //punainen talo//   | //punaiselta talolta// | //punaisina taloina// |
 
 
@@ -1809,16 +1785,14 @@ concrete LangIta of Lang = GrammarIta ** open ResIta in... -- It. lexicon
 
 Module opening: ``N = open R1, R2, R3 in {...}``
 - module ``N`` can use all judgements from ``R1,R2,R3`` (but doesn't inherit them)
- 
+
 
 
 ===Module dependencies===
 
-#TESTDEP
+[langdep.png]
 
-#SMALL
 //rectangle = abstract, solid ellipse = concrete, dashed ellipse = resource//
-#NORMAL
 
 %% TODO: Test -> Lang
 
@@ -1837,10 +1811,9 @@ Before calling ``dot``, removed the module ``Predef`` to save space.
 
 ===The module Grammar===
 
-#SMALL
 ```
 abstract Grammar = {
-  cat 
+  cat
     Cl ; NP ; VP ; AP ; CN ; Det ; N ; A ; V ; V2 ;
   fun
     PredVP  : NP  -> VP -> Cl ;
@@ -1856,7 +1829,6 @@ abstract Grammar = {
     i_NP, she_NP, we_NP : NP ;
 }
 ```
-#NORMAL
 
 
 ===Parameters===
@@ -1879,13 +1851,13 @@ Parameters are defined in ``ResIta.gf``. Just 11 of the 56 verb forms.
 
 ===Tense and agreement of a verb phrase, in syntax===
 
-|| ``UseV arrive_V`` | Pres         | Perf || 
+|| ``UseV arrive_V`` | Pres         | Perf |
 | Ag Masc Sg Per1 | //arrivo//    | //sono arrivato//
 | Ag Fem  Sg Per1 | //arrivo//    | //sono arrivata//
 | Ag Masc Sg Per2 | //arrivi//    | //sei arrivato//
 | Ag Fem  Sg Per2 | //arrivi//    | //sei arrivata//
-| Ag Masc Sg Per3 | //arriva//    | //è arrivato//
-| Ag Fem  Sg Per3 | //arriva//    | //è arrivata//
+| Ag Masc Sg Per3 | //arriva//    | //Ã¨ arrivato//
+| Ag Fem  Sg Per3 | //arriva//    | //Ã¨ arrivata//
 | Ag Masc Pl Per1 | //arriviamo// | //siamo arrivati//
 | Ag Fem  Pl Per1 | //arriviamo// | //siamo arrivate//
 | Ag Masc Pl Per2 | //arrivate//  | //siete arrivati//
@@ -1896,7 +1868,7 @@ Parameters are defined in ``ResIta.gf``. Just 11 of the 56 verb forms.
 
 ===The forms of a verb, in morphology===
 
-|| ``arrive_V`` | form  ||
+|| ``arrive_V`` | form  |
 | VInf          | //arrivare//
 | VPres Sg Per1 | //arrivo//
 | VPres Sg Per2 | //arrivi//
@@ -1935,12 +1907,12 @@ Lexical insertion is trivial.
 ```
 Complementation assumes ``NP`` has a clitic and an ordinary object part.
 ```
-  lin ComplV2 = 
+  lin ComplV2 =
     let
       nps = np.s ! v2.c
     in {
-      v = {s = v2.s ; aux = v2.aux} ; 
-      clit = nps.clit ; 
+      v = {s = v2.s ; aux = v2.aux} ;
+      clit = nps.clit ;
       obj  = nps.obj
       }
 ```
@@ -1951,14 +1923,13 @@ Complementation assumes ``NP`` has a clitic and an ordinary object part.
 
 Being clitic depends on case
 ```
-  lincat NP = {s : Case => {clit,obj : Str} ; a : Agr} ; 
+  lincat NP = {s : Case => {clit,obj : Str} ; a : Agr} ;
 ```
-#SMALL
 Examples:
 ```
   lin she_NP = {
      s = table {
-       Nom => {clit = []   ; obj = "lei"} ; 
+       Nom => {clit = []   ; obj = "lei"} ;
        Acc => {clit = "la" ; obj = []} ;
        Dat => {clit = "le" ; obj = []}
        } ;
@@ -1966,20 +1937,19 @@ Examples:
      }
   lin John_NP = {
      s = table {
-       Nom | Acc => {clit = [] ; obj = "Giovanni"} ; 
+       Nom | Acc => {clit = [] ; obj = "Giovanni"} ;
        Dat       => {clit = [] ; obj = "a Giovanni"}
-       } ; 
+       } ;
      a = Ag Fem Sg Per3
      }
 ```
-#NORMAL
 
 
 ===Noun phrases: alternatively===
 
 Use a feature instead of separate fields,
 ```
-  lincat NP = {s : Case => {s : Str ; isClit : Bool} ; a : Agr} ; 
+  lincat NP = {s : Case => {s : Str ; isClit : Bool} ; a : Agr} ;
 ```
 The use of separate fields is more efficient and scales up better
 to multiple clitic positions.
@@ -2041,7 +2011,7 @@ Complex but mostly great fun:
     vin + "o"  => mkNoun vino (vin + "i") Masc ;
     cas + "a"  => mkNoun vino (cas + "e") Fem ;
     pan + "e"  => mkNoun vino (pan + "i") Masc ;
-    _ => mkNoun vino vino Masc 
+    _ => mkNoun vino vino Masc
     } ;
 ```
 See ``ResIta`` for more details.
@@ -2051,14 +2021,14 @@ See ``ResIta`` for more details.
 
 Place the object and the clitic, and select the verb form.
 ```
-  lin PredVP np vp = 
-      let 
+  lin PredVP np vp =
+      let
         subj = (np.s ! Nom).obj ;
         obj  = vp.obj ;
         clit = vp.clit ;
         verb = table {
           Pres => agrV vp.v np.a ;
-          Perf => agrV (auxVerb vp.v.aux) np.a ++ agrPart vp.v np.a 
+          Perf => agrV (auxVerb vp.v.aux) np.a ++ agrPart vp.v np.a
           }
       in {
         s = \\t => subj ++ clit ++ verb ! t ++ obj
@@ -2105,7 +2075,7 @@ However, in the perfective tense:
 
 Example: "the boy/girl eats the apple/bread"
 
-|| subj | obj   | gen. present                | perfective               ||
+|| subj | obj   | gen. present                | perfective               |
 | Masc  | Masc  | //ladka: seb Ka:ta: hai//   | //ladke ne seb Ka:ya://
 | Masc  | Fem   | //ladka: roTi: Ka:ta: hai// | //ladke ne roTi: Ka:yi://
 | Fem   | Masc  | //ladki: seb Ka:ti: hai//   | //ladki: ne seb Ka:ya://
@@ -2116,12 +2086,12 @@ Example: "the boy/girl eats the apple/bread"
 
 ===A Hindi clause in different tenses===
 
-#HINDI
+[hindi.jpg]
 
 
 ==Exercises==
 
-1. Learn the commands ``dependency_graph``, ``print_grammar``, 
+1. Learn the commands ``dependency_graph``, ``print_grammar``,
 system escape ``!``, and system pipe ``?``.
 
 2. Write tables of examples of the key syntactic functions for your
@@ -2135,12 +2105,11 @@ in the perfect tense agrees in gender and number with an accusative clitic.
 Test this with the sentences //lei la ha amata// and //lei ci ha amati//
 (where the current grammar now gives //amato// in both cases).
 
-5. Learn some linguistics! My favourite book is 
+5. Learn some linguistics! My favourite book is
 //Introduction to Theoretical Linguistics// by John Lyons (Cambridge 1968,
 at least 14 editions).
 
 
-#NEW
 
 =Using the Resource Grammar Library in Applications=
 
@@ -2182,7 +2151,7 @@ and ``update``.
 
 ===Advantages of software libraries===
 
-Programmers have 
+Programmers have
 - less code to write (e.g. //how// to look up)
 - less techniques to learn (e.g. efficient Map datastructures)
 
@@ -2229,10 +2198,10 @@ Adapt the email program to Italian, Finnish, Arabic...
   ===> hai due messaggi
 
   PredVP youSg_NP (ComplV2 have_V2 (NumCN two_Num (UseN (mkN "viesti"))))
-  ===> sinulla on kaksi viestiä
+  ===> sinulla on kaksi viestiÃ¤
 
   PredVP youSg_NP (ComplV2 have_V2 (NumCN two_Num (UseN (mkN "risaAlat.u."))))
-  ===> sinulla on kaksi viestiä
+  ===> sinulla on kaksi viestiÃ¤
 ```
 The new languages are more complex than English - but only internally,
 not on the API level!
@@ -2240,17 +2209,15 @@ not on the API level!
 
 ===Correct number in Arabic===
 
-#ARABNUM
+[arabnum.jpg]
 
-#TINY
-(From "Implementation of the Arabic Numerals and their Syntax in GF" by 
+(From "Implementation of the Arabic Numerals and their Syntax in GF" by
 Ali Dada, ACL workshop on Arabic, Prague 2007)
-#NORMAL
 
 
 ===Use cases for grammar libraries===
 
-Grammars need //very// much //very// special knowledge, and a //lot// of 
+Grammars need //very// much //very// special knowledge, and a //lot// of
 work - thus an excellent topic for a software library!
 
 Some applications where grammars have shown to be useful:
@@ -2264,9 +2231,9 @@ Some applications where grammars have shown to be useful:
 
 **Application grammarians** vs. **resource grammarians**
 
-|| grammarian        | applications           | resources ||
-| expertise          | application domain     | linguistics 
-| programming skills | programming in general | GF programming 
+|| grammarian        | applications           | resources |
+| expertise          | application domain     | linguistics
+| programming skills | programming in general | GF programming
 | language skills    | practical use          | theoretical knowledge
 
 We want a **division of labour**.
@@ -2276,23 +2243,23 @@ We want a **division of labour**.
 
 **Application grammars** vs. **resource grammars**
 
-|| grammar           | application            | resource ||
-| abstract syntax    | semantic               | syntactic 
+|| grammar           | application            | resource |
+| abstract syntax    | semantic               | syntactic
 | concrete syntax    | using resource API     | parameters, tables, records
-| lexicon            | idiomatic, technical   | just for testing 
+| lexicon            | idiomatic, technical   | just for testing
 | size               | small or bigger        | big
 
 A.k.a. **semantic grammars** vs. **syntactic grammars**.
 
 
 
-==Meaning-preserving translation== 
+==Meaning-preserving translation==
 
 Translation must preserve meaning.
 
 It need not preserve syntactic structure.
 
-Sometimes it is even impossible:  
+Sometimes it is even impossible:
 - //John likes Mary// in Italian is //Maria piace a Giovanni//
 
 
@@ -2327,10 +2294,10 @@ at run time.
 "Semantics of English", or of any other natural language as a whole, has
 never been built.
 
-It is more feasible to have semantics of **fragments** - of small, 
+It is more feasible to have semantics of **fragments** - of small,
 well-understood parts of natural language.
 
-Such languages are called **domain languages**, and their semantics, 
+Such languages are called **domain languages**, and their semantics,
 **domain semantics**.
 
 Domain semantics = **ontology** in the Semantic Web terminology.
@@ -2341,7 +2308,7 @@ Domain semantics = **ontology** in the Semantic Web terminology.
 Expressed in various formal languages
 - mathematics, in predicate logic
 - software functionality, in UML/OCL
-- dialogue system actions, in SISR 
+- dialogue system actions, in SISR
 - museum object descriptions, in OWL
 
 
@@ -2393,7 +2360,7 @@ The resource defines e.g.
 
 These functions (some of which are structural words) are used.
 
-|| Function                       | example ||
+|| Function                       | example |
 | ``mkCl : NP -> V2 -> NP -> Cl`` | //John loves Mary//
 | ``mkNP : Numeral -> CN -> NP``  | //five cars//
 | ``mkNP : Quant -> CN -> NP``    | //that car//
@@ -2410,7 +2377,6 @@ These functions (some of which are structural words) are used.
 ===Concrete syntax for English===
 
 How are messages expressed by using the library?
-#SMALL
 ```
 concrete FaceEng of Face = open SyntaxEng, ParadigmsEng in {
 lincat
@@ -2433,13 +2399,11 @@ oper
   friend_N = mkN "friend" ;
 }
 ```
-#NORMAL
 
 
 ===Concrete syntax for Finnish===
 
 How are messages expressed by using the library?
-#SMALL
 ```
 concrete FaceFin of Face = open SyntaxFin, ParadigmsFin in {
 lincat
@@ -2457,12 +2421,11 @@ lin
   Two = n2_Numeral ;
   Hundred = n100_Numeral ;
 oper
-  like_V2 = mkV2 "pitää" elative ;
+  like_V2 = mkV2 "pitÃ¤Ã¤" elative ;
   invitation_N = mkN "kutsu" ;
-  friend_N = mkN "ystävä" ;
+  friend_N = mkN "ystÃ¤vÃ¤" ;
 }
 ```
-#NORMAL
 
 
 
@@ -2486,7 +2449,7 @@ Here, ``Syntax`` and ``LexFace`` are interfaces.
 
 ===The domain lexicon interface===
 
-``Syntax`` is the Resource Grammar interface, and gives 
+``Syntax`` is the Resource Grammar interface, and gives
 - combination rules
 - structural words
 
@@ -2498,14 +2461,13 @@ interface LexFace = open Syntax in {
 oper
   like_V2 : V2 ;
   invitation_N : N ;
-  friend_N : N ; 
+  friend_N : N ;
 }
 ```
 
 
 ===Concrete syntax functor "FaceI"===
 
-#SMALL
 ```
 incomplete concrete FaceI of Face = open Syntax, LexFace in {
 
@@ -2525,7 +2487,6 @@ lin
   Hundred = n100_Numeral ;
 }
 ```
-#NORMAL
 
 
 
@@ -2549,7 +2510,7 @@ Instantiate the functor ``FaceI`` by giving instances to its interfaces
 --# -path=.:present
 
 concrete FaceEng of Face = FaceI with
-  (Syntax = SyntaxEng), 
+  (Syntax = SyntaxEng),
   (LexFace = LexFaceEng) ;
 ```
 Also notice the domain search path.
@@ -2564,9 +2525,9 @@ Also notice the domain search path.
 ```
 instance LexFaceFin of LexFace = open SyntaxFin, ParadigmsFin in {
 oper
-  like_V2 = mkV2 (mkV "pitää") elative ;
+  like_V2 = mkV2 (mkV "pitÃ¤Ã¤") elative ;
   invitation_N = mkN "kutsu" ;
-  friend_N = mkN "ystävä" ;
+  friend_N = mkN "ystÃ¤vÃ¤" ;
 }
 ```
 2. Functor instantiation: mechanically change ``Eng`` to ``Fin``
@@ -2574,7 +2535,7 @@ oper
 --# -path=.:present
 
 concrete FaceFin of Face = FaceI with
-  (Syntax = SyntaxFin), 
+  (Syntax = SyntaxFin),
   (LexFace = LexFaceFin) ;
 ```
 
@@ -2596,11 +2557,9 @@ concrete FaceFin of Face = FaceI with
 
 ===Module dependency graph===
 
-#FACEMOD
+[facemod.jpg]
 
-#TINY
 //red = to do, orange = to do (trivial), blue = to do (once), green = library//
-#NORMAL
 
 
 
@@ -2618,9 +2577,9 @@ oper
 2. Functor instantiation: **restricted inheritance**, excluding ``Like``
 ```
 concrete FaceIta of Face = FaceI - [Like] with
-  (Syntax = SyntaxIta), 
+  (Syntax = SyntaxIta),
   (LexFace = LexFaceIta) ** open SyntaxIta in {
-lin Like p o = 
+lin Like p o =
   mkCl (mkNP this_Quant o) like_V2 p ;
 }
 ```
@@ -2633,13 +2592,13 @@ This can be expressed by the **variant** operator ``|``.
 ```
 fun BuyTicket : City -> City -> Request
 
-lin BuyTicket x y = 
-  (("I want" ++ ((("to buy" | []) ++ ("a ticket")) | "to go")) 
-   | 
+lin BuyTicket x y =
+  (("I want" ++ ((("to buy" | []) ++ ("a ticket")) | "to go"))
+   |
   (("can you" | [] ) ++ "give me" ++ "a ticket")
    |
   []) ++
-  "from" ++ x ++ "to" ++y 
+  "from" ++ x ++ "to" ++y
 ```
 The variants can of course be resource grammar expressions as well.
 
@@ -2665,7 +2624,7 @@ Main division:
 
 ===Categories of complex phrases===
 
-|| Category | Explanation             | Example  ||
+|| Category | Explanation             | Example  |
 | ``Text``  | sequence of utterances  | //Does John walk? Yes.// |
 | ``Utt``   | utterance               | //does John walk// |
 | ``Imp``   | imperative              | //don't walk// |
@@ -2682,7 +2641,7 @@ Main division:
 
 ===Lexical categories for building predicates===
 
-|| Cat    | Explanation         | Compl          | Example  ||
+|| Cat    | Explanation         | Compl          | Example  |
 | ``A``   | one-place adjective | -              | //smart// |
 | ``A2``  | two-place adjective | ``NP``         | //married// (//to her//) |
 | ``Adv`` | adverb              | -              | //here// |
@@ -2698,7 +2657,7 @@ Main division:
 
 ===Functions for building predication clauses===
 
-|| Fun  | Type  | Example  ||
+|| Fun  | Type  | Example  |
 | ``mkCl`` | ``NP -> V -> Cl`` | //John walks// |
 | ``mkCl`` | ``NP -> V2 -> NP -> Cl`` | //John loves her// |
 | ``mkCl`` | ``NP -> V3 -> NP -> NP -> Cl`` | //John sends it to her// |
@@ -2716,7 +2675,7 @@ Main division:
 
 ===Noun phrases and common nouns===
 
-|| Fun     | Type                    | Example      ||
+|| Fun     | Type                    | Example      |
 | ``mkNP`` | ``Quant -> CN -> NP``   | //this man//  |
 | ``mkNP`` | ``Numeral -> CN -> NP`` | //five men//  |
 | ``mkNP`` | ``PN -> NP``            | //John//      |
@@ -2732,7 +2691,7 @@ Main division:
 
 ===Questions and interrogatives===
 
-|| Fun      | Type                      | Example  ||
+|| Fun      | Type                      | Example  |
 | ``mkQCl`` | ``Cl -> QCl``             | //does John walk// |
 | ``mkQCl`` | ``IP -> V -> QCl``        | //who walks//     |
 | ``mkQCl`` | ``IP -> V2 -> NP -> QCl`` | //who loves her// |
@@ -2749,24 +2708,24 @@ Main division:
 
 ===Sentence formation, tense, and polarity===
 
-|| Fun  | Type  | Example  ||
+|| Fun  | Type  | Example  |
 | ``mkS`` | ``Cl -> S`` | //he walks// |
 | ``mkS`` | ``(Tense)->(Ant)->(Pol)->Cl -> S`` | //he wouldn't have walked// |
 | ``mkQS`` | ``QCl -> QS`` | //does he walk// |
 | ``mkQS`` | ``(Tense)->(Ant)->(Pol)->QCl -> QS`` | //wouldn't he have walked// |
 
-|| Function  | Type  | Example  ||
+|| Function  | Type  | Example  |
 | ``conditionalTense`` | ``Tense`` | (//he would walk//) |
 | ``futureTense`` | ``Tense`` | (//he will walk//) |
 | ``pastTense`` | ``Tense`` | (//he walked//) |
-| ``presentTense`` | ``Tense`` | (//he walks//) [default] 
+| ``presentTense`` | ``Tense`` | (//he walks//) [default]
 | ``anteriorAnt`` | ``Ant`` | (//he has walked//) |
 | ``negativePol`` | ``Pol`` | (//he doesn't walk//) |
 
 
 ===Utterances and imperatives===
 
-|| Fun      | Type            | Example  ||
+|| Fun      | Type            | Example  |
 | ``mkUtt`` | ``Cl -> Utt``   | //he walks// |
 | ``mkUtt`` | ``S -> Utt``    | //he didn't walk// |
 | ``mkUtt`` | ``QS -> Utt``   | //who didn't walk// |
@@ -2792,23 +2751,22 @@ Coordination:  //John and Mary are English or American//
 
 ==Exercises==
 
-1. Compile and make available the resource grammar library, latest version. 
+1. Compile and make available the resource grammar library, latest version.
 Compilation is by ``make`` in ``GF/lib/src``. Make it available by setting
 ``GF_LIB_PATH`` to ``GF/lib``.
 
-2. Compile and test the grammars ``face/Face``//L// (available in course 
+2. Compile and test the grammars ``face/Face``//L// (available in course
 source files).
 
 3. Write a concrete syntax of ``Face`` for some other resource language by
 adding a domain lexicon and a functor instantiation.
 
 4. Add functions to ``Face`` and write their concrete syntax for at least
-some language. 
- 
+some language.
+
 5. Design your own domain grammar and implement it for some languages.
 
 
-#NEW
 
 =Developing a GF Resource Grammar=
 
@@ -2827,19 +2785,16 @@ The Assignment
 
 ==The principal module structure==
 
-#Syntax
+[syntax.jpg]
 
-#SMALL
 //solid = API, dashed = internal, ellipse = abstract+concrete, rectangle = resource/instance, diamond = interface, green = given, blue = mechanical, red = to do//
-#NORMAL
 
 
 ===Division of labour===
 
-#SMALL
-Written by the resource grammarian: 
-- concrete of the row from ``Structural`` to ``Verb`` 
-- concrete of ``Cat`` and ``Lexicon`` 
+Written by the resource grammarian:
+- concrete of the row from ``Structural`` to ``Verb``
+- concrete of ``Cat`` and ``Lexicon``
 - ``Paradigms``
 - abstract and concrete of ``Extra``, ``Irreg``
 
@@ -2848,9 +2803,8 @@ Already given or derived mechanically:
 - all abstract modules except ``Extra``, ``Irreg``
 - concrete of ``Common``, ``Grammar``, ``Lang``, ``All``
 - ``Constructors``, ``Syntax``, ``Try``
-  
 
-#NORMAL
+
 
 
 ===Roles of modules: Library API===
@@ -2885,20 +2839,20 @@ Already given or derived mechanically:
 
 
 ===Roles of modules: phrase categories===
- 
-|| module         | scope                         | value categories ||
-| ``Adjective``   | adjectives                    | ``AP``             
-| ``Adverb``      | adverbial phrases             | ``AdN, Adv``             
+
+|| module         | scope                         | value categories |
+| ``Adjective``   | adjectives                    | ``AP``
+| ``Adverb``      | adverbial phrases             | ``AdN, Adv``
 | ``Conjunction`` | coordination                  | ``Adv, AP, NP, RS, S``
 | ``Idiom``       | idiomatic expressions         | ``Cl, QCl, VP, Utt``
-| ``Noun``        | noun phrases and nouns  | ``Card, CN, Det, NP, Num, Ord``  
+| ``Noun``        | noun phrases and nouns  | ``Card, CN, Det, NP, Num, Ord``
 | ``Numeral``     | cardinals and ordinals        | ``Digit, Numeral``
 | ``Phrase``      | suprasentential phrases       | ``PConj, Phr, Utt, Voc``
 | ``Question``    | questions and interrogatives  | ``IAdv, IComp, IDet, IP, QCl``
-| ``Relative``    | relat. clauses and pronouns | ``RCl, RP``             
+| ``Relative``    | relat. clauses and pronouns | ``RCl, RP``
 | ``Sentence``    | clauses and sentences   | ``Cl, Imp, QS, RS, S, SC, SSlash``
-| ``Text``        | many-phrase texts             | ``Text``             
-| ``Verb``        | verb phrases                  | ``Comp, VP, VPSlash``             
+| ``Text``        | many-phrase texts             | ``Text``
+| ``Verb``        | verb phrases                  | ``Comp, VP, VPSlash``
 
 
 ===Type discipline and consistency===
@@ -2925,7 +2879,6 @@ This works even for mutual dependencies of categories:
 
 ===Auxiliary modules===
 
-#SMALL
 ``resource`` modules provided by the library:
 - ``Prelude`` and ``Predef``: string operations, booleans
 - ``Coordination``: generic formation of list conjunctions
@@ -2937,7 +2890,6 @@ This works even for mutual dependencies of categories:
 - ``Morpho``, ``Phono``,...: possible division of ``Res`` to more modules
 
 
-#NORMAL
 
 
 ===Dependencies===
@@ -2948,12 +2900,12 @@ Most phrase category modules:
 ```
 Conjunction:
 ```
-  concrete ConjunctionGer of Conjunction = CatGer ** 
+  concrete ConjunctionGer of Conjunction = CatGer **
     open Coordination, ResGer, Prelude in ...
 ```
 Lexicon:
 ```
-  concrete LexiconGer of Lexicon = CatGer ** 
+  concrete LexiconGer of Lexicon = CatGer **
     open ParadigmsGer, IrregGer in {
 ```
 
@@ -2974,7 +2926,6 @@ The Golden Rule: //Whenever you find yourself programming by copy and paste, wri
 
 ===Functors in the Resource Grammar Library===
 
-#SMALL
 
 Used in families of languages
 - Romance: Catalan, French, Italian, Spanish
@@ -2988,29 +2939,27 @@ Structure:
 - ``Idiom``, ``Structural``, ``Lexicon``, ``Paradigms`` are ordinary modules
 
 
-#NORMAL
 
 ===Example: DiffRomance===
 
 Words and morphology
 are of course different, in ways we haven't tried to formalize.
 
-In syntax, there are just eight parameters that fundamentally 
+In syntax, there are just eight parameters that fundamentally
 make the difference:
 
-#SMALL
 Prepositions that fuse with the article
 (Fre, Spa //de//, //a//; Ita also //con//, //da//, //in//, //su//).
 ```
   param Prepos ;
 ```
 Which types of verbs exist, in terms of auxiliaries.
-(Fre, Ita //avoir//, //être//, and refl; Spa only //haber// and refl).
+(Fre, Ita //avoir//, //Ãªtre//, and refl; Spa only //haber// and refl).
 ```
   param VType ;
 ```
 Derivatively, if/when the participle agrees to the subject.
-(Fre //elle est partie//, Ita //lei è partita//, Spa not)
+(Fre //elle est partie//, Ita //lei Ã¨ partita//, Spa not)
 ```
   oper partAgr : VType -> VPAgr ;
 ```
@@ -3030,7 +2979,7 @@ if there are any clitics.
 ```
   oper clitInf : Bool -> Str -> Str -> Str ;
 ```
-To render pronominal arguments as clitics and/or ordinary complements. 
+To render pronominal arguments as clitics and/or ordinary complements.
 Returns ``True`` if there are any clitics.
 ```
   oper pronArg : Number -> Person -> CAgr -> CAgr -> Str * Str * Bool ;
@@ -3040,7 +2989,6 @@ To render imperatives (with their clitics etc).
   oper mkImperative : Bool -> Person -> VPC -> {s : Polarity => AAgr => Str} ;
 ```
 
-#NORMAL
 
 
 ===Pros and cons of functors===
@@ -3079,9 +3027,8 @@ Semitic: Arabic, Hebrew, Maltese probably independent
 
 ==Effort statistics, completed languages==
 
-#SMALL
 
-|| language |  syntax |  morpho |  lex |  total |  months |  started ||
+|| language |  syntax |  morpho |  lex |  total |  months |  started |
 | //common// |  413 |  - |  - |  413 |  2 |  2001
 | //abstract// |  729 |  - |  468 |  1197 |  24 |  2001
 | Bulgarian |  1200 |  2329 |  502 |  4031 |  3 |  2008
@@ -3100,10 +3047,9 @@ Semitic: Arabic, Hebrew, Maltese probably independent
 | Swedish |  280 |  717 |  491 |  1488 |  4 |  2001
 | total |  12545 |  *36700 |  6718 |  *55963 | 103 |  2001
 
-Lines of source code in April 2009, rough estimates of person months. 
+Lines of source code in April 2009, rough estimates of person months.
 * = generated code.
 
-#NORMAL
 
 
 ==How to start building a language, e.g. Marathi==
@@ -3126,7 +3072,6 @@ Lines of source code in April 2009, rough estimates of person months.
 
 ===Suggested order for proceeding with a language===
 
-#SMALL
 
 1. ``ResMar``: parameter types needed for nouns
 
@@ -3148,7 +3093,6 @@ Lines of source code in April 2009, rough estimates of person months.
 
 10. ``SentenceMar``: ``lin PredVP``
 
-#NORMAL
 
 
 ===Character encoding for non-ASCII languages===
@@ -3159,13 +3103,13 @@ Generated files (``.gfo``, ``.pgf``): UTF-8
 
 Source files: whatever you want, but use a flag if not isolatin-1.
 
-UTF-8 and cp1251 (Cyrillic) are possible in strings, but not in identifiers. 
+UTF-8 and cp1251 (Cyrillic) are possible in strings, but not in identifiers.
 The module must contain
 ```
   flags coding = utf8 ;  -- OR coding = cp1251
 ```
-**Transliterations** are available for many alphabets 
-(see ``help unicode_table``). 
+**Transliterations** are available for many alphabets
+(see ``help unicode_table``).
 
 
 
@@ -3198,7 +3142,6 @@ Use the GF command ``gr -cat=C | l -table`` to test category C
 
 ===Regression testing with a treebank===
 
-#SMALL
 
 Build and maintain a **treebank**: a set of trees with their linearizations:
 
@@ -3208,7 +3151,7 @@ Build and maintain a **treebank**: a set of trees with their linearizations:
 ```
  > i english/LangEng.gf
  > i marathi/LangMar.gf
- > rf -lines -tree -file=test.trees | 
+ > rf -lines -tree -file=test.trees |
      l -all -treebank | wf -file=test.treebank
 ```
 3. Create a **gold standard** ``gold.treebank`` from ``test.treebank`` by manually
@@ -3219,12 +3162,10 @@ correcting the Marathi linearizations.
 5. Rerun (2.) and (4.) after every change in concrete syntax; extend the tree set
 and the gold standard after every new implemented function.
 
-#NORMAL
 
 
 ===Sources===
 
-#SMALL
 A //good// grammar book
 - lots of inflection paradigms
 - reasonable chapter on syntax
@@ -3241,7 +3182,6 @@ Wikipedia article on the language
 Google as "gold standard": is it //rucola// or //ruccola//?
 
 Google translation for suggestions (can't be trusted, though!)
-#NORMAL
 
 
 ===Compiling the library===
@@ -3267,5 +3207,3 @@ Use ``runghc Make lang api langs=Mar`` to compile just the language ``Mar``.
 4. Send us: your source files and a treebank of 100 trees with linearizations
 in English and your target language. These linearizations should be correct,
 and directly generated from your grammar implementation.
-
-
