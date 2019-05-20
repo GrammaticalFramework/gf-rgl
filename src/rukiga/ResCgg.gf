@@ -1223,10 +1223,10 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
                         };
             VFPresPart => table{
                           PreVerb => [];
-                          PriNegM => "ti"; 
+                          PriNegM => []; 
                           --ObjRel => [];
                           --SubjMarker =[]; 
-                          SecNegM => []; 
+                          SecNegM => "ta"; 
                           TAMarker => "riku"; 
                           PersistiveMarker => [];
                           --DObjM => [];
