@@ -108,6 +108,20 @@ lin
 -- *Note* the set is not complete and lacks e.g. verbs with more than 2 places.
 
     --SlashVP   : NP -> VPSlash -> ClSlash ;      -- (whom) he sees
+    SlashVP np vpslash ={
+        s = np.s ! Nom;
+        subjAgr     = np.agr;
+        root        = vpslash.s;
+        pres        = vpslash.pres;
+        perf        = vpslash.perf;
+        morphs      = vpslash.morphs;
+        ap          = vpslash.ap;
+        isRegular   = vpslash.isRegular;
+        adv         = vpslash.adv;
+        containsAdv = vpslash.containsAdv;
+        adV         = vpslash.adV;
+        containsAdV = vpslash.containsAdV
+      };
     --SlashVP np vpslash =
 
     --AdvSlash  : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today

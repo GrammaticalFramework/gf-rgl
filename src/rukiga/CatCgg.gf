@@ -56,7 +56,15 @@ lincat
         s : Str ; --subject
         subjAgr : Res.Agreement;
         root : Str;
-        morphs : Res.VFormMini => Res.VerbMorphPos =>Str --; compl : Str -- after verb: complement, adverbs                              
+        pres: Str;
+        perf:Str;
+        morphs : Res.VFormMini => Res.VerbMorphPos =>Str; --; compl : Str -- after verb: complement, adverbs                              
+        ap:Str;
+        isRegular:Bool;
+        adv:Str;
+        containsAdv:Bool;
+        adV:Str;
+        containsAdV:Bool
         } ;
   Numeral = {s : Res.CardOrd=>Res.Agreement=> Str ; g : Res.Gender;  n: Res.Number} ;
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
