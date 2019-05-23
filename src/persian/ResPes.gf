@@ -31,7 +31,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
     BaseNP : Type = {
       a : Agr ;
       isNeg : Bool ;  -- negative determiner forces negation in Cl and S
-      hasAdj : Bool ; -- to get the right form when NP is a predicate
+      takesYeAsComp : Bool ; -- to get the right form when NP is a predicate
       animacy : Animacy ; -- to get the right pronoun in FunRP
       isClitic : Bool ; -- if isPron, becomes clitic as a direct object
       clitic : Str ;
@@ -44,7 +44,7 @@ resource ResPes = MorphoPes ** open Prelude,Predef in {
       s = \\_ => [] ;
       a = defaultAgr ;
       isNeg = False ;
-      hasAdj = False ;
+      takesYeAsComp = False ;
       animacy = Inanimate ;
       isClitic = False ;
       clitic = [] ;
@@ -207,7 +207,10 @@ oper
         case <np.isClitic,vp.c2.isPrep> of {
           <True,False> => [] ; -- clitic is attached to the verb or prefix
           <True,True> => appCompVP vp.c2 (\\_ => BIND ++ np.clitic) ! wo ++ vp.comp ! a ! wo ;
-          _ => appCompVP vp.c2 np.s ! wo ++ vp.comp ! a ! wo
+           _ => let nps : Mod=>Str = np.s ;
+          --    case np.takesYeAsComp of { True => replaceBare Clitic np.s ; -- TODO: later make a better rule, related to definiteness, when NP takes a clitic.
+          --                               _    => np.s } ;
+               in appCompVP vp.c2 nps ! wo ++ vp.comp ! a ! wo
 
         } ;
     s = case <np.isClitic,vp.c2.isPrep> of {

@@ -73,7 +73,7 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
       } ;
 
     CompNP np = {
-      s = \\a => np.s ! case np.hasAdj of {
+      s = \\a => np.s ! case np.takesYeAsComp of {
                           False => Bare ;
                           True  => Clitic }
       } ;
