@@ -135,7 +135,8 @@ oper
 --------------------
   BaseQuant : Type = {
     mod : Mod ;
-    isNeg : Bool
+    isNeg : Bool ;
+    isDef : Bool 
   } ;
 
   Determiner : Type = BaseQuant ** {
@@ -146,13 +147,13 @@ oper
   } ;
 
   Quant : Type = BaseQuant ** {
-    s : Number => CmpdStatus => Str ;
-    isDef : Bool } ;
+    s : Number => CmpdStatus => Str} ;
 
   makeDet : Str -> Number -> (isNum, isNeg : Bool) -> Determiner = \str,n,isNum,isNeg -> {
     s,sp = str;
-    isNum = isNum;
+    isNum = isNum ;
     isNeg = isNeg ;
+    isDef = True ;
     mod = Bare ;
     n = n
   };

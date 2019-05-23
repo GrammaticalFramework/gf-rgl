@@ -19,6 +19,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
               Clitic => detStr ++ cn.s ! num ! Clitic ++ cn.compl ! det.n ; -- In RGL this is only for no_Quant. If other determiners with different word order take Clitic, will change. /IL
               x      => cn.s ! num ! x ++ detStr ++ cn.compl ! det.n } ; -- Ezafe or Poss: comes after noun, Mod table is overwritten to the given form
       a = agrP3 det.n ;
+      takesYeAsComp = False ; -- TODO: some rule with det.isDef and cn.hasAdj
       isNeg = det.isNeg ; -- affects polarity in Cl: "*nothing is real" -> "nothing isn't real"
       } ;
 
@@ -111,6 +112,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     MassNP cn = emptyNP ** cn ** {
       s = \\m => cn.s ! Sg ! m ++ cn.compl ! Sg ;
       a = agrP3 Sg ;
+      takesYeAsComp = cn.hasAdj ;
       } ;
 
     UseN,
