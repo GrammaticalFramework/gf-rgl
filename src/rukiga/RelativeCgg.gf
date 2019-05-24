@@ -24,15 +24,17 @@ lin
 	-- The simplest way to form a relative clause is from a clause by
 	-- a pronoun similar to "such that".
 	RelCl cl = { 
-      s = "kugira ngu" ++ cl.s ; 
-      subjAgr = AgrYes cl.subjAgr;
+      s = "kugira ngu" ++ cl.s ;
+      agr = AgrYes cl.subjAgr;
       rp = mkRPs;
-      rObjVariant2 = mkRObjV2;
+      --rObjVariant2 = mkRObjV2;
+      pres =cl.pres;
+      perf =cl.perf;
       root = cl.root;
       morphs = cl.morphs;
       compl =cl.compl;
       isCompApStem = False;
-      agr = AgrNo                              
+      whichRel = Such_That;                             
       }; -- such that John loves her. why does it need any case?
 
 	-- The more proper ways are from a verb phrase 
@@ -43,18 +45,44 @@ lin
 	RelVP rp vp =
 	{ 
       s = []; 
-      subjAgr = AgrNo; 
+      agr = AgrNo; 
       rp = rp.s;
-      rObjVariant2 = rp.rObjVariant2;
+      --rObjVariant2 = rp.rObjVariant2;
+      pres =vp.pres;
+      perf =vp.perf;
       root = vp.s;
       morphs = vp.morphs;
       compl =vp.comp;
       isCompApStem = vp.isCompApStem;
-      agr = vp.agr                            
+      whichRel = RF RSubj;                           
       };
 	
       --RelSlash : RP -> ClSlash -> RCl ; -- whom John loves
-
+      RelSlash rp clSlash =
+      	let comp = case clSlash.complType of{
+      					Ap 			  => clSlash.ap;
+      					Adverbial 	  => clSlash.adv;
+      					AdverbVerbial => clSlash.adV;
+      					_		  => []
+      				};
+      		isCompApStem = case clSlash.complType of{
+	      					    Adverbial => True;
+	      					    _		  => False
+      				};
+      	in 
+	      	{ 
+		      s = clSlash.s; 
+		      agr = AgrYes clSlash.subjAgr; 
+		      rp = rp.s;
+		      --rObjVariant2 = rp.rObjVariant2;
+		      pres   = clSlash.pres;
+	          perf   = clSlash.perf;
+		      root   = clSlash.root;
+		      morphs = clSlash.morphs;
+		      compl  = comp;
+		      isCompApStem = isCompApStem;
+		      whichRel = RF RObj;                           
+	      };
 
 	{-
 --1 Relative clauses and pronouns

@@ -60,7 +60,7 @@ lin
     };        -- big house
 
     --RelCN   : CN -> RS  -> CN ;   -- house that John bought
-    RelCN cn rs = {s=\\n,ns => cn.s !n ! ns ++ rs.s; gender = cn.gender };
+    RelCN cn rs = {s=\\n,ns => cn.s !n ! ns ++ rs.s! (RF RObj); gender = cn.gender };
 
     {-
       A predeterminer is any word that modifies a noun Phrase.
@@ -88,7 +88,7 @@ lin
       {-What the hell does this mean?-}
       ExtAdvNP np adv = {s= \\c => np.s ! c  ++ embedInCommas adv.s; agr = np.agr}; -- how do I do the adverbial clause?
   --    Determiner: Type = {s:Str; ntype:NounType; num:Number; pos:Position}; -- type for Determier necessary for catCgg.gf
-     RelNP np rs ={s = \\c => np.s ! c ++ rs.s; agr =np.agr};   
+     RelNP np rs ={s = \\c => np.s ! c ++ rs.s! (RF RSubj); agr =np.agr};   
         -- The determiner has a fine-grained structure, in which a 'nucleus'
   -- quantifier and an optional numeral can be discerned.
      --DetQuant    : Quant -> Num -> Det ;  -- these five

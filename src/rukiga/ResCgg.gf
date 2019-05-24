@@ -27,6 +27,8 @@ param
 					  KA_ZERO |ZERO_BAA | N_ZERO | KI_ZERO | Null;
 	Case = Acc | Nom |Gen; -- we need to include Gen because we shall need it with Gen Pronouns
 	RCase = RSubj | RObj;
+  RForm = RF RCase | Such_That;
+  ComplType = Nn |Ap | Adverbial |AdverbialVerb | Empty; 
   	PersonalPronounType = SubjM | Obj  | RelSubj | RelObj |
                           AdjPron2 | -- aAdjectival Prefixes with initial vowel with the semantics of "the" e.g. -- omuntu o-mu-rungi 
                           AdjPron  | -- without initial vowel i.e. -- omuntu mu-rungi           

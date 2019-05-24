@@ -225,7 +225,7 @@ lin
   ComplVV vv vp = let vpPres = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres;
                   in case vv.whenUsed of {
                           VVPerf => {
-                                        s= vv.s ++ BIND ++ vv.perf ++ vpPres; 
+                                        s= vv.s ++ BIND ++ vv.perf; 
                                         pres =vv.pres; perf=vv.perf; 
                                         morphs = vv.morphs; 
                                         comp=vp.comp ;

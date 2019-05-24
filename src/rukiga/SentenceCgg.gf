@@ -73,7 +73,153 @@ lin
   QuestCl qcl = qcl;  --: Cl -> QCl ; -- does John (not) walk
 
   --UseRCl   : Temp -> Pol -> RCl -> RS ;  -- that had not slept
-  --UseRCl temp pol rcl =
+  UseRCl temp pol rcl = let 
+                            subj = rcl.s; -- this could be empty
+                            subjClitic  = case rcl.agr of {
+                                                AgrYes a => mkSubjClitic a;
+                                                _        => mkSubjClitic (AgP3 Sg MU_BA)
+                                              };
+                            rsubjClitic = case rcl.agr of {
+                                              AgrYes a => mkRPs!RSubj! a;
+                                              _        => mkRPs!RSubj! AgP3 Sg MU_BA
+                                      };
+                            robjClitic = case rcl.agr of {
+                                              AgrYes a => mkRPs!RObj! a;
+                                              _        => mkRPs!RObj! AgP3 Sg MU_BA
+                                      };
+                            presSimul =  rcl.morphs ! VFPres; --this is not delivering the string
+                            presAnt = rcl.morphs ! VFPastPart; --this is not delivering the string
+                            root = rcl.root;
+                            presRestOfVerb = rcl.pres;
+                            pastRestOfVerb = rcl.perf; --morphs ! VFPastPart ! RestOfVerb;
+
+                            compl = rcl.compl
+                      in {- will these strings I am introducing allow back translation? Yes, it simply depends on functions-}
+                        case <temp.t,temp.a, pol.p> of {
+                            <Pres,Simul, Pos> => {s = table { 
+                                                      RF RSubj  => subj ++ rsubjClitic ++  root ++ Predef.BIND ++ presRestOfVerb ++ compl;
+                                                      RF RObj   => subj ++ robjClitic ++  root ++ Predef.BIND ++ presRestOfVerb ++ compl;
+                                                      Such_That => "kugira ngu" ++ subjClitic ++  root ++ Predef.BIND ++ presRestOfVerb ++ compl
+                                                    }
+                                                  };
+                            {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
+                            <Pres,Simul, Neg> => {
+                                                  s = table { 
+                                                              RF RSubj  => subj ++ "ti" ++ Predef.BIND ++ rsubjClitic ++ root ++ presRestOfVerb ++ compl;
+                                                              RF RObj   => subj ++ "ti" ++ Predef.BIND ++ robjClitic ++ root ++ presRestOfVerb ++ compl;
+                                                              Such_That => "kugira ngu" ++ subj ++ "ti" ++ Predef.BIND ++ subjClitic ++ root ++ presRestOfVerb ++ compl
+                                                            }
+                                                          };
+                            <Pres,Anter, Pos> => {
+                                                    s = table{
+                                                            RF RSubj => subj ++ rsubjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            RF RObj  => subj ++ robjClitic  ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            Such_That => "kugira ngu" ++ subj ++ subjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                            }
+                                                          }; 
+                            <Pres,Anter, Neg> =>{
+                                                  s = table {
+                                                            RF RSubj  => subj ++ "ti" ++ Predef.BIND ++ rsubjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            RF RObj   => subj ++ "ti" ++ Predef.BIND ++ robjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            Such_That => "kugira ngu" ++  "ti" ++ Predef.BIND ++ rsubjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                          }
+                                                        };
+
+                            <Past,Simul, Pos> => {
+                                                    s = table { 
+                                                                RF RSubj  => subj ++ rsubjClitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                                RF RObj   => subj ++ robjClitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                                Such_That => "kugira ngu" ++ subjClitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                              }
+                                                            };
+                            {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
+                            <Past,Simul, Neg> => {
+                                                    s = table {
+                                                                RF RSubj  => subj ++ "ti" ++ Predef.BIND ++ rsubjClitic ++root ++ pastRestOfVerb ++ compl;
+                                                                RF RObj   => subj ++ "ti" ++ Predef.BIND ++ robjClitic ++root ++ pastRestOfVerb ++ compl;
+                                                                Such_That => "kugira ngu" ++ "ti" ++ Predef.BIND ++ subjClitic ++ root ++ pastRestOfVerb ++ compl
+                                                              }
+                                                            };
+                            <Past,Anter, Pos> => {
+                                                  s = table {
+                                                      RF RSubj  => subj ++ rsubjClitic ++ "bire" ++ rsubjClitic ++ rcl.morphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                      RF RObj   => subj ++ robjClitic ++ "bire" ++ subjClitic ++ rcl.morphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                      Such_That => "kugira ngu" ++ "bire" ++ subjClitic ++ rcl.morphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                      }
+                                                    };    
+                            <Past,Anter, Neg> =>{
+                                                  s = table  {
+                                                        RF RSubj  => subj ++  rsubjClitic ++ "bire" ++ subjClitic ++ "ta" ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                        RF RObj   => subj ++  robjClitic ++ "bire" ++ subjClitic ++ "ta" ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                        Such_That => "kugira ngu" ++ "bire" ++ subjClitic ++ "ta" ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                      }
+                                                    };
+                            
+                            <Fut,Simul, Pos> => {
+                                                    s = table {
+                                                        RF RSubj  => subj ++ "ni" ++ Predef.BIND ++ rsubjClitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
+                                                                      root ++ Predef.BIND ++ presRestOfVerb ++ compl;
+                                                        RF RObj   => subj ++ "ni" ++ Predef.BIND ++ robjClitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
+                                                                      root ++ Predef.BIND ++ presRestOfVerb ++ compl;
+                                                        Such_That => "kugira ngu" ++ "ni" ++ Predef.BIND ++ robjClitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
+                                                                      root ++ Predef.BIND ++ presRestOfVerb ++ compl
+                                                  }
+
+                                                };
+                            
+                            {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
+                            <Fut,Simul, Neg> => {
+                                                    s = table {
+                                                        RF RSubj  =>subj ++ "ti" ++ Predef.BIND ++ rsubjClitic ++ "kuza ku" ++ Predef.BIND ++ root ++ presRestOfVerb ++ compl;
+                                                        RF RObj   =>subj ++ "ti" ++ Predef.BIND ++ robjClitic ++ "kuza ku" ++ Predef.BIND ++ root ++ presRestOfVerb ++ compl;
+                                                        Such_That => "Kugira ngu" ++ "ti" ++ Predef.BIND ++ subjClitic ++ "kuza ku" ++ Predef.BIND ++ root ++ presRestOfVerb ++ compl
+                                                  }
+
+                                                };
+                            <Fut,Anter, Pos> => {
+                                                    s = table {
+                                                        RF RSubj  => subj ++ "ni" ++ Predef.BIND ++ rsubjClitic ++ "za kuba" ++ Predef.BIND ++  --choice of za over ija
+                                    root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                        RF RObj   => subj ++ "ni" ++ Predef.BIND ++ robjClitic ++ "za kuba" ++ Predef.BIND ++  --choice of za over ija
+                                    root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                        Such_That => "kugira ngu" ++ "ni" ++ Predef.BIND ++ robjClitic ++ "za kuba" ++ Predef.BIND ++  --choice of za over ija
+                                    root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                  }
+
+                                                };    
+                            <Fut,Anter, Neg> => {
+                                                    s = table {
+                                                        RF RSubj  => subj ++ "ni" ++ Predef.BIND ++ rsubjClitic ++ "za kuba" ++ subjClitic ++ "taka" ++ Predef.BIND ++ 
+                                      root ++ pastRestOfVerb ++ compl;
+                                                        RF RObj   => subj ++ "ni" ++ Predef.BIND ++ robjClitic ++ "za kuba" ++ subjClitic ++ "taka" ++ Predef.BIND ++ 
+                                      root ++ pastRestOfVerb ++ compl;
+                                                        Such_That => "kugira ngu" ++ "ni" ++ Predef.BIND ++ subjClitic ++ "za kuba" ++ subjClitic ++ "taka" ++ Predef.BIND ++ 
+                                      root ++ pastRestOfVerb ++ compl
+                                                  }
+
+                                                };
+
+                            <Cond,Simul, Pos> => {
+                                                    s = table {
+                                                        RF RSubj  => subj ++ subjClitic ++ "kaa" ++Predef.BIND ++ root ++ Predef.BIND ++ presRestOfVerb ++ compl;
+                                                        RF RObj   => subj ++ subjClitic ++ "kaa" ++Predef.BIND ++ root ++ Predef.BIND ++ presRestOfVerb ++ compl;
+                                                        Such_That => "kugira ngu" ++ subjClitic ++ "kaa" ++Predef.BIND ++ root ++ Predef.BIND ++ presRestOfVerb ++ compl
+                                                  }
+
+                                                };
+                            {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
+                            <Cond,Simul, Neg> => { s =  \\_ => subj ++ "ti" ++ Predef.BIND ++ subjClitic ++ "kaa" ++ Predef.BIND ++ root ++ presRestOfVerb ++ compl
+                                                        --RF RSubj  => subj ++ "ti" ++ Predef.BIND ++ subjClitic ++ "kaa" ++ Predef.BIND ++ root ++ presRestOfVerb ++ compl;
+                                                        --RF RObj   =>
+                                                        --Such_That =>
+
+                                                };
+                            <Cond,Anter, Pos> => { s =  \\_ => subj ++ subjClitic ++ "kaa" ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};
+      
+                            <Cond,Anter, Neg> => {s = \\_ => subj ++ "ti" ++ Predef.BIND ++ subjClitic ++  "kaa" ++Predef.BIND 
+                                         ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}  --: Temp -> Pol -> QCl  -> QS ; -- has John walked
+                      };
+
   
   PredVP np vp = case vp.isCompApStem of{
               False    => {
@@ -147,20 +293,27 @@ lin
 -- *Note* the set is not complete and lacks e.g. verbs with more than 2 places.
 
     --SlashVP   : NP -> VPSlash -> ClSlash ;      -- (whom) he sees
-    SlashVP np vpslash ={
-        s = np.s ! Nom;
-        subjAgr     = np.agr;
-        root        = vpslash.s;
-        pres        = vpslash.pres;
-        perf        = vpslash.perf;
-        morphs      = vpslash.morphs;
-        ap          = vpslash.ap;
-        isRegular   = vpslash.isRegular;
-        adv         = vpslash.adv;
-        containsAdv = vpslash.containsAdv;
-        adV         = vpslash.adV;
-        containsAdV = vpslash.containsAdV
-      };
+    SlashVP np vpslash =let complTp = case <vpslash.containsAdv, vpslash.containsAdV> of {
+                                              <True, False> => Adverbial;
+                                              <False, True> => AdverbialVerb;
+                                              <False, False> => Ap;
+                                              <True, True>   => Empty
+                                            };
+                        in 
+                            {
+                              s = np.s ! Nom;
+                              subjAgr     = np.agr;
+                              root        = vpslash.s;
+                              pres        = vpslash.pres;
+                              perf        = vpslash.perf;
+                              morphs      = vpslash.morphs;
+                              ap          = vpslash.ap;
+                              isRegular   = vpslash.isRegular;
+                              adv         = vpslash.adv;
+                              
+                              adV         = vpslash.adV;
+                              complType   = complTp
+                            };
 
     --AdvSlash  : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
     --SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks 

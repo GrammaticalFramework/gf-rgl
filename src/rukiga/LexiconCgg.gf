@@ -120,7 +120,7 @@ lin
   run_V = mkV "íruk"; -- : V ;
   sleep_V = mkV "nyama" ; --: V ;--Kugwejegyera, kubyama
   swim_V = mkV "og"; --: V ;
-  travel_V = mkV "gyend";--: V ;
+  travel_V = mkV "gyen" "da" "zire" ;--: V ;
   walk_V = mkV "ribá" "ta" "si"; --: V ; or kuribata Runynakore it is different
 
   -- A verb whose complement is a sentence

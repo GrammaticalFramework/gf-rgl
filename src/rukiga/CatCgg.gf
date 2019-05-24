@@ -15,7 +15,7 @@ lincat
   S = SS ;                        -- declarative sentence                e.g. "she lived here"
   Cl  = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
   QCl = Res.Clause ** {posibleSubAgr: Res.Agreement =>Str} ; 
-  RS = {s : Str} ; -- relative                            e.g. "in which she lived"
+  RS = {s :Res.RForm => Str} ; -- relative                            e.g. "in which she lived"
   V,VS, VQ, VA = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
   V2,V2Q, V2S = Res.Verb2;
   V2A,V3 = Res.Verb3;    -- three-place verb                    e.g. "show"
@@ -42,13 +42,17 @@ lincat
   RP = {s : Res.RCase => Res.Agreement => Str ; rObjVariant2: Res.Agreement => Str} ;
   RCl ={ 
       s : Str ; --subject
-      rp: Res.RCase => Res.Agreement => Str;
-      rObjVariant2: Res.Agreement => Str;
-      subjAgr : Res.AgrExist; 
+      --subAgr:Res.Agreement;
+      rp: Res.RCase => Res.Agreement => Str; -- could delete this
+      --rObjVariant2: Res.Agreement => Str;
+      agr : Res.AgrExist;
+      pres :Str;
+      perf :Str; 
       root : Str;
       morphs : Res.VFormMini => Res.VerbMorphPos =>Str;
       compl : Str; -- after verb: complement, adverbs
-      agr : Res.AgrExist
+      isCompApStem : Bool;
+      whichRel: Res.RForm
       } ;
   --VPSlash ={s:Str; morphs: VMorphs};  --VPSlash ; -- verb phrase missing complement    e.g. "give to John"
   --ClSlash;-- clause missing NP (S/NP in GPSG)    e.g. "she looks at"
@@ -62,9 +66,8 @@ lincat
         ap:Str;
         isRegular:Bool;
         adv:Str;
-        containsAdv:Bool;
         adV:Str;
-        containsAdV:Bool
+        complType: Res.ComplType;
         } ;
   Numeral = {s : Res.CardOrd=>Res.Agreement=> Str ; g : Res.Gender;  n: Res.Number} ;
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
@@ -81,11 +84,12 @@ lincat
   VV = Res.Verb ** {inf:Str; whenUsed: Res.VVMood}; --inf is the other verb
   AdA = {s:Str; position1:Res.Position1};
 linref
+  
   Cl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres;
   QCl =\qcl -> qcl.s ++ qcl.posibleSubAgr ! (Res.mkAgreement Res.MU_BA Res.P3 Res.Sg) ++ qcl.root ++ BIND ++ qcl.pres;
-  VP =\vp -> vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2 ++ vp.ap;
+  --VP =\vp -> vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2 ++ vp.ap;
   VPSlash =\vpslash -> vpslash.s ++ BIND ++ vpslash.pres;
-
+  
 
 --1 Cat: the Category System
 
