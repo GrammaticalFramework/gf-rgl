@@ -14,7 +14,13 @@ lincat
 
   S = SS ;                        -- declarative sentence                e.g. "she lived here"
   Cl  = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
+  --Questions
   QCl = Res.Clause ** {posibleSubAgr: Res.Agreement =>Str} ; 
+  IComp = {s : Str; other:Str; n : Res.INumber; requiresSubjPrefix: Bool;endOfSentence : Bool} ; 
+  IP   = {s :Str ; other:Str; n : Res.INumber; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str; endOfSentence:Bool}; -- other holds the Idet without a prefix
+  IAdv = {s : Str ; requiresSubjPrefix: Bool; endOfSentence:Bool};
+  IDet = {s : Str ; n : Res.Number; requiresSubjPrefix: Bool};
+  IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};
   RS = {s :Res.RForm => Str} ; -- relative                            e.g. "in which she lived"
   V,VS, VQ, VA = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
   V2,V2Q, V2S = Res.Verb2;
@@ -73,10 +79,7 @@ lincat
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
   Ord  = {s :Res.Agreement=>Str; position1:Res.Position1} ;
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
-  IP   = {s :Str ; other:Str; n : Res.Number; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str; endOfSentence:Bool}; -- other holds the Idet without a prefix
-  IAdv = {s : Str ; requiresSubjPrefix: Bool};
-  IDet = {s : Str ; n : Res.Number; requiresSubjPrefix: Bool};
-  IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};
+  
   DAP = Res.Determiner ;
   N2  = Res.Noun ** {c2 : Res.Agreement =>Str};    -- relational noun                     e.g. "son"   
   Prep = Res.Preposition;  -- preposition, or just case           e.g. "in"
@@ -85,11 +88,11 @@ lincat
   AdA = {s:Str; position1:Res.Position1};
 linref
   
-  Cl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres;
+  Cl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres ++ cl.compl;
   QCl =\qcl -> qcl.s ++ qcl.posibleSubAgr ! (Res.mkAgreement Res.MU_BA Res.P3 Res.Sg) ++ qcl.root ++ BIND ++ qcl.pres;
-  --VP =\vp -> vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2 ++ vp.ap;
+  VP =\vp -> vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2 ++ vp.ap;
   VPSlash =\vpslash -> vpslash.s ++ BIND ++ vpslash.pres;
-  
+
 
 --1 Cat: the Category System
 

@@ -115,7 +115,7 @@ lin
   come_V = mkV "ij";
   go_V = mkV "gyend"; --: V ; -- Many words: kuza, kuraba,kutoora, kugyenda=go away, kushuma=go down
   jump_V = mkV "guruk" ;
-  play_V = mkV "zaan"; --: V ;
+  play_V = mkV "záàn"; --: V ;
   live_V = mkV "tuur" ; --manyF: kutuura i.e. live somewhere, stay = kuráàra
   run_V = mkV "íruk"; -- : V ;
   sleep_V = mkV "nyama" ; --: V ;--Kugwejegyera, kubyama

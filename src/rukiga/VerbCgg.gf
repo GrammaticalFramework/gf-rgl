@@ -23,22 +23,25 @@ lin
 
   --  UseComp  : Comp -> VP ; -- be warm means complement of a copula especially adjectival Phrase
   --AdjectivalPhrase : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
-      UseComp comp = {
-        s = comp.s;  --Assuming there is no AP which is prepositional
-        pres =[]; 
-        perf = [];
-        morphs=\\form,morphs=>[]; 
-        comp = [];
-        comp2 = [];
-        ap = [];
-        isCompApStem = False; 
-        agr = AgrNo;
-        isRegular = False;
-        adv = [];
-        containsAdv =False;
-        adV =[];
-        containsAdV = False
-        }; --its not generating any sentence
+      UseComp comp = let auxBe = mkBecome
+
+                      in 
+                      {
+                        s = auxBe.s ++ BIND ++auxBe.pres++ comp.s;  --Assuming there is no AP which is prepositional
+                        pres =[]; 
+                        perf = [];
+                        morphs=\\form,morphs=>[]; 
+                        comp = [];
+                        comp2 = [];
+                        ap = [];
+                        isCompApStem = False; 
+                        agr = AgrNo;
+                        isRegular = False;
+                        adv = [];
+                        containsAdv =False;
+                        adV =[];
+                        containsAdV = False
+                      }; --its not generating any sentence
 
 --    CompAP   : AP  -> Comp;            -- (be) small
       CompAP ap = {s=ap.s! AgP3 Sg KI_BI}; -- used a hack.
@@ -225,8 +228,9 @@ lin
   ComplVV vv vp = let vpPres = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres;
                   in case vv.whenUsed of {
                           VVPerf => {
-                                        s= vv.s ++ BIND ++ vv.perf; 
-                                        pres =vv.pres; perf=vv.perf; 
+                                        s= vv.s ++ BIND ++ vv.perf ++ vpPres; 
+                                        pres = [];--vv.pres; 
+                                        perf=  []; -- vv.perf; 
                                         morphs = vv.morphs; 
                                         comp=vp.comp ;
                                         comp2 = vp.comp2;
@@ -240,8 +244,8 @@ lin
                                     };
                           _      => {
                                       s= vv.s ++ BIND ++ vv.pres ++ vpPres; 
-                                      pres =vv.pres; 
-                                      perf=vv.perf; 
+                                      pres = [];--vv.pres; 
+                                      perf=  [];--vv.perf; 
                                       morphs = vv.morphs; 
                                       comp=vp.comp ;
                                       comp2 = vp.comp2;

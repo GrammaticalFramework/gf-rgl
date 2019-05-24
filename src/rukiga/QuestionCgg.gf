@@ -26,25 +26,119 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
       pastPart  : Str;                              -- subject
       --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
       -}
-      compl = vp.comp -- after verb: complement, adverbs                              
+      compl = vp.comp -- after verb: complement, adverbs
+                                   
     } ;
 
     --QuestSlash  : IP -> ClSlash -> QCl ; -- whom does John love
+    QuestSlash ip clSlash =
+        let comp = case clSlash.complType of{
+                        Ap            => clSlash.ap;
+                        Adverbial     => clSlash.adv;
+                        AdverbialVerb => clSlash.adV;
+                        _             => []
+                    };
+        in    {
+              s =  ip.s;
+              subjAgr = NONE; -- no option but to just pick one
+              posibleSubAgr = mkSubjCliticTable;
+              root = clSlash.s;
+              pres = clSlash.pres;
+              perf = clSlash.perf;
+              morphs = clSlash.morphs;
+              {-
+              inf  : Str;
+              pres  : Str; 
+              past  : Str; 
+              presPart  : Str; 
+              pastPart  : Str;                              -- subject
+              --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+              -}
+              compl = comp -- after verb: complement, adverbs                            
+            } ; 
     --QuestIAdv   : IAdv -> Cl -> QCl ;    -- why does John walk
+    QuestIAdv iadv cl =
+            {
+              s =  iadv.s ++ cl.s;
+              subjAgr = cl.subjAgr; -- no option but to just pick one
+              posibleSubAgr = mkSubjCliticTable;
+              root = cl.s;
+              pres = cl.pres;
+              perf = cl.perf;
+              morphs = cl.morphs;
+              {-
+              inf  : Str;
+              pres  : Str; 
+              past  : Str; 
+              presPart  : Str; 
+              pastPart  : Str;                              -- subject
+              --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+              -}
+              compl = cl.compl -- after verb: complement, adverbs                            
+            } ; 
     --QuestIComp  : IComp -> NP -> QCl ;   -- where is John
-
+    --QuestIComp icomp
     --IdetCN    : IDet -> CN -> IP ;       -- which five songs
     
-    IdetCN idet cn = case idet.requiresSubjPrefix  of {
-                            True => {s =  cn.s!idet.n!Complete ++ mkSubjPrefix (mkAgreement cn.gender P3 idet.n) ++ idet.s; other =[]; n = idet.n; isVerbSuffix=False; requiresIPPrefix=True; aux= "ni"; endOfSentence = True};
-                            False => { s = cn.s!idet.n!Complete ++ idet.s; isVerbSuffix=False; other =[]; n=idet.n; requiresIPPrefix=True; aux= "ni"; endOfSentence = True}
+    IdetCN idet cn = let num = case idet.n of{
+                                 Sg => ISg;
+                                 Pl => IPl
+                            };
+
+                 in
+
+
+                        case idet.requiresSubjPrefix  of {
+                            True => {s =  cn.s!idet.n!Complete ++ mkSubjPrefix (mkAgreement cn.gender P3 idet.n) ++ idet.s; other =[]; n = num; isVerbSuffix=False; requiresIPPrefix=True; aux= "ni"; endOfSentence = True};
+                            False => { s = cn.s!idet.n!Complete ++ idet.s; isVerbSuffix=False; other =[]; n=num; requiresIPPrefix=True; aux= "ni"; endOfSentence = True}
                         };
     --IdetIP    : IDet       -> IP ;       -- which five
     --Noun Class has been ignored
-    IdetIP idet = { s = idet.s ; other = idet.s; isVerbSuffix=False; n=idet.n; requiresIPPrefix=True; aux= "ni"; endOfSentence = True};
+    IdetIP idet = let num = case idet.n of{
+                                 Sg => ISg;
+                                 Pl => IPl
+                            };
 
+                 in 
+                   { 
+                     s = idet.s ; 
+                    other = idet.s; 
+                    isVerbSuffix=False; 
+                    n=num; requiresIPPrefix=True; 
+                    aux= "ni"; 
+                    endOfSentence = True
+                  };
     --IdetQuant : IQuant -> Num -> IDet ;  -- which (five)
     --IdetQuant iquant num = { s = iquant.s ! num.n  ; requiresSubjPrefix=True};
+
+    -- Interrogative complements to copulas can be both adverbs and
+    -- pronouns.
+
+    --CompIAdv  : IAdv -> IComp ;          -- where (is it)
+    CompIAdv iadv =
+        {
+            s =iadv.s ; 
+            other = []; 
+            n = INeut; 
+            isVerbSuffix=False;
+            requiresSubjPrefix =False; 
+            requiresIPPrefix=False; 
+            aux=[]; 
+            endOfSentence=iadv.endOfSentence
+        };
+    --CompIP    : IP   -> IComp ;          -- who (is it)
+    CompIP  ip    = 
+        {
+            s = ip.s; 
+            other =ip.other; 
+            n = ip.n; 
+            isVerbSuffix = ip.isisVerbSuffix;
+            requiresSubjPrefix = False; 
+            requiresIPPrefix = ip.requiresIPPrefix; 
+            aux=ip.aux;
+            endOfSentence= ip.endOfSentence;
+
+    };
 {-
 --1 Question: Questions and Interrogative Pronouns
 

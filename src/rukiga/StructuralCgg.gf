@@ -158,17 +158,17 @@ lin
 
   {-Beggining of Interrogative Pronoun-}
 
-  whatPl_IP = { s= "ki"; other =[]; n = Pl;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True} ; -- what (plural)
-  whatSg_IP = { s= "ki"; other =[]; n = Sg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ; -- what (singular)
-  whoPl_IP  = { s=  "ha"; other =[]; n = Pl; isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True} ;--: IP ;  -- who (plural)
-  whoSg_IP =  { s=  "ha"; other =[]; n = Sg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ;  -- who (singular)
+  whatPl_IP = { s= "ki"; other =[]; n = IPl;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True} ; -- what (plural)
+  whatSg_IP = { s= "ki"; other =[]; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ; -- what (singular)
+  whoPl_IP  = { s=  "ha"; other =[]; n = IPl; isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True} ;--: IP ;  -- who (plural)
+  whoSg_IP =  { s=  "ha"; other =[]; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ;  -- who (singular)
   --You may need to use booleans to indicate that you need these tables rather than carrying them.
-  how_IAdv = {s ="ta"; requiresSubjPrefix = True};  --: IAdv ;
+  how_IAdv = {s ="ta"; requiresSubjPrefix = True; endOfSentence =True};  --: IAdv ;
   --how8much_IAdv = {s ="kwiga"; s2requireSubjPrefix = True};--: IAdv ;
 
-  when_IAdv = {s ="ryari"; requiresSubjPrefix = False}; --: IAdv ;
-  where_IAdv = {s ="nkahe"; requiresSubjPrefix = False}; --: IAdv ;
-  why_IAdv  = {s ="ahabweki"; requiresSubjPrefix = False};--: IAdv ;
+  when_IAdv = {s ="ryari"; requiresSubjPrefix = False; endOfSentence =True}; --: IAdv ;
+  where_IAdv = {s ="nkahe"; requiresSubjPrefix = False; endOfSentence =True}; --: IAdv ;
+  why_IAdv  = {s ="ahabweki"; requiresSubjPrefix = False; endOfSentence =False};--: IAdv ;
   
   how8many_IDet  ={s ="ngahe"; other =[]; n =Pl; requiresSubjPrefix = False; endOfSentence = True};--: IDet ;
 
@@ -184,7 +184,7 @@ lin
   someSg_Det =
     {
       s =[]; 
-      s2 =\\agr => mkSubjCliticTableSg ! agr ++ "mwe"; 
+      s2 =\\agr => mkSubjCliticTableSg ! agr ++ BIND++ "mwe"; 
       ntype = Complete;
       num = Sg;
       pos = PreDeterminer;
@@ -193,7 +193,7 @@ lin
   somePl_Det  =
     {
       s =[]; 
-      s2 =\\agr => mkSubjCliticTablePl ! agr ++ "mwe"; 
+      s2 =\\agr => mkSubjCliticTablePl ! agr ++ BIND++ "mwe"; 
       ntype = Complete;
       num = Pl;
       pos = PreDeterminer;

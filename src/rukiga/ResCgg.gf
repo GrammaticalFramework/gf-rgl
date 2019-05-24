@@ -39,6 +39,7 @@ param
                           SStandPron ; --Self-standing pronouns
   
   ImpPol = ImpPos | ImpNeg;
+  INumber = ISg | IPl | INeut;
   {-
     --there are several and i.e. 
     -- na (two nouns, 2 Noun Phrases, 2 Pronouns, 2 relative subject clauses, )
@@ -104,8 +105,8 @@ oper
 	--These are regular verbs with {a-ire} entry in the dictionary
 	smartVerb : Str ->Verb = \rad ->{
     	s = rad;
-    	pres = [];
-    	perf = [];
+    	pres = "a";
+    	perf = "ire";
     	morphs = mkVerbMorphs;
     	isRegular = True;
 	};
@@ -550,34 +551,35 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     };
 
     mkSStand :Agreement -> Str = \a -> case a of {
-              AgMUBAP1 n => mkClitics "nyowe" "itwe" n;
-              --AgMUBAP1 Pl => "aba" ;
-              AgMUBAP2 n => mkClitics "iwe" "imwe" n; --probably an error check your grammar book
-              --AgMUBAP2 Pl => "aba" ;
-              AgP3 n MU_BA => mkClitics "uwe" "bo" n;
-              --AgP3 Pl MU_BA => "aba" ;
-              AgP3 Pl ZERO_BU => mkClitic "bwo" ;
-              AgP3 Sg BU_MA => mkClitic "bwo" ;
-              AgP3 Pl (KA_BU | RU_BU) => mkClitic "bwo" ;
-              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "byo" ;
-              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "go";
-              AgP3 (Sg | Pl) HA  => mkClitic "ho" ; -- of place HA 
-              AgP3 (Sg | Pl) MU => mkClitic "mwo" ; -- of place  MU
-              AgP3 (Sg | Pl) KU => mkClitic "yo" ; -- of place KU
-              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "ryo" ;
-              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "ko" ;
-              AgP3 Sg KI_BI   => mkClitic "kyo" ;
-              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "kwo" ;
-              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "gwo" ;
-              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "rwo" ;
-              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "two" ;
-              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "yo" ;
-              AgP3 Pl ZERO_MI =>mkClitic "yo" ;
-              AgP3 Pl MU_MI => mkClitic "yo";
-              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "zo" ;
-              AgP3 Sg GU_GA => mkClitic "gwo" ;
-              AgP3 Pl GU_GA => mkClitic "go" ;
-              _  => mkClitic "XXX" -- error checking for any case not catered for
+              AgMUBAP1 Sg =>  "nyowe";
+              AgMUBAP1 Pl => "itwe";
+              AgMUBAP1 Pl => "aba" ;
+              AgMUBAP2 Sg =>  "iwe" ; --probably an error check your grammar book
+              AgMUBAP2 Pl => "imwe" ;
+              AgP3 Sg MU_BA => "uwe" ;
+              AgP3 Pl MU_BA => "bo" ;
+              AgP3 Pl ZERO_BU =>  "bwo" ;
+              AgP3 Sg BU_MA =>  "bwo" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "bwo" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  "byo" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "go";
+              AgP3 (Sg | Pl) HA  =>  "ho" ; -- of place HA 
+              AgP3 (Sg | Pl) MU =>  "mwo" ; -- of place  MU
+              AgP3 (Sg | Pl) KU =>  "yo" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "ryo" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "ko" ;
+              AgP3 Sg KI_BI   =>  "kyo" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "kwo" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "gwo" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "rwo" ;
+              AgP3 Pl (ZERO_TU | KA_TU) =>"two" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "yo" ;
+              AgP3 Pl ZERO_MI => "yo" ;
+              AgP3 Pl MU_MI =>  "yo";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "zo" ;
+              AgP3 Sg GU_GA => "gwo" ;
+              AgP3 Pl GU_GA =>  "go" ;
+              _  =>  "XXX-Failed SStand" -- error checking for any case not catered for
 
     };
     -- This involved only change of the personal pronouns as for selfstanding pronouns.
@@ -1072,14 +1074,14 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 
   -}
   mkDetCN : Determiner -> Noun -> NounPhrase = \ det, cn ->
-    case <det.pos> of { 
-         <PostDeterminer> => {s = \\_=>
-          let 
-            subjClitic = mkSubjClitic (AgP3 det.num cn.gender) 
-          in  cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender};
-        <PreDeterminer> => { s =\\_ => det.s ++ cn.s !det.num  ! det.ntype; agr = AgP3 det.num cn.gender} --;
-        --<PostDeterminer, PFalse> => {s = \\_=> cn.s!det.ntype!det.num; agr = AgP3 det.num cn.gender }    
-         };
+    let subjClitic = mkSubjClitic (AgP3 det.num cn.gender) 
+    in
+      case <det.pos, det.num> of { 
+           <PostDeterminer, Pl> => {s = \\_=> subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender};
+           <PostDeterminer, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender};
+          <PreDeterminer, n> => { s =\\_ => det.s ++ cn.s !n  ! det.ntype; agr = AgP3 det.num cn.gender} --;
+          --<PostDeterminer, PFalse> => {s = \\_=> cn.s!det.ntype!det.num; agr = AgP3 det.num cn.gender }    
+           };
   
 
     

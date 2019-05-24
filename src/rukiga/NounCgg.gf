@@ -8,6 +8,7 @@ lin
   --UsePN   : PN -> NP ;          -- John
   UsePN pn = {s = \\ _ =>  pn.s; agr = pn.a}; -- John
   
+  {need use of a pre}
   UsePron pron = 
     let default3PAgr = (AgP3 Sg KI_BI)
     in case <pron.agr> of {
@@ -16,7 +17,7 @@ lin
        };
   --UsePron pron = pron; -- the result of use pron is a NounPhrase
   --MassNP     : CN -> NP ;            -- (beer)
-  MassNP cn = {s = \\_ =>cn.s ! Pl ! Complete; agr = AgP3 Pl cn.gender};   --: CN -> NP ; -- milk
+  MassNP cn = {s = \\_ =>cn.s ! Sg ! Complete; agr = AgP3 Sg cn.gender};   --: CN -> NP ; -- milk
   --DetCN det cn = mkDeterminer det cn; --Should be nemed mkDetCN
   DetCN  det cn =  mkDetCN det cn;       -- the man
     {-
@@ -179,7 +180,7 @@ lin
 
   --CountNP : Det -> NP -> NP ;    -- three of them, some of the boys
   CountNP det np = case det.doesAgree of {
-                        True  => {s=\\c=> np.s!c ++ det.s2 ! np.agr; agr = np.agr};
+                        True  => {s=\\c=> np.s!c ++ "emye ahari" ++ det.s2 ! np.agr; agr = np.agr};
                         False => {s=\\c=> np.s!c ++ det.s; agr = np.agr} 
                       };
 
