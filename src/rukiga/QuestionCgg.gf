@@ -6,9 +6,9 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
 -- with an interrogative.
 
   lin
-    --QuestCl     : Cl -> QCl ;            -- does John walk
-    QuestCl cl = cl ** {posibleSubAgr = mkSubjCliticTable;};
-    --QuestVP     : IP -> VP -> QCl ;      -- who walks
+     --QuestCl     : Cl -> QCl ;            -- does John walk
+     QuestCl cl = cl ** {posibleSubAgr = mkSubjCliticTable};
+     --QuestVP     : IP -> VP -> QCl ;      -- who walks
     
     QuestVP ip vp = {
       s =  ip.s;

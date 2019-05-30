@@ -61,7 +61,7 @@ lin
      and_Conj  = {
       s = table {
           AConj Other => "kandi";
-          _ => "na"
+          _ => "na" -- used to link nouns, pronouns,  relative subject clauses, relative object clauses and adjectival nouns or infinitives (okuzana na okwikruka
         };
         
       s2 =[];
@@ -224,6 +224,20 @@ lin
   but_PConj = ss "báìtu"; --: PConj ; -- variants béìtu
   otherwise_PConj = ss "okûndi"; --: PConj ;
   therefore_PConj = ss "n'ahabwe'êkyo";  --: PConj ;
+  {-
+  and_Conj : Conj ;
+  both7and_DConj : Conj ; -- both...and
+  both7and_DConj : DConj ;
+  but_PConj : PConj ;
+  either7or_DConj : Conj ; -- either...or
+  either7or_DConj : DConj ;
+  or_Conj : Conj ;
+  otherwise_PConj : PConj ;
+  therefore_PConj : PConj ;
+  if_then_Conj : Conj ;
+
+  -}
+
 {-	
 --1 Structural: Structural Words
 --

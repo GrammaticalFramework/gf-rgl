@@ -62,7 +62,7 @@ lin
       	let comp = case clSlash.complType of{
       					Ap 			  => clSlash.ap;
       					Adverbial 	  => clSlash.adv;
-      					AdverbVerbial => clSlash.adV;
+      					AdverbialVerb => clSlash.adV;
       					_		  => []
       				};
       		isCompApStem = case clSlash.complType of{

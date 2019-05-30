@@ -75,7 +75,7 @@ VVMood = VVImp | VVPerf | VVBoth;
 
 oper
   -- the is for Common Nouns only 
-  Noun : Type = {s :  Number=>  NounState=> Str ; gender : Gender} ;
+  Noun : Type = {s :  Number=>  NounState=> Str ; gender : Gender; nounCat:NounCat} ;
 
   ivs : pattern Str = #("a" | "e" | "o"); --pattern for initial vowels
   
@@ -88,7 +88,8 @@ oper
 	     		Sg => table {Complete => sg; Incomplete => Predef.drop 1 sg};
 	     		Pl => table {Complete => pl; Incomplete => Predef.drop 1 pl}
      		};
-     	gender = g
+     	gender = g;
+      nounCat = ComNoun;
 	 	
 	 };
 	 
@@ -213,12 +214,13 @@ oper
        that label because is helps us disambiguate which
        preposition to use for in, on and at i.e LOCATIVES omuri, ahari, etc
     -}
-    ProperNoun : Type = {s: Str ; a:Agreement ; isPlace : Bool};
+    ProperNoun : Type = {s: Str ; a:Agreement ; isPlace : Bool; nounCat:NounCat};
     mkPN : Str -> Agreement -> Bool -> ProperNoun = \ pn, a, b->
     {
       s = pn ;
       a = a;
       isPlace = b;
+      nounCat = PropNoun;
     } ;
 
     -- concatenates the string left to right
@@ -1076,9 +1078,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     let subjClitic = mkSubjClitic (AgP3 det.num cn.gender) 
     in
       case <det.pos, det.num> of { 
-           <PostDeterminer, Pl> => {s = \\_=> subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender};
-           <PostDeterminer, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender};
-          <PreDeterminer, n> => { s =\\_ => det.s ++ cn.s !n  ! det.ntype; agr = AgP3 det.num cn.gender} --;
+           <PostDeterminer, Pl> => {s = \\_=> subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+           <PostDeterminer, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+          <PreDeterminer, n> => { s =\\_ => det.s ++ cn.s !n  ! det.ntype; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat} --;
           --<PostDeterminer, PFalse> => {s = \\_=> cn.s!det.ntype!det.num; agr = AgP3 det.num cn.gender }    
            };
   

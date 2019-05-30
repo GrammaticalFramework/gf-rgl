@@ -1,7 +1,7 @@
 --# -path=.:../prelude:../abstract:../common
 
 concrete AdjectiveCgg of Adjective = CatCgg **
-  open (Res = ResCgg), Prelude, ParamX in {
+  open ResCgg, Prelude, ParamX in {
 
 lin
 
@@ -19,11 +19,11 @@ lin
     --AdAP    : AdA -> AP -> AP ; -- very warm
     
     AdAP ada ap = case ada.position1 of {
-                        Post => {s = \\agr => ap.s ! agr ++ ada.s; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep};
-                        Pre => {s = \\agr => ada.s ++ ap.s!agr ; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep}
+                        Pre  => {s = \\agr => ada.s ++ ap.s!agr ; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep};
+                        Post => {s = \\agr => ap.s ! agr ++ ada.s; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep}
+                        
                     };
-
-{-                      
+    {-                      
 abstract Adjective = Cat ** {
 
   fun
