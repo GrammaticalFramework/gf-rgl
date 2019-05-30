@@ -77,7 +77,67 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
               compl = cl.compl -- after verb: complement, adverbs                            
             } ; 
     --QuestIComp  : IComp -> NP -> QCl ;   -- where is John
-    --QuestIComp icomp
+    {-
+        This function always uses the auxiliary. When we meet questions that may or may not use it, we shall
+        querry the usesAux field
+    -}
+    QuestIComp icomp np = case <icomp.endOfSentence, icomp.requiresSubjPrefix> of {
+                                   <True, True>   =>{ --such as ta?
+                                                      s = np.s ! Acc;
+                                                      subjAgr = np.agr; -- no option but to just pick one
+                                                      posibleSubAgr = mkSubjCliticTable;
+                                                      root = be_Copula.s;
+                                                      pres = be_Copula.pres;
+                                                      perf = be_Copula.perf;
+                                                      morphs = be_Copula.morphs;
+                                                      {-
+                                                      inf  : Str;
+                                                      pres  : Str; 
+                                                      past  : Str; 
+                                                      presPart  : Str; 
+                                                      pastPart  : Str;                              -- subject
+                                                      --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+                                                      -}
+                                                      compl =  mkSubjCliticTable ! np.agr ++ icomp.s -- after verb: complement, adverbs                            
+                                                } ;
+                                    <True, False>   =>{ -- such as nkahe?
+                                                      s = np.s ! Acc;
+                                                      subjAgr = np.agr; -- no option but to just pick one
+                                                      posibleSubAgr = mkSubjCliticTable;
+                                                      root = be_Copula.s;
+                                                      pres = be_Copula.pres;
+                                                      perf = be_Copula.perf;
+                                                      morphs = be_Copula.morphs;
+                                                      {-
+                                                      inf  : Str;
+                                                      pres  : Str; 
+                                                      past  : Str; 
+                                                      presPart  : Str; 
+                                                      pastPart  : Str;                              -- subject
+                                                      --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+                                                      -}
+                                                      compl =  icomp.s -- after verb: complement, adverbs                            
+                                                } ;
+                                  <_, _>  => {
+                                              s = icomp.s;
+                                              subjAgr = np.agr; -- no option but to just pick one
+                                              posibleSubAgr = mkSubjCliticTable;
+                                              root = be_Copula.s;
+                                              pres = be_Copula.pres;
+                                              perf = be_Copula.perf;
+                                              morphs = be_Copula.morphs;
+                                              {-
+                                              inf  : Str;
+                                              pres  : Str; 
+                                              past  : Str; 
+                                              presPart  : Str; 
+                                              pastPart  : Str;                              -- subject
+                                              --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
+                                              -}
+                                              compl = np.s ! Acc  -- after verb: complement, adverbs      
+                                            } 
+        };
+        
     --IdetCN    : IDet -> CN -> IP ;       -- which five songs
     
     IdetCN idet cn = let num = case idet.n of{
@@ -85,12 +145,12 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                                  Pl => IPl
                             };
 
-                 in
+                    in
 
 
                         case idet.requiresSubjPrefix  of {
-                            True => {s =  cn.s!idet.n!Complete ++ mkSubjPrefix (mkAgreement cn.gender P3 idet.n) ++ idet.s; other =[]; n = num; isVerbSuffix=False; requiresIPPrefix=True; aux= "ni"; endOfSentence = True};
-                            False => { s = cn.s!idet.n!Complete ++ idet.s; isVerbSuffix=False; other =[]; n=num; requiresIPPrefix=True; aux= "ni"; endOfSentence = True}
+                            True => {s =  cn.s!idet.n!Complete ++ mkSubjPrefix (mkAgreement cn.gender P3 idet.n) ++ idet.s; n = num; isVerbSuffix=False; requiresIPPrefix=True; aux= "ni"; endOfSentence = True};
+                            False => { s = cn.s!idet.n!Complete ++ idet.s; isVerbSuffix=False;  n=num; requiresIPPrefix=True; aux= "ni"; endOfSentence = True}
                         };
     --IdetIP    : IDet       -> IP ;       -- which five
     --Noun Class has been ignored
@@ -102,7 +162,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                  in 
                    { 
                      s = idet.s ; 
-                    other = idet.s; 
+                    
                     isVerbSuffix=False; 
                     n=num; requiresIPPrefix=True; 
                     aux= "ni"; 
@@ -118,24 +178,24 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
     CompIAdv iadv =
         {
             s =iadv.s ; 
-            other = []; 
             n = INeut; 
             isVerbSuffix=False;
             requiresSubjPrefix =False; 
             requiresIPPrefix=False; 
-            aux=[]; 
+            aux=[];
+            usesAux = False; 
             endOfSentence=iadv.endOfSentence
         };
     --CompIP    : IP   -> IComp ;          -- who (is it)
     CompIP  ip    = 
         {
             s = ip.s; 
-            other =ip.other; 
             n = ip.n; 
-            isVerbSuffix = ip.isisVerbSuffix;
+            isVerbSuffix = ip.isVerbSuffix;
             requiresSubjPrefix = False; 
             requiresIPPrefix = ip.requiresIPPrefix; 
             aux=ip.aux;
+            usesAux = True;
             endOfSentence= ip.endOfSentence;
 
     };

@@ -553,7 +553,6 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     mkSStand :Agreement -> Str = \a -> case a of {
               AgMUBAP1 Sg =>  "nyowe";
               AgMUBAP1 Pl => "itwe";
-              AgMUBAP1 Pl => "aba" ;
               AgMUBAP2 Sg =>  "iwe" ; --probably an error check your grammar book
               AgMUBAP2 Pl => "imwe" ;
               AgP3 Sg MU_BA => "uwe" ;
@@ -1093,7 +1092,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
       --Verb : Type = {s : VFormMini => Str};
       Verb : Type = {s : Str; pres:Str; perf:Str; morphs: VFormMini => VerbMorphPos=> Str; isRegular:Bool};
       
-      GVerb : Type = {s : Bool =>Str ; morphs: VFormMini => VerbMorphPos =>Str; isAux : Bool};
+      GVerb : Type = {s : Bool =>Str ;morphs: VFormMini => VerbMorphPos =>Str; isAux : Bool};
       {-
         The V2 sometimes uses preopsitions for formation
         of direct object. Unlike in English where the verb 
@@ -1153,8 +1152,8 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
         isAux = True};
 
      
-
-       mkBecome :  Verb  ={
+       be_Copula : Verb = {s = "ri" ; pres=[]; perf=[]; morphs= mkVerbMorphs; isRegular=False};
+       mkBecome  :  Verb  ={
        	s = "b" ; pres="a"; perf="ire"; morphs= mkVerbMorphs; isRegular=False};
 
 

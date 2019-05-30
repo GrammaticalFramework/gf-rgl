@@ -8,7 +8,7 @@ lin
   --UsePN   : PN -> NP ;          -- John
   UsePN pn = {s = \\ _ =>  pn.s; agr = pn.a}; -- John
   
-  {need use of a pre}
+  {- need use of a pre -}
   UsePron pron = 
     let default3PAgr = (AgP3 Sg KI_BI)
     in case <pron.agr> of {

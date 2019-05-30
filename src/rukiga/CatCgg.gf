@@ -16,8 +16,17 @@ lincat
   Cl  = Res.Clause ;               -- declarative clause, with all tenses e.g. "she looks at this"
   --Questions
   QCl = Res.Clause ** {posibleSubAgr: Res.Agreement =>Str} ; 
-  IComp = {s : Str; other:Str; n : Res.INumber; requiresSubjPrefix: Bool;endOfSentence : Bool} ; 
-  IP   = {s :Str ; other:Str; n : Res.INumber; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str; endOfSentence:Bool}; -- other holds the Idet without a prefix
+  IComp = 
+    {
+      s : Str; 
+      --other:Str; Has been deleted but note that there are several words for asking questions
+      n : Res.INumber; 
+      requiresSubjPrefix: Bool;
+      requiresIPPrefix: Bool;
+      usesAux : Bool;
+      endOfSentence : Bool
+    } ; 
+  IP   = {s :Str ; n : Res.INumber; isVerbSuffix: Bool; requiresIPPrefix: Bool; aux:Str; endOfSentence:Bool}; -- other holds the Idet without a prefix
   IAdv = {s : Str ; requiresSubjPrefix: Bool; endOfSentence:Bool};
   IDet = {s : Str ; n : Res.Number; requiresSubjPrefix: Bool};
   IQuant   = {s : Res.Number =>Str ; requiresSubjPrefix: Bool};

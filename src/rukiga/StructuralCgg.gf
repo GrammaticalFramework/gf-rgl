@@ -158,10 +158,10 @@ lin
 
   {-Beggining of Interrogative Pronoun-}
 
-  whatPl_IP = { s= "ki"; other =[]; n = IPl;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True} ; -- what (plural)
-  whatSg_IP = { s= "ki"; other =[]; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ; -- what (singular)
-  whoPl_IP  = { s=  "ha"; other =[]; n = IPl; isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True} ;--: IP ;  -- who (plural)
-  whoSg_IP =  { s=  "ha"; other =[]; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ;  -- who (singular)
+  whatPl_IP = { s= "ki";  n = IPl;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True} ; -- what (plural)
+  whatSg_IP = { s= "ki";  n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ; -- what (singular)
+  whoPl_IP  = { s=  "ha";  n = IPl; isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True} ;--: IP ;  -- who (plural)
+  whoSg_IP =  { s=  "ha"; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ;  -- who (singular)
   --You may need to use booleans to indicate that you need these tables rather than carrying them.
   how_IAdv = {s ="ta"; requiresSubjPrefix = True; endOfSentence =True};  --: IAdv ;
   --how8much_IAdv = {s ="kwiga"; s2requireSubjPrefix = True};--: IAdv ;
@@ -170,7 +170,7 @@ lin
   where_IAdv = {s ="nkahe"; requiresSubjPrefix = False; endOfSentence =True}; --: IAdv ;
   why_IAdv  = {s ="ahabweki"; requiresSubjPrefix = False; endOfSentence =False};--: IAdv ;
   
-  how8many_IDet  ={s ="ngahe"; other =[]; n =Pl; requiresSubjPrefix = False; endOfSentence = True};--: IDet ;
+  how8many_IDet  ={s ="ngahe"; n =Pl; requiresSubjPrefix = False; endOfSentence = True};--: IDet ;
 
   which_IQuant ={s =\\_ =>"ha"; requiresSubjPrefix = False};--: IQuant ;
 
