@@ -1,4 +1,4 @@
-resource ParadigmsSom = open CatSom, ResSom, Prelude in {
+resource ParadigmsSom = open CatSom, ResSom, ParamSom, Prelude in {
 
 oper
 
@@ -189,7 +189,7 @@ oper
   copula = ResSom.copula ;
 
   regV : Str -> Verb = \s -> case s of {
---    _ + g@#c + s@#c + "o" => cJoogso s ;
+    _ + #c + #c + "o" => cJoogso s ;
     _           + "o" => cQaado s ; ----
     _           + "i" => cKari s ;
     _          + "ee" => cYaree s ;

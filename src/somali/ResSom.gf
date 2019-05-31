@@ -406,7 +406,7 @@ oper
      in mkVerb joogso (joogsa + "d") joogsa ;
 
   cQaado qaado =
-    let qaa = drop 2 qaado
+    let qaa = init (init qaado)
      in mkVerb qaado  -- Imperative sg, with the vowel
               (qaa + "t")    -- Per1 Sg, Per3 Pl and Per3 Sg Masc
               (qaa + "da") ; -- Per2 Pl and others
