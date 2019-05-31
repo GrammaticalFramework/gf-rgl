@@ -25,6 +25,7 @@ oper
 
 param
   Morpheme = mO | mKa | mTa ;
+        -- | mKii | mTii ; -- TODO check if needed
 
 oper
   allomorph : Morpheme -> Str -> Str = \x,stem ->
@@ -34,18 +35,24 @@ oper
                    "c"|"g"|"i"|"j"|"x"|"s"     => "yo" ;
                    _                           => "o" } ;
 
-       -- Based on the table on page 21--TODO find generalisations in patterns
-       mTa => case stem of {
-                    _ + ("dh")  => "a" ; ---- ??? just guessing
-                    _ + ("d"|"c"|"h"|"x"|"q"|"'"|"i"|"y"|"w") => "da" ;
-                    _ + "l" => "sha" ;
-                    _       => "ta" } ;
+       mTa => case stem of {  -- Saeed p. 29
+          _ + ("dh")                                    => "dha" ; ---- ???
+          _ + (#v|"'"|"c"|"d"|"h"|"kh"|"q"|"w"|"x"|"y") => "da" ;
+          _ + "l"                                       => "sha" ;
+          _   {- b,f,g,n,r,s -}                         => "ta" } ;
 
-       mKa => case stem of {
-                    _ + ("g"|"aa"|"i"|"y"|"w") => "ga" ;
-                    _ + ("c"|"h"|"x"|"q"|"'")  => "a" ;
-                    _ + ("e"|"o")              => "ha" ;
-                    _                          => "ka" }
+       mKa => case stem of { -- Saeed p. 28-29
+          _ + ("r"|"g"|"w"|"y"|"i"|"u"|"aa"|"oo"|"uu") => "ga" ;
+          _ + ("q"|"'"|"kh"|"x"|"c"|"h")               => "a" ;
+          _ + ("e"|"o")                                => "ha" ;
+          _   {- b,d,dh,f,j,l,n,r,sh-}                 => "ka" }
+
+      {-- TODO check if needed/implement elsewhere:
+       mKii => case stem of {
+          _+ #vv + #c => init (allomorph mKa stem) ++ "ii" ; -- Should not change stem vowel
+          _ + ("'"|"x"|"c")               => "ii" ; -- Should change stem vowel
+          _ => init (allomorph mKa stem) ++ "ii" } ;
+       mTii => init (allomorph mTa stem) ++ "ii" -}
      } ;
 
 
@@ -55,7 +62,8 @@ oper
 param
   Case = Nom | Abs ;
   Gender = Masc | Fem ;
-  Vowel = vA | vE | vI | vO | vU ; -- For vowel assimilation
+  Vowel = vA | vE | vI | vO | vU | NA ; -- For vowel assimilation
+  GenNum = SgMasc | SgFem | InvarPl ; -- For Quant
 
   Inclusion = Excl | Incl ;
   Agreement =
@@ -66,6 +74,8 @@ param
     | Pl2
     | Pl3
     | Impers ; -- Verb agrees with Sg3, but needed for preposition contraction
+
+  State = Definite | Indefinite ;
 
   NForm =
       Indef Number

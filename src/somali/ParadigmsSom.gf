@@ -1,4 +1,4 @@
-resource ParadigmsSom = open CatSom, ResSom, Prelude in {
+resource ParadigmsSom = open CatSom, ResSom, ParamSom, Prelude in {
 
 oper
 
@@ -30,6 +30,7 @@ oper
   ku : Preposition ;
   la : Preposition ;
   u  : Preposition ;
+  noPrep : Preposition ;
 
 
 --2 Nouns
@@ -41,6 +42,12 @@ oper
     --mkN : N -> Gender -> N ; -- Otherwise predictable but not gender (TODO does this even happen?)
   } ;
 
+  mkN2 : overload {
+    mkN2 : Str -> N2 ; -- Predictable N2, no preposition
+    mkN2 : Str -> Preposition -> N2 ; -- Predictable N2, given preposition
+    mkN2 : N -> Preposition -> N2 -- N2 out of noun and preposition
+   } ;
+
   mkPN : overload {
     mkPN : Str -> PN ; -- Proper noun, default agr. P3 Sg Masc.
     mkPN : Str -> Agr -> PN -- Proper noun, another agr.
@@ -50,7 +57,7 @@ oper
 
   mkA : overload {
     mkA : (yar : Str) -> A ;
-    mkA : (sg,pl : Str) -> A 
+    mkA : (sg,pl : Str) -> A
   } ;
 
   -- mkA2 : Str -> Prep -> A2 ;
@@ -70,6 +77,12 @@ oper
     mkV2 : (sug : Str) -> V2 ; -- Predictable verb: imperative form, no preposition
     mkV2 : (sug : Str) -> (_ku : Preposition) -> V2 ; -- Regular verb, imperative and preposition
     mkV2 : V -> Preposition -> V2 ; -- Already constructed verb with preposition
+    } ;
+
+  mkV3 : overload {
+    mkV3 : (sug : Str) -> V3 ; -- Predictable verb: imperative form, no preposition
+    mkV3 : (sug : Str) -> (_,_ : Preposition) -> V2 ; -- Regular verb, imperative and preposition
+    mkV3 : V -> (_,_ : Preposition) -> V2 ; -- Already constructed verb with preposition
     } ;
 
   -- TODO: actual constructors
@@ -138,6 +151,7 @@ oper
   ku = ResSom.ku ;
   la = ResSom.la ;
   u  = ResSom.u ;
+  noPrep = ResSom.noPrep ;
   ------------------------
 
   mkN = overload {
@@ -147,8 +161,17 @@ oper
     --mkN : N -> Gender -> N           = \n,g -> n ** {g = g }
     } ;
 
+  shortPossN : N -> N -- force N to take short form of possessive suffix, e.g. family members
+   = \n -> n ** {shortPoss = True} ;
+
+  mkN2 = overload {
+    mkN2 : Str -> N2                = \s   -> lin N2 (mkN1 s ** {c2 = noPrep}) ;
+    mkN2 : Str -> Preposition -> N2 = \s,p -> lin N2 (mkN1 s ** {c2 = p}) ;
+    mkN2 : N -> Preposition -> N2   = \n,p -> lin N2 (n ** {c2=p})
+   } ;
+
   mkPN = overload {
-    mkPN : Str -> PN = \s -> lin PN (mkPNoun s sgMasc) ;
+    mkPN : Str -> PN        = \s -> lin PN (mkPNoun s sgMasc) ;
     mkPN : Str -> Agr -> PN = \s,a -> lin PN (mkPNoun s a)
     } ;
 
@@ -166,7 +189,7 @@ oper
   copula = ResSom.copula ;
 
   regV : Str -> Verb = \s -> case s of {
---    _ + g@#c + s@#c + "o" => cJoogso s ;
+    _ + #c + #c + "o" => cJoogso s ;
     _           + "o" => cQaado s ; ----
     _           + "i" => cKari s ;
     _          + "ee" => cYaree s ;
@@ -177,6 +200,12 @@ oper
     mkV2 : Str -> V2 = \s -> lin V2 (regV s ** {c2 = noPrep}) ;
     mkV2 : Str -> Preposition -> V2 = \s,p -> lin V2 (regV s ** {c2 = p}) ;
     mkV2 : V -> Preposition -> V2 = \v,p -> lin V2 (v ** {c2 = p}) ;
+    } ;
+
+  mkV3 = overload {
+    mkV3 : (sug : Str) -> V3 = \s -> lin V3 (regV s ** {c2,c3 = noPrep}) ;
+    mkV3 : (sug : Str) -> (_,_ : Preposition) -> V3 = \s,p,q -> lin V3 (regV s ** {c2 = p ; c3 = q}) ;
+    mkV3 : V -> (_,_ : Preposition) -> V2 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
     } ;
 --------------------------------------------------------------------------------
 
