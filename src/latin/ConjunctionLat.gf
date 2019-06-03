@@ -41,7 +41,7 @@ concrete ConjunctionLat of Conjunction =
       	adv = nps.adv ;
       	preap = nps.preap ;
     	postap = nps.postap ;
-    	det = { s = \\_,_ => "" ; sp = \\_,_ => "" ; n = nps.n };
+    	det = nps.det
       } ;
 
     -- ConjAP   : Conj -> ListAP -> AP ;
@@ -107,7 +107,7 @@ concrete ConjunctionLat of Conjunction =
       preap = lin AP { s = \\a => x.preap.s ! a ++ y.preap.s ! a } ;
       postap = lin AP { s = \\a => x.postap.s ! a ++ y.postap.s ! a } ;
       isBase = True ;
-      det = { s = \\g,c => x.det.s ! g ! c ++ y.det.s ! g ! c ; sp = \\g,c => x.det.sp ! g ! c ++ y.det.sp ! g ! c ; n = matchNumber x.get.n y.get.n } ;	
+      det = lin Det { s = \\g,c => x.det.s ! g ! c ++ y.det.s ! g ! c ; sp = \\g,c => x.det.sp ! g ! c ++ y.det.sp ! g ! c ; n = matchNumber x.det.n y.det.n } ;	
       } ; 
 
     -- -- ConsNP : NP -> ListNP -> ListNP ;  -- John, Mary, Bill
@@ -120,8 +120,8 @@ concrete ConjunctionLat of Conjunction =
       adv = x.adv ++ xs.adv ;
       preap = lin AP { s = \\a => x.preap.s ! a ++ xs.preap.s ! a } ;
       postap = lin AP { s = \\a => x.postap.s ! a ++ xs.postap.s ! a } ;
-      isBase = False
-    	-- TODO det
+      isBase = False ;
+      det = lin Det { s = \\g,c => x.det.s ! g ! c ++ xs.det.s ! g ! c ; sp = \\g,c => x.det.sp ! g ! c ++ xs.det.sp ! g ! c ; n = matchNumber x.det.n xs.det.n } ; -- try to combine the determiners, probably not what we want
       } ;
     
     -- -- BaseAP : AP -> AP -> ListAP
@@ -134,7 +134,7 @@ concrete ConjunctionLat of Conjunction =
   lincat
     [S] = { s : Coordinator => {init,last : SAdvPos => AdvPos => ComplPos => Order => Str} ; p : Pol ; t : Tense } ; -- TO FIX
     [Adv] = { s: Coordinator => {init,last : Str}} ;
-    [NP] = { s : Coordinator => {init,last : Case => Str} ; g : Gender ; n : Number ; p : Person ; adv : Str ; preap : AP ; postap : AP ; isBase : Bool } ;
+    [NP] = { s : Coordinator => {init,last : Case => Str} ; g : Gender ; n : Number ; p : Person ; adv : Str ; preap : AP ; postap : AP ; isBase : Bool ; det : Det } ;
     [AP] = {s : Coordinator => {init,last : Agr => Str } } ;
 
   oper
