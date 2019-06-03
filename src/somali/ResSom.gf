@@ -5,8 +5,8 @@ resource ResSom = ParamSom ** open Prelude, Predef, ParamSom in {
 oper
 
   Noun : Type = {s : NForm => Str ; g : Gender ; shortPoss : Bool} ;
-  Noun2 : Type = Noun ** {c2 : Preposition} ;
-  Noun3 : Type = Noun2 ** {c3 : Preposition} ;
+  Noun2 : Type = Noun ** {c2 : Case} ;
+  Noun3 : Type = Noun2 ** {c3 : Case} ;
 
   CNoun : Type = Noun ** {mod : Number => Case => Str ; hasMod : Bool} ;
 
@@ -18,9 +18,11 @@ oper
     let bisadi = case gender of
                    { Fem  => case wiil of { _ + #c => wiil+"i" ; _ => wiil} ;
                      Masc => wiil } ;
-        bisadood =  case gender of
-                       { Fem  => case wiilal of { _ + "o" => wiilal+"od" ; _ => wiil} ;
-                         Masc => wiil } ;
+        genforms : {p1, p2 : Str} = case gender of
+                       { Fem  => case wiilal of {_ + "o" => <wiil+"eed", wiilal+"od"> ; _ => <wiil, wiilal>} ;
+                         Masc => <wiil,wiilal> } ;
+        shimbireed = genforms.p1 ;
+        bisadood = genforms.p2 ;
         defStems : Str -> Vowel => Str = \s -> case s of {
           ilk + "aha" =>
                table { vE => ilk+"eh" ;
@@ -35,10 +37,14 @@ oper
     in { s = table {
            Indef Sg => wiil ;
            Indef Pl => wiilal ;
-           IndefNom => bisadi ;
-           Numerative => bisadood ;
            Def Sg vow => defStems wiilka ! vow ;
-           Def Pl vow => defStems wiilasha ! vow } ;
+           Def Pl vow => defStems wiilasha ! vow ;
+           -- Special forms for fem. nouns ending in consonant
+           NomSg => bisadi ;
+           GenSg => shimbireed ;
+           GenPl => bisadood ;
+           Numerative => case bisadood of {_+"ood" => bisadood ; _ => wiil}
+           } ;
          g = gender ;
          shortPoss = False} ;
 
@@ -119,7 +125,7 @@ oper
   BaseNP : Type = {
     a : Agreement ;
     isPron : Bool ;
-    sp : Str } ;
+    } ;
 
   NounPhrase : Type = BaseNP ** {s : Case => Str} ;
 
@@ -161,7 +167,8 @@ oper
   Determiner : Type = BaseQuant ** {
     pref : Str ; -- Numerals ?
     sp : Gender => Case => Str ;
-    d : NForm -- a combination of number, state and vowel
+    d : NForm ;     -- combination of number, state and vowel
+    isNum : Bool ;  -- whether to choose Numerative as the value of NForm
     } ;
 
   Quant : Type = BaseQuant ** {
@@ -189,9 +196,9 @@ oper
     in baseQuant ** {
         s = \\c =>
           let nom = case v of {NA => "u" ; _ => s + "i"}
-          in case c of {Abs => bind s ; Nom => bind nom} ;
+          in case c of {Nom => bind nom ; _ => bind s} ;
         sp = \\gn,c =>
-           let i = case c of {Nom => "i"; Abs => []}
+           let i = case c of {Nom => "i"; _ => []}
            in gnTable (spm + i) (spf + i) (spp + i) ! gn ;
         st = Definite ;
         v = v ;
@@ -285,7 +292,7 @@ oper
  -- ugu horrayntii (det att komma) allra först
 
   Adjective : Type = {s : AForm => Str} ;
-  Adjective2 : Type = Adjective ** { c2 : Preposition } ;
+  Adjective2 : Type = Adjective ** {c2 : Preposition} ;
 
 
   duplA : Str -> Adjective = \yar ->
@@ -294,10 +301,10 @@ oper
 
   mkAdj : (str,pl : Str) -> Adjective = \sg,pl -> {
     s = table {
-          AF Sg Abs => sg ;
-          AF Pl Abs => pl ;
           AF Sg Nom => sg + "i" ;
-          AF Pl Nom => pl + "i" }
+          AF Pl Nom => pl + "i" ;
+          AF Sg _ => sg ;
+          AF Pl _ => pl }
     } ;
 
   duplicate : Str -> Str = \sg -> case sg of {
@@ -327,6 +334,7 @@ oper
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
+
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
   -- since it corresponds to the form of the basic root."
@@ -346,6 +354,14 @@ oper
                   "n" => arki ;         -- if infinitive ends in n, no change;
                    _  => arki + "n" } ; -- otherwise add n.
 
+
+        progr : Str = case qaat of { -- Progressive
+               _ + "eey"     => stems.p2 + "nay" ; -- bireey -> bireynay
+               _ + ("y"|"n") => init qaat + "nay" ; -- akhriy -> akhrinay ; gashad -> gashanay
+               _ + #v + "t"  => qaat + "ay" ;
+               _ + #c + "t"  => init qaat + "anay" ;
+               _             => qaat + "ay" } ;
+
         -- Some predictable sound changes
         t : Str = case arag of { -- kari+seen, bixi noq+deen, (sug|joogsa|qaada)+teen,
                _ + ("i"|"y") => "s" ;     -- t changes into s in front of i/y
@@ -360,32 +376,50 @@ oper
         an : Str = case qaado of {
                _ + "o" => "an" ; -- Allomorph for imperatives
                _       => "in" } ;
+
    in { s = table {
-          VPres (Sg1|Sg3 Masc|Impers) pol
-                        => qaat + if_then_Pol pol "aa" "o" ;
-          VPres (Sg2|Sg3 Fem) pol
-                        => arag + t + if_then_Pol pol "aa" "o" ;
-          VPres (Pl1 _) pol
-                        => arag + n + if_then_Pol pol "aa" "o"  ;
-          VPres Pl2 pol => arag + t + "aan" ;
-          VPres Pl3 pol => qaat + "aan" ;
+          VPres Simple (Sg1|Sg3 Masc|Impers) pol
+                                    => qaat     + if_then_Pol pol "aa" "o" ;
+          VPres Simple (Sg2|Sg3 Fem) pol
+                                    => arag + t + if_then_Pol pol "aa" "o" ;
+          VPres Simple (Pl1 _) pol  => arag + n + if_then_Pol pol "aa" "o"  ;
+          VPres Simple Pl2 pol      => arag + t + "aan" ;
+          VPres Simple Pl3 pol      => qaat     + "aan" ;
 
-          VPast (Sg1|Sg3 Masc|Impers)
-                        => qaat + ay ;
-          VPast (Sg2|Sg3 Fem)
-                        => arag + t + ay ; -- t, d or s
-          VPast (Pl1 _) => arag + n + ay ;
-          VPast Pl2     => arag + t + "een" ; -- t, d or s
-          VPast Pl3     => qaat + "een" ;
+          VPres Progressive (Sg1|Sg3 Masc|Impers) pol
+                                    => progr + if_then_Pol pol "aa" "o" ;
+          VPres Progressive (Sg2|Sg3 Fem) pol
+                                    => progr + if_then_Pol pol "saa" "so" ;
+          VPres Progressive (Pl1 _) pol
+                                    => progr + if_then_Pol pol "naa" "no"  ;
+          VPres Progressive Pl2 pol => progr + "saan" ;
+          VPres Progressive Pl3 pol => progr + "aan" ;
 
-          VImp Sg Pos   => qaado ;
+          VPast Simple (Sg1|Sg3 Masc|Impers)
+                                     => qaat     + ay ;
+          VPast Simple (Sg2|Sg3 Fem) => arag + t + ay ; -- t, d or s
+          VPast Simple (Pl1 _)       => arag + n + ay ;
+          VPast Simple Pl2           => arag + t + "een" ; -- t, d or s
+          VPast Simple Pl3           => qaat     + "een" ;
+
+          VPast Progressive (Sg1|Sg3 Masc|Impers)
+                                          => progr + "ey" ;
+          VPast Progressive (Sg2|Sg3 Fem) => progr + "sey" ;
+          VPast Progressive (Pl1 _)       => progr + "ney" ;
+          VPast Progressive Pl2           => progr + "seen" ;
+          VPast Progressive Pl3           => progr + "een" ;
+
+          VNegPast Simple      => arkin ;
+          VNegPast Progressive => progr + "n" ;
+
+
+          VImp Sg Pos   => arag ;
           VImp Pl Pos   => qaat + "a" ;
           VImp Sg Neg   => arag + an ;
           VImp Pl Neg   => qaat + "ina" ;
 
           VInf          => arki ;
-          VRel          => arki ; -- TODO does this exist?
-          VNegPast      => arkin }
+          VRel          => arki } ; -- TODO does this exist?
       } ;
 
 -------------------------
@@ -393,18 +427,26 @@ oper
 
   cSug, cKari, cYaree, cJoogso, cQaado : Str -> Verb ;
 
+  -- 1: Root verbs with no lexical affixes, e.g. sug TR 'wait for', kar INTR 'boil, cook';
   cSug sug =
     let cabb : Str = case sug of {
           _ + "b" => sug + "b" ; -- TODO: more duplication patterns
           _       => sug }
      in mkVerb sug cabb sug ;
 
+  -- 2A: Verbs derived from root verbs by the causative affix -i/-is, e.g. kari TR 'cook' (from conjugation 1 kar INTR 'boil, cook');
+  -- 2B: Verbs derived from nouns and adjectives by the causative/factitive affix -eel-ayn, e.g. yaree 'make small' (from yar ADJ 'small');
   cKari, cYaree = \kari -> mkVerb kari (kari+"y") kari ;
 
+  -- 3A: Verbs derived from verbal stems by the middle voice affix -ol­/at
+  -- e.g. karsó 'cook for oneself (from conjugation 2 kâri TR 'cook');
   cJoogso joogso =
     let joogsa = init joogso + "a" ;
      in mkVerb joogso (joogsa + "d") joogsa ;
 
+  -- 3B: As conjugation 3A but verbs whose syllable structure triggers
+  -- stem contraction and subsequent sandhi rules, e.g. qaadó 'take for oneself
+  -- (from conjugation 1 qàad TR 'take').
   cQaado qaado =
     let qaa = init (init qaado)
      in mkVerb qaado  -- Imperative sg, with the vowel
@@ -421,24 +463,24 @@ oper
 
   copula : Verb = {
     s = table {
-          VPres Sg1 pol    => if_then_Pol pol "ahay" "ihi" ;
-          VPres Sg2 pol    => if_then_Pol pol "tahay" "ihid" ;
-          VPres (Sg3 Masc|Impers) pol => if_then_Pol pol "yahay" "aha" ;
-          VPres (Sg3 Fem)  pol => if_then_Pol pol "tahay" "aha" ;
-          VPres (Pl1 _) pol => if_then_Pol pol "nahay" "ihin" ;
-          VPres Pl2 pol     => if_then_Pol pol "tihiin" "ihidin" ;
-          VPres Pl3 pol     => if_then_Pol pol "yihiin" "aha" ;
+          VPres _ Sg1 pol    => if_then_Pol pol "ahay" "ihi" ;
+          VPres _ Sg2 pol    => if_then_Pol pol "tahay" "ihid" ;
+          VPres _ (Sg3 Masc|Impers) pol => if_then_Pol pol "yahay" "aha" ;
+          VPres _ (Sg3 Fem)  pol => if_then_Pol pol "tahay" "aha" ;
+          VPres _ (Pl1 _) pol => if_then_Pol pol "nahay" "ihin" ;
+          VPres _ Pl2 pol     => if_then_Pol pol "tihiin" "ihidin" ;
+          VPres _ Pl3 pol     => if_then_Pol pol "yihiin" "aha" ;
           VImp Sg pol       => if_then_Pol pol "ahaw" "ahaanin" ;
           VImp Pl pol       => if_then_Pol pol "ahaada" "ahaanina" ;
 
-          VPast (Sg1|Sg3 Masc|Impers)
+          VPast _ (Sg1|Sg3 Masc|Impers)
                           => "ahaa" ;
-          VPast (Sg2|Sg3 Fem)
+          VPast _ (Sg2|Sg3 Fem)
                           => "ahayd" ;
-          VPast (Pl1 _)   => "ahayn" ;
-          VPast Pl2       => "ahaydeen" ;
-          VPast Pl3       => "ahaayeen" ;
-          VNegPast        => "ahi" ;
+          VPast _ (Pl1 _)   => "ahayn" ;
+          VPast _ Pl2       => "ahaydeen" ;
+          VPast _  Pl3      => "ahaayeen" ;
+          VNegPast _       => "ahi" ;
           VRel            => "ah" ;
           VInf            => "ahaan" }
      } ;
@@ -449,15 +491,15 @@ oper
   have_V : Verb =
    let hold_V = mkVerb "hayso" "haysat" "haysa" in {
     s = table {
-          VPres Sg1        Pos => "leeyahay" ;
-          VPres Sg2        Pos => "leedahay" ;
-          VPres (Sg3 Fem)  Pos => "leedahay" ;
-          VPres (Sg3 Masc|Impers) Pos
+          VPres _ Sg1        Pos => "leeyahay" ;
+          VPres _ Sg2        Pos => "leedahay" ;
+          VPres _ (Sg3 Fem)  Pos => "leedahay" ;
+          VPres _ (Sg3 Masc|Impers) Pos
                                 => "leeyahay" ;
-          VPres (Pl1 _)    Pos => "leenahay" ;
-          VPres Pl2        Pos => "leedihiin" ;
-          VPres Pl3        Pos => "leeyihiin" ;
-          VPast x               => "l" + copula.s ! VPast x ;
+          VPres _ (Pl1 _)    Pos => "leenahay" ;
+          VPres _ Pl2        Pos => "leedihiin" ;
+          VPres _ Pl3        Pos => "leeyihiin" ;
+          VPast asp agr          => "l" + copula.s ! VPast asp agr ;
           VRel                  => "leh" ;
           x                     => hold_V.s ! x }
     } ;
@@ -508,25 +550,28 @@ oper
   ClSlash,
   Sentence : Type = SS ; ---- TODO
 
-  doonaa : Str -> Verb = \inf ->
-    let doon : Verb = cSug "doon" in {s = \\vf => inf ++ doon.s ! vf} ;
-
   vf : Tense -> Anteriority -> Polarity -> Agreement -> Verb
     -> {fin : Str ; inf : Str} = \t,ant,p,agr,vp ->
-     let pastV : Verb -> Str = \v ->
-           case p of { Neg => v.s ! VNegPast ;
-                       Pos => v.s ! VPast agr } ;
-         presV : Verb -> Str = \v -> v.s ! VPres agr p ;
-     in case <t,ant> of {
-       <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
-       <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
-       <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
-       <Past,Anter> => {fin = pastV copula  ; inf = vp.s ! VInf } ; ---- TODO: habitual aspect
-       <Fut,Simul>  => {fin = presV (doonaa (vp.s ! VInf)) ; inf = []} ;
-       <Fut,Anter>  => {fin = pastV (doonaa (vp.s ! VInf)) ; inf = []} ;
-       <_,Simul>  => {fin = presV vp ; inf = []} ; -- TODO conditional
-       <_,Anter>  => {fin = pastV vp ; inf = []}   -- TODO conditional
-       } ;
+    case <t,ant> of {
+      <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
+      <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
+      <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
+      <Past,Anter> => {fin = pastV (aux "jir" vp)  ; inf = []} ;
+      <Fut,Simul>  => {fin = presV (aux "doon" vp) ; inf = []} ;
+      <Fut,Anter>  => {fin = pastV (aux "doon" vp) ; inf = []} ;
+      <_,Simul>  => {fin = presV vp ; inf = []} ; -- TODO conditional
+      <_,Anter>  => {fin = pastV vp ; inf = []}   -- TODO conditional
+      }
+  where {
+    pastV : Verb -> Str = \v ->
+      case p of { Neg => v.s ! VNegPast Simple ;
+                  Pos => v.s ! VPast Simple agr } ;
+
+    presV : Verb -> Str = \v -> v.s ! VPres Simple agr p ;
+
+    aux : Str -> Verb -> Verb = \jir,v ->
+     let jir : Verb = cSug jir in {s = \\vf => v.s ! VInf ++ jir.s ! vf}
+  } ;
 
   stmarker : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
@@ -547,5 +592,5 @@ oper
 
 oper
   linVP : VerbPhrase -> Str = \vp -> vp.s ! VInf ; ----
-  linCN : CNoun -> Str = \cn -> cn.s ! IndefNom ;
+  linCN : CNoun -> Str = \cn -> cn.s ! NomSg ;
 }

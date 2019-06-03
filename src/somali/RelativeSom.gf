@@ -6,6 +6,12 @@ lin
   --  : Cl -> RCl ;            -- such that John loves her
   RelCl cl = { } ;
 
+  -- Sayeed p. 95-96 + ch 8
+Reduced present general in relative clauses;  as absolutive
+1/2SG/3SG M/2PL/3PL sugá -- same as imperative (TODO check if for all conjugations)
+3 SG F sugtá -- doesn't exist
+1PL sugná -- doesn't exist
+
   -- : RP -> VP -> RCl ;
   RelVP rp vp =  ;
 
