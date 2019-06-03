@@ -18,7 +18,7 @@ oper
 
   mkN = overload {
     mkN : (fish : Str) -> Gender -> N
-      = \fish,nclass -> lin N (mkNoun fish fish nclass) ;
+      = \fish,nclass -> lin N (smartNoun fish nclass) ;
     mkN : (man,men : Str) -> Gender -> N
       = \man,men,nclass -> lin N (mkNoun man men nclass) ;
     };

@@ -42,6 +42,8 @@ lin
   in_Prep        = mkPrep "omu" "omuri" False;
   --aha-ri Kamukuzi??? works for places 
   on_Prep        = mkPrep "aha" "ahari" False;
+
+  in8front_Prep  = mkPrep "enyuma ya" [] False; --: Prep ; -- in front of
   
 --na --please this string varies with vowels use combine_morphemes or 
 --combine_words when using it.
@@ -49,6 +51,7 @@ lin
 
   from_Prep =mkPrep "kurunga" "" False;
   under_Prep = mkPrep "hansi ya" "" False;
+  after_Prep = mkPrep "omu maisho" "" False; --: Prep ;
   
   ---Structural
   {-
