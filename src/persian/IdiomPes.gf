@@ -1,4 +1,4 @@
-concrete IdiomPes of Idiom = CatPes ** open Prelude,ParadigmsPes,ResPes in {
+concrete IdiomPes of Idiom = CatPes ** open Prelude,ParadigmsPes,ResPes,(N=NounPes) in {
 
   flags optimize=all_subs ;
   flags coding = utf8;
@@ -17,19 +17,13 @@ lin
 
   ExistNP np =
     mkSClause [] (agrP3 (fromAgr np.a).n)
-              (insertComp (\\_ => np2str np) (predV existVerb)) ;
+              (complSlash (predVc existVerb) np) ;
 
-  ExistNPAdv np adv =
-    mkSClause [] (agrP3 (fromAgr np.a).n)
-              (insertComp (\\_ => np2str np ++ adv.s)
-                          (predV existVerb)
-              ) ;
-
+  ExistNPAdv np adv = ExistNP (N.AdvNP np adv) ;
 
   ExistIP ip =
     let cl = mkSClause ip.s (agrP3 ip.n) (predV beVerb);
     in {s = \\t,p => cl.s ! t ! p ! ODir};
-
 
   ProgrVP vp = predProg vp ;
 
@@ -39,6 +33,6 @@ lin
     {s = "بگذارید" ++ np2str np ++ showVPH (VSubj Pos np.a) np.a vp};
 
 oper
-  existVerb = mkV "وجود" haveVerb ;
+  existVerb : V2 = mkV2 (mkV "وجود" haveVerb) noPrep ;
 
 }

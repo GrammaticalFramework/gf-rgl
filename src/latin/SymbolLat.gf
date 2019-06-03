@@ -20,6 +20,7 @@ lin
 --    a = agrgP3 Sg cn.g
 --    } ;
 --
+
   SymbS sy = { s = \\_ => sy.s ; neg = \\_ => "" ; o = \\_ => "" ; p = PPos ; sadv = ss "" ; t = TPres ; v = \\_ => "" } ;
 --
   --  SymbNum sy = {s = sy.s ; n = Pl ; hasCard = True} ;

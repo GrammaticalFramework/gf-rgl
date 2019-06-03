@@ -165,7 +165,7 @@ lin
       Masc Sg P3 ;
    not_Predet = {s = \\a,c => prepCase c ++ "no pas" ; c = Nom ;
     a = PNoAg} ;
-   have_V2 = dirV2 (verbV (tenir_108 "tenir")) ;
+   have_V2 = dirV2 (verbV (tenir_108 "tenir" 0)) ;
    
 oper
   etConj : {s : Str ; n : MorphoCat.Number} = {s = "i" } ** {n = Pl} ;

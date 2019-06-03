@@ -64,6 +64,9 @@ oper
       = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
     } ;
 
+  mkVV : Str -> VV =
+    \s -> lin VV {s=s; typ=VVPre} ;
+
   mkVQ : V -> VQ =
     \v -> lin VQ v ;
 
@@ -87,6 +90,12 @@ oper
 
   mkAdv : Str -> Adv = 
     \s -> lin Adv (ss s) ;
+
+  mkAdV : Str -> AdV = 
+    \s -> lin AdV (ss s) ;
+
+  mkAdA : Str -> AdA = 
+    \s -> lin AdA (ss s) ;
 
   mkPrep : Str -> Prep = 
     \s -> lin Prep (ss s) ;

@@ -5,6 +5,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  CompoundAP,
  CompoundN,
  ExistsNP,
+ EmbedSSlash,
  GenRP,
  GenRP,
  IAdvAdv,
@@ -33,50 +34,35 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
     -- put your own definitions here
 
   lin
-    iFem_Pron =  mkPronoun
-      "yo" "me" "me" "mí"
-      "mi" "mi" "mis" "mis"
-      Fem Sg P1 ;
-    theyFem_Pron = mkPronoun
-      "ellas" "las" "les" "ellas"
-      "su" "su" "sus" "sus"
-      Fem Pl P3 ;
+    iFem_Pron     = agr2pron ! {g=Fem ; n=Sg ; p=P1} ;
+    youFem_Pron   = agr2pron ! {g=Fem ; n=Sg ; p=P2} ;
+    weFem_Pron    = agr2pron ! {g=Fem ; n=Pl ; p=P1} ;
+    youPlFem_Pron = agr2pron ! {g=Fem ; n=Pl ; p=P2} ;
+    theyFem_Pron  = agr2pron ! {g=Fem ; n=Pl ; p=P3} ;
 
-    weFem_Pron = mkPronoun
-      "nosotras" "nos" "nos" "nosotras"
-      "nuestro" "nuestra" "nuestros" "nuestras"
-      Fem Pl P1 ;
-
-    youFem_Pron = mkPronoun
-      "tú" "te" "te" "ti"
-      "tu" "tu" "tus" "tus"
-      Fem Sg P2 ;
-    youPlFem_Pron = mkPronoun
-      "vosotras" "os" "os" "vosotras"
-      "vuestro" "vuestra" "vuestros" "vuestras"
-      Fem Pl P2 ;
     youPolFem_Pron = mkPronoun
       "usted" "la" "le" "usted"
       "su" "su" "sus" "sus"
       Fem Sg P3 ;
-
     youPolPl_Pron = mkPronoun
-      "ustedes" "los" "les" "usted"
+      "ustedes" "los" "les" "ustedes"
       "su" "su" "sus" "sus"
       Masc Pl P3 ;
     youPolPlFem_Pron = mkPronoun
-      "ustedes" "las" "les" "usted"
+      "ustedes" "las" "les" "ustedes"
       "su" "su" "sus" "sus"
       Fem Pl P3 ;
 
     ICompAP ap = {
-      s =\\a => "que tan" ++ ap.s ! (genNum2Aform a.g a.n) ;
+      s =\\a => "qué tan" ++ ap.s ! (genNum2Aform a.g a.n) ;
       cop = serCopula
       } ;
 
     IAdvAdv adv = {
-      s = "que tan" ++ adv.s
+      s = "qué tan" ++ adv.s
       } ;
+
+    EmbedSSlash s = {s = \\_ => "lo que" ++ s.s ! {g=Masc ; n=Sg} ! Indic} ;
 
     ExistsNP np =
       mkClause [] True False np.a
@@ -85,7 +71,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
 
     CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
       s = \\n => noun2.s ! n
-        ++ variants {"de" ; genForms "do" "da" ! noun.g}
+        ++ variants {"de" ; genForms "del" "de la" ! noun.g}
         ++ noun.s ! Sg ;
       g = noun2.g
       } ;

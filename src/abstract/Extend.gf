@@ -117,6 +117,7 @@ abstract Extend = Cat ** {
 
 -- generalisation of existential, with adverb as a parameter
     AdvIsNP : Adv -> NP -> Cl ;  -- here is the tree / here are the trees
+    AdvIsNPAP : Adv -> NP -> AP -> Cl ; -- here are the instructions documented
 
 -- infinitive for purpose AR 21/8/2013
 
@@ -137,12 +138,22 @@ abstract Extend = Cat ** {
 
 -- proper structure of "it is AP to VP"
 
-    PredAPVP : AP -> VP -> Cl ;   -- it is good to walk
+    PredAPVP : AP -> VP -> Cl ;      -- it is good to walk
 
 -- to use an AP as CN or NP without CN
 
     AdjAsCN : AP -> CN ;   -- a green one ; en grön (Swe)
     AdjAsNP : AP -> NP ;   -- green (is good)
+
+-- infinitive complement for IAdv
+
+    PredIAdvVP : IAdv -> VP -> QCl ; -- how to walk?
+
+-- alternative to EmbedQS. For English, EmbedQS happens to work,
+-- because "what" introduces question and relative. The default linearization
+-- could be e.g. "the thing we did (was fun)".
+
+    EmbedSSlash : SSlash -> SC  ;   -- what we did (was fun)
 
 -- reflexive noun phrases: a generalization of Verb.ReflVP, which covers just reflexive pronouns
 -- This is necessary in languages like Swedish, which have special reflexive possessives.
@@ -210,6 +221,8 @@ abstract Extend = Cat ** {
   DetNPFem  : Det -> NP ;
 
   UseComp_estar : Comp -> VP ; -- (Cat, Spa, Por) "está cheio" instead of "é cheio"
+
+  SubjRelNP : NP -> RS -> NP ; -- Force RS in subjunctive: lo que les *resulte* mejor
 
   iFem_Pron      : Pron ; -- I (Fem)
   youFem_Pron    : Pron ; -- you (Fem)

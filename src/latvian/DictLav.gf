@@ -1,6 +1,8 @@
 concrete DictLav of DictLavAbs = CatLav ** open ResLav, ParadigmsLav in {
 
-flags coding = utf8 ;
+flags
+	optimize=values ;
+	coding = utf8 ;
 
 lin 'abarkasis_N' = mkN "abarkasis" masculine D2 ;
 lin 'abate_N' = mkN "abate" feminine D5 ;
@@ -3030,7 +3032,6 @@ lin 'apsekojums_N' = mkN "apsekojums" masculine D1 ;
 lin 'apsekot_V' = mkV "apsekot" second_conjugation  ;
 lin 'apsērsnot_V' = mkV "apsērsnot" second_conjugation  ;
 lin 'apsērst_V' = mkV "apsērs" "apsērš" "apsērs"  ;
-lin 'apsēst_V' = mkV "apsēst"  ;
 lin 'apsēstība_N' = mkN "apsēstība" feminine D4 ;
 lin 'apsēsties_V' = mkV "apsēs" "apsēž,apsēst" "apsēd"  ;
 lin 'apsēt_V' = mkV "apsē" "apsēj" "apsēj"  ;
@@ -39719,7 +39720,6 @@ lin 'piesārņojums_N' = mkN "piesārņojums" masculine D1 ;
 lin 'piesārņot_V' = mkV "piesārņot" second_conjugation  ;
 lin 'piesārņotība_N' = mkN "piesārņotība" feminine D4 ;
 lin 'piesārņoties_V' = mkV "piesārņoties" second_conjugation  ;
-lin 'piesārst_V' = mkV "piesārst"  ;
 lin 'piesārtums_N' = mkN "piesārtums" masculine D1 ;
 lin 'piesātinājums_N' = mkN "piesātinājums" masculine D1 ;
 lin 'piesātināt_V' = mkV "piesātināt" third_conjugation  ;

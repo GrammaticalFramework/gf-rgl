@@ -54,7 +54,8 @@ lin
   ExistCN cn = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;
   ExistMassCN cn = ExistNP (MassNP cn) ;
   ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
-  AdvIsNP adv np = PredVP np (UseComp (CompAdv adv)) ;  -- here is the tree / here are the trees
+  AdvIsNP adv np = PredVP np (UseComp (CompAdv adv)) ;  -- here is the tree / here are the trees ; DEFAULT the tree is  here
+  AdvIsNPAP adv np ap = PredVP np (AdvVP (UseComp (CompAP ap)) adv) ; -- here are the instructions documented ; DEFAULT the instructions are documented here
   PurposeVP = variants {} ;     -- VP -> Adv ; -- to become happy
   ComplBareVS = ComplVS ;     -- VS -> S -> VP ; -- say she runs ; DEFAULT say that she runs
   SlashBareV2S = SlashV2S ;     -- V2S -> S -> VPSlash ; -- answer (to him) it is good ; DEFAULT answer that it is good
@@ -63,6 +64,8 @@ lin
   FrontComplDirectVS = variants {} ; -- NP -> VS -> Utt -> Cl ;      -- "I am here", she said
   FrontComplDirectVQ  = variants {} ; -- NP -> VQ -> Utt -> Cl ;      -- "where", she asked
   PredAPVP ap vp = ImpersCl (UseComp (CompAP (SentAP ap (EmbedVP vp)))) ; -- DEFAULT it is (good to walk)
+  PredIAdvVP iadv vp = QuestIAdv iadv (GenericCl vp) ; -- DEFAULT how does one walk
+  EmbedSSlash = variants {} ; -- SSlash -> SC ; -- what we did (was fun)
   AdjAsCN = variants {} ;     -- AP -> CN ; -- a green one ; en grön (Swe)
   AdjAsNP = variants {} ;     -- AP -> NP ; -- green (is good)
   ReflRNP = variants {} ;     -- VPSlash -> RNP -> VP ; -- love my family and myself
@@ -96,7 +99,7 @@ lin
 
   DetNPMasc = DetNP ;
   DetNPFem = DetNP ;
-
+  SubjRelNP = RelNP ;
   UseComp_estar = UseComp ; -- DEFAULT UseComp
   iFem_Pron = i_Pron ; -- DEFAULT I (masc)
   youFem_Pron = youSg_Pron ; -- DEFAULT you (masc)

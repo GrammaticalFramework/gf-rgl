@@ -28,6 +28,7 @@ resource ParadigmsSpa =
     (Predef=Predef),
     Prelude,
     MorphoSpa,
+    DiffSpa,
     BeschSpa,
     CatSpa in {
 
@@ -59,6 +60,10 @@ oper
   accusative : Prep ; -- direct object
   genitive   : Prep ; -- preposition "de" and its contractions
   dative     : Prep ; -- preposition "a" and its contractions
+
+  CopulaType : Type ;
+  serCopula : CopulaType ;
+  estarCopula : CopulaType ;
 
   mkPrep : overload {
     mkPrep : Str -> Prep ; -- other preposition
@@ -151,7 +156,7 @@ oper
 
 -- Some adjectives need the feminine form separately.
 
-    mkA : (espanol,espanola : Str) -> A ;
+    mkA : (español,española : Str) -> A ;
 
 -- One-place adjectives compared with "mas" need five forms in the worst
 -- case (masc and fem singular, masc plural, adverbial).
@@ -177,6 +182,8 @@ oper
 
   prefixA : A -> A ; -- adjective before noun (default after noun)
 
+  invarA : Str -> A  -- invariable adjective
+   = \s -> mkA s s s s s ;
 
 --3 Two-place adjectives
 --
@@ -322,10 +329,13 @@ oper
 
   Gender = MorphoSpa.Gender ;
   Number = MorphoSpa.Number ;
+  CopulaType = DiffSpa.CopulaType ;
   masculine = Masc ;
   feminine = Fem ;
   singular = Sg ;
   plural = Pl ;
+  serCopula = DiffSpa.serCopula ;
+  estarCopula = DiffSpa.estarCopula ;
 
   accusative = complAcc ** {lock_Prep = <>} ;
   genitive = complGen ** {lock_Prep = <>} ;
@@ -426,6 +436,23 @@ oper
     _  => verboV (regAlternVEr x y)
     } ;
 
+  -- hack for verbs like parecer.
+  -- NB. doesn't work properly for gustar, which agrees with the object.
+  dativeV : V -> V = \parecer -> parecer ** {
+    s = table {
+           VFin m n p => case <n,p> of {
+                <Sg,P1> => "me" ;
+                <Sg,P2> => "te" ;
+                <Sg,P3> => "le" ;
+                <Pl,P1> => "nos" ;
+                <Pl,P2> => "os" ;
+                <Pl,P3> => "les" } ++ parecer.s ! VFin m Sg P3 ;
+           VImper n => case n of {
+                SgP2 => "que te" ;
+                PlP1 => "que nos" ;
+                PlP2 => "que os" } ++ parecer.s ! VFin (VPres Conjunct) Sg P3 ;
+           x => parecer.s ! x }
+  } ;
 
 
   mk2V2 v p = lin V2 (v ** {c2 = p}) ;

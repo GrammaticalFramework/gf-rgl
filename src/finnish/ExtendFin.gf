@@ -5,7 +5,7 @@ concrete ExtendFin of Extend =
     VPI2,VPS2,MkVPS,MkVPS2,ConjVPS2,ComplVPS2, ConsVPS, BaseVPS, ListVPS, VPS, ConjVPS,PredVPS,
     MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
     ,ExistCN, ExistMassCN, ICompAP, ByVP
-    ,CompoundN, GenNP, GenIP, AdvIsNP
+    ,CompoundN, GenNP, GenIP, AdvIsNP, EmbedSSlash
     ]
   with
     (Grammar = GrammarFin) **
@@ -149,4 +149,15 @@ lin
     ByVP vp = lin Adv {s = S.infVP vp.s.sc Pos (Ag Sg P3) vp Inf3Adess} ; ---- Agr ?
 
     AdvIsNP adv np = S.mkClause (\_ -> adv.s) np.a (UseComp (CompNP np)) ;
+
+    -- : SSlash -> SC
+    EmbedSSlash ss =
+      let it_NP : NP = UsePron it_Pron ;
+          thatWhich : NP = it_NP ** {
+            s = \\nc => it_NP.s ! NPSep ++ case nc of {
+                  NPCase c => mikaInt ! Sg ! c ;
+                  NPAcc    => mikaInt ! Sg ! Gen ;
+                  NPSep    => mikaInt ! Sg ! Nom }
+           } ;
+       in {s = appCompl True Pos ss.c2 thatWhich ++ ss.s} ;
 }

@@ -6,6 +6,7 @@ lincat
   [S] =  {s1,s2 : Order => Str} ;
   [Adv] = {s1,s2 : Str} ;
   [NP] = {s1,s2 : Case => Str ; a : Agr ; empty : Str; isHeavy : Bool} ;
+  [CN] = {s1,s2 : NTable ; g : Gender ; h : Species ; isDual : Bool ; np : Case => Str ; isHeavy : Bool} ;
   [AP] = {s1,s2 : Species => Gender => Number => State => Case => Str} ;
 
 lin
@@ -34,8 +35,17 @@ lin
   ConsAP = consrTable5 Species Gender Number State Case comma ;
   ConjAP = conjunctDistrTable5 Species Gender Number State Case ;
 
+  BaseCN cn1 cn2  = leanCN cn1 ** twoTable3 Number State Case (leanCN cn1) (leanCN cn2) ;
+  ConsCN cn cns   = leanCN cn ** consrTable3 Number State Case comma (leanCN cn) cns ;
+  ConjCN conj cns = cns ** conjunctDistrTable3 Number State Case conj cns ;
+
 
 oper
+  leanCN : CN -> CN = \cn -> cn ** {
+    np = \\_ => [] ;
+    s = \\n,s,c => cn2str cn n s c
+    } ;
+
   conjAgr : Agr -> Agr -> Agr = \a,b -> {
     isPron = False ;
     pgn = let gnA = pgn2gn a.pgn ; gnB = pgn2gn b.pgn in

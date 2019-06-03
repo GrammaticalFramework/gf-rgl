@@ -82,6 +82,6 @@ lin
         } ;
 
     ExistsNP np = 
-      mkClause [] True False np.a (insertComplement (\\_ => (np.s ! Nom).ton) (predV (mkV (complir_25 "existir")))) ;
+      mkClause [] True False np.a (insertComplement (\\_ => (np.s ! Nom).ton) (predV (mkV (complir_25 "existir" True)))) ;
 
 }

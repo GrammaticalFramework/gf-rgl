@@ -4,7 +4,7 @@ resource ResSom = ParamSom ** open Prelude, Predef, ParamSom in {
 -- Nouns
 oper
 
-  Noun : Type = {s : NForm => Str ; g : Gender} ;
+  Noun : Type = {s : NForm => Str ; g : Gender ; shortPoss : Bool} ;
   Noun2 : Type = Noun ** {c2 : Preposition} ;
   Noun3 : Type = Noun2 ** {c3 : Preposition} ;
 
@@ -23,11 +23,11 @@ oper
                          Masc => wiil } ;
         defStems : Str -> Vowel => Str = \s -> case s of {
           ilk + "aha" =>
-               table { vA => ilk+"ah" ;
-                       vE => ilk+"eh" ;
+               table { vE => ilk+"eh" ;
                        vI => ilk+"ih" ;
                        vO => ilk+"oh" ;
-                       vU => ilk+"uh"
+                       vU => ilk+"uh" ;
+                       _  => ilk+"ah"
                        } ;
           _ => table { _ => init s }
           } ;
@@ -39,7 +39,8 @@ oper
            Numerative => bisadood ;
            Def Sg vow => defStems wiilka ! vow ;
            Def Pl vow => defStems wiilasha ! vow } ;
-         g = gender } ;
+         g = gender ;
+         shortPoss = False} ;
 
 -------------------------
 -- Regular noun paradigms
@@ -55,10 +56,11 @@ oper
 
   -- 3) Masculine, plural with duplication
   nMas mas = let s = last mas ;
+                 a = last (init mas) ;
                  ka = allomorph mKa mas ;
                  ta = allomorph mTa mas ;
                  sha = case ta of {"sha" => ta ; _ => s + ta } in
-    mkNoun mas (mas + ka) (mas + "a" + s) (mas + "a" + sha) Masc ;
+    mkNoun mas (mas + ka) (mas + a + s) (mas + a + sha) Masc ;
 
   -- 4a) Feminine, plural with ó
   nUl ul = let o  = case last ul of { "i" => "yo" ; _ => "o" } ;
@@ -139,30 +141,70 @@ oper
 --  keenna teenna kuweenna (1 pl. inkl.)
 --  kiinna tiinna kuwiinna
 --  kooda tooda kuwooda
-  Pronoun : Type = NounPhrase ;
+  Pronoun : Type = NounPhrase ** {
+    poss : { -- for PossPron : Pron -> Quant
+        --s, -- possessive suffix
+        sp : GenNum => Str ; -- independent forms
+        s : Str ; -- special case: e.g. family members, name
+        v : Vowel}
+    } ;
 
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
-  Quant : Type = SS ; ---- TODO
 
-  Determiner : Type = {
+  BaseQuant : Type = {
     s : Case => Str ;
-   sp : Gender => Case => Str ;
-    d : NForm
+    isPoss : Bool ;
+    shortPoss : Str ; -- short form of possessive, e.g. family members
     } ;
 
-  mkDeterminer : (x1,_,x3 : Str) -> NForm -> Determiner = \an,kani,tani,nf ->
-    let ani : Str = case an of { _ + #c => an+"i" ;
-                                 _      => case nf of { Def _ _ => "u" ;
-                                                        _       => [] }
-                               } ;
-        bind : Str -> Str = \x -> case x of { "" => [] ;  _ => BIND ++ x } ;
-    in { s = table { Nom => bind ani ; Abs => bind an } ;
-        sp = table { Fem => table { Nom => tani ; Abs => init tani } ;
-                     Masc => table { Nom => kani ; Abs => init kani }
-                   } ;
-         d = nf
-       } ;
+  Determiner : Type = BaseQuant ** {
+    pref : Str ; -- Numerals ?
+    sp : Gender => Case => Str ;
+    d : NForm -- a combination of number, state and vowel
+    } ;
+
+  Quant : Type = BaseQuant ** {
+    sp : GenNum => Case => Str ;
+    st : State ;
+    v : Vowel ;
+    } ;
+
+  Num : Type = {
+    s : Str ; -- TODO check if enough
+    n : Number ; -- singular or plural
+    isNum : Bool -- whether to choose Numerative as the value of NForm
+    } ;
+
+  baseQuant : BaseQuant = {
+    s = \\_ => [] ;
+    isPoss = False ;
+    shortPoss = []
+  } ;
+
+  defQuant = defQuantBind True ;
+
+  defQuantBind : (bind : Bool) -> (s, kan, tan, kuwan : Str) -> Vowel -> Quant = \b,s,spm,spf,spp,v ->
+    let bind : Str -> Str = \x -> case b of {False => x ; True => BIND ++ x} ;
+    in baseQuant ** {
+        s = \\c =>
+          let nom = case v of {NA => "u" ; _ => s + "i"}
+          in case c of {Abs => bind s ; Nom => bind nom} ;
+        sp = \\gn,c =>
+           let i = case c of {Nom => "i"; Abs => []}
+           in gnTable (spm + i) (spf + i) (spp + i) ! gn ;
+        st = Definite ;
+        v = v ;
+        } ;
+
+  gnTable : (m,f,p : Str) -> (GenNum => Str) = \m,f,p ->
+    table {SgMasc => m ; SgFem => f ; _ => p} ;
+
+  indefQuant : Quant = baseQuant ** {
+    sp = \\gn,c => [] ;
+    st = Indefinite ;
+    v = NA ; -- Will be ignored in DetQuant
+    } ;
 
 --------------------------------------------------------------------------------
 -- Prepositions
@@ -305,10 +347,10 @@ oper
                    _  => arki + "n" } ; -- otherwise add n.
 
         -- Some predictable sound changes
-        t : Str = case arag of { -- kari+seen, noq+deen, (sug|joogsa|qaada)+teen,
+        t : Str = case arag of { -- kari+seen, bixi noq+deen, (sug|joogsa|qaada)+teen,
                _ + ("i"|"y") => "s" ;     -- t changes into s in front of i/y
                _ + ("x"|"q"|"c") => "d" ; -- t changes into d in front of x/q/c
-               _             => "t" } ;   
+               _             => "t" } ;
         ay : Str = case ark of {
                _ + ("i"|"e") => "ey" ;
                _             => "ay" } ;
@@ -364,7 +406,7 @@ oper
      in mkVerb joogso (joogsa + "d") joogsa ;
 
   cQaado qaado =
-    let qaa = drop 2 qaado
+    let qaa = init (init qaado)
      in mkVerb qaado  -- Imperative sg, with the vowel
               (qaa + "t")    -- Per1 Sg, Per3 Pl and Per3 Sg Masc
               (qaa + "da") ; -- Per2 Pl and others
@@ -419,7 +461,7 @@ oper
           VRel                  => "leh" ;
           x                     => hold_V.s ! x }
     } ;
-          
+
 -- Till VERBFRASEN ansluter sig
 -- · satstypsmarkörer (waa, ma...),
 -- · subjekts-pronomenet la man,
@@ -466,7 +508,7 @@ oper
   ClSlash,
   Sentence : Type = SS ; ---- TODO
 
-  doonaa : Str -> Verb = \inf -> 
+  doonaa : Str -> Verb = \inf ->
     let doon : Verb = cSug "doon" in {s = \\vf => inf ++ doon.s ! vf} ;
 
   vf : Tense -> Anteriority -> Polarity -> Agreement -> Verb

@@ -51,7 +51,11 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     --   s = \\agr,t,a,p,m => cls.s ! agr ! DDir ! t ! a ! p ! m ++ cls.c2.s ;
     --   c = Nom
     --   } ;
-
+    SubjRelNP np rs = heavyNPpol np.isNeg {
+      s = \\c => (np.s ! c).ton ++ rs.s ! Conjunct ! np.a ;
+      a = np.a ;
+      hasClit = False
+      } ;
   lin
     PredVPS np vpi = {
       s = \\m => (np.s ! Nom).comp ++ vpi.s ! m ! np.a ! np.isNeg
@@ -119,6 +123,12 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     ExistMassCN cn = ExistNP (MassNP cn) ;
     ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
     AdvIsNP adv np = mkClause adv.s False False np.a (UseComp_estar (CompNP np)) ;
+    AdvIsNPAP adv np ap = -- <aquí:Adv> está <documentada:AP> <la examinación:NP>
+      let emptyN : N = lin N {s = \\_ => [] ; g = np.a.g} ; -- To match the gender of the N
+          indef : Quant = IndefArt ** {s = \\b,n,g,c => []} ;
+          det : Det = case np.a.n of {Sg => DetQuant indef NumSg ; Pl => DetQuant indef NumPl} ;
+          apAsNP : NP = DetCN det (AdjCN ap (UseN emptyN)) ; -- NP where the string comes only from AP
+       in AdvIsNP adv (ApposNP apAsNP np) ;
 
   lin
     ComplBareVS = ComplVS ;     -- VS -> S -> VP ; -- say she runs ; DEFAULT say that she runs
@@ -186,6 +196,8 @@ incomplete concrete ExtendRomanceFunctor of Extend =
 
     InOrderToVP = variants {} ;     -- VP -> Adv ; -- (in order) to publish the document
 
+    PredIAdvVP iadv vp = {s = \\_,_,_,_ => iadv.s ++ infStr vp} ;
+
     ApposNP np1 np2 = np1 ** {
       s = \\c => {
         c1 = (np1.s ! c).c1  ++ (np2.s ! c).c1 ;
@@ -217,7 +229,15 @@ incomplete concrete ExtendRomanceFunctor of Extend =
 
   lin
     DetNPMasc = DetNP ;
-    DetNPFem = DetNP ;
+    DetNPFem det =
+      let
+        g = Fem ;
+        n = det.n
+      in heavyNPpol det.isNeg {
+           s = det.sp ! g ;
+           a = agrP3 g n ;
+           hasClit = False
+           } ;
 
   lin
     iFem_Pron = i_Pron ; -- DEFAULT I (masc)

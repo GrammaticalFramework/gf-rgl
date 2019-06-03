@@ -1,5 +1,5 @@
 abstract ExtraLatAbs =
-  Extra, Conjunction
+  Extra, ExtraLexiconLatAbs, Conjunction
   ** {
     cat CS ;
   fun

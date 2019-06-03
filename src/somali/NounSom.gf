@@ -6,26 +6,29 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
 --2 Noun phrases
 
--- The three main types of noun phrases are
--- - common nouns with determiners
--- - proper names
--- - pronouns
-
-  -- : Det -> CN -> NP
-  DetCN det cn = useN cn ** {
-    s = \\c =>
-         let nfc : {nf : NForm ; c : Case} =
-           case <c,cn.hasMod,det.d> of {
-              <Nom,True, Indef Sg> => {nf=Indef Sg ; c=Abs} ;
-              <Nom,False,Indef Sg> => {nf=IndefNom ; c=Nom} ; -- special form for fem. nouns
-              <Nom,True,Def x vA>   => {nf=Def x vA ; c=Abs} ;
-              <Nom,False,Def x vA>  => {nf=Def x vU ; c=Nom} ;
-              _                    => {nf=det.d ; c=c}
-           } ;
-          in cn.s ! nfc.nf
-          ++ det.s ! nfc.c
-          ++ cn.mod ! getNum (getAgr det.d Masc) ! c ;
-    a = getAgr det.d cn.g
+-- : Det -> CN -> NP
+DetCN det cn = useN cn ** {
+  s = sTable ;
+  a = getAgr det.d cn.g ;
+  sp = sTable ! Nom }
+  where {
+    sTable : Case => Str = \\c =>
+       let nfc : {nf : NForm ; c : Case} =
+             case <c,cn.hasMod,det.d> of {
+                <Nom,False,Indef Sg> => {nf=IndefNom ; c=Nom} ; -- special form for fem. nouns
+                <Nom,False,Def x NA> => {nf=Def x vU ; c=Nom} ; -- special case for DefArt
+                <Nom,True,_> => {nf=det.d ; c=Abs} ; -- If cn has modifier, the Nom ending attaches to the modifier
+                _            => {nf=det.d ; c=c}
+             } ;
+          detStr : Str =
+            case <det.isPoss,cn.shortPoss> of {
+                <True,True> => det.shortPoss ;
+                _ => det.s ! nfc.c
+            } ;
+        in det.pref -- if det is numeral. TODO find out if gender/case/other distinction.
+        ++ cn.s ! nfc.nf
+        ++ detStr -- non-numeral det
+        ++ cn.mod ! getNum (getAgr det.d Masc) ! c
     } ;
 
   -- : PN -> NP ;
@@ -36,7 +39,6 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- : Pron -> NP ;
   UsePron pron = lin NP pron ;
-
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {
@@ -80,13 +82,25 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- quantifier and an optional numeral can be discerned.
 
   -- : Quant -> Num -> Det ;
-  -- DetQuant quant num = quant **
-  --   { } ;
+  DetQuant quant num = quant ** {
+    pref = num.s ;
+    sp = \\g => case <num.n,g> of {
+          <Sg,Masc> => quant.sp ! SgMasc ;
+          <Sg,Fem> => quant.sp ! SgFem ;
+          <Pl,_> => quant.sp ! InvarPl } ;
+
+    d = case <num.isNum,quant.st> of {
+          <True,_> => Numerative ;
+          <False,Definite> => Def num.n quant.v ;
+          <False,Indefinite> => Indef num.n } ;
+    } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
-  -- DetQuantOrd quant num ord =
-  --   let theseFive = DetQuant quant num
-  --   in theseFive ** { s = \\c,ph => theseFive.s ! c ! ph ++ ord.s } ; --TODO: dummy implementation
+  DetQuantOrd quant num ord =
+    let theseFive = DetQuant quant num in theseFive ** {
+      s = \\c    => theseFive.s ! c      ++ ord.s ;
+      sp = \\g,c => theseFive.sp ! g ! c ++ ord.s
+      } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
 -- cardinal.
@@ -94,10 +108,10 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- All parts of the determiner can be empty, except $Quant$, which is
 -- the "kernel" of a determiner. It is, however, the $Num$ that determines
 -- the inherent number.
-{-
-  NumSg = { s = [] ; n = Sg ; isNum = False } ;
-  NumPl = { s = [] ; n = Pl ; isNum = False } ;
 
+  NumSg = {s = [] ; n = Sg ; isNum = False} ;
+  NumPl = {s = [] ; n = Pl ; isNum = False} ;
+{-
   -- : Card -> Num ;
   NumCard card = (card ** { isNum = True }) ;
 
@@ -117,27 +131,37 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   OrdNumeral num = num ;
 
   -- : A       -> Ord ;
-  OrdSuperl a = {  } ; -- why force Sg?
+  OrdSuperl a = {  } ;
 
 -- One can combine a numeral and a superlative.
 
   -- : Numeral -> A -> Ord ; -- third largest
   OrdNumeralSuperl num a = num ** {  } ;
+-}
 
   -- : Quant
-  DefArt = {  } ;
+  DefArt = defQuant "a" "kan" "tan" "kuwan" NA ;
+
   -- : Quant
-  IndefArt = { s     = artDef ;
-               indep = False ;
-               pref  = [] ;
-               isDef = False } ; --has suffix, but turns into partitive in negative!
+  IndefArt = indefQuant ** {sp = \\gn,c => "1"} ; -- TODO sp forms
 
   -- : Pron -> Quant
-  PossPron pron = { s     = artDef ;
-                    indep = True ;
-                    pref  = pron.s ! Gen ;
-                    isDef = True } ;
--}
+  PossPron pron =
+    let p = pron.poss ;
+        gntbl = gnTable (BIND ++ p.sp ! SgMasc)
+                        (BIND ++ p.sp ! SgFem)
+                        (BIND ++ p.sp ! InvarPl)
+     in DefArt ** {
+          shortPoss = BIND ++ p.s ;
+          isPoss = True ;
+          s = \\c => let casevow = case c of {Nom => "u" ; Abs => "a"}
+                     in gntbl ! SgMasc ++ BIND ++ casevow ;
+          sp = \\gn,c => let prefix = case gn of {SgFem => "t" ; _ => "k"} ;
+                             casevow = case c of {Nom => "u" ; Abs => "a"}
+                          in prefix ++ gntbl ! gn ++ BIND ++ casevow ;
+          v = p.v
+        } ;
+
 --2 Common nouns
 
   -- : N -> CN

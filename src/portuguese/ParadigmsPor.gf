@@ -35,6 +35,7 @@ resource ParadigmsPor =
     Prelude,
     MorphoPor,
     BeschPor,
+    DiffPor,
     CatPor in {
 
   flags optimize=all ;
@@ -78,6 +79,18 @@ oper
 
   dative     : Prep ; -- preposition "a" and its contractions
   dative = lin Prep complDat ;
+
+  CopulaType : Type ;
+  CopulaType = DiffPor.CopulaType ;
+
+  serCopula : CopulaType ;
+  serCopula = DiffPor.serCopula ;
+
+  estarCopula : CopulaType ;
+  estarCopula = DiffPor.estarCopula ;
+
+  ficarCopula : CopulaType ;
+  ficarCopula = DiffPor.ficarCopula ;
 
   mkPrep = overload {
     mkPrep : Str -> Prep -- other preposition

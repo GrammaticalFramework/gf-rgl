@@ -25,6 +25,10 @@ oper
   -- fatha : Str = "َ" ;
   kasre,fatha : Str = [] ;
 
+  -- for appComp
+  -- runtimeKasre : Str -> Str = \s -> glue s kasre ;
+  runtimeKasre : Str -> Str = \s -> s ;
+
 
 ---- Nouns
 param
@@ -32,6 +36,7 @@ param
   Mod = Bare | Ezafe | Clitic | Poss ;
   Agr = Ag Number Person ;
   CmpdStatus = IsCmpd | NotCmpd ;
+  Degr = Positive | Comparative ;
 
 ------------------------------------------
 -- Agreement transformations
@@ -97,6 +102,16 @@ oper
            Clitic => mkEnclic str ;
            Poss => mkPossStem str } ;
 
+  -- Can happen that a complement (of N2, or e.g. PossNP) wants one form
+  -- and determiner wants another form. Heuristic: whichever wants Bare loses.
+  -- Will have to see if this works 100%, the grammar books I've seen
+  -- aren't very clear about this, just basing on some data. /IL
+  replaceBare : Mod -> (Mod=>Str) -> (Mod=>Str) = \m,tbl ->
+    table {
+      Bare => tbl ! m ;
+      mod  => tbl ! mod
+    } ;
+
   Noun = {
     s : Number => Mod => Str ;
     animacy : Animacy ;
@@ -119,7 +134,10 @@ oper
 --Determiners
 --------------------
   BaseQuant : Type = {
-    mod : Mod } ;
+    mod : Mod ;
+    isNeg : Bool ;
+    isDef : Bool 
+  } ;
 
   Determiner : Type = BaseQuant ** {
     s : Str ;
@@ -131,34 +149,48 @@ oper
   Quant : Type = BaseQuant ** {
     s : Number => CmpdStatus => Str} ;
 
-  makeDet : Str -> Number -> Bool -> Determiner = \str,n,b -> {
+  makeDet : Str -> Number -> (isNum, isNeg : Bool) -> Determiner = \str,n,isNum,isNeg -> {
     s,sp = str;
-    isNum = b;
+    isNum = isNum ;
+    isNeg = isNeg ;
+    isDef = True ;
     mod = Bare ;
     n = n
   };
 
-  makeQuant : Str -> Str -> Quant = \sg,pl -> {
+  makeQuant : Str -> Str -> Mod -> (isNeg : Bool) -> Quant = \sg,pl,mod,isNeg -> {
     s = table {Sg => \\_ => sg ; Pl => \\_ => pl} ;
-    mod = Bare ;
+    mod = mod ;
+    isNeg = isNeg ;
+    isDef = True
   };
 ---------------------------
 -- Adjectives
 --------------------------
-  Adjective : Type = {
-    s : Mod => Str ;
+  BaseAdjective : Type = {
     adv : Str ;
-    isPre : Bool
+    isPre : Bool ;        -- as attributive
+    afterPrefix : Bool ;  -- as predicative, does it go between the prefix and the light verb
     } ;
 
- mkAdj : Str -> Str -> Adjective = \adj,adv -> {
-   s = table { Bare => adj;
-               Ezafe => mkEzafe adj ;
-               Clitic => mkEnclic adj ;
-               Poss => mkPossStem adj
-             } ;
-   adv = adv ; isPre = False
-   };
+  Adjective : Type = BaseAdjective ** {
+    s : Degr => Mod => Str } ;
+
+  AP : Type =  BaseAdjective ** {
+    s : Mod => Str } ;
+
+  mkAdj = overload {
+    mkAdj : Str -> Str -> Adjective = \adj,adv -> {
+       s = table { Positive => modTable adj ;
+                   Comparative => modTable (adj + "تر") -- Regular comparative.
+                 } ;
+       adv = adv ; isPre = False ; afterPrefix = True } ;
+    mkAdj : Str -> Str -> Str -> Adjective = \pos,cmp,adv -> {
+       s = table { Positive => modTable pos ;
+                   Comparative => modTable cmp -- Irregular comparative, e.g. xub-behtar
+                 } ;
+       adv = adv ; isPre = False ; afterPrefix = True }
+    } ;
 
 ------------------------------------------------------------------
 -- Verbs
@@ -177,11 +209,34 @@ param
            | VImp Polarity Number -- bekon,bekonid/nakon,nakonid
            ;
 
+  -- Affects clitic placement and passive
+  LightVerb = NotLight | Light  -- ateš zadan -> ateš zade šodan
+            | Kardan ;          -- gom kardan -> gom   ∅   šodan
 oper
   impRoot : Str -> Str = \root -> case root of {
     st + "ی" => st ;
     _        => root
     };
+
+  modifyFiniteForms : (Str -> Str) -> Verb -> Verb = \f,v -> v ** {s =
+    table {
+      vf@(VAor _ _
+         | VPerf _ _
+         | VPast _ _
+         | VSubj _ _
+         | VImp _ _)
+         => f (v.s ! vf) ;
+      vf => v.s ! vf }
+    } ;
+
+  addClitic : LightVerb -> Str -> Verb -> Verb = \light,cl,v -> v ** {s =
+    let f : Str -> Str = case light of {
+          NotLight => \s -> glue s cl ;
+          _ => \s -> BIND ++ cl ++ s } -- hack: put clitic before the verb, so it attaches to the prefix
+    in table {
+          Inf => glue (v.s ! Inf) cl ;
+          vf => (modifyFiniteForms f v).s ! vf }
+       } ;
 
   mkVerb : (inf,pres : Str) -> Verb = \kardan,kon -> {
     s = table {
@@ -198,10 +253,11 @@ oper
       VSubj Pos agr => addBh (imperfectSuffixD agr kon) ;
       VSubj Neg agr => addN (imperfectSuffixD agr kon) ;
       VImp Pos Sg => addBh imp ;
-      VImp Pos Pl => addBh imp + "ید" ;
+      VImp Pos Pl => addBh kon + "ید" ;
       VImp Neg Sg => addN imp ;
-      VImp Neg Pl => addN imp + "ید" } ;
-    prefix = [] -- For compound verbs
+      VImp Neg Pl => addN kon + "ید" } ;
+    prefix = [] ;-- For compound verbs
+    lightverb = NotLight ;
   } where {
       kard = tk 1 kardan ;
       kardeh = kard + "ه" ;
@@ -225,7 +281,7 @@ oper
       } ;
 --
 oper
-  Verb = {s : VerbForm => Str ; prefix : Str} ;
+  Verb = {s : VerbForm => Str ; prefix : Str ; lightverb : LightVerb} ;
 
   -- Verbs that end in یدن, ادن or ودن
   -- Also some verbs that don't: دانستن with stem دان
@@ -310,6 +366,8 @@ oper
 
   haveVerb : Verb = haveRegV ** {s = table {
     ImpPrefix _ => [] ;
+    VAor Neg agr  => imperfectSuffixD agr (addN "دار") ;
+    VSubj pol agr => haveRegV.s ! VPerf pol agr ;
     vf          => haveRegV.s ! vf }
   } where { haveRegV = mkVerb "داشتن" "دار" } ;
 
@@ -325,5 +383,17 @@ oper
     VImp Neg Pl => "نباشید" ;
     vf          => beRegV.s ! vf }
   } where { beRegV = mkVerb "بودن" "باش" } ;
+
+  doVerb : Verb = doRegV ** {s = table {
+    VSubj pol agr => addN pol (imperfectSuffixD agr "کن") ;
+    VImp Pos Sg => "کن" ;
+    VImp Pos Pl => "کنید" ;
+    VImp Neg Sg => "نکن" ;
+    VImp Neg Pl => "نکنید" ;
+    vf          => doRegV.s ! vf } ;
+    lightverb = Kardan
+  } where { doRegV = mkVerb "کردن" "کن" } ;
+
+  becomeVerb : Verb = mkVerb "شدن" "شو" ;
 
 }

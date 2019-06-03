@@ -7,7 +7,7 @@ concrete StructuralPes of Structural = CatPes **
   lin
   above_Prep = mkPrep "بالای" ;
   after_Prep = mkPrep ["بعد از"] ;
-  all_Predet = ss ["همه ی"] ;
+  all_Predet = ss (zwnj "همه" "ی") ;
   almost_AdA, almost_AdN = ss "تقریباً" ;
   although_Subj = mkSubj "با وجود این" ;
   always_AdV = ss "همیشه" ;
@@ -21,12 +21,12 @@ concrete StructuralPes of Structural = CatPes **
   by8agent_Prep = mkPrep "توسط" ;
   by8means_Prep = mkPrep "با" ;
 --  can8know_VV,can_VV = mkVV (mkV "سکن") ;
-  can_VV = mkVV (mkV_1 "توانستن") ; ---- AR
+  can_VV = let isAux = False in mkVV isAux subjunctive (mkV_1 "توانستن") ; ---- AR
   during_Prep = mkPrep ["در طول"] ;
   either7or_DConj = sd2 "یا" "یا" ** {n = Sg} ;
 --  everybody_NP =  R.indeclNP "هر کwی";
   every_Det = mkDet "هر" Sg ;
---  everything_NP = R.indeclNP ["هر XE"]));
+  everything_NP = DetCN (mkDet "همه" Sg) (UseN (mkN "چیز")) ;
   everywhere_Adv = ss ["هر جا"] ;
   few_Det = mkDet ["تعداد کمی"] Pl True; -- check
   for_Prep = mkPrep "برای" Ezafe ;
@@ -44,7 +44,7 @@ concrete StructuralPes of Structural = CatPes **
   in_Prep = mkPrep "در" ;
   it_Pron  = R.agr2pron ! Ag Sg P3;
   less_CAdv = {s = "کمتر" ; p = ""} ;
-  many_Det = mkDet "بسیار" Pl False Ezafe ;
+  many_Det = let isNum, isNeg = False in  mkDet "بسیار" Pl isNum isNeg Ezafe ;
   more_CAdv = {s = "بیشتر" ; p = "" } ;
   most_Predet = ss "اکثر";
   much_Det = mkDet ["مقدار زیادی"]  Pl ;
@@ -57,9 +57,9 @@ concrete StructuralPes of Structural = CatPes **
   only_Predet = ss "فقط" ;
   or_Conj = sd2 [] "یا" ** {n = Sg} ;
   otherwise_PConj = ss ["درغیراین صورت"] ;
-  part_Prep = mkPrep "از" ; -- TODO: the object following it should be in Ezafa form
+  part_Prep = mkPrep "از" Ezafe ;
   please_Voc = ss "لطفاً" ;
-  possess_Prep = mkPrep "" ; -- will be handeled in Ezafeh
+  possess_Prep = mkPrep [] Ezafe ;
   quite_Adv = ss "کاملاً" ;
   she_Pron = R.agr2pron ! Ag Sg P3 ;
   so_AdA = ss "بسیار" ;
@@ -101,12 +101,12 @@ concrete StructuralPes of Structural = CatPes **
   youSg_Pron = R.agr2pron ! Ag Sg P2 ;
   youPl_Pron = R.agr2pron ! Ag Pl P2 ;
   youPol_Pron = R.agr2pron ! Ag Pl P2  ;
---  no_Quant =  demoPN "هیچ" ;
+  no_Quant = mkQuant "هیچ" "هیچ" Clitic True ;
   not_Predet = {s="نه"} ;
   if_then_Conj = sd2 "اگر" "آنگاه" ** {n = Sg} ;
   at_least_AdN = ss "حداقل" ;
   at_most_AdN = ss "حداکثر";
-  nothing_NP = R.indeclNP "هیچ" ;
+  nothing_NP = R.indeclNP "هیچ چیز" ** {isNeg = True} ;
   except_Prep = mkPrep ["به جز"] ;
   nobody_NP = R.indeclNP "هیچ کس";
 
@@ -114,7 +114,7 @@ concrete StructuralPes of Structural = CatPes **
 
 ----  have_V2 = mkV2 (mkV "داشتن" "دار") "را" ;
 
- language_title_Utt = ss "پeرسن" ;
+ language_title_Utt = ss "فارسی" ;
 
 ---- AR from Nasrin
 
@@ -126,12 +126,7 @@ have_V2 = haveVerb ** {
         VImp Pos Pl => "داشته باشید" ;
         VImp Neg Sg => "نداشته باش" ;
         VImp Neg Pl => "نداشته باشید" ;
-        VSubj _ (Ag Sg P1) => "داشته باشم" ;
-        VSubj _ (Ag Sg P2) => "داشته باشی" ;
-        VSubj _ (Ag Sg P3) => "داشته باشد" ;
-        VSubj _ (Ag Pl P1) => "داشته باشیم" ;
-        VSubj _ (Ag Pl P2) => "داشته باشید" ;
-        VSubj _ (Ag Pl P3) => "داشته باشند" ;
+        VSubj p agr => "داشته" ++ subjAux p agr ;
         x => haveVerb.s ! x } ;
   c2 = prepOrRa [] -- "را" ;  ---- AR 18/9/2017: usually no ra acc. to Nasrin, but this is tricky
   } ;

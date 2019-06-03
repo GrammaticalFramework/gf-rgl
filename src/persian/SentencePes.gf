@@ -7,15 +7,15 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     PredVP np vp = mkClause np vp ;
 
-    PredSCVP sc vp = mkSClause ("این" ++ sc.s) defaultAgr vp ;
+    PredSCVP sc vp = mkSClause sc.s defaultAgr vp ;
 
     ImpVP vp = {
       s = \\pol,n =>
-        let agr = Ag (numImp n) P2 ;
-            vps = vp.prefix ++ vp.s ! VImp pol (numImp n)
+        let agr = Ag n P2 ;
+            vps = vp.prefix ++ vp.s ! VImp pol n
          in case vp.vvtype of {
-              NoVV => vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vps ++ vp.embComp ;
-              _    => vps ++ vp.ad ++ vp.comp ! agr ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp }
+              NoVV => vp.ad ++ vp.comp ! agr ! OV ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vps ++ vp.embComp ;
+              _    => vps ++ vp.ad ++ vp.comp ! agr ! OV {-TODO check if legit-} ++ vp.obj ++ vp.vComp ! agr ! VVPres ++ vp.embComp }
     } ;
 
     SlashVP np vp =
@@ -38,27 +38,27 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
 
     EmbedS  s  = {s = conjThat ++ s.s ! Indic} ;
     EmbedQS qs = qs ;
-    EmbedVP vp = {s = showVPH Inf defaultAgr vp} ; --- agr
+    EmbedVP vp = {s = infVP vp} ; --- agr
 
 
     UseCl temp p cl = {
       s = \\vvf => temp.s ++ p.s ++ case vvf of {
-            Indic => cl.s ! TA temp.t temp.a ! p.p ! ODir ;
-            Subj  => cl.s ! TA Cond   temp.a ! p.p ! ODir }
+            Indic => cl.s ! Ind temp.t temp.a ! p.p ! ODir ;
+            Subj  => cl.s ! Sub        temp.a ! p.p ! ODir }
       } ;
 
-    UseQCl temp p qcl  = let vt = TA temp.t temp.a in {
+    UseQCl temp p qcl  = let vt = Ind temp.t temp.a in {
       s = temp.s ++ p.s ++ qcl.s ! vt ! p.p ;
       } ;
 
-    UseRCl temp p rcl = let vt = TA temp.t temp.a in rcl ** {
+    UseRCl temp p rcl = let vt = Ind temp.t temp.a in rcl ** {
       s = \\a => temp.s ++ p.s ++ rcl.s ! vt ! p.p ! a
       } ;
 
     UseSlash temp p cls = cls ** {
       s = \\vvf => temp.s ++ p.s ++ cls.subj ++ case vvf of {
-            Indic => cls.vp ! TA temp.t temp.a ! p.p ! ODir ;
-            Subj  => cls.vp ! TA Cond   temp.a ! p.p ! ODir }
+            Indic => cls.vp ! Ind temp.t temp.a ! p.p ! ODir ;
+            Subj  => cls.vp ! Sub        temp.a ! p.p ! ODir }
       } ;
 
     AdvS a s = {s = \\vvf => a.s ++ s.s ! vvf} ;

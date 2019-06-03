@@ -1,5 +1,5 @@
 concrete ExtraLat of ExtraLatAbs =
-  CatLat, ConjunctionLat ** 
+  CatLat, ExtraLexiconLat, ConjunctionLat ** 
   open ResLat, ParadigmsLat, Coordination, Prelude in {
   lincat CS = Str ;
   lin

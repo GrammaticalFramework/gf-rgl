@@ -31,7 +31,7 @@ oper
   Mod : Type ; -- Argument to mkDet and mkPrep
   ezafe : Mod ; -- e.g. mkPrep "برای" ezafe
   -- poss : Mod ; -- TODO is this needed?
-  --clitic : Mod ; -- TODO is this needed?
+  -- clitic : Mod ; -- TODO is this needed?
 --2 Nouns
 
   mkN : overload {
@@ -42,11 +42,13 @@ oper
   } ;
 
   mkN2 : overload {
-    mkN2 : (key : N) -> (to : Str) -> N2 -- Takes a noun and a complementiser, returns a N2.
+    mkN2 : (key : N) -> (to : Str) -> N2 ; -- Takes a noun and a complementiser as a string, returns a N2.
+    mkN2 : (key : N) -> (to : Prep) -> N2 -- Takes a noun and a complementiser as a Prep, returns a N2.
   } ;
 
   mkN3 : overload {
-    mkN3 : (distance : N) -> (from,to : Str) -> N3 -- Takes a noun and two complementisers, returns a N3.
+    mkN3 : (distance : N) -> (from,to : Str) -> N3 ; -- Takes a noun and two complementisers as strings, returns a N3.
+    mkN3 : (distance : N) -> (from,to : Prep) -> N3 -- Takes a noun and two complementisers as Preps, returns a N3.
   } ;
 
 -- Compound Nouns
@@ -58,7 +60,7 @@ oper
       = mkCmpdNoun2 ;  --  e.g. مأمور پلیس '/officer/ police'.
     cmpdN : N -> N -> N -- Compound noun with ezafe (Nی N)
       = \n1,n2 -> n1 ** {
-           s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! n ! m ;
+           s = \\n,m => n1.s ! n ! Ezafe ++ n2.s ! Sg ! m ;
            isCmpd = IsCmpd} ;
     } ;
 
@@ -70,11 +72,13 @@ oper
 
   mkDet = overload {
     mkDet : Str -> Number -> Det -- Takes a string, number (sg/pl) and returns a det which is not a numeral
-      = \s,n -> lin Det (makeDet s n False);
-    mkDet : Str -> Number -> Bool -> Det -- As above + a Boolean for whether the det is a numeral
-      = \s,n,b -> lin Det (makeDet s n b) ;
-    mkDet : Str -> Number -> Bool -> Mod -> Det -- As above + Mod for which form the determiner expects its argument to be (default bare)
-      = \s,n,b,m -> lin Det (makeDet s n b ** {mod=m})
+      = \s,n -> lin Det (makeDet s n False False);
+    mkDet : Str -> Number -> (isNum : Bool) -> Det -- As above + a Boolean for whether the det is a numeral
+      = \s,n,b -> lin Det (makeDet s n b False) ;
+    mkDet : Str -> Number -> (isNum, isNeg : Bool) -> Det -- As above + a Boolean for whether the det is negative
+      = \s,n,nu,ne -> lin Det (makeDet s n nu ne) ;
+    mkDet : Str -> Number -> (isNum, isNeg : Bool) -> Mod -> Det -- As above + Mod for which form the determiner expects its argument to be (default bare)
+      = \s,n,nu,ne,m -> lin Det (makeDet s n nu ne ** {mod=m})
   };
 
  {-
@@ -88,6 +92,7 @@ oper
     mkA : Str -> A ; -- Regular adjective, same form for adjective and adverb.
     mkA : (adj,adv : Str) -> A -- Different forms for adjective and adverb.
   } ;
+  prefixA : A -> A ; -- Adjective that comes before the noun
 
   mkA2 : (married,to : Str) -> A2 -- Takes string and complementiser, returns A2.
     = \a,c -> lin A2 (mkAdj a a ** {c2 = c}) ;
@@ -112,6 +117,8 @@ oper
     = lin V M.haveVerb ;
   beVerb : V  -- The verb "be", to be used for light verb constructions: e.g. compoundV "عاشق" beVerb.
     = lin V M.beVerb ;
+  doVerb : V -- The verb "do", to be used for light verb constructions. In passive, is replaced by شدن.
+    = lin V M.doVerb ;
 
   mkV2 : overload {
     mkV2 : Str -> V2 ; -- Predictable V2 out of string. No preposition, را for direct object.
@@ -121,7 +128,7 @@ oper
 
   mkV3 = overload {
     mkV3 : Str -> V3 -- Predictable V3, را for direct object, no prepositions.
-     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = prepOrRa []}) ;
+     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = noPrep}) ;
     mkV3 : V -> (dir,indir : Str) -> V3 -- Takes a verb and two prepositions or را as strings (can be empty).
      = \v,p,q -> lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
     mkV3 : V -> (dir,indir : Prep) -> V3 -- Takes a verb and two prepositions
@@ -137,18 +144,20 @@ oper
 
   mkVA = overload {
     mkVA : Str -> VA -- predictable verb with adjective complement
-      = \s -> lin VA (regV s ** {c2 = prepOrRa []}) ;
+      = \s -> lin VA (regV s ** {c2 = noPrep}) ;
     mkVA : V -> VA -- VA out of a verb
-      = \v -> lin VA (v ** {c2 = prepOrRa []}) ;
+      = \v -> lin VA (v ** {c2 = noPrep}) ;
     mkVA : V -> Prep -> VA -- VA out of a verb and preposition
       = \v,p -> lin VA (v ** {c2 = p}) ;
     } ;
 
   mkVS = overload {
-   mkVS : Str -> VS -- predictable verb with sentence complement
-    = \s -> lin VS (regV s) ;
-   mkVS : V -> VS -- VS out of a verb
-    = \v -> lin VS v
+   mkVS : Str -> VS -- predictable verb with sentence complement in subjunctive.
+    = \s -> lin VS (regV s ** {compl=subjunctive}) ;
+   mkVS : V -> VS -- VS out of a verb, sentence complement in subjunctive.
+    = \v -> lin VS (v ** {compl=subjunctive}) ;
+   mkVS : VVForm -> V -> VS -- sentence complement given as argument
+    = \vvf,v -> lin VS (v ** {compl=vvf}) ;
   } ;
 
   mkVV = overload {
@@ -161,6 +170,21 @@ oper
     mkVV : (isAux : Bool) -> VVForm -> V -> VV -- takes its VP complement in the given VVForm. Whether it's auxiliary (T/F) given as the first argument.
      = \isAux,vvf,v -> v ** {isAux = isAux ; compl = vvf ; isDef = False}
   } ;
+
+  defVV : VV -> VV = \vv -> vv ** {isDef=True} ;
+
+  mkV2S = overload {
+    mkV2S : Str -> V2S -- predictable morphology, direct object with را, sentence complement in subjunctive.
+     = \s -> lin V2S (regV s ** {compl=subjunctive ; c2 = prepOrRa "را"}) ;
+    mkV2S : V -> V2S  -- direct object with را, sentence complement in subjunctive.
+     = \v -> lin V2S (v ** {compl=subjunctive ; c2 = prepOrRa "را"}) ;
+    mkV2S : Prep -> VVForm -> V -> V2S  -- direct object and mood for sentence complement as arguments.
+     = \prep,vvf,v -> lin V2S (v ** {compl=vvf ; c2 = prep}) ;
+    mkV2S : V2 -> V2S -- direct object given by V2, sentence complement in subjunctive.
+     = \v2 -> lin V2S (v2 ** {compl=subjunctive}) ;
+    mkV2S : VS -> V2S -- direct object with را, sentence complement given by VS.
+     = \vs -> lin V2S (vs ** {c2 = prepOrRa "را"})
+    } ;
 
   mkV2V = overload {
     mkV2V : V -> (cN : Str) -> (isAux : Bool) -> V2V -- Verb, complementiser for the noun, whether it's auxiliary.
@@ -181,9 +205,9 @@ oper
 
   mkPrep = overload {
     mkPrep : Str -> Prep -- Takes a string, returns a preposition.
-     = \str -> lin Prep {s = str ; ra = [] ; mod = Bare} ;
+     = \str -> lin Prep (prepOrRa str) ;
     mkPrep : Str -> Mod -> Prep -- Takes a string and Mod (so far only option is ezafe), returns a preposition.
-     = \str,m -> lin Prep {s = str ; ra = [] ; mod=m}
+     = \str,m -> lin Prep ((prepOrRa str) ** {mod=m})
   } ;
 
 {-
@@ -209,10 +233,13 @@ oper
 
   mkSubj = overload {
     mkSubj : Str -> Subj -- Takes its verbal complement in indicative.
-      = \s -> lin Subj {s=s ; compl=indicative} ;
+      = \s -> mkSubj' s ;
     mkSubj : VVForm -> Str -> Subj -- Specify whether it takes complement in subjunctive or indicative.
-      = \vvf,s -> lin Subj {s=s ; compl=vvf}
+      = \vvf,s -> mkSubj' s ** {compl=vvf}
   } ;
+
+  mkInterj : Str -> Interj
+    = \s -> lin Interj {s=s} ;
 
 --.
 --2 Definitions of paradigms
@@ -237,6 +264,13 @@ oper
 
   Mod = ResPes.Mod ;
   ezafe = ResPes.Ezafe ;
+
+
+  mkSubj' : Str -> Subj ;
+  mkSubj' s = lin Subj (case s of {
+    "آن" => {s = [] ; relpron = Ance ; compl = indicative} ;
+     _    => {s = s ; relpron = Ke ; compl = indicative}
+    }) ;
 
 -- Removed mkV_1, mkV_2, mkN01 and mkN02 from public API, still available for
 -- any applications that open ParadigmsPes. /IL 2019-02-08
@@ -289,15 +323,23 @@ oper
 
   mkA = overload {
     mkA : Str -> A -- Regular adjective, same adj and adv forms.
-       = \str -> lin A (mkAdj str str);
+       = \str -> lin A (mkAdj str str) ;
     mkA : Str-> Str -> A -- Takes adj and adv forms
        = \str,adv -> lin A (mkAdj str adv);
+    mkA : (pos,compar,adv : Str) -> A -- positive, comparative and adverb
+       = \p,c,adv -> lin A (mkAdj p c adv);
     mkA : Str -> Str -> A2 -- Takes string and complementiser, returns A2. Hidden from public API, confusing naming. /IL
       = \a,c -> lin A2 (mkAdj a a ** {c2 = c})
    } ;
 
+  -- Mostly for things that are not really adjectives, like adverbials /IL
+  invarA : Str -> A = \str ->
+    lin A (<mkAdj str str : Adjective> ** {s = \\_,_ => str}) ;
+
+   prefixA a = a ** {isPre=True};
+
    preA : (adj,adv : Str) -> A = \adj,adv ->
-     lin A ((mkAdj adj adv) ** {isPre=True}) ;
+     lin A (<mkAdj adj adv:Adjective> ** {isPre=True}) ;
 
    {-
     -- Demonstrative Pronouns
@@ -320,7 +362,10 @@ oper
 -- hidden from public API
   compoundV = overload {
     compoundV : Str -> V -> V
-      = \s,v -> v ** {prefix = s} ;
+      = \s,v -> v ** {
+          prefix = s ;
+          lightverb = case v.lightverb of {Kardan => Kardan ; _ => Light}
+        } ;
     compoundV : Str -> V2 -> V -- hidden from public API
       = \s,v -> lin V (v ** {prefix = s}) ;
   };
@@ -343,39 +388,50 @@ oper
     mkV2 : V -> Str -> V2
       = \v,ra -> lin V2 (v ** {c2 = prepOrRa ra}) ;
     mkV2 : V -> Str -> Bool -> V2
-      = \v,p,b -> lin V2 (v ** {c2 = {ra = [] ; s = p ; mod=Bare}}) ;
+      = \v,p,b -> lin V2 (v ** {c2 = prepOrRa p}) ;
     } ;
 
   prepOrRa : Str -> Compl = \s -> case s of {
-    "را" => {s = [] ; ra = "را" ; mod=Bare} ;
-    prep  => {s = prep ; ra = []; mod=Bare}
+    ra@("را"|"")
+         => {s = [] ; ra = ra   ; mod=Bare ; isPrep = False} ;
+    prep => {s = prep ; ra = [] ; mod=Bare ; isPrep = True}
     } ;
+  noPrep = prepOrRa [] ;
 
-  mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare} ;
+  -- NB. The 'mod' field has different meaning for verbs and N2s.
+  ezafeForN2 = {s = [] ; ra = [] ; mod=Ezafe ; isPrep = False} ;
+
+  mkPost : Str -> Prep = \s -> lin Prep {s=[] ; ra=s ; mod=Bare ; isPrep = False} ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 -- Predictable N2 without complement
-      = \s -> lin N2 (mkN01 s inanimate ** {c2,compl = []}) ;
+      = \s -> lin N2 (mkN01 s inanimate ** {c2 = ezafeForN2 ; compl = []}) ;
     mkN2 : N -> N2 -- N2 from without complement
-      = \n -> lin N2 (n ** {c2,compl = []}) ;
+      = \n -> lin N2 (n ** {c2 = ezafeForN2 ; compl = []}) ;
     mkN2 : N -> Str -> N2
-      = \n,c -> lin N2 (n ** {c2 = c ; compl = []}) ;
+      = \n,c -> lin N2 (n ** {c2 = prepOrRa c ; compl = []}) ;
     mkN2 : N -> Prep -> Str -> N2 -- hidden from puclic API
-      = \n,p,c -> lin N2 (n ** {c2 = p.s; compl = []})
+      = \n,p,c -> lin N2 (n ** {c2 = p; compl = []})
   } ;
 
   mkN3 = overload {
     mkN3 : N -> Str -> Str -> N3
+      = \n,p,q -> lin N3 (n ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
+    mkN3 : N -> Prep -> Prep -> N3
       = \n,p,q -> lin N3 (n ** {c2 = p ; c3 = q}) ;
     mkN3 : N -> Prep -> Str -> Str -> N3 -- hidden from public API
-      = \n,p,q,r -> lin N3 (n ** {c2 =  p.s ; c3 = q ; c4 = r}) -- there is no c4
+      = \n,p,q,r -> lin N3 (n ** {c2 =  p ; c3 = prepOrRa q ; c4 = r}) -- there is no c4
   } ;
 
 
   mkQuant = overload {
 --    mkQuant : Pron -> Quant = \p -> {s = \\_,_,c => p.s!c ;a = p.a ; lock_Quant = <>};
     mkQuant :  Str -> Str -> Quant -- hidden from public API
-      = \sg,pl -> makeQuant sg pl;
+      = \sg,pl -> makeQuant sg pl Bare False;
+    mkQuant :  Str -> Str -> (isNeg : Bool) -> Quant -- hidden from public API
+      = \sg,pl,isneg -> makeQuant sg pl Bare isneg;
+    mkQuant :  Str -> Str -> Mod -> (isNeg : Bool) -> Quant -- hidden from public API
+      = \sg,pl,mod,isneg -> makeQuant sg pl mod isneg;
   } ;
 
 }

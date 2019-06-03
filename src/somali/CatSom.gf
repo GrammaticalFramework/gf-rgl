@@ -71,8 +71,8 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     Det = ResSom.Determiner ;
     Predet = {s : Str} ;
     Quant = ResSom.Quant ;
-    Num = { s : Str ; n : Number ; isNum : Bool } ;
-    Card, Ord = { s : Str ; n : Number } ;
+    Num = ResSom.Num ;
+    Card, Ord = {s : Str ; n : Number} ;
     DAP = ResSom.Determiner ;
 
 
@@ -80,8 +80,8 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 -- Constructed in NumeralSom.
 
-    Numeral = { s : Str ; n : Number } ;
-    Digits = { s : CardOrd => Str ; n : Number } ;
+    Numeral = {s : Str ; n : Number} ;
+    Digits = {s : CardOrd => Str ; n : Number} ;
 
 
 
@@ -100,8 +100,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- additional lexicon modules.
 
     V,
-    V2,
-    V3,
+    -- TODO: eventually proper lincats
     VV,    -- verb-phrase-complement verb         e.g. "want"
     VS,    -- sentence-complement verb            e.g. "claim"
     VQ,    -- question-complement verb            e.g. "wonder"
@@ -110,6 +109,9 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     V2S,   -- verb with NP and S complement       e.g. "tell"
     V2Q,   -- verb with NP and Q complement       e.g. "ask"
     V2A = ResSom.Verb ;   -- verb with NP and AP complement      e.g. "paint"
+
+    V2 = ResSom.Verb2 ;
+    V3 = ResSom.Verb3 ;
 
     A = ResSom.Adjective ;
     A2  = ResSom.Adjective2 ;

@@ -201,7 +201,7 @@ oper
 
     haver_V, auxPassive : Verb = verbBeschH (estar_54 "estar") ;
 
-    essere_V, copula = verbBeschH (ser_52 "ser") ;
+    essere_V, copula = verbBeschH (ser_52 "ser" True) ;
     stare_V, estar_V = verbBeschH (estar_54 "estar") ;
 
     verbBeschH : Verbum -> Verb = \v -> verbBesch v ** {vtyp = VHabere ; p = []} ;
