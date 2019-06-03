@@ -60,10 +60,10 @@ oper
 -- Nouns
 
 param
-  Case = Nom | Abs ;
+  Case = Nom | Abs | Gen ; -- | Voc exists for some words
   Gender = Masc | Fem ;
   Vowel = vA | vE | vI | vO | vU | NA ; -- For vowel assimilation
-  GenNum = SgMasc | SgFem | InvarPl ; -- For Quant
+  GenNum = SgMasc | SgFem | PlInv ; -- For Quant
 
   Inclusion = Excl | Incl ;
   Agreement =
@@ -80,9 +80,9 @@ param
   NForm =
       Indef Number
     | Def Number Vowel -- Stems for definite and determinative suffixes
-    | Numerative       -- When modified by a number (only distinct for some feminine nouns)
-    | IndefNom ;       -- Special form, only fem. nouns ending in consonant
-
+    -- Special forms only for fem. nouns ending in consonant.
+    | Numerative  -- When modified by a number: either pl gen or sg abs
+    | NomSg | GenSg | GenPl ;
 
 oper
   getAgr : NForm -> Gender -> Agreement = \n,g ->
@@ -133,20 +133,40 @@ oper
 --------------------------------------------------------------------------------
 -- Verbs
 
+-- Sayeed p. 84-85
+-- Tense: Past/Present/Future
+-- Aspect: Simple/Progressive/Habitual
+-- Mood: Declarative/Imperative/Conditional/Optative/Potential
+-- Negation: Positive/Negative
+-- Sentence subordination: Main/Subordinate
+-- Not every possible combination of these categories occurs, as we shall see: for example, tense and aspect are only marked in declarative sentences; there is no negation in potential sentences, etc. We can group the possible combinations into the twelve verbal paradigms below, details of which are given in the next three sections for suffix verbs, prefix verbs and yahay 'be':
+-- 1. Imperative
+-- 2. Infinitive
+-- 3. Past simple
+-- 4. Past progressive
+-- 5. Past habitual
+-- 6. Present habitual
+-- 7. Present progressive
+-- 8. Future
+-- 9. Conditional
+-- 10. Optative
+-- 11. Potential
+-- 12. Subordinate clause forms  -- same as negative present. But they carry subject markers when made into SC.
+
 param
+
+  Aspect = Simple | Progressive ;
+
   VForm =
       VInf
-    | VPres Agreement Polarity
-    | VNegPast
-    | VPast Agreement
+    | VPres Aspect Agreement Polarity
+    | VNegPast Aspect
+    | VPast Aspect Agreement
     | VRel -- "som är/har/…" TODO is this used in other verbs?
-    | VImp Number Polarity ; -- TODO negation
+    | VImp Number Polarity ;
 
 oper
   if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
     case p of {Pos => t ; Neg => f } ;
 
--- TODO:
--- tre aspekter (enkel, progressiv, habituell),
--- fem modus (indikativ, imperativ, konjunktiv, kontiditonalis, optativ)
 }

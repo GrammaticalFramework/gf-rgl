@@ -121,39 +121,39 @@ lin with_Prep = prepTable ! la ;
 -- Pronouns are closed class, no constructor in ParadigmsSom.
 
     i_Pron = {
-      s = table {Nom => "aan" ; Abs => "i"} ;
-      a = Sg1 ; isPron = True ; sp = "aniga" ;
+      s = table {Nom => "aan" ; Voc => "aniga" ; _Abs => "i"} ;
+      a = Sg1 ; isPron = True ;
       poss = {s = "ay" ; v = vA ; sp = gnTable "ayg" "ayd" "uwayg"}
       } ;
     youPol_Pron, -- TODO check
     youSg_Pron = {
-      s = table {Nom => "aad" ; Abs => "ku"} ;
-      a = Sg2 ; isPron = True ; sp = "adiga" ;
+      s = table {Nom => "aad" ; Voc => "adiga" ; _Abs => "ku"} ;
+      a = Sg2 ; isPron = True ;
       poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
       } ;
     he_Pron = {
-      s = table {Nom => "uu" ; Abs => []} ;
-      a = Sg3 Masc ; isPron = True ; sp = "isaga" ;
+      s = table {Nom => "uu" ; Voc => "isaga" ; _Abs => []} ;
+      a = Sg3 Masc ; isPron = True ;
       poss = {s = "iis" ; v = vI ; sp = gnTable "iis" "iis" "uwiis"}
       } ;
     she_Pron = {
-      s = table {Nom => "ay" ; Abs => []} ;
-      a = Sg3 Fem ; isPron = True ; sp = "iyada" ;
+      s = table {Nom => "ay" ; Voc => "iyada" ; _Abs => []} ;
+      a = Sg3 Fem ; isPron = True ;
       poss = {s = "eed" ; v = vE ; sp = gnTable "eed" "eed" "uweed"}
       } ;
     we_Pron = {
-      s = table {Nom => "aan" ; Abs => "na"} ;
-      a = Pl1 Incl ; isPron = True ; sp = "innaga" ;
+      s = table {Nom => "aan" ; Voc => "innaga" ; _Abs => "na"} ;
+      a = Pl1 Incl ; isPron = True ;
       poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     youPl_Pron = {
-      s = table {Nom => "aad" ; Abs => "idin"} ;
-      a =  Pl2 ; isPron = True ; sp = "idinka" ;
+      s = table {Nom => "aad" ; Voc => "idinka" ; _Abs => "idin"} ;
+      a =  Pl2 ; isPron = True ;
       poss = {s = "iin" ; v = vI ; sp = gnTable "iinn" "iinn" "uwiinn"}
       } ;
     they_Pron = {
-      s = table {Nom => "ay" ; Abs => []} ;
-      a = Pl3 ; isPron = True ; sp = "iyaga" ;
+      s = table {Nom => "ay" ; Voc => "iyaga" ; _Abs => []} ;
+      a = Pl3 ; isPron = True ;
       poss = {s = "ood" ; v = vO ; sp = gnTable "ood" "ood" "uwood"}
       } ;
 {-

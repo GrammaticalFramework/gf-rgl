@@ -9,24 +9,28 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- : Det -> CN -> NP
 DetCN det cn = useN cn ** {
   s = sTable ;
-  a = getAgr det.d cn.g ;
-  sp = sTable ! Nom }
-  where {
+  a = getAgr det.d cn.g } where {
     sTable : Case => Str = \\c =>
        let nfc : {nf : NForm ; c : Case} =
              case <c,cn.hasMod,det.d> of {
-                <Nom,False,Indef Sg> => {nf=IndefNom ; c=Nom} ; -- special form for fem. nouns
-                <Nom,False,Def x NA> => {nf=Def x vU ; c=Nom} ; -- special case for DefArt
-                <Nom,True,_> => {nf=det.d ; c=Abs} ; -- If cn has modifier, the Nom ending attaches to the modifier
+                -- special form for fem. nouns
+                <Gen,False,Indef Sg> => {nf=GenSg ; c=c} ;
+                <Gen,False,Indef Pl> => {nf=GenPl ; c=c} ;
+                <Nom,False,Indef Sg> => {nf=NomSg ; c=c} ;
+                -- special case for DefArt+Nom: override vowel
+                <Nom,False,Def x NA> => {nf=Def x vU ; c=c} ;
+                -- If cn has modifier, Nom ending attaches to the modifier
+                <Nom,True,_> => {nf=det.d ; c=Abs} ;
                 _            => {nf=det.d ; c=c}
              } ;
+          nf : NForm = case det.isNum of {True => Numerative ; _ => nfc.nf} ;
           detStr : Str =
             case <det.isPoss,cn.shortPoss> of {
                 <True,True> => det.shortPoss ;
                 _ => det.s ! nfc.c
             } ;
         in det.pref -- if det is numeral. TODO find out if gender/case/other distinction.
-        ++ cn.s ! nfc.nf
+        ++ cn.s ! nf
         ++ detStr -- non-numeral det
         ++ cn.mod ! getNum (getAgr det.d Masc) ! c
     } ;
@@ -34,11 +38,11 @@ DetCN det cn = useN cn ** {
   -- : PN -> NP ;
   UsePN pn = pn ** {
     s = \\c => pn.s ;
-    isPron = False ;
-    sp = pn.s } ;
+    isPron = False
+    } ;
 
   -- : Pron -> NP ;
-  UsePron pron = lin NP pron ;
+  UsePron pron = pron ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {
@@ -66,13 +70,14 @@ DetCN det cn = useN cn ** {
   DetNP det = {
     s = det.sp ! Masc ; ---- Any way to decide for gender here?
     a = getAgr det.d Masc ;
-    isPron = False ; sp = []
+    isPron = False ;
     } ;
 
   -- MassNP : CN -> NP ;
   MassNP cn = useN cn ** {
-    s = table { Nom => cn.s ! IndefNom ++ cn.mod ! Sg ! Nom ;
-                Abs => cn.s ! Indef Sg ++ cn.mod ! Sg ! Abs }
+    s = table { Nom => cn.s ! NomSg ++ cn.mod ! Sg ! Nom ;
+            --  Gen => cn.s ! PlGen    ++ cn.mod ! Sg ! Gen ; -- TODO Do we ever need plural genitive?
+                c   => cn.s ! Indef Sg ++ cn.mod ! Sg ! c }
     } ;
 
 
@@ -87,12 +92,13 @@ DetCN det cn = useN cn ** {
     sp = \\g => case <num.n,g> of {
           <Sg,Masc> => quant.sp ! SgMasc ;
           <Sg,Fem> => quant.sp ! SgFem ;
-          <Pl,_> => quant.sp ! InvarPl } ;
+          <Pl,_> => quant.sp ! PlInv } ;
 
     d = case <num.isNum,quant.st> of {
           <True,_> => Numerative ;
           <False,Definite> => Def num.n quant.v ;
           <False,Indefinite> => Indef num.n } ;
+    isNum = num.isNum ;
     } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
@@ -150,14 +156,14 @@ DetCN det cn = useN cn ** {
     let p = pron.poss ;
         gntbl = gnTable (BIND ++ p.sp ! SgMasc)
                         (BIND ++ p.sp ! SgFem)
-                        (BIND ++ p.sp ! InvarPl)
+                        (BIND ++ p.sp ! PlInv)
      in DefArt ** {
           shortPoss = BIND ++ p.s ;
           isPoss = True ;
-          s = \\c => let casevow = case c of {Nom => "u" ; Abs => "a"}
+          s = \\c => let casevow = case c of {Nom => "u" ; Abs => "a" ; _ => "TODO:case"}
                      in gntbl ! SgMasc ++ BIND ++ casevow ;
           sp = \\gn,c => let prefix = case gn of {SgFem => "t" ; _ => "k"} ;
-                             casevow = case c of {Nom => "u" ; Abs => "a"}
+                             casevow = case c of {Nom => "u" ; Abs => "a";  _ => "TODO:case"}
                           in prefix ++ gntbl ! gn ++ BIND ++ casevow ;
           v = p.v
         } ;
@@ -168,12 +174,11 @@ DetCN det cn = useN cn ** {
   -- : N2 -> CN ;
   UseN,UseN2 = ResSom.useN ;
 
-{-
   -- : N2 -> NP -> CN ;    -- mother of the king
   ComplN2 n2 np =
-    let compl = applyPost n2.compl1 np ;
-    in useN n2 ** { s = \\agr => compl ++ n2.s } ;
-
+    let cn = useN n2 in
+    cn ** {s = \\c => cn.s ! c ++ np.s ! n2.c2 } ;
+{-
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   ComplN3 n3 np =
     let compl = applyPost n3.c3 np ;
@@ -187,7 +192,7 @@ DetCN det cn = useN cn ** {
   Use3N3 n3 = lin N2 n3 ;
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = table { IndefNom => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
+    s = table { NomSg => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
                 x        => cn.s ! x } ;
     mod = \\n,c => cn.mod ! n ! Abs -- If there was something before, it is now in Abs
                 ++ ap.s ! AF n c ;

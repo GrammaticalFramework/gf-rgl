@@ -1,5 +1,5 @@
 concrete LexiconSom of Lexicon = CatSom **
-  open ParadigmsSom in {
+  open ParadigmsSom,ResSom in {
 
 ----
 -- A
@@ -118,7 +118,7 @@ lin drink_V2 = mkV2 "cab" ;
 -- lin fall_V = mkV "" ;
 -- lin far_Adv = mkA "" ;
 -- lin fat_N = mkN "" ;
-lin father_N2 = mkN2 (shortPossN (mkN "aabbe")) noPrep ;
+lin father_N2 = mkN2 (shortPossN (mkN "aabbe")) Gen  ;
 -- lin fear_V2 = mkV2 "" ;
 -- lin fear_VS = mkVS "" ;
 -- lin feather_N = mkN "" ;
@@ -227,7 +227,7 @@ lin man_N = mkN "nin" ;
 -- lin meat_N = mkN "" ;
 -- lin milk_N = mkN "" ;
 -- lin moon_N = mkN "" ;
-lin mother_N2 = mkN2 (shortPossN (mkN "hooyo")) noPrep ;
+lin mother_N2 = mkN2 (shortPossN (mkN "hooyo")) Gen ;
 -- lin mountain_N = mkN "" ;
 -- lin mouth_N = mkN "" ;
 -- lin music_N = mkN "" ;
@@ -389,7 +389,7 @@ lin teach_V2 = mkV2 "baray" ku ; -- I suppose this creates progressive forms? TO
 --------
 -- W - Y
 
--- lin wait_V2 = mkV2 "" ;
+lin wait_V2 = mkV2 "sug" ;
 -- lin walk_V = mkV "" ;
 -- lin war_N = mkN "" ;
 -- lin warm_A = mkA "" ;

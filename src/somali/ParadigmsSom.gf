@@ -44,8 +44,8 @@ oper
 
   mkN2 : overload {
     mkN2 : Str -> N2 ; -- Predictable N2, no preposition
-    mkN2 : Str -> Preposition -> N2 ; -- Predictable N2, given preposition
-    mkN2 : N -> Preposition -> N2 -- N2 out of noun and preposition
+    mkN2 : Str -> Case -> N2 ; -- Predictable N2, given preposition
+    mkN2 : N -> Case -> N2 -- N2 out of noun and preposition
    } ;
 
   mkPN : overload {
@@ -165,9 +165,9 @@ oper
    = \n -> n ** {shortPoss = True} ;
 
   mkN2 = overload {
-    mkN2 : Str -> N2                = \s   -> lin N2 (mkN1 s ** {c2 = noPrep}) ;
-    mkN2 : Str -> Preposition -> N2 = \s,p -> lin N2 (mkN1 s ** {c2 = p}) ;
-    mkN2 : N -> Preposition -> N2   = \n,p -> lin N2 (n ** {c2=p})
+    mkN2 : Str -> N2         = \s   -> lin N2 (mkN1 s ** {c2 = Gen}) ;
+    mkN2 : Str -> Case -> N2 = \s,p -> lin N2 (mkN1 s ** {c2 = p}) ;
+    mkN2 : N -> Case -> N2   = \n,p -> lin N2 (n ** {c2=p})
    } ;
 
   mkPN = overload {
