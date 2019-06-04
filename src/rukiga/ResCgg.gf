@@ -50,8 +50,8 @@ param
   AgrConj = AConj ConjArg;
   Agreement =  AgP3 Number Gender | AgMUBAP1 Number |AgMUBAP2 Number | NONE; --Default is AgP3 Sg KI_BI
   AgrExist = AgrNo | AgrYes Agreement;
-  Position = PostDeterminer | PreDeterminer ;
-  Position1 = Post | Pre;
+  --Position = PostDeterminer | PreDeterminer ;
+  Position = Post | Pre;
   Variants = V1|V2;
 	--Functional forms of the regular verb
 	Mood = Infinitive | Imperative | Subjunctive | Perfective;
@@ -510,11 +510,11 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
       using arne's technique
     -}
     --AdjectivalPhrase : Type {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool} ;
-    AdjectivalPhrase : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
+    AdjectivalPhrase : Type = {s : Str ; position : Position; isProper : Bool; isPrep: Bool};
     --Adjective : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
-    Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
-    mkAdjective: Str -> Position1 -> Bool -> Bool -> Adjective = \ a , pos, isProper, isPrep -> 
-     { s = a ; position1 = pos ; isPre = True; isProper = isProper; isPrep = isPrep}; 
+    Adjective : Type = {s : Str ; position : Position; isProper : Bool; isPrep: Bool};
+    mkAdjective: Str -> Position -> Bool -> Bool -> Adjective = \ a , pos, isProper, isPrep -> 
+     { s = a ; position = pos ; isPre = True; isProper = isProper; isPrep = isPrep}; 
       
     {-
         TO DO:
@@ -1015,7 +1015,15 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
  			}; 
 
     -- type for Determier necessary for catCgg.gf
-    Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool };
+    {-
+        Determiners are of several types:
+        1. Definite and Idefinite Articles
+        2. Dmonstratives
+        3. Quantifiers
+        4. Cardinal numbers
+        6. Ordinal numbers
+    -}
+    Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool};
     mkDet : Str -> NounState -> Number -> Position -> Determiner 
       = \ det, ns, num,pos ->
         {
@@ -1037,7 +1045,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     Pronoun : Type ={s : Case => Str; third:Agreement => Case=>Str; agr:AgrExist} ;
     {-
 	    mkPron : Str -> Str ->Pronoun =\nom,acc, ->
-	      {
+	      
 	        s = table {Nom => nom; Acc => acc};
 	        agr = a;
 	      };

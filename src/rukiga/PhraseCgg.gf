@@ -27,7 +27,7 @@ lin
         Neg => (mkSubjClitic (AgMUBAP2 Pl)) ++ imp.s!ImpNeg        
       }
     };
-
+  UttImpPol = UttImpPl;
   --UttAdv    : Adv  -> Utt ;               -- here
   UttAdv adv = {s= adv.s};
 

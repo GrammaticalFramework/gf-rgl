@@ -32,9 +32,9 @@ lin
   --AdjCN ap cn = {s=\\ntype, num=>cn.s!ntype!num ++ ap.s!AgP3 num cn.nc; nc=cn.nc};
   --AdjCN   : AP -> CN  -> CN ;  -- big house
     AdjCN ap cn = 
-      case <ap.position1, ap.isProper, > of {
+      case <ap.position, ap.isProper, > of {
           <Pre, True> => { 
-                    s = \\ num, ns =>ap.s ! AgP3 Sg KI_BI ++ cn.s ! num ! ns ; 
+                    s = \\ num, ns =>ap.s ! AgP3 num cn.gender ++ cn.s ! num ! ns ; 
                     gender = cn.gender; nounCat = cn.nounCat
                   };
           <Post, False> => case ap.isPrep of {
@@ -51,11 +51,11 @@ lin
                   };
           <Pre, False> => { 
                     s = \\ num, ns => mkAdjPronIVClitic (AgP3 num cn.gender) 
-                               ++ ap.s ! AgP3 Sg KI_BI ++ (cn.s ! num ! ns) ; 
+                               ++ ap.s ! AgP3 num cn.gender ++ (cn.s ! num ! ns) ; 
                     gender = cn.gender; nounCat = cn.nounCat
                   };
           <Post, True> => { 
-                     s = \\ num, ns => (cn.s  ! num ! ns) ++ ap.s ! AgP3 Sg KI_BI; 
+                     s = \\ num, ns => (cn.s  ! num ! ns) ++ ap.s ! AgP3 num cn.gender; 
                      gender = cn.gender; nounCat = cn.nounCat
                   }                   
 
@@ -95,8 +95,8 @@ lin
   -- quantifier and an optional numeral can be discerned.
      --DetQuant    : Quant -> Num -> Det ;  -- these five
      DetQuant  quant num = case quant.isPron of {
-                                True => {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree};
-                                False => {s= quant.s.s ! Nom; s2 =\\_ =>[]; ntype = Incomplete; num = num.n; pos=PreDeterminer; doesAgree = quant.doesAgree} --
+                                True => {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=Pre; doesAgree = quant.doesAgree};
+                                False => {s= quant.s.s ! Nom; s2 =\\_ =>[]; ntype = Complete; num = num.n; pos=Pre; doesAgree = quant.doesAgree} --
           };
                                 
      --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
@@ -105,7 +105,7 @@ lin
       s2 =\\agr => mkThis!agr ++ quant.s2 ! agr ++ ord.s!agr; 
       ntype = Complete;
       num = num.n;
-      pos = PreDeterminer;
+      pos = Pre;
       doesAgree = True
     };
 
@@ -122,16 +122,16 @@ lin
     --NumNumeral : Numeral -> Card ;  -- fifty-one
     NumNumeral numeral = {s=numeral.s!NCard; n=numeral.n};
     --OrdDigits  : Digits  -> Ord ;  -- 51st
-    OrdDigits dig ={s=dig.s!NOrd ; position1 = Post};
+    OrdDigits dig ={s=dig.s!NOrd ; position = Post};
 
     --OrdNumeral : Numeral -> Ord ;  -- fifty-first
-    OrdNumeral numeral ={s=numeral.s!NOrd; position1 = Post};
+    OrdNumeral numeral ={s=numeral.s!NOrd; position = Post};
     --OrdSuperl  : A       -> Ord ;  -- warmest
-    --Adjective : Type = {s : Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
-    OrdSuperl a = {s= \\c =>  "okukirayo" ++ (mkAdjPronIVClitic  c) ++ "obu" ++ BIND ++ a.s; position1 = a.position1} ;--{s= \\c =>  "okukirayo" ++ (mkAdjPronIVClitic  c) ++ a.s ++  ++ BIND ++ "ona"; position1 = a.position1};
+    --Adjective : Type = {s : Str ; position : Position; isProper : Bool; isPrep: Bool};
+    OrdSuperl a = {s= \\c =>  (mkAdjPronIVClitic  c) ++ BIND ++ "kukirayo" ++  "obu" ++ BIND ++ a.s; position= a.position} ;--{s= \\c =>  "okukirayo" ++ (mkAdjPronIVClitic  c) ++ a.s ++  ++ BIND ++ "ona"; position = a.position};
   -- One can combine a numeral and a superlative.
   --OrdNumeralSuperl : Numeral -> A -> Ord ; -- third largest
-    OrdNumeralSuperl numeral a = {s= \\c =>  numeral.s !NOrd !c ++ "omu" ++ "kukirayo" ++ "obu" ++ BIND ++ a.s; position1 = a.position1};
+    OrdNumeralSuperl numeral a = {s= \\c =>  numeral.s !NOrd !c ++ "omu" ++ "kukirayo" ++ "obu" ++ BIND ++ a.s; position = a.position};
   -- AdvCN   : CN -> Adv -> CN ;   -- house on the hill
      AdvCN cn adv ={s=\\ntype,num =>cn.s!ntype!num ++ adv.s; gender=cn.gender; nounCat = cn.nounCat};
   -- Pronouns have possessive forms. Genitives of other kinds

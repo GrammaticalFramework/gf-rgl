@@ -8,7 +8,7 @@ concrete ConjunctionCgg of Conjunction = CatCgg **
 lincat
   [NP] = {s1,s2 :Case => Str ; agr : Agreement};
   [CN] = {s1,s2 : Number => NounState => Str; gender:Gender};
-  [AP] = {s1,s2 : Agreement=> Str ; position1 : Position1; isProper : Bool; isPrep: Bool};
+  [AP] = {s1,s2 : Agreement=> Str ; position : Position; isProper : Bool; isPrep: Bool};
   [RS] = {s1,s2 : RForm => Str};
   --[IAdv] = {s1,s2 : Str} ;
  {-

@@ -5,22 +5,25 @@ concrete AdjectiveCgg of Adjective = CatCgg **
 
 lin
 
-    PositA a = {s=\\_=> a.s; position1= a.position1; isProper = a.isProper; isPrep = a.isPrep};
+    PositA a = {s=\\_=> a.s; position= a.position; isProper = a.isProper; isPrep = a.isPrep};
 
     -- The superlative use is covered in $Ord$.
 
     --AdjOrd  : Ord -> AP ;       -- warmest
-    AdjOrd ord = {s= \\agr => ord.s!agr ; position1= ord.position1; isProper = False; isPrep = False};
+    AdjOrd ord = {s= \\agr => ord.s!agr ; position= ord.position; isProper = False; isPrep = False};
     -- UseComparA : A  -> AP ;     -- warmer
-    UseComparA a ={s =\\_ => a.s ++ BIND ++ "ho" ++ "kukira"; position1= a.position1; isProper = a.isProper; isPrep = a.isPrep};
+
+    -- note: using ho means a little bigger.
+    --UseComparA a ={s =\\_ => a.s ++ BIND ++ "ho" ++ "kukira"; position1= a.position1; isProper = a.isProper; isPrep = a.isPrep};
+    UseComparA a ={s =\\_ => a.s  ++ "kukira"; position= a.position; isProper = a.isProper; isPrep = a.isPrep};
 
     -- An adjectival phrase can be modified by an *adadjective*, such as "very".
     {-NOTE: AdA is an adjective modifying adverb-}
     --AdAP    : AdA -> AP -> AP ; -- very warm
     
-    AdAP ada ap = case ada.position1 of {
-                        Pre  => {s = \\agr => ada.s ++ ap.s!agr ; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep};
-                        Post => {s = \\agr => ap.s ! agr ++ ada.s; position1= ap.position1; isProper = ap.isProper; isPrep = ap.isPrep}
+    AdAP ada ap = case ada.position of {
+                        Pre  => {s = \\agr => ada.s ++ ap.s!agr ; position= ap.position; isProper = ap.isProper; isPrep = ap.isPrep};
+                        Post => {s = \\agr => ap.s ! agr ++ ada.s; position= ap.position; isProper = ap.isProper; isPrep = ap.isPrep}
                         
                     };
     {-                      

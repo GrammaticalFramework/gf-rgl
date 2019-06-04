@@ -44,7 +44,7 @@ lincat
   Det = Res.Determiner ;          -- determiner phrase                   e.g. "those seven"
   Quant = {s : Res.Pronoun; s2 :Res.Agreement => Str; doesAgree : Bool; isPron: Bool} ;                    -- quantifier ('nucleus' of Det)       e.g. "this/these"
   Num = Res.Numer ;               -- number determining element          e.g. "seven"
-  AP = {s :Res.Agreement=> Str ; position1 : Res.Position1; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
+  AP = {s :Res.Agreement=> Str ; position : Res.Position; isProper : Bool; isPrep: Bool};--Res.AdjectivalPhrase;
   A  = Res.Adjective;
   Comp = Res.Comp;    -- complement of copula, such as AP  e.g. "very warm"
 
@@ -86,7 +86,7 @@ lincat
         } ;
   Numeral = {s : Res.CardOrd=>Res.Agreement=> Str ; g : Res.Gender;  n: Res.Number} ;
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
-  Ord  = {s :Res.Agreement=>Str; position1:Res.Position1} ;
+  Ord  = {s :Res.Agreement=>Str; position:Res.Position} ;
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
   
   DAP = Res.Determiner ;
@@ -94,7 +94,7 @@ lincat
   Prep = Res.Preposition;  -- preposition, or just case           e.g. "in"
   N3   = N2 ** {c3 : Res.Agreement =>Str};
   VV = Res.Verb ** {inf:Str; whenUsed: Res.VVMood}; --inf is the other verb
-  AdA = {s:Str; position1:Res.Position1};
+  AdA = {s:Str; position:Res.Position};
 linref
   
   Cl =\cl -> cl.s ++ Res.mkSubjClitic cl.subjAgr ++  cl.root ++ BIND ++ cl.pres ++ cl.compl;

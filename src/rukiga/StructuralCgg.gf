@@ -15,13 +15,13 @@ concrete StructuralCgg of Structural = CatCgg **
 
 lin
   --Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool };
-  a_Det = {s =[] ; s2 = \\_ => []; ntype = Complete; num = Sg; pos = PreDeterminer; doesAgree = False};     --: Det ; indefinite singular ---s
-  aPl_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Pl; pos = PreDeterminer; doesAgree = False}; -- : Det ;indefinite plural   ---s
-  the_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Sg; pos = PreDeterminer; doesAgree = False};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
+  a_Det = {s =[] ; s2 = \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False};     --: Det ; indefinite singular ---s
+  aPl_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Pl; pos = Pre; doesAgree = False}; -- : Det ;indefinite plural   ---s
+  the_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
   
-  every_Det = {s ="buri"; s2 = \\_ => []; ntype=Incomplete; num=Sg; pos=PreDeterminer; doesAgree = False} ;
-  few_Det = {s="kye"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=PostDeterminer; doesAgree = False} ;
-  many_Det ={s="ingi"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=PostDeterminer; doesAgree = False} ;
+  every_Det = {s ="buri"; s2 = \\_ => []; ntype=Incomplete; num=Sg; pos=Pre; doesAgree = False} ;
+  few_Det = {s="kye"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False} ;
+  many_Det ={s="ingi"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False} ;
   
   i_Pron            = {s = table{Gen => glueGen (AgMUBAP1 Sg); _=> mkSStand (AgMUBAP1 Sg)}; third = \\_,_=>[];  agr = AgrYes (AgMUBAP1 Sg)};--mkPron "nyowe" "nyowe" (AgMUBAP1 Sg);
   youSg_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Sg); _=>mkSStand (AgMUBAP2 Sg)}; third = \\_,_=>[];  agr = AgrYes(AgMUBAP2 Sg)};--mkPron "iwe" "we" (AgMUBAP2 Sg); 
@@ -190,7 +190,7 @@ lin
       s2 =\\agr => mkSubjCliticTableSg ! agr ++ BIND++ "mwe"; 
       ntype = Complete;
       num = Sg;
-      pos = PreDeterminer;
+      pos = Pre;
       doesAgree = True
     };
   somePl_Det  =
@@ -199,7 +199,7 @@ lin
       s2 =\\agr => mkSubjCliticTablePl ! agr ++ BIND++ "mwe"; 
       ntype = Complete;
       num = Pl;
-      pos = PreDeterminer;
+      pos = Pre;
       doesAgree = True
     };--: Det ;
   
@@ -216,11 +216,11 @@ lin
   that_Subj = ss "ngu" ;
 
   --Adjective modifying Adverbs
-  almost_AdA = {s="haihi"; position1=Pre}; --: AdA ;
+  almost_AdA = {s="haihi"; position=Pre}; --: AdA ;
   --quite_Adv ss "kimwe"; --: AdA ; used in the pr
-  so_AdA = {s="munônga"; position1=Post};--: AdA ;
-  too_AdA = {s="munônga"; position1=Post}; --: AdA ;
-  very_AdA  = {s="munônga"; position1=Post}; --: AdA ;
+  so_AdA = {s="munônga"; position=Post};--: AdA ;
+  too_AdA = {s="munônga"; position=Post}; --: AdA ;
+  very_AdA  = {s="munônga"; position=Post}; --: AdA ;
 
   please_Voc = ss ", nyabura we"; --: Voc ;
 

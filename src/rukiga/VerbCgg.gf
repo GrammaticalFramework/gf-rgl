@@ -93,8 +93,8 @@ lin
         pres =v3.pres; 
         perf = v3.perf;
         morphs = v3.morphs; 
-        comp = []; 
-        comp2 = np.s ! Acc;
+        comp = np.s ! Acc; 
+        comp2 = np.s ! Acc; -- what is the meaning of this function?
         ap = [];
         isRegular = v3.isRegular;
         adv = [];
