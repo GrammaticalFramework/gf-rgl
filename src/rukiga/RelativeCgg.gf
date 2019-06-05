@@ -31,7 +31,7 @@ lin
       pres =cl.pres;
       perf =cl.perf;
       root = cl.root;
-      morphs = cl.morphs;
+      --morphs = cl.morphs;
       compl =cl.compl;
       isCompApStem = False;
       whichRel = Such_That;                             
@@ -51,7 +51,7 @@ lin
       pres =vp.pres;
       perf =vp.perf;
       root = vp.s;
-      morphs = vp.morphs;
+      --morphs = vp.morphs;
       compl =vp.comp;
       isCompApStem = vp.isCompApStem;
       whichRel = RF RSubj;                           
@@ -78,7 +78,7 @@ lin
 		      pres   = clSlash.pres;
 	          perf   = clSlash.perf;
 		      root   = clSlash.root;
-		      morphs = clSlash.morphs;
+		      --morphs = clSlash.morphs;
 		      compl  = comp;
 		      isCompApStem = isCompApStem;
 		      whichRel = RF RObj;                           

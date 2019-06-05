@@ -85,7 +85,7 @@ lin
       AdvNP np adv = {s= \\c => np.s ! c ++ adv.s; agr = np.agr; nounCat = np.nounCat };
       --PPartNP : NP -> V2  -> NP ;    -- the man seen use the Passive form of the verb see. abantu abarebirwe
       PPartNP np v2 = 
-        {s= \\c => np.s!c ++ mkSubjClitic np.agr ++ v2.s ++ BIND ++ v2.morphs!VFPastPart!RestOfVerb; agr = np.agr; nounCat = np.nounCat};
+        {s= \\c => np.s!c ++ mkSubjClitic np.agr ++ v2.s ++ BIND ++ mkVerbMorphs!VFPastPart!RestOfVerb; agr = np.agr; nounCat = np.nounCat};
 
       {-What the hell does this mean?-}
       ExtAdvNP np adv = {s= \\c => np.s ! c  ++ embedInCommas adv.s; agr = np.agr; nounCat = np.nounCat}; -- how do I do the adverbial clause?

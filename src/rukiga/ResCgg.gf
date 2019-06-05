@@ -100,7 +100,7 @@ oper
     	s = rad;
     	pres = end1;
     	perf = end2;
-    	morphs = mkVerbMorphs;
+    	--morphs = mkVerbMorphs;
     	isRegular = False;
 	};
 	--These are regular verbs with {a-ire} entry in the dictionary
@@ -108,7 +108,7 @@ oper
     	s = rad;
     	pres = "a";
     	perf = "ire";
-    	morphs = mkVerbMorphs;
+    	--morphs = mkVerbMorphs;
     	isRegular = True;
 	};
   
@@ -1086,9 +1086,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     let subjClitic = mkSubjClitic (AgP3 det.num cn.gender) 
     in
       case <det.pos, det.num> of { 
-           <PostDeterminer, Pl> => {s = \\_=> subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
-           <PostDeterminer, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
-           <PreDeterminer, n> => { s =\\_ => det.s ++ cn.s !n  ! det.ntype; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat} --;
+           <Post, Pl> => {s = \\_=> subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+           <Post, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+           <Pre, n> => { s =\\_ => det.s ++ cn.s !n  ! det.ntype; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat} --;
           --<PostDeterminer, PFalse> => {s = \\_=> cn.s!det.ntype!det.num; agr = AgP3 det.num cn.gender }    
            };
   
@@ -1100,15 +1100,26 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
         VFormMini =  VFInf | VFPres | VFPast | VFPastAnt | VFPresAnt | VFPresProg | VFPresPart |VFPastPart;
       oper
       --Verb : Type = {s : VFormMini => Str};
-      Verb : Type = {s : Str; pres:Str; perf:Str; morphs: VFormMini => VerbMorphPos=> Str; isRegular:Bool};
+      Verb : Type = {
+                      s : Str; 
+                      pres:Str; 
+                      perf:Str; 
+                      --morphs: VFormMini => VerbMorphPos=> Str; 
+                      isRegular:Bool
+                    };
       
-      GVerb : Type = {s : Bool =>Str ;morphs: VFormMini => VerbMorphPos =>Str; isAux : Bool};
+      GVerb : Type = {
+                        s : Bool => Str ;
+                        --morphs : VFormMini => VerbMorphPos =>Str; 
+                        isAux : Bool
+                      };
       {-
         The V2 sometimes uses preopsitions for formation
         of direct object. Unlike in English where the verb 
         and the preposition are disjunctive such as "send to",
         In runyakore and rukiga, the verb and preposition are
-        conjunctive such as sindik-ira.
+        conjunctive such as sindik-ira. 
+          --The English equivalents are phrasal verbs not V2 I guess.
 
         Because of the fusion, I have deffered including this in 
         the compPrep. Actually, it is going to be empty in the next version
@@ -1128,7 +1139,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
       						s:Str; 
       						pres:Str; 
       						perf:Str; 
-      						morphs: VMorphs ; 
+      						--morphs: VMorphs ; 
       						isRegular:Bool;
       						comp:Str ; 
       						comp2:Str;
@@ -1146,7 +1157,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
                     True =>  v.s; 
                     False => ba --the special verb to be
                       };
-            morphs = v.morphs; 
+            --morphs = v.morphs; 
             isAux = False
           }; 
      {-
@@ -1158,13 +1169,24 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
      -} 
      be_GVerb : GVerb = {
         s= table{True => "ri"; False =>"b" }; 
-        morphs = \\form, morphs =>[]; 
+        --morphs = \\form, morphs =>[]; 
         isAux = True};
 
      
-       be_Copula : Verb = {s = "ri" ; pres=[]; perf=[]; morphs= mkVerbMorphs; isRegular=False};
+       be_Copula : Verb = {
+          s = "ri" ; 
+          pres=[]; 
+          perf=[]; 
+          --morphs= mkVerbMorphs; 
+          isRegular=False
+        };
        mkBecome  :  Verb  ={
-       	s = "b" ; pres="a"; perf="ire"; morphs= mkVerbMorphs; isRegular=False};
+         	s = "b" ; 
+          pres="a"; 
+          perf="ire"; 
+          --morphs= mkVerbMorphs; 
+          isRegular=False
+        };
 
 
      --be1_Verb: Verb = {s="b"; pres = "e"; perf="a"; morphs = mkVerbMorphs};
@@ -1317,7 +1339,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
   					s:Str; 
   					pres:Str; 
   					perf:Str; 
-  					morphs: VMorphs; 
+  					--morphs: VMorphs; 
   					comp: Str; 
   					comp2:Str; 
   					ap:Str; 
@@ -1340,7 +1362,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 	      root : Str;
 	      pres: Str;
 	      perf: Str;
-	      morphs : VFormMini => VerbMorphPos =>Str;
+	      --morphs : VFormMini => VerbMorphPos =>Str;
 	      {-
 	      inf  : Str;
 	      pres  : Str; 

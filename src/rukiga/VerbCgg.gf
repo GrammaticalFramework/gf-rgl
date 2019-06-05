@@ -8,7 +8,7 @@ lin
         s = v.s ; 
         pres =v.pres; 
         perf = v.perf; 
-        morphs = v.morphs; 
+        --morphs = v.morphs; 
         comp =[];
         comp2 = [];
         ap =[];
@@ -30,7 +30,7 @@ lin
                         s = auxBe.s ++ BIND ++auxBe.pres++ comp.s;  --Assuming there is no AP which is prepositional
                         pres =[]; 
                         perf = [];
-                        morphs=\\form,morphs=>[]; 
+                        --morphs=\\form,morphs=>[]; 
                         comp = [];
                         comp2 = [];
                         ap = [];
@@ -61,7 +61,7 @@ lin
         s =v2.s;
         pres =v2.pres; 
         perf = v2.perf;
-        morphs = v2.morphs;
+        --morphs = v2.morphs;
         comp = [];
         comp2 =[];
         ap =[];
@@ -76,7 +76,7 @@ lin
         s =v3.s;
         pres =v3.pres; 
         perf = v3.perf;
-        morphs = v3.morphs; 
+        --morphs = v3.morphs; 
         comp =  np.s ! Acc;
         comp2 =[];
         ap =[];
@@ -92,7 +92,7 @@ lin
         s =v3.s;
         pres =v3.pres; 
         perf = v3.perf;
-        morphs = v3.morphs; 
+        --morphs = v3.morphs; 
         comp = np.s ! Acc; 
         comp2 = np.s ! Acc; -- what is the meaning of this function?
         ap = [];
@@ -107,7 +107,7 @@ lin
         s =vv.s;
         pres =vv.pres; 
         perf = vv.perf;
-        morphs = vv.morphs; 
+        --morphs = vv.morphs; 
         comp = vpslash.s ++ BIND ++ vpslash.pres; 
         comp2 = [];
         ap = [];
@@ -127,7 +127,7 @@ lin
         s =vpslash.s;
         pres =vpslash.pres; 
         perf = vpslash.perf;
-        morphs = vpslash.morphs; 
+        --morphs = vpslash.morphs; 
         comp = vpslash.comp ++  np.s ! Acc;
         comp2 =vpslash.comp2; --should be empty
         ap = [];
@@ -146,7 +146,7 @@ lin
         s=vp.s; 
         pres =vp.pres; 
         perf = vp.perf; 
-        morphs = vp.morphs; 
+        --morphs = vp.morphs; 
         comp = adv.s;
         comp2 = [];
         ap =[];
@@ -164,7 +164,7 @@ lin
       s=vp.s; 
       pres =vp.pres; 
       perf = vp.perf; 
-      morphs = vp.morphs; 
+      --morphs = vp.morphs; 
       comp = vp.comp;
       comp2 =vp.comp;
       ap = [];
@@ -187,7 +187,7 @@ lin
         s =vpslash.s;
         pres =vpslash.pres; 
         perf = vpslash.perf;
-        morphs = vpslash.morphs; 
+        --morphs = vpslash.morphs; 
         comp = vpslash.comp; 
         comp2 = vpslash.comp2;
         ap = [];
@@ -207,7 +207,7 @@ lin
         s =vpslash.s;
         pres =vpslash.pres; 
         perf = vpslash.perf;
-        morphs = vpslash.morphs; 
+        --morphs = vpslash.morphs; 
         comp = vpslash.comp; 
         comp2 = vpslash.comp2;
         ap = [];
@@ -231,7 +231,7 @@ lin
                                         s= vv.s ++ BIND ++ vv.perf ++ vpPres; 
                                         pres = [];--vv.pres; 
                                         perf=  []; -- vv.perf; 
-                                        morphs = vv.morphs; 
+                                        --morphs = vv.morphs; 
                                         comp=vp.comp ;
                                         comp2 = vp.comp2;
                                         ap = [];
@@ -246,7 +246,7 @@ lin
                                       s= vv.s ++ BIND ++ vv.pres ++ vpPres; 
                                       pres = [];--vv.pres; 
                                       perf=  [];--vv.perf; 
-                                      morphs = vv.morphs; 
+                                      --morphs = vv.morphs; 
                                       comp=vp.comp ;
                                       comp2 = vp.comp2;
                                       ap = []; 
@@ -265,7 +265,7 @@ lin
     s= vs.s; 
     pres =vs.pres; 
     perf=vs.perf; 
-    morphs = vs.morphs; 
+    --morphs = vs.morphs; 
     comp=s.s ;
     comp2 = []; 
     ap = [];
@@ -286,7 +286,7 @@ lin
     s= vq.s; 
     pres =vq.pres; 
     perf=vq.perf; 
-    morphs = vq.morphs; 
+    --morphs = vq.morphs; 
     comp=qs.s ;
     comp2 = [];
     ap = []; 
@@ -312,7 +312,7 @@ lin
     s= va.s; 
     pres =va.pres; 
     perf=va.perf; 
-    morphs = va.morphs; 
+    --morphs = va.morphs; 
     comp=[] ;
     comp2 = [];
     ap = ap.s! AgP3 Sg KI_BI; 

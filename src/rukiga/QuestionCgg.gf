@@ -17,7 +17,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
       root = vp.s;
       pres = vp.pres;
       perf = vp.perf;
-      morphs = vp.morphs;
+      --morphs = vp.morphs;
       {-
       inf  : Str;
       pres  : Str; 
@@ -45,7 +45,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
               root = clSlash.s;
               pres = clSlash.pres;
               perf = clSlash.perf;
-              morphs = clSlash.morphs;
+              --morphs = clSlash.morphs;
               {-
               inf  : Str;
               pres  : Str; 
@@ -65,7 +65,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
               root = cl.s;
               pres = cl.pres;
               perf = cl.perf;
-              morphs = cl.morphs;
+              --morphs = cl.morphs;
               {-
               inf  : Str;
               pres  : Str; 
@@ -89,7 +89,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                                                       root = be_Copula.s;
                                                       pres = be_Copula.pres;
                                                       perf = be_Copula.perf;
-                                                      morphs = be_Copula.morphs;
+                                                      --morphs = be_Copula.morphs;
                                                       {-
                                                       inf  : Str;
                                                       pres  : Str; 
@@ -107,7 +107,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                                                       root = be_Copula.s;
                                                       pres = be_Copula.pres;
                                                       perf = be_Copula.perf;
-                                                      morphs = be_Copula.morphs;
+                                                      --morphs = be_Copula.morphs;
                                                       {-
                                                       inf  : Str;
                                                       pres  : Str; 
@@ -125,7 +125,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                                               root = be_Copula.s;
                                               pres = be_Copula.pres;
                                               perf = be_Copula.perf;
-                                              morphs = be_Copula.morphs;
+                                              --morphs = be_Copula.morphs;
                                               {-
                                               inf  : Str;
                                               pres  : Str; 

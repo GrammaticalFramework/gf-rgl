@@ -13,11 +13,12 @@ lin
   --Temp  = {s : Str ; t : R.Tense ; a : R.Anteriority} ;
   UseCl  temp pol cl = let 
                 subj = cl.s;
+                vMorphs = mkVerbMorphs;
                 clitic = mkSubjClitic cl.subjAgr;
-                presSimul =  cl.morphs ! VFPres; --this is not delivering the string
-                presAnt = cl.morphs ! VFPastPart; --this is not delivering the string
+                presSimul =  vMorphs ! VFPres; --this is not delivering the string
+                presAnt = vMorphs ! VFPastPart; --this is not delivering the string
                 root = cl.root;
-                presRestOfVerb = cl.morphs ! VFPres ! RestOfVerb;
+                presRestOfVerb = cl.pres;
                 pastRestOfVerb = cl.perf; --morphs ! VFPastPart ! RestOfVerb;
 
                 compl = cl.compl
@@ -29,9 +30,9 @@ lin
       <Pres,Simul, Neg> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
                 root ++ presRestOfVerb ++ compl};
       <Pres,Anter, Pos> => {s = subj ++ clitic ++ --Predef.BIND ++ 
-                cl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
+                vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
       <Pres,Anter, Neg> =>{s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
-                  cl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};
+                  vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};
 
 
       <Past,Simul, Pos> => {s = subj ++ clitic ++ --Predef.BIND ++ 
@@ -40,7 +41,7 @@ lin
       <Past,Simul, Neg> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
                 root ++ pastRestOfVerb ++ compl};
       <Past,Anter, Pos> => {s = subj ++ clitic ++ "bire" ++ clitic ++ --Predef.BIND ++ 
-                cl.morphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
+                vMorphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
       <Past,Anter, Neg> =>{s = subj ++  clitic ++ "bire" ++ clitic ++ "ta"--Predef.BIND ++ ant!TAMarker 
                 ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};
 
@@ -75,6 +76,7 @@ lin
   --UseRCl   : Temp -> Pol -> RCl -> RS ;  -- that had not slept
   UseRCl temp pol rcl = let 
                             subj = rcl.s; -- this could be empty
+                            vMorphs = mkVerbMorphs;
                             subjClitic  = case rcl.agr of {
                                                 AgrYes a => mkSubjClitic a;
                                                 _        => mkSubjClitic (AgP3 Sg MU_BA)
@@ -87,8 +89,8 @@ lin
                                               AgrYes a => mkRPs!RObj! a;
                                               _        => mkRPs!RObj! AgP3 Sg MU_BA
                                       };
-                            presSimul =  rcl.morphs ! VFPres; --this is not delivering the string
-                            presAnt = rcl.morphs ! VFPastPart; --this is not delivering the string
+                            presSimul =  vMorphs ! VFPres; --this is not delivering the string
+                            presAnt = vMorphs ! VFPastPart; --this is not delivering the string
                             root = rcl.root;
                             presRestOfVerb = rcl.pres;
                             pastRestOfVerb = rcl.perf; --morphs ! VFPastPart ! RestOfVerb;
@@ -112,16 +114,16 @@ lin
                                                           };
                             <Pres,Anter, Pos> => {
                                                     s = table{
-                                                            RF RSubj => subj ++ rsubjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
-                                                            RF RObj  => subj ++ robjClitic  ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
-                                                            Such_That => "kugira ngu" ++ subj ++ subjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                            RF RSubj => subj ++ rsubjClitic ++ vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            RF RObj  => subj ++ robjClitic  ++ vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            Such_That => "kugira ngu" ++ subj ++ subjClitic ++ vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
                                                             }
                                                           }; 
                             <Pres,Anter, Neg> =>{
                                                   s = table {
-                                                            RF RSubj  => subj ++ "ti" ++ Predef.BIND ++ rsubjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
-                                                            RF RObj   => subj ++ "ti" ++ Predef.BIND ++ robjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
-                                                            Such_That => "kugira ngu" ++  "ti" ++ Predef.BIND ++ rsubjClitic ++ rcl.morphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                            RF RSubj  => subj ++ "ti" ++ Predef.BIND ++ rsubjClitic ++ vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            RF RObj   => subj ++ "ti" ++ Predef.BIND ++ robjClitic ++ vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                            Such_That => "kugira ngu" ++  "ti" ++ Predef.BIND ++ rsubjClitic ++ vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
                                                           }
                                                         };
 
@@ -142,9 +144,9 @@ lin
                                                             };
                             <Past,Anter, Pos> => {
                                                   s = table {
-                                                      RF RSubj  => subj ++ rsubjClitic ++ "bire" ++ rsubjClitic ++ rcl.morphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
-                                                      RF RObj   => subj ++ robjClitic ++ "bire" ++ subjClitic ++ rcl.morphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
-                                                      Such_That => "kugira ngu" ++ "bire" ++ subjClitic ++ rcl.morphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
+                                                      RF RSubj  => subj ++ rsubjClitic ++ "bire" ++ rsubjClitic ++ vMorphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                      RF RObj   => subj ++ robjClitic ++ "bire" ++ subjClitic ++ vMorphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                      Such_That => "kugira ngu" ++ "bire" ++ subjClitic ++ vMorphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
                                                       }
                                                     };    
                             <Past,Anter, Neg> =>{
@@ -228,7 +230,7 @@ lin
                         pres = vp.pres;
                         perf = vp.perf;
                         root = vp.s;
-                        morphs = vp.morphs;
+                        --morphs = vp.morphs;
                         {-
                         inf  = mkVerbInrf vp.root;
                       pres  = mkVerbPres vp.root; 
@@ -245,7 +247,7 @@ lin
                         pres = vp.pres;
                         perf = vp.perf;
                         root = vp.s;
-                        morphs = vp.morphs;
+                        --morphs = vp.morphs;
                         {-
                         inf  = mkVerbInrf vp.root;
                       pres  = mkVerbPres vp.root; 
@@ -266,14 +268,14 @@ lin
     Reason: When I add a BIND command, I get two bind tokens in the linearizations
     -}
 
-  ImpVP  vp = {
+  ImpVP  vp = let vMorphs = mkVerbMorphs in {
         s =table{
-          ImpPos  => vp.s ++ Predef.BIND ++ vp.morphs!VFInf!RestOfVerb ++ vp.comp;
+          ImpPos  => vp.s ++ Predef.BIND ++ vMorphs!VFInf!RestOfVerb ++ vp.comp;
           ImpNeg =>  case vp.isCompApStem of {   -- How do I make the number dynamic use case?
-                  True =>vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
-                        vp.morphs!VFInf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.ap;
-                  False  => vp.morphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
-                        vp.morphs!VFInf!RestOfVerb ++ vp.comp
+                  True =>vMorphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                        vMorphs!VFInf!RestOfVerb ++ (mkAdjPronNoIVClitic (AgMUBAP2 Sg)) ++ vp.ap;
+                  False  => vMorphs!VFPres!SecNegM ++ Predef.BIND ++ vp.s ++ Predef.BIND ++ 
+                        vMorphs!VFInf!RestOfVerb ++ vp.comp
               }
         } 
   };  --: VP -> Imp ;                 -- walk / do not walk
@@ -306,7 +308,7 @@ lin
                               root        = vpslash.s;
                               pres        = vpslash.pres;
                               perf        = vpslash.perf;
-                              morphs      = vpslash.morphs;
+                              --morphs      = vpslash.morphs;
                               ap          = vpslash.ap;
                               isRegular   = vpslash.isRegular;
                               adv         = vpslash.adv;
