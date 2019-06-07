@@ -11,12 +11,12 @@ lin
 --    ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
 
   -- : Prep -> NP -> Adv ;
-  PrepNP prep np = {s = prep.s ! np.a ; s2 = np.s ! Abs} ; ---- ?
+  PrepNP prep np = prep ** {s = [] ; np = np} ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
     --AdAdv  : AdA -> Adv -> Adv ;             -- very quickly
-  AdAdv ada adv = adv ** { s = ada.s ++ adv.s } ;
+  AdAdv ada adv = adv ** {s = ada.s ++ adv.s} ;
 -- Like adverbs, adadjectives can be produced by adjectives.
 
   -- : A -> AdA ;                 -- extremely

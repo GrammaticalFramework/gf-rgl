@@ -104,11 +104,11 @@ oper
 
   mkPrep = overload {
     mkPrep : Str -> CatSom.Prep = \s ->
-      lin Prep (ResSom.mkPrep s s s s s s) ;
+      lin Prep ((ResSom.mkPrep s s s s s s) ** {c2=noPrep}) ;
     mkPrep : (x1,_,_,_,_,x6 : Str) -> CatSom.Prep = \a,b,c,d,e,f ->
-      lin Prep (ResSom.mkPrep a b c d e f) ;
+      lin Prep ((ResSom.mkPrep a b c d e f) ** {c2=noPrep}) ;
     mkPrep : Preposition -> CatSom.Prep = \p ->
-      lin Prep (prepTable ! p) ;
+      lin Prep (prep p) ;
   } ;
 
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->
@@ -117,7 +117,7 @@ oper
   -- mkSubj : Str -> Bool -> Subj = \s,b ->
   --   lin Subj { } ;
 
-  mkAdv : Str -> Adv = \s -> lin Adv {s = s ; s2 = []} ;
+  mkAdv : Str -> Adv = \s -> lin Adv {s = s ; c2 = noPrep ; np = emptyNP} ;
 
   mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
 
