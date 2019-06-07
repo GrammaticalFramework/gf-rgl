@@ -8,7 +8,7 @@ lin
 --2 Clauses
 
   -- : NP -> VP -> Cl
-  PredVP np vp = {
+  PredVP np vps = let vp = complSlash vps in {
     s = \\t,a,p =>
        let pred : {fin : Str ; inf : Str} = vf t a p np.a vp ;
            subj : Str = if_then_Str np.isPron [] (np.s ! Nom) ;
@@ -24,11 +24,10 @@ lin
       in subj         -- subject if it's a noun
       ++ obj.p1       -- object if it's a noun
       ++ stm          -- sentence type marker + possible subj. pronoun
-      ++ vp.adv.s   ---- TODO: can it contract with obj. pronoun?
+      ++ vp.adv   ---- TODO word order
       ++ obj.p2       -- object if it's a pronoun
       ++ pred.fin     -- the verb inflected
       ++ pred.inf     -- potential participle
-      ++ vp.adv.s2  ---- I have no idea /IL
     } ;
 {-
   -- : SC -> VP -> Cl ;         -- that she goes is good

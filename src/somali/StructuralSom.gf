@@ -104,14 +104,14 @@ oper
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep ""  ;
-lin in_Prep = prepTable ! ku ;
-lin on_Prep = prepTable ! ku ;
+lin in_Prep = prep ku ;
+lin on_Prep = prep ku ;
 -- lin part_Prep = mkPrep ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
 -- lin under_Prep = mkPrep ""   ;
-lin with_Prep = prepTable ! la ;
+lin with_Prep = prep la ;
 -- lin without_Prep = mkPrep ;
 
 

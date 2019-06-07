@@ -133,6 +133,12 @@ oper
     { mod = \\_,_ => [] ; hasMod = False ;
       a = Sg3 n.g ; isPron = False ; sp = []
     } ;
+
+  emptyNP : NounPhrase = {
+    s = \\_ => [] ;
+    a = Pl3 ;
+    isPron = False
+    } ;
 --------------------------------------------------------------------------------
 -- Pronouns
 -- De somaliska possessiva pronomenen, precis som de svenska, har två olika genusformer i singular och en enda form i plural.
@@ -232,6 +238,7 @@ oper
           _        => ku
         }
     } ;
+  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! p ** {c2 = p} ;
 
   prepTable : Preposition => Prep = table {
     ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
@@ -270,7 +277,6 @@ oper
                    ula => "loola" ; kaga => "lagaga" ;
                    kula => "lagula" ; kala => "lagala" ;
                    Single p => (prepTable ! p).s ! Impers } ;
---
     a   => table { ugu => "ugu" ; uga => "uga" ;
                    ula => "ula" ; kaga => "kaga" ;
                    kula => "kula" ; kala => "kala" ;
@@ -517,7 +523,9 @@ oper
 
 ------------------
 -- VP
-  Adverb : Type = {s,s2 : Str} ;
+  Adverb : Type = {
+    s : Str ;
+    c2 : Preposition ; np : NounPhrase} ; -- So that adverbs can also contribute to preposition contraction
 
   Complement : Type = {
     comp : Agreement => {p1,p2 : Str} -- Agreement for AP complements
@@ -525,24 +533,71 @@ oper
 
   VerbPhrase : Type = Verb ** Complement ** {
     isPred : Bool ;      -- to choose right sentence type marker
-    adv : Adverb ;          -- they're ~complicated~
-    c2, c3 : Preposition -- can combine together and with object pronouns
+    adv : Str ;
+    c2, c3 : Preposition ; -- can combine together and with object pronoun(s?)
+    obj2 : {s : Str ; a : AgreementPlus} ;
     } ;
 
-  VPSlash : Type = VerbPhrase ; ---- TODO more fields
+  VPSlash : Type = VerbPhrase ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
     isPred = False ;
-    adv = {s,s2 = []} ;
+    adv = [] ;
     c2,c3 = noPrep ;
+    obj2 = {s = [] ; a = Unassigned} ;
     } ;
 
-  compl : NounPhrase -> VerbPhrase -> Str = \np,vp ->
-    prepCombTable ! np.a ! combine vp.c2 vp.c3 ;
+  useVc : Verb2 -> VPSlash = \v2 -> useV v2 ** {
+    c2 = v2.c2
+    } ;
 
-  complV2 : NounPhrase -> Verb2 -> Str = \np,vp ->
-      prepCombTable ! np.a ! combine vp.c2 noPrep ;
+  complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
+    comp = \\a =>
+        case np.a of {
+          Unassigned => vps.comp ! a ;
+          IsPron ag => {p1 = [] ; -- object is a pronoun => nothing is placed before the verb
+                        p2 = compl np.a vps} ; -- object combines with the preposition of the verb
+          NotPronP3 => {p1 = np.s ; -- object is a noun => it will come before verb in the sentence
+                        p2 = compl np.a vps}  -- object combines with the preposition of the verb
+          }
+    } ;
+
+  compl : AgreementPlus -> VerbPhrase -> Str = \a,vp ->
+    let agr = case a of {IsPron x => x ; _ => Pl3} ;
+     in "<" ++ prepCombTable ! agr ! combine vp.c2 vp.c3 ++ ">" ;
+
+  insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
+    let nps = if_then_Str np.isPron [] (np.s ! Abs) ;
+    in case vp.obj2.a of {
+      Unassigned =>
+        vp ** {obj2 = {s = nps ;
+                       a = agr2agrplus np.isPron np.a}
+              } ;
+
+      -- If the old object in obj2 is 3rd person, we can safely replace its agreement, but keep its string.
+      NotPronP3|IsPron (Sg3 _|Pl3) =>
+        vp ** {obj2 = vp.obj2 ** {a = agr2agrplus np.isPron np.a} ;
+               adv = vp.adv ++ nps} ;
+
+      -- This happens in two cases:
+      -- 1) insertAdv placed the preposition into vp.adv and called insertComp.
+      -- 2) ditransitive verb where both objects are non-3rd person. (Not implemented yet.)
+      _ => vp ** {adv = vp.adv ++ nps}
+    } ;
+
+  insertAdv : Adverb -> VerbPhrase -> VerbPhrase = \adv,vp ->
+    case adv.c2 of {
+      noPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
+      prep => insertComp vp' adv.np }
+    where { vp' : VerbPhrase =
+      case <vp.c2,vp.obj2.a,vp.c3> of { -- NB. This is a safe assumption only for AdvVP, no guarantees for AdvVPSlash.
+              <noPrep,Unassigned,_> => vp ** {c2 = adv.c2} ; -- should cover for obligatory argument that is not introduced with a preposition
+              <_,_,noPrep> => vp ** {c3 = adv.c2} ;
+              -- if complement slots are full, put preposition just as a string. TODO check word order.
+              _ => vp ** {adv = (prepTable ! adv.c2).s ! adv.np.a} --only preposition inserted here, adv.np.s ! Abs will be inserted in insertComp!
+      }
+    } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
   Clause : Type = {s : Tense => Anteriority => Polarity => Str} ;
