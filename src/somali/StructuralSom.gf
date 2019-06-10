@@ -131,6 +131,7 @@ lin with_Prep = prep la ;
       a = Sg2 ; isPron = True ;
       poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
       } ;
+    it_Pron = he_Pron ** {s = \\_ => []} ;
     he_Pron = {
       s = table {Nom => "uu" ; Voc => "isaga" ; _Abs => []} ;
       a = Sg3 Masc ; isPron = True ;
@@ -143,7 +144,7 @@ lin with_Prep = prep la ;
       } ;
     we_Pron = {
       s = table {Nom => "aan" ; Voc => "innaga" ; _Abs => "na"} ;
-      a = Pl1 Incl ; isPron = True ;
+      a = Pl1 Excl ; isPron = True ;
       poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     youPl_Pron = {
