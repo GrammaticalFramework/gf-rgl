@@ -143,7 +143,7 @@ lin with_Prep = prep la ;
       } ;
     we_Pron = {
       s = table {Nom => "aan" ; Voc => "innaga" ; _Abs => "na"} ;
-      a = Pl1 Incl ; isPron = True ;
+      a = Pl1 Excl ; isPron = True ;
       poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     youPl_Pron = {

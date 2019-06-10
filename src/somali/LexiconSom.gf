@@ -148,7 +148,7 @@ lin father_N2 = mkN2 (shortPossN (mkN "aabbe")) Gen  ;
 
 -- lin garden_N = mkN "" ;
 lin girl_N = mkN "gabadh" "gabdho" fem ;
-lin give_V3 = mkV3 "bixiyo" ;
+lin give_V3 = mkV3 "sii" ;
 -- lin glove_N = mkN "" ;
 -- lin go_V = joan_V ;
 -- lin gold_N = mkN "" ;
