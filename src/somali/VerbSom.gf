@@ -7,10 +7,10 @@ lin
 -- VP
   -- : V -> VP
   UseV = ResSom.useV ;
-{-
-  --  : V2 -> VP ;               -- be loved
-  PassV2 v2 =
 
+  --  : V2 -> VP ; -- be loved
+  PassV2 = ResSom.passV2 ; 
+{-
   -- : VV  -> VP -> VP ;
   ComplVV vv vp =  ;
 
@@ -31,10 +31,9 @@ lin
   SlashV2a = useVc ;
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
-  Slash2V3 v3 np = insertComp (useVc v3) np ;
-
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
-  Slash3V3 v3 np = insertComp (useVc v3) np ;
+  Slash2V3,
+  Slash3V3 = \v3 -> insertComp (useVc v3) ;
 {-
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
   SlashV2V v2v vp = ;

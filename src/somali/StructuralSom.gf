@@ -131,6 +131,7 @@ lin with_Prep = prep la ;
       a = Sg2 ; isPron = True ;
       poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
       } ;
+    it_Pron = he_Pron ** {s = \\_ => []} ;
     he_Pron = {
       s = table {Nom => "uu" ; Voc => "isaga" ; _Abs => []} ;
       a = Sg3 Masc ; isPron = True ;

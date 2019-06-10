@@ -116,7 +116,7 @@ param
 -- Prepositions
 
 param
-  Preposition = u | ku | ka | la | noPrep ;
+  Preposition = u | ku | ka | la | noPrep | passive ;
   PrepCombination = ugu | uga | ula | kaga | kula | kala
                   | Single Preposition ;
 
@@ -176,5 +176,11 @@ param
 oper
   if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
     case p of {Pos => t ; Neg => f } ;
+
+  forceAgr : Agreement -> (VForm=>Str) -> (VForm=>Str) = \agr,tbl -> table {
+    VPres asp _a pol => tbl ! VPres asp agr pol ;
+    VPast asp _a     => tbl ! VPast asp agr ;
+    x                => tbl ! x
+    } ;
 
 }
