@@ -14,11 +14,11 @@ DetCN det cn = useN cn ** {
        let nfc : {nf : NForm ; c : Case} =
              case <c,cn.hasMod,det.d> of {
                 -- special form for fem. nouns
-                <Gen,False,Indef Sg> => {nf=GenSg ; c=c} ;
-                <Gen,False,Indef Pl> => {nf=GenPl ; c=c} ;
                 <Nom,False,Indef Sg> => {nf=NomSg ; c=c} ;
+
                 -- special case for DefArt+Nom: override vowel
                 <Nom,False,Def x NA> => {nf=Def x vU ; c=c} ;
+
                 -- If cn has modifier, Nom ending attaches to the modifier
                 <Nom,True,_> => {nf=det.d ; c=Abs} ;
                 _            => {nf=det.d ; c=c}
@@ -76,7 +76,6 @@ DetCN det cn = useN cn ** {
   -- MassNP : CN -> NP ;
   MassNP cn = useN cn ** {
     s = table { Nom => cn.s ! NomSg ++ cn.mod ! Sg ! Nom ;
-            --  Gen => cn.s ! PlGen    ++ cn.mod ! Sg ! Gen ; -- TODO Do we ever need plural genitive?
                 c   => cn.s ! Indef Sg ++ cn.mod ! Sg ! c }
     } ;
 
@@ -174,10 +173,18 @@ DetCN det cn = useN cn ** {
   -- : N2 -> CN ;
   UseN,UseN2 = ResSom.useN ;
 
-  -- : N2 -> NP -> CN ;    -- mother of the king
-  ComplN2 n2 np =
-    let cn = useN n2 in
-    cn ** {s = \\c => cn.s ! c ++ np.s ! n2.c2 } ;
+  -- : N2 -> NP -> CN ;    -- Sahra hooyadeed
+  ComplN2 n2 np = let cn = useN n2 in cn ** {s = \\nf =>
+    let det = PossPron (pronTable ! np.a) ;
+        detStr = case cn.shortPoss of {
+                    True => det.shortPoss ;
+                    _ => det.s ! Abs } ;
+        num = case nf of {
+          Indef n => n ;
+          Def n v => n ;
+          _ => Sg } ;
+     in np.s ! Abs ++ cn.s ! Def num det.v ++ detStr } ;
+
 {-
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   ComplN3 n3 np =
@@ -221,13 +228,13 @@ DetCN det cn = useN cn ** {
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
   ApposCN cn np = cn ** { s =  } ;
-
+-}
 
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  PossNP cn np = cn ** {  } ;
-
+  PossNP cn np = cn ** {mod = \\n,c => cn.mod ! n ! c ++ np.s ! Abs} ; -- guriga Axmed, not Axmed gurigiisa
+{-
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   PartNP cn np = cn ** {  } ;
 

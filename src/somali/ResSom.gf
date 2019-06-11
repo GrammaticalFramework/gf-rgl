@@ -4,9 +4,9 @@ resource ResSom = ParamSom ** open Prelude, Predef, ParamSom in {
 -- Nouns
 oper
 
-  Noun : Type = {s : NForm => Str ; g : Gender ; shortPoss : Bool} ;
-  Noun2 : Type = Noun ** {c2 : Case} ;
-  Noun3 : Type = Noun2 ** {c3 : Case} ;
+  Noun : Type = {s : NForm => Str; g : Gender ; shortPoss : Bool} ;
+  Noun2 : Type = Noun ; -- TODO eventually more parameters?
+  Noun3 : Type = Noun ;
 
   CNoun : Type = Noun ** {mod : Number => Case => Str ; hasMod : Bool} ;
 
@@ -18,11 +18,9 @@ oper
     let bisadi = case gender of
                    { Fem  => case wiil of { _ + #c => wiil+"i" ; _ => wiil} ;
                      Masc => wiil } ;
-        genforms : {p1, p2 : Str} = case gender of
-                       { Fem  => case wiilal of {_ + "o" => <wiil+"eed", wiilal+"od"> ; _ => <wiil, wiilal>} ;
-                         Masc => <wiil,wiilal> } ;
-        shimbireed = genforms.p1 ;
-        bisadood = genforms.p2 ;
+        bisadood = case gender of
+                       { Fem  => case wiilal of {_ + "o" => wiilal+"od" ; _ => wiil} ;
+                         Masc => wiil } ;
         defStems : Str -> Vowel => Str = \s -> case s of {
           ilk + "aha" =>
                table { vE => ilk+"eh" ;
@@ -39,10 +37,7 @@ oper
            Indef Pl => wiilal ;
            Def Sg vow => defStems wiilka ! vow ;
            Def Pl vow => defStems wiilasha ! vow ;
-           -- Special forms for fem. nouns ending in consonant
-           NomSg => bisadi ;
-           GenSg => shimbireed ;
-           GenPl => bisadood ;
+           NomSg => bisadi ;  -- Special form for fem. nouns ending in consonant
            Numerative => case bisadood of {_+"ood" => bisadood ; _ => wiil}
            } ;
          g = gender ;
@@ -155,6 +150,55 @@ oper
       v : Vowel}
     } ;
 
+  pronTable : Agreement => Pronoun = table {
+    Sg1 => {
+      s = table {Nom => "aan" ; {-Voc => "aniga" ;-} Abs => "i"} ;
+      a = Sg1 ; isPron = True ;
+      poss = {s = "ay" ; v = vA ; sp = gnTable "ayg" "ayd" "uwayg"}
+      } ;
+    Sg2 => {
+      s = table {Nom => "aad" ; {-Voc => "adiga" ;-} Abs => "ku"} ;
+      a = Sg2 ; isPron = True ;
+      poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
+      } ;
+    Sg3 Masc => {
+      s = table {Nom => "uu" ; {-Voc => "isaga" ;-} Abs => []} ;
+      a = Sg3 Masc ; isPron = True ;
+      poss = {s = "iis" ; v = vI ; sp = gnTable "iis" "iis" "uwiis"}
+      } ;
+    Sg3 Fem => {
+      s = table {Nom => "ay" ; {-Voc => "iyada" ;-} Abs => []} ;
+      a = Sg3 Fem ; isPron = True ;
+      poss = {s = "eed" ; v = vE ; sp = gnTable "eed" "eed" "uweed"}
+      } ;
+    Pl1 Excl => {
+      s = table {Nom => "aan" ; {-Voc => "annaga" ;-} Abs => "na"} ;
+      a = Pl1 Incl ; isPron = True ;
+      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
+      } ;
+    Pl1 Incl => {
+      s = table {Nom => "aynu" ; {-Voc => "innaga" ;-} Abs => "ina"} ;
+      a = Pl1 Incl ; isPron = True ;
+      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
+      } ;
+    Pl2 => {
+      s = table {Nom => "aad" ; {-Voc => "idinka" ;-} Abs => "idin"} ;
+      a =  Pl2 ; isPron = True ;
+      poss = {s = "iin" ; v = vI ; sp = gnTable "iinn" "iinn" "uwiinn"}
+      } ;
+    Pl3 => {
+      s = table {Nom => "ay" ; {-Voc => "iyaga" ;-} Abs => []} ;
+      a = Pl3 ; isPron = True ;
+      poss = {s = "ood" ; v = vO ; sp = gnTable "ood" "ood" "uwood"}
+      } ;
+    Impers => {
+      s = table {Nom => "la" ; Abs => "??"} ;
+      a = Impers ; isPron = True ;
+      poss = {s = "??" ; v = vO ; sp = gnTable "??" "??" "??"}
+      }
+    } ;
+
+
   -- Second series object pronouns, Sayeed p. 74-75
   -- For two non-3rd person object pronouns, e.g. "They took you away from me"
   secondObject : Agreement => Str = table {
@@ -165,6 +209,7 @@ oper
     Pl2      => "kiin" ;
     _ => []
     } ;
+
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
