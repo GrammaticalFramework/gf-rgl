@@ -119,44 +119,15 @@ lin with_Prep = prep la ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsSom.
-
-    i_Pron = {
-      s = table {Nom => "aan" ; Voc => "aniga" ; _Abs => "i"} ;
-      a = Sg1 ; isPron = True ;
-      poss = {s = "ay" ; v = vA ; sp = gnTable "ayg" "ayd" "uwayg"}
-      } ;
-    youPol_Pron, -- TODO check
-    youSg_Pron = {
-      s = table {Nom => "aad" ; Voc => "adiga" ; _Abs => "ku"} ;
-      a = Sg2 ; isPron = True ;
-      poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
-      } ;
     it_Pron = he_Pron ** {s = \\_ => []} ;
-    he_Pron = {
-      s = table {Nom => "uu" ; Voc => "isaga" ; _Abs => []} ;
-      a = Sg3 Masc ; isPron = True ;
-      poss = {s = "iis" ; v = vI ; sp = gnTable "iis" "iis" "uwiis"}
-      } ;
-    she_Pron = {
-      s = table {Nom => "ay" ; Voc => "iyada" ; _Abs => []} ;
-      a = Sg3 Fem ; isPron = True ;
-      poss = {s = "eed" ; v = vE ; sp = gnTable "eed" "eed" "uweed"}
-      } ;
-    we_Pron = {
-      s = table {Nom => "aan" ; Voc => "innaga" ; _Abs => "na"} ;
-      a = Pl1 Excl ; isPron = True ;
-      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
-      } ;
-    youPl_Pron = {
-      s = table {Nom => "aad" ; Voc => "idinka" ; _Abs => "idin"} ;
-      a =  Pl2 ; isPron = True ;
-      poss = {s = "iin" ; v = vI ; sp = gnTable "iinn" "iinn" "uwiinn"}
-      } ;
-    they_Pron = {
-      s = table {Nom => "ay" ; Voc => "iyaga" ; _Abs => []} ;
-      a = Pl3 ; isPron = True ;
-      poss = {s = "ood" ; v = vO ; sp = gnTable "ood" "ood" "uwood"}
-      } ;
+    i_Pron = pronTable ! Sg1 ;
+    youPol_Pron, -- TODO check
+    youSg_Pron = pronTable ! Sg2 ;
+    he_Pron = pronTable ! Sg3 Masc ;
+    she_Pron = pronTable ! Sg3 Fem ;
+    we_Pron = pronTable ! Pl1 Excl ;
+    youPl_Pron = pronTable ! Pl2 ;
+    they_Pron = pronTable ! Pl3 ;
 {-
 lin whatPl_IP = ;
 lin whatSg_IP = ;

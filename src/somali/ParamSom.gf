@@ -60,7 +60,7 @@ oper
 -- Nouns
 
 param
-  Case = Nom | Abs | Gen ; -- | Voc exists for some words
+  Case = Nom | Abs ;
   Gender = Masc | Fem ;
   Vowel = vA | vE | vI | vO | vU | NA ; -- For vowel assimilation
   GenNum = SgMasc | SgFem | PlInv ; -- For Quant
@@ -87,7 +87,7 @@ param
     | Def Number Vowel -- Stems for definite and determinative suffixes
     -- Special forms only for fem. nouns ending in consonant.
     | Numerative  -- When modified by a number: either pl gen or sg abs
-    | NomSg | GenSg | GenPl ;
+    | NomSg ;
 
 oper
   getAgr : NForm -> Gender -> Agreement = \n,g ->
