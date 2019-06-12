@@ -111,8 +111,8 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     --    OrdDigits n = {s = n.s ! NOrd} ;
     --
   lin
-    NumNumeral numeral = numeral.card ;
-    OrdNumeral numeral = numeral.ord ;
+--    NumNumeral numeral = numeral.s ;
+--    OrdNumeral numeral = numeral.ord ;
 --
 --    AdNum adn num = {s = adn.s ++ num.s ; n = num.n} ;
 --

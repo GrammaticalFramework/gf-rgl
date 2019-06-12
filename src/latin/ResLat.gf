@@ -152,7 +152,8 @@ param
   AdjectivePhrase : Type = { 
 	s : Agr => Str ;
 --	isPre : Bool ; -- should have no use in latin because adjectives can appear variably before and after nouns
-      } ;
+    } ;
+  
   mkAdjective : (bonus,bona,bonum : Noun) -> 
     ( (Agr => Str) * Str ) -> 
     ( (Agr => Str) * Str ) ->
@@ -187,7 +188,7 @@ param
       audaces audaces (audac + "ium") (audac + "ibus") 
       g ;
 
-
+  
   emptyAdj : Adjective = 
     { s = \\_,_ => "" ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
 
@@ -1401,49 +1402,54 @@ oper
     { s = table { Posit => p ; Compar => c ; Super => s } };
   -- numerals
   param
-    CardOrd = NCard | NOrd ;
+  --   CardOrd = NCard | NOrd ;
     Unit = one | ten | hundred | thousand | ten_thousand | hundred_thousand ;
   oper
-    Cardinal : Type = {s : Gender => Case => Str ; n : Number};
-    Ordinal : Type = { s : Gender => Number => Case => Str } ;
-    Numeral : Type = { card : Cardinal ; ord : Ordinal } ;
+    -- Numerals are by default cardinal numbers but have a field for ordinal numbers
+    TDigit : Type = { s : Unit => Gender => Case => Str } ; -- ord : Unit => Agr => Str } ;
+    Numeral : Type = { s : Gender => Case => Str ; n : Number ; ord : Unit => Agr => Str } ;
 
-    mkNumeral : Str -> Str -> Numeral = \c,o -> -- cardinal and ordinal form
-      let
-	cardFlex : Gender => Case => Str = case c of { "unus" => \\gen,cas => case <gen,cas> of {
-				    <Masc, Nom | Voc> => "unus" ; <Masc, Acc> => "unum" ; <Masc, Abl> => "uno" ;
-				    <Fem, Nom | Abl | Voc> => "una" ; <Fem, Acc> => "unam" ;
-				    <Neutr, Nom | Acc | Voc> => "unum" ; <Neutr, Abl> => "uno" ;
-				    <_, Gen> => "unius" ; <_, Dat> => "uni"
-				    } ;
-				  "duo" => table {
-				    Masc | Neutr => table Case [ "duo" ; "duo" ; "duorum" ; "duobus" ; "duobus" ; "duo" ] ;
-				    Fem => table Case [ "duae" ; "duas" ; "duarum" ; "duabus" ; "duabus" ; "duae" ] } ;
-				  "tres" => \\gen,cas => case <gen,cas> of {
-				    <Neutr, Nom | Acc | Voc > => "tria" ; <_, Nom | Acc | Voc > => "tres" ;
-				    <_, Gen> => "trium" ; <_, Dat | Abl > => "tribus"
-				    } ;
-				  "milia" => table {
-				    Neutr => table Case [ "milia" ; "milia" ; "milium" ; "milibus" ; "milibus" ; "milia" ] ;
-				    _ => \\_ => nonExist
-				    } ;
-				    _ => \\_,_ => c
-	  } ;
-	ordFlex : Gender => Number => Case => Str =
-	  case o of {
-	    stem + "us" => table {
-	      Masc => table Number [ table Case [ stem + "us" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "e" ] ;
-				     table Case [ stem + "i" ; stem + "os" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "i" ] ;
-		];
-	      Fem => table Number [ table Case [ stem + "a" ; stem + "am" ; stem + "ae" ; stem + "ae" ; stem + "a" ; stem + "a" ] ;
-				    table Case [ stem + "ae" ; stem + "as" ; stem + "arum" ; stem + "is" ; stem + "is" ; stem + "ae" ] ;
-		] ;
-	      Neutr => table Number [ table Case [ stem + "um" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "um" ] ;
-				      table Case [ stem + "a" ; stem + "a" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "a" ] ;
-		]
-	      } ;
-	    _ => error "unsupported ordinal form"
-	  }
-      in
-      { card = { s = cardFlex ; n = case c of { "unus" => Sg ; _ => Pl }  } ; ord = { s = ordFlex } } ;
+    -- Inflection for cardinal numbers
+    cardFlex : Str -> Gender => Case => Str =
+      \c -> case c of { "unus" => \\gen,cas => case <gen,cas> of {
+			  <Masc, Nom | Voc> => "unus" ; <Masc, Acc> => "unum" ; <Masc, Abl> => "uno" ;
+			  <Fem, Nom | Abl | Voc> => "una" ; <Fem, Acc> => "unam" ;
+			  <Neutr, Nom | Acc | Voc> => "unum" ; <Neutr, Abl> => "uno" ;
+			  <_, Gen> => "unius" ; <_, Dat> => "uni"
+			  } ;
+			"duo" => table {
+			  Masc | Neutr => table Case [ "duo" ; "duo" ; "duorum" ; "duobus" ; "duobus" ; "duo" ] ;
+			  Fem => table Case [ "duae" ; "duas" ; "duarum" ; "duabus" ; "duabus" ; "duae" ] } ;
+			"tres" => \\gen,cas => case <gen,cas> of {
+			  <Neutr, Nom | Acc | Voc > => "tria" ; <_, Nom | Acc | Voc > => "tres" ;
+			  <_, Gen> => "trium" ; <_, Dat | Abl > => "tribus"
+			  } ;
+			"milia" => table {
+			  Neutr => table Case [ "milia" ; "milia" ; "milium" ; "milibus" ; "milibus" ; "milia" ] ;
+			  _ => \\_ => nonExist
+			  } ;
+			_ => \\_,_ => c
+      } ;
+      -- 	ordFlex : Gender => Number => Case => Str =
+      -- 	  case o of {
+      -- 	    stem + "us" => table {
+      -- 	      Masc => table Number [ table Case [ stem + "us" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "e" ] ;
+      -- 				     table Case [ stem + "i" ; stem + "os" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "i" ] ;
+      -- 		];
+      -- 	      Fem => table Number [ table Case [ stem + "a" ; stem + "am" ; stem + "ae" ; stem + "ae" ; stem + "a" ; stem + "a" ] ;
+      -- 				    table Case [ stem + "ae" ; stem + "as" ; stem + "arum" ; stem + "is" ; stem + "is" ; stem + "ae" ] ;
+      -- 		] ;
+      -- 	      Neutr => table Number [ table Case [ stem + "um" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "um" ] ;
+      -- 				      table Case [ stem + "a" ; stem + "a" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "a" ] ;
+      -- 		]
+      -- 	      } ;
+      -- 	    _ => error "unsupported ordinal form"
+      -- 	  }
+      -- in
+    -- { s = cardFlex ; n = case c of { "unus" => Sg ; _ => Pl }  ; ord = ordFlex } ;
+
+    -- fixedNumeral : Str -> Str -> Numeral = \c,o ->
+    --    { s = \\_,_,_=> c ; n = Pl ; ord = \\g,n,c => (mkA o).s ! Posit ! Ag g n c} ;
+    
+
 }

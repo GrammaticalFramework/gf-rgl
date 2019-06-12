@@ -53,7 +53,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     Pron = ResLat.Pronoun ;
     Det = Determiner ;
     Predet = {s : Str} ;
-    Ord = Ordinal ;
+    Ord = { s : Gender => Number => Case => Str } ;
     Num  = {s : Gender => Case => Str ; n : Number} ;
     Card = {s : Gender => Case => Str ; n : Number} ;
     Quant = Quantifier ;

@@ -114,7 +114,11 @@ oper
 
   mkPron = mkPronoun ;
 
-  mkNum = mkNumeral ;
+  -- mkNum = overload {
+  --   mkNum : Str -> Str -> Str -> Str -> Num = \s1,s2,s3,s4 -> lin Num (mkNumeral s1 s2 s3 s4 );
+  --   mkNum : Str -> Str -> Str -> Str -> Str -> Str -> Num = \s1,s2,s3,s4,s5,s6 -> lin Num (fullNumeral s1 s2 s3 s4 s5 s6 ) ;
+  --   } ;
+
 -- To be implemented, just place holders
   mkPN : N -> PN = \n -> lin PN n ;
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 ( n ** { c = p } );
