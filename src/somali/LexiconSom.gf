@@ -176,7 +176,7 @@ lin go_V = mkV "tag" ;
 -- lin horn_N = mkN "" ;
 -- lin horse_N = mkN "" ;
 -- lin hot_A = mkA "" ;
-lin house_N = mkN "aqal" ;
+lin house_N = mkN "guri" ;
 -- lin hunt_V2 = mkV2 "" ;
 -- lin husband_N = mkN "" ;
 
@@ -360,7 +360,7 @@ lin speak_V2 = mkV2 "hadlo" ;
 -- lin table_N = mkN "" ;
 -- lin tail_N = mkN "" ;
 -- lin talk_V3 = mkV3 "" ;
-lin teach_V2 = mkV2 "baray" ku ; -- I suppose this creates progressive forms? TODO implement all forms of verbs properly.
+lin teach_V2 = mkV2 "bar" ku ;
 -- lin teacher_N = mkN "" ;
 -- lin television_N = mkN "" ;
 -- lin thick_A = mkA "" ;

@@ -72,7 +72,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     Predet = {s : Str} ;
     Quant = ResSom.Quant ;
     Num = ResSom.Num ;
-    Card, Ord = {s : Str ; n : Number} ;
+    Ord = {s : Str ; n : Number} ;
     DAP = ResSom.Determiner ;
 
 
@@ -80,7 +80,8 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 -- Constructed in NumeralSom.
 
-    Numeral = {s : Str ; n : Number} ;
+    Card = {s : State => Str ; n : Number} ;
+    Numeral = {s : CardOrd => State => Str ; n : Number} ;
     Digits = {s : CardOrd => Str ; n : Number} ;
 
 
