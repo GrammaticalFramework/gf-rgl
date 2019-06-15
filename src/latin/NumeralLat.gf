@@ -8,41 +8,42 @@ concrete NumeralLat of Numeral = CatLat ** open ResLat,ParadigmsLat,Prelude in {
 
   lin
     num x = x ;
-    -- n2 = lin Digit ( mkDigit "duo" "viginti" "ducenti" "secundus" ) ;
-    -- n3 = lin Numeral ( mkNum "tres" "triginta" "trecenti" "tertius" ) ;
-    -- n4 = lin Numeral ( mkNum "quattuor" "quadraginta" "quadringenti" "quartus" ) ;
-    -- n5 = lin Numeral ( mkNum "quinque" "quinquaginta" "quingenti"  "quintus" ) ;
-    -- n6 = lin Numeral ( mkNum "sex" "sexaginta" "sescenti" "sextus" ) ;
-    -- n7 = lin Numeral ( mkNum "septem" "septuaginta" "septingenti" "septimus" ) ;
-    -- n8 = lin Numeral ( mkNum "octo" "octoginta" "octingenti" "ocatvus" ) ;
-    -- n9 = lin Numeral ( mkNum "novem" "nonaginta" "nongenti" "nonus") ;
+    n2 = lin Digit ( mkDigit "duo" "viginti" "ducenti" "secundus" ) ;
+    n3 = lin Digit ( mkDigit "tres" "triginta" "trecenti" "tertius" ) ;
+    n4 = lin Digit ( mkDigit "quattuor" "quadraginta" "quadringenti" "quartus" ) ;
+    n5 = lin Digit ( mkDigit "quinque" "quinquaginta" "quingenti"  "quintus" ) ;
+    n6 = lin Digit ( mkDigit "sex" "sexaginta" "sescenti" "sextus" ) ;
+    n7 = lin Digit ( mkDigit "septem" "septuaginta" "septingenti" "septimus" ) ;
+    n8 = lin Digit ( mkDigit "octo" "octoginta" "octingenti" "ocatvus" ) ;
+    n9 = lin Digit ( mkDigit "novem" "nonaginta" "nongenti" "nonus") ;
 
---     -- 1
---    pot01 = 
---     -- d * 1
---     pot0 d = d ;
---     -- 10
---     pot110 = pot01 ; 
---     -- 11
--- --    pot111 = pot1to19 pot01 ;
+    -- 1
+   pot01 = { s = n1.s ! one ; n = Sg }  ;
+   -- d * 1
+   pot0 d = { s = d.s ! one ; n = Pl } ;
+     -- 10
+   pot110 = { s = n1.s ! ten ; n = Sg }  ;
+     -- 11
+--   pot111 = pot1to19 pot01 ;
 --     -- 10 + d
 -- --    pot1to19 d = mkNum "" "" "" "" ; -- {s = d.s ! teen} ** {n = Pl} ;
---     -- coercion of 1..9
---     pot0as1 n = n ;
---     -- d * 10
---     --lin pot1 d = {s = d.s ! ten} ** {n = Pl} ;
---     -- d * 10 + n
---     --lin pot1plus d e = {
---     --   s = \\c => d.s ! ten ! NCard ++ "-" ++ e.s ! unit ! c ; n = Pl} ;
---     -- coercion of 1..99
---     pot1as2 n = n ;
---     -- m * 100
---     --lin pot2 d = {s = \\c => d.s ! unit ! NCard ++ mkCard c "hundred"}  ** {n = Pl} ;
+   -- coercion of 1..9
+   pot0as1 n = n ;
+   -- d * 10
+   pot1 d = {s = d.s ! ten ; n = Pl} ;
+   -- d * 10 + n
+   -- pot1plus d e = {
+   --   s = \\c => d.s ! ten ++ "-" ++ e.s ! one ! c ;
+   --   n = Pl} ;
+   -- coercion of 1..99
+   pot1as2 n = n ;
+   -- m * 100
+--   pot2 d = {s = d.s ! hundred ; n = Pl} ;
 --     -- m * 100 + n
 --     --lin pot2plus d e = {
 --     --  s = \\c => d.s ! unit ! NCard ++ "hundred" ++ "and" ++ e.s ! c ; n = Pl} ;
---     -- coercion of 1..999
---     pot2as3 n = n ;
+   -- coercion of 1..999
+   pot2as3 n = n ;
 --     -- m * 1000
 --     --lin pot3 n = {
 --     --  s = \\c => n.s ! NCard ++ mkCard c "thousand" ; n = Pl} ;
@@ -56,10 +57,11 @@ concrete NumeralLat of Numeral = CatLat ** open ResLat,ParadigmsLat,Prelude in {
     mkDigit : (ones, tens, hundreds, ord : Str) -> TDigit =
       \ones, tens, hundreds, ord ->
       case <tens,hundreds> of {
-      	-- <"decem",_> => fullDigit ones tens hundreds ord "decimus" "centesimus" ;
-      	-- <"viginta",_> => fullDigit ones tens hundreds ord "vicesimus" "ducentesimus" ;
-      	-- <"triginta",_> => fullDigit ones tens hundreds ord "tricesimus" "trecentesimus" ;
-      	<quadra + "ginta",quadringent + "i"> => fullDigit ones tens hundreds ord (quadra + "gesimus") (quadringent + "esimus")
+      	<"decem",_> => fullDigit ones tens hundreds ord "decimus" "centesimus" ;
+      	<"viginti",_> => fullDigit ones tens hundreds ord "vicesimus" "ducentesimus" ;
+      	<"triginta",_> => fullDigit ones tens hundreds ord "tricesimus" "trecentesimus" ;
+      	<quadra + "ginta",quadringent + "i"> => fullDigit ones tens hundreds ord (quadra + "gesimus") (quadringent + "esimus") ;
+	_ => Predef.error "Invalid number"
       } ;
     fullDigit : (ones, tens, hundreds, ord1,ord10,ord100 : Str) -> TDigit =
       \ones, tens, hundreds, ord1,ord10,ord100 ->
