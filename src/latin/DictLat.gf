@@ -1,5 +1,5 @@
 --# -path=.:..
-concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg_N,man_N,do_V2] ** open Prelude, ParadigmsLat, ResLat, ExtraLat in {
+concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg_N,man_N,do_V2],NumeralLat ** open Prelude, ParadigmsLat, ResLat, ExtraLat in {
 -- extracted from http://archives.nd.edu/whitaker/dictpage.htm
   lin
 -- IGNORED A_N : N1 A., abb.  -- M -- [XXXCG] :: Aulus (Roman praenomen); (abb. A./Au.); [Absolvo, Antiquo => free, reject];
@@ -30701,7 +30701,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
 -- IGNORED secus_N : N1 secus, undeclined  -- N -- [XBXDS] :: sex;
     secutor_M_N = mkN "secutor" "secutoris " masculine ; -- [XXXDS] :: pursuer; attendant;
     secuutus_M_N = mkN "secuutus" ; -- [FXXEN] :: follower, pursuer;
-    sed_Conj = mkConj [] "sed" [] Sg Or ; -- [XXXAX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
+    sed_Conj = mkConj [] "sed" [] Sg Sed ; -- [XXXAX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
     sedatio_F_N = mkN "sedatio" "sedationis " feminine ; -- [XXXDS] :: calming;
     sedatus_A = mkA "sedatus" "sedata" "sedatum" ; -- [XXXDX] :: calm, untroubled; quiet;
     sedda_F_N = mkN "sedda" ; -- [AXXBS] :: |sedan/carrying chair; toilet seat, stool; work-stool; coach/wagon seat; saddle;
