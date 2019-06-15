@@ -1407,7 +1407,7 @@ oper
   oper
     -- Numerals are by default cardinal numbers but have a field for ordinal numbers
     TDigit : Type = { s : Unit => Gender => Case => Str } ; -- ord : Unit => Agr => Str } ;
-    Numeral : Type = { s : Gender => Case => Str ; n : Number ; ord : Unit => Agr => Str } ;
+    Numeral : Type = { s : Gender => Case => Str ; n : Number } ; -- ord : Unit => Agr => Str } ;
 
     -- Inflection for cardinal numbers
     cardFlex : Str -> Gender => Case => Str =
