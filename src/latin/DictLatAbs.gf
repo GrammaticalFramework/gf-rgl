@@ -1,5 +1,5 @@
 --# -path=.:..
-abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2] ** {
+abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Numeral ** {
 -- extracted from http://archives.nd.edu/whitaker/dictpage.htm
   fun
     A_N : N ;
