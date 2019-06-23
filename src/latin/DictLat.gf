@@ -1,18 +1,18 @@
 --# -path=.:..
-concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg_N,man_N,do_V2],NumeralLat ** open Prelude, ParadigmsLat, ResLat, ExtraLat in {
+concrete DictLat of DictLatAbs = CatLat ** open Prelude, ParadigmsLat, ResLat, ExtraLat in {
 -- extracted from http://archives.nd.edu/whitaker/dictpage.htm
   lin
--- IGNORED A_N : N1 A., abb.  -- M -- [XXXCG] :: Aulus (Roman praenomen); (abb. A./Au.); [Absolvo, Antiquo => free, reject];
--- IGNORED Abba_N : N1 Abba, undeclined  -- M -- [EEQEE] :: Father; (Aramaic); bishop of Syriac/Coptic church; (false read obba/decanter);
+    A_N = constN "A." Masc ; -- MANUAL [XXXCG] :: Aulus (Roman praenomen); (abb. A./Au.); [Absolvo, Antiquo => free, reject];
+    Abba_N = constN "Abba" Masc ; -- MANUAL [EEQEE] :: Father; (Aramaic); bishop of Syriac/Coptic church; (false read obba/decanter);
     Academia_F_N = mkN "Academia" ; -- [XXXBO] :: academy, university; gymnasium where Plato taught; school built by Cicero;
     Achillas_M_N = mkN "Achillas" "Achillae " masculine ; -- [CXEFO] :: Achillas; (the Egyptian who murdered Pompey);
     Achilles_M_N = mkN "Achilles" "Achillis " masculine ; -- [XYHCO] :: Achilles, Greek hero; (other Greeks); (typifying great warrior);
     Achilleus_M_N = mkN "Achilleus" "Achilleis " masculine ; -- [XYHCO] :: Achilles, Greek hero; (other Greeks); (typifying great warrior);
 -- IGNORED Act_N : N1 Act., abb.  -- N -- [EEXDE] :: Acts (abbreviation); [Acta Apostolorum => Acts, book of the Bible];
     Adam_M_N = mkN "Adam" "Adae " masculine ; -- [DEXCS] :: Adam; (Hebrew); (NOM S => Adam, not Ada, otherwise 1 DECL Ad...?);
--- IGNORED Adam_N : N1 Adam, undeclined  -- M -- [EEXDX] :: Adam; (from the Hebrew); [NOM S => Adam, not Ada (otherwise 1 DECL Ad...)];
+    Adam_N = constN "Adam"  Masc ; -- [EEXDX] :: Adam; (from the Hebrew); [NOM S => Adam, not Ada (otherwise 1 DECL Ad...)];
     Adamus_M_N = mkN "Adamus" ; -- [DEXCS] :: Adam, first man;
--- IGNORED Adonai_N : N1 Adonai, undeclined  -- M -- [XEXFE] :: Lord, God; (Hebrew);
+    Adonai_N = constN "Adonai" Masc ; -- MANUAL [XEXFE] :: Lord, God; (Hebrew);
     Adrumetinus_A = mkA "Adrumetinus" "Adrumetina" "Adrumetinum" ; -- [XXAES] :: Andrumetine, of/from Andrumetum/Hadrumetum (city of Africa propria/Byzacene);
     Adrumetinus_M_N = mkN "Adrumetinus" ; -- [XXAFS] :: Andrumetine, inhabitant of Andrumetum/Hadrumetum (city in Africa/Byzacane);
     Adrumetum_N_N = mkN "Adrumetum" ; -- [XXAES] :: Andrumetum/Hadrumetum (city of Africa propria, capital of province Byzacene);
@@ -93,10 +93,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Antonius_M_N = mkN "Antonius" ; -- [XXXCO] :: Antony/Anthony; (Roman gens name); (M. Antonius -> Mark Antony, triumvir);
     Antuuerpia_F_N = mkN "Antuuerpia" ; -- [GXNET] :: Antwerp;
     Antverpia_F_N = mkN "Antverpia" ; -- [FXNFE] :: Antwerp;
--- IGNORED Ap_N : N1 Ap., abb.  -- M -- [XXXCO] :: Appius (Roman praenomen); (esp, gens Claudia); Ap.Cl. Caecus built Appian Way;
+    Ap_N = constN "Ap." Masc ; -- MANUAL [XXXCO] :: Appius (Roman praenomen); (esp, gens Claudia); Ap.Cl. Caecus built Appian Way;
     Apollinaris_A = mkA "Apollinaris" "Apollinaris" "Apollinare" ; -- [XEXES] :: sacred to Apollo; of Apollo (games);
     Apollo_M_N = mkN "Apollo" "Apollinis " masculine ; -- [XEXBO] :: Apollo; (Roman god of prophecy, music, poetry, archery, medicine);
--- IGNORED App_N : N1 App., abb.  -- M -- [XXXCO] :: Appius (Roman praenomen); (abb. App.);
+    App_N = constN "App." Masc ; -- MANUAL [XXXCO] :: Appius (Roman praenomen); (abb. App.);
 -- IGNORED Apr_A : A2 Apr., abb.  -- [XXXCO] :: April (month/mensis understood); abb. Apr.;
     Aprilis_A = mkA "Aprilis" "Aprilis" "Aprile" ; -- [XXXCO] :: April (month/mensis understood); abb. Apr.;
     Aprilis_M_N = mkN "Aprilis" "Aprilis " masculine ; -- [XXXEO] :: April;
@@ -145,7 +145,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Attice_Adv = mkAdv "Attice" ; -- [XXHCO] :: Attic, in Attic/Athenian manner; elegantly;
     Atticus_A = mkA "Atticus" "Attica" "Atticum" ; -- [XXXCO] :: Attic, Athenian; classic, elegant;
     Atuatucus_M_N = mkN "Atuatucus" ; -- [XXFCT] :: Atuatuci, tribe of north (Belgic) Gaul  - Caesar;
--- IGNORED Au_N : N1 Au., abb.  -- M -- [XXXCG] :: Aulus (Roman praenomen); (abb. A./Au.);
+    Au_N = constN "Au." Masc ; -- MANUAL [XXXCG] :: Aulus (Roman praenomen); (abb. A./Au.);
 -- IGNORED Aug_A : A2 Aug., abb.  -- [XXXCO] :: August (month/mensis understood); abb. Aug.; renamed from Sextilis in 8 BC;
     Augusta_F_N = mkN "Augusta" ; -- [CLICO] :: Augusta; (title of Emperor's wife/occasionally other close female relatives);
     Augustalis_A = mkA "Augustalis" "Augustalis" "Augustale" ; -- [EXXEE] :: of/pertaining to Augustus; imperial;
@@ -160,9 +160,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Azoticus_A = mkA "Azoticus" "Azotica" "Azoticum" ; -- [EXQFW] :: Azotian, of/from Azotus/Ahdod (Esdud); (city of Palestine near the coast);
     Azotius_A = mkA "Azotius" "Azotia" "Azotium" ; -- [EXQFW] :: Azotian, of/from Azotus/Ahdod (now Esdud); (city of Palestine near the coast);
     Azotus_F_N = mkN "Azotus" ; -- [EXQFS] :: Ahdod (now Esdud); (city of Palestine near the coast);
--- IGNORED Azrael_N : N1 Azrael, undeclined  -- M -- [EXQFE] :: Azrael (Aramaic), angel of death;
--- IGNORED Baal_N : N1 Baal, undeclined  -- M -- [DEXES] :: Baal (Syrian deity);
--- TODO Babylon_N : N1 Babylon, Babylonos/is  -- F -- [XXQFO] :: Babylon (city on Euphrates, capital of Babylonia); people of Babylon;
+    Azrael_N = constN "Azrael" Masc ; -- MANUAL [EXQFE] :: Azrael (Aramaic), angel of death;
+    Baal_N = constN "Baal" Masc ; -- MANUAL [DEXES] :: Baal (Syrian deity);
+    Babylon_1_N = pluralN (mkN "Babylon" "Babylonos"  Fem) ; -- [XXQFO] :: Babylon (city on Euphrates, capital of Babylonia); people of Babylon;
+    Babylon_2_N  = pluralN (mkN "Babylon" "Babylonis"  Fem) ; -- [XXQFO] :: Babylon (city on Euphrates, capital of Babylonia); people of Babylon;
     Babylonia_F_N = mkN "Babylonia" ; -- [XXQCO] :: Babylon (city on Euphrates, capital of Babylonia); Babylonia;
     Babylonius_A = mkA "Babylonius" "Babylonia" "Babylonium" ; -- [XXQEO] :: Babylonian, of Babylon (city on Euphrates, capital of Babylonia);
     Babylonius_M_N = mkN "Babylonius" ; -- [XXQEO] :: Babylonian, inhabitant of Babylon (city on Euphrates, capital of Babylonia);
@@ -172,7 +173,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Bacchus_M_N = mkN "Bacchus" ; -- [XEXCO] :: Bacchus, god of wine/vine; the vine, wine;
     Baetica_F_N = mkN "Baetica" ; -- [XXSDO] :: Baectia (province in southern Spain, Andalusia/Granada);
     Bardus_M_N = mkN "Bardus" ; -- [XDFEO] :: bard (Gallic), poet-singer, minstrel;
--- IGNORED Baruch_N : N1 Baruch, undeclined  -- N -- [EEXFE] :: Baruch; (book of Old Testament);
+    Baruch_N = constN "Baruch" Neutr ; -- MANUAL [EEXFE] :: Baruch; (book of Old Testament);
     Beda_M_N = mkN "Beda" ; -- [EEXEE] :: Bede; (Venerable Bede, 673-735, English historian/theologian);
     Beduinus_M_N = mkN "Beduinus" ; -- [GXXEK] :: Bedouin;
     Belga_M_N = mkN "Belga" ; -- [XXFCO] :: Belgae (pl.); (people of N Gaul - in Caesar's Gallic War);
@@ -243,7 +244,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Celer_M_N = mkN "Celer" "Celeris " masculine ; -- [XXXDO] :: knights (pl.) (old name/precursor of equestrian order); Roman kings' bodyguard;
     Celtus_A = mkA "Celtus" "Celta" "Celtum" ; -- [XXXCO] :: Celts; (inhabitants of central Gaul);
     Cenabum_N_N = mkN "Cenabum" ; -- [XXFEO] :: Cenabum; town in Gaul; Orleans;
--- IGNORED Cephas_N : N1 Cephas, undeclined  -- M -- [XEXFE] :: rock (Aramaic), surname of Simon Peter;
+    Cephas_N = constN "Cephas" Masc ; -- MANUAL [XEXFE] :: rock (Aramaic), surname of Simon Peter;
     Cerbereus_A = mkA "Cerbereus" "Cerberea" "Cerbereum" ; -- [XYXDO] :: of/connected with Cerberus; (three-headed dog guarding entrance to underworld);
     Cerberos_M_N = mkN "Cerberos" "Cerberi " masculine ; -- [XYXEO] :: Cerberus; (three-headed dog guarding entrance to underworld);
     Cerberus_M_N = mkN "Cerberus" ; -- [XYXCO] :: Cerberus; (three-headed dog guarding entrance to underworld);
@@ -256,17 +257,17 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Chaldaicus_A = mkA "Chaldaicus" "Chaldaica" "Chaldaicum" ; -- [XXQEO] :: Chaldaen, of/concerning Chaldaens; of their soothsayers/astrologers/astronomers;
     Chaldeus_A = mkA "Chaldeus" "Chaldea" "Chaldeum" ; -- [EXQEW] :: Chaldaen, of/concerning Chaldaens; of their soothsayers/astrologers/astronomers;
     Chaldeus_M_N = mkN "Chaldeus" ; -- [EXQCW] :: Chaldaen, people of south Assyria; their soothsayers/astrologers/astronomers;
--- IGNORED Chanaan_N : N1 Chanaan, undeclined  -- F -- [EXQES] :: Canaan/Palestine;
--- IGNORED Chanan_N : N1 Chanan, undeclined  -- F -- [EXQES] :: Canaan/Palestine;
+    Chanaan_N =constN "Chanaan" Fem ; -- MANUAL [EXQES] :: Canaan/Palestine;
+    Chanan_N = constN "Chanan" Fem ; -- MANUAL [EXQES] :: Canaan/Palestine;
     Chananea_F_N = mkN "Chananea" ; -- [EXQEW] :: Canaan, Palestine;
     Chananeus_A = mkA "Chananeus" "Chananea" "Chananeum" ; -- [EXQEW] :: of/from Canaan/Palestine;
     Chaos_N_N = mkN "Chaos" "Chai " neuter ; -- [XEXCO] :: Chaos, pit of Hell, underworld; formless/shapeless primordial matter;
     Charmides_M_N = mkN "Charmides" "Charmidae " masculine ; -- [BDXFS] :: Charmides (comic character in Plautus' play Trinummus); (Son of Joy);
     Charybdis_F_N = mkN "Charybdis" "Charybdis " feminine ; -- [XXICO] :: Charybdis (whirlpool Sicily/Italy); cruel person; whirlpool; tortuous cavity;
     Chaus_N_N = mkN "Chaus" ; -- [DEXCS] :: Chaos, pit of Hell, underworld; formless/shapeless primordial matter;
--- IGNORED Cherub_N : N1 Cherub, undeclined  -- M -- [DEXCS] :: cherub;
--- IGNORED Cherubim_N : N1 Cherubim, undeclined  -- M -- [DEXCS] :: Cherubim, rank of angels; heavenly choir; cherubs (pl.);
--- IGNORED Cherubin_N : N1 Cherubin, undeclined  -- M -- [DEXCS] :: Cherubim, rank of angels; heavenly choir; cherubs (pl.);
+    Cherub_N = constN "Cherub" Masc ; -- MANUAL [DEXCS] :: cherub;
+    Cherubim_N = constN "Cherubim" Masc ; -- MANUAL [DEXCS] :: Cherubim, rank of angels; heavenly choir; cherubs (pl.);
+    Cherubin_N = constN "Cherubin" Masc ; -- MANUAL [DEXCS] :: Cherubim, rank of angels; heavenly choir; cherubs (pl.);
     Chilo_M_N = mkN "Chilo" "Chilonis " masculine ; -- [XXXEO] :: Chilo; Big Lips (Roman cognomen); fellator, one who practices fellatio;
     Chius_A = mkA "Chius" "Chia" "Chium" ; -- [XXXEO] :: Chian, of Chios; of Chian wine; characteristic/suggestive of Chios, luxurious;
     Christiadum_N_N = mkN "Christiadum" ; -- [EEXCE] :: Christendom;
@@ -299,7 +300,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Clodoveus_M_N = mkN "Clodoveus" ; -- [EXFDE] :: Clovis;
     Cluniacensis_A = mkA "Cluniacensis" "Cluniacensis" "Cluniacense" ; -- [FEXEE] :: of/pertaining to Cluny;
     Cluniacum_N_N = mkN "Cluniacum" ; -- [FEXEE] :: Cluny;
--- IGNORED Cn_N : N1 Cn., abb.  -- M -- [XXXCO] :: Gnaeus (Roman praenomen); (abb. Cn.);
+    Cn_N = N1 "Cn." Masc ; -- MANUAL [XXXCO] :: Gnaeus (Roman praenomen); (abb. Cn.);
     Cocles_M_N = mkN "Cocles" "Coclitis " masculine ; -- [XYXCO] :: one-eyed person; Horatius (who kept Etruscans from Subician bridge);
     Coloniensus_A = mkA "Coloniensus" "Coloniensa" "Coloniensum" ; -- [XXGEE] :: of Cologne;
     Colossos_M_N = mkN "Colossos" "Colossi " masculine ; -- [XXXCO] :: Colossus of Rhodes (colossal statue in harbor); any large statue (Emperor);
@@ -368,7 +369,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Dataria_F_N = mkN "Dataria" ; -- [FEXFE] :: Dataria Apostolica, office of Roman Curia issuing dispensations/appointments;
     Datarius_M_N = mkN "Datarius" ; -- [FEXFE] :: Cardinal-President of Dataria Apostolica; (office of Curia for dispensations);
     David_M_N = mkN "David" "Davidis " masculine ; -- [XEQDE] :: David;
--- IGNORED David_N : N1 David, undeclined  -- M -- [XEQDE] :: David;
+    David_N = constN "David" Masc ; -- MANUAL [XEQDE] :: David;
 -- IGNORED Dec_A : A2 Dec., abb.  -- [XXXDX] :: December (month/mensis understood); abb. Dec.;
     Decalogus_M_N = mkN "Decalogus" ; -- [DEXES] :: Decalogue; Ten Commandments as body of law;
     December_A = mkA "December" "Decembris" "Decembre" ; -- [XXXCO] :: December (month/mensis understood); abb. Dec.; of/pertaining to December;
@@ -416,7 +417,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
 -- IGNORED Eccli_N : N1 Eccli., abb.  -- M -- [EEXDX] :: Ecclisiasties (abb.), Book of Bible/OT;
     Eli_Interj = ss "Eli" ; -- [EEQFE] :: My God; [Eli Eli lama sabacthani => My God, my God why hast thou forsaken me]; 
     Eloi_Interj = ss "Eloi" ; -- [EEQFE] :: My God; (Aramaic); 
--- IGNORED Emmanuel_N : N1 Emmanuel, undeclined  -- M -- [EEQEE] :: Emmanuel, God with us;
+    Emmanuel_N = constN "Emmanuel" Masc ; -- MANUAL [EEQEE] :: Emmanuel, God with us;
     Encaenium_N_N = mkN "Encaenium" ; -- [EEXFS] :: Feast of the Dedication of the Temple (pl.); (Jewish);
     Encenium_N_N = mkN "Encenium" ; -- [EEXFW] :: Feast of the Dedication of the Temple (pl.); (Jewish);
     Eosos_F_N = mkN "Eosos" "Eosi " feminine ; -- [XXXDX] :: dawn; Dawn (personified); the_Orient;
@@ -433,8 +434,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Epiphania_F_N = mkN "Epiphania" ; -- [EEXEE] :: Epiphany, 12th Night, feast of three Kings/Magi; manifestation; plane surface;
     Epistolarium_N_N = mkN "Epistolarium" ; -- [EEXEE] :: book of Epistles;
     Eporedorix_M_N = mkN "Eporedorix" "Eporedorigis " masculine ; -- [XXXDX] :: Eporedorix; (Aedui Gaul);
--- IGNORED Esdras_N : N1 Esdras, undeclined  -- M -- [EEQEE] :: Esdras; (name sometimes given to Bible book Ezra and author);
--- IGNORED Esther_N : N1 Esther, undeclined  -- F -- [EEQEE] :: Esther; (book/heroine of Bible, Jewess born Edessa, Queen of Persia);
+    Esdras_N = constN "Esdras" Masc ; -- MANUAL [EEQEE] :: Esdras; (name sometimes given to Bible book Ezra and author);
+    Esther_N = constN "Esther" Fem ; -- MANIA: [EEQEE] :: Esther; (book/heroine of Bible, Jewess born Edessa, Queen of Persia);
     Euhios_M_N = mkN "Euhios" "Euhii " masculine ; -- [XXXDX] :: Bacchus, title given to Bacchus;
     Euhius_M_N = mkN "Euhius" ; -- [XXXDX] :: Bacchus; title given to Bacchus;
 -- TODO Euminis_N : N1 Euminis, Eumenidos/is  -- F -- [XEXEO] :: Fury/Eumenide; (usu. pl.); (euphemistically) the gracious/benevolent ones;
@@ -503,9 +504,9 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Gregorianus_A = mkA "Gregorianus" "Gregoriana" "Gregorianum" ; -- [FEXDE] :: Gregorian;
     Gulielmus_M_N = mkN "Gulielmus" ; -- [FXXEE] :: William; (French based);
 -- IGNORED HS_N : N1 HS., abb.  -- M -- [XXXDX] :: sesterce (abb.), 2 1/2 asses; (IIS/HS = one+one+semi);
--- IGNORED Habacuc_N : N1 Habacuc, undeclined  -- M -- [XEQFE] :: Habakkuk; (minor prophet); (book of Old Testament);
+    Habacuc_N = constN "Habacuc" Masc ; -- MANUAL [XEQFE] :: Habakkuk; (minor prophet); (book of Old Testament);
     Habraeus_A = mkA "Habraeus" "Habraea" "Habraeum" ; -- [XXQCO] :: Hebrew, Jewish;
--- IGNORED Haceldama_N : N1 Haceldama, undeclined  -- N -- [XEQFE] :: Akeldama; field of blood (Aramaic); potter's field;
+    Haceldama_N = constN "Haceldama" Neutr ; -- MANUAL [XEQFE] :: Akeldama; field of blood (Aramaic); potter's field;
     Hadrianus_A = mkA "Hadrianus" "Hadriana" "Hadrianum" ; -- [XXICO] :: Adriatic, of the Adriatic Sea; of the Emperor Hadrian;
     Hadrianus_M_N = mkN "Hadrianus" ; -- [CLIBO] :: Hadrian (P. Aelius Hadrianus, Emperor, 117-138 AD); Adriatic;
     Hadrumetinus_A = mkA "Hadrumetinus" "Hadrumetina" "Hadrumetinum" ; -- [XXAES] :: Andrumetine, of/from Andrumetum/Hadrumetum (city of Africa propria/Byzacene);
@@ -544,7 +545,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Hierosolyma_F_N = mkN "Hierosolyma" ; -- [XXQDO] :: Jerusalem (Hebrew);
     Hierosolymum_N_N = mkN "Hierosolymum" ; -- [XXQDO] :: Jerusalem (pl.) (Hebrew);
     Hierurgia_F_N = mkN "Hierurgia" ; -- [FEXFE] :: Mess, liturgy, sacred rite;
--- IGNORED Hierusalem_N : N1 Hierusalem, undeclined  -- N -- [AEQDP] :: Jerusalem (Hebrew);
+    Hierusalem_N = constN "Hierusalem" Neutr ; -- MANUAL [AEQDP] :: Jerusalem (Hebrew);
     Hilarium_N_N = mkN "Hilarium" ; -- [XXXES] :: Hilarian feast (pl.), Feast of the Hilaria (Joy/Cybele/Great Mother) 25 March;
     Hilarius_M_N = mkN "Hilarius" ; -- [EXXFZ] :: Hilary; (St./Bishop of Poitiers, ~300-368, "De Trinitate", "De Synodis");
     Hinduismus_M_N = mkN "Hinduismus" ; -- [FEXFE] :: Hinduism;
@@ -555,13 +556,13 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Hispanus_A = mkA "Hispanus" "Hispana" "Hispanum" ; -- [XXSDO] :: Spanish, of Spain;
     Homuncionita_M_N = mkN "Homuncionita" ; -- [EEXFE] :: Homuncionite (pl.); (Christian sect considering Jesus as man only);
     Honorius_M_N = mkN "Honorius" ; -- [ELIDZ] :: Honorius; (Emperor Flavius Honorius 395-423);
--- IGNORED Horeb_N : N1 Horeb, undeclined  -- N -- [EEQFE] :: Sinai, Horeb; (mountain of Moses and burning bush);
+    Horeb_N = constN "Horeb" Neutr ; -- MANUAL [EEQFE] :: Sinai, Horeb; (mountain of Moses and burning bush);
     Hortius_A = mkA "Hortius" "Hortia" "Hortium" ; -- [XXICO] :: Horace/Horatio; Roman gens; (H. Cocles held bridge) (Q. H~ Flaccus, poet);
     Hortius_M_N = mkN "Hortius" ; -- [XXICO] :: Horace/Horatio; (Roman gens name); (H. Cocles held bridge; Q. H~ Flaccus, poet);
     Hosanna_Interj = ss "Hosanna" ; -- [DEQEE] :: Hosanna, "God save", a cry of praise (Hebrew); 
     Hosianna_Interj = ss "Hosianna" ; -- [DEQEE] :: Hosanna, "God save", a cry of praise (Hebrew); 
     Hyas_F_N = mkN "Hyas" "Hyadis " feminine ; -- [XXXDX] :: five stars (pl.) in Taurus associated with rainy weather;
--- IGNORED Hymen_N : N1 Hymen, undeclined  -- M -- [XXHCO] :: Greek wedding chant/refrain; (personified as a god); marriage, wedding, match;
+    Hymen_N = constN "Hymen" Masc ; -- MANUAL [XXHCO] :: Greek wedding chant/refrain; (personified as a god); marriage, wedding, match;
     Hymenaeos_M_N = mkN "Hymenaeos" "Hymenaei " masculine ; -- [XXHCO] :: Greek wedding chant/refrain; (personified as a god); marriage, wedding, match;
     Hymenaeus_M_N = mkN "Hymenaeus" ; -- [XXHCO] :: Greek wedding chant/refrain; (personified as a god); marriage, wedding, match;
     Hypostasis_M_N = mkN "Hypostasis" "Hypostasis " masculine ; -- [EEXEP] :: Substance; Person of the Trinity;
@@ -570,7 +571,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Iconoclasta_M_N = mkN "Iconoclasta" ; -- [EEHEE] :: Iconoclast; image-breaker; one who opposes veneration of images;
     Iconomachus_M_N = mkN "Iconomachus" ; -- [EEHEE] :: Iconoclasts (pl.); those who oppose veneration of images;
 -- IGNORED Id_N : N1 Id., abb.  -- M -- [XXXDX] :: Ides (pl.), abb. Id.; 15th of month, March, May, July, Oct., 13th elsewhen;
--- IGNORED Idithum_N : N1 Idithum, undeclined  -- M -- [EEQFE] :: Idithun (Hebrew); choir leader
+    Idithum_N = constN "Idithum" Masc ; -- MANUAL [EEQFE] :: Idithun (Hebrew); choir leader
     Idus_F_N = mkN "Idus" "Idus " feminine ; -- [XXXDX] :: Ides (pl.), abb. Id.; 15th of month, March, May, July, Oct., 13th elsewhen;
     Ignatius_M_N = mkN "Ignatius" ; -- [FXXEE] :: Ignatius;
     Ilion_N_N = mkN "Ilion" "Ilii " neuter ; -- [XXXDX] :: Ilium, Troy;
@@ -585,7 +586,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Indutiomarus_M_N = mkN "Indutiomarus" ; -- [XXFDX] :: Inductiomarus; (Gaul of Treveri, opponent of Caesar);
     Io_Interj = ss "Io" ; -- [XXXAO] :: Yo!; Hurrah! (ritual exclamation of strong emotion/joy); Ho!; Look!; Quick!; 
     Ion_F_N = mkN "Ion" "Ionis " feminine ; -- [XEXCS] :: Isis; daughter of Inachus;
--- IGNORED Ion_N : N1 Ion, undeclined  -- F -- [XEXCS] :: Isis; daughter of Inachus;
+    Ion_N = constN "Ion" Fem ; -- MANUAL [XEXCS] :: Isis; daughter of Inachus;
     Ionicus_A = mkA "Ionicus" "Ionica" "Ionicum" ; -- [XXHCO] :: Ionic/Ionian; (architectural order, dialect/style, meter, lascivious dance);
     Iris_F_N = mkN "Iris" "Iris " feminine ; -- [XYXCO] :: Iris (messenger of the gods, goddess of the rainbow); rainbow;
 -- IGNORED Isai_N : N1 Isai., abb.  -- M -- [EEXDX] :: Isaiah  (abb.), Book of the Bible;
@@ -602,18 +603,18 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Italica_F_N = mkN "Italica" ; -- [FGXEK] :: italic print;
     Italicus_M_N = mkN "Italicus" ; -- [XXIDX] :: Italians (pl.);
     Italus_M_N = mkN "Italus" ; -- [XXIBX] :: Italian;
--- IGNORED Jacob_N : N1 Jacob, undeclined  -- M -- [CEXCS] :: Jacob;
+    Jacob_N = constN "Jacob" Masc ; -- MANUAL [CEXCS] :: Jacob;
 -- IGNORED Jan_A : A2 Jan., abb.  -- [XXXDX] :: January (month/mensis understood); abb. Jan.;
     Januarius_A = mkA "Januarius" "Januaria" "Januarium" ; -- [XXXDX] :: January (month/mensis understood); abb. Jan.;
     Janus_M_N = mkN "Janus" ; -- [XXXDX] :: Janus, Roman god of gates and doorways (with two faces); gate (Ecc);
     Jemineus_A = mkA "Jemineus" "Jeminea" "Jemineum" ; -- [EEQEW] :: Benjamite, of the tribe of Benjamin; descendant of Benjamin;
--- IGNORED Jerusalem_N : N1 Jerusalem, undeclined  -- N -- [AEXDX] :: Jerusalem (Hebrew);
+    Jerusalem_N = constN "Jerusalem" Neutr ; -- MANUAL [AEXDX] :: Jerusalem (Hebrew);
     Jesuita_M_N = mkN "Jesuita" ; -- [GXXEK] :: Jesuit;
     Jesuiticus_A = mkA "Jesuiticus" "Jesuitica" "Jesuiticum" ; -- [GXXEK] :: Jesuit-, of the Jesuits;
     Jesus_M_N = mkN "Jesus" "Jesu " masculine ; -- [XEXAX] :: Jesus;
     Joannes_M_N = mkN "Joannes" "Joannis " masculine ; -- [EEXDX] :: John;
     Jovis_M_N = mkN "Jovis" "Jovis " masculine ; -- [XEICO] :: Jupiter; (Roman chief/sky god); (supreme being); heavens/sky (poetic);
--- IGNORED Juda_N : N1 Juda, undeclined  -- M -- [CEXCS] :: Judah; Jude; Judas; a son of Jacob; tribe of Judah;
+-- IGNORED Juda_N : N1 Juda Masc ;-- [CEXCS] :: Judah; Jude; Judas; a son of Jacob; tribe of Judah;
     Judaea_F_N = mkN "Judaea" ; -- [AXQBS] :: Judea; Israel; Canaan; Palestine;
     Judaeus_A = mkA "Judaeus" "Judaea" "Judaeum" ; -- [XXQEO] :: of/relating to the Jews, Jewish; of/originating/stationed in Judea (troops);
     Judaeus_M_N = mkN "Judaeus" ; -- [XXQDS] :: Jew, Jewish person; the Jews (pl.);
@@ -638,7 +639,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Kalenda_F_N = mkN "Kalenda" ; -- [XXXBO] :: Kalends (pl.), 1st of month; abb. Kal./Kl.; day of proclamation, interest due;
     Karthago_F_N = mkN "Karthago" "Karthaginis " feminine ; -- [XXACO] :: Carthage;
 -- IGNORED Kl_N : N1 Kl., abb.  -- M -- [XXXDX] :: Kalends (pl.), 1st of month; abb. Kal./Kl.; day of proclamation, interest due;
--- IGNORED Kyrie_N : N1 Kyrie, undeclined  -- M -- [EEXDX] :: Oh Lord (Greek vocative);
+-- IGNORED Kyrie_N : N1 Kyrie Masc ;-- [EEXDX] :: Oh Lord (Greek vocative);
 -- IGNORED LS_N : N1 LS., abb.  -- M -- [FXXFE] :: place for seal or signature; (locus sigilli);
 -- IGNORED L_N : N1 L., abb.  -- M -- [XXXDX] :: Lucius (Roman praenomen); (abb. L.);
     Labeo_M_N = mkN "Labeo" "Labeonis " masculine ; -- [XXIDO] :: Labeo; (Roman cognomen); one who has large/blubber lips (L+S);
@@ -649,7 +650,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Latinitas_F_N = mkN "Latinitas" "Latinitatis " feminine ; -- [XXXDS] :: good Latin; L:Latin rights;
     Latinus_A = mkA "Latinus" "Latina" "Latinum" ; -- [XXXBO] :: Latin; of Latium; of/in (good/correct/plain) Latin (language); Roman/Italian;
     Latius_A = mkA "Latius" "Latia" "Latium" ; -- [XXICO] :: Latin; of Latium (central Italy including Rome/Italy); Roman; Italian;
--- IGNORED Lavabo_N : N1 Lavabo, undeclined  -- N -- [FEXFE] :: Lavabo, ceremonial hand washing in liturgy;
+-- IGNORED Lavabo_N : N1 Lavabo, Neutr ; -- [FEXFE] :: Lavabo, ceremonial hand washing in liturgy;
     Lebnitica_F_N = mkN "Lebnitica" ; -- [EXQFW] :: family of Libini; (son of Gerson, grandson of Levi);
     Lectionarium_N_N = mkN "Lectionarium" ; -- [FEXFE] :: book of lessons for the Divine Office;
     Lemannus_M_N = mkN "Lemannus" ; -- [XXXDX] :: Lake Geneva - in Caesar's "Gallic War";
@@ -759,7 +760,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Nazaraeus_M_N = mkN "Nazaraeus" ; -- [DEXES] :: Nazarite; man set apart to the service of God;
     Nazarenus_A = mkA "Nazarenus" "Nazarena" "Nazarenum" ; -- [EEXES] :: Nazarene, of/from/belonging to Nazareth; "Christian";
     Nazarenus_M_N = mkN "Nazarenus" ; -- [DEXDS] :: Christ, the Nazarene;
--- IGNORED Nazareth_N : N1 Nazareth, undeclined  -- N -- [DEXES] :: Nazareth; city in Palestine; (home of the parents of Jesus);
+-- IGNORED Nazareth_N : N1 Nazareth, Neutr ; -- [DEXES] :: Nazareth; city in Palestine; (home of the parents of Jesus);
     Nazareus_A = mkA "Nazareus" "Nazarea" "Nazareum" ; -- [EEXES] :: Nazarene, of/from/belonging to Nazareth; "Christian";
     Nazarus_A = mkA "Nazarus" "Nazara" "Nazarum" ; -- [EEXCS] :: Nazarene, of/from/belonging to Nazareth; "Christian";
     Nehalannia_F_N = mkN "Nehalannia" ; -- [EENFZ] :: German goddess, worshiped by traders who sailed across the North Sea;
@@ -838,7 +839,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Phaedon_M_N = mkN "Phaedon" "Phaedonis " masculine ; -- [XSHEO] :: Phaedo (disciple of Socrates, friend of Plato, founder of school at Elis);
     Phaedrus_M_N = mkN "Phaedrus" ; -- [XSHDO] :: Phaedo (pupil of Socrates); Phaedrus (Latin fabulist); (Cicero's teacher);
     Pharao_M_N = mkN "Pharao" "Pharaonis " masculine ; -- [EEXDX] :: Pharaoh, title of King of Egypt;
--- IGNORED Phase_N : N1 Phase, undeclined  -- N -- [DEQDS] :: Passover; Jewish feast; paschal lamb/sacrifice at the Passover;
+-- IGNORED Phase_N : N1 Phase, Neutr ; -- [DEQDS] :: Passover; Jewish feast; paschal lamb/sacrifice at the Passover;
     Philippus_M_N = mkN "Philippus" ; -- [XXHCO] :: Philippi (pl.); (town in eastern Macedonia where Octavius defeated Brutus);
     Phoebe_F_N = mkN "Phoebe" "Phoebes " feminine ; -- [XEXDS] :: Diana; moon goddess;
     Phoenica_F_N = mkN "Phoenica" ; -- [XLQEO] :: Phoenicia; (coastal region of Syria);
@@ -911,8 +912,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
 -- IGNORED SPQR_N : N1 SPQR., abb.  -- M -- [XLIDX] :: Senate and People of Rome; (Senatus PopulusQue Romanus,logo of Rome, like USA);
 -- IGNORED SS_A : A2 SS., abb.  -- [EXXEP] :: suprascriptus; entitled; inscribed; (sometimes abb. SS.);
 -- IGNORED SS_N : N1 SS., abb.  -- F -- [EEXEW] :: sacred scripture (early Church writings except Bible), Sacrae Scripturae (pl.);
--- IGNORED Sabaoth_N : N1 Sabaoth, undeclined  -- N -- [EEQEE] :: hosts (pl.); armies; (Hebrew); [Deus Sabaoth => God of Hosts];
--- IGNORED Sabbaoth_N : N1 Sabbaoth, undeclined  -- N -- [EEQEE] :: hosts (pl.); armies; (Hebrew); [Deus Sabaoth => God of Hosts];
+-- IGNORED Sabaoth_N : N1 Sabaoth, Neutr ; -- [EEQEE] :: hosts (pl.); armies; (Hebrew); [Deus Sabaoth => God of Hosts];
+-- IGNORED Sabbaoth_N : N1 Sabbaoth, Neutr ; -- [EEQEE] :: hosts (pl.); armies; (Hebrew); [Deus Sabaoth => God of Hosts];
     Sabine_Adv = mkAdv "Sabine" ; -- [XXIDX] :: Sabine, in Sabine language;
     Sabinus_A = mkA "Sabinus" "Sabina" "Sabinum" ; -- [XXXDX] :: Sabine, of the Sabines/their country/that area; the shrub savin/its oil;
     Sabinus_M_N = mkN "Sabinus" ; -- [XXIDX] :: Sabines (pl.), people living NE of Rome; their territory; an estate there;
@@ -929,13 +930,13 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Sardus_C_N = mkN "Sardus" ; -- [XXIDS] :: Sardinian (person);
     Sarmata_M_N = mkN "Sarmata" ; -- [XXXDS] :: Sarmatian; people from south Russia/Iran;
     Sarmaticus_A = mkA "Sarmaticus" "Sarmatica" "Sarmaticum" ; -- [XXXDS] :: Sarmatian; of the Sarmatian people;
--- IGNORED Satan_N : N1 Satan, undeclined  -- M -- [EEXDS] :: Satan, the Devil; adversary (Def);
+-- IGNORED Satan_N : N1 Satan Masc ;-- [EEXDS] :: Satan, the Devil; adversary (Def);
     Satanas_M_N = mkN "Satanas" "Satanae " masculine ; -- [EEXDS] :: Satan, the Devil; adversary (Def);
     Saturnali_N_N = mkN "Saturnali" "Saturnaliis " neuter ; -- [XEXDS] :: Saturnalia; festival of Saturnalia (December);
     Saturnalium_N_N = mkN "Saturnalium" ; -- [XEXDS] :: Saturnalia; festival of Saturnalia (December);
     Saturninus_M_N = mkN "Saturninus" ; -- [XXXCZ] :: Saturninus; (revolutionary tribune);
     Saul_M_N = mkN "Saul" "Saulis " masculine ; -- [XEQEE] :: Saul; King of Israel); (original  name of St Paul);
--- IGNORED Saul_N : N1 Saul, undeclined  -- M -- [XEQEE] :: Saul; King of Israel); (original  name of St Paul);
+-- IGNORED Saul_N : N1 Saul Masc ;-- [XEQEE] :: Saul; King of Israel); (original  name of St Paul);
     Saulus_M_N = mkN "Saulus" ; -- [XEQEE] :: Saul; King of Israel); (original  name of St Paul);
     Scipio_M_N = mkN "Scipio" "Scipionis " masculine ; -- [XXICO] :: Scipio; (P. Cornelia ~ beat Hannibal, his grandson destroyed Carthage);
     Scotia_F_N = mkN "Scotia" ; -- [EXBCE] :: Scotland;
@@ -959,9 +960,9 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Ser_F_N = mkN "Ser" "Seris " feminine ; -- [XXXDO] :: Chinese (people); inhabitants of region beyond Scythia and India;
     Ser_M_N = mkN "Ser" "Seris " masculine ; -- [XXXDO] :: Chinese (people); inhabitants of region beyond Scythia and India;
 -- IGNORED Ser_N : N1 Ser., abb.  -- M -- [XXXDX] :: Servius (Roman praenomen); (abb. Ser.);
--- IGNORED Seraph_N : N1 Seraph, undeclined  -- N -- [EEQDS] :: Seraphim, angels (pl.) of higher order among the Jews;
--- IGNORED Seraphim_N : N1 Seraphim, undeclined  -- N -- [EEQDS] :: Seraphim, angels (pl.) of higher order among the Jews;
--- IGNORED Seraphin_N : N1 Seraphin, undeclined  -- N -- [EEQDS] :: Seraphim, angel (sg.) of higher order among the Jews;
+-- IGNORED Seraph_N : N1 Seraph, Neutr ; -- [EEQDS] :: Seraphim, angels (pl.) of higher order among the Jews;
+-- IGNORED Seraphim_N : N1 Seraphim, Neutr ; -- [EEQDS] :: Seraphim, angels (pl.) of higher order among the Jews;
+-- IGNORED Seraphin_N : N1 Seraphin, Neutr ; -- [EEQDS] :: Seraphim, angel (sg.) of higher order among the Jews;
     Sericus_A = mkA "Sericus" "Serica" "Sericum" ; -- [XXXDO] :: Chinese, of/from the Seres; silk-, made of silk; silken;
     Servius_M_N = mkN "Servius" ; -- [XXXDX] :: Servius (Roman praenomen); (abb. Ser.);
     Seubus_A = mkA "Seubus" "Seuba" "Seubum" ; -- [XXXDX] :: of the Seubi, German tribes east of the Elbe - in Caesar's "Gallic War";
@@ -1035,7 +1036,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     Thecuites_A = mkA "Thecuites" "Thecuites" "Thecuites" ; -- [EXXFW] :: of/from Thecua; (2 Samuel 14);
     Theodosius_M_N = mkN "Theodosius" ; -- [ELIDZ] :: Theodosius; (Emperor Theodosius 379-395; II 408-450);
     Thessalonica_F_N = mkN "Thessalonica" ; -- [XXIDO] :: Thessalonica (Macedonian city); (now Saloniki);
--- IGNORED Thomas_N : N1 Thomas, undeclined  -- M -- [CEXCS] :: Thomas;
+-- IGNORED Thomas_N : N1 Thomas Masc ;-- [CEXCS] :: Thomas;
     Thracia_F_N = mkN "Thracia" ; -- [XXHCO] :: Thrace; (vaguely defined country east of Macedon/north-east of Greece);
     Thracius_A = mkA "Thracius" "Thracia" "Thracium" ; -- [XXHCO] :: Thracian, of/belonging to Thrace; gem; [lapis ~ => combustible stone/lignite];
     Thraecia_F_N = mkN "Thraecia" ; -- [XXHCO] :: Thrace; (vaguely defined country east of Macedon/north-east of Greece);
@@ -1145,7 +1146,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abbatialis_A = mkA "abbatialis" "abbatialis" "abbatiale" ; -- [EEXCE] :: of/pertaining to an abbot/abbey; abbey derived;
     abbatissa_F_N = mkN "abbatissa" ; -- [EEXCE] :: abbess;
     abbatizo_V = mkV "abbatizare" ; -- [FEXFM] :: be abbot;
--- TODO abbibo_V : V2 abbibo, abbibere, abbibi, -  -- Declension: 3rd -- Comment: [XXXDO] :: drink (in addition), take in by drinking; drink in, absorb, listen eagerly to;
+    abbibo_V2 = mkV2 (mkV "abbibere" "abbibo" "abbibi") ; -- MANUAL [XXXDO] :: drink (in addition), take in by drinking; drink in, absorb, listen eagerly to;
+    abbito_V = mkV "abbitere" "abbito" nonExist ; -- MANUAL [XXXFO] :: approach, come/draw near;
     abbreviatio_F_N = mkN "abbreviatio" "abbreviationis " feminine ; -- [EXXFS] :: abbreviation; diminution; epitome (Souter); shortening;
     abbreviator_M_N = mkN "abbreviator" "abbreviatoris " masculine ; -- [EEXEE] :: summarizer; one who makes abstracts/epitomes from papal bulls;
     abbreviatus_A = mkA "abbreviatus" "abbreviata" "abbreviatum" ; -- [EXXCW] :: abridged, shortened, cut off; straitened, contracted, narrowed; abbreviated;
@@ -1161,9 +1163,11 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abditivus_A = mkA "abditivus" "abditiva" "abditivum" ; -- [XXXFC] :: removed, separated (from);
     abditum_N_N = mkN "abditum" ; -- [XXXCE] :: hidden/secret/out of the way place, lair, (in) secret;
     abditus_A = mkA "abditus" "abdita" "abditum" ; -- [XXXBO] :: hidden, secret, out of the way, remote, secluded; obscure/abstruse (meaning);
+    abdo_V2 = mkV2 (mkV "abdere" "abdo" "abdidi" "abditus") ; -- MANUAL [XXXAO] :: remove, put away, set aside; depart, go away; hide, keep secret, conceal;
     abdomen_N_N = mkN "abdomen" "abdominis " neuter ; -- [XBXCO] :: abdomen, paunch, lower part of the belly; gluttony; as indicative of obesity;
     abdominalis_A = mkA "abdominalis" "abdominalis" "abdominale" ; -- [GBXEK] :: abdominal;
     abductio_F_N = mkN "abductio" "abductionis " feminine ; -- [DXXES] :: abduction, forcible carrying off; robbing; retirement (Vulg. Eccli.);
+    abduco_V2 = mkV2 (mkV "abducere" "abduco" "abduxi" "abductus") ; -- MANUAL [XXXAO] :: lead away, carry off; detach, attract away, entice, seduce, charm; withdraw;
     abecedaria_F_N = mkN "abecedaria" ; -- [DXXFS] :: elementary introduction; the ABC of the matter;
     abecedarium_N_N = mkN "abecedarium" ; -- [EEXCE] :: alphabet;
     abecedarius_A = mkA "abecedarius" "abecedaria" "abecedarium" ; -- [DXXFS] :: alphabetical; belonging to the alphabet;
@@ -1177,13 +1181,16 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     aberratio_F_N = mkN "aberratio" "aberrationis " feminine ; -- [XXXEO] :: diversion, relief;
     aberro_V = mkV "aberrare" ; -- [XXXBO] :: stray, wander, deviate; go/be/do wrong; be unfaithful; escape; disagree (with);
     abfero_V2 = mkV2 (mkV "abferre") ; -- [XXXCO] :: bear, take away, remove, obtain, carry off/away, steal; (error for aufero);
--- TODO abfugio_V : V2 abfugio, abfugere, abfugi, -  -- Declension: 3rd -- Comment: [XXXCO] :: flee (from), shun; run/fly away, escape; disappear/vanish (things);
+    abfluo_V = mkV "abfluere" "abfluo" "abfluxi" ; -- MANUAL [XXXEO] :: flow/stream/issue (from); flow away; be abundant, abound (in w/ABL);
+    abfugio_V2 =mkV2 (mkV "abfugere" "abfugio" "abfugi") ; -- MANUAL [XXXCO] :: flee (from), shun; run/fly away, escape; disappear/vanish (things);
     abhibeo_V2 = mkV2 (mkV "abhibere") ; -- [XXXEO] :: hold at a distance;
     abhinc_Adv = mkAdv "abhinc" ; -- [XXXCO] :: since, ago, in past; from this time, henceforth; from this place, hence;
     abhorreo_V = mkV "abhorrere" ; -- [XXXAO] :: abhor, shrink back; be averse to, shudder at; differ from; be inconsistent;
--- TODO abhorresco_V : V2 abhorresco, abhorrescere, abhorrui, -  -- Declension: 3rd -- Comment: [DEXFS] :: dread, become terrified; bristle up; begin to shake/tremble/shudder/shiver;
+    abhorresco_V2 = mkV2 (mkV "abhorrescere" "abhorresco" "abhorrui") ; -- MANUAL  [DEXFS] :: dread, become terrified; bristle up; begin to shake/tremble/shudder/shiver;
     abhorride_Adv = mkAdv "abhorride" ; -- [DXXFS] :: roughly, improperly; in an unfit manner;
     abhorridus_A = mkA "abhorridus" "abhorrida" "abhorridum" ; -- [XXXFO] :: rough, unsightly;
+    abicio_V2 = mkV2 (mkV "abicere" "abicio" "abjeci" "abjectus") ; -- MANUAL [XXXAO] :: throw/cast away/down/aside; abandon; slight; humble; debase; sell too cheaply;
+    abico_V2 = mkV2 (mkV "abicere" "abico" nonExist) ; -- MANUAL [EXXCN] :: humble; cast aside/away/off, reject;
     abiegneus_A = mkA "abiegneus" "abiegnea" "abiegneum" ; -- [XAXEO] :: made of fir, deal;
     abiegnius_A = mkA "abiegnius" "abiegnia" "abiegnium" ; -- [XAXEO] :: made of fir, deal;
     abiegnus_A = mkA "abiegnus" "abiegna" "abiegnum" ; -- [XAXCO] :: made of fir, deal; wooden;
@@ -1194,6 +1201,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abigeator_M_N = mkN "abigeator" "abigeatoris " masculine ; -- [DAXES] :: cattle stealer/thief, rustler;
     abigeatus_M_N = mkN "abigeatus" "abigeatus " masculine ; -- [XAXEO] :: cattle stealing, rustling;
     abigeus_M_N = mkN "abigeus" ; -- [XAXEO] :: cattle stealer/thief, rustler;
+    abigo_V2 = mkV2 (mkV "abigere" "abigo" "abegi" "abactus") ; -- MANUAL [XXXBO] :: drive/send away/off; expel, repel; steal, plunder (cattle), rustle; seduce;
     abinde_Adv = mkAdv "abinde" ; -- [XXXEO] :: from that source, thence;
     abinvicem_Adv = mkAdv "abinvicem" ; -- [FXXEM] :: mutually; (usually as two words); from one another;
     abitio_F_N = mkN "abitio" "abitionis " feminine ; -- [XXXDO] :: departure; going away, departing;
@@ -1202,10 +1210,12 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abjecte_Adv =mkAdv "abjecte" "abjectius" "abjectissime" ; -- [XXXCL] :: in spiritless manner; in humble circumstances, lowly; negligently; cowardly;
     abjectio_F_N = mkN "abjectio" "abjectionis " feminine ; -- [XXXEO] :: dejection; a casting down/out; outcast;
     abjecto_V2 = mkV2 (mkV "abjectare") ; -- [FXXCV] :: throw/cast away/down/aside; abandon; slight; humble; debase; sell too cheaply;
--- SLASHSTUFF abjectus_A : A2 abjectus, abjecta -um, abjectior -or -us, abjectissimus -a -um  -- [XXXBL] :: downcast, dejected; humble, low, common, mean; subservient; base, sordid, vile;
+    abjectus_A = mkA "abjectus" ; -- "abjectior" "abjectissimus" ; -- MANUAL [XXXBL] :: downcast, dejected; humble, low, common, mean; subservient; base, sordid, vile;
+    abjicio_V2 = mkV2 (mkV "abjicere" "abjicio" "abjeci" "abjectus") ; -- MANUAL [XXXAS] :: throw/cast away/down/aside; abandon; slight; humble; debase; sell too cheaply;
     abjudicativus_A = mkA "abjudicativus" "abjudicativa" "abjudicativum" ; -- [DSXFS] :: negative;
     abjudico_V2 = mkV2 (mkV "abjudicare") ; -- [XLXCO] :: deprive by judicial verdict; give judgment against; reject; deny an oath;
     abjugo_V2 = mkV2 (mkV "abjugare") ; -- [XXXES] :: separate (from), remove; loose from the yoke;
+    abjungo_V2 = mkV2 (mkV "abjungere" "abjungo" "abjunxi" "abjunctus") ; -- MANUAL [XXXBO] :: unyoke, remove, separate; unharness; remove part, split; cut off from, detach;
     abjuratio_F_N = mkN "abjuratio" "abjurationis " feminine ; -- [ELXCE] :: |forswearing, denial under oath; perjury;
     abjurgo_V2 = mkV2 (mkV "abjurgare") ; -- [XLXEO] :: take away in settlement of a quarrel; deny/refuse reproachfully (L+S);
     abjuro_V2 = mkV2 (mkV "abjurare") ; -- [XLXCO] :: repudiate (obligation or duty); deny on oath (falsely); abjure; perjure;
@@ -1222,7 +1232,11 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     ablegatio_F_N = mkN "ablegatio" "ablegationis " feminine ; -- [XXXEO] :: dispatch, sending away/off; dispatch on a duty;
     ablego_V2 = mkV2 (mkV "ablegare") ; -- [XXXCO] :: send away/off (on a mission); banish, get rid of; remove/delete a word;
     ablepsia_F_N = mkN "ablepsia" ; -- [DBXFS] :: blindness;
+    abligurio_V2 = mkV2 (mkV "abligurire" "abligurio" "abligurivi" "abliguritus") ; -- MANUAL [XXXEO] :: eat up (dainties); consume in dainty living; waste, squander; waste in feasting;
+    abligurrio_V2 = mkV2 (mkV "abligurrire" "abligurrio" "abligurrivi" "abligurritus") ; -- MANUAL [XXXFL] :: eat up (dainties); consume in dainty living; waste, squander; waste in feasting;
     abloco_V2 = mkV2 (mkV "ablocare") ; -- [XXXEO] :: place a contract for (work), hire; let/lease/rent (house);
+    abludo_V = mkV "abludere" "abludo" nonExist ; -- MANUAL [XXXEO] :: differ from; fall short of; play out of tune;
+    abluo_V2 = mkV2 (mkV "abluere" "abluo" "ablui" "ablutus") ; -- MANUAL [XXXBO] :: wash away/off/out, blot out, purify, wash, cleanse; dispel (infection); quench;
     ablutio_F_N = mkN "ablutio" "ablutionis " feminine ; -- [EEXCE] :: washing, ablution; pouring on (mixture of water and wine) in the liturgy;
     abluvio_F_N = mkN "abluvio" "abluvionis " feminine ; -- [XAXEO] :: erosion;
     abluvium_N_N = mkN "abluvium" ; -- [XAXEO] :: flooding of rivers, inundation;
@@ -1241,9 +1255,12 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abnueo_V = mkV "abnuere" ; -- [BXXAO] :: refuse, decline; deny (guilt); refuse by a sign, shake head; reject; rule out;
     abnuitio_F_N = mkN "abnuitio" "abnuitionis " feminine ; -- [DSXFS] :: negation;
     abnumero_V2 = mkV2 (mkV "abnumerare") ; -- [DSXFS] :: count up, reckon up;
+    abnuo_V2 = mkV2 (mkV "abnuere" "abnuo" "abnui" "abnuitus") ; -- MANUAL [XXXAO] :: refuse, decline; deny (guilt); refuse by a sign, shake head; reject; rule out;
     abnutivum_N_N = mkN "abnutivum" ; -- [DXXFS] :: refusal, denying;
     abnutivus_A = mkA "abnutivus" "abnutiva" "abnutivum" ; -- [XXXFO] :: negative;
     abnuto_V = mkV "abnutare" ; -- [BXXCL] :: deny/refuse/forbid (w/shake of head) repeatedly; forbid;
+    abolefacio_V2 = mkV2 (mkV "abolefacere" "abolefacio" "abolefeci" "abolefactus") ; -- MANUAL [DXXFS] :: destroy;
+    abolesco_V = mkV "abolescere" "abolesco" "abolevi" ; -- MANUAL [XXXCO] :: decay gradually, shrivel, wilt; vanish, disappear; die out; fall into disuse;
     abolefio_V = mkV "aboleferi" ; -- [DXXFS] :: be destroyed; (abolefacio PASS);
     aboleo_V2 = mkV2 (mkV "abolere") ; -- [XXXBO] :: destroy, efface, obliterate; kill; banish, dispel; put end to. abolish, rescind;
     abolitio_F_N = mkN "abolitio" "abolitionis " feminine ; -- [XLXCO] :: cancellation, annulment (law); withdrawal (charge), amnesty; obliteration;
@@ -1259,8 +1276,11 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abominor_V = mkV "abominari" ; -- [XXXCO] :: avert; (seek to) avert (omen/eventuality) (by prayer); loathe, detest, abhor;
     abominosus_A = mkA "abominosus" "abominosa" "abominosum" ; -- [DXXFS] :: full of ill omens, portentous;
     aborigineus_A = mkA "aborigineus" "aboriginea" "aborigineum" ; -- [XXXFO] :: aboriginal; (pertaining to) pre-Roman Italy/original founders of a city;
+    aborior_V = mkV "aboriri" "aborior" "abortus" ; -- MANUAL [XXXCO] :: pass away, disappear, be lost; miscarry, be aborted; set (sun/planet/star);
+    aborisco_V = mkV "aboriscere" "aborisco" nonExist ; -- MANUAL [XXXFO] :: pass/fade away, disappear, be lost;
     aborsus_A = mkA "aborsus" "aborsa" "aborsum" ; -- [DBXES] :: miscarriage; abortion; that which has been brought forth prematurely;
     abortio_F_N = mkN "abortio" "abortionis " feminine ; -- [XBXDO] :: abortion, miscarriage; premature delivery; procuring an abortion;
+    abortio_V = mkV "abortire" "abortio" nonExist ; -- MANUAL [DBXFS] :: miscarry;
     abortium_N_N = mkN "abortium" ; -- [DEXFS] :: abortion; miscarriage;
     abortivum_N_N = mkN "abortivum" ; -- [XBXES] :: |abortion; miscarriage; means of procuring an abortion;
     abortivus_A = mkA "abortivus" "abortiva" "abortivum" ; -- [XBXCO] :: abortive; abortificient; contraceptive; addled; prematurely born;
@@ -1270,19 +1290,23 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     abortus_M_N = mkN "abortus" "abortus " masculine ; -- [XBXCO] :: miscarriage; premature/untimely birth; abortion; dead fetus; getting abortion;
     abpatruus_M_N = mkN "abpatruus" ; -- [XXXFO] :: great-great-great uncle (father's side);
     abra_F_N = mkN "abra" ; -- [EXXCE] :: maid;
+    abrado_V2 = mkV2 (mkV "abradere" "abrado" "abrasi" "abrasus") ; -- MANUAL [XXXCO] :: scratch/scrape/rub/wipe (off), shave; erase; wash/erode away; "knock off", rob;
     abrelictus_A = mkA "abrelictus" "abrelicta" "abrelictum" ; -- [DXXFS] :: deserted, abandoned;
     abrenunciatio_F_N = mkN "abrenunciatio" "abrenunciationis " feminine ; -- [EXXCE] :: repudiation, renunciation, renouncing;
     abrenuntio_V2 = mkV2 (mkV "abrenuntiare") ; -- [EXXCE] :: renounce, repudiate (strongly);
+    abripio_V2 = mkV2 (mkV "abripere" "abripio" "abripui" "abreptus") ; -- MANUAL [XXXBO] :: drag/snatch/carry/remove away by force; wash/blow away (storm); abduct, kidnap;
     abrodiaetus_M_N = mkN "abrodiaetus" ; -- [CXXFS] :: living delicately, epithet of the painter Parrhasius;
+    abrodo_V2 = mkV2 (mkV "abrodere" "abrodo" "abrosi" "abrosus") ; -- MANUAL [XXXEO] :: gnaw off/away;
     abrogatio_F_N = mkN "abrogatio" "abrogationis " feminine ; -- [XLXEO] :: repeal of a law; disregard, ignore, repudiate; cancel, rescind, revoke (honor);
     abrogo_V2 = mkV2 (mkV "abrogare") ; -- [XLXBO] :: abolish; repeal wholly, annul; remove, take away;
     abrotonites_M_N = mkN "abrotonites" "abrotonitae " masculine ; -- [DAXFS] :: wine prepared with the aromatic plant, southern-wood;
     abrotonum_N_N = mkN "abrotonum" ; -- [XAXFL] :: aromatic plant, southern-wood (medicine);
     abrotonus_M_N = mkN "abrotonus" ; -- [XAXFS] :: aromatic plant, southern-wood (medicine);
+    abrumpo_V2 = mkV2 (mkV "abrumpere" "abrumpo" "abrupi" "abruptus") ; -- MANUAL [XXXAO] :: break (bonds); break off; tear asunder; cut through, sever; remove, separate;
     abrupte_Adv = mkAdv "abrupte" ; -- [XXXFO] :: abruptly, suddenly; precipitously, steeply; hastily; rashly; here and there;
     abruptio_F_N = mkN "abruptio" "abruptionis " feminine ; -- [XXXEO] :: breaking, breaking off; separation, divorce;
     abruptum_N_N = mkN "abruptum" ; -- [DXXES] :: steep ascent/decent; rough dangerous ways (pl.);
--- SLASHSTUFF abruptus_A : A2 abruptus, abrupta -um, abruptior -or -us, abruptissimus -a -um  -- [DXXES] :: |broken, disconnected, abrupt; stubborn;
+    abruptus_A = mkA "abruptus" ; -- "abruptior" "abruptissimus" ; -- MANUAL [DXXES] :: |broken, disconnected, abrupt; stubborn;
     abs_Abl_Prep = mkPrep "abs" Abl ; -- [XXXAO] :: by (agent), from (departure, cause, remote origin (time); after (reference);
     abscessus_M_N = mkN "abscessus" "abscessus " masculine ; -- [XXXCO] :: going away, departure, withdrawal, absence; remoteness; abscess; death;
     abscise_Adv = mkAdv "abscise" ; -- [XXXEO] :: abruptly, brusquely, curtly; shortly, concisely, distinctly;
@@ -1765,7 +1789,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     adapto_V2 = mkV2 (mkV "adaptare") ; -- [XXXEO] :: adjust, modify; fit (to) (w/DAT);
     adaquo_V = mkV "adaquare" ; -- [XXXEO] :: water, supply with water, bring water to; obtain water; give to drink;
     adaquor_V = mkV "adaquari" ; -- [XXXFS] :: bring/procure water (for one's self); fetch water;
--- IGNORED adar_N : N1 adar, undeclined  -- N -- [EXQEW] :: Adar, Jewish month; (twelfth in ecclesiastic year);
+-- IGNORED adar_N : N1 adar, Neutr ; -- [EXQEW] :: Adar, Jewish month; (twelfth in ecclesiastic year);
     adarca_F_N = mkN "adarca" ; -- [XAXNO] :: salty deposit/effolescence on reeds; froth on sedge forming spongy growth;
     adarce_F_N = mkN "adarce" "adarces " feminine ; -- [DAXFS] :: salty deposit/effolescence on reeds; froth on sedge forming spongy growth;
     adariarius_A = mkA "adariarius" "adariaria" "adariarium" ; -- [DEXFS] :: serving at the alter;
@@ -3165,7 +3189,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     aiens_A = mkA "aiens" "aientis"; -- [XXXFO] :: affirmative; affirming, saying aye;
     aientia_F_N = mkN "aientia" ; -- [DXXFS] :: affirmation;
     aigilps_A = mkA "aigilps" "aigilpis"; -- [XXXFO] :: steep, sheer;
--- IGNORED ain_N : N1 ain, undeclined  -- N -- [DEQEW] :: ayin; (16th letter of Hebrew alphabet); (silent);
+-- IGNORED ain_N : N1 ain, Neutr ; -- [DEQEW] :: ayin; (16th letter of Hebrew alphabet); (silent);
 -- TODO aio_V : V1 aio, -, -  -- [XXXAO] :: say (defective), assert; say yes/so, affirm, assent; prescribe/lay down (law);
     aisne_Interj = ss "aisne" ; -- [XXXES] :: indeed? really? is it possible? do you really mean it? (surprise/wonder); 
     ait_V0 = mkV0 "ait" ; -- [XXXAO] :: he says (ait), it is said; they say (aiunt);
@@ -3270,7 +3294,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     alecula_F_N = mkN "alecula" ; -- [XXXES] :: fish sauce;
     alembicum_N_N = mkN "alembicum" ; -- [GXXEK] :: still;
     aleo_M_N = mkN "aleo" "aleonis " masculine ; -- [XXXEO] :: gambler;
--- IGNORED aleph_N : N1 aleph, undeclined  -- N -- [DEQEW] :: aleph; (1st letter of Hebrew alphabet); (silent, use as an A only in order);
+-- IGNORED aleph_N : N1 aleph, Neutr ; -- [DEQEW] :: aleph; (1st letter of Hebrew alphabet); (silent, use as an A only in order);
     alerius_A = mkA "alerius" "aleria" "alerium" ; -- [XXXEQ] :: concerned with gambling;
     ales_A = mkA "ales" "alitis"; -- [XXXCO] :: winged, having wings; swift/quick; [ales deus => Mercury; ales puer => Cupid];
     ales_F_N = mkN "ales" "alitis " feminine ; -- [XXXCO] :: bird; (esp. large); winged god/monster; omen/augury; [regia ales => eagle];
@@ -3357,11 +3381,11 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     aliquit_Adv = mkAdv "aliquit" ; -- [XXXCO] :: to some degree/extent; somewhat;
     aliquo_Adv = mkAdv "aliquo" ; -- [XXXCO] :: to some place/person (or other); in some/any direction/quarter; some/anywhere;
 -- IGNORED aliquod_A : A2 aliquod, undeclined  -- [XXXCO] :: some, several; a few; not many; a number (of); more than one;
--- IGNORED aliquod_N : N1 aliquod, undeclined  -- N -- [XXXDO] :: some/several/a few people; more than one; a number;
+-- IGNORED aliquod_N : N1 aliquod, Neutr ; -- [XXXDO] :: some/several/a few people; more than one; a number;
     aliquodfariam_Adv = mkAdv "aliquodfariam" ; -- [XXXFO] :: in several places;
     aliquomodo_Adv = mkAdv "aliquomodo" ; -- [FXXEE] :: in some manner, somehow;
 -- IGNORED aliquot_A : A2 aliquot, undeclined  -- [XXXCO] :: some, several; a few; not many; a number (of); more than one;
--- IGNORED aliquot_N : N1 aliquot, undeclined  -- N -- [XXXDO] :: some/several/a few people; more than one; a number;
+-- IGNORED aliquot_N : N1 aliquot, Neutr ; -- [XXXDO] :: some/several/a few people; more than one; a number;
     aliquotfariam_Adv = mkAdv "aliquotfariam" ; -- [XXXEO] :: in several places;
     aliquotiens_Adv = mkAdv "aliquotiens" ; -- [XXXCO] :: number of times, several times;
     aliquoties_Adv = mkAdv "aliquoties" ; -- [XXXCO] :: number of times, several times;
@@ -3456,7 +3480,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     alopecis_F_N = mkN "alopecis" "alopecidis " feminine ; -- [XAXNO] :: variety of vine;
     alopecuros_F_N = mkN "alopecuros" "alopecuri " feminine ; -- [XAXNO] :: beard-grass, similar grass; fox-tail (L+S);
     alopex_F_N = mkN "alopex" "alopecis " feminine ; -- [XAXNO] :: thresher shark (alopias vulpes); sea-fox (L+S);
--- IGNORED alpha_N : N1 alpha, undeclined  -- N -- [XXHEO] :: alpha, 1st letter of Greek alphabet; A; first/foremost (group/class); beginning;
+-- IGNORED alpha_N : N1 alpha, Neutr ; -- [XXHEO] :: alpha, 1st letter of Greek alphabet; A; first/foremost (group/class); beginning;
     alphabeticus_A = mkA "alphabeticus" "alphabetica" "alphabeticum" ; -- [GGXEK] :: alphabetic;
     alphabetum_N_N = mkN "alphabetum" ; -- [DXGES] :: alphabet;
     alphos_M_N = mkN "alphos" "alphi " masculine ; -- [XBXFO] :: skin disease (psoriasis gutlata?); white spot on the skin (L+S);
@@ -3702,7 +3726,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     amfitapa_F_N = mkN "amfitapa" ; -- [XXXEO] :: rug with pile on both sides;
     amflexus_A = mkA "amflexus" "amflexa" "amflexum" ; -- [XXXFS] :: curved around, bent double;
     amfractus_M_N = mkN "amfractus" "amfractus " masculine ; -- [XXXBO] :: bend, curvature; circuit, (annual) round, orbit; spiral, coil; circumlocution;
--- IGNORED ami_N : N1 ami, undeclined  -- N -- [XAXEO] :: ammi, Bishop-weed; umbelliferous (flowers radiating from point) plant;
+-- IGNORED ami_N : N1 ami, Neutr ; -- [XAXEO] :: ammi, Bishop-weed; umbelliferous (flowers radiating from point) plant;
     amia_F_N = mkN "amia" ; -- [XAXEO] :: small tunny, bonito;
     amiantus_M_N = mkN "amiantus" ; -- [XXXNO] :: mineral having properties similar to asbestos, chysolite?;
     amias_M_N = mkN "amias" "amiae " masculine ; -- [XAXFO] :: small tunny, bonito;
@@ -3742,7 +3766,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     ammento_V2 = mkV2 (mkV "ammentare") ; -- [XXXDO] :: fit with a throwing strap; give impetus with a throwing strap; speed on;
     ammentum_N_N = mkN "ammentum" ; -- [XXXCO] :: throwing-strap, thong/loop attached to spear for throwing; (shoe) thong/strap;
     ammeo_V = mkV "ammeare" ; -- [DXXFS] :: go to, approach;
--- IGNORED ammi_N : N1 ammi, undeclined  -- N -- [XAXEO] :: ammi, Bishop-weed; umbelliferous (flowers radiating from point) plant;
+-- IGNORED ammi_N : N1 ammi, Neutr ; -- [XAXEO] :: ammi, Bishop-weed; umbelliferous (flowers radiating from point) plant;
     ammigro_V = mkV "ammigrare" ; -- [XXXFO] :: go and live with; go to a place; come to; be added to;
     amminiculabundus_A = mkA "amminiculabundus" "amminiculabunda" "amminiculabundum" ; -- [XXXES] :: self-supporting, supporting one's self;
     amminiculator_M_N = mkN "amminiculator" "amminiculatoris " masculine ; -- [XXXFO] :: assistant, supporter; one who supports;
@@ -3899,7 +3923,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     amplitudo_F_N = mkN "amplitudo" "amplitudinis " feminine ; -- [XXXBO] :: greatness; extent, breadth, width, bulk; importance; fullness (of expression);
 -- IGNORED amplius_A : A2 amplius, undeclined  -- [XXXCL] :: greater (w/indef. subject, eg., number than), further/more, longer;
     amplius_Adv = mkAdv "amplius" ; -- [XXXAO] :: greater number (than); further, more, beyond, besides; more than (w/numerals);
--- IGNORED amplius_N : N1 amplius, undeclined  -- N -- [XXXCO] :: greater amount/number/distance, more, any more/further; "judgment reserved";
+-- IGNORED amplius_N : N1 amplius, Neutr ; -- [XXXCO] :: greater amount/number/distance, more, any more/further; "judgment reserved";
     ampliuscule_Adv = mkAdv "ampliuscule" ; -- [XXXFO] :: rather more (freely/deeply);
     ampliusculus_A = mkA "ampliusculus" "ampliuscula" "ampliusculum" ; -- [XXXFO] :: fairly large, considerable;
     amplo_V2 = mkV2 (mkV "amplare") ; -- [BXXFS] :: enlarge, extend, increase; develop; magnify, amplify; praise, exalt, glorify;
@@ -5242,7 +5266,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     aridulus_A = mkA "aridulus" "aridula" "aridulum" ; -- [XXXEO] :: dry, parched (somewhat);
     aridum_N_N = mkN "aridum" ; -- [XXXDO] :: dry land; dry place; dry surface; dryness;
 -- SLASHSTUFF aridus_A : A2 aridus, arida -um, aridior -or -us, aridissimus -a -um  -- [XXXAO] :: dry, arid, parched; water/rain-less; used dry, dried; thirsty; poor; shriveled;
--- IGNORED ariel_N : N1 ariel, undeclined  -- N -- [EEQEW] :: altar, fire-altar, fire-hearth of God; (Ezekiel 43:15); name = lion of God;
+-- IGNORED ariel_N : N1 ariel, Neutr ; -- [EEQEW] :: altar, fire-altar, fire-hearth of God; (Ezekiel 43:15); name = lion of God;
     ariera_F_N = mkN "ariera" ; -- [XAJNO] :: banana; fruit of the Indian tree;
     aries_M_N = mkN "aries" "arietis " masculine ; -- [XXXBO] :: ram (sheep); battering ram; the Ram (zodiac); large unidentified marine animal;
     arietarius_A = mkA "arietarius" "arietaria" "arietarium" ; -- [XXXFO] :: of/for a battering ram;
@@ -5748,7 +5772,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     astructio_F_N = mkN "astructio" "astructionis " feminine ; -- [DGXES] :: accumulation of proof, putting together, composition;
     astructor_M_N = mkN "astructor" "astructoris " masculine ; -- [DGXFS] :: one who adduces/brings forward/cites/alleges proof;
     astrum_N_N = mkN "astrum" ; -- [XSXAO] :: star, heavenly body, planet/sun/moon; the stars, constellation; sky, heaven;
--- IGNORED astu_N : N1 astu, undeclined  -- N -- [XXHDO] :: city (esp. Athens), town (as opp. to rest of Attica/city-state);
+-- IGNORED astu_N : N1 astu, Neutr ; -- [XXHDO] :: city (esp. Athens), town (as opp. to rest of Attica/city-state);
     astula_F_N = mkN "astula" ; -- [XXXEO] :: splinter/chip; shavings; [astula regia => the plant asphodel];
     astupeo_V = mkV "astupere" ; -- [XXXDO] :: be stunned/astounded/astonished/amazed (at); be enthralled (by) (w/DAT);
     astur_M_N = mkN "astur" "asturis " masculine ; -- [DAXES] :: species of hawk; inhabitant of Asturia in Hispania Tarraconensis;
@@ -5758,7 +5782,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     astutia_F_N = mkN "astutia" ; -- [XXXCO] :: cunning, cleverness, astuteness; cunning procedure/method, trick, stratagem;
     astutulus_A = mkA "astutulus" "astutula" "astutulum" ; -- [XXXEO] :: cunning (person/action), crafty, clever, astute;
 -- SLASHSTUFF astutus_A : A2 astutus, astuta -um, astutior -or -us, astutissimus -a -um  -- [XXXCO] :: clever, astute, sly, cunning; expert;
--- IGNORED asty_N : N1 asty, undeclined  -- N -- [XXHDO] :: city (esp. Athens), town (as opp. to rest of Attica/city-state);
+-- IGNORED asty_N : N1 asty, Neutr ; -- [XXHDO] :: city (esp. Athens), town (as opp. to rest of Attica/city-state);
     astytis_F_N = mkN "astytis" "astytidis " feminine ; -- [XAXNS] :: kind of lettuce;
     asureus_A = mkA "asureus" "asurea" "asureum" ; -- [FXXDM] :: azure; blue; of lapis lazuli;
     asyla_F_N = mkN "asyla" ; -- [XAXNO] :: unidentified plant;
@@ -6640,10 +6664,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     bechicus_A = mkA "bechicus" "bechica" "bechicum" ; -- [DBXES] :: of/for a cough;
     bechion_N_N = mkN "bechion" "bechii " neuter ; -- [XAXNO] :: plant (perh. coltsfoot, Tussiago farfara); (good for cough L+S);
     bee_Interj = ss "bee" ; -- [DAXFS] :: baa; sound made by a sheep; 
--- IGNORED behemoth_N : N1 behemoth, undeclined  -- N -- [EAQFE] :: behemoth (Hebrew), great/monstrous beast; (hippopotamus?); (Job 40:10);
--- IGNORED behmoth_N : N1 behmoth, undeclined  -- N -- [EAQFE] :: behemoth (Hebrew), great/monstrous beast; (hippopotamus?); (Job 40:10);
+-- IGNORED behemoth_N : N1 behemoth, Neutr ; -- [EAQFE] :: behemoth (Hebrew), great/monstrous beast; (hippopotamus?); (Job 40:10);
+-- IGNORED behmoth_N : N1 behmoth, Neutr ; -- [EAQFE] :: behemoth (Hebrew), great/monstrous beast; (hippopotamus?); (Job 40:10);
     beia_Interj = ss "beia" ; -- [XXXFO] :: see!; (comic word as contemptuous echo of "heia"); 
--- IGNORED bekah_N : N1 bekah, undeclined  -- N -- [ELQFE] :: half shekel (Hebrew);
+-- IGNORED bekah_N : N1 bekah, Neutr ; -- [ELQFE] :: half shekel (Hebrew);
     belbus_M_N = mkN "belbus" ; -- [DAXFS] :: hyena;
     belion_N_N = mkN "belion" "belii " neuter ; -- [DAXFS] :: strong smelling plant (poley-germander, Teucrium polium?);
     belivus_A = mkA "belivus" "beliva" "belivum" ; -- [FXXFZ] :: bleating; baaing; talking foolishly;
@@ -6773,10 +6797,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     bestiarius_M_N = mkN "bestiarius" ; -- [XXXDO] :: fighter with wild beasts at public shows;
     bestiola_F_N = mkN "bestiola" ; -- [XAXCO] :: little creature, insect;
     beta_F_N = mkN "beta" ; -- [XAXCO] :: beet, beetroot;
--- IGNORED beta_N : N1 beta, undeclined  -- N -- [XXHEO] :: beta (second letter of Greek alphabet); second of anything, second item;
+-- IGNORED beta_N : N1 beta, Neutr ; -- [XXHEO] :: beta (second letter of Greek alphabet); second of anything, second item;
     betaceus_A = mkA "betaceus" "betacea" "betaceum" ; -- [XAXEO] :: of/from/pertaining to a beet;
     betaceus_M_N = mkN "betaceus" ; -- [XAXES] :: beetroot;
--- IGNORED beth_N : N1 beth, undeclined  -- N -- [DEQEW] :: bet; (2nd letter of Hebrew alphabet); (transliterate as B and V);
+-- IGNORED beth_N : N1 beth, Neutr ; -- [DEQEW] :: bet; (2nd letter of Hebrew alphabet); (transliterate as B and V);
     betis_F_N = mkN "betis" "betis " feminine ; -- [XAXCS] :: beet, beetroot;
     betisso_V = mkV "betissare" ; -- [XXXFS] :: be languid (soft as a beet);
     betizo_V = mkV "betizare" ; -- [XXXFO] :: be languid (soft as a beet);
@@ -7152,7 +7176,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     boreotis_A = mkA "boreotis" "boreotidis"; -- [DXXFS] :: northern;
     boreus_A = mkA "boreus" "borea" "boreum" ; -- [XXXEO] :: northern; pertaining to north wind;
     boria_F_N = mkN "boria" ; -- [XXXNO] :: kind of jasper;
--- IGNORED borith_N : N1 borith, undeclined  -- N -- [DEXFS] :: soapwort, plant purifying like soap; (Hebrew);
+-- IGNORED borith_N : N1 borith, Neutr ; -- [DEXFS] :: soapwort, plant purifying like soap; (Hebrew);
     borius_A = mkA "borius" "boria" "borium" ; -- [XXXES] :: northern; pertaining to north wind;
     bos_F_N = mkN "bos" "bovis " feminine ; -- [XXXBO] :: ox; bull; cow; ox-ray; cattle (pl.); (ox-like animals); [luca ~ => elephant];
     bos_M_N = mkN "bos" "bovis " masculine ; -- [XXXBO] :: ox; bull; cow; ox-ray; cattle (pl.); (ox-like animals); [luca ~ => elephant];
@@ -7393,7 +7417,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     buglossa_F_N = mkN "buglossa" ; -- [XAXNS] :: bugloss (herb) (prickly ox-tongue, Helminthia echioides?);
     buglossos_F_N = mkN "buglossos" "buglossi " feminine ; -- [XAXNO] :: bugloss (herb) (prickly ox-tongue, Helminthia echioides?);
     bugonia_F_N = mkN "bugonia" ; -- [XXXFS] :: generation of bees from putrid cattle carcasses (title of work by Archelaus);
--- IGNORED bul_N : N1 bul, undeclined  -- N -- [EXQEW] :: Bul (rain), Heshvan, Jewish month; (8th in ecclesiastic year); (1 Kings 6:38);
+-- IGNORED bul_N : N1 bul, Neutr ; -- [EXQEW] :: Bul (rain), Heshvan, Jewish month; (8th in ecclesiastic year); (1 Kings 6:38);
     bulapathum_N_N = mkN "bulapathum" ; -- [XAXNO] :: large species of plant Lapathum of genus Ramex (sorrel); herb (patience) (L+S);
     bulbaceus_A = mkA "bulbaceus" "bulbacea" "bulbaceum" ; -- [XAXNO] :: bulbous, having bulbs;
     bulbatio_F_N = mkN "bulbatio" "bulbationis " feminine ; -- [XAXNO] :: bulb-like formation (in a kind of stone);
@@ -7592,7 +7616,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     caedes_F_N = mkN "caedes" "caedis " feminine ; -- [XXXAO] :: murder/slaughter/massacre; assassination; feuding; slain/victims; blood/gore;
     caedis_F_N = mkN "caedis" "caedis " feminine ; -- [XXXAO] :: murder/slaughter/massacre; assassination; feuding; slain/victims; blood/gore;
     caeduus_A = mkA "caeduus" "caedua" "caeduum" ; -- [XAXCO] :: ready/suitable for felling (tree);
--- IGNORED cael_N : N1 cael, undeclined  -- N -- [BSXEO] :: heaven, sky; universe, world; space; air, weather; Jehovah; (shortened form);
+-- IGNORED cael_N : N1 cael, Neutr ; -- [BSXEO] :: heaven, sky; universe, world; space; air, weather; Jehovah; (shortened form);
     caela_F_N = mkN "caela" ; -- [XXSES] :: kind of beer (made in Spain);
     caelamen_N_N = mkN "caelamen" "caelaminis " neuter ; -- [XTXDO] :: bas-relief, low relief carving; raised ornamentation;
     caelator_M_N = mkN "caelator" "caelatoris " masculine ; -- [XXXCO] :: engraver, carver, worker in bas-relief;
@@ -7712,7 +7736,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     caetratus_A = mkA "caetratus" "caetrata" "caetratum" ; -- [XWXEO] :: armed with caetra (small light shield);
     caetratus_M_N = mkN "caetratus" ; -- [XWXDO] :: soldier armed with caetra (small light shield); Greek peltest;
     caetus_M_N = mkN "caetus" "caetus " masculine ; -- [XXXBE] :: |social intercourse (w/hominium), society, company; sexual intercourse;
--- IGNORED caf_N : N1 caf, undeclined  -- N -- [DEQEW] :: kaf; (11th letter of Hebrew alphabet); (transliterate as K and CH);
+-- IGNORED caf_N : N1 caf, Neutr ; -- [DEQEW] :: kaf; (11th letter of Hebrew alphabet); (transliterate as K and CH);
     cafea_F_N = mkN "cafea" ; -- [GXXEK] :: coffee;
     cafearius_A = mkA "cafearius" "cafearia" "cafearium" ; -- [GXXEK] :: of coffee;
     cafeum_N_N = mkN "cafeum" ; -- [GXXEK] :: cafe;
@@ -8215,7 +8239,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     caperratus_A = mkA "caperratus" "caperrata" "caperratum" ; -- [XXXEO] :: wrinkled; furled (sails);
     caperro_V = mkV "caperrare" ; -- [XXXFO] :: be/become wrinkled; wrinkle (L+S); furl (sails);
     capetum_N_N = mkN "capetum" ; -- [DAXES] :: fodder for cattle;
--- IGNORED caph_N : N1 caph, undeclined  -- N -- [DEQEW] :: kaf; (11th letter of Hebrew alphabet); (transliterate as K and CH);
+-- IGNORED caph_N : N1 caph, Neutr ; -- [DEQEW] :: kaf; (11th letter of Hebrew alphabet); (transliterate as K and CH);
     caphisterium_N_N = mkN "caphisterium" ; -- [XAXFO] :: vessel used for cleaning/separating seed-grain from the rest;
     capidulum_N_N = mkN "capidulum" ; -- [XXXFO] :: kind of covering for head;
     capillaceus_A = mkA "capillaceus" "capillacea" "capillaceum" ; -- [XXXNO] :: resembling/similar to hair; like hair; made of hair (L+S);
@@ -8276,7 +8300,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     capo_M_N = mkN "capo" "caponis " masculine ; -- [XAXEO] :: capon; young cockerel?;
     cappa_F_N = mkN "cappa" ; -- [FXXDB] :: cape, cloak, cassock, cope.
     cappara_F_N = mkN "cappara" ; -- [DAXFS] :: plant; (also called portulacca);
--- IGNORED cappari_N : N1 cappari, undeclined  -- N -- [XAXFO] :: caper plant (Capparis spinosa); fruit of caper plant, caper;
+-- IGNORED cappari_N : N1 cappari, Neutr ; -- [XAXFO] :: caper plant (Capparis spinosa); fruit of caper plant, caper;
     capparis_F_N = mkN "capparis" "capparis " feminine ; -- [FXXEK] :: caper;
 -- TODO capparis_N : N1 capparis, capparos/is  -- F -- [XAXCO] :: caper plant (Capparis spinosa); fruit of caper plant, caper;
 -- TODO cappas_N : N1 cappas, cappados/is  -- F -- [DAXFS] :: sea horse;
@@ -8586,10 +8610,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     casignete_F_N = mkN "casignete" "casignetes " feminine ; -- [XAXNO] :: plant (unidentified); (also called dionysonymphadas);
     casila_F_N = mkN "casila" ; -- [AXXFO] :: helmet (metal) (Sabine form); wearer of a helmet; war, active service;
     casito_V = mkV "casitare" ; -- [DXXFS] :: fall/drop down repeatedly/frequently;
--- IGNORED casleu_N : N1 casleu, undeclined  -- N -- [EXQEW] :: Chislev/Kislev, Jewish month; (ninth in ecclesiastic year);
+-- IGNORED casleu_N : N1 casleu, Neutr ; -- [EXQEW] :: Chislev/Kislev, Jewish month; (ninth in ecclesiastic year);
     casmila_F_N = mkN "casmila" ; -- [XEXFS] :: handmaiden/female of unblemished character attendant in religious ceremonies;
     casmilus_M_N = mkN "casmilus" ; -- [XEXFS] :: boy/noble youth attendant of a flamen/priest;
--- IGNORED casnar_N : N1 casnar, undeclined  -- M -- [BXXFS] :: old man; attendant;
+-- IGNORED casnar_N : N1 casnar Masc ;-- [BXXFS] :: old man; attendant;
     cassabundus_A = mkA "cassabundus" "cassabunda" "cassabundum" ; -- [XXXFO] :: stumbling, tottering; ready to fall;
     cassia_F_N = mkN "cassia" ; -- [XAXFS] :: cinnamon (Cinnamomum tree/bark/spice); aromatic shrub (mezereon or marjoram?);
     cassiculus_M_N = mkN "cassiculus" ; -- [XAXFO] :: small net; cobweb;
@@ -9756,7 +9780,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     cichoreum_N_N = mkN "cichoreum" ; -- [XAXEO] :: chicory (Cichorium intybus), succory, endive;
     cichorion_N_N = mkN "cichorion" "cichorii " neuter ; -- [XAXEO] :: chicory (Cichorium intybus), succory, endive;
     cichorium_N_N = mkN "cichorium" ; -- [XAXEO] :: chicory (Cichorium intybus), succory, endive;
--- IGNORED cici_N : N1 cici, undeclined  -- N -- [XAXNO] :: castor (oil) tree (Ricinus communis); (Egyptian tree also called croton L+S);
+-- IGNORED cici_N : N1 cici, Neutr ; -- [XAXNO] :: castor (oil) tree (Ricinus communis); (Egyptian tree also called croton L+S);
     cicilendrum_N_N = mkN "cicilendrum" ; -- [BXXFS] :: comic name for an imaginary condiment;
     cicilinus_A = mkA "cicilinus" "cicilina" "cicilinum" ; -- [DEXES] :: made of hair-cloth, hair-;
     cicimalindrum_N_N = mkN "cicimalindrum" ; -- [BXXFO] :: comic name for an imaginary condiment;
@@ -10650,7 +10674,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     codificatus_A = mkA "codificatus" "codificata" "codificatum" ; -- [FXXFE] :: codified; arranged;
 -- TODO coec_N : N1 coec, coecos/is  -- N -- [XAXNO] :: kind of date; (doum palm, Hyphaene thebaica Liddle and Scott);
 -- TODO coecas_N : N1 coecas, coecos/is  -- N -- [XAXNO] :: kind of date; (doum palm, Hyphaene thebaica Liddle and Scott);
--- IGNORED coel_N : N1 coel, undeclined  -- N -- [BSXES] :: sky, heaven; universe, world; space; air, weather; Jehovah; (shortened form);
+-- IGNORED coel_N : N1 coel, Neutr ; -- [BSXES] :: sky, heaven; universe, world; space; air, weather; Jehovah; (shortened form);
     coelectus_A = mkA "coelectus" "coelecta" "coelectum" ; -- [DXXES] :: elected together;
     coelementatus_A = mkA "coelementatus" "coelementata" "coelementatum" ; -- [DSXFS] :: composed of the elements;
     coeles_A = mkA "coeles" "coelitis"; -- [DXXFS] :: heavenly; celestial; (not found classical in NOM S);
@@ -10724,7 +10748,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     coertio_F_N = mkN "coertio" "coertionis " feminine ; -- [XLXFS] :: coercion, restraint, repression; (affliction of summary/right to) punishment;
     coetus_M_N = mkN "coetus" "coetus " masculine ; -- [XXXBO] :: |social intercourse (w/hominium), society, company; sexual intercourse;
     coexercitatus_A = mkA "coexercitatus" "coexercitata" "coexercitatum" ; -- [XXXFO] :: that is practiced together/at same time;
--- IGNORED cof_N : N1 cof, undeclined  -- N -- [DEQEW] :: qof; (19th letter of Hebrew alphabet); (transliterate as K);
+-- IGNORED cof_N : N1 cof, Neutr ; -- [DEQEW] :: qof; (19th letter of Hebrew alphabet); (transliterate as K);
     cofanus_M_N = mkN "cofanus" ; -- [DAXFS] :: pelican;
     coffeinum_N_N = mkN "coffeinum" ; -- [GXXEK] :: caffeine;
     cofinus_M_N = mkN "cofinus" ; -- [XXXDO] :: basket, hamper;
@@ -11267,7 +11291,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     commers_F_N = mkN "commers" "commercis " feminine ; -- [XXXFO] :: friendly intercourse;
     commetaculum_N_N = mkN "commetaculum" ; -- [DEXES] :: rods (pl.) carried by flamens/priests;
     commeto_V = mkV "commetare" ; -- [XXXDO] :: go constantly/frequently; come and go; survey thoroughly (facetious);
--- IGNORED commi_N : N1 commi, undeclined  -- N -- [XAXCO] :: gum, vicid secretion from trees;
+-- IGNORED commi_N : N1 commi, Neutr ; -- [XAXCO] :: gum, vicid secretion from trees;
     commictilis_A = mkA "commictilis" "commictilis" "commictile" ; -- [XXXFO] :: filthy, foul; (term of abuse); despicable, vile, deserves to be defiled (L+S);
     commictus_A = mkA "commictus" "commicta" "commictum" ; -- [XXXES] :: filthy, foul; (term of abuse);
     commigratio_F_N = mkN "commigratio" "commigrationis " feminine ; -- [XXXFO] :: removal (to a new place); wandering (L+S); migration;
@@ -13396,7 +13420,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     coperor_V = mkV "coperari" ; -- [DXXDS] :: work with/together, cooperate (with); combine, unite;
     copertorium_N_N = mkN "copertorium" ; -- [XXXFO] :: covering, garment; cover (L+S);
     copertus_A = mkA "copertus" "coperta" "copertum" ; -- [XXXCO] :: overwhelmed, buried deep (in crime/misfortune/etc.);
--- IGNORED coph_N : N1 coph, undeclined  -- N -- [DEQEW] :: qof; (19th letter of Hebrew alphabet); (transliterate as K);
+-- IGNORED coph_N : N1 coph, Neutr ; -- [DEQEW] :: qof; (19th letter of Hebrew alphabet); (transliterate as K);
     cophinus_M_N = mkN "cophinus" ; -- [XXXBO] :: basket, hamper;
     copia_F_N = mkN "copia" ; -- [GXXEK] :: ||copy;
     copiarius_M_N = mkN "copiarius" ; -- [DXXFS] :: purveyor;
@@ -13410,7 +13434,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     copis_F_N = mkN "copis" "copidis " feminine ; -- [XWXFO] :: short curved sword;
     copo_M_N = mkN "copo" "coponis " masculine ; -- [XXXCO] :: shopkeeper, salesman, huckster; innkeeper, keeper of a tavern;
     copona_F_N = mkN "copona" ; -- [XXXCO] :: landlady; (female) shopkeeper, hostess; inn, tavern, lodging-house; shop;
--- IGNORED coppa_N : N1 coppa, undeclined  -- N -- [XXXEO] :: archaic Greek letter koppa;
+-- IGNORED coppa_N : N1 coppa, Neutr ; -- [XXXEO] :: archaic Greek letter koppa;
     coppadium_N_N = mkN "coppadium" ; -- [DXXES] :: delicacy, tidbit; (usu. pl.) delicacies; dainty dishes, tidbits (L+S);
     coprea_M_N = mkN "coprea" ; -- [XXXFO] :: buffoon, jester;
     cops_A = mkA "cops" "copis"; -- [XXXEO] :: well/abundantly equipped/supplied; rich; swelling (of chest with pride);
@@ -13473,7 +13497,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     coranus_M_N = mkN "coranus" ; -- [GXXEK] :: Koran;
     corarius_A = mkA "corarius" "coraria" "corarium" ; -- [XXXEO] :: of/related to the tanning of hides; [frutex coriarius => sumac, Rhus coriaria];
     corax_M_N = mkN "corax" "coracis " masculine ; -- [XWXFO] :: kind of siege engine; raven (L+S); hooked war engine; battering ram (corvus);
--- IGNORED corban_N : N1 corban, undeclined  -- N -- [EEQFP] :: gift/corban (Hebrew); offering given to God usually associated w/vow;
+-- IGNORED corban_N : N1 corban, Neutr ; -- [EEQFP] :: gift/corban (Hebrew); offering given to God usually associated w/vow;
     corbicula_F_N = mkN "corbicula" ; -- [DXXFS] :: little basket;
     corbis_F_N = mkN "corbis" "corbis " feminine ; -- [XXXCO] :: basket; (esp. one used for gathering grain/fruit; basketful (quantity);
     corbis_M_N = mkN "corbis" "corbis " masculine ; -- [XXXCO] :: basket; (esp. one used for gathering grain/fruit; basketful (quantity);
@@ -14155,7 +14179,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     cubo_V = mkV "cubare" ; -- [XXXBO] :: lie (down/asleep); recline, incline; lie/be in bed, rest/sleep; be sick/dead;
     cubus_M_N = mkN "cubus" ; -- [XSXDO] :: cube (geometric figure), die/dice; lump; cubic number;
     cuccuru_Interj = ss "cuccuru" ; -- [XXXFO] :: cock-a-doodle-doo! 
--- IGNORED cuci_N : N1 cuci, undeclined  -- N -- [XAXNO] :: doum-palm (Hyphanae thebaica);
+-- IGNORED cuci_N : N1 cuci, Neutr ; -- [XAXNO] :: doum-palm (Hyphanae thebaica);
     cucubalus_F_N = mkN "cucubalus" ; -- [XAXNS] :: plant; strychnon; (of the nightshade family); (also called strumus L+S);
     cucubo_V = mkV "cucubare" ; -- [XAXFS] :: hoot; (of the screech owl);
     cuculio_M_N = mkN "cuculio" "cuculionis " masculine ; -- [XXXFO] :: hood, kind of headgear;
@@ -14278,7 +14302,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     cuminum_N_N = mkN "cuminum" ; -- [XAXCO] :: cumin (plant/seed); (spice/drug);
     cummagis_Adv = mkAdv "cummagis" ; -- [XXXCO] :: more particularly;
     cummaxime_Adv = mkAdv "cummaxime" ; -- [XXXCO] :: at the/this/that very moment; most particularly;
--- IGNORED cummi_N : N1 cummi, undeclined  -- N -- [XAXCO] :: gum, vicid secretion from trees;
+-- IGNORED cummi_N : N1 cummi, Neutr ; -- [XAXCO] :: gum, vicid secretion from trees;
     cumminosus_A = mkA "cumminosus" "cumminosa" "cumminosum" ; -- [XAXNO] :: gummy, full of gum;
     cummis_F_N = mkN "cummis" "cummis " feminine ; -- [XAXCO] :: gum, vicid secretion from trees;
     cummitio_F_N = mkN "cummitio" "cummitionis " feminine ; -- [XXXFO] :: application of gum;
@@ -14487,7 +14511,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     custoditio_F_N = mkN "custoditio" "custoditionis " feminine ; -- [XXXFO] :: protection, guarding; guardianship (L+S); keeping, observance;
     custos_F_N = mkN "custos" "custodis " feminine ; -- [XXXAO] :: |jailer, warden; poll watcher; spy; garrison; container; replacement vine shoot;
     custos_M_N = mkN "custos" "custodis " masculine ; -- [XXXAO] :: |jailer, warden; poll watcher; spy; garrison; container; replacement vine shoot;
--- IGNORED cusuc_N : N1 cusuc, undeclined  -- N -- [XXXFO] :: shanty, small hut;
+-- IGNORED cusuc_N : N1 cusuc, Neutr ; -- [XXXFO] :: shanty, small hut;
     cuticula_F_N = mkN "cuticula" ; -- [XBXFO] :: skin; cuticle;
     cutio_M_N = mkN "cutio" "cutionis " masculine ; -- [DAXFS] :: small insect; millipede;
     cutis_F_N = mkN "cutis" "cutis " feminine ; -- [XXXBO] :: skin; external appearance, surface; person, body; leather/hide; rind; membrane;
@@ -14660,7 +14684,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     daemonion_N_N = mkN "daemonion" "daemonii " neuter ; -- [CSXFO] :: spirit; Socrates' indwelling genius; familiar; little spirit (L+S); demon/devil;
     daemonium_N_N = mkN "daemonium" ; -- [CSXFO] :: spirit; Socrates' indwelling genius; familiar; little spirit (L+S); demon/devil;
     dagnades_F_N = mkN "dagnades" "dagnadis " feminine ; -- [XAEFS] :: kind of bird in Egypt;
--- IGNORED daleth_N : N1 daleth, undeclined  -- N -- [DEQEE] :: dalet/daleth; (4th letter of Hebrew alphabet); (transliterate as D);
+-- IGNORED daleth_N : N1 daleth, Neutr ; -- [DEQEE] :: dalet/daleth; (4th letter of Hebrew alphabet); (transliterate as D);
     dalia_F_N = mkN "dalia" ; -- [GXXEK] :: dahlia;
     dalmatia_F_N = mkN "dalmatia" ; -- [XXKES] :: Dalmatia;
     dalmatica_F_N = mkN "dalmatica" ; -- [EEXFE] :: dalmitic, vestment of deacon;
@@ -14681,7 +14705,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     damnator_M_N = mkN "damnator" "damnatoris " masculine ; -- [DXXDS] :: one who condemns;
     damnatorius_A = mkA "damnatorius" "damnatoria" "damnatorium" ; -- [XLXEO] :: condemnatory; that involves/indicates condemnation;
 -- SLASHSTUFF damnatus_A : A2 damnatus, damnata -um, damnatior -or -us, damnatissimus -a -um  -- [XLXFO] :: condemned; found guilty; reprobate (L+S); criminal; hateful, wretched; damned;
--- IGNORED damnaustra_N : N1 damnaustra, undeclined  -- N -- [XEXFS] :: Damnaustra!; (word of charm to cure dislocated joint);
+-- IGNORED damnaustra_N : N1 damnaustra, Neutr ; -- [XEXFS] :: Damnaustra!; (word of charm to cure dislocated joint);
     damnifico_V2 = mkV2 (mkV "damnificare") ; -- [DEXES] :: injure; fine;
     damnificus_A = mkA "damnificus" "damnifica" "damnificum" ; -- [XXXEO] :: injurious, hurtful, pernicious; that causes loss;
     damnigerulus_A = mkA "damnigerulus" "damnigerula" "damnigerulum" ; -- [BXXFS] :: injurious, hurtful, pernicious;
@@ -14699,7 +14723,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     damula_F_N = mkN "damula" ; -- [FAXEE] :: doe; gazelle;
     danista_M_N = mkN "danista" ; -- [XXXEO] :: money-lender; usurer;
     danisticus_A = mkA "danisticus" "danistica" "danisticum" ; -- [XXXFO] :: of/pertaining to money-lenders or usury; money-lending, usurious (L+S);
--- IGNORED dannaustra_N : N1 dannaustra, undeclined  -- N -- [XEXFS] :: Damnaustra!; (word of charm to cure dislocated joint);
+-- IGNORED dannaustra_N : N1 dannaustra, Neutr ; -- [XEXFS] :: Damnaustra!; (word of charm to cure dislocated joint);
     dapalis_A = mkA "dapalis" "dapalis" "dapale" ; -- [XEXEO] :: sacrificial; of/pertaining to a sacrificial feast;
     dapatice_Adv = mkAdv "dapatice" ; -- [BXXFS] :: splendidly, in fine/lordly manner/language; superbly; proudly/boastfully;
 -- SLASHSTUFF dapaticus_A : A2 dapaticus, dapatica -um, dapaticior -or -us, dapaticissimus -a -um  -- [BXXFS] :: splendid/excellent; sumptuous/magnificent/stately; noble/eminent; proud/boastful
@@ -15278,7 +15302,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     deleramentum_N_N = mkN "deleramentum" ; -- [XXXDO] :: delusion, nonsense; product of a deranged mind; absurdity (L+S);
     deleritas_F_N = mkN "deleritas" "deleritatis " feminine ; -- [XXXFO] :: insanity;
     delero_V = mkV "delerare" ; -- [XXXCO] :: be mad/deranged/silly; dote; speak deliriously, rave; deviate from balks (plow);
--- IGNORED deleth_N : N1 deleth, undeclined  -- N -- [DEQEW] :: dalet/daleth; (4th letter of Hebrew alphabet); (transliterate as D);
+-- IGNORED deleth_N : N1 deleth, Neutr ; -- [DEQEW] :: dalet/daleth; (4th letter of Hebrew alphabet); (transliterate as D);
     deleticius_A = mkA "deleticius" "deleticia" "deleticium" ; -- [XGXFO] :: palimpsest, from which (anything/writing) has been erased/effaced/blotted out;
     deletilis_A = mkA "deletilis" "deletilis" "deletile" ; -- [XGXFO] :: that expunges/erases; that wipes/blots out (L+S);
     deletio_F_N = mkN "deletio" "deletionis " feminine ; -- [XXXFO] :: destruction, annihilation;
@@ -15352,7 +15376,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     delphin_M_N = mkN "delphin" "delphinis " masculine ; -- [XAXDO] :: dolphin; ornament shaped like a dolphin; (part of water organ); constellation;
     delphinus_M_N = mkN "delphinus" ; -- [XAXCO] :: dolphin; ornament shaped like a dolphin; (part of water organ); constellation;
 -- TODO delphis_N : N1 delphis, delphinos/is  -- M -- [XAXFS] :: dolphin; ornament shaped like a dolphin; (part of water organ); constellation;
--- IGNORED delta_N : N1 delta, undeclined  -- N -- [XXHDO] :: Greek letter delta; delta of the Nile;
+-- IGNORED delta_N : N1 delta, Neutr ; -- [XXHDO] :: Greek letter delta; delta of the Nile;
     delubrum_N_N = mkN "delubrum" ; -- [XXXDX] :: shrine; temple; sanctuary (L+S);
     deluctio_F_N = mkN "deluctio" "deluctionis " feminine ; -- [DXXFS] :: struggle, combat; wrestling;
     delucto_V2 = mkV2 (mkV "deluctare") ; -- [XXXEO] :: wrestle; fight it out (with); struggle (L+S);
@@ -16800,6 +16824,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     dives_M_N = mkN "dives" "divitis " masculine ; -- [XXXDO] :: rich man;
     divexo_V2 = mkV2 (mkV "divexare") ; -- [XXXCS] :: |ravage/plunder; tear/rend/pull/rip apart/asunder, destroy (L+S);
     dividendus_A = mkA "dividendus" "dividenda" "dividendum" ; -- [GSXEK] :: dividing (math.);
+    divido_V2 = mkV2 (mkV "dividere" "divido" "divisi" "divisum") ; -- MANUAL
     dividuus_A = mkA "dividuus" "dividua" "dividuum" ; -- [XXXDX] :: divisible; divided, separated; half; parted;
     divinatio_F_N = mkN "divinatio" "divinationis " feminine ; -- [XXXDX] :: predicting; divination; prophecy; prognostication;
     divinitas_F_N = mkN "divinitas" "divinitatis " feminine ; -- [XEXCO] :: divinity, quality/nature of God; divine excellence/power/being; divining;
@@ -16887,7 +16912,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     domito_V = mkV "domitare" ; -- [XXXDX] :: tame, break in;
     domitor_M_N = mkN "domitor" "domitoris " masculine ; -- [XXXDX] :: tamer, breaker; subduer, vanquisher, conqueror;
     domna_F_N = mkN "domna" ; -- [FLXEM] :: lady, mistress; (shortened form of domina);
--- IGNORED domne_N : N1 domne, undeclined  -- M -- [FXXEE] :: sir; lord, master; (vocative of domnus);
+-- IGNORED domne_N : N1 domne Masc ;-- [FXXEE] :: sir; lord, master; (vocative of domnus);
     domnus_M_N = mkN "domnus" ; -- [FEXEB] :: lord, master; the Lord; ecclesiastic/gentleman; (shortened form of dominus);
     domo_V = mkV "domare" ; -- [XXXBX] :: subdue, master, tame; conquer;
     domuncula_F_N = mkN "domuncula" ; -- [XXXDO] :: small house, cottage, lodge;
@@ -17348,7 +17373,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     eluctor_V = mkV "eluctari" ; -- [XXXDX] :: force a way through; surmount a difficulty;
     elucubro_V = mkV "elucubrare" ; -- [XXXDX] :: compose at night; burn the midnight oil over, spend the night working;
     elucubror_V = mkV "elucubrari" ; -- [XXXDX] :: compose at night; burn the midnight oil over, spend the night working;
--- IGNORED elul_N : N1 elul, undeclined  -- N -- [EXQEW] :: Elul; sixth month of the Jewish ecclesiastical year;
+-- IGNORED elul_N : N1 elul, Neutr ; -- [EXQEW] :: Elul; sixth month of the Jewish ecclesiastical year;
     elumbis_A = mkA "elumbis" "elumbis" "elumbe" ; -- [XXXEC] :: weak, feeble;
     elutorius_A = mkA "elutorius" "elutoria" "elutorium" ; -- [GXXEK] :: washing;
     eluvies_F_N = mkN "eluvies" "eluviei " feminine ; -- [XXXEC] :: flowing out, discharge; a flowing over, flood;
@@ -17525,10 +17550,10 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     ephebiceus_A = mkA "ephebiceus" "ephebicea" "ephebiceum" ; -- [XXXFO] :: suitable for adolescent/teen boy(s);
     ephebus_M_N = mkN "ephebus" ; -- [XXHCO] :: boy (Greek) at age of puberty; youth; adolescent (age 18-20 by Athenian law);
     ephemeris_F_N = mkN "ephemeris" "ephemeridis " feminine ; -- [XXXEC] :: journal, diary; newspaper (Cal);
--- IGNORED ephi_N : N1 ephi, undeclined  -- N -- [EEQFE] :: ephah, Jewish dry measure; (ten gomor, over twenty bushels);
+-- IGNORED ephi_N : N1 ephi, Neutr ; -- [EEQFE] :: ephah, Jewish dry measure; (ten gomor, over twenty bushels);
     ephippiatus_A = mkA "ephippiatus" "ephippiata" "ephippiatum" ; -- [XXXDX] :: riding with a saddle;
     ephippium_N_N = mkN "ephippium" ; -- [XXXDX] :: pad saddle, horse blanket (to ride on);
--- IGNORED ephod_N : N1 ephod, undeclined  -- N -- [DEQES] :: part of clothing of a Jewish priest;
+-- IGNORED ephod_N : N1 ephod, Neutr ; -- [DEQES] :: part of clothing of a Jewish priest;
     ephoebias_M_N = mkN "ephoebias" "ephoebiae " masculine ; -- [EXXFW] :: body of youth; group of adolescent boys;
     ephoebus_M_N = mkN "ephoebus" ; -- [EXXFW] :: boy (Greek) at age of puberty; youth; adolescent (age 18-20 by Athenian law);
     ephorus_M_N = mkN "ephorus" ; -- [XLHEC] :: ephor, a Spartan magistrate;
@@ -17836,7 +17861,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     evolo_V = mkV "evolare" ; -- [XXXDX] :: fly away, fly up/out/forth; rush out/forth;
     evolutio_F_N = mkN "evolutio" "evolutionis " feminine ; -- [XXXEO] :: development, unfolding; action of reading through; evolution (Ecc);
     evolutivus_A = mkA "evolutivus" "evolutiva" "evolutivum" ; -- [GXXEE] :: evolutionary;
--- IGNORED evovae_N : N1 evovae, undeclined  -- N -- [FDXFE] :: evovae; (meaningless word used in choral books to show some vowel sounds);
+-- IGNORED evovae_N : N1 evovae, Neutr ; -- [FDXFE] :: evovae; (meaningless word used in choral books to show some vowel sounds);
     evulgatio_F_N = mkN "evulgatio" "evulgationis " feminine ; -- [XXXEE] :: publication, making known, divulging;
     evulgo_V = mkV "evulgare" ; -- [XXXDX] :: make public, divulge;
     evulsio_F_N = mkN "evulsio" "evulsionis " feminine ; -- [DXXES] :: pulling out; eradication, utter destruction; extinction (Souter);
@@ -18488,7 +18513,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     farreus_A = mkA "farreus" "farrea" "farreum" ; -- [XXXDX] :: made of spelt or wheat ("corn") or meal;
     fars_F_N = mkN "fars" "fartis " feminine ; -- [XXXEO] :: stuffing; minced meat;
     farsia_F_N = mkN "farsia" ; -- [EEXFE] :: insertion into parts of Mass;
--- IGNORED fas_N : N1 fas, undeclined  -- N -- [XXXBX] :: divine/heaven's law/will/command; that which is right/lawful/moral/allowed;
+-- IGNORED fas_N : N1 fas, Neutr ; -- [XXXBX] :: divine/heaven's law/will/command; that which is right/lawful/moral/allowed;
     fascea_F_N = mkN "fascea" ; -- [XXXBO] :: band/strip; ribbon; B:bandage; streak/band of cloud; headband/filet; sash (Ecc);
     fascia_F_N = mkN "fascia" ; -- [XXXBO] :: band/strip; ribbon; B:bandage; streak/band of cloud; headband/filet; sash (Ecc);
     fasciculus_M_N = mkN "fasciculus" ; -- [XXXDX] :: little bundle/packet; bunch (of flowers);
@@ -18548,7 +18573,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     favorabiliter_Adv =mkAdv "favorabiliter" "favorabilius" "favorabilissime" ; -- [XLXCO] :: so as to win favor; stretching a point to favor one side, indulgently;
     favus_M_N = mkN "favus" ; -- [XXXDX] :: honeycomb;
     fax_F_N = mkN "fax" "facis " feminine ; -- [XPXAX] :: torch, firebrand, fire; flame of love; torment;
--- IGNORED fe_N : N1 fe, undeclined  -- N -- [DEQEW] :: pe; (17th letter of Hebrew alphabet); (transliterate as P or F);
+-- IGNORED fe_N : N1 fe, Neutr ; -- [DEQEW] :: pe; (17th letter of Hebrew alphabet); (transliterate as P or F);
     febricito_V = mkV "febricitare" ; -- [XBXDO] :: have fever, be feverish, be ill of a fever;
     febricula_F_N = mkN "febricula" ; -- [XXXEC] :: slight fever, feverishness;
     febris_F_N = mkN "febris" "febris " feminine ; -- [XXXDX] :: fever, attack of fever;
@@ -19525,12 +19550,12 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     gilda_F_N = mkN "gilda" ; -- [FLXDM] :: guild; association; guild meeting; guild-house;
     gildo_M_N = mkN "gildo" "gildonis " masculine ; -- [FXXFM] :: camp-follower;
     gilvus_A = mkA "gilvus" "gilva" "gilvum" ; -- [XXXES] :: pale yellow; dun-colored (OLD);
--- IGNORED gimel_N : N1 gimel, undeclined  -- N -- [DEQEW] :: gimel; (3rd letter of Hebrew alphabet); (transliterate as G);
+-- IGNORED gimel_N : N1 gimel, Neutr ; -- [DEQEW] :: gimel; (3rd letter of Hebrew alphabet); (transliterate as G);
     gingiber_N_N = mkN "gingiber" "gingiberis " neuter ; -- [GXXEK] :: ginger;
     gingiva_F_N = mkN "gingiva" ; -- [XXXDX] :: gum (in which the teeth are set);
--- IGNORED git_N : N1 git, undeclined  -- N -- [XAXCO] :: black cumin (Nigella sativa); Roman coriander (L+S); melanthion/melanspermon;
--- IGNORED gith_N : N1 gith, undeclined  -- N -- [EAXCS] :: black cumin (Nigella sativa); Roman coriander (L+S); melanthion/melanspermon;
--- IGNORED gitti_N : N1 gitti, undeclined  -- N -- [XAXCO] :: black cumin (Nigella sativa); Roman coriander (L+S); melanthion/melanspermon;
+-- IGNORED git_N : N1 git, Neutr ; -- [XAXCO] :: black cumin (Nigella sativa); Roman coriander (L+S); melanthion/melanspermon;
+-- IGNORED gith_N : N1 gith, Neutr ; -- [EAXCS] :: black cumin (Nigella sativa); Roman coriander (L+S); melanthion/melanspermon;
+-- IGNORED gitti_N : N1 gitti, Neutr ; -- [XAXCO] :: black cumin (Nigella sativa); Roman coriander (L+S); melanthion/melanspermon;
     glaba_F_N = mkN "glaba" ; -- [XXXDX] :: clod; cultivated soil; lump, mass;
     glaber_A = mkA "glaber" "glabra" "glabrum" ; -- [XXXDX] :: hairless, smooth;
     glabrio_F_N = mkN "glabrio" "glabrionis " feminine ; -- [FXXFM] :: hairless-person; ringworm; L:Glabrio (Roman surname);
@@ -19604,7 +19629,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     gnecos_F_N = mkN "gnecos" "gneci " feminine ; -- [XAXEO] :: safflower (Carthamus tinctorius); similar thistle;
     gobio_M_N = mkN "gobio" "gobionis " masculine ; -- [XAXFO] :: small fish; (of the gudgeon kind); (used for bait); (Gobio);
     gobius_M_N = mkN "gobius" ; -- [XAXCO] :: small fish; (of the gudgeon kind); (used for bait); (Gobio);
--- IGNORED gomor_N : N1 gomor, undeclined  -- N -- [DEQFW] :: gomor/gomer/omer, Jewish dry measure; (over two bushels);
+-- IGNORED gomor_N : N1 gomor, Neutr ; -- [DEQFW] :: gomor/gomer/omer, Jewish dry measure; (over two bushels);
     gonger_M_N = mkN "gonger" ; -- [XAXDO] :: conger eel; sea eel (L+S);
     gorilla_M_N = mkN "gorilla" ; -- [GXXEK] :: gorilla;
     gorytos_M_N = mkN "gorytos" "goryti " masculine ; -- [XWXDO] :: quiver, case holding arrows;
@@ -19740,7 +19765,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     grunnitus_M_N = mkN "grunnitus" "grunnitus " masculine ; -- [XXXEC] :: grunting of a pig;
     grus_F_N = mkN "grus" "gruis " feminine ; -- [GTXEK] :: crane (machine);
     grus_M_N = mkN "grus" "gruis " masculine ; -- [XXXDX] :: crane; large bird; siege engine;
--- IGNORED gry_N : N1 gry, undeclined  -- N -- [XXXEC] :: scrap, crumb;
+-- IGNORED gry_N : N1 gry, Neutr ; -- [XXXEC] :: scrap, crumb;
     gryllographus_M_N = mkN "gryllographus" ; -- [GXXEK] :: caricaturist; cartoonist;
     gryllus_M_N = mkN "gryllus" ; -- [XXXEO] :: cricket; grasshopper; cartoon, comic illustration; caricature (Cal);
     grypho_M_N = mkN "grypho" "gryphonis " masculine ; -- [FYXFM] :: griffin;
@@ -19760,7 +19785,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     gulda_F_N = mkN "gulda" ; -- [FLXDM] :: guild; association; guild meeting; guild-house;
     gulosus_A = mkA "gulosus" "gulosa" "gulosum" ; -- [XXXEC] :: gluttonous;
     gumia_F_N = mkN "gumia" ; -- [XXXES] :: glutton; gourmand;
--- IGNORED gummi_N : N1 gummi, undeclined  -- N -- [XAXCO] :: gum, vicid secretion from trees;
+-- IGNORED gummi_N : N1 gummi, Neutr ; -- [XAXCO] :: gum, vicid secretion from trees;
     gumminosus_A = mkA "gumminosus" "gumminosa" "gumminosum" ; -- [XAXNO] :: gummy, full of gum;
     gummis_F_N = mkN "gummis" "gummis " feminine ; -- [XAXCO] :: gum, vicid secretion from trees;
     gummitio_F_N = mkN "gummitio" "gummitionis " feminine ; -- [XXXFO] :: application of gum;
@@ -19939,7 +19964,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     have_Interj = ss "have" ; -- [XXXDX] :: hail!, formal expression of greetings; 
     havens_A = mkA "havens" "haventis"; -- [XXXCW] :: willing, eager, anxious; covetous;
     haveo_V = mkV "havere" ; -- [XXXCL] :: |be eager/anxious (w/INF); desire, wish for, long after, crave;
--- IGNORED he_N : N1 he, undeclined  -- N -- [DEQEW] :: he; (5th letter of Hebrew alphabet); (transliterate as H);
+-- IGNORED he_N : N1 he, Neutr ; -- [DEQEW] :: he; (5th letter of Hebrew alphabet); (transliterate as H);
     hebdomada_F_N = mkN "hebdomada" ; -- [EXXFE] :: |week, seven days; Jewish week, one Sabbath to next; weekly gathering/duty rota;
     hebdomadarius_A = mkA "hebdomadarius" "hebdomadaria" "hebdomadarium" ; -- [XXXFE] :: lasting a week;
     hebdomadarius_M_N = mkN "hebdomadarius" ; -- [FEXFE] :: choir official serving for a week;
@@ -20061,8 +20086,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     heterogeneus_A = mkA "heterogeneus" "heterogenea" "heterogeneum" ; -- [FXXFM] :: heterogeneous;
     heterogenia_F_N = mkN "heterogenia" ; -- [FXXFM] :: heterogeneity;
     heterosexualis_A = mkA "heterosexualis" "heterosexualis" "heterosexuale" ; -- [HBXEE] :: heterosexual;
--- IGNORED heth_N : N1 heth, undeclined  -- N -- [DEQEW] :: het; (8th letter of Hebrew alphabet); (transliterate as CH);
--- IGNORED hethanim_N : N1 hethanim, undeclined  -- N -- [EEQFW] :: Ethanim; ancient Hebrew seventh month; (meaning flowing rivers);
+-- IGNORED heth_N : N1 heth, Neutr ; -- [DEQEW] :: het; (8th letter of Hebrew alphabet); (transliterate as CH);
+-- IGNORED hethanim_N : N1 hethanim, Neutr ; -- [EEQFW] :: Ethanim; ancient Hebrew seventh month; (meaning flowing rivers);
     heu_Interj = ss "heu" ; -- [XXXAX] :: oh! ah! alas! (an expression of dismay or pain); 
     heuristicus_A = mkA "heuristicus" "heuristica" "heuristicum" ; -- [GXXEK] :: heuristic;
     heus_Interj = ss "heus" ; -- [XXXDX] :: hey!, ho!, ho there!, listen!; 
@@ -20109,7 +20134,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     hilarulus_A = mkA "hilarulus" "hilarula" "hilarulum" ; -- [XXXEC] :: gay, cheerful;
 -- SLASHSTUFF hilarus_A : A2 hilarus, hilara -um, hilarior -or -us, hilarissimus -a -um  -- [XXXDX] :: cheerful, lively, light-hearted;
     hilum_N_N = mkN "hilum" ; -- [XXXEC] :: trifle; (with negative) not a whit, not in the least;
--- IGNORED hin_N : N1 hin, undeclined  -- N -- [ESQFW] :: hin (Hebrew liquid measure, little less than 5 liters); (Vulgate Exodus 29:40);
+-- IGNORED hin_N : N1 hin, Neutr ; -- [ESQFW] :: hin (Hebrew liquid measure, little less than 5 liters); (Vulgate Exodus 29:40);
     hinc_Adv = mkAdv "hinc" ; -- [XXXAX] :: from here, from this source/cause; hence, henceforth;
     hinnitus_M_N = mkN "hinnitus" "hinnitus " masculine ; -- [XXXDX] :: neighing;
     hinnuleus_M_N = mkN "hinnuleus" ; -- [XAXEO] :: fawn; young of the deer;
@@ -20289,7 +20314,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
 -- TODO hostio_V : V2 hostio, hostire, -, -  -- Declension: 4th -- Comment: [XXXEC] :: requite, recompense;
     hostis_F_N = mkN "hostis" "hostis " feminine ; -- [XXXDX] :: enemy (of the state); stranger, foreigner; the enemy (pl.);
     hostis_M_N = mkN "hostis" "hostis " masculine ; -- [XXXDX] :: enemy (of the state); stranger, foreigner; the enemy (pl.);
--- IGNORED hu_N : N1 hu, undeclined  -- N -- [EXQFW] :: what (Hebrew); (food from God for wandering Jews); [man hu => what is this];
+-- IGNORED hu_N : N1 hu, Neutr ; -- [EXQFW] :: what (Hebrew); (food from God for wandering Jews); [man hu => what is this];
     huc_Adv = mkAdv "huc" ; -- [XXXAX] :: here, to this place; to this point;
     huccine_Adv = mkAdv "huccine" ; -- [XXXCE] :: so far; to this point;
     hucusque_Adv = mkAdv "hucusque" ; -- [XXXCO] :: thus far, to this point, up to this time; hitherto; to this extent;
@@ -20492,7 +20517,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     idolum_N_N = mkN "idolum" ; -- [DEXFP] :: |idol-temple; idolatry, paganism (Souter); fetish (Cal);
     idonee_Adv = mkAdv "idonee" ; -- [XXXDO] :: suitably; satisfactorily, in a satisfactory manner; appropriately; adequately;
     idoneus_A = mkA "idoneus" "idonea" "idoneum" ; -- [XXXBO] :: |substantial, solvent; having money to meet obligations, backed by resources;
--- IGNORED idos_N : N1 idos, undeclined  -- N -- [BXHFO] :: form; visible aspect of object;
+-- IGNORED idos_N : N1 idos, Neutr ; -- [BXHFO] :: form; visible aspect of object;
     iens_A = mkA "iens" "euntis"; -- [XXXBO] :: going; (PRES PPL of eo);
     igitur_Conj = mkConj "igitur" Missing ; -- [XXXAO] :: therefore (postpositive), so/then; consequently; accordingly; well/in that case;
     ignarus_A = mkA "ignarus" "ignara" "ignarum" ; -- [XXXBX] :: ignorant; unaware, having no experience of; senseless; strange;
@@ -21956,7 +21981,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     instans_A = mkA "instans" "instantis"; -- [XXXDX] :: eager; urgent; present;
     instanter_Adv =mkAdv "instanter" "instantius" "instantissime" ; -- [XXXDO] :: vehemently; violently; urgently, insistently;
     instantia_F_N = mkN "instantia" ; -- [XXXCO] :: earnestness; insistence/urgency; concentration; being present/impending;
--- IGNORED instar_N : N1 instar, undeclined  -- N -- [XXXDX] :: image, likeness, resemblance; counterpart; the equal/form of (w/GEN);
+-- IGNORED instar_N : N1 instar, Neutr ; -- [XXXDX] :: image, likeness, resemblance; counterpart; the equal/form of (w/GEN);
     instauratio_F_N = mkN "instauratio" "instaurationis " feminine ; -- [XXXDX] :: renewal, repetition;
     instaurativus_A = mkA "instaurativus" "instaurativa" "instaurativum" ; -- [XXXEC] :: renewed, repeated;
     instauro_V = mkV "instaurare" ; -- [XXXDX] :: renew, repeat, restore;
@@ -22319,9 +22344,9 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     invulneratus_A = mkA "invulneratus" "invulnerata" "invulneratum" ; -- [XXXEC] :: unwounded;
     iodium_N_N = mkN "iodium" ; -- [GSXEK] :: iodine;
     iogurtum_N_N = mkN "iogurtum" ; -- [GXXEK] :: yogurt;
--- IGNORED iota_N : N1 iota, undeclined  -- N -- [XXHEO] :: iota;  tenth letter of Greek alphabet; (transliterate as I);
+-- IGNORED iota_N : N1 iota, Neutr ; -- [XXHEO] :: iota;  tenth letter of Greek alphabet; (transliterate as I);
     iotacismus_M_N = mkN "iotacismus" ; -- [XGXFS] :: iotacism; doubling of letters; excessive repetition of iota/other Greek vowels;
--- IGNORED ioth_N : N1 ioth, undeclined  -- N -- [DEQEW] :: yod; (10th letter of Hebrew alphabet); (transliterate as Y);
+-- IGNORED ioth_N : N1 ioth, Neutr ; -- [DEQEW] :: yod; (10th letter of Hebrew alphabet); (transliterate as Y);
     ipsimus_M_N = mkN "ipsimus" ; -- [XXXDX] :: master;
     ipsissimus_A = mkA "ipsissimus" "ipsissima" "ipsissimum" ; -- [BXXFS] :: own very self;
     ira_F_N = mkN "ira" ; -- [XXXBO] :: anger; ire, wrath; resentment; indignation; rage/fury/violence; bad blood;
@@ -22499,7 +22524,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     jocur_N_N = mkN "jocur" "jocinoris " neuter ; -- [XBXDO] :: liver; (food/medicine/divination/seat of feelings);
     jocus_M_N = mkN "jocus" ; -- [XXXBX] :: joke, jest; sport;
     jocusculum_N_N = mkN "jocusculum" ; -- [XBXEO] :: little liver;
--- IGNORED jod_N : N1 jod, undeclined  -- N -- [XXQFE] :: jod; (tenth letter of Hebrew alphabet);
+-- IGNORED jod_N : N1 jod, Neutr ; -- [XXQFE] :: jod; (tenth letter of Hebrew alphabet);
     juba_F_N = mkN "juba" ; -- [XXXDX] :: mane of a horse; crest (of a helmet);
     jubar_N_N = mkN "jubar" "jubaris " neuter ; -- [XXXDX] :: radiance of the heavenly bodies, brightness; first light of day; light source;
     jubatus_A = mkA "jubatus" "jubata" "jubatum" ; -- [XXXEC] :: having mane, crest;
@@ -22621,11 +22646,11 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
 -- SLASHSTUFF karus_A : A2 karus, kara -um, karior -or -us, karissimus -a -um  -- [XXXAO] :: dear, beloved; costly, precious, valued; high-priced, expensive;
     katafractarius_A = mkA "katafractarius" "katafractaria" "katafractarium" ; -- [XWXEO] :: wearing mail, armored;
     katafractarius_M_N = mkN "katafractarius" ; -- [XWXEO] :: mail-clad/armored soldier;
--- IGNORED koppa_N : N1 koppa, undeclined  -- N -- [XXXEO] :: archaic Greek letter koppa;
+-- IGNORED koppa_N : N1 koppa, Neutr ; -- [XXXEO] :: archaic Greek letter koppa;
 -- IGNORED kum_V : V1 kum, undeclined  -- [EEQFE] :: arise; (Aramaic); (Mark 5:41);
     labarum_N_N = mkN "labarum" ; -- [EWXFS] :: Labarum; Roman military standard; Constantine's banner of cross w/monogram XP;
 -- TODO labasco_V : V2 labasco, labascere, -, -  -- Declension: 3rd -- Comment: [XXXDX] :: fall to pieces, break up; waver; yield;
--- IGNORED labda_N : N1 labda, undeclined  -- N -- [XXHEO] :: lambda (Greek letter); (used as a symbol for fellatio);
+-- IGNORED labda_N : N1 labda, Neutr ; -- [XXHEO] :: lambda (Greek letter); (used as a symbol for fellatio);
     labdacismus_M_N = mkN "labdacismus" ; -- [XPXFS] :: speaking fault (esp. with letter L);
     labecula_F_N = mkN "labecula" ; -- [XXXDX] :: stain, blemish; slight stain; minor disgrace;
     labefacto_V = mkV "labefactare" ; -- [XXXDX] :: shake; cause to waver; make unsteady, loosen; undermine;
@@ -22732,7 +22757,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     laicus_A = mkA "laicus" "laica" "laicum" ; -- [EEXDS] :: lay, common; of the laity/people; not priestly/in orders/consecrated;
     laicus_M_N = mkN "laicus" ; -- [EEXCS] :: layman, one not belonging to the priesthood/in orders;
     lama_F_N = mkN "lama" ; -- [GXXEK] :: |llama;
--- IGNORED lamed_N : N1 lamed, undeclined  -- N -- [DEQEW] :: lamed/lameth; (12th letter of Hebrew alphabet); (transliterate as L);
+-- IGNORED lamed_N : N1 lamed, Neutr ; -- [DEQEW] :: lamed/lameth; (12th letter of Hebrew alphabet); (transliterate as L);
     lamella_F_N = mkN "lamella" ; -- [XTXFS] :: small metal piece (eg. coin, plate);
     lamenta_F_N = mkN "lamenta" ; -- [XXXFO] :: wailing, weeping, groans, laments;
     lamentabilis_A = mkA "lamentabilis" "lamentabilis" "lamentabile" ; -- [XXXDX] :: doleful; lamentable;
@@ -22741,7 +22766,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     lamento_V = mkV "lamentare" ; -- [EXXDW] :: lament; utter cries of grief; bewail; lament for; complain that;
     lamentor_V = mkV "lamentari" ; -- [XXXCO] :: lament; utter cries of grief; bewail; lament for; complain that;
     lamentum_N_N = mkN "lamentum" ; -- [XXXCO] :: wailing (pl.), weeping, groans, laments;
--- IGNORED lameth_N : N1 lameth, undeclined  -- N -- [DEQEW] :: lamed/lameth; (12th letter of Hebrew alphabet); (transliterate as L);
+-- IGNORED lameth_N : N1 lameth, Neutr ; -- [DEQEW] :: lamed/lameth; (12th letter of Hebrew alphabet); (transliterate as L);
     lamia_F_N = mkN "lamia" ; -- [XAXEO] :: |kind of shark; sort of flatfish (L+S); species of owl; jackal (Souter);
     lamina_F_N = mkN "lamina" ; -- [XXXBO] :: plate; veneer; thin sheet of metal/other material; (blade); money/cash;
     lamma_Adv = mkAdv "lamma" ; -- [XEQFE] :: why; (Aramaic);
@@ -23048,7 +23073,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     levamen_N_N = mkN "levamen" "levaminis " neuter ; -- [XXXAX] :: alleviation, solace;
     levamentum_N_N = mkN "levamentum" ; -- [XXXDX] :: alleviation, mitigation, consolation;
     levatio_F_N = mkN "levatio" "levationis " feminine ; -- [XXXDO] :: relief, mitigation, alleviation, lessening, diminishing; lifting (action);
--- IGNORED leviathan_N : N1 leviathan, undeclined  -- N -- [EXQDE] :: leviathan, huge aquatic monster (Hebrew); serpent; crocodile; enormous thing;
+-- IGNORED leviathan_N : N1 leviathan, Neutr ; -- [EXQDE] :: leviathan, huge aquatic monster (Hebrew); serpent; crocodile; enormous thing;
     leviculus_A = mkA "leviculus" "levicula" "leviculum" ; -- [XXXEC] :: rather vain, light-headed;
     levidensis_A = mkA "levidensis" "levidensis" "levidense" ; -- [XXXEC] :: thin, slight, poor;
     levifico_V2 = mkV2 (mkV "levificare") ; -- [EXXFP] :: smooth, make smooth; [w/linguam => deal decietfully w/tongue = lie/smooth talk];
@@ -23546,7 +23571,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     madide_Adv = mkAdv "madide" ; -- [XXXDX] :: so as to be dripping/sodden/drenched/thoroughly wet; drunkenly;
     madidus_A = mkA "madidus" "madida" "madidum" ; -- [XXXDX] :: wet, moist; dripping, juicy; sodden, drenched; drunk, tipsy; steeped in;
     maeander_M_N = mkN "maeander" ; -- [XXXCO] :: wavy line; river famous for winding path; roundabout ways/twists/turnings (pl.);
--- IGNORED maeleth_N : N1 maeleth, undeclined  -- N -- [EDQFE] :: harp, lute (Hebrew);
+-- IGNORED maeleth_N : N1 maeleth, Neutr ; -- [EDQFE] :: harp, lute (Hebrew);
     maena_F_N = mkN "maena" ; -- [XAXEC] :: small sea-fish;
     maenianum_N_N = mkN "maenianum" ; -- [FXXEK] :: balcony;
     maerens_A = mkA "maerens" "maerentis"; -- [XXXCO] :: sad, melancholy; mournful, gloomy woeful, doleful; mourning, lamenting (L+S);
@@ -23606,7 +23631,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     magus_A = mkA "magus" "maga" "magum" ; -- [XXXDX] :: magic, magical;
     magus_M_N = mkN "magus" ; -- [XXXDX] :: wise/learned man; magician (Persian); astrologer;
     maharaia_M_N = mkN "maharaia" ; -- [GXXEK] :: maharaja;
--- IGNORED maheleth_N : N1 maheleth, undeclined  -- N -- [EDQFE] :: harp, lute (Hebrew);
+-- IGNORED maheleth_N : N1 maheleth, Neutr ; -- [EDQFE] :: harp, lute (Hebrew);
     mahemium_N_N = mkN "mahemium" ; -- [FLXFJ] :: mayhem;
     maizium_N_N = mkN "maizium" ; -- [GAXEK] :: maize;
     majalis_M_N = mkN "majalis" "majalis " masculine ; -- [XAXDO] :: gelded/castrated hog/boar; barrow pig/hog; swine; (term of abuse);
@@ -23699,7 +23724,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     mamzer_A = mkA "mamzer" "mamzeris"; -- [EEXFS] :: bastard, illegitimate;
     mamzer_F_N = mkN "mamzer" "mamzeris " feminine ; -- [EEXFS] :: bastard, one of illegitimate birth; whoreson (Souter); (Hebrew);
     mamzer_M_N = mkN "mamzer" "mamzeris " masculine ; -- [EEXFS] :: bastard, one of illegitimate birth; whoreson (Souter); (Hebrew);
--- IGNORED man_N : N1 man, undeclined  -- N -- [EXQEW] :: manna; (food from God in Siani); [man/man hu => (Hebrew) what/what is this];
+-- IGNORED man_N : N1 man, Neutr ; -- [EXQEW] :: manna; (food from God in Siani); [man/man hu => (Hebrew) what/what is this];
     manceps_M_N = mkN "manceps" "mancipis " masculine ; -- [XXXDX] :: contractor, agent;
     mancipium_N_N = mkN "mancipium" ; -- [XXXDX] :: possession; formal purchase; slaves;
     mancipo_V = mkV "mancipare" ; -- [XXXDX] :: transfer, sell; surrender;
@@ -23719,7 +23744,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     manduco_V2 = mkV2 (mkV "manducare") ; -- [XXXBO] :: chew, masticate, gnaw; eat, devour;
     manducor_V = mkV "manducari" ; -- [XXXCO] :: chew, masticate, gnaw; eat, devour;
     mane_Adv = mkAdv "mane" ; -- [XXXAX] :: in the morning; early in the morning;
--- IGNORED mane_N : N1 mane, undeclined  -- N -- [XXXDX] :: morning, morn; [multo mane => very early in the morning];
+-- IGNORED mane_N : N1 mane, Neutr ; -- [XXXDX] :: morning, morn; [multo mane => very early in the morning];
     manentia_F_N = mkN "manentia" ; -- [EEXFS] :: permanence; permanency;
     maneo_V = mkV "manere" ; -- [XXXAX] :: remain, stay, abide; wait for; continue, endure, last; spend the night (sexual);
     manerium_N_N = mkN "manerium" ; -- [FXXEM] :: manor; manor-house; [~ dominium => demesne manor];
@@ -23727,7 +23752,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     manganum_N_N = mkN "manganum" ; -- [GSXEK] :: manganese; W: mangonel/mangonneau (stone-casting machine of war);
     mangifera_F_N = mkN "mangifera" ; -- [GAXEK] :: mango tree;
     mango_M_N = mkN "mango" "mangonis " masculine ; -- [XXXEZ] :: dealer (Collins);
--- IGNORED manhu_N : N1 manhu, undeclined  -- N -- [EAQFS] :: manna; (food from God for wandering Hebrews); [man hu => (Hebrew) what is this];
+-- IGNORED manhu_N : N1 manhu, Neutr ; -- [EAQFS] :: manna; (food from God for wandering Hebrews); [man hu => (Hebrew) what is this];
     mania_F_N = mkN "mania" ; -- [GXXEK] :: mania; craze;
     maniacus_A = mkA "maniacus" "maniaca" "maniacum" ; -- [GXXEK] :: maniac;
     manibia_F_N = mkN "manibia" ; -- [BWXFX] :: general's share of the booty; prize-money; profits; (archaic form of manubia);
@@ -23752,7 +23777,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     manipulus_M_N = mkN "manipulus" ; -- [XXXDX] :: maniple, company of soldiers, one third of a cohort; handful, bundle;
     manis_M_N = mkN "manis" "manis " masculine ; -- [XXXDX] :: shades/ghosts of dead (pl.); gods of Lower World; corpse/remains; underworld;
     manna_F_N = mkN "manna" ; -- [XAXES] :: |manna, vegetable juice hardened to grains (Pliny);
--- IGNORED manna_N : N1 manna, undeclined  -- N -- [EAQES] :: manna; (food from God for wandering Hebrews); [man hu => (Hebrew) what is this];
+-- IGNORED manna_N : N1 manna, Neutr ; -- [EAQES] :: manna; (food from God for wandering Hebrews); [man hu => (Hebrew) what is this];
     mannulus_M_N = mkN "mannulus" ; -- [XXXEC] :: pony;
     mannus_M_N = mkN "mannus" ; -- [XXXDX] :: pony;
     mano_V = mkV "manare" ; -- [XXXDX] :: flow, pour; be shed; be wet; spring;
@@ -24036,7 +24061,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     melotis_F_N = mkN "melotis" "melotidis " feminine ; -- [EAXFS] :: sheepskin;
     melum_N_N = mkN "melum" ; -- [XDXCO] :: song, tune, air, strain, lay, melody; hymn;
     melus_M_N = mkN "melus" ; -- [XDXCO] :: song, tune, air, strain, lay, melody; hymn;
--- IGNORED mem_N : N1 mem, undeclined  -- N -- [DEQEW] :: mem; (13th letter of Hebrew alphabet); (transliterate as M);
+-- IGNORED mem_N : N1 mem, Neutr ; -- [DEQEW] :: mem; (13th letter of Hebrew alphabet); (transliterate as M);
     membrana_F_N = mkN "membrana" ; -- [XXXDX] :: membrane; skin; parchment;
     membratim_Adv = mkAdv "membratim" ; -- [XXXDX] :: limb by limb;
     membrum_N_N = mkN "membrum" ; -- [XXXAX] :: member, limb, organ; (esp.) male genital member; apartment, room; section;
@@ -24136,7 +24161,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     meschita_F_N = mkN "meschita" ; -- [GXXEK] :: mosque;
     mese_F_N = mkN "mese" "meses " feminine ; -- [FDXES] :: highest tetrachord note; middle-note (L+S); A-note; notes (pl.) above lowest;
     meses_M_N = mkN "meses" "mesae " masculine ; -- [XXXFO] :: north-east wind;
--- IGNORED meson_N : N1 meson, undeclined  -- N -- [FDXES] :: middle-note;
+-- IGNORED meson_N : N1 meson, Neutr ; -- [FDXES] :: middle-note;
     mespila_F_N = mkN "mespila" ; -- [DAXNS] :: medlar-tree (Pliny);
     mespilum_N_N = mkN "mespilum" ; -- [XAXFS] :: medlar tree (Pliny);
     messis_F_N = mkN "messis" "messis " feminine ; -- [XXXBX] :: harvest, crop; harvest time;
@@ -24828,7 +24853,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nable_N_N = mkN "nable" "nablis " neuter ; -- [XXXFO] :: psaltery; (pl. 10/12 stringed instrument w/sounding board behind strings OED);
     nablium_N_N = mkN "nablium" ; -- [XXXFS] :: psaltery; (10/12 stringed instrument w/sounding board behind strings OED);
     nablum_N_N = mkN "nablum" ; -- [XXXES] :: psaltery; (10/12 stringed instrument w/sounding board behind strings OED);
--- IGNORED nadir_N : N1 nadir, undeclined  -- N -- [GXXEK] :: nadir;
+-- IGNORED nadir_N : N1 nadir, Neutr ; -- [GXXEK] :: nadir;
     nae_Adv = mkAdv "nae" ; -- [XXXEO] :: truly, indeed, verily, assuredly; (particle of assurance); (w/personal PRON);
     naevus_M_N = mkN "naevus" ; -- [XXXDX] :: mole (on the body); birthmark;
     nam_Conj = mkConj "nam" Missing ; -- [XXXAX] :: for, on the other hand; for instance;
@@ -24983,7 +25008,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nefarie_Adv = mkAdv "nefarie" ; -- [XXXES] :: wickedly, impiously; nefariously, abominably; heinously;
     nefarium_N_N = mkN "nefarium" ; -- [XXXES] :: crime; wicked/impious/nefarious/heinous act;
     nefarius_A = mkA "nefarius" "nefaria" "nefarium" ; -- [XXXCS] :: |impious; nefarious; execrable; heinous; abandoned (Cas);
--- IGNORED nefas_N : N1 nefas, undeclined  -- N -- [XXXBX] :: sin, violation of divine law, impious act; [fas et nefas => right and wrong];
+-- IGNORED nefas_N : N1 nefas, Neutr ; -- [XXXBX] :: sin, violation of divine law, impious act; [fas et nefas => right and wrong];
     nefastus_A = mkA "nefastus" "nefasta" "nefastum" ; -- [XXXDX] :: contrary to divine law; [dies nefasti => days unfit for public business];
     negatio_F_N = mkN "negatio" "negationis " feminine ; -- [XXXDO] :: denial, refusal; negation (action); negative (Souter); betrayal;
     negative_Adv = mkAdv "negative" ; -- [DXXES] :: negatively; in the negative (Souter);
@@ -25072,7 +25097,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     ni_Conj = mkConj "ni" Missing ; -- [XXXDX] :: if ...  not; unless;
     niceterium_N_N = mkN "niceterium" ; -- [XXXEC] :: reward of victory, prize;
     nichelium_N_N = mkN "nichelium" ; -- [GSXEK] :: nickel;
--- IGNORED nichil_N : N1 nichil, undeclined  -- N -- [FXXDM] :: nothing; no; trifle/thing not worth mentioning; nonentity; nonsense; no concern;
+-- IGNORED nichil_N : N1 nichil, Neutr ; -- [FXXDM] :: nothing; no; trifle/thing not worth mentioning; nonentity; nonsense; no concern;
     nichilum_N_N = mkN "nichilum" ; -- [FXXEM] :: nothing; nothingness, which does not exist; something valueless; no respect;
     nicotinum_N_N = mkN "nicotinum" ; -- [GXXEK] :: nicotine;
     nicto_V = mkV "nictare" ; -- [XXXDX] :: blink;
@@ -25092,13 +25117,13 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nigritia_F_N = mkN "nigritia" ; -- [EXXFS] :: blackness; black color;
     nigrities_F_N = mkN "nigrities" "nigritiei " feminine ; -- [EXXFS] :: blackness; black color;
     nigro_V = mkV "nigrare" ; -- [XXXEO] :: be black; make black;
--- IGNORED nihil_N : N1 nihil, undeclined  -- N -- [XXXAO] :: nothing; no; trifle/thing not worth mentioning; nonentity; nonsense; no concern;
--- IGNORED nihildum_N : N1 nihildum, undeclined  -- N -- [XXXDX] :: nothing; nothing as yet; not a shred; less than nothing;
+-- IGNORED nihil_N : N1 nihil, Neutr ; -- [XXXAO] :: nothing; no; trifle/thing not worth mentioning; nonentity; nonsense; no concern;
+-- IGNORED nihildum_N : N1 nihildum, Neutr ; -- [XXXDX] :: nothing; nothing as yet; not a shred; less than nothing;
     nihilismus_M_N = mkN "nihilismus" ; -- [GXXEK] :: nihilism;
     nihilitas_F_N = mkN "nihilitas" "nihilitatis " feminine ; -- [FEXEM] :: nothingness;
     nihilominus_Adv = mkAdv "nihilominus" ; -- [XXXDX] :: never/none the less, notwithstanding, just the same; likewise, as well;
     nihilum_N_N = mkN "nihilum" ; -- [XXXBO] :: nothing; nothingness, which does not exist; something valueless; no respect;
--- IGNORED nil_N : N1 nil, undeclined  -- N -- [XXXAO] :: nothing; no; trifle/thing not worth mentioning; nonentity; nonsense; no concern;
+-- IGNORED nil_N : N1 nil, Neutr ; -- [XXXAO] :: nothing; no; trifle/thing not worth mentioning; nonentity; nonsense; no concern;
     nilum_N_N = mkN "nilum" ; -- [XXXBO] :: nothing; nothingness, which does not exist; something valueless; no respect;
     nimbifer_A = mkA "nimbifer" "nimbifera" "nimbiferum" ; -- [XXXEC] :: stormy;
     nimbosus_A = mkA "nimbosus" "nimbosa" "nimbosum" ; -- [XXXDX] :: full of/surrounded by rain clouds;
@@ -25110,7 +25135,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nimium_Adv = mkAdv "nimium" ; -- [XXXDX] :: too, too much; very, very much, beyond measure, excessive, too great;
     nimius_A = mkA "nimius" "nimia" "nimium" ; -- [XXXAX] :: excessive, too great;
     ninguis_F_N = mkN "ninguis" "ninguis " feminine ; -- [XSXEO] :: snow; drifts of snow (pl.);
--- IGNORED nisan_N : N1 nisan, undeclined  -- N -- [EXQEW] :: Nisan, Jewish month; (1st in ecclesiastic year); (late January-early February);
+-- IGNORED nisan_N : N1 nisan, Neutr ; -- [EXQEW] :: Nisan, Jewish month; (1st in ecclesiastic year); (late January-early February);
     nisi_Conj = mkConj "nisi" Missing ; -- [XXXAX] :: if not; except, unless;
     nisus_M_N = mkN "nisus" "nisus " masculine ; -- [XXXDX] :: pressing upon/down; pressure, push; endeavor; exertion; strong muscular effort;
     nitedula_F_N = mkN "nitedula" ; -- [XAXEC] :: dormouse;
@@ -25171,7 +25196,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nonnemo_F_N = mkN "nonnemo" "nonneminis " feminine ; -- [XXXDX] :: some persons, a few;
     nonnemo_M_N = mkN "nonnemo" "nonneminis " masculine ; -- [XXXDX] :: some persons, a few;
     nonnihil_Adv = mkAdv "nonnihil" ; -- [XXXDX] :: in some measure;
--- IGNORED nonnihil_N : N1 nonnihil, undeclined  -- N -- [XXXDX] :: certain amount;
+-- IGNORED nonnihil_N : N1 nonnihil, Neutr ; -- [XXXDX] :: certain amount;
     nonnisi_Conj = mkConj "nonnisi" Missing ; -- [XXXDO] :: not unless; not except; only (on specific terms);
 -- SLASHSTUFF nonnullus_A : A2 nonnullus, nonnulla, nonnullum (gen -ius)  -- [XXXBX] :: some, several, a few; one and another; considerable;
     nonnullus_M_N = mkN "nonnullus" ; -- [XXXDX] :: some (pl.), several, a few;
@@ -25292,7 +25317,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     nummus_M_N = mkN "nummus" ; -- [XXXDX] :: coin; cash; money; sesterce;
     numquam_Adv = mkAdv "numquam" ; -- [XXXAX] :: never;
     numquid_Adv = mkAdv "numquid" ; -- [XXXCO] :: is it possible, surely ... not; can it be that; (question  expecting negative);
--- IGNORED nun_N : N1 nun, undeclined  -- N -- [DEQEW] :: nun; (14th letter of Hebrew alphabet); (transliterate as N);
+-- IGNORED nun_N : N1 nun, Neutr ; -- [DEQEW] :: nun; (14th letter of Hebrew alphabet); (transliterate as N);
     nunc_Adv = mkAdv "nunc" ; -- [XXXAX] :: now, today, at present;
     nuncia_F_N = mkN "nuncia" ; -- [DXXES] :: female messenger; she who brings tidings (L+S);
     nunciam_Adv = mkAdv "nunciam" ; -- [XXXDX] :: here and now; now at last;
@@ -25653,7 +25678,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     oenanthe_F_N = mkN "oenanthe" "oenanthes " feminine ; -- [XAXES] :: wild grape; thorny plant; mother of Ptolemy Epiphanes;
     oenococtus_A = mkA "oenococtus" "oenococta" "oenococtum" ; -- [EAXFS] :: stewed-in-wine;
     oenophorum_N_N = mkN "oenophorum" ; -- [XXXEC] :: basket for wine;
--- IGNORED oephi_N : N1 oephi, undeclined  -- N -- [DEQFW] :: ephi/ephah, Jewish dry measure; (ten gomor, over twenty bushels);
+-- IGNORED oephi_N : N1 oephi, Neutr ; -- [DEQFW] :: ephi/ephah, Jewish dry measure; (ten gomor, over twenty bushels);
     oestrus_M_N = mkN "oestrus" ; -- [XXXDX] :: gad-fly;
     oesypum_N_N = mkN "oesypum" ; -- [XXXDO] :: cosmetic; grease from unwashed wool (used in medicine/cosmetics); (lanolin?);
     ofella_F_N = mkN "ofella" ; -- [XXXEC] :: bit, morsel;
@@ -25730,7 +25755,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     olus_N_N = mkN "olus" "oleris " neuter ; -- [XXXDX] :: vegetables; cabbage, turnips, greens; kitchen/pot herbs;
     olyra_F_N = mkN "olyra" ; -- [DAXNS] :: spelt-like grain (Pliny);
     omasum_N_N = mkN "omasum" ; -- [XXXEC] :: bullock's tripe;
--- IGNORED omega_N : N1 omega, undeclined  -- N -- [XXHEW] :: omega; last letter of Greek alphabet; (transliterate as O); last; the end;
+-- IGNORED omega_N : N1 omega, Neutr ; -- [XXHEW] :: omega; last letter of Greek alphabet; (transliterate as O); last; the end;
     omen_N_N = mkN "omen" "ominis " neuter ; -- [XXXBX] :: omen, sign; token;
     omentum_N_N = mkN "omentum" ; -- [XXXEC] :: fat; entrails, bowels;
     ominor_V = mkV "ominari" ; -- [XXXDX] :: forebode, presage;
@@ -26700,7 +26725,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     pentachordus_A = mkA "pentachordus" "pentachorda" "pentachordum" ; -- [DDXFS] :: 5-stringed (instrument);
     pentacontarchus_M_N = mkN "pentacontarchus" ; -- [EWXFS] :: pentacontarch, commander of fifty men; (platoon commander);
     pentameter_M_N = mkN "pentameter" ; -- [XPXES] :: pentameter; five metric feet;
--- IGNORED pente_N : N1 pente, undeclined  -- N -- [FDXEZ] :: musical fifth;
+-- IGNORED pente_N : N1 pente, Neutr ; -- [FDXEZ] :: musical fifth;
     pentecontarcus_M_N = mkN "pentecontarcus" ; -- [EWXFW] :: pentacontarch, commander of fifty men; (platoon commander); (1 Maccabbes 3:55);
     penteris_F_N = mkN "penteris" "penteris " feminine ; -- [XWXFO] :: quinquereme, large galley with five rowers to each room or five banks of oars;
     pentral_N_N = mkN "pentral" "pentralis " neuter ; -- [FXXFM] :: gimlet; innermost parts/chambers/self (pl.) (Ecc); spirit, life of soul;
@@ -29170,7 +29195,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     qui_Adv = mkAdv "qui" ; -- [XXXAO] :: how?; how so; in what way; by what/which means; whereby; at whatever price;
     quia_Conj = mkConj "quia" Missing ; -- [XXXAX] :: because;
     quianam_Adv = mkAdv "quianam" ; -- [XXXDX] :: why ever?;
--- IGNORED quiddam_N : N1 quiddam, undeclined  -- N -- [XXXDS] :: something;
+-- IGNORED quiddam_N : N1 quiddam, Neutr ; -- [XXXDS] :: something;
     quidditas_F_N = mkN "quidditas" "quidditatis " feminine ; -- [FEXCF] :: quiddity, what a thing is, essence of a thing; (answers question quid est res);
     quidem_Adv = mkAdv "quidem" ; -- [XXXAX] :: indeed (postpositive), certainly, even, at least; ne...quidem -- not...even;
     quidnam_Adv = mkAdv "quidnam" ; -- [XXXDX] :: what?  how?;
@@ -29286,9 +29311,9 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     quum_Abl_Prep = mkPrep "quum" Abl ; -- [DXXCS] :: with, together with, at the same time with; under; at; along with, amid;
     quum_Conj = mkConj "quum" Missing ; -- [DXXCS] :: when, while, as, since, although; as soon;
     quur_Adv = mkAdv "quur" ; -- [XXXEO] :: why, wherefore, for what reason? (impatience); on account of which?; because;
--- IGNORED rabbi_N : N1 rabbi, undeclined  -- M -- [DEQEE] :: rabbi; teacher, master; (Hebrew);
+-- IGNORED rabbi_N : N1 rabbi Masc ;-- [DEQEE] :: rabbi; teacher, master; (Hebrew);
     rabbinus_M_N = mkN "rabbinus" ; -- [GEXEK] :: rabbi;
--- IGNORED rabboni_N : N1 rabboni, undeclined  -- M -- [DEQEE] :: rabbi; teacher, master; (Hebrew);
+-- IGNORED rabboni_N : N1 rabboni Masc ; -- [DEQEE] :: rabbi; teacher, master; (Hebrew);
     rabidus_A = mkA "rabidus" "rabida" "rabidum" ; -- [XXXDX] :: mad, raging, frenzied, wild;
     rabies_F_N = mkN "rabies" "rabiei " feminine ; -- [XXXDX] :: madness;
 -- TODO rabio_V : V2 rabio, rabere, -, -  -- Declension: 3rd -- Comment: [XPXFS] :: rave; be mad;
@@ -29775,7 +29800,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     requietus_A = mkA "requietus" "requieta" "requietum" ; -- [XXXDX] :: rested; improved by lying fallow;
     requirito_V2 = mkV2 (mkV "requiritare") ; -- [BXXFS] :: inquire repeatedly; keep asking after;
     res_F_N = mkN "res" "rei " feminine ; -- [XXXAX] :: thing; event/affair/business; fact; cause; property; [~ familiaris => property];
--- IGNORED res_N : N1 res, undeclined  -- N -- [DEQEW] :: res; (20th letter of Hebrew alphabet); (transliterate as R);
+-- IGNORED res_N : N1 res, Neutr ; -- [DEQEW] :: res; (20th letter of Hebrew alphabet); (transliterate as R);
     resacro_V = mkV "resacrare" ; -- [XXXEC] :: implore again and again; free from a curse;
     resaluto_V2 = mkV2 (mkV "resalutare") ; -- [XXXDS] :: greet back; greet in return;
 -- TODO resanesco_V : V2 resanesco, resanescere, resanui, -  -- Declension: 3rd -- Comment: [XXXDX] :: be healed;
@@ -29921,7 +29946,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     rhetoricus_A = mkA "rhetoricus" "rhetorica" "rhetoricum" ; -- [XXXDX] :: of rhetoric, rhetorical;
     rheumatismus_M_N = mkN "rheumatismus" ; -- [XBXES] :: catarrh; rheum;
 -- TODO rhinoceros_N : N1 rhinoceros, rhinocerotos/is  -- M -- [XAXCO] :: rhinoceros (African or Indian); rhinoceros horn oil-flask;
--- IGNORED rho_N : N1 rho, undeclined  -- N -- [XGXEC] :: Greek name of the letter R;
+-- IGNORED rho_N : N1 rho, Neutr ; -- [XGXEC] :: Greek name of the letter R;
     rhododendron_N_N = mkN "rhododendron" "rhododendri " neuter ; -- [DAXNS] :: rose-bay; oleander (Pliny);
     rhombus_M_N = mkN "rhombus" ; -- [XXXDX] :: turbot (fish), flatfish; magician's circle;
     rhomium_N_N = mkN "rhomium" ; -- [GXXEK] :: rum;
@@ -30129,7 +30154,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     rutus_A = mkA "rutus" "ruta" "rutum" ; -- [ELXDS] :: dug-up; (ruta et caesa = everything dug up and cut down on an estate);
     rythmicus_A = mkA "rythmicus" "rythmica" "rythmicum" ; -- [XDXEO] :: rhythmic; of/concerned with rhythm;
 -- IGNORED sabacthani_V : V1 sabacthani, undeclined  -- [EEQFW] :: forsaken; [Heli Heli lemma ~ => My God, my God why hast thou forsaken me];
--- IGNORED sabath_N : N1 sabath, undeclined  -- N -- [EXQEW] :: Shebat, Jewish month; (eleventh in ecclesiastic year);
+-- IGNORED sabath_N : N1 sabath, Neutr ; -- [EXQEW] :: Shebat, Jewish month; (eleventh in ecclesiastic year);
     sabbataria_F_N = mkN "sabbataria" ; -- [XEXFO] :: woman who keeps the sabbath; Jewish woman;
     sabbatismus_M_N = mkN "sabbatismus" ; -- [EEXES] :: observing/keeping of the sabbath;
     sabbatizo_V = mkV "sabbatizare" ; -- [EEXES] :: observe/keep the sabbath;
@@ -30176,7 +30201,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     sacro_V = mkV "sacrare" ; -- [XEXBX] :: consecrate, make sacred, dedicate;
     sacrosanctus_A = mkA "sacrosanctus" "sacrosancta" "sacrosanctum" ; -- [XEXDX] :: consecrated by religious ceremony, sacred, inviolable, most holy; venerable;
     sacrum_N_N = mkN "sacrum" ; -- [XEXDX] :: sacrifice; sacred vessel; religious rites (pl.);
--- IGNORED sade_N : N1 sade, undeclined  -- N -- [DEQEW] :: sade; (18th letter of Hebrew alphabet); (transliterate as TS);
+-- IGNORED sade_N : N1 sade, Neutr ; -- [DEQEW] :: sade; (18th letter of Hebrew alphabet); (transliterate as TS);
     saeclaris_A = mkA "saeclaris" "saeclaris" "saeclare" ; -- [CXXEO] :: of/belonging to saeculum/century/generation; of Roman century games/hymns;
     saeclum_N_N = mkN "saeclum" ; -- [XXXCO] :: age; generation, people born at a time; breed, race; present time/age; century;
     saecularis_A = mkA "saecularis" "saecularis" "saeculare" ; -- [DEXBS] :: secular, of world not church; ecclesiastics not member of order (Bee); gentile;
@@ -30284,7 +30309,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     sambuca_F_N = mkN "sambuca" ; -- [XDXEC] :: species of harp;
     sambucistria_F_N = mkN "sambucistria" ; -- [XXXDX] :: player (female) an the small harp/sambuca;
     sambucus_M_N = mkN "sambucus" ; -- [XDXES] :: sambuca-player; Itriangular stringed-instrument w/very sharp shrill tone OED);
--- IGNORED samech_N : N1 samech, undeclined  -- N -- [DEQEW] :: samekh; (15th letter of Hebrew alphabet); (transliterate as S);
+-- IGNORED samech_N : N1 samech, Neutr ; -- [DEQEW] :: samekh; (15th letter of Hebrew alphabet); (transliterate as S);
     samera_F_N = mkN "samera" ; -- [DAXNS] :: elm-seed (Pliny);
     sampsuchum_N_N = mkN "sampsuchum" ; -- [XAXFS] :: marjoram plant;
     sampsucum_N_N = mkN "sampsucum" ; -- [XAXFS] :: marjoram plant;
@@ -30651,7 +30676,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     scyphus_M_N = mkN "scyphus" ; -- [FXXCM] :: bowl, goblet, cup; communion cup; two-handled drinking vessel;
     scytala_F_N = mkN "scytala" ; -- [XXXEO] :: wooden cylinder; roller; secret writing/letter (L+S); cylindrical snake;
     scytale_F_N = mkN "scytale" "scytales " feminine ; -- [XXXEO] :: wooden cylinder; roller; secret writing/letter (L+S); cylindrical snake;
--- IGNORED sebboleth_N : N1 sebboleth, undeclined  -- N -- [EEQFW] :: scibboleth (grain ear) which mispronounciation Gileadites uncovered Ephraimite;
+-- IGNORED sebboleth_N : N1 sebboleth, Neutr ; -- [EEQFW] :: scibboleth (grain ear) which mispronounciation Gileadites uncovered Ephraimite;
     sebum_N_N = mkN "sebum" ; -- [XXXDX] :: suet, tallow, hard animal fat;
     secamentum_N_N = mkN "secamentum" ; -- [XTXNO] :: piece of carpentry;
     secespita_F_N = mkN "secespita" ; -- [XEXEO] :: type of sacrificial knife;
@@ -30698,7 +30723,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     securus_A = mkA "securus" "secura" "securum" ; -- [XXXAX] :: secure, safe, untroubled, free from care;
     secus_Acc_Prep = mkPrep "secus" Acc ; -- [XXXCO] :: by, beside, alongside; in accordance with;
     secus_Adv = mkAdv "secus" ; -- [XXXAO] :: otherwise; differently, in another way; contrary to what is right/expected;
--- IGNORED secus_N : N1 secus, undeclined  -- N -- [XBXDS] :: sex;
+-- IGNORED secus_N : N1 secus, Neutr ; -- [XBXDS] :: sex;
     secutor_M_N = mkN "secutor" "secutoris " masculine ; -- [XXXDS] :: pursuer; attendant;
     secuutus_M_N = mkN "secuutus" ; -- [FXXEN] :: follower, pursuer;
     sed_Conj = mkConj [] "sed" [] Sg Sed ; -- [XXXAX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
@@ -30853,7 +30878,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     semunciarius_A = mkA "semunciarius" "semunciaria" "semunciarium" ; -- [XXXEC] :: of the fraction 1/24;
     semustulatus_A = mkA "semustulatus" "semustulata" "semustulatum" ; -- [XXXEC] :: half-burnt;
     semustus_A = mkA "semustus" "semusta" "semustum" ; -- [XXXDX] :: half-burnt, singed;
--- IGNORED sen_N : N1 sen, undeclined  -- N -- [DEQEW] :: sin, shin; (21st letter of Hebrew alphabet); (transliterate as S and SH);
+-- IGNORED sen_N : N1 sen, Neutr ; -- [DEQEW] :: sin, shin; (21st letter of Hebrew alphabet); (transliterate as S and SH);
     senaculum_N_N = mkN "senaculum" ; -- [XXXEC] :: open space in the Forum, used by the Senate;
     senariolus_M_N = mkN "senariolus" ; -- [XPXFS] :: little trimeter; small verse of six feet;
     senarius_A = mkA "senarius" "senaria" "senarium" ; -- [XXXEC] :: composed of six in a group;
@@ -31070,7 +31095,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     set_Conj = mkConj "set" Missing ; -- [XXXBX] :: but, but also; yet; however, but in fact/truth; not to mention; yes but;
     seta_F_N = mkN "seta" ; -- [XXXCO] :: hair; (coarse/stiff); bristle; brush; morbid internal growth; fishing-leader;
     setius_Adv = mkAdv "setius" ; -- [XXXDX] :: less, worse; [nihilo setius => none the less, nevertheless];
--- IGNORED setthim_N : N1 setthim, undeclined  -- N -- [EXQEW] :: shittim/setim wood, wood of shittah tree/acacia wood; (not the tree); (Hebrew);
+-- IGNORED setthim_N : N1 setthim, Neutr ; -- [EXQEW] :: shittim/setim wood, wood of shittah tree/acacia wood; (not the tree); (Hebrew);
     seu_Conj = mkConj "seu" Missing ; -- [XXXAX] :: or if; or; [sive ... sive => whether ... or, either ... or];
     severitas_F_N = mkN "severitas" "severitatis " feminine ; -- [XXXDX] :: strictness, severity;
     severitudo_F_N = mkN "severitudo" "severitudinis " feminine ; -- [XXXFS] :: severity; austerity;
@@ -31103,9 +31128,9 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     sexualis_A = mkA "sexualis" "sexualis" "sexuale" ; -- [GBXEK] :: sexual;
     sexualitas_F_N = mkN "sexualitas" "sexualitatis " feminine ; -- [GBXEK] :: sexuality;
     sexus_M_N = mkN "sexus" "sexus " masculine ; -- [XXXAS] :: sex; (male or female); (also for plants); sexual organs;
--- IGNORED sexus_N : N1 sexus, undeclined  -- N -- [XBXDS] :: sex; (male or female);
+-- IGNORED sexus_N : N1 sexus, Neutr ; -- [XBXDS] :: sex; (male or female);
     si_Conj = mkConj "si" Missing ; -- [XXXAX] :: if, if only; whether; [quod si/si quis or quid => but if/if anyone or anything];
--- IGNORED siban_N : N1 siban, undeclined  -- N -- [EXQEW] :: Sivan/Siban; third month of the Jewish ecclesiastical year;
+-- IGNORED siban_N : N1 siban, Neutr ; -- [EXQEW] :: Sivan/Siban; third month of the Jewish ecclesiastical year;
     sibilo_V = mkV "sibilare" ; -- [XXXDX] :: hiss; hiss at;
     sibilum_N_N = mkN "sibilum" ; -- [XXXDX] :: hissing, whistling; hiss of contempt or disfavor;
     sibilus_A = mkA "sibilus" "sibila" "sibilum" ; -- [XXXDX] :: hissing;
@@ -31306,7 +31331,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     sitiens_A = mkA "sitiens" "sitientis"; -- [XXXDX] :: thirsting, producing thirst, arid, dry, parched, thirsty (for);
 -- TODO sitio_V : V2 sitio, sitire, sitivi, -  -- Declension: 4th -- Comment: [XXXBX] :: be thirsty;
     sitis_F_N = mkN "sitis" "sitis " feminine ; -- [XXXBX] :: thirst;
--- IGNORED sitthim_N : N1 sitthim, undeclined  -- N -- [EXQEW] :: shittim/setim wood, wood of shittah tree/acacia wood; (not the tree); (Hebrew);
+-- IGNORED sitthim_N : N1 sitthim, Neutr ; -- [EXQEW] :: shittim/setim wood, wood of shittah tree/acacia wood; (not the tree); (Hebrew);
     sittybus_M_N = mkN "sittybus" ; -- [XXXEC] :: strip of parchment showing the title of a book;
     situalis_A = mkA "situalis" "situalis" "situale" ; -- [FXXFM] :: local, localized;
     situla_F_N = mkN "situla" ; -- [XXXDO] :: basin/urn/jar; bucket, vessel for drawing/holding water; urn/basin on monument;
@@ -32649,7 +32674,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     talio_F_N = mkN "talio" "talionis " feminine ; -- [XXXEC] :: retaliation;
     talis_A = mkA "talis" "talis" "tale" ; -- [XXXAX] :: such; so great; so excellent; of such kind;
     taliter_Adv = mkAdv "taliter" ; -- [XXXDX] :: in such a manner/way (as described), so;
--- IGNORED talitha_N : N1 talitha, undeclined  -- F -- [EXQFW] :: girl; damsel (Douay); (Aramaic); (Mark 5:41);
+-- IGNORED talitha_N : N1 talitha Fem ;-- [EXQFW] :: girl; damsel (Douay); (Aramaic); (Mark 5:41);
     talla_F_N = mkN "talla" ; -- [XAXEO] :: layer of an onion; peel or coat of an onion (L+S);
     tallus_M_N = mkN "tallus" ; -- [EAXFW] :: young/green branch/bough/stalk; olive or myrtle (L+S) branch (2 Maccabee 14:4);
     talpa_C_N = mkN "talpa" ; -- [XXXCO] :: mole (animal);
@@ -32704,8 +32729,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     taxo_V = mkV "taxare" ; -- [XXXDX] :: value, assess the worth of; access a crime; reckon the size/extent; fix sum of;
     taxus_F_N = mkN "taxus" ; -- [XXXDX] :: yew-tree;
     teanus_A = mkA "teanus" "teana" "teanum" ; -- [GXXEK] :: of tea;
--- IGNORED tebboleth_N : N1 tebboleth, undeclined  -- N -- [EEQFW] :: mispronunciation of scibboleth (grain ear) whereby Gileadites found Ephraimite;
--- IGNORED tebeth_N : N1 tebeth, undeclined  -- N -- [EXQEW] :: Tebet/Tebeth; tenth month of the Jewish ecclesiastical year;
+-- IGNORED tebboleth_N : N1 tebboleth, Neutr ; -- [EEQFW] :: mispronunciation of scibboleth (grain ear) whereby Gileadites found Ephraimite;
+-- IGNORED tebeth_N : N1 tebeth, Neutr ; -- [EXQEW] :: Tebet/Tebeth; tenth month of the Jewish ecclesiastical year;
     techina_F_N = mkN "techina" ; -- [BXXFS] :: wile; trick; (archaic);
     techna_F_N = mkN "techna" ; -- [XXXEC] :: cunning trick, artifice;
     technica_F_N = mkN "technica" ; -- [GXXEK] :: technique;
@@ -32941,7 +32966,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     tetanicus_M_N = mkN "tetanicus" ; -- [DBXNS] :: one with neck-cramp (Pliny);
     tetanus_M_N = mkN "tetanus" ; -- [DBXNS] :: neck-cramp (Pliny);
 -- SLASHSTUFF teter_A : A2 teter, tetra -um, tetrior -or -us, teterrimus -a -um  -- [XXXDS] :: foul, offensive; ugly; disgraceful; (taeter);
--- IGNORED teth_N : N1 teth, undeclined  -- N -- [DEQEW] :: tet; (9th letter of Hebrew alphabet); (transliterate as T);
+-- IGNORED teth_N : N1 teth, Neutr ; -- [DEQEW] :: tet; (9th letter of Hebrew alphabet); (transliterate as T);
     tetrachmum_N_N = mkN "tetrachmum" ; -- [XXXEC] :: Greek coin of four drachmae;
     tetrachordos_A = mkA "tetrachordos" "tetrachordos" "tetrachordon" ; -- [XDXFO] :: four-stringed; having a scale of four notes;
     tetrachordos_N_N = mkN "tetrachordos" "tetrachordi " neuter ; -- [XDXFO] :: tetrachord; set of 4 strings (in instrument); scale of 4 notes;
@@ -32974,7 +32999,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     thallus_M_N = mkN "thallus" ; -- [XAXEO] :: young/green branch/bough/stalk; laurel or olive or myrtle (L+S) branch;
     thapsia_F_N = mkN "thapsia" ; -- [DAXNS] :: poisonous shrub (Pliny);
     thaspi_N_N = mkN "thaspi" "thaspis " neuter ; -- [DAXNS] :: cress (Pliny);
--- IGNORED thau_N : N1 thau, undeclined  -- N -- [DEQEW] :: tav; (22nd letter of Hebrew alphabet); (transliterate as T); (mark of Cain);
+-- IGNORED thau_N : N1 thau, Neutr ; -- [DEQEW] :: tav; (22nd letter of Hebrew alphabet); (transliterate as T); (mark of Cain);
     thea_F_N = mkN "thea" ; -- [GXXEK] :: tea;
     theatralis_A = mkA "theatralis" "theatralis" "theatrale" ; -- [XXXDX] :: theatrical, of the_stage;
     theatricus_A = mkA "theatricus" "theatrica" "theatricum" ; -- [XDXFX] :: theatrical, theatric; of/belonging to theater;
@@ -32995,7 +33020,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     theorices_F_N = mkN "theorices" "theoricae " feminine ; -- [DSXFS] :: theory, philosophic speculation;
     theoricus_A = mkA "theoricus" "theorica" "theoricum" ; -- [FSXDF] :: theoretical; observing, considering, relating to observation/consideration;
     theosophia_F_N = mkN "theosophia" ; -- [EEXEE] :: theosophy, wisdom concerning God; (doctrine of Boehme rejected by the Church);
--- IGNORED therafin_N : N1 therafin, undeclined  -- N -- [EEQEW] :: teraphim/theraphim (pl. form); theraph (sg. form); idols/images; household gods;
+-- IGNORED therafin_N : N1 therafin, Neutr ; -- [EEQEW] :: teraphim/theraphim (pl. form); theraph (sg. form); idols/images; household gods;
     therapeuta_M_N = mkN "therapeuta" ; -- [GBXEK] :: therapist;
     therapia_F_N = mkN "therapia" ; -- [GBXEK] :: therapy;
     theristrum_N_N = mkN "theristrum" ; -- [EXXES] :: garment, covering; summer garment;
@@ -34077,7 +34102,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     vatis_F_N = mkN "vatis" "vatis " feminine ; -- [XXXBO] :: prophetess/ mouthpiece of deity; oracle/soothsayer; poetess (divinely inspired);
     vatius_A = mkA "vatius" "vatia" "vatium" ; -- [XXXFS] :: kept-outwards; bow-legged;
     vattium_N_N = mkN "vattium" ; -- [GSXEK] :: watt;
--- IGNORED vav_N : N1 vav, undeclined  -- N -- [DEQEW] :: vav; (6th letter of Hebrew alphabet); (transliterate as V);
+-- IGNORED vav_N : N1 vav, Neutr ; -- [DEQEW] :: vav; (6th letter of Hebrew alphabet); (transliterate as V);
     vavasor_M_N = mkN "vavasor" "vavasoris " masculine ; -- [FLXFM] :: vavasour; under-tenant; (feudal); feudal tenant ranking right below baron (OED);
     vecordia_F_N = mkN "vecordia" ; -- [XXXDX] :: frenzy;
     vecors_A = mkA "vecors" "vecordis"; -- [XXXDX] :: mad; frenzied;
@@ -34633,7 +34658,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     vivifico_V = mkV "vivificare" ; -- [EEXDX] :: bring back to life; make live;
     vivificus_A = mkA "vivificus" "vivifica" "vivificum" ; -- [FXXDM] :: live-giving, life-restoring;
     viviradix_F_N = mkN "viviradix" "viviradicis " feminine ; -- [XXXEC] :: cutting with a root, a layer;
--- TODO vivisco_V : V2 vivisco, viviscere, -, -  -- Declension: 3rd -- Comment: [XXXES] :: come to life; begin to live; become lively; (vivescere);
+    vivisco_V2 = mkV2 (mkV "viviscere" "vivisco" nonExist) ; -- MANUAL [XXXES] :: come to life; begin to live; become lively; (vivescere);
+    vivo_V = mkV "vivere" "vivo" "vixi" "victus" ; -- MANUAL [XXXAX] :: be alive, live; survive; reside;
     vivus_A = mkA "vivus" "viva" "vivum" ; -- [XXXAX] :: alive, fresh; living;
     vix_Adv = mkAdv "vix" ; -- [XXXAO] :: hardly, scarcely, barely, only just; with difficulty, not easily; reluctantly;
     vixdum_Adv = mkAdv "vixdum" ; -- [XXXCO] :: scarcely yet, only just;
@@ -34696,6 +34722,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     volutabundus_A = mkA "volutabundus" "volutabunda" "volutabundum" ; -- [XXXEC] :: rolling, wallowing;
     voluto_V = mkV "volutare" ; -- [XXXDX] :: roll, wallow, turn over in one's mind, think or talk over;
     volva_F_N = mkN "volva" ; -- [XBXCO] :: womb/uterus/matrix; (esp. sow's); female sexual organ; (seed) covering (L+S);
+    volvo_V2 = mkV2 (mkV "volvere" "volvo" "volvi" "volutus") ; -- MANUAL [XXXAO] :: roll, cause to roll; travel in circle/circuit; bring around/about; revolve;
     vomer_M_N = mkN "vomer" "vomeris " masculine ; -- [XXXDX] :: plowshare; stylus (for writing with (L+S); (metaphor for penis);
     vomica_F_N = mkN "vomica" ; -- [XXXCO] :: abscess, boil, gathering of pus; gathering of fluid found in minerals;
     vomitio_F_N = mkN "vomitio" "vomitionis " feminine ; -- [XXXCO] :: vomit; vomited matter; act of vomiting;
@@ -34703,6 +34730,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     vomitor_M_N = mkN "vomitor" "vomitoris " masculine ; -- [XXXFO] :: one who vomits, vomiter;
     vomitorius_A = mkA "vomitorius" "vomitoria" "vomitorium" ; -- [XXXEO] :: emetic, that is used to provoke vomiting;
     vomitus_M_N = mkN "vomitus" "vomitus " masculine ; -- [XXXCO] :: vomit; vomited matter; act of vomiting;
+    vomo_V2 = mkV2 (mkV "vomere" "vomo" "vomui" "vomitus") ; -- MANUAL [XXXDX] :: be sick, vomit; discharge, spew out; belch out;
     voracitas_F_N = mkN "voracitas" "voracitatis " feminine ; -- [XXXEZ] :: voracity;
     voraginosus_A = mkA "voraginosus" "voraginosa" "voraginosum" ; -- [XXXFS] :: pit-filled; full of pits; full of chasms;
     vorago_F_N = mkN "vorago" "voraginis " feminine ; -- [XXXDX] :: deep hole, chasm, watery hollow;
@@ -34773,8 +34801,8 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     zaeta_F_N = mkN "zaeta" ; -- [XBXFS] :: |diet, regimen; course of treatment, way/mode of living prescribed by physician;
     zagon_M_N = mkN "zagon" "zagonis " masculine ; -- [XSXEO] :: diagonal line, line from one angle to an opposite; (geometry);
     zagonus_M_N = mkN "zagonus" ; -- [XSXEO] :: diagonal line, line from one angle to an opposite; (geometry);
--- IGNORED zai_N : N1 zai, undeclined  -- N -- [DEQEW] :: zayin; (7th letter of Hebrew alphabet); (transliterate as Z);
--- IGNORED zain_N : N1 zain, undeclined  -- N -- [EEQEE] :: zayin; (7th letter of Hebrew alphabet); (transliterate as Z);
+    zai_N = constN "zai" Neutr ; -- MANUAL [DEQEW] :: zayin; (7th letter of Hebrew alphabet); (transliterate as Z);
+    zain_N = constN "zain" Neutr ; -- MANUAL [EEQEE] :: zayin; (7th letter of Hebrew alphabet); (transliterate as Z);
     zamia_F_N = mkN "zamia" ; -- [XBXEO] :: injury; damage;; hurt (L+S); loss;
     zea_F_N = mkN "zea" ; -- [XAXEO] :: grain; emmer wheat (Triticum diciccum); spelt (T. spelta L+S); rosemary (kind);
     zebra_C_N = mkN "zebra" ; -- [GXXEK] :: zebra;
@@ -34783,7 +34811,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     zelotypia_F_N = mkN "zelotypia" ; -- [XXXDX] :: jealousy;
     zelotypus_A = mkA "zelotypus" "zelotypa" "zelotypum" ; -- [XXXDX] :: jealous;
     zelus_M_N = mkN "zelus" ; -- [XXXEO] :: jealousy; spirit of rivalry/emulation, partisanship; zeal (L+S); fervor;
--- IGNORED zenith_N : N1 zenith, undeclined  -- N -- [GXXEK] :: zenith;
+    zenith_N = constN "zenith" Neutr ; -- MANUAL [GXXEK] :: zenith;
     zenodochium_N_N = mkN "zenodochium" ; -- [FXXEM] :: guest-house; inn, caravansary; hospital/home for strangers/travelers; hospice;
     zeroticus_A = mkA "zeroticus" "zerotica" "zeroticum" ; -- [GXXEK] :: zero (adj.);
     zerum_N_N = mkN "zerum" ; -- [GXXEK] :: zero;
@@ -34792,7 +34820,7 @@ concrete DictLat of DictLatAbs = CatLat,StructuralLat-[here_Adv],LexiconLat-[leg
     zimmarra_F_N = mkN "zimmarra" ; -- [FEXFE] :: cassock w/small cape;
     zingiber_N_N = mkN "zingiber" "zingiberis " neuter ; -- [GXXEK] :: ginger;
     zinzio_V = mkV "zinziare" ; -- [XXXDX] :: zinzie; (expressing the sound made by a blackbird);
--- IGNORED zio_N : N1 zio, undeclined  -- N -- [EEQEW] :: ziv, Hebrew name of ancient second month; (meaning splendor/flowering);
+    zio_N = constN "zio" Neutr  ; -- MANUAL [EEQEW] :: ziv, Hebrew name of ancient second month; (meaning splendor/flowering);
     zizania_F_N = mkN "zizania" ; -- [EAXCP] :: cockle, darnel, tares, wild vetch; (noxious weed in the grain);
     zizanium_N_N = mkN "zizanium" ; -- [DAXDS] :: cockle, darnel, tares, wild vetch; (noxious weed in the grain);
     ziziphum_N_N = mkN "ziziphum" ; -- [DAXNS] :: jujube plant (Pliny);

@@ -1,5 +1,5 @@
 --# -path=.:..
-abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Numeral ** {
+abstract DictLatAbs = Cat ** {
 -- extracted from http://archives.nd.edu/whitaker/dictpage.htm
   fun
     A_N : N ;
@@ -162,7 +162,8 @@ abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Nume
     Azotus_F_N : N ;
     Azrael_N : N ;
     Baal_N : N ;
-    Babylon_N : N ;
+    Babylon_1_N : N ;
+    Babylon_2_N : N ;
     Babylonia_F_N : N ;
     Babylonius_A : A ;
     Babylonius_M_N : N ;
@@ -1145,7 +1146,7 @@ abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Nume
     abbatialis_A : A ;
     abbatissa_F_N : N ;
     abbatizo_V : V ;
-    abbibo_V : V ;
+    abbibo_V2 : V2 ;
     abbito_V : V ;
     abbreviatio_F_N : N ;
     abbreviator_M_N : N ;
@@ -1181,11 +1182,11 @@ abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Nume
     aberro_V : V ;
     abfero_V2 : V2 ;
     abfluo_V : V ;
-    abfugio_V : V ;
+    abfugio_V2 : V2 ;
     abhibeo_V2 : V2 ;
     abhinc_Adv : Adv ;
     abhorreo_V : V ;
-    abhorresco_V : V ;
+    abhorresco_V2 : V2 ;
     abhorride_Adv : Adv ;
     abhorridus_A : A ;
     abicio_V2 : V2 ;
@@ -1254,7 +1255,7 @@ abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Nume
     abnueo_V : V ;
     abnuitio_F_N : N ;
     abnumero_V2 : V2 ;
-    abnuo_V : V ;
+    abnuo_V2 : V2 ;
     abnutivum_N_N : N ;
     abnutivus_A : A ;
     abnuto_V : V ;
@@ -18005,7 +18006,7 @@ abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Nume
     dives_M_N : N ;
     divexo_V2 : V2 ;
     dividendus_A : A ;
-    divido_V : V ;
+    divido_V2 : V2 ;
     dividuus_A : A ;
     divinatio_F_N : N ;
     divinitas_F_N : N ;
@@ -37025,7 +37026,7 @@ abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Nume
     vivifico_V : V ;
     vivificus_A : A ;
     viviradix_F_N : N ;
-    vivisco_V : V ;
+    vivisco_V2 : V2 ;
     vivo_V : V ;
     vivus_A : A ;
     vix_Adv : Adv ;
@@ -37097,7 +37098,7 @@ abstract DictLatAbs = Cat,Structural-[here_Adv],Lexicon-[leg_N,man_N,do_V2],Nume
     vomitor_M_N : N ;
     vomitorius_A : A ;
     vomitus_M_N : N ;
-    vomo_V : V ;
+    vomo_V2 : V2 ;
     voracitas_F_N : N ;
     voraginosus_A : A ;
     vorago_F_N : N ;
