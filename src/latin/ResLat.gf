@@ -79,6 +79,8 @@ param
       postap = n.postap 
 --      massable = n.massable ;
     };
+  constN : Str -> Gender -> Noun = \s,g ->
+    { s = \\_,_ => s ; g = g } ;
 
   param
     AdjPos = Pre | Post ;

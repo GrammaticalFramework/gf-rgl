@@ -41,6 +41,9 @@ oper
       = \x,y,z -> lin N ( noun_ngg x y z ) ;
   } ;
   
+  pluralN = ResLat.pluralN ;
+  singularN = ResLat.singularN ;
+  constN = ResLat.constN ;
   mkA = overload {
     mkA : (verbum : Str) -> A -- Nominative masculine
       = \n -> lin A ( adj n ** {isPre = False } ) ;
@@ -101,8 +104,7 @@ oper
       = \p,c -> lin Adv (mkFullAdverb p c nonExist);
     };
   
-  pluralN = ResLat.pluralN ;
-  singularN = ResLat.singularN ;
+
 
   mkConj = overload {
     mkConj : Str -> Str -> Str -> Number -> Coordinator -> Conjunction = mkConjunction ;
