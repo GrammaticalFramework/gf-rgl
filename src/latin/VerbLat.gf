@@ -103,7 +103,7 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
     CompAP ap = ap ;
     
 --  CompNP   : NP  -> Comp ;            -- (be) the man
-    CompNP np = {s = \\_ => let a = Ag np.g np.n Nom in np.preap.s ! a ++ np.s ! Nom ++ np.postap.s ! a } ;
+    CompNP np = {s = \\_ => let a = Ag np.g np.n Nom in np.adv ++ np.det.s ! np.g ! Nom ++ np.preap.s ! a ++ np.s ! Nom ++ np.postap.s ! a } ;
 
 --  CompAdv  : Adv -> Comp ;            -- (be) here
     CompAdv a = {s = \\_ => a.s ! Posit } ;

@@ -27,6 +27,7 @@ param
   param
     Order = SVO | VSO | VOS | OSV | OVS | SOV ;
     AdvPos = PreS | PreV | PreO | PreNeg | InV | InS ; -- | InO
+    ComplPos = CPreV | CPostV ;
     SAdvPos = SPreS | SPreV | SPreO | SPreNeg ;
   param
     Agr = Ag Gender Number Case ; -- Agreement for NP et al.
@@ -55,7 +56,7 @@ param
 --      massable = cn.massable;
     } ;
 
-  pluralN : Noun -> Noun = \n ->
+  pluralNoun : Noun -> Noun = \n ->
     { 
       s = table {
 	Pl => n.s ! Pl ;
@@ -67,7 +68,7 @@ param
 --      massable = n.massable ;
     };
 
-  singularN : Noun -> Noun = \n ->
+  singularNoun : Noun -> Noun = \n ->
     lin N { 
       s = table {
 	Sg => n.s ! Sg ;
@@ -78,6 +79,8 @@ param
       postap = n.postap 
 --      massable = n.massable ;
     };
+  constNoun : Str -> Gender -> Noun = \s,g ->
+    { s = \\_,_ => s ; g = g } ;
 
   param
     AdjPos = Pre | Post ;
@@ -151,7 +154,8 @@ param
   AdjectivePhrase : Type = { 
 	s : Agr => Str ;
 --	isPre : Bool ; -- should have no use in latin because adjectives can appear variably before and after nouns
-      } ;
+    } ;
+  
   mkAdjective : (bonus,bona,bonum : Noun) -> 
     ( (Agr => Str) * Str ) -> 
     ( (Agr => Str) * Str ) ->
@@ -186,11 +190,14 @@ param
       audaces audaces (audac + "ium") (audac + "ibus") 
       g ;
 
-
+  
   emptyAdj : Adjective = 
     { s = \\_,_ => "" ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
 
--- verbs
+  constAdj : Str -> Adjective = \a ->
+    { s = \\_,_ => a ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
+
+  -- verbs
 
 param 
   VActForm  = VAct VAnter VTense Number Person ;
@@ -377,6 +384,7 @@ param
 	  VPass VFut          Pl P3 => -- Future I
 	    ( case fut_I_base of {
 		_ + "bi" => ( init fut_I_base ) + "u" ;
+		"eri" => "eru" ; -- handle copula properly
 		_ => fut_I_base
 		}
 	    ) + passPresEnding Pl P3 ;
@@ -745,7 +753,7 @@ param
     } ;
 
   -- at the moment only fills present tense
-  mkImpersonal : Str -> Verb = \s ->
+  impersonalVerb : Str -> Verb = \s ->
     {
       act = table {
 	VAct VSim (VPres VInd)  Sg P1 => s ;
@@ -759,7 +767,20 @@ param
       part = \\_,_ => nonExist ;
       sup = \\_ => nonExist ;
     } ;
-  
+
+  constVerb : Str -> Verb = \s ->
+    {
+      act = table {
+	_ => s
+	} ;
+      pass = \\_ => nonExist ;
+      imp = \\_ => nonExist ;
+      inf = \\_ => nonExist ;
+      ger = \\_ => nonExist ;
+      geriv = \\_ => nonExist ;
+      part = \\_,_ => nonExist ;
+      sup = \\_ => nonExist ;
+    } ;
   actPresEnding : Number -> Person -> Str = 
     useEndingTable <"m", "s", "t", "mus", "tis", "nt"> ;
 
@@ -1157,10 +1178,11 @@ oper
   Preposition : Type = {s : Str ; c : Case ; isPost : Bool } ;
 
   -- conjunctions
-param Coordinator = And | Or | If | Neither | Because | Comma | Colon | Empty ;
+param Coordinator = Aut | Et | Sed | Si | Vel | Comma | Colon | Empty | Missing ; -- Missing means not implemented yet
 oper
-  Conjunction : Type = { s1 : Str ; s2 : Str ; n : Number ; c : Coordinator };
-  mkConjunction : Str -> Str -> Number -> Coordinator -> Conjunction = \s1,s2,num,coord -> { s1 = s1; s2 = s2 ; n = num ; c = coord } ;
+  Conjunction : Type = { s1 : Str ; s2 : Str ; s3 : Str ; n : Number ; c : Coordinator } ; -- s1 is in the beginning of the coordination phrase, s2 in the middle and s3 is a potential enclitic, s is the prefered number of the coordination phrase and c is the parameter to define which string to put within the phrase
+  mkConjunction : Str -> Str -> Str -> Number -> Coordinator -> Conjunction =
+\s1,s2,s3,num,coord -> { s1 = s1; s2 = s2 ; s3 = s3 ; n = num ; c = coord } ;
   
   VPSlash = VerbPhrase ** {c : Preposition} ;
 
@@ -1226,19 +1248,22 @@ oper
   -- clauses
   Sentence =
     {
-      s,o,v,neg : AdvPos => Str ; -- Subject, verbphrase, object and negation particle plus potential adverb
+      s,o,neg : AdvPos => Str ; -- Subject, verbphrase, object and negation particle plus potential adverb
+      v : AdvPos => ComplPos => Str ;
       t : C.Tense ; -- tense marker
       p : C.Pol ; -- polarity marker
       sadv : Str -- sentence adverb¡
     } ;
   
-  Clause = {s,o : AdvPos => Str ; v : Tense => Anteriority => VQForm => AdvPos => Str ; neg : Polarity => AdvPos => Str ; adv : Str } ;
+  Clause = {s,o : AdvPos => Str ; v : Tense => Anteriority => VQForm => AdvPos => ComplPos => Str ; neg : Polarity => AdvPos => Str ; adv : Str } ;
   QClause = {s : C.Tense => Anteriority => C.Pol => QForm => Str} ;
 
   mkClause : NounPhrase -> VerbPhrase -> Clause = \np,vp ->
     let
       -- combines adverbs from noun phrase and verb phrase
       adv  = np.adv ++ vp.adv ;
+      -- extracts the complement from the verb phrase
+      compl = vp.compl ! Ag np.g np.n Nom ;
       -- helper functions to either place the adverb in the designated position
       -- or an empty string instead
       pres   : AdvPos -> Str = \ap -> case ap of { PreS => adv ; _ => [] } ;
@@ -1246,33 +1271,38 @@ oper
       preo   : AdvPos -> Str = \ap -> case ap of { PreO => adv ; _ => [] } ;
       preneg : AdvPos -> Str = \ap -> case ap of { PreNeg => adv ; _ => [] } ;
       ins    : AdvPos -> Str = \ap -> case ap of { InS  => adv ; _ => [] } ;
-      inv    : AdvPos -> Str = \ap -> case ap of { InV  => adv ; _ => [] }
+      inv    : AdvPos -> Str = \ap -> case ap of { InV  => adv ; _ => [] } ;
+      cprev  : ComplPos -> Str = \cp -> case cp of { CPreV => compl ; _ => [] } ;
+      cpostv : ComplPos -> Str = \cp -> case cp of { CPostV => compl ; _ => [] }
     in
     {
       -- subject part of the clause:
-      -- ap is the adverb position in the clause
-      s = \\ap =>
-	pres ap ++                           -- adverbs can be placed in the beginning of the clause
+      -- advpos is the adverb position in the clause
+      s = \\advpos =>
+	pres advpos ++                       -- adverbs can be placed in the beginning of the clause
 	np.det.s ! np.g ! Nom ++             -- the determiner, if any
 	np.preap.s ! (Ag np.g np.n Nom) ++   -- adjectives which come before the subject noun, agreeing with it
-	ins ap ++                            -- adverbs can be placed within the subject noun phrase
+	ins advpos ++                            -- adverbs can be placed within the subject noun phrase
 	np.s ! Nom ++                        -- the noun of the subject noun phrase in nominative
 	np.postap .s ! (Ag np.g np.n Nom) ++ -- adjectives which come after the subject noun, agreeing with it
 	np.det.sp ! np.g ! Nom ;             -- second part of split determiners
       -- verb part of the clause:
       -- tense and anter(ority) for the verb tense
       -- vqf is the VQForm parameter which defines if the ordinary verbform or the quistion form with suffix "-ne" will be used
-      -- ap is the adverb position in the clause
-      v = \\tense,anter,vqf,ap =>
-	prev ap ++                           -- adverbs can be placed in the before the verb phrase
-	vp.compl ! Ag np.g np.n Nom ++       -- verb phrase complement, e.g. predicative expression, agreeing with the subject 
-	inv ap ++                            -- adverbs can be placed within the verb phrase
+      -- advposis the adverb position in the clause
+      -- comppos is the position of the verb complement
+      v = \\tense,anter,vqf,advpos,complpos =>
+	prev advpos ++                           -- adverbs can be placed in the before the verb phrase
+	cprev complpos ++       -- verb phrase complement, e.g. predicative expression, agreeing with the subject, can go before the verb
+	inv advpos ++                            -- adverbs can be placed within the verb phrase
 	-- verb form with conversion between different forms of tense and aspect
-	vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ;
+	vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++
+	cpostv complpos ;       -- complement can also go after the verb
+        
       -- object part of the clause
-      o = \\ap => preo ap ++ vp.obj ;
+      o = \\advpos => preo advpos ++ vp.obj ;
       -- optional negation particle, adverbs can be placed before the negation
-      neg = \\pol,ap => preneg ap ++ negation pol ;
+      neg = \\pol,advpos => preneg advpos ++ negation pol ;
       adv = ""
     } ;
   
@@ -1286,20 +1316,23 @@ oper
       p = pol
     } ;
 
-  combineSentence : Sentence -> ( SAdvPos => AdvPos => Order => Str ) = \s ->
+  combineSentence : Sentence -> ( SAdvPos => AdvPos => ComplPos => Order => Str ) = \s ->
     let
       pres   : SAdvPos -> Str = \ap -> case ap of { SPreS =>    s.sadv ; _ => [] } ;
       prev   : SAdvPos -> Str = \ap -> case ap of { SPreV =>    s.sadv ; _ => [] } ;
       preo   : SAdvPos -> Str = \ap -> case ap of { SPreO =>    s.sadv ; _ => [] } ;
       preneg : SAdvPos -> Str = \ap -> case ap of { SPreNeg =>  s.sadv ; _ => [] } 
     in
-    \\sap,ap,order  => case order of {
-      SVO => s.t.s ++ s.p.s ++ pres sap ++ s.s   ! ap ++ preneg sap ++ s.neg ! ap ++ prev sap ++ s.v   ! ap ++ preo sap ++ s.o ! ap;
-      VSO => s.t.s ++ s.p.s ++ preneg sap ++ s.neg ! ap ++ prev sap ++ s.v   ! ap ++ pres sap ++ s.s   ! ap ++ preo sap ++ s.o ! ap;
-      VOS => s.t.s ++ s.p.s ++ preneg sap ++ s.neg ! ap ++ prev sap ++ s.v   ! ap ++ preo sap ++ s.o   ! ap ++ pres sap ++ s.s ! ap ;
-      OSV => s.t.s ++ s.p.s ++ preo sap ++ s.o   ! ap ++ pres sap ++ s.s   ! ap ++ preneg sap ++ s.neg ! ap ++ prev sap ++ s.v ! ap;
-      OVS => s.t.s ++ s.p.s ++ preo sap ++ s.o   ! ap ++ preneg sap ++ s.neg ! ap ++ prev sap ++ s.v   ! ap ++ pres sap ++ s.s ! ap ;
-      SOV => s.t.s ++ s.p.s ++ pres sap ++ s.s   ! ap ++ preo sap ++ s.o   ! ap ++ preneg sap ++ s.neg ! ap ++ prev sap ++ s.v ! ap
+    -- sap is the position of the sentence adverbial
+    -- ap is the position of the adverb
+    -- cp is the position of the verb complement
+    \\sap,ap,cp,order  => case order of {
+      SVO => s.t.s ++ s.p.s ++ pres sap   ++ s.s   ! ap ++ preneg sap ++ s.neg ! ap      ++ prev sap   ++ s.v   ! ap ! cp ++ preo sap ++ s.o ! ap;
+      VSO => s.t.s ++ s.p.s ++ preneg sap ++ s.neg ! ap ++ prev sap   ++ s.v   ! ap ! cp ++ pres sap   ++ s.s   ! ap      ++ preo sap ++ s.o ! ap;
+      VOS => s.t.s ++ s.p.s ++ preneg sap ++ s.neg ! ap ++ prev sap   ++ s.v   ! ap ! cp ++ preo sap   ++ s.o   ! ap      ++ pres sap ++ s.s ! ap ;
+      OSV => s.t.s ++ s.p.s ++ preo sap   ++ s.o   ! ap ++ pres sap   ++ s.s   ! ap      ++ preneg sap ++ s.neg ! ap      ++ prev sap ++ s.v ! ap ! cp;
+      OVS => s.t.s ++ s.p.s ++ preo sap   ++ s.o   ! ap ++ preneg sap ++ s.neg ! ap      ++ prev sap   ++ s.v   ! ap ! cp ++ pres sap ++ s.s ! ap ;
+      SOV => s.t.s ++ s.p.s ++ pres sap   ++ s.s   ! ap ++ preo sap   ++ s.o   ! ap      ++ preneg sap ++ s.neg ! ap      ++ prev sap ++ s.v ! ap ! cp
       } ;
 
 
@@ -1307,8 +1340,8 @@ oper
   -- questions
   mkQuestion : SS -> Clause -> QClause = \ss,cl -> {
      s = \\tense,anter,pol,form => case form of {
-       QDir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SPreS ! PreS ! OVS  ;
-       QIndir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SPreO ! PreO ! OSV
+       QDir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SPreS ! PreS ! CPreV ! OVS  ;
+       QIndir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SPreO ! PreO ! CPreV ! OSV
        }
     };
   
@@ -1387,49 +1420,54 @@ oper
     { s = table { Posit => p ; Compar => c ; Super => s } };
   -- numerals
   param
-    CardOrd = NCard | NOrd ;
+  --   CardOrd = NCard | NOrd ;
     Unit = one | ten | hundred | thousand | ten_thousand | hundred_thousand ;
   oper
-    Cardinal : Type = {s : Gender => Case => Str ; n : Number};
-    Ordinal : Type = { s : Gender => Number => Case => Str } ;
-    Numeral : Type = { card : Cardinal ; ord : Ordinal } ;
+    -- Numerals are by default cardinal numbers but have a field for ordinal numbers
+    TDigit : Type = { s : Unit => Gender => Case => Str } ; -- ord : Unit => Agr => Str } ;
+    Numeral : Type = { s : Gender => Case => Str ; n : Number } ; -- ord : Unit => Agr => Str } ;
 
-    mkNumeral : Str -> Str -> Numeral = \c,o -> -- cardinal and ordinal form
-      let
-	cardFlex : Gender => Case => Str = case c of { "unus" => \\gen,cas => case <gen,cas> of {
-				    <Masc, Nom | Voc> => "unus" ; <Masc, Acc> => "unum" ; <Masc, Abl> => "uno" ;
-				    <Fem, Nom | Abl | Voc> => "una" ; <Fem, Acc> => "unam" ;
-				    <Neutr, Nom | Acc | Voc> => "unum" ; <Neutr, Abl> => "uno" ;
-				    <_, Gen> => "unius" ; <_, Dat> => "uni"
-				    } ;
-				  "duo" => table {
-				    Masc | Neutr => table Case [ "duo" ; "duo" ; "duorum" ; "duobus" ; "duobus" ; "duo" ] ;
-				    Fem => table Case [ "duae" ; "duas" ; "duarum" ; "duabus" ; "duabus" ; "duae" ] } ;
-				  "tres" => \\gen,cas => case <gen,cas> of {
-				    <Neutr, Nom | Acc | Voc > => "tria" ; <_, Nom | Acc | Voc > => "tres" ;
-				    <_, Gen> => "trium" ; <_, Dat | Abl > => "tribus"
-				    } ;
-				  "milia" => table {
-				    Neutr => table Case [ "milia" ; "milia" ; "milium" ; "milibus" ; "milibus" ; "milia" ] ;
-				    _ => \\_ => nonExist
-				    } ;
-				    _ => \\_,_ => c
-	  } ;
-	ordFlex : Gender => Number => Case => Str =
-	  case o of {
-	    stem + "us" => table {
-	      Masc => table Number [ table Case [ stem + "us" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "e" ] ;
-				     table Case [ stem + "i" ; stem + "os" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "i" ] ;
-		];
-	      Fem => table Number [ table Case [ stem + "a" ; stem + "am" ; stem + "ae" ; stem + "ae" ; stem + "a" ; stem + "a" ] ;
-				    table Case [ stem + "ae" ; stem + "as" ; stem + "arum" ; stem + "is" ; stem + "is" ; stem + "ae" ] ;
-		] ;
-	      Neutr => table Number [ table Case [ stem + "um" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "um" ] ;
-				      table Case [ stem + "a" ; stem + "a" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "a" ] ;
-		]
-	      } ;
-	    _ => error "unsupported ordinal form"
-	  }
-      in
-      { card = { s = cardFlex ; n = case c of { "unus" => Sg ; _ => Pl }  } ; ord = { s = ordFlex } } ;
+    -- Inflection for cardinal numbers
+    cardFlex : Str -> Gender => Case => Str =
+      \c -> case c of { "unus" => \\gen,cas => case <gen,cas> of {
+			  <Masc, Nom | Voc> => "unus" ; <Masc, Acc> => "unum" ; <Masc, Abl> => "uno" ;
+			  <Fem, Nom | Abl | Voc> => "una" ; <Fem, Acc> => "unam" ;
+			  <Neutr, Nom | Acc | Voc> => "unum" ; <Neutr, Abl> => "uno" ;
+			  <_, Gen> => "unius" ; <_, Dat> => "uni"
+			  } ;
+			"duo" => table {
+			  Masc | Neutr => table Case [ "duo" ; "duo" ; "duorum" ; "duobus" ; "duobus" ; "duo" ] ;
+			  Fem => table Case [ "duae" ; "duas" ; "duarum" ; "duabus" ; "duabus" ; "duae" ] } ;
+			"tres" => \\gen,cas => case <gen,cas> of {
+			  <Neutr, Nom | Acc | Voc > => "tria" ; <_, Nom | Acc | Voc > => "tres" ;
+			  <_, Gen> => "trium" ; <_, Dat | Abl > => "tribus"
+			  } ;
+			"milia" => table {
+			  Neutr => table Case [ "milia" ; "milia" ; "milium" ; "milibus" ; "milibus" ; "milia" ] ;
+			  _ => \\_ => nonExist
+			  } ;
+			_ => \\_,_ => c
+      } ;
+      -- 	ordFlex : Gender => Number => Case => Str =
+      -- 	  case o of {
+      -- 	    stem + "us" => table {
+      -- 	      Masc => table Number [ table Case [ stem + "us" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "e" ] ;
+      -- 				     table Case [ stem + "i" ; stem + "os" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "i" ] ;
+      -- 		];
+      -- 	      Fem => table Number [ table Case [ stem + "a" ; stem + "am" ; stem + "ae" ; stem + "ae" ; stem + "a" ; stem + "a" ] ;
+      -- 				    table Case [ stem + "ae" ; stem + "as" ; stem + "arum" ; stem + "is" ; stem + "is" ; stem + "ae" ] ;
+      -- 		] ;
+      -- 	      Neutr => table Number [ table Case [ stem + "um" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "um" ] ;
+      -- 				      table Case [ stem + "a" ; stem + "a" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "a" ] ;
+      -- 		]
+      -- 	      } ;
+      -- 	    _ => error "unsupported ordinal form"
+      -- 	  }
+      -- in
+    -- { s = cardFlex ; n = case c of { "unus" => Sg ; _ => Pl }  ; ord = ordFlex } ;
+
+    -- fixedNumeral : Str -> Str -> Numeral = \c,o ->
+    --    { s = \\_,_,_=> c ; n = Pl ; ord = \\g,n,c => (mkA o).s ! Posit ! Ag g n c} ;
+    
+
 }

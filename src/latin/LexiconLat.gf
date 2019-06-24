@@ -178,7 +178,7 @@ lin
   say_VS = mkVS (mkV "dicere" "dico" "dixi" "dictum") ; -- dico, dixi, dictum 3 (Langenscheidts)
   school_N = mkN "schola" ; -- -ae f. (Langenscheidts)
   -- Irregular
-  science_N = R.pluralN (mkN "litera" ) ; -- only pl. (Langenscheidts)
+  science_N = pluralN (mkN "litera" ) ; -- only pl. (Langenscheidts)
   sea_N = mkN "mare" "maris" neuter ; -- -is n. (Langenscheidts)
   seek_V2 = mkV2 (mkV "quaerere" "quaero" "quaesivi" "quaesitum" ) ; -- quaero, quaesivi, quaesitum 3 (Langenscheidts)
   see_V2 = mkV2 (mkV "videre") ; -- video, vidi, visum 2 (Langenscheidts)

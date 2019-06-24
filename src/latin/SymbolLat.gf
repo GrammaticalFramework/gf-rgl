@@ -21,7 +21,7 @@ lin
 --    } ;
 --
 
-  SymbS sy = { s = \\_ => sy.s ; neg = \\_ => "" ; o = \\_ => "" ; p = PPos ; sadv = ss "" ; t = TPres ; v = \\_ => "" } ;
+  SymbS sy = { s = \\_ => sy.s ; neg = \\_ => "" ; o = \\_ => "" ; p = PPos ; sadv = "" ; t = TPres ; v = \\_,_ => "" } ;
 --
   --  SymbNum sy = {s = sy.s ; n = Pl ; hasCard = True} ;
   SymbOrd sy = { s = \\g,n,c => sy.s } ; -- does not inflect properly
