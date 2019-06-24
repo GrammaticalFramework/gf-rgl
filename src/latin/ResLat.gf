@@ -56,7 +56,7 @@ param
 --      massable = cn.massable;
     } ;
 
-  pluralN : Noun -> Noun = \n ->
+  pluralNoun : Noun -> Noun = \n ->
     { 
       s = table {
 	Pl => n.s ! Pl ;
@@ -68,7 +68,7 @@ param
 --      massable = n.massable ;
     };
 
-  singularN : Noun -> Noun = \n ->
+  singularNoun : Noun -> Noun = \n ->
     lin N { 
       s = table {
 	Sg => n.s ! Sg ;
@@ -79,7 +79,7 @@ param
       postap = n.postap 
 --      massable = n.massable ;
     };
-  constN : Str -> Gender -> Noun = \s,g ->
+  constNoun : Str -> Gender -> Noun = \s,g ->
     { s = \\_,_ => s ; g = g } ;
 
   param
@@ -194,7 +194,10 @@ param
   emptyAdj : Adjective = 
     { s = \\_,_ => "" ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
 
--- verbs
+  constAdj : Str -> Adjective = \a ->
+    { s = \\_,_ => a ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
+
+  -- verbs
 
 param 
   VActForm  = VAct VAnter VTense Number Person ;
@@ -750,7 +753,7 @@ param
     } ;
 
   -- at the moment only fills present tense
-  mkImpersonal : Str -> Verb = \s ->
+  impersonalVerb : Str -> Verb = \s ->
     {
       act = table {
 	VAct VSim (VPres VInd)  Sg P1 => s ;
@@ -764,7 +767,20 @@ param
       part = \\_,_ => nonExist ;
       sup = \\_ => nonExist ;
     } ;
-  
+
+  constVerb : Str -> Verb = \s ->
+    {
+      act = table {
+	_ => s
+	} ;
+      pass = \\_ => nonExist ;
+      imp = \\_ => nonExist ;
+      inf = \\_ => nonExist ;
+      ger = \\_ => nonExist ;
+      geriv = \\_ => nonExist ;
+      part = \\_,_ => nonExist ;
+      sup = \\_ => nonExist ;
+    } ;
   actPresEnding : Number -> Person -> Str = 
     useEndingTable <"m", "s", "t", "mus", "tis", "nt"> ;
 
