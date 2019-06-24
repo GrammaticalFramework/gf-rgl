@@ -5,12 +5,14 @@ lin
 
 -----
 -- VP
-
+  -- : V -> VP
   UseV = ResSom.useV ;
+
+  --  : V2 -> VP ; -- be loved
+  PassV2 = ResSom.passV2 ; 
 {-
   -- : VV  -> VP -> VP ;
   ComplVV vv vp =  ;
-
 
   -- : VS  -> S  -> VP ;
   ComplVS vs s = ;
@@ -21,29 +23,20 @@ lin
   -- : VA -> AP -> VP ;  -- they become red
   ComplVA va ap = ResSom.insertComp (CompAP ap).s (useV va) ;
 
-
+-}
 --------
 -- Slash
 
   -- : V2 -> VPSlash
-  SlashV2a = ResSom.slashDObj ;
-
+  SlashV2a = useVc ;
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
-  Slash2V3 v3 npNori = slashDObj v3 **
-    { iobj = { s = npNori.s ! Dat ;
-               agr = npNori.agr }
-    } ;
-
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
-  Slash3V3 v3 npNor = slashIObj v3 **
-    { dobj = npNor ** { s = mkDObj npNor }
-    } ;
-
-
+  Slash2V3,
+  Slash3V3 = \v3 -> insertComp (useVc v3) ;
+{-
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
   SlashV2V v2v vp = ;
-
 
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2s s = ;
@@ -55,11 +48,11 @@ lin
   SlashV2A v2a ap = slashDObj v2a **
     { comp = (CompAP ap).s } ;
 
-
+-}
   -- : VPSlash -> NP -> VP
-  ComplSlash vps np = ResSom.complSlash vps np ;
+  ComplSlash = insertComp ;
 
-
+{-
   -- : VV  -> VPSlash -> VPSlash ;
                   -- Just like ComplVV except missing subject!
   SlashVV vv vps = ComplVV vv vps ** { missing = vps.missing ;
@@ -84,21 +77,21 @@ lin
   UseComp comp = UseCopula ** comp ** {
     isPred = True
     } ;
-{-
-  --  : V2 -> VP ;               -- be loved
-  PassV2 v2 =
 
   -- : VP -> Adv -> VP ;  -- sleep here
-  AdvVP vp adv = vp ** {adv = adv} ; ---- TODO: how about combining adverbs?
+  AdvVP vp adv = insertAdv adv vp ; ---- TODO: how about combining adverbs?
 
+
+  -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
+  AdvVPSlash vps adv = insertAdv adv vps ;
+
+{-
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
   ExtAdvVP vp adv =  ;
 
   -- : AdV -> VP -> VP ;  -- always sleep
   AdVVP adv vp = vp ** {adv = adv} ;
 
-  -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
-  AdvVPSlash vps adv = vps ** { adv = vps.adv ++ adv.s } ;
 
   -- : AdV -> VPSlash -> VPSlash ;  -- always use (it)
   AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;
@@ -125,7 +118,7 @@ lin
   CompAP ap = {
     comp = \\a => <[], ap.s ! AF (getNum a) Abs> ;
     } ;
-{-}
+{-
   -- : CN  -> Comp ;
   CompCN cn = { } ;
 

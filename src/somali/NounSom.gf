@@ -9,23 +9,32 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- : Det -> CN -> NP
 DetCN det cn = useN cn ** {
   s = sTable ;
-  a = getAgr det.d cn.g ;
-  sp = sTable ! Nom }
-  where {
+  a = getAgr det.d cn.g } where {
     sTable : Case => Str = \\c =>
        let nfc : {nf : NForm ; c : Case} =
              case <c,cn.hasMod,det.d> of {
-                <Nom,False,Indef Sg> => {nf=IndefNom ; c=Nom} ; -- special form for fem. nouns
-                <Nom,False,Def x NA> => {nf=Def x vU ; c=Nom} ; -- special case for DefArt
-                <Nom,True,_> => {nf=det.d ; c=Abs} ; -- If cn has modifier, the Nom ending attaches to the modifier
+                -- special form for fem. nouns
+                <Nom,False,Indef Sg> => {nf=NomSg ; c=c} ;
+
+                -- special case for DefArt+Nom: override vowel
+                <Nom,False,Def x NA> => {nf=Def x vU ; c=c} ;
+
+                -- If cn has modifier, Nom ending attaches to the modifier
+                <Nom,True,_> => {nf=det.d ; c=Abs} ;
                 _            => {nf=det.d ; c=c}
              } ;
           detStr : Str =
-            case <det.isPoss,cn.shortPoss> of {
-                <True,True> => det.shortPoss ;
-                _ => det.s ! nfc.c
+            case <cn.isPoss,det.d,det.isPoss,cn.shortPoss> of {
+                <True,      _,_,_> => det.sp ! cn.g ! nfc.c ; -- CN has undergone ComplN2 and is already quantified
+                <_,Numerative,_,_> => [] ; -- s is in pref
+                <_,_,   True,True> => det.shortPoss ;
+                _ => det.s ! cn.g ! nfc.c
             } ;
-        in det.pref -- if det is numeral. TODO find out if gender/case/other distinction.
+          pref : Str = case det.d of {
+            Numerative => det.s ! cn.g ! nfc.c ;
+            _ => []
+            } ;
+        in pref -- if det is numeral.
         ++ cn.s ! nfc.nf
         ++ detStr -- non-numeral det
         ++ cn.mod ! getNum (getAgr det.d Masc) ! c
@@ -34,11 +43,11 @@ DetCN det cn = useN cn ** {
   -- : PN -> NP ;
   UsePN pn = pn ** {
     s = \\c => pn.s ;
-    isPron = False ;
-    sp = pn.s } ;
+    isPron = False
+    } ;
 
   -- : Pron -> NP ;
-  UsePron pron = lin NP pron ;
+  UsePron pron = pron ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {
@@ -66,13 +75,13 @@ DetCN det cn = useN cn ** {
   DetNP det = {
     s = det.sp ! Masc ; ---- Any way to decide for gender here?
     a = getAgr det.d Masc ;
-    isPron = False ; sp = []
+    isPron = False ;
     } ;
 
   -- MassNP : CN -> NP ;
   MassNP cn = useN cn ** {
-    s = table { Nom => cn.s ! IndefNom ++ cn.mod ! Sg ! Nom ;
-                Abs => cn.s ! Indef Sg ++ cn.mod ! Sg ! Abs }
+    s = table { Nom => cn.s ! NomSg ++ cn.mod ! Sg ! Nom ;
+                c   => cn.s ! Indef Sg ++ cn.mod ! Sg ! c }
     } ;
 
 
@@ -83,11 +92,18 @@ DetCN det cn = useN cn ** {
 
   -- : Quant -> Num -> Det ;
   DetQuant quant num = quant ** {
-    pref = num.s ;
-    sp = \\g => case <num.n,g> of {
-          <Sg,Masc> => quant.sp ! SgMasc ;
-          <Sg,Fem> => quant.sp ! SgFem ;
-          <Pl,_> => quant.sp ! InvarPl } ;
+    s = \\g,c => case <num.n,g> of {
+          <Sg,Masc> => num.s ! quant.st ++ quant.s ! SgMasc ! c ;
+          <Sg,Fem> => num.s ! quant.st ++ quant.s ! SgFem ! c ;
+          -- gender-flipped allomorphs in plural; TODO needs more fine-grained rules
+          <Pl,Fem> => num.s ! quant.st ++ quant.s ! SgMasc ! c ;
+          <Pl,Masc> => num.s ! quant.st ++ quant.s ! SgFem ! c } ;
+
+    sp = \\g,c => case <num.n,g> of {
+          <Sg,Masc> => num.s ! quant.st ++ quant.sp ! SgMasc ! c ;
+          <Sg,Fem> => num.s ! quant.st ++ quant.sp ! SgFem ! c ;
+          -- Independent form uses plural morpheme, not gender-flipped allomorph
+          <Pl,_> => num.s ! quant.st ++ quant.sp ! PlInv ! c } ;
 
     d = case <num.isNum,quant.st> of {
           <True,_> => Numerative ;
@@ -98,7 +114,7 @@ DetCN det cn = useN cn ** {
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord =
     let theseFive = DetQuant quant num in theseFive ** {
-      s = \\c    => theseFive.s ! c      ++ ord.s ;
+      s = \\g,c  => theseFive.s ! g ! c  ++ ord.s ;
       sp = \\g,c => theseFive.sp ! g ! c ++ ord.s
       } ;
 
@@ -109,27 +125,29 @@ DetCN det cn = useN cn ** {
 -- the "kernel" of a determiner. It is, however, the $Num$ that determines
 -- the inherent number.
 
-  NumSg = {s = [] ; n = Sg ; isNum = False} ;
-  NumPl = {s = [] ; n = Pl ; isNum = False} ;
-{-
+  NumSg = {s = \\_ => [] ; n = Sg ; isNum = False} ;
+  NumPl = {s = \\_ => [] ; n = Pl ; isNum = False} ;
+
   -- : Card -> Num ;
-  NumCard card = (card ** { isNum = True }) ;
+  NumCard card = card ** {isNum = True} ;
 
   -- : Digits  -> Card ;
-  NumDigits dig = { s = dig.s ! NCard ; n = dig.n } ;
+--  NumDigits dig = { s = dig.s ! NCard ; n = dig.n } ;
 
   -- : Numeral -> Card ;
-  NumNumeral num = num ;
+  NumNumeral num = num ** {s = num.s ! NCard};
 
+{-
   -- : AdN -> Card -> Card ;
   AdNum adn card = card ** { s = adn.s ++ card.s } ;
 
   -- : Digits  -> Ord ;
   OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
-
+-}
   -- : Numeral -> Ord ;
-  OrdNumeral num = num ;
+  OrdNumeral num = num ** {s = num.s ! NOrd ! Indefinite} ;
 
+{-
   -- : A       -> Ord ;
   OrdSuperl a = {  } ;
 
@@ -150,12 +168,12 @@ DetCN det cn = useN cn ** {
     let p = pron.poss ;
         gntbl = gnTable (BIND ++ p.sp ! SgMasc)
                         (BIND ++ p.sp ! SgFem)
-                        (BIND ++ p.sp ! InvarPl)
+                        (BIND ++ p.sp ! PlInv)
      in DefArt ** {
           shortPoss = BIND ++ p.s ;
           isPoss = True ;
-          s = \\c => let casevow = case c of {Nom => "u" ; Abs => "a"}
-                     in gntbl ! SgMasc ++ BIND ++ casevow ;
+          s = \\gn,c => let casevow = case c of {Nom => "u" ; Abs => "a"}
+                     in gntbl ! gn ++ BIND ++ casevow ;
           sp = \\gn,c => let prefix = case gn of {SgFem => "t" ; _ => "k"} ;
                              casevow = case c of {Nom => "u" ; Abs => "a"}
                           in prefix ++ gntbl ! gn ++ BIND ++ casevow ;
@@ -168,12 +186,24 @@ DetCN det cn = useN cn ** {
   -- : N2 -> CN ;
   UseN,UseN2 = ResSom.useN ;
 
-{-
-  -- : N2 -> NP -> CN ;    -- mother of the king
-  ComplN2 n2 np =
-    let compl = applyPost n2.compl1 np ;
-    in useN n2 ** { s = \\agr => compl ++ n2.s } ;
+  -- : N2 -> NP -> CN ;    -- Sahra hooyadeed
+  ComplN2 n2 np = let cn = useN n2 in cn ** {s = \\nf =>
+    let qnt = PossPron (pronTable ! np.a) ;
 
+        det = case cn.shortPoss of {
+                True => qnt.shortPoss ;
+                _ => qnt.s ! nf2gennum nf cn.g ! Abs } ;
+        num = case nf of {
+                    Indef n => n ;
+                    Def n v => n ;
+                    _ => Sg } ;
+        noun = case np.isPron of {
+                 True  => (pronTable ! np.a).sp ; -- long subject pronoun
+                 False => np.s ! Abs }
+     in noun ++ cn.s ! Def num qnt.v ++ det ;
+     isPoss = True} ;
+
+{-
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   ComplN3 n3 np =
     let compl = applyPost n3.c3 np ;
@@ -187,9 +217,12 @@ DetCN det cn = useN cn ** {
   Use3N3 n3 = lin N2 n3 ;
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = table { IndefNom => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
+    s = table { NomSg => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
                 x        => cn.s ! x } ;
     mod = \\n,c => cn.mod ! n ! Abs -- If there was something before, it is now in Abs
+                ++ case cn.hasMod of {
+                      True => "oo" ;
+                      False => [] }
                 ++ ap.s ! AF n c ;
     hasMod = True
     } ;
@@ -216,13 +249,13 @@ DetCN det cn = useN cn ** {
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
   ApposCN cn np = cn ** { s =  } ;
-
+-}
 
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  PossNP cn np = cn ** {  } ;
-
+  PossNP cn np = cn ** {mod = \\n,c => cn.mod ! n ! c ++ np.s ! Abs} ; -- guriga Axmed, not Axmed gurigiisa
+{-
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   PartNP cn np = cn ** {  } ;
 

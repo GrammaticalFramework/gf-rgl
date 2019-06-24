@@ -63,7 +63,7 @@ param
   Case = Nom | Abs ;
   Gender = Masc | Fem ;
   Vowel = vA | vE | vI | vO | vU | NA ; -- For vowel assimilation
-  GenNum = SgMasc | SgFem | InvarPl ; -- For Quant
+  GenNum = SgMasc | SgFem | PlInv ; -- For Quant
 
   Inclusion = Excl | Incl ;
   Agreement =
@@ -75,14 +75,19 @@ param
     | Pl3
     | Impers ; -- Verb agrees with Sg3, but needed for preposition contraction
 
+  AgreementPlus =
+    Unassigned -- Dummy value: shows that the slot for object hasn't been filled.
+  | IsPron Agreement  -- Any of Sg1 … Pl3 can be a pronoun.
+  | NotPronP3 ; -- Sg3 Gender and Pl3 can be pronouns or not.
+
   State = Definite | Indefinite ;
 
   NForm =
       Indef Number
     | Def Number Vowel -- Stems for definite and determinative suffixes
-    | Numerative       -- When modified by a number (only distinct for some feminine nouns)
-    | IndefNom ;       -- Special form, only fem. nouns ending in consonant
-
+    -- Special forms only for fem. nouns ending in consonant.
+    | Numerative  -- When modified by a number: either pl gen or sg abs
+    | NomSg ;
 
 oper
   getAgr : NForm -> Gender -> Agreement = \n,g ->
@@ -91,6 +96,37 @@ oper
   getNum : Agreement -> Number = \a ->
     case a of { Sg1|Sg2|Sg3 _ => Sg ; _ => Pl } ;
 
+  agr2agrplus : (isPron : Bool) -> Agreement -> AgreementPlus = \isPron,a ->
+    case isPron of {True => IsPron a ; False => NotPronP3} ;
+
+  nf2state : {s:NForm=>Str} -> State=>Str = \ss -> table {
+    Definite => ss.s ! Def Sg vA ;
+    Indefinite => ss.s ! Indef Sg
+    } ;
+
+  gn2gennum : Gender -> Number -> GenNum = \g,n ->
+    case <g,n> of {
+      <Masc,Sg> => SgMasc ;
+      <Fem,Sg>  => SgFem ;
+      _ => PlInv } ;
+
+  nf2gennum : NForm -> Gender -> GenNum = \nf,g ->
+    gn2gennum g (getNum (getAgr nf g)) ;
+
+--------------------------------------------------------------------------------
+-- Numerals
+
+param
+
+  DForm = Unit | Ten ;
+
+  -- If need to optimise: can remove one multiple of 2, but harder to understand
+  -- CardOrdDFS = Odfs DForm | Cdfs DForm State ;
+  --
+  -- CardOrdState = Ost | Cst State ;
+
+  CardOrd = NOrd | NCard ;
+
 --------------------------------------------------------------------------------
 -- Adjectives
 
@@ -98,17 +134,10 @@ param
   AForm = AF Number Case ; ---- TODO: past tense
 
 --------------------------------------------------------------------------------
--- Numerals
-
--- TODO: is this necessary?
-param
-  CardOrd = NCard | NOrd ;
-
---------------------------------------------------------------------------------
 -- Prepositions
 
 param
-  Preposition = u | ku | ka | la | noPrep ;
+  Preposition = u | ku | ka | la | noPrep | passive ;
   PrepCombination = ugu | uga | ula | kaga | kula | kala
                   | Single Preposition ;
 
@@ -133,20 +162,46 @@ oper
 --------------------------------------------------------------------------------
 -- Verbs
 
+-- Sayeed p. 84-85
+-- Tense: Past/Present/Future
+-- Aspect: Simple/Progressive/Habitual
+-- Mood: Declarative/Imperative/Conditional/Optative/Potential
+-- Negation: Positive/Negative
+-- Sentence subordination: Main/Subordinate
+-- Not every possible combination of these categories occurs, as we shall see: for example, tense and aspect are only marked in declarative sentences; there is no negation in potential sentences, etc. We can group the possible combinations into the twelve verbal paradigms below, details of which are given in the next three sections for suffix verbs, prefix verbs and yahay 'be':
+-- 1. Imperative
+-- 2. Infinitive
+-- 3. Past simple
+-- 4. Past progressive
+-- 5. Past habitual
+-- 6. Present habitual
+-- 7. Present progressive
+-- 8. Future
+-- 9. Conditional
+-- 10. Optative
+-- 11. Potential
+-- 12. Subordinate clause forms  -- same as negative present. But they carry subject markers when made into SC.
+
 param
+
+  Aspect = Simple | Progressive ;
+
   VForm =
       VInf
-    | VPres Agreement Polarity
-    | VNegPast
-    | VPast Agreement
+    | VPres Aspect Agreement Polarity
+    | VNegPast Aspect
+    | VPast Aspect Agreement
     | VRel -- "som är/har/…" TODO is this used in other verbs?
-    | VImp Number Polarity ; -- TODO negation
+    | VImp Number Polarity ;
 
 oper
   if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
     case p of {Pos => t ; Neg => f } ;
 
--- TODO:
--- tre aspekter (enkel, progressiv, habituell),
--- fem modus (indikativ, imperativ, konjunktiv, kontiditonalis, optativ)
+  forceAgr : Agreement -> (VForm=>Str) -> (VForm=>Str) = \agr,tbl -> table {
+    VPres asp _a pol => tbl ! VPres asp agr pol ;
+    VPast asp _a     => tbl ! VPast asp agr ;
+    x                => tbl ! x
+    } ;
+
 }

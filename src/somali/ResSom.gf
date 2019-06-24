@@ -4,11 +4,15 @@ resource ResSom = ParamSom ** open Prelude, Predef, ParamSom in {
 -- Nouns
 oper
 
-  Noun : Type = {s : NForm => Str ; g : Gender ; shortPoss : Bool} ;
-  Noun2 : Type = Noun ** {c2 : Preposition} ;
-  Noun3 : Type = Noun2 ** {c3 : Preposition} ;
+  Noun : Type = {s : NForm => Str; g : Gender ; shortPoss : Bool} ;
+  Noun2 : Type = Noun ; -- TODO eventually more parameters?
+  Noun3 : Type = Noun ;
 
-  CNoun : Type = Noun ** {mod : Number => Case => Str ; hasMod : Bool} ;
+  CNoun : Type = Noun ** {
+    mod : Number => Case => Str ;
+    hasMod : Bool ;
+    isPoss : Bool -- to prevent impossible forms in ComplN2 with Ns that have short possessive, e.g. "the father of NP".
+    } ;
 
   PNoun : Type = {s : Str ; a : Agreement} ;
 
@@ -18,8 +22,8 @@ oper
     let bisadi = case gender of
                    { Fem  => case wiil of { _ + #c => wiil+"i" ; _ => wiil} ;
                      Masc => wiil } ;
-        bisadood =  case gender of
-                       { Fem  => case wiilal of { _ + "o" => wiilal+"od" ; _ => wiil} ;
+        bisadood = case gender of
+                       { Fem  => case wiilal of {_ + "o" => wiilal+"od" ; _ => wiil} ;
                          Masc => wiil } ;
         defStems : Str -> Vowel => Str = \s -> case s of {
           ilk + "aha" =>
@@ -35,10 +39,11 @@ oper
     in { s = table {
            Indef Sg => wiil ;
            Indef Pl => wiilal ;
-           IndefNom => bisadi ;
-           Numerative => bisadood ;
            Def Sg vow => defStems wiilka ! vow ;
-           Def Pl vow => defStems wiilasha ! vow } ;
+           Def Pl vow => defStems wiilasha ! vow ;
+           NomSg => bisadi ;  -- Special form for fem. nouns ending in consonant
+           Numerative => case bisadood of {_+"ood" => bisadood ; _ => wiil}
+           } ;
          g = gender ;
          shortPoss = False} ;
 
@@ -106,7 +111,7 @@ oper
       _                => nXayawaan n } ;
 
   mkNg : Str -> Gender -> Noun = \n,g -> case n of {
-      _ + ("r"|"n"|"l"|"g")
+      _ -- + ("r"|"n"|"l"|"g")
           => case g of {
                   Fem  => nUl n ;
                   Masc => mkN1 n } ;
@@ -119,65 +124,125 @@ oper
   BaseNP : Type = {
     a : Agreement ;
     isPron : Bool ;
-    sp : Str } ;
+    } ;
 
   NounPhrase : Type = BaseNP ** {s : Case => Str} ;
 
   useN : Noun -> CNoun ** BaseNP = \n -> n **
     { mod = \\_,_ => [] ; hasMod = False ;
-      a = Sg3 n.g ; isPron = False ; sp = []
+      a = Sg3 n.g ; isPron,isPoss = False ;
     } ;
+
+  emptyNP : NounPhrase = {
+    s = \\_ => [] ;
+    a = Pl3 ;
+    isPron = False
+    } ;
+
+  impersNP : NounPhrase = emptyNP ** {
+    a = Impers ;
+    isPron = True
+    } ;
+
 --------------------------------------------------------------------------------
 -- Pronouns
--- De somaliska possessiva pronomenen, precis som de svenska, har två olika genusformer i singular och en enda form i plural.
---  ägaren då det ägda föremålet är
---  m.sg. f.sg.plural
---  kayga tayda kuwayga
---  kaaga taada kuwaaga
---  kiisa tiisa kuwiisa
---  keeda teeda kuweeda
---
---  kaayaga taayada kuwayaga (1 pl. exkl.)
---  keenna teenna kuweenna (1 pl. inkl.)
---  kiinna tiinna kuwiinna
---  kooda tooda kuwooda
+
   Pronoun : Type = NounPhrase ** {
     poss : { -- for PossPron : Pron -> Quant
-        --s, -- possessive suffix
-        sp : GenNum => Str ; -- independent forms
-        s : Str ; -- special case: e.g. family members, name
-        v : Vowel}
+      sp : GenNum => Str ; -- independent forms, e.g. M:kayga F:tayda Pl:kuwayga
+      s : Str ; -- short possessive suffix: e.g. family members, my/your name
+      v : Vowel} ;
+    sp : Str ;
+    } ;
+
+  pronTable : Agreement => Pronoun = table {
+    Sg1 => {
+      s = table {Nom => "aan" ; Abs => "i"} ;
+      a = Sg1 ; isPron = True ; sp = "aniga" ;
+      poss = {s = "ay" ; v = vA ; sp = gnTable "ayg" "ayd" "uwayg"}
+      } ;
+    Sg2 => {
+      s = table {Nom => "aad" ; Abs => "ku"} ;
+      a = Sg2 ; isPron = True ; sp ="adiga" ;
+      poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
+      } ;
+    Sg3 Masc => {
+      s = table {Nom => "uu" ; Abs => []} ;
+      a = Sg3 Masc ; isPron = True ; sp ="isaga" ;
+      poss = {s = "iis" ; v = vI ; sp = gnTable "iis" "iis" "uwiis"}
+      } ;
+    Sg3 Fem => {
+      s = table {Nom => "ay" ; Abs => []} ;
+      a = Sg3 Fem ; isPron = True ; sp = "iyada" ;
+      poss = {s = "eed" ; v = vE ; sp = gnTable "eed" "eed" "uweed"}
+      } ;
+    Pl1 Excl => {
+      s = table {Nom => "aan" ; Abs => "na"} ;
+      a = Pl1 Incl ; isPron = True ; sp ="annaga" ;
+      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
+      } ;
+    Pl1 Incl => {
+      s = table {Nom => "aynu" ; Abs => "ina"} ;
+      a = Pl1 Incl ; isPron = True ; sp ="innaga" ;
+      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
+      } ;
+    Pl2 => {
+      s = table {Nom => "aad" ; Abs => "idin"} ;
+      a =  Pl2 ; isPron = True ; sp ="idinka" ;
+      poss = {s = "iin" ; v = vI ; sp = gnTable "iinn" "iinn" "uwiinn"}
+      } ;
+    Pl3 => {
+      s = table {Nom => "ay" ; Abs => []} ;
+      a = Pl3 ; isPron = True ; sp = "iyaga" ;
+      poss = {s = "ood" ; v = vO ; sp = gnTable "ood" "ood" "uwood"}
+      } ;
+    Impers => {
+      s = table {Nom => "la" ; Abs => "??"} ;
+      a = Impers ; isPron = True ; sp = "??" ;
+      poss = {s = "??" ; v = vA ; sp = gnTable "??" "??" "??"}
+      }
+    } ;
+
+  -- Second series object pronouns, Sayeed p. 74-75
+  -- For two non-3rd person object pronouns, e.g. "They took you away from me"
+  secondObject : Agreement => Str = table {
+    Sg1      => "kay" ;
+    Sg2      => "kaa" ;
+    Pl1 Excl => "kayo" ;
+    Pl1 Incl => "keen" ;
+    Pl2      => "kiin" ;
+    _ => []
     } ;
 
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
   BaseQuant : Type = {
-    s : Case => Str ;
     isPoss : Bool ;
     shortPoss : Str ; -- short form of possessive, e.g. family members
     } ;
 
   Determiner : Type = BaseQuant ** {
-    pref : Str ; -- Numerals ?
+    s,
     sp : Gender => Case => Str ;
-    d : NForm -- a combination of number, state and vowel
+    d : NForm ; -- combination of number, state and vowel
+--    isNum : Bool ;  -- placement in NP + whether to choose Numerative from CN
     } ;
 
   Quant : Type = BaseQuant ** {
+    s,
     sp : GenNum => Case => Str ;
     st : State ;
     v : Vowel ;
     } ;
 
   Num : Type = {
-    s : Str ; -- TODO check if enough
+    s : State => Str ; -- TODO check if enough
     n : Number ; -- singular or plural
     isNum : Bool -- whether to choose Numerative as the value of NForm
     } ;
 
   baseQuant : BaseQuant = {
-    s = \\_ => [] ;
     isPoss = False ;
     shortPoss = []
   } ;
@@ -187,11 +252,11 @@ oper
   defQuantBind : (bind : Bool) -> (s, kan, tan, kuwan : Str) -> Vowel -> Quant = \b,s,spm,spf,spp,v ->
     let bind : Str -> Str = \x -> case b of {False => x ; True => BIND ++ x} ;
     in baseQuant ** {
-        s = \\c =>
+        s = \\gn,c =>
           let nom = case v of {NA => "u" ; _ => s + "i"}
-          in case c of {Abs => bind s ; Nom => bind nom} ;
+          in case c of {Nom => bind nom ; _ => bind s} ;
         sp = \\gn,c =>
-           let i = case c of {Nom => "i"; Abs => []}
+           let i = case c of {Nom => "i"; _ => []}
            in gnTable (spm + i) (spf + i) (spp + i) ! gn ;
         st = Definite ;
         v = v ;
@@ -201,6 +266,7 @@ oper
     table {SgMasc => m ; SgFem => f ; _ => p} ;
 
   indefQuant : Quant = baseQuant ** {
+    s,
     sp = \\gn,c => [] ;
     st = Indefinite ;
     v = NA ; -- Will be ignored in DetQuant
@@ -225,13 +291,16 @@ oper
           _        => ku
         }
     } ;
+  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! p ** {c2 = p} ;
 
   prepTable : Preposition => Prep = table {
     ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
     ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
     la => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
     u  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
-    noPrep => mkPrep [] "i" "ku" "na" "idin" "la"
+    noPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
+    -- impersonal subject clitic combining with object clitics.
+    passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
   } ;
 
   prepCombTable : Agreement => PrepCombination => Str = table {
@@ -263,7 +332,6 @@ oper
                    ula => "loola" ; kaga => "lagaga" ;
                    kula => "lagula" ; kala => "lagala" ;
                    Single p => (prepTable ! p).s ! Impers } ;
---
     a   => table { ugu => "ugu" ; uga => "uga" ;
                    ula => "ula" ; kaga => "kaga" ;
                    kula => "kula" ; kala => "kala" ;
@@ -285,7 +353,7 @@ oper
  -- ugu horrayntii (det att komma) allra först
 
   Adjective : Type = {s : AForm => Str} ;
-  Adjective2 : Type = Adjective ** { c2 : Preposition } ;
+  Adjective2 : Type = Adjective ** {c2 : Preposition} ;
 
 
   duplA : Str -> Adjective = \yar ->
@@ -294,10 +362,10 @@ oper
 
   mkAdj : (str,pl : Str) -> Adjective = \sg,pl -> {
     s = table {
-          AF Sg Abs => sg ;
-          AF Pl Abs => pl ;
           AF Sg Nom => sg + "i" ;
-          AF Pl Nom => pl + "i" }
+          AF Pl Nom => pl + "i" ;
+          AF Sg _ => sg ;
+          AF Pl _ => pl }
     } ;
 
   duplicate : Str -> Str = \sg -> case sg of {
@@ -327,6 +395,7 @@ oper
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
+
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
   -- since it corresponds to the form of the basic root."
@@ -346,6 +415,14 @@ oper
                   "n" => arki ;         -- if infinitive ends in n, no change;
                    _  => arki + "n" } ; -- otherwise add n.
 
+
+        progr : Str = case qaat of { -- Progressive
+               _ + "eey"     => stems.p2 + "nay" ; -- bireey -> bireynay
+               _ + ("y"|"n") => init qaat + "nay" ; -- akhriy -> akhrinay ; gashad -> gashanay
+               _ + #v + "t"  => qaat + "ay" ;
+               _ + #c + "t"  => init qaat + "anay" ;
+               _             => qaat + "ay" } ;
+
         -- Some predictable sound changes
         t : Str = case arag of { -- kari+seen, bixi noq+deen, (sug|joogsa|qaada)+teen,
                _ + ("i"|"y") => "s" ;     -- t changes into s in front of i/y
@@ -360,32 +437,50 @@ oper
         an : Str = case qaado of {
                _ + "o" => "an" ; -- Allomorph for imperatives
                _       => "in" } ;
+
    in { s = table {
-          VPres (Sg1|Sg3 Masc|Impers) pol
-                        => qaat + if_then_Pol pol "aa" "o" ;
-          VPres (Sg2|Sg3 Fem) pol
-                        => arag + t + if_then_Pol pol "aa" "o" ;
-          VPres (Pl1 _) pol
-                        => arag + n + if_then_Pol pol "aa" "o"  ;
-          VPres Pl2 pol => arag + t + "aan" ;
-          VPres Pl3 pol => qaat + "aan" ;
+          VPres Simple (Sg1|Sg3 Masc|Impers) pol
+                                    => qaat     + if_then_Pol pol "aa" "o" ;
+          VPres Simple (Sg2|Sg3 Fem) pol
+                                    => arag + t + if_then_Pol pol "aa" "o" ;
+          VPres Simple (Pl1 _) pol  => arag + n + if_then_Pol pol "aa" "o"  ;
+          VPres Simple Pl2 pol      => arag + t + "aan" ;
+          VPres Simple Pl3 pol      => qaat     + "aan" ;
 
-          VPast (Sg1|Sg3 Masc|Impers)
-                        => qaat + ay ;
-          VPast (Sg2|Sg3 Fem)
-                        => arag + t + ay ; -- t, d or s
-          VPast (Pl1 _) => arag + n + ay ;
-          VPast Pl2     => arag + t + "een" ; -- t, d or s
-          VPast Pl3     => qaat + "een" ;
+          VPres Progressive (Sg1|Sg3 Masc|Impers) pol
+                                    => progr + if_then_Pol pol "aa" "o" ;
+          VPres Progressive (Sg2|Sg3 Fem) pol
+                                    => progr + if_then_Pol pol "saa" "so" ;
+          VPres Progressive (Pl1 _) pol
+                                    => progr + if_then_Pol pol "naa" "no"  ;
+          VPres Progressive Pl2 pol => progr + "saan" ;
+          VPres Progressive Pl3 pol => progr + "aan" ;
 
-          VImp Sg Pos   => qaado ;
+          VPast Simple (Sg1|Sg3 Masc|Impers)
+                                     => qaat     + ay ;
+          VPast Simple (Sg2|Sg3 Fem) => arag + t + ay ; -- t, d or s
+          VPast Simple (Pl1 _)       => arag + n + ay ;
+          VPast Simple Pl2           => arag + t + "een" ; -- t, d or s
+          VPast Simple Pl3           => qaat     + "een" ;
+
+          VPast Progressive (Sg1|Sg3 Masc|Impers)
+                                          => progr + "ey" ;
+          VPast Progressive (Sg2|Sg3 Fem) => progr + "sey" ;
+          VPast Progressive (Pl1 _)       => progr + "ney" ;
+          VPast Progressive Pl2           => progr + "seen" ;
+          VPast Progressive Pl3           => progr + "een" ;
+
+          VNegPast Simple      => arkin ;
+          VNegPast Progressive => progr + "n" ;
+
+
+          VImp Sg Pos   => arag ;
           VImp Pl Pos   => qaat + "a" ;
           VImp Sg Neg   => arag + an ;
           VImp Pl Neg   => qaat + "ina" ;
 
           VInf          => arki ;
-          VRel          => arki ; -- TODO does this exist?
-          VNegPast      => arkin }
+          VRel          => arki } ; -- TODO does this exist?
       } ;
 
 -------------------------
@@ -393,18 +488,26 @@ oper
 
   cSug, cKari, cYaree, cJoogso, cQaado : Str -> Verb ;
 
+  -- 1: Root verbs with no lexical affixes, e.g. sug TR 'wait for', kar INTR 'boil, cook';
   cSug sug =
     let cabb : Str = case sug of {
           _ + "b" => sug + "b" ; -- TODO: more duplication patterns
           _       => sug }
      in mkVerb sug cabb sug ;
 
+  -- 2A: Verbs derived from root verbs by the causative affix -i/-is, e.g. kari TR 'cook' (from conjugation 1 kar INTR 'boil, cook');
+  -- 2B: Verbs derived from nouns and adjectives by the causative/factitive affix -eel-ayn, e.g. yaree 'make small' (from yar ADJ 'small');
   cKari, cYaree = \kari -> mkVerb kari (kari+"y") kari ;
 
+  -- 3A: Verbs derived from verbal stems by the middle voice affix -ol­/at
+  -- e.g. karsó 'cook for oneself (from conjugation 2 kâri TR 'cook');
   cJoogso joogso =
     let joogsa = init joogso + "a" ;
      in mkVerb joogso (joogsa + "d") joogsa ;
 
+  -- 3B: As conjugation 3A but verbs whose syllable structure triggers
+  -- stem contraction and subsequent sandhi rules, e.g. qaadó 'take for oneself
+  -- (from conjugation 1 qàad TR 'take').
   cQaado qaado =
     let qaa = init (init qaado)
      in mkVerb qaado  -- Imperative sg, with the vowel
@@ -421,24 +524,24 @@ oper
 
   copula : Verb = {
     s = table {
-          VPres Sg1 pol    => if_then_Pol pol "ahay" "ihi" ;
-          VPres Sg2 pol    => if_then_Pol pol "tahay" "ihid" ;
-          VPres (Sg3 Masc|Impers) pol => if_then_Pol pol "yahay" "aha" ;
-          VPres (Sg3 Fem)  pol => if_then_Pol pol "tahay" "aha" ;
-          VPres (Pl1 _) pol => if_then_Pol pol "nahay" "ihin" ;
-          VPres Pl2 pol     => if_then_Pol pol "tihiin" "ihidin" ;
-          VPres Pl3 pol     => if_then_Pol pol "yihiin" "aha" ;
+          VPres _ Sg1 pol    => if_then_Pol pol "ahay" "ihi" ;
+          VPres _ Sg2 pol    => if_then_Pol pol "tahay" "ihid" ;
+          VPres _ (Sg3 Masc|Impers) pol => if_then_Pol pol "yahay" "aha" ;
+          VPres _ (Sg3 Fem)  pol => if_then_Pol pol "tahay" "aha" ;
+          VPres _ (Pl1 _) pol => if_then_Pol pol "nahay" "ihin" ;
+          VPres _ Pl2 pol     => if_then_Pol pol "tihiin" "ihidin" ;
+          VPres _ Pl3 pol     => if_then_Pol pol "yihiin" "aha" ;
           VImp Sg pol       => if_then_Pol pol "ahaw" "ahaanin" ;
           VImp Pl pol       => if_then_Pol pol "ahaada" "ahaanina" ;
 
-          VPast (Sg1|Sg3 Masc|Impers)
+          VPast _ (Sg1|Sg3 Masc|Impers)
                           => "ahaa" ;
-          VPast (Sg2|Sg3 Fem)
+          VPast _ (Sg2|Sg3 Fem)
                           => "ahayd" ;
-          VPast (Pl1 _)   => "ahayn" ;
-          VPast Pl2       => "ahaydeen" ;
-          VPast Pl3       => "ahaayeen" ;
-          VNegPast        => "ahi" ;
+          VPast _ (Pl1 _)   => "ahayn" ;
+          VPast _ Pl2       => "ahaydeen" ;
+          VPast _  Pl3      => "ahaayeen" ;
+          VNegPast _       => "ahi" ;
           VRel            => "ah" ;
           VInf            => "ahaan" }
      } ;
@@ -449,15 +552,15 @@ oper
   have_V : Verb =
    let hold_V = mkVerb "hayso" "haysat" "haysa" in {
     s = table {
-          VPres Sg1        Pos => "leeyahay" ;
-          VPres Sg2        Pos => "leedahay" ;
-          VPres (Sg3 Fem)  Pos => "leedahay" ;
-          VPres (Sg3 Masc|Impers) Pos
+          VPres _ Sg1        Pos => "leeyahay" ;
+          VPres _ Sg2        Pos => "leedahay" ;
+          VPres _ (Sg3 Fem)  Pos => "leedahay" ;
+          VPres _ (Sg3 Masc|Impers) Pos
                                 => "leeyahay" ;
-          VPres (Pl1 _)    Pos => "leenahay" ;
-          VPres Pl2        Pos => "leedihiin" ;
-          VPres Pl3        Pos => "leeyihiin" ;
-          VPast x               => "l" + copula.s ! VPast x ;
+          VPres _ (Pl1 _)    Pos => "leenahay" ;
+          VPres _ Pl2        Pos => "leedihiin" ;
+          VPres _ Pl3        Pos => "leeyihiin" ;
+          VPast asp agr          => "l" + copula.s ! VPast asp agr ;
           VRel                  => "leh" ;
           x                     => hold_V.s ! x }
     } ;
@@ -475,32 +578,101 @@ oper
 
 ------------------
 -- VP
-  Adverb : Type = {s,s2 : Str} ;
+  Adverb : Type = {
+    s : Str ;
+    c2 : Preposition ; np : NounPhrase} ; -- So that adverbs can also contribute to preposition contraction
 
   Complement : Type = {
     comp : Agreement => {p1,p2 : Str} -- Agreement for AP complements
     } ;
 
   VerbPhrase : Type = Verb ** Complement ** {
-    isPred : Bool ;      -- to choose right sentence type marker
-    adv : Adverb ;          -- they're ~complicated~
-    c2, c3 : Preposition -- can combine together and with object pronouns
+    isPred : Bool ; -- to choose right sentence type marker
+    adv : Str ;
+    c2, c3 : Preposition ; -- can combine together and with object pronoun(s?)
+    obj2 : {s : Str ; a : AgreementPlus} ;
+    secObj : Str ; -- if two overt pronoun objects
     } ;
 
-  VPSlash : Type = VerbPhrase ; ---- TODO more fields
+  VPSlash : Type = VerbPhrase ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
     isPred = False ;
-    adv = {s,s2 = []} ;
+    adv = [] ;
     c2,c3 = noPrep ;
+    obj2 = {s = [] ; a = Unassigned} ;
+    secObj = []
     } ;
 
-  compl : NounPhrase -> VerbPhrase -> Str = \np,vp ->
-    prepCombTable ! np.a ! combine vp.c2 vp.c3 ;
+  useVc : Verb2 -> VPSlash = \v2 -> useV v2 ** {
+    c2 = v2.c2
+    } ;
 
-  complV2 : NounPhrase -> Verb2 -> Str = \np,vp ->
-      prepCombTable ! np.a ! combine vp.c2 noPrep ;
+  complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
+    comp = \\agr =>
+        case np.a of {
+          Unassigned => vps.comp ! agr ;
+          _ => {p1 = np.s ; -- if object is a noun, it will come before verb in the sentence.
+                            -- if object is a pronoun, np.s is empty.
+                p2 = compl np.a vps ++ vps.secObj}  -- object combines with the preposition of the verb.
+                                                    -- secObj in case there was a ditransitive verb.
+
+          -- IsPron ag => {p1 = [] ; -- object is a pronoun => nothing is placed before the verb
+          --               p2 = compl np.a vps ++ vps.secObj} ; -- object combines with the preposition of the verb
+          -- NotPronP3 => {p1 = np.s ; -- object is a noun => it will come before verb in the sentence
+          --               p2 = compl np.a vps ++ vps.secObj}  -- object combines with the preposition of the verb
+          }
+    } ;
+
+  compl : AgreementPlus -> VerbPhrase -> Str = \a,vp ->
+    let agr = case a of {IsPron x => x ; _ => Pl3} ;
+     in prepCombTable ! agr ! combine vp.c2 vp.c3 ;
+
+  insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
+    let noun = case <np.isPron,np.a> of {
+                  <False>        => np.s ! Abs ;
+                  <True,Sg3 _|Pl3> => (pronTable ! np.a).sp ; -- long object pronoun for 3rd person object
+                  _ => [] } -- no long object for other pronouns
+    in case vp.obj2.a of {
+      Unassigned =>
+        vp ** {obj2 = {
+                  s = noun ;
+                  a = agr2agrplus np.isPron np.a}
+              } ;
+
+      -- If the old object is 3rd person, we can safely replace its agreement.
+      -- We keep both old and new string (=noun, if there was one) in obj2.s.
+      NotPronP3|IsPron (Sg3 _|Pl3|Impers) =>
+        vp ** {obj2 = {
+                  s = vp.obj2.s ++ noun ;
+                  a = agr2agrplus np.isPron np.a} ; --
+               } ; -- no secObj, because there's ≤1 non-3rd-person pronoun.
+
+      -- If old object was non-3rd person, we keep its agreement.
+      _ =>
+          vp ** {obj2 = vp.obj2 ** {
+                    s = vp.obj2.s ++ noun
+                    } ;
+                 secObj = vp.secObj ++ secondObject ! np.a}
+
+    } ;
+
+  passV2 : Verb2 -> VerbPhrase = \v2 -> useVc v2 ** {
+    c2 = passive ;
+    c3 = v2.c2 ;
+    } ;
+
+  insertAdv : Adverb -> VerbPhrase -> VerbPhrase = \adv,vp ->
+    case adv.c2 of {
+      noPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
+      prep => case <vp.c2,vp.obj2.a,vp.c3> of {
+                <noPrep,Unassigned,_> => insertComp <vp ** {c2 = adv.c2}:VerbPhrase> adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
+                <_,_,         noPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
+               -- if complement slots are full, put preposition just as a string. TODO check word order.
+                _ => vp ** {adv = (prepTable ! adv.c2).s ! adv.np.a ++ adv.np.s ! Abs}
+              }
+      } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
   Clause : Type = {s : Tense => Anteriority => Polarity => Str} ;
@@ -508,25 +680,28 @@ oper
   ClSlash,
   Sentence : Type = SS ; ---- TODO
 
-  doonaa : Str -> Verb = \inf ->
-    let doon : Verb = cSug "doon" in {s = \\vf => inf ++ doon.s ! vf} ;
-
   vf : Tense -> Anteriority -> Polarity -> Agreement -> Verb
     -> {fin : Str ; inf : Str} = \t,ant,p,agr,vp ->
-     let pastV : Verb -> Str = \v ->
-           case p of { Neg => v.s ! VNegPast ;
-                       Pos => v.s ! VPast agr } ;
-         presV : Verb -> Str = \v -> v.s ! VPres agr p ;
-     in case <t,ant> of {
-       <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
-       <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
-       <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
-       <Past,Anter> => {fin = pastV copula  ; inf = vp.s ! VInf } ; ---- TODO: habitual aspect
-       <Fut,Simul>  => {fin = presV (doonaa (vp.s ! VInf)) ; inf = []} ;
-       <Fut,Anter>  => {fin = pastV (doonaa (vp.s ! VInf)) ; inf = []} ;
-       <_,Simul>  => {fin = presV vp ; inf = []} ; -- TODO conditional
-       <_,Anter>  => {fin = pastV vp ; inf = []}   -- TODO conditional
-       } ;
+    case <t,ant> of {
+      <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
+      <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
+      <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
+      <Past,Anter> => {fin = pastV (aux "jir" vp)  ; inf = []} ;
+      <Fut,Simul>  => {fin = presV (aux "doon" vp) ; inf = []} ;
+      <Fut,Anter>  => {fin = pastV (aux "doon" vp) ; inf = []} ;
+      <_,Simul>  => {fin = presV vp ; inf = []} ; -- TODO conditional
+      <_,Anter>  => {fin = pastV vp ; inf = []}   -- TODO conditional
+      }
+  where {
+    pastV : Verb -> Str = \v ->
+      case p of { Neg => v.s ! VNegPast Simple ;
+                  Pos => v.s ! VPast Simple agr } ;
+
+    presV : Verb -> Str = \v -> v.s ! VPres Simple agr p ;
+
+    aux : Str -> Verb -> Verb = \jir,v ->
+     let jir : Verb = cSug jir in {s = \\vf => v.s ! VInf ++ jir.s ! vf}
+  } ;
 
   stmarker : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
@@ -537,9 +712,11 @@ oper
      in stm ++ subjpron ! a ;
 
   subjpron : Agreement => Str = table {
-    Sg1|Pl1 _ => "aan" ;
+    Sg1|Pl1 Excl => "aan" ;
+    Pl1 Incl  => "aynu" ;
     Sg2|Pl2   => "aad" ;
     Sg3 Masc  => "uu" ;
+    Impers    => [] ;
     _         => "ay" } ;
 
 --------------------------------------------------------------------------------
@@ -547,5 +724,5 @@ oper
 
 oper
   linVP : VerbPhrase -> Str = \vp -> vp.s ! VInf ; ----
-  linCN : CNoun -> Str = \cn -> cn.s ! IndefNom ;
+  linCN : CNoun -> Str = \cn -> cn.s ! NomSg ;
 }

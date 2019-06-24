@@ -43,9 +43,8 @@ oper
   } ;
 
   mkN2 : overload {
-    mkN2 : Str -> N2 ; -- Predictable N2, no preposition
-    mkN2 : Str -> Preposition -> N2 ; -- Predictable N2, given preposition
-    mkN2 : N -> Preposition -> N2 -- N2 out of noun and preposition
+    mkN2 : Str -> N2 ; -- Predictable N2
+    mkN2 : N -> N2 -- N2 out of noun
    } ;
 
   mkPN : overload {
@@ -104,11 +103,11 @@ oper
 
   mkPrep = overload {
     mkPrep : Str -> CatSom.Prep = \s ->
-      lin Prep (ResSom.mkPrep s s s s s s) ;
+      lin Prep ((ResSom.mkPrep s s s s s s) ** {c2=noPrep}) ;
     mkPrep : (x1,_,_,_,_,x6 : Str) -> CatSom.Prep = \a,b,c,d,e,f ->
-      lin Prep (ResSom.mkPrep a b c d e f) ;
+      lin Prep ((ResSom.mkPrep a b c d e f) ** {c2=noPrep}) ;
     mkPrep : Preposition -> CatSom.Prep = \p ->
-      lin Prep (prepTable ! p) ;
+      lin Prep (prep p) ;
   } ;
 
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->
@@ -117,7 +116,7 @@ oper
   -- mkSubj : Str -> Bool -> Subj = \s,b ->
   --   lin Subj { } ;
 
-  mkAdv : Str -> Adv = \s -> lin Adv {s = s ; s2 = []} ;
+  mkAdv : Str -> Adv = \s -> lin Adv {s = s ; c2 = noPrep ; np = emptyNP} ;
 
   mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
 
@@ -165,9 +164,8 @@ oper
    = \n -> n ** {shortPoss = True} ;
 
   mkN2 = overload {
-    mkN2 : Str -> N2                = \s   -> lin N2 (mkN1 s ** {c2 = noPrep}) ;
-    mkN2 : Str -> Preposition -> N2 = \s,p -> lin N2 (mkN1 s ** {c2 = p}) ;
-    mkN2 : N -> Preposition -> N2   = \n,p -> lin N2 (n ** {c2=p})
+    mkN2 : Str -> N2 = \s -> lin N2 (mkN1 s) ;
+    mkN2 : N   -> N2 = \n -> lin N2 n ;
    } ;
 
   mkPN = overload {

@@ -18,7 +18,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
     UttVP vp = { s = linVP vp } ;
     UttAdv adv = adv ;
     UttCN n = {s = linCN n } ;
-    UttCard n = n ;
+    UttCard n = {s = n.s ! Indefinite} ;
     UttAP ap = { s = ap.s ! AF Sg Abs } ;
     UttInterj i = i ;
 

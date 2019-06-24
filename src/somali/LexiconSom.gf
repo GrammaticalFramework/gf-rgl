@@ -1,5 +1,5 @@
 concrete LexiconSom of Lexicon = CatSom **
-  open ParadigmsSom in {
+  open ParadigmsSom,ResSom in {
 
 ----
 -- A
@@ -105,7 +105,7 @@ lin drink_V2 = mkV2 "cab" ;
 --
 -- lin ear_N = mkN "" ;
 -- lin earth_N = mkN "" ;
--- lin eat_V2 = mkV2 "" ;
+lin eat_V2 = mkV2 "cun" ;
 -- lin egg_N = mkN "" ;
 -- lin empty_A = mkA "" ;
 -- lin enemy_N = mkN "" ;
@@ -118,7 +118,7 @@ lin drink_V2 = mkV2 "cab" ;
 -- lin fall_V = mkV "" ;
 -- lin far_Adv = mkA "" ;
 -- lin fat_N = mkN "" ;
-lin father_N2 = mkN2 (shortPossN (mkN "aabbe")) noPrep ;
+lin father_N2 = mkN2 (shortPossN (mkN "aabbe")) ;
 -- lin fear_V2 = mkV2 "" ;
 -- lin fear_VS = mkVS "" ;
 -- lin feather_N = mkN "" ;
@@ -148,9 +148,9 @@ lin father_N2 = mkN2 (shortPossN (mkN "aabbe")) noPrep ;
 
 -- lin garden_N = mkN "" ;
 lin girl_N = mkN "gabadh" "gabdho" fem ;
-lin give_V3 = mkV3 "bixiyo" ;
+lin give_V3 = mkV3 "sii" ;
 -- lin glove_N = mkN "" ;
--- lin go_V = joan_V ;
+lin go_V = mkV "tag" ;
 -- lin gold_N = mkN "" ;
 -- lin good_A = mkA "" ;
 -- lin grammar_N = mkN "" ;
@@ -176,7 +176,7 @@ lin give_V3 = mkV3 "bixiyo" ;
 -- lin horn_N = mkN "" ;
 -- lin horse_N = mkN "" ;
 -- lin hot_A = mkA "" ;
-lin house_N = mkN "aqal" ;
+lin house_N = mkN "guri" ;
 -- lin hunt_V2 = mkV2 "" ;
 -- lin husband_N = mkN "" ;
 
@@ -227,7 +227,7 @@ lin man_N = mkN "nin" ;
 -- lin meat_N = mkN "" ;
 -- lin milk_N = mkN "" ;
 -- lin moon_N = mkN "" ;
-lin mother_N2 = mkN2 (shortPossN (mkN "hooyo")) noPrep ;
+lin mother_N2 = mkN2 (shortPossN (mkN "hooyo")) ;
 -- lin mountain_N = mkN "" ;
 -- lin mouth_N = mkN "" ;
 -- lin music_N = mkN "" ;
@@ -360,7 +360,7 @@ lin speak_V2 = mkV2 "hadlo" ;
 -- lin table_N = mkN "" ;
 -- lin tail_N = mkN "" ;
 -- lin talk_V3 = mkV3 "" ;
-lin teach_V2 = mkV2 "baray" ku ; -- I suppose this creates progressive forms? TODO implement all forms of verbs properly.
+lin teach_V2 = mkV2 "bar" ku ;
 -- lin teacher_N = mkN "" ;
 -- lin television_N = mkN "" ;
 -- lin thick_A = mkA "" ;
@@ -389,13 +389,13 @@ lin teach_V2 = mkV2 "baray" ku ; -- I suppose this creates progressive forms? TO
 --------
 -- W - Y
 
--- lin wait_V2 = mkV2 "" ;
+lin wait_V2 = mkV2 "sug" ;
 -- lin walk_V = mkV "" ;
 -- lin war_N = mkN "" ;
 -- lin warm_A = mkA "" ;
 -- lin wash_V2 = mkV2 "" ;
 -- lin watch_V2 = mkV2 "" ;
--- lin water_N = mkN "" ;
+lin water_N = mkNoun "biyo" "biyaha" "biyo" "biyaha" Masc ; -- ?? gender
 -- lin wet_A = mkA "" ;
 -- lin white_A = mkA "" ;
 -- lin wide_A = mkA "" ;

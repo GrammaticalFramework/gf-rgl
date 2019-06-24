@@ -32,11 +32,12 @@ concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom in {
   -- : VP -> VP ;
   --ProgrVP vp = vp ** { } ;
 
-  -- : VP -> Utt ;       -- let's go
-  --ImpPl1 vp = { } ;
-{-
 
-    ImpP3     : NP -> VP -> Utt ; -- let John walk
+  {- TODO: Sayeed p. 92 optative
+  -- : VP -> Utt ;       -- let's go
+  ImpPl1 vp = { } ;
+
+  ImpP3     : NP -> VP -> Utt ; -- let John walk
 
 -- 3/12/2013 non-reflexive uses of "self"
 

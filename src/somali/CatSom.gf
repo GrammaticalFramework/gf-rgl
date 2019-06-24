@@ -72,7 +72,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     Predet = {s : Str} ;
     Quant = ResSom.Quant ;
     Num = ResSom.Num ;
-    Card, Ord = {s : Str ; n : Number} ;
+    Ord = {s : Str ; n : Number} ;
     DAP = ResSom.Determiner ;
 
 
@@ -80,7 +80,8 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 -- Constructed in NumeralSom.
 
-    Numeral = {s : Str ; n : Number} ;
+    Card = {s : State => Str ; n : Number} ;
+    Numeral = {s : CardOrd => State => Str ; n : Number} ;
     Digits = {s : CardOrd => Str ; n : Number} ;
 
 
@@ -90,7 +91,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- Constructed in StructuralSom.
     Conj = { s1,s2 : Str ; n : Number } ;
     Subj = { s : Str ; isPre : Bool } ; --ba+dut vs. dut+en
-    Prep = ResSom.Prep ;
+    Prep = ResSom.Prep ** {c2 : Preposition} ;
 
 
 
@@ -121,7 +122,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     N3 = ResSom.Noun3 ;
     PN = ResSom.PNoun ;
 
-    Adv = ResSom.Adverb ;
+    Adv = ResSom.Adverb ; -- Preposition of an adverbial can merge with obligatory complements of the verb.
 
 linref
     -- Cl = linCl ;

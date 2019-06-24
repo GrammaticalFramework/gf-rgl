@@ -104,14 +104,14 @@ oper
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep ""  ;
-lin in_Prep = prepTable ! ku ;
-lin on_Prep = prepTable ! ku ;
+lin in_Prep = prep ku ;
+lin on_Prep = prep ku ;
 -- lin part_Prep = mkPrep ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
 -- lin under_Prep = mkPrep ""   ;
-lin with_Prep = prepTable ! la ;
+lin with_Prep = prep la ;
 -- lin without_Prep = mkPrep ;
 
 
@@ -119,43 +119,15 @@ lin with_Prep = prepTable ! la ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsSom.
-
-    i_Pron = {
-      s = table {Nom => "aan" ; Abs => "i"} ;
-      a = Sg1 ; isPron = True ; sp = "aniga" ;
-      poss = {s = "ay" ; v = vA ; sp = gnTable "ayg" "ayd" "uwayg"}
-      } ;
+    it_Pron = he_Pron ** {s = \\_ => []} ;
+    i_Pron = pronTable ! Sg1 ;
     youPol_Pron, -- TODO check
-    youSg_Pron = {
-      s = table {Nom => "aad" ; Abs => "ku"} ;
-      a = Sg2 ; isPron = True ; sp = "adiga" ;
-      poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
-      } ;
-    he_Pron = {
-      s = table {Nom => "uu" ; Abs => []} ;
-      a = Sg3 Masc ; isPron = True ; sp = "isaga" ;
-      poss = {s = "iis" ; v = vI ; sp = gnTable "iis" "iis" "uwiis"}
-      } ;
-    she_Pron = {
-      s = table {Nom => "ay" ; Abs => []} ;
-      a = Sg3 Fem ; isPron = True ; sp = "iyada" ;
-      poss = {s = "eed" ; v = vE ; sp = gnTable "eed" "eed" "uweed"}
-      } ;
-    we_Pron = {
-      s = table {Nom => "aan" ; Abs => "na"} ;
-      a = Pl1 Incl ; isPron = True ; sp = "innaga" ;
-      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
-      } ;
-    youPl_Pron = {
-      s = table {Nom => "aad" ; Abs => "idin"} ;
-      a =  Pl2 ; isPron = True ; sp = "idinka" ;
-      poss = {s = "iin" ; v = vI ; sp = gnTable "iinn" "iinn" "uwiinn"}
-      } ;
-    they_Pron = {
-      s = table {Nom => "ay" ; Abs => []} ;
-      a = Pl3 ; isPron = True ; sp = "iyaga" ;
-      poss = {s = "ood" ; v = vO ; sp = gnTable "ood" "ood" "uwood"}
-      } ;
+    youSg_Pron = pronTable ! Sg2 ;
+    he_Pron = pronTable ! Sg3 Masc ;
+    she_Pron = pronTable ! Sg3 Fem ;
+    we_Pron = pronTable ! Pl1 Excl ;
+    youPl_Pron = pronTable ! Pl2 ;
+    they_Pron = pronTable ! Pl3 ;
 {-
 lin whatPl_IP = ;
 lin whatSg_IP = ;

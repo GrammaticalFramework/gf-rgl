@@ -1,88 +1,91 @@
 concrete NumeralSom of Numeral = CatSom [Numeral,Digits] **
-  open Prelude, ResSom in {
+  open Prelude, ResSom, ParamSom in {
 
-oper LinDigit : Type = { s : DForm => Str ;
-                         n : Number ;
-                         even20 : Even20 } ;
+oper
+  LinDigit : Type = {
+    s : DForm => CardOrd => State => Str -- TODO: for 1, hal and mid. variation kow-koob implemented with pre.
+    } ;
 
-oper mk20Ten : Str -> Str -> Str -> Str -> LinDigit = \tri,t,fiche,h ->
-  { s = table { Unit   => tri ;
-                Teen   => t ;
-                Twenty => fiche ;
-                Hund   => h + "TODO"} ;
-    even20 = Ten ;
-    n = Pl } ;
+  mkNum3 : (ucard,tcard,uord : Str) -> Gender -> LinDigit = \uc,tc,uo,g -> {s =
+    \\df,co,s => case <co,df,s> of {
+        <NOrd,Unit,_> => uo ;
+        <NOrd,Ten, _> => tc + "aad" ;
+        <NCard,Unit,s> => nf2state (mkNg uc g) ! s ;
+        <NCard,Ten, s> => nf2state (mkN1 tc) ! s }
+    } ;
 
-oper mkeven20 : Str -> Str -> Str -> Str -> LinDigit = \se,t,trifichid,h ->
-  { s = table { Unit => se ;
-                Teen => t ;
-                Twenty => trifichid ;
-                Hund => h + "TODO" } ;
-    even20 = Even ;
-    n = Pl } ;
+  mkNum2 : (ucard,tcard : Str) -> LinDigit = \uc,tc ->
+    let uo : Str = case uc of {
+               x + "a" => x + "aad" ; -- ??
+               x + #v + c@#c => x + c + "aad" ;
+               _             => uc + "aad" } ;
+     in mkNum3 uc tc uo Fem ;
 
-param Even20 = Ten | Even ;
-param DForm = Unit | Teen | Twenty | Hund ;
+  mkNum2Masc : (ucard,tcard : Str) -> LinDigit = \uc,tc ->
+    let uo : Str = case uc of {
+               x + "a" => x + "aad" ; -- ??
+               x + #v + c@#c => x + c + "aad" ;
+               _             => uc + "aad" } ;
+     in mkNum3 uc tc uo Masc ;
 
---lincat Numeral = {s : Str} ;
-lincat Digit = LinDigit ;
-lincat Sub10 = LinDigit ;
-lincat Sub100 = {s : Str ; n : Number } ;
-lincat Sub1000 = {s : Str ; n : Number ; isHundred : Bool } ;
-lincat Sub1000000 = {s : Str ; n : Number } ;
 
+lincat
+  Digit = LinDigit ;
+  Sub10, Sub100, Sub1000, Sub1000000 =
+          {s : CardOrd => State => Str ; n : Number} ;
 
 ----------------------------------------------------------------------------
 
 
 --  num : Sub1000000 -> Numeral ;
-lin num x0 = lin Numeral x0 ;
+lin num x = x ;
 
-lin n2  = mkeven20 "TODO" "TODO" "TODO" "TODO" ;
-lin n3  = mk20Ten "TODO" "TODO" "TODO" "TODO";
-lin n4  = mkeven20 "TODO" "TODO" "TODO" "TODO";
-lin n5  = mk20Ten "TODO" "TODO" "TODO" "TODO";
-lin n6  = mkeven20 "TODO" "TODO" "TODO" "TODO" ;
-lin n7  = mk20Ten "TODO" "TODO" "TODO" "TODO" ;
-lin n8  = mkeven20 "TODO" "TODO" "TODO" "TODO" ;
-lin n9  = mk20Ten "TODO" "TODO" "TODO" "TODO" ;
+oper kow : Str = "kow" ; --pre {"iyo" => "koob" ; _ => "kow"} ;
 
-lin pot01  =
-  {s = table {Unit => "TODO" ; Hund => "TODO" ; _ => []} ; even20 = Ten ; n = Sg };
-lin pot0 d = d ;
-lin pot110 = {s = "TODO" ; n = Pl} ;
-lin pot111 = {s = variants {"TODO" ; "TODO"} ; n = Pl} ;
-lin pot1to19 d = {s = d.s ! Teen ; n = Pl} ;
-lin pot0as1 n = {s = n.s ! Unit ; n = n.n} ;
-lin pot1 d =
-  {s = case d.even20 of {
-              Even => d.s ! Twenty ;
-              Ten  => glue (d.s ! Twenty) "TODO" } ;
-   n = Pl} ;
-lin pot1plus d e =
-  {s = case d.even20 of {
-              Even => d.s ! Twenty ++ "TODO" ++ e.s ! Unit ;
-              Ten  => d.s ! Twenty ++ "TODO" ++ e.s ! Teen } ;
-   n = Pl} ;
+oper n1 = mkNum3 kow "toban" "kowaad" Fem ;
+lin n2  = mkNum2 "laba" "labaatan" ;
+lin n3  = mkNum2 "saddex" "soddon" ;
+lin n4  = mkNum2 "afar" "afartan";
+lin n5  = mkNum2 "shan" "konton";
+lin n6  = mkNum2 "lix" "lixdan" ;
+lin n7  = mkNum2 "toddoba" "toddobaatan" ;
+lin n8  = mkNum2Masc "siddeed" "siddeetan" ;
+lin n9  = mkNum2Masc "sagaal" "sagaaashan" ;
 
-lin pot1as2 n = n ** { isHundred = False } ;
-lin pot2 d = {s = d.s ! Hund ; n = Pl ; isHundred = True } ;
-lin pot2plus d e =
-  { s = d.s ! Hund ++ "TODO" ++ e.s ;
-    n = Pl ;
-    isHundred = True } ;
+lin pot01  = {s = n1.s ! Unit ; n = Sg} ;
+
+lin pot0 d = {s = d.s ! Unit ; n = Pl} ;
+
+lin pot110 = {s = n1.s ! Ten ; n = Pl} ;
+lin pot111 = {s = \\co,s => "koob iyo" ++ n1.s ! Ten ! co ! s ; n = Pl} ;
+lin pot1to19 d = {s = \\co,s => d.s ! Unit ! co ! s ++ n1.s ! Ten ! co ! s ; n=Pl} ;
+lin pot0as1 n = n ;
+lin pot1 d = {s = d.s ! Ten ; n=Pl};
+  -- {s = d.s ! Unit ;
+  --  n = Pl} ;
+lin pot1plus d e = {
+  s = \\co,s => e.s ! co ! Indefinite ++ "iyo" ++ d.s ! Ten ! co ! s  ;
+  n = Pl} ;
+
+lin pot1as2 n = n ;
+lin pot2 d = d ** {s = \\co,s => d.s ! co ! s ++ "boqol"} ; -- TODO
+lin pot2plus d e = {
+  s = \\co,s => d.s ! co ! Indefinite ++ "boqol iyo" ++ e.s ! co ! s ;
+  n = Pl} ;
 lin pot2as3 n = n ;
-lin pot3 n =
-  {s = table {Sg => [] ; Pl => n.s } ! n.n ++ "TODO" ;
-   n = n.n } ;
+lin pot3 n = n ;
+
+lin pot3plus n m = {
+  s = \\co,s => n.s ! co ! s ++ "iyo" ++ m.s ! co ! s ;
+  n = n.n } ;
 
 
-lin pot3plus n m =
-  let ta = if_then_Str m.isHundred [] "TODO" ; --no `ta' between 1000 and 100
-  in
-    { s = table {Sg => [] ; Pl => n.s } ! n.n ++ "TODO" ++ ta ++ m.s ;
-      n = n.n } ;
-
+--TODO:
+-- my three cats
+-- * saddexd &+ ayg &+ a bisadood
+-- => saddexd &+ ayd &+ a bisadood
+-- my *two* thousand small cats
+-- => laba kun oo bisadood oo yar (kun is an attribute, bisadood is an attribute)
 ----------------------------------------------------------------------------
 
 lincat Dig = TDigit ;
@@ -93,7 +96,7 @@ oper
 
   mk2Dig : Str -> Number -> TDigit = \c,num ->
    { s = table { NCard => c ;
-                 NOrd => c + "TODO" } ;
+                 NOrd  => c + "aan" } ;
      n = num } ;
 
 
