@@ -1,4 +1,4 @@
-concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
+concrete CatLat of Cat = CommonX-[Adv,Voc] ** open ResLat, ParamX, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -60,7 +60,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 --
 ---- Numeral
 --
-    Numeral = ResLat.Numeral ;
+    Numeral = ResLat.TNumeral ;
     Digits  = {s : Str ; unit : Unit} ;
 --
 ---- Structural

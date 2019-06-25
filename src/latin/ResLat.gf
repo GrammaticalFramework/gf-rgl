@@ -190,7 +190,51 @@ param
       audaces audaces (audac + "ium") (audac + "ibus") 
       g ;
 
-  
+  regAdj : Str -> Gender => Number => Case => Str = \s ->
+    case s of {
+	un + "us" => \\g,n,c => un + (regAdjSuffixes s g n c)
+    } ;
+
+  regAdjSuffixes : Str -> Gender -> Number -> Case -> Str = \str,g,n,c ->
+    case <g,n,c> of {
+      <Masc ,Sg,Nom> => "us" ;
+      <Masc ,Sg,Gen> => "i" ;
+      <Masc ,Sg,Dat> => "o" ;
+      <Masc ,Sg,Acc> => "um" ;
+      <Masc ,Sg,Abl> => "o" ;
+      <Masc ,Sg,Voc> => case str of { _ + "ius" => "i" ; _ => "e" } ;
+      <Masc ,Pl,Nom> => "i" ;
+      <Masc ,Pl,Gen> => "orum" ;
+      <Masc ,Pl,Dat> => "is" ;
+      <Masc ,Pl,Acc> => "os" ;
+      <Masc ,Pl,Abl> => "is" ;
+      <Masc ,Pl,Voc> => "i" ;
+      <Neutr,Sg,Nom> => "um" ;
+      <Neutr,Sg,Gen> => "i" ;
+      <Neutr,Sg,Dat> => "o" ;
+      <Neutr,Sg,Acc> => "um" ;
+      <Neutr,Sg,Abl> => "o" ;
+      <Neutr,Sg,Voc> => "um";
+      <Neutr,Pl,Nom> => "a" ;
+      <Neutr,Pl,Gen> => "orum" ;
+      <Neutr,Pl,Dat> => "is" ;
+      <Neutr,Pl,Acc> => "os" ;
+      <Neutr,Pl,Abl> => "is" ;
+      <Neutr,Pl,Voc> => "a" ;
+      <Fem  ,Sg,Nom> => "a" ;
+      <Fem  ,Sg,Gen> => "ae" ;
+      <Fem  ,Sg,Dat> => "ae" ;
+      <Fem  ,Sg,Acc> => "am" ;
+      <Fem  ,Sg,Abl> => "a" ;
+      <Fem  ,Sg,Voc> => "a";
+      <Fem  ,Pl,Nom> => "ae" ;
+      <Fem  ,Pl,Gen> => "arum" ;
+      <Fem  ,Pl,Dat> => "is" ;
+      <Fem  ,Pl,Acc> => "as" ;
+      <Fem  ,Pl,Abl> => "is" ;
+      <Fem  ,Pl,Voc> => "ae" 
+    } ;
+    
   emptyAdj : Adjective = 
     { s = \\_,_ => "" ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
 
@@ -1421,11 +1465,12 @@ oper
   -- numerals
   param
   --   CardOrd = NCard | NOrd ;
-    Unit = one | ten | hundred | thousand | ten_thousand | hundred_thousand ;
+    Unit = one | eleven | ten | hundred | thousand | ten_thousand | hundred_thousand ;
+    Below8 = Yes | No8 | No9 | Ign ;
   oper
     -- Numerals are by default cardinal numbers but have a field for ordinal numbers
-    TDigit : Type = { s : Unit => Gender => Case => Str } ; -- ord : Unit => Agr => Str } ;
-    Numeral : Type = { s : Gender => Case => Str ; n : Number } ; -- ord : Unit => Agr => Str } ;
+    TDigit : Type = { s : Unit => Gender => Case => Str ; tenNext : Str ; below8 : Below8 } ; -- ord : Unit => Agr => Str } ;
+    TNumeral : Type = { s : Gender => Case => Str ; d : Unit => Gender => Case => Str ; n : Number ; below8 : Below8 } ; -- ord : Unit => Agr => Str } ;
 
     -- Inflection for cardinal numbers
     cardFlex : Str -> Gender => Case => Str =
@@ -1442,9 +1487,9 @@ oper
 			  <Neutr, Nom | Acc | Voc > => "tria" ; <_, Nom | Acc | Voc > => "tres" ;
 			  <_, Gen> => "trium" ; <_, Dat | Abl > => "tribus"
 			  } ;
+			tre + "centi" => \\g,c => regAdj (tre + "centus") ! g ! Pl ! c ;
 			"milia" => table {
-			  Neutr => table Case [ "milia" ; "milia" ; "milium" ; "milibus" ; "milibus" ; "milia" ] ;
-			  _ => \\_ => nonExist
+			  _ => table Case [ "milia" ; "milia" ; "milium" ; "milibus" ; "milibus" ; "milia" ]
 			  } ;
 			_ => \\_,_ => c
       } ;
