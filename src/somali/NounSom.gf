@@ -9,35 +9,36 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- : Det -> CN -> NP
 DetCN det cn = useN cn ** {
   s = sTable ;
-  a = getAgr det.d cn.g } where {
+  a = getAgr det.n (gender cn) } where {
     sTable : Case => Str = \\c =>
        let nfc : {nf : NForm ; c : Case} =
-             case <c,cn.hasMod,det.d> of {
-                -- special form for fem. nouns
-                <Nom,False,Indef Sg> => {nf=NomSg ; c=c} ;
+             case <det.isNum,c,cn.hasMod,det.st,det.n> of {
+                -- Numbers
+                <True,_,_,_,_> => {nf=Numerative ; c=c} ;
 
-                -- special case for DefArt+Nom: override vowel
-                <Nom,False,Def x NA> => {nf=Def x vU ; c=c} ;
+                -- special form for fem. nouns
+                <_,Nom,False,Indefinite,Sg> => {nf=NomSg ; c=c} ;
+
+                -- Definite
+                <_,Nom,False,Definite,n> => {nf=Def n ; c=c} ;
 
                 -- If cn has modifier, Nom ending attaches to the modifier
-                <Nom,True,_> => {nf=det.d ; c=Abs} ;
-                _            => {nf=det.d ; c=c}
+                <_,Nom,True,_,_> => {nf=Def det.n ; c=Abs} ;
+                _                => {nf=Def det.n ; c=c} -- TODO check
              } ;
-          detStr : Str =
-            case <cn.isPoss,det.d,det.isPoss,cn.shortPoss> of {
-                <True,      _,_,_> => det.sp ! cn.g ! nfc.c ; -- CN has undergone ComplN2 and is already quantified
-                <_,Numerative,_,_> => [] ; -- s is in pref
-                <_,_,   True,True> => det.shortPoss ;
-                _ => det.s ! cn.g ! nfc.c
+          art = case det.n of {Sg => cn.sg ; Pl => cn.pl} ;
+          num = case det.isNum of {True => Sg ; _ => det.n} ;
+          dt : {pref,s : Str} =
+            case <nfc.nf,cn.isPoss,andB det.isPoss cn.shortPoss> of {
+              <Numerative,_,_> => {s = [] ; pref = det.s ! art ! nfc.c} ; -- determiner comes before CN
+              <_,      True,_> => {pref = [] ; s = det.sp ! gender cn ! nfc.c} ; -- CN has undergone ComplN2 and is already quantified
+              <_,_,      True> => {pref = [] ; s = BIND ++ det.shortPoss ! art} ;
+              _                => {pref = [] ; s = det.s ! art ! nfc.c}
             } ;
-          pref : Str = case det.d of {
-            Numerative => det.s ! cn.g ! nfc.c ;
-            _ => []
-            } ;
-        in pref -- if det is numeral.
+        in dt.pref -- if det is numeral
         ++ cn.s ! nfc.nf
-        ++ detStr -- non-numeral det
-        ++ cn.mod ! getNum (getAgr det.d Masc) ! c
+        ++ dt.s -- non-numeral det
+        ++ cn.mod ! num ! c
     } ;
 
   -- : PN -> NP ;
@@ -74,7 +75,7 @@ DetCN det cn = useN cn ** {
   -- : Det -> NP ;
   DetNP det = {
     s = det.sp ! Masc ; ---- Any way to decide for gender here?
-    a = getAgr det.d Masc ;
+    a = getAgr det.n Masc ;
     isPron = False ;
     } ;
 
@@ -91,25 +92,24 @@ DetCN det cn = useN cn ** {
 -- quantifier and an optional numeral can be discerned.
 
   -- : Quant -> Num -> Det ;
-  DetQuant quant num = quant ** {
-    s = \\g,c => case <num.n,g> of {
-          <Sg,Masc> => num.s ! quant.st ++ quant.s ! SgMasc ! c ;
-          <Sg,Fem> => num.s ! quant.st ++ quant.s ! SgFem ! c ;
-          -- gender-flipped allomorphs in plural; TODO needs more fine-grained rules
-          <Pl,Fem> => num.s ! quant.st ++ quant.s ! SgMasc ! c ;
-          <Pl,Masc> => num.s ! quant.st ++ quant.s ! SgFem ! c } ;
+  DetQuant quant num = let indep = Hal in quant ** {
+    s = \\da,c =>
+            case num.isNum of {
+               True => num.s ! indep ++ quant.s ! num.da ! c ++ num.thousand ;
+               False => num.s ! indep ++ quant.s ! da ! c ++ num.thousand } ;
 
-    sp = \\g,c => case <num.n,g> of {
-          <Sg,Masc> => num.s ! quant.st ++ quant.sp ! SgMasc ! c ;
-          <Sg,Fem> => num.s ! quant.st ++ quant.sp ! SgFem ! c ;
+    sp = \\g,c => case <num.n,g> of { -- TODO check what happens when num.isNum
+          <Sg,Masc> => num.s ! indep ++ quant.sp ! SgMasc ! c ++ num.thousand ;
+          <Sg,Fem> => num.s ! indep ++ quant.sp ! SgFem ! c ++ num.thousand ;
           -- Independent form uses plural morpheme, not gender-flipped allomorph
-          <Pl,_> => num.s ! quant.st ++ quant.sp ! PlInv ! c } ;
-
-    d = case <num.isNum,quant.st> of {
-          <True,_> => Numerative ;
-          <False,Definite> => Def num.n quant.v ;
-          <False,Indefinite> => Indef num.n } ;
+          <Pl,_> => num.s ! indep ++ quant.sp ! PlInv ! c ++ num.thousand } ;
+    isNum = num.isNum ;
+    n = num.n
     } ;
+    -- d = case <num.isNum,quant.st> of {
+    --       <True,_> => Numerative ;
+    --       <False,Definite> => Def num.n quant.v ;
+    --       <False,Indefinite> => Indef num.n } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord =
@@ -125,8 +125,8 @@ DetCN det cn = useN cn ** {
 -- the "kernel" of a determiner. It is, however, the $Num$ that determines
 -- the inherent number.
 
-  NumSg = {s = \\_ => [] ; n = Sg ; isNum = False} ;
-  NumPl = {s = \\_ => [] ; n = Pl ; isNum = False} ;
+  NumSg = baseNum ;
+  NumPl = baseNum ** {n = Pl} ;
 
   -- : Card -> Num ;
   NumCard card = card ** {isNum = True} ;
@@ -135,7 +135,7 @@ DetCN det cn = useN cn ** {
 --  NumDigits dig = { s = dig.s ! NCard ; n = dig.n } ;
 
   -- : Numeral -> Card ;
-  NumNumeral num = num ** {s = num.s ! NCard};
+  NumNumeral num = num ; -- ** {s = num.s ! NCard};
 
 {-
   -- : AdN -> Card -> Card ;
@@ -145,7 +145,7 @@ DetCN det cn = useN cn ** {
   OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
 -}
   -- : Numeral -> Ord ;
-  OrdNumeral num = num ** {s = num.s ! NOrd ! Indefinite} ;
+  OrdNumeral num = num ** {s = num.ord} ;
 
 {-
   -- : A       -> Ord ;
@@ -166,18 +166,15 @@ DetCN det cn = useN cn ** {
   -- : Pron -> Quant
   PossPron pron =
     let p = pron.poss ;
-        gntbl = gnTable (BIND ++ p.sp ! SgMasc)
-                        (BIND ++ p.sp ! SgFem)
-                        (BIND ++ p.sp ! PlInv)
      in DefArt ** {
-          shortPoss = BIND ++ p.s ;
+          shortPoss = p.short ;
           isPoss = True ;
-          s = \\gn,c => let casevow = case c of {Nom => "u" ; Abs => "a"}
-                     in gntbl ! gn ++ BIND ++ casevow ;
+          s = \\da,c => let casevow = case c of {Nom => "u" ; Abs => "a"}
+                         in BIND ++ p.s ! da ++ BIND ++ casevow ;
+
           sp = \\gn,c => let prefix = case gn of {SgFem => "t" ; _ => "k"} ;
                              casevow = case c of {Nom => "u" ; Abs => "a"}
-                          in prefix ++ gntbl ! gn ++ BIND ++ casevow ;
-          v = p.v
+                          in prefix ++ BIND ++ p.sp ! gn ++ BIND ++ casevow ;
         } ;
 
 --2 Common nouns
@@ -188,19 +185,19 @@ DetCN det cn = useN cn ** {
 
   -- : N2 -> NP -> CN ;    -- Sahra hooyadeed
   ComplN2 n2 np = let cn = useN n2 in cn ** {s = \\nf =>
-    let qnt = PossPron (pronTable ! np.a) ;
-
-        det = case cn.shortPoss of {
-                True => qnt.shortPoss ;
-                _ => qnt.s ! nf2gennum nf cn.g ! Abs } ;
-        num = case nf of {
+    let num = case nf of {
+                    Def n  => n ;
                     Indef n => n ;
-                    Def n v => n ;
                     _ => Sg } ;
+        art = case num of {Sg => cn.sg ; Pl => cn.pl} ;
+        qnt = PossPron (pronTable ! np.a) ;
+        det = case cn.shortPoss of {
+                True => qnt.shortPoss ! art ;
+                _ => qnt.s ! n2.sg ! Abs } ;
         noun = case np.isPron of {
                  True  => (pronTable ! np.a).sp ; -- long subject pronoun
                  False => np.s ! Abs }
-     in noun ++ cn.s ! Def num qnt.v ++ det ;
+     in noun ++ cn.s ! Def num ++ BIND ++ det ;
      isPoss = True} ;
 
 {-

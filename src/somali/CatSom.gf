@@ -80,8 +80,8 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 -- Constructed in NumeralSom.
 
-    Card = {s : State => Str ; n : Number} ;
-    Numeral = {s : CardOrd => State => Str ; n : Number} ;
+    Card = BaseNum ;
+    Numeral = ResSom.Numeral ;
     Digits = {s : CardOrd => Str ; n : Number} ;
 
 

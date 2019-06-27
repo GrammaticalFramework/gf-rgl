@@ -41,8 +41,8 @@ lin bird_N = mkN "shimbir" fem ;
 -- lin bone_N = mkN "" ;
 -- lin boot_N = mkN "" ;
 -- lin boss_N = mkN "" ;
-lin book_N = mkN "buug" ; -- TODO: irregular plural
-lin boy_N = mkN "wiil" ;
+lin book_N = (mk2N "buug" "buugaag") ** {pl = F TA} ;
+lin boy_N = mk2N "wiil" "wiilal" ;
 lin bread_N = mkN "rooti" ; --masc/fem
 -- lin break_V2 = mkV2 "" ;
 -- lin breast_N = mkN "" ;

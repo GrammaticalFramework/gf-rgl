@@ -24,9 +24,54 @@ oper
 -- Morphophonology
 
 param
-  Morpheme = mO | mKa | mTa ;
-        -- | mKii | mTii ; -- TODO check if needed
+  -- Allomorphs for the definite article
+  DefTA = TA | DA | SHA | DHA ;
+  DefKA = KA | GA | A_ | HA ;
+  DefArticle = M DefKA | F DefTA  ;
 
+oper
+
+  defAllomorph : Str -> DefArticle = \wiilka ->
+    case wiilka of {
+            _ + "ta" => F DA ; _ + "sha" => F SHA ;
+            _ + "da" => F DA ; _ + "dha" => F DHA ;
+            _ + "ka" => M KA ; _ + "aha" => M HA ;
+            _ + "ga" => M GA ; _         => M A_ } ;
+
+  -- Use always via quantTable!
+  defStems : DefArticle => Str = table {
+    M KA => "k" ;
+    M GA => "g" ;
+    M A_ => [] ; -- If we want magac~magiciisa, we need to split this into CA and A_.
+    M HA => "ah" ; -- NB. stem vowel replaced
+    F TA => "t" ;
+    F DA => "d" ;
+    F SHA => "sh" ; -- NB. stem l replaced
+    F DHA => "dh"
+    } ;
+
+  quantTable = overload {
+    quantTable : Str -> DefArticle=>Str = \iis -> let i = head iis in table {
+      M HA => i + "h" + iis ;
+      x => defStems ! x + iis
+      } ;
+    quantTable : (ayg,ayd : Str) -> DefArticle=>Str = \ayg,ayd ->
+      let a = head ayg in table {
+      M HA => a + "h" + ayg ;
+      M x => defStems ! M x + ayg ;
+      F y => defStems ! F y + ayd
+      }
+    } ;
+
+  head : Str -> Str = \s -> case s of {
+    x@? + _ => x ;
+          _ => "" -- Predef.error "head: empty string."
+    } ;
+
+--------------------------------------------
+-- Old version, may be deprecated eventually
+param
+  Morpheme = mO | mKa | mTa ;
 oper
   allomorph : Morpheme -> Str -> Str = \x,stem ->
      case x of {
@@ -34,27 +79,17 @@ oper
                    d@("b"|"d"|"r"|"l"|"m"|"n") => d + "o" ;
                    "c"|"g"|"i"|"j"|"x"|"s"     => "yo" ;
                    _                           => "o" } ;
-
        mTa => case stem of {  -- Saeed p. 29
-          _ + ("dh")                                    => "dha" ; ---- ???
+          _ + ("dh")                                    => "dha" ;
           _ + (#v|"'"|"c"|"d"|"h"|"kh"|"q"|"w"|"x"|"y") => "da" ;
           _ + "l"                                       => "sha" ;
           _   {- b,f,g,n,r,s -}                         => "ta" } ;
-
        mKa => case stem of { -- Saeed p. 28-29
           _ + ("r"|"g"|"w"|"y"|"i"|"u"|"aa"|"oo"|"uu") => "ga" ;
           _ + ("q"|"'"|"kh"|"x"|"c"|"h")               => "a" ;
           _ + ("e"|"o")                                => "ha" ;
           _   {- b,d,dh,f,j,l,n,r,sh-}                 => "ka" }
-
-      {-- TODO check if needed/implement elsewhere:
-       mKii => case stem of {
-          _+ #vv + #c => init (allomorph mKa stem) ++ "ii" ; -- Should not change stem vowel
-          _ + ("'"|"x"|"c")               => "ii" ; -- Should change stem vowel
-          _ => init (allomorph mKa stem) ++ "ii" } ;
-       mTii => init (allomorph mTa stem) ++ "ii" -}
      } ;
-
 
 --------------------------------------------------------------------------------
 -- Nouns
@@ -82,48 +117,32 @@ param
 
   State = Definite | Indefinite ;
 
-  NForm =
-      Indef Number
-    | Def Number Vowel -- Stems for definite and determinative suffixes
-    -- Special forms only for fem. nouns ending in consonant.
-    | Numerative  -- When modified by a number: either pl gen or sg abs
-    | NomSg ;
+  NForm = Def Number | Indef Number | NomSg | Numerative ;
 
 oper
-  getAgr : NForm -> Gender -> Agreement = \n,g ->
-    case n of { Indef Pl|Def Pl _ => Pl3 ;
-                _                 => Sg3 g } ;
+  getAgr : Number -> Gender -> Agreement = \n,g ->
+    case n of { Pl => Pl3 ;
+                _  => Sg3 g } ;
+
   getNum : Agreement -> Number = \a ->
     case a of { Sg1|Sg2|Sg3 _ => Sg ; _ => Pl } ;
 
   agr2agrplus : (isPron : Bool) -> Agreement -> AgreementPlus = \isPron,a ->
     case isPron of {True => IsPron a ; False => NotPronP3} ;
 
-  nf2state : {s:NForm=>Str} -> State=>Str = \ss -> table {
-    Definite => ss.s ! Def Sg vA ;
-    Indefinite => ss.s ! Indef Sg
-    } ;
+  -- gn2gennum : Gender -> Number -> GenNum = \g,n ->
+  --   case <g,n> of {
+  --     <Masc,Sg> => SgMasc ;
+  --     <Fem,Sg>  => SgFem ;
+  --     _ => PlInv } ;
 
-  gn2gennum : Gender -> Number -> GenNum = \g,n ->
-    case <g,n> of {
-      <Masc,Sg> => SgMasc ;
-      <Fem,Sg>  => SgFem ;
-      _ => PlInv } ;
-
-  nf2gennum : NForm -> Gender -> GenNum = \nf,g ->
-    gn2gennum g (getNum (getAgr nf g)) ;
-
+  gender : {sg : DefArticle} -> Gender = \n ->
+    case n.sg of {M _ => Masc ; F _ => Fem} ;
 --------------------------------------------------------------------------------
 -- Numerals
 
 param
-
-  DForm = Unit | Ten ;
-
-  -- If need to optimise: can remove one multiple of 2, but harder to understand
-  -- CardOrdDFS = Odfs DForm | Cdfs DForm State ;
-  --
-  -- CardOrdState = Ost | Cst State ;
+  DForm = Hal | Mid | Kow ; -- three variants of number 1
 
   CardOrd = NOrd | NCard ;
 
