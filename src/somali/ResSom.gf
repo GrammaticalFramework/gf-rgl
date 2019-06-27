@@ -4,49 +4,54 @@ resource ResSom = ParamSom ** open Prelude, Predef, ParamSom in {
 -- Nouns
 oper
 
-  Noun : Type = {s : NForm => Str; g : Gender ; shortPoss : Bool} ;
+  Noun : Type = {
+    s : NForm => Str ;
+    sg,
+    pl : DefArticle ;
+    shortPoss : Bool ;
+    } ;
   Noun2 : Type = Noun ; -- TODO eventually more parameters?
   Noun3 : Type = Noun ;
 
   CNoun : Type = Noun ** {
     mod : Number => Case => Str ;
     hasMod : Bool ;
-    isPoss : Bool -- to prevent impossible forms in ComplN2 with Ns that have short possessive, e.g. "the father of NP".
+    isPoss : Bool -- to prevent impossible forms in ComplN2 with Ns that have short possessive, e.g. "father"
     } ;
 
   PNoun : Type = {s : Str ; a : Agreement} ;
 
   mkPNoun : Str -> Agreement -> PNoun = \str,agr -> {s = str ; a = agr} ;
 
-  mkNoun : (x1,_,_,x4 : Str) -> Gender -> Noun = \wiil,wiilka,wiilal,wiilasha,gender ->
-    let bisadi = case gender of
+  mkNoun : (x1,_,_,x4 : Str) -> Gender -> Noun = \wiil,wiilka,wiilal,wiilasha,gender -> {
+    s = table {
+          Def Sg => hooya ; Def Pl => gury ;
+          Indef Sg => wiil ; Indef Pl => wiilal ;
+          -- Special forms for feminine nouns
+          NomSg => bisadi ; Numerative => bisadood
+          } ;
+    sg = defAllomorph wiilka ;
+    pl = defAllomorph wiilasha ;
+    shortPoss = False
+    } where {
+        hooya : Str = case wiilka of {
+                        aabb + "aha" => aabb ;
+                        hooya + "da" => hooya ;
+                        wiila + "sha" => wiila ;
+                        _ => wiil} ;
+        gury : Str = case wiilasha of {
+                        gury + "aha" => gury ;
+                        magacya + "da" => magacya ;
+                        wiila + "sha" => wiila ;
+                        _ => wiilal} ;
+        bisadi : Str = case gender of
                    { Fem  => case wiil of { _ + #c => wiil+"i" ; _ => wiil} ;
                      Masc => wiil } ;
-        bisadood = case gender of
+        bisadood : Str = case gender of
                        { Fem  => case wiilal of {_ + "o" => wiilal+"od" ; _ => wiil} ;
-                         Masc => wiil } ;
-        defStems : Str -> Vowel => Str = \s -> case s of {
-          ilk + "aha" =>
-               table { vE => ilk+"eh" ;
-                       vI => ilk+"ih" ;
-                       vO => ilk+"oh" ;
-                       vU => ilk+"uh" ;
-                       _  => ilk+"ah"
-                       } ;
-          _ => table { _ => init s }
-          } ;
+                         Masc => wiil }
 
-    in { s = table {
-           Indef Sg => wiil ;
-           Indef Pl => wiilal ;
-           Def Sg vow => defStems wiilka ! vow ;
-           Def Pl vow => defStems wiilasha ! vow ;
-           NomSg => bisadi ;  -- Special form for fem. nouns ending in consonant
-           Numerative => case bisadood of {_+"ood" => bisadood ; _ => wiil}
-           } ;
-         g = gender ;
-         shortPoss = False} ;
-
+    } ;
 -------------------------
 -- Regular noun paradigms
   nHooyo, nAabbe, nMas, nUl, nGuri, nXayawaan : Str -> Noun ;
@@ -62,10 +67,15 @@ oper
   -- 3) Masculine, plural with duplication
   nMas mas = let s = last mas ;
                  a = last (init mas) ;
-                 ka = allomorph mKa mas ;
-                 ta = allomorph mTa mas ;
-                 sha = case ta of {"sha" => ta ; _ => s + ta } in
-    mkNoun mas (mas + ka) (mas + a + s) (mas + a + sha) Masc ;
+                 ka = allomorph mKa mas in
+    mkNoun mas (mas + ka) (mas + a + s) (mas + a + s + ka) Masc ;
+
+  -- Irregular one-syllable masculine word
+  nWiil : (_,_ : Str) -> Noun = \wiil,wiilal ->
+    let ka = allomorph mKa wiil ;
+        sha = allomorph mTa wiilal ;
+        wiila : Str = case wiilal of {wiila + "l" => wiila ; _ => wiilal} in
+    mkNoun wiil (wiil + ka) wiilal (wiila + sha) Masc ;
 
   -- 4a) Feminine, plural with ó
   nUl ul = let o  = case last ul of { "i" => "yo" ; _ => "o" } ;
@@ -94,10 +104,7 @@ oper
    in mkNoun maalin (maalin + ta) maalmo (init maalmo + aha) g ;
 
 -------------------------
--- Smart paradigm
--- Substantiv som slutar på –o/–ad är så gott som alltid feminina, t.ex. qaáddo sked, bisád katt.
--- Substantiv som slutar på –e är så gott som alltid maskulina, t.ex. dúbbe hammare, fúre nyckel.
--- För övriga ord säger ordets form dessvärre väldigt lite om ordets genus. Däremot kan betoningens plats i ordet väldigt ofta avslöja ordets genus. Man kan alltså i flesta fall höra vilket genus ett substantiv har.
+-- Smart paradigms
 
   mkN1 : Str -> Noun = \n -> case n of {
       _ + ("ad"|"adh") => nUl n ;
@@ -109,6 +116,8 @@ oper
        | (#c + #v + #c)
        | (#v + #c)     => nMas n ;
       _                => nXayawaan n } ;
+
+  mk2N : Str -> Str -> Noun = nWiil ;
 
   mkNg : Str -> Gender -> Noun = \n,g -> case n of {
       _ -- + ("r"|"n"|"l"|"g")
@@ -130,7 +139,7 @@ oper
 
   useN : Noun -> CNoun ** BaseNP = \n -> n **
     { mod = \\_,_ => [] ; hasMod = False ;
-      a = Sg3 n.g ; isPron,isPoss = False ;
+      a = Sg3 (gender n) ; isPron,isPoss = False ;
     } ;
 
   emptyNP : NounPhrase = {
@@ -149,9 +158,10 @@ oper
 
   Pronoun : Type = NounPhrase ** {
     poss : { -- for PossPron : Pron -> Quant
+      s : DefArticle => Str ;
       sp : GenNum => Str ; -- independent forms, e.g. M:kayga F:tayda Pl:kuwayga
-      s : Str ; -- short possessive suffix: e.g. family members, my/your name
-      v : Vowel} ;
+      short : DefArticle => Str -- short possessive suffix: e.g. family members, my/your name
+      } ;
     sp : Str ;
     } ;
 
@@ -159,47 +169,47 @@ oper
     Sg1 => {
       s = table {Nom => "aan" ; Abs => "i"} ;
       a = Sg1 ; isPron = True ; sp = "aniga" ;
-      poss = {s = "ay" ; v = vA ; sp = gnTable "ayg" "ayd" "uwayg"}
+      poss = {s = quantTable "ayg" "ayd" ; short = quantTable "ay" ; sp = gnTable "ayg" "ayd" "uwayg"}
       } ;
     Sg2 => {
       s = table {Nom => "aad" ; Abs => "ku"} ;
       a = Sg2 ; isPron = True ; sp ="adiga" ;
-      poss = {s = "aa" ; v = vA ; sp = gnTable "aag" "aad" "uwaag"}
+      poss = {s = quantTable "aag" "aad" ; short = quantTable "aa" ; sp = gnTable "aag" "aad" "uwaag"}
       } ;
     Sg3 Masc => {
       s = table {Nom => "uu" ; Abs => []} ;
       a = Sg3 Masc ; isPron = True ; sp ="isaga" ;
-      poss = {s = "iis" ; v = vI ; sp = gnTable "iis" "iis" "uwiis"}
+      poss = {s, short = quantTable "iis" ; sp = gnTable "iis" "iis" "uwiis"}
       } ;
     Sg3 Fem => {
       s = table {Nom => "ay" ; Abs => []} ;
       a = Sg3 Fem ; isPron = True ; sp = "iyada" ;
-      poss = {s = "eed" ; v = vE ; sp = gnTable "eed" "eed" "uweed"}
+      poss = {s, short = quantTable "eed" ; sp = gnTable "eed" "eed" "uweed"}
       } ;
     Pl1 Excl => {
       s = table {Nom => "aan" ; Abs => "na"} ;
       a = Pl1 Incl ; isPron = True ; sp ="annaga" ;
-      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
+      poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl1 Incl => {
       s = table {Nom => "aynu" ; Abs => "ina"} ;
       a = Pl1 Incl ; isPron = True ; sp ="innaga" ;
-      poss = {s = "een" ; v = vE ; sp = gnTable "eenn" "eenn" "uweenn"}
+      poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl2 => {
       s = table {Nom => "aad" ; Abs => "idin"} ;
       a =  Pl2 ; isPron = True ; sp ="idinka" ;
-      poss = {s = "iin" ; v = vI ; sp = gnTable "iinn" "iinn" "uwiinn"}
+      poss = {s = quantTable "iinn" ; short = quantTable "iin" ; sp = gnTable "iinn" "iinn" "uwiinn"}
       } ;
     Pl3 => {
       s = table {Nom => "ay" ; Abs => []} ;
       a = Pl3 ; isPron = True ; sp = "iyaga" ;
-      poss = {s = "ood" ; v = vO ; sp = gnTable "ood" "ood" "uwood"}
+      poss = {s, short = quantTable "ood" ; sp = gnTable "ood" "ood" "uwood"}
       } ;
     Impers => {
       s = table {Nom => "la" ; Abs => "??"} ;
       a = Impers ; isPron = True ; sp = "??" ;
-      poss = {s = "??" ; v = vA ; sp = gnTable "??" "??" "??"}
+      poss = {s, short = quantTable "??" ; sp = gnTable "??" "??" "??"}
       }
     } ;
 
@@ -218,33 +228,50 @@ oper
 -- Det, Quant, Card, Ord
 
   BaseQuant : Type = {
+    s : DefArticle => Case => Str ;
     isPoss : Bool ;
-    shortPoss : Str ; -- short form of possessive, e.g. family members
+    shortPoss : DefArticle => Str ; -- short form of possessive, e.g. family members
+    st : State ;
     } ;
 
   Determiner : Type = BaseQuant ** {
-    s,
     sp : Gender => Case => Str ;
-    d : NForm ; -- combination of number, state and vowel
---    isNum : Bool ;  -- placement in NP + whether to choose Numerative from CN
+    n : Number ;
+    isNum : Bool ;  -- placement in NP + whether to choose Numerative from CN
     } ;
 
   Quant : Type = BaseQuant ** {
-    s,
     sp : GenNum => Case => Str ;
-    st : State ;
-    v : Vowel ;
     } ;
 
-  Num : Type = {
-    s : State => Str ; -- TODO check if enough
-    n : Number ; -- singular or plural
+  BaseNum : Type = {
+    s : DForm => Str ; -- independent or attribute
+    thousand : Str ; -- TODO check where possessive suffix goes
+    da : DefArticle ;
+    n : Number
+    } ;
+
+  baseNum : Num = {
+    s = \\_ => [] ;
+    thousand = [] ;
+    da = M KA ;
+    n = Sg ;
+    isNum = False
+    } ;
+
+  Num : Type = BaseNum ** {
     isNum : Bool -- whether to choose Numerative as the value of NForm
     } ;
 
+  Numeral : Type = BaseNum ** {
+    ord : Str -- whether to choose Numerative as the value of NForm
+    } ;
+
   baseQuant : BaseQuant = {
+    s = \\alm,c => [] ;
     isPoss = False ;
-    shortPoss = []
+    shortPoss = \\_ => [] ;
+    st = Indefinite
   } ;
 
   defQuant = defQuantBind True ;
@@ -252,24 +279,25 @@ oper
   defQuantBind : (bind : Bool) -> (s, kan, tan, kuwan : Str) -> Vowel -> Quant = \b,s,spm,spf,spp,v ->
     let bind : Str -> Str = \x -> case b of {False => x ; True => BIND ++ x} ;
     in baseQuant ** {
-        s = \\gn,c =>
-          let nom = case v of {NA => "u" ; _ => s + "i"}
-          in case c of {Nom => bind nom ; _ => bind s} ;
+        s = \\allomorph,c =>
+           let nom = case v of {NA => "u" ; _ => s + "i"}
+            in case c of {
+                Nom => bind (quantTable nom ! allomorph) ;
+                _   => bind (quantTable s ! allomorph) } ;
         sp = \\gn,c =>
            let i = case c of {Nom => "i"; _ => []}
            in gnTable (spm + i) (spf + i) (spp + i) ! gn ;
         st = Definite ;
-        v = v ;
         } ;
 
   gnTable : (m,f,p : Str) -> (GenNum => Str) = \m,f,p ->
     table {SgMasc => m ; SgFem => f ; _ => p} ;
 
   indefQuant : Quant = baseQuant ** {
-    s,
+    s = \\da,c => [] ;
     sp = \\gn,c => [] ;
     st = Indefinite ;
-    v = NA ; -- Will be ignored in DetQuant
+--    v = NA ; -- Will be ignored in DetQuant
     } ;
 
 --------------------------------------------------------------------------------
@@ -609,6 +637,11 @@ oper
     c2 = v2.c2
     } ;
 
+  passV2 : Verb2 -> VerbPhrase = \v2 -> useV v2 ** {
+    c2 = passive ;
+    c3 = v2.c2 ;
+    } ;
+
   complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
     comp = \\agr =>
         case np.a of {
@@ -617,11 +650,6 @@ oper
                             -- if object is a pronoun, np.s is empty.
                 p2 = compl np.a vps ++ vps.secObj}  -- object combines with the preposition of the verb.
                                                     -- secObj in case there was a ditransitive verb.
-
-          -- IsPron ag => {p1 = [] ; -- object is a pronoun => nothing is placed before the verb
-          --               p2 = compl np.a vps ++ vps.secObj} ; -- object combines with the preposition of the verb
-          -- NotPronP3 => {p1 = np.s ; -- object is a noun => it will come before verb in the sentence
-          --               p2 = compl np.a vps ++ vps.secObj}  -- object combines with the preposition of the verb
           }
     } ;
 
@@ -630,10 +658,10 @@ oper
      in prepCombTable ! agr ! combine vp.c2 vp.c3 ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
-    let noun = case <np.isPron,np.a> of {
-                  <False>        => np.s ! Abs ;
-                  <True,Sg3 _|Pl3> => (pronTable ! np.a).sp ; -- long object pronoun for 3rd person object
-                  _ => [] } -- no long object for other pronouns
+    let noun : Str = case <np.isPron,np.a> of {
+          <False,_>          => np.s ! Abs ;
+          <True,(Sg3 _|Pl3)> => (pronTable ! np.a).sp ; -- long object pronoun for 3rd person object
+          _ => [] } -- no long object for other pronouns
     in case vp.obj2.a of {
       Unassigned =>
         vp ** {obj2 = {
@@ -656,11 +684,6 @@ oper
                     } ;
                  secObj = vp.secObj ++ secondObject ! np.a}
 
-    } ;
-
-  passV2 : Verb2 -> VerbPhrase = \v2 -> useVc v2 ** {
-    c2 = passive ;
-    c3 = v2.c2 ;
     } ;
 
   insertAdv : Adverb -> VerbPhrase -> VerbPhrase = \adv,vp ->
