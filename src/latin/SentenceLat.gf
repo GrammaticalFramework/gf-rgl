@@ -47,10 +47,14 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
     UseCl  t p cl = -- Temp -> Pol-> Cl -> S
       (combineClause cl (lin Tense t) t.a (lin Pol p) VQFalse) ;
 
-    -- TO FIX
-    --UseQCl t p cl =
-      --      s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p ! q
-      -- { s = \\q => combineSentence (combineClause cl t t.a p VQFalse) ! PreV ! VSO } ; 
+    -- 	UseQCl : Temp -> Pol -> QCl -> QS -- maybe use mkQuestion
+    UseQCl t p cl =
+      {
+	s = \\q => case q of {
+	  QDir => t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
+	  QIndir => t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
+	  }
+      } ;
 
 --    UseRCl t p cl = {
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
