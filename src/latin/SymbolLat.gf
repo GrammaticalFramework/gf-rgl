@@ -8,7 +8,7 @@ lin
   FloatPN i = {s = \\c => i.s ; g = Neutr ; n = Sg } ; --- c
   NumPN i = {s = \\c => i.s ! Neutr ! c; g = Neutr ; n = Pl } ; --- c
   CNIntNP cn i = {
-    s = \\c => (cn.s ! Sg ! Nom ++ i.s) ;
+    s = \\_,c => (cn.s ! Sg ! Nom ++ i.s) ;
     g = cn.g ;
     n = Sg ;
     adv = [] ;
@@ -18,7 +18,7 @@ lin
     preap = { s = \\_ => [] } ;
     } ;
   CNSymbNP det cn xs = {
-    s = \\c => (cn.s ! Sg ! Nom ++ xs.s ) ;
+    s = \\_,c => (cn.s ! Sg ! Nom ++ xs.s ) ;
     g = cn.g ;
     n = det.n ;
     adv = [] ;
@@ -32,7 +32,7 @@ lin
 --    } ;
   --    } ;
   CNNumNP cn i = {
-    s = \\c => (cn.s ! Sg ! Nom ++ i.s ! cn.g ! Nom ) ;
+    s = \\_,c => (cn.s ! Sg ! Nom ++ i.s ! cn.g ! Nom ) ;
     g = cn.g ;
     n = Sg ;
     adv = [] ;

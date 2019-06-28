@@ -15,7 +15,7 @@ param
     Noun : Type = {s : Number => Case => Str ; g : Gender } ; -- massable : Bool } ;
     NounPhrase : Type = 
       {
-	s : Case => Str ; 
+	s : PronDropForm => Case => Str ; 
 	g : Gender ; 
 	n : Number ; 
 	p : Person ;
@@ -135,7 +135,7 @@ param
   regNP : (_,_,_,_,_,_ : Str) -> Gender -> Number -> NounPhrase = 
     \nom,acc,gen,dat,abl,voc,g,n ->
     {
-      s = table Case [ nom ; acc ; gen ; dat ; abl ; voc ] ;
+      s = \\_ => table Case [ nom ; acc ; gen ; dat ; abl ; voc ] ;
       g = g ;
       n = n ;
       p = P3;
@@ -146,7 +146,10 @@ param
   
   dummyNP : Str -> NounPhrase = \s -> regNP s s s s s s Masc Sg ;
 	  
-  emptyNP : NounPhrase = { s = \\_ => ""; g = Masc; n = Sg; p = P1 ; adv = "" ; preap, postap = { s = \\_ => "" } ; det = { s = \\_,_ => "" ; sp = \\_,_ => "" ; n = Sg } ;}; 
+  emptyNP : NounPhrase = { s = \\_,_ => ""; g = Masc; n = Sg; p = P1 ; adv = "" ; preap, postap = { s = \\_ => "" } ; det = { s = \\_,_ => "" ; sp = \\_,_ => "" ; n = Sg } ;};
+
+  combineNounPhrase : NounPhrase -> PronDropForm => Case => Str = \np ->
+    \\pd,c => np.det.s ! np.g ! c ++ np.adv ++ np.preap.s ! (Ag np.g np.n c) ++ np.s ! pd ! c ++ np.postap.s ! (Ag np.g np.n c) ++ np.det.sp ! np.g ! c ; 
 -- also used for adjectives and so on
 
 -- adjectives
@@ -1066,7 +1069,7 @@ param
 
 param
   PronReflForm = PronRefl | PronNonRefl ;
-  PronDropForm = PronDrop | PronNonDrop;
+  PronDropForm = PronDrop | PronNonDrop ;
 --  PronIndefUsage = PronSubst | PronAdj ;
 --  PronIndefPol = PronPos | PronNeg ;
 --  PronIndefMeaning = PronSomeone | PronCertainOne | PronEvery ;
@@ -1253,7 +1256,7 @@ oper
     part = vp.part ;
     imp = vp.imp ;
     inf = vp.inf ;
-    obj = np.det.s ! np.g ! prep.c ++ np.preap.s ! (Ag np.g np.n prep.c) ++ (appPrep prep np.s) ++ np.postap.s ! (Ag np.g np.n prep.c) ++ np.det.sp ! np.g ! prep.c ++ vp.obj ;
+    obj = np.det.s ! np.g ! prep.c ++ np.preap.s ! (Ag np.g np.n prep.c) ++ (appPrep prep (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n prep.c) ++ np.det.sp ! np.g ! prep.c ++ vp.obj ;
     compl = vp.compl ;
     adv = vp.adv ++ np.adv
   } ;
@@ -1263,7 +1266,7 @@ oper
     part = vp.part ;
     imp = vp.imp ;
     inf = vp.inf ;
-    obj = np.det.s ! np.g ! vp.c.c ++ np.preap.s ! (Ag np.g np.n vp.c.c) ++ (appPrep vp.c np.s) ++ np.postap.s ! (Ag np.g np.n vp.c.c) ++ np.det.sp ! np.g ! vp.c.c ++ vp.obj ;
+    obj = np.det.s ! np.g ! vp.c.c ++ np.preap.s ! (Ag np.g np.n vp.c.c) ++ (appPrep vp.c (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n vp.c.c) ++ np.det.sp ! np.g ! vp.c.c ++ vp.obj ;
     compl = vp.compl ;
     c = vp.c ;
     adv = vp.adv ++ np.adv
@@ -1327,7 +1330,7 @@ oper
 	np.det.s ! np.g ! Nom ++             -- the determiner, if any
 	np.preap.s ! (Ag np.g np.n Nom) ++   -- adjectives which come before the subject noun, agreeing with it
 	ins advpos ++                            -- adverbs can be placed within the subject noun phrase
-	np.s ! Nom ++                        -- the noun of the subject noun phrase in nominative
+	np.s ! PronDrop ! Nom ++                        -- the noun of the subject noun phrase in nominative
 	np.postap .s ! (Ag np.g np.n Nom) ++ -- adjectives which come after the subject noun, agreeing with it
 	np.det.sp ! np.g ! Nom ;             -- second part of split determiners
       -- verb part of the clause:
