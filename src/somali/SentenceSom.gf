@@ -13,14 +13,19 @@ lin
                 passive => complSlash (insertComp vps np) ;
                 _ => complSlash vps } ;
         subj = case vps.c2 of {passive => impersNP ; _ => np} ;
-    in { s = \\t,a,p =>
-       let pred : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
+    in { s = \\isQ,t,a,p =>
+       let predRaw : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
+           pred : {fin : Str ; inf : Str} = case vp.pred of {
+              NoCopula => {fin,inf = []} ;
+              _        => predRaw
+           } ;
            subjnoun : Str = if_then_Str np.isPron [] (subj.s ! Nom) ;
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
            obj  : {p1,p2 : Str} = vp.comp ! subj.a ;
            stm : Str =
-            case <p,vp.isPred,subj.a> of {
-                 <Pos,True,Sg3 _|Impers> => "waa" ;
+            case <isQ,p,vp.pred,subj.a> of {
+                 <True,_,_,_> => "ma" ;
+                 <_,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
                 -- _                => stmarker ! np.a ! b } -- marker+pronoun contract
                  _ => case <np.isPron,p> of {
                         <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
@@ -74,13 +79,14 @@ lin
 
 -}
   -- : Temp -> Pol -> Cl -> S ;
-  UseCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
+  UseCl t p cl = {s = t.s ++ p.s ++ cl.s ! False ! t.t ! t.a ! p.p} ;
+
+  -- : Temp -> Pol -> QCl -> QS ;
+  UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
+
 {-
   -- : Temp -> Pol -> RCl -> RS ;
   UseRCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
-
-  -- : Temp -> Pol -> QCl -> QS ;
-  UseQCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
 
 -- An adverb can be added to the beginning of a sentence, either with comma ("externally")
 -- or without:

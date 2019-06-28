@@ -1,12 +1,12 @@
 concrete QuestionSom of Question = CatSom ** open
-  ResSom, (VS=VerbSom), (NS=NounSom), (AS=AdverbSom) in {
+  Prelude, ResSom, (VS=VerbSom), (NS=NounSom), (AS=AdverbSom) in {
 
 -- A question can be formed from a clause ('yes-no question') or
 -- with an interrogative.
 
   lin
   -- : Cl -> QCl ;
-  -- QuestCl cl = ;
+  QuestCl cl = {s = cl.s ! True} ;
 
   -- : IP -> VP -> QCl ;
   -- QuestVP ip vp = ;

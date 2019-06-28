@@ -213,6 +213,8 @@ param
     | VRel -- "som är/har/…" TODO is this used in other verbs?
     | VImp Number Polarity ;
 
+  PredType = NoPred | Copula | NoCopula ;
+
 oper
   if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
     case p of {Pos => t ; Neg => f } ;

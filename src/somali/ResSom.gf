@@ -19,6 +19,9 @@ oper
     isPoss : Bool -- to prevent impossible forms in ComplN2 with Ns that have short possessive, e.g. "father"
     } ;
 
+  cn2str : Number -> Case -> CNoun -> Str = \n,c,cn ->
+    cn.s ! Indef n ++ cn.mod ! n ! c ;
+
   PNoun : Type = {s : Str ; a : Agreement} ;
 
   mkPNoun : Str -> Agreement -> PNoun = \str,agr -> {s = str ; a = agr} ;
@@ -611,11 +614,11 @@ oper
     c2 : Preposition ; np : NounPhrase} ; -- So that adverbs can also contribute to preposition contraction
 
   Complement : Type = {
-    comp : Agreement => {p1,p2 : Str} -- Agreement for AP complements
+    comp : Agreement => {p1,p2 : Str} ; -- Agreement for AP complements
+    pred : PredType ; -- to choose right sentence type marker and copula
     } ;
 
   VerbPhrase : Type = Verb ** Complement ** {
-    isPred : Bool ; -- to choose right sentence type marker
     adv : Str ;
     c2, c3 : Preposition ; -- can combine together and with object pronoun(s?)
     obj2 : {s : Str ; a : AgreementPlus} ;
@@ -626,7 +629,7 @@ oper
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
-    isPred = False ;
+    pred = NoPred ;
     adv = [] ;
     c2,c3 = noPrep ;
     obj2 = {s = [] ; a = Unassigned} ;
@@ -643,15 +646,11 @@ oper
     } ;
 
   complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
-    comp = \\agr =>
-        case np.a of {
-          Unassigned => vps.comp ! agr ;
-          _ => {p1 = np.s ; -- if object is a noun, it will come before verb in the sentence.
-                            -- if object is a pronoun, np.s is empty.
-                p2 = compl np.a vps ++ vps.secObj}  -- object combines with the preposition of the verb.
-                                                    -- secObj in case there was a ditransitive verb.
-          }
-    } ;
+    comp = \\agr => let cmp = vps.comp ! agr in
+      {p1 = np.s ++ cmp.p1 ; -- if object is a noun, it will come before verb in the sentence.
+                             -- if object is a pronoun, np.s is empty.
+       p2 = cmp.p2 ++ compl np.a vps ++ vps.secObj} -- object combines with the preposition of the verb.
+    } ;                                             -- secObj in case there was a ditransitive verb.
 
   compl : AgreementPlus -> VerbPhrase -> Str = \a,vp ->
     let agr = case a of {IsPron x => x ; _ => Pl3} ;
@@ -686,7 +685,7 @@ oper
 
     } ;
 
-  insertAdv : Adverb -> VerbPhrase -> VerbPhrase = \adv,vp ->
+  insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
     case adv.c2 of {
       noPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
       prep => case <vp.c2,vp.obj2.a,vp.c3> of {
@@ -698,7 +697,8 @@ oper
       } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
-  Clause : Type = {s : Tense => Anteriority => Polarity => Str} ;
+  Clause : Type = {s : Bool {-is question-} => Tense => Anteriority => Polarity => Str} ;
+  QClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
   RClause,
   ClSlash,
   Sentence : Type = SS ; ---- TODO
@@ -746,6 +746,6 @@ oper
 -- linrefs
 
 oper
-  linVP : VerbPhrase -> Str = \vp -> vp.s ! VInf ; ----
-  linCN : CNoun -> Str = \cn -> cn.s ! NomSg ;
+  linVP : VerbPhrase -> Str = \vp -> let obj = vp.comp ! Sg3 Masc in obj.p1 ++ obj.p2 ++ vp.s ! VInf ; ----
+  linCN : CNoun -> Str = \cn -> cn.s ! NomSg ++ cn.mod ! Sg ! Abs ;
 }

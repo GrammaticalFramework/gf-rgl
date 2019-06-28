@@ -4,7 +4,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
     UttS s = s ;
-    -- UttQS qs = qs ;
+    UttQS qs = qs ;
 
     UttImpSg pol imp =
       let ma = case pol.p of { Pos => [] ; Neg => "ma" }

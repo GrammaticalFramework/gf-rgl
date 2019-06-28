@@ -52,7 +52,7 @@ lin bread_N = mkN "rooti" ; --masc/fem
 -- lin brown_A = mkA "" ;
 -- lin burn_V = mkV "" ;
 -- lin butter_N = mkN "" ;
--- lin buy_V2 = mkV2 "" ;
+lin buy_V2 = mkV2 "iibsa" ;
 
 ----
 -- C
@@ -361,7 +361,7 @@ lin speak_V2 = mkV2 "hadlo" ;
 -- lin tail_N = mkN "" ;
 -- lin talk_V3 = mkV3 "" ;
 lin teach_V2 = mkV2 "bar" ku ;
--- lin teacher_N = mkN "" ;
+lin teacher_N = mkN "macallin" ;
 -- lin television_N = mkN "" ;
 -- lin thick_A = mkA "" ;
 -- lin thin_A = mkA "" ;
