@@ -33,7 +33,7 @@ concrete RelativeLat of Relative = CatLat ** open ResLat in {
 --      } ;
 --
 --    FunRP p np rp = {
---      s = \\c => np.s ! Acc ++ p.s ++ rp.s ! RPrep (fromAgr np.a).g ;
+--      s = \\c => (combineNounPhrase np) ! PronNonDrop ! Acc ++ p.s ++ rp.s ! RPrep (fromAgr np.a).g ;
 --      a = RAg np.a
 --      } ;
 --

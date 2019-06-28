@@ -34,12 +34,20 @@ oper
   abl : Case = Abl ;
   voc : Case = ResLat.Voc ;
 
+  plural : Number = Pl ;
+  singular : Number = Sg ;
+  missing : Coordinator = Missing ;
+  
   mkN = overload {
     mkN : (verbum : Str) -> N 
       = \n -> lin N ( noun n ) ;
     mkN : (verbum, verbi : Str) -> Gender -> N 
       = \x,y,z -> lin N ( noun_ngg x y z ) ;
   } ;
+  
+  pluralN : N -> N = \n -> lin N (ResLat.pluralNoun n) ;
+  singularN : N -> N = \n -> lin N (ResLat.singularNoun n) ;
+  constN : Str -> Gender-> N = \s,g -> lin N (ResLat.constNoun s g);
   
   mkA = overload {
     mkA : (verbum : Str) -> A -- Nominative masculine
@@ -65,7 +73,7 @@ oper
 	False => let a = adj n in { s = table { Posit => a.s ! Posit ; _ => \\_ => nonExist } ; adv = a.adv }
       } ** { isPre = False } )
   } ;
-  
+  constA : Str -> A = \s -> lin A (ResLat.constAdj s) ;
 
   mkV = overload {
     mkV : (tacere : Str) -> V
@@ -79,7 +87,7 @@ oper
   V0 : Type = V;
   mkV0 = overload {
     mkV0 : V -> V0 = \v -> lin V0 v ; -- Same as in english, don't know if it's working
-    mkV0 : Str -> V0 = \v -> lin V0 (mkImpersonal v) ;
+    mkV0 : Str -> V0 = \v -> lin V0 (impersonalVerb v) ;
     } ;
   
   mkV2 = overload {
@@ -91,6 +99,7 @@ oper
       = \v,p -> lin V2 ( v ** { c = p } ) ; 
     } ;
 
+  constV : Str -> Verb = \s -> lin V (ResLat.constVerb s) ;
 
   mkAdv = overload {
     mkAdv : Str -> Adv
@@ -101,18 +110,25 @@ oper
       = \p,c -> lin Adv (mkFullAdverb p c nonExist);
     };
   
-  pluralN = ResLat.pluralN ;
-  singularN = ResLat.singularN ;
 
-  mkConj : Str -> Str -> Number -> Coordinator -> Conjunction = mkConjunction ;
+
+  mkConj = overload {
+    mkConj : Str -> Str -> Str -> Number -> Coordinator -> Conjunction = mkConjunction ;
+    mkConj : Str -> Str -> Number -> Coordinator -> Conjunction = \s1,s2,n,c -> mkConjunction s1 s2 [] n c ;
+    mkConj : Str -> Coordinator -> Conjunction = \s,c -> mkConjunction [] s [] Sg c ;
+  } ;
 
   mkPrep : Str -> Case -> Preposition  = mkPreposition ;
 
   mkPron = mkPronoun ;
 
-  mkNum = mkNumeral ;
+  -- mkNum = overload {
+  --   mkNum : Str -> Str -> Str -> Str -> Num = \s1,s2,s3,s4 -> lin Num (mkNumeral s1 s2 s3 s4 );
+  --   mkNum : Str -> Str -> Str -> Str -> Str -> Str -> Num = \s1,s2,s3,s4,s5,s6 -> lin Num (fullNumeral s1 s2 s3 s4 s5 s6 ) ;
+  --   } ;
+
 -- To be implemented, just place holders
-  mkPN : N -> PN = \n -> lin PN n ;
+  mkPN : N -> Number -> PN = \noun,num -> lin PN (noun ** { s = noun.s ! num ; n = num } ) ;
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 ( n ** { c = p } );
   mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> lin N3 ( n **{ c = p1 ; c2 = p2 } ) ;
   mkV2S : V -> Prep -> V2S = \v,p -> lin V2S ( v ** { c = p } ) ;

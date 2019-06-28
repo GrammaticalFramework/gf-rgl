@@ -6,7 +6,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 --  DetCN   : Det -> CN -> NP ;   -- the man
     DetCN det cn =
       {
-	s = \\c => cn.s ! det.n ! c ;
+	s = \\_,c => cn.s ! det.n ! c ;
 	n = det.n ; g = cn.g ; p = P3 ;
 	adv = cn.adv ;
 	preap = cn.preap ;
@@ -16,32 +16,26 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 
 --  UsePN   : PN -> NP ;          -- John
     UsePN pn =
-      lin NP
-	{
-	  s = pn.s ! Sg ;
-	  g = pn.g ;
-	  n = Sg ;
-	  p = P3 ;
-	  adv = "" ;
-	  preap, postap = { s = \\_ => "" } ;
-	  det = { s,sp = \\_,_ => "" ; n = Sg }
-	    } ;
+      pn **
+      {
+	s = \\_ => pn.s ;
+	p = P3 ;
+	adv = "" ;
+	preap, postap = { s = \\_ => "" } ;
+	det = { s,sp = \\_,_ => "" ; n = Sg }
+      } ;
 
 --  UsePron : Pron -> NP ;        -- he
     UsePron p =
-      { 
-	g = p.pers.g ;
-	n = p.pers.n ;
+      p.pers **
+      {
 	p = p.p ;
-	s = \\c => case c of { 
-	  Nom => p.pers.s ! PronDrop ! PronNonRefl ; -- Drop pronoun in nominative case
-	  _ => p.pers.s ! PronNonDrop ! PronNonRefl  -- but don't drop it otherwise
-	  } ! c ;
+	s = \\pd,c => p.pers.s ! pd ! PronNonRefl ! c;
 	adv = "" ;
 	preap, postap = { s = \\_ => "" } ;
 	det = { s,sp = \\_,_ => "" ; n = p.pers.n } ;	
       } ;
-
+    
 --  PredetNP : Predet -> NP -> NP ; -- only the man
     PredetNP predet np =
       np ** {
@@ -50,7 +44,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 
 --  PPartNP : NP -> V2  -> NP ;    -- the man seen
 --    PPartNP np v2 = {
---      s = \\c => np.s ! c ++ v2.s ! VPPart ;
+--      s = \\c => (combineNounPhrase np) ! PronNonDrop ! c ++ v2.s ! VPPart ;
 --      a = np.a
 --      } ;
     --
@@ -58,7 +52,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 --  AdvNP   : NP -> Adv -> NP ;    -- Paris today
     AdvNP np adv = np ** { adv = np.adv ++ (adv.s ! Posit) } ;
       -- {
-      -- s = \\c => np.s ! c ;
+      -- s = \\pd,c => combineNounPhrase np ! pd ! c ;
       -- g = np.g ; n = np.n; p = np.p ;
       -- adv = cc2 np.adv adv ;
       -- preap = np.preap ;
@@ -74,7 +68,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 
 --  DetNP   : Det -> NP ;  -- these five
     DetNP det = {
-      s = det.s ! Neutr ;
+      s = \\_ => det.s ! Neutr ;
       g = Neutr ;
       n = det.n ;
       p = P3 ;
@@ -111,8 +105,8 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     --    OrdDigits n = {s = n.s ! NOrd} ;
     --
   lin
-    NumNumeral numeral = numeral.card ;
-    OrdNumeral numeral = numeral.ord ;
+--    NumNumeral numeral = numeral.s ;
+--    OrdNumeral numeral = numeral.ord ;
 --
 --    AdNum adn num = {s = adn.s ++ num.s ; n = num.n} ;
 --
@@ -129,15 +123,11 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
       } ;
 
     MassNP cn =
-      {
-	s = cn.s ! Sg ;
+      cn ** {
+	s = \\_ => cn.s ! Sg ;
 	-- s = case cn.massable of { True => cn.s ! Sg ; False => \\_ => nonExist } ;
-	g = cn.g ;
 	n = Sg ;
 	p = P3 ;
-	adv = cn.adv ; 
-	preap = cn.preap ;
-	postap = cn.postap ;
 	det = { s,sp = \\_,_ => "" ; n = Sg } ;
       };
 
@@ -183,11 +173,8 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     --
     -- ApposCN : CN -> NP -> CN
     ApposCN cn np =
+      cn **
       {
-	s = \\n,c => cn.s ! n ! c ++ np.det.s ! np.g ! c ++ np.preap.s ! (Ag np.g n c) ++ np.s ! c ++ np.postap .s ! (Ag np.g n c) ++ np.det.sp ! np.g ! c ;
-	g = cn.g ;
-	preap = cn.preap ;
-	postap = cn.postap ;
-	adv = cn.adv
+	s = \\n,c => cn.s ! n ! c ++ (combineNounPhrase np) ! PronNonDrop ! c ;
       } ; -- massable = cn.massable } ;
 }

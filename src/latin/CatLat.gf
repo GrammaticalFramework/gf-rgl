@@ -20,7 +20,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 ---- Question
     --
     -- TO FIX
-    QCl = Clause ; -- {s : ResLat.Tense => Anteriority => Polarity => QForm => Str } ;
+    QCl = Clause ** { q : Str } ; 
     IP = {s : Case => Str ; n : Number} ;
     IComp = {s : Str} ;    
     IDet = Determiner ; --{s : Str ; n : Number} ;
@@ -53,14 +53,14 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     Pron = ResLat.Pronoun ;
     Det = Determiner ;
     Predet = {s : Str} ;
-    Ord = Ordinal ;
+    Ord = { s : Gender => Number => Case => Str } ;
     Num  = {s : Gender => Case => Str ; n : Number} ;
     Card = {s : Gender => Case => Str ; n : Number} ;
     Quant = Quantifier ;
 --
 ---- Numeral
 --
-    Numeral = ResLat.Numeral ;
+    Numeral = ResLat.TNumeral ;
     Digits  = {s : Str ; unit : Unit} ;
 --
 ---- Structural
@@ -83,11 +83,15 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     N = Noun ;
     N2 = Noun ** { c : Prep } ;
     N3 = Noun ** { c : Prep ; c2 : Prep } ;
-    PN = Noun ;
+    PN = { s : Case => Str ; n : Number ; g : Gender } ;
     A2 = Adjective ** { c : Prep} ;
 
   linref
-    NP = \np -> np.preap.s ! Ag np.g np.n Nom ++ np.s ! Nom ++ np.postap.s ! Ag np.g np.n Nom ;
+    NP = \np -> combineNounPhrase np ! PronNonDrop ! Nom ; 
     VP = \vp -> vp.adv ++ vp.inf !  VInfActPres ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ;
-    S = \s -> combineSentence s ! SPreO ! PreO ! SOV ;
+    S = \s -> combineSentence s ! SPreO ! PreO ! CPreV ! SOV ;
+    V, VS, VQ, VA, VV = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
+    V2, V2A, V2Q, V2S = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
+    Pron = \p -> p.pers.s ! PronNonDrop ! PronNonRefl ! Nom ;
+    Conj = \c -> c.s1 ++ c.s2 ++ c.s3 ;
 }

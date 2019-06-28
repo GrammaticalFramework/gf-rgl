@@ -1,5 +1,5 @@
---# -path=.:../icelandic:../common:../abstract:../prelude
+--# -path=.:../latin:../common:../abstract:../prelude
 
 resource SymbolicLat = Symbolic with 
   (Symbol = SymbolLat),
-  (Grammar = GrammarLat) ;
+  (Grammar = GrammarLat) ** open MissingLat in {} ;
