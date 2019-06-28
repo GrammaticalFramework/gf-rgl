@@ -83,7 +83,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     N = Noun ;
     N2 = Noun ** { c : Prep } ;
     N3 = Noun ** { c : Prep ; c2 : Prep } ;
-    PN = Noun ;
+    PN = { s : Case => Str ; n : Number ; g : Gender } ;
     A2 = Adjective ** { c : Prep} ;
 
   linref

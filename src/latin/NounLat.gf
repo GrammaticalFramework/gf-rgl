@@ -16,16 +16,14 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 
 --  UsePN   : PN -> NP ;          -- John
     UsePN pn =
-      lin NP
-	{
-	  s = pn.s ! Sg ;
-	  g = pn.g ;
-	  n = Sg ;
-	  p = P3 ;
-	  adv = "" ;
-	  preap, postap = { s = \\_ => "" } ;
-	  det = { s,sp = \\_,_ => "" ; n = Sg }
-	    } ;
+      pn **
+      {
+	s = \\_ => pn.s ;
+	p = P3 ;
+	adv = "" ;
+	preap, postap = { s = \\_ => "" } ;
+	det = { s,sp = \\_,_ => "" ; n = Sg }
+      } ;
 
 --  UsePron : Pron -> NP ;        -- he
     UsePron p =
