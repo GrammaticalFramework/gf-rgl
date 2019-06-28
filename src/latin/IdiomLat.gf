@@ -8,7 +8,7 @@ concrete IdiomLat of Idiom = CatLat ** open Prelude, ResLat in {
 --
 --    CleftNP np rs = mkClause "it" (agrP3 Sg) 
 --      (insertObj (\\_ => rs.s ! np.a)
---        (insertObj (\\_ => np.s ! rs.c) (predAux auxBe))) ;
+--        (insertObj (\\_ => combineNounPhrase np ! PronNonDrop ! rs.c) (predAux auxBe))) ;
 --
 --    CleftAdv ad s = mkClause "it" (agrP3 Sg) 
 --      (insertObj (\\_ => conjThat ++ s.s)
@@ -16,7 +16,7 @@ concrete IdiomLat of Idiom = CatLat ** open Prelude, ResLat in {
 --
 --    ExistNP np = 
 --      mkClause "there" (agrP3 (fromAgr np.a).n) 
---        (insertObj (\\_ => np.s ! Acc) (predAux auxBe)) ;
+--        (insertObj (\\_ => combineNounPhrase np ! PronNonDrop ! Acc) (predAux auxBe)) ;
 --
 --    ExistIP ip = 
 --      mkQuestion (ss (ip.s ! Nom)) 

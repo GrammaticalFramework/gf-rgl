@@ -83,11 +83,11 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     N = Noun ;
     N2 = Noun ** { c : Prep } ;
     N3 = Noun ** { c : Prep ; c2 : Prep } ;
-    PN = Noun ;
+    PN = { s : Case => Str ; n : Number ; g : Gender } ;
     A2 = Adjective ** { c : Prep} ;
 
   linref
-    NP = \np -> np.preap.s ! Ag np.g np.n Nom ++ np.s ! Nom ++ np.postap.s ! Ag np.g np.n Nom ;
+    NP = \np -> combineNounPhrase np ! PronNonDrop ! Nom ; 
     VP = \vp -> vp.adv ++ vp.inf !  VInfActPres ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ;
     S = \s -> combineSentence s ! SPreO ! PreO ! CPreV ! SOV ;
     V, VS, VQ, VA, VV = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;

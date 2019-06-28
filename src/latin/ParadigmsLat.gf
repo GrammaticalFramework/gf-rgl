@@ -128,7 +128,7 @@ oper
   --   } ;
 
 -- To be implemented, just place holders
-  mkPN : N -> PN = \n -> lin PN n ;
+  mkPN : N -> Number -> PN = \noun,num -> lin PN (noun ** { s = noun.s ! num ; n = num } ) ;
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 ( n ** { c = p } );
   mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> lin N3 ( n **{ c = p1 ; c2 = p2 } ) ;
   mkV2S : V -> Prep -> V2S = \v,p -> lin V2S ( v ** { c = p } ) ;

@@ -34,7 +34,7 @@ concrete ConjunctionLat of Conjunction =
     	--     } ;
     	--   c => (conjunctDistrTable Case conj (nps.l ! Et)).s
     	--   } ;
-	s = \\ca => conj.s1 ++ (nps.s ! conj.c).init ! ca ++ conj.s2 ++ (nps.s ! conj.c).last ! ca++ conj.s3 ;
+	s = \\pd,ca => conj.s1 ++ (nps.s ! conj.c).init ! pd ! ca ++ conj.s2 ++ (nps.s ! conj.c).last ! pd ! ca ++ conj.s3 ;
     	n = case conj.c of { Et => Pl ; _ => nps.n } ;
       	g = nps.g ;
       	p = nps.p ;
@@ -113,7 +113,7 @@ concrete ConjunctionLat of Conjunction =
     -- -- ConsNP : NP -> ListNP -> ListNP ;  -- John, Mary, Bill
     ConsNP x xs = {
       --      s = \\_ => consrTable Case bindComma x ( xs.s ! Comma );
-      s = \\co => { init = \\ca => coord co { init = (xs.s ! co).init ! ca ; last = (xs.s ! co).last ! ca} ; last = x.s } ;
+      s = \\co => { init = \\pd,ca => coord co { init = (xs.s ! co).init ! pd ! ca ; last = (xs.s ! co).last ! pd ! ca} ; last = x.s } ;
       n = matchNumber x.n xs.n ;
       g = xs.g ;
       p = xs.p ;
@@ -134,7 +134,7 @@ concrete ConjunctionLat of Conjunction =
   lincat
     [S] = { s : Coordinator => {init,last : SAdvPos => AdvPos => ComplPos => Order => Str} ; p : Pol ; t : Tense } ; -- TO FIX
     [Adv] = { s: Coordinator => {init,last : Str}} ;
-    [NP] = { s : Coordinator => {init,last : Case => Str} ; g : Gender ; n : Number ; p : Person ; adv : Str ; preap : AP ; postap : AP ; isBase : Bool ; det : Det } ;
+    [NP] = { s : Coordinator => {init,last : PronDropForm => Case => Str} ; g : Gender ; n : Number ; p : Person ; adv : Str ; preap : AP ; postap : AP ; isBase : Bool ; det : Det } ;
     [AP] = {s : Coordinator => {init,last : Agr => Str } } ;
 
   oper
