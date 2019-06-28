@@ -9,7 +9,7 @@ lin
   UseV = ResSom.useV ;
 
   --  : V2 -> VP ; -- be loved
-  PassV2 = ResSom.passV2 ; 
+  PassV2 = ResSom.passV2 ;
 {-
   -- : VV  -> VP -> VP ;
   ComplVV vv vp =  ;
@@ -74,16 +74,13 @@ lin
   ReflVP vps = ;
 -}
   -- : Comp -> VP ;
-  UseComp comp = UseCopula ** comp ** {
-    isPred = True
-    } ;
+  UseComp comp = UseCopula ** comp ;
 
   -- : VP -> Adv -> VP ;  -- sleep here
-  AdvVP vp adv = insertAdv adv vp ; ---- TODO: how about combining adverbs?
-
+  AdvVP = insertAdv ;
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
-  AdvVPSlash vps adv = insertAdv adv vps ;
+  AdvVPSlash = insertAdv ;
 
 {-
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
@@ -117,18 +114,29 @@ lin
   -- : AP  -> Comp ;
   CompAP ap = {
     comp = \\a => <[], ap.s ! AF (getNum a) Abs> ;
+    pred = Copula ;
     } ;
-{-
+
   -- : CN  -> Comp ;
-  CompCN cn = { } ;
+  CompCN cn = {
+    comp = \\a => <[], cn2str Sg Abs cn> ;
+    pred = NoCopula ;
+    } ;
 
   --  NP  -> Comp ;
-  CompNP np = {  } ;
+  CompNP np = {
+    comp = \\a => <[], np.s ! Abs> ;
+    pred = NoCopula ;
+    } ;
 
   -- : Adv  -> Comp ;
-  CompAdv adv = {  } ;
+  CompAdv adv = {
+    comp = \\a =>
+      <if_then_Str adv.np.isPron [] (adv.np.s ! Abs)
+      , adv.s ++ prepCombTable ! adv.np.a ! Single adv.c2> ;
+    pred = Copula ;
+    } ;
 
--}
   -- : VP -- Copula alone;
   UseCopula = useV copula ;
 

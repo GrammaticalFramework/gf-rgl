@@ -14,13 +14,17 @@ lin
                 _ => complSlash vps } ;
         subj = case vps.c2 of {passive => impersNP ; _ => np} ;
     in { s = \\t,a,p =>
-       let pred : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
+       let predRaw : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
+           pred : {fin : Str ; inf : Str} = case vp.pred of {
+              NoCopula => {fin,inf = []} ; -- if NoCopula, no overt verb
+              _        => predRaw
+           } ;
            subjnoun : Str = if_then_Str np.isPron [] (subj.s ! Nom) ;
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
            obj  : {p1,p2 : Str} = vp.comp ! subj.a ;
            stm : Str =
-            case <p,vp.isPred,subj.a> of {
-                 <Pos,True,Sg3 _|Impers> => "waa" ;
+            case <p,vp.pred,subj.a> of {
+                 <Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
                 -- _                => stmarker ! np.a ! b } -- marker+pronoun contract
                  _ => case <np.isPron,p> of {
                         <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
