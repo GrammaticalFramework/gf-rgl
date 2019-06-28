@@ -709,11 +709,11 @@ oper
       <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
       <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
       <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
-      <Past,Anter> => {fin = pastV (aux "jir" vp)  ; inf = []} ;
-      <Fut,Simul>  => {fin = presV (aux "doon" vp) ; inf = []} ;
-      <Fut,Anter>  => {fin = pastV (aux "doon" vp) ; inf = []} ;
-      <_,Simul>  => {fin = presV vp ; inf = []} ; -- TODO conditional
-      <_,Anter>  => {fin = pastV vp ; inf = []}   -- TODO conditional
+      <Past,Anter> => {fin = pastV (cSug "jir")  ; inf = vp.s ! VInf} ;
+      <Fut,Simul>  => {fin = presV (cSug "doon") ; inf = vp.s ! VInf} ;
+      <Fut,Anter>  => {fin = pastV (cSug "doon") ; inf = vp.s ! VInf} ;
+      <Cond,Simul> => {fin = presV have_V ; inf = vp.s ! VInf} ; -- TODO check
+      <Cond,Anter> => {fin = pastV have_V ; inf = vp.s ! VInf}   -- TODO check
       }
   where {
     pastV : Verb -> Str = \v ->
@@ -721,9 +721,6 @@ oper
                   Pos => v.s ! VPast Simple agr } ;
 
     presV : Verb -> Str = \v -> v.s ! VPres Simple agr p ;
-
-    aux : Str -> Verb -> Verb = \jir,v ->
-     let jir : Verb = cSug jir in {s = \\vf => v.s ! VInf ++ jir.s ! vf}
   } ;
 
   stmarker : Agreement => Polarity => Str = \\a,b =>
