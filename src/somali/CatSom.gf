@@ -16,29 +16,24 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     Cl = ResSom.Clause ;
     ClSlash = ResSom.ClSlash ;
     SSlash  = ResSom.Sentence ; -- sentence missing NP; e.g. "she has looked at"
-    Imp     = { s : Str } ;   -- imperative             e.g. "look at this"
+    Imp     = SS ;              -- imperative             e.g. "look at this"
 
 --2 Questions and interrogatives
 
 -- Constructed in QuestionSom.
 
-    QCl = ResSom.Clause ;
+    QCl = ResSom.QClause ;
     IP = ResSom.NounPhrase ;
-    IComp = { s : Str } ; -- interrogative complement of copula  e.g. "where"
+    IComp = SS ;              -- interrogative complement of copula  e.g. "where"
     IDet = ResSom.Determiner ;  -- interrogative determiner            e.g. "how many"
     IQuant = ResSom.Quant ; -- interrogative quantifier            e.g. "which"
-
-
-
 
 --2 Relative clauses and pronouns
 
 -- Constructed in RelativeSom.
 
     RCl = ResSom.RClause ;
-    RP = { s : Str } ;
-
-
+    RP = SS ;
 
 --2 Verb phrases
 

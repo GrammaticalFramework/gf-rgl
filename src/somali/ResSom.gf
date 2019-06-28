@@ -697,7 +697,8 @@ oper
       } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
-  Clause : Type = {s : Tense => Anteriority => Polarity => Str} ;
+  Clause : Type = {s : Bool {-is question-} => Tense => Anteriority => Polarity => Str} ;
+  QClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
   RClause,
   ClSlash,
   Sentence : Type = SS ; ---- TODO
