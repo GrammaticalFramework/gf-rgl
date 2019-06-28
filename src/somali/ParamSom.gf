@@ -156,14 +156,18 @@ param
 -- Prepositions
 
 param
-  Preposition = u | ku | ka | la | noPrep | passive ;
+  Preposition = u | ku | ka | la | noPrep ;
+  PrepositionPlus = P Preposition | Passive ; -- Hack: RGL only supports V2s as passive, so I can reuse V2's preposition slot for passives as well, and save >200 parameters. (Don't ask.)
   PrepCombination = ugu | uga | ula | kaga | kula | kala
-                  | Single Preposition ;
+                  | Single PrepositionPlus ;
 
 oper
-  combine : Preposition -> Preposition -> PrepCombination = \p1,p2 ->
-    let oneWay : Preposition => Preposition => PrepCombination =
+  combine : PrepositionPlus -> Preposition -> PrepCombination = \p1,p2 ->
+    let oneWay : PrepositionPlus => Preposition => PrepCombination =
           \\x,y => case <x,y> of {
+              <Passive,noPrep> => Single Passive ;
+              <Passive,p> => Single (P p) ; -- TODO check if this ever happens
+              <P z,_> => case <z,y> of {
                       <u,u|ku> => ugu ;
                       <u,ka>   => uga ;
                       <u,la>   => ula ;
@@ -171,13 +175,15 @@ oper
                         ku|ka> => kaga ;
                       <ku,la>  => kula ;
                       <ka,la>  => kala ;
-                      <noPrep,p> => Single p ;
-                      <p,noPrep> => Single p ;
-                      <p,_> => Single p } -- for trying both ways
-    in case oneWay ! p2 ! p1 of {
+                      <noPrep,p> => Single (P p) ;
+                      <p,noPrep> => Single x ;
+                      <p,_> => Single x }} -- for trying both ways
+    in case oneWay ! P p2 ! (pp2prep p1) of {
               Single _ => oneWay ! p1 ! p2 ;
-              x        => x } ;
+              z        => z } ;
 
+  pp2prep : PrepositionPlus -> Preposition = \pp ->
+    case pp of {P p => p ; Passive => noPrep} ;
 --------------------------------------------------------------------------------
 -- Verbs
 

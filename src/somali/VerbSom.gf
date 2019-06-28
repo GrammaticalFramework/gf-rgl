@@ -12,7 +12,7 @@ lin
   PassV2 = ResSom.passV2 ;
 {-
   -- : VV  -> VP -> VP ;
-  ComplVV vv vp =  ;
+  ComplVV vv vp =  ; -- TODO Sayeed p. 169
 
   -- : VS  -> S  -> VP ;
   ComplVS vs s = ;
@@ -133,7 +133,7 @@ lin
   CompAdv adv = {
     comp = \\a =>
       <if_then_Str adv.np.isPron [] (adv.np.s ! Abs)
-      , adv.s ++ prepCombTable ! adv.np.a ! Single adv.c2> ;
+      , adv.s ++ prepCombTable ! adv.np.a ! Single (P adv.c2)> ;
     pred = Copula ;
     } ;
 

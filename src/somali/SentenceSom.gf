@@ -10,34 +10,34 @@ lin
   -- : NP -> VP -> Cl
   PredVP np vps =
     let vp = case vps.c2 of {
-                passive => complSlash (insertComp vps np) ;
+                Passive => complSlash (insertComp vps np) ;
                 _ => complSlash vps } ;
-        subj = case vps.c2 of {passive => impersNP ; _ => np} ;
+        subj = case vps.c2 of {Passive => impersNP ; _ => np} ;
     in { s = \\isQ,t,a,p =>
        let predRaw : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
-           pred : {fin : Str ; inf : Str} = case vp.pred of {
-              NoCopula => {fin,inf = []} ;
-              _        => predRaw
+           pred : {fin : Str ; inf : Str} = case <isQ,p,vp.pred> of {
+              <False,Pos,NoCopula> => {fin,inf = []} ;
+              _                    => predRaw
            } ;
            subjnoun : Str = if_then_Str np.isPron [] (subj.s ! Nom) ;
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
            obj  : {p1,p2 : Str} = vp.comp ! subj.a ;
            stm : Str =
             case <isQ,p,vp.pred,subj.a> of {
-                 <True,_,_,_> => "ma" ;
-                 <_,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
-                -- _                => stmarker ! np.a ! b } -- marker+pronoun contract
+                 <False,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
+                 <True ,Pos,_              ,_           > => "ma" ;
                  _ => case <np.isPron,p> of {
                         <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
-                        <True,Neg> => "ma"  ++ subjpron ;
+                        <True,Neg> => {-glue obj.p2-} "ma" ++ subjpron ;
                         <False>    => stmarkerNoContr ! subj.a ! p }} ;
+
       in subjnoun     -- subject if it's a noun
       ++ obj.p1       -- object if it's a noun
       ++ stm          -- sentence type marker + possible subj. pronoun
       ++ vp.adv   ---- TODO word order
-      ++ obj.p2       -- object if it's a pronoun
+      ++ obj.p2 -- if_then_Pol p obj.p2 []       -- object if it's a pronoun
+      ++ pred.inf     -- potential infinitive/participle
       ++ pred.fin     -- the verb inflected
-      ++ pred.inf     -- potential participle
     } ;
 {-
   -- : SC -> VP -> Cl ;         -- that she goes is good

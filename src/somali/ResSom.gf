@@ -322,16 +322,16 @@ oper
           _        => ku
         }
     } ;
-  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! p ** {c2 = p} ;
+  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! P p ** {c2 = p} ;
 
-  prepTable : Preposition => Prep = table {
-    ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
-    ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
-    la => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
-    u  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
-    noPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
+  prepTable : PrepositionPlus => Prep = table {
+    P ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
+    P ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
+    P la => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
+    P u  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
+    P noPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
     -- impersonal subject clitic combining with object clitics.
-    passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
+    Passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
   } ;
 
   prepCombTable : Agreement => PrepCombination => Str = table {
@@ -620,7 +620,8 @@ oper
 
   VerbPhrase : Type = Verb ** Complement ** {
     adv : Str ;
-    c2, c3 : Preposition ; -- can combine together and with object pronoun(s?)
+    c2 : PrepositionPlus ; -- hack to allow passives
+    c3 : Preposition ; -- can combine together and with object pronoun(s?)
     obj2 : {s : Str ; a : AgreementPlus} ;
     secObj : Str ; -- if two overt pronoun objects
     } ;
@@ -631,17 +632,18 @@ oper
     comp = \\_ => <[],[]> ;
     pred = NoPred ;
     adv = [] ;
-    c2,c3 = noPrep ;
+    c2 = P noPrep ;
+    c3 = noPrep ;
     obj2 = {s = [] ; a = Unassigned} ;
     secObj = []
     } ;
 
   useVc : Verb2 -> VPSlash = \v2 -> useV v2 ** {
-    c2 = v2.c2
+    c2 = P v2.c2
     } ;
 
   passV2 : Verb2 -> VerbPhrase = \v2 -> useV v2 ** {
-    c2 = passive ;
+    c2 = Passive ;
     c3 = v2.c2 ;
     } ;
 
@@ -689,10 +691,10 @@ oper
     case adv.c2 of {
       noPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
       prep => case <vp.c2,vp.obj2.a,vp.c3> of {
-                <noPrep,Unassigned,_> => insertComp <vp ** {c2 = adv.c2}:VerbPhrase> adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
-                <_,_,         noPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
+                <P noPrep,Unassigned,_> => insertComp (vp ** {c2 = P adv.c2}) adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
+                <_       ,_    ,noPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
                -- if complement slots are full, put preposition just as a string. TODO check word order.
-                _ => vp ** {adv = (prepTable ! adv.c2).s ! adv.np.a ++ adv.np.s ! Abs}
+                _ => vp ** {adv = (prepTable ! P adv.c2).s ! adv.np.a ++ adv.np.s ! Abs}
               }
       } ;
 --------------------------------------------------------------------------------
