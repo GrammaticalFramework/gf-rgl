@@ -1,3 +1,5 @@
+resource MissingLat = open GrammarLat, Prelude in {
+
 -- temporary definitions to enable the compilation of RGL API
 oper AdNum : AdN -> Card -> Card = notYet "AdNum" ;
 oper AdvCN : CN -> Adv -> CN = notYet "AdvCN" ;
@@ -140,4 +142,3 @@ oper UseSlash : Temp -> Pol -> ClSlash -> SSlash = notYet "UseSlash" ;
 oper VPSlashPrep : VP -> Prep -> VPSlash = notYet "VPSlashPrep" ;
 
 }
-
