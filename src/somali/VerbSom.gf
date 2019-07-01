@@ -96,7 +96,7 @@ lin
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
   -- NB. We need possibly a MissingArg kind of solution here too
   -- VPSlashPrep vp prep = vp **
-  --   { c2 = case vp.c2 of { noPrep => prep.prep ;
+  --   { c2 = case vp.c2 of { NoPrep => prep.prep ;
   --                          x      => x }} ;
 
 

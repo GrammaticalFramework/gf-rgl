@@ -156,34 +156,34 @@ param
 -- Prepositions
 
 param
-  Preposition = u | ku | ka | la | noPrep ;
+  Preposition = U | Ku | Ka | La | NoPrep ;
   PrepositionPlus = P Preposition | Passive ; -- Hack: RGL only supports V2s as passive, so I can reuse V2's preposition slot for passives as well, and save >200 parameters. (Don't ask.)
-  PrepCombination = ugu | uga | ula | kaga | kula | kala
+  PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
                   | Single PrepositionPlus ;
 
 oper
   combine : PrepositionPlus -> Preposition -> PrepCombination = \p1,p2 ->
     let oneWay : PrepositionPlus => Preposition => PrepCombination =
           \\x,y => case <x,y> of {
-              <Passive,noPrep> => Single Passive ;
+              <Passive,NoPrep> => Single Passive ;
               <Passive,p> => Single (P p) ; -- TODO check if this ever happens
               <P z,_> => case <z,y> of {
-                      <u,u|ku> => ugu ;
-                      <u,ka>   => uga ;
-                      <u,la>   => ula ;
-                      <ku|ka,
-                        ku|ka> => kaga ;
-                      <ku,la>  => kula ;
-                      <ka,la>  => kala ;
-                      <noPrep,p> => Single (P p) ;
-                      <p,noPrep> => Single x ;
+                      <U,U|Ku> => Ugu ;
+                      <U,Ka>   => Uga ;
+                      <U,La>   => Ula ;
+                      <Ku|Ka,
+                        Ku|Ka> => Kaga ;
+                      <Ku,La>  => Kula ;
+                      <Ka,La>  => Kala ;
+                      <NoPrep,p> => Single (P p) ;
+                      <p,NoPrep> => Single x ;
                       <p,_> => Single x }} -- for trying both ways
     in case oneWay ! P p2 ! (pp2prep p1) of {
               Single _ => oneWay ! p1 ! p2 ;
               z        => z } ;
 
   pp2prep : PrepositionPlus -> Preposition = \pp ->
-    case pp of {P p => p ; Passive => noPrep} ;
+    case pp of {P p => p ; Passive => NoPrep} ;
 --------------------------------------------------------------------------------
 -- Verbs
 

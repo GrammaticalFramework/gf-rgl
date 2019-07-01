@@ -325,50 +325,48 @@ oper
   prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! P p ** {c2 = p} ;
 
   prepTable : PrepositionPlus => Prep = table {
-    P ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
-    P ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
-    P la => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
-    P u  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
-    P noPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
+    P Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
+    P Ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
+    P La => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
+    P U  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
+    P NoPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
     -- impersonal subject clitic combining with object clitics.
     Passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
   } ;
 
   prepCombTable : Agreement => PrepCombination => Str = table {
-    Sg1 => table { ugu => "iigu" ; uga => "iiga" ;
-                   ula => "iila" ; kaga => "igaga" ;
-                   kula => "igula" ; kala => "igala" ;
+    Sg1 => table { Ugu => "iigu" ; Uga => "iiga" ;
+                   Ula => "iila" ; Kaga => "igaga" ;
+                   Kula => "igula" ; Kala => "igala" ;
                    Single p => (prepTable ! p).s ! Sg1 } ;
-    Sg2 => table { ugu => "kuugu" ; uga => "kaaga" ;
-                   ula => "kuula" ; kaga => "kaaga" ;
-                   kula => "kugula" ; kala => "kaala" ;
+    Sg2 => table { Ugu => "kuugu" ; Uga => "kaaga" ;
+                   Ula => "kuula" ; Kaga => "kaaga" ;
+                   Kula => "kugula" ; Kala => "kaala" ;
                    Single p => (prepTable ! p).s ! Sg2 } ;
     Pl1 Excl =>
-           table { ugu => "noogu" ; uga => "nooga" ;
-                   ula => "noola" ; kaga => "nagaga" ;
-                   kula => "nagula" ; kala => "nagala" ;
+           table { Ugu => "noogu" ; Uga => "nooga" ;
+                   Ula => "noola" ; Kaga => "nagaga" ;
+                   Kula => "nagula" ; Kala => "nagala" ;
                    Single p => (prepTable ! p).s ! Pl1 Excl } ;
     Pl1 Incl =>
-           table { ugu => "inoogu" ; uga => "inooga" ;
-                   ula => "inoola" ; kaga => "inagaga" ;
-                   kula => "inagula" ; kala => "inagala" ;
+           table { Ugu => "inoogu" ; Uga => "inooga" ;
+                   Ula => "inoola" ; Kaga => "inagaga" ;
+                   Kula => "inagula" ; Kala => "inagala" ;
                    Single p => (prepTable ! p).s ! Pl1 Incl } ;
-    Pl2 => table { ugu => "idiinku" ; uga => "idiinka" ;
-                   ula => "idiinla" ; kaga => "idinkaga" ;
-                   kula => "idinkula" ; kala => "idinkala" ;
+    Pl2 => table { Ugu => "idiinku" ; Uga => "idiinka" ;
+                   Ula => "idiinla" ; Kaga => "idinkaga" ;
+                   Kula => "idinkula" ; Kala => "idinkala" ;
                    Single p => (prepTable ! p).s ! Pl2 } ;
     Impers =>
-           table { ugu => "loogu" ; uga => "looga" ;
-                   ula => "loola" ; kaga => "lagaga" ;
-                   kula => "lagula" ; kala => "lagala" ;
+           table { Ugu => "loogu" ; Uga => "looga" ;
+                   Ula => "loola" ; Kaga => "lagaga" ;
+                   Kula => "lagula" ; Kala => "lagala" ;
                    Single p => (prepTable ! p).s ! Impers } ;
-    a   => table { ugu => "ugu" ; uga => "uga" ;
-                   ula => "ula" ; kaga => "kaga" ;
-                   kula => "kula" ; kala => "kala" ;
+    a   => table { Ugu => "ugu" ; Uga => "uga" ;
+                   Ula => "ula" ; Kaga => "kaga" ;
+                   Kula => "kula" ; Kala => "kala" ;
                    Single p => (prepTable ! p).s ! a }
   } ;
-
--- TODO: Negationen má `inte' skrivs samman med en föregående preposition.
 
 --------------------------------------------------------------------------------
 -- Adjectives
@@ -631,8 +629,8 @@ oper
     comp = \\_ => <[],[]> ;
     pred = NoPred ;
     adv = [] ;
-    c2 = P noPrep ;
-    c3 = noPrep ;
+    c2 = P NoPrep ;
+    c3 = NoPrep ;
     obj2 = {s = [] ; a = Unassigned} ;
     secObj = []
     } ;
@@ -688,10 +686,10 @@ oper
 
   insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
     case adv.c2 of {
-      noPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
+      NoPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
       prep => case <vp.c2,vp.obj2.a,vp.c3> of {
-                <P noPrep,Unassigned,_> => insertComp (vp ** {c2 = P adv.c2}) adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
-                <_       ,_    ,noPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
+                <P NoPrep,Unassigned,_> => insertComp (vp ** {c2 = P adv.c2}) adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
+                <_       ,_    ,NoPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
                -- if complement slots are full, put preposition just as a string. TODO check word order.
                 _ => vp ** {adv = (prepTable ! P adv.c2).s ! adv.np.a ++ adv.np.s ! Abs}
               }

@@ -116,7 +116,7 @@ oper
   -- mkSubj : Str -> Bool -> Subj = \s,b ->
   --   lin Subj { } ;
 
-  mkAdv : Str -> Adv = \s -> lin Adv {s = s ; c2 = noPrep ; np = emptyNP} ;
+  mkAdv : Str -> Adv = \s -> lin Adv {s = s ; c2=noPrep ; np = emptyNP} ;
 
   mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
 
@@ -146,11 +146,11 @@ oper
   fem = Fem ;
 
   Preposition = ResSom.Preposition ;
-  ka = ResSom.ka ;
-  ku = ResSom.ku ;
-  la = ResSom.la ;
-  u  = ResSom.u ;
-  noPrep = ResSom.noPrep ;
+  ka = ResSom.Ka ;
+  ku = ResSom.Ku ;
+  la = ResSom.La ;
+  u  = ResSom.U ;
+  noPrep = ResSom.NoPrep ;
   ------------------------
 
   mkN = overload {
