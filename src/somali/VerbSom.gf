@@ -12,7 +12,7 @@ lin
   PassV2 = ResSom.passV2 ;
 {-
   -- : VV  -> VP -> VP ;
-  ComplVV vv vp =  ;
+  ComplVV vv vp =  ; -- TODO Sayeed p. 169
 
   -- : VS  -> S  -> VP ;
   ComplVS vs s = ;
@@ -96,7 +96,7 @@ lin
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
   -- NB. We need possibly a MissingArg kind of solution here too
   -- VPSlashPrep vp prep = vp **
-  --   { c2 = case vp.c2 of { noPrep => prep.prep ;
+  --   { c2 = case vp.c2 of { NoPrep => prep.prep ;
   --                          x      => x }} ;
 
 
@@ -133,7 +133,7 @@ lin
   CompAdv adv = {
     comp = \\a =>
       <if_then_Str adv.np.isPron [] (adv.np.s ! Abs)
-      , adv.s ++ prepCombTable ! adv.np.a ! Single adv.c2> ;
+      , adv.s ++ prepCombTable ! adv.np.a ! Single (P adv.c2)> ;
     pred = Copula ;
     } ;
 

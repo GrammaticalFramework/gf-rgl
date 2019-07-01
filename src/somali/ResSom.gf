@@ -191,7 +191,7 @@ oper
       } ;
     Pl1 Excl => {
       s = table {Nom => "aan" ; Abs => "na"} ;
-      a = Pl1 Incl ; isPron = True ; sp ="annaga" ;
+      a = Pl1 Excl ; isPron = True ; sp ="annaga" ;
       poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl1 Incl => {
@@ -322,54 +322,51 @@ oper
           _        => ku
         }
     } ;
-  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! p ** {c2 = p} ;
+  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! P p ** {c2 = p} ;
 
-  prepTable : Preposition => Prep = table {
-    ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
-    ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
-    la => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
-    u  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
-    noPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
+  prepTable : PrepositionPlus => Prep = table {
+    P Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
+    P Ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
+    P La => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
+    P U  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
+    P NoPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
     -- impersonal subject clitic combining with object clitics.
-    passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
+    Passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
   } ;
 
   prepCombTable : Agreement => PrepCombination => Str = table {
-    Sg1 => table { ugu => "iigu" ; uga => "iiga" ;
-                   ula => "iila" ; kaga => "igaga" ;
-                   kula => "igula" ; kala => "igala" ;
+    Sg1 => table { Ugu => "iigu" ; Uga => "iiga" ;
+                   Ula => "iila" ; Kaga => "igaga" ;
+                   Kula => "igula" ; Kala => "igala" ;
                    Single p => (prepTable ! p).s ! Sg1 } ;
-    Sg2 => table { ugu => "kuugu" ; uga => "kaaga" ;
-                   ula => "kuula" ; kaga => "kaaga" ;
-                   kula => "kugula" ; kala => "kaala" ;
+    Sg2 => table { Ugu => "kuugu" ; Uga => "kaaga" ;
+                   Ula => "kuula" ; Kaga => "kaaga" ;
+                   Kula => "kugula" ; Kala => "kaala" ;
                    Single p => (prepTable ! p).s ! Sg2 } ;
     Pl1 Excl =>
-           table { ugu => "noogu" ; uga => "nooga" ;
-                   ula => "noola" ; kaga => "nagaga" ;
-                   kula => "nagula" ; kala => "nagala" ;
+           table { Ugu => "noogu" ; Uga => "nooga" ;
+                   Ula => "noola" ; Kaga => "nagaga" ;
+                   Kula => "nagula" ; Kala => "nagala" ;
                    Single p => (prepTable ! p).s ! Pl1 Excl } ;
     Pl1 Incl =>
-           table { ugu => "inoogu" ; uga => "inooga" ;
-                   ula => "inoola" ; kaga => "inagaga" ;
-                   kula => "inagula" ; kala => "inagala" ;
+           table { Ugu => "inoogu" ; Uga => "inooga" ;
+                   Ula => "inoola" ; Kaga => "inagaga" ;
+                   Kula => "inagula" ; Kala => "inagala" ;
                    Single p => (prepTable ! p).s ! Pl1 Incl } ;
-
-    Pl2 => table { ugu => "idiinku" ; uga => "idiinka" ;
-                   ula => "idiinla" ; kaga => "idinkaga" ;
-                   kula => "idinkula" ; kala => "idinkala" ;
+    Pl2 => table { Ugu => "idiinku" ; Uga => "idiinka" ;
+                   Ula => "idiinla" ; Kaga => "idinkaga" ;
+                   Kula => "idinkula" ; Kala => "idinkala" ;
                    Single p => (prepTable ! p).s ! Pl2 } ;
     Impers =>
-           table { ugu => "loogu" ; uga => "looga" ;
-                   ula => "loola" ; kaga => "lagaga" ;
-                   kula => "lagula" ; kala => "lagala" ;
+           table { Ugu => "loogu" ; Uga => "looga" ;
+                   Ula => "loola" ; Kaga => "lagaga" ;
+                   Kula => "lagula" ; Kala => "lagala" ;
                    Single p => (prepTable ! p).s ! Impers } ;
-    a   => table { ugu => "ugu" ; uga => "uga" ;
-                   ula => "ula" ; kaga => "kaga" ;
-                   kula => "kula" ; kala => "kala" ;
+    a   => table { Ugu => "ugu" ; Uga => "uga" ;
+                   Ula => "ula" ; Kaga => "kaga" ;
+                   Kula => "kula" ; Kala => "kala" ;
                    Single p => (prepTable ! p).s ! a }
   } ;
-
--- TODO: Negationen má `inte' skrivs samman med en föregående preposition.
 
 --------------------------------------------------------------------------------
 -- Adjectives
@@ -620,7 +617,8 @@ oper
 
   VerbPhrase : Type = Verb ** Complement ** {
     adv : Str ;
-    c2, c3 : Preposition ; -- can combine together and with object pronoun(s?)
+    c2 : PrepositionPlus ; -- hack to allow passives
+    c3 : Preposition ; -- can combine together and with object pronoun(s?)
     obj2 : {s : Str ; a : AgreementPlus} ;
     secObj : Str ; -- if two overt pronoun objects
     } ;
@@ -631,17 +629,18 @@ oper
     comp = \\_ => <[],[]> ;
     pred = NoPred ;
     adv = [] ;
-    c2,c3 = noPrep ;
+    c2 = P NoPrep ;
+    c3 = NoPrep ;
     obj2 = {s = [] ; a = Unassigned} ;
     secObj = []
     } ;
 
   useVc : Verb2 -> VPSlash = \v2 -> useV v2 ** {
-    c2 = v2.c2
+    c2 = P v2.c2
     } ;
 
   passV2 : Verb2 -> VerbPhrase = \v2 -> useV v2 ** {
-    c2 = passive ;
+    c2 = Passive ;
     c3 = v2.c2 ;
     } ;
 
@@ -649,8 +648,8 @@ oper
     comp = \\agr => let cmp = vps.comp ! agr in
       {p1 = np.s ++ cmp.p1 ; -- if object is a noun, it will come before verb in the sentence.
                              -- if object is a pronoun, np.s is empty.
-       p2 = cmp.p2 ++ compl np.a vps ++ vps.secObj} -- object combines with the preposition of the verb.
-    } ;                                             -- secObj in case there was a ditransitive verb.
+       p2 = cmp.p2 ++ compl np.a vps} -- object combines with the preposition of the verb.
+      } ;
 
   compl : AgreementPlus -> VerbPhrase -> Str = \a,vp ->
     let agr = case a of {IsPron x => x ; _ => Pl3} ;
@@ -687,12 +686,12 @@ oper
 
   insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
     case adv.c2 of {
-      noPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
+      NoPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
       prep => case <vp.c2,vp.obj2.a,vp.c3> of {
-                <noPrep,Unassigned,_> => insertComp <vp ** {c2 = adv.c2}:VerbPhrase> adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
-                <_,_,         noPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
+                <P NoPrep,Unassigned,_> => insertComp (vp ** {c2 = P adv.c2}) adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
+                <_       ,_    ,NoPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
                -- if complement slots are full, put preposition just as a string. TODO check word order.
-                _ => vp ** {adv = (prepTable ! adv.c2).s ! adv.np.a ++ adv.np.s ! Abs}
+                _ => vp ** {adv = (prepTable ! P adv.c2).s ! adv.np.a ++ adv.np.s ! Abs}
               }
       } ;
 --------------------------------------------------------------------------------
@@ -709,11 +708,11 @@ oper
       <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
       <Pres,Anter> => {fin = presV copula  ; inf = vp.s ! VInf } ; ---- just guessing
       <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
-      <Past,Anter> => {fin = pastV (aux "jir" vp)  ; inf = []} ;
-      <Fut,Simul>  => {fin = presV (aux "doon" vp) ; inf = []} ;
-      <Fut,Anter>  => {fin = pastV (aux "doon" vp) ; inf = []} ;
-      <_,Simul>  => {fin = presV vp ; inf = []} ; -- TODO conditional
-      <_,Anter>  => {fin = pastV vp ; inf = []}   -- TODO conditional
+      <Past,Anter> => {fin = pastV (cSug "jir")  ; inf = vp.s ! VInf} ;
+      <Fut,Simul>  => {fin = presV (cSug "doon") ; inf = vp.s ! VInf} ;
+      <Fut,Anter>  => {fin = pastV (cSug "doon") ; inf = vp.s ! VInf} ;
+      <Cond,Simul> => {fin = presV have_V ; inf = vp.s ! VInf} ; -- TODO check
+      <Cond,Anter> => {fin = pastV have_V ; inf = vp.s ! VInf}   -- TODO check
       }
   where {
     pastV : Verb -> Str = \v ->
@@ -721,9 +720,6 @@ oper
                   Pos => v.s ! VPast Simple agr } ;
 
     presV : Verb -> Str = \v -> v.s ! VPres Simple agr p ;
-
-    aux : Str -> Verb -> Verb = \jir,v ->
-     let jir : Verb = cSug jir in {s = \\vf => v.s ! VInf ++ jir.s ! vf}
   } ;
 
   stmarker : Agreement => Polarity => Str = \\a,b =>
