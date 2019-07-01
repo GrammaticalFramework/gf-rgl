@@ -502,8 +502,8 @@ resource ResGer = ParamX ** open Prelude in {
   VPC : Type = {
       s : Bool => Agr => VPForm => { -- True = prefix glued to verb
         fin : Str ;          -- hat|wird
-        inf : Str            -- gelesen, lesen können|lesen (können),gelesen haben,
-        }                    -- HL 11/6/2019 todo: Fut Anter: haben lesen können = lesen gekonnt haben
+        inf : Str            -- wollen,gelesen|lesen wollen,gelesen haben,
+        }                    -- HL 11/6/2019 todo: Fut Anter: haben lesen wollen = lesen gewollt haben
       } ;
 
    VP : Type = {
@@ -575,22 +575,6 @@ resource ResGer = ParamX ** open Prelude in {
       VPInfinit Simul => vf True [] (verb.s ! VInf b)
       }
     } ;
-      -- Remark (HL): something needs to be done for modal verbs:
-      -- vf : Bool -> Str -> Str -> Str -> {fin : Str ; inf : Str * Str} = \b,fin,inf,inf2 -> {
-      --   fin = fin ; 
-      --   inf = <verb.particle ++ if_then_Str b [] auf ++ inf, inf2>  --- negation of main b
-      --   } ; -- HL: {fin: wird, inf: <geschlafen haben, []>}, 
-      --       --     {fin: wird, inf: <wollen,haben>=gewollt haben}
-      --       -- but this does not work with (PassV2 v2)
-      -- VPFinite m t Anter => case t of {                  --
-        -- Fut  => case isAux of {                             -- HL 6/2019, Duden 318: Ersatzinfinitiv
-        --   False => vf True (wird m a) (vpart ++ haben) ;    -- wird (nicht) schlafen gekonnt haben 
-        --   True => vf True (wird m a) vpart haben } ;        -- => wird (nicht) haben schlafen können
-        -- Cond => case isAux of {                             --
-        --   False => vf True (wuerde a) (vpart ++ haben) [] ; --
-        --   True => vf True (wuerde a) vpart haben }          -- HL: würde (nicht) haben schlafen können
-        -- } ;                                                 
-        -- But this doesn't fit to (PassV2 v2).
 
   predVGen : Bool -> Verb -> VPSlash = \isAux, verb -> {
     s = {
