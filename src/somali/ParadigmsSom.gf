@@ -103,12 +103,16 @@ oper
 
   mkPrep = overload {
     mkPrep : Str -> CatSom.Prep = \s ->
-      lin Prep ((ResSom.mkPrep s s s s s s) ** {c2=noPrep}) ;
+      lin Prep ((ResSom.mkPrep s s s s s s) ** {
+        c2=noPrep ; sii,dhex,berri=[]}) ;
     mkPrep : (x1,_,_,_,_,x6 : Str) -> CatSom.Prep = \a,b,c,d,e,f ->
-      lin Prep ((ResSom.mkPrep a b c d e f) ** {c2=noPrep}) ;
+      lin Prep ((ResSom.mkPrep a b c d e f) ** {
+        c2=noPrep ; sii,dhex,berri=[]}) ;
     mkPrep : Preposition -> CatSom.Prep = \p ->
-      lin Prep (prep p) ;
-  } ;
+      lin Prep ((prep p) ** {sii,dhex,berri=[]}) ;
+    mkPrep : CatSom.Prep -> (x1,x2,x3 : Str) -> CatSom.Prep = \p,s,t,u ->
+      p ** {berri = s ; sii = t ; dhex = u} ;
+    } ;
 
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->
   --   lin Conj { s = s1 ; s2 = s2 } ;
@@ -116,7 +120,12 @@ oper
   -- mkSubj : Str -> Bool -> Subj = \s,b ->
   --   lin Subj { } ;
 
-  mkAdv : Str -> Adv = \s -> lin Adv {s = s ; c2=noPrep ; np = emptyNP} ;
+  mkAdv : Str -> Adv = \s -> lin Adv {
+    berri = s ;
+    c2 = noPrep ;
+    np = emptyNP ;
+    sii,dhex = []
+    } ;
 
   mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
 

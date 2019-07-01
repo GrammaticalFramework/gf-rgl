@@ -16,7 +16,7 @@ lin
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
     --AdAdv  : AdA -> Adv -> Adv ;             -- very quickly
-  AdAdv ada adv = adv ** {s = ada.s ++ adv.s} ;
+  AdAdv ada adv = adv ** {berri = ada.s ++ adv.berri} ;
 -- Like adverbs, adadjectives can be produced by adjectives.
 
   -- : A -> AdA ;                 -- extremely

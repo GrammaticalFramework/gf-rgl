@@ -23,9 +23,10 @@ lin
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
            obj : {p1,p2 : Str} =
               let o : {p1,p2 : Str} = vp.comp ! subj.a ;
+                  bind : Str = if_then_Str (isP3 vp.obj2.a) [] BIND ;
                in case p of {
                     Pos => o ;
-                    Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ BIND} -- object pronoun, prepositions and negation all contract
+                    Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} -- object pronoun, prepositions and negation all contract
                   } ;
            stm : Str = case  <isQ,p,vp.pred,subj.a> of {
                        <False,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
@@ -37,14 +38,18 @@ lin
                             }
                   } ;
 
-      in subjnoun     -- subject if it's a noun
-      ++ obj.p1       -- object if it's a noun
+      in vp.berri -- AdV
+      ++ subjnoun -- subject if it's a noun
+      ++ obj.p1   -- object if it's a noun
       ++ stm      -- sentence type marker + possible subj. pronoun
-      ++ vp.adv   ---- TODO word order
       ++ obj.p2   -- object if it's a pronoun
+      ++ vp.sii   -- restricted set of particles
+      ++ vp.dhex  -- restricted set of nouns/adverbials
       ++ vp.secObj   -- "second object"
       ++ pred.inf     -- potential infinitive/participle
       ++ pred.fin     -- the verb inflected
+      ++ vp.miscAdv   ---- NB. Only used if there are several adverbs.
+                      ---- Primary places for adverbs are obj, sii or dhex.
     } ;
 {-
   -- : SC -> VP -> Cl ;         -- that she goes is good

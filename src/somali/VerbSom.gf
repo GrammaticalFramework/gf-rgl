@@ -131,9 +131,7 @@ lin
 
   -- : Adv  -> Comp ;
   CompAdv adv = {
-    comp = \\a =>
-      <if_then_Str adv.np.isPron [] (adv.np.s ! Abs)
-      , adv.s ++ prepCombTable ! adv.np.a ! Single (P adv.c2)> ;
+    comp = \\a => <[], linAdv adv> ;
     pred = Copula ;
     } ;
 
