@@ -191,7 +191,7 @@ oper
       } ;
     Pl1 Excl => {
       s = table {Nom => "aan" ; Abs => "na"} ;
-      a = Pl1 Incl ; isPron = True ; sp ="annaga" ;
+      a = Pl1 Excl ; isPron = True ; sp ="annaga" ;
       poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl1 Incl => {
@@ -353,7 +353,6 @@ oper
                    ula => "inoola" ; kaga => "inagaga" ;
                    kula => "inagula" ; kala => "inagala" ;
                    Single p => (prepTable ! p).s ! Pl1 Incl } ;
-
     Pl2 => table { ugu => "idiinku" ; uga => "idiinka" ;
                    ula => "idiinla" ; kaga => "idinkaga" ;
                    kula => "idinkula" ; kala => "idinkala" ;
@@ -651,8 +650,8 @@ oper
     comp = \\agr => let cmp = vps.comp ! agr in
       {p1 = np.s ++ cmp.p1 ; -- if object is a noun, it will come before verb in the sentence.
                              -- if object is a pronoun, np.s is empty.
-       p2 = cmp.p2 ++ compl np.a vps ++ vps.secObj} -- object combines with the preposition of the verb.
-    } ;                                             -- secObj in case there was a ditransitive verb.
+       p2 = cmp.p2 ++ compl np.a vps} -- object combines with the preposition of the verb.
+      } ;
 
   compl : AgreementPlus -> VerbPhrase -> Str = \a,vp ->
     let agr = case a of {IsPron x => x ; _ => Pl3} ;

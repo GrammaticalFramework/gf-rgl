@@ -21,21 +21,28 @@ lin
            } ;
            subjnoun : Str = if_then_Str np.isPron [] (subj.s ! Nom) ;
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
-           obj  : {p1,p2 : Str} = vp.comp ! subj.a ;
-           stm : Str =
-            case <isQ,p,vp.pred,subj.a> of {
-                 <False,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
-                 <True ,Pos,_              ,_           > => "ma" ;
-                 _ => case <np.isPron,p> of {
-                        <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
-                        <True,Neg> => {-glue obj.p2-} "ma" ++ subjpron ;
-                        <False>    => stmarkerNoContr ! subj.a ! p }} ;
+           obj : {p1,p2 : Str} =
+              let o : {p1,p2 : Str} = vp.comp ! subj.a ;
+               in case p of {
+                    Pos => o ;
+                    Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ BIND} -- object pronoun, prepositions and negation all contract
+                  } ;
+           stm : Str = case  <isQ,p,vp.pred,subj.a> of {
+                       <False,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
+                       <True ,Pos,_              ,_           > => "ma" ;
+                       _ => case <np.isPron,p> of {
+                              <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
+                              <True,Neg> => "ma" ++ subjpron ;
+                              <False>    => stmarkerNoContr ! subj.a ! p
+                            }
+                  } ;
 
       in subjnoun     -- subject if it's a noun
       ++ obj.p1       -- object if it's a noun
-      ++ stm          -- sentence type marker + possible subj. pronoun
+      ++ stm      -- sentence type marker + possible subj. pronoun
       ++ vp.adv   ---- TODO word order
-      ++ obj.p2 -- if_then_Pol p obj.p2 []       -- object if it's a pronoun
+      ++ obj.p2   -- object if it's a pronoun
+      ++ vp.secObj   -- "second object"
       ++ pred.inf     -- potential infinitive/participle
       ++ pred.fin     -- the verb inflected
     } ;
