@@ -8,49 +8,8 @@ lin
 --2 Clauses
 
   -- : NP -> VP -> Cl
-  PredVP np vps =
-    let vp = case vps.c2 of {
-                Passive => complSlash (insertComp vps np) ;
-                _ => complSlash vps } ;
-        subj = case vps.c2 of {Passive => impersNP ; _ => np} ;
-    in { s = \\isQ,t,a,p =>
-       let predRaw : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
-           pred : {fin : Str ; inf : Str} = case <isQ,p,vp.pred> of {
-              <False,Pos,NoCopula> => {fin,inf = []} ;
-              _                    => predRaw
-           } ;
-           subjnoun : Str = if_then_Str np.isPron [] (subj.s ! Nom) ;
-           subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
-           obj : {p1,p2 : Str} =
-              let o : {p1,p2 : Str} = vp.comp ! subj.a ;
-                  bind : Str = if_then_Str (isP3 vp.obj2.a) [] BIND ;
-               in case p of {
-                    Pos => o ;
-                    Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} -- object pronoun, prepositions and negation all contract
-                  } ;
-           stm : Str = case  <isQ,p,vp.pred,subj.a> of {
-                       <False,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
-                       <True ,Pos,_              ,_           > => "ma" ;
-                       _ => case <np.isPron,p> of {
-                              <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
-                              <True,Neg> => "ma" ++ subjpron ;
-                              <False>    => stmarkerNoContr ! subj.a ! p
-                            }
-                  } ;
+  PredVP = predVP ;
 
-      in vp.berri -- AdV
-      ++ subjnoun -- subject if it's a noun
-      ++ obj.p1   -- object if it's a noun
-      ++ stm      -- sentence type marker + possible subj. pronoun
-      ++ obj.p2   -- object if it's a pronoun
-      ++ vp.sii   -- restricted set of particles
-      ++ vp.dhex  -- restricted set of nouns/adverbials
-      ++ vp.secObj   -- "second object"
-      ++ pred.inf     -- potential infinitive/participle
-      ++ pred.fin     -- the verb inflected
-      ++ vp.miscAdv   ---- NB. Only used if there are several adverbs.
-                      ---- Primary places for adverbs are obj, sii or dhex.
-    } ;
 {-
   -- : SC -> VP -> Cl ;         -- that she goes is good
   PredSCVP sc vp = ;
