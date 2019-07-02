@@ -419,7 +419,14 @@ oper
 --------------------------------------------------------------------------------
 -- Verbs
 
-  Verb : Type = {s : VForm => Str} ;
+  BaseVerb : Type = {
+    s : VForm => Str ;
+    } ;
+
+  Verb : Type = BaseVerb ** {
+    sii : Str ; -- closed class of particles: sii, soo, kala, wada (Sayeed 171)
+    dhex : Str ; -- closed class of adverbials: hoos, kor, dul, dhex, …
+    } ;
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
@@ -509,6 +516,7 @@ oper
 
           VInf          => arki ;
           VRel          => arki } ; -- TODO does this exist?
+        sii, dhex = [] ;
       } ;
 
 -------------------------
@@ -543,7 +551,7 @@ oper
               (qaa + "da") ; -- Per2 Pl and others
 
   -- Constructs verbs like u baahan+ahay
-  prefixV : Str -> Verb -> Verb = \s,v -> {
+  prefixV : Str -> Verb -> Verb = \s,v -> v ** {
     s = \\vf => s + v.s ! vf
   } ;
 
@@ -571,14 +579,15 @@ oper
           VPast _  Pl3      => "ahaayeen" ;
           VNegPast _       => "ahi" ;
           VRel            => "ah" ;
-          VInf            => "ahaan" }
+          VInf            => "ahaan" } ;
+      sii, dhex = []
      } ;
    -- I somaliskan används inte något kopulaverb motsvarande svenskans är mellan
    -- två substantivfraser som utgör subjekt respektive predikatsfyllnad.
    -- Observera också att kopulaverbet vara alltid hamnar efter det adjektiv
    -- som utgör predikatsfyllnaden.
   have_V : Verb =
-   let hold_V = mkVerb "hayso" "haysat" "haysa" in {
+   let hold_V = mkVerb "hayso" "haysat" "haysa" in hold_V ** {
     s = table {
           VPres _ Sg1        Pos => "leeyahay" ;
           VPres _ Sg2        Pos => "leedahay" ;
@@ -606,29 +615,39 @@ oper
 
 ------------------
 -- VP
-  Adverb : Type = {
-    s : Str ;
-    c2 : Preposition ; np : NounPhrase} ; -- So that adverbs can also contribute to preposition contraction
+
+  BaseAdv : Type = {
+    sii, -- sii, soo, wala, kada go inside VP.
+    dhex, -- dhex, hoos, koor, dul, … go inside VP.
+    berri : Str -- e.g. "tomorrow"; goes before VP.
+    } ;
+
+  Adverb : Type = BaseAdv ** {
+    c2 : Preposition ; -- adverbs can contribute to preposition contraction.
+    np : NounPhrase -- NP from PrepNP can be promoted into a core argument.
+    } ;
 
   Complement : Type = {
     comp : Agreement => {p1,p2 : Str} ; -- Agreement for AP complements
     pred : PredType ; -- to choose right sentence type marker and copula
     } ;
 
-  VerbPhrase : Type = Verb ** Complement ** {
-    adv : Str ;
-    c2 : PrepositionPlus ; -- hack to allow passives
-    c3 : Preposition ; -- can combine together and with object pronoun(s?)
+  VerbPhrase : Type = BaseVerb ** Complement ** BaseAdv ** {
+    -- Prepositions can combine together and with object pronoun.
+    c2 : PrepositionPlus ; -- hack to implement passives more efficiently:
+    c3 : Preposition ;     -- if c2 is Passive, the real preposition is in c3.
     obj2 : {s : Str ; a : AgreementPlus} ;
     secObj : Str ; -- if two overt pronoun objects
-    } ;
+    vComp : Str ; -- VV complement
+    miscAdv : Str ; -- dump for any other kind of adverb, that isn't
+    } ;             -- in a closed class of particles or made with PrepNP.
 
   VPSlash : Type = VerbPhrase ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
     pred = NoPred ;
-    adv = [] ;
+    vComp,berri,miscAdv = [] ;
     c2 = P NoPrep ;
     c3 = NoPrep ;
     obj2 = {s = [] ; a = Unassigned} ;
@@ -658,7 +677,7 @@ oper
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
     let noun : Str = case <np.isPron,np.a> of {
           <False,_>          => np.s ! Abs ;
-          <True,(Sg3 _|Pl3)> => (pronTable ! np.a).sp ; -- long object pronoun for 3rd person object
+        --  <True,(Sg3 _|Pl3)> => (pronTable ! np.a).sp ; -- uncomment if you want to add long object pronoun for 3rd person object
           _ => [] } -- no long object for other pronouns
     in case vp.obj2.a of {
       Unassigned =>
@@ -685,15 +704,23 @@ oper
     } ;
 
   insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
-    case adv.c2 of {
-      NoPrep => vp ** {adv = adv.s} ; -- The adverb is not formed with PrepNP
-      prep => case <vp.c2,vp.obj2.a,vp.c3> of {
-                <P NoPrep,Unassigned,_> => insertComp (vp ** {c2 = P adv.c2}) adv.np ; -- should cover for obligatory argument that is not introduced with a preposition
-                <_       ,_    ,NoPrep> => insertComp (vp ** {c3 = adv.c2}) adv.np ;
-               -- if complement slots are full, put preposition just as a string. TODO check word order.
-                _ => vp ** {adv = (prepTable ! P adv.c2).s ! adv.np.a ++ adv.np.s ! Abs}
-              }
-      } ;
+    case <adv.c2, isP3 adv.np.a, adv.np.isPron> of {
+      <NoPrep,_,_>   => vp ** adv'' ; -- a) the adverb is not formed with PrepNP, e.g. "tomorrow"
+      <_,True,False> => vp ** adv'' ; -- b) is formed with PrepNP, and has 3rd person obj, which is a noun.
+      _ => case <vp.c2,vp.obj2.a,vp.c3> of {
+             -- if free complement slots, introduce adv.np with insertComp
+             <P NoPrep,Unassigned,_> => insertComp (vp ** {c2 = P adv.c2}) adv.np ** adv' ;
+             <_       ,_    ,NoPrep> => insertComp (vp ** {c3 =   adv.c2}) adv.np ** adv' ;
+
+             -- if complement slots are full, just insert strings.
+             _ => vp ** adv''
+            }
+    } where {
+        adv' : {sii,dhex,berri : Str} = adv ; -- adv.np done with insertComp
+        adv'' : {sii,dhex,berri,miscAdv : Str} -- adv.np inserted into miscAdv
+          = adv ** {dhex = (prepTable ! P adv.c2).s ! adv.np.a ++ adv.dhex ;
+                    miscAdv = adv.np.s ! Abs} -- TODO: check case
+        } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
   Clause : Type = {s : Bool {-is question-} => Tense => Anteriority => Polarity => Str} ;
@@ -701,6 +728,56 @@ oper
   RClause,
   ClSlash,
   Sentence : Type = SS ; ---- TODO
+
+  predVP : NounPhrase -> VerbPhrase -> Clause = \np,vps -> {
+    s = \\isQ,t,a,p =>
+       let predRaw : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
+           pred : {fin : Str ; inf : Str} = case <isQ,p,vp.pred> of {
+              <False,Pos,NoCopula> => {fin,inf = []} ;
+              _                    => predRaw
+           } ;
+           subjnoun : Str = if_then_Str np.isPron [] (subj.s ! Nom) ;
+           subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
+           obj : {p1,p2 : Str} =
+              let o : {p1,p2 : Str} = vp.comp ! subj.a ;
+                  bind : Str = case <isP3 vp.obj2.a, vp.c2> of {
+                                 <True,P NoPrep> => [] ;
+                                 _               => BIND } ;
+               in case p of {
+                    Pos => o ;
+                    Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} -- object pronoun, prepositions and negation all contract
+                  } ;
+           stm : Str = case  <isQ,p,vp.pred,subj.a> of {
+                       <False,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
+                       <True ,Pos,_              ,_           > => "ma" ;
+                       _ => case <np.isPron,p> of {
+                              <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
+                              <True,Neg> => "ma" ; -- ++ subjpron ; -- TODO check subj pron or not?
+                              <False>    => stmarkerNoContr ! subj.a ! p
+                            }
+                  } ;
+      in wordOrder subjnoun subjpron stm obj pred vp ;
+    } where {
+        vp = case vps.c2 of {
+               Passive => complSlash (insertComp vps np) ;
+                _      => complSlash vps } ;
+        subj = case vps.c2 of {Passive => impersNP ; _ => np} ;
+      } ;
+
+  wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> Str =
+    \subjnoun,subjpron,stm,obj,pred,vp -> vp.berri -- AdV
+                  ++ subjnoun -- subject if it's a noun
+                  ++ obj.p1   -- object if it's a noun
+                  ++ stm      -- sentence type marker + possible subj. pronoun
+                  ++ obj.p2   -- object if it's a pronoun
+                  ++ vp.sii   -- restricted set of particles
+                  ++ vp.dhex  -- restricted set of nouns/adverbials
+                  ++ vp.secObj   -- "second object"
+                  ++ vp.vComp    -- VV complement
+                  ++ pred.inf    -- potential infinitive/participle
+                  ++ pred.fin    -- the verb inflected
+                  ++ vp.miscAdv ; ---- NB. Only used if there are several adverbs.
+                                  ---- Primary places for adverbs are obj, sii or dhex.
 
   vf : Tense -> Anteriority -> Polarity -> Agreement -> Verb
     -> {fin : Str ; inf : Str} = \t,ant,p,agr,vp ->
@@ -711,7 +788,7 @@ oper
       <Past,Anter> => {fin = pastV (cSug "jir")  ; inf = vp.s ! VInf} ;
       <Fut,Simul>  => {fin = presV (cSug "doon") ; inf = vp.s ! VInf} ;
       <Fut,Anter>  => {fin = pastV (cSug "doon") ; inf = vp.s ! VInf} ;
-      <Cond,Simul> => {fin = presV have_V ; inf = vp.s ! VInf} ; -- TODO check
+      <Cond,Simul> => {fin = pastV have_V ; inf = vp.s ! VInf} ; -- TODO check
       <Cond,Anter> => {fin = pastV have_V ; inf = vp.s ! VInf}   -- TODO check
       }
   where {
@@ -721,6 +798,10 @@ oper
 
     presV : Verb -> Str = \v -> v.s ! VPres Simple agr p ;
   } ;
+
+  infVP : VerbPhrase -> Str = \vp ->
+    let inf = (vf Past Anter Pos (Sg3 Masc) vp) ** {fin=[]}
+     in wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
 
   stmarker : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
@@ -742,6 +823,13 @@ oper
 -- linrefs
 
 oper
-  linVP : VerbPhrase -> Str = \vp -> let obj = vp.comp ! Sg3 Masc in obj.p1 ++ obj.p2 ++ vp.s ! VInf ; ----
+  linVP : VerbPhrase -> Str = infVP ;
   linCN : CNoun -> Str = \cn -> cn.s ! NomSg ++ cn.mod ! Sg ! Abs ;
+  linAdv : Adverb -> Str = \adv ->
+     adv.berri
+  ++ adv.sii
+  ++ (prepTable ! P adv.c2).s ! adv.np.a
+  ++ adv.dhex
+  ++ adv.np.s ! Abs ;
+
 }

@@ -130,6 +130,17 @@ oper
   agr2agrplus : (isPron : Bool) -> Agreement -> AgreementPlus = \isPron,a ->
     case isPron of {True => IsPron a ; False => NotPronP3} ;
 
+  isP3 = overload {
+    isP3 : Agreement -> Bool = \agr ->
+      case agr of {Sg3 _ | Pl3 | Impers => True ; _ => False} ;
+    isP3 : AgreementPlus -> Bool = \agr ->
+      case agr of {
+        IsPron (Sg3 _ | Pl3 | Impers) => True ;
+        NotPronP3 => True ;
+        Unassigned => True ; -- meaningful for "does it leave an overt pronoun"
+        _ => False}
+  } ;
+
   -- gn2gennum : Gender -> Number -> GenNum = \g,n ->
   --   case <g,n> of {
   --     <Masc,Sg> => SgMasc ;

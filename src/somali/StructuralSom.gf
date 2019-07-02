@@ -92,7 +92,7 @@ oper
 -------
 -- Prep
 
--- lin above_Prep = mkPrep "" ;
+lin above_Prep = mkPrep (mkPrep ka) [] [] "dul" ;
 -- lin after_Prep = mkPrep "" ;
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep ""  ;
@@ -104,14 +104,14 @@ oper
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep ""  ;
-lin in_Prep = prep ku ;
-lin on_Prep = prep ku ;
+lin in_Prep = mkPrep ku ;
+lin on_Prep = mkPrep ku ;
 -- lin part_Prep = mkPrep ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
 -- lin under_Prep = mkPrep ""   ;
-lin with_Prep = prep la ;
+lin with_Prep = mkPrep la ;
 -- lin without_Prep = mkPrep ;
 
 
@@ -119,7 +119,7 @@ lin with_Prep = prep la ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsSom.
-    it_Pron = he_Pron ** {s = \\_ => []} ;
+    it_Pron = he_Pron ** {s = \\_ => [] ; sp = []} ;
     i_Pron = pronTable ! Sg1 ;
     youPol_Pron, -- TODO check
     youSg_Pron = pronTable ! Sg2 ;
@@ -160,10 +160,9 @@ lin yes_Utt = ss "yes" ;
 -- Verb
 
 lin have_V2 = mkV2 have_V noPrep ;
-{-
-lin can8know_VV = mkV "" ; -- can (capacity)
-lin can_VV = mkV "" ;      -- can (possibility)
-lin must_VV = mkV "" ;
+lin can8know_VV = can_VV ; -- can (capacity)
+lin can_VV = mkV "kar" ;   -- can (possibility)
+{-lin must_VV = mkV "" ;
 lin want_VV = mkV "" ;
 
 
