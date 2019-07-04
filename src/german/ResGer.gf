@@ -188,7 +188,8 @@ resource ResGer = ParamX ** open Prelude in {
       in
       case <t,m> of {
         <Pres,MIndic>    => VFin b (VPresInd   an ap) ;
-        <Pres,MConjunct> => VFin b (VPresSubj  an ap) ;  --# notpresent
+        <Pres,MConjunct> => VFin b (VPresSubj  an ap) 
+                                                      ;  --# notpresent
         <Past,MIndic>    => VFin b (VImpfInd   an ap) ;  --# notpresent
         <Past,MConjunct> => VFin b (VImpfSubj  an ap) ;  --# notpresent
         _ => VInf False --# notpresent
