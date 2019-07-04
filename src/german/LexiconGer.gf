@@ -196,7 +196,7 @@ lin
   switch8off_V2 = dirV2 (prefixV "aus" (regV "schalten")) ;
   switch8on_V2 = dirV2 (prefixV "ein" (regV "schalten")) ;
   table_N = mkN "Tisch"  ;
-  talk_V3 = mkV3 (regV "reden") datPrep von_Prep ;
+  talk_V3 = mkV3 (regV "reden") (mkPrep "mit" dative) (mkPrep "über" accusative) ; -- 6/2019
   teacher_N = reg2N "Lehrer" "Lehrer" masculine ;
   teach_V2 = dirV2 (no_geV (regV "unterrichten")) ;
   television_N = reg2N "Fernsehen" "Fernsehen" neuter;
@@ -316,7 +316,7 @@ lin
   flow_V = seinV (Irreg.fließen_V) ; 
   fly_V = seinV (Irreg.fliegen_V) ; 
   freeze_V = Irreg.frieren_V ; 
-  give_V3 = accdatV3 Irreg.geben_V ;
+  give_V3 = accdatV3 Irreg.geben_V ; 
   laugh_V = regV "lachen" ;
   lie_V = Irreg.lügen_V ; 
   play_V = regV "spielen" ;

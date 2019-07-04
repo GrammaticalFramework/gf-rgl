@@ -584,11 +584,12 @@ mkV2 : overload {
     mkV3 : V -> V3 
       = \v -> lin V3 (v ** {c2 = accPrep ; c3 = datPrep}) ;
     mkV3 : V -> Prep -> Prep -> V3
-      = \v,c,d -> v ** {c2 = c ; c3 = d ; lock_V3 = <>} ;
+      = \v,c,d -> lin V3 (v ** {c2 = c ; c3 = d}) ;
     } ;
 
-  dirV3 v p = mkV3 v (mkPrep [] accusative) p ;
-  accdatV3 v = mkV3 v (mkPrep [] dative) (mkPrep [] accusative) ; 
+  dirV3 v p = mkV3 v accPrep p ;        -- accPrep sets isPrep=False
+--  accdatV3 v = mkV3 v datPrep accPrep ; 
+  accdatV3 v = dirV3 v datPrep ;        -- to fit to Eng: direct obj = c2, HL 6/2019
 
   mkVS v = v ** {lock_VS = <>} ;
   mkVQ v = v ** {lock_VQ = <>} ;

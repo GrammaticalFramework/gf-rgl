@@ -256,8 +256,8 @@ lin
   abgehen_V = prefixV "ab" (irregV "gehen" "geht" "ging" "ginge" "gegangen") ;
   abgenzern_V2 = dirV2 (prefixV "ab" (regV "genzern"))  ;
   abgeraten_von_V2 = prepV2 (prefixV "ab" (irregV "geraten" "gerät" "geriet" "geriete" "geraten")) von_Prep ;
-  abgewoehnen_rV2 = reflV2 (prefixV "ab" (regV "gewöhnen")) accusative accPrep ;
-  abgewoehnen_rVV = reflVV (prefixV "ab" (regV "gewöhnen")) accusative ;
+  abgewoehnen_rV2 = reflV2 (prefixV "ab" (regV "gewöhnen")) dative accPrep ;
+  abgewoehnen_rVV = reflVV (prefixV "ab" (regV "gewöhnen")) dative ;
   abgraebeln_V = prefixV "ab" (regV "gräbeln") ;
   abgraten_V2 = dirV2 (prefixV "ab" (regV "graten"))  ;
   abgrenzen_V2 = dirV2 (prefixV "ab" (regV "grenzen"))  ;
@@ -338,9 +338,9 @@ lin
   absahnen_V2 = dirV2 (prefixV "ab" (regV "sahnen"))  ;
   abschachern_dat_V3 = accdatV3 (prefixV "ab" (regV "schachern"))  ;
   abschaffen_V2 = dirV2 (prefixV "ab" (regV "schaffen"))  ;
-  abschauen_bei_rV3 = reflV3 (prefixV "ab" (irregV "schauen" "schaut" "schaute" "schaute" "geschaut")) accusative accPrep bei_Prep ;
+  abschauen_bei_rV3 = reflV3 (prefixV "ab" (irregV "schauen" "schaut" "schaute" "schaute" "geschaut")) dative accPrep bei_Prep ;
   abschauen_bei_V3 = dirV3 (prefixV "ab" (irregV "schauen" "schaut" "schaute" "schaute" "geschaut")) bei_Prep ;
-  abschauen_rV2 = reflV2 (prefixV "ab" (irregV "schauen" "schaut" "schaute" "schaute" "geschaut")) accusative accPrep ;
+  abschauen_rV2 = reflV2 (prefixV "ab" (irregV "schauen" "schaut" "schaute" "schaute" "geschaut")) dative accPrep ;
   abschenken_V2 = dirV2 (prefixV "ab" (regV "schenken"))  ;
   abschenken_V = prefixV "ab" (regV "schenken") ;
   abschicken_V2 = dirV2 (prefixV "ab" (regV "schicken"))  ;
@@ -350,7 +350,7 @@ lin
   abschliessen_V2 = dirV2 (prefixV "ab" (irregV "schließen" "schließt" "schloss" "schlösse" "geschlossen"))  ;
   abschmettern_V2 = dirV2 (prefixV "ab" (irregV "schmettern" "schmettert" "schmetterte" "schmetterte" "geschmettert"))  ;
   abschmieren_V = prefixV "ab" (regV "schmieren") ;
-  abschminken_rV2 = reflV2 (prefixV "ab" (regV "schminken")) accusative accPrep ;
+  abschminken_rV2 = reflV2 (prefixV "ab" (regV "schminken")) dative accPrep ;
   abschminken_V2 = dirV2 (prefixV "ab" (regV "schminken"))  ;
   abschmirgeln_V2 = dirV2 (prefixV "ab" (regV "schmirgeln"))  ;
   abschmuecken_V2 = dirV2 (prefixV "ab" (regV "schmücken"))  ;
@@ -580,7 +580,7 @@ lin
   anfreunden_mit_rV2 = reflV2 (prefixV "an" (regV "freunden")) accusative mit_Prep ;
   anfuehlen_V2 = dirV2 (prefixV "an" (regV "fühlen"))  ;
   anfuehlen_wie_rV2 = reflV2 (prefixV "an" (regV "fühlen")) accusative (mkPrep "wie" nominative) ;
-  angeben_mit_V2 = prepV2 (prefixV "an" (irregV "geben" "gebt" "gab" "gäbe" "gegeben")) mit_Prep ;
+  angeben_mit_V2 = prepV2 (prefixV "an" (irregV "geben" "gibt" "gab" "gäbe" "gegeben")) mit_Prep ;
   angehen_sV = dassV (prefixV "an" (irregV "gehen" "geht" "ging" "ginge" "gegangen"))  ;
   angehen_V2 = dirV2 (prefixV "an" (irregV "gehen" "geht" "ging" "ginge" "gegangen"))  ;
   angehoeren_dat_V2 = mkV2 (prefixV "an" (regV "gehören")) datPrep ;
@@ -797,9 +797,9 @@ lin
   auffassen_als_V3 = dirV3 (prefixV "auf" (regV "fassen")) (mkPrep "als" accusative) ;
   auffrieren_V = prefixV "auf" (irregV "frieren" "friert" "fror" "fröre" "gefroren") ;
   auffuehren_V2 = dirV2 (prefixV "auf" (regV "führen"))  ;
-  aufgeben_V2 = dirV2 (prefixV "auf" (irregV "geben" "gebt" "gab" "gäbe" "gegeben"))  ;
-  aufgeben_V = prefixV "auf" (irregV "geben" "gebt" "gab" "gäbe" "gegeben") ;
-  aufgeben_VV = mkVV (prefixV "auf" (irregV "geben" "gebt" "gab" "gäbe" "gegeben"))  ;
+  aufgeben_V2 = dirV2 (prefixV "auf" (irregV "geben" "gibt" "gab" "gäbe" "gegeben"))  ;
+  aufgeben_V = prefixV "auf" (irregV "geben" "gibt" "gab" "gäbe" "gegeben") ;
+  aufgeben_VV = mkVV (prefixV "auf" (irregV "geben" "gibt" "gab" "gäbe" "gegeben"))  ;
   aufgehen_dat_V2 = mkV2 (prefixV "auf" (irregV "gehen" "geht" "ging" "ginge" "gegangen")) datPrep ;
   aufgehen_V = prefixV "auf" (irregV "gehen" "geht" "ging" "ginge" "gegangen") ;
   aufhaengen_V2 = dirV2 (prefixV "auf" (regV "hängen"))  ;
@@ -925,7 +925,7 @@ lin
   ausbuexen_von_V2 = prepV2 (prefixV "aus" (regV "büxen")) von_Prep ;
   ausbuexen_V = prefixV "aus" (regV "büxen") ;
   ausdehnen_rV = reflV (prefixV "aus" (regV "dehnen")) accusative ;
-  ausdenken_rV2 = reflV2 (prefixV "aus" (irregV "denken" "denkt" "dachte" "dächte" "gedacht")) accusative accPrep ;
+  ausdenken_rV2 = reflV2 (prefixV "aus" (irregV "denken" "denkt" "dachte" "dächte" "gedacht")) dative accPrep ;
   ausdruecken_rVA = reflVA (prefixV "aus" (regV "drücken")) accusative ;
   ausdruecken_V2 = dirV2 (prefixV "aus" (regV "drücken"))  ;
 --  ausdruecken_V = prefixV "aus" (irregV "drücken" "drückt" "drückte" "drückte" "gedrückt") ;
@@ -938,7 +938,7 @@ lin
   ausfuehren_V2 = dirV2 (prefixV "aus" (regV "führen"))  ;
   ausfuehren_VS = mkVS (prefixV "aus" (regV "führen"))  ;
   ausfuellen_V2 = dirV2 (prefixV "aus" (regV "füllen"))  ;
-  ausgeben_V2 = dirV2 (prefixV "aus" (irregV "geben" "gebt" "gab" "gäbe" "gegeben"))  ;
+  ausgeben_V2 = dirV2 (prefixV "aus" (irregV "geben" "gibt" "gab" "gäbe" "gegeben"))  ;
   ausgehen_mit_V2 = prepV2 (prefixV "aus" (irregV "gehen" "geht" "ging" "ginge" "gegangen")) mit_Prep ;
   ausgehen_V = prefixV "aus" (irregV "gehen" "geht" "ging" "ginge" "gegangen") ;
   ausgleichen_durch_V3 = dirV3 (prefixV "aus" (irregV "gleichen" "gleicht" "glich" "gliche" "geglichen")) durch_Prep ;
@@ -1194,7 +1194,7 @@ lin
   behandeln_als_V3 = dirV3 (regV "behandeln") (mkPrep "als" accusative) ;
   behandeln_mit_V3 = dirV3 (regV "behandeln") mit_Prep ;
   behaupten_VS = mkVS (irregV "behaupten" "behauptet" "behauptete" "behaupte" "behauptet")  ;
-  behelfen_mit_rV2 = reflV2 (irregV "behelfen" "behilft" "behalf" "behalf" "beholfen") accusative mit_Prep ;
+  behelfen_mit_rV2 = reflV2 (irregV "behelfen" "behilft" "behalf" "behalf" "beholfen") dative mit_Prep ;
   behelligen_mit_V3 = dirV3 (regV "behelligen") mit_Prep ;
   beherbergen_V2 = dirV2 (regV "beherbergen")  ;
   beherrschen_V2 = dirV2 (regV "beherrschen")  ;
@@ -1902,7 +1902,7 @@ lin
   einen_V2 = dirV2 (regV "einen")  ;
   einfallen_dat_sV2 = dassV2 (prefixV "ein" (irregV "fallen" "fallt" "fiel" "fiele" "gefallen")) datPrep ;
   einfallen_in_V2 = prepV2 (prefixV "ein" (irregV "fallen" "fallt" "fiel" "fiele" "gefallen")) (mkPrep "in" accusative) ;
-  einfangen_rV2 = reflV2 (prefixV "ein" (irregV "fangen" "fängt" "fing" "fing" "gefangen")) accusative accPrep ;
+  einfangen_rV2 = reflV2 (prefixV "ein" (irregV "fangen" "fängt" "fing" "fing" "gefangen")) dative accPrep ;
   einfangen_V2 = dirV2 (prefixV "ein" (irregV "fangen" "fängt" "fing" "fing" "gefangen"))  ;
   einfinden_loc_rV2 = reflV2 (prefixV "ein" (irregV "finden" "findet" "fand" "fände" "gefunden")) accusative loc_Prep ;
   einfloessen_dat_V2S = mkV2S (prefixV "ein" (irregV "flößen" "flößt" "flöße" "flöße" "geflößt")) datPrep ;
@@ -1913,7 +1913,7 @@ lin
   einfuegen_rV = reflV (prefixV "ein" (regV "fügen")) accusative ;
   einfuehren_in_V3 = dirV3 (prefixV "ein" (regV "führen")) (mkPrep "in" accusative) ;
   einfuehren_V2 = dirV2 (prefixV "ein" (regV "führen"))  ;
-  eingeben_in_V3 = dirV3 (prefixV "ein" (irregV "geben" "gebt" "gab" "gäbe" "gegeben")) (mkPrep "in" accusative) ;
+  eingeben_in_V3 = dirV3 (prefixV "ein" (irregV "geben" "gibt" "gab" "gäbe" "gegeben")) (mkPrep "in" accusative) ;
   eingehen_in_V2 = prepV2 (prefixV "ein" (irregV "gehen" "geht" "ging" "ginge" "gegangen")) (mkPrep "in" accusative) ;
   eingehen_V = prefixV "ein" (irregV "gehen" "geht" "ging" "ginge" "gegangen") ;
   eingemeinden_V2 = dirV2 (prefixV "ein" (irregV "gemeinden" "gemeindet" "gemeindete" "gemeindete" "gemeindet"))  ;
@@ -2210,7 +2210,7 @@ lin
   ergaenzen_mit_V3 = dirV3 (irregV "ergänzen" "ergänzt" "ergänzte" "ergänzte" "ergänzt") mit_Prep ;
   ergattern_V2 = dirV2 (irregV "ergattern" "ergattert" "ergatterte" "ergattere" "ergattert")  ;
   ergaunern_V2 = dirV2 (irregV "ergaunern" "ergaunert" "ergaunerte" "ergaunerte" "ergaunert")  ;
-  ergeben_dat_rV2 = reflV2 (irregV "ergeben" "ergebt" "ergab" "ergäbe" "ergeben") accusative datPrep ;
+  ergeben_dat_rV2 = reflV2 (irregV "ergeben" "ergibt" "ergab" "ergäbe" "ergeben") accusative datPrep ;
   ergetzen_am_V2 = prepV2 (irregV "ergetzen" "ergetzt" "ergetzte" "ergetzte" "ergetzt") (mkPrep "an" dative) ;
   ergiessen_in_V2 = prepV2 (irregV "ergießen" "ergießt" "ergoss" "ergösse" "ergossen") (mkPrep "in" accusative) ;
   ergiessen_ueber_V2 = prepV2 (irregV "ergießen" "ergießt" "ergoss" "ergösse" "ergossen") (mkPrep "über" accusative) ;
@@ -2266,7 +2266,7 @@ lin
   erleichtern_rV = reflV (irregV "erleichtern" "erleichtert" "erleichterte" "erleichtere" "erleichtert") accusative ;
   erleiden_V2 = dirV2 (irregV "erleiden" "erleidet" "erlitt" "erlitte" "erlitten")  ;
   erlernen_V2 = dirV2 (irregV "erlernen" "erlernt" "erlernte" "erlernte" "erlernt")  ;
-  erlesen_rV2 = reflV2 (irregV "erlesen" "erlest" "erlas" "erläse" "erlesen") accusative accPrep ;
+  erlesen_rV2 = reflV2 (irregV "erlesen" "erlest" "erlas" "erläse" "erlesen") dative accPrep ;
   erleuchten_V2 = dirV2 (irregV "erleuchten" "erleuchtet" "erleuchtete" "erleuchtete" "erleuchtet")  ;
   erloeschen_V = irregV "erlöschen" "erlöscht" "erlosch" "erlösche" "erloschen" ;
   erloesen_V2 = dirV2 (irregV "erlösen" "erlöst" "erlöste" "erlöste" "erlöst")  ;
@@ -2369,7 +2369,7 @@ lin
   erwaermen_V2 = dirV2 (irregV "erwärmen" "erwärmt" "erwärmte" "erwärmte" "erwärmt")  ;
   erwahren_V2 = dirV2 (irregV "erwahren" "erwahrt" "erwahrte" "erwahrte" "erwahrt")  ;
   erwarten_V2 = dirV2 (irregV "erwarten" "erwartet" "erwartete" "erwarte" "erwartet")  ;
-  erwarten_von_rV3 = reflV3 (irregV "erwarten" "erwartet" "erwartete" "erwarte" "erwartet") accusative accPrep von_Prep ;
+  erwarten_von_rV3 = reflV3 (irregV "erwarten" "erwartet" "erwartete" "erwarte" "erwartet") dative accPrep von_Prep ;
   erweichen_V2 = dirV2 (irregV "erweichen" "erweicht" "erweichte" "erweichte" "erweicht")  ;
   erweisen_dat_V3 = accdatV3 (irregV "erweisen" "erweist" "erwies" "erwiese" "erwiesen")  ;
   erweitern_V2 = dirV2 (irregV "erweitern" "erweitert" "erweiterte" "erweiterte" "erweitert")  ;
@@ -2761,7 +2761,7 @@ lin
   gebaerden_als_rV2 = reflV2 (irregV "gebärden" "gebärdet" "gebärdete" "gebärdete" "gebärdet") accusative (mkPrep "als" nominative) ;
   gebaerden_wie_rV2 = reflV2 (irregV "gebärden" "gebärdet" "gebärdete" "gebärdete" "gebärdet") accusative (mkPrep "wie" nominative) ;
   gebaeren_V2 = dirV2 (irregV "gebären" "gebärt" "gebar" "gebäre" "geboren")  ;
-  geben_dat_V3 = accdatV3 (irregV "geben" "gebt" "gab" "gäbe" "gegeben")  ;
+  geben_dat_V3 = accdatV3 (irregV "geben" "gibt" "gab" "gäbe" "gegeben")  ;
   gebieten_dat_V2V = mkV2V (irregV "gebieten" "gebietet" "gebot" "geböte" "geboten") datPrep ;
   gebrauchen_V2 = dirV2 (irregV "gebrauchen" "gebraucht" "gebrauchte" "gebrauchte" "gebraucht")  ;
   gebuehren_dat_sV2 = dassV2 (irregV "gebühren" "gebührt" "gebührte" "gebührte" "gebührt") datPrep ;
@@ -2826,7 +2826,7 @@ lin
   gestatten_dat_V2S = mkV2S (irregV "gestatten" "gestattet" "gestattete" "gestattete" "gestattet") datPrep ;
   gestatten_dat_V3 = accdatV3 (irregV "gestatten" "gestattet" "gestattete" "gestattete" "gestattet")  ;
   gestikulieren_V = regV "gestikulieren" ;
-  getrauen_rVV = reflVV (irregV "getrauen" "getraut" "getraute" "getraute" "getraut") dative ;
+  getrauen_rVV = reflVV (irregV "getrauen" "getraut" "getraute" "getraute" "getraut") accusative ;
   gettoisieren_V2 = dirV2 (regV "gettoisieren")  ;
   gewaehren_dat_V3 = accdatV3 (irregV "gewähren" "gewährt" "gewährte" "gewährte" "gewährt")  ;
   gewaehrleisten_dat_V2S = mkV2S (irregV "gewährleisten" "gewährleistet" "gewährleistete" "gewährleistete" "gewährleistet") datPrep ;
@@ -2904,7 +2904,7 @@ lin
   grausen_sV2 = dassV2 (regV "grausen") accPrep ;
   grausen_V2 = dirV2 (regV "grausen")  ;
   greifen_dir_V2 = prepV2 (irregV "greifen" "greift" "griff" "griffe" "gegriffen") dir_Prep ;
-  greifen_rV2 = reflV2 (irregV "greifen" "greift" "griff" "griffe" "gegriffen") accusative accPrep ;
+  greifen_rV2 = reflV2 (irregV "greifen" "greift" "griff" "griffe" "gegriffen") dative accPrep ;
   greinen_V = regV "greinen" ;
   grenzen_an_V2 = prepV2 (regV "grenzen") (mkPrep "an" accusative) ;
   grienen_V = regV "grienen" ;
@@ -3041,7 +3041,7 @@ lin
   herausarbeiten_VS = mkVS (prefixV "heraus" (regV "arbeiten"))  ;
   herausfinden_V2 = dirV2 (prefixV "heraus" (irregV "finden" "findet" "fand" "fände" "gefunden"))  ;
   herausfinden_VS = mkVS (prefixV "heraus" (irregV "finden" "findet" "fand" "fände" "gefunden"))  ;
-  herausgeben_V2 = dirV2 (prefixV "heraus" (irregV "geben" "gebt" "gab" "gäbe" "gegeben"))  ;
+  herausgeben_V2 = dirV2 (prefixV "heraus" (irregV "geben" "gibt" "gab" "gäbe" "gegeben"))  ;
   herauskommen_aus_V2 = prepV2 (prefixV "heraus" (irregV "kommen" "kommt" "kam" "käme" "gekommen")) aus_Prep ;
   herauskommen_sV = dassV (prefixV "heraus" (irregV "kommen" "kommt" "kam" "käme" "gekommen"))  ;
   herauskristallisieren_rV = reflV (prefixV "heraus" (regV "kristallisieren")) accusative ;
@@ -3677,7 +3677,7 @@ lin
   krakeelen_V = regV "krakeelen" ;
   krakeelen_VS = mkVS (regV "krakeelen")  ;
   krakeln_dir_V3 = dirV3 (regV "krakeln") dir_Prep ;
-  krallen_rV2 = reflV2 (regV "krallen") accusative accPrep ;
+  krallen_rV2 = reflV2 (regV "krallen") dative accPrep ;
   kramen_aus_V3 = dirV3 (regV "kramen") aus_Prep ;
   kramen_in_nach_V3 = mkV3 (regV "kramen") (mkPrep "in" accusative) nach_Prep ;
   kranken_am_V2 = prepV2 (regV "kranken") (mkPrep "an" dative) ;
@@ -3843,12 +3843,12 @@ lin
   leiden_V2 = dirV2 (irregV "leiden" "leidet" "litt" "litte" "gelitten")  ;
   leidtun_dat_sV2 = dassV2 (prefixV "leid" (irregV "tun" "tut" "tat" "täte" "getan")) datPrep ;
   leidtun_dat_V2 = mkV2 (prefixV "leid" (irregV "tun" "tut" "tat" "täte" "getan")) datPrep ;
-  leihen_bei_rV3 = reflV3 (irregV "leihen" "leiht" "lieh" "liehe" "geliehen") accusative accPrep bei_Prep ;
+  leihen_bei_rV3 = reflV3 (irregV "leihen" "leiht" "lieh" "liehe" "geliehen") dative accPrep bei_Prep ;
   leihen_dat_V3 = accdatV3 (irregV "leihen" "leiht" "lieh" "liehe" "geliehen")  ;
-  leihen_im_rV3 = reflV3 (irregV "leihen" "leiht" "lieh" "liehe" "geliehen") accusative accPrep (mkPrep "in" dative) ;
-  leihen_von_rV3 = reflV3 (irregV "leihen" "leiht" "lieh" "liehe" "geliehen") accusative accPrep von_Prep ;
+  leihen_im_rV3 = reflV3 (irregV "leihen" "leiht" "lieh" "liehe" "geliehen") dative accPrep (mkPrep "in" dative) ;
+  leihen_von_rV3 = reflV3 (irregV "leihen" "leiht" "lieh" "liehe" "geliehen") dative accPrep von_Prep ;
   leimen_V2 = dirV2 (regV "leimen")  ;
-  leisten_rV2 = reflV2 (irregV "leisten" "leistet" "leistete" "leiste" "geleistet") accusative accPrep ;
+  leisten_rV2 = reflV2 (irregV "leisten" "leistet" "leistete" "leiste" "geleistet") dative accPrep ;
   leisten_V2 = dirV2 (irregV "leisten" "leistet" "leistete" "leiste" "geleistet")  ;
   leitartikeln_V = regV "leitartikeln" ;
   leiten_V2 = dirV2 (irregV "leiten" "leitet" "leitete" "leite" "geleitet")  ;
@@ -4057,7 +4057,7 @@ lin
   miterleben_VS = mkVS (prefixV "mit" (irregV "erleben" "erlebt" "erlebte" "erlebte" "erlebt"))  ;
   mitessen_mit_V2 = prepV2 (prefixV "mit" (irregV "essen" "isst" "aß" "aß" "gegessen")) mit_Prep ;
   mitfuehlen_mit_V2 = prepV2 (prefixV "mit" (regV "fühlen")) mit_Prep ;
-  mitgeben_V2 = dirV2 (prefixV "mit" (irregV "geben" "gebt" "gab" "gäbe" "gegeben"))  ;
+  mitgeben_V2 = dirV2 (prefixV "mit" (irregV "geben" "gibt" "gab" "gäbe" "gegeben"))  ;
   mitgehen_mit_V2 = prepV2 (prefixV "mit" (irregV "gehen" "geht" "ging" "ging" "gegangen")) mit_Prep ;
   mitkommen_mit_V2 = prepV2 (prefixV "mit" (irregV "kommen" "kommt" "kam" "käme" "gekommen")) mit_Prep ;
   mitmischen_bei_V2 = prepV2 (prefixV "mit" (regV "mischen")) bei_Prep ;
@@ -4137,7 +4137,7 @@ lin
   nachforschen_VQ = mkVQ (prefixV "nach" (regV "forschen"))  ;
   nachfuehlen_dat_V2S = mkV2S (prefixV "nach" (regV "fühlen")) datPrep ;
   nachfuehlen_dat_V3 = accdatV3 (prefixV "nach" (regV "fühlen"))  ;
-  nachgeben_dat_V2 = mkV2 (prefixV "nach" (irregV "geben" "gebt" "gab" "gäbe" "gegeben")) datPrep ;
+  nachgeben_dat_V2 = mkV2 (prefixV "nach" (irregV "geben" "gibt" "gab" "gäbe" "gegeben")) datPrep ;
   nachgehen_dat_V2 = mkV2 (prefixV "nach" (irregV "gehen" "geht" "ging" "ginge" "gegangen")) datPrep ;
   nachgruebeln_ueber_V2 = prepV2 (prefixV "nach" (regV "grübeln")) (mkPrep "über" dative) ;
   nachhaken_bei_V2 = prepV2 (prefixV "nach" (regV "haken")) bei_Prep ;
@@ -4780,9 +4780,9 @@ lin
   reimen_auf_V3 = dirV3 (regV "reimen") (mkPrep "auf" accusative) ;
   reimen_V2 = dirV2 (regV "reimen")  ;
   reinchecken_in_V2 = prepV2 (prefixV "rein" (regV "checken")) (mkPrep "in" accusative) ;
-  reinchecken_rV2 = reflV2 (prefixV "rein" (regV "checken")) accusative accPrep ;
+  reinchecken_rV2 = reflV2 (prefixV "rein" (regV "checken")) dative accPrep ;
   reinigen_V2 = dirV2 (regV "reinigen")  ;
-  reinpfeifen_rV2 = reflV2 (prefixV "rein" (irregV "pfeifen" "pfeift" "pfiff" "priffe" "reingepfiffen")) accusative accPrep ;
+  reinpfeifen_rV2 = reflV2 (prefixV "rein" (irregV "pfeifen" "pfeift" "pfiff" "priffe" "reingepfiffen")) dative accPrep ;
   reinziehen_in_V3 = dirV3 (prefixV "rein" (irregV "ziehen" "zieht" "zog" "zöge" "gezogen")) (mkPrep "in" accusative) ;
   reisen_dir_V2 = prepV2 (regV "reisen") dir_Prep ;
   reissen_V2 = dirV2 (irregV "reißen" "reißt" "riss" "risse" "gerissen")  ;
@@ -5012,8 +5012,8 @@ lin
   schelten_V2 = dirV2 (irregV "schelten" "schilt" "schalt" "schölte" "gescholten")  ;
   schematisieren_V2 = dirV2 (regV "schematisieren")  ;
   schenken_dat_V3 = accdatV3 (regV "schenken")  ;
-  schenken_rV2 = reflV2 (regV "schenken") accusative accPrep ;
-  schenken_rVV = reflVV (regV "schenken") accusative ;
+  schenken_rV2 = reflV2 (regV "schenken") dative accPrep ;
+  schenken_rVV = reflVV (regV "schenken") dative ;
   scheppen_V2 = dirV2 (regV "scheppen")  ;
   scheppern_V = regV "scheppern" ;
   scheren_2_V = regV "scheren" ;
@@ -5357,8 +5357,8 @@ lin
   spannen_VS = mkVS (regV "spannen")  ;
   sparen_an_V2 = prepV2 (regV "sparen") (mkPrep "an" accusative) ;
   sparen_mit_V2 = prepV2 (regV "sparen") mit_Prep ;
-  sparen_rV2 = reflV2 (regV "sparen") accusative accPrep ;
-  sparen_rVV = reflVV (regV "sparen") accusative ;
+  sparen_rV2 = reflV2 (regV "sparen") dative accPrep ;
+  sparen_rVV = reflVV (regV "sparen") dative ;
   sparen_V2 = dirV2 (regV "sparen")  ;
   spassen_mit_V2 = prepV2 (regV "spaßen") mit_Prep ;
   spassen_VS = mkVS (regV "spaßen")  ;
@@ -5867,8 +5867,8 @@ lin
   ueberfliegen_V2 = dirV2 (irregV "überfliegen" "überfliegt" "überflog" "überflögee" "überflogen")  ;
   ueberfordern_V2 = dirV2 (irregV "überfordern" "überfordert" "überforderte" "überforderte" "überfordert")  ;
   ueberfuehren_gen_V3 = mkV3 (irregV "überführen" "überführt" "überführte" "überführte" "überführt") genPrep accPrep ;
-  uebergeben_dat_V3 = accdatV3 (irregV "übergeben" "übergebt" "übergab" "übergäbe" "übergeben")  ;
-  uebergeben_rV = reflV (irregV "übergeben" "übergebt" "übergab" "übergäbe" "übergeben") accusative ;
+  uebergeben_dat_V3 = accdatV3 (irregV "übergeben" "übergibt" "übergab" "übergäbe" "übergeben")  ;
+  uebergeben_rV = reflV (irregV "übergeben" "übergibt" "übergab" "übergäbe" "übergeben") accusative ;
   uebergehen_V2 = dirV2 (irregV "übergehen" "übergeht" "überging" "überginge" "übergegangen")  ;
   uebergehen_VS = mkVS (irregV "übergehen" "übergeht" "überging" "überginge" "übergegangen")  ;
   ueberholen_V2 = dirV2 (irregV "überholen" "überholt" "überholte" "überholte" "überholt")  ;
@@ -5938,7 +5938,7 @@ lin
   umfriedigen_V2 = dirV2 (irregV "umfriedigen" "umfriedigt" "umfriedigte" "umfriedigte" "umfriedigt")  ;
   umfunktionieren_zu_V3 = dirV3 (prefixV "um" (regV "funktionieren")) zu_Prep ;
   umgarnen_V2 = dirV2 (regV "umgarnen")  ;
-  umgeben_mit_V3 = dirV3 (irregV "umgeben" "umgebt" "umgab" "umgäbe" "umgeben") mit_Prep ;
+  umgeben_mit_V3 = dirV3 (irregV "umgeben" "umgibt" "umgab" "umgäbe" "umgeben") mit_Prep ;
   umgehen_V2 = dirV2 (irregV "umgehen" "umgeht" "umging" "umging" "umgangen")  ;
   umgestalten_V2 = dirV2 (prefixV "um" (irregV "gestalten" "gestaltet" "gestaltete" "gestaltete" "gestaltet"))  ;
   umhinkoennen_VV = mkVV (prefixV "umhin" (irregV "können" "kann" "konnte" "konnte" "gekonnt"))  ;
@@ -6198,7 +6198,7 @@ lin
   vergammeln_V = irregV "vergammeln" "vergammelt" "vergammelte" "vergammelte" "vergammelt" ;
   vergasen_V2 = dirV2 (irregV "vergasen" "vergast" "vergaste" "vergaste" "vergast")  ;
   vergattern_zu_V3 = dirV3 (irregV "vergattern" "vergatternt" "vergatterte" "vergatterte" "vergattert") zu_Prep ;
-  vergeben_dat_V2S = mkV2S (irregV "vergeben" "vergebt" "vergab" "vergäbe" "vergeben") datPrep ;
+  vergeben_dat_V2S = mkV2S (irregV "vergeben" "vergibt" "vergab" "vergäbe" "vergeben") datPrep ;
   vergegenstaendlichen_V2 = dirV2 (irregV "vergegenständlichen" "vergegenständlicht" "vergegenständlichte" "vergegenständlichte" "vergegenständlicht")  ;
   vergegenwaertigen_dat_V2S = mkV2S (irregV "vergegenwärtigen" "vergegenwärtigt" "vergegenwärtigte" "vergegenwärtigte" "vergegenwärtigt") datPrep ;
   vergegenwaertigen_dat_V3 = accdatV3 (irregV "vergegenwärtigen" "vergegenwärtigt" "vergegenwärtigte" "vergegenwärtigte" "vergegenwärtigt")  ;
@@ -6638,7 +6638,7 @@ lin
   vorbeugen_dat_V2 = mkV2 (prefixV "vor" (regV "beugen")) datPrep ;
   vorfallen_sV = dassV (irregV "vorfallen" "fallt" "fiel" "fiele" "gefallen")  ;
   vorfuehlen_bei_V2 = prepV2 (prefixV "vor" (regV "fühlen")) bei_Prep ;
-  vorgeben_VV = mkVV (prefixV "vor" (irregV "geben" "gebt" "gab" "gäbe" "gegeben"))  ;
+  vorgeben_VV = mkVV (prefixV "vor" (irregV "geben" "gibt" "gab" "gäbe" "gegeben"))  ;
   vorgehen_sV = dassV (prefixV "vor" (irregV "gehen" "geht" "ging" "ginge" "gegangen"))  ;
   vorhaben_VV = mkVV (prefixV "vor" (irregV "haben" "hat" "hatte" "hatte" "gehabt"))  ;
   vorhergehen_dat_V2 = mkV2 (prefixV "vor" (irregV "hergehen" "hergeht" "hergehte" "hergehte" "gehergeht")) datPrep ;

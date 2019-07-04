@@ -21,12 +21,10 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       insertExtrapos (comma ++ q.s ! QIndir) (predV v) ;
     ComplVA v ap = insertAdj (v.c2.s ++ ap.s ! APred) ap.c ap.ext (predV v) ; -- changed
 
-    SlashV2a v = predVc v ;
+    SlashV2a v = (predVc v) ** {missingAdv = True} ; -- HL 12/6/2019 for reflexive verbs with objects, rV2:V2, rV3:V3
       
-    Slash2V3 v np =
-      insertObjc (\\_ => appPrepNP v.c2 np) (predVc v) ** {c2 = v.c3} ;
-    Slash3V3 v np =
-      insertObjc (\\_ => appPrepNP v.c3 np) (predVc v) ;
+    Slash2V3 v np = insertObjNP np v.c2 (predV v) ** {c2 = v.c3 ; missingAdv = True} ; 
+    Slash3V3 v np = insertObjNP np v.c3 (predV v) ** {c2 = v.c2 ; missingAdv = True} ;
 
     SlashV2S v s = 
       insertExtrapos (conjThat ++ s.s ! Sub) (predVc v) ;
@@ -45,7 +43,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       insertAdj (ap.s ! APred) ap.c ap.ext (predVc v) ;
 
     ComplSlash vps np =
-      let vp = insertObjNP (isLightComplement np.isPron vps.c2) (\\_ => appPrepNP vps.c2 np) vps ;
+      let vp = insertObjNP np vps.c2 vps ;
        in case vp.missingAdv of {
         True  => vp ;
         False => objAgr np vp } ; -- IL 24/04/2018 force reflexive in the VPSlash to take the agreement of the object introduced by ComplSlash.
@@ -68,6 +66,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInf vpi.p2 (
           insertObj vpi.p1 (
             insertObj (\\_ => appPrepNP v.c2 np) vps))) ;
+--            insertObjNP v.c2 np vps))) ;
 
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
@@ -95,8 +94,9 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     AdvVPSlash vp adv = vp ** insertAdv adv.s vp ;
     AdVVPSlash adv vp = vp ** insertAdv adv.s vp ;
 
-    ReflVP vp = insertObj (\\a => appPrep vp.c2 
-      (\\k => usePrepC k (\c -> reflPron ! a ! c))) vp ;
+    -- ReflVP vp = insertObj (\\a => appPrep vp.c2 
+    --   (\\k => usePrepC k (\c -> reflPron ! a ! c))) vp ;
+    ReflVP vp = insertObjRefl vp ; -- HL, 19/06/2019
 
     PassV2 v = insertInf (v.s ! VPastPart APred) (predV werdenPass) ;
 

@@ -116,7 +116,7 @@ concrete StructuralGer of Structural = CatGer **
   we_Pron = mkPronPers "wir" "uns"  "uns"   "unser"  "unser" Fem Pl P1 ;
 
   whatSg_IP = {s = caselist "was" "was" "was" "wessen" ; n = Sg} ; ----
-  whatPl_IP = {s = caselist "was" "was" "was" "wessen" ; n = Pl} ; ----
+  whatPl_IP = {s = caselist "was" "was" "was" "wessen" ; n = Sg} ; -- HL 6/2016
 
   when_IAdv = ss "wann" ;
   when_Subj = ss "wenn" ;
@@ -124,7 +124,7 @@ concrete StructuralGer of Structural = CatGer **
   which_IQuant = {s = \\n,g,c => (detLikeAdj True n "welch").s ! g ! NPC c} ;
 
   whoSg_IP = {s = caselist "wer" "wen" "wem" "wessen" ; n = Sg} ;
-  whoPl_IP = {s = caselist "wer" "wen" "wem" "wessen" ; n = Pl} ;
+  whoPl_IP = {s = caselist "wer" "wen" "wem" "wessen" ; n = Sg} ; -- HL 6/2016
   why_IAdv = ss "warum" ;
   without_Prep = mkPrep "ohne" P.accusative ;
   with_Prep = mkPrep "mit" P.dative ;
