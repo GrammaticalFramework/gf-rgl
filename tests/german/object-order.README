@@ -87,7 +87,7 @@ contained in examples.txt. (Definiteness seems to be relevant to order, too.)
              ich trinke warmes Bier nicht  [ ich trinke nicht Bier: via no_Predet ]
 
    The order  accPron < refl < (gen|dat)Pron < neg < nonpronNP  sometimes sounds
-   better, but expresses a different meaning (often available via no_Preded):
+   better, but expresses a different meaning (often available via no_Predet):
 
              sie hat sich nicht alle|viele|?mehrere Namen gemerkt
              sie hat sich alle?|viele|mehrere Namen nicht gemerkt
@@ -98,7 +98,10 @@ contained in examples.txt. (Definiteness seems to be relevant to order, too.)
         einige Lehrer haben jedem Studenten viele Bücher nicht geschickt|empfohlen
         =?= some teachers haven't sent|recommended many books to every student
         
-   For tests, see examples.txt and TestLangGer.
+   For tests, see examples.txt and how to do regression tests (see below).
+ 
+   Rem.: Having more nn-fields may be useful to put adverbs in between (with 
+         additional scope problems).
 
 4. For reflexive V2's (ich bediene mich einer Sache, ich merke mir eine Sache) or 
    reflexive V3's (ich entschuldige mich bei dat für acc, ich leihe mir acc bei dat), 
@@ -236,16 +239,14 @@ Also, singular mass-NPs behave different:
     ich trinke nicht *((kaltes) Bier) 
     ich trinke (kaltes) Bier nicht | ich trinke kein (kaltes) Bier
 
-PROBLEMS: do V2 + neg behave the same as V3 + neg? Can the scope of negation
-and quantifiers be fixed (or at least restricted) by intonation?
+PROBLEM: do V2 + neg behave the same as V3 + neg? Aren't the relative 
+scopes of negation and quantifiers fixed (or restricted) by intonation?
 
 ------------- Generating some example trees and linearize them (LangGer|Eng) -----------
 
 gr -tr -number=4 UseCl (TTAnt ? ?) ? (PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a see_V2)) (DetCN (DetQuant ? ?) (UseN man_N)))) | l
 
-gr -number=4 -tr UseCl (TTAnt ? ?) ? (PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a see_V2)) (DetCN (DetQuantOrd ? ? ?) (UseN man_N)))) | l
-
-Pronoun switch with V3 and Slash3V2 works:
+Pronoun switch with V3 and Slash?V2 works:
 
 l UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 sell_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
 I had sold the book to a woman
@@ -255,14 +256,26 @@ l UseCl (TTAnt TCond ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3
 I wouldn't sell it to her
 ich würde es ihr nicht verkaufen
 
---------------------- Regression tests -----------------------------------
+------ Regression tests: use  gf --run < object-order.gfs  or  gf> eh object-order.gfs
 
-From Eng to Ger:
-Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="LangEng,LangGer" -treebank | wf -file=examples.eng.new
-Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l | wf -file=examples.eng2ger.new
+Form Ger to Eng: 
 
-From Ger to Eng: see examples.txt and object-order.gfs
+example.txt contains german example sentences marked "positive", "negative", "dubious",
+some with two marks. The marks may not always be convincing, as some orderings of negation 
+and quantified nps afford particular intonation and meaning. (Also, there are incorrect 
+parse trees due to misuse of MassNP etc., so it needs some inspection to see if the content
+of examples.*.out is as it ought to be.)
 
-(Some of these examples need german/TestLangGer|Eng)
+Part of examples.txt needs TestLangGer|Eng for parsing and translation, in particular
+those with reflexive ternary verbs or quaternary verbs (which are not in the RGL).
 
+From Eng to Ger: 
+
+examples.eng.txt could also be parsed using LangEng instead of TestLangEng|Ger.
+
+Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="Eng,Ger" -treebank | wf -file=examples.eng.new
+Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="Eng,Ger" | wf -file=examples.eng2ger.new
+
+Using give_V3 is confusing, as both objects are connected with noPrep. The examples are
+repeated using send_V3, which attaches its indirect object with toPrep.
 -------------------------------------------------------------------------------------End
