@@ -189,7 +189,7 @@ resource ResGer = ParamX ** open Prelude in {
       case <t,m> of {
         <Pres,MIndic>    => VFin b (VPresInd   an ap) ;
         <Pres,MConjunct> => VFin b (VPresSubj  an ap) 
-                                                        ;  --# notpresent
+                                                      ;  --# notpresent
         <Past,MIndic>    => VFin b (VImpfInd   an ap) ;  --# notpresent
         <Past,MConjunct> => VFin b (VImpfSubj  an ap) ;  --# notpresent
         _ => VInf False --# notpresent
@@ -502,14 +502,14 @@ resource ResGer = ParamX ** open Prelude in {
 
   VPC : Type = {
       s : Bool => Agr => VPForm => { -- True = prefix glued to verb
-        fin : Str ;          -- hat
-        inf : Str            -- wollen
-        } 
+        fin : Str ;          -- hat|wird
+        inf : Str            -- wollen,gelesen|lesen wollen,gelesen haben,
+        }                    -- HL 11/6/2019 todo: Fut Anter: haben lesen wollen = lesen gewollt haben
       } ;
 
    VP : Type = {
-      s  : Verb ;
-      nn : Agr => Str * Str ; -- dich/deine Frau
+      s  : Verb ;                         -- HL 6/2019: <refl|pron,NP,PP,AP|CN|Adv>
+      nn : Agr => Str * Str * Str * Str ; --            <sich|ihr,deine Frau,an sie,gut> 
       a1 : Polarity => Str ;  -- nicht = adV
       a2 : Str ;              -- heute = adv
       adj : Str ;             -- space for adjectival complements ("ich finde dich schön")
@@ -552,12 +552,10 @@ resource ResGer = ParamX ** open Prelude in {
         werden_V.s ! VFin False (VImpfSubj (numberAgr a) (personAgr a)) ;  --# notpresent
 
       auf = verb.prefix ;
-
       vf : Bool -> Str -> Str -> {fin,inf : Str} = \b,fin,inf -> {
         fin = fin ; 
         inf = verb.particle ++ if_then_Str b [] auf ++ inf  --- negation of main b
-        } ;
-
+        } ; 
     in {
     s = \\b,a => table {
       VPFinite m t Simul => case t of {
@@ -567,18 +565,17 @@ resource ResGer = ParamX ** open Prelude in {
         Cond => vf True (wuerde a) vinf ;   --# notpresent
         Pres => vf b (vfin b m t a) []
         } ;
-      VPFinite m t Anter => case t of {               --# notpresent
-        Pres | Past => vf True (hat m t a) vpart ;      --# notpresent
-        Fut  => vf True (wird m a) (vpart ++ haben) ;   --# notpresent
-        Cond => vf True (wuerde a) (vpart ++ haben)   --# notpresent
-        } ;                                        --# notpresent
+      VPFinite m t Anter => case t of {                  --# notpresent
+        Pres | Past => vf True (hat m t a) vpart ;       --# notpresent
+        Fut  => vf True (wird m a) (vpart ++ haben) ;    --# notpresent
+        Cond => vf True (wuerde a) (vpart ++ haben)      --# notpresent 
+        } ;                                              --# notpresent
       VPImperat False => vf False (verb.s ! VImper (numberAgr a)) [] ;
       VPImperat True  => vf False (verb.s ! VFin False (VPresSubj Pl P3)) [] ;
-      VPInfinit Anter => vf True [] (vpart ++ haben) ; --# notpresent
+      VPInfinit Anter => vf True [] (vpart ++ haben) ;   --# notpresent
       VPInfinit Simul => vf True [] (verb.s ! VInf b)
       }
     } ;
-
 
   predVGen : Bool -> Verb -> VPSlash = \isAux, verb -> {
     s = {
@@ -591,9 +588,9 @@ resource ResGer = ParamX ** open Prelude in {
 
     a1  : Polarity => Str = negation ;
     a2  : Str = [] ;
-    nn  : Agr => Str * Str = case verb.vtype of {
-      VAct => \\_ => <[],[]> ;
-      VRefl c => \\a => <reflPron ! a ! c,[]>
+    nn  : Agr => Str * Str * Str * Str = case verb.vtype of {
+      VAct => \\_ => <[],[],[],[]> ;
+      VRefl c => \\a => <reflPron ! a ! c,[],[],[]>
       } ;
     isAux = isAux ; ----
     inf,ext,infExt,adj : Str = [] ;
@@ -668,26 +665,39 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- Extending a verb phrase with new constituents.
 
-  insertObj : (Agr => Str) -> VPSlash -> VPSlash = insertObjNP False ;
+  insertObj : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->  -- obj:Comp A|Adv|CN
+    vp ** { nn = \\a => let vpnn = vp.nn ! a in  <vpnn.p1, vpnn.p2, vpnn.p3, obj ! a ++ vpnn.p4> } ;
 
   insertObjc : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->
     insertObj obj vp ** {c2 = vp.c2 ; missingAdv = vp.missingAdv } ;
 
-  insertObjNP : Bool -> (Agr => Str) -> VPSlash -> VPSlash = \isPron, obj,vp -> vp ** {
-    nn = \\a => 
-      let vpnn = vp.nn ! a in 
-      case isPron of {
-        True  => <obj ! a ++ vpnn.p1,            vpnn.p2> ;
-        False => <           vpnn.p1, obj ! a ++ vpnn.p2>
-        }} ;
+  insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
+    let c = case prep.c of { NPC cc => cc ; _ => Nom } ;
+        obj : Agr => Str = \\_ => appPrepNP prep np ;
+    in vp ** {
+      nn = \\a =>                  -- HL 11/6/19: rough objNP order:
+        let vpnn = vp.nn ! a in    -- vfin < accPron < refl < (gen|dat)Pron < nonPronNP < neg < prepNP < vinf|comp
+        case <np.isPron,prep.isPrep,c> of { -- (assuming v.c2=acc) nonPron: dat < acc|gen  (acc < gen not enforced)
+          <True, False,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- <es|ihn sich,  np, pp, comp>
+          <True, False,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- <sich ihm,     np, pp, comp>
+          <False,False,Dat> => <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4> ; -- <prons, dat ++ np, pp, comp>
+          <False,False,_>   => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- <prons, np ++ gen|acc, pp, comp>
+          <_,    True, _>   => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4>   -- <prons, np, mit ihr|np, compl>
+        }
+    } ;    -- the ordering of objects of v:V3 (and v:V4) is also determined by Slash?V3 (and Slash?V4)
 
-  isLightComplement : Bool -> Preposition -> Bool = \isPron,prep -> case isPron of {
-     False => False ;
-     _ => case prep.isPrep of {
-       True => False ;
-       _ => True
-       }
-     } ;
+  insertObjRefl : VPSlash -> VPSlash = \vp -> -- HL 6/2019, to order reflPron < neg < prep+reflPron
+    let prep = vp.c2 ;
+        b = notB prep.isPrep ;
+        c = case prep.c of { NPC cc => cc ; _ => Acc } ;
+        obj : Agr => Str = \\a => prep.s ++ reflPron ! a ! c ;
+    in vp ** {
+      nn = \\a =>
+        let vpnn = vp.nn ! a in
+        case b of {
+          True  => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ;
+          False => <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4> }
+    } ;
 
   insertAdV : Str -> VP -> VP = \adv,vp -> vp ** {
     a1 = \\a => adv ++ vp.a1 ! a } ; -- immer nicht
@@ -706,10 +716,9 @@ resource ResGer = ParamX ** open Prelude in {
 
   insertAdj : Str -> Str * Str -> Str -> VPSlash -> VPSlash = \adj,c,ext,vp -> vp ** {
     nn = \\a => 
-      let vpnn = vp.nn ! a in 
-		<vpnn.p1 ++ c.p1 , vpnn.p2> ;
-	adj = vp.adj ++ adj ++ c.p2 ;
-	ext = vp.ext ++ ext} ;
+      let vpnn = vp.nn ! a in <vpnn.p1, vpnn.p2 ++ c.p1, vpnn.p3, vpnn.p4> ;  -- ihr? | der Frau treu
+    adj = vp.adj ++ adj ++ c.p2 ;                                             -- neugierig auf das Buch
+    ext = vp.ext ++ ext} ;           
 
 --------------------------------------------
 --CLAUSE CONSTRUCTION
@@ -730,18 +739,19 @@ resource ResGer = ParamX ** open Prelude in {
             } ;
           verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
           neg   = vp.a1 ! b ;
-          obj0  = (vp.nn ! agr).p1 ;
-          obj   = (vp.nn ! agr).p2 ;
-          compl = obj0 ++ neg  ++ vp.adj ++ obj ++ vp.a2 ; -- adj added
-          inf   = vp.inf ++ verb.inf ; -- not used for linearisation of Main/Inv
+          obj1  = (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ; -- refl ++ pronouns ++ nonpronouns
+          obj2  = (vp.nn ! agr).p3 ;                     -- pp-objects
+          obj3  = (vp.nn ! agr).p4 ++ vp.adj ++ vp.a2 ;  -- pred.AP|CN|Adv, via useComp HL 6/2019
+          compl = obj1 ++ neg ++ obj2 ++ obj3 ;
+          inf   = vp.inf ++ verb.inf ; 
           extra = vp.ext ;
-          inffin : Str = 
+          inffin : Str =                             -- not used for Main/Inv
             case <a,vp.isAux> of {                       
 	           <Anter,True> => verb.fin ++ inf ; -- double inf   --# notpresent
-             _            => inf ++ verb.fin              --- or just auxiliary vp
-            }                                            
+                   _            => inf ++ verb.fin   --- or just auxiliary vp
+            } ;
         in
-        case o of {
+        case o of { 
 	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ verb.inf ++ extra ++ vp.inf ;
 	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ verb.inf ++ extra ++ vp.inf ;
 	    Sub  => subj ++ compl ++ vp.infExt ++ inffin ++ extra
@@ -767,7 +777,7 @@ resource ResGer = ParamX ** open Prelude in {
 
   infVP : Bool -> VP -> ((Agr => Str) * Str * Str * Str) = \isAux, vp -> let vps = useVP vp in
     <
-     \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++  vp.a2,
+     \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4 ++ vp.a2,
      vp.a1 ! Pos ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit Simul).inf,
      vp.inf,
      vp.infExt ++ vp.ext
@@ -837,12 +847,10 @@ resource ResGer = ParamX ** open Prelude in {
     {s : PCase => Str ; a : Agr} -> {s : PCase => Str ; a : Agr ; isPron : Bool ; adv,ext,rc : Str} = \np ->
     np ** {isPron = False; adv,ext,rc = []} ; -- this could be wrong
 
-  oper
-
-      relPron :  RelGenNum => Case => Str = \\rgn,c =>
+  relPron :  RelGenNum => Case => Str = \\rgn,c =>
     case rgn of {
     RGenNum gn => 
-    case <gn,c> of {
+      case <gn,c> of {
       <GSg Fem,Gen> => "deren" ;
       <GSg g,Gen>   => "dessen" ;
       <GPl,Dat>     => "denen" ;
@@ -863,3 +871,4 @@ resource ResGer = ParamX ** open Prelude in {
         in <subj , agr> ;
 
 }
+

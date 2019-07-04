@@ -6,24 +6,27 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     DetCN det cn = {
       s = \\c => det.s ! cn.g ! c ++ 
                  (let k = (prepC c).c in cn.s ! adjfCase det.a k ! det.n ! k) ;
-      a = agrgP3 cn.g det.n ;
-      isPron = det.isDef ;   -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
-      rc = cn.rc ! det.n ;
+      a = agrgP3 cn.g det.n ;  
+--      isPron = det.isDef ;   -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
+      isPron = False ;       -- HL 6/2019 (but:) sehe (die|einige) Männer nicht
+      rc = cn.rc ! det.n ;   --                  don't see a|no man = sehe keinen Mann
       adv = cn.adv ;
       ext = cn.ext 
       } ;
 
     DetNP det = {
-      s = \\c => det.sp ! Neutr ! c ; -- more genders in ExtraGer
+      s = \\c => det.sp ! Neutr ! c ; -- more genders in ExtraGer -- HL: der+er,den+en ; der drei,den drei+en
       a = agrP3 det.n ;
-      isPron = det.isDef ;
+      -- isPron = det.isDef ;   
+      isPron = False ; -- HL 6/2019: don't apply pronoun switch: ich gebe ihr das  vs. ich gebe es ihr
       rc, adv, ext = []
       } ;
 
     UsePN pn = {
       s = \\c => usePrepC c (\k -> pn.s ! k) ;
       a = agrgP3 pn.g Sg ;
-      isPron = True ; --- means: this is not a heavy NP, but comes before negation
+--      isPron = True ; --- means: this is not a heavy NP, but comes before negation
+      isPron = False ;  -- HL 6/2019: to regulate Pron/NonPronNP order 
  	  rc, adv, ext = []
       } ;
 
@@ -83,7 +86,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
         s  = \\g,c => quant.s  ! num.isNum ! n ! g ! c ++ (let k = (prepC c).c in
                         num.s!g!k) ;
         sp = \\g,c => quant.sp ! num.isNum ! n ! g ! c ++ (let k = (prepC c).c in
-                        num.s!g!k) ;
+                        num.s!g!k) ; -- HL: der+er,den+en ; der drei,den drei+en
         n = n ;
         a = case n of {Sg => a ; Pl => quant.aPl} ;
         isDef = case <quant.a, quant.aPl> of {<Strong,Strong> => False ; _ => True} ;
@@ -116,7 +119,16 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
     DefArt = {
       s = \\_,n,g,c => artDefContr (gennum g n) c ; 
-      sp = \\_,n,g,c  => artDefContr (gennum g n) c ;  ---- deren, denem...
+--      sp = \\_,n,g,c  => artDefContr (gennum g n) c ;  ---- deren, denen ...
+      sp = \\_,n,g,c  => case <n,c> of {
+        <Sg,NPP p> => let sp = prepC c ; gn = gennum g n 
+          in sp.s ++ artDef ! gn ! sp.c ;
+        <Pl,NPP CInAcc> => let sp = prepC c in sp.s ++ "die" ;
+        <Pl,NPP p> => let sp = prepC c ; gn = gennum g n 
+          in sp.s ++ (artDef ! gn ! sp.c + "en") ;
+        <Pl,NPC Dat> => "denen" ; -- HL 6/2019
+        <Pl,NPC Gen> => "derer" ; -- HL 6/2019
+        _ => artDefContr (gennum g n) c } ;  -- von den+en
       a, aPl = Weak
       } ;
 
