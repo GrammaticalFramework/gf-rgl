@@ -154,7 +154,7 @@ lin
   open_V2 = mkV2 (mkV "aperire") ; -- aperio, aperui, apertum 4 (Langenscheidts)
   paint_V2A = mkV2A (mkV "pingere" "pingo" "pinxi" "pictum" ) Acc_Prep ; -- pingo, pinxi, pictum 3 (Langenscheidts)
   paper_N = mkN "charta" ; -- -ae f. (http://la.wikipedia.org/wiki/Charta / Pons)
-  paris_PN = mkPN (mkN "Lutetia") ; -- -ae f. (http://la.wikipedia.org/wiki/Lutetia)
+  paris_PN = mkPN (mkN "Lutetia") singular ; -- -ae f. (http://la.wikipedia.org/wiki/Lutetia)
   peace_N = mkN "pax" "pacis" feminine ; -- pacis f. (Langenscheidts)
   pen_N = mkN "stilus" ; -- -i m. (Langenscheidts)
   planet_N = mkN "planeta" ; -- -ae m. (http://la.wikipedia.org/wiki/Planeta)
@@ -178,7 +178,7 @@ lin
   say_VS = mkVS (mkV "dicere" "dico" "dixi" "dictum") ; -- dico, dixi, dictum 3 (Langenscheidts)
   school_N = mkN "schola" ; -- -ae f. (Langenscheidts)
   -- Irregular
-  science_N = R.pluralN (mkN "litera" ) ; -- only pl. (Langenscheidts)
+  science_N = pluralN (mkN "litera" ) ; -- only pl. (Langenscheidts)
   sea_N = mkN "mare" "maris" neuter ; -- -is n. (Langenscheidts)
   seek_V2 = mkV2 (mkV "quaerere" "quaero" "quaesivi" "quaesitum" ) ; -- quaero, quaesivi, quaesitum 3 (Langenscheidts)
   see_V2 = mkV2 (mkV "videre") ; -- video, vidi, visum 2 (Langenscheidts)
@@ -384,7 +384,7 @@ lin
   rule_N = mkN "regula" ; -- -ae f. (Langenscheidts)
 
 -- added 4/6/2007
-    john_PN = mkPN (mkN "Iohannes") ; -- (http://en.wikipedia.org/wiki/John_(given_name))
+    john_PN = mkPN (mkN "Iohannes") singular ; -- (http://en.wikipedia.org/wiki/John_(given_name))
     question_N = mkN "rogatio" "rogationis" feminine; -- -onis f. (Langenscheidts)
     ready_A = mkA "paratus" ; -- 3 (Langenscheidts)
     reason_N = mkN "causa" ; -- -ae f. (Langenscheidts)

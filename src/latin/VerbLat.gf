@@ -17,10 +17,21 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
       } ;
 
 --  ComplVS : VS -> S -> VP ;  -- say that she runs
-    ComplVS v s  = insertObj ( dummyNP (S.that_Subj.s ++ s.s ! PreS)) Nom_Prep (predV v) ;
-
+    ComplVS vs s  = -- insertObj ( dummyNP (S.that_Subj.s ++ s.s ! PreS)) Nom_Prep (predV v) ;
+      vs ** {
+	s = \\af,qf => vs.act ! af ;
+	compl = \\ag => combineSentence s ! SPreS ! PreV ! CPostV ! SOV ; -- s.s ! QIndir ;
+	adv = [] ;
+	obj = []
+      } ;
 --  ComplVQ : VQ -> QS -> VP ;  -- wonder who runs
-    ComplVQ v q  = insertObj (dummyNP (q.s ! QIndir)) Nom_Prep (predV v) ;
+    ComplVQ vq qs  = -- insertObj (dummyNP (q.s ! QIndir)) Nom_Prep (predV v) ;
+      vq ** {
+	s = \\af,qf => vq.act ! af ;
+	compl = \\ag => qs.s ! QIndir ;
+	adv = [] ;
+	obj = []
+      } ;
     
 --  ComplVA : VA -> AP -> VP ;  -- they become red
     ComplVA v ap = (predV v) ** { compl = ap.s } ;
@@ -57,7 +68,7 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
 
 --  SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
 --    SlashV2VNP vv np vp = 
---      insertObjPre (\\_ => vv.c2 ++ np.s ! Acc)
+--      insertObjPre (\\_ => vv.c2 ++ (combineNounPhrase np) ! PronNonDrop ! Acc)
 --        (insertObjc (\\a => infVP vv.isAux vp a) (predVc vv)) **
 --          {c2 = vp.c2} ;
 
@@ -103,7 +114,9 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
     CompAP ap = ap ;
     
 --  CompNP   : NP  -> Comp ;            -- (be) the man
-    CompNP np = {s = \\_ => let a = Ag np.g np.n Nom in np.preap.s ! a ++ np.s ! Nom ++ np.postap.s ! a } ;
+    CompNP np = {s = \\_ =>
+		   (combineNounPhrase np) ! PronNonDrop ! Nom
+      } ;
 
 --  CompAdv  : Adv -> Comp ;            -- (be) here
     CompAdv a = {s = \\_ => a.s ! Posit } ;

@@ -4,19 +4,21 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
   --`
   lin
     --   QuestCl : Cl -> QCl ;            -- does John walk
-    -- TO FIX
-     -- QuestCl cl = {
-     --   s = \\t,a,p => 
-     --     let cls = (combineClause cl PreS).s ! t ! a ! p 
-     --     in table {
-     --       QDir   => cls ! VQTrue ! VSO ! PreV ; -- cls ! OQuest ;
-     --       QIndir => "" -- "if" ++ cls ! ODir -- TODO
-     --     }
-     --   } ;
+    QuestCl cl = cl ** {
+      v = \\t,a,_,ap,cp => cl.v ! t ! a ! VQTrue ! ap ! cp ;
+      q = ""
+      } ;
     
     --  QuestVP     : IP -> VP -> QCl ;      -- who walks
-    -- TO FIX
-    -- QuestVP ip vp = 
+    QuestVP ip vp =
+      {
+	s = \\_ => "" ;
+	adv = "" ;
+	neg = \\_,_ => "" ;
+	o = \\_ => vp.obj ;
+	q = ip.s ! Nom ;
+	v = \\t,a,_,ap,cp => vp.s ! VAct (anteriorityToVAnter a) (tenseToVTense t) ip.n P3 ! VQFalse 
+      } ; 
     --   let qcl = mkQuestion { s = ip.s ! Nom } ( mkClause emptyNP vp )
     --   in {s = \\t,a,b,qd => qcl.s ! t ! a ! b ! qd} ;
 
@@ -26,12 +28,19 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
     -- QuestSlash ip slash =
     --   mkQuestion (ss ( ip.s ! Acc) ) slash ;
 
-    -- TO FIX
-    -- QuestIAdv iadv cl = mkQuestion iadv cl ;
---
-    -- TO FIX
-    -- QuestIComp icomp np = 
-    --   mkQuestion icomp (mkClause np (predV be_V) ) ;
+    -- QuestIAdv : 	IAdv -> Cl -> QCl
+    QuestIAdv iadv cl = cl ** { q = iadv.s } ;
+
+    -- QuestIComp : IComp -> NP -> QCl ;
+    QuestIComp icomp np = 
+      {
+	s = \\_ => "" ;
+	adv = "" ;
+	neg = \\_,_ => "" ;
+	o = \\_ => combineNounPhrase np ! PronNonDrop ! Nom ; -- Should probably not go into the object field
+	q = icomp.s ;
+	v = \\t,a,_,ap,cp => esseAux.act ! VAct (anteriorityToVAnter a) (tenseToVTense t) np.n P3 ;
+      } ;
 --
 --
 --    PrepIP p ip = {s = p.s ++ ip.s ! Acc} ;

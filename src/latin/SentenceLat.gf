@@ -36,7 +36,7 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
     SlashPrep cl prep = cl ** {c2 = prep.s} ;
 --
 --    SlashVS np vs slash = 
---      mkClause (np.s ! Nom) np.a 
+--      mkClause (combineNounPhrase np ! PronNonDrop ! Nom) np.a 
 --        (insertObj (\\_ => conjThat ++ slash.s) (predV vs))  **
 --        {c2 = slash.c2} ;
 --
@@ -47,10 +47,15 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
     UseCl  t p cl = -- Temp -> Pol-> Cl -> S
       (combineClause cl (lin Tense t) t.a (lin Pol p) VQFalse) ;
 
-    -- TO FIX
-    --UseQCl t p cl =
-      --      s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p ! q
-      -- { s = \\q => combineSentence (combineClause cl t t.a p VQFalse) ! PreV ! VSO } ; 
+    -- 	UseQCl : Temp -> Pol -> QCl -> QS -- maybe use mkQuestion
+    UseQCl t p cl =
+      {
+	s = let qs = combineClause cl t t.a p VQTrue in
+	  \\q => case q of {
+	  QDir => cl.q ++ combineSentence qs ! SPreS ! PreV ! CPostV ! SVO ; -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
+	  QIndir => cl.q ++ combineSentence qs ! SPreS ! PreV ! CPostV ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
+	  }
+      } ;
 
 --    UseRCl t p cl = {
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
