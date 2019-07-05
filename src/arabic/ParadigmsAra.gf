@@ -367,7 +367,9 @@ resource ParadigmsAra = open
    mkN : Species -> N -> N
      = \p,n -> n ** {h = p} ;
    mkN : (sg,pl : Str) -> Gender -> Species -> N
-     = \sg,pl -> mkFullN (reg sg pl) ;
+     = \sg,pl -> case <sg,pl> of {
+          <x@(_ + "ة") + #vow*, _ + "ات" + #vow*> => mkFullN (sndf x) ; -- extra safety: if someone gives case marking to the constructor, ignore it
+          _ => mkFullN (reg sg pl) } ;
    mkN : NTable -> Gender -> Species -> N -- TO BE DEPRECATED; kept for backwards-compatibility. For the same behaviour, use either the constructor above, sdfN or sdmN.
      = mkFullN ;
    mkN : (root,sgPatt,brokenPlPatt : Str) -> Gender -> Species -> N   -- broken plural
