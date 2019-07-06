@@ -502,9 +502,9 @@ resource ResGer = ParamX ** open Prelude in {
 
   VPC : Type = {
       s : Bool => Agr => VPForm => { -- True = prefix glued to verb
-        fin : Str ;          -- hat|wird
-        inf : Str            -- wollen,gelesen|lesen wollen,gelesen haben,
-        }                    -- HL 11/6/2019 todo: Fut Anter: haben lesen wollen = lesen gewollt haben
+        fin : Str ;          -- wird
+        inf:Str;inf2 : Str   -- lesen,[] | gelesen,haben | können,haben (= gekonnt,haben)
+        }                    -- HL 11/6/2019 Fut Anter: lesen gekonnt haben => haben lesen können 
       } ;
 
    VP : Type = {
@@ -552,28 +552,29 @@ resource ResGer = ParamX ** open Prelude in {
         werden_V.s ! VFin False (VImpfSubj (numberAgr a) (personAgr a)) ;  --# notpresent
 
       auf = verb.prefix ;
-      vf : Bool -> Str -> Str -> {fin,inf : Str} = \b,fin,inf -> {
+      vf : Bool -> Str -> Str -> Str -> {fin,inf,inf2 : Str} = \b,fin,inf,inf2 -> {
         fin = fin ; 
-        inf = verb.particle ++ if_then_Str b [] auf ++ inf  --- negation of main b
+        inf = verb.particle ++ if_then_Str b [] auf ++ inf ; --- negation of main b
+        inf2 = inf2
         } ; 
     in {
     s = \\b,a => table {
       VPFinite m t Simul => case t of {
 --        Pres | Past => vf (vfin m t a) [] ; -- the general rule
-        Past => vf b (vfin b m t a) [] ;    --# notpresent
-        Fut  => vf True (wird m a) vinf ;   --# notpresent
-        Cond => vf True (wuerde a) vinf ;   --# notpresent
-        Pres => vf b (vfin b m t a) []
+        Past => vf b (vfin b m t a) [] [] ;    --# notpresent
+        Fut  => vf True (wird m a) vinf [] ;   --# notpresent
+        Cond => vf True (wuerde a) vinf [] ;   --# notpresent
+        Pres => vf b (vfin b m t a) [] []
         } ;
       VPFinite m t Anter => case t of {                  --# notpresent
-        Pres | Past => vf True (hat m t a) vpart ;       --# notpresent
-        Fut  => vf True (wird m a) (vpart ++ haben) ;    --# notpresent
-        Cond => vf True (wuerde a) (vpart ++ haben)      --# notpresent 
+        Pres | Past => vf True (hat m t a) vpart [] ;    --# notpresent
+        Fut  => vf True (wird m a) vpart haben ;         --# notpresent
+        Cond => vf True (wuerde a) vpart haben           --# notpresent 
         } ;                                              --# notpresent
-      VPImperat False => vf False (verb.s ! VImper (numberAgr a)) [] ;
-      VPImperat True  => vf False (verb.s ! VFin False (VPresSubj Pl P3)) [] ;
-      VPInfinit Anter => vf True [] (vpart ++ haben) ;   --# notpresent
-      VPInfinit Simul => vf True [] (verb.s ! VInf b)
+      VPImperat False => vf False (verb.s ! VImper (numberAgr a)) [] [] ;
+      VPImperat True  => vf False (verb.s ! VFin False (VPresSubj Pl P3)) [] [] ;
+      VPInfinit Anter => vf True [] (vpart ++ haben) [] ;   --# notpresent
+      VPInfinit Simul => vf True [] (verb.s ! VInf b) []
       }
     } ;
 
@@ -743,17 +744,27 @@ resource ResGer = ParamX ** open Prelude in {
           obj2  = (vp.nn ! agr).p3 ;                     -- pp-objects
           obj3  = (vp.nn ! agr).p4 ++ vp.adj ++ vp.a2 ;  -- pred.AP|CN|Adv, via useComp HL 6/2019
           compl = obj1 ++ neg ++ obj2 ++ obj3 ;
-          inf   = vp.inf ++ verb.inf ; 
-          extra = vp.ext ;
-          inffin : Str =                             -- not used for Main/Inv
-            case <a,vp.isAux> of {                       
-	           <Anter,True> => verb.fin ++ inf ; -- double inf   --# notpresent
-                   _            => inf ++ verb.fin   --- or just auxiliary vp
+          inf   = vp.inf ++ verb.inf ++ verb.inf2 ;  -- zu kommen gebeten haben 
+          extra = vp.ext ;                           -- * kommen (gewollt|wollen) haben
+          infE : Str =                               -- HL 30/6/2019
+            case <t,a,vp.isAux> of {
+              <Fut|Cond,Simul,True> => inf ;                           --# notpresent
+              <Fut|Cond,Anter,True> -- Duden 318: kommen wollen haben => haben kommen wollen --# notpresent
+                => verb.inf2 ++ vp.inf ++ verb.inf ;                   --# notpresent
+              <_,Anter,True> => inf ;                                  --# notpresent
+              _ => verb.inf ++ verb.inf2 ++ vp.inf } ;
+          inffin : Str =
+            case <t,a,vp.isAux> of {
+	           <Fut|Cond,Anter,True>  -- ... wird|würde haben kommen wollen --# notpresent
+                     => verb.fin ++ verb.inf2 ++ vp.inf ++ verb.inf ;  --# notpresent
+	           <_,Anter,True>                                      --# notpresent
+                     => verb.fin ++ inf ;            -- double inf     --# notpresent
+                   _ => inf ++ verb.fin              --- or just auxiliary vp
             } ;
         in
         case o of { 
-	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ verb.inf ++ extra ++ vp.inf ;
-	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ verb.inf ++ extra ++ vp.inf ;
+	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ infE ++ extra ;
+	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ infE ++ extra ;
 	    Sub  => subj ++ compl ++ vp.infExt ++ inffin ++ extra
           }
     } ;
