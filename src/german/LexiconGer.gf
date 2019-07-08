@@ -169,8 +169,8 @@ lin
   sea_N = reg2N "Meer" "Meere" neuter ;
   seek_V2 = dirV2 (regV "suchen") ;
   see_V2 = dirV2 Irreg.sehen_V ;
-  sell_V3 = accdatV3 (no_geV (regV "verkaufen")) ;
-  send_V3 = accdatV3 (regV "schicken") ;
+  sell_V3 = mkV3 (no_geV (regV "verkaufen")) ;    -- Eng: mkV3 v noPrep toPrep
+  send_V3 = mkV3 (regV "schicken") ; -- Ger mkV3 v = Ger: mkV3 v accPrep datPrep
   sheep_N = reg2N "Schaf" "Schafe" neuter ;
   ship_N = reg2N "Schiff" "Schiffe" neuter ;
   shirt_N = reg2N "Hemd" "Hemden" neuter ; ---- infl
@@ -316,7 +316,8 @@ lin
   flow_V = seinV (Irreg.fließen_V) ; 
   fly_V = seinV (Irreg.fliegen_V) ; 
   freeze_V = Irreg.frieren_V ; 
-  give_V3 = accdatV3 Irreg.geben_V ; 
+  give_V3 = accdatV3 Irreg.geben_V ; -- c2=datPrep, c3=accPrep, to fit
+             -- to Eng ditransitive: give sb(indir) sth(dir) (no preposition)
   laugh_V = regV "lachen" ;
   lie_V = Irreg.lügen_V ; 
   play_V = regV "spielen" ;

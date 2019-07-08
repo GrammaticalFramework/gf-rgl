@@ -91,6 +91,9 @@ TestLangEng: we want to see not somebody
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2a see_V2) somebody_NP))))) NoVoc
 TestLangGer: wir wollen nicht jemanden sehen
 TestLangEng: we don't want to see somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashVV want_VV (SlashV2a see_V2)) somebody_NP)))) NoVoc
+TestLangGer: wir wollen jemanden nicht sehen
+TestLangEng: we don't want to see somebody
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron she_Pron)) (UsePron he_Pron))))) NoVoc
 TestLangGer: wir lehrten ihn sie
 TestLangEng: we taught her him

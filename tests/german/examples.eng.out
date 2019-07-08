@@ -1,195 +1,237 @@
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
+TestLangEng: the child gives the woman the apple
+TestLangGer: das Kind gibt der Frau den Apfel
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangEng: the child gives the woman the apple
+TestLangGer: das Kind gibt der Frau den Apfel
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetNP (DetQuant DefArt NumSg)))))) NoVoc
+TestLangEng: the child gives the woman it
+TestLangGer: das Kind gibt der Frau das
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangEng: the child gives the woman it
+TestLangGer: das Kind gibt es der Frau
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumSg))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangEng: the child gives the woman it
+TestLangGer: das Kind gibt der Frau das
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (UsePron it_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangEng: the child gives the woman it
+TestLangGer: das Kind gibt es der Frau
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron he_Pron))))) NoVoc
+TestLangEng: the child gives the woman him
+TestLangGer: das Kind gibt ihn der Frau
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangEng: the child gives the woman him
+TestLangGer: das Kind gibt ihn der Frau
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron she_Pron))))) NoVoc
+TestLangEng: the child gives the woman her
+TestLangGer: das Kind gibt sie der Frau
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (UsePron she_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangEng: the child gives the woman her
+TestLangGer: das Kind gibt sie der Frau
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetNP (DetQuant DefArt NumPl)))))) NoVoc
+TestLangEng: the child gives the woman them
+TestLangGer: das Kind gibt der Frau die
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron they_Pron))))) NoVoc
+TestLangEng: the child gives the woman them
+TestLangGer: das Kind gibt sie der Frau
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangEng: the child gives the woman them
+TestLangGer: das Kind gibt der Frau die
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (UsePron they_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangEng: the child gives the woman them
+TestLangGer: das Kind gibt sie der Frau
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (UsePron she_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: the child gives her the apple
-TestLangGer: das Kind gibt sie dem Apfel
+TestLangGer: das Kind gibt ihr den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (UsePron she_Pron))))) NoVoc
 TestLangEng: the child gives her the apple
-TestLangGer: das Kind gibt sie dem Apfel
+TestLangGer: das Kind gibt ihr den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: the child gives him the apple
-TestLangGer: das Kind gibt ihn dem Apfel
+TestLangGer: das Kind gibt ihm den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (UsePron he_Pron))))) NoVoc
 TestLangEng: the child gives him the apple
-TestLangGer: das Kind gibt ihn dem Apfel
+TestLangGer: das Kind gibt ihm den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumSg))) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: the child gives it the apple
-TestLangGer: das Kind gibt dem Apfel das
+TestLangGer: das Kind gibt dem den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (UsePron it_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: the child gives it the apple
-TestLangGer: das Kind gibt es dem Apfel
+TestLangGer: das Kind gibt ihm den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (DetNP (DetQuant DefArt NumSg)))))) NoVoc
 TestLangEng: the child gives it the apple
-TestLangGer: das Kind gibt dem Apfel das
+TestLangGer: das Kind gibt dem den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (UsePron it_Pron))))) NoVoc
 TestLangEng: the child gives it the apple
-TestLangGer: das Kind gibt es dem Apfel
+TestLangGer: das Kind gibt ihm den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: the child gives them the apple
-TestLangGer: das Kind gibt dem Apfel die
+TestLangGer: das Kind gibt denen den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 give_V3 (UsePron they_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: the child gives them the apple
-TestLangGer: das Kind gibt sie dem Apfel
+TestLangGer: das Kind gibt ihnen den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (DetNP (DetQuant DefArt NumPl)))))) NoVoc
 TestLangEng: the child gives them the apple
-TestLangGer: das Kind gibt dem Apfel die
+TestLangGer: das Kind gibt denen den Apfel
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (UsePron they_Pron))))) NoVoc
 TestLangEng: the child gives them the apple
-TestLangGer: das Kind gibt sie dem Apfel
+TestLangGer: das Kind gibt ihnen den Apfel
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the apple that the child gives her
-TestLangGer: der Apfel , dem das Kind sie gibt
+TestLangGer: der Apfel , den das Kind ihr gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the apple that the child gives her
-TestLangGer: der Apfel , den das Kind ihr gibt
+TestLangGer: der Apfel , dem das Kind sie gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives her
-TestLangGer: der Apfel , dem das sie gibt
+TestLangGer: der Apfel , den das ihr gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives her
-TestLangGer: der Apfel , den das ihr gibt
+TestLangGer: der Apfel , dem das sie gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives her
-TestLangGer: der Apfel , dem es sie gibt
+TestLangGer: der Apfel , den es ihr gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives her
-TestLangGer: der Apfel , den es ihr gibt
+TestLangGer: der Apfel , dem es sie gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (UsePron he_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives him
-TestLangGer: der Apfel , dem das ihn gibt
+TestLangGer: der Apfel , den das ihm gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives him
-TestLangGer: der Apfel , den das ihm gibt
+TestLangGer: der Apfel , dem das ihn gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (UsePron he_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives him
-TestLangGer: der Apfel , dem es ihn gibt
+TestLangGer: der Apfel , den es ihm gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives him
-TestLangGer: der Apfel , den es ihm gibt
+TestLangGer: der Apfel , dem es ihn gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumSg))))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , dem das das gibt
+TestLangGer: der Apfel , den das dem gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (UsePron it_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , dem das es gibt
+TestLangGer: der Apfel , den das ihm gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumSg))))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , den das dem gibt
+TestLangGer: der Apfel , dem das das gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (UsePron it_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , den das ihm gibt
+TestLangGer: der Apfel , dem das es gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumSg))))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , dem es das gibt
+TestLangGer: der Apfel , den es dem gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (UsePron it_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , dem es es gibt
+TestLangGer: der Apfel , den es ihm gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumSg))))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , den es dem gibt
+TestLangGer: der Apfel , dem es das gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron it_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives it
-TestLangGer: der Apfel , den es ihm gibt
+TestLangGer: der Apfel , dem es es gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumPl))))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , dem das die gibt
+TestLangGer: der Apfel , den das denen gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (UsePron they_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , dem das sie gibt
+TestLangGer: der Apfel , den das ihnen gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumPl))))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , den das denen gibt
+TestLangGer: der Apfel , dem das die gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (UsePron they_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , den das ihnen gibt
+TestLangGer: der Apfel , dem das sie gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumPl))))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , dem es die gibt
+TestLangGer: der Apfel , den es denen gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (UsePron they_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , dem es sie gibt
+TestLangGer: der Apfel , den es ihnen gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumPl))))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , den es denen gibt
+TestLangGer: der Apfel , dem es die gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron they_Pron)))))))) NoVoc
 TestLangEng: the apple that it gives them
-TestLangGer: der Apfel , den es ihnen gibt
+TestLangGer: der Apfel , dem es sie gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))) NoVoc
 TestLangEng: the woman that the child gives the apple
-TestLangGer: die Frau , der das Kind den Apfel gibt
+TestLangGer: die Frau , die das Kind dem Apfel gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))) NoVoc
 TestLangEng: the woman that the child gives the apple
-TestLangGer: die Frau , die das Kind dem Apfel gibt
+TestLangGer: die Frau , der das Kind den Apfel gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron he_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives him
-TestLangGer: die Frau , der das Kind ihn gibt
+TestLangGer: die Frau , die das Kind ihm gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives him
-TestLangGer: die Frau , die das Kind ihm gibt
+TestLangGer: die Frau , der das Kind ihn gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives her
-TestLangGer: die Frau , der das Kind sie gibt
+TestLangGer: die Frau , die das Kind ihr gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron she_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives her
-TestLangGer: die Frau , die das Kind ihr gibt
+TestLangGer: die Frau , der das Kind sie gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumSg))))))))) NoVoc
 TestLangEng: the woman that the child gives it
-TestLangGer: die Frau , der das Kind das gibt
+TestLangGer: die Frau , die das Kind dem gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron it_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives it
-TestLangGer: die Frau , der das Kind es gibt
+TestLangGer: die Frau , die das Kind ihm gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumSg))))))))) NoVoc
 TestLangEng: the woman that the child gives it
-TestLangGer: die Frau , die das Kind dem gibt
+TestLangGer: die Frau , der das Kind das gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron it_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives it
-TestLangGer: die Frau , die das Kind ihm gibt
+TestLangGer: die Frau , der das Kind es gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (DetNP (DetQuant DefArt NumPl))))))))) NoVoc
 TestLangEng: the woman that the child gives them
-TestLangGer: die Frau , der das Kind die gibt
+TestLangGer: die Frau , die das Kind denen gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron they_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives them
-TestLangGer: die Frau , der das Kind sie gibt
+TestLangGer: die Frau , die das Kind ihnen gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumPl))))))))) NoVoc
 TestLangEng: the woman that the child gives them
-TestLangGer: die Frau , die das Kind denen gibt
+TestLangGer: die Frau , der das Kind die gibt
 TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron they_Pron)))))))) NoVoc
 TestLangEng: the woman that the child gives them
-TestLangGer: die Frau , die das Kind ihnen gibt
+TestLangGer: die Frau , der das Kind sie gibt
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: who gives the woman the apple
-TestLangGer: wer gibt dem Apfel die Frau
+TestLangGer: wer gibt der Frau den Apfel
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
 TestLangEng: who gives the woman the apple
-TestLangGer: wer gibt dem Apfel die Frau
+TestLangGer: wer gibt der Frau den Apfel
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetNP (DetQuant DefArt NumSg)))))) NoVoc
 TestLangEng: who gives the woman it
-TestLangGer: wer gibt dem die Frau
+TestLangGer: wer gibt der Frau das
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
 TestLangEng: who gives the woman it
-TestLangGer: wer gibt ihm die Frau
+TestLangGer: wer gibt es der Frau
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumSg))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
 TestLangEng: who gives the woman it
-TestLangGer: wer gibt dem die Frau
+TestLangGer: wer gibt der Frau das
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 give_V3 (UsePron it_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
 TestLangEng: who gives the woman it
-TestLangGer: wer gibt ihm die Frau
+TestLangGer: wer gibt es der Frau
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 give_V3 (UsePron she_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 TestLangEng: who gives her the apple
-TestLangGer: wer gibt sie dem Apfel
+TestLangGer: wer gibt ihr den Apfel
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (UsePron she_Pron))))) NoVoc
 TestLangEng: who gives her the apple
-TestLangGer: wer gibt sie dem Apfel
+TestLangGer: wer gibt ihr den Apfel
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 give_V3 (UsePron she_Pron)) (DetNP (DetQuant DefArt NumSg)))))) NoVoc
 TestLangEng: who gives her it
-TestLangGer: wer gibt sie dem
+TestLangGer: wer gibt ihr das
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 give_V3 (UsePron she_Pron)) (UsePron it_Pron))))) NoVoc
 TestLangEng: who gives her it
-TestLangGer: wer gibt sie ihm
+TestLangGer: wer gibt es ihr
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 give_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron she_Pron))))) NoVoc
 TestLangEng: who gives her it
-TestLangGer: wer gibt sie dem
+TestLangGer: wer gibt ihr das
 TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 give_V3 (UsePron it_Pron)) (UsePron she_Pron))))) NoVoc
 TestLangEng: who gives her it
-TestLangGer: wer gibt sie ihm
+TestLangGer: wer gibt es ihr
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
 TestLangEng: the child sends the apple to the woman
 TestLangGer: das Kind schickt der Frau den Apfel
