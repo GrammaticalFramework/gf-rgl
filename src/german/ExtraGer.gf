@@ -63,7 +63,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     PassVPSlash vp = 
 		let c = case <vp.c2.c,vp.c2.isPrep> of {
                <NPC Acc,False> => NPC Nom ;
-                                    _ => vp.c2.c}
+               _ => vp.c2.c}
 			in insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
 				{subjc = vp.c2 ** {c= c}} ;
 		-- regulates passivised object: accusative objects -> nom; all others: same case
@@ -72,6 +72,10 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     PassAgentVPSlash vp np = ---- "von" here, "durch" in StructuralGer
       insertObj (\\_ => (PastPartAgentAP (lin VPSlash vp) (lin NP np)).s ! APred) (predV werdenPass) ;
+
+    Pass3V3 v = -- HL 7/19
+      let bekommenPass : Verb = P.habenV (P.irregV "bekommen" "bekommt" "bekam" "bekäme" "bekommen") 
+      in insertObj (\\_ => (v.s ! VPastPart APred)) (predV bekommenPass) ** { subjc = PrepNom ; c2 = v.c2 } ;      
 
     PastPartAP vp = {
       s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++ (vp.nn ! agrP3 Sg).p3 ++ vp.a2 ++ vp.inf ++ 
