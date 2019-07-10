@@ -37,16 +37,16 @@ TestLangEng: I send it to not her
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (PredetNP not_Predet (UsePron she_Pron))) (UsePron it_Pron))))) NoVoc
 TestLangGer: ich schicke es nicht ihr
 TestLangEng: I send it to not her
-TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron)))))))) NoVoc
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron)))))))) NoVoc
 TestLangGer: wem gibt das Kind ihn nicht
 TestLangEng: whom doesn't it give child he
-TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron he_Pron)))))) NoVoc
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron)))))) NoVoc
 TestLangGer: wem gibt das Kind ihn nicht
 TestLangEng: whom doesn't the child give him
-TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron)))))))) NoVoc
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron)))))))) NoVoc
 TestLangGer: wem gibt das Kind ihn nicht
 TestLangEng: whom doesn't it give child he
-TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron he_Pron)))))) NoVoc
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron)))))) NoVoc
 TestLangGer: wem gibt das Kind ihn nicht
 TestLangEng: whom doesn't the child give him
 TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 anklagen_gen_V3 (DetNP (DetQuant IndefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN beer_N) (UsePron he_Pron))))))) NoVoc

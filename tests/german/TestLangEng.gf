@@ -6,7 +6,9 @@ concrete TestLangEng of TestLang =
   LexiconEng
   , TestLexiconEng
   , ConstructionEng
-  ** open (R=ResEng),(P=ParadigmsEng),Prelude in {
+  ** open (R=ResEng),(P=ParadigmsEng),Prelude
+, (E=ExtendEng)
+  in {
 
   flags 
     startcat = Phr ; unlexer = text ; lexer = text ;
@@ -24,4 +26,17 @@ concrete TestLangEng of TestLang =
 
   oper
     appPrep : Str -> NP -> (R.Agr => Str) = \p,np -> \\_ => p ++ np.s ! R.NPAcc ;
+
+    -- Passive
+  lin
+    Pass2V3 v np = 
+      let vps = R.insertObj (\\_ => v.s ! R.VPPart ++ v.p) (R.predAux R.auxBe) ** {c2 = v.c3} 
+      in R.insertObj (\\_ => vps.c2 ++ np.s ! R.NPAcc) vps ;
+
+    Pass3V3 v np = 
+      let vps = R.insertObj (\\_ => v.s ! R.VPPart ++ v.p) (R.predAux R.auxBe) ** {c2 = v.c2} 
+      in R.insertObj (\\_ => vps.c2 ++ np.s ! R.NPAcc) vps ;
+
+    PastPartAP = E.PastPartAP ;
+    PassVPSlash = E.PassVPSlash ;
 } ;
