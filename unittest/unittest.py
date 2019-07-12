@@ -69,7 +69,10 @@ def runtest(testlines):
     gfinput = ''
     testing = False
     for linenr, line in enumerate(testlines, 1):
-        if ':' in line:
+        if line.startswith('#') or line.startswith('--'):
+            # a comment line: do nothing
+            pass
+        elif ':' in line:
             if not testing:
                 gfinput += 'ps "### %d" \n' % (linenr,)
                 testing = True
@@ -82,6 +85,7 @@ def runtest(testlines):
             else:
                 gfinput += 'p -lang=%s "%s" \n' % (lang, sent)
         elif not line.strip():
+            # an empty line: start a new test
             testing = False
         else:
             error(linenr, "Ill-formatted line in test file:", line)
