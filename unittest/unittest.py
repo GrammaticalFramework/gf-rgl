@@ -1,8 +1,9 @@
 """
 Python 2+3 script for unit testing RGL grammars.
 
-Usage: python path-to-script.py path/to/testfile.gftest ...
-The script muste be located in the RGL 'src' directory to work properly.
+Usage: python path-to-script.py path/to/testfile.gftest (...)
+The script must be located in a sibling directory
+to the RGL 'src' directory to work properly.
 
 The test file should look something like this:
 
@@ -25,14 +26,15 @@ import os.path
 from subprocess import Popen, PIPE
 from glob import glob
 
+GRAMMARDIR = '../src'
 ENCODING = 'utf-8'
 
 
 def usage():
-    print("Usage: python %s path/to/testfile.gftest ..." % (sys.argv[0],))
+    print("Usage: python %s path/to/testfile.gftest (...)" % (sys.argv[0],))
     print()
     print("(Note: to work properly this script must be located in")
-    print("the RGL 'src' directory, and gf must be in the system path)")
+    print("the RGL 'unittest' directory, and gf must be in the system path)")
     print()
 
 
@@ -48,7 +50,7 @@ def gferror(reply):
 
 def importfile(linenr, lang):
     scriptdir = os.path.dirname(sys.argv[0]) or '.'
-    langfiles = glob('%s/*/%s.gf' % (scriptdir, lang))
+    langfiles = glob('%s/%s/*/%s.gf' % (scriptdir, GRAMMARDIR, lang))
     if not langfiles:
         error(linenr, "Cannot find language:", lang)
         exit(1)
