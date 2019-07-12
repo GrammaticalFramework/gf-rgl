@@ -27,15 +27,15 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     Slash3V3 v np = insertObjNP np v.c3 (predV v) ** {c2 = v.c2 ; missingAdv = True} ;
 
     SlashV2S v s = 
-      insertExtrapos (conjThat ++ s.s ! Sub) (predVc v) ;
+      insertExtrapos (comma ++ conjThat ++ s.s ! Sub) (predVc v) ;
     SlashV2Q v q = 
-      insertExtrapos (q.s ! QIndir) (predVc v) ;
+      insertExtrapos (comma ++ q.s ! QIndir) (predVc v) ;
     SlashV2V v vp = 
       let 
         vpi = infVP v.isAux vp ;
         vps = predVGen v.isAux v ** {c2 = v.c2} ;
       in vps **
-      insertExtrapos vpi.p3 (
+      insertExtrapos vpi.p3 (  -- comma ++ vpi.p3 ?
         insertInf vpi.p2 (
           insertObj vpi.p1 vps)) ;
 
@@ -98,8 +98,28 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     --   (\\k => usePrepC k (\c -> reflPron ! a ! c))) vp ;
     ReflVP vp = insertObjRefl vp ; -- HL, 19/06/2019
 
-    PassV2 v = insertInf (v.s ! VPastPart APred) (predV werdenPass) ;
+    PassV2 v = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass) ;
 
+{- HL: The construction VPSlashPrep : VP -> Prep -> VPSlash does not exist
+   in German. In abstract/Verb.gf, the example
+
+    VPSlashPrep : VP -> Prep -> VPSlash ;  -- live in (it)
+
+   (with live_V:V) indicates that, here, you consider Prep=AdvSlash,
+   so to speak, for building a compact version of relative clauses:
+
+        the city we live in : NP
+
+   from  "we live (in the city : Adv) : Cl"
+
+   But in German we cannot move the NP part of an Adv, we only have the
+   full relative clauses like
+
+        die Stadt, in der wir leben,
+        die Stadt, worin wir leben,    --contracted Prep+Rel
+
+   but nothing like "die Stadt wir leben in".
+-}
     VPSlashPrep vp prep = vp ** {c2 = prep ; missingAdv = True} ;
 
 }

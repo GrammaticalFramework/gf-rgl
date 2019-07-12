@@ -17,6 +17,7 @@ fun
   lehren_V3 : V3 ;
   erinnern_an_V3 : V3 ;
   danken_dat_fuer_V3 : V3 ;
+  debattieren_mit_ueber_V3 : V3 ;
 
   abschauen_bei_rV3 : V3 ;
   leihen_von_rV3 : V3 ;

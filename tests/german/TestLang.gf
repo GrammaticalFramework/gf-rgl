@@ -24,4 +24,6 @@ abstract TestLang =
 
     Pass3V3 : V3 -> NP -> VP ;  -- den Beweis erklärt bekommen
     Pass2V3 : V3 -> NP -> VP ;  -- uns erklärt werden ; Eng give_V3[indir,dir]: we are given the book
+
+    Pass2V4 : V4 -> NP -> VPSlash ; -- bei dir (für Gold) gekauft werden
   } ;

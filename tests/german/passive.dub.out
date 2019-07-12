@@ -1,0 +1,12 @@
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N))))))) NoVoc
+TestLangGer: wir würden den Wagen geschickt haben bekommen wollen
+TestLangEng: we would have wanted to be sent the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN book_N)) (PassVPSlash (Slash2V3 danken_dat_fuer_V3 (PredetNP not_Predet (UsePron youPl_Pron))))))) NoVoc
+TestLangGer: für die Bücher wird nicht euch gedankt
+TestLangEng: the books are thanked not you for
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumPl) (UseN book_N)) (PassVPSlash (Slash2V3 danken_dat_fuer_V3 (UsePron youPl_Pron)))))) NoVoc
+TestLangGer: für die Bücher wird nicht euch gedankt
+TestLangEng: the books aren't thanked you for
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (PassVPSlash (Slash2V3 debattieren_mit_ueber_V3 (UsePron i_Pron)))))) NoVoc
+TestLangGer: über das Buch ist nicht mit mir debattiert worden
+TestLangEng: the book hasn't been debated with me about

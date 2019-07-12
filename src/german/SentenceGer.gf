@@ -13,8 +13,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 			"uns graut" "*uns grauen"
 	   allows pre/post-positions in subjects -->
 	 		"nach mir wurde gedürstet" "*mir wurde gedürstet" 
-			can't think of case of postpositions in subject 
-                        HL: "des Geldes wegen wird gearbeitet"  -}
+			can't think of case of postpositions in subject -}
 
     PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
@@ -50,7 +49,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 			(insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)) **
         			{c2 = slash.c2} ;
 
-    EmbedS  s  = {s = conjThat ++ s.s ! Sub} ;
+    EmbedS  s  = {s = conjThat ++ s.s ! Sub} ;  -- no leading comma, if sentence-initial
     EmbedQS qs = {s = qs.s ! QIndir} ;
     EmbedVP vp = {s = useInfVP False vp} ;
 

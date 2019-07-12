@@ -16,6 +16,7 @@ oper
 
   bei_Prep   = mkPrep "bei" dative ; 
   fuer_Prep  = mkPrep "für" accusative ;
+  mit_Prep   = mkPrep "mit" dative ; 
 
   -- quaternary verbs:
   mkV4 : V -> Prep -> Prep -> Prep -> V4 = 
@@ -31,10 +32,11 @@ lin
   ergeben_dat_rV2 = reflV2 (irregV "ergeben" "ergibt" "ergab" "ergäbe" "ergeben") accusative datPrep ;
   merken_rV2 = reflV2 (regV "merken") dative accPrep ;
 
-  erklaeren_dat_V3 = accdatV3 (irregV "erklären" "erklärt" "erklärte" "erklärte" "erklärt") ;
+  erklaeren_dat_V3 = mkV3 (irregV "erklären" "erklärt" "erklärte" "erklärte" "erklärt") ;
   anklagen_gen_V3 = dirV3 (prefixV "an" (regV "klagen")) genPrep ;
   erinnern_an_V3 = dirV3 (irregV "erinnern" "erinnert" "erinnerte" "erinnerte" "erinnert") (mkPrep "an" accusative) ; 
   danken_dat_fuer_V3 = mkV3 (regV "danken") datPrep (mkPrep "für" accusative) ;
+  debattieren_mit_ueber_V3 = mkV3 (irregV "debattieren" "debattiert" "debattierte" "debattierte" "debattiert") mit_Prep (mkPrep "über" accusative) ;
   lehren_V3 = dirV3 (regV "lehren") accPrep ;
 
   abschauen_bei_rV3 = reflV3 (prefixV "ab" (irregV "schauen" "schaut" "schaute" "schaute" "geschaut")) dative accPrep bei_Prep ;

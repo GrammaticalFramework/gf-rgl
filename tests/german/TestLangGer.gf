@@ -47,16 +47,21 @@ flags startcat = Phr ; unlexer = text ; lexer = text ;
 
     Pass2V3 v np = -- HL 7/19: making the (active) direct object to the (passive) subject
       let vps : VPSlash = 
-            R.insertObj (\\_ => (v.s ! R.VPastPart R.APred)) (R.predV R.werdenPass)
-            ** { subjc = R.PrepNom ; c2 = v.c3 } 
+            lin VPSlash (R.insertObj (\\_ => (v.s ! R.VPastPart R.APred)) (R.predV R.werdenPass)
+                  ** { subjc = R.PrepNom ; c2 = v.c3 }) 
       in R.insertObjNP np vps.c2 vps ;
 
     Pass3V3 v np = -- HL 7/19: making the (active) indirect object to the (passive) subject
       let bekommenPass : R.Verb = P.habenV (P.irregV "bekommen" "bekommt" "bekam" "bekäme" "bekommen") ;
-          vps : VPSlash = 
+          vps = 
             R.insertObj (\\_ => (v.s ! R.VPastPart R.APred)) (R.predV bekommenPass)
             ** { subjc = R.PrepNom ; c2 = v.c2 } 
       in R.insertObjNP np vps.c2 vps ;
       
-
+    Pass2V4 v np = 
+      let vps : VPSlashSlash = 
+            R.insertObj (\\_ => (v.s ! R.VPastPart R.APred)) (R.predV R.werdenPass)
+            ** { subjc = R.PrepNom ; c2 = v.c3 ; c3 = v.c4 } 
+      in (R.insertObjNP np vps.c3 vps) ;
+      
 } ;

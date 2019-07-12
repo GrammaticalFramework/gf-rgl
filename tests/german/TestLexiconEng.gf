@@ -36,6 +36,7 @@ lin
   erklaeren_dat_V3 = dirV3 (regV "explain") (mkPrep "to") ;
   erinnern_an_V3 = dirV3 (regV "remind") (mkPrep "of") ;
   danken_dat_fuer_V3 = dirV3 (regV "thank") (mkPrep "for") ;
+  debattieren_mit_ueber_V3 = mkV3 (regV "debate") (mkPrep "with") (mkPrep "about") ;
   lehren_V3 = mkV3 (irregV "teach" "taught" "taught") noPrep noPrep ;
 
   abschauen_bei_rV3 = dirV3 (regV "copy") (mkPrep "from") ; 

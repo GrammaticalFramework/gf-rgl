@@ -1,6 +1,6 @@
---# Use gf --run < obj-order.gfs  or  gf> eh object-order.gfs 
-? echo "loading TestLangGer.gf and TestLangEng.gf ..."
-i TestLangGer.gf TestLangEng.gf
+-- Use gf --run < obj-order.gfs  or  gf> eh object-order.gfs 
+--? echo "loading TestLangGer.gf and TestLangEng.gf ..."
+--i TestLangGer.gf TestLangEng.gf
 -- Remark: examples in examples.eng.txt need only LangEng,LangGer
 ? echo "parsing from examples.eng and writing trees to examples.eng.new:"
 rf -file=examples.eng.txt -lines | p -lang=Eng | l -lang="Eng,Ger" -treebank | wf -file=examples.eng.new
