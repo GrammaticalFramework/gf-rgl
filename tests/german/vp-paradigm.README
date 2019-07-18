@@ -1,0 +1,8 @@
+Since ../run.hs could not find module `Test.Framework.BlackBoxTest', I used
+
+      gf --run < vp-paradigm.gfs | diff vp-paradigm.out - > vp-paradigm.diff
+
+to produce the diff between the corrections shown in vp-paradigms.out and
+the original output of gf-rgl of 4/07/2019.                   
+
+vp-paradigms.gfs now loads the original alltenses/LangGer.gfo.  HL 3/7/2019

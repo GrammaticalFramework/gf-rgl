@@ -137,17 +137,27 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
           obj2  = (vp.nn ! agr).p3 ;                     -- pp-objects
           obj3  = (vp.nn ! agr).p4 ++ vp.adj ++ vp.a2 ;  -- pred.AP|CN|Adv, via useComp HL 6/2019
           compl = obj1 ++ neg ++ obj2 ++ obj3 ;
-          inf   = vp.inf ++ verb.inf ;
+          inf   = vp.inf ++ verb.inf ++ verb.inf2 ;
           extra = vp.ext ;
-          inffin : Str = 
-            case <a,vp.isAux> of {                       
-	           <Anter,True> => verb.fin ++ inf ; -- double inf   --# notpresent
-             _            => inf ++ verb.fin              --- or just auxiliary vp
-            }                                            
+          infE : Str =                              -- HL 30/6/2019
+            case <t,a,vp.isAux> of {
+              <Fut|Cond,Simul,True> => inf ;                           --# notpresent
+              <Fut|Cond,Anter,True> -- Duden 318: kommen wollen haben => haben kommen wollen --# notpresent
+                => verb.inf2 ++ vp.inf ++ verb.inf ;                   --# notpresent
+              <_,Anter,True> => inf ;                                  --# notpresent
+              _ => verb.inf ++ verb.inf2 ++ vp.inf } ;
+          inffin : Str =
+            case <t,a,vp.isAux> of {
+	           <Fut|Cond,Anter,True>  -- ... wird|würde haben kommen wollen --# notpresent
+                     => verb.fin ++ verb.inf2 ++ vp.inf ++ verb.inf ;  --# notpresent
+	           <_,Anter,True>                                      --# notpresent
+                     => verb.fin ++ inf ;            -- double inf     --# notpresent
+                   _ => inf ++ verb.fin              --- or just auxiliary vp
+            } ;
         in
         case o of {
-	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ inf ++ extra ;
-	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ inf ++ extra ;
+	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ infE ++ extra ;
+	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ infE ++ extra ;
 	    Sub  => subj ++ compl ++ vp.infExt ++ inffin ++ extra
           }
     } ;
