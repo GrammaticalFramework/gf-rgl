@@ -12,9 +12,9 @@ rf -file=examples.eng.txt -lines | p -lang=Eng | l -lang="Eng,Ger" | wf -file=ex
 ? diff examples.eng2ger.out examples.eng2ger.new
 
 ? echo "extracting positive, negative and dubious examples from examples.txt ..."
-? grep accept examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// > examples.pos.txt
-? grep reject examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// > examples.neg.txt
-? grep dubious examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// > examples.dub.txt
+? grep accept examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif examples.pos.txt
+? grep reject examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif examples.neg.txt
+? grep dubious examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif examples.dub.txt
 
 ? echo "parsing negative examples ...; storing trees in examples.neg.new ..."
 rf -lines -file="examples.neg.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="examples.neg.new"
