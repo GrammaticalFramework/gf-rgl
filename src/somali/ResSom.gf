@@ -639,6 +639,7 @@ oper
     obj2 : {s : Str ; a : AgreementPlus} ;
     secObj : Str ; -- if two overt pronoun objects
     vComp : Str ; -- VV complement
+    refl : Str ; -- reflexive is put here, if the verb has an obj2.
     miscAdv : Str ; -- dump for any other kind of adverb, that isn't
     } ;             -- in a closed class of particles or made with PrepNP.
 
@@ -647,7 +648,7 @@ oper
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
     pred = NoPred ;
-    vComp,berri,miscAdv = [] ;
+    vComp,berri,miscAdv,refl = [] ;
     c2 = P NoPrep ;
     c3 = NoPrep ;
     obj2 = {s = [] ; a = Unassigned} ;
@@ -667,12 +668,18 @@ oper
     comp = \\agr => let cmp = vps.comp ! agr in
       {p1 = np.s ++ cmp.p1 ; -- if object is a noun, it will come before verb in the sentence.
                              -- if object is a pronoun, np.s is empty.
-       p2 = cmp.p2 ++ compl np.a vps} -- object combines with the preposition of the verb.
+       p2 = cmp.p2 ++ vps.refl ++ compl np.a vps} -- object combines with the preposition of the verb.
       } ;
 
   compl : AgreementPlus -> VerbPhrase -> Str = \a,vp ->
     let agr = case a of {IsPron x => x ; _ => Pl3} ;
      in prepCombTable ! agr ! combine vp.c2 vp.c3 ;
+
+  insertRefl : VPSlash -> VPSlash = \vps ->
+    case <vps.c2,vps.c3> of {
+            <P NoPrep,NoPrep> => vps ** {refl = "is"} ; -- not bound
+            _ => vps ** {refl = "is" ++ BIND}
+    } ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
     let noun : Str = case <np.isPron,np.a> of {
@@ -760,7 +767,7 @@ oper
     } where {
         vp = case vps.c2 of {
                Passive => complSlash (insertComp vps np) ;
-                _      => complSlash vps } ;
+               _       => complSlash vps } ;
         subj = case vps.c2 of {Passive => impersNP ; _ => np} ;
       } ;
 
