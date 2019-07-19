@@ -1,0 +1,88 @@
+-- ditransitive give: give sb(indir=c2) sth(dir=c3)
+the child gives the woman the apple
+the child gives the woman it
+the child gives the woman him
+the child gives the woman her
+the child gives the woman them
+
+the child gives the apple to her
+the child gives the apple to him
+the child gives the apple to it
+the child gives the apple to them
+
+the child gives her the apple
+the child gives him the apple
+the child gives it the apple 
+the child gives them the apple
+
+the apple that the child gives to the women
+the apple that the child gives her
+the apple that it gives to the women
+the apple that it gives her
+the apple that it gives him
+the apple that it gives it
+the apple that it gives them
+
+the woman that the child gives the apple
+the woman that the child gives him
+the woman that the child gives her
+the woman that the child gives it
+the woman that the child gives them
+
+the woman that the child gives the apple to
+the woman that the child gives him to
+the woman that the child gives her to
+the woman that the child gives it to 
+the woman that the child gives them to 
+
+who gives the woman the apple
+who gives the woman it
+who gives it to the woman
+who gives her the apple
+who gives her it
+
+-- v3 = mkV3 v noPrep toPrep: send sth(dir=c2) to sb(indir=c3)
+the child sends the apple to the woman
+the child sends it to the woman
+the child sends him to the woman
+the child sends her to the woman
+the child sends them to the woman
+
+the child sends the apple to her
+the child sends the apple to him
+the child sends the apple to it
+the child sends the apple to them
+
+the child sends to her the apple
+the child sends to him the apple
+the child sends to it the apple 
+the child sends to them the apple
+
+the apple that the child sends to the women
+the apple that the child sends to her
+the apple that it sends to the women
+the apple that it sends to her
+the apple that it sends to him
+the apple that it sends to it
+the apple that it sends to them
+
+the woman that the child sends the apple to
+the woman that the child sends him to
+the woman that the child sends her to
+the woman that the child sends it to
+the woman that the child sends them to
+
+the woman who the child sends the apple to
+the woman who the child sends him to
+the woman who the child sends her to
+the woman who the child sends it to
+the woman who the child sends them to
+
+who sends to the woman the apple
+who sends to the woman it
+who sends to her the apple
+who sends to her it
+who sends the apple to the woman
+who sends it to the woman
+who sends the apple to her
+who sends it to her 

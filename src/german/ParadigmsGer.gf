@@ -286,11 +286,11 @@ mkV2 : overload {
 -- Three-place (ditransitive) verbs need two prepositions, of which
 -- the first one or both can be absent.
 
-  accdatV3 : V -> V3 ;                  -- geben + dat + acc (no prepositions)
+  accdatV3 : V -> V3 ;                  -- geben + dat(c2) + acc(c3) (Eng: no prepositions)
   dirV3    : V -> Prep -> V3 ;          -- senden + acc + nach (preposition on second arg)
 
   mkV3 : overload {
-    mkV3     : V ->                 V3 ;  -- geben + dat + acc
+    mkV3     : V ->                 V3 ;  -- geben + dat(c3) + acc(c2) (Eng: give sth to-sb)
     mkV3     : V -> Prep -> Prep -> V3 ;  -- sprechen + mit + über
     } ;
 
@@ -584,12 +584,12 @@ mkV2 : overload {
     mkV3 : V -> V3 
       = \v -> lin V3 (v ** {c2 = accPrep ; c3 = datPrep}) ;
     mkV3 : V -> Prep -> Prep -> V3
-      = \v,c,d -> v ** {c2 = c ; c3 = d ; lock_V3 = <>} ;
+      = \v,c,d -> lin V3 (v ** {c2 = c ; c3 = d}) ;
     } ;
 
-  dirV3 v p = mkV3 v (mkPrep [] accusative) p ;
-  accdatV3 v = mkV3 v (mkPrep [] dative) (mkPrep [] accusative) ; 
-
+  dirV3 v p = mkV3 v accPrep p ;        -- accPrep sets isPrep=False
+  accdatV3 v = mkV3 v datPrep accPrep ; -- to fit to Eng ditransitives (no preposition): 
+                                        -- give sb(indir) sth(dir) = geben jmdm(dat) etwas(acc)
   mkVS v = v ** {lock_VS = <>} ;
   mkVQ v = v ** {lock_VQ = <>} ;
   mkVV v = v ** {isAux = False ; lock_VV = <>} ;

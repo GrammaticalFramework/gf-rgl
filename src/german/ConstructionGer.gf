@@ -10,7 +10,7 @@ lin
   hungry_VP = mkVP (mkA "hungrig") ;
   thirsty_VP = mkVP (mkA "durstig") ;
   tired_VP = mkVP (mkA "müde") ;
-  scared_VP = mkVP have_V2 (mkNP (mkN "Angst" "Angsten" feminine)) ;
+  scared_VP = mkVP have_V2 (mkNP (mkN "Angst" "Ängste" feminine)) ;
   ill_VP = mkVP (mkA "krank") ;
   ready_VP = mkVP (mkA "bereit") ;
 

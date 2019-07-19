@@ -74,7 +74,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       insertObj (\\_ => (PastPartAgentAP (lin VPSlash vp) (lin NP np)).s ! APred) (predV werdenPass) ;
 
     PastPartAP vp = {
-      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++ vp.a2 ++ vp.inf ++ 
+      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++ (vp.nn ! agrP3 Sg).p3 ++ vp.a2 ++ vp.inf ++ 
                   vp.ext ++ vp.infExt ++ vp.s.s ! VPastPart af ;
       isPre = True ;
       c = <[],[]> ;
@@ -84,7 +84,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     PastPartAgentAP vp np = 
     let agent = appPrepNP P.von_Prep np
     in {
-      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++ vp.a2 ++ agent ++ vp.inf ++ 
+      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++ (vp.nn ! agrP3 Sg).p3 ++ vp.a2 ++ agent ++ 
+                   vp.inf ++ 
                    vp.c2.s ++ --- junk if not TV
                    vp.ext ++ vp.infExt ++ vp.s.s ! VPastPart af ;
       isPre = True ;
@@ -129,20 +130,34 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
           subj  = [] ;
           verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
           neg   = tm.s ++ p.s ++ vp.a1 ! b ;
-          obj0  = (vp.nn ! agr).p1 ;
-          obj   = (vp.nn ! agr).p2 ;
-          compl = obj0 ++ neg ++ obj ++ vp.a2 ; -- from EG 15/5
-          inf   = vp.inf ++ verb.inf ;
+          -- obj1  = (vp.nn ! agr).p1 ;
+          -- obj   = (vp.nn ! agr).p2 ; 
+          -- compl = obj1 ++ neg ++ obj ++ vp.a2 ; -- from EG 15/5
+          obj1  = (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ; -- refl ++ pronouns ++ nonpronouns
+          obj2  = (vp.nn ! agr).p3 ;                     -- pp-objects
+          obj3  = (vp.nn ! agr).p4 ++ vp.adj ++ vp.a2 ;  -- pred.AP|CN|Adv, via useComp HL 6/2019
+          compl = obj1 ++ neg ++ obj2 ++ obj3 ;
+          inf   = vp.inf ++ verb.inf ++ verb.inf2 ;
           extra = vp.ext ;
-          inffin : Str = 
-            case <a,vp.isAux> of {                       
-	           <Anter,True> => verb.fin ++ inf ; -- double inf   --# notpresent
-             _            => inf ++ verb.fin              --- or just auxiliary vp
-            }                                            
+          infE : Str =                              -- HL 30/6/2019
+            case <t,a,vp.isAux> of {
+              <Fut|Cond,Simul,True> => inf ;                           --# notpresent
+              <Fut|Cond,Anter,True> -- Duden 318: kommen wollen haben => haben kommen wollen --# notpresent
+                => verb.inf2 ++ vp.inf ++ verb.inf ;                   --# notpresent
+              <_,Anter,True> => inf ;                                  --# notpresent
+              _ => verb.inf ++ verb.inf2 ++ vp.inf } ;
+          inffin : Str =
+            case <t,a,vp.isAux> of {
+	           <Fut|Cond,Anter,True>  -- ... wird|würde haben kommen wollen --# notpresent
+                     => verb.fin ++ verb.inf2 ++ vp.inf ++ verb.inf ;  --# notpresent
+	           <_,Anter,True>                                      --# notpresent
+                     => verb.fin ++ inf ;            -- double inf     --# notpresent
+                   _ => inf ++ verb.fin              --- or just auxiliary vp
+            } ;
         in
         case o of {
-	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ inf ++ extra ;
-	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ inf ++ extra ;
+	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ infE ++ extra ;
+	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ infE ++ extra ;
 	    Sub  => subj ++ compl ++ vp.infExt ++ inffin ++ extra
           }
     } ;
@@ -189,7 +204,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
   lin
 	EsVV vv vp = predV vv ** {
-		nn = \\a => let n = vp.nn ! a in <"es" ++ n.p1 , n.p2 > ;
+		nn = \\a => let n = vp.nn ! a in <"es" ++ n.p1 , n.p2 , n.p3, n.p4> ;
 		inf = vp.s.s ! (VInf True) ++ vp.inf ;  -- ich genieße es zu versuchen zu gehen; alternative word order could be produced by vp.inf ++ vp.s.s... (zu gehen zu versuchen)
 		a1 = vp.a1 ;
 		a2 = vp.a2 ;
@@ -198,7 +213,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 		adj = vp.adj } ;
 		
 	EsV2A v2a ap s = predV v2a ** {
-		nn = \\_ => <"es",[]> ; 
+		nn = \\_ => <"es",[],[],[]> ; 
 		adj = ap.s ! APred ; 
 		ext = "," ++ "dass" ++ s.s ! Sub} ;
 
@@ -243,9 +258,9 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
             } ;
           verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
           neg   = vp.a1 ! b ;
-          obj0  = (vp.nn ! agr).p1 ;
-          obj   = (vp.nn ! agr).p2 ;
-          compl = obj0 ++ neg  ++ vp.adj ++ obj ++ vp.a2 ; -- adj added
+          obj1  = (vp.nn ! agr).p1 ;
+          obj2  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ;
+          compl = obj1 ++ neg  ++ vp.adj ++ obj2 ++ vp.a2 ; -- adj added
           inf   = vp.inf ++ verb.inf ; -- not used for linearisation of Main/Inv
           extra = vp.ext ;
           inffin : Str = 

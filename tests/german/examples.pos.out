@@ -1,0 +1,870 @@
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (UseComp (CompAP (PositA old_A)))))) NoVoc
+TestLangGer: ich bin nicht alt
+TestLangEng: I am not old
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (UseComp (CompAdv (PositAdvAdj old_A)))))) NoVoc
+TestLangGer: ich bin nicht alt
+TestLangEng: I am not oldly
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdvVP UseCopula (PositAdvAdj old_A))))) NoVoc
+TestLangGer: ich bin nicht alt
+TestLangEng: I am not oldly
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (UseComp (CompAdv here_Adv))))) NoVoc
+TestLangGer: ich bin nicht hier
+TestLangEng: I am not here
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdvVP UseCopula here_Adv)))) NoVoc
+TestLangGer: ich bin nicht hier
+TestLangEng: I am not here
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a know_V2) (UsePron youSg_Pron))))) NoVoc
+TestLangGer: ich kenne dich nicht
+TestLangEng: I don't know you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a know_V2) (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich kenne deine Frau nicht
+TestLangEng: I don't know your woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompNP (DetCN (DetQuant no_Quant NumSg) (UseN child_N))))))) NoVoc
+TestLangGer: ich bin kein Kind
+TestLangEng: I am no child
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdvVP (UseV sleep_V) here_Adv)))) NoVoc
+TestLangGer: ich schlafe nicht hier
+TestLangEng: I don't sleep here
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich male es nicht blau
+TestLangEng: I don't paint it blue
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdVVP always_AdV (UseV sleep_V))))) NoVoc
+TestLangGer: ich schlafe nicht immer
+TestLangEng: I don't always sleep
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdVVP always_AdV (ComplSlash (SlashV2a know_V2) (UsePron youSg_Pron)))))) NoVoc
+TestLangGer: ich kenne dich nicht immer
+TestLangEng: I don't always know you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (AdVVPSlash always_AdV (SlashV2a know_V2)) (UsePron youSg_Pron))))) NoVoc
+TestLangGer: ich kenne dich nicht immer
+TestLangEng: I don't always know you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplVV can8know_VV (UseV sleep_V))))) NoVoc
+TestLangGer: ich kann nicht schlafen
+TestLangEng: I can't sleep
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplVV can_VV (UseV sleep_V))))) NoVoc
+TestLangGer: ich kann nicht schlafen
+TestLangEng: I can't sleep
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplVA become_VA (UseComparA good_A))))) NoVoc
+TestLangGer: es wird nicht besser
+TestLangEng: it doesn't become better
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron it_Pron) (ComplVA become_VA (UseComparA good_A))))) NoVoc
+TestLangGer: es wird nicht besser
+TestLangEng: it doesn't become better
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (UseN beer_N)))))) NoVoc
+TestLangGer: wir trinken Bier
+TestLangEng: we drink beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (UseN beer_N)))))) NoVoc
+TestLangGer: wir trinken Bier nicht
+TestLangEng: we don't drink beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (UsePron it_Pron))))) NoVoc
+TestLangGer: wir trinken es nicht
+TestLangEng: we don't drink it
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant no_Quant NumSg) (UseN beer_N)))))) NoVoc
+TestLangGer: wir trinken kein Bier
+TestLangEng: we drink no beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (AdjCN (PositA warm_A) (UseN beer_N))))))) NoVoc
+TestLangGer: wir trinken warmes Bier nicht
+TestLangEng: we don't drink warm beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant no_Quant NumSg) (AdjCN (PositA warm_A) (UseN beer_N))))))) NoVoc
+TestLangGer: wir trinken kein warmes Bier
+TestLangEng: we drink no warm beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN man_N)))))) NoVoc
+TestLangGer: ich sehe den Mann nicht
+TestLangEng: I don't see the man
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant no_Quant NumSg) (UseN man_N)))))) NoVoc
+TestLangGer: ich sehe keinen Mann
+TestLangEng: I see no man
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (UsePron he_Pron))))) NoVoc
+TestLangGer: ich sehe ihn nicht
+TestLangEng: I don't see him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) somebody_NP)))) NoVoc
+TestLangGer: ich sehe jemanden nicht
+TestLangEng: I don't see somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) nobody_NP)))) NoVoc
+TestLangGer: ich sehe niemanden
+TestLangEng: I see nobody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA bad_A) (UseN book_N))))))) NoVoc
+TestLangGer: ich lese ein schlechtes Buch nicht
+TestLangEng: I don't read a bad book
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (AdjCN (PositA bad_A) (UseN book_N))))))) NoVoc
+TestLangGer: ich lese ein schlechtes Buch nicht
+TestLangEng: I don't read one bad book
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN someSg_Det (AdjCN (PositA bad_A) (UseN book_N))))))) NoVoc
+TestLangGer: ich lese ein schlechtes Buch nicht
+TestLangEng: I don't read some bad book
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant no_Quant NumSg) (AdjCN (PositA bad_A) (UseN book_N))))))) NoVoc
+TestLangGer: ich lese kein schlechtes Buch
+TestLangEng: I read no bad book
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN reason_N)))))) NoVoc
+TestLangGer: ich sehe Gründe
+TestLangEng: I see reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN reason_N)))))) NoVoc
+TestLangGer: ich sehe Gründe nicht
+TestLangEng: I don't see reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (PredetNP not_Predet (DetCN (DetQuant IndefArt NumPl) (UseN reason_N))))))) NoVoc
+TestLangGer: ich sehe nicht Gründe
+TestLangEng: I see not reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant no_Quant NumPl) (UseN reason_N)))))) NoVoc
+TestLangGer: ich sehe keine Gründe
+TestLangEng: I see no reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN reason_N)))))) NoVoc
+TestLangGer: ich sehe zwei Gründe
+TestLangEng: I see two reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN reason_N)))))) NoVoc
+TestLangGer: ich sehe zwei Gründe nicht
+TestLangEng: I don't see two reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant no_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN reason_N)))))) NoVoc
+TestLangGer: ich sehe keine zwei Gründe
+TestLangEng: I see no two reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (AdjCN (PositA bad_A) (UseN reason_N))))))) NoVoc
+TestLangGer: ich sehe schlechte Gründe
+TestLangEng: I see bad reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (AdjCN (PositA bad_A) (UseN reason_N))))))) NoVoc
+TestLangGer: ich sehe schlechte Gründe nicht
+TestLangEng: I don't see bad reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant no_Quant NumPl) (AdjCN (PositA bad_A) (UseN reason_N))))))) NoVoc
+TestLangGer: ich sehe keine schlechten Gründe
+TestLangEng: I see no bad reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashVV want_VV (SlashV2a see_V2)) somebody_NP)))) NoVoc
+TestLangGer: wir wollen jemanden sehen
+TestLangEng: we want to see somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2a see_V2) somebody_NP))))) NoVoc
+TestLangGer: wir wollen jemanden sehen
+TestLangEng: we want to see somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashVV want_VV (SlashV2a see_V2)) somebody_NP)))) NoVoc
+TestLangGer: wir wollen jemanden nicht sehen
+TestLangEng: we don't want to see somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a wait_V2) (DetCN (DetQuant DefArt NumPl) (UseN child_N)))))) NoVoc
+TestLangGer: wir warten nicht auf die Kinder
+TestLangEng: we don't wait for the children
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron youSg_Pron))))) NoVoc
+TestLangGer: wir warten nicht auf dich
+TestLangEng: we don't wait for you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron youPl_Pron))))) NoVoc
+TestLangGer: wir werden nicht auf euch warten
+TestLangEng: we won't wait for you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a wait_V2) (PredetNP all_Predet (DetCN (DetQuant IndefArt NumPl) (UseN child_N))))))) NoVoc
+TestLangGer: wir haben nicht auf alle Kinder gewartet
+TestLangEng: we haven't waited for all children
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron youPl_Pron))))) NoVoc
+TestLangGer: wir haben nicht auf euch gewartet
+TestLangEng: we haven't waited for you
+TestLang: PhrUtt NoPConj (UttAdv (SubjS because_Subj (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2a wait_V2) (UsePron youPl_Pron))))))) NoVoc
+TestLangGer: weil wir nicht auf euch warten wollen
+TestLangEng: because we don't want to wait for you
+TestLang: PhrUtt NoPConj (UttAdv (SubjS because_Subj (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashVV want_VV (SlashV2a wait_V2)) (UsePron youPl_Pron)))))) NoVoc
+TestLangGer: weil wir nicht auf euch warten wollen
+TestLangEng: because we don't want to wait for you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a wait_V2) (DetCN many_Det (UseN child_N)))))) NoVoc
+TestLangGer: wir warten nicht auf viele Kinder
+TestLangEng: we don't wait for many children
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke der Frau das Buch
+TestLangEng: I send the book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke der Frau das Buch
+TestLangEng: I send the book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant IndefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke der Frau ein Buch
+TestLangEng: I send a book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke der Frau ein Buch
+TestLangEng: I send one book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN someSg_Det (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke der Frau ein Buch
+TestLangEng: I send some book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN book_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke der Frau ein Buch
+TestLangEng: I send a book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke der Frau ein Buch
+TestLangEng: I send one book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN someSg_Det (UseN book_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke der Frau ein Buch
+TestLangEng: I send some book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch
+TestLangEng: I send the book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch
+TestLangEng: I send the book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN someSg_Det (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch
+TestLangEng: I send the book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch
+TestLangEng: I send the book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch
+TestLangEng: I send the book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN someSg_Det (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch
+TestLangEng: I send the book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (DetCN (DetQuant IndefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send a book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send one book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (DetCN someSg_Det (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send some book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N))) (DetCN (DetQuant IndefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send a book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send one book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N))) (DetCN someSg_Det (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send some book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN someSg_Det (UseN woman_N))) (DetCN (DetQuant IndefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send a book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN someSg_Det (UseN woman_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send one book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN someSg_Det (UseN woman_N))) (DetCN someSg_Det (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send some book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN book_N))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send a book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN book_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send a book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN book_N))) (DetCN someSg_Det (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send a book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send one book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send one book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N))) (DetCN someSg_Det (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send one book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN someSg_Det (UseN book_N))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send some book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN someSg_Det (UseN book_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send some book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN someSg_Det (UseN book_N))) (DetCN someSg_Det (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau ein Buch
+TestLangEng: I send some book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke der Frau das Buch nicht
+TestLangEng: I don't send the book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke der Frau das Buch nicht
+TestLangEng: I don't send the book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch nicht
+TestLangEng: I don't send the book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch nicht
+TestLangEng: I don't send the book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN someSg_Det (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch nicht
+TestLangEng: I don't send the book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch nicht
+TestLangEng: I don't send the book to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch nicht
+TestLangEng: I don't send the book to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN someSg_Det (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke einer Frau das Buch nicht
+TestLangEng: I don't send the book to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke ihr das Buch nicht
+TestLangEng: I don't send the book to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (UsePron she_Pron))))) NoVoc
+TestLangGer: ich schicke ihr das Buch nicht
+TestLangEng: I don't send the book to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es der Frau nicht
+TestLangEng: I don't send it to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es der Frau nicht
+TestLangEng: I don't send it to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN someSg_Det (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN someSg_Det (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es ihr nicht
+TestLangEng: I don't send it to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron she_Pron))))) NoVoc
+TestLangGer: ich schicke es ihr nicht
+TestLangEng: I don't send it to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant no_Quant NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau das Buch
+TestLangEng: I send the book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (DetCN (DetQuant no_Quant NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau das Buch
+TestLangEng: I send the book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant no_Quant NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke der Frau kein Buch
+TestLangEng: I send no book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant no_Quant NumSg) (UseN book_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke der Frau kein Buch
+TestLangEng: I send no book to the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (DetCN (DetQuant no_Quant NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke ihr kein Buch
+TestLangEng: I send no book to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant no_Quant NumSg) (UseN book_N))) (UsePron she_Pron))))) NoVoc
+TestLangGer: ich schicke ihr kein Buch
+TestLangEng: I send no book to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant no_Quant NumSg) (UseN woman_N))) (DetCN (DetQuant IndefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau ein Buch
+TestLangEng: I send a book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant no_Quant NumSg) (UseN woman_N))) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau ein Buch
+TestLangEng: I send one book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant no_Quant NumSg) (UseN woman_N))) (DetCN someSg_Det (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau ein Buch
+TestLangEng: I send some book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN book_N))) (DetCN (DetQuant no_Quant NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau ein Buch
+TestLangEng: I send a book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN book_N))) (DetCN (DetQuant no_Quant NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau ein Buch
+TestLangEng: I send one book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN someSg_Det (UseN book_N))) (DetCN (DetQuant no_Quant NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke keiner Frau ein Buch
+TestLangEng: I send some book to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN (DetQuant no_Quant NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es keiner Frau
+TestLangEng: I send it to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant no_Quant NumSg) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es keiner Frau
+TestLangEng: I send it to no woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (DetCN someSg_Det (UseN woman_N)))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to a woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to one woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN someSg_Det (UseN woman_N))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es einer Frau nicht
+TestLangEng: I don't send it to some woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: ich schicke ihr das Buch nicht
+TestLangEng: I don't send the book to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (UsePron she_Pron))))) NoVoc
+TestLangGer: ich schicke ihr das Buch nicht
+TestLangEng: I don't send the book to her
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (MassNP (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))))))) NoVoc
+TestLangGer: der Apfel , den das Kind der Frau gibt
+TestLangEng: the apple that it gives child the woman
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))))) NoVoc
+TestLangGer: der Apfel , den das Kind der Frau gibt
+TestLangEng: the apple that the child gives the woman
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (MassNP (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))))))) NoVoc
+TestLangGer: der Apfel , den das Kind der Frau gibt
+TestLangEng: the apple , that it gives child the woman
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))))) NoVoc
+TestLangGer: der Apfel , den das Kind der Frau gibt
+TestLangEng: the apple , that the child gives the woman
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron she_Pron)))))))))) NoVoc
+TestLangGer: der Apfel , den das Kind ihr gibt
+TestLangEng: the apple that it gives child she
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron she_Pron)))))))) NoVoc
+TestLangGer: der Apfel , den das Kind ihr gibt
+TestLangEng: the apple that the child gives her
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash2V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron she_Pron))))))))) NoVoc
+TestLangGer: der Apfel , den das Kind ihr gibt
+TestLangEng: the apple , that it gives child she
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash2V3 give_V3 (UsePron she_Pron))))))) NoVoc
+TestLangGer: der Apfel , den das Kind ihr gibt
+TestLangEng: the apple , that the child gives her
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (UsePron she_Pron)))))))) NoVoc
+TestLangGer: der Apfel , den es ihr gibt
+TestLangEng: the apple that it gives her
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (UsePron she_Pron))))))) NoVoc
+TestLangGer: der Apfel , den es ihr gibt
+TestLangEng: the apple , that it gives her
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))))) NoVoc
+TestLangGer: die Frau , der das Kind den Apfel nicht gibt
+TestLangEng: the woman that it doesn't give child the apple
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))) NoVoc
+TestLangGer: die Frau , der das Kind den Apfel nicht gibt
+TestLangEng: the woman that the child doesn't give the apple
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))))))) NoVoc
+TestLangGer: die Frau , der das Kind den Apfel nicht gibt
+TestLangEng: the woman , that it doesn't give child the apple
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))))) NoVoc
+TestLangGer: die Frau , der das Kind den Apfel nicht gibt
+TestLangEng: the woman , that the child doesn't give the apple
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))) NoVoc
+TestLangGer: die Frau , der es den Apfel nicht gibt
+TestLangEng: the woman that it doesn't give the apple
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))))) NoVoc
+TestLangGer: die Frau , der es den Apfel nicht gibt
+TestLangEng: the woman , that it doesn't give the apple
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron)))))))))) NoVoc
+TestLangGer: die Frau , der das Kind ihn nicht gibt
+TestLangEng: the woman that it doesn't give child he
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
+TestLangGer: die Frau , der das Kind ihn nicht gibt
+TestLangEng: the woman that the child doesn't give him
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron))))))))) NoVoc
+TestLangGer: die Frau , der das Kind ihn nicht gibt
+TestLangEng: the woman , that it doesn't give child he
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron))))))) NoVoc
+TestLangGer: die Frau , der das Kind ihn nicht gibt
+TestLangEng: the woman , that the child doesn't give him
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumPl)) (Slash3V3 give_V3 (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))))) NoVoc
+TestLangGer: die Frau , der die Kinder den Apfel nicht geben
+TestLangEng: the woman that they don't give children the apple
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))) NoVoc
+TestLangGer: die Frau , der die Kinder den Apfel nicht geben
+TestLangEng: the woman that the children don't give the apple
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumPl)) (Slash3V3 give_V3 (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))))))) NoVoc
+TestLangGer: die Frau , der die Kinder den Apfel nicht geben
+TestLangEng: the woman , that they don't give children the apple
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))))) NoVoc
+TestLangGer: die Frau , der die Kinder den Apfel nicht geben
+TestLangEng: the woman , that the children don't give the apple
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumPl)) (Slash3V3 give_V3 (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN child_N) (UsePron he_Pron)))))))))) NoVoc
+TestLangGer: die Frau , der die Kinder ihn nicht geben
+TestLangEng: the woman that they don't give children he
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
+TestLangGer: die Frau , der die Kinder ihn nicht geben
+TestLangEng: the woman that the children don't give him
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetNP (DetQuant DefArt NumPl)) (Slash3V3 give_V3 (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN child_N) (UsePron he_Pron))))))))) NoVoc
+TestLangGer: die Frau , der die Kinder ihn nicht geben
+TestLangEng: the woman , that they don't give children he
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron))))))) NoVoc
+TestLangGer: die Frau , der die Kinder ihn nicht geben
+TestLangEng: the woman , that the children don't give him
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron they_Pron) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
+TestLangGer: die Frau , der sie ihn nicht geben
+TestLangEng: the woman that they don't give him
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron they_Pron) (Slash3V3 give_V3 (UsePron he_Pron))))))) NoVoc
+TestLangGer: die Frau , der sie ihn nicht geben
+TestLangEng: the woman , that they don't give him
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
+TestLangGer: die Frau , der es ihn gibt
+TestLangEng: the woman that it gives him
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron he_Pron))))))) NoVoc
+TestLangGer: die Frau , der es ihn gibt
+TestLangEng: the woman , that it gives him
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron he_Pron) (Slash3V3 give_V3 (UsePron he_Pron)))))))) NoVoc
+TestLangGer: die Frau , der er ihn gibt
+TestLangEng: the woman that he gives him
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron he_Pron) (Slash3V3 give_V3 (UsePron he_Pron))))))) NoVoc
+TestLangGer: die Frau , der er ihn gibt
+TestLangEng: the woman , that he gives him
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))) NoVoc
+TestLangGer: wem gibt das Kind den Apfel nicht
+TestLangEng: whom doesn't it give child the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))) NoVoc
+TestLangGer: wem gibt das Kind den Apfel nicht
+TestLangEng: whom doesn't the child give the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))))) NoVoc
+TestLangGer: wem gibt das Kind den Apfel nicht
+TestLangEng: whom doesn't it give child the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))) NoVoc
+TestLangGer: wem gibt das Kind den Apfel nicht
+TestLangEng: whom doesn't the child give the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))) NoVoc
+TestLangGer: wem gibt es den Apfel nicht
+TestLangEng: whom doesn't it give the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN apple_N))))))) NoVoc
+TestLangGer: wem gibt es den Apfel nicht
+TestLangEng: whom doesn't it give the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron he_Pron)))))) NoVoc
+TestLangGer: wem gibt es ihn nicht
+TestLangEng: whom doesn't it give him
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (UsePron he_Pron)))))) NoVoc
+TestLangGer: wem gibt es ihn nicht
+TestLangEng: whom doesn't it give him
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (PredetNP not_Predet (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))))) NoVoc
+TestLangGer: wem gibt es nicht den Apfel
+TestLangEng: whom does it give not the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron it_Pron) (Slash3V3 give_V3 (PredetNP not_Predet (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))))) NoVoc
+TestLangGer: wem gibt es nicht den Apfel
+TestLangEng: whom does it give not the apple
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))) NoVoc
+TestLangGer: wen gibt es der Frau nicht
+TestLangEng: whom doesn't it give the woman
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (UsePron it_Pron) (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))) NoVoc
+TestLangGer: wen gibt es der Frau nicht
+TestLangEng: whom doesn't it give the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN man_N) (DetCN (DetQuant DefArt NumSg) (UseN beer_N)))))))) NoVoc
+TestLangGer: ich klage die Männer des Biers an
+TestLangEng: I accuse them of men the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (ApposCN (UseN man_N) (DetNP (DetQuant DefArt NumSg))) (MassNP (UseN beer_N)))))))) NoVoc
+TestLangGer: ich klage die Männer des Biers an
+TestLangEng: I accuse them of men it beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetCN (DetQuant DefArt NumPl) (UseN man_N))) (DetCN (DetQuant DefArt NumSg) (UseN beer_N)))))) NoVoc
+TestLangGer: ich klage die Männer des Biers an
+TestLangEng: I accuse the men of the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN beer_N)))))) NoVoc
+TestLangGer: ich klage ihn des Biers an
+TestLangEng: I accuse him of the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 anklagen_gen_V3 (DetCN (DetQuant DefArt NumSg) (UseN beer_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: ich klage ihn des Biers an
+TestLangEng: I accuse him of the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (UsePron he_Pron)) (DetCN somePl_Det (UseN beer_N)))))) NoVoc
+TestLangGer: ich klage ihn einiger Biere an
+TestLangEng: I accuse him of some beers
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 anklagen_gen_V3 (DetCN somePl_Det (UseN beer_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: ich klage ihn einiger Biere an
+TestLangEng: I accuse him of some beers
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN man_N) (DetCN (DetQuant DefArt NumSg) (UseN beer_N)))))))) NoVoc
+TestLangGer: ich klage die Männer des Biers nicht an
+TestLangEng: I don't accuse them of men the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (ApposCN (UseN man_N) (DetNP (DetQuant DefArt NumSg))) (MassNP (UseN beer_N)))))))) NoVoc
+TestLangGer: ich klage die Männer des Biers nicht an
+TestLangEng: I don't accuse them of men it beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetCN (DetQuant DefArt NumPl) (UseN man_N))) (DetCN (DetQuant DefArt NumSg) (UseN beer_N)))))) NoVoc
+TestLangGer: ich klage die Männer des Biers nicht an
+TestLangEng: I don't accuse the men of the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN man_N) (PredetNP not_Predet (DetCN (DetQuant DefArt NumSg) (UseN beer_N))))))))) NoVoc
+TestLangGer: ich klage die Männer nicht des Biers an
+TestLangEng: I accuse them of men not the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetNP (DetQuant DefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (ApposCN (UseN man_N) (PredetNP not_Predet (DetNP (DetQuant DefArt NumSg)))) (MassNP (UseN beer_N)))))))) NoVoc
+TestLangGer: ich klage die Männer nicht des Biers an
+TestLangEng: I accuse them of men not it beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 anklagen_gen_V3 (DetCN (DetQuant DefArt NumPl) (UseN man_N))) (PredetNP not_Predet (DetCN (DetQuant DefArt NumSg) (UseN beer_N))))))) NoVoc
+TestLangGer: ich klage die Männer nicht des Biers an
+TestLangEng: I accuse the men of not the beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN music_N)))))) NoVoc
+TestLangGer: wir lehren ihn die Musik
+TestLangEng: we teach him the music
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN music_N)))))) NoVoc
+TestLangGer: wir lehren ihn die Musik
+TestLangEng: we teach the music him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN music_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehren ihn die Musik
+TestLangEng: we teach the music him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN music_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehren ihn die Musik
+TestLangEng: we teach him the music
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN student_N))) (DetCN (DetQuant DefArt NumSg) (UseN reason_N)))))) NoVoc
+TestLangGer: wir lehrten den Studenten den Grund
+TestLangEng: we taught the student the reason
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN student_N))) (DetCN (DetQuant DefArt NumSg) (UseN reason_N)))))) NoVoc
+TestLangGer: wir lehrten den Studenten den Grund
+TestLangEng: we taught the reason the student
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN reason_N)))))) NoVoc
+TestLangGer: wir lehrten ihn den Grund
+TestLangEng: we taught him the reason
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN reason_N)))))) NoVoc
+TestLangGer: wir lehrten ihn den Grund
+TestLangEng: we taught the reason him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN reason_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehrten ihn den Grund
+TestLangEng: we taught the reason him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN reason_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehrten ihn den Grund
+TestLangEng: we taught him the reason
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 erinnern_an_V3 (DetCN (DetQuant DefArt NumSg) (UseN rain_N))) (DetCN (DetQuant DefArt NumSg) (UseN boy_N)))))) NoVoc
+TestLangGer: wir erinnern den Jungen nicht an den Regen
+TestLangEng: we don't remind the boy of the rain
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 erinnern_an_V3 (DetCN (DetQuant DefArt NumSg) (UseN boy_N))) (DetCN (DetQuant DefArt NumSg) (UseN rain_N)))))) NoVoc
+TestLangGer: wir erinnern den Jungen nicht an den Regen
+TestLangEng: we don't remind the boy of the rain
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 erinnern_an_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN boy_N)))))) NoVoc
+TestLangGer: wir erinnern den Jungen nicht an ihn
+TestLangEng: we don't remind the boy of him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 erinnern_an_V3 (DetCN (DetQuant DefArt NumSg) (UseN boy_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir erinnern den Jungen nicht an ihn
+TestLangEng: we don't remind the boy of him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 erinnern_an_V3 (UsePron he_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir erinnern ihn nicht an ihn
+TestLangEng: we don't remind him of him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 erinnern_an_V3 (UsePron he_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir erinnern ihn nicht an ihn
+TestLangEng: we don't remind him of him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 erinnern_an_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN boy_N)))))) NoVoc
+TestLangGer: wir haben den Jungen nicht an ihn erinnert
+TestLangEng: we haven't reminded the boy of him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 erinnern_an_V3 (DetCN (DetQuant DefArt NumSg) (UseN boy_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir haben den Jungen nicht an ihn erinnert
+TestLangEng: we haven't reminded the boy of him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN cheese_N))) (DetCN (DetQuant DefArt NumSg) (UseN cow_N)))))) NoVoc
+TestLangGer: wir danken der Kuh für den Käse
+TestLangEng: we thank the cow for the cheese
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN cow_N))) (DetCN (DetQuant DefArt NumSg) (UseN cheese_N)))))) NoVoc
+TestLangGer: wir danken der Kuh für den Käse
+TestLangEng: we thank the cow for the cheese
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN cheese_N))) (DetCN (DetQuant DefArt NumSg) (UseN cow_N)))))) NoVoc
+TestLangGer: wir danken der Kuh nicht für den Käse
+TestLangEng: we don't thank the cow for the cheese
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN cow_N))) (DetCN (DetQuant DefArt NumSg) (UseN cheese_N)))))) NoVoc
+TestLangGer: wir danken der Kuh nicht für den Käse
+TestLangEng: we don't thank the cow for the cheese
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 danken_dat_fuer_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN cow_N)))))) NoVoc
+TestLangGer: wir danken der Kuh nicht für ihn
+TestLangEng: we don't thank the cow for him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN cow_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir danken der Kuh nicht für ihn
+TestLangEng: we don't thank the cow for him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 danken_dat_fuer_V3 (UsePron she_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN cheese_N)))))) NoVoc
+TestLangGer: wir danken ihr nicht für den Käse
+TestLangEng: we don't thank her for the cheese
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN cheese_N))) (UsePron she_Pron))))) NoVoc
+TestLangGer: wir danken ihr nicht für den Käse
+TestLangEng: we don't thank her for the cheese
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 danken_dat_fuer_V3 (UsePron she_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir danken ihr nicht für ihn
+TestLangEng: we don't thank her for him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 danken_dat_fuer_V3 (UsePron he_Pron)) (UsePron she_Pron))))) NoVoc
+TestLangGer: wir danken ihr nicht für ihn
+TestLangEng: we don't thank her for him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 danken_dat_fuer_V3 (UsePron she_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir danken ihr nicht für ihn
+TestLangEng: we don't thank her for him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 danken_dat_fuer_V3 (UsePron he_Pron)) (UsePron she_Pron))))) NoVoc
+TestLangGer: wir danken ihr nicht für ihn
+TestLangEng: we don't thank her for him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 talk_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN man_N)))))) NoVoc
+TestLangGer: wir reden mit der Frau über den Mann
+TestLangEng: we talk to the woman about the man
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 talk_V3 (DetCN (DetQuant DefArt NumSg) (UseN man_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: wir reden über den Mann mit der Frau
+TestLangEng: we talk to the woman about the man
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 talk_V3 (UsePron she_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir reden nicht mit ihr über ihn
+TestLangEng: we don't talk to her about him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youPl_Pron) (UseV aendern_rV)))) NoVoc
+TestLangGer: ihr ändert euch nicht
+TestLangEng: you don't change
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron he_Pron) (UseV anstrengen_rV)))) NoVoc
+TestLangGer: er wird sich nicht anstrengen
+TestLangEng: he won't make an effort
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron he_Pron) (UseV anstrengen_rV)))) NoVoc
+TestLangGer: er hat sich nicht angestrengt
+TestLangEng: he hasn't made an effort
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a ergeben_dat_rV2) (DetCN (DetQuant DefArt NumPl) (UseN enemy_N)))))) NoVoc
+TestLangGer: du ergibst dich den Feinden nicht
+TestLangEng: you don't surrender to the enemies
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a ergeben_dat_rV2) (PredetNP not_Predet (DetCN (DetQuant DefArt NumPl) (UseN enemy_N))))))) NoVoc
+TestLangGer: du ergibst dich nicht den Feinden
+TestLangEng: you surrender to not the enemies
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a ergeben_dat_rV2) (UsePron i_Pron))))) NoVoc
+TestLangGer: du ergibst dich mir nicht
+TestLangEng: you don't surrender to me
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (DetCN (DetQuant DefArt NumSg) (UseN stick_N)))))) NoVoc
+TestLangGer: wir bedienen uns des Stocks
+TestLangEng: we use the stick
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir bedienen uns seiner
+TestLangEng: we use him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (UsePron it_Pron))))) NoVoc
+TestLangGer: wir bedienen uns seiner
+TestLangEng: we use it
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (DetNP (DetQuant (PossPron he_Pron) NumPl)))))) NoVoc
+TestLangGer: wir bedienen uns seiner
+TestLangEng: we use his
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (DetNP (DetQuant (PossPron it_Pron) NumPl)))))) NoVoc
+TestLangGer: wir bedienen uns seiner
+TestLangEng: we use its
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (DetCN (DetQuant DefArt NumSg) (UseN stick_N)))))) NoVoc
+TestLangGer: wir bedienen uns des Stocks nicht
+TestLangEng: we don't use the stick
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir bedienen uns seiner nicht
+TestLangEng: we don't use him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (UsePron it_Pron))))) NoVoc
+TestLangGer: wir bedienen uns seiner nicht
+TestLangEng: we don't use it
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (DetNP (DetQuant (PossPron he_Pron) NumPl)))))) NoVoc
+TestLangGer: wir bedienen uns seiner nicht
+TestLangEng: we don't use his
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a bedienen_gen_rV2) (DetNP (DetQuant (PossPron it_Pron) NumPl)))))) NoVoc
+TestLangGer: wir bedienen uns seiner nicht
+TestLangEng: we don't use its
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a stuetzen_auf_rV2) (DetCN (DetQuant DefArt NumSg) (UseN stick_N)))))) NoVoc
+TestLangGer: ich stütze mich nicht auf den Stock
+TestLangEng: I don't rely on the stick
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a stuetzen_auf_rV2) (UsePron he_Pron))))) NoVoc
+TestLangGer: ich stütze mich nicht auf ihn
+TestLangEng: I don't rely on him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron youSg_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN question_N)))))) NoVoc
+TestLangGer: ich entschuldige mich bei dir für die Frage
+TestLangEng: I apologize to you for the question
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron youSg_Pron)) (UsePron she_Pron))))) NoVoc
+TestLangGer: ich entschuldige mich bei dir für sie
+TestLangEng: I apologize to you for her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron youSg_Pron)) (UsePron they_Pron))))) NoVoc
+TestLangGer: ich entschuldige mich bei dir für sie
+TestLangEng: I apologize to you for them
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron youSg_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN question_N)))))) NoVoc
+TestLangGer: ich entschuldige mich nicht bei dir für die Frage
+TestLangEng: I don't apologize to you for the question
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 entschuldigen_bei_fuer_rV3 (DetCN (DetQuant DefArt NumSg) (UseN question_N))) (UsePron youSg_Pron))))) NoVoc
+TestLangGer: ich entschuldige mich für die Frage bei dir
+TestLangEng: I apologize to you for the question
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN stick_N))))))) NoVoc
+TestLangGer: hast du dich nicht bei ihm für den Stock entschuldigt
+TestLangEng: haven't you apologized to him for the stick
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron it_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN stick_N))))))) NoVoc
+TestLangGer: hast du dich nicht bei ihm für den Stock entschuldigt
+TestLangEng: haven't you apologized to it for the stick
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron he_Pron)) (UsePron he_Pron)))))) NoVoc
+TestLangGer: hast du dich bei ihm für ihn entschuldigt
+TestLangEng: have you apologized to him for him
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (Slash2V3 entschuldigen_bei_fuer_rV3 (UsePron it_Pron)) (UsePron he_Pron)))))) NoVoc
+TestLangGer: hast du dich bei ihm für ihn entschuldigt
+TestLangEng: have you apologized to it for him
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (Slash3V3 entschuldigen_bei_fuer_rV3 (UsePron he_Pron)) (UsePron he_Pron)))))) NoVoc
+TestLangGer: hast du dich für ihn bei ihm entschuldigt
+TestLangEng: have you apologized to him for him
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (Slash3V3 entschuldigen_bei_fuer_rV3 (UsePron he_Pron)) (UsePron it_Pron)))))) NoVoc
+TestLangGer: hast du dich für ihn bei ihm entschuldigt
+TestLangEng: have you apologized to it for him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a merken_rV2) (DetCN every_Det (UseN stick_N)))))) NoVoc
+TestLangGer: ich merke mir jeden Stock
+TestLangEng: I remember every stick
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a merken_rV2) (UsePron he_Pron))))) NoVoc
+TestLangGer: ich merke ihn mir
+TestLangEng: I remember him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a merken_rV2) (DetCN every_Det (UseN stick_N)))))) NoVoc
+TestLangGer: ich merke mir jeden Stock nicht
+TestLangEng: I don't remember every stick
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a merken_rV2) (PredetNP not_Predet (DetCN every_Det (UseN stick_N))))))) NoVoc
+TestLangGer: ich merke mir nicht jeden Stock
+TestLangEng: I remember not every stick
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a merken_rV2) (DetCN (DetQuant DefArt NumSg) (UseN stick_N)))))) NoVoc
+TestLangGer: ich hatte mir den Stock gemerkt
+TestLangEng: I had remembered the stick
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a merken_rV2) (UsePron he_Pron))))) NoVoc
+TestLangGer: ich hatte ihn mir gemerkt
+TestLangEng: I had remembered him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 leihen_von_rV3 (UsePron youSg_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: wir leihen uns das Buch von dir
+TestLangEng: we borrow the book from you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 leihen_von_rV3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (UsePron youSg_Pron))))) NoVoc
+TestLangGer: wir leihen uns das Buch von dir
+TestLangEng: we borrow the book from you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 leihen_von_rV3 (PredetNP not_Predet (UsePron youSg_Pron))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: wir leihen uns das Buch nicht von dir
+TestLangEng: we borrow the book from not you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 leihen_von_rV3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (PredetNP not_Predet (UsePron youSg_Pron)))))) NoVoc
+TestLangGer: wir leihen uns das Buch nicht von dir
+TestLangEng: we borrow the book from not you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 leihen_von_rV3 (UsePron youSg_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: wir leihen uns das Buch nicht von dir
+TestLangEng: we don't borrow the book from you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 leihen_von_rV3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))) (UsePron youSg_Pron))))) NoVoc
+TestLangGer: wir leihen uns das Buch nicht von dir
+TestLangEng: we don't borrow the book from you
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash3V3 leihen_von_rV3 (PredetNP not_Predet (UsePron youSg_Pron))))))))) NoVoc
+TestLangGer: das Buch , das wir uns nicht von dir liehen
+TestLangEng: the book that we borrowed from not you
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash3V3 leihen_von_rV3 (UsePron youSg_Pron)))))))) NoVoc
+TestLangGer: das Buch , das wir uns nicht von dir liehen
+TestLangEng: the book that we didn't borrow from you
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash3V3 leihen_von_rV3 (PredetNP not_Predet (UsePron youSg_Pron)))))))) NoVoc
+TestLangGer: das Buch , das wir uns nicht von dir liehen
+TestLangEng: the book , that we borrowed from not you
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash3V3 leihen_von_rV3 (UsePron youSg_Pron))))))) NoVoc
+TestLangGer: das Buch , das wir uns nicht von dir liehen
+TestLangEng: the book , that we didn't borrow from you
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash2V3 leihen_von_rV3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))))) NoVoc
+TestLangGer: die Frau , von der wir uns das Buch nicht liehen
+TestLangEng: the woman that we didn't borrow the book from
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash2V3 leihen_von_rV3 (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))))) NoVoc
+TestLangGer: die Frau , von der wir uns das Buch nicht liehen
+TestLangEng: the woman , that we didn't borrow the book from
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash2V3 leihen_von_rV3 (DetCN (DetQuant no_Quant NumSg) (UseN book_N))))))))) NoVoc
+TestLangGer: die Frau , von der wir uns kein Buch liehen
+TestLangEng: the woman that we borrowed no book from
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash2V3 leihen_von_rV3 (DetCN (DetQuant no_Quant NumSg) (UseN book_N)))))))) NoVoc
+TestLangGer: die Frau , von der wir uns kein Buch liehen
+TestLangEng: the woman , that we borrowed no book from
+TestLang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash2V3 leihen_von_rV3 (UsePron it_Pron)))))))) NoVoc
+TestLangGer: die Frau , von der wir es uns nicht liehen
+TestLangEng: the woman that we didn't borrow it from
+TestLang: PhrUtt NoPConj (UttNP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (Slash2V3 leihen_von_rV3 (UsePron it_Pron))))))) NoVoc
+TestLangGer: die Frau , von der wir es uns nicht liehen
+TestLangEng: the woman , that we didn't borrow it from
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash3V4 mieten_von_fuer_V4 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (DetCN (DetQuant DefArt NumSg) (UseN man_N)))))) NoVoc
+TestLangGer: du mietest den Wagen von der Frau für den Mann
+TestLangEng: you rent for the man from the woman the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash2V4 mieten_von_fuer_V4 (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN man_N)))))) NoVoc
+TestLangGer: du mietest den Wagen von der Frau für den Mann
+TestLangEng: you rent for the man the car from the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash4V4 mieten_von_fuer_V4 (DetCN (DetQuant DefArt NumSg) (UseN man_N))) (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: du mietest den Wagen für den Mann von der Frau
+TestLangEng: you rent from the woman for the man the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash2V4 mieten_von_fuer_V4 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron i_Pron))))) NoVoc
+TestLangGer: du mietest ihn von der Frau für mich
+TestLangEng: you rent for me him from the woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash3V4 mieten_von_fuer_V4 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (UsePron he_Pron)) (UsePron i_Pron))))) NoVoc
+TestLangGer: du mietest ihn von der Frau für mich
+TestLangEng: you rent for me from the woman him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash4V4 mieten_von_fuer_V4 (UsePron i_Pron)) (UsePron he_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: du mietest ihn für mich von der Frau
+TestLangEng: you rent from the woman for me him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash2V4 mieten_von_fuer_V4 (UsePron he_Pron)) (UsePron she_Pron)) (UsePron i_Pron))))) NoVoc
+TestLangGer: du mietest ihn von ihr für mich
+TestLangEng: you rent for me him from her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (ComplSlashSlash (Slash3V4 mieten_von_fuer_V4 (UsePron she_Pron)) (UsePron he_Pron)) (UsePron i_Pron))))) NoVoc
+TestLangGer: du mietest ihn von ihr für mich
+TestLangEng: you rent for me from her him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (UseComp (CompAP (ComplA2 married_A2 (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)))))))) NoVoc
+TestLangGer: ich bin nicht verheiratet mit dieser Frau
+TestLangEng: I am not married to this woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP by8means_Prep (DetCN (DetQuant this_Quant NumSg) (UseN woman_N))))))) NoVoc
+TestLangGer: ich bin nicht verheiratet mit dieser Frau
+TestLangEng: I am not married by this woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP with_Prep (DetCN (DetQuant this_Quant NumSg) (UseN woman_N))))))) NoVoc
+TestLangGer: ich bin nicht verheiratet mit dieser Frau
+TestLangEng: I am not married with this woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (UseComp (CompAP (ComplA2 married_A2 (UsePron she_Pron))))))) NoVoc
+TestLangGer: ich bin nicht verheiratet mit ihr
+TestLangEng: I am not married to her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP by8means_Prep (UsePron she_Pron)))))) NoVoc
+TestLangGer: ich bin nicht verheiratet mit ihr
+TestLangEng: I am not married by her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP with_Prep (UsePron she_Pron)))))) NoVoc
+TestLangGer: ich bin nicht verheiratet mit ihr
+TestLangEng: I am not married with her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (UseComp (CompAP (ComplA2 neugierig_auf_A2 (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))))) NoVoc
+TestLangGer: ich bin nicht neugierig auf das Buch
+TestLangEng: I am not curious about the book
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (UseComp (CompAP (ComplA2 neugierig_auf_A2 (UsePron it_Pron))))))) NoVoc
+TestLangGer: ich bin nicht neugierig auf es
+TestLangEng: I am not curious about it
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) by8means_Prep) (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich bin nicht mit dieser Frau verheiratet
+TestLangEng: I am not married by this woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) with_Prep) (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)))))) NoVoc
+TestLangGer: ich bin nicht mit dieser Frau verheiratet
+TestLangEng: I am not married with this woman
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) by8means_Prep) (UsePron she_Pron))))) NoVoc
+TestLangGer: ich bin nicht mit ihr verheiratet
+TestLangEng: I am not married by her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) with_Prep) (UsePron she_Pron))))) NoVoc
+TestLangGer: ich bin nicht mit ihr verheiratet
+TestLangEng: I am not married with her
