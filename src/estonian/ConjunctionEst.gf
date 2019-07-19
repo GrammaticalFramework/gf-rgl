@@ -9,6 +9,8 @@ concrete ConjunctionEst of Conjunction =
 
     ConjAdv = conjunctDistrSS ;
 
+    ConjCN = conjunctDistrTable NForm ;
+
     ConjNP conj ss = conjunctDistrTable NPForm conj ss ** {
       a = conjAgr (Ag conj.n P3) ss.a ; -- P3 is the maximum
       isPron = False
@@ -30,6 +32,8 @@ concrete ConjunctionEst of Conjunction =
     ConsS = consrSS comma ;
     BaseAdv = twoSS ;
     ConsAdv = consrSS comma ;
+    BaseCN = twoTable NForm ;
+    ConsCN = consrTable NForm comma ;
     BaseNP x y = twoTable NPForm x y ** {a = conjAgr x.a y.a} ;
     ConsNP xs x = consrTable NPForm comma xs x ** {a = conjAgr xs.a x.a} ;
     BaseAP x y = twoTableAdj x y ;
@@ -42,6 +46,7 @@ concrete ConjunctionEst of Conjunction =
   lincat
     [S] = {s1,s2 : Str} ;
     [Adv] = {s1,s2 : Str} ;
+    [CN] = {s1,s2 : NForm => Str} ;
     [NP] = {s1,s2 : NPForm => Str ; a : Agr} ;
     [AP] = {s1,s2 : {s : Bool => NForm => Str ; infl : Infl }} ; 
     [RS] = {s1,s2 : Agr => Str ; c : NPForm} ;
