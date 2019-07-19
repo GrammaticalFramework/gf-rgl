@@ -6,13 +6,14 @@ concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom in {
 -- This module defines constructions that are formed in fixed ways,
 -- often different even in closely related languages.
 
-  --lin
+  lin
 
   -- : VP -> Cl ;        -- it is hot
   --ImpersCl =  ;
 
   -- : VP -> Cl ;        -- one sleeps
-  --GenericCl = ;
+  GenericCl vp = predVP impersNP (passVP vp) ;
+
 {-
     CleftNP   : NP  -> RS -> Cl ; -- it is I who did it
     CleftAdv  : Adv -> S  -> Cl ; -- it is here she slept

@@ -671,9 +671,11 @@ oper
     c2 = P v2.c2
     } ;
 
-  passV2 : Verb2 -> VerbPhrase = \v2 -> useV v2 ** {
+  passV2 : Verb2 -> VerbPhrase = \v2 -> passVP (useV v2) ;
+
+  passVP : VerbPhrase -> VerbPhrase = \vp -> vp ** {
     c2 = Passive ;
-    c3 = v2.c2 ;
+    c3 = pp2prep vp.c2 ;
     } ;
 
   complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
