@@ -1,0 +1,39 @@
+--------------------------------------------------------------------------------
+-- Intransitive
+
+-- LangEng: they went
+LangSom: waa ay tageen
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (UseV go_V)))) NoVoc
+
+--------------------------------------------------------------------------------
+-- Transitive
+-- LangEng: they saw you
+LangSom: waa ay idin arkeen
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youPl_Pron))))) NoVoc
+
+-- LangEng: you saw yourself
+LangSom: waa aad is aragtay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ReflVP (SlashV2a see_V2))))) NoVoc
+
+-- LangEng: you were seen
+LangSom: waa lagu arkay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (PassV2 see_V2)))) NoVoc
+
+--------------------------------------------------------------------------------
+-- Ditransitive
+
+-- LangEng: mother gave you us
+LangSom: hooyo waa ay na kaa siisey
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: mother didn't give you us
+LangSom: hooyo na &+ ma ay kaa siin
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: he gave himself bread
+LangSom: rooti waa uu is siiyey
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ReflVP (Slash2V3 give_V3 (MassNP (UseN bread_N))))))) NoVoc
+
+-- LangEng: one adds salt to the meat
+LangSom: hilib &+ ka cusbo waa lagu daraa
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (Slash3V3 add_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N))) (MassNP (UseN salt_N)))))) NoVoc
