@@ -44,7 +44,8 @@ DetCN det cn = useN cn ** {
   -- : PN -> NP ;
   UsePN pn = pn ** {
     s = \\c => pn.s ;
-    isPron = False
+    isPron = False ;
+    empty = [] ;
     } ;
 
   -- : Pron -> NP ;
@@ -73,7 +74,7 @@ DetCN det cn = useN cn ** {
 -- Determiners can form noun phrases directly.
 
   -- : Det -> NP ;
-  DetNP det = {
+  DetNP det = emptyNP ** {
     s = det.sp ! Masc ; ---- Any way to decide for gender here?
     a = getAgr det.n Masc ;
     isPron = False ;

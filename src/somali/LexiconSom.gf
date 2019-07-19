@@ -4,7 +4,7 @@ concrete LexiconSom of Lexicon = CatSom **
 ----
 -- A
 
--- lin add_V3 =
+lin add_V3 = mkV3 "dar" ku NoPrep ;
 -- lin airplane_N = mkN "" ;
 -- lin alas_Interj = mkInterj "" ;
 -- lin already_Adv = mkA "" ;
@@ -99,10 +99,10 @@ lin drink_V2 = mkV2 "cab" ;
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
 -- lin dust_N = mkN "" ;
---
--- ----
--- -- E
---
+
+----
+-- E
+
 -- lin ear_N = mkN "" ;
 -- lin earth_N = mkN "" ;
 lin eat_V2 = mkV2 "cun" ;
@@ -110,10 +110,10 @@ lin eat_V2 = mkV2 "cun" ;
 -- lin empty_A = mkA "" ;
 -- lin enemy_N = mkN "" ;
 -- lin eye_N = mkN "" ;
---
--- ----
--- -- F
---
+
+----
+-- F
+
 -- lin factory_N = mkN "" ;
 -- lin fall_V = mkV "" ;
 -- lin far_Adv = mkA "" ;
@@ -224,7 +224,7 @@ lin language_N = mkN "af" ;
 
 lin man_N = mkN "nin" ;
 -- lin married_A2 = mkA "" ;
--- lin meat_N = mkN "" ;
+lin meat_N = mkN "hilib" "hilbo" masc ;
 -- lin milk_N = mkN "" ;
 -- lin moon_N = mkN "" ;
 lin mother_N2 = mkN2 (shortPossN (mkN "hooyo")) ;
@@ -294,11 +294,11 @@ lin read_V2 = mkV2 "akhri" ;
 -- lin rubber_N = mkN "" ;
 -- lin rule_N = mkN "" ;
 -- lin run_V = mkV "" ;
---
--- ----
--- -- S
---
--- lin salt_N = mkN "" ;
+
+----
+-- S
+
+lin salt_N = mkN "cusbo" ;
 -- lin sand_N = mkN "" ;
 -- lin say_VS = mkVS "" ;
 -- lin school_N = mkN "" ;
