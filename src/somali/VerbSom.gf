@@ -11,6 +11,9 @@ lin
   --  : V2 -> VP ; -- be loved
   PassV2 = ResSom.passV2 ;
 
+  -- : VPSlash -> VP ;
+  ReflVP = ResSom.insertRefl ;
+
   -- : VV  -> VP -> VP ;
   ComplVV vv vp = useV vv ** {  -- check Sayeed p. 169
     vComp = infVP vp
@@ -67,14 +70,8 @@ lin
         post = vps.post ;
         iobj = np ** { s = np.s ! Dat } } ;
 
---2 Other ways of forming verb phrases
-
--- Verb phrases can also be constructed reflexively and from
--- copula-preceded complements.
-
-  -- : VPSlash -> VP ;
-  ReflVP vps = ;
 -}
+
   -- : Comp -> VP ;
   UseComp comp = UseCopula ** comp ;
 

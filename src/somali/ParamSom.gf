@@ -168,7 +168,9 @@ param
 
 param
   Preposition = U | Ku | Ka | La | NoPrep ;
-  PrepositionPlus = P Preposition | Passive ; -- Hack: RGL only supports V2s as passive, so I can reuse V2's preposition slot for passives as well, and save >200 parameters. (Don't ask.)
+  PrepositionPlus = P Preposition
+                  | Passive ; -- Hack: RGL only supports V2s as passive, so I can reuse V2's preposition slot for passives as well, and save >200 parameters. (Don't ask.)
+
   PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
                   | Single PrepositionPlus ;
 
@@ -194,7 +196,7 @@ oper
               z        => z } ;
 
   pp2prep : PrepositionPlus -> Preposition = \pp ->
-    case pp of {P p => p ; Passive => NoPrep} ;
+    case pp of {P p => p ; _ => NoPrep} ;
 --------------------------------------------------------------------------------
 -- Verbs
 
