@@ -27,16 +27,43 @@ param
   -- Allomorphs for the definite article
   DefTA = TA | DA | SHA | DHA ;
   DefKA = KA | GA | A_ | HA ;
-  DefArticle = M DefKA | F DefTA  ;
+  DefArticle = F DefTA | M DefKA ;
+  GenderDefArt = FM DefTA DefKA
+             | MF DefKA DefTA
+             | MM DefKA DefKA  ;
 
 oper
 
-  defAllomorph : Str -> DefArticle = \wiilka ->
-    case wiilka of {
-            _ + "ta" => F DA ; _ + "sha" => F SHA ;
-            _ + "da" => F DA ; _ + "dha" => F DHA ;
-            _ + "ka" => M KA ; _ + "aha" => M HA ;
-            _ + "ga" => M GA ; _         => M A_ } ;
+  sg : GenderDefArt -> DefArticle = \gda -> gda2da gda ! Sg ;
+  pl : GenderDefArt -> DefArticle = \gda -> gda2da gda ! Pl ;
+
+  gda2da : GenderDefArt -> Number => DefArticle = \gda ->
+    let da : {sg,pl:DefArticle} = case gda of {
+        FM s p => {sg = F s ; pl = M p} ;
+        MM s p => {sg = M s ; pl = M p} ;
+        MF s p => {sg = M s ; pl = F p} } ;
+    in table {Sg => da.sg ; Pl => da.pl} ;
+
+  defAllomorph : (_,_ : Str) -> GenderDefArt = \wiilka,wiilasha ->
+    case <getGender wiilka, getGender wiilasha> of {
+      <Masc,Fem>  => MF (allomM wiilka) (allomF wiilasha) ;
+      <Masc,Masc> => MM (allomM wiilka) (allomM wiilasha) ;
+      _           => FM (allomF wiilka) (allomM wiilasha)
+    } where {
+        allomF : Str -> DefTA = \wiilka ->
+          case wiilka of {
+                _ + "ta" => DA ; _ + "sha" => SHA ;
+                _ + "da" => DA ; _ + "dha" => DHA } ;
+        allomM : Str -> DefKA = \wiilka ->
+          case wiilka of {
+                _ + "ka" => KA ; _ + "aha" => HA ;
+                _ + "ga" => GA ; _ + "a"   => A_ } ;
+        getGender : Str -> Gender = \word ->
+          case word of {
+              _ + ("ta"|"sha"|"da"|"dha") => Fem ;
+              _ + "a" => Masc ;
+              _ => Predef.error ("defAllomorph: expecting definite form, given" ++ word)}
+        } ;
 
   -- Use always via quantTable!
   defStems : DefArticle => Str = table {
@@ -97,7 +124,6 @@ oper
 param
   Case = Nom | Abs ;
   Gender = Masc | Fem ;
-  Vowel = vA | vE | vI | vO | vU | NA ; -- For vowel assimilation
   GenNum = SgMasc | SgFem | PlInv ; -- For Quant
 
   Inclusion = Excl | Incl ;
@@ -111,8 +137,7 @@ param
     | Impers ; -- Verb agrees with Sg3, but needed for preposition contraction
 
   AgreementPlus =
-    Unassigned -- Dummy value: shows that the slot for object hasn't been filled.
-  | IsPron Agreement  -- Any of Sg1 … Pl3 can be a pronoun.
+    IsPron Agreement  -- Any of Sg1 … Pl3 can be a pronoun.
   | NotPronP3 ; -- Sg3 Gender and Pl3 can be pronouns or not.
 
   State = Definite | Indefinite ;
@@ -130,6 +155,9 @@ oper
   agr2agrplus : (isPron : Bool) -> Agreement -> AgreementPlus = \isPron,a ->
     case isPron of {True => IsPron a ; False => NotPronP3} ;
 
+  agrplus2agr : AgreementPlus -> Agreement = \a ->
+    case a of {IsPron a => a ; _ => Pl3} ;
+
   isP3 = overload {
     isP3 : Agreement -> Bool = \agr ->
       case agr of {Sg3 _ | Pl3 | Impers => True ; _ => False} ;
@@ -137,18 +165,12 @@ oper
       case agr of {
         IsPron (Sg3 _ | Pl3 | Impers) => True ;
         NotPronP3 => True ;
-        Unassigned => True ; -- meaningful for "does it leave an overt pronoun"
+--        Unassigned => True ; -- meaningful for "does it leave an overt pronoun"
         _ => False}
   } ;
 
-  -- gn2gennum : Gender -> Number -> GenNum = \g,n ->
-  --   case <g,n> of {
-  --     <Masc,Sg> => SgMasc ;
-  --     <Fem,Sg>  => SgFem ;
-  --     _ => PlInv } ;
-
-  gender : {sg : DefArticle} -> Gender = \n ->
-    case n.sg of {M _ => Masc ; F _ => Fem} ;
+  gender : {gda : GenderDefArt} -> Gender = \n ->
+    case n.gda of {FM _ _ => Fem ; _ => Masc} ;
 --------------------------------------------------------------------------------
 -- Numerals
 
@@ -179,7 +201,7 @@ oper
     let oneWay : PrepositionPlus => Preposition => PrepCombination =
           \\x,y => case <x,y> of {
               <Passive,NoPrep> => Single Passive ;
-              <Passive,p> => Single (P p) ; -- TODO check if this ever happens
+              <Passive,p> => Single (P p) ; -- FIXME p "waa lagu arkay" gives infinitely many trees now, because the passive is ignored here. Is there a combination for passive + personal pronoun + preposition?
               <P z,_> => case <z,y> of {
                       <U,U|Ku> => Ugu ;
                       <U,Ka>   => Uga ;
@@ -226,11 +248,18 @@ param
 
   VForm =
       VInf
-    | VPres Aspect Agreement Polarity
+    | VPres Aspect VAgr Polarity
     | VNegPast Aspect
-    | VPast Aspect Agreement
+    | VPast Aspect VAgr
     | VRel -- "som är/har/…" TODO is this used in other verbs?
     | VImp Number Polarity ;
+
+  VAgr =
+      Sg1_Sg3Masc
+    | Sg2_Sg3Fem
+    | Pl1_
+    | Pl2_
+    | Pl3_ ;
 
   PredType = NoPred | Copula | NoCopula ;
 
@@ -239,9 +268,14 @@ oper
     case p of {Pos => t ; Neg => f } ;
 
   forceAgr : Agreement -> (VForm=>Str) -> (VForm=>Str) = \agr,tbl -> table {
-    VPres asp _a pol => tbl ! VPres asp agr pol ;
-    VPast asp _a     => tbl ! VPast asp agr ;
+    VPres asp _a pol => tbl ! VPres asp (agr2vagr agr) pol ;
+    VPast asp _a     => tbl ! VPast asp (agr2vagr agr) ;
     x                => tbl ! x
     } ;
 
+  agr2vagr : Agreement -> VAgr = \agr -> case agr of {
+    Sg1|Sg3 Masc|Impers => Sg1_Sg3Masc ;
+    Sg2|Sg3 Fem => Sg2_Sg3Fem ;
+    Pl1 _ => Pl1_ ; Pl2 => Pl2_ ; Pl3 => Pl3_
+  } ;
 }
