@@ -70,8 +70,8 @@ lin someSg_Det = R.indefDet "" sg ;
 
 lin no_Quant = mkPrep no_Quant
 -}
-lin that_Quant = defQuant "aas" "kaas" "taas" "kuwaas" vA ;
-lin this_Quant = defQuant "an" "kan" "tan" "kuwan" vA ;
+lin that_Quant = defQuant "aas" "kaas" "taas" "kuwaas" True ;
+lin this_Quant = defQuant "an" "kan" "tan" "kuwan" True ;
 --lin which_IQuant = defQuant
 {-
 
@@ -125,7 +125,7 @@ lin with_Prep = mkPrep la ;
     youSg_Pron = pronTable ! Sg2 ;
     he_Pron = pronTable ! Sg3 Masc ;
     she_Pron = pronTable ! Sg3 Fem ;
-    we_Pron = pronTable ! Pl1 Excl ;
+    we_Pron = pronTable ! Pl1 Incl ;
     youPl_Pron = pronTable ! Pl2 ;
     they_Pron = pronTable ! Pl3 ;
 {-

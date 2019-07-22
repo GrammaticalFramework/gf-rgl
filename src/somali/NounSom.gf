@@ -7,11 +7,11 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 --2 Noun phrases
 
 -- : Det -> CN -> NP
-DetCN det cn = useN cn ** {
-  s = sTable ;
-  a = getAgr det.n (gender cn) } where {
-    sTable : Case => Str = \\c =>
-       let nfc : {nf : NForm ; c : Case} =
+  DetCN det cn = useN cn ** {
+    s = sTable ;
+    a = getAgr det.n (gender cn) } where {
+      sTable : Case => Str = \\c =>
+         let nfc : {nf : NForm ; c : Case} =
              case <det.isNum,c,cn.hasMod,det.st,det.n> of {
                 -- Numbers
                 <True,_,_,_,_> => {nf=Numerative ; c=c} ;
@@ -26,7 +26,7 @@ DetCN det cn = useN cn ** {
                 <_,Nom,True,_,_> => {nf=Def det.n ; c=Abs} ;
                 _                => {nf=Def det.n ; c=c} -- TODO check
              } ;
-          art = case det.n of {Sg => cn.sg ; Pl => cn.pl} ;
+          art = gda2da cn.gda ! det.n ;
           num = case det.isNum of {True => Sg ; _ => det.n} ;
           dt : {pref,s : Str} =
             case <nfc.nf,cn.isPoss,andB det.isPoss cn.shortPoss> of {
@@ -159,7 +159,7 @@ DetCN det cn = useN cn ** {
 -}
 
   -- : Quant
-  DefArt = defQuant "a" "kan" "tan" "kuwan" NA ;
+  DefArt = defQuant "a" "kan" "tan" "kuwan" False ;
 
   -- : Quant
   IndefArt = indefQuant ** {sp = \\gn,c => "1"} ; -- TODO sp forms
@@ -190,11 +190,11 @@ DetCN det cn = useN cn ** {
                     Def n  => n ;
                     Indef n => n ;
                     _ => Sg } ;
-        art = case num of {Sg => cn.sg ; Pl => cn.pl} ;
+        art = gda2da cn.gda ! num ;
         qnt = PossPron (pronTable ! np.a) ;
         det = case cn.shortPoss of {
                 True => qnt.shortPoss ! art ;
-                _ => qnt.s ! n2.sg ! Abs } ;
+                _ => qnt.s ! sg n2.gda ! Abs } ;
         noun = case np.isPron of {
                  True  => (pronTable ! np.a).sp ; -- long subject pronoun
                  False => np.s ! Abs }

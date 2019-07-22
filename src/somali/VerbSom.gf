@@ -15,8 +15,10 @@ lin
   ReflVP = ResSom.insertRefl ;
 
   -- : VV  -> VP -> VP ;
-  ComplVV vv vp = useV vv ** {  -- check Sayeed p. 169
-    vComp = infVP vp
+  ComplVV vv vp = vp ** {  -- check Sayeed p. 169
+    s = vv.s ;
+    vComp = vp.vComp ++ vp.s ! VInf ;
+    pred = NoPred ;
     } ;
 {-
   -- : VS  -> S  -> VP ;
