@@ -9,8 +9,12 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron the
 -- Transitive
 
 -- LangEng: they saw you
-LangSom: waa ay idin arkeen
-Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youPl_Pron))))) NoVoc
+LangSom: waa ay ku arkeen
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: they didn't see you
+LangSom: ku &+ ma arkin
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: you taught yourself
 LangSom: waa aad is &+ ku bartay
