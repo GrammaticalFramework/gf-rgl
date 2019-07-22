@@ -139,14 +139,14 @@ oper
 
   NounPhrase : Type = BaseNP ** {s : Case => Str} ;
 
-  NPLite : Type = {s : Str ; a : AgreementPlus} ; -- Used in Adv and as an object in VP
+  NPLite : Type = {s : Str ; a : PrepAgr} ; -- Used in Adv and as an object in VP
 
   nplite : NounPhrase -> NPLite = \np ->
-    let aplus : AgreementPlus = agr2agrplus np.isPron np.a in
-    case <np.isPron,np.a> of {
-      <False,_>          => {s = np.s ! Abs ; a = aplus} ;
-      -- <True,(Sg3 _|Pl3)> => {s = np.empty ++ (pronTable ! np.a).sp ; a = aplus} ; -- uncomment if you want to add long object pronoun for 3rd person object
-      _ => {s = np.empty ; a = aplus} } ; -- no long object for other pronouns
+    let pagr : PrepAgr = agr2pagr np.a in
+    case <np.isPron,isP3 np.a> of {
+      <False,_>   => {s = np.s ! Abs ; a = pagr} ;
+      -- <True,True> => {s = np.empty ++ (pronTable ! np.a).sp ; a = pagr} ; -- uncomment if you want to add long object pronoun for 3rd person object
+      _ => {s = np.empty ; a = pagr} } ; -- no long object for other pronouns
 
   useN : Noun -> CNoun ** BaseNP = \n -> n **
     { mod = \\_,_ => [] ; hasMod = False ;
@@ -228,20 +228,20 @@ oper
       poss = {s, short = quantTable "ood" ; sp = gnTable "ood" "ood" "uwood"}
       } ;
     Impers => {
-      s = table {Nom => "la" ; Abs => "??"} ;
-      a = Impers ; isPron = True ; sp = "??" ;
+      s = table {Nom => "la" ; Abs => "la"} ;
+      a = Impers ; isPron = True ; sp = "" ;
       empty = [] ;
       poss = {s, short = quantTable "??" ; sp = gnTable "??" "??" "??"}
       }
     } ;
 
-  secondObject : AgreementPlus => Str = table {
-    IsPron Sg1        => "kay" ;
-    IsPron Sg2        => "kaa" ;
-    IsPron (Pl1 Excl) => "kayo" ;
-    IsPron (Pl1 Incl) => "keen" ;
-    IsPron Pl2        => "kiin" ;
-    _                 => []
+  secondObject : PrepAgr => Str = table {
+    Sg1_Prep      => "kay" ;
+    Sg2_Prep      => "kaa" ;
+    Pl1_Prep Excl => "kayo" ;
+    Pl1_Prep Incl => "keen" ;
+    Pl2_Prep      => "kiin" ;
+    _             => []
     } ;
 
 --------------------------------------------------------------------------------
@@ -322,17 +322,17 @@ oper
 --------------------------------------------------------------------------------
 -- Prepositions
 
-  Prep : Type = {s : Agreement => Str} ;
+  Prep : Type = {s : PrepAgr => Str} ;
 
   mkPrep : (x1,_,_,_,_,x6 : Str) -> Prep = \ku,ii,kuu,noo,idiin,loo -> {
     s = table {
-          Sg1      => ii ;
-          Sg2      => kuu ;
-          Pl2      => idiin ;
-          Pl1 Excl => noo ;
-          Pl1 Incl => "i" + noo ;
-          Impers   => loo ;
-          _        => ku
+          Sg1_Prep      => ii ;
+          Sg2_Prep      => kuu ;
+          Pl2_Prep      => idiin ;
+          Pl1_Prep Excl => noo ;
+          Pl1_Prep Incl => "i" + noo ;
+          Impers_Prep   => loo ;
+          P3_Prep       => ku
         }
     } ;
   prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! P p ** {c2 = p} ;
@@ -347,34 +347,34 @@ oper
     Passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
   } ;
 
-  prepCombTable : Agreement => PrepCombination => Str = table {
-    Sg1 => table { Ugu => "iigu" ; Uga => "iiga" ;
+  prepCombTable : PrepAgr => PrepCombination => Str = table {
+    Sg1_Prep => table { Ugu => "iigu" ; Uga => "iiga" ;
                    Ula => "iila" ; Kaga => "igaga" ;
                    Kula => "igula" ; Kala => "igala" ;
-                   Single p => (prepTable ! p).s ! Sg1 } ;
-    Sg2 => table { Ugu => "kuugu" ; Uga => "kaaga" ;
+                   Single p => (prepTable ! p).s ! Sg1_Prep } ;
+    Sg2_Prep => table { Ugu => "kuugu" ; Uga => "kaaga" ;
                    Ula => "kuula" ; Kaga => "kaaga" ;
                    Kula => "kugula" ; Kala => "kaala" ;
-                   Single p => (prepTable ! p).s ! Sg2 } ;
-    Pl1 Excl =>
+                   Single p => (prepTable ! p).s ! Sg2_Prep } ;
+    Pl1_Prep Excl =>
            table { Ugu => "noogu" ; Uga => "nooga" ;
                    Ula => "noola" ; Kaga => "nagaga" ;
                    Kula => "nagula" ; Kala => "nagala" ;
-                   Single p => (prepTable ! p).s ! Pl1 Excl } ;
-    Pl1 Incl =>
+                   Single p => (prepTable ! p).s ! Pl1_Prep Excl } ;
+    Pl1_Prep Incl =>
            table { Ugu => "inoogu" ; Uga => "inooga" ;
                    Ula => "inoola" ; Kaga => "inagaga" ;
                    Kula => "inagula" ; Kala => "inagala" ;
-                   Single p => (prepTable ! p).s ! Pl1 Incl } ;
-    Pl2 => table { Ugu => "idiinku" ; Uga => "idiinka" ;
+                   Single p => (prepTable ! p).s ! Pl1_Prep Incl } ;
+    Pl2_Prep => table { Ugu => "idiinku" ; Uga => "idiinka" ;
                    Ula => "idiinla" ; Kaga => "idinkaga" ;
                    Kula => "idinkula" ; Kala => "idinkala" ;
-                   Single p => (prepTable ! p).s ! Pl2 } ;
-    Impers =>
+                   Single p => (prepTable ! p).s ! Pl2_Prep } ;
+    Impers_Prep =>
            table { Ugu => "loogu" ; Uga => "looga" ;
                    Ula => "loola" ; Kaga => "lagaga" ;
                    Kula => "lagula" ; Kala => "lagala" ;
-                   Single p => (prepTable ! p).s ! Impers } ;
+                   Single p => (prepTable ! p).s ! Impers_Prep } ;
     a   => table { Ugu => "ugu" ; Uga => "uga" ;
                    Ula => "ula" ; Kaga => "kaga" ;
                    Kula => "kula" ; Kala => "kala" ;
@@ -647,7 +647,7 @@ oper
     -- Prepositions can combine together and with object pronoun.
     c2 : PrepositionPlus ; -- hack to implement passives more efficiently:
     c3 : Preposition ;     -- if c2 is Passive, the real preposition is in c3.
-    obj2 : NPLite ; -- {s : Str ; a : AgreementPlus}
+    obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
     vComp : Str ; -- VV complement
     refl : Str ; -- reflexive is put here, if the verb has an obj2.
@@ -662,7 +662,7 @@ oper
     vComp,berri,miscAdv,refl = [] ;
     c2 = P NoPrep ;
     c3 = NoPrep ;
-    obj2 = {s = [] ; a = NotPronP3} ;
+    obj2 = {s = [] ; a = P3_Prep} ;
     secObj = []
     } ;
 
@@ -684,13 +684,12 @@ oper
        p2 = cmp.p2 ++ vps.refl ++ compl np.a vps} -- object combines with the preposition of the verb.
       } ;
 
-  compl : AgreementPlus -> VerbPhrase -> Str = \a,vp ->
-    let agr = case a of {IsPron x => x ; _ => Pl3} ;
-     in prepCombTable ! agr ! combine vp.c2 vp.c3 ;
+  compl : PrepAgr -> VerbPhrase -> Str = \agr,vp ->
+    prepCombTable ! agr ! combine vp.c2 vp.c3 ;
 
   insertRefl : VPSlash -> VPSlash = \vps ->
     case <vps.c2,vps.c3> of {
-            <P NoPrep,NoPrep> => vps ** {refl = "is"} ; -- not bound
+            <P NoPrep,NoPrep> => vps ** {refl = "is"} ; -- NB. if AdvVP is called after ReflVP, vps.c2 may change.
             _ => vps ** {refl = "is" ++ BIND}
     } ;
 
@@ -701,7 +700,7 @@ oper
     case vp.obj2.a of {
       -- If the old object is 3rd person (or nonexistent), we replace its agreement.
       -- We keep both old and new string (=noun, if there was one) in obj2.s.
-      NotPronP3|IsPron (Sg3 _|Pl3|Impers) =>
+      P3_Prep =>
         vp ** {obj2 = nplite ** {
                   s = vp.obj2.s ++ nplite.s}
                   } ; -- no secObj, because there's ≤1 non-3rd-person pronoun.
@@ -717,21 +716,23 @@ oper
     } ;
 
   insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
-    case <adv.c2, adv.np.a> of { --isP3 adv.np.a, adv.np.isPron> of {
-      <NoPrep,_>    => vp ** adv'' ; -- a) the adverb is not formed with PrepNP, e.g. "tomorrow"
-      <_,NotPronP3> => vp ** adv'' ; -- b) is formed with PrepNP, and has 3rd person obj, which is a noun.
-      _ => case <vp.c2,isP3 vp.obj2.a,vp.c3> of {
+    case adv.c2 of {
+      NoPrep => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
+      _ => case <vp.c2,vp.c3> of {
              -- if free complement slots, introduce adv.np with insertComp
-             <P NoPrep,True,_> => insertCompAgrPlus (vp ** {c2 = P adv.c2}) adv.np ** adv' ;
-             <_  ,_   ,NoPrep> => insertCompAgrPlus (vp ** {c3 =   adv.c2}) adv.np ** adv' ;
+             <P NoPrep,_> => insertCompAgrPlus (vp ** {c2 = P adv.c2}) adv.np ** adv' ;
+             <_  ,NoPrep> => insertCompAgrPlus (vp ** {c3 =   adv.c2}) adv.np ** adv' ;
 
              -- if complement slots are full, just insert strings.
              _ => vp ** adv''
             }
     } where {
-        adv' : {sii,dhex,berri : Str} = adv ; -- adv.np done with insertComp
+        adv' : {sii,dhex,berri : Str} = { -- adv.np done with insertComp
+          sii = vp.sii ++ adv.sii ;
+          dhex = vp.dhex ++ adv.dhex ;
+          berri = vp.berri ++ adv.berri } ;
         adv'' : {sii,dhex,berri,miscAdv : Str} -- adv.np inserted into miscAdv
-          = adv ** {dhex = (prepTable ! P adv.c2).s ! agrplus2agr adv.np.a ++ adv.dhex ;
+          = adv' ** {dhex = (prepTable ! P adv.c2).s ! adv.np.a ++ adv.dhex ;
                     miscAdv = adv.np.s}
         } ;
 --------------------------------------------------------------------------------
@@ -843,7 +844,7 @@ oper
   linAdv : Adverb -> Str = \adv ->
      adv.berri
   ++ adv.sii
-  ++ (prepTable ! P adv.c2).s ! Pl3 --adv.np.a
+  ++ (prepTable ! P adv.c2).s ! adv.np.a
   ++ adv.dhex
   ++ adv.np.s ;
 

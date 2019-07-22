@@ -123,7 +123,7 @@ oper
   mkAdv : Str -> Adv = \s -> lin Adv {
     berri = s ;
     c2 = noPrep ;
-    np = {s = [] ; a = NotPronP3} ;
+    np = {s = [] ; a = P3_Prep} ;
     sii,dhex = []
     } ;
 

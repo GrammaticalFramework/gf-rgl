@@ -136,9 +136,13 @@ param
     | Pl3
     | Impers ; -- Verb agrees with Sg3, but needed for preposition contraction
 
-  AgreementPlus =
-    IsPron Agreement  -- Any of Sg1 … Pl3 can be a pronoun.
-  | NotPronP3 ; -- Sg3 Gender and Pl3 can be pronouns or not.
+  PrepAgr =
+      Sg1_Prep
+    | Sg2_Prep
+    | Pl1_Prep Inclusion
+    | Pl2_Prep
+    | Impers_Prep
+    | P3_Prep ;
 
   State = Definite | Indefinite ;
 
@@ -152,21 +156,20 @@ oper
   getNum : Agreement -> Number = \a ->
     case a of { Sg1|Sg2|Sg3 _ => Sg ; _ => Pl } ;
 
-  agr2agrplus : (isPron : Bool) -> Agreement -> AgreementPlus = \isPron,a ->
-    case isPron of {True => IsPron a ; False => NotPronP3} ;
-
-  agrplus2agr : AgreementPlus -> Agreement = \a ->
-    case a of {IsPron a => a ; _ => Pl3} ;
+  agr2pagr : Agreement -> PrepAgr = \a -> case a of {
+    Sg1 => Sg1_Prep ;
+    Sg2 => Sg2_Prep ;
+    Impers => Impers_Prep ;
+    Pl1 i => Pl1_Prep i ;
+    Pl2 => Pl2_Prep ;
+    _   => P3_Prep
+    } ;
 
   isP3 = overload {
     isP3 : Agreement -> Bool = \agr ->
-      case agr of {Sg3 _ | Pl3 | Impers => True ; _ => False} ;
-    isP3 : AgreementPlus -> Bool = \agr ->
-      case agr of {
-        IsPron (Sg3 _ | Pl3 | Impers) => True ;
-        NotPronP3 => True ;
---        Unassigned => True ; -- meaningful for "does it leave an overt pronoun"
-        _ => False}
+      case agr of {Sg3 _ | Pl3 => True ; _ => False} ;
+    isP3 : PrepAgr -> Bool = \agr ->
+      case agr of {P3_Prep => True ; _ => False} ;
   } ;
 
   gender : {gda : GenderDefArt} -> Gender = \n ->

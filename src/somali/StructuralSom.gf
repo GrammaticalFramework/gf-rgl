@@ -54,7 +54,6 @@ lin or_Conj = {s1 = "ama" ; s2 = [] ; n = Sg} ; -- mise with interrogatives
 {-
 lin how8many_IDet = R.indefDet "" pl ;
 
---TODO: fix predets in NounSom, figure out whether Predet should inflect
 lin all_Predet = { s = "" } ;
 lin not_Predet = { s = "" } ;
 lin only_Predet = { s = "" } ;
@@ -119,9 +118,9 @@ lin with_Prep = mkPrep la ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsSom.
-    it_Pron = he_Pron ** {s = \\_ => [] ; sp = []} ;
+    it_Pron = he_Pron ** {s = \\_ => [] ; sp = []} ; -- TODO check should there be Sg3 Neutr?
     i_Pron = pronTable ! Sg1 ;
-    youPol_Pron, -- TODO check
+    youPol_Pron,
     youSg_Pron = pronTable ! Sg2 ;
     he_Pron = pronTable ! Sg3 Masc ;
     she_Pron = pronTable ! Sg3 Fem ;
@@ -152,8 +151,8 @@ lin when_Subj = mkSubj "" False ;
 -- Utt
 
 lin language_title_Utt = ss "af soomaali" ;
-lin no_Utt = ss "ma" ;
-lin yes_Utt = ss "yes" ;
+lin no_Utt = ss "maya" ;
+lin yes_Utt = ss "haa" ;
 
 
 -------
