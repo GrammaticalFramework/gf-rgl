@@ -58,4 +58,7 @@ lincat
 
   PN = {s : Case => Str; g : AGender; n : Number};
 
+linref
+  V, VA, VS, V2, V3, V2A, V2S, V2Q, V2V = \v -> v.s ! VInf ++ v.refl ++ v.p;
+
 }
