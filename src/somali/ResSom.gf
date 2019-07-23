@@ -351,33 +351,40 @@ oper
     Sg1_Prep => table { Ugu => "iigu" ; Uga => "iiga" ;
                    Ula => "iila" ; Kaga => "igaga" ;
                    Kula => "igula" ; Kala => "igala" ;
+                   Lagu => "laygu" ; Laga => "layga" ;
                    Single p => (prepTable ! p).s ! Sg1_Prep } ;
     Sg2_Prep => table { Ugu => "kuugu" ; Uga => "kaaga" ;
                    Ula => "kuula" ; Kaga => "kaaga" ;
                    Kula => "kugula" ; Kala => "kaala" ;
+                   Lagu => "lagugu" ; Laga => "lagaa" ;
                    Single p => (prepTable ! p).s ! Sg2_Prep } ;
     Pl1_Prep Excl =>
            table { Ugu => "noogu" ; Uga => "nooga" ;
                    Ula => "noola" ; Kaga => "nagaga" ;
                    Kula => "nagula" ; Kala => "nagala" ;
+                   Lagu => "nalagu" ; Laga => "nalaga" ;
                    Single p => (prepTable ! p).s ! Pl1_Prep Excl } ;
     Pl1_Prep Incl =>
            table { Ugu => "inoogu" ; Uga => "inooga" ;
                    Ula => "inoola" ; Kaga => "inagaga" ;
                    Kula => "inagula" ; Kala => "inagala" ;
+                   Lagu => "inalagu" ; Laga => "inalaga" ;
                    Single p => (prepTable ! p).s ! Pl1_Prep Incl } ;
     Pl2_Prep => table { Ugu => "idiinku" ; Uga => "idiinka" ;
                    Ula => "idiinla" ; Kaga => "idinkaga" ;
                    Kula => "idinkula" ; Kala => "idinkala" ;
+                   Lagu => "laydinku" ; Laga => "laydinka" ;
                    Single p => (prepTable ! p).s ! Pl2_Prep } ;
     Impers_Prep =>
            table { Ugu => "loogu" ; Uga => "looga" ;
                    Ula => "loola" ; Kaga => "lagaga" ;
                    Kula => "lagula" ; Kala => "lagala" ;
+                   Lagu => "lagu" ; Laga => "laga" ; -- TODO check
                    Single p => (prepTable ! p).s ! Impers_Prep } ;
     a   => table { Ugu => "ugu" ; Uga => "uga" ;
                    Ula => "ula" ; Kaga => "kaga" ;
                    Kula => "kula" ; Kala => "kala" ;
+                   Lagu => "lagu" ; Laga => "laga" ;
                    Single p => (prepTable ! p).s ! a }
   } ;
 

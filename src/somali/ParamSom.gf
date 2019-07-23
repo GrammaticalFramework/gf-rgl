@@ -197,6 +197,10 @@ param
                   | Passive ; -- Hack: RGL only supports V2s as passive, so I can reuse V2's preposition slot for passives as well, and save >200 parameters. (Don't ask.)
 
   PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
+                  | Lagu  -- laygu, lagugu, nalagu, laydinku
+                  | Laga  -- layga, lagaa, nalaga, laydinka
+               -- | TODO rest of combinations with impersonal-la
+               -- | TODO incorporate reflexive too
                   | Single PrepositionPlus ;
 
 oper
@@ -204,7 +208,9 @@ oper
     let oneWay : PrepositionPlus => Preposition => PrepCombination =
           \\x,y => case <x,y> of {
               <Passive,NoPrep> => Single Passive ;
-              <Passive,p> => Single (P p) ; -- FIXME p "waa lagu arkay" gives infinitely many trees now, because the passive is ignored here. Is there a combination for passive + personal pronoun + preposition?
+              <Passive,Ku> => Lagu ;
+              <Passive,Ka> => Laga ;
+              <Passive,p> => Single (P p) ; -- TODO rest of combinations
               <P z,_> => case <z,y> of {
                       <U,U|Ku> => Ugu ;
                       <U,Ka>   => Uga ;
