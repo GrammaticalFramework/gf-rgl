@@ -324,66 +324,80 @@ oper
 
   Prep : Type = {s : PrepAgr => Str} ;
 
-  mkPrep : (x1,_,_,_,_,x6 : Str) -> Prep = \ku,ii,kuu,noo,idiin,loo -> {
+  mkPrep : (x1,_,_,_,_,_,x7 : Str) -> Prep = \ku,ii,kuu,noo,idiin,isku,loo -> {
     s = table {
+          P3_Prep       => ku ;
           Sg1_Prep      => ii ;
           Sg2_Prep      => kuu ;
           Pl2_Prep      => idiin ;
           Pl1_Prep Excl => noo ;
           Pl1_Prep Incl => "i" + noo ;
-          Impers_Prep   => loo ;
-          P3_Prep       => ku
+          Reflexive_Prep => isku ;
+          Impers_Prep   => loo
         }
     } ;
-  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! P p ** {c2 = p} ;
+  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! p ** {c2 = p} ;
 
-  prepTable : PrepositionPlus => Prep = table {
-    P Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "lagu" ;
-    P Ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "laga" ;
-    P La => mkPrep "la" "ila" "kula" "nala" "idinla" "lala" ;
-    P U  => mkPrep "u" "ii" "kuu" "noo" "idiin" "loo" ;
-    P NoPrep => mkPrep [] "i" "ku" "na" "idin" "la" ;
-    -- impersonal subject clitic combining with object clitics.
-    Passive => mkPrep "la" "la i" "lagu" "nala" "laydin" "la"
+  prepTable : Preposition => Prep = table {
+    Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "isku" "lagu" ;
+    Ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "iska" "laga" ;
+    La => mkPrep "la" "ila" "kula" "nala" "idinla" "isla" "lala" ;
+    U  => mkPrep "u" "ii" "kuu" "noo" "idiin" "is_u_???:TODO" "loo" ;
+    NoPrep => mkPrep [] "i" "ku" "na" "idin" "is" "la"
   } ;
 
   prepCombTable : PrepAgr => PrepCombination => Str = table {
-    Sg1_Prep => table { Ugu => "iigu" ; Uga => "iiga" ;
+    Sg1_Prep => table {
+                   Ugu => "iigu" ; Uga => "iiga" ;
                    Ula => "iila" ; Kaga => "igaga" ;
                    Kula => "igula" ; Kala => "igala" ;
+                   Passive => "la i" ;
                    Lagu => "laygu" ; Laga => "layga" ;
                    Single p => (prepTable ! p).s ! Sg1_Prep } ;
     Sg2_Prep => table { Ugu => "kuugu" ; Uga => "kaaga" ;
                    Ula => "kuula" ; Kaga => "kaaga" ;
                    Kula => "kugula" ; Kala => "kaala" ;
+                   Passive => "lagu" ;
                    Lagu => "lagugu" ; Laga => "lagaa" ;
                    Single p => (prepTable ! p).s ! Sg2_Prep } ;
     Pl1_Prep Excl =>
            table { Ugu => "noogu" ; Uga => "nooga" ;
                    Ula => "noola" ; Kaga => "nagaga" ;
                    Kula => "nagula" ; Kala => "nagala" ;
+                   Passive => "nala" ;
                    Lagu => "nalagu" ; Laga => "nalaga" ;
                    Single p => (prepTable ! p).s ! Pl1_Prep Excl } ;
     Pl1_Prep Incl =>
            table { Ugu => "inoogu" ; Uga => "inooga" ;
                    Ula => "inoola" ; Kaga => "inagaga" ;
                    Kula => "inagula" ; Kala => "inagala" ;
+                   Passive => "inala" ;
                    Lagu => "inalagu" ; Laga => "inalaga" ;
                    Single p => (prepTable ! p).s ! Pl1_Prep Incl } ;
     Pl2_Prep => table { Ugu => "idiinku" ; Uga => "idiinka" ;
                    Ula => "idiinla" ; Kaga => "idinkaga" ;
                    Kula => "idinkula" ; Kala => "idinkala" ;
+                   Passive => "laydin" ;
                    Lagu => "laydinku" ; Laga => "laydinka" ;
                    Single p => (prepTable ! p).s ! Pl2_Prep } ;
     Impers_Prep =>
            table { Ugu => "loogu" ; Uga => "looga" ;
                    Ula => "loola" ; Kaga => "lagaga" ;
                    Kula => "lagula" ; Kala => "lagala" ;
-                   Lagu => "lagu" ; Laga => "laga" ; -- TODO check
+                   Passive => "la" ;
+                   Lagu => "lagu" ; Laga => "laga" ; -- TODO check these two
                    Single p => (prepTable ! p).s ! Impers_Prep } ;
+    Reflexive_Prep => -- TODO check every form
+           table { Ugu => "isugu" ; Uga => "isuga" ;
+                   Ula => "isula" ; Kaga => "iskaga" ;
+                   Kula => "iskula" ; Kala => "iskala" ;
+                   Passive => "lays" ;
+                   Lagu => "laysku" ; Laga => "layska" ;
+                   Single p => (prepTable ! p).s ! Reflexive_Prep } ;
     a   => table { Ugu => "ugu" ; Uga => "uga" ;
                    Ula => "ula" ; Kaga => "kaga" ;
                    Kula => "kula" ; Kala => "kala" ;
+                   Passive => "la" ;
                    Lagu => "lagu" ; Laga => "laga" ;
                    Single p => (prepTable ! p).s ! a }
   } ;
@@ -652,12 +666,12 @@ oper
 
   VerbPhrase : Type = BaseVerb ** Complement ** BaseAdv ** {
     -- Prepositions can combine together and with object pronoun.
-    c2 : PrepositionPlus ; -- hack to implement passives more efficiently:
-    c3 : Preposition ;     -- if c2 is Passive, the real preposition is in c3.
+    isPassive : Bool ;
+    c2,c3 : Preposition ;     -- if c2 is Passive, the real preposition is in c3.
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
     vComp : Str ; -- VV complement
-    refl : Str ; -- reflexive is put here, if the verb has an obj2.
+--    refl : Str ; -- reflexive is put here, if the verb has an obj2.
     miscAdv : Str ; -- dump for any other kind of adverb, that isn't
     } ;             -- in a closed class of particles or made with PrepNP.
 
@@ -667,37 +681,37 @@ oper
     comp = \\_ => <[],[]> ;
     pred = NoPred ;
     vComp,berri,miscAdv,refl = [] ;
-    c2 = P NoPrep ;
-    c3 = NoPrep ;
+    c2, c3 = NoPrep ;
+    isPassive = False ;
     obj2 = {s = [] ; a = P3_Prep} ;
     secObj = []
     } ;
 
   useVc : Verb2 -> VPSlash = \v2 -> useV v2 ** {
-    c2 = P v2.c2
+    c2 = v2.c2
     } ;
 
   passV2 : Verb2 -> VerbPhrase = \v2 -> passVP (useV v2) ;
 
   passVP : VerbPhrase -> VerbPhrase = \vp -> vp ** {
-    c2 = Passive ;
-    c3 = pp2prep vp.c2 ;
+    isPassive = True ;
     } ;
 
   complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
     comp = \\agr => let cmp = vps.comp ! agr in
       {p1 = np.s ++ cmp.p1 ; -- if object is a noun, it will come before verb in the sentence.
                              -- if object is a pronoun, np.s is empty.
-       p2 = cmp.p2 ++ vps.refl ++ compl np.a vps} -- object combines with the preposition of the verb.
+       p2 = cmp.p2 ++ compl np.a vps} -- object combines with the preposition of the verb.
       } ;
 
   compl : PrepAgr -> VerbPhrase -> Str = \agr,vp ->
-    prepCombTable ! agr ! combine vp.c2 vp.c3 ;
+    prepCombTable ! agr ! combine vp.isPassive vp.c2 vp.c3 ;
 
-  insertRefl : VPSlash -> VPSlash = \vps ->
-    case <vps.c2,vps.c3> of {
-            <P NoPrep,NoPrep> => vps ** {refl = "is"} ; -- NB. if AdvVP is called after ReflVP, vps.c2 may change.
-            _ => vps ** {refl = "is" ++ BIND}
+  insertRefl : VPSlash -> VPSlash = \vps -> vps ** {
+    obj2 = vps.obj2 ** {a = Reflexive_Prep} ;
+
+    -- If old obj2 was something else than P3, it is now shown in secObj
+    secObj = vps.secObj ++ secondObject ! vps.obj2.a ;
     } ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
@@ -727,8 +741,8 @@ oper
       NoPrep => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
       _ => case <vp.c2,vp.c3> of {
              -- if free complement slots, introduce adv.np with insertComp
-             <P NoPrep,_> => insertCompAgrPlus (vp ** {c2 = P adv.c2}) adv.np ** adv' ;
-             <_  ,NoPrep> => insertCompAgrPlus (vp ** {c3 =   adv.c2}) adv.np ** adv' ;
+             <NoPrep,_> => insertCompAgrPlus (vp ** {c2 = adv.c2}) adv.np ** adv' ;
+             <_,NoPrep> => insertCompAgrPlus (vp ** {c3 = adv.c2}) adv.np ** adv' ;
 
              -- if complement slots are full, just insert strings.
              _ => vp ** adv''
@@ -739,7 +753,7 @@ oper
           dhex = vp.dhex ++ adv.dhex ;
           berri = vp.berri ++ adv.berri } ;
         adv'' : {sii,dhex,berri,miscAdv : Str} -- adv.np inserted into miscAdv
-          = adv' ** {dhex = (prepTable ! P adv.c2).s ! adv.np.a ++ adv.dhex ;
+          = adv' ** {dhex = (prepTable ! adv.c2).s ! adv.np.a ++ adv.dhex ;
                     miscAdv = adv.np.s}
         } ;
 --------------------------------------------------------------------------------
@@ -763,8 +777,8 @@ oper
            obj : {p1,p2 : Str} =
               let o : {p1,p2 : Str} = vp.comp ! subj.a ;
                   bind : Str = case <isP3 vp.obj2.a, vp.c2> of {
-                                 <True,P NoPrep> => [] ;
-                                 _               => BIND } ;
+                                 <True,NoPrep> => [] ;
+                                 _             => BIND } ;
                in case p of {
                     Pos => o ;
                     Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} -- object pronoun, prepositions and negation all contract
@@ -780,10 +794,10 @@ oper
                   } ;
       in wordOrder subjnoun subjpron stm obj pred vp ;
     } where {
-        vp = case vps.c2 of {
-               Passive => complSlash (insertComp vps np) ;
-               _       => complSlash vps } ;
-        subj = case vps.c2 of {Passive => impersNP ; _ => np} ;
+        vp = case vps.isPassive of {
+               True => complSlash (insertComp vps np) ;
+               _    => complSlash vps } ;
+        subj = case vps.isPassive of {True => impersNP ; _ => np} ;
       } ;
 
   wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> Str =
@@ -851,7 +865,7 @@ oper
   linAdv : Adverb -> Str = \adv ->
      adv.berri
   ++ adv.sii
-  ++ (prepTable ! P adv.c2).s ! adv.np.a
+  ++ (prepTable ! adv.c2).s ! adv.np.a
   ++ adv.dhex
   ++ adv.np.s ;
 
