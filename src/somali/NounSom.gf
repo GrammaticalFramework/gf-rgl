@@ -69,7 +69,9 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   --AdvNP,ExtAdvNP = \np,adv -> np ** {} ; --adverbs are complicated
 
   -- : NP -> RS  -> NP ;    -- Paris, which is here
-  -- RelNP np rs = np ** { s = \\c => rs.s ! np.agr ++ np.s ! c } ;
+  RelNP np rs = np ** {
+    s = \\c => np.s ! c ++ rs.s
+    } ;
 
 -- Determiners can form noun phrases directly.
 
@@ -225,11 +227,13 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     hasMod = True
     } ;
 
-{-
+
   -- : CN -> RS  -> CN ;
-  RelCN cn rs = cn ** {  } ;
+  RelCN cn rs = cn ** {
+    mod = \\n,c => cn.mod ! n ! c ++ rs.s
+    } ;
 
-
+{-
   -- : CN -> Adv -> CN ;
   AdvCN cn adv = cn ** {  } ;
 

@@ -133,20 +133,18 @@ lin whatSg_IP = ;
 lin whoPl_IP = ;
 lin whoSg_IP = ;
 
-
-
+-}
 
 -------
 -- Subj
 
-lin although_Subj = mkSubj "" False ;
-lin because_Subj  = mkSubj "" False ;
-lin if_Subj = mkSubj "" True ;
-lin that_Subj = mkSubj "" False ;
-lin when_Subj = mkSubj "" False ;
+-- lin although_Subj = mkSubj "" False ;
+-- lin because_Subj  = mkSubj "" False ;
+-- lin if_Subj = mkSubj "" True ;
+lin that_Subj = {s = "in" ++ BIND} ;
+-- lin when_Subj = mkSubj "" False ;
 
 
--}
 ------
 -- Utt
 

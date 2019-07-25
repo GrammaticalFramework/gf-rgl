@@ -17,11 +17,11 @@ LangSom: ku &+ ma arkin
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: you taught yourself
-LangSom: waa aad is &+ ku bartay
+LangSom: waa aad isku bartay
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ReflVP (SlashV2a teach_V2))))) NoVoc
 
 -- LangEng: you don't teach yourself
-LangSom: is &+ ku &+ ma barto
+LangSom: isku &+ ma barto
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (ReflVP (SlashV2a teach_V2))))) NoVoc
 
 -- LangEng: one saw you

@@ -141,7 +141,7 @@ param
     | Sg2_Prep
     | Pl1_Prep Inclusion
     | Pl2_Prep
-    | Impers_Prep
+    | Reflexive_Prep
     | P3_Prep ;
 
   State = Definite | Indefinite ;
@@ -159,7 +159,6 @@ oper
   agr2pagr : Agreement -> PrepAgr = \a -> case a of {
     Sg1 => Sg1_Prep ;
     Sg2 => Sg2_Prep ;
-    Impers => Impers_Prep ;
     Pl1 i => Pl1_Prep i ;
     Pl2 => Pl2_Prep ;
     _   => P3_Prep
@@ -193,41 +192,35 @@ param
 
 param
   Preposition = U | Ku | Ka | La | NoPrep ;
-  PrepositionPlus = P Preposition
-                  | Passive ; -- Hack: RGL only supports V2s as passive, so I can reuse V2's preposition slot for passives as well, and save >200 parameters. (Don't ask.)
 
   PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
-                  | Lagu  -- laygu, lagugu, nalagu, laydinku
-                  | Laga  -- layga, lagaa, nalaga, laydinka
-               -- | TODO rest of combinations with impersonal-la
-               -- | TODO incorporate reflexive too
-                  | Single PrepositionPlus ;
+                  | Passive | Lagu | Laga | Loo | Lala -- TODO all combinations with impersonal la
+                  | Single Preposition ;
 
 oper
-  combine : PrepositionPlus -> Preposition -> PrepCombination = \p1,p2 ->
-    let oneWay : PrepositionPlus => Preposition => PrepCombination =
-          \\x,y => case <x,y> of {
-              <Passive,NoPrep> => Single Passive ;
-              <Passive,Ku> => Lagu ;
-              <Passive,Ka> => Laga ;
-              <Passive,p> => Single (P p) ; -- TODO rest of combinations
-              <P z,_> => case <z,y> of {
-                      <U,U|Ku> => Ugu ;
-                      <U,Ka>   => Uga ;
-                      <U,La>   => Ula ;
-                      <Ku|Ka,
-                        Ku|Ka> => Kaga ;
-                      <Ku,La>  => Kula ;
-                      <Ka,La>  => Kala ;
-                      <NoPrep,p> => Single (P p) ;
-                      <p,NoPrep> => Single x ;
-                      <p,_> => Single x }} -- for trying both ways
-    in case oneWay ! P p2 ! (pp2prep p1) of {
+  combine : (isPassive : Bool) -> Preposition -> Preposition -> PrepCombination = \isPass,p1,p2 ->
+    let oneWay : Preposition => Preposition => PrepCombination =
+          \\x,y => case <isPass,x,y> of {
+              <True,NoPrep,NoPrep> => Passive ;
+              <True,Ku,NoPrep> => Lagu ;
+              <True,Ka,NoPrep> => Laga ;
+              <True,U,NoPrep>  => Loo ;
+              <True,p,_> => Single p ; -- TODO all combinations
+              <False,_,_> => case <x,y> of {
+                                <U,U|Ku> => Ugu ;
+                                <U,Ka>   => Uga ;
+                                <U,La>   => Ula ;
+                                <Ku|Ka,
+                                  Ku|Ka> => Kaga ;
+                                <Ku,La>  => Kula ;
+                                <Ka,La>  => Kala ;
+                                <NoPrep,p> => Single p ;
+                                <p,NoPrep> => Single x ;
+                                <p,_> => Single x }} -- for trying both ways
+    in case oneWay ! p2 ! p1 of {
               Single _ => oneWay ! p1 ! p2 ;
               z        => z } ;
 
-  pp2prep : PrepositionPlus -> Preposition = \pp ->
-    case pp of {P p => p ; _ => NoPrep} ;
 --------------------------------------------------------------------------------
 -- Verbs
 
@@ -287,4 +280,12 @@ oper
     Sg2|Sg3 Fem => Sg2_Sg3Fem ;
     Pl1 _ => Pl1_ ; Pl2 => Pl2_ ; Pl3 => Pl3_
   } ;
+
+--------------------------------------------------------------------------------
+-- Clauses
+
+param
+
+  ClType = Statement | Question | Subord ;
+
 }
