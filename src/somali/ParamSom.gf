@@ -141,7 +141,6 @@ param
     | Sg2_Prep
     | Pl1_Prep Inclusion
     | Pl2_Prep
-    | Impers_Prep
     | Reflexive_Prep
     | P3_Prep ;
 
@@ -160,7 +159,6 @@ oper
   agr2pagr : Agreement -> PrepAgr = \a -> case a of {
     Sg1 => Sg1_Prep ;
     Sg2 => Sg2_Prep ;
-    Impers => Impers_Prep ;
     Pl1 i => Pl1_Prep i ;
     Pl2 => Pl2_Prep ;
     _   => P3_Prep
@@ -196,7 +194,7 @@ param
   Preposition = U | Ku | Ka | La | NoPrep ;
 
   PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
-                  | Passive | Lagu | Laga -- TODO all combinations with impersonal la
+                  | Passive | Lagu | Laga | Loo | Lala -- TODO all combinations with impersonal la
                   | Single Preposition ;
 
 oper
@@ -206,6 +204,7 @@ oper
               <True,NoPrep,NoPrep> => Passive ;
               <True,Ku,NoPrep> => Lagu ;
               <True,Ka,NoPrep> => Laga ;
+              <True,U,NoPrep>  => Loo ;
               <True,p,_> => Single p ; -- TODO all combinations
               <False,_,_> => case <x,y> of {
                                 <U,U|Ku> => Ugu ;

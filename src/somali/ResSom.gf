@@ -324,7 +324,7 @@ oper
 
   Prep : Type = {s : PrepAgr => Str} ;
 
-  mkPrep : (x1,_,_,_,_,_,x7 : Str) -> Prep = \ku,ii,kuu,noo,idiin,isku,loo -> {
+  mkPrep : (x1,_,_,_,_,x6 : Str) -> Prep = \ku,ii,kuu,noo,idiin,isku -> {
     s = table {
           P3_Prep       => ku ;
           Sg1_Prep      => ii ;
@@ -332,72 +332,63 @@ oper
           Pl2_Prep      => idiin ;
           Pl1_Prep Excl => noo ;
           Pl1_Prep Incl => "i" + noo ;
-          Reflexive_Prep => isku ;
-          Impers_Prep   => loo
+          Reflexive_Prep => isku
         }
     } ;
   prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! p ** {c2 = p} ;
 
   prepTable : Preposition => Prep = table {
-    Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "isku" "lagu" ;
-    Ka => mkPrep "ka" "iga" "kaa" "naga" "idinka" "iska" "laga" ;
-    La => mkPrep "la" "ila" "kula" "nala" "idinla" "isla" "lala" ;
-    U  => mkPrep "u" "ii" "kuu" "noo" "idiin" "is_u_???:TODO" "loo" ;
-    NoPrep => mkPrep [] "i" "ku" "na" "idin" "is" "la"
+    Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "isku" ;
+    Ka => mkPrep "ka" "iga" "kaa"  "naga" "idinka" "iska" ;
+    La => mkPrep "la" "ila" "kula" "nala" "idinla" "isla" ;
+    U  => mkPrep "u" "ii" "kuu" "noo" "idiin" "isu" ;
+    _  => mkPrep []  "i"  "ku"  "na"  "idin"  "is"
   } ;
 
   prepCombTable : PrepAgr => PrepCombination => Str = table {
     Sg1_Prep => table {
-                   Ugu => "iigu" ; Uga => "iiga" ;
-                   Ula => "iila" ; Kaga => "igaga" ;
-                   Kula => "igula" ; Kala => "igala" ;
-                   Passive => "la i" ;
+                   Ugu => "iigu" ; Uga => "iiga" ; Ula => "iila" ;
+                   Kaga => "igaga" ; Kula => "igula" ; Kala => "igala" ;
+                   Passive => "la i" ; Loo => "la ii" ; Lala => "la ila" ;
                    Lagu => "laygu" ; Laga => "layga" ;
                    Single p => (prepTable ! p).s ! Sg1_Prep } ;
-    Sg2_Prep => table { Ugu => "kuugu" ; Uga => "kaaga" ;
-                   Ula => "kuula" ; Kaga => "kaaga" ;
-                   Kula => "kugula" ; Kala => "kaala" ;
-                   Passive => "lagu" ;
+    Sg2_Prep => table { Ugu => "kuugu" ; Uga => "kaaga" ; Ula => "kuula" ;
+                   Kaga => "kaaga" ; Kula => "kugula" ; Kala => "kaala" ;
+                   Passive => "lagu" ; Loo => "laguu" ; Lala => "lagula" ;
                    Lagu => "lagugu" ; Laga => "lagaa" ;
                    Single p => (prepTable ! p).s ! Sg2_Prep } ;
     Pl1_Prep Excl =>
-           table { Ugu => "noogu" ; Uga => "nooga" ;
-                   Ula => "noola" ; Kaga => "nagaga" ;
-                   Kula => "nagula" ; Kala => "nagala" ;
-                   Passive => "nala" ;
+           table { Ugu => "noogu" ; Uga => "nooga" ; Ula => "noola" ;
+                   Kaga => "nagaga" ; Kula => "nagula" ; Kala => "nagala" ;
+                   Passive => "nala" ; Loo => "???" ; Lala => "???" ;
                    Lagu => "nalagu" ; Laga => "nalaga" ;
                    Single p => (prepTable ! p).s ! Pl1_Prep Excl } ;
     Pl1_Prep Incl =>
-           table { Ugu => "inoogu" ; Uga => "inooga" ;
-                   Ula => "inoola" ; Kaga => "inagaga" ;
-                   Kula => "inagula" ; Kala => "inagala" ;
-                   Passive => "inala" ;
+           table { Ugu => "inoogu" ; Uga => "inooga" ; Ula => "inoola" ;
+                   Kaga => "inagaga" ; Kula => "inagula" ; Kala => "inagala" ;
+                   Passive => "inala" ; Loo => "???" ; Lala => "???" ;
                    Lagu => "inalagu" ; Laga => "inalaga" ;
                    Single p => (prepTable ! p).s ! Pl1_Prep Incl } ;
-    Pl2_Prep => table { Ugu => "idiinku" ; Uga => "idiinka" ;
-                   Ula => "idiinla" ; Kaga => "idinkaga" ;
-                   Kula => "idinkula" ; Kala => "idinkala" ;
-                   Passive => "laydin" ;
+    Pl2_Prep => table { Ugu => "idiinku" ; Uga => "idiinka" ; Ula => "idiinla" ;
+                   Kaga => "idinkaga" ; Kula => "idinkula" ; Kala => "idinkala" ;
+                   Passive => "laydin" ; Loo => "laydiin" ; Lala => "laydinla" ;
                    Lagu => "laydinku" ; Laga => "laydinka" ;
                    Single p => (prepTable ! p).s ! Pl2_Prep } ;
-    Impers_Prep =>
-           table { Ugu => "loogu" ; Uga => "looga" ;
-                   Ula => "loola" ; Kaga => "lagaga" ;
-                   Kula => "lagula" ; Kala => "lagala" ;
-                   Passive => "la" ;
-                   Lagu => "lagu" ; Laga => "laga" ; -- TODO check these two
-                   Single p => (prepTable ! p).s ! Impers_Prep } ;
+    -- Impers_Prep => -- TODO: put these later into other tables
+    --        table { Ugu => "loogu" ; Uga => "looga" ;
+    --                Ula => "loola" ; Kaga => "lagaga" ;
+    --                Kula => "lagula" ; Kala => "lagala" ;
+    --                Passive => "la" ;
+    --                Lagu => "lagu" ; Laga => "laga" ; } ;
     Reflexive_Prep => -- TODO check every form
-           table { Ugu => "isugu" ; Uga => "isuga" ;
-                   Ula => "isula" ; Kaga => "iskaga" ;
-                   Kula => "iskula" ; Kala => "iskala" ;
-                   Passive => "lays" ;
+           table { Ugu => "isugu" ; Uga => "isuga" ; Ula => "isula" ;
+                   Kaga => "iskaga" ; Kula => "iskula" ; Kala => "iskala" ;
+                   Passive => "lays" ; Loo => "???" ; Lala => "???" ;
                    Lagu => "laysku" ; Laga => "layska" ;
                    Single p => (prepTable ! p).s ! Reflexive_Prep } ;
-    a   => table { Ugu => "ugu" ; Uga => "uga" ;
-                   Ula => "ula" ; Kaga => "kaga" ;
-                   Kula => "kula" ; Kala => "kala" ;
-                   Passive => "la" ;
+    a   => table { Ugu => "ugu" ; Uga => "uga" ; Ula => "ula" ;
+                   Kaga => "kaga" ; Kula => "kula" ; Kala => "kala" ;
+                   Passive => "la" ; Loo => "loo" ; Lala => "lala" ;
                    Lagu => "lagu" ; Laga => "laga" ;
                    Single p => (prepTable ! p).s ! a }
   } ;
@@ -776,10 +767,10 @@ oper
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) np.empty ;
            obj : {p1,p2 : Str} =
               let o : {p1,p2 : Str} = vp.comp ! subj.a ;
-                  bind : Str = case <isP3 vp.obj2.a, vp.c2> of {
-                                 <True,NoPrep> => [] ;
-                                 _             => BIND } ;
-               in case p of {
+                  bind : Str = case <vp.isPassive,vp.obj2.a, vp.c2, vp.pred> of {
+                                 <False,P3_Prep,NoPrep,NoPred> => [] ;
+                                 _                             => BIND } ;
+              in case p of {
                     Pos => o ;
                     Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} -- object pronoun, prepositions and negation all contract
                   } ;
