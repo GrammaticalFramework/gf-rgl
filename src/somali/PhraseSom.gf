@@ -3,7 +3,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
   lin
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
-    UttS s = s ;
+    UttS s = {s = s.s ! False} ;
     UttQS qs = qs ;
 
     UttImpSg pol imp =

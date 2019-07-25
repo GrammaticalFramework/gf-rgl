@@ -8,8 +8,8 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- Constructed in SentenceSom, and also in IdiomSom
 
     S  = ResSom.Sentence ;
-    QS = ResSom.Sentence ;
-    RS = { s : Agreement => Str } ;
+    QS = SS ;
+    RS = {s : {-Agreement =>-} Str} ; -- TODO
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
@@ -28,11 +28,9 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     IDet = ResSom.Determiner ;  -- interrogative determiner            e.g. "how many"
     IQuant = ResSom.Quant ; -- interrogative quantifier            e.g. "which"
 
---2 Relative clauses and pronouns
+--2 Subord clauses and pronouns
 
--- Constructed in RelativeSom.
-
-    RCl = ResSom.RClause ;
+    RCl = ResSom.QClause ;
     RP = SS ;
 
 --2 Verb phrases
@@ -85,7 +83,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 -- Constructed in StructuralSom.
     Conj = { s1,s2 : Str ; n : Number } ;
-    Subj = { s : Str ; isPre : Bool } ; --ba+dut vs. dut+en
+    Subj = SS ;
     Prep = ResSom.Prep ** {c2 : Preposition ; berri, sii, dhex : Str} ;
 
 

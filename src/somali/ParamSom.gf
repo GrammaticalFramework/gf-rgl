@@ -280,4 +280,12 @@ oper
     Sg2|Sg3 Fem => Sg2_Sg3Fem ;
     Pl1 _ => Pl1_ ; Pl2 => Pl2_ ; Pl3 => Pl3_
   } ;
+
+--------------------------------------------------------------------------------
+-- Clauses
+
+param
+
+  ClType = Statement | Question | Subord ;
+
 }

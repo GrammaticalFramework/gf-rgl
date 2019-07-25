@@ -749,19 +749,24 @@ oper
         } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
-  Clause : Type = {s : Bool {-is question-} => Tense => Anteriority => Polarity => Str} ;
+  Clause : Type = {s : ClType => Tense => Anteriority => Polarity => Str} ;
   QClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
-  RClause,
-  ClSlash,
-  Sentence : Type = SS ; ---- TODO
+  ClSlash : Type = {s : Bool {-is subordinate-} => Tense => Anteriority => Polarity => Str} ;
+  Sentence : Type = {s : Bool {-is subordinate-} => Str} ;
+
+  predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
+    let cl = predVP np vps in {s = table {
+      True => cl.s ! Subord ;
+      False => cl.s ! Statement }
+    } ;
 
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vps -> {
-    s = \\isQ,t,a,p =>
-       let predRaw : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
-           pred : {fin : Str ; inf : Str} = case <isQ,p,vp.pred> of {
-              <False,Pos,NoCopula> => {fin,inf = []} ;
-              <_    ,  _,Copula>   => {fin = presCopula ! {agr=subj.a ; pol=p} ; inf=[]} ;
-              _                    => predRaw
+    s = \\cltyp,t,a,p =>
+       let predRaw : {fin : Str ; inf : Str} = vf cltyp t a p subj.a vp ;
+           pred : {fin : Str ; inf : Str} = case <cltyp,p,vp.pred> of {
+              <Statement,Pos,NoCopula> => {fin,inf = []} ;
+              <_        ,  _,  Copula> => {fin = presCopula ! {agr=subj.a ; pol=p} ; inf=[]} ;
+              _                        => predRaw
            } ;
            subjnoun : Str = if_then_Str np.isPron np.empty (subj.s ! Nom) ;
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) np.empty ;
@@ -774,21 +779,18 @@ oper
                     Pos => o ;
                     Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} -- object pronoun, prepositions and negation all contract
                   } ;
-           stm : Str = case  <isQ,p,vp.pred,subj.a> of {
-                       <False,Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
-                       <True ,Pos,_              ,_           > => "ma" ;
-                       _ => case <np.isPron,p> of {
-                              <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
-                              <True,Neg> => "ma" ; -- ++ subjpron ; -- TODO check subj pron or not?
-                              <False>    => stmarkerNoContr ! subj.a ! p
-                            }
-                  } ;
+           stm : Str = case cltyp of {
+                Subord  => if_then_Pol p [] "aan" ++ subjpron ; -- if we form a ClSlash, no sentence type marker; negation with aan (Sayeed p. 210)
+                Question  => "ma" ; -- TODO find out how negative questions work
+                Statement => case <p,vp.pred,subj.a> of {
+                               <Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
+                               _ => stmarkerNoContr ! subj.a ! p }} ;
       in wordOrder subjnoun subjpron stm obj pred vp ;
     } where {
         vp = case vps.isPassive of {
                True => complSlash (insertComp vps np) ;
                _    => complSlash vps } ;
-        subj = case vps.isPassive of {True => impersNP ; _ => np} ;
+        subj = case vps.isPassive of {True => impersNP ; _ => np}
       } ;
 
   wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> Str =
@@ -806,8 +808,13 @@ oper
                   ++ vp.miscAdv ; ---- NB. Only used if there are several adverbs.
                                   ---- Primary places for adverbs are obj, sii or dhex.
 
-  vf : Tense -> Anteriority -> Polarity -> Agreement -> Verb
-    -> {fin : Str ; inf : Str} = \t,ant,p,agr,vp ->
+  VFun : Type = Tense -> Anteriority -> Polarity -> Agreement -> Verb
+    -> {fin : Str ; inf : Str} ;
+
+  vf : ClType -> VFun = \clt -> case clt of {
+    Subord => vfSubord ; _ => vfStatement } ;
+
+  vfStatement : VFun = \t,ant,p,agr,vp ->
     case <t,ant> of {
       <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
       <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
@@ -827,17 +834,24 @@ oper
     presV : Verb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
   } ;
 
+  vfSubord : VFun = \t,ant,p,agr,vp ->
+    case <t,ant,p> of {
+      <Pres,Simul,Pos> => vfStatement Pres ant Neg agr vp ;
+      _ => vfStatement t ant p agr vp
+      } ; -- TODO other relative forms
+
   infVP : VerbPhrase -> Str = \vp ->
-    let inf = (vf Past Anter Pos (Sg3 Masc) vp) ** {fin=[]}
+    let inf = {inf = vp.s ! VInf ; fin=[]}
      in wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
 
-  stmarker : Agreement => Polarity => Str = \\a,b =>
+  stmarkerContr : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
      in stm + subjpron ! a ;
 
-  stmarkerNoContr : Agreement => Polarity => Str = \\a,b =>
-    let stm = if_then_Pol b "waa" "ma"
-     in stm ++ subjpron ! a ;
+  stmarkerNoContr : Agreement => Polarity => Str = \\a,p =>
+    case p of {
+      Pos => "waa" ++ subjpron ! a ;
+      Neg => "ma" } ;
 
   subjpron : Agreement => Str = table {
     Sg1|Pl1 Excl => "aan" ;
