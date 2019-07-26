@@ -22,9 +22,9 @@ books-the men-the bring 'the books which the men bring'
   RelVP rp vp = RelSlash rp (predVPSlash emptyNP vp) ;
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves
-  RelSlash rp cls = {
-    s = \\t,a,p => rp.s ++ cls.s ! True ! t ! a ! p
-    } ;
+  RelSlash rp cls =
+    let rcl = mergeSTM (cls.s ! True)
+     in rcl ** {s = \\t,a,p => rp.s ++ rcl.s ! t ! a ! p} ;
 
 
   -- : RP ;

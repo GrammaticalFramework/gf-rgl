@@ -749,10 +749,14 @@ oper
         } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
-  Clause : Type = {s : ClType => Tense => Anteriority => Polarity => Str} ;
+  BaseCl : Type = {beforeSTM, afterSTM : Str} ; -- adverbs, subjects, all that comes before sentence type marker. Eventual Subj attaches to the part after STM.
+  Clause : Type = {s : ClType => Tense => Anteriority => Polarity => BaseCl} ;
+  ClSlash : Type = {s : Bool {-is subordinate-} => Tense => Anteriority => Polarity => BaseCl} ;
+  Sentence : Type = {s : Bool {-is subordinate-} => BaseCl} ;
   QClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
-  ClSlash : Type = {s : Bool {-is subordinate-} => Tense => Anteriority => Polarity => Str} ;
-  Sentence : Type = {s : Bool {-is subordinate-} => Str} ;
+
+  mergeSTM : (Tense => Anteriority => Polarity => BaseCl) -> QClause = \b ->
+    {s = \\t,a,p => (b ! t ! a ! p).beforeSTM ++ (b ! t ! a ! p).afterSTM} ;
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
     let cl = predVP np vps in {s = table {
@@ -775,9 +779,10 @@ oper
                   bind : Str = case <vp.isPassive,vp.obj2.a, vp.c2, vp.pred> of {
                                  <False,P3_Prep,NoPrep,NoPred> => [] ;
                                  _                             => BIND } ;
-              in case p of {
-                    Pos => o ;
-                    Neg => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} -- object pronoun, prepositions and negation all contract
+              in case <cltyp,p> of {
+                    <Statement,Neg> => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} ;
+                    _ => o
+                     -- object pronoun, prepositions and negation all contract
                   } ;
            stm : Str = case cltyp of {
                 Subord  => if_then_Pol p [] "aan" ++ subjpron ; -- if we form a ClSlash, no sentence type marker; negation with aan (Sayeed p. 210)
@@ -793,11 +798,12 @@ oper
         subj = case vps.isPassive of {True => impersNP ; _ => np}
       } ;
 
-  wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> Str =
-    \subjnoun,subjpron,stm,obj,pred,vp -> vp.berri -- AdV
+  wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
+    \subjnoun,subjpron,stm,obj,pred,vp -> {
+        beforeSTM = vp.berri -- AdV
                   ++ subjnoun -- subject if it's a noun
-                  ++ obj.p1   -- object if it's a noun
-                  ++ stm      -- sentence type marker + possible subj. pronoun
+                  ++ obj.p1 ; -- object if it's a noun
+        afterSTM  = stm       -- sentence type marker + possible subj. pronoun
                   ++ obj.p2   -- object if it's a pronoun
                   ++ vp.sii   -- restricted set of particles
                   ++ vp.dhex  -- restricted set of nouns/adverbials
@@ -805,7 +811,7 @@ oper
                   ++ vp.vComp    -- VV complement
                   ++ pred.inf    -- potential infinitive/participle
                   ++ pred.fin    -- the verb inflected
-                  ++ vp.miscAdv ; ---- NB. Only used if there are several adverbs.
+                  ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs.
                                   ---- Primary places for adverbs are obj, sii or dhex.
 
   VFun : Type = Tense -> Anteriority -> Polarity -> Agreement -> Verb
@@ -841,8 +847,9 @@ oper
       } ; -- TODO other relative forms
 
   infVP : VerbPhrase -> Str = \vp ->
-    let inf = {inf = vp.s ! VInf ; fin=[]}
-     in wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
+    let inf = {inf = vp.s ! VInf ; fin=[]} ;
+        wo = wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
+     in wo.beforeSTM ++ wo.afterSTM ;
 
   stmarkerContr : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
