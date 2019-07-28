@@ -540,7 +540,9 @@ oper
           VImp Pl Neg   => qaat + "ina" ;
 
           VInf          => arki ;
-          VRel          => arki } ; -- TODO does this exist?
+--          VRelShort     => arki ; -- TODO does this exist?
+          VRel Masc     => qaat + "a" ;
+          VRel Fem      => arag + t + "a" } ;
         sii, dhex = [] ;
       } ;
 
@@ -603,7 +605,8 @@ oper
           VPast _ Pl2_    => "ahaydeen" ;
           VPast _ Pl3_    => "ahaayeen" ;
           VNegPast _      => "ahi" ;
-          VRel            => "ah" ;
+          --VRelShort       => "ah" ;
+          VRel _          => "ah" ; -- TODO find right forms
           VInf            => "ahaan" ;
           VImp Sg pol     => if_then_Pol pol "ahaw" "ahaanin" ;
           VImp Pl pol     => if_then_Pol pol "ahaada" "ahaanina" ;
@@ -621,7 +624,8 @@ oper
           VPres _ Pl2_        Pos => "leedihiin" ;
           VPres _ Pl3_        Pos => "leeyihiin" ;
           VPast asp agr          => "l" + copula.s ! VPast asp agr ;
-          VRel                  => "leh" ;
+--          VRelShort                  => "leh" ;
+          VRel _                => "leh" ; -- TODO find right forms
           x                     => hold_V.s ! x }
     } ;
 
@@ -749,10 +753,11 @@ oper
         } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
-  BaseCl : Type = {beforeSTM, afterSTM : Str} ; -- adverbs, subjects, all that comes before sentence type marker. Eventual Subj attaches to the part after STM.
+  BaseCl : Type = {beforeSTM, stm, afterSTM : Str} ; -- adverbs, subjects, all that comes before sentence type marker. Eventual Subj attaches to the part after STM.
   Clause : Type = {s : ClType => Tense => Anteriority => Polarity => BaseCl} ;
   ClSlash : Type = {s : Bool {-is subordinate-} => Tense => Anteriority => Polarity => BaseCl} ;
   Sentence : Type = {s : Bool {-is subordinate-} => BaseCl} ;
+  RClause : Type = {s : Gender => Case => Tense => Anteriority => Polarity => Str} ;
   QClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
 
   mergeSTM : (Tense => Anteriority => Polarity => BaseCl) -> QClause = \b ->
@@ -803,8 +808,8 @@ oper
         beforeSTM = vp.berri -- AdV
                   ++ subjnoun -- subject if it's a noun
                   ++ obj.p1 ; -- object if it's a noun
-        afterSTM  = stm       -- sentence type marker + possible subj. pronoun
-                  ++ obj.p2   -- object if it's a pronoun
+              stm = stm ;       -- sentence type marker + possible subj. pronoun
+         afterSTM = obj.p2   -- object if it's a pronoun
                   ++ vp.sii   -- restricted set of particles
                   ++ vp.dhex  -- restricted set of nouns/adverbials
                   ++ vp.secObj   -- "second object"
@@ -846,10 +851,7 @@ oper
       _ => vfStatement t ant p agr vp
       } ; -- TODO other relative forms
 
-  infVP : VerbPhrase -> Str = \vp ->
-    let inf = {inf = vp.s ! VInf ; fin=[]} ;
-        wo = wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
-     in wo.beforeSTM ++ wo.afterSTM ;
+  infVP : VerbPhrase -> Str = linVP VInf ;
 
   stmarkerContr : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
@@ -872,7 +874,11 @@ oper
 -- linrefs
 
 oper
-  linVP : VerbPhrase -> Str = infVP ;
+  linVP : VForm -> VerbPhrase -> Str = \vf,vp ->
+    let inf = {inf = vp.s ! vf ; fin=[]} ;
+        wo = wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
+     in wo.beforeSTM ++ wo.afterSTM ;
+
   linCN : CNoun -> Str = \cn -> cn.s ! NomSg ++ cn.mod ! Sg ! Abs ;
   linAdv : Adverb -> Str = \adv ->
      adv.berri
@@ -880,5 +886,6 @@ oper
   ++ (prepTable ! adv.c2).s ! adv.np.a
   ++ adv.dhex
   ++ adv.np.s ;
+ linBaseCl : BaseCl -> Str = \b -> b.beforeSTM ++ b.stm ++ b.afterSTM ;
 
 }

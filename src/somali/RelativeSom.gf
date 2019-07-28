@@ -19,12 +19,19 @@ Reduced present general in relative clauses;  as absolutive
 books-the men-the bring 'the books which the men bring'
 -}
   -- : RP -> VP -> RCl ;
-  RelVP rp vp = RelSlash rp (predVPSlash emptyNP vp) ;
+  RelVP rp vp = {s = \\g,c,t,a,p =>
+    let cls = predVPSlash impersNP vp ;
+        rcl = mergeSTM (cls.s ! False) ; -- Other than present tense, just use normal verb forms
+    in rp.s ++ case <g,c,t,a,p> of {
+        <Fem,Abs,Pres,Simul,Pos> => linVP (VRel Fem) vp ;
+        <Masc,Abs,Pres,Simul,Pos> => linVP (VRel Masc) vp ;
+        _ => rcl.s ! t ! a ! p }
+    } ;
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls =
     let rcl = mergeSTM (cls.s ! True)
-     in rcl ** {s = \\t,a,p => rp.s ++ rcl.s ! t ! a ! p} ;
+     in rcl ** {s = \\g,c,t,a,p => rp.s ++ rcl.s ! t ! a ! p} ;
 
 
   -- : RP ;

@@ -171,8 +171,12 @@ oper
       case agr of {P3_Prep => True ; _ => False} ;
   } ;
 
+
   gender : {gda : GenderDefArt} -> Gender = \n ->
     case n.gda of {FM _ _ => Fem ; _ => Masc} ;
+  npgender : {a : Agreement} -> Gender = \n ->
+    case n.a of {Sg3 Fem => Fem ; _ => Masc} ;
+
 --------------------------------------------------------------------------------
 -- Numerals
 
@@ -253,7 +257,8 @@ param
     | VPres Aspect VAgr Polarity
     | VNegPast Aspect
     | VPast Aspect VAgr
-    | VRel -- "som är/har/…" TODO is this used in other verbs?
+--    | VRelShort  -- "som är/har/…" TODO is this used in other verbs?
+    | VRel Gender -- Reduced present general in relative clauses
     | VImp Number Polarity ;
 
   VAgr =
