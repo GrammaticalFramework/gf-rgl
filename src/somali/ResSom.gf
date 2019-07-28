@@ -666,7 +666,6 @@ oper
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
     vComp : Str ; -- VV complement
---    refl : Str ; -- reflexive is put here, if the verb has an obj2.
     miscAdv : Str ; -- dump for any other kind of adverb, that isn't
     } ;             -- in a closed class of particles or made with PrepNP.
 
@@ -760,8 +759,14 @@ oper
   RClause : Type = {s : Gender => Case => Tense => Anteriority => Polarity => Str} ;
   QClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
 
-  mergeSTM : (Tense => Anteriority => Polarity => BaseCl) -> QClause = \b ->
-    {s = \\t,a,p => (b ! t ! a ! p).beforeSTM ++ (b ! t ! a ! p).afterSTM} ;
+  mergeQCl : (Tense => Anteriority => Polarity => BaseCl) -> QClause = mergeSTM True ;
+  mergeRCl : (Tense => Anteriority => Polarity => BaseCl) -> QClause = mergeSTM False ;
+
+  mergeSTM : Bool -> (Tense => Anteriority => Polarity => BaseCl) -> QClause = \includeSTM,b ->
+    {s = \\t,a,p => (b ! t ! a ! p).beforeSTM
+                  ++ if_then_Str includeSTM (b ! t ! a ! p).stm []
+                  ++ (b ! t ! a ! p).afterSTM
+    } ;
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
     let cl = predVP np vps in {s = table {

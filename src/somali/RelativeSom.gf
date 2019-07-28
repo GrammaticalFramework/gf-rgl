@@ -21,7 +21,7 @@ books-the men-the bring 'the books which the men bring'
   -- : RP -> VP -> RCl ;
   RelVP rp vp = {s = \\g,c,t,a,p =>
     let cls = predVPSlash impersNP vp ;
-        rcl = mergeSTM (cls.s ! False) ; -- Other than present tense, just use normal verb forms
+        rcl = mergeRCl (cls.s ! False) ; -- Other than present tense, just use normal verb forms
     in rp.s ++ case <g,c,t,a,p> of {
         <Fem,Abs,Pres,Simul,Pos> => linVP (VRel Fem) vp ;
         <Masc,Abs,Pres,Simul,Pos> => linVP (VRel Masc) vp ;
@@ -30,7 +30,7 @@ books-the men-the bring 'the books which the men bring'
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls =
-    let rcl = mergeSTM (cls.s ! True)
+    let rcl = mergeSTM True (cls.s ! True) -- in subordinate clause, STM is not included but subject pronoun is
      in rcl ** {s = \\g,c,t,a,p => rp.s ++ rcl.s ! t ! a ! p} ;
 
 
