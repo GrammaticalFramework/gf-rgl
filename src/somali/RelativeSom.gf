@@ -28,7 +28,7 @@ books-the men-the bring 'the books which the men bring'
 
 
   -- : RP ;
-  IdRP = {s = "waxa"} ;
+  IdRP = {s = ""} ; -- no overt relative pronoun "that, which". For "what" e.g. "tell me what you saw", use waxa. (Nilsson p. 107)
 
   -- : Prep -> NP -> RP -> RP ;  -- the mother of whom
   --FunRP prep np rp = {} ;
