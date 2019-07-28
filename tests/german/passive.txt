@@ -1,3 +1,30 @@
+-- Passive of V2 
+
+du wirst unterrichtet                      -- accept (dirV2)
+sie wird nicht angeschaut                  -- accept (dirV2 + prefixV)
+auf euch wird nicht gewartet               -- accept (prepV2)
+es wird auf euch gewartet                  -- accept (wrong trees: VPSlashPrep, become_VA, PrepNP)
+es wird auf euch nicht gewartet            -- accept (not recognized)
+
+ihr wurde nicht zugehört                   -- accept (V2 + dat) (PassVPSlash)
+
+-- Passive of V2A, V2S, V2Q
+
+der Wagen wurde nicht blau gemalt          -- accept (V2A) (PassVPSlash)
+wir fragen dich , ob du kommen wirst       -- accept 
+du wirst gefragt , ob du kommen wirst      -- accept (V2Q) (PassVPSlash)
+du wirst nicht gefragt , ob du nicht kommen willst -- accept 
+wir antworten dir , dass es regnet         -- accept
+dir wird geantwortet , dass es regnet      -- accept (V2S) (PassVPSlash)
+
+wir bitten dich , das Buch zu lesen        -- accept
+du wirst gebeten , das Buch zu lesen       -- accept (V2V) 
+du wirst gebeten das Buch zu lesen         -- accept (V2V) (not recognized)
+du wirst das Buch zu lesen gebeten         -- accept (V2V) (recognized)
+
+er wird gebeten , sich das Buch zu merken  -- accept (V2V) (PassVPSlash)
+ich werde gebeten , mir das Buch zu merken -- accept (not recognized) ext:Str, need ext:Agr=>Str
+
 -- Passive of VPSlash and V3
 
 sie gibt uns den Wagen                     -- accept
@@ -29,6 +56,7 @@ wir würden den Wagen geschickt haben bekommen wollen -- reject, dubious
 sie erklärten uns den Wagen nicht         -- accept
 der Wagen wurde uns nicht erklärt         -- accept
 wir bekamen den Wagen nicht erklärt       -- accept
+uns wurde den Wagen erklärt               -- reject (bug in PassVPSlash)
 
 wir danken euch nicht für das Gold        -- accept
 euch wird nicht für das Gold gedankt      -- accept
@@ -63,3 +91,20 @@ die Wissenschaft wird die Freunde gelehrt         -- reject
 er wird die Wissenschaft gelehrt                  -- accept
 er wird sie gelehrt                               -- accept
 sie wird ihn gelehrt                              -- accept
+
+-- Passive of V2Q, V2S, V2V 
+
+du wirst nicht gefragt , ob du kommen willst      -- accept (V2Q)
+uns wurde nicht geantwortet , daß ihr kommt       -- accept (V2S)
+
+du wirst gebeten , zu kommen                      -- accept (PassV2V)
+du wirst nicht gebeten , zu kommen                -- accept (PassV2V)
+du wirst nicht gebeten , nicht zu kommen          -- accept (not recognized, dubious)
+du wirst nicht gebeten , das Buch zu lesen        -- accept
+du wirst nicht gebeten , sich zu ändern           -- accept (dubious: dich/sich)
+du wirst nicht gebeten , dich zu fragen , ob du mir das Buch schicken willst -- accept
+mir wurde versprochen , das Buch zu lesen         -- accept (PassV2V)
+
+wir bitten euch euch zu fragen , ob ihr kommt     -- accept (dubious : missing comma)
+wir bitten dich dich zu ändern                    -- dubious (comma)
+

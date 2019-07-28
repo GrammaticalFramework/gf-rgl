@@ -208,7 +208,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
   lin
 	EsVV vv vp = predV vv ** {
-		nn = \\a => let n = vp.nn ! a in <"es" ++ n.p1 , n.p2 , n.p3, n.p4> ;
+		nn = \\a => let n = vp.nn ! a in <"es" ++ n.p1, n.p2, n.p3, n.p4, n.p5, n.p6> ;
 		inf = vp.s.s ! (VInf True) ++ vp.inf ;  -- ich genieße es zu versuchen zu gehen; alternative word order could be produced by vp.inf ++ vp.s.s... (zu gehen zu versuchen)
 		a1 = vp.a1 ;
 		a2 = vp.a2 ;
@@ -217,7 +217,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 		adj = vp.adj } ;
 		
 	EsV2A v2a ap s = predV v2a ** {
-		nn = \\_ => <"es",[],[],[]> ; 
+		nn = \\_ => <"es",[],[],[],[],[]> ; 
 		adj = ap.s ! APred ; 
 		ext = "," ++ "dass" ++ s.s ! Sub} ;
 

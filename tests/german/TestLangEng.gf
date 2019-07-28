@@ -2,8 +2,7 @@
 -- --# -path=.:../abstract:../common:../api:../prelude
 
 concrete TestLangEng of TestLang = 
-  GrammarEng,
-  LexiconEng
+  GrammarEng
   , TestLexiconEng
   , ConstructionEng
   ** open (R=ResEng),(P=ParadigmsEng),Prelude

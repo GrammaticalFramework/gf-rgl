@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:../prelude: -- partially extracted from DictVerbsGerAbs
-abstract TestLexiconGerAbs = Cat ** {
+abstract TestLexiconGerAbs = Lexicon ** {
 cat 
   V4 ;
 
@@ -7,6 +7,7 @@ fun
   aendern_rV : V ;
   anstrengen_rV : V ;
 
+  gedenken_gen_V2 : V2 ;
   bedienen_gen_rV2 : V2 ;
   stuetzen_auf_rV2 : V2 ;
   ergeben_dat_rV2 : V2 ;
@@ -30,4 +31,9 @@ fun
 
   neugierig_auf_A2 : A2 ;
 
+  wagen_VV : VV ;
+  versuchen_VV : VV ;
+  warnen_V2V : V2V ;          -- object control verb
+  versprechen_dat_V2V : V2V ; -- subject control verb
+  lassen_V2V : V2V ;          -- inf without zu
 }

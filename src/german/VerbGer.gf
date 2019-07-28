@@ -34,10 +34,14 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       let 
         vpi = infVP v.isAux vp ;
         vps = predVGen v.isAux v ** {c2 = v.c2} ;
-      in vps **
-      insertExtrapos vpi.p3 (  -- comma ++ vpi.p3 ?
-        insertInf vpi.p2 (
-          insertObj vpi.p1 vps)) ;
+      in vps ** 
+       insertExtrapos vpi.p4 ( -- inplace vp; better extract it!
+        insertInfExt vpi.p3 (
+          insertInf vpi.p2 (
+            insertObjc vpi.p1 vps))) ; -- glues all vp.nn-fields into nn.p4; except vp.nn.p1 for reflVP?
+      -- insertExtrapos (vpi.p3 ++ vpi.p4) (  -- comma ++ vpi.p3 ?
+      --   insertInf vpi.p2 (
+      --     insertObj vpi.p1 vps)) ;
 
     SlashV2A v ap = 
       insertAdj (ap.s ! APred) ap.c ap.ext (predVc v) ;
@@ -51,8 +55,8 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     SlashVV v vp = 
       let 
         vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ** {c2 = vp.c2} ;
-      in vps **
+        vps = predVGen v.isAux v ** {c2 = vp.c2 ; missingAdv = vp.missingAdv} ; -- mAdv added, HL 23.7.19
+      in vps **                                                        -- to preserve reflexiveness of vp
       insertExtrapos vpi.p3 (
         insertInf vpi.p2 (
           insertObj vpi.p1 vps)) ;

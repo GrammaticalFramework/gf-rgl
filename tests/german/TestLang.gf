@@ -22,6 +22,10 @@ abstract TestLang =
     PastPartAP  : VPSlash -> AP ;  -- lost (opportunity) ; (opportunity) lost in space
     PassVPSlash : VPSlash -> VP ;  -- from ExtraGer, to be corrected
 
+    PassV2S : V2S -> S -> VP ;
+    PassV2Q : V2Q -> QS -> VP ;
+    PassV2V : V2V -> VP -> VP ;
+
     Pass3V3 : V3 -> NP -> VP ;  -- den Beweis erklärt bekommen
     Pass2V3 : V3 -> NP -> VP ;  -- uns erklärt werden ; Eng give_V3[indir,dir]: we are given the book
 
