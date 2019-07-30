@@ -164,6 +164,14 @@ oper
     _   => P3_Prep
     } ;
 
+  pagr2agr : PrepAgr -> Agreement = \a -> case a of {
+    Sg1_Prep => Sg1 ;
+    Sg2_Prep => Sg2 ;
+    Pl1_Prep i => Pl1 i ;
+    Pl2_Prep   => Pl2 ;
+    _          => Pl3
+  } ;
+
   isP3 = overload {
     isP3 : Agreement -> Bool = \agr ->
       case agr of {Sg3 _ | Pl3 => True ; _ => False} ;

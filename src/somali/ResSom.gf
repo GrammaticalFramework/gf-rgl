@@ -890,8 +890,9 @@ oper
 
 oper
   linVP : VForm -> VerbPhrase -> Str = \vf,vp ->
-    let inf = {inf = vp.s ! vf ; fin=[]} ;
-        wo = wordOrder [] [] {p1,p2=[]} (vp.comp ! Pl3) inf vp ;
+    let vp' = complSlash vp ;
+        inf = {inf = vp.s ! vf ; fin=[]} ;
+        wo = wordOrder [] [] {p1,p2=[]} (vp'.comp ! pagr2agr vp.obj2.a) inf vp' ;
      in wo.beforeSTM ++ wo.afterSTM ;
 
   linCN : CNoun -> Str = \cn -> cn.s ! NomSg ++ cn.mod ! Sg ! Abs ;
