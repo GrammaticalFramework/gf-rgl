@@ -70,7 +70,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- : NP -> RS  -> NP ;    -- Paris, which is here
   RelNP np rs = np ** {
-    s = \\c => np.s ! c ++ rs.s
+    s = \\c => np.s ! c ++ rs.s ! npgender np ! c
     } ;
 
 -- Determiners can form noun phrases directly.
@@ -230,7 +230,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    mod = \\n,c => cn.mod ! n ! c ++ rs.s
+    mod = \\n,c => cn.mod ! n ! c ++ rs.s ! gender cn ! c ;
+    hasMod = True ;
     } ;
 
 {-

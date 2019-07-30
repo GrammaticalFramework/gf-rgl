@@ -9,7 +9,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
     S  = ResSom.Sentence ;
     QS = SS ;
-    RS = {s : {-Agreement =>-} Str} ; -- TODO
+    RS = {s : Gender => Case => Str} ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
@@ -30,7 +30,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 --2 Subord clauses and pronouns
 
-    RCl = ResSom.QClause ;
+    RCl = ResSom.RClause ;
     RP = SS ;
 
 --2 Verb phrases
@@ -119,7 +119,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 linref
     -- Cl = linCl ;
-    VP = linVP ;
+    VP = linVP VInf ;
     CN = linCN ;
     Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ;
 }

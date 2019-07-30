@@ -118,7 +118,7 @@ lin with_Prep = mkPrep la ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsSom.
-    it_Pron = he_Pron ** {s = \\_ => [] ; sp = []} ; -- TODO check should there be Sg3 Neutr?
+    it_Pron = he_Pron ** {s = \\_ => [] ; sp = [] ; a = Impers} ;
     i_Pron = pronTable ! Sg1 ;
     youPol_Pron,
     youSg_Pron = pronTable ! Sg2 ;
@@ -141,7 +141,7 @@ lin whoSg_IP = ;
 -- lin although_Subj = mkSubj "" False ;
 -- lin because_Subj  = mkSubj "" False ;
 -- lin if_Subj = mkSubj "" True ;
-lin that_Subj = {s = "in" ++ BIND} ;
+lin that_Subj = {s = "in"} ;
 -- lin when_Subj = mkSubj "" False ;
 
 

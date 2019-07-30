@@ -40,7 +40,7 @@ lin
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash2V3,
-  Slash3V3 = \v3 -> insertComp (useVc v3) ;
+  Slash3V3 = \v3 -> insertComp (useVc3 v3) ;
 {-
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
   SlashV2V v2v vp = ;

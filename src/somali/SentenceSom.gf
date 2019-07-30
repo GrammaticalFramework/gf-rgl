@@ -27,7 +27,7 @@ lin
 
 -}
   --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
-  UseSlash t p cls = {s = \\b => t.s ++ p.s ++ cls.s ! b ! t.t ! t.a ! p.p} ;
+  --UseSlash t p cls = {s = \\b => t.s ++ p.s ++ cls.s ! b ! t.t ! t.a ! p.p} ;
 
 --2 Imperatives
   -- : VP -> Imp ;
@@ -50,15 +50,16 @@ lin
 -}
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cl = {s = \\b =>
-    let cltyp = if_then_else ClType b Subord Statement in
-    t.s ++ p.s ++ cl.s ! cltyp ! t.t ! t.a ! p.p
+    let cltyp = if_then_else ClType b Subord Statement ;
+        sent = cl.s ! cltyp ! t.t ! t.a ! p.p in
+    sent ** {beforeSTM = t.s ++ p.s ++ sent.beforeSTM} ;
     } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
   UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
+  UseRCl t p cl = {s = \\g,c => t.s ++ p.s ++ cl.s ! g ! c ! t.t ! t.a ! p.p} ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
   -- ExtAdvS : Adv -> S  -> S ;         -- next week, I will go home
@@ -73,7 +74,7 @@ lin
 
 oper
 
-  advS : Adverb -> S -> S = \a,s -> s ** {s = \\b =>
-    linAdv a ++ s.s ! b} ;
+  advS : Adverb -> S -> S = \a,s -> s ** {s = \\b => let ss = s.s ! b in
+    ss ** {beforeSTM = linAdv a ++ ss.beforeSTM}} ;
 
 }

@@ -3,7 +3,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
   lin
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
-    UttS s = {s = s.s ! False} ;
+    UttS s = let basecl = s.s ! False in {s = linBaseCl basecl} ;
     UttQS qs = qs ;
 
     UttImpSg pol imp =
@@ -15,7 +15,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
     UttIP ip = { s = ip.s ! Abs} ;
     UttIAdv iadv = iadv ;
     UttNP np = { s = np.s ! Abs} ;
-    UttVP vp = { s = linVP vp } ;
+    UttVP vp = { s = infVP vp } ;
     UttAdv adv = {s = linAdv adv} ;
     UttCN n = {s = linCN n } ;
     UttCard n = {s = n.s ! Mid} ;

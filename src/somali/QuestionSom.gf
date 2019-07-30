@@ -6,7 +6,7 @@ concrete QuestionSom of Question = CatSom ** open
 
   lin
   -- : Cl -> QCl ;
-  QuestCl cl = {s = cl.s ! Question} ;
+  QuestCl cl = mergeQCl (cl.s ! Question) ;
 
   -- : IP -> VP -> QCl ;
   -- QuestVP ip vp = ;
