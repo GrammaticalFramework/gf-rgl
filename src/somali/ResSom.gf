@@ -660,9 +660,7 @@ oper
     } ;
 
   VerbPhrase : Type = BaseVerb ** Complement ** BaseAdv ** {
-    -- Prepositions can combine together and with object pronoun.
-    isPassive : Bool ;
-    c2,c3 : Preposition ;     -- if c2 is Passive, the real preposition is in c3.
+    c2 : PrepCombination ; -- Prepositions can combine together and with object pronoun.
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
     vComp : Str ; -- VV complement
@@ -675,31 +673,37 @@ oper
     comp = \\_ => <[],[]> ;
     pred = NoPred ;
     vComp,berri,miscAdv,refl = [] ;
-    c2, c3 = NoPrep ;
-    isPassive = False ;
+    c2 = Single NoPrep ;
     obj2 = {s = [] ; a = P3_Prep} ;
     secObj = []
     } ;
 
   useVc : Verb2 -> VPSlash = \v2 -> useV v2 ** {
-    c2 = v2.c2
+    c2 = Single v2.c2
+    } ;
+
+  useVc3 : Verb3 -> VPSlash = \v3 -> useV v3 ** {
+    c2 = combine v3.c2 v3.c3 ;
     } ;
 
   passV2 : Verb2 -> VerbPhrase = \v2 -> passVP (useV v2) ;
 
   passVP : VerbPhrase -> VerbPhrase = \vp -> vp ** {
-    isPassive = True ;
+    c2 = case vp.c2 of {
+      Single NoPrep => Passive ;
+      Single Ku     => Lagu ;
+      Single Ka     => Laga ;
+      Single U      => Loo ;
+      Single La     => Lala ;
+      _             => vp.c2 }
     } ;
 
   complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
     comp = \\agr => let cmp = vps.comp ! agr in
       {p1 = np.s ++ cmp.p1 ; -- if object is a noun, it will come before verb in the sentence.
                              -- if object is a pronoun, np.s is empty.
-       p2 = cmp.p2 ++ compl np.a vps} -- object combines with the preposition of the verb.
+       p2 = cmp.p2 ++ prepCombTable ! np.a ! vps.c2} -- object combines with the preposition of the verb.
       } ;
-
-  compl : PrepAgr -> VerbPhrase -> Str = \agr,vp ->
-    prepCombTable ! agr ! combine vp.isPassive vp.c2 vp.c3 ;
 
   insertRefl : VPSlash -> VPSlash = \vps -> vps ** {
     obj2 = vps.obj2 ** {a = Reflexive_Prep} ;
@@ -733,10 +737,10 @@ oper
   insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
     case adv.c2 of {
       NoPrep => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
-      _ => case <vp.c2,vp.c3> of {
+      _ => case vp.c2 of {
              -- if free complement slots, introduce adv.np with insertComp
-             <NoPrep,_> => insertCompAgrPlus (vp ** {c2 = adv.c2}) adv.np ** adv' ;
-             <_,NoPrep> => insertCompAgrPlus (vp ** {c3 = adv.c2}) adv.np ** adv' ;
+             Single NoPrep => insertCompAgrPlus (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
+             Single p => insertCompAgrPlus (vp ** {c2 = combine p adv.c2}) adv.np ** adv' ;
 
              -- if complement slots are full, just insert strings.
              _ => vp ** adv''
@@ -786,8 +790,8 @@ oper
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) np.empty ;
            obj : {p1,p2 : Str} =
               let o : {p1,p2 : Str} = vp.comp ! subj.a ;
-                  bind : Str = case <vp.isPassive,vp.obj2.a, vp.c2, vp.pred> of {
-                                 <False,P3_Prep,NoPrep,NoPred> => [] ;
+                  bind : Str = case <isPassive vp,vp.obj2.a, vp.c2, vp.pred> of {
+                                 <False,P3_Prep,Single NoPrep,NoPred> => [] ;
                                  _                             => BIND } ;
               in case <cltyp,p> of {
                     <Statement,Neg> => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} ;
@@ -802,10 +806,10 @@ oper
                                _ => stmarkerNoContr ! subj.a ! p }} ;
       in wordOrder subjnoun subjpron stm obj pred vp ;
     } where {
-        vp = case vps.isPassive of {
+        vp = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
                _    => complSlash vps } ;
-        subj = case vps.isPassive of {True => impersNP ; _ => np}
+        subj = case isPassive vps of {True => impersNP ; _ => np}
       } ;
 
   wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> BaseCl =

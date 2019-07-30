@@ -202,28 +202,28 @@ param
                   | Single Preposition ;
 
 oper
-  combine : (isPassive : Bool) -> Preposition -> Preposition -> PrepCombination = \isPass,p1,p2 ->
-    let oneWay : Preposition => Preposition => PrepCombination =
-          \\x,y => case <isPass,x,y> of {
-              <True,NoPrep,NoPrep> => Passive ;
-              <True,Ku,NoPrep> => Lagu ;
-              <True,Ka,NoPrep> => Laga ;
-              <True,U,NoPrep>  => Loo ;
-              <True,p,_> => Single p ; -- TODO all combinations
-              <False,_,_> => case <x,y> of {
-                                <U,U|Ku> => Ugu ;
-                                <U,Ka>   => Uga ;
-                                <U,La>   => Ula ;
-                                <Ku|Ka,
-                                  Ku|Ka> => Kaga ;
-                                <Ku,La>  => Kula ;
-                                <Ka,La>  => Kala ;
-                                <NoPrep,p> => Single p ;
-                                <p,NoPrep> => Single x ;
-                                <p,_> => Single x }} -- for trying both ways
-    in case oneWay ! p2 ! p1 of {
-              Single _ => oneWay ! p1 ! p2 ;
-              z        => z } ;
+  combine : Preposition -> Preposition -> PrepCombination = \p1,p2 ->
+    let oneWay : Preposition => Preposition => PrepCombination = \\x,y =>
+        case <x,y> of {
+          <U,U|Ku> => Ugu ;
+          <U,Ka>   => Uga ;
+          <U,La>   => Ula ;
+          <Ku|Ka,
+          Ku|Ka> => Kaga ;
+          <Ku,La>  => Kula ;
+          <Ka,La>  => Kala ;
+          <NoPrep,p> => Single p ;
+          <p,NoPrep> => Single x ;
+          <p,_> => Single x } -- for trying both ways
+     in case oneWay ! p2 ! p1 of {
+          Single _ => oneWay ! p1 ! p2 ;
+          z        => z } ;
+
+  isPassive : {c2 : PrepCombination} -> Bool = \vp ->
+    case vp.c2 of {
+      Passive | Lagu | Laga | Loo | Lala => True ;
+      _ => False
+    } ;
 
 --------------------------------------------------------------------------------
 -- Verbs
