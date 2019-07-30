@@ -27,7 +27,10 @@ lin
 
 -}
   --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
-  --UseSlash t p cls = {s = \\b => t.s ++ p.s ++ cls.s ! b ! t.t ! t.a ! p.p} ;
+  UseSlash t p cls = {s = \\b =>
+    let sent = cls.s ! b ! t.t ! t.a ! p.p in
+    sent ** {beforeSTM = t.s ++ p.s ++ sent.beforeSTM}
+    } ;
 
 --2 Imperatives
   -- : VP -> Imp ;

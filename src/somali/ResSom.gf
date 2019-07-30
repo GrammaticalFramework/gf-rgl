@@ -798,13 +798,14 @@ oper
                     _ => o
                      -- object pronoun, prepositions and negation all contract
                   } ;
-           stm : Str = case cltyp of {
-                Subord  => if_then_Pol p [] "aan" ++ subjpron ; -- if we form a ClSlash, no sentence type marker; negation with aan (Sayeed p. 210)
-                Question  => "ma" ; -- TODO find out how negative questions work
+           stm : {p1,p2 : Str} = case cltyp of {
+                Subord  => {p1 = if_then_Pol p [] "aan" ; -- if we form a ClSlash, no sentence type marker; negation with aan (Sayeed p. 210)
+                            p2 = if_then_Pol p subjpron []} ;
+                Question  => {p1 = "ma" ; p2 = []} ; -- TODO find out how negative questions work
                 Statement => case <p,vp.pred,subj.a> of {
-                               <Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
+                               <Pos,Copula|NoCopula,Sg3 _|Impers> => {p1 = "waa" ; p2 = []} ;
                                _ => stmarkerNoContr ! subj.a ! p }} ;
-      in wordOrder subjnoun subjpron stm obj pred vp ;
+      in (wordOrder subjnoun subjpron stm obj pred vp) ;
     } where {
         vp = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
@@ -812,13 +813,14 @@ oper
         subj = case isPassive vps of {True => impersNP ; _ => np}
       } ;
 
-  wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
+  wordOrder : (sn,sp : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
     \subjnoun,subjpron,stm,obj,pred,vp -> {
         beforeSTM = vp.berri -- AdV
                   ++ subjnoun -- subject if it's a noun
                   ++ obj.p1 ; -- object if it's a noun
-              stm = stm ;       -- sentence type marker + possible subj. pronoun
-         afterSTM = obj.p2   -- object if it's a pronoun
+              stm = stm.p1 ;  -- sentence type marker
+         afterSTM = stm.p2    -- possible subj. pronoun
+                  ++ obj.p2   -- object if it's a pronoun
                   ++ vp.sii   -- restricted set of particles
                   ++ vp.dhex  -- restricted set of nouns/adverbials
                   ++ vp.secObj   -- "second object"
@@ -866,10 +868,10 @@ oper
     let stm = if_then_Pol b "w" "m"
      in stm + subjpron ! a ;
 
-  stmarkerNoContr : Agreement => Polarity => Str = \\a,p =>
+  stmarkerNoContr : Agreement => Polarity => {p1,p2 : Str} = \\a,p =>
     case p of {
-      Pos => "waa" ++ subjpron ! a ;
-      Neg => "ma" } ;
+      Pos => {p1 = "waa" ; p2 = subjpron ! a} ;
+      Neg => {p1 = "ma" ; p2 = []} } ;
 
   subjpron : Agreement => Str = table {
     Sg1|Pl1 Excl => "aan" ;
@@ -885,7 +887,7 @@ oper
 oper
   linVP : VForm -> VerbPhrase -> Str = \vf,vp ->
     let inf = {inf = vp.s ! vf ; fin=[]} ;
-        wo = wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
+        wo = wordOrder [] [] {p1,p2=[]} (vp.comp ! Pl3) inf vp ;
      in wo.beforeSTM ++ wo.afterSTM ;
 
   linCN : CNoun -> Str = \cn -> cn.s ! NomSg ++ cn.mod ! Sg ! Abs ;
