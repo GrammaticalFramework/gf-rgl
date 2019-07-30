@@ -118,7 +118,7 @@ lin with_Prep = mkPrep la ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsSom.
-    it_Pron = he_Pron ** {s = \\_ => [] ; sp = [] ; a = Impers} ;
+    it_Pron = he_Pron ** {s = \\_ => [] ; sp = \\_ => [] ; a = Impers} ;
     i_Pron = pronTable ! Sg1 ;
     youPol_Pron,
     youSg_Pron = pronTable ! Sg2 ;

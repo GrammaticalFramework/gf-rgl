@@ -70,7 +70,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- : NP -> RS  -> NP ;    -- Paris, which is here
   RelNP np rs = np ** {
-    s = \\c => np.s ! c ++ rs.s ! npgender np ! c
+    s = \\c => objpron np ! c ++ rs.s ! npgender np ! c ;
+    isPron = False ;
     } ;
 
 -- Determiners can form noun phrases directly.
@@ -198,7 +199,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
                 True => qnt.shortPoss ! art ;
                 _ => qnt.s ! sg n2.gda ! Abs } ;
         noun = case np.isPron of {
-                 True  => (pronTable ! np.a).sp ; -- long subject pronoun
+                 True  => (pronTable ! np.a).sp ! Abs ; -- long subject pronoun
                  False => np.s ! Abs }
      in noun ++ cn.s ! Def num ++ BIND ++ det ;
      isPoss = True} ;

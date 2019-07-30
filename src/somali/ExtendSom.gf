@@ -10,9 +10,7 @@ lin
   FocusObj np sslash = -- FIXME: preposition disappears in negative sentences
     let ss = sslash.s ! False ;
         ssSub  = sslash.s ! True ; -- the negative particle is the same as subordinate, but verb forms come from main clause
-        obj = case np.isPron of {
-                True => np.empty ++ (pronTable ! np.a).sp ;
-                False => np.s ! Abs }
+        obj = objpron np ! Abs ;
      in {s = ssSub.beforeSTM ++ "waxa" ++ ssSub.stm ++ ss.afterSTM ++ obj} ;
 
   -- FocusAdv : Adv -> S       -> Utt ;   -- today I will sleep

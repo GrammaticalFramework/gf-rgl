@@ -145,8 +145,12 @@ oper
     let pagr : PrepAgr = agr2pagr np.a in
     case <np.isPron,isP3 np.a> of {
       <False,_>   => {s = np.s ! Abs ; a = pagr} ;
-      -- <True,True> => {s = np.empty ++ (pronTable ! np.a).sp ; a = pagr} ; -- uncomment if you want to add long object pronoun for 3rd person object
+      -- <True,True> => {s = objpron np ! Abs ; a = pagr} ; -- uncomment if you want to add long object pronoun for 3rd person object
       _ => {s = np.empty ; a = pagr} } ; -- no long object for other pronouns
+
+  objpron : NounPhrase -> Case => Str = \np -> case np.isPron of {
+    True => \\c => np.empty ++ (pronTable ! np.a).sp ! c ;
+    False => np.s} ;
 
   useN : Noun -> CNoun ** BaseNP = \n -> n **
     { mod = \\_,_ => [] ; hasMod = False ;
@@ -175,61 +179,61 @@ oper
       sp : GenNum => Str ; -- independent forms, e.g. M:kayga F:tayda Pl:kuwayga
       short : DefArticle => Str -- short possessive suffix: e.g. family members, my/your name
       } ;
-    sp : Str ;
+    sp : Case => Str ;
     } ;
 
   pronTable : Agreement => Pronoun = table {
     Sg1 => {
       s = table {Nom => "aan" ; Abs => "i"} ;
-      a = Sg1 ; isPron = True ; sp = "aniga" ;
+      a = Sg1 ; isPron = True ; sp = table {Nom => "anigu" ; _ =>"aniga"} ;
       empty = [] ;
       poss = {s = quantTable "ayg" "ayd" ; short = quantTable "ay" ; sp = gnTable "ayg" "ayd" "uwayg"}
       } ;
     Sg2 => {
       s = table {Nom => "aad" ; Abs => "ku"} ;
-      a = Sg2 ; isPron = True ; sp ="adiga" ;
+      a = Sg2 ; isPron = True ; sp = table {Nom => "adigu" ; _ => "adiga"} ;
       empty = [] ;
       poss = {s = quantTable "aag" "aad" ; short = quantTable "aa" ; sp = gnTable "aag" "aad" "uwaag"}
       } ;
     Sg3 Masc => {
       s = table {Nom => "uu" ; Abs => []} ;
-      a = Sg3 Masc ; isPron = True ; sp ="isaga" ;
+      a = Sg3 Masc ; isPron = True ; sp = table {Nom => "isagu" ; _ => "isaga"} ;
       empty = [] ;
       poss = {s, short = quantTable "iis" ; sp = gnTable "iis" "iis" "uwiis"}
       } ;
     Sg3 Fem => {
       s = table {Nom => "ay" ; Abs => []} ;
-      a = Sg3 Fem ; isPron = True ; sp = "iyada" ;
+      a = Sg3 Fem ; isPron = True ; sp = table {Nom => "iyadu" ; _ => "iyada"} ;
       empty = [] ;
       poss = {s, short = quantTable "eed" ; sp = gnTable "eed" "eed" "uweed"}
       } ;
     Pl1 Excl => {
       s = table {Nom => "aan" ; Abs => "na"} ;
-      a = Pl1 Excl ; isPron = True ; sp ="annaga" ;
+      a = Pl1 Excl ; isPron = True ; sp = table {Nom => "annagu" ; _ => "annaga"} ;
       empty = [] ;
       poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl1 Incl => {
       s = table {Nom => "aynu" ; Abs => "ina"} ;
-      a = Pl1 Incl ; isPron = True ; sp ="innaga" ;
+      a = Pl1 Incl ; isPron = True ; sp = table {Nom => "innagu" ; _ => "innaga"} ;
       empty = [] ;
       poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl2 => {
       s = table {Nom => "aad" ; Abs => "idin"} ;
-      a =  Pl2 ; isPron = True ; sp ="idinka" ;
+      a =  Pl2 ; isPron = True ; sp = table {Nom => "idinku" ; _ => "idinka"} ;
       empty = [] ;
       poss = {s = quantTable "iinn" ; short = quantTable "iin" ; sp = gnTable "iinn" "iinn" "uwiinn"}
       } ;
     Pl3 => {
       s = table {Nom => "ay" ; Abs => []} ;
-      a = Pl3 ; isPron = True ; sp = "iyaga" ;
+      a = Pl3 ; isPron = True ; sp = table {Nom => "iyagu" ; _ => "iyaga"} ;
       empty = [] ;
       poss = {s, short = quantTable "ood" ; sp = gnTable "ood" "ood" "uwood"}
       } ;
     Impers => {
       s = table {Nom => "la" ; Abs => "la"} ;
-      a = Impers ; isPron = True ; sp = "" ;
+      a = Impers ; isPron = True ; sp = \\_ => "" ;
       empty = [] ;
       poss = {s, short = quantTable "??" ; sp = gnTable "??" "??" "??"}
       }
