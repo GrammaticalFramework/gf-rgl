@@ -82,7 +82,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 --2 Structural words
 
 -- Constructed in StructuralSom.
-    Conj = { s1,s2 : Str ; n : Number } ;
+    Conj = {s2 : State => Str ; s1 : Str ; n : Number } ;
     Subj = SS ;
     Prep = ResSom.Prep ** {c2 : Preposition ; berri, sii, dhex : Str} ;
 
@@ -96,7 +96,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     V,
     -- TODO: eventually proper lincats
     VV,    -- verb-phrase-complement verb         e.g. "want"
-    VS,    -- sentence-complement verb            e.g. "claim"
+    VS,    -- sentence-complement verb            e.g. "claim" -- TODO: VPs that have VS use waxa as stm? see Nilsson p. 68
     VQ,    -- question-complement verb            e.g. "wonder"
     VA,    -- adjective-complement verb           e.g. "look"
     V2V,   -- verb with NP and V complement       e.g. "cause"

@@ -38,8 +38,8 @@ lin there_Adv = ss "" ;
 -------
 -- Conj
 
-lin and_Conj = {s1 = "oo" ; s2 = [] ; n = Pl} ;
-lin or_Conj = {s1 = "ama" ; s2 = [] ; n = Sg} ; -- mise with interrogatives
+lin and_Conj = {s2 = table {Definite => "ee" ; Indefinite => "oo"} ; s1 = [] ; n = Pl} ;
+lin or_Conj = {s2 = \\_ => "ama" ; s1 = [] ; n = Sg} ; -- mise with interrogatives
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;
 -- lin either7or_DConj = mkConj "" "" pl ;

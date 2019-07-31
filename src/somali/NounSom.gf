@@ -9,6 +9,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- : Det -> CN -> NP
   DetCN det cn = useN cn ** {
     s = sTable ;
+    st = det.st ;
     a = getAgr det.n (gender cn) } where {
       sTable : Case => Str = \\c =>
          let nfc : {nf : NForm ; c : Case} =
@@ -45,11 +46,12 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UsePN pn = pn ** {
     s = \\c => pn.s ;
     isPron = False ;
+    st = Definite ;
     empty = [] ;
     } ;
 
   -- : Pron -> NP ;
-  UsePron pron = pron ;
+  UsePron pron = pron ** {st = Definite} ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {
