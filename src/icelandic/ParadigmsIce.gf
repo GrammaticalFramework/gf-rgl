@@ -64,6 +64,9 @@ resource ParadigmsIce = open
 		mkN = overload {
 
 			-- Given Sg.Nom. 
+			mkN : Str -> N = mk0N ;
+			
+			-- Given Sg.Nom. and gender 
 			mkN : Str -> Gender -> N = mk1N ;
 
 			-- Given Sg.Nom and Pl.Nom - different Pl.Nom part
@@ -96,6 +99,14 @@ resource ParadigmsIce = open
 			<front + "a",_>			=> lin N (nForms2NeutrNoun (dAuga stelpa (front + "na")))
 		} ;
 		
+-- AR 2019-08-01 following Neijmann, "Colloquial Icelandic" Kindle Loc. 439
+--- very simplified heuristics I guess
+
+  mk0N : Str -> N = \s -> case s of {
+    _ + ("ur" | "i" | "ll" | "nn") => mk1N s Masc ;
+    _ + ("a" | "ing" | "un") => mk1N s Fem ;
+    _ => mk1N s Neutr
+    } ;
 
 		mk1N : Str -> Gender -> N = \s,g -> case g of {
 			Neutr		=> lin N (nForms2NeutrNoun (neutrNForms1 s)) ;
