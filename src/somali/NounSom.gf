@@ -9,6 +9,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- : Det -> CN -> NP
   DetCN det cn = useN cn ** {
     s = sTable ;
+    st = det.st ;
     a = getAgr det.n (gender cn) } where {
       sTable : Case => Str = \\c =>
          let nfc : {nf : NForm ; c : Case} =
@@ -45,11 +46,12 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UsePN pn = pn ** {
     s = \\c => pn.s ;
     isPron = False ;
+    st = Definite ;
     empty = [] ;
     } ;
 
   -- : Pron -> NP ;
-  UsePron pron = pron ;
+  UsePron pron = pron ** {st = Definite} ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {
@@ -70,7 +72,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- : NP -> RS  -> NP ;    -- Paris, which is here
   RelNP np rs = np ** {
-    s = \\c => np.s ! c ++ rs.s ! npgender np ! c
+    s = \\c => objpron np ! c ++ rs.s ! npgender np ! c ;
+    isPron = False ;
     } ;
 
 -- Determiners can form noun phrases directly.
@@ -198,7 +201,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
                 True => qnt.shortPoss ! art ;
                 _ => qnt.s ! sg n2.gda ! Abs } ;
         noun = case np.isPron of {
-                 True  => (pronTable ! np.a).sp ; -- long subject pronoun
+                 True  => (pronTable ! np.a).sp ! Abs ; -- long subject pronoun
                  False => np.s ! Abs }
      in noun ++ cn.s ! Def num ++ BIND ++ det ;
      isPoss = True} ;

@@ -23,7 +23,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
     UttInterj i = i ;
 
     NoPConj = {s = []} ;
-    PConjConj conj = { s = conj.s1 ++ conj.s2 } ;
+    PConjConj conj = {s = conj.s1 ++ conj.s2 ! Indefinite} ;
 
     NoVoc = {s = []} ;
     VocNP np = { s = "," ++ np.s ! Abs } ; --TODO: vocative exists

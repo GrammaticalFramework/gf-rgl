@@ -134,6 +134,7 @@ oper
   BaseNP : Type = {
     a : Agreement ;
     isPron : Bool ;
+    st : State ;
     empty : Str ;
     } ;
 
@@ -145,13 +146,17 @@ oper
     let pagr : PrepAgr = agr2pagr np.a in
     case <np.isPron,isP3 np.a> of {
       <False,_>   => {s = np.s ! Abs ; a = pagr} ;
-      -- <True,True> => {s = np.empty ++ (pronTable ! np.a).sp ; a = pagr} ; -- uncomment if you want to add long object pronoun for 3rd person object
+      -- <True,True> => {s = objpron np ! Abs ; a = pagr} ; -- uncomment if you want to add long object pronoun for 3rd person object
       _ => {s = np.empty ; a = pagr} } ; -- no long object for other pronouns
+
+  objpron : NounPhrase -> Case => Str = \np -> case np.isPron of {
+    True => \\c => np.empty ++ (pronTable ! np.a).sp ! c ;
+    False => np.s} ;
 
   useN : Noun -> CNoun ** BaseNP = \n -> n **
     { mod = \\_,_ => [] ; hasMod = False ;
       a = Sg3 (gender n) ; isPron,isPoss = False ;
-      empty = [] ;
+      empty = [] ; st = Indefinite
     } ;
 
   emptyNP : NounPhrase = {
@@ -159,6 +164,7 @@ oper
     a = Pl3 ;
     isPron = False ;
     empty = [] ;
+    st = Indefinite
     } ;
 
   impersNP : NounPhrase = emptyNP ** {
@@ -175,62 +181,62 @@ oper
       sp : GenNum => Str ; -- independent forms, e.g. M:kayga F:tayda Pl:kuwayga
       short : DefArticle => Str -- short possessive suffix: e.g. family members, my/your name
       } ;
-    sp : Str ;
+    sp : Case => Str ;
     } ;
 
   pronTable : Agreement => Pronoun = table {
     Sg1 => {
       s = table {Nom => "aan" ; Abs => "i"} ;
-      a = Sg1 ; isPron = True ; sp = "aniga" ;
-      empty = [] ;
+      a = Sg1 ; isPron = True ; sp = table {Nom => "anigu" ; _ =>"aniga"} ;
+      empty = [] ; st = Definite ;
       poss = {s = quantTable "ayg" "ayd" ; short = quantTable "ay" ; sp = gnTable "ayg" "ayd" "uwayg"}
       } ;
     Sg2 => {
       s = table {Nom => "aad" ; Abs => "ku"} ;
-      a = Sg2 ; isPron = True ; sp ="adiga" ;
-      empty = [] ;
+      a = Sg2 ; isPron = True ; sp = table {Nom => "adigu" ; _ => "adiga"} ;
+      empty = [] ; st = Definite ;
       poss = {s = quantTable "aag" "aad" ; short = quantTable "aa" ; sp = gnTable "aag" "aad" "uwaag"}
       } ;
     Sg3 Masc => {
       s = table {Nom => "uu" ; Abs => []} ;
-      a = Sg3 Masc ; isPron = True ; sp ="isaga" ;
-      empty = [] ;
+      a = Sg3 Masc ; isPron = True ; sp = table {Nom => "isagu" ; _ => "isaga"} ;
+      empty = [] ; st = Definite ;
       poss = {s, short = quantTable "iis" ; sp = gnTable "iis" "iis" "uwiis"}
       } ;
     Sg3 Fem => {
       s = table {Nom => "ay" ; Abs => []} ;
-      a = Sg3 Fem ; isPron = True ; sp = "iyada" ;
-      empty = [] ;
+      a = Sg3 Fem ; isPron = True ; sp = table {Nom => "iyadu" ; _ => "iyada"} ;
+      empty = [] ; st = Definite ;
       poss = {s, short = quantTable "eed" ; sp = gnTable "eed" "eed" "uweed"}
       } ;
     Pl1 Excl => {
       s = table {Nom => "aan" ; Abs => "na"} ;
-      a = Pl1 Excl ; isPron = True ; sp ="annaga" ;
-      empty = [] ;
+      a = Pl1 Excl ; isPron = True ; sp = table {Nom => "annagu" ; _ => "annaga"} ;
+      empty = [] ; st = Definite ;
       poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl1 Incl => {
       s = table {Nom => "aynu" ; Abs => "ina"} ;
-      a = Pl1 Incl ; isPron = True ; sp ="innaga" ;
-      empty = [] ;
+      a = Pl1 Incl ; isPron = True ; sp = table {Nom => "innagu" ; _ => "innaga"} ;
+      empty = [] ; st = Definite ;
       poss = {s = quantTable "eenn" ; short = quantTable "een" ; sp = gnTable "eenn" "eenn" "uweenn"}
       } ;
     Pl2 => {
       s = table {Nom => "aad" ; Abs => "idin"} ;
-      a =  Pl2 ; isPron = True ; sp ="idinka" ;
-      empty = [] ;
+      a =  Pl2 ; isPron = True ; sp = table {Nom => "idinku" ; _ => "idinka"} ;
+      empty = [] ; st = Definite ;
       poss = {s = quantTable "iinn" ; short = quantTable "iin" ; sp = gnTable "iinn" "iinn" "uwiinn"}
       } ;
     Pl3 => {
       s = table {Nom => "ay" ; Abs => []} ;
-      a = Pl3 ; isPron = True ; sp = "iyaga" ;
-      empty = [] ;
+      a = Pl3 ; isPron = True ; sp = table {Nom => "iyagu" ; _ => "iyaga"} ;
+      empty = [] ; st = Definite ;
       poss = {s, short = quantTable "ood" ; sp = gnTable "ood" "ood" "uwood"}
       } ;
     Impers => {
       s = table {Nom => "la" ; Abs => "la"} ;
-      a = Impers ; isPron = True ; sp = "" ;
-      empty = [] ;
+      a = Impers ; isPron = True ; sp = \\_ => "" ;
+      empty = [] ; st = Definite ;
       poss = {s, short = quantTable "??" ; sp = gnTable "??" "??" "??"}
       }
     } ;
@@ -798,13 +804,14 @@ oper
                     _ => o
                      -- object pronoun, prepositions and negation all contract
                   } ;
-           stm : Str = case cltyp of {
-                Subord  => if_then_Pol p [] "aan" ++ subjpron ; -- if we form a ClSlash, no sentence type marker; negation with aan (Sayeed p. 210)
-                Question  => "ma" ; -- TODO find out how negative questions work
+           stm : {p1,p2 : Str} = case cltyp of {
+                Subord  => {p1 = if_then_Pol p [] "aan" ; -- if we form a ClSlash, no sentence type marker; negation with aan (Sayeed p. 210)
+                            p2 = if_then_Pol p subjpron []} ;
+                Question  => {p1 = "ma" ; p2 = []} ; -- TODO find out how negative questions work
                 Statement => case <p,vp.pred,subj.a> of {
-                               <Pos,Copula|NoCopula,Sg3 _|Impers> => "waa" ;
+                               <Pos,Copula|NoCopula,Sg3 _|Impers> => {p1 = "waa" ; p2 = []} ;
                                _ => stmarkerNoContr ! subj.a ! p }} ;
-      in wordOrder subjnoun subjpron stm obj pred vp ;
+      in (wordOrder subjnoun subjpron stm obj pred vp) ;
     } where {
         vp = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
@@ -812,13 +819,14 @@ oper
         subj = case isPassive vps of {True => impersNP ; _ => np}
       } ;
 
-  wordOrder : (sn,sp,stm : Str) -> {p1,p2 : Str} -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
+  wordOrder : (sn,sp : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
     \subjnoun,subjpron,stm,obj,pred,vp -> {
         beforeSTM = vp.berri -- AdV
                   ++ subjnoun -- subject if it's a noun
                   ++ obj.p1 ; -- object if it's a noun
-              stm = stm ;       -- sentence type marker + possible subj. pronoun
-         afterSTM = obj.p2   -- object if it's a pronoun
+              stm = stm.p1 ;  -- sentence type marker
+         afterSTM = stm.p2    -- possible subj. pronoun
+                  ++ obj.p2   -- object if it's a pronoun
                   ++ vp.sii   -- restricted set of particles
                   ++ vp.dhex  -- restricted set of nouns/adverbials
                   ++ vp.secObj   -- "second object"
@@ -866,10 +874,10 @@ oper
     let stm = if_then_Pol b "w" "m"
      in stm + subjpron ! a ;
 
-  stmarkerNoContr : Agreement => Polarity => Str = \\a,p =>
+  stmarkerNoContr : Agreement => Polarity => {p1,p2 : Str} = \\a,p =>
     case p of {
-      Pos => "waa" ++ subjpron ! a ;
-      Neg => "ma" } ;
+      Pos => {p1 = "waa" ; p2 = subjpron ! a} ;
+      Neg => {p1 = "ma" ; p2 = []} } ;
 
   subjpron : Agreement => Str = table {
     Sg1|Pl1 Excl => "aan" ;
@@ -884,8 +892,9 @@ oper
 
 oper
   linVP : VForm -> VerbPhrase -> Str = \vf,vp ->
-    let inf = {inf = vp.s ! vf ; fin=[]} ;
-        wo = wordOrder [] [] [] (vp.comp ! Pl3) inf vp ;
+    let vp' = complSlash vp ;
+        inf = {inf = vp.s ! vf ; fin=[]} ;
+        wo = wordOrder [] [] {p1,p2=[]} (vp'.comp ! pagr2agr vp.obj2.a) inf vp' ;
      in wo.beforeSTM ++ wo.afterSTM ;
 
   linCN : CNoun -> Str = \cn -> cn.s ! NomSg ++ cn.mod ! Sg ! Abs ;

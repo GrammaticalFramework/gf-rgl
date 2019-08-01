@@ -9,8 +9,8 @@ lin
 {-
   -- Sayeed p. 95-96 + ch 8
 Reduced present general in relative clauses;  as absolutive
-1/2SG/3SG M/2PL/3PL sugá -- same as imperative (TODO check if for all conjugations)
-3 SG F sugtá -- not yet in the grammar
+1/2SG/3SG M/2PL/3PL sugá (VRel Masc)
+3 SG F sugtá (VRel Fem)
 1PL sugná -- not yet in the grammar
 
 (18) (a) nimánka buugágga keená men-the books-the bring

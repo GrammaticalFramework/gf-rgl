@@ -156,6 +156,12 @@ oper
   getNum : Agreement -> Number = \a ->
     case a of { Sg1|Sg2|Sg3 _ => Sg ; _ => Pl } ;
 
+  plAgr : Agreement -> Agreement = \agr ->
+    case agr of { Sg1   => Pl1 Excl ;
+                  Sg2   => Pl2 ;
+                  Sg3 _ => Pl3 ;
+                  agr   => agr } ;
+
   agr2pagr : Agreement -> PrepAgr = \a -> case a of {
     Sg1 => Sg1_Prep ;
     Sg2 => Sg2_Prep ;
@@ -163,6 +169,14 @@ oper
     Pl2 => Pl2_Prep ;
     _   => P3_Prep
     } ;
+
+  pagr2agr : PrepAgr -> Agreement = \a -> case a of {
+    Sg1_Prep => Sg1 ;
+    Sg2_Prep => Sg2 ;
+    Pl1_Prep i => Pl1 i ;
+    Pl2_Prep   => Pl2 ;
+    _          => Pl3
+  } ;
 
   isP3 = overload {
     isP3 : Agreement -> Bool = \agr ->

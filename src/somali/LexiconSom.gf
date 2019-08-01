@@ -52,7 +52,7 @@ lin bread_N = mkN "rooti" ; --masc/fem
 -- lin brown_A = mkA "" ;
 -- lin burn_V = mkV "" ;
 -- lin butter_N = mkN "" ;
-lin buy_V2 = mkV2 "iibsa" ;
+lin buy_V2 = mkV2 "iibso" ;
 
 ----
 -- C

@@ -37,17 +37,17 @@ lin
   ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
   ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
 
-{-
---RS depends on agreement, otherwise exactly like previous.
+
+--RS depends on gender and case, otherwise exactly like previous.
 lincat
-  [RS] = {s1,s2 : Agr => Str } ;
+  [RS] = {s1,s2 : Gender => Case => Str} ;
 
 lin
-  BaseRS x y = twoTable Agr x y ;
-  ConsRS xs x = consrTable Agr comma xs x ;
-  ConjRS co xs = conjunctDistrTable Agr co xs ;
+  BaseRS x y = twoTable2 Gender Case x y ;
+  ConsRS xs x = consrTable2 Gender Case comma xs x ;
+  ConjRS co xs = conjunctDistrTable2' Gender Case co xs ;
 
-
+{-
 lincat
   [S] = {} ;
 
@@ -80,11 +80,11 @@ lin
   BaseDAP x y = x ** { pref2 = y.pref } ;
   ConsDAP xs x = xs ** { pref2 = x.pref } ;
   ConjDet conj xs = xs ** { pref = conj.s1 ++ xs.pref ++ conj.s2 ++ xs.pref2 } ;
-
+-}
 
 -- Noun phrases
 lincat
-  [NP] = { s1,s2 : Case => Str } ** NPLight ;
+  [NP] = {s1,s2 : Case => Str} ** BaseNP ;
 
 lin
   BaseNP x y = twoTable Case x y ** consNP x y ;
@@ -93,24 +93,36 @@ lin
 
 oper
 
-  --NP without the s field; just to avoid copypaste and make things easier to change
-  NPLight : Type = { } ;
+  ConjDistr : Type = {s2 : State => Str ; s1 : Str} ;
 
-  consNP : NPLight -> NPLight -> NPLight = \x,y ->
-    x ** { agr = conjAgr x.agr (getNum y.agr) } ;
+  conjunctDistrSS : ConjDistr -> ListX -> SS = \or,xs ->
+    ss (or.s1 ++ xs.s1 ++ or.s2 ! Indefinite ++ xs.s2) ;
 
-  conjNP : NPLight -> Conj -> NPLight = \xs,conj ->
-    xs ** { agr = conjAgr xs.agr conj.nbr } ;
+  conjunctDistrTable' :
+    (P : PType) -> ConjDistr -> ListTable P -> {s : P => Str} = \P,or,xs ->
+    {s = table P {p => or.s1 ++ xs.s1 ! p ++ or.s2 ! Indefinite ++ xs.s2 ! p}} ;
+
+  conjunctDistrTable2' :
+    (P,Q : PType) -> ConjDistr -> ListTable2 P Q -> {s : P => Q => Str} =
+    \P,Q,or,xs ->
+    {s =
+    table P {p => table Q {q => or.s1 ++ xs.s1 ! p ! q ++ or.s2 ! Indefinite ++ xs.s2 ! p ! q}}} ;
 
  -- Like conjunctTable from prelude/Coordination.gf,
  -- but forces the first argument into absolutive.
-  conjunctNPTable : Conj -> ListTable Case -> {s : Case => Str} = \co,xs ->
-   { s = table { cas => co.s1 ++ xs.s1 ! Abs ++ co.s2 ++ xs.s2 ! cas } } ;
+  conjunctNPTable : ConjDistr -> ({s1,s2 : Case => Str} ** BaseNP) -> {s : Case => Str ; st : State} = \co,xs -> xs **
+   {s = -- TODO if xs is a pronoun, make them use (pronTable ! xs.a).sp
+      table { cas => co.s1 ++ xs.s1 ! Abs ++ co.s2 ! xs.st ++ xs.s2 ! cas}} ;
 
-  conjAgr : Agr -> Number -> Agr = \a,n ->
+  consNP : BaseNP -> BaseNP -> BaseNP = \x,y ->
+    x ** { agr = conjAgr x.agr (getNum y.agr) } ;
+
+  conjNP : BaseNP -> Conj -> BaseNP = \xs,conj ->
+    xs ** { agr = conjAgr xs.agr conj.nbr } ;
+
+  conjAgr : Agreement -> Number -> Agreement = \a,n ->
     case n of { Pl => plAgr a ; _  => a } ;
 
   conjNbr : Number -> Number -> Number = \n,m ->
     case n of { Pl => Pl ; _ => m } ;
--}
 }
