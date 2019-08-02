@@ -17,6 +17,10 @@ fun
   verb_Category        : Category ;
   adverb_Category      : Category ;
   preposition_Category : Category ;
+  numeral_Category     : Category ;
+  pronoun_Category     : Category ;
+  determiner_Category  : Category ;
+  article_Category  : Category ;
 
   number_ParameterType : ParameterType ;
   gender_ParameterType : ParameterType ;
@@ -65,6 +69,7 @@ fun
 
   active_Parameter : Parameter ;
   passive_Parameter : Parameter ;
+  middle_Parameter : Parameter ;
 
   present_Parameter : Parameter ;
   past_Parameter : Parameter ;
@@ -98,6 +103,9 @@ fun
 
   short_Parameter : Parameter ;   -- short form of e.g. a Fin infinitive
   long_Parameter : Parameter ;    
+
+  strong_Parameter : Parameter ;  -- German adjective declensions
+  weak_Parameter : Parameter ;
 
   finite_Modifier : Modifier ;
   transitive_Modifier : Modifier ;
