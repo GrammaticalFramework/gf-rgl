@@ -202,6 +202,7 @@ resource ParadigmsIce = open
 
 		femNForms1 : Str -> NForms = \s -> case s of {
 			_ + "ing"				=> dFylking s (s + "ar") ;
+			front + "un"				=> dVerslun s (front + "anir") ; --- AR 2019-08-02
 			front + middle@("g" | "k") + "j" + "a"	=> dSaga s (front + middle + "na") ;
 			_ + ("r" | "s" | "n" | "j") + "a"	=> dSaga s s ; --  I Don't think this is the general case
 			stem + "a"				=> dSaga s s --  I Don't think this is the general case
@@ -290,7 +291,9 @@ resource ParadigmsIce = open
 			_ + "inn"				=> dFarinn s ;
 			_ + "ill"				=> dLítill s ;
 			#consonant* + #vowel + ("ll" | "nn")	=> dSeinn s ;
-			stem + "ur"				=> dFalur s (a2ö stem)
+			stem + "ur"				=> dFalur s (a2ö stem) ;
+			_ + "i" => dI s ; ---- AR 2019-08-02 guess to prevent failure
+			_ => dSmár s ---- AR 2019-08-02 guess to prevent failure
 		} ;
 
 		strongPosit2 : (_,_ : Str) -> AForms = \mas,fem -> case <mas,fem> of {
@@ -320,7 +323,8 @@ resource ParadigmsIce = open
             stem + "ur"                        => dAri stem ;
             #consonant* + "ei" + ("ll" | "nn") => dSeinn s ;
             front + "inn"                      => dAri (front + "n") ;
-            _ + ("ll" | "nn")                  => dI s
+            _ + ("ll" | "nn")                  => dI s ;
+            _                                  => dI s  ---- AR 2019-08-02 guess to prevent failure
         } ;
 
         compar2 : (_,_ : Str) -> AForms = \mas,fem -> case <mas,fem> of {
@@ -351,7 +355,8 @@ resource ParadigmsIce = open
 			 end@("ll" | "nn")	   => dFalastur (stem + init end + "astur") (a2ö stem + init end + "ust") ;
 			stem + "inn" 		   => dFalastur (stem + "nastur") (a2ö stem + "nust") ;
 			stem + end@("ll"|"nn") => dFalastur (stem + init end + "astur") (a2ö stem + init end + "ust") ;
-			stem + "ur"	           => dFalastur (stem + "astur") ((a2ö stem) + "ust") 
+			stem + "ur"	           => dFalastur (stem + "astur") ((a2ö stem) + "ust") ;
+			_ => dFalastur (t + "astur") ((a2ö t) + "ust") ---- AR 2019-08-02 guess to prevent failure
 		} ;
 
 		strongSuperl2 : (_,_ : Str) -> AForms = \mas,fem -> case <mas,fem> of {
@@ -374,7 +379,8 @@ resource ParadigmsIce = open
 			front + "ll"		=> front + "llega" ;
 			front + "nn"		=> front + "nlega" ;
 			front + "leg" + "ur"	=> front + "lega" ;
-			front + "ur"		=> front + "lega"
+			front + "ur"		=> front + "lega" ;
+			_ => s + "lega" ---- AR 2019-08-02 guess to prevent failure
 		} ;
 
 		regAAdv2 : (_,_ : Str) -> Str = \mas,fem -> case <mas,fem> of {

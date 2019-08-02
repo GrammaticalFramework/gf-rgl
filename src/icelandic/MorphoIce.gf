@@ -961,6 +961,16 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 			_						=> s
 		} ;
 
+
+		-- AR 2019-08-02 what about this: gamal -> gömul
+		aa2öu : Str -> Str = \s -> case s of {
+		  front + "a" + middle@(#consonant*) + "a" + back  => front + "ö" + middle + "u" + back ;
+		  _ + "au" + _                                     => s ;
+		  front + "a" +                              back  => front + "ö" + back ;
+		  _                                                => s
+		  } ;
+		---- a2ö = aa2öu ; --- does not seem to work properly the way a2ö is used however
+
 		-- I am fairly certain it works the same way as a2ö
 		-- currently not used - keep or trash?
 		ö2a : Str -> Str = \þökk -> case þökk of {
