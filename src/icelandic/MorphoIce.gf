@@ -905,7 +905,7 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				pastSub = mforms ! Subjunctive ! DPast
 			in {
 			s = table {
-				VInf				=> inf ;
+				VInf v				=> mkVoice v inf ;
 				VPres v Indicative Sg p		=> persList (mkVoice v (presInd ! 0)) (mkVoice v (presInd ! 1)) (mkVoice v (presInd ! 2)) ! p;
 				VPres v Indicative Pl p 	=> persList (mkVoice v (presInd ! 3)) (mkVoice v (presInd ! 4)) (mkVoice v (presInd ! 5)) ! p;
 				VPast v Indicative Sg p		=> persList (mkVoice v (pastInd ! 0)) (mkVoice v (pastInd ! 1)) (mkVoice v (pastInd ! 2)) ! p;
@@ -932,6 +932,21 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 			} ;
 			sup =\\v			=> mkVoice v sup
 		} ;
+
+-- AR 2019-08-02: deponent verbs use the Middle voice everywhere, instead of Active
+--- some forms may be inadequate, but they are in the table anyway
+
+  deponentVerb : Verb -> Verb = \verb ->
+    verb ** {
+      s = table {
+        VInf _ => verb.s ! VInf Middle ;
+	VPres _ m n p => verb.s ! VPres Middle m n p ;
+	VPast _ m n p => verb.s ! VPast Middle m n p ;
+	VImp  _   n   => verb.s ! VImp  Middle n ;
+	vf => verb.s ! vf
+        } ;
+      sup = \\v => verb.sup ! Middle ;
+      } ;
 
 
 	----------------------

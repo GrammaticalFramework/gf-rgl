@@ -403,7 +403,11 @@ resource ParadigmsIce = open
 		mkV = overload {
 
 			-- Given the infinitive
-			mkV : Str -> V = \telja -> mk1V telja;
+			mkV : Str -> V 
+			  = \telja -> case telja of {
+			       otta + "st" => depV (mk1V otta) ;
+			       _ => mk1V telja
+			       } ;
 
 			-- Given also the first person singular present tense indicative mood
 			mkV : (_,_ : Str) -> V = \telja,tel -> mk2V telja tel ;
@@ -433,6 +437,8 @@ resource ParadigmsIce = open
 				plFemNom plFemAcc plFemDat plFemGen plNeutNom plNeutAcc plNeutDat plNeutGen 
 				weakSgMascNom weakSgMascAccDatGen weakSgFemNom weakSgFemAccDatGen weakSgNeut weakPl flogið) ;
 		};
+
+		depV : V -> V = \verb -> lin V (deponentVerb verb) ;
 
 		mk1V : Str -> V = \inf -> 
 			lin V (vForms2Verb inf (indsub1 inf) (impSg inf) (impPl inf) (presPart inf) (sup inf) (weakPP inf) (strongPP inf)) ;
