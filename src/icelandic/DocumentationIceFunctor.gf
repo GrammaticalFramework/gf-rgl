@@ -40,7 +40,6 @@ lin
            tr (th (heading genitive_Parameter)   ++ td (noun.s ! Sg ! Free ! Gen) ++ td (noun.s ! Sg ! Suffix ! Gen) ++ td (noun.s ! Pl ! Free ! Gen) ++ td (noun.s ! Pl ! Suffix ! Gen))
            )
     } ;
-
 {-
   InflectionA, InflectionA2 = \adj ->
     let
@@ -75,6 +74,7 @@ lin
     s1 = heading1 (heading preposition_Category) ;
     s2 = paragraph (S.mkAdv (lin Prep p) (S.mkNP S.a_Det L.computer_N)).s
     } ;
+-}
 
   InflectionV v = {
     t  = "v" ;
@@ -82,7 +82,7 @@ lin
          paragraph (verbExample (S.mkCl S.she_NP v)) ;
     s2 = inflVerb v
     } ;
-
+{-
   InflectionV2 v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++  
@@ -148,7 +148,6 @@ lin
     } ;
 -}
 
-
 lin
   NoDefinition   t     = {s=t.s};
   MkDefinition   t d   = {s="<p><b>Definierung:</b>"++t.s++d.s++"</p>"};
@@ -157,9 +156,8 @@ lin
   MkDocument d i e = ss (i.s1 ++ d.s ++ i.s2 ++ paragraph e.s) ;  -- explanation appended in a new paragraph
   MkTag i = ss i.t ;
 
-{-
 oper 
-  verbExample : CatGer.Cl -> Str = \cl ->
+  verbExample : CatIce.Cl -> Str = \cl ->
      (S.mkUtt cl).s 
      ++ ";" ++ (S.mkUtt (S.mkS S.anteriorAnt cl)).s  --# notpresent
      ;
@@ -167,24 +165,33 @@ oper
   inflVerb : Verb -> Str = \verb -> 
      let 
        vfin : VForm -> Str = \f ->
-         verb.s ! f ++ verb.prefix ; 
-       gforms : Number -> Person -> Str = \n,p -> 
-         td (vfin (VFin False (VPresInd  n p))) ++
-         td (vfin (VFin False (VPresSubj n p)))
-         ++ td (vfin (VFin False (VImpfInd  n p))) --# notpresent
-         ++ td (vfin (VFin False (VImpfSubj n p)))  --# notpresent
+         verb.s ! f ;
+       gforms : Voice -> Number -> Person -> Str = \v,n,p -> 
+         td (vfin (VPres v Indicative  n p)) ++
+         td (vfin (VPres v Subjunctive n p)) ++
+         td (vfin (VPast v Indicative  n p)) ++
+         td (vfin (VPast v Subjunctive n p)) 
          ;
-     in frameTable (
-          tr (th "" ++ intagAttr "th" "colspan=2" (heading present_Parameter) ++  intagAttr "th" "colspan=2" (heading past_Parameter)) ++  
-          tr (th "" ++ th (heading indicative_Parameter) ++ th (heading conjunctive_Parameter ++ "I")  ++  
-                       th (heading indicative_Parameter) ++ th (heading conjunctive_Parameter ++ "II"))  ++  
-          tr (th "Sg.1"  ++ gforms Sg P1) ++
-          tr (th "Sg.2"  ++ gforms Sg P2) ++
-          tr (th "Sg.3"  ++ gforms Sg P3) ++
-          tr (th "Pl.1"  ++ gforms Pl P1) ++
-          tr (th "Pl.2"  ++ gforms Pl P2) ++
-          tr (th "Pl.3"  ++ gforms Pl P3)
-          ) ++
+       voiceTable : Voice -> Str = \voice -> frameTable (
+          tr (intagAttr "th" "colspan=2" "" ++ intagAttr "th" "colspan=2" (heading present_Parameter) ++  intagAttr "th" "colspan=2" (heading past_Parameter)) ++  
+          tr (intagAttr "th" "colspan=2" "" ++ th (heading indicative_Parameter) ++ th (heading conjunctive_Parameter)  ++  
+                       th (heading indicative_Parameter) ++ th (heading conjunctive_Parameter))  ++  
+          tr (intagAttr "th" "rowspan=3" (heading singular_Parameter) ++ th "1"  ++ gforms voice Sg P1) ++
+          tr (                                                th "2"  ++ gforms voice Sg P2) ++
+          tr (                                                th "3"  ++ gforms voice Sg P3) ++
+          tr (intagAttr "th" "rowspan=3" (heading plural_Parameter)   ++ th "1"  ++ gforms voice Pl P1) ++
+          tr (                                                th "2"  ++ gforms voice Pl P2) ++
+          tr (                                                th "3"  ++ gforms voice Pl P3) ++
+	  tr (intagAttr "th" "colspan=2" (heading infinitive_Parameter) ++ intagAttr "td" "colspan=4" (vfin (VInf voice))) ++
+	  tr (intagAttr "th" "colspan=2" (heading supine_Parameter)     ++ intagAttr "td" "colspan=4" (verb.sup ! voice))
+          ) ;
+     in
+     heading2 (heading active_Parameter) ++ voiceTable Active ++
+     heading2 (heading middle_Parameter) ++ voiceTable Middle
+     ;
+	  
+{-
+++
         frameTable (
           tr (th (heading imperative_Parameter ++ "Sg.2")  ++ td (vfin (VImper Sg))) ++
           tr (th (heading imperative_Parameter ++ "Pl.2")  ++ td (vfin (VImper Pl))) ++
@@ -194,4 +201,5 @@ oper
           tr (th (heading aux_verb_Parameter)       ++ td (case verb.aux of {VHaben => "haben" ; VSein => "sein"}))
         ) ;
 -}
+
 }

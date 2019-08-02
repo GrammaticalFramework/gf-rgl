@@ -75,18 +75,18 @@ lin
 
   present_Parameter = mkN "nútíð" ;
   past_Parameter = mkN "þátíð" ;
-  future_Parameter = mkN "future" ;
-  conditional_Parameter = mkN "conditional" ;
-  potential_Parameter = mkN "potential" ;
-  perfect_Parameter = mkN "perfect" ;
-  imperfect_Parameter = mkN "imperfect" ;
-  supine_Parameter = mkN "supine" ;
-  agent_Parameter = mkN "agent" ;
-  simple_past_Parameter = mkN "simple past" ;
+--  future_Parameter = mkN "future" ;
+--  conditional_Parameter = mkN "conditional" ;
+--  potential_Parameter = mkN "potential" ;
+--  perfect_Parameter = mkN "perfect" ;
+--  imperfect_Parameter = mkN "imperfect" ;
+  supine_Parameter = mkN "sagnbót" ;
+--  agent_Parameter = mkN "agent" ;
+--  simple_past_Parameter = mkN "simple past" ;
 
-  participle_Parameter = mkN "participle" ;
-  aux_verb_Parameter = mkN "auxiliary" ;
-  gerund_Parameter = mkN "Gerund" ;
+  participle_Parameter = mkN "lýsingarháttur" ;
+ -- aux_verb_Parameter = mkN "auxiliary" ;
+ -- gerund_Parameter = mkN "Gerund" ;
 
   positive_Parameter = mkN "frumstig" ;
   comparative_Parameter = mkN "miðstig" ;
