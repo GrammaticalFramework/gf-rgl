@@ -40,29 +40,40 @@ lin
            tr (th (heading genitive_Parameter)   ++ td (noun.s ! Sg ! Free ! Gen) ++ td (noun.s ! Sg ! Suffix ! Gen) ++ td (noun.s ! Pl ! Free ! Gen) ++ td (noun.s ! Pl ! Suffix ! Gen))
            )
     } ;
-{-
+
   InflectionA, InflectionA2 = \adj ->
     let
-      gforms : Degree -> ResGer.Case -> Str = \d,c ->
-        td (adj.s ! d ! (AMod (GSg Masc)  c)) ++
-        td (adj.s ! d ! (AMod (GSg Fem)   c)) ++
-        td (adj.s ! d ! (AMod (GSg Neutr) c)) ++
-        td (adj.s ! d ! (AMod GPl         c)) ;
-      dtable : Parameter -> Degree -> Str = \s,d ->
-        paragraph (heading2 (heading s) ++ frameTable ( 
-          tr (th []  ++ th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter) ++ 
-                        th (heading plural_Parameter)) ++
+      gforms : (Number -> Gender -> Case -> AForm) -> Case -> Str = \d,c ->
+        td (adj.s ! d Sg Masc  c) ++
+        td (adj.s ! d Sg Fem   c) ++
+	td (adj.s ! d Sg Neutr c) ++
+        td (adj.s ! d Pl Masc  c) ++
+        td (adj.s ! d Pl Fem   c) ++
+	td (adj.s ! d Pl Neutr c) ;
+	
+      dtable : Str -> (Number -> Gender -> Case -> AForm) -> Str = \s,d ->
+        paragraph (heading2 s ++ frameTable ( 
+          tr (intagAttr "th" "rowspan=2" []  ++
+	         th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter) ++
+                 th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter)) ++
+	  tr (intagAttr "th" "colspan=3" (heading singular_Parameter) ++ intagAttr "th" "colspan=3" (heading plural_Parameter)) ++
           tr (th (heading nominative_Parameter) ++ gforms d Nom) ++
-          tr (th (heading genitive_Parameter)   ++ gforms d Gen) ++
-          tr (th (heading dative_Parameter)     ++ gforms d Dat) ++
           tr (th (heading accusative_Parameter) ++ gforms d Acc) ++
-          tr (th (heading predicative_Parameter) ++ intagAttr "td" "colspan=4" (adj.s ! d ! APred))
-          ))
+          tr (th (heading dative_Parameter)     ++ gforms d Dat) ++
+	  tr (th (heading genitive_Parameter)   ++ gforms d Gen)
+          )) ;
+	  
     in { t  = "a" ;
          s1 = heading1 (nounHeading adjective_Category).s ;
-         s2 = dtable positive_Parameter Posit ++ dtable comparative_Parameter Compar ++ dtable superlative_Parameter Superl
+         s2 =
+	   dtable (heading positive_Parameter ++ heading strong_Parameter) (APosit Strong) ++
+	   dtable (heading positive_Parameter ++ heading weak_Parameter) (APosit Weak) ++
+	   dtable (heading comparative_Parameter) ACompar ++
+	   dtable (heading superlative_Parameter ++ heading strong_Parameter) (ASuperl Strong) ++
+	   dtable (heading superlative_Parameter ++ heading weak_Parameter) (ASuperl Weak)
        } ;
 
+{-
   InflectionAdv adv = {
     t  = "adverb" ;
     s1 = heading1 (heading adverb_Category) ;
@@ -189,17 +200,5 @@ oper
      heading2 (heading active_Parameter) ++ voiceTable Active ++
      heading2 (heading middle_Parameter) ++ voiceTable Middle
      ;
-	  
-{-
-++
-        frameTable (
-          tr (th (heading imperative_Parameter ++ "Sg.2")  ++ td (vfin (VImper Sg))) ++
-          tr (th (heading imperative_Parameter ++ "Pl.2")  ++ td (vfin (VImper Pl))) ++
-          tr (th (heading infinitive_Parameter)            ++ td (verb.s ! (VInf False))) ++
-          tr (th (heading present_Parameter ++ heading participle_Parameter) ++ td (verb.s ! (VPresPart APred))) ++
-          tr (th (heading perfect_Parameter ++ heading participle_Parameter) ++ td (verb.s ! (VPastPart APred))) ++
-          tr (th (heading aux_verb_Parameter)       ++ td (case verb.aux of {VHaben => "haben" ; VSein => "sein"}))
-        ) ;
--}
 
 }
