@@ -24,7 +24,13 @@ PossNP,PartNP {"of"} ADP case nmod
 @VS Inf Pres PastPart PresPart Past
 @Quant Sg Pl Sg Pl -- and many more
 @Det Nom Gen Acc
-@A Pos PosGen Comp CompGen Sup SupGen
+@A Posit PosGen Comp CompGen Sup SupGen
+@"did" Past
+@"does" PresSg
+@"do" Pres
+@"have" Inf
+@"would" Cond
+@"not" Neg
 @"am" PresSg1
 @"is" PresSg3
 @"are" PresPl
