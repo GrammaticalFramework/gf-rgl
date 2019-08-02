@@ -93,25 +93,25 @@ lin
          paragraph (verbExample (S.mkCl S.she_NP v)) ;
     s2 = inflVerb v
     } ;
-{-
+
   InflectionV2 v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++  
-         paragraph (verbExample (S.mkCl S.she_NP v S.something_NP)) ;
+         paragraph (verbExample (S.mkCl S.she_NP v S.i_NP)) ;
     s2 = inflVerb v
     } ;
 
   InflectionV3 v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++  
-         paragraph (verbExample (S.mkCl S.she_NP v S.something_NP S.something_NP)) ;
+         paragraph (verbExample (S.mkCl S.she_NP v S.it_NP S.i_NP)) ;
     s2 = inflVerb v
     } ;
-
+{-
   InflectionV2V v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP (lin V2V v) S.we_NP (S.mkVP (L.sleep_V)))) ;
+         paragraph (verbExample (S.mkCl S.she_NP v S.we_NP (S.mkVP (L.sleep_V)))) ;
     s2 = inflVerb v
     } ;
 
