@@ -1,0 +1,11 @@
+-- gf -run alltenses/LangIce.gfo <example-tables.gfs
+
+l MkDocument (NoDefinition "") (InflectionN car_N) "" | wf -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionN man_N) "" | wf -append -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionN woman_N) "" | wf -append -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionN child_N) "" | wf -append -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionA red_A) "" | wf -append -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionA new_A) "" | wf -append -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionA good_A) "" | wf -append -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionV walk_V) "" | wf -append -file="example-tables.html"
+l MkDocument (NoDefinition "") (InflectionV sleep_V) "" | wf -append -file="example-tables.html"
