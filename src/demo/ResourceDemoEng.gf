@@ -172,6 +172,6 @@ lin
    numeralDet n = S.mkDet <n : Numeral> ;
    RSubjS subj a b = mkS (S.mkAdv <subj : Subj> <a : S>) b ;
    SlashV2 np v2 = mkClSlash np v2 ;
-   SlashPrep cl p = mkClSlash (lin Cl cl) <p : Prep> ;
+----   SlashPrep cl p = mkClSlash (lin Cl cl) <p : Prep> ;
    RAdvCN cn p pp = mkCN <lin CN cn : CN> (mkAdv <p : Prep> <pp : NP>) ;
 }

@@ -1,11 +1,10 @@
 src = "Eng"
 langs = [
-  "Afr","Bul","Cat","Chi","Dan","Dut",
-  "Est","Fin","Fre","Ger","Gre","Hin",
+  "Afr","Ara","Bul","Cat","Chi","Dan","Dut",
+  "Est","Eus","Fin","Fre","Ger","Gre","Hin",
   "Ice","Ita","Jpn","Lav","Mlt","Mon",
-  "Nep","Nor","Nno","Pes","Pol","Pnb",
-  "Ron","Rus","Snd","Spa","Swe","Tha",
-  "Urd"
+  "Nep","Nor","Nno","Pes","Pol","Por","Pnb",
+  "Ron","Rus","Snd","Spa","Swe","Tha","Urd"
   ]
 
 file lng = "ResourceDemo" ++ lng ++ ".gf"
