@@ -20,12 +20,15 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
                 -- special form for fem. nouns
                 <_,Nom,False,Indefinite,Sg> => {nf=NomSg ; c=c} ;
 
-                -- Definite
-                <_,Nom,False,Definite,n> => {nf=Def n ; c=c} ;
-
                 -- If cn has modifier, Nom ending attaches to the modifier
                 <_,Nom,True,_,_> => {nf=Def det.n ; c=Abs} ;
-                _                => {nf=Def det.n ; c=c} -- TODO check
+
+                -- Definite
+                <_,_,False,Definite,n> => {nf=Def n ; c=c} ;
+
+                <_,_,False,Indefinite,n>  => {nf=Indef n ; c=c} ;
+
+                _ => {nf=Def det.n ; c=c} -- TODO check
              } ;
           art = gda2da cn.gda ! det.n ;
           num = case det.isNum of {True => Sg ; _ => det.n} ;
