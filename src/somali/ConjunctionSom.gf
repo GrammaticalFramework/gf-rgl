@@ -87,8 +87,13 @@ lincat
   [NP] = {s1,s2 : Case => Str} ** BaseNP ;
 
 lin
-  BaseNP x y = twoTable Case x y ** consNP x y ;
-  ConsNP xs x = consrTable Case comma xs x ** consNP xs x ;
+  BaseNP x y =
+    let x' = np2objpron x ;
+        y' = np2objpron y
+     in twoTable Case x' y' ** consNP x' y' ;
+  ConsNP x xs =
+    let x' = np2objpron x
+     in consrTable Case comma x' xs ** consNP x' xs ;
   ConjNP conj xs = conjunctNPTable conj xs ** conjNP xs conj ;
 
 oper
@@ -113,6 +118,10 @@ oper
   conjunctNPTable : ConjDistr -> ({s1,s2 : Case => Str} ** BaseNP) -> {s : Case => Str ; st : State} = \co,xs -> xs **
    {s = -- TODO if xs is a pronoun, make them use (pronTable ! xs.a).sp
       table { cas => co.s1 ++ xs.s1 ! Abs ++ co.s2 ! xs.st ++ xs.s2 ! cas}} ;
+
+  np2objpron : NounPhrase -> NounPhrase = \np -> np ** {
+    s = objpron np
+    } ;
 
   consNP : BaseNP -> BaseNP -> BaseNP = \x,y ->
     x ** { agr = conjAgr x.agr (getNum y.agr) } ;

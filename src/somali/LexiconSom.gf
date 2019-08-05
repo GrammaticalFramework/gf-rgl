@@ -41,7 +41,7 @@ lin bird_N = mkN "shimbir" fem ;
 -- lin bone_N = mkN "" ;
 -- lin boot_N = mkN "" ;
 -- lin boss_N = mkN "" ;
-lin book_N = (mk2N "buug" "buugaag") ** {pl = F TA} ;
+lin book_N = (mk2N "buug" "buugaag") ** {gda = MF GA TA} ;
 lin boy_N = mk2N "wiil" "wiilal" ;
 lin bread_N = mkN "rooti" ; --masc/fem
 -- lin break_V2 = mkV2 "" ;
@@ -222,7 +222,7 @@ lin language_N = mkN "af" ;
 ----
 -- M
 
-lin man_N = mkN "nin" ;
+lin man_N = (mk2N "nin" "niman") ** {gda = MM KA KA} ;
 -- lin married_A2 = mkA "" ;
 lin meat_N = mkN "hilib" "hilbo" masc ;
 -- lin milk_N = mkN "" ;
