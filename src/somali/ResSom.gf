@@ -85,11 +85,11 @@ oper
     mkNoun ul (u + sha) (ul + o) (ul + "aha") Fem ;
 
   -- 4b) Masculine, plural with ó, 2 syllables
-  nGuri guri = let o = allomorph mO guri ;
-                   ga = allomorph mKa guri ;
+  nGuri guri = let ga = allomorph mKa guri ;
                    gury = case last guri of { -- TODO does this generalise? Or just exception?
                                  "i" => init guri + "y" ;
-                                 _   => guri } in
+                                 _   => guri } ;
+                    o = allomorph mO gury in
     mkNoun guri (guri + ga) (gury + o) (gury + "aha") Masc ;
 
   -- 4c) Masculine, plural with -ó, 3 syllables or longer

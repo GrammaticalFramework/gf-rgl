@@ -38,6 +38,7 @@ oper
   mkN : overload {
     mkN : (bisad : Str) -> N ; -- Predictable nouns
     mkN : (shimbir : Str) -> (fem : Gender) -> N ; -- Unpredictable gender
+--    mkN : (nin, niman : Str) -> N ; -- Monosyllable word with unpredictable plural
     mkN : (maalin,maalmo : Str) -> Gender -> N ; -- Consonant cluster in stem
     --mkN : N -> Gender -> N ; -- Otherwise predictable but not gender (TODO does this even happen?)
   } ;
@@ -165,7 +166,8 @@ oper
   mkN = overload {
     mkN : Str -> N                   = \s   -> lin N (mkN1 s) ;
     mkN : Str -> Gender -> N         = \s,g -> lin N (mkNg s g) ;
-    mkN : (_,_ : Str) -> Gender -> N = \s,t,g -> lin N (nMaalin s t g) ;
+    mkN : (sg, pl : Str) -> N        = \sg,pl -> lin N (mk2N sg pl) ;
+    mkN : (indefsg,defsg : Str) -> Gender -> N = \s,t,g -> lin N (nMaalin s t g) ;
     --mkN : N -> Gender -> N           = \n,g -> n ** {g = g }
     } ;
 
