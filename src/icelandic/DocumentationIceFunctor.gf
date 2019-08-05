@@ -6,7 +6,7 @@ incomplete concrete DocumentationIceFunctor of Documentation = CatIce ** open
   ParadigmsIce,
   (G = GrammarIce),
   (S = SyntaxIce),
-  (L = LexiconGer),
+  (L = LexiconIce),
   Prelude,
   HTML
 in {
@@ -107,7 +107,7 @@ lin
          paragraph (verbExample (S.mkCl S.she_NP v S.it_NP S.i_NP)) ;
     s2 = inflVerb v
     } ;
-{-
+
   InflectionV2V v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++
@@ -157,7 +157,6 @@ lin
     s1 = heading1 (heading verb_Category) ;
     s2 = inflVerb v
     } ;
--}
 
 lin
   NoDefinition   t     = {s=t.s};
