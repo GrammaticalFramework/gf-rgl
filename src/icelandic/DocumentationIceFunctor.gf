@@ -193,7 +193,7 @@ oper
           tr (                                                th "2"  ++ gforms voice Pl P2) ++
           tr (                                                th "3"  ++ gforms voice Pl P3) ++
 	  tr (intagAttr "th" "colspan=2" (heading infinitive_Parameter) ++ intagAttr "td" "colspan=4" (vfin (VInf voice))) ++
-	  tr (intagAttr "th" "colspan=2" (heading supine_Parameter)     ++ intagAttr "td" "colspan=4" (verb.sup ! voice))
+	  tr (intagAttr "th" "colspan=2" (heading supine_Parameter)     ++ intagAttr "td" "colspan=4" (vfin (VSup voice)))
           ) ;
      in
      heading2 (heading active_Parameter) ++ voiceTable Active ++

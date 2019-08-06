@@ -915,7 +915,9 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				VPast v Subjunctive Sg p	=> persList (mkVoice v (pastSub ! 0)) (mkVoice v (pastSub ! 1)) (mkVoice v (pastSub ! 2)) ! p;
 				VPast v Subjunctive Pl p	=> persList (mkVoice v (presSub ! 3)) (mkVoice v (pastSub ! 4)) (mkVoice v (pastSub ! 5)) ! p;
 				VImp v Sg			=> mkVoice v impSg ;
-				VImp v Pl			=> mkVoice v impPl
+				VImp v Pl			=> mkVoice v impPl ;
+				VSup v	         		=> mkVoice v sup
+
 			} ;
 			p = table {
 				PWeak Sg Masc c		=> caseList (pastPartW ! Masc ! 0) (pastPartW ! Masc ! 1) (pastPartW ! Masc ! 2) (pastPartW ! Masc ! 3) ! c ;
@@ -930,7 +932,6 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				PStrong Pl Neutr c	=> caseList (pastPartS ! Neutr ! 4) (pastPartS ! Neutr ! 5) (pastPartS ! Neutr ! 6) (pastPartS ! Neutr ! 7) ! c ;
 				PPres			=> presPart
 			} ;
-			sup =\\v			=> mkVoice v sup
 		} ;
 
 -- AR 2019-08-02: deponent verbs use the Middle voice everywhere, instead of Active
