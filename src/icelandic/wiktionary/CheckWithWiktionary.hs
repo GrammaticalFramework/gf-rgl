@@ -1,6 +1,7 @@
 import qualified Data.Map
-import qualified Data.Char
-import qualified Data.List
+import qualified Data.Text.IO
+import Data.Char
+import Data.List
 
 -- AR 2019-08-06
 -- checking IrregIce wrt Wikipedia:
@@ -134,4 +135,63 @@ deviations ls = length [l | l <- ls, let r = reverse (words l), r!!1 == "*", not
 getGroups ls = let (v,vs) = splitAt 105 ls in if null v then [] else v:getGroups vs
 
 actInf v@(i:_) = last (words i)
+
+jumpToIcelandic ls = dropWhile (\l -> not (isPrefixOf "<h2>" l && isPrefixOf "Icelandic" (untag l))) ls
+
+-------------------------------
+-- just retrieving ------------
+
+-- to be run in verbs/
+getAllWiktVerbs = do
+  vs <- readFile "wikt-verbs.txt" >>= return . lines
+  writeFile "v.tmp" ""
+  mapM_ (\v -> getWiktVerb v >>= appendFile "v.tmp" . unlines . emitGF) vs
+
+-- to be run in adjectives/
+getAllWiktAdjectives = do
+  vs <- readFile "wikt-verbs.txt" >>= return . lines
+  mapM_ (\v -> getWiktAdjective v >>= putStrLn . unlines . emitGF) vs
+
+
+-- return ([relevant Wikt lines], (fun,cat,lin), message)
+getWiktWord :: Int -> (String -> [String] -> ([String],((String,String,String),Message))) -> FilePath -> IO ([String],((String,String,String),Message))
+getWiktWord number check file = do
+  s <- readFile file >>= return . map untag . take number . getTD . jumpToIcelandic . lines
+  return $ check file s
+
+getWiktNoun = getWiktWord 17 checkNoun
+getWiktAdjective = getWiktWord 120 noCheck
+getWiktVerb = getWiktWord 75 checkVerb
+
+noCheck :: String -> [String] -> ([String],((String,String,String),Message))
+noCheck s ss = (ss, (noGF, MMissing s))
+noGF = ("--","--","--")
+
+checkNoun noun forms = noCheck noun forms ----
+
+checkVerb verb forms =
+  if length forms < 75
+  then (forms, (noGF, MBad (verb ++ ": only " ++ show (length forms) ++ " lines")))
+  else case unexpectedWikLines forms of
+    [] -> (forms, ((verb ++ "_V", "V", app "mkV" [verb, forms!!5, forms!!18, forms!!74, forms!!1]), MGood verb)) ----
+    us -> (forms, (noGF, MBad (verb ++ ": unexpected lines " ++ show (length us))))
+
+data Message =
+    MGood String
+  | MBad String
+  | MMissing String
+   deriving (Show,Eq)
+
+app f xs = unwords $ f : map (quote . wform . words) xs
+quote s = "\"" ++ s ++ "\""
+
+emitGF (ss,((fun,cat,lin),msg)) = case msg of
+  MGood _ -> [unwords ["fun",fun,":",cat,";"],unwords ["lin",fun,"=",lin,";"]]
+  _ -> ["-- " ++ show msg]
+
+
+-- mkN : (x1,_,_,_,_,_,_,x8 : Str) -> Gender -> N = mk8N ; nForms8 a b c d e f g h  ; sgNom,sgAcc,sgDat,sgGen,plNom,plAcc,plDat,plGen
+-- mkA : (_,_,_ : Str) -> A = mk3A ; 	mk3A : (_,_,_ : Str) -> A = \mas,fem,com
+-- mkV : (_,_,_,_,_ : Str) -> V = \telja,tel,taldi,talinn,talið ->   -- inf,presIndSg1,pastIndSg1, weak past part, sup
+
 
