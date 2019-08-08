@@ -278,13 +278,19 @@ resource ParadigmsIce = open
 		} ;
 
 		mk1A : Str -> A = \s -> lin A (aForms2Adjective 
-			(weakPosit s []) (strongPosit1 s) (compar1 s) (weakSuperl s []) (strongSuperl1 s) (regAAdv1 s)) ;
+			(weakPosit s s) (strongPosit1 s) (compar1 s) (weakSuperl s s) (strongSuperl1 s) (regAAdv1 s)) ; --- AR 2019-08-08: second arguments of weak declensions were [], producing only endings
 
-		mk2A : (_,_ : Str) -> A = \mas,fem -> lin A (aForms2Adjective
-			(weakPosit mas fem) (strongPosit2 mas fem) (compar2 mas fem) (weakSuperl mas fem) (strongSuperl2 mas fem) (regAAdv2 mas fem)) ;
+		mk2A : (_,_ : Str) -> A = \mas,fem -> case mas of {
+		   _ + ("ll"|"nn") => mk1A mas ; ---- AR 2019-08-08 ; the case below does not work
+		   _ => lin A (aForms2Adjective
+			  (weakPosit mas fem) (strongPosit2 mas fem) (compar2 mas fem) (weakSuperl mas fem) (strongSuperl2 mas fem) (regAAdv2 mas fem))
+			} ;
 
-		mk3A : (_,_,_ : Str) -> A = \mas,fem,com -> lin A (aForms2Adjective
-			(weakPosit mas fem) (strongPosit2 mas fem) (compar1 com) (weakSuperl com []) (strongSuperl1 com) (regAAdv2 mas fem)) ;
+		mk3A : (_,_,_ : Str) -> A = \mas,fem,com -> case mas of {
+		   _ + ("ll"|"nn") => mk1A mas ; ---- AR 2019-08-08 ; the case below does not work
+		   _ => lin A (aForms2Adjective
+			  (weakPosit mas fem) (strongPosit2 mas fem) (compar1 com) (weakSuperl com []) (strongSuperl1 com) (regAAdv2 mas fem))
+                   } ;
 
 		strongPosit1 : Str -> AForms = \s -> case s of {
 			#consonant* + "ei" + ("ll" | "nn")	=> dSeinn s ;
