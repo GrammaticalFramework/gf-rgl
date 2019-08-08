@@ -138,29 +138,32 @@ actInf v@(i:_) = last (words i)
 
 jumpToIcelandic ls = dropWhile (\l -> not (isPrefixOf "<h2>" l && isPrefixOf "Icelandic" (untag l))) ls
 
--------------------------------
--- just retrieving ------------
+----------------------------------------------------------------------
+-- just retrieving, instead of checking existing GF files ------------
 
--- to be run in verbs/
-getAllWiktVerbs = do
-  vs <- readFile "wikt-verbs.txt" >>= return . lines
-  writeFile "v.tmp" ""
-  mapM_ (\v -> getWiktVerb v >>= appendFile "v.tmp" . unlines . emitGF) vs
+-- to be run in wiktionary/, with subdirs nouns/ adjectives/ verbs/
 
 -- to be run in adjectives/
 getAllWiktAdjectives = do
-  vs <- readFile "wikt-verbs.txt" >>= return . lines
-  mapM_ (\v -> getWiktAdjective v >>= putStrLn . unlines . emitGF) vs
+  vs <- readFile "adjectives/wikt-adjectives.txt" >>= return . lines
+  writeFile "a.tmp" ""
+  mapM_ (\v -> getWiktAdjective "adjectives/" v >>= appendFile "a.tmp" . unlines . emitGF) vs
+
+getAllWiktVerbs = do
+  vs <- readFile "verbs/wikt-verbs.txt" >>= return . lines
+  writeFile "v.tmp" ""
+  mapM_ (\v -> getWiktVerb "verbs/" v >>= appendFile "v.tmp" . unlines . emitGF) vs
+
 
 
 -- return ([relevant Wikt lines], (fun,cat,lin), message)
-getWiktWord :: Int -> (String -> [String] -> ([String],((String,String,String),Message))) -> FilePath -> IO ([String],((String,String,String),Message))
-getWiktWord number check file = do
-  s <- readFile file >>= return . map untag . take number . getTD . jumpToIcelandic . lines
+getWiktWord :: Int -> (String -> [String] -> ([String],((String,String,String),Message))) -> FilePath -> FilePath -> IO ([String],((String,String,String),Message))
+getWiktWord number check dir file = do
+  s <- readFile (dir++file) >>= return . map untag . take number . getTD . jumpToIcelandic . lines
   return $ check file s
 
 getWiktNoun = getWiktWord 17 checkNoun
-getWiktAdjective = getWiktWord 120 noCheck
+getWiktAdjective = getWiktWord 120 checkAdjective
 getWiktVerb = getWiktWord 75 checkVerb
 
 noCheck :: String -> [String] -> ([String],((String,String,String),Message))
@@ -169,12 +172,22 @@ noGF = ("--","--","--")
 
 checkNoun noun forms = noCheck noun forms ----
 
+checkAdjective adj forms = case length forms of
+  n | n <  24 -> (forms, (noGF, MBad (adj ++ " A: only " ++ show (length forms) ++ " lines")))
+  n | n < 120 -> (forms, checkZZ adj (adj ++ "_A", "A", "mkA", [forms!!0, forms!!1]))
+  _           -> (forms, checkZZ adj (adj ++ "_A", "A", "mkA", [forms!!0, forms!!1,forms!!48]))
+
+checkZZ w (fun,cat,lin,args) =
+  if elem "ZZ" (map (wform . words) args)
+  then (noGF, MBad (w ++ " " ++ cat ++ ": missing forms in data"))
+  else ((fun,cat, app lin args),MGood w)
+
 checkVerb verb forms =
   if length forms < 75
-  then (forms, (noGF, MBad (verb ++ ": only " ++ show (length forms) ++ " lines")))
+  then (forms, (noGF, MBad (verb ++ " V: only " ++ show (length forms) ++ " lines")))
   else case unexpectedWikLines forms of
     [] -> (forms, ((verb ++ "_V", "V", app "mkV" [verb, forms!!5, forms!!18, forms!!74, forms!!1]), MGood verb)) ----
-    us -> (forms, (noGF, MBad (verb ++ ": unexpected lines " ++ show (length us))))
+    us -> (forms, (noGF, MBad (verb ++ " V: unexpected lines " ++ show (length us))))
 
 data Message =
     MGood String
