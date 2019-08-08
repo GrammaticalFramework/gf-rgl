@@ -1102,7 +1102,8 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 		getðiditi : Str -> Str = \s -> case s of {
 			_ + "ði"	=> "ði" ;
 			_ + "di"	=> "di" ;
-			_ + "ti"	=> "ti"
+			_ + "ti"	=> "ti" ;
+			_ => Predef.error ("no telja type past ending for" ++ s)
 		} ;
 
 	param
