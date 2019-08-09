@@ -1,0 +1,9 @@
+* {"en","et","ei","emme","ette","eivät","älä","älkää"} PART neg head 
+UseComp {"olen","olet","on","olemme","olette","ovat","olin","olit","oli","olimme","olitte","olivat","olisin","olisit","olisi","olisimme","olisitte","olisivat","ole","olko"} VERB cop head
+CompAdv {"olen","olet","on","olemme","olette","ovat","olin","olit","oli","olimme","olitte","olivat","olisin","olisit","olisi","olisimme","olisitte","olisivat","ole","olko"} VERB cop head
+CompAP {"olen","olet","on","olemme","olette","ovat","olin","olit","oli","olimme","olitte","olivat","olisin","olisit","olisi","olisimme","olisitte","olisivat","ole","olko"} VERB cop head
+CompNP {"olen","olet","on","olemme","olette","ovat","olin","olit","oli","olimme","olitte","olivat","olisin","olisit","olisi","olisimme","olisitte","olisivat","ole","olko"} VERB cop head
+CompCN {"olen","olet","on","olemme","olette","ovat","olin","olit","oli","olimme","olitte","olivat","olisin","olisit","olisi","olisimme","olisitte","olisivat","ole","olko"} VERB cop head
+PredVP {"olen","olet","on","olemme","olette","ovat","olin","olit","oli","olimme","olitte","olivat","olisin","olisit","olisi","olisimme","olisitte","olisivat","ole","olko"} AUX aux head 
+ComplVS {"että"} PART mark xcomp
+
