@@ -53,9 +53,45 @@ def importfile(linenr, lang):
 def stripstrings(strings):
     return [s for s0 in strings for s in [s0.strip()] if s]
 
+def create_gf_input_cc_only(testlines):
+    # building the input to the GF process out of the lines of test file
+    gfinput = ''
+    testing = False
+    for linenr, line in enumerate(testlines, 1):
+        if line.startswith('#') or line.startswith('--'):
+            # a comment line: do nothing
+            pass
+        elif ':' in line:
+            if not testing:
+                gfinput += 'ps "### %d" \n' % (linenr,)
+                testing = True
+            lang, sent = stripstrings(line.split(':', 1))
+            langfile = importfile(linenr, lang)
+            if '/abstract/' not in langfile:
+                gfinput += 'ps "+++ %d %s" \n' % (linenr, lang)
+                gfinput += 'i -retain -no-pmcfg %s \n' % (langfile,)
+                gfinput += 'ps "%s" \n' % (sent,) # Gold standard to compare against
+            else:
+                gfinput += 'cc -unqual -one %s \n' % (sent,)
+        elif not line.strip():
+            # an empty line: start a new test
+            testing = False
+        else:
+            error(linenr, "Ill-formatted line in test file:", line)
+            exit(1)
 
-def runtest(testlines):
-    # first we build the input to the GF process:
+    # if cc only, gf input is this long and complicated thing
+    command = [
+        u'gf',
+        u'-run',
+        u'-retain',
+        u'-no-pmcfg',
+        u'-gfo-dir=/tmp']
+
+    return (command,gfinput)
+
+def create_gf_input(testlines):
+    # building the input to the GF process out of the lines of test file
     gfinput = ''
     testing = False
     for linenr, line in enumerate(testlines, 1):
@@ -81,14 +117,25 @@ def runtest(testlines):
             error(linenr, "Ill-formatted line in test file:", line)
             exit(1)
 
-    # then we call GF with the script, catching stdout:
-    gf = Popen('gf -run'.split(), stdin=PIPE, stdout=PIPE)
+    # If we're parsing, then command is just `gf -run'
+    return ('gf -run'.split(), gfinput)
+
+def runtest(testlines,is_cc_only):
+    # first we build the input to the GF process:
+    if is_cc_only:
+        command,gfinput = create_gf_input_cc_only(testlines)
+    else:
+        command,gfinput = create_gf_input(testlines)
+
+    # calling GF from a subprocess:
+    gf = Popen(command, stdin=PIPE, stdout=PIPE)
     stdout, _stderr = gf.communicate(gfinput.encode(ENCODING))
     stdout = stdout.decode(ENCODING)
 
     # then we analyse the result from the GF process:
     totalerrors = 0
     alltests = stripstrings(stdout.split('###'))
+
     for testnr, test in enumerate(alltests, 1):
         sents = stripstrings(test.split('+++'))
         startline = int(sents.pop(0))
@@ -103,16 +150,24 @@ def runtest(testlines):
                 error(linenr, theerror)
                 testerrors += 1
             else:
-                allerrors = [(sum(tree not in oldtrees for _, _, oldtrees in oldresults), tree)
-                             for tree in alltrees]
-                besterrors, besttree = min(allerrors)
-                if besterrors > 0:
-                    for oldlinenr, oldlang, oldtrees in oldresults:
-                        if besttree not in oldtrees:
-                            error(linenr, "Line %s (%s) is not a translation of line %s (%s)"
-                                    % (linenr, lang, oldlinenr, oldlang))
-                            testerrors += 1
-                oldresults.append((linenr, lang, alltrees))
+                if is_cc_only:
+                    # If is_cc_only, gfinput (and thus stdout) include gold standard
+                    gold = alltrees.pop(0)
+                    lin = alltrees.pop(0)
+                    if gold != lin:
+                        testerrors += 1
+                        error(linenr,"\nExpected linearisation\n\t%s \n\nActual linearisation\n\t%s" % (gold, lin))
+                else:
+                    allerrors = [(sum(tree not in oldtrees for _, _, oldtrees in oldresults), tree)
+                                 for tree in alltrees]
+                    besterrors, besttree = min(allerrors)
+                    if besterrors > 0:
+                        for oldlinenr, oldlang, oldtrees in oldresults:
+                            if besttree not in oldtrees:
+                                error(linenr, "Line %s (%s) is not a translation of line %s (%s)"
+                                        % (linenr, lang, oldlinenr, oldlang))
+                                testerrors += 1
+                    oldresults.append((linenr, lang, alltrees))
         if not testerrors:
             print("OK!")
         print()
@@ -130,14 +185,19 @@ if __name__ == '__main__':
     if len(sys.argv) <= 1:
         usage()
         exit(1)
+    if "-only-cc" in sys.argv:
+        is_cc_only = True
+    else:
+        is_cc_only = False
     for filename in sys.argv[1:]:
-        try:
-            print("# Testing file:", filename)
-            with io.open(filename, encoding=ENCODING) as F:
+        if filename != "-only-cc":
+            try:
+                print("# Testing file:", filename)
+                with io.open(filename, encoding=ENCODING) as F:
+                    print()
+                    runtest(F,is_cc_only)
+            except IOError as err:
+                print(err)
                 print()
-                runtest(F)
-        except IOError as err:
-            print(err)
-            print()
-            usage()
-            exit(1)
+                usage()
+                exit(1)
