@@ -1,0 +1,68 @@
+-- V2V o V2 and V2V o V2V o V2 works:
+
+-- -auxV2V o V2 
+
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron youPl_Pron)))
+
+-- +auxV2V o V2
+
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron youPl_Pron)))
+
+-- -auxV2V o -auxV2V
+
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron)))
+
+-- +auxV2V o -auxV2V
+
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron)))
+
+-- -auxV2V o +auxV2V
+
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron)))
+
+-- +auxV2V o +auxV2V
+
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron)))
+
+-- ---------- VV combined with V2 and V2V ----------
+
+-- VV o V2 ok
+
+(PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+
+(PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+
+-- VV o -auxV2V ok:
+
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V versprechen_dat_V2V (UseV sleep_V)) (UsePron she_Pron))))
+
+(PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2V versprechen_dat_V2V (UseV sleep_V)) (UsePron she_Pron))))
+
+-- VV o +auxV2V ok:
+
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V lassen_V2V (UseV sleep_V)) (UsePron she_Pron))))
+
+(PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2V lassen_V2V (UseV sleep_V)) (UsePron she_Pron))))
+
+-- +auxVV o -auxV2V o +auxV2V:
+
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (UseV sleep_V)) (UsePron she_Pron))) (UsePron she_Pron))))
+
+-- +auxVV o +auxV2V o V2:
+
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron))))
+
+-- +auxVV o -auxV2V o +auxV2V o V2:
+
+(PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron))) (UsePron he_Pron))))
+
+-- +auxVV o +auxVV o -auxV2V o +auxV2V o V2: wrong: ich muss ihm versprechen , sie das Buch lesen zu lassen wollen
+-- instead of: ich muss ihm versprechen wollen , sie das Buch lesen zu lassen 
+
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron))) (UsePron he_Pron)))))
+
+(PredVP (UsePron i_Pron) (ComplVS know_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePN john_PN))) (DetCN (DetQuant DefArt NumPl) (UseN child_N)))))))))))
+
+-- TestLangGer: ich weiß , dass sie sagte , , dass wir die Kinder Johann helfen , das Haus blau zu malen lassen wollten
+-- statt: ich weiß , dass sie sagte , dass wir die Kinder Johann [] helfen lassen wollten , das Haus blau zu malen 
+

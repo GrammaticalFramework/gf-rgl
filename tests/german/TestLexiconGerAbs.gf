@@ -33,6 +33,7 @@ fun
 
   wagen_VV : VV ;
   versuchen_VV : VV ;
+  helfen_V2V : V2V ;
   warnen_V2V : V2V ;          -- object control verb
   versprechen_dat_V2V : V2V ; -- subject control verb
   lassen_V2V : V2V ;          -- inf without zu

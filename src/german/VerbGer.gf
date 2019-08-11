@@ -4,7 +4,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
   lin
     UseV = predV ;
-
+{-
     ComplVV v vp = 
       let 
         vpi = infVP v.isAux vp ;
@@ -14,7 +14,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInfExt vpi.p3 (
           insertInf vpi.p2 (
             insertObjc vpi.p1 vps))) ;
-
+-}
     ComplVS v s = 
       insertExtrapos (comma ++ conjThat ++ s.s ! Sub) (predV v) ;
     ComplVQ v q = 
@@ -30,6 +30,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       insertExtrapos (comma ++ conjThat ++ s.s ! Sub) (predVc v) ;
     SlashV2Q v q = 
       insertExtrapos (comma ++ q.s ! QIndir) (predVc v) ;
+{- to be redone in tests/german/TestLangGer.gf:
     SlashV2V v vp = 
       let 
         vpi = infVP v.isAux vp ;
@@ -42,7 +43,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       -- insertExtrapos (vpi.p3 ++ vpi.p4) (  -- comma ++ vpi.p3 ?
       --   insertInf vpi.p2 (
       --     insertObj vpi.p1 vps)) ;
-
+-}
     SlashV2A v ap = 
       insertAdj (ap.s ! APred) ap.c ap.ext (predVc v) ;
 
@@ -58,9 +59,9 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         vps = predVGen v.isAux v ** {c2 = vp.c2 ; missingAdv = vp.missingAdv} ; -- mAdv added, HL 23.7.19
       in vps **                                                        -- to preserve reflexiveness of vp
       insertExtrapos vpi.p3 (
-        insertInf vpi.p2 (
+        insertInf {s=vpi.p2;isAux=v.isAux;ctrl=SubjC} (
           insertObj vpi.p1 vps)) ;
-
+{- save space, HL 29.7.19
     SlashV2VNP v np vp =
       let 
         vpi = infVP v.isAux vp ;
@@ -71,7 +72,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
           insertObj vpi.p1 (
             insertObj (\\_ => appPrepNP v.c2 np) vps))) ;
 --            insertObjNP v.c2 np vps))) ;
-
+-}
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
     -- adj slot not used here for e.g. "ich bin alt" but same behaviour as NPs?

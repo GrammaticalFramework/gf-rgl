@@ -55,6 +55,7 @@ lin
 
   wagen_VV = mkVV (regV "dare") ;                       -- typ=VVInf
   versuchen_VV = mkVV (irregV "try" "tried" "tried") ;  -- typ=VVInf
+  helfen_V2V = defaultV2V (regV "help") ;
   warnen_V2V = defaultV2V (regV "warn") ;               -- typ=VVInf
   versprechen_dat_V2V = defaultV2V (regV "promise") ;   -- typ=VVInf
   lassen_V2V = ParadigmsEng.mkV2V (I.let_V) ;           -- typ=VVAux
