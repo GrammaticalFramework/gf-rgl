@@ -154,7 +154,7 @@ oper
                 _  => Sg3 g } ;
 
   getNum : Agreement -> Number = \a ->
-    case a of { Sg1|Sg2|Sg3 _ => Sg ; _ => Pl } ;
+    case a of { Sg1|Sg2|Sg3 _|Impers => Sg ; _ => Pl } ;
 
   plAgr : Agreement -> Agreement = \agr ->
     case agr of { Sg1   => Pl1 Excl ;
