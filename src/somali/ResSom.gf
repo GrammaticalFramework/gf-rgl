@@ -161,16 +161,13 @@ oper
 
   emptyNP : NounPhrase = {
     s = \\_ => [] ;
-    a = Pl3 ;
+    a = Sg3 Masc ;
     isPron = False ;
     empty = [] ;
     st = Indefinite
     } ;
 
-  impersNP : NounPhrase = emptyNP ** {
-    a = Impers ;
-    isPron = True
-    } ;
+  impersNP : NounPhrase = pronTable ! Impers ;
 
 --------------------------------------------------------------------------------
 -- Pronouns
@@ -234,7 +231,7 @@ oper
       poss = {s, short = quantTable "ood" ; sp = gnTable "ood" "ood" "uwood"}
       } ;
     Impers => {
-      s = table {Nom => "la" ; Abs => "la"} ;
+      s = \\_ => [] ; -- the string `la' comes from Passive (: PrepCombination)
       a = Impers ; isPron = True ; sp = \\_ => "" ;
       empty = [] ; st = Definite ;
       poss = {s, short = quantTable "??" ; sp = gnTable "??" "??" "??"}
@@ -787,10 +784,12 @@ oper
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vps -> {
     s = \\cltyp,t,a,p =>
        let predRaw : {fin : Str ; inf : Str} = vf cltyp t a p subj.a vp ;
-           pred : {fin : Str ; inf : Str} = case <cltyp,p,vp.pred> of {
-              <Statement,Pos,NoCopula> => {fin,inf = []} ;
-              <_        ,  _,  Copula> => {fin = presCopula ! {agr=subj.a ; pol=p} ; inf=[]} ;
-              _                        => predRaw
+           pred : {fin : Str ; inf : Str} = case <cltyp,p,t,vp.pred,subj.a> of {
+              <Statement,Pos,Pres,NoCopula       ,Sg3 _|Pl3>
+                => {fin,inf = []} ; -- If the VP is formed with CompNP
+              <_        ,  _,Pres,NoCopula|Copula,        _> -- Comp* present tense
+                => {fin = presCopula ! {agr=subj.a ; pol=p} ; inf=[]} ;
+              _ => predRaw
            } ;
            subjnoun : Str = if_then_Str np.isPron np.empty (subj.s ! Nom) ;
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) np.empty ;
@@ -809,7 +808,7 @@ oper
                             p2 = if_then_Pol p subjpron []} ;
                 Question  => {p1 = "ma" ; p2 = []} ; -- TODO find out how negative questions work
                 Statement => case <p,vp.pred,subj.a> of {
-                               <Pos,Copula|NoCopula,Sg3 _|Impers> => {p1 = "waa" ; p2 = []} ;
+                               <Pos,Copula|NoCopula,Pl3|Sg3 _> => {p1 = "waa" ; p2 = []} ;
                                _ => stmarkerNoContr ! subj.a ! p }} ;
       in (wordOrder subjnoun subjpron stm obj pred vp) ;
     } where {
