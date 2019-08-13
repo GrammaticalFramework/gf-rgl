@@ -795,8 +795,8 @@ oper
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) np.empty ;
            obj : {p1,p2 : Str} =
               let o : {p1,p2 : Str} = vp.comp ! subj.a ;
-                  bind : Str = case <isPassive vp,vp.obj2.a, vp.c2, vp.pred> of {
-                                 <False,P3_Prep,Single NoPrep,NoPred> => [] ;
+                  bind : Str = case <isPassive vp, vp.obj2.a, vp.c2> of {
+                                 <False,P3_Prep,Single NoPrep> => [] ;
                                  _                             => BIND } ;
               in case <cltyp,p> of {
                     <Statement,Neg> => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} ;
