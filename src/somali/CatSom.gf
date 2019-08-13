@@ -122,4 +122,5 @@ linref
     VP = linVP VInf ;
     CN = linCN ;
     Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ;
+    S = \s -> linBaseCl (s.s ! False) ;
 }
