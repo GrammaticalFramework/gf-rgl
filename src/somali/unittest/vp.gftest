@@ -13,7 +13,7 @@ LangSom: waa ay ku arkeen
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: they didn't see you
-LangSom: ku &+ ma arkin
+LangSom: ku BIND ma arkin
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: you taught yourself
@@ -21,7 +21,7 @@ LangSom: waa aad isku bartay
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ReflVP (SlashV2a teach_V2))))) NoVoc
 
 -- LangEng: you don't teach yourself
-LangSom: isku &+ ma barto
+LangSom: isku BIND ma barto
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (ReflVP (SlashV2a teach_V2))))) NoVoc
 
 -- LangEng: one saw you
@@ -48,7 +48,7 @@ LangSom: hooyo waa ay ina kaa siisey
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: mother didn't give you us
-LangSom: hooyo ina &+ ma ay kaa siin
+LangSom: hooyo ina BIND ma ay kaa siin
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: he gave himself bread
@@ -56,7 +56,7 @@ LangSom: rooti waa uu is siiyey
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ReflVP (Slash2V3 give_V3 (MassNP (UseN bread_N))))))) NoVoc
 
 -- LangEng: one adds salt to the meat
-LangSom: hilib &+ ka cusbo waa lagu daraa
+LangSom: hilib BIND ka cusbo waa lagu daraa
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (Slash3V3 add_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N))) (MassNP (UseN salt_N)))))) NoVoc
 
 -- LangEng: one can add salt to meat
@@ -71,5 +71,5 @@ LangSom: waa aan ka dul boodi karaa
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplVV can_VV (UseV jump_V)) (PrepNP above_Prep (UsePron it_Pron)))))) NoVoc
 
 -- LangEng: you can't jump above me
-LangSom: iga &+ ma dul boodi karto
+LangSom: iga BIND ma dul boodi karto
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (AdvVP (ComplVV can_VV (UseV jump_V)) (PrepNP above_Prep (UsePron i_Pron)))))) NoVoc

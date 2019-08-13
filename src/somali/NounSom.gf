@@ -225,18 +225,18 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   AdjCN ap cn = cn ** {
     s = table { NomSg => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
                 x        => cn.s ! x } ;
-    mod = \\n,c => cn.mod ! n ! Abs -- If there was something before, it is now in Abs
-                ++ case cn.hasMod of {
-                      True => "oo" ;
-                      False => [] }
-                ++ ap.s ! AF n c ;
+    mod = let conj = if_then_Str cn.hasMod "oo" [] in
+      \\n,c => cn.mod ! n ! Abs -- If there was something before, it is now in Abs
+            ++ conj -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
+            ++ ap.s ! AF n c ;
     hasMod = True
     } ;
 
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    mod = \\n,c => cn.mod ! n ! c ++ rs.s ! gender cn ! c ;
+    mod = let conj = if_then_Str cn.hasMod "ee" [] in
+      \\n,c => cn.mod ! n ! c ++ conj ++ rs.s ! gender cn ! c ;
     hasMod = True ;
     } ;
 
