@@ -119,6 +119,8 @@ incomplete concrete ExtendRomanceFunctor of Extend =
 
     NominalizeVPSlashNP = variants {} ;     -- VPSlash -> NP -> NP ;
 
+    ProgrVPSlash = variants {} ;            -- VPSlash -> VPSlash ;
+
     ExistCN cn = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;
     ExistMassCN cn = ExistNP (MassNP cn) ;
     ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
