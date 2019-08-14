@@ -52,7 +52,7 @@ oper
     } where {
         allomF : Str -> DefTA = \wiilka ->
           case wiilka of {
-                _ + "ta" => DA ; _ + "sha" => SHA ;
+                _ + "ta" => TA ; _ + "sha" => SHA ;
                 _ + "da" => DA ; _ + "dha" => DHA } ;
         allomM : Str -> DefKA = \wiilka ->
           case wiilka of {
