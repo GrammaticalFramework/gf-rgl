@@ -38,14 +38,15 @@ lin
   ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
 
 
---RS depends on gender and case, otherwise exactly like previous.
+-- RS depends on state, gender and case, otherwise exactly like previous.
+-- RS can modify CNs, which are open for state, number and case, and have inherent gender.
 lincat
-  [RS] = {s1,s2 : Gender => Case => Str} ;
+  [RS] = {s1,s2 : State => Gender => Case => Str} ;
 
 lin
-  BaseRS x y = twoTable2 Gender Case x y ;
-  ConsRS xs x = consrTable2 Gender Case comma xs x ;
-  ConjRS co xs = conjunctDistrTable2' Gender Case co xs ;
+  BaseRS = twoTable3 State Gender Case ;
+  ConsRS = consrTable3 State Gender Case comma ;
+  ConjRS = conjunctRSTable State Gender Case ;
 
 {-
 lincat
@@ -115,9 +116,16 @@ oper
 
  -- Like conjunctTable from prelude/Coordination.gf,
  -- but forces the first argument into absolutive.
-  conjunctNPTable : ConjDistr -> ({s1,s2 : Case => Str} ** BaseNP) -> {s : Case => Str ; st : State} = \co,xs -> xs **
-   {s = -- TODO if xs is a pronoun, make them use (pronTable ! xs.a).sp
-      table { cas => co.s1 ++ xs.s1 ! Abs ++ co.s2 ! xs.st ++ xs.s2 ! cas}} ;
+  conjunctNPTable : ConjDistr -> ({s1,s2 : Case => Str} ** BaseNP) -> NP = \co,xs -> lin NP (xs ** {
+    s = \\c => co.s1 ++ xs.s1 ! Abs ++ co.s2 ! xs.st ++ xs.s2 ! c
+    }) ;
+
+  conjunctRSTable : ConjDistr -> {s1,s2 : State => Gender => Case => Str} -> RS = \co,xs -> lin RS (xs ** {
+    s = \\st,g,c => co.s1
+                ++ xs.s1 ! st ! g ! c
+                ++ co.s2 ! st
+                ++ xs.s2 ! st ! g ! c
+    }) ;
 
   np2objpron : NounPhrase -> NounPhrase = \np -> np ** {
     s = objpron np

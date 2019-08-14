@@ -137,6 +137,6 @@ lin
     } ;
 
   -- : VP -- Copula alone;
-  UseCopula = useV copula ;
+  UseCopula = useV copula ** {pred=Copula} ;
 
 }

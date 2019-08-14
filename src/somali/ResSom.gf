@@ -770,10 +770,14 @@ oper
   mergeQCl : (Tense => Anteriority => Polarity => BaseCl) -> QClause = mergeSTM True ;
   mergeRCl : (Tense => Anteriority => Polarity => BaseCl) -> QClause = mergeSTM False ;
 
-  mergeSTM : Bool -> (Tense => Anteriority => Polarity => BaseCl) -> QClause = \includeSTM,b ->
-    {s = \\t,a,p => (b ! t ! a ! p).beforeSTM
-                  ++ if_then_Str includeSTM (b ! t ! a ! p).stm []
-                  ++ (b ! t ! a ! p).afterSTM
+  mergeSTM : Bool -> (Tense => Anteriority => Polarity => BaseCl) -> QClause = \includeSTM,bcl ->
+    {s = \\t,a,p => (bcl ! t ! a ! p).beforeSTM
+                  ++ case <includeSTM,p> of {
+                          <False,Pos> => [] ;
+                          <False,Neg> => "aan" ;
+                          <True>      => (bcl ! t ! a ! p).stm
+                     }
+                  ++ (bcl ! t ! a ! p).afterSTM
     } ;
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->

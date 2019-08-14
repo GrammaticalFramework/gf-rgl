@@ -62,7 +62,7 @@ lin
   UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p cl = {s = \\g,c => t.s ++ p.s ++ cl.s ! g ! c ! t.t ! t.a ! p.p} ;
+  UseRCl t p cl = {s = \\st,g,c => t.s ++ p.s ++ cl.s ! g ! c ! t.t ! t.a ! p.p} ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
   -- ExtAdvS : Adv -> S  -> S ;         -- next week, I will go home
