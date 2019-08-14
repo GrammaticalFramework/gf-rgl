@@ -116,7 +116,7 @@ oper
 
  -- Like conjunctTable from prelude/Coordination.gf,
  -- but forces the first argument into absolutive.
-  conjunctNPTable : ConjDistr -> ({s1,s2 : Case => Str} ** BaseNP) -> NP = \co,xs -> lin NP (xs' ** {
+  conjunctNPTable : ConjDistr -> ({s1,s2 : Case => Str} ** BaseNP) -> NP = \co,xs -> lin NP (xs ** {
     s = \\c => co.s1 ++ xs.s1 ! Abs ++ co.s2 ! xs.st ++ xs.s2 ! c
     }) ;
 
