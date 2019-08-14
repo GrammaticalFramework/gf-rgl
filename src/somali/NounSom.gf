@@ -263,7 +263,9 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  PossNP cn np = cn ** {mod = \\n,c => cn.mod ! n ! c ++ np.s ! Abs} ; -- guriga Axmed, not Axmed gurigiisa
+  PossNP cn np = cn ** { -- guriga Axmed, not Axmed gurigiisa
+    mod = \\st,n,c => cn.mod ! st ! n ! c ++ objpron np ! Abs
+    } ;
 {-
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   PartNP cn np = cn ** {  } ;
