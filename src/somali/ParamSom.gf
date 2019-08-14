@@ -271,9 +271,13 @@ param
     | VPres Aspect VAgr Polarity
     | VNegPast Aspect
     | VPast Aspect VAgr
+    | VImp Number Polarity
 --    | VRelShort  -- "som är/har/…" TODO is this used in other verbs?
-    | VRel Gender -- Reduced present general in relative clauses
-    | VImp Number Polarity ;
+    | VRel Gender ; {- Sayeed p. 95-96 + ch 8
+                      Reduced present general in relative clauses;  as absolutive
+                      1/2SG/3SG M/2PL/3PL sugá (VRel Masc)
+                      3 SG F sugtá (VRel Fem)
+                      1PL sugná -- not yet in the grammar -}
 
   VAgr =
       Sg1_Sg3Masc
