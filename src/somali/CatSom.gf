@@ -9,7 +9,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
     S  = ResSom.Sentence ;
     QS = SS ;
-    RS = {s : Gender => Case => Str} ;
+    RS = {s : State => Gender => Case => Str} ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 

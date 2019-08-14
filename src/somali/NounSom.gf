@@ -73,9 +73,17 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
   --AdvNP,ExtAdvNP = \np,adv -> np ** {} ; --adverbs are complicated
 
-  -- : NP -> RS  -> NP ;    -- Paris, which is here
+  -- : NP -> RS -> NP ;    -- Paris, which is here
+  {- NB. technically, if the RS has undergone ConjRS, it could contain both
+     restrictive and appositive relative clauses. Quote Sayeed p.215-216:
+       "When multiple relative clauses occur, this formal distinction is
+        maintained, since in the only context both can occur, on nouns with
+        determiners, restrictives are joined by ee while appositives employ oo."
+     In practice, we don't care--it's impossible to know on the RGL level
+     which RS are restrictive and which appositive, as it is semantic.
+   -}
   RelNP np rs = np ** {
-    s = \\c => objpron np ! c ++ rs.s ! npgender np ! c ;
+    s = \\c => objpron np ! c ++ "oo" ++ rs.s ! Indefinite ! npgender np ! c ;
     isPron = False ;
     } ;
 
@@ -237,7 +245,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     mod = \\st,n,c => --what to do with subject case if there's both adj and RS?
             cn.mod ! st ! n ! Abs
          ++ andConj st cn.hasMod
-         ++ rs.s ! gender cn ! c ;
+         ++ rs.s ! st ! gender cn ! c ;
     hasMod = True ;
     } ;
 
