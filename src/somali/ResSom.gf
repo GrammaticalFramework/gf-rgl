@@ -13,13 +13,14 @@ oper
   Noun3 : Type = Noun ;
 
   CNoun : Type = Noun ** {
-    mod : Number => Case => Str ;
+    mod : State -- for conjunctions: oo for indef, ee for def
+       => Number => Case => Str ;
     hasMod : Bool ;
     isPoss : Bool -- to prevent impossible forms in ComplN2 with Ns that have short possessive, e.g. "father"
     } ;
 
   cn2str : Number -> Case -> CNoun -> Str = \n,c,cn ->
-    cn.s ! Indef n ++ cn.mod ! n ! c ;
+    cn.s ! Indef n ++ cn.mod ! Indefinite ! n ! c ;
 
   PNoun : Type = {s : Str ; a : Agreement} ;
 
@@ -154,7 +155,7 @@ oper
     False => np.s} ;
 
   useN : Noun -> CNoun ** BaseNP = \n -> n **
-    { mod = \\_,_ => [] ; hasMod = False ;
+    { mod = \\_,_,_ => [] ; hasMod = False ;
       a = Sg3 (gender n) ; isPron,isPoss = False ;
       empty = [] ; st = Indefinite
     } ;
@@ -896,7 +897,7 @@ oper
         wo = wordOrder [] [] {p1,p2=[]} (vp'.comp ! pagr2agr vp.obj2.a) inf vp' ;
      in wo.beforeSTM ++ wo.afterSTM ;
 
-  linCN : CNoun -> Str = \cn -> cn.s ! NomSg ++ cn.mod ! Sg ! Abs ;
+  linCN : CNoun -> Str = \cn -> cn.s ! Indef Sg ++ cn.mod ! Indefinite ! Sg ! Abs ;
   linAdv : Adverb -> Str = \adv ->
      adv.berri
   ++ adv.sii

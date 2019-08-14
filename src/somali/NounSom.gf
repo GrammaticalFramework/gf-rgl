@@ -42,7 +42,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
         in dt.pref -- if det is numeral
         ++ cn.s ! nfc.nf
         ++ dt.s -- non-numeral det
-        ++ cn.mod ! num ! c
+        ++ cn.mod ! det.st ! num ! c
     } ;
 
   -- : PN -> NP ;
@@ -90,8 +90,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- MassNP : CN -> NP ;
   MassNP cn = useN cn ** {
-    s = table { Nom => cn.s ! NomSg ++ cn.mod ! Sg ! Nom ;
-                c   => cn.s ! Indef Sg ++ cn.mod ! Sg ! c }
+    s = table { Nom => cn.s ! NomSg ++ cn.mod ! Indefinite ! Sg ! Nom ;
+                c   => cn.s ! Indef Sg ++ cn.mod ! Indefinite ! Sg ! c }
     } ;
 
 
@@ -224,19 +224,20 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
     s = table { NomSg => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
-                x        => cn.s ! x } ;
-    mod = let conj = if_then_Str cn.hasMod "oo" [] in
-      \\n,c => cn.mod ! n ! Abs -- If there was something before, it is now in Abs
-            ++ conj -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
-            ++ ap.s ! AF n c ;
+                x     => cn.s ! x } ;
+    mod = \\st,n,c =>
+            cn.mod ! st ! n ! Abs -- If there was something before, it is now in Abs
+         ++ andConj st cn.hasMod  -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
+         ++ ap.s ! AF n c ;
     hasMod = True
     } ;
 
-
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    mod = let conj = if_then_Str cn.hasMod "ee" [] in
-      \\n,c => cn.mod ! n ! c ++ conj ++ rs.s ! gender cn ! c ;
+    mod = \\st,n,c => --what to do with subject case if there's both adj and RS?
+            cn.mod ! st ! n ! Abs
+         ++ andConj st cn.hasMod
+         ++ rs.s ! gender cn ! c ;
     hasMod = True ;
     } ;
 
@@ -286,4 +287,12 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : Det -> DAP ;          -- this (or that)
   DetDAP det = det ;
 -}
+
+oper
+  andConj : State -> Bool -> Str = \st,hasMod ->
+    case <st,hasMod> of {
+      <Indefinite,True> => "oo" ;
+      <Definite,True>   => "ee" ;
+      _                 => []
+    } ;
 }
