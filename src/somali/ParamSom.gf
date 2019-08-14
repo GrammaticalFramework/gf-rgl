@@ -175,7 +175,7 @@ oper
     Sg2_Prep => Sg2 ;
     Pl1_Prep i => Pl1 i ;
     Pl2_Prep   => Pl2 ;
-    _          => Pl3
+    _          => Sg3 Masc
   } ;
 
   isP3 = overload {
