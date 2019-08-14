@@ -105,6 +105,10 @@ abstract Extend = Cat ** {
 
     NominalizeVPSlashNP : VPSlash -> NP -> NP ;
 
+-- counterpart to ProgrVP, for VPSlash
+
+    ProgrVPSlash : VPSlash -> VPSlash;
+
 -- existential for mathematics
 
     ExistsNP : NP -> Cl ;  -- there exists a number / there exist numbers
