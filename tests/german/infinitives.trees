@@ -56,13 +56,108 @@
 
 (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron))) (UsePron he_Pron))))
 
--- +auxVV o +auxVV o -auxV2V o +auxV2V o V2: wrong: ich muss ihm versprechen , sie das Buch lesen zu lassen wollen
--- instead of: ich muss ihm versprechen wollen , sie das Buch lesen zu lassen 
+-- +auxVV o +auxVV o -auxV2V o +auxV2V o V2: 
 
 (PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron))) (UsePron he_Pron)))))
 
-(PredVP (UsePron i_Pron) (ComplVS know_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePN john_PN))) (DetCN (DetQuant DefArt NumPl) (UseN child_N)))))))))))
+-- ComplSlash o SlashVV
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
 
--- TestLangGer: ich weiß , dass sie sagte , , dass wir die Kinder Johann helfen , das Haus blau zu malen lassen wollten
--- statt: ich weiß , dass sie sagte , dass wir die Kinder Johann [] helfen lassen wollten , das Haus blau zu malen 
+-- ComplVV o ComplSlash
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+(PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+(PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+
+-- ComplSlash o SlashVV o SlashVV
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+
+-- ComplVV o ComplSlash o SlashVV 
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+(PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+(PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+
+-- ComplVV o ComplVV o ComplSlash
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+(PredVP (UsePron i_Pron) (ComplVV want_VV (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+(PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+
+-- ComplVV o ComplSlash o SlashVV
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+
+- ComplVV o ComplVV o ComplSlash o SlashVV
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+
+-- ComplVV o ComplVV o ComplVV o ComplSlash
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))))
+
+-- ComplSlash o SlashVV o SlashVV o SlashVV
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2)))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2)))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+
+-- ComplVV o ComplSlash o SlashVV o SlashVV 
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+
+-- ComplVV o ComplVV o ComplSlash o SlashVV
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV wagen_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+
+-- ComplVV o ComplVV o ComplVV o ComplSlash
+(PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV wagen_VV (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))))
+
+-- ComplSlash o SlashV2V o ComplSlash
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron)))
+-- ComplSlash o SlashV2V o ComplSlash o SlashV2V o ComplSlash
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (DetNP (DetQuant DefArt NumPl))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (UsePron they_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (DetNP (DetQuant DefArt NumPl))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (UsePron they_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (UsePron he_Pron)))
+
+
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (DetNP (DetQuant DefArt NumPl)) (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron they_Pron) (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (DetNP (DetQuant DefArt NumPl))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron they_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (DetNP (DetQuant DefArt NumPl)) (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron they_Pron) (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (DetNP (DetQuant DefArt NumPl))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron they_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron)))
+
+-- V2V o ReflVP with object control (default)
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ReflVP (SlashV2a love_V2))) (UsePron youSg_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V warnen_V2V (ReflVP (SlashV2a hate_V2))) (UsePron youPl_Pron)))
+
+-- V2V o ReflVP with subject control
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ReflVP (SlashV2a love_V2))) (UsePron she_Pron)))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplVV want_VV (ReflVP (SlashV2a love_V2)))) (UsePron she_Pron)))
+
+-- +auxVV o (V2V object control) o (V2V subject control) o ReflVP 
+(PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2Vneg versprechen_dat_V2V (ReflVP (SlashV2a hate_V2))) (UsePron youSg_Pron))) (UsePron she_Pron))))
+
+-- V2V o ReflVPSlash with subject control
+
+PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (ReflVPSlash entschuldigen_bei_fuer_rV3) (UsePron it_Pron))) (UsePron she_Pron))
+(PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (ReflVPSlash give_V3) (UsePron it_Pron))) (UsePron we_Pron)))
+
+(PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2Vneg beg_V2V (ReflVP (SlashV2a love_V2))) (UsePron youSg_Pron))) (UsePron she_Pron))))
+
+-- V2V o ReflVPSlash with object control
+PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (ReflVPSlash entschuldigen_bei_fuer_rV3) (UsePron it_Pron))) (UsePron youSg_Pron))
+
+-- Shieber's example
+
+(PredVP (UsePron i_Pron) (ComplVS know_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePN john_PN))) (DetCN (DetQuant DefArt NumPl) (UseN child_N)))))))))))
 

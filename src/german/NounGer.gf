@@ -2,39 +2,41 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
   flags optimize=all_subs ;
 
+-- isLight makes ResGer.insertObjNP too expensive, for ComplSlash, SlashVP
+
   lin
     DetCN det cn = {
       s = \\c => det.s ! cn.g ! c ++ 
-                 (let k = (prepC c).c in cn.s ! adjfCase det.a k ! det.n ! k) ;
+                 (let k = (prepC c).c in cn.s ! adjfCase det.a k ! det.n ! k ++ cn.adv) ;
       a = agrgP3 cn.g det.n ;  
---      isPron = det.isDef ;   -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
+--      isLight = det.isDef ;  -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
       isPron = False ;       -- HL 6/2019 (but:) sehe (die|einige) Männer nicht
       rc = cn.rc ! det.n ;   --                  don't see a|no man = sehe keinen Mann
-      adv = cn.adv ;
       ext = cn.ext 
       } ;
 
     DetNP det = {
       s = \\c => det.sp ! Neutr ! c ; -- more genders in ExtraGer -- HL: der+er,den+en ; der drei,den drei+en
       a = agrP3 det.n ;
-      -- isPron = det.isDef ;   
+--      isLight = det.isDef ;   
       isPron = False ; -- HL 6/2019: don't apply pronoun switch: ich gebe ihr das  vs. ich gebe es ihr
-      rc, adv, ext = []
+      rc, ext = []
       } ;
 
     UsePN pn = {
       s = \\c => usePrepC c (\k -> pn.s ! k) ;
       a = agrgP3 pn.g Sg ;
---      isPron = True ; --- means: this is not a heavy NP, but comes before negation
+--      isLight = True ;  -- means: this is not a heavy NP, but comes before negation
       isPron = False ;  -- HL 6/2019: to regulate Pron/NonPronNP order 
- 	  rc, adv, ext = []
+      rc, ext = []
       } ;
 
     UsePron pron = {
       s = \\c => usePrepC c (\k -> pron.s ! NPCase k) ;
       a = pron.a ;
+--      isLight = True ;
       isPron = True ;
-	  rc, adv, ext = []
+      rc, ext = []
       } ;
 
     PredetNP pred np = 
@@ -43,24 +45,26 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
           let c = case pred.c.k of {NoCase => c0 ; PredCase k => k} in
           pred.s ! numberAgr ag ! genderAgr np.a ! c0 ++ pred.c.p ++ np.s ! c ; 
         a = ag ;
+--        isLight = False ;
         isPron = False
         } ;
 
     PPartNP np v2 = np ** {
-      s = \\c => np.s ! c ++ v2.s ! VPastPart APred ; --- invar part
-      isPron = False
+      s = \\c => np.s ! c ++ embedInCommas (v2.s ! VPastPart APred) ; --- invar part
+      isPron = False 
       } ;
-	{- possibly structures such as
-		"sie ist eine erfolgreiche Frau geliebt von vielen"
+	{- "eine erfolgreiche Frau, geliebt von vielen,"  "der Mond, gerade aufgegangen,"
 	 but only with v2 not possible in German? -}
 	
     AdvNP np adv = np ** {
-      adv = np.adv ++ adv.s ;
+      s = \\c => np.s ! c ++ adv.s ;
+--      isLight = False ;
       isPron = False
       } ;
 
     ExtAdvNP np adv = np ** {
-      adv = np.adv ++ embedInCommas adv.s ;
+      s = \\c => np.s ! c ++ embedInCommas adv.s ;
+--      isLight = False ;
       isPron = False
       } ;
 
@@ -151,11 +155,11 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
 
     MassNP cn = {
-      s = \\c => usePrepC c (\k -> cn.s ! Strong ! Sg ! k) ;
+      s = \\c => usePrepC c (\k -> cn.s ! Strong ! Sg ! k) ++ cn.adv ;
       a = agrgP3 cn.g Sg ;
+--      isLight = True ;  -- ich trinke Bier nicht vs. ich trinke kein Bier
       isPron = False ;
 	  rc = cn.rc ! Sg ;
-	  adv = cn.adv ;
 	  ext = cn.ext 
       } ;
 
@@ -182,8 +186,6 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
        } ;
       g = f.g ; 
       c2 = f.c3 ;
-	  rc = \\_ => [] ;
-	  ext,adv = [] 
       } ;
 
     Use2N3 f = f ;

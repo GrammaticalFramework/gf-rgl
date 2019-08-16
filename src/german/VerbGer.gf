@@ -40,10 +40,9 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInfExt vpi.p3 (
           insertInf vpi.p2 (
             insertObjc vpi.p1 vps))) ; -- glues all vp.nn-fields into nn.p4; except vp.nn.p1 for reflVP?
-      -- insertExtrapos (vpi.p3 ++ vpi.p4) (  -- comma ++ vpi.p3 ?
-      --   insertInf vpi.p2 (
-      --     insertObj vpi.p1 vps)) ;
 -}
+
+
     SlashV2A v ap = 
       insertAdj (ap.s ! APred) ap.c ap.ext (predVc v) ;
 
@@ -71,7 +70,6 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInf vpi.p2 (
           insertObj vpi.p1 (
             insertObj (\\_ => appPrepNP v.c2 np) vps))) ;
---            insertObjNP v.c2 np vps))) ;
 -}
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
@@ -81,7 +79,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     UseCopula = predV sein_V ;
 
     CompAP ap = {s = \\_ => ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ; ext = ap.ext} ;
-    CompNP np = {s = \\_ => np.s ! NPC Nom ++ np.adv ++ np.rc ; ext = np.ext} ;
+    CompNP np = {s = \\_ => np.s ! NPC Nom ++ np.rc ; ext = np.ext} ;
     CompAdv a = {s = \\_ => a.s ; ext = []} ;
 
     CompCN cn = {s = \\a => case numberAgr a of {

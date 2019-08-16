@@ -106,7 +106,7 @@ concrete CatGer of Cat =
     Tense = {s : Str ; t : ResGer.Tense ; m : Mood} ;
 
   linref
-    NP = \np -> np.s!(NPC Nom) ++ np.adv ++ np.ext ++ np.rc ; -- HL 6/2019
+    NP = \np -> np.s!(NPC Nom) ++ np.ext ++ np.rc ; -- HL 6/2019
     CN = \cn -> cn.s ! Strong ! Pl ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Pl ;
 
     SSlash = \ss -> ss.s ! Main ++ ss.c2.s  ;

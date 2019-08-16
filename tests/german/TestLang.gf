@@ -5,6 +5,9 @@ abstract TestLang =
 --  , Construction
   ** {    
   flags startcat=Phr ;
+
+  fun
+    SlashV2Vneg : V2V -> VP -> VPSlash ; -- negative use of VP: promise, not to vp
   cat 
     VPSlashSlash ;
   fun

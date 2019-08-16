@@ -1,0 +1,10 @@
+-- Use gf --run < V2V.gfs  or  gf> eh V2V.gfs 
+--? echo "loading TestLangGer.gf and TestLangEng.gf ..."
+--i TestLangGer.gf TestLangEng.gf
+? echo "remove infinitives.lin.tmp"
+? rm infinitives.lin.tmp
+? echo "linearizing infinitives.trees to infinitives.lin.tmp ... "
+rf -file="infinitives.trees" -lines -tree | l -lang="Ger,Eng" -treebank | wf -file="infinitives.lin.tmp" 
+--rf -file="infinitives.trees" -lines -tree | l -lang=Ger -table | wf -append -file="infinitives.lin.tmp" 
+? echo "diff infinitives.lin.out infinitives.lin.tmp" 
+? diff infinitives.lin.out1 infinitives.lin.tmp

@@ -2,7 +2,7 @@
 -- --# -path=.:../abstract:../common:../api:../prelude
 
 concrete TestLangGer of TestLang = 
-  GrammarGer - [PassV2,SlashV2V,ComplVV,SlashVV] -- to improve these
+  GrammarGer - [PassV2,ComplVV,SlashVV] -- to improve these ,SlashV2V
   , TestLexiconGer
 --  , ConstructionGer
   ** open ResGer,Prelude,(P=ParadigmsGer) in {
@@ -14,16 +14,16 @@ flags startcat = Phr ; unlexer = text ; lexer = text ;
     ReflVPSlash v3 = (insertObjRefl (predVc v3) ** {c2 = v3.c3 ; missingAdv = True}); -- reflexive use of v:V3, untested
 
     -- SlashV3a v = (predVc v) ** {c3 = v.c3} ;
-
+{- save time:
     Slash2V4 v np = (lin VPSlash (insertObjNP np v.c2 (predV v) ** {c2 = v.c3 ; missingAdv = True})) ** { c3 = v.c4 } ; 
     Slash3V4 v np = (lin VPSlash (insertObjNP np v.c3 (predV v) ** {c2 = v.c2 ; missingAdv = True})) ** { c3 = v.c4 } ;
     Slash4V4 v np = (lin VPSlash (insertObjNP np v.c4 (predV v) ** {c2 = v.c2 ; missingAdv = True})) ** { c3 = v.c3 } ;
 
 --    ComplSlashSlash vpss np = insertObjNP np vpss.c2 vpss ** {c2 = vpss.c3 ; missingAdv = True } ;
-
+time saved -}
     -- linref
     --   V4 = \v -> useInfVP False (predV v) ++ v.c2.s ++ v.c3.s ++ v.c4.s ;
-{-
+{- save time
     PassV2 v = -- insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass) ;
       let c = case <v.c2.c, v.c2.isPrep> of {
             <NPC Acc, False> => NPC Nom ; _ => v.c2.c} -- acc object -> nom; all others: same PCase
@@ -99,58 +99,59 @@ flags startcat = Phr ; unlexer = text ; lexer = text ;
         insertInf vpi.p2 (
           insertObj vpi.p1 vps)) ;
 -}
-    ComplVV v vp = -- will|wage (es (zu) tun [] | ihn [es tun] (zu) lassen | ihm (zu) versprechen [, es zu tun])
+
+    ComplVV v vp = -- will|wage (es ([]|zu) tun [] | ihn [es tun] ([]|zu) lassen | ihn ([]|zu) bitten [, es zu tun])
       let 
         vps = predVGen v.isAux v ;
-        vpi = infzuVP v.isAux SubjC vp ;
+        vpi = infzuVP v.isAux SubjC Pos vp ;
         -- { objs: ihm ; pred: []/zu versprechen, objInf: sich/es zu tun }
         -- (ich) vfin:werde (ihm ([]/zu) versprechen) vinf:(wollen/gewagt haben) (, es zu tun)
         -- (ich) vfin:werde (ihn (es tun) lassen)/[]  vinf:(wollen/gewagt haben) []/(, ihn (es tun) zu lassen)
---        comma = case andB vp.isAux vp.inf.isAux of {True => [] ; _ => bindComma} ;
+        extInfzu = case <vp.isAux,vp.inf.isAux> of {<True,False> => (vp.nn!(Ag Masc Sg P3)).p6 ; _ => []} ;
         comma = case vp.inf.ctrl of { NoC => [] ; _ => bindComma} ; -- es (zu) tun
-        embeddedInf : Agr => Str = 
-          case <vps.isAux,vp.isAux> of {<True,True> => -- <will,lassen> ihn [es tun] lassen 
-                                          \\agr => "A[" ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ++ "]";           
-                                        <False,True> => -- <wage,lassen> ihn [es tun] (zu) lassen 
-                                          \\agr => "B[" ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ++ "]";           
-                                        <True,False> => -- <will,versprechen> ihr versprechen [, es zu tun]
-                                          \\agr => "C[" ++ comma ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ++ "]"; 
-                                        <False,False> => -- [] | , es zu tun | (,) ihm (zu) versprechen , es zu tun
-                                          \\agr => "D[" ++ comma ++ (vp.nn!agr).p5 ++ vpi.inf ++ (vp.nn!agr).p6 ++ "]"} 
+        embeddedInf : Agr => Str =                     
+          case <vp.isAux,vp.inf.isAux> of { -- vv + vp + [embeddedInf] 
+            -- will [es lesen] können | will ihn [es lesen] lassen | will ihn [euch (extInf) bitten] lassen
+            <True,True>  => \\agr => (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ;           
+            <True,False> => \\agr => (vp.nn!agr).p5 ++ vpi.inf ; -- ++ (vp.nn!agr).p6 => extInf
+            -- will es lesen [] | will ihn bitten [, es zu lesen] | will ihn bitten [, sie es lesen zu lassen]
+            <False,True>  => \\agr => comma ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ; 
+            <False,False> => \\agr => comma ++ (vp.nn!agr).p5 ++ vpi.inf ++ (vp.nn!agr).p6 } 
       in
-      insertExtrapos vpi.ext (         -- vps.ext   <- object-sentence of vp 
-        insertInf vpi.pred (           -- vps.inf   <- vp's infinite main verb
-          insertInfExtraObj vpi.objs ( -- vps.nn.p5 <- vp's object nps
+      insertExtrapos (extInfzu ++ vpi.ext) ( -- vps.ext   <- vp's extracted embedded infzu + vp's object-sentence
+        insertInf vpi.pred (                 -- vps.inf   <- vp's infinite main verb
+          insertInfExtraObj vpi.objs (       -- vps.nn.p5 <- vp's object nps
             insertInfExtraInf embeddedInf vps))) ;
-  lin
+
     SlashV2V v vp =   -- warnen, (\agr => sich!agr das Buch zu merken) 
       let 
         vps = (predVGen v.isAux v) ** { c2 = v.c2 ; 
                                         missingAdv = case v.ctrl of { SubjC => True ; _ => False } } ;
-        vpi = infzuVP v.isAux v.ctrl vp ;
-        comma = case orB vp.isAux (case vp.inf.ctrl of { NoC => True ; _ => False }) of {True => [] ; _ => bindComma} 
+        vpi = infzuVP v.isAux v.ctrl Pos vp ;
+        comma = case orB vp.isAux (case vp.inf.ctrl of { NoC => True ; _ => False }) of {True => [] ; _ => bindComma} ;
+        embeddedInf : Agr => Str = case vp.inf.isAux of {
+          True  => \\agr => comma ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ;  -- ihn es lesen (zu) lassen
+          False => \\agr => comma ++ (vp.nn!agr).p5 ++ vpi.inf ++ (vp.nn!agr).p6 }  -- ihn (zu) bitten , es zu lesen
+      in { missingAdv = True } **
+      insertExtrapos vpi.ext (           -- vps.ext   <- vp's object-sentence ++ extractedInfzu?
+        insertInf vpi.pred (             -- vps.inf   <- vp's infinite main verb
+          insertInfExtraObj vpi.objs (   -- vps.nn.p5 <- vp's object nps
+            insertInfExtraInf embeddedInf vps))) ;
+
+    SlashV2Vneg v vp =   -- warnen, (\agr => sich!agr das Buch nicht zu merken) 
+      let 
+        vps = (predVGen v.isAux v) ** { c2 = v.c2 ; 
+                                        missingAdv = case v.ctrl of { SubjC => True ; _ => False } } ;
+        vpi = infzuVP v.isAux v.ctrl Neg vp ;
+        comma = case orB vp.isAux (case vp.inf.ctrl of { NoC => True ; _ => False }) of {True => [] ; _ => bindComma} ;
+        embeddedInf : Agr => Str = case vp.inf.isAux of {
+          True  => \\agr => comma ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ;  -- ihn es lesen (zu) lassen
+          False => \\agr => comma ++ (vp.nn!agr).p5 ++ vpi.inf ++ (vp.nn!agr).p6 }  -- ihn (zu) bitten , es zu lesen
       in { missingAdv = True } **
       insertExtrapos vpi.ext (           -- vps.ext   <- object-sentence of vp 
         insertInf vpi.pred (             -- vps.inf   <- vp's infinite main verb
           insertInfExtraObj vpi.objs (   -- vps.nn.p5 <- vp's object nps
-            insertInfExtraInf (\\agr => comma ++ (vp.nn!agr).p6 ++ (vp.nn!agr).p5 ++ vpi.inf) vps))) ;
-
-  oper
-    infzuVP : Bool -> Control -> ResGer.VP -> { objs:(Agr => Str) ; pred:{s:Str;isAux:Bool;ctrl:Control} ; inf:Str ; ext:Str } = 
-      \isAux, ctrl, vp -> let vps = useVP vp in
-      { pred = { s = vp.a1 ! Pos ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit Simul).inf ;
-                 isAux = vp.isAux ; ctrl = ctrl } ;
-        objs = \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 
-          ++ vp.a2 ++ (vp.nn ! agr).p4 ;  -- objects + predicative A|CN|NP
-        inf = vp.inf.s ; 
-        ext = vp.ext  
-      } ;
-
-    insertInfExtraInf : (Agr => Str) -> VPSlash -> VPSlash = \inf,vp -> vp ** { 
-      nn = \\a => let vpnn = vp.nn ! a in
-        <vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6 ++ inf ! a>   
-        -- embedded inf + modalInf / nonmodalInf + embedded inf ?
-      } ;
+            insertInfExtraInf embeddedInf vps))) ;
 
 {-
     SlashV2V v vp =   -- warne (\agr => sich!agr das Buch zu merken) : der infzu muss in nn.p4 oder ext:Agr=>Str

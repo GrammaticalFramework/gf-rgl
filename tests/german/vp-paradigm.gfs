@@ -1,7 +1,7 @@
 -- To create vp-paradigm.out, I used changes of 30/6/2019 (in git branch vp-paradigm):
 -- i ../../src/german/LangGer.gf  
 -- Use gf --run < vp-paradigm.gfs > vp-paradigm.tmp to compare with gf-rgl.  HL 3/7/2019
-i alltenses/LangGer.gfo
+--i alltenses/LangGer.gfo
   
 -- verb phrases with modal verb
 l -lang=Ger -table (PredVP (UsePron he_Pron) (ComplVV want_VV (UseV sleep_V)))

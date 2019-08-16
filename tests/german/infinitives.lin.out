@@ -1,0 +1,795 @@
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron youPl_Pron))
+TestLangGer: ich verspreche euch , das Buch zu lesen
+TestLangEng: I promise you to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron youPl_Pron))
+TestLangGer: ich lasse euch das Buch lesen
+TestLangEng: I let you read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron))
+TestLangGer: ich bitte dich , uns zu versprechen , das Buch zu lesen
+TestLangEng: I beg you to promise us to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron))
+TestLangGer: ich lasse dich uns versprechen , das Buch zu lesen
+TestLangEng: I let you promise us to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron))
+TestLangGer: ich bitte dich , uns das Buch lesen zu lassen
+TestLangEng: I beg you to let us read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron we_Pron))) (UsePron youSg_Pron))
+TestLangGer: ich lasse dich uns das Buch lesen lassen
+TestLangEng: I let you let us read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: ich will das Buch lesen
+TestLangEng: I want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: ich wage , das Buch zu lesen
+TestLangEng: I dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V versprechen_dat_V2V (UseV sleep_V)) (UsePron she_Pron)))
+TestLangGer: ich muss ihr versprechen , zu schlafen
+TestLangEng: I must promise her to sleep
+TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2V versprechen_dat_V2V (UseV sleep_V)) (UsePron she_Pron)))
+TestLangGer: ich wage , ihr zu versprechen , zu schlafen
+TestLangEng: I dare to promise her to sleep
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V lassen_V2V (UseV sleep_V)) (UsePron she_Pron)))
+TestLangGer: ich muss sie schlafen lassen
+TestLangEng: I must let her sleep
+TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2V lassen_V2V (UseV sleep_V)) (UsePron she_Pron)))
+TestLangGer: ich wage , sie schlafen zu lassen
+TestLangEng: I dare to let her sleep
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (UseV sleep_V)) (UsePron she_Pron))) (UsePron she_Pron)))
+TestLangGer: ich muss ihr versprechen , sie schlafen zu lassen
+TestLangEng: I must promise her to let her sleep
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron)))
+TestLangGer: ich muss sie das Buch lesen lassen
+TestLangEng: I must let her read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron))) (UsePron he_Pron)))
+TestLangGer: ich will ihm versprechen , sie das Buch lesen zu lassen
+TestLangEng: I want to promise him to let her read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron she_Pron))) (UsePron he_Pron))))
+TestLangGer: ich muss ihm versprechen wollen , sie das Buch lesen zu lassen
+TestLangEng: I must want to promise him to let her read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I must read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: ich muss das Buch lesen
+TestLangEng: I must read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: ich will das Buch lesen
+TestLangEng: I want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: ich wage , das Buch zu lesen
+TestLangEng: I dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I must want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I must dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I want to dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I dare to want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: 
+TestLangEng: I must want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: 
+TestLangEng: I must dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: 
+TestLangEng: I want to dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: 
+TestLangEng: I dare to want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+TestLangGer: ich muss das Buch lesen wollen
+TestLangEng: I must want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+TestLangGer: ich muss wagen , das Buch zu lesen
+TestLangEng: I must dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+TestLangGer: ich will wagen , das Buch zu lesen
+TestLangEng: I want to dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+TestLangGer: ich wage , das Buch lesen zu wollen
+TestLangEng: I dare to want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: 
+TestLangEng: I must want to dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+TestLangGer: 
+TestLangEng: I must want to dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+TestLangGer: ich muss wagen wollen , das Buch zu lesen
+TestLangEng: I must want to dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2)))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I must dare to want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2)))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I must want to dare to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+TestLangGer: 
+TestLangEng: I must dare to want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV wagen_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
+TestLangGer: 
+TestLangEng: I must dare to want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV wagen_VV (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
+TestLangGer: ich muss wagen , das Buch lesen zu wollen
+TestLangEng: I must dare to want to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))
+TestLangGer: ich lasse ihn das Buch lesen
+TestLangEng: I let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))
+TestLangGer: ich bitte ihn , das Buch zu lesen
+TestLangEng: I beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))
+TestLangGer: ich verspreche ihm , das Buch zu lesen
+TestLangEng: I promise him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (DetNP (DetQuant DefArt NumPl)))
+TestLangGer: ich bitte die , ihn das Buch lesen zu lassen
+TestLangEng: I beg them to let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (UsePron they_Pron))
+TestLangGer: ich bitte sie , ihn das Buch lesen zu lassen
+TestLangEng: I beg them to let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (DetNP (DetQuant DefArt NumPl)))
+TestLangGer: ich verspreche denen , ihn zu bitten , das Buch zu lesen
+TestLangEng: I promise them to beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (UsePron they_Pron))
+TestLangGer: ich verspreche ihnen , ihn zu bitten , das Buch zu lesen
+TestLangEng: I promise them to beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))) (UsePron he_Pron))
+TestLangGer: ich bitte ihn , ihm zu versprechen , das Buch zu lesen
+TestLangEng: I beg him to promise him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I promise him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (DetNP (DetQuant DefArt NumPl)) (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I beg them to let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron they_Pron) (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I beg them to let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (DetNP (DetQuant DefArt NumPl)))
+TestLangGer: 
+TestLangEng: I beg them to let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron they_Pron))
+TestLangGer: 
+TestLangEng: I beg them to let him read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (DetNP (DetQuant DefArt NumPl)) (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I promise them to beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron they_Pron) (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I promise them to beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (DetNP (DetQuant DefArt NumPl)))
+TestLangGer: 
+TestLangEng: I promise them to beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron they_Pron))
+TestLangGer: 
+TestLangEng: I promise them to beg him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
+TestLangGer: 
+TestLangEng: I beg him to promise him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))
+TestLangGer: 
+TestLangEng: I beg him to promise him to read the book
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ReflVP (SlashV2a love_V2))) (UsePron youSg_Pron))
+TestLangGer: ich bitte dich , dich zu lieben
+TestLangEng: I beg you to love yourself
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V warnen_V2V (ReflVP (SlashV2a hate_V2))) (UsePron youPl_Pron))
+TestLangGer: ich warne euch , euch zu hassen
+TestLangEng: I warn you to hate yourselves
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ReflVP (SlashV2a love_V2))) (UsePron she_Pron))
+TestLangGer: ich verspreche ihr , mich zu lieben
+TestLangEng: I promise her to love herself -- wrong: myself
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplVV want_VV (ReflVP (SlashV2a love_V2)))) (UsePron she_Pron))
+TestLangGer: ich verspreche ihr , mich lieben zu wollen
+TestLangEng: I promise her to want to love herself -- wrong: myself
+TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2Vneg versprechen_dat_V2V (ReflVP (SlashV2a hate_V2))) (UsePron youSg_Pron))) (UsePron she_Pron)))
+TestLangGer: ich will sie bitten , dir zu versprechen , sich nicht zu hassen
+TestLangEng: I want to beg her to promise you not to hate yourself -- wrong: herself
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (ReflVPSlash entschuldigen_bei_fuer_rV3) (UsePron it_Pron))) (UsePron she_Pron))
+TestLangGer: ich verspreche ihr , mich bei mir für es zu entschuldigen
+TestLangEng: I promise her to apologize for it itself -- wrong: myself
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (ReflVPSlash give_V3) (UsePron it_Pron))) (UsePron we_Pron))
+TestLangGer: ich verspreche uns , es mir zu geben
+TestLangEng: I promise us to give it itself -- wrong: myself
+TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2Vneg beg_V2V (ReflVP (SlashV2a love_V2))) (UsePron youSg_Pron))) (UsePron she_Pron)))
+TestLangGer: ich will ihr versprechen , dich zu bitten , dich nicht zu lieben
+TestLangEng: I want to promise her to beg you to not love yourself
+TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (ReflVPSlash entschuldigen_bei_fuer_rV3) (UsePron it_Pron))) (UsePron youSg_Pron))
+TestLangGer: ich bitte dich , dich bei dir für es zu entschuldigen
+TestLangEng: I beg you to apologize for it itself -- wrong: yourself
+TestLang: PredVP (UsePron i_Pron) (ComplVS know_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePN john_PN))) (DetCN (DetQuant DefArt NumPl) (UseN child_N))))))))))
+TestLangGer: ich weiß , dass sie sagte , , dass wir die Kinder Johann helfen lassen wollten , das Haus blau zu malen
+TestLangEng: I know that she said that we wanted to let the children help John to paint the house blue
+s MIndic Pres Simul Pos Main : ich verspreche euch , das Buch zu lesen
+s MIndic Pres Simul Pos Inv : verspreche ich euch , das Buch zu lesen
+s MIndic Pres Simul Pos Sub : ich euch verspreche , das Buch zu lesen
+s MIndic Pres Simul Neg Main : ich verspreche euch nicht , das Buch zu lesen
+s MIndic Pres Simul Neg Inv : verspreche ich euch nicht , das Buch zu lesen
+s MIndic Pres Simul Neg Sub : ich euch nicht verspreche , das Buch zu lesen
+s MIndic Pres Anter Pos Main : ich habe euch versprochen , das Buch zu lesen
+s MIndic Pres Anter Pos Inv : habe ich euch versprochen , das Buch zu lesen
+s MIndic Pres Anter Pos Sub : ich euch versprochen habe , das Buch zu lesen
+s MIndic Pres Anter Neg Main : ich habe euch nicht versprochen , das Buch zu lesen
+s MIndic Pres Anter Neg Inv : habe ich euch nicht versprochen , das Buch zu lesen
+s MIndic Pres Anter Neg Sub : ich euch nicht versprochen habe , das Buch zu lesen
+s MIndic Past Simul Pos Main : ich versprach euch , das Buch zu lesen
+s MIndic Past Simul Pos Inv : versprach ich euch , das Buch zu lesen
+s MIndic Past Simul Pos Sub : ich euch versprach , das Buch zu lesen
+s MIndic Past Simul Neg Main : ich versprach euch nicht , das Buch zu lesen
+s MIndic Past Simul Neg Inv : versprach ich euch nicht , das Buch zu lesen
+s MIndic Past Simul Neg Sub : ich euch nicht versprach , das Buch zu lesen
+s MIndic Past Anter Pos Main : ich hatte euch versprochen , das Buch zu lesen
+s MIndic Past Anter Pos Inv : hatte ich euch versprochen , das Buch zu lesen
+s MIndic Past Anter Pos Sub : ich euch versprochen hatte , das Buch zu lesen
+s MIndic Past Anter Neg Main : ich hatte euch nicht versprochen , das Buch zu lesen
+s MIndic Past Anter Neg Inv : hatte ich euch nicht versprochen , das Buch zu lesen
+s MIndic Past Anter Neg Sub : ich euch nicht versprochen hatte , das Buch zu lesen
+s MIndic Fut Simul Pos Main : ich werde euch versprechen , das Buch zu lesen
+s MIndic Fut Simul Pos Inv : werde ich euch versprechen , das Buch zu lesen
+s MIndic Fut Simul Pos Sub : ich euch versprechen werde , das Buch zu lesen
+s MIndic Fut Simul Neg Main : ich werde euch nicht versprechen , das Buch zu lesen
+s MIndic Fut Simul Neg Inv : werde ich euch nicht versprechen , das Buch zu lesen
+s MIndic Fut Simul Neg Sub : ich euch nicht versprechen werde , das Buch zu lesen
+s MIndic Fut Anter Pos Main : ich werde euch versprochen haben , das Buch zu lesen
+s MIndic Fut Anter Pos Inv : werde ich euch versprochen haben , das Buch zu lesen
+s MIndic Fut Anter Pos Sub : ich euch versprochen haben werde , das Buch zu lesen
+s MIndic Fut Anter Neg Main : ich werde euch nicht versprochen haben , das Buch zu lesen
+s MIndic Fut Anter Neg Inv : werde ich euch nicht versprochen haben , das Buch zu lesen
+s MIndic Fut Anter Neg Sub : ich euch nicht versprochen haben werde , das Buch zu lesen
+s MIndic Cond Simul Pos Main : ich würde euch versprechen , das Buch zu lesen
+s MIndic Cond Simul Pos Inv : würde ich euch versprechen , das Buch zu lesen
+s MIndic Cond Simul Pos Sub : ich euch versprechen würde , das Buch zu lesen
+s MIndic Cond Simul Neg Main : ich würde euch nicht versprechen , das Buch zu lesen
+s MIndic Cond Simul Neg Inv : würde ich euch nicht versprechen , das Buch zu lesen
+s MIndic Cond Simul Neg Sub : ich euch nicht versprechen würde , das Buch zu lesen
+s MIndic Cond Anter Pos Main : ich würde euch versprochen haben , das Buch zu lesen
+s MIndic Cond Anter Pos Inv : würde ich euch versprochen haben , das Buch zu lesen
+s MIndic Cond Anter Pos Sub : ich euch versprochen haben würde , das Buch zu lesen
+s MIndic Cond Anter Neg Main : ich würde euch nicht versprochen haben , das Buch zu lesen
+s MIndic Cond Anter Neg Inv : würde ich euch nicht versprochen haben , das Buch zu lesen
+s MIndic Cond Anter Neg Sub : ich euch nicht versprochen haben würde , das Buch zu lesen
+s MConjunct Pres Simul Pos Main : ich verspreche euch , das Buch zu lesen
+s MConjunct Pres Simul Pos Inv : verspreche ich euch , das Buch zu lesen
+s MConjunct Pres Simul Pos Sub : ich euch verspreche , das Buch zu lesen
+s MConjunct Pres Simul Neg Main : ich verspreche euch nicht , das Buch zu lesen
+s MConjunct Pres Simul Neg Inv : verspreche ich euch nicht , das Buch zu lesen
+s MConjunct Pres Simul Neg Sub : ich euch nicht verspreche , das Buch zu lesen
+s MConjunct Pres Anter Pos Main : ich habe euch versprochen , das Buch zu lesen
+s MConjunct Pres Anter Pos Inv : habe ich euch versprochen , das Buch zu lesen
+s MConjunct Pres Anter Pos Sub : ich euch versprochen habe , das Buch zu lesen
+s MConjunct Pres Anter Neg Main : ich habe euch nicht versprochen , das Buch zu lesen
+s MConjunct Pres Anter Neg Inv : habe ich euch nicht versprochen , das Buch zu lesen
+s MConjunct Pres Anter Neg Sub : ich euch nicht versprochen habe , das Buch zu lesen
+s MConjunct Past Simul Pos Main : ich verspräche euch , das Buch zu lesen
+s MConjunct Past Simul Pos Inv : verspräche ich euch , das Buch zu lesen
+s MConjunct Past Simul Pos Sub : ich euch verspräche , das Buch zu lesen
+s MConjunct Past Simul Neg Main : ich verspräche euch nicht , das Buch zu lesen
+s MConjunct Past Simul Neg Inv : verspräche ich euch nicht , das Buch zu lesen
+s MConjunct Past Simul Neg Sub : ich euch nicht verspräche , das Buch zu lesen
+s MConjunct Past Anter Pos Main : ich hätte euch versprochen , das Buch zu lesen
+s MConjunct Past Anter Pos Inv : hätte ich euch versprochen , das Buch zu lesen
+s MConjunct Past Anter Pos Sub : ich euch versprochen hätte , das Buch zu lesen
+s MConjunct Past Anter Neg Main : ich hätte euch nicht versprochen , das Buch zu lesen
+s MConjunct Past Anter Neg Inv : hätte ich euch nicht versprochen , das Buch zu lesen
+s MConjunct Past Anter Neg Sub : ich euch nicht versprochen hätte , das Buch zu lesen
+s MConjunct Fut Simul Pos Main : ich werde euch versprechen , das Buch zu lesen
+s MConjunct Fut Simul Pos Inv : werde ich euch versprechen , das Buch zu lesen
+s MConjunct Fut Simul Pos Sub : ich euch versprechen werde , das Buch zu lesen
+s MConjunct Fut Simul Neg Main : ich werde euch nicht versprechen , das Buch zu lesen
+s MConjunct Fut Simul Neg Inv : werde ich euch nicht versprechen , das Buch zu lesen
+s MConjunct Fut Simul Neg Sub : ich euch nicht versprechen werde , das Buch zu lesen
+s MConjunct Fut Anter Pos Main : ich werde euch versprochen haben , das Buch zu lesen
+s MConjunct Fut Anter Pos Inv : werde ich euch versprochen haben , das Buch zu lesen
+s MConjunct Fut Anter Pos Sub : ich euch versprochen haben werde , das Buch zu lesen
+s MConjunct Fut Anter Neg Main : ich werde euch nicht versprochen haben , das Buch zu lesen
+s MConjunct Fut Anter Neg Inv : werde ich euch nicht versprochen haben , das Buch zu lesen
+s MConjunct Fut Anter Neg Sub : ich euch nicht versprochen haben werde , das Buch zu lesen
+s MConjunct Cond Simul Pos Main : ich würde euch versprechen , das Buch zu lesen
+s MConjunct Cond Simul Pos Inv : würde ich euch versprechen , das Buch zu lesen
+s MConjunct Cond Simul Pos Sub : ich euch versprechen würde , das Buch zu lesen
+s MConjunct Cond Simul Neg Main : ich würde euch nicht versprechen , das Buch zu lesen
+s MConjunct Cond Simul Neg Inv : würde ich euch nicht versprechen , das Buch zu lesen
+s MConjunct Cond Simul Neg Sub : ich euch nicht versprechen würde , das Buch zu lesen
+s MConjunct Cond Anter Pos Main : ich würde euch versprochen haben , das Buch zu lesen
+s MConjunct Cond Anter Pos Inv : würde ich euch versprochen haben , das Buch zu lesen
+s MConjunct Cond Anter Pos Sub : ich euch versprochen haben würde , das Buch zu lesen
+s MConjunct Cond Anter Neg Main : ich würde euch nicht versprochen haben , das Buch zu lesen
+s MConjunct Cond Anter Neg Inv : würde ich euch nicht versprochen haben , das Buch zu lesen
+s MConjunct Cond Anter Neg Sub : ich euch nicht versprochen haben würde , das Buch zu lesen
+s MIndic Pres Simul Pos Main : ich lasse euch das Buch lesen
+s MIndic Pres Simul Pos Inv : lasse ich euch das Buch lesen
+s MIndic Pres Simul Pos Sub : ich euch das Buch lesen lasse
+s MIndic Pres Simul Neg Main : ich lasse euch nicht das Buch lesen
+s MIndic Pres Simul Neg Inv : lasse ich euch nicht das Buch lesen
+s MIndic Pres Simul Neg Sub : ich euch nicht das Buch lesen lasse
+s MIndic Pres Anter Pos Main : ich habe euch das Buch lesen lassen
+s MIndic Pres Anter Pos Inv : habe ich euch das Buch lesen lassen
+s MIndic Pres Anter Pos Sub : ich euch das Buch habe lesen lassen
+s MIndic Pres Anter Neg Main : ich habe euch nicht das Buch lesen lassen
+s MIndic Pres Anter Neg Inv : habe ich euch nicht das Buch lesen lassen
+s MIndic Pres Anter Neg Sub : ich euch nicht das Buch habe lesen lassen
+s MIndic Past Simul Pos Main : ich ließ euch das Buch lesen
+s MIndic Past Simul Pos Inv : ließ ich euch das Buch lesen
+s MIndic Past Simul Pos Sub : ich euch das Buch lesen ließ
+s MIndic Past Simul Neg Main : ich ließ euch nicht das Buch lesen
+s MIndic Past Simul Neg Inv : ließ ich euch nicht das Buch lesen
+s MIndic Past Simul Neg Sub : ich euch nicht das Buch lesen ließ
+s MIndic Past Anter Pos Main : ich hatte euch das Buch lesen lassen
+s MIndic Past Anter Pos Inv : hatte ich euch das Buch lesen lassen
+s MIndic Past Anter Pos Sub : ich euch das Buch hatte lesen lassen
+s MIndic Past Anter Neg Main : ich hatte euch nicht das Buch lesen lassen
+s MIndic Past Anter Neg Inv : hatte ich euch nicht das Buch lesen lassen
+s MIndic Past Anter Neg Sub : ich euch nicht das Buch hatte lesen lassen
+s MIndic Fut Simul Pos Main : ich werde euch das Buch lesen lassen
+s MIndic Fut Simul Pos Inv : werde ich euch das Buch lesen lassen
+s MIndic Fut Simul Pos Sub : ich euch das Buch lesen lassen werde
+s MIndic Fut Simul Neg Main : ich werde euch nicht das Buch lesen lassen
+s MIndic Fut Simul Neg Inv : werde ich euch nicht das Buch lesen lassen
+s MIndic Fut Simul Neg Sub : ich euch nicht das Buch lesen lassen werde
+s MIndic Fut Anter Pos Main : ich werde euch das Buch haben lesen lassen
+s MIndic Fut Anter Pos Inv : werde ich euch das Buch haben lesen lassen
+s MIndic Fut Anter Pos Sub : ich euch das Buch werde haben lesen lassen
+s MIndic Fut Anter Neg Main : ich werde euch nicht das Buch haben lesen lassen
+s MIndic Fut Anter Neg Inv : werde ich euch nicht das Buch haben lesen lassen
+s MIndic Fut Anter Neg Sub : ich euch nicht das Buch werde haben lesen lassen
+s MIndic Cond Simul Pos Main : ich würde euch das Buch lesen lassen
+s MIndic Cond Simul Pos Inv : würde ich euch das Buch lesen lassen
+s MIndic Cond Simul Pos Sub : ich euch das Buch lesen lassen würde
+s MIndic Cond Simul Neg Main : ich würde euch nicht das Buch lesen lassen
+s MIndic Cond Simul Neg Inv : würde ich euch nicht das Buch lesen lassen
+s MIndic Cond Simul Neg Sub : ich euch nicht das Buch lesen lassen würde
+s MIndic Cond Anter Pos Main : ich würde euch das Buch haben lesen lassen
+s MIndic Cond Anter Pos Inv : würde ich euch das Buch haben lesen lassen
+s MIndic Cond Anter Pos Sub : ich euch das Buch würde haben lesen lassen
+s MIndic Cond Anter Neg Main : ich würde euch nicht das Buch haben lesen lassen
+s MIndic Cond Anter Neg Inv : würde ich euch nicht das Buch haben lesen lassen
+s MIndic Cond Anter Neg Sub : ich euch nicht das Buch würde haben lesen lassen
+s MConjunct Pres Simul Pos Main : ich lasse euch das Buch lesen
+s MConjunct Pres Simul Pos Inv : lasse ich euch das Buch lesen
+s MConjunct Pres Simul Pos Sub : ich euch das Buch lesen lasse
+s MConjunct Pres Simul Neg Main : ich lasse euch nicht das Buch lesen
+s MConjunct Pres Simul Neg Inv : lasse ich euch nicht das Buch lesen
+s MConjunct Pres Simul Neg Sub : ich euch nicht das Buch lesen lasse
+s MConjunct Pres Anter Pos Main : ich habe euch das Buch lesen lassen
+s MConjunct Pres Anter Pos Inv : habe ich euch das Buch lesen lassen
+s MConjunct Pres Anter Pos Sub : ich euch das Buch habe lesen lassen
+s MConjunct Pres Anter Neg Main : ich habe euch nicht das Buch lesen lassen
+s MConjunct Pres Anter Neg Inv : habe ich euch nicht das Buch lesen lassen
+s MConjunct Pres Anter Neg Sub : ich euch nicht das Buch habe lesen lassen
+s MConjunct Past Simul Pos Main : ich ließe euch das Buch lesen
+s MConjunct Past Simul Pos Inv : ließe ich euch das Buch lesen
+s MConjunct Past Simul Pos Sub : ich euch das Buch lesen ließe
+s MConjunct Past Simul Neg Main : ich ließe euch nicht das Buch lesen
+s MConjunct Past Simul Neg Inv : ließe ich euch nicht das Buch lesen
+s MConjunct Past Simul Neg Sub : ich euch nicht das Buch lesen ließe
+s MConjunct Past Anter Pos Main : ich hätte euch das Buch lesen lassen
+s MConjunct Past Anter Pos Inv : hätte ich euch das Buch lesen lassen
+s MConjunct Past Anter Pos Sub : ich euch das Buch hätte lesen lassen
+s MConjunct Past Anter Neg Main : ich hätte euch nicht das Buch lesen lassen
+s MConjunct Past Anter Neg Inv : hätte ich euch nicht das Buch lesen lassen
+s MConjunct Past Anter Neg Sub : ich euch nicht das Buch hätte lesen lassen
+s MConjunct Fut Simul Pos Main : ich werde euch das Buch lesen lassen
+s MConjunct Fut Simul Pos Inv : werde ich euch das Buch lesen lassen
+s MConjunct Fut Simul Pos Sub : ich euch das Buch lesen lassen werde
+s MConjunct Fut Simul Neg Main : ich werde euch nicht das Buch lesen lassen
+s MConjunct Fut Simul Neg Inv : werde ich euch nicht das Buch lesen lassen
+s MConjunct Fut Simul Neg Sub : ich euch nicht das Buch lesen lassen werde
+s MConjunct Fut Anter Pos Main : ich werde euch das Buch haben lesen lassen
+s MConjunct Fut Anter Pos Inv : werde ich euch das Buch haben lesen lassen
+s MConjunct Fut Anter Pos Sub : ich euch das Buch werde haben lesen lassen
+s MConjunct Fut Anter Neg Main : ich werde euch nicht das Buch haben lesen lassen
+s MConjunct Fut Anter Neg Inv : werde ich euch nicht das Buch haben lesen lassen
+s MConjunct Fut Anter Neg Sub : ich euch nicht das Buch werde haben lesen lassen
+s MConjunct Cond Simul Pos Main : ich würde euch das Buch lesen lassen
+s MConjunct Cond Simul Pos Inv : würde ich euch das Buch lesen lassen
+s MConjunct Cond Simul Pos Sub : ich euch das Buch lesen lassen würde
+s MConjunct Cond Simul Neg Main : ich würde euch nicht das Buch lesen lassen
+s MConjunct Cond Simul Neg Inv : würde ich euch nicht das Buch lesen lassen
+s MConjunct Cond Simul Neg Sub : ich euch nicht das Buch lesen lassen würde
+s MConjunct Cond Anter Pos Main : ich würde euch das Buch haben lesen lassen
+s MConjunct Cond Anter Pos Inv : würde ich euch das Buch haben lesen lassen
+s MConjunct Cond Anter Pos Sub : ich euch das Buch würde haben lesen lassen
+s MConjunct Cond Anter Neg Main : ich würde euch nicht das Buch haben lesen lassen
+s MConjunct Cond Anter Neg Inv : würde ich euch nicht das Buch haben lesen lassen
+s MConjunct Cond Anter Neg Sub : ich euch nicht das Buch würde haben lesen lassen
+s MIndic Pres Simul Pos Main : ich bitte dich , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Simul Pos Inv : bitte ich dich , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Simul Pos Sub : ich dich bitte , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Simul Neg Main : ich bitte dich nicht , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Simul Neg Inv : bitte ich dich nicht , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Simul Neg Sub : ich dich nicht bitte , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Anter Pos Main : ich habe dich gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Anter Pos Inv : habe ich dich gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Anter Pos Sub : ich dich gebeten habe , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Anter Neg Main : ich habe dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Anter Neg Inv : habe ich dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Anter Neg Sub : ich dich nicht gebeten habe , uns zu versprechen , das Buch zu lesen
+s MIndic Past Simul Pos Main : ich bat dich , uns zu versprechen , das Buch zu lesen
+s MIndic Past Simul Pos Inv : bat ich dich , uns zu versprechen , das Buch zu lesen
+s MIndic Past Simul Pos Sub : ich dich bat , uns zu versprechen , das Buch zu lesen
+s MIndic Past Simul Neg Main : ich bat dich nicht , uns zu versprechen , das Buch zu lesen
+s MIndic Past Simul Neg Inv : bat ich dich nicht , uns zu versprechen , das Buch zu lesen
+s MIndic Past Simul Neg Sub : ich dich nicht bat , uns zu versprechen , das Buch zu lesen
+s MIndic Past Anter Pos Main : ich hatte dich gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Past Anter Pos Inv : hatte ich dich gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Past Anter Pos Sub : ich dich gebeten hatte , uns zu versprechen , das Buch zu lesen
+s MIndic Past Anter Neg Main : ich hatte dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Past Anter Neg Inv : hatte ich dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MIndic Past Anter Neg Sub : ich dich nicht gebeten hatte , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Simul Pos Main : ich werde dich bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Simul Pos Inv : werde ich dich bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Simul Pos Sub : ich dich bitten werde , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Simul Neg Main : ich werde dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Simul Neg Inv : werde ich dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Simul Neg Sub : ich dich nicht bitten werde , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Anter Pos Main : ich werde dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Anter Pos Inv : werde ich dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Anter Pos Sub : ich dich gebeten haben werde , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Anter Neg Main : ich werde dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Anter Neg Inv : werde ich dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Fut Anter Neg Sub : ich dich nicht gebeten haben werde , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Simul Pos Main : ich würde dich bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Simul Pos Inv : würde ich dich bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Simul Pos Sub : ich dich bitten würde , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Simul Neg Main : ich würde dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Simul Neg Inv : würde ich dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Simul Neg Sub : ich dich nicht bitten würde , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Anter Pos Main : ich würde dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Anter Pos Inv : würde ich dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Anter Pos Sub : ich dich gebeten haben würde , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Anter Neg Main : ich würde dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Anter Neg Inv : würde ich dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MIndic Cond Anter Neg Sub : ich dich nicht gebeten haben würde , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Simul Pos Main : ich bitte dich , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Simul Pos Inv : bitte ich dich , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Simul Pos Sub : ich dich bitte , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Simul Neg Main : ich bitte dich nicht , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Simul Neg Inv : bitte ich dich nicht , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Simul Neg Sub : ich dich nicht bitte , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Anter Pos Main : ich habe dich gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Anter Pos Inv : habe ich dich gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Anter Pos Sub : ich dich gebeten habe , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Anter Neg Main : ich habe dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Anter Neg Inv : habe ich dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Pres Anter Neg Sub : ich dich nicht gebeten habe , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Simul Pos Main : ich bäte dich , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Simul Pos Inv : bäte ich dich , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Simul Pos Sub : ich dich bäte , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Simul Neg Main : ich bäte dich nicht , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Simul Neg Inv : bäte ich dich nicht , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Simul Neg Sub : ich dich nicht bäte , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Anter Pos Main : ich hätte dich gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Anter Pos Inv : hätte ich dich gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Anter Pos Sub : ich dich gebeten hätte , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Anter Neg Main : ich hätte dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Anter Neg Inv : hätte ich dich nicht gebeten , uns zu versprechen , das Buch zu lesen
+s MConjunct Past Anter Neg Sub : ich dich nicht gebeten hätte , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Simul Pos Main : ich werde dich bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Simul Pos Inv : werde ich dich bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Simul Pos Sub : ich dich bitten werde , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Simul Neg Main : ich werde dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Simul Neg Inv : werde ich dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Simul Neg Sub : ich dich nicht bitten werde , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Anter Pos Main : ich werde dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Anter Pos Inv : werde ich dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Anter Pos Sub : ich dich gebeten haben werde , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Anter Neg Main : ich werde dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Anter Neg Inv : werde ich dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Fut Anter Neg Sub : ich dich nicht gebeten haben werde , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Simul Pos Main : ich würde dich bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Simul Pos Inv : würde ich dich bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Simul Pos Sub : ich dich bitten würde , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Simul Neg Main : ich würde dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Simul Neg Inv : würde ich dich nicht bitten , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Simul Neg Sub : ich dich nicht bitten würde , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Anter Pos Main : ich würde dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Anter Pos Inv : würde ich dich gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Anter Pos Sub : ich dich gebeten haben würde , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Anter Neg Main : ich würde dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Anter Neg Inv : würde ich dich nicht gebeten haben , uns zu versprechen , das Buch zu lesen
+s MConjunct Cond Anter Neg Sub : ich dich nicht gebeten haben würde , uns zu versprechen , das Buch zu lesen
+s MIndic Pres Simul Pos Main : ich lasse dich uns versprechen , das Buch zu lesen
+s MIndic Pres Simul Pos Inv : lasse ich dich uns versprechen , das Buch zu lesen
+s MIndic Pres Simul Pos Sub : ich dich uns versprechen lasse , das Buch zu lesen
+s MIndic Pres Simul Neg Main : ich lasse dich nicht uns versprechen , das Buch zu lesen
+s MIndic Pres Simul Neg Inv : lasse ich dich nicht uns versprechen , das Buch zu lesen
+s MIndic Pres Simul Neg Sub : ich dich nicht uns versprechen lasse , das Buch zu lesen
+s MIndic Pres Anter Pos Main : ich habe dich uns versprechen lassen , das Buch zu lesen
+s MIndic Pres Anter Pos Inv : habe ich dich uns versprechen lassen , das Buch zu lesen
+s MIndic Pres Anter Pos Sub : ich dich uns habe versprechen lassen , das Buch zu lesen
+s MIndic Pres Anter Neg Main : ich habe dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Pres Anter Neg Inv : habe ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Pres Anter Neg Sub : ich dich nicht uns habe versprechen lassen , das Buch zu lesen
+s MIndic Past Simul Pos Main : ich ließ dich uns versprechen , das Buch zu lesen
+s MIndic Past Simul Pos Inv : ließ ich dich uns versprechen , das Buch zu lesen
+s MIndic Past Simul Pos Sub : ich dich uns versprechen ließ , das Buch zu lesen
+s MIndic Past Simul Neg Main : ich ließ dich nicht uns versprechen , das Buch zu lesen
+s MIndic Past Simul Neg Inv : ließ ich dich nicht uns versprechen , das Buch zu lesen
+s MIndic Past Simul Neg Sub : ich dich nicht uns versprechen ließ , das Buch zu lesen
+s MIndic Past Anter Pos Main : ich hatte dich uns versprechen lassen , das Buch zu lesen
+s MIndic Past Anter Pos Inv : hatte ich dich uns versprechen lassen , das Buch zu lesen
+s MIndic Past Anter Pos Sub : ich dich uns hatte versprechen lassen , das Buch zu lesen
+s MIndic Past Anter Neg Main : ich hatte dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Past Anter Neg Inv : hatte ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Past Anter Neg Sub : ich dich nicht uns hatte versprechen lassen , das Buch zu lesen
+s MIndic Fut Simul Pos Main : ich werde dich uns versprechen lassen , das Buch zu lesen
+s MIndic Fut Simul Pos Inv : werde ich dich uns versprechen lassen , das Buch zu lesen
+s MIndic Fut Simul Pos Sub : ich dich uns versprechen lassen werde , das Buch zu lesen
+s MIndic Fut Simul Neg Main : ich werde dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Fut Simul Neg Inv : werde ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Fut Simul Neg Sub : ich dich nicht uns versprechen lassen werde , das Buch zu lesen
+s MIndic Fut Anter Pos Main : ich werde dich uns haben versprechen lassen , das Buch zu lesen
+s MIndic Fut Anter Pos Inv : werde ich dich uns haben versprechen lassen , das Buch zu lesen
+s MIndic Fut Anter Pos Sub : ich dich uns werde haben versprechen lassen , das Buch zu lesen
+s MIndic Fut Anter Neg Main : ich werde dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MIndic Fut Anter Neg Inv : werde ich dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MIndic Fut Anter Neg Sub : ich dich nicht uns werde haben versprechen lassen , das Buch zu lesen
+s MIndic Cond Simul Pos Main : ich würde dich uns versprechen lassen , das Buch zu lesen
+s MIndic Cond Simul Pos Inv : würde ich dich uns versprechen lassen , das Buch zu lesen
+s MIndic Cond Simul Pos Sub : ich dich uns versprechen lassen würde , das Buch zu lesen
+s MIndic Cond Simul Neg Main : ich würde dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Cond Simul Neg Inv : würde ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MIndic Cond Simul Neg Sub : ich dich nicht uns versprechen lassen würde , das Buch zu lesen
+s MIndic Cond Anter Pos Main : ich würde dich uns haben versprechen lassen , das Buch zu lesen
+s MIndic Cond Anter Pos Inv : würde ich dich uns haben versprechen lassen , das Buch zu lesen
+s MIndic Cond Anter Pos Sub : ich dich uns würde haben versprechen lassen , das Buch zu lesen
+s MIndic Cond Anter Neg Main : ich würde dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MIndic Cond Anter Neg Inv : würde ich dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MIndic Cond Anter Neg Sub : ich dich nicht uns würde haben versprechen lassen , das Buch zu lesen
+s MConjunct Pres Simul Pos Main : ich lasse dich uns versprechen , das Buch zu lesen
+s MConjunct Pres Simul Pos Inv : lasse ich dich uns versprechen , das Buch zu lesen
+s MConjunct Pres Simul Pos Sub : ich dich uns versprechen lasse , das Buch zu lesen
+s MConjunct Pres Simul Neg Main : ich lasse dich nicht uns versprechen , das Buch zu lesen
+s MConjunct Pres Simul Neg Inv : lasse ich dich nicht uns versprechen , das Buch zu lesen
+s MConjunct Pres Simul Neg Sub : ich dich nicht uns versprechen lasse , das Buch zu lesen
+s MConjunct Pres Anter Pos Main : ich habe dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Pres Anter Pos Inv : habe ich dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Pres Anter Pos Sub : ich dich uns habe versprechen lassen , das Buch zu lesen
+s MConjunct Pres Anter Neg Main : ich habe dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Pres Anter Neg Inv : habe ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Pres Anter Neg Sub : ich dich nicht uns habe versprechen lassen , das Buch zu lesen
+s MConjunct Past Simul Pos Main : ich ließe dich uns versprechen , das Buch zu lesen
+s MConjunct Past Simul Pos Inv : ließe ich dich uns versprechen , das Buch zu lesen
+s MConjunct Past Simul Pos Sub : ich dich uns versprechen ließe , das Buch zu lesen
+s MConjunct Past Simul Neg Main : ich ließe dich nicht uns versprechen , das Buch zu lesen
+s MConjunct Past Simul Neg Inv : ließe ich dich nicht uns versprechen , das Buch zu lesen
+s MConjunct Past Simul Neg Sub : ich dich nicht uns versprechen ließe , das Buch zu lesen
+s MConjunct Past Anter Pos Main : ich hätte dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Past Anter Pos Inv : hätte ich dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Past Anter Pos Sub : ich dich uns hätte versprechen lassen , das Buch zu lesen
+s MConjunct Past Anter Neg Main : ich hätte dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Past Anter Neg Inv : hätte ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Past Anter Neg Sub : ich dich nicht uns hätte versprechen lassen , das Buch zu lesen
+s MConjunct Fut Simul Pos Main : ich werde dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Fut Simul Pos Inv : werde ich dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Fut Simul Pos Sub : ich dich uns versprechen lassen werde , das Buch zu lesen
+s MConjunct Fut Simul Neg Main : ich werde dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Fut Simul Neg Inv : werde ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Fut Simul Neg Sub : ich dich nicht uns versprechen lassen werde , das Buch zu lesen
+s MConjunct Fut Anter Pos Main : ich werde dich uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Fut Anter Pos Inv : werde ich dich uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Fut Anter Pos Sub : ich dich uns werde haben versprechen lassen , das Buch zu lesen
+s MConjunct Fut Anter Neg Main : ich werde dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Fut Anter Neg Inv : werde ich dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Fut Anter Neg Sub : ich dich nicht uns werde haben versprechen lassen , das Buch zu lesen
+s MConjunct Cond Simul Pos Main : ich würde dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Cond Simul Pos Inv : würde ich dich uns versprechen lassen , das Buch zu lesen
+s MConjunct Cond Simul Pos Sub : ich dich uns versprechen lassen würde , das Buch zu lesen
+s MConjunct Cond Simul Neg Main : ich würde dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Cond Simul Neg Inv : würde ich dich nicht uns versprechen lassen , das Buch zu lesen
+s MConjunct Cond Simul Neg Sub : ich dich nicht uns versprechen lassen würde , das Buch zu lesen
+s MConjunct Cond Anter Pos Main : ich würde dich uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Cond Anter Pos Inv : würde ich dich uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Cond Anter Pos Sub : ich dich uns würde haben versprechen lassen , das Buch zu lesen
+s MConjunct Cond Anter Neg Main : ich würde dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Cond Anter Neg Inv : würde ich dich nicht uns haben versprechen lassen , das Buch zu lesen
+s MConjunct Cond Anter Neg Sub : ich dich nicht uns würde haben versprechen lassen , das Buch zu lesen
+s MIndic Pres Simul Pos Main : ich bitte dich , uns das Buch lesen zu lassen
+s MIndic Pres Simul Pos Inv : bitte ich dich , uns das Buch lesen zu lassen
+s MIndic Pres Simul Pos Sub : ich dich bitte , uns das Buch lesen zu lassen
+s MIndic Pres Simul Neg Main : ich bitte dich nicht , uns das Buch lesen zu lassen
+s MIndic Pres Simul Neg Inv : bitte ich dich nicht , uns das Buch lesen zu lassen
+s MIndic Pres Simul Neg Sub : ich dich nicht bitte , uns das Buch lesen zu lassen
+s MIndic Pres Anter Pos Main : ich habe dich gebeten , uns das Buch lesen zu lassen
+s MIndic Pres Anter Pos Inv : habe ich dich gebeten , uns das Buch lesen zu lassen
+s MIndic Pres Anter Pos Sub : ich dich gebeten habe , uns das Buch lesen zu lassen
+s MIndic Pres Anter Neg Main : ich habe dich nicht gebeten , uns das Buch lesen zu lassen
+s MIndic Pres Anter Neg Inv : habe ich dich nicht gebeten , uns das Buch lesen zu lassen
+s MIndic Pres Anter Neg Sub : ich dich nicht gebeten habe , uns das Buch lesen zu lassen
+s MIndic Past Simul Pos Main : ich bat dich , uns das Buch lesen zu lassen
+s MIndic Past Simul Pos Inv : bat ich dich , uns das Buch lesen zu lassen
+s MIndic Past Simul Pos Sub : ich dich bat , uns das Buch lesen zu lassen
+s MIndic Past Simul Neg Main : ich bat dich nicht , uns das Buch lesen zu lassen
+s MIndic Past Simul Neg Inv : bat ich dich nicht , uns das Buch lesen zu lassen
+s MIndic Past Simul Neg Sub : ich dich nicht bat , uns das Buch lesen zu lassen
+s MIndic Past Anter Pos Main : ich hatte dich gebeten , uns das Buch lesen zu lassen
+s MIndic Past Anter Pos Inv : hatte ich dich gebeten , uns das Buch lesen zu lassen
+s MIndic Past Anter Pos Sub : ich dich gebeten hatte , uns das Buch lesen zu lassen
+s MIndic Past Anter Neg Main : ich hatte dich nicht gebeten , uns das Buch lesen zu lassen
+s MIndic Past Anter Neg Inv : hatte ich dich nicht gebeten , uns das Buch lesen zu lassen
+s MIndic Past Anter Neg Sub : ich dich nicht gebeten hatte , uns das Buch lesen zu lassen
+s MIndic Fut Simul Pos Main : ich werde dich bitten , uns das Buch lesen zu lassen
+s MIndic Fut Simul Pos Inv : werde ich dich bitten , uns das Buch lesen zu lassen
+s MIndic Fut Simul Pos Sub : ich dich bitten werde , uns das Buch lesen zu lassen
+s MIndic Fut Simul Neg Main : ich werde dich nicht bitten , uns das Buch lesen zu lassen
+s MIndic Fut Simul Neg Inv : werde ich dich nicht bitten , uns das Buch lesen zu lassen
+s MIndic Fut Simul Neg Sub : ich dich nicht bitten werde , uns das Buch lesen zu lassen
+s MIndic Fut Anter Pos Main : ich werde dich gebeten haben , uns das Buch lesen zu lassen
+s MIndic Fut Anter Pos Inv : werde ich dich gebeten haben , uns das Buch lesen zu lassen
+s MIndic Fut Anter Pos Sub : ich dich gebeten haben werde , uns das Buch lesen zu lassen
+s MIndic Fut Anter Neg Main : ich werde dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MIndic Fut Anter Neg Inv : werde ich dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MIndic Fut Anter Neg Sub : ich dich nicht gebeten haben werde , uns das Buch lesen zu lassen
+s MIndic Cond Simul Pos Main : ich würde dich bitten , uns das Buch lesen zu lassen
+s MIndic Cond Simul Pos Inv : würde ich dich bitten , uns das Buch lesen zu lassen
+s MIndic Cond Simul Pos Sub : ich dich bitten würde , uns das Buch lesen zu lassen
+s MIndic Cond Simul Neg Main : ich würde dich nicht bitten , uns das Buch lesen zu lassen
+s MIndic Cond Simul Neg Inv : würde ich dich nicht bitten , uns das Buch lesen zu lassen
+s MIndic Cond Simul Neg Sub : ich dich nicht bitten würde , uns das Buch lesen zu lassen
+s MIndic Cond Anter Pos Main : ich würde dich gebeten haben , uns das Buch lesen zu lassen
+s MIndic Cond Anter Pos Inv : würde ich dich gebeten haben , uns das Buch lesen zu lassen
+s MIndic Cond Anter Pos Sub : ich dich gebeten haben würde , uns das Buch lesen zu lassen
+s MIndic Cond Anter Neg Main : ich würde dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MIndic Cond Anter Neg Inv : würde ich dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MIndic Cond Anter Neg Sub : ich dich nicht gebeten haben würde , uns das Buch lesen zu lassen
+s MConjunct Pres Simul Pos Main : ich bitte dich , uns das Buch lesen zu lassen
+s MConjunct Pres Simul Pos Inv : bitte ich dich , uns das Buch lesen zu lassen
+s MConjunct Pres Simul Pos Sub : ich dich bitte , uns das Buch lesen zu lassen
+s MConjunct Pres Simul Neg Main : ich bitte dich nicht , uns das Buch lesen zu lassen
+s MConjunct Pres Simul Neg Inv : bitte ich dich nicht , uns das Buch lesen zu lassen
+s MConjunct Pres Simul Neg Sub : ich dich nicht bitte , uns das Buch lesen zu lassen
+s MConjunct Pres Anter Pos Main : ich habe dich gebeten , uns das Buch lesen zu lassen
+s MConjunct Pres Anter Pos Inv : habe ich dich gebeten , uns das Buch lesen zu lassen
+s MConjunct Pres Anter Pos Sub : ich dich gebeten habe , uns das Buch lesen zu lassen
+s MConjunct Pres Anter Neg Main : ich habe dich nicht gebeten , uns das Buch lesen zu lassen
+s MConjunct Pres Anter Neg Inv : habe ich dich nicht gebeten , uns das Buch lesen zu lassen
+s MConjunct Pres Anter Neg Sub : ich dich nicht gebeten habe , uns das Buch lesen zu lassen
+s MConjunct Past Simul Pos Main : ich bäte dich , uns das Buch lesen zu lassen
+s MConjunct Past Simul Pos Inv : bäte ich dich , uns das Buch lesen zu lassen
+s MConjunct Past Simul Pos Sub : ich dich bäte , uns das Buch lesen zu lassen
+s MConjunct Past Simul Neg Main : ich bäte dich nicht , uns das Buch lesen zu lassen
+s MConjunct Past Simul Neg Inv : bäte ich dich nicht , uns das Buch lesen zu lassen
+s MConjunct Past Simul Neg Sub : ich dich nicht bäte , uns das Buch lesen zu lassen
+s MConjunct Past Anter Pos Main : ich hätte dich gebeten , uns das Buch lesen zu lassen
+s MConjunct Past Anter Pos Inv : hätte ich dich gebeten , uns das Buch lesen zu lassen
+s MConjunct Past Anter Pos Sub : ich dich gebeten hätte , uns das Buch lesen zu lassen
+s MConjunct Past Anter Neg Main : ich hätte dich nicht gebeten , uns das Buch lesen zu lassen
+s MConjunct Past Anter Neg Inv : hätte ich dich nicht gebeten , uns das Buch lesen zu lassen
+s MConjunct Past Anter Neg Sub : ich dich nicht gebeten hätte , uns das Buch lesen zu lassen
+s MConjunct Fut Simul Pos Main : ich werde dich bitten , uns das Buch lesen zu lassen
+s MConjunct Fut Simul Pos Inv : werde ich dich bitten , uns das Buch lesen zu lassen
+s MConjunct Fut Simul Pos Sub : ich dich bitten werde , uns das Buch lesen zu lassen
+s MConjunct Fut Simul Neg Main : ich werde dich nicht bitten , uns das Buch lesen zu lassen
+s MConjunct Fut Simul Neg Inv : werde ich dich nicht bitten , uns das Buch lesen zu lassen
+s MConjunct Fut Simul Neg Sub : ich dich nicht bitten werde , uns das Buch lesen zu lassen
+s MConjunct Fut Anter Pos Main : ich werde dich gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Fut Anter Pos Inv : werde ich dich gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Fut Anter Pos Sub : ich dich gebeten haben werde , uns das Buch lesen zu lassen
+s MConjunct Fut Anter Neg Main : ich werde dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Fut Anter Neg Inv : werde ich dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Fut Anter Neg Sub : ich dich nicht gebeten haben werde , uns das Buch lesen zu lassen
+s MConjunct Cond Simul Pos Main : ich würde dich bitten , uns das Buch lesen zu lassen
+s MConjunct Cond Simul Pos Inv : würde ich dich bitten , uns das Buch lesen zu lassen
+s MConjunct Cond Simul Pos Sub : ich dich bitten würde , uns das Buch lesen zu lassen
+s MConjunct Cond Simul Neg Main : ich würde dich nicht bitten , uns das Buch lesen zu lassen
+s MConjunct Cond Simul Neg Inv : würde ich dich nicht bitten , uns das Buch lesen zu lassen
+s MConjunct Cond Simul Neg Sub : ich dich nicht bitten würde , uns das Buch lesen zu lassen
+s MConjunct Cond Anter Pos Main : ich würde dich gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Cond Anter Pos Inv : würde ich dich gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Cond Anter Pos Sub : ich dich gebeten haben würde , uns das Buch lesen zu lassen
+s MConjunct Cond Anter Neg Main : ich würde dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Cond Anter Neg Inv : würde ich dich nicht gebeten haben , uns das Buch lesen zu lassen
+s MConjunct Cond Anter Neg Sub : ich dich nicht gebeten haben würde , uns das Buch lesen zu lassen
+s MIndic Pres Simul Pos Main : ich lasse dich uns das Buch lesen lassen
+s MIndic Pres Simul Pos Inv : lasse ich dich uns das Buch lesen lassen
+s MIndic Pres Simul Pos Sub : ich dich uns das Buch lesen lassen lasse
+s MIndic Pres Simul Neg Main : ich lasse dich nicht uns das Buch lesen lassen
+s MIndic Pres Simul Neg Inv : lasse ich dich nicht uns das Buch lesen lassen
+s MIndic Pres Simul Neg Sub : ich dich nicht uns das Buch lesen lassen lasse
+s MIndic Pres Anter Pos Main : ich habe dich uns das Buch lesen lassen lassen
+s MIndic Pres Anter Pos Inv : habe ich dich uns das Buch lesen lassen lassen
+s MIndic Pres Anter Pos Sub : ich dich uns das Buch lesen habe lassen lassen
+s MIndic Pres Anter Neg Main : ich habe dich nicht uns das Buch lesen lassen lassen
+s MIndic Pres Anter Neg Inv : habe ich dich nicht uns das Buch lesen lassen lassen
+s MIndic Pres Anter Neg Sub : ich dich nicht uns das Buch lesen habe lassen lassen
+s MIndic Past Simul Pos Main : ich ließ dich uns das Buch lesen lassen
+s MIndic Past Simul Pos Inv : ließ ich dich uns das Buch lesen lassen
+s MIndic Past Simul Pos Sub : ich dich uns das Buch lesen lassen ließ
+s MIndic Past Simul Neg Main : ich ließ dich nicht uns das Buch lesen lassen
+s MIndic Past Simul Neg Inv : ließ ich dich nicht uns das Buch lesen lassen
+s MIndic Past Simul Neg Sub : ich dich nicht uns das Buch lesen lassen ließ
+s MIndic Past Anter Pos Main : ich hatte dich uns das Buch lesen lassen lassen
+s MIndic Past Anter Pos Inv : hatte ich dich uns das Buch lesen lassen lassen
+s MIndic Past Anter Pos Sub : ich dich uns das Buch lesen hatte lassen lassen
+s MIndic Past Anter Neg Main : ich hatte dich nicht uns das Buch lesen lassen lassen
+s MIndic Past Anter Neg Inv : hatte ich dich nicht uns das Buch lesen lassen lassen
+s MIndic Past Anter Neg Sub : ich dich nicht uns das Buch lesen hatte lassen lassen
+s MIndic Fut Simul Pos Main : ich werde dich uns das Buch lesen lassen lassen
+s MIndic Fut Simul Pos Inv : werde ich dich uns das Buch lesen lassen lassen
+s MIndic Fut Simul Pos Sub : ich dich uns das Buch lesen lassen lassen werde
+s MIndic Fut Simul Neg Main : ich werde dich nicht uns das Buch lesen lassen lassen
+s MIndic Fut Simul Neg Inv : werde ich dich nicht uns das Buch lesen lassen lassen
+s MIndic Fut Simul Neg Sub : ich dich nicht uns das Buch lesen lassen lassen werde
+s MIndic Fut Anter Pos Main : ich werde dich uns haben das Buch lesen lassen lassen
+s MIndic Fut Anter Pos Inv : werde ich dich uns haben das Buch lesen lassen lassen
+s MIndic Fut Anter Pos Sub : ich dich uns werde haben das Buch lesen lassen lassen
+s MIndic Fut Anter Neg Main : ich werde dich nicht uns haben das Buch lesen lassen lassen
+s MIndic Fut Anter Neg Inv : werde ich dich nicht uns haben das Buch lesen lassen lassen
+s MIndic Fut Anter Neg Sub : ich dich nicht uns werde haben das Buch lesen lassen lassen
+s MIndic Cond Simul Pos Main : ich würde dich uns das Buch lesen lassen lassen
+s MIndic Cond Simul Pos Inv : würde ich dich uns das Buch lesen lassen lassen
+s MIndic Cond Simul Pos Sub : ich dich uns das Buch lesen lassen lassen würde
+s MIndic Cond Simul Neg Main : ich würde dich nicht uns das Buch lesen lassen lassen
+s MIndic Cond Simul Neg Inv : würde ich dich nicht uns das Buch lesen lassen lassen
+s MIndic Cond Simul Neg Sub : ich dich nicht uns das Buch lesen lassen lassen würde
+s MIndic Cond Anter Pos Main : ich würde dich uns haben das Buch lesen lassen lassen
+s MIndic Cond Anter Pos Inv : würde ich dich uns haben das Buch lesen lassen lassen
+s MIndic Cond Anter Pos Sub : ich dich uns würde haben das Buch lesen lassen lassen
+s MIndic Cond Anter Neg Main : ich würde dich nicht uns haben das Buch lesen lassen lassen
+s MIndic Cond Anter Neg Inv : würde ich dich nicht uns haben das Buch lesen lassen lassen
+s MIndic Cond Anter Neg Sub : ich dich nicht uns würde haben das Buch lesen lassen lassen
+s MConjunct Pres Simul Pos Main : ich lasse dich uns das Buch lesen lassen
+s MConjunct Pres Simul Pos Inv : lasse ich dich uns das Buch lesen lassen
+s MConjunct Pres Simul Pos Sub : ich dich uns das Buch lesen lassen lasse
+s MConjunct Pres Simul Neg Main : ich lasse dich nicht uns das Buch lesen lassen
+s MConjunct Pres Simul Neg Inv : lasse ich dich nicht uns das Buch lesen lassen
+s MConjunct Pres Simul Neg Sub : ich dich nicht uns das Buch lesen lassen lasse
+s MConjunct Pres Anter Pos Main : ich habe dich uns das Buch lesen lassen lassen
+s MConjunct Pres Anter Pos Inv : habe ich dich uns das Buch lesen lassen lassen
+s MConjunct Pres Anter Pos Sub : ich dich uns das Buch lesen habe lassen lassen
+s MConjunct Pres Anter Neg Main : ich habe dich nicht uns das Buch lesen lassen lassen
+s MConjunct Pres Anter Neg Inv : habe ich dich nicht uns das Buch lesen lassen lassen
+s MConjunct Pres Anter Neg Sub : ich dich nicht uns das Buch lesen habe lassen lassen
+s MConjunct Past Simul Pos Main : ich ließe dich uns das Buch lesen lassen
+s MConjunct Past Simul Pos Inv : ließe ich dich uns das Buch lesen lassen
+s MConjunct Past Simul Pos Sub : ich dich uns das Buch lesen lassen ließe
+s MConjunct Past Simul Neg Main : ich ließe dich nicht uns das Buch lesen lassen
+s MConjunct Past Simul Neg Inv : ließe ich dich nicht uns das Buch lesen lassen
+s MConjunct Past Simul Neg Sub : ich dich nicht uns das Buch lesen lassen ließe
+s MConjunct Past Anter Pos Main : ich hätte dich uns das Buch lesen lassen lassen
+s MConjunct Past Anter Pos Inv : hätte ich dich uns das Buch lesen lassen lassen
+s MConjunct Past Anter Pos Sub : ich dich uns das Buch lesen hätte lassen lassen
+s MConjunct Past Anter Neg Main : ich hätte dich nicht uns das Buch lesen lassen lassen
+s MConjunct Past Anter Neg Inv : hätte ich dich nicht uns das Buch lesen lassen lassen
+s MConjunct Past Anter Neg Sub : ich dich nicht uns das Buch lesen hätte lassen lassen
+s MConjunct Fut Simul Pos Main : ich werde dich uns das Buch lesen lassen lassen
+s MConjunct Fut Simul Pos Inv : werde ich dich uns das Buch lesen lassen lassen
+s MConjunct Fut Simul Pos Sub : ich dich uns das Buch lesen lassen lassen werde
+s MConjunct Fut Simul Neg Main : ich werde dich nicht uns das Buch lesen lassen lassen
+s MConjunct Fut Simul Neg Inv : werde ich dich nicht uns das Buch lesen lassen lassen
+s MConjunct Fut Simul Neg Sub : ich dich nicht uns das Buch lesen lassen lassen werde
+s MConjunct Fut Anter Pos Main : ich werde dich uns haben das Buch lesen lassen lassen
+s MConjunct Fut Anter Pos Inv : werde ich dich uns haben das Buch lesen lassen lassen
+s MConjunct Fut Anter Pos Sub : ich dich uns werde haben das Buch lesen lassen lassen   ?? werde at end?
+s MConjunct Fut Anter Neg Main : ich werde dich nicht uns haben das Buch lesen lassen lassen
+s MConjunct Fut Anter Neg Inv : werde ich dich nicht uns haben das Buch lesen lassen lassen
+s MConjunct Fut Anter Neg Sub : ich dich nicht uns werde haben das Buch lesen lassen lassen  ?? werde at end?
+s MConjunct Cond Simul Pos Main : ich würde dich uns das Buch lesen lassen lassen
+s MConjunct Cond Simul Pos Inv : würde ich dich uns das Buch lesen lassen lassen
+s MConjunct Cond Simul Pos Sub : ich dich uns das Buch lesen lassen lassen würde
+s MConjunct Cond Simul Neg Main : ich würde dich nicht uns das Buch lesen lassen lassen
+s MConjunct Cond Simul Neg Inv : würde ich dich nicht uns das Buch lesen lassen lassen
+s MConjunct Cond Simul Neg Sub : ich dich nicht uns das Buch lesen lassen lassen würde
+s MConjunct Cond Anter Pos Main : ich würde dich uns haben das Buch lesen lassen lassen
+s MConjunct Cond Anter Pos Inv : würde ich dich uns haben das Buch lesen lassen lassen
+s MConjunct Cond Anter Pos Sub : ich dich uns würde haben das Buch lesen lassen lassen  ?? würde at end?
+s MConjunct Cond Anter Neg Main : ich würde dich nicht uns haben das Buch lesen lassen lassen
+s MConjunct Cond Anter Neg Inv : würde ich dich nicht uns haben das Buch lesen lassen lassen
+s MConjunct Cond Anter Neg Sub : ich dich nicht uns würde haben das Buch lesen lassen lassen  ?? würde at end?

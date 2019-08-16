@@ -12,6 +12,10 @@ concrete TestLangEng of TestLang =
   flags 
     startcat = Phr ; unlexer = text ; lexer = text ;
 
+  lin
+    SlashV2Vneg v vp = 
+      R.insertObjc (\\a => v.c3 ++ R.infVP v.typ vp False R.Simul (R.CNeg True) a) (R.predVc v) ;
+
   lincat
     VPSlashSlash = VPSlash ** {c3 : Str} ;
   lin 
@@ -42,5 +46,5 @@ concrete TestLangEng of TestLang =
     Pass2V4 v np =
       let vpss = R.insertObj (\\_ => v.s ! R.VPPart ++ v.p) (R.predAux R.auxBe) ** {c2 = v.c3 ; c3 = v.c4} 
       in R.insertObj (\\_ => vpss.c3 ++ np.s ! R.NPAcc) vpss ** {c2 = vpss.c2 ; missingAdv = True ; gapInMiddle = False } ;
-      
+
 } ;
