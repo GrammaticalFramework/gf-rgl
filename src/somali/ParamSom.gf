@@ -9,6 +9,8 @@ oper
   vstar : pattern Str = #("a" | "e" | "i" | "o" | "u" | "y" | "w") ; -- semivowels included
   vv : pattern Str = #("aa" | "ee" | "ii" | "oo" | "uu") ;
   c : pattern Str = #("m"|"n"|"p"|"b"|"t"|"d"|"k"|"g"|"f"|"v"
+                      |"s"|"h"|"l"|"j"|"r"|"z"|"c"|"q");
+  cstar : pattern Str = #("m"|"n"|"p"|"b"|"t"|"d"|"k"|"g"|"f"|"v" -- semivowels included
                       |"s"|"h"|"l"|"j"|"r"|"z"|"c"|"q"|"y"|"w");
   lmnr : pattern Str = #("l" | "m" | "n" | "r") ;
   kpt : pattern Str = #("k" | "p" | "t") ;
