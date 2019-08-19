@@ -83,7 +83,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
      which RS are restrictive and which appositive, as it is semantic.
    -}
   RelNP np rs = np ** {
-    s = \\c => objpron np ! c ++ "oo" ++ rs.s ! Indefinite ! npgender np ! c ;
+    s = \\c => objpron np ! c ++ "oo" ++ rs.s ! Indefinite ! npgennum np ! c ;
     isPron = False ;
     } ;
 
@@ -245,7 +245,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     mod = \\st,n,c => --what to do with subject case if there's both adj and RS?
             cn.mod ! st ! n ! Abs
          ++ andConj st cn.hasMod
-         ++ rs.s ! st ! gender cn ! c ;
+         ++ rs.s ! st ! gennum cn n ! c ;
     hasMod = True ;
     } ;
 

@@ -188,8 +188,17 @@ oper
 
   gender : {gda : GenderDefArt} -> Gender = \n ->
     case n.gda of {FM _ _ => Fem ; _ => Masc} ;
-  npgender : {a : Agreement} -> Gender = \n ->
-    case n.a of {Sg3 Fem => Fem ; _ => Masc} ;
+
+  gennum : {gda : GenderDefArt} -> Number -> GenNum = \gda,n ->
+    case n of {Pl => PlInv ; Sg => 
+      case gda.gda of {FM _ _ => SgFem ; _ => SgMasc}
+    } ;
+
+  npgennum : {a : Agreement} -> GenNum = \n ->
+    case n.a of {
+      Sg2|Sg3 Fem  => SgFem ;
+      Sg1|Sg3 Masc => SgMasc ;
+      _ => PlInv } ;
 
 --------------------------------------------------------------------------------
 -- Numerals
@@ -272,12 +281,12 @@ param
     | VNegPast Aspect
     | VPast Aspect VAgr
     | VImp Number Polarity
---    | VRelShort  -- "som är/har/…" TODO is this used in other verbs?
-    | VRel Gender ; {- Sayeed p. 95-96 + ch 8
-                      Reduced present general in relative clauses;  as absolutive
-                      1/2SG/3SG M/2PL/3PL sugá (VRel Masc)
-                      3 SG F sugtá (VRel Fem)
-                      1PL sugná -- not yet in the grammar -}
+    | VRel GenNum {- Sayeed p. 95-96 + ch 8
+                     Reduced present general in relative clauses;  as absolutive
+                      1/2SG/3SG M/2PL/3PL suga (VRel MascSg)
+                      3 SG F sugta (VRel FemSg)
+                      1PL sugna (VRel PlInv) -}
+    | VNegCond GenNum ;
 
   VAgr =
       Sg1_Sg3Masc
