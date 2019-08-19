@@ -121,7 +121,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
           -- Independent form uses plural morpheme, not gender-flipped allomorph
           <Pl,_> => num.s ! indep ++ quant.sp ! PlInv ! c ++ num.thousand } ;
     isNum = num.isNum ;
-    n = num.n
+    n = num.n ;
+    shortPoss = \\da => quant.shortPoss ! da ++ num.s ! indep
     } ;
     -- d = case <num.isNum,quant.st> of {
     --       <True,_> => Numerative ;
@@ -132,7 +133,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   DetQuantOrd quant num ord =
     let theseFive = DetQuant quant num in theseFive ** {
       s = \\g,c  => theseFive.s ! g ! c  ++ ord.s ;
-      sp = \\g,c => theseFive.sp ! g ! c ++ ord.s
+      sp = \\g,c => theseFive.sp ! g ! c ++ ord.s ;
+      shortPoss = \\da => theseFive.shortPoss ! da ++ ord.s
       } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
@@ -178,7 +180,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   DefArt = defQuant "a" "kan" "tan" "kuwan" False ;
 
   -- : Quant
-  IndefArt = indefQuant ** {sp = \\gn,c => "1"} ; -- TODO sp forms
+  IndefArt = indefQuant ; -- TODO sp forms
 
   -- : Pron -> Quant
   PossPron pron =
