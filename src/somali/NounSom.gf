@@ -75,7 +75,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
   {- NB. technically, if the RS has undergone ConjRS, it could contain both
-     restrictive and appositive relative clauses. Quote Sayeed p.215-216:
+     restrictive and appositive relative clauses. Quote Saeed p.215-216:
        "When multiple relative clauses occur, this formal distinction is
         maintained, since in the only context both can occur, on nouns with
         determiners, restrictives are joined by ee while appositives employ oo."

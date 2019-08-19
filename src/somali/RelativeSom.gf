@@ -9,7 +9,7 @@ lin
   -- : RP -> VP -> RCl ;
   {- NB. this works because vfSubord only puts different forms from vfStatement
     in Pres,Simul,Pos. RelVP needs a third set of forms in Abs,Pres,Simul,Pos,
-    called "reduced present general" (Sayeed p. 95-96 + ch 8).
+    called "reduced present general" (Saeed p. 95-96 + ch 8).
     These forms are found in VRel in VP, and aren't chosen by predVP, so we put
     them in manually in RelVP.
   -}

@@ -10,7 +10,7 @@ lin
   -- : NP -> VP -> Cl
   PredVP = predVP ;
 
-  -- : SC -> VP -> Cl ;         -- that she goes is good (Sayeed p. 94)
+  -- : SC -> VP -> Cl ;         -- that she goes is good (Saeed p. 94)
   --PredSCVP sc vp = ;
 
 --2 Clauses missing object noun phrases

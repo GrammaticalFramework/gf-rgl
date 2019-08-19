@@ -253,7 +253,7 @@ oper
 --------------------------------------------------------------------------------
 -- Verbs
 
--- Sayeed p. 84-85
+-- Saeed p. 84-85
 -- Tense: Past/Present/Future
 -- Aspect: Simple/Progressive/Habitual
 -- Mood: Declarative/Imperative/Conditional/Optative/Potential
@@ -283,7 +283,7 @@ param
     | VNegPast Aspect
     | VPast Aspect VAgr
     | VImp Number Polarity
-    | VRel GenNum {- Sayeed p. 95-96 + ch 8
+    | VRel GenNum {- Saeed p. 95-96 + ch 8
                      Reduced present general in relative clauses;  as absolutive
                       1/2SG/3SG M/2PL/3PL suga (VRel MascSg)
                       3 SG F sugta (VRel FemSg)
