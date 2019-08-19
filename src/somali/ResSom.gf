@@ -521,7 +521,7 @@ oper
           VPres Progressive Pl3_ pol => progr + "aan" ;
 
           VPast Simple Sg1_Sg3Masc
-                                     => qaat     + ay ;
+                                  => qaat     + ay ;
           VPast Simple Sg2_Sg3Fem => arag + t + ay ; -- t, d or s
           VPast Simple Pl1_       => arag + n + ay ;
           VPast Simple Pl2_       => arag + t + "een" ; -- t, d or s
@@ -537,6 +537,10 @@ oper
           VNegPast Simple      => arkin ;
           VNegPast Progressive => progr + "n" ;
 
+          -- TODO check conjugations 2 and 3
+          VNegCond PlInv  => arag + n + "een" ; 
+          VNegCond SgMasc => qaat     + "een" ; -- for most verbs same as VPast Simple Pl3_
+          VNegCond SgFem  => arag + t + "een" ; -- for most verbs same as VPast Simple Pl2_
 
           VImp Sg Pos   => arag ;
           VImp Pl Pos   => qaat + "a" ;
@@ -544,9 +548,11 @@ oper
           VImp Pl Neg   => qaat + "ina" ;
 
           VInf          => arki ;
---          VRelShort     => arki ; -- TODO does this exist?
-          VRel Masc     => qaat + "a" ;
-          VRel Fem      => arag + t + "a" } ;
+          VRel SgMasc   => qaat + "a" ;
+          VRel SgFem    => arag + t + "a" ;
+          VRel PlInv    => arag + "na"
+
+           } ;
         sii, dhex = [] ;
       } ;
 
@@ -609,6 +615,9 @@ oper
           VPast _ Pl2_    => "ahaydeen" ;
           VPast _ Pl3_    => "ahaayeen" ;
           VNegPast _      => "ahi" ;
+          VNegCond SgMasc => "ahaadeen" ; -- 1SG/3 SG M/3PL 
+          VNegCond SgFem  => "ahaateen" ; -- 2SG/3 SG F/2PL 
+          VNegCond PlInv  => "ahaanneen" ; -- 1PL
           --VRelShort       => "ah" ;
           VRel _          => "ah" ; -- TODO find right forms
           VInf            => "ahaan" ;
@@ -627,7 +636,8 @@ oper
           VPres _ Pl1_        Pos => "leenahay" ;
           VPres _ Pl2_        Pos => "leedihiin" ;
           VPres _ Pl3_        Pos => "leeyihiin" ;
-          VPast asp agr          => "l" + copula.s ! VPast asp agr ;
+          VPast asp agr           => "l" + copula.s ! VPast asp agr ;
+          VNegCond agr            => "l" + copula.s ! VNegCond agr ;
 --          VRelShort                  => "leh" ;
           VRel _                => "leh" ; -- TODO find right forms
           x                     => hold_V.s ! x }
@@ -764,7 +774,7 @@ oper
   Clause : Type = {s : ClType => Tense => Anteriority => Polarity => BaseCl} ;
   ClSlash : Type = {s : Bool {-is subordinate-} => Tense => Anteriority => Polarity => BaseCl} ;
   Sentence : Type = {s : Bool {-is subordinate-} => BaseCl} ;
-  RClause : Type = {s : Gender => Case => Tense => Anteriority => Polarity => Str} ;
+  RClause : Type = {s : GenNum => Case => Tense => Anteriority => Polarity => Str} ;
   QClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
 
   mergeQCl : (Tense => Anteriority => Polarity => BaseCl) -> QClause = mergeSTM True ;
@@ -847,15 +857,15 @@ oper
     Subord => vfSubord ; _ => vfStatement } ;
 
   vfStatement : VFun = \t,ant,p,agr,vp ->
-    case <t,ant> of {
+    case <t,ant,p> of {
+      <Cond,_,Pos> => {fin = pastV have_V  ; inf = vp.s ! VInf} ;
+      <Cond,_,Neg> => {fin = condNegV vp   ; inf = []} ;
       <Pres,Simul> => {fin = presV vp      ; inf = [] } ;
       <Past,Simul> => {fin = pastV vp      ; inf = [] } ;
       <Pres,Anter> => {fin = presCopula ! agrPol ; inf = vp.s ! VInf } ; ---- just guessing
       <Past,Anter> => {fin = pastV (cSug "jir")  ; inf = vp.s ! VInf} ;
       <Fut,Simul>  => {fin = presV (cSug "doon") ; inf = vp.s ! VInf} ;
-      <Fut,Anter>  => {fin = pastV (cSug "doon") ; inf = vp.s ! VInf} ;
-      <Cond,Simul> => {fin = pastV have_V ; inf = vp.s ! VInf} ; -- TODO check
-      <Cond,Anter> => {fin = pastV have_V ; inf = vp.s ! VInf}   -- TODO check
+      <Fut,Anter>  => {fin = pastV (cSug "doon") ; inf = vp.s ! VInf}
       }
   where {
     agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
@@ -864,7 +874,14 @@ oper
                   Pos => v.s ! VPast Simple (agr2vagr agr) } ;
 
     presV : Verb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
-  } ;
+
+    condNegV : Verb -> Str = \v -> case agr of {
+        Sg2|Sg3 Fem
+         |Pl2 => v.s ! VNegCond SgFem ;
+        Pl1 _ => v.s ! VNegCond PlInv ;
+        _     => v.s ! VNegCond SgMasc --Sg1|Sg3 Masc|Pl3|Impers
+}
+    } ;
 
   vfSubord : VFun = \t,ant,p,agr,vp ->
     case <t,ant,p> of {
