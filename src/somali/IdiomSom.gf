@@ -34,7 +34,7 @@ concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom in {
   --ProgrVP vp = vp ** { } ;
 
 
-  {- TODO: Sayeed p. 92 optative
+  {- TODO: Saeed p. 92 optative
   -- : VP -> Utt ;       -- let's go
   ImpPl1 vp = { } ;
 

@@ -453,7 +453,7 @@ oper
     } ;
 
   Verb : Type = BaseVerb ** {
-    sii : Str ; -- closed class of particles: sii, soo, kala, wada (Sayeed 171)
+    sii : Str ; -- closed class of particles: sii, soo, kala, wada (Saeed 171)
     dhex : Str ; -- closed class of adverbials: hoos, kor, dul, dhex, …
     } ;
   Verb2 : Type = Verb ** {c2 : Preposition} ;
@@ -819,7 +819,7 @@ oper
                      -- object pronoun, prepositions and negation all contract
                   } ;
            stm : {p1,p2 : Str} = case cltyp of {
-                Subord  => {p1 = if_then_Pol p [] "aan" ; -- if we form a ClSlash, no sentence type marker; negation with aan (Sayeed p. 210)
+                Subord  => {p1 = if_then_Pol p [] "aan" ; -- if we form a ClSlash, no sentence type marker; negation with aan (Saeed p. 210)
                             p2 = if_then_Pol p subjpron []} ;
                 Question  => {p1 = "ma" ; p2 = []} ; -- TODO find out how negative questions work
                 Statement => case <p,vp.pred,subj.a> of {

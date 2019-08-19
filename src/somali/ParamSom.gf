@@ -9,6 +9,8 @@ oper
   vstar : pattern Str = #("a" | "e" | "i" | "o" | "u" | "y" | "w") ; -- semivowels included
   vv : pattern Str = #("aa" | "ee" | "ii" | "oo" | "uu") ;
   c : pattern Str = #("m"|"n"|"p"|"b"|"t"|"d"|"k"|"g"|"f"|"v"
+                      |"s"|"h"|"l"|"j"|"r"|"z"|"c"|"q");
+  cstar : pattern Str = #("m"|"n"|"p"|"b"|"t"|"d"|"k"|"g"|"f"|"v" -- semivowels included
                       |"s"|"h"|"l"|"j"|"r"|"z"|"c"|"q"|"y"|"w");
   lmnr : pattern Str = #("l" | "m" | "n" | "r") ;
   kpt : pattern Str = #("k" | "p" | "t") ;
@@ -251,7 +253,7 @@ oper
 --------------------------------------------------------------------------------
 -- Verbs
 
--- Sayeed p. 84-85
+-- Saeed p. 84-85
 -- Tense: Past/Present/Future
 -- Aspect: Simple/Progressive/Habitual
 -- Mood: Declarative/Imperative/Conditional/Optative/Potential
@@ -281,7 +283,7 @@ param
     | VNegPast Aspect
     | VPast Aspect VAgr
     | VImp Number Polarity
-    | VRel GenNum {- Sayeed p. 95-96 + ch 8
+    | VRel GenNum {- Saeed p. 95-96 + ch 8
                      Reduced present general in relative clauses;  as absolutive
                       1/2SG/3SG M/2PL/3PL suga (VRel MascSg)
                       3 SG F sugta (VRel FemSg)

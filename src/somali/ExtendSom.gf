@@ -6,7 +6,7 @@ concrete ExtendSom of Extend = CatSom
   ** open Prelude, ResSom in {
 
 lin
-   -- : NP  -> SSlash  -> Utt ;   -- her I love -- Sayeed p. 189-
+   -- : NP  -> SSlash  -> Utt ;   -- her I love -- Saeed p. 189-
   FocusObj np sslash = -- FIXME: preposition disappears in negative sentences
     let ss = sslash.s ! False ;
         ssSub  = sslash.s ! True ; -- the negative particle is the same as subordinate, but verb forms come from main clause
