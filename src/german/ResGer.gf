@@ -244,11 +244,11 @@ resource ResGer = ParamX ** open Prelude in {
   NP : Type = {
      s : PCase => Str ;
      rc : Str ; -- die Frage , [rc die ich gestellt habe]
-	 ext : Str ; -- die Frage , [sc wo sie schläft])
---	 adv : Str ; -- die Frage [a von Max]  -- HL: cannot be extracted, so no need for separate field
-	 a : Agr ; 
---     isLight : Bool ;  -- light NPs come before negation in simple clauses -- too expensive
-     isPron : Bool } ;
+     ext : Str ; -- die Frage , [sc wo sie schläft] ; die Regel , [vp kein Fleisch zu essen] | [s dass ...]
+     --	 adv : Str ; -- die Frage [a von Max]  -- HL: cannot be extracted, so no need for separate field
+     a : Agr ;
+     isLight : Bool ;  -- light NPs come before negation in simple clauses (expensive)
+     isPron : Bool } ; -- to put accPron before datPron
 
   mkN  : (x1,_,_,_,_,x6,x7 : Str) -> Gender -> Noun = 
     \Mann, Mannen, Manne, Mannes, Maenner, Maennern, Mann_, g -> {
@@ -519,12 +519,12 @@ resource ResGer = ParamX ** open Prelude in {
       s  : Verb ;                         -- HL 6/2019: <refl|pron,NP,PP,AP|CN|Adv,ObjInf,EmbedInfs>
       nn : Agr => Str * Str * Str * Str   --            <sich|ihr,deine Frau,an sie,gut,
                       * Str * Str ;       -- splitInfExt (versprechen:) jmdm, sich zu bemühen ++ , an sich zu glauben> 
-      a1 : Str ;              -- adv before negation (
+      a1 : Str ;              -- adv before negation
 --      a1 : Polarity => Str ;  -- nicht = adV
       a2 : Str ;              -- heute = adv
       adj : Str ;             -- space for adjectival complements ("ich finde dich schön")
       isAux : Bool ;          -- is a double infinitive
-      inf : {s:Str ; isAux : Bool ; ctrl : Control } ;  -- sagen:VS | versuchen:VV | bitten:V2V
+      inf : {s:Str ; isAux:Bool ; ctrl:Control} ;  -- infinitival complement of wollen,versuchen:VV | bitten,versprechen:V2V
       ext : Str ;             -- dass sie kommt
       infExt : Str ;		  -- infinitival complements of inf e.g. ich hoffe [ihr zu helfen] zu versuchen 
 	  subjc : Preposition     -- determines case of "subj"
@@ -603,13 +603,12 @@ resource ResGer = ParamX ** open Prelude in {
       VRefl c => \\a => <reflPron ! a ! c,[],[],[],[],[]>
       } ;
     isAux = isAux ; ----
-    ctrl = NoC ;    -- default
     inf = {s=[]; isAux=True; ctrl=NoC} ; -- default infinitive complement (isAux=True => no endcomma)
     ext,infExt,adj : Str = [] ;
     subjc = PrepNom ;
     -- Dummy values for subtyping.
     c2 = noPreposition Nom ;
-    missingAdv = False
+    ctrl = NoC -- default
     } ;
 
   auxPerfect : Verb -> VForm => Str = \verb ->
@@ -669,7 +668,7 @@ resource ResGer = ParamX ** open Prelude in {
       Neg => "nicht"
       } ;
 
-  VPSlash = VP ** {c2 : Preposition ; missingAdv : Bool } ;
+  VPSlash = VP ** {c2 : Preposition ; ctrl : Control } ;
 
   -- IL 24/04/2018 Fixing the scope of reflexives
   objAgr : { a : Agr } -> VP -> VP = \obj,vp -> vp ** {
@@ -682,7 +681,7 @@ resource ResGer = ParamX ** open Prelude in {
               in  <vpnn.p1, vpnn.p2, vpnn.p3, obj ! a ++ vpnn.p4, vpnn.p5, vpnn.p6> } ;
 
   insertObjc : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->
-    insertObj obj vp ** {c2 = vp.c2 ; missingAdv = vp.missingAdv } ;
+    insertObj obj vp ** {c2 = vp.c2 ; ctrl = vp.ctrl } ;
 
   insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
     let c = case prep.c of { NPC cc => cc ; _ => Nom } ;
@@ -690,7 +689,8 @@ resource ResGer = ParamX ** open Prelude in {
     in vp ** {
       nn = \\a =>                  -- HL 11/6/19: rough objNP order:                (p5,p6 = splitInfExt)
         let vpnn = vp.nn ! a in    -- vfin < accPron < refl < (gen|dat)Pron < nonPronNP < neg < prepNP < vinf|comp
-        case <np.isPron,prep.isPrep,c> of { 
+{- less expensive if isLight is removed from NPs:
+       case <np.isPron,prep.isPrep,c> of {
           -- (assuming v.c2=acc) nonPron: dat < acc|gen  (acc < gen not enforced)
           <True, False,Acc> => 
             <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ; -- <es|ihn sich,  np, pp, comp, _,_>
@@ -703,7 +703,8 @@ resource ResGer = ParamX ** open Prelude in {
           <_,    True,_   > => 
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4, vpnn.p5, vpnn.p6>   -- <prons, np, pp++pp, compl>
         }
-{- too expensive:  -- vfin < accPron < refl < (gen|dat)Pron < lightNP < neg < heavyNP|PP < vinf|comp
+-}
+-- expensive:  -- vfin < accPron < refl < (gen|dat)Pron < lightNP < neg < heavyNP|PP < vinf|comp
         case <prep.isPrep,np.isPron,c> of { 
           <True, _,_> => -- all pp-objects come after negation
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4, vpnn.p5, vpnn.p6> ;  -- <prons, light, heavy++pp, compl,_,_>
@@ -724,7 +725,7 @@ resource ResGer = ParamX ** open Prelude in {
               False => -- <prons, light, dat ++ hnp, comp>
                 <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4, vpnn.p5, vpnn.p6> } 
         }
--} 
+--}
 } ;    -- the ordering of objects of v:V3 (and v:V4) is also determined by Slash?V3 (and Slash?V4)
 
   insertObjRefl : VPSlash -> VPSlash = \vp -> -- HL 6/2019, to order reflPron < neg < prep+reflPron
@@ -861,16 +862,15 @@ resource ResGer = ParamX ** open Prelude in {
     let vpi = infVP isAux vp in
     vpi.p1 ! agrP3 Sg ++ vpi.p3 ++ vpi.p2 ++ vpi.p4 ;
 
-  infzuVP : Bool -> Control -> Polarity -> VP -> { objs:(Agr => Str) ; 
-                                                   pred:{s:Str;isAux:Bool;ctrl:Control} ; 
-                                                   inf:Str ; ext:Str } = 
-      \isAux, ctrl, pol, vp -> let vps = useVP vp in
-      { pred = { s = vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit Simul).inf ;
-                 isAux = vp.isAux ; ctrl = ctrl } ;
-        objs = \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ negation ! pol ++ (vp.nn ! agr).p3 
+  infzuVP : Bool -> Control -> Anteriority -> Polarity -> VP
+    -> { objs:(Agr => Str) ; pred:{s:Str;isAux:Bool;ctrl:Control} ; inf:Str ; ext:Str } =
+      \isAux, ctrl, ant, pol, vp -> let vps = useVP vp in
+      { objs = \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ negation ! pol ++ (vp.nn ! agr).p3
           ++ vp.a2 ++ (vp.nn ! agr).p4 ;  -- objects + predicative A|CN|NP
-        inf = vp.inf.s ; 
-        ext = vp.ext  
+        pred = { s = vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit ant).inf ;
+                 isAux = vp.isAux ; ctrl = ctrl } ;
+        inf = vp.inf.s ;
+        ext = vp.ext
       } ;
 
 -- The nominative case is not used as reflexive, but defined here
@@ -929,12 +929,9 @@ resource ResGer = ParamX ** open Prelude in {
  
   infPart : Bool -> Str = \b -> if_then_Str b [] "zu" ;
 
-  -- heavyNP : 
-  --   {s : PCase => Str ; a : Agr} -> {s : PCase => Str ; a : Agr ; isLight,isPron : Bool ; ext,rc : Str} = \np ->
-  --   np ** {isLight,isPron = False; ext,rc = []} ; 
   heavyNP : 
-    {s : PCase => Str ; a : Agr} -> {s : PCase => Str ; a : Agr ; isPron : Bool ; ext,rc : Str} = \np ->
-    np ** {isPron = False; ext,rc = []} ; -- this could be wrong
+    {s : PCase => Str ; a : Agr} -> {s : PCase => Str ; a : Agr ; isLight,isPron : Bool ; ext,rc : Str} = \np ->
+    np ** {isLight,isPron = False; ext,rc = []} ; -- this could be wrong
 
   relPron :  RelGenNum => Case => Str = \\rgn,c =>
     case rgn of {

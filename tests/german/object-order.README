@@ -1,4 +1,4 @@
-Implementing pronoun switch e.a. in LangGer        HL 13.6.2019 -- 20.3.2019
+Implementing pronoun switch e.a. in LangGer        HL 13.6.2019 -- 20.6.2019
 -------------------------------------------
 Ternary verbs v:V3 with two objects of category NP order them
 depending on their being (personal) pronouns or not. Basically
@@ -273,7 +273,7 @@ From Eng to Ger:
 
 examples.eng.txt could also be parsed using LangEng instead of TestLangEng|Ger.
 
-Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="Eng,Ger" -treebank | wf -file=examples.eng.new
+Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="Eng,Ger" -treebank | wf -file=examples.eng.tmp
 Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="Eng,Ger" | wf -file=examples.eng2ger.new
 
 Using give_V3 is confusing, as both objects are connected with noPrep. The examples are
