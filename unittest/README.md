@@ -3,7 +3,7 @@
 ## Usage
 
 ```
-python path-to-script.py path/to/testfile.gftest (...)
+python path/to/unittest.py [-h] [-v] [--no-pmcfg] path/to/testfile.gftest (...)
 ```
 
 The script must be located in a sibling directory
@@ -26,3 +26,10 @@ Every line starts with a language, followed by ":" and the sentence
 (or the abstract syntax tree if the abstract grammar is specified).
 
 You can also see an example in the file [`unittest-example.gftest`](unittest-example.gftest).
+
+## No PMCFG
+
+If your grammar is complex and takes long time to compile, you can try 
+the option `--no-pmcfg`, which tells GF to not build the parsing grammar.
+
+Note however that in this case, every test case needs to contain a parse tree.
