@@ -28,14 +28,25 @@ LangSwe: katten äter fisken
 # If we only specify one sentence, the script only checks if it's possible to parse
 LangEng: the cat in Paris sleeps
 
-# This test should fail, becuase they are not translations of each other
+# This test should fail, because they are not translations of each other
 LangEng: the house is big
 LangSwe: jag sover i huset
 
-# Here are some GF parsing errors
+# This test should fail, because the tree does not have this linearisation
+LangEng: the house is small
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN house_N)) (UseComp (CompAP (PositA big_A)))))) NoVoc
+
+
+# And finally some GF parsing errors
+
 # This sentence cannot be parsed:
 LangEng: this is not parseable
+LangSwe: jag sover i huset
+
 # This sentence is not complete:
 LangEng: I sleep in
+LangSwe: jag sover i huset
+
 # This is not an abstract syntax tree:
 Lang: THIS IS NOT A TREE
+LangSwe: jag sover i huset
