@@ -64,11 +64,30 @@ lin every_Det = R.defDet [] pl **
 lin few_Det = R.indefDet "" pl ;
 lin many_Det = R.indefDet "" pl ;
 lin much_Det = R.indefDet "" sg ;
-lin somePl_Det = R.indefDet "" pl ;
-lin someSg_Det = R.indefDet "" sg ;
-
-lin no_Quant = mkPrep no_Quant
 -}
+lin somePl_Det = {
+    s = \\x,_ => BIND ++ defStems ! x ++ BIND ++ "a qaarkood" ;
+    shortPoss = \\x => BIND ++ defStems ! x ++ BIND ++ "a qaarkood" ;
+    sp = \\_,_ => "qaarkood" ;
+    isPoss, isNum = False ;
+    n = Pl ;
+    st = Definite -- NB. Indefinite is really only reserved for IndefArt NumSg.
+    } ;
+
+lin someSg_Det = somePl_Det ** {
+    n = Sg ;
+    s = table {
+            M x => \\_ => BIND ++ defStems ! M x ++ BIND ++ "a qaarkiis" ;
+            F x => \\_ => BIND ++ defStems ! F x ++ BIND ++ "a qaarkeed" } ;
+    shortPoss = table {
+            M x => BIND ++ defStems ! M x ++ BIND ++ "a qaarkiis" ;
+            F x => BIND ++ defStems ! F x ++ BIND ++ "a qaarkeed" } ;
+    sp = \\g,c => case g of {Fem => "qaarkeed" ; _ => "qaarkiis"}
+    } ;
+
+
+--lin no_Quant = mkPrep no_Quant
+
 lin that_Quant = defQuant "aas" "kaas" "taas" "kuwaas" True ;
 lin this_Quant = defQuant "an" "kan" "tan" "kuwan" True ;
 --lin which_IQuant = defQuant
