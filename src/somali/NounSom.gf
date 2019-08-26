@@ -57,9 +57,18 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UsePron pron = pron ** {st = Definite} ;
 
   -- : Predet -> NP -> NP ; -- only the man
-  PredetNP predet np = np ** {
-    s = \\c => predet.s ++ np.s ! c ---- ?
-    } ;
+  PredetNP predet np = 
+    let qnt = PossPron (pronTable ! np.a) ;
+        det = qnt.shortPoss ! predet.da ;
+         predetS : Str = case predet.isPoss of {
+          True => glue predet.s det ;
+          False => predet.s  
+        } ;
+     in np ** {s = \\c => 
+          case <np.isPron,predet.isPoss> of {
+            <True,True> => np.empty ++ predetS ;
+            _ => np.s ! c ++ predetS}
+        } ;
 
 
 -- A noun phrase can also be postmodified by the past participle of a

@@ -182,6 +182,18 @@ oper
     sp : Case => Str ;
     } ;
 
+  {- Saeed p.115: "This combination of possessive and article [kay-ga, tay-da] 
+      is the basic form but possessives occur with the full range of determiners,
+      with associated meanings, for example:
+      remote article kii/tii:    gurigaagii 'your house (remote)' 
+      demonstrative kaas/taas:   gurigaagaas 'that house of yours' 
+      interrogative kee/tee:     gurigaagee? 'which house of yours?'"
+
+     Since RGL abstract syntax doesn't allow combining two Quants, the way to go is
+     to have another Pron -> Quant function in Extra, which forms Quants such as
+     -gaagii, -gaagaas, -gaagee.
+  -}
+
   pronTable : Agreement => Pronoun = table {
     Sg1 => {
       s = table {Nom => "aan" ; Abs => "i"} ;
@@ -288,7 +300,7 @@ oper
     } ;
 
   Numeral : Type = BaseNum ** {
-    ord : Str -- whether to choose Numerative as the value of NForm
+    ord : Str
     } ;
 
   baseQuant : BaseQuant = {
