@@ -51,10 +51,11 @@ lin or_Conj = {s2 = \\_ => "ama" ; s1 = [] ; n = Sg} ; -- mise with interrogativ
 
 -----------------
 -- *Det and Quant
-{-
-lin how8many_IDet = R.indefDet "" pl ;
 
-lin all_Predet = { s = "" } ;
+--lin how8many_IDet = R.indefDet "" pl ;
+
+lin all_Predet = {s = "giddi" ; isPoss = True ; da = M GA} ;
+{-
 lin not_Predet = { s = "" } ;
 lin only_Predet = { s = "" } ;
 lin most_Predet = { s = "" } ;
