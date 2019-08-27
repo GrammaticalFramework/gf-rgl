@@ -712,7 +712,7 @@ oper
     c2 = combine v3.c2 v3.c3 ;
     } ;
 
-  passV2 : Verb2 -> VerbPhrase = \v2 -> passVP (useV v2) ;
+  passV2 : Verb2 -> VerbPhrase = \v2 -> passVP (useVc v2) ;
 
   passVP : VerbPhrase -> VerbPhrase = \vp -> vp ** {
     c2 = case vp.c2 of {
