@@ -247,7 +247,7 @@ oper
       s = \\_ => [] ; -- the string `la' comes from Passive (: PrepCombination)
       a = Impers ; isPron = True ; sp = \\_ => "" ;
       empty = [] ; st = Definite ;
-      poss = {s, short = quantTable "??" ; sp = gnTable "??" "??" "??"}
+      poss = {s, short = quantTable "iis" ; sp = gnTable "iis" "iis" "uwiis"}
       }
     } ;
 
@@ -467,10 +467,11 @@ oper
   Verb : Type = BaseVerb ** {
     sii : Str ; -- closed class of particles: sii, soo, kala, wada (Saeed 171)
     dhex : Str ; -- closed class of adverbials: hoos, kor, dul, dhex, …
+    isCopula : Bool ;
     } ;
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
-
+  VerbS : Type = Verb ; -- TODO: VPs that have VS use waxa as stm? see Nilsson p. 68
 
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
@@ -566,6 +567,7 @@ oper
 
            } ;
         sii, dhex = [] ;
+        isCopula = False ;
       } ;
 
 -------------------------
@@ -637,7 +639,8 @@ oper
           VImp Pl pol     => if_then_Pol pol "ahaada" "ahaanina" ;
           VPres _ _ _     => nonExist -- use presCopula instead
           } ;
-      sii, dhex = []
+      sii, dhex = [] ;
+      isCopula = True
      } ;
 
   have_V : Verb =
@@ -697,7 +700,7 @@ oper
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
-    pred = NoPred ;
+    pred = case v.isCopula of {True => Copula ; _ => NoPred} ;
     vComp,berri,miscAdv,refl = [] ;
     c2 = Single NoPrep ;
     obj2 = {s = [] ; a = P3_Prep} ;
@@ -840,10 +843,10 @@ oper
                                _ => stmarkerNoContr ! subj.a ! p }} ;
       in (wordOrder subjnoun subjpron stm obj pred vp) ;
     } where {
-        vp = case isPassive vps of {
+        vp : VerbPhrase = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
                _    => complSlash vps } ;
-        subj = case isPassive vps of {True => impersNP ; _ => np}
+        subj : NounPhrase = case isPassive vps of {True => impersNP ; _ => np}
       } ;
 
   wordOrder : (sn,sp : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
@@ -863,7 +866,7 @@ oper
                   ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs.
                                   ---- Primary places for adverbs are obj, sii or dhex.
 
-  VFun : Type = Tense -> Anteriority -> Polarity -> Agreement -> Verb
+  VFun : Type = Tense -> Anteriority -> Polarity -> Agreement -> BaseVerb
     -> {fin : Str ; inf : Str} ;
 
   vf : ClType -> VFun = \clt -> case clt of {
@@ -882,13 +885,13 @@ oper
       }
   where {
     agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
-    pastV : Verb -> Str = \v ->
+    pastV : BaseVerb -> Str = \v ->
       case p of { Neg => v.s ! VNegPast Simple ;
                   Pos => v.s ! VPast Simple (agr2vagr agr) } ;
 
-    presV : Verb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
+    presV : BaseVerb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
 
-    condNegV : Verb -> Str = \v -> case agr of {
+    condNegV : BaseVerb -> Str = \v -> case agr of {
         Sg2|Sg3 Fem
          |Pl2 => v.s ! VNegCond SgFem ;
         Pl1 _ => v.s ! VNegCond PlInv ;

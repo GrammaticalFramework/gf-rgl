@@ -105,14 +105,12 @@ oper
   mkPrep = overload {
     mkPrep : Str -> CatSom.Prep = \s ->
       emptyPrep ** (ResSom.mkPrep s s s s s s) ;  -- ** {
---        c2=noPrep ; sii,berri=[] ; dhex = \\_=> [] ; isPoss=False}) ;
     mkPrep : (x1,_,_,_,_,x6 : Str) -> CatSom.Prep = \a,b,c,d,e,f ->
       emptyPrep ** (ResSom.mkPrep a b c d e f) ; --
---        c2=noPrep ; sii,berri=[] ; dhex = \\_=> [] ; isPoss=False}) ;
     mkPrep : Preposition -> CatSom.Prep = \p ->
-      emptyPrep ** (prep p) ; -- ** {sii,berri=[] ; dhex = \\_=> [] ; isPoss=False}) ;
+      emptyPrep ** (prep p) ;
     mkPrep : CatSom.Prep -> (x1,x2,x3 : Str) -> CatSom.Prep = \p,s,t,u ->
-      p ** {berri = s ; sii = t ; dhex = \\_ => u} ;
+      p ** {berri = s ; sii = t ; dhex = u} ;
     } ;
 
   possPrep : N -> CatSom.Prep ; -- Nouns like dhex that are used with possessive suffix to form adverbials
@@ -220,19 +218,21 @@ oper
     } ;
 
   possPrep : N -> CatSom.Prep = \dhex -> emptyPrep ** {
-    dhex = \\agr => 
+    miscAdv = \\agr => 
         let qnt = PossPron (pronTable ! agr) ;
             num = getNum agr ;
             art = gda2da dhex.gda ! Sg ;
             det = qnt.s ! art ! Abs ; -- this includes BIND
-         in dhex.s ! Def Sg ++ det
+         in dhex.s ! Def Sg ++ det ;
+    isPoss = True
     } ;
 
   emptyPrep : CatSom.Prep = lin Prep {
-    sii,berri,miscAdv = [] ;
-    dhex = \\_ => [] ;
+    sii,berri,dhex = [] ;
+    miscAdv = \\_ => [] ;
     s = \\_ => [] ;
     c2 = noPrep ;
+    isPoss = False
   } ;
 --------------------------------------------------------------------------------
 

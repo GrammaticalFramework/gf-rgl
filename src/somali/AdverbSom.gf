@@ -12,21 +12,16 @@ lin
 
   -- : Prep -> NP -> Adv ;
   PrepNP prep np = prep ** {
-    s = [] ;
-    np = case prep.c2 of { -- isPoss of {
-      NoPrep  => nplite emptyNP ; -- TODO check
-      _ => nplite np } ;
+--    s = [] ;
 
-    dhex = case prep.c2 of {
-      NoPrep => [] ;
-      _ => prep.dhex ! Sg3 Masc } ;
+    np = case prep.isPoss of {
+      True  => nplite emptyNP ;
+      False => nplite np } ;
 
-    miscAdv = case prep.c2 of {
-      NoPrep => np.s ! Abs ++ prep.dhex ! np.a ;
-      _ => [] }
+    miscAdv = case prep.isPoss of {
+      True  => np.s ! Abs ++ prep.miscAdv ! np.a ;
+      False => prep.miscAdv ! Sg3 Masc }
     } ;
-  --ResSom.Prep ** {c2 : Preposition ; berri, sii, dhex : Str} ;
-
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 

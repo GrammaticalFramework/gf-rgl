@@ -81,3 +81,12 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_P
 -- LangEng: I am taught in front of my mother
 LangSom: waa laygu baraa hooya BIND day hor BIND teed BIND a
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (PassV2 teach_V2) (PrepNP in8front_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 mother_N2))))))) NoVoc
+
+-- LangEng: I see a cat under the chair
+LangSom: bisad waa aan ku arkaa kursi BIND ga hoos BIND tiis BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN chair_N))))))) NoVoc
+
+-- LangEng: my mother lives under the sea
+LangSom: hooya BIND day waa ku nool tahay bad BIND da hoos BIND teed BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 mother_N2)) (AdvVP (UseV live_V) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN sea_N))))))) NoVoc
+

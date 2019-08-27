@@ -127,7 +127,9 @@ lin on_Prep = mkPrep ku ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
-lin under_Prep = possPrep (nUl "hoos") ;
+lin under_Prep = 
+    let hoos : CatSom.Prep = possPrep (nUl "hoos")
+     in hoos ** {c2 = Ku} ;
 lin with_Prep = mkPrep la ;
 -- lin without_Prep = mkPrep ;
 
