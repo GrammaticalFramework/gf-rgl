@@ -463,7 +463,6 @@ oper
   BaseVerb : Type = {
     s : VForm => Str ;
     } ;
-
   Verb : Type = BaseVerb ** {
     sii : Str ; -- closed class of particles: sii, soo, kala, wada (Saeed 171)
     dhex : Str ; -- closed class of adverbials: hoos, kor, dul, dhex, …
@@ -471,7 +470,6 @@ oper
     } ;
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
-  VerbS : Type = Verb ; -- TODO: VPs that have VS use waxa as stm? see Nilsson p. 68
 
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
@@ -742,9 +740,9 @@ oper
     } ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
-    insertCompAgrPlus vp (nplite np) ;
+    insertCompLite vp (nplite np) ;
 
-  insertCompAgrPlus : VPSlash -> NPLite -> VerbPhrase = \vp,nplite ->
+  insertCompLite : VPSlash -> NPLite -> VerbPhrase = \vp,nplite ->
     case vp.obj2.a of {
       -- If the old object is 3rd person (or nonexistent), we replace its agreement.
       -- We keep both old and new string (=noun, if there was one) in obj2.s.
@@ -768,8 +766,8 @@ oper
       NoPrep => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
       _ => case vp.c2 of {
              -- if free complement slots, introduce adv.np with insertComp
-             Single NoPrep => insertCompAgrPlus (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
-             Single p => insertCompAgrPlus (vp ** {c2 = combine p adv.c2}) adv.np ** adv' ;
+             Single NoPrep => insertCompLite (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
+             Single p => insertCompLite (vp ** {c2 = combine p adv.c2}) adv.np ** adv' ;
 
              -- if complement slots are full, just insert strings.
              _ => vp ** adv''

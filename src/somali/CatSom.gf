@@ -98,9 +98,9 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- additional lexicon modules.
 
     V,
-    -- TODO: eventually proper lincats
-    VV,    -- verb-phrase-complement verb         e.g. "want"
-    VS,    -- sentence-complement verb            e.g. "claim" -- TODO: VPs that have VS use waxa as stm? see Nilsson p. 68
+    VV,    -- verb-phrase-complement verb         e.g. "want" -- TODO: VPs that have sentential complement use waxa as stm? see Nilsson p. 68
+    VS,    -- sentence-complement verb            e.g. "claim"
+    -- TODO: eventually different lincats
     VQ,    -- question-complement verb            e.g. "wonder"
     VA,    -- adjective-complement verb           e.g. "look"
     V2V,   -- verb with NP and V complement       e.g. "cause"
