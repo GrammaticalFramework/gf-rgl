@@ -110,24 +110,24 @@ oper
 -- Prep
 
 lin above_Prep = mkPrep (mkPrep ka) [] [] "dul" ;
--- lin after_Prep = mkPrep "" ;
+-- lin after_Prep = mkPrep ""
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep ""  ;
-lin between_Prep = possPrep dhex_N ;
+lin between_Prep = possPrep (nUl "dhex") ;
 -- lin by8agent_Prep = mkPrep ;
 -- lin by8means_Prep = mkPrep ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
--- lin in8front_Prep = mkPrep ""  ;
+lin in8front_Prep = possPrep (nUl "hor") ;
 lin in_Prep = mkPrep ku ;
 lin on_Prep = mkPrep ku ;
 -- lin part_Prep = mkPrep ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
--- lin under_Prep = mkPrep ""   ;
+lin under_Prep = possPrep (nUl "hoos") ;
 lin with_Prep = mkPrep la ;
 -- lin without_Prep = mkPrep ;
 
@@ -186,7 +186,4 @@ lin want_VV = mkV "" ;
 
 lin please_Voc = ss "" ;
 -}
-
-oper
-  dhex_N : N = let dhex : N = mkN "dhex" in dhex ** {gda = FM DA HA} ;
 }
