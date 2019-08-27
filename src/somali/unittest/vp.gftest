@@ -64,6 +64,13 @@ LangSom: hilib cusbo waa lagu dari karaa
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplVV can_VV (ComplSlash (Slash3V3 add_V3 (MassNP (UseN meat_N))) (MassNP (UseN salt_N))))))) NoVoc
 
 --------------------------------------------------------------------------------
+-- Other complements
+
+--LangEng: we knew that he is coming
+LangSom: in uu imanayo waa aynu ogaannay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVS know_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ProgrVP (UseV come_V)))))))) NoVoc
+
+--------------------------------------------------------------------------------
 -- Adverbials
 
 -- LangEng: I can jump above it

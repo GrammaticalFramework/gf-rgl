@@ -1,5 +1,5 @@
 concrete LexiconSom of Lexicon = CatSom **
-  open ParadigmsSom,ResSom in {
+  open ParadigmsSom, ResSom in {
 
 ----
 -- A
@@ -74,7 +74,7 @@ lin city_N = mkN "magaalo" ;
 -- lin cloud_N = mkN "" ;
 -- lin coat_N = mkN "" ;
 -- lin cold_A = mkA "" ;
--- lin come_V = etorri_V ;
+lin come_V = mkV "iman" ;
 -- lin computer_N = mkN "" ;
 -- lin correct_A = mkA "" ;
 -- lin count_V2 = mkV2 "" ;
@@ -193,7 +193,7 @@ lin jump_V = mkV "bood" ;
 -- lin knee_N = mkN "" ;
 -- lin know_V2 = mkV2 "" ;
 -- lin know_VQ = mkVQ "" ;
--- lin know_VS = mkVS "" ;
+lin know_VS = mkV "ogaan" ; -- copula ** {sii = "og"} ;
 
 
 ----

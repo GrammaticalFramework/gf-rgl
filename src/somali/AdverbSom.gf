@@ -12,12 +12,9 @@ lin
 
   -- : Prep -> NP -> Adv ;
   PrepNP prep np = prep ** {
---    s = [] ;
-
     np = case prep.isPoss of {
       True  => nplite emptyNP ;
       False => nplite np } ;
-
     miscAdv = case prep.isPoss of {
       True  => np.s ! Abs ++ prep.miscAdv ! np.a ;
       False => prep.miscAdv ! Sg3 Masc }
