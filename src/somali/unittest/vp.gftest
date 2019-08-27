@@ -64,6 +64,13 @@ LangSom: hilib cusbo waa lagu dari karaa
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplVV can_VV (ComplSlash (Slash3V3 add_V3 (MassNP (UseN meat_N))) (MassNP (UseN salt_N))))))) NoVoc
 
 --------------------------------------------------------------------------------
+-- Other complements
+
+--LangEng: we knew that he is coming
+LangSom: in uu imanayo waa aynu ogaannay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVS know_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ProgrVP (UseV come_V)))))))) NoVoc
+
+--------------------------------------------------------------------------------
 -- Adverbials
 
 -- LangEng: I can jump above it
@@ -73,3 +80,20 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_P
 -- LangEng: you can't jump above me
 LangSom: iga BIND ma dul boodi karto
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (AdvVP (ComplVV can_VV (UseV jump_V)) (PrepNP above_Prep (UsePron i_Pron)))))) NoVoc
+
+-- LangEng: I am taught in front of the house
+LangSom: waa laygu baraa guri BIND ga hor BIND tiis BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (PassV2 teach_V2) (PrepNP in8front_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N))))))) NoVoc
+
+-- LangEng: I am taught in front of my mother
+LangSom: waa laygu baraa hooya BIND day hor BIND teed BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (PassV2 teach_V2) (PrepNP in8front_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 mother_N2))))))) NoVoc
+
+-- LangEng: I see a cat under the chair
+LangSom: bisad waa aan ku arkaa kursi BIND ga hoos BIND tiis BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN chair_N))))))) NoVoc
+
+-- LangEng: my mother lives under the sea
+LangSom: hooya BIND day waa ku nool tahay bad BIND da hoos BIND teed BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 mother_N2)) (AdvVP (UseV live_V) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN sea_N))))))) NoVoc
+

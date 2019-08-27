@@ -247,7 +247,7 @@ oper
       s = \\_ => [] ; -- the string `la' comes from Passive (: PrepCombination)
       a = Impers ; isPron = True ; sp = \\_ => "" ;
       empty = [] ; st = Definite ;
-      poss = {s, short = quantTable "??" ; sp = gnTable "??" "??" "??"}
+      poss = {s, short = quantTable "iis" ; sp = gnTable "iis" "iis" "uwiis"}
       }
     } ;
 
@@ -463,14 +463,13 @@ oper
   BaseVerb : Type = {
     s : VForm => Str ;
     } ;
-
   Verb : Type = BaseVerb ** {
     sii : Str ; -- closed class of particles: sii, soo, kala, wada (Saeed 171)
     dhex : Str ; -- closed class of adverbials: hoos, kor, dul, dhex, …
+    isCopula : Bool ;
     } ;
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
-
 
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
@@ -566,6 +565,7 @@ oper
 
            } ;
         sii, dhex = [] ;
+        isCopula = False ;
       } ;
 
 -------------------------
@@ -637,7 +637,8 @@ oper
           VImp Pl pol     => if_then_Pol pol "ahaada" "ahaanina" ;
           VPres _ _ _     => nonExist -- use presCopula instead
           } ;
-      sii, dhex = []
+      sii, dhex = [] ;
+      isCopula = True
      } ;
 
   have_V : Verb =
@@ -672,7 +673,8 @@ oper
   BaseAdv : Type = {
     sii, -- sii, soo, wala, kada go inside VP.
     dhex, -- dhex, hoos, koor, dul, … go inside VP.
-    berri : Str -- e.g. "tomorrow"; goes before VP.
+    berri, -- AdV, e.g. "tomorrow"; goes before VP.
+    miscAdv : Str -- dump for any other kind of adverbial.
     } ;
 
   Adverb : Type = BaseAdv ** {
@@ -690,14 +692,13 @@ oper
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
     vComp : Str ; -- VV complement
-    miscAdv : Str ; -- dump for any other kind of adverb, that isn't
-    } ;             -- in a closed class of particles or made with PrepNP.
+    } ;
 
   VPSlash : Type = VerbPhrase ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
-    pred = NoPred ;
+    pred = case v.isCopula of {True => Copula ; _ => NoPred} ;
     vComp,berri,miscAdv,refl = [] ;
     c2 = Single NoPrep ;
     obj2 = {s = [] ; a = P3_Prep} ;
@@ -712,7 +713,7 @@ oper
     c2 = combine v3.c2 v3.c3 ;
     } ;
 
-  passV2 : Verb2 -> VerbPhrase = \v2 -> passVP (useV v2) ;
+  passV2 : Verb2 -> VerbPhrase = \v2 -> passVP (useVc v2) ;
 
   passVP : VerbPhrase -> VerbPhrase = \vp -> vp ** {
     c2 = case vp.c2 of {
@@ -739,9 +740,9 @@ oper
     } ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
-    insertCompAgrPlus vp (nplite np) ;
+    insertCompLite vp (nplite np) ;
 
-  insertCompAgrPlus : VPSlash -> NPLite -> VerbPhrase = \vp,nplite ->
+  insertCompLite : VPSlash -> NPLite -> VerbPhrase = \vp,nplite ->
     case vp.obj2.a of {
       -- If the old object is 3rd person (or nonexistent), we replace its agreement.
       -- We keep both old and new string (=noun, if there was one) in obj2.s.
@@ -765,20 +766,21 @@ oper
       NoPrep => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
       _ => case vp.c2 of {
              -- if free complement slots, introduce adv.np with insertComp
-             Single NoPrep => insertCompAgrPlus (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
-             Single p => insertCompAgrPlus (vp ** {c2 = combine p adv.c2}) adv.np ** adv' ;
+             Single NoPrep => insertCompLite (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
+             Single p => insertCompLite (vp ** {c2 = combine p adv.c2}) adv.np ** adv' ;
 
              -- if complement slots are full, just insert strings.
              _ => vp ** adv''
             }
     } where {
-        adv' : {sii,dhex,berri : Str} = { -- adv.np done with insertComp
+        adv' : {sii,dhex,berri,miscAdv : Str} = { -- adv.np done with insertComp
           sii = vp.sii ++ adv.sii ;
           dhex = vp.dhex ++ adv.dhex ;
-          berri = vp.berri ++ adv.berri } ;
+          berri = vp.berri ++ adv.berri ;
+          miscAdv = vp.miscAdv ++ adv.miscAdv} ;
         adv'' : {sii,dhex,berri,miscAdv : Str} -- adv.np inserted into miscAdv
           = adv' ** {dhex = (prepTable ! adv.c2).s ! adv.np.a ++ adv.dhex ;
-                    miscAdv = adv.np.s}
+                    miscAdv = adv.miscAdv ++ adv.np.s}
         } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
@@ -839,10 +841,10 @@ oper
                                _ => stmarkerNoContr ! subj.a ! p }} ;
       in (wordOrder subjnoun subjpron stm obj pred vp) ;
     } where {
-        vp = case isPassive vps of {
+        vp : VerbPhrase = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
                _    => complSlash vps } ;
-        subj = case isPassive vps of {True => impersNP ; _ => np}
+        subj : NounPhrase = case isPassive vps of {True => impersNP ; _ => np}
       } ;
 
   wordOrder : (sn,sp : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
@@ -862,7 +864,7 @@ oper
                   ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs.
                                   ---- Primary places for adverbs are obj, sii or dhex.
 
-  VFun : Type = Tense -> Anteriority -> Polarity -> Agreement -> Verb
+  VFun : Type = Tense -> Anteriority -> Polarity -> Agreement -> BaseVerb
     -> {fin : Str ; inf : Str} ;
 
   vf : ClType -> VFun = \clt -> case clt of {
@@ -881,13 +883,13 @@ oper
       }
   where {
     agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
-    pastV : Verb -> Str = \v ->
+    pastV : BaseVerb -> Str = \v ->
       case p of { Neg => v.s ! VNegPast Simple ;
                   Pos => v.s ! VPast Simple (agr2vagr agr) } ;
 
-    presV : Verb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
+    presV : BaseVerb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
 
-    condNegV : Verb -> Str = \v -> case agr of {
+    condNegV : BaseVerb -> Str = \v -> case agr of {
         Sg2|Sg3 Fem
          |Pl2 => v.s ! VNegCond SgFem ;
         Pl1 _ => v.s ! VNegCond PlInv ;
@@ -936,7 +938,8 @@ oper
   ++ adv.sii
   ++ (prepTable ! adv.c2).s ! adv.np.a
   ++ adv.dhex
-  ++ adv.np.s ;
+  ++ adv.np.s 
+  ++ adv.miscAdv ;
  linBaseCl : BaseCl -> Str = \b -> b.beforeSTM ++ b.stm ++ b.afterSTM ;
 
 }

@@ -31,7 +31,13 @@ concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom in {
     ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
 -}
   -- : VP -> VP ;
-  --ProgrVP vp = vp ** { } ;
+  ProgrVP vp = vp ** {
+    s = table {
+          VPres _ agr pol => vp.s ! VPres Progressive agr pol ;
+          VPast _ agr => vp.s ! VPast Progressive agr ;
+          VNegPast _ => vp.s ! VNegPast Progressive ;
+          x => vp.s ! x }
+    } ;
 
 
   {- TODO: Saeed p. 92 optative

@@ -1,5 +1,5 @@
 concrete LexiconSom of Lexicon = CatSom **
-  open ParadigmsSom,ResSom in {
+  open ParadigmsSom, ResSom in {
 
 ----
 -- A
@@ -63,7 +63,7 @@ lin car_N = mkN "baabuur" masc ;
 -- lin carpet_N = mkN "" ;
 lin cat_N = mkN "bisad" ;
 -- lin ceiling_N = mkN "" ;
--- lin chair_N = mkN "" ;
+lin chair_N = mkN "kursi" ;
 -- lin cheese_N = mkN "" ;
 -- lin child_N = mkN "" ;
 -- lin church_N = mkN "" ;
@@ -74,7 +74,7 @@ lin city_N = mkN "magaalo" ;
 -- lin cloud_N = mkN "" ;
 -- lin coat_N = mkN "" ;
 -- lin cold_A = mkA "" ;
--- lin come_V = etorri_V ;
+lin come_V = mkV "iman" ;
 -- lin computer_N = mkN "" ;
 -- lin correct_A = mkA "" ;
 -- lin count_V2 = mkV2 "" ;
@@ -193,7 +193,7 @@ lin jump_V = mkV "bood" ;
 -- lin knee_N = mkN "" ;
 -- lin know_V2 = mkV2 "" ;
 -- lin know_VQ = mkVQ "" ;
--- lin know_VS = mkVS "" ;
+lin know_VS = mkV "ogaan" ; -- copula ** {sii = "og"} ;
 
 
 ----
@@ -211,7 +211,7 @@ lin language_N = mkN "af" ;
 -- lin lie_V = mkV "" ;
 -- lin like_V2 = mkV2 "" ;
 -- lin listen_V2 = mkV2 "" ;
--- lin live_V  = mkV "" ;
+lin live_V = copula ** {sii = "nool"} ;
 -- lin liver_N = mkN "" ;
 -- lin long_A = mkA "" ;
 -- lin lose_V2 = mkV2 "" ;
@@ -304,7 +304,7 @@ lin salt_N = mkN "cusbo" ;
 -- lin school_N = mkN "" ;
 -- lin science_N = mkN "" ;
 -- lin scratch_V2 = mkV2 "" ;
--- lin sea_N = mkN "" ;
+lin sea_N = mkN "bad" fem ;
 lin see_V2 = mkV2 "ark" ;
 -- lin seed_N = mkN "" ;
 -- lin seek_V2 = mkV2 "" ;

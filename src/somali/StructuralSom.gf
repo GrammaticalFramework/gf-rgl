@@ -55,11 +55,10 @@ lin or_Conj = {s2 = \\_ => "ama" ; s1 = [] ; n = Sg} ; -- mise with interrogativ
 --lin how8many_IDet = R.indefDet "" pl ;
 
 lin all_Predet = {s = "giddi" ; isPoss = True ; da = M GA} ;
+--lin not_Predet = { s = "" } ;
+--lin only_Predet = { s = "" } ;
+lin most_Predet = {s = "badi" ; isPoss = True ; da = F DA} ;
 {-
-lin not_Predet = { s = "" } ;
-lin only_Predet = { s = "" } ;
-lin most_Predet = { s = "" } ;
-
 lin every_Det = R.defDet [] pl **
                  { s = mkVow } ;
 lin few_Det = R.indefDet "" pl ;
@@ -67,12 +66,12 @@ lin many_Det = R.indefDet "" pl ;
 lin much_Det = R.indefDet "" sg ;
 -}
 lin somePl_Det = {
+    sp = \\_,_ => "qaar" ;
+    isPoss, isNum = False ;
+    st = Definite ; -- NB. Indefinite means actually only IndefArt.
+    n = Pl ;
     s = \\x,_ => BIND ++ defStems ! x ++ BIND ++ "a qaarkood" ;
     shortPoss = \\x => BIND ++ defStems ! x ++ BIND ++ "a qaarkood" ;
-    sp = \\_,_ => "qaarkood" ;
-    isPoss, isNum = False ;
-    n = Pl ;
-    st = Definite -- NB. Indefinite is really only reserved for IndefArt NumSg.
     } ;
 
 lin someSg_Det = somePl_Det ** {
@@ -82,8 +81,7 @@ lin someSg_Det = somePl_Det ** {
             F x => \\_ => BIND ++ defStems ! F x ++ BIND ++ "a qaarkeed" } ;
     shortPoss = table {
             M x => BIND ++ defStems ! M x ++ BIND ++ "a qaarkiis" ;
-            F x => BIND ++ defStems ! F x ++ BIND ++ "a qaarkeed" } ;
-    sp = \\g,c => case g of {Fem => "qaarkeed" ; _ => "qaarkiis"}
+            F x => BIND ++ defStems ! F x ++ BIND ++ "a qaarkeed" }
     } ;
 
 
@@ -112,24 +110,26 @@ oper
 -- Prep
 
 lin above_Prep = mkPrep (mkPrep ka) [] [] "dul" ;
--- lin after_Prep = mkPrep "" ;
+-- lin after_Prep = mkPrep ""
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep ""  ;
--- lin between_Prep = mkPrep ""  ;
+lin between_Prep = possPrep (nUl "dhex") ;
 -- lin by8agent_Prep = mkPrep ;
 -- lin by8means_Prep = mkPrep ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
--- lin in8front_Prep = mkPrep ""  ;
+lin in8front_Prep = possPrep (nUl "hor") ;
 lin in_Prep = mkPrep ku ;
 lin on_Prep = mkPrep ku ;
 -- lin part_Prep = mkPrep ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
--- lin under_Prep = mkPrep ""   ;
+lin under_Prep = 
+    let hoos : CatSom.Prep = possPrep (nUl "hoos")
+     in hoos ** {c2 = Ku} ;
 lin with_Prep = mkPrep la ;
 -- lin without_Prep = mkPrep ;
 

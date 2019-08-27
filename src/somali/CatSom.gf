@@ -84,7 +84,11 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- Constructed in StructuralSom.
     Conj = {s2 : State => Str ; s1 : Str ; n : Number } ;
     Subj = SS ;
-    Prep = ResSom.Prep ** {c2 : Preposition ; berri, sii, dhex : Str} ;
+    Prep = ResSom.Prep ** {
+                isPoss : Bool ;
+                c2 : Preposition ; 
+                berri, sii, dhex : Str ; 
+                miscAdv : Agreement => Str } ;
 
 
 
@@ -94,9 +98,9 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- additional lexicon modules.
 
     V,
-    -- TODO: eventually proper lincats
-    VV,    -- verb-phrase-complement verb         e.g. "want"
-    VS,    -- sentence-complement verb            e.g. "claim" -- TODO: VPs that have VS use waxa as stm? see Nilsson p. 68
+    VV,    -- verb-phrase-complement verb         e.g. "want" -- TODO: VPs that have sentential complement use waxa as stm? see Nilsson p. 68
+    VS,    -- sentence-complement verb            e.g. "claim"
+    -- TODO: eventually different lincats
     VQ,    -- question-complement verb            e.g. "wonder"
     VA,    -- adjective-complement verb           e.g. "look"
     V2V,   -- verb with NP and V complement       e.g. "cause"
@@ -121,6 +125,6 @@ linref
     -- Cl = linCl ;
     VP = linVP VInf ;
     CN = linCN ;
-    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ;
+    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ++ prep.miscAdv ! Sg3 Masc ;
     S = \s -> linBaseCl (s.s ! False) ;
 }

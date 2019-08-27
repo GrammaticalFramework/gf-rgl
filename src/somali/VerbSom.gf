@@ -1,4 +1,4 @@
-concrete VerbSom of Verb = CatSom ** open ResSom, Prelude in {
+concrete VerbSom of Verb = CatSom ** open ResSom, AdverbSom, Prelude in {
 
 
 lin
@@ -20,10 +20,14 @@ lin
     vComp = vp.vComp ++ vp.s ! VInf ;
     pred = NoPred ;
     } ;
-{-
-  -- : VS  -> S  -> VP ;
-  ComplVS vs s = ;
 
+  -- : VS  -> S  -> VP ;
+  ComplVS vs s = 
+    let vps = useV vs ;
+        subord = SubjS {s="in"} s ;
+     in vps ** {obj2 = {s = subord.berri ; a = P3_Prep}} ;
+
+{-
   -- : VQ -> QS -> VP ;
   ComplVQ vq qs = ;
 

@@ -1,4 +1,4 @@
-resource ParadigmsSom = open CatSom, ResSom, ParamSom, Prelude in {
+resource ParadigmsSom = open CatSom, ResSom, ParamSom, NounSom, Prelude in {
 
 oper
 
@@ -104,16 +104,16 @@ oper
 
   mkPrep = overload {
     mkPrep : Str -> CatSom.Prep = \s ->
-      lin Prep ((ResSom.mkPrep s s s s s s) ** {
-        c2=noPrep ; sii,dhex,berri=[]}) ;
+      emptyPrep ** (ResSom.mkPrep s s s s s s) ;  -- ** {
     mkPrep : (x1,_,_,_,_,x6 : Str) -> CatSom.Prep = \a,b,c,d,e,f ->
-      lin Prep ((ResSom.mkPrep a b c d e f) ** {
-        c2=noPrep ; sii,dhex,berri=[]}) ;
+      emptyPrep ** (ResSom.mkPrep a b c d e f) ; --
     mkPrep : Preposition -> CatSom.Prep = \p ->
-      lin Prep ((prep p) ** {sii,dhex,berri=[]}) ;
+      emptyPrep ** (prep p) ;
     mkPrep : CatSom.Prep -> (x1,x2,x3 : Str) -> CatSom.Prep = \p,s,t,u ->
       p ** {berri = s ; sii = t ; dhex = u} ;
     } ;
+
+  possPrep : N -> CatSom.Prep ; -- Nouns like dhex that are used with possessive suffix to form adverbials
 
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->
   --   lin Conj { s = s1 ; s2 = s2 } ;
@@ -125,7 +125,7 @@ oper
     berri = s ;
     c2 = noPrep ;
     np = {s = [] ; a = P3_Prep} ;
-    sii,dhex = []
+    sii,dhex,miscAdv = []
     } ;
 
   mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
@@ -216,6 +216,24 @@ oper
     mkV3 : (sug : Str) -> (_,_ : Preposition) -> V3 = \s,p,q -> lin V3 (regV s ** {c2 = p ; c3 = q}) ;
     mkV3 : V -> (_,_ : Preposition) -> V2 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
     } ;
+
+  possPrep : N -> CatSom.Prep = \dhex -> emptyPrep ** {
+    miscAdv = \\agr => 
+        let qnt = PossPron (pronTable ! agr) ;
+            num = getNum agr ;
+            art = gda2da dhex.gda ! Sg ;
+            det = qnt.s ! art ! Abs ; -- this includes BIND
+         in dhex.s ! Def Sg ++ det ;
+    isPoss = True
+    } ;
+
+  emptyPrep : CatSom.Prep = lin Prep {
+    sii,berri,dhex = [] ;
+    miscAdv = \\_ => [] ;
+    s = \\_ => [] ;
+    c2 = noPrep ;
+    isPoss = False
+  } ;
 --------------------------------------------------------------------------------
 
 }

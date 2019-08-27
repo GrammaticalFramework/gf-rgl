@@ -64,12 +64,13 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
           True => glue predet.s det ;
           False => predet.s  
         } ;
-     in np ** {s = \\c => 
-          case <np.isPron,predet.isPoss> of {
-            <True,True> => np.empty ++ predetS ;
-            _ => np.s ! c ++ predetS}
+     in np ** {
+          s = \\c => 
+            case <np.isPron,predet.isPoss> of {
+              <True,True> => np.empty ++ predetS ;
+              _ => np.s ! c ++ predetS} ;
+          isPron = False ; -- NP it loses its pronoun status when Predet is added
         } ;
-
 
 -- A noun phrase can also be postmodified by the past participle of a
 -- verb, by an adverb, or by a relative clause

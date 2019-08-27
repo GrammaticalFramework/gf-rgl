@@ -11,7 +11,14 @@ lin
 --    ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
 
   -- : Prep -> NP -> Adv ;
-  PrepNP prep np = prep ** {s = [] ; np = nplite np} ;
+  PrepNP prep np = prep ** {
+    np = case prep.isPoss of {
+      True  => nplite emptyNP ;
+      False => nplite np } ;
+    miscAdv = case prep.isPoss of {
+      True  => np.s ! Abs ++ prep.miscAdv ! np.a ;
+      False => prep.miscAdv ! Sg3 Masc }
+    } ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
