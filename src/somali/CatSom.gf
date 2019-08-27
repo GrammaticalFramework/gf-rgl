@@ -84,7 +84,10 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- Constructed in StructuralSom.
     Conj = {s2 : State => Str ; s1 : Str ; n : Number } ;
     Subj = SS ;
-    Prep = ResSom.Prep ** {c2 : Preposition ; berri, sii, dhex : Str} ;
+    Prep = ResSom.Prep ** {
+                c2 : Preposition ; 
+                berri, sii, miscAdv : Str ; 
+                dhex : Agreement => Str } ;
 
 
 
@@ -121,6 +124,6 @@ linref
     -- Cl = linCl ;
     VP = linVP VInf ;
     CN = linCN ;
-    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ;
+    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ! Sg3 Masc ;
     S = \s -> linBaseCl (s.s ! False) ;
 }

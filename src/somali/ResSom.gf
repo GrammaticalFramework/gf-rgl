@@ -672,7 +672,8 @@ oper
   BaseAdv : Type = {
     sii, -- sii, soo, wala, kada go inside VP.
     dhex, -- dhex, hoos, koor, dul, … go inside VP.
-    berri : Str -- e.g. "tomorrow"; goes before VP.
+    berri, -- AdV, e.g. "tomorrow"; goes before VP.
+    miscAdv : Str -- dump for any other kind of adverbial.
     } ;
 
   Adverb : Type = BaseAdv ** {
@@ -690,8 +691,7 @@ oper
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
     vComp : Str ; -- VV complement
-    miscAdv : Str ; -- dump for any other kind of adverb, that isn't
-    } ;             -- in a closed class of particles or made with PrepNP.
+    } ;
 
   VPSlash : Type = VerbPhrase ;
 
@@ -772,13 +772,14 @@ oper
              _ => vp ** adv''
             }
     } where {
-        adv' : {sii,dhex,berri : Str} = { -- adv.np done with insertComp
+        adv' : {sii,dhex,berri,miscAdv : Str} = { -- adv.np done with insertComp
           sii = vp.sii ++ adv.sii ;
           dhex = vp.dhex ++ adv.dhex ;
-          berri = vp.berri ++ adv.berri } ;
+          berri = vp.berri ++ adv.berri ;
+          miscAdv = vp.miscAdv ++ adv.miscAdv} ;
         adv'' : {sii,dhex,berri,miscAdv : Str} -- adv.np inserted into miscAdv
           = adv' ** {dhex = (prepTable ! adv.c2).s ! adv.np.a ++ adv.dhex ;
-                    miscAdv = adv.np.s}
+                    miscAdv = adv.miscAdv ++ adv.np.s}
         } ;
 --------------------------------------------------------------------------------
 -- Sentences etc.
@@ -936,7 +937,8 @@ oper
   ++ adv.sii
   ++ (prepTable ! adv.c2).s ! adv.np.a
   ++ adv.dhex
-  ++ adv.np.s ;
+  ++ adv.np.s 
+  ++ adv.miscAdv ;
  linBaseCl : BaseCl -> Str = \b -> b.beforeSTM ++ b.stm ++ b.afterSTM ;
 
 }
