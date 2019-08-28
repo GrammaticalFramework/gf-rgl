@@ -1,4 +1,5 @@
 -- Restrictive relative clauses (RelCN)
+-- Saeed p. 213
 
 -- LangEng: the books that the men buy
 LangSom: buugaag BIND ta niman BIND ku iibsadaan
@@ -14,7 +15,7 @@ LangSom: niman BIND ka buugaag BIND ta iibsada
 Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N)))))))) NoVoc
 
 -- LangEng: the men that don't buy the books
-LangSom: niman BIND ka buugaag BIND ta aan iibsado
+LangSom: niman BIND ka aan buugaag BIND ta iibsado
 Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N)))))))) NoVoc
 
 
@@ -23,7 +24,7 @@ LangSom: niman BIND ka buugaag BIND ta iibsadaa waa kuwan
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N))))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumPl))))))) NoVoc
 
 -- LangEng: the men that don't buy the books are these
-LangSom: niman BIND ka buugaag BIND ta aan iibsado waa kuwan
+LangSom: niman BIND ka aan buugaag BIND ta iibsado waa kuwan
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N))))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumPl))))))) NoVoc
 
 
@@ -44,6 +45,22 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQ
 -- LangEng: the woman that you taught
 LangSom: naag BIND ta aad ku bartay
 Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron youSg_Pron) (SlashV2a teach_V2))))))) NoVoc
+
+-- Combine with passive
+-- LangEng: the woman that was taught
+LangSom: naag BIND ta lagu baray
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PPos (RelVP IdRP (PassV2 teach_V2)))))) NoVoc
+
+
+-- Negative forms
+-- LangEng: sheep that aren't black don't see you
+LangSom: lax aan madow aha ku BIND ma arkaan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant IndefArt NumPl) (RelCN (UseN sheep_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (UseComp (CompAP (PositA black_A))))))) (ComplSlash (SlashV2a see_V2) (UsePron youPol_Pron))))) NoVoc
+
+-- LangEng: you don't see sheep that aren't black
+LangSom: laxo aan madow ahayni ma aragto
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (RelCN (UseN sheep_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (UseComp (CompAP (PositA black_A))))))))))) NoVoc
+
 
 -- Appositive relative clauses (RelNP)
 

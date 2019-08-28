@@ -15,10 +15,18 @@ lin
   ReflVP = ResSom.insertRefl ;
 
   -- : VV  -> VP -> VP ;
-  ComplVV vv vp = vp ** {  -- check Saeed p. 169
-    s = vv.s ;
-    vComp = vp.vComp ++ vp.s ! VInf ;
-    pred = NoPred ;
+  ComplVV vv vp = let vc = vp.vComp in case vv.isVS of {
+    True => vp ** {
+      vComp = vc ** {pr = vv.s ! VInf} ;
+      obj2 = vp.obj2 ** {s = []} ; -- word order hack to avoid more parameters: 
+      miscAdv = vp.miscAdv ++ vp.obj2.s -- dump it all to miscAdv
+      } ;
+
+    False => vp ** {
+      s = vv.s ; -- check Saeed p. 169
+      vComp = vc ** {pst = vc.pst ++ vp.s ! VInf} ;
+      pred = NoPred ;
+      } 
     } ;
 
   -- : VS  -> S  -> VP ;

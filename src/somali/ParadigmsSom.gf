@@ -32,6 +32,11 @@ oper
   u  : Preposition ;
   noPrep : Preposition ;
 
+  -- TODO: add subjunctive too!
+  VVForm : Type ; -- Argument to give to mkVV
+  infinitive : VVForm ; -- Takes its complement in infinitive
+  waa_in : VVForm ; -- No explicit verb, just uses "waa in" construction
+
 
 --2 Nouns
 
@@ -84,6 +89,11 @@ oper
     mkV3 : (sug : Str) -> (_,_ : Preposition) -> V2 ; -- Regular verb, imperative and preposition
     mkV3 : V -> (_,_ : Preposition) -> V2 ; -- Already constructed verb with preposition
     } ;
+
+  mkVV : overload {
+    mkVV : (kar : Str) -> VV ; -- VV that takes its complement in infinitive.
+    mkVV : VVForm -> VV ; -- VV such as "waa in"
+   } ;
 
   -- TODO: actual constructors
   -- mkVA : Str -> VA = \s -> lin VA (mkVerb  s) ;
@@ -161,6 +171,10 @@ oper
   la = ResSom.La ;
   u  = ResSom.U ;
   noPrep = ResSom.NoPrep ;
+
+  VVForm = Bool ;
+  infinitive = False ;
+  waa_in = True ;
   ------------------------
 
   mkN = overload {
@@ -216,6 +230,14 @@ oper
     mkV3 : (sug : Str) -> (_,_ : Preposition) -> V3 = \s,p,q -> lin V3 (regV s ** {c2 = p ; c3 = q}) ;
     mkV3 : V -> (_,_ : Preposition) -> V2 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
     } ;
+
+  mkVV = overload {
+    mkVV : (kar : Str) -> VV -- VV that takes its complement in infinitive.
+     = \kar -> lin VV ({isVS=False} ** mkV kar) ;
+    mkVV : VVForm -> VV -- VV such as "waa in"
+     = \b -> let dummyV : V = mkV "in"
+              in lin VV (dummyV ** {isVS=b ; s = \\_ => "in"})
+   } ;
 
   possPrep : N -> CatSom.Prep = \dhex -> emptyPrep ** {
     miscAdv = \\agr => 

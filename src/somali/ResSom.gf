@@ -471,6 +471,8 @@ oper
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
+  VV : Type = Verb ** {isVS : Bool} ;
+
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
   -- since it corresponds to the form of the basic root."
@@ -561,7 +563,8 @@ oper
           VInf          => arki ;
           VRel SgMasc   => qaat + "a" ;
           VRel SgFem    => arag + t + "a" ;
-          VRel PlInv    => arag + "na"
+          VRel PlInv    => arag + "na" ;
+          VRelNeg       => qaat + "o"  -- TODO check
 
            } ;
         sii, dhex = [] ;
@@ -630,8 +633,8 @@ oper
           VNegCond SgMasc => "ahaadeen" ; -- 1SG/3 SG M/3PL 
           VNegCond SgFem  => "ahaateen" ; -- 2SG/3 SG F/2PL 
           VNegCond PlInv  => "ahaanneen" ; -- 1PL
-          --VRelShort       => "ah" ;
-          VRel _          => "ah" ; -- TODO find right forms
+          VRel _          => "ah" ; -- All persons: see Nilsson p. 78. TODO check Saeed p. 103
+          VRelNeg         => "ahayni" ; -- Saeed 
           VInf            => "ahaan" ;
           VImp Sg pol     => if_then_Pol pol "ahaw" "ahaanin" ;
           VImp Pl pol     => if_then_Pol pol "ahaada" "ahaanina" ;
@@ -649,10 +652,19 @@ oper
           VPres _ Pl1_        Pos => "leenahay" ;
           VPres _ Pl2_        Pos => "leedihiin" ;
           VPres _ Pl3_        Pos => "leeyihiin" ;
+
+          VPres _ Sg1_Sg3Masc Neg => "lihi" ;
+          VPres _ Sg2_Sg3Fem  Neg => "lihid" ;
+          VPres _ Pl1_        Neg => "lihin" ;
+          VPres _ Pl2_        Neg => "lihidin" ;
+          VPres _ Pl3_        Neg => "laha" ;
+
+          VNegPast _              => "lahayn" ;
+
           VPast asp agr           => "l" + copula.s ! VPast asp agr ;
           VNegCond agr            => "l" + copula.s ! VNegCond agr ;
---          VRelShort                  => "leh" ;
-          VRel _                => "leh" ; -- TODO find right forms
+          VRel _                => "leh" ; -- All persons: see Nilsson p. 78
+          VRelNeg               => "lahayn" ;
           x                     => hold_V.s ! x }
     } ;
 
@@ -691,7 +703,7 @@ oper
     c2 : PrepCombination ; -- Prepositions can combine together and with object pronoun.
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
-    vComp : Str ; -- VV complement
+    vComp : {pr,pst : Str} -- VV complement
     } ;
 
   VPSlash : Type = VerbPhrase ;
@@ -699,7 +711,8 @@ oper
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
     pred = case v.isCopula of {True => Copula ; _ => NoPred} ;
-    vComp,berri,miscAdv,refl = [] ;
+    vComp = {pr,pst = []} ;
+    berri,miscAdv,refl = [] ;
     c2 = Single NoPrep ;
     obj2 = {s = [] ; a = P3_Prep} ;
     secObj = []
@@ -839,26 +852,39 @@ oper
                 Statement => case <p,vp.pred,subj.a> of {
                                <Pos,Copula|NoCopula,Pl3|Sg3 _> => {p1 = "waa" ; p2 = []} ;
                                _ => stmarkerNoContr ! subj.a ! p }} ;
-      in (wordOrder subjnoun subjpron stm obj pred vp) ;
+      in wordOrder subjnoun stm obj pred vp cltyp ;
     } where {
         vp : VerbPhrase = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
                _    => complSlash vps } ;
-        subj : NounPhrase = case isPassive vps of {True => impersNP ; _ => np}
+        subj : NounPhrase = case isPassive vps of {
+               True => impersNP ; 
+               _    => np }
       } ;
 
-  wordOrder : (sn,sp : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> BaseCl =
-    \subjnoun,subjpron,stm,obj,pred,vp -> {
+  wordOrder : (sn : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> ClType -> BaseCl =
+    \subjnoun,stm,obj,pred,vp,cltyp -> {
+   {- Saeed p. 210-211: "The relative clause resembles a main clause in syntax
+      except that the tendency for verb final order is much stronger. [..] Certain
+      elements such as subject clitic pronouns, and the negative word aan  'not' are
+      attracted to the head nominal and thus move away from the verbal group."
+    -}
         beforeSTM = vp.berri -- AdV
                   ++ subjnoun -- subject if it's a noun
-                  ++ obj.p1 ; -- object if it's a noun
-              stm = stm.p1 ;  -- sentence type marker
-         afterSTM = stm.p2    -- possible subj. pronoun
+                  ++ case cltyp of {
+                        Subord => [] ;
+                        _ => obj.p1 } ; -- noun object if it's a statement
+              stm = stm.p1 ; -- sentence type marker; empty if subordinate and positive
+         afterSTM = vp.vComp.pr -- "waa in" construction
+                  ++ stm.p2   -- possible subj. pronoun
+                  ++ case cltyp of {
+                        Subord => obj.p1 ; -- noun object if it's subordinate clause
+                        _      => [] } 
                   ++ obj.p2   -- object if it's a pronoun
                   ++ vp.sii   -- restricted set of particles
                   ++ vp.dhex  -- restricted set of nouns/adverbials
                   ++ vp.secObj   -- "second object"
-                  ++ vp.vComp    -- VV complement
+                  ++ vp.vComp.pst  -- VV complement
                   ++ pred.inf    -- potential infinitive/participle
                   ++ pred.fin    -- the verb inflected
                   ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs.
@@ -903,7 +929,7 @@ oper
       _ => vfStatement t ant p agr vp
       } ; -- TODO other relative forms
 
-  infVP : VerbPhrase -> Str = linVP VInf ;
+  infVP : VerbPhrase -> Str = linVP VInf Statement ;
 
   stmarkerContr : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
@@ -926,11 +952,15 @@ oper
 -- linrefs
 
 oper
-  linVP : VForm -> VerbPhrase -> Str = \vf,vp ->
+  linVP : VForm -> ClType -> VerbPhrase -> Str = \vf,cltyp,vp ->
     let vp' = complSlash vp ;
         inf = {inf = vp.s ! vf ; fin=[]} ;
-        wo = wordOrder [] [] {p1,p2=[]} (vp'.comp ! pagr2agr vp.obj2.a) inf vp' ;
-     in wo.beforeSTM ++ wo.afterSTM ;
+        stm = case <cltyp,isNeg vf> of {
+                <Subord,True> => {p1 = "aan" ; p2 = []} ;
+                _             => {p1,p2 = []}
+               } ;
+        wo = wordOrder [] stm (vp'.comp ! pagr2agr vp.obj2.a) inf vp' cltyp ;
+     in wo.beforeSTM ++ wo.stm ++ wo.afterSTM ;
 
   linCN : CNoun -> Str = \cn -> cn.s ! Indef Sg ++ cn.mod ! Indefinite ! Sg ! Abs ;
   linAdv : Adverb -> Str = \adv ->

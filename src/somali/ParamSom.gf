@@ -288,6 +288,7 @@ param
                       1/2SG/3SG M/2PL/3PL suga (VRel MascSg)
                       3 SG F sugta (VRel FemSg)
                       1PL sugna (VRel PlInv) -}
+    | VRelNeg     -- Saeed p. 211 have: lahayn, be: ahayni
     | VNegCond GenNum ;
 
   VAgr =
@@ -315,6 +316,14 @@ oper
     Pl1 _ => Pl1_ ; Pl2 => Pl2_ ; Pl3 => Pl3_
   } ;
 
+  isNeg : VForm -> Bool = \vf -> case vf of {
+    VNegPast _ => True ;
+    VNegCond _ => True ;
+    VRelNeg    => True ;
+    VImp _ Neg => True ;
+    VPres _ _ Neg => True ;
+    _ => False
+    } ;
 --------------------------------------------------------------------------------
 -- Clauses
 
