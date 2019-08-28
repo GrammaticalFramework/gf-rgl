@@ -256,7 +256,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     mod = \\st,n,c => --what to do with subject case if there's both adj and RS?
             cn.mod ! st ! n ! Abs
          ++ andConj st cn.hasMod
-         ++ rs.s ! st ! gennum cn n ! c ;
+         ++ rs.s ! st ! gennum cn Sg ! c ; -- gennum cn Sg, because plural form is only for 1st person plural
     hasMod = True ;
     } ;
 

@@ -123,7 +123,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 linref
     -- Cl = linCl ;
-    VP = linVP VInf ;
+    VP = infVP ;
     CN = linCN ;
     Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ++ prep.miscAdv ! Sg3 Masc ;
     S = \s -> linBaseCl (s.s ! False) ;
