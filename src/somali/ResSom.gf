@@ -471,6 +471,8 @@ oper
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
+  VV : Type = Verb ** {isVS : Bool} ;
+
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
   -- since it corresponds to the form of the basic root."
@@ -701,7 +703,7 @@ oper
     c2 : PrepCombination ; -- Prepositions can combine together and with object pronoun.
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
-    vComp : Str ; -- VV complement
+    vComp : {pr,pst : Str} -- VV complement
     } ;
 
   VPSlash : Type = VerbPhrase ;
@@ -709,7 +711,8 @@ oper
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
     pred = case v.isCopula of {True => Copula ; _ => NoPred} ;
-    vComp,berri,miscAdv,refl = [] ;
+    vComp = {pr,pst = []} ;
+    berri,miscAdv,refl = [] ;
     c2 = Single NoPrep ;
     obj2 = {s = [] ; a = P3_Prep} ;
     secObj = []
@@ -849,16 +852,18 @@ oper
                 Statement => case <p,vp.pred,subj.a> of {
                                <Pos,Copula|NoCopula,Pl3|Sg3 _> => {p1 = "waa" ; p2 = []} ;
                                _ => stmarkerNoContr ! subj.a ! p }} ;
-      in wordOrder subjnoun subjpron stm obj pred vp cltyp ;
+      in wordOrder subjnoun stm obj pred vp cltyp ;
     } where {
         vp : VerbPhrase = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
                _    => complSlash vps } ;
-        subj : NounPhrase = case isPassive vps of {True => impersNP ; _ => np}
+        subj : NounPhrase = case isPassive vps of {
+               True => impersNP ; 
+               _    => np }
       } ;
 
-  wordOrder : (sn,sp : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> ClType -> BaseCl =
-    \subjnoun,subjpron,stm,obj,pred,vp,cltyp -> {
+  wordOrder : (sn : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> ClType -> BaseCl =
+    \subjnoun,stm,obj,pred,vp,cltyp -> {
    {- Saeed p. 210-211: "The relative clause resembles a main clause in syntax
       except that the tendency for verb final order is much stronger. [..] Certain
       elements such as subject clitic pronouns, and the negative word aan  'not' are
@@ -870,7 +875,8 @@ oper
                         Subord => [] ;
                         _ => obj.p1 } ; -- noun object if it's a statement
               stm = stm.p1 ; -- sentence type marker; empty if subordinate and positive
-         afterSTM = stm.p2   -- possible subj. pronoun
+         afterSTM = vp.vComp.pr -- "waa in" construction
+                  ++ stm.p2   -- possible subj. pronoun
                   ++ case cltyp of {
                         Subord => obj.p1 ; -- noun object if it's subordinate clause
                         _      => [] } 
@@ -878,7 +884,7 @@ oper
                   ++ vp.sii   -- restricted set of particles
                   ++ vp.dhex  -- restricted set of nouns/adverbials
                   ++ vp.secObj   -- "second object"
-                  ++ vp.vComp    -- VV complement
+                  ++ vp.vComp.pst  -- VV complement
                   ++ pred.inf    -- potential infinitive/participle
                   ++ pred.fin    -- the verb inflected
                   ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs.
@@ -953,7 +959,7 @@ oper
                 <Subord,True> => {p1 = "aan" ; p2 = []} ;
                 _             => {p1,p2 = []}
                } ;
-        wo = wordOrder [] [] stm (vp'.comp ! pagr2agr vp.obj2.a) inf vp' cltyp ;
+        wo = wordOrder [] stm (vp'.comp ! pagr2agr vp.obj2.a) inf vp' cltyp ;
      in wo.beforeSTM ++ wo.stm ++ wo.afterSTM ;
 
   linCN : CNoun -> Str = \cn -> cn.s ! Indef Sg ++ cn.mod ! Indefinite ! Sg ! Abs ;

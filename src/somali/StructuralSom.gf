@@ -176,11 +176,11 @@ lin yes_Utt = ss "haa" ;
 -------
 -- Verb
 
-lin have_V2 = mkV2 have_V noPrep ;
+lin have_V2 = mkV2 have_V noPrep ; -- TODO: check if {sii = "l" ++ BIND ; isCopula=True} makes sense for present tense negative
 lin can8know_VV = can_VV ; -- can (capacity)
-lin can_VV = mkV "kar" ;   -- can (possibility)
-{-lin must_VV = mkV "" ;
-lin want_VV = mkV "" ;
+lin can_VV = mkVV "kar" ;   -- can (possibility)
+lin must_VV = mkVV waa_in ;
+{-lin want_VV = mkV "" ;
 
 
 ------
