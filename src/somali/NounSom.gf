@@ -23,12 +23,11 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
                 -- If cn has modifier, Nom ending attaches to the modifier
                 <_,Nom,True,_,_> => {nf=Def det.n ; c=Abs} ;
 
-                -- Definite
-                <_,_,False,Definite,n> => {nf=Def n ; c=c} ;
+                -- a Det with st=Indefinite uses Indef forms
+                <_,_,_,Indefinite,n>  => {nf=Indef n ; c=c} ;
 
-                <_,_,False,Indefinite,n>  => {nf=Indef n ; c=c} ;
-
-                _ => {nf=Def det.n ; c=c} -- TODO check
+                -- All other determiners use the definite stem
+                _ => {nf=Def det.n ; c=c}
              } ;
           art = gda2da cn.gda ! det.n ;
           num = case det.isNum of {True => Sg ; _ => det.n} ;
