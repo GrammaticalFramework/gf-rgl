@@ -86,6 +86,9 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_P
 LangSom: ma rabo in aan buug BIND ga akhriyo
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
 
+-- LangEng: you want to see us under the chair
+LangSom: waxa aad rabtaa in aad inagu aragto kursi BIND ga hoos BIND tiis BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVV want_VV (AdvVP (ComplSlash (SlashV2a see_V2) (UsePron we_Pron)) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN chair_N)))))))) NoVoc
 
 --------------------------------------------------------------------------------
 -- Adverbials

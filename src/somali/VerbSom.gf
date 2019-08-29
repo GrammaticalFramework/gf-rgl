@@ -22,17 +22,15 @@ lin
       miscAdv = vp.miscAdv ++ vp.obj2.s -- dump the object to miscAdv
       } ;
 
-    Subjunctive => vp ** {
-      s = vv.s ; -- check Saeed p. 169
+    Subjunctive => useV vv ** {
       stm = Waxa ;
-      vComp = vc ** {
+      vComp = vc ** { -- The whole previous VP becomes the subordinate clause
                 subcl = \\agr => 
                           let subj = pronTable ! agr ;
                               cls = predVPSlash subj vp ;
                               rcl = mergeRCl (cls.s ! True) ;
                            in "in" ++ rcl.s ! Pres ! Simul ! Pos
-              } ; -- TODO check
-      obj2 = vp.obj2 ** {s = []} ; -- dump the object to vComp.subcl
+              }
       } ;
 
     Infinitive => vp ** {
@@ -41,7 +39,6 @@ lin
         inf = vc.inf ++ vp.s ! VInf
         } ;
       stm = Waa NoPred ;
---      pred = NoPred ;
       } 
     } ;
 
@@ -144,28 +141,24 @@ lin
   CompAP ap = {
     comp = \\a => <[], ap.s ! AF (getNum a) Abs> ;
     stm = Waa Copula ;
---    pred = Copula ;
     } ;
 
   -- : CN  -> Comp ;
   CompCN cn = {
     comp = \\a => <[], cn2str Sg Abs cn> ;
     stm = Waa NoCopula ;
---    pred = NoCopula ;
     } ;
 
   --  NP  -> Comp ;
   CompNP np = {
     comp = \\a => <[], np.s ! Abs> ;
     stm = Waa NoCopula ;
---    pred = NoCopula ;
     } ;
 
   -- : Adv  -> Comp ;
   CompAdv adv = {
     comp = \\a => <[], linAdv adv> ;
     stm = Waa Copula ;
---    pred = Copula ;
     } ;
 
   -- : VP -- Copula alone;
