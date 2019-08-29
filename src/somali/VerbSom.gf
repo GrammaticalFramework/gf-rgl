@@ -15,17 +15,30 @@ lin
   ReflVP = ResSom.insertRefl ;
 
   -- : VV  -> VP -> VP ;
-  ComplVV vv vp = let vc = vp.vComp in case vv.isVS of {
-    True => vp ** {
-      vComp = vc ** {pr = vv.s ! VInf} ;
-      obj2 = vp.obj2 ** {s = []} ; -- word order hack to avoid more parameters: 
-      miscAdv = vp.miscAdv ++ vp.obj2.s -- dump it all to miscAdv
+  ComplVV vv vp = let vc = vp.vComp in case vv.vvtype of {
+    Waa_In => vp ** {
+      vComp = vc ** {in_ = vv.s ! VInf} ; -- it's always the word "in", and it will be placed before subject pronoun. it's placed in vv.s!VInf so that the VV would contribute with some string. /IL
+      obj2 = vp.obj2 ** {s = []} ;      -- word order hack to avoid more parameters: 
+      miscAdv = vp.miscAdv ++ vp.obj2.s -- dump the object to miscAdv
       } ;
 
-    False => vp ** {
+    Subjunctive => useV vv ** {
+      stm = Waxa ;
+      vComp = vc ** { -- The whole previous VP becomes the subordinate clause
+                subcl = \\agr => 
+                          let subj = pronTable ! agr ;
+                              cls = predVPSlash subj vp ;
+                              rcl = mergeRCl (cls.s ! True) ;
+                           in "in" ++ rcl.s ! Pres ! Simul ! Pos
+              }
+      } ;
+
+    Infinitive => vp ** {
       s = vv.s ; -- check Saeed p. 169
-      vComp = vc ** {pst = vc.pst ++ vp.s ! VInf} ;
-      pred = NoPred ;
+      vComp = vc ** {
+        inf = vc.inf ++ vp.s ! VInf
+        } ;
+      stm = Waa NoPred ;
       } 
     } ;
 
@@ -127,28 +140,28 @@ lin
   -- : AP  -> Comp ;
   CompAP ap = {
     comp = \\a => <[], ap.s ! AF (getNum a) Abs> ;
-    pred = Copula ;
+    stm = Waa Copula ;
     } ;
 
   -- : CN  -> Comp ;
   CompCN cn = {
     comp = \\a => <[], cn2str Sg Abs cn> ;
-    pred = NoCopula ;
+    stm = Waa NoCopula ;
     } ;
 
   --  NP  -> Comp ;
   CompNP np = {
     comp = \\a => <[], np.s ! Abs> ;
-    pred = NoCopula ;
+    stm = Waa NoCopula ;
     } ;
 
   -- : Adv  -> Comp ;
   CompAdv adv = {
     comp = \\a => <[], linAdv adv> ;
-    pred = Copula ;
+    stm = Waa Copula ;
     } ;
 
   -- : VP -- Copula alone;
-  UseCopula = useV copula ** {pred=Copula} ;
+  UseCopula = useV copula ;
 
 }

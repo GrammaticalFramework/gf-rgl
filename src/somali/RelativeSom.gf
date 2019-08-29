@@ -26,7 +26,7 @@ lin
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls =
-    let rcl = mergeSTM True (cls.s ! True) -- in subordinate clause, STM is not included but subject pronoun is
+    let rcl = mergeQCl (cls.s ! True) -- in subordinate clause, STM is not included but subject pronoun is
      in rcl ** {s = \\g,c,t,a,p => rp.s ++ rcl.s ! t ! a ! p} ;
 
 

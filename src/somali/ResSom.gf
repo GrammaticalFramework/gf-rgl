@@ -471,7 +471,7 @@ oper
   Verb2 : Type = Verb ** {c2 : Preposition} ;
   Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
-  VV : Type = Verb ** {isVS : Bool} ;
+  VV : Type = Verb ** {vvtype : VVForm} ;
 
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
@@ -668,17 +668,6 @@ oper
           x                     => hold_V.s ! x }
     } ;
 
--- Till VERBFRASEN ansluter sig
--- · satstypsmarkörer (waa, ma...),
--- · subjekts-pronomenet la man,
--- · objektspronomenen,
--- · prepositionerna och
--- · riktnings-adverben soó (mot en plats/person), sií (bort frånen plats/person), wadá tillsammans (mot en gemensam punkt), kalá iväg, isär (bort från en gemensam punkt).
--- Riktningsadverben har ibland en mycket konkret betydelse, men många gånger är betydelsen mera abstrakt.
-
--- Till satsmarkörerna, dvs. både fokusmarkörerna och satstypsmarkörerna ansluter sig
--- subjektspronomenen aan, aad, uu, ay, aynu, men inte la (man).
-
 ------------------
 -- VP
 
@@ -696,23 +685,30 @@ oper
 
   Complement : Type = {
     comp : Agreement => {p1,p2 : Str} ; -- Agreement for AP complements
-    pred : PredType ; -- to choose right sentence type marker and copula
+    stm : STM ; -- to choose right sentence type marker
+--    pred : PredType ; -- to choose right sentence type marker and copula
     } ;
 
   VerbPhrase : Type = BaseVerb ** Complement ** BaseAdv ** {
     c2 : PrepCombination ; -- Prepositions can combine together and with object pronoun.
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
-    vComp : {pr,pst : Str} -- VV complement
+    vComp : {in_ : Str ; -- if it's "waa in" or subjunctive construction, there's "in" in there
+             inf : Str ;
+             subcl : Agreement => Str} -- VV complement if it's a subordinate clause
     } ;
 
   VPSlash : Type = VerbPhrase ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
-    pred = case v.isCopula of {True => Copula ; _ => NoPred} ;
-    vComp = {pr,pst = []} ;
-    berri,miscAdv,refl = [] ;
+    stm = case v.isCopula of { -- can change into Waxa in ComplVV
+            True  => Waa Copula ; 
+            False => Waa NoPred
+          } ;
+    vComp = {in_, inf = [] ;
+             subcl = \\_ => []} ;
+    berri,miscAdv = [] ;
     c2 = Single NoPrep ;
     obj2 = {s = [] ; a = P3_Prep} ;
     secObj = []
@@ -811,7 +807,7 @@ oper
     {s = \\t,a,p => (bcl ! t ! a ! p).beforeSTM
                   ++ case <includeSTM,p> of {
                           <False,Pos> => [] ;
-                          <False,Neg> => "aan" ;
+                          <False,Neg> => "aan" ; -- include negation even if not including STM otherwise.
                           <True>      => (bcl ! t ! a ! p).stm
                      }
                   ++ (bcl ! t ! a ! p).afterSTM
@@ -826,33 +822,46 @@ oper
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vps -> {
     s = \\cltyp,t,a,p =>
        let predRaw : {fin : Str ; inf : Str} = vf cltyp t a p subj.a vp ;
-           pred : {fin : Str ; inf : Str} = case <cltyp,p,t,vp.pred,subj.a> of {
-              <Statement,Pos,Pres,NoCopula       ,Sg3 _|Pl3>
-                => {fin,inf = []} ; -- If the VP is formed with CompNP
-              <_        ,  _,Pres,NoCopula|Copula,        _> -- Comp* present tense
+           pred : {fin : Str ; inf : Str} = case <cltyp, p, t, vp.stm, subj.a> of {
+              <Statement, Pos, Pres, Waa NoCopula, Sg3 _|Pl3> -- VP comes from CompNP/CompCN + P3 subject
+                => {fin,inf = []} ; 
+
+              <_, _, Pres, Waa (Copula|NoCopula), _> -- Comp* present tense + any subject
                 => {fin = presCopula ! {agr=subj.a ; pol=p} ; inf=[]} ;
-              _ => predRaw
+
+              _ => predRaw -- Any other verb
            } ;
+
            subjnoun : Str = if_then_Str np.isPron np.empty (subj.s ! Nom) ;
            subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) np.empty ;
+
            obj : {p1,p2 : Str} =
               let o : {p1,p2 : Str} = vp.comp ! subj.a ;
-                  bind : Str = case <isPassive vp, vp.obj2.a, vp.c2> of {
-                                 <False,P3_Prep,Single NoPrep> => [] ;
-                                 _                             => BIND } ;
-              in case <cltyp,p> of {
-                    <Statement,Neg> => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} ;
+                  bind : Str = 
+                    case <isPassive vp, vp.obj2.a, vp.c2> of {
+                      <False,P3_Prep,Single NoPrep> => [] ; -- nothing to attach to the STM
+                      _                             => BIND } ; -- something to attach, use BIND
+               in case <cltyp,p> of {
+                    <Statement,Neg> -- object pronoun and prepositions contract with negation
+                      => {p2 = [] ; p1 = o.p1 ++ o.p2 ++ bind} ;
                     _ => o
-                     -- object pronoun, prepositions and negation all contract
+                     
                   } ;
+
            stm : {p1,p2 : Str} = case cltyp of {
                 Subord  => {p1 = if_then_Pol p [] "aan" ; -- if we form a ClSlash, no sentence type marker; negation with aan (Saeed p. 210)
-                            p2 = if_then_Pol p subjpron []} ;
+                            p2 = if_then_Pol p subjpron []} ; -- no subjpron in negation
+
                 Question  => {p1 = "ma" ; p2 = []} ; -- TODO find out how negative questions work
-                Statement => case <p,vp.pred,subj.a> of {
-                               <Pos,Copula|NoCopula,Pl3|Sg3 _> => {p1 = "waa" ; p2 = []} ;
-                               _ => stmarkerNoContr ! subj.a ! p }} ;
-      in wordOrder subjnoun stm obj pred vp cltyp ;
+
+                Statement => case <p,vp.stm,subj.a> of {
+                               <Pos,Waa (Copula|NoCopula),Pl3|Sg3 _>  -- no subjpron in predicative sentences:
+                                 => {p1 = "waa" ; p2 = []} ;    -- "Axmed waa macallin" not "*Axmed waa uu macallin"
+                               <_,Waxa,_>
+                                 => waxaNoContr ! subj.a ! p ;
+                               _ => waaNoContr  ! subj.a ! p } -- if we want wuu, waad etc. swap to stmarkerContr
+                             } ;
+      in wordOrder subj.a subjnoun stm obj pred vp cltyp ;
     } where {
         vp : VerbPhrase = case isPassive vps of {
                True => complSlash (insertComp vps np) ;
@@ -862,8 +871,8 @@ oper
                _    => np }
       } ;
 
-  wordOrder : (sn : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> ClType -> BaseCl =
-    \subjnoun,stm,obj,pred,vp,cltyp -> {
+  wordOrder : Agreement -> (sn : Str) -> (stm,obj : {p1,p2 : Str}) -> {fin,inf : Str} -> VerbPhrase -> ClType -> BaseCl =
+    \agr,subjnoun,stm,obj,pred,vp,cltyp -> {
    {- Saeed p. 210-211: "The relative clause resembles a main clause in syntax
       except that the tendency for verb final order is much stronger. [..] Certain
       elements such as subject clitic pronouns, and the negative word aan  'not' are
@@ -874,8 +883,10 @@ oper
                   ++ case cltyp of {
                         Subord => [] ;
                         _ => obj.p1 } ; -- noun object if it's a statement
+
               stm = stm.p1 ; -- sentence type marker; empty if subordinate and positive
-         afterSTM = vp.vComp.pr -- "waa in" construction
+
+         afterSTM = vp.vComp.in_ -- "waa in" construction
                   ++ stm.p2   -- possible subj. pronoun
                   ++ case cltyp of {
                         Subord => obj.p1 ; -- noun object if it's subordinate clause
@@ -884,10 +895,11 @@ oper
                   ++ vp.sii   -- restricted set of particles
                   ++ vp.dhex  -- restricted set of nouns/adverbials
                   ++ vp.secObj   -- "second object"
-                  ++ vp.vComp.pst  -- VV complement
+                  ++ vp.vComp.inf  -- VV complement, if it's infinitive
                   ++ pred.inf    -- potential infinitive/participle
                   ++ pred.fin    -- the verb inflected
-                  ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs.
+                  ++ vp.vComp.subcl ! agr  -- VV complement, if it's subordinate clause
+                  ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs, or for "waa in" construction.
                                   ---- Primary places for adverbs are obj, sii or dhex.
 
   VFun : Type = Tense -> Anteriority -> Polarity -> Agreement -> BaseVerb
@@ -931,14 +943,19 @@ oper
 
   infVP : VerbPhrase -> Str = linVP VInf Statement ;
 
-  stmarkerContr : Agreement => Polarity => Str = \\a,b =>
+  waaContr : Agreement => Polarity => Str = \\a,b =>
     let stm = if_then_Pol b "w" "m"
      in stm + subjpron ! a ;
 
-  stmarkerNoContr : Agreement => Polarity => {p1,p2 : Str} = \\a,p =>
+  waaNoContr : Agreement => Polarity => {p1,p2 : Str} = \\a,p =>
     case p of {
       Pos => {p1 = "waa" ; p2 = subjpron ! a} ;
       Neg => {p1 = "ma" ; p2 = []} } ;
+
+  waxaNoContr : Agreement => Polarity => {p1,p2 : Str} = \\a,p =>
+    case p of {
+      Pos => {p1 = "waxa" ; p2 = subjpron ! a} ;
+      Neg => {p1 = "ma" ; p2 = []} } ; -- TODO: find out how to properly negate waxa clauses!
 
   subjpron : Agreement => Str = table {
     Sg1|Pl1 Excl => "aan" ;
@@ -959,7 +976,7 @@ oper
                 <Subord,True> => {p1 = "aan" ; p2 = []} ;
                 _             => {p1,p2 = []}
                } ;
-        wo = wordOrder [] stm (vp'.comp ! pagr2agr vp.obj2.a) inf vp' cltyp ;
+        wo = wordOrder (Sg3 Masc) [] stm (vp'.comp ! pagr2agr vp.obj2.a) inf vp' cltyp ;
      in wo.beforeSTM ++ wo.stm ++ wo.afterSTM ;
 
   linCN : CNoun -> Str = \cn -> cn.s ! Indef Sg ++ cn.mod ! Indefinite ! Sg ! Abs ;

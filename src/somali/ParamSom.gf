@@ -300,6 +300,10 @@ param
 
   PredType = NoPred | Copula | NoCopula ;
 
+  STM = Waa PredType | Waxa ;
+
+  VVForm = Infinitive | Subjunctive | Waa_In ;
+
 oper
   if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
     case p of {Pos => t ; Neg => f } ;

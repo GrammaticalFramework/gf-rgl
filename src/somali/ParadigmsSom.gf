@@ -35,6 +35,7 @@ oper
   -- TODO: add subjunctive too!
   VVForm : Type ; -- Argument to give to mkVV
   infinitive : VVForm ; -- Takes its complement in infinitive
+  subjunctive : VVForm ; -- Takes its complement as a clause in subjunctive
   waa_in : VVForm ; -- No explicit verb, just uses "waa in" construction
 
 
@@ -92,7 +93,8 @@ oper
 
   mkVV : overload {
     mkVV : (kar : Str) -> VV ; -- VV that takes its complement in infinitive.
-    mkVV : VVForm -> VV ; -- VV such as "waa in"
+    mkVV : (rab : Str) -> VVForm -> VV ; -- Specify complement type: infinitive or subjunctive.
+    mkVV : V -> VVForm -> VV ;  -- VV out of an existing V
    } ;
 
   -- TODO: actual constructors
@@ -172,9 +174,10 @@ oper
   u  = ResSom.U ;
   noPrep = ResSom.NoPrep ;
 
-  VVForm = Bool ;
-  infinitive = False ;
-  waa_in = True ;
+  VVForm = ResSom.VVForm ;
+  infinitive = Infinitive ;
+  subjunctive = Subjunctive ;
+  waa_in = Waa_In ;
   ------------------------
 
   mkN = overload {
@@ -233,10 +236,14 @@ oper
 
   mkVV = overload {
     mkVV : (kar : Str) -> VV -- VV that takes its complement in infinitive.
-     = \kar -> lin VV ({isVS=False} ** mkV kar) ;
+     = \kar -> lin VV ({vvtype=Infinitive} ** mkV kar) ;
+    mkVV : (rab : Str) -> VVForm -> VV -- Specify string and complement type:
+     = \rab,vvf -> lin VV ({vvtype=vvf} ** mkV rab) ;
+    mkVV : V -> VVForm -> VV
+      = \v,vvf -> lin VV (v ** {vvtype=vvf}) ;
     mkVV : VVForm -> VV -- VV such as "waa in"
      = \b -> let dummyV : V = mkV "in"
-              in lin VV (dummyV ** {isVS=b ; s = \\_ => "in"})
+              in lin VV (dummyV ** {vvtype=b ; s = \\_ => "in"})
    } ;
 
   possPrep : N -> CatSom.Prep = \dhex -> emptyPrep ** {
