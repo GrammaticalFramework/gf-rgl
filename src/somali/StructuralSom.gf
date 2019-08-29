@@ -180,12 +180,12 @@ lin have_V2 = mkV2 have_V noPrep ; -- TODO: check if {sii = "l" ++ BIND ; isCopu
 lin can8know_VV = can_VV ; -- can (capacity)
 lin can_VV = mkVV "kar" ;   -- can (possibility)
 lin must_VV = mkVV waa_in ;
-{-lin want_VV = mkV "" ;
+lin want_VV = mkVV (mkV "rabid" "rab" "rab") subjunctive ;
 
 
 ------
 -- Voc
-
+{-
 lin please_Voc = ss "" ;
 -}
 }

@@ -48,7 +48,7 @@ LangSom: hooyo waa ay ina kaa siisey
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: mother didn't give you us
-LangSom: hooyo ina BIND ma ay kaa siin
+LangSom: hooyo ina BIND ma kaa siin
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
 
 -- LangEng: he gave himself bread
@@ -77,6 +77,15 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron you
 -- LangEng: the mother of the cat must be seen
 LangSom: waa in la arkaa bisad BIND da hooya BIND deed
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplVV must_VV (ComplSlash (SlashV2a see_V2) (MassNP (ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))))) NoVoc
+
+-- LangEng: I want to read the book
+LangSom: waxa aan rabaa in aan buug BIND ga akhriyo
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+
+-- LangEng: I don't want to read the book
+LangSom: ma rabo in aan buug BIND ga akhriyo
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+
 
 --------------------------------------------------------------------------------
 -- Adverbials
