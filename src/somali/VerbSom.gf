@@ -17,7 +17,7 @@ lin
   -- : VV  -> VP -> VP ;
   ComplVV vv vp = let vc = vp.vComp in case vv.vvtype of {
     Waa_In => vp ** {
-      vComp = vc ** {in_ = vv.s ! VInf} ; -- it's always the word "in", and it will be placed before subject pronoun. it's placed in vv.s!VInf so that the VV would contribute with some string. /IL
+      vComp = vc ** {subjunc = vv.s ! VInf} ; -- it's always the word "in", and it will be placed before subject pronoun. it's placed in vv.s!VInf so that the VV would contribute with some string. /IL
       obj2 = vp.obj2 ** {s = []} ;      -- word order hack to avoid more parameters: 
       miscAdv = vp.miscAdv ++ vp.obj2.s -- dump the object to miscAdv
       } ;

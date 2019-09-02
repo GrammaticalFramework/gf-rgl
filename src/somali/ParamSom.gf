@@ -328,6 +328,9 @@ oper
     VPres _ _ Neg => True ;
     _ => False
     } ;
+
+  showSTM : STM -> Str = \stm -> case stm of {
+    Waxa  => "waxa" ; Waa _ => "waa" } ;
 --------------------------------------------------------------------------------
 -- Clauses
 
