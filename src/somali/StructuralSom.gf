@@ -87,9 +87,9 @@ lin someSg_Det = somePl_Det ** {
 
 --lin no_Quant = mkPrep no_Quant
 
-lin that_Quant = defQuant "aas" "kaas" "taas" "kuwaas" True ;
+lin that_Quant = defQuant "aas" "kaas" "taas" "kuwaas" True ; -- true = nominative marker is i
 lin this_Quant = defQuant "an" "kan" "tan" "kuwan" True ;
---lin which_IQuant = defQuant
+lin which_IQuant = defIQuant "ee" ;
 {-
 
 -----

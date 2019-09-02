@@ -9,7 +9,14 @@ concrete QuestionSom of Question = CatSom ** open
   QuestCl cl = mergeQCl (cl.s ! Question) ;
 
   -- : IP -> VP -> QCl ;
-  -- QuestVP ip vp = ;
+  QuestVP ip vp = -- TODO: if we want to contract baa + subj. pronoun, change ResSom.predVP
+    let clRaw : ClLite = predVPlite ip vp ;
+        cl : ClLite = clRaw ** {
+                stm = \\clt,p => case <clt,p> of {
+                                    <Statement,Pos> => "baa" ;
+                                    _ => clRaw.stm ! clt ! p }
+                }
+     in wordOrderLite Statement cl ;
 
   -- : IP -> ClSlash -> QCl ; -- whom does John love
   --QuestSlash ip cls = ;
@@ -36,7 +43,7 @@ concrete QuestionSom of Question = CatSom ** open
 -- Interrogative quantifiers have number forms and can take number modifiers.
 
   -- : IQuant -> Num -> IDet ;  -- which (five)
-  --IdetQuant = NS.DetQuant ;
+  IdetQuant = NS.DetQuant ;
 
 -- Interrogative adverbs can be formed prepositionally.
   -- : Prep -> IP -> IAdv ;     -- with whom
