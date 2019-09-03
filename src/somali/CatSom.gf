@@ -13,7 +13,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
-    Cl = ResSom.Clause ;
+    Cl = ResSom.ClSlash ;
     ClSlash = ResSom.ClSlash ;
     SSlash  = ResSom.Sentence ; -- sentence missing NP; e.g. "she has looked at"
     Imp     = SS ;              -- imperative             e.g. "look at this"
@@ -127,5 +127,4 @@ linref
     VP = infVP ;
     CN = linCN ;
     Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ++ prep.miscAdv ! Sg3 Masc ;
-    S = \s -> linBaseCl (s.s ! False) ;
 }
