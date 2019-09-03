@@ -271,14 +271,14 @@ resource ParadigmsTur = open
         lin V {
           s =
             table {
+              VPres agr    =>
+                addSuffix aoristBase aorHar (verbSuffixes ! agr) ;
               VProg agr      =>
                 addSuffix progBase   progHar (verbSuffixes ! agr) ;
               VPast agr      =>
                 addSuffix pastBase   pastHar (verbSuffixes ! agr) ;
               VFuture agr    =>
                 addSuffix futureTable futHar (verbSuffixes ! agr) ;
-              VAorist agr    =>
-                addSuffix aoristBase aorHar (verbSuffixes ! agr) ;
               VImperative    =>
                 base ;
               VInfinitive    =>

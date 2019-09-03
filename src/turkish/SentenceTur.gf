@@ -8,6 +8,6 @@ concrete SentenceTur of Sentence = CatTur ** open Prelude, ResTur in {
     EmbedVP vp = {s = (vp.s ! Gerund Sg Acc)} ;
 
     -- TODO: rudimentary implementation; revise this.
-    UseCl temp pol cl = {s = cl.s} ;
+    UseCl temp pol cl = {s = temp.s ++ cl.s ! temp.t; subord=cl.subord} ;
 
 }

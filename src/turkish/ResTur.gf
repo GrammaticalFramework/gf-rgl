@@ -31,19 +31,18 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
 
   param
     VForm =
-       VProg      Agr
+       VPres      Agr
+     | VProg      Agr
      | VPast      Agr
      | VFuture    Agr
-     | VAorist    Agr
      | VImperative
      | VInfinitive
      | Gerund Number Case
      | VNoun Number Case
      ;
 
-  param Gerundification = None | SubordSuffixDik ;
-
-    param ConjType = Infix | Mixfix ;
+  param
+    ConjType = Infix | Mixfix ;
 
     UseGen = NoGen | YesGen Agr | UseIndef ;
 
@@ -74,7 +73,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
      } ;
 
     -- Prep
-    noPrep = mkPrep [] Acc;
+    noPrep = mkPrep [] Nom;
 
     mkPrep : Str -> Case -> {s : Str; c : Case; lock_Prep : {}} =
       \s, c -> lin Prep {s=s; c=c};
@@ -82,12 +81,15 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     mkNP : Noun -> Number -> Person -> {s : Case => Str; a : Agr} =
       \noun, n, p -> {s = noun.s ! n; a = {n = n; p = p}} ;
 
-    mkClause : Str -> Agr -> Verb -> {s : Gerundification => Str} =
+    mkClause : Str -> Agr -> Verb -> {s : Tense => Str; subord : Str} =
       \np, a, v -> {
         s = table {
-          None            => np ++ v.s ! VProg a ;
-          SubordSuffixDik => np ++ v.s ! VNoun a.n Nom
-        }
+              Pres => np ++ v.s ! VPres a ;
+              Past => np ++ v.s ! VPast a ;
+              Fut  => np ++ v.s ! VFuture a ;
+              Cond => "TODO"
+            } ;
+        subord = np ++ v.s ! VNoun a.n Nom
       } ;
 
     mkDet : Str -> Number -> UseGen -> {s : Str; n : Number; useGen : UseGen} =
