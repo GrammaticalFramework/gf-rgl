@@ -328,7 +328,9 @@ oper
 
   defIQuant : Str -> Quant = \ee ->
     let quantRaw = defQuant ee ("k"+ee) ("t"+ee) ("kuw"+ee) False 
-     in quantRaw ** {s = \\da,c => quantRaw.s ! da ! Abs} ;
+     in quantRaw ** {
+          s = \\da,c => quantRaw.s ! da ! Abs ;
+          sp = \\gn,c => quantRaw.sp ! gn ! Abs } ;
 
   gnTable : (m,f,p : Str) -> (GenNum => Str) = \m,f,p ->
     table {SgMasc => m ; SgFem => f ; _ => p} ;
