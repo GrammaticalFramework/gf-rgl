@@ -27,9 +27,9 @@ lin
       vComp = vc ** { -- The whole previous VP becomes the subordinate clause
                 subcl = \\agr => 
                           let subj = pronTable ! agr ;
-                              cls = predVPSlash subj vp ;
-                              rcl = mergeRCl (cls.s ! True) ;
-                           in "in" ++ rcl.s ! Pres ! Simul ! Pos
+                              cls = predVPslash subj vp ;
+                              scl = cl2sentence True cls ;
+                           in scl.s ! Pres ! Simul ! Pos
               }
       } ;
 

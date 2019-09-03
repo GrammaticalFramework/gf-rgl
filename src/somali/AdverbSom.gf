@@ -31,8 +31,7 @@ lin
 -- Subordinate clauses can function as adverbs.
 
     -- : Subj -> S -> Adv ;
-  SubjS subj s = let subs = s.s ! True in
-    mkAdv (subs.beforeSTM ++ subj.s ++ subs.stm ++ subs.afterSTM) ;
+  SubjS subj s = mkAdv (s.s ! True) ;
 
 -- Comparison adverbs also work as numeral adverbs.
 

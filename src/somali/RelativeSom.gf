@@ -14,19 +14,19 @@ lin
     them in manually in RelVP.
   -}
   RelVP rp vp = {s = \\gn,c,t,a,p =>
-    let cls = predVPSlash impersNP vp ;
-        rclSubord = mergeRCl (cls.s ! True) ;
-        rclStatement = mergeRCl (cls.s ! False) ;
+    let cls = predVP impersNP vp ;
+        rclSubord = cl2rcl cls ;
+        rclStatement = cl2rclNom cls ;
     in rp.s ++ case <gn,c,t,a,p> of {
         <g,Abs,Pres,Simul,Pos> => linVP (VRel g) Subord vp ; -- reduced present only in absolutive
         <_,Abs,Pres,Simul,Neg> => linVP VRelNeg Subord vp ; -- special form for have and be
-        <_,Nom,Pres,Simul,Pos> => rclStatement.s ! t ! a ! p ; -- the usual forms, not subordinate
+        <_,Nom,Pres,Simul,Pos> => rclStatement.s ! t ! a ! p ; -- as nominative, use the usual forms, not subordinate
         _ => rclSubord.s ! t ! a ! p } -- the rest is Subord because of negation.
     } ;
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls =
-    let rcl = mergeQCl (cls.s ! True) -- in subordinate clause, STM is not included but subject pronoun is
+    let rcl = cl2relslash cls -- in subordinate clause, STM is not included but subject pronoun is
      in rcl ** {s = \\g,c,t,a,p => rp.s ++ rcl.s ! t ! a ! p} ;
 
 
