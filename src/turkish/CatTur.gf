@@ -47,4 +47,9 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
     N2 = Noun ** {c : Prep} ;
     N3 = Noun ** {c1,c2 : Prep} ;
     PN = Noun ;
+
+linref
+    V = \v -> v.s ! VInfinitive ;
+    V2 = v.s ! VInfinitive ++ v.c.s ;
+
 }
