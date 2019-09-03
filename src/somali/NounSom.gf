@@ -23,12 +23,11 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
                 -- If cn has modifier, Nom ending attaches to the modifier
                 <_,Nom,True,_,_> => {nf=Def det.n ; c=Abs} ;
 
-                -- Definite
-                <_,_,False,Definite,n> => {nf=Def n ; c=c} ;
+                -- a Det with st=Indefinite uses Indef forms
+                <_,_,_,Indefinite,n>  => {nf=Indef n ; c=c} ;
 
-                <_,_,False,Indefinite,n>  => {nf=Indef n ; c=c} ;
-
-                _ => {nf=Def det.n ; c=c} -- TODO check
+                -- All other determiners use the definite stem
+                _ => {nf=Def det.n ; c=c}
              } ;
           art = gda2da cn.gda ! det.n ;
           num = case det.isNum of {True => Sg ; _ => det.n} ;
@@ -42,7 +41,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
         in dt.pref -- if det is numeral
         ++ cn.s ! nfc.nf
         ++ dt.s -- non-numeral det
-        ++ cn.mod ! num ! c
+        ++ cn.mod ! det.st ! num ! c
     } ;
 
   -- : PN -> NP ;
@@ -57,10 +56,20 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UsePron pron = pron ** {st = Definite} ;
 
   -- : Predet -> NP -> NP ; -- only the man
-  PredetNP predet np = np ** {
-    s = \\c => predet.s ++ np.s ! c ---- ?
-    } ;
-
+  PredetNP predet np = 
+    let qnt = PossPron (pronTable ! np.a) ;
+        det = qnt.shortPoss ! predet.da ;
+         predetS : Str = case predet.isPoss of {
+          True => glue predet.s det ;
+          False => predet.s  
+        } ;
+     in np ** {
+          s = \\c => 
+            case <np.isPron,predet.isPoss> of {
+              <True,True> => np.empty ++ predetS ;
+              _ => np.s ! c ++ predetS} ;
+          isPron = False ; -- NP it loses its pronoun status when Predet is added
+        } ;
 
 -- A noun phrase can also be postmodified by the past participle of a
 -- verb, by an adverb, or by a relative clause
@@ -73,9 +82,17 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
   --AdvNP,ExtAdvNP = \np,adv -> np ** {} ; --adverbs are complicated
 
-  -- : NP -> RS  -> NP ;    -- Paris, which is here
+  -- : NP -> RS -> NP ;    -- Paris, which is here
+  {- NB. technically, if the RS has undergone ConjRS, it could contain both
+     restrictive and appositive relative clauses. Quote Saeed p.215-216:
+       "When multiple relative clauses occur, this formal distinction is
+        maintained, since in the only context both can occur, on nouns with
+        determiners, restrictives are joined by ee while appositives employ oo."
+     In practice, we don't care--it's impossible to know on the RGL level
+     which RS are restrictive and which appositive, as it is semantic.
+   -}
   RelNP np rs = np ** {
-    s = \\c => objpron np ! c ++ rs.s ! npgender np ! c ;
+    s = \\c => objpron np ! c ++ "oo" ++ rs.s ! Indefinite ! npgennum np ! c ;
     isPron = False ;
     } ;
 
@@ -90,8 +107,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- MassNP : CN -> NP ;
   MassNP cn = useN cn ** {
-    s = table { Nom => cn.s ! NomSg ++ cn.mod ! Sg ! Nom ;
-                c   => cn.s ! Indef Sg ++ cn.mod ! Sg ! c }
+    s = table { Nom => cn.s ! NomSg ++ cn.mod ! Indefinite ! Sg ! Nom ;
+                c   => cn.s ! Indef Sg ++ cn.mod ! Indefinite ! Sg ! c }
     } ;
 
 
@@ -113,7 +130,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
           -- Independent form uses plural morpheme, not gender-flipped allomorph
           <Pl,_> => num.s ! indep ++ quant.sp ! PlInv ! c ++ num.thousand } ;
     isNum = num.isNum ;
-    n = num.n
+    n = num.n ;
+    shortPoss = \\da => quant.shortPoss ! da ++ num.s ! indep
     } ;
     -- d = case <num.isNum,quant.st> of {
     --       <True,_> => Numerative ;
@@ -124,7 +142,8 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   DetQuantOrd quant num ord =
     let theseFive = DetQuant quant num in theseFive ** {
       s = \\g,c  => theseFive.s ! g ! c  ++ ord.s ;
-      sp = \\g,c => theseFive.sp ! g ! c ++ ord.s
+      sp = \\g,c => theseFive.sp ! g ! c ++ ord.s ;
+      shortPoss = \\da => theseFive.shortPoss ! da ++ ord.s
       } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
@@ -170,7 +189,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   DefArt = defQuant "a" "kan" "tan" "kuwan" False ;
 
   -- : Quant
-  IndefArt = indefQuant ** {sp = \\gn,c => "1"} ; -- TODO sp forms
+  IndefArt = indefQuant ; -- TODO sp forms
 
   -- : Pron -> Quant
   PossPron pron =
@@ -224,19 +243,20 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
     s = table { NomSg => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
-                x        => cn.s ! x } ;
-    mod = \\n,c => cn.mod ! n ! Abs -- If there was something before, it is now in Abs
-                ++ case cn.hasMod of {
-                      True => "oo" ;
-                      False => [] }
-                ++ ap.s ! AF n c ;
+                x     => cn.s ! x } ;
+    mod = \\st,n,c =>
+            cn.mod ! st ! n ! Abs -- If there was something before, it is now in Abs
+         ++ andConj st cn.hasMod  -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
+         ++ ap.s ! AF n c ;
     hasMod = True
     } ;
 
-
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    mod = \\n,c => cn.mod ! n ! c ++ rs.s ! gender cn ! c ;
+    mod = \\st,n,c => --what to do with subject case if there's both adj and RS?
+            cn.mod ! st ! n ! Abs
+         ++ andConj st cn.hasMod
+         ++ rs.s ! st ! gennum cn Sg ! c ; -- gennum cn Sg, because plural form is only for 1st person plural
     hasMod = True ;
     } ;
 
@@ -263,7 +283,9 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  PossNP cn np = cn ** {mod = \\n,c => cn.mod ! n ! c ++ np.s ! Abs} ; -- guriga Axmed, not Axmed gurigiisa
+  PossNP cn np = cn ** { -- guriga Axmed, not Axmed gurigiisa
+    mod = \\st,n,c => cn.mod ! st ! n ! c ++ objpron np ! Abs
+    } ;
 {-
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   PartNP cn np = cn ** {  } ;
@@ -284,4 +306,12 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : Det -> DAP ;          -- this (or that)
   DetDAP det = det ;
 -}
+
+oper
+  andConj : State -> Bool -> Str = \st,hasMod ->
+    case <st,hasMod> of {
+      <Indefinite,True> => "oo" ;
+      <Definite,True>   => "ee" ;
+      _                 => []
+    } ;
 }

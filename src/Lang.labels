@@ -8,18 +8,18 @@ FocusObjS 	nsubj head              -- again might be wrong; more correct to call
 QuestIAdv 	advmod head		-- "where does John sleep" cf. AdvVP
 QuestIComp 	head nsubj	-- "where is John": John is clearly nsubj, but is where the head?
 QuestQVP 	nsubj head
-QuestSlash 	dobj head
+QuestSlash 	obj head
 QuestVP 	nsubj head
 IdetCN		det head
 
 PredSCVP 	csubj head
 
-ComplSlash 	head dobj
-ComplSlashIP 	head dobj
-Slash3V3 	head dobj
-SlashV2VNP 	head dobj xcomp
-PastPartAgentAP 	head dobj
-AdvQVP 	head dobj
+ComplSlash 	head obj
+ComplSlashIP 	head obj
+Slash3V3 	head obj
+SlashV2VNP 	head obj xcomp
+PastPartAgentAP 	head obj
+AdvQVP 	head obj
 
 Slash2V3 	head iobj
 
@@ -157,12 +157,12 @@ TExclMark      head dep		-- punctuation in the middle in these three
 TFullStop      head dep
 TQuestMark     head dep
 
-ComplV2	       head dobj	-- shortcuts in App
-ComplV2V       head dobj xcomp
-ComplV3	       head iobj dobj   ---- could be dobj dobj
+ComplV2	       head obj	-- shortcuts in App
+ComplV2V       head obj xcomp
+ComplV3	       head iobj obj   ---- could be dobj dobj
 PassAgentV2    head ncomp	-- not sure
 RelV2	       mark nsubj head
-QuestV2	       dobj nsubj head
+QuestV2	       obj nsubj head
 
 ModCN	       amod head  -- in ResourceDemo
 RSubjS	       mark advcl head 

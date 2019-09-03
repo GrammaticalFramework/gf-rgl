@@ -1,0 +1,7 @@
+-- LangEng: the big black bird
+LangSom: shimbir BIND ta madow ee weyn
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (AdjCN (PositA big_A) (AdjCN (PositA black_A) (UseN bird_N))))) NoVoc
+
+-- LangEng: a big black bird
+LangSom: shimbir madow oo weyn
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (AdjCN (PositA black_A) (UseN bird_N))))) NoVoc

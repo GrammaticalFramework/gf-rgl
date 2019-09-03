@@ -9,11 +9,11 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
     S  = ResSom.Sentence ;
     QS = SS ;
-    RS = {s : Gender => Case => Str} ;
+    RS = {s : State => GenNum => Case => Str} ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
-    Cl = ResSom.Clause ;
+    Cl = ResSom.ClSlash ;
     ClSlash = ResSom.ClSlash ;
     SSlash  = ResSom.Sentence ; -- sentence missing NP; e.g. "she has looked at"
     Imp     = SS ;              -- imperative             e.g. "look at this"
@@ -62,7 +62,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     NP = ResSom.NounPhrase ;
     Pron = ResSom.Pronoun ; --Pronouns need enough info to turn it into NP or Quant.
     Det = ResSom.Determiner ;
-    Predet = {s : Str} ;
+    Predet = {s : Str ; da : DefArticle ; isPoss : Bool} ;
     Quant = ResSom.Quant ;
     Num = ResSom.Num ;
     Ord = {s : Str ; n : Number} ;
@@ -84,7 +84,11 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- Constructed in StructuralSom.
     Conj = {s2 : State => Str ; s1 : Str ; n : Number } ;
     Subj = SS ;
-    Prep = ResSom.Prep ** {c2 : Preposition ; berri, sii, dhex : Str} ;
+    Prep = ResSom.Prep ** {
+                isPoss : Bool ;
+                c2 : Preposition ; 
+                berri, sii, dhex : Str ; 
+                miscAdv : Agreement => Str } ;
 
 
 
@@ -94,15 +98,16 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- additional lexicon modules.
 
     V,
-    -- TODO: eventually proper lincats
-    VV,    -- verb-phrase-complement verb         e.g. "want"
-    VS,    -- sentence-complement verb            e.g. "claim" -- TODO: VPs that have VS use waxa as stm? see Nilsson p. 68
+    VS,    -- sentence-complement verb            e.g. "claim"
+    -- TODO: eventually different lincats
     VQ,    -- question-complement verb            e.g. "wonder"
     VA,    -- adjective-complement verb           e.g. "look"
     V2V,   -- verb with NP and V complement       e.g. "cause"
     V2S,   -- verb with NP and S complement       e.g. "tell"
     V2Q,   -- verb with NP and Q complement       e.g. "ask"
-    V2A = ResSom.Verb ;   -- verb with NP and AP complement      e.g. "paint"
+    V2A = ResSom.Verb ; -- verb with NP and AP complement      e.g. "paint"
+
+    VV = ResSom.VV ;    -- verb-phrase-complement verb         e.g. "want"
 
     V2 = ResSom.Verb2 ;
     V3 = ResSom.Verb3 ;
@@ -119,7 +124,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 
 linref
     -- Cl = linCl ;
-    VP = linVP VInf ;
+    VP = infVP ;
     CN = linCN ;
-    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ;
+    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ++ prep.miscAdv ! Sg3 Masc ;
 }

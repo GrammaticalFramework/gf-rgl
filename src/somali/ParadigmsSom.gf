@@ -1,4 +1,4 @@
-resource ParadigmsSom = open CatSom, ResSom, ParamSom, Prelude in {
+resource ParadigmsSom = open CatSom, ResSom, ParamSom, NounSom, Prelude in {
 
 oper
 
@@ -31,6 +31,12 @@ oper
   la : Preposition ;
   u  : Preposition ;
   noPrep : Preposition ;
+
+  -- TODO: add subjunctive too!
+  VVForm : Type ; -- Argument to give to mkVV
+  infinitive : VVForm ; -- Takes its complement in infinitive
+  subjunctive : VVForm ; -- Takes its complement as a clause in subjunctive
+  waa_in : VVForm ; -- No explicit verb, just uses "waa in" construction
 
 
 --2 Nouns
@@ -85,6 +91,12 @@ oper
     mkV3 : V -> (_,_ : Preposition) -> V2 ; -- Already constructed verb with preposition
     } ;
 
+  mkVV : overload {
+    mkVV : (kar : Str) -> VV ; -- VV that takes its complement in infinitive.
+    mkVV : (rab : Str) -> VVForm -> VV ; -- Specify complement type: infinitive or subjunctive.
+    mkVV : V -> VVForm -> VV ;  -- VV out of an existing V
+   } ;
+
   -- TODO: actual constructors
   -- mkVA : Str -> VA = \s -> lin VA (mkVerb  s) ;
   --
@@ -104,16 +116,16 @@ oper
 
   mkPrep = overload {
     mkPrep : Str -> CatSom.Prep = \s ->
-      lin Prep ((ResSom.mkPrep s s s s s s) ** {
-        c2=noPrep ; sii,dhex,berri=[]}) ;
+      emptyPrep ** (ResSom.mkPrep s s s s s s) ;  -- ** {
     mkPrep : (x1,_,_,_,_,x6 : Str) -> CatSom.Prep = \a,b,c,d,e,f ->
-      lin Prep ((ResSom.mkPrep a b c d e f) ** {
-        c2=noPrep ; sii,dhex,berri=[]}) ;
+      emptyPrep ** (ResSom.mkPrep a b c d e f) ; --
     mkPrep : Preposition -> CatSom.Prep = \p ->
-      lin Prep ((prep p) ** {sii,dhex,berri=[]}) ;
+      emptyPrep ** (prep p) ;
     mkPrep : CatSom.Prep -> (x1,x2,x3 : Str) -> CatSom.Prep = \p,s,t,u ->
       p ** {berri = s ; sii = t ; dhex = u} ;
     } ;
+
+  possPrep : N -> CatSom.Prep ; -- Nouns like dhex that are used with possessive suffix to form adverbials
 
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->
   --   lin Conj { s = s1 ; s2 = s2 } ;
@@ -125,7 +137,7 @@ oper
     berri = s ;
     c2 = noPrep ;
     np = {s = [] ; a = P3_Prep} ;
-    sii,dhex = []
+    sii,dhex,miscAdv = []
     } ;
 
   mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
@@ -161,6 +173,11 @@ oper
   la = ResSom.La ;
   u  = ResSom.U ;
   noPrep = ResSom.NoPrep ;
+
+  VVForm = ResSom.VVForm ;
+  infinitive = Infinitive ;
+  subjunctive = Subjunctive ;
+  waa_in = Waa_In ;
   ------------------------
 
   mkN = overload {
@@ -216,6 +233,36 @@ oper
     mkV3 : (sug : Str) -> (_,_ : Preposition) -> V3 = \s,p,q -> lin V3 (regV s ** {c2 = p ; c3 = q}) ;
     mkV3 : V -> (_,_ : Preposition) -> V2 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
     } ;
+
+  mkVV = overload {
+    mkVV : (kar : Str) -> VV -- VV that takes its complement in infinitive.
+     = \kar -> lin VV ({vvtype=Infinitive} ** mkV kar) ;
+    mkVV : (rab : Str) -> VVForm -> VV -- Specify string and complement type:
+     = \rab,vvf -> lin VV ({vvtype=vvf} ** mkV rab) ;
+    mkVV : V -> VVForm -> VV
+      = \v,vvf -> lin VV (v ** {vvtype=vvf}) ;
+    mkVV : VVForm -> VV -- VV such as "waa in"
+     = \b -> let dummyV : V = mkV "in"
+              in lin VV (dummyV ** {vvtype=b ; s = \\_ => "in"})
+   } ;
+
+  possPrep : N -> CatSom.Prep = \dhex -> emptyPrep ** {
+    miscAdv = \\agr => 
+        let qnt = PossPron (pronTable ! agr) ;
+            num = getNum agr ;
+            art = gda2da dhex.gda ! Sg ;
+            det = qnt.s ! art ! Abs ; -- this includes BIND
+         in dhex.s ! Def Sg ++ det ;
+    isPoss = True
+    } ;
+
+  emptyPrep : CatSom.Prep = lin Prep {
+    sii,berri,dhex = [] ;
+    miscAdv = \\_ => [] ;
+    s = \\_ => [] ;
+    c2 = noPrep ;
+    isPoss = False
+  } ;
 --------------------------------------------------------------------------------
 
 }

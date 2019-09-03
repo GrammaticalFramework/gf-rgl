@@ -6,31 +6,27 @@ lin
   --  : Cl -> RCl ;            -- such that John loves her
   -- RelCl cl = {s = cl.s ! Subord} ;
 
-{-
-  -- Sayeed p. 95-96 + ch 8
-Reduced present general in relative clauses;  as absolutive
-1/2SG/3SG M/2PL/3PL sugá (VRel Masc)
-3 SG F sugtá (VRel Fem)
-1PL sugná -- not yet in the grammar
-
-(18) (a) nimánka buugágga keená men-the books-the bring
-'the men who bring the books'
-(b) buugágga nimanku keenàan
-books-the men-the bring 'the books which the men bring'
--}
   -- : RP -> VP -> RCl ;
-  RelVP rp vp = {s = \\g,c,t,a,p =>
-    let cls = predVPSlash impersNP vp ;
-        rcl = mergeRCl (cls.s ! False) ; -- Other than present tense, just use normal verb forms
-    in rp.s ++ case <g,c,t,a,p> of {
-        <Fem,Abs,Pres,Simul,Pos> => linVP (VRel Fem) vp ;
-        <Masc,Abs,Pres,Simul,Pos> => linVP (VRel Masc) vp ;
-        _ => rcl.s ! t ! a ! p }
+  {- NB. this works because vfSubord only puts different forms from vfStatement
+    in Pres,Simul,Pos. RelVP needs a third set of forms in Abs,Pres,Simul,Pos,
+    called "reduced present general" (Saeed p. 95-96 + ch 8).
+    These forms are found in VRel in VP, and aren't chosen by predVP, so we put
+    them in manually in RelVP.
+  -}
+  RelVP rp vp = {s = \\gn,c,t,a,p =>
+    let cls = predVP impersNP vp ;
+        rclSubord = cl2rcl cls ;
+        rclStatement = cl2rclNom cls ;
+    in rp.s ++ case <gn,c,t,a,p> of {
+        <g,Abs,Pres,Simul,Pos> => linVP (VRel g) Subord vp ; -- reduced present only in absolutive
+        <_,Abs,Pres,Simul,Neg> => linVP VRelNeg Subord vp ; -- special form for have and be
+        <_,Nom,Pres,Simul,Pos> => rclStatement.s ! t ! a ! p ; -- as nominative, use the usual forms, not subordinate
+        _ => rclSubord.s ! t ! a ! p } -- the rest is Subord because of negation.
     } ;
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls =
-    let rcl = mergeSTM True (cls.s ! True) -- in subordinate clause, STM is not included but subject pronoun is
+    let rcl = cl2relslash cls -- in subordinate clause, STM is not included but subject pronoun is
      in rcl ** {s = \\g,c,t,a,p => rp.s ++ rcl.s ! t ! a ! p} ;
 
 

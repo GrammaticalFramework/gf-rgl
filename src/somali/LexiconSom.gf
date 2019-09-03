@@ -1,5 +1,5 @@
 concrete LexiconSom of Lexicon = CatSom **
-  open ParadigmsSom,ResSom in {
+  open ParadigmsSom, ResSom in {
 
 ----
 -- A
@@ -33,7 +33,7 @@ lin big_A = mkA "weyn" ;
 -- lin bike_N = mkN "" ;
 lin bird_N = mkN "shimbir" fem ;
 -- lin bite_V2 = mkV2 "" ;
--- lin black_A = mkA "" ;
+lin black_A = mkA "madow" ;
 -- lin blood_N = mkN "" ;
 -- lin blow_V = mkV "" ;
 -- lin blue_A = mkA "" ;
@@ -63,7 +63,7 @@ lin car_N = mkN "baabuur" masc ;
 -- lin carpet_N = mkN "" ;
 lin cat_N = mkN "bisad" ;
 -- lin ceiling_N = mkN "" ;
--- lin chair_N = mkN "" ;
+lin chair_N = mkN "kursi" ;
 -- lin cheese_N = mkN "" ;
 -- lin child_N = mkN "" ;
 -- lin church_N = mkN "" ;
@@ -74,7 +74,7 @@ lin city_N = mkN "magaalo" ;
 -- lin cloud_N = mkN "" ;
 -- lin coat_N = mkN "" ;
 -- lin cold_A = mkA "" ;
--- lin come_V = etorri_V ;
+lin come_V = mkV "iman" ;
 -- lin computer_N = mkN "" ;
 -- lin correct_A = mkA "" ;
 -- lin count_V2 = mkV2 "" ;
@@ -193,7 +193,7 @@ lin jump_V = mkV "bood" ;
 -- lin knee_N = mkN "" ;
 -- lin know_V2 = mkV2 "" ;
 -- lin know_VQ = mkVQ "" ;
--- lin know_VS = mkVS "" ;
+lin know_VS = mkV "ogaan" ; -- copula ** {sii = "og"} ;
 
 
 ----
@@ -211,7 +211,7 @@ lin language_N = mkN "af" ;
 -- lin lie_V = mkV "" ;
 -- lin like_V2 = mkV2 "" ;
 -- lin listen_V2 = mkV2 "" ;
--- lin live_V  = mkV "" ;
+lin live_V = copula ** {sii = "nool"} ;
 -- lin liver_N = mkN "" ;
 -- lin long_A = mkA "" ;
 -- lin lose_V2 = mkV2 "" ;
@@ -258,7 +258,7 @@ lin name_N = mkN "magac" ;
 -- lin paris_PN = mkPN "Paris" ;
 -- lin peace_N = mkN "" ;
 -- lin pen_N = mkN "" ;
--- lin person_N = mkN "" ;
+lin person_N = mkNoun "dad" "dadka" "dad" "dadka" Masc ;
 -- lin planet_N = mkN "" ;
 -- lin plastic_N = mkN "" ;
 -- lin play_V = mkV "" ;
@@ -304,7 +304,7 @@ lin salt_N = mkN "cusbo" ;
 -- lin school_N = mkN "" ;
 -- lin science_N = mkN "" ;
 -- lin scratch_V2 = mkV2 "" ;
--- lin sea_N = mkN "" ;
+lin sea_N = mkN "bad" fem ;
 lin see_V2 = mkV2 "ark" ;
 -- lin seed_N = mkN "" ;
 -- lin seek_V2 = mkV2 "" ;
@@ -312,7 +312,7 @@ lin see_V2 = mkV2 "ark" ;
 -- lin send_V3 = mkV3 "" ;
 -- lin sew_V = mkV "" ;
 -- lin sharp_A = mkA "" ;
--- lin sheep_N = mkN "" ;
+lin sheep_N = mkN "lax" fem ;
 -- lin ship_N = mkN "" ;
 -- lin shirt_N = mkN "" ;
 -- lin shoe_N = mkN "" ;
@@ -397,7 +397,7 @@ lin wait_V2 = mkV2 "sug" ;
 -- lin watch_V2 = mkV2 "" ;
 lin water_N = mkNoun "biyo" "biyaha" "biyo" "biyaha" Masc ; -- ?? gender
 -- lin wet_A = mkA "" ;
--- lin white_A = mkA "" ;
+lin white_A = mkA "cad" ;
 -- lin wide_A = mkA "" ;
 -- lin wife_N = mkN "" ;
 -- lin win_V2 = mkV2 "" ;

@@ -29,6 +29,14 @@ oper
 
 lincat
   Digit = LinDigit ;
+
+  {- Saeed p. 70-71: "When used with nouns, the cardinal numerals act as
+  the head of the construction and the counted noun occurs in the genitive
+  case. […] This construction also occurs with composite numerals like
+  laba boqol 'two hundred',
+  where laba 'two' is a feminine noun in absolutive case and
+  boqol 'hundred' is a masculine noun in genitive case.
+  Since laba is head, the whole nominal is feminine." -}
   Sub10, Sub100, Sub1000, Sub1000000 = {
     s : DForm => Str ;
     thousand : Str ; -- TODO figure out if this really works so
@@ -69,14 +77,14 @@ lin pot111 = {
     s = \\_ => "koob iyo" ++ n1.ten.s ;
     ord = "koob iyo" ++ n1.ten.ord ;
     thousand = [] ;
-    da = M KA ; -- TODO check
+    da = M KA ;
     n = Pl
     } ;
 lin pot1to19 d = {
-    s = \\_ => d.unit.s ! Kow ++ "iyo" ++ n1.ten.s ;
+    s = \\_ => d.unit.s ! Hal ++ "iyo" ++ n1.ten.s ;
     thousand = [] ;
-    ord = d.unit.s ! Kow ++ "iyo" ++ n1.ten.ord ;
-    da = M KA ; -- TODO check
+    ord = d.unit.s ! Hal ++ "iyo" ++ n1.ten.ord ;
+    da = M KA ;
     n = Pl
     } ;
 lin pot0as1 n = n ;
@@ -86,25 +94,24 @@ lin pot1 d = d.ten ** {
     n = Pl
     } ;
 lin pot1plus d e = d.ten ** {
-    s = \\b => d.unit.s ! Kow ++ "iyo" ++ e.s ! b ;
-    ord = d.unit.s ! Kow ++ "iyo" ++ e.ord ; -- TODO check
+    s = \\b => e.s ! b  ++ "iyo" ++ d.ten.s ;
+    ord = e.s ! Hal ++ "iyo" ++ d.ten.ord ;
     thousand = [] ;
     n = Pl ;
   } ;
 lin pot1as2 n = n ;
 lin pot2 d = d ** {
-    thousand = "boqol" ; -- TODO check
-    ord = d.s ! Kow ++ "boqlaad"
-    } ; -- TODO what's the def. art. allomorph?
+    thousand = "boqol" ;
+    ord = d.s ! Hal ++ "boqlaad"
+    } ;
 lin pot2plus d e = d ** {
-    s = \\b => d.s ! b ++ "boqol iyo" ++ e.s ! b ;
-    ord = d.ord ++ "boqol iyo" ++ e.ord ;
+    thousand = "boqol iyo" ++ e.s ! Hal ;
+    ord = d.s ! Hal ++ "boqol iyo" ++ e.ord ;
     n = Pl} ;
 lin pot2as3 n = n ;
 lin pot3 n = n ** {
-    thousand = "kun" ;
-    ord = n.s ! Kow ++ "kunaad" ;
-    --da = M KA ; -- TODO check
+    thousand = n.thousand ++ "kun" ;
+    ord = n.s ! Hal ++ "kunaad" ;
     n = Pl } ;
 
 lin pot3plus n m = n ** {

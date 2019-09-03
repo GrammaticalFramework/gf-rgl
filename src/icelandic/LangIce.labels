@@ -1,0 +1,10 @@
+* {"ekki"} PART neg head 
+* {"hef","hefur","hafa","höfum","hafði","hafið","hafðir","hafð","höfðuð","höfðu","höfðum","mun","munt","munu","munum","myndi","myndir","mynduð","myndum","myndu"} AUX aux head 
+* {"kan","kunde","kunnat","måste"} AUX aux head 
+UseComp {"verið","vera","var","voru","vorum","voruð","varst","er","eru","erum","ert"} VERB cop head
+CompAdv {"verið","vera","var","voru","vorum","voruð","varst","er","eru","erum","ert"} VERB cop head
+CompAP {"verið","vera","var","voru","vorum","voruð","varst","er","eru","erum","ert"} VERB cop head
+CompNP {"verið","vera","var","voru","vorum","voruð","varst","er","eru","erum","ert"} VERB cop head
+CompCN {"verið","vera","var","voru","vorum","voruð","varst","er","eru","erum","ert"} VERB cop head
+ComplVV {"að"} PART mark xcomp
+ComplVS {"að"} PART mark xcomp
