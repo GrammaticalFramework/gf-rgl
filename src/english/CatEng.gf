@@ -1,4 +1,4 @@
-concrete CatEng of Cat = CommonX - [Pol,SC,CAdv] ** open ResEng, Prelude in {
+concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -49,7 +49,6 @@ concrete CatEng of Cat = CommonX - [Pol,SC,CAdv] ** open ResEng, Prelude in {
 -- Adjective
 
     AP = {s : Agr => Str ; isPre : Bool} ; 
-    SC = {s : Agr => Str} ;
 
 -- Noun
 

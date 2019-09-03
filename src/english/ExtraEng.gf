@@ -91,7 +91,7 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
       isPre = vp.isSimple                 -- depends on whether there are complements
       } ;
 
-    EmbedPresPart vp = {s = \\a => infVP VVPresPart vp False Simul CPos a} ; --- agr
+    EmbedPresPart vp = {s = infVP VVPresPart vp False Simul CPos (agrP3 Sg)} ; --- agr
 
     UttVPShort vp = {s = infVP VVAux vp False Simul CPos (agrP3 Sg)} ;
 
