@@ -1011,21 +1011,27 @@ oper
             <Statement,Neg> -- object pronoun and prepositions contract with negation
               => {p2 = [] ; p1 = cl.comp.p1 ++ cl.comp.p2 ++ bind} ;
             _ => cl.comp } ;
+          statementNounObj = case cltyp of {
+                                Statement => obj.p1 ;
+                                _         => [] } ;
+          subordNounObj = case cltyp of {
+                                Subord => obj.p1 ; -- noun object if it's subordinate clause
+                                _      => [] } ;
+          questionNounObj = case cltyp of {
+                                Question => obj.p1 ; -- noun object if it's subordinate clause
+                                _      => [] } ;
           pred = cl.pred ! cltyp ! t ! a ! p in
 
-       cl.berri -- AdV
+       cl.berri      -- AdV
     ++ cl.subj.noun -- subject if it's a noun
-    ++ case cltyp of {
-          Subord => [] ;
-          _ => obj.p1 } -- noun object if it's a statement
+    ++ statementNounObj -- noun object if it's a statement
 
     ++ cl.stm ! cltyp ! p -- STM
 
     ++ cl.vComp.subjunc  -- "waa in" construction
-    ++ cl.subj.pron
-    ++ case cltyp of {
-          Subord => obj.p1 ; -- noun object if it's subordinate clause
-          _      => [] } 
+    ++ cl.subj.pron -- subject pronoun
+
+    ++ subordNounObj -- noun object if it's subordinate clause
     ++ obj.p2   -- object if it's a pronoun
     ++ cl.sii   -- restricted set of particles
     ++ cl.dhex  -- restricted set of nouns/adverbials
@@ -1033,6 +1039,7 @@ oper
     ++ cl.vComp.inf  -- VV complement, if it's infinitive
     ++ pred.inf    -- potential infinitive/participle
     ++ pred.fin    -- the verb inflected
+    ++ questionNounObj -- noun object if it's a question
     ++ cl.vComp.subcl -- VV complement, if it's subordinate clause
     ++ cl.miscAdv    ---- NB. Only used if there are several adverbs, or for "waa in" construction.
     } ;              ---- Primary places for adverbs are obj, sii or dhex.

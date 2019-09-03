@@ -13,10 +13,10 @@ concrete QuestionSom of Question = CatSom ** open
     let clRaw : ClLite = predVPlite ip vp ;
         cl : ClLite = clRaw ** {
                 stm = \\clt,p => case <clt,p> of {
-                                    <Statement,Pos> => "baa" ;
+                                    <_,Pos> => "baa" ;
                                     _ => clRaw.stm ! clt ! p }
                 }
-     in wordOrderLite Statement cl ;
+     in wordOrderLite Question cl ;
 
   -- : IP -> ClSlash -> QCl ; -- whom does John love
   --QuestSlash ip cls = ;
