@@ -1,5 +1,5 @@
 --# -coding=utf8
-concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef, (R = ParamX) in {
+concrete CatBul of Cat = CommonX - [IAdv,AdV] ** open ResBul, Prelude, Predef, (R = ParamX) in {
 
   lincat
 -- Tensed/Untensed
@@ -46,7 +46,6 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
 
     IAdv = {s : QForm => Str} ;
     AdV  = {s : Str; p : Polarity} ;
-    SC   = {s : Agr => Str} ;
 
 -- Noun
 

@@ -40,7 +40,7 @@ concrete AdjectiveBul of Adjective = CatBul ** open ResBul, Prelude in {
       } ;
 
     SentAP ap sc = {
-      s = \\a,p => ap.s ! a ! p ++ sc.s ! {gn=aform2gennum a; p=p} ;
+      s = \\a,p => ap.s ! a ! p ++ sc.s ;
       isPre = False
       } ;
 
