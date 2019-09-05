@@ -61,10 +61,10 @@ concrete SentenceFin of Sentence = CatFin ** open Prelude, ResFin, StemFin in {
     } ;
 
     AdvS a s = {s = a.s ++ s.s} ;
-    ExtAdvS a s = {s = a.s ++ "," ++ s.s} ;
+    ExtAdvS a s = {s = a.s ++ SOFT_BIND ++ "," ++ s.s} ;
 
-    RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ; ---- mikä
+    RelS s r = {s = s.s ++ SOFT_BIND ++ "," ++ r.s ! agrP3 Sg} ; ---- mikä
 
-    SSubjS a subj b = {s = a.s ++ "," ++ subj.s ++ b.s} ;
+    SSubjS a subj b = {s = a.s ++ SOFT_BIND ++ "," ++ subj.s ++ b.s} ;
 
 }
