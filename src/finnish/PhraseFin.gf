@@ -23,7 +23,7 @@ concrete PhraseFin of Phrase = CatFin ** open ResFin, StemFin, (P = Prelude) in 
     PConjConj conj = {s = conj.s2} ;
 
     NoVoc = {s = []} ;
-    VocNP np = {s = "," ++ np.s ! NPSep} ;
+    VocNP np = {s = P.SOFT_BIND ++ "," ++ np.s ! NPSep} ;
 
 oper
   addNegation : P.Bool -> Str = \isNeg -> case isNeg of {P.True => "ei" ; _ => []} ;
