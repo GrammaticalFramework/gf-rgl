@@ -882,14 +882,14 @@ oper
     let hasSubjPron : Bool = False ;
         hasSTM : Bool = False ;
         isRel : Bool = True ;
-     in wordOrder Subord isRel hasSubjPron hasSTM ;
+     in mkClause Subord isRel hasSubjPron hasSTM ;
 
   -- No subject pronoun, no STM, but use verb forms from Statement
   cl2rclNom : ClSlash -> Clause = \cls ->
     let hasSubjPron : Bool = False ;
         hasSTM : Bool = False ;
         isRel : Bool = True ;
-      in wordOrder Statement isRel hasSubjPron hasSTM cls ;
+      in mkClause Statement isRel hasSubjPron hasSTM cls ;
 
   -- RelSlash: subject pronoun is included if it's not 3rd person
   -- TODO check this rule with more example sentences
@@ -897,14 +897,14 @@ oper
     let hasSubjPron : Bool = True ;
         hasSTM : Bool = False ;
         isRel : Bool = True ;
-     in wordOrder Subord isRel hasSubjPron hasSTM ;
+     in mkClause Subord isRel hasSubjPron hasSTM ;
 
   -- Question clauses: subject pronoun not included, STM is
   cl2qcl : ClSlash -> Clause =
     let hasSubjPron : Bool = False ;
         hasSTM : Bool = True ;
         isRel : Bool = False ;
-     in wordOrder Question isRel hasSubjPron hasSTM ;
+     in mkClause Question isRel hasSubjPron hasSTM ;
 
   -- Sentence: include subject pronoun and STM.
   -- When subordinate, include "in".
@@ -916,12 +916,12 @@ oper
         cl : ClSlash = case isSubord of { -- add "in" to the clause if used as subordinate
                            True  => cls ** {vComp = cls.vComp ** {subjunc = "in"}} ;
                            False => cls } ;
-        sent = wordOrder cltyp False True True cl
+        sent = mkClause cltyp False True True cl
      in sent.s ! t ! a ! p
     } ;
 
 
-  wordOrder : ClType -> (rel,sp,stm : Bool) -> ClSlash -> Clause = \cltyp,isRel,hasSubjPron,hasSTM,incomplCl -> {
+  mkClause : ClType -> (rel,sp,stm : Bool) -> ClSlash -> Clause = \cltyp,isRel,hasSubjPron,hasSTM,incomplCl -> {
     s = \\t,a,p => 
       let -- Put all arguments in their right place
           cl : ClSlash = complCl incomplCl ;
@@ -1044,16 +1044,6 @@ oper
 -- linrefs
 
 oper
-  linVP : VForm -> ClType -> VerbPhrase -> Str = \vf,cltyp,vp ->
-    let pred = vp.s ! vf ;
-        vp' = complSlash vp ;
-        stm = case <cltyp,isNeg vf> of {
-                <Subord,True> => {p1 = "aan" ; p2 = []} ;
-                _             => {p1,p2 = []}
-               } ;
-        wo = wordOrderOld (Sg3 Masc) [] stm (vp'.comp ! pagr2agr vp.obj2.a) pred vp' cltyp ;
-     in wo.beforeSTM ++ wo.stm ++ wo.afterSTM ;
-
   linCN : CNoun -> Str = \cn -> cn.s ! Indef Sg ++ cn.mod ! Indefinite ! Sg ! Abs ;
   linAdv : Adverb -> Str = \adv ->
      adv.berri
@@ -1062,34 +1052,35 @@ oper
   ++ adv.dhex
   ++ adv.np.s 
   ++ adv.miscAdv ;
- linBaseCl : BaseCl -> Str = \b -> b.beforeSTM ++ b.stm ++ b.afterSTM ;
 
 
-  -- TODO: deprecate eventually
-  BaseCl : Type = {beforeSTM, stm, afterSTM : Str} ; -- adverbs, subjects, all that comes before sentence type marker. Eventual Subj attaches to the part after STM.
+  linVP : VForm -> ClType -> VerbPhrase -> Str = \vf,cltyp,vp ->
+    let pred = vp.s ! vf ;
+        vp' = complSlash vp ;
+        neg = case <cltyp,isNeg vf> of {
+                <Subord,True> => "aan" ;
+                _             => []
+               } ;
+     in wordOrder cltyp neg pred (vp'.comp ! pagr2agr vp.obj2.a) vp' ;
 
-  wordOrderOld : Agreement -> (sn : Str) -> (stm,obj : {p1,p2 : Str}) -> Str -> VerbPhrase -> ClType -> BaseCl =
-    \agr,subjnoun,stm,obj,pred,vp,cltyp -> {
-        beforeSTM = vp.berri -- AdV
-                  ++ subjnoun -- subject if it's a noun
-                  ++ case cltyp of {
-                        Subord => [] ;
-                        _ => obj.p1 } ; -- noun object if it's a statement
-
-              stm = stm.p1 ; -- sentence type marker; empty if subordinate and positive
-
-         afterSTM = vp.vComp.subjunc -- "waa in" construction
-                  ++ stm.p2   -- possible subj. pronoun
-                  ++ case cltyp of {
-                        Subord => obj.p1 ; -- noun object if it's subordinate clause
-                        _      => [] } 
-                  ++ obj.p2   -- object if it's a pronoun
-                  ++ vp.sii   -- restricted set of particles
-                  ++ vp.dhex  -- restricted set of nouns/adverbials
-                  ++ vp.secObj   -- "second object"
-                  ++ vp.vComp.inf -- VV complement, if it's infinitive
-                  ++ pred         -- the verb inflected
-                  ++ vp.vComp.subcl ! agr  -- VV complement, if it's subordinate clause
-                  ++ vp.miscAdv } ; ---- NB. Only used if there are several adverbs, or for "waa in" construction.
+  wordOrder : ClType -> (neg,pred : Str) -> (obj : {p1,p2 : Str}) -> VerbPhrase -> Str =
+    \cltyp,neg,pred,obj,vp ->
+        vp.berri -- AdV
+     ++ case cltyp of {
+          Subord => [] ;
+          _ => obj.p1 } -- noun object if it's a statement
+     ++ neg
+     ++ vp.vComp.subjunc -- "waa in" construction
+     ++ case cltyp of {
+          Subord => obj.p1 ; -- noun object if it's subordinate clause
+          _      => [] }
+     ++ obj.p2   -- object if it's a pronoun
+     ++ vp.sii   -- restricted set of particles
+     ++ vp.dhex  -- restricted set of nouns/adverbials
+     ++ vp.secObj   -- "second object"
+     ++ vp.vComp.inf -- VV complement, if it's infinitive
+     ++ pred         -- the verb inflected
+     ++ vp.vComp.subcl ! Sg3 Masc  -- VV complement, if it's subordinate clause
+     ++ vp.miscAdv ; ---- NB. Only used if there are several adverbs, or for "waa in" construction.
        
 }
