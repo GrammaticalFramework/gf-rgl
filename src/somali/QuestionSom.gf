@@ -27,10 +27,12 @@ concrete QuestionSom of Question = CatSom ** open
         sbj = clRaw.subj ;
         cl : ClSlash = clRaw ** {
             stm = \\clt,p => case <clt,p> of {
-                                -- IAdv is focused
+                                -- IAdv is focused with baa, and subject comes after
                                 <_,Pos> => "baa" ++ sbj.pron ++ sbj.noun;
-                                _ => clRaw.stm ! clt ! p } ;
-            subj = {noun, pron = [] ; isP3 = True}}
+                                -- TODO how do negative questions work
+                                _ => clRaw.stm ! Question ! p ++ sbj.pron ++ sbj.noun } ;
+            subj = sbj ** {noun, pron = []}  -- to force subject after baa
+        } ;
      in cl2qcl cl ;
 
   -- : IComp -> NP -> QCl ;   -- where is John?
