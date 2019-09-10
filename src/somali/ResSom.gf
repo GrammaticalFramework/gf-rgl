@@ -776,6 +776,9 @@ oper
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
     vp ** insertCompLite vp (nplite np) ;
 
+  insertCompCl : ClSlash -> NounPhrase -> ClSlash = \cls,np ->
+    cls ** insertCompLite cls (nplite np) ;
+
   insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
     vp ** insertAdvLite vp adv ;
 
@@ -931,11 +934,10 @@ oper
      in mkClause Subord isRel hasSubjPron hasSTM ;
 
   -- Question clauses: subject pronoun not included, STM is
-  cl2qcl : ClSlash -> Clause =
+  cl2qcl : Bool -> ClSlash -> Clause =
     let hasSubjPron : Bool = False ;
-        hasSTM : Bool = True ;
         isRel : Bool = False ;
-     in mkClause Question isRel hasSubjPron hasSTM ;
+     in mkClause Question isRel hasSubjPron ;
 
   -- Sentence: include subject pronoun and STM.
   -- When subordinate, include "in".

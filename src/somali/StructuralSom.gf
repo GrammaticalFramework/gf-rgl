@@ -152,9 +152,15 @@ lin with_Prep = mkPrep la ;
 lin whatPl_IP = ;
 lin whatSg_IP = ;
 lin whoPl_IP = ;
-lin whoSg_IP = ;
 
 -}
+
+lin whoSg_IP = emptyNP ** {
+  s = table {
+    Nom => "yaa" ; -- together with STM
+    Abs => "ayo" } ; -- alone, no STM (used in UttIP)
+  contractSTM = True ;
+  } ;
 
 -------
 -- Subj

@@ -1,12 +1,12 @@
 concrete QuestionSom of Question = CatSom ** open
-  Prelude, ResSom, (VS=VerbSom), (NS=NounSom), (AS=AdverbSom) in {
+  Prelude, ResSom, ParadigmsSom, (VS=VerbSom), (NS=NounSom), (AS=AdverbSom) in {
 
 -- A question can be formed from a clause ('yes-no question') or
 -- with an interrogative.
 
   lin
   -- : Cl -> QCl ;
-  QuestCl = cl2qcl ;
+  QuestCl = cl2qcl True;
 
   -- : IP -> VP -> QCl ;
   QuestVP ip vp = -- TODO: if we want to contract baa + subj. pronoun, change ResSom.predVP
@@ -16,10 +16,16 @@ concrete QuestionSom of Question = CatSom ** open
                                     <_,Pos> => "baa" ;
                                     _ => clRaw.stm ! clt ! p }
                 }
-     in cl2qcl cl ;
+     in cl2qcl (notB ip.contractSTM) cl ;
 
   -- : IP -> ClSlash -> QCl ; -- whom does John love
-  --QuestSlash ip cls = ;
+  QuestSlash ip cls =
+    let clsIPFocus = cls ** {
+              subj = cls.subj ** {noun = ip.s ! Nom} ; -- place IP first in the sentence, keep old subject pronoun.
+              obj2 = cls.obj2 ** {s = cls.subj.noun ++ cls.obj2.s} -- move old subject noun before object.
+            } ;
+     in cl2qcl (notB ip.contractSTM) clsIPFocus ;
+
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk
   QuestIAdv iadv cls =
@@ -33,7 +39,7 @@ concrete QuestionSom of Question = CatSom ** open
                                 _ => clRaw.stm ! Question ! p ++ sbj.pron ++ sbj.noun } ;
             subj = sbj ** {noun, pron = []}  -- to force subject after baa
         } ;
-     in cl2qcl cl ;
+     in cl2qcl True cl ; -- TODO: add contractSTM field to IAdv as well
 
   -- : IComp -> NP -> QCl ;   -- where is John?
   -- QuestIComp icomp np = ;
@@ -42,10 +48,10 @@ concrete QuestionSom of Question = CatSom ** open
 -- determiners, with or without a noun.
 
   -- : IDet -> CN -> IP ;       -- which five songs
-  IdetCN = NS.DetCN ;
+  IdetCN idet cn = {contractSTM = False} ** NS.DetCN idet cn ;
 
   -- : IDet       -> IP ;       -- which five
-  IdetIP = NS.DetNP ;
+  IdetIP idet = {contractSTM = False} ** NS.DetNP idet ;
 
 -- They can be modified with adverbs.
   -- : IP -> Adv -> IP ;        -- who in Paris
@@ -58,7 +64,9 @@ concrete QuestionSom of Question = CatSom ** open
 
 -- Interrogative adverbs can be formed prepositionally.
   -- : Prep -> IP -> IAdv ;     -- with whom
-  PrepIP = AS.PrepNP ;
+  PrepIP prep ip =
+    let ipAbs : Str = ip.s ! Abs
+     in prepNP (mkPrep prep ipAbs [] []) emptyNP ;
 
 -- They can be modified with other adverbs.
 
