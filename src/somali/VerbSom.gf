@@ -18,14 +18,14 @@ lin
   ComplVV vv vp = let vc = vp.vComp in case vv.vvtype of {
     Waa_In => vp ** {
       vComp = vc ** {subjunc = vv.s ! VInf} ; -- it's always the word "in", and it will be placed before subject pronoun. it's placed in vv.s!VInf so that the VV would contribute with some string. /IL
-      obj2 = vp.obj2 ** {s = []} ;      -- word order hack to avoid more parameters: 
+      obj2 = vp.obj2 ** {s = []} ;      -- word order hack to avoid more parameters:
       miscAdv = vp.miscAdv ++ vp.obj2.s -- dump the object to miscAdv
       } ;
 
     Subjunctive => useV vv ** {
       stm = Waxa ;
       vComp = vc ** { -- The whole previous VP becomes the subordinate clause
-                subcl = \\agr => 
+                subcl = \\agr =>
                           let subj = pronTable ! agr ;
                               cls = predVPslash subj vp ;
                               scl = cl2sentence True cls ;
@@ -39,11 +39,11 @@ lin
         inf = vc.inf ++ vp.s ! VInf
         } ;
       stm = Waa NoPred ;
-      } 
+      }
     } ;
 
   -- : VS  -> S  -> VP ;
-  ComplVS vs s = 
+  ComplVS vs s =
     let vps = useV vs ;
         subord = SubjS {s="in"} s ;
      in vps ** {obj2 = {s = subord.berri ; a = P3_Prep}} ;

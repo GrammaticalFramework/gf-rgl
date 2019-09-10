@@ -247,7 +247,7 @@ oper
    } ;
 
   possPrep : N -> CatSom.Prep = \dhex -> emptyPrep ** {
-    miscAdv = \\agr => 
+    hoostiisa = \\agr =>
         let qnt = PossPron (pronTable ! agr) ;
             num = getNum agr ;
             art = gda2da dhex.gda ! Sg ;
@@ -258,7 +258,7 @@ oper
 
   emptyPrep : CatSom.Prep = lin Prep {
     sii,berri,dhex = [] ;
-    miscAdv = \\_ => [] ;
+    hoostiisa = \\_ => [] ;
     s = \\_ => [] ;
     c2 = noPrep ;
     isPoss = False

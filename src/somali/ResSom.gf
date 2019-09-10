@@ -351,7 +351,7 @@ oper
     c2 : Preposition ;
     isPoss : Bool ;
     berri, sii, dhex : Str ;
-    miscAdv : Agreement => Str } ;
+    hoostiisa : Agreement => Str } ;
 
   mkPrep : (x1,_,_,_,_,x6 : Str) -> {s : PrepAgr => Str} = \ku,ii,kuu,noo,idiin,isku -> {
     s = table {
@@ -702,8 +702,8 @@ oper
            True  => nplite emptyNP ;
            False => nplite np } ;
     miscAdv = case prep.isPoss of {
-           True  => np.s ! Abs ++ prep.miscAdv ! np.a ;
-           False => prep.miscAdv ! Sg3 Masc }
+           True  => np.s ! Abs ++ prep.hoostiisa ! np.a ;
+           False => prep.hoostiisa ! Sg3 Masc }
     } ;
 
 ------------------
