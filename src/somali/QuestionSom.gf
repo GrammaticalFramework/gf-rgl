@@ -22,7 +22,16 @@ concrete QuestionSom of Question = CatSom ** open
   --QuestSlash ip cls = ;
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk
-  -- QuestIAdv iadv cl = { } ;
+  QuestIAdv iadv cls =
+    let clRaw : ClSlash = insertIAdv iadv cls ;
+        sbj = clRaw.subj ;
+        cl : ClSlash = clRaw ** {
+            stm = \\clt,p => case <clt,p> of {
+                                -- IAdv is focused
+                                <_,Pos> => "baa" ++ sbj.pron ++ sbj.noun;
+                                _ => clRaw.stm ! clt ! p } ;
+            subj = {noun, pron = [] ; isP3 = True}}
+     in cl2qcl cl ;
 
   -- : IComp -> NP -> QCl ;   -- where is John?
   -- QuestIComp icomp np = ;
@@ -47,21 +56,21 @@ concrete QuestionSom of Question = CatSom ** open
 
 -- Interrogative adverbs can be formed prepositionally.
   -- : Prep -> IP -> IAdv ;     -- with whom
-  PrepIP prep ip = let a = AS.PrepNP prep ip in a ** {s = a.berri} ;
+  PrepIP = AS.PrepNP ;
 
 -- They can be modified with other adverbs.
 
   -- : IAdv -> Adv -> IAdv ;    -- where in Paris
-  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ adv.berri} ;
+  --  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ adv.berri} ; -- TODO do we need PrepCombination in IAdv?
 
 -- Interrogative complements to copulas can be both adverbs and
 -- pronouns.
 
   -- : IAdv -> IComp ;
-  CompIAdv iadv = iadv ;          -- where (is it)
+  --CompIAdv iadv = iadv ;          -- where (is it)
 
   -- : IP -> IComp ;
-  CompIP ip = { s = ip.s ! Abs } ;  -- who (is it)
+  --CompIP ip = { s = ip.s ! Abs } ;  -- who (is it)
 
 {-
 -- More $IP$, $IDet$, and $IAdv$ are defined in $Structural$.

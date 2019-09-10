@@ -1,4 +1,4 @@
-concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
+concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -84,11 +84,7 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
 -- Constructed in StructuralSom.
     Conj = {s2 : State => Str ; s1 : Str ; n : Number } ;
     Subj = SS ;
-    Prep = ResSom.Prep ** {
-                isPoss : Bool ;
-                c2 : Preposition ; 
-                berri, sii, dhex : Str ; 
-                miscAdv : Agreement => Str } ;
+    Prep = ResSom.Prep ;
 
 
 
@@ -120,7 +116,8 @@ concrete CatSom of Cat = CommonX - [Adv] ** open ResSom, Prelude in {
     N3 = ResSom.Noun3 ;
     PN = ResSom.PNoun ;
 
-    Adv = ResSom.Adverb ; -- Preposition of an adverbial can merge with obligatory complements of the verb.
+    Adv,
+    IAdv = ResSom.Adverb ; -- Preposition of an adverbial can merge with obligatory complements of the verb.
 
 linref
     -- Cl = linCl ;
