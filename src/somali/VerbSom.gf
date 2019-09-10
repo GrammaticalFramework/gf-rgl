@@ -75,12 +75,13 @@ lin
 
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
   SlashV2Q v2q qs = ;
-
-  -- : V2A -> AP -> VPSlash ;  -- paint (it) red
-  SlashV2A v2a ap = slashDObj v2a **
-    { comp = (CompAP ap).s } ;
-
 -}
+  -- : V2A -> AP -> VPSlash ;  -- paint (it) red
+   -- TODO: is "red" plural in "paint them red"?
+  SlashV2A v2a ap = useVc v2a ** {
+    comp = \\_ => (CompAP ap).comp ! Sg3 Masc
+  } ;
+
   -- : VPSlash -> NP -> VP
   ComplSlash = insertComp ;
 

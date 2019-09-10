@@ -93,18 +93,18 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
 -- These are constructed in LexiconSom and in
 -- additional lexicon modules.
 
-    V,
     VS,    -- sentence-complement verb            e.g. "claim"
     -- TODO: eventually different lincats
     VQ,    -- question-complement verb            e.g. "wonder"
     VA,    -- adjective-complement verb           e.g. "look"
-    V2V,   -- verb with NP and V complement       e.g. "cause"
-    V2S,   -- verb with NP and S complement       e.g. "tell"
-    V2Q,   -- verb with NP and Q complement       e.g. "ask"
-    V2A = ResSom.Verb ; -- verb with NP and AP complement      e.g. "paint"
+    V = ResSom.Verb ;
 
     VV = ResSom.VV ;    -- verb-phrase-complement verb         e.g. "want"
 
+    V2A,   -- verb with NP and AP complement      e.g. "paint"
+    V2V,   -- verb with NP and V complement       e.g. "cause"
+    V2S,   -- verb with NP and S complement       e.g. "tell"
+    V2Q,   -- verb with NP and Q complement       e.g. "ask"
     V2 = ResSom.Verb2 ;
     V3 = ResSom.Verb3 ;
 
@@ -123,5 +123,5 @@ linref
     -- Cl = linCl ;
     VP = infVP ;
     CN = linCN ;
-    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ++ prep.miscAdv ! Sg3 Masc ;
+    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ++ prep.hoostiisa ! Sg3 Masc ;
 }
