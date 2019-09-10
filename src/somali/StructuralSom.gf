@@ -15,8 +15,9 @@ lin very_AdA = mkAdA "" ;
 lin as_CAdv = { s = "" ; p = [] } ;
 lin less_CAdv = { s = "" ; p = [] } ;
 lin more_CAdv = { s = "" ; p = [] } ;
-
-lin how_IAdv = ss "" ;
+-}
+lin how_IAdv = prepNP (mkPrep (mkPrep u) "sidee" [] []) emptyNP ;
+{-
 lin how8much_IAdv = ss "" ;
 lin when_IAdv = ss "" ;
 lin where_IAdv = ss "" ;
@@ -127,7 +128,7 @@ lin on_Prep = mkPrep ku ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
-lin under_Prep = 
+lin under_Prep =
     let hoos : CatSom.Prep = possPrep (nUl "hoos")
      in hoos ** {c2 = Ku} ;
 lin with_Prep = mkPrep la ;
@@ -151,9 +152,15 @@ lin with_Prep = mkPrep la ;
 lin whatPl_IP = ;
 lin whatSg_IP = ;
 lin whoPl_IP = ;
-lin whoSg_IP = ;
 
 -}
+
+lin whoSg_IP = emptyNP ** {
+  s = table {
+    Nom => "yaa" ; -- together with STM
+    Abs => "ayo" } ; -- alone, no STM (used in UttIP)
+  contractSTM = True ;
+  } ;
 
 -------
 -- Subj

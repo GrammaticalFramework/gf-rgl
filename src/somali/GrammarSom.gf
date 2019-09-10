@@ -9,10 +9,10 @@ concrete GrammarSom of Grammar =
   RelativeSom,
   ConjunctionSom,
   PhraseSom,
-  TextX - [Adv],
+  TextX - [Adv,IAdv],
   StructuralSom,
   IdiomSom,
-  TenseX - [Adv]
+  TenseX - [Adv,IAdv]
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

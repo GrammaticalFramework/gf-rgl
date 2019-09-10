@@ -170,6 +170,8 @@ oper
 
   impersNP : NounPhrase = pronTable ! Impers ;
 
+  indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
+
 --------------------------------------------------------------------------------
 -- Pronouns
 
@@ -182,11 +184,11 @@ oper
     sp : Case => Str ;
     } ;
 
-  {- Saeed p.115: "This combination of possessive and article [kay-ga, tay-da] 
+  {- Saeed p.115: "This combination of possessive and article [kay-ga, tay-da]
       is the basic form but possessives occur with the full range of determiners,
       with associated meanings, for example:
-      remote article kii/tii:    gurigaagii 'your house (remote)' 
-      demonstrative kaas/taas:   gurigaagaas 'that house of yours' 
+      remote article kii/tii:    gurigaagii 'your house (remote)'
+      demonstrative kaas/taas:   gurigaagaas 'that house of yours'
       interrogative kee/tee:     gurigaagee? 'which house of yours?'"
 
      Since RGL abstract syntax doesn't allow combining two Quants, the way to go is
@@ -327,7 +329,7 @@ oper
         } ;
 
   defIQuant : Str -> Quant = \ee ->
-    let quantRaw = defQuant ee ("k"+ee) ("t"+ee) ("kuw"+ee) False 
+    let quantRaw = defQuant ee ("k"+ee) ("t"+ee) ("kuw"+ee) False
      in quantRaw ** {
           s = \\da,c => quantRaw.s ! da ! Abs ;
           sp = \\gn,c => quantRaw.sp ! gn ! Abs } ;
@@ -344,9 +346,14 @@ oper
 --------------------------------------------------------------------------------
 -- Prepositions
 
-  Prep : Type = {s : PrepAgr => Str} ;
+  Prep : Type = {
+    s : PrepAgr => Str ;
+    c2 : Preposition ;
+    isPoss : Bool ;
+    berri, sii, dhex : Str ;
+    hoostiisa : Agreement => Str } ;
 
-  mkPrep : (x1,_,_,_,_,x6 : Str) -> Prep = \ku,ii,kuu,noo,idiin,isku -> {
+  mkPrep : (x1,_,_,_,_,x6 : Str) -> {s : PrepAgr => Str} = \ku,ii,kuu,noo,idiin,isku -> {
     s = table {
           P3_Prep       => ku ;
           Sg1_Prep      => ii ;
@@ -357,9 +364,10 @@ oper
           Reflexive_Prep => isku
         }
     } ;
-  prep : Preposition -> (Prep ** {c2 : Preposition}) = \p -> prepTable ! p ** {c2 = p} ;
+  prep : Preposition -> {s : PrepAgr => Str ; c2 : Preposition} = \p ->
+    prepTable ! p ** {c2 = p} ;
 
-  prepTable : Preposition => Prep = table {
+  prepTable : Preposition => {s : PrepAgr => Str} = table {
     Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "isku" ;
     Ka => mkPrep "ka" "iga" "kaa"  "naga" "idinka" "iska" ;
     La => mkPrep "la" "ila" "kula" "nala" "idinla" "isla" ;
@@ -557,7 +565,7 @@ oper
           VNegPast Progressive => progr + "n" ;
 
           -- TODO check conjugations 2 and 3
-          VNegCond PlInv  => arag + n + "een" ; 
+          VNegCond PlInv  => arag + n + "een" ;
           VNegCond SgMasc => qaat     + "een" ; -- for most verbs same as VPast Simple Pl3_
           VNegCond SgFem  => arag + t + "een" ; -- for most verbs same as VPast Simple Pl2_
 
@@ -636,11 +644,11 @@ oper
           VPast _ Pl2_    => "ahaydeen" ;
           VPast _ Pl3_    => "ahaayeen" ;
           VNegPast _      => "ahi" ;
-          VNegCond SgMasc => "ahaadeen" ; -- 1SG/3 SG M/3PL 
-          VNegCond SgFem  => "ahaateen" ; -- 2SG/3 SG F/2PL 
+          VNegCond SgMasc => "ahaadeen" ; -- 1SG/3 SG M/3PL
+          VNegCond SgFem  => "ahaateen" ; -- 2SG/3 SG F/2PL
           VNegCond PlInv  => "ahaanneen" ; -- 1PL
           VRel _          => "ah" ; -- All persons: see Nilsson p. 78. TODO check Saeed p. 103
-          VRelNeg         => "ahayni" ; -- Saeed 
+          VRelNeg         => "ahayni" ; -- Saeed
           VInf            => "ahaan" ;
           VImp Sg pol     => if_then_Pol pol "ahaw" "ahaanin" ;
           VImp Pl pol     => if_then_Pol pol "ahaada" "ahaanina" ;
@@ -675,7 +683,7 @@ oper
     } ;
 
 ------------------
--- VP
+-- Adv
 
   BaseAdv : Type = {
     sii, -- sii, soo, wala, kada go inside VP.
@@ -688,6 +696,18 @@ oper
     c2 : Preposition ; -- adverbs can contribute to preposition contraction.
     np : NPLite ; -- NP from PrepNP can be promoted into a core argument.
     } ;
+
+  prepNP : Prep -> NounPhrase -> Adverb = \prep,np -> prep ** {
+    np = case prep.isPoss of {
+           True  => nplite emptyNP ;
+           False => nplite np } ;
+    miscAdv = case prep.isPoss of {
+           True  => np.s ! Abs ++ prep.hoostiisa ! np.a ;
+           False => prep.hoostiisa ! Sg3 Masc }
+    } ;
+
+------------------
+-- VP
 
   Complement : Type = {
     comp : Agreement => {p1,p2 : Str} ; -- Agreement for AP complements
@@ -708,7 +728,7 @@ oper
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
     stm = case v.isCopula of { -- can change into Waxa in ComplVV
-            True  => Waa Copula ; 
+            True  => Waa Copula ;
             False => Waa NoPred
           } ;
     vComp = {subjunc, inf = [] ;
@@ -754,28 +774,42 @@ oper
     } ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
-    insertCompLite vp (nplite np) ;
+    vp ** insertCompLite vp (nplite np) ;
 
-  insertCompLite : VPSlash -> NPLite -> VerbPhrase = \vp,nplite ->
+  insertCompCl : ClSlash -> NounPhrase -> ClSlash = \cls,np ->
+    cls ** insertCompLite cls (nplite np) ;
+
+  insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
+    vp ** insertAdvLite vp adv ;
+
+  insertIAdv : Adverb -> ClSlash -> ClSlash = \adv,cls ->
+    cls ** insertAdvLite cls adv ;
+
+  -- To generalise insertAdv and insertComp
+  VPLite : Type = {
+    c2 : PrepCombination ;
+    obj2 : NPLite ;
+    sii,dhex,berri,miscAdv,secObj : Str} ;
+
+  insertCompLite : VPLite -> NPLite -> VPLite = \vp,nplite ->
     case vp.obj2.a of {
       -- If the old object is 3rd person (or nonexistent), we replace its agreement.
       -- We keep both old and new string (=noun, if there was one) in obj2.s.
       P3_Prep =>
         vp ** {obj2 = nplite ** {
-                  s = vp.obj2.s ++ nplite.s}
+                  s = nplite.s ++ vp.obj2.s}
                   } ; -- no secObj, because there's ≤1 non-3rd-person pronoun.
 
       -- If old object was non-3rd person, we keep its agreement.
       -- The new object is put in the secondObject field.
       _ =>
           vp ** {obj2 = vp.obj2 ** {
-                    s = vp.obj2.s ++ nplite.s
+                    s = nplite.s ++ vp.obj2.s
                     } ;
                  secObj = vp.secObj ++ secondObject ! nplite.a}
-
     } ;
 
-  insertAdv : VerbPhrase -> Adverb -> VerbPhrase = \vp,adv ->
+  insertAdvLite : VPLite -> Adverb -> VPLite = \vp,adv ->
     case adv.c2 of {
       NoPrep => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
       _ => case vp.c2 of {
@@ -801,7 +835,7 @@ oper
 
 
   {- After PredVP, we might still want to add more adverbs (QuestIAdv),
-     but we're done with verb inflection. 
+     but we're done with verb inflection.
    -}
   ClSlash : Type = BaseAdv ** {
     -- Fixed in Cl
@@ -826,7 +860,7 @@ oper
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vps -> vp ** {
     subj = {noun = subjnoun ; pron = subjpron ; isP3 = isP3 subj.a} ;
-    pred = \\cltyp,t,a,p => 
+    pred = \\cltyp,t,a,p =>
             let predRaw = vf cltyp t a p subj.a vp ;
              in case <cltyp, p, t, vp.stm, subj.a> of {
                 <Statement, Pos, Pres, Waa NoCopula, Sg3 _|Pl3> -- VP comes from CompNP/CompCN + P3 subject
@@ -838,7 +872,7 @@ oper
                 _ => predRaw -- Any other verb
            } ;
 
-    stm = \\cltyp,pol => 
+    stm = \\cltyp,pol =>
             case <cltyp,pol> of {
                 <Statement,Pos> => showSTM vp.stm ;
                 <Statement,Neg> => "ma" ;
@@ -856,7 +890,7 @@ oper
                True => insertComp vps np ;
                _    => vps } ;
       subj : NounPhrase = case isPassive vps of {
-               True => impersNP ; 
+               True => impersNP ;
                _    => np } ;
       subjnoun : Str = case np.isPron of {
                           True  => np.empty ;
@@ -878,7 +912,7 @@ oper
 
 
   -- RelVP: subject pronoun is never included
-  cl2rcl : ClSlash -> Clause = 
+  cl2rcl : ClSlash -> Clause =
     let hasSubjPron : Bool = False ;
         hasSTM : Bool = False ;
         isRel : Bool = True ;
@@ -900,11 +934,10 @@ oper
      in mkClause Subord isRel hasSubjPron hasSTM ;
 
   -- Question clauses: subject pronoun not included, STM is
-  cl2qcl : ClSlash -> Clause =
+  cl2qcl : Bool -> ClSlash -> Clause =
     let hasSubjPron : Bool = False ;
-        hasSTM : Bool = True ;
         isRel : Bool = False ;
-     in mkClause Question isRel hasSubjPron hasSTM ;
+     in mkClause Question isRel hasSubjPron ;
 
   -- Sentence: include subject pronoun and STM.
   -- When subordinate, include "in".
@@ -922,7 +955,7 @@ oper
 
 
   mkClause : ClType -> (rel,sp,stm : Bool) -> ClSlash -> Clause = \cltyp,isRel,hasSubjPron,hasSTM,incomplCl -> {
-    s = \\t,a,p => 
+    s = \\t,a,p =>
       let -- Put all arguments in their right place
           cl : ClSlash = complCl incomplCl ;
 
@@ -954,14 +987,14 @@ oper
           stm : Str = case <hasSTM,p> of {
                                <True,_> => cl.stm ! cltyp ! p ;
                                <_,Neg>  => cl.stm ! cltyp ! p ; -- negation overrides hasSTM=False
-                               _          => [] } 
+                               _          => [] }
     in cl.berri      -- AdV
     ++ cl.subj.noun -- subject if it's a noun
     ++ statementNounObj -- noun object if it's a statement
 
     ++ stm
 
-    ++ cl.vComp.subjunc  -- "waa in" construction / 
+    ++ cl.vComp.subjunc  -- "waa in" construction /
     ++ subjpron          -- subject pronoun
 
     ++ subordNounObj -- noun object if it's subordinate clause: "timir aan /laf/ lahayn" (Saeed p. 210-211)
@@ -1050,7 +1083,7 @@ oper
   ++ adv.sii
   ++ (prepTable ! adv.c2).s ! adv.np.a
   ++ adv.dhex
-  ++ adv.np.s 
+  ++ adv.np.s
   ++ adv.miscAdv ;
 
 
@@ -1082,5 +1115,5 @@ oper
      ++ pred         -- the verb inflected
      ++ vp.vComp.subcl ! Sg3 Masc  -- VV complement, if it's subordinate clause
      ++ vp.miscAdv ; ---- NB. Only used if there are several adverbs, or for "waa in" construction.
-       
+
 }
