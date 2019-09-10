@@ -794,14 +794,14 @@ oper
       -- We keep both old and new string (=noun, if there was one) in obj2.s.
       P3_Prep =>
         vp ** {obj2 = nplite ** {
-                  s = vp.obj2.s ++ nplite.s}
+                  s = nplite.s ++ vp.obj2.s}
                   } ; -- no secObj, because there's ≤1 non-3rd-person pronoun.
 
       -- If old object was non-3rd person, we keep its agreement.
       -- The new object is put in the secondObject field.
       _ =>
           vp ** {obj2 = vp.obj2 ** {
-                    s = vp.obj2.s ++ nplite.s
+                    s = nplite.s ++ vp.obj2.s
                     } ;
                  secObj = vp.secObj ++ secondObject ! nplite.a}
     } ;
