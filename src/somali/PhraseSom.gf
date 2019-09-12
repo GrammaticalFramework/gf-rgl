@@ -5,6 +5,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
 
     UttS s = {s = s.s ! False} ;
     UttQS qs = qs ;
+    UttIAdv iadv = iadv ;
 
     UttImpSg pol imp =
       let ma = case pol.p of { Pos => [] ; Neg => "ma" }
@@ -15,8 +16,7 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
     UttIP ip = {s = ip.s ! Abs} ;
     UttNP np = {s = np.s ! Abs} ;
     UttVP vp = {s = infVP vp} ;
-    UttAdv,
-    UttIAdv = \adv -> {s = linAdv adv} ;
+    UttAdv adv = {s = linAdv adv} ;
     UttCN n = {s = linCN n} ;
     UttCard n = {s = n.s ! Mid} ;
     UttAP ap = { s = ap.s ! AF Sg Abs } ;

@@ -697,6 +697,11 @@ oper
     np : NPLite ; -- NP from PrepNP can be promoted into a core argument.
     } ;
 
+  IAdv : Type = Adverb ** {
+    contractSTM : Bool ;
+    s : Str -- alone, in one-word question, e.g. Waayo? 'Why?'
+    } ;
+
   prepNP : Prep -> NounPhrase -> Adverb = \prep,np -> prep ** {
     np = case prep.isPoss of {
            True  => nplite emptyNP ;
@@ -936,6 +941,12 @@ oper
   -- Question clauses: subject pronoun not included, STM is
   cl2qcl : Bool -> ClSlash -> Clause =
     let hasSubjPron : Bool = False ;
+        isRel : Bool = False ;
+     in mkClause Question isRel hasSubjPron ;
+
+  -- Question clauses: subject pronoun is included
+  cl2qclslash : Bool -> ClSlash -> Clause =
+    let hasSubjPron : Bool = True ;
         isRel : Bool = False ;
      in mkClause Question isRel hasSubjPron ;
 
