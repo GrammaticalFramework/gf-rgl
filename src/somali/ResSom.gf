@@ -877,15 +877,7 @@ oper
                 _ => predRaw -- Any other verb
            } ;
 
-    stm = \\cltyp,pol =>
-            case <cltyp,pol> of {
-                <Statement,Pos> => showSTM vp.stm ;
-                <Statement,Neg> => "ma" ;
-                <Question,Pos>  => "ma" ;
-                <Question,Neg>  => "sow" ;
-                <Subord,Pos>    => [] ;
-                <Subord,Neg>    => "aan"
-            } ;
+    stm = mkStm vp.stm ;
     comp = vp.comp ! subj.a ;
     vComp = vp.vComp ** {
               subcl = vp.vComp.subcl ! subj.a
@@ -1062,28 +1054,25 @@ oper
 
   infVP : VerbPhrase -> Str = linVP VInf Statement ;
 
-  waaContr : Agreement => Polarity => Str = \\a,b =>
-    let stm = if_then_Pol b "w" "m"
-     in stm + subjpron ! a ;
+  STMarker : Type = ClType => Polarity => Str ;
 
-  waaNoContr : Agreement => Polarity => {p1,p2 : Str} = \\a,p =>
-    case p of {
-      Pos => {p1 = "waa" ; p2 = subjpron ! a} ;
-      Neg => {p1 = "ma" ; p2 = []} } ;
+  mkStm : STM -> STMarker = \stm ->
+    \\cltyp,pol =>
+      case <cltyp,pol> of {
+        <Statement,Pos> => showSTM stm ;
+        <Statement,Neg> => "ma" ;
+        <Question,Pos>  => "ma" ;
+        <Question,Neg>  => "sow" ;
+        <Subord,Pos>    => [] ;
+        <Subord,Neg>    => "aan"
+      } ;
 
-  waxaNoContr : Agreement => Polarity => {p1,p2 : Str} = \\a,p =>
-    case p of {
-      Pos => {p1 = "waxa" ; p2 = subjpron ! a} ;
-      Neg => {p1 = "ma" ; p2 = []} } ; -- TODO: find out how to properly negate waxa clauses!
-
-  subjpron : Agreement => Str = table {
-    Sg1|Pl1 Excl => "aan" ;
-    Pl1 Incl  => "aynu" ;
-    Sg2|Pl2   => "aad" ;
-    Sg3 Masc  => "uu" ;
-    Impers    => [] ;
-    _         => "ay" } ;
-
+  modSTM : Str -> STMarker -> STMarker = \str,stm ->
+    \\cltyp,pol =>
+      case <cltyp,pol> of {
+         <_,Pos> => str ;
+         _ => stm ! cltyp ! pol
+      } ;
 --------------------------------------------------------------------------------
 -- linrefs
 

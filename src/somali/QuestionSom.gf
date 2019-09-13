@@ -10,27 +10,22 @@ concrete QuestionSom of Question = CatSom ** open
 
   -- : IP -> VP -> QCl ;
   QuestVP ip vp = -- TODO: if we want to contract baa + subj. pronoun, change ResSom.predVP
-    let clRaw : ClSlash = predVP ip vp ;
-        cl : ClSlash = clRaw ** {
-                stm = \\clt,p => case <clt,p> of {
-                                    <_,Pos> => "baa" ;
-                                    _ => clRaw.stm ! clt ! p }
-                }
+    let cls : ClSlash = predVP ip vp ;
+        cl : ClSlash = cls ** {
+                stm = modSTM "baa" cls.stm
+        } ;
      in cl2qcl (notB ip.contractSTM) cl ;
 
   -- : IP -> ClSlash -> QCl ; -- whom does John love
   QuestSlash ip cls =
     let clsIPFocus = cls ** {
-          subj = cls.subj ** {  -- place IP first in the sentence,
-                    noun = ip.s ! Nom -- keep old subject pronoun.
+          subj = cls.subj ** {  -- keep old subject pronoun,
+                   noun = ip.s ! Nom -- and place IP first.
                  } ;
           obj2 = cls.obj2 ** { -- move old subject noun before object.
-                    s = cls.subj.noun ++ cls.obj2.s
+                   s = cls.subj.noun ++ cls.obj2.s
                  } ;
-          stm : ClType=>Polarity=>Str =
-            \\clt,p => case <clt,p> of {
-                              <_,Pos> => "baa" ;
-                              _ => cls.stm ! clt ! p }
+          stm = modSTM "baa" cls.stm
         } ;
      in cl2qclslash (notB ip.contractSTM) clsIPFocus ;
 
