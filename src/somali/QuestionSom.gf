@@ -21,9 +21,17 @@ concrete QuestionSom of Question = CatSom ** open
   -- : IP -> ClSlash -> QCl ; -- whom does John love
   QuestSlash ip cls =
     let clsIPFocus = cls ** {
-              subj = cls.subj ** {noun = ip.s ! Nom} ; -- place IP first in the sentence, keep old subject pronoun.
-              obj2 = cls.obj2 ** {s = cls.subj.noun ++ cls.obj2.s} -- move old subject noun before object.
-            } ;
+          subj = cls.subj ** {  -- place IP first in the sentence,
+                    noun = ip.s ! Nom -- keep old subject pronoun.
+                 } ;
+          obj2 = cls.obj2 ** { -- move old subject noun before object.
+                    s = cls.subj.noun ++ cls.obj2.s
+                 } ;
+          stm : ClType=>Polarity=>Str =
+            \\clt,p => case <clt,p> of {
+                              <_,Pos> => "baa" ;
+                              _ => cls.stm ! clt ! p }
+        } ;
      in cl2qclslash (notB ip.contractSTM) clsIPFocus ;
 
 

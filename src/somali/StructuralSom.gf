@@ -20,7 +20,7 @@ lin how_IAdv = mkIAdv u "sidee" False ;
 
 -- lin how8much_IAdv = ss "" ;
 -- lin when_IAdv = ss "" ;
--- lin where_IAdv = ss "" ;
+lin where_IAdv = mkIAdv noPrep "xaggee" False ;
 lin why_IAdv = let mx = mkIAdv u "maxaa" True in mx ** {s = "waayo"} ;
 
 {-lin always_AdV = ss "" ;
