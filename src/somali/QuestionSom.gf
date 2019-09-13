@@ -58,9 +58,12 @@ concrete QuestionSom of Question = CatSom ** open
      in cl2qcl True cl ; -- True because we handle STM placement in cl.stm
 
   -- : IComp -> NP -> QCl ;   -- where is John?
-  -- Saeed p. 212  Ninkii ay raaceen waa ayo? man-the they accompanied DM who
-  -- 'The man they travelled with is who?'
-  -- QuestIComp icomp np = ;
+  QuestIComp icomp np =
+    let cls = predVP np (VS.UseComp icomp) ;
+        -- cl = cls ** { -- TODO: neg. questions
+        --       stm : ClType=>Polarity=>Str = \\_,_ => "waa"
+        -- }
+     in cl2sentence False cls ; -- copula is dropped and STM is waa
 
 -- Interrogative pronouns can be formed with interrogative
 -- determiners, with or without a noun.
@@ -93,10 +96,15 @@ concrete QuestionSom of Question = CatSom ** open
 -- pronouns.
 
   -- : IAdv -> IComp ;
-  --CompIAdv iadv = iadv ;          -- where (is it)
-
+  CompIAdv iadv = {            -- where (is it)
+    comp = \\_ => <[], iadv.s> ;
+    stm = Waa NoCopula ;
+    } ;
   -- : IP -> IComp ;
-  --CompIP ip = { s = ip.s ! Abs } ;  -- who (is it)
+  CompIP ip = {                -- who (is it)
+    comp = \\_ => <[], ip.s ! Abs> ;
+    stm = Waa NoCopula ;
+    } ;
 
 {-
 -- More $IP$, $IDet$, and $IAdv$ are defined in $Structural$.
