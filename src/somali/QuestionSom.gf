@@ -46,6 +46,10 @@ concrete QuestionSom of Question = CatSom ** open
                                              True => [] ; _ => "baa"}
                                         ++ sbj.pron ++ sbj.noun ;
                                 -- TODO how do negative questions work
+                                -- Information questions are not commonly used in negative forms. When they occur they have the same forms as negative declaratives with focus (7.4.1). There is however a strong tendency to use positive forms, for example by subordinating the clause under a verb with an inherently negative meaning:
+                                -- Maxaad       u   tegi   weydey?
+                                -- what+FOC+you for go:INF failed
+                                -- 'Why didn't you go?' (lit. 'Why did you fail to go?')
                                 _ => case iadv.contractSTM of {
                                       True => [] ; _ => clRaw.stm ! Question ! p}
                                   ++ sbj.pron ++ sbj.noun } ;

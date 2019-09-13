@@ -112,6 +112,11 @@ Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv where_I
 LangSom: maxaa aad u tagtay
 Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V))))) NoVoc
 
+-- Negative question -- TODO not implemented yet properly. Saeed p. 203
+-- LangEng: why didn't you go
+LangSom: maxaa aad u tagi weydey
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V))))) NoVoc
+
 --- Longer example, unsure about word order -- TODO check
 -- LangEng: how does your mother paint the house black
 LangSom: sidee baa ay hooya BIND daa madow u rinjiyeysaa guri BIND ga
