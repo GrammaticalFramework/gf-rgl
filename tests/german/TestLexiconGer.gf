@@ -57,9 +57,9 @@ lin
   wagen_VV = mkVV (regV "wagen")  ;
   versuchen_VV = mkVV (irregV "versuchen" "versucht" "versuchte" "versuchte" "versucht") ;
 
-  helfen_V2V = mkV2V (irregV "helfen" "helft" "half" "hälfe" "geholfen") datPrep ; 
+  helfen_V2V = mkV2V (irregV "helfen" "hilft" "half" "hälfe" "geholfen") datPrep ; 
   warnen_V2V = dirV2V (regV "warnen")  ;
-  versprechen_dat_V2V = subjV2V (mkV2V (irregV "versprechen" "versprecht" "versprach" "verspräche" "versprochen") datPrep) ;
+--  versprechen_dat_V2V = subjV2V (mkV2V (irregV "versprechen" "verspricht" "versprach" "verspräche" "versprochen") datPrep) ;
   lassen_V2V = auxV2V (irregV "lassen" "lasst" "ließ" "ließe" "gelassen") accPrep ;  -- lasse dich (*zu) arbeiten
 
 }

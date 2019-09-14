@@ -157,13 +157,27 @@ PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (R
 -- V2V o ReflVPSlash with object control
 PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (ReflVPSlash entschuldigen_bei_fuer_rV3) (UsePron it_Pron))) (UsePron youSg_Pron))
 
--- VP.inf with extracted NP
+-- SlashV2V o SlashV2V o ReflVP with object control o subject control
 
-UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV want_VV (SlashV2a read_V2)))))))
+PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ReflVP (SlashV2a love_V2))) (UsePron i_Pron))) (UsePron youSg_Pron))
 
-(UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV must_VV (SlashV2a read_V2))))))))
+PredVP (UsePron i_Pron) (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2V versprechen_dat_V2V (ReflVP (SlashV2a love_V2))) (UsePron i_Pron))) (UsePron youSg_Pron))
 
-(UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV wagen_VV (SlashV2a read_V2))))))))
+-- VP.inf with extracted NP (testing SlashVV, SlashV2VNP)
+
+DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV want_VV (SlashV2a read_V2))))))
+
+DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV must_VV (SlashV2a read_V2))))))
+
+DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV wagen_VV (SlashV2a read_V2))))))
+
+DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV wagen_VV (Slash3V3 erklaeren_dat_V3 (UsePron she_Pron)))))))
+
+DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2VNP versprechen_dat_V2V (UsePron she_Pron) (SlashV2a read_V2))))))
+
+DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2VNP lassen_V2V (UsePron she_Pron) (SlashV2a read_V2))))))
+
+--
 
 (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN boy_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))))))
 
@@ -173,7 +187,9 @@ UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast A
 
 (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN boy_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (SlashV2V versprechen_dat_V2V (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))))))))
 
+(UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN boy_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (SlashV2V helfen_V2V (ReflVP (SlashV2a wash_V2)))))))))
+
 -- Shieber's example
 
-(PredVP (UsePron i_Pron) (ComplVS know_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePN john_PN))) (DetCN (DetQuant DefArt NumPl) (UseN child_N)))))))))))
+(PredVP (UsePN john_PN) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePron he_Pron))) (DetCN (DetQuant DefArt NumPl) (UseN child_N))))))))
 

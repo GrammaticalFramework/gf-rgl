@@ -1,4 +1,4 @@
--- Use gf --run < V2V.gfs  or  gf> eh V2V.gfs 
+-- usage: gf --run < infinitives.gfs  or  gf> eh infinitives.gfs 
 --? echo "loading TestLangGer.gf and TestLangEng.gf ..."
 --i TestLangGer.gf TestLangEng.gf
 ? ls -l infinitives.lin.out infinitives.lin.tmp
@@ -10,5 +10,6 @@ rf -file="infinitives.trees" -lines -tree | l -lang=Ger -table | wf -file="infin
 ? ls -l infinitives.lin.out infinitives.lin.tmp
 ? echo "diff infinitives.lin.out infinitives.lin.tmp" 
 ? diff infinitives.lin.out infinitives.lin.tmp
-? echo "diff infinitives.lin.out.txt infinitives.lin.tmp.txt" 
-? diff infinitives.lin.out.txt infinitives.lin.tmp.txt
+? ls -l infinitives.lin.out.txt infinitives.lin.tmp.txt
+--? echo "diff infinitives.lin.out.txt infinitives.lin.tmp.txt" 
+--? diff infinitives.lin.out.txt infinitives.lin.tmp.txt

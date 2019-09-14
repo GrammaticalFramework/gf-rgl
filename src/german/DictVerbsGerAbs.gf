@@ -2882,6 +2882,7 @@ fun
   heissen_V3 : V3 ;
   heizen_V2 : V2 ;
   heizen_V : V ;
+  helfen_dat_V2V : V2V ;
   helfen_dat_bei_V3 : V3 ;
   hellen_es_esV : V ;
   hellenisieren_V2 : V2 ;

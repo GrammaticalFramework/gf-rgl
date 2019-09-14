@@ -1,7 +1,5 @@
 --# -path=.:../abstract:../common:../prelude: -- partially extracted from DictVerbsGerAbs
 abstract TestLexiconGerAbs = Lexicon ** {
-cat 
-  V4 ;
 
 fun
   aendern_rV : V ;
@@ -26,15 +24,20 @@ fun
   entschuldigen_bei_fuer_rV3 : V3 ;
   raechen_am_fuer_rV3 : V3 ;
 
-  kaufen_bei_fuer_V4 : V4 ;
-  mieten_von_fuer_V4 : V4 ;
-
   neugierig_auf_A2 : A2 ;
 
   wagen_VV : VV ;
   versuchen_VV : VV ;
-  helfen_V2V : V2V ;
-  warnen_V2V : V2V ;          -- object control verb
-  versprechen_dat_V2V : V2V ; -- subject control verb
-  lassen_V2V : V2V ;          -- inf without zu
+
+  helfen_V2V : V2V ;          -- -aux(zu-inf), object control
+  warnen_V2V : V2V ;          -- -aux,         object control
+  versprechen_dat_V2V : V2V ; -- -aux,         subject control
+  lassen_V2V : V2V ;          -- +aux(inf),    object control
+
+cat 
+  V4 ;
+fun
+  kaufen_bei_fuer_V4 : V4 ;
+  mieten_von_fuer_V4 : V4 ;
+
 }

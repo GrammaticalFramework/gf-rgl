@@ -13,7 +13,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     ConjVPI = conjunctDistrTable Bool ;
 
     ComplVPIVV v vpi = 
-        insertInf (vpi.s ! v.isAux) (
+--        insertInf (vpi.s ! v.isAux) (
+      insertInf {s=(vpi.s ! v.isAux);isAux=v.isAux;ctrl=SubjC} ( -- HL ??
             predVGen v.isAux v) ; ----
 {-
       insertExtrapos vpi.p3 (
@@ -42,15 +43,19 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     DetNPMasc det = {
       s = \\c => det.sp ! Masc ! c ; ---- genders
       a = agrP3 det.n ;
-      isPron = False ;
-      ext, adv, rc = []
+      -- isPron = False ;
+      -- isLight = True ; 
+      w = WLight ;
+      ext, rc = []
       } ;
 
     DetNPFem det = {
       s = \\c => det.sp ! Fem ! c ; ---- genders
       a = agrP3 det.n ;
-      isPron = False ;
-      ext, adv, rc = []
+      -- isPron = False ;
+      -- isLight = True ; 
+      w = WLight ;
+      ext, rc = []
       } ;
 
     EmptyRelSlash slash = {
@@ -133,7 +138,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
           m = tm.m ;
           subj  = [] ;
           verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
-          neg   = tm.s ++ p.s ++ vp.a1 ! b ;
+          neg   = tm.s ++ p.s ++ vp.a1 ++ negation ! b ; -- HL 8/19 ++ vp.a1 ! b ;
           -- obj1  = (vp.nn ! agr).p1 ;
           -- obj   = (vp.nn ! agr).p2 ; 
           -- compl = obj1 ++ neg ++ obj ++ vp.a2 ; -- from EG 15/5
@@ -248,9 +253,12 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
 	esSubj : NP = lin NP {
 		s = \\_ => "es" ; 
-		rc, ext, adv = [] ;
+		rc, ext = [] ;
 		a = Ag Neutr Sg P3 ;
-		isPron = True} ;
+                -- isLight = True ; 
+		-- isPron = True
+                w = WPron
+          } ;
 
 	DisToCl : Str -> Agr -> FClause -> Clause = \subj,agr,vp ->  
 	  let vps = useVP vp in {
@@ -261,7 +269,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
             _ => False
             } ;
           verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
-          neg   = vp.a1 ! b ;
+          neg   = vp.a1 ++ negation ! b ; -- HL 8/19 vp.a1 ! b ;
           obj1  = (vp.nn ! agr).p1 ;
           obj2  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ;
           compl = obj1 ++ neg  ++ vp.adj ++ obj2 ++ vp.a2 ; -- adj added

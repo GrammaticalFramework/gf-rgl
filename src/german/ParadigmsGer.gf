@@ -311,6 +311,7 @@ mkV2 : overload {
     auxV2V : V -> Prep -> V2V ;
     } ;
   subjV2V : V2V -> V2V ; -- force subject-control
+
   mkV2A : overload {
     mkV2A : V -> V2A ; 
     mkV2A : V -> Prep -> V2A ;
@@ -597,7 +598,6 @@ mkV2 : overload {
   auxVV v = v ** {isAux = True ; lock_VV = <>} ;
 
   V0 : Type = V ;
---  V2S, V2V, V2Q : Type = V2 ;
   AS, A2S, AV : Type = A ;
   A2V : Type = A2 ;
 

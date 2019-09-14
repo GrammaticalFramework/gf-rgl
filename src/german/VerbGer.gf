@@ -14,7 +14,8 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInfExt vpi.p3 (
           insertInf vpi.p2 (
             insertObjc vpi.p1 vps))) ;
--}
+-}  
+    -- HL 7/19
     ComplVV v vp = -- will|wage (es ([]|zu) tun [] | ihn [es tun] ([]|zu) lassen
       let
         vps = predVGen v.isAux v ;
@@ -46,10 +47,10 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       insertExtrapos (comma ++ q.s ! QIndir) (predV v) ;
     ComplVA v ap = insertAdj (v.c2.s ++ ap.s ! APred) ap.c ap.ext (predV v) ; -- changed
 
-    SlashV2a v = (predVc v) ** {ctrl = SubjC} ; -- HL 12/6/2019 for reflexive verbs with objects, rV2:V2, rV3:V3
+    SlashV2a v = (predVc v) ; 
       
-    Slash2V3 v np = insertObjNP np v.c2 (predV v) ** {c2 = v.c3 ; ctrl = SubjC} ;
-    Slash3V3 v np = insertObjNP np v.c3 (predV v) ** {c2 = v.c2 ; ctrl = SubjC} ;
+    Slash2V3 v np = insertObjNP np v.c2 (predVc v) ** {c2 = v.c3} ; 
+    Slash3V3 v np = insertObjNP np v.c3 (predVc v) ; 
 
     SlashV2S v s = 
       insertExtrapos (comma ++ conjThat ++ s.s ! Sub) (predVc v) ;
@@ -66,11 +67,11 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
           insertInf vpi.p2 (
             insertObjc vpi.p1 vps))) ;
 -}
-    SlashV2V v vp =   -- warnen, (\agr => sich!agr das Buch zu merken)
+    SlashV2V v vp =   -- jmdn bitten, (\agr => sich!agr das Buch zu merken)  HL 7/19
       let
-        vps = (predVGen v.isAux v) ** { c2 = v.c2 ; ctrl = v.ctrl } ;
+        vps = (predVGen v.isAux v) ** { c2 = v.c2 ; objCtrl = case v.ctrl of {ObjC => True ; _ => False}} ;
         vpi = infzuVP v.isAux v.ctrl Simul Pos vp ;
-        comma = case orB vp.isAux (case vp.inf.ctrl of { NoC => True ; _ => False }) of {True => [] ; _ => bindComma} ;
+        comma : Str = case <vp.isAux,vp.inf.ctrl> of { <True,_> | <_,NoC> => [] ; _ => bindComma} ;
         embeddedInf : Agr => Str = case vp.inf.isAux of {
           True  => \\agr => comma ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ;  -- ihn es lesen (zu) lassen
           False => \\agr => comma ++ (vp.nn!agr).p5 ++ vpi.inf ++ (vp.nn!agr).p6 }  -- ihn (zu) bitten , es zu lesen
@@ -86,28 +87,51 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     ComplSlash vps np =
       let vp = insertObjNP np vps.c2 vps ;
           -- IL 24/04/2018 force reflexive in the VPSlash to take the agreement of np.
-      in case vp.ctrl of { ObjC => objAgr np vp ; _  => vp } ;
-
-    SlashVV v vp =
+      in case vps.objCtrl of { True => objAgr np vp ; _  => vp } ;
+{-
+    SlashVV v vp = 
       let
         vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ** {c2 = vp.c2 ; ctrl = vp.ctrl} ; -- SubjC ? preserve reflexiveness of vp?
+        vps = predVGen v.isAux v ** {c2 = vp.c2 } ;
       in vps **
       insertExtrapos vpi.p3 (
-        insertInf {s=vpi.p2;isAux=vp.isAux;ctrl=SubjC} (
+        insertInf {s=vpi.p2;isAux=vp.isAux;ctrl=SubjC} ( -- insertInf vpi.p2 (
           insertObj vpi.p1 vps)) ;
+-}
+    SlashVV v vp = -- will|hoffe ((zu) lesen | ihr (zu) geben | (zu) bitten, es zu lesen) 
+      let
+        vps = (predVGen v.isAux v) ** { c2 = vp.c2 } ;
+        vpi = infzuVP v.isAux SubjC Simul Pos vp ; -- (zu) (lesen | ihr geben | bitten, es zu lesen) 
+        comma : Str = case <vp.isAux,vp.inf.ctrl> of { <True,_> | <_,NoC> => [] ; _ => bindComma} ;
+        embeddedInf : Agr => Str = case vp.inf.isAux of {
+          True  => \\agr => comma ++ (vp.nn!agr).p5 ++ (vp.nn!agr).p6 ++ vpi.inf ;  -- es lesen (zu) lassen
+          False => \\agr => comma ++ (vp.nn!agr).p5 ++ vpi.inf ++ (vp.nn!agr).p6 }  -- (zu) bitten, es zu lesen
+      in
+      insertExtrapos vpi.ext (           -- vps.ext   <- vp's object-sentence ++ extractedInfzu?
+        insertInf vpi.pred (             -- vps.inf   <- vp's infinite main verb
+          insertInfExtraObj vpi.objs (   -- vps.nn.p5 <- vp's object nps
+            insertInfExtraInf embeddedInf vps))) ;
 
-{-
+-- {- HL 8/19: this slightly modified SlashV2VNP is expensive even with NP.w:Weight 
+
+    -- order of embedded objects wrong: 
+    -- Lang> p "the woman that you beg me to listen to" | l
+    --   the woman that you beg me to listen to
+    --   die Frau , der ihr mich zuzuhören bittet
+    -- better: die Frau , der zuzuhören ihr mich bittet 
+
     SlashV2VNP v np vp =
       let 
         vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ** {c2 = v.c2} ;
+        vps = predVGen v.isAux v ** {c2 = vp.c2} ; -- objCtrl = ?
       in vps **
       insertExtrapos vpi.p3 (
-        insertInf {s=vpi.p2;isAux=v.isAux;ctrl=v.ctrl} (
+        insertInf {s=vpi.p2;isAux=v.isAux;ctrl=v.ctrl} ( -- insertInf vpi.p2
           insertObj vpi.p1 (
             insertObj (\\_ => appPrepNP v.c2 np) vps))) ;
--}
+
+    -- HL: version with infzuVP in tests/german/TestLangGer.gf, too expensive
+
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
     -- adj slot not used here for e.g. "ich bin alt" but same behaviour as NPs?
@@ -152,14 +176,16 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
    from  "we live (in the city : Adv) : Cl"
 
-   But in German we cannot move the NP part of an Adv, we only have the
+   In German we cannot move the NP part of an Adv, we only have the
    full relative clauses like
 
         die Stadt, in der wir leben,
         die Stadt, worin wir leben,    --contracted Prep+Rel
 
-   but nothing like "die Stadt wir leben in".
+   But: VPSlashPrep is used to parse "sie ist mit mir verheiratet", 
+              (ist verheiratet:VP mit:Prep):VPSlash,
+        ComplA2 is used to parse "sie ist verheiratet mit mir"
 -}
-    VPSlashPrep vp prep = vp ** {c2 = prep ; ctrl = SubjC} ;
+    VPSlashPrep vp prep = vp ** {c2 = prep ; objCtrl = False} ;
 
 }

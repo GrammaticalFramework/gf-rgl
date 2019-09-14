@@ -223,6 +223,12 @@ TestLangEng: the book that we hadn't to read
 TestLang: UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV wagen_VV (SlashV2a read_V2)))))))
 TestLangGer: das Buch , das wir nicht wagten , zu lesen
 TestLangEng: the book that we didn't dare to read
+TestLang: UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2VNP versprechen_dat_V2V (UsePron she_Pron) (SlashV2a read_V2)))))))
+TestLangGer: 
+TestLangEng: the book that we promise her to read
+TestLang: UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2VNP lassen_V2V (UsePron she_Pron) (SlashV2a read_V2)))))))
+TestLangGer: 
+TestLangEng: the book that we let her read
 TestLang: UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN boy_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (SlashV2V lassen_V2V (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))))))
 TestLangGer: der Junge , den ich das Buch lesen lasse
 TestLangEng: the boy that I let read the book
@@ -236,5 +242,5 @@ TestLang: UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN boy_N) (UseRCl (TTAn
 TestLangGer: der Junge , dem ich verspreche , das Buch lesen zu wollen
 TestLangEng: the boy that I promise to want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVS know_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePN john_PN))) (DetCN (DetQuant DefArt NumPl) (UseN child_N))))))))))
-TestLangGer: ich weiß , dass sie sagte , , dass wir die Kinder Johann helfen lassen wollten , das Haus blau zu malen
+TestLangGer: ich weiß , dass sie sagte , dass wir die Kinder Johann helfen lassen wollten , das Haus blau zu malen
 TestLangEng: I know that she said that we wanted to let the children help John to paint the house blue
