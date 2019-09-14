@@ -23,10 +23,11 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
 -- Constructed in QuestionSom.
 
     QCl = ResSom.QClause ;
-    IP = ResSom.NounPhrase ** {contractSTM : Bool} ;
-    IComp = SS ;              -- interrogative complement of copula  e.g. "where"
+    IComp = ResSom.Complement ;              -- interrogative complement of copula  e.g. "where"
     IDet = ResSom.Determiner ;  -- interrogative determiner            e.g. "how many"
     IQuant = ResSom.Quant ; -- interrogative quantifier            e.g. "which"
+    IP = ResSom.NounPhrase ** {contractSTM : Bool} ;  -- like NP but may contract with STM
+    IAdv = ResSom.IAdv ;
 
 --2 Subord clauses and pronouns
 
@@ -116,8 +117,7 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
     N3 = ResSom.Noun3 ;
     PN = ResSom.PNoun ;
 
-    Adv,
-    IAdv = ResSom.Adverb ; -- Preposition of an adverbial can merge with obligatory complements of the verb.
+    Adv = ResSom.Adverb ; -- Preposition of an adverbial can merge with obligatory complements of the verb.
 
 linref
     -- Cl = linCl ;

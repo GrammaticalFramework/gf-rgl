@@ -79,21 +79,3 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (RelNP (UseP
 --LangEng: he , that sees the men , is this
 LangSom: isagu oo niman BIND ka arkaa waa kan
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (RelNP (UsePron he_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN man_N)))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumSg))))))) NoVoc
-
--- Question clauses
-
--- to whom did mother give the meat
-LangSom: yaa siisey hooyo hilib BIND ka
-Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whoSg_IP (SlashVP (MassNP (UseN2 mother_N2))  (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N))))))) NoVoc
-
--- LangEng: who wants to go
-LangSom: yaa rabaa in uu tago
-Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V))))) NoVoc
-
--- LangEng: which cat teaches him
-LangSom: bisad BIND dee baa ku bartaa
-Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a teach_V2) (UsePron he_Pron))))) NoVoc
-
--- LangEng: how does your mother paint the house black
-LangSom: sidee baa ay hooya BIND daa madow u rinjiyeysaa guri BIND ga
-Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN2 mother_N2)) (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N))))))) NoVoc

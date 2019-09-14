@@ -16,14 +16,14 @@ lin as_CAdv = { s = "" ; p = [] } ;
 lin less_CAdv = { s = "" ; p = [] } ;
 lin more_CAdv = { s = "" ; p = [] } ;
 -}
-lin how_IAdv = prepNP (mkPrep (mkPrep u) "sidee" [] []) emptyNP ;
-{-
-lin how8much_IAdv = ss "" ;
-lin when_IAdv = ss "" ;
-lin where_IAdv = ss "" ;
-lin why_IAdv = ss "" ;
+lin how_IAdv = mkIAdv u "sidee" False ;
 
-lin always_AdV = ss "" ;
+-- lin how8much_IAdv = ss "" ;
+-- lin when_IAdv = ss "" ;
+lin where_IAdv = mkIAdv noPrep "xaggee" False ;
+lin why_IAdv = let mx = mkIAdv u "maxaa" True in mx ** {s = "waayo"} ;
+
+{-lin always_AdV = ss "" ;
 
 lin everywhere_Adv = ss "" ;
 lin here7from_Adv = ss "" ;
@@ -148,19 +148,11 @@ lin with_Prep = mkPrep la ;
     we_Pron = pronTable ! Pl1 Incl ;
     youPl_Pron = pronTable ! Pl2 ;
     they_Pron = pronTable ! Pl3 ;
-{-
-lin whatPl_IP = ;
-lin whatSg_IP = ;
-lin whoPl_IP = ;
 
--}
-
-lin whoSg_IP = emptyNP ** {
-  s = table {
-    Nom => "yaa" ; -- together with STM
-    Abs => "ayo" } ; -- alone, no STM (used in UttIP)
-  contractSTM = True ;
-  } ;
+--lin whatPl_IP = ;
+lin whatSg_IP = mkIP "maxay" "maxaa" True ;
+--lin whoPl_IP = ;
+lin whoSg_IP = mkIP "ayo" "yaa" True ;
 
 -------
 -- Subj
@@ -195,4 +187,20 @@ lin want_VV = mkVV (mkV "rabid" "rab" "rab") subjunctive ;
 {-
 lin please_Voc = ss "" ;
 -}
+oper
+  mkIAdv : Preposition -> Str -> Bool -> ResSom.IAdv = \pr ->
+    let pr' : Prep = ParadigmsSom.mkPrep pr ;
+     in prepIP pr' ;
+
+  mkIP : (maxay, maxaa : Str) -> Bool -> IP = \maxay,maxaa,b -> emptyNP ** {
+    s = table {
+      Nom => maxaa ; -- together with STM
+      Abs => maxay } ; -- alone, no STM (used in UttIP and IComp)
+    contractSTM = b ;
+    } ;
+
+  prepIP : Prep -> Str -> Bool -> ResSom.IAdv = \pr,str,b ->
+    let adv : Adverb = prepNP (mkPrep pr str [] []) emptyNP ;
+     in adv ** {contractSTM = b ; s = linAdv adv} ;
+
 }

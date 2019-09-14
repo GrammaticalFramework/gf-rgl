@@ -1,5 +1,5 @@
 concrete QuestionSom of Question = CatSom ** open
-  Prelude, ResSom, ParadigmsSom, (VS=VerbSom), (NS=NounSom), (AS=AdverbSom) in {
+  Prelude, ResSom, ParadigmsSom, (VS=VerbSom), (NS=NounSom), (SS=StructuralSom) in {
 
 -- A question can be formed from a clause ('yes-no question') or
 -- with an interrogative.
@@ -10,21 +10,24 @@ concrete QuestionSom of Question = CatSom ** open
 
   -- : IP -> VP -> QCl ;
   QuestVP ip vp = -- TODO: if we want to contract baa + subj. pronoun, change ResSom.predVP
-    let clRaw : ClSlash = predVP ip vp ;
-        cl : ClSlash = clRaw ** {
-                stm = \\clt,p => case <clt,p> of {
-                                    <_,Pos> => "baa" ;
-                                    _ => clRaw.stm ! clt ! p }
-                }
+    let cls : ClSlash = predVP ip vp ;
+        cl : ClSlash = cls ** {
+                stm = modSTM "baa" cls.stm
+        } ;
      in cl2qcl (notB ip.contractSTM) cl ;
 
   -- : IP -> ClSlash -> QCl ; -- whom does John love
   QuestSlash ip cls =
     let clsIPFocus = cls ** {
-              subj = cls.subj ** {noun = ip.s ! Nom} ; -- place IP first in the sentence, keep old subject pronoun.
-              obj2 = cls.obj2 ** {s = cls.subj.noun ++ cls.obj2.s} -- move old subject noun before object.
-            } ;
-     in cl2qcl (notB ip.contractSTM) clsIPFocus ;
+          subj = cls.subj ** {  -- keep old subject pronoun,
+                   noun = ip.s ! Nom -- and place IP first.
+                 } ;
+          obj2 = cls.obj2 ** { -- move old subject noun before object.
+                   s = cls.subj.noun ++ cls.obj2.s
+                 } ;
+          stm = modSTM "baa" cls.stm
+        } ;
+     in cl2qclslash (notB ip.contractSTM) clsIPFocus ;
 
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk
@@ -34,15 +37,28 @@ concrete QuestionSom of Question = CatSom ** open
         cl : ClSlash = clRaw ** {
             stm = \\clt,p => case <clt,p> of {
                                 -- IAdv is focused with baa, and subject comes after
-                                <_,Pos> => "baa" ++ sbj.pron ++ sbj.noun;
+                                <_,Pos> => case iadv.contractSTM of {
+                                             True => [] ; _ => "baa"}
+                                        ++ sbj.pron ++ sbj.noun ;
                                 -- TODO how do negative questions work
-                                _ => clRaw.stm ! Question ! p ++ sbj.pron ++ sbj.noun } ;
+                                -- Information questions are not commonly used in negative forms. When they occur they have the same forms as negative declaratives with focus (7.4.1). There is however a strong tendency to use positive forms, for example by subordinating the clause under a verb with an inherently negative meaning:
+                                -- Maxaad       u   tegi   weydey?
+                                -- what+FOC+you for go:INF failed
+                                -- 'Why didn't you go?' (lit. 'Why did you fail to go?')
+                                _ => case iadv.contractSTM of {
+                                      True => [] ; _ => clRaw.stm ! Question ! p}
+                                  ++ sbj.pron ++ sbj.noun } ;
             subj = sbj ** {noun, pron = []}  -- to force subject after baa
         } ;
-     in cl2qcl True cl ; -- TODO: add contractSTM field to IAdv as well
+     in cl2qcl True cl ; -- True because we handle STM placement in cl.stm
 
   -- : IComp -> NP -> QCl ;   -- where is John?
-  -- QuestIComp icomp np = ;
+  QuestIComp icomp np =
+    let cls = predVP np (VS.UseComp icomp) ;
+        -- cl = cls ** { -- TODO: neg. questions
+        --       stm : ClType=>Polarity=>Str = \\_,_ => "waa"
+        -- }
+     in cl2sentence False cls ; -- copula is dropped and STM is waa
 
 -- Interrogative pronouns can be formed with interrogative
 -- determiners, with or without a noun.
@@ -64,9 +80,7 @@ concrete QuestionSom of Question = CatSom ** open
 
 -- Interrogative adverbs can be formed prepositionally.
   -- : Prep -> IP -> IAdv ;     -- with whom
-  PrepIP prep ip =
-    let ipAbs : Str = ip.s ! Abs
-     in prepNP (mkPrep prep ipAbs [] []) emptyNP ;
+  PrepIP prep ip = SS.prepIP prep (ip.s ! Abs) False ;
 
 -- They can be modified with other adverbs.
 
@@ -77,10 +91,15 @@ concrete QuestionSom of Question = CatSom ** open
 -- pronouns.
 
   -- : IAdv -> IComp ;
-  --CompIAdv iadv = iadv ;          -- where (is it)
-
+  CompIAdv iadv = {            -- where (is it)
+    comp = \\_ => <[], iadv.s> ;
+    stm = Waa NoCopula ;
+    } ;
   -- : IP -> IComp ;
-  --CompIP ip = { s = ip.s ! Abs } ;  -- who (is it)
+  CompIP ip = {                -- who (is it)
+    comp = \\_ => <[], ip.s ! Abs> ;
+    stm = Waa NoCopula ;
+    } ;
 
 {-
 -- More $IP$, $IDet$, and $IAdv$ are defined in $Structural$.
