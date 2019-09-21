@@ -331,3 +331,29 @@ ich bin nicht auf ihn neugierig            -- reject
 
 -- done
 
+-- Passive of VPSlash and V3
+
+sie gibt uns den Wagen                     -- accept
+
+der Wagen wird uns gegeben                 -- accept, via PassVPSlash or Pass2V3
+uns wird der Wagen gegeben                 -- accept, word order variant (not recognized)
+wir bekommen den Wagen gegeben             -- accept, via Pass3V3
+
+sie schickte uns den Wagen                 -- accept (Eng with prep)
+
+der Wagen wurde uns geschickt              -- accept, via PassVPSlash
+uns wurde der Wagen geschickt              -- accept, word order variant (not recognized)
+wir bekamen den Wagen geschickt            -- accept, via Pass3V3
+
+der Wagen würde uns geschickt werden       -- accept
+der Wagen würde uns nicht geschickt werden -- accept
+wir würden den Wagen geschickt bekommen    -- accept
+wir würden den Wagen nicht geschickt bekommen -- accept
+wir würden nicht den Wagen geschickt bekommen -- accept ?
+
+der Wagen sei uns geschickt worden         -- accept
+wir hätten den Wagen geschickt bekommen    -- accept
+
+wir wollen den Wagen geschickt bekommen    -- accept
+wir würden den Wagen geschickt bekommen wollen haben   -- accept
+
