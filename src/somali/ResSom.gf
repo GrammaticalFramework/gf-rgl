@@ -1017,7 +1017,9 @@ oper
     -> Str ;
 
   vf : ClType -> VFun = \clt -> case clt of {
-    Subord => vfSubord ; _ => vfStatement } ;
+    Subord   => vfSubord ;
+    Question => vfQuestion ;
+    _        => vfStatement } ;
 
   vfStatement : VFun = \t,ant,p,agr,vp ->
     case <t,ant,p> of {
@@ -1030,20 +1032,28 @@ oper
       <Fut,Simul>  => vp.s ! VInf ++ presV (cSug "doon") ;
       <Fut,Anter>  => vp.s ! VInf ++ pastV (cSug "doon")
       }
-  where {
-    agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
-    pastV : BaseVerb -> Str = \v ->
-      case p of { Neg => v.s ! VNegPast Simple ;
-                  Pos => v.s ! VPast Simple (agr2vagr agr) } ;
+    where {
+      agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
+      pastV : BaseVerb -> Str = \v ->
+        case p of { Neg => v.s ! VNegPast Simple ;
+                    Pos => v.s ! VPast Simple (agr2vagr agr) } ;
 
-    presV : BaseVerb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
+      presV : BaseVerb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
 
-    condNegV : BaseVerb -> Str = \v -> case agr of {
-        Sg2|Sg3 Fem
-         |Pl2 => v.s ! VNegCond SgFem ;
-        Pl1 _ => v.s ! VNegCond PlInv ;
-        _     => v.s ! VNegCond SgMasc --Sg1|Sg3 Masc|Pl3|Impers
-}
+      condNegV : BaseVerb -> Str = \v -> case agr of {
+          Sg2|Sg3 Fem
+           |Pl2 => v.s ! VNegCond SgFem ;
+          Pl1 _ => v.s ! VNegCond PlInv ;
+          _     => v.s ! VNegCond SgMasc --Sg1|Sg3 Masc|Pl3|Impers
+          }
+      } ;
+
+  vfQuestion : VFun = \t,ant,p,agr,vp ->
+    case <t,ant,p> of {
+      <_,_,Neg> => vp.s ! VInf ++ vfStatement t ant p agr (useV waa_V) ;
+      _ => vfStatement t ant p agr vp
+    } where {
+      waa_V = cSug "waa" ; ---- TODO irregular verb
     } ;
 
   vfSubord : VFun = \t,ant,p,agr,vp ->
