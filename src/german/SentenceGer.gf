@@ -26,10 +26,11 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
             } ;
           agr  = Ag Fem (numImp n) ps.p1 ; --- g does not matter
           verb = vps.s ! False ! agr ! VPImperat ps.p3 ;
-          inf  = vp.inf ++ verb.inf ;  -- HL .nn
+          inf  = vp.inf.s ++ verb.inf ;  -- HL .nn
           obj  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4
         in
-        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
+--        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
+        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ++ negation ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
     } ; 
 
     SlashVP np vp = 
@@ -49,7 +50,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 			(insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)) **
         			{c2 = slash.c2} ;
 
-    EmbedS  s  = {s = conjThat ++ s.s ! Sub} ;
+    EmbedS  s  = {s = conjThat ++ s.s ! Sub} ;  -- no leading comma, if sentence-initial
     EmbedQS qs = {s = qs.s ! QIndir} ;
     EmbedVP vp = {s = useInfVP False vp} ;
 

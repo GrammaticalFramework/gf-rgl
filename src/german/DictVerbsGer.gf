@@ -1032,8 +1032,8 @@ lin
   aussortieren_V2 = dirV2 (prefixV "aus" (regV "sortieren"))  ;
   ausspeichern_V2 = dirV2 (prefixV "aus" (regV "speichern"))  ;
   ausspionieren_V2 = dirV2 (prefixV "aus" (regV "spionieren"))  ;
-  aussprechen_V2 = dirV2 (prefixV "aus" (irregV "sprechen" "sprecht" "sprach" "spräche" "gesprochen"))  ;
-  aussprechen_VS = mkVS (prefixV "aus" (irregV "sprechen" "sprecht" "sprach" "spräche" "gesprochen"))  ;
+  aussprechen_V2 = dirV2 (prefixV "aus" (irregV "sprechen" "spricht" "sprach" "spräche" "gesprochen"))  ;
+  aussprechen_VS = mkVS (prefixV "aus" (irregV "sprechen" "spricht" "sprach" "spräche" "gesprochen"))  ;
   ausspucken_vor_V2 = prepV2 (prefixV "aus" (regV "spucken")) (mkPrep "vor" dative) ;
   ausspucken_V = prefixV "aus" (regV "spucken") ;
   ausstatten_mit_V3 = dirV3 (prefixV "aus" (regV "statten")) mit_Prep ;
@@ -1358,8 +1358,8 @@ lin
   besorgen_dat_V3 = accdatV3 (regV "besorgen")  ;
   besorgen_V2 = dirV2 (regV "besorgen")  ;
   bespassen_V2 = dirV2 (regV "bespaßen")  ;
-  besprechen_mit_V3 = dirV3 (irregV "besprechen" "besprecht" "besprach" "bespräche" "besprochen") mit_Prep ;
-  besprechen_plV2 = pldirV2 (irregV "besprechen" "besprecht" "besprach" "bespräche" "besprochen")  ;
+  besprechen_mit_V3 = dirV3 (irregV "besprechen" "bespricht" "besprach" "bespräche" "besprochen") mit_Prep ;
+  besprechen_plV2 = pldirV2 (irregV "besprechen" "bespricht" "besprach" "bespräche" "besprochen")  ;
   bespruehen_mit_V3 = dirV3 (regV "besprühen") mit_Prep ;
   bespruehen_V2 = dirV2 (regV "besprühen")  ;
   besseren_rV = reflV (regV "besseren") accusative ;
@@ -2146,8 +2146,8 @@ lin
   entsichern_V2 = dirV2 (irregV "entsichern" "entsichert" "entsicherte" "entsicherte" "entsichert")  ;
   entsorgen_V2 = dirV2 (irregV "entsorgen" "entsorgt" "entsorgte" "entsorgte" "entsorgt")  ;
   entspannen_rV = reflV (irregV "entspannen" "entspannt" "entspannte" "entspannte" "entspannt") accusative ;
-  entsprechen_dat_V2 = mkV2 (irregV "entsprechen" "entsprecht" "entsprach" "entspräche" "entsprochen") datPrep ;
-  entsprechen_rcV = reciV (irregV "entsprechen" "entsprecht" "entsprach" "entspräche" "entsprochen") dative ;
+  entsprechen_dat_V2 = mkV2 (irregV "entsprechen" "entspricht" "entsprach" "entspräche" "entsprochen") datPrep ;
+  entsprechen_rcV = reciV (irregV "entsprechen" "entspricht" "entsprach" "entspräche" "entsprochen") dative ;
   entspringen_loc_V2 = prepV2 (irregV "entspringen" "entspringt" "entsprang" "entspränge" "entsprungen") loc_Prep ;
   entstaatlichen_V2 = dirV2 (irregV "entstaatlichen" "entstaatlicht" "entstaatlichte" "entstaatlichte" "entstaatlicht")  ;
   entstammen_gen_V2 = mkV2 (irregV "entstammen" "entstammt" "entstammte" "entstammte" "entstammt") genPrep ;
@@ -3019,8 +3019,8 @@ lin
   heissen_V3 = dirV3 (irregV "heißen" "heißt" "hieß" "hieße" "geheißen") accPrep ;
   heizen_V2 = dirV2 (regV "heizen")  ;
   heizen_V = regV "heizen" ;
+  helfen_dat_V2V = mkV2V (irregV "helfen" "hilft" "half" "hälfe" "geholfen") datPrep ;
   helfen_dat_bei_V3 = mkV3 (irregV "helfen" "hilft" "half" "hülfe" "geholfen") datPrep bei_Prep ;
---  helfen_V = irregV "helfen" "helft" "half" "hälfe" "geholfen" ;
   hellen_es_esV = esV (regV "hellen")  ;
   hellenisieren_V2 = dirV2 (regV "hellenisieren")  ;
   hemmen_sV2 = dassV2 (regV "hemmen") accPrep ;
@@ -4142,8 +4142,8 @@ lin
   nachgruebeln_ueber_V2 = prepV2 (prefixV "nach" (regV "grübeln")) (mkPrep "über" dative) ;
   nachhaken_bei_V2 = prepV2 (prefixV "nach" (regV "haken")) bei_Prep ;
   nachhaken_V = prefixV "nach" (regV "haken") ;
-  nachhelfen_dat_V2 = mkV2 (prefixV "nach" (irregV "helfen" "helft" "half" "hälfe" "geholfen")) datPrep ;
-  nachhelfen_dat_V2V = mkV2V (prefixV "nach" (irregV "helfen" "helft" "half" "hälfe" "geholfen")) datPrep ;
+  nachhelfen_dat_V2 = mkV2 (prefixV "nach" (irregV "helfen" "hilft" "half" "hälfe" "geholfen")) datPrep ;
+  nachhelfen_dat_V2V = mkV2V (prefixV "nach" (irregV "helfen" "hilft" "half" "hälfe" "geholfen")) datPrep ;
   nachkarten_V = prefixV "nach" (regV "karten") ;
   nachlassen_dat_V3 = accdatV3 (prefixV "nach" (irregV "lassen" "lasst" "ließ" "ließe" "gelassen"))  ;
   nachlassen_im_V2 = prepV2 (prefixV "nach" (irregV "lassen" "lasst" "ließ" "ließe" "gelassen")) (mkPrep "in" dative) ;
@@ -6492,7 +6492,7 @@ lin
   verspielen_rV = reflV (irregV "verspielen" "verspielt" "verspielte" "verspielte" "verspielt") accusative ;
   verspielen_V2 = dirV2 (irregV "verspielen" "verspielt" "verspielte" "verspielte" "verspielt")  ;
   verspotten_V2 = dirV2 (irregV "verspotten" "verspottet" "verspottete" "verspotte" "verspottet")  ;
-  versprechen_dat_V2V = mkV2V (irregV "versprechen" "versprecht" "versprach" "verspräche" "versprochen") datPrep ;
+  versprechen_dat_V2V = mkV2V (irregV "versprechen" "verspricht" "versprach" "verspräche" "versprochen") datPrep ;
   versprengen_V2 = dirV2 (irregV "versprengen" "versprengt" "versprengte" "versprengte" "versprengt")  ;
   verspueren_V2 = dirV2 (irregV "verspüren" "verspürt" "verspürte" "verspürte" "verspürt")  ;
   verstaatlichen_V2 = dirV2 (irregV "verstaatlichen" "verstaatlicht" "verstaatlichte" "verstaatlichte" "verstaatlicht")  ;

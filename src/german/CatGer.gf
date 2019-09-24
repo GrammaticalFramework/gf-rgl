@@ -89,7 +89,7 @@ concrete CatGer of Cat =
     V, VS, VQ = ResGer.Verb ; -- = {s : VForm => Str} ;
     VV = Verb ** {isAux : Bool} ;
     V2, VA, V2A, V2S, V2Q = Verb ** {c2 : Preposition} ;
-    V2V = Verb ** {c2 : Preposition ; isAux : Bool} ;
+    V2V = Verb ** {c2 : Preposition ; isAux : Bool ; ctrl : Control} ;
     V3 = Verb ** {c2, c3 : Preposition} ;
 
     A  = {s : Degree => AForm => Str} ;
@@ -106,7 +106,7 @@ concrete CatGer of Cat =
     Tense = {s : Str ; t : ResGer.Tense ; m : Mood} ;
 
   linref
-    NP = \np -> np.s!(NPC Nom) ++ np.adv ++ np.ext ++ np.rc ; -- HL 6/2019
+    NP = \np -> np.s!(NPC Nom) ++ np.ext ++ np.rc ; -- HL 6/2019
     CN = \cn -> cn.s ! Strong ! Pl ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Pl ;
 
     SSlash = \ss -> ss.s ! Main ++ ss.c2.s  ;

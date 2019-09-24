@@ -1,30 +1,30 @@
---# Use gf --run < obj-order.gfs  or  gf> eh object-order.gfs 
-? echo "loading TestLangGer.gf and TestLangEng.gf ..."
-i TestLangGer.gf TestLangEng.gf
+-- Use gf --run < obj-order.gfs  or  gf> eh object-order.gfs 
+--? echo "loading TestLangGer.gf and TestLangEng.gf ..."
+--i TestLangGer.gf TestLangEng.gf
 -- Remark: examples in examples.eng.txt need only LangEng,LangGer
-? echo "parsing from examples.eng and writing trees to examples.eng.new:"
-rf -file=examples.eng.txt -lines | p -lang=Eng | l -lang="Eng,Ger" -treebank | wf -file=examples.eng.new
-? echo "diff examples.eng.out examples.eng.new"
-? diff examples.eng.out examples.eng.new
-? echo "parsing from examples.eng and writing source and translation to examples.eng2ger.new:"
-rf -file=examples.eng.txt -lines | p -lang=Eng | l -lang="Eng,Ger" | wf -file=examples.eng2ger.new
-? echo "diff examples.eng2ger.out examples.eng2ger.new"
-? diff examples.eng2ger.out examples.eng2ger.new
+? echo "parsing from examples.eng and writing trees to examples.eng.tmp:"
+rf -file=examples.eng.txt -lines | p -lang=Eng | l -lang="Eng,Ger" -treebank | wf -file=examples.eng.tmp
+? echo "diff examples.eng.out examples.eng.tmp"
+? diff examples.eng.out examples.eng.tmp
+? echo "parsing from examples.eng and writing source and translation to examples.eng2ger.tmp:"
+rf -file=examples.eng.txt -lines | p -lang=Eng | l -lang="Eng,Ger" | wf -file=examples.eng2ger.tmp
+? echo "diff examples.eng2ger.out examples.eng2ger.tmp"
+? diff examples.eng2ger.out examples.eng2ger.tmp
 
 ? echo "extracting positive, negative and dubious examples from examples.txt ..."
 ? grep accept examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif examples.pos.txt
 ? grep reject examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif examples.neg.txt
 ? grep dubious examples.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif examples.dub.txt
 
-? echo "parsing negative examples ...; storing trees in examples.neg.new ..."
-rf -lines -file="examples.neg.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="examples.neg.new"
-? echo "diff examples.neg.out examples.neg.new:"
-? diff examples.neg.out examples.neg.new
-? echo "parsing dubious examples ...; storing trees in examples.dub.new ..."
-rf -lines -file="examples.dub.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="examples.dub.new"
-? echo "diff examples.dub.out examples.dub.new:"
-? diff examples.dub.out examples.dub.new
-? echo "parsing positive examples ...; storing trees in examples.pos.new ..."
-rf -lines -file="examples.pos.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="examples.pos.new"
-? echo "diff examples.pos.out examples.pos.new:"
-? diff examples.pos.out examples.pos.new
+? echo "parsing negative examples ...; storing trees in examples.neg.tmp ..."
+rf -lines -file="examples.neg.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="examples.neg.tmp"
+? echo "diff examples.neg.out examples.neg.tmp:"
+? diff examples.neg.out examples.neg.tmp
+? echo "parsing dubious examples ...; storing trees in examples.dub.tmp ..."
+rf -lines -file="examples.dub.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="examples.dub.tmp"
+? echo "diff examples.dub.out examples.dub.tmp:"
+? diff examples.dub.out examples.dub.tmp
+? echo "parsing positive examples ...; storing trees in examples.pos.tmp ..."
+rf -lines -file="examples.pos.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="examples.pos.tmp"
+? echo "diff examples.pos.out examples.pos.tmp:"
+? diff examples.pos.out examples.pos.tmp
