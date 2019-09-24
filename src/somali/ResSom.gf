@@ -682,6 +682,23 @@ oper
           x                     => hold_V.s ! x }
     } ;
 
+  fail_V : Verb =
+   let waa_V : Verb = cSug "waay" in waa_V ** {
+    s = table {
+      VPres _ Sg2_Sg3Fem _
+                      => "waayday" ;
+      VPast _ Sg1_Sg3Masc
+                      => "waayey" ;
+      VPast _ Sg2_Sg3Fem
+                      => "weydey" ;
+      VPast _ Pl1_    => "weyney" ;
+      VPast _ Pl2_    => "weydeen" ;
+      VPast _ Pl3_    => "waayeen" ;
+      VInf => "waayi" ;
+      x => waa_V.s ! x -- TODO actual forms
+    }
+  } ;
+
 ------------------
 -- Adv
 
@@ -1050,10 +1067,8 @@ oper
 
   vfQuestion : VFun = \t,ant,p,agr,vp ->
     case <t,ant,p> of {
-      <_,_,Neg> => vp.s ! VInf ++ vfStatement t ant p agr (useV waa_V) ;
+      <_,_,Neg> => vp.s ! VInf ++ vfStatement t ant Pos agr (useV fail_V) ;
       _ => vfStatement t ant p agr vp
-    } where {
-      waa_V = cSug "waa" ; ---- TODO irregular verb
     } ;
 
   vfSubord : VFun = \t,ant,p,agr,vp ->
@@ -1071,8 +1086,8 @@ oper
       case <cltyp,pol> of {
         <Statement,Pos> => showSTM stm ;
         <Statement,Neg> => "ma" ;
-        <Question,Pos>  => "ma" ;
-        <Question,Neg>  => "sow" ;
+        <Question,_> => "ma" ; -- neg. questions are formed with waayaa 'fail to do X', so they are syntactically positive
+--        <Question,Neg>  => "sow" ; -- for true negative questions
         <Subord,Pos>    => [] ;
         <Subord,Neg>    => "aan"
       } ;
