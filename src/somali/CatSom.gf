@@ -16,7 +16,7 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
     Cl = ResSom.ClSlash ;
     ClSlash = ResSom.ClSlash ;
     SSlash  = ResSom.Sentence ; -- sentence missing NP; e.g. "she has looked at"
-    Imp     = SS ;              -- imperative             e.g. "look at this"
+    Imp     = {s : Number => Polarity => Str} ; -- imperative             e.g. "look at this"
 
 --2 Questions and interrogatives
 

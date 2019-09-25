@@ -1,6 +1,16 @@
 
 -- Question clauses
 
+-- Polar questions
+-- LangEng: do you teach the cat
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))) NoVoc
+LangSom: ma ku bartaa bisad BIND da
+
+-- LangEng: don't you teach the cat
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))) NoVoc
+LangSom: miyaanad ku barto bisad BIND da
+
+-- Wh-questions
 -- LangEng: who wants to go
 -- subject pronoun not included, because who is a subject. STM merged to pron.
 LangSom: yaa rabaa in uu tago
@@ -31,7 +41,7 @@ Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv where_I
 LangSom: maxaa aad u tagtay
 Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V))))) NoVoc
 
--- Negative question -- TODO not implemented yet properly. Saeed p. 203
+-- Negative wh-question, Saeed p. 203
 -- LangEng: why didn't you go
 LangSom: maxaa aad u tagi weydey
 Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V))))) NoVoc

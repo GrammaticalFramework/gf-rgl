@@ -8,9 +8,11 @@ concrete PhraseSom of Phrase = CatSom ** open Prelude, ResSom in {
     UttIAdv iadv = iadv ;
 
     UttImpSg pol imp =
-      let ma = case pol.p of { Pos => [] ; Neg => "ma" }
-      in { s = ma ++ imp.s } ;
-    UttImpPl = UttImpSg ;
+      let ha = case pol.p of {Pos => [] ; Neg => "ha"}
+      in {s = ha ++ imp.s ! Sg ! pol.p} ;
+    UttImpPl pol imp =
+      let ha = case pol.p of {Pos => [] ; Neg => "ha"}
+       in {s = ha ++ imp.s ! Pl ! pol.p} ;
     UttImpPol = UttImpSg ;
 
     UttIP ip = {s = ip.s ! Abs} ;

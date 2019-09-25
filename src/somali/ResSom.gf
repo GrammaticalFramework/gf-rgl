@@ -404,12 +404,6 @@ oper
                    Passive => "laydin" ; Loo => "laydiin" ; Lala => "laydinla" ;
                    Lagu => "laydinku" ; Laga => "laydinka" ;
                    Single p => (prepTable ! p).s ! Pl2_Prep } ;
-    -- Impers_Prep => -- TODO: put these later into other tables
-    --        table { Ugu => "loogu" ; Uga => "looga" ;
-    --                Ula => "loola" ; Kaga => "lagaga" ;
-    --                Kula => "lagula" ; Kala => "lagala" ;
-    --                Passive => "la" ;
-    --                Lagu => "lagu" ; Laga => "laga" ; } ;
     Reflexive_Prep => -- TODO check every form
            table { Ugu => "isugu" ; Uga => "isuga" ; Ula => "isula" ;
                    Kaga => "iskaga" ; Kula => "iskula" ; Kala => "iskala" ;
@@ -682,6 +676,23 @@ oper
           x                     => hold_V.s ! x }
     } ;
 
+  fail_V : Verb =
+   let waa_V : Verb = cSug "waay" in waa_V ** {
+    s = table {
+      VPres _ Sg2_Sg3Fem _
+                      => "waayday" ;
+      VPast _ Sg1_Sg3Masc
+                      => "waayey" ;
+      VPast _ Sg2_Sg3Fem
+                      => "weydey" ;
+      VPast _ Pl1_    => "weyney" ;
+      VPast _ Pl2_    => "weydeen" ;
+      VPast _ Pl3_    => "waayeen" ;
+      VInf => "waayi" ;
+      x => waa_V.s ! x -- TODO actual forms
+    }
+  } ;
+
 ------------------
 -- Adv
 
@@ -877,7 +888,7 @@ oper
                 _ => predRaw -- Any other verb
            } ;
 
-    stm = mkStm vp.stm ;
+    stm = mkStm subj.a vp.stm ;
     comp = vp.comp ! subj.a ;
     vComp = vp.vComp ** {
               subcl = vp.vComp.subcl ! subj.a
@@ -931,16 +942,16 @@ oper
      in mkClause Subord isRel hasSubjPron hasSTM ;
 
   -- Question clauses: subject pronoun not included, STM is
-  cl2qcl : Bool -> ClSlash -> Clause =
+  cl2qcl : ClType -> Bool -> ClSlash -> Clause = \cltyp ->
     let hasSubjPron : Bool = False ;
         isRel : Bool = False ;
-     in mkClause Question isRel hasSubjPron ;
+     in mkClause cltyp isRel hasSubjPron ;
 
   -- Question clauses: subject pronoun is included
   cl2qclslash : Bool -> ClSlash -> Clause =
     let hasSubjPron : Bool = True ;
         isRel : Bool = False ;
-     in mkClause Question isRel hasSubjPron ;
+     in mkClause PolarQuestion isRel hasSubjPron ;
 
   -- Sentence: include subject pronoun and STM.
   -- When subordinate, include "in".
@@ -979,7 +990,7 @@ oper
                                 Subord => obj.p1 ;
                                 _      => [] } ;
           questionNounObj = case cltyp of {
-                                Question => obj.p1 ;
+                                PolarQuestion|WhQuestion => obj.p1 ;
                                 _      => [] } ;
 
           -- Control whether to include subject pronoun and STM
@@ -1017,7 +1028,9 @@ oper
     -> Str ;
 
   vf : ClType -> VFun = \clt -> case clt of {
-    Subord => vfSubord ; _ => vfStatement } ;
+    Subord     => vfSubord ;
+    WhQuestion => vfQuestion ; -- INF + waayaa 'why did you fail to go'
+    _          => vfStatement } ;
 
   vfStatement : VFun = \t,ant,p,agr,vp ->
     case <t,ant,p> of {
@@ -1030,20 +1043,26 @@ oper
       <Fut,Simul>  => vp.s ! VInf ++ presV (cSug "doon") ;
       <Fut,Anter>  => vp.s ! VInf ++ pastV (cSug "doon")
       }
-  where {
-    agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
-    pastV : BaseVerb -> Str = \v ->
-      case p of { Neg => v.s ! VNegPast Simple ;
-                  Pos => v.s ! VPast Simple (agr2vagr agr) } ;
+    where {
+      agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
+      pastV : BaseVerb -> Str = \v ->
+        case p of { Neg => v.s ! VNegPast Simple ;
+                    Pos => v.s ! VPast Simple (agr2vagr agr) } ;
 
-    presV : BaseVerb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
+      presV : BaseVerb -> Str = \v -> v.s ! VPres Simple (agr2vagr agr) p ;
 
-    condNegV : BaseVerb -> Str = \v -> case agr of {
-        Sg2|Sg3 Fem
-         |Pl2 => v.s ! VNegCond SgFem ;
-        Pl1 _ => v.s ! VNegCond PlInv ;
-        _     => v.s ! VNegCond SgMasc --Sg1|Sg3 Masc|Pl3|Impers
-}
+      condNegV : BaseVerb -> Str = \v -> case agr of {
+          Sg2|Sg3 Fem
+           |Pl2 => v.s ! VNegCond SgFem ;
+          Pl1 _ => v.s ! VNegCond PlInv ;
+          _     => v.s ! VNegCond SgMasc --Sg1|Sg3 Masc|Pl3|Impers
+          }
+      } ;
+
+  vfQuestion : VFun = \t,ant,p,agr,vp ->
+    case <t,ant,p> of {
+      <_,_,Neg> => vp.s ! VInf ++ vfStatement t ant Pos agr (useV fail_V) ;
+      _ => vfStatement t ant p agr vp
     } ;
 
   vfSubord : VFun = \t,ant,p,agr,vp ->
@@ -1056,22 +1075,36 @@ oper
 
   STMarker : Type = ClType => Polarity => Str ;
 
-  mkStm : STM -> STMarker = \stm ->
+  -- NB. Agreement is used only for negative questions. If we want to change it
+  -- in other sentence types, we need to change predVP and mkClause accordingly;
+  -- certain VVs put stuff between STM and subject pronoun. Some VVs render now
+  -- incorrectly in negative questions.
+  mkStm : Agreement -> STM -> STMarker = \agr,stm ->
     \\cltyp,pol =>
       case <cltyp,pol> of {
         <Statement,Pos> => showSTM stm ;
         <Statement,Neg> => "ma" ;
-        <Question,Pos>  => "ma" ;
-        <Question,Neg>  => "sow" ;
         <Subord,Pos>    => [] ;
-        <Subord,Neg>    => "aan"
+        <Subord,Neg>    => "aan" ;
+        <WhQuestion,_>  => "ma" ; -- neg. wh-questions are formed with waayaa 'fail to do sth', so they are syntactically positive
+        <PolarQuestion,Pos> => "ma" ;
+        <PolarQuestion,Neg> => case agr of { -- Negative question in past tense has only one form, need subject pronoun to know what the subject is.
+          Sg1 => "miyaanan" ; -- Saeed p. 200
+          Sg2 => "miyaanad" ; -- Saeed p. 200
+          Sg3 Masc => "miyaanu" ; -- Saeed p. 200
+          Sg3 Fem  => "miyaanay" ; -- ???
+          Pl1 Excl => "miyaanaannu" ; -- ???
+          Pl1 Incl => "miyaanaynu" ; -- ???
+          Pl2 => "miyaanaydin" ; -- ???
+          Pl3 => "miyaanay" ; -- ???
+          Impers => "ma aan" } -- not merged
       } ;
 
-  modSTM : Str -> STMarker -> STMarker = \str,stm ->
+  modSTM : (pos, neg : Str) -> STMarker -> STMarker = \pos,neg,stm ->
     \\cltyp,pol =>
-      case <cltyp,pol> of {
-         <_,Pos> => str ;
-         _ => stm ! cltyp ! pol
+      case pol of {
+         Pos => pos ;
+         _   => neg
       } ;
 --------------------------------------------------------------------------------
 -- linrefs
