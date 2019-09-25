@@ -32,7 +32,6 @@ oper
   u  : Preposition ;
   noPrep : Preposition ;
 
-  -- TODO: add subjunctive too!
   VVForm : Type ; -- Argument to give to mkVV
   infinitive : VVForm ; -- Takes its complement in infinitive
   subjunctive : VVForm ; -- Takes its complement as a clause in subjunctive
@@ -46,7 +45,6 @@ oper
     mkN : (shimbir : Str) -> (fem : Gender) -> N ; -- Unpredictable gender
 --    mkN : (nin, niman : Str) -> N ; -- Monosyllable word with unpredictable plural
     mkN : (maalin,maalmo : Str) -> Gender -> N ; -- Consonant cluster in stem
-    --mkN : N -> Gender -> N ; -- Otherwise predictable but not gender (TODO does this even happen?)
   } ;
 
   mkN2 : overload {
@@ -94,21 +92,25 @@ oper
   mkVV : overload {
     mkVV : (kar : Str) -> VV ; -- VV that takes its complement in infinitive.
     mkVV : (rab : Str) -> VVForm -> VV ; -- Specify complement type: infinitive or subjunctive.
-    mkVV : V -> VVForm -> VV ;  -- VV out of an existing V
+    mkVV : V -> VVForm -> VV ; -- VV out of an existing V
    } ;
 
-  -- TODO: actual constructors
-  -- mkVA : Str -> VA = \s -> lin VA (mkVerb  s) ;
-  --
-  -- mkV2A : Str -> V2A = \s -> lin V2A (mkVerb s) ;
-  -- mkVQ : Str -> VQ = \s -> lin VQ (mkVerb s) ;
-  -- mkVS : Str -> VS = \s -> lin VS (mkVerb s) ;
-  --
-  -- mkV2V : Str -> V2V = \s -> lin V2V (mkVerb s) ;
-  -- mkV2S : Str -> V2S = \s -> lin V2S (mkVerb s) ;
-  -- mkV2Q : Str -> V2Q = \s -> lin V2Q (mkVerb s) ;
-  -- mkV3 : Str -> V3 = \s -> lin V3 (mkVerb s) ;
 
+  mkVA : Str -> VA
+    = \s -> lin VA (regV s) ;
+  mkVQ : Str -> VQ
+    = \s -> lin VQ (regV s) ;
+  mkVS : Str -> VS
+    = \s -> lin VS (regV s) ;
+
+  mkV2A : Str -> V2A
+    = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
+  mkV2V : Str -> V2V
+    = \s -> lin V2V (regV s ** {c2 = noPrep}) ;
+  mkV2S : Str -> V2S
+    = \s -> lin V2S (regV s ** {c2 = noPrep}) ;
+  mkV2Q : Str -> V2Q
+    = \s -> lin V2Q (regV s ** {c2 = noPrep}) ;
 
   -----
 

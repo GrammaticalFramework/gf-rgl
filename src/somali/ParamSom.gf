@@ -192,7 +192,7 @@ oper
     case n.gda of {FM _ _ => Fem ; _ => Masc} ;
 
   gennum : {gda : GenderDefArt} -> Number -> GenNum = \gda,n ->
-    case n of {Pl => PlInv ; Sg => 
+    case n of {Pl => PlInv ; Sg =>
       case gda.gda of {FM _ _ => SgFem ; _ => SgMasc}
     } ;
 
@@ -223,7 +223,7 @@ param
   Preposition = U | Ku | Ka | La | NoPrep ;
 
   PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
-                  | Passive | Lagu | Laga | Loo | Lala -- TODO all combinations with impersonal la
+                  | Passive | Loo | Lagu | Laga | Lala -- TODO all combinations with impersonal la: Loogu, Looga, Loola, Lagaga, Lagula, Lagala
                   | Single Preposition ;
 
 oper

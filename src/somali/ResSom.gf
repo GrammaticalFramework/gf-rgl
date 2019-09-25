@@ -404,12 +404,6 @@ oper
                    Passive => "laydin" ; Loo => "laydiin" ; Lala => "laydinla" ;
                    Lagu => "laydinku" ; Laga => "laydinka" ;
                    Single p => (prepTable ! p).s ! Pl2_Prep } ;
-    -- Impers_Prep => -- TODO: put these later into other tables
-    --        table { Ugu => "loogu" ; Uga => "looga" ;
-    --                Ula => "loola" ; Kaga => "lagaga" ;
-    --                Kula => "lagula" ; Kala => "lagala" ;
-    --                Passive => "la" ;
-    --                Lagu => "lagu" ; Laga => "laga" ; } ;
     Reflexive_Prep => -- TODO check every form
            table { Ugu => "isugu" ; Uga => "isuga" ; Ula => "isula" ;
                    Kaga => "iskaga" ; Kula => "iskula" ; Kala => "iskala" ;
