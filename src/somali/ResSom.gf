@@ -888,7 +888,7 @@ oper
                 _ => predRaw -- Any other verb
            } ;
 
-    stm = mkStm vp.stm ;
+    stm = mkStm subj.a vp.stm ;
     comp = vp.comp ! subj.a ;
     vComp = vp.vComp ** {
               subcl = vp.vComp.subcl ! subj.a
@@ -942,16 +942,16 @@ oper
      in mkClause Subord isRel hasSubjPron hasSTM ;
 
   -- Question clauses: subject pronoun not included, STM is
-  cl2qcl : Bool -> ClSlash -> Clause =
+  cl2qcl : ClType -> Bool -> ClSlash -> Clause = \cltyp ->
     let hasSubjPron : Bool = False ;
         isRel : Bool = False ;
-     in mkClause Question isRel hasSubjPron ;
+     in mkClause cltyp isRel hasSubjPron ;
 
   -- Question clauses: subject pronoun is included
   cl2qclslash : Bool -> ClSlash -> Clause =
     let hasSubjPron : Bool = True ;
         isRel : Bool = False ;
-     in mkClause Question isRel hasSubjPron ;
+     in mkClause PolarQuestion isRel hasSubjPron ;
 
   -- Sentence: include subject pronoun and STM.
   -- When subordinate, include "in".
@@ -990,7 +990,7 @@ oper
                                 Subord => obj.p1 ;
                                 _      => [] } ;
           questionNounObj = case cltyp of {
-                                Question => obj.p1 ;
+                                PolarQuestion|WhQuestion => obj.p1 ;
                                 _      => [] } ;
 
           -- Control whether to include subject pronoun and STM
@@ -1028,9 +1028,9 @@ oper
     -> Str ;
 
   vf : ClType -> VFun = \clt -> case clt of {
-    Subord   => vfSubord ;
-    Question => vfQuestion ;
-    _        => vfStatement } ;
+    Subord     => vfSubord ;
+    WhQuestion => vfQuestion ; -- INF + waayaa 'why did you fail to go'
+    _          => vfStatement } ;
 
   vfStatement : VFun = \t,ant,p,agr,vp ->
     case <t,ant,p> of {
@@ -1075,22 +1075,36 @@ oper
 
   STMarker : Type = ClType => Polarity => Str ;
 
-  mkStm : STM -> STMarker = \stm ->
+  -- NB. Agreement is used only for negative questions. If we want to change it
+  -- in other sentence types, we need to change predVP and mkClause accordingly;
+  -- certain VVs put stuff between STM and subject pronoun. Some VVs render now
+  -- incorrectly in negative questions.
+  mkStm : Agreement -> STM -> STMarker = \agr,stm ->
     \\cltyp,pol =>
       case <cltyp,pol> of {
         <Statement,Pos> => showSTM stm ;
         <Statement,Neg> => "ma" ;
-        <Question,_> => "ma" ; -- neg. questions are formed with waayaa 'fail to do X', so they are syntactically positive
---        <Question,Neg>  => "sow" ; -- for true negative questions
         <Subord,Pos>    => [] ;
-        <Subord,Neg>    => "aan"
+        <Subord,Neg>    => "aan" ;
+        <WhQuestion,_>  => "ma" ; -- neg. wh-questions are formed with waayaa 'fail to do sth', so they are syntactically positive
+        <PolarQuestion,Pos> => "ma" ;
+        <PolarQuestion,Neg> => case agr of { -- Negative question in past tense has only one form, need subject pronoun to know what the subject is.
+          Sg1 => "miyaanan" ; -- Saeed p. 200
+          Sg2 => "miyaanad" ; -- Saeed p. 200
+          Sg3 Masc => "miyaanu" ; -- Saeed p. 200
+          Sg3 Fem  => "miyaanay" ; -- ???
+          Pl1 Excl => "miyaanaannu" ; -- ???
+          Pl1 Incl => "miyaanaynu" ; -- ???
+          Pl2 => "miyaanaydin" ; -- ???
+          Pl3 => "miyaanay" ; -- ???
+          Impers => "ma aan" } -- not merged
       } ;
 
-  modSTM : Str -> STMarker -> STMarker = \str,stm ->
+  modSTM : (pos, neg : Str) -> STMarker -> STMarker = \pos,neg,stm ->
     \\cltyp,pol =>
-      case <cltyp,pol> of {
-         <_,Pos> => str ;
-         _ => stm ! cltyp ! pol
+      case pol of {
+         Pos => pos ;
+         _   => neg
       } ;
 --------------------------------------------------------------------------------
 -- linrefs

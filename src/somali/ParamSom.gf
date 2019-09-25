@@ -336,6 +336,6 @@ oper
 
 param
 
-  ClType = Statement | Question | Subord ;
+  ClType = Statement | PolarQuestion | WhQuestion | Subord ;
 
 }
