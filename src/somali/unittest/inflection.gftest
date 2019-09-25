@@ -41,8 +41,8 @@ LangSom: ma sugo
 
 -- Interrogative 1: TODO
 -- LangEng: does he/she/it wait (for him/her/it)
--- Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))))) NoVoc
--- LangSom: ma sugaa
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))))) NoVoc
+LangSom: ma aan sugo
 
 -- LangEng: why doesn't it wait for it
 Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))))) NoVoc
