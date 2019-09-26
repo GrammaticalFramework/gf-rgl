@@ -79,7 +79,7 @@ lin
   -- : V2A -> AP -> VPSlash ;  -- paint (it) red
    -- TODO: is "red" plural in "paint them red"?
   SlashV2A v2a ap = useVc v2a ** {
-    comp = \\_ => (CompAP ap).comp ! Sg3 Masc
+    aComp = \\_ => (CompAP ap).aComp ! Sg3 Masc
   } ;
 
   -- : VPSlash -> NP -> VP
@@ -133,32 +133,32 @@ lin
 
 -- Adjectival phrases, noun phrases, and adverbs can be used.
 
-  -- the house is big
-  -- the houses are big
-  -- I am [a house that sleeps here]
-  -- we are [houses that sleep here]
-
   -- : AP  -> Comp ;
   CompAP ap = {
-    comp = \\a => <[], ap.s ! AF (getNum a) Abs> ;
+    aComp = \\a => ap.s ! AF (getNum a) Abs ;
+    nComp = [] ;
     stm = Waa Copula ;
     } ;
 
   -- : CN  -> Comp ;
   CompCN cn = {
-    comp = \\a => <[], cn2str Sg Abs cn> ;
+    -- I am [a house that sleeps here] vs.  we are [houses that sleep here]
+    aComp = \\a => cn2str (getNum a) Abs cn ;
+    nComp = [] ;
     stm = Waa NoCopula ;
     } ;
 
   --  NP  -> Comp ;
   CompNP np = {
-    comp = \\a => <[], np.s ! Abs> ;
+    aComp = \\a => [] ;
+    nComp = np.s ! Abs ;
     stm = Waa NoCopula ;
     } ;
 
   -- : Adv  -> Comp ;
   CompAdv adv = {
-    comp = \\a => <[], linAdv adv> ;
+    aComp = \\a => linAdv adv ; -- TODO check placement
+    nComp = [] ;
     stm = Waa Copula ;
     } ;
 
