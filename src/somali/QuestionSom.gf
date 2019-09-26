@@ -88,15 +88,15 @@ concrete QuestionSom of Question = CatSom ** open
 
   -- : IAdv -> IComp ;
   CompIAdv iadv = {            -- where (is it)
-    comp = \\_ => <[], []> ;
-    npcomp = iadv.s ;
+    aComp = \\_ => [] ;
+    nComp = iadv.s ;
     stm = Waa NoCopula ;
     } ;
 
   -- : IP -> IComp ;
   CompIP ip = {                -- who (is it)
-    comp = \\_ => <[], []> ;
-    npcomp = ip.s ! Abs ;
+    aComp = \\_ => [] ;
+    nComp = ip.s ! Abs ;
     stm = Waa NoCopula ;
     } ;
 

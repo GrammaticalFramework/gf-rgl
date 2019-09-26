@@ -726,8 +726,8 @@ oper
 -- VP
 
   Complement : Type = {
-    comp : Agreement => {p1,p2 : Str} ; -- Agreement for AP complements
-    npcomp : Str ;
+    aComp : Agreement => Str ;
+    nComp : Str ;
     stm : STM ; -- to choose right sentence type marker
     } ;
 
@@ -736,19 +736,19 @@ oper
     obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
     secObj : Str ; -- if two overt pronoun objects
     vComp : {subjunc : Str ; -- "waa in" or subjunctive construction: "in" is placed here
-             inf : Str ; -- auxiliary VV with infinitive argument
-             subcl : Agreement => Str} -- VV complement if it's a subordinate clause
+              inf : Str ; -- auxiliary VV with infinitive argument
+              subcl : Agreement => Str} -- VV complement if it's a subordinate clause
     } ;
 
   VPSlash : Type = VerbPhrase ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
-    comp = \\_ => <[],[]> ;
-    npcomp = [] ;
     stm = case v.isCopula of { -- can change into Waxa in ComplVV
             True  => Waa Copula ;
             False => Waa NoPred
           } ;
+    nComp = [] ;
+    aComp = \\_ => [] ;
     vComp = {subjunc, inf = [] ;
              subcl = \\_ => []} ;
     berri,miscAdv = [] ;
@@ -776,13 +776,6 @@ oper
       Single La     => Lala ;
       _             => vp.c2 }
     } ;
-
-  complSlash : VPSlash -> VerbPhrase = \vps ->  let np = vps.obj2 in vps ** {
-    comp = \\agr => let cmp = vps.comp ! agr in
-      {p1 = np.s ++ cmp.p1 ; -- if object is a noun, it will come before verb in the sentence.
-                             -- if object is a pronoun, np.s is empty.
-       p2 = cmp.p2 ++ prepCombTable ! np.a ! vps.c2} -- object combines with the preposition of the verb.
-      } ;
 
   insertRefl : VPSlash -> VPSlash = \vps -> vps ** {
     obj2 = vps.obj2 ** {a = Reflexive_Prep} ;
@@ -861,8 +854,8 @@ oper
     obj2 : NPLite ;
     secObj : Str ;
     c2 : PrepCombination ; -- NB. QuestIAdv can add more prepositions
-    comp : {p1,p2 : Str} ;
-    npcomp : Str ;
+    aComp : Str ;
+    nComp : Str ;
     vComp : {inf,subcl,subjunc : Str} ;
 
     -- Still open
@@ -884,7 +877,6 @@ oper
              in case <cltyp, p, t, vp.stm, subj.a> of {
                 <Statement, Pos, Pres, Waa NoCopula, Sg3 _|Pl3> -- VP comes from CompNP/CompCN + P3 subject
                   => [] ;
-
                 <_, _, Pres, Waa (Copula|NoCopula), _> -- Comp* present tense + any subject
                   => presCopula ! {agr=subj.a ; pol=p} ;
 
@@ -892,7 +884,7 @@ oper
            } ;
 
     stm = mkStm subj.a vp.stm ;
-    comp = vp.comp ! subj.a ;
+    aComp = vp.aComp ! subj.a ;
     vComp = vp.vComp ** {
               subcl = vp.vComp.subcl ! subj.a
             }
@@ -912,14 +904,7 @@ oper
                             => np.empty ;
                           _ => (pronTable ! subj.a).s ! Nom
                        }
-
       } ;
-
-  -- just like complSlash but for Cl
-  complCl : ClSlash -> ClSlash = \cl -> let np = cl.obj2 in cl ** {
-    comp = {p1 = np.s ++ cl.comp.p1 ;
-            p2 = cl.comp.p2 ++ prepCombTable ! np.a ! cl.c2}
-    } ;
 
 
   -- RelVP: subject pronoun is never included
@@ -971,42 +956,42 @@ oper
     } ;
 
 
-  mkClause : ClType -> (rel,sp,stm : Bool) -> ClSlash -> Clause = \cltyp,isRel,hasSubjPron,hasSTM,incomplCl -> {
+  mkClause : ClType -> (rel,sp,stm : Bool) -> ClSlash -> Clause =
+    \cltyp,isRel,hasSubjPron,hasSTM,cl -> {
     s = \\t,a,p =>
       let -- Put all arguments in their right place
-          cl : ClSlash = complCl incomplCl ;
+          --cl : ClSlash = complCl incomplCl ;
+          prepComb = prepCombTable ! cl.obj2.a ! cl.c2 ;
 
           -- Contractions
           bind : Str = case <isPassive cl, cl.obj2.a, cl.c2> of {
             <False,P3_Prep,Single NoPrep> => [] ; -- nothing to attach to the STM
             _                             => BIND } ; -- something to attach, use BIND
-          obj : {p1,p2 : Str} = case <cltyp,p> of {
-            <Statement,Neg> -- object pronoun and prepositions contract with negation
-              => {p2 = [] ; p1 = cl.comp.p1 ++ cl.comp.p2 ++ bind} ;
-            _ => cl.comp } ;
+          prepCombNeg : Str = case <cltyp,p> of {
+             <Statement,Neg> => prepComb ++ bind ;
+             _ => []
+          } ;
+          prepCombPos : Str = case <cltyp,p> of {
+             <Statement,Neg> => [] ;
+             _ => prepComb
+          } ;
 
           -- Placement of object noun varies depending on type of clause
           statementNounObj = case cltyp of {
-                                Statement => obj.p1 ;
+                                Statement => cl.obj2.s ;
                                 _         => [] } ;
+          statementNounComp = case cltyp of {
+                                Statement => cl.nComp ;
+                                _         => [] } ;
+
+          -- for subord and question, NP predicatives and objects behave the same
           subordNounObj = case cltyp of {
-                                Subord => obj.p1 ;
+                                Subord => cl.obj2.s ++ cl.nComp ;
                                 _      => [] } ;
           questionNounObj = case cltyp of {
-                                PolarQuestion|WhQuestion => obj.p1 ;
+                                PolarQuestion|WhQuestion
+                                       => cl.obj2.s ++ cl.nComp ;
                                 _      => [] } ;
-
-          -- Placement of NP complement varies depending on type of clause
-          statementNPComp = case cltyp of {
-                                Statement => cl.npcomp ;
-                                _         => [] } ;
-          subordNPComp = case cltyp of {
-                                Subord => cl.npcomp ;
-                                _      => [] } ;
-          questionNPComp = case cltyp of {
-                                PolarQuestion|WhQuestion => cl.npcomp ;
-                                _      => [] } ;
-
 
           -- Control whether to include subject pronoun and STM
           subjpron : Str = case <hasSubjPron,p,cl.subj.isP3,isRel> of {
@@ -1021,21 +1006,23 @@ oper
     ++ cl.subj.noun -- subject if it's a noun
     ++ statementNounObj -- noun object if it's a statement
 
+    ++ prepCombNeg  -- prepositions and pron. objects in negative statement
     ++ stm
 
     ++ cl.vComp.subjunc  -- "waa in" construction /
     ++ subjpron          -- subject pronoun
 
-    ++ subordNPComp
     ++ subordNounObj -- noun object if it's subordinate clause: "timir aan /laf/ lahayn" (Saeed p. 210-211)
-    ++ obj.p2   -- object if it's a pronoun
-    ++ statementNPComp
+    ++ cl.aComp          -- AP complement, regardless of cltype
+    ++ statementNounComp -- NP complement if it's direct statement
+
+    ++ prepCombPos -- prepositions + pron. objects in positive sentence
+
     ++ cl.sii   -- restricted set of particles
     ++ cl.dhex  -- restricted set of nouns/adverbials
     ++ cl.secObj   -- "second object"
     ++ cl.vComp.inf  -- VV complement, if it's infinitive
     ++ cl.pred ! cltyp ! t ! a ! p  -- the inflecting verb
-    ++ questionNPComp
     ++ questionNounObj -- noun object if it's a question
     ++ cl.vComp.subcl -- VV complement, if it's subordinate clause
     ++ cl.miscAdv    ---- NB. Only used if there are several adverbs, or for "waa in" construction.
@@ -1137,28 +1124,30 @@ oper
   ++ adv.np.s
   ++ adv.miscAdv ;
 
-
   linVP : VForm -> ClType -> VerbPhrase -> Str = \vf,cltyp,vp ->
     let pred = vp.s ! vf ;
-        vp' = complSlash vp ;
+        pr = prepCombTable ! vp.obj2.a ! vp.c2 ;
+        -- obj = {p1 = np.s ;
+        --        p2 = vp.aComp ! pagr2agr np.a ++ prepCombTable ! np.a ! vps.c2} ;
         neg = case <cltyp,isNeg vf> of {
                 <Subord,True> => "aan" ;
                 _             => []
                } ;
-     in wordOrder cltyp neg pred (vp'.comp ! pagr2agr vp.obj2.a) vp' ;
+     in wordOrder cltyp neg pred pr vp ;
 
-  wordOrder : ClType -> (neg,pred : Str) -> (obj : {p1,p2 : Str}) -> VerbPhrase -> Str =
-    \cltyp,neg,pred,obj,vp ->
+  wordOrder : ClType -> (neg,pred,prepcomb : Str) -> VerbPhrase -> Str =
+    \cltyp,neg,pred,pr,vp ->
         vp.berri -- AdV
      ++ case cltyp of {
           Subord => [] ;
-          _ => obj.p1 } -- noun object if it's a statement
+          _ => vp.obj2.s {-obj.p1-} } -- noun object if it's a statement
      ++ neg
      ++ vp.vComp.subjunc -- "waa in" construction
      ++ case cltyp of {
-          Subord => obj.p1 ; -- noun object if it's subordinate clause
+          Subord => vp.obj2.s ; -- noun object if it's subordinate clause
           _      => [] }
-     ++ obj.p2   -- object if it's a pronoun
+     ++ vp.aComp ! pagr2agr vp.obj2.a  -- AP complement agreeing with object
+     ++ pr       -- object if it's a pronoun
      ++ vp.sii   -- restricted set of particles
      ++ vp.dhex  -- restricted set of nouns/adverbials
      ++ vp.secObj   -- "second object"
