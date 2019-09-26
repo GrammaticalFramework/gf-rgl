@@ -141,24 +141,28 @@ lin
   -- : AP  -> Comp ;
   CompAP ap = {
     comp = \\a => <[], ap.s ! AF (getNum a) Abs> ;
+    npcomp = [] ;
     stm = Waa Copula ;
     } ;
 
   -- : CN  -> Comp ;
   CompCN cn = {
-    comp = \\a => <[], cn2str Sg Abs cn> ;
+    comp = \\a => <[], []> ;
+    npcomp = cn2str Sg Abs cn ;
     stm = Waa NoCopula ;
     } ;
 
   --  NP  -> Comp ;
   CompNP np = {
-    comp = \\a => <[], np.s ! Abs> ;
+    comp = \\a => <[], []> ;
+    npcomp = np.s ! Abs ;
     stm = Waa NoCopula ;
     } ;
 
   -- : Adv  -> Comp ;
   CompAdv adv = {
     comp = \\a => <[], linAdv adv> ;
+    npcomp = [] ;
     stm = Waa Copula ;
     } ;
 

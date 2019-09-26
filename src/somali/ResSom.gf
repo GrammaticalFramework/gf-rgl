@@ -727,6 +727,7 @@ oper
 
   Complement : Type = {
     comp : Agreement => {p1,p2 : Str} ; -- Agreement for AP complements
+    npcomp : Str ;
     stm : STM ; -- to choose right sentence type marker
     } ;
 
@@ -743,6 +744,7 @@ oper
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     comp = \\_ => <[],[]> ;
+    npcomp = [] ;
     stm = case v.isCopula of { -- can change into Waxa in ComplVV
             True  => Waa Copula ;
             False => Waa NoPred
@@ -860,6 +862,7 @@ oper
     secObj : Str ;
     c2 : PrepCombination ; -- NB. QuestIAdv can add more prepositions
     comp : {p1,p2 : Str} ;
+    npcomp : Str ;
     vComp : {inf,subcl,subjunc : Str} ;
 
     -- Still open
@@ -993,6 +996,18 @@ oper
                                 PolarQuestion|WhQuestion => obj.p1 ;
                                 _      => [] } ;
 
+          -- Placement of NP complement varies depending on type of clause
+          statementNPComp = case cltyp of {
+                                Statement => cl.npcomp ;
+                                _         => [] } ;
+          subordNPComp = case cltyp of {
+                                Subord => cl.npcomp ;
+                                _      => [] } ;
+          questionNPComp = case cltyp of {
+                                PolarQuestion|WhQuestion => cl.npcomp ;
+                                _      => [] } ;
+
+
           -- Control whether to include subject pronoun and STM
           subjpron : Str = case <hasSubjPron,p,cl.subj.isP3,isRel> of {
                               <True,Pos,True,True> => [] ;
@@ -1000,7 +1015,7 @@ oper
                                _                   => [] } ;
           stm : Str = case <hasSTM,p> of {
                                <True,_> => cl.stm ! cltyp ! p ;
-                               <_,Neg>  => cl.stm ! cltyp ! p ; -- negation overrides hasSTM=False
+                               <_,Neg>  => cl.stm ! cltyp ! p ; -- negation overrides hasSTM=False. To override the override, set STM to [] in the function that calls this. /IL
                                _          => [] }
     in cl.berri      -- AdV
     ++ cl.subj.noun -- subject if it's a noun
@@ -1011,13 +1026,16 @@ oper
     ++ cl.vComp.subjunc  -- "waa in" construction /
     ++ subjpron          -- subject pronoun
 
+    ++ subordNPComp
     ++ subordNounObj -- noun object if it's subordinate clause: "timir aan /laf/ lahayn" (Saeed p. 210-211)
     ++ obj.p2   -- object if it's a pronoun
+    ++ statementNPComp
     ++ cl.sii   -- restricted set of particles
     ++ cl.dhex  -- restricted set of nouns/adverbials
     ++ cl.secObj   -- "second object"
     ++ cl.vComp.inf  -- VV complement, if it's infinitive
     ++ cl.pred ! cltyp ! t ! a ! p  -- the inflecting verb
+    ++ questionNPComp
     ++ questionNounObj -- noun object if it's a question
     ++ cl.vComp.subcl -- VV complement, if it's subordinate clause
     ++ cl.miscAdv    ---- NB. Only used if there are several adverbs, or for "waa in" construction.
