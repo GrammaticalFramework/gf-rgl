@@ -115,4 +115,18 @@ concrete QuestionSom of Question = CatSom ** open
     QuestQVP      : IP -> QVP -> QCl ;       -- who buys what where
 -}
 
+oper
+
+  -- Question clauses: subject pronoun not included, STM is
+  cl2qcl : ClType -> Bool -> ClSlash -> Clause = \cltyp ->
+    let hasSubjPron : Bool = False ;
+        isRel : Bool = False ;
+     in mkClause cltyp isRel hasSubjPron ;
+
+  -- Question clause with wh-word as object: subject pronoun is included
+  cl2qclslash : Bool -> ClSlash -> Clause =
+    let hasSubjPron : Bool = True ;
+        isRel : Bool = False ;
+     in mkClause PolarQuestion isRel hasSubjPron ;
+
 }

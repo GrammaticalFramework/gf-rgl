@@ -906,41 +906,6 @@ oper
                        }
       } ;
 
-
-  -- RelVP: subject pronoun is never included
-  cl2rcl : ClSlash -> Clause =
-    let hasSubjPron : Bool = False ;
-        hasSTM : Bool = False ;
-        isRel : Bool = True ;
-     in mkClause Subord isRel hasSubjPron hasSTM ;
-
-  -- No subject pronoun, no STM, but use verb forms from Statement
-  cl2rclNom : ClSlash -> Clause = \cls ->
-    let hasSubjPron : Bool = False ;
-        hasSTM : Bool = False ;
-        isRel : Bool = True ;
-      in mkClause Statement isRel hasSubjPron hasSTM cls ;
-
-  -- RelSlash: subject pronoun is included if it's not 3rd person
-  -- TODO check this rule with more example sentences
-  cl2relslash : ClSlash -> Clause =
-    let hasSubjPron : Bool = True ;
-        hasSTM : Bool = False ;
-        isRel : Bool = True ;
-     in mkClause Subord isRel hasSubjPron hasSTM ;
-
-  -- Question clauses: subject pronoun not included, STM is
-  cl2qcl : ClType -> Bool -> ClSlash -> Clause = \cltyp ->
-    let hasSubjPron : Bool = False ;
-        isRel : Bool = False ;
-     in mkClause cltyp isRel hasSubjPron ;
-
-  -- Question clauses: subject pronoun is included
-  cl2qclslash : Bool -> ClSlash -> Clause =
-    let hasSubjPron : Bool = True ;
-        isRel : Bool = False ;
-     in mkClause PolarQuestion isRel hasSubjPron ;
-
   -- Sentence: include subject pronoun and STM.
   -- When subordinate, include "in".
   cl2sentence : Bool -> ClSlash -> Clause = \isSubord,cls -> {
@@ -949,12 +914,16 @@ oper
                            True  => Subord ;
                            False => Statement } ;
         cl : ClSlash = case isSubord of { -- add "in" to the clause if used as subordinate
-                           True  => cls ** {vComp = cls.vComp ** {subjunc = "in"}} ;
+                           True  => cls ** {
+                                      vComp = cls.vComp ** {subjunc = "in"}
+                                    } ;
                            False => cls } ;
-        sent = mkClause cltyp False True True cl
+        isRel = False ;
+        hasSubjPron = True ;
+        hasSTM = True ;
+        sent = mkClause cltyp isRel hasSubjPron hasSTM cl
      in sent.s ! t ! a ! p
     } ;
-
 
   mkClause : ClType -> (rel,sp,stm : Bool) -> ClSlash -> Clause =
     \cltyp,isRel,hasSubjPron,hasSTM,cl -> {

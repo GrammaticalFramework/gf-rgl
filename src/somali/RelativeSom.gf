@@ -36,4 +36,28 @@ lin
   -- : Prep -> NP -> RP -> RP ;  -- the mother of whom
   --FunRP prep np rp = {} ;
 
+oper
+
+  -- RelVP: subject pronoun is never included
+  cl2rcl : ClSlash -> Clause =
+    let hasSubjPron : Bool = False ;
+        hasSTM : Bool = False ;
+        isRel : Bool = True ;
+     in mkClause Subord isRel hasSubjPron hasSTM ;
+
+  -- No subject pronoun, no STM, but use verb forms from Statement
+  cl2rclNom : ClSlash -> Clause = \cls ->
+    let hasSubjPron : Bool = False ;
+        hasSTM : Bool = False ;
+        isRel : Bool = True ;
+      in mkClause Statement isRel hasSubjPron hasSTM cls ;
+
+  -- RelSlash: subject pronoun is included if it's not 3rd person
+  -- TODO check this rule with more example sentences
+  cl2relslash : ClSlash -> Clause =
+    let hasSubjPron : Bool = True ;
+        hasSTM : Bool = False ;
+        isRel : Bool = True ;
+     in mkClause Subord isRel hasSubjPron hasSTM ;
+
 }
