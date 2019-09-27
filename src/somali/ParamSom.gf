@@ -210,6 +210,14 @@ param
 
   CardOrd = NOrd | NCard ;
 
+  -- to know whether to put oo in between numeral and CN
+  NumType = NoNum | Basic | Compound ;
+
+oper
+  isNum : NumType -> Bool = \nt -> case nt of {
+    NoNum => False ;
+    _     => True
+    } ;
 --------------------------------------------------------------------------------
 -- Adjectives
 

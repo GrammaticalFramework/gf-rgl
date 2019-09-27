@@ -13,9 +13,9 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     a = getAgr det.n (gender cn) } where {
       sTable : Case => Str = \\c =>
          let nfc : {nf : NForm ; c : Case} =
-             case <det.isNum,c,cn.hasMod,det.st,det.n> of {
+             case <det.numtype,c,cn.hasMod,det.st,det.n> of {
                 -- Numbers
-                <True,_,_,_,_> => {nf=Numerative ; c=c} ;
+                <Basic|Compound,_,_,_,_> => {nf=Numerative ; c=c} ;
 
                 -- special form for fem. nouns
                 <_,Nom,False,Indefinite,Sg> => {nf=NomSg ; c=c} ;
@@ -30,13 +30,24 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
                 _ => {nf=Def det.n ; c=c}
              } ;
           art = gda2da cn.gda ! det.n ;
-          num = case det.isNum of {True => Sg ; _ => det.n} ;
+          num = case isNum det.numtype of {True => Sg ; _ => det.n} ;
           dt : {pref,s : Str} =
             case <nfc.nf,cn.isPoss,andB det.isPoss cn.shortPoss> of {
-              <Numerative,_,_> => {s = [] ; pref = det.s ! art ! nfc.c} ; -- determiner comes before CN
-              <_,      True,_> => {pref = [] ; s = det.sp ! gender cn ! nfc.c} ; -- CN has undergone ComplN2 and is already quantified
-              <_,_,      True> => {pref = [] ; s = BIND ++ det.shortPoss ! art} ;
-              _                => {pref = [] ; s = det.s ! art ! nfc.c}
+              -- Det is a cardinal number. The number is the head of the NP,
+              -- and CN becomes its modifier. If CN has modifiers of its own,
+              -- we insert the conjunction "oo" between the number and the CN.
+              <Numerative,_,_> =>
+                 let oo = case det.numtype of {Compound => "oo" ; _ => []}
+                  in {s = [] ; pref = det.s ! art ! nfc.c ++ oo} ;
+
+              -- CN has undergone ComplN2 and is already quantified
+              <_,True,_> => {pref = [] ; s = det.sp ! gender cn ! nfc.c} ;
+
+              -- CN is e.g. a kinship term and takes short possessive
+              <_,_,True> => {pref = [] ; s = BIND ++ det.shortPoss ! art} ;
+
+              -- Default case
+              _ => {pref = [] ; s = det.s ! art ! nfc.c}
             } ;
         in dt.pref -- if det is numeral
         ++ cn.s ! nfc.nf
@@ -120,23 +131,19 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : Quant -> Num -> Det ;
   DetQuant quant num = let indep = Hal in quant ** {
     s = \\da,c =>
-            case num.isNum of {
+            case isNum num.numtype of {
                True => num.s ! indep ++ quant.s ! num.da ! c ++ num.thousand ;
                False => num.s ! indep ++ quant.s ! da ! c ++ num.thousand } ;
 
-    sp = \\g,c => case <num.n,g> of { -- TODO check what happens when num.isNum
+    sp = \\g,c => case <num.n,g> of {
           <Sg,Masc> => num.s ! indep ++ quant.sp ! SgMasc ! c ++ num.thousand ;
           <Sg,Fem> => num.s ! indep ++ quant.sp ! SgFem ! c ++ num.thousand ;
           -- Independent form uses plural morpheme, not gender-flipped allomorph
           <Pl,_> => num.s ! indep ++ quant.sp ! PlInv ! c ++ num.thousand } ;
-    isNum = num.isNum ;
+    numtype = num.numtype ;
     n = num.n ;
     shortPoss = \\da => quant.shortPoss ! da ++ num.s ! indep
     } ;
-    -- d = case <num.isNum,quant.st> of {
-    --       <True,_> => Numerative ;
-    --       <False,Definite> => Def num.n quant.v ;
-    --       <False,Indefinite> => Indef num.n } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord =
@@ -157,7 +164,11 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   NumPl = baseNum ** {n = Pl} ;
 
   -- : Card -> Num ;
-  NumCard card = card ** {isNum = True} ;
+  NumCard card = card ** {
+    numtype = case card.hasThousand of {
+                True => Compound ;
+                False => Basic }
+    } ;
 
   -- : Digits  -> Card ;
 --  NumDigits dig = { s = dig.s ! NCard ; n = dig.n } ;
@@ -245,8 +256,11 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   Use3N3 n3 = lin N2 n3 ;
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = table { NomSg => cn.s ! Indef Sg ; -- When an adjective is added, noun loses case marker.
-                x     => cn.s ! x } ;
+    s = table { -- Add oo after Numerative only if this is CN's first modifier.
+          Numerative => cn.s ! Numerative
+                     ++ andConj Indefinite (notB cn.hasMod) ;
+          NomSg => cn.s ! Indef Sg ; -- Add adj -> noun loses case marker
+          nf => cn.s ! nf } ;
     mod = \\st,n,c =>
             cn.mod ! st ! n ! Abs -- If there was something before, it is now in Abs
          ++ andConj st cn.hasMod  -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
@@ -256,6 +270,10 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
+    s = table {
+          Numerative => cn.s ! Numerative ++ andConj Indefinite (notB cn.hasMod) ;
+          NomSg => cn.s ! Indef Sg ; -- Add adj -> noun loses case marker
+          nf => cn.s ! nf } ;
     mod = \\st,n,c => --what to do with subject case if there's both adj and RS?
             cn.mod ! st ! n ! Abs
          ++ andConj st cn.hasMod

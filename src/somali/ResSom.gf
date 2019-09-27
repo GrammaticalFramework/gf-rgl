@@ -279,7 +279,7 @@ oper
   Determiner : Type = BaseQuant ** {
     sp : Gender => Case => Str ;
     n : Number ;
-    isNum : Bool ;  -- placement in NP + whether to choose Numerative from CN
+    numtype : NumType ;  -- placement in NP + whether to choose Numerative from CN
     } ;
 
   Quant : Type = BaseQuant ** {
@@ -289,6 +289,7 @@ oper
   BaseNum : Type = {
     s : DForm => Str ; -- independent or attribute
     thousand : Str ; -- TODO check where possessive suffix goes
+    hasThousand : Bool ;
     da : DefArticle ;
     n : Number
     } ;
@@ -296,13 +297,14 @@ oper
   baseNum : Num = {
     s = \\_ => [] ;
     thousand = [] ;
+    hasThousand = False ;
     da = M KA ;
     n = Sg ;
-    isNum = False
+    numtype = NoNum
     } ;
 
   Num : Type = BaseNum ** {
-    isNum : Bool -- whether to choose Numerative as the value of NForm
+    numtype : NumType -- whether to choose Numerative as the value of NForm
     } ;
 
   Numeral : Type = BaseNum ** {
