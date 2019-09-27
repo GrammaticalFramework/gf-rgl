@@ -210,11 +210,28 @@ param
 
   CardOrd = NOrd | NCard ;
 
+  -- to know whether to put oo in between numeral and CN
+  NumType = NoNum | Basic | Compound ;
+
+oper
+  isNum : NumType -> Bool = \nt -> case nt of {
+    NoNum => False ;
+    _     => True
+    } ;
 --------------------------------------------------------------------------------
 -- Adjectives
 
 param
   AForm = AF Number Case ; ---- TODO: past tense
+
+  ModType = NoMod | AMod | OtherMod ;
+
+oper
+  -- to flip ModType
+  notMod : ModType -> ModType = \mt -> case mt of {
+    NoMod => OtherMod ;
+    _ => NoMod
+  } ;
 
 --------------------------------------------------------------------------------
 -- Prepositions

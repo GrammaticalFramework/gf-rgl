@@ -68,7 +68,8 @@ lin much_Det = R.indefDet "" sg ;
 -}
 lin somePl_Det = {
     sp = \\_,_ => "qaar" ;
-    isPoss, isNum = False ;
+    isPoss = False ;
+    numtype = NoNum ;
     st = Definite ; -- NB. Indefinite means actually only IndefArt.
     n = Pl ;
     s = \\x,_ => BIND ++ defStems ! x ++ BIND ++ "a qaarkood" ;
