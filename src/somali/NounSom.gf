@@ -56,15 +56,15 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UsePron pron = pron ** {st = Definite} ;
 
   -- : Predet -> NP -> NP ; -- only the man
-  PredetNP predet np = 
+  PredetNP predet np =
     let qnt = PossPron (pronTable ! np.a) ;
         det = qnt.shortPoss ! predet.da ;
          predetS : Str = case predet.isPoss of {
           True => glue predet.s det ;
-          False => predet.s  
+          False => predet.s
         } ;
      in np ** {
-          s = \\c => 
+          s = \\c =>
             case <np.isPron,predet.isPoss> of {
               <True,True> => np.empty ++ predetS ;
               _ => np.s ! c ++ predetS} ;

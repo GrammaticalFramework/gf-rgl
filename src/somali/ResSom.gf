@@ -46,12 +46,16 @@ oper
                         magacya + "da" => magacya ;
                         wiila + "sha" => wiila ;
                         _ => wiilal} ;
-        bisadi : Str = case gender of
-                   { Fem  => case wiil of { _ + #c => wiil+"i" ; _ => wiil} ;
-                     Masc => wiil } ;
-        bisadood : Str = case gender of
-                       { Fem  => case wiilal of {_ + "o" => wiilal+"od" ; _ => wiil} ;
-                         Masc => wiil }
+        bisadi : Str = case gender of {
+                        Fem  => case wiil of {
+                                  _ + #c => wiil+"i" ;
+                                  _      => wiil } ;
+                        Masc => wiil } ;
+        bisadood : Str = case gender of {
+                        Fem  => case wiilal of {
+                                  _ + "o" => wiilal+"od" ;
+                                  _ => wiil } ;
+                        Masc => wiil }
 
     } ;
 -------------------------
