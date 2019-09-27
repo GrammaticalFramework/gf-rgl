@@ -277,9 +277,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
             cn.mod ! st ! n ! Abs
          ++ andConj st cn.modtype
          ++ rs.s ! st ! gennum cn Sg ! c ; -- gennum cn Sg, because plural form is only for 1st person plural
-    modtype = case cn.modtype of {
-      AMod => AMod ;
-      _ => OtherMod }
+    modtype = AMod
     } ;
 
 {-
@@ -317,7 +315,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     mod = \\st,n,c =>
             cn.mod ! st ! n ! c
           ++ andConj st cn.modtype  -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
-          ++ np.s ! Abs
+          ++ objpron np ! Abs
           ++ "ah" ;
     modtype = case cn.modtype of {
       AMod => AMod ;
