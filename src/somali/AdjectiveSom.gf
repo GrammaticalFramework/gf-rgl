@@ -40,7 +40,9 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
 -- The superlative use is covered in $Ord$.
 
   -- : Ord -> AP ;       -- warmest
-  -- AdjOrd ord = ord ** {} ;
+  AdjOrd ord = ord ** {
+    compar = []
+    } ;
 
 -- Sentence and question complements defined for all adjectival
 -- phrases, although the semantics is only clear for some adjectives.

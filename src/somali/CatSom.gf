@@ -66,7 +66,10 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
     Predet = {s : Str ; da : DefArticle ; isPoss : Bool} ;
     Quant = ResSom.Quant ;
     Num = ResSom.Num ;
-    Ord = {s : Str ; n : Number} ;
+    Ord = {
+      s : AForm => Str ; -- Ord can came from AP and become AP again
+      n : Number -- Ord can come from Num, which has inherent number
+      } ;
     DAP = ResSom.Determiner ;
 
 

@@ -141,9 +141,9 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord =
     let theseFive = DetQuant quant num in theseFive ** {
-      s = \\g,c  => theseFive.s ! g ! c  ++ ord.s ;
-      sp = \\g,c => theseFive.sp ! g ! c ++ ord.s ;
-      shortPoss = \\da => theseFive.shortPoss ! da ++ ord.s
+      s = \\g,c  => theseFive.s ! g ! c  ++ ord.s ! AF num.n c ;
+      sp = \\g,c => theseFive.sp ! g ! c ++ ord.s ! AF num.n c ;
+      shortPoss = \\da => theseFive.shortPoss ! da ++ ord.s ! AF num.n Abs
       } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
@@ -173,17 +173,20 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
 -}
   -- : Numeral -> Ord ;
-  OrdNumeral num = num ** {s = num.ord} ;
+  OrdNumeral num = num ** {
+    s = \\_ => num.ord
+    } ;
 
-{-
   -- : A       -> Ord ;
-  OrdSuperl a = {  } ;
+  OrdSuperl a = {
+    s = \\af => "ugu" ++ a.s ! af ;
+    n = Sg -- ?? is this meaningful?
+    } ;
 
 -- One can combine a numeral and a superlative.
 
   -- : Numeral -> A -> Ord ; -- third largest
-  OrdNumeralSuperl num a = num ** {  } ;
--}
+  -- OrdNumeralSuperl num a = num ** {  } ;
 
   -- : Quant
   DefArt = defQuant "a" "kan" "tan" "kuwan" False ;

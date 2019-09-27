@@ -22,3 +22,11 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQ
 -- LangEng: that cat is bigger than this cat
 LangSom: bisad BIND daasi bisad BIND dan waa ka weyn tahay
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)) (UseComp (CompAP (ComparA big_A (DetCN (DetQuant this_Quant NumSg) (UseN cat_N)))))))) NoVoc
+
+-- LangEng: that cat is biggest
+LangSom: bisad BIND daasi waa ugu weyn tahay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)) (UseComp (CompAP (AdjOrd (OrdSuperl big_A))))))) NoVoc
+
+-- LangEng: cat is the biggest animal that I saw
+LangSom: bisadi waa xayawaan BIND ka ugu weyn aan arkay
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (UseN cat_N)) (UseComp (CompNP (DetCN (DetQuantOrd DefArt NumSg (OrdSuperl big_A)) (RelCN (UseN animal_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (SlashV2a see_V2)))))))))
