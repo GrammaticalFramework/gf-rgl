@@ -23,7 +23,7 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
 -- Constructed in QuestionSom.
 
     QCl = ResSom.QClause ;
-    IComp = ResSom.Complement ;              -- interrogative complement of copula  e.g. "where"
+    IComp = SS ;                -- interrogative complement of copula  e.g. "where"
     IDet = ResSom.Determiner ;  -- interrogative determiner            e.g. "how many"
     IQuant = ResSom.Quant ; -- interrogative quantifier            e.g. "which"
     IP = ResSom.NounPhrase ** {contractSTM : Bool} ;  -- like NP but may contract with STM

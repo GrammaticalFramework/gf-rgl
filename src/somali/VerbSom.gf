@@ -137,6 +137,7 @@ lin
   CompAP ap = {
     aComp = \\a => ap.s ! AF (getNum a) Abs ;
     nComp = [] ;
+    compar = ap.compar ;
     stm = Waa Copula ;
     } ;
 
@@ -145,6 +146,7 @@ lin
     -- I am [a house that sleeps here] vs.  we are [houses that sleep here]
     aComp = \\a => cn2str (getNum a) Abs cn ;
     nComp = [] ;
+    compar = [] ;
     stm = Waa NoCopula ;
     } ;
 
@@ -152,6 +154,7 @@ lin
   CompNP np = {
     aComp = \\a => [] ;
     nComp = np.s ! Abs ;
+    compar = [] ;
     stm = Waa NoCopula ;
     } ;
 
@@ -159,6 +162,7 @@ lin
   CompAdv adv = {
     aComp = \\a => linAdv adv ; -- TODO check placement
     nComp = [] ;
+    compar = [] ;
     stm = Waa Copula ;
     } ;
 

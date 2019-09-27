@@ -464,7 +464,7 @@ oper
         => q + a + y + b + sg ; --qayb+qaybsan, fiic+fiican
     _   => sg + sg } ;
 
-  AdjPhrase : Type = Adjective ;
+  AdjPhrase : Type = Adjective ** {compar : Str} ;
 --------------------------------------------------------------------------------
 -- Verbs
 
@@ -728,6 +728,7 @@ oper
   Complement : Type = {
     aComp : Agreement => Str ;
     nComp : Str ;
+    compar : Str ; -- comparative is discontinuous
     stm : STM ; -- to choose right sentence type marker
     } ;
 
@@ -747,6 +748,7 @@ oper
             True  => Waa Copula ;
             False => Waa NoPred
           } ;
+    compar = [] ;
     nComp = [] ;
     aComp = \\_ => [] ;
     vComp = {subjunc, inf = [] ;
@@ -872,6 +874,7 @@ oper
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vps -> vp ** {
     subj = {noun = subjnoun ; pron = subjpron ; isP3 = isP3 subj.a} ;
+    obj2 = vp.obj2 ** {s = vp.obj2.s ++ vp.compar} ;
     pred = \\cltyp,t,a,p =>
             let predRaw = vf cltyp t a p subj.a vp ;
              in case <cltyp, p, t, vp.stm, subj.a> of {
