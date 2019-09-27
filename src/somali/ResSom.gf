@@ -426,16 +426,8 @@ oper
 
 -- Sequences of adjectives follow the rules for restrictive relatives clauses, i.e. are linked by oo 'and' on an indefinite head NounPhrase and by ee 'and' on a definite NounPhrase (8.1).
 
- -- Komparativ
- -- För att uttrycka motsvarigheten till svenskans komparativ placerar man på somaliska helt enkelt prepositionen ká 'från, av, än' framför adjektivet i fråga. Adjektivet får ingen ändelse.
- -- Shan waa ay ká yar tahay siddéed. Fem är mindre än åtta.
- -- Superlativ
- -- Motsvarigheten till svenskans superlativ bildas med prepositionsklustret ugú som till sin betydelse närmast motsvarar svenskans allra, t.ex.
- -- ugu horrayntii (det att komma) allra först
-
   Adjective : Type = {s : AForm => Str} ;
   Adjective2 : Type = Adjective ** {c2 : Preposition} ;
-
 
   duplA : Str -> Adjective = \yar ->
     let yaryar = duplicate yar
@@ -738,8 +730,8 @@ oper
 
   VerbPhrase : Type = BaseVerb ** Complement ** BaseAdv ** {
     c2 : PrepCombination ; -- Prepositions can combine together and with object pronoun.
-    obj2 : NPLite ; -- {s : Str ; a : PrepAgr}
-    secObj : Str ; -- if two overt pronoun objects
+    obj : NPLite ; -- {s : Str ; a : PrepAgr}
+    obj2 : Str ; -- if two overt pronoun objects
     vComp : {subjunc : Str ; -- "waa in" or subjunctive construction: "in" is placed here
               inf : Str ; -- auxiliary VV with infinitive argument
               subcl : Agreement => Str} -- VV complement if it's a subordinate clause
@@ -759,8 +751,8 @@ oper
              subcl = \\_ => []} ;
     berri,miscAdv = [] ;
     c2 = Single NoPrep ;
-    obj2 = {s = [] ; a = P3_Prep} ;
-    secObj = []
+    obj = {s = [] ; a = P3_Prep} ;
+    obj2 = []
     } ;
 
   useVc : Verb2 -> VPSlash = \v2 -> useV v2 ** {
@@ -784,10 +776,10 @@ oper
     } ;
 
   insertRefl : VPSlash -> VPSlash = \vps -> vps ** {
-    obj2 = vps.obj2 ** {a = Reflexive_Prep} ;
+    obj = vps.obj ** {a = Reflexive_Prep} ;
 
-    -- If old obj2 was something else than P3, it is now shown in secObj
-    secObj = vps.secObj ++ secondObject ! vps.obj2.a ;
+    -- If old obj was something else than P3, it is now shown in obj2
+    obj2 = vps.obj2 ++ secondObject ! vps.obj.a ;
     } ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \vp,np ->
@@ -805,25 +797,25 @@ oper
   -- To generalise insertAdv and insertComp
   VPLite : Type = {
     c2 : PrepCombination ;
-    obj2 : NPLite ;
-    sii,dhex,berri,miscAdv,secObj : Str} ;
+    obj : NPLite ;
+    sii,dhex,berri,miscAdv,obj2 : Str} ;
 
   insertCompLite : VPLite -> NPLite -> VPLite = \vp,nplite ->
-    case vp.obj2.a of {
+    case vp.obj.a of {
       -- If the old object is 3rd person (or nonexistent), we replace its agreement.
-      -- We keep both old and new string (=noun, if there was one) in obj2.s.
+      -- We keep both old and new string (=noun, if there was one) in obj.s.
       P3_Prep =>
-        vp ** {obj2 = nplite ** {
-                  s = nplite.s ++ vp.obj2.s}
-                  } ; -- no secObj, because there's ≤1 non-3rd-person pronoun.
+        vp ** {obj = nplite ** {
+                  s = nplite.s ++ vp.obj.s}
+                  } ; -- no obj2, because there's ≤1 non-3rd-person pronoun.
 
       -- If old object was non-3rd person, we keep its agreement.
       -- The new object is put in the secondObject field.
       _ =>
-          vp ** {obj2 = vp.obj2 ** {
-                    s = nplite.s ++ vp.obj2.s
+          vp ** {obj = vp.obj ** {
+                    s = nplite.s ++ vp.obj.s
                     } ;
-                 secObj = vp.secObj ++ secondObject ! nplite.a}
+                 obj2 = vp.obj2 ++ secondObject ! nplite.a}
     } ;
 
   insertAdvLite : VPLite -> Adverb -> VPLite = \vp,adv ->
@@ -857,8 +849,8 @@ oper
   ClSlash : Type = BaseAdv ** {
     -- Fixed in Cl
     subj : {noun, pron : Str ; isP3 : Bool} ; -- noun and subject pronoun if applicable
-    obj2 : NPLite ;
-    secObj : Str ;
+    obj : NPLite ;
+    obj2 : Str ;
     c2 : PrepCombination ; -- NB. QuestIAdv can add more prepositions
     aComp : Str ;
     nComp : Str ;
@@ -878,7 +870,7 @@ oper
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vps -> vp ** {
     subj = {noun = subjnoun ; pron = subjpron ; isP3 = isP3 subj.a} ;
-    obj2 = vp.obj2 ** {s = vp.obj2.s ++ vp.compar} ;
+    obj = vp.obj ** {s = vp.obj.s ++ vp.compar} ;
     pred = \\cltyp,t,a,p =>
             let predRaw = vf cltyp t a p subj.a vp ;
              in case <cltyp, p, t, vp.stm, subj.a> of {
@@ -937,10 +929,10 @@ oper
     s = \\t,a,p =>
       let -- Put all arguments in their right place
           --cl : ClSlash = complCl incomplCl ;
-          prepComb = prepCombTable ! cl.obj2.a ! cl.c2 ;
+          prepComb = prepCombTable ! cl.obj.a ! cl.c2 ;
 
           -- Contractions
-          bind : Str = case <isPassive cl, cl.obj2.a, cl.c2> of {
+          bind : Str = case <isPassive cl, cl.obj.a, cl.c2> of {
             <False,P3_Prep,Single NoPrep> => [] ; -- nothing to attach to the STM
             _                             => BIND } ; -- something to attach, use BIND
           prepCombNeg : Str = case <cltyp,p> of {
@@ -954,7 +946,7 @@ oper
 
           -- Placement of object noun varies depending on type of clause
           statementNounObj = case cltyp of {
-                                Statement => cl.obj2.s ;
+                                Statement => cl.obj.s ;
                                 _         => [] } ;
           statementNounComp = case cltyp of {
                                 Statement => cl.nComp ;
@@ -962,11 +954,11 @@ oper
 
           -- for subord and question, NP predicatives and objects behave the same
           subordNounObj = case cltyp of {
-                                Subord => cl.obj2.s ++ cl.nComp ;
+                                Subord => cl.obj.s ++ cl.nComp ;
                                 _      => [] } ;
           questionNounObj = case cltyp of {
                                 PolarQuestion|WhQuestion
-                                       => cl.obj2.s ++ cl.nComp ;
+                                       => cl.obj.s ++ cl.nComp ;
                                 _      => [] } ;
 
           -- Control whether to include subject pronoun and STM
@@ -996,7 +988,7 @@ oper
 
     ++ cl.sii   -- restricted set of particles
     ++ cl.dhex  -- restricted set of nouns/adverbials
-    ++ cl.secObj   -- "second object"
+    ++ cl.obj2   -- "second object"
     ++ cl.vComp.inf  -- VV complement, if it's infinitive
     ++ cl.pred ! cltyp ! t ! a ! p  -- the inflecting verb
     ++ questionNounObj -- noun object if it's a question
@@ -1102,31 +1094,30 @@ oper
 
   linVP : VForm -> ClType -> VerbPhrase -> Str = \vf,cltyp,vp ->
     let pred = vp.s ! vf ;
-        pr = prepCombTable ! vp.obj2.a ! vp.c2 ;
-        -- obj = {p1 = np.s ;
-        --        p2 = vp.aComp ! pagr2agr np.a ++ prepCombTable ! np.a ! vps.c2} ;
+        pr = prepCombTable ! vp.obj.a ! vp.c2 ;
         neg = case <cltyp,isNeg vf> of {
                 <Subord,True> => "aan" ;
                 _             => []
                } ;
      in wordOrder cltyp neg pred pr vp ;
 
+  -- Light version of the word order complexity in mkClause.
   wordOrder : ClType -> (neg,pred,prepcomb : Str) -> VerbPhrase -> Str =
     \cltyp,neg,pred,pr,vp ->
         vp.berri -- AdV
      ++ case cltyp of {
           Subord => [] ;
-          _ => vp.obj2.s {-obj.p1-} } -- noun object if it's a statement
+          _ => vp.obj.s } -- noun object if it's a statement
      ++ neg
      ++ vp.vComp.subjunc -- "waa in" construction
      ++ case cltyp of {
-          Subord => vp.obj2.s ; -- noun object if it's subordinate clause
+          Subord => vp.obj.s ; -- noun object if it's subordinate clause
           _      => [] }
-     ++ vp.aComp ! pagr2agr vp.obj2.a  -- AP complement agreeing with object
+     ++ vp.aComp ! pagr2agr vp.obj.a  -- AP complement agreeing with object
      ++ pr       -- object if it's a pronoun
      ++ vp.sii   -- restricted set of particles
      ++ vp.dhex  -- restricted set of nouns/adverbials
-     ++ vp.secObj   -- "second object"
+     ++ vp.obj2   -- "second object"
      ++ vp.vComp.inf -- VV complement, if it's infinitive
      ++ pred         -- the verb inflected
      ++ vp.vComp.subcl ! Sg3 Masc  -- VV complement, if it's subordinate clause

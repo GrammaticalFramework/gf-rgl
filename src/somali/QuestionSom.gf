@@ -24,8 +24,8 @@ concrete QuestionSom of Question = CatSom ** open
           subj = cls.subj ** {  -- keep old subject pronoun,
                    noun = ip.s ! Nom -- and place IP first.
                  } ;
-          obj2 = cls.obj2 ** { -- move old subject noun before object.
-                   s = cls.subj.noun ++ cls.obj2.s
+          obj = cls.obj ** { -- move old subject noun before object.
+                   s = cls.subj.noun ++ cls.obj.s
                  } ;
           stm = modSTM "baa" baan cls.stm
         } ;
