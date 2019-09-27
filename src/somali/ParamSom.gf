@@ -224,6 +224,15 @@ oper
 param
   AForm = AF Number Case ; ---- TODO: past tense
 
+  ModType = NoMod | AMod | OtherMod ;
+
+oper
+  -- to flip ModType
+  notMod : ModType -> ModType = \mt -> case mt of {
+    NoMod => OtherMod ;
+    _ => NoMod
+  } ;
+
 --------------------------------------------------------------------------------
 -- Prepositions
 

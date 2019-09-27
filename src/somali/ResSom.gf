@@ -15,7 +15,7 @@ oper
   CNoun : Type = Noun ** {
     mod : State -- for conjunctions: oo for indef, ee for def
        => Number => Case => Str ;
-    hasMod : Bool ;
+    modtype : ModType ;
     isPoss : Bool -- to prevent impossible forms in ComplN2 with Ns that have short possessive, e.g. "father"
     } ;
 
@@ -159,7 +159,7 @@ oper
     False => np.s} ;
 
   useN : Noun -> CNoun ** BaseNP = \n -> n **
-    { mod = \\_,_,_ => [] ; hasMod = False ;
+    { mod = \\_,_,_ => [] ; modtype = NoMod ;
       a = Sg3 (gender n) ; isPron,isPoss = False ;
       empty = [] ; st = Indefinite
     } ;

@@ -13,15 +13,15 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     a = getAgr det.n (gender cn) } where {
       sTable : Case => Str = \\c =>
          let nfc : {nf : NForm ; c : Case} =
-             case <det.numtype,c,cn.hasMod,det.st,det.n> of {
+             case <det.numtype,c,cn.modtype,det.st,det.n> of {
                 -- Numbers
                 <Basic|Compound,_,_,_,_> => {nf=Numerative ; c=c} ;
 
                 -- special form for fem. nouns
-                <_,Nom,False,Indefinite,Sg> => {nf=NomSg ; c=c} ;
+                <_,Nom,NoMod|OtherMod,Indefinite,Sg> => {nf=NomSg ; c=c} ;
 
                 -- If cn has modifier, Nom ending attaches to the modifier
-                <_,Nom,True,_,_> => {nf=Def det.n ; c=Abs} ;
+                <_,Nom,AMod,_,_> => {nf=Def det.n ; c=Abs} ;
 
                 -- a Det with st=Indefinite uses Indef forms
                 <_,_,_,Indefinite,n>  => {nf=Indef n ; c=c} ;
@@ -258,27 +258,28 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   AdjCN ap cn = cn ** {
     s = table { -- Add oo after Numerative only if this is CN's first modifier.
           Numerative => cn.s ! Numerative
-                     ++ andConj Indefinite (notB cn.hasMod) ;
+                     ++ andConj Indefinite (notMod cn.modtype) ;
           NomSg => cn.s ! Indef Sg ; -- Add adj -> noun loses case marker
           nf => cn.s ! nf } ;
     mod = \\st,n,c =>
             cn.mod ! st ! n ! Abs -- If there was something before, it is now in Abs
-         ++ andConj st cn.hasMod  -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
+         ++ andConj st cn.modtype -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
          ++ ap.s ! AF n c ;
-    hasMod = True
+    modtype = AMod
     } ;
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
     s = table {
-          Numerative => cn.s ! Numerative ++ andConj Indefinite (notB cn.hasMod) ;
-          NomSg => cn.s ! Indef Sg ; -- Add adj -> noun loses case marker
+          Numerative => cn.s ! Numerative ++ andConj Indefinite (notMod cn.modtype) ;
           nf => cn.s ! nf } ;
     mod = \\st,n,c => --what to do with subject case if there's both adj and RS?
             cn.mod ! st ! n ! Abs
-         ++ andConj st cn.hasMod
+         ++ andConj st cn.modtype
          ++ rs.s ! st ! gennum cn Sg ! c ; -- gennum cn Sg, because plural form is only for 1st person plural
-    hasMod = True ;
+    modtype = case cn.modtype of {
+      AMod => AMod ;
+      _ => OtherMod }
     } ;
 
 {-
@@ -307,11 +308,23 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   PossNP cn np = cn ** { -- guriga Axmed, not Axmed gurigiisa
     mod = \\st,n,c => cn.mod ! st ! n ! c ++ objpron np ! Abs
     } ;
-{-
+
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
-  PartNP cn np = cn ** {  } ;
+  PartNP cn np = cn ** {
+    s = table {
+          Numerative => cn.s ! Numerative ++ andConj Indefinite (notMod cn.modtype) ;
+          nf => cn.s ! nf } ;
+    mod = \\st,n,c =>
+            cn.mod ! st ! n ! c
+          ++ andConj st cn.modtype  -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
+          ++ np.s ! Abs
+          ++ "ah" ;
+    modtype = case cn.modtype of {
+      AMod => AMod ;
+      _ => OtherMod }
+    } ;
 
-
+{-
 
 -- This is different from the partitive, as shown by many languages.
 
@@ -329,10 +342,10 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -}
 
 oper
-  andConj : State -> Bool -> Str = \st,hasMod ->
-    case <st,hasMod> of {
-      <Indefinite,True> => "oo" ;
-      <Definite,True>   => "ee" ;
-      _                 => []
+  andConj : State -> ModType -> Str = \st,mod ->
+    case <st,mod> of {
+      <Indefinite,AMod|OtherMod> => "oo" ;
+      <Definite,AMod|OtherMod>   => "ee" ;
+      _  => []
     } ;
 }
