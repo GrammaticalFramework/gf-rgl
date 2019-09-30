@@ -515,8 +515,10 @@ oper
                _ + ("i"|"e") => "ey" ;
                _             => "ay" } ;
         n : Str = case arag of {
-               _ + #v => "nn" ; -- n duplicates after vowel
-               _      => "n" } ;
+               _ + #v  => "nn" ; -- n duplicates after vowel
+               _ + "r" => "r" ; -- Saeed p. 35: agreement marker n (1PL)
+               _ + "l" => "l" ; -- assimilates to stem final r or.
+               _       => "n" } ;
         an : Str = case qaado of {
                _ + "o" => "an" ; -- Allomorph for imperatives
                _       => "in" } ;
