@@ -769,11 +769,7 @@ oper
 
   passVP : VerbPhrase -> VerbPhrase = \vp -> vp ** {
     c2 = case vp.c2 of {
-      Single NoPrep => Passive ;
-      Single Ku     => Lagu ;
-      Single Ka     => Laga ;
-      Single U      => Loo ;
-      Single La     => Lala ;
+      Single p => combinePassive p ;
       _             => vp.c2 }
     } ;
 
@@ -827,6 +823,7 @@ oper
              -- if free complement slots, introduce adv.np with insertComp
              Single NoPrep => insertCompLite (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
              Single p => insertCompLite (vp ** {c2 = combine p adv.c2}) adv.np ** adv' ;
+             Passive => insertCompLite (vp ** {c2 = combinePassive adv.c2}) adv.np ** adv' ;
 
              -- if complement slots are full, just insert strings.
              _ => vp ** adv''

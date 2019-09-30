@@ -261,6 +261,15 @@ oper
           Single _ => oneWay ! p1 ! p2 ;
           z        => z } ;
 
+  combinePassive : Preposition -> PrepCombination = \p ->
+    case p of {
+      U => Loo ;
+      Ku => Lagu ;
+      Ka => Laga ;
+      La => Lala ;
+      _ => Passive
+    } ;
+
   isPassive : {c2 : PrepCombination} -> Bool = \vp ->
     case vp.c2 of {
       Passive | Lagu | Laga | Loo | Lala => True ;

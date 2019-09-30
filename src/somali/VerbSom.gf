@@ -121,10 +121,9 @@ lin
   AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;
 -}
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  -- NB. We need possibly a MissingArg kind of solution here too
-  -- VPSlashPrep vp prep = vp **
-  --   { c2 = case vp.c2 of { NoPrep => prep.prep ;
-  --                          x      => x }} ;
+  VPSlashPrep vp prep =
+    let adv = prepNP prep emptyNP
+     in insertAdv vp adv ;
 
 
 
