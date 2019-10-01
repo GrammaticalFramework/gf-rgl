@@ -9,7 +9,7 @@ lin add_V3 = mkV3 "dar" ku NoPrep ;
 -- lin alas_Interj = mkInterj "" ;
 -- lin already_Adv = mkA "" ;
 lin animal_N = mkN "xayawaan" ;
--- lin answer_V2S = mkV2 "" ;
+lin answer_V2S = mkV2S "jawaab" ku ;
 -- lin apartment_N = mkN "" ;
 -- lin apple_N = mkN "" ;
 -- lin art_N = mkN "" ;
@@ -252,7 +252,7 @@ lin name_N = mkN "magac" ;
 --
 -- lin oil_N = mkN "" ;
 -- lin old_A = mkA "" ;
--- lin open_V2 = mkV2 "" ;
+lin open_V2 = mkV2 "fur" ;
 lin paint_V2A = mkV2A "rinjiyee" ;
 -- lin paper_N = mkN "" ;
 -- lin paris_PN = mkPN "Paris" ;

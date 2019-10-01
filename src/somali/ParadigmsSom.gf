@@ -95,6 +95,11 @@ oper
     mkVV : V -> VVForm -> VV ; -- VV out of an existing V
    } ;
 
+   mkV2S : overload {
+     mkV2S : Str -> V2S ; -- Predictable verb, no preposition.
+     mkV2S : Str -> Preposition -> V2S ; -- Predictable verb, preposition given as second argument.
+     mkV2S : V -> Preposition -> V2S -- Unpredictable verb, preposition.
+  } ;
 
   mkVA : Str -> VA
     = \s -> lin VA (regV s) ;
@@ -107,8 +112,6 @@ oper
     = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
   mkV2V : Str -> V2V
     = \s -> lin V2V (regV s ** {c2 = noPrep}) ;
-  mkV2S : Str -> V2S
-    = \s -> lin V2S (regV s ** {c2 = noPrep}) ;
   mkV2Q : Str -> V2Q
     = \s -> lin V2Q (regV s ** {c2 = noPrep}) ;
 
@@ -247,6 +250,15 @@ oper
      = \b -> let dummyV : V = mkV "in"
               in lin VV (dummyV ** {vvtype=b ; s = \\_ => "in"})
    } ;
+
+   mkV2S = overload {
+     mkV2S : Str -> V2S -- Predictable verb, no preposition.
+     = \s -> lin V2S (regV s ** {c2 = noPrep}) ;
+     mkV2S : Str -> Preposition -> V2S -- Predictable verb, preposition given as second argument.
+       = \s,pr -> lin V2S (regV s ** {c2 = pr}) ;
+     mkV2S : V -> Preposition -> V2S -- Unpredictable verb, preposition.
+       = \v,pr -> lin V2S (v ** {c2 = pr})
+  } ;
 
   possPrep : N -> CatSom.Prep = \dhex -> emptyPrep ** {
     hoostiisa = \\agr =>

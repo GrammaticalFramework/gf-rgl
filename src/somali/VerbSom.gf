@@ -66,12 +66,16 @@ lin
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash2V3,
   Slash3V3 = \v3 -> insertComp (useVc3 v3) ;
+
+  -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
+  SlashV2S v2s s =
+    let vps = useVc v2s ;
+        subord = SubjS {s="in"} s ;
+     in vps ** {obj = {s = subord.berri ; a = P3_Prep}} ;
+
 {-
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
   SlashV2V v2v vp = ;
-
-  -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
-  SlashV2S v2s s = ;
 
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
   SlashV2Q v2q qs = ;
@@ -121,10 +125,9 @@ lin
   AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;
 -}
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  -- NB. We need possibly a MissingArg kind of solution here too
-  -- VPSlashPrep vp prep = vp **
-  --   { c2 = case vp.c2 of { NoPrep => prep.prep ;
-  --                          x      => x }} ;
+  VPSlashPrep vp prep =
+    let adv = prepNP prep emptyNP
+     in insertAdv vp adv ;
 
 
 
