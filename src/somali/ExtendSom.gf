@@ -11,11 +11,7 @@ lin
   GenModNP num np cn = DetCN (DetQuant IndefArt num) (genModCN cn np) ;
 
    -- : NP  -> SSlash  -> Utt ;   -- her I love -- Saeed p. 189-
-  FocusObj np sslash = -- FIXME: preposition disappears in negative sentences
-    let ss = sslash.s ! False ;
-        ssSub  = sslash.s ! True ; -- the negative particle is the same as subordinate, but verb forms come from main clause
-        obj = objpron np ! Abs ;
-     in {s = ssSub.beforeSTM ++ "waxa" ++ ssSub.stm ++ ss.afterSTM ++ obj} ;
+  FocusObj np sslash = {s = sslash.s ! False ++ objpron np ! Abs} ;
 
   -- FocusAdv : Adv -> S       -> Utt ;   -- today I will sleep
   -- FocusAdV : AdV -> S       -> Utt ;   -- never will I sleep
