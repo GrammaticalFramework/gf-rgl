@@ -226,21 +226,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UseN,UseN2 = ResSom.useN ;
 
   -- : N2 -> NP -> CN ;    -- Sahra hooyadeed
-  ComplN2 n2 np = let cn = useN n2 in cn ** {s = \\nf =>
-    let num = case nf of {
-                    Def n  => n ;
-                    Indef n => n ;
-                    _ => Sg } ;
-        art = gda2da cn.gda ! num ;
-        qnt = PossPron (pronTable ! np.a) ;
-        det = case cn.shortPoss of {
-                True => qnt.shortPoss ! art ;
-                _ => qnt.s ! sg n2.gda ! Abs } ;
-        noun = case np.isPron of {
-                 True  => (pronTable ! np.a).sp ! Abs ; -- long subject pronoun
-                 False => np.s ! Abs }
-     in noun ++ cn.s ! Def num ++ BIND ++ det ;
-     isPoss = True} ;
+  ComplN2 n2 np = genModCN (useN n2) np ;
 
 {-
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
@@ -346,4 +332,22 @@ oper
       <Definite,AMod|OtherMod>   => "ee" ;
       _  => []
     } ;
+
+  genModCN : CN -> NP -> CN = \cn,np -> cn ** {
+    s = \\nf =>
+      let num = case nf of {
+                      Def n  => n ;
+                      Indef n => n ;
+                      _ => Sg } ;
+          art = gda2da cn.gda ! num ;
+          qnt = PossPron (pronTable ! np.a) ;
+          det = case cn.shortPoss of {
+                  True => qnt.shortPoss ! art ;
+                  _ => qnt.s ! sg cn.gda ! Abs } ;
+          noun = case np.isPron of {
+                   True  => (pronTable ! np.a).sp ! Abs ; -- long subject pronoun
+                   False => np.s ! Abs }
+       in noun ++ cn.s ! Def num ++ BIND ++ det ;
+     isPoss = True} ;
+
 }

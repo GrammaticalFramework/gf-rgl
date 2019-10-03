@@ -6,6 +6,10 @@ concrete ExtendSom of Extend = CatSom
   ** open Prelude, ResSom in {
 
 lin
+
+  -- : Num -> NP -> CN -> NP ; -- this man's car(s)
+  GenModNP num np cn = DetCN (DetQuant IndefArt num) (genModCN cn np) ;
+
    -- : NP  -> SSlash  -> Utt ;   -- her I love -- Saeed p. 189-
   FocusObj np sslash = -- FIXME: preposition disappears in negative sentences
     let ss = sslash.s ! False ;
