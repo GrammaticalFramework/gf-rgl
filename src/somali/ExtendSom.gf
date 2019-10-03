@@ -1,9 +1,9 @@
 --# -path=.:../common:../abstract
 
 concrete ExtendSom of Extend = CatSom
- --  ** ExtendFunctor -- Add this back when all relevant functions are implemented
- --  with (Grammar=GrammarSom)
-  ** open Prelude, ResSom in {
+  ** ExtendFunctor - [GenModNP, FocusObj, ComplDirectVS, ComplDirectVQ]
+  with (Grammar=GrammarSom)
+  ** open Prelude, ResSom, NounSom in {
 
 lin
 

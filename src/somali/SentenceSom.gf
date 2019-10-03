@@ -42,19 +42,17 @@ lin
 
 --2 Embedded sentences
 
-{-
   -- : S  -> SC ;
-  EmbedS s = { } ;
+  EmbedS s = {s = s.s ! True} ; -- choose subordinate
 
   -- : QS -> SC ;
-  EmbedQS qs = { } ;
+  -- EmbedQS qs = { } ;
 
   -- : VP -> SC ;
-  EmbedVP vp = { s = linVP vp } ;
+  EmbedVP vp = {s = infVP vp} ;
 
 --2 Sentences
 
--}
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cls = {
     s = \\isSubord => let cl = cl2sentence isSubord cls in
