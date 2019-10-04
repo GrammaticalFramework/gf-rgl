@@ -48,7 +48,9 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
 -- phrases, although the semantics is only clear for some adjectives.
 
   -- : AP -> SC -> AP ;  -- good that she is here
-  -- SentAP  ap sc = ap ** { } ;
+  SentAP  ap sc = ap ** {
+    s = \\af => ap.s ! af ++ sc.s -- TODO check
+    } ;
 
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 
