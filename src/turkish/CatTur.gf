@@ -4,10 +4,9 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
 
   lincat
 
-    S  = {s : Gerundification => Str} ;
+    S  = {s, subord : Str} ;
 
-    -- TODO: parameterize by tense.
-    Cl = {s : Gerundification => Str} ;
+    Cl = {s : Tense => Str; subord : Str} ;
 
 
     -- Noun
@@ -47,4 +46,9 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
     N2 = Noun ** {c : Prep} ;
     N3 = Noun ** {c1,c2 : Prep} ;
     PN = Noun ;
+
+linref
+    V = \v -> v.s ! VInfinitive ;
+    V2 = \v -> v.s ! VInfinitive ++ v.c.s ;
+
 }

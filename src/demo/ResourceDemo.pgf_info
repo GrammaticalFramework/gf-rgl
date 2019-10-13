@@ -1,0 +1,6 @@
+ResourceDemo is a good place to start investigating linguistic structures in the GF Resource Grammar Library.
+
+It is a slightly simplified version of the full RGL, aimed for reducing ambiguity and supporting fast parsing.
+It also supports the display of dependency trees using the UD (Universal Dependencies) schema.
+(However, for most languages, some dummy 'dep' labels are still in use in the UD trees.)
+

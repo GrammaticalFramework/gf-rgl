@@ -19,7 +19,7 @@ concrete PhraseTur of Phrase = CatTur ** open Prelude, ResTur in {
     UttVP vp = {s = vp.s ! VInfinitive} ;
     UttAP ap = {s = ap.s ! Sg ! Nom} ;
     UttCN n = {s = n.s ! Sg ! Nom} ;
-    UttS s = {s = s.s ! None} ;
+    UttS s = {s = s.s} ;
     UttAdv adv = adv ;
 
     NoPConj = {s = []} ;

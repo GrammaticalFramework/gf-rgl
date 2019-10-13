@@ -41,12 +41,15 @@ resource ResIce = ParamX ** open Prelude in {
 		PForm = PWeak Number Gender Case | PStrong Number Gender Case | PPres ;
 
 		VForm =
-			VInf
+			  VInf Voice -- AR 2019-08-02 added voice to enable Middle infinitives
 			| VPres Voice Mood Number Person
 			| VPast Voice Mood Number Person
 			| VImp Voice Number
+			| VSup Voice
 			;
+		oper vInf = VInf Active ; -- AR 2019-08-02
 
+param
 		VPForm = VPInf
 			| VPImp
 			| VPMood Tense Anteriority -- is this a describing name ?
@@ -127,7 +130,6 @@ resource ResIce = ParamX ** open Prelude in {
 		Verb : Type = {
 			s : VForm => Str ;
 			p : PForm => Str ;
-			sup : Voice => Str
 		} ;
 
 		mkVoice : Voice -> Str -> Str = \v,s ->
@@ -151,7 +153,7 @@ resource ResIce = ParamX ** open Prelude in {
 			plFemNom,plFemAcc,plFemDat,plFemGen,plNeutNom,plNeutAcc,plNeutDat,plNeutGen,
 			weakSgMascNom,weakSgMascAccDatGen,weakSgFemNom,weakSgFemAccDatGen,weakSgNeut,weakPl,flogið -> {
 				s = table {
-					VInf				=> fljúga1 ;
+					VInf v				=> mkVoice v fljúga1 ; -- AR 2019-08-02
 					VPres v Indicative Sg P1	=> mkVoice v flýg ;
 					VPres v Indicative Sg P2	=> mkVoice v flýgur2 ;
 					VPres v Indicative Sg P3	=> mkVoice v flýgur3 ;
@@ -177,7 +179,8 @@ resource ResIce = ParamX ** open Prelude in {
 					VPast v Subjunctive Pl P2	=> mkVoice v flygjuð ;
 					VPast v Subjunctive Pl P3	=> mkVoice v flygju ;
 					VImp v Sg			=> mkVoice v fljúgðu ;
-					VImp v Pl			=> mkVoice v fljúgið
+					VImp v Pl			=> mkVoice v fljúgið ;
+					VSup v                  	=> mkVoice v flogið
 				} ;
 				p = table {
 					PWeak Sg Masc Nom	=> weakSgMascNom ;
@@ -194,7 +197,6 @@ resource ResIce = ParamX ** open Prelude in {
 					PStrong Pl Neutr c	=> caseList plNeutNom plNeutAcc plNeutDat plNeutGen ! c ;
 					PPres 			=> fljúgandi
 				} ;
-				sup =\\v	=> mkVoice v flogið
 		} ;
 
 		VP : Type = {
@@ -227,7 +229,7 @@ resource ResIce = ParamX ** open Prelude in {
 
 		predV : Verb -> VP = \v -> {
 			s = \\vpform,pol,agr => case vpform of {
-				VPInf	=> vf (v.s ! VInf) [] (negation pol) False ;
+				VPInf	=> vf (v.s ! vInf) [] (negation pol) False ;
 				VPImp	=> vf (v.s ! VImp Active agr.n) [] (negation pol) False ;
 				VPMood ten ant => vff v ten ant pol agr
 			} ;
@@ -240,7 +242,7 @@ resource ResIce = ParamX ** open Prelude in {
 		} ;
 
 		predVV : { s : VForm => Str ; p : PForm => Str ; sup : Voice => Str ; c2 : Preposition } -> VP = \vv -> 
-			predV {s = vv.s ; p = vv.p ; sup = vv.sup} ;
+			predV {s = vv.s ; p = vv.p} ;
 
 
 		negation : Polarity -> Str = \pol -> case pol of {
@@ -262,19 +264,19 @@ resource ResIce = ParamX ** open Prelude in {
 			-- hann sefur []/ekki - he []/doesn't sleep
 			<Pres,Simul>	=> vf (v.s ! VPres Active Indicative agr.n agr.p) [] (negation pol) False;
 			-- hann hefur []/ekki sofið - he has/hasn't slept
-			<Pres,Anter>	=> vf (verbHave.s ! VPres Active Indicative agr.n agr.p) (v.sup ! Active) (negation pol) True ;
+			<Pres,Anter>	=> vf (verbHave.s ! VPres Active Indicative agr.n agr.p) (v.s ! VSup Active) (negation pol) True ;
 			-- hann svaf []/ekki - he []/didn't sleep
 			<Past,Simul> 	=> vf (v.s ! VPast Active Indicative agr.n agr.p) [] (negation pol) False ;
 			-- hann hafði []/ekki sofið - he had/hadn't slept
-			<Past,Anter> 	=> vf (verbHave.s ! VPast Active Indicative agr.n agr.p) (v.sup ! Active) (negation pol) True ;
+			<Past,Anter> 	=> vf (verbHave.s ! VPast Active Indicative agr.n agr.p) (v.s ! VSup Active) (negation pol) True ;
 			-- hann mun []/ekki sofa - he will/won't sleep
-			<Fut,Simul>	=> vf (verbWill.s ! VPres Active Indicative agr.n agr.p) (v.s ! VInf) (negation pol) True ;
+			<Fut,Simul>	=> vf (verbWill.s ! VPres Active Indicative agr.n agr.p) (v.s ! vInf) (negation pol) True ;
 			-- hann mun []/ekki hafa sofið - 'he will/won't have slept'	
-			<Fut,Anter>	=> vf (verbWill.s ! VPres Active Indicative agr.n agr.p) (verbHave.s ! VInf ++ v.sup ! Active) (negation pol) True ;
+			<Fut,Anter>	=> vf (verbWill.s ! VPres Active Indicative agr.n agr.p) (verbHave.s ! vInf ++ v.s ! VSup Active) (negation pol) True ;
 			-- hann myndi []/ekki sofa 'he would/wouldn't sleep'
-			<Cond,Simul>	=> vf (verbWill.s ! VPast Active Subjunctive agr.n agr.p) (v.s ! VInf) (negation pol) True ;
+			<Cond,Simul>	=> vf (verbWill.s ! VPast Active Subjunctive agr.n agr.p) (v.s ! vInf) (negation pol) True ;
 			-- hann myndi []/ekki hafa sofið 'he would/wouldn't have slept'
-			<Cond,Anter>	=> vf (verbWill.s ! VPast Active Subjunctive agr.n agr.p) (verbHave.s ! VInf ++ v.sup ! Active) (negation pol) True
+			<Cond,Anter>	=> vf (verbWill.s ! VPast Active Subjunctive agr.n agr.p) (verbHave.s ! vInf ++ v.s ! VSup Active) (negation pol) True
 		} ;
 
 		-- Auxilary verbs --
@@ -340,7 +342,7 @@ resource ResIce = ParamX ** open Prelude in {
 				in case <order,vp.indShift,vp.dirShift> of {
 					<ODir,False,False>	=> subj ++ finInf ++ verb.a1.p2 ++ ind ++ dir ++ adv ;
 					<ODir,True,False>	=> subj ++ finInf ++ ind ++ verb.a1.p2 ++ dir ++ adv ;
-					<Odir,_,True>		=> subj ++ finInf ++ ind ++ dir ++ verb.a1.p2 ++ adv ;
+					<ODir,_,True>		=> subj ++ finInf ++ ind ++ dir ++ verb.a1.p2 ++ adv ;
 					<OQuestion,False,False>	=> finSubjInf ++ verb.a1.p2 ++ ind ++ dir ++ adv ;
 					<OQuestion,True,False>	=> finSubjInf ++ ind ++ verb.a1.p2 ++ dir ++ adv ;
 					<OQuestion,_,True>	=> finSubjInf ++ ind ++ dir ++ verb.a1.p2 ++ adv

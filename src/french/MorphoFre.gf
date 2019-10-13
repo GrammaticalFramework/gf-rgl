@@ -73,7 +73,7 @@ oper
 -- Here are some patterns. First one that describes the worst case.
 
   mkAdj' : (_,_,_,_,_ : Str) -> Adj ;
-  mkAdj' vieux vieil vieuxs vieille vieillement = {
+  mkAdj' vieux vieil vieille vieuxs vieillement = {
     s = table {
       ASg Masc _ => pre {#voyelle => vieil ; "h" => vieil ; _ => vieux} ;
       ASg Fem _  => vieille ;
@@ -83,7 +83,7 @@ oper
     } ;
 
   mkAdj : (_,_,_,_ : Str) -> Adj ;
-  mkAdj bleu bleus bleue bleuement = mkAdj' bleu bleu bleus bleue bleuement ;
+  mkAdj bleu bleue bleus bleuement = mkAdj' bleu bleu bleue bleus bleuement ;
 
 -- Then the regular and invariant patterns.
 

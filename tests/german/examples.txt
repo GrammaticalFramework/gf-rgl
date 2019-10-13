@@ -1,0 +1,359 @@
+-- For regression tests using gf> eh regression-test.txt, HL 6/2019
+-- to test the ordering of objects and negation in simple clauses
+
+-- examples from ResGer.gf, 27/5/2012
+
+ich bin nicht alt                     -- accept
+ich bin nicht hier                    -- accept
+ich kenne dich nicht                  -- accept
+ich kenne deine Frau nicht            -- accept
+ich bin nicht ein Kind                -- dubious
+ich bin kein Kind                     -- accept, no_Quant
+ich schlafe nicht hier                -- accept
+ich sage nicht , dass es regnet ,     -- accept
+ich male es nicht blau                -- accept
+ich schlafe nicht immer               -- accept
+ich kenne dich nicht immer            -- accept
+ich kann nicht schlafen               -- accept
+es wird nicht besser                  -- accept
+
+-- simple sentences with V2 and (negated) indefinite objects, (-)iNP
+
+wir trinken Bier                      -- accept   
+wir trinken Bier nicht                -- accept   (v2fin < MassNP < neg)
+wir trinken es nicht                  -- accept   (v2fin < Pron < neg)
+wir trinken kein Bier                 -- accept   (v2fin < -MassNP)      via no_Quant
+wir trinken nicht Bier                -- reject   (v2fin < neg < MassNP) not_Predet
+wir trinken nicht es                  -- reject  *(v2fin < neg < Pron)   not_Predet
+
+wir trinken warmes Bier nicht         -- accept   (v2fin < MassNP < neg)
+wir trinken nicht warmes Bier         -- reject  *(v2fin < neg < MassNP)
+wir trinken kein warmes Bier          -- accept   (v2fin < -MassNP)
+wir trinken kein warmes Bier nicht    -- reject   (v2fin < -MassNP < neg; Bavarian: recognize)
+
+ich sehe den Mann nicht               -- accept   (v2fin < dNP < neg)
+ich sehe einen Mann nicht             -- dubious  (v2fin < iNP < neg), einen Mann nicht sehen
+ich sehe keinen Mann                  -- accept   (v2fin < -iNP) no_Quant
+ich sehe ihn nicht                    -- accept   (v2fin < Pron < neg)
+ich sehe nicht ihn                    -- reject  *(v2fin < neg < Pron); ok with emphasis?
+ich sehe jemanden nicht               -- accept, dubious   (v2fin < iPron < neg)
+ich sehe nicht jemanden               -- reject  *(v2fin < neg < iPron)
+ich sehe niemanden                    -- accept   (v2fin < -iPron)
+
+ich lese ein schlechtes Buch nicht    -- accept   (v2fin < iNP < neg), sentence negation
+ich lese kein schlechtes Buch         -- accept   (v2fin < -iNP)     
+
+ich sehe Gründe                       -- accept   (v2fin < iNP)
+ich sehe Gründe nicht                 -- dubious, accept  (v2fin < iNP < neg)
+ich sehe nicht Gründe                 -- dubious, accept  not_Predet
+ich sehe keine Gründe                 -- accept   (v2fin < -iNP)
+
+ich sehe zwei Gründe                  -- accept   (v2fin < dNP)
+ich sehe zwei Gründe nicht            -- accept   (v2fin < dNP < neg)
+ich sehe keine zwei Gründe            -- accept   (v2fin < -dNP)
+
+ich sehe schlechte Gründe             -- accept
+ich sehe schlechte Gründe nicht       -- accept   (v2fin < iNP < neg)
+ich sehe keine schlechten Gründe      -- accept   (v2fin < -iNP)
+ich sehe keine schlechte Gründe       -- reject AdjDekl
+
+ich sehe viele schlechte Gründe       -- accept   (v2fin < qNP)
+ich sehe viele schlechten Gründe      -- reject AdjDekl
+ich sehe viele schlechte Gründe nicht -- accept   (v2fin < qNP < neg)
+ich sehe nicht viele schlechte Gründe -- accept   (v2fin < neg < qNP) no_Predet
+ich sehe wenige schlechte Gründe      -- accept
+ich sehe wenige schlechten Gründe     -- reject AdjDekl
+
+-- with modal verb:
+
+wir wollen einen Mann nicht sehen     -- dubious
+wir wollen nicht einen Mann sehen     -- dubious
+wir wollen jemanden sehen             -- accept
+wir wollen nicht jemanden sehen       -- dubious, reject
+wir wollen jemanden nicht sehen       -- dubious, accept (niemanden sehen)
+     
+-- v2 with prep              (default order, Main: v2fin < neg < prep)
+
+wir warten nicht auf die Kinder           -- accept  (v2 < neg < prep) 
+wir warten nicht auf dich                 -- accept
+wir werden nicht auf euch warten          -- accept
+wir haben nicht auf alle Kinder gewartet  -- accept
+wir haben nicht auf euch gewartet         -- accept
+weil wir nicht auf euch warten wollen     -- accept
+wir warten nicht auf viele Kinder         -- accept  (prep ++ quantified np)?
+
+wir warten auf viele Kinder nicht         -- dubious (v2fin < prep + qNP < neg)
+wir haben auf viele Kinder nicht gewartet -- dubious
+wir haben auf alle Kinder nicht gewartet  -- reject  *(v2fin < prep < neg)
+
+wir warten auf die Kinder nicht           -- accept dubious
+wir warten auf dich nicht                 -- accept dubious
+wir haben auf euch nicht gewartet         -- accept dubious
+weil wir auf euch nicht warten wollen     -- accept dubious
+
+-- simple sentences with accdatV3 and definite/indefinite nonPron objects
+
+ich schicke der Frau das Buch         -- accept  (v3fin < dNP.dat < dNP.acc) 
+ich schicke der Frau ein Buch         -- accept  (v3fin < dNP.dat < iNP.acc) 
+ich schicke einer Frau das Buch       -- accept  (v3fin < iNP.dat < dNP.acc) 
+ich schicke einer Frau ein Buch       -- accept  (v3fin < iNP.dat < iNP.acc) 
+
+ich schicke das Buch der Frau         -- dubious (v3fin < dNP.acc < dNP.dat) 
+ich schicke ein Buch der Frau         -- reject *(v3fin < iNP.acc < dNP.dat) 
+ich schicke das Buch einer Frau       -- dubious (v3fin < dNP.acc < iNP.dat) 
+ich schicke ein Buch einer Frau       -- reject, dubious (v3fin < iNP.acc < iNP.dat) 
+
+-- simple sentences with accdatV3, negation and in/definite objects and Prons:
+
+-- (der Frau | ihr) (das | ein) Buch nicht schicken (v3fin < NP.dat < NP.acc < neg Vinf)
+
+ich schicke der Frau das Buch nicht   -- accept  (dNP.dat < dNP.acc < neg)
+ich schicke einer Frau das Buch nicht -- accept  (v3fin < iNP.dat < dNP.acc < neg)
+ich schicke ihr das Buch nicht        -- accept  (v3fin < Pron.dat < dNP.acc < neg)
+ich schicke es der Frau nicht         -- accept  (v3fin < Pron.acc < dNP.dat < neg)  
+ich schicke es einer Frau nicht       -- accept  (v3fin < Pron.acc < iNP.dat < neg)  
+ich schicke es ihr nicht              -- accept  (v3fin < Pron.acc < Pron.dat < neg)  
+ich schicke ihr es nicht              -- reject *(v3fin < Pron.dat < Pron.acc < neg)
+ich schicke es nicht ihr              -- reject *(v3fin < Pron.acc < neg < Pron.dat)
+
+ich schicke keiner Frau das Buch      -- accept  (v3fin < -iNP.dat < dNP.acc)
+ich schicke das Buch keiner Frau      -- accept  (v3fin < dNP.acc < -iNP.dat)
+ich schicke das Buch einer Frau nicht -- reject ?(v3fin < dNP.acc < iNP < neg)
+
+ich schicke der Frau kein Buch        -- accept  (v3fin < dNP.dat < -iNP.acc) 
+ich schicke ihr kein Buch             -- accept  (v3fin < Pron.dat < -iNP.acc) 
+ich schicke keiner Frau ein Buch      -- accept  (v3fin < -iNP.dat < iNP.acc)
+ich schicke es keiner Frau            -- accept  (v3fin < Pron.acc < -iNP.dat)
+ich schicke es einer Frau nicht       -- accept  (v3fin < Pron.acc < iNP.dat < neg)
+
+ich schicke ihr das Buch nicht        -- accept:  Pron.dat < dNP.acc < neg
+
+-- using Slash2V3, Slash3V3:
+
+-- provided that c2=dir-object, c3=indir-object in "give_V3 sb. sth."
+-- geben = v2{c2=acc,c3=dat}) == give = v2{c2=noP,c3=noP} !!
+
+der Apfel , den das Kind der Frau gibt ,          -- accept
+der Apfel , den das Kind ihr gibt ,               -- accept
+der Apfel , den ihr das Kind gibt ,               -- accept
+der Apfel , den es ihr gibt ,                     -- accept
+der Apfel , den ihr es gibt ,                     -- reject, Pron-order
+
+die Frau , der das Kind den Apfel nicht gibt ,    -- accept
+die Frau , der es den Apfel nicht gibt ,          -- accept
+die Frau , der das Kind ihn nicht gibt ,          -- accept
+die Frau , der ihn das Kind nicht gibt ,          -- accept
+die Frau , der die Kinder den Apfel nicht geben , -- accept
+die Frau , der die Kinder ihn nicht geben ,       -- accept ?
+die Frau , der sie ihn nicht geben ,              -- accept
+die Frau , der ihn die Kinder nicht geben ,       -- accept ?
+
+die Frau , der es ihn gibt ,                      -- accept
+die Frau , der er ihn gibt ,                      -- accept
+die Frau , welcher es ihn gibt ,                  -- accept
+die Frau , welcher er ihn gibt ,                  -- accept
+
+-- using QuestSlash and Slash3V3
+
+wem gibt das Kind den Apfel nicht                 -- accept
+wem gibt ihn das Kind nicht                       -- accept
+wem gibt das Kind ihn nicht                       -- reject, ?
+wem gibt es den Apfel nicht                       -- accept
+wem gibt es ihn nicht                             -- accept
+wem gibt es nicht den Apfel                       -- accept , no_Quant
+
+wen gibt es der Frau nicht                        -- accept
+wen gibt es ihr Frau nicht                        -- accept
+
+-- with dirV3 v gen = mkV3 v acc gen
+
+ich klage die Männer des Biers an  -- accept  (v3fin < dNP.acc < dNP.gen)
+ich klage ihn des Biers an         -- accept
+ich klage ihn einiger Biere an     -- accept
+ich klage des Biers ihn an         -- reject  (v3fin < NP.gen < Pron.acc)
+ich klage einiger Biere ihn an     -- reject  (v3fin < NP.gen < Pron.acc)
+
+ich klage die Männer des Biers nicht an  -- accept  (v3fin < dNP.acc < dNP.gen < neg )
+ich klage die Männer nicht des Biers an  -- accept  (v3fin < dNP.acc < neg < dNP.gen) not_Predet
+
+-- with mkV3 v acc acc
+
+wir lehren ihn die Musik              -- accept  (pron.acc(indir) < np.acc(dir))
+wir lehrten den Studenten den Grund   -- accept  (np.acc(indir) < np.acc(dir))
+wir lehrten den Grund den Studenten   -- reject  (np.acc(dir) < np.acc(indir))
+wir lehrten ihn den Grund             -- accept
+wir lehrten ihn die Studenten         -- reject 
+wir lehrten ihn sie                   -- dubious (pron.acc(indir) < pron.acc(dir))
+wir lehrten sie ihn                   -- dubious (pron.acc(dir) < pron.acc(indir)a)
+
+-- with dirV3 v prep:           (Main default order: vfin < acc < neg < prep < vinf)
+
+wir erinnern den Jungen nicht an den Regen -- accept
+wir erinnern den Jungen nicht an ihn       -- accept (daran)
+wir erinnern ihn nicht an ihn              -- accept
+wir haben den Jungen nicht an ihn erinnert -- accept
+
+wir danken der Kuh für den Käse            -- accept
+wir danken der Kuh nicht für den Käse      -- accept dubious
+wir danken der Kuh nicht für ihn           -- accept  (dafür nicht ?)
+wir danken ihr nicht für den Käse          -- accept
+wir danken ihr nicht für ihn               -- accept
+wir danken ihr nicht für ihn               -- accept
+
+-- with mkV3 v prep prep:  (implemented Main order: vfin < neg < prep < prep)
+--                          sometimes better:       vfin < prep < neg < prep)
+
+wir reden mit der Frau über den Mann       -- accept (Slash2V3)
+wir reden mit der Frau über den Mann nicht -- accept (Slash2V3)
+wir reden über den Mann mit der Frau       -- accept (Slash3V3)
+wir reden über den Mann mit der Frau nicht -- accept (Slash3V3)
+
+wir reden mit ihr über ihn nicht           -- accept
+wir reden nicht mit ihr über ihn           -- accept (not recognized)
+
+
+-- Reflexive verbs, to test Pron.acc < refl < Pron.dat|gen, nonPronNP:
+
+-- mkClause + PNeg gives (Main) "subj < vfin < refl < objs < neg < vinf", 
+-- but negation seems to come before prepositional objects.
+
+-- rV: refl.acc
+
+ihr ändert euch nicht                -- accept  (refl.acc < neg)
+er wird sich nicht anstrengen        -- accept 
+er hat sich nicht angestrengt        -- accept
+ihr ändert nicht euch                -- reject  (neg < refl.acc)
+er wird sich anstrengen nicht        -- reject
+er hat nicht sich angestrengt        -- reject
+
+-- rV2: refl.acc + dat
+
+du ergibst dich den Feinden nicht    -- accept  (refl.acc < np.dat < neg)
+du ergibst dich nicht den Feinden    -- accept  (refl.acc < neg, no_Predet)
+du ergibst dich mir nicht            -- accept  (refl.acc < pron.dat < neg)
+
+-- rV2: refl.acc + gen
+
+wir bedienen uns des Stockes         -- accept
+wir bedienen uns seiner              -- accept
+wir bedienen uns des Stockes nicht   -- accept  (refl.acc < np.gen < neg)
+wir bedienen uns seiner nicht        -- accept  (refl.acc < pron.gen < neg)
+
+-- rV2: refl.acc + prep
+
+ich stütze mich nicht auf den Stock  -- accept (refl.acc < neg < np.prep)
+ich stütze mich auf den Stock nicht  -- reject (refl.acc < np.prep < neg)
+ich stütze mich nicht auf ihn        -- accept (refl.acc < neg < pron.prep)
+ich stütze mich auf ihn nicht        -- reject (refl.acc < pron.prep < neg)
+
+-- rV3: refl.acc + prep + prep
+
+ich entschuldige mich bei dir für die Frage           -- accept, Slash2V3
+ich entschuldige mich bei dir für sie                 -- accept
+ich entschuldige mich bei dir für die Frage nicht     -- accept
+ich entschuldige mich bei dir nicht für die Frage     -- dubious (not recognized)
+ich entschuldige mich nicht bei dir für die Frage     -- accept  (not recognized)
+
+die Frage , für die ich mich bei ihr entschuldigte    -- accept, Slash2V3
+
+ich entschuldige mich für die Frage bei dir            -- accept, Slash3V3
+ich entschuldige mich für die Frage bei dir nicht      -- accept, Slash3V3
+die Frau , bei der ich mich für ihn nicht entschuldige -- accept, Slash3V3
+die Frau , bei der ich mich nicht für ihn entschuldige -- accept, Slash3V3 (not recognized)
+
+er hat sich bei mir für den Stock nicht entschuldigt   -- accept
+hast du dich bei ihm für den Stock nicht entschuldigt  -- accept (not recognized)
+hast du dich nicht bei ihm für den Stock entschuldigt  -- accept Inv: vfin ++ subj ++ obj1 ++ neg ++ obj2
+hast du dich bei ihm nicht für den Stock entschuldigt  -- dubious
+hast du dich bei ihm für ihn entschuldigt              -- accept (refl.acc < prep1 < prep2), Slash2V3
+hast du dich für ihn bei ihm entschuldigt              -- accept (refl.acc < prep2 < prep1), Slash3V3
+
+-- rV2: refl.dat + acc
+
+ich merke mir jeden Stock          -- accept
+ich merke jeden Stock mir          -- reject  (np.acc < refl.dat)
+ich merke ihn mir                  -- accept  (pron.acc < refl.dat)
+ich merke mir jeden Stock nicht    -- accept  (refl.dat < np.acc < neg)
+ich merke mir nicht jeden Stock    -- accept  (refl.dat < neg < np.acc), not_Predet
+ich hatte mir den Stock gemerkt    -- accept  (refl.dat < np.acc)
+ich hatte mir ihn gemerkt          -- reject  (refl.dat < pron.acc)
+ich hatte ihn mir gemerkt          -- accept  (pron.acc < refl.dat)
+
+-- rV3: refl.dat + acc + prep
+
+wir leihen uns das Buch von dir       -- accept
+wir leihen uns das Buch nicht von dir -- accept   (refl.dat < np.acc < neg < prep), Slash2V3,Slash3V3
+wir leihen uns das Buch von dir nicht -- dubious ?(refl.dat < np.acc < prep < neg), Slash2V3,Slash3V3
+
+das Buch , das wir uns nicht von dir liehen ,      -- accept  Slash3V3
+das Buch , das wir uns von dir nicht liehen ,      -- dubious, Slash3V3
+die Frau , von der wir uns das Buch nicht liehen , -- accept, Slash2V3
+die Frau , von der wir uns kein Buch liehen ,      -- accept, Slash2V3
+die Frau , von der wir es uns nicht liehen ,       -- accept  (prep < subj < pron.acc < refl.dat < neg < vfin)
+die Frau , von der wir uns es nicht liehen ,       -- reject *(prep < subj < refl.dat < pron.acc < neg < vfin)
+
+wir , die wir uns das Buch von dir liehen ,        -- accept (not recognized)
+wir , die sich das Buch von dir liehen ,           -- dubious (recognized, Slash2V3, Slash3V3)
+wir , die sich das Buch nicht von dir liehen ,     -- dubious (recognized, Slash2V3, Slash3V3)
+
+-- dirV4 v prep prep (mieten_von_fuer_V4)
+
+du mietest den Wagen von der Frau für den Mann        -- accept (Slash2V4,Slash3V4,ComplSlashSlash)
+du mietest den Wagen für den Mann von der Frau        -- accept (Slash4V4, ComplSlashSlash)
+du mietest den Wagen von der Frau für den Mann nicht  -- accept
+du mietest den Wagen für den Mann von der Frau nicht  -- accept (Slash4V4, ComplSlashSlash)
+du mietest den Wagen von der Frau für mich nicht      -- accept
+du mietest den Wagen für mich von der Frau nicht      -- dubious
+du mietest ihn von der Frau für mich                  -- accept
+du mietest den Wagen von ihr für mich nicht           -- accept
+du mietest ihn für mich von der Frau                  -- accept
+du mietest ihn von ihr für mich                       -- accept
+
+du mietest für mich von der Frau den Wagen        -- accept  (not recognized, order)
+du mietest für mich von der Frau den Wagen nicht  -- accept  (not recognized, order)
+du mietest für mich von ihr den Wagen             -- dubious (not recognized, order)
+
+-- predicative A2: neg + A2 + obj   (via insertAdj; better: obj + neg + A2)
+
+ich bin nicht verheiratet mit dieser Frau  -- accept (A2 < obj)
+ich bin nicht verheiratet mit ihr          -- accept (A2 < obj)
+ich bin nicht neugierig auf das Buch       -- accept
+ich bin nicht neugierig auf es             -- accept
+
+ich bin mit dieser Frau nicht verheiratet  -- dubious (using ComplSlashPrep)
+ich bin mit ihr nicht verheiratet          -- dubious
+ich bin auf das Buch nicht neugierig       -- dubious
+ich bin auf es nicht neugierig             -- dubious (prep < A2)
+
+ich bin nicht mit dieser Frau verheiratet  -- accept (not recognized, order)
+ich bin nicht mit ihr verheiratet          -- accept (not recognized)
+ich bin nicht auf ihn neugierig            -- reject
+
+-- done
+
+-- Passive of VPSlash and V3
+
+sie gibt uns den Wagen                     -- accept
+
+der Wagen wird uns gegeben                 -- accept, via PassVPSlash or Pass2V3
+uns wird der Wagen gegeben                 -- accept, word order variant (not recognized)
+wir bekommen den Wagen gegeben             -- accept, via Pass3V3
+
+sie schickte uns den Wagen                 -- accept (Eng with prep)
+
+der Wagen wurde uns geschickt              -- accept, via PassVPSlash
+uns wurde der Wagen geschickt              -- accept, word order variant (not recognized)
+wir bekamen den Wagen geschickt            -- accept, via Pass3V3
+
+der Wagen würde uns geschickt werden       -- accept
+der Wagen würde uns nicht geschickt werden -- accept
+wir würden den Wagen geschickt bekommen    -- accept
+wir würden den Wagen nicht geschickt bekommen -- accept
+wir würden nicht den Wagen geschickt bekommen -- accept ?
+
+der Wagen sei uns geschickt worden         -- accept
+wir hätten den Wagen geschickt bekommen    -- accept
+
+wir wollen den Wagen geschickt bekommen    -- accept
+wir würden den Wagen geschickt bekommen wollen haben   -- accept
+

@@ -64,6 +64,9 @@ resource ParadigmsIce = open
 		mkN = overload {
 
 			-- Given Sg.Nom. 
+			mkN : Str -> N = mk0N ;
+			
+			-- Given Sg.Nom. and gender 
 			mkN : Str -> Gender -> N = mk1N ;
 
 			-- Given Sg.Nom and Pl.Nom - different Pl.Nom part
@@ -96,6 +99,14 @@ resource ParadigmsIce = open
 			<front + "a",_>			=> lin N (nForms2NeutrNoun (dAuga stelpa (front + "na")))
 		} ;
 		
+-- AR 2019-08-01 following Neijmann, "Colloquial Icelandic" Kindle Loc. 439
+--- very simplified heuristics I guess
+
+  mk0N : Str -> N = \s -> case s of {
+    _ + ("ur" | "i" | "ll" | "nn") => mk1N s Masc ;
+    _ + ("a" | "ing" | "un") => mk1N s Fem ;
+    _ => mk1N s Neutr
+    } ;
 
 		mk1N : Str -> Gender -> N = \s,g -> case g of {
 			Neutr		=> lin N (nForms2NeutrNoun (neutrNForms1 s)) ;
@@ -191,6 +202,7 @@ resource ParadigmsIce = open
 
 		femNForms1 : Str -> NForms = \s -> case s of {
 			_ + "ing"				=> dFylking s (s + "ar") ;
+			front + "un"				=> dVerslun s (front + "anir") ; --- AR 2019-08-02
 			front + middle@("g" | "k") + "j" + "a"	=> dSaga s (front + middle + "na") ;
 			_ + ("r" | "s" | "n" | "j") + "a"	=> dSaga s s ; --  I Don't think this is the general case
 			stem + "a"				=> dSaga s s --  I Don't think this is the general case
@@ -266,20 +278,28 @@ resource ParadigmsIce = open
 		} ;
 
 		mk1A : Str -> A = \s -> lin A (aForms2Adjective 
-			(weakPosit s []) (strongPosit1 s) (compar1 s) (weakSuperl s []) (strongSuperl1 s) (regAAdv1 s)) ;
+			(weakPosit s s) (strongPosit1 s) (compar1 s) (weakSuperl s s) (strongSuperl1 s) (regAAdv1 s)) ; --- AR 2019-08-08: second arguments of weak declensions were [], producing only endings
 
-		mk2A : (_,_ : Str) -> A = \mas,fem -> lin A (aForms2Adjective
-			(weakPosit mas fem) (strongPosit2 mas fem) (compar2 mas fem) (weakSuperl mas fem) (strongSuperl2 mas fem) (regAAdv2 mas fem)) ;
+		mk2A : (_,_ : Str) -> A = \mas,fem -> case mas of {
+		   _ + ("ll"|"nn") => mk1A mas ; ---- AR 2019-08-08 ; the case below does not work
+		   _ => lin A (aForms2Adjective
+			  (weakPosit mas fem) (strongPosit2 mas fem) (compar2 mas fem) (weakSuperl mas fem) (strongSuperl2 mas fem) (regAAdv2 mas fem))
+			} ;
 
-		mk3A : (_,_,_ : Str) -> A = \mas,fem,com -> lin A (aForms2Adjective
-			(weakPosit mas fem) (strongPosit2 mas fem) (compar1 com) (weakSuperl com []) (strongSuperl1 com) (regAAdv2 mas fem)) ;
+		mk3A : (_,_,_ : Str) -> A = \mas,fem,com -> case mas of {
+		   _ + ("ll"|"nn") => mk1A mas ; ---- AR 2019-08-08 ; the case below does not work
+		   _ => lin A (aForms2Adjective
+			  (weakPosit mas fem) (strongPosit2 mas fem) (compar1 com) (weakSuperl com []) (strongSuperl1 com) (regAAdv2 mas fem))
+                   } ;
 
 		strongPosit1 : Str -> AForms = \s -> case s of {
 			#consonant* + "ei" + ("ll" | "nn")	=> dSeinn s ;
 			_ + "inn"				=> dFarinn s ;
 			_ + "ill"				=> dLítill s ;
 			#consonant* + #vowel + ("ll" | "nn")	=> dSeinn s ;
-			stem + "ur"				=> dFalur s (a2ö stem)
+			stem + "ur"				=> dFalur s (a2ö stem) ;
+			_ + "i" => dI s ; ---- AR 2019-08-02 guess to prevent failure
+			_ => dSmár s ---- AR 2019-08-02 guess to prevent failure
 		} ;
 
 		strongPosit2 : (_,_ : Str) -> AForms = \mas,fem -> case <mas,fem> of {
@@ -309,7 +329,8 @@ resource ParadigmsIce = open
             stem + "ur"                        => dAri stem ;
             #consonant* + "ei" + ("ll" | "nn") => dSeinn s ;
             front + "inn"                      => dAri (front + "n") ;
-            _ + ("ll" | "nn")                  => dI s
+            _ + ("ll" | "nn")                  => dI s ;
+            _                                  => dI s  ---- AR 2019-08-02 guess to prevent failure
         } ;
 
         compar2 : (_,_ : Str) -> AForms = \mas,fem -> case <mas,fem> of {
@@ -340,7 +361,8 @@ resource ParadigmsIce = open
 			 end@("ll" | "nn")	   => dFalastur (stem + init end + "astur") (a2ö stem + init end + "ust") ;
 			stem + "inn" 		   => dFalastur (stem + "nastur") (a2ö stem + "nust") ;
 			stem + end@("ll"|"nn") => dFalastur (stem + init end + "astur") (a2ö stem + init end + "ust") ;
-			stem + "ur"	           => dFalastur (stem + "astur") ((a2ö stem) + "ust") 
+			stem + "ur"	           => dFalastur (stem + "astur") ((a2ö stem) + "ust") ;
+			_ => dFalastur (t + "astur") ((a2ö t) + "ust") ---- AR 2019-08-02 guess to prevent failure
 		} ;
 
 		strongSuperl2 : (_,_ : Str) -> AForms = \mas,fem -> case <mas,fem> of {
@@ -363,7 +385,8 @@ resource ParadigmsIce = open
 			front + "ll"		=> front + "llega" ;
 			front + "nn"		=> front + "nlega" ;
 			front + "leg" + "ur"	=> front + "lega" ;
-			front + "ur"		=> front + "lega"
+			front + "ur"		=> front + "lega" ;
+			_ => s + "lega" ---- AR 2019-08-02 guess to prevent failure
 		} ;
 
 		regAAdv2 : (_,_ : Str) -> Str = \mas,fem -> case <mas,fem> of {
@@ -386,7 +409,11 @@ resource ParadigmsIce = open
 		mkV = overload {
 
 			-- Given the infinitive
-			mkV : Str -> V = \telja -> mk1V telja;
+			mkV : Str -> V 
+			  = \telja -> case telja of {
+			       otta + "st" => depV (mk1V otta) ;
+			       _ => mk1V telja
+			       } ;
 
 			-- Given also the first person singular present tense indicative mood
 			mkV : (_,_ : Str) -> V = \telja,tel -> mk2V telja tel ;
@@ -416,6 +443,8 @@ resource ParadigmsIce = open
 				plFemNom plFemAcc plFemDat plFemGen plNeutNom plNeutAcc plNeutDat plNeutGen 
 				weakSgMascNom weakSgMascAccDatGen weakSgFemNom weakSgFemAccDatGen weakSgNeut weakPl flogið) ;
 		};
+
+		depV : V -> V = \verb -> lin V (deponentVerb verb) ;
 
 		mk1V : Str -> V = \inf -> 
 			lin V (vForms2Verb inf (indsub1 inf) (impSg inf) (impPl inf) (presPart inf) (sup inf) (weakPP inf) (strongPP inf)) ;

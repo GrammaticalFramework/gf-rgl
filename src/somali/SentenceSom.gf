@@ -8,40 +8,15 @@ lin
 --2 Clauses
 
   -- : NP -> VP -> Cl
-  PredVP np vps =
-    let vp = case vps.c2 of {
-                passive => complSlash (insertComp vps np) ;
-                _ => complSlash vps } ;
-        subj = case vps.c2 of {passive => impersNP ; _ => np} ;
-    in { s = \\t,a,p =>
-       let pred : {fin : Str ; inf : Str} = vf t a p subj.a vp ;
-           subjnoun : Str = if_then_Str np.isPron [] (subj.s ! Nom) ;
-           subjpron : Str = if_then_Str np.isPron (subj.s ! Nom) [] ;
-           obj  : {p1,p2 : Str} = vp.comp ! subj.a ;
-           stm : Str =
-            case <p,vp.isPred,subj.a> of {
-                 <Pos,True,Sg3 _|Impers> => "waa" ;
-                -- _                => stmarker ! np.a ! b } -- marker+pronoun contract
-                 _ => case <np.isPron,p> of {
-                        <True,Pos> => "waa" ++ subjpron ; -- to force some string from NP to show in the tree
-                        <True,Neg> => "ma"  ++ subjpron ;
-                        <False>    => stmarkerNoContr ! subj.a ! p }} ;
-      in subjnoun     -- subject if it's a noun
-      ++ obj.p1       -- object if it's a noun
-      ++ stm          -- sentence type marker + possible subj. pronoun
-      ++ vp.adv   ---- TODO word order
-      ++ obj.p2       -- object if it's a pronoun
-      ++ pred.fin     -- the verb inflected
-      ++ pred.inf     -- potential participle
-    } ;
-{-
-  -- : SC -> VP -> Cl ;         -- that she goes is good
-  PredSCVP sc vp = ;
+  PredVP = predVP ;
+
+  -- : SC -> VP -> Cl ;         -- that she goes is good (Saeed p. 94)
+  --PredSCVP sc vp = ;
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
-  SlashVP np vps = ;
-
+  SlashVP = predVP ;
+{-
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
   AdvSlash cls adv = cls ** insertAdv adv cls ;
 
@@ -50,58 +25,61 @@ lin
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
 --  SlashVS np vs ss = {} ;
 
-
+-}
   --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
-  UseSlash t p cls = UseCl t p (PredVP he_Pron cls) ;
+  UseSlash t p cls = {
+    s = \\isSubord =>
+        let cls' : ClSlash = cls ** {
+                    stm = modSTM "waxa" "waxa aan" cls.stm -- Saeed p. 195
+                  } ;
+            cl : Clause = cl2sentence isSubord cls' in
+        t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
+    } ;
 
 --2 Imperatives
   -- : VP -> Imp ;
- ImpVP vp = { s = linVP vp } ;
+  ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
 
 --2 Embedded sentences
 
-
   -- : S  -> SC ;
-  EmbedS s = { } ;
+  EmbedS s = {s = s.s ! True} ; -- choose subordinate
 
   -- : QS -> SC ;
-  EmbedQS qs = { } ;
+  -- EmbedQS qs = { } ;
 
   -- : VP -> SC ;
-  EmbedVP vp = { s = linVP vp } ;
+  EmbedVP vp = {s = infVP vp} ;
 
 --2 Sentences
 
--}
   -- : Temp -> Pol -> Cl -> S ;
-  UseCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
-{-
-  -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
+  UseCl t p cls = {
+    s = \\isSubord => let cl = cl2sentence isSubord cls in
+        t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
+    } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
-  UseQCl t p cl = { s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p } ;
+  UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
 
--- An adverb can be added to the beginning of a sentence, either with comma ("externally")
--- or without:
+  -- : Temp -> Pol -> RCl -> RS ;
+  UseRCl t p cl = {s = \\st,g,c => t.s ++ p.s ++ cl.s ! g ! c ! t.t ! t.a ! p.p} ;
 
-  -- : Adv -> S  -> S ;            -- then I will go home
-  AdvS = advS ;
-
-  -- : Adv -> S  -> S ;            -- next week, I will go home
-  ExtAdvS adv = advS {s = adv.s ++ SOFT_BIND ++ ","}  ;
+  -- AdvS : Adv -> S  -> S ;            -- then I will go home
+  -- ExtAdvS : Adv -> S  -> S ;         -- next week, I will go home
+  AdvS, ExtAdvS = advS ;
 
 -- There's an SubjS already in AdverbSom -- should this be deprecated?
   -- : S -> Subj -> S -> S ;
   SSubjS s1 subj s2 = AdvS (AS.SubjS subj s2) s1 ;
 
--- A sentence can be modified by a relative clause referring to its contents.
-
   --  : S -> RS -> S ;              -- she sleeps, which is good
-  RelS sent rs = advS { s = rs.s ! Sg3 Masc ++ SOFT_BIND ++ ","} sent ;
+  -- RelS sent rs = advS {s = rs.s ! Sg3 Masc ++ SOFT_BIND ++ ","} sent ;
 
 oper
 
-  advS : Adv -> SS -> SS = \a,s -> {s = a.s ++ s.s} ;
--}
+  advS : Adverb -> S -> S = \a,sent -> sent ** {
+    s = \\b => sent.s ! b ++ linAdv a
+    } ;
+
 }

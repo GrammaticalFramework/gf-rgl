@@ -1,0 +1,489 @@
+s MIndic Pres Simul Pos Main : er will schlafen
+s MIndic Pres Simul Pos Inv : will er schlafen
+s MIndic Pres Simul Pos Sub : er schlafen will
+s MIndic Pres Simul Neg Main : er will nicht schlafen
+s MIndic Pres Simul Neg Inv : will er nicht schlafen
+s MIndic Pres Simul Neg Sub : er nicht schlafen will
+s MIndic Pres Anter Pos Main : er hat schlafen wollen
+s MIndic Pres Anter Pos Inv : hat er schlafen wollen
+s MIndic Pres Anter Pos Sub : er hat schlafen wollen
+s MIndic Pres Anter Neg Main : er hat nicht schlafen wollen
+s MIndic Pres Anter Neg Inv : hat er nicht schlafen wollen
+s MIndic Pres Anter Neg Sub : er nicht hat schlafen wollen
+s MIndic Past Simul Pos Main : er wollte schlafen
+s MIndic Past Simul Pos Inv : wollte er schlafen
+s MIndic Past Simul Pos Sub : er schlafen wollte
+s MIndic Past Simul Neg Main : er wollte nicht schlafen
+s MIndic Past Simul Neg Inv : wollte er nicht schlafen
+s MIndic Past Simul Neg Sub : er nicht schlafen wollte
+s MIndic Past Anter Pos Main : er hatte schlafen wollen
+s MIndic Past Anter Pos Inv : hatte er schlafen wollen
+s MIndic Past Anter Pos Sub : er hatte schlafen wollen
+s MIndic Past Anter Neg Main : er hatte nicht schlafen wollen
+s MIndic Past Anter Neg Inv : hatte er nicht schlafen wollen
+s MIndic Past Anter Neg Sub : er nicht hatte schlafen wollen
+s MIndic Fut Simul Pos Main : er wird schlafen wollen
+s MIndic Fut Simul Pos Inv : wird er schlafen wollen
+s MIndic Fut Simul Pos Sub : er schlafen wollen wird
+s MIndic Fut Simul Neg Main : er wird nicht schlafen wollen
+s MIndic Fut Simul Neg Inv : wird er nicht schlafen wollen
+s MIndic Fut Simul Neg Sub : er nicht schlafen wollen wird
+s MIndic Fut Anter Pos Main : er wird haben schlafen wollen
+s MIndic Fut Anter Pos Inv : wird er haben schlafen wollen
+s MIndic Fut Anter Pos Sub : er wird haben schlafen wollen
+s MIndic Fut Anter Neg Main : er wird nicht haben schlafen wollen
+s MIndic Fut Anter Neg Inv : wird er nicht haben schlafen wollen
+s MIndic Fut Anter Neg Sub : er nicht wird haben schlafen wollen
+s MIndic Cond Simul Pos Main : er würde schlafen wollen
+s MIndic Cond Simul Pos Inv : würde er schlafen wollen
+s MIndic Cond Simul Pos Sub : er schlafen wollen würde
+s MIndic Cond Simul Neg Main : er würde nicht schlafen wollen
+s MIndic Cond Simul Neg Inv : würde er nicht schlafen wollen
+s MIndic Cond Simul Neg Sub : er nicht schlafen wollen würde
+s MIndic Cond Anter Pos Main : er würde haben schlafen wollen
+s MIndic Cond Anter Pos Inv : würde er haben schlafen wollen
+s MIndic Cond Anter Pos Sub : er würde haben schlafen wollen
+s MIndic Cond Anter Neg Main : er würde nicht haben schlafen wollen
+s MIndic Cond Anter Neg Inv : würde er nicht haben schlafen wollen
+s MIndic Cond Anter Neg Sub : er nicht würde haben schlafen wollen
+s MConjunct Pres Simul Pos Main : er wolle schlafen
+s MConjunct Pres Simul Pos Inv : wolle er schlafen
+s MConjunct Pres Simul Pos Sub : er schlafen wolle
+s MConjunct Pres Simul Neg Main : er wolle nicht schlafen
+s MConjunct Pres Simul Neg Inv : wolle er nicht schlafen
+s MConjunct Pres Simul Neg Sub : er nicht schlafen wolle
+s MConjunct Pres Anter Pos Main : er habe schlafen wollen
+s MConjunct Pres Anter Pos Inv : habe er schlafen wollen
+s MConjunct Pres Anter Pos Sub : er habe schlafen wollen
+s MConjunct Pres Anter Neg Main : er habe nicht schlafen wollen
+s MConjunct Pres Anter Neg Inv : habe er nicht schlafen wollen
+s MConjunct Pres Anter Neg Sub : er nicht habe schlafen wollen
+s MConjunct Past Simul Pos Main : er wollte schlafen
+s MConjunct Past Simul Pos Inv : wollte er schlafen
+s MConjunct Past Simul Pos Sub : er schlafen wollte
+s MConjunct Past Simul Neg Main : er wollte nicht schlafen
+s MConjunct Past Simul Neg Inv : wollte er nicht schlafen
+s MConjunct Past Simul Neg Sub : er nicht schlafen wollte
+s MConjunct Past Anter Pos Main : er hätte schlafen wollen
+s MConjunct Past Anter Pos Inv : hätte er schlafen wollen
+s MConjunct Past Anter Pos Sub : er hätte schlafen wollen
+s MConjunct Past Anter Neg Main : er hätte nicht schlafen wollen
+s MConjunct Past Anter Neg Inv : hätte er nicht schlafen wollen
+s MConjunct Past Anter Neg Sub : er nicht hätte schlafen wollen
+s MConjunct Fut Simul Pos Main : er werde schlafen wollen
+s MConjunct Fut Simul Pos Inv : werde er schlafen wollen
+s MConjunct Fut Simul Pos Sub : er schlafen wollen werde
+s MConjunct Fut Simul Neg Main : er werde nicht schlafen wollen
+s MConjunct Fut Simul Neg Inv : werde er nicht schlafen wollen
+s MConjunct Fut Simul Neg Sub : er nicht schlafen wollen werde
+s MConjunct Fut Anter Pos Main : er werde haben schlafen wollen
+s MConjunct Fut Anter Pos Inv : werde er haben schlafen wollen
+s MConjunct Fut Anter Pos Sub : er werde haben schlafen wollen
+s MConjunct Fut Anter Neg Main : er werde nicht haben schlafen wollen
+s MConjunct Fut Anter Neg Inv : werde er nicht haben schlafen wollen
+s MConjunct Fut Anter Neg Sub : er nicht werde haben schlafen wollen
+s MConjunct Cond Simul Pos Main : er würde schlafen wollen
+s MConjunct Cond Simul Pos Inv : würde er schlafen wollen
+s MConjunct Cond Simul Pos Sub : er schlafen wollen würde
+s MConjunct Cond Simul Neg Main : er würde nicht schlafen wollen
+s MConjunct Cond Simul Neg Inv : würde er nicht schlafen wollen
+s MConjunct Cond Simul Neg Sub : er nicht schlafen wollen würde
+s MConjunct Cond Anter Pos Main : er würde haben schlafen wollen
+s MConjunct Cond Anter Pos Inv : würde er haben schlafen wollen
+s MConjunct Cond Anter Pos Sub : er würde haben schlafen wollen
+s MConjunct Cond Anter Neg Main : er würde nicht haben schlafen wollen
+s MConjunct Cond Anter Neg Inv : würde er nicht haben schlafen wollen
+s MConjunct Cond Anter Neg Sub : er nicht würde haben schlafen wollen
+
+s MIndic Pres Simul Pos Main : er will das Buch lesen
+s MIndic Pres Simul Pos Inv : will er das Buch lesen
+s MIndic Pres Simul Pos Sub : er das Buch lesen will
+s MIndic Pres Simul Neg Main : er will das Buch nicht lesen
+s MIndic Pres Simul Neg Inv : will er das Buch nicht lesen
+s MIndic Pres Simul Neg Sub : er das Buch nicht lesen will
+s MIndic Pres Anter Pos Main : er hat das Buch lesen wollen
+s MIndic Pres Anter Pos Inv : hat er das Buch lesen wollen
+s MIndic Pres Anter Pos Sub : er das Buch hat lesen wollen
+s MIndic Pres Anter Neg Main : er hat das Buch nicht lesen wollen
+s MIndic Pres Anter Neg Inv : hat er das Buch nicht lesen wollen
+s MIndic Pres Anter Neg Sub : er das Buch nicht hat lesen wollen
+s MIndic Past Simul Pos Main : er wollte das Buch lesen
+s MIndic Past Simul Pos Inv : wollte er das Buch lesen
+s MIndic Past Simul Pos Sub : er das Buch lesen wollte
+s MIndic Past Simul Neg Main : er wollte das Buch nicht lesen
+s MIndic Past Simul Neg Inv : wollte er das Buch nicht lesen
+s MIndic Past Simul Neg Sub : er das Buch nicht lesen wollte
+s MIndic Past Anter Pos Main : er hatte das Buch lesen wollen
+s MIndic Past Anter Pos Inv : hatte er das Buch lesen wollen
+s MIndic Past Anter Pos Sub : er das Buch hatte lesen wollen
+s MIndic Past Anter Neg Main : er hatte das Buch nicht lesen wollen
+s MIndic Past Anter Neg Inv : hatte er das Buch nicht lesen wollen
+s MIndic Past Anter Neg Sub : er das Buch nicht hatte lesen wollen
+s MIndic Fut Simul Pos Main : er wird das Buch lesen wollen
+s MIndic Fut Simul Pos Inv : wird er das Buch lesen wollen
+s MIndic Fut Simul Pos Sub : er das Buch lesen wollen wird
+s MIndic Fut Simul Neg Main : er wird das Buch nicht lesen wollen
+s MIndic Fut Simul Neg Inv : wird er das Buch nicht lesen wollen
+s MIndic Fut Simul Neg Sub : er das Buch nicht lesen wollen wird
+s MIndic Fut Anter Pos Main : er wird das Buch haben lesen wollen
+s MIndic Fut Anter Pos Inv : wird er das Buch haben lesen wollen
+s MIndic Fut Anter Pos Sub : er das Buch wird haben lesen wollen
+s MIndic Fut Anter Neg Main : er wird das Buch nicht haben lesen wollen
+s MIndic Fut Anter Neg Inv : wird er das Buch nicht haben lesen wollen
+s MIndic Fut Anter Neg Sub : er das Buch nicht wird haben lesen wollen
+s MIndic Cond Simul Pos Main : er würde das Buch lesen wollen
+s MIndic Cond Simul Pos Inv : würde er das Buch lesen wollen
+s MIndic Cond Simul Pos Sub : er das Buch lesen wollen würde
+s MIndic Cond Simul Neg Main : er würde das Buch nicht lesen wollen
+s MIndic Cond Simul Neg Inv : würde er das Buch nicht lesen wollen
+s MIndic Cond Simul Neg Sub : er das Buch nicht lesen wollen würde
+s MIndic Cond Anter Pos Main : er würde das Buch haben lesen wollen
+s MIndic Cond Anter Pos Inv : würde er das Buch haben lesen wollen
+s MIndic Cond Anter Pos Sub : er das Buch würde haben lesen wollen
+s MIndic Cond Anter Neg Main : er würde das Buch nicht haben lesen wollen
+s MIndic Cond Anter Neg Inv : würde er das Buch nicht haben lesen wollen
+s MIndic Cond Anter Neg Sub : er das Buch nicht würde haben lesen wollen
+s MConjunct Pres Simul Pos Main : er wolle das Buch lesen
+s MConjunct Pres Simul Pos Inv : wolle er das Buch lesen
+s MConjunct Pres Simul Pos Sub : er das Buch lesen wolle
+s MConjunct Pres Simul Neg Main : er wolle das Buch nicht lesen
+s MConjunct Pres Simul Neg Inv : wolle er das Buch nicht lesen
+s MConjunct Pres Simul Neg Sub : er das Buch nicht lesen wolle
+s MConjunct Pres Anter Pos Main : er habe das Buch lesen wollen
+s MConjunct Pres Anter Pos Inv : habe er das Buch lesen wollen
+s MConjunct Pres Anter Pos Sub : er das Buch habe lesen wollen
+s MConjunct Pres Anter Neg Main : er habe das Buch nicht lesen wollen
+s MConjunct Pres Anter Neg Inv : habe er das Buch nicht lesen wollen
+s MConjunct Pres Anter Neg Sub : er das Buch nicht habe lesen wollen
+s MConjunct Past Simul Pos Main : er wollte das Buch lesen
+s MConjunct Past Simul Pos Inv : wollte er das Buch lesen
+s MConjunct Past Simul Pos Sub : er das Buch lesen wollte
+s MConjunct Past Simul Neg Main : er wollte das Buch nicht lesen
+s MConjunct Past Simul Neg Inv : wollte er das Buch nicht lesen
+s MConjunct Past Simul Neg Sub : er das Buch nicht lesen wollte
+s MConjunct Past Anter Pos Main : er hätte das Buch lesen wollen
+s MConjunct Past Anter Pos Inv : hätte er das Buch lesen wollen
+s MConjunct Past Anter Pos Sub : er das Buch hätte lesen wollen
+s MConjunct Past Anter Neg Main : er hätte das Buch nicht lesen wollen
+s MConjunct Past Anter Neg Inv : hätte er das Buch nicht lesen wollen
+s MConjunct Past Anter Neg Sub : er das Buch nicht hätte lesen wollen
+s MConjunct Fut Simul Pos Main : er werde das Buch lesen wollen
+s MConjunct Fut Simul Pos Inv : werde er das Buch lesen wollen
+s MConjunct Fut Simul Pos Sub : er das Buch lesen wollen werde
+s MConjunct Fut Simul Neg Main : er werde das Buch nicht lesen wollen
+s MConjunct Fut Simul Neg Inv : werde er das Buch nicht lesen wollen
+s MConjunct Fut Simul Neg Sub : er das Buch nicht lesen wollen werde
+s MConjunct Fut Anter Pos Main : er werde das Buch haben lesen wollen
+s MConjunct Fut Anter Pos Inv : werde er das Buch haben lesen wollen
+s MConjunct Fut Anter Pos Sub : er das Buch werde haben lesen wollen
+s MConjunct Fut Anter Neg Main : er werde das Buch nicht haben lesen wollen
+s MConjunct Fut Anter Neg Inv : werde er das Buch nicht haben lesen wollen
+s MConjunct Fut Anter Neg Sub : er das Buch nicht werde haben lesen wollen
+s MConjunct Cond Simul Pos Main : er würde das Buch lesen wollen
+s MConjunct Cond Simul Pos Inv : würde er das Buch lesen wollen
+s MConjunct Cond Simul Pos Sub : er das Buch lesen wollen würde
+s MConjunct Cond Simul Neg Main : er würde das Buch nicht lesen wollen
+s MConjunct Cond Simul Neg Inv : würde er das Buch nicht lesen wollen
+s MConjunct Cond Simul Neg Sub : er das Buch nicht lesen wollen würde
+s MConjunct Cond Anter Pos Main : er würde das Buch haben lesen wollen
+s MConjunct Cond Anter Pos Inv : würde er das Buch haben lesen wollen
+s MConjunct Cond Anter Pos Sub : er das Buch würde haben lesen wollen
+s MConjunct Cond Anter Neg Main : er würde das Buch nicht haben lesen wollen
+s MConjunct Cond Anter Neg Inv : würde er das Buch nicht haben lesen wollen
+s MConjunct Cond Anter Neg Sub : er das Buch nicht würde haben lesen wollen
+
+s MIndic Pres Simul Pos Main : er will das Buch lesen
+s MIndic Pres Simul Pos Inv : will er das Buch lesen
+s MIndic Pres Simul Pos Sub : er das Buch lesen will
+s MIndic Pres Simul Neg Main : er will nicht das Buch lesen
+s MIndic Pres Simul Neg Inv : will er nicht das Buch lesen
+s MIndic Pres Simul Neg Sub : er nicht das Buch lesen will
+s MIndic Pres Anter Pos Main : er hat das Buch lesen wollen
+s MIndic Pres Anter Pos Inv : hat er das Buch lesen wollen
+s MIndic Pres Anter Pos Sub : er das Buch hat lesen wollen
+s MIndic Pres Anter Neg Main : er hat nicht das Buch lesen wollen
+s MIndic Pres Anter Neg Inv : hat er nicht das Buch lesen wollen
+s MIndic Pres Anter Neg Sub : er nicht das Buch hat lesen wollen
+s MIndic Past Simul Pos Main : er wollte das Buch lesen
+s MIndic Past Simul Pos Inv : wollte er das Buch lesen
+s MIndic Past Simul Pos Sub : er das Buch lesen wollte
+s MIndic Past Simul Neg Main : er wollte nicht das Buch lesen
+s MIndic Past Simul Neg Inv : wollte er nicht das Buch lesen
+s MIndic Past Simul Neg Sub : er nicht das Buch lesen wollte
+s MIndic Past Anter Pos Main : er hatte das Buch lesen wollen
+s MIndic Past Anter Pos Inv : hatte er das Buch lesen wollen
+s MIndic Past Anter Pos Sub : er das Buch hatte lesen wollen
+s MIndic Past Anter Neg Main : er hatte nicht das Buch lesen wollen
+s MIndic Past Anter Neg Inv : hatte er nicht das Buch lesen wollen
+s MIndic Past Anter Neg Sub : er nicht das Buch hatte lesen wollen
+s MIndic Fut Simul Pos Main : er wird das Buch lesen wollen
+s MIndic Fut Simul Pos Inv : wird er das Buch lesen wollen
+s MIndic Fut Simul Pos Sub : er das Buch lesen wollen wird
+s MIndic Fut Simul Neg Main : er wird nicht das Buch lesen wollen
+s MIndic Fut Simul Neg Inv : wird er nicht das Buch lesen wollen
+s MIndic Fut Simul Neg Sub : er nicht das Buch lesen wollen wird
+s MIndic Fut Anter Pos Main : er wird das Buch haben lesen wollen
+s MIndic Fut Anter Pos Inv : wird er das Buch haben lesen wollen
+s MIndic Fut Anter Pos Sub : er das Buch wird haben lesen wollen
+s MIndic Fut Anter Neg Main : er wird nicht das Buch haben lesen wollen
+s MIndic Fut Anter Neg Inv : wird er nicht das Buch haben lesen wollen
+s MIndic Fut Anter Neg Sub : er nicht das Buch wird haben lesen wollen
+s MIndic Cond Simul Pos Main : er würde das Buch lesen wollen
+s MIndic Cond Simul Pos Inv : würde er das Buch lesen wollen
+s MIndic Cond Simul Pos Sub : er das Buch lesen wollen würde
+s MIndic Cond Simul Neg Main : er würde nicht das Buch lesen wollen
+s MIndic Cond Simul Neg Inv : würde er nicht das Buch lesen wollen
+s MIndic Cond Simul Neg Sub : er nicht das Buch lesen wollen würde
+s MIndic Cond Anter Pos Main : er würde das Buch haben lesen wollen
+s MIndic Cond Anter Pos Inv : würde er das Buch haben lesen wollen
+s MIndic Cond Anter Pos Sub : er das Buch würde haben lesen wollen
+s MIndic Cond Anter Neg Main : er würde nicht das Buch haben lesen wollen
+s MIndic Cond Anter Neg Inv : würde er nicht das Buch haben lesen wollen
+s MIndic Cond Anter Neg Sub : er nicht das Buch würde haben lesen wollen
+s MConjunct Pres Simul Pos Main : er wolle das Buch lesen
+s MConjunct Pres Simul Pos Inv : wolle er das Buch lesen
+s MConjunct Pres Simul Pos Sub : er das Buch lesen wolle
+s MConjunct Pres Simul Neg Main : er wolle nicht das Buch lesen
+s MConjunct Pres Simul Neg Inv : wolle er nicht das Buch lesen
+s MConjunct Pres Simul Neg Sub : er nicht das Buch lesen wolle
+s MConjunct Pres Anter Pos Main : er habe das Buch lesen wollen
+s MConjunct Pres Anter Pos Inv : habe er das Buch lesen wollen
+s MConjunct Pres Anter Pos Sub : er das Buch habe lesen wollen
+s MConjunct Pres Anter Neg Main : er habe nicht das Buch lesen wollen
+s MConjunct Pres Anter Neg Inv : habe er nicht das Buch lesen wollen
+s MConjunct Pres Anter Neg Sub : er nicht das Buch habe lesen wollen
+s MConjunct Past Simul Pos Main : er wollte das Buch lesen
+s MConjunct Past Simul Pos Inv : wollte er das Buch lesen
+s MConjunct Past Simul Pos Sub : er das Buch lesen wollte
+s MConjunct Past Simul Neg Main : er wollte nicht das Buch lesen
+s MConjunct Past Simul Neg Inv : wollte er nicht das Buch lesen
+s MConjunct Past Simul Neg Sub : er nicht das Buch lesen wollte
+s MConjunct Past Anter Pos Main : er hätte das Buch lesen wollen
+s MConjunct Past Anter Pos Inv : hätte er das Buch lesen wollen
+s MConjunct Past Anter Pos Sub : er das Buch hätte lesen wollen
+s MConjunct Past Anter Neg Main : er hätte nicht das Buch lesen wollen
+s MConjunct Past Anter Neg Inv : hätte er nicht das Buch lesen wollen
+s MConjunct Past Anter Neg Sub : er nicht das Buch hätte lesen wollen
+s MConjunct Fut Simul Pos Main : er werde das Buch lesen wollen
+s MConjunct Fut Simul Pos Inv : werde er das Buch lesen wollen
+s MConjunct Fut Simul Pos Sub : er das Buch lesen wollen werde
+s MConjunct Fut Simul Neg Main : er werde nicht das Buch lesen wollen
+s MConjunct Fut Simul Neg Inv : werde er nicht das Buch lesen wollen
+s MConjunct Fut Simul Neg Sub : er nicht das Buch lesen wollen werde
+s MConjunct Fut Anter Pos Main : er werde das Buch haben lesen wollen
+s MConjunct Fut Anter Pos Inv : werde er das Buch haben lesen wollen
+s MConjunct Fut Anter Pos Sub : er das Buch werde haben lesen wollen
+s MConjunct Fut Anter Neg Main : er werde nicht das Buch haben lesen wollen
+s MConjunct Fut Anter Neg Inv : werde er nicht das Buch haben lesen wollen
+s MConjunct Fut Anter Neg Sub : er nicht das Buch werde haben lesen wollen
+s MConjunct Cond Simul Pos Main : er würde das Buch lesen wollen
+s MConjunct Cond Simul Pos Inv : würde er das Buch lesen wollen
+s MConjunct Cond Simul Pos Sub : er das Buch lesen wollen würde
+s MConjunct Cond Simul Neg Main : er würde nicht das Buch lesen wollen
+s MConjunct Cond Simul Neg Inv : würde er nicht das Buch lesen wollen
+s MConjunct Cond Simul Neg Sub : er nicht das Buch lesen wollen würde
+s MConjunct Cond Anter Pos Main : er würde das Buch haben lesen wollen
+s MConjunct Cond Anter Pos Inv : würde er das Buch haben lesen wollen
+s MConjunct Cond Anter Pos Sub : er das Buch würde haben lesen wollen
+s MConjunct Cond Anter Neg Main : er würde nicht das Buch haben lesen wollen
+s MConjunct Cond Anter Neg Inv : würde er nicht das Buch haben lesen wollen
+s MConjunct Cond Anter Neg Sub : er nicht das Buch würde haben lesen wollen
+
+s MIndic Pres Simul Pos Main : wir wollen sagen , dass sie kommt
+s MIndic Pres Simul Pos Inv : wollen wir sagen , dass sie kommt
+s MIndic Pres Simul Pos Sub : wir sagen wollen , dass sie kommt
+s MIndic Pres Simul Neg Main : wir wollen nicht sagen , dass sie kommt
+s MIndic Pres Simul Neg Inv : wollen wir nicht sagen , dass sie kommt
+s MIndic Pres Simul Neg Sub : wir nicht sagen wollen , dass sie kommt
+s MIndic Pres Anter Pos Main : wir haben sagen wollen , dass sie kommt
+s MIndic Pres Anter Pos Inv : haben wir sagen wollen , dass sie kommt
+s MIndic Pres Anter Pos Sub : wir haben sagen wollen , dass sie kommt
+s MIndic Pres Anter Neg Main : wir haben nicht sagen wollen , dass sie kommt
+s MIndic Pres Anter Neg Inv : haben wir nicht sagen wollen , dass sie kommt
+s MIndic Pres Anter Neg Sub : wir nicht haben sagen wollen , dass sie kommt
+s MIndic Past Simul Pos Main : wir wollten sagen , dass sie kommt
+s MIndic Past Simul Pos Inv : wollten wir sagen , dass sie kommt
+s MIndic Past Simul Pos Sub : wir sagen wollten , dass sie kommt
+s MIndic Past Simul Neg Main : wir wollten nicht sagen , dass sie kommt
+s MIndic Past Simul Neg Inv : wollten wir nicht sagen , dass sie kommt
+s MIndic Past Simul Neg Sub : wir nicht sagen wollten , dass sie kommt
+s MIndic Past Anter Pos Main : wir hatten sagen wollen , dass sie kommt
+s MIndic Past Anter Pos Inv : hatten wir sagen wollen , dass sie kommt
+s MIndic Past Anter Pos Sub : wir hatten sagen wollen , dass sie kommt
+s MIndic Past Anter Neg Main : wir hatten nicht sagen wollen , dass sie kommt
+s MIndic Past Anter Neg Inv : hatten wir nicht sagen wollen , dass sie kommt
+s MIndic Past Anter Neg Sub : wir nicht hatten sagen wollen , dass sie kommt
+s MIndic Fut Simul Pos Main : wir werden sagen wollen , dass sie kommt
+s MIndic Fut Simul Pos Inv : werden wir sagen wollen , dass sie kommt
+s MIndic Fut Simul Pos Sub : wir sagen wollen werden , dass sie kommt
+s MIndic Fut Simul Neg Main : wir werden nicht sagen wollen , dass sie kommt
+s MIndic Fut Simul Neg Inv : werden wir nicht sagen wollen , dass sie kommt
+s MIndic Fut Simul Neg Sub : wir nicht sagen wollen werden , dass sie kommt
+s MIndic Fut Anter Pos Main : wir werden haben sagen wollen , dass sie kommt
+s MIndic Fut Anter Pos Inv : werden wir haben sagen wollen , dass sie kommt
+s MIndic Fut Anter Pos Sub : wir werden haben sagen wollen , dass sie kommt
+s MIndic Fut Anter Neg Main : wir werden nicht haben sagen wollen , dass sie kommt
+s MIndic Fut Anter Neg Inv : werden wir nicht haben sagen wollen , dass sie kommt
+s MIndic Fut Anter Neg Sub : wir nicht werden haben sagen wollen , dass sie kommt
+s MIndic Cond Simul Pos Main : wir würden sagen wollen , dass sie kommt
+s MIndic Cond Simul Pos Inv : würden wir sagen wollen , dass sie kommt
+s MIndic Cond Simul Pos Sub : wir sagen wollen würden , dass sie kommt
+s MIndic Cond Simul Neg Main : wir würden nicht sagen wollen , dass sie kommt
+s MIndic Cond Simul Neg Inv : würden wir nicht sagen wollen , dass sie kommt
+s MIndic Cond Simul Neg Sub : wir nicht sagen wollen würden , dass sie kommt
+s MIndic Cond Anter Pos Main : wir würden haben sagen wollen , dass sie kommt
+s MIndic Cond Anter Pos Inv : würden wir haben sagen wollen , dass sie kommt
+s MIndic Cond Anter Pos Sub : wir würden haben sagen wollen , dass sie kommt
+s MIndic Cond Anter Neg Main : wir würden nicht haben sagen wollen , dass sie kommt
+s MIndic Cond Anter Neg Inv : würden wir nicht haben sagen wollen , dass sie kommt
+s MIndic Cond Anter Neg Sub : wir nicht würden haben sagen wollen , dass sie kommt
+s MConjunct Pres Simul Pos Main : wir wollen sagen , dass sie kommt
+s MConjunct Pres Simul Pos Inv : wollen wir sagen , dass sie kommt
+s MConjunct Pres Simul Pos Sub : wir sagen wollen , dass sie kommt
+s MConjunct Pres Simul Neg Main : wir wollen nicht sagen , dass sie kommt
+s MConjunct Pres Simul Neg Inv : wollen wir nicht sagen , dass sie kommt
+s MConjunct Pres Simul Neg Sub : wir nicht sagen wollen , dass sie kommt
+s MConjunct Pres Anter Pos Main : wir haben sagen wollen , dass sie kommt
+s MConjunct Pres Anter Pos Inv : haben wir sagen wollen , dass sie kommt
+s MConjunct Pres Anter Pos Sub : wir haben sagen wollen , dass sie kommt
+s MConjunct Pres Anter Neg Main : wir haben nicht sagen wollen , dass sie kommt
+s MConjunct Pres Anter Neg Inv : haben wir nicht sagen wollen , dass sie kommt
+s MConjunct Pres Anter Neg Sub : wir nicht haben sagen wollen , dass sie kommt
+s MConjunct Past Simul Pos Main : wir wollten sagen , dass sie kommt
+s MConjunct Past Simul Pos Inv : wollten wir sagen , dass sie kommt
+s MConjunct Past Simul Pos Sub : wir sagen wollten , dass sie kommt
+s MConjunct Past Simul Neg Main : wir wollten nicht sagen , dass sie kommt
+s MConjunct Past Simul Neg Inv : wollten wir nicht sagen , dass sie kommt
+s MConjunct Past Simul Neg Sub : wir nicht sagen wollten , dass sie kommt
+s MConjunct Past Anter Pos Main : wir hätten sagen wollen , dass sie kommt
+s MConjunct Past Anter Pos Inv : hätten wir sagen wollen , dass sie kommt
+s MConjunct Past Anter Pos Sub : wir hätten sagen wollen , dass sie kommt
+s MConjunct Past Anter Neg Main : wir hätten nicht sagen wollen , dass sie kommt
+s MConjunct Past Anter Neg Inv : hätten wir nicht sagen wollen , dass sie kommt
+s MConjunct Past Anter Neg Sub : wir nicht hätten sagen wollen , dass sie kommt
+s MConjunct Fut Simul Pos Main : wir werden sagen wollen , dass sie kommt
+s MConjunct Fut Simul Pos Inv : werden wir sagen wollen , dass sie kommt
+s MConjunct Fut Simul Pos Sub : wir sagen wollen werden , dass sie kommt
+s MConjunct Fut Simul Neg Main : wir werden nicht sagen wollen , dass sie kommt
+s MConjunct Fut Simul Neg Inv : werden wir nicht sagen wollen , dass sie kommt
+s MConjunct Fut Simul Neg Sub : wir nicht sagen wollen werden , dass sie kommt
+s MConjunct Fut Anter Pos Main : wir werden haben sagen wollen , dass sie kommt
+s MConjunct Fut Anter Pos Inv : werden wir haben sagen wollen , dass sie kommt
+s MConjunct Fut Anter Pos Sub : wir werden haben sagen wollen , dass sie kommt
+s MConjunct Fut Anter Neg Main : wir werden nicht haben sagen wollen , dass sie kommt
+s MConjunct Fut Anter Neg Inv : werden wir nicht haben sagen wollen , dass sie kommt
+s MConjunct Fut Anter Neg Sub : wir nicht werden haben sagen wollen , dass sie kommt
+s MConjunct Cond Simul Pos Main : wir würden sagen wollen , dass sie kommt
+s MConjunct Cond Simul Pos Inv : würden wir sagen wollen , dass sie kommt
+s MConjunct Cond Simul Pos Sub : wir sagen wollen würden , dass sie kommt
+s MConjunct Cond Simul Neg Main : wir würden nicht sagen wollen , dass sie kommt
+s MConjunct Cond Simul Neg Inv : würden wir nicht sagen wollen , dass sie kommt
+s MConjunct Cond Simul Neg Sub : wir nicht sagen wollen würden , dass sie kommt
+s MConjunct Cond Anter Pos Main : wir würden haben sagen wollen , dass sie kommt
+s MConjunct Cond Anter Pos Inv : würden wir haben sagen wollen , dass sie kommt
+s MConjunct Cond Anter Pos Sub : wir würden haben sagen wollen , dass sie kommt
+s MConjunct Cond Anter Neg Main : wir würden nicht haben sagen wollen , dass sie kommt
+s MConjunct Cond Anter Neg Inv : würden wir nicht haben sagen wollen , dass sie kommt
+s MConjunct Cond Anter Neg Sub : wir nicht würden haben sagen wollen , dass sie kommt
+
+s MIndic Pres Simul Pos Main : das Buch wird gelesen
+s MIndic Pres Simul Pos Inv : wird das Buch gelesen
+s MIndic Pres Simul Pos Sub : das Buch gelesen wird
+s MIndic Pres Simul Neg Main : das Buch wird nicht gelesen
+s MIndic Pres Simul Neg Inv : wird das Buch nicht gelesen
+s MIndic Pres Simul Neg Sub : das Buch nicht gelesen wird
+s MIndic Pres Anter Pos Main : das Buch ist gelesen worden
+s MIndic Pres Anter Pos Inv : ist das Buch gelesen worden
+s MIndic Pres Anter Pos Sub : das Buch gelesen worden ist
+s MIndic Pres Anter Neg Main : das Buch ist nicht gelesen worden
+s MIndic Pres Anter Neg Inv : ist das Buch nicht gelesen worden
+s MIndic Pres Anter Neg Sub : das Buch nicht gelesen worden ist
+s MIndic Past Simul Pos Main : das Buch wurde gelesen
+s MIndic Past Simul Pos Inv : wurde das Buch gelesen
+s MIndic Past Simul Pos Sub : das Buch gelesen wurde
+s MIndic Past Simul Neg Main : das Buch wurde nicht gelesen
+s MIndic Past Simul Neg Inv : wurde das Buch nicht gelesen
+s MIndic Past Simul Neg Sub : das Buch nicht gelesen wurde
+s MIndic Past Anter Pos Main : das Buch war gelesen worden
+s MIndic Past Anter Pos Inv : war das Buch gelesen worden
+s MIndic Past Anter Pos Sub : das Buch gelesen worden war
+s MIndic Past Anter Neg Main : das Buch war nicht gelesen worden
+s MIndic Past Anter Neg Inv : war das Buch nicht gelesen worden
+s MIndic Past Anter Neg Sub : das Buch nicht gelesen worden war
+s MIndic Fut Simul Pos Main : das Buch wird gelesen werden
+s MIndic Fut Simul Pos Inv : wird das Buch gelesen werden
+s MIndic Fut Simul Pos Sub : das Buch gelesen werden wird
+s MIndic Fut Simul Neg Main : das Buch wird nicht gelesen werden
+s MIndic Fut Simul Neg Inv : wird das Buch nicht gelesen werden
+s MIndic Fut Simul Neg Sub : das Buch nicht gelesen werden wird
+s MIndic Fut Anter Pos Main : das Buch wird gelesen worden sein
+s MIndic Fut Anter Pos Inv : wird das Buch gelesen worden sein
+s MIndic Fut Anter Pos Sub : das Buch gelesen worden sein wird
+s MIndic Fut Anter Neg Main : das Buch wird nicht gelesen worden sein
+s MIndic Fut Anter Neg Inv : wird das Buch nicht gelesen worden sein
+s MIndic Fut Anter Neg Sub : das Buch nicht gelesen worden sein wird
+s MIndic Cond Simul Pos Main : das Buch würde gelesen werden
+s MIndic Cond Simul Pos Inv : würde das Buch gelesen werden
+s MIndic Cond Simul Pos Sub : das Buch gelesen werden würde
+s MIndic Cond Simul Neg Main : das Buch würde nicht gelesen werden
+s MIndic Cond Simul Neg Inv : würde das Buch nicht gelesen werden
+s MIndic Cond Simul Neg Sub : das Buch nicht gelesen werden würde
+s MIndic Cond Anter Pos Main : das Buch würde gelesen worden sein
+s MIndic Cond Anter Pos Inv : würde das Buch gelesen worden sein
+s MIndic Cond Anter Pos Sub : das Buch gelesen worden sein würde
+s MIndic Cond Anter Neg Main : das Buch würde nicht gelesen worden sein
+s MIndic Cond Anter Neg Inv : würde das Buch nicht gelesen worden sein
+s MIndic Cond Anter Neg Sub : das Buch nicht gelesen worden sein würde
+s MConjunct Pres Simul Pos Main : das Buch werde gelesen
+s MConjunct Pres Simul Pos Inv : werde das Buch gelesen
+s MConjunct Pres Simul Pos Sub : das Buch gelesen werde
+s MConjunct Pres Simul Neg Main : das Buch werde nicht gelesen
+s MConjunct Pres Simul Neg Inv : werde das Buch nicht gelesen
+s MConjunct Pres Simul Neg Sub : das Buch nicht gelesen werde
+s MConjunct Pres Anter Pos Main : das Buch sei gelesen worden
+s MConjunct Pres Anter Pos Inv : sei das Buch gelesen worden
+s MConjunct Pres Anter Pos Sub : das Buch gelesen worden sei
+s MConjunct Pres Anter Neg Main : das Buch sei nicht gelesen worden
+s MConjunct Pres Anter Neg Inv : sei das Buch nicht gelesen worden
+s MConjunct Pres Anter Neg Sub : das Buch nicht gelesen worden sei
+s MConjunct Past Simul Pos Main : das Buch würde gelesen
+s MConjunct Past Simul Pos Inv : würde das Buch gelesen
+s MConjunct Past Simul Pos Sub : das Buch gelesen würde
+s MConjunct Past Simul Neg Main : das Buch würde nicht gelesen
+s MConjunct Past Simul Neg Inv : würde das Buch nicht gelesen
+s MConjunct Past Simul Neg Sub : das Buch nicht gelesen würde
+s MConjunct Past Anter Pos Main : das Buch wäre gelesen worden
+s MConjunct Past Anter Pos Inv : wäre das Buch gelesen worden
+s MConjunct Past Anter Pos Sub : das Buch gelesen worden wäre
+s MConjunct Past Anter Neg Main : das Buch wäre nicht gelesen worden
+s MConjunct Past Anter Neg Inv : wäre das Buch nicht gelesen worden
+s MConjunct Past Anter Neg Sub : das Buch nicht gelesen worden wäre
+s MConjunct Fut Simul Pos Main : das Buch werde gelesen werden
+s MConjunct Fut Simul Pos Inv : werde das Buch gelesen werden
+s MConjunct Fut Simul Pos Sub : das Buch gelesen werden werde
+s MConjunct Fut Simul Neg Main : das Buch werde nicht gelesen werden
+s MConjunct Fut Simul Neg Inv : werde das Buch nicht gelesen werden
+s MConjunct Fut Simul Neg Sub : das Buch nicht gelesen werden werde
+s MConjunct Fut Anter Pos Main : das Buch werde gelesen worden sein
+s MConjunct Fut Anter Pos Inv : werde das Buch gelesen worden sein
+s MConjunct Fut Anter Pos Sub : das Buch gelesen worden sein werde
+s MConjunct Fut Anter Neg Main : das Buch werde nicht gelesen worden sein
+s MConjunct Fut Anter Neg Inv : werde das Buch nicht gelesen worden sein
+s MConjunct Fut Anter Neg Sub : das Buch nicht gelesen worden sein werde
+s MConjunct Cond Simul Pos Main : das Buch würde gelesen werden
+s MConjunct Cond Simul Pos Inv : würde das Buch gelesen werden
+s MConjunct Cond Simul Pos Sub : das Buch gelesen werden würde
+s MConjunct Cond Simul Neg Main : das Buch würde nicht gelesen werden
+s MConjunct Cond Simul Neg Inv : würde das Buch nicht gelesen werden
+s MConjunct Cond Simul Neg Sub : das Buch nicht gelesen werden würde
+s MConjunct Cond Anter Pos Main : das Buch würde gelesen worden sein
+s MConjunct Cond Anter Pos Inv : würde das Buch gelesen worden sein
+s MConjunct Cond Anter Pos Sub : das Buch gelesen worden sein würde
+s MConjunct Cond Anter Neg Main : das Buch würde nicht gelesen worden sein
+s MConjunct Cond Anter Neg Inv : würde das Buch nicht gelesen worden sein
+s MConjunct Cond Anter Neg Sub : das Buch nicht gelesen worden sein würde
+
+ich schicke der Frau das Buch
+
+ich schicke es ihr
+

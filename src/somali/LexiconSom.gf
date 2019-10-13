@@ -1,15 +1,15 @@
 concrete LexiconSom of Lexicon = CatSom **
-  open ParadigmsSom,ResSom in {
+  open ParadigmsSom, ResSom in {
 
 ----
 -- A
 
--- lin add_V3 =
+lin add_V3 = mkV3 "dar" ku NoPrep ;
 -- lin airplane_N = mkN "" ;
 -- lin alas_Interj = mkInterj "" ;
 -- lin already_Adv = mkA "" ;
 lin animal_N = mkN "xayawaan" ;
--- lin answer_V2S = mkV2 "" ;
+lin answer_V2S = mkV2S "jawaab" ku ;
 -- lin apartment_N = mkN "" ;
 -- lin apple_N = mkN "" ;
 -- lin art_N = mkN "" ;
@@ -33,7 +33,7 @@ lin big_A = mkA "weyn" ;
 -- lin bike_N = mkN "" ;
 lin bird_N = mkN "shimbir" fem ;
 -- lin bite_V2 = mkV2 "" ;
--- lin black_A = mkA "" ;
+lin black_A = mkA "madow" ;
 -- lin blood_N = mkN "" ;
 -- lin blow_V = mkV "" ;
 -- lin blue_A = mkA "" ;
@@ -41,8 +41,8 @@ lin bird_N = mkN "shimbir" fem ;
 -- lin bone_N = mkN "" ;
 -- lin boot_N = mkN "" ;
 -- lin boss_N = mkN "" ;
-lin book_N = mkN "buug" ; -- TODO: irregular plural
-lin boy_N = mkN "wiil" ;
+lin book_N = (mk2N "buug" "buugaag") ** {gda = MF GA TA} ;
+lin boy_N = mk2N "wiil" "wiilal" ;
 lin bread_N = mkN "rooti" ; --masc/fem
 -- lin break_V2 = mkV2 "" ;
 -- lin breast_N = mkN "" ;
@@ -52,7 +52,7 @@ lin bread_N = mkN "rooti" ; --masc/fem
 -- lin brown_A = mkA "" ;
 -- lin burn_V = mkV "" ;
 -- lin butter_N = mkN "" ;
--- lin buy_V2 = mkV2 "" ;
+lin buy_V2 = mkV2 "iibso" ;
 
 ----
 -- C
@@ -63,7 +63,7 @@ lin car_N = mkN "baabuur" masc ;
 -- lin carpet_N = mkN "" ;
 lin cat_N = mkN "bisad" ;
 -- lin ceiling_N = mkN "" ;
--- lin chair_N = mkN "" ;
+lin chair_N = mkN "kursi" ;
 -- lin cheese_N = mkN "" ;
 -- lin child_N = mkN "" ;
 -- lin church_N = mkN "" ;
@@ -74,7 +74,7 @@ lin city_N = mkN "magaalo" ;
 -- lin cloud_N = mkN "" ;
 -- lin coat_N = mkN "" ;
 -- lin cold_A = mkA "" ;
--- lin come_V = etorri_V ;
+lin come_V = mkV "iman" ;
 -- lin computer_N = mkN "" ;
 -- lin correct_A = mkA "" ;
 -- lin count_V2 = mkV2 "" ;
@@ -99,10 +99,10 @@ lin drink_V2 = mkV2 "cab" ;
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
 -- lin dust_N = mkN "" ;
---
--- ----
--- -- E
---
+
+----
+-- E
+
 -- lin ear_N = mkN "" ;
 -- lin earth_N = mkN "" ;
 lin eat_V2 = mkV2 "cun" ;
@@ -110,10 +110,10 @@ lin eat_V2 = mkV2 "cun" ;
 -- lin empty_A = mkA "" ;
 -- lin enemy_N = mkN "" ;
 -- lin eye_N = mkN "" ;
---
--- ----
--- -- F
---
+
+----
+-- F
+
 -- lin factory_N = mkN "" ;
 -- lin fall_V = mkV "" ;
 -- lin far_Adv = mkA "" ;
@@ -187,13 +187,13 @@ lin house_N = mkN "guri" ;
 -- lin industry_N = mkN "" ;
 -- lin iron_N = mkN "" ;
 -- lin john_PN = mkPN "Jon" ;
--- lin jump_V = mkV "" ;
+lin jump_V = mkV "bood" ;
 -- lin kill_V2 = mkV2 "" ;
 -- lin king_N = mkN "" ;
 -- lin knee_N = mkN "" ;
 -- lin know_V2 = mkV2 "" ;
 -- lin know_VQ = mkVQ "" ;
--- lin know_VS = mkVS "" ;
+lin know_VS = mkV "ogaan" ; -- copula ** {sii = "og"} ;
 
 
 ----
@@ -211,7 +211,7 @@ lin language_N = mkN "af" ;
 -- lin lie_V = mkV "" ;
 -- lin like_V2 = mkV2 "" ;
 -- lin listen_V2 = mkV2 "" ;
--- lin live_V  = mkV "" ;
+lin live_V = copula ** {sii = "nool"} ;
 -- lin liver_N = mkN "" ;
 -- lin long_A = mkA "" ;
 -- lin lose_V2 = mkV2 "" ;
@@ -222,9 +222,9 @@ lin language_N = mkN "af" ;
 ----
 -- M
 
-lin man_N = mkN "nin" ;
+lin man_N = (mk2N "nin" "niman") ** {gda = MM KA KA} ;
 -- lin married_A2 = mkA "" ;
--- lin meat_N = mkN "" ;
+lin meat_N = mkN "hilib" "hilbo" masc ;
 -- lin milk_N = mkN "" ;
 -- lin moon_N = mkN "" ;
 lin mother_N2 = mkN2 (shortPossN (mkN "hooyo")) ;
@@ -252,13 +252,13 @@ lin name_N = mkN "magac" ;
 --
 -- lin oil_N = mkN "" ;
 -- lin old_A = mkA "" ;
--- lin open_V2 = mkV2 "" ;
--- lin paint_V2A = mkV2 "" ;
+lin open_V2 = mkV2 "fur" ;
+lin paint_V2A = mkV2A "rinjiyee" ;
 -- lin paper_N = mkN "" ;
 -- lin paris_PN = mkPN "Paris" ;
 -- lin peace_N = mkN "" ;
 -- lin pen_N = mkN "" ;
--- lin person_N = mkN "" ;
+lin person_N = mkNoun "dad" "dadka" "dad" "dadka" Masc ;
 -- lin planet_N = mkN "" ;
 -- lin plastic_N = mkN "" ;
 -- lin play_V = mkV "" ;
@@ -294,17 +294,17 @@ lin read_V2 = mkV2 "akhri" ;
 -- lin rubber_N = mkN "" ;
 -- lin rule_N = mkN "" ;
 -- lin run_V = mkV "" ;
---
--- ----
--- -- S
---
--- lin salt_N = mkN "" ;
+
+----
+-- S
+
+lin salt_N = mkN "cusbo" ;
 -- lin sand_N = mkN "" ;
 -- lin say_VS = mkVS "" ;
 -- lin school_N = mkN "" ;
 -- lin science_N = mkN "" ;
 -- lin scratch_V2 = mkV2 "" ;
--- lin sea_N = mkN "" ;
+lin sea_N = mkN "bad" fem ;
 lin see_V2 = mkV2 "ark" ;
 -- lin seed_N = mkN "" ;
 -- lin seek_V2 = mkV2 "" ;
@@ -312,7 +312,7 @@ lin see_V2 = mkV2 "ark" ;
 -- lin send_V3 = mkV3 "" ;
 -- lin sew_V = mkV "" ;
 -- lin sharp_A = mkA "" ;
--- lin sheep_N = mkN "" ;
+lin sheep_N = mkN "lax" fem ;
 -- lin ship_N = mkN "" ;
 -- lin shirt_N = mkN "" ;
 -- lin shoe_N = mkN "" ;
@@ -361,7 +361,7 @@ lin speak_V2 = mkV2 "hadlo" ;
 -- lin tail_N = mkN "" ;
 -- lin talk_V3 = mkV3 "" ;
 lin teach_V2 = mkV2 "bar" ku ;
--- lin teacher_N = mkN "" ;
+lin teacher_N = mkN "macallin" ;
 -- lin television_N = mkN "" ;
 -- lin thick_A = mkA "" ;
 -- lin thin_A = mkA "" ;
@@ -397,7 +397,7 @@ lin wait_V2 = mkV2 "sug" ;
 -- lin watch_V2 = mkV2 "" ;
 lin water_N = mkNoun "biyo" "biyaha" "biyo" "biyaha" Masc ; -- ?? gender
 -- lin wet_A = mkA "" ;
--- lin white_A = mkA "" ;
+lin white_A = mkA "cad" ;
 -- lin wide_A = mkA "" ;
 -- lin wife_N = mkN "" ;
 -- lin win_V2 = mkV2 "" ;

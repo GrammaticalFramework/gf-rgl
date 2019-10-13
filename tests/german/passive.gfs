@@ -1,0 +1,23 @@
+-- Use gf --run < passive.gfs  or  gf> eh passive.gfs 
+--? echo "loading TestLangGer.gf and TestLangEng.gf ..."
+--i TestLangGer.gf TestLangEng.gf
+
+? echo "extracting positive, negative and dubious examples from passive.txt ..."
+? grep accept passive.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif passive.pos.txt
+? wc -l passive.pos.txt
+? grep reject passive.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif passive.neg.txt
+? wc -l passive.neg.txt
+? grep dubious passive.txt | sed s/\ --\ [\*a-zA-Z\(\)\ \.\:\,\;\<\>\\_0-4\\+\\?\\-]*// | cpif passive.dub.txt
+? wc -l passive.dub.txt
+
+? echo "parsing positive examples ...; storing trees in passive.pos.new ..."
+rf -lines -file="passive.pos.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="passive.pos.new"
+? echo "diff passive.pos.out passive.pos.new:" ; diff passive.pos.out passive.pos.new
+
+? echo "parsing negative examples ...; storing trees in passive.neg.new ..."
+rf -lines -file="passive.neg.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="passive.neg.new"
+? echo "diff passive.neg.out passive.neg.new:" ; diff passive.neg.out passive.neg.new
+
+? echo "parsing dubious examples ...; storing trees in passive.dub.new ..."
+rf -lines -file="passive.dub.txt" | p -lang=Ger | l -treebank -lang="Ger,Eng" | wf -file="passive.dub.new"
+? echo "diff passive.dub.out passive.dub.new:" ; diff passive.dub.out passive.dub.new

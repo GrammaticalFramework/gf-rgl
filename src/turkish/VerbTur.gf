@@ -10,7 +10,7 @@ concrete VerbTur of Verb = CatTur ** open ResTur in {
 
     -- TODO: test this and fix.
     ComplVS vs s = {
-      s = \\vf => s.s ! SubordSuffixDik ++ vs.s ! vf
+      s = \\vf => s.subord ++ vs.s ! vf
     } ;
 
 }

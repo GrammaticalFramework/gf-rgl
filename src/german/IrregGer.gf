@@ -213,7 +213,7 @@ in {
   lin werben_V =  irregV "werben" "wirbt" "warb" "würbe" "geworben" ;
   lin werden_V = lin V (M.mkV "werden" "werde" "wirst" "wird" "werdet" "werd" 
                           "wurde" "wurdest" "wurden" "wurdet"
-                          "würde" "geworden" [] M.VHaben) ;
+                          "würde" "geworden" [] M.VSein) ;
   lin werfen_V =  irregV "werfen" "wirft" "warf" "würfe" "geworfen" ;
   lin wiegen_V =  irregV "wiegen" "wiegt" "wog" "wöge" "gewogen" ;
   lin winden_V =  irregV "winden" "windt" "wand" "wände" "gewunden" ;

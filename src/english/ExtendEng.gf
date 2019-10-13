@@ -14,7 +14,7 @@ concrete ExtendEng of Extend =
     ExistsNP, ExistCN, ExistMassCN, ExistPluralCN,
     FocusAP, FocusAdV, FocusAdv, FocusObj, GenIP, GenModIP, GenModNP, GenNP, GenRP,
     GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, MkVPS, NominalizeVPSlashNP,
-    PassAgentVPSlash, PassVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj, PredVPS, PredVPSVV, PredetRNP, PrepCN,
+    PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj, PredVPS, PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
     UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
    ]
@@ -150,7 +150,7 @@ concrete ExtendEng of Extend =
       isPre = vp.isSimple                 -- depends on whether there are complements
       } ;
 
-    EmbedPresPart vp = {s = \\a => infVP VVPresPart vp False Simul CPos a} ;
+    EmbedPresPart vp = {s = infVP VVPresPart vp False Simul CPos (agrP3 Sg)} ;
 
    PastPartAP vp = {
       s = \\a => vp.ad ! a ++ vp.ptp ++ vp.p ++ vp.c2 ++ vp.s2 ! a ++ vp.ext ;
@@ -193,7 +193,7 @@ concrete ExtendEng of Extend =
 
    PredIAdvVP iadv vp = {s = \\t,a,p,q => iadv.s ++ infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
-   EmbedSSlash s = {s = \\_ => "what" ++ s.s ++ s.c2} ;
+   EmbedSSlash s = {s = "what" ++ s.s ++ s.c2} ;
 
    NominalizeVPSlashNP vpslash np =
      let vp : ResEng.VP = insertObjPre (\\_ => vpslash.c2 ++ np.s ! NPAcc) vpslash ;
@@ -222,6 +222,8 @@ concrete ExtendEng of Extend =
   lin
     PassVPSlash vps = passVPSlash (lin VPS vps) [] ;
     PassAgentVPSlash vps np = passVPSlash (lin VPS vps) ("by" ++ np.s ! NPAcc) ;
+    ProgrVPSlash vp = insertObjc (\\a => vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a)
+      (predAux auxBe ** {c2 = vp.c2; gapInMiddle = vp.gapInMiddle; missingAdv = vp.missingAdv});
 
    --- AR 7/3/2013
    ComplSlashPartLast vps np = case vps.gapInMiddle of {

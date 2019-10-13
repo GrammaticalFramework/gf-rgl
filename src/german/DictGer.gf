@@ -16980,7 +16980,7 @@ lin
   heldin_N = mkN  "Heldin" "Heldinnen" feminine ;
   heldisch_A = mk3A "heldisch" "heldischer" "heldischste" ;
   helena_N = mkN  "Helena" "Helenas" feminine ;
-  helfen_V = irregV "helfen" "helft" "half" "hälfe" "geholfen" ; 
+  helfen_V = irregV "helfen" "hilft" "half" "hälfe" "geholfen" ; 
   helfensteiner_N = mkN  "Helfensteiner" "Helfensteiner" masculine ;
   helfer_N = mkN  "Helfer" "Helfer" masculine ;
   helferlein_N = mkN  "Helferlein" "Helferlein" neuter ;
@@ -26112,7 +26112,7 @@ lin
   nachgruebeln_V = prefixV "nach" (regV "grübeln") ;
   nachhaken_5_V = prefixV "nach" (regV "haken") ;
   nachhaltig_A = mk3A "nachhaltig" "nachhaltiger" "nachhaltigste" ;
-  nachhelfen_6_V = prefixV "nach" (irregV "helfen" "helft" "half" "hälfe" "geholfen") ; 
+  nachhelfen_6_V = prefixV "nach" (irregV "helfen" "hilft" "half" "hälfe" "geholfen") ; 
   nachher_Adv = mkAdv "nachher" ;
   nachhilfe_N = mkN  "Nachhilfe" "Nachhilfen" feminine ;
   nachhut_N = mkN  "Nachhut" "Nachhuten" feminine ;

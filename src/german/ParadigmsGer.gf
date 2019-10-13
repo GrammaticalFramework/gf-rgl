@@ -286,11 +286,11 @@ mkV2 : overload {
 -- Three-place (ditransitive) verbs need two prepositions, of which
 -- the first one or both can be absent.
 
-  accdatV3 : V -> V3 ;                  -- geben + dat + acc (no prepositions)
+  accdatV3 : V -> V3 ;                  -- geben + dat(c2) + acc(c3) (Eng: no prepositions)
   dirV3    : V -> Prep -> V3 ;          -- senden + acc + nach (preposition on second arg)
 
   mkV3 : overload {
-    mkV3     : V ->                 V3 ;  -- geben + dat + acc
+    mkV3     : V ->                 V3 ;  -- geben + dat(c3) + acc(c2) (Eng: give sth to-sb)
     mkV3     : V -> Prep -> Prep -> V3 ;  -- sprechen + mit + über
     } ;
 
@@ -302,7 +302,7 @@ mkV2 : overload {
   mkV0  : V -> V0 ; --%
   mkVS  : V -> VS ;
 
-  mkV2V : overload { -- with zu
+  mkV2V : overload { -- with zu; object-control
     mkV2V : V -> V2V ;
     mkV2V : V -> Prep -> V2V ;
     } ;
@@ -310,6 +310,8 @@ mkV2 : overload {
     auxV2V : V -> V2V ;
     auxV2V : V -> Prep -> V2V ;
     } ;
+  subjV2V : V2V -> V2V ; -- force subject-control
+
   mkV2A : overload {
     mkV2A : V -> V2A ; 
     mkV2A : V -> Prep -> V2A ;
@@ -584,36 +586,37 @@ mkV2 : overload {
     mkV3 : V -> V3 
       = \v -> lin V3 (v ** {c2 = accPrep ; c3 = datPrep}) ;
     mkV3 : V -> Prep -> Prep -> V3
-      = \v,c,d -> v ** {c2 = c ; c3 = d ; lock_V3 = <>} ;
+      = \v,c,d -> lin V3 (v ** {c2 = c ; c3 = d}) ;
     } ;
 
-  dirV3 v p = mkV3 v (mkPrep [] accusative) p ;
-  accdatV3 v = mkV3 v (mkPrep [] dative) (mkPrep [] accusative) ; 
-
+  dirV3 v p = mkV3 v accPrep p ;        -- accPrep sets isPrep=False
+  accdatV3 v = mkV3 v datPrep accPrep ; -- to fit to Eng ditransitives (no preposition): 
+                                        -- give sb(indir) sth(dir) = geben jmdm(dat) etwas(acc)
   mkVS v = v ** {lock_VS = <>} ;
   mkVQ v = v ** {lock_VQ = <>} ;
   mkVV v = v ** {isAux = False ; lock_VV = <>} ;
   auxVV v = v ** {isAux = True ; lock_VV = <>} ;
 
   V0 : Type = V ;
---  V2S, V2V, V2Q : Type = V2 ;
   AS, A2S, AV : Type = A ;
   A2V : Type = A2 ;
 
   mkV0  v = v ** {lock_V = <>} ;
 
-  mkV2V = overload {
+  mkV2V = overload { -- default: object-control
     mkV2V : V -> V2V 
-      = \v -> dirV2 v ** {isAux = False ; lock_V2V = <>} ;
+      = \v -> dirV2 v ** {isAux = False ; ctrl = ObjC ; lock_V2V = <>} ;
     mkV2V : V -> Prep -> V2V 
-      = \v,p -> prepV2 v p ** {isAux = False ; lock_V2V = <>} ;
+      = \v,p -> prepV2 v p ** {isAux = False ; ctrl = ObjC ; lock_V2V = <>} ;
     } ;
   auxV2V = overload {
     auxV2V : V -> V2V 
-      = \v -> dirV2 v ** {isAux = True ; lock_V2V = <>} ;
+      = \v -> dirV2 v ** {isAux = True ; ctrl = ObjC ; lock_V2V = <>} ;
     auxV2V : V -> Prep -> V2V 
-      = \v,p -> prepV2 v p ** {isAux = True ; lock_V2V = <>} ;
+      = \v,p -> prepV2 v p ** {isAux = True ; ctrl = ObjC ; lock_V2V = <>} ;
     } ;
+  subjV2V v = v ** {ctrl = SubjC} ;
+
   mkV2A = overload {
     mkV2A : V -> V2A 
       = \v -> dirV2 v ** {isAux = False ; lock_V2A = <>} ;
