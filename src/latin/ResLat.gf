@@ -1472,8 +1472,8 @@ oper
     Below8 = Yes | No8 | No9 | Ign ;
   oper
     -- Numerals are by default cardinal numbers but have a field for ordinal numbers
-    TDigit : Type = { s : Unit => Gender => Case => Str ; tenNext : Str ; below8 : Below8 } ; -- ord : Unit => Agr => Str } ;
-    TNumeral : Type = { s : Gender => Case => Str ; d : Unit => Gender => Case => Str ; n : Number ; below8 : Below8 } ; -- ord : Unit => Agr => Str } ;
+    TDigit : Type = { s : Unit => Gender => Case => Str ; tenNext : Str ; below8 : Below8 ; ord : Unit => Gender => Number => Case => Str } ;
+    TNumeral : Type = { s : Gender => Case => Str ; d : { num, ord : Unit => Gender => Case => Str } ; n : Number ; below8 : Below8 ; ord : Gender => Number => Case => Str } ;
 
     -- Inflection for cardinal numbers
     cardFlex : Str -> Gender => Case => Str =
@@ -1496,21 +1496,21 @@ oper
 			  } ;
 			_ => \\_,_ => c
       } ;
-      -- 	ordFlex : Gender => Number => Case => Str =
-      -- 	  case o of {
-      -- 	    stem + "us" => table {
-      -- 	      Masc => table Number [ table Case [ stem + "us" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "e" ] ;
-      -- 				     table Case [ stem + "i" ; stem + "os" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "i" ] ;
-      -- 		];
-      -- 	      Fem => table Number [ table Case [ stem + "a" ; stem + "am" ; stem + "ae" ; stem + "ae" ; stem + "a" ; stem + "a" ] ;
-      -- 				    table Case [ stem + "ae" ; stem + "as" ; stem + "arum" ; stem + "is" ; stem + "is" ; stem + "ae" ] ;
-      -- 		] ;
-      -- 	      Neutr => table Number [ table Case [ stem + "um" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "um" ] ;
-      -- 				      table Case [ stem + "a" ; stem + "a" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "a" ] ;
-      -- 		]
-      -- 	      } ;
-      -- 	    _ => error "unsupported ordinal form"
-      -- 	  }
+    ordFlex : Str -> Gender => Number => Case => Str = 
+      \o -> case o of {
+      	stem + "us" => table {
+      	  Masc => table Number [ table Case [ stem + "us" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "e" ] ;
+      				 table Case [ stem + "i" ; stem + "os" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "i" ] ;
+      	    ];
+      	  Fem => table Number [ table Case [ stem + "a" ; stem + "am" ; stem + "ae" ; stem + "ae" ; stem + "a" ; stem + "a" ] ;
+      				table Case [ stem + "ae" ; stem + "as" ; stem + "arum" ; stem + "is" ; stem + "is" ; stem + "ae" ] ;
+      	    ] ;
+      	  Neutr => table Number [ table Case [ stem + "um" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "um" ] ;
+      				  table Case [ stem + "a" ; stem + "a" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "a" ] ;
+      	    ]
+      	  } ;
+      	_ => error "unsupported ordinal form"
+      } ;
       -- in
     -- { s = cardFlex ; n = case c of { "unus" => Sg ; _ => Pl }  ; ord = ordFlex } ;
 

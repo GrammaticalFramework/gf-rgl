@@ -105,8 +105,10 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     --    OrdDigits n = {s = n.s ! NOrd} ;
     --
   lin
---    NumNumeral numeral = numeral.s ;
---    OrdNumeral numeral = numeral.ord ;
+    -- NumNumeral : Numeral -> Card ;  -- fifty-one
+    NumNumeral numeral = { s = numeral.s ; n = numeral.n } ;
+    -- OrdNumeral : Numeral -> Ord ;  -- fifty-first
+    OrdNumeral numeral = { s = numeral.ord } ;
 --
 --    AdNum adn num = {s = adn.s ++ num.s ; n = num.n} ;
 --
