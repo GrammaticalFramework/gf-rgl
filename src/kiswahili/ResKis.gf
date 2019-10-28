@@ -2,7 +2,7 @@
 
 --1 Swalish auxiliary operations.
 
-instance ResKis of ResBantu = DiffKis, CommonBantu ** open Prelude in {
+instance ResKis of ResBantu = DiffKis, CommonBantu ** open Prelude  in {
 
-} ;
+} 
  

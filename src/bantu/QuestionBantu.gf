@@ -1,18 +1,41 @@
 incomplete concrete QuestionBantu of Question = 
   CatBantu ** open CommonBantu, ResBantu, Prelude in {
-{-
+
   flags optimize=all_subs ;
 
   lin
-
-    QuestCl cl = {
-      s = \\t,a,p => 
-            let cls = cl.s ! DDir ! t ! a ! p ---- DInv? 
-            in table {
-              QDir   => cls ! Indic ;
-              QIndir => subjIf ++ cls ! Indic
-              }
+   CompIAdv a = a ;
+   CompIP ip = {s =  ip.s } ;
+   IdetQuant idet num = let n = num.n   in {
+          s = \\g => idet.s!n ! g ++ num.s !g    ; 
+          n = n
+        } ;
+    IdetCN idet cn = {
+            s =    cn.s ! idet.n !Nom  ++idet.s ! cn.g  ;
+            n = idet.n } ;
+    PrepIP p ip = {
+      s = p.s!ip.n !G1 ++ ip.s 
       } ;
+     -- AdvIAdv i a = {s = i.s ++ a.s} ;
+      AdvIP ip adv = {
+      s =  ip.s  ++ adv.s! Ag G1 ip.n P3 ;
+      n= ip.n
+      } ;
+
+      QuestCl cl = {
+      s = \\t,a,p =>
+        let cls = cl.s ! t ! a ! p
+        in table {
+          QDir   => dQue ++cls  ;
+          QIndir => inQue ++ cls
+        }
+      } ;
+       QuestIAdv iadv cl = mkQuestion iadv cl ;
+      QuestVP qp vp = {  s = \\t,a,b,_ => qp .s ++  vp.s!Ag G1 qp.n P3!t!a!b};
+      
+       QuestSlash ip slash ={  s = \\t,a,b,_ => ip .s ++  slash.s!t!a!b};  -- check the capability of string 
+{-
+   
 
     QuestVP qp vp = {
       s = \\t,a,b,_ => 
@@ -34,8 +57,8 @@ incomplete concrete QuestionBantu of Question =
               }
       } ;
 
-    QuestIAdv iadv cl = {
-      s = \\t,a,p,q => 
+    QuestIAdv iadv cl = {iadv.s
+      s = \\t,a,p => 
             let 
               ord = case q of {
                 QDir   => iAdvQuestionInv ;
@@ -56,33 +79,13 @@ incomplete concrete QuestionBantu of Question =
             in why ++ cls
       } ;
 
-    PrepIP p ip = {
-      s = p.s ++ ip.s ! p.c
-      } ;
-
-    AdvIP ip adv = {
-      s = \\c => ip.s ! c ++ adv.s ;
-      a = ip.a
-      } ;
-
-    IdetCN idet cn = 
-      let 
-        g = cn.g ;
-        n = idet.n ;
-        a = aagr g n
-      in {
-      s = \\c => idet.s ! g ! c ++ cn.s ! n ; 
-      a = a
-      } ;
-
     IdetIP idet = 
       let 
-        g = Masc ; ---- Fem in Extra
+        g = G1 ; ---- Fem in Extra
         n = idet.n ;
-        a = aagr g n
-      in {
-      s = \\c => idet.s ! g ! c ; 
-      a = a
+           in {
+      s =  idet.s ! g  ; 
+      n = idet.n
       } ;
 
     IdetQuant idet num = 
@@ -93,18 +96,18 @@ incomplete concrete QuestionBantu of Question =
       n = n
       } ;
 
-    AdvIAdv i a = {s = i.s ++ a.s} ;
+    
 
-    CompIAdv a = {s = \\_  => a.s ; cop = estarCopula} ;
+    CompIAdv a = {s =  a.s } ;
 
-    CompIP p = {s = \\_  => p.s ! Nom ; cop = serCopula} ;
+    CompIP p = {s =  p.s ! Sg!G1  ; n =p.n} ; -}
 
-  lincat 
-    QVP = ResBantu.VP ;
-  lin
-    ComplSlashIP vp ip = insertObject vp.c2 (heavyNP {s = ip.s ; a = {g = ip.a.g ; n = ip.a.n ; p = P3}}) vp ;
-    AdvQVP vp adv = insertAdv adv.s vp ;
-    AddAdvQVP vp adv = insertAdv adv.s vp ;
+ -- lincat 
+  --  QVP = QuestionBantu.VP ;
+ -- lin
+   -- ComplSlashIP vp ip = insertObject vp.c2 (heavyNP {s = ip.s ; a = {g = ip.a.g ; n = ip.a.n ; p = P3}}) vp ;
+  --  AdvQVP vp adv = insertAdv adv.s vp ;
+   {- AddAdvQVP vp adv = insertAdv adv.s vp ;
 
     QuestQVP qp vp = { 
       s = \\t,a,b,_ => 

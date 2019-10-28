@@ -5,13 +5,13 @@ incomplete concrete AdjectiveBantu of Adjective =
 
    PositA  a = {s = \\g,n => a.s !AAdj g n ;isPre = True } ;
    ComparA a np = {
-      s = \\g,n => a.s  !AComp g n  ++ conjThan  ++ np.s ! npNom ; 
+      s = \\g,n => a.s  !AAdj g n  ++ conjThan  ++ np.s ! npNom ; 
       isPre = False} ;
 
-    UseComparA a = {s = \\g,n=> a.s !AComp g n;isPre = True};
+    UseComparA a = {s = \\g,n=> a.s !AAdj g n;isPre = True};
 
-     AdjOrd ord = {  -- find why it cannot generate tree
-      s = \\g,n => ord.s ! g  ;
+     AdjOrd ord = { 
+         s = \\g,n => ord.s ! g  ;
       isPre = True
       } ;
 
@@ -21,9 +21,7 @@ incomplete concrete AdjectiveBantu of Adjective =
       } ;
 
     ComplA2 a np = {
-
-      s = \\g,n => a.s  !AComp g n  ++ a.c2 ++ np.s ! NCase Nom; 
-
+      s = \\g,n => a.s  !AAdj g n  ++ a.c2 ++ np.s ! NCase Nom; 
       isPre = False
       } ;
     ReflA2 a ={
@@ -36,13 +34,14 @@ incomplete concrete AdjectiveBantu of Adjective =
       } ;
 
     AdAP ada ap = {
-      s = \\g,n => ada.s ++ ap.s ! g ! n;
+      s = \\g,n =>   ap.s ! g ! n ++ ada.s;
       isPre = ap.isPre
       } ;
 
     UseA2 a2 = {s = \\g, n => a2.s !AAdj g n ;isPre = True } ;
 
-    AdvAP ap adv = {s = \\g,n => ap.s ! g ! n ++ adv.s ; isPre = False} ;
+   AdvAP ap adv = {s = \\g,n => ap.s ! g ! n ++ adv.s!Ag g n P3
+   ; isPre = False} ;
 
 
 }

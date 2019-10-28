@@ -11,10 +11,10 @@ concrete GrammarKis of Grammar =
   RelativeKis,
   ConjunctionKis,
   PhraseKis,
-  TextX - [Pol,PPos,PNeg,Pres],
+  TextX - [Adv],
   StructuralKis,
   IdiomKis,
-  TenseX - [Pol,PPos,PNeg,Pres]
+  TenseX - [Adv]
   **  {
 
 flags startcat = Phr ; unlexer = text ; lexer = text;

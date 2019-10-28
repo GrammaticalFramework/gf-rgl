@@ -1,2 +1,2 @@
 concrete RelativeGus of Relative = CatGus ** RelativeBantu with
- (ResBantu = ResGus);  
+ (Structural = StructuralGus),(ResBantu = ResGus);  

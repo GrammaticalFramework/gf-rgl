@@ -11,10 +11,10 @@ concrete GrammarKam of Grammar =
   RelativeKam,
   ConjunctionKam,
   PhraseKam,
-  TextX - [Pol,PPos,PNeg,Pres],
+  TextX - [Adv],
   StructuralKam,
   IdiomKam,
-  TenseX - [Pol,PPos,PNeg,Pres]
+  TenseX - [Adv]
   **  {
 
 flags startcat = Phr ; unlexer = text ; lexer = text;

@@ -9,17 +9,18 @@ resource ParadigmsGus = open
   in {
 
 oper
-  Gender : Type ; 
-   omo_aba  : Gender ;--%
-  omo_eme   : Gender ;
-  e_ci      : Gender ;
-  eri_ama   : Gender ;
-  ege_ebi   : Gender ;
-  oro_ci    : Gender ;
-  aka_ebi   : Gender ; --%
-  abo_ama   : Gender ;
-  oko_ama   : Gender ;
-  aa        : Gender ;
+  Cgender : Type ; 
+   omo_aba  : Cgender ;--%
+  omo_eme   : Cgender ;
+  e_ci      : Cgender ;
+  eri_ama   : Cgender ;
+  ege_ebi   : Cgender ;
+  oro_ci    : Cgender ;
+  aka_ebi   : Cgender ; --%
+  abo_ama   : Cgender ;
+  oko_ama   : Cgender ;
+  ama_ama   : Cgender ;
+  aa        : Cgender ;
 
 -- To abstract over number names, we define the following.
 
@@ -43,21 +44,21 @@ oper
 -- Nouns are constructed by the function $mkN$, which takes a varying
 -- number of arguments.
 
-  mkN : overload {
-    mkN : (flash : Str) -> Gender -> N ;  --regular plural 
-    mkN : (man,men : Str) ->Gender -> N ; -- irregular plural
-    mkN : Str  -> N -> N -- e.g. baby + boom compound noun
-  } ;
+ mkN : overload {
+     mkN : (flash : Str) -> Cgender -> N ;  --regular plural 
+     mkN :(man,men : N) -> Cgender -> N ;
+     mkN : V -> N ; --nouns from verbs
+     mkN : (man,men : Str) ->Cgender -> N };-- irregular plural
 
 --3 Relational nouns 
  mkN2 : overload {
       mkN2 : N -> Prep -> N2 ;
       mkN2 : N -> Str -> N2 ;
       mkN2 : N -> N2 ; 
-      mkN2 : N -> (Gender => Number => Str)-> N2 ;
+      mkN2 : N -> (Cgender => Number => Str)-> N2 ;
     } ;
  
-oper dfltGender : Gender = G1 ; 
+oper dfltGender : Cgender = G1 ; 
        dfltNumber : Number = Sg ;
  
 -- Three-place relational nouns ("the connection from x to y") need two prepositions.
@@ -72,7 +73,7 @@ oper dfltGender : Gender = G1 ;
 
   mkPN : overload {
 
-    mkPN : Str ->Gender -> PN ;
+    mkPN : Str ->Cgender -> PN ;
 
 -- Sometimes a common noun can be reused as a proper name, e.g. "Bank"
 
@@ -120,11 +121,9 @@ oper dfltGender : Gender = G1 ;
   mkAdN : Str -> AdN ; -- e.g. approximately
 
 --2 Prepositions
-
-  mkPrep : overload {
-   mkPrep : Str -> Prep  ;
-  -- mkPrep : Str -> Str -> Prep ;
-    mkPrep : (Gender => Number => Str) -> Prep ;
+mkPrep : overload {
+   mkPrep : Str ->Bool-> Prep  ;
+   mkPrep : (Cgender => Number => Str) ->Bool -> Prep ;
   } ;
   
   noPrep : Prep ;  -- no preposition
@@ -161,27 +160,24 @@ oper dfltGender : Gender = G1 ;
 -- (transitive verbs). Notice that a particle comes from the $V$.-}
 
   mkV2 : overload {
-    mkV2  : Str -> V2 ;       -- kill --%
-    mkV2  : V -> V2 ;         -- transitive, e.g. hit
-    mkV2  : V -> Prep -> V2 ; -- with preposiiton, e.g. believe in
-    mkV2  : V -> Str -> V2 ;  -- believe in --%
-    mkV2  : Str -> Prep -> V2 ; -- believe in --%
-    mkV2  : Str -> Str -> V2  -- believe in --%
-  };
+      mkV2 : V-> Prep -> V2 ;
+      mkV2 : V -> Str -> V2 ;
+      mkV2 : V -> V2 ; 
+          } ;
 
 --3 Three-place verbs
 --
 -- Three-place (ditransitive) verbs need two prepositions, of which
 -- the first one or both can be absent.
 
+ 
   mkV3 : overload {
     mkV3  : V -> V3 ;                   -- ditransitive, e.g. give,_,_
     mkV3  : V -> Prep -> Prep -> V3 ;   -- two prepositions, e.g. speak, with, about
     mkV3  : V -> Prep -> V3 ;           -- give,_,to --%
-    mkV3  : V -> Str -> V3 ;            -- give,_,to --%
-    mkV3  : Str -> Str -> V3 ;          -- give,_,to --%
-    mkV3  : Str -> V3 ;                 -- give,_,_ --%
+           -- give,_,_ --%
   };
+
 
 
 --2 Other categories
@@ -196,7 +192,7 @@ mkInterj : Str -> Interj
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
-  Gender =  MorphoGus.Gender ; 
+  Cgender =  MorphoGus.Cgender ; 
   Number =  MorphoGus.Number ;
   Case   =  MorphoGus.NPCase ;
    omo_aba   = G1 ;
@@ -208,13 +204,14 @@ mkInterj : Str -> Interj
   aka_ebi   = G7 ; 
   abo_ama   = G8 ;
   oko_ama   = G9 ;
+  ama_ama    =G11;
   aa        = G10 ;
   singular = Sg ;
   plural = Pl ;
   nominative = npNom ;
   locative = npLoc ;
 
-  npNumber np = (agrFeatures np.a).n ;
+  npNumber np = (nounAgr  np.a).n ;
 
 
 
@@ -222,25 +219,25 @@ mkInterj : Str -> Interj
   iregN = MorphoGus.iregN ;
 
  
-  compoundN s n = lin N {s = \\x,y => s ++ n.s ! x ! y ; g=n.g} ;
+ 
 
   mkPN = overload {
-   mkPN : Str -> Gender -> PN = regPN;
+   mkPN : Str -> Cgender -> PN = regPN;
    mkPN : N -> PN = nounPN
   } ;
 
 
 mkN2 = overload {
       mkN2 : N -> Prep -> N2 = prepN2 ;
-      mkN2 : N -> Str -> N2 = \n,s -> prepN2 n (mkPrep s);
-      mkN2 : N -> N2         = \n -> prepN2 n (mkPrep  mkPrepof ) ;
-      mkN2 : N -> (Number =>Gender =>  Str)-> N2= \n,s -> prepN2 n (mkPrep mkPrepof) ;
+      mkN2 : N -> Str -> N2 = \n,s -> prepN2 n (mkPrep s False);
+      mkN2 : N -> N2         = \n -> prepN2 n (mkPrep  mkPrepof False) ;
+      mkN2 : N -> (Number =>Cgender =>  Str)-> Bool-> N2= \n,s,bool -> prepN2 n (mkPrep mkPrepof bool) ;
     } ;
  
   prepN2 = \n,p -> lin N2 (n ** {c2 = p}) ; 
-  regN2 = \n -> (prepN2 n (mkPrep mkPrepof )) ; 
+  regN2 = \n -> (prepN2 n (mkPrep mkPrepof False )) ; 
   mkN3 = \n,p,q -> lin N3 (n ** {c2 = p ; c3 = q}) ;  
-  mkPrepof : Number => Gender => Str = 
+  mkPrepof : Number => Cgender => Str = 
     table Number {  Sg => table {
                     G1| G2  => "bwo" ;
                     G3 => "ya";
@@ -250,14 +247,16 @@ mkN2 = overload {
                     G7 => "ka";
                     G8 => "bwa";
                     G9 => "kwa";
-                    G10 => "a"
+                    G10 => "a";
+                    G11 => "aa"
                    }; 
                                  
                    Pl => table { G1 => "ba" ;
                     G2  => "ya" ;
-                    G3|G6  => "cia";
+                    G3|G6  => "chia";
                     G4  |G8|G9|G10 => "a";
                     G5  => "bi"; --
+                    G11 => "aa";
                     G7 => "bia"} } ;
                        
  
@@ -281,17 +280,18 @@ mkN2 = overload {
  
   prepA2 a p = lin A2 (a ** {c2 = p.s!Sg!G1}) ;
 
-  mkAdv x = lin Adv (ss x) ;
+  mkAdv  s =  lin Adv { s= \\_ => s }; 
   mkAdV x = lin AdV (ss x) ;
   mkAdA x = lin AdA (ss x) ;
   mkAdN x = lin AdN (ss x) ;
 
-  mkPrep = overload {
-    mkPrep : Str -> Prep = \str -> lin Prep {s = \\n,g => str } ;
-    mkPrep : (Number => Gender =>  Str) -> Prep = \t ->lin Prep {s = t} ;
-  } ;
+   mkPrep = overload {
+    mkPrep : Str ->Bool-> Prep = \str,bool -> 
+    lin Prep {s = \\n,g => str ;isFused = bool } ;
+    mkPrep : (Number => Cgender =>  Str) ->Bool-> Prep = \t,bool ->
+    lin Prep {s = t ;isFused = bool} ;};
 
-   noPrep = mkPrep []  ;
+   noPrep = mkPrep [] False ;
   {-} mkPrep : Str -> Str -> Prep = \p,q -> lin Prep 
         {s = table{Sg => table{G1 => p; _=> "" }; 
               Pl => table{G1 => q; _=> ""}}} ; 
@@ -349,14 +349,25 @@ mkN2 = overload {
 -}
 -- pre-overload API and overload definitions
 
- -- regN : Str ->Gender -> N ;
-  --iregN : (man,men : Str) ->Gender -> N ;
-  compoundN : Str  -> N -> N ;
+ -- regN : Str ->Cgender -> N ;
+  --iregN : (man,men : Str) ->Cgender -> N ;
+ mkN = overload {
+    mkN : Str ->Cgender -> N =\n,g-> lin N (regN n g );
+    mkN : (man,men : N)-> Cgender -> N =compoundN; 
+    mkN : V -> N = \v -> lin N (verb2snoun v G1) ;    
+    mkN : (man,men : Str) ->Cgender -> N = \s,p,g -> 
+            lin N ( iregN s p g);} ;
+ compoundN : N -> N ->Cgender-> N = \oma,tunto,g -> {
+        s = \\n,c =>oma.s! n! c ++ tunto.s!n! c ;   
+        g = g ; lock_N = <> } ;
 
-  mkN = overload {
-    mkN : Str ->Gender -> N =  \n, g -> lin N (regN n g );
-    mkN : (man,men : Str) ->Gender -> N = \s,p,g -> lin N ( iregN s p g) ;
-        } ;
+
+    verb2snoun : Verb ->  Cgender -> Noun = \v,g->    
+    let wp = "mu" + init(v.s ! VGen) +"ji" ;
+        wpl = "wa" + init(v.s ! VGen) +"ji" in 
+    iregN wp wpl g ;
+ 
+
 --mkN : Str ->  N -> N = compoundN taken from mkN can be added later if need be
 -- Relational nouns ("daughter of x") need a preposition. 
 
@@ -371,54 +382,64 @@ mkN2 = overload {
 
  -- iregA : (free,freely : Str) -> A ;
   regA : Str -> A = \s -> lin A (MorphoGus.regA s) ;
- -- pregA : Str -> A = \s -> lin A (MorphoGus.pregA s) ;
+  cregA : Str -> A = \s -> lin A (MorphoGus.cregA s) ;
    iregA : (fat,fatter : Str) -> A =\a,b -> lin A (MorphoGus.iregA a b);
   mkA = overload {
-    mkA : Str -> A = \a -> lin A (regA a);-- |lin A (pregA a) ;
+    mkA : Str -> A = \a -> lin A (regA a)|lin A (cregA a) ;
     mkA : (fat,fatter : Str) -> A =\a,b -> lin A (iregA a b);
     } ;
 
   prepA2 : A -> Prep -> A2 ;
 
-  mkA2 = overload {
+mkA2 = overload {
     mkA2 : A -> Prep -> A2   = prepA2 ;
-    mkA2 : A -> Str -> A2    = \a,p -> prepA2 a (mkPrep p) ;
+    mkA2 : A -> Str -> A2    = \a,p -> prepA2 a (mkPrep p False) ;
     mkA2 : Str -> Prep -> A2 = \a,p -> prepA2 (regA a) p;
-    mkA2 : Str -> Str -> A2  = \a,p -> prepA2 (regA a) (mkPrep p);
+    mkA2 : Str -> Str -> A2  = \a,p -> prepA2 (regA a) (mkPrep p False);
   } ;
-
-  {-}
-  regV=MorphoGus.regV ;
+  
 
   mkV = overload {
-    mkV :  Str -> V =\v ->lin V(regV v) ;
-   mkV : Str -> V -> V = prefixV
+    mkV : (cry : Str) -> V=\v-> lin V (regV v ) ; -- regular, incl. cry-cries, kiss-kisses etc
+   mkV : Str -> Str ->Str ->Str ->Str ->V =\v,v1,v2,v3,v4 -> lin V (iregV v v1 v2 v3 v4 ) ;  -- fix compound, e.g. under+take
+  };
+  iregV =MorphoGus.iregV;
+  regV=MorphoGus.regV ;
+  mkV2 = overload {
+        mkV2  : Str -> V2 = \s -> dirV2 (regV s) ;   
+        mkV2  : V -> V2 = dirV2 ;
+        mkV2  : V -> Prep -> V2 = prepV2  ;
   };
 
- 
-  prefixV : Str -> V -> V = \p,v -> lin V { s = \\b,vform => p + v.s! b ! vform } ;
-  mkV2 = overload {
-    mkV2  : V -> V2 = dirV2 ;
-    mkV2  : Str -> V2 = \s -> dirV2 (regV s) ;
-    mkV2  : V -> Prep -> V2 = prepV2; 
-    mkV2  : V -> Str -> V2 = \v,p -> prepV2 v (mkPrep p) ;
-    mkV2  : Str -> Prep -> V2 = \v,p -> prepV2 (regV v) p ;
-    mkV2  : Str -> Str -> V2 = \v,p -> prepV2 (regV v) (mkPrep p)
-  }; 
+mkV3 = overload {
+    mkV3 : V -> V3 = dirdirV3 ;
+    mkV3 : V -> Prep -> Prep -> V3 = prepPrepV3 ;
+    mkV3 : V -> Prep -> V3 = dirV3 ;
+      } ;
 
-  prepPrepV3 : V -> Prep -> Prep -> V3 ;
+
+mkVV : V -> VV ;
+     mkVV  v = v ** { lock_VV = <>} ;
+mkVV : V -> VV ;
+    --  mkVV  v = v ** {c2 = Prep ; lock_VV = <>} ;
+
+      mkVA  : V -> VA ;
+      mkVA  v = v ** {lock_VA = <>} ;
+
+      
+prepV2 : V -> Prep -> V2 ;
+dirV2 : V -> V2 ;
+prepV2 v p = lin V2 (v**{c2=p} ) ;
+dirV2 v = prepV2 v noPrep ;
+prepPrepV3 v p t = lin V3 (v ** { c2 =  p ; c3 = t }) ;
+dirV3      v   t = lin V3 (v ** { c2 = t ; c3 = noPrep }) ;
+dirdirV3   v     = lin V3 (v  ** { c2 = noPrep ; c3 = noPrep }) ;
+
+ 
+ prepPrepV3 : V -> Prep -> Prep -> V3 ;
   dirV3 : V -> Prep -> V3 ;
   dirdirV3 : V -> V3 ;
 
-  mkV3 = overload {
-    mkV3 : V -> Prep -> Prep -> V3 = prepPrepV3 ;
-    mkV3 : V -> Prep -> V3 = dirV3 ;
-    mkV3 : V -> Str -> V3 = \v,s -> dirV3 v (mkPrep s);
-    mkV3 : Str -> Str -> V3 = \v,s -> dirV3 (regV v) (mkPrep s);
-    mkV3 : V -> V3 = dirdirV3 ;
-    mkV3 : Str -> V3 = \v -> dirdirV3 (regV v) ;
-  } ;
--}
   mkConj = overload {
     mkConj : Str -> Conj = \y -> mk2Conj [] y plural ;
     mkConj : Str -> Number -> Conj = \y,n -> mk2Conj [] y n ;
@@ -429,7 +450,7 @@ mkN2 = overload {
   mk2Conj : Str -> Str -> Number -> Conj = \x,y,n -> 
     lin Conj (sd2 x y ** {n = n}) ;
 
-  regPN    : Str ->Gender -> PN ;          
+  regPN    : Str ->Cgender -> PN ;          
    nounPN : N -> PN ;
 
 

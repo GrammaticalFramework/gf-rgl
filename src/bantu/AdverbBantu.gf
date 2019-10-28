@@ -2,27 +2,19 @@ incomplete concrete AdverbBantu of Adverb =
   CatBantu ** open CommonBantu, ResBantu, Prelude in {
 
   lin
-   PositAdvAdj a =  {s = a.s !AAdj G1 Sg} ;
-
-    ComparAdvAdj cadv a np =let agr = complAgr np.a
-    in {
-      s = cadv.s ++ a.s !AComp agr.g agr.n ++ cadv.p ++ np.s ! npNom
+  --PositAdvAdj a =  {s = table{Ag g n p => a.s! Advv }}; 
+  ComparAdvAdj cadv a np = let agr = complAgr np.a
+    in{
+    s = table {Ag g n p=>  a.s !AAdj g n ++ cadv.s ++ np.s ! npNom }
+           } ;
+  ComparAdvAdjS cadv a s = {
+       s = table{Ag g n p =>   a.s! AAdj g n  ++ cadv.s ++ s.s} 
       } ;
-    ComparAdvAdjS cadv a s = {
-      s = cadv.s ++ a.s !AComp G1 Sg ++ cadv.p ++ s.s
-      } ;
-
-   PrepNP prep np = let agr = complAgr np.a
-
-    in {s = prep.s!agr.n!agr.g ++ (np.s ! NCase Loc ) } ; 
-       AdAdv = cc2 ;
-
-    PositAdAAdj a = {s = a.s  !AAdj G1 Sg } ;
-   
-
-    SubjS = cc2 ;
-
-    AdnCAdv cadv = {s = cadv.s ++ cadv.p} ;
-
-
+  PrepNP prep np = let agr = complAgr np.a
+    in {s =table{Ag g n p =>case prep.isFused of {
+     True =>(np.s ! NCase Loc);
+     False => prep.s!n!g ++ (np.s ! NCase Nom) }}} ; 
+  AdAdv sub se =  { s=\\agr => se.s!agr ++ sub.s  } ;
+  SubjS sub se =  { s=\\agr => sub.s ++ se.s} ;
+  AdnCAdv cadv = {s = cadv.s ++ cadv.p} ;
 }

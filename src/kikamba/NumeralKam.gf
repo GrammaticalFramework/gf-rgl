@@ -1,14 +1,14 @@
 concrete NumeralKam of Numeral = CatKam [Numeral,Digits] ** open Prelude,CommonBantu,DiffKam, MorphoKam in {
 
 lincat 
-  Digit = {s : DForm => CardOrd => Gender => Str} ;
-  Sub10 = {s : DForm => CardOrd => Gender => Str ; n : Number} ;
-  Sub100     = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000    = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd => Gender => Str ; n : Number} ;
+  Digit = {s : DForm => CardOrd => Cgender => Str} ;
+  Sub10 = {s : DForm => CardOrd => Cgender => Str ; n : Number} ;
+  Sub100     = {s : CardOrd => Cgender => Str ; n : Number} ;
+  Sub1000    = {s : CardOrd => Cgender => Str ; n : Number} ;
+  Sub1000000 = {s : CardOrd => Cgender => Str ; n : Number} ;
 
 lin num x = x ;
-lin n2 = mkNumn "li"   "ili"    "eli" "keli" ;
+lin n2 = mkNum2 "li"   "ili"    "eli" "keli" ;
 lin n3 = mkNum "tatu" "itatu"  " atatu" "katatu" ;
 lin n4 = mkNum "nya"  "ina"   "ana" "kana" ;
 lin n5 = mkNum "tano"  "itano"  "atano" "katano" ;
@@ -17,7 +17,7 @@ lin n7 = regNum "muonza" ;
 lin n8 = regNum "nyanya" ;
 lin n9 = regNum "kenda" ;
 
-lin pot01 = mkNume "mwe"  " yimwe" "mbee" ** {n = Sg} ;
+lin pot01 = mkNum1 "mwe"  " yimwe" "mbee" ** {n = Sg} ;
 lin pot0 d = d ** {n = Pl} ;
 lin pot110 = regCardOrd "ikumi" ** {n = Pl} ;
 lin pot111 = regCardone "ikumi na" "mwe" ** {n = Pl} ; 
@@ -74,12 +74,11 @@ lin pot3plus n m = { s = table {
     mkDig : Str -> TDigit = \c -> mk2Dig c (c ) ;
 
     mk3Dig : Str -> Str -> Number -> TDigit = \c,o,n -> {
-      s = table {NCard => \\g => c ; NOrd => \\g =>Ordprefix g ++ o} ; --Ordprefix g ++
-      n = n} ;
+      s = table {NCard => \\g => c ; NOrd => \\g =>Ordprefix g ++ o} ; n=n};
 
-    TDigit = {
+          TDigit = {
       n : Number ;
-      s : CardOrd => Gender => Str
+      s : CardOrd => Cgender => Str
     } ;
 
 }

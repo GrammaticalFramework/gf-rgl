@@ -1,50 +1,27 @@
 incomplete concrete RelativeBantu of Relative = 
-  CatBantu ** open Prelude, CommonBantu, ResBantu in {
-{-
+  CatBantu ** open Structural, ResBantu,Prelude in {
+
   flags optimize=all_subs ;
 
   lin
  
-    RelCl cl = {
-      s = \\ag,t,a,p,m => pronSuch ! complAgr ag ++ conjThat ++ 
-                          cl.s ! DDir ! t ! a ! p ! m ;
-      c = Nom
-      } ;
+    RelCl cl = { s = \\ p,t,a => such ++ that ++ cl.s! p ! t ! a };
+    
+   RelVP rp vp = let  agr = nounAgr rp.a in
+   {s=\\p,t,a => rp.s!agr.g!agr.n ++ vp.s!Ag agr.g agr.n agr.p !p!t!a ++ vp.compl!Ag agr.g agr.n agr.p};
 
-    --- more efficient to compile than case inside mkClause; see log.txt
-    RelVP rp vp = case rp.hasAgr of {
-      True => {s = \\ag =>
-          (mkClause
-                    (rp.s ! False ! complAgr ag ! Nom) False False
-                    (Ag rp.a.g rp.a.n P3)
-                    vp).s ! DDir ; c = Nom} ;
-      False => {s = \\ag =>
-          (mkClause
-                    (rp.s ! False ! complAgr ag ! Nom) False False
-                    ag
-                    vp).s ! DDir ; c = Nom
-         }
-      } ;
 
-    RelSlash rp slash = {
-      s = \\ag,t,a,p,m => 
-          let aag = complAgr ag
-          in
-          slash.c2.s ++ 
-          rp.s ! False ! aag ! slash.c2.c ++ 
-          slash.s ! aag ! DDir ! t ! a ! p ! m ;    --- ragr
-      c = Acc
-      } ;
+    RelSlash rp slash = let  agr = nounAgr rp.a in
+   {s=\\p,t,a => rp.s!agr.g!agr.n --++ slash.s2!Ag agr.g agr.n agr.p
+   ++ slash.s!p!t!a }; 
 
-    FunRP p np rp = {
-      s = \\_,a,c => (np.s ! Nom).ton ++ p.s ++ rp.s ! True ! a ! p.c ;
-      a = complAgr np.a ; 
-      hasAgr = True
-      } ;
-    IdRP = {
-      s = relPron ; 
-      a = {g = Masc ; n = Sg} ; 
-      hasAgr = False
-      } ;
--}
+
+  -- FunRP : Prep -> NP -> RP -> RP ; the mother of whom
+    FunRP p np rp =let  agr = nounAgr np.a in
+     {s = \\g,n => np.s !NCase Nom ++ p.s!n!g ++ rp.s ! g ! n;
+      a= np.a } ;
+    -- IdRP  : RP ;  -- which 
+    IdRP = { s =\\g,n => which_IQuant.s!n!g; a=Ag G1 Sg P3};
+
 }
+ 

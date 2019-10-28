@@ -1,2 +1,2 @@
-concrete CatKam of Cat = CommonX - [Pol] 
+concrete CatKam of Cat = CommonX - [Adv] 
   ** CatBantu with (ResBantu = ResKam);  

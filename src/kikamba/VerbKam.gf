@@ -1,2 +1,2 @@
 concrete VerbKam of Verb = CatKam ** VerbBantu with
- (ResBantu = ResKam);  
+ (ResBantu = ResKam)** open MorphoKam in {};     

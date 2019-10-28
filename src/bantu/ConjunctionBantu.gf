@@ -7,14 +7,16 @@ incomplete concrete ConjunctionBantu of Conjunction =
    
     ConjS = conjunctDistrSS ;
 
-    ConjAdv = conjunctDistrSS ;
+   -- ConjAdv = conjunctDistrSS ;
+   ConjAdv = conjunctDistrTable Agr ;
     ConjAdV = conjunctDistrSS ;
 
-    ConjNP conj ss = conjunctDistrTable NPCase conj ss ** {
-     a = Ag  (agrFeatures ss.a).g  (conjNumber (agrFeatures ss.a).n conj.n) (agrFeatures ss.a).p ; -- a = conjAgr (agrP3 conj.n) ss.a
-      } ;
 
-    ConjAP conj ss = conjunctDistrTable2 Gender  Number conj ss;-- ** { isPre = ss.isPre    } ;
+    ConjNP conj ss = conjunctDistrTable NPCase  conj ss ** {
+     a = Ag  (nounAgr ss.a).g  (conjNumber (nounAgr ss.a).n conj.n) (nounAgr ss.a).p ; -- a = conjAgr (agrP3 conj.n) ss.a
+      isPron = andB ss.isPron ss.isPron} ;
+
+    ConjAP conj ss = conjunctDistrTable2  Cgender  Number conj ss;-- ** { isPre = ss.isPre    } ;
 
     ConjRS conj ss = conjunctDistrTable Agr conj ss ** {
       c = ss.c
@@ -27,27 +29,26 @@ incomplete concrete ConjunctionBantu of Conjunction =
       g = conjGender cn.n1.g cn.n2.g ;
       s2 = \\num => [];
            } ; 
-     ConjDet c xs = { s = table {
-       Sub  => [] ;
-       Obj  g => xs.s1!Sub  ++ c.s2 ++ xs.s2 !Obj g} ;
-       n = xs.n};
+     ConjDet c xs = {s = \\ Cgender => xs.s1! Cgender  ++ c.s2 ++ xs.s2! Cgender  ;
+       n = xs.n; isPre=xs.isPre};
   
  -- These fun's are generated from the list cat's.
 
     BaseS = twoSS ;
     ConsS = consrSS comma ;
-    BaseAdv = twoSS ;
-    ConsAdv = consrSS comma ;
+   BaseAdv = twoTable Agr ;
+    ConsAdv = consrTable Agr comma ;
     BaseAdV = twoSS ;
     ConsAdV = consrSS comma ;
-    BaseNP x y = twoTable NPCase x y ** {a = conjAgr Sg x.a y.a} ;
-   ConsNP xs x = consrTable NPCase comma xs x ** {a = conjAgr Sg xs.a x.a} ;
+    BaseNP x y = twoTable NPCase x y ** {a = conjAgr Sg x.a y.a; isPron = andB y.isPron x.isPron ;} ;
+   ConsNP xs x = consrTable NPCase comma xs x ** {a = conjAgr Sg xs.a x.a;
+   isPron = andB xs.isPron x.isPron ;} ;
 
     
-    BaseAP x y = twoTable2 Gender Number x y ;
-    ConsAP xs x = consrTable2  Gender Number comma xs x ;
-    BaseRS x y = twoTable Agr x y ** {c = y.c} ;
-    ConsRS xs x = consrTable Agr comma xs x ** {c = xs.c} ;
+    BaseAP x y = twoTable2  Cgender Number x y ;
+    ConsAP xs x = consrTable2   Cgender Number comma xs x ;
+    BaseRS x y = twoTable Agr x y ;--** {c = y.c} ;
+    ConsRS xs x = consrTable Agr comma xs x ;--** {c = xs.c} ;
     BaseIAdv = twoSS ;
     ConsIAdv = consrSS comma ;
    BaseCN x y = { n1 = x ; n2 = y } ;
@@ -59,19 +60,19 @@ incomplete concrete ConjunctionBantu of Conjunction =
                 } ;
       n2 = xs ;
       } ; 
-   BaseDAP x y = twoTable DetForm x y ** {n = y.n} ; 
-   ConsDAP x xs = consrTable DetForm comma x xs ** {n = xs.n} ;
+   BaseDAP x y = twoTable  Cgender x y ** {n = y.n;isPre=y.isPre} ; 
+   ConsDAP x xs = consrTable  Cgender comma x xs ** {n = xs.n;isPre=xs.isPre} ;
    --BaseDet x y = twoTable DetForm x y ** {n = y.n} ;   
    --ConsDet xs x = consrTable  DetForm comma xs x ** {n = xs.n} ;
   lincat
     [S] = {s1,s2 : Str} ;
-    [Adv] = {s1,s2 : Str} ;
+    [Adv] = {s1,s2 :Agr => Str} ;
     [AdV] = {s1,s2 : Str} ;
     [IAdv] = {s1,s2 : Str} ;
-    [NP] = {s1,s2 : NPCase => Str ; a : Agr} ;
-    [AP] = {s1,s2 : Gender => Number =>  Str} ; --isPre : Bool} ;
-    [RS] = {s1,s2 : Agr => Str ; c : NPCase} ;
+    [NP] = {s1,s2 : NPCase => Str ; a : Agr;isPron :Bool} ;
+    [AP] = {s1,s2 :  Cgender => Number =>  Str} ; --isPre : Bool} ;
+    [RS] = {s1,s2 : Agr => Str }; --c : NPCase} ;
     [CN] = {n1,n2 : CNoun } ;
-   [DAP] = {s1,s2 : DetForm =>  Str ; n : Number} ;
+   [DAP] = {s1,s2 :  Cgender  =>  Str ; n : Number ; isPre: Bool} ;
 
 }

@@ -1,2 +1,2 @@
 concrete QuestionKis of Question = CatKis ** QuestionBantu with
- (ResBantu = ResKis);  
+ (ResBantu = ResKis)** open MorphoKis in {};  

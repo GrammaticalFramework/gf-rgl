@@ -2,14 +2,14 @@ concrete NumeralKis of Numeral = CatKis [Numeral,Digits] **
 open Prelude,DiffKis,MorphoKis in {
 
 lincat 
-  Digit = {s : DForm => CardOrd => Gender => Str} ;
-  Sub10 = {s : DForm => CardOrd => Gender => Str ; n : Number} ;
-  Sub100     = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000    = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd => Gender => Str ; n : Number} ;
+  Digit = {s : DForm => CardOrd => Cgender => Str} ;
+  Sub10 = {s : DForm => CardOrd => Cgender => Str ; n : Number} ;
+  Sub100     = {s : CardOrd => Cgender => Str ; n : Number} ;
+  Sub1000    = {s : CardOrd =>Cgender =>  Str ; n : Number} ; --
+  Sub1000000 = {s : CardOrd => Cgender => Str ; n : Number} ;
 
 lin num x = x ;
-lin n2 = mkNumn "ili"   "ishirini"  "pili" ;
+lin n2 = mkNum2 "ili"   "ishirini"  "pili" ;
 lin n3 = mkNum "tatu" "thelathini" ;
 lin n4 = mkNum "nne"  "arobaini" ;
 lin n5 = mkNum "tano"  "hamsini" ;
@@ -18,10 +18,10 @@ lin n7 = regNum "saba" "sabini";
 lin n8 = regNum "nane" "themanini";
 lin n9 = regNum "tisa" "tisini" ;
 
-lin pot01 = mkNume "moja"  "kwanza" ** {n = Sg} ;
+lin pot01 = mkNum1 "moja"  "kwanza" ** {n = Sg} ;
 lin pot0 d = d ** {n = Pl} ;
 lin pot110 = regCardOrd "kumi" ** {n = Pl} ;
-lin pot111 = regCardone "kumi na" "moja" ** {n = Pl} ; -- creat another function to be gender specific
+lin pot111 = regCardone "kumi na" "moja" ** {n = Pl} ; -- creat another function to be Cgender specific
 lin pot1to19 d = {s = d.s ! teen} ** {n = Pl} ;
 lin pot0as1 n = {s = n.s ! unit}  ** {n = n.n} ;
 lin pot1 d = {s = d.s ! ten} ** {n = Pl} ;
@@ -37,7 +37,7 @@ lin pot2plus d e = {s = table {
                    n = Pl} ;
  lin pot2as3 n = n ;
 lin pot3 n = { s = table {
-      NCard => \\g => mkCard NCard "elfu" ! g ++ n.s ! NCard ! g ;
+      NCard => \\g => mkCard NCard "elfu"!g  ++ n.s ! NCard ! g ;
       NOrd => \\g =>Ordprefix g++ mkCard NCard "elfu" ! g ++ n.s ! NCard ! g } ;
               n = Pl} ;
 lin pot3plus n m = { s = table {
@@ -45,7 +45,6 @@ lin pot3plus n m = { s = table {
       NOrd => \\g =>Ordprefix g++ "elfu" ++ n.s ! NCard !g ++  m.s ! NCard ! g} ;
                  n = Pl} ;
 
--- numerals as sequences of digits0'
 
   lincat 
     Dig = TDigit ;
@@ -81,7 +80,7 @@ lin pot3plus n m = { s = table {
 
     TDigit = {
       n : Number ;
-      s : CardOrd => Gender => Str
+      s : CardOrd => Cgender => Str
     } ;
 
 }

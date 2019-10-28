@@ -1,6 +1,6 @@
 incomplete concrete NounBantu of Noun = 
-  -- HL: Structural added for part_Prep, possess_Prep; contains Cat
-  CatBantu ** open Structural, ResBantu, Prelude in {
+  
+  CatBantu ** open Structural ,ResBantu, Prelude in {
 
 flags optimize=all_subs ; coding = utf8 ;
 
@@ -8,65 +8,73 @@ lin
   -- Det -> CN -> NP
   -- e.g. 'the man'
   
-  DetCN det cn =let g = cn.g ; n = det.n in {
-    s = \\c => det.s!Sub ++ cn.s ! det.n !npcase2case c ++ det.s!Obj g ++ cn.s2!det.n;
-    a =Ag cn.g det.n P3 ;
-    } ;
+  DetCN det cn = {s =\\c=> case det.isPre of {
+     False =>  det.s!cn.g ++ cn.s ! det.n !npcase2case c  ++ cn.s2!det.n;
+     True => cn.s ! det.n !npcase2case c ++ det.s!cn.g ++ cn.s2!det.n};
+    a =Ag cn.g det.n P3 ; 
+    isPron=False } ;
 
-  
+  --!(fixclass (npcase2case c) cn.g) 
   -- PN -> NP
   -- e.g. 'John'
-  UsePN pn = {s = \\c => pn.s !npcase2case c ; a = Ag pn.g  Sg P3 } ;
+  UsePN pn = {s = \\c => pn.s !npcase2case c ; a = Ag pn.g  Sg P3;isPron=False} ;
   -- Pron -> NP
   -- e.g. 'he'
-  UsePron pron = let agr = verbAgr pron.a;
+  UsePron pron = let agr = nounAgr pron.a;
                      n=agr.n; g=agr.g 
-    in {s = table {
-          NCase c => pron.s!Pers ;
-
-          NPoss => pron.s!Poss n g };
-
-        a = Ag agr.g agr.n agr.p;                             
+    in {s =\\c => pron.s!Pers ;
+             a = Ag agr.g agr.n agr.p;
+             isPron=True                             
     } ; 
   -- Predet -> NP -> NP
   -- e.g. 'only the man'
     
   PredetNP pred np = 
-    let agr = predetAgr np.a  in {
+    let agr = nounAgr np.a  in {
       s = \\c =>   np.s ! NCase Nom ++ pred.s ! agr.g   ;
-      a =Ag agr.g Pl P3 ;
+      a =Ag agr.g agr.n P3 ;
+      isPron=np.isPron
     } ; 
-
-   {-} PPartNP np v2 = {
-      s = \\c => np.s ! c ++ v2.s ! VPPart ;
-      a = np.a
+--PPartNP : NP -> V2  -> NP ;    -- the man seen
+   PPartNP np v2 = {
+      s = \\c =>  np.s ! c ++ subject np.a ++ bind ++ v2.s ! forms ;
+      a = np.a;
+      isPron=np.isPron
       } ;
- -}
+
+ --  RelNP   : NP -> RS  -> NP ;    -- Paris, which is here  
   RelNP  np rs = {
-    s = \\c => np.s ! NCase Nom ++ frontComma ++ rs.s ! np.a ++ finalComma ;
-    a = np.a
+    s = \\c => np.s ! NCase Nom ++ frontComma ++ rs.s ! np.a ;--++ finalComma ;
+    a = np.a;
+    isPron=np.isPron
     } ;
   -- NP -> Adv -> NP
   -- e.g. 'Paris today'
-  AdvNP np adv = {
-    s = \\c => np.s ! NCase Nom ++ adv.s ;
-    a = np.a
-    } ;
+ AdvNP np adv =  let  agr = nounAgr np.a 
+                     in{
+      s = \\c => np.s ! NCase Nom ++ adv.s !Ag agr.g agr.n P3 ;
+      a = np.a;
+      isPron=np.isPron
+      } ;
+     --  ExtAdvNP: NP -> Adv -> NP ;    -- boys, such as ..
+ExtAdvNP np adv = let  agr = nounAgr np.a 
+                     in{
+      --s = \\c => np.s ! NCase Nom ++ adv.s ;
+      s = \\c => np.s ! NCase Nom ++ adv.s !Ag agr.g agr.n P3    ;
+      a = np.a;
+      isPron=np.isPron
+      } ;
 
-  ExtAdvNP np adv = {
-    s = \\c => np.s ! NCase Nom ++ embedInCommas adv.s ;
-    a = np.a
-    } ;
+  DetQuant quant num = { s = \\g =>quant.s ! num.n! g   ++ num.s ! g; 
+                            n  = num.n ; isPre =True} ;
 
-  DetQuant quant num = { s = table{ Sub => [];
-                                    Obj g=>quant.s ! num.n! g    ++ num.s !g }; 
-                         n  = num.n  } ;
-
-  DetQuantOrd quant num ord ={ s = table{ Sub => []; 
-                            Obj g=>quant.s ! num.n! g  ++  num.s! g  ++ ord.s ! g }; 
-                          n  = num.n  } ;
-  DetNP det =  { s = \\c => det.s!Obj G1 ; 
-         a = agrP3  G1 det.n } ;  
+  DetQuantOrd quant num ord ={ s = \\ g =>quant.s ! num.n! g  ++  num.s! g  ++ ord.s ! g; 
+                          n  = num.n ; isPre =True } ;
+  --DetNP   : Det -> NP 
+ DetNP det = 
+   { s = \\c => det.s!G1 ; 
+       a = agrP3  G1 det.n ;
+     isPron=False} ;  
   
   PossPron pron = { s = \\n,g => pron.s!Poss n g } ;
   
@@ -91,10 +99,11 @@ lin
   IndefArt, DefArt = {  s  = \\n,g =>[] } ;
      --IndefArt = {s = \\ n,g => artIndef } ;
     
-  -- CN -> NP
+  -- CN -> NP beer
   MassNP cn = let g = cn.g ; n = Sg | Pl in {
     s = \\c => cn.s ! n! npcase2case c;
     a = Ag g n P3 ;
+    isPron=False
     } ;
   UseN n = { s = n.s ; s2 = \\_ => [] ; g = n.g} ; --n
   UseN2 n = { s = n.s ; s2 = \\_ => [] ; g = n.g} ;--n ;
@@ -124,16 +133,16 @@ lin
     c2 = n3.c3
     } ;
 
-  AdjCN ap cn = {s = cn.s ; g = cn.g;
-                 s2 = \\n =>cn.s2! n ++ ap.s ! cn.g ! n} ;
-     
+  AdjCN ap cn = {s = cn.s ; g = cn.g; s2 = \\n =>cn.s2! n ++ ap.s ! cn.g ! n} ;
+
+ --RelCN   : CN -> RS  -> CN ;   -- house that John bought 
   RelCN cn rs = {
     s = \\n,c => cn.s ! n ! Nom ++ rs.s ! Ag cn.g n P3 ; s2 =\\n => []; --another persons
     g = cn.g
     } ; 
   -- AP -> CN -> CN
   -- e.g. 'big house'
-  AdvCN cn ad = {s = \\n,c => cn.s ! n ! Nom ++ ad.s ;s2 =\\n => []; g = cn.g} ;
+  AdvCN cn ad = {s = \\n,c => cn.s ! n ! Nom ++ ad.s!Ag cn.g n P3 ;s2 =\\n => []; g = cn.g} ;
 
   SentCN cn sc = {s = \\n,c => cn.s ! n ! Nom ++ sc.s ; s2 =\\n => []; g = cn.g} ;
 
@@ -142,33 +151,29 @@ lin
   -- PossNP : CN -> NP -> CN
   -- e.g. 'house of Paris', 'house of mine'
   PossNP cn np =let agr = detAgr np.a in
-
     {s = \\n,c => cn.s ! n ! Nom ++ possess_Prep.s! n!cn.g  ++ np.s ! NPoss; 
      s2 =\\n => []; g = cn.g} ;
   -- PartNP : CN -> NP -> CN
   -- e.g. 'glass of wine'
-  PartNP cn np = {s = \\n,c => cn.s ! n ! Nom ++ part_Prep.s! n!cn.g  ++ np.s ! NCase Nom ; s2 =\\n => []; g = cn.g} ;
-
+  PartNP cn np = {s = \\n,c => cn.s ! n ! c ++ part_Prep.s! n!cn.g  ++ np.s ! NCase Nom ; s2 =\\n => []; g = cn.g} ;
     
   -- CountNP : Det -> NP -> NP
   -- e.g. 'three of them', 'some of the boys'
-  CountNP det np = let  agr = verbAgr np.a 
+  CountNP det np = let  g = (predetAgr np.a).g 
     in {
-      s = \\c => det.s!Obj agr.g ++ part_Prep.s!agr.n!agr.g ++ np.s!c ;--NPAcc was removed
-      a = Ag agr.g agr.n agr.p
+      s = \\c => det.s!g ++ part_Prep.s!det.n!g ++ np.s!c ;--NPAcc was removed
+      a = Ag g det.n P3;
+      isPron=np.isPron
     } ;
 
-   
-  AdjDAP det ap = { s = table{ Sub => [] ; 
-                               Obj g =>det.s!Obj g ++ ap.s!g !det.n}; 
-                    n = det.n  };
+   --AdjDAP : DAP -> AP -> DAP
+  AdjDAP det ap = { s = \\ Cgender =>det.s! Cgender ++ ap.s! Cgender !det.n; 
+                    n = det.n; isPre=det.isPre  };
       
-  DetDAP d = { s=d.s; n=d.n };
+  DetDAP d = { s=d.s; n=d.n; isPre=d.isPre};
     
-
- -- ApposCN cn np = let agr = complAgr np.a in 
-  --  {s = \\n,c => np.s ! NCase Nom --++ possess_Prep.s!n!agr.g 
-   --    ++ cn.s !n ! Nom   ; s2 =\\n => ""; g = cn.g} ;
-
-  
+ ApposCN cn np = let agr = complAgr np.a in  {s = \\n,c => np.s ! NCase Nom    ++ cn.s !n ! Nom   ; s2 =\\n => ""; g = cn.g} ;
+ --++ possess_Prep.s!n!agr.g  ; 
+  oper
+bind : Str = Predef.BIND ;
 }

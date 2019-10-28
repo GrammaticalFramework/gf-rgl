@@ -1,3 +1,3 @@
 concrete SentenceKis of Sentence = CatKis ** SentenceBantu with
- (ResBantu = ResKis);  
+ (ResBantu = ResKis)** open MorphoKis in{};  
 

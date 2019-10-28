@@ -1,0 +1,4 @@
+abstract AllKamAbs = 
+  Lang,
+  ExtraKamAbs
+  ** {} ;

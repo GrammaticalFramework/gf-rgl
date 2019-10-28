@@ -12,13 +12,12 @@ resource CommonBantu = ParamX ** open Prelude in {
 
   param
     Case = Nom | Loc ;
-
     NPCase = NCase Case | NPoss ;
-
     CardOrd = NCard | NOrd ;
+   -- QForm = QDir |QIndir ;
 
   oper
-    ---- Conjunction Agreements (as fas as indep. of Gender) ----
+    ---- Conjunction Agreements (as fas as indep. of  Cgender) ----
     conjPPerson : Person -> Person -> Person = \p,q ->
     case <p,q> of {
       <_,P1>  | <_,P2>  =>  P1 ;
@@ -28,5 +27,6 @@ resource CommonBantu = ParamX ** open Prelude in {
      };
 
     artIndef = "" ;
+
 
 }

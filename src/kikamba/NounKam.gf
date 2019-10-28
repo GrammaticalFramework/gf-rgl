@@ -1,2 +1,2 @@
 concrete NounKam of Noun = CatKam ** 
-  NounBantu with (Structural = StructuralKam), (ResBantu = ResKam) ; 
+  NounBantu with (Structural = StructuralKam), (ResBantu = ResKam)** open MorphoKam in {} ; 

@@ -2,26 +2,26 @@ concrete NumeralGus of Numeral = CatGus [Numeral,Digits] ** open Prelude,
 DiffGus,MorphoGus in {
 
 lincat 
-  Digit = {s : DForm => CardOrd => Gender => Str} ;
-  Sub10 = {s : DForm => CardOrd => Gender => Str ; n : Number} ;
-  Sub100     = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000    = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd => Gender => Str ; n : Number} ;
+  Digit = {s : DForm => CardOrd => Cgender => Str} ;
+  Sub10 = {s : DForm => CardOrd => Cgender => Str ; n : Number} ;
+  Sub100     = {s : CardOrd => Cgender => Str ; n : Number} ;
+  Sub1000    = {s : CardOrd => Cgender => Str ; n : Number} ;
+  Sub1000000 = {s : CardOrd => Cgender => Str ; n : Number} ;
 
 lin num x = x ;
-lin n2 = mkNum2 "bere"   "kabere" ;
-lin n3 = mkNum3 "ato"  "gatatu" ;
-lin n4 = mkNum4 "ne"   "kane" ;
-lin n5 = mkNum5 "tano"  "gatano" ;
+lin n2 = mkNum "bere"   "kabere" ;
+lin n3 = mkNum "ato"  "gatatu" ;
+lin n4 = mkNum "ne"   "kane" ;
+lin n5 = mkNum "tano"  "gatano" ;
 lin n6 = mkNum6 "tano" "mo";
 lin n7 = mkNum7 "tano" "bere";
 lin n8 = mkNum8 "tano" "tato";
-lin n9 = regNum "kianda" ;
+lin n9 = mkNum9 "kianda" ;
 
 lin pot01 = mkNum1 "mo"  "tang'ani" ** {n = Sg} ;
 lin pot0 d = d ** {n = Pl} ;
 lin pot110 = regCardOrd "ikomi" ** {n = Pl} ;
-lin pot111 = regCardone "ikomi na" "mo" ** {n = Pl} ; -- creat another function to be gender specific
+lin pot111 = regCardone "ikomi na" "mo" ** {n = Pl} ; -- creat another function to be Cgender specific
 lin pot1to19 d = {s = d.s ! teen} ** {n = Pl} ;
 lin pot0as1 n = {s = n.s ! unit}  ** {n = n.n} ;
 lin pot1 d = {s = d.s ! ten} ** {n = Pl} ;
@@ -37,12 +37,12 @@ lin pot2plus d e = {s = table {
                    n = Pl} ;
  lin pot2as3 n = n ;
 lin pot3 n = { s = table {
-      NCard => \\g => mkCard NCard "chilibu" ! g ++ n.s ! NCard ! g ;
-      NOrd => \\g =>Ordprefix g++ mkCard NCard "chilibu" ! g ++ n.s ! NCard ! g } ;
+      NCard => \\g => mkCard NCard "chiribu" ! g ++ n.s ! NCard ! g ;
+      NOrd => \\g =>Ordprefix g++ mkCard NCard "chiribu" ! g ++ n.s ! NCard ! g } ;
               n = Pl} ;
 lin pot3plus n m = { s = table {
-      NCard => \\g => "chilibu" ++ n.s ! NCard !g ++  m.s ! NCard ! g ;
-      NOrd => \\g =>Ordprefix g++ "chilibu" ++ n.s ! NCard !g ++  m.s ! NCard ! g} ;
+      NCard => \\g => "chiribu" ++ n.s ! NCard !g ++  m.s ! NCard ! g ;
+      NOrd => \\g =>Ordprefix g++ "chiribu" ++ n.s ! NCard !g ++  m.s ! NCard ! g} ;
                  n = Pl} ;
 
 -- numerals as sequences of digits0'
@@ -81,6 +81,6 @@ lin pot3plus n m = { s = table {
 
     TDigit = {
       n : Number ;
-      s : CardOrd => Gender => Str
+      s : CardOrd => Cgender => Str
     } ;
 }

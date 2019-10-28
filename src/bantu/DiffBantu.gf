@@ -3,74 +3,66 @@
 interface DiffBantu = open CommonBantu, Prelude in {
   flags coding=utf8 ;
 
+param 
+   Agr =  Ag  Cgender Number Person ;
+  PronForm= Pers | Poss Number  Cgender;
+  DetForm = Sub | Obj  Cgender ;
+  IMPForm = Com | Pol ;
+  VForm ;
+  DForm ;
+  AForm;
+  VExte;
 
 
 oper 
-  Gender : PType ;
-  firstGender : Gender ; 
- secondGender : Gender ; -- G2
+--fixclass: NPCase ->  Cgender ->  Cgender;
 
-  Noun : Type  = {s : Number => Case => Str ; g : Gender};
-  CNoun : Type = {s : Number => Case => Str ; g : Gender; s2 : Number => Str};
-  AAgr : Type  = {g : Gender ; n : Number} ;
-
-param 
-  Agr =  Ag Gender Number Person ;
+   Cgender : PType ;
+  firstGender :  Cgender ; -- G1
+  secondGender :  Cgender ; -- G2
+  Noun : Type  = {s : Number => Case => Str ; g :  Cgender};
+  CNoun : Type = {s : Number => Case => Str ; g :  Cgender; s2 : Number => Str};
+  AAgr : Type  = {g :  Cgender ; n : Number} ;
+ 
 
 oper
---  AGRE = {g : Gender ; n : Number  ; p : Person} ;
-  Agre : Type = {g : Gender ; n : Number ;  p : Person} ;
-  agre : Gender -> Number -> Person -> Agre = \g,n,p -> {g = g ; n = n ; p = p} ;
-
-  agrFeatures : Agr -> Agre = \a -> case a of {Ag g n p => {g = g ; n = n ; p = p}} ;
-  getGender : Agr -> Gender = \a -> case a of {Ag g _ _ => g};
-  getNumber : Agr -> Number = \a -> case a of {Ag _ n _ => n};
-  getPerson : Agr -> Person = \a -> case a of {Ag _ _ p => p};
-
-  clitAgr : Agr -> {n : Number ; p : Person} = \a -> case a of {
+   clitAgr : Agr -> {n : Number ; p : Person} = \a -> case a of {
     Ag _ n p => {n = n; p = p} 
     } ;
-  complAgr : Agr -> {g : Gender ; n : Number} = \a -> case a of {
+  complAgr : Agr -> {g :  Cgender ; n : Number} = \a -> case a of {
     Ag g n _ => {g = g ; n = n} 
     } ;
-  predetAgr : Agr -> {g : Gender} = \a -> case a of {
+  predetAgr : Agr -> {g :  Cgender} = \a -> case a of {
     Ag g _ _ => {g = g} 
     } ;
-  verbAgr : Agr -> {g : Gender ; n : Number ; p : Person} = \a -> case a of {
+  nounAgr : Agr -> {g :  Cgender ; n : Number ; p : Person} = \a -> case a of {
     Ag g n p => {g = g ; n = n  ; p = p} 
+    } ; 
 
-    } ; --
-
-
-  detAgr : Agr -> {g : Gender ; p : Person} = \a -> case a of {
+  detAgr : Agr -> {g :  Cgender ; p : Person} = \a -> case a of {
     Ag g _ p => {g = g; p = p} 
     } ;
 
   agrG1 : Number -> Person -> Agr = \n,p ->
     Ag firstGender n p ;
-  dapagr : Gender -> Person -> Agr = \g,p ->
+  dapagr :  Cgender -> Person -> Agr = \g,p ->
     Ag g Sg p ;
-  agrP3 : Gender -> Number -> Agr = \g,n ->
+  agrP3 :  Cgender -> Number -> Agr = \g,n ->
     Ag g n P3 ;
 
-  aagr : Gender -> Number -> AAgr = \g,n ->
+  aagr :  Cgender -> Number -> AAgr = \g,n ->
     {g = g ; n = n} ;
 
   ---- Conjunction Agreements----
 
   conjAgr : Number -> Agr -> Agr -> Agr = \n,xa,ya -> 
     let 
-      x = agrFeatures xa ; y = agrFeatures ya
+      x = nounAgr xa ; y = nounAgr ya
     in 
     Ag (conjGender x.g y.g) (conjNumber (conjNumber x.n y.n) n) 
        (conjPPerson x.p y.p) ;
 
-  conjGender : Gender -> Gender -> Gender ;
-
-param
- -- AForm = AAdj Gender Number | AComp Gender Number ;
-  PronForm= Pers | Poss Number Gender;
-  DetForm = Sub | Obj Gender ;
+  conjGender :  Cgender ->  Cgender ->  Cgender ;
 
 
 
@@ -78,27 +70,22 @@ oper
   conjThan  : Str ; --one of them in bantu
   conjThat  : Str ;
   superVery : Str ; -- one of bantu
-  
+  such : Str;
   reflPron : Agr => Str ; -- second of bantu.
 
-param
-  VForm ;
-  DForm ;
-  AForm;
+
 oper
-
-  ProunSgprefix : Gender -> Str ; 
-  ProunPlprefix : Gender -> Str ; 
-
-  Cardoneprefix  : Gender ->  Str;
- Cardtwoprefix  : Gender ->  Str;
- Allpredetprefix : Gender ->  Str;
- PrefixPlNom : Gender ->  Str;
- mkprefix,Ordprefix : Gender ->  Str;
- Cardprefix : Gender ->  Str ;
- Mostpredetprefix : Gender ->  Str;
- Adjpprefix : Gender -> Number ->   Str;
- VowelAdjprefix: Gender -> Number ->   Str;
-  ConsonantAdjprefix: Gender -> Number ->   Str;
+  ProunSgprefix :  Cgender -> Str ; 
+  ProunPlprefix :  Cgender -> Str ; 
+  Cardoneprefix  :  Cgender ->  Str;
+ Cardtwoprefix  :  Cgender ->  Str;
+ Allpredetprefix :  Cgender ->  Str;
+ PrefixPlNom :  Cgender ->  Str;
+ mkprefix,Ordprefix :  Cgender ->  Str;
+ Cardprefix :  Cgender ->  Str ;
+ --Mostpredetprefix :  Cgender ->  Str;
+ --Adjpprefix :  Cgender -> Number ->   Str;
+ --VowelAdjprefix:  Cgender -> Number ->   Str;
+ -- ConsonantAdjprefix:  Cgender -> Number ->   Str;
 }
 

@@ -11,10 +11,10 @@ concrete GrammarGus of Grammar =
   RelativeGus,
   ConjunctionGus,
   PhraseGus,
-  TextX - [Pol,PPos,PNeg,Pres],
+  TextX -[Adv],
   StructuralGus,
   IdiomGus,
-  TenseX - [Pol,PPos,PNeg,Pres]
+  TenseX - [Adv]
   **  {
 
 flags startcat = Phr ; unlexer = text ; lexer = text;

@@ -1,2 +1,2 @@
 concrete QuestionGus of Question = CatGus ** QuestionBantu with
- (ResBantu = ResGus);  
+ (ResBantu = ResGus) **open MorphoGus in{};  

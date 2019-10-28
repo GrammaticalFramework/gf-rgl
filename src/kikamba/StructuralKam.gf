@@ -1,12 +1,12 @@
 concrete StructuralKam of Structural = CatKam ** 
-  open MorphoKam, ParadigmsKam, 
+  open MorphoKam, ParadigmsKam, DiffKam,
     (C = ConstructX), Prelude in {
 
   flags optimize=all ;
 
   lin
-  above_Prep = mkPrep "iulu" ;
-  after_Prep = mkPrep "itina" ;
+  above_Prep = mkPrep "iulu" False;
+  after_Prep = mkPrep "itina wa" False ;
   all_Predet = {s = \\g => MorphoKam.Allpredetprefix g + "onthe"} ;
   almost_AdA = mkAdA "vakuvi " ;
   almost_AdN = mkAdN "vakuvi " ;
@@ -14,13 +14,13 @@ concrete StructuralKam of Structural = CatKam **
   always_AdV = mkAdV "mavinda onthe" ;
   and_Conj = mkConj "na" ;
   because_Subj = ss "nundu" | ss "ni kwithiwa" ;
-  before_Prep = mkPrep "mbee"  ;
-  behind_Prep = mkPrep "itina" ;
-  between_Prep = mkPrep "kati" ;
+  before_Prep = mkPrep "mbee" False ;
+  behind_Prep = mkPrep "itina" False;
+  between_Prep = mkPrep "kati" False;
   both7and_DConj = mkConj "eli" "na";
   but_PConj = ss "ndi" ;
-  by8agent_Prep = mkPrep "kwa" ;
-  by8means_Prep = mkPrep "kwa" ;
+  by8agent_Prep = mkPrep "kwa" False;
+  by8means_Prep = mkPrep "na" False ;
 
 {-}  can8know_VV, can_VV = {
     s = table {
@@ -48,31 +48,38 @@ concrete StructuralKam of Structural = CatKam **
     p = [] ;
     typ = VVAux
     } ; -}
-  during_Prep = mkPrep "during" ;
-  either7or_DConj = mkConj "kana"  singular ;
- everybody_NP = regNP "kila umwe" mu_a singular ;
-  every_Det = mkDet "kila" [] Sg ;
-  everything_NP = regNP "kila kindu" ki_i singular ;
+  during_Prep = mkPrep"ivinda ya" False ;
+  either7or_DConj = mkConj "no kethiwa""kana"  singular ;
+ everybody_NP = regNP "kila mundu" mu_a singular False ;
+  every_Det = { s = \\g =>  "kila"; n=Sg; isPre=  False};
+  everything_NP = regNP "undu" u_ma singular False |regNP " kila undu" u_ma singular False;
   everywhere_Adv = mkAdv "kila vandu" ;
-  few_Det = mkDet [] "nini" Pl;
-  for_Prep = mkPrep nonExist ;
-  from_Prep = mkPrep "kuma" ;
+  few_Det = mkDet "nini" Pl  True;
+  for_Prep = mkPrep nonExist False ;
+  from_Prep = mkPrep "kuma" False ;
   he_Pron = mkPron "we" "ake" G1 Sg P3 ;
   here_Adv = mkAdv "vaa" ;
-  here7to_Adv = mkAdv ["kuvika vaa"] ;
-  here7from_Adv = mkAdv ["kuma vaa"] ;
+  here7to_Adv = mkAdv "kuvika vaa";
+  here7from_Adv = mkAdv "kuma vaa" ;
   how_IAdv = ss "ata" | ss "nzia myau" ;
   how8much_IAdv = ss "mala meana" ;
- --how8many_IDet = mkDeterminer plural ["mala meana"] ;
-  if_Subj = ss "enthwa" ;
-  in8front_Prep = mkPrep ["mbee wa"] ;
+  how8many_IDet ={ s = table{
+                    G4 |G7 |G9  => "syiana";
+                    G5  => "twiana";
+                    G6  => "kwiana";
+                    G2 => "yiana" ;
+                    G3 | G1 |G8 |G10  => "meana" 
+                    }; n=Pl}; 
+     if_Subj = ss "enthwa" ;
+  in8front_Prep = mkPrep ["mbee wa"]  False;
  i_Pron   =mkPron "nyie" "akwa" G1 Sg P1 ;
-  in_Prep = mkPrep "in" ;
+  in_Prep = mkPrep "thini" True ;
  it_Pron   ={ s=\\c=>"yo"; poss=\\n,g=> ""; a=Ag G4 Sg P3};
        
   less_CAdv = C.mkCAdv "ninangi" "kwi" ;
- much_Det, many_Det =mkDet [] "ingi" Pl; 
-  more_CAdv = C.mkCAdv "mbeange" "kwi" ; 
+ much_Det, many_Det = { s =\\g => Manyprefix g + "ingi" ;
+               n = Pl;     isPre = True}; 
+  more_CAdv = C.mkCAdv "mbee" "wa"; 
   most_Predet = {s = \\g => MorphoKam.Mostpredetprefix g + "ingi"} ;
  
 {-}  must_VV = {
@@ -89,16 +96,16 @@ concrete StructuralKam of Structural = CatKam **
     typ = VVAux
     
     } ; -}
----b  no_Phr = ss "no" ;
-  no_Utt = ss "aeee" ;
-  on_Prep = mkPrep "iulu wa" ;
+  no_Phr = ss "aiee" ;
+  no_Utt = ss "aiee" ;
+  on_Prep = mkPrep "iulu wa" True ;
 ----  one_Quant = mkDeterminer singular "one" ; -- DEPRECATED
   only_Predet = {s = \\g =>  "tu" } ;
   or_Conj = mkConj "kana" singular ;
   otherwise_PConj = ss "otherwise" ;
   please_Voc = ss "ame" ;
   part_Prep, possess_Prep = let
-       questo : ParadigmsKam.Number =>   MorphoKam.Gender =>  Str = table {
+       questo : ParadigmsKam.Number =>   MorphoKam.Cgender =>  Str = table {
     Sg => \\g=> case <g> of {
                       <G2 > |<G9> |<G8 > | <G1 >  => "wa";
                     <G4 > => "kya";
@@ -117,18 +124,18 @@ concrete StructuralKam of Structural = CatKam **
                    } 
                
            }
-    in { s= questo} ;
-  quite_Adv = mkAdv "o muno" ;
+    in { s= questo; isFused= False} ;
+  quite_Adv = mkAdV "o muno" ;
   she_Pron  = mkPron "we" "ake" G1 Sg P3 ;
            
   so_AdA = mkAdA "so" ;
-  somebody_NP = regNP " o mundu " mu_a singular ;
-  someSg_Det = mkDet [] "mwe" Sg;
-  somePl_Det = mkDet [] "mwe" Pl;
-  something_NP = regNP "o kindu" ki_i singular ;
-  somewhere_Adv = mkAdv "o vandu" ;
+  somebody_NP = regNP " o mundu " mu_a singular False ;
+  someSg_Det = mkDet "mwe" Sg True;
+  somePl_Det = mkDet  "mwe" Pl True;
+  something_NP = regNP "kindu" ki_i singular False ;
+  somewhere_Adv = mkAdv "veo vandu" ;
   that_Quant = let
-       questo : ParadigmsKam.Number =>  MorphoKam.Gender =>  Str = table {
+       questo : ParadigmsKam.Number =>  MorphoKam.Cgender =>  Str = table {
     Sg => \\g=> case <g> of {
                     <G2 > => "iya";
                     <G3 > => "yiya";
@@ -153,14 +160,14 @@ concrete StructuralKam of Structural = CatKam **
     in {
          s = questo ;
         } ;
-  there_Adv = mkAdv "vau" ;
-  there7to_Adv = mkAdv "vau" ;
+  there_Adv = mkAdv "vo" ;
+  there7to_Adv = mkAdv "vo" ;
   there7from_Adv = mkAdv ["kuma vau"] ;
-  therefore_PConj = ss "kwoou" ;
+  therefore_PConj = ss "Kwoondu wa uu" ;
   they_Pron  =mkPron "mo" "oo" G1 Pl P3 ;
    
   this_Quant = let
-       questo : ParadigmsKam.Number =>  MorphoKam.Gender =>  Str = table {
+       questo : ParadigmsKam.Number =>  MorphoKam.Cgender =>  Str = table {
     Sg => \\g=> case <g> of {
                     <G3 > => "yii";
                     <G4 > => "kii";
@@ -181,49 +188,55 @@ concrete StructuralKam of Structural = CatKam **
     in {
          s = questo ;
         } ;
-    through_Prep = mkPrep "kuvitila" ;
+    through_Prep = mkPrep "kwisila" False ;
   too_AdA = mkAdA "too" ;
-  to_Prep = mkPrep "kuvika" ;
-  under_Prep = mkPrep "itheo" ;
-  very_AdA = mkAdA "muno" ;
- -- want_VV = mkVV (regV "enda") ;
+  to_Prep = mkPrep "nginya" True | mkPrep "kuvika" False;
+  under_Prep = mkPrep "uungu wa" False ;
+  very_AdA = mkAdA "vyu" ;
+ want_VV = MorphoKam.regV "enda";
   we_Pron  =mkPron "ithyi" "itu" G1 Pl P1 ;
    
-  --whatPl_IP = mkIP "ata" "ata"  plural ;
- -- whatSg_IP = mkIP "ata" "ata"  singular ;
-  when_IAdv = ss "when" ;
-  when_Subj = ss "when" ;
-  where_IAdv = ss "where" ;
-  which_IQuant = {s = \\_ => "which"} ;
----b  whichPl_IDet = mkDeterminer plural ["which"] ;
----b  whichSg_IDet = mkDeterminer singular ["which"] ;
- -- whoPl_IP = mkIP "uu" "whom" "whose" plural ;
- -- whoSg_IP = mkIP "who" "whom" "whose" singular ;
-  why_IAdv = ss "why" ;
-  without_Prep = mkPrep "nza" ;
-  with_Prep = mkPrep "vamwe na" ;
- --yes_Phr = ss "ii" ;
+  whatPl_IP = mkIP "myau"  plural ;
+  whatSg_IP = mkIP "kyau"  singular ;
+  when_IAdv = ss "indii" ;
+  when_Subj = ss "yila" ;
+  where_IAdv = ss "kiva" ;
+  which_IQuant =  let
+       questo : ParadigmsKam.Number =>  DiffKam.Cgender =>  Str =
+        table {
+    Sg => \\g=> DiffKam.IDetprefixsg g + "va"  ;
+    Pl => \\g=> DiffKam.IDetprefixpl g + "va" };
+        in { s = questo ; } ;
+  whichPl_IDet = {s=\\g=> DiffKam. Cardprefix g + "la"; n=Pl} ;
+  whichSg_IDet = {s=\\g=> DiffKam.Cardoneprefix g + "la"  ; n=Sg};
+ whoPl_IP = mkIP  "naau" plural ; 
+ whoSg_IP = mkIP  "nuu"  singular ;
+  why_IAdv = ss "nikii" ;
+  without_Prep = mkPrep "nza" False ;
+  --with_Prep = mkPrep "vamwe na" ;
+  with_Prep =let
+       questo : Number =>  MorphoKam.Cgender =>  Str =
+        \\n,g =>  DiffKam.Withprefix n g + "na"    
+        in { s = questo ; isFused=False} ;
+ yes_Phr = ss "ii" ;
   yes_Utt = ss "ii" ;
    youSg_Pron  =  mkPron "we" "aku" G1 Sg P2 ;
    
- youPol_Pron,youPl_Pron  = mkPron "inyui" "enyu" G1 Pl P3 ;
-  
- 
-
+ youPol_Pron,youPl_Pron  = mkPron "inyui" "enyu" G1 Pl P2 ;
   not_Predet = {s = \\g =>  "nongi"} ;
   no_Quant =  {s = \\g,n =>  nonExist} ;   
   if_then_Conj = mkConj "ethiwa" "indi" singular ;
-  nobody_NP = regNP "vai mundu" mu_a singular ;
-  nothing_NP = regNP "vathei" va_ku singular ;
+  nobody_NP = regNP "vai mundu" mu_a singular  False;
+  nothing_NP = regNP "vathei" va_ku singular False;
 
   at_least_AdN = mkAdN "muvaka" ;
   at_most_AdN = mkAdN "nginya" ;
 
-  except_Prep = mkPrep "ate o" ;
+  except_Prep = mkPrep "ate o" False ;
 
   as_CAdv = C.mkCAdv "nundu" "ta" ;
-
- -- have_V2 = dirV2 (mk5V "have" "has" "had" "had" "having") ;
+have_V2 =  dirV2 (iregV "na") ;
+ --have_V2 = dirV2 (iregV "na") ;--{s=\\_=>  "na"  []}; --dirV2 (mkV "na") };
   that_Subj = ss "ati" ;
   lin language_title_Utt = ss "kikamba" ;
 

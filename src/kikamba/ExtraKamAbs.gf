@@ -1,0 +1,6 @@
+
+
+abstract ExtraKamAbs = ExtraBantuAbs ** {
+
+
+}

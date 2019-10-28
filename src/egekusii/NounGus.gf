@@ -1,2 +1,3 @@
 concrete NounGus of Noun = 
-  CatGus ** NounBantu with (Structural = StructuralGus), (ResBantu = ResGus);  
+  CatGus ** NounBantu with (Structural = StructuralGus), 
+  (ResBantu = ResGus) ** open MorphoGus in {};  

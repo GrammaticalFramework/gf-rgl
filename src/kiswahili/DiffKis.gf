@@ -1,14 +1,16 @@
-instance DiffKis of DiffBantu  =  open CommonBantu, Prelude  in {
+instance DiffKis of DiffBantu  =  open CommonBantu, Prelude in {
 
 param 
-  GenderKis = G1|G2|G3|G4|G5|G6|G7|G8|G9|G10|G11|G12|G13  ;
-oper 
-  Gender = GenderKis ;
+  CgenderKis = G1|G2|G3|G4|G5|G6|G7|G8|G9|G10|G11|G12|G13  ;
+  oper 
+  Cgender = CgenderKis ;
   firstGender = G1 ; secondGender = G2 ;
   conjThan = "kuliko" ;
-  conjThat = "kuvita" ;
-
-   conjGender : Gender -> Gender -> Gender = \m,n -> 
+  conjThat = "kuwa" ;
+  that= "kuwa";
+  such = "ambapo";
+  kuna="kuna";
+   conjGender : Cgender -> Cgender -> Cgender = \m,n -> 
     case m of { G1 => n ; _ => G2 } ;
   reflPron :Agr => Str = \\ag=> case <ag >  of  {
          < Ag G1 Sg P1  >     => "mimi" ;
@@ -18,10 +20,20 @@ oper
          < Ag G1 Pl P1 >     => "sisi" ;
          < Ag G1 Pl P2  >     => "nyinyi" ;
          < Ag G1 Pl P3 >     => "wao" ;
-          < Ag _ _ _ >     => "" 
+         < Ag _ _ _ >     => "" 
         
          };
-possess_Prepof,part_Prepof:Number => Gender => Str = 
+
+   extension : VExte -> Str=\type ->case type of{
+           EPassive => "wa" ;
+           EApplicative => "ia" ; -- 
+           EReciprocal  => "ana" ;-- 
+           ESative => "ika" ;
+           Ereversive => "ua";
+           ECausative => "isha" 
+        }; 
+   
+possess_Prepof,part_Prepof:Number => Cgender => Str = 
     table Number { Sg => table {    G3=> "la" ; 
                                  G4 => "cha" ; 
                                  G5 => "ya" ; 
@@ -38,15 +50,15 @@ possess_Prepof,part_Prepof:Number => Gender => Str =
                                  _ => ""} } ;
    
   
- superVery ="vyu";
+ superVery ="kabisa";
 
-Cardoneprefix  : Gender ->  Str = \g ->
+Cardoneprefix  : Cgender ->  Str = \g ->
    case <g> of {    
       <G4>   => "ki" ;
     <G1>|<G2> |<G6> |<G8>  => "m" ;
     _  => "" 
          } ;
-Cardtwoprefix  : Gender ->  Str = \g ->
+Cardtwoprefix  : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>  => "waw" ;
     <G2>   => "miw" ;
@@ -54,7 +66,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G4>   => "viw" ;
     _=> "mb" 
           } ;
-  Allpredetprefix : Gender ->  Str = \g ->
+  Allpredetprefix : Cgender ->  Str = \g ->
    case <g> of {    
    <G4>   => "vy" ;
     <G11> => "p";
@@ -64,7 +76,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G1> |<G7>   => "w" ;
     <G2>|<G3> | <G8> |<G9>  |<G10>   => "y" 
          } ;
-  PrefixPlNom : Gender ->  Str = \g ->
+  PrefixPlNom : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>  => "wa" ;
     <G2> => "mi" ;
@@ -72,7 +84,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G4>  => "vi" ;
          _ => [] 
           } ;
-  mkprefix,Ordprefix : Gender ->  Str = \g ->
+  mkprefix,Ordprefix : Cgender ->  Str = \g ->
    case <g> of {    
    
     <G3>  => "la" ;
@@ -81,7 +93,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G11>| <G12> |<G13>  => "pa";
      <G1> | <G2> |<G6> |<G7> |<G8> => "wa" 
             } ;
-  Cardprefix : Gender ->  Str = \g ->
+  Cardprefix : Cgender ->  Str = \g ->
    case <g> of {    
      <G1>  => "wa" ;
      <G2>  => "mi" ;
@@ -89,7 +101,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G4> => "vi" ;
     _ => ""
       } ;
-       Mostpredetprefix : Gender ->  Str = \g ->
+       Mostpredetprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>   => "we" ;
     <G2>   => "mi"  ;
@@ -100,10 +112,8 @@ Cardtwoprefix  : Gender ->  Str = \g ->
      <G5>|<G6> => "nye" ;    
     <G7> |<G13>  => "mwi" ;
      <G3>|<G8> |<G9>  => "me"  
-   
-   
-      } ;
-      ConsonantAdjprefix: Gender -> Number ->   Str = \n,g ->
+         } ;
+ ConsonantAdjprefix: Cgender -> Number ->   Str = \n,g ->
    case <n,g> of {
     <G1,Sg> => "m" ;
     <G1,Pl> => "wa" ;
@@ -123,7 +133,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
      <_,_> => "" 
        } ;
 
-    VowelAdjprefix: Gender -> Number ->   Str = \n,g ->
+    VowelAdjprefix: Cgender -> Number ->   Str = \n,g ->
    case <n,g> of {
     <G1,Sg> => "mw" ;
     <G1,Pl> => "w" ;
@@ -149,7 +159,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
        <_,_> => "" 
        } ;
 
-  VoweliAdjprefix: Gender -> Number ->   Str = \n,g ->
+  VoweliAdjprefix: Cgender -> Number ->   Str = \n,g ->
    case <n,g> of {
     <G1,Sg> => "mwi" ;
     <G1,Pl> => "we" ;
@@ -174,7 +184,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G13,Sg> => "mwi" ;    
        <_,_> => "" 
        } ;
-  Adjpprefix : Gender -> Number ->   Str = \n,g ->
+  Adjpprefix : Cgender -> Number ->   Str = \n,g ->
    case <n,g> of {
     <G1,Sg> => "wi" ;
     <G1,Pl> => "me" ;
@@ -192,19 +202,19 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G7,Pl> => "syi" ;
     <_,_> => ""
        } ;
-   ProunSgprefix : Gender ->  Str = \g ->
+   ProunSgprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G3>  => "l" ;
     <G4>   => "ch" ;
     <G11> => "p";
     <G12> => "kw";
     <G13> => "mw";
-    <G5> | <G9>| <G10>=> "y";
+     <G5> | <G9>| <G10>=> "y";
     _ => "w" 
     
           } ;
 
-  ProunPlprefix : Gender ->  Str = \g ->
+  ProunPlprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G4>   => "vy" ;
     <G11> => "p";
@@ -212,24 +222,64 @@ Cardtwoprefix  : Gender ->  Str = \g ->
     <G13> => "mw";
     <G5> | <G6> => "z" ;
     <G1> |<G7>   => "w" ;
-    <G2>|<G3> | <G8> |<G9>  |<G10>   => "y" 
-      
-   
-      } ;
-      dfltGender : Gender = G1 ;
-      dflt2Gender : Gender = G2 ;
+    <G2>|<G3> | <G8> |<G9>  |<G10>   => "y" } ;
+
+IQuantprefixpl : Cgender ->  Str = \g ->
+   case <g> of {    
+     <G1> => "o" ;
+    <G4>   => "vyo" ;
+    <G5> | <G6> => "zo" ;
+    <G7> | <G13> |<G12>| <G11>  => "";
+    <G2> |<G3> | <G8> |<G9> |<G10>  => "yo" 
+     } ;
+
+
+IDetprefixpl : Cgender ->  Str = \g ->
+   case <g> of {    
+     <G1> => "we" ;
+    <G4>   => "vi" ;
+    <G3> | <G8> |<G9> => "ya" ;
+    <G5> | <G6> => "zi" ;
+    <G2> |<G10>  => "i" ;
+    __  => ""    
+     } ;
+
+IDetprefixsg : Cgender ->  Str = \g ->
+   case <g> of {    
+     <G1> => "yu" ;
+    <G4>   => "ki" ;
+    <G3>  => "li" ;
+    <G5>  => "i" ;
+    <G11>  => "ku" ;
+    <G12>  => "pa" ;
+    <G13>  => "mu" ;
+    <G2> | <G8> | <G6> | <G7>  => "u" ;
+    __  => ""    
+     } ;
+
+    IQuantprefixsg  : Cgender ->  Str = \g ->
+   case <g> of {    
+    
+    <G11> => "ko";
+    <G12> => "po";
+    <G13> => "mo";
+    <G3> => "lo" ;
+    <G4>  => "cho" ;
+    <G5> => "yo" ;
+    <G1> => "ye" ;
+    <G9> |<G10> => "";    
+    <G2> | <G6> |<G8> |<G7>   => "o"  } ;
+
+      dfltGender : Cgender = G1 ;
+      dflt2Gender : Cgender = G2 ;
 
 
 
  param
 
-  VForm = VInf 
-     | VPres Gender Number Person
-    | VPast Gender Number Person
-    | VFut  Gender Number Person
-   -- | notpresent 
-     ;
-   
+  VForm = VInf | VGen |VPreNeg |VExtension VExte|Vhabitual ;
+  VExte =  EPassive |EApplicative |EReciprocal |ESative |Ereversive 
+        |  ECausative ;
      DForm = unit | teen | ten |hund  ;
-    AForm = AAdj Gender Number;
+    AForm = AAdj Cgender Number | Advv;
 }

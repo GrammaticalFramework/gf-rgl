@@ -1,2 +1,2 @@
 concrete RelativeKam of Relative = CatKam ** RelativeBantu with
- (ResBantu = ResKam);  
+ (Structural = StructuralKam), (ResBantu = ResKam);  

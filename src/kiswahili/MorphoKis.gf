@@ -11,8 +11,16 @@ in {
 
   flags optimize=all ;
   oper 
- 
-  Many_prefix : Gender ->  Str = \g ->
+  let_s: Str="wacha t";
+  lets: Str="wacha ";
+  dQue: Str="je,";
+  inQue: Str="sijui";
+ subjectmarker:Agr-> Str =\ag ->(subjclitic.s!ag).p1;
+ form,forms: VForm= VGen;
+ --cBind : Str = Predef.BIND ;
+ subject: Agr-> Str =\ag -> (subjclitic.s!ag).p1 +   "me" ;
+ mkSuffix : Str -> Str = \c -> Predef.BIND ++ c ;
+  Many_prefix : Cgender ->  Str = \g ->
    case <g> of {    
    <G1>   => "we" ;
     <G2>   => "mi"  ;
@@ -26,7 +34,7 @@ in {
       } ;
 
 
-  Few_prefix : Gender ->  Str = \g ->
+  Few_prefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>   => "wa" ;
     <G2>   => "mi"  ;
@@ -39,7 +47,7 @@ in {
      <G3>|<G8> |<G9>  => "ma"
       } ;
 
-  Detsomesgprefix : Gender ->  Str = \g ->
+  Detsomesgprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G3> => "li" ;
     <G4>   => "ki" ;
@@ -51,7 +59,7 @@ in {
 
       } ;
 
-Detsomeplprefix : Gender ->  Str = \g ->
+Detsomeplprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>   => "we" ;
     <G2>   => "mi"  ;
@@ -68,21 +76,20 @@ Detsomeplprefix : Gender ->  Str = \g ->
   
 
  
-      mkNum : Str -> Str -> {s : DForm => CardOrd => Gender => Str} = 
+      mkNum : Str -> Str -> {s : DForm => CardOrd => Cgender => Str} = 
     \two,  second ->
     {s = table {
        unit => table {NCard =>\\g => Cardprefix g + two ; 
                       NOrd => \\g => Ordprefix g ++ two} ; 
        teen => table {NCard =>\\g =>"kumi na"  ++ Cardprefix g + two ; 
                       NOrd => \\g => Ordprefix g ++ "kumi na" ++ Cardprefix g + two} ; 
-       ten  => table {NCard =>\\g =>second ++"na" ++ Cardprefix g + two ; 
+       ten  => table {NCard =>\\g =>second ; 
                       NOrd => \\g => Ordprefix g ++ second ++"na" ++ Cardprefix g + two};
        hund  => table {NCard =>\\g =>"mia "  ++ two ;
                         NOrd => \\g => Ordprefix g ++ "mia "  ++ two }
-       }
-    } ;
+       } } ;
   
-   mkNumn : Str -> Str  -> Str -> {s : DForm => CardOrd => Gender => Str} = 
+   mkNum2 : Str -> Str  -> Str -> {s : DForm => CardOrd => Cgender => Str} = 
     \two, twelve,  second ->
     {s = table {
        unit => table {NCard =>\\g => Cardtwoprefix g + two ; 
@@ -93,10 +100,9 @@ Detsomeplprefix : Gender ->  Str = \g ->
                       NOrd => \\g => Ordprefix g ++ twelve};
        hund  => table {NCard =>\\g =>"mia mb "  + two ; 
                       NOrd => \\g => Ordprefix g ++ "mia mb" + two}  
-       }
-    } ;
+       }} ;
 
-    mkNume : Str ->  Str -> {s : DForm => CardOrd => Gender => Str} = 
+    mkNum1 : Str ->  Str -> {s : DForm => CardOrd => Cgender => Str} = 
     \two, second -> 
     {s = table {
        unit => table {NCard =>\\g => Cardoneprefix g + two ; 
@@ -110,31 +116,31 @@ Detsomeplprefix : Gender ->  Str = \g ->
        }
     } ;
 
-  regNum : Str ->Str -> {s : DForm => CardOrd => Gender => Str} = 
+  regNum : Str ->Str -> {s : DForm => CardOrd => Cgender => Str} = 
     \six,sixth -> {s = table {
        unit => table {NCard =>\\g => six ; 
                       NOrd => \\g => Ordprefix g ++ six} ; 
        teen => table {NCard =>\\g =>"kumi na"  ++ six ; 
                       NOrd => \\g => Ordprefix g ++ "kumi na" ++ six} ; 
-       ten  => table {NCard =>\\g =>sixth ++"na" ++ six ; 
+       ten  => table {NCard =>\\g =>sixth ; 
                       NOrd => \\g => Ordprefix g ++ sixth ++"na" ++ six };
        hund  => table {NCard =>\\g =>"mia "  ++ six ; 
                       NOrd => \\g => Ordprefix g ++ "mia" ++ six}  
        } } ;
 
  
-  regCardOrd : Str -> {s : CardOrd => Gender => Str} = \ten ->
+  regCardOrd : Str -> {s : CardOrd => Cgender => Str} = \ten ->
     {s = table {NCard => \\g =>  ten ; 
 		NOrd =>\\g => Ordprefix g ++ ten } } ;  
 
-    regCardone : Str -> Str -> {s : CardOrd => Gender => Str} = \ten,one ->
+    regCardone : Str -> Str -> {s : CardOrd => Cgender => Str} = \ten,one ->
     {s = table {NCard => \\g =>  ten ++ Cardoneprefix g + one ; 
     NOrd =>\\g => Ordprefix g ++ ten ++ Cardoneprefix g + one  } } ;
 
-  mkCard : CardOrd -> Str -> Gender => Str = \o,ten -> 
+  mkCard : CardOrd -> Str -> Cgender => Str = \o,ten -> 
     (regCardOrd ten).s ! o ; 
 
-   regN : Str ->Gender -> Noun =  \w, g -> let wpl = case g of {
+   regN : Str ->Cgender -> Noun =  \w, g -> let wpl = case g of {
               G1=>case w of {
                      "mwa" + _  => PrefixPlNom G1  + Predef.drop 3 w ; 
                      "mwi" + _  => "we"  + Predef.drop 3 w ;  
@@ -152,23 +158,20 @@ Detsomeplprefix : Gender ->  Str = \g ->
               G6 |G8 => PrefixPlNom g  + Predef.drop 1 w;
               G11 |G12|G13 => "" ;
                _ => PrefixPlNom g + w };
-                   
-          in iregN w wpl g ;
+                in mkNoun w wpl g ;
  
 
-
-
-
-  iregN :Str-> Str ->Gender -> Noun= \man,men,g -> { -- for irregular noun
+    iregN :Str-> Str ->Cgender -> Noun= \man,men,g ->mkNoun man men g;
+  mkNoun :Str-> Str ->Cgender -> Noun= \man,men,g ->  { -- for irregular noun
     s = table{Sg => table{Nom => man ; 
-                          Loc=> man + "ni"  | men + "ni" }; 
-              Pl => table{Nom => men ; Loc=> ""}} ;
-    g = g
+                          Loc=> man + "ni"   }; 
+              Pl => table{Nom => men ; Loc=> men + "ni" }} ;
+    g =  g;
     } ;
-
- regA:Str -> {s : AForm =>  Str} = \seo ->  {s = table {
+regA :Str->{s : AForm =>  Str}= \adj ->regAdj adj ("vi"+adj);
+ regAdj:Str -> Str-> {s : AForm =>  Str} = \seo,see ->  {s = table {
      AAdj G1 Sg=>case Predef.take 1 seo of { 
-               "a"|"e"|"i"|"o"|"u"  => VowelAdjprefix G1 Sg + seo;
+               "a"|"e"|"i"|"u"  => VowelAdjprefix G1 Sg + seo;
                    _ => ConsonantAdjprefix  G1 Sg + seo };
      AAdj G1 Pl =>case Predef.take 1 seo of { 
                "a"|"e"|"o"|"u"  => VowelAdjprefix G1 Pl + seo;
@@ -241,111 +244,165 @@ Detsomeplprefix : Gender ->  Str = \g ->
                "a"|"e"|"o"|"u"  => VowelAdjprefix G13 Sg + seo;
                   "i"  => VoweliAdjprefix G13 Sg + seo;
                    _ => ConsonantAdjprefix  G13 Sg + seo };
-    AAdj _  Pl =>[] }};
+    AAdj _  Pl =>[]; 
+    Advv => see} };
 
        
 
 
         
-iregA : Str-> Str -> {s : AForm =>  Str} = \seo,seoo -> {  
+iregA : Str ->  {s : AForm =>  Str} =\seo -> {  
        s = table {
-            AAdj g Sg=> seo;
-            AAdj g Pl => seoo} };
+            AAdj g n => seo;
+            --AAdj g Pl => seoo
+            Advv => "vi" ++ seo} };
             
 
    cregA : Str->  {s : AForm =>  Str} = \seo -> {  
        s = table {
-             AAdj g Sg => ProunSgprefix g + "a" ++"rangi" ++"ya"  ++ seo; 
-             AAdj g Pl=> ProunPlprefix g + "a" ++"rangi" ++"ya"  ++ seo} } ;   
+             AAdj g Sg => ProunSgprefix g + "a rangi ya"  ++ seo; 
+             AAdj g Pl=> ProunPlprefix g + "a rangi ya" ++ seo;
+             Advv => []} } ;   
+  
+            
 
-regV : Str -> Verb = 
-     \vika -> {
-     s = table{  True => table{
-       VInf        => vika;
-       VPres g n p => Verbprefix g n p + vika; 
-       VPast g n p => Verbprefix g n p + init vika + "ie" ;
-       VFut  g n p => Verbfutureprefix g n p + vika 
-            } ;
-        False =>table {
-        VInf       =>  "ndi" + vika;
-       VPres g n p => neg (Ag g n p) False Pres + "na" + vika ; 
-       VPast g n p => neg (Ag g n p) False Past + "ne" + vika ;
-       VFut  g n p => neg (Ag g n p) False Fut + "ka" + vika    
-       } 
-     };     
-     };
+regV :Str -> Verb =\vika -> let  stem = init vika in
+mkVerb vika (stem+"i") ("ku"+vika)("hu" + vika ) ;
 
-  neg : Agr -> Bool ->Tense -> Str = \a,b,t -> let 
-        g = getGender a;
-        n=getNumber a;
-        p=getPerson a
-      in case b of {True => [] ; False => negprefix g n t p} ;
-
-  negprefix : Gender -> Number -> Tense -> Person -> Str =\g,n,t,p-> case <g,n,t,p> of {
-            <G1,Sg,_,P1> => "ndi";
-            <G1,Sg,_,P2> => "ndu";
-            <G1,Sg,_,P3> => "ndu";
-            <G1,Pl,_,P1> => "twi";
-            <G1,Pl,_,P2> => "mwi";
-            <G1,Pl,_,P3> => "mai";
-            <G2,Sg,_,_> => "ndu";
-            <G2,Pl,_,_> => "i";
-            <G3,Sg,_,_> => "i";
-            <G3,Pl,_,_> => "mai";
-            <G4,Sg,_,_> => "ki";
-            <G4,Pl,_,_> => "i";
-            <G5,Sg,_,_> => "kai";
-            <G5,Pl,_,_> => "tui";
-            <G6,Sg,_,_> => "vai";
-            <G6,Pl,_,_> => "kui";
-            <G7,Sg,_,_> => "i";
-            <_,_,_,_> => "syi"
-           
-};
+iregV : Str -> Verb =\vika -> mkVerb vika vika vika vika ;
 
 
- Verbprefix : Gender -> Number -> Person -> Str = \g, n, p ->
-   case <g,n,p> of {    
-    <G1,Sg,P1>   => "na" ;
-    <G1,Sg,P2>   => "wa" ;
-    <G1,Sg,P3>   => "wa" ;
-    <G1,Pl,P1>   => "twa" ;
-    <G1,Pl,P2>   => "mwa" ;
-    <G1,Pl,P3>   => "ma" ;
-    <G2,Sg,_>   => "wa" ;
-    <G2,Pl, _>   => "ya"  ;
-    <G4,Sg,_>   => "kya" ;
-    <G4,Pl,_>   => "sya" ;
-    <G3,Sg,_>  => "ya" ;
-    <G3,Pl,_>  => "ma" ;
-     <G5,Sg,_>  => "ka" ;
-    <G5,Pl,_>  => "twa" ;
-     <G6,Sg,_>  => "va" ;
-    <G6,Pl,_>  => "kwa" ;
-    <G7,Sg,_>  => "ya" ;
-    <_,_,_>  => "sya" 
-          } ;
- 
- Verbfutureprefix : Gender -> Number -> Person -> Str = \g, n, p ->
-   case <g,n,p> of {    
-    <G1,Sg,P1>   => "nga" ;
-    <G1,Sg,P2>   => "uka" ;
-    <G1,Sg,P3>   => "uka" ;
-    <G1,Pl,P1>   => "tuka" ;
-    <G1,Pl,P2>   => "muka" ;
-    <G1,Pl,P3>   => "maka" ;
-    <G2,Sg,_>   => "uka" ;
-    <G2,Pl, _>   => "ika"  ;
-    <G4,Sg,_>   => "kika" ;
-    <G4,Pl,_>   => "ika" ;
-    <G3,Sg,_>  => "ika" ;
-    <G3,Pl,_>  => "maka" ;
-     <G5,Sg,_>  => "kaka" ;
-    <G5,Pl,_>  => "tuka" ;
-     <G6,Sg,_>  => "vaka" ;
-    <G6,Pl,_>  => "kuka" ;
-    <G7,Sg,_>  => "ika" ;
-    <_,_,_>  => "ika" 
-          } ;
+mkVerb :(gen,preneg,inf,habit : Str) -> Verb= \gen,preneg,inf,habit ->
+      { s =table{ 
+             VPreNeg   => preneg;
+             VGen => gen;
+             VInf => inf;
+             Vhabitual =>habit;
+             VExtension type=> init gen + extension  type
+              };
+        s1 =\\ pol,tes,ant,ag => let
+            v_prefix = (polanttense.s!pol!tes!ant!ag).p1 ; in
+            case < tes, ant,pol > of {
+              <Pres, Simul, Neg> =>  v_prefix + preneg ;
+              <Pres, Simul,Pos> =>  v_prefix + gen;-- | habit;
+              <_, _,_> => v_prefix +gen
+              };
+              progV = [];
+         s2=\\pol,tes,ant,ag =>  case < tes ,pol> of {
+     <Pres, Neg> =>(polanttense.s!Neg!Pres!Simul! ag).p1 + preneg  ;
+     <_, _> =>(polanttense.s!Pos!Pres!Simul! ag).p1 + gen};
+     imp=\\po,imf => case <po,imf> of {
+                    <Pos,ImpF Sg False> =>  gen;
+                    <Pos,ImpF Pl False> =>  case last gen of {
+                     "a"  => init gen +"eni";
+                      _  =>  gen + "ni"   };
+                    <Pos,ImpF Sg True> =>  case last gen of {
+                     "a"  => "u" + init gen +"e";
+                      _  =>  "u" + gen   };
+                    <Pos,ImpF Pl True> =>  case last gen of {
+                     "a"  => "m" + init gen +"e";
+                      _  =>  "m" + gen   };
+                    <Neg, ImpF Sg _> => "usi" + init gen +"e"   ;
+                    <Neg,ImpF Pl _> => "msi" + init gen +"e"    }
+        
+      }; 
+
+regVP run  = { 
+      s =\\ ag,pol,tes,ant =>run.s1!pol!tes!ant!ag; 
+      compl=\\_=> [];
+      progV = run.progV;
+      imp=\\po,imf => run.imp!po!imf; 
+      inf= run.s!VInf };
+ {-}    
+ regV :Str -> Verb =\vika -> {
+     s =table{ 
+             VPreNeg   => init vika +"i";
+             VAtense => vika;
+             VExtension type=> init vika + extension  type;
+             VInf => "ku" +vika;
+             Vhabitual =>"hu"+ vika}}; -}
+   regVP : Verb -> VerbPhrase ;
+  regVP2 : (Verb ** {c2 :  Preposition}) -> SlashVP = \verb ->regVP verb ** {c2 = verb.c2; isFused=verb.isFused} ; 
+
+
+
+auxProgBe : VerbPhrase= { s = \\ ag , pol , tense , anter =>
+    case < tense ,pol> of {
+     <Pres, Neg> => [];
+     <Pres, Pos> => [];
+     <_, _> => auxBe.s !ag!pol!tense!anter};
+      s1=\\_,_,_,_=> []; compl=\\_=> [] ; progV = [];
+      imp =\\po,imf => "";inf= ""};
+  
+   
+   
+    auxBe : VerbPhrase= { s = \\ ag , pol , tense , anter =>
+    case < tense ,pol> of {
+     <Pres, Neg> => "si";
+     <Pres, Pos> => "ni";
+     <Fut, Pos> => (subjclitic.s!ag).p1 + "takuwa";
+     <Fut, Neg> => (subjclitic.s!ag).p2 + "takuwa";
+     <Past, Neg> =>(subjclitic.s!ag).p2 + "kuwa";
+     <Past, Pos> => (subjclitic.s!ag).p1 + "likuwa";
+     <Cond, Pos> => (subjclitic.s!ag).p1 + "mekuwa";
+     <Cond, Neg> => (subjclitic.s!ag).p2 + "mekuwa" };
+      s1=\\_,_,_,_=> []; compl=\\_=> [] ;progV = []; imp =\\po,imf => "";inf= ""};
+
+ polanttense : Poltemp ;
+subjclitic: VerbSubjclitic;
+polanttense : Poltemp  ={s=\\p,t,a,ag => case <t,a,p> of {
+        <Past, Anter, Pos> => < (subjclitic.s!ag).p1 + "likuwa" ++ (subjclitic.s!ag).p1+ "me",[]> ; 
+        <Past, Anter, Neg> => <(subjclitic.s!ag).p1+ "likuwa" ++ (subjclitic.s!ag).p2+ "ja" ,[]>; 
+        <Past, Simul,Pos> => <(subjclitic.s!ag).p1+ "li",[] >; ---some isues
+        <Past, Simul,Neg> => <(subjclitic.s!ag).p2+ "ku",[]> ; -- for "ti" consder oper since some agreement dont take it
+        <Pres, Simul,Pos> => <(subjclitic.s!ag).p1+ "na",[] >; ---done
+        <Pres, Simul,Neg> => <(subjclitic.s!ag).p2  ,[] >; 
+        <Pres, Anter,Pos> => <(subjclitic.s!ag).p1+ "me",[]> ;
+        <Pres, Anter,Neg> => <(subjclitic.s!ag).p2+ "ja",[]> ;
+        <Fut, Simul,Pos> => <(subjclitic.s!ag).p1+ "ta" ,[]> ; ---done
+        <Fut, Simul,Neg> => <(subjclitic.s!ag).p2+ "ta",[]>; 
+        <Fut, Anter,Pos> => <(subjclitic.s!ag).p1+ "takuwa" ++ (subjclitic.s!ag).p1+ "me" ,[]>;
+        <Fut, Anter,Neg> => <(subjclitic.s!ag).p2+ "takuwa" ++ (subjclitic.s!ag).p1+ "me",[] > ;
+        <Cond, Simul,Pos> => <(subjclitic.s!ag).p1+ "nge" ,[]> ;---done 
+        <Cond, Anter,Neg> => <(subjclitic.s!ag).p2+ "ngeli",[]>  ;
+        <Cond, Anter,Pos> => <(subjclitic.s!ag).p1+ "ngeli",[]> ;
+        <Cond, Simul,Neg> => <(subjclitic.s!ag).p2+ "ngali",[] >
+      }};
+Poltemp : Type ={ s: Polarity => Tense => Anteriority =>  Agr => Str *Str}; 
+
+VerbSubjclitic : Type = {s : Agr => Str * Str };
+subjclitic : VerbSubjclitic = { s=\\a => case a of {
+            Ag G1 Sg P1 =><"ni","si">;
+            Ag G1 Sg P2 => <"u","hu">;
+            Ag G1 Sg P3 => <"a","ha">;
+            Ag G1 Pl P1 =><"tu","hatu">;
+            Ag G1 Pl P2 => <"m","ham">;
+            Ag G1 Pl P3 => <"wa","hawa">;
+            Ag G2 Sg P3=><"u","hau">;
+            Ag G2 Pl P3 =><"i","hai">;
+            Ag G3 Sg P3 =><"li","hali">;
+            Ag G3 Pl P3 =><"ya","haya">;
+            Ag G4 Sg P3 => <"ki","haki">;
+            Ag G4 Pl P3 => <"vi","havi">;
+            Ag G5 Sg P3 => <"i","hai">;
+            Ag G5 Pl P3 => <"zi","hazi">;
+            Ag G6 Sg P3 => <"u","hau">;
+            Ag G6 Pl P3 =><"zi","hazi">;
+            Ag G7 Sg P3 => <"u","hau">;
+            Ag G7 Pl P3 =><"u","hau">;
+            Ag G8 Sg P3 =><"u","hau">;
+            Ag G8 Pl P3 =><"ya","haya">;
+            Ag G9 Sg P3 =><"ya","haya">;
+            Ag G9 Pl P3 => <"ya","haya">;
+            Ag G10 Sg P3 => <"i","hai">;
+            Ag G10 Pl P3=><"i","hai">;
+            Ag G11 Sg P3 =><"ku","haku">;
+            Ag G11 Pl P3 =><"ku","haku">;
+            Ag G12 Sg P3 =><"pa","hapa">;
+            Ag G12 Pl P3 => <"pa","hapa">;
+            Ag G13 Sg P3 => <"m","ham">;
+            Ag G13 Pl P3=><"m","ham">;
+            Ag  _  _  _ =><"",""> }};
+           mkClitic  : Str -> Str = \c -> c ++ Predef.BIND ;
 }
 

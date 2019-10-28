@@ -1,15 +1,28 @@
-instance DiffKam of DiffBantu = open CommonBantu, Prelude in {
+instance DiffKam of DiffBantu = open CommonBantu,Prelude in {
 
 param 
-  GenderKam = G1 | G2 | G3 | G4 | G5 | G6 | G7| G8 | G9 |G10 ;
+  CgenderKam = G1 | G2 | G3 | G4 | G5 | G6 | G7| G8 | G9 |G10 ;
+  VExte =  EPassive | EApplicative  |EReciprocal | ECausative |EDistributive ;
 oper 
-  Gender = GenderKam ;
+  Cgender = CgenderKam ;
   firstGender = G1 ; secondGender = G2 ;
+  fixclass: Case -> Cgender -> Cgender=\ca,ge ->
+  case <ca > of {
+  <Nom > => ge;
+    _ =>  G6};
 
-  conjGender : Gender -> Gender -> Gender = \m,n -> 
+  conjGender : Cgender -> Cgender -> Cgender = \m,n -> 
     case m of { G1 => n ; _ => G2 } ;
 
-  ProunSgprefix : Gender ->  Str = \g ->  
+extension : VExte -> Str=\type ->case type of{
+           EPassive => "w" ;
+           EApplicative => "i" ; -- 
+           EReciprocal  => "an" ;-- 
+           EDistributive => "ang" ;
+           ECausative => "ithy"  --
+        };
+
+  ProunSgprefix : Cgender ->  Str = \g ->  
     case g of {    
       G1 | G2|G8 |G9 => "w" ;
       G3 | G7 => "y" ;
@@ -19,7 +32,7 @@ oper
       G6      => "v"
     } ;
 
-  ProunPlprefix : Gender ->  Str = \g ->
+  ProunPlprefix : Cgender ->  Str = \g ->
     case g of {    
       G1 | G3 |G8 |G10 => "m" ;
       G2      => "y" ;
@@ -27,7 +40,7 @@ oper
       G5      => "tw" ;
       G6      => "kw"
     } ;
-Allpredetprefix : Gender ->  Str = \g ->
+Allpredetprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G1> |<G3> |<G8> |<G10> => "" ;
     <G2>   => "y" ;
@@ -35,7 +48,7 @@ Allpredetprefix : Gender ->  Str = \g ->
     <G5> => "two" ;
     <G6> => "kwo"
          } ;
- Mostpredetprefix : Gender ->  Str = \g ->
+ Mostpredetprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>   => "ala a" ;
     <G2>   => "ila m" ;
@@ -46,8 +59,20 @@ Allpredetprefix : Gender ->  Str = \g ->
     <G7> | <G9>  => "ila mb" 
    
       } ;
-ConsonantAdjprefix: Gender -> Number ->   Str = \n,g ->
-   case <n,g> of {
+ relPron : Cgender -> Number ->   Str = \g,n ->
+   case <g,n> of {
+     <G3,Sg> => "yila" ;
+     <G4,Sg>  => "kila" ;
+     <G5,Sg> => "kala" ;
+    <G5,Pl> => "tula" ;
+    <G6,Sg> => "vala" ;
+    <G6,Pl>|<G10,Sg> => "kula" ;
+    <G1,Sg> |<G2,Sg> |<G8,Sg> |<G9,Sg> => "ula" ;
+    <G1,Pl> |<G3,Pl> |<G8,Pl> |<G10,Pl> => "ala" ;
+    <G2,Pl> |<G9,Pl> |<G4,Pl> | <G7,Sg> | <G7,Pl> => "ila" 
+           } ;
+ConsonantAdjprefix: Cgender -> Number ->   Str = \g,n ->
+   case <g,n> of {
     <G1,Sg> => "mu" ;
     <G1,Pl> => "a" ;
     <G2,Sg> => "mu" ;
@@ -69,7 +94,7 @@ ConsonantAdjprefix: Gender -> Number ->   Str = \n,g ->
     <G10,Pl> => "ma" 
        } ;
 
-    VowelAdjprefix: Gender -> Number ->   Str = \n,g ->
+    VowelAdjprefix: Cgender -> Number ->   Str = \n,g ->
    case <n,g> of {
     <G1,Sg> => "mw" ;
     <G1,Pl> => "a" ;
@@ -87,26 +112,19 @@ ConsonantAdjprefix: Gender -> Number ->   Str = \n,g ->
     <G8,Sg> => "mw" ;
     <_,_> => "ma" 
        } ;
-  Adjpprefix : Gender -> Number ->   Str = \n,g ->
+   Withprefix : Number -> Cgender ->   Str = \n,g ->
    case <n,g> of {
-    <G1,Sg> => "wi" ;
-    <G1,Pl> => "me" ;
-    <G2,Sg> => "wi" ;
-    <G2,Pl> => "yi" ;
-    <G3,Sg> => "yi" ;
-    <G3,Pl> => "me" ;
-    <G4,Sg> => "ki" ;
-    <G4,Pl> => "syi" ;
-    <G5,Sg> => "ke" ;
-    <G5,Pl> => "twi" ;
-    <G6,Sg> => "ve" ;
-    <G6,Pl> => "kwi" ;
-    <G7,Sg> => "yi" ;
-    <G7,Pl> => "syi";
-    <_,_> => ""  
-       } ;
-
-  PrefixPlNom : Gender ->  Str = \g ->
+  <Sg,G1> => "e" ;
+  <Sg,G4> => "ki" ;
+  <Sg,G5> => "ke" ;
+  <Pl,G5> => "twi" ;
+  <Sg,G6> => "ve" ;
+  <Pl,G6>|<Sg,G10> => "kwi" ;
+  <Pl,G4> |<Pl,G7>|<Pl,G9>=> "syi" ;
+  <Sg,G3> |<Pl,G2>|<Sg,G7>=> "yi" ;
+  <Sg,G2>|<Sg,G8> | <Sg,G9> => "wi" ;
+  <Pl,G1> |<Pl,G3> |<Pl,G8> | <Pl,G10>=> "me" };
+  PrefixPlNom : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>  => "a" ;
     <G2> => "mi" ;
@@ -118,7 +136,7 @@ ConsonantAdjprefix: Gender -> Number ->   Str = \n,g ->
     _ => "ma" 
 
           } ;
-mkprefix,Ordprefix : Gender ->  Str = \g ->
+mkprefix,Ordprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G1> | <G2> | <G8> | <G9>  => "wa" ;
     <G3> | <G7> => "ya" ;
@@ -127,7 +145,7 @@ mkprefix,Ordprefix : Gender ->  Str = \g ->
     <G10> => "kwa";
     <G6> => "va"
           } ;
-     Cardprefix : Gender ->  Str = \g ->
+     Cardprefix : Cgender ->  Str = \g ->
    case <g> of {    
      <G1>|<G3> |<G10> => "a" ;
      <G2>| <G7>|<G4> |<G8> |<G9> => "i" ;
@@ -135,7 +153,7 @@ mkprefix,Ordprefix : Gender ->  Str = \g ->
     <G6> => "ku"
       } ;
 
-Cardoneprefix  : Gender ->  Str = \g ->
+Cardoneprefix  : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>|<G2> |<G8> |<G9>  => "u" ;
     <G4>   => "ki" ;
@@ -145,7 +163,7 @@ Cardoneprefix  : Gender ->  Str = \g ->
     <G6> => "va";
     <G7>   => "i" 
       } ;
-   Cardtwoprefix  : Gender ->  Str = \g ->
+   Cardtwoprefix  : Cgender ->  Str = \g ->
    case <g> of {    
     <G1>|<G3> |<G8> |<G10>  => "e" ;
     <G2> |<G4> | <G7> |<G9>  => "i" ;
@@ -154,7 +172,7 @@ Cardoneprefix  : Gender ->  Str = \g ->
    
       } ;
 
-    Detprefix : Gender ->  Str = \g ->
+    Detprefix : Cgender ->  Str = \g ->
    case <g> of {    
     <G1> | <G8>  => "a" ;
     <G2>   => "mi" ;
@@ -169,9 +187,10 @@ Cardoneprefix  : Gender ->  Str = \g ->
 ---------------------------------------------
 
 oper
-  conjThan = "kuvita" ;
+  conjThan = "kwi" ;
   conjThat = "kuvita" ;
-
+  such = "ota";
+  that="uu";
   reflPron : Agr => Str = \\ag=> case ag of {
     Ag G1 Sg P1 => "nyie" ;
     Ag G1 Sg P2 => "we" ;
@@ -184,15 +203,29 @@ oper
     };
 
   superVery ="vyu";
+  IDetprefixsg :Cgender ->  Str = \g ->
+   case <g> of {    
+    <G3 > |<G7> => "yi" ;
+      <G4 > => "ki";
+      <G5 > => "ke";
+      <G6 > => "ve";
+      <G10 > => "kwi";
+      _ => "wi" }; 
+
+ IDetprefixpl : Cgender ->  Str = \g ->
+   case <g> of { <G5 > => "twi";
+                   <G6 > => "kwi";
+                   <G2>  => "yi" ;
+                   <G4> | <G7> | <G9>=> "syi" ;
+                   _ => "me"   };
 
 param
-  VForm = VInf 
-    | VPres Gender Number Person
-    | VPast Gender Number Person
-    | VFut  Gender Number Person
-   -- | notpresent 
-    ;
-   
-  DForm = unit | teen | ten | hund ;
-  AForm = AAdj Gender Number | AComp Gender Number ;
+   VForm =VPreProg | VInf |VPast |VPreDef | VGen |VExtension VExte ; 
+   DForm = unit | teen | ten | hund ;
+  AForm = AAdj Cgender Number | AComp Cgender Number | Advv;
+oper
+
+mkClitic : Str -> Str = \c -> c ++ Predef.BIND ;
+
+
 }

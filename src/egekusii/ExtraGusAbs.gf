@@ -1,0 +1,6 @@
+
+
+abstract ExtraGusAbs = ExtraBantuAbs ** {
+
+
+}
