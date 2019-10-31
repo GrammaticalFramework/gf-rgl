@@ -351,6 +351,7 @@ param
           VAct VSim (VPres VInd)  Sg P1 => -- Present Indicative
 	    ( case pres_ind_base of {
 		_ + "a" =>  ( init pres_ind_base ) ;
+		-- | _ + "ui" =>  ( init pres_ind_base ) ;
 		_ => pres_ind_base
 		}
 	    ) + "o" ; --actPresEnding Sg P1 ;

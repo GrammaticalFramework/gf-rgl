@@ -85,7 +85,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 --
     DetQuant quant num = {
       s  = \\g,c => quant.s  ! Ag g num.n c ++ num.s ! g ! c ;
-      sp = \\g,c => quant.sp ! Ag g num.n c ++ num.s ! g ! c ;
+      sp = \\g,c => quant.sp ! Ag g num.n c ;
       n  = num.n
       } ;
 
@@ -182,6 +182,6 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 
     -- CountNP : Det -> NP -> NP ;    -- three of them, some of the boys
     CountNP det np = np ** {
-      det = det
+      det = det ** { s = \\g,c => det.s ! g ! c++ np.det.s ! g ! c } ;
       }; 
 }

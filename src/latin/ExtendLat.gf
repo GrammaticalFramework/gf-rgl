@@ -90,7 +90,7 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
 --     EmbedPresPart : VP -> SC ;   -- looking at Mary (is fun)
 
     --     PastPartAP      : VPSlash -> AP ;         -- lost (opportunity) ; (opportunity) lost in space
-    PastPartAP vp = { s = vp.part ! VPassPerf } ;
+    PastPartAP vp = { s = \\ag => vp.part ! VPassPerf ! ag ++ vp.adv ++ vp.c.s} ; -- TODO
 --     PastPartAgentAP : VPSlash -> NP -> AP ;   -- (opportunity) lost by the company
 
 -- -- this is a generalization of Verb.PassV2 and should replace it in the future.
