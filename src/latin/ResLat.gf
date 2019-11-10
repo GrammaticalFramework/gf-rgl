@@ -1303,7 +1303,14 @@ oper
       sadv : Str -- sentence adverb¡
     } ;
   
-  Clause = {s,o : AdvPos => Str ; v : Tense => Anteriority => VQForm => AdvPos => ComplPos => Str ; neg : Polarity => AdvPos => Str ; adv : Str } ;
+  Clause =
+    {s : AdvPos => Str ;
+     o : AdvPos => Str ;
+     v : Tense => Anteriority => VQForm => AdvPos => ComplPos => Str ;
+     det : Determiner ; 
+     compl : Str ;
+     neg : Polarity => AdvPos => Str ;
+     adv : Str } ;
   QClause = {s : C.Tense => Anteriority => C.Pol => QForm => Str} ;
 
   mkClause : NounPhrase -> VerbPhrase -> Clause = \np,vp ->
@@ -1320,8 +1327,8 @@ oper
       preneg : AdvPos -> Str = \ap -> case ap of { PreNeg => adv ; _ => [] } ;
       ins    : AdvPos -> Str = \ap -> case ap of { InS  => adv ; _ => [] } ;
       inv    : AdvPos -> Str = \ap -> case ap of { InV  => adv ; _ => [] } ;
-      cprev  : ComplPos -> Str = \cp -> case cp of { CPreV => compl ; _ => [] } ;
-      cpostv : ComplPos -> Str = \cp -> case cp of { CPostV => compl ; _ => [] }
+--      cprev  : ComplPos -> Str = \cp -> case cp of { CPreV => compl ; _ => [] } ;
+--      cpostv : ComplPos -> Str = \cp -> case cp of { CPostV => compl ; _ => [] }
     in
     {
       -- subject part of the clause:
@@ -1341,12 +1348,14 @@ oper
       -- comppos is the position of the verb complement
       v = \\tense,anter,vqf,advpos,complpos =>
 	prev advpos ++                           -- adverbs can be placed in the before the verb phrase
-	cprev complpos ++       -- verb phrase complement, e.g. predicative expression, agreeing with the subject, can go before the verb
+--	cprev complpos ++       -- verb phrase complement, e.g. predicative expression, agreeing with the subject, can go before the verb
 	inv advpos ++                            -- adverbs can be placed within the verb phrase
 	-- verb form with conversion between different forms of tense and aspect
-	vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++
-	cpostv complpos ;       -- complement can also go after the verb
-        
+	vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ; -- ++
+--	cpostv complpos ;       -- complement can also go after the verb
+
+      -- verb complement
+      vcompl = compl ;
       -- object part of the clause
       o = \\advpos => preo advpos ++ vp.obj ;
       -- optional negation particle, adverbs can be placed before the negation
@@ -1361,7 +1370,7 @@ oper
       neg = cl.neg ! pol.p ;
       sadv = "" ;
       t = tense ;
-      p = pol
+      p = pol ;
     } ;
 
   combineSentence : Sentence -> ( SAdvPos => AdvPos => ComplPos => Order => Str ) = \s ->

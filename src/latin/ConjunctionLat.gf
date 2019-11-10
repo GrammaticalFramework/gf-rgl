@@ -16,6 +16,7 @@ concrete ConjunctionLat of Conjunction =
       o = \\_ => [] ;
       v = \\_,_ => [] ;
       neg = \\_ => [] ;
+      vcompl = [] ;
       p = ss.p ;
       sadv = [] ;
       t = ss.t
