@@ -1,5 +1,5 @@
 abstract ExtraLatAbs =
-  Extra, Conjunction
+  Conjunction
   ** {
     cat CS ;
   fun
@@ -29,4 +29,7 @@ abstract ExtraLatAbs =
     -- Preposition with alternate case
     inAbl_Prep : Prep ;
     onAbl_Prep : Prep ;
+
+    -- Add all the word orders
+    UttSSVO : S -> Utt ;
 }

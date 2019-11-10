@@ -50,4 +50,6 @@ concrete ExtraLat of ExtraLatAbs =
     Abl_Prep = mkPrep "" Abl ;
     inAbl_Prep = mkPrep "in" Abl ;
     onAbl_Prep = mkPrep "in" Abl ; -- L...
+
+    UttSSVO s = { s = combineSentence s ! SPreS ! PreS ! CPreV ! SVO };
 } 
