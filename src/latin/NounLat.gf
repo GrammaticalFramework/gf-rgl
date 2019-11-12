@@ -64,7 +64,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     ExtAdvNP = AdvNP ;
 
 --  RelNP   : NP -> RS  -> NP ;    -- Paris, which is here
-    RelNP np rs = np ** { adv = rs.s ++ np.adv } ;
+    RelNP np rs = np ** { adv = bindComma ++ rs.s ! np.g ! np.n ++ np.adv } ;
 
 --  DetNP   : Det -> NP ;  -- these five
     DetNP det = {
@@ -91,7 +91,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
 
 
 
---    PossPron p = {
+    PossPron p = { s = \\a => p.poss.s ! PronNonRefl ! a ; sp = \\_ => "" } ;
 --      s = \\_,_ => p.s ! Gen ;
 --      sp = \\_,_ => p.sp 
 --      } ;
