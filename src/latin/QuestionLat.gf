@@ -5,7 +5,7 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
   lin
     --   QuestCl : Cl -> QCl ;            -- does John walk
     QuestCl cl = cl ** {
-      v = \\t,a,_,ap,cp => cl.v ! t ! a ! VQTrue ! ap ! cp ;
+      v = \\t,a,_,ap => cl.v ! t ! a ! VQTrue ! ap ;
       q = ""
       } ;
     
