@@ -38,7 +38,7 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
 	s = \\_ => "" ;
 	adv = "" ;
 	neg = \\_,_ => "" ;
-	o = \\_ => combineNounPhrase np ! PronNonDrop ! Nom ; -- Should probably not go into the object field
+	o = \\_ => combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Nom ; -- Should probably not go into the object field
 	q = icomp.s ;
 	v = \\t,a,_,ap,cp => esseAux.act ! VAct (anteriorityToVAnter a) (tenseToVTense t) np.n P3 ;
 	vcompl = "" ;

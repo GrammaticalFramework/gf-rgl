@@ -8,12 +8,12 @@ concrete AdverbLat of Adverb = CatLat ** open ResLat, Prelude, ParadigmsLat in
 
 --  PrepNP : Prep -> NP -> Adv ;        -- in the house
     PrepNP prep np =
-      mkAdv (prep.s ++ (combineNounPhrase np) ! PronNonDrop ! prep.c ) ;
+      mkAdv (prep.s ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! prep.c ) ;
 
 
 --  ComparAdvAdj  : CAdv -> A -> NP -> Adv ; -- more warmly than John
     ComparAdvAdj cadv a np =
-      mkAdv (cadv.s ++ a.adv.s ! Compar ++ cadv.p ++ (combineNounPhrase np) ! PronNonDrop ! Nom) ;
+      mkAdv (cadv.s ++ a.adv.s ! Compar ++ cadv.p ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom) ;
 
 --  ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
     ComparAdvAdjS cadv a s =

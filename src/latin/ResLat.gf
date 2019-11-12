@@ -26,7 +26,8 @@ param
       } ;
   param
     Order = SVO | VSO | VOS | OSV | OVS | SOV ;
-    AdvPos = PreS | PreV | PreO | PreNeg | InV | InS ; -- | InO
+    -- (verb-modifying) adverb position
+    AdvPos = APreS | APreV | APreO | APreNeg | AInV | AInS | APreN | APostN ; -- | InO
     ComplPos = CPreV | CPostV ;
     SAdvPos = SPreS | SPreV | SPreO | SPreNeg ;
   param
@@ -148,8 +149,13 @@ param
 	  
   emptyNP : NounPhrase = { s = \\_,_ => ""; g = Masc; n = Sg; p = P1 ; adv = "" ; preap, postap = { s = \\_ => "" } ; det = { s = \\_,_ => "" ; sp = \\_,_ => "" ; n = Sg } ;};
 
-  combineNounPhrase : NounPhrase -> PronDropForm => Case => Str = \np ->
-    \\pd,c => np.det.s ! np.g ! c ++ np.adv ++ np.preap.s ! (Ag np.g np.n c) ++ np.s ! pd ! c ++ np.postap.s ! (Ag np.g np.n c) ++ np.det.sp ! np.g ! c ; 
+  combineNounPhrase : NounPhrase -> PronDropForm => AdvPos => DetPos => Case => Str = \np ->
+    let detpren : DetPos -> { s , sp : Case => Str}  = \dp -> case dp of { DPreN => np.det ; _ => { s, sp = \\_ => [] } } ;
+	detpostn : DetPos -> { s , sp : Case => Str}  = \dp -> case dp of { DPostN => np.det ; _ => { s, sp = \\_ => [] } } ;
+	apren : AdvPos -> Str = \ap -> case ap of { APreN => np.adv ; _ => [] } ;
+	apostn : AdvPos -> Str = \ap -> case ap of { APostN => np.adv ; _ => [] } ;
+    in
+    \\pd,ap,dp,c => apren ap ++ (detpren dp).s ! c ++ np.preap.s ! (Ag np.g np.n c) ++ np.s ! pd ! c ++ np.postap.s ! (Ag np.g np.n c) ++ (detpren dp).sp ! c ++ (detpostn dp).s ! c ++ apostn ap ; 
 -- also used for adjectives and so on
 
 -- adjectives

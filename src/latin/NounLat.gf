@@ -177,7 +177,7 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     ApposCN cn np =
       cn **
       {
-	s = \\n,c => cn.s ! n ! c ++ (combineNounPhrase np) ! PronNonDrop ! c ;
+	s = \\n,c => cn.s ! n ! c ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! c ;
       } ; -- massable = cn.massable } ;
 
     -- CountNP : Det -> NP -> NP ;    -- three of them, some of the boys

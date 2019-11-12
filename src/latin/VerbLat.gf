@@ -115,7 +115,7 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
     
 --  CompNP   : NP  -> Comp ;            -- (be) the man
     CompNP np = {s = \\_ =>
-		   (combineNounPhrase np) ! PronNonDrop ! Nom
+		   (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom ;
       } ;
 
 --  CompAdv  : Adv -> Comp ;            -- (be) here
