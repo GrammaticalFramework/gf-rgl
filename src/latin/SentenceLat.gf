@@ -56,11 +56,12 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 	  QIndir => cl.q ++ combineSentence qs ! SPreS ! PreV ! CPostV ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
 	  }
       } ;
-
---    UseRCl t p cl = {
+    -- UseRCl : Temp -> Pol -> RCl -> RS ;
+    UseRCl t p cl = {
+      s = \\g,n => defaultSentence (combineClause (cl ! g ! n) (lin Tense t) t.a (lin Pol p) VQFalse) ! SOV ;
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
 --      c = cl.c
---    } ;
+    } ;
 --    UseSlash t p cl = {
 --      s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p  ! ODir ;
 --      c2 = cl.c2
@@ -75,7 +76,7 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
     -- TO FIX
 --    SSubjS s1 subj s2 = { s =  \\_ => subj.s ++ s2.s ! PreS ++ s1.s ! PreS ; sadv = lin Adv (mkAdverb []) } ;
     
---    RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ;
+--    RelS s r = {s = s.s ! APreV ++ "," ++ r.s } ;
 --
 --  oper
 --    ctr = contrNeg True ;  -- contracted negations

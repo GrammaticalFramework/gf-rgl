@@ -8,6 +8,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 --
     S  = Sentence ;
     QS = {s : QForm => Str} ;
+    RS = { s : Gender => Number => Str } ; -- Sentence ;
 --    RS = {s : Agr => Str ; c : Case} ; -- c for it clefts
 --    SSlash = {s : Str ; c2 : Str} ;
 --
@@ -28,11 +29,11 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 --
 ---- Relative
 --
---    RCl = {
+    RCl = Gender => Number => Clause ;
 --      s : ResLat.Tense => Anteriority => CPolarity => Agr => Str ; 
 --      c : Case
 --      } ;
---    RP = {s : RCase => Str ; a : RAgr} ;
+    RP = {s : Agr => Str } ;
 --
 ---- Verb
 --

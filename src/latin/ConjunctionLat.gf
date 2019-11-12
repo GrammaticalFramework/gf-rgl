@@ -62,8 +62,12 @@ concrete ConjunctionLat of Conjunction =
 --      isPre = ss.isPre
 --      } ;
 ---}
---
----- These fun's are generated from the list cat's.
+    --
+
+    -- ConjRS : Conj -> ListRS -> RS
+    ConjRS conj rss = { s = \\g,n => conj.s1 ++ (rss.s ! conj.c).init ! g ! n ++ conj.s2 ++ (rss.s ! conj.c).last ! g ! n++ conj.s3 };
+
+  ---- These fun's are generated from the list cat's.
     --
 
     -- BaseS : S -> S -> ListS
@@ -131,13 +135,21 @@ concrete ConjunctionLat of Conjunction =
     -- -- ConsAP : AP -> ListAP -> ListAP
     -- ConsAP x xs =
     --   { l = \\_ => consrTable Agr and_Conj.s2 x (xs.l ! Comma ) } ;
+
+    -- BaseRS : RS -> RS -> ListRS ;
+    BaseRS rs1 rs2 = { s = \\co => { init = rs1.s ; last = rs2.s }} ;
+    
+    -- ConsRS : RS -> List RS -> ListRS ;
+    ConsRS rs rss = { s = \\co => { init = rs.s ; last = \\g,n =>  coord co { init = (rss.s ! co).init ! g ! n ; last = (rss.s ! co).last ! g ! n } } } ;
+    
+
 --
   lincat
     [S] = { s : Coordinator => {init,last : SAdvPos => AdvPos => ComplPos => Order => Str} ; p : Pol ; t : Tense } ; -- TO FIX
     [Adv] = { s: Coordinator => {init,last : Str}} ;
     [NP] = { s : Coordinator => {init,last : PronDropForm => Case => Str} ; g : Gender ; n : Number ; p : Person ; adv : Str ; preap : AP ; postap : AP ; isBase : Bool ; det : Det } ;
     [AP] = {s : Coordinator => {init,last : Agr => Str } } ;
-
+    [RS] = { s : Coordinator => { init, last : Gender => Number => Str }} ;
   oper
     -- Generates a new number value given two number values.
     --   Pl if any of the two is Pl
