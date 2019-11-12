@@ -3,8 +3,7 @@
 concrete LangLat of Lang = 
   GrammarLat,
   ParadigmsLat,
-  LexiconLat,
-  RelativeLat
+  LexiconLat
 --  ConstructionLat
   ** {
 
