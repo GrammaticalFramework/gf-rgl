@@ -278,7 +278,8 @@ param
   oper
   VerbPhrase : Type = {
     s : VActForm => VQForm => Str ;
-    part : VPartForm =>Agr => Str ;
+    pass : VPassForm => VQForm => Str ;
+    part : VPartForm => Agr => Str ;
     inf : VInfForm => Str ;
     imp : VImpForm => Str ;
     obj : Str ;
@@ -288,6 +289,17 @@ param
 
   ObjectVerbPhrase : Type = VerbPhrase ** {c : Preposition} ;
 
+  emptyVP : VerbPhrase = {
+    s = \\_,_ => "" ;
+    pass = \\_,_ => "" ;
+    part = \\_,_ => "" ;
+    inf = \\_ => "" ;
+    imp = \\_ => "" ;
+    obj = "";
+    compl = \\_ => "" ;
+    adv = ""
+    } ;
+  
   Verb : Type = {
     act   : VActForm => Str ;
     pass  : VPassForm => Str ;
@@ -1250,6 +1262,7 @@ oper
 
   predV : Verb -> VerbPhrase = \v -> {
     s = \\a,q => v.act ! a ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
+    pass = \\p,q => v.pass ! p ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
     part = v.part;
     imp = v.imp ;
     inf = v.inf ;
@@ -1268,20 +1281,22 @@ oper
 
   insertObj : NounPhrase -> Preposition -> VerbPhrase -> VerbPhrase = \np,prep,vp -> {
     s = vp.s ;
+    pass = vp.pass ;
     part = vp.part ;
     imp = vp.imp ;
     inf = vp.inf ;
-    obj = np.det.s ! np.g ! prep.c ++ np.preap.s ! (Ag np.g np.n prep.c) ++ (appPrep prep (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n prep.c) ++ np.det.sp ! np.g ! prep.c ++ vp.obj ;
+    obj = np.det.s ! prep.c ++ np.preap.s ! (Ag np.g np.n prep.c) ++ (appPrep prep (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n prep.c) ++ np.det.sp ! prep.c ++ vp.obj ;
     compl = vp.compl ;
     adv = vp.adv ++ np.adv
   } ;
 
   insertObjc: NounPhrase -> VPSlash -> VPSlash = \np,vp -> {
     s = vp.s ;
+    pass = vp.pass ;
     part = vp.part ;
     imp = vp.imp ;
     inf = vp.inf ;
-    obj = np.det.s ! np.g ! vp.c.c ++ np.preap.s ! (Ag np.g np.n vp.c.c) ++ (appPrep vp.c (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n vp.c.c) ++ np.det.sp ! np.g ! vp.c.c ++ vp.obj ;
+    obj = np.det.s ! vp.c.c ++ np.preap.s ! (Ag np.g np.n vp.c.c) ++ (appPrep vp.c (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n vp.c.c) ++ np.det.sp ! vp.c.c ++ vp.obj ;
     compl = vp.compl ;
     c = vp.c ;
     adv = vp.adv ++ np.adv
@@ -1289,6 +1304,7 @@ oper
     
   insertAdj : (Agr => Str) -> VerbPhrase -> VerbPhrase = \adj,vp -> {
     s = vp.s ;
+    pass = vp.pass ;
     part = vp.part ;
     imp = vp.imp ;
     inf = vp.inf ;
@@ -1299,6 +1315,7 @@ oper
 
   insertAdv : Adverb -> VerbPhrase -> VerbPhrase = \a,vp -> {
     s = vp.s ;
+    pass = vp.pass ;
     part = vp.part ;
     imp = vp.imp ;
     inf = vp.inf ;
