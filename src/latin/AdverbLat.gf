@@ -17,7 +17,7 @@ concrete AdverbLat of Adverb = CatLat ** open ResLat, Prelude, ParadigmsLat in
 
 --  ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
     ComparAdvAdjS cadv a s =
-      mkAdv (cadv.s ++ a.adv.s ! Compar ++ cadv.p ++ combineSentence s ! SPreS ! PreV ! CPreV ! SOV ) ;
+      mkAdv (cadv.s ++ a.adv.s ! Compar ++ cadv.p ++ defaultSentence s ! SOV ) ;
 
 --  AdAdv  : AdA -> Adv -> Adv ;             -- very quickly
     AdAdv ada adv = mkAdv (ada.s ++ (adv.s ! Posit) ) ;
@@ -29,7 +29,7 @@ concrete AdverbLat of Adverb = CatLat ** open ResLat, Prelude, ParadigmsLat in
 -- Subordinate clauses can function as adverbs.
 
 --  SubjS  : Subj -> S -> Adv ;              -- when she sleeps
-    SubjS subj s = mkAdv (subj.s ++ combineSentence s ! SPreS ! PreV ! CPreV ! SOV ) ;
+    SubjS subj s = mkAdv (subj.s ++ defaultSentence s ! SOV ) ;
     
 --  AdnCAdv : CAdv -> AdN ;                  -- less (than five)
     AdnCAdv cadv = {s = cadv.s ++ cadv.p} ;

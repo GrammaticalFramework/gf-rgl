@@ -20,7 +20,7 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
     ComplVS vs s  = -- insertObj ( dummyNP (S.that_Subj.s ++ s.s ! PreS)) Nom_Prep (predV v) ;
       vs ** {
 	s = \\af,qf => vs.act ! af ;
-	compl = \\ag => combineSentence s ! SPreS ! PreV ! CPostV ! SOV ; -- s.s ! QIndir ;
+	compl = \\ag => defaultSentence s ! SOV ; -- s.s ! QIndir ;
 	adv = [] ;
 	obj = []
       } ;

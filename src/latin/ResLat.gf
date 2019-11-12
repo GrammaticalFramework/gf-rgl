@@ -25,11 +25,19 @@ param
 	det : Determiner 
       } ;
   param
+    -- Parameters to determine word order
+    -- top level order, e.g. subject verb object
     Order = SVO | VSO | VOS | OSV | OVS | SOV ;
+    -- determiner position in a noun phrase, e.g. before or after noun
+    DetPos = DPreN | DPostN ;
+    -- verb position, eithe regular or interleaved in the subject
+    VPos = VReg | VInS ;
     -- (verb-modifying) adverb position
     AdvPos = APreS | APreV | APreO | APreNeg | AInV | AInS | APreN | APostN ; -- | InO
+    -- verb complement position in relation to verb
     ComplPos = CPreV | CPostV ;
-    SAdvPos = SPreS | SPreV | SPreO | SPreNeg ;
+    -- sentence adverb position
+    SAdvPos = SAPreS | SAPreV | SAPreO | SAPreNeg ;
   param
     Agr = Ag Gender Number Case ; -- Agreement for NP et al.
   oper
@@ -1303,10 +1311,12 @@ oper
   Sentence =
     {
       s,o,neg : AdvPos => Str ; -- Subject, verbphrase, object and negation particle plus potential adverb
-      v : AdvPos => ComplPos => Str ;
+      v : AdvPos => Str ;
       t : C.Tense ; -- tense marker
       p : C.Pol ; -- polarity marker
-      sadv : Str -- sentence adverb¡
+      sadv : Str ; -- sentence adverb¡
+      det : { s , sp : Case => Str }  ;
+      compl : Str -- verb complement
     } ;
   
   Clause =
@@ -1379,32 +1389,70 @@ oper
       p = pol ;
     } ;
 
-  combineSentence : Sentence -> ( SAdvPos => AdvPos => ComplPos => Order => Str ) = \s ->
+  combineSentence : Sentence -> ( SAdvPos => AdvPos => DetPos => VPos => ComplPos => Order => Str ) = \s ->
     let
-      pres   : SAdvPos -> Str = \ap -> case ap of { SPreS =>    s.sadv ; _ => [] } ;
-      prev   : SAdvPos -> Str = \ap -> case ap of { SPreV =>    s.sadv ; _ => [] } ;
-      preo   : SAdvPos -> Str = \ap -> case ap of { SPreO =>    s.sadv ; _ => [] } ;
-      preneg : SAdvPos -> Str = \ap -> case ap of { SPreNeg =>  s.sadv ; _ => [] } 
+      advpres   : SAdvPos -> Str = \ap -> case ap of { SAPreS =>    s.sadv ; _ => [] } ;
+      advprev   : SAdvPos -> Str = \ap -> case ap of { SAPreV =>    s.sadv ; _ => [] } ;
+      advpreo   : SAdvPos -> Str = \ap -> case ap of { SAPreO =>    s.sadv ; _ => [] } ;
+      advpreneg : SAdvPos -> Str = \ap -> case ap of { SAPreNeg =>  s.sadv ; _ => [] } ;
+      detpren : DetPos -> { s, sp : Case => Str } = \dp -> case dp of { DPreN => s.det; _ => { s,sp = \\_ => [] } } ;
+      detpostn : DetPos -> { s, sp : Case => Str } = \dp -> case dp of { DPostN => s.det ; _ => { s , sp = \\_ => [] } } ;
+      verbins : VPos -> ResLat.AdvPos => Str = \vp -> case vp of { VInS => s.v ; _ => \\_ => [] } ;
+      verbreg : VPos -> ResLat.AdvPos => Str = \vp -> case vp of { VReg => s.v ; _ => \\_ => [] } ;
+      complprev  : ComplPos -> Str = \cp -> case cp of { CPreV => s.compl ; _ => [] } ;
+      complpostv : ComplPos -> Str = \cp -> case cp of { CPostV => s.compl ; _ => [] }
     in
-    -- sap is the position of the sentence adverbial
-    -- ap is the position of the adverb
-    -- cp is the position of the verb complement
-    \\sap,ap,cp,order  => case order of {
-      SVO => s.t.s ++ s.p.s ++ pres sap   ++ s.s   ! ap ++ preneg sap ++ s.neg ! ap      ++ prev sap   ++ s.v   ! ap ! cp ++ preo sap ++ s.o ! ap;
-      VSO => s.t.s ++ s.p.s ++ preneg sap ++ s.neg ! ap ++ prev sap   ++ s.v   ! ap ! cp ++ pres sap   ++ s.s   ! ap      ++ preo sap ++ s.o ! ap;
-      VOS => s.t.s ++ s.p.s ++ preneg sap ++ s.neg ! ap ++ prev sap   ++ s.v   ! ap ! cp ++ preo sap   ++ s.o   ! ap      ++ pres sap ++ s.s ! ap ;
-      OSV => s.t.s ++ s.p.s ++ preo sap   ++ s.o   ! ap ++ pres sap   ++ s.s   ! ap      ++ preneg sap ++ s.neg ! ap      ++ prev sap ++ s.v ! ap ! cp;
-      OVS => s.t.s ++ s.p.s ++ preo sap   ++ s.o   ! ap ++ preneg sap ++ s.neg ! ap      ++ prev sap   ++ s.v   ! ap ! cp ++ pres sap ++ s.s ! ap ;
-      SOV => s.t.s ++ s.p.s ++ pres sap   ++ s.s   ! ap ++ preo sap   ++ s.o   ! ap      ++ preneg sap ++ s.neg ! ap      ++ prev sap ++ s.v ! ap ! cp
+    -- sadvpos is the position of the sentence adverbial
+    -- advpos is the position of the adverb
+    -- detpos is the position of the determiner (relative to the noun)
+    -- vpos is the position of the main verb (either regular or interleaved)
+    -- complosp is the position of the verb complement
+    \\sadvpos,advpos,detpos,verbpos,complpos,order  => case order of {
+      SVO =>
+	s.t.s ++ s.p.s ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpreo sadvpos   ++ s.o ! advpos;
+      VSO =>
+	s.t.s ++ s.p.s ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
+	advpreo sadvpos   ++ s.o ! advpos;
+      VOS =>
+	s.t.s ++ s.p.s ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ;
+      OSV =>
+	s.t.s ++ s.p.s ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ;
+      OVS =>
+	s.t.s ++ s.p.s ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ;
+      SOV =>
+	s.t.s ++ s.p.s ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos)
       } ;
 
-
+  defaultSentence : Sentence -> Order => Str = \s -> combineSentence s ! SAPreS ! APreV ! DPreN ! VReg ! CPreV ;
   
   -- questions
   mkQuestion : SS -> Clause -> QClause = \ss,cl -> {
      s = \\tense,anter,pol,form => case form of {
-       QDir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SPreS ! PreS ! CPreV ! OVS  ;
-       QIndir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SPreO ! PreO ! CPreV ! OSV
+       QDir => ss.s ++ (defaultSentence (combineClause cl tense anter pol VQFalse)) ! OVS  ;
+       QIndir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SAPreO ! APreO ! DPreN ! VReg ! CPreV ! OSV
        }
     };
   

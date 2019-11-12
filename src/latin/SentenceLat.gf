@@ -52,8 +52,8 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
       {
 	s = let qs = combineClause cl t t.a p VQTrue in
 	  \\q => case q of {
-	  QDir => cl.q ++ combineSentence qs ! SPreS ! PreV ! CPostV ! SVO ; -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
-	  QIndir => cl.q ++ combineSentence qs ! SPreS ! PreV ! CPostV ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
+	  QDir => cl.q ++ defaultSentence qs ! SVO ; -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
+	  QIndir => cl.q ++ defaultSentence qs ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
 	  }
       } ;
     -- UseRCl : Temp -> Pol -> RCl -> RS ;

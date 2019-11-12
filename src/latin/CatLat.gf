@@ -90,7 +90,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
   linref
     NP = \np -> combineNounPhrase np ! PronNonDrop ! APreN ! DPostN ! Nom ; 
     VP = \vp -> vp.adv ++ vp.inf !  VInfActPres ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ;
-    S = \s -> combineSentence s ! SPreO ! PreO ! CPreV ! SOV ;
+    S = \s -> defaultSentence s ! SOV ;
     V, VS, VQ, VA, VV = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
     V2, V2A, V2Q, V2S = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
     Pron = \p -> p.pers.s ! PronNonDrop ! PronNonRefl ! Nom ;
