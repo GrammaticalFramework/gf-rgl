@@ -1322,8 +1322,8 @@ oper
   Clause =
     {s : AdvPos => Str ;
      o : AdvPos => Str ;
-     v : Tense => Anteriority => VQForm => AdvPos => ComplPos => Str ;
-     det : Determiner ; 
+     v : Tense => Anteriority => VQForm => AdvPos => Str ;
+     det : { s , sp : Case => Str } ; 
      compl : Str ;
      neg : Polarity => AdvPos => Str ;
      adv : Str } ;
@@ -1337,41 +1337,39 @@ oper
       compl = vp.compl ! Ag np.g np.n Nom ;
       -- helper functions to either place the adverb in the designated position
       -- or an empty string instead
-      pres   : AdvPos -> Str = \ap -> case ap of { PreS => adv ; _ => [] } ;
-      prev   : AdvPos -> Str = \ap -> case ap of { PreV => adv ; _ => [] } ;
-      preo   : AdvPos -> Str = \ap -> case ap of { PreO => adv ; _ => [] } ;
-      preneg : AdvPos -> Str = \ap -> case ap of { PreNeg => adv ; _ => [] } ;
-      ins    : AdvPos -> Str = \ap -> case ap of { InS  => adv ; _ => [] } ;
-      inv    : AdvPos -> Str = \ap -> case ap of { InV  => adv ; _ => [] } ;
---      cprev  : ComplPos -> Str = \cp -> case cp of { CPreV => compl ; _ => [] } ;
---      cpostv : ComplPos -> Str = \cp -> case cp of { CPostV => compl ; _ => [] }
+      pres   : AdvPos -> Str = \ap -> case ap of { APreS => adv ; _ => [] } ;
+      prev   : AdvPos -> Str = \ap -> case ap of { APreV => adv ; _ => [] } ;
+      preo   : AdvPos -> Str = \ap -> case ap of { APreO => adv ; _ => [] } ;
+      preneg : AdvPos -> Str = \ap -> case ap of { APreNeg => adv ; _ => [] } ;
+      ins    : AdvPos -> Str = \ap -> case ap of { AInS  => adv ; _ => [] } ;
+      inv    : AdvPos -> Str = \ap -> case ap of { AInV  => adv ; _ => [] } ;
     in
     {
       -- subject part of the clause:
       -- advpos is the adverb position in the clause
       s = \\advpos =>
 	pres advpos ++                       -- adverbs can be placed in the beginning of the clause
-	np.det.s ! np.g ! Nom ++             -- the determiner, if any
+--	np.det.s ! np.g ! Nom ++             -- the determiner, if any
 	np.preap.s ! (Ag np.g np.n Nom) ++   -- adjectives which come before the subject noun, agreeing with it
 	ins advpos ++                            -- adverbs can be placed within the subject noun phrase
 	np.s ! PronDrop ! Nom ++                        -- the noun of the subject noun phrase in nominative
-	np.postap .s ! (Ag np.g np.n Nom) ++ -- adjectives which come after the subject noun, agreeing with it
-	np.det.sp ! np.g ! Nom ;             -- second part of split determiners
+	np.postap .s ! (Ag np.g np.n Nom) ; -- adjectives which come after the subject noun, agreeing with it
+--	np.det.sp ! np.g ! Nom ;             -- second part of split determiners
       -- verb part of the clause:
       -- tense and anter(ority) for the verb tense
       -- vqf is the VQForm parameter which defines if the ordinary verbform or the quistion form with suffix "-ne" will be used
       -- advposis the adverb position in the clause
       -- comppos is the position of the verb complement
-      v = \\tense,anter,vqf,advpos,complpos =>
+      v = \\tense,anter,vqf,advpos =>
 	prev advpos ++                           -- adverbs can be placed in the before the verb phrase
 --	cprev complpos ++       -- verb phrase complement, e.g. predicative expression, agreeing with the subject, can go before the verb
 	inv advpos ++                            -- adverbs can be placed within the verb phrase
 	-- verb form with conversion between different forms of tense and aspect
 	vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ; -- ++
 --	cpostv complpos ;       -- complement can also go after the verb
-
+      det = np.det ; --{ s = np.det.s ! np.g ; sp = np.det.sp ; n = np.n } ;
       -- verb complement
-      vcompl = compl ;
+      compl = compl ;
       -- object part of the clause
       o = \\advpos => preo advpos ++ vp.obj ;
       -- optional negation particle, adverbs can be placed before the negation
@@ -1380,11 +1378,11 @@ oper
     } ;
   
   combineClause : Clause -> C.Tense -> Anteriority -> C.Pol -> VQForm -> Sentence = \cl,tense,anter,pol,vqf ->
-    { s = cl.s ;
-      o =  cl.o ;
-      v =  cl.v ! tense.t ! anter ! vqf ;
+    cl **
+    {
+      v =  \\advpos => cl.v ! tense.t ! anter ! vqf ! advpos ;
       neg = cl.neg ! pol.p ;
-      sadv = "" ;
+      sadv = cl.adv ;
       t = tense ;
       p = pol ;
     } ;
