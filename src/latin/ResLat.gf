@@ -22,7 +22,7 @@ param
 	adv : Str ;
 	preap : {s : Agr => Str } ;
 	postap : {s : Agr => Str } ;
-	det : Determiner 
+	det : { s, sp : Case => Str } ; 
       } ;
   param
     -- Parameters to determine word order
@@ -150,12 +150,12 @@ param
       p = P3;
       adv = "" ;
       preap, postap = { s = \\_ => "" } ;
-      det = { s = \\_,_ => "" ; sp = \\_,_ => "" ; n = n} ;
+      det = { s,sp = \\_ => "" ; n = n} ;
     } ;
   
   dummyNP : Str -> NounPhrase = \s -> regNP s s s s s s Masc Sg ;
 	  
-  emptyNP : NounPhrase = { s = \\_,_ => ""; g = Masc; n = Sg; p = P1 ; adv = "" ; preap, postap = { s = \\_ => "" } ; det = { s = \\_,_ => "" ; sp = \\_,_ => "" ; n = Sg } ;};
+  emptyNP : NounPhrase = { s = \\_,_ => ""; g = Masc; n = Sg; p = P3 ; adv = "" ; preap, postap = { s = \\_ => "" } ; det = { s , sp = \\_ => "" ; n = Sg } ;};
 
   combineNounPhrase : NounPhrase -> PronDropForm => AdvPos => DetPos => Case => Str = \np ->
     let detpren : DetPos -> { s , sp : Case => Str}  = \dp -> case dp of { DPreN => np.det ; _ => { s, sp = \\_ => [] } } ;

@@ -17,8 +17,9 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
 	neg = \\_,_ => "" ;
 	o = \\_ => vp.obj ;
 	q = ip.s ! Nom ;
-	v = \\t,a,_,ap,cp => vp.s ! VAct (anteriorityToVAnter a) (tenseToVTense t) ip.n P3 ! VQFalse ;
-	vcompl = vp.compl ! Ag Masc ip.n Nom ; -- default gender masculine
+	v = \\t,a,_,ap => vp.s ! VAct (anteriorityToVAnter a) (tenseToVTense t) ip.n P3 ! VQFalse ;
+	compl = vp.compl ! Ag Masc ip.n Nom ; -- default gender masculine
+	det = { s, sp = \\_ => [] ; n = ip.n } ;
       } ; 
     --   let qcl = mkQuestion { s = ip.s ! Nom } ( mkClause emptyNP vp )
     --   in {s = \\t,a,b,qd => qcl.s ! t ! a ! b ! qd} ;
@@ -40,8 +41,9 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
 	neg = \\_,_ => "" ;
 	o = \\_ => combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Nom ; -- Should probably not go into the object field
 	q = icomp.s ;
-	v = \\t,a,_,ap,cp => esseAux.act ! VAct (anteriorityToVAnter a) (tenseToVTense t) np.n P3 ;
-	vcompl = "" ;
+	v = \\t,a,_,ap => esseAux.act ! VAct (anteriorityToVAnter a) (tenseToVTense t) np.n P3 ;
+	det = { s , sp = \\_=> [] ; n = Sg } ; -- default number singilar
+	compl = "" ;
       } ;
 --
 --
