@@ -29,7 +29,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 --
 ---- Relative
 --
-    RCl = Gender => Number => Clause ;
+    RCl = { s : Gender => Number => Clause };
 --      s : ResLat.Tense => Anteriority => CPolarity => Agr => Str ; 
 --      c : Case
 --      } ;

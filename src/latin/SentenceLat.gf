@@ -58,7 +58,7 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
       } ;
     -- UseRCl : Temp -> Pol -> RCl -> RS ;
     UseRCl t p cl = {
-      s = \\g,n => defaultSentence (combineClause (cl ! g ! n) (lin Tense t) t.a (lin Pol p) VQFalse) ! SOV ;
+      s = \\g,n => defaultSentence (combineClause (cl.s ! g ! n) (lin Tense t) t.a (lin Pol p) VQFalse) ! SOV ;
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
 --      c = cl.c
     } ;

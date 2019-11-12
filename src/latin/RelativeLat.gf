@@ -9,7 +9,7 @@ concrete RelativeLat of Relative = CatLat ** open ResLat in {
 --      c = Nom
 --      } ;
 --
-    RelVP rp vp = \\g,n => mkClause (emptyNP ** { s = \\_,c => rp.s ! (Ag g n c) ; g = g ; n = n } ) vp ;
+    RelVP rp vp = { s = \\g,n => mkClause (emptyNP ** { s = \\_,c => rp.s ! (Ag g n c) ; g = g ; n = n } ) vp };
 --      s = \\t,ant,b,ag => 
 --        let 
 --          agr = case rp.a of {
@@ -27,7 +27,7 @@ concrete RelativeLat of Relative = CatLat ** open ResLat in {
 ---- "we are looking at").
     --
     -- RelSlash : RP -> ClSlash -> RCl ;
-    RelSlash rp slash = \\g,n => slash ** { adv = rp.s ! Ag g n Gen } ; -- abuse adverbs again
+    RelSlash rp slash = { s = \\g,n => slash ** { adv = rp.s ! Ag g n Gen } } ; -- abuse adverbs again
 --      s = \\t,a,p,agr => 
 --          slash.c2 ++ rp.s ! RPrep (fromAgr agr).g ++ slash.s ! t ! a ! p ! ODir ;
 --      c = Acc
