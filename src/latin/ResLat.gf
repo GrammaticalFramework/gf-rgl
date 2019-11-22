@@ -1366,12 +1366,10 @@ oper
       -- advpos is the adverb position in the clause
       s = \\advpos =>
 	pres advpos ++                       -- adverbs can be placed in the beginning of the clause
---	np.det.s ! np.g ! Nom ++             -- the determiner, if any
 	np.preap.s ! (Ag np.g np.n Nom) ++   -- adjectives which come before the subject noun, agreeing with it
 	ins advpos ++                            -- adverbs can be placed within the subject noun phrase
 	np.s ! PronDrop ! Nom ++                        -- the noun of the subject noun phrase in nominative
 	np.postap .s ! (Ag np.g np.n Nom) ; -- adjectives which come after the subject noun, agreeing with it
---	np.det.sp ! np.g ! Nom ;             -- second part of split determiners
       -- verb part of the clause:
       -- tense and anter(ority) for the verb tense
       -- vqf is the VQForm parameter which defines if the ordinary verbform or the quistion form with suffix "-ne" will be used
@@ -1379,12 +1377,10 @@ oper
       -- comppos is the position of the verb complement
       v = \\tense,anter,vqf,advpos =>
 	prev advpos ++                           -- adverbs can be placed in the before the verb phrase
---	cprev complpos ++       -- verb phrase complement, e.g. predicative expression, agreeing with the subject, can go before the verb
 	inv advpos ++                            -- adverbs can be placed within the verb phrase
 	-- verb form with conversion between different forms of tense and aspect
 	vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ; -- ++
---	cpostv complpos ;       -- complement can also go after the verb
-      det = np.det ; --{ s = np.det.s ! np.g ; sp = np.det.sp ; n = np.n } ;
+      det = np.det ;
       -- verb complement
       compl = compl ;
       -- object part of the clause
