@@ -16,7 +16,8 @@
 concrete ExtendLat of Extend = CatLat ** open ResLat in {
 
   lin
---     GenNP       : NP -> Quant ;       -- this man's
+    -- GenNP       : NP -> Quant ;       -- this man's
+    GenNP np = { s = \\_ => combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Gen ; sp = \\_ => ""} ;
 --     GenIP       : IP -> IQuant ;      -- whose
 --     GenRP       : Num -> CN -> RP ;   -- whose car
 
@@ -95,7 +96,10 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
 
 -- -- this is a generalization of Verb.PassV2 and should replace it in the future.
 
---     PassVPSlash : VPSlash -> VP ; -- be forced to sleep
+    --     PassVPSlash : VPSlash -> VP ; -- be forced to sleep
+    PassVPSlash vp = vp ** {
+      s = \\a => case a of { VAct _ t n p => vp.pass ! VPass t n p } ;
+      } ;
 
 -- -- the form with an agent may result in a different linearization
 -- -- from an adverbial modification by an agent phrase.
@@ -147,8 +151,18 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
 
 -- -- to use an AP as CN or NP without CN
 
---     AdjAsCN : AP -> CN ;   -- a green one ; en grön (Swe)
---     AdjAsNP : AP -> NP ;   -- green (is good)
+    --     AdjAsCN : AP -> CN ;   -- a green one ; en grön (Swe)
+    --     AdjAsNP : AP -> NP ;   -- green (is good)
+    AdjAsNP ap = {
+      s = \\_,c => ap.s ! (Ag Neutr Sg c) ;
+      adv = "" ;
+      det = { s, sp = \\_ => "" } ;
+      g = Neutr ;
+      n = Sg ;
+      p = P3 ;
+      postap = { s = \\_ => "" } ;
+      preap = { s = \\_ => "" } ;
+      } ;
 
 -- -- infinitive complement for IAdv
 

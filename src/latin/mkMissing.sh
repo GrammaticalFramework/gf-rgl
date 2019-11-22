@@ -2,6 +2,7 @@
 echo "Create tmp dir"
 mkdir tmp/
 echo "Remove old file"
+rm -Rfv tmp/*
 echo "resource MissingLat = {} " > MissingLat.gf
 echo "Look for missing functions"
 # gf -src -i .. -batch TryLat.gf 2>&1 | grep "Warning: no linearization of" | sort -u > tmp/MissingLat.tmp

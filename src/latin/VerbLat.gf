@@ -19,15 +19,17 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
 --  ComplVS : VS -> S -> VP ;  -- say that she runs
     ComplVS vs s  = -- insertObj ( dummyNP (S.that_Subj.s ++ s.s ! PreS)) Nom_Prep (predV v) ;
       vs ** {
-	s = \\af,qf => vs.act ! af ;
-	compl = \\ag => combineSentence s ! SPreS ! PreV ! CPostV ! SOV ; -- s.s ! QIndir ;
+	s = \\a,q => vs.act ! a ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
+	pass = \\p,q => vs.pass ! p ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
+	compl = \\ag => defaultSentence s ! SOV ; -- s.s ! QIndir ;
 	adv = [] ;
 	obj = []
       } ;
 --  ComplVQ : VQ -> QS -> VP ;  -- wonder who runs
     ComplVQ vq qs  = -- insertObj (dummyNP (q.s ! QIndir)) Nom_Prep (predV v) ;
       vq ** {
-	s = \\af,qf => vq.act ! af ;
+	s = \\a,q => vq.act ! a ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
+	pass = \\p,q => vq.pass ! p ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
 	compl = \\ag => qs.s ! QIndir ;
 	adv = [] ;
 	obj = []
@@ -115,7 +117,7 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
     
 --  CompNP   : NP  -> Comp ;            -- (be) the man
     CompNP np = {s = \\_ =>
-		   (combineNounPhrase np) ! PronNonDrop ! Nom
+		   (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom ;
       } ;
 
 --  CompAdv  : Adv -> Comp ;            -- (be) here

@@ -52,29 +52,31 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
       {
 	s = let qs = combineClause cl t t.a p VQTrue in
 	  \\q => case q of {
-	  QDir => cl.q ++ combineSentence qs ! SPreS ! PreV ! CPostV ! SVO ; -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
-	  QIndir => cl.q ++ combineSentence qs ! SPreS ! PreV ! CPostV ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
+	  QDir => cl.q ++ defaultSentence qs ! SVO ; -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
+	  QIndir => cl.q ++ defaultSentence qs ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
 	  }
       } ;
-
---    UseRCl t p cl = {
+    -- UseRCl : Temp -> Pol -> RCl -> RS ;
+    UseRCl t p cl = {
+      s = \\g,n => defaultSentence (combineClause (cl.s ! g ! n) (lin Tense t) t.a (lin Pol p) VQFalse) ! SOV ;
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
 --      c = cl.c
---    } ;
+    } ;
 --    UseSlash t p cl = {
 --      s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p  ! ODir ;
 --      c2 = cl.c2
 --    } ;
 --
     -- AdvS : Adv -> S -> S
-    AdvS adv s = { s = s.s ; o = s.o ; v = s.v ; neg = s.neg ; t = s.t ; p = s.p ; sadv = adv.s ! Posit ++ s.sadv } ;
+    AdvS adv s = -- { s = s.s ; o = s.o ; v = s.v ; neg = s.neg ; t = s.t ; p = s.p ; sadv = adv.s ! Posit ++ s.sadv } ;
+      s ** { sadv = adv.s ! Posit ++ s.sadv } ;
 
 -- This covers subjunctive clauses, but they can also be added to the end.
     --  SSubjS : S -> Subj -> S -> S ;       -- I go home if she comes
     -- TO FIX
 --    SSubjS s1 subj s2 = { s =  \\_ => subj.s ++ s2.s ! PreS ++ s1.s ! PreS ; sadv = lin Adv (mkAdverb []) } ;
     
---    RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ;
+--    RelS s r = {s = s.s ! APreV ++ "," ++ r.s } ;
 --
 --  oper
 --    ctr = contrNeg True ;  -- contracted negations

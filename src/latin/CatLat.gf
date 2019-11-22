@@ -8,6 +8,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 --
     S  = Sentence ;
     QS = {s : QForm => Str} ;
+    RS = { s : Gender => Number => Str } ; -- Sentence ;
 --    RS = {s : Agr => Str ; c : Case} ; -- c for it clefts
 --    SSlash = {s : Str ; c2 : Str} ;
 --
@@ -28,11 +29,11 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 --
 ---- Relative
 --
---    RCl = {
+    RCl = { s : Gender => Number => Clause };
 --      s : ResLat.Tense => Anteriority => CPolarity => Agr => Str ; 
 --      c : Case
 --      } ;
---    RP = {s : RCase => Str ; a : RAgr} ;
+    RP = {s : Agr => Str } ;
 --
 ---- Verb
 --
@@ -87,9 +88,9 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     A2 = Adjective ** { c : Prep} ;
 
   linref
-    NP = \np -> combineNounPhrase np ! PronNonDrop ! Nom ; 
+    NP = \np -> combineNounPhrase np ! PronNonDrop ! APreN ! DPostN ! Nom ; 
     VP = \vp -> vp.adv ++ vp.inf !  VInfActPres ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ;
-    S = \s -> combineSentence s ! SPreO ! PreO ! CPreV ! SOV ;
+    S = \s -> defaultSentence s ! SOV ;
     V, VS, VQ, VA, VV = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
     V2, V2A, V2Q, V2S = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
     Pron = \p -> p.pers.s ! PronNonDrop ! PronNonRefl ! Nom ;
