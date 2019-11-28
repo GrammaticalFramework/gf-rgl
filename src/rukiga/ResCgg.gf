@@ -62,6 +62,13 @@ param
   -- may not need it
   NounCat = ComNoun | PropNoun; --prepositions agree with nouns to form adverbial Phrases
   PrepForm = Form1 | Form2; -- omu and omuri, aha, ahari
+  -- for Extra Tenses not implemented
+  -- would be better if I had alliases
+  TensesExtra = RemotePast | ImmediatePast | RemoteFuture;
+
+  -- for Extra Aspects not implemented
+  -- would be better if I had alliases
+  Aspect = Performative | Perfect | Resultative | Retrospective | Habitual | Progressive | Persitive; 
 {-
 	Complete = Nouns with IV, 
 	Incomplete = Nouns without IV: important for use with pre-determiners
@@ -100,6 +107,8 @@ oper
     	s = rad;
     	pres = end1;
     	perf = end2;
+      isPresBlank = False;
+      isPerfBlank =  False;
     	--morphs = mkVerbMorphs;
     	isRegular = False;
 	};
@@ -109,6 +118,8 @@ oper
     	pres = "a";
     	perf = "ire";
     	--morphs = mkVerbMorphs;
+      isPresBlank = False;
+      isPerfBlank = False;
     	isRegular = True;
 	};
   
@@ -1105,6 +1116,8 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
                       pres:Str; 
                       perf:Str; 
                       --morphs: VFormMini => VerbMorphPos=> Str; 
+                      isPresBlank : Bool;
+                      isPerfBlank : Bool;
                       isRegular:Bool
                     };
       
@@ -1139,7 +1152,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
       						s:Str; 
       						pres:Str; 
       						perf:Str; 
-      						--morphs: VMorphs ; 
+      						--morphs: VMorphs ;
+                  isPresBlank : Bool;
+                  isPerfBlank : Bool;
       						isRegular:Bool;
       						comp:Str ; 
       						comp2:Str;
@@ -1177,13 +1192,17 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           s = "ri" ; 
           pres=[]; 
           perf=[]; 
-          --morphs= mkVerbMorphs; 
+          --morphs= mkVerbMorphs;
+          isPresBlank = True;
+          isPerfBlank = True;
           isRegular=False
         };
        mkBecome  :  Verb  ={
          	s = "b" ; 
           pres="a"; 
-          perf="ire"; 
+          perf="ire";
+          isPresBlank = False;
+          isPerfBlank = False;
           --morphs= mkVerbMorphs; 
           isRegular=False
         };
@@ -1339,7 +1358,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
   					s:Str; 
   					pres:Str; 
   					perf:Str; 
-  					--morphs: VMorphs; 
+  					--morphs: VMorphs;
+            isPresBlank : Bool;
+            isPerfBlank : Bool; 
   					comp: Str; 
   					comp2:Str; 
   					ap:Str; 
@@ -1362,6 +1383,8 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 	      root : Str;
 	      pres: Str;
 	      perf: Str;
+        isPresBlank : Bool;
+        isPerfBlank : Bool;
 	      --morphs : VFormMini => VerbMorphPos =>Str;
 	      {-
 	      inf  : Str;
@@ -1371,9 +1394,12 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 	      pastPart  : Str;                              -- subject
 	      --root : Str ; -- dep. on Pol,Temp, e.g. "does","sleep"
 	      -}
-	      compl : Str -- after verb: complement, adverbs                              
+	      compl : Str -- after verb: complement, adverbs
 	      } ;
-  Comp : Type = {s:Str};
+param 
+  CompSource = NounP | ADverb | AdjP | CommonNoun;
+oper
+  Comp : Type = {s:Str; source : CompSource };
 
 
   --Conjunctions

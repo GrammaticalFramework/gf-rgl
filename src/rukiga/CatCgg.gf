@@ -65,6 +65,8 @@ lincat
       perf :Str; 
       root : Str;
       --morphs : Res.VFormMini => Res.VerbMorphPos =>Str;
+      isPresBlank :Bool;
+      isPerfBlank : Bool;
       compl : Str; -- after verb: complement, adverbs
       isCompApStem : Bool;
       whichRel: Res.RForm
@@ -78,6 +80,8 @@ lincat
         pres: Str;
         perf:Str;
         --morphs : Res.VFormMini => Res.VerbMorphPos =>Str; --; compl : Str -- after verb: complement, adverbs                              
+        isPresBlank : Bool;
+        isPerfBlank : Bool;
         ap:Str;
         isRegular:Bool;
         adv:Str;

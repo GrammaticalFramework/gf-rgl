@@ -32,6 +32,8 @@ lin
       perf =cl.perf;
       root = cl.root;
       --morphs = cl.morphs;
+      isPresBlank = cl.isPresBlank;
+      isPerfBlank = cl.isPerfBlank;
       compl =cl.compl;
       isCompApStem = False;
       whichRel = Such_That;                             
@@ -52,6 +54,8 @@ lin
       perf =vp.perf;
       root = vp.s;
       --morphs = vp.morphs;
+      isPresBlank = vp.isPresBlank;
+      isPerfBlank = vp.isPerfBlank;
       compl =vp.comp;
       isCompApStem = vp.isCompApStem;
       whichRel = RF RSubj;                           
@@ -76,9 +80,11 @@ lin
 		      rp = rp.s;
 		      --rObjVariant2 = rp.rObjVariant2;
 		      pres   = clSlash.pres;
-	          perf   = clSlash.perf;
+	        perf   = clSlash.perf;
 		      root   = clSlash.root;
 		      --morphs = clSlash.morphs;
+          isPresBlank = clSlash.isPresBlank;
+          isPerfBlank = clSlash.isPerfBlank;
 		      compl  = comp;
 		      isCompApStem = isCompApStem;
 		      whichRel = RF RObj;                           

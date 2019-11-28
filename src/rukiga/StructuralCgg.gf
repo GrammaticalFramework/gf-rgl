@@ -97,7 +97,8 @@ lin
       n  = Sg 
     };
     
-   have_V2 ={s= "ine"; pres=[]; perf =[]; morphs = mkVerbMorphs; comp = []; isRegular=False};  --: V2 ;
+   have_V2 ={s= "ine"; pres=[]; perf =[]; isPresBlank = False;
+                        isPerfBlank = False; morphs = mkVerbMorphs; comp = []; isRegular=False};  --: V2 ;
 
   {-
     All Predeterminers are given here.
@@ -203,12 +204,16 @@ lin
       doesAgree = True
     };--: Det ;
   
-   want_VV =  {s = "yend"; pres="da"; perf = "zire"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
-   can8know_VV = {s = "baas"; pres="a"; perf = "ize"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
-   can_VV =  {s = "baas"; pres="a"; perf = "ize"; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
+   want_VV =  {s = "yend"; pres="da"; perf = "zire"; isPresBlank = False;
+                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
+   can8know_VV = {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
+                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
+   can_VV =  {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
+                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
    -- must_VV used especially in the perfective mood: see dictionary entry shemerera on Pg 501 of Mpairwe
    -- must has no passive form
-   must_VV = {s = "shemere"; pres="ra"; perf = "ire"; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
+   must_VV = {s = "shemere"; pres="ra"; perf = "ire"; isPresBlank = False;
+                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
     --somebody_NP = {}; --: NP ;
     --something_NP : NP ;
     --somewhere_Adv : Adv ;

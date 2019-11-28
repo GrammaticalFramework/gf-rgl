@@ -24,54 +24,110 @@ lin
                 compl = cl.compl
                 in 
   case <temp.t,temp.a, pol.p> of {
-      <Pres,Simul, Pos> => {s = subj ++ clitic ++ --Predef.BIND ++ 
-              root ++ Predef.BIND ++ presRestOfVerb ++ compl};
+      <Pres,Simul, Pos> => case cl.isPresBlank of { 
+                                  True  => {s = subj ++ clitic ++ root  ++ compl};
+                                  False => {s = subj ++ clitic ++ root  ++ Predef.BIND ++ compl}
+                          };
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
-      <Pres,Simul, Neg> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
-                root ++ presRestOfVerb ++ compl};
-      <Pres,Anter, Pos> => {s = subj ++ clitic ++ --Predef.BIND ++ 
-                vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
-      <Pres,Anter, Neg> =>{s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
-                  vMorphs!VFPresAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};
+      <Pres,Simul, Neg> => case cl.isPresBlank of { 
+                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ root ++ compl};
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++
+                                              root ++ Predef.BIND ++ presRestOfVerb ++ compl}
+                            };
+      <Pres,Anter, Pos> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ clitic ++ root ++ compl};
+                                  False => {s = subj ++  clitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                            };        
+      <Pres,Anter, Neg> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ clitic ++ root  ++ compl};
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ 
+                                              root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                            };
 
 
-      <Past,Simul, Pos> => {s = subj ++ clitic ++ --Predef.BIND ++ 
-              root ++ Predef.BIND ++ pastRestOfVerb ++ compl};
+      <Past,Simul, Pos> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ clitic ++ "ka" ++ Predef.BIND ++ root  ++ compl};
+                                  False => {s = subj ++ clitic  ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                          };
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
-      <Past,Simul, Neg> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ --Predef.BIND ++ 
-                root ++ pastRestOfVerb ++ compl};
-      <Past,Anter, Pos> => {s = subj ++ clitic ++ "bire" ++ clitic ++ --Predef.BIND ++ 
-                vMorphs!VFPastAnt!TAMarker ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
-      <Past,Anter, Neg> =>{s = subj ++  clitic ++ "bire" ++ clitic ++ "ta"--Predef.BIND ++ ant!TAMarker 
-                ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};
+      <Past,Simul, Neg> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ root  ++ compl};
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ 
+                                              root ++ pastRestOfVerb ++ compl}
+                                };
 
-      <Fut,Simul, Pos> => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
-              root ++ Predef.BIND ++ presRestOfVerb ++ compl};
+      <Past,Anter, Pos> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ clitic ++ "kaba" ++Predef.BIND ++ clitic ++
+                                               root ++  compl};
+                                  False => {s = subj ++ clitic ++ "kaba" ++ clitic ++  "a" ++ Predef.BIND ++ 
+                                                root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                              };       
+      <Past,Anter, Neg> =>case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ clitic ++ "ka" ++Predef.BIND ++ clitic ++
+                                               root ++  compl};
+                                  False => {s = subj ++ clitic ++ "kaba" ++ clitic ++  "taa" ++ Predef.BIND ++ 
+                                                root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                              };
+
+      <Fut,Simul, Pos> => case cl.isPresBlank of { 
+                                  True  => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
+                                            root ++ compl};
+                                  False => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
+              root ++ Predef.BIND ++ presRestOfVerb ++ compl}
+                              };
+
+      
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
-      <Fut,Simul, Neg> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kuza ku" ++ Predef.BIND ++ 
-                root ++ presRestOfVerb ++ compl};
-      <Fut,Anter, Pos> => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za kuba" ++ Predef.BIND ++  --choice of za over ija
-              root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
-      <Fut,Anter, Neg> =>{s = subj ++ "ni" ++ Predef.BIND ++ clitic ++ "za kuba" ++ clitic ++ "taka" ++ Predef.BIND ++ 
-                root ++ pastRestOfVerb ++ compl};
-
-
-      <Cond,Simul, Pos> => {s = subj ++ clitic ++ "kaa" ++Predef.BIND ++ 
-              root ++ Predef.BIND ++ presRestOfVerb ++ compl};
+      <Fut,Simul, Neg> => case cl.isPresBlank of { 
+                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kuza ku" ++ Predef.BIND ++ 
+                                            root ++ compl};
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kuza ku" ++ Predef.BIND ++ 
+                                            root ++ BIND ++ presRestOfVerb ++ compl}
+                              };
+      <Fut,Anter, Pos> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za kuba" ++ Predef.BIND ++ clitic ++ --choice of za over ija
+                                            root ++ Predef.BIND ++ "ire" ++ compl};
+                                  False => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za kuba" ++ Predef.BIND ++ clitic ++ --choice of za over ija
+                                            root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                              };
+             
+      <Fut,Anter, Neg> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ "ni" ++ Predef.BIND ++ clitic ++ "za kuba" ++ clitic  ++ Predef.BIND ++ 
+                                              root ++ "ire" ++ compl};
+                                  False => {s = subj ++ "ni" ++ Predef.BIND ++ clitic ++ "za kuba" ++ clitic ++ "taka" ++ Predef.BIND ++ 
+                                              root ++ pastRestOfVerb ++ compl}
+                              };
+      <Cond,Simul, Pos> => case cl.isPresBlank of { 
+                                  True  => {s = subj ++ clitic ++ "kaa" ++Predef.BIND ++ root ++ compl};
+                                  False => {s = subj ++ clitic ++ "kaa" ++Predef.BIND ++ 
+                                              root ++ Predef.BIND ++ presRestOfVerb ++ compl}
+                              };
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
-      <Cond,Simul, Neg> => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kaa" ++ Predef.BIND ++ 
-                root ++ presRestOfVerb ++ compl};
-      <Cond,Anter, Pos> => {s = subj ++ clitic ++ "kaa"--Predef.BIND ++ 
-                ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl};        
-      <Cond,Anter, Neg> =>{s = subj ++ "ti" ++ Predef.BIND ++ clitic ++  "kaa" ++Predef.BIND 
+      <Cond,Simul, Neg> =>case cl.isPresBlank of { 
+                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kaa" ++ Predef.BIND ++ 
+                                              root ++ "ire" ++ compl};
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kaa" ++ Predef.BIND ++ 
+                                              root ++ presRestOfVerb ++ compl}
+                              }; 
+
+      <Cond,Anter, Pos> => case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ clitic ++ "kaa" ++ root ++  compl};
+                                  False => {s = subj ++ clitic ++ "kaa" ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                              };
+
+      <Cond,Anter, Neg> =>case cl.isPerfBlank of { 
+                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++  "kaa" ++Predef.BIND 
+                   ++ root ++ Predef.BIND ++ "ire" ++ compl};
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++  "kaa" ++Predef.BIND 
                    ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                              }
     };  --: Temp -> Pol -> QCl  -> QS ; -- has John walked
 
   -- These are the 2 x 4 x 4 = 16 forms generated by different
   -- combinations of tense, polarity, and
   -- anteriority, which are defined in [``Common`` Common.html].
   UseQCl   = UseCl; -- : Temp -> Pol -> Cl   -> S ;  -- John has not walked
-  QuestCl qcl = qcl;  --: Cl -> QCl ; -- does John (not) walk
+  
 
   --UseRCl   : Temp -> Pol -> RCl -> RS ;  -- that had not slept
   UseRCl temp pol rcl = let 
@@ -231,6 +287,8 @@ lin
                         perf = vp.perf;
                         root = vp.s;
                         --morphs = vp.morphs;
+                        isPresBlank = vp.isPresBlank;
+                        isPerfBlank = vp.isPerfBlank;
                         {-
                         inf  = mkVerbInrf vp.root;
                       pres  = mkVerbPres vp.root; 
@@ -248,6 +306,8 @@ lin
                         perf = vp.perf;
                         root = vp.s;
                         --morphs = vp.morphs;
+                        isPresBlank = vp.isPresBlank;
+                        isPerfBlank = vp.isPerfBlank;
                         {-
                         inf  = mkVerbInrf vp.root;
                       pres  = mkVerbPres vp.root; 
@@ -256,7 +316,7 @@ lin
                       pastPart  = mkVerbPastPart vp.root;                              -- subject
                       -}
                       --root = vp.root ;
-                        compl = mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
+                        compl = mkSubjClitic np.agr   ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
                       }
         };--: NP -> VP -> Cl ; -- John walks / John does not walk
     
@@ -309,6 +369,8 @@ lin
                               pres        = vpslash.pres;
                               perf        = vpslash.perf;
                               --morphs      = vpslash.morphs;
+                              isPresBlank = vpslash.isPresBlank;
+                              isPerfBlank = vpslash.isPerfBlank;
                               ap          = vpslash.ap;
                               isRegular   = vpslash.isRegular;
                               adv         = vpslash.adv;
