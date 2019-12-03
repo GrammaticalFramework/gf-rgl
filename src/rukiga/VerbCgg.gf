@@ -8,7 +8,9 @@ lin
         s = v.s ; 
         pres =v.pres; 
         perf = v.perf; 
-        --morphs = v.morphs; 
+        --morphs = v.morphs;
+        isPresBlank = v.isPresBlank;
+        isPerfBlank = v.isPerfBlank;
         comp =[];
         comp2 = [];
         ap =[];
@@ -23,14 +25,35 @@ lin
 
   --  UseComp  : Comp -> VP ; -- be warm means complement of a copula especially adjectival Phrase
   --AdjectivalPhrase : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
-      UseComp comp = let auxBe = mkBecome
-
-                      in 
-                      {
-                        s = auxBe.s ++ BIND ++auxBe.pres++ comp.s;  --Assuming there is no AP which is prepositional
+      UseComp comp = 
+        --let auxBe = mkBecome
+        --in
+        case comp.source of{
+              AdjP => {
+                      s = mkBecome.s ++ BIND ++ mkBecome.pres;  --Assuming there is no AP which is prepositional
+                      pres =[]; 
+                      perf = [];
+                      isPresBlank = True;
+                      isPerfBlank = True;
+                      --morphs=\\form,morphs=>[]; 
+                      comp = comp.s;
+                      comp2 = [];
+                      ap = [];
+                      isCompApStem = True; 
+                      agr = AgrNo;
+                      isRegular = False;
+                      adv = [];
+                      containsAdv =False;
+                      adV =[];
+                      containsAdV = False
+                    };
+              _    => {
+                        s = mkBecome.s ++ BIND ++mkBecome.pres++ comp.s;  --Assuming there is no AP which is prepositional
                         pres =[]; 
                         perf = [];
                         --morphs=\\form,morphs=>[]; 
+                        isPresBlank = True;
+                        isPerfBlank = True;
                         comp = [];
                         comp2 = [];
                         ap = [];
@@ -41,27 +64,32 @@ lin
                         containsAdv =False;
                         adV =[];
                         containsAdV = False
-                      }; --its not generating any sentence
+                      }
+          }; --its not generating any sentence
+                       
+                      
 
 --    CompAP   : AP  -> Comp;            -- (be) small
-      CompAP ap = {s=ap.s! AgP3 Sg KI_BI}; -- used a hack.
+      CompAP ap = {s=ap.s! AgP3 Sg KI_BI; source = AdjP}; -- used a hack.
 
 --    CompNP   : NP  -> Comp ;            -- (be) the man
-      CompNP np = {s= np.s ! Acc}; --{s =[] ; post =np.s; isPre = False; isProper = Bool; isPrep: Bool};
+      CompNP np = {s= np.s ! Acc; source = NounP}; --{s =[] ; post =np.s; isPre = False; isProper = Bool; isPrep: Bool};
 
 --    CompAdv  : Adv -> Comp ;            -- (be) here
-      CompAdv adv =adv;
+      CompAdv adv ={ s= adv.s; source = ADverb};
       {-
           This has been a hack to simply pick the sigular and complete noun.
       -}
       --CompCN   : CN  -> Comp ;            -- (be) a man/men
-      CompCN   cn = {s =cn.s ! Sg ! Complete} ;            -- (be) a man/men
+      CompCN   cn = {s =cn.s ! Sg ! Complete; source = CommonNoun} ;            -- (be) a man/men
 --    SlashV2a : V2        -> VPSlash ;  -- love (it)
       SlashV2a v2 ={ 
         s =v2.s;
         pres =v2.pres; 
         perf = v2.perf;
         --morphs = v2.morphs;
+        isPresBlank = v2.isPresBlank;
+        isPerfBlank = v2.isPerfBlank;
         comp = [];
         comp2 =[];
         ap =[];
@@ -76,7 +104,9 @@ lin
         s =v3.s;
         pres =v3.pres; 
         perf = v3.perf;
-        --morphs = v3.morphs; 
+        --morphs = v3.morphs;
+        isPresBlank = v3.isPresBlank;
+        isPerfBlank = v3.isPerfBlank;
         comp =  np.s ! Acc;
         comp2 =[];
         ap =[];
@@ -93,6 +123,8 @@ lin
         pres =v3.pres; 
         perf = v3.perf;
         --morphs = v3.morphs; 
+        isPresBlank = v3.isPresBlank;
+        isPerfBlank = v3.isPerfBlank;
         comp = np.s ! Acc; 
         comp2 = np.s ! Acc; -- what is the meaning of this function?
         ap = [];
@@ -107,8 +139,13 @@ lin
         s =vv.s;
         pres =vv.pres; 
         perf = vv.perf;
-        --morphs = vv.morphs; 
-        comp = vpslash.s ++ BIND ++ vpslash.pres; 
+        --morphs = vv.morphs;
+        isPresBlank = vv.isPresBlank;
+        isPerfBlank = vv.isPerfBlank;
+        comp = case vv.isPresBlank of {
+                        False => vpslash.s ++ BIND ++ vpslash.pres;
+                        _     => vpslash.s
+                      };
         comp2 = [];
         ap = [];
         isRegular = vv.isRegular;
@@ -127,7 +164,9 @@ lin
         s =vpslash.s;
         pres =vpslash.pres; 
         perf = vpslash.perf;
-        --morphs = vpslash.morphs; 
+        --morphs = vpslash.morphs;
+        isPresBlank = vpslash.isPresBlank;
+        isPerfBlank = vpslash.isPerfBlank; 
         comp = vpslash.comp ++  np.s ! Acc;
         comp2 =vpslash.comp2; --should be empty
         ap = [];
@@ -146,7 +185,9 @@ lin
         s=vp.s; 
         pres =vp.pres; 
         perf = vp.perf; 
-        --morphs = vp.morphs; 
+        --morphs = vp.morphs;
+        isPresBlank = vp.isPresBlank;
+        isPerfBlank = vp.isPerfBlank; 
         comp = adv.s;
         comp2 = [];
         ap =[];
@@ -164,9 +205,11 @@ lin
       s=vp.s; 
       pres =vp.pres; 
       perf = vp.perf; 
-      --morphs = vp.morphs; 
+      --morphs = vp.morphs;
+      isPresBlank = vp.isPresBlank;
+      isPerfBlank = vp.isPerfBlank;
       comp = vp.comp;
-      comp2 =vp.comp;
+      comp2 =vp.comp2;
       ap = [];
       isCompApStem = False; 
       agr = AgrNo;
@@ -187,7 +230,9 @@ lin
         s =vpslash.s;
         pres =vpslash.pres; 
         perf = vpslash.perf;
-        --morphs = vpslash.morphs; 
+        --morphs = vpslash.morphs;
+        isPresBlank = vpslash.isPresBlank;
+        isPerfBlank = vpslash.isPerfBlank; 
         comp = vpslash.comp; 
         comp2 = vpslash.comp2;
         ap = [];
@@ -207,7 +252,9 @@ lin
         s =vpslash.s;
         pres =vpslash.pres; 
         perf = vpslash.perf;
-        --morphs = vpslash.morphs; 
+        --morphs = vpslash.morphs;
+        isPresBlank = vpslash.isPresBlank;
+        isPerfBlank = vpslash.isPerfBlank; 
         comp = vpslash.comp; 
         comp2 = vpslash.comp2;
         ap = [];
@@ -231,7 +278,9 @@ lin
                                         s= vv.s ++ BIND ++ vv.perf ++ vpPres; 
                                         pres = [];--vv.pres; 
                                         perf=  []; -- vv.perf; 
-                                        --morphs = vv.morphs; 
+                                        --morphs = vv.morphs;
+                                        isPresBlank = True;
+                                        isPerfBlank = True; 
                                         comp=vp.comp ;
                                         comp2 = vp.comp2;
                                         ap = [];
@@ -246,7 +295,9 @@ lin
                                       s= vv.s ++ BIND ++ vv.pres ++ vpPres; 
                                       pres = [];--vv.pres; 
                                       perf=  [];--vv.perf; 
-                                      --morphs = vv.morphs; 
+                                      --morphs = vv.morphs;
+                                      isPresBlank = True;
+                                      isPerfBlank = True;  
                                       comp=vp.comp ;
                                       comp2 = vp.comp2;
                                       ap = []; 
@@ -265,7 +316,9 @@ lin
     s= vs.s; 
     pres =vs.pres; 
     perf=vs.perf; 
-    --morphs = vs.morphs; 
+    --morphs = vs.morphs;
+    isPresBlank = vs.isPresBlank;
+    isPerfBlank = vs.isPerfBlank;
     comp=s.s ;
     comp2 = []; 
     ap = [];
@@ -286,7 +339,9 @@ lin
     s= vq.s; 
     pres =vq.pres; 
     perf=vq.perf; 
-    --morphs = vq.morphs; 
+    --morphs = vq.morphs;
+    isPresBlank = vq.isPresBlank;
+    isPerfBlank = vq.isPerfBlank;
     comp=qs.s ;
     comp2 = [];
     ap = []; 
@@ -312,7 +367,9 @@ lin
     s= va.s; 
     pres =va.pres; 
     perf=va.perf; 
-    --morphs = va.morphs; 
+    --morphs = va.morphs;
+    isPresBlank = va.isPresBlank;
+    isPerfBlank = va.isPerfBlank;
     comp=[] ;
     comp2 = [];
     ap = ap.s! AgP3 Sg KI_BI; 
@@ -327,7 +384,7 @@ lin
 
   -- Copula alone
   --UseCopula : VP ;                    -- be
-  UseCopula = mkBecome ** {
+  UseCopula = be_Copula ** {
                             comp=[]; 
                             comp2 = [];
                             ap = [];

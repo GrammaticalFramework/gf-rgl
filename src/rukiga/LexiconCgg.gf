@@ -145,7 +145,7 @@ lin
   
   --today_Adv = mkAdv "erizooba" AgrNo;
 
-  father_N2 = mkN2 (mkN "tata" MU_BA) (lin Prep (mkPrep [] [] True)) ;
+  father_N2 = mkN2 (mkN "tata" ZERO_BAA) (lin Prep (mkPrep [] [] True)) ;
 
   distance_N3 = mkN3 (mkN "orugyendo" ZERO_BU) (lin Prep (mkPrep "kurunga" "" False)) (lin Prep (mkPrep "mpáka" "" False)); --could orugyendo work in its place?
   
