@@ -8,12 +8,12 @@ concrete AdjectiveLat of Adjective = CatLat ** open ResLat, Prelude in {
 
 --  ComparA : A -> NP -> AP ; -- warmer than I
     ComparA a np = {
-      s = \\ag => a.s ! Compar ! ag ++ "quam" ++ (combineNounPhrase np) ! PronNonDrop ! Nom ; 
+      s = \\ag => a.s ! Compar ! ag ++ "quam" ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom ; 
       } ;
 
 -- ComplA2 : A2 -> NP -> AP ; -- married to her
     ComplA2 a np = {
-      s = \\ag => a.s ! Posit ! ag ++ a.c.s ++ (combineNounPhrase np) ! PronNonDrop ! a.c.c ; 
+      s = \\ag => a.s ! Posit ! ag ++ a.c.s ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! a.c.c ; 
       } ;
 
 --  ReflA2 : A2 -> AP -- married to myself
@@ -31,7 +31,7 @@ concrete AdjectiveLat of Adjective = CatLat ** open ResLat, Prelude in {
     
 --  CAdvAP  : CAdv -> AP -> NP -> AP ; -- as cool as John
     CAdvAP cadv ap np =
-      { s = \\ag => cadv.s ++ ap.s ! ag ++ cadv.p ++ (combineNounPhrase np) ! PronNonDrop ! Nom } ;
+      { s = \\ag => cadv.s ++ ap.s ! ag ++ cadv.p ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom } ;
     
 -- The superlative use is covered in $Ord$.
 
