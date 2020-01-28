@@ -73,7 +73,7 @@ oper
 -- Here are some patterns. First one that describes the worst case.
 
   mkAdj' : (_,_,_,_,_ : Str) -> Adj ;
-  mkAdj' vieux vieil vieuxs vieille vieillement = {
+  mkAdj' vieux vieil vieille vieuxs vieillement = {
     s = table {
       ASg Masc _ => pre {#voyelle => vieil ; "h" => vieil ; _ => vieux} ;
       ASg Fem _  => vieille ;
@@ -83,7 +83,7 @@ oper
     } ;
 
   mkAdj : (_,_,_,_ : Str) -> Adj ;
-  mkAdj bleu bleus bleue bleuement = mkAdj' bleu bleu bleus bleue bleuement ;
+  mkAdj bleu bleue bleus bleuement = mkAdj' bleu bleu bleue bleus bleuement ;
 
 -- Then the regular and invariant patterns.
 
@@ -106,44 +106,44 @@ oper
       _ => grand + "e"
       }
     in
-    mkAdj grand (grand + "s") grande (grande + "ment") ;
+    mkAdj grand grande (grand + "s") (grande + "ment") ;
 
 -- Masculine form used for adverbial; also covers "carré".
 
   adjJoli : Str -> Adj = \joli ->
-    mkAdj joli (joli + "s") (joli + "e") (joli + "ment") ;
+    mkAdj joli (joli + "e") (joli + "s") (joli + "ment") ;
 
   adjHeureux : Str -> Adj = \heureux ->
     let {heureu = Predef.tk 1 heureux} in
-    mkAdj heureux heureux (heureu+"se") (heureu+"sement") ;
+    mkAdj heureux (heureu+"se") heureux (heureu+"sement") ;
 
   adjBanal : Str -> Adj = \banal ->
     let {bana = Predef.tk 1 banal} in
-    mkAdj banal (bana + "ux") (banal+"e") (banal+"ement") ;
+    mkAdj banal (banal + "e") (bana+"ux") (banal+"ement") ;
 
   adjJeune : Str -> Adj = \jeune ->
-    mkAdj jeune (jeune+"s") jeune (jeune+"ment") ;
+    mkAdj jeune jeune (jeune+"s") (jeune+"ment") ;
 
   adjIndien : Str -> Adj = \indien ->
-    mkAdj indien (indien+"s") (indien+"ne") (indien+"nement") ;
+    mkAdj indien (indien+"ne") (indien+"s") (indien+"nement") ;
 
   adjTel : Str -> Adj = \tel ->
-    mkAdj tel (tel+"s") (tel+"le") (tel+"lement") ;
+    mkAdj tel (tel+"le") (tel+"s") (tel+"lement") ;
 
   adjFrancais : Str -> Adj = \francais ->
-    mkAdj francais francais (francais+"e") (francais+"ement") ;
+    mkAdj francais (francais+"e") francais (francais+"ement") ;
 
   adjCher : Str -> Adj = \cher ->
     let {ch = Predef.tk 2 cher} in
-    mkAdj cher (cher + "s") (ch + "ère") (ch + "èrement") ;
+    mkAdj cher (ch + "ère") (cher + "s") (ch + "èrement") ;
 
   adjPublic : Str -> Adj = \public ->
     let publique = init public + "que" in
-    mkAdj public (public+"s") (publique) (publique+"ment") ;
+    mkAdj public publique (public+"s") (publique+"ment") ;
 
   adjVif : Str -> Adj = \vif ->
     let vive = init vif + "ve" in
-    mkAdj vif (vif+"s") (vive) (vive+"ment") ;
+    mkAdj vif vive (vif+"s") (vive+"ment") ;
 
   mkAdjReg : Str -> Adj = \creux ->
     case Predef.dp 3 creux of {

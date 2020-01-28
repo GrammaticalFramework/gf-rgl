@@ -5,7 +5,7 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
   lin
     --   QuestCl : Cl -> QCl ;            -- does John walk
     QuestCl cl = cl ** {
-      v = \\t,a,_,ap,cp => cl.v ! t ! a ! VQTrue ! ap ! cp ;
+      v = \\t,a,_,ap => cl.v ! t ! a ! VQTrue ! ap ;
       q = ""
       } ;
     
@@ -17,7 +17,9 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
 	neg = \\_,_ => "" ;
 	o = \\_ => vp.obj ;
 	q = ip.s ! Nom ;
-	v = \\t,a,_,ap,cp => vp.s ! VAct (anteriorityToVAnter a) (tenseToVTense t) ip.n P3 ! VQFalse 
+	v = \\t,a,_,ap => vp.s ! VAct (anteriorityToVAnter a) (tenseToVTense t) ip.n P3 ! VQFalse ;
+	compl = vp.compl ! Ag Masc ip.n Nom ; -- default gender masculine
+	det = { s, sp = \\_ => [] ; n = ip.n } ;
       } ; 
     --   let qcl = mkQuestion { s = ip.s ! Nom } ( mkClause emptyNP vp )
     --   in {s = \\t,a,b,qd => qcl.s ! t ! a ! b ! qd} ;
@@ -37,9 +39,11 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
 	s = \\_ => "" ;
 	adv = "" ;
 	neg = \\_,_ => "" ;
-	o = \\_ => combineNounPhrase np ! PronNonDrop ! Nom ; -- Should probably not go into the object field
+	o = \\_ => combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Nom ; -- Should probably not go into the object field
 	q = icomp.s ;
-	v = \\t,a,_,ap,cp => esseAux.act ! VAct (anteriorityToVAnter a) (tenseToVTense t) np.n P3 ;
+	v = \\t,a,_,ap => esseAux.act ! VAct (anteriorityToVAnter a) (tenseToVTense t) np.n P3 ;
+	det = { s , sp = \\_=> [] ; n = Sg } ; -- default number singilar
+	compl = "" ;
       } ;
 --
 --

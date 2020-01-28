@@ -15,14 +15,15 @@ lin very_AdA = mkAdA "" ;
 lin as_CAdv = { s = "" ; p = [] } ;
 lin less_CAdv = { s = "" ; p = [] } ;
 lin more_CAdv = { s = "" ; p = [] } ;
+-}
+lin how_IAdv = mkIAdv u "sidee" False ;
 
-lin how_IAdv = ss "" ;
-lin how8much_IAdv = ss "" ;
-lin when_IAdv = ss "" ;
-lin where_IAdv = ss "" ;
-lin why_IAdv = ss "" ;
+-- lin how8much_IAdv = ss "" ;
+-- lin when_IAdv = ss "" ;
+lin where_IAdv = mkIAdv noPrep "xaggee" False ;
+lin why_IAdv = let mx = mkIAdv u "maxaa" True in mx ** {s = "waayo"} ;
 
-lin always_AdV = ss "" ;
+{-lin always_AdV = ss "" ;
 
 lin everywhere_Adv = ss "" ;
 lin here7from_Adv = ss "" ;
@@ -39,10 +40,10 @@ lin there_Adv = ss "" ;
 -- Conj
 
 lin and_Conj = {s2 = table {Definite => "ee" ; Indefinite => "oo"} ; s1 = [] ; n = Pl} ;
-lin or_Conj = {s2 = \\_ => "ama" ; s1 = [] ; n = Sg} ; -- mise with interrogatives
+lin or_Conj = {s2 = \\_ => "ama" ; s1 = [] ; n = Sg} ; -- mise with interrogatives; Saeed p. 122-123: "Note that the clause introduced by misé has the form of a declarative not an interrogative though the whole sentence is interpreted as a question."
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;
--- lin either7or_DConj = mkConj "" "" pl ;
+lin either7or_DConj = {s2 = \\_ => "ama" ; s1 = "ama" ; n = Sg} ;
 --
 -- lin but_PConj = ss "" ;
 -- lin otherwise_PConj = ss "" ;
@@ -67,7 +68,8 @@ lin much_Det = R.indefDet "" sg ;
 -}
 lin somePl_Det = {
     sp = \\_,_ => "qaar" ;
-    isPoss, isNum = False ;
+    isPoss = False ;
+    numtype = NoNum ;
     st = Definite ; -- NB. Indefinite means actually only IndefArt.
     n = Pl ;
     s = \\x,_ => BIND ++ defStems ! x ++ BIND ++ "a qaarkood" ;
@@ -127,7 +129,7 @@ lin on_Prep = mkPrep ku ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
-lin under_Prep = 
+lin under_Prep =
     let hoos : CatSom.Prep = possPrep (nUl "hoos")
      in hoos ** {c2 = Ku} ;
 lin with_Prep = mkPrep la ;
@@ -147,13 +149,11 @@ lin with_Prep = mkPrep la ;
     we_Pron = pronTable ! Pl1 Incl ;
     youPl_Pron = pronTable ! Pl2 ;
     they_Pron = pronTable ! Pl3 ;
-{-
-lin whatPl_IP = ;
-lin whatSg_IP = ;
-lin whoPl_IP = ;
-lin whoSg_IP = ;
 
--}
+--lin whatPl_IP = ;
+lin whatSg_IP = mkIP "maxay" "maxaa" True ;
+--lin whoPl_IP = ;
+lin whoSg_IP = mkIP "ayo" "yaa" True ;
 
 -------
 -- Subj
@@ -188,4 +188,20 @@ lin want_VV = mkVV (mkV "rabid" "rab" "rab") subjunctive ;
 {-
 lin please_Voc = ss "" ;
 -}
+oper
+  mkIAdv : Preposition -> Str -> Bool -> ResSom.IAdv = \pr ->
+    let pr' : Prep = ParadigmsSom.mkPrep pr ;
+     in prepIP pr' ;
+
+  mkIP : (maxay, maxaa : Str) -> Bool -> IP = \maxay,maxaa,b -> emptyNP ** {
+    s = table {
+      Nom => maxaa ; -- together with STM
+      Abs => maxay } ; -- alone, no STM (used in UttIP and IComp)
+    contractSTM = b ;
+    } ;
+
+  prepIP : Prep -> Str -> Bool -> ResSom.IAdv = \pr,str,b ->
+    let adv : Adverb = prepNP (mkPrep pr str [] []) emptyNP ;
+     in adv ** {contractSTM = b ; s = linAdv adv} ;
+
 }

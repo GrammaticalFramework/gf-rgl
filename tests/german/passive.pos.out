@@ -1,0 +1,195 @@
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 give_V3 (UsePron we_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+TestLangGer: sie gibt uns den Wagen
+TestLangEng: she gives us the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (DetCN (DetQuant DefArt NumPl) (UseN car_N)))))) NoVoc
+TestLangGer: sie gibt uns den Wagen
+TestLangEng: she gives the cars us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumPl) (UseN car_N))) (UsePron we_Pron))))) NoVoc
+TestLangGer: sie gibt uns den Wagen
+TestLangEng: she gives the cars us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (UsePron we_Pron))))) NoVoc
+TestLangGer: sie gibt uns den Wagen
+TestLangEng: she gives us the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 give_V3 (UsePron we_Pron))))) NoVoc
+TestLangGer: der Wagen wird uns gegeben
+TestLangEng: the car is given us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (PassVPSlash (Slash2V3 give_V3 (UsePron we_Pron)))))) NoVoc
+TestLangGer: der Wagen wird uns gegeben
+TestLangEng: the car is given us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 give_V3 (DetCN (DetQuant DefArt NumPl) (UseN car_N)))))) NoVoc
+TestLangGer: wir bekommen den Wagen gegeben
+TestLangEng: we are given the cars
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron we_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+TestLangGer: sie schickte uns den Wagen
+TestLangEng: she sent the car to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron we_Pron)) (DetCN (DetQuant DefArt NumPl) (UseN car_N)))))) NoVoc
+TestLangGer: sie schickte uns den Wagen
+TestLangEng: she sent us to the cars
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumPl) (UseN car_N))) (UsePron we_Pron))))) NoVoc
+TestLangGer: sie schickte uns den Wagen
+TestLangEng: she sent us to the cars
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (UsePron we_Pron))))) NoVoc
+TestLangGer: sie schickte uns den Wagen
+TestLangEng: she sent the car to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 send_V3 (UsePron we_Pron))))) NoVoc
+TestLangGer: der Wagen wurde uns geschickt
+TestLangEng: the car was sent to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (PassVPSlash (Slash3V3 send_V3 (UsePron we_Pron)))))) NoVoc
+TestLangGer: der Wagen wurde uns geschickt
+TestLangEng: the car was sent to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+TestLangGer: wir bekamen den Wagen geschickt
+TestLangEng: we were sent the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 send_V3 (UsePron we_Pron))))) NoVoc
+TestLangGer: der Wagen würde uns geschickt werden
+TestLangEng: the car would be sent to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (PassVPSlash (Slash3V3 send_V3 (UsePron we_Pron)))))) NoVoc
+TestLangGer: der Wagen würde uns geschickt werden
+TestLangEng: the car would be sent to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 send_V3 (UsePron we_Pron))))) NoVoc
+TestLangGer: der Wagen würde uns nicht geschickt werden
+TestLangEng: the car wouldn't be sent to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+TestLangGer: wir würden den Wagen geschickt bekommen
+TestLangEng: we would be sent the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PNeg (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+TestLangGer: wir würden den Wagen nicht geschickt bekommen
+TestLangEng: we wouldn't be sent the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (PredetNP not_Predet (DetCN (DetQuant DefArt NumSg) (UseN car_N))))))) NoVoc
+TestLangGer: wir würden nicht den Wagen geschickt bekommen
+TestLangEng: we would be sent not the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N))))))) NoVoc
+TestLangGer: wir wollen den Wagen geschickt bekommen
+TestLangEng: we want to be sent the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (Slash3V3 erklaeren_dat_V3 (UsePron we_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+TestLangGer: sie erklärten uns den Wagen nicht
+TestLangEng: they didn't explain the car to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (Slash2V3 erklaeren_dat_V3 (UsePron we_Pron)) (DetCN (DetQuant DefArt NumPl) (UseN car_N)))))) NoVoc
+TestLangGer: sie erklärten uns den Wagen nicht
+TestLangEng: they didn't explain us to the cars
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (Slash3V3 erklaeren_dat_V3 (DetCN (DetQuant DefArt NumPl) (UseN car_N))) (UsePron we_Pron))))) NoVoc
+TestLangGer: sie erklärten uns den Wagen nicht
+TestLangEng: they didn't explain us to the cars
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (Slash2V3 erklaeren_dat_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (UsePron we_Pron))))) NoVoc
+TestLangGer: sie erklärten uns den Wagen nicht
+TestLangEng: they didn't explain the car to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 erklaeren_dat_V3 (UsePron we_Pron))))) NoVoc
+TestLangGer: der Wagen wurde uns nicht erklärt
+TestLangEng: the car wasn't explained to us
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron we_Pron) (Pass3V3 erklaeren_dat_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+TestLangGer: wir bekamen den Wagen nicht erklärt
+TestLangEng: we weren't explained the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 danken_dat_fuer_V3 (UsePron youPl_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN gold_N)))))) NoVoc
+TestLangGer: wir danken euch nicht für das Gold
+TestLangEng: we don't thank you for the gold
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN gold_N))) (UsePron youPl_Pron))))) NoVoc
+TestLangGer: wir danken euch nicht für das Gold
+TestLangEng: we don't thank you for the gold
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youPl_Pron) (PassVPSlash (Slash3V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN gold_N))))))) NoVoc
+TestLangGer: euch wird nicht für das Gold gedankt
+TestLangEng: you aren't thanked for the gold
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN book_N)) (PassVPSlash (Slash2V3 danken_dat_fuer_V3 (UsePron youPl_Pron)))))) NoVoc
+TestLangGer: für die Bücher wird euch gedankt
+TestLangEng: the books are thanked you for
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (ComplSlashSlash (Slash3V4 kaufen_bei_fuer_V4 (UsePron youSg_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (MassNP (UseN gold_N)))))) NoVoc
+TestLangGer: wir kaufen den Wagen bei dir für Gold
+TestLangEng: we buy for gold from you the car
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (ComplSlashSlash (Slash2V4 kaufen_bei_fuer_V4 (DetCN (DetQuant DefArt NumSg) (UseN car_N))) (UsePron youSg_Pron)) (MassNP (UseN gold_N)))))) NoVoc
+TestLangGer: wir kaufen den Wagen bei dir für Gold
+TestLangEng: we buy for gold the car from you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (ComplSlash (Pass2V4 kaufen_bei_fuer_V4 (DetCN much_Det (UseN gold_N))) (UsePron youSg_Pron))))) NoVoc
+TestLangGer: der Wagen wurde für viel Gold bei dir gekauft
+TestLangEng: the car was bought for much gold from you
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (Slash2V3 debattieren_mit_ueber_V3 (UsePron i_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: sie debattieren mit mir über das Buch
+TestLangEng: they debate with me about the book
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (Slash2V3 debattieren_mit_ueber_V3 (UsePron i_Pron)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
+TestLangGer: sie debattieren nicht mit mir über das Buch
+TestLangEng: they don't debate with me about the book
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (PassVPSlash (Slash3V3 debattieren_mit_ueber_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+TestLangGer: mit mir wurde über das Buch debattiert
+TestLangEng: I was debated about the book with
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron i_Pron) (PassVPSlash (Slash3V3 debattieren_mit_ueber_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+TestLangGer: mit mir wurde nicht über das Buch debattiert
+TestLangEng: I wasn't debated about the book with
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (PassVPSlash (Slash2V3 debattieren_mit_ueber_V3 (UsePron i_Pron)))))) NoVoc
+TestLangGer: über das Buch ist mit mir debattiert worden
+TestLangEng: the book has been debated with me about
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (PassVPSlash (Slash2V3 debattieren_mit_ueber_V3 (UsePron i_Pron)))))) NoVoc
+TestLangGer: über das Buch ist nicht mit mir debattiert worden
+TestLangEng: the book hasn't been debated with me about
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN friend_N))) (DetCN (DetQuant DefArt NumSg) (UseN science_N)))))) NoVoc
+TestLangGer: wir lehren unseren Freund die Wissenschaft
+TestLangEng: we teach our friend the science
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN friend_N))) (DetCN (DetQuant DefArt NumSg) (UseN science_N)))))) NoVoc
+TestLangGer: wir lehren unseren Freund die Wissenschaft
+TestLangEng: we teach the science our friend
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron he_Pron)) (UsePron she_Pron))))) NoVoc
+TestLangGer: wir lehren sie ihn
+TestLangEng: we teach him her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron he_Pron)) (UsePron they_Pron))))) NoVoc
+TestLangGer: wir lehren sie ihn
+TestLangEng: we teach him them
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (UsePron he_Pron)) (UsePron she_Pron))))) NoVoc
+TestLangGer: wir lehren sie ihn
+TestLangEng: we teach her him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (UsePron he_Pron)) (UsePron they_Pron))))) NoVoc
+TestLangGer: wir lehren sie ihn
+TestLangEng: we teach them him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron she_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehren ihn sie
+TestLangEng: we teach her him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron they_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehren ihn sie
+TestLangEng: we teach them him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (UsePron she_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehren ihn sie
+TestLangEng: we teach him her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (UsePron they_Pron)) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehren ihn sie
+TestLangEng: we teach him them
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN friend_N)) (Pass2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N)))))) NoVoc
+TestLangGer: die Freunde werden die Wissenschaft gelehrt
+TestLangEng: the friends are taught the science
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN friend_N)) (PassVPSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+TestLangGer: die Freunde werden die Wissenschaft gelehrt
+TestLangEng: the friends are taught the science
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN friend_N)) (PassVPSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+TestLangGer: die Freunde werden die Wissenschaft gelehrt
+TestLangEng: the friends are taught the science
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (Pass2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N)))))) NoVoc
+TestLangGer: er wird die Wissenschaft gelehrt
+TestLangEng: he is taught the science
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+TestLangGer: er wird die Wissenschaft gelehrt
+TestLangEng: he is taught the science
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+TestLangGer: er wird die Wissenschaft gelehrt
+TestLangEng: he is taught the science
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (Pass2V3 lehren_V3 (UsePron she_Pron))))) NoVoc
+TestLangGer: er wird sie gelehrt
+TestLangEng: he is taught her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (Pass2V3 lehren_V3 (UsePron they_Pron))))) NoVoc
+TestLangGer: er wird sie gelehrt
+TestLangEng: he is taught them
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash2V3 lehren_V3 (UsePron she_Pron)))))) NoVoc
+TestLangGer: er wird sie gelehrt
+TestLangEng: he is taught her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash2V3 lehren_V3 (UsePron they_Pron)))))) NoVoc
+TestLangGer: er wird sie gelehrt
+TestLangEng: he is taught them
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash3V3 lehren_V3 (UsePron she_Pron)))))) NoVoc
+TestLangGer: er wird sie gelehrt
+TestLangEng: he is taught her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash3V3 lehren_V3 (UsePron they_Pron)))))) NoVoc
+TestLangGer: er wird sie gelehrt
+TestLangEng: he is taught them
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (Pass2V3 lehren_V3 (UsePron he_Pron))))) NoVoc
+TestLangGer: sie wird ihn gelehrt
+TestLangEng: she is taught him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (PassVPSlash (Slash2V3 lehren_V3 (UsePron he_Pron)))))) NoVoc
+TestLangGer: sie wird ihn gelehrt
+TestLangEng: she is taught him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (PassVPSlash (Slash3V3 lehren_V3 (UsePron he_Pron)))))) NoVoc
+TestLangGer: sie wird ihn gelehrt
+TestLangEng: she is taught him

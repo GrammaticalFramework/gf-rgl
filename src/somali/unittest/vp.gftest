@@ -56,11 +56,11 @@ LangSom: rooti waa uu is siiyey
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ReflVP (Slash2V3 give_V3 (MassNP (UseN bread_N))))))) NoVoc
 
 -- LangEng: one adds salt to the meat
-LangSom: hilib BIND ka cusbo waa lagu daraa
+LangSom: cusbo hilib BIND ka waa lagu daraa
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (Slash3V3 add_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N))) (MassNP (UseN salt_N)))))) NoVoc
 
 -- LangEng: one can add salt to meat
-LangSom: hilib cusbo waa lagu dari karaa
+LangSom: cusbo hilib waa lagu dari karaa
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplVV can_VV (ComplSlash (Slash3V3 add_V3 (MassNP (UseN meat_N))) (MassNP (UseN salt_N))))))) NoVoc
 
 --------------------------------------------------------------------------------
@@ -116,4 +116,3 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_P
 -- LangEng: my mother lives under the sea
 LangSom: hooya BIND day waa ku nool tahay bad BIND da hoos BIND teed BIND a
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 mother_N2)) (AdvVP (UseV live_V) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN sea_N))))))) NoVoc
-

@@ -1,4 +1,4 @@
-abstract DictEngAbs = Cat ** {
+abstract DictCggAbs = Cat ** {
 
 {- --beginning of comment
 

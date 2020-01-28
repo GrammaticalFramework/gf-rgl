@@ -79,9 +79,3 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (RelNP (UseP
 --LangEng: he , that sees the men , is this
 LangSom: isagu oo niman BIND ka arkaa waa kan
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (RelNP (UsePron he_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN man_N)))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumSg))))))) NoVoc
-
--- Question clauses
-
--- LangEng: which cat teaches him
-LangSom: bisad BIND dee baa ku bartaa
-Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a teach_V2) (UsePron he_Pron))))) NoVoc

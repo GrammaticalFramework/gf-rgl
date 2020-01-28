@@ -18,111 +18,136 @@ concrete NumeralLat of Numeral = CatLat, ParamX[Number] ** open ParadigmsLat, Pr
     n9 = lin Digit ( mkDigit "novem"    "undeviginti"   "nonaginta"    "nongenti"     "nonus"    "centum"       No9 ) ;
 
     -- 1
-   pot01 = { s = n1.s ! one ; d = n1.s ; n = singular ; below8 = n1.below8 }  ;
+    pot01 = {
+      s = n1.s ! one ;
+      d = { num, ord = n1.s } ;
+      n = singular ;
+      below8 = n1.below8 ;
+      ord = n1.ord ! one
+      }  ;
    -- d * 1
    pot0 d = {
      s = d.s ! one ;
-     d = table {
-       thousand => \\g,c => d.s ! one ! g ! c ++ d.s ! thousand ! g ! c ;
-       u => \\g,c => d.s ! u ! g ! c
-       } ;
+     d = { num,ord = table {
+	     thousand => \\g,c => d.s ! one ! g ! c ++ d.s ! thousand ! g ! c ;
+	     u => \\g,c => d.s ! u ! g ! c
+	     }
+       };
      n = plural ;
-     below8 = d.below8
+     below8 = d.below8 ;
+     ord = d.ord ! one ;
      } ;
      -- 10
    pot110 = {
      s = n1.s ! ten ;
-     d = table {
-       thousand => \\g,c => n1.s ! ten ! g ! c ++ n1.s ! thousand ! g ! c ;
-       u => \\g,c => n1.s ! u ! g ! c
-       } ;
+     d = { num, ord = table {
+	     thousand => \\g,c => n1.s ! ten ! g ! c ++ n1.s ! thousand ! g ! c ;
+	     u => \\g,c => n1.s ! u ! g ! c
+	     }
+       };
      n = singular ;
-     below8 = Yes
+     below8 = Yes ;
+     ord = n1.ord ! ten
      }  ;
      -- 11
    pot111 = pot1to19 n1 ;
    -- 10 + d
    pot1to19 d = {
      s = d.s ! eleven ;
-     d = table {
-       thousand => \\g,c => d.s ! eleven ! g ! c ++ n1.s ! thousand ! g ! c ;
-       u => \\g,c => d.s ! u ! g ! c
-       } ;
+     d = { num, ord = table {
+	     thousand => \\g,c => d.s ! eleven ! g ! c ++ n1.s ! thousand ! g ! c ;
+	     u => \\g,c => d.s ! u ! g ! c
+	     }
+       };
      n = plural ;
-     below8 = Ign
+     below8 = Ign ;
+     ord = n1.ord ! eleven
      } ;
    -- coercion of 1..9
    pot0as1 n = n ;
    -- d * 10
    pot1 d = {
      s = d.s ! ten ;
-     d = table {
-       thousand => \\g,c => d.s ! ten ! g ! c ++ n1.s ! thousand ! g ! c ;
-       u => \\g,c => d.s ! u ! g ! c
-       } ;
+     d = { num, ord = table {
+	     thousand => \\g,c => d.s ! ten ! g ! c ++ n1.s ! thousand ! g ! c ;
+	     u => \\g,c => d.s ! u ! g ! c
+	     }
+       };
      n = plural ;
-     below8 = Yes
+     below8 = Yes ;
+     ord = d.ord ! ten
      } ;
    -- d * 10 + n
    pot1plus d n =
      let
        newS : Gender => Case => Str = \\g,c => case n.below8 of {
-	 No8 => "duo" ++ Prelude.BIND ++ "-" ++ Prelude.BIND ++ "de" ++ Prelude.BIND ++ "-" ++ Prelude.BIND ++ d.tenNext ;
-	 No9 => "un"  ++ Prelude.BIND ++ "-" ++ Prelude.BIND ++ "de" ++ Prelude.BIND ++ "-" ++ Prelude.BIND ++ d.tenNext ;
+	 No8 => "duo" ++ Prelude.BIND ++ "de" ++ Prelude.BIND ++ d.tenNext ;
+	 No9 => "un"  ++ Prelude.BIND ++ "de" ++ Prelude.BIND ++ d.tenNext ;
 	 _ => d.s ! ten ! g ! c ++ n.s ! g ! c 
 	 } in
      {
      s = newS ;
-     d = table {
-       thousand => \\g,c => newS ! g ! c ++ n1.s ! thousand ! g ! c ;
-       u => \\g,c => n.d ! u ! g ! c
-       } ;
+     d = { num, ord = table {
+	     thousand => \\g,c => newS ! g ! c ++ n1.s ! thousand ! g ! c ;
+	     u => \\g,c => n.d.num ! u ! g ! c
+	     }
+       };
      below8 = Ign ;
-     n = plural 
+     n = plural ;
+     ord = \\_,_,_ => nonExist -- TODO
      } ;
    -- coercion of 1..99
    pot1as2 n = n ;
    -- m * 100
    pot2 n = {
-     s = n.d ! hundred ;
-     d = table {
-       thousand => \\g,c => n.d ! hundred ! g ! c ++ n1.s ! thousand ! g ! c ;
-       u => \\g,c => n.d ! u ! g ! c
-       } ;
+     s = n.d.num ! hundred ;
+     d = { num, ord = table {
+	     thousand => \\g,c => n.d.num ! hundred ! g ! c ++ n1.s ! thousand ! g ! c ;
+	     u => \\g,c => n.d.num ! u ! g ! c
+	     }
+       };
      n = plural ;
-     below8 = Yes} ;
+     below8 = Yes ;
+     ord = \\_,_,_ => nonExist -- TODO
+     } ;
    -- d * 100 + n
    pot2plus d n =
      let
-       newS : Gender => Case => Str = \\g,c => d.d ! hundred ! g ! c ++ "et" ++ n.s ! g ! c 
+       newS : Gender => Case => Str = \\g,c => d.d.num ! hundred ! g ! c ++ "et" ++ n.s ! g ! c 
      in
      {
        s = newS ;
-	 d = table {
-	   thousand => \\g,c => newS ! g ! c ++ n1.s ! thousand ! g ! c ;
-	   u => \\g,c => n.d ! u ! g ! c
-	 } ;
+       d = { num, ord = table {
+	       thousand => \\g,c => newS ! g ! c ++ n1.s ! thousand ! g ! c ;
+	       u => \\g,c => n.d.num ! u ! g ! c
+	       }
+	 };
        below8 = Ign ;
-       n = plural 
+       n = plural;
+       ord = \\_,_,_ => nonExist -- TODO
      } ;
    -- coercion of 1..999
    pot2as3 n = n ;
      -- m * 1000
    pot3 n = {
-     s = \\g,c => n.s ! g ! c ++ n.d ! thousand ! g ! c ;
-     d = table { thousand => \\g,c => n.s ! g ! c ++ n.d ! thousand ! g ! c ;
-		 u => \\g,c => n.d ! u ! g ! c
+     s = \\g,c => n.s ! g ! c ++ n.d.num ! thousand ! g ! c ;
+     d = { num,ord = table {
+	     thousand => \\g,c => n.s ! g ! c ++ n.d.num ! thousand ! g ! c ;
+	     u => \\g,c => n.d.num ! u ! g ! c
+	     }
        } ;
      below8 = Ign ;
-     n = plural
+     n = plural ;
+     ord = \\_,_,_ => nonExist -- TODO
      } ;
 
    -- d * 1000 + n
    pot3plus d n = {
-     s = \\g,c => d.d ! thousand ! g ! c ++ "et" ++ n.s ! g ! c ;
-     d = n.d ;
+     s = \\g,c => d.d.num ! thousand ! g ! c ++ "et" ++ n.s ! g ! c ;
+     d = n.d ; -- ???
      below8 = Ign ;
-     n = plural 
+     n = plural ;
+     ord = \\_,_,_ => nonExist -- TODO
      } ;
 
   oper
@@ -146,14 +171,15 @@ concrete NumeralLat of Numeral = CatLat, ParamX[Number] ** open ParadigmsLat, Pr
 		    hundred_thousand => \\_,_ => nonExist
 	  } ;
 --    	n = case ones of { "unus" => singular ; _ => plural } ;
-	--   ord =
-	--     \\_,_ => [] ;
-	-- --     table { one => (mkA ord1).s ! Posit;
-	-- -- 	  ten => (mkA ord10).s ! Posit ;
-	-- -- 	  hundred => (mkA ord100).s ! Posit ;
-	-- -- 	  thousand => \\_,_ => nonExist ;
-	-- -- 	  ten_thousand => \\_ => nonExist ;
-	-- -- 	  hundred_thousand => \\_ => nonExist } ;
+	   ord = 
+	     table { one => ordFlex ord1 ;
+		     eleven => \\_,_,_ => nonExist ;
+		     ten => ordFlex ord10 ;
+		     hundred => ordFlex ord100 ;
+		     thousand => \\_,_,_ => nonExist ;
+		     ten_thousand => \\_,_,_ => nonExist ;
+		     hundred_thousand => \\_,_,_ => nonExist
+	     } ;
 	tenNext = tenNext ;
 	below8 = b8 
       } ;    

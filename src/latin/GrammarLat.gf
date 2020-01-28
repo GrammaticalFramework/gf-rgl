@@ -8,7 +8,7 @@ concrete GrammarLat of Grammar =
   NumeralLat,
   SentenceLat,
   QuestionLat,
---  RelativeLat,
+  RelativeLat,
   ConjunctionLat,
   PhraseLat,
   TextX-[Adv],

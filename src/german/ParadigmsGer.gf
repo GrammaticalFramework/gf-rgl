@@ -302,7 +302,7 @@ mkV2 : overload {
   mkV0  : V -> V0 ; --%
   mkVS  : V -> VS ;
 
-  mkV2V : overload { -- with zu
+  mkV2V : overload { -- with zu; object-control
     mkV2V : V -> V2V ;
     mkV2V : V -> Prep -> V2V ;
     } ;
@@ -310,6 +310,8 @@ mkV2 : overload {
     auxV2V : V -> V2V ;
     auxV2V : V -> Prep -> V2V ;
     } ;
+  subjV2V : V2V -> V2V ; -- force subject-control
+
   mkV2A : overload {
     mkV2A : V -> V2A ; 
     mkV2A : V -> Prep -> V2A ;
@@ -596,24 +598,25 @@ mkV2 : overload {
   auxVV v = v ** {isAux = True ; lock_VV = <>} ;
 
   V0 : Type = V ;
---  V2S, V2V, V2Q : Type = V2 ;
   AS, A2S, AV : Type = A ;
   A2V : Type = A2 ;
 
   mkV0  v = v ** {lock_V = <>} ;
 
-  mkV2V = overload {
+  mkV2V = overload { -- default: object-control
     mkV2V : V -> V2V 
-      = \v -> dirV2 v ** {isAux = False ; lock_V2V = <>} ;
+      = \v -> dirV2 v ** {isAux = False ; ctrl = ObjC ; lock_V2V = <>} ;
     mkV2V : V -> Prep -> V2V 
-      = \v,p -> prepV2 v p ** {isAux = False ; lock_V2V = <>} ;
+      = \v,p -> prepV2 v p ** {isAux = False ; ctrl = ObjC ; lock_V2V = <>} ;
     } ;
   auxV2V = overload {
     auxV2V : V -> V2V 
-      = \v -> dirV2 v ** {isAux = True ; lock_V2V = <>} ;
+      = \v -> dirV2 v ** {isAux = True ; ctrl = ObjC ; lock_V2V = <>} ;
     auxV2V : V -> Prep -> V2V 
-      = \v,p -> prepV2 v p ** {isAux = True ; lock_V2V = <>} ;
+      = \v,p -> prepV2 v p ** {isAux = True ; ctrl = ObjC ; lock_V2V = <>} ;
     } ;
+  subjV2V v = v ** {ctrl = SubjC} ;
+
   mkV2A = overload {
     mkV2A : V -> V2A 
       = \v -> dirV2 v ** {isAux = False ; lock_V2A = <>} ;

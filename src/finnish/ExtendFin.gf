@@ -6,6 +6,7 @@ concrete ExtendFin of Extend =
     MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
     ,ExistCN, ExistMassCN, ICompAP, ByVP
     ,CompoundN, GenNP, GenIP, AdvIsNP, EmbedSSlash
+    ,PassVPSlash, PassAgentVPSlash
     ]
   with
     (Grammar = GrammarFin) **
@@ -160,4 +161,15 @@ lin
                   NPSep    => mikaInt ! Sg ! Nom }
            } ;
        in {s = appCompl True Pos ss.c2 thatWhich ++ ss.s} ;
+
+  PassVPSlash vp = S.passVP vp vp.c2 ;
+
+  PassAgentVPSlash vp np = {
+      s = {s = vp.s.s ; h = vp.s.h ; p = vp.s.p ; sc = npform2subjcase vp.c2.c} ; 
+      s2 = \\b,p,a => np.s ! NPSep ++ vp.s2 ! b ! p ! a ;
+      adv = vp.adv ;
+      ext = vp.ext ;
+      vptyp = vp.vptyp ;
+      } ; 
+
 }

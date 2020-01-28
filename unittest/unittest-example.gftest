@@ -1,0 +1,52 @@
+# This file consists of some example unittests
+# Tests are separated by blank lines
+# Comment lines start with "#" or "--"
+
+# The recommendation is to put unittest files 
+# in the directory 'src/(language)/unittest'
+# and use the file suffix '.gftest'
+
+# Basic usage: a sentence and its translation
+LangEng: I sleep in the house
+LangSwe: jag sover i huset
+
+# Comparing a sentence and a parse tree
+LangEng: the house is big
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN house_N)) (UseComp (CompAP (PositA big_A)))))) NoVoc
+
+-- Several translations of a sentence
+LangEng: I sleep in the house
+LangSwe: jag sover i huset
+LangGer: ich schlafe im Haus
+
+-- Ambiguous sentences (the fish can be singular or plural)
+-- The test is correct if some translations match
+-- (i.e., if the set of parse trees overlap)
+LangEng: the cat eats the fish
+LangSwe: katten äter fisken
+
+# If we only specify one sentence, the script only checks if it's possible to parse
+LangEng: the cat in Paris sleeps
+
+# This test should fail, because they are not translations of each other
+LangEng: the house is big
+LangSwe: jag sover i huset
+
+# This test should fail, because the tree does not have this linearisation
+LangEng: the house is small
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN house_N)) (UseComp (CompAP (PositA big_A)))))) NoVoc
+
+
+# And finally some GF parsing errors
+
+# This sentence cannot be parsed:
+LangEng: this is not parseable
+LangSwe: jag sover i huset
+
+# This sentence is not complete:
+LangEng: I sleep in
+LangSwe: jag sover i huset
+
+# This is not an abstract syntax tree:
+Lang: THIS IS NOT A TREE
+LangSwe: jag sover i huset

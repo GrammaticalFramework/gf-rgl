@@ -11,14 +11,16 @@ concrete ConjunctionLat of Conjunction =
     ConjS conj ss = {
 --      s = \\apos => coord conj.c { init = (ss.s ! conj.c).init ! SPreS ! apos ! CPreV ! SOV ;
       --	last = (ss.s ! conj.c).last ! SPreS ! apos ! CPreV ! SOV} ;
-      s = \\apos => conj.s1 ++ (ss.s ! conj.c).init ! SPreS ! apos ! CPreV ! SOV  ++ conj.s2 ++
-	(ss.s ! conj.c).last ! SPreS ! apos ! CPreV ! SOV ++ conj.s3 ;
+      s = \\apos => conj.s1 ++ (ss.s ! conj.c).init ! SAPreS ! apos ! DPreN ! VReg ! CPreV ! SOV  ++ conj.s2 ++
+	(ss.s ! conj.c).last ! SAPreS ! apos ! DPreN ! VReg ! CPreV ! SOV ++ conj.s3 ;
       o = \\_ => [] ;
-      v = \\_,_ => [] ;
+      v = \\_ => [] ;
       neg = \\_ => [] ;
+      compl = [] ;
       p = ss.p ;
       sadv = [] ;
-      t = ss.t
+      t = ss.t ;
+      det = { s, sp = \\_ => [] } ;
       } ;
 
     -- ConjAdv  : Conj -> ListAdv -> Adv ;   -- here or there
@@ -34,14 +36,13 @@ concrete ConjunctionLat of Conjunction =
     	--     } ;
     	--   c => (conjunctDistrTable Case conj (nps.l ! Et)).s
     	--   } ;
-	s = \\pd,ca => conj.s1 ++ (nps.s ! conj.c).init ! pd ! ca ++ conj.s2 ++ (nps.s ! conj.c).last ! pd ! ca ++ conj.s3 ;
+	s = \\pd,ca =>  conj.s1 ++ (nps.s ! conj.c).init ! pd ! APreN ! DPreN ! ca ++ conj.s2 ++ (nps.s ! conj.c).last ! pd ! APreN ! DPreN ! ca ++ conj.s3;
     	n = case conj.c of { Et => Pl ; _ => nps.n } ;
       	g = nps.g ;
       	p = nps.p ;
-      	adv = nps.adv ;
-      	preap = nps.preap ;
-    	postap = nps.postap ;
-    	det = nps.det
+      	adv = "" ;
+      	preap , postap = { s = \\_ => "" };
+    	det = { s , sp = \\_ => ""} ;
       } ;
 
     -- ConjAP   : Conj -> ListAP -> AP ;
@@ -61,8 +62,12 @@ concrete ConjunctionLat of Conjunction =
 --      isPre = ss.isPre
 --      } ;
 ---}
---
----- These fun's are generated from the list cat's.
+    --
+
+    -- ConjRS : Conj -> ListRS -> RS
+    ConjRS conj rss = { s = \\g,n => conj.s1 ++ (rss.s ! conj.c).init ! g ! n ++ conj.s2 ++ (rss.s ! conj.c).last ! g ! n++ conj.s3 };
+
+  ---- These fun's are generated from the list cat's.
     --
 
     -- BaseS : S -> S -> ListS
@@ -77,7 +82,7 @@ concrete ConjunctionLat of Conjunction =
     -- ConsS x xs = { l = \\_ => consrSS bindComma (ss (x.s ! PreS)) (xs.l ! Comma) };
     ConsS s ss = {
       s = \\co =>
-    	{ init = \\s,a,c,o => coord co { init = (ss.s ! co).init ! s ! a ! c ! o ; last = (ss.s ! co).last ! s ! a ! c ! o } ;
+    	{ init = \\s,a,d,v,c,o => coord co { init = (ss.s ! co).init ! s ! a ! d ! v ! c ! o ; last = (ss.s ! co).last ! s ! a ! d ! v ! c ! o } ;
     	  last = combineSentence s } ;
       p = s.p ;
       t = s.t 
@@ -99,29 +104,21 @@ concrete ConjunctionLat of Conjunction =
     -- -- BaseNP : NP -> NP -> ListNP ;      -- John, Mary
     BaseNP x y = {
       --      s = \\c => twoTable Case x y ;
-      s = \\c => { init = x.s ; last = y.s } ;
-      g = Masc ; -- Just guessing (but maybe sexist bullshit)
+      s = \\c => { init = combineNounPhrase x ; last = combineNounPhrase y } ;
+      g = Neutr ; -- Trying to avoid trouble by choosing a gender
       n = matchNumber x.n y.n ;
       p = P3 ;
-      adv = x.adv ++ y.adv ;
-      preap = lin AP { s = \\a => x.preap.s ! a ++ y.preap.s ! a } ;
-      postap = lin AP { s = \\a => x.postap.s ! a ++ y.postap.s ! a } ;
       isBase = True ;
-      det = lin Det { s = \\g,c => x.det.s ! g ! c ++ y.det.s ! g ! c ; sp = \\g,c => x.det.sp ! g ! c ++ y.det.sp ! g ! c ; n = matchNumber x.det.n y.det.n } ;	
       } ; 
 
     -- -- ConsNP : NP -> ListNP -> ListNP ;  -- John, Mary, Bill
     ConsNP x xs = {
       --      s = \\_ => consrTable Case bindComma x ( xs.s ! Comma );
-      s = \\co => { init = \\pd,ca => coord co { init = (xs.s ! co).init ! pd ! ca ; last = (xs.s ! co).last ! pd ! ca} ; last = x.s } ;
+      s = \\co => { init = \\pd,ap,dp,ca => coord co { init = (xs.s ! co).init ! pd ! ap ! dp ! ca ; last = (xs.s ! co).last ! pd ! ap ! dp ! ca} ; last = combineNounPhrase x } ;
       n = matchNumber x.n xs.n ;
       g = xs.g ;
       p = xs.p ;
-      adv = x.adv ++ xs.adv ;
-      preap = lin AP { s = \\a => x.preap.s ! a ++ xs.preap.s ! a } ;
-      postap = lin AP { s = \\a => x.postap.s ! a ++ xs.postap.s ! a } ;
       isBase = False ;
-      det = lin Det { s = \\g,c => x.det.s ! g ! c ++ xs.det.s ! g ! c ; sp = \\g,c => x.det.sp ! g ! c ++ xs.det.sp ! g ! c ; n = matchNumber x.det.n xs.det.n } ; -- try to combine the determiners, probably not what we want
       } ;
     
     -- -- BaseAP : AP -> AP -> ListAP
@@ -130,13 +127,21 @@ concrete ConjunctionLat of Conjunction =
     -- -- ConsAP : AP -> ListAP -> ListAP
     -- ConsAP x xs =
     --   { l = \\_ => consrTable Agr and_Conj.s2 x (xs.l ! Comma ) } ;
+
+    -- BaseRS : RS -> RS -> ListRS ;
+    BaseRS rs1 rs2 = { s = \\co => { init = rs1.s ; last = rs2.s }} ;
+    
+    -- ConsRS : RS -> List RS -> ListRS ;
+    ConsRS rs rss = { s = \\co => { init = rs.s ; last = \\g,n =>  coord co { init = (rss.s ! co).init ! g ! n ; last = (rss.s ! co).last ! g ! n } } } ;
+    
+
 --
   lincat
-    [S] = { s : Coordinator => {init,last : SAdvPos => AdvPos => ComplPos => Order => Str} ; p : Pol ; t : Tense } ; -- TO FIX
+    [S] = { s : Coordinator => {init,last : SAdvPos => AdvPos => DetPos => VPos => ComplPos => Order => Str} ; p : Pol ; t : Tense } ; -- TO FIX
     [Adv] = { s: Coordinator => {init,last : Str}} ;
-    [NP] = { s : Coordinator => {init,last : PronDropForm => Case => Str} ; g : Gender ; n : Number ; p : Person ; adv : Str ; preap : AP ; postap : AP ; isBase : Bool ; det : Det } ;
+    [NP] = { s : Coordinator => {init,last : PronDropForm => AdvPos => DetPos => Case => Str} ; g : Gender ; n : Number ; p : Person ; isBase : Bool } ;
     [AP] = {s : Coordinator => {init,last : Agr => Str } } ;
-
+    [RS] = { s : Coordinator => { init, last : Gender => Number => Str }} ;
   oper
     -- Generates a new number value given two number values.
     --   Pl if any of the two is Pl

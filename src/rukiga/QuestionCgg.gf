@@ -7,6 +7,7 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
 
   lin
      --QuestCl     : Cl -> QCl ;            -- does John walk
+
      QuestCl cl = cl ** {posibleSubAgr = mkSubjCliticTable};
      --QuestVP     : IP -> VP -> QCl ;      -- who walks
     
@@ -17,6 +18,8 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
       root = vp.s;
       pres = vp.pres;
       perf = vp.perf;
+      isPresBlank = vp.isPresBlank;
+      isPerfBlank = vp.isPerfBlank;
       --morphs = vp.morphs;
       {-
       inf  : Str;
@@ -45,6 +48,8 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
               root = clSlash.s;
               pres = clSlash.pres;
               perf = clSlash.perf;
+              isPresBlank = clSlash.isPresBlank;
+              isPerfBlank = clSlash.isPerfBlank;
               --morphs = clSlash.morphs;
               {-
               inf  : Str;
@@ -66,6 +71,8 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
               pres = cl.pres;
               perf = cl.perf;
               --morphs = cl.morphs;
+              isPresBlank = cl.isPresBlank;
+              isPerfBlank = cl.isPerfBlank;
               {-
               inf  : Str;
               pres  : Str; 
@@ -90,6 +97,8 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                                                       pres = be_Copula.pres;
                                                       perf = be_Copula.perf;
                                                       --morphs = be_Copula.morphs;
+                                                      isPresBlank = be_Copula.isPresBlank;
+                                                      isPerfBlank = be_Copula.isPerfBlank;
                                                       {-
                                                       inf  : Str;
                                                       pres  : Str; 
@@ -108,6 +117,8 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                                                       pres = be_Copula.pres;
                                                       perf = be_Copula.perf;
                                                       --morphs = be_Copula.morphs;
+                                                      isPresBlank = be_Copula.isPresBlank;
+                                                      isPerfBlank = be_Copula.isPerfBlank;
                                                       {-
                                                       inf  : Str;
                                                       pres  : Str; 
@@ -126,6 +137,8 @@ concrete QuestionCgg of Question = CatCgg ** open ResCgg, Prelude in {
                                               pres = be_Copula.pres;
                                               perf = be_Copula.perf;
                                               --morphs = be_Copula.morphs;
+                                              isPresBlank = be_Copula.isPresBlank;
+                                              isPerfBlank = be_Copula.isPerfBlank;
                                               {-
                                               inf  : Str;
                                               pres  : Str; 

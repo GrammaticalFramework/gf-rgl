@@ -38,7 +38,7 @@ lin
   MkSymb s = s ;
 
   BaseSymb = infixSS "ja" ;
-  ConsSymb = infixSS "," ;
+  ConsSymb = infixSS (SOFT_BIND ++ ",") ;
 
 }
 

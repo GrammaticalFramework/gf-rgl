@@ -192,7 +192,7 @@ oper
     case n.gda of {FM _ _ => Fem ; _ => Masc} ;
 
   gennum : {gda : GenderDefArt} -> Number -> GenNum = \gda,n ->
-    case n of {Pl => PlInv ; Sg => 
+    case n of {Pl => PlInv ; Sg =>
       case gda.gda of {FM _ _ => SgFem ; _ => SgMasc}
     } ;
 
@@ -210,11 +210,28 @@ param
 
   CardOrd = NOrd | NCard ;
 
+  -- to know whether to put oo in between numeral and CN
+  NumType = NoNum | Basic | Compound ;
+
+oper
+  isNum : NumType -> Bool = \nt -> case nt of {
+    NoNum => False ;
+    _     => True
+    } ;
 --------------------------------------------------------------------------------
 -- Adjectives
 
 param
   AForm = AF Number Case ; ---- TODO: past tense
+
+  ModType = NoMod | AMod | OtherMod ;
+
+oper
+  -- to flip ModType
+  notMod : ModType -> ModType = \mt -> case mt of {
+    NoMod => OtherMod ;
+    _ => NoMod
+  } ;
 
 --------------------------------------------------------------------------------
 -- Prepositions
@@ -223,7 +240,7 @@ param
   Preposition = U | Ku | Ka | La | NoPrep ;
 
   PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
-                  | Passive | Lagu | Laga | Loo | Lala -- TODO all combinations with impersonal la
+                  | Passive | Loo | Lagu | Laga | Lala -- TODO all combinations with impersonal la: Loogu, Looga, Loola, Lagaga, Lagula, Lagala
                   | Single Preposition ;
 
 oper
@@ -243,6 +260,15 @@ oper
      in case oneWay ! p2 ! p1 of {
           Single _ => oneWay ! p1 ! p2 ;
           z        => z } ;
+
+  combinePassive : Preposition -> PrepCombination = \p ->
+    case p of {
+      U => Loo ;
+      Ku => Lagu ;
+      Ka => Laga ;
+      La => Lala ;
+      _ => Passive
+    } ;
 
   isPassive : {c2 : PrepCombination} -> Bool = \vp ->
     case vp.c2 of {
@@ -336,6 +362,6 @@ oper
 
 param
 
-  ClType = Statement | Question | Subord ;
+  ClType = Statement | PolarQuestion | WhQuestion | Subord ;
 
 }

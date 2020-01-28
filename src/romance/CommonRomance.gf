@@ -42,6 +42,10 @@ param
 
   CardOrd = NCard Gender | NOrd Gender Number ;
 
+--- a workaround for a lost constructor used e.g. in Attempto: AR 2019-09-11
+oper
+  AF : Gender -> Number -> AForm = \g,n -> case n of {Sg => ASg g AAttr ; Pl => APl g} ;
+
 -- The following coercions are useful:
 
 oper

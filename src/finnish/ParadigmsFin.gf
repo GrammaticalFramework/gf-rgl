@@ -599,6 +599,8 @@ mkVS = overload {
         <nukk + "e", nuk + "een"> => dRae ukko ukon ;
         <arp + "i", arv + "en"> => dArpi ukko ukon ;
         <_ + ("us" | "ys"), _ + "den"> => dLujuus ukko ;
+        <laid + ("u"|"a"|"ä") + "n", laitu + "men"> 
+          => dLiitin ukko ukon ; -- laidun,hapan,sydän not caught in previous
         <_, _ + "n"> => ukot ;
         _ => 
           Predef.error (["second argument should end in n, not"] ++ ukon)
