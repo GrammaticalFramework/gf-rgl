@@ -422,7 +422,7 @@ oper
                  in {s = mkNoun (v0+"ек")
                                 (v0+"йци")
                                 (v0+"ека")
-                                (v0+"о")
+                                (v0+"йо")
                                 g ;
                      rel = \\_ => base ; relPost = False ;
                      g   = g ;
