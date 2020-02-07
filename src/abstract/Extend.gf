@@ -45,6 +45,13 @@ abstract Extend = Cat ** {
     MkVPS      : Temp -> Pol -> VP -> VPS ;  -- hasn't slept
     ConjVPS    : Conj -> [VPS] -> VPS ;      -- has walked and won't sleep
     PredVPS    : NP   -> VPS -> S ;          -- she [has walked and won't sleep]
+    SQuestVPS  : NP   -> VPS -> QS ;         -- has she walked
+    QuestVPS   : IP   -> VPS -> QS ;         -- who has walked
+
+-- existentials that work in the absence of Cl
+    ExistS     : Temp -> Pol -> NP -> S ;    -- there was a party
+    ExistNPQS  : Temp -> Pol -> NP -> QS ;   -- was there a party
+    ExistIPQS  : Temp -> Pol -> IP -> QS ;   -- what was there
 
     MkVPI      : VP -> VPI ;                 -- to sleep (TODO: Ant and Pol)
     ConjVPI    : Conj -> [VPI] -> VPI ;      -- to sleep and to walk

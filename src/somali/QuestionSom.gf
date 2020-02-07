@@ -24,8 +24,8 @@ concrete QuestionSom of Question = CatSom ** open
           subj = cls.subj ** {  -- keep old subject pronoun,
                    noun = ip.s ! Nom -- and place IP first.
                  } ;
-          obj2 = cls.obj2 ** { -- move old subject noun before object.
-                   s = cls.subj.noun ++ cls.obj2.s
+          obj = cls.obj ** { -- move old subject noun before object.
+                   s = cls.subj.noun ++ cls.obj.s
                  } ;
           stm = modSTM "baa" baan cls.stm
         } ;
@@ -50,7 +50,7 @@ concrete QuestionSom of Question = CatSom ** open
 
   -- : IComp -> NP -> QCl ;   -- where is John?
   QuestIComp icomp np =
-    let cls = predVP np (VS.UseComp icomp) ;
+    let cls = predVP np (VS.UseComp (icomp2comp icomp)) ;
         -- cl = cls ** { -- TODO: neg. questions
         --       stm : ClType=>Polarity=>Str = \\_,_ => "waa"
         -- }
@@ -87,15 +87,10 @@ concrete QuestionSom of Question = CatSom ** open
 -- pronouns.
 
   -- : IAdv -> IComp ;
-  CompIAdv iadv = {            -- where (is it)
-    comp = \\_ => <[], iadv.s> ;
-    stm = Waa NoCopula ;
-    } ;
+  CompIAdv iadv = iadv ;            -- where (is it)
+
   -- : IP -> IComp ;
-  CompIP ip = {                -- who (is it)
-    comp = \\_ => <[], ip.s ! Abs> ;
-    stm = Waa NoCopula ;
-    } ;
+  CompIP ip = {s = ip.s ! Abs} ;    -- who (is it)
 
 {-
 -- More $IP$, $IDet$, and $IAdv$ are defined in $Structural$.
@@ -111,5 +106,26 @@ concrete QuestionSom of Question = CatSom ** open
 
     QuestQVP      : IP -> QVP -> QCl ;       -- who buys what where
 -}
+
+oper
+
+  icomp2comp : SS -> Complement = \icomp -> icomp ** {
+    aComp = \\_ => [] ;
+    nComp = icomp.s ;
+    compar = [] ;
+    stm = Waa NoCopula
+  } ;
+
+  -- Question clauses: subject pronoun not included, STM is
+  cl2qcl : ClType -> Bool -> ClSlash -> Clause = \cltyp ->
+    let hasSubjPron : Bool = False ;
+        isRel : Bool = False ;
+     in mkClause cltyp isRel hasSubjPron ;
+
+  -- Question clause with wh-word as object: subject pronoun is included
+  cl2qclslash : Bool -> ClSlash -> Clause =
+    let hasSubjPron : Bool = True ;
+        isRel : Bool = False ;
+     in mkClause PolarQuestion isRel hasSubjPron ;
 
 }

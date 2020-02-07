@@ -28,7 +28,11 @@ lin
 -}
   --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
   UseSlash t p cls = {
-    s = \\isSubord => let cl = cl2sentence isSubord cls in
+    s = \\isSubord =>
+        let cls' : ClSlash = cls ** {
+                    stm = modSTM "waxa" "waxa aan" cls.stm -- Saeed p. 195
+                  } ;
+            cl : Clause = cl2sentence isSubord cls' in
         t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
     } ;
 
@@ -38,19 +42,17 @@ lin
 
 --2 Embedded sentences
 
-{-
   -- : S  -> SC ;
-  EmbedS s = { } ;
+  EmbedS s = {s = s.s ! True} ; -- choose subordinate
 
   -- : QS -> SC ;
-  EmbedQS qs = { } ;
+  -- EmbedQS qs = { } ;
 
   -- : VP -> SC ;
-  EmbedVP vp = { s = linVP vp } ;
+  EmbedVP vp = {s = infVP vp} ;
 
 --2 Sentences
 
--}
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cls = {
     s = \\isSubord => let cl = cl2sentence isSubord cls in

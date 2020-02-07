@@ -46,7 +46,7 @@ abstract functions and their Universal Dependency labels
 - Paper "The GF Resource Grammar Library" by A. Ranta
   (//Linguistic Issues in Language Technology//, 2 (2), 2009). An overview of
   the library with linguistic motivations.
-  [PDF https://journals.linguisticsociety.org/elanguage/lilt/article/download/214/214-501-1-PB.pdf]
+  [PDF http://journals.linguisticsociety.org/elanguage/lilt/article/download/214/214-501-1-PB.pdf]
 - Paper "Grammars as Software Libraries" by A. Ranta
   (In Y. Bertot, G. Huet, J-J. Lévy, and G. Plotkin (eds.),
    //From Semantics to Computer Science//, Cambridge University Press,

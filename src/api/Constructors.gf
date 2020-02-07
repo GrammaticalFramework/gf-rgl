@@ -1180,6 +1180,8 @@ incomplete resource Constructors = open Grammar in {  --%
       = \a,p -> TUseQCl TPres a p ; --%
       mkQS : (Tense) -> (Ant) -> (Pol) -> QCl -> QS -- who wouldn't have slept
       = TUseQCl ; --%
+      mkQS : Temp -> Pol -> QCl -> QS -- who wouldn't have slept  --%
+      = UseQCl ; --%
 
 -- Since 'yes-no' question clauses can be built from clauses (see below),
 -- we give a shortcut

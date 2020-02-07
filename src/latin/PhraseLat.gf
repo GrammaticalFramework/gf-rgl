@@ -3,7 +3,7 @@ concrete PhraseLat of Phrase = CatLat ** open Prelude, ResLat in {
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
     --
 -- UttS : S -> Utt
-    UttS s = { s = combineSentence s ! SPreS ! PreS ! CPreV ! SOV };
+    UttS s = { s = defaultSentence s ! SOV };
 
 --  UttQS : QS -> Utt
     UttQS qs = {s = qs.s ! QDir } ;
@@ -18,7 +18,7 @@ concrete PhraseLat of Phrase = CatLat ** open Prelude, ResLat in {
 --  UttIAdv : IAdv -> Utt
     UttIAdv iadv = iadv ;
 --  UttNP : NP -> Utt
-    UttNP np = {s = np.adv ++ (combineNounPhrase np) ! PronNonDrop ! Nom} ;
+    UttNP np = {s = np.adv ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom} ;
 --  UttVP : VP -> Utt
     UttVP vp = ss (vp.inf ! VInfActPres) ;
 
@@ -36,6 +36,6 @@ concrete PhraseLat of Phrase = CatLat ** open Prelude, ResLat in {
     PConjConj conj = {s = conj.s2} ; ---
 --
     NoVoc = {s = []} ;
-    VocNP np = {s = "," ++ (combineNounPhrase np) ! PronNonDrop ! ResLat.Voc} ; ---- what is the compiler error here? AR 1/2/2014 -- answer: clash with the type name Voc 3/2
+    VocNP np = {s = bindComma ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! ResLat.Voc} ; ---- what is the compiler error here? AR 1/2/2014 -- answer: clash with the type name Voc 3/2
 --
 }

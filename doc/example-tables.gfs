@@ -4,3 +4,6 @@ gt MkDocument (NoDefinition "") (InflectionN ?) "" | l | wf -file="example-table
 gt MkDocument (NoDefinition "") (InflectionA ?) "" | l | wf -append -file="example-tables.html"
 gt MkDocument (NoDefinition "") (InflectionV ?) "" | l | wf -append -file="example-tables.html"
 gt MkDocument (NoDefinition "") (InflectionV2 ?) "" | l | wf -append -file="example-tables.html"
+gt MkDocument (NoDefinition "") (InflectionV3 ?) "" | l | wf -append -file="example-tables.html"
+gt MkDocument (NoDefinition "") (InflectionVV ?) "" | l | wf -append -file="example-tables.html"
+gt MkDocument (NoDefinition "") (InflectionV2V ?) "" | l | wf -append -file="example-tables.html"

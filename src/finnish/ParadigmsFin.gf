@@ -21,7 +21,7 @@
 -- a few arguments. In Finnish, one argument is enough in 80-90% of
 -- cases in average.
 
-resource ParadigmsFin = open 
+resource ParadigmsFin = Kotus ** open 
   (Predef=Predef), 
   Prelude, 
   MorphoFin,

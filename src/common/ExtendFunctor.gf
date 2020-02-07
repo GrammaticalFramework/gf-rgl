@@ -117,6 +117,14 @@ lin
   UttDatIP ip = UttAccIP (lin IP ip) ; -- whom (dative) ; DEFAULT who
   UttVPShort = UttVP ; -- have fun, as opposed to "to have fun" ; DEFAULT UttVP
 
+  SQuestVPS = variants {} ; -- : NP   -> VPS -> QS ;         -- has she walked
+  QuestVPS = variants {} ; --  : IP   -> VPS -> QS ;         -- who has walked
+
+-- these will probably not need language-specific implementations
+  ExistS t p np = UseCl t p (ExistNP np) ;
+  ExistNPQS t p np = UseQCl t p (QuestCl (ExistNP np)) ;
+  ExistIPQS t p np = UseQCl t p (ExistIP np) ;
+
 oper
   quoted : Str -> Str = \s -> "\"" ++ s ++ "\"" ; ---- TODO bind ; move to Prelude?
 
