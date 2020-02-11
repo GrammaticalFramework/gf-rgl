@@ -24,20 +24,16 @@ oper
       = \kane,okane,a -> lin N (styleNoun kane okane a "つ" False True) ;
     mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- No style variation. Arguments are animacy, counter and whether counter is replaceable.
       = \n,a,c,b -> lin N (regNoun n a c b False) ;
-    mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) ->
-          (men : Str) -> N -- Like previous, but unpredictable plural.
+    mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (men : Str) -> N -- Like previous, but unpredictable plural.
       = \n,a,c,b,pl -> lin N (numberNoun n a c b pl False) ;
-    mkN : (kane,okane : Str) -> (anim : Animacy) -> (counter : Str) ->
-          (counterReplace : Bool) -> N -- Style variation, animacy, counter and whether counter is replaceable.
+    mkN : (kane,okane : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- Style variation, animacy, counter and whether counter is replaceable.
       = \kane,okane,a,c,b -> lin N (styleNoun kane okane a c b False) ;
-    mkN : (tsuma,okusan : Str) -> (anim : Animacy) -> (counter : Str) ->
-          (counterReplace : Bool) -> (tsumatachi : Str) -> N  -- Worst case paradigm: style variation, animacy, counter, whether counter is replaceable and unpredictable plural.
+    mkN : (tsuma,okusan : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (tsumatachi : Str) -> N  -- Worst case paradigm: style variation, animacy, counter, whether counter is replaceable and unpredictable plural.
       = \tsuma,okusan,a,c,b,tsumatachi ->
              lin N (mkNoun tsuma okusan tsumatachi tsumatachi a c b False)
     } ;
 
-  mkN2 : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) ->
-         (men : Str) -> (prep : Str) -> N2 = \n,a,c,b,pl,pr ->
+  mkN2 : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (men : Str) -> (prep : Str) -> N2 = \n,a,c,b,pl,pr ->
           lin N2 (numberNoun n a c b pl False) ** {prep = pr ; object = \\st => []} ;
 
   mkN3 : (distance : Str) -> (prep1: Str) -> (prep2: Str) -> (anim : Animacy) -> N3
@@ -58,14 +54,17 @@ oper
     } ;
 
   mkA = overload {
-    mkA : (ookina : Str) -> A = \a -> lin A (regAdj a) ;
-    mkA : (kekkonshiteiru,kikonno : Str) -> A = \pred,attr -> lin A (VerbalA pred attr)
+    mkA : (ookina : Str) -> A -- One form for both predicative and attribute
+      = \a -> lin A (regAdj a) ;
+    mkA : (kekkonshiteiru,kikonno : Str) -> A -- Verbal adjective, arguments are predicative and attributive
+      = \pred,attr -> lin A (VerbalA pred attr)
     } ;
 
   mkA2 = overload {
-    mkA2 : (yasui : Str) -> (prep : Str) -> A2 = \a,p -> lin A2 (regAdj a) ** {prep = p} ;
-    mkA2 : (pred : Str) -> (attr : Str) -> (prep : Str) -> A2 =
-           \pred,attr,pr -> lin A2 (VerbalA pred attr) ** {prep = pr}
+    mkA2 : (yasui : Str) -> (prep : Str) -> A2 -- 2-place adjective. Arguments: adjective (same for predicative and attributive) and object marker.
+      = \a,p -> lin A2 (regAdj a) ** {prep = p} ;
+    mkA2 : (pred : Str) -> (attr : Str) -> (prep : Str) -> A2 -- Predicative, attributive and object marker.
+      = \pred,attr,pr -> lin A2 (VerbalA pred attr) ** {prep = pr}
     } ;
 
   mkV = overload {
