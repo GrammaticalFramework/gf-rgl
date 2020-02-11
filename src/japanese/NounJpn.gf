@@ -10,7 +10,8 @@ flags coding = utf8 ;
           True => case cn.hasAttr of {
             True => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
                     ++ "の" ++ cn.s ! det.n ! st ;
-            False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive 
+            False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
+                    ++ cn.s ! det.n ! st
             } ;
           False => case <det.tenPlus, cn.counterTsu> of {
             <True, True> => cn.object ! st ++ det.quant ! st ++ det.num ++ "個" ++ det.postpositive 
