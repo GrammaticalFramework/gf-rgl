@@ -18,17 +18,17 @@ oper
   mkN = overload {
     mkN : (man : Str) -> N -- Inanimate noun. Counter is つ and not replaceable.
       = \n -> lin N (regNoun n Inanim "つ" False True) ;  ---- AR 15/11/2014
-    mkN : (man : Str) -> (anim : Animacy) -> N -- Animacy given as argument. Counter is つ and not replaceable.
+    mkN : (man : Str) -> (anim : Animacy) -> N -- Animacy given as argument. Counter is つ and doesn't replace the noun.
       = \n,a -> lin N (regNoun n a "つ" False True) ;
-    mkN : (kane,okane : Str) -> (anim : Animacy) -> N -- Style variation (plain, respectful) and animacy given. Counter is つ and not replaceable.
+    mkN : (kane,okane : Str) -> (anim : Animacy) -> N -- Style variation (plain, respectful) and animacy given. Counter is つ and doesn't replace the noun.
       = \kane,okane,a -> lin N (styleNoun kane okane a "つ" False True) ;
-    mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- No style variation. Arguments are animacy, counter and whether counter is replaceable.
+    mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- No style variation. Arguments are animacy, counter and whether counter replaces the noun.
       = \n,a,c,b -> lin N (regNoun n a c b False) ;
     mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (men : Str) -> N -- Like previous, but unpredictable plural.
       = \n,a,c,b,pl -> lin N (numberNoun n a c b pl False) ;
-    mkN : (kane,okane : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- Style variation, animacy, counter and whether counter is replaceable.
+    mkN : (kane,okane : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- Style variation, animacy, counter and whether counter replaces the noun.
       = \kane,okane,a,c,b -> lin N (styleNoun kane okane a c b False) ;
-    mkN : (tsuma,okusan : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (tsumatachi : Str) -> N  -- Worst case paradigm: style variation, animacy, counter, whether counter is replaceable and unpredictable plural.
+    mkN : (tsuma,okusan : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (tsumatachi : Str) -> N  -- Worst case paradigm: style variation, animacy, counter, whether counter replaces the noun and unpredictable plural.
       = \tsuma,okusan,a,c,b,tsumatachi ->
              lin N (mkNoun tsuma okusan tsumatachi tsumatachi a c b False)
     } ;
