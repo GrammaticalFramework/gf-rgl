@@ -16,7 +16,7 @@ oper
   inanimate : Animacy ;
 
   mkN = overload {
-    mkN : (man : Str) -> N -- Inanimate noun. Counter is つ and not replaceable.
+    mkN : (man : Str) -> N -- Inanimate noun. Counter is つ and doesn't replace the noun.
       = \n -> lin N (regNoun n Inanim "つ" False True) ;  ---- AR 15/11/2014
     mkN : (man : Str) -> (anim : Animacy) -> N -- Animacy given as argument. Counter is つ and doesn't replace the noun.
       = \n,a -> lin N (regNoun n a "つ" False True) ;
@@ -24,15 +24,15 @@ oper
       = \kane,okane,a -> lin N (styleNoun kane okane a "つ" False True) ;
     mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- No style variation. Arguments are animacy, counter and whether counter replaces the noun.
       = \n,a,c,b -> lin N (regNoun n a c b False) ;
-    mkN : (man : Str) -> (anim : Animacy) -> (counterReplace : Bool) -> N -- Liza 16/02/2020 No style variation. Arguments are animacy and whether counter replaces the noun (here they coincide).
-      = \n,a,b -> lin N (regNoun n a n b False) ;
-    mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> N -- Liza 16/02/2020 No style variation. Arguments are animacy and counter, which does not replace the noun.
-      = \n,a,c -> lin N (regNoun n a c False False) ;
+    mkN : (man : Str) -> (anim : Animacy) -> (counterReplace : Bool) -> N -- No style variation. Arguments are animacy and whether counter replaces the noun (here the counter and the noun coincide, e.g. 'day' 日, 'two days' 二日, not 二日の日).
+      = \n,a,b -> lin N (regNoun n a n b False) ; -- Liza 16/02/2020
+    mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> N -- No style variation. Arguments are animacy and counter, which does not replace the noun.
+      = \n,a,c -> lin N (regNoun n a c False False) ; -- Liza 16/02/2020
     mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (men : Str) -> N -- Like previous, but unpredictable plural.
       = \n,a,c,b,pl -> lin N (numberNoun n a c b pl False) ;
-    mkN : (kane,okane : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- Style variation, animacy, counter and whether counter replaces the noun.
+    mkN : (kane,okane : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- Plain form, respectful form, animacy, counter and whether counter replaces the noun.
       = \kane,okane,a,c,b -> lin N (styleNoun kane okane a c b False) ;
-    mkN : (tsuma,okusan : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (tsumatachi : Str) -> N  -- Worst case paradigm: style variation, animacy, counter, whether counter replaces the noun and unpredictable plural.
+    mkN : (tsuma,okusan : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (tsumatachi : Str) -> N  -- Worst case paradigm: plain form, respectful form, animacy, counter, whether counter replaces the noun, and plural form.
       = \tsuma,okusan,a,c,b,tsumatachi ->
              lin N (mkNoun tsuma okusan tsumatachi tsumatachi a c b False)
     } ;
