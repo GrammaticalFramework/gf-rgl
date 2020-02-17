@@ -24,6 +24,10 @@ oper
       = \kane,okane,a -> lin N (styleNoun kane okane a "つ" False True) ;
     mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- No style variation. Arguments are animacy, counter and whether counter replaces the noun.
       = \n,a,c,b -> lin N (regNoun n a c b False) ;
+    mkN : (man : Str) -> (anim : Animacy) -> (counterReplace : Bool) -> N -- Liza 16/02/2020 No style variation. Arguments are animacy and whether counter replaces the noun (here they coincide).
+      = \n,a,b -> lin N (regNoun n a n b False) ;
+    mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> N -- Liza 16/02/2020 No style variation. Arguments are animacy and counter, which does not replace the noun.
+      = \n,a,c -> lin N (regNoun n a c False False) ;
     mkN : (man : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> (men : Str) -> N -- Like previous, but unpredictable plural.
       = \n,a,c,b,pl -> lin N (numberNoun n a c b pl False) ;
     mkN : (kane,okane : Str) -> (anim : Animacy) -> (counter : Str) -> (counterReplace : Bool) -> N -- Style variation, animacy, counter and whether counter replaces the noun.
