@@ -67,6 +67,7 @@ mkMorphoDict :: MDEnv -> ([String],[String])
 mkMorphoDict env =
   unzip $
   map splitRule $
+  findCompounds $
   nameFunctions $
   mergeRules $
   concatMap findRules cats
@@ -76,7 +77,7 @@ mkMorphoDict env =
   cats = nub [c | (c,(_,_,_)) <- M.assocs (config env)]
 
   findRules cat = [
-    ([snd (head lin), showCId c], (c, op : appSig ints (map snd lin))) |
+    ([snd (lin !! head ints), showCId c], (c, op : appSig ints (map snd lin))) |  --- head ints is the base form in smart paradigms
       f    <- functionsByCat (pgf env) cat,
       lin  <- tabularLinearizes (pgf env) (lang env) (mkApp f []), -- [[(String, String)]]
       Just (c,op,ints) <- [M.lookup cat (config env)]
@@ -96,6 +97,22 @@ mkMorphoDict env =
 
   renames fls = [(mkFun (init f ++ [show i,last f]),l) | (i,(f,l)) <- zip [1..] fls]
 
+  findCompounds = getCompounds . sortOn cat_revstem
+  
+  cat_revstem (_,(cat,_:stem:_)) = (cat,reverse stem)
+  revstem = snd . cat_revstem
+
+  getCompounds fls = case fls of
+    fl : fls2 -> case span (\x -> isPrefixOf (revstem fl) (revstem x)) fls2 of
+      ([],_) -> fl : getCompounds fls2
+      (fls1,fls3) -> fl : map (markCompound fl) fls1 ++ getCompounds fls3
+    _ -> []
+
+  markCompound (f,(_,l)) fl1@(f1,(c1,l1)) = case and [isPrefixOf w w1 | (w,w1) <- zip l l1] of
+    True -> markWith fl1 ["compound",f]
+    False -> markWith fl1 ["notcompound",f]
+
+  markWith (f,(c,l)) xs = (f,(c,l ++ [";","--"] ++ xs))
 
 mkFun = quoteIf . concat . intersperse "_"
 quoteIf s = case s of
