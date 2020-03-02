@@ -1,0 +1,10 @@
+concrete MorphoDictSwe of MorphoDictSweAbs =
+  CatSwe [N,A,V,Adv,Prep] **
+  open
+    ParadigmsSwe
+  in
+ {
+
+oper mkkN : (apa,apan,apor,aporna,ap : Str) -> N
+  = \apa,apan,apor,aporna,ap -> changeCompoundN ap (mkN apa apan apor aporna) ;
+
