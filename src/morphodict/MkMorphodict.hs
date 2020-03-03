@@ -83,7 +83,7 @@ mkMorphoDict env =
       Just (c,op,ints) <- [M.lookup cat (config env)]
    ] 
 
-  appSig ints forms = [quote (forms !! i) | i <- ints]
+  appSig ints forms = [forms !! i | i <- ints]
 
   mergeRules = map head . groupBy (\x y -> snd x == snd y) . sortOn snd
 
@@ -97,22 +97,32 @@ mkMorphoDict env =
 
   renames fls = [(mkFun (init f ++ [show i,last f]),l) | (i,(f,l)) <- zip [1..] fls]
 
-  findCompounds = getCompounds . sortOn cat_revstem
+  findCompounds = getCompounds . sortOn cat_revforms
   
-  cat_revstem (_,(cat,_:stem:_)) = (cat,reverse stem)
-  revstem = snd . cat_revstem
+  cat_revforms (_,(cat,_:forms)) = (cat,map reverse forms)
+  revstem = head . snd . cat_revforms
+  wforms (_,(_,_:forms)) = forms
 
   getCompounds fls = case fls of
-    fl : fls2 -> case span (\x -> isPrefixOf (revstem fl) (revstem x)) fls2 of
-      ([],_) -> fl : getCompounds fls2
-      (fls1,fls3) -> fl : map (markCompound fl) fls1 ++ getCompounds fls3
+    fl : fls1 | length (revstem fl) < 2 -> markWith fl [] : getCompounds fls1 
+    fl : fls2 -> case span (\x -> and [isPrefixOf (reverse w) (reverse w1) | (w,w1) <- zip (wforms fl) (wforms x)]) fls2 of
+      ([],_:_) -> markWith fl [] : getCompounds fls2
+      (fls1,fls3) -> markWith fl [] : map (markCompound fl) fls1 ++ getCompounds fls3
     _ -> []
 
-  markCompound (f,(_,l)) fl1@(f1,(c1,l1)) = case and [isPrefixOf w w1 | (w,w1) <- zip l l1] of
-    True -> markWith fl1 ["compound",f]
-    False -> markWith fl1 ["notcompound",f]
+  markCompound fl fl1 =
+    case and [isPrefixWord (reverse w) (reverse w1) | (w,w1) <- zip (wforms fl) (wforms fl1)] of
+      True  -> markWith fl1 [";","--","compound",(fst fl)]
+      False -> markWith fl1 [";","--","notcompound",(fst fl)]
 
-  markWith (f,(c,l)) xs = (f,(c,l ++ [";","--"] ++ xs))
+  markWith (f,(c,op:ws)) xs = (f,(c,op : map quote ws ++ xs))
+
+  isPrefixWord x xy =
+    length suff > 1 &&
+    any (\c -> elem c "-0123456789aeiouyåäö") suff &&
+    isPrefixOf x xy
+   where
+     suff = drop (length x) xy
 
 mkFun = quoteIf . concat . intersperse "_"
 quoteIf s = case s of
