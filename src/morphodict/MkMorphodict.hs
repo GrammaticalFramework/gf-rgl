@@ -97,8 +97,10 @@ mkMorphoDict env =
 
   renames fls = [(mkFun (init f ++ [show i,last f]),l) | (i,(f,l)) <- zip [1..] fls]
 
-  findCompounds = getCompounds . sortOn cat_revforms
-  
+  findCompounds = getCompounds . sortOn cat_orthrevforms
+
+  cat_orthrevforms (_,(cat,_:forms)) = (cat,[map (!!i) fss | let fss = map reverse forms, i <- [0..minimum (map length fss) - 1]])
+
   cat_revforms (_,(cat,_:forms)) = (cat,map reverse forms)
   revstem = head . snd . cat_revforms
   wforms (_,(_,_:forms)) = forms
