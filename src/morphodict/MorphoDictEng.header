@@ -1,0 +1,7 @@
+concrete MorphoDictEng of MorphoDictEngAbs =
+  CatEng [N,A,V,Adv,Prep] **
+  open
+    ParadigmsEng
+  in
+ {
+

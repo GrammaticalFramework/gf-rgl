@@ -1,0 +1,38 @@
+MkMorphoDict: Extracting a minimal morphological dictionary from an existing GF dictionary.
+
+Aarne Ranta 2020-03-02
+
+principles:
+
+There should be a single source for each lemgram (i.e. inflection table of a word)
+Functions names should be easy to guess: baseform_Category (but avoiding accidental errors if this is not a unique key)
+
+Hence,
+
+Functions are 1-to-1 with lemgrams, i.e. inflection tables, thus
+     - no sense distinctions
+     - no subcategorizations
+     - no variants
+
+Functionname = baseform_category, with exceptions
+     - same baseform_Category, different inflection tables: lie_1_V, lie_2_V
+     - words that have non-ident characters: 'bird\'s-eye_A'
+     - words that start with non-letters: W_'tween_Adv
+
+Example run, English:
+
+   gf -make ../english/DictEng.gf
+   runghc MkMorphodict.hs DictEngAbs.pgf MorphoDictEng
+
+Result: 64923 ->  56599 functions, of which 21679 could be compounds
+
+Swedish, using a dump of SALDO (not available in these sources)
+
+  cd saldo/
+  runghc SaldoGF.hs
+  # combine abs.tmp with Saldo.header to obtain Saldo.gf
+  # combine cnc.tmp with SaldoSwe.header to obtain SaldoSwe.gf
+  gf -make SaldoSwe.gf
+  cd ..
+  runghc MkMorphodict.hs saldo/Saldo.pgf MorphoDictSwe
+
