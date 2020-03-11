@@ -100,20 +100,28 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  Adjective : Type = SS ; -- {s : AForm => Str} ;
+  Adjective : Type = {s : AForm => Str} ;
   Adjective2 : Type = Adjective ;
 
-  mkAdj : Str -> Adjective = \str -> {s = str} ;
+  mkAdj : Str -> Adjective = \inf -> let stem = init inf in {
+    s = table {
+          AAttr => stem + if_then_Str (vowFinal stem) "ᆫ" "은" ;
+          APred VInf => inf ;
+          APred (VFin Gnomic Pos) => stem + "ᆸ니다" ;
+          APred (VFin Gnomic Pos) => "안" ++ stem + "ᆸ니다" ; -- TODO check
+          APred _  => stem ++ "TODO: proper adjective inflection"
+        }
+    } ;
 
   AdjPhrase : Type = Adjective ** {compar : Str} ;
 --------------------------------------------------------------------------------
 -- Verbs
 
   BaseVerb : Type = {
-    s : VForm => Str ;
     type : VerbType ;
     } ;
   Verb : Type = BaseVerb ** {
+    s : VForm => Str ;
     } ;
   Verb2 : Type = Verb ; -- ** {c2 : Postposition} ;
   Verb3 : Type = Verb ; -- ** {c3 : Postposition} ;
@@ -143,13 +151,13 @@ oper
 -- VP
 
   Complement : Type = {
-    aComp : Str ; -- AForm => Str ;
+    s : VForm => Str ;
     nComp : Str ;
     -- compar : Str ; -- comparative is discontinuous
     } ;
 
   emptyComp : Complement = {
-    aComp = [] ;
+    s = \\_ => [] ;
     nComp = [] ;
     -- compar : Str ;
   } ;
@@ -164,9 +172,8 @@ oper
   VPSlash : Type = VerbPhrase ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
-    aComp = [] ; -- \\_ => [] ;
+    vComp,
     nComp = [] ;
-    vComp = [] ;
   } ;
 --------------------------------------------------------------------------------
 -- Cl, S
@@ -188,7 +195,7 @@ oper
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
     s = \\t,a,p => np.s ! Topic
-                ++ vp.aComp ++ vp.nComp -- TODO: embed copula into complement
+                ++ vp.nComp -- TODO: embed copula into complement
                 ++ vp.s ! VFin Gnomic Pos -- TODO: actual forms
     } ;
 

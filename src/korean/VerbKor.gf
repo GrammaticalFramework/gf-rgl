@@ -114,12 +114,12 @@ lin
 
   -- : AP  -> Comp ;
   CompAP ap = emptyComp ** {
-    aComp = ap.s ;
+    s = \\vf => ap.s ! APred vf ;
     } ;
 
   -- : CN  -> Comp ;
   CompCN cn = emptyComp ** {
-    aComp = cn.s ! Bare ; -- TODO: num. I am [a house that sleeps here] vs.  we are [houses that sleep here]
+    nComp = cn.s ! Bare ; -- TODO: num. I am [a house that sleeps here] vs.  we are [houses that sleep here]
     } ;
 
   --  NP  -> Comp ;
@@ -129,7 +129,7 @@ lin
 
   -- : Adv  -> Comp ;
   CompAdv adv = emptyComp ** {
-    aComp = adv.s ;
+    nComp = adv.s ;
     } ;
 
   -- : VP -- Copula alone;

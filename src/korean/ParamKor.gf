@@ -9,7 +9,7 @@ The difference in the way these words are written has to do with the productivit
 
 oper
   v : pattern Str = #("아" | "이" | "어" |
-                      "가" | "개" | "갸" | "걔" | "거" | "게" | "겨" | "계" | "고" | "과" | "괘" | "괴" | "교" | "구" | "궈" | "궤" | "귀" | "규" | "그" | "긔" | "기") ; -- TODO: figure out if this is a smart way to do it; if no better way, then complete the table.
+                      "가" | "개" | "갸" | "걔" | "거" | "게" | "겨" | "계" | "고" | "과" | "괘" | "괴" | "교" | "구" | "궈" | "궤" | "귀" | "규" | "그" | "긔" | "기" | "크") ; -- TODO: figure out if this is a smart way to do it; if no better way, then complete the table.
 --  maybe subpatterns for diphthongs?
 
   -- c : pattern Str = #("m"|"n"|"p"|"b"|"t"|"d"|"k"|"g"|"f"|"v"
@@ -22,6 +22,8 @@ oper
   --   _   => s } ;
 
 
+  vowFinal : Str -> Bool = \str ->
+    case str of {_ + #v => True ; _ => False} ;
 --------------------------------------------------------------------------------
 -- Morphophonology
 
@@ -41,11 +43,11 @@ param
 oper
 
   allomorph : NForm -> Str -> Str = \nf,s ->
-    let endsInV : Bool = case s of {_ + #v => True ; _ => False} ;
+    let finalV : Bool = vowFinal s ;
     in case nf of {
-         Topic   => if_then_Str endsInV "은" "는" ;
-         Subject => if_then_Str endsInV "이" "가" ;
-         Object  => if_then_Str endsInV "을" "를" ;
+         Topic   => if_then_Str finalV "은" "는" ;
+         Subject => if_then_Str finalV "이" "가" ;
+         Object  => if_then_Str finalV "을" "를" ;
          Bare    => []
       } ;
 --------------------------------------------------------------------------------

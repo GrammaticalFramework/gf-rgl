@@ -37,6 +37,7 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
 
   -- : Ord -> AP ;       -- warmest
   AdjOrd ord = ord ** {
+    s = \\_ => ord.s ;
     compar = []
     } ;
 
