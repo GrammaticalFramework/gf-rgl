@@ -12,7 +12,7 @@ addons:
       - ghc
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install ghc@8.2 && export PATH="/usr/local/opt/ghc@8.2/bin:$PATH" ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install ghc@8.6 && export PATH="/usr/local/opt/ghc@8.6/bin:$PATH" ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then curl http://www.grammaticalframework.org/download/gf-3.9-bin-intel-mac.tar.gz > gf.tar.gz && sudo tar --no-same-owner --no-same-permissions -C /usr/local -zxf gf.tar.gz && rm gf.tar.gz; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then curl http://www.grammaticalframework.org/download/gf_3.9.1-1_amd64-trusty.deb > gf.deb && sudo dpkg -i gf.deb && rm gf.deb ; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install ghc --version=8.4.4 && export PATH="/c/ProgramData/chocolatey/lib/ghc/tools/ghc-8.4.4/bin:$PATH"; fi

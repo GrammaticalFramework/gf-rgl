@@ -1,0 +1,50 @@
+concrete SaldoSwe of Saldo =
+  CatSwe [N,A,V,Adv,Prep,PN] **
+  open
+    ParadigmsSwe, Prelude
+  in
+ {
+
+-- to deal with incomplete paradigms
+--- the values could be in special categories to avoid overgeneration
+
+oper
+  mkVDep : Str -> V
+    = \v -> case v of {
+        x + "as" => depV (mkV (x + "a")) ;
+        x + "es" => depV (mkV (x + "er")) ;
+	x + "s"  => depV (mkV (x + "er")) ;
+	_ => Predef.error (v ++ "not for mkVDep")
+      } ;
+      
+  mkVIntr : (_,_,_,_,_ : Str) -> V
+    = \i,_,_,p,pt -> mkV i p pt ; ---
+    
+  mkAUtr : (_,_,_,_ : Str) -> A
+    = \u,p,c,s -> mkA u u p c s ; ---
+
+  mkAComp : (_,_,_ : Str) -> A
+    = \u,n,p -> compoundA (mkA u n) ; ---
+    
+  mkPNDef : Str -> PN
+    = \s -> case s of {
+      _ + "n" => mkPN s utrum ;
+      _  => mkPN s neutrum
+      } ;
+      
+  mkPNIndef : Str -> PN
+   = \s -> mkPN s neutrum ; ---
+   
+  mkNSg : (_,_ : Str) -> N
+   = \i,d -> case d of {
+       _ + "n" => mkN i utrum ; ---
+       _  => mkN i neutrum ---
+       } ;
+       
+  mkNPl : (_,_ : Str) -> N
+   = \i,d -> case i of {
+       s + "or" => mkN (s + "a") ; ---
+       s + ("ar"|"er") => mkN s i ; ---
+       s + "en" => mkN (s + "e") i ; ---
+       _  => mkN i i ---
+       } ;

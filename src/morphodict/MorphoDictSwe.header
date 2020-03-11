@@ -1,0 +1,8 @@
+concrete MorphoDictSwe of MorphoDictSweAbs =
+  CatSwe [N,A,V,Adv,Prep,PN] **
+  open
+    ParadigmsSwe
+  in
+ {
+
+
