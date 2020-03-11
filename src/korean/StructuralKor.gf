@@ -104,12 +104,12 @@ oper
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep "" ;
--- lin in_Prep = mkPrep "" ;
--- lin on_Prep = mkPrep "" ;
+lin in_Prep = mkPrep "에서" ;
+-- lin on_Prep = mkPrep "에서" ;
 -- lin part_Prep = mkPrep ;
--- lin possess_Prep = mkPrep ;
+lin possess_Prep = mkPrep "의" ;
 -- lin through_Prep = mkPrep ;
--- lin to_Prep = mkPrep ;
+lin to_Prep = mkPrep "에";
 -- lin under_Prep = mkPrep "" ;
 -- lin with_Prep = mkPrep "" ;
 -- lin without_Prep = mkPrep "" ;

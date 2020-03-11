@@ -176,7 +176,7 @@ lin girl_N = mkN "여자아이" ;
 -- lin horn_N = mkN "" ;
 -- lin horse_N = mkN "" ;
 -- lin hot_A = mkA "" ;
-lin house_N = mkN "guri" ;
+lin house_N = mkN "집" ;
 -- lin hunt_V2 = mkV2 "" ;
 -- lin husband_N = mkN "" ;
 

@@ -119,12 +119,12 @@ lin
 
   -- : CN  -> Comp ;
   CompCN cn = emptyComp ** {
-    aComp = cn.s ; -- TODO: num. I am [a house that sleeps here] vs.  we are [houses that sleep here]
+    aComp = cn.s ! Bare ; -- TODO: num. I am [a house that sleeps here] vs.  we are [houses that sleep here]
     } ;
 
   --  NP  -> Comp ;
   CompNP np = emptyComp ** {
-    nComp = np.s ; -- ! Object ;
+    nComp = np.s ! Bare ;
     } ;
 
   -- : Adv  -> Comp ;

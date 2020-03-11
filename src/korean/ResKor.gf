@@ -5,7 +5,7 @@ resource ResKor = ParamKor ** open Prelude, Predef, ParamKor in {
 oper
 
   Noun : Type = {
-    s : Str
+    s : NForm => Str
     } ;
   Noun2 : Type = Noun ; -- TODO eventually more parameters?
   Noun3 : Type = Noun ;
@@ -15,7 +15,9 @@ oper
 
   PNoun : Type = Noun ;
 
-  mkNoun : Str -> Noun = \str -> ss str ;
+  mkNoun : Str -> Noun = \str -> {
+    s = \\cas => str + allomorph cas str
+    } ;
 
   useN : Noun -> CNoun = \n -> n ;
 
@@ -185,7 +187,7 @@ oper
   predVPslash = predVP ; -- VP==VPSlash,  Cl==ClSlash
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = \\t,a,p => np.s
+    s = \\t,a,p => np.s ! Topic
                 ++ vp.aComp ++ vp.nComp -- TODO: embed copula into complement
                 ++ vp.s ! VFin Gnomic Pos -- TODO: actual forms
     } ;

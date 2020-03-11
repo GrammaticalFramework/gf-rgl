@@ -11,7 +11,7 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
 
   -- : A  -> NP -> AP ;
   ComparA a np = a ** {
-    compar = np.s
+    compar = np.s ! Bare
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her

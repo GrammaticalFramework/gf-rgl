@@ -7,7 +7,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 --2 Noun phrases
 
 -- : Det -> CN -> NP
-  DetCN det cn = {s = det.s ++ cn.s} ;
+  DetCN det cn = {s = \\c => det.s ++ cn.s ! c} ;
 
   -- : PN -> NP ;
 --  UsePN pn = pn ** {

@@ -21,6 +21,7 @@ oper
   --   "p" => "b" ;
   --   _   => s } ;
 
+
 --------------------------------------------------------------------------------
 -- Morphophonology
 
@@ -31,11 +32,22 @@ oper
 
 param
   NForm =
-      Topic
-    | Subject
-    | Object ;
+      Bare     -- no case particle
+    | Topic    -- 은 or 는
+    | Subject  -- 이 or 가
+    | Object   -- 을 or 를
+    ;
 
+oper
 
+  allomorph : NForm -> Str -> Str = \nf,s ->
+    let endsInV : Bool = case s of {_ + #v => True ; _ => False} ;
+    in case nf of {
+         Topic   => if_then_Str endsInV "은" "는" ;
+         Subject => if_then_Str endsInV "이" "가" ;
+         Object  => if_then_Str endsInV "을" "를" ;
+         Bare    => []
+      } ;
 --------------------------------------------------------------------------------
 -- Numerals
 
@@ -56,7 +68,9 @@ oper
 -- Adjectives
 
 param
-  AForm = AdjPres | AdjPast ; -- TODO: proper thing
+  AForm =
+   AAttr |
+   APred VForm ;
 
 --------------------------------------------------------------------------------
 -- Prepositions

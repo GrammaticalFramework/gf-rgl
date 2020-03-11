@@ -1,6 +1,6 @@
 concrete AdverbKor of Adverb = CatKor ** open ResKor, ParamKor, ParadigmsKor, Prelude in {
 
---lin
+lin
 
   -- : A -> Adv ;
   --PositAdvAdj adj = { } ;
@@ -11,7 +11,7 @@ concrete AdverbKor of Adverb = CatKor ** open ResKor, ParamKor, ParadigmsKor, Pr
 --    ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
 
   -- : Prep -> NP -> Adv ;
-  -- PrepNP =
+  PrepNP prep np = {s = glue (np.s ! Bare) prep.s} ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
