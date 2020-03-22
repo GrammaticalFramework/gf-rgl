@@ -1,29 +1,26 @@
-resource ParamKor = ParamX ** open Prelude in {
+resource ParamKor = ParamX, Hangul ** open Prelude in {
 
 --------------------------------------------------------------------------------
 -- Phonology
 
 {- Lee & Ramsey 2000, p. 24-25:
-The difference in the way these words are written has to do with the productivity of the suffix. While the suffixes -um and -i can be used relatively freely to derive nouns from verbs and adjectives, the others cannot.  In the mind of the speaker (and the user of the orthography), the words wus-um ‘laughter’ and noph-i ‘height’ can be thought of as regular derivations of the verb wus- and the adjective noph-, much as are the predicative forms wus-uni, wus-ela, noph-ase, and noph-umyen. But words like makay ‘stopper’ (morphologically mak+ay, but written as ma+kay) and mutem ‘grave’ are not derived productively. The decision to write them without showing the suffix separated was based upon the assumption that most people think of them as single, indivisible words. Their etymologies were thought not to be obvious.
+  The difference in the way these words are written has to do with the productivity of the suffix.
+  While the suffixes -um and -i can be used relatively freely to derive nouns from verbs and adjectives,
+  the others cannot.
+  In the mind of the speaker (and the user of the orthography), the words wus-um ‘laughter’ and noph-i ‘height’
+  can be thought of as regular derivations of the verb wus- and the adjective noph-, much as are the
+  predicative forms wus-uni, wus-ela, noph-ase, and noph-umyen. But words like makay ‘stopper’
+  (morphologically mak+ay, but written as ma+kay) and mutem ‘grave’ are not derived productively.
+  The decision to write them without showing the suffix separated was based upon the assumption that
+  most people think of them as single, indivisible words. Their etymologies were thought not to be obvious.
 -}
 
+ -- Patterns and replacements defined in Hangul.gf
 oper
-  v : pattern Str = #("아" | "이" | "어" |
-                      "가" | "개" | "갸" | "걔" | "거" | "게" | "겨" | "계" | "고" | "과" | "괘" | "괴" | "교" | "구" | "궈" | "궤" | "귀" | "규" | "그" | "긔" | "기" | "크") ; -- TODO: figure out if this is a smart way to do it; if no better way, then complete the table.
---  maybe subpatterns for diphthongs?
-
-  -- c : pattern Str = #("m"|"n"|"p"|"b"|"t"|"d"|"k"|"g"|"f"|"v"
-  --                     |"s"|"h"|"l"|"j"|"r"|"z"|"c"|"q");
-  --
-  -- voiced : Str -> Str = \s -> case s of {
-  --   "k" => "g" ;
-  --   "t" => "d" ;
-  --   "p" => "b" ;
-  --   _   => s } ;
-
 
   vowFinal : Str -> Bool = \str ->
     case str of {_ + #v => True ; _ => False} ;
+
 --------------------------------------------------------------------------------
 -- Morphophonology
 
@@ -45,9 +42,9 @@ oper
   allomorph : NForm -> Str -> Str = \nf,s ->
     let finalV : Bool = vowFinal s ;
     in case nf of {
-         Topic   => if_then_Str finalV "은" "는" ;
-         Subject => if_then_Str finalV "이" "가" ;
-         Object  => if_then_Str finalV "을" "를" ;
+         Topic   => if_then_Str finalV "는" "은" ;
+         Subject => if_then_Str finalV "가" "이" ;
+         Object  => if_then_Str finalV "를" "을" ;
          Bare    => []
       } ;
 --------------------------------------------------------------------------------

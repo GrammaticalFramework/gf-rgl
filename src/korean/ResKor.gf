@@ -105,10 +105,10 @@ oper
 
   mkAdj : Str -> Adjective = \inf -> let stem = init inf in {
     s = table {
-          AAttr => stem + if_then_Str (vowFinal stem) "ᆫ" "은" ;
+          AAttr => add_N stem ;
           APred VInf => inf ;
-          APred (VFin Gnomic Pos) => stem + "ᆸ니다" ;
-          APred (VFin Gnomic Pos) => "안" ++ stem + "ᆸ니다" ; -- TODO check
+          APred (VFin Gnomic Pos) => add_B stem + "니다" ;
+          APred (VFin Gnomic Neg) => "안" ++ add_B stem + "니다" ; -- TODO check
           APred _  => stem ++ "TODO: proper adjective inflection"
         }
     } ;
