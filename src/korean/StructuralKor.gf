@@ -52,14 +52,15 @@ lin there_Adv = ss "" ;
 -----------------
 -- *Det and Quant
 
+
+-- lin how8many_IDet = ;
+
+lin all_Predet = {s = \\_ => "마다" ; p = Vowel} ;
+--lin not_Predet = { s = "" } ;
+lin only_Predet = {s = \\_ => "만" ; p = Consonant} ;
+--lin most_Predet = {s = ""} ;
+
 {-
-lin how8many_IDet = ;
-
-lin all_Predet = {s = ""} ;
-lin not_Predet = { s = "" } ;
-lin only_Predet = { s = "" } ;
-lin most_Predet = {s = ""} ;
-
 lin every_Det = R.defDet [] pl **
                  { s = mkVow } ;
 lin few_Det = R.indefDet "" pl ;

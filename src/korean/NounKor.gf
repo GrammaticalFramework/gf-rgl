@@ -17,7 +17,15 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- UsePron pron = pron ;
 
   -- : Predet -> NP -> NP ; -- only the man
-  -- PredetNP predet np =
+  PredetNP predet np = np ** {s =
+    let sakwa = np.s ! Bare ;
+        man = predet.s ! np.p ;
+        un = table {Vowel => "는"; Consonant => "은"} ! predet.p
+    in table { -- TODO: do particles combine?
+         Topic => glue (glue sakwa man) un ;
+         _     => glue sakwa man
+       }
+    } ;
 
 -- A noun phrase can also be postmodified by the past participle of a
 -- verb, by an adverb, or by a relative clause
