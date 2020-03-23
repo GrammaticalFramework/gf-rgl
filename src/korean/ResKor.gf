@@ -5,7 +5,8 @@ resource ResKor = ParamKor ** open Prelude, Predef, ParamKor in {
 oper
 
   Noun : Type = {
-    s : NForm => Str
+    s : NForm => Str ;
+    p : Phono
     } ;
   Noun2 : Type = Noun ; -- TODO eventually more parameters?
   Noun3 : Type = Noun ;
@@ -16,7 +17,8 @@ oper
   PNoun : Type = Noun ;
 
   mkNoun : Str -> Noun = \str -> {
-    s = \\cas => str + allomorph cas str
+    s = \\cas => str + allomorph cas str ;
+    p = if_then_else Phono (vowFinal str) Vowel Consonant ;
     } ;
 
   useN : Noun -> CNoun = \n -> n ;

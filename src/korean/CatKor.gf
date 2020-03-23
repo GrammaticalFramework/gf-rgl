@@ -62,7 +62,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     NP = ResKor.NounPhrase ;
     Pron = ResKor.Pronoun ; --Pronouns need enough info to turn it into NP or Quant.
     Det = ResKor.Determiner ;
-    Predet = SS ;
+    Predet = {s : Phono => Str ; p : Phono} ;
     Quant = ResKor.Quant ;
     Num = ResKor.Num ;
     Ord = {

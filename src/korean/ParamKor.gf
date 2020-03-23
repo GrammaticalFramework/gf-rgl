@@ -37,6 +37,8 @@ param
     | Object   -- 을 or 를
     ;
 
+  Phono = Vowel | Consonant ; -- Whether the word ends in vowel or consonant.
+
 oper
 
   allomorph : NForm -> Str -> Str = \nf,s ->
