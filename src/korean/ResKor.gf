@@ -152,6 +152,10 @@ oper
     let v = mkVerb plain Active
      in v ** {c2 = Object ; p2 = emptyPP} ;
 
+  mkVerb3 : (plain : Str) -> Verb3 = \plain ->
+       let v = mkVerb2 plain
+        in v ** {c3 = Bare ; p3 = emptyPP} ;
+
   mkVerbFull : (x1,_,_,_,_,x6 : Str) -> VerbType -> Verb =
     \plain,polite,formal,planeg,polneg,formneg,vt -> {
       s = table {

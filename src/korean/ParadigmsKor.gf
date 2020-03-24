@@ -7,7 +7,7 @@ oper
 -- To abstract over number, valency and (some) case names,
 -- we define the following identifiers. The application programmer
 -- should always use these constants instead of the constructors
--- defined in $ResSom$.
+-- defined in $ResKor$.
 
 
 --2 Nouns
@@ -28,14 +28,14 @@ oper
 
   -- Verbs
   mkV : overload {
-    mkV : (inf : Str) -> V ;    -- Predictable verb: infinitive form as argument
+    mkV : (plain : Str) -> V ;    -- Predictable verb: plaininitive form as argument
 --    mkV : Str -> V -> V  -- Add a prefix to an existing verb, e.g. u baahan+ahay
   } ;
 
   copula : V ; -- The copula verb ''
 
   mkV2 : overload {
-    mkV2 : (inf : Str) -> V2 ;
+    mkV2 : (plain : Str) -> V2 ;
     } ;
 
   -- mkV3 : overload {
@@ -102,7 +102,7 @@ oper
     } ;
 
   mkV = overload {
-    mkV : (inf : Str) -> V = \v -> lin V (mkVerb v Active) ;
+    mkV : (plain : Str) -> V = \v -> lin V (mkVerb v Active) ;
   } ;
 
   copula = ResKor.copula ;
@@ -111,11 +111,12 @@ oper
   --   } ;
 
   mkV2 = overload {
-    mkV2 : (inf : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
+    mkV2 : (plain : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
     } ;
-  --
-  -- mkV3 = overload {
-  --   } ;
+
+  mkV3 = overload {
+    mkV3 : (plain : Str) -> V3 = \v3 -> lin V3 (mkVerb3 v3) ;
+    } ;
   --
   -- mkVV = overload {
   --  } ;
