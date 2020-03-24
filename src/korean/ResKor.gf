@@ -166,7 +166,14 @@ oper
                   _ => copula.s ! vf }
   } ;
 
-
+  have_V : Verb = mkVerbFull
+    "있다"
+    "있어요"
+    "있습니다"
+    "없다"
+    "없어요"
+    "없습니다"
+    Existential ;
 ------------------
 -- Adv
 

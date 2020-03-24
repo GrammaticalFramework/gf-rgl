@@ -156,7 +156,7 @@ lin yes_Utt = ss "아니요" ;
 -------
 -- Verb
 
---lin have_V2 = mkV2 have_V ;
+lin have_V2 = have_V ** {sc = Topic; c2 = Subject ; p2 = emptyPP} ;
 -- lin can8know_VV = can_VV ; -- can (capacity)
 -- lin can_VV = mkVV "" ;   -- can (possibility)
 -- lin must_VV = mkVV "" ;
