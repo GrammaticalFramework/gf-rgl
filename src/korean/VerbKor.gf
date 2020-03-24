@@ -58,7 +58,6 @@ lin
   SlashV2Q v2q qs = ;
 
   -- : V2A -> AP -> VPSlash ;  -- paint (it) red
-   -- TODO: is "red" plural in "paint them red"?
   SlashV2A v2a ap = useVc v2a ** {
     aComp = \\_ => (CompAP ap).aComp ! Sg3 Masc
   } ;
@@ -104,9 +103,6 @@ lin
   -- VPSlashPrep vp prep =
   --   let adv = prepNP prep emptyNP
   --    in insertAdv vp adv ;
-
-
-
 
 --2 Complements to copula
 

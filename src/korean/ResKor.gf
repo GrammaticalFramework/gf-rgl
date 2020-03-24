@@ -99,6 +99,8 @@ oper
 
   mkPrep : Str -> Postposition = \str -> ss str ;
 
+  emptyPP = mkPrep [] ;
+
 --------------------------------------------------------------------------------
 -- Adjectives
 
@@ -134,7 +136,7 @@ oper
 
   mkVerb2 : (plain : Str) -> Verb2 = \plain ->
     let v = mkVerb plain Active
-     in v ** {c2 = Object ; p2 = mkPrep []} ;
+     in v ** {c2 = Object ; p2 = emptyPP} ;
 
   mkVerbFull : (x1,_,_,_,_,x6 : Str) -> VerbType -> Verb =
     \plain,polite,formal,planeg,polneg,formneg,vt -> {
