@@ -117,4 +117,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     N2 = ResKor.Noun2 ;
     N3 = ResKor.Noun3 ;
     PN = ResKor.PNoun ;
+
+linref
+  V, V2, V3, VP = linVerb ;
 }
