@@ -105,15 +105,13 @@ oper
   Adjective : Type = {s : AForm => Str} ;
   Adjective2 : Type = Adjective ;
 
-  mkAdj : Str -> Adjective = \inf -> let stem = init inf in {
-    s = table {
-          AAttr => add_N stem ;
-          APred VInf => inf ;
-          APred (VFin Gnomic Pos) => add_B stem + "니다" ;
-          APred (VFin Gnomic Neg) => "안" ++ add_B stem + "니다" ; -- TODO check
-          APred _  => stem ++ "TODO: proper adjective inflection"
-        }
-    } ;
+  mkAdj : Str -> Adjective = \plain ->
+   let stem = init plain ;
+       verb = mkVerb stem Stative ;
+   in {
+     s = table { AAttr    => add_N stem ;
+                 APred vf => verb.s ! vf }
+     } ;
 
   AdjPhrase : Type = Adjective ** {compar : Str} ;
 --------------------------------------------------------------------------------
@@ -121,28 +119,53 @@ oper
 
   BaseVerb : Type = {
     type : VerbType ;
+    sc : NForm ; -- subject case
     } ;
   Verb : Type = BaseVerb ** {
     s : VForm => Str ;
     } ;
-  Verb2 : Type = Verb ; -- ** {c2 : Postposition} ;
-  Verb3 : Type = Verb ; -- ** {c3 : Postposition} ;
+  Verb2 : Type = Verb ** {c2 : NForm ; p2 : Postposition} ;
+  Verb3 : Type = Verb2 ** {c3 : NForm ; p3 : Postposition} ;
 
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
-  copula : Verb = {
-    s = table {
-      VInf => "이다" ;
-      VFin Gnomic Pos => "입니다" ;
-      VFin Gnomic Neg => "아닙니다" ;
-      _ => "TODO:copula" } ;
-    type = Copula ;
+  mkVerb : (plain : Str) -> VerbType -> Verb = \plain,vt ->
+    mkVerbFull plain plain plain plain plain plain vt ; -- TODO proper forms
+
+  mkVerb2 : (plain : Str) -> Verb2 = \plain ->
+    let v = mkVerb plain Active
+     in v ** {c2 = Object ; p2 = mkPrep []} ;
+
+  mkVerbFull : (x1,_,_,_,_,x6 : Str) -> VerbType -> Verb =
+    \plain,polite,formal,planeg,polneg,formneg,vt -> {
+      s = table {
+        VF Plain Pos => plain ;
+        VF Plain Neg => planeg ;
+        VF Polite Pos => polite ;
+        VF Polite Neg => polneg ;
+        VF Formal Pos => formal ;
+        VF Formal Neg => formneg
+      } ;
+      type = vt ;
+      sc = Subject
     } ;
 
-  mkVerb : Str -> Verb = \str -> {
-    s = \\_ => str ;
-    type = Active
+  copula : Verb = mkVerbFull
+    "이다"
+    "이에요" -- or "이세요" ?
+    "입니다"
+    "아니다"
+    "아니에요"
+    "아닙니다"
+     Copula ;
+
+  copulaAfterConsonant : Verb = copula ** {
+    s = \\vf => case vf of {
+                  VF Plain Pos  => "다" ;
+                  VF Polite Pos => "예요" ;
+                  _ => copula.s ! vf }
   } ;
+
 
 ------------------
 -- Adv
@@ -154,13 +177,11 @@ oper
 
   Complement : Type = {
     s : VForm => Str ;
-    nComp : Str ;
     -- compar : Str ; -- comparative is discontinuous
     } ;
 
   emptyComp : Complement = {
     s = \\_ => [] ;
-    nComp = [] ;
     -- compar : Str ;
   } ;
 
@@ -177,6 +198,7 @@ oper
     vComp,
     nComp = [] ;
   } ;
+
 --------------------------------------------------------------------------------
 -- Cl, S
 
@@ -196,9 +218,8 @@ oper
   predVPslash = predVP ; -- VP==VPSlash,  Cl==ClSlash
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = \\t,a,p => np.s ! Topic
-                ++ vp.nComp -- TODO: embed copula into complement
-                ++ vp.s ! VFin Gnomic Pos -- TODO: actual forms
+    s = \\t,a,p => np.s ! vp.sc
+                ++ vp.s ! VF Polite p -- TODO: more tenses
     } ;
 
 --------------------------------------------------------------------------------

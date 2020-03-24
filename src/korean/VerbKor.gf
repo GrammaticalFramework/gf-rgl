@@ -114,22 +114,23 @@ lin
 
   -- : AP  -> Comp ;
   CompAP ap = emptyComp ** {
-    s = \\vf => ap.s ! APred vf ;
+    s = \\vf => ap.s ! APred vf
     } ;
 
   -- : CN  -> Comp ;
-  CompCN cn = emptyComp ** {
-    nComp = cn.s ! Bare ; -- TODO: num. I am [a house that sleeps here] vs.  we are [houses that sleep here]
-    } ;
-
-  --  NP  -> Comp ;
-  CompNP np = emptyComp ** {
-    nComp = np.s ! Bare ;
+  -- : NP  -> Comp ;
+  CompCN,
+  CompNP = \n -> emptyComp ** {
+    s = \\vf =>
+      let cop = case n.p of {
+                  Vowel => copula.s ;
+                  Consonant => copulaAfterConsonant.s }
+      in glue (n.s ! Bare) (cop ! vf)
     } ;
 
   -- : Adv  -> Comp ;
   CompAdv adv = emptyComp ** {
-    nComp = adv.s ;
+    s = \\vf => adv.s ++ copula.s ! vf ;
     } ;
 
   -- : VP -- Copula alone;

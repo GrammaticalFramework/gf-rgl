@@ -35,7 +35,7 @@ oper
   copula : V ; -- The copula verb ''
 
   mkV2 : overload {
-    mkV2 : (inf : Str) -> V2 ; 
+    mkV2 : (inf : Str) -> V2 ;
     } ;
 
   -- mkV3 : overload {
@@ -102,7 +102,7 @@ oper
     } ;
 
   mkV = overload {
-    mkV : (inf : Str) -> V = \v -> lin V (mkVerb v) ;
+    mkV : (inf : Str) -> V = \v -> lin V (mkVerb v Active) ;
   } ;
 
   copula = ResKor.copula ;
@@ -111,7 +111,7 @@ oper
   --   } ;
 
   mkV2 = overload {
-    mkV2 : (inf : Str) -> V2 = \v2 -> lin V2 (mkVerb v2) ;
+    mkV2 : (inf : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
     } ;
   --
   -- mkV3 = overload {
