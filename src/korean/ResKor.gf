@@ -109,9 +109,10 @@ oper
 
   mkAdj : Str -> Adjective = \plain ->
    let stem = init plain ;
-       verb = mkVerb stem Stative ;
+       verb = mkVerb plain Stative ;
    in {
      s = table { AAttr    => add_N stem ;
+                 APred (VF Plain Pos) => plain ;
                  APred vf => verb.s ! vf }
      } ;
 
@@ -132,7 +133,20 @@ oper
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
   mkVerb : (plain : Str) -> VerbType -> Verb = \plain,vt ->
-    mkVerbFull plain plain plain plain plain plain vt ; -- TODO proper forms
+    let stem = init plain ;
+        plainpres = case vowFinal stem of {
+                      True  => add_N stem + "다" ;
+                      False => stem + "는다" } ;
+        informal = case vowFinal stem of { -- not used in grammar yet
+                     True  => add_eo stem ;
+                     False => stem + "어" } ;
+        polpres = informal + "요" ;
+        formalpres = case vowFinal stem of {
+                       True  => add_B stem + "니다" ;
+                       False => stem + "습니다" } ;
+    in mkVerbFull plainpres polpres formalpres
+                  plain plain plain
+                  vt ; -- TODO proper forms
 
   mkVerb2 : (plain : Str) -> Verb2 = \plain ->
     let v = mkVerb plain Active
