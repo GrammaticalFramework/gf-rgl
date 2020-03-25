@@ -52,7 +52,7 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 
   -- : AdA -> AP -> AP ;
-  -- AdAP ada ap = ap ** { } ;
+  AdAP ada ap = ap ** {s = \\af => ada.s ++ ap.s ! af} ;
 
 
 -- It can also be postmodified by an adverb, typically a prepositional phrase.

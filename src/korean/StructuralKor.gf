@@ -3,15 +3,15 @@ concrete StructuralKor of Structural = CatKor **
 
 -------
 -- Ad*
-{-
-lin almost_AdA = mkAdA "" ;
-lin almost_AdN = ss "" ;
-lin at_least_AdN = ss "" ;
-lin at_most_AdN = ss "" ;
-lin so_AdA = ss "" ;
-lin too_AdA = ss "" ;
-lin very_AdA = mkAdA "" ;
 
+-- lin almost_AdA = mkAdA "" ;
+-- lin almost_AdN = ss "" ;
+-- lin at_least_AdN = ss "" ;
+-- lin at_most_AdN = ss "" ;
+-- lin so_AdA = ss "" ;
+-- lin too_AdA = ss "" ;
+lin very_AdA = mkAdA "매우" ;
+{-
 lin as_CAdv = { s = "" ; p = [] } ;
 lin less_CAdv = { s = "" ; p = [] } ;
 lin more_CAdv = { s = "" ; p = [] } ;

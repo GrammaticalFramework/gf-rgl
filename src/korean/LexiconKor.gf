@@ -243,7 +243,7 @@ lin name_N = mkN "성함" ;
 -- lin newspaper_N = mkN "" ;
 -- lin night_N = mkN "" ;
 -- lin nose_N = mkN "" ;
--- lin now_Adv = mkA "" ;
+lin now_Adv = mkAdv "지금" ;
 -- lin number_N = mkN "" ;
 --
 -- --------
@@ -368,7 +368,7 @@ lin small_A = mkA "작다" ;
 -- lin think_V = mkV "" ;
 -- lin throw_V2 = mkV2 "" ;
 -- lin tie_V2 = mkV2 "" ;
--- lin today_Adv = mkA "" ;
+lin today_Adv = mkAdv "오늘" ;
 -- lin tongue_N = mkN "" ;
 -- lin tooth_N = mkN "" ;
 -- lin train_N = mkN "" ;

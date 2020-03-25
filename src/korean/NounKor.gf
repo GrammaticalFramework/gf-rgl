@@ -141,8 +141,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- : N3 -> N2 ;          -- distance (to Paris)
   -- Use3N3 n3 = lin N2 n3 ;
   -- : AP -> CN -> CN
-  -- AdjCN ap cn = cn ** {
-  --   } ;
+  AdjCN ap cn = cn ** {
+    s = \\nf => ap.s ! AAttr ++ cn.s ! nf
+    } ;
 
   -- : CN -> RS  -> CN ;
   -- RelCN cn rs = cn ** {

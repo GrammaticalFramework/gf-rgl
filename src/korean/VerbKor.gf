@@ -83,13 +83,13 @@ lin
 
   -- : Comp -> VP ;
   UseComp comp = UseCopula ** comp ;
-{-
   -- : VP -> Adv -> VP ;  -- sleep here
   AdvVP = insertAdv ;
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
-  AdvVPSlash = insertAdv ;
+  AdvVPSlash = insertAdvSlash ;
 
+{-
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
   ExtAdvVP vp adv =  ;
 

@@ -230,7 +230,8 @@ oper
     -- compar : Str ;
   } ;
 
-  VerbPhrase : Type = BaseVerb ** Complement ** {
+  BaseVP : Type = {
+    adv,
     nObj,
     vComp : Str
             -- {subjunc : Str ; -- inflected verb complement
@@ -238,18 +239,26 @@ oper
             --  subcl : Str} -- clause complement
     } ;
 
-  VPSlash : Type = Verb2 ;
-
-  useV : Verb -> VerbPhrase = \v -> v ** {
+  baseVP : BaseVP = {
+    adv,
     nObj,
     vComp = [] ;
   } ;
 
-  useVc : Verb2 -> VPSlash = \v2 -> v2 ;
+  VerbPhrase : Type = BaseVerb ** Complement ** BaseVP ;
+
+  VPSlash : Type = Verb2 ** BaseVP ;
+
+  useV : Verb -> VerbPhrase = \v -> baseVP ** v ;
+
+  useVc : Verb2 -> VPSlash = \v2 -> baseVP ** v2 ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \v2,np -> useV v2 ** {
     nObj = np.s ! v2.c2 ++ v2.p2.s
   } ;
+
+  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
+  insertAdvSlash : VPSlash -> SS -> VPSlash = \v,a -> v ** insertAdv v a ;
 --------------------------------------------------------------------------------
 -- Cl, S
 
@@ -266,11 +275,10 @@ oper
 
   Sentence : Type = {s : Str} ;
 
-  predVPslash = predVP ; -- VP==VPSlash,  Cl==ClSlash
-
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
     s = \\t,a,p => np.s ! vp.sc
                 ++ vp.nObj -- an object, not copula complement
+                ++ vp.adv
                 ++ vp.s ! VF Polite p -- TODO: more tenses, choose politeness
     } ;
 
