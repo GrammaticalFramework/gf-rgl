@@ -28,15 +28,15 @@ oper
 
   -- Verbs
   mkV : overload {
-    mkV : (plain : Str) -> V ;    -- Predictable verb: plaininitive form as argument
-    mkV : (nore : Str) -> (hada : V) -> V ; -- Add a prefix to an existing verb, e.g. 노래하다
+    mkV : (plain : Str) -> V ;    -- Predictable verb. Takes plain, uninflected -다 form, e.g. 가다
+    mkV : (nore : Str) -> (hada : V) -> V ; -- Add a prefix to an existing verb, e.g. 노래+하다
   } ;
 
   copula : V ; -- The copula verb ''
 
   mkV2 : overload {
-    mkV2 : (plain : Str) -> V2 ; -- Regular verb. Takes -다 form, object particle is 를.
-    mkV2 : V -> V2 ; -- Takes pre-constructed V, object particle is 를.
+    mkV2 : (plain : Str) -> V2 ; -- Regular verb. Takes plain, uninflected -다 form, object particle is 를.
+    mkV2 : V -> V2 ; -- Takes preconstructed V, object particle is 를.
     } ;
 
   -- mkV3 : overload {

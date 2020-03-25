@@ -15,7 +15,7 @@ lin
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
-  SlashVP = predVP ;
+  -- SlashVP = predVP ;
 {-
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
   AdvSlash cls adv = cls ** insertAdv adv cls ;
