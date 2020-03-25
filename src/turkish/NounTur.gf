@@ -52,6 +52,8 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
 
     UseN2 n = n;
 
+    Use2N3 n = variants {} ;
+
     MassNP cn = { s = cn.s ! Sg; a = { n = Sg; p = P1 } } ;
 
     ComplN2 f x =
