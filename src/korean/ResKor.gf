@@ -99,7 +99,8 @@ oper
 
   mkPrep : Str -> Postposition = \str -> ss str ;
 
-  emptyPP = mkPrep [] ;
+  emptyPP : Postposition = mkPrep [] ;
+  datPP : Postposition = mkPrep "에게" ;
 
 --------------------------------------------------------------------------------
 -- Adjectives
@@ -148,13 +149,11 @@ oper
                   plain plain plain
                   vt ; -- TODO proper forms
 
-  mkVerb2 : (plain : Str) -> Verb2 = \plain ->
-    let v = mkVerb plain Active
-     in v ** {c2 = Object ; p2 = emptyPP} ;
+  mkVerb2 : (plain : Str) -> Verb2 = \plain -> vtov2 (mkVerb plain Active) ;
+  mkVerb3 : (plain : Str) -> Verb3 = \plain -> v2tov3 (mkVerb2 plain) ;
 
-  mkVerb3 : (plain : Str) -> Verb3 = \plain ->
-       let v = mkVerb2 plain
-        in v ** {c3 = Bare ; p3 = emptyPP} ;
+  vtov2 : Verb -> Verb2 = \v -> v ** {c2 = Object ; p2 = emptyPP} ;
+  v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Bare ; p3 = datPP} ;
 
   mkVerbFull : (x1,_,_,_,_,x6 : Str) -> VerbType -> Verb =
     \plain,polite,formal,planeg,polneg,formneg,vt -> {

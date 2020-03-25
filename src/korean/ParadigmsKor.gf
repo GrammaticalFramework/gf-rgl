@@ -29,13 +29,14 @@ oper
   -- Verbs
   mkV : overload {
     mkV : (plain : Str) -> V ;    -- Predictable verb: plaininitive form as argument
---    mkV : Str -> V -> V  -- Add a prefix to an existing verb, e.g. u baahan+ahay
+--    mkV : Str -> V -> V  -- Add a prefix to an existing verb
   } ;
 
   copula : V ; -- The copula verb ''
 
   mkV2 : overload {
-    mkV2 : (plain : Str) -> V2 ;
+    mkV2 : (plain : Str) -> V2 ; -- Regular verb. Takes -다 form, object particle is 를.
+    mkV2 : V -> V2 ; -- Takes pre-constructed V, object particle is 를.
     } ;
 
   -- mkV3 : overload {
@@ -112,6 +113,7 @@ oper
 
   mkV2 = overload {
     mkV2 : (plain : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
+    mkV2 : V -> V2 = vtov2 ;
     } ;
 
   mkV3 = overload {
