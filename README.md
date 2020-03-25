@@ -6,7 +6,7 @@
 
 The GF Resource Grammar Library is the standard library for Grammatical Framework. It covers the morphology and basic syntax of over 30 languages.
 
-For more about the RGL, see the [synopsis page](http://www.grammaticalframework.org/lib/doc/synopsis.html).
+For more about the RGL, see the [synopsis page](http://www.grammaticalframework.org/lib/doc/synopsis/).
 
 ## Choose your build method
 
