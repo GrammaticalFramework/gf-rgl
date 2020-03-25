@@ -86,7 +86,7 @@ oper
 -- hidden from the document.
 
   mkN = overload {
-    mkN : Str -> N                   = \s   -> lin N (mkNoun s) ;
+    mkN : Str -> N = \s   -> lin N (mkNoun s) ;
     } ;
 
 

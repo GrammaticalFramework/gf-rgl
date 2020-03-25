@@ -102,7 +102,7 @@ oper
 -- lin by8means_Prep = mkPrep ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
--- lin for_Prep = mkPrep ;
+lin for_Prep = mkPrep "에게" ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep "" ;
 lin in_Prep = mkPrep "에서" ;
