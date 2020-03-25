@@ -278,4 +278,6 @@ concrete StructuralTur of Structural = CatTur **
 
     as_CAdv = {s = "kadar"; p = "kadar"; c = Nom} ; 
 
+    have_V2 = mkV2 (mkV "görmek") ;
+
 }
