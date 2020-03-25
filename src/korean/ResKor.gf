@@ -59,7 +59,8 @@ oper
 
   BaseQuant : Type = {
     s : Str ;
-    isPoss : Bool
+    isPoss : Bool ;
+    p : Phono
     } ;
 
   Determiner : Type = BaseQuant ** {
@@ -90,8 +91,19 @@ oper
   baseQuant : BaseQuant = {
     s = [] ;
     isPoss = False ;
+    p = Vowel ;
   } ;
 
+  mkQuant : (s,sp : Str) -> Quant = \s,sp -> baseQuant ** {
+    s = s ;
+    sp = (mkNoun sp).s ;
+    p = (mkNoun sp).p ;
+  } ;
+
+  plural : NForm => Str = table {
+    Bare => "들" ;
+    nf => "들" + allomorph nf "들"
+  } ;
 --------------------------------------------------------------------------------
 -- Postpositions
 

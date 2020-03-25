@@ -7,7 +7,11 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 --2 Noun phrases
 
 -- : Det -> CN -> NP
-  DetCN det cn = cn ** {s = \\c => det.s ++ cn.s ! c} ;
+  DetCN det cn = cn ** {s =
+    \\c => case det.n of {
+            -- Pl => det.s ++ cn.s ! Bare ++ BIND ++ plural ! c ;
+             _  => det.s ++ cn.s ! c } ;
+  } ;
 
   -- : PN -> NP ;
 --  UsePN pn = pn ** {
@@ -45,8 +49,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 -- Determiners can form noun phrases directly.
 
   -- : Det -> NP ;
-  -- DetNP det = emptyNP ** {
-  --   } ;
+  DetNP det = det ** {
+    s = det.sp
+    } ;
 
   -- MassNP : CN -> NP ;
   -- MassNP cn = useN cn ** {
@@ -60,6 +65,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 
   -- : Quant -> Num -> Det ;
   DetQuant quant num = quant ** {
+    s = quant.s ++ num.s ! Indep ;
     n = num.n
     } ;
 

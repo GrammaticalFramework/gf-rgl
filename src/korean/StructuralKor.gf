@@ -69,11 +69,11 @@ lin much_Det = R.indefDet "" sg ;
 
 lin somePl_Det =
 lin someSg_Det =
-
 lin no_Quant =
-lin that_Quant =
-lin this_Quant =
-lin which_IQuant =
+-}
+lin that_Quant = mkQuant "그" "그것" ;
+lin this_Quant = mkQuant "이" "이것" ;
+{-lin which_IQuant =
 
 
 -----
