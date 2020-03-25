@@ -145,9 +145,8 @@ oper
         formalpres = case vowFinal stem of {
                        True  => add_B stem + "니다" ;
                        False => stem + "습니다" } ;
-    in mkVerbFull plainpres polpres formalpres
-                  plain plain plain
-                  vt ; -- TODO proper forms
+        neg = stem + "지" ;
+    in mkVerbReg plainpres polpres formalpres neg vt ;
 
   mkVerb2 : (plain : Str) -> Verb2 = \plain -> vtov2 (mkVerb plain Active) ;
   mkVerb3 : (plain : Str) -> Verb3 = \plain -> v2tov3 (mkVerb2 plain) ;
@@ -155,10 +154,17 @@ oper
   vtov2 : Verb -> Verb2 = \v -> v ** {c2 = Object ; p2 = emptyPP} ;
   v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Bare ; p3 = datPP} ;
 
+  mkVerbReg : (x1,_,_,x4 : Str) -> VerbType -> Verb =
+    \plainpres,polite,formal,neg,vt ->
+    let planeg  = neg ++ negForms ! Plain ;
+        polneg  = neg ++ negForms ! Polite ;
+        formneg = neg ++ negForms ! Formal ;
+     in mkVerbFull plainpres polite formal planeg polneg formneg vt ;
+
   mkVerbFull : (x1,_,_,_,_,x6 : Str) -> VerbType -> Verb =
-    \plain,polite,formal,planeg,polneg,formneg,vt -> {
+    \plainpres,polite,formal,planeg,polneg,formneg,vt -> {
       s = table {
-        VF Plain Pos => plain ;
+        VF Plain Pos => plainpres ;
         VF Plain Neg => planeg ;
         VF Polite Pos => polite ;
         VF Polite Neg => polneg ;
@@ -194,14 +200,17 @@ oper
     "없습니다"
     Existential ;
 
-  do_V : Verb = mkVerbFull
+  do_V : Verb = mkVerbReg
     "한다"
     "해요"
     "합니다"
-    "todo"
-    "todo"
-    "todo"
+    "하지"
     Active ;
+
+  negForms : Style => Str =
+    table { Plain => "않다" ;
+            Polite => "않아요" ;
+            Formal => "않습니다" } ;
 
 ------------------
 -- Adv
