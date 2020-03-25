@@ -3,10 +3,20 @@ resource ResKor = ParamKor ** open Prelude, Predef, ParamKor in {
 --------------------------------------------------------------------------------
 -- Nouns
 oper
+  Counter : Type = {
+    s : Str ;
+    origin : NumOrigin
+    } ;
+
+  baseCounter : Counter = {
+    s = "개" ;
+    origin = NK
+    } ;
 
   Noun : Type = {
     s : NForm => Str ;
-    p : Phono
+    p : Phono ;
+    c : Counter ;
     } ;
   Noun2 : Type = Noun ; -- TODO eventually more parameters?
   Noun3 : Type = Noun ;
@@ -19,6 +29,7 @@ oper
   mkNoun : Str -> Noun = \str -> {
     s = \\cas => str + allomorph cas str ;
     p = if_then_else Phono (vowFinal str) Vowel Consonant ;
+    c = baseCounter
     } ;
 
   useN : Noun -> CNoun = \n -> n ;
@@ -58,28 +69,32 @@ oper
 -- Det, Quant, Card, Ord
 
   BaseQuant : Type = {
-    s : Str ;
     isPoss : Bool ;
     p : Phono
     } ;
 
   Determiner : Type = BaseQuant ** {
+    s : NumOrigin => Str ; -- Chosen by the counter of CN
     sp : NForm => Str ;
     n : Number ;
---    numtype : NumType ; -- number as in "5" or "Sg/Pl", often makes a difference in lots of things
+    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
     } ;
 
   Quant : Type = BaseQuant ** {
+    s : Str ;
     sp : NForm => Str ;
     } ;
 
   Num : Type = {
-    s : DForm => Str ; -- independent or attribute
-    n : Number
+    s : NumOrigin -- Sino-Korean or native Korean
+        => DForm  -- Independent or attribute
+        => Str ;
+    n : Number ;
+    numtype : NumType ; -- Digit, numeral or Sg/Pl
     } ;
 
   baseNum : Num = {
-    s = \\_ => [] ;
+    s = \\_,_ => [] ;
     n = Sg ;
     numtype = NoNum
     } ;
@@ -89,7 +104,6 @@ oper
     } ;
 
   baseQuant : BaseQuant = {
-    s = [] ;
     isPoss = False ;
     p = Vowel ;
   } ;

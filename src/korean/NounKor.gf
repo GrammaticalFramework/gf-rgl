@@ -8,10 +8,19 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 
 -- : Det -> CN -> NP
   DetCN det cn = cn ** {s =
-    \\c => case det.n of {
-            -- Pl => det.s ++ cn.s ! Bare ++ BIND ++ plural ! c ;
-             _  => det.s ++ cn.s ! c } ;
-  } ;
+    \\c =>
+      let cns : Str = case det.n of {
+                        -- Pl => n.s ! Bare ++ BIND ++ plural ! c ;
+                        _Sg => cn.s ! c } ;
+          dets : Str = det.s ! cn.c.origin ;
+          detnum : Str = case det.numtype of {
+                         IsNum => dets ++ cn.c.s ;
+                         IsDig => glue dets cn.c.s ;
+                         NoNum => dets } ;
+       in case isNum det of {
+            True  => cns ++ detnum ;
+            False => detnum ++ cns }
+    } ;
 
   -- : PN -> NP ;
 --  UsePN pn = pn ** {
@@ -50,7 +59,8 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 
   -- : Det -> NP ;
   DetNP det = det ** {
-    s = det.sp
+    s = det.sp ;
+    c = baseCounter
     } ;
 
   -- MassNP : CN -> NP ;
@@ -64,9 +74,8 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 -- quantifier and an optional numeral can be discerned.
 
   -- : Quant -> Num -> Det ;
-  DetQuant quant num = quant ** {
-    s = quant.s ++ num.s ! Indep ;
-    n = num.n
+  DetQuant quant num = quant ** num ** {
+    s = \\origin => quant.s ++ num.s ! origin ! Attrib
     } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
@@ -117,10 +126,8 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- OrdNumeralSuperl num a = num ** {  } ;
 
   -- : Quant
-  DefArt = baseQuant ** {sp = \\_ => []} ;
-
-  -- : Quant
-  IndefArt = baseQuant ** {sp = \\_ => []} ;
+  DefArt,
+  IndefArt = mkQuant [] [] ;
 
   -- : Pron -> Quant
   -- PossPron pron =
