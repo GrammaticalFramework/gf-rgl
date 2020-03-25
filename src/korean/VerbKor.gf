@@ -35,9 +35,10 @@ lin
 -}
 --------
 -- Slash
-{-
   -- : V2 -> VPSlash
-  SlashV2a = useVc ;
+  SlashV2a = ResKor.useVc ;
+
+{-
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
@@ -61,10 +62,10 @@ lin
   SlashV2A v2a ap = useVc v2a ** {
     aComp = \\_ => (CompAP ap).aComp ! Sg3 Masc
   } ;
-
-  -- : VPSlash -> NP -> VP
-  ComplSlash = insertComp ;
 -}
+  -- : VPSlash -> NP -> VP
+  ComplSlash = ResKor.insertComp ;
+
 {-
   -- : VV  -> VPSlash -> VPSlash ;
                   -- Just like ComplVV except missing subject!

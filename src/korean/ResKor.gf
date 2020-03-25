@@ -231,19 +231,25 @@ oper
   } ;
 
   VerbPhrase : Type = BaseVerb ** Complement ** {
+    nObj,
     vComp : Str
             -- {subjunc : Str ; -- inflected verb complement
             --  inf : Str ; -- infinitive verb complement
             --  subcl : Str} -- clause complement
     } ;
 
-  VPSlash : Type = VerbPhrase ;
+  VPSlash : Type = Verb2 ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
-    vComp,
-    nComp = [] ;
+    nObj,
+    vComp = [] ;
   } ;
 
+  useVc : Verb2 -> VPSlash = \v2 -> v2 ;
+
+  insertComp : VPSlash -> NounPhrase -> VerbPhrase = \v2,np -> useV v2 ** {
+    nObj = np.s ! v2.c2 ++ v2.p2.s
+  } ;
 --------------------------------------------------------------------------------
 -- Cl, S
 
@@ -264,7 +270,8 @@ oper
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
     s = \\t,a,p => np.s ! vp.sc
-                ++ vp.s ! VF Polite p -- TODO: more tenses
+                ++ vp.nObj -- an object, not copula complement
+                ++ vp.s ! VF Polite p -- TODO: more tenses, choose politeness
     } ;
 
 --------------------------------------------------------------------------------
