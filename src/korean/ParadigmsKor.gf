@@ -29,7 +29,7 @@ oper
   -- Verbs
   mkV : overload {
     mkV : (plain : Str) -> V ;    -- Predictable verb: plaininitive form as argument
---    mkV : Str -> V -> V  -- Add a prefix to an existing verb
+    mkV : (nore : Str) -> (hada : V) -> V ; -- Add a prefix to an existing verb, e.g. 노래하다
   } ;
 
   copula : V ; -- The copula verb ''
@@ -104,6 +104,8 @@ oper
 
   mkV = overload {
     mkV : (plain : Str) -> V = \v -> lin V (mkVerb v Active) ;
+    mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
+      s = \\vf => nore + hada.s ! vf} ;
   } ;
 
   copula = ResKor.copula ;

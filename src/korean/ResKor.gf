@@ -193,6 +193,16 @@ oper
     "없어요"
     "없습니다"
     Existential ;
+
+  do_V : Verb = mkVerbFull
+    "한다"
+    "해요"
+    "합니다"
+    "todo"
+    "todo"
+    "todo"
+    Active ;
+
 ------------------
 -- Adv
 
