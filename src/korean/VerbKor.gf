@@ -119,9 +119,11 @@ lin
   CompNP = \n -> emptyComp ** {
     s = \\vf =>
       let cop = case n.p of {
-                  Vowel => copula.s ;
-                  Consonant => copulaAfterConsonant.s }
-      in glue (n.s ! Bare) (cop ! vf)
+                  Vowel => copulaAfterVowel.s ;
+                  Consonant => copula.s }
+      in case vf of {
+          VF _ Pos => glue (n.s ! Bare) (cop ! vf) ;
+          VF _ Neg => n.s ! Bare ++ cop ! vf }
     } ;
 
   -- : Adv  -> Comp ;

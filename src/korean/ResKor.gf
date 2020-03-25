@@ -184,7 +184,7 @@ oper
     "아닙니다"
      Copula ;
 
-  copulaAfterConsonant : Verb = copula ** {
+  copulaAfterVowel : Verb = copula ** {
     s = \\vf => case vf of {
                   VF Plain Pos  => "다" ;
                   VF Polite Pos => "예요" ;
