@@ -136,7 +136,7 @@ oper
 
   mkAdj : Str -> Adjective = \plain ->
    let stem = init plain ;
-       verb = mkVerb plain Stative ;
+       verb = mkVerb plain ;
    in {
      s = table { AAttr    => add_N stem ;
                  APred (VF Plain Pos) => plain ;
@@ -148,7 +148,6 @@ oper
 -- Verbs
 
   BaseVerb : Type = {
-    type : VerbType ;
     sc : NForm ; -- subject case
     } ;
   Verb : Type = BaseVerb ** {
@@ -159,7 +158,7 @@ oper
 
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
-  mkVerb : (plain : Str) -> VerbType -> Verb = \plain,vt ->
+  mkVerb : (plain : Str) -> Verb = \plain ->
     let stem = init plain ;
         plainpres = case vowFinal stem of {
                       True  => add_N stem + "다" ;
@@ -170,23 +169,23 @@ oper
                        True  => add_B stem + "니다" ;
                        False => stem + "습니다" } ;
         neg = stem + "지" ;
-    in mkVerbReg plainpres polpres formalpres neg vt ;
+    in mkVerbReg plainpres polpres formalpres neg ;
 
-  mkVerb2 : (plain : Str) -> Verb2 = \plain -> vtov2 (mkVerb plain Active) ;
+  mkVerb2 : (plain : Str) -> Verb2 = \plain -> vtov2 (mkVerb plain) ;
   mkVerb3 : (plain : Str) -> Verb3 = \plain -> v2tov3 (mkVerb2 plain) ;
 
   vtov2 : Verb -> Verb2 = \v -> v ** {c2 = Object ; p2 = emptyPP} ;
   v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Bare ; p3 = datPP} ;
 
-  mkVerbReg : (x1,_,_,x4 : Str) -> VerbType -> Verb =
-    \plainpres,polite,formal,neg,vt ->
+  mkVerbReg : (x1,_,_,x4 : Str) -> Verb =
+    \plainpres,polite,formal,neg ->
     let planeg  = neg ++ negForms ! Plain ;
         polneg  = neg ++ negForms ! Polite ;
         formneg = neg ++ negForms ! Formal ;
-     in mkVerbFull plainpres polite formal planeg polneg formneg vt ;
+     in mkVerbFull plainpres polite formal planeg polneg formneg ;
 
-  mkVerbFull : (x1,_,_,_,_,x6 : Str) -> VerbType -> Verb =
-    \plainpres,polite,formal,planeg,polneg,formneg,vt -> {
+  mkVerbFull : (x1,_,_,_,_,x6 : Str) -> Verb =
+    \plainpres,polite,formal,planeg,polneg,formneg -> {
       s = table {
         VF Plain Pos => plainpres ;
         VF Plain Neg => planeg ;
@@ -195,7 +194,6 @@ oper
         VF Formal Pos => formal ;
         VF Formal Neg => formneg
       } ;
-      type = vt ;
       sc = Subject
     } ;
 
@@ -205,8 +203,7 @@ oper
     "입니다"
     "아니다"
     "아니에요"
-    "아닙니다"
-     Copula ;
+    "아닙니다" ;
 
   copulaAfterVowel : Verb = copula ** {
     s = \\vf => case vf of {
@@ -221,15 +218,13 @@ oper
     "있습니다"
     "없다"
     "없어요"
-    "없습니다"
-    Existential ;
+    "없습니다" ;
 
   do_V : Verb = mkVerbReg
     "한다"
     "해요"
     "합니다"
-    "하지"
-    Active ;
+    "하지" ;
 
   negForms : Style => Str =
     table { Plain => "않다" ;

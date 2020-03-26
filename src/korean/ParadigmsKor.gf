@@ -106,7 +106,7 @@ oper
     } ;
 
   mkV = overload {
-    mkV : (plain : Str) -> V = \v -> lin V (mkVerb v Active) ;
+    mkV : (plain : Str) -> V = \v -> lin V (mkVerb v) ;
     mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
       s = \\vf => nore + hada.s ! vf} ;
   } ;
