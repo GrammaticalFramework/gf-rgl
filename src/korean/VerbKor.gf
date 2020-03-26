@@ -123,8 +123,9 @@ lin
                   Vowel => copulaAfterVowel.s ;
                   Consonant => copula.s }
       in case vf of {
-          VF _ Pos => glue (n.s ! Bare) (cop ! vf) ;
-          VF _ Neg => n.s ! Bare ++ cop ! vf }
+          VF _ Neg => n.s ! Bare ++ cop ! vf ;
+          _ => glue (n.s ! Bare) (cop ! vf)
+          }
     } ;
 
   -- : Adv  -> Comp ;

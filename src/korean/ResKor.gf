@@ -160,16 +160,16 @@ oper
 
   mkVerb : (plain : Str) -> Verb = \plain ->
     let stem = init plain ;
-        plainpres = case vowFinal stem of {
-                      True  => add_N stem + "다" ;
-                      False => stem + "는다" } ;
+        -- plainpres = case vowFinal stem of { -- not used in grammar yet
+        --               True  => add_N stem + "다" ;
+        --               False => stem + "는다" } ;
         informal = add_eo stem ; -- not used in grammar yet
         polpres = informal + "요" ;
         formalpres = case vowFinal stem of {
                        True  => add_B stem + "니다" ;
                        False => stem + "습니다" } ;
         neg = stem + "지" ;
-    in mkVerbReg plainpres polpres formalpres neg ;
+    in mkVerbReg plain polpres formalpres neg ;
 
   mkVerb2 : (plain : Str) -> Verb2 = \plain -> vtov2 (mkVerb plain) ;
   mkVerb3 : (plain : Str) -> Verb3 = \plain -> v2tov3 (mkVerb2 plain) ;
@@ -178,16 +178,18 @@ oper
   v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Bare ; p3 = datPP} ;
 
   mkVerbReg : (x1,_,_,x4 : Str) -> Verb =
-    \plainpres,polite,formal,neg ->
-    let planeg  = neg ++ negForms ! Plain ;
+    \plain,polite,formal,neg ->
+    let stem    = init plain ;
+        planeg  = neg ++ negForms ! Plain ;
         polneg  = neg ++ negForms ! Polite ;
         formneg = neg ++ negForms ! Formal ;
-     in mkVerbFull plainpres polite formal planeg polneg formneg ;
+     in mkVerbFull stem plain polite formal planeg polneg formneg ;
 
-  mkVerbFull : (x1,_,_,_,_,x6 : Str) -> Verb =
-    \plainpres,polite,formal,planeg,polneg,formneg -> {
+  mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
+    \stem,plain,polite,formal,planeg,polneg,formneg -> {
       s = table {
-        VF Plain Pos => plainpres ;
+        VStem => stem ;
+        VF Plain Pos => plain ;
         VF Plain Neg => planeg ;
         VF Polite Pos => polite ;
         VF Polite Neg => polneg ;
@@ -198,8 +200,9 @@ oper
     } ;
 
   copula : Verb = mkVerbFull
+    "이"
     "이다"
-    "이에요" -- or "이세요" ?
+    "이에요"
     "입니다"
     "아니다"
     "아니에요"
@@ -213,6 +216,7 @@ oper
   } ;
 
   have_V : Verb = mkVerbFull
+    "있"
     "있다"
     "있어요"
     "있습니다"
@@ -221,7 +225,7 @@ oper
     "없습니다" ;
 
   do_V : Verb = mkVerbReg
-    "한다"
+    "하다"
     "해요"
     "합니다"
     "하지" ;
