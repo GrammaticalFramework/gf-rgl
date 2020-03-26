@@ -94,13 +94,13 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   NumPl = baseNum ** {n = Pl} ;
 
   -- : Card -> Num ;
-  -- NumCard card =
+  NumCard card = card ;
 
   -- : Digits  -> Card ;
   --  NumDigits dig =
 
   -- : Numeral -> Card ;
-  -- NumNumeral num
+  NumNumeral num = num ;
 
 {-
   -- : AdN -> Card -> Card ;
