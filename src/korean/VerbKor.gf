@@ -130,7 +130,7 @@ lin
 
   -- : Adv  -> Comp ;
   CompAdv adv = emptyComp ** {
-    s = \\vf => adv.s ++ copula.s ! vf ;
+    s = \\vf => adv.s ++ have_V.s ! vf ;
     } ;
 
   -- : VP -- Copula alone;

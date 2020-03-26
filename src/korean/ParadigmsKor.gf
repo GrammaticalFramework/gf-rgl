@@ -65,8 +65,10 @@ oper
 
 --2 Structural categories
 
-  -- mkPrep = overload {
-  --   } ;
+  mkPrep : overload {
+    mkPrep : (e : Str) -> Prep ; -- Particle like 에, attaches to the NP.
+    mkPrep : (dwie : Str) -> (attaches : Bool) -> Prep ; -- `mkPrep "뒤에" False` for a postposition that doesn't attach to the NP.
+    } ;
 
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->
   --   lin Conj { s = s1 ; s2 = s2 } ;
@@ -128,6 +130,12 @@ oper
   -- mkVV = overload {
   --  } ;
 
+  mkPrep = overload {
+    mkPrep : (e : Str) -> Prep  -- Particle like 에, attaches to the NP.
+      = \e -> lin Prep (ResKor.mkPrep e) ;
+    mkPrep : (dwie : Str) -> (attaches : Bool) -> Prep -- `mkPrep "뒤에" False` for a postposition that doesn't attach to the NP.
+      = \dwie,f -> lin Prep (ResKor.mkPrep dwie ** {attaches = f}) ;
+    } ;
 --------------------------------------------------------------------------------
 
 }

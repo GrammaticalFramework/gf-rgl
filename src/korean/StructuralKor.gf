@@ -96,7 +96,7 @@ oper
 -- lin above_Prep = mkPrep ""
 -- lin after_Prep = mkPrep ""
 -- lin before_Prep = mkPrep "" ;
--- lin behind_Prep = mkPrep ""  ;
+lin behind_Prep = mkPrep "뒤에" False ;
 -- lin between_Prep = = mkPrep "" ;
 -- lin by8agent_Prep = mkPrep ;
 -- lin by8means_Prep = mkPrep ;

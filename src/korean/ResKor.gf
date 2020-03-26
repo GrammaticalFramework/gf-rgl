@@ -121,11 +121,11 @@ oper
 --------------------------------------------------------------------------------
 -- Postpositions
 
-  Postposition : Type = SS ;
+  Postposition : Type = {s : Str ; attaches : Bool} ;
 
-  mkPrep : Str -> Postposition = \str -> ss str ;
+  mkPrep : Str -> Postposition = \str -> {s=str ; attaches=True} ;
 
-  emptyPP : Postposition = mkPrep [] ;
+  emptyPP : Postposition = mkPrep [] ** {attaches=False} ;
   datPP : Postposition = mkPrep "에게" ;
 
 --------------------------------------------------------------------------------
