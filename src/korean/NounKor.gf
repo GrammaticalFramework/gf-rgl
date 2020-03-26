@@ -10,7 +10,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   DetCN det cn = cn ** {s =
     \\c =>
       let cns : Str = case det.n of {
-                        -- Pl => n.s ! Bare ++ BIND ++ plural ! c ;
+                        -- Pl => cn.s ! Bare ++ BIND ++ plural ! c ;
                         _Sg => cn.s ! c } ;
           dets : Str = det.s ! cn.c.origin ;
           detnum : Str = case det.numtype of {

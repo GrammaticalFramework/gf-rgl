@@ -164,9 +164,7 @@ oper
         plainpres = case vowFinal stem of {
                       True  => add_N stem + "다" ;
                       False => stem + "는다" } ;
-        informal = case vowFinal stem of { -- not used in grammar yet
-                     True  => add_eo stem ;
-                     False => stem + "어" } ;
+        informal = add_eo stem ; -- not used in grammar yet
         polpres = informal + "요" ;
         formalpres = case vowFinal stem of {
                        True  => add_B stem + "니다" ;

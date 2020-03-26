@@ -23,7 +23,7 @@ lin
   n9 = mkNum2 "구" "아홉" ;
 
   -- : Sub10 ;                              -- 1
-  pot01 = mkNum4 "일" "하나" "한" "첫" ;
+  pot01 = mkNum5 "일" "하나" "한" "첫" "열" ;
 
   -- : Digit -> Sub10 ;                     -- d * 1
   pot0 x = x ;

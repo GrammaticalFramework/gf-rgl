@@ -21,7 +21,7 @@ oper
       addSuffix : Str -> Str = \stem ->
         case stem of {
           -- Final ㅏ or ㅓ does not repeat itself.
-          _ + #a|#eo -- TODO if it's one syllable long and ends in #a, which rule applies?
+          _ + #a|#eo
               => stem ;
 
           -- Assimilations with ㅣ, ㅗ, ㅜ
@@ -32,11 +32,9 @@ oper
           start + ult@#u
               => start + u_to_weo ult ;
 
-          -- Special case: monosyllabic stem
+          -- Special case: monosyllabic stem ending in 으
                  -- 으 is dropped, replace the old vowel.
           #eu => eu_to_eo stem ;
-                 -- Otherwise add 어.
-          x@? => stem + "어" ;
 
         -- Easy regular cases to finish with.
         _ + #a_o => stem + "아" ;
