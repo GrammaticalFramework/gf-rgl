@@ -12,13 +12,14 @@ lin
 
   CompoundN n1 n2 = 
     let comp : NForm => Str
-             = \\nf => case n1.relPost of {
-                          True  => n2.s ! nf ++ n1.rel ! nform2aform nf n2.g ;
-                          False => n1.rel ! nform2aform nf n2.g ++ n2.s ! indefNForm nf
+             = \\nf => case n1.relType of {
+                          Pref   => n1.rel ! nform2aform nf n2.g ++ n2.s ! nf ;
+                          AdjMod => n1.rel ! nform2aform nf n2.g ++ n2.s ! indefNForm nf ;
+                          AdvMod => n2.s ! nf ++ n1.rel ! nform2aform nf n2.g
                         }
     in {
          s   = comp ;
-         rel = \\af => "на" ++ comp ! NF Sg Def ;  relPost = True ;
+         rel = \\af => "на" ++ comp ! NF Sg Def ;  relType = AdvMod ;
          g   = n2.g
     } ;
 

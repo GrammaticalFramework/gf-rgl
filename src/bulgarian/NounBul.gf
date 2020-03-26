@@ -171,10 +171,10 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
     UseN2 noun = noun ;
 
     ComplN2 f x = {s = \\nf => f.s ! nf ++ f.c2.s ++ x.s ! RObj f.c2.c; g=f.g} ;
-    ComplN3 f x = {s = \\nf => f.s ! nf ++ f.c2.s ++ x.s ! RObj f.c2.c; rel = \\af => f.rel ! af ++ f.c2.s ++ x.s ! RObj f.c2.c; relPost = True; c2 = f.c3; g=f.g} ;
+    ComplN3 f x = {s = \\nf => f.s ! nf ++ f.c2.s ++ x.s ! RObj f.c2.c; rel = \\af => f.rel ! af ++ f.c2.s ++ x.s ! RObj f.c2.c; relType = AdvMod; c2 = f.c3; g=f.g} ;
 
-    Use2N3 f = {s = f.s ; rel = f.rel ; relPost = f.relPost ; g=f.g ; c2 = f.c2} ;
-    Use3N3 f = {s = f.s ; rel = f.rel ; relPost = f.relPost ; g=f.g ; c2 = f.c3} ;
+    Use2N3 f = {s = f.s ; rel = f.rel ; relType = f.relType ; g=f.g ; c2 = f.c2} ;
+    Use3N3 f = {s = f.s ; rel = f.rel ; relType = f.relType ; g=f.g ; c2 = f.c3} ;
 
 
     AdjCN ap cn = {

@@ -22,7 +22,7 @@ oper
                        NFPlCount   => base+"а" ;
                        NFVocative  => base+"е"
                      } ;
-                 rel = \\_ => base ; relPost = False ;
+                 rel = \\_ => base ; relType = Pref ;
                  g = AMasc NonHuman ;
                  lock_N = <>
                 } ;
@@ -36,7 +36,7 @@ oper
                        NFPlCount   => base+"ове" ;
                        NFVocative  => base+"е"
                      } ;
-                 rel = \\_ => base ; relPost = False ;
+                 rel = \\_ => base ; relType = Pref ;
                  g = AMasc Human ;
                  lock_N = <>
                 } ;
@@ -53,7 +53,7 @@ oper
                           NFPlCount   => v0+"я"+v1+"а" ;
                           NFVocative  => v0+"я"+v1
                         } ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -70,7 +70,7 @@ oper
                           NFPlCount   => v0+"я"+v1+"а" ;
                           NFVocative  => v0+"я"+v1
                         } ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -87,7 +87,7 @@ oper
                           NFPlCount   => v0+"ър"+v1+"ове" ;
                           NFVocative  => v0+"ръ"+v1
                         } ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -99,7 +99,7 @@ oper
                                (v0+"ятъра")
                                (v0+"етре")
                                g;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -111,7 +111,7 @@ oper
                                (v0+"а")
                                (v0)
                                g;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -123,7 +123,7 @@ oper
                                (v0+"а")
                                (v0)
                                g;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -137,7 +137,7 @@ oper
                        NFPlCount   => base+"а" ;
                        NFVocative  => base+"е"
                      } ;
-                 rel = \\_ => base; relPost = False;
+                 rel = \\_ => base; relType = Pref;
                  g   = AMasc NonHuman;
                  lock_N = <>
                 } ;
@@ -149,7 +149,7 @@ oper
                                 (v0+"а")
                                 (v0+"о")
                                 g ;
-                     rel = \\_ => base; relPost = False;
+                     rel = \\_ => base; relType = Pref;
                      g   = g ;
                      lock_N = <>                     
                     } ;
@@ -163,7 +163,7 @@ oper
                        NFPlCount   => base+"и" ;
                        NFVocative  => base+"е"
                      } ;
-                  rel = (mkA078 (base+"ски")).s; relPost = False;
+                  rel = (mkA078 (base+"ски")).s; relType = AdjMod;
                   g   = AMasc Human ;
                   lock_N = <>
                  } ;
@@ -176,7 +176,7 @@ oper
                                (v0+"е"+v1+"а")
                                (v0+"е"+v1+"о")
                                g ;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -189,7 +189,7 @@ oper
                                 (v0+"е"+v1+"а")
                                 (v0+"е"+v1+"е")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -202,7 +202,7 @@ oper
                                 (v0+"е"+v1+"а")
                                 (v0+v1+"е")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -214,7 +214,7 @@ oper
                                 (v0+"ци")
                                 (v0+"ецо")
                                 g ;
-                     rel = (mkA078 (v0+"ски")).s ; relPost = False;
+                     rel = (mkA078 (v0+"ски")).s ; relType = AdjMod;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -227,7 +227,7 @@ oper
                                (v0+"ъ"+v1+"а")
                                (v0+v1+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -239,7 +239,7 @@ oper
                                 (v0+"ъра")
                                 (v0+"ре")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -251,7 +251,7 @@ oper
                                (v0+"ра")
                                (v0+"ре")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -267,7 +267,7 @@ oper
                           NFPlCount   => v0+"ма" ;
                           NFVocative  => v0+"ме"
                         } ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -279,7 +279,7 @@ oper
                                (v0+"ърци")
                                (v0+"ърко")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -291,7 +291,7 @@ oper
                                (v0+"йци")
                                (v0+"ецо")
                                g ;
-                    rel = (mkA078 (base+"йски")).s; relPost = False;
+                    rel = (mkA078 (base+"йски")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
@@ -303,7 +303,7 @@ oper
                                (v0+"ка")
                                (v0+"к")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -315,7 +315,7 @@ oper
                                 (v0+"ка")
                                 (v0+"ко")
                                 g ;
-                     rel = (mkA078 (v0+"чески")).s; relPost = False;
+                     rel = (mkA078 (v0+"чески")).s; relType = AdjMod;
                      g   = g ;
                      lock_N = <>
                     };
@@ -327,7 +327,7 @@ oper
                                (v0+"га")
                                (v0+"зе")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -339,7 +339,7 @@ oper
                                 (v0+"га")
                                 (v0+"зе")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -351,7 +351,7 @@ oper
                                (v0+"ха")
                                (v0+"хо")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -363,7 +363,7 @@ oper
                                 (v0+"ха")
                                 (v0+"се")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -375,7 +375,7 @@ oper
                                (v0+"ка")
                                (v0+"ко")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -387,7 +387,7 @@ oper
                                (v0+"и")
                                (v0+"ине")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -400,7 +400,7 @@ oper
                                 (v0+"и")
                                 (v0+"и"+v1+"о")
                                 g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -412,7 +412,7 @@ oper
                                (v0+"ци")
                                (v0+"ко")
                                g ;
-                    rel = (mkA078 (v0+"ски")).s; relPost = False;
+                    rel = (mkA078 (v0+"ски")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
@@ -424,7 +424,7 @@ oper
                                 (v0+"ека")
                                 (v0+"йо")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -437,7 +437,7 @@ oper
                                (v0+"ъ"+v1+"ци")
                                (v0+v1+"ецо")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -449,7 +449,7 @@ oper
                                (v0+"ци")
                                (v0+"чино")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -461,7 +461,7 @@ oper
                                (v0+"а")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -473,7 +473,7 @@ oper
                                (v0+"а")
                                (v0+"ине")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -485,7 +485,7 @@ oper
                                 (v0+"зе")
                                 (v0+"же")
                                 g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -497,7 +497,7 @@ oper
                                (v0+"е")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -509,7 +509,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = (mkA078 (base+"ски")).s; relPost = False;
+                    rel = (mkA078 (base+"ски")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
@@ -521,7 +521,7 @@ oper
                                (v0+"илища")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -533,7 +533,7 @@ oper
                                (v0+"еца")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -545,7 +545,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -557,7 +557,7 @@ oper
                                 (v0+"я")
                                 (v0+"йо")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -569,7 +569,7 @@ oper
                                (v0+"ьове")
                                (v0+"ко")
                                g ;
-                    rel = (mkA078 (base+"ски")).s; relPost = False;
+                    rel = (mkA078 (base+"ски")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
@@ -581,7 +581,7 @@ oper
                                (v0+"ъня")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -593,7 +593,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -605,7 +605,7 @@ oper
                                 (v0+"и")
                                 (v0+"ю")
                                 g ;
-                     rel = (mkA078 (base+"ски")).s ; relPost = False ;
+                     rel = (mkA078 (base+"ски")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -618,7 +618,7 @@ oper
                                (v1+"я")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -630,7 +630,7 @@ oper
                                 (v0+"я")
                                 (v0+"ю")
                                 g ;
-                     rel = (mkA078 (base+"ски")).s ; relPost = False ;
+                     rel = (mkA078 (base+"ски")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -642,7 +642,7 @@ oper
                                (v0+"ена")
                                (v0+"ене")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -654,7 +654,7 @@ oper
                                (v0+"ътя")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -666,7 +666,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -678,7 +678,7 @@ oper
                                 (v0+"я")
                                 (v0+"ю")
                                 g ;
-                     rel = (mkA078 (base+"ски")).s ; relPost = False ;
+                     rel = (mkA078 (base+"ски")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>                     
                     };
@@ -690,7 +690,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -702,7 +702,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -715,7 +715,7 @@ oper
                                (v0+"а")
                                g ;
                     rel = (mkAdjective base (base+"та") (base+"та") base (base+"та") base (base+"та") (v0+"и") (v0+"ите")).s ;
-                    relPost = False ;
+                    relType = AdjMod ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -727,7 +727,7 @@ oper
                                (v0+"и")
                                (v0+"йo")
                                g ;
-                    rel = (mkA078 (v0+"йски")).s ; relPost = False ;
+                    rel = (mkA078 (v0+"йски")).s ; relType = AdjMod ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -739,7 +739,7 @@ oper
                                (v0+"овци")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -751,7 +751,7 @@ oper
                                 (v0+"а")
                                 (v0+"е")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -763,7 +763,7 @@ oper
                                (v0+"и")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -775,7 +775,7 @@ oper
                                 (v0+"и")
                                 (v0+"о")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -787,7 +787,7 @@ oper
                                 (v0+"и")
                                 (v0+"е")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                    };
@@ -799,7 +799,7 @@ oper
                                (v0)
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                   };
@@ -812,7 +812,7 @@ oper
                                (v0+"е"+v1+"и")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                   };
@@ -825,7 +825,7 @@ oper
                                 (v0+"е"+v1+"ки")
                                 (v0+"о")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -837,7 +837,7 @@ oper
                                (v0+"е")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                   };
@@ -849,7 +849,7 @@ oper
                                (v0+"це")
                                (v0+"ка")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -861,7 +861,7 @@ oper
                                (v0+"зе")
                                (v0+"га")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -873,7 +873,7 @@ oper
                                (v0+"и")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -885,7 +885,7 @@ oper
                                (v0+"е")
                                (v0+"ьо")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -897,7 +897,7 @@ oper
                                (v0+"и")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -909,7 +909,7 @@ oper
                                (v0+"ни")
                                (v0+"ен")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -922,7 +922,7 @@ oper
                                (v0+v1+"и")
                                (v0+"ъ"+v1)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -934,7 +934,7 @@ oper
                                (v0+"ялости")
                                (v0+"ялост")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -946,7 +946,7 @@ oper
                                 (v0+"ярности")
                                 (v0+"ярност")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -959,7 +959,7 @@ oper
                                (v0+"ър"+v1+"и")
                                (v0+"ръ"+v1)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -971,7 +971,7 @@ oper
                                (v0+"а")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -983,7 +983,7 @@ oper
                                (v0+"а")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -995,7 +995,7 @@ oper
                                (v0+"а")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1008,7 +1008,7 @@ oper
                                (v0+"е"+v1+"а")
                                (v0+"я"+v1+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1020,7 +1020,7 @@ oper
                                 (v0+"еста")
                                 (v0+"ясто")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -1032,7 +1032,7 @@ oper
                                (v0+"ена")
                                (v0+"яно")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1044,7 +1044,7 @@ oper
                                (v0+"ене")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1056,7 +1056,7 @@ oper
                                (v0+"еса")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1068,7 +1068,7 @@ oper
                                (v0+"а")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1080,7 +1080,7 @@ oper
                                (v0+"и")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1092,7 +1092,7 @@ oper
                                (v0+"чи")
                                (v0+"ко")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1104,7 +1104,7 @@ oper
                                (v0+"ши")
                                (v0+"хо")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g;
                     lock_N = <>
                    };
@@ -1116,7 +1116,7 @@ oper
                                (v0+"та")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1128,7 +1128,7 @@ oper
                                (v0+"а")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1140,7 +1140,7 @@ oper
                                (v0+"ца")
                                (v0+"те")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1152,7 +1152,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1164,7 +1164,7 @@ oper
                                (v0+"на")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1176,7 +1176,7 @@ oper
                                (v0+"са")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1188,7 +1188,7 @@ oper
                                (v0+"ия")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1200,7 +1200,7 @@ oper
                                (v0+"я")
                                (v0+"е")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1212,7 +1212,7 @@ oper
                                (v0+"та")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1226,7 +1226,7 @@ oper
                            NFPlCount   => v0 ;
                            NFVocative  => v0
                          } ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g = ANeut ;
                      lock_N = <>
                    } ;
@@ -1240,7 +1240,7 @@ oper
                            NFPlCount   => v0 ;
                            NFVocative  => v0
                          } ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g = ANeut ;
                      lock_N = <>
                    } ;
@@ -1252,7 +1252,7 @@ oper
                                (v0+"ета")
                                (v0+"о")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1264,7 +1264,7 @@ oper
                                nonExist
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };

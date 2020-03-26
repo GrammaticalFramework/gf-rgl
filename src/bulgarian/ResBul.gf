@@ -30,7 +30,9 @@ resource ResBul = ParamX ** open Prelude, Predef in {
       | NFPlCount
       | NFVocative
       ;
-      
+
+    NRelType = Pref | AdjMod | AdvMod ;
+
     NNumber =
         NNum Number
       | NCountable

@@ -31,24 +31,29 @@ lin
           tr (intagAttr "th" "colspan=\"2\"" "звателна форма" ++ td (n.s ! NFVocative)) ++
           tr (intagAttr "th" "colspan=\"2\"" "бройна форма" ++ td (n.s ! NFPlCount))
         ) ;
-    s3= heading1 ("Прилагателно") ++
-        frameTable (
-          tr (intagAttr "th" "rowspan=\"7\"" "ед.ч." ++ 
-              intagAttr "th" "rowspan=\"3\"" "мн.ч." ++ 
-              th "нечленувано" ++ 
-              td (n.rel ! (ASg Masc Indef))) ++
-          tr (th "непълен член" ++ td (n.rel ! (ASg Masc Def))) ++
-          tr (th "пълен член" ++ td (n.rel ! ASgMascDefNom)) ++
-          tr (intagAttr "th" "rowspan=\"2\"" "ж.р." ++
-              th "нечленувано" ++ td (n.rel ! (ASg Fem Indef))) ++
-          tr (th "членувано" ++ td (n.rel ! (ASg Fem Def))) ++
-          tr (intagAttr "th" "rowspan=\"2\"" "ср.р." ++
-              th "нечленувано" ++ td (n.rel ! (ASg Neut Indef))) ++
-          tr (th "членувано" ++ td (n.rel ! (ASg Neut Def))) ++
-          tr (intagAttr "th" "colspan=\"2\" rowspan=\"2\"" "мн.ч." ++
-              th "нечленувано" ++ td (n.rel ! (APl Indef))) ++
-          tr (th "членувано" ++ td (n.rel ! (APl Def)))
-        )
+    s3= case n.relType of {
+          Pref   => [] ;
+          AdjMod => heading1 ("Прилагателно") ++
+                    frameTable (
+                      tr (intagAttr "th" "rowspan=\"7\"" "ед.ч." ++ 
+                          intagAttr "th" "rowspan=\"3\"" "мн.ч." ++ 
+                          th "нечленувано" ++ 
+                          td (n.rel ! (ASg Masc Indef))) ++
+                      tr (th "непълен член" ++ td (n.rel ! (ASg Masc Def))) ++
+                      tr (th "пълен член" ++ td (n.rel ! ASgMascDefNom)) ++
+                      tr (intagAttr "th" "rowspan=\"2\"" "ж.р." ++
+                          th "нечленувано" ++ td (n.rel ! (ASg Fem Indef))) ++
+                      tr (th "членувано" ++ td (n.rel ! (ASg Fem Def))) ++
+                      tr (intagAttr "th" "rowspan=\"2\"" "ср.р." ++
+                          th "нечленувано" ++ td (n.rel ! (ASg Neut Indef))) ++
+                      tr (th "членувано" ++ td (n.rel ! (ASg Neut Def))) ++
+                      tr (intagAttr "th" "colspan=\"2\" rowspan=\"2\"" "мн.ч." ++
+                          th "нечленувано" ++ td (n.rel ! (APl Indef))) ++
+                      tr (th "членувано" ++ td (n.rel ! (APl Def)))
+                    ) ;
+          AdvMod => heading1 ("Наречие") ++
+                    paragraph (n.rel ! (ASg Masc Def))
+        }
   } ;
 
   InflectionN2,InflectionN3 = \n -> {

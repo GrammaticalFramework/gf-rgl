@@ -133,7 +133,7 @@ lin
 oper 
   mkMonth : Str -> Str -> N = \n,a -> lin N {
     s = \\_ => n ;
-    rel = (mkA078 a).s ; relPost = False ;
+    rel = (mkA078 a).s ; relType = R.AdjMod ;
     g = R.AMasc R.NonHuman
   } ;
 }
