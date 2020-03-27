@@ -38,7 +38,15 @@ lin there_Adv = ss "" ;
 -------
 -- Conj
 
--- lin and_Conj = {s2 = table {x => "" ; y => ""} ; s1 = [] ; n = Pl} ;
+  and_Conj = {
+    s1 = [] ;
+    -- no need for strings here, actual values come from ParamKor.conjTable
+    -- s2 = \\phono => table {
+    --         VStar => "고" ;
+    --         NStar => "하고"} ;
+    n = Pl ;
+    c = And
+    } ;
 -- lin or_Conj = {s2 = \\_ => "" ; s1 = [] ; n = Sg} ;
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;

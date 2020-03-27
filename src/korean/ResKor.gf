@@ -241,6 +241,15 @@ oper
   Adverb : Type = SS ;
 
 ------------------
+-- Conj
+
+  Conj : Type = {
+    s1 : Str ;
+    c : ConjType ; -- if it's And, Or, …
+                   -- Need to add conjunction already in ConsX funs.
+    n : Number ;
+    } ;
+------------------
 -- VP
 
   Complement : Type = {

@@ -85,7 +85,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
 --2 Structural words
 
 -- Constructed in StructuralKor.
-    Conj = {s2 : Bool => Str ; s1 : Str ; n : Number } ;
+    Conj = ResKor.Conj ;
     Subj = SS ;
     Prep = ResKor.Postposition ;
 

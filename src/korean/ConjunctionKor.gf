@@ -58,15 +58,32 @@ lin
   ConsS x xs =
     xs ** { } ;
   ConjS co xs = {} ;
-
+-}
 lincat
-  [AP] = {} ;
+  [AP] = ResKor.AdjPhrase ** {firstAP : AForm => ConjType => Str} ;
 
 lin
-  BaseAP x y = twoTable … x y ** y ; --choose all the other fields from second argument
-  ConsAP as a = consrTable … comma as a ** as ;
-  ConjAP co as = conjunctDistrTable … co as ** as ;
+  BaseAP a1 a2 = a2 ** {
+    firstAP = mkFirstAP a1 ;
+    } ;
 
+  ConsAP a as = as ** {
+    firstAP = \\af,conj =>
+      mkFirstAP a ! af ! conj ++ as.firstAP ! af ! conj ;
+    } ;
+
+  ConjAP co as = as ** {
+    s = \\af => co.s1 ++ as.firstAP ! af ! co.c ++ as.s ! af
+    } ;
+
+
+oper
+  mkFirstAP : ResKor.AdjPhrase -> AForm => ConjType => Str = \ap ->
+    \\af,conj => case af of {
+      AAttr   => glue (ap.s ! AAttr) (conjTable ! NStar ! conj) ;
+      APred _ => glue (ap.s ! APred VStem) (conjTable ! VStar ! conj) } ;
+
+{-
 lincat
   [CN] = { } ;
 
@@ -83,15 +100,23 @@ lin
   ConsDAP xs x = xs **
   ConjDet conj xs = xs **
 
-
+-}
 -- Noun phrases
 lincat
-  [NP] =
+  [NP] = ResKor.NounPhrase ** {firstNP : ConjType => Str} ;
 
 lin
-  BaseNP x y =
-  ConsNP x xs =
-  ConjNP conj xs =
+  BaseNP np1 np2 = np2 ** {firstNP = mkFirstNP np1} ;
+  ConsNP np nps = nps ** {
+    firstNP = \\conj => mkFirstNP np ! conj ++ nps.firstNP ! conj
+    } ;
+  ConjNP co nps = nps ** {
+    s = \\nf => co.s1 ++ nps.firstNP ! co.c ++ nps.s ! nf ;
+    n = co.n
+    } ;
 
--}
+oper
+  mkFirstNP : ResKor.NounPhrase -> ConjType => Str = \np ->
+    \\conj => glue (np.s ! Bare) (conjTable ! NStar ! conj) ;
+
 }
