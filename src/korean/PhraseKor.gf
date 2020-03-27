@@ -3,7 +3,7 @@ concrete PhraseKor of Phrase = CatKor ** open Prelude, ResKor in {
   lin
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
-    UttS s = s ;
+    UttS s = {s = s.s ! Statement} ;
     UttQS qs = qs ;
     UttIAdv iadv = iadv ;
 {-

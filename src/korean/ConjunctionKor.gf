@@ -48,17 +48,29 @@ lin
   BaseRS = twoTable3 … ;
   ConsRS = consrTable3 … comma ;
   ConjRS = conjunctRSTable ;
-
+-}
 
 lincat
-  [S] = {} ;
+  [S] = ResKor.Sentence ** {firstS : ConjType => Str} ;
 
 lin
-  BaseS x y = y ** { } ;
-  ConsS x xs =
-    xs ** { } ;
-  ConjS co xs = {} ;
--}
+  BaseS s1 s2 = s2 ** {
+    firstS = mkFirstS s1
+    } ;
+
+  ConsS s ss = ss ** {
+    firstS = \\conj =>
+      mkFirstS s ! conj ++ ss.firstS ! conj ;
+    } ;
+
+  ConjS co ss = ss ** {
+    s = \\st => co.s1 ++ ss.firstS ! co.c ++ ss.s ! st
+    } ;
+
+oper
+  mkFirstS : ResKor.Sentence -> ConjType => Str = \s ->
+    \\conj => glue (s.s ! Subord) (conjTable ! NStar ! conj) ;
+
 lincat
   [AP] = ResKor.AdjPhrase ** {firstAP : AForm => ConjType => Str} ;
 

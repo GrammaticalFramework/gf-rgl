@@ -49,11 +49,11 @@ lin
 
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cl = {
-    s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
+    s = \\c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! c
     } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
-  UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
+  UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Statement} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
   -- UseRCl t p cl = {s = } ;
@@ -73,7 +73,7 @@ lin
 oper
 
   advS : (comma : Str) -> Adverb -> S -> S = \comma,a,sent -> sent ** {
-    s = a.s ++ comma ++ sent.s
+    s = \\c => a.s ++ comma ++ sent.s ! c
     } ;
 
 }

@@ -294,7 +294,7 @@ oper
 --------------------------------------------------------------------------------
 -- Cl, S
 
-  Clause : Type = {s : Tense => Anteriority => Polarity => Str} ;
+  Clause : Type = {s : Tense => Anteriority => Polarity => ClType => Str} ;
 
   {- After PredVP, we might still want to add more adverbs (QuestIAdv),
      but we're done with verb inflection.
@@ -305,13 +305,17 @@ oper
 
   RClause : Type = {s : NForm => Tense => Anteriority => Polarity => Str} ;
 
-  Sentence : Type = {s : Str} ;
+  Sentence : Type = {s : ClType => Str} ;
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = \\t,a,p => np.s ! vp.sc
-                ++ vp.nObj -- an object, not copula complement
-                ++ vp.adv
-                ++ vp.s ! VF Polite p -- TODO: more tenses, choose politeness
+    s = \\t,a,p,cltyp =>
+           let vf = case cltyp of {
+                      Subord => VStem ;
+                      _      => VF Polite p } -- TODO: more tenses, politeness
+            in np.s ! vp.sc
+            ++ vp.nObj -- an object, not copula complement
+            ++ vp.adv
+            ++ vp.s ! vf
     } ;
 
 --------------------------------------------------------------------------------
