@@ -139,7 +139,6 @@ oper
        verb = mkVerb plain ;
    in {
      s = table { AAttr    => add_N stem ;
-                 APred (VF Plain Pos) => plain ;
                  APred vf => verb.s ! vf }
      } ;
 

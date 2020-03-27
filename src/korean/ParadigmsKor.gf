@@ -76,11 +76,14 @@ oper
   -- mkSubj : Str -> Bool -> Subj = \s,b ->
   --   lin Subj { } ;
 
-  mkAdv : Str -> Adv = \s -> lin Adv {s = s} ;
+  mkAdv : Str -> Adv
+    = \s -> lin Adv {s = s} ;
 
-  mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
+  mkAdV : Str -> AdV
+    = \s -> lin AdV {s = s} ;
 
-  mkAdA : Str -> AdA = \s -> lin AdA {s = s} ;
+  mkAdA : Str -> AdA
+    = \s -> lin AdA {s = s} ;
 
 
 --.
