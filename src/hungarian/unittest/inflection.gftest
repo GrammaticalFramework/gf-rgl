@@ -3,8 +3,8 @@
 ---------------------
 
 -- Beer
-Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
-LangEng: before the beer
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
+LangEng: under the beer
 LangHun: a sör alatt
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
@@ -24,8 +24,8 @@ LangEng: to the beer
 LangHun: a sörhöz
 
 -- Woman
-Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
-LangEng: before the woman
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
+LangEng: under the woman
 LangHun: a nő alatt
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
@@ -46,8 +46,8 @@ LangHun: a nőhöz
 
 
 -- Apple
-Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
-LangEng: before the apple
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
+LangEng: under the apple
 LangHun: az alma alatt
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
@@ -67,8 +67,8 @@ LangEng: to the apple
 LangHun: az almahoz
 
 -- Bird
-Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
-LangEng: before the bird
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
+LangEng: under the bird
 LangHun: a madár alatt
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
@@ -89,8 +89,8 @@ LangHun: a madárhoz
 
 
 -- Name
-Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
-LangEng: before the name
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
+LangEng: under the name
 LangHun: a név alatt
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
@@ -110,8 +110,8 @@ LangEng: to the name
 LangHun: a névhez
 
 -- Man
-Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
-LangEng: before the man
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+LangEng: under the man
 LangHun: a férfi alatt
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
