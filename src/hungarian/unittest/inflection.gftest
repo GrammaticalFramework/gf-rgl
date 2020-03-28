@@ -1,0 +1,131 @@
+---------------------
+-- Noun inflection --
+---------------------
+
+-- Beer
+Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
+LangEng: before the beer
+LangHun: a sör alatt
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
+LangEng: in the beer
+LangHun: a sörben
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
+LangEng: on the beer
+LangHun: a sörnél
+
+Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
+LangEng: of the beer
+LangHun: a söre
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
+LangEng: to the beer
+LangHun: a sörhöz
+
+-- Woman
+Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
+LangEng: before the woman
+LangHun: a nő alatt
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
+LangEng: in the woman
+LangHun: a nőben
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
+LangEng: on the woman
+LangHun: a nőnél
+
+Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
+LangEng: of the woman
+LangHun: a nőe
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
+LangEng: to the woman
+LangHun: a nőhöz
+
+
+-- Apple
+Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
+LangEng: before the apple
+LangHun: az alma alatt
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
+LangEng: in the apple
+LangHun: az almaban
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
+LangEng: on the apple
+LangHun: az almanál
+
+Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
+LangEng: of the apple
+LangHun: az almaé
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
+LangEng: to the apple
+LangHun: az almahoz
+
+-- Bird
+Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
+LangEng: before the bird
+LangHun: a madár alatt
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
+LangEng: in the bird
+LangHun: a madárban
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
+LangEng: on the bird
+LangHun: a madárnál
+
+Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
+LangEng: of the bird
+LangHun: a madáré
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
+LangEng: to the bird
+LangHun: a madárhoz
+
+
+-- Name
+Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
+LangEng: before the name
+LangHun: a név alatt
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
+LangEng: in the name
+LangHun: a névben
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
+LangEng: on the name
+LangHun: a névnél
+
+Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
+LangEng: of the name
+LangHun: a néve
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
+LangEng: to the name
+LangHun: a névhez
+
+-- Man
+Lang: PrepNP before_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+LangEng: before the man
+LangHun: a férfi alatt
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+LangEng: in the man
+LangHun: a férfiben
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+LangEng: on the man
+LangHun: a férfinél
+
+Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+LangEng: of the man
+LangHun: a férfie
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+LangEng: to the man
+LangHun: a férfihez

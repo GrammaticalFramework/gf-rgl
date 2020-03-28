@@ -70,6 +70,8 @@ oper
     mkPrep : Str -> Case -> Prep ; -- Postposition and case
     } ;
 
+  casePrep : Case -> Prep ; -- No postposition, only case
+
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->
   --   lin Conj { s = s1 ; s2 = s2 } ;
 
@@ -136,6 +138,9 @@ oper
     mkPrep : Str -> Case -> Prep
       = \str,c -> lin Prep (ResHun.mkPrep str ** {c = c}) ;
     } ;
+
+  casePrep : Case -> Prep
+    = \c -> lin Prep (ResHun.mkPrep [] ** {c = c}) ;
 --------------------------------------------------------------------------------
 
 }

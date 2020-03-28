@@ -7,8 +7,6 @@
 -- Some parameters, such as $Number$, are inherited from $ParamX$.
 resource ResHun = ParamHun ** open Prelude, Predef, ParamHun in {
 
-{
-
 --------------------------------------------------------------------------------
 -- Nouns
 oper
@@ -18,6 +16,7 @@ oper
     Nom => harm1 [] ;
     Acc => harm3 "ot" "et" "öt" ;
     Dat => harm "nak" "nek" ;
+    Gen => harm "é" "e" ;
     Ins => harm "al" "el" ;
     Ess => harm "stul" "stül" ;
     Tra => harm "á" "é" ;

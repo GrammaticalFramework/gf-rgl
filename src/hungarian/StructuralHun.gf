@@ -92,7 +92,7 @@ oper
 
 -- lin above_Prep = mkPrep ""
 -- lin after_Prep = mkPrep ""
--- lin before_Prep = mkPrep "" ;
+lin before_Prep = mkPrep "alatt" ;
 -- lin behind_Prep = mkPrep "" ;
 -- lin between_Prep = = mkPrep "" ;
 -- lin by8agent_Prep = mkPrep ;
@@ -102,12 +102,12 @@ oper
 -- lin for_Prep = mkPrep "" ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep "" ;
--- lin in_Prep = mkPrep "" ;
--- lin on_Prep = mkPrep "" ;
--- lin part_Prep = mkPrep ;
--- lin possess_Prep = mkPrep "" ;
+lin in_Prep = casePrep Ine ;
+lin on_Prep = casePrep Ade ;
+-- lin part_Prep = casePrep  ;
+lin possess_Prep = casePrep Gen ;
 -- lin through_Prep = mkPrep ;
--- lin to_Prep = mkPrep "";
+lin to_Prep = casePrep All ;
 -- lin under_Prep = mkPrep "" ;
 -- lin with_Prep = mkPrep "" ;
 -- lin without_Prep = mkPrep "" ;

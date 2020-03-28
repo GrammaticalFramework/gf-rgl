@@ -20,7 +20,7 @@ oper
 -- Nouns
 
 param
-  Case = Nom | Acc | Dat | Ins | Ess | Tra | Cau
+  Case = Nom | Acc | Dat | Gen | Ins | Ess | Tra | Cau
        | Ill | Sub | All | Ine | Sup | Ade | Ela
        | Del | Abl | Ter | For | Tem
        ;
