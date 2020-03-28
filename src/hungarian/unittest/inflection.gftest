@@ -66,7 +66,7 @@ Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN woman_N))
 LangHun: a nőknél
 
 Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN woman_N))
-LangHun: a nőke
+LangHun: a nőké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN woman_N))
 LangHun: a nőkhöz
