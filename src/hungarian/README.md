@@ -8,7 +8,7 @@
 
 ## Authors
 
-Inari Listenmaa, 2020-
+Inari Listenmaa, Julia Jansson, 2020-
 
 With contributions from Erzsébet Galgóczy (initial nominal morphology) and Patrik Jansson (numerals).
 
