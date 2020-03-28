@@ -571,6 +571,9 @@ resource ParadigmsTur = open
         n = num
       } ;
 
+    mkConj : Str -> Number -> Conj = 
+      \s,n -> {s = s; sep = 3; n = n; lock_Conj = <>} ;
+
   -- Helper functions and parameters
     -- finds which aorist type will be used with a base, see aorist type parameter for more info
     getAoristType : Str -> AoristType =

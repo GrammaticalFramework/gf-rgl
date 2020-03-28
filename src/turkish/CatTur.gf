@@ -1,4 +1,4 @@
-concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
+concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude, Predef in {
 
   flags optimize=all_subs ;
 
@@ -14,7 +14,6 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
     NP = {s : Case => Str ; a : Agr} ;
     VP = Verb ;
     VPSlash = VP ** {c : Prep} ;
-    Conj = {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} ;
 
     Pron = ResTur.Pron ;
     Det = {s : Str; n : Number; useGen : UseGen} ;
@@ -22,7 +21,6 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
     Card = {s : Number => Case => Str} ;
     Ord  = {s : Number => Case => Str} ;
     Quant = {s : Str; useGen : UseGen} ;
-    Prep = {s : Str; c : Case} ;
     PrepNP = {s : Str} ;
     DAP = {s : Number => Case => Str} ;
     CAdv = {s : Str; p : Str; c : Case} ;
@@ -33,6 +31,10 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, Prelude in {
 
     -- Adjective
     AP = {s : Number => Case => Str} ;
+
+    -- Structural
+    Conj = {s : Str; sep : Ints 4; n : Number} ;
+    Prep = {s : Str; c : Case} ;
 
     -- Open lexical classes, e.g. Lexicon
     V, VS, VV, VQ, VA = Verb ;
