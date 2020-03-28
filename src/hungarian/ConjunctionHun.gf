@@ -1,58 +1,93 @@
-concrete ConjunctionHun of Conjunction = 
-  CatHun ** open ResHun, Coordination, Prelude in 
-{
---{
---
---  flags optimize=all_subs ;
---
---  lin
---
---    ConjS = conjunctDistrSS ;
---
---    ConjAdv = conjunctDistrSS ;
---
---    ConjNP conj ss = conjunctDistrTable NPCase conj ss ** {
---      a = conjAgr (agrP3 conj.n) ss.a
---      } ;
---
---    ConjAP conj ss = conjunctDistrTable Agr conj ss ** {
---      isPre = ss.isPre
---      } ;
---
---    ConjRS conj ss = conjunctDistrTable Agr conj ss ** {
---      c = ss.c
---      } ;
---
---    ConjIAdv = conjunctDistrSS ;   
---
---    ConjCN co ns = conjunctDistrTable2 Number Case co ns ** {g = Neutr} ; --- gender?
---
----- These fun's are generated from the list cat's.
---
---    BaseS = twoSS ;
---    ConsS = consrSS comma ;
---    BaseAdv = twoSS ;
---    ConsAdv = consrSS comma ;
---    BaseNP x y = twoTable NPCase x y ** {a = conjAgr x.a y.a} ;
---    ConsNP xs x = consrTable NPCase comma xs x ** {a = conjAgr xs.a x.a} ;
---    BaseAP x y = twoTable Agr x y ** {isPre = andB x.isPre y.isPre} ;
---    ConsAP xs x = consrTable Agr comma xs x ** {isPre = andB xs.isPre x.isPre} ;
---    BaseRS x y = twoTable Agr x y ** {c = y.c} ;
---    ConsRS xs x = consrTable Agr comma xs x ** {c = xs.c} ;
---    BaseIAdv = twoSS ;
---    ConsIAdv = consrSS comma ;
---    BaseCN = twoTable2 Number Case ;
---    ConsCN = consrTable2 Number Case comma ;
---
---  lincat
---    [S] = {s1,s2 : Str} ;
---    [Adv] = {s1,s2 : Str} ;
---    [IAdv] = {s1,s2 : Str} ;
---    [NP] = {s1,s2 : NPCase => Str ; a : Agr} ;
---    [AP] = {s1,s2 : Agr => Str ; isPre : Bool} ;
---    [RS] = {s1,s2 : Agr => Str ; c : NPCase} ;
---    [CN] = {s1,s2 : Number => Case => Str} ;
---
---}
+concrete ConjunctionHun of Conjunction =
+  CatHun ** open ResHun, Coordination, Prelude in {
+
+    {- Conjunction for category X needs four things:
+       lincat [X]
+       lin BaseX
+       lin ConsX
+       lin ConjX
+
+    For example, if X is defined as
+
+      lincat X   = {s     : Number => Str ;   g : Gender} ;
+
+    then [X] will split its s field into two, and retain its other fields as is:
+
+      lincat [X] = {s1,s2 : Number => Str ;   g : Gender} ;
+
+    Let us look at a simple case: Adv is of type {s : Str}
+    Then [Adv] is {s1,s2 : Str}.
+    BaseAdv, ConsAdv and ConjAdv can all use functions defined in prelude/Coordination:
+
+      BaseAdv = twoSS ;
+      ConsAdv = consrSS comma ;
+      ConjAdv = conjunctSS ;
+
+    --}
+
+
+-- Adverb and other simple {s : Str} types.
+lincat
+  [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
+
+lin
+  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
+  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
+  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
+
+{-
+-- RS depends on X, Y and Z, otherwise exactly like previous.
+-- RS can modify CNs, which are open for …, and have inherent …
+lincat
+  [RS] = {s1,s2 : … => Str} ;
+
+lin
+  BaseRS = twoTable … ;
+  ConsRS = consrTable … comma ;
+  ConjRS = conjunctDistrTable ;
+
+lincat
+  [S] = {} ;
+
+lin
+  BaseS x y = y ** { } ;
+  ConsS x xs =
+    xs ** { } ;
+  ConjS co xs = {} ;
+
+lincat
+  [AP] = {} ;
+
+lin
+  BaseAP x y = twoTable … x y ** y ;
+  ConsAP a as = consrTable … comma as a ** as ;
+  ConjAP co as = conjunctDistrTable … co as ** as ;
+
+lincat
+  [CN] = { } ;
+
+lin
+  BaseCN = {} ;
+  ConsCN = {} ;
+  ConjCN co cs = conjunctDistrTable … co cs ** cs ;
+
+lincat
+  [DAP] =
+
+lin
+  BaseDAP x y = x **
+  ConsDAP xs x = xs **
+  ConjDet conj xs = xs **
+
+
+-- Noun phrases
+lincat
+  [NP] =
+
+lin
+  BaseNP x y = twoTable … x y ** y ;
+  ConsNP x xs = consrTable … comma as a ** as ;
+  ConjNP co as = conjunctDistrTable … co as ** as ;
+-}
 
 }

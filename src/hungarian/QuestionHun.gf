@@ -1,73 +1,77 @@
-concrete QuestionHun of Question = CatHun ** open ResHun, Prelude in 
-{
---{
---
---  flags optimize=all_subs ;
---
---  lin
---
---    QuestCl cl = {
---      s = \\t,a,p => 
---            let cls = cl.s ! t ! a ! p 
---            in table {
---              QDir   => cls ! OQuest ;
---              QIndir => "if" ++ cls ! ODir
---              } ---- "whether" in ExtHun
---      } ;
---
---    QuestVP qp vp = 
---      let cl = mkClause (qp.s ! npNom) (agrP3 qp.n) vp
---      in {s = \\t,a,b,_ => cl.s ! t ! a ! b ! ODir} ;
---
---    QuestSlash ip slash = 
---      mkQuestion (ss (slash.c2 ++ ip.s ! NPAcc)) slash ;
---      --- stranding in ExratHun 
---
---    QuestIAdv iadv cl = mkQuestion iadv cl ;
---
---    QuestIComp icomp np = 
---      mkQuestion icomp (mkClause (np.s ! npNom) np.a (predAux auxBe)) ;
---
---
---    PrepIP p ip = {s = p.s ++ ip.s ! NPAcc} ;
---
---    AdvIP ip adv = {
---      s = \\c => ip.s ! c ++ adv.s ;
---      n = ip.n
---      } ;
--- 
---    IdetCN idet cn = {
---      s = \\c => idet.s ++ cn.s ! idet.n ! npcase2case c ; 
---      n = idet.n
---      } ;
---
---    IdetIP idet = {
---      s = \\c => idet.s ; 
---      n = idet.n
---      } ;
---
---    IdetQuant idet num = {
---      s = idet.s ! num.n ++ num.s ! Nom ; 
---      n = num.n
---      } ;
---
---    AdvIAdv i a = ss (i.s ++ a.s) ;
---
---    CompIAdv a = a ;
---    CompIP p = ss (p.s ! npNom) ;
---
---  lincat 
---    QVP = ResHun.VP ;
---  lin
---    ComplSlashIP vp np = insertObjPre (\\_ => vp.c2 ++ np.s ! NPAcc) vp ;
---    AdvQVP vp adv = insertObj (\\_ => adv.s) vp ;
---    AddAdvQVP vp adv = insertObj (\\_ => adv.s) vp ;
---
---    QuestQVP qp vp = 
---      let cl = mkClause (qp.s ! npNom) (agrP3 qp.n) vp
---      in {s = \\t,a,b,_ => cl.s ! t ! a ! b ! ODir} ;
---
---
---}
+concrete QuestionHun of Question = CatHun ** open
+  Prelude, ResHun, ParadigmsHun, (NH=NounHun) in {
+
+-- A question can be formed from a clause ('yes-no question') or
+-- with an interrogative.
+
+{-
+  lin
+  -- : Cl -> QCl ;
+  QuestCl =
+
+  -- : IP -> VP -> QCl ;
+  QuestVP ip vp =
+
+  -- : IP -> ClSlash -> QCl ; -- whom does John love
+  QuestSlash ip cls =
+
+  -- : IAdv -> Cl -> QCl ;    -- why does John walk
+  QuestIAdv iadv cls =
+
+
+  -- : IComp -> NP -> QCl ;   -- where is John?
+  QuestIComp icomp np =
+
+
+-- Interrogative pronouns can be formed with interrogative
+-- determiners, with or without a noun.
+
+  -- : IDet -> CN -> IP ;       -- which five songs
+  IdetCN idet cn = {…} ** NH.DetCN idet cn ;
+
+  -- : IDet       -> IP ;       -- which five
+  IdetIP idet = {…} ** NH.DetNP idet ;
+
+-- They can be modified with adverbs.
+  -- : IP -> Adv -> IP ;        -- who in Paris
+  --AdvIP = NH.AdvNP ;
+
+-- Interrogative quantifiers have number forms and can take number modifiers.
+
+  -- : IQuant -> Num -> IDet ;  -- which (five)
+  IdetQuant = NH.DetQuant ;
+
+-- Interrogative adverbs can be formed prepositionally.
+  -- : Prep -> IP -> IAdv ;     -- with whom
+  PrepIP prep ip = ;
+
+-- They can be modified with other adverbs.
+
+  -- : IAdv -> Adv -> IAdv ;    -- where in Paris
+  --  AdvIAdv iadv adv =
+
+-- Interrogative complements to copulas can be both adverbs and
+-- pronouns.
+
+  -- : IAdv -> IComp ;
+  CompIAdv iadv = iadv ;            -- where (is it)
+
+  -- : IP -> IComp ;
+  CompIP ip = {s = ip.s ! Abs} ;    -- who (is it)
+
+
+-- More $IP$, $IDet$, and $IAdv$ are defined in $Structural$.
+
+-- Wh questions with two or more question words require a new, special category.
+
+  cat
+    QVP ;          -- buy what where
+  fun
+    ComplSlashIP  : VPSlash -> IP -> QVP ;   -- buys what
+    AdvQVP        : VP  ->   IAdv -> QVP ;   -- lives where
+    AddAdvQVP     : QVP ->   IAdv -> QVP ;   -- buys what where
+
+    QuestQVP      : IP -> QVP -> QCl ;       -- who buys what where
+-}
 
 }
