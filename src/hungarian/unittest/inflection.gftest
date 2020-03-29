@@ -133,19 +133,19 @@ LangEng: to the bird
 LangHun: a madárhoz
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
-LangHun: a madárokban
+LangHun: a madarakban
 
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
-LangHun: a madároknál
+LangHun: a madaraknál
 
 Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
-LangHun: a madároké
+LangHun: a madaraké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
-LangHun: a madárokhoz
+LangHun: a madarakhoz
 
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
-LangHun: a madárok alatt
+LangHun: a madarak alatt
 
 -- Name
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
@@ -205,16 +205,16 @@ LangEng: to the man
 LangHun: a férfihez
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfiekben
+LangHun: a férfiakben
 
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfieknél
+LangHun: a férfiaknél
 
 Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfieké
+LangHun: a férfiaké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfiekhez
+LangHun: a férfiakhez
 
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfiek alatt
+LangHun: a férfiak alatt
