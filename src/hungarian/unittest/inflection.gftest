@@ -169,19 +169,19 @@ LangEng: to the name
 LangHun: a névhez
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
-LangHun: a névekben
+LangHun: a nevekben
 
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
-LangHun: a néveknél
+LangHun: a neveknél
 
 Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
-LangHun: a néveké
+LangHun: a neveké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
-LangHun: a névekhez
+LangHun: a nevekhez
 
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
-LangHun: a névek alatt
+LangHun: a nevek alatt
 
 -- Man
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
