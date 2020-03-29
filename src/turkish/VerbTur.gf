@@ -1,4 +1,4 @@
-concrete VerbTur of Verb = CatTur ** open ResTur, SuffixTur in {
+concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur in {
 
   lin
     UseV v = v ;
@@ -39,7 +39,8 @@ concrete VerbTur of Verb = CatTur ** open ResTur, SuffixTur in {
             VProg   agr => ap.s ! Nom ;
             VPast   agr => ap.s ! Nom ++
                            suffixStr ap.h (alethicCopulaSuffixes ! agr);
-            VFuture agr => ap.s ! Nom ;
+            VFuture agr => ap.s ! Nom ++
+                           addSuffix "olacağ" (mkHar I_Har (SCon Hard)) (verbSuffixes ! agr) ;
             VInfinitive => ap.s ! Nom ++ "olmak" ;
             _           => "TODO"
           }
@@ -55,7 +56,8 @@ concrete VerbTur of Verb = CatTur ** open ResTur, SuffixTur in {
             VProg   agr => ap.s ! agr.n ! Nom ;
             VPast   agr => ap.s ! agr.n ! Nom ++
                            suffixStr ap.h (alethicCopulaSuffixes ! agr);
-            VFuture agr => ap.s ! agr.n ! Nom ;
+            VFuture agr => ap.s ! agr.n ! Nom ++
+                           addSuffix "olacağ" (mkHar I_Har (SCon Hard)) (verbSuffixes ! agr) ;
             VInfinitive => ap.s ! Sg ! Nom ++ "olmak" ;
             _           => "TODO"
           }
