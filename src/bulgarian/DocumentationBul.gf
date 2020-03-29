@@ -142,6 +142,7 @@ lin
         } ++
         v.s ! Imperf ! VPres Sg P3 ++
         v.c2.s ++
+        linCase v.c2.c Pos ++
         pp "допълнение";
     s2= inflVerb v ;
     s3= ""
