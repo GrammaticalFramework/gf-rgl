@@ -3,7 +3,7 @@
 concrete SymbolTur of Symbol = CatTur ** open Prelude, ResTur, HarmonyTur in {
 
 lin
-  SymbPN i = {s,gen = \\_,_ => i.s ; harmony = {vow=I_Har; con=SCon Soft}} ;  -- just a placeholder, probably wrong
+  SymbPN i = {s,gen = \\_,_ => i.s ; h = {vow=I_Har; con=SCon Soft}} ;  -- just a placeholder, probably wrong
 
 {- TODO!
   IntPN i  = {s = addGenitiveS i.s ; g = Neutr} ;

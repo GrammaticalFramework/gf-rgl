@@ -16,10 +16,12 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     Agr = {n : Number ; p : Person} ;
     Noun = {
       s   : Number => Case => Str ;
-      gen : Number => Agr => Str  ;
-      harmony : Harmony
+      gen : Number => Agr => Str ;
+      h   : Harmony
     } ;
-    Pron = {s : Case => Str; a : Agr} ;
+    Pron = {s : Case => Str ;
+            h : Harmony;
+            a : Agr} ;
 
     agrP3 : Number -> Agr ;
     agrP3 n = {n = n; p = P3} ;
@@ -73,6 +75,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
        Abess Pos => benli ;
        Abess Neg => bensiz
        } ;
+     h = getHarmony ben ;
      a = {n=n; p=p} ;
      } ;
 
@@ -82,8 +85,12 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     mkPrep : Str -> Case -> {s : Str; c : Case; lock_Prep : {}} =
       \s, c -> lin Prep {s=s; c=c};
 
-    mkNP : Noun -> Number -> Person -> {s : Case => Str; a : Agr} =
-      \noun, n, p -> {s = noun.s ! n; a = {n = n; p = p}} ;
+    mkNP : Noun -> Number -> Person -> {s : Case => Str; h : Harmony; a : Agr} =
+      \noun, n, p -> {
+        s = noun.s ! n;
+        h = noun.h;
+        a = {n = n; p = p}
+      } ;
 
     mkClause : Str -> Agr -> Verb -> {s : Tense => Str; subord : Str} =
       \np, a, v -> {
