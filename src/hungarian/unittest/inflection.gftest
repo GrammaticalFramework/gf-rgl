@@ -190,11 +190,11 @@ LangHun: a férfi alatt
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
 LangEng: in the man
-LangHun: a férfiben
+LangHun: a férfiban
 
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
 LangEng: on the man
-LangHun: a férfinél
+LangHun: a férfinál
 
 Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
 LangEng: of the man
@@ -202,19 +202,19 @@ LangHun: a férfié
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
 LangEng: to the man
-LangHun: a férfihez
+LangHun: a férfihoz
 
 Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfiakben
+LangHun: a férfiakban
 
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfiaknél
+LangHun: a férfiaknál
 
 Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
 LangHun: a férfiaké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfiakhez
+LangHun: a férfiakhoz
 
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
 LangHun: a férfiak alatt
