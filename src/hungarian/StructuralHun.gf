@@ -149,12 +149,11 @@ lin language_title_Utt = ss "magyar" ;
 lin no_Utt = ss "nem" ;
 lin yes_Utt = ss "igen" ;
 
-{-
 -------
 -- Verb
 
-lin have_V2 = vtov2 copula ** {sc = ??};
-lin can8know_VV = can_VV ; -- can (capacity)
+lin have_V2 = vtov2 copula ** {sc = SCDat ; c2 = Nom} ;
+{-lin can8know_VV = can_VV ; -- can (capacity)
 lin can_VV = mkVV "" ;   -- can (possibility)
 lin must_VV = mkVV "" ;
 lin want_VV = mkVV "" subjunctive ;

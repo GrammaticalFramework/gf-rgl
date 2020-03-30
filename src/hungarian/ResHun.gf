@@ -181,7 +181,7 @@ oper
 
   Verb : Type = {
     s : VForm => Str ;
-    sc : Case ; -- subject case
+    sc : SubjCase ; -- subject case
     } ;
   Verb2 : Type = Verb ** {
     c2 : Case   -- object case
@@ -218,7 +218,7 @@ oper
         VFin P2 Pl => pl2 ;
         VFin P3 Pl => pl3
       } ;
-      sc = Nom
+      sc = SCNom
     } ;
 
   copula : Verb = mkVerbFull
@@ -274,11 +274,14 @@ oper
   Sentence : Type = {s : Str} ;
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = \\t,a,p =>
-            np.s ! vp.sc
-            ++ vp.obj
-            ++ vp.adv
-            ++ vp.s ! agr2vf np.agr
+    s = \\t,a,p => let subjcase : Case = case vp.sc of {
+                                           SCNom => Nom ;
+                                           SCDat => Dat }
+                    in np.s ! subjcase
+                    ++ np.empty -- standard trick for prodrop
+                    ++ vp.obj
+                    ++ vp.adv
+                    ++ vp.s ! agr2vf np.agr
     } ;
 
 --------------------------------------------------------------------------------
