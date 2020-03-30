@@ -18,11 +18,10 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
 
     UsePron p = p ;
 
-    -- TODO: look further into how correct this is.
     UsePN pn = { 
       s = \\c => pn.s ! Sg ! c;
       h = pn.h;
-      a = {n = Sg; p = P1}
+      a = {n = Sg; p = P3}
     } ;
 
     PossPron p = {s = []; useGen = YesGen p.a} ;

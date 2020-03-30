@@ -143,10 +143,10 @@ resource ParadigmsTur = open
     regN : Str -> N ;
 
     -- Paradigm for proper noun
-    regPN : Str -> Noun ;
+    regPN : Str -> PN ;
 
     -- Worst case function for proper nouns
-    makePN : Str -> Str -> Noun ;
+    makePN : Str -> Str -> PN ;
 
     -- digits can be seen as proper noun, but we need an additional harmony argument
     -- since harmony information can not be extracted from digit string.
@@ -611,7 +611,7 @@ resource ParadigmsTur = open
 
     ablat_Case : Prep = mkPrep [] Ablat;
     dat_Case   : Prep = mkPrep [] Dat;
-    acc_Case   : Prep = mkPrep [] Dat;
+    acc_Case   : Prep = mkPrep [] Acc;
 
     mkQuant : Str -> Quant = \s -> lin Quant {s=s; useGen = NoGen} ;
 
