@@ -20,12 +20,41 @@ oper
 -- Nouns
 
 param
-  Case = Nom | Acc | Dat | Gen | Ins | Ess | Tra | Cau
-       | Ill | Sub | All | Ine | Sup | Ade | Ela
-       | Del | Abl | Ter | For | Tem
+
+  Case = Nom | Acc | Dat
+    --   | PossStem  -- TODO: Stem where possessive suffixes attach?
+       | Ill | Ine | Ela | All | Ade | Abl | Sub | Sup | Del -- Locatives
+       | Cau  -- Causal-final 'for the purpose of, for the reason that'
+       | Ins  -- Instrumental
+       | Tra  -- Translative
+       -- | Ess | Ter | For
+       -- | Tem -- Temporal, e.g. hatkor ‘six o’clock’ (from hat ‘6’)
        ;
 
   Harm = H_a | H_e | H_o ;
+
+  SubjCase = SCNom | SCDat ; -- Limited set of subject cases
+
+oper
+
+  caseTable : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,x15 : Str) -> Case=>Str =
+   \n,a,d,il,ine,el,al,ad,ab,sub,sup,del,ca,ins,tra -> table {
+      Nom => n ;
+      Acc => a ;
+      Dat => d ;
+      Ill => il ;
+      Ine => ine ;
+      Ela => el ;
+      All => al ;
+      Ade => ad ;
+      Abl => ab ;
+      Sub => sub ;
+      Sup => sup ;
+      Del => del ;
+      Cau => ca ;
+      Ins => ins ;
+      Tra => tra } ;
+
 
 --------------------------------------------------------------------------------
 -- Numerals

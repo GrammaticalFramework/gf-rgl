@@ -16,28 +16,27 @@ oper
     Nom => harm1 [] ;
     Acc => harm3 "ot" "et" "öt" ;
     Dat => harm "nak" "nek" ;
-    Gen => harm "é" "e" ;
-    Ins => harm "al" "el" ;
-    Ess => harm "stul" "stül" ;
-    Tra => harm "á" "é" ;
-    Cau => harm1 "ért" ;
     Ill => harm "ba" "be" ;
-    Sub => harm "ra" "re" ;
-    All => harm3 "hoz" "hez" "höz" ;
     Ine => harm "ban" "ben" ;
-    Sup => harm3 "on" "en" "ön" ;
-    Ade => harm "nál" "nél" ;
     Ela => harm "ból" "ből" ;
-    Del => harm "ról" "ről" ;
+    All => harm3 "hoz" "hez" "höz" ;
+    Ade => harm "nál" "nél" ;
     Abl => harm "tól" "től" ;
-    Ter => harm1 "ig" ;
-    For => harm1 "ként" ;
-    Tem => harm1 "kor"
+    Sub => harm "ra" "re" ;
+    Sup => harm3 "on" "en" "ön" ;
+    Del => harm "ról" "ről" ;
+    Ins => harm "al" "el" ;
+    Cau => harm1 "ért" ;
+    Tra => harm "á" "é" -- TODO consonant assimilation
+    -- Ess => harm "stul" "stül" ;
+    -- Ter => harm1 "ig" ;
+    -- For => harm1 "ként" ;
+    -- Tem => harm1 "kor"
     } ;
 
   endNumber : Number -> HarmForms = \n -> case n of {
     Sg => harm1 [] ;
-    Pl => harm3 "ok" "ek" "ök"
+    Pl => harm3 "ok" "ek" "ök" -- TODO: vowel assimilation
     } ;
 
   harm3 : Str -> Str -> Str -> HarmForms = \a,e,o -> <a,e,o> ;
