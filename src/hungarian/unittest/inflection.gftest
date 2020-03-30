@@ -15,9 +15,9 @@ Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
 LangEng: on the beer
 LangHun: a sörön
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
-LangEng: of the beer
-LangHun: a söré
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
+# LangEng: of the beer
+# LangHun: a söré
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
 LangEng: to the beer
@@ -29,8 +29,8 @@ LangHun: a sörökben
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN beer_N))
 LangHun: a söröknél
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN beer_N))
-LangHun: a söröké
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN beer_N))
+# LangHun: a söröké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN beer_N))
 LangHun: a sörökhöz
@@ -51,9 +51,9 @@ Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
 LangEng: on the woman
 LangHun: a nőnél
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
-LangEng: of the woman
-LangHun: a nőé
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
+# LangEng: of the woman
+# LangHun: a nőé
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))
 LangEng: to the woman
@@ -65,8 +65,8 @@ LangHun: a nőkben
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN woman_N))
 LangHun: a nőknél
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN woman_N))
-LangHun: a nőké
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN woman_N))
+# LangHun: a nőké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN woman_N))
 LangHun: a nőkhöz
@@ -88,9 +88,9 @@ Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
 LangEng: on the apple
 LangHun: az almánál
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
-LangEng: of the apple
-LangHun: az almáé
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
+# LangEng: of the apple
+# LangHun: az almáé
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
 LangEng: to the apple
@@ -102,8 +102,8 @@ LangHun: az almákban
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN apple_N))
 LangHun: az almáknál
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN apple_N))
-LangHun: az almáké
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN apple_N))
+# LangHun: az almáké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN apple_N))
 LangHun: az almákhoz
@@ -124,9 +124,9 @@ Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
 LangEng: on the bird
 LangHun: a madárnál
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
-LangEng: of the bird
-LangHun: a madáré
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
+# LangEng: of the bird
+# LangHun: a madáré
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
 LangEng: to the bird
@@ -138,8 +138,8 @@ LangHun: a madarakban
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
 LangHun: a madaraknál
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
-LangHun: a madaraké
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
+# LangHun: a madaraké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN bird_N))
 LangHun: a madarakhoz
@@ -160,9 +160,9 @@ Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
 LangEng: on the name
 LangHun: a névnél
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
-LangEng: of the name
-LangHun: a névé
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
+# LangEng: of the name
+# LangHun: a névé
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
 LangEng: to the name
@@ -174,8 +174,8 @@ LangHun: a nevekben
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
 LangHun: a neveknél
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
-LangHun: a neveké
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
+# LangHun: a neveké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN name_N))
 LangHun: a nevekhez
@@ -196,9 +196,9 @@ Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
 LangEng: on the man
 LangHun: a férfinál
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
-LangEng: of the man
-LangHun: a férfié
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+# LangEng: of the man
+# LangHun: a férfié
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
 LangEng: to the man
@@ -210,8 +210,8 @@ LangHun: a férfiakban
 Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
 LangHun: a férfiaknál
 
-Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
-LangHun: a férfiaké
+# Lang: PrepNP possess_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
+# LangHun: a férfiaké
 
 Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN man_N))
 LangHun: a férfiakhoz
