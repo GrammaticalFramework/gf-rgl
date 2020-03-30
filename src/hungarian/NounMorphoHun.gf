@@ -43,7 +43,7 @@ oper
         } ;
 
   -- TODO: actual paradigm
-  dSör : Str -> Noun -> \sör ->
+  dSör : Str -> Noun = \sör ->
     let foo : Str = "foo" ;
      in mkNoun sör ;
 
