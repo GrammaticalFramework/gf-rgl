@@ -187,7 +187,7 @@ oper
     c2 : Case   -- object case
     } ;
   Verb3 : Type = Verb2 ** {
-    c3 : Case   -- indirect object case
+    -- c3 : Case   -- indirect object case
     } ;
 
   mkVerb2 : Str -> Verb2 = \sg3 -> vtov2 (mkVerb sg3) ;

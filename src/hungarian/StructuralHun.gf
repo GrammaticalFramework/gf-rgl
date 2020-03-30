@@ -90,13 +90,13 @@ oper
 -------
 -- Prep
 
--- lin above_Prep = mkPrep ""
+lin above_Prep = mkPrep "fölött" ;
 -- lin after_Prep = mkPrep ""
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep "" ;
 -- lin between_Prep = = mkPrep "" ;
 -- lin by8agent_Prep = mkPrep ;
--- lin by8means_Prep = mkPrep ;
+lin by8means_Prep = casePrep Ins ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
 -- lin for_Prep = mkPrep "" ;
@@ -105,7 +105,7 @@ oper
 lin in_Prep = casePrep Ine ;
 lin on_Prep = casePrep Ade ;
 -- lin part_Prep = casePrep  ;
-lin possess_Prep = casePrep Gen ;
+-- lin possess_Prep = -- Suffix attaches to possessee, not possessor
 -- lin through_Prep = mkPrep ;
 lin to_Prep = casePrep All ;
 lin under_Prep = mkPrep "alatt" ;
