@@ -12,13 +12,13 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     agr = <P3,det.n> ;
     } ;
 
-{-
   -- : PN -> NP ;
-  UsePN pn = pn ** {} ;
+  UsePN pn = pn ;
 
   -- : Pron -> NP ;
   UsePron pron = pron ;
 
+  {-
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {s = } ;
 

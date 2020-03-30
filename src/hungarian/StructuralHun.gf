@@ -118,14 +118,74 @@ lin under_Prep = mkPrep "alatt" ;
 
 -- Pronouns are closed class, no constructor in ParadigmsHun.
   -- it_Pron =
-  -- i_Pron =
-  -- youPol_Pron,
-  -- youSg_Pron =
-  -- he_Pron =
-  -- she_Pron =
-  -- we_Pron =
-  -- youPl_Pron =
-  -- they_Pron =
+  i_Pron = emptyNP ** {
+    s = caseTable "én" "engem" "nekem"
+                  "belém" "bennem" "belőlem" -- inner locatives
+                  "hozzám" "nálam" "tőlem"   -- outer locatives
+                  "rám" "rajtam" "rólam"     -- outer locatives
+                  "értem" -- Causative
+                  "velem" -- Instrumental
+                  nonExist ; -- Translative
+    agr = <P1,Sg> ;
+    isPron = True ;
+    } ;
+  youPol_Pron,
+  youSg_Pron = emptyNP ** {
+    s = caseTable "te" "teged" "neked"
+                  "beléd" "benned" "belőled"
+                  "hozzád" "nálad" "tőled"
+                  "rád" "rajtad" "rólad"
+                  "érted" -- Causative
+                  "veled" -- Instrumental
+                  nonExist ; -- Translative
+    agr = <P2,Sg> ;
+    isPron = True ;
+    } ;
+  he_Pron,
+  she_Pron = emptyNP ** {
+    s = caseTable "ő" "őt" "neki"
+                  "belé" "benne" "belőle"
+                  "hozzá" "nála" "tőle"
+                  "rá" "rajta" "róla"
+                  "érte" -- Causative
+                  "vele" -- Instrumental
+                  nonExist ; -- Translative
+    isPron = True ;
+    } ;
+  we_Pron = emptyNP ** {
+    s = caseTable "mi" "minket" "nekünk"
+                  "belénk" "bennünk" "belőlünk"
+                  "hozzánk" "nálunk" "tőlünk"
+                  "ránk" "rajtunk" "rólunk"
+                  "értünk" -- Causative
+                  "velünk" -- Instrumental
+                  nonExist ; -- Translative
+    agr = <P1,Pl> ;
+    isPron = True ;
+    } ;
+
+  youPl_Pron = emptyNP ** {
+    s = caseTable "ti" "titeket" "nektek"
+                  "belétek" "bennetek" "belőletek"
+                  "hozzátok" "nálatok" "tőletek"
+                  "rátok" "rajtatok" "rólatok"
+                  "értetek" -- Causative
+                  "veletek" -- Instrumental
+                  nonExist ; -- Translative
+    agr = <P2,Pl> ;
+    isPron = True ;
+    } ;
+  they_Pron = emptyNP ** {
+    s = caseTable "ők" "őket" "nekik"
+                  "beléjük" "bennük" "belőlük"
+                  "hozzájuk" "náluk" "tőlük"
+                  "rájuk" "rajtuk" "róluk"
+                  "értük" -- Causative
+                  "velük" -- Instrumental
+                  nonExist ; -- Translative
+    agr = <P3,Pl> ;
+    isPron = True ;
+    } ;
 
 --lin whatPl_IP = ;
 --lin whatSg_IP = :
