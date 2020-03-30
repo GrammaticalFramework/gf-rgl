@@ -34,9 +34,11 @@ lin
 
 --------
 -- Slash
+-}
   -- : V2 -> VPSlash
   SlashV2a = ResHun.useVc ;
 
+{-
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash2V3,
@@ -59,10 +61,10 @@ lin
   SlashV2A v2a ap = useVc v2a ** {
     aComp = \\_ => (CompAP ap).aComp ! Sg3 Masc
   } ;
-
+-}
   -- : VPSlash -> NP -> VP
-  ComplSlash = ResHun.insertComp ;
-
+  ComplSlash = ResHun.insertObj ;
+{-
   -- : VV  -> VPSlash -> VPSlash ;
                   -- Just like ComplVV except missing subject!
   SlashVV vv vps = ComplVV vv vps ** { missing = vps.missing ;
@@ -80,13 +82,13 @@ lin
   -- : Comp -> VP ;
   UseComp comp = comp ;
 
-{-
+
   -- : VP -> Adv -> VP ;  -- sleep here
   AdvVP = insertAdv ;
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
   AdvVPSlash = insertAdvSlash ;
-
+{-
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
   ExtAdvVP vp adv = vp ** { } ;
 

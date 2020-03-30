@@ -252,6 +252,11 @@ oper
 
   insertObj : VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
     obj = np.s ! vps.c2 ;
+
+    -- If verb's subject case is Dat and object Nom, verb agrees with obj.
+    s = \\vf => case <vps.sc,vps.c2> of {
+                  <SCDat,Nom> => vps.s ! agr2vf np.agr ;
+                  _ => vps.s ! vf } ;
     } ;
 
   insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
