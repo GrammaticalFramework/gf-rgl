@@ -82,7 +82,9 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
   NumPl = baseNum ** {n = Pl} ;
 
   -- : Card -> Num ;
-  NumCard card = card ;
+  NumCard card = card ** {
+    n = Sg -- Numerals take noun in Sg: e.g. öt város, literally 'five city'
+    } ;
 
   -- : Digits  -> Card ;
   --  NumDigits dig =

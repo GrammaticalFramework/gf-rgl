@@ -120,24 +120,24 @@ oper
     numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
     } ;
 
-  Num : Type = {
+  Numeral : Type = {
     s : Place => Str ;  -- Independent or attribute
-    n : Number ;        -- Singular or plural
     numtype : NumType ; -- Digit, numeral or Sg/Pl : makes a difference in many languages
-    } ;
-
-  baseNum : Num = {
-    s = \\_ => [] ;
-    n = Sg ;
-    numtype = NoNum
+    -- TODO add ordinal
     } ;
 
   {- Numeral can become Num via
       Noun.gf:    NumNumeral : Numeral -> Card ;
       Noun.gf:    NumCard : Card -> Num ;
   -}
-  Numeral : Type = Num ** {
-    -- TODO add ordinal
+  Num : Type = Numeral ** {
+    n : Number ;        -- Singular or plural
+  } ;
+
+  baseNum : Num = {
+    s = \\_ => [] ;
+    n = Sg ;
+    numtype = NoNum
     } ;
 
 --------------------------------------------------------------------------------
