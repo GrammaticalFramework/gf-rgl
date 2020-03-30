@@ -65,13 +65,13 @@ param
 
   CardOrd = NOrd | NCard ; -- Not used yet
 
---  NumType = NoNum | IsDig | IsNum ;
+  NumType = NoNum | IsDig | IsNum ;
 
--- oper
---   isNum : {numtype : NumType} -> Bool = \nt -> case nt.numtype of {
---     NoNum => False ;
---     _     => True
---     } ;
+oper
+  isNum : {numtype : NumType} -> Bool = \nt -> case nt.numtype of {
+    NoNum => False ;
+    _     => True
+    } ;
 --------------------------------------------------------------------------------
 -- Adjectives
 

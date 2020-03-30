@@ -58,7 +58,9 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
 
   -- : Quant -> Num -> Det ;
   DetQuant quant num = quant ** num ** {
-    s = \\c => quant.s ! num.n ! c
+    s = \\c => case <isNum num,quant.isIndefArt> of {
+                 <True,True> => [] ; -- don't output "a 2 cars"
+                 _           => quant.s ! num.n ! c }
             ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
     sp = \\c => quant.sp ! num.n ! c
             ++ num.s ! Indep
@@ -115,13 +117,14 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
   DefArt = {
     s,
     sp = \\_,_ => pre {"a" ; "az" / v } ;
+    isIndefArt = False ;
     } ;
-
 
   -- : Quant
   IndefArt = {
     s,
     sp = \\_,_ => "egy" ;
+    isIndefArt = True ;
     } ;
 
   -- : Pron -> Quant

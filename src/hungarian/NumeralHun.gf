@@ -30,48 +30,48 @@ lin
   pot0 d = d ;
 
   -- : Sub100 ;                              -- 10
-  pot110 = {s = table {p => "tíz"} ; n=Pl} ;
+  pot110 = {s = table {p => "tíz"} ; n = Pl ; numtype = IsNum} ;
   -- : Sub100 ;                              -- 11
-  pot111 = {s = table {p => "tizenegy"} ; n=Pl} ;
+  pot111 = {s = table {p => "tizenegy"} ; n = Pl ; numtype = IsNum} ;
   -- : Digit -> Sub100 ;                     -- 10 + d
   pot1to19 d =
       {s = table {p => "tizen" ++ d.s ! <Unit,p>} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
   --  : Sub10 -> Sub100 ;                    -- coercion of 1..9
   pot0as1 n =
       {s = table {p => n.s ! <Unit,p>} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
 
   -- : Digit -> Sub100 ;                     -- d * 10
   pot1 d =
       {s = table {p => d.s ! <Ten,p>} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
   -- : Digit -> Sub10 -> Sub100 ;            -- d * 10 + n
   pot1plus d e =
       {s = table {p => (d.s ! <Ten,Attrib>) ++ e.s ! <Unit,p>} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
 
   -- : Sub100 -> Sub1000 ;                   -- coercion of 1..99
   pot1as2 n = n ;
   --  : Sub10 -> Sub1000 ;                   -- m * 100
   pot2 d =
       {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz"} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
   --  : Sub10 -> Sub100 -> Sub1000 ;         -- m * 100 + n
   pot2plus d e =
       {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz" ++ e.s ! p} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
 
   -- : Sub1000 -> Sub1000000 ;               -- coercion of 1..999
   pot2as3 n = n ;
   -- : Sub1000 -> Sub1000000 ;               -- m * 1000
   pot3 n =
       {s = table {p => n.s ! Attrib ++ "ezer"} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
   --  : Sub1000 -> Sub1000 -> Sub1000000 ;   -- m * 1000 + n
   pot3plus n m =
       {s = table {p => n.s ! Attrib ++ "ezer" ++ m.s ! p} ;
-       n = Pl} ;
+       n = Pl ; numtype = IsNum} ;
 
 oper
   LinDigit : Type = {s : DForm*Place => Str ; n : Number} ;
@@ -85,7 +85,8 @@ oper
                <Unit,Attrib> => ua ;
                <Ten, Attrib> => ta } ;
 --    ord = ord ; -- TODO figure out where to use ordinal
-    n = Pl
+    n = Pl ;
+    numType = IsNum ;
     } ;
 
   }

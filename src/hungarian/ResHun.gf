@@ -102,11 +102,13 @@ oper
   Quant : Type = {
     s, -- form that comes before noun: "{this} car"
     sp : Number => Case => Str ; -- independent form, "I like {this}" (DetNP)
+    isIndefArt : Bool ; -- standard trick to prevent "a one car"
     } ;
 
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
     s = (mkNoun s).s ;
     sp = (mkNoun sp).s ;
+    isIndefArt = False ;
     } ;
 
  -- Det is formed in DetQuant : Quant -> Num -> Det
@@ -115,19 +117,19 @@ oper
     s,
     sp : Case => Str ;
     n : Number ;
---    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
+    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
     } ;
 
   Num : Type = {
     s : Place => Str ;  -- Independent or attribute
     n : Number ;        -- Singular or plural
-    -- numtype : NumType ; -- Digit, numeral or Sg/Pl : makes a difference in many languages
+    numtype : NumType ; -- Digit, numeral or Sg/Pl : makes a difference in many languages
     } ;
 
   baseNum : Num = {
     s = \\_ => [] ;
     n = Sg ;
-    -- numtype = NoNum
+    numtype = NoNum
     } ;
 
   {- Numeral can become Num via
