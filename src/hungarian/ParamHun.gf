@@ -3,14 +3,6 @@ resource ParamHun = ParamX ** open Prelude in {
 --------------------------------------------------------------------------------
 -- Phonology
 
-oper
-  v : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü" |
-                      "á" | "é" | "í" | "ó" | "ú" | "ő" | "ű") ;
-
-  -- not used yet
-  vowFinal : Str -> Bool = \str ->
-    case str of {_ + #v => True ; _ => False} ;
-
 --------------------------------------------------------------------------------
 -- Morphophonology
 
@@ -31,7 +23,6 @@ param
        -- | Tem -- Temporal, e.g. hatkor ‘six o’clock’ (from hat ‘6’)
        ;
 
-  Harm = H_a | H_e | H_o ;
 
   SubjCase = SCNom | SCDat ; -- Limited set of subject cases
 

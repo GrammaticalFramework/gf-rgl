@@ -128,6 +128,7 @@ lin under_Prep = mkPrep "alatt" ;
                   nonExist ; -- Translative
     agr = <P1,Sg> ;
     isPron = True ;
+    poss = "em" ;
     } ;
   youPol_Pron,
   youSg_Pron = emptyNP ** {
@@ -140,6 +141,7 @@ lin under_Prep = mkPrep "alatt" ;
                   nonExist ; -- Translative
     agr = <P2,Sg> ;
     isPron = True ;
+    poss = "d" ;
     } ;
   he_Pron,
   she_Pron = emptyNP ** {

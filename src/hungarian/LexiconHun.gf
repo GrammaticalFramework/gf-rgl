@@ -1,5 +1,5 @@
 concrete LexiconHun of Lexicon = CatHun **
-  open ParadigmsHun in {
+  open ParadigmsHun, ParamHun, Prelude in {
 
 ----
 -- A
@@ -222,7 +222,7 @@ lin house_N = mkN "ház" ;
 ----
 -- M
 
-lin man_N = mkN "férfi" ;
+lin man_N = mkN "férfi" "ak" harmA ; -- force plural allomorph and a-harmony
 -- lin married_A2 = mkA "" ;
 -- lin meat_N = mkN "" ;
 -- lin milk_N = mkN "" ;

@@ -5,70 +5,14 @@
 -- This module contains operations that are needed to make the
 -- resource syntax work.
 -- Some parameters, such as $Number$, are inherited from $ParamX$.
-resource ResHun = ParamHun ** open Prelude, Predef, ParamHun in {
+resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 
 --------------------------------------------------------------------------------
--- Nouns
-oper
-    Noun = {s : Number => Case => Str} ;
-
-  endCase : Case -> HarmForms = \c -> case c of {
-    Nom => harm1 [] ;
-    Acc => harm3 "ot" "et" "öt" ;
-    Dat => harm "nak" "nek" ;
-    Ill => harm "ba" "be" ;
-    Ine => harm "ban" "ben" ;
-    Ela => harm "ból" "ből" ;
-    All => harm3 "hoz" "hez" "höz" ;
-    Ade => harm "nál" "nél" ;
-    Abl => harm "tól" "től" ;
-    Sub => harm "ra" "re" ;
-    Sup => harm3 "on" "en" "ön" ;
-    Del => harm "ról" "ről" ;
-    Ins => harm "al" "el" ;
-    Cau => harm1 "ért" ;
-    Tra => harm "á" "é" -- TODO consonant assimilation
-    -- Ess => harm "stul" "stül" ;
-    -- Ter => harm1 "ig" ;
-    -- For => harm1 "ként" ;
-    -- Tem => harm1 "kor"
-    } ;
-
-  endNumber : Number -> HarmForms = \n -> case n of {
-    Sg => harm1 [] ;
-    Pl => harm3 "ok" "ek" "ök" -- TODO: vowel assimilation
-    } ;
-
-  harm3 : Str -> Str -> Str -> HarmForms = \a,e,o -> <a,e,o> ;
-  harm  : Str -> Str -> HarmForms = \a,e -> harm3 a e e ;
-  harm1 : Str -> HarmForms = \i -> harm i i ;
-
-  getHarm : Str -> Harm = \s -> case s of {
-    _ + ("a" | "á" | "o" | "ó" | "u" | "ú") + _ => H_a ;
-    _ + ("ö" | "ő" | "ü") + _                   => H_o ;
-    _ => H_e
-    } ;
-
-  HarmForms : Type = Str * Str * Str ;
-
-  useHarm : Harm -> HarmForms -> Str = \h,ss -> case h of {
-    H_a => ss.p1 ;
-    H_e => ss.p2 ;
-    H_o => ss.p3
-    } ;
-
-  putHarmEnding : HarmForms -> Str -> Str = \hs,w ->
-    w + useHarm (getHarm w) hs ;
-
-  mkNoun : Str -> Noun = \w -> {
-    s = \\n,c =>
-        let h = getHarm w
-        in
-        w + useHarm h (endNumber n) + useHarm h (endCase c)
-    } ;
-
----------------------------------------------
 -- NP
+
+-- Noun morphology is in NounMorphoHun
+
+oper
 
   NounPhrase : Type = {
     s : Case => Str ;
@@ -90,8 +34,7 @@ oper
 -- Pronouns
 
   Pronoun : Type = NounPhrase ** {
-    -- poss : { -- for PossPron : Pron -> Quant
-    --   } ;
+    --poss : Str ; -- for PossPron : Pron -> Quant
     } ;
 
 --------------------------------------------------------------------------------
@@ -165,8 +108,10 @@ oper
 
   mkAdj : Str -> Adjective = \sg -> {
     s = \\n =>
-      let h = getHarm sg
-       in sg + useHarm h (endNumber n)
+      let plural = case n of {
+                     Sg => [] ;
+                     Pl => pluralAllomorph sg }
+       in sg + plural
     } ;
 
 --------------------------------------------------------------------------------
@@ -201,12 +146,12 @@ oper
   mkVerb : (sg3 : Str) -> Verb = mkVerbReg "TODO:infinitive" ; -- TODO
 
   mkVerbReg : (inf, sg3 : Str) -> Verb = \inf,sg3 ->
-    let harmony : Harm = getHarm sg3 ;
-        sg1 : Str = sg3 + useHarm harmony (verbEndings!<P1,Sg>) ;
+    let h : Harm = getHarm sg3 ;
+        sg1 : Str = sg3 + verbEndings ! <P1,Sg> ! h ;
         sg2 : Str = sg3 + "sz" ;
-        pl1 : Str = sg3 + useHarm harmony (verbEndings!<P1,Pl>) ;
-        pl2 : Str = sg3 + useHarm harmony (verbEndings!<P2,Pl>) ;
-        pl3 : Str = sg3 + useHarm harmony (verbEndings!<P3,Pl>) ;
+        pl1 : Str = sg3 + (verbEndings!<P1,Pl>) ! h ;
+        pl2 : Str = sg3 + (verbEndings!<P2,Pl>) ! h;
+        pl3 : Str = sg3 + (verbEndings!<P3,Pl>) ! h;
      in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf ;
 
   mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =

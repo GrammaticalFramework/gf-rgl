@@ -9,11 +9,17 @@ oper
 -- should always use these constants instead of the constructors
 -- defined in $ResKor$.
 
+  Harmony : Type ;
+  harmA : Harmony ;
+  harmE : Harmony ;
+  harmO : Harmony ;
 
 --2 Nouns
 
   mkN : overload {
-    mkN : (noun : Str) -> N ; -- Predictable nouns
+    mkN : (sgnom : Str) -> N ; -- Predictable nouns
+    mkN : (madár : Str) -> (ak : Str) -> N ; -- Noun with unpredictable plural allomorph
+    mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
   } ;
 
 --2 Adjectives
@@ -93,13 +99,28 @@ oper
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
+  Harmony : Type = ResHun.Harm ;
+  harmA = ResHun.H_a ;
+  harmE = ResHun.H_e ;
+  harmO = ResHun.H_o ;
+
   mkN = overload {
-    mkN : Str -> N = \s   -> lin N (mkNoun s) ;
+    mkN : Str -> N =
+      \s -> lin N (regNoun s) ;
+
+    mkN : Str -> Str -> N =
+        \s,ak -> lin N (mkNounHarm (getHarm s) ak s) ;
+
+    mkN : Str -> Harmony -> N =
+      \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;
+
+    mkN : Str -> (plural : Str) -> Harmony -> N =
+      \s,pl,h -> lin N (mkNounHarm h pl s) ;
     } ;
 
 
   mkN2 = overload {
-    mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s) ;
+    mkN2 : Str -> N2 = \s -> lin N2 (regNoun s) ;
     mkN2 : N   -> N2 = \n -> lin N2 n ;
    } ;
 
