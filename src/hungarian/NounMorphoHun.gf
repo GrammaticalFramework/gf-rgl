@@ -48,15 +48,20 @@ oper
      in mkNoun sör ;
 
   --Handles words like "ló, kő" which are "lovak, kövek" in plural
-  --TODO: not fixed, right now "lovok" and "kövök"
+  --TODO: "kövek" irregular? "kövekhöz" should be "kövekhez", but "kőhöz" is correct...
   dLó : Str -> Noun = \ló ->
     let lo = shorten ló ;
         lov = lo + "v" ;
-        nLov = mkNoun lov ;
+        a : Str = case ló of {
+          _ + ("ö" | "ő") => "e" ;
+          _ + ("o" | "ó") => "a" } ;
+        lova = lov + a ;
+        nLova = mkNoun lova ;
         nLó = mkNoun ló ;
     in {s = \\n,c => case <n,c> of {
+
                 -- All plural forms and Sg Acc use the "lov" stem
-                <Pl,_>|<Sg,Acc> => nLov.s ! n ! c ;
+                <Pl,_>|<Sg,Acc> => nLova.s ! n ! c ;
 
                 -- The rest of the forms are formed with the regular constructor,
                 -- using "ló" as the stem.
