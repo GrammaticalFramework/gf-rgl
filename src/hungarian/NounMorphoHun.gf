@@ -47,6 +47,25 @@ oper
     let foo : Str = "foo" ;
      in mkNoun sör ;
 
+  --Handles words like "ló, kő" which are "lovak, kövek" in plural
+  --TODO: not fixed, right now "lovok" and "kövök"
+  dLó : Str -> Noun = \ló ->
+    let lo = shorten ló ;
+        lov = lo + "v" ;
+        nLov = mkNoun lov ;
+        nLó = mkNoun ló ;
+    in {s = \\n,c => case <n,c> of {
+                -- All plural forms and Sg Acc use the "lov" stem
+                <Pl,_>|<Sg,Acc> => nLov.s ! n ! c ;
+
+                -- The rest of the forms are formed with the regular constructor,
+                -- using "ló" as the stem.
+                _ => nLó.s ! n ! c
+
+              } ;
+        } ;
+
+
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
   -- falu ~ falva-k
@@ -161,7 +180,7 @@ oper
     _   => endCaseCons c
   } ;
 
-  -- Function to return a plural allomorph given the stem (e.g. nev, almá).
+  -- Function to return a plural allomorph given the stem (e.g. név, almá).
   pluralAllomorph : (stem : Str) -> Str = \stem ->
     case vowFinal stem of {
       True  => "k" ;
