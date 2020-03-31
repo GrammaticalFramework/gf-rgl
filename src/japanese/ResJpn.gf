@@ -160,9 +160,9 @@ oper
 
   VerbalA : Str -> Str -> Adj = \kekkonshiteiru,kikonno ->
     let
-      kekkonshite = Predef.tk 2 kekkonshiteiru    
+      kekkonshite = Predef.tk 2 kekkonshiteiru
     in {
-    pred = \\st,t,p => kekkonshite ++ mkExistV.verb ! SomeoneElse ! Anim ! st ! t ! p ;
+    pred = \\st,t,p => kekkonshite + mkExistV.verb ! SomeoneElse ! Anim ! st ! t ! p ;
     attr = kikonno ;
     te = \\p => kekkonshite ++ mkExistV.te ! SomeoneElse ! Anim ! Resp ! p ;
     ba = \\p => kekkonshite ++ mkExistV.ba ! SomeoneElse ! Anim ! Resp ! p ;
