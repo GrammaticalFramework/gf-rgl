@@ -49,6 +49,7 @@ oper
 
   --Handles words like "ló, kő" which are "lovak, kövek" in plural
   --TODO: "kövek" irregular? "kövekhöz" should be "kövekhez", but "kőhöz" is correct...
+  -- similar problem to below...
   dLó : Str -> Noun = \ló ->
     let lo = shorten ló ;
         lov = lo + "v" ;
@@ -60,7 +61,7 @@ oper
         nLó = mkNoun ló ;
     in {s = \\n,c => case <n,c> of {
 
-                -- All plural forms and Sg Acc use the "lov" stem
+                -- All plural forms and Sg Acc use the "lova" stem
                 <Pl,_>|<Sg,Acc> => nLova.s ! n ! c ;
 
                 -- The rest of the forms are formed with the regular constructor,
@@ -70,12 +71,30 @@ oper
               } ;
         } ;
 
+  --Handles words like "gyomor, majom, retek" which are "sátrat, gyomrot, majmot, retket" in plural (wovel dropping base)
+  --TODO: "gyomor, majom" needs fixing in the <Pl,Acc> case =>
+  -- "gyomrokat, majmokat" instead of "gyomrokot,majmokot" (however in <Sg,Acc> it should be "ot")
+  -- This is a recurring problem with H_a harmony, since sometimes "at" is used instead of "ot"
+  dMajom : Str -> Noun = \majom ->
+    let mo = last majom + last (init majom);
+        maj = init (init majom) ;
+        majmo = maj + mo ;
+        nMajmo = mkNoun majmo ;
+        nMajom = mkNoun majom ;
+    in {s = \\n,c => case <n,c> of {
+        -- All plural forms and Sg Acc use the "majmo" stem
+        <Pl,_>|<Sg,Acc> => nMajmo.s ! n ! c ;
+
+        -- The rest of the forms are formed with the regular constructor,
+        -- using "majom" as the stem.
+        _ => nMajom.s ! n ! c
+        } ;
+    } ;
 
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
   -- falu ~ falva-k
-  -- gyomor ~ gyomr-ot
-  -- sátor ~ satr-at
+  -- sátor ~ sátrak
   -- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
 
   -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
@@ -154,7 +173,7 @@ oper
   -- Variant of case forms when the noun stem ends in consonant.
   endCaseCons : Case -> HarmForms = \c -> case c of {
     Nom => harm1 [] ;
-    Acc => harm3 "ot" "et" "öt" ;
+    Acc => harm3 "ot" "et" "öt" ; --TODO: does not take care of "at" case (in plural)
     Dat => harm "nak" "nek" ;
     Ill => harm "ba" "be" ;
     Ine => harm "ban" "ben" ;
