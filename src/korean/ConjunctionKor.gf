@@ -69,10 +69,10 @@ lin
 
 oper
   mkFirstS : ResKor.Sentence -> ConjType => Str = \s ->
-    \\conj => glue (s.s ! Subord) (conjTable ! NStar ! conj) ;
+    \\conj => glue (s.s ! WithConj) (conjTable ! NStar ! conj) ;
 
 lincat
-  [AP] = ResKor.AdjPhrase ** {firstAP : AForm => ConjType => Str} ;
+  [AP] = ResKor.AdjPhrase ** {firstAP : VForm => ConjType => Str} ;
 
 lin
   BaseAP a1 a2 = a2 ** {
@@ -90,10 +90,10 @@ lin
 
 
 oper
-  mkFirstAP : ResKor.AdjPhrase -> AForm => ConjType => Str = \ap ->
+  mkFirstAP : ResKor.AdjPhrase -> VForm => ConjType => Str = \ap ->
     \\af,conj => case af of {
-      AAttr   => glue (ap.s ! AAttr) (conjTable ! NStar ! conj) ;
-      APred _ => glue (ap.s ! APred VStem) (conjTable ! VStar ! conj) } ;
+      VAttr p => glue (ap.s ! VAttr p) (conjTable ! NStar ! conj) ;
+      _       => glue (ap.s ! VStem)   (conjTable ! VStar ! conj) } ;
 
 {-
 lincat

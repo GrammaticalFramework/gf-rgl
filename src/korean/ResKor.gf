@@ -131,15 +131,16 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  Adjective : Type = {s : AForm => Str} ;
+  Adjective : Type = {s : VForm => Str} ; -- Adjectives are verbs
   Adjective2 : Type = Adjective ;
 
   mkAdj : Str -> Adjective = \plain ->
    let stem = init plain ;
        verb = mkVerb plain ;
    in {
-     s = table { AAttr    => add_N stem ;
-                 APred vf => verb.s ! vf }
+     s = table {
+           VAttr Pos => add_N stem ;  -- Positive Attr form is different in
+           vf => verb.s ! vf } -- adjectives, otherwise adj forms == verb forms.
      } ;
 
   AdjPhrase : Type = Adjective ** {compar : Str} ;
@@ -159,9 +160,6 @@ oper
 
   mkVerb : (plain : Str) -> Verb = \plain ->
     let stem = init plain ;
-        -- plainpres = case vowFinal stem of { -- not used in grammar yet
-        --               True  => add_N stem + "다" ;
-        --               False => stem + "는다" } ;
         informal = add_eo stem ; -- not used in grammar yet
         polpres = informal + "요" ;
         formalpres = case vowFinal stem of {
@@ -179,15 +177,19 @@ oper
   mkVerbReg : (x1,_,_,x4 : Str) -> Verb =
     \plain,polite,formal,neg ->
     let stem    = init plain ;
+        attrpos = stem + "는" ; -- TODO: ㄹ-irregulars
+        attrneg = neg ++ "않는" ;
         planeg  = neg ++ negForms ! Plain ;
         polneg  = neg ++ negForms ! Polite ;
         formneg = neg ++ negForms ! Formal ;
-     in mkVerbFull stem plain polite formal planeg polneg formneg ;
+     in mkVerbFull stem attrpos attrneg plain polite formal planeg polneg formneg ;
 
-  mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
-    \stem,plain,polite,formal,planeg,polneg,formneg -> {
+  mkVerbFull : (x1,_,_,_,_,_,_,_,x9 : Str) -> Verb =
+    \stem,attrpos,attrneg,plain,polite,formal,planeg,polneg,formneg -> {
       s = table {
         VStem => stem ;
+        VAttr Pos => attrpos ;
+        VAttr Neg => attrneg ;
         VF Plain Pos => plain ;
         VF Plain Neg => planeg ;
         VF Polite Pos => polite ;
@@ -200,6 +202,8 @@ oper
 
   copula : Verb = mkVerbFull
     "이"
+    "이는"   -- TODO does this exist?
+    "아니는" -- TODO does this exist?
     "이다"
     "이에요"
     "입니다"
@@ -209,6 +213,7 @@ oper
 
   copulaAfterVowel : Verb = copula ** {
     s = \\vf => case vf of {
+                  VAttr Pos     => "는" ; -- TODO just guessing
                   VF Plain Pos  => "다" ;
                   VF Polite Pos => "예요" ;
                   _ => copula.s ! vf }
@@ -216,6 +221,8 @@ oper
 
   have_V : Verb = mkVerbFull
     "있"
+    "있는"
+    "없는"
     "있다"
     "있어요"
     "있습니다"
@@ -309,8 +316,9 @@ oper
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
     s = \\t,a,p,cltyp =>
            let vf = case cltyp of {
-                      Subord => VStem ;
-                      _      => VF Polite p } -- TODO: more tenses, politeness
+                      Subord   => VAttr p ;
+                      WithConj => VStem ;
+                      _        => VF Polite p } -- TODO: more tenses, politeness
             in np.s ! vp.sc
             ++ vp.nObj -- an object, not copula complement
             ++ vp.adv
