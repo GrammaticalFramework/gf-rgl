@@ -22,6 +22,7 @@ oper
   Noun3 : Type = Noun ;
 
   CNoun : Type = Noun ** {
+    rs : Str ; -- Relative clause comes before determiner
     } ;
 
   PNoun : Type = Noun ;
@@ -32,7 +33,9 @@ oper
     c = baseCounter
     } ;
 
-  useN : Noun -> CNoun = \n -> n ;
+  useN : Noun -> CNoun = \n -> n ** {
+    rs = []
+    } ;
 
 ---------------------------------------------
 -- NP
@@ -309,7 +312,7 @@ oper
 
   QClause : Type = Clause ;
 
-  RClause : Type = {s : NForm => Tense => Anteriority => Polarity => Str} ;
+  RClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
 
   Sentence : Type = {s : ClType => Str} ;
 

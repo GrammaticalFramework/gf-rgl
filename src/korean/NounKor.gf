@@ -18,8 +18,8 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
                          IsDig => glue dets cn.c.s ;
                          NoNum => dets } ;
        in case isNum det of {
-            True  => cns ++ detnum ;
-            False => detnum ++ cns }
+            True  => cn.rs ++ cns ++ detnum ;
+            False => cn.rs ++ detnum ++ cns }
     } ;
 
   -- : PN -> NP ;
@@ -159,8 +159,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
     } ;
 
   -- : CN -> RS  -> CN ;
-  -- RelCN cn rs = cn ** {
-  --   } ;
+  RelCN cn rs = cn ** {
+    rs = rs.s
+    } ;
 
 {-
   -- : CN -> Adv -> CN ;
