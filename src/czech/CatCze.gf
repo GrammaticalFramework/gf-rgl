@@ -53,6 +53,11 @@ concrete CatCze of Cat =
     PConj = {s : Str} ;
     Voc = {s : Str} ;
 
+    AdN = {s : Str} ;
+    AdV = {s : Str} ;
+    CAdv = {s : Str} ;
+    SC = {s : Str} ;
+
   linref
     N = \s -> s.snom ;
     A = \s -> s.msnom ;

@@ -12,6 +12,7 @@ lin
     or_Conj = mkConj "nebo" ;
 ----    somePl_Det : Det
 ----    something_NP : NP
+    possess_Prep = mkPrep "" Gen ;
     that_Quant = demPronFormsAdjective (mkDemPronForms "tamt") "" ;
     this_Quant = demPronFormsAdjective (mkDemPronForms "t") "to" ;
     to_Prep = mkPrep "do" Gen ;
