@@ -316,13 +316,16 @@ oper
 
   Sentence : Type = {s : ClType => Str} ;
 
-  predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
+  predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp ->
+    let npstr : Str = np.s ! vp.sc in predVP' npstr vp ;
+
+  predVP' : (np : Str) -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
     s = \\t,a,p,cltyp =>
            let vf = case cltyp of {
                       Subord   => VAttr p ;
                       WithConj => VStem ;
                       _        => VF Polite p } -- TODO: more tenses, politeness
-            in np.s ! vp.sc
+            in np
             ++ vp.nObj -- an object, not copula complement
             ++ vp.adv
             ++ vp.s ! vf
