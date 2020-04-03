@@ -134,7 +134,7 @@ oper
 -- Adjectives
 
   Adjective : Type = {s : VForm => Str} ; -- Adjectives are verbs
-  Adjective2 : Type = Adjective ;
+  Adjective2 : Type = Adjective ** {p2 : Postposition} ;
 
   mkAdj : Str -> Adjective = \plain ->
    let stem = init plain ;
@@ -144,6 +144,8 @@ oper
            VAttr Pos => add_N stem ;  -- Positive Attr form is different in
            vf => verb.s ! vf } -- adjectives, otherwise adj forms == verb forms.
      } ;
+
+  atoa2 : Adjective -> Adjective2 = \a -> a ** {c2=Bare ; p2=emptyPP} ;
 
   AdjPhrase : Type = Adjective ** {compar : Str} ;
 --------------------------------------------------------------------------------

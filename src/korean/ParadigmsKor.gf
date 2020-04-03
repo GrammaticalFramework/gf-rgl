@@ -28,7 +28,10 @@ oper
     mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
   } ;
 
-  -- mkA2 : Str -> Prep -> A2 ;
+  mkA2 : overload {
+    mkA2 : Str -> A2 ; -- Regular adjective, given in -다 form, no postposition for complement.
+    mkA2 : A -> Prep -> A2 ; -- Preconstructed adjective and postposition for complement.
+  } ;
 
   mkPN : Str -> PN
    = \s -> lin PN (mkNoun s) ;
@@ -123,6 +126,11 @@ oper
     mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
       jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
     } ;
+
+  mkA2 = overload {
+    mkA2 : Str -> A2 = \s -> lin A2 (atoa2 (mkAdj s)) ;
+    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {p2 = p}) ;
+  } ;
 
   mkV = overload {
     mkV : (plain : Str) -> V = \v -> lin V (mkVerb v) ;
