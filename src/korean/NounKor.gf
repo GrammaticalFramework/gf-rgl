@@ -114,10 +114,10 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   --   } ;
 
   -- : A       -> Ord ;
-  -- OrdSuperl a = {
-  --   s = \\af => "제일" ++ a.s ! af ;
-  --   n = Sg -- ?? is this meaningful?
-  --   } ;
+  OrdSuperl a = {
+    s = \\vf => "가장" ++ a.s ! vf ;
+    n = Sg -- ?? is this meaningful?
+    } ;
 
 -- One can combine a numeral and a superlative.
 
@@ -151,7 +151,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- Use3N3 n3 = lin N2 n3 ;
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = \\nf => ap.s ! VAttr Pos ++ cn.s ! nf
+    s = \\nf => ap.compar ++ ap.s ! VAttr Pos ++ cn.s ! nf
     } ;
 
   -- : CN -> RS  -> CN ;

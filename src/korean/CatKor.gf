@@ -66,7 +66,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     Quant = ResKor.Quant ;
     Num = ResKor.Num ;
     Ord = {
-      s : Str ; -- AForm => Str ; -- Ord can come from AP and become AP again
+      s : VForm => Str ; -- Ord can come from AP and become AP again
       n : Number -- Ord can come from Num, which has inherent number
       } ;
     DAP = ResKor.Determiner ;

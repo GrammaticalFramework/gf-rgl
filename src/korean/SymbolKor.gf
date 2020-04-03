@@ -1,7 +1,7 @@
 --# -path=.:../abstract:../common:../prelude
 
 concrete SymbolKor of Symbol = CatKor **
-  open Prelude, ResKor, (NK=NounKor) in {
+  open Prelude, ResKor, (NK=NounKor), (VK=VerbKor) in {
 
 lin
 
@@ -45,7 +45,9 @@ lin
   SymbNum sy = baseNum ** {s = \\_,_ => sy.s} ;
 
   -- : Symb -> Ord ;
-  SymbOrd sy = sy ** {n=Pl} ;
+  SymbOrd sy =
+    let comp : Comp = VK.CompAdv (lin Adv sy)
+     in {s = comp.s ; n=Pl} ;
 
 lincat
   Symb, [Symb] = SS ;

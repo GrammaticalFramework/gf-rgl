@@ -11,7 +11,8 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
 
   -- : A  -> NP -> AP ;
   ComparA a np = a ** {
-    compar = np.s ! Bare
+    s = \\vf => "더" ++ a.s ! vf ;
+    compar = glue (np.s ! Bare) "보다" ;
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
@@ -37,7 +38,6 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
 
   -- : Ord -> AP ;       -- warmest
   AdjOrd ord = ord ** {
-    s = \\_ => ord.s ;
     compar = []
     } ;
 
