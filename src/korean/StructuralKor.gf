@@ -68,17 +68,16 @@ lin all_Predet = {s = \\_ => "마다" ; p = Vowel} ;
 lin only_Predet = {s = \\_ => "만" ; p = Consonant} ;
 --lin most_Predet = {s = ""} ;
 
-{-
-lin every_Det = R.defDet [] pl **
-                 { s = mkVow } ;
-lin few_Det = R.indefDet "" pl ;
-lin many_Det = R.indefDet "" pl ;
-lin much_Det = R.indefDet "" sg ;
 
-lin somePl_Det =
-lin someSg_Det =
-lin no_Quant =
--}
+--lin every_Det = ;
+lin few_Det = mkDet "조금" Pl ;
+lin many_Det = mkDet "많은" Pl ;
+-- lin much_Det = ;
+
+lin somePl_Det = mkDet "어떤" Pl ;
+lin someSg_Det = mkDet "어떤" Sg ;
+--lin no_Quant =
+
 lin that_Quant = mkQuant "그" "그것" ;
 lin this_Quant = mkQuant "이" "이것" ;
 {-lin which_IQuant =

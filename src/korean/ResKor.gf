@@ -64,20 +64,19 @@ oper
 -- Det, Quant, Card, Ord
 
   BaseQuant : Type = {
+    sp : NForm => Str ;
     isPoss : Bool ;
     p : Phono
     } ;
 
   Determiner : Type = BaseQuant ** {
     s : NumOrigin => Str ; -- Chosen by the counter of CN
-    sp : NForm => Str ;
     n : Number ;
     numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
     } ;
 
   Quant : Type = BaseQuant ** {
     s : Str ;
-    sp : NForm => Str ;
     } ;
 
   Num : Type = {
@@ -99,6 +98,7 @@ oper
     } ;
 
   baseQuant : BaseQuant = {
+    sp = \\_ => [] ;
     isPoss = False ;
     p = Vowel ;
   } ;
@@ -108,6 +108,13 @@ oper
     sp = (mkNoun sp).s ;
     p = (mkNoun sp).p ;
   } ;
+
+  mkDet : Str -> Number -> Determiner = \s,num -> baseQuant ** {
+    s = \\_ => (mkNoun s).s ! Bare ; -- NumOrigin irrelevant for non-numbers
+    sp = (mkNoun s).s ;
+    n = num ;
+    numtype = NoNum ;
+    } ;
 
   plural : NForm => Str = table {
     Bare => "들" ;
