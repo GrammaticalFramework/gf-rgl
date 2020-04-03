@@ -13,9 +13,12 @@ oper
     origin = NK
     } ;
 
-  Noun : Type = {
+  BaseNoun : Type = {
     s : NForm => Str ;
     p : Phono ;
+    } ;
+
+  Noun : Type =  BaseNoun ** {
     c : Counter ;
     } ;
   Noun2 : Type = Noun ; -- TODO eventually more parameters?
@@ -24,8 +27,6 @@ oper
   CNoun : Type = Noun ** {
     rs : Str ; -- Relative clause comes before determiner
     } ;
-
-  PNoun : Type = Noun ;
 
   mkNoun : Str -> Noun = \str -> {
     s = \\cas => str + allomorph cas str ;
@@ -40,34 +41,25 @@ oper
 ---------------------------------------------
 -- NP
 
-  -- BaseNP : Type = {
-  --   a : Agreement ;
-  --   isPron : Bool ;
-  --   empty : Str ; -- standard trick for pro-drop
-  --   } ;
-  --
-  -- emptyNP : NounPhrase = {
-  --   s = \\_ => [] ;
-  --   a = Sg3 Masc ;
-  --   isPron = False ;
-  --   empty = [] ;
-  --   } ;
-  --
-  -- indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
-
-  --NounPhrase : Type = BaseNP ** {s : NForm => Str} ;
-  NounPhrase = Noun ;
+  NounPhrase = BaseNoun ** {
+    -- empty : Str ; -- standard trick for pro-drop
+  } ;
 
 --------------------------------------------------------------------------------
 -- Pronouns
 
-  Pronoun : Type = NounPhrase ** {
-    -- poss : { -- for PossPron : Pron -> Quant
-    --   } ;
-    sp : NForm => Str ;
+  Pronoun : Type = BaseNoun ** {
+    poss : Quant ;
     } ;
 
-
+  mkPron = overload {
+    mkPron : (stem,poss : Str) -> Pronoun = \s,poss -> mkNoun s ** {
+      poss = mkQuant poss (poss ++ "것") ;
+      } ;
+    mkPron : (stem : Str) -> Pronoun = \s -> mkNoun s ** {
+      poss = mkQuant (s + "의") (s + "의" ++ "것") ;
+    }
+  } ;
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 

@@ -129,13 +129,15 @@ lin to_Prep = mkPrep "에";
 
 -- Pronouns are closed class, no constructor in ParadigmsKor.
   -- it_Pron =
-  -- i_Pron =
-  -- youPol_Pron,
-  -- youSg_Pron =
-  -- he_Pron =
-  -- she_Pron =
+  i_Pron = let iReg : Pronoun = mkPron "저" "제" in
+    iReg ** {s = table {Subj => "제가"; nf => iReg.s ! nf}
+    } ;
+  youPol_Pron = mkPron "당신" ;
+  youSg_Pron = mkPron "너" ; -- NB. this is very informal, best not used
+  he_Pron = mkPron "그" ;
+  she_Pron = mkPron "그녀" ;
   -- we_Pron =
-  -- youPl_Pron =
+  youPl_Pron = mkPron "너희" ;
   -- they_Pron =
 
 --lin whatPl_IP = ;
