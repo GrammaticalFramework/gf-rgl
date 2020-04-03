@@ -27,7 +27,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 --    } ;
 
   -- : Pron -> NP ;
-  -- UsePron pron = pron ;
+  UsePron pron = pron ** {empty = []};
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {s =
@@ -130,10 +130,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   IndefArt = mkQuant [] [] ;
 
   -- : Pron -> Quant
-  -- PossPron pron =
-  --   let p = pron.poss ;
-  --    in DefArt ** {
-  --       } ;
+  PossPron pron = pron.poss ;
 
 --2 Common nouns
 
