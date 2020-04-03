@@ -38,7 +38,7 @@ lin there_Adv = ss "" ;
 -------
 -- Conj
 
-  and_Conj = {
+lin and_Conj = {
     s1 = [] ;
     -- no need for strings here, actual values come from ParamKor.conjTable
     -- s2 = \\phono => table {
@@ -47,7 +47,7 @@ lin there_Adv = ss "" ;
     n = Pl ;
     c = And
     } ;
--- lin or_Conj = {s2 = \\_ => "" ; s1 = [] ; n = Sg} ;
+lin or_Conj = {s1 = [] ; n = Sg ; c = Or} ;
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;
 -- lin either7or_DConj = {s2 = \\_ => "" ; s1 = "" ; n = Sg} ;
@@ -91,11 +91,8 @@ lin everything_NP = defNP "" N.NumSg ;
 lin nobody_NP = mkVerb; ""
 lin nothing_NP = defNP "" N.NumSg ;
 lin somebody_NP = defNP "" N.NumSg ;
-lin something_NP = defNP "" N.NumSg ;
-
-oper
- defNP : Str -> Num -> NP = {} ;
 -}
+lin something_NP = mkNoun "무엇" ;
 
 -------
 -- Prep
