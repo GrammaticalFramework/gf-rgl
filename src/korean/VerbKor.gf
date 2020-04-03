@@ -111,7 +111,7 @@ lin
 
   -- : AP  -> Comp ;
   CompAP ap = emptyComp ** {
-    s = \\vf => ap.s ! APred vf
+    s = \\vf => ap.compar ++ ap.s ! vf
     } ;
 
   -- : CN  -> Comp ;

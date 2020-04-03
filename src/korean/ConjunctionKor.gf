@@ -1,5 +1,5 @@
 concrete ConjunctionKor of Conjunction =
-  CatKor ** open ResKor, Coordination, Prelude in {
+  CatKor ** open ResKor, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -25,30 +25,36 @@ concrete ConjunctionKor of Conjunction =
       ConsAdv = consrSS comma ;
       ConjAdv = conjunctSS ;
 
-    --}
+    -}
 
 
--- Adverb and other simple {s : Str} types.
 lincat
-  [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
-
+  [Adv],[AdV],[IAdv],[RS] = ConjSS ;
 lin
-  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
+  BaseAdv, BaseAdV, BaseIAdv, BaseRS = baseSS ;
+  ConsAdv, ConsAdV, ConsIAdv, ConsRS = consSS ;
+  ConjAdv, ConjAdV, ConjIAdv, ConjRS = conjSS ;
 
+oper
+  ConjSS : Type = SS ** {firstSS : ConjType => Str} ;
 
-{-
--- RS depends on X, Y and Z, otherwise exactly like previous.
--- RS can modify CNs, which are open for …, and have inherent …
-lincat
-  [RS] = {s1,s2 : … => Str} ;
+  baseSS : SS -> SS -> ConjSS = \s1,s2 -> s2 ** {
+    firstSS = mkFirstSS s1 ;
+    } ;
 
-lin
-  BaseRS = twoTable3 … ;
-  ConsRS = consrTable3 … comma ;
-  ConjRS = conjunctRSTable ;
--}
+  consSS : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
+    firstSS = \\conj =>
+      mkFirstSS s ! conj ++ ss.firstSS ! conj ;
+    } ;
+
+  conjSS : Conj -> ConjSS -> SS = \co,ss -> {
+    s = co.s1 ++ ss.firstSS ! co.c ++ ss.s
+    } ;
+
+oper
+  mkFirstSS : SS -> ConjType => Str = \s ->
+    \\conj => glue s.s (conjTable ! NStar ! conj) ;
+
 
 lincat
   [S] = ResKor.Sentence ** {firstS : ConjType => Str} ;
@@ -69,10 +75,10 @@ lin
 
 oper
   mkFirstS : ResKor.Sentence -> ConjType => Str = \s ->
-    \\conj => glue (s.s ! Subord) (conjTable ! NStar ! conj) ;
+    \\conj => glue (s.s ! WithConj) (conjTable ! NStar ! conj) ;
 
 lincat
-  [AP] = ResKor.AdjPhrase ** {firstAP : AForm => ConjType => Str} ;
+  [AP] = ResKor.AdjPhrase ** {firstAP : VForm => ConjType => Str} ;
 
 lin
   BaseAP a1 a2 = a2 ** {
@@ -90,10 +96,10 @@ lin
 
 
 oper
-  mkFirstAP : ResKor.AdjPhrase -> AForm => ConjType => Str = \ap ->
+  mkFirstAP : ResKor.AdjPhrase -> VForm => ConjType => Str = \ap ->
     \\af,conj => case af of {
-      AAttr   => glue (ap.s ! AAttr) (conjTable ! NStar ! conj) ;
-      APred _ => glue (ap.s ! APred VStem) (conjTable ! VStar ! conj) } ;
+      VAttr p => glue (ap.s ! VAttr p) (conjTable ! NStar ! conj) ;
+      _       => glue (ap.s ! VStem)   (conjTable ! VStar ! conj) } ;
 
 {-
 lincat
@@ -130,5 +136,6 @@ lin
 oper
   mkFirstNP : ResKor.NounPhrase -> ConjType => Str = \np ->
     \\conj => glue (np.s ! Bare) (conjTable ! NStar ! conj) ;
+
 
 }

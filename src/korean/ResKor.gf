@@ -13,18 +13,20 @@ oper
     origin = NK
     } ;
 
-  Noun : Type = {
+  BaseNoun : Type = {
     s : NForm => Str ;
     p : Phono ;
+    } ;
+
+  Noun : Type =  BaseNoun ** {
     c : Counter ;
     } ;
   Noun2 : Type = Noun ; -- TODO eventually more parameters?
   Noun3 : Type = Noun ;
 
   CNoun : Type = Noun ** {
+    rs : Str ; -- Relative clause comes before determiner
     } ;
-
-  PNoun : Type = Noun ;
 
   mkNoun : Str -> Noun = \str -> {
     s = \\cas => str + allomorph cas str ;
@@ -32,57 +34,49 @@ oper
     c = baseCounter
     } ;
 
-  useN : Noun -> CNoun = \n -> n ;
+  useN : Noun -> CNoun = \n -> n ** {
+    rs = []
+    } ;
 
 ---------------------------------------------
 -- NP
 
-  -- BaseNP : Type = {
-  --   a : Agreement ;
-  --   isPron : Bool ;
-  --   empty : Str ; -- standard trick for pro-drop
-  --   } ;
-  --
-  -- emptyNP : NounPhrase = {
-  --   s = \\_ => [] ;
-  --   a = Sg3 Masc ;
-  --   isPron = False ;
-  --   empty = [] ;
-  --   } ;
-  --
-  -- indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
-
-  --NounPhrase : Type = BaseNP ** {s : NForm => Str} ;
-  NounPhrase = Noun ;
+  NounPhrase = BaseNoun ** {
+    -- empty : Str ; -- standard trick for pro-drop
+  } ;
 
 --------------------------------------------------------------------------------
 -- Pronouns
 
-  Pronoun : Type = NounPhrase ** {
-    -- poss : { -- for PossPron : Pron -> Quant
-    --   } ;
-    sp : NForm => Str ;
+  Pronoun : Type = BaseNoun ** {
+    poss : Quant ;
     } ;
 
-
+  mkPron = overload {
+    mkPron : (stem,poss : Str) -> Pronoun = \s,poss -> mkNoun s ** {
+      poss = mkQuant poss (poss ++ "것") ;
+      } ;
+    mkPron : (stem : Str) -> Pronoun = \s -> mkNoun s ** {
+      poss = mkQuant (s + "의") (s + "의" ++ "것") ;
+    }
+  } ;
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
   BaseQuant : Type = {
+    sp : NForm => Str ;
     isPoss : Bool ;
     p : Phono
     } ;
 
   Determiner : Type = BaseQuant ** {
     s : NumOrigin => Str ; -- Chosen by the counter of CN
-    sp : NForm => Str ;
     n : Number ;
     numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
     } ;
 
   Quant : Type = BaseQuant ** {
     s : Str ;
-    sp : NForm => Str ;
     } ;
 
   Num : Type = {
@@ -104,6 +98,7 @@ oper
     } ;
 
   baseQuant : BaseQuant = {
+    sp = \\_ => [] ;
     isPoss = False ;
     p = Vowel ;
   } ;
@@ -113,6 +108,13 @@ oper
     sp = (mkNoun sp).s ;
     p = (mkNoun sp).p ;
   } ;
+
+  mkDet : Str -> Number -> Determiner = \s,num -> baseQuant ** {
+    s = \\_ => (mkNoun s).s ! Bare ; -- NumOrigin irrelevant for non-numbers
+    sp = (mkNoun s).s ;
+    n = num ;
+    numtype = NoNum ;
+    } ;
 
   plural : NForm => Str = table {
     Bare => "들" ;
@@ -131,16 +133,19 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  Adjective : Type = {s : AForm => Str} ;
-  Adjective2 : Type = Adjective ;
+  Adjective : Type = {s : VForm => Str} ; -- Adjectives are verbs
+  Adjective2 : Type = Adjective ** {p2 : Postposition} ;
 
   mkAdj : Str -> Adjective = \plain ->
    let stem = init plain ;
        verb = mkVerb plain ;
    in {
-     s = table { AAttr    => add_N stem ;
-                 APred vf => verb.s ! vf }
+     s = table {
+           VAttr Pos => add_N stem ;  -- Positive Attr form is different in
+           vf => verb.s ! vf } -- adjectives, otherwise adj forms == verb forms.
      } ;
+
+  atoa2 : Adjective -> Adjective2 = \a -> a ** {c2=Bare ; p2=emptyPP} ;
 
   AdjPhrase : Type = Adjective ** {compar : Str} ;
 --------------------------------------------------------------------------------
@@ -159,9 +164,6 @@ oper
 
   mkVerb : (plain : Str) -> Verb = \plain ->
     let stem = init plain ;
-        -- plainpres = case vowFinal stem of { -- not used in grammar yet
-        --               True  => add_N stem + "다" ;
-        --               False => stem + "는다" } ;
         informal = add_eo stem ; -- not used in grammar yet
         polpres = informal + "요" ;
         formalpres = case vowFinal stem of {
@@ -179,15 +181,19 @@ oper
   mkVerbReg : (x1,_,_,x4 : Str) -> Verb =
     \plain,polite,formal,neg ->
     let stem    = init plain ;
+        attrpos = stem + "는" ; -- TODO: ㄹ-irregulars
+        attrneg = neg ++ "않는" ;
         planeg  = neg ++ negForms ! Plain ;
         polneg  = neg ++ negForms ! Polite ;
         formneg = neg ++ negForms ! Formal ;
-     in mkVerbFull stem plain polite formal planeg polneg formneg ;
+     in mkVerbFull stem attrpos attrneg plain polite formal planeg polneg formneg ;
 
-  mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
-    \stem,plain,polite,formal,planeg,polneg,formneg -> {
+  mkVerbFull : (x1,_,_,_,_,_,_,_,x9 : Str) -> Verb =
+    \stem,attrpos,attrneg,plain,polite,formal,planeg,polneg,formneg -> {
       s = table {
         VStem => stem ;
+        VAttr Pos => attrpos ;
+        VAttr Neg => attrneg ;
         VF Plain Pos => plain ;
         VF Plain Neg => planeg ;
         VF Polite Pos => polite ;
@@ -200,6 +206,8 @@ oper
 
   copula : Verb = mkVerbFull
     "이"
+    "이는"   -- TODO does this exist?
+    "아니는" -- TODO does this exist?
     "이다"
     "이에요"
     "입니다"
@@ -209,6 +217,7 @@ oper
 
   copulaAfterVowel : Verb = copula ** {
     s = \\vf => case vf of {
+                  VAttr Pos     => "는" ; -- TODO just guessing
                   VF Plain Pos  => "다" ;
                   VF Polite Pos => "예요" ;
                   _ => copula.s ! vf }
@@ -216,6 +225,8 @@ oper
 
   have_V : Verb = mkVerbFull
     "있"
+    "있는"
+    "없는"
     "있다"
     "있어요"
     "있습니다"
@@ -302,16 +313,20 @@ oper
 
   QClause : Type = Clause ;
 
-  RClause : Type = {s : NForm => Tense => Anteriority => Polarity => Str} ;
+  RClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
 
   Sentence : Type = {s : ClType => Str} ;
 
-  predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
+  predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp ->
+    let npstr : Str = np.s ! vp.sc in predVP' npstr vp ;
+
+  predVP' : (np : Str) -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
     s = \\t,a,p,cltyp =>
            let vf = case cltyp of {
-                      Subord => VStem ;
-                      _      => VF Polite p } -- TODO: more tenses, politeness
-            in np.s ! vp.sc
+                      Subord   => VAttr p ;
+                      WithConj => VStem ;
+                      _        => VF Polite p } -- TODO: more tenses, politeness
+            in np
             ++ vp.nObj -- an object, not copula complement
             ++ vp.adv
             ++ vp.s ! vf
@@ -321,5 +336,6 @@ oper
 -- linrefs
 
 linVerb : Verb -> Str = \v -> v.s ! linVF ;
+linVP : VerbPhrase -> Str = \vp -> vp.nObj ++ vp.adv ++ vp.s ! linVF ;
 
 }

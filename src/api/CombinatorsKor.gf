@@ -1,4 +1,4 @@
---# -path=.:alltenses:prelude:src/korean
+--# -path=.:alltenses:prelude:../korean
 
 resource CombinatorsKor = Combinators with
   (Cat = CatKor),

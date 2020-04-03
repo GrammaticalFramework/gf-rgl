@@ -4,11 +4,16 @@ oper
 
 --2 Parameters
 --
--- To abstract over number, valency and (some) case names,
+-- To abstract over number, valency and (some) CaseParticle names,
 -- we define the following identifiers. The application programmer
 -- should always use these constants instead of the constructors
 -- defined in $ResKor$.
 
+  CaseParticle : Type ;    -- Arguments to give to V2, V3
+  topic : CaseParticle ;   -- 은 or 는
+  subject : CaseParticle ; -- 이 or 가
+  object : CaseParticle ;  -- 을 or 를
+  noCase : CaseParticle ;  -- No case particle
 
 --2 Nouns
 
@@ -23,8 +28,13 @@ oper
     mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
   } ;
 
-  -- mkA2 : Str -> Prep -> A2 ;
+  mkA2 : overload {
+    mkA2 : Str -> A2 ; -- Regular adjective, given in -다 form, no postposition for complement.
+    mkA2 : A -> Prep -> A2 ; -- Preconstructed adjective and postposition for complement.
+  } ;
 
+  mkPN : Str -> PN
+   = \s -> lin PN (mkNoun s) ;
 --2 Verbs
 
   -- Verbs
@@ -36,8 +46,9 @@ oper
   copula : V ; -- The copula verb ''
 
   mkV2 : overload {
-    mkV2 : (plain : Str) -> V2 ; -- Regular verb. Takes plain, uninflected -다 form, object particle is 를.
-    mkV2 : V -> V2 ; -- Takes preconstructed V, object particle is 를.
+    mkV2 : (plain : Str) -> V2 ; -- Regular verb. Takes plain, uninflected -다 form, subject particle is 가/이  and object particle is 를/을.
+    mkV2 : V -> V2 ; -- Takes preconstructed V, subject particle is 가/이  and object particle is 를/을.
+    mkV2 : V -> (subj,obj : CaseParticle) -> V2 ; -- Takes preconstructed V, and subject and object particles. E.g. `mkV2 좋다_V topic subject` for "as for <SUBJ>는, <OBJ>가 is good".
     } ;
 
   -- mkV3 : overload {
@@ -91,6 +102,12 @@ oper
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
+  CaseParticle : Type = ResKor.NForm ;
+  topic = Topic ;
+  subject = Subject ;
+  object = Object ;
+  noCase = Bare ;
+
   mkN = overload {
     mkN : Str -> N = \s   -> lin N (mkNoun s) ;
     } ;
@@ -110,6 +127,11 @@ oper
       jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
     } ;
 
+  mkA2 = overload {
+    mkA2 : Str -> A2 = \s -> lin A2 (atoa2 (mkAdj s)) ;
+    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {p2 = p}) ;
+  } ;
+
   mkV = overload {
     mkV : (plain : Str) -> V = \v -> lin V (mkVerb v) ;
     mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
@@ -124,6 +146,8 @@ oper
   mkV2 = overload {
     mkV2 : (plain : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
     mkV2 : V -> V2 = vtov2 ;
+    mkV2 : V -> (subj,obj : CaseParticle) -> V2 = \v,sc,c2 ->
+      vtov2 v ** {sc = sc ; c2 = c2} ;
     } ;
 
   mkV3 = overload {

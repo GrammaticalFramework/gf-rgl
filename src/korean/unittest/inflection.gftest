@@ -9,7 +9,7 @@ Lang: eat_V2
 LangKor: 먹어요
 
 Lang: UseComp (CompAP (PositA good_A))
-LangKor: 좋어요
+LangKor: 좋아요
 
 -- Final ㅏ or ㅓ does not repeat itself
 Lang: go_V
