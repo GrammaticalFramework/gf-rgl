@@ -47,8 +47,13 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- PPartNP np v2 = np ** {
   --   s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
 
-  -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
-  --AdvNP,ExtAdvNP = \np,adv -> np ** {} ;
+  -- : NP -> Adv -> NP ;    -- Paris today
+  AdvNP np adv = np ** {
+    s = \\nf => adv.s ++ np.s ! nf
+    } ; -- TODO test
+
+   -- : NP -> Adv -> NP ;    -- boys, such as ..
+  -- ExtAdvNP np adv = np ** {} ;
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
   -- RelNP np rs = np ** {

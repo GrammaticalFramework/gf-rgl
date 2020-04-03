@@ -28,10 +28,10 @@ concrete AdjectiveKor of Adjective = CatKor **
   UseA2 = PositA ;
 
   -- : A  -> AP ;     -- warmer
-  -- UseComparA a = a ** {
-  --   s = \\af => "???" ++ a.s ! af ;
-  --   compar = []
-  --  } ;
+  UseComparA a = a ** {
+    s = \\af => "더" ++ a.s ! af ;
+    compar = [] ;
+    } ;
 
 
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
