@@ -334,5 +334,6 @@ oper
 -- linrefs
 
 linVerb : Verb -> Str = \v -> v.s ! linVF ;
+linVP : VerbPhrase -> Str = \vp -> vp.nObj ++ vp.adv ++ vp.s ! linVF ;
 
 }
