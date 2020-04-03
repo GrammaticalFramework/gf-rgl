@@ -96,7 +96,11 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   NumCard card = card ;
 
   -- : Digits  -> Card ;
-  --  NumDigits dig =
+  NumDigits dig = baseNum ** {
+    s = \\_,_ => dig.s ! NCard ;
+    n = dig.n ;
+    numtype = IsDig
+    } ;
 
   -- : Numeral -> Card ;
   NumNumeral num = num ;
