@@ -23,8 +23,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
     } ;
 
   -- : PN -> NP ;
---  UsePN pn = pn ** {
---    } ;
+  UsePN pn = pn ;
 
   -- : Pron -> NP ;
   UsePron pron = pron ** {empty = []};

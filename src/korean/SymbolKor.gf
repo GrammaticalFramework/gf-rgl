@@ -1,7 +1,7 @@
 --# -path=.:../abstract:../common:../prelude
 
 concrete SymbolKor of Symbol = CatKor **
-  open Prelude, ParadigmsKor, ResKor, (NS=NounKor) in {
+  open Prelude, ResKor in {
 
 lin
 
@@ -15,7 +15,14 @@ lin
   FloatPN i = mkPN i.s ;
 
   -- : Card -> PN ;                -- twelve [as proper name]
-  NumPN i = mkPN i.s ;
+  NumPN i = mkPN (i.s ! NK ! Indep) ;
+
+oper
+
+  mkPN : Str -> NounPhrase = \s -> {
+    s = \\_ => s ;
+    p = Consonant ; -- ??
+    } ;
 
 {-
 lin

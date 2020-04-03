@@ -30,6 +30,8 @@ oper
 
   -- mkA2 : Str -> Prep -> A2 ;
 
+  mkPN : Str -> PN
+   = \s -> lin PN (mkNoun s) ;
 --2 Verbs
 
   -- Verbs
