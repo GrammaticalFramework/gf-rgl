@@ -160,19 +160,23 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    rs = rs.s
+    rs = cn.rs ++ rs.s
     } ;
 
-{-
+
   -- : CN -> Adv -> CN ;
-  AdvCN cn adv = cn ** {  } ;
+  AdvCN cn adv = cn ** {
+    rs = cn.rs ++ adv.s
+    } ;
 
 -- Nouns can also be modified by embedded sentences and questions.
 -- For some nouns this makes little sense, but we leave this for applications
 -- to decide. Sentential complements are defined in VerbKor.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
-  SentCN cn sc = cn ** { } ;
+  SentCN cn sc = cn ** {
+    rs = cn.rs ++ sc.s
+    } ;
 
 
 --2 Apposition
@@ -180,8 +184,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 -- This is certainly overgenerating.
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
-  ApposCN cn np = cn ** { s =  } ;
--}
+  ApposCN cn np = cn ** {
+    s = \\nf => np.s ! Bare ++ cn.s ! nf -- TODO which form of NP?
+    } ;
 
 --2 Possessive and partitive constructs
 
