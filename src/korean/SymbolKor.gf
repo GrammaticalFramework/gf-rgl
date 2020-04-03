@@ -1,7 +1,7 @@
 --# -path=.:../abstract:../common:../prelude
 
 concrete SymbolKor of Symbol = CatKor **
-  open Prelude, ResKor in {
+  open Prelude, ResKor, (NK=NounKor) in {
 
 lin
 
@@ -24,26 +24,29 @@ oper
     p = Consonant ; -- ??
     } ;
 
-{-
 lin
---  CNIntNP cn i = {} ;
+  -- : CN -> Int -> NP
+  CNIntNP cn i = NK.MassNP (cn ** {
+    s = \\nf => cn.s ! nf ++ i.s}) ;
 
   -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and y
   CNSymbNP det cn xs =
-    let cnSymb = cn ** { comp = cn.comp ++ xs.s }
-     in NS.DetCN det cnSymb ;
+    let cnSymb : CN = cn ** {s = \\nf => cn.s ! nf ++ xs.s}
+     in NK.DetCN det cnSymb ;
 
   -- : CN -> Card -> NP ;          -- level five ; level 5
-  CNNumNP cn i = NS.MassNP (cn ** { comp = cn.comp ++ i.s }) ;
+  CNNumNP cn i = NK.MassNP (cn ** {
+    s = \\nf => cn.s ! nf ++ i.s ! cn.c.origin ! Indep}) ;
 
   -- : Symb -> S ;
-  SymbS sy = {s = } ;
+  SymbS sy = {s = \\_ => sy.s} ;
+
   -- : Symb -> Card ;
-  SymbNum sy = { s = sy.s ; n = Pl } ;
+  SymbNum sy = baseNum ** {s = \\_,_ => sy.s} ;
 
   -- : Symb -> Ord ;
-  SymbOrd sy = { s =} ;
--}
+  SymbOrd sy = sy ** {n=Pl} ;
+
 lincat
   Symb, [Symb] = SS ;
 

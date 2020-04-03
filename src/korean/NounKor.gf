@@ -63,9 +63,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
     } ;
 
   -- MassNP : CN -> NP ;
-  -- MassNP cn = useN cn ** {
-  --   } ;
-
+  MassNP cn = cn ** {
+    s = \\nf => cn.rs ++ cn.s ! nf
+    } ;
 
 --2 Determiners
 
