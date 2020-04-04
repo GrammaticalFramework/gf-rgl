@@ -49,7 +49,6 @@ oper
 
   --Handles words like "ló, kő" which are "lovak, kövek" in plural
   --TODO: "kövek" irregular? "kövekhöz" should be "kövekhez", but "kőhöz" is correct...
-  -- similar problem to below...
   dLó : Str -> Noun = \ló ->
     let lo = shorten ló ;
         lov = lo + "v" ;
@@ -72,9 +71,6 @@ oper
         } ;
 
   --Handles words like "gyomor, majom, retek" which are "sátrat, gyomrot, majmot, retket" in plural (wovel dropping base)
-  --TODO: "gyomor, majom" needs fixing in the <Pl,Acc> case =>
-  -- "gyomrokat, majmokat" instead of "gyomrokot,majmokot" (however in <Sg,Acc> it should be "ot")
-  -- This is a recurring problem with H_a harmony, since sometimes "at" is used instead of "ot"
   dMajom : Str -> Noun = \majom ->
     let mo = last majom + last (init majom);
         maj = init (init majom) ;
@@ -82,13 +78,15 @@ oper
         nMajmo = mkNoun majmo ;
         nMajom = mkNoun majom ;
     in {s = \\n,c => case <n,c> of {
+        <Pl,Acc> => majmo + "kat" ; --Special case
+
         -- All plural forms and Sg Acc use the "majmo" stem
-        <Pl,_>|<Sg,Acc> => nMajmo.s ! n ! c ;
+        <Pl,_> | <Sg,Acc> => nMajmo.s ! n ! c ;
 
         -- The rest of the forms are formed with the regular constructor,
         -- using "majom" as the stem.
         _ => nMajom.s ! n ! c
-        } ;
+      } ;
     } ;
 
   -- More words not covered by current paradigms:
