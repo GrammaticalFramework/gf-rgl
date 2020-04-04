@@ -694,6 +694,11 @@ oper
         } + s
       } ;
 
+  Determiner : Type = {
+    s : Gender => Case => Str ;
+    size : NumSize
+    } ;
+
   mkDemPronForms : Str -> DemPronForms = \t -> {
     msnom = t + "en" ;
     fsnom = t + "a" ;
@@ -730,50 +735,61 @@ oper
     msins, fsins : Str
     } ;
 
-  numeralFormsDeterminer : NumeralForms -> (Gender => Case => Str) =
-    \nume ->
+  numeralFormsDeterminer : NumeralForms -> NumSize -> Determiner =
+    \nume,size ->
     let
       dem = nume **
         {mpnom, fpnom, pgen, pdat, pins = nume.msnom} ; --- plural forms not used 
       demAdj = dem ** {fsdat = dem.fsgen} ;
       adjAdj = adjFormsAdjective demAdj
-    in
-      \\g,c => adjAdj.s ! g ! Sg ! c ;
-
+    in {
+      s = \\g,c => adjAdj.s ! g ! Sg ! c ;
+      size = size
+      } ;
 
   -- example: number 1
-  oneNumeralForms : NumeralForms = mkDemPronForms "jed" ;
+  oneNumeral : Determiner = numeralFormsDeterminer (mkDemPronForms "jed") Num1 ;
 
   -- numbers 2,3,4 ---- to check if everything comes out right with this type
-  twoNumeralForms : NumeralForms = {
-    msnom = "dva" ; fsnom, nsnom, fsacc = "dvě" ;
-    msgen, fsgen, msloc = "dvou" ;
-    msdat, msins, fsins = "dvěma"
-    } ;
+  twoNumeral : Determiner =
+    let forms = {
+      msnom = "dva" ; fsnom, nsnom, fsacc = "dvě" ;
+      msgen, fsgen, msloc = "dvou" ;
+      msdat, msins, fsins = "dvěma"
+      }
+    in numeralFormsDeterminer forms Num2_4 ;
     
-  threeNumeralForms : NumeralForms = {
-    msnom, fsnom, nsnom, fsacc, msgen, fsgen = "tři" ;
-    msdat = "třem" ;
-    msloc = "třech" ;
-    msins,fsins = "třemi" ;
-    } ;
+  threeNumeral : Determiner =
+    let forms = {
+      msnom, fsnom, nsnom, fsacc, msgen, fsgen = "tři" ;
+      msdat = "třem" ;
+      msloc = "třech" ;
+      msins,fsins = "třemi" ;
+      }
+    in numeralFormsDeterminer forms Num2_4 ;
 
-  fourNumeralForms : NumeralForms = {
-    msnom, fsnom, nsnom, fsacc = "čtyři" ;
-    msgen, fsgen = "čtyř" ;
-    msdat = "čtyřem" ;
-    msloc = "čtyřech" ;
-    msins,fsins = "čtyřmi" ;
-    } ;
+  fourNumeral : Determiner =
+    let forms = {
+      msnom, fsnom, nsnom, fsacc = "čtyři" ;
+      msgen, fsgen = "čtyř" ;
+      msdat = "čtyřem" ;
+      msloc = "čtyřech" ;
+      msins,fsins = "čtyřmi" ;
+      }
+    in numeralFormsDeterminer forms Num2_4 ;
 
   -- for the numbers 5 upwards
-  regNumeralForms : Str -> Str -> NumeralForms = \pet,peti -> {
-    msnom,fsnom,nsnom = pet ;
-    msgen, fsgen, msdat, fsacc, msloc, msins, fsins = peti
-    } ;
+  regNumeral : Str -> Str -> Determiner = \pet,peti ->
+    let forms = {
+      msnom,fsnom,nsnom = pet ;
+      msgen, fsgen, msdat, fsacc, msloc, msins, fsins = peti
+      }
+    in numeralFormsDeterminer forms Num5 ;
 
-  invarNumeralForms : Str -> NumeralForms = \sto ->
-    regNumeralForms sto sto ;
+  invarDeterminer : Str -> NumSize -> Determiner = \sto,size ->
+    regNumeral sto sto ;
+    
+  invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
 
 --------------------------------
 -- combining nouns with numerals

@@ -6,8 +6,8 @@ concrete NounCze of Noun =
 
 lin
     DetCN det cn = {
-        s,prep,clit = \\c => det.s ! cn.g ! c ++ numSizeForm cn.s det.n c ;
-        a = numSizeAgr cn.g det.n P3 ;
+        s,prep,clit = \\c => det.s ! cn.g ! c ++ numSizeForm cn.s det.size c ;
+        a = numSizeAgr cn.g det.size P3 ;
         hasClit = False ;
       } ;
 
@@ -18,14 +18,14 @@ lin
       } ;
 
     DetQuant quant num = {
-      s = \\g,c => num.s ! g ! c ++ quant.s ! g ! numSizeNumber num.n ! c ;
-      n = num.n
+      s = \\g,c => num.s ! g ! c ++ quant.s ! g ! numSizeNumber num.size ! c ;
+      size = num.size
       } ;
 
     DefArt = {s = \\_,_,_ => []} ;
     IndefArt = {s = \\_,_,_ => []} ;
-    NumPl = {s = \\_,_ => [] ; n = Num2_4} ;
-    NumSg = {s = \\_,_ => [] ; n = Num1} ;
+    NumPl = {s = \\_,_ => [] ; size = Num2_4} ; ---- size
+    NumSg = {s = \\_,_ => [] ; size = Num1} ;
 
     UsePron pron = {
       s = table {
@@ -94,7 +94,7 @@ lin
       
     NumCard c = c ;
     NumDigits ds = ds ** {s = \\_,_ => ds.s} ;
-    NumNumeral nu = {s = numeralFormsDeterminer nu.s ; n = nu.size} ; ---- TODO: inflection of numerals
+    NumNumeral nu = nu ;
 
 
 }

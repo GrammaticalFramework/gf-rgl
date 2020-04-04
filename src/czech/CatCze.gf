@@ -35,10 +35,10 @@ concrete CatCze of Cat =
     CN = ResCze.Noun ;      -- {s : Number => Case => Str ; g : Gender}
     NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit : Bool} ; ----
     PN = {s : Case => Str ; g : Gender} ; ----
-    Det = {s : Gender => Case => Str ; n : NumSize} ;
+    Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
-    Num = {s : Gender => Case => Str ; n : NumSize} ; 
-    Card = {s : Gender => Case => Str ; n : NumSize} ; 
+    Num = {s : Gender => Case => Str ; size : NumSize} ; 
+    Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; 
     Pron = PronForms ;
 
     Adv  = {s : Str} ;
@@ -63,8 +63,8 @@ concrete CatCze of Cat =
     A = \s -> s.msnom ;
 
 
-  lincat Numeral = {s : NumeralForms ; size : NumSize} ;
-  lincat Digits = {s:Str ; n : NumSize} ;
+  lincat Numeral = Determiner ; ---- should contain Ord as well
+  lincat Digits = {s:Str ; size : NumSize} ;
 
 
 }
