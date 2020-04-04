@@ -740,6 +740,24 @@ oper
     mpnom, fpnom, pgen, pdat, pins = s ;
     } ;
 
+-- interrogatives
+
+ kdoForms : Case => Str = table {
+   Nom => "kdo" ;
+   Gen | Acc | Voc => "koho" ;
+   Dat => "komu" ;
+   Loc => "kom" ;
+   Ins => "kým"
+   } ;
+   
+ coForms : Case => Str = table {
+   Nom|Acc|Voc => "co" ;
+   Gen => "čeho" ;
+   Dat => "čemu" ;
+   Loc => "čem" ;
+   Ins => "čím"
+   } ;
+
 -- Numerals
 
   -- singular forms of demonstratives
