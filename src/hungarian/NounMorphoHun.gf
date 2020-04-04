@@ -194,6 +194,12 @@ oper
     -- Tem => harm1 "kor" -- Temporal 'at <numeral>'. Only used with numerals.
     } ;
 
+  -- Variant where accusative has the allomorph -at
+  endCaseConsAccAt : Case -> HarmForms = \c -> case c of {
+    Acc => harm3 "at" "et" "öt" ;
+    _   => endCaseCons c
+    } ;
+
   -- Variant of case forms when the noun stem ends in vowel.
   endCaseVow : Case -> HarmForms = \c -> case c of {
     Acc => harm1 "t" ;
@@ -219,10 +225,12 @@ oper
 
   -- Harmony and plural allomorph given explicitly
   mkNounHarm : Harm -> (plural : Str) -> Str -> Noun = \h,plural,w ->
-    let endCase : Case -> HarmForms = case vowFinal w of {
-                                        True  => endCaseVow ;
-                                        False => endCaseCons } ;
-
+    let endCaseSg : Case -> HarmForms = case vowFinal w of {
+                                          True  => endCaseVow ;
+                                          False => endCaseCons } ;
+        endCasePl : Case -> HarmForms = case plural of {
+                                          "ak" => endCaseConsAccAt ; -- TODO check
+                                          _    => endCaseCons } ;
         -- Last consonant doubles before instrumental and translative
         lastCons : Str = case vowFinal w of {
                            True  => [] ;
@@ -232,16 +240,16 @@ oper
      in {s = table {
                Sg => table {
                        -- Double the last letter (if consonant) before Ins, Tra
-                       c@(Ins|Tra) => w + lastCons + endCase c ! h ;
-                       c@_         => w +            endCase c ! h } ;
+                       c@(Ins|Tra) => w + lastCons + endCaseSg c ! h ;
+                       c@_         => w +            endCaseSg c ! h } ;
 
                Pl => table {
                        -- Double the plural k before Ins, Tra
-                       c@(Ins|Tra) => w + plural + "k" + endCaseCons c ! h ;
+                       c@(Ins|Tra) => w + plural + "k" + endCasePl c ! h ;
 
                        -- endCaseCons, because we only use -k as plural morpheme.
                        -- If we add possessive forms with allomorph -i, then revise.
-                       c@_         => w + plural +       endCaseCons c ! h }
+                       c@_         => w + plural +       endCasePl c ! h }
              }
    } ;
 
