@@ -231,9 +231,9 @@ oper
                                            SCDat => Dat }
                     in np.s ! subjcase
                     ++ np.empty -- standard trick for prodrop
+                    ++ vp.s ! agr2vf np.agr
                     ++ vp.obj
                     ++ vp.adv
-                    ++ vp.s ! agr2vf np.agr
     } ;
 
 --------------------------------------------------------------------------------
