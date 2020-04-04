@@ -79,7 +79,6 @@ oper TCond : Tense = notYet "TCond" ;
 oper TFut : Tense = notYet "TFut" ;
 oper TPast : Tense = notYet "TPast" ;
 oper Use2N3 : N3 -> N2 = notYet "Use2N3" ;
-oper UseComparA : A -> AP = notYet "UseComparA" ;
 oper UseN2 : N2 -> CN = notYet "UseN2" ;
 oper UseSlash : Temp -> Pol -> ClSlash -> SSlash = notYet "UseSlash" ;
 oper UttCard : Card -> Utt = notYet "UttCard" ;

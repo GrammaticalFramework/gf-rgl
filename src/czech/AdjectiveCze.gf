@@ -16,4 +16,8 @@ concrete AdjectiveCze of Adjective = CatCze ** open ResCze, Prelude in {
 
     UseA2 a = adjFormsAdjective a ** {isPost = False} ;
 
+    UseComparA a = adjFormsAdjective a ** {isPost = False} ; ---- TODO: this gives positive forms 
+
+    AdvAP ap adv = ap ** {s = \\g,n,c => ap.s ! g ! n ! c ++ adv.s} ;
+
 }

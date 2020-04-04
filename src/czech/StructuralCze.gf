@@ -5,6 +5,7 @@ lin
     and_Conj = mkConj "i" ; 
     by8agent_Prep = mkPrep "od" Gen ; ---- TODO this means "from", there might be no good translation
     few_Det = invarNumeral "málo" ; -- CEG 6.8 --- TODO genitive mála
+    for_Prep = mkPrep "pro" accusative ;
     from_Prep = mkPrep (pre {"s"|"z" => "ze" ; _ => "z"}) Gen ; ---- consonant clusters
     have_V2 = mkV2 haveVerbForms ;
     in_Prep = mkPrep (pre {"v"|"m" => "ve" ; _ => "v"}) Loc ; ----

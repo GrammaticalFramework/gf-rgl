@@ -110,6 +110,9 @@ oper
   matcinA : Str -> A
     = \s -> lin A (matcinAdjForms s) ;
 
+  mkA2 : A -> Prep -> A2
+    = \a,p -> lin A2 (a ** {c = p}) ;
+
 -------------------------
 -- Verbs
 
