@@ -101,8 +101,9 @@ oper
   -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
   regNoun : Str -> Noun = \sgnom -> case sgnom of {
-    _ + "a"|"e"     => dAlma sgnom ;
+    _ + "a"|"e"       => dAlma sgnom ;
     _ + ("á"|"é") + ? => dMadár sgnom ;
+    _ + ("ó"|"ő")     => dLó sgnom ;
 
     -- TODO: more non-smart paradigms + more pattern matching
     -- TODO: smart paradigms with >1 form. Which forms are the most descriptive?
