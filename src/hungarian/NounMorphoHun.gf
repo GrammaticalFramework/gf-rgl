@@ -55,8 +55,11 @@ oper
         a : Str = case ló of {
           _ + ("ö" | "ő") => "e" ;
           _ + ("o" | "ó") => "a" } ;
+        harmonyPlural : Harm = case ló of {
+          _ + ("ö" | "ő") => H_e ; -- All plural allomorphs have E harmony, singular ones have O.
+          _ + ("o" | "ó") => H_a } ;
         lova = lov + a ;
-        nLova = mkNoun lova ;
+        nLova = mkNounHarm harmonyPlural "k" lova ;
         nLó = mkNoun ló ;
     in {s = \\n,c => case <n,c> of {
 
