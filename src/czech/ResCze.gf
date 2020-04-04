@@ -120,8 +120,9 @@ oper
 
   DeclensionType : Type = Str -> NounForms ;
   
-  declensionType : (nom,gen : Str) -> Gender -> DeclensionType
-    = \nom,gen,g -> case <g, nom, gen> of {
+  declensionNounForms : (nom,gen : Str) -> Gender -> NounForms
+    = \nom,gen,g ->
+    let decl : DeclensionType = case <g, nom, gen> of {
       <Masc Anim,   _ + #hardConsonant, _ + "a"> => declPAN ;
       <Masc Anim,   _ + "a"           , _ + "a"> => declPREDSEDA ;
       <Masc Inanim, _ + #hardConsonant, _ + "u"> => declHRAD ;
@@ -138,7 +139,23 @@ oper
       <Neutr,       _ + "e"           , _ + "e"> => declMORE ;
       <Neutr,       _ + "í"           , _ + "í"> => declSTAVENI ;
       _ => Predef.error ("cannot infer declension type for" ++ nom ++ gen)
-      } ;
+      }
+    in decl nom ;
+
+  guessNounForms : Str -> NounForms
+    = \s -> case s of {
+      _ + "ost"          => declKOST s ;
+      _ + "tel"          => declMUZ s ;
+      _ + #hardConsonant => declHRAD s ;
+      _ + #softConsonant => declSTROJ s ;
+      _ + "a"            => declZENA s ;
+      _ + "o"            => declMESTO s ;
+      _ + "ce"           => declSOUDCE s ;
+      _ + "e"            => declMORE s ;
+      _ + "í"            => declSTAVENI s ;
+      _ => Predef.error ("cannot guess declension type for" ++ s)
+      } ; 
+  
 
 -- source: https://en.wikipedia.org/wiki/Czech_declension
 
