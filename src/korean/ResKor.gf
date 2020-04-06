@@ -123,9 +123,13 @@ oper
 --------------------------------------------------------------------------------
 -- Postpositions
 
-  Postposition : Type = {s : Str ; attaches : Bool} ;
+  Postposition : Type = {s : Phono => Str ; attaches : Bool} ;
 
-  mkPrep : Str -> Postposition = \str -> {s=str ; attaches=True} ;
+  mkPrep : Str -> Postposition = \str -> {s=\\_ => str ; attaches=True} ;
+  mkPrep2 : (ro,euro : Str) -> Postposition = \ro,euro -> {
+    s = table {Vowel => ro ; Consonant => euro} ;
+    attaches = True
+    } ;
 
   emptyPP : Postposition = mkPrep [] ** {attaches=False} ;
   datPP : Postposition = mkPrep "에게" ;
@@ -296,7 +300,7 @@ oper
   useVc : Verb2 -> VPSlash = \v2 -> baseVP ** v2 ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \v2,np -> useV v2 ** {
-    nObj = np.s ! v2.c2 ++ v2.p2.s
+    nObj = np.s ! v2.c2 ++ v2.p2.s ! np.p
   } ;
 
   insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;

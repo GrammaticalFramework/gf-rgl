@@ -77,7 +77,8 @@ oper
 --2 Structural categories
 
   mkPrep : overload {
-    mkPrep : (e : Str) -> Prep ; -- Particle like 에, attaches to the NP.
+    mkPrep : (e : Str) -> Prep ; -- Particle/postposition like 에: same form after vowel and consonant, attaches to the NP. Despite the name Prep, these are always postpositions.
+    mkPrep : (ro,euro : Str) -> Prep ; -- Particle like 로/으로: first argument is the form after vowel, second argument after consonant. Attaches to the NP.
     mkPrep : (dwie : Str) -> (attaches : Bool) -> Prep ; -- `mkPrep "뒤에" False` for a postposition that doesn't attach to the NP.
     } ;
 
@@ -160,6 +161,8 @@ oper
   mkPrep = overload {
     mkPrep : (e : Str) -> Prep  -- Particle like 에, attaches to the NP.
       = \e -> lin Prep (ResKor.mkPrep e) ;
+    mkPrep : (ro,euro : Str) -> Prep
+      = \ro,euro -> lin Prep (ResKor.mkPrep2 ro euro) ;
     mkPrep : (dwie : Str) -> (attaches : Bool) -> Prep -- `mkPrep "뒤에" False` for a postposition that doesn't attach to the NP.
       = \dwie,f -> lin Prep (ResKor.mkPrep dwie ** {attaches = f}) ;
     } ;
