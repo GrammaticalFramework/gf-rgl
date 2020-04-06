@@ -7,7 +7,9 @@ lin
 
   -- : RP -> VP -> RCl ;
   RelVP rp vp = {
-    s = \\t,a,p => vp.s ! VAttr p  -- TODO no tenses yet in the grammar
+    s = \\t,a,p => vp.adv
+                ++ vp.nObj
+                ++ vp.s ! VAttr p  -- TODO no tenses yet in the grammar
                 ++ rp.s ;
 } ;
 
