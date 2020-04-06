@@ -29,11 +29,11 @@ concrete ConjunctionKor of Conjunction =
 
 
 lincat
-  [Adv],[AdV],[IAdv],[RS] = ConjSS ;
+  [Adv],[AdV],[IAdv] = ConjSS ;
 lin
-  BaseAdv, BaseAdV, BaseIAdv, BaseRS = baseSS ;
-  ConsAdv, ConsAdV, ConsIAdv, ConsRS = consSS ;
-  ConjAdv, ConjAdV, ConjIAdv, ConjRS = conjSS ;
+  BaseAdv, BaseAdV, BaseIAdv = baseSS ;
+  ConsAdv, ConsAdV, ConsIAdv = consSS ;
+  ConjAdv, ConjAdV, ConjIAdv = conjSS ;
 
 oper
   ConjSS : Type = SS ** {firstSS : ConjType => Str} ;
@@ -71,20 +71,22 @@ oper
   mkFirstSS : SS -> ConjType => Str = \s ->
     \\conj => glue s.s (conjTable ! VStar ! conj) ;
 
+
+
 lincat
-  [S] = ResKor.Sentence ** {firstS : ConjType => Str} ;
+  [S], [RS] = ResKor.Sentence ** {firstS : ConjType => Str} ;
 
 lin
-  BaseS s1 s2 = s2 ** {
+  BaseS,BaseRS = \s1,s2 -> s2 ** {
     firstS = mkFirstS s1
     } ;
 
-  ConsS s ss = ss ** {
+  ConsS,ConsRS = \s,ss -> ss ** {
     firstS = \\conj =>
       mkFirstS s ! conj ++ ss.firstS ! conj ;
     } ;
 
-  ConjS co ss = ss ** {
+  ConjS,ConjRS = \co,ss -> ss ** {
     s = \\st => co.s1 ++ ss.firstS ! co.c ++ ss.s ! st
     } ;
 

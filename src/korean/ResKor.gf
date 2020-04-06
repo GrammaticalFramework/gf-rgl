@@ -321,7 +321,7 @@ oper
 
   QClause : Type = Clause ;
 
-  RClause : Type = {s : Tense => Anteriority => Polarity => Str} ;
+  RClause : Type = Clause ;
 
   Sentence : Type = {s : ClType => Str} ;
 
