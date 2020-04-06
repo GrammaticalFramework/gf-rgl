@@ -101,8 +101,8 @@ lin something_NP = mkNoun "무엇" ;
 -- lin before_Prep = mkPrep "" ;
 lin behind_Prep = mkPrep "뒤에" False ;
 -- lin between_Prep = = mkPrep "" ;
--- lin by8agent_Prep = mkPrep ;
--- lin by8means_Prep = mkPrep ;
+lin by8agent_Prep = mkPrep "에 의해" ; -- TODO check
+lin by8means_Prep = mkPrep "에 인해" ; -- TODO check
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
 lin for_Prep = mkPrep "에게" ;
