@@ -15,6 +15,8 @@ LangKor: 고양이가 키가 작아요
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)))))) NoVoc
 LangKor: 저는 고양이가 있어요
 
+-- Topic + object
+
 -- LangEng: I like cats
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a like_V2) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))))) NoVoc
-LangKor: 저는 고양이가 좋아요
+LangKor: 저는 고양이를 좋아해요

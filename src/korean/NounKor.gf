@@ -165,7 +165,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    rs = cn.rs ++ rs.s
+    rs = cn.rs ++ rs.s ! Subord
     } ;
 
 

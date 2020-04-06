@@ -3,24 +3,33 @@ concrete RelativeKor of Relative = CatKor ** open
 
 lin
   --  : Cl -> RCl ;            -- such that John loves her
-  RelCl cl = {s = \\t,a,p => cl.s ! t ! a ! p ! Subord} ;
+  RelCl = relSlash (ss "") ;
 
   -- : RP -> VP -> RCl ;
-  RelVP rp vp = {
-    s = \\t,a,p => vp.s ! VAttr p  -- TODO no tenses yet in the grammar
-                ++ rp.s ;
-} ;
+  RelVP rp vp = { -- TODO no tenses yet in the grammar
+    s = \\t,a,p,cltyp =>
+           rp.s ++ vp.adv ++ vp.nObj ++
+           case cltyp of {
+             WithConj => vp.s ! VStem ;
+             _        => vp.s ! VAttr p } ;
+    } ;
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves
-  RelSlash rp cls = {
-    s = \\t,a,p => cls.s ! t ! a ! p ! Subord
-                ++ rp.s ;
-} ;
+  RelSlash = relSlash ;
+
 
   -- : RP ;
   IdRP = {s = ""} ;
 
   -- : Prep -> NP -> RP -> RP ;  -- the mother of whom
   --FunRP prep np rp = {} ;
+
+oper
+  relSlash : SS -> ClSlash -> ResKor.RClause = \rp,cls -> {
+    s = \\t,a,p,cltyp => rp.s ++
+          case cltyp of {
+            WithConj => cls.s ! t ! a ! p ! WithConj ;
+            _        => cls.s ! t ! a ! p ! Subord } ;
+  } ;
 
 }

@@ -19,7 +19,7 @@ concrete PhraseKor of Phrase = CatKor ** open Prelude, ResKor in {
     UttVP vp = {s = linVP vp} ;
     UttCN cn = {s = cn.rs ++ cn.s ! Bare} ;
     UttCard n = {s = n.s ! NK ! Indep} ;
-    UttAP ap = { s = ap.s ! VF Plain Pos} ;
+    UttAP ap = { s = ap.compar ++ ap.s ! VF Plain Pos} ;
 
     NoPConj = {s = []} ;
 --    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;

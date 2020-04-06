@@ -13,8 +13,8 @@ lin
   -- : Prep -> NP -> Adv ;
   PrepNP prep np = {
     s = case prep.attaches of {
-          True => glue (np.s ! Bare) prep.s ;
-          False => np.s ! Bare ++ prep.s }
+          True => glue (np.s ! Bare) (prep.s ! np.p) ;
+          False => np.s ! Bare ++ (prep.s ! np.p)}
     } ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.

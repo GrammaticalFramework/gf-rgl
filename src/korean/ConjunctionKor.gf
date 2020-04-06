@@ -29,11 +29,11 @@ concrete ConjunctionKor of Conjunction =
 
 
 lincat
-  [Adv],[AdV],[IAdv],[RS] = ConjSS ;
+  [Adv],[AdV],[IAdv] = ConjSS ;
 lin
-  BaseAdv, BaseAdV, BaseIAdv, BaseRS = baseSS ;
-  ConsAdv, ConsAdV, ConsIAdv, ConsRS = consSS ;
-  ConjAdv, ConjAdV, ConjIAdv, ConjRS = conjSS ;
+  BaseAdv, BaseAdV, BaseIAdv = baseSS ;
+  ConsAdv, ConsAdV, ConsIAdv = consSS ;
+  ConjAdv, ConjAdV, ConjIAdv = conjSS ;
 
 oper
   ConjSS : Type = SS ** {firstSS : ConjType => Str} ;
@@ -51,31 +51,48 @@ oper
     s = co.s1 ++ ss.firstSS ! co.c ++ ss.s
     } ;
 
+-- Versions with commas, no repeated conjunctions
+  baseSScomma : SS -> SS -> ConjSS = \s1,s2 -> s2 ** {
+    firstSS = \\conj => s1.s ++ SOFT_BIND ++ "," ;
+    } ;
+
+  consSScomma : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
+    firstSS = \\conj =>
+      s.s ++ SOFT_BIND ++ "," ++ ss.firstSS ! conj ;
+    } ;
+
+  conjSScomma : Conj -> ConjSS -> SS = \co,ss -> {
+    s = co.s1
+      ++ glue (ss.firstSS ! co.c) co.s2
+      ++ ss.s
+    } ;
+
 oper
   mkFirstSS : SS -> ConjType => Str = \s ->
-    \\conj => glue s.s (conjTable ! NStar ! conj) ;
+    \\conj => glue s.s (conjTable ! VStar ! conj) ;
+
 
 
 lincat
-  [S] = ResKor.Sentence ** {firstS : ConjType => Str} ;
+  [S], [RS] = ResKor.Sentence ** {firstS : ConjType => Str} ;
 
 lin
-  BaseS s1 s2 = s2 ** {
+  BaseS,BaseRS = \s1,s2 -> s2 ** {
     firstS = mkFirstS s1
     } ;
 
-  ConsS s ss = ss ** {
+  ConsS,ConsRS = \s,ss -> ss ** {
     firstS = \\conj =>
       mkFirstS s ! conj ++ ss.firstS ! conj ;
     } ;
 
-  ConjS co ss = ss ** {
+  ConjS,ConjRS = \co,ss -> ss ** {
     s = \\st => co.s1 ++ ss.firstS ! co.c ++ ss.s ! st
     } ;
 
 oper
   mkFirstS : ResKor.Sentence -> ConjType => Str = \s ->
-    \\conj => glue (s.s ! WithConj) (conjTable ! NStar ! conj) ;
+    \\conj => glue (s.s ! WithConj) (conjTable ! VStar ! conj) ;
 
 lincat
   [AP] = ResKor.AdjPhrase ** {firstAP : VForm => ConjType => Str} ;
@@ -97,9 +114,7 @@ lin
 
 oper
   mkFirstAP : ResKor.AdjPhrase -> VForm => ConjType => Str = \ap ->
-    \\af,conj => case af of {
-      VAttr p => glue (ap.s ! VAttr p) (conjTable ! NStar ! conj) ;
-      _       => glue (ap.s ! VStem)   (conjTable ! VStar ! conj) } ;
+    \\af,conj => ap.compar ++ glue (ap.s ! VStem) (conjTable ! VStar ! conj) ;
 
 {-
 lincat
