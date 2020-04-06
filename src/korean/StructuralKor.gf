@@ -40,14 +40,13 @@ lin there_Adv = ss "" ;
 
 lin and_Conj = {
     s1 = [] ;
-    -- no need for strings here, actual values come from ParamKor.conjTable
-    -- s2 = \\phono => table {
-    --         VStar => "고" ;
-    --         NStar => "하고"} ;
+    -- no need for string, actual values come from ParamKor.conjTable
+    s2 = [] ; -- this is only used in the base/cons functions with comma.
+              -- another application can use commas and just one conjunction.
     n = Pl ;
     c = And
     } ;
-lin or_Conj = {s1 = [] ; n = Sg ; c = Or} ;
+lin or_Conj = {s1,s2 = [] ; n = Sg ; c = Or} ;
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;
 -- lin either7or_DConj = {s2 = \\_ => "" ; s1 = "" ; n = Sg} ;

@@ -51,6 +51,22 @@ oper
     s = co.s1 ++ ss.firstSS ! co.c ++ ss.s
     } ;
 
+-- Versions with commas, no repeated conjunctions
+  baseSScomma : SS -> SS -> ConjSS = \s1,s2 -> s2 ** {
+    firstSS = \\conj => s1.s ++ SOFT_BIND ++ "," ;
+    } ;
+
+  consSScomma : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
+    firstSS = \\conj =>
+      s.s ++ SOFT_BIND ++ "," ++ ss.firstSS ! conj ;
+    } ;
+
+  conjSScomma : Conj -> ConjSS -> SS = \co,ss -> {
+    s = co.s1
+      ++ glue (ss.firstSS ! co.c) co.s2
+      ++ ss.s
+    } ;
+
 oper
   mkFirstSS : SS -> ConjType => Str = \s ->
     \\conj => glue s.s (conjTable ! NStar ! conj) ;

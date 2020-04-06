@@ -254,7 +254,7 @@ oper
 -- Conj
 
   Conj : Type = {
-    s1 : Str ;
+    s1, s2 : Str ;
     c : ConjType ; -- if it's And, Or, …
                    -- Need to add conjunction already in ConsX funs.
     n : Number ;
