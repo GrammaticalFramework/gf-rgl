@@ -18,7 +18,8 @@ oper
 --2 Nouns
 
   mkN : overload {
-    mkN : (noun : Str) -> N ; -- Predictable nouns
+    mkN : (noun : Str) -> N ; -- Predictable nouns with classifier 개
+    mkN : (noun,counter : Str) -> N ; -- Noun and classifier given as arguments.
   } ;
 
 --2 Adjectives
@@ -30,6 +31,7 @@ oper
 
   mkA2 : overload {
     mkA2 : Str -> A2 ; -- Regular adjective, given in -다 form, no postposition for complement.
+    mkA2 : Str -> Str -> A2 ; -- Adjective given in -다 form, postposition given as a string. If you want to use a postposition that has different forms for after vowel/after consonant, use the next constructor that takes a preconstructed Prep.
     mkA2 : A -> Prep -> A2 ; -- Preconstructed adjective and postposition for complement.
   } ;
 
@@ -110,7 +112,12 @@ oper
   noCase = Bare ;
 
   mkN = overload {
-    mkN : Str -> N = \s   -> lin N (mkNoun s) ;
+    mkN : Str -> N = \s -> lin N (mkNoun s) ;
+    mkN : (noun,counter : Str) -> N = \n,c ->
+      let noun : Noun = mkNoun n ;
+          counter : Counter = mkCounter c ;
+       in lin N (noun ** {c = counter}) ;
+
     } ;
 
 
@@ -130,6 +137,10 @@ oper
 
   mkA2 = overload {
     mkA2 : Str -> A2 = \s -> lin A2 (atoa2 (mkAdj s)) ;
+    mkA2 : Str -> Str -> A2
+      = \s,p -> let adj : Adjective = mkAdj s ;
+                    prep : Prep = mkPrep p
+                 in lin A2 (adj ** {p2 = prep}) ;
     mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {p2 = p}) ;
   } ;
 

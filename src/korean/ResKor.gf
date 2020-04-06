@@ -13,6 +13,10 @@ oper
     origin = NK
     } ;
 
+  mkCounter : Str -> Counter = \s -> baseCounter ** {
+    s = s ;
+    } ;
+
   BaseNoun : Type = {
     s : NForm => Str ;
     p : Phono ;
