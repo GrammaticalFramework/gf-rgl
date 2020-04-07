@@ -69,7 +69,7 @@ lin only_Predet = {s = \\_ => "만" ; p = Consonant} ;
 
 
 --lin every_Det = ;
-lin few_Det = mkDet "조금" Pl ;
+lin few_Det = mkDet "조금의" Pl ;
 lin many_Det = mkDet "많은" Pl ;
 -- lin much_Det = ;
 
