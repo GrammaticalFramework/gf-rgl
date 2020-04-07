@@ -147,8 +147,8 @@ oper
     mkA2 : Str -> Str -> A2
       = \s,p -> let adj : Adjective = mkAdj s ;
                     prep : Prep = mkPrep p
-                 in lin A2 (adj ** {p2 = prep}) ;
-    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {p2 = p}) ;
+                 in lin A2 (atoa2 adj ** {p2 = prep}) ;
+    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (atoa2 a ** {p2 = p}) ;
   } ;
 
   mkV = overload {

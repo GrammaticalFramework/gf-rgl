@@ -142,7 +142,7 @@ oper
 -- Adjectives
 
   Adjective : Type = {s : VForm => Str} ; -- Adjectives are verbs
-  Adjective2 : Type = Adjective ** {p2 : Postposition} ;
+  Adjective2 : Type = Adjective ** {c2 : NForm ; p2 : Postposition} ;
 
   v2a : (attrpos : Str) -> Verb -> Adjective = \attrpos,v -> {
     s = table {
@@ -273,6 +273,11 @@ oper
 
   Adverb : Type = SS ;
 
+  prepNP : NForm -> Postposition -> NounPhrase -> Adverb = \nf,pp,np -> {
+    s = case pp.attaches of {
+          True => glue (np.s ! nf) (pp.s ! np.p) ;
+          False => np.s ! nf ++ (pp.s ! np.p)}
+    } ;
 ------------------
 -- Conj
 

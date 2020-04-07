@@ -1,5 +1,5 @@
 concrete AdjectiveKor of Adjective = CatKor **
-  open ResKor, (AK=AdverbKor), Prelude in {
+  open ResKor, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -18,7 +18,7 @@ concrete AdjectiveKor of Adjective = CatKor **
 
   -- : A2 -> NP -> AP ;  -- married to her
   ComplA2 a2 np = a2 ** {
-   compar = (AK.PrepNP a2.p2 np).s ;
+   compar = (prepNP a2.c2 a2.p2 np).s ;
    } ;
 
   -- : A2 -> AP ;        -- married to itself
