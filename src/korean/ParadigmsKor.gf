@@ -27,6 +27,7 @@ oper
   mkA : overload {
     mkA : (adj : Str) -> A ; -- Regular adjective, given in -다 form
     mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
+    mkA : (plain,polite,formal,neg,attr : Str) -> A ; -- Worst case constructor: e.g. mkA "파랗다" "파래요" "파랗습니다" "파랗지" "파란"
   } ;
 
   mkA2 : overload {
@@ -43,6 +44,7 @@ oper
   mkV : overload {
     mkV : (plain : Str) -> V ;    -- Predictable verb. Takes plain, uninflected -다 form, e.g. 가다
     mkV : (nore : Str) -> (hada : V) -> V ; -- Add a prefix to an existing verb, e.g. 노래+하다
+    mkV : (plain,polite,formal,neg,attr : Str) -> V ; -- Worst case constructor: e.g. mkV "다르다" "달라요" "다릅니다" "다르지" "다른"
   } ;
 
   copula : V ; -- The copula verb ''
@@ -133,6 +135,8 @@ oper
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
     mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
       jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
+    mkA : (x1,_,_,_,x5 : Str) -> A
+     = \x1,x2,x3,x4,x5 -> lin A (mkAdjReg x1 x2 x3 x4 x5) ;
     } ;
 
   mkA2 = overload {
@@ -148,6 +152,8 @@ oper
     mkV : (plain : Str) -> V = \v -> lin V (mkVerb v) ;
     mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
       s = \\vf => nore + hada.s ! vf} ;
+    mkV : (plain,polite,formal,neg,attr : Str) -> V
+     = \x1,x2,x3,x4,x5 -> lin V (mkVerbReg x1 x2 x3 x4 x5) ;
   } ;
 
   copula = ResKor.copula ;
