@@ -27,6 +27,7 @@ oper
   mkA : overload {
     mkA : (adj : Str) -> A ; -- Regular adjective, given in -다 form
     mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
+    mkA : (jaemi : Str) -> (itda : V) -> A ; -- Compound adjective from 있다/없다 (or any other preconstructed verb), e.g. 재미있다 'amusing; entertaining', literally from parts 'fun' (Str) and 'have' (V).
     mkA : (plain,polite,formal,attr : Str) -> A ; -- Worst case constructor: e.g. mkA "파랗다" "파래요" "파랗습니다" "파란"
   } ;
 
@@ -136,7 +137,9 @@ oper
     mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
       jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
     mkA : (plain,polite,formal,attr : Str) -> A
-     = \x1,x2,x3,x4 -> lin A (mkAdjReg x1 x2 x3 x4) ;
+      = \x1,x2,x3,x4 -> lin A (mkAdjReg x1 x2 x3 x4) ;
+    mkA : (jaemi : Str) -> (itda : V) -> A
+      = \jaemi,itda -> lin A ({s = \\vf => jaemi ++ itda.s ! vf}) ;
     } ;
 
   mkA2 = overload {
