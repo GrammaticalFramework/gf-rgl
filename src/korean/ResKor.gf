@@ -249,11 +249,19 @@ oper
     "없어요"
     "없습니다" ;
 
-  do_V : Verb = mkVerbReg
+  -- For building an adjective. Different attr from do_V.
+  do_A : Verb = mkVerbReg
     "하다"
     "해요"
     "합니다"
     "한" ;
+  hada_A = do_A ; -- Exposing both names (hada=transliteration, do=translation)
+
+  do_V : Verb = mkVerbReg
+    "하다"
+    "해요"
+    "합니다"
+    "하는" ;
 
   negForms : Style => Str =
     table { Plain => "않다" ;
