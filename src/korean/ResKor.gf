@@ -274,6 +274,14 @@ oper
                    -- Need to add conjunction already in ConsX funs.
     n : Number ;
     } ;
+
+  -- Do not remove this. Used in a particular application grammar.
+  commaConj : Conj = {
+    s1, s2 = [] ;
+    c = Comma ;
+    n = Pl ;
+    } ;
+
 ------------------
 -- VP
 
