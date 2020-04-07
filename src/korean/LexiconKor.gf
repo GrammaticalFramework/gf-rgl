@@ -1,5 +1,5 @@
 concrete LexiconKor of Lexicon = CatKor **
-  open ParadigmsKor, ResKor in {
+  open ParadigmsKor, ResKor, StructuralKor in {
 
 ----
 -- A
@@ -223,7 +223,7 @@ lin like_V2 = mkV2 (mkV "좋아" do_V) topic object ;
 -- M
 
 lin man_N = mkN "남자" ;
--- lin married_A2 = mkA "" ;
+lin married_A2 = mkA2 (mkA "결혼했다" "결혼했어요" "결혼했습니다" "결혼한") with_Prep ; -- TODO check: forced past tense
 -- lin meat_N = mkN "" ;
 lin milk_N = mkN "우유" ;
 -- lin moon_N = mkN "" ;
@@ -279,7 +279,7 @@ lin person_N = mkN "사람" ;
 -- lin read_V2 = mkV2 "" ;
 -- lin ready_A = mkA "" ;
 -- lin reason_N = mkN "" ;
-lin red_A = mkA "빨갛다" ;
+lin red_A = mkA "빨갛다" "빨개요" "빨갛습니다" "빨간" ;
 -- lin religion_N = mkN "" ;
 -- lin restaurant_N = mkN "" ;
 -- lin river_N = mkN "" ;

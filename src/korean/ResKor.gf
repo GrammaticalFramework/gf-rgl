@@ -300,12 +300,10 @@ oper
 
   Complement : Type = {
     s : VForm => Str ;
-    -- compar : Str ; -- comparative is discontinuous
     } ;
 
   emptyComp : Complement = {
     s = \\_ => [] ;
-    -- compar : Str ;
   } ;
 
   BaseVP : Type = {
