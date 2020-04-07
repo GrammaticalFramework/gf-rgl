@@ -27,6 +27,8 @@ oper
   mkA : overload {
     mkA : (adj : Str) -> A ; -- Regular adjective, given in -다 form
     mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
+    mkA : (jaemi : Str) -> (itda : V) -> A ; -- Compound adjective from 있다/없다 (or any other preconstructed verb), e.g. 재미있다 'amusing; entertaining', literally from parts 'fun' (Str) and 'have' (V).
+    mkA : (plain,polite,formal,attr : Str) -> A ; -- Worst case constructor: e.g. mkA "파랗다" "파래요" "파랗습니다" "파란"
   } ;
 
   mkA2 : overload {
@@ -43,6 +45,7 @@ oper
   mkV : overload {
     mkV : (plain : Str) -> V ;    -- Predictable verb. Takes plain, uninflected -다 form, e.g. 가다
     mkV : (nore : Str) -> (hada : V) -> V ; -- Add a prefix to an existing verb, e.g. 노래+하다
+    mkV : (plain,polite,formal,attr : Str) -> V ; -- Worst case constructor: e.g. mkV "다르다" "달라요" "다릅니다" "다른"
   } ;
 
   copula : V ; -- The copula verb ''
@@ -133,6 +136,10 @@ oper
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
     mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
       jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
+    mkA : (plain,polite,formal,attr : Str) -> A
+      = \x1,x2,x3,x4 -> lin A (mkAdjReg x1 x2 x3 x4) ;
+    mkA : (jaemi : Str) -> (itda : V) -> A
+      = \jaemi,itda -> lin A ({s = \\vf => jaemi ++ itda.s ! vf}) ;
     } ;
 
   mkA2 = overload {
@@ -140,14 +147,16 @@ oper
     mkA2 : Str -> Str -> A2
       = \s,p -> let adj : Adjective = mkAdj s ;
                     prep : Prep = mkPrep p
-                 in lin A2 (adj ** {p2 = prep}) ;
-    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {p2 = p}) ;
+                 in lin A2 (atoa2 adj ** {p2 = prep}) ;
+    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (atoa2 a ** {p2 = p}) ;
   } ;
 
   mkV = overload {
     mkV : (plain : Str) -> V = \v -> lin V (mkVerb v) ;
     mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
       s = \\vf => nore + hada.s ! vf} ;
+    mkV : (plain,polite,formal,attr : Str) -> V
+     = \x1,x2,x3,x4 -> lin V (mkVerbReg x1 x2 x3 x4) ;
   } ;
 
   copula = ResKor.copula ;

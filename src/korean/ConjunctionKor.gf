@@ -63,7 +63,8 @@ oper
 
   conjSScomma : Conj -> ConjSS -> SS = \co,ss -> {
     s = co.s1
-      ++ glue (ss.firstSS ! co.c) co.s2
+      ++ ss.firstSS ! co.c
+      ++ co.s2
       ++ ss.s
     } ;
 
@@ -151,6 +152,22 @@ lin
 oper
   mkFirstNP : ResKor.NounPhrase -> ConjType => Str = \np ->
     \\conj => glue (np.s ! Bare) (conjTable ! NStar ! conj) ;
+    -- Versions with commas, no repeated conjunctions
 
+  baseNPcomma : NP -> NP -> ListNP = \x,y -> y ** {
+    firstNP = \\conj => x.s ! Bare ++ BIND ++ "," ;
+    } ;
+
+  consNPcomma : NP -> ListNP -> ListNP = \x,xs -> xs ** {
+    firstNP = \\conj =>
+      x.s ! Bare ++ BIND ++ "," ++ xs.firstNP ! conj ;
+    } ;
+
+  conjNPcomma : Conj -> ListNP -> NP = \co,xs -> xs ** {
+    s = \\nf => co.s1
+             ++ xs.firstNP ! co.c
+             ++ co.s2
+             ++ xs.s ! nf
+    } ;
 
 }

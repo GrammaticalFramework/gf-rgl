@@ -69,7 +69,7 @@ lin only_Predet = {s = \\_ => "만" ; p = Consonant} ;
 
 
 --lin every_Det = ;
-lin few_Det = mkDet "조금" Pl ;
+lin few_Det = mkDet "조금의" Pl ;
 lin many_Det = mkDet "많은" Pl ;
 -- lin much_Det = ;
 
@@ -115,7 +115,7 @@ lin possess_Prep = mkPrep "의" ;
 -- lin through_Prep = mkPrep ;
 lin to_Prep = mkPrep "에";
 -- lin under_Prep = mkPrep "" ;
--- lin with_Prep = mkPrep "" ;
+lin with_Prep = mkPrep "와" "과" ;
 -- lin without_Prep = mkPrep "" ;
 
 
