@@ -144,8 +144,6 @@ oper
   Adjective : Type = {s : VForm => Str} ; -- Adjectives are verbs
   Adjective2 : Type = Adjective ** {p2 : Postposition} ;
 
-
-
   v2a : (attrpos : Str) -> Verb -> Adjective = \attrpos,v -> {
     s = table {
           VAttr Pos => attrpos ; -- Positive Attr is different in
@@ -158,8 +156,8 @@ oper
         attrpos : Str = add_N stem ;
      in v2a attrpos v ;
 
-  mkAdjReg : (x1,_,_,_,x5 : Str) -> Adjective = \plain,polite,formal,neg,attr ->
-    v2a attr (mkVerbReg plain polite formal neg attr) ;
+  mkAdjReg : (x1,_,_,x4 : Str) -> Adjective = \plain,polite,formal,attr ->
+    v2a attr (mkVerbReg plain polite formal attr) ;
 
   atoa2 : Adjective -> Adjective2 = \a -> a ** {c2=Bare ; p2=emptyPP} ;
 
@@ -185,9 +183,8 @@ oper
         formal = case vowFinal stem of {
                        True  => add_B stem + "니다" ;
                        False => stem + "습니다" } ;
-        neg = stem + "지" ;
         attrpos = stem + "는" ;
-     in mkVerbReg plain polite formal neg attrpos ;
+     in mkVerbReg plain polite formal attrpos ;
 
   mkVerb2 : (plain : Str) -> Verb2 = \plain -> vtov2 (mkVerb plain) ;
   mkVerb3 : (plain : Str) -> Verb3 = \plain -> v2tov3 (mkVerb2 plain) ;
@@ -196,9 +193,10 @@ oper
   v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Bare ; p3 = datPP} ;
 
   -- ㄹ-irregulars, ㅎ-irregular
-  mkVerbReg : (x1,_,_,_,x5 : Str) -> Verb =
-    \plain,polite,formal,neg,attrpos ->
+  mkVerbReg : (x1,_,_,x4 : Str) -> Verb =
+    \plain,polite,formal,attrpos ->
     let stem    = init plain ;
+        neg     = stem + "지" ;
         attrneg = neg ++ "않는" ;
         planeg  = neg ++ negForms ! Plain ;
         polneg  = neg ++ negForms ! Polite ;
@@ -255,7 +253,6 @@ oper
     "하다"
     "해요"
     "합니다"
-    "하지"
     "한" ;
 
   negForms : Style => Str =
