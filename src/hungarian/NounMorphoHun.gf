@@ -47,8 +47,7 @@ oper
     let foo : Str = "foo" ;
      in mkNoun sör ;
 
-  --Handles words like "ló, kő" which are "lovak, kövek" in plural
-  --TODO: "kövek" irregular? "kövekhöz" should be "kövekhez", but "kőhöz" is correct...
+  --Handles words like "ló, kő" which are "lovak, kövek" in plural.
   dLó : Str -> Noun = \ló ->
     let lo = shorten ló ;
         lov = lo + "v" ;
@@ -175,7 +174,7 @@ oper
   -- Variant of case forms when the noun stem ends in consonant.
   endCaseCons : Case -> HarmForms = \c -> case c of {
     Nom => harm1 [] ;
-    Acc => harm3 "ot" "et" "öt" ; --TODO: does not take care of "at" case (in plural)
+    Acc => harm3 "ot" "et" "öt" ;
     Dat => harm "nak" "nek" ;
     Ill => harm "ba" "be" ;
     Ine => harm "ban" "ben" ;

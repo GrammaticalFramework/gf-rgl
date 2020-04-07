@@ -9,20 +9,20 @@ concrete LexiconHun of Lexicon = CatHun **
 -- lin alas_Interj = mkInterj "" ;
 -- lin already_Adv = mkA "" ;
 -- lin animal_N = mkN "" ;
--- lin answer_V2S = mkV2S "" ;
+lin answer_V2S = mkV2S "válasz" ;
 -- lin apartment_N = mkN "" ;
 lin apple_N = mkN "alma" ;
--- lin art_N = mkN "" ;
+lin art_N = mkN "müvészet" ;
 -- lin ashes_N = mkN "" ;
 -- lin ask_V2Q = mkV2 "" ;
 
 ----
 -- B
 
--- lin baby_N = mkN "" ;
+lin baby_N = mkN "bébi" ;
 -- lin back_N = mkN "" ;
 -- lin bad_A = mkA "" ;
--- lin bank_N = mkN "" ;
+lin bank_N = mkN "bank" ;
 -- lin bark_N = mkN "" ;
 -- lin beautiful_A = mkA "" ;
 -- lin become_VA = mkVA "" ;
@@ -42,7 +42,7 @@ lin bird_N = mkN "madár" ;
 -- lin boot_N = mkN "" ;
 -- lin boss_N = mkN "" ;
 -- lin book_N = mkN "" ;
--- lin boy_N = mkN "" ;
+lin boy_N = mkN "fiú" ;
 -- lin bread_N = mkN "" ;
 -- lin break_V2 = mkV2 "" ;
 -- lin breast_N = mkN "" ;
@@ -61,11 +61,11 @@ lin bird_N = mkN "madár" ;
 -- lin cap_N = mkN "" ;
 -- lin car_N = mkN "" ;
 -- lin carpet_N = mkN "" ;
--- lin cat_N = mkN "" ;
+lin cat_N = mkN "macska" ;
 -- lin ceiling_N = mkN "" ;
 -- lin chair_N = mkN "" ;
 -- lin cheese_N = mkN "" ;
--- lin child_N = mkN "" ;
+lin child_N = mkN "gyerek" ;
 -- lin church_N = mkN "" ;
 lin city_N = mkN "város" ;
 -- lin clean_A = mkA "" ;
@@ -78,7 +78,7 @@ lin city_N = mkN "város" ;
 -- lin computer_N = mkN "" ;
 -- lin correct_A = mkA "" ;
 -- lin count_V2 = mkV2 "" ;
--- lin country_N = mkN "" ;
+lin country_N = mkN "ország" ;
 -- lin cousin_N = mkN "" ;
 -- lin cow_N = mkN "" ;
 -- lin cut_V2 = mkV2 "" ;
@@ -94,7 +94,7 @@ lin city_N = mkN "város" ;
 -- lin do_V2 = mkV2 do_V ;
 -- lin doctor_N = mkN "" ;
 -- lin dog_N = mkN "" ;
--- lin door_N = mkN "" ;
+lin door_N = mkN "ajtó" ;
 -- lin drink_V2 = mkV2 "" ;
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
@@ -109,7 +109,7 @@ lin city_N = mkN "város" ;
 -- lin egg_N = mkN "" ;
 -- lin empty_A = mkA "" ;
 -- lin enemy_N = mkN "" ;
--- lin eye_N = mkN "" ;
+lin eye_N = mkN "szem" ;
 
 ----
 -- F
@@ -126,7 +126,7 @@ lin city_N = mkN "város" ;
 -- lin find_V2 = mkV2 "" ;
 -- lin fingernail_N = mkN "" ;
 -- lin fire_N = mkN "" ;
--- lin fish_N = mkN "" ;
+lin fish_N = mkN "hal" ;
 -- lin float_V = mkV "" ;
 -- lin floor_N = mkN "" ;
 -- lin flow_V = mkV "" ;
@@ -139,19 +139,19 @@ lin fly_V = mkV "repül" ;
 -- lin freeze_V = mkV "" ;
 -- lin fridge_N = mkN "" ;
 -- lin friend_N = mkN "" ;
--- lin fruit_N = mkN "" ;
+lin fruit_N = mkN "gyümölcs" ;
 -- lin full_A = mkA "" ;
 -- --lin fun_AV
 
 ----
 -- G
 
--- lin garden_N = mkN "" ;
--- lin girl_N = mkN "" ;
+lin garden_N = mkN "kert" ;
+lin girl_N = mkN "lány" ;
 -- lin give_V3 = mkV3 "" ;
 -- lin glove_N = mkN "" ;
 -- lin go_V = mkV "" ;
--- lin gold_N = mkN "" ;
+lin gold_N = mkN "arany" ;
 -- lin good_A = mkA "" ;
 -- lin grammar_N = mkN "" ;
 -- lin grass_N = mkN "" ;
@@ -161,11 +161,11 @@ lin fly_V = mkV "repül" ;
 -- H
 
 -- lin hair_N = mkN "" ;
--- lin hand_N = mkN "" ;
+lin hand_N = mkN "kéz" ;
 -- lin harbour_N = mkN "" ;
 -- lin hat_N = mkN "" ;
 -- lin hate_V2 = mkV2 "" ;
--- lin head_N = mkN "" ;
+lin head_N = mkN "fej" ;
 -- lin hear_V2 = mkV2 "" ;
 -- lin heart_N = mkN "" ;
 -- lin heavy_A = mkA "" ;
@@ -227,7 +227,7 @@ lin man_N = mkN "férfi" "ak" harmA ; -- force plural allomorph and a-harmony
 -- lin meat_N = mkN "" ;
 -- lin milk_N = mkN "" ;
 -- lin moon_N = mkN "" ;
--- lin mother_N2 = mkN2 "" ;
+lin mother_N2 = mkN2 "anya" ;
 -- lin mountain_N = mkN "" ;
 -- lin mouth_N = mkN "" ;
 -- lin music_N = mkN "" ;
@@ -250,15 +250,15 @@ lin now_Adv = mkAdv "most" ;
 -- -- O - P
 --
 --
--- lin oil_N = mkN "" ;
+lin oil_N = mkN "olaj" ;
 -- lin old_A = mkA "" ;
 -- lin open_V2 = mkV2 "" ;
 -- lin paint_V2A = mkV2A "" ;
 -- lin paper_N = mkN "" ;
 -- lin paris_PN = mkPN "Paris" ;
--- lin peace_N = mkN "" ;
+lin peace_N = mkN "béke" ;
 -- lin pen_N = mkN "" ;
--- lin person_N = mkN "" ;
+lin person_N = mkN "ember" ;
 -- lin planet_N = mkN "" ;
 -- lin plastic_N = mkN "" ;
 -- lin play_V = mkV "" ;
@@ -272,7 +272,7 @@ lin now_Adv = mkAdv "most" ;
 -- -- Q - R
 --
 -- lin queen_N = mkN "" ;
--- lin question_N = mkN "" ;
+lin question_N = mkN "kérdés" ;
 -- lin radio_N = mkN "" ;
 -- lin rain_N = mkN "" ;
 -- lin rain_V0 = mkV "" ;
@@ -283,7 +283,7 @@ lin red_A = mkA "piros" ;
 -- lin religion_N = mkN "" ;
 -- lin restaurant_N = mkN "" ;
 -- lin river_N = mkN "" ;
--- lin road_N = mkN "" ;
+lin road_N = mkN "út" ;
 -- lin rock_N = mkN "" ;
 -- lin roof_N = mkN "" ;
 -- lin root_N = mkN "" ;
@@ -315,7 +315,7 @@ lin see_V2 = mkV2 "lát" ;
 -- lin sheep_N = mkN "" fem ;
 -- lin ship_N = mkN "" ;
 -- lin shirt_N = mkN "" ;
--- lin shoe_N = mkN "" ;
+lin shoe_N = mkN "cipő" ;
 -- lin shop_N = mkN "" ;
 -- lin short_A = mkA "" ;
 -- lin silver_N = mkN "" ;
@@ -357,9 +357,9 @@ lin stone_N = mkN "kő";
 -- T
 
 
--- lin table_N = mkN "" ;
+lin table_N = mkN "asztal" ;
 -- lin tail_N = mkN "" ;
--- lin talk_V3 = mkV3 "" ;
+lin talk_V3 = mkV3 "beszél" ;
 -- lin teach_V2 = mkV2 "" ;
 lin teacher_N = mkN "tanár" ;
 -- lin television_N = mkN "" ;
@@ -395,15 +395,15 @@ lin village_N = mkN "falu" ;
 -- lin warm_A = mkA "" ;
 -- lin wash_V2 = mkV2 "" ;
 -- lin watch_V2 = mkV2 "" ;
--- lin water_N = mkNoun "" ;
+lin water_N = mkNoun "víz" ;
 -- lin wet_A = mkA "" ;
 -- lin white_A = mkA "" ;
 -- lin wide_A = mkA "" ;
 -- lin wife_N = mkN "" ;
 -- lin win_V2 = mkV2 "" ;
 -- lin wind_N = mkN "" ;
--- lin window_N = mkN "" ;
--- lin wine_N = mkN "" ;
+lin window_N = mkN "ablak" ;
+lin wine_N = mkN "bor" ;
 -- lin wing_N = mkN "" ;
 -- lin wipe_V2 = mkV2 "" ;
 lin woman_N = mkN "nő" "k" harmO ;

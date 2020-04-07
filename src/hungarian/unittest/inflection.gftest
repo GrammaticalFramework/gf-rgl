@@ -38,14 +38,15 @@ LangHun: a sörökhöz
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumPl) (UseN beer_N))
 LangHun: a sörök alatt
 
-
+--látom not látok 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN beer_N)))))) NoVoc
 LangEng: I see the beer
-LangHun: én látok a söröt
+LangHun: én látom a söröt
 
+--söröket not sörököt
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN beer_N)))))) NoVoc
 LangEng: I see the beers
-LangHun: én látok a sörököt
+LangHun: én látom a söröket
 
 
 -- Woman
@@ -87,11 +88,12 @@ LangHun: a nők alatt
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
 LangEng: I see the woman
-LangHun: én látok a nőt
+LangHun: én látom a nőt
 
+--nőket not nőköt
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN woman_N)))))) NoVoc
 LangEng: I see the women
-LangHun: én látok a nőköt
+LangHun: én látom a nőket
 
 -- Apple
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN apple_N))
@@ -132,11 +134,11 @@ LangHun: az almák alatt
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc
 LangEng: I see the apple
-LangHun: én látok az almát
+LangHun: én látom az almát
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN apple_N)))))) NoVoc
 LangEng: I see the apples
-LangHun: én látok az almákat
+LangHun: én látom az almákat
 
 -- Bird
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN bird_N))
@@ -176,11 +178,11 @@ LangHun: a madarak alatt
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN bird_N)))))) NoVoc
 LangEng: I see the bird
-LangHun: én látok a madarat
+LangHun: én látom a madarat
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN bird_N)))))) NoVoc
 LangEng: I see the birds
-LangHun: én látok a madarakat
+LangHun: én látom a madarakat
 
 -- Name
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN name_N))
@@ -221,11 +223,11 @@ LangHun: a nevek alatt
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN name_N)))))) NoVoc
 LangEng: I see the name
-LangHun: én látok a nevet
+LangHun: én látom a nevet
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN name_N)))))) NoVoc
 LangEng: I see the names
-LangHun: én látok a neveket
+LangHun: én látom a neveket
 
 -- Man
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN man_N))
@@ -265,11 +267,11 @@ LangHun: a férfiak alatt
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN man_N)))))) NoVoc
 LangEng: I see the man
-LangHun: én látok a férfit
+LangHun: én látom a férfit
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN man_N)))))) NoVoc
 LangEng: I see the men
-LangHun: én látok a férfiakat
+LangHun: én látom a férfiakat
 
 
 -- Horse
@@ -315,11 +317,11 @@ LangHun: a lovak alatt
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN horse_N)))))) NoVoc
 LangEng: I see the horse
-LangHun: én látok a lovat
+LangHun: én látom a lovat
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN horse_N)))))) NoVoc
 LangEng: I see the horses
-LangHun: én látok a lovakat
+LangHun: én látom a lovakat
 
 
 -- Stone
@@ -355,8 +357,8 @@ LangHun: a kövek alatt
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN stone_N)))))) NoVoc
 LangEng: I see the stone
-LangHun: én látok a követ
+LangHun: én látom a követ
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN stone_N)))))) NoVoc
 LangEng: I see the stones
-LangHun: én látok a köveket
+LangHun: én látom a köveket
