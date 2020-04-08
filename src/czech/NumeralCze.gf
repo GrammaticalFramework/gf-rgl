@@ -9,6 +9,7 @@ concrete NumeralCze of Numeral =
 
 -- from gf-contrib/numerals/czech.gf, added inflections
 -- AR 2020-03-20
+---- TODO ordinal forms
 
 
 oper LinNumeral = Determiner ; -- {s : NumeralForms ; size : NumSize} ;

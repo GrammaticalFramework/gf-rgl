@@ -12,15 +12,15 @@ concrete CatCze of Cat =
     Cl  = {subj,clit,compl : Str ; verb : VerbForms ; a : Agr} ;
     Comp = {s : Agr => Str} ;
 
-    QS  = {s : Str} ; ----
-    QCl = {subj,clit,compl : Str ; verb : VerbForms ; a : Agr} ; ----
+    QS  = {s : Str} ; ---- TODO: indirect questions
+    QCl = {subj,clit,compl : Str ; verb : VerbForms ; a : Agr} ; -- = Cl ---- check if enough
     IAdv = {s : Str} ;
 
     RS  = {s : Agr => Str} ;
-    RCl = {subj,clit,compl : Agr => Str ; verb : VerbForms} ; ---- RAgr
+    RCl = {subj,clit,compl : Agr => Str ; verb : VerbForms} ; ---- RAgr with composite RP
     RP  = AdjForms ;
 
-    VP = {verb : VerbForms ; clit,compl : Agr => Str} ; ----
+    VP = {verb : VerbForms ; clit,compl : Agr => Str} ; ---- more fields probably needed
     VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase} ; ----
     V  = ResCze.VerbForms ;
     V2 = ResCze.VerbForms ** {c : ComplementCase} ;
@@ -33,22 +33,22 @@ concrete CatCze of Cat =
 
     N  = ResCze.NounForms ;
     CN = ResCze.Noun ;      -- {s : Number => Case => Str ; g : Gender}
-    NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit : Bool} ; ----
-    PN = {s : Case => Str ; g : Gender} ; ----
-    Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
+    NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit : Bool} ; -- clit,prep differ for pronouns
+    PN = {s : Case => Str ; g : Gender} ; 
+    Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; -- can contain a numeral, therefore NumSize
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
-    Num = {s : Gender => Case => Str ; size : NumSize} ; 
+    Num = Determiner ;
     Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; 
     Pron = PronForms ;
 
     Adv  = {s : Str} ;
     Prep = ResCze.ComplementCase ; -- {s : Str ; c : Case ; hasPrep : Bool} ;
-    Conj = {s1,s2 : Str} ; ----
+    Conj = {s1,s2 : Str} ; ---- may need a number
 
     Pol = {s : Str ; p : Bool} ;
-    Temp = {s : Str ; t : CTense} ; ----
-    Tense = {s : Str ; t : CTense} ; ----
-    Ant = {s : Str ; t : CTense} ; ----
+    Temp = {s : Str ; t : CTense} ; 
+    Tense = {s : Str ; t : CTense} ;
+    Ant = {s : Str ; t : CTense} ; 
 
     PConj = {s : Str} ;
     Voc = {s : Str} ;
@@ -63,7 +63,7 @@ concrete CatCze of Cat =
     A = \s -> s.msnom ;
 
 
-  lincat Numeral = Determiner ; ---- should contain Ord as well
+  lincat Numeral = Determiner ; ---- TODO: should contain Ord as well
   lincat Digits = {s:Str ; size : NumSize} ;
 
 

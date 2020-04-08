@@ -1,5 +1,9 @@
 resource ResCze = open Prelude in {
 
+-- AR March 2020
+-- sources:
+-- Wiki = https://en.wikipedia.org/wiki/Czech_declension, https://en.wikipedia.org/wiki/Czech_conjugation
+-- CEG  = J. Naughton, Czech: an Essential Grammar, Routledge 2005.
 
 -- parameters
 
@@ -15,7 +19,7 @@ param
   
   Agr = Ag Gender Number Person ;
 
-  CTense = CTPres | CTPast ; -----
+  CTense = CTPres | CTPast ; ----- TODO complete the tense system to match Czech verb morphology
 
 -- phonology
 
@@ -30,8 +34,6 @@ oper
       "ť" | "ď" | "j" | "ň" | "ř" | "š" | "c" | "č" | "ž" | 
       "b" | "f" | "l" | "m" | "p" | "s" | "v"
       ) ; 
-
-
 
   dropFleetingE : Str -> Str = \s -> case s of {
     x + "e" + c@("k"|"c") => x + c ;
@@ -89,9 +91,24 @@ oper
 		    
 ---------------
 -- Nouns
+---------------
 
-  Noun      : Type = {s : Number => Case => Str ; g : Gender} ;
+-- novel idea (for RGL): lexical items stored as records rather than tables
+-- advantages:
+-- - easier to make exceptions to paradigms (by ** {})
+-- - easier to keep the number of forms minimal
+-- - easier to see what is happening than with lots of anonymous arguments to mkN, mkA, mkV
+
+-- so this is the lincat of N
+
   NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
+
+-- But traditional tables make agreement easier to handle in syntax
+-- so this is the lincat of CN
+
+  Noun : Type = {s : Number => Case => Str ; g : Gender} ;
+
+-- this is used in UseN
 
   nounFormsNoun : NounForms -> Noun
     = \forms -> {
@@ -117,7 +134,7 @@ oper
       g = forms.g
       } ;
 
-
+-- terminology of CEG
   DeclensionType : Type = Str -> NounForms ;
   
   declensionNounForms : (nom,gen : Str) -> Gender -> NounForms
@@ -142,6 +159,8 @@ oper
       }
     in decl nom ;
 
+-- the "smartest" one-argument mkN
+
   guessNounForms : Str -> NounForms
     = \s -> case s of {
       _ + "ost"          => declKOST s ;
@@ -155,11 +174,11 @@ oper
       _ + "í"            => declSTAVENI s ;
       _ => Predef.error ("cannot guess declension type for" ++ s)
       } ; 
-  
 
--- source: https://en.wikipedia.org/wiki/Czech_declension
+-- the traditional declensions, in both CEG and Wiki
+-- they are also exported in ParadigmsCze with names panN etc
 
-  declPAN : DeclensionType = \pan ->  --- plural nom ové|i|é should be given as extra arg 3.5.1 
+  declPAN : DeclensionType = \pan ->  --- plural nom ové|i|é can be changed with ** {pnom = ...} CEG 3.5.1 
     {
       snom      = pan ;
       sgen,sacc = pan + "a" ;
@@ -406,6 +425,7 @@ oper
   Adjective : Type = {s : Gender => Number => Case => Str} ; 
 
 -- to be used for A, in three degrees: 15 forms in each
+---- TODO other degrees than positive
 
   AdjForms : Type = {
     msnom, fsnom, nsnom : Str ; -- svoc = snom
@@ -419,6 +439,8 @@ oper
     pgen : Str ;                -- ploc = pgen
     pins : Str ;
     } ;
+
+-- used in PositA but will also work in Compar and Superl by calling their record fields
 
 adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   s = \\g,n,c => case <n,c,g> of {
@@ -562,6 +584,9 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     pastpartpl = "měli" ;
     } ;
 
+-- just an example of a traditional paradigm
+---- TODO other traditional paradigms
+
   iii_kupovatVerbForms : Str -> VerbForms = \kupovat ->
    let
      kupo = Predef.tk 3 kupovat ;
@@ -592,6 +617,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     ins,pins        : Str ;
     a : Agr
     } ;
+
+---- TODO: possessives
 
   personalPron : Agr -> PronForms = \a ->
     {a = a ; cnom = []} **
@@ -682,7 +709,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       } ;
 
 --------------------------------
--- demonstrative pronouns
+-- demonstrative pronouns, used for Quant and Det
 
 oper
   DemPronForms : Type = {
@@ -785,7 +812,7 @@ oper
   -- example: number 1
   oneNumeral : Determiner = numeralFormsDeterminer (mkDemPronForms "jed") Num1 ;
 
-  -- numbers 2,3,4 ---- to check if everything comes out right with this type
+  -- numbers 2,3,4 ---- to check if everything comes out right with the determiner type
   twoNumeral : Determiner =
     let forms = {
       msnom = "dva" ; fsnom, nsnom, fsacc = "dvě" ;
@@ -830,7 +857,7 @@ oper
 -- combining nouns with numerals
 
 param
-  NumSize = Num1 | Num2_4 | Num5 ; -- essential grammar 6.1
+  NumSize = Num1 | Num2_4 | Num5 ; -- CEG 6.1
 
 oper
   numSizeForm : (Number => Case => Str) -> NumSize -> Case -> Str

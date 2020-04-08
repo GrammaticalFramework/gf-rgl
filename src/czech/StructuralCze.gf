@@ -12,7 +12,7 @@ lin
     many_Det = regNumeral "mnoho" "mnoha" ; -- CEG 6.8 ----
     or_Conj = mkConj "nebo" ;
     somePl_Det = regNumeral "několik" "několika" ; -- CEG 6.8 ----
-    something_NP = {s,clit,prep = \\c => "ně" ++ coForms ! c ; a = Ag Neutr Sg P3 ; hasClit = False} ; -- CEG 5.6.3
+    something_NP = {s,clit,prep = \\c => "ně" + coForms ! c ; a = Ag Neutr Sg P3 ; hasClit = False} ; -- CEG 5.6.3
     possess_Prep = mkPrep "" Gen ;
     that_Quant = demPronFormsAdjective (mkDemPronForms "tamt") "" ;
     this_Quant = demPronFormsAdjective (mkDemPronForms "t") "to" ;

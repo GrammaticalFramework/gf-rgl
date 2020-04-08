@@ -17,8 +17,9 @@ lin
       s = temp.s ++ cl.subj ++ cl.clit ++ pol.s ++ verbAgr cl.verb cl.a pol.p ++ cl.compl ;
       } ;
 
+    --- TODO is inversion the standard? ; add indirect questions
     UseQCl temp pol cl = {
-      s = temp.s ++ cl.clit ++ pol.s ++ verbAgr cl.verb cl.a pol.p ++ cl.subj ++ cl.compl ; ---- inversion optional
+      s = temp.s ++ cl.clit ++ pol.s ++ verbAgr cl.verb cl.a pol.p ++ cl.subj ++ cl.compl ; 
       } ;
 
     UseRCl temp pol rcl = {

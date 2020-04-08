@@ -88,7 +88,7 @@ lin
     UseN n = nounFormsNoun n ;
 
     ApposCN cn np = {
-      s = \\n,c => cn.s ! n ! c ++ np.s ! c ; ----
+      s = \\n,c => cn.s ! n ! c ++ np.s ! c ; ---- TODO check apposition order
       g = cn.g
       } ;
       
