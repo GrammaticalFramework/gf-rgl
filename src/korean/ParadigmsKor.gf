@@ -15,11 +15,16 @@ oper
   object : CaseParticle ;  -- 을 or 를
   noCase : CaseParticle ;  -- No case particle
 
+  NumOrigin : Type ;         -- Arguments to give to N
+  nativeKorean : NumOrigin ; -- Native Korean variant of numerals: 하나, 둘, 셋 , …
+  sinoKorean : NumOrigin ;   -- Sino-Korean variant of numerals: 일, 이, 삼
+
 --2 Nouns
 
   mkN : overload {
-    mkN : (noun : Str) -> N ; -- Predictable nouns with classifier 개
-    mkN : (noun,counter : Str) -> N ; -- Noun and classifier given as arguments.
+    mkN : (noun : Str) -> N ; -- Predictable nouns with classifier 개. When quantified by a numeral, the numeral is of native Korean origin: 하나/둘/셋 , not 일/이/삼.
+    mkN : (noun,counter : Str) -> N ;  -- Noun and classifier given as arguments. Takes numerals of native Korean origin.
+    mkN : (noun,counter : Str) -> NumOrigin -> N ; -- Noun, classifier and origin of numerals. E.g. `mkN "사람" "명" nativeKorean`
   } ;
 
 --2 Adjectives
@@ -114,15 +119,20 @@ oper
   object = Object ;
   noCase = Bare ;
 
+  NumOrigin : Type = ResKor.NumOrigin ;
+  nativeKorean = NK ;
+  sinoKorean = SK ;
+
   mkN = overload {
     mkN : Str -> N = \s -> lin N (mkNoun s) ;
-    mkN : (noun,counter : Str) -> N = \n,c ->
-      let noun : Noun = mkNoun n ;
-          counter : Counter = mkCounter c ;
-       in lin N (noun ** {c = counter}) ;
-
+    mkN : (noun,counter : Str) -> N = \n,c -> mkNCounter n c nativeKorean ;
+    mkN : (noun,counter : Str) -> NumOrigin -> N = mkNCounter
     } ;
 
+  mkNCounter : (noun,counter : Str) -> NumOrigin -> N = \n,c,o ->
+    let noun : Noun = mkNoun n ;
+        counter : Counter = mkCounter c o ;
+     in lin N (noun ** {c = counter}) ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s) ;
