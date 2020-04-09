@@ -22,7 +22,7 @@ oper
               } ;
         } ;
 
-  -- Handles words like "madár", "név" with shortened stem vowel in plural
+  -- Handles words like "madár, nyár, név" with shortened stem vowel in plural
   dMadár : Str -> Noun = \madár ->
     let r = last madár ;
         madá = init madár ;
@@ -42,23 +42,26 @@ oper
               } ;
         } ;
 
-  --Handles words like "ló, kő" which are "lovak, kövek" in plural.
+  --Handles words like "ló, lé, kő" which are "lovak, levek, kövek" in plural.
+  --TODO: <Sg,Sup> "lovon" instead of "lón"
+  --TODO: special case <Sg,Sup> "lén" not "leven", maybe just put the case in specific words, many special cases...
   dLó : Str -> Noun = \ló ->
     let lo = shorten ló ;
         lov = lo + "v" ;
-        a : Str = case ló of {
-          _ + ("ö" | "ő") => "e" ;
-          _ + ("o" | "ó") => "a" } ;
+        ak : Str = case ló of {
+          _ + ("ö" | "ő") => "ek" ;
+          _ + ("o" | "ó") => "ak" ;
+          lé => shorten (last lé) + "k"} ;
         harmonyPlural : Harm = case ló of {
           _ + ("ö" | "ő") => H_e ; -- All plural allomorphs have E harmony, singular ones have O.
-          _ + ("o" | "ó") => H_a } ;
-        lova = lov + a ;
-        nLova = mkNounHarm harmonyPlural "k" lova ;
+          _ + ("o" | "ó") => H_a ;
+          lé => getHarm (lé)} ;
+        nLov = mkNounHarmAcc True harmonyPlural ak lov ;
         nLó = mkNoun ló ;
     in {s = \\n,c => case <n,c> of {
 
-                -- All plural forms and Sg Acc use the "lova" stem
-                <Pl,_>|<Sg,Acc> => nLova.s ! n ! c ;
+                -- All plural forms and Sg Acc, Sg Sup use the "lov" stem
+                <Pl,_>| <Sg,Acc> | <Sg,Sup> => nLov.s ! n ! c ;
 
                 -- The rest of the forms are formed with the regular constructor,
                 -- using "ló" as the stem.
@@ -67,7 +70,28 @@ oper
               } ;
         } ;
 
-  --Handles words like "gyomor, majom, retek" which are "sátrat, gyomrot, majmot, retket" in plural (wovel dropping base)
+  --Handles words like "tó, hó"" which are "tavak, havak" in plural.
+  --(Since I only have these examples for now I do a simplified case with ó, a)
+  --TODO: <Sg,Sup> "tavon" instead of "tón"
+  --TODO: szó special case which fulfills this but not the <Sg,Acc> or <Sg,Sup> case
+  dTó : Str -> Noun = \tó ->
+    let t = init tó ;
+        tav = t + "av" ;
+        nTav = mkNounHarmAcc True H_a "ak" tav ;
+        nTó = mkNoun tó ;
+    in {s = \\n,c => case <n,c> of {
+
+                -- All plural forms and Sg Acc use the "tava" stem
+                <Pl,_>|<Sg,Acc> => nTav.s ! n ! c ;
+
+                -- The rest of the forms are formed with the regular constructor,
+                -- using "tó" as the stem.
+                _ => nTó.s ! n ! c
+
+              } ;
+        } ;
+
+  --Handles words like "gyomor, majom, retek, eper" which are "gyomrot, majmot, retket, epret" in plural (wovel dropping base)
   dMajom : Str -> Noun = \majom ->
     let mo = last majom + last (init majom);
         maj = init (init majom) ;
@@ -77,8 +101,8 @@ oper
     in {s = \\n,c => case <n,c> of {
       --  <Pl,Acc> => majmo + "kat" ; --Special case
 
-        -- All plural forms and Sg Acc use the "majmo" stem
-        <Pl,_> | <Sg,Acc> => nMajmo.s ! n ! c ;
+        -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
+        <Pl,_> | <Sg,Acc> | <Sg, Sup> => nMajmo.s ! n ! c ;
 
         -- The rest of the forms are formed with the regular constructor,
         -- using "majom" as the stem.
@@ -218,13 +242,14 @@ oper
   mkNoun : Str -> Noun = \w ->
     mkNounHarm (getHarm w) (pluralAllomorph w) w ;
 
-  -- Harmony and plural allomorph given explicitly
+  -- Harmony and plural allomorph given explicitly (check if the True makes it bad)
   mkNounHarm : Harm -> (plural : Str) -> Str -> Noun = mkNounHarmAcc True ;
 
   mkNounHarmAcc : (useAt : Bool) -> Harm -> (plural : Str) -> Str -> Noun = \useAt,h,plural,w ->
-    let endCaseSg : Case -> HarmForms = case vowFinal w of {
-                                          True  => endCaseVow ;
-                                          False => endCaseCons } ;
+    let endCaseSg : Case -> HarmForms = case <vowFinal w, useAt> of {
+                                          <True,_>  => endCaseVow ;
+                                          <False,True> => endCaseConsAccAt ;
+                                          _  => endCaseCons} ;
         endCasePl : Case -> HarmForms = case <plural, useAt> of {
                                           <"ak",_> => endCaseConsAccAt ;
                                           <_,True> => endCaseConsAccAt ;
