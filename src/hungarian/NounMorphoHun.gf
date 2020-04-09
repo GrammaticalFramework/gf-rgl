@@ -98,10 +98,23 @@ oper
   --               "bokrot, cukrot, csokrot, epret, fészket, fodrot, gödröt, ikret, izmot, kölyköt, körmet, mérget, piszkot, sarkot, selymet, szedret, szobrot, taknyot, termet, titkot, torkot, tornyot, tükröt, vödröt"
   --<Sg,Sup> case handled
   dMajom : Str -> Noun = \majom ->
-    let mo = last majom + last (init majom);
-        maj = init (init majom) ;
-        majmo = maj + mo ;
-        nMajmo = mkNounHarm (getHarm majmo) "k" majmo ;
+        -- Str*Str is syntactic sugar for {p1 : Str ; p2 : Str} ;
+        -- confusing syntax: you can't write let <tako,ny> : Str*Str = …
+        -- it has to be called something else, and then you
+        -- can get "tako" and "ny" with p1, p2.
+    let tako_ny : Str*Str = case majom of {
+               x + trigraph@("dzs") => <x,trigraph> ;
+               x + digraph@("cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs")
+                                    => <x,digraph> ;
+                  -- ? pattern matches exactly 1 character
+               x + unigraph@?       => <x,unigraph> } ;
+        tako = tako_ny.p1 ;
+        ny = tako_ny.p2 ;
+
+        nyo = ny + last tako ;
+        tak = init tako ;
+        taknyo = tak + nyo ;
+        nMajmo = mkNounHarm (getHarm taknyo) "k" taknyo ;
         nMajom = mkNoun majom ;
     in {s = \\n,c => case <n,c> of {
         -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
