@@ -29,7 +29,7 @@ oper
         mada = shorten madá ; -- shortens vowels
         a = last mada ;
         madara = mada + r + a ;
-        nMadara = mkNoun madara ;
+        nMadara = mkNounHarm (getHarm madara) "k" madara ;
         nMadár = mkNoun madár ;
     in {s = \\n,c => case <n,c> of {
                 -- All plural forms and Sg Acc use the "madara"/"neve" stem
@@ -41,11 +41,6 @@ oper
 
               } ;
         } ;
-
-  -- TODO: actual paradigm
-  dSör : Str -> Noun = \sör ->
-    let foo : Str = "foo" ;
-     in mkNoun sör ;
 
   --Handles words like "ló, kő" which are "lovak, kövek" in plural.
   dLó : Str -> Noun = \ló ->
@@ -77,10 +72,10 @@ oper
     let mo = last majom + last (init majom);
         maj = init (init majom) ;
         majmo = maj + mo ;
-        nMajmo = mkNoun majmo ;
+        nMajmo = mkNounHarm (getHarm majmo) "k" majmo ;
         nMajom = mkNoun majom ;
     in {s = \\n,c => case <n,c> of {
-        <Pl,Acc> => majmo + "kat" ; --Special case
+      --  <Pl,Acc> => majmo + "kat" ; --Special case
 
         -- All plural forms and Sg Acc use the "majmo" stem
         <Pl,_> | <Sg,Acc> => nMajmo.s ! n ! c ;
@@ -224,12 +219,15 @@ oper
     mkNounHarm (getHarm w) (pluralAllomorph w) w ;
 
   -- Harmony and plural allomorph given explicitly
-  mkNounHarm : Harm -> (plural : Str) -> Str -> Noun = \h,plural,w ->
+  mkNounHarm : Harm -> (plural : Str) -> Str -> Noun = mkNounHarmAcc True ;
+
+  mkNounHarmAcc : (useAt : Bool) -> Harm -> (plural : Str) -> Str -> Noun = \useAt,h,plural,w ->
     let endCaseSg : Case -> HarmForms = case vowFinal w of {
                                           True  => endCaseVow ;
                                           False => endCaseCons } ;
-        endCasePl : Case -> HarmForms = case plural of {
-                                          "ak" => endCaseConsAccAt ; -- TODO check
+        endCasePl : Case -> HarmForms = case <plural, useAt> of {
+                                          <"ak",_> => endCaseConsAccAt ;
+                                          <_,True> => endCaseConsAccAt ;
                                           _    => endCaseCons } ;
         -- Last consonant doubles before instrumental and translative
         lastCons : Str = case vowFinal w of {
