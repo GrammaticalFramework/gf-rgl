@@ -103,11 +103,10 @@ oper
         -- it has to be called something else, and then you
         -- can get "tako" and "ny" with p1, p2.
     let tako_ny : Str*Str = case majom of {
-               x + trigraph@("dzs") => <x,trigraph> ;
-               x + digraph@("cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs")
-                                    => <x,digraph> ;
+               x + dzs@#trigraph => <x,dzs> ;
+               x + zs@#digraph => <x,zs> ;
                   -- ? pattern matches exactly 1 character
-               x + unigraph@?       => <x,unigraph> } ;
+               x + s@? => <x,s> } ;
         tako = tako_ny.p1 ;
         ny = tako_ny.p2 ;
 
@@ -159,6 +158,11 @@ oper
   -- Vowels as a pattern.
   v : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü" |
                       "á" | "é" | "í" | "ó" | "ú" | "ő" | "ű") ;
+  -- Digraphs
+  digraph : pattern Str = #("cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs") ;
+
+  -- Trigraphs
+  trigraph : pattern Str = #("dzs") ;
 
   -- Function to test if a string ends in a vowel
   vowFinal : Str -> Bool = \str ->
