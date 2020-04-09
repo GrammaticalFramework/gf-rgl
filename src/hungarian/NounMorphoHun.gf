@@ -23,6 +23,7 @@ oper
         } ;
 
   -- Handles words like "madár, nyár, név" with shortened stem vowel in plural
+  -- No special <Sg,Sup> case here
   dMadár : Str -> Noun = \madár ->
     let r = last madár ;
         madá = init madár ;
@@ -43,8 +44,9 @@ oper
         } ;
 
   --Handles words like "ló, lé, kő" which are "lovak, levek, kövek" in plural.
-  --TODO: <Sg,Sup> "lovon" instead of "lón"
-  --TODO: special case <Sg,Sup> "lén" not "leven", maybe just put the case in specific words, many special cases...
+  -- <Sg,Sup> "lovon" instead of "lón" fixed but that gives the following problems:
+  --TODO: special case <Sg,Sup> "lén" not "leven"
+  --TODO: <Sg,Sup> also "kövön" not "köven", but that is due to H_e, which is needed for "köveket" so it's conflicting
   dLó : Str -> Noun = \ló ->
     let lo = shorten ló ;
         lov = lo + "v" ;
@@ -72,8 +74,8 @@ oper
 
   --Handles words like "tó, hó"" which are "tavak, havak" in plural.
   --(Since I only have these examples for now I do a simplified case with ó, a)
-  --TODO: <Sg,Sup> "tavon" instead of "tón"
-  --TODO: szó special case which fulfills this but not the <Sg,Acc> or <Sg,Sup> case
+  --<Sg,Sup> "tavon" instead of "tón" case fixed, works automatically with the Sup rules
+  --TODO: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
   dTó : Str -> Noun = \tó ->
     let t = init tó ;
         tav = t + "av" ;
@@ -81,8 +83,8 @@ oper
         nTó = mkNoun tó ;
     in {s = \\n,c => case <n,c> of {
 
-                -- All plural forms and Sg Acc use the "tava" stem
-                <Pl,_>|<Sg,Acc> => nTav.s ! n ! c ;
+                -- All plural forms and Sg Acc use the "tav" stem
+                <Pl,_>|<Sg,Acc>|<Sg,Sup> => nTav.s ! n ! c ;
 
                 -- The rest of the forms are formed with the regular constructor,
                 -- using "tó" as the stem.
@@ -91,7 +93,10 @@ oper
               } ;
         } ;
 
-  --Handles words like "gyomor, majom, retek, eper" which are "gyomrot, majmot, retket, epret" in plural (wovel dropping base)
+  --Handles words like "gyomor, majom, retek" which are "gyomrot, majmot, retket" in accusative (wovel dropping base)
+  --More examples: "bokor,  cukor,  csokor,  eper,  fészek,  fodor,  gödör,  iker,  izom,  kölyök,  köröm,  méreg,  piszok,  sarok,  selyem,  szeder,  szobor,  takony,  terem,  titok,  torok,  torony,  tükör,  vödör" ->
+  --               "bokrot, cukrot, csokrot, epret, fészket, fodrot, gödröt, ikret, izmot, kölyköt, körmet, mérget, piszkot, sarkot, selymet, szedret, szobrot, taknyot, termet, titkot, torkot, tornyot, tükröt, vödröt"
+  --<Sg,Sup> case handled
   dMajom : Str -> Noun = \majom ->
     let mo = last majom + last (init majom);
         maj = init (init majom) ;
@@ -99,8 +104,6 @@ oper
         nMajmo = mkNounHarm (getHarm majmo) "k" majmo ;
         nMajom = mkNoun majom ;
     in {s = \\n,c => case <n,c> of {
-      --  <Pl,Acc> => majmo + "kat" ; --Special case
-
         -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
         <Pl,_> | <Sg,Acc> | <Sg, Sup> => nMajmo.s ! n ! c ;
 
@@ -109,6 +112,8 @@ oper
         _ => nMajom.s ! n ! c
       } ;
     } ;
+
+  --Handles words like "sátor, ajak, álom, alkalom, farok, halom, haszon, vászon, bátor"
 
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
