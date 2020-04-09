@@ -164,6 +164,22 @@ oper
   -- Trigraphs
   trigraph : pattern Str = #("dzs") ;
 
+  duplicateLast : Str -> Str = \str -> case str of {
+    x + "dzs" => x + "ddzs" ;
+    x + "ny"  => x + "nny" ; -- takony : takonnyal
+
+    -- TODO: no idea, just guessing! Check these.
+    x + "cs" => x + "ccs" ;
+    x + "dz" => x + "ddz" ;
+    x + "gy" => x + "ggy" ;
+    x + "ly" => x + "lly" ;
+    x + "sz" => x + "ssz" ;
+    x + "ty" => x + "tty" ;
+    x + "zs" => x + "zzs" ;
+
+    -- Base cacse: just duplicate the single letter
+    x + s@?  => s + s } ;
+
   -- Function to test if a string ends in a vowel
   vowFinal : Str -> Bool = \str ->
     case str of {
@@ -277,15 +293,15 @@ oper
                                           <_,True> => endCaseConsAccAt ;
                                           _    => endCaseCons } ;
         -- Last consonant doubles before instrumental and translative
-        lastCons : Str = case vowFinal w of {
-                           True  => [] ;
-                           False => last w } ;
+        duplConsStem : Str = case vowFinal w of {
+                           True  => w ;
+                           False => duplicateLast w } ;
 
         -- Noun is {s : Number => Case => Str}, we construct nested tables.
      in {s = table {
                Sg => table {
                        -- Double the last letter (if consonant) before Ins, Tra
-                       c@(Ins|Tra) => w + lastCons + endCaseSg c ! h ;
+                       c@(Ins|Tra) => duplConsStem + endCaseSg c ! h ;
                        c@_         => w +            endCaseSg c ! h } ;
 
                Pl => table {
