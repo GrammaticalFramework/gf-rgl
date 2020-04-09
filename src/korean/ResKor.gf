@@ -13,8 +13,9 @@ oper
     origin = NK
     } ;
 
-  mkCounter : Str -> Counter = \s -> baseCounter ** {
+  mkCounter : Str -> NumOrigin -> Counter = \s,o -> baseCounter ** {
     s = s ;
+    origin = o ;
     } ;
 
   BaseNoun : Type = {
