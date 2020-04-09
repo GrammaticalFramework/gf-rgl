@@ -22,7 +22,7 @@ oper
               } ;
         } ;
 
-  -- Handles words like "madár, nyár, név" with shortened stem vowel in plural
+  -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural
   -- No special <Sg,Sup> case here
   dMadár : Str -> Noun = \madár ->
     let r = last madár ;
@@ -58,7 +58,7 @@ oper
           _ + ("ö" | "ő") => H_e ; -- All plural allomorphs have E harmony, singular ones have O.
           _ + ("o" | "ó") => H_a ;
           lé => getHarm (lé)} ;
-        nLov = mkNounHarmAcc True harmonyPlural ak lov ;
+        nLov = mkNounHarm harmonyPlural ak lov ;
         nLó = mkNoun ló ;
     in {s = \\n,c => case <n,c> of {
 
@@ -79,7 +79,7 @@ oper
   dTó : Str -> Noun = \tó ->
     let t = init tó ;
         tav = t + "av" ;
-        nTav = mkNounHarmAcc True H_a "ak" tav ;
+        nTav = mkNounHarm H_a "ak" tav ;
         nTó = mkNoun tó ;
     in {s = \\n,c => case <n,c> of {
 
@@ -94,8 +94,8 @@ oper
         } ;
 
   --Handles words like "gyomor, majom, retek" which are "gyomrot, majmot, retket" in accusative (wovel dropping base)
-  --More examples: "bokor,  cukor,  csokor,  eper,  fészek,  fodor,  gödör,  iker,  izom,  kölyök,  köröm,  méreg,  piszok,  sarok,  selyem,  szeder,  szobor,  takony,  terem,  titok,  torok,  torony,  tükör,  vödör" ->
-  --               "bokrot, cukrot, csokrot, epret, fészket, fodrot, gödröt, ikret, izmot, kölyköt, körmet, mérget, piszkot, sarkot, selymet, szedret, szobrot, taknyot, termet, titkot, torkot, tornyot, tükröt, vödröt"
+  --More examples: "ajak,  bokor,  cukor,  csokor,  eper,  fészek,  fodor,  gödör,  haszon,  iker,  izom,  kölyök,  köröm,  méreg,  piszok,  sarok,  selyem,  szeder,  szobor,  takony,  terem,  titok,  torok,  torony,  tükör,  vödör" ->
+  --               "ajkat, bokrot, cukrot, csokrot, epret, fészket, fodrot, gödröt, hasznot, ikret, izmot, kölyköt, körmet, mérget, piszkot, sarkot, selymet, szedret, szobrot, taknyot, termet, titkot, torkot, tornyot, tükröt, vödröt"
   --<Sg,Sup> case handled
   dMajom : Str -> Noun = \majom ->
         -- Str*Str is syntactic sugar for {p1 : Str ; p2 : Str} ;
@@ -125,12 +125,29 @@ oper
       } ;
     } ;
 
-  --Handles words like "sátor, ajak, álom, alkalom, farok, halom, haszon, vászon, bátor"
+  --Handles words like "sátor, álom, alkalom, farok, halom, vászon"
+  --                   "sátrat, álmat, alkalmat, farkat, halmat, vásznat"
+  -- (bátor not noun)
+  dFarok : Str -> Noun = \farok ->
+    let k = last farok ;
+        far = init (init farok) ;
+        fark = far + k ;
+        nFark = mkNounHarm (getHarm fark) "ak" fark ;
+        nFarok = mkNoun farok ;
+    in {s = \\n,c => case <n,c> of {
+        -- All plural forms and Sg Acc and Sg Sup use the "fark" stem
+        <Pl,_> | <Sg,Acc> | <Sg, Sup> => nFark.s ! n ! c ;
+
+        -- The rest of the forms are formed with the regular constructor,
+        -- using "farok" as the stem.
+        _ => nFarok.s ! n ! c
+      } ;
+    } ;
 
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
-  -- falu ~ falva-k
-  -- sátor ~ sátrak
+  -- TODO: falu ~ falva-k (v-case)
+  -- TODO: teher ~ terhet (consonant-crossing)
   -- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
 
   -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
@@ -139,6 +156,8 @@ oper
     _ + "a"|"e"       => dAlma sgnom ;
     _ + ("á"|"é") + ? => dMadár sgnom ;
     _ + ("ó"|"ő")     => dLó sgnom ;
+    _ + "alom"        => dFarok sgnom ;
+    _ + "elem"        => dMajom sgnom ;
 
     -- TODO: more non-smart paradigms + more pattern matching
     -- TODO: smart paradigms with >1 form. Which forms are the most descriptive?
@@ -166,9 +185,7 @@ oper
 
   duplicateLast : Str -> Str = \str -> case str of {
     x + "dzs" => x + "ddzs" ;
-    x + "ny"  => x + "nny" ; -- takony : takonnyal
-
-    -- TODO: no idea, just guessing! Check these.
+    x + "ny" => x + "nny" ; -- takony : takonnyal
     x + "cs" => x + "ccs" ;
     x + "dz" => x + "ddz" ;
     x + "gy" => x + "ggy" ;
@@ -178,7 +195,7 @@ oper
     x + "zs" => x + "zzs" ;
 
     -- Base cacse: just duplicate the single letter
-    x + s@?  => s + s } ;
+    x + s@?  => x + s + s } ;
 
   -- Function to test if a string ends in a vowel
   vowFinal : Str -> Bool = \str ->
@@ -269,6 +286,8 @@ oper
   } ;
 
   -- Function to return a plural allomorph given the stem (e.g. név, almá).
+  -- TODO: seems to be many "ak" cases, add?
+  -- Examples: ág, ágy, ár, díj, fal, fog, gyár, hal, has, hát, ház, hold, láz, lyuk, nyak, olaj, oldal, toll, ujj, vonal
   pluralAllomorph : (stem : Str) -> Str = \stem ->
     case vowFinal stem of {
       True  => "k" ;
