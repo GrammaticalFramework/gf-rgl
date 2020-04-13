@@ -13,12 +13,14 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 -- Noun morphology is in NounMorphoHun
 
 oper
-
-  NounPhrase : Type = {
-    s : Case => Str ;
+  BaseNP : Type = {
     agr : Person*Number ;
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
+    } ;
+
+  NounPhrase : Type = BaseNP ** {
+    s : Case => Str ;
     } ;
 
   emptyNP : NounPhrase = {
@@ -104,6 +106,13 @@ oper
     n : Number ;
     } ;
 
+  mkConj : Str -> Number -> Conj = mkDConj [] ;
+
+  mkDConj : (s1,s2 : Str) -> Number -> Conj = \s1,s2,num -> {
+    s1 = s1 ;
+    s2 = s2 ;
+    n = num ;
+    } ;
 --------------------------------------------------------------------------------
 -- Adjectives
 

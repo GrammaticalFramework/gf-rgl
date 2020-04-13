@@ -33,16 +33,16 @@ lin somewhere_Adv = ss "" ;
 lin there7from_Adv = ss "" ;
 lin there7to_Adv = ss "" ;
 lin there_Adv = ss "" ;
-
+-}
 -------
 -- Conj
 
-lin and_Conj =
-lin or_Conj =
-lin if_then_Conj =
-lin both7and_DConj =
-lin either7or_DConj =
-
+lin and_Conj = mkConj "és" Pl ;
+lin or_Conj = mkConj "vagy" Sg ;
+-- lin if_then_Conj =
+-- lin both7and_DConj =
+lin either7or_DConj = mkDConj "vagy" "vagy" Sg ;
+{-
 lin but_PConj = ss "" ;
 lin otherwise_PConj = ss "" ;
 lin therefore_PConj = ss "" ;

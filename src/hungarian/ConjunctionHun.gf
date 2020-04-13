@@ -23,17 +23,35 @@ concrete ConjunctionHun of Conjunction =
       ConsAdv = consrSS comma ;
       ConjAdv = conjunctSS ;
 
-    --}
+    -}
 
 
 -- Adverb and other simple {s : Str} types.
 lincat
-  [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
+  [Adv],[AdV],[IAdv],[S] = {s1,s2 : Str} ;
 
 lin
-  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
+  BaseAdv, BaseAdV, BaseIAdv, BaseS = twoSS ;
+  ConsAdv, ConsAdV, ConsIAdv, ConsS = consrSS comma ;
+  ConjAdv, ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
+
+
+lincat
+  [AP] = {s1,s2 : Number => Str}  ;
+
+lin
+  BaseAP = twoTable Number ;
+  ConsAP = consrTable Number comma ;
+  ConjAP = conjunctDistrTable Number ;
+
+-- Noun phrases
+lincat
+  [NP] = ResHun.BaseNP ** {s1,s2 : Case => Str} ;
+
+lin
+  BaseNP x y = twoTable Case x y ** y ;
+  ConsNP x xs = consrTable Case comma x xs ** xs ;
+  ConjNP co xs = conjunctDistrTable Case co xs ** xs ;
 
 {-
 -- RS depends on X, Y and Z, otherwise exactly like previous.
@@ -45,23 +63,6 @@ lin
   BaseRS = twoTable … ;
   ConsRS = consrTable … comma ;
   ConjRS = conjunctDistrTable ;
-
-lincat
-  [S] = {} ;
-
-lin
-  BaseS x y = y ** { } ;
-  ConsS x xs =
-    xs ** { } ;
-  ConjS co xs = {} ;
-
-lincat
-  [AP] = {} ;
-
-lin
-  BaseAP x y = twoTable … x y ** y ;
-  ConsAP a as = consrTable … comma as a ** as ;
-  ConjAP co as = conjunctDistrTable … co as ** as ;
 
 lincat
   [CN] = { } ;
@@ -79,15 +80,6 @@ lin
   ConsDAP xs x = xs **
   ConjDet conj xs = xs **
 
-
--- Noun phrases
-lincat
-  [NP] =
-
-lin
-  BaseNP x y = twoTable … x y ** y ;
-  ConsNP x xs = consrTable … comma as a ** as ;
-  ConjNP co as = conjunctDistrTable … co as ** as ;
 -}
 
 }
