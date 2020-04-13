@@ -18,13 +18,14 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
   -- : Pron -> NP ;
   UsePron pron = pron ;
 
-  {-
   -- : Predet -> NP -> NP ; -- only the man
-  PredetNP predet np = np ** {s = } ;
+  PredetNP predet np = np ** {
+    s = \\c => predet.s ++ np.s ! c ;
+    } ;
 
 -- A noun phrase can also be postmodified by the past participle of a
 -- verb, by an adverb, or by a relative clause
-
+{-
 
   -- : NP -> V2  -> NP ;    -- the man seen
   PPartNP np v2 = np ** {
@@ -37,7 +38,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
   RelNP np rs = np ** {} ;
 
 -- Determiners can form noun phrases directly.
-
+-}
   -- : Det -> NP ;
   DetNP det = emptyNP ** {
     s = det.sp ;
@@ -49,7 +50,6 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     s = \\c => cn.s ! Sg ! c ;
     agr = <P3,Sg> ;
     } ;
--}
 
 --2 Determiners
 
