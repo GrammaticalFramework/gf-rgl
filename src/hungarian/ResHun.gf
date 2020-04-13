@@ -117,7 +117,19 @@ oper
 --------------------------------------------------------------------------------
 -- Verbs
 
-  verbEndings : Person*Number => HarmForms = table {
+  VerbEndings : Type = Person*Number => HarmForms ;
+  -- TODO: incomplete
+  endingsDef : VerbEndings = table {
+    <P1,Sg> => harm3 "om" "em" "öm" ;
+    <P2,Sg> => harm3 "od" "ed" "öd" ;
+    <P3,Sg> => harm "ja" "i" ;
+    <P1,Pl> => harm "juk" "jük" ;
+    <P2,Pl> => harm "játok" "itek" ;
+    <P3,Pl> => harm "ják" "ik"
+    } ;
+
+  -- by EG 2009, needs more special cases
+  endingsIndef : VerbEndings = table {
     <P1,Sg> => harm3 "ok" "ek" "ök" ;
     <P2,Sg> => harm1 "sz" ;
     <P3,Sg> => harm1 [] ;
@@ -126,11 +138,14 @@ oper
     <P3,Pl> => harm "nak" "nek"  -- TODO allomorphs -anak, -enek
     } ;
 
-  Verb : Type = {
-    s : VForm => Str ;
+  BaseVerb : Type = {
     sc : SubjCase ; -- subject case
+  } ;
+  Verb : Type = BaseVerb ** {
+    s : VForm => Str ;
     } ;
-  Verb2 : Type = Verb ** {
+  Verb2 : Type = BaseVerb ** {
+    s : ObjDef => VForm => Str ;
     c2 : Case   -- object case
     } ;
   Verb3 : Type = Verb2 ** {
@@ -140,18 +155,25 @@ oper
   mkVerb2 : Str -> Verb2 = \sg3 -> vtov2 (mkVerb sg3) ;
   mkVerb3 : Str -> Verb3 = \sg3 -> v2tov3 (mkVerb2 sg3) ;
 
-  vtov2 : Verb -> Verb2 = \v -> v ** {c2 = Acc} ;
+  vtov2 : Verb -> Verb2 = \v -> v ** {
+    s = table {
+          Def => let vDef : Verb = mkVerbReg endingsDef (v.s ! VInf) (v.s ! VFin P3 Sg)
+                  in vDef.s ;
+          Indef => v.s } ;
+    c2 = Acc
+    } ;
   v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Dat} ;
 
-  mkVerb : (sg3 : Str) -> Verb = mkVerbReg "TODO:infinitive" ; -- TODO
+  mkVerb : (sg3 : Str) -> Verb = mkVerbReg endingsIndef "TODO:infinitive" ; -- TODO
 
-  mkVerbReg : (inf, sg3 : Str) -> Verb = \inf,sg3 ->
-    let h : Harm = getHarm sg3 ;
-        sg1 : Str = sg3 + verbEndings ! <P1,Sg> ! h ;
-        sg2 : Str = sg3 + "sz" ;
-        pl1 : Str = sg3 + (verbEndings!<P1,Pl>) ! h ;
-        pl2 : Str = sg3 + (verbEndings!<P2,Pl>) ! h;
-        pl3 : Str = sg3 + (verbEndings!<P3,Pl>) ! h;
+  mkVerbReg : VerbEndings -> (inf, stem : Str) -> Verb = \hf,inf,stem ->
+    let h : Harm = getHarm stem ;
+        sg1 : Str = stem + hf ! <P1,Sg> ! h ;
+        sg2 : Str = stem + hf ! <P2,Sg> ! h ;
+        sg3 : Str = stem + hf ! <P3,Sg> ! h ;
+        pl1 : Str = stem + hf ! <P1,Pl> ! h ;
+        pl2 : Str = stem + hf ! <P2,Pl> ! h ;
+        pl3 : Str = stem + hf ! <P3,Pl> ! h ;
      in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf ;
 
   mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
@@ -202,8 +224,8 @@ oper
 
     -- If verb's subject case is Dat and object Nom, verb agrees with obj.
     s = \\vf => case <vps.sc,vps.c2> of {
-                  <SCDat,Nom> => vps.s ! agr2vf np.agr ;
-                  _ => vps.s ! vf } ;
+                  <SCDat,Nom> => vps.s ! np.objdef ! agr2vf np.agr ;
+                  _ => vps.s ! np.objdef ! vf } ;
     } ;
 
   insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
