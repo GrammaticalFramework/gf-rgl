@@ -46,12 +46,14 @@ oper
     s, -- form that comes before noun: "{this} car"
     sp : Number => Case => Str ; -- independent form, "I like {this}" (DetNP)
     isIndefArt : Bool ; -- standard trick to prevent "a one car"
+    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     } ;
 
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
     s = (mkNoun s).s ;
     sp = (mkNoun sp).s ;
     isIndefArt = False ;
+    objdef = Def ;
     } ;
 
  -- Det is formed in DetQuant : Quant -> Num -> Det
@@ -61,6 +63,7 @@ oper
     sp : Case => Str ;
     n : Number ;
     numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
+    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     } ;
 
   Numeral : Type = {

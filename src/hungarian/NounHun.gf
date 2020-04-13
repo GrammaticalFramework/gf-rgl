@@ -7,7 +7,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
 --2 Noun phrases
 
 -- : Det -> CN -> NP
-  DetCN det cn = emptyNP ** {
+  DetCN det cn = emptyNP ** det ** {
     s = \\c => det.s ! c ++ cn.s ! det.n ! c ;
     agr = <P3,det.n> ;
     } ;
@@ -63,7 +63,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
                  _           => quant.s ! num.n ! c }
             ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
     sp = \\c => quant.sp ! num.n ! c
-            ++ num.s ! Indep
+            ++ num.s ! Indep ;
     } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
@@ -120,6 +120,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     s,
     sp = \\_,_ => pre {"a" ; "az" / v } ;
     isIndefArt = False ;
+    objdef = Def ;
     } ;
 
   -- : Quant
@@ -127,6 +128,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     s,
     sp = \\_,_ => "egy" ;
     isIndefArt = True ;
+    objdef = Indef ;
     } ;
 
   -- : Pron -> Quant
