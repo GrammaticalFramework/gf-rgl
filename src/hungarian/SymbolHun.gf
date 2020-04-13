@@ -1,7 +1,5 @@
---# -path=.:../abstract:../common:../prelude
-
 concrete SymbolHun of Symbol = CatHun **
-  open Prelude, ParadigmsHun, ResHun, (NS=NounHun) in {
+  open Prelude, ResHun, (NH=NounHun) in {
 
 lin
 
@@ -15,28 +13,37 @@ lin
   FloatPN i = mkPN i.s ;
 
   -- : Card -> PN ;                -- twelve [as proper name]
-  NumPN i = mkPN i.s ;
+  NumPN i = mkPN (i.s ! Indep) ;
 
-{-
+oper
+
+  mkPN : Str -> NounPhrase = \s -> emptyNP ** {
+    s = \\_ => s ;
+    } ;
+
 lin
---  CNIntNP cn i = {} ;
+  -- : CN -> Int -> NP
+  CNIntNP cn i = NH.MassNP (cn ** {
+    s = \\n,c => cn.s ! n ! c ++ i.s}) ;
 
   -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and y
   CNSymbNP det cn xs =
-    let cnSymb = cn ** { comp = cn.comp ++ xs.s }
-     in NS.DetCN det cnSymb ;
+    let cnSymb : CN = cn ** {s = \\n,c => cn.s ! n ! c ++ xs.s}
+     in NH.DetCN det cnSymb ;
 
   -- : CN -> Card -> NP ;          -- level five ; level 5
-  CNNumNP cn i = NS.MassNP (cn ** { comp = cn.comp ++ i.s }) ;
+  CNNumNP cn i = NH.MassNP (cn ** {
+    s = \\n,c => cn.s ! n ! c ++ i.s ! Indep}) ;
 
   -- : Symb -> S ;
-  SymbS sy = {s = } ;
+  SymbS sy = sy ;
+
   -- : Symb -> Card ;
-  SymbNum sy = { s = sy.s ; n = Pl } ;
+  SymbNum sy = baseNum ** {s = \\_ => sy.s} ;
 
   -- : Symb -> Ord ;
-  SymbOrd sy = { s =} ;
--}
+  SymbOrd sy = {s = sy.s ; n=Pl} ;
+
 lincat
   Symb, [Symb] = SS ;
 
@@ -45,6 +52,5 @@ lin
 
   BaseSymb = infixSS "és" ;
   ConsSymb = infixSS "," ;
-
 
 }
