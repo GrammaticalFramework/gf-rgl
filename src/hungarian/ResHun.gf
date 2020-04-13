@@ -116,16 +116,45 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  Adjective : Type = {s : Number => Str} ;
+  AdjPhrase : Type = {s : Number => Str} ;
+
+  Adjective : Type = {s : Degree => Number => Str} ;
 
   mkAdj : Str -> Adjective = \sg -> {
-    s = \\n =>
-      let plural = case n of {
-                     Sg => [] ;
-                     Pl => pluralAllomorph sg }
-       in sg + plural
+    s = \\d,n =>
+       let adj = case d of {
+                   Compar => comparAdj sg ;
+                   Superl => "leg" + comparAdj sg ;
+                   _ => sg } ;
+           plural = case n of {
+                         Sg => [] ;
+                         Pl => pluralAdj adj }
+       in adj + plural
     } ;
 
+  -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Adjectives
+  comparAdj : Str -> Str = \stem ->
+    case stem of {
+--      Final a and e become lengthened at the end of a word, if the comparative suffix -bb is joined to it—e.g., drága, drágább; fekete, feketébb, &c.; ó shortens its sound only in jó; jobb, legjobb.
+      "szép"   => "szebb" ;
+      "könnyű" => "könnyebb" ;
+      "ifju"   => "ifjabb" ;
+      "hosszú" => "hosszabb" ;
+      "sok"    => "több" ;
+      _ + #v   => stem + "bb" ;
+      _ => harm "abb" "ebb" ! getHarm stem
+    } ;
+
+
+  pluralAdj : Str -> Str = \stem ->
+    case vowFinal stem of {
+      True => -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Adjectives
+        case last stem of { "ü" => "ek" ;
+                            "i" => harm "ak" "ek" ! getHarm stem ;
+                            _   => "k" } ;
+
+      False => harm3 "ok" "ek" "ök" ! getHarm stem
+    } ;
 --------------------------------------------------------------------------------
 -- Verbs
 

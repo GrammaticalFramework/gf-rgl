@@ -5,12 +5,12 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   lin
 
   -- : A  -> AP ;
-  PositA a = a ;
+  PositA a = {s = a.s ! Posit} ;
 
   -- : A  -> NP -> AP ;
-  -- ComparA a np = a ** {
-  --
-  --   } ;
+  ComparA a np = a ** {
+    s = \\n => a.s ! Compar ! n ++ np.s ! Ade ;
+    } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
   -- ComplA2 a2 np = a2 ** { } ;
@@ -19,13 +19,12 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- ReflA2 a2 = a2 ** { } ;
 
   -- : A2 -> AP ;        -- married
-  -- UseA2 = PositA ;
+  UseA2 = PositA ;
 
   -- : A  -> AP ;     -- warmer
-  -- UseComparA a = a ** {
-  --   s = \\af => "???" ++ a.s ! af ;
-  --   compar = []
-  --  } ;
+  UseComparA a = a ** {
+    s = \\n => a.s ! Compar ! n ;
+    } ;
 
 
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John

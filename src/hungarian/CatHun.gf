@@ -46,7 +46,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
 
 -- Constructed in AdjectiveHun.
 
-    AP = ResHun.Adjective ;
+    AP = ResHun.AdjPhrase ;
 
 
 --2 Nouns and noun phrases
