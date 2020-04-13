@@ -17,14 +17,14 @@ oper
   NounPhrase : Type = {
     s : Case => Str ;
     agr : Person*Number ;
-    isPron : Bool ;
+    objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
     } ;
 
   emptyNP : NounPhrase = {
     s = \\_ => [] ;
     agr = <P3,Sg> ;
-    isPron = False ;
+    objdef = Indef ;
     empty = [] ;
     } ;
 

@@ -127,7 +127,7 @@ lin under_Prep = mkPrep "alatt" ;
                   "velem" -- Instrumental
                   nonExist ; -- Translative
     agr = <P1,Sg> ;
-    isPron = True ;
+    objdef = Def ;
     poss = "em" ;
     } ;
   youPol_Pron,
@@ -140,7 +140,7 @@ lin under_Prep = mkPrep "alatt" ;
                   "veled" -- Instrumental
                   nonExist ; -- Translative
     agr = <P2,Sg> ;
-    isPron = True ;
+    objdef = Def ;
     poss = "d" ;
     } ;
   he_Pron,
@@ -152,7 +152,7 @@ lin under_Prep = mkPrep "alatt" ;
                   "érte" -- Causative
                   "vele" -- Instrumental
                   nonExist ; -- Translative
-    isPron = True ;
+    objdef = Def ;
     } ;
   we_Pron = emptyNP ** {
     s = caseTable "mi" "minket" "nekünk"
@@ -163,7 +163,7 @@ lin under_Prep = mkPrep "alatt" ;
                   "velünk" -- Instrumental
                   nonExist ; -- Translative
     agr = <P1,Pl> ;
-    isPron = True ;
+    objdef = Def ;
     } ;
 
   youPl_Pron = emptyNP ** {
@@ -175,7 +175,7 @@ lin under_Prep = mkPrep "alatt" ;
                   "veletek" -- Instrumental
                   nonExist ; -- Translative
     agr = <P2,Pl> ;
-    isPron = True ;
+    objdef = Def ;
     } ;
   they_Pron = emptyNP ** {
     s = caseTable "ők" "őket" "nekik"
@@ -186,7 +186,7 @@ lin under_Prep = mkPrep "alatt" ;
                   "velük" -- Instrumental
                   nonExist ; -- Translative
     agr = <P3,Pl> ;
-    isPron = True ;
+    objdef = Def ;
     } ;
 
 --lin whatPl_IP = ;

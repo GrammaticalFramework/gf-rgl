@@ -76,7 +76,11 @@ oper
 -- Verbs
 param
 
-  -- TODO: object agreement
+  -- For object agreement in V2
+  ObjDef =
+      Def
+    | Indef ;
+
   VForm =
       VInf
     | VFin Person Number ;
