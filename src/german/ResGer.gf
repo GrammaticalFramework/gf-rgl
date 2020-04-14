@@ -399,6 +399,17 @@ resource ResGer = ParamX ** open Prelude in {
    in
    mkA blau blau (blau + "er") blauest ;
 
+  regDetA : Str -> Adjective = \blau ->
+   let
+     rblau = regA blau ;
+     dblau = adjFormsDet blau blau
+   in {
+     s = table {
+       Posit => dblau ;
+       d => rblau.s ! d
+       }
+     } ;
+
   regV : Str -> Verb = \legen ->
     let 
       lege  = init legen ;
@@ -503,14 +514,23 @@ resource ResGer = ParamX ** open Prelude in {
    table {
     APred => teuer ;
     AMod (GSg Masc) c => 
-      caselist (teur+"er") (teur+"en") (teur+"em") (teur+"es") ! c ;
+      caselist (teur+"er") (teur+"en") (teur+"em") (teur+"en") ! c ;
     AMod (GSg Fem) c => 
       caselist (teur+"e") (teur+"e") (teur+"er") (teur+"er") ! c ;
-    AMod (GSg Neut) c => 
-      caselist (teur+"es") (teur+"es") (teur+"em") (teur+"es") ! c ;
+    AMod (GSg Neutr) c => 
+      caselist (teur+"es") (teur+"es") (teur+"em") (teur+"en") ! c ;
     AMod GPl c => 
       caselist (teur+"e") (teur+"e") (teur+"en") (teur+"er") ! c
     } ;
+
+  -- for some determiners, Gen form -es rather than -en
+  adjFormsDet : (x1,x2 : Str) -> AForm => Str = \teuer,teur ->
+   let adj = adjForms teuer teur
+   in
+   table {
+     AMod (GSg Masc| GSg Neutr) Gen => teur + "es" ;
+     a => adj ! a
+     } ;
 
 --------------------------------------------
 --VP CONSTRUCTION
