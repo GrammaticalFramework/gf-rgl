@@ -48,10 +48,9 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
 
     CompAP ap = lin VP {
       s = table {
-            VPres   agr => ap.s ! agr.n ! Nom ++ 
-                           case agr.p of {
-                             P3 => [] ;
-                             _  => suffixStr ap.h (verbSuffixes ! agr)
+            VPres   agr => case agr.p of {
+                             P3 => ap.s ! Sg ! Nom ;
+                             _  => ap.s ! agr.n ! Nom ++ suffixStr ap.h (verbSuffixes ! agr)
                            } ;
             VProg   agr => ap.s ! agr.n ! Nom ;
             VPast   agr => ap.s ! agr.n ! Nom ++
