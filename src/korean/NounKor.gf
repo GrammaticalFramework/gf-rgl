@@ -10,24 +10,23 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   DetCN det cn = cn ** {s =
     \\c =>
       let cns : Str = case det.n of {
-                        -- Pl => cn.s ! Bare ++ BIND ++ plural ! c ;
-                        _Sg => cn.s ! c } ;
+                        Pl => cn.s ! Bare ++ BIND ++ plural ! c ;
+                        Sg => cn.s ! c } ;
           dets : Str = det.s ! cn.c.origin ;
           detnum : Str = case det.numtype of {
                          IsNum => dets ++ cn.c.s ;
                          IsDig => glue dets cn.c.s ;
                          NoNum => dets } ;
        in case isNum det of {
-            True  => cns ++ detnum ;
-            False => detnum ++ cns }
+            True  => cn.rs ++ cns ++ detnum ;
+            False => cn.rs ++ detnum ++ cns }
     } ;
 
   -- : PN -> NP ;
---  UsePN pn = pn ** {
---    } ;
+  UsePN pn = pn ;
 
   -- : Pron -> NP ;
-  -- UsePron pron = pron ;
+  UsePron pron = pron ** {empty = []};
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {s =
@@ -48,8 +47,13 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- PPartNP np v2 = np ** {
   --   s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
 
-  -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
-  --AdvNP,ExtAdvNP = \np,adv -> np ** {} ;
+  -- : NP -> Adv -> NP ;    -- Paris today
+  AdvNP np adv = np ** {
+    s = \\nf => adv.s ++ np.s ! nf
+    } ; -- TODO test
+
+   -- : NP -> Adv -> NP ;    -- boys, such as ..
+  -- ExtAdvNP np adv = np ** {} ;
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
   -- RelNP np rs = np ** {
@@ -64,9 +68,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
     } ;
 
   -- MassNP : CN -> NP ;
-  -- MassNP cn = useN cn ** {
-  --   } ;
-
+  MassNP cn = cn ** {
+    s = \\nf => cn.rs ++ cn.s ! nf
+    } ;
 
 --2 Determiners
 
@@ -97,7 +101,11 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   NumCard card = card ;
 
   -- : Digits  -> Card ;
-  --  NumDigits dig =
+  NumDigits dig = baseNum ** {
+    s = \\_,_ => dig.s ! NCard ;
+    n = dig.n ;
+    numtype = IsDig
+    } ;
 
   -- : Numeral -> Card ;
   NumNumeral num = num ;
@@ -115,10 +123,10 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   --   } ;
 
   -- : A       -> Ord ;
-  -- OrdSuperl a = {
-  --   s = \\af => "제일" ++ a.s ! af ;
-  --   n = Sg -- ?? is this meaningful?
-  --   } ;
+  OrdSuperl a = {
+    s = \\vf => "가장" ++ a.s ! vf ;
+    n = Sg -- ?? is this meaningful?
+    } ;
 
 -- One can combine a numeral and a superlative.
 
@@ -130,10 +138,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   IndefArt = mkQuant [] [] ;
 
   -- : Pron -> Quant
-  -- PossPron pron =
-  --   let p = pron.poss ;
-  --    in DefArt ** {
-  --       } ;
+  PossPron pron = pron.poss ;
 
 --2 Common nouns
 
@@ -155,23 +160,28 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- Use3N3 n3 = lin N2 n3 ;
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = \\nf => ap.s ! AAttr ++ cn.s ! nf
+    s = \\nf => ap.compar ++ ap.s ! VAttr Pos ++ cn.s ! nf
     } ;
 
   -- : CN -> RS  -> CN ;
-  -- RelCN cn rs = cn ** {
-  --   } ;
+  RelCN cn rs = cn ** {
+    rs = cn.rs ++ rs.s ! Subord
+    } ;
 
-{-
+
   -- : CN -> Adv -> CN ;
-  AdvCN cn adv = cn ** {  } ;
+  AdvCN cn adv = cn ** {
+    rs = cn.rs ++ adv.s
+    } ;
 
 -- Nouns can also be modified by embedded sentences and questions.
 -- For some nouns this makes little sense, but we leave this for applications
 -- to decide. Sentential complements are defined in VerbKor.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
-  SentCN cn sc = cn ** { } ;
+  SentCN cn sc = cn ** {
+    rs = cn.rs ++ sc.s
+    } ;
 
 
 --2 Apposition
@@ -179,8 +189,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 -- This is certainly overgenerating.
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
-  ApposCN cn np = cn ** { s =  } ;
--}
+  ApposCN cn np = cn ** {
+    s = \\nf => np.s ! Bare ++ cn.s ! nf -- TODO which form of NP?
+    } ;
 
 --2 Possessive and partitive constructs
 

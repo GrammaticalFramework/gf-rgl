@@ -6,20 +6,21 @@ concrete PhraseKor of Phrase = CatKor ** open Prelude, ResKor in {
     UttS s = {s = s.s ! Statement} ;
     UttQS qs = qs ;
     UttIAdv iadv = iadv ;
+    UttAdv adv = adv ;
+    UttInterj i = i ;
 {-
     UttImpSg pol imp =
     UttImpPl pol imp =
     UttImpPol = UttImpSg ;
+    -}
+    UttIP ip = {s = ip.s ! Bare} ;
 
-    UttIP ip = {s = ip.s ! } ;
-    UttNP np = {s = np.s ! } ;
-    UttVP vp = {s = } ;
-    UttAdv adv = {s = } ;
-    UttCN n = {s = } ;
-    UttCard n = {s = } ;
-    UttAP ap = { s = ap.s ! } ;
-    UttInterj i = i ;
--}
+    UttNP np = {s = np.s ! Bare} ;
+    UttVP vp = {s = linVP vp} ;
+    UttCN cn = {s = cn.rs ++ cn.s ! Bare} ;
+    UttCard n = {s = n.s ! NK ! Indep} ;
+    UttAP ap = { s = ap.compar ++ ap.s ! VF Plain Pos} ;
+
     NoPConj = {s = []} ;
 --    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
 

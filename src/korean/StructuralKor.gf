@@ -38,16 +38,15 @@ lin there_Adv = ss "" ;
 -------
 -- Conj
 
-  and_Conj = {
+lin and_Conj = {
     s1 = [] ;
-    -- no need for strings here, actual values come from ParamKor.conjTable
-    -- s2 = \\phono => table {
-    --         VStar => "고" ;
-    --         NStar => "하고"} ;
+    -- no need for string, actual values come from ParamKor.conjTable
+    s2 = [] ; -- this is only used in the base/cons functions with comma.
+              -- another application can use commas and just one conjunction.
     n = Pl ;
     c = And
     } ;
--- lin or_Conj = {s2 = \\_ => "" ; s1 = [] ; n = Sg} ;
+lin or_Conj = {s1,s2 = [] ; n = Sg ; c = Or} ;
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;
 -- lin either7or_DConj = {s2 = \\_ => "" ; s1 = "" ; n = Sg} ;
@@ -68,17 +67,16 @@ lin all_Predet = {s = \\_ => "마다" ; p = Vowel} ;
 lin only_Predet = {s = \\_ => "만" ; p = Consonant} ;
 --lin most_Predet = {s = ""} ;
 
-{-
-lin every_Det = R.defDet [] pl **
-                 { s = mkVow } ;
-lin few_Det = R.indefDet "" pl ;
-lin many_Det = R.indefDet "" pl ;
-lin much_Det = R.indefDet "" sg ;
 
-lin somePl_Det =
-lin someSg_Det =
-lin no_Quant =
--}
+--lin every_Det = ;
+lin few_Det = mkDet "조금의" Pl ;
+lin many_Det = mkDet "많은" Pl ;
+-- lin much_Det = ;
+
+lin somePl_Det = mkDet "어떤" Pl ;
+lin someSg_Det = mkDet "어떤" Sg ;
+--lin no_Quant =
+
 lin that_Quant = mkQuant "그" "그것" ;
 lin this_Quant = mkQuant "이" "이것" ;
 {-lin which_IQuant =
@@ -92,11 +90,8 @@ lin everything_NP = defNP "" N.NumSg ;
 lin nobody_NP = mkVerb; ""
 lin nothing_NP = defNP "" N.NumSg ;
 lin somebody_NP = defNP "" N.NumSg ;
-lin something_NP = defNP "" N.NumSg ;
-
-oper
- defNP : Str -> Num -> NP = {} ;
 -}
+lin something_NP = mkNoun "무엇" ;
 
 -------
 -- Prep
@@ -106,8 +101,8 @@ oper
 -- lin before_Prep = mkPrep "" ;
 lin behind_Prep = mkPrep "뒤에" False ;
 -- lin between_Prep = = mkPrep "" ;
--- lin by8agent_Prep = mkPrep ;
--- lin by8means_Prep = mkPrep ;
+lin by8agent_Prep = mkPrep "에 의해" ; -- TODO check
+lin by8means_Prep = mkPrep "에 인해" ; -- TODO check
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
 lin for_Prep = mkPrep "에게" ;
@@ -115,12 +110,12 @@ lin for_Prep = mkPrep "에게" ;
 -- lin in8front_Prep = mkPrep "" ;
 lin in_Prep = mkPrep "에서" ;
 -- lin on_Prep = mkPrep "에서" ;
--- lin part_Prep = mkPrep ;
+lin part_Prep = mkPrep "의" ;
 lin possess_Prep = mkPrep "의" ;
 -- lin through_Prep = mkPrep ;
 lin to_Prep = mkPrep "에";
 -- lin under_Prep = mkPrep "" ;
--- lin with_Prep = mkPrep "" ;
+lin with_Prep = mkPrep "와" "과" ;
 -- lin without_Prep = mkPrep "" ;
 
 
@@ -129,13 +124,15 @@ lin to_Prep = mkPrep "에";
 
 -- Pronouns are closed class, no constructor in ParadigmsKor.
   -- it_Pron =
-  -- i_Pron =
-  -- youPol_Pron,
-  -- youSg_Pron =
-  -- he_Pron =
-  -- she_Pron =
+  i_Pron = let iReg : Pronoun = mkPron "저" "제" in
+    iReg ** {s = table {Subject => "제가"; nf => iReg.s ! nf}
+    } ;
+  youPol_Pron = mkPron "당신" ;
+  youSg_Pron = mkPron "너" ; -- NB. this is very informal, best not used
+  he_Pron = mkPron "그" ;
+  she_Pron = mkPron "그녀" ;
   -- we_Pron =
-  -- youPl_Pron =
+  youPl_Pron = mkPron "너희" ;
   -- they_Pron =
 
 --lin whatPl_IP = ;
