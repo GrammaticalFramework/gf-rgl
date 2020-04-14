@@ -2,13 +2,23 @@ concrete ConjunctionTur of Conjunction =
   CatTur ** open ResTur, HarmonyTur, Coordination, Prelude, Predef in {
 
   lin
-    ConjS _ _ = variants {} ;
+    ConjS conj ss = {
+      s = linCoord []!conj.sep ++ ss.s!conj.sep ++ conj.s ++ ss.s!4;
+      subord = linCoord []!conj.sep ++ ss.subord!conj.sep ++ conj.s ++ ss.subord!4;
+      } ;
 
     ConjNP conj ss = {
       s = \\c => linCoord []!conj.sep ++ ss.s!c!conj.sep ++ conj.s ++ ss.s!c!4;
       h = ss.h ;
       a = conjAgr {n=conj.n; p=P3} ss.a
       } ;
+
+    BaseS x y  = {s      = table {4 => y.s;      _ => x.s};
+                  subord = table {4 => y.subord; _ => x.subord};
+                 } ;
+    ConsS x xs = {s      = table {4 => xs.s!4; t => x.s++linCoord bindComma!t++xs.s!t};
+                  subord = table {4 => xs.subord!4; t => x.subord++linCoord bindComma!t++xs.subord!t} ;
+                 } ;
 
     BaseNP x y =
       {s = \\c=>table {4 => y.s!c; _ => x.s!c};
@@ -78,10 +88,8 @@ concrete ConjunctionTur of Conjunction =
     ConsRS _ _ = variants {} ;
     BaseRS _ _ = variants {} ;
 
-    ConsS _ _ = variants {} ;
-    BaseS _ _ = variants {} ;
-
   lincat
+    [S]   = {s,subord : Ints 4 => Str} ;
     [Adv] = {s : Ints 4 => Str} ;
     [AdV] = {s : Ints 4 => Str} ;
     [NP]  = {s : Case => Ints 4 => Str; h : Harmony; a : Agr} ;
