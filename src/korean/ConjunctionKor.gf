@@ -101,7 +101,7 @@ lin
 
 oper
   mkFirstAP : ResKor.AdjPhrase -> VForm => ConjType => Str = \ap ->
-    \\af,conj => ap.compar ++ glue (ap.s ! VStem) (conjTable ! VStar ! conj) ;
+    \\af,conj => ap.compar ++ glue (ap.s ! VStem Pos) (conjTable ! VStar ! conj) ;
 
 {-
 lincat

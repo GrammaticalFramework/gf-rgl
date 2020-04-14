@@ -10,7 +10,7 @@ lin
     s = \\t,a,p,cltyp =>
            rp.s ++ vp.adv ++ vp.nObj ++
            case cltyp of {
-             WithConj => vp.s ! VStem ;
+             WithConj => vp.s ! VStem p ;
              _        => vp.s ! VAttr p } ;
     } ;
 
