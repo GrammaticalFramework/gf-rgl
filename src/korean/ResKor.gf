@@ -153,7 +153,7 @@ oper
 
   mkAdj : Str -> Adjective = \plain ->
     let v : Verb = mkVerb plain ;
-        stem : Str = v.s ! VStem ;
+        stem : Str = v.s ! VStem Pos ;
         attrpos : Str = add_N stem ;
      in v2a attrpos v ;
 
@@ -207,7 +207,8 @@ oper
   mkVerbFull : (x1,_,_,_,_,_,_,_,x9 : Str) -> Verb =
     \stem,attrpos,attrneg,plain,polite,formal,planeg,polneg,formneg -> {
       s = table {
-        VStem => stem ;
+        VStem Pos => stem ;
+        VStem Neg => stem + "지" ++ "않" ;
         VAttr Pos => attrpos ;
         VAttr Neg => attrneg ;
         VF Plain Pos => plain ;
@@ -359,7 +360,7 @@ oper
     s = \\t,a,p,cltyp =>
            let vf = case cltyp of {
                       Subord   => VAttr p ;
-                      WithConj => VStem ;
+                      WithConj => VStem p ;
                       _        => VF Polite p } -- TODO: more tenses, politeness
             in np
             ++ vp.nObj -- an object, not copula complement
