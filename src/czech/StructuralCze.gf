@@ -1,8 +1,8 @@
-concrete StructuralCze of Structural = CatCze ** 
+concrete StructuralCze of Structural = CatCze **
   open ParadigmsCze, ResCze, Prelude in {
 
 lin
-    and_Conj = mkConj "i" ; 
+    and_Conj = mkConj "a" ;
     by8agent_Prep = mkPrep "od" Gen ; ---- TODO this means "from", there might be no good translation
     few_Det = invarNumeral "málo" ; -- CEG 6.8 --- TODO genitive mála
     for_Prep = mkPrep "pro" accusative ;
