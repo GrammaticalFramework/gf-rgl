@@ -2,7 +2,7 @@ resource NounMorphoHun = ParamHun ** open Prelude, Predef in {
 
 oper
   Noun = {s : Number => Case => Str} ;
-
+--
   -- Paradigm functions
   -- http://www.cse.chalmers.se/~aarne/articles/smart-preprint.pdf
 
