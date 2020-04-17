@@ -1,4 +1,4 @@
-concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
+concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   flags optimize=all_subs ;
 
@@ -25,20 +25,26 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
 
 -- A noun phrase can also be postmodified by the past participle of a
 -- verb, by an adverb, or by a relative clause
-{-
 
   -- : NP -> V2  -> NP ;    -- the man seen
-  PPartNP np v2 = np ** {
-    s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
+  -- PPartNP np v2 = np ** {
+  --  s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
 
-  -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
-  AdvNP,ExtAdvNP = \np,adv -> np ** {} ;
-
+  -- : NP -> Adv -> NP ;    -- Paris today
+  AdvNP np adv = np ** {
+    s = \\c => np.s ! c ++ adv.s ;
+  } ;
+  -- : NP -> Adv -> NP ;    -- boys, such as ..
+  ExtAdvNP np adv = np ** {
+    s = \\c => np.s ! c ++ bindComma ++ adv.s ;
+  } ;
   -- : NP -> RS -> NP ;    -- Paris, which is here
-  RelNP np rs = np ** {} ;
+  RelNP np rs = np ** {
+    s = \\c => np.s ! c ++ bindComma ++ rs.s ! np.agr.p2 ! c ;
+  } ;
 
 -- Determiners can form noun phrases directly.
--}
+
   -- : Det -> NP ;
   DetNP det = emptyNP ** {
     s = det.sp ;
@@ -131,7 +137,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
   -- : Quant
   IndefArt = {
     s,
-    sp = \\_,_ => "egy" ;
+    sp = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
     isIndefArt = True ;
     objdef = Indef ;
     } ;
@@ -171,25 +177,26 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     s = \\n,c => cn.s ! n ! c ++ rs.s ! n ! c
     } ;
 
-{-
   -- : CN -> Adv -> CN ;
-  AdvCN cn adv = cn ** {  } ;
+  AdvCN cn adv = cn ** {
+    s = \\n,c => cn.s ! n ! c ++ adv.s
+    } ;
 
 -- Nouns can also be modified by embedded sentences and questions.
 -- For some nouns this makes little sense, but we leave this for applications
 -- to decide. Sentential complements are defined in VerbHun.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
-  SentCN cn sc = cn ** { } ;
-
+  -- SentCN cn sc = cn ** { } ;
 
 --2 Apposition
 
 -- This is certainly overgenerating.
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
-  ApposCN cn np = cn ** { s =  } ;
--}
+  ApposCN cn np = cn ** {
+    s = \\n,c => cn.s ! n ! c ++ np.s ! Nom
+    } ;
 
 --2 Possessive and partitive constructs
 
