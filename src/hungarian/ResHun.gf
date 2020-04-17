@@ -91,6 +91,7 @@ oper
 --------------------------------------------------------------------------------
 -- Postpositions
 
+  -- TODO: personal suffixes, e.g. felettem, általam, not *felett/által én
   Postposition : Type = {s : Str ; c : Case} ;
 
   mkPrep : Str -> Postposition = \str -> {s=str ; c=Nom} ;

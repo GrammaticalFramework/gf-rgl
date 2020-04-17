@@ -91,12 +91,14 @@ oper
 -------
 -- Prep
 
+-- List of postpositions requiring case:
+-- https://en.wiktionary.org/wiki/Appendix:Hungarian_postpositions#Postpositions_Requiring_Case
 lin above_Prep = mkPrep "fölött" ;
 -- lin after_Prep = mkPrep ""
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep "" ;
 -- lin between_Prep = = mkPrep "" ;
--- lin by8agent_Prep = mkPrep ;
+lin by8agent_Prep = mkPrep "által" ;
 lin by8means_Prep = casePrep Ins ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
