@@ -9,7 +9,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
 
     S  = ResHun.Sentence ;
     QS = SS ;
-    RS = SS ;
+    RS = ResHun.RP ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
@@ -30,8 +30,8 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
 
 --2 Subord clauses and pronouns
 
-    --RCl = ResHun.RClause ;
-    --RP = SS ;
+    RCl = ResHun.RClause ;
+    RP = ResHun.RP ;
 
 --2 Verb phrases
 

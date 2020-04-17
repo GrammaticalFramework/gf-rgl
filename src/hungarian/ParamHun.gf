@@ -46,6 +46,11 @@ oper
       Ins => ins ;
       Tra => tra } ;
 
+  sc2case : SubjCase -> Case = \sc ->
+    case sc of {
+      SCNom => Nom ;
+      SCDat => Dat
+    } ;
 
 --------------------------------------------------------------------------------
 -- Numerals

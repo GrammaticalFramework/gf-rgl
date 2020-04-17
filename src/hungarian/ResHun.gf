@@ -301,25 +301,61 @@ oper
   {- After PredVP, we might still want to add more adverbs (QuestIAdv),
      but we're done with verb inflection.
    -}
-  ClSlash : Type = Clause ;
+  ClSlash : Type = Clause ** {
+    sc : SubjCase ; -- For RelSlash
+    } ;
 
   QClause : Type = Clause ;
 
-  -- RClause : Type = {s : NForm => Tense => Anteriority => Polarity => Str} ;
 
   Sentence : Type = {s : Str} ;
 
+  -- predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
+  --   s = \\t,a,p => let subjcase : Case = case vp.sc of {
+  --                                          SCNom => Nom ;
+  --                                          SCDat => Dat }
+  --                   in np.s ! subjcase
+  --                   ++ np.empty -- standard trick for prodrop
+  --                   ++ vp.s ! agr2vf np.agr
+  --                   ++ vp.obj
+  --                   ++ vp.adv
+  --   } ;
+
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = \\t,a,p => let subjcase : Case = case vp.sc of {
-                                           SCNom => Nom ;
-                                           SCDat => Dat }
-                    in np.s ! subjcase
-                    ++ np.empty -- standard trick for prodrop
-                    ++ vp.s ! agr2vf np.agr
-                    ++ vp.obj
-                    ++ vp.adv
+    s = let rel : RClause = relVP' (np2rp np) vp ;
+         in \\t,a,p => rel.s ! t ! a ! p ! np.agr.p2 ! sc2case vp.sc
+                    ++ np.empty ; -- standard trick for prodrop+metavariable problem
     } ;
 
+
+  -- Relative
+
+  RP : Type = {s : Number => Case => Str} ;
+  RClause : Type = {s : Tense => Anteriority => Polarity => Number => Case => Str} ;
+
+  np2rp : NounPhrase -> RP ** {agr : Person*Number} = \np -> np ** {
+    s = \\n => np.s ;
+    } ;
+
+  relVP : RP -> VerbPhrase -> RClause = \rp -> relVP' (rp ** {agr=<P3,Sg>}) ;
+
+  relVP' : RP ** {agr : Person*Number} -> VerbPhrase -> RClause = \rp,vp -> {
+    s = \\t,a,p,n,c => let subjcase : Case = case vp.sc of {
+                                               SCNom => c ;
+                                               SCDat => Dat }
+                        in rp.s ! n ! subjcase
+                        ++ vp.s ! VFin rp.agr.p1 n -- variable by number
+                        ++ vp.obj
+                        ++ vp.adv
+    } ;
+
+  relSlash : RP -> ClSlash -> RClause = \rp,cls -> {
+    s = \\t,a,p,n,c => let subjcase : Case = case cls.sc of {
+                                               SCNom => c ;
+                                               SCDat => Dat }
+                        in rp.s ! n ! subjcase
+                        ++ cls.s ! t ! a ! p
+   } ;
 --------------------------------------------------------------------------------
 -- linrefs
 

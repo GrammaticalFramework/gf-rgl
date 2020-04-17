@@ -15,7 +15,7 @@ lin
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
-  -- SlashVP = predVP ;
+  SlashVP np vps = predVP np (vps ** {s = vps.s ! Def ; obj = []}) ;
 {-
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
   AdvSlash cls adv = cls ** insertAdv adv cls ;
@@ -56,7 +56,7 @@ lin
   UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  -- UseRCl t p cl = {s = } ;
+  UseRCl t p cl = {s = \\n,c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! n ! c} ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
   AdvS = advS "" ;

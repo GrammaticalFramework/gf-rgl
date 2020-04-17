@@ -167,8 +167,9 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     } ;
 
   -- : CN -> RS  -> CN ;
-  -- RelCN cn rs = cn ** {
-  --   } ;
+  RelCN cn rs = cn ** {
+    s = \\n,c => cn.s ! n ! c ++ rs.s ! n ! c
+    } ;
 
 {-
   -- : CN -> Adv -> CN ;
