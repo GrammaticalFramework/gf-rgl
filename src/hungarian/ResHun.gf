@@ -193,6 +193,12 @@ oper
     -- c3 : Case   -- indirect object case
     } ;
 
+  datV2 : Verb -> Verb2 = \v -> {
+    s = \\_ => v.s ;
+    sc = SCDat ;
+    c2 = Nom
+    } ;
+
   mkVerb2 : Str -> Verb2 = \sg3 -> vtov2 (mkVerb sg3) ;
   mkVerb3 : Str -> Verb3 = \sg3 -> v2tov3 (mkVerb2 sg3) ;
 
