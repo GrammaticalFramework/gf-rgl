@@ -29,7 +29,10 @@ oper
     -- mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
   } ;
 
-  -- mkA2 : Str -> Prep -> A2 ;
+  mkA2 : overload {
+    mkA2 : Str -> Prep -> A2 ;
+    mkA2 : Str -> Case -> A2
+  } ;
 
 --2 Verbs
 
@@ -131,6 +134,13 @@ oper
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
     -- mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
     --   jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
+    } ;
+
+  mkA2 = overload {
+    mkA2 : Str -> Prep -> A2 = \s,p ->
+      lin A2 {s = (mkAdj s).s ; c2 = p} ;
+    mkA2 : Str -> Case -> A2 = \s,c ->
+      lin A2 {s = (mkAdj s).s ; c2 = {s = [] ; c = c}}
     } ;
 
   mkV = overload {

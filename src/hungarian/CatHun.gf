@@ -111,7 +111,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
     V3 = ResHun.Verb3 ;
 
     A = ResHun.Adjective ;
-    A2  = ResHun.Adjective ;
+    A2  = ResHun.Adjective2 ;
 
     N,
     N2,

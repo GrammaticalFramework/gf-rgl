@@ -11,8 +11,9 @@ lin at_most_AdN = ss "" ;
 lin so_AdA = mkAdA "" ;
 lin too_AdA = mkAdA "" ;
 lin very_AdA = mkAdA "" ;
-
-lin as_CAdv = { s = "" ; p = [] } ;
+-}
+lin as_CAdv = {s = "olyan" ; p = "mint"} ;
+{-
 lin less_CAdv = { s = "" ; p = [] } ;
 lin more_CAdv = { s = "" ; p = [] } ;
 lin how_IAdv = ss "" :

@@ -16,7 +16,10 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
-  -- ComplA2 a2 np = a2 ** { } ;
+  ComplA2 a2 np = emptyAP ** {
+    s = a2.s ! Posit ;
+    compar = np.s ! a2.c2.c ++ a2.c2.s
+    } ;
 
   -- : A2 -> AP ;        -- married to itself
   -- ReflA2 a2 = a2 ** { } ;

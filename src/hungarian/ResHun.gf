@@ -126,7 +126,12 @@ oper
     compar = [] ;
     } ;
 
-  Adjective : Type = {s : Degree => Number => Str} ;
+  Adjective : Type = {
+    s : Degree => Number => Str
+    } ;
+  Adjective2 : Type = Adjective ** {
+    c2 : Postposition ;
+    } ;
 
   mkAdj : Str -> Adjective = \sg -> {
     s = \\d,n =>
@@ -149,10 +154,11 @@ oper
       "ifju"   => "ifjabb" ;
       "hosszú" => "hosszabb" ;
       "sok"    => "több" ;
+      "felső"  => "felsőbb" ;
+      "belső"  => "belsőbb" ;
       _ + #v   => stem + "bb" ;
-      _ => harm "abb" "ebb" ! getHarm stem
+      _        => stem + harm "abb" "ebb" ! getHarm stem
     } ;
-
 
   pluralAdj : Str -> Str = \stem ->
     case vowFinal stem of {
