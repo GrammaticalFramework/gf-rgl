@@ -20,7 +20,9 @@ lin
     let xCont : AP = x ** {s = \\n => x.s ! n ++ x.compar} ;
         yCont : AP = y ** {s = \\n => y.s ! n ++ y.compar} ;
      in twoTable Number xCont yCont ;
-  ConsAP = consrTable Number comma ;
+  ConsAP a as =
+    let aCont : AP = a ** {s = \\n => a.s ! n ++ a.compar} ;
+     in consrTable Number comma aCont as ;
   ConjAP co as = conjunctDistrTable Number co as ** {compar = []} ;
 
 -- Noun phrases
