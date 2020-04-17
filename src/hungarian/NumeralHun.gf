@@ -90,3 +90,40 @@ oper
 
    numNumber = Sg ;
 
+  -- numerals as sequences of digits
+  lincat
+    Dig = TDigit ;
+
+  lin
+    -- : Dig -> Digits ;       -- 8
+    IDig d = d ** {s = \\_ => d.s} ;
+
+    -- : Dig -> Digits -> Digits ; -- 876
+    IIDig d i = {
+      s = \\x => d.s ++ BIND ++ i.s ! x ;
+      n = numNumber
+    } ;
+
+    D_0 = mkDig "0" ;
+    D_1 = mkDig "1" ;
+    D_2 = mkDig "2" ;
+    D_3 = mkDig "3" ;
+    D_4 = mkDig "4" ;
+    D_5 = mkDig "5" ;
+    D_6 = mkDig "6" ;
+    D_7 = mkDig "7" ;
+    D_8 = mkDig "8" ;
+    D_9 = mkDig "9" ;
+
+  oper
+    mkDig : Str -> TDigit = \s -> {
+      s = s ;
+      n = numNumber
+      } ;
+
+    TDigit = {
+      s : Str ; -- TODO add ordinals
+      n : Number
+      } ;
+
+}

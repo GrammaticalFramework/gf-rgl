@@ -87,7 +87,10 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     } ;
 
   -- : Digits  -> Card ;
-  --  NumDigits dig =
+  NumDigits dig = dig ** {
+    s = \\place => dig.s ! NCard ;
+    numtype = IsNum ;
+    } ;
 
   -- : Numeral -> Card ;
   NumNumeral num = num ;
