@@ -12,14 +12,15 @@ concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in {
     UttImpPol = UttImpSg ;
 
     UttIP ip = {s = ip.s ! } ;
-    UttNP np = {s = np.s ! } ;
-    UttVP vp = {s = } ;
-    UttAdv adv = {s = } ;
-    UttCN n = {s = } ;
-    UttCard n = {s = } ;
-    UttAP ap = { s = ap.s ! } ;
-    UttInterj i = i ;
 -}
+    UttNP np = {s = np.s ! Nom} ;
+    UttVP vp = {s = vp.obj ++ vp.adv ++ vp.s ! VInf} ;
+    UttAdv adv = adv ;
+    UttCN cn = {s = cn.s ! Sg ! Nom} ;
+    UttCard n = {s = n.s ! Indep} ;
+    UttAP ap = {s = ap.s ! Sg ++ ap.compar} ;
+    UttInterj i = i ;
+
     NoPConj = {s = []} ;
 --    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
 
