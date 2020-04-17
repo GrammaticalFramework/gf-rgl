@@ -1,31 +1,6 @@
 concrete ConjunctionHun of Conjunction =
   CatHun ** open ResHun, Coordination, Prelude in {
 
-    {- Conjunction for category X needs four things:
-       lincat [X]
-       lin BaseX
-       lin ConsX
-       lin ConjX
-
-    For example, if X is defined as
-
-      lincat X   = {s     : Number => Str ;   g : Gender} ;
-
-    then [X] will split its s field into two, and retain its other fields as is:
-
-      lincat [X] = {s1,s2 : Number => Str ;   g : Gender} ;
-
-    Let us look at a simple case: Adv is of type {s : Str}
-    Then [Adv] is {s1,s2 : Str}.
-    BaseAdv, ConsAdv and ConjAdv can all use functions defined in prelude/Coordination:
-
-      BaseAdv = twoSS ;
-      ConsAdv = consrSS comma ;
-      ConjAdv = conjunctSS ;
-
-    -}
-
-
 -- Adverb and other simple {s : Str} types.
 lincat
   [Adv],[AdV],[IAdv],[S] = {s1,s2 : Str} ;
@@ -35,7 +10,7 @@ lin
   ConsAdv, ConsAdV, ConsIAdv, ConsS = consrSS comma ;
   ConjAdv, ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
 
-
+-- Adjectival phrases
 lincat
   [AP] = {s1,s2 : Number => Str}  ;
 
@@ -57,17 +32,16 @@ lin
   ConsNP x xs = consrTable Case comma x xs ** xs ;
   ConjNP co xs = conjunctDistrTable Case co xs ** xs ;
 
-{-
--- RS depends on X, Y and Z, otherwise exactly like previous.
--- RS can modify CNs, which are open for …, and have inherent …
+-- Relative sentences
 lincat
-  [RS] = {s1,s2 : … => Str} ;
+  [RS] = {s1,s2 : Number => Case => Str} ;
 
 lin
-  BaseRS = twoTable … ;
-  ConsRS = consrTable … comma ;
-  ConjRS = conjunctDistrTable ;
+  BaseRS = twoTable2 Number Case ;
+  ConsRS = consrTable2 Number Case comma ;
+  ConjRS = conjunctDistrTable2 Number Case ;
 
+{-
 lincat
   [CN] = { } ;
 
