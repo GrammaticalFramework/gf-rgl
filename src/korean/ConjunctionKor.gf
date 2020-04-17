@@ -1,5 +1,5 @@
 concrete ConjunctionKor of Conjunction =
-  CatKor ** open ResKor, Coordination, Prelude in {
+  CatKor ** open ResKor, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -25,54 +25,64 @@ concrete ConjunctionKor of Conjunction =
       ConsAdv = consrSS comma ;
       ConjAdv = conjunctSS ;
 
-    --}
+    -}
 
-
--- Adverb and other simple {s : Str} types.
-lincat
-  [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
-
-lin
-  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
-
-
-{-
--- RS depends on X, Y and Z, otherwise exactly like previous.
--- RS can modify CNs, which are open for …, and have inherent …
-lincat
-  [RS] = {s1,s2 : … => Str} ;
-
-lin
-  BaseRS = twoTable3 … ;
-  ConsRS = consrTable3 … comma ;
-  ConjRS = conjunctRSTable ;
--}
 
 lincat
-  [S] = ResKor.Sentence ** {firstS : ConjType => Str} ;
+  [Adv],[AdV],[IAdv] = ConjSS ;
+lin
+  BaseAdv, BaseAdV, BaseIAdv = baseSS ;
+  ConsAdv, ConsAdV, ConsIAdv = consSS ;
+  ConjAdv, ConjAdV, ConjIAdv = conjSS ;
+
+oper
+  ConjSS : Type = {s : ConjType => Str} ;
+
+  baseSS : SS -> SS -> ConjSS = \s1,s2 -> {
+    s = \\conj => glue s1.s (conjTable ! NStar ! conj) ++ s2.s ;
+    } ;
+
+  consSS : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
+    s = \\conj => glue s.s (conjTable ! NStar ! conj) ++ ss.s ! conj ;
+    } ;
+
+  conjSS : Conj -> ConjSS -> SS = \co,ss -> {
+    s = co.s1 ++ ss.s ! co.c
+    } ;
+
+  -- Version with commas, no repeated conjunctions!
+  -- baseSS works for both: always conjunction between penultimate and last.
+  -- Difference from consSS: conjTable ! NStar ! conj isn't used, only comma.
+  consSScomma : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
+    s = \\conj => s.s
+              ++ SOFT_BIND ++ ","   -- Don't add conjunction, only comma
+              ++ ss.s ! conj ;
+    } ;
+
+
+lincat
+  [S], [RS] = ResKor.Sentence ** {firstS : ConjType => Str} ;
 
 lin
-  BaseS s1 s2 = s2 ** {
+  BaseS,BaseRS = \s1,s2 -> s2 ** {
     firstS = mkFirstS s1
     } ;
 
-  ConsS s ss = ss ** {
+  ConsS,ConsRS = \s,ss -> ss ** {
     firstS = \\conj =>
       mkFirstS s ! conj ++ ss.firstS ! conj ;
     } ;
 
-  ConjS co ss = ss ** {
+  ConjS,ConjRS = \co,ss -> ss ** {
     s = \\st => co.s1 ++ ss.firstS ! co.c ++ ss.s ! st
     } ;
 
 oper
   mkFirstS : ResKor.Sentence -> ConjType => Str = \s ->
-    \\conj => glue (s.s ! Subord) (conjTable ! NStar ! conj) ;
+    \\conj => glue (s.s ! WithConj) (conjTable ! VStar ! conj) ;
 
 lincat
-  [AP] = ResKor.AdjPhrase ** {firstAP : AForm => ConjType => Str} ;
+  [AP] = ResKor.AdjPhrase ** {firstAP : VForm => ConjType => Str} ;
 
 lin
   BaseAP a1 a2 = a2 ** {
@@ -90,10 +100,8 @@ lin
 
 
 oper
-  mkFirstAP : ResKor.AdjPhrase -> AForm => ConjType => Str = \ap ->
-    \\af,conj => case af of {
-      AAttr   => glue (ap.s ! AAttr) (conjTable ! NStar ! conj) ;
-      APred _ => glue (ap.s ! APred VStem) (conjTable ! VStar ! conj) } ;
+  mkFirstAP : ResKor.AdjPhrase -> VForm => ConjType => Str = \ap ->
+    \\af,conj => ap.compar ++ glue (ap.s ! VStem Pos) (conjTable ! VStar ! conj) ;
 
 {-
 lincat
@@ -130,5 +138,22 @@ lin
 oper
   mkFirstNP : ResKor.NounPhrase -> ConjType => Str = \np ->
     \\conj => glue (np.s ! Bare) (conjTable ! NStar ! conj) ;
+    -- Versions with commas, no repeated conjunctions
+
+  baseNPcomma : NP -> NP -> ListNP = \x,y -> y ** {
+    firstNP = \\conj => x.s ! Bare ++ BIND ++ "," ;
+    } ;
+
+  consNPcomma : NP -> ListNP -> ListNP = \x,xs -> xs ** {
+    firstNP = \\conj =>
+      x.s ! Bare ++ BIND ++ "," ++ xs.firstNP ! conj ;
+    } ;
+
+  conjNPcomma : Conj -> ListNP -> NP = \co,xs -> xs ** {
+    s = \\nf => co.s1
+             ++ xs.firstNP ! co.c
+             ++ co.s2
+             ++ xs.s ! nf
+    } ;
 
 }

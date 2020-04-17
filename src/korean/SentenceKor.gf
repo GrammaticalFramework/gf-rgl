@@ -11,7 +11,7 @@ lin
   PredVP = predVP ;
 
   -- : SC -> VP -> Cl ;         -- that she goes is good (Saeed p. 94)
-  --PredSCVP sc vp = ;
+  PredSCVP sc vp = predVP' sc.s vp ;
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
@@ -35,16 +35,16 @@ lin
   ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
 
 --2 Embedded sentences
-
+-}
   -- : S  -> SC ;
-  EmbedS s = {s = s.s ! True} ; -- choose subordinate
+  EmbedS s = {s = s.s ! Subord ++ "것이"} ; -- TODO check subject case
 
   -- : QS -> SC ;
   -- EmbedQS qs = { } ;
 
   -- : VP -> SC ;
-  EmbedVP vp = {s = infVP vp} ;
--}
+  EmbedVP vp = {s = vp.s ! VAttr Pos ++ "것이"} ;
+
 --2 Sentences
 
   -- : Temp -> Pol -> Cl -> S ;
@@ -56,7 +56,7 @@ lin
   UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Statement} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  -- UseRCl t p cl = {s = } ;
+  UseRCl t p rcl = {s = \\c => t.s ++ p.s ++ rcl.s ! t.t ! t.a ! p.p ! c} ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
   AdvS = advS "" ;

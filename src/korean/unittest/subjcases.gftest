@@ -1,0 +1,22 @@
+-- Subject as subject case
+
+-- LangEng: I see a cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)))))) NoVoc
+LangKor: 제가 고양이를 봐요
+
+-- Double subject case
+-- LangEng: the cat is short
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseComp (CompAP (PositA short_A)))))) NoVoc
+LangKor: 고양이가 키가 작아요
+
+-- Topic as subject case
+
+-- LangEng: I have a cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)))))) NoVoc
+LangKor: 저는 고양이가 있어요
+
+-- Topic + object
+
+-- LangEng: I like cats
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a like_V2) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))))) NoVoc
+LangKor: 저는 고양이를 좋아해요

@@ -1,4 +1,5 @@
-concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
+concrete AdjectiveKor of Adjective = CatKor **
+  open ResKor, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -11,11 +12,14 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
 
   -- : A  -> NP -> AP ;
   ComparA a np = a ** {
-    compar = np.s ! Bare
+    s = \\vf => "더" ++ a.s ! vf ;
+    compar = glue (np.s ! Bare) "보다" ;
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
-  -- ComplA2 a2 np = a2 ** { } ;
+  ComplA2 a2 np = a2 ** {
+   compar = (prepNP a2.c2 a2.p2 np).s ;
+   } ;
 
   -- : A2 -> AP ;        -- married to itself
   -- ReflA2 a2 = a2 ** { } ;
@@ -24,10 +28,10 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
   UseA2 = PositA ;
 
   -- : A  -> AP ;     -- warmer
-  -- UseComparA a = a ** {
-  --   s = \\af => "???" ++ a.s ! af ;
-  --   compar = []
-  --  } ;
+  UseComparA a = a ** {
+    s = \\af => "더" ++ a.s ! af ;
+    compar = [] ;
+    } ;
 
 
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
@@ -37,7 +41,6 @@ concrete AdjectiveKor of Adjective = CatKor ** open ResKor, Prelude in {
 
   -- : Ord -> AP ;       -- warmest
   AdjOrd ord = ord ** {
-    s = \\_ => ord.s ;
     compar = []
     } ;
 

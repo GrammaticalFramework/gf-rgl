@@ -37,7 +37,7 @@ lin
   -- : Digit -> Sub100 ;                    -- 10 + d
   pot1to19 d = let newS = xPlus "십" "열" d.s in d ** {
     s = newS ;
-    n = Pl ;
+    n = numNumber ;
     ord = newS ! NK ! Attrib ++ "번째" ;
     } ;
 
@@ -84,7 +84,6 @@ lin
   -- : Sub1000 -> Sub1000 -> Sub1000000 ;   -- m * 1000 + n
   pot3plus m n = TODO ;
 
-
 oper
   LinDigit : Type = ResKor.Numeral ** {isTwo : Bool ; ten : Str} ;
 
@@ -99,7 +98,7 @@ oper
           SK => \\_ => sk ;
           NK => table {Indep => nk ; _ => nkAttr }
           } ;
-    n = Pl ;
+    n = numNumber ;
     numtype = IsNum ;
     isTwo = False ;
     ten = ten ;
@@ -118,9 +117,52 @@ oper
   potTimes : (sk,nk : Str) -> ResKor.Numeral -> ResKor.Numeral = \sk,nk,num ->
     let newS = xTimes sk nk num.s in num ** {
       s = newS ;
-      n = Pl ;
+      n = numNumber ;
       ord = newS ! NK ! Attrib ++ "번째" ; -- TODO check
     } ;
 
   TODO : ResKor.Numeral = mkNum2 "TODO" "TODO" ;
+
+
+-- numerals as sequences of digits
+
+lincat
+  Dig = TDigit ;
+
+lin
+  -- : Dig -> Digits ;       -- 8
+  IDig d = d ;
+
+  -- : Dig -> Digits -> Digits ; -- 876
+  IIDig d i = {
+    s = \\o => d.s ! NCard ++ BIND ++ i.s ! o ;
+    n = numNumber
+  } ;
+
+  D_0 = mkDig "0" ;
+  D_1 = mk3Dig "1" "1번째" ResKor.Sg ;
+  D_2 = mkDig "2" ;
+  D_3 = mkDig "3" ;
+  D_4 = mkDig "4" ;
+  D_5 = mkDig "5" ;
+  D_6 = mkDig "6" ;
+  D_7 = mkDig "7" ;
+  D_8 = mkDig "8" ;
+  D_9 = mkDig "9" ;
+
+oper
+  mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o numNumber ;
+  mkDig : Str -> TDigit = \c -> mk2Dig c (c + "번째") ;
+
+  mk3Dig : Str -> Str -> ResKor.Number -> TDigit = \c,o,n -> {
+    s = table {NCard => c ; NOrd  => o} ;
+    n = n
+    } ;
+
+  TDigit = {
+    n : ResKor.Number ;
+    s : CardOrd => Str
+  } ;
+
+  numNumber = Sg ; -- No need for 들 with numerals
 }

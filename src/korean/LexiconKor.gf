@@ -1,5 +1,5 @@
 concrete LexiconKor of Lexicon = CatKor **
-  open ParadigmsKor, ResKor in {
+  open ParadigmsKor, ResKor, StructuralKor in {
 
 ----
 -- A
@@ -33,10 +33,10 @@ lin big_A = mkA "크다" ;
 -- lin bike_N = mkN "" ;
 -- lin bird_N = mkN "" ;
 -- lin bite_V2 = mkV2 "" ;
--- lin black_A = mkA "" ;
+lin black_A = mkA "검다" ;
 -- lin blood_N = mkN "" ;
 -- lin blow_V = mkV "" ;
-lin blue_A = mkA "푸르다" ;
+lin blue_A = mkA "파랗다" "파래요" "파랗습니다" "파란" ;
 -- lin boat_N = mkN "" ;
 -- lin bone_N = mkN "" ;
 -- lin boot_N = mkN "" ;
@@ -59,7 +59,7 @@ lin bread_N = mkN "빵" ;
 
 -- lin camera_N = mkN "" ;
 -- lin cap_N = mkN "" ;
--- lin car_N = mkN "" ;
+lin car_N = mkN "자동차" "대" ;
 -- lin carpet_N = mkN "" ;
 lin cat_N = mkN "고양이" ;
 -- lin ceiling_N = mkN "" ;
@@ -72,7 +72,7 @@ lin cat_N = mkN "고양이" ;
 -- lin clever_A = mkA "" ;
 -- lin close_V2 = mkV2 "" ;
 -- lin cloud_N = mkN "" ;
--- lin coat_N = mkN "" ;
+lin coat_N = mkN "코트" ;
 -- lin cold_A = mkA "" ;
 lin come_V = mkV "오다" ;
 -- lin computer_N = mkN "" ;
@@ -95,7 +95,7 @@ lin do_V2 = mkV2 do_V ;
 -- lin doctor_N = mkN "" ;
 -- lin dog_N = mkN "" ;
 -- lin door_N = mkN "" ;
--- lin drink_V2 = mkV2 "" ;
+lin drink_V2 = mkV2 "마시다" ;
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
 -- lin dust_N = mkN "" ;
@@ -209,7 +209,7 @@ lin laugh_V = mkV "웃다" ;
 -- lin leave_V2 = mkV2 "" ;
 -- lin leg_N = mkN "" ;
 -- lin lie_V = mkV "" ;
--- lin like_V2 = mkV2 "" ;
+lin like_V2 = mkV2 (mkV "좋아" do_V) topic object ;
 -- lin listen_V2 = mkV2 "" ;
 -- lin live_V = mkV "";
 -- lin liver_N = mkN "" ;
@@ -223,7 +223,7 @@ lin laugh_V = mkV "웃다" ;
 -- M
 
 lin man_N = mkN "남자" ;
--- lin married_A2 = mkA "" ;
+lin married_A2 = mkA2 (mkA "결혼했다" "결혼했어요" "결혼했습니다" "결혼한") with_Prep ; -- TODO check: forced past tense
 -- lin meat_N = mkN "" ;
 lin milk_N = mkN "우유" ;
 -- lin moon_N = mkN "" ;
@@ -258,7 +258,7 @@ lin now_Adv = mkAdv "지금" ;
 -- lin paris_PN = mkPN "Paris" ;
 -- lin peace_N = mkN "" ;
 -- lin pen_N = mkN "" ;
-lin person_N = mkN "사람" ;
+lin person_N = mkN "사람" "명" ;
 -- lin planet_N = mkN "" ;
 -- lin plastic_N = mkN "" ;
 -- lin play_V = mkV "" ;
@@ -279,7 +279,7 @@ lin person_N = mkN "사람" ;
 -- lin read_V2 = mkV2 "" ;
 -- lin ready_A = mkA "" ;
 -- lin reason_N = mkN "" ;
--- lin red_A = mkA "" ;
+lin red_A = mkA "빨갛다" "빨개요" "빨갛습니다" "빨간" ;
 -- lin religion_N = mkN "" ;
 -- lin restaurant_N = mkN "" ;
 -- lin river_N = mkN "" ;
@@ -314,7 +314,7 @@ lin see_V2 = mkV2 "보다" ;
 -- lin sharp_A = mkA "" ;
 -- lin sheep_N = mkN "" fem ;
 -- lin ship_N = mkN "" ;
--- lin shirt_N = mkN "" ;
+lin shirt_N = mkN "셔츠" "벌" ;
 -- lin shoe_N = mkN "" ;
 -- lin shop_N = mkN "" ;
 lin short_A = mkA "키가" small_A ; -- "height is small"
