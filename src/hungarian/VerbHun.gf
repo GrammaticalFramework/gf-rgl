@@ -111,7 +111,8 @@ lin
     s = \\vf => case vf of {
                   VFin P3 n => ap.s ! n ;
                   VFin _  n => ap.s ! n  ++ copula.s ! vf ;
-                  _         => ap.s ! Sg ++ copula.s ! vf} ;
+                  _         => ap.s ! Sg ++ copula.s ! vf}
+             ++ ap.compar ;
     } ;
 
   -- : CN  -> Comp ;

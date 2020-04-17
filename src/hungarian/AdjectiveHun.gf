@@ -5,11 +5,14 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   lin
 
   -- : A  -> AP ;
-  PositA a = {s = a.s ! Posit} ;
+  PositA a = emptyAP ** {
+    s = a.s ! Posit
+    } ;
 
   -- : A  -> NP -> AP ;
-  ComparA a np = a ** {
-    s = \\n => a.s ! Compar ! n ++ np.s ! Ade ;
+  ComparA a np = emptyAP ** {
+    s = a.s ! Compar ;
+    compar = np.s ! Ade ;
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
@@ -22,20 +25,20 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   UseA2 = PositA ;
 
   -- : A  -> AP ;     -- warmer
-  UseComparA a = a ** {
-    s = \\n => a.s ! Compar ! n ;
+  UseComparA a = emptyAP ** {
+    s = a.s ! Compar ;
     } ;
 
-
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
-  -- CAdvAP adv ap np = ap ** { } ;
+  CAdvAP adv ap np = ap ** {
+    s = \\n => adv.s ++ ap.s ! n ;
+    compar = ap.compar ++ adv.p ++ np.s ! Nom
+    } ;
 
 -- The superlative use is covered in $Ord$.
 
   -- : Ord -> AP ;       -- warmest
-  AdjOrd ord = ord ** {
-    s = \\_ => ord.s ;
-    } ;
+  -- AdjOrd ord = emptyAP ** ord ;
 
 -- Sentence and question complements defined for all adjectival
 -- phrases, although the semantics is only clear for some adjectives.
@@ -46,12 +49,16 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 
   -- : AdA -> AP -> AP ;
-  AdAP ada ap = ap ** {s = \\af => ada.s ++ ap.s ! af} ;
+  AdAP ada ap = ap ** {
+    s = \\af => ada.s ++ ap.s ! af ;
+    } ;
 
 
 -- It can also be postmodified by an adverb, typically a prepositional phrase.
 
   -- : AP -> Adv -> AP ; -- warm by nature
-  -- AdvAP  ap adv = ap ** {} ;
+  AdvAP ap adv = ap ** {
+    s = \\af => ap.s ! af ++ adv.s ;
+    } ;
 
 }

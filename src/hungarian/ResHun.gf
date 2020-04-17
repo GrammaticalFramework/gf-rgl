@@ -116,7 +116,15 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  AdjPhrase : Type = {s : Number => Str} ;
+  AdjPhrase : Type = {
+    s : Number => Str ;
+    compar : Str -- Discontinuous: Én *nagyobb* vagyok *nálad*.
+    } ;
+
+  emptyAP : AdjPhrase = {
+    s = \\_ => [] ;
+    compar = [] ;
+    } ;
 
   Adjective : Type = {s : Degree => Number => Str} ;
 

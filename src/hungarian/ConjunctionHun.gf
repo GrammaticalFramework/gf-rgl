@@ -40,9 +40,13 @@ lincat
   [AP] = {s1,s2 : Number => Str}  ;
 
 lin
-  BaseAP = twoTable Number ;
+  BaseAP x y =
+    -- Don't try to have discontinuous comparative forms
+    let xCont : AP = x ** {s = \\n => x.s ! n ++ x.compar} ;
+        yCont : AP = y ** {s = \\n => y.s ! n ++ y.compar} ;
+     in twoTable Number xCont yCont ;
   ConsAP = consrTable Number comma ;
-  ConjAP = conjunctDistrTable Number ;
+  ConjAP co as = conjunctDistrTable Number co as ** {compar = []} ;
 
 -- Noun phrases
 lincat
