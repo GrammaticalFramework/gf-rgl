@@ -42,7 +42,7 @@ lin
   SymbNum sy = baseNum ** {s = \\_ => sy.s} ;
 
   -- : Symb -> Ord ;
-  SymbOrd sy = {s = sy.s ; n=Pl} ;
+  SymbOrd sy = {s = \\n => sy.s ; n=Pl} ;
 
 lincat
   Symb, [Symb] = SS ;
