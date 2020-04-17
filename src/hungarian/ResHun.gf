@@ -267,6 +267,7 @@ oper
   VerbPhrase : Type = Verb ** {
     obj : Str ;
     adv : Str ;
+    c2 : Case ; -- for RelSlash
     } ;  -- TODO more fields
 
   VPSlash : Type = Verb2 ** {
@@ -275,6 +276,7 @@ oper
 
   useV : Verb -> VerbPhrase = \v -> v ** {
     obj,adv = [] ;
+    c2 = Acc ; -- TODO check
     } ;
 
   useVc : Verb2 -> VPSlash = \v2 -> v2 ** {
@@ -302,7 +304,7 @@ oper
      but we're done with verb inflection.
    -}
   ClSlash : Type = Clause ** {
-    sc : SubjCase ; -- For RelSlash
+    c2 : Case ; -- For RelSlash
     } ;
 
   QClause : Type = Clause ;
@@ -310,23 +312,11 @@ oper
 
   Sentence : Type = {s : Str} ;
 
-  -- predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-  --   s = \\t,a,p => let subjcase : Case = case vp.sc of {
-  --                                          SCNom => Nom ;
-  --                                          SCDat => Dat }
-  --                   in np.s ! subjcase
-  --                   ++ np.empty -- standard trick for prodrop
-  --                   ++ vp.s ! agr2vf np.agr
-  --                   ++ vp.obj
-  --                   ++ vp.adv
-  --   } ;
-
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
     s = let rel : RClause = relVP' (np2rp np) vp ;
          in \\t,a,p => rel.s ! t ! a ! p ! np.agr.p2 ! sc2case vp.sc
                     ++ np.empty ; -- standard trick for prodrop+metavariable problem
     } ;
-
 
   -- Relative
 
@@ -350,11 +340,11 @@ oper
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {
-    s = \\t,a,p,n,c => let subjcase : Case = case cls.sc of {
-                                               SCNom => c ;
-                                               SCDat => Dat }
-                        in rp.s ! n ! subjcase
-                        ++ cls.s ! t ! a ! p
+    s = \\t,a,p,n,c => let objcase : Case = case cls.c2 of {
+                                              Acc => c ;
+                                              _ => cls.c2 }
+                    in rp.s ! n ! objcase
+                    ++ cls.s ! t ! a ! p
    } ;
 --------------------------------------------------------------------------------
 -- linrefs
