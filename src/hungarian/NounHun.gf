@@ -67,9 +67,11 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
     } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
-  -- DetQuantOrd quant num ord =
-  --   let theseFive = DetQuant quant num in theseFive ** {
-  --     } ;
+  DetQuantOrd quant num ord =
+    let theseFive = DetQuant quant num in theseFive ** {
+      s = \\c => theseFive.s ! c ++ ord.s ! num.n ;
+      sp = \\c => theseFive.sp ! c ++ ord.s ! num.n ;
+      } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
 -- cardinal.
@@ -106,18 +108,18 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude in {
   OrdNumeral num = num ** {
     s = \\_ => num.ord
     } ;
-
+-}
   -- : A       -> Ord ;
   OrdSuperl a = {
-    s = \\af => "제일" ++ a.s ! af ;
+    s = a.s ! Superl ;
     n = Sg -- ?? is this meaningful?
     } ;
 
 -- One can combine a numeral and a superlative.
 
   -- : Numeral -> A -> Ord ; -- third largest
-  OrdNumeralSuperl num a = num ** {  } ;
--}
+  -- OrdNumeralSuperl num a = num ** {  } ;
+
   -- : Quant
   DefArt = {
     s,

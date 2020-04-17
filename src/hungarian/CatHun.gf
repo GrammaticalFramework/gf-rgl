@@ -66,7 +66,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
     Quant = ResHun.Quant ;
     Num = ResHun.Num ;
     Ord = {
-      s : Str ; -- Number => Case => Str ; -- Ord can come from AP and become AP again
+      s : Number => Str ; -- Number => Case => Str ; -- Ord can come from AP and become AP again
       n : Number -- Ord can come from Num, which has inherent number
       } ;
     DAP = ResHun.Determiner ;

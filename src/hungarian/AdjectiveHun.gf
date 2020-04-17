@@ -38,7 +38,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 -- The superlative use is covered in $Ord$.
 
   -- : Ord -> AP ;       -- warmest
-  -- AdjOrd ord = emptyAP ** ord ;
+  AdjOrd ord = emptyAP ** ord ;
 
 -- Sentence and question complements defined for all adjectival
 -- phrases, although the semantics is only clear for some adjectives.
