@@ -23,12 +23,12 @@ LangHun: én pirosabb vagyok nálad
 ------------------
 -- LangEng: I am reddest
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (AdjOrd (OrdSuperl red_A))))))) NoVoc
-LangHun: én legpirosabb vagyok
+LangHun: én vagyok legpirosabb
 
 -- LangEng: I am the reddest
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompNP (DetNP (DetQuantOrd DefArt NumSg (OrdSuperl red_A)))))))) NoVoc
-LangHun: én a legpirosabb vagyok
+LangHun: én vagyok a legpirosabb
 
--- !! I suspect this is nonsense
+--  It works!
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompNP (DetNP (DetQuantOrd DefArt NumPl (OrdSuperl red_A)))))))) NoVoc
 LangHun: én a legpirosabbok vagyok
