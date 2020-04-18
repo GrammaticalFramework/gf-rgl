@@ -5,3 +5,11 @@ LangHun: nekem van egy macska
 -- LangEng: I have the cat
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))) NoVoc
 LangHun: nekem van a macska
+
+-- LangEng: I have many cats
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN many_Det (UseN cat_N)))))) NoVoc
+LangHun: nekem van sok macska
+
+-- LangEng: I have some cats
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN somePl_Det (UseN cat_N)))))) NoVoc
+LangHun: nekem vannak némelyek macskák
