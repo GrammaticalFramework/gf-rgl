@@ -104,7 +104,6 @@ oper Use3N3 : N3 -> N2  = notYet "Use3N3" ;
 oper UseQCl : Temp -> Pol -> QCl -> QS  = notYet "UseQCl" ;
 oper UseSlash : Temp -> Pol -> ClSlash -> SSlash  = notYet "UseSlash" ;
 oper UttIAdv : IAdv -> Utt  = notYet "UttIAdv" ;
-oper UttIP : IP -> Utt  = notYet "UttIP" ;
 oper UttImpPl : Pol -> Imp -> Utt  = notYet "UttImpPl" ;
 oper UttImpPol : Pol -> Imp -> Utt  = notYet "UttImpPol" ;
 oper UttImpSg : Pol -> Imp -> Utt  = notYet "UttImpSg" ;
