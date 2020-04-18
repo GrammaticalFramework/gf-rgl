@@ -1,59 +1,67 @@
-concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in 
-{
---{
---
---  lin
---
---    PositA  a = {
---      s = \\_ => a.s ! AAdj Posit Nom ;
---      isPre = True
---      } ;
---    ComparA a np = {
---      s = \\_ => a.s ! AAdj Compar Nom ++ "than" ++ np.s ! npNom ; 
---      isPre = False
---      } ;
---    UseComparA a = {
---      s = \\_ => a.s ! AAdj Compar Nom ; 
---      isPre = True
---      } ;
---
---    AdjOrd ord = {
---      s = \\_ => ord.s ! Nom ;
---      isPre = True
---      } ;
---
---    CAdvAP ad ap np = {
---      s = \\a => ad.s ++ ap.s ! a ++ ad.p ++ np.s ! npNom ; 
---      isPre = False
---      } ;
---
---    ComplA2 a np = {
---      s = \\_ => a.s ! AAdj Posit Nom ++ a.c2 ++ np.s ! NPAcc ; 
---      isPre = False
---      } ;
---
---    ReflA2 a = {
---      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ reflPron ! ag ; 
---      isPre = False
---      } ;
---
---    SentAP ap sc = {
---      s = \\a => ap.s ! a ++ sc.s ; 
---      isPre = False
---      } ;
---
---    AdAP ada ap = {
---      s = \\a => ada.s ++ ap.s ! a ;
---      isPre = ap.isPre
---      } ;
---
---    UseA2 a = {
---      s = \\_ => a.s ! AAdj Posit Nom ;
---      isPre = True
---      } ;
---
---    AdvAP ap adv = {s = \\a => ap.s ! a ++ adv.s ; isPre = False} ;
---
---}
+concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
+
+  flags optimize=all_subs ;
+
+  lin
+
+  -- : A  -> AP ;
+  PositA a = emptyAP ** {
+    s = a.s ! Posit
+    } ;
+
+  -- : A  -> NP -> AP ;
+  ComparA a np = emptyAP ** {
+    s = a.s ! Compar ;
+    compar = np.s ! Ade ;
+    } ;
+
+  -- : A2 -> NP -> AP ;  -- married to her
+  ComplA2 a2 np = emptyAP ** {
+    s = a2.s ! Posit ;
+    compar = np.s ! a2.c2.c ++ a2.c2.s
+    } ;
+
+  -- : A2 -> AP ;        -- married to itself
+  -- ReflA2 a2 = a2 ** { } ;
+
+  -- : A2 -> AP ;        -- married
+  UseA2 = PositA ;
+
+  -- : A  -> AP ;     -- warmer
+  UseComparA a = emptyAP ** {
+    s = a.s ! Compar ;
+    } ;
+
+  -- : CAdv -> AP -> NP -> AP ; -- as cool as John
+  CAdvAP adv ap np = ap ** {
+    s = \\n => adv.s ++ ap.s ! n ;
+    compar = ap.compar ++ adv.p ++ np.s ! Nom
+    } ;
+
+-- The superlative use is covered in $Ord$.
+
+  -- : Ord -> AP ;       -- warmest
+  AdjOrd ord = emptyAP ** ord ;
+
+-- Sentence and question complements defined for all adjectival
+-- phrases, although the semantics is only clear for some adjectives.
+
+  -- : AP -> SC -> AP ;  -- good that she is here
+  -- SentAP ap sc = ap ** {} ;
+
+-- An adjectival phrase can be modified by an *adadjective*, such as "very".
+
+  -- : AdA -> AP -> AP ;
+  AdAP ada ap = ap ** {
+    s = \\af => ada.s ++ ap.s ! af ;
+    } ;
+
+
+-- It can also be postmodified by an adverb, typically a prepositional phrase.
+
+  -- : AP -> Adv -> AP ; -- warm by nature
+  AdvAP ap adv = ap ** {
+    s = \\af => ap.s ! af ++ adv.s ;
+    } ;
 
 }
