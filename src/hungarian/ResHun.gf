@@ -32,6 +32,11 @@ oper
 
   indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
 
+  defNP : Str -> Number -> NounPhrase = \s,n -> emptyNP ** {
+    s = (mkNoun s).s ! n ;
+    n = n ;
+    objdef = Def ;
+    } ;
 --------------------------------------------------------------------------------
 -- Pronouns
 

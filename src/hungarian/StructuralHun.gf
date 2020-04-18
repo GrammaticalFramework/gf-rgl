@@ -85,12 +85,6 @@ lin somebody_NP = defNP "" N.NumSg ;
 -}
 lin something_NP = defNP "valami" Sg ;
 
-oper
-  defNP : Str -> Number -> NP = \s,n -> emptyNP ** {
-    s = (mkNoun s).s ! n ;
-    n = n
-  } ;
-
 -------
 -- Prep
 

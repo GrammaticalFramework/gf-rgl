@@ -22,6 +22,12 @@ oper
     mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
   } ;
 
+  mkPN : overload {
+    mkPN : Str -> PN ; -- Singular PN out of a string
+    mkPN : Str -> Number -> PN -- PN with a given number
+    -- mkPN : N -> Number -> PN ;
+    } ;
+
 --2 Adjectives
 
   mkA : overload {
@@ -127,8 +133,11 @@ oper
     mkN2 : N   -> N2 = \n -> lin N2 n ;
    } ;
 
-  -- mkPN = overload {
-  --   } ;
+  mkPN = overload {
+    mkPN : Str -> PN = \s -> lin PN (defNP s Sg) ;
+    mkPN : Str -> Number -> PN = \s,n -> lin PN (defNP s n) ;
+    -- mkPN : N -> Number -> PN ;
+    } ;
 
   mkA = overload {
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
