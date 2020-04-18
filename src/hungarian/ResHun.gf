@@ -68,6 +68,14 @@ oper
     objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     } ;
 
+  mkDet : (s : Str) -> ObjDef -> Number -> Determiner = \s,d,n -> {
+    s,
+    sp = (mkNoun s).s ! n ;
+    n = n ;
+    numtype = NoNum ;
+    objdef = d ;
+  } ;
+
   Numeral : Type = {
     s : Place => Str ;  -- Independent or attribute
     numtype : NumType ; -- Digit, numeral or Sg/Pl : makes a difference in many languages

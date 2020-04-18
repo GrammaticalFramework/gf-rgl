@@ -58,17 +58,17 @@ lin all_Predet = {s = ""} ;
 lin not_Predet = {s = ""} ;
 lin only_Predet = {s = ""} ;
 lin most_Predet = {s = ""} ;
-
-
-lin every_Det =
-lin few_Det =
-lin many_Det =
-lin much_Det =
-
-lin somePl_Det =
-lin someSg_Det =
-lin no_Quant =
 -}
+
+--lin every_Det =
+lin few_Det = mkDet "kevés" Def Sg ; -- TODO check
+lin many_Det = mkDet "sok" Def Sg ; -- TODO check
+--lin much_Det =
+
+lin somePl_Det = mkDet "némely" Indef Pl ;
+lin someSg_Det = mkDet "némely" Indef Sg ;
+--lin no_Quant =
+
 lin that_Quant = mkQuant "az" "az" ;
 lin this_Quant = mkQuant "ez" "ez" ;
 {-lin which_IQuant =
@@ -82,11 +82,14 @@ lin everything_NP = defNP "" N.NumSg ;
 lin nobody_NP = mkVerb; ""
 lin nothing_NP = defNP "" N.NumSg ;
 lin somebody_NP = defNP "" N.NumSg ;
-lin something_NP = defNP "" N.NumSg ;
+-}
+lin something_NP = defNP "valami" Sg ;
 
 oper
- defNP : Str -> Num -> NP = {} ;
--}
+  defNP : Str -> Number -> NP = \s,n -> emptyNP ** {
+    s = (mkNoun s).s ! n ;
+    n = n
+  } ;
 
 -------
 -- Prep
