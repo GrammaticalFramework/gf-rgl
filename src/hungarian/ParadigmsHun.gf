@@ -1,4 +1,5 @@
-resource ParadigmsHun = open CatHun, ResHun, ParamHun, NounHun, Prelude in {
+resource ParadigmsHun = open
+   CatHun, ResHun, ParamHun, NounHun, Prelude in {
 
 oper
 
@@ -17,8 +18,8 @@ oper
 --2 Nouns
 
   mkN : overload {
-    mkN : (sgnom : Str) -> N ; -- Predictable nouns
-    mkN : (madár : Str) -> (ak : Str) -> N ; -- Noun with unpredictable plural allomorph
+    mkN : (sgnom : Str) -> N ; -- Predictable nouns from singular nominative. Accusative vowel is o for back harmony. No stem lowering (TODO better explanation/examples)
+    mkN : (sgnom : Str) -> (sggen : Str) -> N ; -- Singular nominative and accusative. Takes care of cases like … TODO example
     mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
   } ;
 
@@ -122,7 +123,7 @@ oper
       \s -> lin N (regNoun s) ;
 
     mkN : Str -> Str -> N =
-        \s,ak -> lin N (mkNounHarm (getHarm s) ak s) ;
+        \n,a-> lin N (regNounNomAcc n a) ;
 
     mkN : Str -> Harmony -> N =
       \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;

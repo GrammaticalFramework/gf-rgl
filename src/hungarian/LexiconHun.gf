@@ -5,7 +5,7 @@ concrete LexiconHun of Lexicon = CatHun **
 -- A
 
 -- lin add_V3 = mkV3 ""  ;
-lin airplane_N = mkN "repülőgép" ;
+lin airplane_N = mkN "repülőgép" "repülőgépet" ;
 -- lin alas_Interj = mkInterj "" ;
 -- lin already_Adv = mkA "" ;
 lin animal_N = mkN "állat" ;
@@ -26,7 +26,7 @@ lin bank_N = mkN "bank" ;
 -- lin bark_N = mkN "" ;
 lin beautiful_A = mkA "szép" ;
 -- lin become_VA = mkVA "" ;
-lin beer_N = mkN "sör" ;
+lin beer_N = mkN "sör" "sört" ;
 -- lin beg_V2V = mkV2 "" ;
 lin belly_N = mkN "has" ;
 lin big_A = mkA "nagy" ;
@@ -235,7 +235,7 @@ lin music_N = mkN "zene" ;
 ----
 -- N
 
-lin name_N = mkN "név" ;
+lin name_N = mkN "név" "nevet" ;
 lin narrow_A = mkA "keskeny" ; --also "szűk"
 lin near_A = mkA "közel" ;
 lin neck_N = mkN "nyak" ;
@@ -406,7 +406,8 @@ lin window_N = mkN "ablak" ;
 lin wine_N = mkN "bor" ;
 lin wing_N = mkN "szárny" ;
 -- lin wipe_V2 = mkV2 "" ;
-lin woman_N = mkN "nő" "k" harmO ;
+--lin woman_N = mkN "nő" "k" harmO ;
+lin woman_N = mkN "nő" "nőket" ;
 -- lin wonder_VQ = mkVQ "" ;
 lin wood_N = mkN "fa" ; --same as tree
 lin worm_N = mkN "féreg" ; --also "kukac"

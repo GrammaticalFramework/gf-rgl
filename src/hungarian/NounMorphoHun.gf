@@ -75,7 +75,7 @@ oper
     in {s = \\n,c => case <n,c> of {
         -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
         <Pl,_> | <Sg,Acc> => nMajmo.s ! n ! c ;
-        <Sg,Sup> => nMajm.s ! n ! c ;
+        <Sg,Sup> => nMajmo.s ! n ! c ;
 
         -- The rest of the forms are formed with the regular constructor,
         -- using "majom" as the stem.
@@ -91,15 +91,71 @@ oper
 
   -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
-regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = n, a ->
-let lastNom = last n ;
-    lastAccShort = shorten (last (init a)) ;
-in ifTok Noun lastNom lastAccShort (dAlma n a) (mkNoun n) ;
+regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
+  case <n,a> of {
+    -- alma, almát
+    <_ + "a", _ + "át">
+   |<_ + "e" ,_ + "ét"> => dAlma n a ;
 
---  regNounNomAcc n a | (last n) == shorten (last (init a)) = dAlma n a
 
---  guess : (nom : Str) -> (acc : Str) = \sgnom -> case sgnom of
+    <_ + "á" + #c, -- madár, madarat
+     _ + "a" + #c + #v + "t">
 
+   |<_ + "é" + #c, -- név, nevet
+     _ + "e" + #c + #v + "t">
+
+   |<_ + "í" + #c, -- víz, vizet
+     _ + "i" + #c + #v + "t"> => dMadár n a ;
+
+
+    <_ + #v + #c, -- majom, majmot
+     _ + #c + #v + "t"> => dMajom n a ;
+
+
+    <_ + "ó", -- ló, lovat
+     _ + "o" + #c + #v + "t">
+
+   |<_ + "ő", -- kő, követ
+     _ + "ö" + #c + #v + "t">
+
+   |<_ + "é", -- lé, levet
+     _ + "e" + #c + #v + "t"> => dLó n a ;
+
+    _ => mkNoun n
+  } ;
+
+  regNoun : Str -> Noun = \sgnom -> case sgnom of {
+    _  + ("a"|"e")         => dAlma sgnom (lengthen sgnom + "t") ;
+    #c + ("á"|"é") + #c    => mkNoun sgnom ;
+    _  + ("á"|"é") + #c    => dMadár sgnom (név2nevet sgnom) ;
+    _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
+    _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
+    _ => mkNoun sgnom -- Fall back to the regular paradigm
+  } where {
+    név2nevet : Str -> Str = \név ->
+      let né_v : Str*Str = case név of {né + v@#c => <né,v>} ;
+          né = né_v.p1 ;
+          v  = né_v.p2 ;
+          ne = shorten né ;
+          e = case last ne of {
+              "i" => "e" ;
+              _   => last ne } ;
+      in ne + v + e + "t" ;
+    ló2lovat : Str -> Str = \ló ->
+      let lo = shorten ló ;
+          lov = lo + "v" ;
+          at : Str = case ló of {
+            _ + "ó" => "at" ;
+            _       => "et" } ;
+       in lov + at ;
+    majom2majmo : Str -> Str = \majom ->
+      let majo_m : Str*Str = case majom of {majo + m@#c => <majo,m>} ;
+          majo = majo_m.p1 ;
+          m = majo_m.p2 ;
+          mo = m + last majo ;
+          maj = init majo ;
+      in maj + mo
+  } ;
 
 --TODO: Special cases (enter these words manually to not complicate the paradigms):
 --dTó: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
@@ -120,6 +176,16 @@ oper
   -- Vowels as a pattern.
   v : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü" |
                       "á" | "é" | "í" | "ó" | "ú" | "ő" | "ű") ;
+
+  c : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
+                      "n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z"|
+                      "cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs"|
+                      "dzs") ;
+
+  -- Only single consonants
+  unigraph : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
+                             "n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
+
   -- Digraphs
   digraph : pattern Str = #("cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs") ;
 
@@ -137,7 +203,7 @@ oper
     x + "ty" => x + "tty" ;
     x + "zs" => x + "zzs" ;
 
-    -- Base cacse: just duplicate the single letter
+    -- Base case: just duplicate the single letter
     x + s@?  => x + s + s } ;
 
   -- Function to test if a string ends in a vowel
