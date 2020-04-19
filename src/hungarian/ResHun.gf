@@ -278,6 +278,10 @@ oper
     "vannak"
     "lenni" ;
 
+  megvan : Verb = copula ** {
+    s = \\vf => "meg" + copula.s ! vf ;
+    } ;
+
 ------------------
 -- VP
 
@@ -330,9 +334,14 @@ oper
   Sentence : Type = {s : Str} ;
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = let rel : RClause = relVP' (np2rp np) vp ;
-         in \\t,a,p => rel.s ! t ! a ! p ! np.agr.p2 ! sc2case vp.sc
-                    ++ np.empty ; -- standard trick for prodrop+metavariable problem
+    s = \\t,a,p => let subjcase : Case = case vp.sc of {
+                                               SCNom => Nom ;
+                                               SCDat => Dat }
+                        in np.s ! subjcase
+                        ++ vp.s ! agr2vf np.agr
+                        ++ vp.obj
+                        ++ vp.adv
+                        ++ np.empty -- standard trick for prodrop+metavariable problem
     } ;
 
   -- Relative
@@ -351,9 +360,9 @@ oper
                                                SCNom => Nom ;
                                                SCDat => Dat }
                         in rp.s ! n ! subjcase
-                        ++ vp.s ! VFin rp.agr.p1 n -- variable by number
                         ++ vp.obj
                         ++ vp.adv
+                        ++ vp.s ! VFin rp.agr.p1 n -- variable by number
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {
