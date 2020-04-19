@@ -8,7 +8,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
 -- : Det -> CN -> NP
   DetCN det cn = emptyNP ** det ** {
-    s = \\c => det.s ! c ++ cn.s ! det.n ! c ;
+    s = \\c => det.s ! Nom ++ cn.s ! det.n ! c ;
     agr = <P3,det.n> ;
     } ;
 
