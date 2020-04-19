@@ -87,7 +87,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
 -- Constructed in StructuralHun.
     Conj = ResHun.Conj ;
     Subj = SS ;
-    Prep = ResHun.Postposition ;
+    Prep = ResHun.Adposition ;
 
 
 
