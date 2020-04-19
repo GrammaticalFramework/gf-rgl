@@ -6,7 +6,7 @@ oper
   -- Paradigm functions
   -- http://www.cse.chalmers.se/~aarne/articles/smart-preprint.pdf
 
-  -- Words like alma, kefe:
+  -- Words like "alma, kefe, apa, anya, fa":
   dAlma : Str -> Noun = \alma ->
     let almá : Str = lengthen alma ;
 
@@ -24,11 +24,16 @@ oper
 
   -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural
   -- No special <Sg,Sup> case here
+  -- dMadár: "víz" has wovel shortening but "vizek" not "vizik", implement differently?
   dMadár : Str -> Noun = \madár ->
     let r = last madár ;
         madá = init madár ;
         mada = shorten madá ; -- shortens vowels
         a = last mada ;
+        a = case a of {
+          "e"|"i" => "e" ;
+          a => a
+        } ;
         madara = mada + r + a ;
         nMadara = mkNounHarm (getHarm madara) "k" madara ;
         nMadár = mkNoun madár ;
@@ -151,7 +156,7 @@ oper
   -- and decides which (non-smart) paradigm is the most likely to match.
   regNoun : Str -> Noun = \sgnom -> case sgnom of {
     _ + "a"|"e"       => dAlma sgnom ;
-    c1@(? | #digraph | #trigraph) + ("á"|"é") + c2@(? | #digraph | #trigraph)  => mkNoun sgnom;
+    (? | #digraph | #trigraph) + ("á"|"é") + (? | #digraph | #trigraph)  => mkNoun sgnom ;
     _ + ("á"|"é") + ? => dMadár sgnom ;
     _ + "é"|"ő"|"ű"   => dLó sgnom ;
     _ + "ó"           => dTó sgnom ;
@@ -168,7 +173,9 @@ oper
 --dTó: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
 --dLó: special case <Sg,Sup> "lén" not "leven"
 --dLó: <Sg,Sup> also "kövön" not "köven", but that is due to H_e, which is needed for "köveket" so it's conflicting
-
+--endCaseConsAcc: "falat, fület, várat, könnyet",
+--also special in superessive case "falon, fülek, vizen"
+--pattern matching in regNoun: one-syllable words that in fact belong to dMadár: "nyár, név"
 --------------------------------------------------------------------------------
 -- Following code by EG in 2009 (?), comments and some additions by IL 2020
 
@@ -278,6 +285,13 @@ oper
     _   => endCaseCons c
     } ;
 
+  -- Variant where accusative has the allomorph -t for consonants
+  -- Examples: "pénz, bor, orr, szín, lány, kés, dal"
+  endCaseConsAcc : Case -> HarmForms = \c -> case c of {
+    Acc => harm1 "t" ;
+    _   => endCaseCons c
+  } ;
+
   -- Variant of case forms when the noun stem ends in vowel.
   endCaseVow : Case -> HarmForms = \c -> case c of {
     Acc => harm1 "t" ;
@@ -290,12 +304,16 @@ oper
   } ;
 
   -- Function to return a plural allomorph given the stem (e.g. név, almá).
-  -- TODO: seems to be many "ak" cases, add?
-  -- Examples: ág, ágy, ár, díj, fal, fog, gyár, hal, has, hát, ház, hold, láz, lyuk, nyak, olaj, oldal, toll, ujj, vonal
-  pluralAllomorph : (stem : Str) -> Str = \stem ->
-    case vowFinal stem of {
-      True  => "k" ;
-      False => harm3 "ok" "ek" "ök" ! getHarm stem
+  pluralAllomorph : (stem : Str) -> Str = pluralAllomorphLowStem False ;
+
+  -- Function to return a plural allomorph given lowering stem or not
+  -- Examples of lowering stems: ág, ágy, ár, fal, fog, gyár, hal, has, hát, ház, hold, láz, lyuk, nyak, olaj, oldal, toll, ujj, vonal
+  -- Examples of lowering stems: férj, fej, hely, fül, könny, könyv, mell, szög
+  pluralAllomorphLowStem : (low : Bool) -> (stem : Str) -> Str = \low,stem ->
+    case <low,vowFinal stem> of {
+      <_,True>  => "k" ;
+      <True, _> => harm "ak" "ek" ! getHarm stem ;
+      _ => harm3 "ok" "ek" "ök" ! getHarm stem
     } ;
 
 
@@ -307,10 +325,14 @@ oper
   mkNounHarm : Harm -> (plural : Str) -> Str -> Noun = mkNounHarmAcc True ;
 
   mkNounHarmAcc : (useAt : Bool) -> Harm -> (plural : Str) -> Str -> Noun = \useAt,h,plural,w ->
-    let endCaseSg : Case -> HarmForms = case <vowFinal w, useAt> of {
-                                          <True,_>  => endCaseVow ;
-                                          <False,True> => endCaseConsAccAt ;
-                                          _  => endCaseCons} ;
+    let endCaseSg : Case -> HarmForms = case <useAt, w> of {
+                                          <_,_ + #v> => endCaseVow ;
+                                          <_,_ + #v + ("sz"|"z"|"s"|"zs"|"j"
+                                          |"ly"|"l"|"r"|"n"|"ny"|"ssz"|"zz"
+                                          |"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"
+                                          |"nz")> => endCaseConsAcc ;
+                                          <True,_>  => endCaseConsAccAt ;
+                                          _ => endCaseCons } ;
         endCasePl : Case -> HarmForms = case <plural, useAt> of {
                                           <"ak",_> => endCaseConsAccAt ;
                                           <_,True> => endCaseConsAccAt ;
