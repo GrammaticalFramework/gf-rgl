@@ -91,7 +91,10 @@ oper
 
   -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
---  regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = n, a -> mkNoun n ;
+regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = n, a ->
+let lastNom = last n ;
+    lastAccShort = shorten (last (init a)) ;
+in ifTok Noun lastNom lastAccShort (dAlma n a) (mkNoun n) ;
 
 --  regNounNomAcc n a | (last n) == shorten (last (init a)) = dAlma n a
 
