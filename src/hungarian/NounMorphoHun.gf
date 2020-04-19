@@ -45,8 +45,6 @@ oper
 
   --Handles words like "ló, lé, kő" which are "lovak, levek, kövek" in plural.
   -- <Sg,Sup> "lovon" instead of "lón" fixed but that gives the following problems:
-  --TODO: special case <Sg,Sup> "lén" not "leven"
-  --TODO: <Sg,Sup> also "kövön" not "köven", but that is due to H_e, which is needed for "köveket" so it's conflicting
   dLó : Str -> Noun = \ló ->
     let lo = shorten ló ;
         lov = lo + "v" ;
@@ -75,7 +73,6 @@ oper
   --Handles words like "tó, hó"" which are "tavak, havak" in plural.
   --(Since I only have these examples for now I do a simplified case with ó, a)
   --<Sg,Sup> "tavon" instead of "tón" case fixed, works automatically with the Sup rules
-  --TODO: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
   dTó : Str -> Noun = \tó ->
     let t = init tó ;
         tav = t + "av" ;
@@ -154,8 +151,10 @@ oper
   -- and decides which (non-smart) paradigm is the most likely to match.
   regNoun : Str -> Noun = \sgnom -> case sgnom of {
     _ + "a"|"e"       => dAlma sgnom ;
+    c1@(? | #digraph | #trigraph) + ("á"|"é") + c2@(? | #digraph | #trigraph)  => mkNoun sgnom;
     _ + ("á"|"é") + ? => dMadár sgnom ;
-    _ + ("ó"|"ő")     => dLó sgnom ;
+    _ + "é"|"ő"|"ű"   => dLó sgnom ;
+    _ + "ó"           => dTó sgnom ;
     _ + "alom"        => dFarok sgnom ;
     _ + "elem"        => dMajom sgnom ;
 
@@ -164,6 +163,11 @@ oper
 
     _ => mkNoun sgnom -- Fall back to the regular paradigm
   } ;
+
+--TODO: Special cases (enter these words manually to not complicate the paradigms):
+--dTó: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
+--dLó: special case <Sg,Sup> "lén" not "leven"
+--dLó: <Sg,Sup> also "kövön" not "köven", but that is due to H_e, which is needed for "köveket" so it's conflicting
 
 --------------------------------------------------------------------------------
 -- Following code by EG in 2009 (?), comments and some additions by IL 2020
