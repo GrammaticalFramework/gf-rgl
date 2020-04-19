@@ -85,6 +85,9 @@ oper
     mkPrep : Str -> Case -> Prep ; -- Postposition and case
     } ;
 
+  prePrep : Str -> Case -> Prep -- Preposition
+    = \s,c -> lin Prep {pr=s ; s=[] ; c=c} ;
+
   casePrep : Case -> Prep ; -- No postposition, only case
 
   -- mkConj : (_,_ : Str) -> Number -> Conj = \s1,s2,num ->

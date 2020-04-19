@@ -102,14 +102,18 @@ oper
     } ;
 
 --------------------------------------------------------------------------------
--- Postpositions
+-- Adpositions
 
   -- TODO: personal suffixes, e.g. felettem, általam, not *felett/által én
-  Postposition : Type = {s : Str ; c : Case} ;
+  Adposition : Type = {
+    pr : Str ; -- Preposition
+    s : Str ;  -- Postposition
+    c : Case ;
+    } ;
 
-  mkPrep : Str -> Postposition = \str -> {s=str ; c=Nom} ;
+  mkPrep : Str -> Adposition = \str -> {s=str ; c=Nom ; pr=[]} ;
 
-  emptyPP : Postposition = mkPrep [] ;
+  emptyAdp : Adposition = mkPrep [] ;
 
 ------------------
 -- Conj
@@ -144,7 +148,7 @@ oper
     s : Degree => Number => Str
     } ;
   Adjective2 : Type = Adjective ** {
-    c2 : Postposition ;
+    c2 : Adposition ;
     } ;
 
   mkAdj : Str -> Adjective = \sg -> {

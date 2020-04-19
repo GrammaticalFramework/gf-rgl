@@ -12,7 +12,7 @@ lin
 
   -- : Prep -> NP -> Adv ;
   PrepNP prep np = {
-    s = np.s ! prep.c ++ prep.s ;
+    s = prep.pr ++ np.s ! prep.c ++ prep.s ;
     } ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
