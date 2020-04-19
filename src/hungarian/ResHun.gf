@@ -344,7 +344,7 @@ oper
 
   relVP' : RP ** {agr : Person*Number} -> VerbPhrase -> RClause = \rp,vp -> {
     s = \\t,a,p,n,c => let subjcase : Case = case vp.sc of {
-                                               SCNom => c ;
+                                               SCNom => Nom ;
                                                SCDat => Dat }
                         in rp.s ! n ! subjcase
                         ++ vp.s ! VFin rp.agr.p1 n -- variable by number
