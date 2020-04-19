@@ -1,4 +1,4 @@
-resource NounMorphoHun = ParamHun ** open Prelude, Predef in {
+resource NounMorphoHunOneArgument = ParamHun ** open Prelude, Predef in {
 
 oper
   Noun = {s : Number => Case => Str} ;
@@ -7,10 +7,9 @@ oper
   -- http://www.cse.chalmers.se/~aarne/articles/smart-preprint.pdf
 
   -- Words like "alma, kefe, apa, anya, fa":
-  dAlma : (nom : Str) -> (acc : Str) -> Noun = \alma,almát ->
-    let almá : Str = init almát ;
+  dAlma : Str -> Noun = \alma ->
+    let almá : Str = lengthen alma;
 
-        -- Apply mkNoun to the lengthened stem "almá" or "kefé"
         nAlmá : Noun = mkNoun almá ;
      in {s = \\n,c => case <n,c> of {
                 -- Singular nominative uses the given form, e.g. "alma" or "kefe"
@@ -21,141 +20,153 @@ oper
                 _ => nAlmá.s ! n ! c
               } ;
         } ;
-
-  -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural
-  -- No special <Sg,Sup> case here
-  dMadár : (nom : Str) -> (acc : Str) -> Noun = \madár,madarat ->
-    let madara = init madarat ;
-        nMadara = mkNounHarm (getHarm madara) "k" madara ;
-        nMadár = mkNoun madár ;
-    in {s = \\n,c => case <n,c> of {
-                -- All plural forms and Sg Acc use the "madara"/"neve" stem
-                <Pl,_>|<Sg,Acc> => nMadara.s ! n ! c ;
-
-                -- The rest of the forms are formed with the regular constructor,
-                -- using "madár"/"név" as the stem.
-                _ => nMadár.s ! n ! c
-
-              } ;
-        } ;
-
-  --Handles words like "ló, lé, kő" which are "lovak, levek, kövek" in plural.
-  --Also handles "tó, hó" which are "tavak, havak" in plural!
-  -- <Sg,Sup> "lovon" instead of "lón" fixed
-  dLó : (nom : Str) -> (acc : Str) -> Noun = \ló, lovat ->
-    let lova = init lovat ;
-        lov = init lova ;
-        nLov = mkNoun lov ;
-        nLova = mkNoun lova ;
-        nLó = mkNoun ló ;
-    in {s = \\n,c => case <n,c> of {
-
-                -- All plural forms and Sg Acc, Sg Sup use the "lova" stem
-                <Pl,_>| <Sg,Acc> => nLova.s ! n ! c ;
-                <Sg,Sup> => nLov.s ! n ! c ;
-
-                -- The rest of the forms are formed with the regular constructor,
-                -- using "ló" as the stem.
-                _ => nLó.s ! n ! c
-
-              } ;
-        } ;
-
-  --Handles words like "gyomor, majom, retek" which are "gyomrot, majmot, retket" in accusative (wovel dropping base)
-  --More examples: "ajak,  bokor,  cukor,  csokor,  eper,  fészek,  fodor,  gödör,  haszon,  iker,  izom,  kölyök,  köröm,  méreg,  piszok,  sarok,  selyem,  szeder,  szobor,  takony,  terem,  titok,  torok,  torony,  tükör,  vödör" ->
-  --               "ajkat, bokrot, cukrot, csokrot, epret, fészket, fodrot, gödröt, hasznot, ikret, izmot, kölyköt, körmet, mérget, piszkot, sarkot, selymet, szedret, szobrot, taknyot, termet, titkot, torkot, tornyot, tükröt, vödröt"
-  --ALso handles words like "sátor, álom, alkalom, farok, halom, vászon"
-  --                        "sátrat, álmat, alkalmat, farkat, halmat, vásznat"
-  --<Sg,Sup> case handled
-  dMajom : (nom : Str) -> (acc : Str) -> Noun = \majom, majmot ->
-    let majmo = init majmot ;
-        majm = init majmo ;
-        nMajmo = mkNoun majmo ;
-        nMajom = mkNoun majom ;
-    in {s = \\n,c => case <n,c> of {
-        -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
-        <Pl,_> | <Sg,Acc> => nMajmo.s ! n ! c ;
-        <Sg,Sup> => nMajmo.s ! n ! c ;
-
-        -- The rest of the forms are formed with the regular constructor,
-        -- using "majom" as the stem.
-        _ => nMajom.s ! n ! c
+        
+-- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural
+-- No special <Sg,Sup> case here
+-- dMadár: "víz" has wovel shortening but "vizek" not "vizik", implement differently?
+dMadár : Str -> Noun = \madár ->
+  let r = last madár ;
+      madá = init madár ;
+      mada = shorten madá ; -- shortens vowels
+      a = last mada ;
+      a = case a of {
+        "e"|"i" => "e" ;
+        a => a
       } ;
+      madara = mada + r + a ;
+      nMadara = mkNounHarm (getHarm madara) "k" madara ;
+      nMadár = mkNoun madár ;
+  in {s = \\n,c => case <n,c> of {
+              -- All plural forms and Sg Acc use the "madara"/"neve" stem
+              <Pl,_>|<Sg,Acc> => nMadara.s ! n ! c ;
+
+              -- The rest of the forms are formed with the regular constructor,
+              -- using "madár"/"név" as the stem.
+              _ => nMadár.s ! n ! c
+
+            } ;
+      } ;
+
+--Handles words like "ló, lé, kő" which are "lovak, levek, kövek" in plural.
+-- <Sg,Sup> "lovon" instead of "lón" fixed but that gives the following problems:
+dLó : Str -> Noun = \ló ->
+  let lo = shorten ló ;
+      lov = lo + "v" ;
+      ak : Str = case ló of {
+        _ + ("ö" | "ő") => "ek" ;
+        _ + ("o" | "ó") => "ak" ;
+        lé => shorten (last lé) + "k"} ;
+      harmonyPlural : Harm = case ló of {
+        _ + ("ö" | "ő") => H_e ; -- All plural allomorphs have E harmony, singular ones have O.
+        _ + ("o" | "ó") => H_a ;
+        lé => getHarm (lé)} ;
+      nLov = mkNounHarm harmonyPlural ak lov ;
+      nLó = mkNoun ló ;
+  in {s = \\n,c => case <n,c> of {
+
+              -- All plural forms and Sg Acc, Sg Sup use the "lov" stem
+              <Pl,_>| <Sg,Acc> | <Sg,Sup> => nLov.s ! n ! c ;
+
+              -- The rest of the forms are formed with the regular constructor,
+              -- using "ló" as the stem.
+              _ => nLó.s ! n ! c
+
+            } ;
+      } ;
+
+--Handles words like "tó, hó"" which are "tavak, havak" in plural.
+--(Since I only have these examples for now I do a simplified case with ó, a)
+--<Sg,Sup> "tavon" instead of "tón" case fixed, works automatically with the Sup rules
+dTó : Str -> Noun = \tó ->
+  let t = init tó ;
+      tav = t + "av" ;
+      nTav = mkNounHarm H_a "ak" tav ;
+      nTó = mkNoun tó ;
+  in {s = \\n,c => case <n,c> of {
+
+              -- All plural forms and Sg Acc use the "tav" stem
+              <Pl,_>|<Sg,Acc>|<Sg,Sup> => nTav.s ! n ! c ;
+
+              -- The rest of the forms are formed with the regular constructor,
+              -- using "tó" as the stem.
+              _ => nTó.s ! n ! c
+
+            } ;
+      } ;
+
+--Handles words like "gyomor, majom, retek" which are "gyomrot, majmot, retket" in accusative (wovel dropping base)
+--More examples: "ajak,  bokor,  cukor,  csokor,  eper,  fészek,  fodor,  gödör,  haszon,  iker,  izom,  kölyök,  köröm,  méreg,  piszok,  sarok,  selyem,  szeder,  szobor,  takony,  terem,  titok,  torok,  torony,  tükör,  vödör" ->
+--               "ajkat, bokrot, cukrot, csokrot, epret, fészket, fodrot, gödröt, hasznot, ikret, izmot, kölyköt, körmet, mérget, piszkot, sarkot, selymet, szedret, szobrot, taknyot, termet, titkot, torkot, tornyot, tükröt, vödröt"
+--<Sg,Sup> case handled
+dMajom : Str -> Noun = \majom ->
+      -- Str*Str is syntactic sugar for {p1 : Str ; p2 : Str} ;
+      -- confusing syntax: you can't write let <tako,ny> : Str*Str = …
+      -- it has to be called something else, and then you
+      -- can get "tako" and "ny" with p1, p2.
+  let tako_ny : Str*Str = case majom of {
+             x + dzs@#trigraph => <x,dzs> ;
+             x + zs@#digraph => <x,zs> ;
+                -- ? pattern matches exactly 1 character
+             x + s@? => <x,s> } ;
+      tako = tako_ny.p1 ;
+      ny = tako_ny.p2 ;
+
+      nyo = ny + last tako ;
+      tak = init tako ;
+      taknyo = tak + nyo ;
+      nMajmo = mkNounHarm (getHarm taknyo) "k" taknyo ;
+      nMajom = mkNoun majom ;
+  in {s = \\n,c => case <n,c> of {
+      -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
+      <Pl,_> | <Sg,Acc> | <Sg, Sup> => nMajmo.s ! n ! c ;
+
+      -- The rest of the forms are formed with the regular constructor,
+      -- using "majom" as the stem.
+      _ => nMajom.s ! n ! c
     } ;
-
-  -- More words not covered by current paradigms:
-  -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
-  -- TODO: falu ~ falva-k (v-case)
-  -- TODO: teher ~ terhet (consonant-crossing)
-  -- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
-
-  -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
-  -- and decides which (non-smart) paradigm is the most likely to match.
-regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
-  case <n,a> of {
-    -- alma, almát
-    <_ + "a", _ + "át">
-   |<_ + "e" ,_ + "ét"> => dAlma n a ;
-
-
-    <_ + "á" + #c, -- madár, madarat
-     _ + "a" + #c + #v + "t">
-
-   |<_ + "é" + #c, -- név, nevet
-     _ + "e" + #c + #v + "t">
-
-   |<_ + "í" + #c, -- víz, vizet
-     _ + "i" + #c + #v + "t"> => dMadár n a ;
-
-
-    <_ + #v + #c, -- majom, majmot
-     _ + #c + #v + "t"> => dMajom n a ;
-
-
-    <_ + "ó", -- ló, lovat
-     _ + "o" + #c + #v + "t">
-
-   |<_ + "ő", -- kő, követ
-     _ + "ö" + #c + #v + "t">
-
-   |<_ + "é", -- lé, levet
-     _ + "e" + #c + #v + "t"> => dLó n a ;
-
-    _ => mkNoun n
   } ;
 
-  regNoun : Str -> Noun = \sgnom -> case sgnom of {
-    _  + ("a"|"e")         => dAlma sgnom (lengthen sgnom + "t") ;
-    #c + ("á"|"é") + #c    => mkNoun sgnom ;
-    _  + ("á"|"é") + #c    => dMadár sgnom (név2nevet sgnom) ;
-    _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
-    _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
-    _ => mkNoun sgnom -- Fall back to the regular paradigm
-  } where {
-    név2nevet : Str -> Str = \név ->
-      let né_v : Str*Str = case név of {né + v@#c => <né,v>} ;
-          né = né_v.p1 ;
-          v  = né_v.p2 ;
-          ne = shorten né ;
-          e = case last ne of {
-              "i" => "e" ;
-              _   => last ne } ;
-      in ne + v + e + "t" ;
-    ló2lovat : Str -> Str = \ló ->
-      let lo = shorten ló ;
-          lov = lo + "v" ;
-          at : Str = case ló of {
-            _ + "ó" => "at" ;
-            _       => "et" } ;
-       in lov + at ;
-    majom2majmo : Str -> Str = \majom ->
-      let majo_m : Str*Str = case majom of {majo + m@#c => <majo,m>} ;
-          majo = majo_m.p1 ;
-          m = majo_m.p2 ;
-          mo = m + last majo ;
-          maj = init majo ;
-      in maj + mo
+--Handles words like "sátor, álom, alkalom, farok, halom, vászon"
+--                   "sátrat, álmat, alkalmat, farkat, halmat, vásznat"
+-- (bátor not noun)
+dFarok : Str -> Noun = \farok ->
+  let k = last farok ;
+      far = init (init farok) ;
+      fark = far + k ;
+      nFark = mkNounHarm (getHarm fark) "ak" fark ;
+      nFarok = mkNoun farok ;
+  in {s = \\n,c => case <n,c> of {
+      -- All plural forms and Sg Acc and Sg Sup use the "fark" stem
+      <Pl,_> | <Sg,Acc> | <Sg, Sup> => nFark.s ! n ! c ;
+
+      -- The rest of the forms are formed with the regular constructor,
+      -- using "farok" as the stem.
+      _ => nFarok.s ! n ! c
+    } ;
   } ;
+
+-- More words not covered by current paradigms:
+-- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
+-- TODO: falu ~ falva-k (v-case)
+-- TODO: teher ~ terhet (consonant-crossing)
+-- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
+
+-- regNoun is a /smart paradigm/: it takes one or a couple of forms,
+-- and decides which (non-smart) paradigm is the most likely to match.
+regNoun : Str -> Noun = \sgnom -> case sgnom of {
+  _ + "a"|"e"       => dAlma sgnom ;
+  (? | #digraph | #trigraph) + ("á"|"é") + (? | #digraph | #trigraph)  => mkNoun sgnom ;
+  _ + ("á"|"é") + ? => dMadár sgnom ;
+  _ + "é"|"ő"|"ű"   => dLó sgnom ;
+  _ + "ó"           => dTó sgnom ;
+  _ + "alom"        => dFarok sgnom ;
+  _ + "elem"        => dMajom sgnom ;
+
+  -- TODO: more non-smart paradigms + more pattern matching
+  -- TODO: smart paradigms with >1 form. Which forms are the most descriptive?
+
+  _ => mkNoun sgnom -- Fall back to the regular paradigm
+} ;
 
 --TODO: Special cases (enter these words manually to not complicate the paradigms):
 --dTó: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
@@ -164,7 +175,7 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
 --endCaseConsAcc: "falat, fület, várat, könnyet",
 --also special in superessive case "falon, fülek, vizen"
 --pattern matching in regNoun: one-syllable words that in fact belong to dMadár: "nyár, név"
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
 -- Following code by EG in 2009 (?), comments and some additions by IL 2020
 
 param
@@ -176,16 +187,6 @@ oper
   -- Vowels as a pattern.
   v : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü" |
                       "á" | "é" | "í" | "ó" | "ú" | "ő" | "ű") ;
-
-  c : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
-                      "n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z"|
-                      "cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs"|
-                      "dzs") ;
-
-  -- Only single consonants
-  unigraph : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
-                             "n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
-
   -- Digraphs
   digraph : pattern Str = #("cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs") ;
 
@@ -203,7 +204,7 @@ oper
     x + "ty" => x + "tty" ;
     x + "zs" => x + "zzs" ;
 
-    -- Base case: just duplicate the single letter
+    -- Base cacse: just duplicate the single letter
     x + s@?  => x + s + s } ;
 
   -- Function to test if a string ends in a vowel

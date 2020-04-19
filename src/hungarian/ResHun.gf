@@ -102,14 +102,18 @@ oper
     } ;
 
 --------------------------------------------------------------------------------
--- Postpositions
+-- Adpositions
 
   -- TODO: personal suffixes, e.g. felettem, általam, not *felett/által én
-  Postposition : Type = {s : Str ; c : Case} ;
+  Adposition : Type = {
+    pr : Str ; -- Preposition
+    s : Str ;  -- Postposition
+    c : Case ;
+    } ;
 
-  mkPrep : Str -> Postposition = \str -> {s=str ; c=Nom} ;
+  mkPrep : Str -> Adposition = \str -> {s=str ; c=Nom ; pr=[]} ;
 
-  emptyPP : Postposition = mkPrep [] ;
+  emptyAdp : Adposition = mkPrep [] ;
 
 ------------------
 -- Conj
@@ -144,7 +148,7 @@ oper
     s : Degree => Number => Str
     } ;
   Adjective2 : Type = Adjective ** {
-    c2 : Postposition ;
+    c2 : Adposition ;
     } ;
 
   mkAdj : Str -> Adjective = \sg -> {
@@ -274,6 +278,10 @@ oper
     "vannak"
     "lenni" ;
 
+  megvan : Verb = copula ** {
+    s = \\vf => "meg" + copula.s ! vf ;
+    } ;
+
 ------------------
 -- VP
 
@@ -326,9 +334,14 @@ oper
   Sentence : Type = {s : Str} ;
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = let rel : RClause = relVP' (np2rp np) vp ;
-         in \\t,a,p => rel.s ! t ! a ! p ! np.agr.p2 ! sc2case vp.sc
-                    ++ np.empty ; -- standard trick for prodrop+metavariable problem
+    s = \\t,a,p => let subjcase : Case = case vp.sc of {
+                                               SCNom => Nom ;
+                                               SCDat => Dat }
+                        in np.s ! subjcase
+                        ++ vp.s ! agr2vf np.agr
+                        ++ vp.obj
+                        ++ vp.adv
+                        ++ np.empty -- standard trick for prodrop+metavariable problem
     } ;
 
   -- Relative
@@ -344,12 +357,12 @@ oper
 
   relVP' : RP ** {agr : Person*Number} -> VerbPhrase -> RClause = \rp,vp -> {
     s = \\t,a,p,n,c => let subjcase : Case = case vp.sc of {
-                                               SCNom => c ;
+                                               SCNom => Nom ;
                                                SCDat => Dat }
                         in rp.s ! n ! subjcase
-                        ++ vp.s ! VFin rp.agr.p1 n -- variable by number
                         ++ vp.obj
                         ++ vp.adv
+                        ++ vp.s ! VFin rp.agr.p1 n -- variable by number
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {

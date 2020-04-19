@@ -38,10 +38,10 @@ LangHun: a sörökhöz
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumPl) (UseN beer_N))
 LangHun: a sörök alatt
 
---látom not látok 
+--látom not látok
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN beer_N)))))) NoVoc
 LangEng: I see the beer
-LangHun: én látom a söröt
+LangHun: én látom a sört
 
 --söröket not sörököt
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN beer_N)))))) NoVoc

@@ -65,8 +65,8 @@ lin few_Det = mkDet "kevés" Def Sg ; -- TODO check
 lin many_Det = mkDet "sok" Def Sg ; -- TODO check
 --lin much_Det =
 
-lin somePl_Det = mkDet "némely" Indef Pl ;
-lin someSg_Det = mkDet "némely" Indef Sg ;
+lin somePl_Det = mkDet "néhány" Indef Sg ;
+lin someSg_Det = mkDet "néhány" Indef Sg ;
 --lin no_Quant =
 
 lin that_Quant = mkQuant "az" "az" ;
@@ -215,6 +215,11 @@ lin yes_Utt = ss "igen" ;
 -- Verb
 
 lin have_V2 = datV2 copula ;
+-- uncomment if prefer def obj with megvan
+--  ** {
+--  s = table {Indef => copula.s } ;
+-- -           Def   => megvan.s } ;
+--  } ;
 {-lin can8know_VV = can_VV ; -- can (capacity)
 lin can_VV = mkVV "" ;   -- can (possibility)
 lin must_VV = mkVV "" ;
