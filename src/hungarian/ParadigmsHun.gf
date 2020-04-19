@@ -37,7 +37,8 @@ oper
 
   mkA2 : overload {
     mkA2 : Str -> Prep -> A2 ;
-    mkA2 : Str -> Case -> A2
+    mkA2 : Str -> Case -> A2 ;
+    mkA2 : A -> Prep -> A2 ;
   } ;
 
 --2 Verbs
@@ -149,10 +150,13 @@ oper
     } ;
 
   mkA2 = overload {
+    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom} ;
     mkA2 : Str -> Prep -> A2 = \s,p ->
       lin A2 {s = (mkAdj s).s ; c2 = p} ;
     mkA2 : Str -> Case -> A2 = \s,c ->
-      lin A2 {s = (mkAdj s).s ; c2 = {s = [] ; c = c}}
+      lin A2 {s = (mkAdj s).s ; c2 = casePrep c} ;
+    mkA2 : A -> Prep -> A2 = \a,p ->
+      lin A2 (a ** {c2 = p}) ;
     } ;
 
   mkV = overload {
