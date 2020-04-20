@@ -8,7 +8,10 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
 -- : Det -> CN -> NP
   DetCN det cn = emptyNP ** det ** {
-    s = \\c => det.s ! Nom ++ cn.s ! det.n ! c ;
+    s = \\c => case det.caseagr of {
+                  True  => det.s ! c ;
+                  False => det.s ! Nom
+               } ++ cn.s ! det.n ! c ;
     agr = <P3,det.n> ;
     } ;
 
@@ -46,7 +49,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 -- Determiners can form noun phrases directly.
 
   -- : Det -> NP ;
-  DetNP det = emptyNP ** {
+  DetNP det = emptyNP ** det ** {
     s = det.sp ;
     agr = <P3,det.n> ;
     } ;
@@ -134,6 +137,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
     sp = \\_,_ => pre {"a" ; "az" / v } ;
     isIndefArt = False ;
     objdef = Def ;
+    caseagr = True ;
     } ;
 
   -- : Quant
@@ -142,6 +146,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
     sp = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
     isIndefArt = True ;
     objdef = Indef ;
+    caseagr = True ;
     } ;
 
   -- : Pron -> Quant

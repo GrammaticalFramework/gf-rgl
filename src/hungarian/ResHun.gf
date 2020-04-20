@@ -47,13 +47,17 @@ oper
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
+  BaseQuant : Type = {
+    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
+    caseagr : Bool ; -- If it agrees in case: "azoknak a nőknek" vs. "sok nőknek"
+  } ;
+
   -- Quant has variable number:
   -- e.g. this_Quant has both "this" and "these"
-  Quant : Type = {
+  Quant : Type = BaseQuant ** {
     s, -- form that comes before noun: "{this} car"
     sp : Number => Case => Str ; -- independent form, "I like {this}" (DetNP)
     isIndefArt : Bool ; -- standard trick to prevent "a one car"
-    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     } ;
 
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
@@ -61,25 +65,34 @@ oper
     sp = (mkNoun sp).s ;
     isIndefArt = False ;
     objdef = Def ;
+    caseagr = True ;
     } ;
 
  -- Det is formed in DetQuant : Quant -> Num -> Det
  -- so it has an inherent number.
-  Determiner : Type = {
+  Determiner : Type = BaseQuant ** {
     s,
     sp : Case => Str ;
     n : Number ;
     numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
-    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     } ;
 
-  mkDet : (s : Str) -> ObjDef -> Number -> Determiner = \s,d,n -> {
+  mkDet : (s : Str) -> ObjDef -> Number -> Bool -> Determiner = \s,d,n,ca -> {
     s,
     sp = (mkNoun s).s ! n ;
     n = n ;
     numtype = NoNum ;
     objdef = d ;
+    caseagr = ca ;
   } ;
+
+  mkDet2 : (n,a : Str) -> ObjDef -> Number -> Bool -> Determiner = \no,ac,d,n,ca ->
+    let reg : Determiner = mkDet no d n ca
+     in reg ** {
+          s,sp = (regNounNomAcc no ac).s ! n ;
+        } ;
+
+
 
   Numeral : Type = {
     s : Place => Str ;  -- Independent or attribute

@@ -61,16 +61,20 @@ lin most_Predet = {s = ""} ;
 -}
 
 --lin every_Det =
-lin few_Det = mkDet "kevés" Def Sg ; -- TODO check
-lin many_Det = mkDet "sok" Def Sg ; -- TODO check
+lin few_Det = mkDet "kevés" Def Sg False ; -- TODO check
+lin many_Det = mkDet "sok" Def Sg False ; -- TODO check
 --lin much_Det =
 
-lin somePl_Det = mkDet "néhány" Indef Sg ;
-lin someSg_Det = mkDet "néhány" Indef Sg ;
+lin someSg_Det,
+    somePl_Det = mkDet2 "néhány" "néhányat" Indef Sg False ;
 --lin no_Quant =
 
-lin that_Quant = mkQuant "az" "az" ;
-lin this_Quant = mkQuant "ez" "ez" ;
+lin that_Quant =
+  let az : Quant = mkQuant "az" "az" ;
+   in az ** {s = \\n,c => az.s ! n ! c ++ pre {"a" ; "az" / v }} ;
+lin this_Quant =
+  let ez : Quant = mkQuant "ez" "ez" ;
+   in ez ** {s = \\n,c => ez.s ! n ! c ++ pre {"a" ; "az" / v }} ;
 {-lin which_IQuant =
 
 
