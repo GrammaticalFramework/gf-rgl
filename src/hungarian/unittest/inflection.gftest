@@ -2,6 +2,8 @@
 -- Noun inflection --
 ---------------------
 
+-- TODO: Sg Nom, Sg Acc, Pl Nom, Pl Acc, Sg Sup, Sg Com, possessed forms
+
 -- Beer
 Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN beer_N))
 LangEng: under the beer
@@ -362,3 +364,42 @@ LangHun: én látom a követ
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN stone_N)))))) NoVoc
 LangEng: I see the stones
 LangHun: én látom a köveket
+
+
+-- love_N
+
+Lang: PrepNP by8means_Prep (DetCN (DetQuant DefArt NumSg) (UseN love_N))
+LangHun: a szerelemmel
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN love_N))
+LangHun: a szerelemben
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN love_N))
+LangHun: a szerelemnél
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN love_N))
+LangHun: a szerelemhez
+
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN love_N))
+LangHun: a szerelem alatt
+
+Lang: PrepNP by8means_Prep (DetCN (DetQuant DefArt NumPl) (UseN love_N))
+LangHun: a szerelmekkel
+
+Lang: PrepNP in_Prep (DetCN (DetQuant DefArt NumPl) (UseN love_N))
+LangHun: a szerelmekben
+
+Lang: PrepNP on_Prep (DetCN (DetQuant DefArt NumPl) (UseN love_N))
+LangHun: a szerelmeknél
+
+Lang: PrepNP to_Prep (DetCN (DetQuant DefArt NumPl) (UseN love_N))
+LangHun: a szerelmekhez
+
+Lang: PrepNP under_Prep (DetCN (DetQuant DefArt NumPl) (UseN love_N))
+LangHun: a szerelmek alatt
+
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN love_N)))))) NoVoc
+LangHun: én látom a szerelmet
+
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN love_N)))))) NoVoc
+LangHun: én látom a szerelmeket
