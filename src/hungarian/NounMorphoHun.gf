@@ -61,6 +61,24 @@ oper
               } ;
         } ;
 
+    -- NB. arguments are Sg Nom, Pl Nom
+    dFalu : (nomsg : Str) -> (nompl : Str) -> Noun = \falu,falvak ->
+      let falva = init falvak ;
+          nFalva = mkNoun falva ;
+          nFalu = mkNoun falu ;
+       in {s = \\n,c => case <n,c> of {
+
+               -- All plural forms and Sg Acc, Sg Sup use the "lova" stem
+               <Pl,_>   => nFalva.s ! n ! c ;
+               -- The rest of the forms are formed with the regular constructor,
+               -- using "ló" as the stem.
+               _ => nFalu.s ! n ! c
+
+             } ;
+       } ;
+
+
+
   --Handles words like "gyomor, majom, retek" which are "gyomrot, majmot, retket" in accusative (wovel dropping base)
   --More examples: "ajak,  bokor,  cukor,  csokor,  eper,  fészek,  fodor,  gödör,  haszon,  iker,  izom,  kölyök,  köröm,  méreg,  piszok,  sarok,  selyem,  szeder,  szobor,  takony,  terem,  titok,  torok,  torony,  tükör,  vödör" ->
   --               "ajkat, bokrot, cukrot, csokrot, epret, fészket, fodrot, gödröt, hasznot, ikret, izmot, kölyköt, körmet, mérget, piszkot, sarkot, selymet, szedret, szobrot, taknyot, termet, titkot, torkot, tornyot, tükröt, vödröt"
@@ -83,14 +101,40 @@ oper
       } ;
     } ;
 
+  -- Generic constructor for cases with different stem in Sg Nom and Sg Gen.
+  -- Assumes that Sg Gen and all plurals have genitive stem, others Nom stem.
+  dToll : (nom : Str) -> (acc : Str) -> Noun = \toll,tollat ->
+    let tolla = init tollat ;
+        nTolla = mkNoun tolla ;
+        nToll = mkNoun toll ;
+     in {s = \\n,c => case <n,c> of {
+         -- All plural forms and Sg Acc use the "tolla" stem
+         <Pl,_> | <Sg,Acc> => nTolla.s ! n ! c ;
+
+         -- The rest of the forms are formed with the regular constructor,
+         -- using "majom" as the stem.
+         _ => nToll.s ! n ! c
+       }
+     } ;
+
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
   -- TODO: falu ~ falva-k (v-case)
   -- TODO: teher ~ terhet (consonant-crossing)
   -- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
 
-  -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
+  -- All regNoun* are /smart paradigms/: they take one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
+regNounNomAccPl : (nomsg, accsg, nompl : Str) -> Noun = \nsg,asg,npl ->
+  case <nsg,asg,npl> of {
+    <_ + ("u"|"ú"|"ü"|"ű"), -- falu, falvak ; odú, odvak
+     _ + ("u"|"ú"|"ü"|"ű") + "t",
+     _ + "v" +          #v + "k"> => dFalu nsg npl ;
+
+    -- Fall back to 2-argument smart paradigm
+    _ => regNounNomAcc nsg asg
+  } ;
+
 regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
   case <n,a> of {
     -- alma, almát
@@ -121,7 +165,10 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
    |<_ + "é", -- lé, levet
      _ + "e" + #c + #v + "t"> => dLó n a ;
 
-    _ => mkNoun n
+    <_ + #dupl, -- toll, tollat
+     _ + #dupl + #v + "t"> => dToll n a ;
+
+    _ => dToll n a -- Generic 2-argument constructor
   } ;
 
   regNoun : Str -> Noun = \sgnom -> case sgnom of {
@@ -177,10 +224,21 @@ oper
   v : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü" |
                       "á" | "é" | "í" | "ó" | "ú" | "ő" | "ű") ;
 
+  back : pattern Str = #("a" | "á" | "o" | "ó" | "u" | "ú") ;
+
+  front_rounded : pattern Str = #("ö" | "ő" | "ü" | "ű") ;
+
+  -- front and back rounded
+  -- rounded : pattern Str = #("ö" | "ő" | "ü" | "ű" | "o" | "ó" | "u" | "ú")
+
   c : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
                       "n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z"|
                       "cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs"|
                       "dzs") ;
+
+  dupl : pattern Str = #("bb"|"cc"|"dd"|"ff"|"gg"|"hh"|"jj"|"kk"|"ll"|"mm"|
+                         "nn"|"pp"|"qq"|"rr"|"ss"|"tt"|"vv"|"ww"|"xx"|"zz"|
+                         "ddzs"|"ccs"|"ddz"|"ggy"|"lly"|"nny"|"ssz"|"tty"|"zzs") ;
 
   -- Only single consonants
   unigraph : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
@@ -194,14 +252,15 @@ oper
 
   duplicateLast : Str -> Str = \str -> case str of {
     x + "dzs" => x + "ddzs" ;
-    x + "ny" => x + "nny" ; -- takony : takonnyal
     x + "cs" => x + "ccs" ;
     x + "dz" => x + "ddz" ;
     x + "gy" => x + "ggy" ;
     x + "ly" => x + "lly" ;
+    x + "ny" => x + "nny" ;
     x + "sz" => x + "ssz" ;
     x + "ty" => x + "tty" ;
     x + "zs" => x + "zzs" ;
+    x + #dupl => str ; -- Don't duplicate already long consonant
 
     -- Base case: just duplicate the single letter
     x + s@?  => x + s + s } ;
@@ -237,8 +296,8 @@ oper
 
   -- Function to get a harmony from a string
   getHarm : Str -> Harm = \s -> case s of {
-    _ + ("a" | "á" | "o" | "ó" | "u" | "ú") + _ => H_a ;
-    _ + ("ö" | "ő" | "ü") + _                   => H_o ;
+    _ + #back + _          => H_a ;
+    _ + #front_rounded + _ => H_o ;
     _ => H_e
     } ;
 

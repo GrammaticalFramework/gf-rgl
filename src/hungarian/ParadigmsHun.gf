@@ -19,7 +19,8 @@ oper
 
   mkN : overload {
     mkN : (sgnom : Str) -> N ; -- Predictable nouns from singular nominative. Accusative vowel is o for back harmony. No stem lowering (TODO better explanation/examples)
-    mkN : (sgnom : Str) -> (sggen : Str) -> N ; -- Singular nominative and accusative. Takes care of cases like … TODO example
+    mkN : (sgnom, sggen : Str) -> N ; -- Singular nominative and accusative. Takes care of cases like … TODO example
+    mkN : (sgnom, sggen, plnom : Str) -> N ; -- Singular nominative, singular accusative, plural nominative, e.g. `mkN "falu" "falut" "falvak"`
     mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
   } ;
 
@@ -125,6 +126,9 @@ oper
     mkN : Str -> Str -> N =
         \n,a-> lin N (regNounNomAcc n a) ;
 
+    mkN : Str -> Str -> Str -> N =
+        \n,a,pln-> lin N (regNounNomAccPl n a pln) ;
+
     mkN : Str -> Harmony -> N =
       \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;
 
@@ -164,6 +168,8 @@ oper
     mkV : (sg3 : Str) -> V = \v -> lin V (mkVerb v) ;
     -- mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
     --   s = \\vf => nore + hada.s ! vf} ;
+    mkV : (x1,_,_,_,_,_,x7 : Str) -> V = \sg1,sg2,sg3,pl1,pl2,pl3,inf ->
+      lin V (mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf) ;
   } ;
 
   copula = ResHun.copula ;
