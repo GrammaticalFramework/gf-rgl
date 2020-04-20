@@ -69,4 +69,4 @@ LangHun: én látom a macskát amit a férfinak van és amit repül
 
 -- LangEng: I am redder than the cats that those women have
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (ComparA red_A (DetCN (DetQuant DefArt NumPl) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant that_Quant NumPl) (UseN woman_N)) (SlashV2a have_V2)))))))))))) NoVoc
-LangHun: én pirosabb vagyok a macskáknál amik azoknak nőknek vannak
+LangHun: én pirosabb vagyok a macskáknál amik azoknak a nőknek vannak
