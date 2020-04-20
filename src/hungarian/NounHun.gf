@@ -68,7 +68,9 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
                  <True,True> => [] ; -- don't output "a 2 cars"
                  _           => quant.s ! num.n ! c }
             ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
-    sp = \\c => quant.sp ! num.n ! c
+    sp = \\c => case <isNum num,quant.isIndefArt> of {
+                 <True,True> => [] ;
+                 _           => quant.sp ! num.n ! c }
             ++ num.s ! Indep ;
     } ;
 
@@ -97,7 +99,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
   -- : Digits  -> Card ;
   NumDigits dig = dig ** {
     s = \\place => dig.s ! NCard ;
-    numtype = IsNum ;
+    numtype = IsDig ;
     } ;
 
   -- : Numeral -> Card ;
