@@ -1,0 +1,9 @@
+i ../../LangHun.gf
+l -treebank MassNP (UseN PLACEHOLDER)
+l -treebank PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN PLACEHOLDER)))
+l -treebank PrepNP on_Prep (MassNP (UseN PLACEHOLDER))
+l -treebank DetCN (DetQuant IndefArt NumPl) (UseN PLACEHOLDER)
+l -treebank PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN PLACEHOLDER)))
+l -treebank PrepNP to_Prep (MassNP (UseN PLACEHOLDER))
+l -treebank PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN PLACEHOLDER))
+l -treebank DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN PLACEHOLDER)
