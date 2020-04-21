@@ -406,7 +406,6 @@ lin window_N = mkN "ablak" ;
 lin wine_N = mkN "bor" ;
 lin wing_N = mkN "szárny" ;
 -- lin wipe_V2 = mkV2 "" ;
---lin woman_N = mkN "nő" "k" harmO ;
 lin woman_N = mkN "nő" "nőt" ;
 -- lin wonder_VQ = mkVQ "" ;
 lin wood_N = mkN "fa" ; --same as tree

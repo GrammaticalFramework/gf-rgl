@@ -22,23 +22,6 @@ oper
               } ;
         } ;
 
-  -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural
-  -- No special <Sg,Sup> case here
-  dMadár : (nom : Str) -> (acc : Str) -> Noun = \madár,madarat ->
-    let madara = init madarat ;
-        nMadara = mkNounHarm (getHarm madara) "k" madara ;
-        nMadár = mkNoun madár ;
-    in {s = \\n,c => case <n,c> of {
-                -- All plural forms and Sg Acc use the "madara"/"neve" stem
-                <Pl,_>|<Sg,Acc> => nMadara.s ! n ! c ;
-
-                -- The rest of the forms are formed with the regular constructor,
-                -- using "madár"/"név" as the stem.
-                _ => nMadár.s ! n ! c
-
-              } ;
-        } ;
-
   --Handles words like "ló, lé, kő" which are "lovak, levek, kövek" in plural.
   --Also handles "tó, hó" which are "tavak, havak" in plural!
   -- <Sg,Sup> "lovon" instead of "lón" fixed
@@ -102,7 +85,8 @@ oper
     } ;
 
   -- Generic constructor for cases with different stem in Sg Nom and Sg Gen.
-  -- Assumes that Sg Gen and all plurals have genitive stem, others Nom stem.
+  -- Assumes that Sg Gen and all plurals have genitive stem, others Sg Nom stem.
+  -- Handles also words like "madár, nyár, név, bogár" with shortened stem vowel in plural.
   dToll : (nom : Str) -> (acc : Str) -> Noun = \toll,tollat ->
     let tolla = init tollat ;
         nTolla = mkNoun tolla ;
@@ -112,14 +96,13 @@ oper
          <Pl,_> | <Sg,Acc> => nTolla.s ! n ! c ;
 
          -- The rest of the forms are formed with the regular constructor,
-         -- using "majom" as the stem.
+         -- using "toll" as the stem.
          _ => nToll.s ! n ! c
        }
      } ;
 
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
-  -- TODO: falu ~ falva-k (v-case)
   -- TODO: teher ~ terhet (consonant-crossing)
   -- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
 
@@ -127,8 +110,8 @@ oper
   -- and decides which (non-smart) paradigm is the most likely to match.
 regNounNomAccPl : (nomsg, accsg, nompl : Str) -> Noun = \nsg,asg,npl ->
   case <nsg,asg,npl> of {
-    <_ + ("u"|"ú"|"ü"|"ű"), -- falu, falvak ; odú, odvak
-     _ + ("u"|"ú"|"ü"|"ű") + "t",
+    <_ + ("u"|"ú"|"ü"|"ű"|"ó"), -- falu, falut, falvak ; szó, szót, szavak
+     _ + ("u"|"ú"|"ü"|"ű"|"ó") + "t",
      _ + "v" +          #v + "k"> => dFalu nsg npl ;
 
     -- Fall back to 2-argument smart paradigm
@@ -137,25 +120,21 @@ regNounNomAccPl : (nomsg, accsg, nompl : Str) -> Noun = \nsg,asg,npl ->
 
 regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
   case <n,a> of {
+
+    -- Stem 1: Sg Nom
+    -- Stem 2: Everything else
     -- alma, almát
     <_ + "a", _ + "át">
    |<_ + "e" ,_ + "ét"> => dAlma n a ;
 
+   -- Stem 1: Sg Nom
+   -- Stem 2: Sg Gen, Sg Sup, Pl *
+    <_ + #shortv + #c, -- majom, majmot
+     _ + #c + #shortv + "t"> => dMajom n a ;
 
-    <_ + "á" + #c, -- madár, madarat
-     _ + "a" + #c + #v + "t">
-
-   |<_ + "é" + #c, -- név, nevet
-     _ + "e" + #c + #v + "t">
-
-   |<_ + "í" + #c, -- víz, vizet
-     _ + "i" + #c + #v + "t"> => dMadár n a ;
-
-
-    <_ + #v + #c, -- majom, majmot
-     _ + #c + #v + "t"> => dMajom n a ;
-
-
+   -- Stem 1: Sg Nom
+   -- Stem 2: Sg Sup
+   -- Stem 3: Sg Gen, Pl *
     <_ + "ó", -- ló, lovat
      _ + "o" + #c + #v + "t">
 
@@ -165,16 +144,18 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
    |<_ + "é", -- lé, levet
      _ + "e" + #c + #v + "t"> => dLó n a ;
 
-    <_ + #dupl, -- toll, tollat
-     _ + #dupl + #v + "t"> => dToll n a ;
-
+    -- Stem 1: Sg Nom, Sg * - [Gen]
+    -- Stem 2: Sg Gen, Pl *
     _ => dToll n a -- Generic 2-argument constructor
   } ;
 
+  -- 1-argument smart paradigm
+  -- Here we guess the genitive form and give it to appropriate 2-arg paradigm
   regNoun : Str -> Noun = \sgnom -> case sgnom of {
     _  + ("a"|"e")         => dAlma sgnom (lengthen sgnom + "t") ;
-    #c + ("á"|"é") + #c    => mkNoun sgnom ;
-    _  + ("á"|"é") + #c    => dMadár sgnom (név2nevet sgnom) ;
+    ("nyár"|"név")         => dToll sgnom (név2nevet sgnom) ;
+    (#c|"")+("á"|"é")+ #c  => mkNoun sgnom ;
+    _  + ("á"|"é") + #c    => dToll sgnom (név2nevet sgnom) ;
     _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
     _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
     _ => mkNoun sgnom -- Fall back to the regular paradigm
@@ -205,12 +186,10 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
   } ;
 
 --TODO: Special cases (enter these words manually to not complicate the paradigms):
---dTó: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
 --dLó: special case <Sg,Sup> "lén" not "leven"
---dLó: <Sg,Sup> also "kövön" not "köven", but that is due to H_e, which is needed for "köveket" so it's conflicting
+
 --endCaseConsAcc: "falat, fület, várat, könnyet",
 --also special in superessive case "falon, fülek, vizen"
---pattern matching in regNoun: one-syllable words that in fact belong to dMadár: "nyár, név"
 --------------------------------------------------------------------------------
 -- Following code by EG in 2009 (?), comments and some additions by IL 2020
 
@@ -223,6 +202,7 @@ oper
   -- Vowels as a pattern.
   v : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü" |
                       "á" | "é" | "í" | "ó" | "ú" | "ő" | "ű") ;
+  shortv : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü") ;
 
   back : pattern Str = #("a" | "á" | "o" | "ó" | "u" | "ú") ;
 
@@ -297,7 +277,7 @@ oper
   -- Function to get a harmony from a string
   getHarm : Str -> Harm = \s -> case s of {
     _ + #back + _          => H_a ;
-    _ + #front_rounded + _ => H_o ;
+    _ + #front_rounded + (#c|"") + (#c|"") => H_o ;
     _ => H_e
     } ;
 
