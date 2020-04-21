@@ -142,8 +142,8 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   -- : Quant
   IndefArt = {
-    s,
-    sp = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
+    s = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
+    sp = \\n,_ => case n of {Sg => "egy" ; Pl => "sok"} ;
     isIndefArt = True ;
     objdef = Indef ;
     caseagr = True ;
