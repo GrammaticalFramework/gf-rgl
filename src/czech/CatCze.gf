@@ -7,7 +7,7 @@ concrete CatCze of Cat =
     Text = {s : Str} ;
     Phr = {s : Str} ;
     Utt = {s : Str} ;
-    
+
     S   = {s : Str} ;
     Cl  = {subj,clit,compl : Str ; verb : VerbForms ; a : Agr} ;
     Comp = {s : Agr => Str} ;
@@ -28,17 +28,17 @@ concrete CatCze of Cat =
     A  = ResCze.AdjForms ;
     AP = ResCze.Adjective ** {isPost : Bool} ; -- {s : Gender => Number => Case => Str}
     A2 = ResCze.AdjForms ** {c : ComplementCase} ;
-    
+
     AdA = {s : Str} ;
 
     N  = ResCze.NounForms ;
     CN = ResCze.Noun ;      -- {s : Number => Case => Str ; g : Gender}
     NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit : Bool} ; -- clit,prep differ for pronouns
-    PN = {s : Case => Str ; g : Gender} ; 
+    PN = {s : Case => Str ; g : Gender} ;
     Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; -- can contain a numeral, therefore NumSize
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;
-    Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; 
+    Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
     Pron = PronForms ;
 
     Adv  = {s : Str} ;
@@ -46,9 +46,9 @@ concrete CatCze of Cat =
     Conj = {s1,s2 : Str} ; ---- may need a number
 
     Pol = {s : Str ; p : Bool} ;
-    Temp = {s : Str ; t : CTense} ; 
+    Temp = {s : Str ; t : CTense} ;
     Tense = {s : Str ; t : CTense} ;
-    Ant = {s : Str ; t : CTense} ; 
+    Ant = {s : Str ; t : CTense} ;
 
     PConj = {s : Str} ;
     Voc = {s : Str} ;
