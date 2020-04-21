@@ -45,6 +45,7 @@ oper
         } ;
 
     -- NB. arguments are Sg Nom, Pl Nom
+    -- handles words like: falu, daru, tetű -> falvak, darvak, tetvek
     dFalu : (nomsg : Str) -> (nompl : Str) -> Noun = \falu,falvak ->
       let falva = init falvak ;
           nFalva = mkNoun falva ;
@@ -138,8 +139,14 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
     <_ + "ó", -- ló, lovat
      _ + "o" + #c + #v + "t">
 
+   |<_ + "ó", -- tó, tavat
+     _ + "a" + #c + #v + "t">
+
    |<_ + "ő", -- kő, követ
      _ + "ö" + #c + #v + "t">
+
+   |<_ + "ű", -- fű, füvet
+     _ + "ü" + #c + #v + "t">
 
    |<_ + "é", -- lé, levet
      _ + "e" + #c + #v + "t"> => dLó n a ;
