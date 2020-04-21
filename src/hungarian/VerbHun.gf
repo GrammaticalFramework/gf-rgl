@@ -109,8 +109,8 @@ lin
   -- : AP  -> Comp ;
   CompAP ap = UseCopula ** {
     s = \\vf => case vf of {
-                  VFin P3 n => ap.s ! n ;
-                  VFin _  n => ap.s ! n  ++ copula.s ! vf ;
+                  VPres P3 n => ap.s ! n ;
+                  VPres _  n => ap.s ! n  ++ copula.s ! vf ;
                   _         => ap.s ! Sg ++ copula.s ! vf}
              ++ ap.compar ;
     } ;
@@ -118,15 +118,15 @@ lin
   -- : CN  -> Comp ;
   CompCN cn = UseCopula ** {
     s = \\vf => case vf of {
-                  VFin P3 n => cn.s ! n ! Nom ;
-                  VFin _  n => cn.s ! n ! Nom  ++ copula.s ! vf ;
+                  VPres P3 n => cn.s ! n ! Nom ;
+                  VPres _  n => cn.s ! n ! Nom  ++ copula.s ! vf ;
                   _         => cn.s ! Sg ! Nom ++ copula.s ! vf} ;
     } ;
 
   -- : NP  -> Comp ;
   CompNP np = UseCopula ** {
     s = \\vf => case vf of {
-                  VFin P3 _ => np.s ! Nom ;
+                  VPres P3 _ => np.s ! Nom ;
                   _ => np.s ! Nom ++ copula.s ! vf } ;
     } ;
 

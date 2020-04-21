@@ -249,7 +249,7 @@ oper
 
   vtov2 : Verb -> Verb2 = \v -> v ** {
     s = table {
-          Def => let vDef : Verb = mkVerbReg endingsDef (v.s ! VInf) (v.s ! VFin P3 Sg)
+          Def => let vDef : Verb = mkVerbReg endingsDef (v.s ! VInf) (v.s ! VPres P3 Sg)
                   in vDef.s ;
           Indef => v.s } ;
     c2 = Acc
@@ -272,12 +272,12 @@ oper
     \sg1,sg2,sg3,pl1,pl2,pl3,inf -> {
       s = table {
         VInf => inf ;
-        VFin P1 Sg => sg1 ;
-        VFin P2 Sg => sg2 ;
-        VFin P3 Sg => sg3 ;
-        VFin P1 Pl => pl1 ;
-        VFin P2 Pl => pl2 ;
-        VFin P3 Pl => pl3
+        VPres P1 Sg => sg1 ;
+        VPres P2 Sg => sg2 ;
+        VPres P3 Sg => sg3 ;
+        VPres P1 Pl => pl1 ;
+        VPres P2 Pl => pl2 ;
+        VPres P3 Pl => pl3
       } ;
       sc = SCNom
     } ;
@@ -351,6 +351,7 @@ oper
                                                SCNom => Nom ;
                                                SCDat => Dat }
                         in np.s ! subjcase
+                        ++ if_then_Pol p [] "nem"
                         ++ vp.s ! agr2vf np.agr
                         ++ vp.obj
                         ++ vp.adv
@@ -373,9 +374,10 @@ oper
                                                SCNom => Nom ;
                                                SCDat => Dat }
                         in rp.s ! n ! subjcase
+                        ++ if_then_Pol p [] "nem"
                         ++ vp.obj
                         ++ vp.adv
-                        ++ vp.s ! VFin rp.agr.p1 n -- variable by number
+                        ++ vp.s ! VPres rp.agr.p1 n -- variable by number
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {

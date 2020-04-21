@@ -1,6 +1,13 @@
 resource ParamHun = ParamX ** open Prelude in {
 
 --------------------------------------------------------------------------------
+-- Generic
+
+oper
+  if_then_Pol : Polarity -> Str -> Str -> Str = \p,t,f ->
+    case p of {Pos => t ; Neg => f } ;
+
+--------------------------------------------------------------------------------
 -- Phonology
 
 --------------------------------------------------------------------------------
@@ -88,13 +95,13 @@ param
 
   VForm =
       VInf
-    | VFin Person Number ;
+    | VPres Person Number ;
 
 oper
 
   agr2vf : Person*Number -> VForm = \pn ->
     case <pn.p1,pn.p2> of {
-      <p,n> => VFin p n
+      <p,n> => VPres p n
     } ;
 
 --------------------------------------------------------------------------------
