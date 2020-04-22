@@ -58,7 +58,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
 -- ``` Predet (QuantSg | QuantPl Num) Ord
 -- as defined in NounHun.
 
-    CN = ResHun.Noun ;
+    CN = ResHun.CNoun ;
     NP = ResHun.NounPhrase ;
     Pron = ResHun.Pronoun ; --Pronouns need enough info to turn it into NP or Quant.
     Det = ResHun.Determiner ;
@@ -117,5 +117,8 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
     N2,
     N3 = ResHun.Noun ;
     PN = ResHun.NounPhrase ;
+
+linref
+   CN = linCN ;
 
 }

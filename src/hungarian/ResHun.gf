@@ -13,10 +13,15 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 -- Noun morphology is in NounMorphoHun
 
 oper
+  CNoun : Type = Noun ** {
+    rs : Number => Case => Str ;
+    } ;
+
   BaseNP : Type = {
     agr : Person*Number ;
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
+    h : Harm ;
     } ;
 
   NounPhrase : Type = BaseNP ** {
@@ -28,6 +33,7 @@ oper
     agr = <P3,Sg> ;
     objdef = Indef ;
     empty = [] ;
+    h = H_e ;
     } ;
 
   indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
@@ -37,6 +43,8 @@ oper
     n = n ;
     objdef = Def ;
     } ;
+
+  linCN : CNoun -> Str = \cn -> cn.s ! Sg ! Nom ++ cn.rs ! Sg ! Nom ;
 --------------------------------------------------------------------------------
 -- Pronouns
 
