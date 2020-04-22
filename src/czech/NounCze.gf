@@ -64,7 +64,7 @@ lin
       } ;
 
     AdjCN ap cn = {
-      s = \\n,c => ap.s ! cn.g ! n ! c ++ cn.s ! n ! c ;
+      s = \\n,c => preOrPost (notB ap.isPost) (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
       g = cn.g
       } ;
 
@@ -77,21 +77,21 @@ lin
       s = \\n,c => cn.s ! n ! c ++ adv.s ;
       g = cn.g
       } ;
-      
+
     AdvNP np adv = {
       s,clit = \\c => np.s ! c ++ adv.s ;
       prep = \\c => np.prep ! c ++ adv.s ;
       a = np.a ;
       hasClit = False ;
       } ;
-      
+
     UseN n = nounFormsNoun n ;
 
     ApposCN cn np = {
       s = \\n,c => cn.s ! n ! c ++ np.s ! c ; ---- TODO check apposition order
       g = cn.g
       } ;
-      
+
     NumCard c = c ;
     NumDigits ds = ds ** {s = \\_,_ => ds.s} ;
     NumNumeral nu = nu ;
