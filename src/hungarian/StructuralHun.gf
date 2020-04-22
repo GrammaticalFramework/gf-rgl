@@ -94,25 +94,25 @@ lin something_NP = defNP "valami" Sg ;
 
 -- List of postpositions requiring case:
 -- https://en.wiktionary.org/wiki/Appendix:Hungarian_postpositions#Postpositions_Requiring_Case
-lin above_Prep = mkPrep "fölött" ;
+lin above_Prep = nomAdp "fölött" ;
 -- lin after_Prep = mkPrep ""
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep "" ;
 -- lin between_Prep = = mkPrep "" ;
-lin by8agent_Prep = mkPrep "által" ;
-lin by8means_Prep = casePrep Ins ;
+lin by8agent_Prep = nomAdp "által" ;
+lin by8means_Prep = caseAdp Ins ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
-lin for_Prep = casePrep Dat ;
+lin for_Prep = caseAdp Dat ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep "" ;
-lin in_Prep = casePrep Ine ;
-lin on_Prep = casePrep Sup ;
+lin in_Prep = caseAdp "ban" "ben" ;
+lin on_Prep = caseAdp Sup ;
 -- lin part_Prep = casePrep  ;
 -- lin possess_Prep = -- Suffix attaches to possessee, not possessor
 -- lin through_Prep = mkPrep ;
-lin to_Prep = casePrep All ;
-lin under_Prep = mkPrep "alatt" ;
+lin to_Prep = caseAdp "hoz" "hez" "höz"  ;
+lin under_Prep = nomAdp "alatt" ;
 -- lin with_Prep = mkPrep "" ;
 -- lin without_Prep = mkPrep "" ;
 

@@ -120,13 +120,35 @@ oper
   -- TODO: personal suffixes, e.g. felettem, általam, not *felett/által én
   Adposition : Type = {
     pr : Str ; -- Preposition
-    s : Str ;  -- Postposition
+    s : HarmForms ;  -- Postposition
     c : Case ;
     } ;
 
-  mkPrep : Str -> Adposition = \str -> {s=str ; c=Nom ; pr=[]} ;
+  nomAdp : Str -> Adposition = \s -> postpos Nom (harm1 s) ;
 
-  emptyAdp : Adposition = mkPrep [] ;
+  caseAdp = overload {
+    caseAdp : Case -> Adposition = \c -> postpos c (harm1 []) ;
+    caseAdp : Case -> Str -> Adposition = \c,s -> postpos c (harm1 s) ;
+    caseAdp : Str -> Adposition = \ért ->
+      postpos OblStem (harm1 ért) ;
+    caseAdp : (x,y : Str) -> Adposition = \nál,nél ->
+      postpos OblStem (harm nál nél) ;
+    caseAdp : (x,y,z : Str) -> Adposition = \hoz,hez,höz ->
+      postpos OblStem (harm3 hoz hez höz)
+  } ;
+  postpos : Case -> HarmForms -> Adposition = \c,h-> {s=h ; c=c ; pr=[]} ;
+  prepos : Case -> Str -> Adposition = \c,s -> {s=harm1 [] ; c=c ; pr=s} ;
+
+  emptyAdp : Adposition = nomAdp [] ;
+
+  applyAdp : Adposition -> NounPhrase -> Str = \adp,np ->
+    adp.pr ++ glueIf adp.c (np.s ! adp.c) (adp.s ! np.h) ;
+
+  glueIf : Case -> (_,_ : Str) -> Str = \cas,a,b ->
+    case cas of {
+      OblStem => glue a b ;
+      _ => a ++ b
+    } ;
 
 ------------------
 -- Conj

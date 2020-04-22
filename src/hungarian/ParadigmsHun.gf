@@ -90,7 +90,7 @@ oper
     } ;
 
   prePrep : Str -> Case -> Prep -- Preposition
-    = \s,c -> lin Prep {pr=s ; s=[] ; c=c} ;
+    = \s,c -> lin Prep (ResHun.prepos c s) ;
 
   casePrep : Case -> Prep ; -- No postposition, only case
 
@@ -190,13 +190,13 @@ oper
 
   mkPrep = overload {
     mkPrep : (e : Str) -> Prep
-      = \str -> lin Prep (ResHun.mkPrep str) ;
+      = \str -> lin Prep (ResHun.nomAdp str) ;
     mkPrep : Str -> Case -> Prep
-      = \str,c -> lin Prep (ResHun.mkPrep str ** {c = c}) ;
+      = \str,c -> lin Prep (ResHun.caseAdp c str) ;
     } ;
 
   casePrep : Case -> Prep
-    = \c -> lin Prep (ResHun.mkPrep [] ** {c = c}) ;
+    = \c -> lin Prep (ResHun.caseAdp c) ;
 --------------------------------------------------------------------------------
 
 }
