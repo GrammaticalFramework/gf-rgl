@@ -33,7 +33,8 @@ oper
 --2 Adjectives
 
   mkA : overload {
-    mkA : (adj : Str) -> A ; -- Regular adjective, given in ??? form
+    mkA : (sgnom : Str) -> A ; -- Regular adjective, given in singular nominative
+    mkA : (sgnom, sgacc : Str) -> A ; -- Singular nominative and accusative
     -- mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
   } ;
 
@@ -149,7 +150,8 @@ oper
     } ;
 
   mkA = overload {
-    mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
+    mkA : (sgnom : Str) -> A = \s -> lin A (mkAdj s) ;
+    mkA : (sgnom,sgacc : Str) -> A = \s,_ -> lin A (mkAdj s) ; -- TODO
     -- mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
     --   jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
     } ;
