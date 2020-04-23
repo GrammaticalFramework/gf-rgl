@@ -11,7 +11,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
     s = \\c => case det.caseagr of {
                   True  => det.s ! c ;
                   False => det.s ! Nom
-               } ++ caseFromStem True c cn det.n
+               } ++ caseFromStem glue cn c det.n
                  ++ cn.compl ! det.n ! c ;
     agr = <P3,det.n> ;
     } ;
@@ -57,7 +57,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   -- : CN -> NP ;
   MassNP cn = emptyNP ** {
-    s = \\c => caseFromStem True c cn Sg ++
+    s = \\c => caseFromStem glue cn c Sg ++
                cn.compl ! Sg ! c ;
     agr = <P3,Sg> ;
     } ;

@@ -18,20 +18,20 @@ oper
     } ;
 
   mkCaseNoun : Str -> Number => Case => Str = \s ->
-    \\n,c => caseFromStem False c (mkNoun s) n ;
+    \\n,c => caseFromStem (\a,b -> a+b) (mkNoun s) c n ;
   mkCaseNoun2 : (n,a : Str) -> Number => Case => Str = \no,ac ->
-    \\n,c => caseFromStem False c (regNounNomAcc no ac) n ;
+    \\n,c => caseFromStem (\a,b -> a+b) (regNounNomAcc no ac) c n ;
 
-  caseFromStem : Bool -> Case -> Noun -> Number -> Str = \usebind,cas,cn,n ->
+  caseFromStem : (Str->Str->Str) -> Noun -> Case -> Number -> Str = \bind,cn,cas,n ->
     case <n,cas> of {
       <Sg,Nom> => cn.s ! SgNom ;
-      <Sg,Acc> => cn.s ! SgAcc ;
+      <Sg,Acc> => bind (cn.s ! SgAccStem) "t" ;
       <Sg,Sup> => cn.s ! SgSup ;
       <Pl,Acc> => cn.s ! PlAcc ;
       <Pl,Nom> => cn.s ! PlStem ;
-      <Sg,Ins|Tra> => glueIf usebind (cn.s ! SgInsStem) (endCase cas ! cn.h) ;
-      <Pl,Ins|Tra> => glueIf usebind (glue (cn.s ! PlStem) "k") (endCase cas ! cn.h) ;
-      _   => applyOblCase usebind (endCase cas) n cn
+      <Sg,Ins|Tra> => bind (cn.s ! SgInsStem) (endCase cas ! cn.h) ;
+      <Pl,Ins|Tra> => bind (bind (cn.s ! PlStem) "k") (endCase cas ! cn.h) ;
+      _   => applyOblCase bind (endCase cas) n cn
       } ;
 
   BaseNP : Type = {
@@ -162,14 +162,11 @@ oper
   applyAdp : Adposition -> NounPhrase -> Str = \adp,np ->
     adp.pr ++ np.s ! adp.c ++ adp.s ;
 
-  applyOblCase : Bool -> HarmForms -> Number -> Noun -> Str =
-   \usebind,adp,n,np ->
+  applyOblCase : (Str->Str->Str) -> HarmForms -> Number -> Noun -> Str =
+   \bind,adp,n,np ->
     let stem : NumCaseStem = case n of {
           Sg => SgStem ; Pl => PlStem } ;
-     in glueIf usebind (np.s ! stem) (adp ! np.h) ;
-
-  glueIf : Bool -> (_,_ : Str) -> Str = \f,a,b ->
-    if_then_Str f (glue a b) (a + b) ;
+     in bind (np.s ! stem) (adp ! np.h) ;
 
 ------------------
 -- Conj

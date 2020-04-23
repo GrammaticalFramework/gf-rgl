@@ -21,7 +21,7 @@ oper
 param
 
   NumCaseStem =
-    SgNom | SgAcc | SgSup -- These may use 2-3 different stems
+    SgNom | SgAccStem | SgSup -- These may use 2-3 different stems
   | PlAcc  -- May have irregular vowel in suffix
   | SgInsStem -- Instrumental and translative: -v after vowels
   | SgStem  -- Rest of the cases in Sg

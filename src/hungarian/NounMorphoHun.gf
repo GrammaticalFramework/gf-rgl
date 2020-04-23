@@ -35,7 +35,7 @@ oper
          s = \\nc => case nc of {
 
                 -- All plural forms and Sg Acc, Sg Sup use the "lova" stem
-                PlStem | PlAcc | SgAcc => nLova.s ! nc ;
+                PlStem | PlAcc | SgAccStem => nLova.s ! nc ;
                 SgSup => nLov.s ! nc ;
 
                 -- The rest of the forms are formed with the regular constructor,
@@ -75,7 +75,7 @@ oper
     in nMajmo ** {
          s = \\nc => case nc of {
             -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
-            PlStem | PlAcc | SgAcc => nMajmo.s ! nc ;
+            PlStem | PlAcc | SgAccStem => nMajmo.s ! nc ;
             SgSup => nMajmo.s ! nc ;
 
             -- The rest of the forms are formed with the regular constructor,
@@ -94,7 +94,7 @@ oper
      in nTolla ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
-             PlStem | PlAcc | SgAcc => nTolla.s ! nc ;
+             PlStem | PlAcc | SgAccStem => nTolla.s ! nc ;
 
              -- The rest of the forms are formed with the regular constructor,
              -- using "toll" as the stem.
@@ -303,27 +303,29 @@ oper
   -- Variant of case forms when the noun stem ends in consonant.
   endCaseCons : NumCaseStem -> HarmForms = \c -> case c of {
     SgSup => harm3 "on" "en" "ön" ;
-    SgAcc|PlAcc => harm3 "ot" "et" "öt" ;
+    PlAcc => harm3 "ot" "et" "öt" ;
+    SgAccStem => harm3 "o" "e" "ö" ;
     _ => harm1 []
     } ;
 
 
   -- Variant where accusative has the allomorph -at
   endCaseConsAccAt : NumCaseStem -> HarmForms = \c -> case c of {
-    SgAcc|PlAcc => harm3 "at" "et" "öt" ;
+    SgAccStem => harm3 "a" "e" "ö" ;
+    PlAcc => harm3 "at" "et" "öt" ;
     _   => endCaseCons c
     } ;
 
   -- Variant where accusative has the allomorph -t for consonants
   -- Examples: "pénz, bor, orr, szín, lány, kés, dal"
   endCaseConsAcc : NumCaseStem -> HarmForms = \c -> case c of {
-    SgAcc => harm1 "t" ;
+    SgAccStem => harm1 "" ;
     _   => endCaseCons c
   } ;
 
   -- Variant of case forms when the noun stem ends in vowel.
   endCaseVow : NumCaseStem -> HarmForms = \c -> case c of {
-    SgAcc => harm1 "t" ;
+    SgAccStem => harm1 "" ;
     SgSup => harm1 "n" ;
     SgInsStem => harm1 "v" ;
     -- Other forms are shared with endCaseCons.
