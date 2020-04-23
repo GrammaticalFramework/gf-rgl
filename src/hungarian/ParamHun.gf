@@ -26,7 +26,11 @@ param
   | SgInsStem -- Instrumental and translative: -v after vowels
   | SgStem  -- Rest of the cases in Sg
   | PlStem  -- Rest of the cases in Pl
-  ;
+  | PossdSg_PossrP3 -- Possessed item is Sg, possessor is Sg or Pl P3
+  | PossdSg_PossrPl1 -- Possessed item is Sg, possessor is Pl P1
+  | PossdPl -- Possessed item in plural, any possessor.
+  ;         -- Rest of poss forms use SgAccStem
+
 
   Case =
     Nom | Acc | Dat

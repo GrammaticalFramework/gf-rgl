@@ -17,6 +17,8 @@ oper
                 -- Singular nominative uses the given form, e.g. "alma" or "kefe"
                 SgNom => alma ;
 
+                PossdSg_PossrP3 => almá + "j" ;
+
                 -- The rest of the forms are formed with the regular constructor,
                 -- using "almá" or "kefé" as the stem.
                 _ => nAlmá.s ! nc }
@@ -34,13 +36,22 @@ oper
     in nLova ** {
          s = \\nc => case nc of {
 
-                -- All plural forms and Sg Acc, Sg Sup use the "lova" stem
-                PlStem | PlAcc | SgAccStem => nLova.s ! nc ;
-                SgSup => nLov.s ! nc ;
+              -- All plural forms and Sg Acc use the "lova" stem
+              PlStem | PlAcc | SgAccStem
+               => nLova.s ! nc ;
 
-                -- The rest of the forms are formed with the regular constructor,
-                -- using "ló" as the stem.
-                _ => nLó.s ! nc }
+              SgSup | -- Sg Sup has vowel o/ö, not a/e
+              PossdSg_PossrP3 -- Consonant stem before P3 suffixes
+               => nLov.s ! nc ;
+
+              PossdSg_PossrPl1 -- Round vowel, part of Pl1 suffix
+               => lov + harm "u" "ü" ! nLov.h ;
+
+              PossdPl => lova + "i" ;
+
+              -- The rest of the forms are formed with the regular constructor,
+              -- using "ló" as the stem.
+              _ => nLó.s ! nc }
          } ;
 
     -- NB. arguments are Sg Nom, Pl Nom
@@ -55,8 +66,15 @@ oper
                -- All plural forms and Sg Acc, Sg Sup use the "falu" stem
                PlStem | PlAcc => nFalva.s ! nc ;
 
+               -- The plural morpheme before possessive suffixes is i
+               PossdPl => nFalu.s ! nc + "i" ;
+
+               -- The form before P3 possessive suffixes: faluj|a, faluj|uk
+               -- Forms before other possessive suffixes follow SgAccStem.
+               PossdSg_PossrP3 => nFalu.s ! nc + "j" ;
+
                -- The rest of the forms are formed with the regular constructor,
-               -- using "ló" as the stem.
+               -- using "falu" as the stem.
                _ => nFalu.s ! nc }
             } ;
 
@@ -74,9 +92,18 @@ oper
         nMajom = mkNoun majom ;
     in nMajmo ** {
          s = \\nc => case nc of {
-            -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
-            PlStem | PlAcc | SgAccStem => nMajmo.s ! nc ;
-            SgSup => nMajmo.s ! nc ;
+
+            SgSup -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
+          | PlAcc
+          | PlStem
+          | SgAccStem => nMajmo.s ! nc ;
+
+            -- The plural morpheme before possessive suffixes: majmai
+            PossdPl => majm + harm "a" "e" ! nMajmo.h + "i" ;
+
+            -- The form before P3 possessive suffixes: majm|a, majm|uk
+            -- Forms before other possessive suffixes follow SgAccStem.
+            PossdSg_PossrP3 => majm ;
 
             -- The rest of the forms are formed with the regular constructor,
             -- using "majom" as the stem.
@@ -91,10 +118,22 @@ oper
     let tolla = init tollat ;
         nTolla = mkNoun tolla ;
         nToll = mkNoun toll ;
+        diákj : Str = case tolla of {
+                x + #v => x ;
+                x + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
+                |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz") => tolla ;
+                _      => tolla + "j" } ;
      in nTolla ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
              PlStem | PlAcc | SgAccStem => nTolla.s ! nc ;
+
+             PossdSg_PossrPl1 => diákj + harm "u" "ü" ! nToll.h ;
+
+             PossdSg_PossrP3 => diákj ;
+
+             -- The plural morpheme before possessive suffixes: madarai
+             PossdPl => diákj + harm "a" "e" ! nToll.h + "i" ;
 
              -- The rest of the forms are formed with the regular constructor,
              -- using "toll" as the stem.
@@ -305,6 +344,7 @@ oper
     SgSup => harm3 "on" "en" "ön" ;
     PlAcc => harm3 "ot" "et" "öt" ;
     SgAccStem => harm3 "o" "e" "ö" ;
+    PossdPl => harm1 "i" ; -- TODO figure out allomorphs
     _ => harm1 []
     } ;
 
