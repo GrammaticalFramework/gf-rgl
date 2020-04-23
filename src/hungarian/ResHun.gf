@@ -29,12 +29,23 @@ oper
       <Sg,Acc> => bind (cn.s ! SgAccStem) "t" ;
       <Sg,Sup> => cn.s ! SgSup ;
       <Pl,Acc> => cn.s ! PlAcc ;
-      <Pl,Nom> => cn.s ! PlStem ;
+      <Pl,Nom> => cn.s ! PlStem ; -- don't use applyCase', it adds a BIND which breaks everything!
       <Sg,Ins|Tra> => applyCase' SgInsStem ;
       <Pl,Ins|Tra> => bind (bind (cn.s ! PlStem) "k") (endCase cas ! cn.h) ;
       <Sg,_>   => applyCase' SgStem ;
       <Pl,_>   => applyCase' PlStem
       } ;
+
+  caseFromPossStem : Noun -> Determiner -> Case -> Str = \cn,det,cas ->
+    let stem : NumCaseStem = case <det.n,det.dt> of {
+          <Sg,DetPoss st> => case st of {
+                                dSg_rSg1P2 => SgAccStem ;
+                                dSg_rP3    => PossdSg_PossrP3 ;
+                                dSg_rPl1   => PossdSg_PossrPl1 } ;
+          <Pl,DetPoss _>  => PossdPl ;
+          _ => Predef.error "caseFromPossStem: Trying to apply to non-possessive Det"
+        } ;
+     in applyCaseSuf (det.poss ! cn.h) cas cn stem ;
 
   BaseNP : Type = {
     agr : Person*Number ;
@@ -82,6 +93,7 @@ oper
 -- Det, Quant, Card, Ord
 
   BaseQuant : Type = {
+    poss : HarmForms ; -- Quants made by PossPron need this, empty for others
     objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     caseagr : Bool ; -- If it agrees in case: "azoknak a nőknek" vs. "sok nőknek"
   } ;
@@ -97,9 +109,10 @@ oper
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
     s = mkCaseNoun s ;
     sp = mkCaseNoun sp ;
-    qt = Article ;
+    qt = Other ;
     objdef = Def ;
     caseagr = True ;
+    poss = harm1 [] ;
     } ;
 
  -- Det is formed in DetQuant : Quant -> Num -> Det
@@ -108,7 +121,8 @@ oper
     s,
     sp : Case => Str ;
     n : Number ;
-    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
+--    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
+    dt : DetType ;
     } ;
 
   mkDet : (s : Str) -> ObjDef -> Number -> Bool -> Determiner = \s,d,n,ca -> {
@@ -118,6 +132,8 @@ oper
     numtype = NoNum ;
     objdef = d ;
     caseagr = ca ;
+    dt = NoPoss ;
+    poss = harm1 [] ;
   } ;
 
   mkDet2 : (n,a : Str) -> ObjDef -> Number -> Bool -> Determiner = \no,ac,d,n,ca ->
@@ -173,7 +189,11 @@ oper
     adp.pr ++ np.s ! adp.c ++ adp.s ;
 
   applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
-   \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
+    \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
+
+  applyCaseSuf : Str -> Case -> Noun -> NumCaseStem -> Str =
+    \suf,cas,cn,stem -> glue (glue (cn.s ! stem) suf) (endCase cas ! cn.h) ;
+
 
 ------------------
 -- Conj

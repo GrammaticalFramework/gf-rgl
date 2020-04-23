@@ -17,7 +17,19 @@ oper
 -- Quant
 
 param
-  QuantType = Possessive | Article ;
+  QuantType =
+    Article  -- Needed to prevent "a 2 cars"
+  | Other    -- Not poss, not article
+  | QuantPoss PossStem -- Which possessive stem it takes
+  ;
+
+  DetType =
+    NoPoss  -- distinction between Article and Other no longer needed
+  | DetPoss PossStem -- Sill need to know which stem it takes if Poss
+  ;
+
+  -- Singular stems. Plural is always same, no need to add here.
+  PossStem = dSg_rSg1P2 | dSg_rP3 | dSg_rPl1 ;
 
 oper
   -- standard trick to prevent "a one car"
@@ -25,6 +37,13 @@ oper
     case <quant.qt,quant.objdef> of {
       <Article,Indef> => True ;
       _               => False
+    } ;
+
+  agr2PossStem : Person*Number -> PossStem = \pn ->
+    case <pn.p1,pn.p2> of {
+      <P1,Pl> => dSg_rPl1 ;
+      <P3,_>  => dSg_rP3 ;
+      _       => dSg_rSg1P2
     } ;
 
 --------------------------------------------------------------------------------
@@ -55,8 +74,6 @@ param
   ;
 
   SubjCase = SCNom | SCDat ; -- Limited set of subject cases
-
-  Possessor = NoPoss | Poss Number Person ;
 
 oper
 

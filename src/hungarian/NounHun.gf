@@ -8,10 +8,14 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
 -- : Det -> CN -> NP
   DetCN det cn = emptyNP ** det ** {
-    s = \\c => case det.caseagr of {
+    s = \\c =>
+      let foo : Str = case det.dt of {
+        NoPoss => caseFromStem glue cn c det.n ;
+        DetPoss _ => caseFromPossStem cn det c } ;
+      in case det.caseagr of {
                   True  => det.s ! c ;
                   False => det.s ! Nom
-               } ++ caseFromStem glue cn c det.n
+               } ++ foo
                  ++ cn.compl ! det.n ! c ;
     agr = <P3,det.n> ;
     } ;
@@ -77,6 +81,8 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
                  <True,True> => [] ;
                  _           => quant.sp ! num.n ! c }
             ++ num.s ! Indep ;
+    dt = case quant.qt of { QuantPoss stem => DetPoss stem ;
+                            _              => NoPoss } ;
     } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
@@ -134,28 +140,28 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
   -- OrdNumeralSuperl num a = num ** {  } ;
 
   -- : Quant
-  DefArt = {
+  DefArt = mkQuant "a" "a" ** {
     s,
     sp = \\_,_ => pre {"a" ; "az" / v } ;
     qt = Article ;
     objdef = Def ;
-    caseagr = True ;
     } ;
 
   -- : Quant
-  IndefArt = {
+  IndefArt = mkQuant "egy" [] ** {
     s = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
     sp = \\n,_ => case n of {Sg => "egy" ; Pl => "sok"} ;
     qt = Article ;
     objdef = Indef ;
-    caseagr = True ;
     } ;
 
   -- : Pron -> Quant
-  -- PossPron pron =
-  --   let p = pron.poss ;
-  --    in DefArt ** {
-  --       } ;
+  PossPron pron = pron ** {
+    s,sp = \\_ => pron.s ;
+    qt = QuantPoss (agr2PossStem pron.agr) ;
+    objdef = Def ;
+    caseagr = False ;
+    } ;
 
 --2 Common nouns
 
