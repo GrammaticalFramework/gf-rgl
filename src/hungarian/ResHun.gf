@@ -23,15 +23,17 @@ oper
     \\n,c => caseFromStem (\a,b -> a+b) (regNounNomAcc no ac) c n ;
 
   caseFromStem : (Str->Str->Str) -> Noun -> Case -> Number -> Str = \bind,cn,cas,n ->
+    let applyCase' : NumCaseStem -> Str = applyCase bind cas cn in
     case <n,cas> of {
       <Sg,Nom> => cn.s ! SgNom ;
       <Sg,Acc> => bind (cn.s ! SgAccStem) "t" ;
       <Sg,Sup> => cn.s ! SgSup ;
       <Pl,Acc> => cn.s ! PlAcc ;
       <Pl,Nom> => cn.s ! PlStem ;
-      <Sg,Ins|Tra> => bind (cn.s ! SgInsStem) (endCase cas ! cn.h) ;
+      <Sg,Ins|Tra> => applyCase' SgInsStem ;
       <Pl,Ins|Tra> => bind (bind (cn.s ! PlStem) "k") (endCase cas ! cn.h) ;
-      _   => applyOblCase bind (endCase cas) n cn
+      <Sg,_>   => applyCase' SgStem ;
+      <Pl,_>   => applyCase' PlStem
       } ;
 
   BaseNP : Type = {
@@ -170,11 +172,8 @@ oper
   applyAdp : Adposition -> NounPhrase -> Str = \adp,np ->
     adp.pr ++ np.s ! adp.c ++ adp.s ;
 
-  applyOblCase : (Str->Str->Str) -> HarmForms -> Number -> Noun -> Str =
-   \bind,adp,n,np ->
-    let stem : NumCaseStem = case n of {
-          Sg => SgStem ; Pl => PlStem } ;
-     in bind (np.s ! stem) (adp ! np.h) ;
+  applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
+   \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
 
 ------------------
 -- Conj
