@@ -31,8 +31,12 @@ lincat
 
 lin
   BaseNP x y = twoTable Case x y ** y ;
-  ConsNP x xs = consrTable Case comma x xs ** xs ;
-  ConjNP co xs = conjunctDistrTable Case co xs ** xs ** {agr = <P3,co.n>};
+  ConsNP x xs = xs ** consrTable Case comma x xs ;
+  ConjNP co xs = conjunctDistrTable Case co xs ** xs ** {
+    agr = <P3, case xs.agr.p2 of {
+                  Pl => Pl ;
+                  _  => co.n }>
+    } ;
 
 -- Relative sentences
 lincat
