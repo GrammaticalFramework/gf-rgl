@@ -20,10 +20,13 @@ oper
 
 param
 
-  CaseStem =
-    NomFull | AccFull | SupFull -- These may use 2-3 different stems
-  | InsTraStem -- Instrumental and translative: -v after vowels
-  | OblStem ;  -- The rest of the cases are regular and attach to this stem
+  NumCaseStem =
+    SgNom | SgAcc | SgSup -- These may use 2-3 different stems
+  | PlAcc  -- May have irregular vowel in suffix
+  | SgInsStem -- Instrumental and translative: -v after vowels
+  | SgStem  -- Rest of the cases in Sg
+  | PlStem  -- Rest of the cases in Pl
+  ;
 
   Case =
     Nom | Acc | Dat
@@ -31,8 +34,8 @@ param
   | Cau  -- Causal-final 'for the purpose of, for the reason that'
   | Ins  -- Instrumental
   | Tra  -- Translative
-       -- | Ess | Ter | For
-       -- | Tem -- Temporal, e.g. hatkor ‘six o’clock’ (from hat ‘6’)
+  -- | Ess | Ter | For
+  -- | Tem -- Temporal, e.g. hatkor ‘six o’clock’ (from hat ‘6’)
   ;
 
   SubjCase = SCNom | SCDat ; -- Limited set of subject cases

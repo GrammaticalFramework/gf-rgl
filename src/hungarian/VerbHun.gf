@@ -118,12 +118,14 @@ lin
   -- : CN  -> Comp ;
   CompCN cn = UseCopula ** {
     s = \\vf => case vf of {
-                  VPres P3 n => cn.s ! n ! NomFull
+                  VPres P3 n => cn.s ! SgNom -- TODO
                              ++ cn.compl ! n ! Nom ;
-                  VPres _  n => cn.s ! n ! NomFull
+
+                  VPres _  n => cn.s ! SgNom -- TODO
                              ++ cn.compl ! n ! Nom
                              ++ copula.s ! vf ;
-                  _          => cn.s ! Sg ! NomFull
+
+                  _          => cn.s ! SgNom
                              ++ cn.compl ! Sg ! Nom
                              ++ copula.s ! vf} ;
     } ;

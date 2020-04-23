@@ -23,12 +23,14 @@ oper
     \\n,c => caseFromStem False c (regNounNomAcc no ac) n ;
 
   caseFromStem : Bool -> Case -> Noun -> Number -> Str = \usebind,cas,cn,n ->
-    case cas of {
-      Nom => cn.s ! n ! NomFull ;
-      Acc => cn.s ! n ! AccFull ;
-      Sup => cn.s ! n ! SupFull ;
-      Ins => glueIf usebind (cn.s ! n ! InsTraStem) (endCase Ins ! cn.h) ;
-      Tra => glueIf usebind (cn.s ! n ! InsTraStem) (endCase Tra ! cn.h) ;
+    case <n,cas> of {
+      <Sg,Nom> => cn.s ! SgNom ;
+      <Sg,Acc> => cn.s ! SgAcc ;
+      <Sg,Sup> => cn.s ! SgSup ;
+      <Pl,Acc> => cn.s ! PlAcc ;
+      <Pl,Nom> => cn.s ! PlStem ;
+      <Sg,Ins|Tra> => glueIf usebind (cn.s ! SgInsStem) (endCase cas ! cn.h) ;
+      <Pl,Ins|Tra> => glueIf usebind (glue (cn.s ! PlStem) "k") (endCase cas ! cn.h) ;
       _   => applyOblCase usebind (endCase cas) n cn
       } ;
 
@@ -58,7 +60,7 @@ oper
     objdef = Def ;
     } ;
 
-  linCN : CNoun -> Str = \cn -> cn.s ! Sg ! NomFull ++ cn.compl ! Sg ! Nom ;
+  linCN : CNoun -> Str = \cn -> cn.s ! SgNom ++ cn.compl ! Sg ! Nom ;
 --------------------------------------------------------------------------------
 -- Pronouns
 
@@ -160,8 +162,11 @@ oper
   applyAdp : Adposition -> NounPhrase -> Str = \adp,np ->
     adp.pr ++ np.s ! adp.c ++ adp.s ;
 
-  applyOblCase : Bool -> HarmForms -> Number -> Noun -> Str = \usebind,adp,n,np ->
-    glueIf usebind (np.s ! n ! OblStem) (adp ! np.h) ;
+  applyOblCase : Bool -> HarmForms -> Number -> Noun -> Str =
+   \usebind,adp,n,np ->
+    let stem : NumCaseStem = case n of {
+          Sg => SgStem ; Pl => PlStem } ;
+     in glueIf usebind (np.s ! stem) (adp ! np.h) ;
 
   glueIf : Bool -> (_,_ : Str) -> Str = \f,a,b ->
     if_then_Str f (glue a b) (a + b) ;
