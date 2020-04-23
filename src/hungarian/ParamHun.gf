@@ -13,7 +13,19 @@ oper
 --------------------------------------------------------------------------------
 -- Morphophonology
 
+--------------------------------------------------------------------------------
+-- Quant
 
+param
+  QuantType = Possessive | Article ;
+
+oper
+  -- standard trick to prevent "a one car"
+  isIndefArt : {qt : QuantType ; objdef : ObjDef} -> Bool = \quant ->
+    case <quant.qt,quant.objdef> of {
+      <Article,Indef> => True ;
+      _               => False
+    } ;
 
 --------------------------------------------------------------------------------
 -- Nouns

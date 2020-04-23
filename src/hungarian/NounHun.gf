@@ -69,11 +69,11 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   -- : Quant -> Num -> Det ;
   DetQuant quant num = quant ** num ** {
-    s = \\c => case <isNum num,quant.isIndefArt> of {
+    s = \\c => case <isNum num,isIndefArt quant> of {
                  <True,True> => [] ; -- don't output "a 2 cars"
                  _           => quant.s ! num.n ! c }
             ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
-    sp = \\c => case <isNum num,quant.isIndefArt> of {
+    sp = \\c => case <isNum num,isIndefArt quant> of {
                  <True,True> => [] ;
                  _           => quant.sp ! num.n ! c }
             ++ num.s ! Indep ;
@@ -137,7 +137,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
   DefArt = {
     s,
     sp = \\_,_ => pre {"a" ; "az" / v } ;
-    isIndefArt = False ;
+    qt = Article ;
     objdef = Def ;
     caseagr = True ;
     } ;
@@ -146,7 +146,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
   IndefArt = {
     s = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
     sp = \\n,_ => case n of {Sg => "egy" ; Pl => "sok"} ;
-    isIndefArt = True ;
+    qt = Article ;
     objdef = Indef ;
     caseagr = True ;
     } ;
