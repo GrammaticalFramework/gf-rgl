@@ -132,7 +132,7 @@ lin under_Prep = nomAdp "alatt" ;
                   nonExist ; -- Translative
     agr = <P1,Sg> ;
     objdef = Def ;
-    poss = "em" ;
+    poss = possForms ! <P1,Sg> ;
     } ;
   youPol_Pron,
   youSg_Pron = emptyNP ** {
@@ -145,7 +145,7 @@ lin under_Prep = nomAdp "alatt" ;
                   nonExist ; -- Translative
     agr = <P2,Sg> ;
     objdef = Def ;
-    poss = "d" ;
+    poss = possForms ! <P2,Sg> ;
     } ;
   he_Pron,
   she_Pron = emptyNP ** {
@@ -157,6 +157,7 @@ lin under_Prep = nomAdp "alatt" ;
                   "vele" -- Instrumental
                   nonExist ; -- Translative
     objdef = Def ;
+    poss = possForms ! <P3,Sg> ;
     } ;
   we_Pron = emptyNP ** {
     s = caseTable "mi" "minket" "nekünk"
@@ -168,6 +169,7 @@ lin under_Prep = nomAdp "alatt" ;
                   nonExist ; -- Translative
     agr = <P1,Pl> ;
     objdef = Def ;
+    poss = possForms ! <P1,Pl> ;
     } ;
 
   youPl_Pron = emptyNP ** {
@@ -180,6 +182,7 @@ lin under_Prep = nomAdp "alatt" ;
                   nonExist ; -- Translative
     agr = <P2,Pl> ;
     objdef = Def ;
+    poss = possForms ! <P2,Pl> ;
     } ;
   they_Pron = emptyNP ** {
     s = caseTable "ők" "őket" "nekik"
@@ -191,6 +194,7 @@ lin under_Prep = nomAdp "alatt" ;
                   nonExist ; -- Translative
     agr = <P3,Pl> ;
     objdef = Def ;
+    poss = possForms ! <P3,Pl> ;
     } ;
 
 --lin whatPl_IP = ;
