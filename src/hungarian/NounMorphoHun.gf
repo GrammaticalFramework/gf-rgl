@@ -1,7 +1,7 @@
 resource NounMorphoHun = ParamHun ** open Prelude, Predef in {
 
 oper
-  Noun = {s : Number => Case => Str ; h : Harm} ;
+  Noun = {s : Number => CaseStem => Str ; h : Harm} ;
 
   -- Paradigm functions
   -- http://www.cse.chalmers.se/~aarne/articles/smart-preprint.pdf
@@ -15,7 +15,7 @@ oper
      in nAlmá ** {
           s = \\n,c => case <n,c> of {
                 -- Singular nominative uses the given form, e.g. "alma" or "kefe"
-                <Sg,Nom> => alma ;
+                <Sg,NomFull> => alma ;
 
                 -- The rest of the forms are formed with the regular constructor,
                 -- using "almá" or "kefé" as the stem.
@@ -35,8 +35,8 @@ oper
          s = \\n,c => case <n,c> of {
 
                 -- All plural forms and Sg Acc, Sg Sup use the "lova" stem
-                <Pl,_>| <Sg,Acc> => nLova.s ! n ! c ;
-                <Sg,Sup> => nLov.s ! n ! c ;
+                <Pl,_>| <Sg,AccFull> => nLova.s ! n ! c ;
+                <Sg,SupFull> => nLov.s ! n ! c ;
 
                 -- The rest of the forms are formed with the regular constructor,
                 -- using "ló" as the stem.
@@ -74,8 +74,8 @@ oper
     in nMajmo ** {
          s = \\n,c => case <n,c> of {
             -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
-            <Pl,_> | <Sg,Acc> => nMajmo.s ! n ! c ;
-            <Sg,Sup> => nMajmo.s ! n ! c ;
+            <Pl,_> | <Sg,AccFull> => nMajmo.s ! n ! c ;
+            <Sg,SupFull> => nMajmo.s ! n ! c ;
 
             -- The rest of the forms are formed with the regular constructor,
             -- using "majom" as the stem.
@@ -93,7 +93,7 @@ oper
      in nTolla ** {
           s = \\n,c => case <n,c> of {
              -- All plural forms and Sg Acc use the "tolla" stem
-             <Pl,_> | <Sg,Acc> => nTolla.s ! n ! c ;
+             <Pl,_> | <Sg,AccFull> => nTolla.s ! n ! c ;
 
              -- The rest of the forms are formed with the regular constructor,
              -- using "toll" as the stem.
@@ -300,22 +300,28 @@ oper
   harm1 : Str -> HarmForms = \i -> harm i i ;
 
   -- Variant of case forms when the noun stem ends in consonant.
-  endCaseCons : Case -> HarmForms = \c -> case c of {
+  endCaseCons : CaseStem -> HarmForms = \c -> case c of {
+    AccFull => harm3 "ot" "et" "öt" ;
+    SupFull => harm3 "on" "en" "ön" ;
+    _ => harm1 []
+    } ;
+
+  endCase : Case -> HarmForms = \c -> case c of {
+    Nom => harm1 [] ;
     Acc => harm3 "ot" "et" "öt" ;
-    Sup => harm3 "on" "en" "ön" ;
+    Dat => harm "nak" "nek" ;
     Ins => harm "al" "el" ;
     Tra => harm "á" "é" ;
-    Dat => harm "nak" "nek" ;
-    _Nom => harm1 []
-    -- All => harm3 "hoz" "hez" "höz" ;
-    -- Ade => harm "nál" "nél" ;
-    -- Abl => harm "tól" "től" ;
-    -- Sub => harm "ra" "re" ;
-    -- Ill => harm "ba" "be" ;
-    -- Ine => harm "ban" "ben" ;
-    -- Ela => harm "ból" "ből" ;
-    -- Del => harm "ról" "ről" ;
-    -- Cau => harm1 "ért" ;
+    Ill => harm "ba" "be" ;
+    Ine => harm "ban" "ben" ;
+    Ela => harm "ból" "ből" ;
+    All => harm3 "hoz" "hez" "höz" ;
+    Ade => harm "nál" "nél" ;
+    Abl => harm "tól" "től" ;
+    Sub => harm "ra" "re" ;
+    Sup => harm3 "on" "en" "ön" ;
+    Del => harm "ról" "ről" ;
+    Cau => harm1 "ért"
     -- Ess => harm "stul" "stül" ;  -- Essive-modal 'with <the noun> and its parts'
     -- Ter => harm1 "ig" ; -- Terminative 'as far as <the noun>'
     -- For => harm1 "ként" ; -- Formal 'as <the noun>'
@@ -323,25 +329,23 @@ oper
     } ;
 
   -- Variant where accusative has the allomorph -at
-  endCaseConsAccAt : Case -> HarmForms = \c -> case c of {
-    Acc => harm3 "at" "et" "öt" ;
+  endCaseConsAccAt : CaseStem -> HarmForms = \c -> case c of {
+    AccFull => harm3 "at" "et" "öt" ;
     _   => endCaseCons c
     } ;
 
   -- Variant where accusative has the allomorph -t for consonants
   -- Examples: "pénz, bor, orr, szín, lány, kés, dal"
-  endCaseConsAcc : Case -> HarmForms = \c -> case c of {
-    Acc => harm1 "t" ;
+  endCaseConsAcc : CaseStem -> HarmForms = \c -> case c of {
+    AccFull => harm1 "t" ;
     _   => endCaseCons c
   } ;
 
   -- Variant of case forms when the noun stem ends in vowel.
-  endCaseVow : Case -> HarmForms = \c -> case c of {
-    Acc => harm1 "t" ;
-    Sup => harm1 "n" ;
-    Ins => harm "val" "vel" ;
-    Tra => harm "vá" "vé" ;
-
+  endCaseVow : CaseStem -> HarmForms = \c -> case c of {
+    AccFull => harm1 "t" ;
+    SupFull => harm1 "n" ;
+    InsTraStem => harm1 "v" ;
     -- Other forms are shared with endCaseCons.
     _   => endCaseCons c
   } ;
@@ -368,7 +372,7 @@ oper
   mkNounHarm : Harm -> (plural : Str) -> Str -> Noun = mkNounHarmAcc True ;
 
   mkNounHarmAcc : (useAt : Bool) -> Harm -> (plural : Str) -> Str -> Noun = \useAt,h,plural,w ->
-    let endCaseSg : Case -> HarmForms = case <useAt, w> of {
+    let endCaseSg : CaseStem -> HarmForms = case <useAt, w> of {
                                           <_,_ + #v> => endCaseVow ;
                                           <_,_ + #v + ("sz"|"z"|"s"|"zs"|"j"
                                           |"ly"|"l"|"r"|"n"|"ny"|"ssz"|"zz"
@@ -376,7 +380,7 @@ oper
                                           |"nz")> => endCaseConsAcc ;
                                           <True,_>  => endCaseConsAccAt ;
                                           _ => endCaseCons } ;
-        endCasePl : Case -> HarmForms = case <plural, useAt> of {
+        endCasePl : CaseStem -> HarmForms = case <plural, useAt> of {
                                           <"ak",_> => endCaseConsAccAt ;
                                           <_,True> => endCaseConsAccAt ;
                                           _    => endCaseCons } ;
@@ -390,12 +394,12 @@ oper
          s = table {
                Sg => table {
                        -- Double the last letter (if consonant) before Ins, Tra
-                       c@(Ins|Tra) => duplConsStem + endCaseSg c ! h ;
+                       c@(InsTraStem) => duplConsStem + endCaseSg c ! h ;
                        c@_         => w +            endCaseSg c ! h } ;
 
                Pl => table {
                        -- Double the plural k before Ins, Tra
-                       c@(Ins|Tra) => w + plural + "k" + endCasePl c ! h ;
+                       c@(InsTraStem) => w + plural + "k" + endCasePl c ! h ;
 
                        -- endCaseCons, because we only use -k as plural morpheme.
                        -- If we add possessive forms with allomorph -i, then revise.

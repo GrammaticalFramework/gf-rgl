@@ -12,7 +12,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- : A  -> NP -> AP ;
   ComparA a np = emptyAP ** {
     s = a.s ! Compar ;
-    compar = applyAdp (caseAdp "nál" "nél") np ; -- Adessive
+    compar = np.s ! Ade ;
     -- compar = applyAdp (prepos Nom "mint") np ;
     } ;
 

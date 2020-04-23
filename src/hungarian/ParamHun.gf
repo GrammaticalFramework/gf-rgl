@@ -20,27 +20,26 @@ oper
 
 param
 
-  Case =
-    Nom | Acc  -- Practical to have core cases as full strings
-  | Dat     -- Would be nice but is very regular, so skip it
-  | Sup        -- Depends on the word which stem it uses
-  -- | All     -- Can have irregularities in suffix (k)
-  | Ins | Tra  -- Different for vowels and consonants
+  CaseStem =
+    NomFull | AccFull | SupFull -- These may use 2-3 different stems
+  | InsTraStem -- Instrumental and translative: -v after vowels
   | OblStem ;  -- The rest of the cases are regular and attach to this stem
-       -- | Ill | Ine | Ela  | Ade | Abl | Sub | Sup | Del -- Locatives
-       -- | Cau  -- Causal-final 'for the purpose of, for the reason that'
-       -- | Ins  -- Instrumental
-       -- | Tra  -- Translative
+
+  Case =
+    Nom | Acc | Dat
+  | Ill | Ine | Ela | All | Ade | Abl | Sub | Sup | Del -- Locatives
+  | Cau  -- Causal-final 'for the purpose of, for the reason that'
+  | Ins  -- Instrumental
+  | Tra  -- Translative
        -- | Ess | Ter | For
        -- | Tem -- Temporal, e.g. hatkor ‘six o’clock’ (from hat ‘6’)
-
+  ;
 
   SubjCase = SCNom | SCDat ; -- Limited set of subject cases
 
   Possessor = NoPoss | Poss Number Person ;
 
 oper
-  case2stem : Case -> Case = id Case ; -- TODO add stems and cases as separate types
 
   caseTable : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,x15 : Str) -> Case=>Str =
    \n,a,d,il,ine,el,al,ad,ab,sub,sup,del,ca,ins,tra -> table {
@@ -49,7 +48,6 @@ oper
       Dat => d ;
       Ins => ins ;
       Tra => tra ;
-      OblStem => init a ;
       Sup => sup ;
       Sub => sub ;
       Del => del ;

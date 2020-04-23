@@ -14,14 +14,28 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 
 oper
   CNoun : Type = Noun ** {
-    rs : Number => Case => Str ;
+    compl : Number => Case => Str ;
     } ;
+
+  mkCaseNoun : Str -> Number => Case => Str = \s ->
+    \\n,c => caseFromStem False c (mkNoun s) n ;
+  mkCaseNoun2 : (n,a : Str) -> Number => Case => Str = \no,ac ->
+    \\n,c => caseFromStem False c (regNounNomAcc no ac) n ;
+
+  caseFromStem : Bool -> Case -> Noun -> Number -> Str = \usebind,cas,cn,n ->
+    case cas of {
+      Nom => cn.s ! n ! NomFull ;
+      Acc => cn.s ! n ! AccFull ;
+      Sup => cn.s ! n ! SupFull ;
+      Ins => glueIf usebind (cn.s ! n ! InsTraStem) (endCase Ins ! cn.h) ;
+      Tra => glueIf usebind (cn.s ! n ! InsTraStem) (endCase Tra ! cn.h) ;
+      _   => applyOblCase usebind (endCase cas) n cn
+      } ;
 
   BaseNP : Type = {
     agr : Person*Number ;
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
-    h : Harm ;
     } ;
 
   NounPhrase : Type = BaseNP ** {
@@ -39,12 +53,12 @@ oper
   indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
 
   defNP : Str -> Number -> NounPhrase = \s,n -> emptyNP ** {
-    s = (mkNoun s).s ! n ;
+    s = mkCaseNoun s ! n ;
     n = n ;
     objdef = Def ;
     } ;
 
-  linCN : CNoun -> Str = \cn -> cn.s ! Sg ! Nom ++ cn.rs ! Sg ! Nom ;
+  linCN : CNoun -> Str = \cn -> cn.s ! Sg ! NomFull ++ cn.compl ! Sg ! Nom ;
 --------------------------------------------------------------------------------
 -- Pronouns
 
@@ -69,8 +83,8 @@ oper
     } ;
 
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
-    s = (mkNoun s).s ;
-    sp = (mkNoun sp).s ;
+    s = mkCaseNoun s ;
+    sp = mkCaseNoun sp ;
     isIndefArt = False ;
     objdef = Def ;
     caseagr = True ;
@@ -87,7 +101,7 @@ oper
 
   mkDet : (s : Str) -> ObjDef -> Number -> Bool -> Determiner = \s,d,n,ca -> {
     s,
-    sp = (mkNoun s).s ! n ;
+    sp = mkCaseNoun s ! n ;
     n = n ;
     numtype = NoNum ;
     objdef = d ;
@@ -97,7 +111,7 @@ oper
   mkDet2 : (n,a : Str) -> ObjDef -> Number -> Bool -> Determiner = \no,ac,d,n,ca ->
     let reg : Determiner = mkDet no d n ca
      in reg ** {
-          s,sp = (regNounNomAcc no ac).s ! n ;
+          s,sp = mkCaseNoun2 no ac ! n ;
         } ;
 
 
@@ -128,35 +142,29 @@ oper
   -- TODO: personal suffixes, e.g. felettem, általam, not *felett/által én
   Adposition : Type = {
     pr : Str ; -- Preposition
-    s : HarmForms ;  -- Postposition
+    s : Str ;  -- Postposition
     c : Case ;
     } ;
 
-  nomAdp : Str -> Adposition = \s -> postpos Nom (harm1 s) ;
+  nomAdp : Str -> Adposition = \s -> postpos Nom s ;
 
   caseAdp = overload {
-    caseAdp : Case -> Adposition = \c -> postpos c (harm1 []) ;
-    caseAdp : Case -> Str -> Adposition = \c,s -> postpos c (harm1 s) ;
-    caseAdp : Str -> Adposition = \ért ->
-      postpos OblStem (harm1 ért) ;
-    caseAdp : (x,y : Str) -> Adposition = \nál,nél ->
-      postpos OblStem (harm nál nél) ;
-    caseAdp : (x,y,z : Str) -> Adposition = \hoz,hez,höz ->
-      postpos OblStem (harm3 hoz hez höz)
+    caseAdp : Case -> Adposition = \c -> postpos c [] ;
+    caseAdp : Case -> Str -> Adposition = \c,s -> postpos c s ;
   } ;
-  postpos : Case -> HarmForms -> Adposition = \c,h-> {s=h ; c=c ; pr=[]} ;
-  prepos : Case -> Str -> Adposition = \c,s -> {s=harm1 [] ; c=c ; pr=s} ;
+  postpos : Case -> Str -> Adposition = \c,s-> {s=s ; c=c ; pr=[]} ;
+  prepos : Case -> Str -> Adposition = \c,s -> {s=[] ; c=c ; pr=s} ;
 
   emptyAdp : Adposition = nomAdp [] ;
 
   applyAdp : Adposition -> NounPhrase -> Str = \adp,np ->
-    adp.pr ++ glueIf adp.c (np.s ! adp.c) (adp.s ! np.h) ;
+    adp.pr ++ np.s ! adp.c ++ adp.s ;
 
-  glueIf : Case -> (_,_ : Str) -> Str = \cas,a,b ->
-    case cas of {
-      OblStem => glue a b ;
-      _ => a ++ b
-    } ;
+  applyOblCase : Bool -> HarmForms -> Number -> Noun -> Str = \usebind,adp,n,np ->
+    glueIf usebind (np.s ! n ! OblStem) (adp ! np.h) ;
+
+  glueIf : Bool -> (_,_ : Str) -> Str = \f,a,b ->
+    if_then_Str f (glue a b) (a + b) ;
 
 ------------------
 -- Conj

@@ -11,8 +11,8 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
     s = \\c => case det.caseagr of {
                   True  => det.s ! c ;
                   False => det.s ! Nom
-               } ++ cn.s ! det.n ! case2stem c
-                 ++ cn.rs ! det.n ! c ;
+               } ++ caseFromStem True c cn det.n
+                 ++ cn.compl ! det.n ! c ;
     agr = <P3,det.n> ;
     } ;
 
@@ -57,7 +57,8 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   -- : CN -> NP ;
   MassNP cn = emptyNP ** {
-    s = \\c => cn.s ! Sg ! c ;
+    s = \\c => caseFromStem True c cn Sg ++
+               cn.compl ! Sg ! c ;
     agr = <P3,Sg> ;
     } ;
 
@@ -161,7 +162,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
   -- : N -> CN
   -- : N2 -> CN ;
   UseN,UseN2 = \n -> n ** {
-    rs = \\_,_ => [] ;
+    compl = \\_,_ => [] ;
     } ;
 
   -- : N2 -> NP -> CN ;
@@ -179,17 +180,18 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = \\n,c => ap.s ! Sg ++ cn.s ! n ! c ++ ap.compar
+    s = \\n,c => ap.s ! Sg ++ cn.s ! n ! c ;
+    compl = \\n,c => ap.compar ++ cn.compl ! n ! c ;
     } ;
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    rs = \\n,c => rs.s ! n ! c
+    compl = \\n,c => cn.compl ! n ! c ++ rs.s ! n ! c
     } ;
 
   -- : CN -> Adv -> CN ;
   AdvCN cn adv = cn ** {
-    s = \\n,c => cn.s ! n ! c ++ adv.s
+    compl = \\n,c => cn.compl ! n ! c ++ adv.s
     } ;
 
 -- Nouns can also be modified by embedded sentences and questions.
@@ -205,7 +207,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
   ApposCN cn np = cn ** {
-    s = \\n,c => cn.s ! n ! c ++ np.s ! Nom
+    compl = \\n,c => cn.compl ! n ! c ++ np.s ! Nom
     } ;
 
 --2 Possessive and partitive constructs
