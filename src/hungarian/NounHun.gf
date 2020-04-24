@@ -169,6 +169,11 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
   -- : N2 -> CN ;
   UseN,UseN2 = \n -> n ** {
     compl = \\_,_ => [] ;
+    pstems = table {
+      PossSg (dSg_rP3 _) => n.s ! PossdSg_PossrP3 ;
+      PossSg dSg_rPl1    => n.s ! PossdSg_PossrPl1 ;
+      PossSg dSg_rSg1P2  => n.s ! SgAccStem ;
+      PossPl             => n.s ! PossdPl } ;
     } ;
 
   -- : N2 -> NP -> CN ;

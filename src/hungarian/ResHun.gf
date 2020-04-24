@@ -15,6 +15,7 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 oper
   CNoun : Type = Noun ** {
     compl : Number => Case => Str ;
+    pstems : CNPossStem => Str ;
     } ;
 
   mkCaseNoun : Str -> Number => Case => Str = \s ->
@@ -50,12 +51,15 @@ oper
         suf = case <det.n,det.dt> of {
                 <Pl,DetPoss (dSg_rP3 Pl)> => "k" ;
                 _                         => det.poss ! cn.h } ;
-     in applyCaseSuf suf cas cn stem casetable ;
-
+     in case cas of {
+          Nom => glue (cn.s ! stem) suf ; -- don't use applyCaseSuf, it adds BIND
+          _ => applyCaseSuf suf cas cn stem casetable
+        } ;
   BaseNP : Type = {
     agr : Person*Number ;
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
+    pstems : CNPossStem => Str ; -- Verbs might need to add poss. suffixes
     } ;
 
   NounPhrase : Type = BaseNP ** {
@@ -68,6 +72,7 @@ oper
     objdef = Indef ;
     empty = [] ;
     h = H_e ;
+    pstems = \\_ => [] ;
     } ;
 
   indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
