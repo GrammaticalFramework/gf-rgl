@@ -58,6 +58,7 @@ oper
         -- possessive suffix e.g. "their cats-3pl" is just k. not uk/ük
         suf = case <det.n,st> of {
           <Pl,dSg_rP3 Pl> => "k" ;
+          <Pl,dSg_rP3 Sg> => "" ;
           _               => det.poss ! cn.h
           } ;
      in case <cas,det.n,st> of {
