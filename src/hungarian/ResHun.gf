@@ -109,7 +109,7 @@ oper
   possForms : Person*Number => HarmForms = \\agr => case agr of {
     <P1,Sg> => harm1 "m" ;
     <P2,Sg> => harm1 "d" ;
-    <P3,Sg> => harm "a" "e" ;
+    <P3,Sg> => harm "a" "e" ; --TODO: wovel cases with "ja"? See verb forms below
     <P1,Pl> => harm1 "nk" ; -- u/ü/other vowel in stem
     <P2,Pl> => harm "tok" "tök" ;
     <P3,Pl> => harm "uk" "ük"
