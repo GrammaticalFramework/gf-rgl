@@ -44,28 +44,31 @@ oper
       } ;
 
   caseFromPossStem : CNLite -> Determiner -> Case -> Str = \cn,det,cas ->
-    let casetable : Case->HarmForms = case <det.n,det.dt> of {
+    let st : PossStem = case det.dt of {
+              DetPoss x => x ;
+              _ => Predef.error "caseFromPossStem: Not possessive Det" } ;
+        casetable : Case->HarmForms = case <det.n,det.dt> of {
           -- P3 Sg possessive suffix ends in vowel, others in consonant.
           <Sg,DetPoss (dSg_rP3 Sg)> => endCasePossVow ;
-          _ => endCase
-          } ;
+          _ => endCase } ;
         stem : CNPossStem = case det.n of {
-           Sg => PossSg
-                    (case det.dt of {
-                      DetPoss x => x ;
-                      _ => Predef.error "caseFromPossStem: Not possessive Det"}) ;
-           Pl => PossPl
-           } ;
+           Sg => PossSg st ;
+           Pl => PossPl } ;
 
         -- possessive suffix e.g. "their cats-3pl" is just k. not uk/ük
-        suf = case <det.n,det.dt> of {
-          <Pl,DetPoss (dSg_rP3 Pl)> => "k" ;
-          _                         => det.poss ! cn.h
+        suf = case <det.n,st> of {
+          <Pl,dSg_rP3 Pl> => "k" ;
+          _               => det.poss ! cn.h
           } ;
-     in case cas of {
-          Nom => glue (cn.pstems ! stem) suf ; -- don't use applyCaseSuf, it adds BIND
+     in case <cas,det.n,st> of {
+         -- don't use applyCaseSuf, it adds BIND
+         <Nom,Pl,dSg_rP3 Sg> => cn.pstems ! PossPl ;
+         <Nom> => glue (cn.pstems ! stem) suf ;
+
+         -- Other forms have non-empty poss. suffix and case ending
           _ => applyCaseSuf suf cas cn stem casetable
         } ;
+
   BaseNP : Type = {
     agr : Person*Number ;
     objdef : ObjDef ;
