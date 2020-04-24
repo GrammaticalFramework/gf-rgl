@@ -29,7 +29,7 @@ param
   ;
 
   -- Singular stems. Plural is always same, no need to add here.
-  PossStem = dSg_rSg1P2 | dSg_rP3 | dSg_rPl1 ;
+  PossStem = dSg_rSg1P2 | dSg_rP3 Number | dSg_rPl1 ;
 
 oper
   -- standard trick to prevent "a one car"
@@ -42,7 +42,7 @@ oper
   agr2PossStem : Person*Number -> PossStem = \pn ->
     case <pn.p1,pn.p2> of {
       <P1,Pl> => dSg_rPl1 ;
-      <P3,_>  => dSg_rP3 ;
+      <P3,n>  => dSg_rP3 n ;
       _       => dSg_rSg1P2
     } ;
 

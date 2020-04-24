@@ -40,13 +40,17 @@ oper
     let stem_casetable : NumCaseStem*(Case->HarmForms) = case <det.n,det.dt> of {
           <Sg,DetPoss st> => case st of {
                                 dSg_rSg1P2 => <SgAccStem,endCase> ;
-                                dSg_rP3    => <PossdSg_PossrP3,endCasePossVow> ; -- TODO nneeds to be vowel only after Sg3
+                                dSg_rP3 Sg => <PossdSg_PossrP3,endCasePossVow> ;
+                                dSg_rP3 Pl => <PossdSg_PossrP3,endCase> ;
                                 dSg_rPl1   => <PossdSg_PossrPl1,endCase> } ;
           <Pl,DetPoss _>  => <PossdPl,endCase> ;
           _ => Predef.error "caseFromPossStem: Trying to apply to non-possessive Det" } ;
         stem = stem_casetable.p1 ;
         casetable = stem_casetable.p2 ;
-     in applyCaseSuf (det.poss ! cn.h) cas cn stem casetable ;
+        suf = case <det.n,det.dt> of {
+                <Pl,DetPoss (dSg_rP3 Pl)> => "k" ;
+                _                         => det.poss ! cn.h } ;
+     in applyCaseSuf suf cas cn stem casetable ;
 
   BaseNP : Type = {
     agr : Person*Number ;
