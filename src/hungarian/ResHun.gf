@@ -18,6 +18,12 @@ oper
     pstems : CNPossStem => Str ;
     } ;
 
+  -- Used to possess NPs even after they become NPs
+  CNLite : Type = {
+    h : Harm ;
+    pstems : CNPossStem => Str
+    } ;
+
   mkCaseNoun : Str -> Number => Case => Str = \s ->
     \\n,c => caseFromStem (\a,b -> a+b) (mkNoun s) c n ;
   mkCaseNoun2 : (n,a : Str) -> Number => Case => Str = \no,ac ->
@@ -37,7 +43,7 @@ oper
       <Pl,_>   => applyCase' PlStem
       } ;
 
-  caseFromPossStem : CNoun -> Determiner -> Case -> Str = \cn,det,cas ->
+  caseFromPossStem : CNLite -> Determiner -> Case -> Str = \cn,det,cas ->
     let casetable : Case->HarmForms = case <det.n,det.dt> of {
           -- P3 Sg possessive suffix ends in vowel, others in consonant.
           <Sg,DetPoss (dSg_rP3 Sg)> => endCasePossVow ;
@@ -65,6 +71,7 @@ oper
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
     pstems : CNPossStem => Str ; -- Verbs might need to add poss. suffixes
+    h : Harm ; -- NP may need to be possessed again because of have_V2
     } ;
 
   NounPhrase : Type = BaseNP ** {
@@ -103,6 +110,74 @@ oper
     <P1,Pl> => harm1 "nk" ; -- u/ü/other vowel in stem
     <P2,Pl> => harm "tok" "tök" ;
     <P3,Pl> => harm "uk" "ük"
+  } ;
+
+  pronTable : Person*Number => Pronoun = \\agr => case agr of {
+    <P1,Sg> => emptyNP ** {
+                s = caseTable "én" "engem" "nekem"
+                              "belém" "bennem" "belőlem" -- inner locatives
+                              "hozzám" "nálam" "tőlem"   -- outer locatives
+                              "rám" "rajtam" "rólam"     -- outer locatives
+                              "értem" -- Causative
+                              "velem" -- Instrumental
+                              nonExist ; -- Translative
+                agr = agr ;
+                objdef = Def ;
+                poss = possForms ! agr } ;
+    <P2,Sg> => emptyNP ** {
+                s = caseTable "te" "teged" "neked"
+                              "beléd" "benned" "belőled"
+                              "hozzád" "nálad" "tőled"
+                              "rád" "rajtad" "rólad"
+                              "érted" -- Causative
+                              "veled" -- Instrumental
+                              nonExist ; -- Translative
+                agr = agr ;
+                objdef = Def ;
+                poss = possForms ! agr } ;
+    <P3,Sg> => emptyNP ** {
+                s = caseTable "ő" "őt" "neki"
+                              "belé" "benne" "belőle"
+                              "hozzá" "nála" "tőle"
+                              "rá" "rajta" "róla"
+                              "érte" -- Causative
+                              "vele" -- Instrumental
+                              nonExist ; -- Translative
+                objdef = Def ;
+                poss = possForms ! agr } ;
+    <P1,Pl> => emptyNP ** {
+                s = caseTable "mi" "minket" "nekünk"
+                              "belénk" "bennünk" "belőlünk"
+                              "hozzánk" "nálunk" "tőlünk"
+                              "ránk" "rajtunk" "rólunk"
+                              "értünk" -- Causative
+                              "velünk" -- Instrumental
+                              nonExist ; -- Translative
+                agr = agr ;
+                objdef = Def ;
+                poss = possForms ! agr } ;
+    <P2,Pl> => emptyNP ** {
+                s = caseTable "ti" "titeket" "nektek"
+                              "belétek" "bennetek" "belőletek"
+                              "hozzátok" "nálatok" "tőletek"
+                              "rátok" "rajtatok" "rólatok"
+                              "értetek" -- Causative
+                              "veletek" -- Instrumental
+                              nonExist ; -- Translative
+                agr = agr ;
+                objdef = Def ;
+                poss = possForms ! agr } ;
+    <P3,Pl> => emptyNP ** {
+                s = caseTable "ők" "őket" "nekik"
+                              "beléjük" "bennük" "belőlük"
+                              "hozzájuk" "náluk" "tőlük"
+                              "rájuk" "rajtuk" "róluk"
+                              "értük" -- Causative
+                              "velük" -- Instrumental
+                              nonExist ; -- Translative
+                agr = agr ;
+                objdef = Def ;
+                poss = possForms ! agr }
   } ;
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
@@ -157,8 +232,6 @@ oper
           s,sp = mkCaseNoun2 no ac ! n ;
         } ;
 
-
-
   Numeral : Type = {
     s : Place => Str ;  -- Independent or attribute
     numtype : NumType ; -- Digit, numeral or Sg/Pl : makes a difference in many languages
@@ -206,7 +279,7 @@ oper
   applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
     \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
 
-  applyCaseSuf : Str -> Case -> CNoun -> CNPossStem -> (Case -> HarmForms) -> Str =
+  applyCaseSuf : Str -> Case -> CNLite -> CNPossStem -> (Case -> HarmForms) -> Str =
     \suf,cas,cn,stem,casetable ->
       glue (glue (cn.pstems ! stem) suf) (casetable cas ! cn.h) ;
 
@@ -382,7 +455,7 @@ oper
 -- VP
 
   VerbPhrase : Type = Verb ** {
-    obj : Str ;
+    obj : Person*Number => Str ;
     adv : Str ;
     c2 : Case ; -- for RelSlash
     } ;  -- TODO more fields
@@ -392,7 +465,8 @@ oper
     } ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
-    obj,adv = [] ;
+    obj = \\_ => [] ;
+    adv = [] ;
     c2 = Acc ; -- TODO check
     } ;
 
@@ -400,14 +474,23 @@ oper
     adv = [] ;
     } ;
 
-  insertObj : VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
-    obj = np.s ! vps.c2 ;
-
-    -- If verb's subject case is Dat and object Nom, verb agrees with obj.
-    s = \\vf => case <vps.sc,vps.c2> of {
-                  <SCDat,Nom> => vps.s ! np.objdef ! agr2vf np.agr ;
-                  _ => vps.s ! np.objdef ! vf } ;
-    } ;
+  -- insertObj : VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
+  --   obj = np.s ! vps.c2 ;
+  --
+  --   -- If verb's subject case is Dat and object Nom, verb agrees with obj.
+  --   s = \\vf =>
+  --    let pron : Pronoun = case vf of {
+  --          VPres p n => pronTable ! <p,n> ;
+  --           _ => pronTable ! <P3,Sg> } ;
+  --        num : Num = case np.a.p2 of {
+  --          Sg => NumSg ; Pl => NumPl } ;
+  --        det : Determiner = DetQuant (PossPron pron) num ;
+  --
+  --       }
+  --    in case <vps.sc,vps.c2> of {
+  --         <SCDat,Nom> => vps.s ! np.objdef ! agr2vf np.agr ;
+  --         _ => vps.s ! np.objdef ! vf } ;
+  --   } ;
 
   insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
   insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = adv.s} ;
@@ -436,7 +519,7 @@ oper
                         in np.s ! subjcase
                         ++ if_then_Pol p [] "nem"
                         ++ vp.s ! agr2vf np.agr
-                        ++ vp.obj
+                        ++ vp.obj ! np.agr
                         ++ vp.adv
                         ++ np.empty -- standard trick for prodrop+metavariable problem
     } ;
@@ -458,7 +541,7 @@ oper
                                                SCDat => Dat }
                         in rp.s ! n ! subjcase
                         ++ if_then_Pol p [] "nem"
-                        ++ vp.obj
+                        ++ vp.obj ! <rp.agr.p1,n>
                         ++ vp.adv
                         ++ vp.s ! VPres rp.agr.p1 n -- variable by number
     } ;

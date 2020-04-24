@@ -7,7 +7,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 --2 Noun phrases
 
 -- : Det -> CN -> NP
-  DetCN det cn = emptyNP ** det ** {
+  DetCN det cn = emptyNP ** cn ** det ** {
     s = \\c =>
       let foo : Str = case det.dt of {
         NoPoss => caseFromStem glue cn c det.n ;

@@ -1,4 +1,5 @@
-concrete VerbHun of Verb = CatHun ** open ResHun, AdverbHun, Prelude in {
+concrete VerbHun of Verb = CatHun **
+  open ResHun, AdverbHun, NounHun, Prelude in {
 
 
 lin
@@ -63,7 +64,7 @@ lin
   } ;
 -}
   -- : VPSlash -> NP -> VP
-  ComplSlash = ResHun.insertObj ;
+  ComplSlash = insertObj ;
 {-
   -- : VV  -> VPSlash -> VPSlash ;
                   -- Just like ComplVV except missing subject!
@@ -144,5 +145,25 @@ lin
 
   -- : VP -- Copula alone;
   UseCopula = useV copula ;
+
+oper
+insertObj : ResHun.VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
+  obj = \\agr =>
+      -- have_V2 needs to put object in poss. form
+     let pron : Pronoun = pronTable ! agr ;
+         num : CatHun.Num = case np.agr.p2 of {
+           Sg => NumSg ; Pl => NumPl } ;
+         det : Determiner = DetQuant (PossPron pron) num ;
+         possessedNP : Str = caseFromPossStem np det vps.c2 ;
+     in case <vps.sc,vps.c2> of {
+          <SCDat,Nom> => possessedNP ; -- TODO loses stuff from np.s
+          _ => np.s ! vps.c2 } ;
+
+  s = \\vf =>
+   -- If verb's subject case is Dat and object Nom, verb agrees with obj.
+      case <vps.sc,vps.c2> of {
+        <SCDat,Nom> => vps.s ! np.objdef ! agr2vf np.agr;
+        _ => vps.s ! np.objdef ! vf } ;
+  } ;
 
 }
