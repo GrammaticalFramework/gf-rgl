@@ -429,7 +429,8 @@ oper
         } ;
 
 
--- This is used in ResHun.caseFromStem, not here.
+-- This is used in ResHun.caseFromStem, which makes NP out of CN.
+-- Ns only have stems, and these forms are attached to the stems.
 
     endCase : Case -> HarmForms = \c -> case c of {
       Nom => harm1 [] ;
@@ -452,5 +453,13 @@ oper
       -- For => harm1 "ként" ; -- Formal 'as <the noun>'
       -- Tem => harm1 "kor" -- Temporal 'at <numeral>'. Only used with numerals.
       } ;
+
+    endCasePossVow : Case -> HarmForms = \c -> case c of {
+      Acc => harm1 "t" ;
+      Sup => harm1 "n" ;
+      Tra => harm "vá" "vé" ;
+      Ins => harm "val" "vel" ;
+      _ => endCase c
+    } ;
 
 }

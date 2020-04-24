@@ -37,15 +37,16 @@ oper
       } ;
 
   caseFromPossStem : Noun -> Determiner -> Case -> Str = \cn,det,cas ->
-    let stem : NumCaseStem = case <det.n,det.dt> of {
+    let stem_casetable : NumCaseStem*(Case->HarmForms) = case <det.n,det.dt> of {
           <Sg,DetPoss st> => case st of {
-                                dSg_rSg1P2 => SgAccStem ;
-                                dSg_rP3    => PossdSg_PossrP3 ;
-                                dSg_rPl1   => PossdSg_PossrPl1 } ;
-          <Pl,DetPoss _>  => PossdPl ;
-          _ => Predef.error "caseFromPossStem: Trying to apply to non-possessive Det"
-        } ;
-     in applyCaseSuf (det.poss ! cn.h) cas cn stem ;
+                                dSg_rSg1P2 => <SgAccStem,endCase> ;
+                                dSg_rP3    => <PossdSg_PossrP3,endCasePossVow> ; -- TODO nneeds to be vowel only after Sg3
+                                dSg_rPl1   => <PossdSg_PossrPl1,endCase> } ;
+          <Pl,DetPoss _>  => <PossdPl,endCase> ;
+          _ => Predef.error "caseFromPossStem: Trying to apply to non-possessive Det" } ;
+        stem = stem_casetable.p1 ;
+        casetable = stem_casetable.p2 ;
+     in applyCaseSuf (det.poss ! cn.h) cas cn stem casetable ;
 
   BaseNP : Type = {
     agr : Person*Number ;
@@ -191,8 +192,9 @@ oper
   applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
     \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
 
-  applyCaseSuf : Str -> Case -> Noun -> NumCaseStem -> Str =
-    \suf,cas,cn,stem -> glue (glue (cn.s ! stem) suf) (endCase cas ! cn.h) ;
+  applyCaseSuf : Str -> Case -> Noun -> NumCaseStem -> (Case -> HarmForms) -> Str =
+    \suf,cas,cn,stem,casetable ->
+      glue (glue (cn.s ! stem) suf) (casetable cas ! cn.h) ;
 
 
 ------------------
