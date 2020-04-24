@@ -3,12 +3,20 @@ concrete ConjunctionHun of Conjunction =
 
 -- Adverb and other simple {s : Str} types.
 lincat
-  [Adv],[AdV],[IAdv],[S] = {s1,s2 : Str} ;
+  [AdV],[IAdv],[S] = {s1,s2 : Str} ;
 
 lin
-  BaseAdv, BaseAdV, BaseIAdv, BaseS = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv, ConsS = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
+  BaseAdV, BaseIAdv, BaseS = twoSS ;
+  ConsAdV, ConsIAdv, ConsS = consrSS comma ;
+  ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
+
+lincat
+  [Adv] = {s1,s2 : Str ; isPre : Bool} ;
+
+lin
+  BaseAdv x y = y ** twoSS x y ;
+  ConsAdv x xs = xs ** consrSS comma x xs ;
+  ConjAdv co xs = xs ** conjunctDistrSS co xs ;
 
 -- Adjectival phrases
 lincat

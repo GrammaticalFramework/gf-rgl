@@ -336,6 +336,8 @@ oper
        in adj + plural
     } ;
 
+  invarAP : Str -> AdjPhrase = \s -> emptyAP ** {s = \\_ => s} ;
+
   -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Adjectives
   comparAdj : Str -> Str = \stem ->
     case stem of {

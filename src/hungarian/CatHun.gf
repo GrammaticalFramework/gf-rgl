@@ -1,4 +1,4 @@
-concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
+concrete CatHun of Cat = CommonX - [Adv] ** open ResHun, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -117,6 +117,8 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
     N2,
     N3 = ResHun.Noun ;
     PN = ResHun.NounPhrase ;
+
+    Adv = {s : Str ; isPre : Bool} ;
 
 linref
    CN = linCN ;

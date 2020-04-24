@@ -101,7 +101,7 @@ oper
   --   lin Subj { } ;
 
   mkAdv : Str -> Adv
-    = \s -> lin Adv {s = s} ;
+    = \s -> lin Adv {s = s ; isPre=False} ;
 
   mkAdV : Str -> AdV
     = \s -> lin AdV {s = s} ;

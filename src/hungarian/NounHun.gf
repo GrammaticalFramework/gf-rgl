@@ -1,4 +1,5 @@
-concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
+concrete NounHun of Noun = CatHun ** open
+  ResHun, Prelude, Coordination in {
 
   flags optimize=all_subs ;
 
@@ -40,7 +41,13 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
 
   -- : NP -> Adv -> NP ;    -- Paris today
   AdvNP np adv = np ** {
-    s = \\c => np.s ! c ++ adv.s ;
+    s = \\c => case adv.isPre of {
+          True => adv.s ++ np.s ! c ;
+          False => np.s ! c ++ adv.s } ;
+    -- compl = \\nc => case adv.isPre of {
+    --           True => np.compl ! nc ;
+    --           False => np.compl ! nc ++ adv.s } ;
+
   } ;
   -- : NP -> Adv -> NP ;    -- boys, such as ..
   ExtAdvNP np adv = np ** {
@@ -202,9 +209,10 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
     } ;
 
   -- : CN -> Adv -> CN ;
-  AdvCN cn adv = cn ** {
-    compl = \\n,c => cn.compl ! n ! c ++ adv.s
-    } ;
+  AdvCN cn adv = case adv.isPre of {
+    True => AdjCN (invarAP adv.s) cn ;
+    False => cn ** {compl = \\n,c => cn.compl ! n ! c ++ adv.s}
+  } ;
 
 -- Nouns can also be modified by embedded sentences and questions.
 -- For some nouns this makes little sense, but we leave this for applications
