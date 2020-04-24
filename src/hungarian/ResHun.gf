@@ -37,22 +37,27 @@ oper
       <Pl,_>   => applyCase' PlStem
       } ;
 
-  caseFromPossStem : Noun -> Determiner -> Case -> Str = \cn,det,cas ->
-    let stem_casetable : NumCaseStem*(Case->HarmForms) = case <det.n,det.dt> of {
-          <Sg,DetPoss st> => case st of {
-                                dSg_rSg1P2 => <SgAccStem,endCase> ;
-                                dSg_rP3 Sg => <PossdSg_PossrP3,endCasePossVow> ;
-                                dSg_rP3 Pl => <PossdSg_PossrP3,endCase> ;
-                                dSg_rPl1   => <PossdSg_PossrPl1,endCase> } ;
-          <Pl,DetPoss _>  => <PossdPl,endCase> ;
-          _ => Predef.error "caseFromPossStem: Trying to apply to non-possessive Det" } ;
-        stem = stem_casetable.p1 ;
-        casetable = stem_casetable.p2 ;
+  caseFromPossStem : CNoun -> Determiner -> Case -> Str = \cn,det,cas ->
+    let casetable : Case->HarmForms = case <det.n,det.dt> of {
+          -- P3 Sg possessive suffix ends in vowel, others in consonant.
+          <Sg,DetPoss (dSg_rP3 Sg)> => endCasePossVow ;
+          _ => endCase
+          } ;
+        stem : CNPossStem = case det.n of {
+           Sg => PossSg
+                    (case det.dt of {
+                      DetPoss x => x ;
+                      _ => Predef.error "caseFromPossStem: Not possessive Det"}) ;
+           Pl => PossPl
+           } ;
+
+        -- possessive suffix e.g. "their cats-3pl" is just k. not uk/ük
         suf = case <det.n,det.dt> of {
-                <Pl,DetPoss (dSg_rP3 Pl)> => "k" ;
-                _                         => det.poss ! cn.h } ;
+          <Pl,DetPoss (dSg_rP3 Pl)> => "k" ;
+          _                         => det.poss ! cn.h
+          } ;
      in case cas of {
-          Nom => glue (cn.s ! stem) suf ; -- don't use applyCaseSuf, it adds BIND
+          Nom => glue (cn.pstems ! stem) suf ; -- don't use applyCaseSuf, it adds BIND
           _ => applyCaseSuf suf cas cn stem casetable
         } ;
   BaseNP : Type = {
@@ -201,9 +206,9 @@ oper
   applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
     \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
 
-  applyCaseSuf : Str -> Case -> Noun -> NumCaseStem -> (Case -> HarmForms) -> Str =
+  applyCaseSuf : Str -> Case -> CNoun -> CNPossStem -> (Case -> HarmForms) -> Str =
     \suf,cas,cn,stem,casetable ->
-      glue (glue (cn.s ! stem) suf) (casetable cas ! cn.h) ;
+      glue (glue (cn.pstems ! stem) suf) (casetable cas ! cn.h) ;
 
 
 ------------------

@@ -192,6 +192,7 @@ concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
     s = \\nc => ap.s ! Sg ++ cn.s ! nc ;
+    pstems = \\cs => ap.s ! Sg ++ cn.pstems ! cs ;
     compl = \\n,c => ap.compar ++ cn.compl ! n ! c ;
     } ;
 
