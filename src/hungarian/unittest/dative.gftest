@@ -4,7 +4,7 @@ LangHun: nekem van egy macskám
 
 -- LangEng: I have the cat
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))) NoVoc
-LangHun: nekem megvan a macska
+LangHun: nekem van a macskám
 
 --In this case we don't have to use plural
 -- LangEng: I have many cats
@@ -14,4 +14,3 @@ LangHun: nekem van sok macskám
 -- LangEng: I have some cats
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN somePl_Det (UseN cat_N)))))) NoVoc
 LangHun: nekem van néhány macskám
--- "néhány" better translation than "némely"
