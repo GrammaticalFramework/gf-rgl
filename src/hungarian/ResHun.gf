@@ -15,13 +15,6 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 oper
   CNoun : Type = Noun ** {
     compl : Number => Case => Str ;
-    pstems : CNPossStem => Str ;
-    } ;
-
-  -- Used to possess NPs even after they become NPs
-  CNLite : Type = {
-    h : Harm ;
-    pstems : CNPossStem => Str
     } ;
 
   mkCaseNoun : Str -> Number => Case => Str = \s ->
@@ -43,28 +36,35 @@ oper
       <Pl,_>   => applyCase' PlStem
       } ;
 
-  caseFromPossStem : CNLite -> Determiner -> Case -> Str = \cn,det,cas ->
+  caseFromPossStem : CNoun -> Determiner -> Case -> Str = \cn,det,cas ->
     let st : PossStem = case det.dt of {
-              DetPoss x => x ;
-              _ => Predef.error "caseFromPossStem: Not possessive Det" } ;
-        casetable : Case->HarmForms = case <det.n,det.dt> of {
+          DetPoss x => x ;
+          _ => Predef.error "caseFromPossStem: Not possessive Det" } ;
+        casetable : Case->HarmForms = case <det.n,st> of {
           -- P3 Sg possessive suffix ends in vowel, others in consonant.
-          <Sg,DetPoss (dSg_rP3 Sg)> => endCasePossVow ;
-          _ => endCase } ;
-        stem : CNPossStem = case det.n of {
-           Sg => PossSg st ;
-           Pl => PossPl } ;
+          <Sg, dSg_rP3 Sg> => endCasePossVow ;
+          _                => endCase } ;
+        stem : NumCaseStem = case det.n of {
+          Pl => PossdPl ;
+          Sg => case st of {
+                  dSg_rP3 _  => PossdSg_PossrP3 ;
+                  dSg_rPl1   => PossdSg_PossrPl1 ;
+                  dSg_rSg1P2 => SgAccStem }
+          } ;
 
         -- possessive suffix e.g. "their cats-3pl" is just k. not uk/ük
+        -- possessive suffix e.g. "her cat-3sg" is ∅, we store
         suf = case <det.n,st> of {
-          <Pl,dSg_rP3 Pl> => "k" ;
-          <Pl,dSg_rP3 Sg> => "" ;
-          _               => det.poss ! cn.h
-          } ;
+          <Pl, dSg_rP3 Pl> => "k" ;
+          <Pl, dSg_rP3 Sg> => "" ;
+          _               => det.poss ! cn.h } ;
      in case <cas,det.n,st> of {
-         -- don't use applyCaseSuf, it adds BIND
-         <Nom,Pl,dSg_rP3 Sg> => cn.pstems ! PossPl ;
-         <Nom> => glue (cn.pstems ! stem) suf ;
+         -- Possessor is P3 Sg, possessed is plural, case is Nom:
+         -- just use the stored PossdPl stem, e.g. 'madarai'
+         <Nom, Pl, dSg_rP3 Sg> => cn.s ! PossdPl ;
+
+         -- Any number of possr or possd, case Nom = empty case ending
+         <Nom> => glue (cn.s ! stem) suf ;
 
          -- Other forms have non-empty poss. suffix and case ending
           _ => applyCaseSuf suf cas cn stem casetable
@@ -74,8 +74,6 @@ oper
     agr : Person*Number ;
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
-    pstems : CNPossStem => Str ; -- Verbs might need to add poss. suffixes
-    h : Harm ; -- NP may need to be possessed again because of have_V2
     } ;
 
   NounPhrase : Type = BaseNP ** {
@@ -87,8 +85,6 @@ oper
     agr = <P3,Sg> ;
     objdef = Indef ;
     empty = [] ;
-    h = H_e ;
-    pstems = \\_ => [] ;
     } ;
 
   indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\p,c => s} ;
@@ -284,9 +280,9 @@ oper
   applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
     \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
 
-  applyCaseSuf : Str -> Case -> CNLite -> CNPossStem -> (Case -> HarmForms) -> Str =
+  applyCaseSuf : Str -> Case -> CNoun -> NumCaseStem -> (Case -> HarmForms) -> Str =
     \suf,cas,cn,stem,casetable ->
-      glue (glue (cn.pstems ! stem) suf) (casetable cas ! cn.h) ;
+      glue (glue (cn.s ! stem) suf) (casetable cas ! cn.h) ;
 
 
 ------------------

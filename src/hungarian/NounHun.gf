@@ -184,11 +184,6 @@ concrete NounHun of Noun = CatHun ** open
   -- : N2 -> CN ;
   UseN,UseN2 = \n -> n ** {
     compl = \\_,_ => [] ;
-    pstems = table {
-      PossSg (dSg_rP3 _) => n.s ! PossdSg_PossrP3 ;
-      PossSg dSg_rPl1    => n.s ! PossdSg_PossrPl1 ;
-      PossSg dSg_rSg1P2  => n.s ! SgAccStem ;
-      PossPl             => n.s ! PossdPl } ;
     } ;
 
   -- : N2 -> NP -> CN ;
@@ -207,7 +202,6 @@ concrete NounHun of Noun = CatHun ** open
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
     s = \\nc => ap.s ! Sg ++ cn.s ! nc ;
-    pstems = \\cs => ap.s ! Sg ++ cn.pstems ! cs ;
     compl = \\n,c => ap.compar ++ cn.compl ! n ! c ;
     } ;
 
