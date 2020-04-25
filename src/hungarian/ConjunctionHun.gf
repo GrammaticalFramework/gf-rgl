@@ -35,12 +35,12 @@ lin
 
 -- Noun phrases
 lincat
-  [NP] = ResHun.BaseNP ** {s1,s2 : Case => Str} ;
+  [NP] = ResHun.BaseNP ** {s1,s2 : Possessor => Case => Str} ;
 
 lin
-  BaseNP x y = twoTable Case x y ** y ;
-  ConsNP x xs = xs ** consrTable Case comma x xs ;
-  ConjNP co xs = conjunctDistrTable Case co xs ** xs ** {
+  BaseNP x y = twoTable2 Possessor Case x y ** y ;
+  ConsNP x xs = xs ** consrTable2 Possessor Case comma x xs ;
+  ConjNP co xs = conjunctDistrTable2 Possessor Case co xs ** xs ** {
     agr = <P3, case xs.agr.p2 of {
                   Pl => Pl ;
                   _  => co.n }>

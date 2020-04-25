@@ -76,6 +76,9 @@ param
   SubjCase = SCNom | SCDat ; -- Limited set of subject cases
 
   CNPossStem = PossPl | PossSg PossStem ;
+
+  Possessor = NotPossessed | Poss Person Number ;
+
 oper
 
   caseTable : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,x15 : Str) -> Case=>Str =

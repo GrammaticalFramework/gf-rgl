@@ -9,15 +9,23 @@ concrete NounHun of Noun = CatHun ** open
 
 -- : Det -> CN -> NP
   DetCN det cn = emptyNP ** cn ** det ** {
-    s = \\c =>
-      let foo : Str = case det.dt of {
-        NoPoss => caseFromStem glue cn c det.n ;
-        DetPoss _ => caseFromPossStem cn det c } ;
+    s = \\p,c =>
+      let possessed : Str = caseFromPossStem cn det c ;
+          standalone : Str = caseFromStem glue cn c det.n ;
       in case det.caseagr of {
-                  True  => det.s ! c ;
-                  False => det.s ! Nom
-               } ++ foo
-                 ++ cn.compl ! det.n ! c ;
+           True  => det.s ! c ;
+           False => det.s ! Nom
+         } ++ case <p,det.dt> of {
+                <NotPossessed, NoPoss>
+                  => standalone ;
+                <_,            DetPoss _>
+                  => possessed ;
+                <Poss per rnum, NoPoss>
+                  => let pron : Pronoun = pronTable ! <per,rnum> ; -- Possessor's number
+                         dnum : CatHun.Num = case det.n of { -- Possessed's number
+                                  Sg => NumSg ; Pl => NumPl } ;
+                      in caseFromPossStem cn (DetQuant (PossPron pron) dnum) c
+         } ++ cn.compl ! det.n ! c ;
     agr = <P3,det.n> ;
     } ;
 
@@ -25,11 +33,13 @@ concrete NounHun of Noun = CatHun ** open
   UsePN pn = pn ;
 
   -- : Pron -> NP ;
-  UsePron pron = pron ;
+  UsePron pron = pron ** {
+    s = \\_ => pron.s ;
+  } ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {
-    s = \\c => predet.s ++ np.s ! c ;
+    s = \\p,c => predet.s ++ np.s ! p ! c ;
     } ;
 
 -- A noun phrase can also be postmodified by the past participle of a
@@ -41,34 +51,32 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : NP -> Adv -> NP ;    -- Paris today
   AdvNP np adv = np ** {
-    s = \\c => case adv.isPre of {
-          True => adv.s ++ np.s ! c ;
-          False => np.s ! c ++ adv.s } ;
-    -- compl = \\nc => case adv.isPre of {
-    --           True => np.compl ! nc ;
-    --           False => np.compl ! nc ++ adv.s } ;
+    s = \\p,c => case adv.isPre of {
+          True => adv.s ++ np.s ! p ! c ;
+          False => np.s ! p ! c ++ adv.s } ;
+    } ;
 
-  } ;
   -- : NP -> Adv -> NP ;    -- boys, such as ..
   ExtAdvNP np adv = np ** {
-    s = \\c => np.s ! c ++ bindComma ++ adv.s ;
-  } ;
+    s = \\p,c => np.s ! p ! c ++ bindComma ++ adv.s ;
+    } ;
+
   -- : NP -> RS -> NP ;    -- Paris, which is here
   RelNP np rs = np ** {
-    s = \\c => np.s ! c ++ bindComma ++ rs.s ! np.agr.p2 ! c ;
-  } ;
+    s = \\p,c => np.s ! p ! c ++ bindComma ++ rs.s ! np.agr.p2 ! c ;
+    } ;
 
 -- Determiners can form noun phrases directly.
 
   -- : Det -> NP ;
   DetNP det = emptyNP ** det ** {
-    s = det.sp ;
+    s = \\p => det.sp ;
     agr = <P3,det.n> ;
     } ;
 
   -- : CN -> NP ;
   MassNP cn = emptyNP ** {
-    s = \\c => caseFromStem glue cn c Sg ++
+    s = \\p,c => caseFromStem glue cn c Sg ++ -- TODO add possessors
                cn.compl ! Sg ! c ;
     agr = <P3,Sg> ;
     } ;
@@ -227,14 +235,15 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
   ApposCN cn np = cn ** {
-    compl = \\n,c => cn.compl ! n ! c ++ np.s ! Nom
+    compl = \\n,c => cn.compl ! n ! c ++ np.s ! NotPossessed ! Nom
     } ;
 
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
   -- PossNP cn np = cn ** {
-  --   } ;
+  --  compl = \\n,c => cn.compl ! n ! c ++ np.s ! Poss P3 n ! c -- TODO check
+  --  } ;
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   -- PartNP cn np = cn ** {

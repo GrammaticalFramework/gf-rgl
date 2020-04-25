@@ -134,8 +134,8 @@ lin
   -- : NP  -> Comp ;
   CompNP np = UseCopula ** {
     s = \\vf => case vf of {
-                  VPres P3 _ => np.s ! Nom ;
-                  _ => np.s ! Nom ++ copula.s ! vf } ;
+                  VPres P3 _ => np.s ! NotPossessed ! Nom ;
+                  _ => np.s ! NotPossessed ! Nom ++ copula.s ! vf } ;
     } ;
 
   -- : Adv  -> Comp ;
@@ -149,15 +149,10 @@ lin
 oper
 insertObj : ResHun.VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
   obj = \\agr =>
-      -- have_V2 needs to put object in poss. form
-     let pron : Pronoun = pronTable ! agr ;
-         num : CatHun.Num = case np.agr.p2 of {
-           Sg => NumSg ; Pl => NumPl } ;
-         det : Determiner = DetQuant (PossPron pron) num ;
-         possessedNP : Str = caseFromPossStem np det vps.c2 ;
-     in case <vps.sc,vps.c2> of {
-          <SCDat,Nom> => possessedNP ; -- TODO loses stuff from np.s
-          _ => np.s ! vps.c2 } ;
+      -- have_V2 needs its object possessed by the subject
+     case <vps.sc,vps.c2> of {
+        <SCDat,Nom> => np.s ! Poss agr.p1 agr.p2 ! vps.c2 ;
+        _ => np.s ! NotPossessed ! vps.c2 } ;
 
   s = \\vf =>
    -- If verb's subject case is Dat and object Nom, verb agrees with obj.

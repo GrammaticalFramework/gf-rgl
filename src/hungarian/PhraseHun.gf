@@ -12,7 +12,7 @@ concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in {
     UttImpPol = UttImpSg ;
 -}
     UttIP,
-    UttNP = \np -> {s = np.s ! Nom} ;
+    UttNP = \np -> {s = np.s ! NotPossessed ! Nom} ;
     UttVP vp = {s = vp.obj ! <P3,Sg> ++ vp.adv ++ vp.s ! VInf} ;
     UttAdv adv = adv ;
     UttCN cn = {s = linCN cn} ;

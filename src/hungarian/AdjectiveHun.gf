@@ -12,7 +12,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- : A  -> NP -> AP ;
   ComparA a np = emptyAP ** {
     s = a.s ! Compar ;
-    compar = np.s ! Ade ;
+    compar = applyAdp (caseAdp Ade) np ;
     -- compar = applyAdp (prepos Nom "mint") np ;
     } ;
 
@@ -36,7 +36,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
   CAdvAP adv ap np = ap ** {
     s = \\n => adv.s ++ ap.s ! n ;
-    compar = ap.compar ++ adv.p ++ np.s ! Nom
+    compar = ap.compar ++ adv.p ++ applyAdp (caseAdp Nom) np ;
     } ;
 
 -- The superlative use is covered in $Ord$.

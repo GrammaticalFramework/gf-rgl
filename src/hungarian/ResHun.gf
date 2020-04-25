@@ -79,11 +79,11 @@ oper
     } ;
 
   NounPhrase : Type = BaseNP ** {
-    s : Case => Str ;
+    s : Possessor => Case => Str ;
     } ;
 
   emptyNP : NounPhrase = {
-    s = \\_ => [] ;
+    s = \\_,_ => [] ;
     agr = <P3,Sg> ;
     objdef = Indef ;
     empty = [] ;
@@ -91,10 +91,10 @@ oper
     pstems = \\_ => [] ;
     } ;
 
-  indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
+  indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\p,c => s} ;
 
   defNP : Str -> Number -> NounPhrase = \s,n -> emptyNP ** {
-    s = mkCaseNoun s ! n ;
+    s = \\c => mkCaseNoun s ! n ;
     n = n ;
     objdef = Def ;
     } ;
@@ -103,7 +103,8 @@ oper
 --------------------------------------------------------------------------------
 -- Pronouns
 
-  Pronoun : Type = NounPhrase ** {
+  Pronoun : Type = BaseNP ** {
+    s : Case => Str ;
     poss : HarmForms ; -- for PossPron : Pron -> Quant
     } ;
 
@@ -278,7 +279,7 @@ oper
   emptyAdp : Adposition = nomAdp [] ;
 
   applyAdp : Adposition -> NounPhrase -> Str = \adp,np ->
-    adp.pr ++ np.s ! adp.c ++ adp.s ;
+    adp.pr ++ np.s ! NotPossessed ! adp.c ++ adp.s ;
 
   applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
     \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
@@ -504,7 +505,7 @@ oper
     s = \\t,a,p => let subjcase : Case = case vp.sc of {
                                                SCNom => Nom ;
                                                SCDat => Dat }
-                        in np.s ! subjcase
+                        in np.s ! NotPossessed ! subjcase
                         ++ if_then_Pol p [] "nem"
                         ++ vp.s ! agr2vf np.agr
                         ++ vp.obj ! np.agr
