@@ -480,24 +480,6 @@ oper
     adv = [] ;
     } ;
 
-  -- insertObj : VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
-  --   obj = np.s ! vps.c2 ;
-  --
-  --   -- If verb's subject case is Dat and object Nom, verb agrees with obj.
-  --   s = \\vf =>
-  --    let pron : Pronoun = case vf of {
-  --          VPres p n => pronTable ! <p,n> ;
-  --           _ => pronTable ! <P3,Sg> } ;
-  --        num : Num = case np.a.p2 of {
-  --          Sg => NumSg ; Pl => NumPl } ;
-  --        det : Determiner = DetQuant (PossPron pron) num ;
-  --
-  --       }
-  --    in case <vps.sc,vps.c2> of {
-  --         <SCDat,Nom> => vps.s ! np.objdef ! agr2vf np.agr ;
-  --         _ => vps.s ! np.objdef ! vf } ;
-  --   } ;
-
   insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
   insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = adv.s} ;
 
@@ -534,10 +516,6 @@ oper
 
   RP : Type = {s : Number => Case => Str} ;
   RClause : Type = {s : Tense => Anteriority => Polarity => Number => Case => Str} ;
-
-  np2rp : NounPhrase -> RP ** {agr : Person*Number} = \np -> np ** {
-    s = \\n => np.s ;
-    } ;
 
   relVP : RP -> VerbPhrase -> RClause = \rp -> relVP' (rp ** {agr=<P3,Sg>}) ;
 
