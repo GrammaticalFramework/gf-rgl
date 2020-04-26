@@ -613,9 +613,14 @@ resource ResBul = ParamX ** open Prelude, Predef in {
     \vp ->
       let agr = {gn = GSg Neut; p = P1};
           clitic = case vp.vtype of {
-                     VNormal    => {s=[]; agr=agr} ;
-                     VMedial c  => {s=reflClitics ! c; agr=agr} ;
-                     VPhrasal c => {s=personalClitics agr ! c; agr={gn=GSg Neut; p=P3}}
+                     VNormal    => {s=vp.clitics; agr=agr} ;
+                     VMedial  c => {s=vp.clitics++reflClitics ! c; agr=agr} ;
+                     VPhrasal c => {s=case c of {
+                                        Dat => personalClitics agr ! Dat++vp.clitics;
+                                        _   => vp.clitics++personalClitics agr ! c
+                                      };
+                                    agr={gn=GSg Neut; p=P3}
+                                   }
                    } ;
       in vp.ad.s ++
          vp.s ! Imperf ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ++ clitic.s ++

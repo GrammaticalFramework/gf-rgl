@@ -72,9 +72,10 @@ lin
     {s = vp.ad.s ++
          vp.s ! Imperf ! VGerund ++
          case vp.vtype of {
-           VNormal => "" ;
-           VMedial c => reflClitics ! c ;
-           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
+           VNormal => vp.clitics ;
+           VMedial c => vp.clitics++reflClitics ! c ;
+           VPhrasal Dat => personalClitics (agrP3 (GSg Masc)) ! Dat++vp.clitics ;
+           VPhrasal c   => vp.clitics++personalClitics (agrP3 (GSg Masc)) ! c
          } ++
          vp.compl ! {gn=GSg Neut; p=P3}} ;
 
@@ -102,9 +103,14 @@ lin
   UttVPShort vp = {
     s = let agr = agrP3 (GSg Neut) ;
             clitic = case vp.vtype of {
-                       VNormal    => {s=[]; agr=agr} ;
-                       VMedial c  => {s=reflClitics ! c; agr=agr} ;
-                       VPhrasal c => {s=personalClitics agr ! c; agr={gn=GSg Neut; p=P3}}
+                       VNormal    => {s=vp.clitics; agr=agr} ;
+                       VMedial c  => {s=vp.clitics++reflClitics ! c; agr=agr} ;
+                       VPhrasal c => {s=case c of {
+                                          Dat => personalClitics agr ! c++vp.clitics;
+                                          c   => vp.clitics++personalClitics agr ! c
+                                        } ;
+                                      agr={gn=GSg Neut; p=P3}
+                                     }
                      } ;
         in vp.ad.s ++ clitic.s ++
            vp.s ! Imperf ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ++
