@@ -158,13 +158,13 @@ oper
     } ;
 
   mkA2 = overload {
-    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom} ;
+    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom ; isPost = False} ;
     mkA2 : Str -> Prep -> A2 = \s,p ->
-      lin A2 ((mkAdj s) ** {c2 = p}) ;
+      lin A2 ((mkAdj s) ** {c2 = p ; isPost = False}) ;
     mkA2 : Str -> Case -> A2 = \s,c ->
-      lin A2 ((mkAdj s) ** {c2 = casePrep c}) ;
+      lin A2 ((mkAdj s) ** {c2 = casePrep c ; isPost = False}) ;
     mkA2 : A -> Prep -> A2 = \a,p ->
-      lin A2 (a ** {c2 = p}) ;
+      lin A2 (a ** {c2 = p ; isPost = False}) ;
     } ;
 
   mkV = overload {

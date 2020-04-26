@@ -18,8 +18,12 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
-  ComplA2 a2 np = PositA a2 ** {
-    compl = \\n => applyAdp a2.c2 np ;
+  ComplA2 a2 np = let ap : AP = PositA a2 in ap ** {
+    s = case a2.isPost of {False => ap.s ; _ => \\_,_ => []} ;
+    compl = \\n => applyAdp a2.c2 np
+                ++ case a2.isPost of {
+                     True => ap.s ! n ! Nom ;
+                     False => [] } ;
     } ;
 
   -- : A2 -> AP ;        -- married to itself

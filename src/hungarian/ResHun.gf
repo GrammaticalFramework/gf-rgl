@@ -318,6 +318,7 @@ oper
 
   Adjective2 : Type = Adjective ** {
     c2 : Adposition ;
+    isPost : Bool ; -- put adjective past the thing it modifies
     } ;
 
   mkAdj : Str -> Adjective = \sgnom -> mkAdj2 sgnom (mkNoun sgnom) ;
