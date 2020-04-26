@@ -457,7 +457,7 @@ oper
 -- VP
 
   VerbPhrase : Type = Verb ** {
-    obj : Person*Number => Str ;
+    obj : Str ; -- Person*Number => Str, if we want open word order in have_V2
     adv : Str ;
     c2 : Case ; -- for RelSlash
     } ;  -- TODO more fields
@@ -467,7 +467,7 @@ oper
     } ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
-    obj = \\_ => [] ;
+    obj = [] ;
     adv = [] ;
     c2 = Acc ; -- TODO check
     } ;
@@ -503,7 +503,7 @@ oper
                         in np.s ! NotPossessed ! subjcase
                         ++ if_then_Pol p [] "nem"
                         ++ vp.s ! agr2vf np.agr
-                        ++ vp.obj ! np.agr
+                        ++ vp.obj -- ! np.agr
                         ++ vp.adv
                         ++ np.empty -- standard trick for prodrop+metavariable problem
     } ;
@@ -521,7 +521,7 @@ oper
                                                SCDat => Dat }
                         in rp.s ! n ! subjcase
                         ++ if_then_Pol p [] "nem"
-                        ++ vp.obj ! <rp.agr.p1,n>
+                        ++ vp.obj -- ! <rp.agr.p1,n>
                         ++ vp.adv
                         ++ vp.s ! VPres rp.agr.p1 n -- variable by number
     } ;
