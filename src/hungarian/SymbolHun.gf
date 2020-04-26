@@ -18,7 +18,7 @@ lin
 oper
 
   mkPN : Str -> NounPhrase = \s -> emptyNP ** {
-    s = \\_ => s ;
+    s = \\_,_ => s ;
     } ;
 
 lin
@@ -42,7 +42,7 @@ lin
   SymbNum sy = baseNum ** {s = \\_ => sy.s} ;
 
   -- : Symb -> Ord ;
-  SymbOrd sy = {s = \\n => sy.s ; n=Pl} ;
+  SymbOrd sy = {s = \\n,c => sy.s ; n=Pl} ;
 
 lincat
   Symb, [Symb] = SS ;
