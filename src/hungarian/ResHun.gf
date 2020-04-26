@@ -185,7 +185,6 @@ oper
 
   BaseQuant : Type = {
     poss : HarmForms ; -- Quants made by PossPron need this, empty for others
-    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     caseagr : Bool ; -- If it agrees in case: "azoknak a nőknek" vs. "sok nőknek"
   } ;
 
@@ -200,8 +199,7 @@ oper
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
     s = mkCaseNoun s ;
     sp = mkCaseNoun sp ;
-    qt = Other ;
-    objdef = Def ;
+    qt = DefQuant ;
     caseagr = True ;
     poss = harm1 [] ;
     } ;
@@ -212,7 +210,6 @@ oper
     s,
     sp : Case => Str ;
     n : Number ;
---    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
     dt : DetType ;
     } ;
 
@@ -221,9 +218,8 @@ oper
     sp = mkCaseNoun s ! n ;
     n = n ;
     numtype = NoNum ;
-    objdef = d ;
     caseagr = ca ;
-    dt = NoPoss ;
+    dt = objdef2dt d ;
     poss = harm1 [] ;
   } ;
 
