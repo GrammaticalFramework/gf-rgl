@@ -136,6 +136,9 @@ oper
 
   mkV2V : V -> Prep -> Prep -> V2V ;
   mkV2V v p t = prepV2 v p ** {c3 = t ; subjCtrl = False ; lock_V2V = <>} ;
+
+  imperfV2V : V -> VV ;
+  imperfV2V  v = v ** {typ = VVInf Imperf; lock_VV = <>} ;
   
   subjCtrlV2V : V -> Prep -> Prep -> V2V ;
   subjCtrlV2V v p t = prepV2 v p ** {c3 = t ; subjCtrl = True ; lock_V2V = <>} ;
