@@ -3,550 +3,376 @@
 --1 Hungarian auxiliary operations.
 
 -- This module contains operations that are needed to make the
--- resource syntax work. 
-
-resource ResHun = ParamX ** open Prelude in 
-{
-
-  flags 
-    optimize=noexpand ;
-    coding = utf8 ;
-
+-- resource syntax work.
 -- Some parameters, such as $Number$, are inherited from $ParamX$.
---
---2 For $Noun$
---
--- This is case as needed when inflecting nouns.
---
-  param
-    Case = Nom | Acc | Dat | Ins | Ess | Tra | Cau 
-         | Ill | Sub | All | Ine | Sup | Ade | Ela
-         | Del | Abl | Ter | For | Tem 
-       ;
+resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 
-    Harm = H_a | H_e | H_o ;
+--------------------------------------------------------------------------------
+-- NP
 
-  oper 
-    Noun = {s : Number => Case => Str} ;
+-- Noun morphology is in NounMorphoHun
 
-    endCase : Case -> HarmForms = \c -> case c of {
-      Nom => harm1 [] ;
-      Acc => harm3 "ot" "et" "öt" ;
-      Dat => harm "nak" "nek" ;
-      Ins => harm "al" "el" ;
-      Ess => harm "stul" "stül" ;
-      Tra => harm "á" "é" ;
-      Cau => harm1 "ért" ;
-      Ill => harm "ba" "be" ;
-      Sub => harm "ra" "re" ;
-      All => harm3 "hoz" "hez" "höz" ;
-      Ine => harm "ban" "ben" ;
-      Sup => harm3 "on" "en" "ön" ;
-      Ade => harm "nál" "nél" ;
-      Ela => harm "ból" "ből" ;
-      Del => harm "ról" "ről" ;
-      Abl => harm "tól" "től" ;
-      Ter => harm1 "ig" ;
-      For => harm1 "ként" ;
-      Tem => harm1 "kor" 
+oper
+  BaseNP : Type = {
+    agr : Person*Number ;
+    objdef : ObjDef ;
+    empty : Str ; -- standard trick for pro-drop
+    } ;
+
+  NounPhrase : Type = BaseNP ** {
+    s : Case => Str ;
+    } ;
+
+  emptyNP : NounPhrase = {
+    s = \\_ => [] ;
+    agr = <P3,Sg> ;
+    objdef = Indef ;
+    empty = [] ;
+    } ;
+
+  indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\c => s} ;
+
+  defNP : Str -> Number -> NounPhrase = \s,n -> emptyNP ** {
+    s = (mkNoun s).s ! n ;
+    n = n ;
+    objdef = Def ;
+    } ;
+--------------------------------------------------------------------------------
+-- Pronouns
+
+  Pronoun : Type = NounPhrase ** {
+    --poss : Str ; -- for PossPron : Pron -> Quant
+    } ;
+
+--------------------------------------------------------------------------------
+-- Det, Quant, Card, Ord
+
+  -- Quant has variable number:
+  -- e.g. this_Quant has both "this" and "these"
+  Quant : Type = {
+    s, -- form that comes before noun: "{this} car"
+    sp : Number => Case => Str ; -- independent form, "I like {this}" (DetNP)
+    isIndefArt : Bool ; -- standard trick to prevent "a one car"
+    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
+    } ;
+
+  mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
+    s = (mkNoun s).s ;
+    sp = (mkNoun sp).s ;
+    isIndefArt = False ;
+    objdef = Def ;
+    } ;
+
+ -- Det is formed in DetQuant : Quant -> Num -> Det
+ -- so it has an inherent number.
+  Determiner : Type = {
+    s,
+    sp : Case => Str ;
+    n : Number ;
+    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
+    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
+    } ;
+
+  mkDet : (s : Str) -> ObjDef -> Number -> Determiner = \s,d,n -> {
+    s,
+    sp = (mkNoun s).s ! n ;
+    n = n ;
+    numtype = NoNum ;
+    objdef = d ;
+  } ;
+
+  Numeral : Type = {
+    s : Place => Str ;  -- Independent or attribute
+    numtype : NumType ; -- Digit, numeral or Sg/Pl : makes a difference in many languages
+    -- TODO add ordinal
+    } ;
+
+  {- Numeral can become Num via
+      Noun.gf:    NumNumeral : Numeral -> Card ;
+      Noun.gf:    NumCard : Card -> Num ;
+  -}
+  Num : Type = Numeral ** {
+    n : Number ;        -- Singular or plural
+  } ;
+
+  baseNum : Num = {
+    s = \\_ => [] ;
+    n = Sg ;
+    numtype = NoNum
+    } ;
+
+--------------------------------------------------------------------------------
+-- Adpositions
+
+  -- TODO: personal suffixes, e.g. felettem, általam, not *felett/által én
+  Adposition : Type = {
+    pr : Str ; -- Preposition
+    s : Str ;  -- Postposition
+    c : Case ;
+    } ;
+
+  mkPrep : Str -> Adposition = \str -> {s=str ; c=Nom ; pr=[]} ;
+
+  emptyAdp : Adposition = mkPrep [] ;
+
+------------------
+-- Conj
+
+  Conj : Type = {
+    s1 : Str ;
+    s2 : Str ;
+    n : Number ;
+    } ;
+
+  mkConj : Str -> Number -> Conj = mkDConj [] ;
+
+  mkDConj : (s1,s2 : Str) -> Number -> Conj = \s1,s2,num -> {
+    s1 = s1 ;
+    s2 = s2 ;
+    n = num ;
+    } ;
+--------------------------------------------------------------------------------
+-- Adjectives
+
+  AdjPhrase : Type = {
+    s : Number => Str ;
+    compar : Str -- Discontinuous: Én *nagyobb* vagyok *nálad*.
+    } ;
+
+  emptyAP : AdjPhrase = {
+    s = \\_ => [] ;
+    compar = [] ;
+    } ;
+
+  Adjective : Type = {
+    s : Degree => Number => Str
+    } ;
+  Adjective2 : Type = Adjective ** {
+    c2 : Adposition ;
+    } ;
+
+  mkAdj : Str -> Adjective = \sg -> {
+    s = \\d,n =>
+       let adj = case d of {
+                   Compar => comparAdj sg ;
+                   Superl => "leg" + comparAdj sg ;
+                   _ => sg } ;
+           plural = case n of {
+                         Sg => [] ;
+                         Pl => pluralAdj adj }
+       in adj + plural
+    } ;
+
+  -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Adjectives
+  comparAdj : Str -> Str = \stem ->
+    case stem of {
+--      Final a and e become lengthened at the end of a word, if the comparative suffix -bb is joined to it—e.g., drága, drágább; fekete, feketébb, &c.; ó shortens its sound only in jó; jobb, legjobb.
+      "szép"   => "szebb" ;
+      "könnyű" => "könnyebb" ;
+      "ifju"   => "ifjabb" ;
+      "hosszú" => "hosszabb" ;
+      "sok"    => "több" ;
+      "felső"  => "felsőbb" ;
+      "belső"  => "belsőbb" ;
+      _ + #v   => stem + "bb" ;
+      _        => stem + harm "abb" "ebb" ! getHarm stem
+    } ;
+
+  pluralAdj : Str -> Str = \stem ->
+    case vowFinal stem of {
+      True => -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Adjectives
+        case last stem of { "ü" => "ek" ;
+                            "i" => harm "ak" "ek" ! getHarm stem ;
+                            _   => "k" } ;
+
+      False => harm3 "ok" "ek" "ök" ! getHarm stem
+    } ;
+--------------------------------------------------------------------------------
+-- Verbs
+
+  VerbEndings : Type = Person*Number => HarmForms ;
+  -- TODO: incomplete
+  endingsDef : VerbEndings = table {
+    <P1,Sg> => harm3 "om" "em" "öm" ;
+    <P2,Sg> => harm3 "od" "ed" "öd" ;
+    <P3,Sg> => harm "ja" "i" ;
+    <P1,Pl> => harm "juk" "jük" ;
+    <P2,Pl> => harm "játok" "itek" ;
+    <P3,Pl> => harm "ják" "ik"
+    } ;
+
+  -- by EG 2009, needs more special cases
+  endingsIndef : VerbEndings = table {
+    <P1,Sg> => harm3 "ok" "ek" "ök" ;
+    <P2,Sg> => harm1 "sz" ;
+    <P3,Sg> => harm1 [] ;
+    <P1,Pl> => harm "unk" "ünk" ;
+    <P2,Pl> => harm3 "tok" "tek" "tök" ; -- TODO allomorphs -otok, -etek, -ötök
+    <P3,Pl> => harm "nak" "nek"  -- TODO allomorphs -anak, -enek
+    } ;
+
+  BaseVerb : Type = {
+    sc : SubjCase ; -- subject case
+  } ;
+  Verb : Type = BaseVerb ** {
+    s : VForm => Str ;
+    } ;
+  Verb2 : Type = BaseVerb ** {
+    s : ObjDef => VForm => Str ;
+    c2 : Case   -- object case
+    } ;
+  Verb3 : Type = Verb2 ** {
+    -- c3 : Case   -- indirect object case
+    } ;
+
+  datV2 : Verb -> Verb2 = \v -> {
+    s = \\_ => v.s ;
+    sc = SCDat ;
+    c2 = Nom
+    } ;
+
+  mkVerb2 : Str -> Verb2 = \sg3 -> vtov2 (mkVerb sg3) ;
+  mkVerb3 : Str -> Verb3 = \sg3 -> v2tov3 (mkVerb2 sg3) ;
+
+  vtov2 : Verb -> Verb2 = \v -> v ** {
+    s = table {
+          Def => let vDef : Verb = mkVerbReg endingsDef (v.s ! VInf) (v.s ! VFin P3 Sg)
+                  in vDef.s ;
+          Indef => v.s } ;
+    c2 = Acc
+    } ;
+  v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Dat} ;
+
+  mkVerb : (sg3 : Str) -> Verb = mkVerbReg endingsIndef "TODO:infinitive" ; -- TODO
+
+  mkVerbReg : VerbEndings -> (inf, stem : Str) -> Verb = \hf,inf,stem ->
+    let h : Harm = getHarm stem ;
+        sg1 : Str = stem + hf ! <P1,Sg> ! h ;
+        sg2 : Str = stem + hf ! <P2,Sg> ! h ;
+        sg3 : Str = stem + hf ! <P3,Sg> ! h ;
+        pl1 : Str = stem + hf ! <P1,Pl> ! h ;
+        pl2 : Str = stem + hf ! <P2,Pl> ! h ;
+        pl3 : Str = stem + hf ! <P3,Pl> ! h ;
+     in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf ;
+
+  mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
+    \sg1,sg2,sg3,pl1,pl2,pl3,inf -> {
+      s = table {
+        VInf => inf ;
+        VFin P1 Sg => sg1 ;
+        VFin P2 Sg => sg2 ;
+        VFin P3 Sg => sg3 ;
+        VFin P1 Pl => pl1 ;
+        VFin P2 Pl => pl2 ;
+        VFin P3 Pl => pl3
       } ;
-
-   endNumber : Number -> HarmForms = \n -> case n of {
-     Sg => harm1 [] ;
-     Pl => harm3 "ok" "ek" "ök" 
-     } ;
-
-  harm3 : Str -> Str -> Str -> HarmForms = \a,e,o -> <a,e,o> ;
-  harm  : Str -> Str -> HarmForms = \a,e -> harm3 a e e ;
-  harm1 : Str -> HarmForms = \i -> harm i i ;
-
-  getHarm : Str -> Harm = \s -> case s of {
-    _ + ("a" | "á" | "o" | "ó" | "u" | "ú") + _ => H_a ;
-    _ + ("ö" | "ő" | "ü") + _                   => H_o ;
-    _ => H_e
+      sc = SCNom
     } ;
 
-  HarmForms : Type = Str * Str * Str ;
+  copula : Verb = mkVerbFull
+    "vagyok"
+    "vagy"
+    "van"
+    "vagyunk"
+    "vagytok"
+    "vannak"
+    "lenni" ;
 
-  useHarm : Harm -> HarmForms -> Str = \h,ss -> case h of {
-    H_a => ss.p1 ;
-    H_e => ss.p2 ;
-    H_o => ss.p3     
+  megvan : Verb = copula ** {
+    s = \\vf => "meg" + copula.s ! vf ;
     } ;
 
-  putHarmEnding : HarmForms -> Str -> Str = \hs,w ->
-    w + useHarm (getHarm w) hs ;
+------------------
+-- VP
 
-  regNoun : Str -> Noun = \w -> {
-    s = \\n,c => 
-        let h = getHarm w 
-        in
-        w + useHarm h (endNumber n) + useHarm h (endCase c)
-    } ; 
+  VerbPhrase : Type = Verb ** {
+    obj : Str ;
+    adv : Str ;
+    c2 : Case ; -- for RelSlash
+    } ;  -- TODO more fields
+
+  VPSlash : Type = Verb2 ** {
+    adv : Str ;
+    } ;
+
+  useV : Verb -> VerbPhrase = \v -> v ** {
+    obj,adv = [] ;
+    c2 = Acc ; -- TODO check
+    } ;
+
+  useVc : Verb2 -> VPSlash = \v2 -> v2 ** {
+    adv = [] ;
+    } ;
+
+  insertObj : VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
+    obj = np.s ! vps.c2 ;
+
+    -- If verb's subject case is Dat and object Nom, verb agrees with obj.
+    s = \\vf => case <vps.sc,vps.c2> of {
+                  <SCDat,Nom> => vps.s ! np.objdef ! agr2vf np.agr ;
+                  _ => vps.s ! np.objdef ! vf } ;
+    } ;
+
+  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
+  insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = adv.s} ;
+
+--------------------------------------------------------------------------------
+-- Cl, S
+
+  Clause : Type = {s : Tense => Anteriority => Polarity => Str} ;
+
+  {- After PredVP, we might still want to add more adverbs (QuestIAdv),
+     but we're done with verb inflection.
+   -}
+  ClSlash : Type = Clause ** {
+    c2 : Case ; -- For RelSlash
+    } ;
+
+  QClause : Type = Clause ;
 
 
---
---  param
---    Agr = AgP1 Number | AgP2 Number | AgP3Sg Gender | AgP3Pl ;
---
---  param 
---    Gender = Neutr | Masc | Fem ;
---
---
-----2 For $Verb$
---
----- Only these five forms are needed for open-lexicon verbs.
---
---  param
---    VForm = 
---       VInf
---     | VPres
---     | VPPart
---     | VPresPart
---     | VPast      --# notpresent
---     ;
---
----- Auxiliary verbs have special negative forms.
---
---    VVForm = 
---       VVF VForm
---     | VVPresNeg
---     | VVPastNeg  --# notpresent
---     ;
---
----- The order of sentence is needed already in $VP$.
---
---    Order = ODir | OQuest ;
---
----- The type of complement of a VV
---
---    VVType = VVAux | VVInf | VVPresPart ; -- can do / try to do / start doing
---
-----2 For $Adjective$
---
---    AForm = AAdj Degree Case | AAdv ;
---
-----2 For $Relative$
--- 
---    RAgr = RNoAg | RAg Agr ;
---    RCase = RPrep Gender | RC Gender NPCase ;
---
-----2 For $Numeral$
---
---    CardOrd = NCard | NOrd ;
---    DForm = unit | teen | ten  ;
---
-----2 Transformations between parameter types
---
---  oper
---    toAgr : Number -> Person -> Gender -> Agr = \n,p,g -> 
---      case p of {
---        P1 => AgP1 n ;
---        P2 => AgP2 n ;
---        P3 => case n of {
---          Sg => AgP3Sg g ;
---          Pl => AgP3Pl
---          }
---        } ;
---
---    fromAgr : Agr -> {n : Number ; p : Person ; g : Gender} = \a -> case a of {
---      AgP1 n => {n = n ; p = P1 ; g = Masc} ;
---      AgP2 n => {n = n ; p = P2 ; g = Masc} ;
---      AgP3Pl => {n = Pl ; p = P3 ; g = Masc} ;
---      AgP3Sg g => {n = Sg ; p = P3 ; g = g}
---      } ;
---
---    agrP3 : Number -> Agr = \n -> agrgP3 n Neutr ;
---
---    agrgP3 : Number -> Gender -> Agr = \n,g -> toAgr n P3 g ;
---
---    conjAgr : Agr -> Agr -> Agr = \a0,b0 -> 
---      let a = fromAgr a0 ; b = fromAgr b0 
---      in
---      toAgr
---        (conjNumber a.n b.n)
---        (conjPerson a.p b.p) a.g ;
---
----- For $Lex$.
---
----- For each lexical category, here are the worst-case constructors.
---
---    mkNoun : (_,_,_,_ : Str) -> {s : Number => Case => Str} = 
---      \man,mans,men,mens -> {
---      s = table {
---        Sg => table {
---          Gen => mans ;
---          _ => man
---          } ;
---        Pl => table {
---          Gen => mens ;
---          _ => men
---          }
---        }
---      } ;
---
---    mkAdjective : (_,_,_,_ : Str) -> {s : AForm => Str; lock_A : {}} = 
---      \good,better,best,well -> lin A {
---      s = table {
---        AAdj Posit  c => (regGenitiveS good) ! c ;
---        AAdj Compar c => (regGenitiveS better) ! c ;
---        AAdj Superl c => (regGenitiveS best) ! c ;
---        AAdv          => well
---        }
---      } ;
---
---    mkVerb : (_,_,_,_,_ : Str) -> Verb = 
---      \go,goes,went,gone,going -> {
---      s = table {
---        VInf   => go ;
---        VPres  => goes ;
---        VPast  => went ; --# notpresent
---        VPPart => gone ;
---        VPresPart => going
---        } ;
---      isRefl = False
---      } ;
---
---    mkIP : (i,me,my : Str) -> Number -> {s : NPCase => Str ; n : Number} =
---     \i,me,my,n -> let who = mkNP i me my n P3 Neutr in {
---        s = who.s ; 
---        n = n
---        } ;
---
---    mkNP : (i,me,my : Str) -> Number -> Person -> Gender -> 
---     {s : NPCase => Str ; a : Agr} = \i,me,my,n,p,g -> 
---   { s = table {
---       NCase Nom => i ;
---       NPAcc => me ;
---       NCase Gen => my
---       } ;
---     a = toAgr n p g ;
---   };
---
---    regNP : Str -> Number -> {s : NPCase => Str ; a : Agr} = \that,n ->
---      mkNP that that (that + "'s") n P3 Neutr ;
---
---    regGenitiveS : Str -> Case => Str = \s -> 
---      table { Gen => genitiveS s; _ => s } ;
---
---    genitiveS : Str -> Str = \dog ->
---      case last dog of {
---          "s" => dog + "'" ;
---          _   => dog + "'s"
---          };
---
----- We have just a heuristic definition of the indefinite article.
----- There are lots of exceptions: consonantic "e" ("euphemism"), consonantic
----- "o" ("one-sided"), vocalic "u" ("umbrella").
---
---    artIndef = pre {
---      "eu" | "Eu" | "uni" | "up" => "a" ;
---      "un" => "an" ; 
---      "a" | "e" | "i" | "o" | "A" | "E" | "I" | "O" => "an" ;
---      "SMS" | "sms" => "an" ; ---
---      _ => "a"
---      } ;
---
---    artDef = "the" ;
---
----- For $Verb$.
---
---  Verb : Type = {
---    s : VForm => Str ;
---    isRefl : Bool
---    } ;
---
---  param
---  CPolarity = 
---     CPos
---   | CNeg Bool ;  -- contracted or not
---
---  oper
---  contrNeg : Bool -> Polarity -> CPolarity = \b,p -> case p of {
---    Pos => CPos ;
---    Neg => CNeg b
---    } ;
---
---  VerbForms : Type =
---    Tense => Anteriority => CPolarity => Order => Agr => 
---      {aux, adv, fin, inf : Str} ; -- would, not, sleeps, slept
---
---  VP : Type = {
---    s   : VerbForms ;
---    prp : Str ;   -- present participle 
---    ptp : Str ;   -- past participle
---    inf : Str ;   -- the infinitive form ; VerbForms would be the logical place
---    ad  : Str ;   -- sentence adverb
---    s2  : Agr => Str -- complement
---    } ;
---
---
---  SlashVP = VP ** {c2 : Str} ;
---
---  predVc : (Verb ** {c2 : Str}) -> SlashVP = \verb -> 
---    predV verb ** {c2 = verb.c2} ;
---
---  predV : Verb -> VP = \verb -> {
---    s = \\t,ant,b,ord,agr => 
---      let
---        inf  = verb.s ! VInf ;
---        fin  = presVerb verb agr ;
---        part = verb.s ! VPPart ;
---      in
---      case <t,ant,b,ord> of {
---        <Pres,Simul,CPos,ODir>   => vff            fin [] ;
---        <Pres,Simul,CPos,OQuest> => vf (does agr)   inf ;
---        <Pres,Anter,CPos,_>      => vf (have agr)   part ; --# notpresent
---        <Pres,Anter,CNeg c,_>    => vfn c (have agr) (havent agr) part ; --# notpresent
---        <Past,Simul,CPos,ODir>   => vff (verb.s ! VPast) [] ; --# notpresent
---        <Past,Simul,CPos,OQuest> => vf "did"        inf ; --# notpresent
---        <Past,Simul,CNeg c,_>    => vfn c "did" "didn't"     inf ; --# notpresent
---        <Past,Anter,CPos,_>      => vf "had"        part ; --# notpresent
---        <Past,Anter,CNeg c,_>    => vfn c "had" "hadn't"     part ; --# notpresent
---        <Fut, Simul,CPos,_>      => vf "will"       inf ; --# notpresent
---        <Fut, Simul,CNeg c,_>    => vfn c "will" "won't"      inf ; --# notpresent
---        <Fut, Anter,CPos,_>      => vf "will"       ("have" ++ part) ; --# notpresent
---        <Fut, Anter,CNeg c,_>    => vfn c "will" "won't"("have" ++ part) ; --# notpresent
---        <Cond,Simul,CPos,_>      => vf "would"      inf ; --# notpresent
---        <Cond,Simul,CNeg c,_>    => vfn c "would" "wouldn't"   inf ; --# notpresent
---        <Cond,Anter,CPos,_>      => vf "would"      ("have" ++ part) ; --# notpresent
---        <Cond,Anter,CNeg c,_> => vfn c "would" "wouldn't" ("have" ++ part) ; --# notpresent
---        <Pres,Simul,CNeg c,_>    => vfn c (does agr) (doesnt agr) inf
---        } ;
---    prp  = verb.s ! VPresPart ;
---    ptp  = verb.s ! VPPart ;
---    inf  = verb.s ! VInf ;
---    ad   = [] ;
---    s2 = \\a => if_then_Str verb.isRefl (reflPron ! a) []
---    } ;
---
---  predAux : Aux -> VP = \verb -> {
---    s = \\t,ant,cb,ord,agr => 
---      let 
---        b = case cb of {
---          CPos => Pos ;
---          _ => Neg
---          } ;
---        inf  = verb.inf ;
---        fin  = verb.pres ! b ! agr ;
---        finp = verb.pres ! Pos ! agr ;
---        part = verb.ppart ;
---      in
---      case <t,ant,cb,ord> of {
---        <Pres,Anter,CPos,_>      => vf (have agr)   part ;  --# notpresent
---        <Pres,Anter,CNeg c,_>    => vfn c (have agr) (havent agr) part ; --# notpresent
---        <Past,Simul,CPos,  _>    => vf (verb.past ! b ! agr) [] ; --# notpresent
---        <Past,Simul,CNeg c,  _> => vfn c (verb.past!Pos!agr)(verb.past!Neg!agr) [] ; --# notpresent
---        <Past,Anter,CPos,_>      => vf "had"        part ; --# notpresent
---        <Past,Anter,CNeg c,_>    => vfn c "had" "hadn't"     part ; --# notpresent
---        <Fut, Simul,CPos,_>      => vf "will"       inf ; --# notpresent
---        <Fut, Simul,CNeg c,_>    => vfn c "will" "won't"      inf ; --# notpresent
---        <Fut, Anter,CPos,_>      => vf "will"       ("have" ++ part) ; --# notpresent
---        <Fut, Anter,CNeg c,_>    => vfn c "will" "won't"("have" ++ part) ; --# notpresent
---        <Cond,Simul,CPos,_>      => vf "would"      inf ; --# notpresent
---        <Cond,Simul,CNeg c,_>    => vfn c "would" "wouldn't"   inf ; --# notpresent
---        <Cond,Anter,CPos,_>      => vf "would"      ("have" ++ part) ; --# notpresent
---        <Cond,Anter,CNeg c,_> => vfn c "would" "wouldn't" ("have" ++ part) ; --# notpresent
---        <Pres,Simul,CPos,  _>    => vf fin          [] ;
---        <Pres,Simul,CNeg c,  _>  => vfn c finp fin          [] 
---        } ;
---    prp = verb.prpart ;
---    ptp = verb.ppart ;
---    inf = verb.inf ;
---    ad = [] ;
---    s2 = \\_ => []
---    } ;
---        
---  vff : Str -> Str -> {aux, adv, fin, inf : Str} = \x,y -> 
---    {aux = [] ; adv = [] ; fin = x ; inf = y} ;
---
---  vf : Str -> Str -> {aux, adv, fin, inf : Str} = \x,y -> vfn True x x y ;
---
---  vfn : Bool -> Str -> Str -> Str -> {aux, fin, adv, inf : Str} = 
---    \contr,x,y,z -> 
---    case contr of {
---      True  => {aux = y ; adv = [] ; fin = [] ; inf = z} ;
---      False => {aux = x ; adv = "not" ; fin = [] ; inf = z}
---      } ;
---
---  insertObj : (Agr => Str) -> VP -> VP = \obj,vp -> {
---    s = vp.s ;
---    prp = vp.prp ;
---    ptp = vp.ptp ;
---    inf = vp.inf ;
---    ad = vp.ad ;
---    s2 = \\a => vp.s2 ! a ++ obj ! a
---    } ;
---
---  insertObjPre : (Agr => Str) -> VP -> VP = \obj,vp -> {
---    s = vp.s ;
---    prp = vp.prp ;
---    ptp = vp.ptp ;
---    inf = vp.inf ;
---    ad = vp.ad ;
---    s2 = \\a => obj ! a ++ vp.s2 ! a 
---    } ;
---
---  insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp -> 
---    insertObj obj vp ** {c2 = vp.c2} ;
---
------ The adverb should be before the finite verb.
---
---  insertAdV : Str -> VP -> VP = \ad,vp -> {
---    s = vp.s ;
---    prp = vp.prp ;
---    ptp = vp.ptp ;
---    inf = vp.inf ;
---    ad  = vp.ad ++ ad ;
---    s2 = \\a => vp.s2 ! a
---    } ;
---
----- 
---
---  predVV : {s : VVForm => Str ; typ : VVType} -> VP = \verb ->
---    let verbs = verb.s
---    in
---    case verb.typ of {
---      VVAux => predAux {
---        pres = table {
---          Pos => \\_ => verbs ! VVF VPres ;
---          Neg => \\_ => verbs ! VVPresNeg
---          } ;
---        past = table {                       --# notpresent
---          Pos => \\_ => verbs ! VVF VPast ;  --# notpresent
---          Neg => \\_ => verbs ! VVPastNeg    --# notpresent
---          } ;    --# notpresent
---        inf = verbs ! VVF VInf ;
---        ppart = verbs ! VVF VPPart ;
---        prpart = verbs ! VVF VPresPart ;
---        } ;
---      _    => predV {s = \\vf => verbs ! VVF vf ; isRefl = False}
---      } ;
---
---  presVerb : {s : VForm => Str} -> Agr -> Str = \verb -> 
---    agrVerb (verb.s ! VPres) (verb.s ! VInf) ;
---
---  infVP : VVType -> VP -> Agr -> Str = \typ,vp,a ->
---    vp.ad ++ 
---    case typ of {
---      VVAux => vp.inf ; 
---      VVInf => "to" ++ vp.inf ;
---      _ => vp.prp
---      } ++ 
---    vp.s2 ! a ;
---
---  agrVerb : Str -> Str -> Agr -> Str = \has,have,agr -> 
---    case agr of {
---      AgP3Sg _ => has ;
---      _        => have
---      } ;
---
---  have   = agrVerb "has"     "have" ;
---  havent = agrVerb "hasn't"  "haven't" ;
---  does   = agrVerb "does"    "do" ;
---  doesnt = agrVerb "doesn't" "don't" ;
---
---  Aux = {
---    pres : Polarity => Agr => Str ; 
---    past : Polarity => Agr => Str ;  --# notpresent
---    inf,ppart,prpart : Str
---    } ;
---
---  auxBe : Aux = {
---    pres = \\b,a => case <b,a> of {
---      <Pos,AgP1 Sg> => "am" ; 
---      <Neg,AgP1 Sg> => ["am not"] ; --- am not I
---      _ => agrVerb (posneg b "is")  (posneg b "are") a
---      } ;
---    past = \\b,a => case a of {          --# notpresent
---      AgP1 Sg | AgP3Sg _ => posneg b "was" ; --# notpresent
---      _                  => (posneg b "were")  --# notpresent
---      } ; --# notpresent
---    inf  = "be" ;
---    ppart = "been" ;
---    prpart = "being"
---    } ;
---
---  posneg : Polarity -> Str -> Str = \p,s -> case p of {
---    Pos => s ;
---    Neg => s + "n't"
---    } ;
---
---  conjThat : Str = "that" ;
---
---  reflPron : Agr => Str = table {
---    AgP1 Sg      => "myself" ;
---    AgP2 Sg      => "yourself" ;
---    AgP3Sg Masc  => "himself" ;
---    AgP3Sg Fem   => "herself" ;
---    AgP3Sg Neutr => "itself" ;
---    AgP1 Pl      => "ourselves" ;
---    AgP2 Pl      => "yourselves" ;
---    AgP3Pl       => "themselves"
---    } ;
---
----- For $Sentence$.
---
---  Clause : Type = {
---    s : Tense => Anteriority => CPolarity => Order => Str
---    } ;
---
---  mkClause : Str -> Agr -> VP -> Clause =
---    \subj,agr,vp -> {
---      s = \\t,a,b,o => 
---        let 
---          verb  = vp.s ! t ! a ! b ! o ! agr ;
---          compl = vp.s2 ! agr
---        in
---        case o of {
---          ODir => subj ++ verb.aux ++ verb.adv ++ vp.ad ++ verb.fin ++ verb.inf ++ compl ;
---          OQuest => verb.aux ++ subj ++ verb.adv ++ vp.ad ++ verb.fin ++ verb.inf ++ compl
---          }
---    } ;
---
---
----- For $Numeral$.
---
---  mkNum : Str -> Str -> Str -> Str -> {s : DForm => CardOrd => Case => Str} = 
---    \two, twelve, twenty, second ->
---    {s = table {
---       unit => table {NCard => regGenitiveS two ; NOrd => regGenitiveS second} ; 
---       teen => \\c => mkCard c twelve ; 
---       ten  => \\c => mkCard c twenty
---       }
---    } ;
---
---  regNum : Str -> {s : DForm => CardOrd => Case => Str} = 
---    \six -> mkNum six (six + "teen") (six + "ty") (regOrd six) ;
---
---  regCardOrd : Str -> {s : CardOrd => Case => Str} = \ten ->
---    {s = table {NCard => regGenitiveS ten ; 
---		NOrd => regGenitiveS (regOrd ten)} } ;
---
---  mkCard : CardOrd -> Str -> Case => Str = \o,ten -> 
---    (regCardOrd ten).s ! o ; 
---
---  regOrd : Str -> Str = \ten -> 
---    case last ten of {
---      "y" => init ten + "ieth" ;
---      _   => ten + "th"
---      } ;
---
---  mkQuestion : 
---      {s : Str} -> Clause -> 
---      {s : Tense => Anteriority => CPolarity => QForm => Str} = \wh,cl ->
---      {
---      s = \\t,a,p => 
---            let 
---              cls = cl.s ! t ! a ! p ;
---              why = wh.s
---            in table {
---              QDir   => why ++ cls ! OQuest ;
---              QIndir => why ++ cls ! ODir
---              }
---      } ;
---
---
---}
+  Sentence : Type = {s : Str} ;
+
+  predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
+    s = \\t,a,p => let subjcase : Case = case vp.sc of {
+                                               SCNom => Nom ;
+                                               SCDat => Dat }
+                        in np.s ! subjcase
+                        ++ vp.s ! agr2vf np.agr
+                        ++ vp.obj
+                        ++ vp.adv
+                        ++ np.empty -- standard trick for prodrop+metavariable problem
+    } ;
+
+  -- Relative
+
+  RP : Type = {s : Number => Case => Str} ;
+  RClause : Type = {s : Tense => Anteriority => Polarity => Number => Case => Str} ;
+
+  np2rp : NounPhrase -> RP ** {agr : Person*Number} = \np -> np ** {
+    s = \\n => np.s ;
+    } ;
+
+  relVP : RP -> VerbPhrase -> RClause = \rp -> relVP' (rp ** {agr=<P3,Sg>}) ;
+
+  relVP' : RP ** {agr : Person*Number} -> VerbPhrase -> RClause = \rp,vp -> {
+    s = \\t,a,p,n,c => let subjcase : Case = case vp.sc of {
+                                               SCNom => Nom ;
+                                               SCDat => Dat }
+                        in rp.s ! n ! subjcase
+                        ++ vp.obj
+                        ++ vp.adv
+                        ++ vp.s ! VFin rp.agr.p1 n -- variable by number
+    } ;
+
+  relSlash : RP -> ClSlash -> RClause = \rp,cls -> {
+    s = \\t,a,p,n,c => let objcase : Case = case cls.c2 of {
+                                              Acc => c ;
+                                              _ => cls.c2 }
+                    in rp.s ! n ! objcase
+                    ++ cls.s ! t ! a ! p
+   } ;
+--------------------------------------------------------------------------------
+-- linrefs
 
 }

@@ -16,7 +16,7 @@ param
   Case = Nom | Gen | Dat | Acc | Voc | Loc | Ins ; -- traditional order
 
   Person = P1 | P2 | P3 ;
-  
+
   Agr = Ag Gender Number Person ;
 
   CTense = CTPres | CTPast ; ----- TODO complete the tense system to match Czech verb morphology
@@ -27,16 +27,16 @@ oper
   hardConsonant    : pattern Str = #("d"|"t"|"g"|"h"|"k"|"n"|"r") ;
   softConsonant    : pattern Str = #("ť"|"ď"|"j"|"ň"|"ř"|"š"|"c"|"č"|"ž") ;
   neutralConsonant : pattern Str = #("b"|"f"|"l"|"m"|"p"|"s"|"v") ;
-  
+
   consonant : pattern Str =
     #(
-      "d" | "t" | "g" | "h" | "k" | "n" | "r" | 
-      "ť" | "ď" | "j" | "ň" | "ř" | "š" | "c" | "č" | "ž" | 
+      "d" | "t" | "g" | "h" | "k" | "n" | "r" |
+      "ť" | "ď" | "j" | "ň" | "ř" | "š" | "c" | "č" | "ž" |
       "b" | "f" | "l" | "m" | "p" | "s" | "v"
-      ) ; 
+      ) ;
 
   dropFleetingE : Str -> Str = \s -> case s of {
-    x + "e" + c@("k"|"c") => x + c ;
+    x + "e" + c@("k"|"c"|"n") => x + c ;
     x + "e" + "ň" => x + "n" ;
     _ => s
     } ;
@@ -85,10 +85,10 @@ oper
   shortFemPlGen : Str -> Str = \s -> case s of {
     ul  + "ice" => ul + "ic" ;
     koleg + "yně" => koleg + "yň" ;
-    ruz + "e" => ruz + "i" ;
+    ruz + "e" => ruz + "í" ;
     _ => Predef.error ("shortFemPlGen does not apply to" ++ s)
-    } ; 
-		    
+    } ;
+
 ---------------
 -- Nouns
 ---------------
@@ -136,7 +136,7 @@ oper
 
 -- terminology of CEG
   DeclensionType : Type = Str -> NounForms ;
-  
+
   declensionNounForms : (nom,gen : Str) -> Gender -> NounForms
     = \nom,gen,g ->
     let decl : DeclensionType = case <g, nom, gen> of {
@@ -173,12 +173,12 @@ oper
       _ + "e"            => declMORE s ;
       _ + "í"            => declSTAVENI s ;
       _ => Predef.error ("cannot guess declension type for" ++ s)
-      } ; 
+      } ;
 
 -- the traditional declensions, in both CEG and Wiki
 -- they are also exported in ParadigmsCze with names panN etc
 
-  declPAN : DeclensionType = \pan ->  --- plural nom ové|i|é can be changed with ** {pnom = ...} CEG 3.5.1 
+  declPAN : DeclensionType = \pan ->  --- plural nom ové|i|é can be changed with ** {pnom = ...} CEG 3.5.1
     {
       snom      = pan ;
       sgen,sacc = pan + "a" ;
@@ -193,7 +193,7 @@ oper
       ploc      = addEch pan ;
       g = Masc Anim
       } ;
-      
+
   declPREDSEDA : DeclensionType = \predseda -> --- 3.5.4: sgen y/i
     let predsed = init predseda
     in
@@ -284,7 +284,7 @@ oper
       sins      = muz + "em" ;
 
       pnom = case muz_ of {
-        uci + "tel" => uci + "tele" ;
+        uci + "tel" => uci + "telé" ;
         _ => muz + "i"  --- muzové
 	} ;
       pgen = muz + "ů" ;
@@ -308,7 +308,7 @@ oper
       pdat                = soudc + "ům" ;
       pacc                = soudce ;
       ploc                = soudc + "ích" ;
-      pins                = soudc + "i" ; 
+      pins                = soudc + "i" ;
       g = Masc Anim
       } ;
 
@@ -332,7 +332,8 @@ oper
     in
     {
       snom,sgen,svoc      = ruze ; --- pnom,pacc
-      sdat,sacc,sloc,sins = ruz + "i" ; 
+      sdat,sacc,sloc = ruz + "i" ;
+      sins = ruz + "í" ;
 
       pnom,pacc = ruze ;
       pgen      = shortFemPlGen ruze ;
@@ -343,7 +344,7 @@ oper
       } ;
 
   declPISEN : DeclensionType = \pisen ->
-    let pisn = dropFleetingE pisen 
+    let pisn = dropFleetingE pisen
     in
     {
       snom,sacc      = pisen ;
@@ -389,7 +390,7 @@ oper
       pins      = kur + "aty" ;
       g = Neutr
       } ;
-      
+
   declMORE : DeclensionType = \more -> --- 3.7.2 pgen zero sometimes
     let mor = init more
     in
@@ -399,13 +400,13 @@ oper
       sins                = mor + "em" ;
 
       pnom,pacc = more ;
-      pgen      = mor + "í" ;  --- 
+      pgen      = mor + "í" ;  ---
       pdat      = mor + "ím" ;
-      ploc      = mor + "ích" ; 
+      ploc      = mor + "ích" ;
       pins      = mor + "i" ;
       g = Neutr
       } ;
-      
+
   declSTAVENI : DeclensionType = \staveni ->
     {
       snom,sgen,sdat,sacc,svoc,sloc = staveni ;
@@ -422,7 +423,7 @@ oper
 -- Adjectives
 
 -- to be used for AP: 56 forms for each degree
-  Adjective : Type = {s : Gender => Number => Case => Str} ; 
+  Adjective : Type = {s : Gender => Number => Case => Str} ;
 
 -- to be used for A, in three degrees: 15 forms in each
 ---- TODO other degrees than positive
@@ -444,25 +445,25 @@ oper
 
 adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   s = \\g,n,c => case <n,c,g> of {
-  
+
     <Sg, Nom|Voc, Masc _>
       | <Sg, Acc, Masc Inanim>   => afs.msnom ;
     <Sg, Nom|Voc, Fem>
       | <Pl, Nom|Acc|Voc, Neutr> => afs.fsnom ;
     <Sg, Nom|Acc|Voc, Neutr>     => afs.nsnom ;
-    
+
     <Sg, Gen, Masc _ | Neutr>
       | <Sg,Acc,Masc Anim>     => afs.msgen ;
     <Sg, Gen, Fem>
       | <Pl,Acc,Masc _|Fem>    => afs.fsgen ;
-    
+
     <Sg, Dat, Masc _|Neutr>    => afs.msdat ;
     <Sg, Dat|Loc, Fem>         => afs.fsdat ;
 
     <Sg, Acc, Fem>             => afs.fsacc ;
-    
+
     <Sg, Loc, Masc _|Neutr>    => afs.msloc ;
-    
+
     <Sg, Ins, Masc _|Neutr>
       | <Pl,Dat,_>             => afs.msins ;
     <Sg, Ins, Fem>             => afs.fsins ;
@@ -473,7 +474,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     <Pl, Gen|Loc,_> => afs.pgen ;
     <Pl, Ins,_>     => afs.pins
     }
-    
+
     } ;
 
 -- hard declension
@@ -571,7 +572,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     pastpartpl = "byli" ;
     negpressg3 = "ní" ;  -- ne is added to this
     } ;
-    
+
   haveVerbForms : VerbForms = {
     inf = "mít" ;
     pressg1 = "mám" ;
@@ -590,7 +591,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   iii_kupovatVerbForms : Str -> VerbForms = \kupovat ->
    let
      kupo = Predef.tk 3 kupovat ;
-     kupu = Predef.tk 1 kupo + "u"  
+     kupu = Predef.tk 1 kupo + "u"
    in
    {
     inf = kupovat ;
@@ -604,7 +605,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     pastpartpl = kupo + "vali" ;
     } ;
 
-  
+
 ---------------------------
 -- Pronouns
 
@@ -637,7 +638,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         cgen,cacc = "tě" ;
         dat,pdat,loc = "tobě" ;
         cdat = "ti" ;
-        ins,pins = "tebou" 
+        ins,pins = "tebou"
         } ;
       Ag (Masc _) Sg P3 => {
         nom = "on" ;
@@ -714,10 +715,10 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 oper
   DemPronForms : Type = {
     msnom, fsnom, nsnom,
-    msgen, fsgen, 
+    msgen, fsgen,
     msdat, -- fsdat = fsgen unlike AdjForms
     fsacc,
-    msloc, 
+    msloc,
     msins, fsins,
     mpnom, fpnom, -- mpacc = fpacc = fpnom
     pgen,
@@ -748,7 +749,7 @@ oper
     fsnom = t + "a" ;
     nsnom = t + "o" ;
     msgen = t + "oho" ;
-    fsgen = t + "é" ; 
+    fsgen = t + "é" ;
     msdat = t + "omu" ;
     fsacc = t + "u" ;
     msloc = t + "om" ;
@@ -760,9 +761,9 @@ oper
     pdat  = t + "ěm" ;
     pins  = t + "ěmi" ;
     } ;
-    
+
   invarDemPronForms : Str -> DemPronForms = \s -> {
-    msnom, fsnom, nsnom, msgen, fsgen, 
+    msnom, fsnom, nsnom, msgen, fsgen,
     msdat, fsacc, msloc, msins, fsins,
     mpnom, fpnom, pgen, pdat, pins = s ;
     } ;
@@ -776,7 +777,7 @@ oper
    Loc => "kom" ;
    Ins => "kým"
    } ;
-   
+
  coForms : Case => Str = table {
    Nom|Acc|Voc => "co" ;
    Gen => "čeho" ;
@@ -790,10 +791,10 @@ oper
   -- singular forms of demonstratives
   NumeralForms : Type = {
     msnom, fsnom, nsnom,
-    msgen, fsgen, 
-    msdat, 
+    msgen, fsgen,
+    msdat,
     fsacc,
-    msloc, 
+    msloc,
     msins, fsins : Str
     } ;
 
@@ -801,7 +802,7 @@ oper
     \nume,size ->
     let
       dem = nume **
-        {mpnom, fpnom, pgen, pdat, pins = nume.msnom} ; --- plural forms not used 
+        {mpnom, fpnom, pgen, pdat, pins = nume.msnom} ; --- plural forms not used
       demAdj = dem ** {fsdat = dem.fsgen} ;
       adjAdj = adjFormsAdjective demAdj
     in {
@@ -810,7 +811,7 @@ oper
       } ;
 
   -- example: number 1
-  oneNumeral : Determiner = numeralFormsDeterminer (mkDemPronForms "jed") Num1 ;
+  oneNumeral : Determiner = numeralFormsDeterminer ((mkDemPronForms "jedn") ** {msnom = "jeden"}) Num1 ;
 
   -- numbers 2,3,4 ---- to check if everything comes out right with the determiner type
   twoNumeral : Determiner =
@@ -820,7 +821,7 @@ oper
       msdat, msins, fsins = "dvěma"
       }
     in numeralFormsDeterminer forms Num2_4 ;
-    
+
   threeNumeral : Determiner =
     let forms = {
       msnom, fsnom, nsnom, fsacc, msgen, fsgen = "tři" ;
@@ -850,7 +851,7 @@ oper
 
   invarDeterminer : Str -> NumSize -> Determiner = \sto,size ->
     regNumeral sto sto ;
-    
+
   invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
 
 --------------------------------

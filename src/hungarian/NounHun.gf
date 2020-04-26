@@ -1,144 +1,228 @@
-concrete NounHun of Noun = CatHun ** open MorphoHun, ResHun, Prelude in 
-{
---{
---
---  flags optimize=all_subs ;
---
---  lin
---    DetCN det cn = {
---      s = \\c => det.s ++ cn.s ! det.n ! npcase2case c ; 
---      a = agrgP3 det.n cn.g
---      } ;
---
---    UsePN pn = {s = \\c => pn.s ! npcase2case c ; a = agrgP3 Sg pn.g} ;
---    UsePron p = p ;
---
---    PredetNP pred np = {
---      s = \\c => pred.s ++ np.s ! c ;
---      a = np.a
---      } ;
---
---    PPartNP np v2 = {
---      s = \\c => np.s ! c ++ v2.s ! VPPart ;
---      a = np.a
---      } ;
---
---    RelNP np rs = {
---      s = \\c => np.s ! c ++ "," ++ rs.s ! np.a ;
---      a = np.a
---      } ;
---
---    AdvNP np adv = {
---      s = \\c => np.s ! c ++ adv.s ;
---      a = np.a
---      } ;
---
---    DetQuant quant num = {
---      s  = quant.s ! num.hasCard ! num.n ++ num.s ! Nom;
---      sp = \\c => case num.hasCard of {
---                     False => quant.sp ! num.hasCard ! num.n ! c ++ num.s ! Nom ;
---                     True  => quant.sp ! num.hasCard ! num.n ! npNom ++ num.s ! npcase2case c
---                  } ;
---      n  = num.n ;
---      hasNum = num.hasCard
---      } ;
---
---    DetQuantOrd quant num ord = {
---      s  = quant.s ! num.hasCard ! num.n ++ num.s ! Nom ++ ord.s ! Nom; 
---      sp = \\c => quant.sp ! num.hasCard ! num.n ! npNom ++ num.s ! Nom ++ ord.s ! npcase2case c ; 
---      n  = num.n ;
---      hasNum = True
---      } ;
---
---    DetNP det = {
---      s = case det.hasNum of {True => \\_ => det.s ; _ => \\c => det.sp ! c} ;
---      a = agrP3 det.n
---      } ;
---
---    PossPron p = {
---      s = \\_,_ => p.s ! NCase Gen ;
---      sp = \\_,_,c => p.sp ! npcase2case c 
---      } ;
---
---    NumSg = {s = \\c => []; n = Sg ; hasCard = False} ;
---    NumPl = {s = \\c => []; n = Pl ; hasCard = False} ;
------b    NoOrd = {s = []} ;
---
---    NumCard n = n ** {hasCard = True} ;
---
---    NumDigits n = {s = n.s ! NCard ; n = n.n} ;
---    OrdDigits n = {s = n.s ! NOrd} ;
---
---    NumNumeral numeral = {s = numeral.s ! NCard; n = numeral.n} ;
---    OrdNumeral numeral = {s = numeral.s ! NOrd} ;
---
---    AdNum adn num = {s = \\c => adn.s ++ num.s!c ; n = num.n} ;
---
---    OrdSuperl a = {s = \\c => a.s ! AAdj Superl c } ;
---
---    DefArt = {
---      s  = \\hasCard,n => artDef ;
---      sp = \\hasCard,n => case <n,hasCard> of {
---        <Sg,False> => table { NCase Gen => "its"; _ => "it" } ;
---        <Pl,False> => table { NCase Nom => "they"; NPAcc => "them"; NCase Gen => "theirs" } ;
---        _          => \\c => artDef
---        }
---      } ;
---
---    IndefArt = {
---      s = \\hasCard,n => case <n,hasCard> of {
---        <Sg,False> => artIndef ;
---        _          => []
---        } ;
---      sp = \\hasCard,n => case <n,hasCard> of {
---        <Sg,False> => table {NCase Gen => "one's"; _ => "one" };
---        <Pl,False> => table {NCase Gen => "ones'"; _ => "ones" } ;
---        _          => \\c => []
---        }
---      } ;
---
---    MassNP cn = {
---      s = \\c => cn.s ! Sg ! npcase2case c ;
---      a = agrP3 Sg
---      } ;
---
---    UseN n = n ;
---    UseN2 n = n ;
------b    UseN3 n = n ;
---
---    Use2N3 f = {
---      s = \\n,c => f.s ! n ! Nom ;
---      g = f.g ;
---      c2 = f.c2
---      } ;
---
---    Use3N3 f = {
---      s = \\n,c => f.s ! n ! Nom ;
---      g = f.g ;
---      c2 = f.c3
---      } ;
---
---    ComplN2 f x = {s = \\n,c => f.s ! n ! Nom ++ f.c2 ++ x.s ! NPAcc ; g = f.g} ;
---    ComplN3 f x = {
---      s = \\n,c => f.s ! n ! Nom ++ f.c2 ++ x.s ! NPAcc ;
---      g = f.g ;
---      c2 = f.c3
---      } ;
---
---    AdjCN ap cn = {
---      s = \\n,c => preOrPost ap.isPre (ap.s ! agrgP3 n cn.g) (cn.s ! n ! c) ;
---      g = cn.g
---      } ;
---    RelCN cn rs = {
---      s = \\n,c => cn.s ! n ! c ++ rs.s ! agrgP3 n cn.g ;
---      g = cn.g
---      } ;
---    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s ; g = cn.g} ;
---
---    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s ; g = cn.g} ;
---
---    ApposCN cn np = {s = \\n,c => cn.s ! n ! Nom ++ np.s ! NCase c ; g = cn.g} ;
---
---}
+concrete NounHun of Noun = CatHun ** open ResHun, Prelude, Coordination in {
+
+  flags optimize=all_subs ;
+
+  lin
+
+--2 Noun phrases
+
+-- : Det -> CN -> NP
+  DetCN det cn = emptyNP ** det ** {
+    s = \\c => det.s ! Nom ++ cn.s ! det.n ! c ;
+    agr = <P3,det.n> ;
+    } ;
+
+  -- : PN -> NP ;
+  UsePN pn = pn ;
+
+  -- : Pron -> NP ;
+  UsePron pron = pron ;
+
+  -- : Predet -> NP -> NP ; -- only the man
+  PredetNP predet np = np ** {
+    s = \\c => predet.s ++ np.s ! c ;
+    } ;
+
+-- A noun phrase can also be postmodified by the past participle of a
+-- verb, by an adverb, or by a relative clause
+
+  -- : NP -> V2  -> NP ;    -- the man seen
+  -- PPartNP np v2 = np ** {
+  --  s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
+
+  -- : NP -> Adv -> NP ;    -- Paris today
+  AdvNP np adv = np ** {
+    s = \\c => np.s ! c ++ adv.s ;
+  } ;
+  -- : NP -> Adv -> NP ;    -- boys, such as ..
+  ExtAdvNP np adv = np ** {
+    s = \\c => np.s ! c ++ bindComma ++ adv.s ;
+  } ;
+  -- : NP -> RS -> NP ;    -- Paris, which is here
+  RelNP np rs = np ** {
+    s = \\c => np.s ! c ++ bindComma ++ rs.s ! np.agr.p2 ! c ;
+  } ;
+
+-- Determiners can form noun phrases directly.
+
+  -- : Det -> NP ;
+  DetNP det = emptyNP ** {
+    s = det.sp ;
+    agr = <P3,det.n> ;
+    } ;
+
+  -- : CN -> NP ;
+  MassNP cn = emptyNP ** {
+    s = \\c => cn.s ! Sg ! c ;
+    agr = <P3,Sg> ;
+    } ;
+
+--2 Determiners
+
+-- The determiner has a fine-grained structure, in which a 'nucleus'
+-- quantifier and an optional numeral can be discerned.
+
+  -- : Quant -> Num -> Det ;
+  DetQuant quant num = quant ** num ** {
+    s = \\c => case <isNum num,quant.isIndefArt> of {
+                 <True,True> => [] ; -- don't output "a 2 cars"
+                 _           => quant.s ! num.n ! c }
+            ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
+    sp = \\c => quant.sp ! num.n ! c
+            ++ num.s ! Indep ;
+    } ;
+
+  -- : Quant -> Num -> Ord -> Det ;  -- these five best
+  DetQuantOrd quant num ord =
+    let theseFive = DetQuant quant num in theseFive ** {
+      s = \\c => theseFive.s ! c ++ ord.s ! num.n ;
+      sp = \\c => theseFive.sp ! c ++ ord.s ! num.n ;
+      } ;
+
+-- Whether the resulting determiner is singular or plural depends on the
+-- cardinal.
+
+-- All parts of the determiner can be empty, except $Quant$, which is
+-- the "kernel" of a determiner. It is, however, the $Num$ that determines
+-- the inherent number.
+
+  NumSg = baseNum ;
+  NumPl = baseNum ** {n = Pl} ;
+
+  -- : Card -> Num ;
+  NumCard card = card ** {
+    n = Sg -- Numerals take noun in Sg: e.g. öt város, literally 'five city'
+    } ;
+
+  -- : Digits  -> Card ;
+  NumDigits dig = dig ** {
+    s = \\place => dig.s ! NCard ;
+    numtype = IsNum ;
+    } ;
+
+  -- : Numeral -> Card ;
+  NumNumeral num = num ;
+
+{-
+  -- : AdN -> Card -> Card ;
+  AdNum adn card = card ** { s = adn.s ++ card.s } ;
+
+  -- : Digits  -> Ord ;
+  OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
+
+  -- : Numeral -> Ord ;
+  OrdNumeral num = num ** {
+    s = \\_ => num.ord
+    } ;
+-}
+  -- : A       -> Ord ;
+  OrdSuperl a = {
+    s = a.s ! Superl ;
+    n = Sg -- ?? is this meaningful?
+    } ;
+
+-- One can combine a numeral and a superlative.
+
+  -- : Numeral -> A -> Ord ; -- third largest
+  -- OrdNumeralSuperl num a = num ** {  } ;
+
+  -- : Quant
+  DefArt = {
+    s,
+    sp = \\_,_ => pre {"a" ; "az" / v } ;
+    isIndefArt = False ;
+    objdef = Def ;
+    } ;
+
+  -- : Quant
+  IndefArt = {
+    s,
+    sp = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
+    isIndefArt = True ;
+    objdef = Indef ;
+    } ;
+
+  -- : Pron -> Quant
+  -- PossPron pron =
+  --   let p = pron.poss ;
+  --    in DefArt ** {
+  --       } ;
+
+--2 Common nouns
+
+  -- : N -> CN
+  -- : N2 -> CN ;
+  UseN,UseN2 = \n -> n ;
+
+  -- : N2 -> NP -> CN ;
+  -- ComplN2 n2 np =
+
+  -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
+  -- ComplN3 n3 np =
+
+
+  -- : N3 -> N2 ;          -- distance (from this city)
+  -- Use2N3 n3 = lin N2 n3 ** { c2 = n3.c3 } ;
+
+  -- : N3 -> N2 ;          -- distance (to Paris)
+  -- Use3N3 n3 = lin N2 n3 ;
+
+  -- : AP -> CN -> CN
+  AdjCN ap cn = cn ** {
+    s = \\n,c => ap.s ! Sg ++ cn.s ! n ! c ++ ap.compar
+    } ;
+
+  -- : CN -> RS  -> CN ;
+  RelCN cn rs = cn ** {
+    s = \\n,c => cn.s ! n ! c ++ rs.s ! n ! c
+    } ;
+
+  -- : CN -> Adv -> CN ;
+  AdvCN cn adv = cn ** {
+    s = \\n,c => cn.s ! n ! c ++ adv.s
+    } ;
+
+-- Nouns can also be modified by embedded sentences and questions.
+-- For some nouns this makes little sense, but we leave this for applications
+-- to decide. Sentential complements are defined in VerbHun.
+
+  -- : CN -> SC  -> CN ;   -- question where she sleeps
+  -- SentCN cn sc = cn ** { } ;
+
+--2 Apposition
+
+-- This is certainly overgenerating.
+
+  -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
+  ApposCN cn np = cn ** {
+    s = \\n,c => cn.s ! n ! c ++ np.s ! Nom
+    } ;
+
+--2 Possessive and partitive constructs
+
+  -- : PossNP  : CN -> NP -> CN ;
+  -- PossNP cn np = cn ** {
+  --   } ;
+
+  -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
+  -- PartNP cn np = cn ** {
+  --   } ;
+
+{-
+
+-- This is different from the partitive, as shown by many languages.
+
+  -- : Det -> NP -> NP ;
+  CountNP det np = np **
+    { } ; -- Nonsense for DefArt or IndefArt
+
+--3 Conjoinable determiners and ones with adjectives
+
+  -- : DAP -> AP -> DAP ;    -- the large (one)
+  AdjDAP dap ap = dap ** { } ;
+
+  -- : Det -> DAP ;          -- this (or that)
+  DetDAP det = det ;
+-}
 
 }

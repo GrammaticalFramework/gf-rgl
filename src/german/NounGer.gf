@@ -157,7 +157,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       sp = table {
         True => \\_,_,c => usePrepC c (\k -> []) ;
         False => table {
-          Sg => \\g,c => usePrepC c (\k -> (detLikeAdj False Sg "ein").s ! g ! NPC k) ;
+          Sg => \\g,c => usePrepC c (\k -> (detUnlikeAdj False Sg "ein").s ! g ! NPC k) ;
           Pl => \\_,c => usePrepC c (\k -> caselist "einige" "einige" "einigen" "einiger" ! k)
           }
         } ;

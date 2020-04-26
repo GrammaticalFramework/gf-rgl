@@ -36,42 +36,28 @@ lin
   ConjAdv, ConjAdV, ConjIAdv = conjSS ;
 
 oper
-  ConjSS : Type = SS ** {firstSS : ConjType => Str} ;
+  ConjSS : Type = {s : ConjType => Str} ;
 
-  baseSS : SS -> SS -> ConjSS = \s1,s2 -> s2 ** {
-    firstSS = mkFirstSS s1 ;
+  baseSS : SS -> SS -> ConjSS = \s1,s2 -> {
+    s = \\conj => glue s1.s (conjTable ! NStar ! conj) ++ s2.s ;
     } ;
 
   consSS : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
-    firstSS = \\conj =>
-      mkFirstSS s ! conj ++ ss.firstSS ! conj ;
+    s = \\conj => glue s.s (conjTable ! NStar ! conj) ++ ss.s ! conj ;
     } ;
 
   conjSS : Conj -> ConjSS -> SS = \co,ss -> {
-    s = co.s1 ++ ss.firstSS ! co.c ++ ss.s
+    s = co.s1 ++ ss.s ! co.c
     } ;
 
--- Versions with commas, no repeated conjunctions
-  baseSScomma : SS -> SS -> ConjSS = \s1,s2 -> s2 ** {
-    firstSS = \\conj => s1.s ++ SOFT_BIND ++ "," ;
-    } ;
-
+  -- Version with commas, no repeated conjunctions!
+  -- baseSS works for both: always conjunction between penultimate and last.
+  -- Difference from consSS: conjTable ! NStar ! conj isn't used, only comma.
   consSScomma : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
-    firstSS = \\conj =>
-      s.s ++ SOFT_BIND ++ "," ++ ss.firstSS ! conj ;
+    s = \\conj => s.s
+              ++ SOFT_BIND ++ ","   -- Don't add conjunction, only comma
+              ++ ss.s ! conj ;
     } ;
-
-  conjSScomma : Conj -> ConjSS -> SS = \co,ss -> {
-    s = co.s1
-      ++ ss.firstSS ! co.c
-      ++ co.s2
-      ++ ss.s
-    } ;
-
-oper
-  mkFirstSS : SS -> ConjType => Str = \s ->
-    \\conj => glue s.s (conjTable ! VStar ! conj) ;
-
 
 
 lincat
@@ -115,7 +101,7 @@ lin
 
 oper
   mkFirstAP : ResKor.AdjPhrase -> VForm => ConjType => Str = \ap ->
-    \\af,conj => ap.compar ++ glue (ap.s ! VStem) (conjTable ! VStar ! conj) ;
+    \\af,conj => ap.compar ++ glue (ap.s ! VStem Pos) (conjTable ! VStar ! conj) ;
 
 {-
 lincat

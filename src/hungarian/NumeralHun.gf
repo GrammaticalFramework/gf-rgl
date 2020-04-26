@@ -1,99 +1,129 @@
-concrete NumeralHun of Numeral = CatHun [Numeral,Digits] ** open ResHun in 
-{
---{
---
---lincat 
---  Digit = {s : DForm => CardOrd => Case => Str} ;
---  Sub10 = {s : DForm => CardOrd => Case => Str ; n : Number} ;
---  Sub100     = {s : CardOrd => Case => Str ; n : Number} ;
---  Sub1000    = {s : CardOrd => Case => Str ; n : Number} ;
---  Sub1000000 = {s : CardOrd => Case => Str ; n : Number} ;
---
---lin num x = x ;
---lin n2 = let two = mkNum "two"   "twelve"   "twenty" "second" in
---         {s = \\f,o => case <f,o> of {
---             <teen,NOrd> => regGenitiveS "twelfth" ;
---             _ => two.s ! f ! o
---             }
---         } ;
---
---lin n3 = mkNum "three" "thirteen" "thirty" "third" ;
---lin n4 = mkNum "four"  "fourteen" "forty" "fourth" ;
---lin n5 = mkNum "five"  "fifteen"  "fifty" "fifth" ;
---lin n6 = regNum "six" ;
---lin n7 = regNum "seven" ;
---lin n8 = mkNum "eight" "eighteen" "eighty" "eighth" ;
---lin n9 = mkNum "nine" "nineteen" "ninety" "ninth" ;
---
---lin pot01 = mkNum "one" "eleven" "ten" "first" ** {n = Sg} ;
---lin pot0 d = d ** {n = Pl} ;
---lin pot110 = regCardOrd "ten" ** {n = Pl} ;
---lin pot111 = regCardOrd "eleven" ** {n = Pl} ;
---lin pot1to19 d = {s = d.s ! teen} ** {n = Pl} ;
---lin pot0as1 n = {s = n.s ! unit}  ** {n = n.n} ;
---lin pot1 d = {s = d.s ! ten} ** {n = Pl} ;
---lin pot1plus d e = {
---   s = \\o,c => d.s ! ten ! NCard ! Nom ++ "-" ++ e.s ! unit ! o ! c ; n = Pl} ;
---lin pot1as2 n = n ;
---lin pot2 d = {s = \\o,c => d.s ! unit ! NCard ! Nom ++ mkCard o "hundred" ! c}  ** {n = Pl} ;
---lin pot2plus d e = {
---  s = \\o,c => d.s ! unit ! NCard ! Nom ++ "hundred" ++ "and" ++ e.s ! o ! c ; n = Pl} ;
---lin pot2as3 n = n ;
---lin pot3 n = {
---  s = \\o,c => n.s ! NCard ! Nom ++ mkCard o "thousand" ! c ; n = Pl} ;
---lin pot3plus n m = {
---  s = \\o,c => n.s ! NCard ! Nom ++ "thousand" ++ m.s ! o ! c; n = Pl} ;
---
----- numerals as sequences of digits
---
---  lincat 
---    Dig = TDigit ;
---
---  lin
---    IDig d = d ** {tail = T1} ;
---
---    IIDig d i = {
---      s = \\o,c => d.s ! NCard ! Nom ++ commaIf i.tail ++ i.s ! o ! c ;
---      n = Pl ;
---      tail = inc i.tail
---    } ;
---
---    D_0 = mkDig "0" ;
---    D_1 = mk3Dig "1" "1st" Sg ;
---    D_2 = mk2Dig "2" "2nd" ;
---    D_3 = mk2Dig "3" "3rd" ;
---    D_4 = mkDig "4" ;
---    D_5 = mkDig "5" ;
---    D_6 = mkDig "6" ;
---    D_7 = mkDig "7" ;
---    D_8 = mkDig "8" ;
---    D_9 = mkDig "9" ;
---
---  oper
---    commaIf : DTail -> Str = \t -> case t of {
---      T3 => BIND++","++BIND ;
---      _ => BIND
---      } ;
---
---    inc : DTail -> DTail = \t -> case t of {
---      T1 => T2 ;
---      T2 => T3 ;
---      T3 => T1
---      } ;
---
---    mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
---    mkDig : Str -> TDigit = \c -> mk2Dig c (c + "th") ;
---
---    mk3Dig : Str -> Str -> Number -> TDigit = \c,o,n -> {
---      s = table {NCard => regGenitiveS c ; NOrd => regGenitiveS o} ;
---      n = n
---      } ;
---
---    TDigit = {
---      n : Number ;
---      s : CardOrd => Case => Str
---    } ;
---
---}
+concrete NumeralHun of Numeral = CatHun [Numeral,Digits] **
+  open Prelude, ResHun in {
+
+lincat
+  Digit,
+  Sub10 = LinDigit ;
+  Sub100,
+  Sub1000,
+  Sub1000000 = ResHun.Numeral ;
+lin
+  -- TODO: Add case inflection and ordinal forms to all numerals
+
+  -- : Sub1000000 -> Numeral
+  num x = x ;
+
+  -- : Digit
+  n2 = mkNum5 "kettő" "húsz" "két" "huszon" "második" ;
+  n3 = mkNum3 "három" "harminc" "harmadik" ;
+  n4 = mkNum3 "négy" "negyven" "negyedik" ;
+  n5 = mkNum3 "öt" "ötven" "ötödik" ;
+  n6 = mkNum3 "hat" "hatvan" "hatodik" ;
+  n7 = mkNum3 "hét" "hetven" "hetedik" ;
+  n8 = mkNum3 "nyolc" "nyolcvan" "nyolcadik" ;
+  n9 = mkNum3 "kilenc" "kilencven" "kilencedik" ;
+
+  -- : Sub10 ;                               -- 1
+  pot01 = mkNum3 "egy" "tíz" "első" ** {n=Sg} ;
+  -- : Digit -> Sub10 ;                      -- d * 1
+  pot0 d = d ;
+
+  -- : Sub100 ;                              -- 10
+  pot110 = {s = table {p => "tíz"} ; n = numNumber ; numtype = IsNum} ;
+  -- : Sub100 ;                              -- 11
+  pot111 = {s = table {p => "tizenegy"} ; n = numNumber ; numtype = IsNum} ;
+  -- : Digit -> Sub100 ;                     -- 10 + d
+  pot1to19 d =
+      {s = table {p => "tizen" ++ d.s ! <Unit,p>} ;
+       n = numNumber ; numtype = IsNum} ;
+  --  : Sub10 -> Sub100 ;                    -- coercion of 1..9
+  pot0as1 n =
+      {s = table {p => n.s ! <Unit,p>} ;
+       n = numNumber ; numtype = IsNum} ;
+
+  -- : Digit -> Sub100 ;                     -- d * 10
+  pot1 d =
+      {s = table {p => d.s ! <Ten,p>} ;
+       n = numNumber ; numtype = IsNum} ;
+  -- : Digit -> Sub10 -> Sub100 ;            -- d * 10 + n
+  pot1plus d e =
+      {s = table {p => (d.s ! <Ten,Attrib>) ++ e.s ! <Unit,p>} ;
+       n = numNumber ; numtype = IsNum} ;
+
+  -- : Sub100 -> Sub1000 ;                   -- coercion of 1..99
+  pot1as2 n = n ;
+  --  : Sub10 -> Sub1000 ;                   -- m * 100
+  pot2 d =
+      {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz"} ;
+       n = numNumber ; numtype = IsNum} ;
+  --  : Sub10 -> Sub100 -> Sub1000 ;         -- m * 100 + n
+  pot2plus d e =
+      {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz" ++ e.s ! p} ;
+       n = numNumber ; numtype = IsNum} ;
+
+  -- : Sub1000 -> Sub1000000 ;               -- coercion of 1..999
+  pot2as3 n = n ;
+  -- : Sub1000 -> Sub1000000 ;               -- m * 1000
+  pot3 n =
+      {s = table {p => n.s ! Attrib ++ "ezer"} ;
+       n = numNumber ; numtype = IsNum} ;
+  --  : Sub1000 -> Sub1000 -> Sub1000000 ;   -- m * 1000 + n
+  pot3plus n m =
+      {s = table {p => n.s ! Attrib ++ "ezer" ++ m.s ! p} ;
+       n = numNumber ; numtype = IsNum} ;
+
+oper
+  LinDigit : Type = {s : DForm*Place => Str ; n : Number} ;
+
+  mkNum3 : (x1,_,x3 : Str) -> LinDigit = \három,harminc,harmadik ->
+    mkNum5 három harminc három harminc harmadik ;
+
+  mkNum5 : (x1,_,_,_,x5 : Str) -> LinDigit = \ui,ti,ua,ta,ord -> {
+    s = table {<Unit,Indep> => ui ;
+               <Ten,Indep> => ti ;
+               <Unit,Attrib> => ua ;
+               <Ten, Attrib> => ta } ;
+--    ord = ord ; -- TODO figure out where to use ordinal
+    n = numNumber ;
+    numType = IsNum ;
+    } ;
+
+   numNumber = Sg ;
+
+  -- numerals as sequences of digits
+  lincat
+    Dig = TDigit ;
+
+  lin
+    -- : Dig -> Digits ;       -- 8
+    IDig d = d ** {s = \\_ => d.s} ;
+
+    -- : Dig -> Digits -> Digits ; -- 876
+    IIDig d i = {
+      s = \\x => d.s ++ BIND ++ i.s ! x ;
+      n = numNumber
+    } ;
+
+    D_0 = mkDig "0" ;
+    D_1 = mkDig "1" ;
+    D_2 = mkDig "2" ;
+    D_3 = mkDig "3" ;
+    D_4 = mkDig "4" ;
+    D_5 = mkDig "5" ;
+    D_6 = mkDig "6" ;
+    D_7 = mkDig "7" ;
+    D_8 = mkDig "8" ;
+    D_9 = mkDig "9" ;
+
+  oper
+    mkDig : Str -> TDigit = \s -> {
+      s = s ;
+      n = numNumber
+      } ;
+
+    TDigit = {
+      s : Str ; -- TODO add ordinals
+      n : Number
+      } ;
 
 }
