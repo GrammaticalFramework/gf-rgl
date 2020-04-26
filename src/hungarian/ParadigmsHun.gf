@@ -151,7 +151,8 @@ oper
 
   mkA = overload {
     mkA : (sgnom : Str) -> A = \s -> lin A (mkAdj s) ;
-    mkA : (sgnom,sgacc : Str) -> A = \s,_ -> lin A (mkAdj s) ; -- TODO
+    mkA : (sgnom,sgacc : Str) -> A = \n,a ->
+      lin A (mkAdj2 n (regNounNomAcc n a)) ;
     -- mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
     --   jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
     } ;

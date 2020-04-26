@@ -320,14 +320,16 @@ oper
     c2 : Adposition ;
     } ;
 
-  mkAdj : Str -> Adjective = \sgnom -> {
-    s = \\d,nc =>
-       let adj = case d of {
-                   Compar => comparAdj sgnom ;
-                   Superl => "leg" + comparAdj sgnom ;
-                   _ => sgnom } ;
-       in (mkNoun adj).s ! nc ;
-    h = (mkNoun sgnom).h ;
+  mkAdj : Str -> Adjective = \sgnom -> mkAdj2 sgnom (mkNoun sgnom) ;
+
+
+  mkAdj2 : Str -> Noun -> Adjective = \sgnom,adjAsNoun -> adjAsNoun ** {
+    s = \\d =>
+       let adj : Noun = case d of {
+             Compar => mkNoun (comparAdj sgnom) ;
+             Superl => mkNoun ("leg" + comparAdj sgnom) ;
+             _ => adjAsNoun } ;
+       in adj.s ;
     } ;
 
   invarAP : Str -> AdjPhrase = \s -> emptyAP ** {s = \\_,_ => s} ;
