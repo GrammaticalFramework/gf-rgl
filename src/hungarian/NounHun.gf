@@ -204,7 +204,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
     s = \\nc => ap.s ! Sg ! Nom ++ cn.s ! nc ;
-    compl = \\n,c => ap.compar ++ cn.compl ! n ! c ;
+    compl = \\n,c => ap.compl ! n ++ cn.compl ! n ! c ;
     } ;
 
   -- : CN -> RS  -> CN ;

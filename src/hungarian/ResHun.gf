@@ -306,12 +306,13 @@ oper
 
   AdjPhrase : Type = {
     s : Number => Case => Str ;
-    compar : Str -- Discontinuous: Én *nagyobb* vagyok *nálad*.
+    compl : Number => Str -- Discontinuous comparative: Én nagyobb vagyok nálad.
+                          -- This depends on Number to allow postmodifier APs.
     } ;
 
   emptyAP : AdjPhrase = {
     s = \\_,_ => [] ;
-    compar = [] ;
+    compl = \\_ => [] ;
     } ;
 
   Adjective : Type = {

@@ -25,13 +25,13 @@ lincat
 lin
   BaseAP x y =
     -- Don't try to have discontinuous comparative forms
-    let xCont : AP = x ** {s = \\n,c => x.s ! n ! c ++ x.compar} ;
-        yCont : AP = y ** {s = \\n,c => y.s ! n ! c ++ y.compar} ;
+    let xCont : AP = x ** {s = \\n,c => x.s ! n ! c ++ x.compl ! n} ;
+        yCont : AP = y ** {s = \\n,c => y.s ! n ! c ++ y.compl ! n} ;
      in twoTable2 Number Case xCont yCont ;
   ConsAP a as =
-    let aCont : AP = a ** {s = \\n,c => a.s ! n ! c ++ a.compar} ;
+    let aCont : AP = a ** {s = \\n,c => a.s ! n ! c ++ a.compl ! n} ;
      in consrTable2 Number Case comma aCont as ;
-  ConjAP co as = conjunctDistrTable2 Number Case co as ** {compar = []} ;
+  ConjAP co as = conjunctDistrTable2 Number Case co as ** {compl = \\_ => []} ;
 
 -- Noun phrases
 lincat
