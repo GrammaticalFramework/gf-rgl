@@ -39,9 +39,9 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
 
     DetQuant quant num = {
       s  = quant.s ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom;
-      sp = \\g,hasAdj,c => case num.hasCard of {
-                             False => quant.sp ! g ! hasAdj ! num.n ! c ++ num.s  ! quant.isDef ! Nom ;
-                             True  => quant.s  !     True   ! num.n     ++ num.sp ! quant.isDef ! npcase2case c
+      sp = \\g,hasAdj,c => case <num.hasCard,num.n> of {
+                             <False,Sg> => quant.sp ! g ! hasAdj ! num.n ! c ++ num.s  ! quant.isDef ! Nom ;
+                             _          => quant.s  !     True   ! num.n     ++ num.sp ! quant.isDef ! npcase2case c
                            } ;
       n  = num.n ;
       hasNum = num.hasCard
