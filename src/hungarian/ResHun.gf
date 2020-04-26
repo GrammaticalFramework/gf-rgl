@@ -305,35 +305,35 @@ oper
 -- Adjectives
 
   AdjPhrase : Type = {
-    s : Number => Str ;
+    s : Number => Case => Str ;
     compar : Str -- Discontinuous: Én *nagyobb* vagyok *nálad*.
     } ;
 
   emptyAP : AdjPhrase = {
-    s = \\_ => [] ;
+    s = \\_,_ => [] ;
     compar = [] ;
     } ;
 
   Adjective : Type = {
-    s : Degree => Number => Str
+    s : Degree => NumCaseStem => Str ;
+    h : Harm ;
     } ;
+
   Adjective2 : Type = Adjective ** {
     c2 : Adposition ;
     } ;
 
-  mkAdj : Str -> Adjective = \sg -> {
-    s = \\d,n =>
+  mkAdj : Str -> Adjective = \sgnom -> {
+    s = \\d,nc =>
        let adj = case d of {
-                   Compar => comparAdj sg ;
-                   Superl => "leg" + comparAdj sg ;
-                   _ => sg } ;
-           plural = case n of {
-                         Sg => [] ;
-                         Pl => pluralAdj adj }
-       in adj + plural
+                   Compar => comparAdj sgnom ;
+                   Superl => "leg" + comparAdj sgnom ;
+                   _ => sgnom } ;
+       in (mkNoun adj).s ! nc ;
+    h = (mkNoun sgnom).h ;
     } ;
 
-  invarAP : Str -> AdjPhrase = \s -> emptyAP ** {s = \\_ => s} ;
+  invarAP : Str -> AdjPhrase = \s -> emptyAP ** {s = \\_,_ => s} ;
 
   -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Adjectives
   comparAdj : Str -> Str = \stem ->

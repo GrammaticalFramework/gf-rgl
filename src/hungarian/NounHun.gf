@@ -103,8 +103,8 @@ concrete NounHun of Noun = CatHun ** open
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord =
     let theseFive = DetQuant quant num in theseFive ** {
-      s = \\c => theseFive.s ! c ++ ord.s ! num.n ;
-      sp = \\c => theseFive.sp ! c ++ ord.s ! num.n ;
+      s = \\c => theseFive.s ! c ++ ord.s ! num.n ! Nom ;
+      sp = \\c => theseFive.sp ! c ++ ord.s ! num.n ! Nom ;
       } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
@@ -145,7 +145,9 @@ concrete NounHun of Noun = CatHun ** open
 -}
   -- : A       -> Ord ;
   OrdSuperl a = {
-    s = a.s ! Superl ;
+    s = \\n,c =>
+      let adj : Noun = (a ** {s = a.s ! Superl}) in
+      caseFromStem glue adj c n ;
     n = Sg -- ?? is this meaningful?
     } ;
 
@@ -201,7 +203,7 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = \\nc => ap.s ! Sg ++ cn.s ! nc ;
+    s = \\nc => ap.s ! Sg ! Nom ++ cn.s ! nc ;
     compl = \\n,c => ap.compar ++ cn.compl ! n ! c ;
     } ;
 

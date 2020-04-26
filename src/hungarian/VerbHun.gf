@@ -110,9 +110,9 @@ lin
   -- : AP  -> Comp ;
   CompAP ap = UseCopula ** {
     s = \\vf => case vf of {
-                  VPres P3 n => ap.s ! n ;
-                  VPres _  n => ap.s ! n  ++ copula.s ! vf ;
-                  _         => ap.s ! Sg ++ copula.s ! vf}
+                  VPres P3 n => ap.s ! n ! Nom ;
+                  VPres _  n => ap.s ! n ! Nom ++ copula.s ! vf ;
+                  _         => ap.s ! Sg ! Nom ++ copula.s ! vf}
              ++ ap.compar ;
     } ;
 

@@ -17,7 +17,7 @@ concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in {
     UttAdv adv = adv ;
     UttCN cn = {s = linCN cn} ;
     UttCard n = {s = n.s ! Indep} ;
-    UttAP ap = {s = ap.s ! Sg ++ ap.compar} ;
+    UttAP ap = {s = ap.s ! Sg ! Nom ++ ap.compar} ;
     UttInterj i = i ;
 
     NoPConj = {s = []} ;
