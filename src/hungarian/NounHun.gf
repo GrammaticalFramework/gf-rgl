@@ -125,7 +125,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : Digits  -> Card ;
   NumDigits dig = dig ** {
     s = \\place => dig.s ! NCard ;
-    numtype = IsDig ;
+    numtype = IsNum ;
     } ;
 
   -- : Numeral -> Card ;
