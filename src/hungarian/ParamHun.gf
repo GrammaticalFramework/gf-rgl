@@ -65,8 +65,16 @@ param
 
   Case =
     Nom | Acc | Dat
-  | Ill | Ine | Ela | All | Ade | Abl | Sub | Sup | Del -- Locatives
-  | Cau  -- Causal-final 'for the purpose of, for the reason that'
+--  | Ill  -- Locatives
+  | Ine
+  | Ela
+  | All
+  | Ade
+--  | Abl
+--  | Sub
+  | Sup
+--  | Del
+--  | Cau  -- Causal-final 'for the purpose of, for the reason that'
   | Ins  -- Instrumental
   | Tra  -- Translative
   -- | Ess | Ter | For
@@ -87,14 +95,14 @@ oper
       Ins => ins ;
       Tra => tra ;
       Sup => sup ;
-      Sub => sub ;
-      Del => del ;
-      Ill => il ;
       Ine => ine ;
       Ela => el ;
       All => al ;
       Ade => ad ;
       Abl => ab ;
+      Sub => sub ;
+      Del => del ;
+      Ill => il ;
       Cau => ca } ;
 
   sc2case : SubjCase -> Case = \sc ->
