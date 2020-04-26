@@ -141,8 +141,7 @@ lin
           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
         } ++
         v.s ! Imperf ! VPres Sg P3 ++
-        v.c2.s ++
-        linCase v.c2.c Pos ++
+        linPrep v.c2 ++
         pp "допълнение";
     s2= inflVerb v ;
     s3= ""
@@ -158,9 +157,9 @@ lin
           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
         } ++
         v.s ! Imperf ! VPres Sg P3 ++
-        v.c2.s ++
+        linPrep v.c2 ++
         pp "арг1"++
-        v.c3.s ++
+        linPrep v.c3 ++
         pp "арг2";
     s2= inflVerb v ;
     s3= ""
@@ -175,9 +174,9 @@ lin
           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
         } ++
         v.s ! Imperf ! VPres Sg P3 ++
-        v.c2.s ++
+        linPrep v.c2 ++
         pp "допълнение"++
-        v.c3.s ++
+        linPrep v.c3 ++
         "да" ++ pp "глагол";
     s2= inflVerb v ;
     s3= ""
@@ -192,9 +191,9 @@ lin
           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
         } ++
         v.s ! Imperf ! VPres Sg P3 ++
-        v.c2.s ++
+        linPrep v.c2 ++
         pp "допълнение"++
-        v.c3.s ++
+        linPrep v.c3 ++
         "че" ++ pp "изречение";
     s2= inflVerb v ;
     s3= ""
@@ -209,9 +208,9 @@ lin
           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
         } ++
         v.s ! Imperf ! VPres Sg P3 ++
-        v.c2.s ++
+        linPrep v.c2 ++
         pp "допълнение"++
-        v.c3.s ++
+        linPrep v.c3 ++
         pp "въпрос";
     s2= inflVerb v ;
     s3= ""
@@ -226,7 +225,7 @@ lin
           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
         } ++
         v.s ! Imperf ! VPres Sg P3 ++
-        v.c2.s ++
+        linPrep v.c2 ++
         pp "допълнение"++
         pp "прилагателно";
     s2= inflVerb v ;

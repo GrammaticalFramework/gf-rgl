@@ -7,7 +7,7 @@ lin
   AdAdV a adv = {s = a.s ++ adv.s; p = adv.p} ;
 
   EmptyRelSlash slash = {
-      s = \\t,a,p,agr => slash.c2.s ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
+      s = \\t,a,p,agr => linPrep slash.c2 ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
       } ;
 
   CompoundN n1 n2 = 
