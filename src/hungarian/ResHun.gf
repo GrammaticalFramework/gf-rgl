@@ -321,7 +321,7 @@ oper
     isPost : Bool ; -- put adjective past the thing it modifies
     } ;
 
-  mkAdj : Str -> Adjective = \sgnom -> mkAdj2 sgnom (mkNoun sgnom) ;
+  mkAdj : Str -> Adjective = \sgnom -> mkAdj2 sgnom (regNoun sgnom) ;
 
 
   mkAdj2 : Str -> Noun -> Adjective = \sgnom,adjAsNoun -> adjAsNoun ** {
