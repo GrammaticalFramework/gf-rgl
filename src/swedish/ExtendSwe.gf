@@ -193,15 +193,17 @@ concrete ExtendSwe of Extend = CatSwe **
     } ;
 
     PastPartAP vp = {
-      s = \\af => case vp.isSimple of {
-                    True  => partVPPlus     vp (PartPret af Nom) (aformpos2agr af) Pos ;
-                    False => partVPPlusPost vp (PartPret af Nom) (aformpos2agr af) Pos
-                  } ;
+      s = \\af => let vp' = vp**{n2 : Agr => Str =\\a => vp.n2 ! a ++ vp.n3 ! a}
+                  in case vp.isSimple of {
+                       True  => partVPPlus     vp' (PartPret af Nom) (aformpos2agr af) Pos ;
+                       False => partVPPlusPost vp' (PartPret af Nom) (aformpos2agr af) Pos
+                     } ;
       isPre = vp.isSimple
     } ;
 
     PastPartAgentAP vp np = {
-      s = \\af => partVPPlusPost vp (PartPret af Nom) (aformpos2agr af) Pos ++ "av" ++ np.s ! accusative ;
+      s = \\af => let vp' = vp**{n2 : Agr => Str =\\a => vp.n2 ! a ++ vp.n3 ! a}
+                  in partVPPlusPost vp' (PartPret af Nom) (aformpos2agr af) Pos ++ "av" ++ np.s ! accusative ;
       isPre = False
     } ;
 
