@@ -254,8 +254,8 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
     -- Words like nyár, név need to use 2-arg smart paradigm
     (#c|"")+("á"|"é")+ #c  => mkNoun sgnom ;
     _  + ("á"|"é") + #c    => dToll sgnom (név2nevet sgnom) ;
-    _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
-    _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
+--    _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
+--    _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
     _ => mkNoun sgnom -- Fall back to the regular paradigm
   } where {
     név2nevet : Str -> Str = \név ->
