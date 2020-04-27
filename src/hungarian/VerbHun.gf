@@ -110,10 +110,9 @@ lin
   -- : AP  -> Comp ;
   CompAP ap = UseCopula ** {
     s = \\vf => case vf of {
-                  VPres P3 n => ap.s ! n ;
-                  VPres _  n => ap.s ! n  ++ copula.s ! vf ;
-                  _         => ap.s ! Sg ++ copula.s ! vf}
-             ++ ap.compar ;
+                  VPres P3 n => ap.s ! n ! Nom ++ ap.compl ! n ;
+                  VPres _  n => ap.s ! n ! Nom ++ copula.s ! vf ++ ap.compl ! n  ;
+                  _         => ap.s ! Sg ! Nom ++ copula.s ! vf ++ ap.compl ! Sg } ;
     } ;
 
   -- : CN  -> Comp ;
@@ -148,16 +147,21 @@ lin
 
 oper
 insertObj : ResHun.VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
-  obj = \\agr =>
-      -- have_V2 needs its object possessed by the subject
-     case <vps.sc,vps.c2> of {
-        <SCDat,Nom> => np.s ! Poss agr.p1 agr.p2 ! vps.c2 ;
-        _ => np.s ! NotPossessed ! vps.c2 } ;
+  obj = case <vps.sc,vps.c2> of {
+              <SCDat,Nom> => [] ;
+              _ => np.s ! NotPossessed ! vps.c2 } ;
 
   s = \\vf =>
    -- If verb's subject case is Dat and object Nom, verb agrees with obj.
-      case <vps.sc,vps.c2> of {
-        <SCDat,Nom> => vps.s ! np.objdef ! agr2vf np.agr;
+      case <vps.sc,vps.c2> of { -- have_V2 needs its object possessed by the subject
+        <SCDat,Nom> =>
+          let agr : Person*Number = case vf of {
+                VPres p n => <p,n> ;
+                _         => <P3,Sg> } ;
+           in np.s ! Poss agr.p1 agr.p2 ! vps.c2
+           ++ vps.s ! np.objdef ! agr2vf np.agr ;
+
+        -- Default case: Verb agrees in person and number with subject
         _ => vps.s ! np.objdef ! vf } ;
   } ;
 

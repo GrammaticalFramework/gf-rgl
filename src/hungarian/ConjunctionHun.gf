@@ -20,18 +20,18 @@ lin
 
 -- Adjectival phrases
 lincat
-  [AP] = {s1,s2 : Number => Str}  ;
+  [AP] = {s1,s2 : Number => Case => Str}  ;
 
 lin
   BaseAP x y =
     -- Don't try to have discontinuous comparative forms
-    let xCont : AP = x ** {s = \\n => x.s ! n ++ x.compar} ;
-        yCont : AP = y ** {s = \\n => y.s ! n ++ y.compar} ;
-     in twoTable Number xCont yCont ;
+    let xCont : AP = x ** {s = \\n,c => x.s ! n ! c ++ x.compl ! n} ;
+        yCont : AP = y ** {s = \\n,c => y.s ! n ! c ++ y.compl ! n} ;
+     in twoTable2 Number Case xCont yCont ;
   ConsAP a as =
-    let aCont : AP = a ** {s = \\n => a.s ! n ++ a.compar} ;
-     in consrTable Number comma aCont as ;
-  ConjAP co as = conjunctDistrTable Number co as ** {compar = []} ;
+    let aCont : AP = a ** {s = \\n,c => a.s ! n ! c ++ a.compl ! n} ;
+     in consrTable2 Number Case comma aCont as ;
+  ConjAP co as = conjunctDistrTable2 Number Case co as ** {compl = \\_ => []} ;
 
 -- Noun phrases
 lincat

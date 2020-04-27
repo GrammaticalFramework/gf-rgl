@@ -1,6 +1,6 @@
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant this_Quant NumSg) (UseN apple_N)))))) NoVoc
 LangEng: I see this apple
-LangHun: én látom ezt az almát
+LangHun: én látom ezt az almá &+ t
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant this_Quant NumPl) (UseN apple_N)))))) NoVoc
 LangEng: I see these apples
@@ -20,11 +20,11 @@ LangHun: én látom ezeket
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN somePl_Det (UseN apple_N)))))) NoVoc
 LangEng: I see some apples
-LangHun: én látok néhány almát
+LangHun: én látok néhány almá &+ t
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN somePl_Det (AdjCN (PositA red_A) (UseN apple_N))))))) NoVoc
 LangEng: I see some red apples
-LangHun: én látok néhány piros almát
+LangHun: én látok néhány piros almá &+ t
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetNP somePl_Det))))) NoVoc
 LangEng: I see some
@@ -32,8 +32,8 @@ LangHun: én látok néhányat
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN few_Det (AdjCN (PositA red_A) (UseN apple_N))))))) NoVoc
 LangEng: I see few red apples
-LangHun: én látok kevés piros almát
+LangHun: én látok kevés piros almá &+ t
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN many_Det (AdjCN (PositA red_A) (UseN apple_N))))))) NoVoc
 LangEng: I see many red apples
-LangHun: én látok sok piros almát
+LangHun: én látok sok piros almá &+ t

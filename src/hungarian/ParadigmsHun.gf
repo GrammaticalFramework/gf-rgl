@@ -151,19 +151,20 @@ oper
 
   mkA = overload {
     mkA : (sgnom : Str) -> A = \s -> lin A (mkAdj s) ;
-    mkA : (sgnom,sgacc : Str) -> A = \s,_ -> lin A (mkAdj s) ; -- TODO
+    mkA : (sgnom,sgacc : Str) -> A = \n,a ->
+      lin A (mkAdj2 n (regNounNomAcc n a)) ;
     -- mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
     --   jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
     } ;
 
   mkA2 = overload {
-    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom} ;
+    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom ; isPost = False} ;
     mkA2 : Str -> Prep -> A2 = \s,p ->
-      lin A2 {s = (mkAdj s).s ; c2 = p} ;
+      lin A2 ((mkAdj s) ** {c2 = p ; isPost = False}) ;
     mkA2 : Str -> Case -> A2 = \s,c ->
-      lin A2 {s = (mkAdj s).s ; c2 = casePrep c} ;
+      lin A2 ((mkAdj s) ** {c2 = casePrep c ; isPost = False}) ;
     mkA2 : A -> Prep -> A2 = \a,p ->
-      lin A2 (a ** {c2 = p}) ;
+      lin A2 (a ** {c2 = p ; isPost = False}) ;
     } ;
 
   mkV = overload {

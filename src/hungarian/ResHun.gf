@@ -185,7 +185,6 @@ oper
 
   BaseQuant : Type = {
     poss : HarmForms ; -- Quants made by PossPron need this, empty for others
-    objdef : ObjDef ; -- How V2 agrees if NP with this Det is an object
     caseagr : Bool ; -- If it agrees in case: "azoknak a nőknek" vs. "sok nőknek"
   } ;
 
@@ -200,8 +199,7 @@ oper
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
     s = mkCaseNoun s ;
     sp = mkCaseNoun sp ;
-    qt = Other ;
-    objdef = Def ;
+    qt = DefQuant ;
     caseagr = True ;
     poss = harm1 [] ;
     } ;
@@ -212,7 +210,6 @@ oper
     s,
     sp : Case => Str ;
     n : Number ;
---    numtype : NumType ; -- Whether its Num component is digit, numeral or Sg/Pl
     dt : DetType ;
     } ;
 
@@ -221,9 +218,8 @@ oper
     sp = mkCaseNoun s ! n ;
     n = n ;
     numtype = NoNum ;
-    objdef = d ;
     caseagr = ca ;
-    dt = NoPoss ;
+    dt = objdef2dt d ;
     poss = harm1 [] ;
   } ;
 
@@ -305,35 +301,39 @@ oper
 -- Adjectives
 
   AdjPhrase : Type = {
-    s : Number => Str ;
-    compar : Str -- Discontinuous: Én *nagyobb* vagyok *nálad*.
+    s : Number => Case => Str ;
+    compl : Number => Str -- Discontinuous comparative: Én nagyobb vagyok nálad.
+                          -- This depends on Number to allow postmodifier APs.
     } ;
 
   emptyAP : AdjPhrase = {
-    s = \\_ => [] ;
-    compar = [] ;
+    s = \\_,_ => [] ;
+    compl = \\_ => [] ;
     } ;
 
   Adjective : Type = {
-    s : Degree => Number => Str
+    s : Degree => NumCaseStem => Str ;
+    h : Harm ;
     } ;
+
   Adjective2 : Type = Adjective ** {
     c2 : Adposition ;
+    isPost : Bool ; -- put adjective past the thing it modifies
     } ;
 
-  mkAdj : Str -> Adjective = \sg -> {
-    s = \\d,n =>
-       let adj = case d of {
-                   Compar => comparAdj sg ;
-                   Superl => "leg" + comparAdj sg ;
-                   _ => sg } ;
-           plural = case n of {
-                         Sg => [] ;
-                         Pl => pluralAdj adj }
-       in adj + plural
+  mkAdj : Str -> Adjective = \sgnom -> mkAdj2 sgnom (mkNoun sgnom) ;
+
+
+  mkAdj2 : Str -> Noun -> Adjective = \sgnom,adjAsNoun -> adjAsNoun ** {
+    s = \\d =>
+       let adj : Noun = case d of {
+             Compar => mkNoun (comparAdj sgnom) ;
+             Superl => mkNoun ("leg" + comparAdj sgnom) ;
+             _ => adjAsNoun } ;
+       in adj.s ;
     } ;
 
-  invarAP : Str -> AdjPhrase = \s -> emptyAP ** {s = \\_ => s} ;
+  invarAP : Str -> AdjPhrase = \s -> emptyAP ** {s = \\_,_ => s} ;
 
   -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Adjectives
   comparAdj : Str -> Str = \stem ->
@@ -458,7 +458,7 @@ oper
 -- VP
 
   VerbPhrase : Type = Verb ** {
-    obj : Person*Number => Str ;
+    obj : Str ; -- Person*Number => Str, if we want open word order in have_V2
     adv : Str ;
     c2 : Case ; -- for RelSlash
     } ;  -- TODO more fields
@@ -468,7 +468,7 @@ oper
     } ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
-    obj = \\_ => [] ;
+    obj = [] ;
     adv = [] ;
     c2 = Acc ; -- TODO check
     } ;
@@ -504,7 +504,7 @@ oper
                         in np.s ! NotPossessed ! subjcase
                         ++ if_then_Pol p [] "nem"
                         ++ vp.s ! agr2vf np.agr
-                        ++ vp.obj ! np.agr
+                        ++ vp.obj -- ! np.agr
                         ++ vp.adv
                         ++ np.empty -- standard trick for prodrop+metavariable problem
     } ;
@@ -522,7 +522,7 @@ oper
                                                SCDat => Dat }
                         in rp.s ! n ! subjcase
                         ++ if_then_Pol p [] "nem"
-                        ++ vp.obj ! <rp.agr.p1,n>
+                        ++ vp.obj -- ! <rp.agr.p1,n>
                         ++ vp.adv
                         ++ vp.s ! VPres rp.agr.p1 n -- variable by number
     } ;

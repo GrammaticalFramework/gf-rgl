@@ -61,8 +61,8 @@ lin most_Predet = {s = ""} ;
 -}
 
 --lin every_Det =
-lin few_Det = mkDet "kevés" Def Sg False ; -- TODO check
-lin many_Det = mkDet "sok" Def Sg False ; -- TODO check
+lin few_Det = mkDet "kevés" Indef Sg False ;
+lin many_Det = mkDet "sok" Indef Sg False ;
 --lin much_Det =
 
 lin someSg_Det,

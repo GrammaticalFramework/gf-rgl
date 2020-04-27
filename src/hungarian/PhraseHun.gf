@@ -13,11 +13,11 @@ concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in {
 -}
     UttIP,
     UttNP = \np -> {s = np.s ! NotPossessed ! Nom} ;
-    UttVP vp = {s = vp.obj ! <P3,Sg> ++ vp.adv ++ vp.s ! VInf} ;
+    UttVP vp = {s = vp.obj ++ vp.adv ++ vp.s ! VInf} ;
     UttAdv adv = adv ;
     UttCN cn = {s = linCN cn} ;
     UttCard n = {s = n.s ! Indep} ;
-    UttAP ap = {s = ap.s ! Sg ++ ap.compar} ;
+    UttAP ap = {s = ap.s ! Sg ! Nom ++ ap.compl ! Sg} ;
     UttInterj i = i ;
 
     NoPConj = {s = []} ;

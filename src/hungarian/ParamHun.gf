@@ -18,13 +18,15 @@ oper
 
 param
   QuantType =
-    Article  -- Needed to prevent "a 2 cars"
-  | Other    -- Not poss, not article
+    IndefArticle  -- Needed to prevent "a 2 cars"
+  | IndefQuant    -- Not IndefArt, not poss, not def
+  | DefQuant
   | QuantPoss PossStem -- Which possessive stem it takes
   ;
 
   DetType =
-    NoPoss  -- distinction between Article and Other no longer needed
+    DefDet  -- distinction between Article and Other no longer needed
+  | IndefDet -- still need def or indef
   | DetPoss PossStem -- Sill need to know which stem it takes if Poss
   ;
 
@@ -33,13 +35,29 @@ param
 
 oper
   -- standard trick to prevent "a one car"
-  isIndefArt : {qt : QuantType ; objdef : ObjDef} -> Bool = \quant ->
-    case <quant.qt,quant.objdef> of {
-      <Article,Indef> => True ;
-      _               => False
+  isIndefArt : {qt : QuantType} -> Bool = \quant ->
+    case quant.qt of {
+      IndefArticle => True ;
+      _            => False
     } ;
 
-  agr2PossStem : Person*Number -> PossStem = \pn ->
+  dt2objdef : DetType -> ObjDef = \dt -> case dt of {
+    IndefDet => Indef ;
+    _        => Def
+    } ;
+
+  objdef2dt : ObjDef -> DetType = \od -> case od of {
+    Def => DefDet ;
+    Indef => IndefDet
+    } ;
+
+  qt2dt : QuantType -> DetType = \qt -> case qt of {
+    QuantPoss x => DetPoss x ;
+    DefQuant => DefDet ;
+    _ => IndefDet
+    } ;
+
+  agr2pstem : Person*Number -> PossStem = \pn ->
     case <pn.p1,pn.p2> of {
       <P1,Pl> => dSg_rPl1 ;
       <P3,n>  => dSg_rP3 n ;
@@ -65,8 +83,16 @@ param
 
   Case =
     Nom | Acc | Dat
-  | Ill | Ine | Ela | All | Ade | Abl | Sub | Sup | Del -- Locatives
-  | Cau  -- Causal-final 'for the purpose of, for the reason that'
+--  | Ill  -- Locatives
+  | Ine
+  | Ela
+  | All
+  | Ade
+--  | Abl
+--  | Sub
+  | Sup
+--  | Del
+--  | Cau  -- Causal-final 'for the purpose of, for the reason that'
   | Ins  -- Instrumental
   | Tra  -- Translative
   -- | Ess | Ter | For
@@ -87,14 +113,14 @@ oper
       Ins => ins ;
       Tra => tra ;
       Sup => sup ;
-      Sub => sub ;
-      Del => del ;
-      Ill => il ;
       Ine => ine ;
       Ela => el ;
       All => al ;
       Ade => ad ;
       Abl => ab ;
+      Sub => sub ;
+      Del => del ;
+      Ill => il ;
       Cau => ca } ;
 
   sc2case : SubjCase -> Case = \sc ->
@@ -112,7 +138,7 @@ param
 
   CardOrd = NOrd | NCard ; -- Not used yet
 
-  NumType = NoNum | IsDig | IsNum ;
+  NumType = NoNum | IsNum ;
 
 oper
   isNum : {numtype : NumType} -> Bool = \nt -> case nt.numtype of {

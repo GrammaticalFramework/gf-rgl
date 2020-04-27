@@ -16,17 +16,18 @@ concrete NounHun of Noun = CatHun ** open
            True  => det.s ! c ;
            False => det.s ! Nom
          } ++ case <p,det.dt> of {
-                <NotPossessed, NoPoss>
+                <_, DetPoss _>
+                   => possessed ;
+                <NotPossessed, _>
                   => standalone ;
-                <_,            DetPoss _>
-                  => possessed ;
-                <Poss per rnum, NoPoss>
+                <Poss per rnum, _>
                   => let pron : Pronoun = pronTable ! <per,rnum> ; -- Possessor's number
                          dnum : CatHun.Num = case det.n of { -- Possessed's number
                                   Sg => NumSg ; Pl => NumPl } ;
                       in caseFromPossStem cn (DetQuant (PossPron pron) dnum) c
          } ++ cn.compl ! det.n ! c ;
     agr = <P3,det.n> ;
+    objdef = dt2objdef det.dt ;
     } ;
 
   -- : PN -> NP ;
@@ -96,15 +97,14 @@ concrete NounHun of Noun = CatHun ** open
                  <True,True> => [] ;
                  _           => quant.sp ! num.n ! c }
             ++ num.s ! Indep ;
-    dt = case quant.qt of { QuantPoss stem => DetPoss stem ;
-                            _              => NoPoss } ;
+    dt = qt2dt quant.qt ;
     } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord =
     let theseFive = DetQuant quant num in theseFive ** {
-      s = \\c => theseFive.s ! c ++ ord.s ! num.n ;
-      sp = \\c => theseFive.sp ! c ++ ord.s ! num.n ;
+      s = \\c => theseFive.s ! c ++ ord.s ! num.n ! Nom ;
+      sp = \\c => theseFive.sp ! c ++ ord.s ! num.n ! Nom ;
       } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
@@ -125,7 +125,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : Digits  -> Card ;
   NumDigits dig = dig ** {
     s = \\place => dig.s ! NCard ;
-    numtype = IsDig ;
+    numtype = IsNum ;
     } ;
 
   -- : Numeral -> Card ;
@@ -145,7 +145,9 @@ concrete NounHun of Noun = CatHun ** open
 -}
   -- : A       -> Ord ;
   OrdSuperl a = {
-    s = a.s ! Superl ;
+    s = \\n,c =>
+      let adj : Noun = (a ** {s = a.s ! Superl}) in
+      caseFromStem glue adj c n ;
     n = Sg -- ?? is this meaningful?
     } ;
 
@@ -158,23 +160,20 @@ concrete NounHun of Noun = CatHun ** open
   DefArt = mkQuant "a" "a" ** {
     s,
     sp = \\_,_ => pre {"a" ; "az" / v } ;
-    qt = Article ;
-    objdef = Def ;
+    qt = DefQuant ;
     } ;
 
   -- : Quant
   IndefArt = mkQuant "egy" [] ** {
     s = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
     sp = \\n,_ => case n of {Sg => "egy" ; Pl => "sok"} ;
-    qt = Article ;
-    objdef = Indef ;
+    qt = IndefArticle ;
     } ;
 
   -- : Pron -> Quant
   PossPron pron = pron ** {
     s,sp = \\_ => pron.s ;
-    qt = QuantPoss (agr2PossStem pron.agr) ;
-    objdef = Def ;
+    qt = QuantPoss (agr2pstem pron.agr) ;
     caseagr = False ;
     } ;
 
@@ -201,8 +200,8 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : AP -> CN -> CN
   AdjCN ap cn = cn ** {
-    s = \\nc => ap.s ! Sg ++ cn.s ! nc ;
-    compl = \\n,c => ap.compar ++ cn.compl ! n ! c ;
+    s = \\nc => ap.s ! Sg ! Nom ++ cn.s ! nc ;
+    compl = \\n,c => ap.compl ! n ++ cn.compl ! n ! c ;
     } ;
 
   -- : CN -> RS  -> CN ;
