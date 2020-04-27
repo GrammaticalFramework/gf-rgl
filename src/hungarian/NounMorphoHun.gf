@@ -126,8 +126,8 @@ oper
 
              PossdSg_PossrP3 => hajój ;
 
-             -- The plural morpheme before possessive suffixes: madarai
-             PossdPl => hajó + harm "a" "e" ! nHajó.h + "i" ;
+             -- The plural morpheme before possessive suffixes: hajói
+             PossdPl => hajó + "i" ;
 
              -- The rest of the forms are formed with the regular constructor,
              -- using "toll" as the stem.
@@ -140,25 +140,46 @@ oper
     let tolla = init tollat ;
         nTolla = mkNoun tolla ;
         nToll = mkNoun toll ;
-        diákj = case ifTok Bool toll tolla True False of {
-                     True => toll + "j" ;
-                     False => case tolla of {
-                                    x + #v => x ;
-                                    x + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
-                                             |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz") => tolla ;
-                                    _      => tolla + "j" }
-                                  } ;
+        napj = case andB (ifTok Bool toll tolla True False)
+                         (notB (vowFinal tolla)) of {
+                 True => toll ;  -- sör, sör|t -> sör|e
+                                 -- király, király|t -> király|a
+                                 -- TODO fails for plafon, papír
+                 False => case tolla of {
+                   -- hegy, hegy|et -> hegy|e
+                   _ + ("ty"|"gy"|"ny"|"j"|"ly"|"m"|"h") + ("e"|"a"|"ö"|"o") => init tolla ;
+
+                   -- ház, ház|at -> ház|a
+                   _ + #c + ("a"|"e") => init tolla ;
+
+                   -- orr, orr|ot -> orr|a
+                   -- TODO fails for gyümölcs, gyümölcs|öt -> gyümölcs|e
+                   -- I don't know what this list means /IL
+                   _ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"
+                       |"r"|"n"|"ny"|"ssz"|"zz"|"ss"
+                       |"ll"|"rr"|"nn"|"ns"|"nsz"|"nz") + ("o"|"ö") => init tolla ;
+
+                   -- nap, nap|ot -> napj|a
+                   -- bank, bank|ot -> bankj|a
+                   -- kabát, kabát|ot -> kabátj|a (diák, barát, újság …)
+                   -- NB. fails for virág, ország (virág|ot -> virág|a, ország|ot -> ország|a)
+                   _ + #c + ("o"|"ö")  => init tolla + "j" ;
+
+                   -- háború, háború|t -> háborúj|a
+                   _ => tolla + "j" }
+              } ;
+
      in nTolla ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
              PlStem | PlAcc | SgAccStem => nTolla.s ! nc ;
 
-             PossdSg_PossrPl1 => diákj + harm "u" "ü" ! nToll.h ;
+             PossdSg_PossrPl1 => napj + harm "u" "ü" ! nToll.h ;
 
-             PossdSg_PossrP3 => diákj ;
+             PossdSg_PossrP3 => napj ;
 
              -- The plural morpheme before possessive suffixes: madarai
-             PossdPl => diákj + harm "a" "e" ! nToll.h + "i" ;
+             PossdPl => napj + harm "a" "e" ! nToll.h + "i" ;
 
              -- The rest of the forms are formed with the regular constructor,
              -- using "toll" as the stem.
