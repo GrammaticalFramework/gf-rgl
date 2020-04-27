@@ -116,23 +116,45 @@ oper
           -- Examples: "hajó, hajója, zseni, zsenije, kestyű, kestyűje"
   dHajó : (nom : Str) -> (acc : Str) -> Noun = \hajó,hajót ->
     let nHajó = mkNoun hajó ;
-        hajój = hajó + "j" ;
      in nHajó ** {
           s = \\nc => case nc of {
-             -- All plural forms and Sg Acc use the "tolla" stem
-             PlStem | PlAcc | SgAccStem => nHajó.s ! nc ;
+             PossdSg_PossrPl1 => hajó ;
 
-             PossdSg_PossrPl1 => hajój + harm "u" "ü" ! nHajó.h ;
-
-             PossdSg_PossrP3 => hajój ;
+             PossdSg_PossrP3 => hajó + "j" ;
 
              -- The plural morpheme before possessive suffixes: hajói
              PossdPl => hajó + "i" ;
 
-             -- The rest of the forms are formed with the regular constructor,
-             -- using "toll" as the stem.
+             -- The rest of the forms are formed with the regular constructor
              _ => nHajó.s ! nc
             }
+          } ;
+
+  -- Unexpected j after consonant
+  dPlafon : (nom : Str) -> (acc : Str) -> Noun = \plafon,plafont ->
+    let nPlafon = mkNoun plafon ;
+        h = nPlafon.h ;
+     in nPlafon ** {
+          s = \\nc => case nc of {
+             PossdSg_PossrPl1 => plafon + harm "u" "ü" ! h ;
+             PossdSg_PossrP3 => plafon + "j" ;
+             PossdPl => plafon + harm "jai" "jei" ! h ;
+
+             -- The rest of the forms are formed with the regular constructor
+             _ => nPlafon.s ! nc
+            }
+          } ;
+
+  -- Opposite to dHajó: regular paradigm puts j, but these words don't have it.
+  dVirág : (nom : Str) -> (acc : Str) -> Noun = \virág,virágot ->
+    let nVirág = mkNoun virág ;
+        h = nVirág.h ;
+     in nVirág ** {
+          s = \\nc => case nc of {
+             PossdSg_PossrPl1 => virág + harm "u" "ü" ! h ;
+             PossdSg_PossrP3 => virág ;
+             PossdPl => virág + harm "a" "e" ! h + "i" ;
+             _ => nVirág.s ! nc }
           } ;
 
   -- Handles many possesive forms
@@ -218,55 +240,67 @@ oper
 
   -- All regNoun* are /smart paradigms/: they take one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
-regNounNomAccPl : (nomsg, accsg, nompl : Str) -> Noun = \nsg,asg,npl ->
-  case <nsg,asg,npl> of {
-    <_ + ("u"|"ú"|"ü"|"ű"|"ó"), -- falu, falut, falvak ; szó, szót, szavak
-     _ + ("u"|"ú"|"ü"|"ű"|"ó") + "t",
-     _ + "v" +          #v + "k"> => dFalu nsg npl ;
+  regNoun4 : (nomsg, accsg, nompl, possdSg_possrP3sg : Str) -> Noun =
+    \nsg,asg,npl,possd -> case possd of {
+      _ + #v + "j" + ("a"|"e") => dHajó nsg asg ;
+      _ + #c + "j" + ("a"|"e") => dPlafon nsg asg ;
 
-    -- Fall back to 2-argument smart paradigm
-    _ => regNounNomAcc nsg asg
-  } ;
+      _ + #c + ("a"|"e") => dVirág nsg asg ;
 
-regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
-  case <n,a> of {
 
-    -- Stem 1: Sg Nom
-    -- Stem 2: Everything else
-    -- alma, almát
-    <_ + "a", _ + "át">
-   |<_ + "e" ,_ + "ét"> => dAlma n a ;
+      -- Fall back to 3-argument smart paradigm
+      _ => regNounNomAccPl nsg asg npl
+    } ;
 
-   -- Stem 1: Sg Nom
-   -- Stem 2: Sg Gen, Sg Sup, Pl *
-    <_ + #shortv + #c, -- majom, majmot
-     _ + #c + #shortv + "t"> => dMajom n a ;
+  regNounNomAccPl : (nomsg, accsg, nompl : Str) -> Noun = \nsg,asg,npl ->
+    case <nsg,asg,npl> of {
+      <_ + ("u"|"ú"|"ü"|"ű"|"ó"), -- falu, falut, falvak ; szó, szót, szavak
+       _ + ("u"|"ú"|"ü"|"ű"|"ó") + "t",
+       _ + "v" +          #v + "k"> => dFalu nsg npl ;
 
-   -- Stem 1: Sg Nom
-   -- Stem 2: Sg Sup
-   -- Stem 3: Sg Gen, Pl *
-    <_ + "ó", -- ló, lovat
-     _ + "o" + #c + #v + "t">
+      -- Fall back to 2-argument smart paradigm
+      _ => regNounNomAcc nsg asg
+    } ;
 
-   |<_ + "ó", -- tó, tavat
-     _ + "a" + #c + #v + "t">
+  regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
+    case <n,a> of {
 
-   |<_ + "ő", -- kő, követ
-     _ + "ö" + #c + #v + "t">
+      -- Stem 1: Sg Nom
+      -- Stem 2: Everything else
+      -- alma, almát
+      <_ + "a", _ + "át">
+     |<_ + "e" ,_ + "ét"> => dAlma n a ;
 
-   |<_ + "ű", -- fű, füvet
-     _ + "ü" + #c + #v + "t">
+     -- Stem 1: Sg Nom
+     -- Stem 2: Sg Gen, Sg Sup, Pl *
+      <_ + #shortv + #c, -- majom, majmot
+       _ + #c + #shortv + "t"> => dMajom n a ;
 
-   |<_ + "é", -- lé, levet
-     _ + "e" + #c + #v + "t"> => dLó n a ;
+     -- Stem 1: Sg Nom
+     -- Stem 2: Sg Sup
+     -- Stem 3: Sg Gen, Pl *
+      <_ + "ó", -- ló, lovat
+       _ + "o" + #c + #v + "t">
 
-    -- Stem 1: Sg Nom, Sg * - [Gen]
-    -- Stem 2: Sg Gen, Pl *
-    <_ + "á" + #c, _ + "a" + #c + "at">
-   |<_ + "é" + #c,_ + "e" + #c + ("et"|"at")> => dMadár n a ;
+     |<_ + "ó", -- tó, tavat
+       _ + "a" + #c + #v + "t">
 
-    _ => dToll n a
-  } ;
+     |<_ + "ő", -- kő, követ
+       _ + "ö" + #c + #v + "t">
+
+     |<_ + "ű", -- fű, füvet
+       _ + "ü" + #c + #v + "t">
+
+     |<_ + "é", -- lé, levet
+       _ + "e" + #c + #v + "t"> => dLó n a ;
+
+      -- Stem 1: Sg Nom, Sg * - [Gen]
+      -- Stem 2: Sg Gen, Pl *
+      <_ + "á" + #c, _ + "a" + #c + "at">
+     |<_ + "é" + #c,_ + "e" + #c + ("et"|"at")> => dMadár n a ;
+
+      _ => dToll n a
+    } ;
 
   -- 1-argument smart paradigm
   -- Here we guess the genitive form and give it to appropriate 2-arg paradigm

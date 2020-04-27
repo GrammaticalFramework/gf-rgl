@@ -18,9 +18,11 @@ oper
 --2 Nouns
 
   mkN : overload {
-    mkN : (sgnom : Str) -> N ; -- Predictable nouns from singular nominative. Accusative vowel is o for back harmony. No stem lowering (TODO better explanation/examples)
-    mkN : (sgnom, sggen : Str) -> N ; -- Singular nominative and accusative. Takes care of cases like … TODO example
-    mkN : (sgnom, sggen, plnom : Str) -> N ; -- Singular nominative, singular accusative, plural nominative, e.g. `mkN "falu" "falut" "falvak"`
+    mkN : (sgnom : Str) -> N ; -- Predictable nouns from singular nominative. Accusative vowel is o/ö, no stem lowering. Use: `mkN "nap"` for nap, napot.
+    mkN : (sgnom, sggen : Str) -> N ; -- Singular nominative and accusative. Use: `mkN "név" "nevet"`
+    mkN : (sgnom, sggen, plnom : Str) -> N ; -- Singular nominative, singular accusative, plural nominative. Use: `mkN "falu" "falut" "falvak"`
+    mkN : (sgnom, sggen, plnom, sgnom_possdSg3 : Str) -> N ; -- Singular nominative, singular accusative, plural nominative, singular nominative possessed by 3rd person singular. Use: `mkN "virág" "virágot" "virágok" "virága"` (would give "virágja" otherwise)
+
     mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
   } ;
 
@@ -129,6 +131,9 @@ oper
 
     mkN : Str -> Str -> Str -> N =
         \n,a,pln-> lin N (regNounNomAccPl n a pln) ;
+
+    mkN : (x1,_,_,x4 : Str) -> N =
+        \n,a,pln,possd -> lin N (regNoun4 n a pln possd) ;
 
     mkN : Str -> Harmony -> N =
       \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;
