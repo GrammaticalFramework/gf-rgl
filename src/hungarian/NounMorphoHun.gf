@@ -111,18 +111,43 @@ oper
             }
           } ;
 
-  -- Generic constructor for cases with different stem in Sg Nom and Sg Gen.
-  -- Assumes that Sg Gen and all plurals have genitive stem, others Sg Nom stem.
-  -- Handles also words like "madár, nyár, név, bogár" with shortened stem vowel in plural.
+
+          -- Handles regular wovel ending words, with j added in possesive forms
+          -- Examples: "hajó, hajója, zseni, zsenije, kestyű, kestyűje"
+  dHajó : (nom : Str) -> (acc : Str) -> Noun = \hajó,hajót ->
+    let nHajó = mkNoun hajó ;
+        hajój = hajó + "j" ;
+     in nHajó ** {
+          s = \\nc => case nc of {
+             -- All plural forms and Sg Acc use the "tolla" stem
+             PlStem | PlAcc | SgAccStem => nHajó.s ! nc ;
+
+             PossdSg_PossrPl1 => hajój + harm "u" "ü" ! nHajó.h ;
+
+             PossdSg_PossrP3 => hajój ;
+
+             -- The plural morpheme before possessive suffixes: madarai
+             PossdPl => hajó + harm "a" "e" ! nHajó.h + "i" ;
+
+             -- The rest of the forms are formed with the regular constructor,
+             -- using "toll" as the stem.
+             _ => nHajó.s ! nc
+            }
+          } ;
+
+  -- Handles many possesive forms
   dToll : (nom : Str) -> (acc : Str) -> Noun = \toll,tollat ->
     let tolla = init tollat ;
         nTolla = mkNoun tolla ;
         nToll = mkNoun toll ;
-        diákj : Str = case tolla of {
-                x + #v => x ;
-                x + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
-                |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz") => tolla ;
-                _      => tolla + "j" } ;
+        diákj = case ifTok Bool toll tolla True False of {
+                     True => toll + "j" ;
+                     False => case tolla of {
+                                    x + #v => x ;
+                                    x + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
+                                             |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz") => tolla ;
+                                    _      => tolla + "j" } 
+                                  } ;
      in nTolla ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
@@ -138,6 +163,29 @@ oper
              -- The rest of the forms are formed with the regular constructor,
              -- using "toll" as the stem.
              _ => nToll.s ! nc
+            }
+          } ;
+
+  -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural.
+  dMadár : (nom : Str) -> (acc : Str) -> Noun = \madár,madarat ->
+    let madara = init madarat ;
+        nMadara = mkNoun madara ;
+        nMadár = mkNoun madár ;
+     in nMadara ** {
+          s = \\nc => case nc of {
+             -- All plural forms and Sg Acc use the "tolla" stem
+             PlStem | PlAcc | SgAccStem => nMadara.s ! nc ;
+
+             PossdSg_PossrPl1 => madara + harm "u" "ü" ! nMadár.h ;
+
+             PossdSg_PossrP3 => madara ;
+
+             -- The plural morpheme before possessive suffixes: madarai
+             PossdPl => madara + harm "a" "e" ! nMadár.h + "i" ;
+
+             -- The rest of the forms are formed with the regular constructor,
+             -- using "toll" as the stem.
+             _ => nMadár.s ! nc
             }
           } ;
 
@@ -192,7 +240,10 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
 
     -- Stem 1: Sg Nom, Sg * - [Gen]
     -- Stem 2: Sg Gen, Pl *
-    _ => dToll n a -- Generic 2-argument constructor
+    <_ + "á" + #c, _ + "a" + #c + "at">
+   |<_ + "é" + #c,_ + "e" + #c + "et"> => dMadár n a ;
+
+    _ => dToll n a
   } ;
 
   -- 1-argument smart paradigm
