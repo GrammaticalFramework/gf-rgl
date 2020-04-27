@@ -169,6 +169,7 @@ oper
   -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural.
   dMadár : (nom : Str) -> (acc : Str) -> Noun = \madár,madarat ->
     let madara = init madarat ;
+        madar = init madara ;
         nMadara = mkNoun madara ;
         nMadár = mkNoun madár ;
      in nMadara ** {
@@ -176,12 +177,12 @@ oper
              -- All plural forms and Sg Acc use the "tolla" stem
              PlStem | PlAcc | SgAccStem => nMadara.s ! nc ;
 
-             PossdSg_PossrPl1 => madara + harm "u" "ü" ! nMadár.h ;
+             PossdSg_PossrPl1 => madar + harm "u" "ü" ! nMadara.h ;
 
-             PossdSg_PossrP3 => madara ;
+             PossdSg_PossrP3 => madar ;
 
              -- The plural morpheme before possessive suffixes: madarai
-             PossdPl => madara + harm "a" "e" ! nMadár.h + "i" ;
+             PossdPl => madara + "i" ;
 
              -- The rest of the forms are formed with the regular constructor,
              -- using "toll" as the stem.
@@ -241,7 +242,7 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
     -- Stem 1: Sg Nom, Sg * - [Gen]
     -- Stem 2: Sg Gen, Pl *
     <_ + "á" + #c, _ + "a" + #c + "at">
-   |<_ + "é" + #c,_ + "e" + #c + "et"> => dMadár n a ;
+   |<_ + "é" + #c,_ + "e" + #c + ("et"|"at")> => dMadár n a ;
 
     _ => dToll n a
   } ;
