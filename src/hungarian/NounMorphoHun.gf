@@ -146,7 +146,7 @@ oper
                                     x + #v => x ;
                                     x + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
                                              |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz") => tolla ;
-                                    _      => tolla + "j" } 
+                                    _      => tolla + "j" }
                                   } ;
      in nTolla ** {
           s = \\nc => case nc of {

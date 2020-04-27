@@ -133,8 +133,8 @@ lin
   -- : NP  -> Comp ;
   CompNP np = UseCopula ** {
     s = \\vf => case vf of {
-                  VPres P3 _ => np.s ! NotPossessed ! Nom ;
-                  _ => np.s ! NotPossessed ! Nom ++ copula.s ! vf } ;
+                  VPres P3 _ => np.s ! NoPoss ! Nom ;
+                  _ => np.s ! NoPoss ! Nom ++ copula.s ! vf } ;
     } ;
 
   -- : Adv  -> Comp ;
@@ -149,7 +149,7 @@ oper
 insertObj : ResHun.VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
   obj = case <vps.sc,vps.c2> of {
               <SCDat,Nom> => [] ;
-              _ => np.s ! NotPossessed ! vps.c2 } ;
+              _ => np.s ! NoPoss ! vps.c2 } ;
 
   s = \\vf =>
    -- If verb's subject case is Dat and object Nom, verb agrees with obj.

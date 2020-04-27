@@ -18,7 +18,7 @@ concrete NounHun of Noun = CatHun ** open
          } ++ case <p,det.dt> of {
                 <_, DetPoss _>
                    => possessed ;
-                <NotPossessed, _>
+                <NoPoss, _>
                   => standalone ;
                 <Poss per rnum, _>
                   => let pron : Pronoun = pronTable ! <per,rnum> ; -- Possessor's number
@@ -228,7 +228,7 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
   ApposCN cn np = cn ** {
-    compl = \\n,c => cn.compl ! n ! c ++ np.s ! NotPossessed ! Nom
+    compl = \\n,c => cn.compl ! n ! c ++ np.s ! NoPoss ! Nom
     } ;
 
 --2 Possessive and partitive constructs

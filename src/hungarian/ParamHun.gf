@@ -101,7 +101,7 @@ param
 
   SubjCase = SCNom | SCDat ; -- Limited set of subject cases
 
-  Possessor = NotPossessed | Poss Person Number ;
+  Possessor = NoPoss | Poss Person Number ;
 
 oper
 
@@ -129,6 +129,45 @@ oper
       SCDat => Dat
     } ;
 
+  case2str : Case -> Str = \c -> case c of {
+    Nom => "Nom" ;
+    Acc => "Acc" ;
+    Dat => "Dat" ;
+    Ins => "Ins" ;
+    Tra => "Tra" ;
+    Sup => "Sup" ;
+    Ine => "Ine" ;
+    Ela => "Ela" ;
+    All => "All" ;
+    Ade => "Ade" ;
+    Abl => "Abl" ;
+    Sub => "Sub" ;
+    Del => "Del" ;
+    Ill => "Ill" ;
+    Cau => "Cau" } ;
+
+  ncstem2str : NumCaseStem -> Str = \nc -> case nc of {
+    SgNom => "SgNom" ;
+    SgAccStem => "SgAccStem" ;
+    SgSup => "SgSup" ;
+    PlAcc => "PlAcc" ;
+    SgInsStem => "SgInsStem" ;
+    SgStem => "SgStem" ;
+    PlStem => "PlStem" ;
+    PossdSg_PossrP3 => "PossdSg_PossrP3" ;
+    PossdSg_PossrPl1 => "PossdSg_PossrPl1" ;
+    PossdPl => "PossdPl"
+    } ;
+
+  possessor2str : Possessor -> Str = \p -> case p of {
+    NoPoss => "NoPoss" ;
+    Poss P1 Sg => "Poss P1 Sg" ;
+    Poss P2 Sg => "Poss P2 Sg" ;
+    Poss P3 Sg => "Poss P3 Sg" ;
+    Poss P1 Pl => "Poss P1 Pl" ;
+    Poss P2 Pl => "Poss P2 Pl" ;
+    Poss P3 Pl => "Poss P3 Pl"
+    } ;
 --------------------------------------------------------------------------------
 -- Numerals
 
