@@ -14,6 +14,6 @@ lin
     PConjConj conj = {s = conj.s2} ;
 
     NoVoc = {s = []} ;
-    VocNP np = {s = np.s ! Voc} ; 
+    VocNP np = {s = np.s ! Nom} ; 
 
 }

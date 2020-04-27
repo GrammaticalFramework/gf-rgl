@@ -26,8 +26,6 @@ oper
     = Dat ;
   accusative : Case
     = Acc ;
-  vocative : Case
-    = ResSlo.Voc ;
   locative : Case
     = Loc ;
   instrumental : Case

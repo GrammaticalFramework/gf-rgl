@@ -13,7 +13,7 @@ param
   Animacy = Anim | Inanim ;
   Gender = Masc Animacy | Fem | Neutr ;
 
-  Case = Nom | Gen | Dat | Acc | Voc | Loc | Ins ; -- traditional order
+  Case = Nom | Gen | Dat | Acc | Loc | Ins ; -- traditional order
 
   Person = P1 | P2 | P3 ;
 
@@ -101,7 +101,7 @@ oper
 
 -- so this is the lincat of N
 
-  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
+  NounForms : Type = {snom,sgen,sdat,sacc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
 
 -- But traditional tables make agreement easier to handle in syntax
 -- so this is the lincat of CN
@@ -118,12 +118,11 @@ oper
 	  Gen => forms.sgen ;
 	  Dat => forms.sdat ;
 	  Acc => forms.sacc ;
-	  Voc => forms.svoc ;
 	  Loc => forms.sloc ;
 	  Ins => forms.sins
 	  } ;
         Pl => table {
-	  Nom | Voc => forms.pnom ;
+	  Nom => forms.pnom ;
 	  Gen => forms.pgen ;
 	  Dat => forms.pdat ;
 	  Acc => forms.pacc ;
@@ -183,7 +182,6 @@ oper
       snom      = pan ;
       sgen,sacc = pan + "a" ;
       sdat,sloc = pan + "ovi" ; --- pánu
-      svoc      = shortenVowel pan + "e" ; --- "irregular shortening" 3.5.1
       sins      = pan + "em" ;
 
       pnom      = addI pan ;       -- pani, kluk-kluci --- panové, host-hosté
@@ -202,7 +200,6 @@ oper
       sgen      = predsed + "y" ; -- pacc,pins --- i
       sdat,sloc = predsed + "ovi" ;
       sacc      = predsed + "u" ;
-      svoc      = predsed + "o" ;
       sins      = predsed + "ou" ;
 
       pnom      = case predseda of {
@@ -223,7 +220,6 @@ oper
       snom,sacc = hrad ;
       sgen,sdat = hrd + "u" ; --- Berlín-a
       sloc      = hrd + "u" ; --- addE hrad ;  -- stůl-stole
-      svoc      = hrd + "e" ;
       sins      = hrd + "em" ;
 
       pnom,pacc,pins = hrd + "y" ;
@@ -241,7 +237,6 @@ oper
       sgen      = zen + "y" ;  --- i after soft cons sometimes
       sdat,sloc = zen + "ě" ;  --- i after soft cons sometimes ; skol+e
       sacc      = zen + "u" ;
-      svoc      = shortenVowel zen + "o" ; ---- shorten ?
       sins      = zen + "ou" ;
 
       pnom,pacc = zen + "y" ;  --- also sgen
@@ -256,7 +251,7 @@ oper
     let mest = init mesto
     in
     {
-      snom,sacc,svoc = mesto ;
+      snom,sacc = mesto ;
       sgen      = mest + "a" ;
       sdat      = mest + "u" ;
       sloc      = mest + "u" ; --- "ě"
@@ -277,10 +272,6 @@ oper
       snom      = muz_ ;
       sgen,sacc = muz + "e" ;   --- pacc
       sdat,sloc = muz + "i" ;   --- muzovi
-      svoc      = case muz_ of {
-        chlap + "ec" => chlap + "če" ;
-        _ => muz + "i"
-	} ;
       sins      = muz + "em" ;
 
       pnom = case muz_ of {
@@ -299,7 +290,7 @@ oper
     let soudc = init soudce
     in
     {
-      snom,sgen,sacc,svoc = soudce ;      ---- pacc
+      snom,sgen,sacc = soudce ;      ---- pacc
       sdat,sloc           = soudc + "i" ; --- soudcovi
       sins                = soudc + "em" ;
 
@@ -316,7 +307,7 @@ oper
     {
       snom,sacc      = stroj ;
       sgen           = stroj + "e" ; --- pnom,pacc
-      sdat,svoc,sloc = stroj + "i" ; --- pins ---- svoc shorten?
+      sdat,sloc = stroj + "i" ; --- pins
       sins           = stroj + "em" ;
 
       pnom,pacc      = stroj + "e" ;
@@ -331,7 +322,7 @@ oper
     let ruz = init ruze
     in
     {
-      snom,sgen,svoc      = ruze ; --- pnom,pacc
+      snom,sgen      = ruze ; --- pnom,pacc
       sdat,sacc,sloc = ruz + "i" ;
       sins = ruz + "í" ;
 
@@ -349,7 +340,7 @@ oper
     {
       snom,sacc      = pisen ;
       sgen           = pisn + "ě" ;
-      sdat,svoc,sloc = pisn + "i" ; -- not shortened
+      sdat,sloc = pisn + "i" ; -- not shortened
       sins           = pisn + "í" ;
 
       pnom,pacc      = pisn + "ě" ;
@@ -363,7 +354,7 @@ oper
   declKOST : DeclensionType = \kost ->
     {
       snom,sacc           = kost ;
-      sgen,sdat,svoc,sloc = kost + "i" ; --- pnom,pacc
+      sgen,sdat,sloc = kost + "i" ; --- pnom,pacc
       sins                = kost + "í" ; --- pgen
 
       pnom,pacc      = kost + "i" ;
@@ -378,7 +369,7 @@ oper
     let kur = init kure
     in
     {
-      snom,sacc,svoc = kure ;
+      snom,sacc = kure ;
       sgen           = kur  + "ete" ;
       sdat,sloc      = kur  + "eti" ;
       sins           = kur  + "etem" ;
@@ -395,7 +386,7 @@ oper
     let mor = init more
     in
     {
-      snom,sgen,sacc,svoc = more ;      --- pnom
+      snom,sgen,sacc = more ;      --- pnom
       sdat,sloc           = mor + "i" ; --- pins
       sins                = mor + "em" ;
 
@@ -409,7 +400,7 @@ oper
 
   declSTAVENI : DeclensionType = \staveni ->
     {
-      snom,sgen,sdat,sacc,svoc,sloc = staveni ;
+      snom,sgen,sdat,sacc,sloc = staveni ;
       sins                          = staveni + "m" ;
 
       pnom,pgen,pacc = staveni ;
@@ -429,14 +420,14 @@ oper
 ---- TODO other degrees than positive
 
   AdjForms : Type = {
-    msnom, fsnom, nsnom : Str ; -- svoc = snom
+    msnom, fsnom, nsnom : Str ;
     msgen, fsgen : Str ;        -- nsgen = msgen, pacc = fsgen
     msdat, fsdat : Str ;        -- nsdat = msdat
     fsacc : Str ;               -- amsacc = msgen, imsacc = msnom, nsacc = nsnom
     msloc : Str ;               -- fsloc = fsdat, nsloc = msloc
     msins, fsins : Str ;        -- nsins = msins, pdat = msins
 
-    mpnom,fpnom : Str ;         -- pvoc = pnom, impnom = fpnom, npnom = fsnom
+    mpnom,fpnom : Str ;         -- impnom = fpnom, npnom = fsnom
     pgen : Str ;                -- ploc = pgen
     pins : Str ;
     } ;
@@ -446,11 +437,11 @@ oper
 adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   s = \\g,n,c => case <n,c,g> of {
 
-    <Sg, Nom|Voc, Masc _>
+    <Sg, Nom, Masc _>
       | <Sg, Acc, Masc Inanim>   => afs.msnom ;
-    <Sg, Nom|Voc, Fem>
-      | <Pl, Nom|Acc|Voc, Neutr> => afs.fsnom ;
-    <Sg, Nom|Acc|Voc, Neutr>     => afs.nsnom ;
+    <Sg, Nom, Fem>
+      | <Pl, Nom|Acc, Neutr> => afs.fsnom ;
+    <Sg, Nom|Acc, Neutr>     => afs.nsnom ;
 
     <Sg, Gen, Masc _ | Neutr>
       | <Sg,Acc,Masc Anim>     => afs.msgen ;
@@ -468,8 +459,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       | <Pl,Dat,_>             => afs.msins ;
     <Sg, Ins, Fem>             => afs.fsins ;
 
-    <Pl, Nom|Voc, Masc Anim>       => afs.mpnom ;
-    <Pl, Nom|Voc, Masc Inanim|Fem> => afs.fpnom ;
+    <Pl, Nom, Masc Anim>       => afs.mpnom ;
+    <Pl, Nom, Masc Inanim|Fem> => afs.fpnom ;
 
     <Pl, Gen|Loc,_> => afs.pgen ;
     <Pl, Ins,_>     => afs.pins
@@ -772,14 +763,14 @@ oper
 
  kdoForms : Case => Str = table {
    Nom => "kdo" ;
-   Gen | Acc | Voc => "koho" ;
+   Gen | Acc => "koho" ;
    Dat => "komu" ;
    Loc => "kom" ;
    Ins => "kým"
    } ;
 
  coForms : Case => Str = table {
-   Nom|Acc|Voc => "co" ;
+   Nom|Acc => "co" ;
    Gen => "čeho" ;
    Dat => "čemu" ;
    Loc => "čem" ;
