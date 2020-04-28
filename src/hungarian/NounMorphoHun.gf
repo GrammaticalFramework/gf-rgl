@@ -54,9 +54,10 @@ oper
               _ => nLó.s ! nc }
          } ;
 
-    -- NB. arguments are Sg Nom, Pl Nom
+    -- NB. Relevant arguments are Sg Nom, Pl Nom.
+    -- Third argument prevents accidental application of this paradigm
     -- handles words like: falu, daru, tetű -> falvak, darvak, tetvek
-    dFalu : (nomsg : Str) -> (nompl : Str) -> Noun = \falu,falvak ->
+    dFalu : (nomsg,_,nompl : Str) -> Noun = \falu,_,falvak ->
       let falva = init falvak ;
           nFalva = mkNoun falva ;
           nFalu = mkNoun falu ;
@@ -112,8 +113,8 @@ oper
           } ;
 
 
-          -- Handles regular wovel ending words, with j added in possesive forms
-          -- Examples: "hajó, hajója, zseni, zsenije, kestyű, kestyűje"
+  -- Handles regular wovel ending words, with j added in possesive forms
+  -- Examples: "hajó, hajója, zseni, zsenije, kestyű, kestyűje"
   dHajó : (nom : Str) -> (acc : Str) -> Noun = \hajó,hajót ->
     let nHajó = mkNoun hajó ;
         hajój = hajó + "j" ;
@@ -134,24 +135,22 @@ oper
             }
           } ;
 
-  -- Unexpected j after consonant
+  -- Opposite to dVirág: unexpected j after consonant
   dPlafon : (nom : Str) -> (acc : Str) -> Noun = \plafon,plafont ->
-    let nPlafon = mkNoun plafon ;
+    let nPlafon = regNounNomAcc plafon plafont ;
         h = nPlafon.h ;
      in nPlafon ** {
           s = \\nc => case nc of {
              PossdSg_PossrPl1 => plafon + harm "u" "ü" ! h ;
              PossdSg_PossrP3 => plafon + "j" ;
              PossdPl => plafon + harm "jai" "jei" ! h ;
-
-             -- The rest of the forms are formed with the regular constructor
              _ => nPlafon.s ! nc
             }
           } ;
 
-  -- Opposite to dHajó: regular paradigm puts j, but these words don't have it.
+  -- Opposite to dPlafon: regular paradigm puts j, but these words don't have it.
   dVirág : (nom : Str) -> (acc : Str) -> Noun = \virág,virágot ->
-    let nVirág = mkNoun virág ;
+    let nVirág = regNounNomAcc virág virágot ;
         h = nVirág.h ;
      in nVirág ** {
           s = \\nc => case nc of {
@@ -170,7 +169,7 @@ oper
                          (notB (vowFinal tolla)) of {
                  True => toll ;  -- sör, sör|t -> sör|e
                                  -- király, király|t -> király|a
-                                 -- TODO fails for plafon, papír
+                                 -- NB. plafon, papír with dPlafon
                  False => case tolla of {
                    -- hegy, hegy|et -> hegy|e
                    _ + ("ty"|"gy"|"ny"|"j"|"ly"|"m"|"h") + ("e"|"a"|"ö"|"o") => init tolla ;
@@ -188,7 +187,7 @@ oper
                    -- nap, nap|ot -> napj|a
                    -- bank, bank|ot -> bankj|a
                    -- kabát, kabát|ot -> kabátj|a (diák, barát, újság …)
-                   -- NB. fails for virág, ország (virág|ot -> virág|a, ország|ot -> ország|a)
+                   -- NB. virág, ország with dVirág (virág|ot -> virág|a)
                    _ + #c + ("o"|"ö")  => init tolla + "j" ;
 
                    -- háború, háború|t -> háborúj|a
@@ -240,7 +239,6 @@ oper
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
   -- TODO: teher ~ terhet (consonant-crossing)
-  -- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
 
   -- All regNoun* are /smart paradigms/: they take one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
@@ -260,7 +258,7 @@ oper
     case <nsg,asg,npl> of {
       <_ + ("u"|"ú"|"ü"|"ű"|"ó"), -- falu, falut, falvak ; szó, szót, szavak
        _ + ("u"|"ú"|"ü"|"ű"|"ó") + "t",
-       _ + "v" +          #v + "k"> => dFalu nsg npl ;
+       _ + "v" +          #v + "k"> => dFalu nsg asg npl ;
 
       -- Fall back to 2-argument smart paradigm
       _ => regNounNomAcc nsg asg
