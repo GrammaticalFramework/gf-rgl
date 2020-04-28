@@ -37,7 +37,7 @@ oper
          s = \\nc => case nc of {
 
               -- All plural forms and Sg Acc use the "lova" stem
-              PlStem | PlAcc | SgAccStem
+              PlStem | SgAccStem
                => nLova.s ! nc ;
 
               SgSup | -- Sg Sup has vowel o/ö, not a/e
@@ -64,8 +64,8 @@ oper
        in nFalu ** {
             s = \\nc => case nc of {
 
-               -- All plural forms and Sg Acc, Sg Sup use the "falu" stem
-               PlStem | PlAcc => nFalva.s ! nc ;
+               -- All plural forms use the "falva" stem
+               PlStem => nFalva.s ! nc ;
 
                -- The plural morpheme before possessive suffixes is i
                PossdPl => nFalu.s ! nc + "i" ;
@@ -95,7 +95,6 @@ oper
          s = \\nc => case nc of {
 
             SgSup -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
-          | PlAcc
           | PlStem
           | SgAccStem => nMajmo.s ! nc ;
 
@@ -197,7 +196,7 @@ oper
      in nTolla ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
-             PlStem | PlAcc | SgAccStem => nTolla.s ! nc ;
+             PlStem | SgAccStem => nTolla.s ! nc ;
 
              PossdSg_PossrPl1 => napj + harm "u" "ü" ! nToll.h ;
 
@@ -221,7 +220,7 @@ oper
      in nMadara ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
-             PlStem | PlAcc | SgAccStem => nMadara.s ! nc ;
+             PlStem | SgAccStem => nMadara.s ! nc ;
 
              PossdSg_PossrPl1 => madar + harm "u" "ü" ! nMadara.h ;
 
@@ -241,8 +240,8 @@ oper
   -- TODO: teher ~ terhet (consonant-crossing)
 
   -- Worst case constructor: takes all stems
-  worstCaseNoun : (x1,_,_,_,_,_,_,_,x10 : Str) -> Harm -> Noun =
-  \nomsg,accsg,supsg,allsg,nompl,accpl,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
+  worstCaseNoun : (x1,_,_,_,_,_,_,x8 : Str) -> Harm -> Noun =
+  \nomsg,accsg,supsg,allsg,nompl,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
    let sgstem = tk 3 allsg ; -- remove -hoz/hez/höz
        sginsstem : Str = case vowFinal sgstem of {
                            True  => sgstem + "v" ;
@@ -255,7 +254,6 @@ oper
           SgAccStem => init accsg ; -- remove t; same stem used for other forms
           SgInsStem => sginsstem ;
           PlStem => nompl ;
-          PlAcc => accpl ;
           PossdSg_PossrP3 => init possdSg_possrP3sg ; -- remove -a/e
           PossdSg_PossrPl1 => tk 2 possdSg_PossrPl1 ; -- remove -nk
           PossdPl => possdPl } ;
@@ -481,7 +479,6 @@ oper
   -- Variant of case forms when the noun stem ends in consonant.
   endCaseCons : NumCaseStem -> HarmForms = \c -> case c of {
     SgSup => harm3 "on" "en" "ön" ;
-    PlAcc => harm3 "ot" "et" "öt" ;
     SgAccStem => harm3 "o" "e" "ö" ;
     SgAll => harm3 "hoz" "hez" "höz" ;
     PossdPl => harm1 "i" ; -- TODO figure out allomorphs
@@ -492,7 +489,6 @@ oper
   -- Variant where accusative has the allomorph -at
   endCaseConsAccAt : NumCaseStem -> HarmForms = \c -> case c of {
     SgAccStem => harm3 "a" "e" "ö" ;
-    PlAcc => harm3 "at" "et" "öt" ;
     _   => endCaseCons c
     } ;
 
@@ -541,11 +537,7 @@ oper
             |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz")> => endCaseConsAcc ;
             <True,_>  => endCaseConsAccAt ;
             _ => endCaseCons } ;
-        endCasePl : NumCaseStem -> HarmForms =
-          case <plural, useAt> of {
-            <"ak",_> => endCaseConsAccAt ;
-            <_,True> => endCaseConsAccAt ;
-            _    => endCaseCons } ;
+
         -- Last consonant doubles before instrumental and translative
         duplConsStem : Str = case vowFinal w of {
                            True  => w ;
@@ -557,14 +549,14 @@ oper
                -- Before Sg Ins, Tra:
                --  * Double the last letter if consonant
                --  * Add v if vowel (comes from endCaseSg)
-               SgInsStem        => duplConsStem + endCaseSg SgInsStem ! h ;
+               SgInsStem => duplConsStem + endCaseSg SgInsStem ! h ;
 
                -- endCaseCons, because we only use -k as plural morpheme.
-               -- If we add possessive forms with allomorph -i, then revise.
-               c@(PlStem|PlAcc) => w + plural + endCasePl c ! h ;
+               -- Possessive forms with allomorph -i are handled separately.
+               PlStem    => w + plural ;
 
                -- All other singular forms and stems
-               c                => w +          endCaseSg c ! h } ;
+               c         => w + endCaseSg c ! h } ;
 
         } ;
 
@@ -574,7 +566,7 @@ oper
 
     endCase : Case -> HarmForms = \c -> case c of {
       Nom => harm1 [] ;
-      Acc => harm3 "ot" "et" "öt" ;
+      Acc => harm "at" "et" ; -- NB. this is only used for plural acc!
       Dat => harm "nak" "nek" ;
       Ade => harm "nál" "nél" ;
       Sup => harm3 "on" "en" "ön" ;

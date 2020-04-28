@@ -132,8 +132,7 @@ lin floor_N = mkN "padló" "padlót" ;
 -- lin flow_V = mkV "" ;
 lin flower_N = mkN "virág" "virágot" "virágok" "virága" ;
 lin fly_V = mkV "repül" ;
-lin fog_N = mkN "köd" "ködöt" "ködön" "ködhöz"
-                "ködök" "ködöket"
+lin fog_N = mkN "köd" "ködöt" "ködön" "ködhöz" "ködök"
                 "köde" "ködünk" "ködei" ;
 lin foot_N = leg_N ; --same as leg, to specify "lábfej"
 lin forest_N = mkN "erdő" "erdőt" ;
@@ -320,8 +319,7 @@ lin shirt_N = mkN "ing" "inget"; --shirt like t-shirt or the more formal?
 lin shoe_N = mkN "cipő" "cipőt" ;
 lin shop_N = mkN "üzlet" "üzletet";
 lin short_A = mkA "rövid" ; --in short text, if human length then "alacsony"
-lin silver_N = mkN "ezüst" "ezüstöt" "ezüstön" "ezüsthöz"
-                   "ezüstök" "ezüstöket"
+lin silver_N = mkN "ezüst" "ezüstöt" "ezüstön" "ezüsthöz" "ezüstök"
                    "ezüstje" "ezüstünk" "ezüstjei" ;
 -- lin sing_V = mkV "" ;
 -- lin sister_N = mkN "" ;
