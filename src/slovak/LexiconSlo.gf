@@ -5,6 +5,7 @@ concrete LexiconSlo of Lexicon =
     ResSlo, ParadigmsSlo
   in {
 
+{-
   lin
     boy_N = declPAN "kluk" ;
     man_N = declMUZ "muž" ;
@@ -54,6 +55,6 @@ concrete LexiconSlo of Lexicon =
 
     buy_V2 = mkV2 (iii_kupovatVerbForms "kupovat") ;
     love_V2 = mkV2 (iii_kupovatVerbForms "milovat") ;
-
+-}
 }
 
