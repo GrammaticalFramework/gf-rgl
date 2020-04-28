@@ -31,8 +31,8 @@ oper
   consonant : pattern Str =
     #(
       "d" | "t" | "g" | "h" | "k" | "n" | "r" |
-      "ť" | "ď" | "j" | "ň" | "ř" | "š" | "c" | "č" | "ž" |
-      "b" | "f" | "l" | "m" | "p" | "s" | "v"
+      "ť" | "ď" | "j" | "ň" | "š" | "c" | "č" | "ž" |
+      "b" | "f" | "l" | "m" | "p" | "s" | "v" | "ľ" | "ĺ" | "ŕ" | "dz"
       ) ;
 
   dropFleetingE : Str -> Str = \s -> case s of {
@@ -140,46 +140,52 @@ oper
 -- terminology of CEG
   DeclensionType : Type = Str -> NounForms ;
 
-{- -----
-  declensionNounForms : (nom,gen : Str) -> Gender -> NounForms
-    = \nom,gen,g ->
-    let decl : DeclensionType = case <g, nom, gen> of {
-      <Masc Anim,   _ + "a"           , _ + "u"> => declHRDINA ;
+  declensionNounForms : (snom,pgen : Str) -> Gender -> NounForms
+    = \snom,pgen,g -> case <g, snom, pgen> of {
+      <Masc Anim,   _ + "a"           , _ + "ov">   => hrdinaN snom ;
+      <Masc _,      _ + ("i"|"y"|"e") , _ + "ov">   => ponyN snom ; ----
+      <Masc Anim,   _                 , _ + "ov">   => hrdinaN snom ;
+      
+      <Masc Inanim, _ + #softConsonant,   _ + "ov"> => strojN snom ;
+      <Masc Ianim,  _ + #hardConsonant,   _ + "ov"> => dubN snom ;
+      <Masc Ianim,  _ + #neutralConsonant,_ + "ov"> => dubN snom ;
 
-      <Masc Anim,   _                 , _ + "a"> => declCHLAP ;
-      <Masc Inanim, _ + #hardConsonant, _ + "u"> => declHRAD ;
-      <Fem,         _ + "a"           , _ + "y"> => declZENA ;
-      <Neutr,       _ + "o"           , _ + "a"> => declMESTO ;
-      <Masc Anim,   _ + #softConsonant, _ + "e"> => declMUZ ;
-      <Masc Anim,   _ + "tel"         , _ + "e"> => declMUZ ;
-      <Masc Anim,   _ + "ce"          , _ + "e"> => declSOUDCE ;
-      <Masc Inanim, _ + #softConsonant, _ + "e"> => declSTROJ ;
-      <Fem,         _ + ("e"|"ě")     , _ + ("e"|"ě")> => declRUZE ;
-      <Fem,         _ + #softConsonant, _ + "e"> => declPISEN ;
-      <Fem,         _ + "ost"         , _ + "i"> => declKOST ;  --- also many other "st" 3.6.3
-      <Neutr,       _ + "e"           , _+"ete"> => declKURE ;
-      <Neutr,       _ + "e"           , _ + "e"> => declMORE ;
-      <Neutr,       _ + "í"           , _ + "í"> => declSTAVENI ;
-      _ => Predef.error ("cannot infer declension type for" ++ nom ++ gen)
-      }
-    in decl nom ;
+      <Fem,         _ + #hardConsonant + "a",    _ + #consonant>  => zenaN snom ;
+      <Fem,         _ + #neutralConsonant + "a", _ + #consonant>  => zenaN snom ;
+      <Fem,         _ + #softConsonant + "a",    _ + #consonant>  => ulicaN snom ;
+      <Fem,         _ + ("ia"|"ya"),             _>               => ulicaN snom ;
+      <Fem,         _ + ("c"|"s"|"p"|"v"|"sť"),  _ + "í">         => kostN snom pgen ;
+      <Fem,         _ + #consonant            ,  _ + "í">         => dlanN snom pgen ;
+
+      <Neutr,       _ + "o"                   ,  _      >         => mestoN snom ;
+      <Neutr,       _ + "ie"                  ,  _ + "í">         => vysvedcenieN snom ;
+      <Neutr,       _ + "e"                   ,  _      >         => srdceN snom ;
+      <Neutr,       _ + ("a"|"ä")             ,  _ + "iec">       => dievceniecN snom ;
+      <Neutr,       _ + ("a"|"ä")             ,  _        >       => dievcaN snom ;
+
+      _ => Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
+      } ** {pgen = pgen ; g = g} ;
 
 -- the "smartest" one-argument mkN
 
   guessNounForms : Str -> NounForms
-    = \s -> case s of {
-      _ + "ost"          => declKOST s ;
-      _ + "tel"          => declMUZ s ;
-      _ + #hardConsonant => declHRAD s ;
-      _ + #softConsonant => declSTROJ s ;
-      _ + "a"            => declZENA s ;
-      _ + "o"            => declMESTO s ;
-      _ + "ce"           => declSOUDCE s ;
-      _ + "e"            => declMORE s ;
-      _ + "í"            => declSTAVENI s ;
-      _ => Predef.error ("cannot guess declension type for" ++ s)
+    = \snom -> case snom of {
+        _ + ("i"|"y"|"e")           => ponyN snom ;
+        _ + #softConsonant          => strojN snom ;
+        _ + #hardConsonant          => dubN snom ;
+        _ + #neutralConsonant       => dubN snom ;
+        _ + #hardConsonant + "a"    => zenaN snom ;
+        _ + #neutralConsonant + "a" => zenaN snom ;
+        _ + #softConsonant + "a"    => ulicaN snom ;
+        _ + ("ia"|"ya")             => ulicaN snom ;
+        _ + "o"                     => mestoN snom ;
+        _ + "ie"                    => vysvedcenieN snom ;
+        _ + "e"                     => srdceN snom ;
+        _ + "ä"                     => dievcaN snom ;
+
+        _ => Predef.error ("cannot guess declension type for" ++ snom)
       } ;
--}
+
 
 -- the traditional declensions, in both CEG and Wiki
 -- they are also exported in ParadigmsSlo with names chlapN etc
@@ -327,11 +333,8 @@ oper
       g = Fem
       } ;
 
-  dlanN : DeclensionType = \dlanj -> 
-    let dlan : Str = case dlanj of {
-      dla + "ň" => dla + "n" ;
-      _ => dlanj ---- TODO many more cases
-      } ;
+  dlanN : Str -> DeclensionType = \dlanj,dlani -> 
+    let dlan : Str = init dlani
     in
     {
       snom      = dlanj ;
@@ -342,7 +345,7 @@ oper
       sins      = dlanj + "ou" ;
 
       pnom      = dlan + "e" ;
-      pgen      = dlan + "í" ;
+      pgen      = dlani ;
       pdat      = dlan + "iam" ;
       pacc      = dlan + "e" ;
       ploc      = dlan + "iach" ;
@@ -351,11 +354,8 @@ oper
       g = Fem
       } ;
 
-  kostN : DeclensionType = \kost' -> 
-    let kost : Str = case kost' of {
-      kos + "ť" => kos + "t" ;
-      _ => kost' ---- TODO more cases
-      } ;
+  kostN : Str -> DeclensionType = \kost',kosti -> 
+    let kost = init kosti
     in
     {
       snom      = kost' ;
@@ -366,7 +366,7 @@ oper
       sins      = kost' + "ou" ;
 
       pnom      = kost + "i" ;
-      pgen      = kost + "í" ;
+      pgen      = kosti ;
       pdat      = kost + "iam" ;
       pacc      = kost + "i" ;
       ploc      = kost + "iach" ;
@@ -457,7 +457,7 @@ oper
       sloc      = dievca + "ti" ;
       sins      = dievca + "ťom" ;
 
-      pnom      = dievca + "tá" ; ---- TODO alternatives dievčence etc
+      pnom      = dievca + "tá" ;
       pgen      = dievc + "iat" ;
       pdat      = dievca + "tám" ;
       pacc      = dievca + "tá" ;
@@ -467,7 +467,17 @@ oper
       g = Neutr
       } ;
 
-
+  -- with variant plural forms of the previous
+  dievceniecN : DeclensionType = \dievca ->
+    let dievc = init dievca
+    in dievcaN dievca ** { 
+      pnom      = dievc + "ence" ;
+      pgen      = dievc + "eniec" ;
+      pdat      = dievc + "encom" ;
+      pacc      = dievc + "ence" ;
+      ploc      = dievc + "encoch" ;
+      pins      = dievc + "encami" ;
+      } ;
 
 ---------------------------
 -- Adjectives

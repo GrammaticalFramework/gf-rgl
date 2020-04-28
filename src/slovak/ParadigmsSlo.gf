@@ -1,4 +1,4 @@
-resource ParadigmsSlo = open CatSlo, ResSlo, Prelude in {
+resource ParadigmsSlo = open CatSlo, ResSlo, (R=ResSlo), Prelude in {
 
 ----------------
 -- Parameters
@@ -35,6 +35,7 @@ oper
 -- Nouns
 
 oper
+
   mkN = overload {
     mkN : (nom : Str) -> N
       = \nom -> lin N (guessNounForms nom) ;
@@ -46,35 +47,36 @@ oper
 -- However, they have some defaults that may have to be overwritten.
 -- This can be done easily by overriding those formes with record extension (**).
 -- The default extensions are shown in comments; if the default is correct, no extension is needed.
+-- Notice that some paradigms take two arguments, some take one.
 
-  panN : Str -> N       -- default ** {pnom = +i}
-    = \s -> lin N (declPAN s) ;
-  predsedaN : Str -> N  -- default ** {sgen = +i}
-    = \s -> lin N (declPREDSEDA s) ;
-  hradN : Str -> N      -- default ** {sgen,sloc = +u}
-    = \s -> lin N (declHRAD s) ;
-  zenaN : Str -> N      -- default ** {pgen = zen}
-    = \s -> lin N (declZENA s) ;
-  mestoN : Str -> N     -- default ** {sloc = +u ; pgen = mest ; ploc = +ech}
-    = \s -> lin N (declMESTO s) ;
-  muzN : Str -> N
-    = \s -> lin N (declMUZ s) ;
-  soudceN : Str -> N    -- default ** {sdat,sloc = +i ; pnom = +i}  
-    = \s -> lin N (declSOUDCE s) ;
+  chlapN : Str -> N  
+    = \s -> lin N (R.chlapN s) ;
+  hrdinaN : Str -> N 
+    = \s -> lin N (R.hrdinaN s) ;
+  dubN : Str -> N  
+    = \s -> lin N (R.dubN s) ;
   strojN : Str -> N
-    = \s -> lin N (declSTROJ s) ;
-  ruzeN : Str -> N
-    = \s -> lin N (declRUZE s) ;
-  pisenN : Str -> N
-    = \s -> lin N (declPISEN s) ;
-  kostN : Str -> N
-    = \s -> lin N (declKOST s) ;
-  kureN : Str -> N
-    = \s -> lin N (declKURE s) ;
-  moreN : Str -> N     -- default ** {pgen = +í}
-    = \s -> lin N (declMORE s) ;
-  staveniN : Str -> N
-    = \s -> lin N (declSTAVENI s) ;
+    = \s -> lin N (R.strojN s) ;
+  ponyN : Str -> N
+    = \s -> lin N (R.ponyN s) ;
+  zenaN : (snom, pgen : Str) -> N
+    = \s,p -> lin N (R.zenaN s) ** {pgen = p} ;
+  ulicaN : (snom, pgen : Str) -> N
+    = \s,p -> lin N (R.ulicaN s) ** {pgen = p} ;
+  dlanN  : (snom, pgen : Str) -> N
+    = \s,p -> lin N (R.dlanN s p) ;
+  kostN  : (snom, pgen : Str) -> N
+    = \s,p -> lin N (R.kostN s p) ;
+  mestoN : (snom, pgen : Str) -> N
+    = \s,p -> lin N (R.mestoN s) ** {pgen = p} ;
+  srdceN : (snom, pgen : Str) -> N
+    = \s,p -> lin N (R.srdceN s) ** {pgen = p} ;
+  vysvedcenieN : Str -> N
+    = \s -> lin N (R.vysvedcenieN s) ;
+  dievcaN : Str -> N
+    = \s -> lin N (R.dievcaN s) ;
+  dievceniecN : Str -> N
+    = \s -> lin N (R.dievceniecN s) ;
 
 -- The full definition of the noun record is
 -- {
