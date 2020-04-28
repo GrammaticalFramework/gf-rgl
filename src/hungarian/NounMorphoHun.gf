@@ -338,6 +338,8 @@ oper
     _  + ("a"|"e")         => dAlma sgnom (lengthen sgnom + "t") ;
     -- Words like nyár, név need to use 2-arg smart paradigm
     (#c|"")+("á"|"é")+ #c  => mkNoun sgnom ;
+    _ + ("ság"|"ség"|"gás"|"gés") -- source: https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Nouns
+                           => mkNoun sgnom ;
     _  + ("á"|"é") + #c    => dToll sgnom (név2nevet sgnom) ;
 --    _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
 --    _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
