@@ -78,7 +78,7 @@ concrete CatHun of Cat = CommonX - [Adv] ** open ResHun, Prelude in {
 
     Card = ResHun.Numeral ;
     Numeral = ResHun.Numeral ;
-    Digits = {s : CardOrd => Str ; n : Number} ;
+    Digits = {s : CardOrd => Str} ;
 
 
 

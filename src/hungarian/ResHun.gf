@@ -230,9 +230,12 @@ oper
           s,sp = mkCaseNoun2 no ac ! n ;
         } ;
 
+  -- No need for number:
+  -- https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Nouns
+  -- "Nouns are used in the singular only, if preceded by a numeral or any other
+  -- word expressing quantity; as két ember, two men; sok fa, many trees."
   Numeral : Type = {
     s : Place => Str ;  -- Independent or attribute
-    numtype : NumType ; -- Digit, numeral or Sg/Pl : makes a difference in many languages
     -- TODO add ordinal
     } ;
 
@@ -241,13 +244,12 @@ oper
       Noun.gf:    NumCard : Card -> Num ;
   -}
   Num : Type = Numeral ** {
-    n : Number ;        -- Singular or plural
+    n : NumType ;        -- Singular, plural or numeral
   } ;
 
   baseNum : Num = {
     s = \\_ => [] ;
-    n = Sg ;
-    numtype = NoNum
+    n = NoNum Sg ;
     } ;
 
 --------------------------------------------------------------------------------

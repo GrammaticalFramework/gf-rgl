@@ -88,23 +88,27 @@ concrete NounHun of Noun = CatHun ** open
 -- quantifier and an optional numeral can be discerned.
 
   -- : Quant -> Num -> Det ;
-  DetQuant quant num = quant ** num ** {
-    s = \\c => case <isNum num,isIndefArt quant> of {
-                 <True,True> => [] ; -- don't output "a 2 cars"
-                 _           => quant.s ! num.n ! c }
-            ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
-    sp = \\c => case <isNum num,isIndefArt quant> of {
-                 <True,True> => [] ;
-                 _           => quant.sp ! num.n ! c }
-            ++ num.s ! Indep ;
-    dt = qt2dt quant.qt ;
-    } ;
+  DetQuant quant num = let n = num2number num.n in
+    quant ** num ** {
+      s = \\c => case <isNum num,isIndefArt quant> of {
+                   <True,True> => [] ; -- don't output "a 2 cars"
+                   _           => quant.s ! n ! c }
+              ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
+      sp = \\c => case <isNum num,isIndefArt quant> of {
+                   <True,True> => [] ;
+                   _           => quant.sp ! n ! c }
+              ++ num.s ! Indep ;
+      n = n ;
+      dt = qt2dt quant.qt ;
+      } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord =
-    let theseFive = DetQuant quant num in theseFive ** {
-      s = \\c => theseFive.s ! c ++ ord.s ! num.n ! Nom ;
-      sp = \\c => theseFive.sp ! c ++ ord.s ! num.n ! Nom ;
+    let theseFive = DetQuant quant num ;
+        n = num2number num.n ;
+     in theseFive ** {
+      s = \\c => theseFive.s ! c ++ ord.s ! n ! Nom ;
+      sp = \\c => theseFive.sp ! c ++ ord.s ! n ! Nom ;
       } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
@@ -115,17 +119,16 @@ concrete NounHun of Noun = CatHun ** open
 -- the inherent number.
 
   NumSg = baseNum ;
-  NumPl = baseNum ** {n = Pl} ;
+  NumPl = baseNum ** {n = NoNum Pl} ;
 
   -- : Card -> Num ;
   NumCard card = card ** {
-    n = Sg -- Numerals take noun in Sg: e.g. öt város, literally 'five city'
+    n = IsNum -- Numerals take noun in Sg: e.g. öt város, literally 'five city'
     } ;
 
   -- : Digits  -> Card ;
   NumDigits dig = dig ** {
     s = \\place => dig.s ! NCard ;
-    numtype = IsNum ;
     } ;
 
   -- : Numeral -> Card ;
