@@ -458,6 +458,7 @@ oper
     SgSup => harm3 "on" "en" "ön" ;
     PlAcc => harm3 "ot" "et" "öt" ;
     SgAccStem => harm3 "o" "e" "ö" ;
+    SgAll => harm3 "hoz" "hez" "höz" ;
     PossdPl => harm1 "i" ; -- TODO figure out allomorphs
     _ => harm1 []
     } ;

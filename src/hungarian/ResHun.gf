@@ -28,6 +28,7 @@ oper
       <Sg,Nom> => cn.s ! SgNom ;
       <Sg,Acc> => bind (cn.s ! SgAccStem) "t" ;
       <Sg,Sup> => cn.s ! SgSup ;
+      <Sg,All> => cn.s ! SgAll ;
       <Pl,Acc> => cn.s ! PlAcc ;
       <Pl,Nom> => cn.s ! PlStem ; -- don't use applyCase', it adds a BIND which breaks everything!
       <Sg,Ins|Tra> => applyCase' SgInsStem ;
