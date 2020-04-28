@@ -41,7 +41,7 @@ lin boat_N = mkN "hajó" "hajót" "hajók" "hajója" ;
 -- lin bone_N = mkN "" ;
 -- lin boot_N = mkN "" ;
 -- lin boss_N = mkN "" ;
-lin book_N = mkN "könyv" harmE ; -- TODO Sg Sup könyvön, Sg All könyvhöz, all others in HarmE
+lin book_N = mkN "könyv" "könyvet" ;
 lin boy_N = mkN "fiú" ;
 lin bread_N = mkN "kenyér" "kenyeret";
 lin break_V2 = mkV2 "szünet" ;
@@ -132,7 +132,9 @@ lin floor_N = mkN "padló" "padlót" ;
 -- lin flow_V = mkV "" ;
 lin flower_N = mkN "virág" "virágot" "virágok" "virága" ;
 lin fly_V = mkV "repül" ;
-lin fog_N = mkN "köd" "ködöt"; -- TODO ködöket
+lin fog_N = mkN "köd" "ködöt" "ködön" "ködhöz"
+                "ködök" "ködöket"
+                "köde" "ködünk" "ködei" ;
 lin foot_N = leg_N ; --same as leg, to specify "lábfej"
 lin forest_N = mkN "erdő" "erdőt" ;
 -- lin forget_V2 = mkV2 "" ;
@@ -318,7 +320,9 @@ lin shirt_N = mkN "ing" "inget"; --shirt like t-shirt or the more formal?
 lin shoe_N = mkN "cipő" "cipőt" ;
 lin shop_N = mkN "üzlet" "üzletet";
 lin short_A = mkA "rövid" ; --in short text, if human length then "alacsony"
-lin silver_N = mkN "ezüst" "ezüstet"; -- TODO fix: ezüstöket
+lin silver_N = mkN "ezüst" "ezüstöt" "ezüstön" "ezüsthöz"
+                   "ezüstök" "ezüstöket"
+                   "ezüstje" "ezüstünk" "ezüstjei" ;
 -- lin sing_V = mkV "" ;
 -- lin sister_N = mkN "" ;
 -- lin sit_V = mkV "" ;
@@ -332,7 +336,7 @@ lin smooth_A = mkA "sima" ;
 lin snake_N = mkN "kígyó" "kígyót" ;
 lin snow_N = mkN "hó" "havat" ;
 lin sock_N = mkN "zokni" "zoknit";
-lin song_N = mkN "dal" "dalat"; -- TODO fix: dalokat
+lin song_N = mkN "dal" "dalt" ;
 -- lin speak_V2 = mkV2 "" ;
 -- lin spit_V = mkV "" ;
 -- lin split_V2 = mkV2 "" ;

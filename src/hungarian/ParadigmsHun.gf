@@ -135,6 +135,9 @@ oper
     mkN : (x1,_,_,x4 : Str) -> N =
         \n,a,pln,possd -> lin N (regNoun4 n a pln possd) ;
 
+    mkN : (x1,_,_,_,_,_,_,_,x9 : Str) -> N =
+      \a,b,c,d,e,f,g,h,i -> lin N (worstCaseNoun a b c d e f g h i (getHarm a)) ;
+
     mkN : Str -> Harmony -> N =
       \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;
 

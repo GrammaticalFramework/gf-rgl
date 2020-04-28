@@ -172,7 +172,8 @@ oper
                                  -- NB. plafon, papír with dPlafon
                  False => case tolla of {
                    -- hegy, hegy|et -> hegy|e
-                   _ + ("ty"|"gy"|"ny"|"j"|"ly"|"m"|"h") + ("e"|"a"|"ö"|"o") => init tolla ;
+                   _ + ("ty"|"gy"|"ny"|"j"|"ly"|"m"|"h")
+                     + ("e"|"a"|"ö"|"o") => init tolla ;
 
                    -- ház, ház|at -> ház|a
                    _ + #c + ("a"|"e") => init tolla ;
@@ -180,9 +181,9 @@ oper
                    -- orr, orr|ot -> orr|a
                    -- TODO fails for gyümölcs, gyümölcs|öt -> gyümölcs|e
                    -- I don't know what this list means /IL
-                   _ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"
-                       |"r"|"n"|"ny"|"ssz"|"zz"|"ss"
-                       |"ll"|"rr"|"nn"|"ns"|"nsz"|"nz") + ("o"|"ö") => init tolla ;
+                   _ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"
+                       |"ssz"|"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz")
+                     + ("o"|"ö") => init tolla ;
 
                    -- nap, nap|ot -> napj|a
                    -- bank, bank|ot -> bankj|a
@@ -193,7 +194,6 @@ oper
                    -- háború, háború|t -> háborúj|a
                    _ => tolla + "j" }
               } ;
-
      in nTolla ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
@@ -239,6 +239,29 @@ oper
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
   -- TODO: teher ~ terhet (consonant-crossing)
+
+  -- Worst case constructor: takes all stems
+  worstCaseNoun : (x1,_,_,_,_,_,_,_,x10 : Str) -> Harm -> Noun =
+  \nomsg,accsg,supsg,allsg,nompl,accpl,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
+   let sgstem = tk 3 allsg ; -- remove -hoz/hez/höz
+       sginsstem : Str = case vowFinal sgstem of {
+                           True  => sgstem + "v" ;
+                           False => duplicateLast sgstem } ;
+    in {s = table {
+          SgNom => nomsg ;
+          SgSup => supsg ;
+          SgAll => allsg ;
+          SgStem => sgstem ;
+          SgAccStem => init accsg ; -- remove t; same stem used for other forms
+          SgInsStem => sginsstem ;
+          PlStem => nompl ;
+          PlAcc => accpl ;
+          PossdSg_PossrP3 => init possdSg_possrP3sg ; -- remove -a/e
+          PossdSg_PossrPl1 => tk 2 possdSg_PossrPl1 ; -- remove -nk
+          PossdPl => possdPl } ;
+        h = h ;
+      } ;
+
 
   -- All regNoun* are /smart paradigms/: they take one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
