@@ -78,7 +78,7 @@ lin cold_A = mkA "hideg" ;
 lin computer_N = mkN "számítógép" "számítógépet" ;
 lin correct_A = mkA "igaz" ;
 -- lin count_V2 = mkV2 "" ;
-lin country_N = mkN "ország" "országot" ;
+lin country_N = mkN "ország" "országot" "országok" "országa" ;
 lin cousin_N = mkN "unokatestvér" "unokatestvért"; --short "unoka"
 lin cow_N = mkN "tehén" ;
 -- lin cut_V2 = mkV2 "" ;
@@ -139,7 +139,7 @@ lin forest_N = mkN "erdő" "erdőt" ;
 -- lin freeze_V = mkV "" ;
 lin fridge_N = mkN "hűtő" "hűtőt" ;
 lin friend_N = mkN "barát" "barátot" ;
-lin fruit_N = mkN "gyümölcs" "gyümölcsöt";
+lin fruit_N = mkN "gyümölcs" "gyümölcsöt" "gyümölcsök" "gyümölcse" ;
 lin full_A = mkA "tele" ;
 -- --lin fun_AV
 
@@ -254,7 +254,7 @@ lin oil_N = mkN "olaj" "olajat" ; -- TODO olajok or olajak?
 lin old_A = mkA "öreg" ; --also "idős"
 -- lin open_V2 = mkV2 "" ;
 -- lin paint_V2A = mkV2A "" ;
-lin paper_N = mkN "papír" "papírt";
+lin paper_N = mkN "papír" "papírt" "papírok" "papírja" ;
 -- lin paris_PN = mkPN "Paris" ;
 lin peace_N = mkN "béke" "békét";
 lin pen_N = mkN "toll" "tollat" ;
