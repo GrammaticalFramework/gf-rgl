@@ -37,7 +37,7 @@ oper
   mkA : overload {
     mkA : (sgnom : Str) -> A ; -- Regular adjective, given in singular nominative
     mkA : (sgnom, sgacc : Str) -> A ; -- Singular nominative and accusative
-    -- mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
+    mkA : N -> A ; -- Adjective from a noun. mkN has more paradigms, so anything irregular goes via N.
   } ;
 
   mkA2 : overload {
@@ -159,10 +159,11 @@ oper
 
   mkA = overload {
     mkA : (sgnom : Str) -> A = \s -> lin A (mkAdj s) ;
-    mkA : (sgnom,sgacc : Str) -> A = \n,a ->
-      lin A (mkAdj2 n (regNounNomAcc n a)) ;
-    -- mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
-    --   jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
+    mkA : (sgnom,sgacc : Str) -> A = \nom,acc ->
+      lin A (mkAdj2 nom (regNounNomAcc nom acc)) ;
+    mkA : N -> A = \noun ->
+      let sgnom : Str = noun.s ! SgNom in
+      lin A (mkAdj2 sgnom noun) ;
     } ;
 
   mkA2 = overload {
