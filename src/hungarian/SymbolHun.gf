@@ -18,22 +18,22 @@ lin
 oper
 
   mkPN : Str -> NounPhrase = \s -> emptyNP ** {
-    s = \\_ => s ;
+    s = \\_,_ => s ;
     } ;
 
 lin
   -- : CN -> Int -> NP
   CNIntNP cn i = NH.MassNP (cn ** {
-    s = \\n,c => cn.s ! n ! c ++ i.s}) ;
+    compl = \\n,c => cn.compl ! n ! c ++ i.s}) ;
 
   -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and y
   CNSymbNP det cn xs =
-    let cnSymb : CN = cn ** {s = \\n,c => cn.s ! n ! c ++ xs.s}
+    let cnSymb : CN = cn ** {compl = \\n,c => cn.compl ! n ! c ++ xs.s}
      in NH.DetCN det cnSymb ;
 
   -- : CN -> Card -> NP ;          -- level five ; level 5
   CNNumNP cn i = NH.MassNP (cn ** {
-    s = \\n,c => cn.s ! n ! c ++ i.s ! Indep}) ;
+    compl = \\n,c => cn.compl ! n ! c ++ i.s ! Indep}) ;
 
   -- : Symb -> S ;
   SymbS sy = sy ;
@@ -42,7 +42,7 @@ lin
   SymbNum sy = baseNum ** {s = \\_ => sy.s} ;
 
   -- : Symb -> Ord ;
-  SymbOrd sy = {s = \\n => sy.s ; n=Pl} ;
+  SymbOrd sy = {s = \\n,c => sy.s ; n=Pl} ;
 
 lincat
   Symb, [Symb] = SS ;

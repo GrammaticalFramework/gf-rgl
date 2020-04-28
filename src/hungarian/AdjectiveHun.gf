@@ -6,19 +6,24 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 
   -- : A  -> AP ;
   PositA a = emptyAP ** {
-    s = a.s ! Posit
+    s = \\n,c =>
+      let adj : Noun = (a ** {s = a.s ! Posit}) in
+      caseFromStem glue adj c n ;
     } ;
 
   -- : A  -> NP -> AP ;
-  ComparA a np = emptyAP ** {
-    s = a.s ! Compar ;
-    compar = np.s ! Ade ;
+  ComparA a np = UseComparA a ** {
+    compl = \\n => applyAdp (caseAdp Ade) np ;
+    -- compl = applyAdp (prepos Nom "mint") np ;
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
-  ComplA2 a2 np = emptyAP ** {
-    s = a2.s ! Posit ;
-    compar = np.s ! a2.c2.c ++ a2.c2.s
+  ComplA2 a2 np = let ap : AP = PositA a2 in ap ** {
+    s = case a2.isPost of {False => ap.s ; _ => \\_,_ => []} ;
+    compl = \\n => applyAdp a2.c2 np
+                ++ case a2.isPost of {
+                     True => ap.s ! n ! Nom ;
+                     False => [] } ;
     } ;
 
   -- : A2 -> AP ;        -- married to itself
@@ -29,13 +34,15 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 
   -- : A  -> AP ;     -- warmer
   UseComparA a = emptyAP ** {
-    s = a.s ! Compar ;
+    s = \\n,c =>
+    let adj : Noun = (a ** {s = a.s ! Compar}) in
+    caseFromStem glue adj c n ;
     } ;
 
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
   CAdvAP adv ap np = ap ** {
-    s = \\n => adv.s ++ ap.s ! n ;
-    compar = ap.compar ++ adv.p ++ np.s ! Nom
+    s = \\n,c => adv.s ++ ap.s ! n ! c ;
+    compl = \\n => ap.compl ! n ++ adv.p ++ applyAdp (caseAdp Nom) np ;
     } ;
 
 -- The superlative use is covered in $Ord$.
@@ -53,7 +60,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 
   -- : AdA -> AP -> AP ;
   AdAP ada ap = ap ** {
-    s = \\af => ada.s ++ ap.s ! af ;
+    s = \\n,c => ada.s ++ ap.s ! n ! c ;
     } ;
 
 
@@ -61,7 +68,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 
   -- : AP -> Adv -> AP ; -- warm by nature
   AdvAP ap adv = ap ** {
-    s = \\af => ap.s ! af ++ adv.s ;
+    s = \\n,c => ap.s ! n ! c ++ adv.s ;
     } ;
 
 }

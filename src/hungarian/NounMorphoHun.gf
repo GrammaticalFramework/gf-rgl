@@ -1,7 +1,7 @@
 resource NounMorphoHun = ParamHun ** open Prelude, Predef in {
 
 oper
-  Noun = {s : Number => Case => Str} ;
+  Noun = {s : NumCaseStem => Str ; h : Harm} ;
 
   -- Paradigm functions
   -- http://www.cse.chalmers.se/~aarne/articles/smart-preprint.pdf
@@ -12,32 +12,17 @@ oper
 
         -- Apply mkNoun to the lengthened stem "almá" or "kefé"
         nAlmá : Noun = mkNoun almá ;
-     in {s = \\n,c => case <n,c> of {
+     in nAlmá ** {
+          s = \\nc => case nc of {
                 -- Singular nominative uses the given form, e.g. "alma" or "kefe"
-                <Sg,Nom> => alma ;
+                SgNom => alma ;
+
+                PossdSg_PossrP3 => almá + "j" ;
 
                 -- The rest of the forms are formed with the regular constructor,
                 -- using "almá" or "kefé" as the stem.
-                _ => nAlmá.s ! n ! c
-              } ;
-        } ;
-
-  -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural
-  -- No special <Sg,Sup> case here
-  dMadár : (nom : Str) -> (acc : Str) -> Noun = \madár,madarat ->
-    let madara = init madarat ;
-        nMadara = mkNounHarm (getHarm madara) "k" madara ;
-        nMadár = mkNoun madár ;
-    in {s = \\n,c => case <n,c> of {
-                -- All plural forms and Sg Acc use the "madara"/"neve" stem
-                <Pl,_>|<Sg,Acc> => nMadara.s ! n ! c ;
-
-                -- The rest of the forms are formed with the regular constructor,
-                -- using "madár"/"név" as the stem.
-                _ => nMadár.s ! n ! c
-
-              } ;
-        } ;
+                _ => nAlmá.s ! nc }
+          } ;
 
   --Handles words like "ló, lé, kő" which are "lovak, levek, kövek" in plural.
   --Also handles "tó, hó" which are "tavak, havak" in plural!
@@ -48,18 +33,52 @@ oper
         nLov = mkNoun lov ;
         nLova = mkNoun lova ;
         nLó = mkNoun ló ;
-    in {s = \\n,c => case <n,c> of {
+    in nLova ** {
+         s = \\nc => case nc of {
 
-                -- All plural forms and Sg Acc, Sg Sup use the "lova" stem
-                <Pl,_>| <Sg,Acc> => nLova.s ! n ! c ;
-                <Sg,Sup> => nLov.s ! n ! c ;
+              -- All plural forms and Sg Acc use the "lova" stem
+              PlStem | SgAccStem
+               => nLova.s ! nc ;
 
-                -- The rest of the forms are formed with the regular constructor,
-                -- using "ló" as the stem.
-                _ => nLó.s ! n ! c
+              SgSup | -- Sg Sup has vowel o/ö, not a/e
+              PossdSg_PossrP3 -- Consonant stem before P3 suffixes
+               => nLov.s ! nc ;
 
-              } ;
-        } ;
+              PossdSg_PossrPl1 -- Round vowel, part of Pl1 suffix
+               => lov + harm "u" "ü" ! nLov.h ;
+
+              PossdPl => lova + "i" ;
+
+              -- The rest of the forms are formed with the regular constructor,
+              -- using "ló" as the stem.
+              _ => nLó.s ! nc }
+         } ;
+
+    -- NB. Relevant arguments are Sg Nom, Pl Nom.
+    -- Third argument prevents accidental application of this paradigm
+    -- handles words like: falu, daru, tetű -> falvak, darvak, tetvek
+    dFalu : (nomsg,_,nompl : Str) -> Noun = \falu,_,falvak ->
+      let falva = init falvak ;
+          nFalva = mkNoun falva ;
+          nFalu = mkNoun falu ;
+       in nFalu ** {
+            s = \\nc => case nc of {
+
+               -- All plural forms use the "falva" stem
+               PlStem => nFalva.s ! nc ;
+
+               -- The plural morpheme before possessive suffixes is i
+               PossdPl => nFalu.s ! nc + "i" ;
+
+               -- The form before P3 possessive suffixes: faluj|a, faluj|uk
+               -- Forms before other possessive suffixes follow SgAccStem.
+               PossdSg_PossrP3 => nFalu.s ! nc + "j" ;
+
+               -- The rest of the forms are formed with the regular constructor,
+               -- using "falu" as the stem.
+               _ => nFalu.s ! nc }
+            } ;
+
 
   --Handles words like "gyomor, majom, retek" which are "gyomrot, majmot, retket" in accusative (wovel dropping base)
   --More examples: "ajak,  bokor,  cukor,  csokor,  eper,  fészek,  fodor,  gödör,  haszon,  iker,  izom,  kölyök,  köröm,  méreg,  piszok,  sarok,  selyem,  szeder,  szobor,  takony,  terem,  titok,  torok,  torony,  tükör,  vödör" ->
@@ -72,64 +91,256 @@ oper
         majm = init majmo ;
         nMajmo = mkNoun majmo ;
         nMajom = mkNoun majom ;
-    in {s = \\n,c => case <n,c> of {
-        -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
-        <Pl,_> | <Sg,Acc> => nMajmo.s ! n ! c ;
-        <Sg,Sup> => nMajmo.s ! n ! c ;
+    in nMajmo ** {
+         s = \\nc => case nc of {
 
-        -- The rest of the forms are formed with the regular constructor,
-        -- using "majom" as the stem.
-        _ => nMajom.s ! n ! c
-      } ;
-    } ;
+            SgSup -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
+          | PlStem
+          | SgAccStem => nMajmo.s ! nc ;
+
+            -- The plural morpheme before possessive suffixes: majmai
+            PossdPl => majm + harm "a" "e" ! nMajmo.h + "i" ;
+
+            -- The form before P3 possessive suffixes: majm|a, majm|uk
+            -- Forms before other possessive suffixes follow SgAccStem.
+            PossdSg_PossrP3 => majm ;
+
+            -- The rest of the forms are formed with the regular constructor,
+            -- using "majom" as the stem.
+            _ => nMajom.s ! nc
+            }
+          } ;
+
+
+  -- Handles regular wovel ending words, with j added in possesive forms
+  -- Examples: "hajó, hajója, zseni, zsenije, kestyű, kestyűje"
+  dHajó : (nom : Str) -> (acc : Str) -> Noun = \hajó,hajót ->
+    let nHajó = mkNoun hajó ;
+        hajój = hajó + "j" ;
+        h = nHajó.h ;
+     in nHajó ** {
+          s = \\nc => case nc of {
+             -- hajó|nk, zseni|nk
+             PossdSg_PossrPl1 => hajó ;
+             -- hajój|a, zsenij|e
+             PossdSg_PossrP3 => hajój ;
+
+             PossdPl => case hajó of {
+               _ + "i" => hajój + harm "a" "e" ! h + "i" ; -- zsenij|ei
+               _ => hajó + "i" } ; -- hajó|i
+
+             -- The rest of the forms are formed with the regular constructor
+             _ => nHajó.s ! nc
+            }
+          } ;
+
+  -- Opposite to dVirág: unexpected j after consonant
+  dPlafon : (nom : Str) -> (acc : Str) -> Noun = \plafon,plafont ->
+    let nPlafon = regNounNomAcc plafon plafont ;
+        h = nPlafon.h ;
+     in nPlafon ** {
+          s = \\nc => case nc of {
+             PossdSg_PossrPl1 => plafon + harm "u" "ü" ! h ;
+             PossdSg_PossrP3 => plafon + "j" ;
+             PossdPl => plafon + harm "jai" "jei" ! h ;
+             _ => nPlafon.s ! nc
+            }
+          } ;
+
+  -- Opposite to dPlafon: regular paradigm puts j, but these words don't have it.
+  dVirág : (nom : Str) -> (acc : Str) -> Noun = \virág,virágot ->
+    let nVirág = regNounNomAcc virág virágot ;
+        h = nVirág.h ;
+     in nVirág ** {
+          s = \\nc => case nc of {
+             PossdSg_PossrPl1 => virág + harm "u" "ü" ! h ;
+             PossdSg_PossrP3 => virág ;
+             PossdPl => virág + harm "a" "e" ! h + "i" ;
+             _ => nVirág.s ! nc }
+          } ;
+
+  -- Handles many possesive forms
+  dToll : (nom : Str) -> (acc : Str) -> Noun = \toll,tollat ->
+    let tolla = init tollat ;
+        nTolla = mkNoun tolla ;
+        nToll = mkNoun toll ;
+        napj = case andB (ifTok Bool toll tolla True False)
+                         (notB (vowFinal tolla)) of {
+                 True => toll ;  -- sör, sör|t -> sör|e
+                                 -- király, király|t -> király|a
+                                 -- NB. plafon, papír with dPlafon
+                 False => case tolla of {
+                   -- hegy, hegy|et -> hegy|e
+                   _ + ("ty"|"gy"|"ny"|"j"|"ly"|"m"|"h")
+                     + ("e"|"a"|"ö"|"o") => init tolla ;
+
+                   -- ház, ház|at -> ház|a
+                   _ + #c + ("a"|"e") => init tolla ;
+
+                   -- orr, orr|ot -> orr|a
+                   -- TODO fails for gyümölcs, gyümölcs|öt -> gyümölcs|e
+                   -- I don't know what this list means /IL
+                   _ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"
+                       |"ssz"|"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz")
+                     + ("o"|"ö") => init tolla ;
+
+                   -- nap, nap|ot -> napj|a
+                   -- bank, bank|ot -> bankj|a
+                   -- kabát, kabát|ot -> kabátj|a (diák, barát, újság …)
+                   -- NB. virág, ország with dVirág (virág|ot -> virág|a)
+                   _ + #c + ("o"|"ö")  => init tolla + "j" ;
+
+                   -- háború, háború|t -> háborúj|a
+                   _ => tolla + "j" }
+              } ;
+     in nTolla ** {
+          s = \\nc => case nc of {
+             -- All plural forms and Sg Acc use the "tolla" stem
+             PlStem | SgAccStem => nTolla.s ! nc ;
+
+             PossdSg_PossrPl1 => napj + harm "u" "ü" ! nToll.h ;
+
+             PossdSg_PossrP3 => napj ;
+
+             -- The plural morpheme before possessive suffixes: madarai
+             PossdPl => napj + harm "a" "e" ! nToll.h + "i" ;
+
+             -- The rest of the forms are formed with the regular constructor,
+             -- using "toll" as the stem.
+             _ => nToll.s ! nc
+            }
+          } ;
+
+  -- Handles words like "madár, nyár, név, bogár" with shortened stem vowel in plural.
+  dMadár : (nom : Str) -> (acc : Str) -> Noun = \madár,madarat ->
+    let madara = init madarat ;
+        madar = init madara ;
+        nMadara = mkNoun madara ;
+        nMadár = mkNoun madár ;
+     in nMadara ** {
+          s = \\nc => case nc of {
+             -- All plural forms and Sg Acc use the "tolla" stem
+             PlStem | SgAccStem => nMadara.s ! nc ;
+
+             PossdSg_PossrPl1 => madar + harm "u" "ü" ! nMadara.h ;
+
+             PossdSg_PossrP3 => madar ;
+
+             -- The plural morpheme before possessive suffixes: madarai
+             PossdPl => madara + "i" ;
+
+             -- The rest of the forms are formed with the regular constructor,
+             -- using "toll" as the stem.
+             _ => nMadár.s ! nc
+            }
+          } ;
 
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
-  -- TODO: falu ~ falva-k (v-case)
   -- TODO: teher ~ terhet (consonant-crossing)
-  -- TODO: do we need possessive forms? e.g. fiú ~ fia{m,d,tok}
 
-  -- regNoun is a /smart paradigm/: it takes one or a couple of forms,
+  -- Worst case constructor: takes all stems
+  worstCaseNoun : (x1,_,_,_,_,_,_,x8 : Str) -> Harm -> Noun =
+  \nomsg,accsg,supsg,allsg,nompl,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
+   let sgstem = tk 3 allsg ; -- remove -hoz/hez/höz
+       sginsstem : Str = case vowFinal sgstem of {
+                           True  => sgstem + "v" ;
+                           False => duplicateLast sgstem } ;
+    in {s = table {
+          SgNom => nomsg ;
+          SgSup => supsg ;
+          SgAll => allsg ;
+          SgStem => sgstem ;
+          SgAccStem => init accsg ; -- remove t; same stem used for other forms
+          SgInsStem => sginsstem ;
+          PlStem => nompl ;
+          PossdSg_PossrP3 => init possdSg_possrP3sg ; -- remove -a/e
+          PossdSg_PossrPl1 => tk 2 possdSg_PossrPl1 ; -- remove -nk
+          PossdPl => possdPl } ;
+        h = h ;
+      } ;
+
+
+  -- All regNoun* are /smart paradigms/: they take one or a couple of forms,
   -- and decides which (non-smart) paradigm is the most likely to match.
-regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
-  case <n,a> of {
-    -- alma, almát
-    <_ + "a", _ + "át">
-   |<_ + "e" ,_ + "ét"> => dAlma n a ;
+  regNoun4 : (nomsg, accsg, nompl, possdSg_possrP3sg : Str) -> Noun =
+    \nsg,asg,npl,possd -> case possd of {
+      _ + #v + "j" + ("a"|"e") => dHajó nsg asg ;
+      _ + #c + "j" + ("a"|"e") => dPlafon nsg asg ;
+
+      _ + #c + ("a"|"e") => dVirág nsg asg ;
 
 
-    <_ + "á" + #c, -- madár, madarat
-     _ + "a" + #c + #v + "t">
+      -- Fall back to 3-argument smart paradigm
+      _ => regNounNomAccPl nsg asg npl
+    } ;
 
-   |<_ + "é" + #c, -- név, nevet
-     _ + "e" + #c + #v + "t">
+  regNounNomAccPl : (nomsg, accsg, nompl : Str) -> Noun = \nsg,asg,npl ->
+    case <nsg,asg,npl> of {
+      <_ + ("u"|"ú"|"ü"|"ű"|"ó"), -- falu, falut, falvak ; szó, szót, szavak
+       _ + ("u"|"ú"|"ü"|"ű"|"ó") + "t",
+       _ + "v" +          #v + "k"> => dFalu nsg asg npl ;
 
-   |<_ + "í" + #c, -- víz, vizet
-     _ + "i" + #c + #v + "t"> => dMadár n a ;
+      -- Fall back to 2-argument smart paradigm
+      _ => regNounNomAcc nsg asg
+    } ;
 
+  regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
+    case <n,a> of {
 
-    <_ + #v + #c, -- majom, majmot
-     _ + #c + #v + "t"> => dMajom n a ;
+      -- Stem 1: Sg Nom
+      -- Stem 2: Everything else
+      -- alma, almát
+      <_ + "a", _ + "át">
+     |<_ + "e" ,_ + "ét"> => dAlma n a ;
 
+     -- Stem 1: Sg Nom
+     -- Stem 2: Sg Gen, Sg Sup, Pl *
+      <_ + #shortv + #c, -- majom, majmot
+       _ + #c + #shortv + "t"> => dMajom n a ;
 
-    <_ + "ó", -- ló, lovat
-     _ + "o" + #c + #v + "t">
+     -- Stem 1: Sg Nom
+     -- Stem 2: Sg Sup
+     -- Stem 3: Sg Gen, Pl *
+      <_ + "ó", -- ló, lovat
+       _ + "o" + #c + #v + "t">
 
-   |<_ + "ő", -- kő, követ
-     _ + "ö" + #c + #v + "t">
+     |<_ + "ó", -- tó, tavat
+       _ + "a" + #c + #v + "t">
 
-   |<_ + "é", -- lé, levet
-     _ + "e" + #c + #v + "t"> => dLó n a ;
+     |<_ + "ő", -- kő, követ
+       _ + "ö" + #c + #v + "t">
 
-    _ => mkNoun n
-  } ;
+     |<_ + "ű", -- fű, füvet
+       _ + "ü" + #c + #v + "t">
 
+     |<_ + "é", -- lé, levet
+       _ + "e" + #c + #v + "t"> => dLó n a ;
+
+      -- Stem 1 == Stem 2 == Stem 3
+      -- j in PossdSg_PossrP3 but not elsewhere: gumi -> gumi|nk, gumij|a
+      <_ + "i", -- gumi, gumit:
+       _ + "it"> => dHajó n a ;
+
+      -- Stem 1: Sg Nom, Sg * - [Gen]
+      -- Stem 2: Sg Gen, Pl *
+      <_ + "á" + #c, _ + "a" + #c + "at">
+     |<_ + "é" + #c,_ + "e" + #c + ("et"|"at")> => dMadár n a ;
+
+      _ => dToll n a
+    } ;
+
+  -- 1-argument smart paradigm
+  -- Here we guess the genitive form and give it to appropriate 2-arg paradigm
   regNoun : Str -> Noun = \sgnom -> case sgnom of {
     _  + ("a"|"e")         => dAlma sgnom (lengthen sgnom + "t") ;
-    #c + ("á"|"é") + #c    => mkNoun sgnom ;
-    _  + ("á"|"é") + #c    => dMadár sgnom (név2nevet sgnom) ;
-    _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
-    _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
+    -- Words like nyár, név need to use 2-arg smart paradigm
+    (#c|"")+("á"|"é")+ #c  => mkNoun sgnom ;
+    _ + ("ság"|"ség"|"gás"|"gés") -- source: https://en.wikisource.org/wiki/Simplified_Grammar_of_the_Hungarian_Language/Nouns
+                           => mkNoun sgnom ;
+    _  + ("á"|"é") + #c    => dToll sgnom (név2nevet sgnom) ;
+--    _  + ("ó"|"é"|"ő"|"ű") => dLó sgnom (ló2lovat sgnom) ;
+--    _  + #v + #c + #v + #c => dMajom sgnom (majom2majmo sgnom);
     _ => mkNoun sgnom -- Fall back to the regular paradigm
   } where {
     név2nevet : Str -> Str = \név ->
@@ -158,12 +369,10 @@ regNounNomAcc : (nom : Str) -> (acc : Str) -> Noun = \n,a ->
   } ;
 
 --TODO: Special cases (enter these words manually to not complicate the paradigms):
---dTó: szó special case which fulfills the plural cases but not the <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
 --dLó: special case <Sg,Sup> "lén" not "leven"
---dLó: <Sg,Sup> also "kövön" not "köven", but that is due to H_e, which is needed for "köveket" so it's conflicting
+
 --endCaseConsAcc: "falat, fület, várat, könnyet",
 --also special in superessive case "falon, fülek, vizen"
---pattern matching in regNoun: one-syllable words that in fact belong to dMadár: "nyár, név"
 --------------------------------------------------------------------------------
 -- Following code by EG in 2009 (?), comments and some additions by IL 2020
 
@@ -176,11 +385,23 @@ oper
   -- Vowels as a pattern.
   v : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü" |
                       "á" | "é" | "í" | "ó" | "ú" | "ő" | "ű") ;
+  shortv : pattern Str = #("a" | "e" | "i" | "o" | "u" | "ö" | "ü") ;
+
+  back : pattern Str = #("a" | "á" | "o" | "ó" | "u" | "ú") ;
+
+  front_rounded : pattern Str = #("ö" | "ő" | "ü" | "ű") ;
+
+  -- front and back rounded
+  -- rounded : pattern Str = #("ö" | "ő" | "ü" | "ű" | "o" | "ó" | "u" | "ú")
 
   c : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
                       "n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z"|
                       "cs"|"dz"|"gy"|"ly"|"ny"|"sz"|"ty"|"zs"|
                       "dzs") ;
+
+  dupl : pattern Str = #("bb"|"cc"|"dd"|"ff"|"gg"|"hh"|"jj"|"kk"|"ll"|"mm"|
+                         "nn"|"pp"|"qq"|"rr"|"ss"|"tt"|"vv"|"ww"|"xx"|"zz"|
+                         "ddzs"|"ccs"|"ddz"|"ggy"|"lly"|"nny"|"ssz"|"tty"|"zzs") ;
 
   -- Only single consonants
   unigraph : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|
@@ -194,14 +415,15 @@ oper
 
   duplicateLast : Str -> Str = \str -> case str of {
     x + "dzs" => x + "ddzs" ;
-    x + "ny" => x + "nny" ; -- takony : takonnyal
     x + "cs" => x + "ccs" ;
     x + "dz" => x + "ddz" ;
     x + "gy" => x + "ggy" ;
     x + "ly" => x + "lly" ;
+    x + "ny" => x + "nny" ;
     x + "sz" => x + "ssz" ;
     x + "ty" => x + "tty" ;
     x + "zs" => x + "zzs" ;
+    x + #dupl => str ; -- Don't duplicate already long consonant
 
     -- Base case: just duplicate the single letter
     x + s@?  => x + s + s } ;
@@ -237,8 +459,8 @@ oper
 
   -- Function to get a harmony from a string
   getHarm : Str -> Harm = \s -> case s of {
-    _ + ("a" | "á" | "o" | "ó" | "u" | "ú") + _ => H_a ;
-    _ + ("ö" | "ő" | "ü") + _                   => H_o ;
+    _ + #back + _          => H_a ;
+    _ + #front_rounded + (#c|"") + (#c|"") => H_o ;
     _ => H_e
     } ;
 
@@ -255,48 +477,33 @@ oper
   harm1 : Str -> HarmForms = \i -> harm i i ;
 
   -- Variant of case forms when the noun stem ends in consonant.
-  endCaseCons : Case -> HarmForms = \c -> case c of {
-    Nom => harm1 [] ;
-    Acc => harm3 "ot" "et" "öt" ;
-    Dat => harm "nak" "nek" ;
-    Ill => harm "ba" "be" ;
-    Ine => harm "ban" "ben" ;
-    Ela => harm "ból" "ből" ;
-    All => harm3 "hoz" "hez" "höz" ;
-    Ade => harm "nál" "nél" ;
-    Abl => harm "tól" "től" ;
-    Sub => harm "ra" "re" ;
-    Sup => harm3 "on" "en" "ön" ;
-    Del => harm "ról" "ről" ;
-    Cau => harm1 "ért" ;
-    Ins => harm "al" "el" ;
-    Tra => harm "á" "é"
-    -- Ess => harm "stul" "stül" ;  -- Essive-modal 'with <the noun> and its parts'
-    -- Ter => harm1 "ig" ; -- Terminative 'as far as <the noun>'
-    -- For => harm1 "ként" ; -- Formal 'as <the noun>'
-    -- Tem => harm1 "kor" -- Temporal 'at <numeral>'. Only used with numerals.
+  endCaseCons : NumCaseStem -> HarmForms = \c -> case c of {
+    SgSup => harm3 "on" "en" "ön" ;
+    SgAccStem => harm3 "o" "e" "ö" ;
+    SgAll => harm3 "hoz" "hez" "höz" ;
+    PossdPl => harm1 "i" ; -- TODO figure out allomorphs
+    _ => harm1 []
     } ;
 
+
   -- Variant where accusative has the allomorph -at
-  endCaseConsAccAt : Case -> HarmForms = \c -> case c of {
-    Acc => harm3 "at" "et" "öt" ;
+  endCaseConsAccAt : NumCaseStem -> HarmForms = \c -> case c of {
+    SgAccStem => harm3 "a" "e" "ö" ;
     _   => endCaseCons c
     } ;
 
   -- Variant where accusative has the allomorph -t for consonants
   -- Examples: "pénz, bor, orr, szín, lány, kés, dal"
-  endCaseConsAcc : Case -> HarmForms = \c -> case c of {
-    Acc => harm1 "t" ;
+  endCaseConsAcc : NumCaseStem -> HarmForms = \c -> case c of {
+    SgAccStem => harm1 "" ;
     _   => endCaseCons c
   } ;
 
   -- Variant of case forms when the noun stem ends in vowel.
-  endCaseVow : Case -> HarmForms = \c -> case c of {
-    Acc => harm1 "t" ;
-    Sup => harm1 "n" ;
-    Ins => harm "val" "vel" ;
-    Tra => harm "vá" "vé" ;
-
+  endCaseVow : NumCaseStem -> HarmForms = \c -> case c of {
+    SgAccStem => harm1 "" ;
+    SgSup => harm1 "n" ;
+    SgInsStem => harm1 "v" ;
     -- Other forms are shared with endCaseCons.
     _   => endCaseCons c
   } ;
@@ -323,38 +530,68 @@ oper
   mkNounHarm : Harm -> (plural : Str) -> Str -> Noun = mkNounHarmAcc True ;
 
   mkNounHarmAcc : (useAt : Bool) -> Harm -> (plural : Str) -> Str -> Noun = \useAt,h,plural,w ->
-    let endCaseSg : Case -> HarmForms = case <useAt, w> of {
-                                          <_,_ + #v> => endCaseVow ;
-                                          <_,_ + #v + ("sz"|"z"|"s"|"zs"|"j"
-                                          |"ly"|"l"|"r"|"n"|"ny"|"ssz"|"zz"
-                                          |"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"
-                                          |"nz")> => endCaseConsAcc ;
-                                          <True,_>  => endCaseConsAccAt ;
-                                          _ => endCaseCons } ;
-        endCasePl : Case -> HarmForms = case <plural, useAt> of {
-                                          <"ak",_> => endCaseConsAccAt ;
-                                          <_,True> => endCaseConsAccAt ;
-                                          _    => endCaseCons } ;
+    let endCaseSg : NumCaseStem -> HarmForms =
+          case <useAt, w> of {
+            <_,_ + #v> => endCaseVow ;
+            <_,_ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
+            |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz")> => endCaseConsAcc ;
+            <True,_>  => endCaseConsAccAt ;
+            _ => endCaseCons } ;
+
         -- Last consonant doubles before instrumental and translative
         duplConsStem : Str = case vowFinal w of {
                            True  => w ;
                            False => duplicateLast w } ;
 
-        -- Noun is {s : Number => Case => Str}, we construct nested tables.
-     in {s = table {
-               Sg => table {
-                       -- Double the last letter (if consonant) before Ins, Tra
-                       c@(Ins|Tra) => duplConsStem + endCaseSg c ! h ;
-                       c@_         => w +            endCaseSg c ! h } ;
+        -- Noun is {s : NumCaseStem => Str}
+     in {h = h ;
+         s = table {
+               -- Before Sg Ins, Tra:
+               --  * Double the last letter if consonant
+               --  * Add v if vowel (comes from endCaseSg)
+               SgInsStem => duplConsStem + endCaseSg SgInsStem ! h ;
 
-               Pl => table {
-                       -- Double the plural k before Ins, Tra
-                       c@(Ins|Tra) => w + plural + "k" + endCasePl c ! h ;
+               -- endCaseCons, because we only use -k as plural morpheme.
+               -- Possessive forms with allomorph -i are handled separately.
+               PlStem    => w + plural ;
 
-                       -- endCaseCons, because we only use -k as plural morpheme.
-                       -- If we add possessive forms with allomorph -i, then revise.
-                       c@_         => w + plural +       endCasePl c ! h }
-             }
-   } ;
+               -- All other singular forms and stems
+               c         => w + endCaseSg c ! h } ;
+
+        } ;
+
+
+-- This is used in ResHun.caseFromStem, which makes NP out of CN.
+-- Ns only have stems, and these forms are attached to the stems.
+
+    endCase : Case -> HarmForms = \c -> case c of {
+      Nom => harm1 [] ;
+      Acc => harm "at" "et" ; -- NB. this is only used for plural acc!
+      Dat => harm "nak" "nek" ;
+      Ade => harm "nál" "nél" ;
+      Sup => harm3 "on" "en" "ön" ;
+      Ine => harm "ban" "ben" ;
+      Ela => harm "ból" "ből" ;
+      Ins => harm "al" "el" ;
+      Tra => harm "á" "é" ;
+      All => harm3 "hoz" "hez" "höz" ;
+      Abl => harm "tól" "től" ;
+      Sub => harm "ra" "re" ;
+      Del => harm "ról" "ről" ;
+      Cau => harm1 "ért" ;
+      Ill => harm "ba" "be"
+      -- Ess => harm "stul" "stül" ;  -- Essive-modal 'with <the noun> and its parts'
+      -- Ter => harm1 "ig" ; -- Terminative 'as far as <the noun>'
+      -- For => harm1 "ként" ; -- Formal 'as <the noun>'
+      -- Tem => harm1 "kor" -- Temporal 'at <numeral>'. Only used with numerals.
+      } ;
+
+    endCasePossVow : Case -> HarmForms = \c -> case c of {
+      Acc => harm1 "t" ;
+      Sup => harm1 "n" ;
+      Tra => harm "vá" "vé" ;
+      Ins => harm "val" "vel" ;
+      _ => endCase c
+    } ;
 
 }
