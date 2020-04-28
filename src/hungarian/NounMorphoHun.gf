@@ -116,14 +116,18 @@ oper
           -- Examples: "hajó, hajója, zseni, zsenije, kestyű, kestyűje"
   dHajó : (nom : Str) -> (acc : Str) -> Noun = \hajó,hajót ->
     let nHajó = mkNoun hajó ;
+        hajój = hajó + "j" ;
+        h = nHajó.h ;
      in nHajó ** {
           s = \\nc => case nc of {
+             -- hajó|nk, zseni|nk
              PossdSg_PossrPl1 => hajó ;
+             -- hajój|a, zsenij|e
+             PossdSg_PossrP3 => hajój ;
 
-             PossdSg_PossrP3 => hajó + "j" ;
-
-             -- The plural morpheme before possessive suffixes: hajói
-             PossdPl => hajó + "i" ;
+             PossdPl => case hajó of {
+               _ + "i" => hajój + harm "a" "e" ! h + "i" ; -- zsenij|ei
+               _ => hajó + "i" } ; -- hajó|i
 
              -- The rest of the forms are formed with the regular constructor
              _ => nHajó.s ! nc
@@ -293,6 +297,11 @@ oper
 
      |<_ + "é", -- lé, levet
        _ + "e" + #c + #v + "t"> => dLó n a ;
+
+      -- Stem 1 == Stem 2 == Stem 3
+      -- j in PossdSg_PossrP3 but not elsewhere: gumi -> gumi|nk, gumij|a
+      <_ + "i", -- gumi, gumit:
+       _ + "it"> => dHajó n a ;
 
       -- Stem 1: Sg Nom, Sg * - [Gen]
       -- Stem 2: Sg Gen, Pl *
