@@ -448,7 +448,7 @@ oper
     x + "u" => x + "ú" ;
     x + "ö" => x + "ő" ;
     x + "ü" => x + "ű" ;
-    _   => Predef.error "Lengthening not applicable to" ++ str
+    _ => str -- Lengthening not applicable to str
   } ;
 
   shorten : Str -> Str = \str -> case str of {
@@ -459,7 +459,7 @@ oper
     x + "ú" => x + "u" ;
     x + "ő" => x + "ö" ;
     x + "ű" => x + "ü" ;
-    _   => Predef.error "Shortening not applicable to" ++ str
+    _ => str -- Shortening not applicable to str
   } ;
 
   -- Function to get a harmony from a string
