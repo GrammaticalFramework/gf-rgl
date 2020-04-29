@@ -92,26 +92,30 @@ oper
 
   mkA = overload {
     mkA : Str -> A
-      = \s -> lin A (case s of {
-        _ + "ý"  => mladyAdjForms s ;
-        _ + "í"  => jarniAdjForms s ;
-        _ + "ův" => otcuvAdjForms s ;
-        _ + "in" => matcinAdjForms s ;
-        _ => Predef.error ("no mkA for" ++ s)
-        }) ;
+      = \s -> lin A (guessAdjForms s)
     } ;
 
-  mladyA : Str -> A
-    = \s -> lin A (mladyAdjForms s) ;
-  jarniA : Str -> A
-    = \s -> lin A (jarniAdjForms s) ;
-  otcuvA : Str -> A
-    = \s -> lin A (otcuvAdjForms s) ;
-  matcinA : Str -> A
-    = \s -> lin A (matcinAdjForms s) ;
+  peknyA : Str -> A
+    = \s -> lin A (R.peknyA s) ;
+  krasnyA : Str -> A
+    = \s -> lin A (R.krasnyA s) ;
+  cudziA : Str -> A
+    = \s -> lin A (R.cudziA s) ;
+  rydziA : Str -> A
+    = \s -> lin A (R.rydziA s) ;
+  otcovA : Str -> A
+    = \s -> lin A (R.otcovA s) ;
+
 
   mkA2 : A -> Prep -> A2
     = \a,p -> lin A2 (a ** {c = p}) ;
+
+-- the full definition of the adjective record is
+-- {
+--    msnom, fsnom, nsnom, msgen, fsgen, msdat, fsacc, msloc, msins, fsins,
+--    ampnom, pgen, pins : Str
+-- }
+--
 
 -------------------------
 -- Verbs
