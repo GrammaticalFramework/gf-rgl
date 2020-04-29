@@ -5,27 +5,28 @@ concrete LexiconSlo of Lexicon =
     ResSlo, ParadigmsSlo
   in {
 
-{-
+
   lin
-    boy_N = declPAN "kluk" ;
-    man_N = declMUZ "muž" ;
-    teacher_N = declMUZ "učitel" ;
-    horse_N = declMUZ "kůň" ;
-    father_N = declMUZ "otec" ;
-    husband_N = declPAN "manžel" ;
+    boy_N = mkN "chlapec" ;
+    man_N = mkN "muž" ;
+    teacher_N = mkN "učiteľ" ;
+    horse_N = mkN "kôň" ;
+    father_N = mkN "otec" ;
+    husband_N = mkN "manžel" ;
 
-    castle_N = declHRAD "hrad" ;
-    forest_N = declHRAD "les" ;
-    machine_N = declSTROJ "stroj" ;
+    castle_N = mkN "hrad" ;
+    forest_N = mkN "les" ;
+    machine_N = mkN "stroj" ;
 
-    woman_N = declZENA "žena" ;
-    school_N = declZENA "škola" ; ----
-    skirt_N = declRUZE "sukně";
-    street_N = declRUZE "ulice" ;
-    rose_N = declRUZE "růže" ;
-    song_N = declPISEN "píseň" ;
-    bed_N = declPISEN "postel" ;
-    door_N = declRUZE "dveře" ;
+    woman_N = mkN "žena" ;
+    school_N = mkN "učilište" ;
+    skirt_N = mkN "sukňa";
+    street_N = mkN "ulica" ;
+    rose_N = mkN "ruže" ;
+    song_N = mkN "pieseň" ;
+    bed_N = mkN "posteľ" ;
+{-
+    door_N = mkN "dveře" ;
     bone_N = declKOST "kost" ;
     village_N = declKOST "ves" ; ----
 
@@ -44,17 +45,20 @@ concrete LexiconSlo of Lexicon =
     beautiful_A = mkA "krásný" ;
     clean_A = mkA "čistý" ;
     dirty_A = mkA "špinavý" ;
-    
-    white_A = mkA "bílý" ;
-    black_A = mkA "černý" ;
-    red_A = mkA "červený" ;
-    brown_A = mkA "hnědý" ;
-    blue_A = mkA "modrý" ;
-    green_A = mkA "zelený" ;
-    yellow_A = mkA "žlutý" ;
-
-    buy_V2 = mkV2 (iii_kupovatVerbForms "kupovat") ;
-    love_V2 = mkV2 (iii_kupovatVerbForms "milovat") ;
 -}
+
+--- from Google translate dictionary
+
+    white_A = mkA "biely" ;
+    black_A = mkA "čierny" ;
+    red_A = mkA "červený" ;
+    brown_A = mkA "hnedý" ;
+    blue_A = mkA "modrý" ; --- belasý
+    green_A = mkA "zelený" ;
+    yellow_A = mkA "žltý" ;
+
+    buy_V2 = mkV2 (iii_kupovatVerbForms "kupovať") ;
+    love_V2 = mkV2 (iii_kupovatVerbForms "milovať") ;
+
 }
 
