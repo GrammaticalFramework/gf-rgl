@@ -91,12 +91,17 @@ oper
         majm = init majmo ;
         nMajmo = mkNoun majmo ;
         nMajom = mkNoun majom ;
+        o = last (init majom) ;
     in nMajmo ** {
          s = \\nc => case nc of {
 
-            SgSup -- All plural forms and Sg Acc and Sg Sup use the "majmo" stem
-          | PlStem
-          | SgAccStem => nMajmo.s ! nc ;
+            -- All plural forms and Sg Acc use the "majmo" stem
+            PlStem | SgAccStem => nMajmo.s ! nc ;
+
+            -- Sg Sup uses the same majm* stem, but vowel can be different:
+            -- sátor, sátrat   -> sátron,  not *sátran
+            -- vászon, vásznat -> vásznon, not *vásznan
+            SgSup => majm + o + "n" ;
 
             -- The plural morpheme before possessive suffixes: majmai
             PossdPl => majm + harm "a" "e" ! nMajmo.h + "i" ;
@@ -296,8 +301,8 @@ oper
 
      -- Stem 1: Sg Nom
      -- Stem 2: Sg Gen, Sg Sup, Pl *
-      <_ + #shortv + #c, -- majom, majmot
-       _ + #c + #shortv + "t"> => dMajom n a ;
+      <_ + #c + #shortv + #c, -- majom, majmot
+       _ + #c + #c + #shortv + "t"> => dMajom n a ;
 
      -- Stem 1: Sg Nom
      -- Stem 2: Sg Sup
@@ -443,7 +448,7 @@ oper
     x + "u" => x + "ú" ;
     x + "ö" => x + "ő" ;
     x + "ü" => x + "ű" ;
-    _   => Predef.error "Lengthening not applicable to" ++ str
+    _ => str -- Lengthening not applicable to str
   } ;
 
   shorten : Str -> Str = \str -> case str of {
@@ -454,7 +459,7 @@ oper
     x + "ú" => x + "u" ;
     x + "ő" => x + "ö" ;
     x + "ű" => x + "ü" ;
-    _   => Predef.error "Shortening not applicable to" ++ str
+    _ => str -- Shortening not applicable to str
   } ;
 
   -- Function to get a harmony from a string
