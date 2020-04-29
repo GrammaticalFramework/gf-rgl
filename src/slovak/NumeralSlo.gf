@@ -35,31 +35,31 @@ oper mk2Num : Determiner -> Str -> Str -> Str -> LinDigit =
   \unit, teenbase, tenbase, hundred ->  
     mkNum unit teenbase (tenbase + "cet") hundred ; 
 
-oper mk5Num : Str -> Str -> Str -> Str -> LinDigit =
-  \unit,uniti, teenbase, tenbase ->  
-  mkNum (regNumeral unit uniti) teenbase (tenbase + "desát") (unit ++ "set") ;
+oper mk5Num : Str -> Str -> Str -> Str -> Str -> Str -> LinDigit =
+  \unit,unitich,unitim,unitimi, teenbase, tenbase ->  
+  mkNum (regNumeral unit unitich unitim unitimi) teenbase (tenbase + "desiat") (unit ++ "sto") ;
 
 oper bigNumeral : Str -> LinNumeral = \s -> invarNumeral s ;
 
 lin num x = x ;
 
-lin n2 = mk2Num twoNumeral "dva" "dva" ("dvě" ++ "stě") ;
-lin n3 = mk2Num threeNumeral "tři" "tři" ("tři" ++ "sta") ;
-lin n4 = mk2Num fourNumeral "čtr" "čtyři" ("čtyři" ++ "sta") ;
-lin n5 = mk5Num "pět" "pěti" "pat" "pa" ;
-lin n6 = mk5Num "šest" "šesti" "šest" "še" ;
-lin n7 = mk5Num "sedm" "sedmi" "sedm" "sedm";
-lin n8 = mk5Num "osm" "osmi" "osm" "osm";
-lin n9 = mk5Num "devět" "devíti" "devate" "deva" ;
+lin n2 = mk2Num twoNumeral "dva" "dva" ("dve" ++ "sto") ;
+lin n3 = mk2Num threeNumeral "tri" "tri" ("tri" ++ "sto") ;
+lin n4 = mk2Num fourNumeral "štr" "štyři" ("styri" ++ "sto") ;
+lin n5 = mk5Num "päť" "piatich" "piatim" "piatimi" "pät" "pät" ; ----
+lin n6 = mk5Num "šest" "šestich" "šestim" "šestimi" "šest" "šest" ; ----
+lin n7 = mk5Num "sedem" "sedemich" "sedemim" "sedemimi" "sedem" "sedem"; ----
+lin n8 = mk5Num "osem" "osemich" "osemim" "osemimi" "osem" "osem";
+lin n9 = mk5Num "deväť" "deviatich" "deviatim" "deviatimi" "deväť" "deväť" ;
 
 lin pot01 = {
-  unit = oneNumeral.s ; hundred = "sto" ; ten = "deset" ; teen = "jedenáct" ;
+  unit = oneNumeral.s ; hundred = "sto" ; ten = "desať" ; teen = "jedenásť" ;
   size = Num1
   } ; 
 lin pot0 d = d ; 
 
-lin pot110 = bigNumeral "deset" ;
-lin pot111 = bigNumeral "jedenáct" ;
+lin pot110 = bigNumeral "desať" ;
+lin pot111 = bigNumeral "jedenásť" ;
 lin pot1to19 d = bigNumeral d.teen ;
 
 lin pot0as1 n = {s = n.unit ; size = n.size} ;
@@ -91,8 +91,8 @@ oper tfSize : NumSize -> NumSize = \sz ->
 oper mkTh : Str -> NumSize -> Str = \attr,size -> 
   case size of {
     Num1 => "tisíc" ; 
-    Num2_4 => attr ++ "tisíce" ; 
-    Num5 => attr ++ "tisíc"
+    Num2_4 => attr ++ "tisíc" ; 
+    Num5 => attr ++ "tisí"
     } ;
 
 oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;

@@ -584,14 +584,13 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
 ---------------------
 -- Verbs
+-- https://en.wikipedia.org/wiki/Slovak_language#Verbs
 
-  VerbForms : Type = {          ---- TODO more forms to add
+  VerbForms : Type = {          ---- TODO more forms to add ?
     inf,
     pressg1, pressg2, pressg3,
     prespl1, prespl2, prespl3,
-    pastpartsg, pastpartpl,
-----    passpart,
-    negpressg3 : Str   -- matters only for copula
+    pastpmasc, pastpfem, pastpneutr : Str
     } ;
 
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
@@ -600,38 +599,36 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     = \vf,a,b -> case a of {
       Ag _ Sg P1 => vf.pressg1 ;
       Ag _ Sg P2 => vf.pressg2 ;
-      Ag _ Sg P3 => case b of {
-        True  => vf.pressg3 ;
-	False => vf.negpressg3 -- matters only for copula
-	} ;
+      Ag _ Sg P3 => vf.pressg3 ;
       Ag _ Pl P1 => vf.prespl1 ;
       Ag _ Pl P2 => vf.prespl2 ;
       Ag _ Pl P3 => vf.prespl3
       } ;
 
   copulaVerbForms : VerbForms = {
-    inf = "být" ;
-    pressg1 = "jsem" ;
-    pressg2 = "jsi" ;
+    inf = "byť" ;
+    pressg1 = "som" ;
+    pressg2 = "si" ;
     pressg3 = "je" ;
-    prespl1 = "jsme" ;
-    prespl2 = "jste" ;
-    prespl3 = "jsou" ;
-    pastpartsg = "byl" ;
-    pastpartpl = "byli" ;
-    negpressg3 = "ní" ;  -- ne is added to this
+    prespl1 = "sme" ;
+    prespl2 = "ste" ;
+    prespl3 = "sú" ;
+    pastpmasc = "bol" ;
+    pastpfem = "bola" ;
+    pastpneutr = "bolo" ;
     } ;
 
   haveVerbForms : VerbForms = {
-    inf = "mít" ;
+    inf = "mať" ;
     pressg1 = "mám" ;
     pressg2 = "máš" ;
-    pressg3, negpressg3 = "má" ;
+    pressg3 = "má" ;
     prespl1 = "máme" ;
     prespl2 = "máte" ;
-    prespl3 = "mají" ;
-    pastpartsg = "měl" ;
-    pastpartpl = "měli" ;
+    prespl3 = "majú" ;
+    pastpmasc = "mal" ;
+    pastpfem = "mala" ;
+    pastpneutr = "malo" ;
     } ;
 
 -- just an example of a traditional paradigm
@@ -644,14 +641,15 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
    in
    {
     inf = kupovat ;
-    pressg1 = kupu + "ji" ; --- kupuju
+    pressg1 = kupu + "jem" ;
     pressg2 = kupu + "ješ" ;
-    pressg3, negpressg3 = kupu + "je" ;
+    pressg3 = kupu + "je" ;
     prespl1 = kupu + "jeme" ;
     prespl2 = kupu + "jete" ;
-    prespl3 = kupu + "jí" ; --- kupujou
-    pastpartsg = kupo + "val" ;
-    pastpartpl = kupo + "vali" ;
+    prespl3 = kupu + "jú" ;
+    pastpmasc = "kupoval" ;
+    pastpfem = "kupovala" ;
+    pastpneutr = "kupovalo" ;    
     } ;
 
 
@@ -901,17 +899,17 @@ oper
     in numeralFormsDeterminer forms Num2_4 ;
 
   -- for the numbers 5 upwards
-  regNumeral : Str -> Str -> Determiner = \pät,piati ->
+  regNumeral : Str -> Str -> Str -> Str -> Determiner = \pät,piatich,piatim,piatimi ->
     let forms = {
       msnom,fsnom,nsnom, fsacc = pät ;
-      msgen, fsgen, msloc = piati + "ch" ;
-      msdat = piati + "m" ;
-      msins, fsins = piati + "mi" ;
+      msgen, fsgen, msloc = piatich ;
+      msdat = piatim ;
+      msins, fsins = piatimi ;
       }
     in numeralFormsDeterminer forms Num5 ;
 
   invarDeterminer : Str -> NumSize -> Determiner = \sto,size ->
-    regNumeral sto sto ;
+    regNumeral sto sto sto sto ;
 
   invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
 
