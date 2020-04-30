@@ -29,7 +29,7 @@ lin
 
     UsePron pron = {
       s = table {
-        Nom | Voc => pron.nom ;
+        Nom => pron.nom ;
 	Gen => pron.gen ;
 	Dat => pron.dat ;
 	Acc => pron.acc ;
@@ -38,7 +38,6 @@ lin
         } ;
       clit = table {
         Nom => pron.cnom ;
-	Voc => pron.nom ;
 	Gen => pron.cgen ;
 	Dat => pron.cdat ;
 	Acc => pron.cacc ;
@@ -46,7 +45,7 @@ lin
 	Ins => pron.ins
         } ;
       prep = table {
-        Nom | Voc => pron.nom ;
+        Nom => pron.nom ;
 	Gen => pron.pgen ;
 	Dat => pron.pdat ;
 	Acc => pron.pacc ;

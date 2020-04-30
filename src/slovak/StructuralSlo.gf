@@ -4,20 +4,20 @@ concrete StructuralSlo of Structural = CatSlo **
 lin
     and_Conj = mkConj "a" ;
     by8agent_Prep = mkPrep "od" Gen ; ---- TODO this means "from", there might be no good translation
-    few_Det = invarNumeral "málo" ; -- CEG 6.8 --- TODO genitive mála
+    few_Det = invarNumeral "málo" ; -----
     for_Prep = mkPrep "pro" accusative ;
-    from_Prep = mkPrep (pre {"s"|"z" => "ze" ; _ => "z"}) Gen ; ---- consonant clusters
+    from_Prep = mkPrep (pre {"s"|"z" => "zo" ; _ => "z"}) Gen ; ---- consonant clusters
     have_V2 = mkV2 haveVerbForms ;
-    in_Prep = mkPrep (pre {"v"|"m" => "ve" ; _ => "v"}) Loc ; ----
-    many_Det = regNumeral "mnoho" "mnoha" ; -- CEG 6.8 ----
-    or_Conj = mkConj "nebo" ;
-    somePl_Det = regNumeral "několik" "několika" ; -- CEG 6.8 ----
-    something_NP = {s,clit,prep = \\c => "ně" + coForms ! c ; a = Ag Neutr Sg P3 ; hasClit = False} ; -- CEG 5.6.3
+    in_Prep = mkPrep (pre {"v"|"m" => "vo" ; _ => "v"}) Loc ; ----
+    many_Det = regNumeral "mnoho" "mnohých" "mnohým" "mnohými" ; -- CEG 6.8 ----
+    or_Conj = mkConj "alebo" ;
+    somePl_Det = {s = \\g,c => (demPronFormsAdjective (mkDemPronForms "nektor") "").s ! g ! Pl ! c ; size = Num5} ;
+    something_NP = {s,clit,prep = \\c => "nie" + coForms ! c ; a = Ag Neutr Sg P3 ; hasClit = False} ; -- CEG 5.6.3
     possess_Prep = mkPrep "" Gen ;
     that_Quant = demPronFormsAdjective (mkDemPronForms "tamt") "" ;
     this_Quant = demPronFormsAdjective (mkDemPronForms "t") "to" ;
     to_Prep = mkPrep "do" Gen ;
-    with_Prep = mkPrep (pre {"s"|"z" => "se" ; _ => "s"}) Ins ; ----
+    with_Prep = mkPrep (pre {"s"|"z" => "so" ; _ => "s"}) Ins ; ----
 
     i_Pron = personalPron (Ag (Masc Anim) Sg P1) ;
     youSg_Pron = personalPron (Ag (Masc Anim) Sg P2) ;

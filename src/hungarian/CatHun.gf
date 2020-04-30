@@ -1,4 +1,4 @@
-concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
+concrete CatHun of Cat = CommonX - [Adv] ** open ResHun, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -58,7 +58,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
 -- ``` Predet (QuantSg | QuantPl Num) Ord
 -- as defined in NounHun.
 
-    CN = ResHun.Noun ;
+    CN = ResHun.CNoun ;
     NP = ResHun.NounPhrase ;
     Pron = ResHun.Pronoun ; --Pronouns need enough info to turn it into NP or Quant.
     Det = ResHun.Determiner ;
@@ -66,7 +66,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
     Quant = ResHun.Quant ;
     Num = ResHun.Num ;
     Ord = {
-      s : Number => Str ; -- Number => Case => Str ; -- Ord can come from AP and become AP again
+      s : Number => Case => Str ; -- Ord can come from AP and become AP again
       n : Number -- Ord can come from Num, which has inherent number
       } ;
     DAP = ResHun.Determiner ;
@@ -78,7 +78,7 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
 
     Card = ResHun.Numeral ;
     Numeral = ResHun.Numeral ;
-    Digits = {s : CardOrd => Str ; n : Number} ;
+    Digits = {s : CardOrd => Str} ;
 
 
 
@@ -117,5 +117,10 @@ concrete CatHun of Cat = CommonX ** open ResHun, Prelude in {
     N2,
     N3 = ResHun.Noun ;
     PN = ResHun.NounPhrase ;
+
+    Adv = {s : Str ; isPre : Bool} ;
+
+linref
+   CN = linCN ;
 
 }

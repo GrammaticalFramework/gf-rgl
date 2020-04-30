@@ -9,10 +9,10 @@ concrete GrammarHun of Grammar =
   RelativeHun,
   ConjunctionHun,
   PhraseHun,
-  TextX,
+  TextX - [Adv],
   StructuralHun,
   IdiomHun,
-  TenseX
+  TenseX - [Adv]
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

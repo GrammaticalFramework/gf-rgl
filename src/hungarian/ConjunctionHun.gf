@@ -3,36 +3,48 @@ concrete ConjunctionHun of Conjunction =
 
 -- Adverb and other simple {s : Str} types.
 lincat
-  [Adv],[AdV],[IAdv],[S] = {s1,s2 : Str} ;
+  [AdV],[IAdv],[S] = {s1,s2 : Str} ;
 
 lin
-  BaseAdv, BaseAdV, BaseIAdv, BaseS = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv, ConsS = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
+  BaseAdV, BaseIAdv, BaseS = twoSS ;
+  ConsAdV, ConsIAdv, ConsS = consrSS comma ;
+  ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
+
+lincat
+  [Adv] = {s1,s2 : Str ; isPre : Bool} ;
+
+lin
+  BaseAdv x y = y ** twoSS x y ;
+  ConsAdv x xs = xs ** consrSS comma x xs ;
+  ConjAdv co xs = xs ** conjunctDistrSS co xs ;
 
 -- Adjectival phrases
 lincat
-  [AP] = {s1,s2 : Number => Str}  ;
+  [AP] = {s1,s2 : Number => Case => Str}  ;
 
 lin
   BaseAP x y =
     -- Don't try to have discontinuous comparative forms
-    let xCont : AP = x ** {s = \\n => x.s ! n ++ x.compar} ;
-        yCont : AP = y ** {s = \\n => y.s ! n ++ y.compar} ;
-     in twoTable Number xCont yCont ;
+    let xCont : AP = x ** {s = \\n,c => x.s ! n ! c ++ x.compl ! n} ;
+        yCont : AP = y ** {s = \\n,c => y.s ! n ! c ++ y.compl ! n} ;
+     in twoTable2 Number Case xCont yCont ;
   ConsAP a as =
-    let aCont : AP = a ** {s = \\n => a.s ! n ++ a.compar} ;
-     in consrTable Number comma aCont as ;
-  ConjAP co as = conjunctDistrTable Number co as ** {compar = []} ;
+    let aCont : AP = a ** {s = \\n,c => a.s ! n ! c ++ a.compl ! n} ;
+     in consrTable2 Number Case comma aCont as ;
+  ConjAP co as = conjunctDistrTable2 Number Case co as ** {compl = \\_ => []} ;
 
 -- Noun phrases
 lincat
-  [NP] = ResHun.BaseNP ** {s1,s2 : Case => Str} ;
+  [NP] = ResHun.BaseNP ** {s1,s2 : Possessor => Case => Str} ;
 
 lin
-  BaseNP x y = twoTable Case x y ** y ;
-  ConsNP x xs = consrTable Case comma x xs ** xs ;
-  ConjNP co xs = conjunctDistrTable Case co xs ** xs ** {agr = <P3,co.n>};
+  BaseNP x y = twoTable2 Possessor Case x y ** y ;
+  ConsNP x xs = xs ** consrTable2 Possessor Case comma x xs ;
+  ConjNP co xs = conjunctDistrTable2 Possessor Case co xs ** xs ** {
+    agr = <P3, case xs.agr.p2 of {
+                  Pl => Pl ;
+                  _  => co.n }>
+    } ;
 
 -- Relative sentences
 lincat

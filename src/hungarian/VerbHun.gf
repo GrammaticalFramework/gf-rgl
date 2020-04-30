@@ -1,4 +1,5 @@
-concrete VerbHun of Verb = CatHun ** open ResHun, AdverbHun, Prelude in {
+concrete VerbHun of Verb = CatHun **
+  open ResHun, AdverbHun, NounHun, Prelude in {
 
 
 lin
@@ -63,7 +64,7 @@ lin
   } ;
 -}
   -- : VPSlash -> NP -> VP
-  ComplSlash = ResHun.insertObj ;
+  ComplSlash = insertObj ;
 {-
   -- : VV  -> VPSlash -> VPSlash ;
                   -- Just like ComplVV except missing subject!
@@ -109,25 +110,31 @@ lin
   -- : AP  -> Comp ;
   CompAP ap = UseCopula ** {
     s = \\vf => case vf of {
-                  VFin P3 n => ap.s ! n ;
-                  VFin _  n => ap.s ! n  ++ copula.s ! vf ;
-                  _         => ap.s ! Sg ++ copula.s ! vf}
-             ++ ap.compar ;
+                  VPres P3 n => ap.s ! n ! Nom ++ ap.compl ! n ;
+                  VPres _  n => ap.s ! n ! Nom ++ copula.s ! vf ++ ap.compl ! n  ;
+                  _         => ap.s ! Sg ! Nom ++ copula.s ! vf ++ ap.compl ! Sg } ;
     } ;
 
   -- : CN  -> Comp ;
   CompCN cn = UseCopula ** {
     s = \\vf => case vf of {
-                  VFin P3 n => cn.s ! n ! Nom ;
-                  VFin _  n => cn.s ! n ! Nom  ++ copula.s ! vf ;
-                  _         => cn.s ! Sg ! Nom ++ copula.s ! vf} ;
+                  VPres P3 n => cn.s ! SgNom -- TODO
+                             ++ cn.compl ! n ! Nom ;
+
+                  VPres _  n => cn.s ! SgNom -- TODO
+                             ++ cn.compl ! n ! Nom
+                             ++ copula.s ! vf ;
+
+                  _          => cn.s ! SgNom
+                             ++ cn.compl ! Sg ! Nom
+                             ++ copula.s ! vf} ;
     } ;
 
   -- : NP  -> Comp ;
   CompNP np = UseCopula ** {
     s = \\vf => case vf of {
-                  VFin P3 _ => np.s ! Nom ;
-                  _ => np.s ! Nom ++ copula.s ! vf } ;
+                  VPres P3 _ => np.s ! NoPoss ! Nom ;
+                  _ => np.s ! NoPoss ! Nom ++ copula.s ! vf } ;
     } ;
 
   -- : Adv  -> Comp ;
@@ -137,5 +144,25 @@ lin
 
   -- : VP -- Copula alone;
   UseCopula = useV copula ;
+
+oper
+insertObj : ResHun.VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
+  obj = case <vps.sc,vps.c2> of {
+              <SCDat,Nom> => [] ;
+              _ => np.s ! NoPoss ! vps.c2 } ;
+
+  s = \\vf =>
+   -- If verb's subject case is Dat and object Nom, verb agrees with obj.
+      case <vps.sc,vps.c2> of { -- have_V2 needs its object possessed by the subject
+        <SCDat,Nom> =>
+          let agr : Person*Number = case vf of {
+                VPres p n => <p,n> ;
+                _         => <P3,Sg> } ;
+           in np.s ! Poss agr.p1 agr.p2 ! vps.c2
+           ++ vps.s ! np.objdef ! agr2vf np.agr ;
+
+        -- Default case: Verb agrees in person and number with subject
+        _ => vps.s ! np.objdef ! vf } ;
+  } ;
 
 }

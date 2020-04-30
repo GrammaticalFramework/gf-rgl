@@ -13,7 +13,7 @@ param
   Animacy = Anim | Inanim ;
   Gender = Masc Animacy | Fem | Neutr ;
 
-  Case = Nom | Gen | Dat | Acc | Voc | Loc | Ins ; -- traditional order
+  Case = Nom | Gen | Dat | Acc | Loc | Ins ; -- traditional order
 
   Person = P1 | P2 | P3 ;
 
@@ -25,73 +25,33 @@ param
 
 oper
   hardConsonant    : pattern Str = #("d"|"t"|"g"|"h"|"k"|"n"|"r") ;
-  softConsonant    : pattern Str = #("ť"|"ď"|"j"|"ň"|"ř"|"š"|"c"|"č"|"ž") ;
+  softConsonant    : pattern Str = #("ť"|"ď"|"j"|"ň"|"š"|"c"|"č"|"ž"|"ľ"|"ĺ"|"ŕ"|"dz") ;
   neutralConsonant : pattern Str = #("b"|"f"|"l"|"m"|"p"|"s"|"v") ;
 
   consonant : pattern Str =
     #(
       "d" | "t" | "g" | "h" | "k" | "n" | "r" |
-      "ť" | "ď" | "j" | "ň" | "ř" | "š" | "c" | "č" | "ž" |
-      "b" | "f" | "l" | "m" | "p" | "s" | "v"
+      "ť" | "ď" | "j" | "ň" | "š" | "c" | "č" | "ž" |
+      "b" | "f" | "l" | "m" | "p" | "s" | "v" | "ľ" | "ĺ" | "ŕ" | "dz"
       ) ;
 
-  dropFleetingE : Str -> Str = \s -> case s of {
-    x + "e" + c@("k"|"c"|"n") => x + c ;
-    x + "e" + "ň" => x + "n" ;
-    _ => s
-    } ;
+  accentedVowel : pattern Str = #("á"|"é"|"í"|"ú"|"ý") ;
 
-  shortenVowel : Str -> Str = \s -> case s of {
-    x + "á" + y => x + "a" + y ;
-    x + "é" + y => x + "e" + y ;
-    x + "í" + y => x + "i" + y ;
-    x + "ý" + y => x + "y" + y ;
-    x + "ó" + y => x + "o" + y ;
-    x + "ú" + y => x + "u" + y ;
-    x + "ů" + y => x + "o" + y ;
-    _ => s
-    } ;
+  diphthong : pattern Str = #("ia"|"ie"|"iu"|"ô") ;
 
-  addI : Str -> Str = \s -> case s of {
-    klu + "k"  => klu + "ci" ;
-    vra + "h"  => vra + "zi" ;
-    ce  + "ch" => ce  + "ši" ;
-    dokto + "r" => dokto + "ři" ;
-    pan => pan + "i"
-    } ;
-
-  addAdjI : Str -> Str = \s -> case s of {
-    angli + "ck"  => angli + "čtí" ;
-    ce    + "sk"  => ce    + "ští" ;
-    _ => init (addI s) + "í"
-    } ;
-
-  -- 3.4.10, in particular when also final 'a' is dropped
-  addE : Str -> Str = \s -> case s of {
-    re + "k"   => re + "ce" ;
-    pra + ("g"|"h") => pra + "ze" ;
-    stre + "ch" => stre  + "še" ;
-    sest + "r" => sest + "ře" ;
-    pan => pan + "ě"
-    } ;
-
-  addEch : Str -> Str = \s -> case s of {
-    klu + "k" => klu + "cich" ;
-    vra + ("h"|"g") => vra + "zich" ;
-    ce  + "ch" => ce + "šich" ;
-    pan => pan + "ech"
-    } ;
-
-  shortFemPlGen : Str -> Str = \s -> case s of {
-    ul  + "ice" => ul + "ic" ;
-    koleg + "yně" => koleg + "yň" ;
-    ruz + "e" => ruz + "í" ;
-    _ => Predef.error ("shortFemPlGen does not apply to" ++ s)
-    } ;
+  addAccented : (stem,long,short : Str) -> Str = \stem,long,short ->
+    case stem of {
+      _ + (#accentedVowel | #diphthong) + ? + ? => stem + short ;
+      _ + (#accentedVowel | #diphthong) + ?     => stem + short ;
+      _ => stem + long
+      } ;
 
 ---------------
 -- Nouns
 ---------------
+
+-- https://en.wikipedia.org/wiki/Slovak_declension
+-- http://www.angelfire.com/sk3/quality/Slovak_declension.html
 
 -- novel idea (for RGL): lexical items stored as records rather than tables
 -- advantages:
@@ -101,7 +61,7 @@ oper
 
 -- so this is the lincat of N
 
-  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
+  NounForms : Type = {snom,sgen,sdat,sacc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
 
 -- But traditional tables make agreement easier to handle in syntax
 -- so this is the lincat of CN
@@ -118,12 +78,11 @@ oper
 	  Gen => forms.sgen ;
 	  Dat => forms.sdat ;
 	  Acc => forms.sacc ;
-	  Voc => forms.svoc ;
 	  Loc => forms.sloc ;
 	  Ins => forms.sins
 	  } ;
         Pl => table {
-	  Nom | Voc => forms.pnom ;
+	  Nom => forms.pnom ;
 	  Gen => forms.pgen ;
 	  Dat => forms.pdat ;
 	  Acc => forms.pacc ;
@@ -134,289 +93,349 @@ oper
       g = forms.g
       } ;
 
+
 -- terminology of CEG
   DeclensionType : Type = Str -> NounForms ;
 
-  declensionNounForms : (nom,gen : Str) -> Gender -> NounForms
-    = \nom,gen,g ->
-    let decl : DeclensionType = case <g, nom, gen> of {
-      <Masc Anim,   _ + #hardConsonant, _ + "a"> => declPAN ;
-      <Masc Anim,   _ + "a"           , _ + "a"> => declPREDSEDA ;
-      <Masc Inanim, _ + #hardConsonant, _ + "u"> => declHRAD ;
-      <Fem,         _ + "a"           , _ + "y"> => declZENA ;
-      <Neutr,       _ + "o"           , _ + "a"> => declMESTO ;
-      <Masc Anim,   _ + #softConsonant, _ + "e"> => declMUZ ;
-      <Masc Anim,   _ + "tel"         , _ + "e"> => declMUZ ;
-      <Masc Anim,   _ + "ce"          , _ + "e"> => declSOUDCE ;
-      <Masc Inanim, _ + #softConsonant, _ + "e"> => declSTROJ ;
-      <Fem,         _ + ("e"|"ě")     , _ + ("e"|"ě")> => declRUZE ;
-      <Fem,         _ + #softConsonant, _ + "e"> => declPISEN ;
-      <Fem,         _ + "ost"         , _ + "i"> => declKOST ;  --- also many other "st" 3.6.3
-      <Neutr,       _ + "e"           , _+"ete"> => declKURE ;
-      <Neutr,       _ + "e"           , _ + "e"> => declMORE ;
-      <Neutr,       _ + "í"           , _ + "í"> => declSTAVENI ;
-      _ => Predef.error ("cannot infer declension type for" ++ nom ++ gen)
-      }
-    in decl nom ;
+  declensionNounForms : (snom,pgen : Str) -> Gender -> NounForms
+    = \snom,pgen,g -> case <g, snom, pgen> of {
+      <Masc Anim,   _ + "a"           , _ + "ov">   => hrdinaN snom ;
+      <Masc _,      _ + ("i"|"y"|"e") , _ + "ov">   => ponyN snom ; ----
+      <Masc Anim,   _                 , _ + "ov">   => hrdinaN snom ;
+      
+      <Masc Inanim, _ + #softConsonant,   _ + "ov"> => strojN snom ;
+      <Masc Ianim,  _ + #hardConsonant,   _ + "ov"> => dubN snom ;
+      <Masc Ianim,  _ + #neutralConsonant,_ + "ov"> => dubN snom ;
+
+      <Fem,         _ + #hardConsonant + "a",    _ + #consonant>  => zenaN snom ;
+      <Fem,         _ + #neutralConsonant + "a", _ + #consonant>  => zenaN snom ;
+      <Fem,         _ + #softConsonant + "a",    _ + #consonant>  => ulicaN snom ;
+      <Fem,         _ + ("ia"|"ya"),             _>               => ulicaN snom ;
+      <Fem,         _ + ("c"|"s"|"p"|"v"|"sť"),  _ + "í">         => kostN snom pgen ;
+      <Fem,         _ + #consonant            ,  _ + "í">         => dlanN snom pgen ;
+
+      <Neutr,       _ + "o"                   ,  _      >         => mestoN snom ;
+      <Neutr,       _ + "ie"                  ,  _ + "í">         => vysvedcenieN snom ;
+      <Neutr,       _ + "e"                   ,  _      >         => srdceN snom ;
+      <Neutr,       _ + ("a"|"ä")             ,  _ + "iec">       => dievceniecN snom ;
+      <Neutr,       _ + ("a"|"ä")             ,  _        >       => dievcaN snom ;
+
+      _ => dubN ("??"+snom) ** {pgen = pgen} ---- Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
+      } ** {pgen = pgen ; g = g} ;
 
 -- the "smartest" one-argument mkN
 
   guessNounForms : Str -> NounForms
-    = \s -> case s of {
-      _ + "ost"          => declKOST s ;
-      _ + "tel"          => declMUZ s ;
-      _ + #hardConsonant => declHRAD s ;
-      _ + #softConsonant => declSTROJ s ;
-      _ + "a"            => declZENA s ;
-      _ + "o"            => declMESTO s ;
-      _ + "ce"           => declSOUDCE s ;
-      _ + "e"            => declMORE s ;
-      _ + "í"            => declSTAVENI s ;
-      _ => Predef.error ("cannot guess declension type for" ++ s)
+    = \snom -> case snom of {
+        _ + ("i"|"y"|"e")           => ponyN snom ;
+        _ + #softConsonant          => strojN snom ;
+        _ + #hardConsonant          => dubN snom ;
+        _ + #neutralConsonant       => dubN snom ;
+        _ + #hardConsonant + "a"    => zenaN snom ;
+        _ + #neutralConsonant + "a" => zenaN snom ;
+        _ + #softConsonant + "a"    => ulicaN snom ;
+        _ + ("ia"|"ya")             => ulicaN snom ;
+        _ + "o"                     => mestoN snom ;
+        _ + "ie"                    => vysvedcenieN snom ;
+        _ + "e"                     => srdceN snom ;
+        _ + "ä"                     => dievcaN snom ;
+
+        _ => dubN ("??"+snom) ---- Predef.error ("cannot guess declension type for" ++ snom)
       } ;
+
 
 -- the traditional declensions, in both CEG and Wiki
--- they are also exported in ParadigmsSlo with names panN etc
+-- they are also exported in ParadigmsSlo with names chlapN etc
 
-  declPAN : DeclensionType = \pan ->  --- plural nom ové|i|é can be changed with ** {pnom = ...} CEG 3.5.1
+  chlapN : DeclensionType = \chlap ->
     {
-      snom      = pan ;
-      sgen,sacc = pan + "a" ;
-      sdat,sloc = pan + "ovi" ; --- pánu
-      svoc      = shortenVowel pan + "e" ; --- "irregular shortening" 3.5.1
-      sins      = pan + "em" ;
+      snom      = chlap ;
+      sgen,sacc = chlap + "a" ;
+      sdat,sloc = chlap + "ovi" ;
+      sins      = chlap + "om" ;
 
-      pnom      = addI pan ;       -- pani, kluk-kluci --- panové, host-hosté
-      pgen      = pan + "ů" ;
-      pdat      = pan + "ům" ;
-      pacc,pins = pan + "y" ;
-      ploc      = addEch pan ;
+      pnom      = chlap + "i" ;
+      pgen,pacc = chlap + "ov" ;
+      pdat      = chlap + "om" ;
+      ploc      = chlap + "och" ;
+      pins      = chlap + "mi" ;
       g = Masc Anim
       } ;
 
-  declPREDSEDA : DeclensionType = \predseda -> --- 3.5.4: sgen y/i
-    let predsed = init predseda
+  hrdinaN : DeclensionType = \hrdina -> 
+    let hrdin = init hrdina
     in
     {
-      snom      = predseda ;
-      sgen      = predsed + "y" ; -- pacc,pins --- i
-      sdat,sloc = predsed + "ovi" ;
-      sacc      = predsed + "u" ;
-      svoc      = predsed + "o" ;
-      sins      = predsed + "ou" ;
+      snom      = hrdina ;
+      sgen,sacc = hrdin + "u" ;
+      sdat,sloc = hrdin + "ovi" ;
+      sins      = hrdin + "om" ;
 
-      pnom      = case predseda of {
-        tur + "ista" => tur + "isté" ;
-        _ => predsed + "ové"
-	} ;
-      pgen      = predsed + "ů" ;
-      pdat      = predsed + "ům" ;
-      pacc,pins = predsed + "y" ;
-      ploc      = addEch predsed ;
+      pnom      = hrdin + "ovia" ;
+      pgen,pacc = hrdin + "ov" ;
+      pdat      = hrdin + "om" ;
+      ploc      = hrdin + "och" ;
+      pins      = hrdin + "ami" ;
+
       g = Masc Anim
       } ;
-
-  declHRAD : DeclensionType = \hrad -> --- 3.5.2: sloc u/ě/e  extra arg, sport-u, hrad-ě ; sgen u/a
-    let hrd = dropFleetingE hrad
-    in
+      
+  dubN : DeclensionType = \dub -> 
     {
-      snom,sacc = hrad ;
-      sgen,sdat = hrd + "u" ; --- Berlín-a
-      sloc      = hrd + "u" ; --- addE hrad ;  -- stůl-stole
-      svoc      = hrd + "e" ;
-      sins      = hrd + "em" ;
+      snom      = dub ;
+      sgen      = dub + "a" ;
+      sdat      = dub + "u" ;
+      sacc      = dub + "" ;
+      sloc      = dub + "e" ;
+      sins      = dub + "om" ;
 
-      pnom,pacc,pins = hrd + "y" ;
-      pgen           = hrd + "ů" ;
-      pdat           = hrd + "ům" ;
-      ploc           = addEch hrd ;
+      pnom      = dub + "y" ;
+      pgen      = dub + "ov" ;
+      pdat      = dub + "om" ;
+      pacc      = dub + "y" ;
+      ploc      = dub + "och" ;
+      pins      = dub + "mi" ;
+
       g = Masc Inanim
       } ;
 
-  declZENA : DeclensionType = \zena -> --- 3.6.1 sge y/i ; pgen sometimes shortening
-    let zen = init zena
+  strojN : DeclensionType = \stroj -> 
+    {
+      snom      = stroj ;
+      sgen      = stroj + "a" ;
+      sdat      = stroj + "u" ;
+      sacc      = stroj + "" ;
+      sloc      = stroj + "i" ;
+      sins      = stroj + "om" ;
+
+      pnom      = stroj + "e" ;
+      pgen      = stroj + "ov" ;
+      pdat      = stroj + "om" ;
+      pacc      = stroj + "e" ;
+      ploc      = stroj + "och" ;
+      pins      = stroj + "mi" ;
+
+      g = Masc Inanim
+      } ;
+
+-- "fifth type"
+  ponyN : DeclensionType = \pony -> 
+    {
+      snom      = pony ;
+      sgen      = pony + "ho" ;
+      sdat      = pony + "mu" ;
+      sacc      = pony + "ho" ;
+      sloc      = pony + "m" ;
+      sins      = pony + "m" ;
+
+      pnom      = pony + "ovia" ;
+      pgen      = pony + "ov" ;
+      pdat      = pony + "om" ;
+      pacc      = pony + "ov" ;
+      ploc      = pony + "och" ;
+      pins      = pony + "mi" ;
+
+      g = Masc Anim
+      } ;
+      
+  zenaN : DeclensionType = \zena -> 
+    let
+      zen = init zena ;
+      zien : Str = case zen of {
+        z + "e" + c@? => z + "ie" + c ;
+	_ => zen ---- TODO: many more rules
+        } ;
+      zenaa = addAccented zen "á" "a" ;
     in
     {
       snom      = zena ;
-      sgen      = zen + "y" ;  --- i after soft cons sometimes
-      sdat,sloc = zen + "ě" ;  --- i after soft cons sometimes ; skol+e
+      sgen      = zen + "y" ;
+      sdat      = zen + "e" ;
       sacc      = zen + "u" ;
-      svoc      = shortenVowel zen + "o" ; ---- shorten ?
+      sloc      = zen + "e" ;
       sins      = zen + "ou" ;
 
-      pnom,pacc = zen + "y" ;  --- also sgen
-      pgen      = zen ; --- sometimes with vowel shortening
-      pdat      = zen + "ám" ;
-      ploc      = zen + "ách" ;
+      pnom      = zen + "y" ;
+      pgen      = zien ;
+      pdat      = zenaa + "m" ;
+      pacc      = zen + "y" ;
+      ploc      = zenaa + "ch" ;
       pins      = zen + "ami" ;
+
       g = Fem
       } ;
 
-  declMESTO : DeclensionType = \mesto -> --- 3.7.1 sloc u/e ; pgen vowel shortening sometimes ; ploc variations
-    let mest = init mesto
+  ulicaN : DeclensionType = \ulica -> 
+    let
+      ulic = init ulica ;
+      ulíc : Str = case ulic of {
+        ul + "i" + c@? => ul + "í" + c ;
+	_ => ulic
+        }
     in
     {
-      snom,sacc,svoc = mesto ;
+      snom      = ulica ;
+      sgen      = ulic + "e" ;
+      sdat      = ulic + "i" ;
+      sacc      = ulic + "u" ;
+      sloc      = ulic + "i" ;
+      sins      = ulic + "ou" ;
+
+      pnom      = ulic + "e" ;
+      pgen      = ulíc ;
+      pdat      = ulic + "iam" ;
+      pacc      = ulic + "e" ;
+      ploc      = ulic + "iach" ;
+      pins      = ulic + "ami" ;
+
+      g = Fem
+      } ;
+
+  dlanN : Str -> DeclensionType = \dlanj,dlani -> 
+    let dlan : Str = init dlani
+    in
+    {
+      snom      = dlanj ;
+      sgen      = dlan + "e" ;
+      sdat      = dlan + "i" ;
+      sacc      = dlanj ;
+      sloc      = dlan + "i" ;
+      sins      = dlanj + "ou" ;
+
+      pnom      = dlan + "e" ;
+      pgen      = dlani ;
+      pdat      = dlan + "iam" ;
+      pacc      = dlan + "e" ;
+      ploc      = dlan + "iach" ;
+      pins      = dlanj + "ami" ;
+
+      g = Fem
+      } ;
+
+  kostN : Str -> DeclensionType = \kost',kosti -> 
+    let kost = init kosti
+    in
+    {
+      snom      = kost' ;
+      sgen      = kost + "i" ;
+      sdat      = kost + "i" ;
+      sacc      = kost' ;
+      sloc      = kost + "i" ;
+      sins      = kost' + "ou" ;
+
+      pnom      = kost + "i" ;
+      pgen      = kosti ;
+      pdat      = kost + "iam" ;
+      pacc      = kost + "i" ;
+      ploc      = kost + "iach" ;
+      pins      = kost' + "ami" ;
+
+      g = Fem
+      } ;
+
+  mestoN : DeclensionType = \mesto -> 
+    let
+      mest = init mesto ;
+      miest : Str = case mest of {
+        m + "e" + c@(? | (? + ?)) => m + "ie" + c ;
+	_ => mest ---- TODO: many more rules
+        } ;
+      mesta = addAccented mest "á" "a"
+
+    in
+    {
+      snom      = mesto ;
       sgen      = mest + "a" ;
       sdat      = mest + "u" ;
-      sloc      = mest + "u" ; --- "ě"
-      sins      = mest + "em" ;
+      sacc      = mesto ;
+      sloc      = mest + "e" ;
+      sins      = mest + "om" ;
 
-      pnom,pacc = mest + "a" ;
-      pgen      = mest ;  --- léta - let
-      pdat      = mest + "ům" ;
-      ploc      = mest + "ech" ; --- with variations
-      pins      = mest + "y" ;
+      pnom      = mesta ;
+      pgen      = miest ;
+      pdat      = mesta + "m" ;
+      pacc      = mesta ;
+      ploc      = mesta + "ch" ;
+      pins      = mest + "ami" ;
+
       g = Neutr
       } ;
 
-  declMUZ : DeclensionType = \muz_ -> --- 3.5.3 : sdat,sloc ; pnom
-    let muz = dropFleetingE muz_
+  srdceN : DeclensionType = \srdce -> 
+    let srdc = init srdce
     in
     {
-      snom      = muz_ ;
-      sgen,sacc = muz + "e" ;   --- pacc
-      sdat,sloc = muz + "i" ;   --- muzovi
-      svoc      = case muz_ of {
-        chlap + "ec" => chlap + "če" ;
-        _ => muz + "i"
-	} ;
-      sins      = muz + "em" ;
+      snom      = srdce ;
+      sgen      = srdc + "a" ;
+      sdat      = srdc + "u" ;
+      sacc      = srdce ;
+      sloc      = srdc + "i" ;
+      sins      = srdc + "om" ;
 
-      pnom = case muz_ of {
-        uci + "tel" => uci + "telé" ;
-        _ => muz + "i"  --- muzové
-	} ;
-      pgen = muz + "ů" ;
-      pacc = muz + "e" ;
-      pdat = muz + "ům" ;
-      ploc = muz + "ích" ;
-      pins = muz + "i" ;
-      g = Masc Anim
-      } ;
+      pnom      = srdc + "ia" ;
+      pgen      = srdc ; ---- TODO sŕdc
+      pdat      = srdc + "iam" ;
+      pacc      = srdc + "ia" ;
+      ploc      = srdc + "iach" ;
+      pins      = srdc + "ami" ;
 
-  declSOUDCE : DeclensionType = \soudce ->   --- 3.5.3: sdat/sloc i,ovi ; pnom i/ové
-    let soudc = init soudce
-    in
-    {
-      snom,sgen,sacc,svoc = soudce ;      ---- pacc
-      sdat,sloc           = soudc + "i" ; --- soudcovi
-      sins                = soudc + "em" ;
-
-      pnom                = soudc + "i" ; --- soudcové
-      pgen                = soudc + "ů" ;
-      pdat                = soudc + "ům" ;
-      pacc                = soudce ;
-      ploc                = soudc + "ích" ;
-      pins                = soudc + "i" ;
-      g = Masc Anim
-      } ;
-
-  declSTROJ : DeclensionType = \stroj ->
-    {
-      snom,sacc      = stroj ;
-      sgen           = stroj + "e" ; --- pnom,pacc
-      sdat,svoc,sloc = stroj + "i" ; --- pins ---- svoc shorten?
-      sins           = stroj + "em" ;
-
-      pnom,pacc      = stroj + "e" ;
-      pgen           = stroj + "ů" ;
-      pdat           = stroj + "ům" ;
-      ploc           = stroj + "ích" ;
-      pins           = stroj + "i" ;
-      g = Masc Inanim
-      } ;
-
-  declRUZE : DeclensionType = \ruze -> --- 3.6.2: pgen ulice-ulic, chvile-cvil
-    let ruz = init ruze
-    in
-    {
-      snom,sgen,svoc      = ruze ; --- pnom,pacc
-      sdat,sacc,sloc = ruz + "i" ;
-      sins = ruz + "í" ;
-
-      pnom,pacc = ruze ;
-      pgen      = shortFemPlGen ruze ;
-      pdat      = ruz + "ím" ;
-      ploc      = ruz + "ích" ;
-      pins      = ruz + "emi" ;
-      g = Fem
-      } ;
-
-  declPISEN : DeclensionType = \pisen ->
-    let pisn = dropFleetingE pisen
-    in
-    {
-      snom,sacc      = pisen ;
-      sgen           = pisn + "ě" ;
-      sdat,svoc,sloc = pisn + "i" ; -- not shortened
-      sins           = pisn + "í" ;
-
-      pnom,pacc      = pisn + "ě" ;
-      pgen           = pisn + "í" ;
-      pdat           = pisn + "ím" ;
-      ploc           = pisn + "ích" ;
-      pins           = pisn + "ěmi" ;
-      g = Fem
-      } ;
-
-  declKOST : DeclensionType = \kost ->
-    {
-      snom,sacc           = kost ;
-      sgen,sdat,svoc,sloc = kost + "i" ; --- pnom,pacc
-      sins                = kost + "í" ; --- pgen
-
-      pnom,pacc      = kost + "i" ;
-      pgen           = kost + "í" ;
-      pdat           = kost + "em" ;
-      ploc           = kost + "ech" ;
-      pins           = kost + "mi" ;
-      g = Fem
-      } ;
-
-  declKURE : DeclensionType = \kure ->
-    let kur = init kure
-    in
-    {
-      snom,sacc,svoc = kure ;
-      sgen           = kur  + "ete" ;
-      sdat,sloc      = kur  + "eti" ;
-      sins           = kur  + "etem" ;
-
-      pnom,pacc = kur + "ata" ;
-      pgen      = kur + "at" ;
-      pdat      = kur + "atům" ;
-      ploc      = kur + "atech" ;
-      pins      = kur + "aty" ;
       g = Neutr
       } ;
 
-  declMORE : DeclensionType = \more -> --- 3.7.2 pgen zero sometimes
-    let mor = init more
+  vysvedcenieN : DeclensionType = \vysvedcenie -> 
+    let
+      vysvedceni = init vysvedcenie ;
+      vysvedcen  = init vysvedceni
     in
     {
-      snom,sgen,sacc,svoc = more ;      --- pnom
-      sdat,sloc           = mor + "i" ; --- pins
-      sins                = mor + "em" ;
+      snom      = vysvedcenie ;
+      sgen      = vysvedceni + "a" ;
+      sdat      = vysvedceni + "u" ;
+      sacc      = vysvedcenie ;
+      sloc      = vysvedcen + "í" ;
+      sins      = vysvedcen + "ím" ;
 
-      pnom,pacc = more ;
-      pgen      = mor + "í" ;  ---
-      pdat      = mor + "ím" ;
-      ploc      = mor + "ích" ;
-      pins      = mor + "i" ;
+      pnom      = vysvedceni + "a" ;
+      pgen      = vysvedcen + "í" ;
+      pdat      = vysvedceni + "am" ;
+      pacc      = vysvedceni + "a" ;
+      ploc      = vysvedceni + "ach" ;
+      pins      = vysvedceni + "ami" ;
+
       g = Neutr
       } ;
 
-  declSTAVENI : DeclensionType = \staveni ->
+  dievcaN : DeclensionType = \dievca ->
+    let dievc = init dievca
+    in
     {
-      snom,sgen,sdat,sacc,svoc,sloc = staveni ;
-      sins                          = staveni + "m" ;
+      snom      = dievca ;
+      sgen      = dievca + "ťa" ;
+      sdat      = dievca + "ťu" ;
+      sacc      = dievca ;
+      sloc      = dievca + "ti" ;
+      sins      = dievca + "ťom" ;
 
-      pnom,pgen,pacc = staveni ;
-      pdat           = staveni + "m" ;
-      ploc           = staveni + "ch" ;
-      pins           = staveni + "mi" ;
+      pnom      = dievca + "tá" ;
+      pgen      = dievc + "iat" ;
+      pdat      = dievca + "tám" ;
+      pacc      = dievca + "tá" ;
+      ploc      = dievca + "tách" ;
+      pins      = dievca + "tami" ;
+
       g = Neutr
+      } ;
+
+  -- with variant plural forms of the previous
+  dievceniecN : DeclensionType = \dievca ->
+    let dievc = init dievca
+    in dievcaN dievca ** { 
+      pnom      = dievc + "ence" ;
+      pgen      = dievc + "eniec" ;
+      pdat      = dievc + "encom" ;
+      pacc      = dievc + "ence" ;
+      ploc      = dievc + "encoch" ;
+      pins      = dievc + "encami" ;
       } ;
 
 ---------------------------
@@ -429,15 +448,16 @@ oper
 ---- TODO other degrees than positive
 
   AdjForms : Type = {
-    msnom, fsnom, nsnom : Str ; -- svoc = snom
-    msgen, fsgen : Str ;        -- nsgen = msgen, pacc = fsgen
-    msdat, fsdat : Str ;        -- nsdat = msdat
+    msnom, fsnom, nsnom : Str ; 
+    msgen, fsgen : Str ;        -- nsgen = msgen
+    msdat : Str ;               -- nsdat = msdat
     fsacc : Str ;               -- amsacc = msgen, imsacc = msnom, nsacc = nsnom
     msloc : Str ;               -- fsloc = fsdat, nsloc = msloc
     msins, fsins : Str ;        -- nsins = msins, pdat = msins
 
-    mpnom,fpnom : Str ;         -- pvoc = pnom, impnom = fpnom, npnom = fsnom
-    pgen : Str ;                -- ploc = pgen
+    ampnom : Str ;              -- *pnom = nsnom
+    pgen : Str ;                --
+                                -- pdat = msins, ampacc = pgen, *pacc = nsnom, ploc = pgen
     pins : Str ;
     } ;
 
@@ -446,103 +466,142 @@ oper
 adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   s = \\g,n,c => case <n,c,g> of {
 
-    <Sg, Nom|Voc, Masc _>
-      | <Sg, Acc, Masc Inanim>   => afs.msnom ;
-    <Sg, Nom|Voc, Fem>
-      | <Pl, Nom|Acc|Voc, Neutr> => afs.fsnom ;
-    <Sg, Nom|Acc|Voc, Neutr>     => afs.nsnom ;
-
+    <Sg, Nom, Masc _>
+      | <Sg, Acc, Masc Inanim>  => afs.msnom ;
+    <Sg, Nom, Fem>              => afs.fsnom ;
+    <Sg, Nom|Acc, Neutr>    
+      | <Pl, Nom|Acc, Masc Inanim|Fem|Neutr> => afs.nsnom ;
     <Sg, Gen, Masc _ | Neutr>
       | <Sg,Acc,Masc Anim>     => afs.msgen ;
-    <Sg, Gen, Fem>
-      | <Pl,Acc,Masc _|Fem>    => afs.fsgen ;
-
+    <Sg, Gen|Dat|Loc, Fem>     => afs.fsgen ;
     <Sg, Dat, Masc _|Neutr>    => afs.msdat ;
-    <Sg, Dat|Loc, Fem>         => afs.fsdat ;
 
     <Sg, Acc, Fem>             => afs.fsacc ;
-
     <Sg, Loc, Masc _|Neutr>    => afs.msloc ;
-
     <Sg, Ins, Masc _|Neutr>
       | <Pl,Dat,_>             => afs.msins ;
     <Sg, Ins, Fem>             => afs.fsins ;
 
-    <Pl, Nom|Voc, Masc Anim>       => afs.mpnom ;
-    <Pl, Nom|Voc, Masc Inanim|Fem> => afs.fpnom ;
-
-    <Pl, Gen|Loc,_> => afs.pgen ;
+    <Pl, Nom, Masc Anim>       => afs.ampnom ;
+    <Pl, Gen|Loc,_> 
+      | <Pl, Acc, Masc Anim>   => afs.pgen ;
     <Pl, Ins,_>     => afs.pins
     }
 
     } ;
 
--- hard declension
+  guessAdjForms : Str -> AdjForms
+    = \s -> case s of {
+        _ + "ý"  => peknyA s ;
+        _ + "y"  => krasnyA s ;
+        _ + "í"  => cudziA s ;
+        _ + "i"  => rydziA s ;
+        _ + ("ov"|"in") => otcovA s ;
+        _ => otcovA ("??"+s)  ---- Predef.error ("no mkA for" ++ s)
+        } ;
 
-  mladyAdjForms : Str -> AdjForms = \mlady ->
-    let mlad = init mlady
+
+-- hard consonant + y
+
+  peknyA : Str -> AdjForms = \pekny ->
+    let pekn = init pekny
     in {
-      msnom                    = mlad + "ý" ;
-      fsnom                    = mlad + "á" ;
-      nsnom,fsgen,fsdat,fpnom  = mlad + "é" ;
-      msgen                    = mlad + "ého" ;
-      msdat                    = mlad + "ému" ;
-      fsacc,fsins              = mlad + "ou" ;
-      msloc                    = mlad + "ém" ;
-      msins,pdat               = mlad + "ým" ;
-      mpnom                    = addAdjI mlad ;
-      pgen                     = mlad + "ých" ;
-      pins                     = mlad + "ými" ;
+      msnom   = pekn + "ý" ;
+      fsnom   = pekn + "á" ;
+      nsnom   = pekn + "é" ;
+      msgen   = pekn + "ého" ;
+      fsgen   = pekn + "ej" ;
+      msdat   = pekn + "ému" ;
+      fsacc   = pekn + "ú" ;
+      msloc   = pekn + "om" ;
+      msins   = pekn + "ým" ;
+      fsins   = pekn + "ou" ;
+      ampnom  = pekn + "í" ;
+      pgen    = pekn + "ých" ;
+      pins    = pekn + "ými" ;
       } ;
 
--- soft declension
+-- if the penultimate has accent, e.g. krásny, the last accent disappears
+  krasnyA : Str -> AdjForms = \krasny ->
+    let
+      krasn = init krasny ;
+    in peknyA krasny ** {
+      msnom   = krasn + "y" ;
+      fsnom   = krasn + "a" ;
+      nsnom   = krasn + "e" ;
+      msgen   = krasn + "eho" ;
+      msdat   = krasn + "emu" ;
+      fsacc   = krasn + "u" ;
+      msins   = krasn + "ym" ;
+      ampnom  = krasn + "i" ;
+      pgen    = krasn + "ych" ;
+      pins    = krasn + "ymi" ;
+      } ;
 
-  jarniAdjForms : Str -> AdjForms = \jarni ->
-    {
-      msnom,fsnom,nsnom,
-      fsgen,fsdat,fsacc,fsins,
-      mpnom,fpnom              = jarni ;
-      msgen                    = jarni + "ho" ;
-      msdat                    = jarni + "mu" ;
-      msloc,msins              = jarni + "m" ;
-      pgen                     = jarni + "ch" ;
-      pins                     = jarni + "mi" ;
+-- soft consonant + i
+
+  cudziA : Str -> AdjForms = \cudzi ->
+    let cudz = init cudzi
+    in {
+      msnom   = cudz + "í" ;
+      fsnom   = cudz + "ia" ;
+      nsnom   = cudz + "ie" ;
+      msgen   = cudz + "ieho" ;
+      fsgen   = cudz + "ej" ;
+      msdat   = cudz + "iemu" ;
+      fsacc   = cudz + "iu" ;
+      msloc   = cudz + "om" ;
+      msins   = cudz + "ím" ;
+      fsins   = cudz + "ou" ;
+      ampnom  = cudz + "í" ;
+      pgen    = cudz + "ích" ;
+      pins    = cudz + "ími" ;
+      } ;
+
+-- accented vowel + soft consonant + i
+  rydziA : Str -> AdjForms = \rydzi ->
+    let rydz = init rydzi
+    in peknyA rydzi ** {
+      msnom   = rydz + "i" ;
+      fsnom   = rydz + "a" ;
+      nsnom   = rydz + "e" ;
+      msgen   = rydz + "eho" ;
+      msdat   = rydz + "emu" ;
+      fsacc   = rydz + "u" ;
+      msins   = rydz + "im" ;
+      ampnom  = rydz + "i" ;
+      pgen    = rydz + "ich" ;
+      pins    = rydz + "imi" ;
       } ;
 
 -- masculine possession: the same endings as in feminine
 
-  otcuvAdjForms : Str -> AdjForms = \otcuv ->
-    let otcov = Predef.tk 2 otcuv + "ov"
-    in
-    matcinAdjForms otcov ** {msnom = otcuv} ;
-
--- feminine possession
-
-  matcinAdjForms : Str -> AdjForms = \matcin ->
+  otcovA : Str -> AdjForms = \otcov ->
      {
-      msnom                    = matcin ;
-      fsnom,msgen              = matcin + "a" ;
-      nsnom                    = matcin + "o" ;
-      fsgen,fpnom              = matcin + "y" ;
-      msdat,fsacc              = matcin + "u" ;
-      fsdat,msloc              = matcin + "ě" ;
-      msins                    = matcin + "ým" ;
-      fsins                    = matcin + "ou" ;
-      mpnom                    = matcin + "i" ;
-      pgen                     = matcin + "ých" ;
-      pins                     = matcin + "ými" ;
+      msnom   = otcov ;
+      fsnom   = otcov + "a" ;
+      nsnom   = otcov + "o" ;
+      msgen   = otcov + "ho" ;
+      fsgen   = otcov + "ej" ;
+      msdat   = otcov + "mu" ;
+      fsacc   = otcov + "u" ;
+      msloc   = otcov + "om" ;
+      msins   = otcov + "ým" ;
+      fsins   = otcov + "ou" ;
+      ampnom  = otcov + "i" ;
+      pgen    = otcov + "ých" ;
+      pins    = otcov + "ými" ;
       } ;
 
 ---------------------
 -- Verbs
+-- https://en.wikipedia.org/wiki/Slovak_language#Verbs
 
-  VerbForms : Type = {          ---- TODO more forms to add
+  VerbForms : Type = {          ---- TODO more forms to add ?
     inf,
     pressg1, pressg2, pressg3,
     prespl1, prespl2, prespl3,
-    pastpartsg, pastpartpl,
-----    passpart,
-    negpressg3 : Str   -- matters only for copula
+    pastpmasc, pastpfem, pastpneutr : Str
     } ;
 
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
@@ -551,38 +610,36 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     = \vf,a,b -> case a of {
       Ag _ Sg P1 => vf.pressg1 ;
       Ag _ Sg P2 => vf.pressg2 ;
-      Ag _ Sg P3 => case b of {
-        True  => vf.pressg3 ;
-	False => vf.negpressg3 -- matters only for copula
-	} ;
+      Ag _ Sg P3 => vf.pressg3 ;
       Ag _ Pl P1 => vf.prespl1 ;
       Ag _ Pl P2 => vf.prespl2 ;
       Ag _ Pl P3 => vf.prespl3
       } ;
 
   copulaVerbForms : VerbForms = {
-    inf = "být" ;
-    pressg1 = "jsem" ;
-    pressg2 = "jsi" ;
+    inf = "byť" ;
+    pressg1 = "som" ;
+    pressg2 = "si" ;
     pressg3 = "je" ;
-    prespl1 = "jsme" ;
-    prespl2 = "jste" ;
-    prespl3 = "jsou" ;
-    pastpartsg = "byl" ;
-    pastpartpl = "byli" ;
-    negpressg3 = "ní" ;  -- ne is added to this
+    prespl1 = "sme" ;
+    prespl2 = "ste" ;
+    prespl3 = "sú" ;
+    pastpmasc = "bol" ;
+    pastpfem = "bola" ;
+    pastpneutr = "bolo" ;
     } ;
 
   haveVerbForms : VerbForms = {
-    inf = "mít" ;
+    inf = "mať" ;
     pressg1 = "mám" ;
     pressg2 = "máš" ;
-    pressg3, negpressg3 = "má" ;
+    pressg3 = "má" ;
     prespl1 = "máme" ;
     prespl2 = "máte" ;
-    prespl3 = "mají" ;
-    pastpartsg = "měl" ;
-    pastpartpl = "měli" ;
+    prespl3 = "majú" ;
+    pastpmasc = "mal" ;
+    pastpfem = "mala" ;
+    pastpneutr = "malo" ;
     } ;
 
 -- just an example of a traditional paradigm
@@ -595,14 +652,15 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
    in
    {
     inf = kupovat ;
-    pressg1 = kupu + "ji" ; --- kupuju
+    pressg1 = kupu + "jem" ;
     pressg2 = kupu + "ješ" ;
-    pressg3, negpressg3 = kupu + "je" ;
+    pressg3 = kupu + "je" ;
     prespl1 = kupu + "jeme" ;
     prespl2 = kupu + "jete" ;
-    prespl3 = kupu + "jí" ; --- kupujou
-    pastpartsg = kupo + "val" ;
-    pastpartpl = kupo + "vali" ;
+    prespl3 = kupu + "jú" ;
+    pastpmasc = "kupoval" ;
+    pastpfem = "kupovala" ;
+    pastpneutr = "kupovalo" ;    
     } ;
 
 
@@ -625,52 +683,51 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     {a = a ; cnom = []} **
     case a of {
       Ag _ Sg P1 => {
-        nom = "já" ;
-        gen,acc,pgen,pacc = "mne" ;
-        cgen,cacc = "mě" ;
-        dat,pdat,loc = "mně" ;
+        nom = "ja" ;
+        gen,acc,pgen,pacc = "mňa" ;
+        cgen,cacc = "ma" ;
+        dat,pdat,loc = "mne" ;
         cdat = "mi" ;
         ins,pins = "mnou"
         } ;
       Ag _ Sg P2 => {
         nom = "ty" ;
-        gen,acc,pgen,pacc = "tebe" ;
-        cgen,cacc = "tě" ;
-        dat,pdat,loc = "tobě" ;
+        gen,acc,pgen,pacc = "teba" ;
+        cgen,cacc = "ťa" ;
+        dat,pdat,loc = "tebe" ;
         cdat = "ti" ;
         ins,pins = "tebou"
         } ;
       Ag (Masc _) Sg P3 => {
         nom = "on" ;
-        gen,acc = "jeho" ;
+        gen,acc = "jeho" ;  ---- + other forms
         cgen,cacc = "ho" ;
-        pgen,pacc = "něho" ;
+        pgen,pacc = "neho" ; ---- + other forms
         dat = "jemu" ;
 	cdat = "mu" ;
-	pdat = "němu" ;
-	loc = "něm" ;
-	ins = "jím" ;
-	pins = "ním" ;
+	pdat = "nemu" ;
+	loc = "ňom" ;
+	ins,pins = "ním" ;
         } ;
       Ag Fem Sg P3 => {
         nom = "ona" ;
-        gen = "její" ;
-        dat,acc,cgen,cacc,cdat,ins = "ji" ;
-        pgen,pdat,pacc,loc,pins = "ní" ;
+        gen,cgen,pgen,acc,cacc,pacc = "ju" ;
+        cdat = "jej" ;
+	dat,pdat,loc = "nej" ;
+        ins,pins = "ní" ;
         } ;
       Ag Neutr Sg P3 => {
         nom = "ono" ;
         gen = "jeho" ;
         cgen,cacc = "ho" ;
-        pgen = "něho" ;
+        pgen = "neho" ;
         dat = "jemu" ;
 	acc = "je" ;
-        pacc = "ně" ;
+        pacc = "eň" ; ---- bind?
 	cdat = "mu" ;
-	pdat = "němu" ;
-	loc = "něm" ;
-	ins = "jím" ;
-	pins = "ním" ;
+	pdat = "nemu" ;
+	loc = "ňom" ;
+	ins,pins = "ním" ;
         } ;
       Ag _ Pl P1 => {
         nom = "my" ;
@@ -679,7 +736,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
           pgen,pacc,
 	  loc  = "nás" ;
         dat,cdat,pdat = "nám" ;
-	ins,pins = "námi" ;
+	ins,pins = "nami" ;
         } ;
       Ag _ Pl P2 => {
         nom = "vy" ;
@@ -688,23 +745,25 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
           pgen,pacc,
 	  loc  = "vás" ;
         dat,cdat,pdat = "vám" ;
-	ins,pins = "vámi" ;
+	ins,pins = "vami" ;
         } ;
-      Ag g Pl P3 => {
-        nom = case g of {
-	  Masc _ => "oni" ;
-	  Fem => "ony" ;
-	  Neutr => "ona"
-	  } ;
-	gen,cgen = "jich" ;
-	pgen = "nich" ;
-	dat,cdat = "jim" ;
+      Ag (Masc Anim) Pl P3 => {
+        nom = "oni" ;
+	gen,cgen,acc,cacc = "ich" ;
+	pgen,pacc = "nich" ;
+	dat,cdat = "im" ;
 	pdat = "nim" ;
-	acc,cacc = "je" ;
-	pacc = "ně" ;
 	loc = "nich" ;
-	ins = "jimi" ;
-	pins = "nimi" ;
+	ins,pins = "nimi" ;
+	} ;
+      Ag _ Pl P3 => {
+        nom = "ony" ;
+	gen,cgen,acc,cacc = "ich" ;
+	pgen,pacc = "ne" ;
+	dat,cdat = "im" ;
+	pdat = "nim" ;
+	loc = "nich" ;
+	ins,pins = "nimi" ;
 	}
 
       } ;
@@ -714,13 +773,13 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
 oper
   DemPronForms : Type = {
-    msnom, fsnom, nsnom,
-    msgen, fsgen,
+    msnom, fsnom, nsnom, 
+    msgen, fsgen, pgen,
     msdat, -- fsdat = fsgen unlike AdjForms
     fsacc,
     msloc,
     msins, fsins,
-    mpnom, fpnom, -- mpacc = fpacc = fpnom
+    ampnom, fpnom, -- mpacc = fpacc = fpnom
     pgen,
     pdat,  -- NOT msins like AdjForms
     pins : Str
@@ -744,45 +803,45 @@ oper
     size : NumSize
     } ;
 
-  mkDemPronForms : Str -> DemPronForms = \t -> {
-    msnom = t + "en" ;
-    fsnom = t + "a" ;
-    nsnom = t + "o" ;
-    msgen = t + "oho" ;
-    fsgen = t + "é" ;
-    msdat = t + "omu" ;
-    fsacc = t + "u" ;
-    msloc = t + "om" ;
-    msins = t + "ím" ;
-    fsins = t + "ou" ;
-    mpnom = t + "i" ;
-    fpnom = t + "y" ;
-    pgen  = t + "ěch" ;
-    pdat  = t + "ěm" ;
-    pins  = t + "ěmi" ;
+  mkDemPronForms : Str -> DemPronForms = \jedn -> {
+      msnom   = jedn + "y" ;
+      fsnom   = jedn + "a" ;
+      nsnom   = jedn + "o" ;
+      msgen   = jedn + "ého" ;
+      fsgen   = jedn + "ej" ;
+      msdat   = jedn + "ému" ;
+      fsacc   = jedn + "u" ;
+      msloc   = jedn + "om" ;
+      msins   = jedn + "ým" ;
+      fsins   = jedn + "ou" ;
+      ampnom  = jedn + "i" ;
+      fpnom   = jedn + "é" ; ---- ?
+      pgen    = jedn + "ých" ;
+      pdat    = jedn + "ým" ;
+      pins    = jedn + "ými" ;
     } ;
 
   invarDemPronForms : Str -> DemPronForms = \s -> {
     msnom, fsnom, nsnom, msgen, fsgen,
     msdat, fsacc, msloc, msins, fsins,
-    mpnom, fpnom, pgen, pdat, pins = s ;
+    ampnom, fpnom, pgen, pdat, pins = s ;
     } ;
 
 -- interrogatives
 
  kdoForms : Case => Str = table {
-   Nom => "kdo" ;
-   Gen | Acc | Voc => "koho" ;
+   Nom => "kto" ;
+   Gen | Acc => "koho" ;
    Dat => "komu" ;
    Loc => "kom" ;
    Ins => "kým"
    } ;
 
  coForms : Case => Str = table {
-   Nom|Acc|Voc => "co" ;
-   Gen => "čeho" ;
+   Nom|Acc => "čo" ;
+   Gen => "čoho" ;
    Dat => "čemu" ;
-   Loc => "čem" ;
+   Loc => "čom" ;
    Ins => "čím"
    } ;
 
@@ -790,6 +849,7 @@ oper
 
   -- singular forms of demonstratives
   NumeralForms : Type = {
+ ----   amsnom,
     msnom, fsnom, nsnom,
     msgen, fsgen,
     msdat,
@@ -802,11 +862,14 @@ oper
     \nume,size ->
     let
       dem = nume **
-        {mpnom, fpnom, pgen, pdat, pins = nume.msnom} ; --- plural forms not used
+        {ampnom, fpnom, pgen, pdat, pins = nume.msnom} ; --- plural forms not used
       demAdj = dem ** {fsdat = dem.fsgen} ;
       adjAdj = adjFormsAdjective demAdj
     in {
-      s = \\g,c => adjAdj.s ! g ! Sg ! c ;
+      s = \\g,c => case <g,c> of {
+----         <Masc Anim, Nom> => nume.amsnom ;
+         _ => adjAdj.s ! g ! Sg ! c
+	 } ;
       size = size
       } ;
 
@@ -816,41 +879,48 @@ oper
   -- numbers 2,3,4 ---- to check if everything comes out right with the determiner type
   twoNumeral : Determiner =
     let forms = {
-      msnom = "dva" ; fsnom, nsnom, fsacc = "dvě" ;
-      msgen, fsgen, msloc = "dvou" ;
-      msdat, msins, fsins = "dvěma"
+----    amsnom = "dvaja" ;
+      msnom = "dva" ; fsnom, nsnom, fsacc = "dve" ; 
+      msgen, fsgen, msloc = "dvoch" ;
+      msdat = "dvom" ;
+      msins, fsins = "dvoma"
       }
     in numeralFormsDeterminer forms Num2_4 ;
 
   threeNumeral : Determiner =
     let forms = {
-      msnom, fsnom, nsnom, fsacc, msgen, fsgen = "tři" ;
-      msdat = "třem" ;
-      msloc = "třech" ;
-      msins,fsins = "třemi" ;
+      ---- amsnom = "traja" ;
+      msnom, fsnom, nsnom, fsacc = "tri" ; ---- amsacc = "troch"
+      msgen, fsgen = "troch" ;
+      msdat = "trom" ;
+      msloc = "troch" ;
+      msins,fsins = "tromi" ;
       }
     in numeralFormsDeterminer forms Num2_4 ;
 
   fourNumeral : Determiner =
-    let forms = {
-      msnom, fsnom, nsnom, fsacc = "čtyři" ;
-      msgen, fsgen = "čtyř" ;
-      msdat = "čtyřem" ;
-      msloc = "čtyřech" ;
-      msins,fsins = "čtyřmi" ;
+      let forms = {
+      ---- amsnom = "štiraja" ;
+      msnom, fsnom, nsnom, fsacc = "štiri" ; ---- amsacc = "štiroch"
+      msgen, fsgen = "štiroch" ;
+      msdat = "štirom" ;
+      msloc = "štiroch" ;
+      msins,fsins = "štiromi" ;
       }
     in numeralFormsDeterminer forms Num2_4 ;
 
   -- for the numbers 5 upwards
-  regNumeral : Str -> Str -> Determiner = \pet,peti ->
+  regNumeral : Str -> Str -> Str -> Str -> Determiner = \pät,piatich,piatim,piatimi ->
     let forms = {
-      msnom,fsnom,nsnom = pet ;
-      msgen, fsgen, msdat, fsacc, msloc, msins, fsins = peti
+      msnom,fsnom,nsnom, fsacc = pät ;
+      msgen, fsgen, msloc = piatich ;
+      msdat = piatim ;
+      msins, fsins = piatimi ;
       }
     in numeralFormsDeterminer forms Num5 ;
 
   invarDeterminer : Str -> NumSize -> Determiner = \sto,size ->
-    regNumeral sto sto ;
+    regNumeral sto sto sto sto ;
 
   invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
 

@@ -61,7 +61,7 @@ oper
     = \s -> lin N (declMESTO s) ;
   muzN : Str -> N
     = \s -> lin N (declMUZ s) ;
-  soudceN : Str -> N    -- default ** {sdat,sloc = +i ; pnom = +i}  
+  soudceN : Str -> N    -- default ** {sdat,sloc = +i ; pnom = +i}
     = \s -> lin N (declSOUDCE s) ;
   strojN : Str -> N
     = \s -> lin N (declSTROJ s) ;
@@ -97,7 +97,7 @@ oper
         _ + "í"  => jarniAdjForms s ;
         _ + "ův" => otcuvAdjForms s ;
         _ + "in" => matcinAdjForms s ;
-        _ => Predef.error ("no mkA for" ++ s)
+        _ => matcinAdjForms ("??" + s) -- Predef.error ("no mkA for" ++ s)
         }) ;
     } ;
 
@@ -133,7 +133,7 @@ oper
 
   mkPrep : Str -> Case -> Prep
     = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ; ---- True if s /= ""
-    
+
   mkConj : Str -> Conj
     = \s -> lin Conj {s1 = [] ; s2 = s} ;
 

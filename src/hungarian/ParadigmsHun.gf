@@ -18,8 +18,11 @@ oper
 --2 Nouns
 
   mkN : overload {
-    mkN : (sgnom : Str) -> N ; -- Predictable nouns from singular nominative. Accusative vowel is o for back harmony. No stem lowering (TODO better explanation/examples)
-    mkN : (sgnom : Str) -> (sggen : Str) -> N ; -- Singular nominative and accusative. Takes care of cases like … TODO example
+    mkN : (sgnom : Str) -> N ; -- Predictable nouns from singular nominative. Accusative vowel is o/ö, no stem lowering. Use: `mkN "nap"` for nap, napot.
+    mkN : (sgnom, sggen : Str) -> N ; -- Singular nominative and accusative. Use: `mkN "név" "nevet"`
+    mkN : (sgnom, sggen, plnom : Str) -> N ; -- Singular nominative, singular accusative, plural nominative. Use: `mkN "falu" "falut" "falvak"`
+    mkN : (sgnom, sggen, plnom, sgnom_possdSg3 : Str) -> N ; -- Singular nominative, singular accusative, plural nominative, singular nominative possessed by 3rd person singular. Use: `mkN "virág" "virágot" "virágok" "virága"` (would give "virágja" otherwise)
+
     mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
   } ;
 
@@ -32,8 +35,9 @@ oper
 --2 Adjectives
 
   mkA : overload {
-    mkA : (adj : Str) -> A ; -- Regular adjective, given in ??? form
-    -- mkA : (kiga : Str) -> (jakda : A) -> A ; -- Compound adjective, e.g. 키가 작다 'short', literally 'height (is) small'. 키가 'height' given as string, 작다 'small' given as preconstructed A.
+    mkA : (sgnom : Str) -> A ; -- Regular adjective, given in singular nominative
+    mkA : (sgnom, sgacc : Str) -> A ; -- Singular nominative and accusative
+    mkA : N -> A ; -- Adjective from a noun. mkN has more paradigms, so anything irregular goes via N.
   } ;
 
   mkA2 : overload {
@@ -88,7 +92,7 @@ oper
     } ;
 
   prePrep : Str -> Case -> Prep -- Preposition
-    = \s,c -> lin Prep {pr=s ; s=[] ; c=c} ;
+    = \s,c -> lin Prep (ResHun.prepos c s) ;
 
   casePrep : Case -> Prep ; -- No postposition, only case
 
@@ -99,7 +103,7 @@ oper
   --   lin Subj { } ;
 
   mkAdv : Str -> Adv
-    = \s -> lin Adv {s = s} ;
+    = \s -> lin Adv {s = s ; isPre=False} ;
 
   mkAdV : Str -> AdV
     = \s -> lin AdV {s = s} ;
@@ -125,6 +129,15 @@ oper
     mkN : Str -> Str -> N =
         \n,a-> lin N (regNounNomAcc n a) ;
 
+    mkN : Str -> Str -> Str -> N =
+        \n,a,pln-> lin N (regNounNomAccPl n a pln) ;
+
+    mkN : (x1,_,_,x4 : Str) -> N =
+        \n,a,pln,possd -> lin N (regNoun4 n a pln possd) ;
+
+    mkN : (x1,_,_,_,_,_,_,x8 : Str) -> N =
+      \a,b,c,d,e,f,g,h -> lin N (worstCaseNoun a b c d e f g h (getHarm a)) ;
+
     mkN : Str -> Harmony -> N =
       \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;
 
@@ -145,25 +158,30 @@ oper
     } ;
 
   mkA = overload {
-    mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
-    -- mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
-    --   jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
+    mkA : (sgnom : Str) -> A = \s -> lin A (mkAdj s) ;
+    mkA : (sgnom,sgacc : Str) -> A = \nom,acc ->
+      lin A (mkAdj2 nom (regNounNomAcc nom acc)) ;
+    mkA : N -> A = \noun ->
+      let sgnom : Str = noun.s ! SgNom in
+      lin A (mkAdj2 sgnom noun) ;
     } ;
 
   mkA2 = overload {
-    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom} ;
+    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom ; isPost = False} ;
     mkA2 : Str -> Prep -> A2 = \s,p ->
-      lin A2 {s = (mkAdj s).s ; c2 = p} ;
+      lin A2 ((mkAdj s) ** {c2 = p ; isPost = False}) ;
     mkA2 : Str -> Case -> A2 = \s,c ->
-      lin A2 {s = (mkAdj s).s ; c2 = casePrep c} ;
+      lin A2 ((mkAdj s) ** {c2 = casePrep c ; isPost = False}) ;
     mkA2 : A -> Prep -> A2 = \a,p ->
-      lin A2 (a ** {c2 = p}) ;
+      lin A2 (a ** {c2 = p ; isPost = False}) ;
     } ;
 
   mkV = overload {
     mkV : (sg3 : Str) -> V = \v -> lin V (mkVerb v) ;
     -- mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
     --   s = \\vf => nore + hada.s ! vf} ;
+    mkV : (x1,_,_,_,_,_,x7 : Str) -> V = \sg1,sg2,sg3,pl1,pl2,pl3,inf ->
+      lin V (mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf) ;
   } ;
 
   copula = ResHun.copula ;
@@ -182,13 +200,13 @@ oper
 
   mkPrep = overload {
     mkPrep : (e : Str) -> Prep
-      = \str -> lin Prep (ResHun.mkPrep str) ;
+      = \str -> lin Prep (ResHun.nomAdp str) ;
     mkPrep : Str -> Case -> Prep
-      = \str,c -> lin Prep (ResHun.mkPrep str ** {c = c}) ;
+      = \str,c -> lin Prep (ResHun.caseAdp c str) ;
     } ;
 
   casePrep : Case -> Prep
-    = \c -> lin Prep (ResHun.mkPrep [] ** {c = c}) ;
+    = \c -> lin Prep (ResHun.caseAdp c) ;
 --------------------------------------------------------------------------------
 
 }
