@@ -1,7 +1,7 @@
 concrete NumeralCze of Numeral =
 
-  CatCze **
-  
+  CatCze [Numeral,Digits] **
+
   open
     ResCze,
     Prelude
@@ -22,7 +22,7 @@ lincat Sub100 = LinNumeral ;
 lincat Sub1000 = LinNumeral ;
 lincat Sub1000000 = LinNumeral ;
 
-oper mkNum : Determiner -> Str -> Str -> Str -> LinDigit = 
+oper mkNum : Determiner -> Str -> Str -> Str -> LinDigit =
   \dva, dvanast, dvadsat, dveste -> {
     unit = dva.s ;
     teen = dvanast + "náct" ;
@@ -32,11 +32,11 @@ oper mkNum : Determiner -> Str -> Str -> Str -> LinDigit =
    } ;
 
 oper mk2Num : Determiner -> Str -> Str -> Str -> LinDigit =
-  \unit, teenbase, tenbase, hundred ->  
-    mkNum unit teenbase (tenbase + "cet") hundred ; 
+  \unit, teenbase, tenbase, hundred ->
+    mkNum unit teenbase (tenbase + "cet") hundred ;
 
 oper mk5Num : Str -> Str -> Str -> Str -> LinDigit =
-  \unit,uniti, teenbase, tenbase ->  
+  \unit,uniti, teenbase, tenbase ->
   mkNum (regNumeral unit uniti) teenbase (tenbase + "desát") (unit ++ "set") ;
 
 oper bigNumeral : Str -> LinNumeral = \s -> invarNumeral s ;
@@ -55,8 +55,8 @@ lin n9 = mk5Num "devět" "devíti" "devate" "deva" ;
 lin pot01 = {
   unit = oneNumeral.s ; hundred = "sto" ; ten = "deset" ; teen = "jedenáct" ;
   size = Num1
-  } ; 
-lin pot0 d = d ; 
+  } ;
+lin pot0 d = d ;
 
 lin pot110 = bigNumeral "deset" ;
 lin pot111 = bigNumeral "jedenáct" ;
@@ -85,13 +85,13 @@ lin pot3plus n m = {
   size = tfSize m.size
   } ;
 
-oper tfSize : NumSize -> NumSize = \sz -> 
-  table {Num1 => Num5 ; other => other} ! sz ; 
+oper tfSize : NumSize -> NumSize = \sz ->
+  table {Num1 => Num5 ; other => other} ! sz ;
 
-oper mkTh : Str -> NumSize -> Str = \attr,size -> 
+oper mkTh : Str -> NumSize -> Str = \attr,size ->
   case size of {
-    Num1 => "tisíc" ; 
-    Num2_4 => attr ++ "tisíce" ; 
+    Num1 => "tisíc" ;
+    Num2_4 => attr ++ "tisíce" ;
     Num5 => attr ++ "tisíc"
     } ;
 
@@ -103,11 +103,11 @@ oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
 
   lin
     IDig d = d ;
-    
+
     IIDig d dd = {s = d.s ++ Predef.BIND ++ dd.s ; size = Num5} ; ---- leading zeros ??
 
     D_0 = { s = "0" ; size = Num1} ; ---- ??
-    D_1 = { s = "1" ; size = Num1} ; 
+    D_1 = { s = "1" ; size = Num1} ;
     D_2 = { s = "2" ; size = Num2_4} ;
     D_3 = { s = "3" ; size = Num2_4} ;
     D_4 = { s = "4" ; size = Num2_4} ;
