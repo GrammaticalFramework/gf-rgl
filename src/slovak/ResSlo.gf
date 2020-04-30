@@ -35,8 +35,17 @@ oper
       "b" | "f" | "l" | "m" | "p" | "s" | "v" | "ľ" | "ĺ" | "ŕ" | "dz"
       ) ;
 
-  accentedVowel : pattern Str = #("á"|"é"|"í"|"ó"|"ú"|"ý") ;
-  
+  accentedVowel : pattern Str = #("á"|"é"|"í"|"ú"|"ý") ;
+
+  diphthong : pattern Str = #("ia"|"ie"|"iu"|"ô") ;
+
+  addAccented : (stem,long,short : Str) -> Str = \stem,long,short ->
+    case stem of {
+      _ + (#accentedVowel | #diphthong) + ? + ? => stem + short ;
+      _ + (#accentedVowel | #diphthong) + ?     => stem + short ;
+      _ => stem + long
+      } ;
+
 ---------------
 -- Nouns
 ---------------
@@ -111,7 +120,7 @@ oper
       <Neutr,       _ + ("a"|"ä")             ,  _ + "iec">       => dievceniecN snom ;
       <Neutr,       _ + ("a"|"ä")             ,  _        >       => dievcaN snom ;
 
-      _ => Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
+      _ => dubN ("??"+snom) ** {pgen = pgen} ---- Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
       } ** {pgen = pgen ; g = g} ;
 
 -- the "smartest" one-argument mkN
@@ -131,7 +140,7 @@ oper
         _ + "e"                     => srdceN snom ;
         _ + "ä"                     => dievcaN snom ;
 
-        _ => Predef.error ("cannot guess declension type for" ++ snom)
+        _ => dubN ("??"+snom) ---- Predef.error ("cannot guess declension type for" ++ snom)
       } ;
 
 
@@ -235,7 +244,8 @@ oper
       zien : Str = case zen of {
         z + "e" + c@? => z + "ie" + c ;
 	_ => zen ---- TODO: many more rules
-        } 
+        } ;
+      zenaa = addAccented zen "á" "a" ;
     in
     {
       snom      = zena ;
@@ -247,9 +257,9 @@ oper
 
       pnom      = zen + "y" ;
       pgen      = zien ;
-      pdat      = zen + "ám" ;
+      pdat      = zenaa + "m" ;
       pacc      = zen + "y" ;
-      ploc      = zen + "ách" ;
+      ploc      = zenaa + "ch" ;
       pins      = zen + "ami" ;
 
       g = Fem
@@ -329,7 +339,8 @@ oper
       miest : Str = case mest of {
         m + "e" + c@(? | (? + ?)) => m + "ie" + c ;
 	_ => mest ---- TODO: many more rules
-        } 
+        } ;
+      mesta = addAccented mest "á" "a"
 
     in
     {
@@ -340,11 +351,11 @@ oper
       sloc      = mest + "e" ;
       sins      = mest + "om" ;
 
-      pnom      = mest + "á" ;
+      pnom      = mesta ;
       pgen      = miest ;
-      pdat      = mest + "ám" ;
-      pacc      = mest + "á" ;
-      ploc      = mest + "ách" ;
+      pdat      = mesta + "m" ;
+      pacc      = mesta ;
+      ploc      = mesta + "ch" ;
       pins      = mest + "ami" ;
 
       g = Neutr
@@ -485,8 +496,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         _ + "y"  => krasnyA s ;
         _ + "í"  => cudziA s ;
         _ + "i"  => rydziA s ;
-        _ + "ov" => otcovA s ;
-        _ => Predef.error ("no mkA for" ++ s)
+        _ + ("ov"|"in") => otcovA s ;
+        _ => otcovA ("??"+s)  ---- Predef.error ("no mkA for" ++ s)
         } ;
 
 
