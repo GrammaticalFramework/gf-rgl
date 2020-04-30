@@ -86,7 +86,7 @@ oper
     ul  + "ice" => ul + "ic" ;
     koleg + "yně" => koleg + "yň" ;
     ruz + "e" => ruz + "í" ;
-    _ => "??" + s  -- Predef.error ("shortFemPlGen does not apply to" ++ s)
+    _ => "" + s  -- Predef.error ("shortFemPlGen does not apply to" ++ s)
     } ;
 
 ---------------
@@ -155,7 +155,7 @@ oper
       <Neutr,       _ + "e"           , _+"ete"> => declKURE ;
       <Neutr,       _ + "e"           , _ + "e"> => declMORE ;
       <Neutr,       _ + "í"           , _ + "í"> => declSTAVENI ;
-      _ => (\s -> declSTROJ ("??" + s)) -- Predef.error ("cannot infer declension type for" ++ nom ++ gen)
+      _ => (\s -> declSTROJ ("" + s)) -- Predef.error ("cannot infer declension type for" ++ nom ++ gen)
       }
     in decl nom ;
 
@@ -172,7 +172,7 @@ oper
       _ + "ce"           => declSOUDCE s ;
       _ + "e"            => declMORE s ;
       _ + "í"            => declSTAVENI s ;
-      _ => declSTROJ ("??" + s) -- Predef.error ("cannot guess declension type for" ++ s)
+      _ => declSTROJ ("" + s) -- Predef.error ("cannot guess declension type for" ++ s)
       } ;
 
 -- the traditional declensions, in both CEG and Wiki

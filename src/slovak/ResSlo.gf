@@ -120,7 +120,7 @@ oper
       <Neutr,       _ + ("a"|"ä")             ,  _ + "iec">       => dievceniecN snom ;
       <Neutr,       _ + ("a"|"ä")             ,  _        >       => dievcaN snom ;
 
-      _ => dubN ("??"+snom) ** {pgen = pgen} ---- Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
+      _ => dubN (""+snom) ** {pgen = pgen} ---- Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
       } ** {pgen = pgen ; g = g} ;
 
 -- the "smartest" one-argument mkN
@@ -140,7 +140,7 @@ oper
         _ + "e"                     => srdceN snom ;
         _ + "ä"                     => dievcaN snom ;
 
-        _ => dubN ("??"+snom) ---- Predef.error ("cannot guess declension type for" ++ snom)
+        _ => dubN (""+snom) ---- Predef.error ("cannot guess declension type for" ++ snom)
       } ;
 
 
@@ -497,7 +497,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         _ + "í"  => cudziA s ;
         _ + "i"  => rydziA s ;
         _ + ("ov"|"in") => otcovA s ;
-        _ => otcovA ("??"+s)  ---- Predef.error ("no mkA for" ++ s)
+        _ => otcovA (""+s)  ---- Predef.error ("no mkA for" ++ s)
         } ;
 
 
