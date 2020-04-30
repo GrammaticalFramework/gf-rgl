@@ -97,7 +97,7 @@ oper
         _ + "í"  => jarniAdjForms s ;
         _ + "ův" => otcuvAdjForms s ;
         _ + "in" => matcinAdjForms s ;
-        _ => matcinAdjForms s -- Predef.error ("no mkA for" ++ s)
+        _ => matcinAdjForms ("??" + s) -- Predef.error ("no mkA for" ++ s)
         }) ;
     } ;
 
