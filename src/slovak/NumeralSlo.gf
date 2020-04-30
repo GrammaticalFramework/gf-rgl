@@ -1,6 +1,6 @@
 concrete NumeralSlo of Numeral =
 
-  CatSlo **
+  CatSlo [Numeral,Digits] **
   
   open
     ResSlo,

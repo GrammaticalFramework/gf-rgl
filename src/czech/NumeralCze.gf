@@ -1,6 +1,6 @@
 concrete NumeralCze of Numeral =
 
-  CatCze **
+  CatCze [Numeral,Digits] **
   
   open
     ResCze,
