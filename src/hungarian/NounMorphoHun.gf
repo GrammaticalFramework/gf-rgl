@@ -184,7 +184,7 @@ oper
 
                    -- orr, orr|ot -> orr|a
                    -- TODO fails for gyümölcs, gyümölcs|öt -> gyümölcs|e
-                   -- I don't know what this list means /IL
+                   -- This list could maybe be deleted
                    _ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"
                        |"ssz"|"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz")
                      + ("o"|"ö") => init tolla ;
@@ -242,7 +242,8 @@ oper
 
   -- More words not covered by current paradigms:
   -- https://cl.lingfil.uu.se/~bea/publ/megyesi-hungarian.pdf
-  -- TODO: teher ~ terhet (consonant-crossing)
+  -- TODO: teher ~ terhet (consonant-crossing) works in all cases except ParamHun.PossdSg_PossrPl1
+
 
   -- Worst case constructor: takes all stems
   worstCaseNoun : (x1,_,_,_,_,_,_,x8 : Str) -> Harm -> Noun =
