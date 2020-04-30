@@ -593,6 +593,23 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       pins    = otcov + "ými" ;
       } ;
 
+  paviA : Str -> AdjForms = \pavi ->
+    let pav = init pavi in {
+      msnom = pav + "í" ;
+      fsnom = pav + "ia" ;
+      nsnom = pav + "ie" ;
+      msgen = pav + "ieho" ;
+      fsgen = pav + "ej" ;
+      msdat = pav + "iemu" ;
+      fsacc = pav + "iu" ;
+      msloc = pav + "om" ;
+      msins = pav + "ím" ; 
+      fsins = pav + "ou" ;
+      ampnom = pav + "í" ; ----
+      pgen = pav + "ich" ; ----
+      pins = pav + "imi" ; ----
+      } ;
+ 
 ---------------------
 -- Verbs
 -- https://en.wikipedia.org/wiki/Slovak_language#Verbs

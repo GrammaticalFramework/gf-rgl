@@ -105,6 +105,8 @@ oper
     = \s -> lin A (R.rydziA s) ;
   otcovA : Str -> A
     = \s -> lin A (R.otcovA s) ;
+  paviA  : Str -> A
+    = \s -> lin A (R.paviA s) ;
 
 
   mkA2 : A -> Prep -> A2
