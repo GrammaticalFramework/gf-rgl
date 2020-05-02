@@ -140,7 +140,7 @@ lin forest_N = mkN "erdő" "erdőt" ;
 -- lin freeze_V = mkV "" ;
 lin fridge_N = mkN "hűtő" "hűtőt" ;
 lin friend_N = mkN "barát" "barátot" ;
-lin fruit_N = mkN "gyümölcs" "gyümölcsöt" "gyümölcsök" "gyümölcse" ;
+lin fruit_N = mkN "gyümölcs" "gyümölcsöt" "gyümölcsök" "gyümölcse" ; --TODO: plural PossPl2 fails "gyümölcseitek" instead of "gyümölcseitök", wovel harmony changing?
 lin full_A = mkA "tele" ;
 -- --lin fun_AV
 
