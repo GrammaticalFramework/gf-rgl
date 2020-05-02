@@ -18,6 +18,6 @@ concrete AdjectiveSlo of Adjective = CatSlo ** open ResSlo, Prelude in {
 
     UseComparA a = adjFormsAdjective a ** {isPost = False} ; ---- TODO: this gives positive forms 
 
-    AdvAP ap adv = ap ** {s = \\g,n,c => ap.s ! g ! n ! c ++ adv.s} ;
+    AdvAP ap adv = ap ** {s = \\g,n,c => ap.s ! g ! n ! c ++ adv.s ; isPost = True} ;
 
 }

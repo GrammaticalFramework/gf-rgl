@@ -63,7 +63,7 @@ lin
       } ;
 
     AdjCN ap cn = {
-      s = \\n,c => ap.s ! cn.g ! n ! c ++ cn.s ! n ! c ;
+      s = \\n,c => preOrPost (notB ap.isPost) (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
       g = cn.g
       } ;
 
