@@ -409,7 +409,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       in
     {s = table {
       NCase Sg Nom    => Ukko ;
-      NCase Sg Gen    => uko + "n" ;
+      NCase Sg Gen    => ukon ;
       NCase Sg Part   => ukkoa ;
       NCase Sg Transl => uko + "ksi" ;
       NCase Sg Ess    => ukkona ;
