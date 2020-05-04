@@ -832,7 +832,8 @@ oper
     in {
       s = \\g,n,c => case <g,n,c> of {
         <_,Pl,Dat> => dem.pdat ;
-	<Masc _ | Fem, Pl, Acc> => dem.fpnom ;
+	<Masc Anim,         Pl,     Acc> => dem.pgen ;
+	<Masc Inanim | Fem | Neutr, Pl, Nom|Acc> => dem.fpnom ;
         _ => adjAdj.s ! g ! n ! c
         } + s
       } ;

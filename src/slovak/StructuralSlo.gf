@@ -15,8 +15,8 @@ lin
 ---    somePl_Det = {s = \\g,c => (demPronFormsAdjective (mkDemPronForms "niekoľko") "").s ! g ! Pl ! c ; size = Num5} ;
     something_NP = {s,clit,prep = \\c => "nie" + coForms ! c ; a = Ag Neutr Sg P3 ; hasClit = False} ; -- CEG 5.6.3
     possess_Prep = mkPrep "" Gen ;
-    that_Quant = demPronFormsAdjective (tenDemPronForms "tam") "" ;
-    this_Quant = demPronFormsAdjective (tenDemPronForms "" ** {msgen = "toho"}) "" ;
+    that_Quant = demPronFormsAdjective (tenDemPronForms "") "" ;
+    this_Quant = demPronFormsAdjective (tenDemPronForms "" ** {msgen = "toh"}) "to" ;
     to_Prep = mkPrep "do" Gen ;
     with_Prep = mkPrep (pre {"s" => "so" ; _ => "s"}) Ins ; 
 
