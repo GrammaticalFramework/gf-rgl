@@ -18,19 +18,19 @@ resource ResFin = ParamX ** open Prelude in {
 -- This is the $Case$ as needed for both nouns and $NP$s.
 
   param
-    Case = Nom | Gen | Part | Transl | Ess 
-         | Iness | Elat | Illat | Adess | Ablat | Allat 
-         | Abess ;  -- Comit, Instruct in NForm 
+    Case = Nom | Gen | Part | Transl | Ess
+         | Iness | Elat | Illat | Adess | Ablat | Allat
+         | Abess ;  -- Comit, Instruct in NForm
 
-    NForm = NCase Number Case 
+    NForm = NCase Number Case
           | NComit | NInstruct  -- no number dist
           | NPossNom Number | NPossGen Number --- number needed for syntax of AdjCN
-          | NPossTransl Number | NPossIllat Number 
+          | NPossTransl Number | NPossIllat Number
           | NCompound ;  -- special compound form, e.g. "nais"
 
 --- These cases are possible for subjects.
 
-    SubjCase = SCNom | SCGen | SCPart | SCIness | SCElat | SCAdess | SCAblat ; 
+    SubjCase = SCNom | SCGen | SCPart | SCIness | SCElat | SCAdess | SCAblat ;
 
 oper
   appSubjCase : SubjCase -> ResFin.NP -> Str = \sc,np -> np.s ! subjcase2npform sc ;
@@ -59,13 +59,13 @@ oper
 
 param
     Agr = Ag Number Person | AgPol ;
-    
-    
+
+
 -- Vowel harmony, used for CNs in determining the correct possessive suffix.
 
     Harmony = Back | Front ;
-    
-    
+
+
   oper
     complNumAgr : Agr -> Number = \a -> case a of {
       Ag n _ => n ;
@@ -93,12 +93,12 @@ oper
 
 --2 Noun phrases
 --
--- Two forms of *virtual accusative* are needed for nouns in singular, 
--- the nominative and the genitive one ("ostan talon"/"osta talo"). 
+-- Two forms of *virtual accusative* are needed for nouns in singular,
+-- the nominative and the genitive one ("ostan talon"/"osta talo").
 -- For nouns in plural, only a nominative accusative exist. Pronouns
 -- have a uniform, special accusative form ("minut", etc).
 
-param 
+param
   NPForm = NPCase Case | NPAcc | NPSep ;  -- NPSep is NP used alone, e.g. in an Utt and as complement to copula. Equals NPCase Nom except for pro-drop
 
 oper
@@ -126,7 +126,7 @@ oper
 -- A special form is needed for the negated plural imperative.
 
 param
-  VForm = 
+  VForm =
      Inf InfForm
    | Presn Number Person
    | Impf Number Person  --# notpresent
@@ -137,11 +137,11 @@ param
    | ImperP3 Number
    | ImperP1Pl
    | ImpNegPl
-   | PassPresn  Bool 
+   | PassPresn  Bool
    | PassImpf   Bool --# notpresent
    | PassCondit Bool --# notpresent
-   | PassPotent Bool --# notpresent 
-   | PassImper  Bool 
+   | PassPotent Bool --# notpresent
+   | PassImper  Bool
    | PastPartAct  AForm
    | PastPartPass AForm
    | PresPartAct  AForm
@@ -195,7 +195,7 @@ param
   SType = SDecl | SQuest ;
 
 --2 For $Relative$
- 
+
     RAgr = RNoAg | RAg Agr ;
 
 --2 For $Numeral$
@@ -205,21 +205,21 @@ param
 --2 Transformations between parameter types
 
   oper
-    agrP3 : Number -> Agr = \n -> 
+    agrP3 : Number -> Agr = \n ->
       Ag n P3 ;
 
     conjAgr : Agr -> Agr -> Agr = \a,b -> case <a,b> of {
       <Ag n p, Ag m q> => Ag (conjNumber n m) (conjPerson p q) ;
       <Ag n p, AgPol>  => Ag Pl (conjPerson p P2) ;
       <AgPol,  Ag n p> => Ag Pl (conjPerson p P2) ;
-      _ => b 
+      _ => b
       } ;
 
 ---
 
   Compl : Type = {
     s : Str * Str * (Agr => Str) ;
-    c : NPForm ; 
+    c : NPForm ;
     } ;
 
   appCompl : Bool -> Polarity -> Compl -> ResFin.NP -> Str = \isFin,b,co,np ->
@@ -257,14 +257,14 @@ param
 
 param
   VIForm =
-     VIFin  Tense  
+     VIFin  Tense
    | VIInf  InfForm
    | VIPass Tense
-   | VIImper 
-   ;  
+   | VIImper
+   ;
 
 oper
-  
+
 
 -- For $Sentence$.
 
@@ -276,10 +276,10 @@ oper
     s : Tense => Anteriority => Polarity => {subj,fin,inf,compl,adv,ext : Str ; h : Harmony}
     } ;
 
-  insertKinClausePlus : Predef.Ints 1 -> ClausePlus -> ClausePlus = \p,cl -> { 
+  insertKinClausePlus : Predef.Ints 1 -> ClausePlus -> ClausePlus = \p,cl -> {
     s = \\t,a,b =>
-      let 
-         c = cl.s ! t ! a ! b   
+      let
+         c = cl.s ! t ! a ! b
       in
       case p of {
          0 => {subj = c.subj ++ kin b Back ; fin = c.fin ; inf = c.inf ;  -- Jussikin nukkuu
@@ -289,21 +289,21 @@ oper
          }
     } ;
 
-  insertObjClausePlus : Predef.Ints 1 -> Bool -> (Polarity => Str) -> ClausePlus -> ClausePlus = 
-   \p,ifKin,obj,cl -> { 
+  insertObjClausePlus : Predef.Ints 1 -> Bool -> (Polarity => Str) -> ClausePlus -> ClausePlus =
+   \p,ifKin,obj,cl -> {
     s = \\t,a,b =>
-      let 
+      let
          c = cl.s ! t ! a ! b ;
          co = obj ! b ++ if_then_Str ifKin (kin b Back) [] ;
       in case p of {
-         0 => {subj = c.subj ; fin = c.fin ; inf = c.inf ; 
+         0 => {subj = c.subj ; fin = c.fin ; inf = c.inf ;
                compl = co ; adv = c.compl ++ c.adv ; ext = c.ext ; h = c.h} ; -- Jussi juo maitoakin
-         1 => {subj = c.subj ; fin = c.fin ; inf = c.inf ; 
+         1 => {subj = c.subj ; fin = c.fin ; inf = c.inf ;
                compl = c.compl ; adv = co ; ext = c.adv ++ c.ext ; h = c.h}   -- Jussi nukkuu nytkin
          }
      } ;
 
-  kin : Polarity -> Harmony -> Str  = 
+  kin : Polarity -> Harmony -> Str  =
     \p,b -> case p of {Pos => (mkPart "kin" "kin").s ! b ; Neg => (mkPart "kaan" "kään").s ! b} ;
 
   mkPart : Str -> Str -> {s : Harmony => Str} = \ko,koe ->
@@ -320,7 +320,7 @@ oper
      } ;
 -- This is used for subjects of passives: therefore isFin in False.
 
-  subjForm : NP -> SubjCase -> Polarity -> Str = \np,sc,b -> 
+  subjForm : NP -> SubjCase -> Polarity -> Str = \np,sc,b ->
     appCompl False b {s = <[],[],\\_ => []> ; c = subjcase2npform sc} np ;
 
   questPart : Harmony -> Str = \b -> case b of {Back => "ko" ; _ => "kö"} ;
@@ -328,7 +328,7 @@ oper
 -- The definitions below were moved here from $MorphoFin$ so that the
 -- auxiliary of predication can be defined.
 
-  verbOlla : Verb = 
+  verbOlla : Verb =
     let
       ollut = (noun2adj (nhn (sRae "ollut" "olleena"))).s ;
       oltu = (noun2adj (nhn (sKukko "oltu" "ollun" "oltuja"))).s  ;
@@ -417,8 +417,8 @@ oper
   noun2adj : CommonNoun -> Adj = noun2adjComp True ;
 
   noun2adjComp : Bool -> CommonNoun -> Adj = \isPos,tuore ->
-    let 
-      tuoreesti  = Predef.tk 1 (tuore.s ! NCase Sg Gen) + "sti" ; 
+    let
+      tuoreesti  = Predef.tk 1 (tuore.s ! NCase Sg Gen) + "sti" ;
       tuoreemmin = Predef.tk 2 (tuore.s ! NCase Sg Gen) + "in"
     in {s = table {
          AN f => tuore.s ! f ;
@@ -439,8 +439,8 @@ oper
 
 -- worst-case macro
 
-  mkSubst : Str -> (_,_,_,_,_,_,_,_,_,_ : Str) -> NounH = 
-    \a,vesi,vede,vete,vetta,veteen,vetii,vesii,vesien,vesia,vesiin -> 
+  mkSubst : Str -> (_,_,_,_,_,_,_,_,_,_ : Str) -> NounH =
+    \a,vesi,vede,vete,vetta,veteen,vetii,vesii,vesien,vesia,vesiin ->
     {a = a ;
      vesi = vesi ;
      vede = vede ;
@@ -467,8 +467,8 @@ oper
      vesien = nh.vesien ;
      vesia = nh.vesia ;
      vesiin = nh.vesiin ;
-     harmony : Harmony = case a of 
-       {"a" => Back ; _   => Front  } 
+     harmony : Harmony = case a of
+       {"a" => Back ; _   => Front  }
     in
     {s = table {
       NCase Sg Nom    => vesi ;
@@ -509,7 +509,7 @@ oper
       NPossIllat Pl  => Predef.tk 1 vesiin ;
       NCompound      => vesi
       } ;
-      h = harmony 
+      h = harmony
     } ;
 -- Surprisingly, making the test for the partitive, this not only covers
 -- "rae", "perhe", "savuke", but also "rengas", "lyhyt" (except $Sg Illat$), etc.
@@ -520,20 +520,20 @@ oper
       rakee  = Predef.tk 2 rakeena ;
       rakei  = Predef.tk 1 rakee + "i" ;
       raet   = rae + (ifTok Str (Predef.dp 1 rae) "e" "t" [])
-    } 
+    }
     in
-    mkSubst a 
+    mkSubst a
             rae
-            rakee 
             rakee
-            (raet + ("t" + a)) 
+            rakee
+            (raet + ("t" + a))
             (rakee + "seen")
             rakei
             rakei
-            (rakei + "den") 
+            (rakei + "den")
             (rakei + ("t" + a))
             (rakei + "siin") ;
--- Nouns with partitive "a"/"ä" ; 
+-- Nouns with partitive "a"/"ä" ;
 -- to account for grade and vowel alternation, three forms are usually enough
 -- Examples: "talo", "kukko", "huippu", "koira", "kukka", "syylä",...
 
@@ -547,26 +547,26 @@ oper
       kukkoi = ifi kukkoj (Predef.tk 1 kukkoj) ;
       e      = Predef.dp 1 kukkoi ;
       kukoi  = Predef.tk 2 kukon + Predef.dp 1 kukkoi
-    } 
+    }
     in
-    mkSubst a 
-            kukko 
-            (Predef.tk 1 kukon) 
+    mkSubst a
             kukko
-            (kukko + a) 
+            (Predef.tk 1 kukon)
+            kukko
+            (kukko + a)
             (kukko + o + "n")
-            (kukkoi + ifi "" "i") 
-            (kukoi + ifi "" "i") 
+            (kukkoi + ifi "" "i")
+            (kukoi + ifi "" "i")
             (ifTok Str e "e" (Predef.tk 1 kukkoi + "ien") (kukkoi + ifi "en" "jen"))
             kukkoja
             (kukkoi + ifi "in" "ihin") ;
 
--- Reflexive pronoun. 
+-- Reflexive pronoun.
 --- Possessive could be shared with the more general $NounFin.DetCN$.
 
 oper
-  reflPron : Agr -> NP = \agr -> 
-    let 
+  reflPron : Agr -> NP = \agr ->
+    let
       itse = (nhn (sKukko "itse" "itsen" "itsejä")).s ;
       nsa  = possSuffixFront agr
     in {
@@ -582,13 +582,13 @@ oper
       } ;
 
   possSuffixGen : Harmony -> Agr -> Str = \h,agr -> case h of {
-    Front => BIND ++ possSuffixFront agr ; 
+    Front => BIND ++ possSuffixFront agr ;
     Back  => BIND ++ possSuffix agr
     } ;
 
-  possSuffixFront : Agr -> Str = \agr -> 
+  possSuffixFront : Agr -> Str = \agr ->
     table Agr ["ni" ; "si" ; "nsä" ; "mme" ; "nne" ; "nsä" ; "nne"] ! agr ;
-  possSuffix : Agr -> Str = \agr -> 
+  possSuffix : Agr -> Str = \agr ->
     table Agr ["ni" ; "si" ; "nsa" ; "mme" ; "nne" ; "nsa" ; "nne"] ! agr ;
 
 oper
@@ -611,14 +611,14 @@ oper
       isNeg : Bool
       } ;
 
-    heavyQuant : PQuant -> PQuant ** {sp : Number => Case => Str} = \d -> 
-      d ** {sp = d.s1} ; 
+    heavyQuant : PQuant -> PQuant ** {sp : Number => Case => Str} = \d ->
+      d ** {sp = d.s1} ;
     PQuant : Type = {
       s1 : Number => Case => Str ;
-      s2 : Harmony => Str ; 
+      s2 : Harmony => Str ;
       isPoss : Bool ;
       isDef : Bool ;
       isNeg : Bool
-      } ;  
+      } ;
 
 }

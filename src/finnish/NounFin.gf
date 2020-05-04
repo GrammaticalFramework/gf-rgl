@@ -6,15 +6,15 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
 -- The $Number$ is subtle: "nuo autot", "nuo kolme autoa" are both plural
 -- for verb agreement, but the noun form is singular in the latter.
 
-    DetCN det cn = 
+    DetCN det cn =
       let
         n : Number = case det.isNum of {
           True => Sg ;
           _ => det.n
           } ;
         ncase : NPForm -> Case * NForm = \c ->
-          let k = npform2case n c 
-          in 
+          let k = npform2case n c
+          in
           case <n, c, det.isNum, det.isPoss, det.isDef> of {
             <_, NPAcc,       True,_,_>  => <Nom,NCase Sg Part> ; -- myin kolme kytkintä(ni)
             <_, NPCase Nom | NPSep,  True,_,_>  => <Nom,NCase Sg Part> ; -- kolme kytkintä(ni) on
@@ -25,11 +25,11 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
             <_, NPCase Gen,_,True,_>    => <k,  NPossGen n> ;    -- kytkime+ni vika
             <_, NPCase Transl,_,True,_> => <k,  NPossTransl n> ; -- kytkim(e|i)kse+ni
             <_, NPCase Illat,_,True,_>  => <k,  NPossIllat n> ;  -- kytkim(ee|ii)+ni
- 
+
             _                           => <k,  NCase n k>       -- kytkin, kytkimen,...
             }
       in {
-      s = \\c => let 
+      s = \\c => let
                    k = ncase c ;
                  in
                  det.s1 ! k.p1 ++ cn.s ! k.p2 ++ det.s2 ! cn.h ;
@@ -40,7 +40,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       isPron = False ; isNeg = det.isNeg
       } ;
 
-    DetNP det = 
+    DetNP det =
       let
         n : Number = case det.isNum of {
           True => Sg ;
@@ -48,7 +48,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
           } ;
       in {
         s = \\c => let k = npform2case n c in
-                 det.sp ! k ; -- det.s2 is possessive suffix 
+                 det.sp ! k ; -- det.s2 is possessive suffix
         a = agrP3 (case det.isDef of {
             False => Sg ;  -- autoja menee; kolme autoa menee
             _ => det.n
@@ -57,7 +57,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       } ;
 
     UsePN pn = {
-      s = snoun2np Sg pn ; 
+      s = snoun2np Sg pn ;
       a = agrP3 Sg ;
       isPron = False ; isNeg = False
       } ;
@@ -92,8 +92,8 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       } ;
 
     DetQuantOrd quant num ord = {
-      s1 = \\c => quant.s1 ! num.n ! c ++ num.s ! Sg ! c ++ ord.s ! NCase num.n c ; 
-      sp = \\c => quant.s1 ! num.n ! c ++ num.s ! Sg ! c ++ ord.s ! NCase num.n c ; 
+      s1 = \\c => quant.s1 ! num.n ! c ++ num.s ! Sg ! c ++ ord.s ! NCase num.n c ;
+      sp = \\c => quant.s1 ! num.n ! c ++ num.s ! Sg ! c ++ ord.s ! NCase num.n c ;
       s2 = quant.s2 ;
       n = num.n ;
       isNum = num.isNum ;
@@ -105,7 +105,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
     DetQuant quant num = {
       s1 = \\c => quant.s1 ! num.n ! c ++ num.s ! Sg ! c ;
       sp = \\c => case num.isNum of {
-         True  => quant.s1 ! num.n ! c ++ num.s ! Sg ! c ;   -- 0 kolme with Indef 
+         True  => quant.s1 ! num.n ! c ++ num.s ! Sg ! c ;   -- 0 kolme with Indef
          False => quant.sp ! num.n ! c ++ num.s ! Sg ! c     -- yksi 0
          } ;
       s2 = quant.s2 ;
@@ -119,7 +119,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       s1 = \\_,_ => p.poss ;           -- [] in det position with proDrop
       sp = \\_,_ => p.s ! NPCase Gen ; -- to prevent [] with proDrop
       s2 = case p.hasPoss of {
-             True => table {Front => BIND ++ possSuffixFront p.a ; 
+             True => table {Front => BIND ++ possSuffixFront p.a ;
                             Back  => BIND ++ possSuffix p.a } ;
              False => \\_ => []
              } ;
@@ -135,19 +135,19 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
     NumCard n = n ** {isNum = case n.n of {Sg => False ; _ => True}} ;  -- yksi talo/kaksi taloa
 
     NumDigits numeral = {
-      s = \\n,c => numeral.s ! NCard (NCase n c) ; 
-      n = numeral.n 
+      s = \\n,c => numeral.s ! NCard (NCase n c) ;
+      n = numeral.n
       } ;
     OrdDigits numeral = {s = \\f => numeral.s ! NOrd f} ;
 
     NumNumeral numeral = {
-      s = \\n,c => numeral.s ! NCard (NCase n c) ; 
+      s = \\n,c => numeral.s ! NCard (NCase n c) ;
       n = numeral.n
       } ;
     OrdNumeral numeral = {s = \\f => numeral.s ! NOrd f} ;
 
     AdNum adn num = {
-      s = \\n,c => adn.s ++ num.s ! n ! c ; 
+      s = \\n,c => adn.s ++ num.s ! n ! c ;
       n = num.n
       } ;
 
@@ -157,7 +157,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       {s = \\f => n.s ! NOrd (NCase Sg Transl) ++ (snoun2nounSep {s = \\nc => a.s ! Superl ! sAN nc ; h = a.h}).s ! f} ;
 
     DefArt = {
-      s1 = \\_,_ => [] ; 
+      s1 = \\_,_ => [] ;
       sp = table {Sg => pronSe.s ; Pl => pronNe.s} ;
       s2 = \\_ => [] ;
       isNum,isPoss,isNeg = False ;
@@ -166,10 +166,10 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
 
     IndefArt = {
       s1 = \\_,_ => [] ; -- Nom is Part in Pl: use isDef in DetCN
-      sp = \\n,c => 
-         (nhn (mkSubst "ä" "yksi" "yhde" "yhte" "yhtä" "yhteen" "yksi" "yksi" 
+      sp = \\n,c =>
+         (nhn (mkSubst "ä" "yksi" "yhde" "yhte" "yhtä" "yhteen" "yksi" "yksi"
          "yksien" "yksiä" "yksiin")).s ! NCase n c ;
-      s2 = \\_ => [] ; 
+      s2 = \\_ => [] ;
       isNum,isPoss,isDef,isNeg = False -- autoja on
       } ;
 
@@ -179,7 +179,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
         ncase : Case -> NForm = \c -> NCase n c ;
       in {
         s = \\c => let k = npform2case n c in
-                cn.s ! ncase k ; 
+                cn.s ! ncase k ;
         a = agrP3 Sg ;
         isPron = False ; isNeg = False
       } ;
@@ -210,7 +210,7 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
     ComplN3 f x = {
       s = \\nf => preOrPost f.isPre (f.s ! nf) (appCompl True Pos f.c2 x) ;
       c2 = f.c3 ;
-      h = f.h ; 
+      h = f.h ;
       isPre = f.isPre2
       } ;
 
@@ -224,8 +224,8 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
                    h = cn.h } ;
 
     RelNP np rs = {
-      s = \\c => np.s ! c ++ BIND ++ "," ++ rs.s ! np.a ; 
-      a = np.a ;  
+      s = \\c => np.s ! c ++ BIND ++ "," ++ rs.s ! np.a ;
+      a = np.a ;
       isPron = np.isPron ; ---- correct ?
       isNeg = np.isNeg
       } ;
@@ -236,19 +236,19 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
     SentCN cn sc = {s = \\nf=> cn.s ! nf ++ sc.s;
                     h = cn.h } ;
 
-    ApposCN cn np = {s = \\nf=> cn.s ! nf ++ np.s ! NPSep ; 
+    ApposCN cn np = {s = \\nf=> cn.s ! nf ++ np.s ! NPSep ;
                     h = cn.h } ; --- luvun x
 
-    PossNP cn np = {s = \\nf => np.s ! NPCase Gen ++ cn.s ! nf ;  
-                    h = cn.h 
+    PossNP cn np = {s = \\nf => np.s ! NPCase Gen ++ cn.s ! nf ;
+                    h = cn.h
                    } ;
 
-    PartNP cn np = {s = \\nf => cn.s ! nf ++ np.s ! NPCase Part ; 
-                    h = cn.h ---- gives "lasin viiniänsa" ; should be "lasinsa viiniä" 
+    PartNP cn np = {s = \\nf => cn.s ! nf ++ np.s ! NPCase Part ;
+                    h = cn.h ---- gives "lasin viiniänsa" ; should be "lasinsa viiniä"
                    } ;
 
 
-    CountNP det np = 
+    CountNP det np =
       let
         n : Number = case det.isNum of {
           True => Sg ;

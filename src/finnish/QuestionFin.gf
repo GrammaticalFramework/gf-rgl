@@ -9,16 +9,16 @@ concrete QuestionFin of Question = CatFin ** open ResFin, StemFin, Prelude in {
       s = \\t,a,p => cl.s ! t ! a ! p ! SQuest
       } ;
 
-    QuestVP ip vp = 
-      let 
+    QuestVP ip vp =
+      let
         cl = mkClause (subjForm (ip ** {isPron = False ; a = agrP3 ip.n}) vp.s.sc) (agrP3 ip.n) vp
       in {
         s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
         } ;
 
     QuestSlash ip slash = {
-      s = \\t,a,p => 
-            let 
+      s = \\t,a,p =>
+            let
               cls = slash.s ! t ! a ! p ;
               who = appCompl True p slash.c2 (ip ** {a = agrP3 ip.n ; isPron = False})
             in
@@ -30,15 +30,15 @@ concrete QuestionFin of Question = CatFin ** open ResFin, StemFin, Prelude in {
       } ;
 
     QuestIComp icomp np = {
-      s = \\t,a,p => 
-        let 
+      s = \\t,a,p =>
+        let
           vp = predV vpVerbOlla ;
           cl = mkClause (subjForm np vp.s.sc) np.a vp ;
         in
         icomp.s ! np.a ++ cl.s ! t ! a ! p ! SDecl
       } ;
 
-    PrepIP p ip = {s = 
+    PrepIP p ip = {s =
       appCompl True Pos p (ip ** {a = agrP3 ip.n ; isPron = False})} ;
 
     AdvIP ip adv = {
@@ -47,12 +47,12 @@ concrete QuestionFin of Question = CatFin ** open ResFin, StemFin, Prelude in {
       } ;
 
 -- The computation of $ncase$ is a special case of that in $NounFin.DetCN$,
--- since we don't have possessive suffixes or definiteness. 
+-- since we don't have possessive suffixes or definiteness.
 --- It could still be nice to have a common oper...
 
     IdetCN idet cn = let n = idet.n in {
-      s = \\c => 
-        let 
+      s = \\c =>
+        let
           k = npform2case n c ;
           ncase = case <k,idet.isNum> of {
             <Nom,  True> => NCase Sg Part ; -- mitkä kolme kytkintä
@@ -60,33 +60,33 @@ concrete QuestionFin of Question = CatFin ** open ResFin, StemFin, Prelude in {
             _            => NCase n  k      -- mitkä kytkimet
             }
         in
-        idet.s ! k ++ cn.s ! ncase ; 
+        idet.s ! k ++ cn.s ! ncase ;
       n = n
       } ;
 
     IdetIP idet = let n = idet.n in {
-      s = \\c => 
-        let 
+      s = \\c =>
+        let
           k = npform2case n c ;
         in
-        idet.s ! k ; 
+        idet.s ! k ;
       n = n
       } ;
 
-    IdetQuant idet num = 
-      let 
+    IdetQuant idet num =
+      let
         n = num.n ;
-        isn = num.isNum 
+        isn = num.isNum
       in {
-        s = \\k => 
-        let 
+        s = \\k =>
+        let
           ncase = case <k,isn> of {
             <Nom,  True> => NCase Sg Part ; -- mitkä kolme kytkintä
             <_,    True> => NCase Sg k ;    -- miksi kolmeksi kytkimeksi
             _            => NCase n  k      -- mitkä kytkimet
             }
         in
-        idet.s ! n ! k ++ num.s ! Sg ! k ; 
+        idet.s ! n ! k ++ num.s ! Sg ! k ;
       n = n ;
       isNum = isn
       } ;
