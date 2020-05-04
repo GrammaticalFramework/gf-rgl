@@ -3,9 +3,9 @@
 concrete SymbolFin of Symbol = CatFin ** open Prelude, NounFin, ResFin, MorphoFin, StemFin in {
 
 lin
-  SymbPN i = addStemEnding i.s ; 
-  IntPN i = addStemEnding i.s ; 
-  FloatPN i = addStemEnding i.s ;  
+  SymbPN i = addStemEnding i.s ;
+  IntPN i = addStemEnding i.s ;
+  FloatPN i = addStemEnding i.s ;
   NumPN i  = {s = \\c => i.s!Sg!Nom  ; h = Back} ; --- c
 
   CNIntNP cn i = {
@@ -29,7 +29,7 @@ lin
   SymbNum n = {s = \\_,_ => n.s ; isNum = True ; n = Pl} ;
   SymbOrd n = {s = \\_ => glue n.s "."} ;
 
-lincat 
+lincat
 
   Symb, [Symb] = SS ;
 
@@ -41,4 +41,3 @@ lin
   ConsSymb = infixSS (SOFT_BIND ++ ",") ;
 
 }
-

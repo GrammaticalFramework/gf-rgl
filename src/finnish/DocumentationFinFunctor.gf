@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 
-incomplete concrete DocumentationFinFunctor of Documentation = CatFin ** open 
+incomplete concrete DocumentationFinFunctor of Documentation = CatFin ** open
   Terminology, -- the interface
   ResFin,
   StemFin,
@@ -34,10 +34,10 @@ lin
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 (heading adjective_Category) ;
-    s2 = inflNoun (\nf -> (snoun2nounSep {s = \\f => adj.s ! Posit  ! sAN f ; h = adj.h}).s ! nf) ++ 
-         heading2 (heading comparative_Parameter) ++ 
-         inflNoun (\nf -> (snoun2nounSep {s = \\f => adj.s ! Compar ! sAN f ; h = adj.h}).s ! nf) ++ 
-         heading2 (heading superlative_Parameter) ++ 
+    s2 = inflNoun (\nf -> (snoun2nounSep {s = \\f => adj.s ! Posit  ! sAN f ; h = adj.h}).s ! nf) ++
+         heading2 (heading comparative_Parameter) ++
+         inflNoun (\nf -> (snoun2nounSep {s = \\f => adj.s ! Compar ! sAN f ; h = adj.h}).s ! nf) ++
+         heading2 (heading superlative_Parameter) ++
          inflNoun (\nf -> (snoun2nounSep {s = \\f => adj.s ! Superl ! sAN f ; h = adj.h}).s ! nf)
     } ;
 
@@ -55,91 +55,91 @@ lin
 
   InflectionV v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v)) ;
     s2 = inflVerb v
     } ;
 
   InflectionV2 v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v S.something_NP)) ;
     s2 = inflVerb v
     } ;
 
   InflectionV3 v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v S.something_NP S.something_NP)) ;
     s2 = inflVerb v
     } ;
 
   InflectionV2V v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v S.we_NP (S.mkVP (L.sleep_V)))) ;
     s2 = inflVerb v
     } ;
 
   InflectionV2S v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v S.we_NP (lin S (ss "...")))) ;
     s2 = inflVerb v
     } ;
 
   InflectionV2Q v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v S.we_NP (lin QS (ss "...")))) ;
     s2 = inflVerb v
     } ;
 
   InflectionV2A v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v S.we_NP L.beautiful_A)) ;
     s2 = inflVerb v
     } ;
 
   InflectionVV v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v (S.mkVP (L.sleep_V)))) ;
     s2 = inflVerb v
     } ;
 
   InflectionVS v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v (lin S (ss "...")))) ;
     s2 = inflVerb v
     } ;
 
   InflectionVQ v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v (lin QS (ss "...")))) ;
     s2 = inflVerb v
     } ;
 
   InflectionVA v = {
     t  = "v" ;
-    s1 = heading1 (heading verb_Category) ++  
+    s1 = heading1 (heading verb_Category) ++
          paragraph (verbExample (S.mkCl S.she_NP v L.beautiful_A)) ;
     s2 = inflVerb v
     } ;
 
-oper 
+oper
   verbExample : CatFin.Cl -> Str = \cl -> (S.mkUtt cl).s ;
 {-
 -} --# notpresent
   inflVerb : CatFin.V -> Str = \verb0 ->
-     let 
+     let
        verb = sverb2verbSep verb0 ;
        vfin : ResFin.VForm -> Str = \f ->
          verb.s ! f ;
-         
+
        nounNounHeading : Parameter -> Parameter -> Str = \n1,n2 ->
          (S.mkUtt (G.PossNP (S.mkCN n1) (S.mkNP (snoun2nounSep n2)))).s ;
      in
@@ -149,7 +149,7 @@ oper
              th (heading singular_Parameter) ++
              th (heading plural_Parameter)
              ++ th (heading passive_Parameter) --# notpresent
-            ) ++ 
+            ) ++
          tr (th "1.p"  ++ td (vfin (Presn Sg P1)) ++ td (vfin (Presn Pl P1))
              ++ intagAttr "td" "rowspan=3" (vfin (PassPresn True)) --# notpresent
             ) ++
@@ -164,13 +164,13 @@ oper
              th (heading singular_Parameter) ++
              th (heading plural_Parameter)
              ++ th (heading passive_Parameter) --# notpresent
-            ) ++ 
+            ) ++
          tr (th "1.p"  ++ td (vfin (Impf Sg P1)) ++ td (vfin (Impf Pl P1))
              ++ intagAttr "td" "rowspan=3" (vfin (PassImpf True))) ++
          tr (th "2.p"  ++ td (vfin (Impf Sg P2)) ++ td (vfin (Impf Pl P2))) ++
          tr (th "3.p"  ++ td (vfin (Impf Sg P3)) ++ td (vfin (Impf Pl P3))) ++
          tr (th (heading negative_Parameter) ++
-             td (vfin (PastPartAct (AN (NCase Sg Nom)))) ++ 
+             td (vfin (PastPartAct (AN (NCase Sg Nom)))) ++
              td (vfin (PastPartAct (AN (NCase Pl Nom)))) ++
              td (vfin (PassImpf False)))
          ) ++
@@ -180,7 +180,7 @@ oper
              th (heading singular_Parameter) ++
              th (heading plural_Parameter)
              ++ th (heading passive_Parameter) --# notpresent
-            ) ++ 
+            ) ++
          tr (th "1.p"  ++ td (vfin (Condit Sg P1)) ++ td (vfin (Condit Pl P1))
              ++ intagAttr "td" "rowspan=3" (vfin (PassCondit True)) --# notpresent
             ) ++
@@ -195,7 +195,7 @@ oper
              th (heading singular_Parameter) ++
              th (heading plural_Parameter)
              ++ th (heading passive_Parameter) --# notpresent
-            ) ++ 
+            ) ++
          tr (th "1.p"  ++ td (vfin (Potent Sg P1)) ++ td (vfin (Potent Pl P1))
              ++ intagAttr "td" "rowspan=3" (vfin (PassPotent True)) --# notpresent
             ) ++
@@ -210,34 +210,34 @@ oper
              th (heading singular_Parameter) ++
              th (heading plural_Parameter)
              ++ th (heading passive_Parameter) --# notpresent
-            ) ++ 
+            ) ++
          tr (th "1.p"  ++ td "" ++ td (vfin ImperP1Pl)
              ++ intagAttr "td" "rowspan=3" (vfin (PassImper True))) ++
          tr (th "2.p"  ++ td (vfin (Imper Sg)) ++ td (vfin (Imper Pl))) ++
          tr (th "3.p"  ++ td (vfin (ImperP3 Sg)) ++ td (vfin (ImperP3 Pl))) ++
          tr (th (heading negative_Parameter) ++
-             td (vfin (Imper Sg)) ++ 
+             td (vfin (Imper Sg)) ++
              td (vfin ImpNegPl) ++
              td (vfin (PassImper False)))
          ) ++
        heading2 (nounPluralHeading nominal_form_ParameterType).s ++
        heading3 (heading infinitive_Parameter) ++
        frameTable (
-         tr (intagAttr "th" "rowspan=2" "1" ++         
+         tr (intagAttr "th" "rowspan=2" "1" ++
              th (heading short_Parameter) ++ ---
              td (vfin (Inf Inf1))) ++
          tr (th (heading long_Parameter) ++ ---
              td (vfin (Inf Inf1Long) ++ BIND ++ "(ni)")) ++
-         tr (intagAttr "th" "rowspan=2" ("2." ++ heading active_Parameter) ++         
-             th (heading inessive_Parameter) ++ 
+         tr (intagAttr "th" "rowspan=2" ("2." ++ heading active_Parameter) ++
+             th (heading inessive_Parameter) ++
              td (vfin (Inf Inf2Iness))) ++
-         tr (th (heading instructive_Parameter) ++ 
+         tr (th (heading instructive_Parameter) ++
              td (vfin (Inf Inf2Instr))) ++
-         tr (th ("2." ++ heading passive_Parameter) ++         
-             th (heading inessive_Parameter) ++ 
+         tr (th ("2." ++ heading passive_Parameter) ++
+             th (heading inessive_Parameter) ++
              td (vfin (Inf Inf2InessPass))) ++
 
-         tr (intagAttr "th" "rowspan=7" "3." ++         
+         tr (intagAttr "th" "rowspan=7" "3." ++
              th (heading inessive_Parameter) ++ td (vfin (Inf Inf3Iness))) ++
          tr (th (heading elative_Parameter)  ++ td (vfin (Inf Inf3Elat))) ++
          tr (th (heading illative_Parameter) ++ td (vfin (Inf Inf3Illat))) ++
@@ -246,7 +246,7 @@ oper
          tr (th (heading instructive_Parameter) ++ td (vfin (Inf Inf3Instr))) ++
          tr (th (heading instructive_Parameter ++ "pass.") ++ td (vfin (Inf Inf3InstrPass))) ++
 
-         tr (intagAttr "th" "rowspan=2" "4." ++         
+         tr (intagAttr "th" "rowspan=2" "4." ++
              th (heading nominative_Parameter) ++ td (vfin (Inf Inf4Nom))) ++
          tr (th (heading partitive_Parameter) ++ td (vfin (Inf Inf4Part))) ++
 
@@ -254,25 +254,25 @@ oper
        ) ++
        heading3 (heading participle_Parameter) ++
        frameTable (
-         tr (intagAttr "th" "rowspan=2" (heading present_Parameter) ++         
-             th (heading active_Parameter) ++ 
+         tr (intagAttr "th" "rowspan=2" (heading present_Parameter) ++
+             th (heading active_Parameter) ++
              td (vfin (PresPartAct (AN (NCase Sg Nom))))) ++
-         tr (th (heading passive_Parameter) ++ 
+         tr (th (heading passive_Parameter) ++
              td (vfin (PresPartPass (AN (NCase Sg Nom))))) ++
 
-         tr (intagAttr "th" "rowspan=2" (heading perfect_Parameter) ++         
-             th (heading active_Parameter) ++ 
+         tr (intagAttr "th" "rowspan=2" (heading perfect_Parameter) ++
+             th (heading active_Parameter) ++
              td (vfin (PastPartAct (AN (NCase Sg Nom))))) ++
 
-         tr (th (heading passive_Parameter) ++ 
+         tr (th (heading passive_Parameter) ++
              td (vfin (PastPartPass (AN (NCase Sg Nom))))) ++
 
-         tr (intagAttr "th" "colspan=2" (heading agent_Parameter) ++         
+         tr (intagAttr "th" "colspan=2" (heading agent_Parameter) ++
              td (vfin (AgentPart (AN (NCase Sg Nom)))))
          ) ;
 
-  inflNoun : (NForm -> Str) -> Str = \nouns -> 
-    frameTable ( 
+  inflNoun : (NForm -> Str) -> Str = \nouns ->
+    frameTable (
           tr (th ""          ++ th (heading singular_Parameter)            ++ th (heading plural_Parameter)   ) ++
           tr (th (heading nominative_Parameter) ++ td (nouns (NCase Sg Nom)) ++ td (nouns (NCase Pl Nom))) ++
           tr (th (heading genitive_Parameter) ++ td (nouns (NCase Sg Gen)) ++ td (nouns (NCase Pl Gen))) ++
@@ -287,7 +287,7 @@ oper
           tr (th (heading allative_Parameter) ++ td (nouns (NCase Sg Allat)) ++ td (nouns (NCase Pl Allat))) ++
           tr (th (heading abessive_Parameter) ++ td (nouns (NCase Sg Abess)) ++ td (nouns (NCase Pl Abess))) ++
           tr (th (heading comitative_Parameter)  ++ td "" ++ td (nouns (NComit))) ++
-          tr (th (heading instructive_Parameter) ++ td "" ++ td (nouns (NInstruct))) 
+          tr (th (heading instructive_Parameter) ++ td "" ++ td (nouns (NInstruct)))
           ) ;
 
 lin
@@ -300,6 +300,6 @@ lin
   MkTag i = ss (i.t) ;
 
 {- --# notpresent
--} 
+-}
 
 }

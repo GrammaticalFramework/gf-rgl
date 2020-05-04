@@ -8,7 +8,7 @@ concrete StructuralFin of Structural = CatFin **
   above_Prep = postGenPrep "yläpuolella" ;
   after_Prep = postGenPrep "jälkeen" ;
 
-  all_Predet = {s = \\n,c => 
+  all_Predet = {s = \\n,c =>
     let
       kaiket = caseTable n (snoun2nounBind (mkN "kaikki" "kaiken" "kaikkena"))
     in
@@ -47,15 +47,15 @@ concrete StructuralFin of Structural = CatFin **
   here7from_Adv = mkAdv "täältä" ;
   how_IAdv = ssp "ADV" "miten" ;
   how8much_IAdv = ssp "ADV" ("kuinka" ++ tagPOS "ADV" "paljon") ;
-  how8many_IDet = 
+  how8many_IDet =
     {s = \\c => "kuinka" ++ (snoun2nounBind (mkN "moni" "monia")).s ! NCase Sg c ; n = Sg ; isNum = False} ;
   if_Subj = ssp "CONJ" "jos" ;
   in8front_Prep = postGenPrep "edessä" ;
   i_Pron  = mkPersonPronoun "minä" "minun" "minua" "minuna" "minuun" Sg P1 ;
   in_Prep = casePrep inessive ;
   it_Pron = {
-    s = \\c => pronSe.s ! npform2case Sg c ; 
-    a = agrP3 Sg ; 
+    s = \\c => pronSe.s ! npform2case Sg c ;
+    a = agrP3 Sg ;
     hasPoss = False ;
     poss = "sen" ;
     } ;
@@ -79,7 +79,7 @@ concrete StructuralFin of Structural = CatFin **
   so_AdA = ssp "ADV" "niin" ;
   somebody_NP = {
     s = \\c => jokuPron ! Sg ! npform2case Sg c ;
-    a = agrP3 Sg ; 
+    a = agrP3 Sg ;
     isPron = False ; isNeg = False
     } ;
   someSg_Det = heavyDet {
@@ -89,12 +89,12 @@ concrete StructuralFin of Structural = CatFin **
     } ;
   somePl_Det = heavyDet {
     s1 = jokuPron ! Pl ;
-    s2 = \\_ => [] ; isNum,isPoss = False ; isNeg = False ; isDef = True ; 
+    s2 = \\_ => [] ; isNum,isPoss = False ; isNeg = False ; isDef = True ;
     n = Pl ; isNeg = False
     } ;
   something_NP = {
     s = \\c => jokinPron ! Sg ! npform2case Sg c ;
-    a = agrP3 Sg ; 
+    a = agrP3 Sg ;
     isPron = False ; isNeg = False ; isNeg = False
     } ;
   somewhere_Adv = ssp "ADV" "jossain" ;
@@ -107,7 +107,7 @@ concrete StructuralFin of Structural = CatFin **
             c => (mkPersonPronoun "nuo" "noiden" "noita" "noina" "noihin" Sg P3).s ! NPCase c
             }
           } ;
-    s2 = \\_ => [] ; isNum,isPoss = False ; isDef = True  ; isNeg = False 
+    s2 = \\_ => [] ; isNum,isPoss = False ; isDef = True  ; isNeg = False
     } ;
   that_Subj = ssp "CONJ" "että" ;
   there_Adv = ssp "ADV" "siellä" ; --- tuolla
@@ -161,21 +161,21 @@ concrete StructuralFin of Structural = CatFin **
   yes_Utt = ssp "INTERJ" "kyllä" ;
   youSg_Pron = mkPersonPronoun "sinä" "sinun" "sinua" "sinuna" "sinuun"  Sg P2 ;
   youPl_Pron = mkPersonPronoun "te" "teidän" "teitä" "teinä" "teihin"  Pl P2 ;
-  youPol_Pron = 
+  youPol_Pron =
     let p = mkPersonPronoun "te" "teidän" "teitä" "teinä" "teihin"  Pl P2 in
     {s = p.s ; a = AgPol ; hasPoss = True ; poss = p.poss} ;
 
 oper
   jokuPron : MorphoFin.Number => (MorphoFin.Case) => Str =
-    let 
-      kui = snoun2nounBind (mkN "kuu") 
+    let
+      kui = snoun2nounBind (mkN "kuu")
     in
     table {
       Sg => table {
         Nom => "joku" ;
         Gen => "jonkun" ;
         c => relPron ! Sg ! c + "ku" + Predef.drop 3 (kui.s ! NCase Sg c)
-       } ; 
+       } ;
       Pl => table {
         Nom => "jotkut" ;
         c => relPron ! Pl ! c + kui.s ! NCase Pl c
@@ -188,14 +188,14 @@ oper
         Nom => "jokin" ;
         Gen => "jonkin" ;
         c => relPron ! Sg ! c + "kin"
-       } ; 
+       } ;
       Pl => table {
         Nom => "jotkin" ;
         c => relPron ! Pl ! c + "kin"
         }
       } ;
 
-  mikaInt : MorphoFin.Number => (MorphoFin.Case) => Str = 
+  mikaInt : MorphoFin.Number => (MorphoFin.Case) => Str =
     let {
       mi  = snoun2nounBind (mkN "mi")
     } in
@@ -206,7 +206,7 @@ oper
         Part => "mitä" ;
         Illat => "mihin" ;
         c   => mi.s ! NCase Sg c
-       } ; 
+       } ;
       Pl => table {
         Nom => "mitkä" ;
         Gen => "minkä" ;
@@ -216,15 +216,15 @@ oper
         }
       } ;
 
-  kukaInt : MorphoFin.Number => (MorphoFin.Case) => Str = 
-    let 
-      kuka = snoun2nounBind (mkN "kuka" "kenen" "ketä" "kenä" "keneen" 
+  kukaInt : MorphoFin.Number => (MorphoFin.Case) => Str =
+    let
+      kuka = snoun2nounBind (mkN "kuka" "kenen" "ketä" "kenä" "keneen"
                  "keiden" "keitä" "keinä" "keissä" "keihin") ;
     in
     table {
       Sg => table {
         c   => kuka.s ! NCase Sg c
-       } ; 
+       } ;
       Pl => table {
         Nom => "ketkä" ;
         c   => kuka.s ! NCase Pl c
@@ -243,7 +243,7 @@ oper
         <_,Adess> => "millään" ;
         <_,Ablat> => "miltään" ;
         _   => mikaInt ! n ! c + "kään"
-       } ; 
+       } ;
 
   kukaanPron : MorphoFin.Number => (MorphoFin.Case) => Str =
     table {
@@ -257,7 +257,7 @@ oper
         Adess => "kellään" ;
         Ablat => "keltään" ;
         c   => kukaInt ! Sg ! c + "kään"
-       } ; 
+       } ;
       Pl => table {
         Nom => "ketkään" ;
         Part => "keitään" ;
@@ -271,9 +271,9 @@ oper
       } ;
 
 oper
-  makeNP  : SNoun -> MorphoFin.Number -> CatFin.NP ; 
+  makeNP  : SNoun -> MorphoFin.Number -> CatFin.NP ;
   makeNP noun num = {
-    s = \\c => (snoun2nounBind noun).s ! NCase num (npform2case num c) ; 
+    s = \\c => (snoun2nounBind noun).s ! NCase num (npform2case num c) ;
     a = agrP3 num ;
     isPron, isNeg = False ;
     lock_NP = <>
@@ -290,13 +290,13 @@ lin
   if_then_Conj = {s1 = "jos" ; s2 = "niin" ; n = Sg} ;
   nobody_NP = {
     s = \\c => kukaanPron ! Sg ! npform2case Sg c ; --- requires negative polarity
-    a = agrP3 Sg ; 
+    a = agrP3 Sg ;
     isPron = False ; isNeg = True
     } ;
 
   nothing_NP = {
     s = \\c => mikaanPron ! Sg ! npform2case Sg c ; --- requires negative polarity
-    a = agrP3 Sg ; 
+    a = agrP3 Sg ;
     isPron = False ; isNeg = True
     } ;
 
@@ -317,4 +317,3 @@ oper
   mkPersonPronoun : (_,_,_,_,_ : Str) ->  Number -> Person -> Pron = \a,b,c,d,e,n,p ->
     lin Pron (MorphoFin.mkPronoun a b c d e n p) ;
 }
-

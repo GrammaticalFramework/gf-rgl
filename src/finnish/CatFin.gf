@@ -22,7 +22,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 
     QCl    = {s : ResFin.Tense => Anteriority => Polarity => Str} ;
     IP     = {s : NPForm => Str ; n : Number} ;
-    IComp  = {s : Agr => Str} ; 
+    IComp  = {s : Agr => Str} ;
     IDet   = {s : Case => Str ; n : Number ; isNum : Bool} ;
     IQuant = {s : Number => Case => Str} ;
 
@@ -34,15 +34,15 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 -- Verb
 
     VP   = StemFin.VP ;
-    VPSlash = StemFin.VP ** {c2 : Compl} ; 
-    Comp = {s : Agr => Str} ; 
+    VPSlash = StemFin.VP ** {c2 : Compl} ;
+    Comp = {s : Agr => Str} ;
 
 -- Adjective
 
 -- The $Bool$ tells whether usage is modifying (as opposed to
 -- predicative), e.g. "x on suurempi kuin y" vs. "y:tä suurempi luku".
 
-    AP = {s : Bool => NForm => Str ; p : Str ; hasPrefix : Bool} ; 
+    AP = {s : Bool => NForm => Str ; p : Str ; hasPrefix : Bool} ;
 
 -- Noun
 
@@ -82,7 +82,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ = SVerb1 ; 
+    V, VS, VQ = SVerb1 ;
     V2, VA, V2Q, V2S = SVerb1 ** {c2 : Compl} ;
     V2A = SVerb1 ** {c2, c3 : Compl} ;
     VV = SVerb1 ** {vi : VVType} ; ---- infinitive form

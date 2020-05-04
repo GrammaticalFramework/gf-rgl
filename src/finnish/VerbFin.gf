@@ -10,17 +10,17 @@ concrete VerbFin of Verb = CatFin ** open Prelude, ResFin, StemFin in {
 
     SlashV2a v = predSV v ** {c2 = v.c2} ;
 
-    Slash2V3 v np = 
-      insertObj 
+    Slash2V3 v np =
+      insertObj
         (\\fin,b,_ => appCompl fin b v.c2 np) (predSV v) ** {c2 = v.c3} ;
-    Slash3V3 v np = 
-      insertObj 
+    Slash3V3 v np =
+      insertObj
         (\\fin,b,_ => appCompl fin b v.c3 np) (predSV v) ** {c2 = v.c2} ;
 
-    ComplVV v vp = 
-      insertObj 
-        (\\_,b,a => infVP v.sc b a vp (vvtype2infform v.vi)) 
-        (predSV {s = v.s ; 
+    ComplVV v vp =
+      insertObj
+        (\\_,b,a => infVP v.sc b a vp (vvtype2infform v.vi))
+        (predSV {s = v.s ;
                 sc = case vp.s.sc of {
                   SCNom => v.sc ;   -- minun täytyy pestä auto
                   c => c                 -- minulla täytyy olla auto
@@ -31,34 +31,34 @@ concrete VerbFin of Verb = CatFin ** open Prelude, ResFin, StemFin in {
 
     ComplVS v s  = insertExtrapos (SOFT_BIND ++ "," ++ etta_Conj ++ s.s) (predSV v) ;
     ComplVQ v q  = insertExtrapos (SOFT_BIND ++ "," ++ q.s) (predSV v) ;
-    ComplVA v ap = 
-      insertObj 
-        (\\_,b,agr => 
+    ComplVA v ap =
+      insertObj
+        (\\_,b,agr =>
            let n = (complNumAgr agr) in
            ap.s ! False ! (NCase n (npform2case n v.c2.c))) --- v.cs.s ignored
         (predSV v) ;
 
-    SlashV2S v s = 
+    SlashV2S v s =
       insertExtrapos (SOFT_BIND ++ "," ++ etta_Conj ++ s.s) (predSV v) ** {c2 = v.c2} ;
-    SlashV2Q v q = 
+    SlashV2Q v q =
       insertExtrapos (SOFT_BIND ++ "," ++ q.s) (predSV v) ** {c2 = v.c2} ;
-    SlashV2V v vp = 
+    SlashV2V v vp =
       insertObj (\\_,b,a => infVP v.sc b a vp (vvtype2infform v.vi)) (predSV v) ** {c2 = v.c2} ;
-    SlashV2A v ap = 
-      insertObj 
-        (\\fin,b,_ => 
+    SlashV2A v ap =
+      insertObj
+        (\\fin,b,_ =>
           ap.s ! False ! (NCase Sg (npform2case Sg v.c3.c))) ----agr to obj
         (predSV v) ** {c2 = v.c2} ;
 
     ComplSlash vp np = insertObjPre np.isNeg (\fin,b,_ -> appCompl fin b vp.c2 np) vp ;
 
-    UseComp comp = 
+    UseComp comp =
       insertObj (\\_,_ => comp.s) (predV vpVerbOlla) ;
 
     UseCopula = predV vpVerbOlla ;
 
     SlashVV v vp = {
-      s  = v ; 
+      s  = v ;
       s2 = \\_,b,a => infVP v.sc b a vp (vvtype2infform v.vi) ;
       adv = \\_ => v.p ;
       vptyp = vp.vptyp ;
@@ -66,10 +66,10 @@ concrete VerbFin of Verb = CatFin ** open Prelude, ResFin, StemFin in {
       c2 = vp.c2
       } ;
 
-{- 
-      insertObj 
-        (\\_,b,a => infVP v.sc b a vp v.vi) 
-        (predSV {s = v.s ; 
+{-
+      insertObj
+        (\\_,b,a => infVP v.sc b a vp v.vi)
+        (predSV {s = v.s ;
                 sc = case vp.s.sc of {
                   NPCase Nom => v.sc ;   -- minun täytyy pestä auto
                   c => c                 -- minulla täytyy olla auto
@@ -97,14 +97,14 @@ concrete VerbFin of Verb = CatFin ** open Prelude, ResFin, StemFin in {
 {- ----
       s = \\vif,ant,pol,agr => case vif of {
         VIFin t  => vp.s ! VIPass t ! ant ! pol ! agr ;
-        _ => vp.s ! vif ! ant ! pol ! agr 
+        _ => vp.s ! vif ! ant ! pol ! agr
         } ;
-      sc = v.c2.c ; -- minut valitaan ; minua rakastetaan ; minulle kuiskataan 
+      sc = v.c2.c ; -- minut valitaan ; minua rakastetaan ; minulle kuiskataan
       } ;           ---- talon valitaan: should be marked like inf.
 -}
 
     CompAP ap = {
-      s = \\agr => 
+      s = \\agr =>
           let
             n = complNumAgr agr ;
             c = case n of {
@@ -114,7 +114,7 @@ concrete VerbFin of Verb = CatFin ** open Prelude, ResFin, StemFin in {
           in ap.s ! False ! (NCase n c)
       } ;
     CompCN cn = {
-      s = \\agr => 
+      s = \\agr =>
           let
             n = complNumAgr agr ;
             c = case n of {
@@ -133,17 +133,17 @@ concrete VerbFin of Verb = CatFin ** open Prelude, ResFin, StemFin in {
 --2 The object case
 --
 -- The rules involved are ComplV2 and ComplVV above.
--- The work is done jointly in ResFin.infVP and appCompl. 
+-- The work is done jointly in ResFin.infVP and appCompl.
 -- Cases to test: l -table (to see negated forms)
 --```
 --   minun täytyy ostaa auto
---   PredVP (UsePron i_Pron) (ComplVV must_VV 
+--   PredVP (UsePron i_Pron) (ComplVV must_VV
 --     (ComplV2 buy_V2 (DetCN (DetSg (SgQuant DefArt) NoOrd) (UseN car_N))))
 --   minä tahdon ostaa auton
---   PredVP (UsePron i_Pron) (ComplVV want_VV 
+--   PredVP (UsePron i_Pron) (ComplVV want_VV
 --     (ComplV2 buy_V2 (DetCN (DetSg (SgQuant DefArt) NoOrd) (UseN car_N))))
 --   minulla täytyy olla auto
---   PredVP (UsePron i_Pron) (ComplVV must_VV 
+--   PredVP (UsePron i_Pron) (ComplVV must_VV
 --     (ComplV2 have_V2 (DetCN (DetSg (SgQuant DefArt) NoOrd) (UseN car_N))))
 --```
 -- Unfortunately, there is no nice way to say "I want to have a car".

@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 
-concrete TerminologyFin of Terminology = CatFin ** open 
+concrete TerminologyFin of Terminology = CatFin ** open
   ResFin,
   StemFin,
   ParadigmsFin,
@@ -18,9 +18,9 @@ lincat
   ParameterType = G.N ;
   Parameter = G.N ;
   Modifier = G.A ;
-  
+
   Heading = {s : Str} ;
-  
+
 
 lin
   noun_Category = mkN "substantiivi" ;
@@ -59,7 +59,7 @@ lin
 
   active_Parameter = mkN "aktiivi" ;
   passive_Parameter = mkN "passiivi" ;
-  
+
   imperative_Parameter = mkN "imperatiivi" ;
   indicative_Parameter = mkN "indikatiivi" ;
   conjunctive_Parameter = mkN "konjunktiivi" ;

@@ -22,7 +22,7 @@ concrete ConjunctionFin of Conjunction =
       c = ss.c
       } ;
 
-    ConjCN conj ss = 
+    ConjCN conj ss =
       let s = (conjunctDistrTable NForm conj ss).s
       in {s = s ; h = Back } ; ---- harmony?
 
