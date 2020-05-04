@@ -582,7 +582,10 @@ mkVS = overload {
         ukk = init ukko ;
         ukot = nForms2 ukko ukkoja ;
       in
-      case <ukko,ukon> of {
+      case <ukko,ukon,ukkoja> of {
+        <muk + "i", muk_ + "in",
+         muk__ + "ej" + ("a"|"ä")> -- don't match voi - voin - voita
+           => dPaatti ukko ukon ;  -- 1-arg paradigm forces consonant gradation
         <_, _ + ":n"> => dSDP ukko ;
         <_ + ("aa" | "ee" | "ii" | "oo" | "uu" | "yy" | "ää" | "öö" |
               "ie" | "uo" | "yö" | "ea" | "eä" |
@@ -598,9 +601,6 @@ mkVS = overload {
           dRae ukko ukon ;
         <nukk + "e", nuk + "een"> => dRae ukko ukon ;
         <arp + "i", arv + "en"> => dArpi ukko ukon ;
-        <muk + "i", muk_ + "in",
-          muk__ + "ej" + ("a"|"ä")> => -- don't match voi - voin - voita
-          dPaatti ukko ukon ; -- 1-arg paradigm forces consonant gradation
         <_ + ("us" | "ys"), _ + "den"> => dLujuus ukko ;
         <laid + ("u"|"a"|"ä") + "n", laitu + "men">
           => dLiitin ukko ukon ; -- laidun,hapan,sydän not caught in previous
