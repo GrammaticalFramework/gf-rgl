@@ -595,6 +595,7 @@ mkVS = overload {
           dSilakka ukko ukon ukkoja ;  -- auto,auton
         <_ + "mpi", _ + ("emman" | "emmän")> => dSuurempi ukko ;
         <_ + "in", _ + ("imman" | "immän")> => dSuurin ukko ;
+        <lämm + "in", lämpi + ("man"|"män")> => dLämmin ukko ukon ;
         <terv + "e", terv2 + "een"> => -- was nonlinear
           dRae ukko ukon ;
         <taiv + ("as" | "äs"), taiv2 + ("aan" | "ään")> =>  -- was nonlinear
