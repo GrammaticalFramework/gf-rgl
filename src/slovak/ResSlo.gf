@@ -739,10 +739,15 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         } ;
       Ag (Masc _) Sg P3 => {
         nom = "on" ;
-        gen,acc = "jeho" ;  ---- + other forms
+        gen,acc = "jeho" ;
         cgen,cacc = "ho" ;
-        pgen,pacc = "neho" ; ---- + other forms
+        pgen,pacc = "neho" ;
+        ---- pgen = "ňho"; ---- bind, only with prepositions "do", "u"
+        ---- pgen = "ň"; ---- bind, only with preposition "do", "u"
         dat = "jemu" ;
+        ---- pacc = "eň" ; ---- bind, only with preposition "cez" 
+        ---- pacc = "ňho" ; ---- bind, only with prepositions "na", "pre", "za"
+        ---- pacc = "ň" ; ---- bind, only with preposition "na", "pre", "za"
 	cdat = "mu" ;
 	pdat = "nemu" ;
 	loc = "ňom" ;
@@ -757,12 +762,16 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         } ;
       Ag Neutr Sg P3 => {
         nom = "ono" ;
-        gen = "jeho" ;
+        gen, acc = "jeho" ;
         cgen,cacc = "ho" ;
         pgen = "neho" ;
-        dat = "jemu" ;
-	acc = "je" ;
-        pacc = "eň" ; ---- bind?
+        ---- pgen = "ňho"; ---- bind, only with prepositions "do", "u"
+        ---- pgen = "ň"; ---- bind, only with preposition "do", "u"
+        dat = "jemu" ; 
+        ---- pacc = "eň" ; ---- bind, only with preposition "cez" 
+        ---- pacc = "ňho" ; ---- bind, only with prepositions "na", "pre", "za"
+        ---- pacc = "ň" ; ---- bind, only with preposition "na", "pre", "za"
+        pacc = "jeho"; ---- doublecheck
 	cdat = "mu" ;
 	pdat = "nemu" ;
 	loc = "ňom" ;
@@ -844,7 +853,7 @@ oper
     } ;
 
   mkDemPronForms : Str -> DemPronForms = \jedn -> {
-      msnom   = jedn + "y" ;
+      msnom   = jedn + "y" ; -- should be "jeden"
       fsnom   = jedn + "a" ;
       nsnom   = jedn + "o" ;
       msgen   = jedn + "ého" ;
@@ -855,7 +864,7 @@ oper
       msins   = jedn + "ým" ;
       fsins   = jedn + "ou" ;
       ampnom  = jedn + "i" ;
-      fpnom   = jedn + "é" ; ---- ?
+      fpnom   = jedn + "y" ;
       pgen    = jedn + "ých" ;
       pdat    = jedn + "ým" ;
       pins    = jedn + "ými" ;
@@ -887,7 +896,7 @@ oper
 
 -- interrogatives
 
- kdoForms : Case => Str = table {
+ ktoForms : Case => Str = table {
    Nom => "kto" ;
    Gen | Acc => "koho" ;
    Dat => "komu" ;
@@ -898,7 +907,7 @@ oper
  coForms : Case => Str = table {
    Nom|Acc => "čo" ;
    Gen => "čoho" ;
-   Dat => "čemu" ;
+   Dat => "čomu" ;
    Loc => "čom" ;
    Ins => "čím"
    } ;
@@ -958,12 +967,12 @@ oper
 
   fourNumeral : Determiner =
       let forms = {
-      ---- amsnom = "štiraja" ;
-      msnom, fsnom, nsnom, fsacc = "štiri" ; ---- amsacc = "štiroch"
-      msgen, fsgen = "štiroch" ;
-      msdat = "štirom" ;
-      msloc = "štiroch" ;
-      msins,fsins = "štiromi" ;
+      ---- amsnom = "štyria" ;
+      msnom, fsnom, nsnom, fsacc = "štyri" ; ---- amsacc = "štyroch"
+      msgen, fsgen = "štyroch" ;
+      msdat = "štyrom" ;
+      msloc = "štyroch" ;
+      msins,fsins = "štyrmi" ;
       }
     in numeralFormsDeterminer forms Num2_4 ;
 
