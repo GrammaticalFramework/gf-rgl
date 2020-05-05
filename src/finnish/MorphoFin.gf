@@ -98,6 +98,17 @@ resource MorphoFin = ResFin ** open Prelude in {
       (liittim + "in" + a) (liittim + "iss" + a)
       (liittim + "iin") ;
 
+  dLämmin : (_,_ : Str) -> NForms = \lämmin,lämpimän ->
+    let                   -- NB. for sisin~sisimmän, use dSuurin
+      a = vowHarmony lämmin ;
+      lämpim = Predef.tk 2 lämpimän ;
+    in nForms10
+      lämmin lämpimän (lämmin + "t" + a)
+      (lämpim + a + "n" + a)  (lämpim + a + a + "n")
+      (lämpim + "ien") (lämpim + "i" + a)
+      (lämpim + "in" + a) (lämpim + "iss" + a)
+      (lämpim + "iin") ;
+
   dOnneton : Str -> NForms = \onneton ->
     let
       a = vowHarmony onneton ;
