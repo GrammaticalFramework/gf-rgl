@@ -108,6 +108,8 @@ oper
   paviA  : Str -> A
     = \s -> lin A (R.paviA s) ;
 
+  invarA : Str -> A
+    = \s -> lin A (invarAdjForms s) ;
 
   mkA2 : A -> Prep -> A2
     = \a,p -> lin A2 (a ** {c = p}) ;

@@ -92,13 +92,7 @@ oper
 
   mkA = overload {
     mkA : Str -> A
-      = \s -> lin A (case s of {
-        _ + "ý"  => mladyAdjForms s ;
-        _ + "í"  => jarniAdjForms s ;
-        _ + "ův" => otcuvAdjForms s ;
-        _ + "in" => matcinAdjForms s ;
-        _ => matcinAdjForms ("??" + s) -- Predef.error ("no mkA for" ++ s)
-        }) ;
+      = \s -> lin A (guessAdjForms s) ;
     } ;
 
   mladyA : Str -> A
@@ -109,6 +103,9 @@ oper
     = \s -> lin A (otcuvAdjForms s) ;
   matcinA : Str -> A
     = \s -> lin A (matcinAdjForms s) ;
+
+  invarA : Str -> A
+    = \s -> lin A (invarAdjForms s) ;
 
   mkA2 : A -> Prep -> A2
     = \a,p -> lin A2 (a ** {c = p}) ;

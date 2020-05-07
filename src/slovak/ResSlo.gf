@@ -477,6 +477,11 @@ palatal : Str -> Str = \s -> case s of {
     pins : Str ;
     } ;
 
+invarAdjForms : Str -> AdjForms = \s -> {
+    msnom, fsnom, nsnom, msgen, fsgen, msdat, fsacc,
+    msloc, msins, fsins, ampnom, pgen, pins = s ;
+    } ;
+
 -- used in PositA but will also work in Compar and Superl by calling their record fields
 
 adjFormsAdjective : AdjForms -> Adjective = \afs -> {

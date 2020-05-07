@@ -441,6 +441,11 @@ oper
     pins : Str ;
     } ;
 
+invarAdjForms : Str -> AdjForms = \s -> {
+    msnom, fsnom, nsnom, msgen, fsgen, msdat, fsdat, fsacc,
+    msloc, msins, fsins, mpnom, fpnom, pgen, pins = s ;
+    } ;
+
 -- used in PositA but will also work in Compar and Superl by calling their record fields
 
 adjFormsAdjective : AdjForms -> Adjective = \afs -> {
@@ -476,6 +481,14 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     }
 
     } ;
+
+  guessAdjForms : Str -> AdjForms = \s -> case s of {
+        _ + "ý"  => mladyAdjForms s ;
+        _ + "í"  => jarniAdjForms s ;
+        _ + "ův" => otcuvAdjForms s ;
+        _ + "in" => matcinAdjForms s ;
+        _ => matcinAdjForms ("??" + s) -- Predef.error ("no mkA for" ++ s)
+        } ;
 
 -- hard declension
 
