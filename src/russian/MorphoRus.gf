@@ -1290,7 +1290,7 @@ oper verbDeclMoch: Aspect -> Conjugation -> Str -> Str -> Str -> Str ->Str -> St
 oper add_sya : Voice -> Str -> Str = \v,x ->
        case v of {
 	 Act => x ;
-	 Pas => case Predef.dp 2 x of {
+	 Pas => case Predef.dp 1 x of {
                   "а" | "е" | "ё" | "и" | "о" | "у" | "ы" | "э" | "ю" | "я" => x + "сь" ;
 		  _ => x + "ся"
 	   }
