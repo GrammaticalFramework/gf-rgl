@@ -1339,10 +1339,8 @@ oper mkVerbPerfective: Str -> Str -> PresentVerb -> PastVerb -> Verbum =
 
 	 VSUB gn => add_sya vox (past ! (PSF gn)) ++ "бы" ;
 
-	 VIND (GSg _) (VPresent _)  => nonExist ;
-	 VIND GPl     (VPresent P1) => nonExist ;
-	 VIND GPl     (VPresent P2) => nonExist ;
-	 VIND GPl     (VPresent P3) => nonExist ;
+	 VIND (GSg _) (VPresent p)  => (presentFuture ! (PRF (GSg Masc) p)); -- these are not correct,
+	 VIND GPl     (VPresent p)  => (presentFuture ! (PRF GPl p)) ;       -- but used elsewhere
 	 VIND gn      (VFuture p)   => add_sya vox (presentFuture ! (PRF gn p)) ;
 	 VIND gn      VPast         => add_sya vox (past ! (PSF gn))
      } } ;
