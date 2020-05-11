@@ -1,0 +1,104 @@
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: я становлю молодым
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: ты становдишь молодым
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP something_NP (ComplVA become_VA (PositA young_A))))
+LangRus: что-то становдит молодым
+
+Lang: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP something_NP (ComplVA become_VA (PositA young_A))))
+LangRus: что-то стал молодым
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron i_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: я становлю молодым
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: ты становдишь молодым
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP something_NP (ComplVA become_VA (PositA young_A))))
+LangRus: что-то становдит молодым
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron i_Pron) (BaseNP something_NP (UsePron she_Pron)))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , она или я становлю молодой
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron youSg_Pron) (BaseNP something_NP (UsePron she_Pron)))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , она или ты становдишь молодой
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: она становдит молодой
+
+Lang: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: она стала молодой
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron i_Pron) (BaseNP something_NP (UsePron she_Pron)))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , она или я становлю молодой
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron youSg_Pron) (BaseNP something_NP (UsePron she_Pron)))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , она или ты становдишь молодой
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: она становдит молодой
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron i_Pron) (BaseNP something_NP everything_NP))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , всё или я становлю молодым
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron youSg_Pron) (BaseNP something_NP everything_NP))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , всё или ты становдишь молодым
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP everything_NP (ComplVA become_VA (PositA young_A))))
+LangRus: всё становдит молодым
+
+Lang: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP everything_NP (ComplVA become_VA (PositA young_A))))
+LangRus: всё стало молодым
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron i_Pron) (BaseNP something_NP everything_NP))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , всё или я становлю молодым
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (ConjNP or_Conj (ConsNP (UsePron youSg_Pron) (BaseNP something_NP everything_NP))) (ComplVA become_VA (PositA young_A))))
+LangRus: что-то SOFT_BIND , всё или ты становдишь молодым
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP everything_NP (ComplVA become_VA (PositA young_A))))
+LangRus: всё становдит молодым
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: мы становдим молодыми
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: вы становдите молодыми
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP everybody_NP (ComplVA become_VA (PositA young_A))))
+LangRus: все становдят молодыми
+
+Lang: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP everybody_NP (ComplVA become_VA (PositA young_A))))
+LangRus: все стали молодыми
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron we_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: мы становдим молодыми
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: вы становдите молодыми
+
+Lang: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP everybody_NP (ComplVA become_VA (PositA young_A))))
+LangRus: все становдят молодыми
+
+Lang: UttImpPol PPos (ImpVP (ComplVA become_VA (PositA young_A)))
+LangRus: стань молодым
+
+Lang: UttImpPl PPos (ImpVP (ComplVA become_VA (PositA young_A)))
+LangRus: станьте молодыми
+
+Lang: UttImpPl PPos (ImpVP (ComplVV want_VV (ComplVA become_VA (PositA young_A))))
+LangRus: хотите стать
+
+Lang: UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP something_NP (ComplVA become_VA (PositA young_A))))
+LangRus: что-то стал бы молодым
+
+Lang: UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (PositA young_A))))
+LangRus: она стала бы молодой
+
+Lang: UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP everything_NP (ComplVA become_VA (PositA young_A))))
+LangRus: всё стало бы молодым
+
+Lang: UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP everybody_NP (ComplVA become_VA (PositA young_A))))
+LangRus: все стали бы молодыми
