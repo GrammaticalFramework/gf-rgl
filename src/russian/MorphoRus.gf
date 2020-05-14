@@ -1228,6 +1228,14 @@ oper presentConj1Moch: Str -> Str -> Str -> PresentVerb = \del, sgP1End, altRoot
     PRF GPl P3 => del+ sgP1End + "т"
   };
 
+oper pastConjMoch: Str -> PastVerb = \del ->
+  table {
+    PSF  (GSg Masc) => del ;
+    PSF  (GSg Fem)  => del +"ла" ;
+    PSF  (GSg Neut)  => del+"ло" ;
+    PSF  GPl => del+ "ли"
+  };
+
 -- "PastVerb" takes care of the past tense conjugation.
 
 param PastVF = PSF GenNum ;
@@ -1285,7 +1293,7 @@ oper verbDeclMoch: Aspect -> Conjugation -> Str -> Str -> Str -> Str ->Str -> St
        let patt = case a of {
 	            Perfective   => mkVerbPerfective;
 		    Imperfective => mkVerbImperfective } in
-        patt inf imperSgP2 (presentConj1Moch del sgP1End altRoot) (pastConj sgMascPast);
+        patt inf imperSgP2 (presentConj1Moch del sgP1End altRoot) (pastConjMoch sgMascPast);
 
 oper add_sya : Voice -> Str -> Str = \v,x ->
        case v of {
