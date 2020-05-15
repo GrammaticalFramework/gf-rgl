@@ -21,7 +21,7 @@ lin
   bank_N = mkN "банк" ;
   bark_N = mkN "кора";
   beautiful_A = mkA "красивый";
-  become_VA = regV perfective second "станов" "лю" "стал" "стань" "стать" ;
+  become_VA = regV perfective secondA "станов" "лю" "стал" "стань" "стать" ;
   beer_N = mkIndeclinableNoun "пиво" neuter inanimate ;
   beg_V2V = dirV2 (mkV imperfective "прошу" "просишь" "просит" "просим" "просите" "просят" "просил" "проси" "просить" );
   belly_N = mkN "живот" ;
