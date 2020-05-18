@@ -13,7 +13,8 @@ concrete ExtendSwe of Extend = CatSwe **
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
     Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
-    CompoundN, CompoundAP, AdvIsNP
+    CompoundN, CompoundAP, AdvIsNP,
+    UttAccNP
   ]
   with (Grammar = GrammarSwe)
     **
@@ -285,4 +286,6 @@ concrete ExtendSwe of Extend = CatSwe **
     AdvIsNP adv np = PredVP {s = \\_ => adv.s ; a = np.a ; isPron = False} (UseComp (CompNP np)) ;
 
     EmbedSSlash ss = {s = "det" ++ ss.s ! Main ++ ss.c2.s ++ ss.n3 ! agrUSgP3} ;
+
+    UttAccNP np = {s = np.s ! NPAcc} ;
 }
