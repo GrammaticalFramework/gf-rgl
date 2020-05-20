@@ -245,8 +245,8 @@ flags coding = utf8 ;
         False => adv.s ! st ++ cn.object ! st
         } ;
       prepositive = \\st => case adv.prepositive of {
-        True => adv.s ! st ;
-        False => []
+        True => adv.s ! st ++ cn.prepositive ! st ;
+        False => cn.prepositive ! st
         } ;
       } ;
 
