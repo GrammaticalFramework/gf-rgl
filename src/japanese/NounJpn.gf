@@ -52,16 +52,12 @@ flags coding = utf8 ;
       anim = pron.anim
       } ;
 
-    PredetNP p np = {
+    PredetNP p np = np ** {
       s = \\st => p.s ++ np.s ! st ;
-      prepositive = np.prepositive ;
-      needPart = np.needPart ;
       changePolar = case p.not of {
         True => True ;
         False => np.changePolar
         } ;
-      meaning = np.meaning ;
-      anim = np.anim
       } ;
 
     PPartNP np v2 = np ** {
@@ -180,13 +176,11 @@ flags coding = utf8 ;
 
     DefArt = {s = \\st => "" ; sp = \\st => "これ" ; no = False} ;
 
-    MassNP cn = {
+    MassNP cn = cn ** {
       s = \\st => cn.object ! st ++ cn.s ! Pl ! st ;
-      prepositive = cn.prepositive ;
       needPart = True ;
       changePolar = False ;
       meaning = SomeoneElse ;
-      anim = cn.anim
       } ;
 
     PossPron pron = {
@@ -245,8 +239,8 @@ flags coding = utf8 ;
         False => adv.s ! st ++ cn.object ! st
         } ;
       prepositive = \\st => case adv.prepositive of {
-        True => adv.s ! st ;
-        False => []
+        True => adv.s ! st ++ cn.prepositive ! st ;
+        False => cn.prepositive ! st
         } ;
       } ;
 
