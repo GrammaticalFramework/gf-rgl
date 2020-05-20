@@ -17,8 +17,8 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
       } ;
 
     ComplVV v vp = case v.sense of {
-      Abil => {
-        verb = \\sp,a,st,t,p => vp.verb ! sp ! a ! Plain ! TPres ! ResJpn.Pos ++ 
+      Abil => vp ** {
+        verb = \\sp,a,st,t,p => vp.verb ! sp ! a ! Plain ! TPres ! ResJpn.Pos ++
                              "ことが" ++ v.s ! sp ! st ! t ! p ;
         te = \\sp,a,st,p => vp.verb ! sp ! a ! Plain ! TPres ! ResJpn.Pos ++ "ことが" ++
                             v.te ! sp ! p ;
@@ -28,12 +28,9 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
                               "ことが" ++ v.i_stem ! sp ;
         ba = \\sp,a,st,p => vp.verb ! sp ! a ! Plain ! TPres ! ResJpn.Pos ++ "ことが" ++
                             v.ba ! sp ! p ;
-        prep = vp.prep ;
-        obj = \\st => vp.obj ! st ;
-        prepositive = vp.prepositive ;
         needSubject = True
         } ;
-      Oblig => {
+      Oblig => vp ** {
         verb = \\sp,a,st,t => table {
           Pos => vp.a_stem ! sp ! a ! st ++ "なければ" ++ v.s ! sp ! st ! t ! Neg ;
           Neg => vp.te ! sp ! a ! st ! Pos ++ "は" ++ v.s ! sp ! st ! t ! Neg
@@ -48,20 +45,14 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
           Pos => vp.a_stem ! sp ! a ! st ++ "なければ" ++ v.ba ! sp ! Pos ;
           Neg => vp.te ! sp ! a ! st ! Pos ++ "は" ++ v.ba ! sp ! Pos
           } ;
-        prep = vp.prep ;
-        obj = \\st => vp.obj ! st ;
-        prepositive = vp.prepositive ;
         needSubject = True
         } ;
-      Wish => {
+      Wish => vp ** {
         verb = \\sp,a,st,t,p => vp.i_stem ! sp ! a ! st ++ v.s ! sp ! st ! t ! p ;
         te = \\sp,a,st,p => vp.i_stem ! sp ! a ! st ++ v.te ! sp ! p ;
         a_stem = \\sp,a,st => vp.i_stem ! sp ! a ! st ++ v.a_stem ! sp ;
         i_stem = \\sp,a,st => vp.i_stem ! sp ! a ! st ++ v.i_stem ! sp ;
         ba = \\sp,a,st,p => vp.i_stem ! sp ! a ! st ++ v.ba ! sp ! p ;
-        prep = vp.prep ;
-        obj = \\st => vp.obj ! st ;
-        prepositive = vp.prepositive ;
         needSubject = True
         }
       } ;
@@ -205,8 +196,8 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
       } ;
 
     SlashVV v vpslash = case v.sense of {
-      Abil => {
-        s = \\sp,st,t,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ 
+      Abil => vpslash ** {
+        s = \\sp,st,t,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++
                            "ことが" ++ v.s ! sp ! st ! t ! p ;
         te = \\sp,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ことが" ++
                        v.te ! sp ! p ;
@@ -216,12 +207,9 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
                          v.i_stem ! sp ;
         ba = \\sp,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ことが" ++
                        v.ba ! sp ! p ;
-        prep = vpslash.prep ;
-        obj = vpslash.obj ;
-        prepositive = vpslash.prepositive ;
         v2vType = False
         } ;
-      Oblig => {
+      Oblig => vpslash ** {
         s = \\sp,st,t => table {
           Pos => vpslash.a_stem ! sp ++ "なければ" ++ v.s ! sp ! st ! t ! Neg ;
           Neg => vpslash.te ! sp ! Pos ++ "は" ++ v.s ! sp ! st ! t ! Neg
@@ -236,38 +224,32 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
           Pos => vpslash.a_stem ! sp ++ "なければ" ++ v.ba ! sp ! Pos ;
           Neg => vpslash.te ! sp ! Pos ++ "は" ++ v.ba ! sp ! Pos
           } ;
-        prep = vpslash.prep ;
-        obj = vpslash.obj ;
-        prepositive = vpslash.prepositive ;
         v2vType = False
         } ;
-      Wish => {
+      Wish => vpslash ** {
         s = \\sp,st,t,p => vpslash.i_stem ! sp ++ v.s ! sp ! st ! t ! p ;
         te = \\sp,p => vpslash.i_stem ! sp ++ v.te ! sp ! p ;
         a_stem = \\sp => vpslash.i_stem ! sp ++ v.a_stem ! sp ;
         i_stem = \\sp => vpslash.i_stem ! sp ++ v.i_stem ! sp ;
         ba = \\sp,p => vpslash.i_stem ! sp ++ v.ba ! sp ! p ;
-        prep = vpslash.prep ;
-        obj = vpslash.obj ;
-        prepositive = vpslash.prepositive ;
         v2vType = False
-        } 
-      } ; 
+        }
+      } ;
 
     SlashV2VNP v2v np vpslash = {
-      s = \\sp,st,t,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ように" 
+      s = \\sp,st,t,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ように"
                          ++ v2v.s ! st ! t ! p ;
       a_stem = \\sp => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ように" ++ v2v.a_stem ;
       i_stem = \\sp => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ように" ++ v2v.i_stem ;
       ba = \\sp,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ように" ++ v2v.ba ! p ;
       prep = vpslash.prep ;
       obj = \\st => np.s ! st ++ "に" ++ vpslash.obj ! st ;
-      te = \\sp,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ように" ++ v2v.te ! p ; 
+      te = \\sp,p => vpslash.s ! sp ! Plain ! TPres ! ResJpn.Pos ++ "ように" ++ v2v.te ! p ;
       prepositive = \\st => np.prepositive ! st ++ vpslash.prepositive ! st ;
       v2vType = True
       } ;
 
-    ReflVP vpslash = {
+    ReflVP vpslash = vpslash ** {
       verb = \\sp,a,st,t,p => vpslash.s ! sp ! st ! t ! p ;
       a_stem = \\sp,a,st => vpslash.a_stem ! sp ;
       i_stem = \\sp,a,st => vpslash.i_stem ! sp ;
@@ -299,14 +281,8 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
       prepositive = \\st => [] ;
       needSubject = True
       } ;
-    
-    AdvVP vp adv = {
-      verb = vp.verb ;
-      te = vp.te ;
-      a_stem = vp.a_stem ;
-      i_stem = vp.i_stem ;
-      ba = vp.ba ;
-      prep = vp.prep ;
+
+    AdvVP vp adv = vp ** {
       obj = \\st => case adv.prepositive of {
         True => vp.obj ! st ;
         False => adv.s ! st ++ vp.obj ! st
@@ -315,30 +291,15 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
         True => vp.prepositive ! st ++ adv.s ! st ;
         False => vp.prepositive ! st
         } ;
-      needSubject = vp.needSubject
       } ;
 
     ExtAdvVP = AdvVP ;
 
-    AdVVP adv vp = {
-      verb = vp.verb ;
-      te = vp.te ;
-      a_stem = vp.a_stem ;
-      i_stem = vp.i_stem ;
-      ba = vp.ba ;
-      prep = vp.prep ;
+    AdVVP adv vp = vp ** {
       obj = \\st => adv.s ++ vp.obj ! st ;
-      prepositive = vp.prepositive ;
-      needSubject = vp.needSubject
       } ;
-    
-    AdvVPSlash vpslash adv = {
-      s = vpslash.s ;
-      te = vpslash.te ;
-      a_stem = vpslash.a_stem ;
-      i_stem = vpslash.i_stem ;
-      ba = vpslash.ba ;
-      prep = vpslash.prep ;
+
+    AdvVPSlash vpslash adv = vpslash ** {
       obj = \\st => case adv.prepositive of {
         True => vpslash.obj ! st ;
         False => adv.s ! st ++ vpslash.obj ! st
@@ -349,16 +310,9 @@ concrete VerbJpn of Verb = CatJpn ** open ResJpn, Prelude in {
         } ;
       v2vType = False
       } ;
-      
-    AdVVPSlash adv vpslash = {
-      s = vpslash.s ;
-      te = vpslash.te ;
-      a_stem = vpslash.a_stem ;
-      i_stem = vpslash.i_stem ;
-      ba = vpslash.ba ;
-      prep = vpslash.prep ;
+
+    AdVVPSlash adv vpslash = vpslash ** {
       obj = \\st => adv.s ++ vpslash.obj ! st ;
-      prepositive = vpslash.prepositive ; 
       v2vType = False
       } ;
 

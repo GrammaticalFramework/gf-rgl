@@ -22,10 +22,9 @@ flags coding = utf8 ;
         False => s.subj ! Ga ! st ++ s.pred ! Plain ++ "こと" ++ cadv.s ++ a.adv ! Pos
         } ;
       prepositive = False} ;
-    
-    AdAdv ada adv = {s = \\st => ada.s ++ adv.s ! st ; 
-                     prepositive = adv.prepositive} ;
-    
+
+    AdAdv ada adv = adv ** {s = \\st => ada.s ++ adv.s ! st} ;
+
     PositAdAAdj a = {s = a.adv ! Pos } ;
 
     SubjS subj s = {
