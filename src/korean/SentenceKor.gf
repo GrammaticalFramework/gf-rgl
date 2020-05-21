@@ -43,7 +43,7 @@ lin
   -- EmbedQS qs = { } ;
 
   -- : VP -> SC ;
-  EmbedVP vp = {s = vp.s ! VAttr Pos ++ "것이"} ;
+  EmbedVP vp = {s = linVP (VAttr Pos) vp ++ "것이"} ;
 
 --2 Sentences
 
