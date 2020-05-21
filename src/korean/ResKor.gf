@@ -335,7 +335,7 @@ oper
     nObj = np.s ! v2.c2 ++ v2.p2.s ! np.p
   } ;
 
-  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
+  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s ++ vp.adv} ;
   insertAdvSlash : VPSlash -> SS -> VPSlash = \v,a -> v ** insertAdv v a ;
 --------------------------------------------------------------------------------
 -- Cl, S
