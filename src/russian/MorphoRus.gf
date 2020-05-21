@@ -1141,7 +1141,7 @@ oper verbKhotet : Verbum = verbDecl Imperfective Mixed "хо" "у" "хотел" 
 --AR oper verbKhotet : Verbum = verbDecl Imperfective Mixed "хоч" "у" "хотел" "хоти" "хотеть";
 
 -- Irregular
-oper verbDolzhen : Verbum = verbDecl Imperfective Dolzhen "долж" "ен" "долж" ["будь должен"] ["быть должным"] ;
+oper verbDolzhen : Verbum = verbDecl Imperfective Dolzhen "долж" "ен" "долж" ("будь" ++ "должен") ("быть" ++ "должным") ;
 
 
 -- further conjugation class added by Magda Gerritsen and Ulrich Real:
@@ -1159,10 +1159,10 @@ oper PresentVerb : Type = PresentVF => Str ;
 
 oper presentConjDolzhen: Str -> Str -> PresentVerb = \del, sgP1End ->
   table {
-    PRF GPl _        => del + "ны" ;
     PRF (GSg Masc) _ => del + sgP1End ;
     PRF (GSg Fem)  _ => del + "на" ;
-    PRF (GSg Neut) _ => del + "но"
+    PRF (GSg Neut) _ => del + "но" ;
+    PRF GPl _        => del + "ны"
   };
 
 -- +++ MG_UR: changed! +++
@@ -1250,10 +1250,10 @@ oper pastConj: Str -> PastVerb = \del ->
 
 oper pastConjDolzhen: Str -> PastVerb = \del ->
   table {
-    PSF  (GSg Masc) => ["был "] + del + "ен" ;
-    PSF  (GSg Fem)  => ["была "] + del + "на" ;
-    PSF  (GSg Neut)  => ["было "] + del + "но" ;
-    PSF  GPl => ["были "] + del + "ны"
+    PSF  (GSg Masc)  => "был"  ++ del + "ен" ;
+    PSF  (GSg Fem)   => "была" ++ del + "на" ;
+    PSF  (GSg Neut)  => "было" ++ del + "но" ;
+    PSF  GPl         => "были" ++ del + "ны"
   };
 
 -- further class added by Magda Gerritsen and Ulrich Real
@@ -1321,7 +1321,7 @@ oper mkVerbImperfective : Str -> Str -> PresentVerb -> PastVerb -> Verbum =
 
 	 VSUB gn => add_sya vox (past ! (PSF gn)) ++ "бы";
 
-	 VIND (GSg _) (VPresent p) => add_sya vox (presentFuture ! (PRF (GSg Masc) p));
+	 VIND (GSg g) (VPresent p) => add_sya vox (presentFuture ! (PRF (GSg g) p));
 	 VIND GPl (VPresent p)     => add_sya vox (presentFuture ! (PRF GPl p));
 	 VIND (GSg _) (VFuture P1) => "буду"   ++ add_sya vox inf ;
 	 VIND (GSg _) (VFuture P2) => "будешь" ++ add_sya vox  inf ;
@@ -1347,7 +1347,7 @@ oper mkVerbPerfective: Str -> Str -> PresentVerb -> PastVerb -> Verbum =
 
 	 VSUB gn => add_sya vox (past ! (PSF gn)) ++ "бы" ;
 
-	 VIND (GSg _) (VPresent p)  => (presentFuture ! (PRF (GSg Masc) p)); -- these are not correct,
+	 VIND (GSg g) (VPresent p)  => (presentFuture ! (PRF (GSg g) p)); -- these are not correct,
 	 VIND GPl     (VPresent p)  => (presentFuture ! (PRF GPl p)) ;       -- but used elsewhere
 	 VIND gn      (VFuture p)   => add_sya vox (presentFuture ! (PRF gn p)) ;
 	 VIND gn      VPast         => add_sya vox (past ! (PSF gn))
