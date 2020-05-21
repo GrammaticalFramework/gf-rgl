@@ -229,8 +229,8 @@ oper
 
   copula : Verb = mkVerbFull
     "이"
-    "이는"   -- TODO does this exist?
-    "아니는" -- TODO does this exist?
+    "인"
+    "아닌"
     "이다"
     "이에요"
     "입니다"
