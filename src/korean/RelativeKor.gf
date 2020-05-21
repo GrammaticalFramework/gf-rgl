@@ -6,7 +6,7 @@ lin
   RelCl = relSlash (ss "") ;
 
   -- : RP -> VP -> RCl ;
-  RelVP rp vp = { -- TODO no tenses yet in the grammar
+  RelVP rp vp = vp ** { -- TODO no tenses yet in the grammar
     s = \\t,a,p,cltyp =>
            rp.s ++ vp.adv ++ vp.nObj ++
            case cltyp of {
@@ -25,7 +25,7 @@ lin
   --FunRP prep np rp = {} ;
 
 oper
-  relSlash : SS -> ClSlash -> ResKor.RClause = \rp,cls -> {
+  relSlash : SS -> ClSlash -> ResKor.RClause = \rp,cls -> cls ** {
     s = \\t,a,p,cltyp => rp.s ++
           case cltyp of {
             WithConj => cls.s ! t ! a ! p ! WithConj ;

@@ -142,10 +142,13 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  Adjective : Type = {s : VForm => Str} ; -- Adjectives are verbs
+  Adjective : Type = {
+    s : VForm => Str ; -- Adjectives are verbs
+    p, pNeg : Phono ; -- needed for attaching conjunction
+    } ;
   Adjective2 : Type = Adjective ** {c2 : NForm ; p2 : Postposition} ;
 
-  v2a : (attrpos : Str) -> Verb -> Adjective = \attrpos,v -> {
+  v2a : (attrpos : Str) -> Verb -> Adjective = \attrpos,v -> v ** {
     s = table {
           VAttr Pos => attrpos ; -- Positive Attr is different in
           vf => v.s ! vf } -- adjectives, otherwise adj forms == verb forms.
@@ -168,6 +171,7 @@ oper
 
   BaseVerb : Type = {
     sc : NForm ; -- subject case
+    p, pNeg : Phono ; -- needed for attaching conjunction
     } ;
   Verb : Type = BaseVerb ** {
     s : VForm => Str ;
@@ -218,7 +222,9 @@ oper
         VF Formal Pos => formal ;
         VF Formal Neg => formneg
       } ;
-      sc = Subject
+      sc   = Subject ;
+      p    = if_then_else Phono (vowFinal stem)          Vowel Consonant ;
+      pNeg = if_then_else Phono (vowFinal (init planeg)) Vowel Consonant ;
     } ;
 
   copula : Verb = mkVerbFull
@@ -340,7 +346,9 @@ oper
 --------------------------------------------------------------------------------
 -- Cl, S
 
-  Clause : Type = {s : Tense => Anteriority => Polarity => ClType => Str} ;
+  Clause : Type = {
+    s : Tense => Anteriority => Polarity => ClType => Str ;
+    p, pNeg : Phono} ;
 
   {- After PredVP, we might still want to add more adverbs (QuestIAdv),
      but we're done with verb inflection.
@@ -351,7 +359,10 @@ oper
 
   RClause : Type = Clause ;
 
-  Sentence : Type = {s : ClType => Str} ;
+  Sentence : Type = {
+    s : ClType => Str ;
+    p : Phono -- Needed for attaching conjunction
+    } ;
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp ->
     let npstr : Str = np.s ! vp.sc in predVP' npstr vp ;

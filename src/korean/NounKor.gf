@@ -123,7 +123,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   --   } ;
 
   -- : A       -> Ord ;
-  OrdSuperl a = {
+  OrdSuperl a = a ** {
     s = \\vf => "가장" ++ a.s ! vf ;
     n = Sg -- ?? is this meaningful?
     } ;

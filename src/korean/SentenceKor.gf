@@ -49,7 +49,10 @@ lin
 
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cl = {
-    s = \\c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! c
+    s = \\c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! c ;
+    p = case p.p of { -- Phono of VStem
+          Pos => cl.p ;
+          Neg => cl.pNeg } ;
     } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
@@ -58,7 +61,10 @@ lin
 
   -- : Temp -> Pol -> RCl -> RS ;
   UseRCl t p rcl = {
-    s = \\c => t.s ++ p.s ++ rcl.s ! t.t ! t.a ! p.p ! c
+    s = \\c => t.s ++ p.s ++ rcl.s ! t.t ! t.a ! p.p ! c ;
+    p = case p.p of { -- Phono of VStem
+          Pos => rcl.p ;
+          Neg => rcl.pNeg } ;
     } ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
