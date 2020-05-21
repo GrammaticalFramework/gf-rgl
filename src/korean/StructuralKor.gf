@@ -21,9 +21,9 @@ lin how8much_IAdv = ss "" ;
 lin when_IAdv = ss "" ;
 lin where_IAdv = ss "" :
 lin why_IAdv = ss "" :
-
-lin always_AdV = ss "" ;
-
+-}
+lin always_AdV = ss "항상" ;
+{-
 lin everywhere_Adv = ss "" ;
 lin here7from_Adv = ss "" ;
 lin here7to_Adv = ss "" ;

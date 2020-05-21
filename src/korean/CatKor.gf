@@ -8,7 +8,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
 -- Constructed in SentenceKor, and also in IdiomKor
 
     S  = ResKor.Sentence ;
-    QS = SS ; -- Questions not implemented yet
+    QS = {s : Style => Str}; -- Questions not implemented yet
     RS = ResKor.Sentence ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
@@ -65,8 +65,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     Predet = {s : Phono => Str ; p : Phono} ;
     Quant = ResKor.Quant ;
     Num = ResKor.Num ;
-    Ord = {
-      s : VForm => Str ; -- Ord can come from AP and become AP again
+    Ord = ResKor.Adjective ** { -- Ord can come from AP and become AP again
       n : Number -- Ord can come from Num, which has inherent number
       } ;
     DAP = ResKor.Determiner ;
@@ -119,5 +118,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     PN = ResKor.NounPhrase ;
 
 linref
-  V, V2, V3, VP = linVerb ;
+  V, V2, V3 = linVerb ;
+  VP = linVP linVF ;
+  AP = linAP ;
 }

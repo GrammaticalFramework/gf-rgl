@@ -123,7 +123,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   --   } ;
 
   -- : A       -> Ord ;
-  OrdSuperl a = {
+  OrdSuperl a = a ** {
     s = \\vf => "가장" ++ a.s ! vf ;
     n = Sg -- ?? is this meaningful?
     } ;
@@ -171,7 +171,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 
   -- : CN -> Adv -> CN ;
   AdvCN cn adv = cn ** {
-    rs = cn.rs ++ adv.s
+    rs = adv.s ++ cn.rs
     } ;
 
 -- Nouns can also be modified by embedded sentences and questions.

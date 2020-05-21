@@ -43,20 +43,29 @@ lin
   -- EmbedQS qs = { } ;
 
   -- : VP -> SC ;
-  EmbedVP vp = {s = vp.s ! VAttr Pos ++ "것이"} ;
+  EmbedVP vp = {s = linVP (VAttr Pos) vp ++ "것이"} ;
 
 --2 Sentences
 
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cl = {
-    s = \\c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! c
+    s = \\c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! c ;
+    p = case p.p of { -- Phono of VStem
+          Pos => cl.p ;
+          Neg => cl.pNeg } ;
     } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
-  UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Statement} ;
+  UseQCl t p cl = {
+    s = \\st => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Statement st} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p rcl = {s = \\c => t.s ++ p.s ++ rcl.s ! t.t ! t.a ! p.p ! c} ;
+  UseRCl t p rcl = {
+    s = \\c => t.s ++ p.s ++ rcl.s ! t.t ! t.a ! p.p ! c ;
+    p = case p.p of { -- Phono of VStem
+          Pos => rcl.p ;
+          Neg => rcl.pNeg } ;
+    } ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
   AdvS = advS "" ;

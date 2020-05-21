@@ -149,7 +149,7 @@ oper
     mkA : (plain,polite,formal,attr : Str) -> A
       = \x1,x2,x3,x4 -> lin A (mkAdjReg x1 x2 x3 x4) ;
     mkA : (jaemi : Str) -> (itda : V) -> A
-      = \jaemi,itda -> lin A ({s = \\vf => jaemi ++ itda.s ! vf}) ;
+      = \jaemi,itda -> lin A (itda ** {s = \\vf => jaemi ++ itda.s ! vf}) ;
     } ;
 
   mkA2 = overload {

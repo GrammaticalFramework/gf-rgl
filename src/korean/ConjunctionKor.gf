@@ -39,11 +39,11 @@ oper
   ConjSS : Type = {s : ConjType => Str} ;
 
   baseSS : SS -> SS -> ConjSS = \s1,s2 -> {
-    s = \\conj => glue s1.s (conjTable ! NStar ! conj) ++ s2.s ;
+    s = \\conj => glue s1.s (conjTable ! NStar ! conj ! Vowel) ++ s2.s ; -- TODO check phono
     } ;
 
   consSS : SS -> ConjSS -> ConjSS = \s,ss -> ss ** {
-    s = \\conj => glue s.s (conjTable ! NStar ! conj) ++ ss.s ! conj ;
+    s = \\conj => glue s.s (conjTable ! NStar ! conj ! Vowel) ++ ss.s ! conj ;
     } ;
 
   conjSS : Conj -> ConjSS -> SS = \co,ss -> {
@@ -79,7 +79,7 @@ lin
 
 oper
   mkFirstS : ResKor.Sentence -> ConjType => Str = \s ->
-    \\conj => glue (s.s ! WithConj) (conjTable ! VStar ! conj) ;
+    \\conj => glue (s.s ! WithConj) (conjTable ! VStar ! conj ! s.p) ;
 
 lincat
   [AP] = ResKor.AdjPhrase ** {firstAP : VForm => ConjType => Str} ;
@@ -101,7 +101,8 @@ lin
 
 oper
   mkFirstAP : ResKor.AdjPhrase -> VForm => ConjType => Str = \ap ->
-    \\af,conj => ap.compar ++ glue (ap.s ! VStem Pos) (conjTable ! VStar ! conj) ;
+    \\af,conj => ap.compar
+              ++ glue (ap.s ! VStem Pos) (conjTable ! VStar ! conj ! ap.p) ;
 
 {-
 lincat
@@ -137,7 +138,7 @@ lin
 
 oper
   mkFirstNP : ResKor.NounPhrase -> ConjType => Str = \np ->
-    \\conj => glue (np.s ! Bare) (conjTable ! NStar ! conj) ;
+    \\conj => glue (np.s ! Bare) (conjTable ! NStar ! conj ! np.p) ;
     -- Versions with commas, no repeated conjunctions
 
   baseNPcomma : NP -> NP -> ListNP = \x,y -> y ** {

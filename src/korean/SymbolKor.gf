@@ -39,7 +39,7 @@ lin
     s = \\nf => cn.s ! nf ++ i.s ! cn.c.origin ! Indep}) ;
 
   -- : Symb -> S ;
-  SymbS sy = {s = \\_ => sy.s} ;
+  SymbS sy = {s = \\_ => sy.s ; p = Vowel} ;
 
   -- : Symb -> Card ;
   SymbNum sy = baseNum ** {s = \\_,_ => sy.s} ;
@@ -47,7 +47,7 @@ lin
   -- : Symb -> Ord ;
   SymbOrd sy =
     let comp : Comp = VK.CompAdv (lin Adv sy)
-     in {s = comp.s ; n=Pl} ;
+     in {s = comp.s ; n = Pl ; p,pNeg = Vowel} ;
 
 lincat
   Symb, [Symb] = SS ;

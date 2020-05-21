@@ -142,10 +142,13 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  Adjective : Type = {s : VForm => Str} ; -- Adjectives are verbs
+  Adjective : Type = {
+    s : VForm => Str ; -- Adjectives are verbs
+    p, pNeg : Phono ; -- needed for attaching conjunction
+    } ;
   Adjective2 : Type = Adjective ** {c2 : NForm ; p2 : Postposition} ;
 
-  v2a : (attrpos : Str) -> Verb -> Adjective = \attrpos,v -> {
+  v2a : (attrpos : Str) -> Verb -> Adjective = \attrpos,v -> v ** {
     s = table {
           VAttr Pos => attrpos ; -- Positive Attr is different in
           vf => v.s ! vf } -- adjectives, otherwise adj forms == verb forms.
@@ -168,6 +171,7 @@ oper
 
   BaseVerb : Type = {
     sc : NForm ; -- subject case
+    p, pNeg : Phono ; -- needed for attaching conjunction
     } ;
   Verb : Type = BaseVerb ** {
     s : VForm => Str ;
@@ -208,7 +212,7 @@ oper
     \stem,attrpos,attrneg,plain,polite,formal,planeg,polneg,formneg -> {
       s = table {
         VStem Pos => stem ;
-        VStem Neg => stem + "지" ++ "않" ;
+        VStem Neg => init planeg ;
         VAttr Pos => attrpos ;
         VAttr Neg => attrneg ;
         VF Plain Pos => plain ;
@@ -218,7 +222,9 @@ oper
         VF Formal Pos => formal ;
         VF Formal Neg => formneg
       } ;
-      sc = Subject
+      sc   = Subject ;
+      p    = if_then_else Phono (vowFinal stem)          Vowel Consonant ;
+      pNeg = if_then_else Phono (vowFinal (init planeg)) Vowel Consonant ;
     } ;
 
   copula : Verb = mkVerbFull
@@ -335,12 +341,14 @@ oper
     nObj = np.s ! v2.c2 ++ v2.p2.s ! np.p
   } ;
 
-  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
+  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s ++ vp.adv} ;
   insertAdvSlash : VPSlash -> SS -> VPSlash = \v,a -> v ** insertAdv v a ;
 --------------------------------------------------------------------------------
 -- Cl, S
 
-  Clause : Type = {s : Tense => Anteriority => Polarity => ClType => Str} ;
+  Clause : Type = {
+    s : Tense => Anteriority => Polarity => ClType => Str ;
+    p, pNeg : Phono} ;
 
   {- After PredVP, we might still want to add more adverbs (QuestIAdv),
      but we're done with verb inflection.
@@ -351,7 +359,10 @@ oper
 
   RClause : Type = Clause ;
 
-  Sentence : Type = {s : ClType => Str} ;
+  Sentence : Type = {
+    s : ClType => Str ;
+    p : Phono -- Needed for attaching conjunction
+    } ;
 
   predVP : NounPhrase -> VerbPhrase -> ClSlash = \np,vp ->
     let npstr : Str = np.s ! vp.sc in predVP' npstr vp ;
@@ -361,7 +372,7 @@ oper
            let vf = case cltyp of {
                       Subord   => VAttr p ;
                       WithConj => VStem p ;
-                      _        => VF Polite p } -- TODO: more tenses, politeness
+                      Statement st => VF st p } -- TODO: more tenses
             in np
             ++ vp.nObj -- an object, not copula complement
             ++ vp.adv
@@ -372,6 +383,6 @@ oper
 -- linrefs
 
 linVerb : Verb -> Str = \v -> v.s ! linVF ;
-linVP : VerbPhrase -> Str = \vp -> vp.nObj ++ vp.adv ++ vp.s ! linVF ;
-
+linVP : VForm -> VerbPhrase -> Str = \vf,vp -> vp.nObj ++ vp.adv ++ vp.s ! vf ;
+linAP : AdjPhrase -> Str = \ap -> ap.compar ++ ap.s ! linVF ;
 }
