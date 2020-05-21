@@ -53,10 +53,13 @@ lin
     } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
-  UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Statement} ;
+  UseQCl t p cl = {
+    s = \\st => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Statement st} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p rcl = {s = \\c => t.s ++ p.s ++ rcl.s ! t.t ! t.a ! p.p ! c} ;
+  UseRCl t p rcl = {
+    s = \\c => t.s ++ p.s ++ rcl.s ! t.t ! t.a ! p.p ! c
+    } ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
   AdvS = advS "" ;

@@ -361,7 +361,7 @@ oper
            let vf = case cltyp of {
                       Subord   => VAttr p ;
                       WithConj => VStem p ;
-                      _        => VF Polite p } -- TODO: more tenses, politeness
+                      Statement st => VF st p } -- TODO: more tenses
             in np
             ++ vp.nObj -- an object, not copula complement
             ++ vp.adv

@@ -8,7 +8,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
 -- Constructed in SentenceKor, and also in IdiomKor
 
     S  = ResKor.Sentence ;
-    QS = SS ; -- Questions not implemented yet
+    QS = {s : Style => Str}; -- Questions not implemented yet
     RS = ResKor.Sentence ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
