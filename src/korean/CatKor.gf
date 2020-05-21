@@ -120,4 +120,5 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
 linref
   V, V2, V3 = linVerb ;
   VP = linVP linVF ;
+  AP = linAP ;
 }

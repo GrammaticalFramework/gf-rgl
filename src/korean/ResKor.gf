@@ -384,5 +384,5 @@ oper
 
 linVerb : Verb -> Str = \v -> v.s ! linVF ;
 linVP : VForm -> VerbPhrase -> Str = \vf,vp -> vp.nObj ++ vp.adv ++ vp.s ! vf ;
-
+linAP : AdjPhrase -> Str = \ap -> ap.compar ++ ap.s ! linVF ;
 }
