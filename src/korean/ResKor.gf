@@ -208,7 +208,7 @@ oper
     \stem,attrpos,attrneg,plain,polite,formal,planeg,polneg,formneg -> {
       s = table {
         VStem Pos => stem ;
-        VStem Neg => stem + "지" ++ "않" ;
+        VStem Neg => init planeg ;
         VAttr Pos => attrpos ;
         VAttr Neg => attrneg ;
         VF Plain Pos => plain ;
