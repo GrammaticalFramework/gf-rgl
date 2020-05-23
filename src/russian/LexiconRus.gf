@@ -128,7 +128,7 @@ lin
   girl_N = mkN "девочка" animate; -- vowel change
   give_V3 = tvDirDir (regV imperfective firstE "да" "ю" "давал" "давай" "давать" ) ;
   glove_N = mkN "перчатка" ; -- vowel change
-  go_V= regV imperfective second "хо" "жу" "ходил" "ходи" "ходить" ;
+  go_V = mkV imperfective "хожу" "ходишь" "ходит" "ходим" "ходите" "ходят" "ходил" "ходи" "ходить" ;
   gold_N = mkN "золото" ;
   good_A = mkA "хороший" "лучше" ; 
   grammar_N = mkN "грамматика";
@@ -139,7 +139,7 @@ lin
   hand_N = mkN "рука" ;
   harbour_N = mkN "порт" ; -- prepos -u
   hat_N = mkN "шляпа" ;
-  hate_V2= dirV2 (regV imperfective second "ненави" "жу" "ненавидел" "ненавидь" "ненавидеть" );
+  hate_V2= dirV2 (mkV imperfective "ненавижу" "ненавидишь" "ненавидит" "ненавидим" "ненавидите" "ненавидят" "ненавидел" "ненавидь" "ненавидеть" );
   head_N = mkN "голова" ;
   hear_V2= dirV2 (regV imperfective first "слуша" "ю" "слушал" "слушай" "слушать" );
   heart_N = mkN "сердце" "сердца" "сердцу" "сердца" "сердцем" "сердце" "сердце" "сердца" "сердец" "сердцам" "сердец" "сердцами" "сердцах"  neuter inanimate ;
@@ -257,7 +257,7 @@ lin
   science_N = mkN "наука" ;
   scratch_V2 = dirV2 (regV imperfective first "чеш" "у" "чесал" "чеши" "чесать" ) ; 
   sea_N = mkN "море" ;
-  see_V2 = dirV2 (regV imperfective second "ви" "жу" "видел" "видь" "видеть" );
+  see_V2 = dirV2 (mkV imperfective "вижу" "видишь" "видит" "видим" "видите" "видят" "видел" "видь" "видеть");
   seed_N = mkN "семя";
   seek_V2 = dirV2 (regV imperfective first "ищ" "у" "искал" "ищи" "искать" );
   sell_V3 = tvDirDir (regV imperfective firstE "прода" "ю" "продавал" "продавай" "продавать" );
