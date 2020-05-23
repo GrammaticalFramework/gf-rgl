@@ -113,7 +113,7 @@ lin
   floor_N = mkN "пол" ;
   flow_V = regV imperfective firstE "тек" "у" "тёк" "теки" "течь" ;
   flower_N = mkN "цветок";
-  fly_V = regV imperfective second "лета" "ю" "летал" "летай" "летать" ;
+  fly_V = regV imperfective first "лета" "ю" "летал" "летай" "летать" ;
   fog_N = mkN "туман" ;
   foot_N = mkN "ступня" ;
   forest_N = mkN "лес" ; -- prepos -u
