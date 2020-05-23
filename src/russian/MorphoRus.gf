@@ -1057,7 +1057,7 @@ oper ti_j_EndDecl : Str -> Adjective = \s ->{s = table {
 ---- (according to the number and the person of the subject)
 ---- patterns in the present tense in the indicative mood.
 
--- +++ MG_UR: new conjugation class 'Foreign' introduced +++
+-- Foreign coincides with First. Deprecated
 param Conjugation = First | FirstE | Second | SecondA | Mixed | Dolzhen | Foreign ;
 
   oper hasConj : Verbum -> Conjugation = \ v ->
@@ -1147,7 +1147,7 @@ oper verbDolzhen : Verbum = verbDecl Imperfective Dolzhen "долж" "ен" "д�
 -- further conjugation class added by Magda Gerritsen and Ulrich Real:
 -- foreign words introduced in Russian
 
-oper verbOrganisuet : Verbum = verbDecl Imperfective Foreign "организу" "ю" "организовал" "организуй" "организовать";
+oper verbOrganisuet : Verbum = verbDecl Imperfective First "организу" "ю" "организовал" "организуй" "организовать";
 
 
 oper idetDozhd: Verbum -> Verbum = \idet -> {s = \\vf=>idet.s!vf ++ "дождь"; asp = Imperfective};
@@ -1256,17 +1256,6 @@ oper pastConjDolzhen: Str -> PastVerb = \del ->
     PSF  GPl         => "были" ++ del + "ны"
   };
 
--- further class added by Magda Gerritsen and Ulrich Real
-oper presentConjForeign: Str -> Str -> PresentVerb = \del, sgP1End ->
-  table {
-  PRF (GSg _) P1 => del+ sgP1End ; -- sgP1End "ю"
-  PRF (GSg _) P2 => del+ "ешь" ;
-  PRF (GSg _) P3 => del+ "ет" ;
-  PRF GPl P1 => del+ "ем" ;
-  PRF GPl P2  => del+ "ете" ;
-  PRF GPl P3  => del+ "ют"
-};
-
 -- "verbDecl" sorts out verbs according to the aspect and voice parameters.
 -- It produces the full conjugation table for a verb entry
 
@@ -1280,7 +1269,7 @@ oper verbDecl: Aspect -> Conjugation -> Str -> Str -> Str -> Str -> Str -> Verbu
 			   SecondA => <presentConj2a,pastConj> ;
 			   Mixed   => <presentConjMixed,pastConj> ;
 			   Dolzhen => <presentConjDolzhen,pastConjDolzhen> ;
-			   Foreign => <presentConjForeign,pastConj> } in 
+			   Foreign => <presentConj1,pastConj> } in
        let patt = case a of {
 	            Perfective   => mkVerbPerfective;
 		    Imperfective => mkVerbImperfective } in
