@@ -1058,7 +1058,7 @@ oper ti_j_EndDecl : Str -> Adjective = \s ->{s = table {
 ---- patterns in the present tense in the indicative mood.
 
 -- +++ MG_UR: new conjugation class 'Foreign' introduced +++
-param Conjugation = First | FirstE | Second | SecondA | Mixed | Dolzhen | Foreign ;
+param Conjugation = First | FirstE | Second | SecondA | Mixed | Dolzhen | Foreign ; -- SecondA deprecated
 
   oper hasConj : Verbum -> Conjugation = \ v ->
 	 case v.s ! VFORM Act VINF of {
@@ -1176,19 +1176,8 @@ oper presentConjMixed: Str -> Str -> PresentVerb = \del, sgP1End ->
     PRF GPl P2  => del+ "тите" ;
     PRF GPl P3  => del+ "тят"
   };
-  
--- +++ MG_UR: changed! (+ д) +++ 
-oper presentConj2: Str -> Str -> PresentVerb = \del, sgP1End ->
-table {
-    PRF (GSg _) P1 => del+ sgP1End ; -- sgP1End "жу"
-    PRF (GSg _) P2 => del+ "дишь" ;
-    PRF (GSg _) P3  => del+ "дит" ;
-    PRF GPl P1 => del+ "дим" ;
-    PRF GPl P2 => del+ "дите" ;
-    PRF GPl P3 => del+ "дят"
-  };
 
-oper presentConj2a: Str -> Str -> PresentVerb = \del, sgP1End ->
+oper presentConj2: Str -> Str -> PresentVerb = \del, sgP1End ->
 table {
     PRF (GSg _) P1 => del+ sgP1End ; -- sgP1End "жу"
     PRF (GSg _) P2 => del+ "ишь" ;
@@ -1277,7 +1266,7 @@ oper verbDecl: Aspect -> Conjugation -> Str -> Str -> Str -> Str -> Str -> Verbu
 	                   First   => <presentConj1,pastConj> ;
 			   FirstE  => <presentConj1E,pastConj> ;
 			   Second  => <presentConj2,pastConj> ;
-			   SecondA => <presentConj2a,pastConj> ;
+			   SecondA => <presentConj2,pastConj> ;
 			   Mixed   => <presentConjMixed,pastConj> ;
 			   Dolzhen => <presentConjDolzhen,pastConjDolzhen> ;
 			   Foreign => <presentConjForeign,pastConj> } in 
