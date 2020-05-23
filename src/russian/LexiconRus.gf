@@ -173,7 +173,7 @@ lin
   leaf_N = mkN "лист" ; -- irregular pl
   learn_V2= dirV2 (regV imperfective second "уч" "у" "учил" "учи" "учить" );
   leather_N = mkN "кожа" ;
-  leave_V2= dirV2 (regV imperfective second "ухож" "у" "уходил" "уходи" "уходить" );
+  leave_V2= dirV2 (mkV imperfective "ухожу" "уходишь" "уходит" "уходим" "уходите" "уходят" "уходил" "уходи" "уходить" );
   left_Ord = (uy_j_EndDecl "лев" ) ** {lock_A = <>}; 
   leg_N = mkN "нога" ;
   lie_V = regV imperfective firstE "лг" "у" "лгал" "лги" "лгать" ;
