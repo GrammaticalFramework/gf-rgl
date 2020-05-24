@@ -184,7 +184,7 @@ firstE:  Conjugation; -- Verbs with vowel "ё": "даёшь" (give), "пьёшь
 second:  Conjugation; -- "вид-Ишь, вид-Им"
 mixed:   Conjugation; -- "хоч-Ешь - хот-Им"
 dolzhen: Conjugation; -- irregular
-foreign: Conjugation; -- foreign words which are used in Russian, +++ MG_UR: added +++
+foreign: Conjugation; -- deprecated, not needed
 
 
 true:  Bool;
@@ -252,7 +252,7 @@ second = Second ;
 secondA = SecondA ;
 mixed = Mixed ;
 dolzhen = Dolzhen; 
-foreign = Foreign; -- +++ MG_UR: added +++
+foreign = Foreign; -- deprecated. Not needed
 
   true = True;
   false = False ;

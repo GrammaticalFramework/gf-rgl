@@ -208,7 +208,7 @@ lin
   oil_N = mkN "нефть" ;
   old_A = mkA "старый" "старше" ;
   open_V2= dirV2 (regV imperfective first "открыва" "ю" "открывал" "открывай" "открывать" );
----  organise_V2 = dirV2 (regV imperfective foreign "организу" "ю" "организовал" "организуй" "организовать" ); -- +++ MG_UR: added +++
+---  organise_V2 = dirV2 (regV imperfective first "организу" "ю" "организовал" "организуй" "организовать" );
   paint_V2A = dirV2 (regV imperfective first "рису" "ю" "рисовал" "рисуй" "рисовать" ) ;
 ---  palace_N = nDvorec "двор" ; -- +++ MG_UR: added +++
   paper_N = mkN "бумага" ;
