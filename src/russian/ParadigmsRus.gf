@@ -4,12 +4,12 @@
 --
 -- Janna Khegai 2003--2006
 --
--- This is an API for the user of the resource grammar 
+-- This is an API for the user of the resource grammar
 -- for adding lexical items. It gives functions for forming
 -- expressions of open categories: nouns, adjectives, verbs.
--- 
+--
 -- Closed categories (determiners, pronouns, conjunctions) are
--- accessed through the resource syntax API, $Structural.gf$. 
+-- accessed through the resource syntax API, $Structural.gf$.
 --
 -- The main difference with $MorphoRus.gf$ is that the types
 -- referred to are compiled resource grammar types. We have moreover
@@ -20,11 +20,11 @@
 -- first we give a handful of patterns that aim to cover all
 -- regular cases. Then we give a worst-case function $mkC$, which serves as an
 -- escape to construct the most irregular words of type $C$.
--- 
+--
 -- The following modules are presupposed:
 
-resource ParadigmsRus = open 
-  Prelude, 
+resource ParadigmsRus = open
+  Prelude,
   MorphoRus,
   CatRus,
   NounRus
@@ -32,48 +32,48 @@ resource ParadigmsRus = open
 
 flags  coding=utf8 ;
 
---2 Parameters 
+--2 Parameters
 --
 -- To abstract over gender names, we define the following identifiers.
 
 oper
-  Gender : Type ;
+  Gender : Type ; -- Parameter for mkN*
   masculine : Gender ;
   feminine  : Gender ;
   neuter    : Gender ;
 
 -- To abstract over case names, we define the following.
-  Case : Type ;
+  Case : Type ; -- Parameter for mkPrep, mkA2, mkV2, mkV3
 
   nominative    : Case ;
   genitive      : Case ;
   dative        : Case ;
-  accusative    : Case ; 
+  accusative    : Case ;
   instructive   : Case ;
   prepositional : Case ;
 
--- In some (written in English) textbooks accusative case 
--- is put on the second place. However, we follow the case order 
+-- In some (written in English) textbooks accusative case
+-- is put on the second place. However, we follow the case order
 -- standard for Russian textbooks.
 
 -- To abstract over number names, we define the following.
-  Number : Type ;
+  Number : Type ; -- Parameter for mkPN
 
   singular : Number ;
   plural   : Number ;
 
 --2 Nouns
 
-  Animacy: Type ; 
-  
-  animate: Animacy;
-  inanimate: Animacy; 
+  Animacy : Type ; -- Parameter for mkN, mkPN
+
+  animate : Animacy;
+  inanimate : Animacy;
 
 -- Indeclinabe nouns: "кофе", "пальто", "ВУЗ".
- 
-  mkIndeclinableNoun: Str -> Gender -> Animacy -> N ; 
 
-  mkNAltPl: Str -> Str -> Gender -> Animacy -> N ; 
+  mkIndeclinableNoun: Str -> Gender -> Animacy -> N ;
+
+  mkNAltPl: Str -> Str -> Gender -> Animacy -> N ;
 
   mkN : overload {
 
@@ -87,7 +87,7 @@ oper
 -- and the prepositional form after в and на, and
 -- the corresponding six plural forms and the gender and animacy.
 
-    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N
+    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N -- Worst case - give six singular forms: Nominative, Genetive, Dative, Accusative, Instructive and Prepositional; and the prepositional form after в and на, and the corresponding six plural forms and the gender and animacy.
   } ;
 
   mkN2 : overload {
@@ -105,7 +105,7 @@ oper
 
   mkPN  : Str -> Gender -> Number -> Animacy -> PN ;          -- "Иван", "Маша"
   nounPN : N -> PN ;
-  
+
 
 --2 Adjectives
 
@@ -119,8 +119,8 @@ oper
 --  Instructive | Prepositional)
 
 
--- Notice that 4 short forms, which exist for some adjectives are not included 
--- in the current description, otherwise there would be 32 forms for 
+-- Notice that 4 short forms, which exist for some adjectives are not included
+-- in the current description, otherwise there would be 32 forms for
 -- positive degree.
 
    mkA : overload {
@@ -139,9 +139,9 @@ oper
 
    mkA2 : A -> Str -> Case -> A2 ;  -- "делим на"
 
--- Comparison adjectives need a positive adjective 
--- (28 forms without short forms). 
--- Taking only one comparative form (non-syntactic) and 
+-- Comparison adjectives need a positive adjective
+-- (28 forms without short forms).
+-- Taking only one comparative form (non-syntactic) and
 -- only one superlative form (syntactic) we can produce the
 -- comparison adjective with only one extra argument -
 -- non-syntactic comparative form.
@@ -151,7 +151,7 @@ oper
 --   mkADeg : A -> Str -> ADeg ;
 
 -- On top level, there are adjectival phrases. The most common case is
--- just to use a one-place adjective. 
+-- just to use a one-place adjective.
 --   ap : A  -> IsPostfixAdj -> AP ;
 
 --2 Adverbs
@@ -165,75 +165,75 @@ oper
 
 --2 Verbs
 --
--- In our lexicon description ("Verbum") there are 62 forms: 
--- 2 (Voice) by { 1 (infinitive) + [2(number) by 3 (person)](imperative) + 
--- [ [2(Number) by 3(Person)](present) + [2(Number) by 3(Person)](future) + 
--- 4(GenNum)(past) ](indicative)+ 4 (GenNum) (subjunctive) } 
--- Participles (Present and Past) and Gerund forms are not included, 
+-- In our lexicon description ("Verbum") there are 62 forms:
+-- 2 (Voice) by { 1 (infinitive) + [2(number) by 3 (person)](imperative) +
+-- [ [2(Number) by 3(Person)](present) + [2(Number) by 3(Person)](future) +
+-- 4(GenNum)(past) ](indicative)+ 4 (GenNum) (subjunctive) }
+-- Participles (Present and Past) and Gerund forms are not included,
 -- since they fuction more like Adjectives and Adverbs correspondingly
 -- rather than verbs. Aspect is regarded as an inherent parameter of a verb.
--- Notice, that some forms are never used for some verbs. 
+-- Notice, that some forms are never used for some verbs.
 
-Voice: Type; 
-Aspect: Type; 
-Bool: Type;
-Conjugation: Type ;
+  Voice : Type ; -- Parameter to mkV*
+  active : Voice ;
+  passive : Voice ;
 
-first:   Conjugation; -- "гуля-Ешь, гуля-Ем"
-firstE:  Conjugation; -- Verbs with vowel "ё": "даёшь" (give), "пьёшь" (drink)  
-second:  Conjugation; -- "вид-Ишь, вид-Им"
-mixed:   Conjugation; -- "хоч-Ешь - хот-Им"
-dolzhen: Conjugation; -- irregular
-foreign: Conjugation; -- deprecated, not needed
+  Aspect : Type ; -- Parameter to mkV*
+  imperfective : Aspect ;
+  perfective : Aspect ;
 
+  Conjugation : Type ; -- Parameter to mkV*
+  first   : Conjugation ; -- "гуля-Ешь, гуля-Ем"
+  firstE  : Conjugation ; -- Verbs with vowel "ё": "даёшь" (give), "пьёшь" (drink)
+  second  : Conjugation ; -- "вид-Ишь, вид-Им"
+  mixed   : Conjugation ; -- "хоч-Ешь - хот-Им"
+  dolzhen : Conjugation ; -- irregular
+  foreign: Conjugation; -- deprecated, not needed
 
-true:  Bool;
-false: Bool;
- 
-active: Voice ;
-passive: Voice ;
-imperfective: Aspect;
-perfective: Aspect ;  
+  Bool: Type;
+  true:  Bool;
+  false: Bool;
 
-
--- The worst case need 6 forms of the present tense in indicative mood
--- ("я бегу", "ты бежишь", "он бежит", "мы бежим", "вы бежите", "они бегут"),
--- a past form (singular, masculine: "я бежал"), an imperative form 
--- (singular, second person: "беги"), an infinitive ("бежать").
--- Inherent aspect should also be specified.
-
---   mkVerbum : Aspect -> (presentSgP1,presentSgP2,presentSgP3,
-   mkV : Aspect -> (presSg1,presSg2,presSg3,presPl1,presPl2,presPl3,pastSgMasc,imp,inf: Str) -> V ;
-
--- Common conjugation patterns are two conjugations: 
+-- Common conjugation patterns are two conjugations:
 --  first - verbs ending with "-ать/-ять" and second - "-ить/-еть".
 -- Instead of 6 present forms of the worst case, we only need
 -- a present stem and one ending (singular, first person):
 -- "я люб-лю", "я жд-у", etc. To determine where the border
--- between stem and ending lies it is sufficient to compare 
+-- between stem and ending lies it is sufficient to compare
 -- first person from with second person form:
 -- "я люб-лю", "ты люб-ишь". Stems shoud be the same.
 -- So the definition for verb "любить"  looks like:
 -- regV Imperfective Second "люб" "лю" "любил" "люби" "любить";
 
-   regV :Aspect -> Conjugation -> (stemPresSg1,endPresSg1,pastSg1,imp,inf : Str) -> V ; 
+  regV : Aspect -> Conjugation -> (stemPresSg1,endPresSg1,pastSg1,imp,inf : Str) -> V ; -- Example for verb "любить": `regV Imperfective Second "люб" "лю" "любил" "люби" "любить"`
+
+-- The worst case need 6 forms of the present tense in indicative mood
+-- ("я бегу", "ты бежишь", "он бежит", "мы бежим", "вы бежите", "они бегут"),
+-- a past form (singular, masculine: "я бежал"), an imperative form
+-- (singular, second person: "беги"), an infinitive ("бежать").
+-- Inherent aspect should also be specified.
+
+--   mkVerbum : Aspect -> (presentSgP1,presentSgP2,presentSgP3,
+   mkV : Aspect -> (presSg1,presSg2,presSg3,presPl1,presPl2,presPl3,pastSgMasc,imp,inf: Str) -> V ; -- The worst case need 6 forms of the present tense in indicative mood ("я бегу", "ты бежишь", "он бежит", "мы бежим", "вы бежите", "они бегут"), a past form (singular, masculine: "я бежал"), an imperative form (singular, second person: "беги"), an infinitive ("бежать"). Inherent aspect should also be specified.
+
+
 
 
 -- Two-place verbs, and the special case with direct object. Notice that
 -- a particle can be included in a $V$.
 
-   mkV2     : V   -> Str -> Case -> V2 ;   -- "войти в дом"; "в", accusative
+   mkV2  : V   -> Str -> Case -> V2 ;   -- "войти в дом"; "в", accusative
    mkV3  : V -> Str -> Str -> Case -> Case -> V3 ; -- "сложить письмо в конверт"
    mkVS  : V -> VS ;
-   mkVQ  : V -> VQ ;   
+   mkVQ  : V -> VQ ;
    mkV2V : V -> Str -> Case -> V2V ;
    mkV2S : V -> Str -> Case -> V2S ;
    mkV2Q : V -> Str -> Case -> V2Q ;
    mkV2A : V -> Str -> Case -> V2A ;
 
    dirV2    : V -> V2 ;                    -- "видеть", "любить"
-   tvDirDir : V -> V3 ; 
-                            
+   tvDirDir : V -> V3 ;
+
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 --.
@@ -251,7 +251,7 @@ firstE = FirstE ;
 second = Second ;
 secondA = SecondA ;
 mixed = Mixed ;
-dolzhen = Dolzhen; 
+dolzhen = Dolzhen;
 foreign = Foreign; -- deprecated. Not needed
 
   true = True;
@@ -270,15 +270,15 @@ foreign = Foreign; -- deprecated. Not needed
   animate = Animate ;
   inanimate = Inanimate ;
   active = Act ;
-  passive = Pass ; 
+  passive = Pass ;
   imperfective = Imperfective ;
   perfective = Perfective ;
  -- present = Present ;
   --past = Past ;
   Degree     = Posit | Compar | Superl ;
-              
+
  -- Person     = P1 | P2 | P3 ;
- -- AfterPrep  = Yes | No ; 
+ -- AfterPrep  = Yes | No ;
  -- Possessive = NonPoss | Poss GenNum ;
 
 -- Noun definitions
@@ -295,7 +295,7 @@ foreign = Foreign; -- deprecated. Not needed
    {
      s = table { NF _ _ _ => s } ;
      g = g ;
-     anim = anim 
+     anim = anim
    } ** {lock_N = <>};
 
   mkNAltPl = \s, alt, g, anim ->
@@ -306,7 +306,7 @@ foreign = Foreign; -- deprecated. Not needed
 		NF Pl c sgg    => plural.s ! NF Sg c sgg;
 		NF Pl c plg    => plural.s ! NF Pl c plg } ;
     g = g ;
-    anim = anim 
+    anim = anim
     } ** {lock_N = <>};
 
   oper mkWorstN  : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg,
@@ -314,7 +314,7 @@ foreign = Foreign; -- deprecated. Not needed
     =  \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg,
           nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim ->
    {
-     s = table { 
+     s = table {
            NF Sg Nom _ => nomSg ;
            NF Sg Gen _ => genSg ;
            NF Sg Dat _ => datSg ;
@@ -328,7 +328,7 @@ foreign = Foreign; -- deprecated. Not needed
            NF Pl Acc _ => accPl ;
            NF Pl Inst _ => instPl ;
            NF Pl (Prepos _) _ => preposPl
-     } ;                           
+     } ;
      g = g ;
      anim = anim
    } ** {lock_N = <>} ;
@@ -353,8 +353,8 @@ foreign = Foreign; -- deprecated. Not needed
           stem+"е"                         => nRegSoftNeut stem ;
           stem+"я"                         => nRegSoftFem stem ;
           stem+"ь"                         => nRegSoftMasc stem ;
-          stem+"о"                         => nRegHardNeut stem ; 
-          stem+"а"                         => nRegHardFem stem ; 
+          stem+"о"                         => nRegHardNeut stem ;
+          stem+"а"                         => nRegHardFem stem ;
           stem                             => nRegHardMasc stem
          } ** {lock_N = <>} ;
 
@@ -376,15 +376,15 @@ foreign = Foreign; -- deprecated. Not needed
 
   mkFun : N -> Prep -> N2 = \f,p -> f ** {c2 = p ; lock_N2 = <>} ;
 
-  nullPrep : Prep = {s = []; c= Gen; lock_Prep=<>} ;  
+  nullPrep : Prep = {s = []; c= Gen; lock_Prep=<>} ;
 
-  mkN3 f p2 p3 = f ** {c2 = p2; c3 = p3; lock_N3 = <>} ; 
+  mkN3 f p2 p3 = f ** {c2 = p2; c3 = p3; lock_N3 = <>} ;
 
 
-  -- mkPN = \ivan, g, n, anim -> 
+  -- mkPN = \ivan, g, n, anim ->
   --   case n of {
-  --     Sg => case g of { 
-  -- 	Masc => mkProperNameMasc ivan anim ; 
+  --     Sg => case g of {
+  -- 	Masc => mkProperNameMasc ivan anim ;
   -- 	Fem  => mkProperNameFem ivan anim ;
   -- 	_ => mkProperNameMasc ivan anim
   -- 	} ;
@@ -394,7 +394,7 @@ foreign = Foreign; -- deprecated. Not needed
   mkPN ivan g n anim = nounPN (mk1N ivan);
 
   nounPN n = {s=\\c => n.s! NF Sg c nom; anim=n.anim; g=n.g; lock_PN=<>};
-    
+
 -- On the top level, it is maybe $CN$ that is used rather than $N$, and
 -- $NP$ rather than $PN$.
 
@@ -411,15 +411,15 @@ foreign = Foreign; -- deprecated. Not needed
      mkA : (positive : Str) -> AdjType -> A = mk1Ab ;
      mkA : (positive, shortMasc, shortFem, shortNeut, shortPl : Str) -> A = mk3A ;  -- to make correct short forms (Liza Zimina 04/2018)
      mkA : (positive, comparative : Str) -> A = mk2A ;
-     mkA : (positive : Str) -> ShortFormPreference -> A  = mk4A ; -- adjectives preferring full forms in conjunction 
+     mkA : (positive : Str) -> ShortFormPreference -> A  = mk4A ; -- adjectives preferring full forms in conjunction
                                                                   -- (e.g. "он классический и элегантный" vs "он классический и элегантен") Liza Zimina 04/2018
      mkA : (positive : Str) -> Bool -> A  = mk5A ; -- postfix adjectives (e.g. "цвета кости") Liza Zimina 04/2018
   } ;
 
-  mk1A : Str -> A = \positive -> 
+  mk1A : Str -> A = \positive ->
     let stem = Predef.tk 2 positive in mk2A positive (stem+"ее") ;
 
-  mk2A : Str -> Str -> A = \positive, comparative -> 
+  mk2A : Str -> Str -> A = \positive, comparative ->
     case positive of {
       stem+"ый"                        => mkAdjDeg (aRegHard StemStress Qual stem) comparative ;
       stem+"ой"                        => mkAdjDeg (aRegHard EndStress Qual stem) comparative ;
@@ -428,8 +428,8 @@ foreign = Foreign; -- deprecated. Not needed
       stem+"ий"                        => mkAdjDeg (aRegSoft Qual stem) comparative ;
       stem                             => mkAdjDeg (adjInvar stem) comparative
     } ;
-    
-  mk1Ab : Str -> AdjType -> A = \positive, at -> 
+
+  mk1Ab : Str -> AdjType -> A = \positive, at ->
     let { stem = Predef.tk 2 positive;
 	  comparative = stem + "ее"
 	  } in case positive of {
@@ -455,7 +455,7 @@ foreign = Foreign; -- deprecated. Not needed
     p = False ;
     preferShort = PrefShort
   } ** {lock_A = <>};
-  
+
   oper mkAdjDegFull: Adjective -> Str -> ShortFormPreference -> A = \adj, s,sfp ->
    {s = table
            {
@@ -512,22 +512,22 @@ foreign = Foreign; -- deprecated. Not needed
 -- Prepositions definitions
   mkPrep s c = {s = s ; c = c ; lock_Prep = <>} ;
 
--- Verb definitions 
+-- Verb definitions
 
---   mkVerbum = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3, 
-   mkV = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3, 
-     sgMascPast, imperSgP2, inf -> case asp of { 
-       Perfective  =>  
-         mkVerbPerfective inf imperSgP2 
+--   mkVerbum = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3,
+   mkV = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3,
+     sgMascPast, imperSgP2, inf -> case asp of {
+       Perfective  =>
+         mkVerbPerfective inf imperSgP2
          (presentConj sgP1 sgP2 sgP3 plP1 plP2 plP3) (pastConj sgMascPast)
          ** {    lock_V=<> };
-       Imperfective  =>  
-         mkVerbImperfective inf imperSgP2 
+       Imperfective  =>
+         mkVerbImperfective inf imperSgP2
          (presentConj sgP1 sgP2 sgP3 plP1 plP2 plP3) (pastConj sgMascPast)
          ** {    lock_V=<> }
-        }; 
+        };
 
-   oper presentConj: (_,_,_,_,_,_: Str) -> PresentVerb = 
+   oper presentConj: (_,_,_,_,_,_: Str) -> PresentVerb =
      \sgP1, sgP2, sgP3, plP1, plP2, plP3 ->
      table {
        PRF (GSg _) P1 => sgP1 ;
@@ -535,7 +535,7 @@ foreign = Foreign; -- deprecated. Not needed
        PRF (GSg _) P3 => sgP3 ;
        PRF APl P1 => plP1 ;
        PRF APl P2 => plP2 ;
-       PRF APl P3 => plP3   
+       PRF APl P3 => plP3
      };
 
     regV a b c d e f g = verbDecl a b c d e f g ** {lock_V = <>} ;
@@ -543,25 +543,25 @@ foreign = Foreign; -- deprecated. Not needed
 {-
    mkV a b = extVerb a b ** {lock_V = <>};                         -- defined in types.RusU.gf
 
-   mkPresentV = \aller, vox -> 
-    { s = table { 
+   mkPresentV = \aller, vox ->
+    { s = table {
        VFin gn p => aller.s ! VFORM vox (VIND (VPresent (numGNum gn) p)) ;
        VImper n p => aller.s ! VFORM vox (VIMP n p) ;
        VInf => aller.s ! VFORM vox VINF ;
        VSubj gn => aller.s ! VFORM vox (VSUB gn)
        }; t = Present ; a = aller.asp ; w = vox ; lock_V = <>} ;
 -}
-   mkV2 v p cas = v ** {c2 = {s=p; c=cas}; lock_V2 = <>}; 
+   mkV2 v p cas = v ** {c2 = {s=p; c=cas}; lock_V2 = <>};
    dirV2 v = mkV2 v [] Acc;
 
 
-   tvDirDir v = mkV3 v "" "" Acc Dat; 
+   tvDirDir v = mkV3 v "" "" Acc Dat;
 
 -- *Ditransitive verbs* are verbs with three argument places.
 -- We treat so far only the rule in which the ditransitive
 -- verb takes both complements to form a verb phrase.
 
-   mkV3 v s1 s2 c1 c2 = v ** {c2 = {s=s1; c=c1}; c3={s=s2; c=c2}; lock_V3 = <>};  
+   mkV3 v s1 s2 c1 c2 = v ** {c2 = {s=s1; c=c1}; c3={s=s2; c=c2}; lock_V3 = <>};
 
    mkVS v = v ** {lock_VS = <>} ;
    mkVQ v = v ** {lock_VQ = <>} ;
@@ -569,12 +569,12 @@ foreign = Foreign; -- deprecated. Not needed
    mkV2S v p cas = v ** {c2 = {s=p; c=cas}; lock_V2S = <>};
    mkV2Q v p cas = v ** {c2 = {s=p; c=cas}; lock_V2Q = <>};
    mkV2A v p cas = v ** {c2 = {s=p; c=cas}; lock_V2A = <>};
-  
+
 -- Liza Zimina 04/2018: to make correct short forms of adjectives
 
-  mk3A : Str -> Str -> Str -> Str -> Str -> A = \positive,shortMasc,shortFem,shortNeut,shortPl  -> 
+  mk3A : Str -> Str -> Str -> Str -> Str -> A = \positive,shortMasc,shortFem,shortNeut,shortPl  ->
     let {koren = Predef.tk 2 positive ;
-         comparative = koren + "ее"} in  
+         comparative = koren + "ее"} in
     case positive of {
       stem+"ый"                        => mkAdjDeg (aRegHardWorstCase StemStress Qual stem shortMasc shortFem shortNeut shortPl) comparative ;
       stem+"ой"                        => mkAdjDeg (aRegHardWorstCase EndStress Qual stem shortMasc shortFem shortNeut shortPl) comparative ;
@@ -583,10 +583,10 @@ foreign = Foreign; -- deprecated. Not needed
       stem+"ий"                        => mkAdjDeg (aRegSoftWorstCase Qual stem shortMasc shortFem shortNeut shortPl) comparative ;
       stem                             => mkAdjDeg (adjInvar stem) comparative
     } ;
-    
-  mk4A : Str -> ShortFormPreference -> A = \positive,prefshort -> 
+
+  mk4A : Str -> ShortFormPreference -> A = \positive,prefshort ->
     let {koren = Predef.tk 2 positive ;
-         comparative = koren + "ее"} in 
+         comparative = koren + "ее"} in
     case positive of {
       stem+"ый"                        => mkAdjDegFull (aRegHardFull StemStress Qual stem) comparative prefshort ;
       stem+"ой"                        => mkAdjDegFull (aRegHardFull EndStress Qual stem) comparative prefshort ;
@@ -595,13 +595,13 @@ foreign = Foreign; -- deprecated. Not needed
       stem+"ий"                        => mkAdjDegFull (aRegSoftFull Qual stem) comparative prefshort ;
       stem                             => mkAdjDegFull (adjInvar stem) comparative prefshort
     } ;
-  
-  mk5A : Str -> Bool -> A = \adj,postfix -> 
+
+  mk5A : Str -> Bool -> A = \adj,postfix ->
     case postfix of {
       False => mk1A adj ;
       True => lin A {
         s = \\d,af => adj ;
-        p = True ; 
+        p = True ;
         preferShort = PrefFull
         }
       } ;
