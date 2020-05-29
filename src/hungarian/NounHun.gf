@@ -77,8 +77,13 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : CN -> NP ;
   MassNP cn = emptyNP ** {
-    s = \\p,c => caseFromStem glue cn c Sg ++ -- TODO add possessors
-               cn.compl ! Sg ! c ;
+    s = \\p,c => case p of {
+          NoPoss => caseFromStem glue cn c Sg ;
+          Poss per rnum =>
+            let pron : Pronoun = pronTable ! <per,rnum> ; -- Possessor's number
+                dnum : CatHun.Num = NumSg ; -- because this is MassNP, no Det
+             in caseFromPossStem cn (DetQuant (PossPron pron) dnum) c
+           } ++ cn.compl ! Sg ! c ;
     agr = <P3,Sg> ;
     } ;
 
