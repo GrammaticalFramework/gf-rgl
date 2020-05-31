@@ -59,7 +59,7 @@ oper pronYaTu : { s : Case => Str } -> Str -> Person -> Gender -> Pronoun =
         <Gen,      GPl> => mo + "их" ;
         <Dat,      GPl> => mo + "им" ;
         <Acc,      GPl> => mo + "их" ;
-        <Inst,     GPl> => mo + "им" ;
+        <Inst,     GPl> => mo + "ими" ;
         <Prepos _, GPl> => mo + "их" 
 	
       }
