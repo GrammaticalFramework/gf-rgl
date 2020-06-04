@@ -79,7 +79,7 @@ lin computer_N = mkN "számítógép" "számítógépet" ;
 lin correct_A = mkA "igaz" ;
 -- lin count_V2 = mkV2 "" ;
 lin country_N = mkN "ország" "országot" "országok" "országa" ;
-lin cousin_N = mkN "unokatestvér" "unokatestvért"; --short "unoka"
+lin cousin_N = mkN "unoka" (mkN "testvér" "testvért") ; --short "unoka"
 lin cow_N = mkN "tehén" ;
 -- lin cut_V2 = mkV2 "" ;
 --
