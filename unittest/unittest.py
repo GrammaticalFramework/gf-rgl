@@ -77,23 +77,28 @@ def numbered_np(num, noun, plural=None):
 
 def collect_testcases(testlines):
     """Parse the test file and return a list of test cases"""
-    tests = [[]]
+    tests = []
+    test = []
     for linenr, line in enumerate(testlines, 1):
+        line = line.strip()
         if line.startswith('#') or line.startswith('--'):
             # a comment line: do nothing
             pass
-        elif not line.strip():
+        elif not line:
             # an empty line: start a new test
-            if tests[-1]:
-                tests.append([])
+            if test:
+                tests.append(test)
+                test = []
         elif ':' in line:
             lang, sentence = stripstrings(line.split(':', 1))
             langfile = importfile(linenr, lang)
             is_tree = '/abstract/' in langfile
-            tests[-1].append((is_tree, linenr, lang, langfile, sentence))
+            test.append((is_tree, linenr, lang, langfile, sentence))
         else:
             error(linenr, "Ill-formatted line in test file:", line)
             exit(1)
+    if test:
+        tests.append(test)
     return tests
 
 
