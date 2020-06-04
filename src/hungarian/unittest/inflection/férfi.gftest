@@ -11,13 +11,13 @@ Lang: DetCN (DetQuant IndefArt NumPl) (UseN man_N)
 LangHun: férfiak
 
 Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))
-LangHun: én látok férfiakat
+LangHun: én látok férfiak &+ at
 
 Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN man_N))
 LangHun: egy férfihoz
 
 Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN man_N))
-LangHun: férfiakhoz
+LangHun: férfiak &+ hoz
 
 Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN man_N)
-LangHun: TODO
+LangHun: én férfi &+ m

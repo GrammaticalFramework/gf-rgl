@@ -22,8 +22,8 @@ oper
     mkN : (sgnom, sggen : Str) -> N ; -- Singular nominative and accusative. Use: `mkN "név" "nevet"`
     mkN : (sgnom, sggen, plnom : Str) -> N ; -- Singular nominative, singular accusative, plural nominative. Use: `mkN "falu" "falut" "falvak"`
     mkN : (sgnom, sggen, plnom, sgnom_possdSg3 : Str) -> N ; -- Singular nominative, singular accusative, plural nominative, singular nominative possessed by 3rd person singular. Use: `mkN "virág" "virágot" "virágok" "virága"` (would give "virágja" otherwise)
-
     mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
+    mkN : (unoka : Str) -> (testvér : N) -> N ; -- Compound noun. Use: `mkN "unoka" (mkN "testvér")` (would give wrong harmony with `mkN "unokatestvér"`)
   } ;
 
   mkPN : overload {
@@ -135,8 +135,11 @@ oper
     mkN : (x1,_,_,x4 : Str) -> N =
         \n,a,pln,possd -> lin N (regNoun4 n a pln possd) ;
 
-    mkN : (x1,_,_,_,_,_,_,x8 : Str) -> N =
-      \a,b,c,d,e,f,g,h -> lin N (worstCaseNoun a b c d e f g h (getHarm a)) ;
+    mkN : (unoka : Str) -> (testvér : N) -> N = -- Compound noun: e.g. `mkN "unoka" (mkN "testvér")`.
+        \prefix,n -> n ** {s = \\x => prefix + n.s ! x} ;
+
+    mkN : (x1,_,_,_,_,_,_,_,x9 : Str) -> N =
+      \a,b,c,d,e,f,g,h,i -> lin N (worstCaseNoun a b c d e f g h i (getHarm a)) ;
 
     mkN : Str -> Harmony -> N =
       \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;

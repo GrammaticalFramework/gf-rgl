@@ -79,7 +79,7 @@ lin computer_N = mkN "számítógép" "számítógépet" ;
 lin correct_A = mkA "igaz" ;
 -- lin count_V2 = mkV2 "" ;
 lin country_N = mkN "ország" "országot" "országok" "országa" ;
-lin cousin_N = mkN "unokatestvér" "unokatestvért"; --short "unoka"
+lin cousin_N = mkN "unoka" (mkN "testvér" "testvért") ; --short "unoka"
 lin cow_N = mkN "tehén" ;
 -- lin cut_V2 = mkV2 "" ;
 --
@@ -133,7 +133,7 @@ lin floor_N = mkN "padló" "padlót" ;
 lin flower_N = mkN "virág" "virágot" "virágok" "virága" ;
 lin fly_V = mkV "repül" ;
 lin fog_N = mkN "köd" "ködöt" "ködön" "ködhöz" "ködök"
-                "köde" "ködünk" "ködei" ;
+                "ködöm" "köde" "ködünk" "ködei" ;
 lin foot_N = leg_N ; --same as leg, to specify "lábfej"
 lin forest_N = mkN "erdő" "erdőt" ;
 -- lin forget_V2 = mkV2 "" ;
@@ -320,7 +320,7 @@ lin shoe_N = mkN "cipő" "cipőt" ;
 lin shop_N = mkN "üzlet" "üzletet";
 lin short_A = mkA "rövid" ; --in short text, if human length then "alacsony"
 lin silver_N = mkN "ezüst" "ezüstöt" "ezüstön" "ezüsthöz" "ezüstök"
-                   "ezüstje" "ezüstünk" "ezüstjei" ;
+                   "ezüstöm" "ezüstje" "ezüstünk" "ezüstjei" ;
 -- lin sing_V = mkV "" ;
 -- lin sister_N = mkN "" ;
 -- lin sit_V = mkV "" ;

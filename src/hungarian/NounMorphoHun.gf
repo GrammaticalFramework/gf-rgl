@@ -37,7 +37,7 @@ oper
          s = \\nc => case nc of {
 
               -- All plural forms and Sg Acc use the "lova" stem
-              PlStem | SgAccStem
+              PlStem | SgAccStem | PossdSg_PossrSg1P2
                => nLova.s ! nc ;
 
               SgSup | -- Sg Sup has vowel o/ö, not a/e
@@ -96,7 +96,7 @@ oper
          s = \\nc => case nc of {
 
             -- All plural forms and Sg Acc use the "majmo" stem
-            PlStem | SgAccStem => nMajmo.s ! nc ;
+            PlStem | SgAccStem | PossdSg_PossrSg1P2 => nMajmo.s ! nc ;
 
             -- Sg Sup uses the same majm* stem, but vowel can be different:
             -- sátor, sátrat   -> sátron,  not *sátran
@@ -169,6 +169,11 @@ oper
     let tolla = init tollat ;
         nTolla = mkNoun tolla ;
         nToll = mkNoun toll ;
+        sörö = case vowFinal tolla of {
+                 True => tolla ;
+                 False => tolla -- város+o+m, sör+ö+m, vér+e+m
+                        + harm3 "o" "e" "ö" ! getHarm tolla
+               } ;
         napj = case andB (ifTok Bool toll tolla True False)
                          (notB (vowFinal tolla)) of {
                  True => toll ;  -- sör, sör|t -> sör|e
@@ -206,6 +211,7 @@ oper
              PossdSg_PossrPl1 => napj + harm "u" "ü" ! nToll.h ;
 
              PossdSg_PossrP3 => napj ;
+             PossdSg_PossrSg1P2 => sörö ;
 
              -- The plural morpheme before possessive suffixes: madarai
              PossdPl => napj + harm "a" "e" ! nToll.h + "i" ;
@@ -225,7 +231,7 @@ oper
      in nMadara ** {
           s = \\nc => case nc of {
              -- All plural forms and Sg Acc use the "tolla" stem
-             PlStem | SgAccStem => nMadara.s ! nc ;
+             PlStem | SgAccStem | PossdSg_PossrSg1P2 => nMadara.s ! nc ;
 
              PossdSg_PossrPl1 => madar + harm "u" "ü" ! nMadara.h ;
 
@@ -246,8 +252,8 @@ oper
 
 
   -- Worst case constructor: takes all stems
-  worstCaseNoun : (x1,_,_,_,_,_,_,x8 : Str) -> Harm -> Noun =
-  \nomsg,accsg,supsg,allsg,nompl,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
+  worstCaseNoun : (x1,_,_,_,_,_,_,_,x9 : Str) -> Harm -> Noun =
+  \nomsg,accsg,supsg,allsg,nompl,possdSg_PossrSg1P2,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
    let sgstem = tk 3 allsg ; -- remove -hoz/hez/höz
        sginsstem : Str = case vowFinal sgstem of {
                            True  => sgstem + "v" ;
@@ -262,6 +268,7 @@ oper
           PlStem => nompl ;
           PossdSg_PossrP3 => init possdSg_possrP3sg ; -- remove -a/e
           PossdSg_PossrPl1 => tk 2 possdSg_PossrPl1 ; -- remove -nk
+          PossdSg_PossrSg1P2 => init possdSg_PossrSg1P2 ;
           PossdPl => possdPl } ;
         h = h ;
       } ;

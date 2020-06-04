@@ -49,7 +49,7 @@ oper
           Sg => case st of {
                   dSg_rP3 _  => PossdSg_PossrP3 ;
                   dSg_rPl1   => PossdSg_PossrPl1 ;
-                  dSg_rSg1P2 => SgAccStem }
+                  dSg_rSg1P2 => PossdSg_PossrSg1P2 }
           } ;
 
         -- possessive suffix e.g. "their cats-3pl" is just k. not uk/ük
