@@ -252,8 +252,8 @@ oper
 
 
   -- Worst case constructor: takes all stems
-  worstCaseNoun : (x1,_,_,_,_,_,_,x8 : Str) -> Harm -> Noun =
-  \nomsg,accsg,supsg,allsg,nompl,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
+  worstCaseNoun : (x1,_,_,_,_,_,_,_,x9 : Str) -> Harm -> Noun =
+  \nomsg,accsg,supsg,allsg,nompl,possdSg_PossrSg1P2,possdSg_possrP3sg,possdSg_PossrPl1,possdPl,h ->
    let sgstem = tk 3 allsg ; -- remove -hoz/hez/höz
        sginsstem : Str = case vowFinal sgstem of {
                            True  => sgstem + "v" ;
@@ -268,6 +268,7 @@ oper
           PlStem => nompl ;
           PossdSg_PossrP3 => init possdSg_possrP3sg ; -- remove -a/e
           PossdSg_PossrPl1 => tk 2 possdSg_PossrPl1 ; -- remove -nk
+          PossdSg_PossrSg1P2 => init possdSg_PossrSg1P2 ;
           PossdPl => possdPl } ;
         h = h ;
       } ;
