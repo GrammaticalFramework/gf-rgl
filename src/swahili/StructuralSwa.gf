@@ -1,5 +1,5 @@
-concrete StructuralKis of Structural = CatKis ** 
-  open MorphoKis, ParadigmsKis,  
+concrete StructuralSwa of Structural = CatSwa ** 
+  open MorphoSwa, ParadigmsSwa,  
   (C = ConstructX), Prelude in {
   flags optimize=all ;
   lin
@@ -50,7 +50,7 @@ concrete StructuralKis of Structural = CatKis **
             n= Pl
              } ;
   more_Adv = mkAdv "zaidi" ; 
-  most_Predet = {s = \\g => MorphoKis.Mostpredetprefix g + "ngi"} ;
+  most_Predet = {s = \\g => MorphoSwa.Mostpredetprefix g + "ngi"} ;
  --  must_VV = {   
 ---b  no_Phr = ss "no" ;
   no_Utt = ss "hapana" ;
@@ -61,7 +61,7 @@ concrete StructuralKis of Structural = CatKis **
   otherwise_PConj = ss "ila" ;
   please_Voc = ss "tafadhari" ;
   part_Prep, possess_Prep = let
-       questo : ParadigmsKis.Number =>   MorphoKis.Gender =>  Str = table {
+       questo : ParadigmsSwa.Number =>   MorphoSwa.Gender =>  Str = table {
     Sg => \\g=> case <g> of {    <G3> => "la" ; 
                                  <G4> => "cha" ; 
                                  <G5> => "ya" ; 
@@ -94,7 +94,7 @@ concrete StructuralKis of Structural = CatKis **
   something_NP = regNP "kitu fulani" ki_vi singular ;
   somewhere_Adv = mkAdv "seheme fulani" ;
   that_Quant = let
-       questo : ParadigmsKis.Number =>  MorphoKis.Gender =>  Str = table {
+       questo : ParadigmsSwa.Number =>  MorphoSwa.Gender =>  Str = table {
     Sg => \\g=> case <g> of {
                     <G1> => "huyo" ;
                     <G2 > => "huo";
@@ -134,7 +134,7 @@ concrete StructuralKis of Structural = CatKis **
   therefore_PConj = ss "kwa ajili" ;
   they_Pron  =mkPron "wao" "ao" G1 Pl P3 ;   
   this_Quant = let
-       questo : ParadigmsKis.Number =>  MorphoKis.Gender =>  Str = table {
+       questo : ParadigmsSwa.Number =>  MorphoSwa.Gender =>  Str = table {
     Sg => \\g=> case <g> of {
                     <G1> => "huyu" ;
                     <G11> => "hapa" ;

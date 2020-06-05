@@ -1,5 +1,5 @@
-concrete AdverbKis of Adverb = CatKis **AdverbBantu -[ComparAdvAdj,ComparAdvAdjS] with
- (ResBantu = ResKis)** open DiffKis in
+concrete AdverbSwa of Adverb = CatSwa **AdverbBantu -[ComparAdvAdj,ComparAdvAdjS] with
+ (ResBantu = ResSwa)** open DiffSwa in
 { 
 flags coding=utf8;
   lin

@@ -1,9 +1,9 @@
-instance DiffKis of DiffBantu  =  open CommonBantu, Prelude  in {
+instance DiffSwa of DiffBantu  =  open CommonBantu, Prelude  in {
 
 param 
-  GenderKis = G1|G2|G3|G4|G5|G6|G7|G8|G9|G10|G11|G12|G13  ;
+  GenderSwa = G1|G2|G3|G4|G5|G6|G7|G8|G9|G10|G11|G12|G13  ;
 oper 
-  Gender = GenderKis ;
+  Gender = GenderSwa ;
   firstGender = G1 ; secondGender = G2 ;
   conjThan = "kuliko" ;
   conjThat = "kuvita" ;

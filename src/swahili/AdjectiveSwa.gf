@@ -1,5 +1,5 @@
-concrete AdjectiveKis of Adjective = CatKis **AdjectiveBantu-[ComparA,UseComparA,ComplA2] 
-with  (ResBantu = ResKis)** open DiffKis in
+concrete AdjectiveSwa of Adjective = CatSwa **AdjectiveBantu-[ComparA,UseComparA,ComplA2] 
+with  (ResBantu = ResSwa)** open DiffSwa in
 { 
 flags coding=utf8;
   lin

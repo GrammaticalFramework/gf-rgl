@@ -1,4 +1,4 @@
-concrete IdiomKis of Idiom = CatKis ** open Prelude, ResKis in {
+concrete IdiomSwa of Idiom = CatSwa ** open Prelude, ResSwa in {
 
   flags optimize=all_subs ;
 {-

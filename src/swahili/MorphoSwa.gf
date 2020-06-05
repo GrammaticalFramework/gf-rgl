@@ -5,7 +5,7 @@
 -- Benson Kituku 2017-2018
 
 
-resource MorphoKis = CommonBantu ,ResKis 
+resource MorphoSwa = CommonBantu ,ResSwa 
 ** open Prelude, Predef 
 in {
 

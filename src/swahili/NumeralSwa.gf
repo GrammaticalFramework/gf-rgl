@@ -1,5 +1,5 @@
-concrete NumeralKis of Numeral = CatKis [Numeral,Digits] ** 
-open Prelude,DiffKis,MorphoKis in {
+concrete NumeralSwa of Numeral = CatSwa [Numeral,Digits] ** 
+open Prelude,DiffSwa,MorphoSwa in {
 
 lincat 
   Digit = {s : DForm => CardOrd => Gender => Str} ;

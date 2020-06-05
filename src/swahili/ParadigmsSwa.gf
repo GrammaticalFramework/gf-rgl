@@ -1,11 +1,11 @@
 --# -path=.:../abstract:../../prelude:../common
 
-resource ParadigmsKis = open 
+resource ParadigmsSwa = open 
   (Predef=Predef), 
   Prelude, 
-  MorphoKis,
-   ResKis,
-  CatKis
+  MorphoSwa,
+   ResSwa,
+  CatSwa
   in {
 
 oper
@@ -199,9 +199,9 @@ mkInterj : Str -> Interj
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
-  Gender =  MorphoKis.Gender ; 
-  Number =  MorphoKis.Number ;
-  Case   =  MorphoKis.NPCase ;
+  Gender =  MorphoSwa.Gender ; 
+  Number =  MorphoSwa.Number ;
+  Case   =  MorphoSwa.NPCase ;
    a_wa  = G1 ;--%
    u_i   = G2 ;
   li_ya  = G3 ;
@@ -223,8 +223,8 @@ mkInterj : Str -> Interj
   npNumber np = (agrFeatures np.a).n ;
 
 
-  regN = MorphoKis.regN ; 
-  iregN = MorphoKis.iregN ;
+  regN = MorphoSwa.regN ; 
+  iregN = MorphoSwa.iregN ;
 
  
   compoundN s n = lin N {s = \\x,y => s ++ n.s ! x ! y ; g=n.g} ;
@@ -370,9 +370,9 @@ mkN2 = overload {
 
   regN2 : N -> N2 ;
   
-  regA : Str -> A = \s -> lin A (MorphoKis.regA s) ;
-   cregA : Str -> A = \s -> lin A (MorphoKis.cregA s) ;
-   iregA : (fat,fatter : Str) -> A =\a,b -> lin A (MorphoKis.iregA a b);
+  regA : Str -> A = \s -> lin A (MorphoSwa.regA s) ;
+   cregA : Str -> A = \s -> lin A (MorphoSwa.cregA s) ;
+   iregA : (fat,fatter : Str) -> A =\a,b -> lin A (MorphoSwa.iregA a b);
   mkA = overload {
     mkA : Str -> A = \a -> lin A (regA a |cregA a);
     mkA : (fat,fatter : Str) -> A =\a,b -> lin A (iregA a b);
@@ -388,7 +388,7 @@ mkN2 = overload {
   } ;
 
   
-  regV=MorphoKis.regV ;
+  regV=MorphoSwa.regV ;
 {-
   mkV = overload {
     mkV :  Str -> V =\v ->lin V(regV v) ;

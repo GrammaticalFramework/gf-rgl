@@ -1,7 +1,7 @@
 --# -path=.:prelude
 
-concrete LexiconKis of Lexicon = CatKis **
-  open ParadigmsKis,StructuralKis, Prelude in {
+concrete LexiconSwa of Lexicon = CatSwa **
+  open ParadigmsSwa,StructuralSwa, Prelude in {
 
 flags
   optimize=values ;
