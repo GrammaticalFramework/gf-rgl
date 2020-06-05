@@ -11,6 +11,7 @@ flags
 oper
   npNom : NPCase = NCase Nom ;
   npLoc : NPCase = NCase Loc ;
+  NPAcc : NPCase = NCase Nom ; -- Added this so that swahili compiles. /IL2020
   npcase2case : NPCase -> Case = \nc -> case nc of {NCase c => c ; _ => Nom} ;
 
 
@@ -81,14 +82,3 @@ oper
   finalComma : Str = pre {"," | "." => []; "" => SOFT_BIND ++ ","; _ => []} ;
   frontComma : Str = SOFT_BIND ++ "," ; 
 }
-
--- insertObject:
--- p -cat=Cl -tr "la femme te l' envoie"
--- PredVP (DetCN (DetSg DefSg NoOrd) (UseN woman_N)) 
---  (ComplV3 send_V3 (UsePron he_Pron) (UsePron thou_Pron))
--- la femme te l' a envoyé
---
--- p -cat=Cl -tr "la femme te lui envoie"
--- PredVP (DetCN (DetSg DefSg NoOrd) (UseN woman_N)) 
---   (ComplV3 send_V3 (UsePron thou_Pron) (UsePron he_Pron))
--- la femme te lui a envoyée

@@ -1,3 +1,2 @@
-concrete QuestionSwa of Question = CatSwa ** open ResSwa, Prelude in {
-
-}
+concrete QuestionSwa of Question = CatSwa ** QuestionBantu with
+ (ResBantu = ResSwa);  

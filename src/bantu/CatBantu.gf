@@ -1,5 +1,5 @@
-incomplete concrete CatBantu of Cat = 
-  CommonX - [Pol]
+incomplete concrete CatBantu of Cat =
+  CommonX
   ** open ResBantu, Prelude, ParamX in {
 
   flags optimize=all_subs ;
@@ -7,8 +7,6 @@ incomplete concrete CatBantu of Cat =
 
   lincat
 
- Pol = {s : Str ; b : Bool} ;
-  
     S  = {s : Str} ;
     QS = {s : QForm => Str} ;
     RS = {s : Agr => Str ; c : NPCase} ; -- c for it clefts
@@ -16,7 +14,7 @@ incomplete concrete CatBantu of Cat =
 
 -- Sentence
 
-  --  Cl = {s : Tense => Anteriority => Bool =>  Str} ;
+    Cl = {s : Tense => Anteriority => Bool =>  Str} ;
  --   ClSlash = {
  --     s : ResKam.Tense => Anteriority => Bool => Str ;
 --      } ;
