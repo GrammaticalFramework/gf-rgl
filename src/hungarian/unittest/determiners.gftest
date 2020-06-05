@@ -4,11 +4,11 @@ LangHun: én látom ezt az almá &+ t
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant this_Quant NumPl) (UseN apple_N)))))) NoVoc
 LangEng: I see these apples
-LangHun: én látom ezeket az almákat
+LangHun: én látom ezeket az almák &+ at
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant that_Quant NumPl) (AdjCN (PositA red_A) (UseN apple_N))))))) NoVoc
 LangEng: I see those red apples
-LangHun: én látom azokat a piros almákat
+LangHun: én látom azokat a piros almák &+ at
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetNP (DetQuant this_Quant NumSg)))))) NoVoc
 LangEng: I see this

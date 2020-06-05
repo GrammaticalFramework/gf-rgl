@@ -2,7 +2,7 @@ Lang: MassNP (UseN lake_N)
 LangHun: tó
 
 Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN lake_N)))
-LangHun: én látok egy tavat
+LangHun: én látok egy tava &+ t
 
 Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN lake_N))
 LangHun: egy tavon
@@ -11,13 +11,13 @@ Lang: DetCN (DetQuant IndefArt NumPl) (UseN lake_N)
 LangHun: tavak
 
 Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN lake_N)))
-LangHun: én látok tavakat
+LangHun: én látok tavak &+ at
 
 Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN lake_N))
 LangHun: egy tóhoz
 
 Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN lake_N))
-LangHun: tavakhoz
+LangHun: tavak &+ hoz
 
 Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN lake_N)
-LangHun: TODO
+LangHun: én tava &+ m

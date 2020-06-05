@@ -76,8 +76,9 @@ param
   | SgInsStem -- Instrumental and translative: -v after vowels
   | SgStem  -- Rest of the cases in Sg
   | PlStem  -- Rest of the cases in Pl
-  | PossdSg_PossrP3 -- Possessed item is Sg, possessor is Sg or Pl P3
+  | PossdSg_PossrP3 -- Possessed item is Sg, possessor is {Sg,Pl} P3
   | PossdSg_PossrPl1 -- Possessed item is Sg, possessor is Pl P1
+  | PossdSg_PossrSg1P2 -- Possessed item is Sg, possessor is Sg P1 or {Sg,Pl} P2
   | PossdPl -- Possessed item in plural, any possessor.
   ;         -- Rest of poss forms use SgAccStem
 
@@ -157,6 +158,7 @@ oper
     PlStem => "PlStem" ;
     PossdSg_PossrP3 => "PossdSg_PossrP3" ;
     PossdSg_PossrPl1 => "PossdSg_PossrPl1" ;
+    PossdSg_PossrSg1P2 => "PossdSg_PossrSg1P2" ;
     PossdPl => "PossdPl"
     } ;
 

@@ -72,6 +72,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : Det -> NP ;
   DetNP det = emptyNP ** det ** {
     s = \\p => det.sp ;
+    objdef = dt2objdef det.dt ;
     agr = <P3,det.n> ;
     } ;
 
