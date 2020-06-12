@@ -158,19 +158,48 @@ oper
     dropNaEnging = symb.s ++ "番目の"
       } ;
 
+  -- Added by IL 2020-06.
+  vp2verb : VP -> Speaker -> Animateness -> Style -> Verb = \vp,sp,an,st -> vp ** {
+    s = vp.verb ! sp ! an ; -- Style => TTense => Polarity => Str ;
+    a_stem = vp.a_stem ! sp ! an ! st ;
+    i_stem = vp.i_stem ! sp ! an ! st ;
+    te = vp.te ! sp ! an ! st ;
+    ba = vp.ba ! sp ! an ! st ;
+    } ;
+
   VerbalA : Str -> Str -> Adj = \kekkonshiteiru,kikonno ->
-    let
-      kekkonshite = Predef.tk 2 kekkonshiteiru
-    in {
-    pred = \\st,t,p => kekkonshite + mkExistV.verb ! SomeoneElse ! Anim ! st ! t ! p ;
+    let kikon : Str = case kikonno of {
+       kikon + ("の"|"な") => kikon ;
+       _                  => kikonno } ;
+     in case kekkonshiteiru of {
+        kekkonshite + "いる"
+          => mkVerbalA kekkonshite kikonno kikon (vp2verb mkExistV SomeoneElse Anim Resp) ;
+        kekkonshite + "ある"
+          => mkVerbalA kekkonshite kikonno kikon (vp2verb mkExistV SomeoneElse Inanim Resp) ;
+        kekkonshite + "する"
+          => mkVerbalA kekkonshite kikonno kikon (mkVerb "する" Suru) ;
+        kekkonshite + "来る"
+          => mkVerbalA kekkonshite kikonno kikon (mkVerb "来る" Kuru) ;
+        _ + "る" -- The whole kekkonshite+iru is in the verb, prefix is empty
+          => mkVerbalA [] kikonno kikon (mkVerb kekkonshiteiru Gr2) ;
+        _ => mkVerbalA [] kikonno kikon (mkVerb kekkonshiteiru Gr1)
+    } ;
+
+  mkVerbalA : (kekkonshite, -- Predicative without the inflecting part
+               kikonno,     -- Attributive with no or na (if needed)
+               kikon        -- Attributive without no/na. If no の/な, identical to kikonno.
+               : Str)
+           -> (iru : Verb)  -- The inflecting verb for the predicate
+           -> Adj = \kekkonshite,kikonno,kikon,iru -> {
+    pred = \\st,t,p => kekkonshite + iru.s ! st ! t ! p ;
     attr = kikonno ;
-    te = \\p => kekkonshite ++ mkExistV.te ! SomeoneElse ! Anim ! Resp ! p ;
-    ba = \\p => kekkonshite ++ mkExistV.ba ! SomeoneElse ! Anim ! Resp ! p ;
+    te = \\p => kekkonshite ++ iru.te ! p ;
+    ba = \\p => kekkonshite ++ iru.ba ! p ;
     adv = table {
-      Pos => init kikonno + "で" ;
-      Neg => init kikonno + "ではなく"
+      Pos => kikon + "で" ;      -- TODO check: 疲れで or 疲れたで (tired_VP)
+      Neg => kikon + "ではなく"
       } ;
-    dropNaEnging = init kikonno
+    dropNaEnging = kikon
     } ;
 
   mkVerb : Str -> VerbGroup -> Verb =
