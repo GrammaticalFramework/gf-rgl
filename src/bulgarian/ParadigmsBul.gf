@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:../prelude
---# -coding=cp1251
+--# -coding=utf8
 
 resource ParadigmsBul = MorphoFunsBul ** open
   Predef,
@@ -7,7 +7,7 @@ resource ParadigmsBul = MorphoFunsBul ** open
   MorphoBul,
   CatBul
   in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 oper
  -- numbers refer to Krustev, Bulg. Morph. in 187 Tables
@@ -15,12 +15,12 @@ oper
   mkN001 : Str -> N ;
   mkN001 base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"а" ;
-                       NF Pl Indef => base+"ове" ;
-                       NF Pl Def   => base+"овете" ;
-                       NFSgDefNom  => base+"ът" ;
-                       NFPlCount   => base+"а" ;
-                       NFVocative  => base+"е"
+                       NF Sg Def   => base+"Р°" ;
+                       NF Pl Indef => base+"РѕРІРµ" ;
+                       NF Pl Def   => base+"РѕРІРµС‚Рµ" ;
+                       NFSgDefNom  => base+"СЉС‚" ;
+                       NFPlCount   => base+"Р°" ;
+                       NFVocative  => base+"Рµ"
                      } ;
                  rel = \\_ => base ; relType = Pref ;
                  g = AMasc NonHuman ;
@@ -29,12 +29,12 @@ oper
   mkN001a : Str -> N ;
   mkN001a base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"а" ;
-                       NF Pl Indef => base+"ове" ;
-                       NF Pl Def   => base+"овете" ;
-                       NFSgDefNom  => base+"ът" ;
-                       NFPlCount   => base+"ове" ;
-                       NFVocative  => base+"е"
+                       NF Sg Def   => base+"Р°" ;
+                       NF Pl Indef => base+"РѕРІРµ" ;
+                       NF Pl Def   => base+"РѕРІРµС‚Рµ" ;
+                       NFSgDefNom  => base+"СЉС‚" ;
+                       NFPlCount   => base+"РѕРІРµ" ;
+                       NFVocative  => base+"Рµ"
                      } ;
                  rel = \\_ => base ; relType = Pref ;
                  g = AMasc Human ;
@@ -45,13 +45,13 @@ oper
                     v1 = last (base);
                     g  = AMasc NonHuman
                 in {s = table {
-                          NF Sg Indef => v0+"я"+v1 ;
-                          NF Sg Def   => v0+"е"+v1+"а" ;
-                          NF Pl Indef => v0+"е"+v1+"ове" ;
-                          NF Pl Def   => v0+"е"+v1+"овете" ;
-                          NFSgDefNom  => v0+"е"+v1+"а" ;
-                          NFPlCount   => v0+"я"+v1+"а" ;
-                          NFVocative  => v0+"я"+v1
+                          NF Sg Indef => v0+"СЏ"+v1 ;
+                          NF Sg Def   => v0+"Рµ"+v1+"Р°" ;
+                          NF Pl Indef => v0+"Рµ"+v1+"РѕРІРµ" ;
+                          NF Pl Def   => v0+"Рµ"+v1+"РѕРІРµС‚Рµ" ;
+                          NFSgDefNom  => v0+"Рµ"+v1+"Р°" ;
+                          NFPlCount   => v0+"СЏ"+v1+"Р°" ;
+                          NFVocative  => v0+"СЏ"+v1
                         } ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -62,13 +62,13 @@ oper
                      v1 = last (base);
                      g  = AMasc NonHuman
                  in {s = table {
-                          NF Sg Indef => v0+"я"+v1 ;
-                          NF Sg Def   => v0+"я"+v1+"а" ;
-                          NF Pl Indef => v0+"е"+v1+"ове" ;
-                          NF Pl Def   => v0+"е"+v1+"овете" ;
-                          NFSgDefNom  => v0+"е"+v1+"а" ;
-                          NFPlCount   => v0+"я"+v1+"а" ;
-                          NFVocative  => v0+"я"+v1
+                          NF Sg Indef => v0+"СЏ"+v1 ;
+                          NF Sg Def   => v0+"СЏ"+v1+"Р°" ;
+                          NF Pl Indef => v0+"Рµ"+v1+"РѕРІРµ" ;
+                          NF Pl Def   => v0+"Рµ"+v1+"РѕРІРµС‚Рµ" ;
+                          NFSgDefNom  => v0+"Рµ"+v1+"Р°" ;
+                          NFPlCount   => v0+"СЏ"+v1+"Р°" ;
+                          NFVocative  => v0+"СЏ"+v1
                         } ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -79,13 +79,13 @@ oper
                     v1 = last (base);
                     g  = AMasc NonHuman
                 in {s = table {
-                          NF Sg Indef => v0+"ръ"+v1 ;
-                          NF Sg Def   => v0+"ър"+v1+"а" ;
-                          NF Pl Indef => v0+"ър"+v1+"ове" ;
-                          NF Pl Def   => v0+"ър"+v1+"овете" ;
-                          NFSgDefNom  => v0+"ър"+v1+"ът" ;
-                          NFPlCount   => v0+"ър"+v1+"ове" ;
-                          NFVocative  => v0+"ръ"+v1
+                          NF Sg Indef => v0+"СЂСЉ"+v1 ;
+                          NF Sg Def   => v0+"СЉСЂ"+v1+"Р°" ;
+                          NF Pl Indef => v0+"СЉСЂ"+v1+"РѕРІРµ" ;
+                          NF Pl Def   => v0+"СЉСЂ"+v1+"РѕРІРµС‚Рµ" ;
+                          NFSgDefNom  => v0+"СЉСЂ"+v1+"СЉС‚" ;
+                          NFPlCount   => v0+"СЉСЂ"+v1+"РѕРІРµ" ;
+                          NFVocative  => v0+"СЂСЉ"+v1
                         } ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -94,10 +94,10 @@ oper
   mkN004 : Str -> N ;
   mkN004 base = let v0 = tk 4 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ятър")
-                               (v0+"етрове")
-                               (v0+"ятъра")
-                               (v0+"етре")
+                in {s = mkNoun (v0+"СЏС‚СЉСЂ")
+                               (v0+"РµС‚СЂРѕРІРµ")
+                               (v0+"СЏС‚СЉСЂР°")
+                               (v0+"РµС‚СЂРµ")
                                g;
                     rel = \\_ => base; relType = Pref;
                     g   = g ;
@@ -107,8 +107,8 @@ oper
   mkN005 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"ове")
-                               (v0+"а")
+                               (v0+"РѕРІРµ")
+                               (v0+"Р°")
                                (v0)
                                g;
                     rel = \\_ => base; relType = Pref;
@@ -119,8 +119,8 @@ oper
   mkN006 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"ове")
-                               (v0+"а")
+                               (v0+"РѕРІРµ")
+                               (v0+"Р°")
                                (v0)
                                g;
                     rel = \\_ => base; relType = Pref;
@@ -130,12 +130,12 @@ oper
   mkN007 : Str -> N ;
   mkN007 base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"а" ;
-                       NF Pl Indef => base+"и" ;
-                       NF Pl Def   => base+"ите" ;
-                       NFSgDefNom  => base+"ът" ;
-                       NFPlCount   => base+"а" ;
-                       NFVocative  => base+"е"
+                       NF Sg Def   => base+"Р°" ;
+                       NF Pl Indef => base+"Рё" ;
+                       NF Pl Def   => base+"РёС‚Рµ" ;
+                       NFSgDefNom  => base+"СЉС‚" ;
+                       NFPlCount   => base+"Р°" ;
+                       NFVocative  => base+"Рµ"
                      } ;
                  rel = \\_ => base; relType = Pref;
                  g   = AMasc NonHuman;
@@ -145,9 +145,9 @@ oper
   mkN007b base = let v0 = base;
                      g  = AMasc NonHuman
                  in {s = mkNoun (v0)
-                                (v0+"и")
-                                (v0+"а")
-                                (v0+"о")
+                                (v0+"Рё")
+                                (v0+"Р°")
+                                (v0+"Рѕ")
                                 g ;
                      rel = \\_ => base; relType = Pref;
                      g   = g ;
@@ -156,14 +156,14 @@ oper
   mkN007a : Str -> N ;
   mkN007a base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"а" ;
-                       NF Pl Indef => base+"и" ;
-                       NF Pl Def   => base+"ите" ;
-                       NFSgDefNom  => base+"ът" ;
-                       NFPlCount   => base+"и" ;
-                       NFVocative  => base+"е"
+                       NF Sg Def   => base+"Р°" ;
+                       NF Pl Indef => base+"Рё" ;
+                       NF Pl Def   => base+"РёС‚Рµ" ;
+                       NFSgDefNom  => base+"СЉС‚" ;
+                       NFPlCount   => base+"Рё" ;
+                       NFVocative  => base+"Рµ"
                      } ;
-                  rel = (mkA078 (base+"ски")).s; relType = AdjMod;
+                  rel = (mkA078 (base+"СЃРєРё")).s; relType = AdjMod;
                   g   = AMasc Human ;
                   lock_N = <>
                  } ;
@@ -171,10 +171,10 @@ oper
   mkN008 base = let v0 = tk 2 base;
                     v1 = last base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"е"+v1)
-                               (v0+v1+"и")
-                               (v0+"е"+v1+"а")
-                               (v0+"е"+v1+"о")
+                in {s = mkNoun (v0+"Рµ"+v1)
+                               (v0+v1+"Рё")
+                               (v0+"Рµ"+v1+"Р°")
+                               (v0+"Рµ"+v1+"Рѕ")
                                g ;
                     rel = \\_ => base; relType = Pref;
                     g   = g ;
@@ -184,10 +184,10 @@ oper
   mkN008b base = let v0 = tk 2 base;
                      v1 = last (base);
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"е"+v1)
-                                (v0+v1+"и")
-                                (v0+"е"+v1+"а")
-                                (v0+"е"+v1+"е")
+                 in {s = mkNoun (v0+"Рµ"+v1)
+                                (v0+v1+"Рё")
+                                (v0+"Рµ"+v1+"Р°")
+                                (v0+"Рµ"+v1+"Рµ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -197,10 +197,10 @@ oper
   mkN008c base = let v0 = tk 2 base;
                      v1 = last (base);
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"е"+v1)
-                                (v0+v1+"и")
-                                (v0+"е"+v1+"а")
-                                (v0+v1+"е")
+                 in {s = mkNoun (v0+"Рµ"+v1)
+                                (v0+v1+"Рё")
+                                (v0+"Рµ"+v1+"Р°")
+                                (v0+v1+"Рµ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -209,12 +209,12 @@ oper
   mkN008a : Str -> N ;
   mkN008a base = let v0 = tk 2 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"ец")
-                                (v0+"ци")
-                                (v0+"ци")
-                                (v0+"ецо")
+                 in {s = mkNoun (v0+"РµС†")
+                                (v0+"С†Рё")
+                                (v0+"С†Рё")
+                                (v0+"РµС†Рѕ")
                                 g ;
-                     rel = (mkA078 (v0+"ски")).s ; relType = AdjMod;
+                     rel = (mkA078 (v0+"СЃРєРё")).s ; relType = AdjMod;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -222,10 +222,10 @@ oper
   mkN009 base = let v0 = tk 2 base;
                     v1 = last (base);
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ъ"+v1)
-                               (v0+v1+"и")
-                               (v0+"ъ"+v1+"а")
-                               (v0+v1+"е")
+                in {s = mkNoun (v0+"СЉ"+v1)
+                               (v0+v1+"Рё")
+                               (v0+"СЉ"+v1+"Р°")
+                               (v0+v1+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -234,10 +234,10 @@ oper
   mkN009a : Str -> N ;
   mkN009a base = let v0 = tk 2 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"ър")
-                                (v0+"рове")
-                                (v0+"ъра")
-                                (v0+"ре")
+                 in {s = mkNoun (v0+"СЉСЂ")
+                                (v0+"СЂРѕРІРµ")
+                                (v0+"СЉСЂР°")
+                                (v0+"СЂРµ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -246,10 +246,10 @@ oper
   mkN010 : Str -> N ;
   mkN010 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ър")
-                               (v0+"ри")
-                               (v0+"ра")
-                               (v0+"ре")
+                in {s = mkNoun (v0+"СЉСЂ")
+                               (v0+"СЂРё")
+                               (v0+"СЂР°")
+                               (v0+"СЂРµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -259,13 +259,13 @@ oper
   mkN011 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
                 in {s = table {
-                          NF Sg Indef => v0+"ъм" ;
-                          NF Sg Def   => v0+"ма" ;
-                          NF Pl Indef => v0+"ми" ;
-                          NF Pl Def   => v0+"мите" ;
-                          NFSgDefNom  => v0+"мът" ;
-                          NFPlCount   => v0+"ма" ;
-                          NFVocative  => v0+"ме"
+                          NF Sg Indef => v0+"СЉРј" ;
+                          NF Sg Def   => v0+"РјР°" ;
+                          NF Pl Indef => v0+"РјРё" ;
+                          NF Pl Def   => v0+"РјРёС‚Рµ" ;
+                          NFSgDefNom  => v0+"РјСЉС‚" ;
+                          NFPlCount   => v0+"РјР°" ;
+                          NFVocative  => v0+"РјРµ"
                         } ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -274,10 +274,10 @@ oper
   mkN012 : Str -> N ;
   mkN012 base = let v0 = tk 3 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"рък")
-                               (v0+"ърци")
-                               (v0+"ърци")
-                               (v0+"ърко")
+                in {s = mkNoun (v0+"СЂСЉРє")
+                               (v0+"СЉСЂС†Рё")
+                               (v0+"СЉСЂС†Рё")
+                               (v0+"СЉСЂРєРѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -286,22 +286,22 @@ oper
   mkN013 : Str -> N ;
   mkN013 base = let v0 = tk 2 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"ец")
-                               (v0+"йци")
-                               (v0+"йци")
-                               (v0+"ецо")
+                in {s = mkNoun (v0+"РµС†")
+                               (v0+"Р№С†Рё")
+                               (v0+"Р№С†Рё")
+                               (v0+"РµС†Рѕ")
                                g ;
-                    rel = (mkA078 (base+"йски")).s; relType = AdjMod;
+                    rel = (mkA078 (base+"Р№СЃРєРё")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
   mkN014 : Str -> N ;
   mkN014 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"к")
-                               (v0+"ци")
-                               (v0+"ка")
-                               (v0+"к")
+                in {s = mkNoun (v0+"Рє")
+                               (v0+"С†Рё")
+                               (v0+"РєР°")
+                               (v0+"Рє")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -310,22 +310,22 @@ oper
   mkN014a : Str -> N ;
   mkN014a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"к")
-                                (v0+"ци")
-                                (v0+"ка")
-                                (v0+"ко")
+                 in {s = mkNoun (v0+"Рє")
+                                (v0+"С†Рё")
+                                (v0+"РєР°")
+                                (v0+"РєРѕ")
                                 g ;
-                     rel = (mkA078 (v0+"чески")).s; relType = AdjMod;
+                     rel = (mkA078 (v0+"С‡РµСЃРєРё")).s; relType = AdjMod;
                      g   = g ;
                      lock_N = <>
                     };
   mkN015 : Str -> N ;
   mkN015 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"г")
-                               (v0+"зи")
-                               (v0+"га")
-                               (v0+"зе")
+                in {s = mkNoun (v0+"Рі")
+                               (v0+"Р·Рё")
+                               (v0+"РіР°")
+                               (v0+"Р·Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -334,10 +334,10 @@ oper
   mkN015a : Str -> N ;
   mkN015a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"г")
-                                (v0+"зи")
-                                (v0+"га")
-                                (v0+"зе")
+                 in {s = mkNoun (v0+"Рі")
+                                (v0+"Р·Рё")
+                                (v0+"РіР°")
+                                (v0+"Р·Рµ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -346,10 +346,10 @@ oper
   mkN016 : Str -> N ;
   mkN016 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"х")
-                               (v0+"си")
-                               (v0+"ха")
-                               (v0+"хо")
+                in {s = mkNoun (v0+"С…")
+                               (v0+"СЃРё")
+                               (v0+"С…Р°")
+                               (v0+"С…Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -358,10 +358,10 @@ oper
   mkN016a : Str -> N ;
   mkN016a base = let v0 = tk 1 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"х")
-                                (v0+"си")
-                                (v0+"ха")
-                                (v0+"се")
+                 in {s = mkNoun (v0+"С…")
+                                (v0+"СЃРё")
+                                (v0+"С…Р°")
+                                (v0+"СЃРµ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -370,10 +370,10 @@ oper
   mkN017 : Str -> N ;
   mkN017 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"к")
-                               (v0+"ни")
-                               (v0+"ка")
-                               (v0+"ко")
+                in {s = mkNoun (v0+"Рє")
+                               (v0+"РЅРё")
+                               (v0+"РєР°")
+                               (v0+"РєРѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -382,10 +382,10 @@ oper
   mkN018 : Str -> N ;
   mkN018 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ин")
-                               (v0+"и")
-                               (v0+"и")
-                               (v0+"ине")
+                in {s = mkNoun (v0+"РёРЅ")
+                               (v0+"Рё")
+                               (v0+"Рё")
+                               (v0+"РёРЅРµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -395,10 +395,10 @@ oper
   mkN018a base = let v0 = tk 2 base;
                      v1 = last (base);
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"и"+v1)
-                                (v0+"и")
-                                (v0+"и")
-                                (v0+"и"+v1+"о")
+                 in {s = mkNoun (v0+"Рё"+v1)
+                                (v0+"Рё")
+                                (v0+"Рё")
+                                (v0+"Рё"+v1+"Рѕ")
                                 g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -407,22 +407,22 @@ oper
   mkN019 : Str -> N ;
   mkN019 base = let v0 = tk 2 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"ък")
-                               (v0+"ци")
-                               (v0+"ци")
-                               (v0+"ко")
+                in {s = mkNoun (v0+"СЉРє")
+                               (v0+"С†Рё")
+                               (v0+"С†Рё")
+                               (v0+"РєРѕ")
                                g ;
-                    rel = (mkA078 (v0+"ски")).s; relType = AdjMod;
+                    rel = (mkA078 (v0+"СЃРєРё")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
   mkN019a : Str -> N ;
   mkN019a base = let v0 = tk 2 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"ек")
-                                (v0+"йци")
-                                (v0+"ека")
-                                (v0+"йо")
+                 in {s = mkNoun (v0+"РµРє")
+                                (v0+"Р№С†Рё")
+                                (v0+"РµРєР°")
+                                (v0+"Р№Рѕ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -432,10 +432,10 @@ oper
   mkN020 base = let v0 = tk 3 base;
                     v1 = last (tk 2 base);
                     g  = AMasc Human
-                in {s = mkNoun (v0+v1+"ец")
-                               (v0+"ъ"+v1+"ци")
-                               (v0+"ъ"+v1+"ци")
-                               (v0+v1+"ецо")
+                in {s = mkNoun (v0+v1+"РµС†")
+                               (v0+"СЉ"+v1+"С†Рё")
+                               (v0+"СЉ"+v1+"С†Рё")
+                               (v0+v1+"РµС†Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -444,10 +444,10 @@ oper
   mkN021 : Str -> N ;
   mkN021 base = let v0 = tk 3 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"чин")
-                               (v0+"ци")
-                               (v0+"ци")
-                               (v0+"чино")
+                in {s = mkNoun (v0+"С‡РёРЅ")
+                               (v0+"С†Рё")
+                               (v0+"С†Рё")
+                               (v0+"С‡РёРЅРѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -457,9 +457,9 @@ oper
   mkN022 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"о")
+                               (v0+"Р°")
+                               (v0+"Р°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -468,10 +468,10 @@ oper
   mkN023 : Str -> N ;
   mkN023 base = let v0 = tk 2 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"ин")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"ине")
+                in {s = mkNoun (v0+"РёРЅ")
+                               (v0+"Р°")
+                               (v0+"Р°")
+                               (v0+"РёРЅРµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -480,10 +480,10 @@ oper
   mkN024a : Str -> N ;
   mkN024a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"з")
-                                (v0+"зе")
-                                (v0+"зе")
-                                (v0+"же")
+                 in {s = mkNoun (v0+"Р·")
+                                (v0+"Р·Рµ")
+                                (v0+"Р·Рµ")
+                                (v0+"Р¶Рµ")
                                 g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -493,9 +493,9 @@ oper
   mkN024 base = let v0 = base;
                     g  = AMasc Human
                 in {s = mkNoun (v0)
-                               (v0+"е")
-                               (v0+"е")
-                               (v0+"о")
+                               (v0+"Рµ")
+                               (v0+"Рµ")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -505,11 +505,11 @@ oper
   mkN025 base = let v0 = base;
                     g  = AMasc Human
                 in {s = mkNoun (v0)
-                               (v0+"я")
-                               (v0+"я")
-                               (v0+"е")
+                               (v0+"СЏ")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
-                    rel = (mkA078 (base+"ски")).s; relType = AdjMod;
+                    rel = (mkA078 (base+"СЃРєРё")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
@@ -517,9 +517,9 @@ oper
   mkN026 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"илища")
-                               (v0+"илища")
-                               (v0+"е")
+                               (v0+"РёР»РёС‰Р°")
+                               (v0+"РёР»РёС‰Р°")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -528,10 +528,10 @@ oper
   mkN027 : Str -> N ;
   mkN027 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ец")
-                               (v0+"овце")
-                               (v0+"еца")
-                               (v0+"о")
+                in {s = mkNoun (v0+"РµС†")
+                               (v0+"РѕРІС†Рµ")
+                               (v0+"РµС†Р°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -540,10 +540,10 @@ oper
   mkN028 : Str -> N ;
   mkN028 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"й")
-                               (v0+"еве")
-                               (v0+"я")
-                               (v0+"е")
+                in {s = mkNoun (v0+"Р№")
+                               (v0+"РµРІРµ")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -552,10 +552,10 @@ oper
   mkN028a : Str -> N ;
   mkN028a base = let v0 = tk 1 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"й")
-                                (v0+"йове")
-                                (v0+"я")
-                                (v0+"йо")
+                 in {s = mkNoun (v0+"Р№")
+                                (v0+"Р№РѕРІРµ")
+                                (v0+"СЏ")
+                                (v0+"Р№Рѕ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -565,21 +565,21 @@ oper
   mkN029 base = let v0 = base;
                     g  = AMasc Human
                 in {s = mkNoun (v0)
-                               (v0+"ьове")
-                               (v0+"ьове")
-                               (v0+"ко")
+                               (v0+"СЊРѕРІРµ")
+                               (v0+"СЊРѕРІРµ")
+                               (v0+"РєРѕ")
                                g ;
-                    rel = (mkA078 (base+"ски")).s; relType = AdjMod;
+                    rel = (mkA078 (base+"СЃРєРё")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
   mkN030 : Str -> N ;
   mkN030 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ън")
-                               (v0+"ньове")
-                               (v0+"ъня")
-                               (v0+"е")
+                in {s = mkNoun (v0+"СЉРЅ")
+                               (v0+"РЅСЊРѕРІРµ")
+                               (v0+"СЉРЅСЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -589,9 +589,9 @@ oper
   mkN031 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"и")
-                               (v0+"я")
-                               (v0+"е")
+                               (v0+"Рё")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -601,11 +601,11 @@ oper
   mkN031a base = let v0 = base;
                      g  = AMasc Human
                  in {s = mkNoun (v0)
-                                (v0+"и")
-                                (v0+"и")
-                                (v0+"ю")
+                                (v0+"Рё")
+                                (v0+"Рё")
+                                (v0+"СЋ")
                                 g ;
-                     rel = (mkA078 (base+"ски")).s ; relType = AdjMod ;
+                     rel = (mkA078 (base+"СЃРєРё")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -614,9 +614,9 @@ oper
                     v1 = tk 1 base ;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v1+"и")
-                               (v1+"я")
-                               (v0+"о")
+                               (v1+"Рё")
+                               (v1+"СЏ")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -625,22 +625,22 @@ oper
   mkN032a : Str -> N ;
   mkN032a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"й")
-                                (v0+"и")
-                                (v0+"я")
-                                (v0+"ю")
+                 in {s = mkNoun (v0+"Р№")
+                                (v0+"Рё")
+                                (v0+"СЏ")
+                                (v0+"СЋ")
                                 g ;
-                     rel = (mkA078 (base+"ски")).s ; relType = AdjMod ;
+                     rel = (mkA078 (base+"СЃРєРё")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN033 : Str -> N ;
   mkN033 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ен")
-                               (v0+"ни")
-                               (v0+"ена")
-                               (v0+"ене")
+                in {s = mkNoun (v0+"РµРЅ")
+                               (v0+"РЅРё")
+                               (v0+"РµРЅР°")
+                               (v0+"РµРЅРµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -649,10 +649,10 @@ oper
   mkN034 : Str -> N ;
   mkN034 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ът")
-                               (v0+"ти")
-                               (v0+"ътя")
-                               (v0+"е")
+                in {s = mkNoun (v0+"СЉС‚")
+                               (v0+"С‚Рё")
+                               (v0+"СЉС‚СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -662,9 +662,9 @@ oper
   mkN035 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"е")
-                               (v0+"я")
-                               (v0+"е")
+                               (v0+"Рµ")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -674,21 +674,21 @@ oper
   mkN035a base = let v0 = base;
                      g  = AMasc Human
                  in {s = mkNoun (v0)
-                                (v0+"е")
-                                (v0+"я")
-                                (v0+"ю")
+                                (v0+"Рµ")
+                                (v0+"СЏ")
+                                (v0+"СЋ")
                                 g ;
-                     rel = (mkA078 (base+"ски")).s ; relType = AdjMod ;
+                     rel = (mkA078 (base+"СЃРєРё")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>                     
                     };
   mkN036 : Str -> N ;
   mkN036 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"й")
-                               (v0+"ища")
-                               (v0+"я")
-                               (v0+"е")
+                in {s = mkNoun (v0+"Р№")
+                               (v0+"РёС‰Р°")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -698,9 +698,9 @@ oper
   mkN037 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"ища")
-                               (v0+"я")
-                               (v0+"е")
+                               (v0+"РёС‰Р°")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -709,12 +709,12 @@ oper
   mkN038 : Str -> N ;
   mkN038 base = let v0 = tk 1 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"а")
-                               (v0+"и")
-                               (v0+"и")
-                               (v0+"а")
+                in {s = mkNoun (v0+"Р°")
+                               (v0+"Рё")
+                               (v0+"Рё")
+                               (v0+"Р°")
                                g ;
-                    rel = (mkAdjective base (base+"та") (base+"та") base (base+"та") base (base+"та") (v0+"и") (v0+"ите")).s ;
+                    rel = (mkAdjective base (base+"С‚Р°") (base+"С‚Р°") base (base+"С‚Р°") base (base+"С‚Р°") (v0+"Рё") (v0+"РёС‚Рµ")).s ;
                     relType = AdjMod ;
                     g   = g ;
                     lock_N = <>
@@ -722,22 +722,22 @@ oper
   mkN039 : Str -> N ;
   mkN039 base = let v0 = tk 1 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"я")
-                               (v0+"и")
-                               (v0+"и")
-                               (v0+"йo")
+                in {s = mkNoun (v0+"СЏ")
+                               (v0+"Рё")
+                               (v0+"Рё")
+                               (v0+"Р№o")
                                g ;
-                    rel = (mkA078 (v0+"йски")).s ; relType = AdjMod ;
+                    rel = (mkA078 (v0+"Р№СЃРєРё")).s ; relType = AdjMod ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN040 : Str -> N ;
   mkN040 base = let v0 = tk 1 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"о")
-                               (v0+"овци")
-                               (v0+"овци")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"РѕРІС†Рё")
+                               (v0+"РѕРІС†Рё")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -747,9 +747,9 @@ oper
   mkN040a base = let v0 = base;
                      g  = AMasc NonHuman
                  in {s = mkNoun (v0)
-                                (v0+"и")
-                                (v0+"а")
-                                (v0+"е")
+                                (v0+"Рё")
+                                (v0+"Р°")
+                                (v0+"Рµ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -758,10 +758,10 @@ oper
   mkN041 : Str -> N ;
   mkN041 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"а")
-                               (v0+"и")
-                               (v0+"и")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Р°")
+                               (v0+"Рё")
+                               (v0+"Рё")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -770,10 +770,10 @@ oper
   mkN041a : Str -> N ;
   mkN041a base = let v0 = tk 1 base;
                      g  = AFem
-                 in {s = mkNoun (v0+"а")
-                                (v0+"и")
-                                (v0+"и")
-                                (v0+"о")
+                 in {s = mkNoun (v0+"Р°")
+                                (v0+"Рё")
+                                (v0+"Рё")
+                                (v0+"Рѕ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -782,10 +782,10 @@ oper
   mkN041b : Str -> N ;
   mkN041b base = let v0 = tk 1 base;
                      g  = AFem
-                 in {s = mkNoun (v0+"а")
-                                (v0+"и")
-                                (v0+"и")
-                                (v0+"е")
+                 in {s = mkNoun (v0+"Р°")
+                                (v0+"Рё")
+                                (v0+"Рё")
+                                (v0+"Рµ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -807,10 +807,10 @@ oper
   mkN043 base = let v0 = tk 3 base;
                     v1 = last (tk 1 base);
                     g  = AFem
-                in {s = mkNoun (v0+"я"+v1+"а")
-                               (v0+"е"+v1+"и")
-                               (v0+"е"+v1+"и")
-                               (v0+"о")
+                in {s = mkNoun (v0+"СЏ"+v1+"Р°")
+                               (v0+"Рµ"+v1+"Рё")
+                               (v0+"Рµ"+v1+"Рё")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -820,10 +820,10 @@ oper
   mkN043a base = let v0 = tk 4 base;
                      v1 = last (tk 2 base);
                      g  = AFem
-                 in {s = mkNoun (v0+"я"+v1+"ка")
-                                (v0+"е"+v1+"ки")
-                                (v0+"е"+v1+"ки")
-                                (v0+"о")
+                 in {s = mkNoun (v0+"СЏ"+v1+"РєР°")
+                                (v0+"Рµ"+v1+"РєРё")
+                                (v0+"Рµ"+v1+"РєРё")
+                                (v0+"Рѕ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -832,10 +832,10 @@ oper
   mkN044 : Str -> N ;
   mkN044 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"а")
-                               (v0+"е")
-                               (v0+"е")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Р°")
+                               (v0+"Рµ")
+                               (v0+"Рµ")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -844,10 +844,10 @@ oper
   mkN045 : Str -> N ;
   mkN045 base = let v0 = tk 2 base;
                     g  = AFem
-                in {s = mkNoun (v0+"ка")
-                               (v0+"це")
-                               (v0+"це")
-                               (v0+"ка")
+                in {s = mkNoun (v0+"РєР°")
+                               (v0+"С†Рµ")
+                               (v0+"С†Рµ")
+                               (v0+"РєР°")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -856,10 +856,10 @@ oper
   mkN046 : Str -> N ;
   mkN046 base = let v0 = tk 2 base;
                     g  = AFem
-                in {s = mkNoun (v0+"га")
-                               (v0+"зе")
-                               (v0+"зе")
-                               (v0+"га")
+                in {s = mkNoun (v0+"РіР°")
+                               (v0+"Р·Рµ")
+                               (v0+"Р·Рµ")
+                               (v0+"РіР°")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -868,10 +868,10 @@ oper
   mkN047 : Str -> N ;
   mkN047 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"я")
-                               (v0+"и")
-                               (v0+"и")
-                               (v0+"о")
+                in {s = mkNoun (v0+"СЏ")
+                               (v0+"Рё")
+                               (v0+"Рё")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -880,10 +880,10 @@ oper
   mkN048 : Str -> N ;
   mkN048 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"я")
-                               (v0+"е")
-                               (v0+"е")
-                               (v0+"ьо")
+                in {s = mkNoun (v0+"СЏ")
+                               (v0+"Рµ")
+                               (v0+"Рµ")
+                               (v0+"СЊРѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -893,8 +893,8 @@ oper
   mkN049 base = let v0 = base;
                     g  = AFem
                 in {s = mkNoun (v0)
-                               (v0+"и")
-                               (v0+"и")
+                               (v0+"Рё")
+                               (v0+"Рё")
                                (v0)
                                g ;
                     rel = \\_ => base ; relType = Pref ;
@@ -904,10 +904,10 @@ oper
   mkN050 : Str -> N ;
   mkN050 base = let v0 = tk 2 base;
                     g  = AFem
-                in {s = mkNoun (v0+"ен")
-                               (v0+"ни")
-                               (v0+"ни")
-                               (v0+"ен")
+                in {s = mkNoun (v0+"РµРЅ")
+                               (v0+"РЅРё")
+                               (v0+"РЅРё")
+                               (v0+"РµРЅ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -917,10 +917,10 @@ oper
   mkN051 base = let v0 = tk 2 base;
                     v1 = last (base);
                     g  = AFem
-                in {s = mkNoun (v0+"ъ"+v1)
-                               (v0+v1+"и")
-                               (v0+v1+"и")
-                               (v0+"ъ"+v1)
+                in {s = mkNoun (v0+"СЉ"+v1)
+                               (v0+v1+"Рё")
+                               (v0+v1+"Рё")
+                               (v0+"СЉ"+v1)
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -929,10 +929,10 @@ oper
   mkN052 : Str -> N ;
   mkN052 base = let v0 = tk 5 base;
                     g  = AFem
-                in {s = mkNoun (v0+"ялост")
-                               (v0+"ялости")
-                               (v0+"ялости")
-                               (v0+"ялост")
+                in {s = mkNoun (v0+"СЏР»РѕСЃС‚")
+                               (v0+"СЏР»РѕСЃС‚Рё")
+                               (v0+"СЏР»РѕСЃС‚Рё")
+                               (v0+"СЏР»РѕСЃС‚")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -941,10 +941,10 @@ oper
   mkN052a : Str -> N ;
   mkN052a base = let v0 = tk 6 base;
                      g  = AFem
-                 in {s = mkNoun (v0+"ярност")
-                                (v0+"ярности")
-                                (v0+"ярности")
-                                (v0+"ярност")
+                 in {s = mkNoun (v0+"СЏСЂРЅРѕСЃС‚")
+                                (v0+"СЏСЂРЅРѕСЃС‚Рё")
+                                (v0+"СЏСЂРЅРѕСЃС‚Рё")
+                                (v0+"СЏСЂРЅРѕСЃС‚")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -954,10 +954,10 @@ oper
   mkN053 base = let v0 = tk 3 base;
                     v1 = last (base);
                     g  = AFem
-                in {s = mkNoun (v0+"ръ"+v1)
-                               (v0+"ър"+v1+"и")
-                               (v0+"ър"+v1+"и")
-                               (v0+"ръ"+v1)
+                in {s = mkNoun (v0+"СЂСЉ"+v1)
+                               (v0+"СЉСЂ"+v1+"Рё")
+                               (v0+"СЉСЂ"+v1+"Рё")
+                               (v0+"СЂСЉ"+v1)
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -966,10 +966,10 @@ oper
   mkN054 : Str -> N ;
   mkN054 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"Р°")
+                               (v0+"Р°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -978,10 +978,10 @@ oper
   mkN055 : Str -> N ;
   mkN055 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"Р°")
+                               (v0+"Р°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -990,10 +990,10 @@ oper
   mkN056 : Str -> N ;
   mkN056 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"Р°")
+                               (v0+"Р°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1003,10 +1003,10 @@ oper
   mkN057 base = let v0 = tk 3 base;
                     v1 = last (tk 1 base);
                     g  = ANeut
-                in {s = mkNoun (v0+"я"+v1+"о")
-                               (v0+"е"+v1+"а")
-                               (v0+"е"+v1+"а")
-                               (v0+"я"+v1+"о")
+                in {s = mkNoun (v0+"СЏ"+v1+"Рѕ")
+                               (v0+"Рµ"+v1+"Р°")
+                               (v0+"Рµ"+v1+"Р°")
+                               (v0+"СЏ"+v1+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1015,10 +1015,10 @@ oper
   mkN057a : Str -> N ;
   mkN057a base = let v0 = tk 4 base;
                      g  = ANeut
-                 in {s = mkNoun (v0+"ясто")
-                                (v0+"еста")
-                                (v0+"еста")
-                                (v0+"ясто")
+                 in {s = mkNoun (v0+"СЏСЃС‚Рѕ")
+                                (v0+"РµСЃС‚Р°")
+                                (v0+"РµСЃС‚Р°")
+                                (v0+"СЏСЃС‚Рѕ")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
@@ -1027,10 +1027,10 @@ oper
   mkN058 : Str -> N ;
   mkN058 base = let v0 = tk 3 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"яно")
-                               (v0+"ена")
-                               (v0+"ена")
-                               (v0+"яно")
+                in {s = mkNoun (v0+"СЏРЅРѕ")
+                               (v0+"РµРЅР°")
+                               (v0+"РµРЅР°")
+                               (v0+"СЏРЅРѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1039,10 +1039,10 @@ oper
   mkN059 : Str -> N ;
   mkN059 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"ене")
-                               (v0+"ене")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"РµРЅРµ")
+                               (v0+"РµРЅРµ")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1051,10 +1051,10 @@ oper
   mkN060 : Str -> N ;
   mkN060 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"еса")
-                               (v0+"еса")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"РµСЃР°")
+                               (v0+"РµСЃР°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1063,10 +1063,10 @@ oper
   mkN061 : Str -> N ;
   mkN061 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"Р°")
+                               (v0+"Р°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1075,10 +1075,10 @@ oper
   mkN062 : Str -> N ;
   mkN062 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"и")
-                               (v0+"и")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"Рё")
+                               (v0+"Рё")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1087,10 +1087,10 @@ oper
   mkN063 : Str -> N ;
   mkN063 base = let v0 = tk 2 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"ко")
-                               (v0+"чи")
-                               (v0+"чи")
-                               (v0+"ко")
+                in {s = mkNoun (v0+"РєРѕ")
+                               (v0+"С‡Рё")
+                               (v0+"С‡Рё")
+                               (v0+"РєРѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1099,10 +1099,10 @@ oper
   mkN064 : Str -> N ;
   mkN064 base = let v0 = tk 2 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"хо")
-                               (v0+"ши")
-                               (v0+"ши")
-                               (v0+"хо")
+                in {s = mkNoun (v0+"С…Рѕ")
+                               (v0+"С€Рё")
+                               (v0+"С€Рё")
+                               (v0+"С…Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g;
@@ -1112,8 +1112,8 @@ oper
   mkN065 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"та")
-                               (v0+"та")
+                               (v0+"С‚Р°")
+                               (v0+"С‚Р°")
                                (v0)
                                g ;
                     rel = \\_ => base ; relType = Pref ;
@@ -1123,10 +1123,10 @@ oper
   mkN066 : Str -> N ;
   mkN066 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"е")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"е")
+                in {s = mkNoun (v0+"Рµ")
+                               (v0+"Р°")
+                               (v0+"Р°")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1135,10 +1135,10 @@ oper
  mkN067 : Str -> N ;
   mkN067 base = let v0 = tk 2 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"те")
-                               (v0+"ца")
-                               (v0+"ца")
-                               (v0+"те")
+                in {s = mkNoun (v0+"С‚Рµ")
+                               (v0+"С†Р°")
+                               (v0+"С†Р°")
+                               (v0+"С‚Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1147,10 +1147,10 @@ oper
   mkN068 : Str -> N ;
   mkN068 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"е")
-                               (v0+"я")
-                               (v0+"я")
-                               (v0+"е")
+                in {s = mkNoun (v0+"Рµ")
+                               (v0+"СЏ")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1160,8 +1160,8 @@ oper
   mkN069 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"на")
-                               (v0+"на")
+                               (v0+"РЅР°")
+                               (v0+"РЅР°")
                                (v0)
                                g ;
                     rel = \\_ => base ; relType = Pref ;
@@ -1172,8 +1172,8 @@ oper
   mkN070 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"са")
-                               (v0+"са")
+                               (v0+"СЃР°")
+                               (v0+"СЃР°")
                                (v0)
                                g ;
                     rel = \\_ => base ; relType = Pref ;
@@ -1183,10 +1183,10 @@ oper
   mkN071 : Str -> N ;
   mkN071 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"е")
-                               (v0+"ия")
-                               (v0+"ия")
-                               (v0+"е")
+                in {s = mkNoun (v0+"Рµ")
+                               (v0+"РёСЏ")
+                               (v0+"РёСЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1195,10 +1195,10 @@ oper
   mkN072 : Str -> N ;
   mkN072 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"е")
-                               (v0+"я")
-                               (v0+"я")
-                               (v0+"е")
+                in {s = mkNoun (v0+"Рµ")
+                               (v0+"СЏ")
+                               (v0+"СЏ")
+                               (v0+"Рµ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1208,8 +1208,8 @@ oper
   mkN073 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"та")
-                               (v0+"та")
+                               (v0+"С‚Р°")
+                               (v0+"С‚Р°")
                                (v0)
                                g ;
                     rel = \\_ => base ; relType = Pref ;
@@ -1221,7 +1221,7 @@ oper
                 in { s = table {
                            NF Sg _     => v0 ;
                            NF Pl Indef => v0 ;
-                           NF Pl Def   => v0+"та" ;
+                           NF Pl Def   => v0+"С‚Р°" ;
                            NFSgDefNom  => v0 ;
                            NFPlCount   => v0 ;
                            NFVocative  => v0
@@ -1235,7 +1235,7 @@ oper
                 in { s = table {
                            NF Sg _     => Prelude.nonExist ;
                            NF Pl Indef => v0 ;
-                           NF Pl Def   => v0+"те" ;
+                           NF Pl Def   => v0+"С‚Рµ" ;
                            NFSgDefNom  => Prelude.nonExist ;
                            NFPlCount   => v0 ;
                            NFVocative  => v0
@@ -1247,10 +1247,10 @@ oper
   mkN076 : Str -> N ;
   mkN076 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"ета")
-                               (v0+"ета")
-                               (v0+"о")
+                in {s = mkNoun (v0+"Рѕ")
+                               (v0+"РµС‚Р°")
+                               (v0+"РµС‚Р°")
+                               (v0+"Рѕ")
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -1271,173 +1271,173 @@ oper
   mkA076 : Str -> A ;
   mkA076 base = let v0 = base
                 in mkAdjective (v0)
-                               (v0+"ия")
-                               (v0+"ият")
-                               (v0+"а")
-                               (v0+"ата")
-                               (v0+"о")
-                               (v0+"ото")
-                               (v0+"и")
-                               (v0+"ите") ;
+                               (v0+"РёСЏ")
+                               (v0+"РёСЏС‚")
+                               (v0+"Р°")
+                               (v0+"Р°С‚Р°")
+                               (v0+"Рѕ")
+                               (v0+"РѕС‚Рѕ")
+                               (v0+"Рё")
+                               (v0+"РёС‚Рµ") ;
   mkA077 : Str -> A ;
   mkA077 base = let v0 = base
                 in mkAdjective (v0)
-                               (v0+"ия")
-                               (v0+"ият")
-                               (v0+"а")
-                               (v0+"ата")
-                               (v0+"е")
-                               (v0+"ето")
-                               (v0+"и")
-                               (v0+"ите") ;
+                               (v0+"РёСЏ")
+                               (v0+"РёСЏС‚")
+                               (v0+"Р°")
+                               (v0+"Р°С‚Р°")
+                               (v0+"Рµ")
+                               (v0+"РµС‚Рѕ")
+                               (v0+"Рё")
+                               (v0+"РёС‚Рµ") ;
   mkA078 : Str -> A ;
   mkA078 base = let v0 = tk 1 base
-                in adjAdv (mkAdjective (v0+"и")
-                                       (v0+"ия")
-                                       (v0+"ият")
-                                       (v0+"а")
-                                       (v0+"ата")
-                                       (v0+"о")
-                                       (v0+"ото")
-                                       (v0+"и")
-                                       (v0+"ите")) (v0+"и") ;
+                in adjAdv (mkAdjective (v0+"Рё")
+                                       (v0+"РёСЏ")
+                                       (v0+"РёСЏС‚")
+                                       (v0+"Р°")
+                                       (v0+"Р°С‚Р°")
+                                       (v0+"Рѕ")
+                                       (v0+"РѕС‚Рѕ")
+                                       (v0+"Рё")
+                                       (v0+"РёС‚Рµ")) (v0+"Рё") ;
   mkA079 : Str -> A ;
   mkA079 base = let v0 = tk 2 base
-                in mkAdjective (v0+"ен")
-                               (v0+"ния")
-                               (v0+"ният")
-                               (v0+"на")
-                               (v0+"ната")
-                               (v0+"но")
-                               (v0+"ното")
-                               (v0+"ни")
-                               (v0+"ните") ;
+                in mkAdjective (v0+"РµРЅ")
+                               (v0+"РЅРёСЏ")
+                               (v0+"РЅРёСЏС‚")
+                               (v0+"РЅР°")
+                               (v0+"РЅР°С‚Р°")
+                               (v0+"РЅРѕ")
+                               (v0+"РЅРѕС‚Рѕ")
+                               (v0+"РЅРё")
+                               (v0+"РЅРёС‚Рµ") ;
   mkA080 : Str -> A ;
   mkA080 base = let v0 = tk 2 base;
                     v1 = last (base)
-                in mkAdjective (v0+"ъ"+v1)
-                               (v0+v1+"ия")
-                               (v0+v1+"ият")
-                               (v0+v1+"а")
-                               (v0+v1+"ата")
-                               (v0+v1+"о")
-                               (v0+v1+"ото")
-                               (v0+v1+"и")
-                               (v0+v1+"ите") ;
+                in mkAdjective (v0+"СЉ"+v1)
+                               (v0+v1+"РёСЏ")
+                               (v0+v1+"РёСЏС‚")
+                               (v0+v1+"Р°")
+                               (v0+v1+"Р°С‚Р°")
+                               (v0+v1+"Рѕ")
+                               (v0+v1+"РѕС‚Рѕ")
+                               (v0+v1+"Рё")
+                               (v0+v1+"РёС‚Рµ") ;
   mkA081 : Str -> A ;
   mkA081 base = let v0 = tk 2 base;
                     v1 = last (base)
-                in mkAdjective (v0+"я"+v1)
-                               (v0+"е"+v1+"ия")
-                               (v0+"е"+v1+"ият")
-                               (v0+"я"+v1+"а")
-                               (v0+"я"+v1+"ата")
-                               (v0+"я"+v1+"о")
-                               (v0+"я"+v1+"ото")
-                               (v0+"е"+v1+"и")
-                               (v0+"е"+v1+"ите") ;
+                in mkAdjective (v0+"СЏ"+v1)
+                               (v0+"Рµ"+v1+"РёСЏ")
+                               (v0+"Рµ"+v1+"РёСЏС‚")
+                               (v0+"СЏ"+v1+"Р°")
+                               (v0+"СЏ"+v1+"Р°С‚Р°")
+                               (v0+"СЏ"+v1+"Рѕ")
+                               (v0+"СЏ"+v1+"РѕС‚Рѕ")
+                               (v0+"Рµ"+v1+"Рё")
+                               (v0+"Рµ"+v1+"РёС‚Рµ") ;
   mkA082 : Str -> A ;
   mkA082 base = let v0 = tk 3 base;
                     v1 = last (base)
-                in mkAdjective (v0+"ръ"+v1)
-                               (v0+"ър"+v1+"ия")
-                               (v0+"ър"+v1+"ият")
-                               (v0+"ър"+v1+"а")
-                               (v0+"ър"+v1+"ата")
-                               (v0+"ър"+v1+"о")
-                               (v0+"ър"+v1+"ото")
-                               (v0+"ър"+v1+"и")
-                               (v0+"ър"+v1+"ите") ;
+                in mkAdjective (v0+"СЂСЉ"+v1)
+                               (v0+"СЉСЂ"+v1+"РёСЏ")
+                               (v0+"СЉСЂ"+v1+"РёСЏС‚")
+                               (v0+"СЉСЂ"+v1+"Р°")
+                               (v0+"СЉСЂ"+v1+"Р°С‚Р°")
+                               (v0+"СЉСЂ"+v1+"Рѕ")
+                               (v0+"СЉСЂ"+v1+"РѕС‚Рѕ")
+                               (v0+"СЉСЂ"+v1+"Рё")
+                               (v0+"СЉСЂ"+v1+"РёС‚Рµ") ;
   mkA082a : Str -> A ;
   mkA082a base = let v0 = tk 5 base
-                 in mkAdjective (v0+"ързък")
-                                (v0+"ръзкия")
-                                (v0+"ръзкият")
-                                (v0+"ръзка")
-                                (v0+"ръзката")
-                                (v0+"ръзко")
-                                (v0+"ръзкото")
-                                (v0+"ръзки")
-                                (v0+"ръзките") ;
+                 in mkAdjective (v0+"СЉСЂР·СЉРє")
+                                (v0+"СЂСЉР·РєРёСЏ")
+                                (v0+"СЂСЉР·РєРёСЏС‚")
+                                (v0+"СЂСЉР·РєР°")
+                                (v0+"СЂСЉР·РєР°С‚Р°")
+                                (v0+"СЂСЉР·РєРѕ")
+                                (v0+"СЂСЉР·РєРѕС‚Рѕ")
+                                (v0+"СЂСЉР·РєРё")
+                                (v0+"СЂСЉР·РєРёС‚Рµ") ;
   mkA083 : Str -> A ;
   mkA083 base = let v0 = tk 4 base;
                     v1 = last (tk 2 base)
-                in mkAdjective (v0+"я"+v1+"ък")
-                               (v0+"е"+v1+"кия")
-                               (v0+"е"+v1+"кият")
-                               (v0+"я"+v1+"ка")
-                               (v0+"я"+v1+"ката")
-                               (v0+"я"+v1+"ко")
-                               (v0+"я"+v1+"кото")
-                               (v0+"е"+v1+"ки")
-                               (v0+"е"+v1+"ките") ;
+                in mkAdjective (v0+"СЏ"+v1+"СЉРє")
+                               (v0+"Рµ"+v1+"РєРёСЏ")
+                               (v0+"Рµ"+v1+"РєРёСЏС‚")
+                               (v0+"СЏ"+v1+"РєР°")
+                               (v0+"СЏ"+v1+"РєР°С‚Р°")
+                               (v0+"СЏ"+v1+"РєРѕ")
+                               (v0+"СЏ"+v1+"РєРѕС‚Рѕ")
+                               (v0+"Рµ"+v1+"РєРё")
+                               (v0+"Рµ"+v1+"РєРёС‚Рµ") ;
   mkA084 : Str -> A ;
   mkA084 base = let v0 = tk 4 base;
                     v1 = last (tk 2 base)
-                in mkAdjective (v0+"е"+v1+"ен")
-                               (v0+"е"+v1+"ния")
-                               (v0+"е"+v1+"ният")
-                               (v0+"я"+v1+"на")
-                               (v0+"я"+v1+"ната")
-                               (v0+"я"+v1+"но")
-                               (v0+"я"+v1+"ното")
-                               (v0+"е"+v1+"ни")
-                               (v0+"е"+v1+"ните") ;
+                in mkAdjective (v0+"Рµ"+v1+"РµРЅ")
+                               (v0+"Рµ"+v1+"РЅРёСЏ")
+                               (v0+"Рµ"+v1+"РЅРёСЏС‚")
+                               (v0+"СЏ"+v1+"РЅР°")
+                               (v0+"СЏ"+v1+"РЅР°С‚Р°")
+                               (v0+"СЏ"+v1+"РЅРѕ")
+                               (v0+"СЏ"+v1+"РЅРѕС‚Рѕ")
+                               (v0+"Рµ"+v1+"РЅРё")
+                               (v0+"Рµ"+v1+"РЅРёС‚Рµ") ;
   mkA084a : Str -> A ;
   mkA084a base = let v0 = tk 5 base
-                 in mkAdjective (v0+"естен")
-                                (v0+"естния")
-                                (v0+"естният")
-                                (v0+"ястна")
-                                (v0+"ястната")
-                                (v0+"ястно")
-                                (v0+"ястнота")
-                                (v0+"естни")
-                                (v0+"естните") ;
+                 in mkAdjective (v0+"РµСЃС‚РµРЅ")
+                                (v0+"РµСЃС‚РЅРёСЏ")
+                                (v0+"РµСЃС‚РЅРёСЏС‚")
+                                (v0+"СЏСЃС‚РЅР°")
+                                (v0+"СЏСЃС‚РЅР°С‚Р°")
+                                (v0+"СЏСЃС‚РЅРѕ")
+                                (v0+"СЏСЃС‚РЅРѕС‚Р°")
+                                (v0+"РµСЃС‚РЅРё")
+                                (v0+"РµСЃС‚РЅРёС‚Рµ") ;
   mkA085 : Str -> A ;
   mkA085 base = let v0 = tk 2 base
-                in mkAdjective (v0+"ен")
-                               (v0+"йния")
-                               (v0+"йният")
-                               (v0+"йна")
-                               (v0+"йната")
-                               (v0+"йно")
-                               (v0+"йното")
-                               (v0+"йни")
-                               (v0+"йните") ;
+                in mkAdjective (v0+"РµРЅ")
+                               (v0+"Р№РЅРёСЏ")
+                               (v0+"Р№РЅРёСЏС‚")
+                               (v0+"Р№РЅР°")
+                               (v0+"Р№РЅР°С‚Р°")
+                               (v0+"Р№РЅРѕ")
+                               (v0+"Р№РЅРѕС‚Рѕ")
+                               (v0+"Р№РЅРё")
+                               (v0+"Р№РЅРёС‚Рµ") ;
   mkA086 : Str -> A ;
   mkA086 base = let v0 = base
                 in mkAdjective (v0)
-                               (v0+"ия")
-                               (v0+"ият")
-                               (v0+"я")
-                               (v0+"ята")
-                               (v0+"ьо")
-                               (v0+"ьото")
-                               (v0+"и")
-                               (v0+"ите") ;
+                               (v0+"РёСЏ")
+                               (v0+"РёСЏС‚")
+                               (v0+"СЏ")
+                               (v0+"СЏС‚Р°")
+                               (v0+"СЊРѕ")
+                               (v0+"СЊРѕС‚Рѕ")
+                               (v0+"Рё")
+                               (v0+"РёС‚Рµ") ;
   mkA087 : Str -> A ;
   mkA087 base = let v0 = tk 1 base
-                in mkAdjective (v0+"и")
-                               (v0+"ия")
-                               (v0+"ият")
-                               (v0+"а")
-                               (v0+"ата")
-                               (v0+"е")
-                               (v0+"ето")
-                               (v0+"и")
-                               (v0+"ите") ;
+                in mkAdjective (v0+"Рё")
+                               (v0+"РёСЏ")
+                               (v0+"РёСЏС‚")
+                               (v0+"Р°")
+                               (v0+"Р°С‚Р°")
+                               (v0+"Рµ")
+                               (v0+"РµС‚Рѕ")
+                               (v0+"Рё")
+                               (v0+"РёС‚Рµ") ;
   mkA088 : Str -> A ;
   mkA088 base = let v0 = tk 1 base
-                in mkAdjective (v0+"и")
-                               (v0+"ия")
-                               (v0+"ият")
-                               (v0+"я")
-                               (v0+"ята")
-                               (v0+"е")
-                               (v0+"ето")
-                               (v0+"и")
-                               (v0+"ите") ;
+                in mkAdjective (v0+"Рё")
+                               (v0+"РёСЏ")
+                               (v0+"РёСЏС‚")
+                               (v0+"СЏ")
+                               (v0+"СЏС‚Р°")
+                               (v0+"Рµ")
+                               (v0+"РµС‚Рѕ")
+                               (v0+"Рё")
+                               (v0+"РёС‚Рµ") ;
   mkA089a : Str -> A ;
   mkA089a base = let v0 = base
                  in mkAdjective (v0)
@@ -1451,654 +1451,654 @@ oper
                                 (v0) ;
   mkV142 : Str -> VTable ;
   mkV142 base = let v0 = tk 3 base
-                in mkVerb (v0+"съм")
-                          (v0+"е")
-                          (v0+"бях")
-                          (v0+"бях")
-                          (v0+"бил")
-                          (v0+"бил")
+                in mkVerb (v0+"СЃСЉРј")
+                          (v0+"Рµ")
+                          (v0+"Р±СЏС…")
+                          (v0+"Р±СЏС…")
+                          (v0+"Р±РёР»")
+                          (v0+"Р±РёР»")
                           (v0+"-")
                           (v0+"-")
-                          (v0+"бъди")
-                          (v0+"бяне") ;
+                          (v0+"Р±СЉРґРё")
+                          (v0+"Р±СЏРЅРµ") ;
   mkV143 : Str -> VTable ;
   mkV143 base = let v0 = tk 3 base
-                in mkVerb (v0+"ъда")
-                          (v0+"ъде")
-                          (v0+"их")
-                          (v0+"ъдех")
-                          (v0+"ил")
-                          (v0+"ъдел")
+                in mkVerb (v0+"СЉРґР°")
+                          (v0+"СЉРґРµ")
+                          (v0+"РёС…")
+                          (v0+"СЉРґРµС…")
+                          (v0+"РёР»")
+                          (v0+"СЉРґРµР»")
                           (v0+"-")
-                          (v0+"ъдещ")
-                          (v0+"ъди")
-                          (v0+"ъдене") ;
+                          (v0+"СЉРґРµС‰")
+                          (v0+"СЉРґРё")
+                          (v0+"СЉРґРµРЅРµ") ;
   mkV144 : Str -> VTable ;
   mkV144 base = let v0 = tk 1 base
-                in mkVerb (v0+"а")
-                          (v0+"е")
-                          (v0+"ях")
-                          (v0+"ях")
-                          (v0+"ял")
-                          (v0+"ял")
+                in mkVerb (v0+"Р°")
+                          (v0+"Рµ")
+                          (v0+"СЏС…")
+                          (v0+"СЏС…")
+                          (v0+"СЏР»")
+                          (v0+"СЏР»")
                           (v0+"-")
                           (v0+"-")
                           (v0+"-")
-                          (v0+"яне") ;
+                          (v0+"СЏРЅРµ") ;
   mkV145 : Str -> VTable ;
   mkV145 base = let v0 = tk 2 base;
                     v1 = last (tk 1 base)
-                in mkVerb (v0+v1+"а")
-                          (v0+v1+"е")
-                          (v0+v1+"ох")
-                          (v0+v1+"ях")
-                          (v0+"л")
-                          (v0+v1+"ял")
-                          (v0+v1+"ен")
-                          (v0+v1+"ящ")
-                          (v0+v1+"и")
-                          (v0+v1+"ене") ;
+                in mkVerb (v0+v1+"Р°")
+                          (v0+v1+"Рµ")
+                          (v0+v1+"РѕС…")
+                          (v0+v1+"СЏС…")
+                          (v0+"Р»")
+                          (v0+v1+"СЏР»")
+                          (v0+v1+"РµРЅ")
+                          (v0+v1+"СЏС‰")
+                          (v0+v1+"Рё")
+                          (v0+v1+"РµРЅРµ") ;
   mkV145a : Str -> VTable ;
   mkV145a base = let v0 = tk 3 base;
                      v1 = last (tk 2 base)
-                 in mkVerb (v0+v1+"са")
-                           (v0+v1+"се")
-                           (v0+v1+"сох")
-                           (v0+v1+"сях")
-                           (v0+v1+"съл")
-                           (v0+v1+"сял")
-                           (v0+v1+"сен")
-                           (v0+v1+"сящ")
-                           (v0+v1+"си")
-                           (v0+v1+"сяне") ;
+                 in mkVerb (v0+v1+"СЃР°")
+                           (v0+v1+"СЃРµ")
+                           (v0+v1+"СЃРѕС…")
+                           (v0+v1+"СЃСЏС…")
+                           (v0+v1+"СЃСЉР»")
+                           (v0+v1+"СЃСЏР»")
+                           (v0+v1+"СЃРµРЅ")
+                           (v0+v1+"СЃСЏС‰")
+                           (v0+v1+"СЃРё")
+                           (v0+v1+"СЃСЏРЅРµ") ;
   mkV145b : Str -> VTable ;
   mkV145b base = let v0 = tk 2 base
-                 in mkVerb (v0+"та")
-                           (v0+"те")
-                           (v0+"тох")
-                           (v0+"тях")
-                           (v0+"ъл")
-                           (v0+"тял")
+                 in mkVerb (v0+"С‚Р°")
+                           (v0+"С‚Рµ")
+                           (v0+"С‚РѕС…")
+                           (v0+"С‚СЏС…")
+                           (v0+"СЉР»")
+                           (v0+"С‚СЏР»")
                            (v0+"-")
-                           (v0+"тящ")
-                           (v0+"ти")
-                           (v0+"тяне") ;
+                           (v0+"С‚СЏС‰")
+                           (v0+"С‚Рё")
+                           (v0+"С‚СЏРЅРµ") ;
   mkV146 : Str -> VTable ;
   mkV146 base = let v0 = tk 2 base
-                in mkVerb (v0+"да")
-                          (v0+"де")
-                          (v0+"дох")
-                          (v0+"дех")
-                          (v0+"шъл")
-                          (v0+"дел")
+                in mkVerb (v0+"РґР°")
+                          (v0+"РґРµ")
+                          (v0+"РґРѕС…")
+                          (v0+"РґРµС…")
+                          (v0+"С€СЉР»")
+                          (v0+"РґРµР»")
                           (v0+"-")
                           (v0+"-")
-                          (v0+"ди")
-                          (v0+"дене") ;
+                          (v0+"РґРё")
+                          (v0+"РґРµРЅРµ") ;
   mkV146a : Str -> VTable ;
   mkV146a base = let v0 = tk 3 base
-                 in mkVerb (v0+"йда")
-                           (v0+"йде")
-                           (v0+"йдох")
-                           (v0+"йдех")
-                           (v0+"шъл")
-                           (v0+"йдел")
+                 in mkVerb (v0+"Р№РґР°")
+                           (v0+"Р№РґРµ")
+                           (v0+"Р№РґРѕС…")
+                           (v0+"Р№РґРµС…")
+                           (v0+"С€СЉР»")
+                           (v0+"Р№РґРµР»")
                            (v0+"-")
                            (v0+"-")
-                           (v0+"йди")
-                           (v0+"йдене") ;
+                           (v0+"Р№РґРё")
+                           (v0+"Р№РґРµРЅРµ") ;
   mkV147 : Str -> VTable ;
   mkV147 base = let v0 = tk 3 base
-                in mkVerb (v0+"яза")
-                          (v0+"езе")
-                          (v0+"язох")
-                          (v0+"езех")
-                          (v0+"язъл")
-                          (v0+"езел")
-                          (v0+"язъл")
-                          (v0+"изащ")
-                          (v0+"ез")
-                          (v0+"езене") ;
+                in mkVerb (v0+"СЏР·Р°")
+                          (v0+"РµР·Рµ")
+                          (v0+"СЏР·РѕС…")
+                          (v0+"РµР·РµС…")
+                          (v0+"СЏР·СЉР»")
+                          (v0+"РµР·РµР»")
+                          (v0+"СЏР·СЉР»")
+                          (v0+"РёР·Р°С‰")
+                          (v0+"РµР·")
+                          (v0+"РµР·РµРЅРµ") ;
   mkV148 : Str -> VTable ;
   mkV148 base = let v0 = tk 2 base
-                in mkVerb (v0+"ка")
-                          (v0+"че")
-                          (v0+"кох")
-                          (v0+"чех")
-                          (v0+"къл")
-                          (v0+"чел")
-                          (v0+"чен")
-                          (v0+"чащ")
-                          (v0+"чи")
-                          (v0+"чене") ;
+                in mkVerb (v0+"РєР°")
+                          (v0+"С‡Рµ")
+                          (v0+"РєРѕС…")
+                          (v0+"С‡РµС…")
+                          (v0+"РєСЉР»")
+                          (v0+"С‡РµР»")
+                          (v0+"С‡РµРЅ")
+                          (v0+"С‡Р°С‰")
+                          (v0+"С‡Рё")
+                          (v0+"С‡РµРЅРµ") ;
   mkV149 : Str -> VTable ;
   mkV149 base = let v0 = tk 3 base
-                in mkVerb (v0+"ека")
-                          (v0+"ече")
-                          (v0+"якох")
-                          (v0+"ечех")
-                          (v0+"якъл")
-                          (v0+"ечел")
-                          (v0+"ечен")
+                in mkVerb (v0+"РµРєР°")
+                          (v0+"РµС‡Рµ")
+                          (v0+"СЏРєРѕС…")
+                          (v0+"РµС‡РµС…")
+                          (v0+"СЏРєСЉР»")
+                          (v0+"РµС‡РµР»")
+                          (v0+"РµС‡РµРЅ")
                           (v0+"-")
-                          (v0+"ечи")
-                          (v0+"ечене") ;
+                          (v0+"РµС‡Рё")
+                          (v0+"РµС‡РµРЅРµ") ;
   mkV150 : Str -> VTable ;
   mkV150 base = let v0 = tk 1 base
-                in mkVerb (v0+"а")
-                          (v0+"е")
-                          (v0+"ях")
-                          (v0+"ях")
-                          (v0+"ял")
-                          (v0+"ял")
-                          (v0+"ян")
+                in mkVerb (v0+"Р°")
+                          (v0+"Рµ")
+                          (v0+"СЏС…")
+                          (v0+"СЏС…")
+                          (v0+"СЏР»")
+                          (v0+"СЏР»")
+                          (v0+"СЏРЅ")
                           (v0+"-")
-                          (v0+"и")
-                          (v0+"яне") ;
+                          (v0+"Рё")
+                          (v0+"СЏРЅРµ") ;
   mkV150a : Str -> VTable ;
   mkV150a base = let v0 = tk 1 base
-                 in mkVerb (v0+"а")
-                           (v0+"е")
-                           (v0+"ях")
-                           (v0+"ях")
-                           (v0+"ял")
-                           (v0+"ял")
+                 in mkVerb (v0+"Р°")
+                           (v0+"Рµ")
+                           (v0+"СЏС…")
+                           (v0+"СЏС…")
+                           (v0+"СЏР»")
+                           (v0+"СЏР»")
                            (v0+"-")
                            (v0+"-")
-                           (v0+"и")
-                           (v0+"яне") ;
+                           (v0+"Рё")
+                           (v0+"СЏРЅРµ") ;
   mkV151 : Str -> VTable ;
   mkV151 base = let v0 = tk 1 base
-                in mkVerb (v0+"а")
-                          (v0+"е")
-                          (v0+"ах")
-                          (v0+"ях")
-                          (v0+"ал")
-                          (v0+"ял")
-                          (v0+"ан")
-                          (v0+"ящ")
-                          (v0+"и")
-                          (v0+"яне") ;
+                in mkVerb (v0+"Р°")
+                          (v0+"Рµ")
+                          (v0+"Р°С…")
+                          (v0+"СЏС…")
+                          (v0+"Р°Р»")
+                          (v0+"СЏР»")
+                          (v0+"Р°РЅ")
+                          (v0+"СЏС‰")
+                          (v0+"Рё")
+                          (v0+"СЏРЅРµ") ;
   mkV152 : Str -> VTable ;
   mkV152 base = let v0 = tk 1 base
-                in mkVerb (v0+"а")
-                          (v0+"е")
-                          (v0+"ах")
-                          (v0+"ех")
-                          (v0+"ал")
-                          (v0+"ел")
-                          (v0+"ат")
+                in mkVerb (v0+"Р°")
+                          (v0+"Рµ")
+                          (v0+"Р°С…")
+                          (v0+"РµС…")
+                          (v0+"Р°Р»")
+                          (v0+"РµР»")
+                          (v0+"Р°С‚")
                           (v0+"-")
-                          (v0+"и")
-                          (v0+"ене") ;
+                          (v0+"Рё")
+                          (v0+"РµРЅРµ") ;
   mkV152a : Str -> VTable ;
   mkV152a base = let v0 = tk 4 base
-                 in mkVerb (v0+"ягна")
-                           (v0+"егне")
-                           (v0+"ягнах")
-                           (v0+"ягнех")
-                           (v0+"ягнал")
-                           (v0+"ягнел")
-                           (v0+"ягнат")
+                 in mkVerb (v0+"СЏРіРЅР°")
+                           (v0+"РµРіРЅРµ")
+                           (v0+"СЏРіРЅР°С…")
+                           (v0+"СЏРіРЅРµС…")
+                           (v0+"СЏРіРЅР°Р»")
+                           (v0+"СЏРіРЅРµР»")
+                           (v0+"СЏРіРЅР°С‚")
                            (v0+"-")
-                           (v0+"егни")
-                           (v0+"ягнене") ;
+                           (v0+"РµРіРЅРё")
+                           (v0+"СЏРіРЅРµРЅРµ") ;
   mkV153 : Str -> VTable ;
   mkV153 base = let v0 = tk 3 base
-                in mkVerb (v0+"яна")
-                          (v0+"ене")
-                          (v0+"янах")
-                          (v0+"енех")
-                          (v0+"янал")
-                          (v0+"енел")
-                          (v0+"янат")
+                in mkVerb (v0+"СЏРЅР°")
+                          (v0+"РµРЅРµ")
+                          (v0+"СЏРЅР°С…")
+                          (v0+"РµРЅРµС…")
+                          (v0+"СЏРЅР°Р»")
+                          (v0+"РµРЅРµР»")
+                          (v0+"СЏРЅР°С‚")
                           (v0+"-")
-                          (v0+"ени")
-                          (v0+"енене") ;
+                          (v0+"РµРЅРё")
+                          (v0+"РµРЅРµРЅРµ") ;
   mkV154 : Str -> VTable ;
   mkV154 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"е")
-                          (v0+"ах")
-                          (v0+"ех")
-                          (v0+"ал")
-                          (v0+"ел")
-                          (v0+"ан")
-                          (v0+"ещ")
-                          (v0+"и")
-                          (v0+"ене") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рµ")
+                          (v0+"Р°С…")
+                          (v0+"РµС…")
+                          (v0+"Р°Р»")
+                          (v0+"РµР»")
+                          (v0+"Р°РЅ")
+                          (v0+"РµС‰")
+                          (v0+"Рё")
+                          (v0+"РµРЅРµ") ;
   mkV155 : Str -> VTable ;
   mkV155 base = let v0 = tk 2 base
-                in mkVerb (v0+"ча")
-                          (v0+"че")
-                          (v0+"ках")
-                          (v0+"чех")
-                          (v0+"кал")
-                          (v0+"чел")
-                          (v0+"кан")
-                          (v0+"чещ")
-                          (v0+"чи")
-                          (v0+"чене") ;
+                in mkVerb (v0+"С‡Р°")
+                          (v0+"С‡Рµ")
+                          (v0+"РєР°С…")
+                          (v0+"С‡РµС…")
+                          (v0+"РєР°Р»")
+                          (v0+"С‡РµР»")
+                          (v0+"РєР°РЅ")
+                          (v0+"С‡РµС‰")
+                          (v0+"С‡Рё")
+                          (v0+"С‡РµРЅРµ") ;
   mkV156 : Str -> VTable ;
   mkV156 base = let v0 = tk 2 base
-                in mkVerb (v0+"жа")
-                          (v0+"же")
-                          (v0+"зах")
-                          (v0+"жех")
-                          (v0+"зал")
-                          (v0+"жел")
-                          (v0+"зан")
+                in mkVerb (v0+"Р¶Р°")
+                          (v0+"Р¶Рµ")
+                          (v0+"Р·Р°С…")
+                          (v0+"Р¶РµС…")
+                          (v0+"Р·Р°Р»")
+                          (v0+"Р¶РµР»")
+                          (v0+"Р·Р°РЅ")
                           (v0+"-")
-                          (v0+"жи")
-                          (v0+"жене") ;
+                          (v0+"Р¶Рё")
+                          (v0+"Р¶РµРЅРµ") ;
   mkV157 : Str -> VTable ;
   mkV157 base = let v0 = tk 3 base
-                in mkVerb (v0+"ежа")
-                          (v0+"еже")
-                          (v0+"язах")
-                          (v0+"ежех")
-                          (v0+"язал")
-                          (v0+"ежел")
-                          (v0+"язан")
-                          (v0+"ежещ")
-                          (v0+"ежи")
-                          (v0+"ежене") ;
+                in mkVerb (v0+"РµР¶Р°")
+                          (v0+"РµР¶Рµ")
+                          (v0+"СЏР·Р°С…")
+                          (v0+"РµР¶РµС…")
+                          (v0+"СЏР·Р°Р»")
+                          (v0+"РµР¶РµР»")
+                          (v0+"СЏР·Р°РЅ")
+                          (v0+"РµР¶РµС‰")
+                          (v0+"РµР¶Рё")
+                          (v0+"РµР¶РµРЅРµ") ;
   mkV158 : Str -> VTable ;
   mkV158 base = let v0 = tk 2 base
-                in mkVerb (v0+"жа")
-                          (v0+"же")
-                          (v0+"гах")
-                          (v0+"жех")
-                          (v0+"гал")
-                          (v0+"жел")
-                          (v0+"ган")
-                          (v0+"жещ")
-                          (v0+"жи")
-                          (v0+"жене") ;
+                in mkVerb (v0+"Р¶Р°")
+                          (v0+"Р¶Рµ")
+                          (v0+"РіР°С…")
+                          (v0+"Р¶РµС…")
+                          (v0+"РіР°Р»")
+                          (v0+"Р¶РµР»")
+                          (v0+"РіР°РЅ")
+                          (v0+"Р¶РµС‰")
+                          (v0+"Р¶Рё")
+                          (v0+"Р¶РµРЅРµ") ;
   mkV159 : Str -> VTable ;
   mkV159 base = let v0 = tk 2 base
-                in mkVerb (v0+"ша")
-                          (v0+"ше")
-                          (v0+"сах")
-                          (v0+"шех")
-                          (v0+"сал")
-                          (v0+"шел")
-                          (v0+"сан")
-                          (v0+"шещ")
-                          (v0+"ши")
-                          (v0+"шене") ;
+                in mkVerb (v0+"С€Р°")
+                          (v0+"С€Рµ")
+                          (v0+"СЃР°С…")
+                          (v0+"С€РµС…")
+                          (v0+"СЃР°Р»")
+                          (v0+"С€РµР»")
+                          (v0+"СЃР°РЅ")
+                          (v0+"С€РµС‰")
+                          (v0+"С€Рё")
+                          (v0+"С€РµРЅРµ") ;
   mkV160 : Str -> VTable ;
   mkV160 base = let v0 = tk 2 base
-                in mkVerb (v0+"ея")
-                          (v0+"ее")
-                          (v0+"ях")
-                          (v0+"еех")
-                          (v0+"ял")
-                          (v0+"еел")
-                          (v0+"ян")
-                          (v0+"еещ")
-                          (v0+"ей")
-                          (v0+"еене") ;
+                in mkVerb (v0+"РµСЏ")
+                          (v0+"РµРµ")
+                          (v0+"СЏС…")
+                          (v0+"РµРµС…")
+                          (v0+"СЏР»")
+                          (v0+"РµРµР»")
+                          (v0+"СЏРЅ")
+                          (v0+"РµРµС‰")
+                          (v0+"РµР№")
+                          (v0+"РµРµРЅРµ") ;
   mkV160a : Str -> VTable ;
   mkV160a base = let v0 = tk 2 base
-                 in mkVerb (v0+"ея")
-                           (v0+"ее")
-                           (v0+"ах")
-                           (v0+"еех")
-                           (v0+"ал")
-                           (v0+"еел")
-                           (v0+"ан")
-                           (v0+"еещ")
-                           (v0+"ей")
-                           (v0+"еене") ;
+                 in mkVerb (v0+"РµСЏ")
+                           (v0+"РµРµ")
+                           (v0+"Р°С…")
+                           (v0+"РµРµС…")
+                           (v0+"Р°Р»")
+                           (v0+"РµРµР»")
+                           (v0+"Р°РЅ")
+                           (v0+"РµРµС‰")
+                           (v0+"РµР№")
+                           (v0+"РµРµРЅРµ") ;
   mkV161 : Str -> VTable ;
   mkV161 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"е")
-                          (v0+"х")
-                          (v0+"ех")
-                          (v0+"л")
-                          (v0+"ел")
-                          (v0+"н")
-                          (v0+"ещ")
-                          (v0+"й")
-                          (v0+"ене") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рµ")
+                          (v0+"С…")
+                          (v0+"РµС…")
+                          (v0+"Р»")
+                          (v0+"РµР»")
+                          (v0+"РЅ")
+                          (v0+"РµС‰")
+                          (v0+"Р№")
+                          (v0+"РµРЅРµ") ;
   mkV161a : Str -> VTable ;
   mkV161a base = let v0 = tk 1 base
-                 in mkVerb (v0+"я")
-                           (v0+"е")
-                           (v0+"х")
-                           (v0+"ех")
-                           (v0+"л")
-                           (v0+"ел")
-                           (v0+"т")
-                           (v0+"ещ")
-                           (v0+"й")
-                           (v0+"ене") ;
+                 in mkVerb (v0+"СЏ")
+                           (v0+"Рµ")
+                           (v0+"С…")
+                           (v0+"РµС…")
+                           (v0+"Р»")
+                           (v0+"РµР»")
+                           (v0+"С‚")
+                           (v0+"РµС‰")
+                           (v0+"Р№")
+                           (v0+"РµРЅРµ") ;
   mkV162 : Str -> VTable ;
   mkV162 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"е")
-                          (v0+"ях")
-                          (v0+"ех")
-                          (v0+"ял")
-                          (v0+"ел")
-                          (v0+"ян")
-                          (v0+"ещ")
-                          (v0+"й")
-                          (v0+"ене") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рµ")
+                          (v0+"СЏС…")
+                          (v0+"РµС…")
+                          (v0+"СЏР»")
+                          (v0+"РµР»")
+                          (v0+"СЏРЅ")
+                          (v0+"РµС‰")
+                          (v0+"Р№")
+                          (v0+"РµРЅРµ") ;
   mkV163 : Str -> VTable ;
   mkV163 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"е")
-                          (v0+"х")
-                          (v0+"ех")
-                          (v0+"л")
-                          (v0+"ел")
-                          (v0+"т")
-                          (v0+"ещ")
-                          (v0+"й")
-                          (v0+"ене") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рµ")
+                          (v0+"С…")
+                          (v0+"РµС…")
+                          (v0+"Р»")
+                          (v0+"РµР»")
+                          (v0+"С‚")
+                          (v0+"РµС‰")
+                          (v0+"Р№")
+                          (v0+"РµРЅРµ") ;
   mkV164 : Str -> VTable ;
   mkV164 base = let v0 = tk 2 base
-                in mkVerb (v0+"ея")
-                          (v0+"ее")
-                          (v0+"ях")
-                          (v0+"еех")
-                          (v0+"ял")
-                          (v0+"еел")
-                          (v0+"ят")
-                          (v0+"еещ")
-                          (v0+"ей")
-                          (v0+"еене") ;
+                in mkVerb (v0+"РµСЏ")
+                          (v0+"РµРµ")
+                          (v0+"СЏС…")
+                          (v0+"РµРµС…")
+                          (v0+"СЏР»")
+                          (v0+"РµРµР»")
+                          (v0+"СЏС‚")
+                          (v0+"РµРµС‰")
+                          (v0+"РµР№")
+                          (v0+"РµРµРЅРµ") ;
   mkV165 : Str -> VTable ;
   mkV165 base = let v0 = tk 1 base
-                in mkVerb (v0+"а")
-                          (v0+"е")
-                          (v0+"ох")
-                          (v0+"ех")
+                in mkVerb (v0+"Р°")
+                          (v0+"Рµ")
+                          (v0+"РѕС…")
+                          (v0+"РµС…")
                           (v0+"-")
-                          (v0+"ел")
+                          (v0+"РµР»")
                           (v0+"-")
-                          (v0+"ещ")
-                          (v0+"и")
-                          (v0+"ене") ;
+                          (v0+"РµС‰")
+                          (v0+"Рё")
+                          (v0+"РµРЅРµ") ;
   mkV166 : Str -> VTable ;
   mkV166 base = let v0 = tk 2 base
-                in mkVerb (v0+"га")
-                          (v0+"же")
-                          (v0+"жах")
-                          (v0+"жех")
-                          (v0+"гъл")
-                          (v0+"жел")
+                in mkVerb (v0+"РіР°")
+                          (v0+"Р¶Рµ")
+                          (v0+"Р¶Р°С…")
+                          (v0+"Р¶РµС…")
+                          (v0+"РіСЉР»")
+                          (v0+"Р¶РµР»")
                           (v0+"-")
-                          (v0+"жещ")
+                          (v0+"Р¶РµС‰")
                           (v0+"-")
-                          (v0+"жене") ;
+                          (v0+"Р¶РµРЅРµ") ;
   mkV167 : Str -> VTable ;
   mkV167 base = let v0 = tk 2 base
-                in mkVerb (v0+"ка")
-                          (v0+"че")
-                          (v0+"ках")
-                          (v0+"чех")
-                          (v0+"кал")
-                          (v0+"чел")
-                          (v0+"кан")
-                          (v0+"чещ")
-                          (v0+"чи")
-                          (v0+"чене") ;
+                in mkVerb (v0+"РєР°")
+                          (v0+"С‡Рµ")
+                          (v0+"РєР°С…")
+                          (v0+"С‡РµС…")
+                          (v0+"РєР°Р»")
+                          (v0+"С‡РµР»")
+                          (v0+"РєР°РЅ")
+                          (v0+"С‡РµС‰")
+                          (v0+"С‡Рё")
+                          (v0+"С‡РµРЅРµ") ;
   mkV168 : Str -> VTable ;
   mkV168 base = let v0 = tk 1 base
-                in mkVerb (v0+"м")
-                          (v0+"де")
-                          (v0+"дох")
-                          (v0+"дях")
-                          (v0+"л")
-                          (v0+"дял")
-                          (v0+"ден")
+                in mkVerb (v0+"Рј")
+                          (v0+"РґРµ")
+                          (v0+"РґРѕС…")
+                          (v0+"РґСЏС…")
+                          (v0+"Р»")
+                          (v0+"РґСЏР»")
+                          (v0+"РґРµРЅ")
                           (v0+"-")
-                          (v0+"й")
-                          (v0+"дяне") ;
+                          (v0+"Р№")
+                          (v0+"РґСЏРЅРµ") ;
   mkV169 : Str -> VTable ;
   mkV169 base = let v0 = tk 1 base
-                in mkVerb (v0+"м")
-                          (v0+"де")
-                          (v0+"дох")
-                          (v0+"дях")
-                          (v0+"л")
-                          (v0+"дял")
-                          (v0+"ден")
-                          (v0+"дещ")
-                          (v0+"ж")
-                          (v0+"дяне") ;
+                in mkVerb (v0+"Рј")
+                          (v0+"РґРµ")
+                          (v0+"РґРѕС…")
+                          (v0+"РґСЏС…")
+                          (v0+"Р»")
+                          (v0+"РґСЏР»")
+                          (v0+"РґРµРЅ")
+                          (v0+"РґРµС‰")
+                          (v0+"Р¶")
+                          (v0+"РґСЏРЅРµ") ;
   mkV170 : Str -> VTable ;
   mkV170 base = let v0 = tk 3 base
-                in mkVerb (v0+"ера")
-                          (v0+"ере")
-                          (v0+"рах")
-                          (v0+"ерях")
-                          (v0+"рал")
-                          (v0+"ерял")
-                          (v0+"ран")
-                          (v0+"ерящ")
-                          (v0+"ери")
-                          (v0+"еряне") ;
+                in mkVerb (v0+"РµСЂР°")
+                          (v0+"РµСЂРµ")
+                          (v0+"СЂР°С…")
+                          (v0+"РµСЂСЏС…")
+                          (v0+"СЂР°Р»")
+                          (v0+"РµСЂСЏР»")
+                          (v0+"СЂР°РЅ")
+                          (v0+"РµСЂСЏС‰")
+                          (v0+"РµСЂРё")
+                          (v0+"РµСЂСЏРЅРµ") ;
   mkV171 : Str -> VTable ;
   mkV171 base = let v0 = tk 2 base
-                in mkVerb (v0+"ма")
-                          (v0+"ме")
-                          (v0+"х")
-                          (v0+"мех")
-                          (v0+"л")
-                          (v0+"мел")
-                          (v0+"т")
+                in mkVerb (v0+"РјР°")
+                          (v0+"РјРµ")
+                          (v0+"С…")
+                          (v0+"РјРµС…")
+                          (v0+"Р»")
+                          (v0+"РјРµР»")
+                          (v0+"С‚")
                           (v0+"-")
-                          (v0+"ми")
-                          (v0+"мене") ;
+                          (v0+"РјРё")
+                          (v0+"РјРµРЅРµ") ;
   mkV172 : Str -> VTable ;
   mkV172 base = let v0 = tk 4 base
-                in mkVerb (v0+"ълна")
-                          (v0+"ълне")
-                          (v0+"лех")
-                          (v0+"ълнех")
-                          (v0+"лел")
-                          (v0+"ълнел")
-                          (v0+"ълнат")
-                          (v0+"ълнещ")
-                          (v0+"ълни")
-                          (v0+"ълнене") ;
+                in mkVerb (v0+"СЉР»РЅР°")
+                          (v0+"СЉР»РЅРµ")
+                          (v0+"Р»РµС…")
+                          (v0+"СЉР»РЅРµС…")
+                          (v0+"Р»РµР»")
+                          (v0+"СЉР»РЅРµР»")
+                          (v0+"СЉР»РЅР°С‚")
+                          (v0+"СЉР»РЅРµС‰")
+                          (v0+"СЉР»РЅРё")
+                          (v0+"СЉР»РЅРµРЅРµ") ;
   mkV173 : Str -> VTable ;
   mkV173 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"и")
-                          (v0+"их")
-                          (v0+"ех")
-                          (v0+"ил")
-                          (v0+"ел")
-                          (v0+"ен")
-                          (v0+"ещ")
-                          (v0+"и")
-                          (v0+"ене") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рё")
+                          (v0+"РёС…")
+                          (v0+"РµС…")
+                          (v0+"РёР»")
+                          (v0+"РµР»")
+                          (v0+"РµРЅ")
+                          (v0+"РµС‰")
+                          (v0+"Рё")
+                          (v0+"РµРЅРµ") ;
   mkV174 : Str -> VTable ;
   mkV174 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"и")
-                          (v0+"их")
-                          (v0+"ях")
-                          (v0+"ил")
-                          (v0+"ял")
-                          (v0+"ен")
-                          (v0+"ящ")
-                          (v0+"и")
-                          (v0+"яне") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рё")
+                          (v0+"РёС…")
+                          (v0+"СЏС…")
+                          (v0+"РёР»")
+                          (v0+"СЏР»")
+                          (v0+"РµРЅ")
+                          (v0+"СЏС‰")
+                          (v0+"Рё")
+                          (v0+"СЏРЅРµ") ;
   mkV175 : Str -> VTable ;
   mkV175 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"и")
-                          (v0+"их")
-                          (v0+"ях")
-                          (v0+"ил")
-                          (v0+"ял")
-                          (v0+"ен")
-                          (v0+"ящ")
-                          (v0+"й")
-                          (v0+"ене") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рё")
+                          (v0+"РёС…")
+                          (v0+"СЏС…")
+                          (v0+"РёР»")
+                          (v0+"СЏР»")
+                          (v0+"РµРЅ")
+                          (v0+"СЏС‰")
+                          (v0+"Р№")
+                          (v0+"РµРЅРµ") ;
   mkV176 : Str -> VTable ;
   mkV176 base = let v0 = tk 1 base
-                in mkVerb (v0+"а")
-                          (v0+"и")
-                          (v0+"их")
-                          (v0+"ех")
-                          (v0+"ил")
-                          (v0+"ел")
-                          (v0+"ен")
-                          (v0+"ещ")
-                          (v0+"и")
-                          (v0+"ене") ;
+                in mkVerb (v0+"Р°")
+                          (v0+"Рё")
+                          (v0+"РёС…")
+                          (v0+"РµС…")
+                          (v0+"РёР»")
+                          (v0+"РµР»")
+                          (v0+"РµРЅ")
+                          (v0+"РµС‰")
+                          (v0+"Рё")
+                          (v0+"РµРЅРµ") ;
   mkV177 : Str -> VTable ;
   mkV177 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"и")
-                          (v0+"ях")
-                          (v0+"ях")
-                          (v0+"ял")
-                          (v0+"ял")
-                          (v0+"ян")
-                          (v0+"ящ")
-                          (v0+"и")
-                          (v0+"ене") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рё")
+                          (v0+"СЏС…")
+                          (v0+"СЏС…")
+                          (v0+"СЏР»")
+                          (v0+"СЏР»")
+                          (v0+"СЏРЅ")
+                          (v0+"СЏС‰")
+                          (v0+"Рё")
+                          (v0+"РµРЅРµ") ;
   mkV178 : Str -> VTable ;
   mkV178 base = let v0 = tk 1 base
-                in mkVerb (v0+"а")
-                          (v0+"и")
-                          (v0+"ах")
-                          (v0+"ех")
-                          (v0+"ал")
-                          (v0+"ел")
-                          (v0+"ителен")
-                          (v0+"ащ")
-                          (v0+"и")
-                          (v0+"ене") ;
+                in mkVerb (v0+"Р°")
+                          (v0+"Рё")
+                          (v0+"Р°С…")
+                          (v0+"РµС…")
+                          (v0+"Р°Р»")
+                          (v0+"РµР»")
+                          (v0+"РёС‚РµР»РµРЅ")
+                          (v0+"Р°С‰")
+                          (v0+"Рё")
+                          (v0+"РµРЅРµ") ;
   mkV179 : Str -> VTable ;
   mkV179 base = let v0 = tk 4 base
-                in mkVerb (v0+"ържа")
-                          (v0+"ържи")
-                          (v0+"ържах")
-                          (v0+"ържех")
-                          (v0+"ържал")
-                          (v0+"ържел")
-                          (v0+"ържан")
-                          (v0+"ържащ")
-                          (v0+"ръж")
-                          (v0+"ържене") ;
+                in mkVerb (v0+"СЉСЂР¶Р°")
+                          (v0+"СЉСЂР¶Рё")
+                          (v0+"СЉСЂР¶Р°С…")
+                          (v0+"СЉСЂР¶РµС…")
+                          (v0+"СЉСЂР¶Р°Р»")
+                          (v0+"СЉСЂР¶РµР»")
+                          (v0+"СЉСЂР¶Р°РЅ")
+                          (v0+"СЉСЂР¶Р°С‰")
+                          (v0+"СЂСЉР¶")
+                          (v0+"СЉСЂР¶РµРЅРµ") ;
   mkV180 : Str -> VTable ;
   mkV180 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"и")
-                          (v0+"ях")
-                          (v0+"ях")
-                          (v0+"ял")
-                          (v0+"ял")
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рё")
+                          (v0+"СЏС…")
+                          (v0+"СЏС…")
+                          (v0+"СЏР»")
+                          (v0+"СЏР»")
                           (v0+"-")
-                          (v0+"ящ")
-                          (v0+"й")
-                          (v0+"яне") ;
+                          (v0+"СЏС‰")
+                          (v0+"Р№")
+                          (v0+"СЏРЅРµ") ;
   mkV181 : Str -> VTable ;
   mkV181 base = let v0 = tk 2 base
-                in mkVerb (v0+"дя")
-                          (v0+"ди")
-                          (v0+"дях")
-                          (v0+"дех")
-                          (v0+"дял")
-                          (v0+"дел")
-                          (v0+"дян")
+                in mkVerb (v0+"РґСЏ")
+                          (v0+"РґРё")
+                          (v0+"РґСЏС…")
+                          (v0+"РґРµС…")
+                          (v0+"РґСЏР»")
+                          (v0+"РґРµР»")
+                          (v0+"РґСЏРЅ")
                           (v0+"-")
-                          (v0+"ж")
-                          (v0+"дене") ;
+                          (v0+"Р¶")
+                          (v0+"РґРµРЅРµ") ;
   mkV182 : Str -> VTable ;
   mkV182 base = let v0 = tk 1 base
-                in mkVerb (v0+"я")
-                          (v0+"и")
-                          (v0+"ах")
-                          (v0+"ях")
-                          (v0+"ал")
-                          (v0+"ял")
-                          (v0+"ан")
-                          (v0+"ящ")
-                          (v0+"и")
-                          (v0+"ане") ;
+                in mkVerb (v0+"СЏ")
+                          (v0+"Рё")
+                          (v0+"Р°С…")
+                          (v0+"СЏС…")
+                          (v0+"Р°Р»")
+                          (v0+"СЏР»")
+                          (v0+"Р°РЅ")
+                          (v0+"СЏС‰")
+                          (v0+"Рё")
+                          (v0+"Р°РЅРµ") ;
   mkV183 : Str -> VTable ;
   mkV183 base = let v0 = tk 3 base
-                in mkVerb (v0+"ежа")
-                          (v0+"ежи")
-                          (v0+"язах")
-                          (v0+"ежех")
-                          (v0+"язал")
-                          (v0+"ежел")
-                          (v0+"язан")
-                          (v0+"ежещ")
-                          (v0+"ежи")
-                          (v0+"ежене") ;
+                in mkVerb (v0+"РµР¶Р°")
+                          (v0+"РµР¶Рё")
+                          (v0+"СЏР·Р°С…")
+                          (v0+"РµР¶РµС…")
+                          (v0+"СЏР·Р°Р»")
+                          (v0+"РµР¶РµР»")
+                          (v0+"СЏР·Р°РЅ")
+                          (v0+"РµР¶РµС‰")
+                          (v0+"РµР¶Рё")
+                          (v0+"РµР¶РµРЅРµ") ;
   mkV184 : Str -> VTable ;
   mkV184 base = let v0 = tk 3 base
-                in mkVerb (v0+"еля")
-                          (v0+"ели")
-                          (v0+"лях")
-                          (v0+"елех")
-                          (v0+"лял")
-                          (v0+"елел")
-                          (v0+"лян")
-                          (v0+"елещ")
-                          (v0+"ели")
-                          (v0+"елене") ;
+                in mkVerb (v0+"РµР»СЏ")
+                          (v0+"РµР»Рё")
+                          (v0+"Р»СЏС…")
+                          (v0+"РµР»РµС…")
+                          (v0+"Р»СЏР»")
+                          (v0+"РµР»РµР»")
+                          (v0+"Р»СЏРЅ")
+                          (v0+"РµР»РµС‰")
+                          (v0+"РµР»Рё")
+                          (v0+"РµР»РµРЅРµ") ;
   mkV185 : Str -> VTable ;
   mkV185 base = let v0 = tk 3 base
-                in mkVerb (v0+"оля")
-                          (v0+"оли")
-                          (v0+"лах")
-                          (v0+"олех")
-                          (v0+"лал")
-                          (v0+"олел")
-                          (v0+"лан")
-                          (v0+"олещ")
-                          (v0+"оли")
-                          (v0+"олене") ;
+                in mkVerb (v0+"РѕР»СЏ")
+                          (v0+"РѕР»Рё")
+                          (v0+"Р»Р°С…")
+                          (v0+"РѕР»РµС…")
+                          (v0+"Р»Р°Р»")
+                          (v0+"РѕР»РµР»")
+                          (v0+"Р»Р°РЅ")
+                          (v0+"РѕР»РµС‰")
+                          (v0+"РѕР»Рё")
+                          (v0+"РѕР»РµРЅРµ") ;
   mkV186 : Str -> VTable ;
   mkV186 base = let v0 = tk 2 base
-                in mkVerb (v0+"ам")
-                          (v0+"а")
-                          (v0+"ах")
-                          (v0+"ах")
-                          (v0+"ал")
-                          (v0+"ал")
-                          (v0+"ан")
-                          (v0+"ащ")
-                          (v0+"ай")
-                          (v0+"ане") ;
+                in mkVerb (v0+"Р°Рј")
+                          (v0+"Р°")
+                          (v0+"Р°С…")
+                          (v0+"Р°С…")
+                          (v0+"Р°Р»")
+                          (v0+"Р°Р»")
+                          (v0+"Р°РЅ")
+                          (v0+"Р°С‰")
+                          (v0+"Р°Р№")
+                          (v0+"Р°РЅРµ") ;
   mkV187 : Str -> VTable ;
   mkV187 base = let v0 = tk 2 base
-                in mkVerb (v0+"ям")
-                          (v0+"я")
-                          (v0+"ях")
-                          (v0+"ях")
-                          (v0+"ял")
-                          (v0+"ял")
-                          (v0+"ян")
-                          (v0+"ящ")
-                          (v0+"яй")
-                          (v0+"яне") ;
+                in mkVerb (v0+"СЏРј")
+                          (v0+"СЏ")
+                          (v0+"СЏС…")
+                          (v0+"СЏС…")
+                          (v0+"СЏР»")
+                          (v0+"СЏР»")
+                          (v0+"СЏРЅ")
+                          (v0+"СЏС‰")
+                          (v0+"СЏР№")
+                          (v0+"СЏРЅРµ") ;
   mkV188 : Str -> VTable ;
   mkV188 base = let v0 = tk 2 base
-                in mkVerb (v0+"ам")
-                          (v0+"ае")
-                          (v0+"ах")
-                          (v0+"ах")
-                          (v0+"ал")
-                          (v0+"ал")
-                          (v0+"ан")
-                          (v0+"ащ")
-                          (v0+"ай")
-                          (v0+"ане") ;
+                in mkVerb (v0+"Р°Рј")
+                          (v0+"Р°Рµ")
+                          (v0+"Р°С…")
+                          (v0+"Р°С…")
+                          (v0+"Р°Р»")
+                          (v0+"Р°Р»")
+                          (v0+"Р°РЅ")
+                          (v0+"Р°С‰")
+                          (v0+"Р°Р№")
+                          (v0+"Р°РЅРµ") ;
 
   adjAdv : A -> Str -> A =
     \a,adv -> a ** {adv = adv} ;

@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 abstract ExtraBulAbs = Extra ** {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
 fun
