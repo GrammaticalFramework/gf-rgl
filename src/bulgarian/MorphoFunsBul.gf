@@ -1,4 +1,4 @@
---# -coding=cp1251
+--# -coding=utf8
 --# -path=.:../abstract:../../prelude:../common
 
 resource MorphoFunsBul = open
@@ -6,7 +6,7 @@ resource MorphoFunsBul = open
   CatBul,
   MorphoBul
   in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
 oper
@@ -57,11 +57,11 @@ oper
   dualV : VTable -> VTable -> V ;
   dualV imperf perf = { 
     s = table {Imperf=>imperf; Perf=>perf};
-    n = let v0 = init (imperf ! (VImperfect Sg P1)) + "н"
-        in (mkNoun (v0+"е")
-                   (v0+"ия")
-                   (v0+"ия")
-                   (v0+"е")
+    n = let v0 = init (imperf ! (VImperfect Sg P1)) + "РЅ"
+        in (mkNoun (v0+"Рµ")
+                   (v0+"РёСЏ")
+                   (v0+"РёСЏ")
+                   (v0+"Рµ")
                    ANeut).s;
     vtype = VNormal;
     lock_V=<>
@@ -72,11 +72,11 @@ oper
   singleV : VTable -> V ;
   singleV vtable = { 
     s = \\_=>vtable;
-    n = let v0 = init (vtable ! (VImperfect Sg P1)) + "н"
-        in (mkNoun (v0+"е")
-                   (v0+"ия")
-                   (v0+"ия")
-                   (v0+"е")
+    n = let v0 = init (vtable ! (VImperfect Sg P1)) + "РЅ"
+        in (mkNoun (v0+"Рµ")
+                   (v0+"РёСЏ")
+                   (v0+"РёСЏ")
+                   (v0+"Рµ")
                    ANeut).s;
     vtype = VNormal;
     lock_V=<>
@@ -286,5 +286,5 @@ oper
 --
 
   mkIAdv : Str -> IAdv ;
-  mkIAdv s = {s = table {QDir=>s;QIndir=>s+"то"}; lock_IAdv = <>} ;
+  mkIAdv s = {s = table {QDir=>s;QIndir=>s+"С‚Рѕ"}; lock_IAdv = <>} ;
 }

@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete AdjectiveBul of Adjective = CatBul ** open ResBul, Prelude in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
   lin
     PositA  a = {
@@ -9,11 +9,11 @@ concrete AdjectiveBul of Adjective = CatBul ** open ResBul, Prelude in {
       } ;
 
     ComparA a np = {
-      s = \\aform,_ => "по" ++ hyphen ++ a.s ! aform ++ "от" ++ np.s ! RObj CPrep ;
+      s = \\aform,_ => "РїРѕ" ++ hyphen ++ a.s ! aform ++ "РѕС‚" ++ np.s ! RObj CPrep ;
       isPre = True
       } ;
     UseComparA a = {
-      s = \\aform,_ => "по" ++ hyphen ++ a.s ! aform ; 
+      s = \\aform,_ => "РїРѕ" ++ hyphen ++ a.s ! aform ; 
       isPre = True
       } ;
 
@@ -35,7 +35,7 @@ concrete AdjectiveBul of Adjective = CatBul ** open ResBul, Prelude in {
       } ;
 
     ReflA2 a = {
-      s = \\aform,_ => a.s ! aform ++ linPrep a.c2 ++ ["себе си"] ;
+      s = \\aform,_ => a.s ! aform ++ linPrep a.c2 ++ ["СЃРµР±Рµ СЃРё"] ;
       isPre = False
       } ;
 

@@ -1,5 +1,7 @@
 --# -path=.:../abstract:../common:prelude
 concrete ExtendBul of Extend = CatBul ** open Prelude, Predef, ResBul, GrammarBul, MorphoFunsBul in {
+flags
+  coding=utf8;
 
 lin
   GenModNP num np cn = DetCN (DetQuant DefArt num) (AdvCN cn (PrepNP (mkPrep "на") np)) ;

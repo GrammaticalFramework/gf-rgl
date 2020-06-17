@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete TextBul of Text = CatBul ** open Prelude in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
 -- This will work for almost all languages except Spanish.

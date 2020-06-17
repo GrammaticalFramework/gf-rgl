@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete VerbBul of Verb = CatBul ** open Prelude, ResBul, ParadigmsBul in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   flags optimize=all_subs ;
@@ -39,7 +39,7 @@ concrete VerbBul of Verb = CatBul ** open Prelude, ResBul, ParadigmsBul in {
                  }) vp.p
                 (predV vv) ;
 
-    ComplVS v s  = insertObj (\\_ => bindComma ++ "че" ++ s.s) Pos (predV v) ;
+    ComplVS v s  = insertObj (\\_ => bindComma ++ "С‡Рµ" ++ s.s) Pos (predV v) ;
     ComplVQ v q  = insertObj (\\_ => q.s ! QDir) Pos (predV v) ;
 
     ComplVA v ap = 
@@ -50,7 +50,7 @@ concrete VerbBul of Verb = CatBul ** open Prelude, ResBul, ParadigmsBul in {
       insertSlashObj2 (\\a => v.c3.s ++ ap.s ! aform a.gn Indef (RObj Acc) ! a.p) Pos (slashV v v.c2 v.subjCtrl) ;
 
     -- test: I saw a boy to whom she said that they are here
-    SlashV2S v s  = insertSlashObj2 (\\_ => bindComma ++ "че" ++ s.s) Pos (slashV v v.c2 False) ;
+    SlashV2S v s  = insertSlashObj2 (\\_ => bindComma ++ "С‡Рµ" ++ s.s) Pos (slashV v v.c2 False) ;
 
     -- test: I saw a boy whom she asked who is here
     SlashV2Q v q  = insertSlashObj2 (\\_ => q.s ! QDir) Pos (slashV v v.c2 False) ;

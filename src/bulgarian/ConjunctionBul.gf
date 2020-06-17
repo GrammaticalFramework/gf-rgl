@@ -1,7 +1,7 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete ConjunctionBul of Conjunction = 
   CatBul ** open ResBul, Coordination, Prelude, Predef in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   flags optimize=all_subs ;

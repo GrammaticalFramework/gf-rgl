@@ -1,13 +1,13 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete RelativeBul of Relative = CatBul ** open ResBul in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   flags optimize=all_subs ;
 
   lin
     RelCl cl = {
-      s = \\t,a,p,agr => suchRP ! agr.gn ++ "че" ++ cl.s ! t ! a ! p ! Main
+      s = \\t,a,p,agr => suchRP ! agr.gn ++ "С‡Рµ" ++ cl.s ! t ! a ! p ! Main
       } ;
 
     RelVP rp vp = {
