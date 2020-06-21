@@ -36,6 +36,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : Pron -> NP ;
   UsePron pron = pron ** {
     s = \\_ => pron.s ;
+    postmod = [] ;
   } ;
 
   -- : Predet -> NP -> NP ; -- only the man
@@ -77,7 +78,7 @@ concrete NounHun of Noun = CatHun ** open
     } ;
 
   -- : CN -> NP ;
-  MassNP cn = emptyNP ** {
+  MassNP cn = emptyNP ** cn ** {
     s = \\p,c => case p of {
           NoPoss => caseFromStem glue cn c Sg ;
           Poss per rnum =>
@@ -192,6 +193,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : N2 -> CN ;
   UseN,UseN2 = \n -> n ** {
     compl = \\_,_ => [] ;
+    postmod = [] ;
     } ;
 
   -- : N2 -> NP -> CN ;
@@ -221,7 +223,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : CN -> Adv -> CN ;
   AdvCN cn adv = case adv.isPre of {
     True => AdjCN (invarAP adv.s) cn ;
-    False => cn ** {compl = \\n,c => cn.compl ! n ! c ++ adv.s}
+    False => cn ** {postmod = cn.postmod ++ adv.s}
   } ;
 
 -- Nouns can also be modified by embedded sentences and questions.

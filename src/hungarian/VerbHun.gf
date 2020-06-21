@@ -128,13 +128,14 @@ lin
                   _          => cn.s ! SgNom
                              ++ cn.compl ! Sg ! Nom
                              ++ copula.s ! vf} ;
+    adv = cn.postmod ;
     } ;
 
   -- : NP  -> Comp ;
   CompNP np = UseCopula ** {
     s = \\vf => case vf of {
-                  VPres P3 _ => np.s ! NoPoss ! Nom ;
-                  _ => np.s ! NoPoss ! Nom ++ copula.s ! vf } ;
+                  VPres P3 _ => linNP np ;
+                  _ => linNP np ++ copula.s ! vf } ;
     } ;
 
   -- : Adv  -> Comp ;
@@ -150,6 +151,12 @@ insertObj : ResHun.VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
   obj = case <vps.sc,vps.c2> of {
               <SCDat,Nom> => [] ;
               _ => np.s ! NoPoss ! vps.c2 } ;
+
+  -- To accommodate application grammars that use AdvCN in place of AdvVP.
+  -- (Easy mistake to make, because in English it doesn't affect word order.)
+  -- If you want the NP's postmodifiers to go right next to the NP,
+  -- put np.postmod right after np.s.
+  adv = vps.adv ++ np.postmod ;
 
   s = \\vf =>
    -- If verb's subject case is Dat and object Nom, verb agrees with obj.

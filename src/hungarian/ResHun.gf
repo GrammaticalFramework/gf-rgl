@@ -15,6 +15,7 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 oper
   CNoun : Type = Noun ** {
     compl : Number => Case => Str ;
+    postmod : Str ;
     } ;
 
   mkCaseNoun : Str -> Number => Case => Str = \s ->
@@ -78,13 +79,14 @@ oper
 
   NounPhrase : Type = BaseNP ** {
     s : Possessor => Case => Str ;
+    postmod : Str ;
     } ;
 
   emptyNP : NounPhrase = {
     s = \\_,_ => [] ;
     agr = <P3,Sg> ;
     objdef = Indef ;
-    empty = [] ;
+    postmod, empty = [] ;
     } ;
 
   indeclNP : Str -> NounPhrase = \s -> emptyNP ** {s = \\p,c => s} ;
@@ -95,7 +97,9 @@ oper
     objdef = Def ;
     } ;
 
-  linCN : CNoun -> Str = \cn -> cn.s ! SgNom ++ cn.compl ! Sg ! Nom ;
+  linCN : CNoun -> Str = \cn -> cn.s ! SgNom ++ cn.compl ! Sg ! Nom ++ cn.postmod ;
+  linNP' : Possessor -> Case -> NounPhrase -> Str = \p,c,np -> np.s ! p ! c ++ np.postmod ;
+  linNP : NounPhrase -> Str = linNP' NoPoss Nom ;
 --------------------------------------------------------------------------------
 -- Pronouns
 
@@ -273,7 +277,7 @@ oper
   emptyAdp : Adposition = nomAdp [] ;
 
   applyAdp : Adposition -> NounPhrase -> Str = \adp,np ->
-    adp.pr ++ np.s ! NoPoss ! adp.c ++ adp.s ;
+    adp.pr ++ np.s ! NoPoss ! adp.c ++ adp.s ++ np.postmod ;
 
   applyCase : (Str->Str->Str) -> Case -> Noun -> NumCaseStem -> Str =
     \bind,cas,cn,stem -> bind (cn.s ! stem) (endCase cas ! cn.h) ;
@@ -503,7 +507,7 @@ oper
     s = \\t,a,p => let subjcase : Case = case vp.sc of {
                                                SCNom => Nom ;
                                                SCDat => Dat }
-                        in np.s ! NoPoss ! subjcase
+                        in linNP' NoPoss subjcase np
                         ++ if_then_Pol p [] "nem"
                         ++ vp.s ! agr2vf np.agr
                         ++ vp.obj -- ! np.agr

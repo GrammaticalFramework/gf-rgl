@@ -35,17 +35,21 @@ lin
 
 -- Noun phrases
 lincat
-  [NP] = ResHun.BaseNP ** {s1,s2 : Possessor => Case => Str} ;
+  [NP] = ResHun.BaseNP ** {s1,s2 : Possessor => Case => Str ; postmod : Str} ;
 
 lin
-  BaseNP x y = twoTable2 Possessor Case x y ** y ;
-  ConsNP x xs = xs ** consrTable2 Possessor Case comma x xs ;
+  BaseNP x y = twoTable2 Possessor Case (contNP x) y ** y ;
+  ConsNP x xs = xs ** consrTable2 Possessor Case comma (contNP x) xs ;
   ConjNP co xs = conjunctDistrTable2 Possessor Case co xs ** xs ** {
     agr = <P3, case xs.agr.p2 of {
                   Pl => Pl ;
                   _  => co.n }>
     } ;
-
+ oper
+   contNP : NP -> NP = \np ->
+     let linTable : Possessor => Case => Str =
+      \\p,c => case <p,c> of {_ => linNP' p c np} ;
+      in np ** {s = linTable} ;
 -- Relative sentences
 lincat
   [RS] = {s1,s2 : Number => Case => Str} ;
