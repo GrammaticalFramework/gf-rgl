@@ -471,10 +471,14 @@ oper
   } ;
 
   -- Function to get a harmony from a string
-  getHarm : Str -> Harm = \s -> case s of {
-    _ + #back + _          => H_a ;
-    _ + #front_rounded + (#c|"") + (#c|"") => H_o ;
-    _ => H_e
+  getHarm : Str -> Harm = \s ->
+   let lastWord : Str = case s of {
+                          x + " " + y => y ;
+                          _           => s } ;
+    in case lastWord of {
+      _ + #back + _            => H_a ;
+      _ + #front_rounded + (#c|"") + (#c|"") => H_o ;
+      _ => H_e
     } ;
 
   -- Used as a table of allomorphs for a give case.

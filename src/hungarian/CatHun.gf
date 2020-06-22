@@ -122,5 +122,6 @@ concrete CatHun of Cat = CommonX - [Adv] ** open ResHun, Prelude in {
 
 linref
    CN = linCN ;
+   NP = linNP ;
 
 }
