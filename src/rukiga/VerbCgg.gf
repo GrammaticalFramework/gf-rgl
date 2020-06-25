@@ -194,7 +194,7 @@ lin
         isCompApStem = False; 
         agr = AgrNo;
         isRegular = vp.isRegular;
-        adv = [];
+        adv = adv.s;
         containsAdv =True;
         adV =[];
         containsAdV = False
