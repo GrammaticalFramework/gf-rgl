@@ -49,6 +49,8 @@ param
   ConjArg = Nn_Nn | Nps_Nps | Pns_Pns | RelSubjCls | Other;
   AgrConj = AConj ConjArg;
   Agreement =  AgP3 Number Gender | AgMUBAP1 Number |AgMUBAP2 Number | NONE; --Default is AgP3 Sg KI_BI
+  AgreementPl =  AgP3Pl Gender | AgMUBAP1Pl |AgMUBAP2Pl | NONExistPl; --Default is AgP3 Sg KI_BI
+  AgreementSg =  AgP3Sg Gender | AgMUBAP1Sg |AgMUBAP2Sg | NONExistSg; --Default is AgP3 Sg KI_BI
   AgrExist = AgrNo | AgrYes Agreement;
   --Position = PostDeterminer | PreDeterminer ;
   Position = Post | Pre;
@@ -64,13 +66,13 @@ param
   PrepForm = Form1 | Form2; -- omu and omuri, aha, ahari
   -- for Extra Tenses not implemented
   -- would be better if I had alliases
-  Tenses = RemotePast|NearPast | ImmediatePast |ExPres|NearFut |RemoteFut;
+  --Tenses = RemotePast|NearPast | ImmediatePast |ExPres|NearFut |RemoteFut;
 
   -- for Extra Aspects not implemented
   -- would be better if I had alliases
-  Aspect = Performative | Perfect | Resultative | Retrospective | Habitual | Progressive | Persitive;
+  --Aspect = Performative | Perfect | Resultative | Retrospective | Habitual | Progressive | Persitive;
 
-   
+
 {-
 	Complete = Nouns with IV, 
 	Incomplete = Nouns without IV: important for use with pre-determiners
@@ -365,7 +367,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           AgP3 Pl KA_ZERO  => mkClitic "" ;
           _        => mkClitic "SubjNotKnown" --for checking if there is some class unaccounted for
       };
-
+  
       mkSubjCliticTableSg : Agreement => Str = table {
           AgMUBAP1 Sg => mkClitic "n" ;
           --AgMUBAP1 Pl => "tu" ;
@@ -434,12 +436,56 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           AgP3 Pl ZERO_TU  => mkClitic "tu" ;
           --AgP3 Sg (ZERO_MI | ZERO_ZERO)  => mkClitic "" ;
           AgP3 Pl ZERO_MI  => mkClitic "e" ;
-          AgP3 Pl KA_ZERO  => mkClitic "" ;
-          _        => mkClitic "Plural" --for checking if there is some class unaccounted for
+          AgP3 Pl KA_ZERO  => mkClitic "give example" ;
+          AgP3 Pl GU_GA    => mkClitic "ga";
+          AgP3 Pl ZERO_ZERO => mkClitic "give example";
+          AgP3 Pl KA_TU     => mkClitic "tu";
+          AgP3 Pl HA        => mkClitic "ha";
+          AgP3 Pl (MU | KU |I_ZERO |ZERO_BAA |N_ZERO |KI_ZERO|Null)       =>  "";
+          AgP3 Pl ZERO_N          => mkClitic "zimwe";
+          _ => "Plural-NonExist" --;_        => mkClitic "Plural-NonExist" --for checking if there is some class unaccounted for
+          
       };
+
+      agrToAgrPl: Agreement -> AgreementPl = \a -> case a of {
+          AgMUBAP1 Sg => NONExistPl;
+          AgMUBAP1 Pl => AgMUBAP1Pl;
+          AgMUBAP2 Sg => NONExistPl;
+          AgMUBAP2 Pl => AgMUBAP2Pl ;
+          AgP3 Sg MU_BA  => NONExistPl;
+          AgP3 Pl MU_BA  => AgP3Pl MU_BA ;          
+          AgP3 Sg KI_BI   => NONExistPl;
+          AgP3 Pl (KI_BI | ZERO_BI)   => AgP3Pl (KI_BI | ZERO_BI) ;
+          AgP3 Sg (RU_N | RU_MA | RU_ZERO | RU_BU)   => NONExistPl ; 
+          AgP3 Pl RU_N => AgP3Pl RU_N ; --| "i"; 
+          AgP3 Sg N_N => NONExistPl;
+          AgP3 Pl N_N => AgP3Pl N_N; --| "i";
+          AgP3 Sg (MU_MI | MU_ZERO)   => NONExistPl; 
+          AgP3 Pl MU_MI   => AgP3Pl MU_MI;
+          AgP3 Sg (RI_MA | RI_ZERO | I_ZERO) =>NONExistPl;
+          AgP3 Pl (RI_MA | BU_MA | KU_MA | ZERO_MA | I_MA |RU_MA)  => AgP3Pl (RI_MA | BU_MA | KU_MA | ZERO_MA | I_MA |RU_MA) ;
+          AgP3 Sg (KA_BU | KA_ZERO | KA_TU)   => NONExistPl; 
+          AgP3 Pl (KA_BU | RU_BU)  => AgP3Pl (KA_BU | RU_BU);
+          AgP3 Sg ZERO_BU  => NONExistPl;
+          AgP3 Pl ZERO_BU  => AgP3Pl ZERO_BU ;
+          AgP3 Sg ZERO_BI  => NONExistPl; 
+          AgP3 Sg ZERO_MA  => NONExistPl;
+          AgP3 Pl RI_ZERO  => AgP3Pl RI_ZERO ;
+          AgP3 Sg KU_ZERO  => NONExistPl;
+          AgP3 Pl KU_ZERO  => AgP3Pl KU_ZERO;
+          AgP3 Pl MU_ZERO  => AgP3Pl MU_ZERO ;
+          AgP3 Pl RU_ZERO  => AgP3Pl RU_ZERO ;
+          AgP3 Sg ZERO_TU  => NONExistPl;
+          AgP3 Pl ZERO_TU  => AgP3Pl ZERO_TU ;
+          AgP3 Sg (ZERO_MI | ZERO_ZERO)  => NONExistPl;
+          AgP3 Pl ZERO_MI  => AgP3Pl ZERO_MI ;
+          AgP3 Pl KA_ZERO  => AgP3Pl KA_ZERO ;
+          _        => NONExistPl --for checking if there is some class unaccounted for
+    };
        {-Object particle may be used as 
           1. a prefix: e.g mu-kwate = catch him,
           2. an infix: o-mu-kwate   = you catch him
+      }
 
       -}
       mkObjClitic : Agreement -> Str = \a ->case a of {
@@ -1238,7 +1284,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     let subjClitic = mkSubjClitic (AgP3 det.num cn.gender) 
     in
       case <det.pos, det.num> of {
-            <Post, Pl> => {s = \\_=> subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s2 !AgP3 det.num cn.gender; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+            <Post, Pl> => {s = \\_=> cn.s!det.num! det.ntype ++ subjClitic ++ det.s2 !AgP3 det.num cn.gender; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat}; --subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s2 !AgP3 det.num cn.gender; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
             <Post, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s2 ! AgP3 det.num cn.gender; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
             <Pre, n> => case det.numeralExists  of {
                               False => { s =\\_ =>  det.s2 !(AgP3 det.num cn.gender) ++ cn.s !n  ! Complete; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};

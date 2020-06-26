@@ -192,7 +192,7 @@ lin
       s2 =\\agr => mkSubjCliticTableSg ! agr ++ BIND++ "mwe"; 
       ntype = Complete;
       num = Sg;
-      pos = Pre;
+      pos = Post;
       doesAgree = True; 
       numeralS=\\_=>[]; 
       numeralExists = False
@@ -200,10 +200,10 @@ lin
   somePl_Det  =
     {
       s =[]; 
-      s2 =\\agr => mkSubjCliticTablePl ! agr ++ BIND++ "mwe"; 
+      s2 =\\agr => "mwe";-- mkSubjCliticTablePl ! agr ++ "mwe"; 
       ntype = Complete;
       num = Pl;
-      pos = Pre;
+      pos = Post;
       doesAgree = True; 
       numeralS=\\_=>[]; 
       numeralExists = False
