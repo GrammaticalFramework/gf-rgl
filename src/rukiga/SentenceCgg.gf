@@ -25,7 +25,7 @@ lin
                 in 
   case <temp.t,temp.a, pol.p> of {
       <Pres,Simul, Pos> => case cl.isPresBlank of { 
-                                  True  => {s = subj ++ clitic ++ root  ++ compl};
+                                  True  => {s = subj ++ clitic ++ root  ++ Predef.BIND ++ "a" ++ compl};
                                   False => {s = subj ++ clitic ++ root  ++ Predef.BIND ++ presRestOfVerb ++ compl}
                           };
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
