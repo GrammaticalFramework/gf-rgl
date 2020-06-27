@@ -58,9 +58,10 @@ oper
     -- Third argument prevents accidental application of this paradigm
     -- handles words like: falu, daru, tetű -> falvak, darvak, tetvek
     dFalu : (nomsg,_,nompl : Str) -> Noun = \falu,_,falvak ->
-      let falva = init falvak ;
-          nFalva = mkNoun falva ;
-          nFalu = mkNoun falu ;
+      let plharm : Harm = harmFromPlNom falvak ;
+          falva = init falvak ;
+          nFalva = mkNoun falva ** {h = plharm} ;
+          nFalu = mkNoun falu ** {h = plharm} ;
        in nFalu ** {
             s = \\nc => case nc of {
 
@@ -119,8 +120,9 @@ oper
 
   -- Handles regular wovel ending words, with j added in possesive forms
   -- Examples: "hajó, hajója, zseni, zsenije, kestyű, kestyűje"
-  dHajó : (nom : Str) -> (acc : Str) -> Noun = \hajó,hajót ->
-    let nHajó = mkNoun hajó ;
+  dHajó : (nomsg, accsg, nompl : Str) -> Noun = \hajó,hajót,plnom ->
+    let plharm : Harm = harmFromPlNom plnom ;
+        nHajó = mkNoun hajó ** {h = plharm} ;
         hajój = hajó + "j" ;
         h = nHajó.h ;
      in nHajó ** {
@@ -140,8 +142,9 @@ oper
           } ;
 
   -- Opposite to dVirág: unexpected j after consonant
-  dPlafon : (nom : Str) -> (acc : Str) -> Noun = \plafon,plafont ->
-    let nPlafon = regNounNomAcc plafon plafont ;
+  dPlafon : (nomsg, accsg, nompl : Str) -> Noun = \plafon,plafont,plnom ->
+    let plharm : Harm = harmFromPlNom plnom ;
+        nPlafon = regNounNomAcc plafon plafont ** {h = plharm} ;
         h = nPlafon.h ;
      in nPlafon ** {
           s = \\nc => case nc of {
@@ -153,8 +156,9 @@ oper
           } ;
 
   -- Opposite to dPlafon: regular paradigm puts j, but these words don't have it.
-  dVirág : (nom : Str) -> (acc : Str) -> Noun = \virág,virágot ->
-    let nVirág = regNounNomAcc virág virágot ;
+  dVirág : (nomsg, accsg, nompl : Str) -> Noun = \virág,virágot,plnom ->
+    let plharm : Harm = harmFromPlNom plnom ;
+        nVirág = regNounNomAcc virág virágot ** {h = plharm} ;
         h = nVirág.h ;
      in nVirág ** {
           s = \\nc => case nc of {
@@ -278,11 +282,10 @@ oper
   -- and decides which (non-smart) paradigm is the most likely to match.
   regNoun4 : (nomsg, accsg, nompl, possdSg_possrP3sg : Str) -> Noun =
     \nsg,asg,npl,possd -> case possd of {
-      _ + #v + "j" + ("a"|"e") => dHajó nsg asg ;
-      _ + #c + "j" + ("a"|"e") => dPlafon nsg asg ;
+      _ + #v + "j" + ("a"|"e") => dHajó nsg asg npl ;
+      _ + #c + "j" + ("a"|"e") => dPlafon nsg asg npl ;
 
-      _ + #c + ("a"|"e") => dVirág nsg asg ;
-
+      _ + #c + ("a"|"e") => dVirág nsg asg npl ;
 
       -- Fall back to 3-argument smart paradigm
       _ => regNounNomAccPl nsg asg npl
@@ -333,7 +336,7 @@ oper
       -- Stem 1 == Stem 2 == Stem 3
       -- j in PossdSg_PossrP3 but not elsewhere: gumi -> gumi|nk, gumij|a
       <_ + "i", -- gumi, gumit:
-       _ + "it"> => dHajó n a ;
+       _ + "it"> => dHajó n a (n+"k") ;
 
       -- Stem 1: Sg Nom, Sg * - [Gen]
       -- Stem 2: Sg Gen, Pl *
@@ -470,7 +473,7 @@ oper
     _ => str -- Shortening not applicable to str
   } ;
 
-  -- Function to get a harmony from a string
+  -- Function to get a harmony from any string
   getHarm : Str -> Harm = \s ->
    let lastWord : Str = case s of {
                           x + " " + y => y ;
@@ -480,6 +483,24 @@ oper
       _ + #front_rounded + (#c|"") + (#c|"") => H_o ;
       _ => H_e
     } ;
+
+  -- More reliable harmony indicator: plural nominative
+  -- férfi -> férfi+ak
+  -- farmer -> farmer+ek vs. játék -> játék+ok
+  harmFromPlNom : Str -> Harm = \férfiak ->
+    let ak : Str = dp 2 férfiak ;
+     in case ak of {
+          ("ak"|"ek"|"ok") => getHarm ak ;
+
+          -- For any other suffix, the last two letters aren't reliable.
+          -- e.g. gumi-gumik has back harmony.
+          _ => getHarm férfiak
+        } ;
+
+  -- Even more reliable harmony indicator: singular allative
+  harmFromSgAll : Str -> Harm = \férfihoz ->
+    let hoz : Str = dp 3 férfihoz ;
+     in getHarm hoz ;
 
   -- Used as a table of allomorphs for a give case.
   HarmForms : Type = Harm => Str ;
