@@ -97,6 +97,12 @@ oper
     objdef = Def ;
     } ;
 
+  defNPPrefix : (p,n : Str) -> Number -> NounPhrase = \vala,mi,n -> emptyNP ** {
+    s = \\p,c => vala + mkCaseNoun mi ! n ! c ;
+    n = n ;
+    objdef = Def ;
+    } ;
+
   linCN : CNoun -> Str = \cn -> cn.s ! SgNom ++ cn.compl ! Sg ! Nom ++ cn.postmod ;
   linNP' : Possessor -> Case -> NounPhrase -> Str = \p,c,np -> np.s ! p ! c ++ np.postmod ;
   linNP : NounPhrase -> Str = linNP' NoPoss Nom ;

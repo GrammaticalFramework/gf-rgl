@@ -122,34 +122,56 @@ oper
   harmO = ResHun.H_o ;
 
   mkN = overload {
-    mkN : Str -> N =
-      \s -> lin N (regNoun s) ;
+    mkN : Str -> N = \s ->
+      let mw : Multiword = splitMultiword s ;
+       in case mw of {
+          <pr,n> => multiwordN pr (regNoun n)
+      } ;
 
-    mkN : Str -> Str -> N =
-        \n,a-> lin N (regNounNomAcc n a) ;
+    mkN : Str -> Str -> N = \n,a ->
+      let mwn : Multiword = splitMultiword n ;
+          mwa : Multiword = splitMultiword a ;
+       in multiwordN mwn.p1 (regNounNomAcc mwn.p2 mwa.p2) ;
 
-    mkN : Str -> Str -> Str -> N =
-        \n,a,pln-> lin N (regNounNomAccPl n a pln) ;
+    mkN : Str -> Str -> Str -> N = \n,a,pln ->
+      let mwn : Multiword = splitMultiword n ;
+          mwa : Multiword = splitMultiword a ;
+          mwpln : Multiword = splitMultiword pln ;
+       in multiwordN mwn.p1 (regNounNomAccPl mwn.p2 mwa.p2 mwpln.p2) ;
 
-    mkN : (x1,_,_,x4 : Str) -> N =
-        \n,a,pln,possd -> lin N (regNoun4 n a pln possd) ;
+    mkN : (x1,_,_,x4 : Str) -> N = \n,a,pln,possd ->
+      let mwn : Multiword = splitMultiword n ;
+          mwa : Multiword = splitMultiword a ;
+          mwpln : Multiword = splitMultiword pln ;
+          mwpossd : Multiword = splitMultiword possd ;
+       in multiwordN mwn.p1 (regNoun4 mwn.p2 mwa.p2 mwpln.p2 mwpossd.p2) ;
 
-    mkN : (unoka : Str) -> (testvér : N) -> N = -- Compound noun: e.g. `mkN "unoka" (mkN "testvér")`.
-        \prefix,n -> n ** {s = \\x => prefix + n.s ! x} ;
+    mkN : (unoka : Str) -> (testvér : N) -> N = compoundN ;
 
+    ---------------------------------------------------------------------
+    -- Not in the visible API. TODO remove, improve or document better --
+    ---------------------------------------------------------------------
+
+    -- Worst case with 9 strings.
     mkN : (x1,_,_,_,_,_,_,_,x9 : Str) -> N =
       \nomsg,accsg,supsg,allsg,nompl,f,g,h,i ->
       lin N (worstCaseNoun nomsg accsg supsg allsg nompl
                            f g h i (harmFromSgAll allsg)) ;
 
-    -- mkN : (férfi : Str) -> (harm : Harmony) -> (ak : Str) -> N ; -- Noun with unpredictable vowel harmony and plural allomorph
-    mkN : Str -> Harmony -> N =
-      \s,h -> lin N (mkNounHarm h (pluralAllomorph s) s) ;
-
+    -- Noun with unpredictable vowel harmony and plural allomorph
     mkN : Str -> (plural : Str) -> Harmony -> N =
-      \s,pl,h -> lin N (mkNounHarm h pl s) ;
+      \s,pl,h -> lin N (mkNounHarm h pl s)
+
     } ;
 
+   multiwordN : Str -> Noun -> N =
+     \prefix,n -> case prefix of {
+       _ + "-" => compoundN prefix n ;
+       _       => lin N (n ** {s = \\x => prefix ++ n.s ! x})
+     } ;
+
+   compoundN : (unoka : Str) -> (testvér : Noun) -> N = -- Compound noun: e.g. `mkN "unoka" (mkN "testvér")`.
+     \prefix,n -> lin N (n ** {s = \\x => prefix + n.s ! x}) ;
 
   mkN2 = overload {
     mkN2 : Str -> N2 = \s -> lin N2 (regNoun s) ;
