@@ -490,11 +490,8 @@ oper
   harmFromPlNom : Str -> Harm = \férfiak ->
     let ak : Str = dp 2 férfiak ;
      in case ak of {
-          ("ak"|"ek"|"ok") => getHarm ak ;
-
-          -- For any other suffix, the last two letters aren't reliable.
-          -- e.g. gumi-gumik has back harmony.
-          _ => getHarm férfiak
+          "ik" => getHarm férfiak ;
+          _    => getHarm ak
         } ;
 
   -- Even more reliable harmony indicator: singular allative
