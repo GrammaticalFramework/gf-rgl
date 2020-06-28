@@ -407,6 +407,8 @@ oper
 
   front_rounded : pattern Str = #("ö" | "ő" | "ü" | "ű") ;
 
+  i : pattern Str = #("i"|"í") ;
+
   -- front and back rounded
   -- rounded : pattern Str = #("ö" | "ő" | "ü" | "ű" | "o" | "ó" | "u" | "ú")
 
@@ -475,12 +477,11 @@ oper
 
   -- Function to get a harmony from any string
   getHarm : Str -> Harm = \s ->
-   let lastWord : Str = case s of {
-                          x + " " + y => y ;
-                          _           => s } ;
+   let lastWord : Str = (splitMultiword s).p2 ; -- only include last word
     in case lastWord of {
-      _ + #back + _            => H_a ;
-      _ + #front_rounded + (#c|"") + (#c|"") => H_o ;
+      _ + #back + (#c|#i)* => H_a ;       -- papír, gumi, zokni: back harmony
+                                          -- NB. wrong harmony for farmer.
+      _ + #front_rounded + (#c)* => H_o ; -- matches nő, not rövid.
       _ => H_e
     } ;
 
