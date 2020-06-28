@@ -629,4 +629,19 @@ oper
       _ => endCase c
     } ;
 
+    Multiword : Type = {p1,p2 : Str} ;
+    splitMultiword : Str -> Multiword = \multi_word -> case multi_word of {
+        x + "-" + y
+          => <x+"-", y> ;
+        v + " " + w + " " + x + " " + y + " " + z
+          => <v ++ w ++ x ++ y+" ", z> ;
+        w + " " + x + " " + y + " " + z
+          => <w ++ x ++ y+" ", z> ;
+        x + " " + y + " " + z
+          => <x ++ y+" ", z> ;
+        y + " " + z
+          => <y + " ", z> ;
+        _ => <"", multi_word>
+        } ;
+
 }
