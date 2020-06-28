@@ -631,18 +631,23 @@ oper
     } ;
 
     Multiword : Type = {p1,p2 : Str} ;
-    splitMultiword : Str -> Multiword = \multi_word -> case multi_word of {
-        x + "-" + y
-          => <x+"-", y> ;
+    splitMultiword : Str -> Multiword = \mw -> case mw of {
         v + " " + w + " " + x + " " + y + " " + z
-          => <v ++ w ++ x ++ y+" ", z> ;
+          => splitDash <v ++ w ++ x ++ y+" ", z> ;
         w + " " + x + " " + y + " " + z
-          => <w ++ x ++ y+" ", z> ;
+          => splitDash <w ++ x ++ y+" ", z> ;
         x + " " + y + " " + z
-          => <x ++ y+" ", z> ;
+          => splitDash <x ++ y+" ", z> ;
         y + " " + z
-          => <y + " ", z> ;
-        _ => <"", multi_word>
+          => splitDash <y + " ", z> ;
+        _ => splitDash <"", mw>
         } ;
+
+    splitDash : Multiword -> Multiword = \mw ->
+      case mw of {
+        <prefix, x + "-" + y>
+          => <prefix ++ x + "-", y> ;
+        _ => mw
+      } ;
 
 }
