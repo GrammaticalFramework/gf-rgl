@@ -87,7 +87,7 @@ lin nobody_NP = mkVerb; ""
 lin nothing_NP = defNP "" N.NumSg ;
 lin somebody_NP = defNP "" N.NumSg ;
 -}
-lin something_NP = defNP "valami" Sg ;
+lin something_NP = defNPPrefix "vala" "mi" Sg ; -- vowel harmony according to mi
 
 -------
 -- Prep
