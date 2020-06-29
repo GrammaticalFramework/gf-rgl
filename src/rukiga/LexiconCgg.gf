@@ -49,7 +49,7 @@ lin
   man_N = mkN "omushaija" MU_BA ;
   milk_N = mkN "amate" ZERO_MA ;
   music_N = mkN "music" ZERO_ZERO ; -- I have not found the translation
-  rule_N = mkN "akiragiro" KI_BI;
+  rule_N = mkN "ekiragiro" KI_BI;
   river_N = mkN "omugyera" MU_MI ; --omurîndi,
   sea_N = mkN "enyanja" N_N ;
   ship_N = mkN "ekyombo" KI_BI ; -- eméèri [NC_n_n] 
