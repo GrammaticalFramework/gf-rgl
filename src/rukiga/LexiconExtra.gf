@@ -19,7 +19,7 @@ fun
 	pilate_PN : PN; 
 	mary_PN : PN; 
 	david_PN : PN; 
-	jesus_teacher_PN : PN; 
+	jesus_teacher_PN : PN;
 	angel_PN : PN; 
 	herod_PN : PN; 
 	isreal_PN : PN; 
