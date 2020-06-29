@@ -2,6 +2,5 @@
 
 abstract AllCggAbs =
   Lang,
-  SentenceExtra,
-  LexiconExtra
+  SentenceExtra
   ** {} ;
