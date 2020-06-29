@@ -15,6 +15,11 @@ lin
   
   {-Assumed that a PrepNP is always Acc-}
   PrepNP prep np = {s = prep.s ++ np.s ! Acc;  agr = AgrNo}; -- aha meza 
+
+  -- Subordinate clauses can function as adverbs.
+
+    --SubjS  : Subj -> S -> Adv ;              -- when she sleeps
+    SubjS subjunctive sent = {s=subjunctive.s ++ sent.s; agr=AgrNo};
   
   --PositAdvAdj : A -> Adv ;                 -- warmly
   --"Impossible to implement because each is lexically different word."

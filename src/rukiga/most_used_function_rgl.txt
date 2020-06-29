@@ -1,0 +1,275 @@
+UseN
+ 39378    6.3   DetQuant
+ 38873    6.2   DetCN
+ 29375    4.7   NoPConj
+ 29369    4.7   NoVoc
+ 28887    4.6   PhrUtt
+ 27952    4.4   NumSg
+ 22149    3.5   PPos
+ 21526    3.4   PositA
+ 20558    3.3   ASimul
+ 19022    3.0   AdjCN
+ 18560    2.9   TTAnt
+ 18234    2.9   IndefArt
+ 16059    2.5   PredVP
+ 16020    2.5   UseCl
+ 15435    2.5   DefArt
+ 14046    2.2   UttS
+ 12068    1.9   UttNP
+ 11828    1.9   TPast
+ 11690    1.9   SlashV2a
+ 11318    1.8   PrepNP
+ 11297    1.8   NumPl
+ 11278    1.8   MassNP
+ 10415    1.7   AdvVP
+ 10084    1.6   ComplSlash
+  8461    1.3   UsePron
+  6382    1.0   TPres
+  5978    0.9   he_Pron
+  5661    0.9   UseV
+  5122    0.8   PossNP
+  4125    0.7   PossPron
+  4106    0.7   PlusChunk
+  3599    0.6   UseComp
+  3230    0.5   AdvNP
+  2624    0.4   CompoundN
+  2347    0.4   she_Pron
+  2057    0.3   OneChunk
+  2057    0.3   ChunkPhr
+  1894    0.3   ImpVP
+  1872    0.3   UttImpSg
+  1712    0.3   CompAP
+  1553    0.2   CompNP
+  1516    0.2   ComplVV
+  1474    0.2   i_Pron
+  1470    0.2   MkVPS
+  1274    0.2   they_Pron
+  1143    0.2   S_Chunk
+  1133    0.2   PassVPSlash
+  1084    0.2   NumCard
+   955    0.2   DetDAP
+   923    0.1   this_Quant
+   918    0.1   ConjNP
+   918    0.1   BaseNP
+   915    0.1   we_Pron
+   827    0.1   SubjS
+   804    0.1   VPS_Chunk
+   739    0.1   UseDAP
+   702    0.1   it_Pron
+   679    0.1   AdvAP
+   675    0.1   youSgFem_Pron
+   644    0.1   num
+   643    0.1   PNeg
+   640    0.1   pot3as4
+   640    0.1   pot1as2
+   639    0.1   pot2as3
+   610    0.1   NP_Acc_Chunk
+   594    0.1   AP_Chunk
+   593    0.1   pot0as1
+   583    0.1   PositAdvAdj
+   580    0.1   ReflPoss
+   569    0.1   AdAP
+   565    0.1   ReflVPSlash
+   560    0.1   InOrderToVP
+   539    0.1   GerundNP
+   523    0.1   NumNumeral
+   496    0.1   PhrUttMark
+   460    0.1   UseQCl
+   439    0.1   AdVVP
+   435    0.1   AdvS
+   430    0.1   ProgrVP
+   422    0.1   ApposCN
+   419    0.1   pot0
+   394    0.1   ConjAP
+   394    0.1   BaseAP
+   375    0.1   PredVPS
+   372    0.1   AAnter
+   360    0.1   PresPartAP
+   355    0.1   PredetNP
+   347    0.1   UseRCl
+   345    0.1   Adv_Chunk
+   343    0.1   UttAPMasc
+   334    0.1   CompAdv
+   325    0.1   UttQS
+   323    0.1   RelCN
+   320    0.1   IdRP
+   317    0.1   PositAdAAdj
+   307    0.0   QuestMark
+   294    0.0   Det_Chunk
+   292    0.0   UttVPS
+   278    0.0   ComplVS
+   277    0.0   IDig
+   269    0.0   that_Quant
+   268    0.0   Slash2V3
+   267    0.0   DetQuantOrd
+   265    0.0   UttAdv
+   260    0.0   Prep_Chunk
+   257    0.0   NP_Nom_Chunk
+   255    0.0   NumDigits
+   253    0.0   CN_Sg_Chunk
+   248    0.0   CompoundAP
+   247    0.0   gen_Quant
+   242    0.0   QuestCl
+   240    0.0   UseACard
+   232    0.0   ComplVA
+   231    0.0   TFut
+   229    0.0   n2
+   225    0.0   IIDig
+   217    0.0   UseVC
+   215    0.0   RelVP
+   215    0.0   ConjVPS
+   215    0.0   BaseVPS
+   206    0.0   no_Quant
+   195    0.0   many_ACard
+   184    0.0   ExclMark
+   181    0.0   every_Det
+   180    0.0   youSg_Pron
+   175    0.0   pot01
+   168    0.0   ExistNPAdv
+   162    0.0   AdvCN
+   161    0.0   SlashV2V
+   161    0.0   PassAgentVPSlash
+   161    0.0   Conj_Chunk
+   160    0.0   some_Quant
+   157    0.0   OrdSuperl
+   155    0.0   SlashVP
+   134    0.0   UseComparA
+   128    0.0   ExtAdvS
+   127    0.0   ConjS
+   127    0.0   BaseS
+   123    0.0   whatSg_IP
+   121    0.0   neg_Chunk
+   121    0.0   RelSlash
+   119    0.0   TCond
+   113    0.0   EmbedVP
+   111    0.0   UseDAPMasc
+   110    0.0   QS_Chunk
+   110    0.0   ApposNP
+   109    0.0   OrdNumeral
+   102    0.0   n3
+   102    0.0   CN_Pl_Chunk
+    98    0.0   rpar_Chunk
+    98    0.0   lpar_Chunk
+    94    0.0   GerundAdv
+    92    0.0   CountNP
+    89    0.0   SentAP
+    88    0.0   some_Det
+    88    0.0   QuestVP
+    88    0.0   MkVPI
+    86    0.0   VPI_Chunk
+    86    0.0   ComplN2
+    78    0.0   comma_Chunk
+    74    0.0   GenModNP
+    74    0.0   AdAdv
+    70    0.0   IAdv_Chunk
+    69    0.0   Phrase_Chunk
+    65    0.0   questmark_Chunk
+    58    0.0   CNNumNP
+    57    0.0   each_Det
+    57    0.0   QuestIAdv
+    56    0.0   quote_Chunk
+    55    0.0   much_ACard
+    54    0.0   AdjDAP
+    53    0.0   SelfAdvVP
+    53    0.0   ConjAdv
+    53    0.0   BaseAdv
+    52    0.0   fullstop_Chunk
+    50    0.0   whoSg_IP
+    50    0.0   UttCN
+    49    0.0   QuestIComp
+    46    0.0   exclmark_Chunk
+    46    0.0   NumMore
+    46    0.0   DirectComplVS
+    46    0.0   ConjDet
+    46    0.0   BaseDAP
+    45    0.0   another_Det
+    44    0.0   anySg_Det
+    44    0.0   CompIP
+    42    0.0   another_Quant
+    42    0.0   ExtAdvVP
+    41    0.0   semicolon_Chunk
+    41    0.0   languageNP
+    41    0.0   PrepIP
+    41    0.0   GerundCN
+    41    0.0   ConjCN
+    41    0.0   BaseCN
+    40    0.0   past_copula_Chunk
+    40    0.0   ExtAdvNP
+    39    0.0   UttCN_Sg
+    39    0.0   ImpersCl
+    39    0.0   ComplA2
+    38    0.0   n4
+    38    0.0   languageCN
+    38    0.0   VPlay
+    38    0.0   ExistNP
+    36    0.0   refl_SgP3_Chunk
+    36    0.0   AdvIAdv
+    35    0.0   IP_Chunk
+    34    0.0   weekdayN
+    34    0.0   most_Det
+    32    0.0   anySg_1_Det
+    30    0.0   AdV_Chunk
+    29    0.0   which_IQuant
+    29    0.0   NP_Gen_Chunk
+    29    0.0   IdetQuant
+    28    0.0   Predet_Chunk
+    27    0.0   pot110
+    27    0.0   PastPartAP
+    27    0.0   ImpPl1
+    26    0.0   UseAdAACard
+    26    0.0   SlashV2A
+    26    0.0   AdNum
+    25    0.0   IdetIP
+    25    0.0   ComplVQ
+    24    0.0   SentCN
+    24    0.0   RelNP
+    24    0.0   QuestSlash
+    24    0.0   BareN2
+    23    0.0   n6
+    23    0.0   intYear
+    23    0.0   PImperativePlurPos
+    23    0.0   AdvVPSlash
+    22    0.0   n5
+    22    0.0   UttVPShort
+    22    0.0   Subj_Chunk
+ OrdDigits
+IdetCN
+AdA_Chunk
+yearAdv
+copula_Chunk
+ConsNP
+AdjOrd
+ComparA
+timeunitAdv
+PartNP
+UttNP_Acc
+that_RP
+SSubjS
+weather_adjCl
+past_perfect_Chunk
+monthN
+dash_Chunk
+UttImpPl
+NumLess
+n7
+ComplSlashPartLast
+AdvRVP
+both_Det
+TimeNP
+weekdayPunctualAdv
+UsePN
+PImperativePolPos
+whatPl_IP
+perfect_Chunk
+anyPl_Det
+PastPartAgentAP
+Numeral_Nom_Chunk
+EmptyRelSlash
+pot1
+how8many_IDet
+few_Det
+copula_inf_Chunk
+VocNP
+UttNP_Nom
+PGreetingMale
+PGreetingFemale
