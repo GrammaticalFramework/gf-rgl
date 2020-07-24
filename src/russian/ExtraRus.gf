@@ -1,16 +1,14 @@
-concrete ExtraRus of ExtraRusAbs = CatRus ** 
+-- Seems like this is deprecated - need to use ExtendRus instead
+
+concrete ExtraRus of ExtraRusAbs = CatRus **
   open ResRus, MorphoRus, (P = ParadigmsRus), Prelude, NounRus in {
   flags optimize=all ; coding=utf8 ;
 
 lin
-  have_V3 = P.mkV3 (P.mkV P.imperfective "" "" "" "" "" "" "был" "будь" "есть") "" "у" Nom Gen;
-
-  have2_V3 = P.mkV3 (P.mkV P.imperfective "есть" "есть" "есть" "есть" "есть" "есть" "был" "будь" "есть") "" "у" Nom Gen;
-
-  have_not_V3 = P.mkV3 (P.mkV P.imperfective "нет" "нет" "нет" "нет" "нет" "нет" "не было" "не будь" "нет") "" "у" Gen Gen;
-
-  be_V3 = P.mkV3 (P.mkV P.imperfective "" "" "" "" "" "" "был" "будь" "") "" "" Nom Dat;
-
-  to2_Prep = { s = "в" ; c = Acc };
-
-} 
+  obj_no_Prep = {s="" ; c=Acc ; hasPrep=False} ;
+  to2_Prep = {s="в" ; c=Acc ; hasPrep=True};
+  on_to_Prep = {s="до"; c=Gen; hasPrep=True} ;
+  along_Prep = {s="по"; c=Loc; hasPrep=True} ;
+  from2_Prep = from2 ;
+  about_Prep = {s="о" ; c=Pre; hasPrep=True} ;
+}

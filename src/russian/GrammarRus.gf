@@ -1,8 +1,8 @@
---# -path=.:../abstract:../common:../../prelude
+--# -path=.:../abstract:../common:prelude
 
-concrete GrammarRus of Grammar = 
-  NounRus, 
-  VerbRus, 
+concrete GrammarRus of Grammar =
+  NounRus,
+  VerbRus,
   AdjectiveRus,
   AdverbRus,
   NumeralRus,
@@ -11,8 +11,8 @@ concrete GrammarRus of Grammar =
   RelativeRus,
   ConjunctionRus,
   PhraseRus,
-  TextX,
+  TextRus,
   StructuralRus,
   IdiomRus,
-  TenseX
-   ** { flags  startcat = Phr ; unlexer = text ; lexer = text ; coding=utf8 ;} ;
+  TenseRus
+  ** { flags  startcat = Phr ; unlexer = text ; lexer = text ; coding=utf8 ;} ;

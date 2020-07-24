@@ -1,100 +1,120 @@
---# -path=.:../abstract:../common:../../prelude
-
 concrete CatRus of Cat = CommonX ** open ResRus, Prelude in {
+flags coding=utf8 ; optimize=all ;
+lincat
+  N, PN = ResRus.NounForms ;
+  N2 = ResRus.Noun2Forms ;
+  N3 = ResRus.Noun3Forms ;
 
-  flags optimize=all_subs ; coding=utf8 ;
+  A, Ord = ResRus.AdjForms ;
+  A2 = ResRus.AdjForms ** {c : ComplementCase} ;
 
-  lincat
+  Pron = ResRus.PronounForms ;
 
--- Tensed/Untensed
+  V, VS, VQ, VA = ResRus.VerbForms ;
+  V2, V2S, V2Q, V2A = ResRus.VerbForms ** {c : ComplementCase} ;
+  V3 = ResRus.VerbForms ** {c : ComplementCase ; c2 : ComplementCase} ;
+  VV = {v : ResRus.VerbForms ; modal : AgrTable} ;
+  V2V, V2S, V2Q = ResRus.VerbForms ** {c : ComplementCase} ;
 
-   S  = {s : Str} ;
-   QS = {s :                 QForm => Str} ;
-   RS = {s :                   GenNum => Case => Animacy => Str} ;
-   SSlash = {s : Str; s2: Str ; c: Case} ;
+  CN = ResRus.Noun ;
 
--- Sentence
-   -- clause (variable tense) e.g. "John walks"/"John walked"
-   Cl ={s : Polarity => ClForm => Str} ;
-   ClSlash = {s : Polarity => ClForm => Str; s2: Str; c: Case} ;
-   Imp = { s: Polarity => Gender => Number => Str } ;
+  NP = ResRus.NounPhrase ;
+  VP = {
+    adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
+    verb : ResRus.VerbForms ;
+    dep : Str ;  -- dependent infinites and such
+    compl : AgrTable
+    } ;
+  VPSlash = {
+    adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
+    verb : ResRus.VerbForms ;
+    dep : Str ;  -- dependent infinites and such
+    compl : AgrTable ;
+    c : ComplementCase
+    } ; ----
 
--- Question
+  AP = ResRus.Adjective ** {isPost : Bool} ;
 
-    QCl = {s :Polarity => ClForm => QForm => Str};  
-    IP = { s : PronForm => Str ; n : Number ; p : Person ;
-           g: PronGen ; anim : Animacy ;  pron: Bool} ;     
-    IComp = {s : Str} ;    
-    IDet = Adjective ** {n: Number; g: PronGen; c: Case} ; 
-    IQuant = {s : Number => AdjForm => Str; g: PronGen; c: Case} ;  -- AR 16/6/2008
+  S = {s : Mood => Str} ;
+  SSlash = {s : Mood => Str; c: ComplementCase} ;
+  Cl = {
+    subj,compl,adv : Str ;
+    verb : VerbForms ;
+    dep : Str ;  -- dependent infinites and such
+    a : Agr
+    } ;
+  ClSlash = {
+    subj,compl,adv : Str ;
+    verb : VerbForms ;
+    dep : Str ;  -- dependent infinites and such
+    a : Agr ;
+    c : ComplementCase
+    } ;
+  Imp = {s: Polarity => GenNum => Str} ;
+  Comp = {s : AgrTable ; adv : Str ; cop : CopulaType } ;
 
--- Relative
+  Det, DAP = {
+    s : DetTable ;
+    g : Gender ;
+    c : Case ;
+    size : NumSize
+    } ;
+  Predet = ResRus.Adjective ** {size : NumSize} ;
+  Quant, IQuant = ResRus.Adjective ** {g: Gender; c: Case} ;
+  Num, Numeral, Card = NumDet ;
+  Digits = {s : Str ; size: NumSize} ;
 
-    RCl = {s :  Polarity => ClForm => GenNum => Case => Animacy => Str} ;
-    RP = {s :                   GenNum => Case => Animacy => Str} ;
+  QS  = {s : QForm => Str} ;
+  QCl = {
+    subj,compl,adv : Str ;
+    verb : VerbForms ;
+    dep : Str ;  -- dependent infinites and such
+    a : Agr
+    } ;
 
--- Verb
-   -- Polarity =>
-   Comp, VP = VerbPhrase ;  
-   VPSlash = VerbPhrase ** {sc : Str ; c : Case} ;
+  IP, RP = ResRus.IPronounForms ;
+  IComp = {s : AgrTable ; adv : Str ; cop : CopulaType } ;
+  IDet = {
+    s : DetTable ;
+    g : Gender ;
+    size : NumSize ;
+    c : Case
+  } ;
+  RS  = {s : AdjTable} ;
+  RCl = {
+    subj : AdjTable ;
+    compl,adv : AgrTable ;
+    verb : VerbForms ;
+    dep : Str ;  -- dependent infinites and such
+    a : Agr
+    } ;
 
--- Adjective
-    
-    AP = {s : AdjForm => Str ; p : IsPostfixAdj ; preferShort : ShortFormPreference} ; 
+  Prep = ResRus.ComplementCase ;
+  Conj = {s1,s2 : Str ; n : Number} ;
 
--- Noun
-
-    CN = {nounpart : NForm => Str; relcl : Number => Case => Str; g : Gender; anim : Animacy} ;  
-    NP = { s : PronForm => Str ; n : Number ; p : Person ;
-           g: PronGen ; anim : Animacy ;  pron: Bool} ;     
-    Pron = { s : PronForm => Str ; n : Number ; p : Person ;
-           g: PronGen ;  pron: Bool} ;     
-
--- Determiners (only determinative pronouns 
--- (or even indefinite numerals: "много" (many)) in Russian) are inflected 
--- according to the gender of nouns they determine.
--- extra parameters (Number and Case) are added for the sake of                            	
--- the determinative pronoun "bolshinstvo" ("most");
--- Gender parameter is due to multiple determiners (Numerals in Russian)
--- like "mnogo"
--- The determined noun has the case parameter specific for the determiner
-
-    Det = {s : Case => Animacy => Gender => Str; n: Number; g: PronGen; c: Case; size: Size} ; 
-    Predet, Quant = {s : AdjForm => Str; g: PronGen; c: Case; size: Size} ; 
-
--- Numeral
-
-    Num = {s : Gender => Animacy => Case => Str ; n : Number ; size: Size} ;
-    Numeral, Card = {s : Gender => Animacy => Case => Str ; n : Number ; size: Size} ;
-    Digits = {s : Str ; n : Number ; size: Size} ; ---- 
-    
--- Structural
--- The conjunction has an inherent number, which is used when conjoining
--- noun phrases: "Иван и Маша поют" vs. "Иван или Маша поет"; in the
--- case of "или", the result is however plural if any of the disjuncts is.
-
-    Conj = {s1,s2 : Str ; n : Number} ; 
-    Subj = {s : Str} ;
-    Prep = Complement ;
-
--- Open lexical classes, e.g. Lexicon
-
-    V, VS, VV, VQ, VA = Verbum ; -- = {s : VerbForm => Str ; asp : Aspect } ;
-    V2, V2A = Verbum ** {c2 : Complement} ; 
-    V2V, V2S, V2Q = Verbum ** {c2 : Complement} ; --- AR 
-    V3 = Verbum ** {c2,c3 : Complement} ; 
---    VV = {s : VVForm => Str ; isAux : Bool} ;
-
-    Ord =  {s : AdjForm => Str} ;
-    A =  {s : Degree => AdjForm => Str ; p : IsPostfixAdj ; preferShort : ShortFormPreference} ;
-    A2 = A ** {c2 : Complement} ;
-
- -- Substantives moreover have an inherent gender. 
-    N  = {s : NForm => Str; g : Gender; anim : Animacy} ;   
-    N2 = {s : NForm => Str; g : Gender; anim : Animacy} ** {c2 : Complement} ;
-    N3 = {s : NForm => Str; g : Gender; anim : Animacy} ** {c2,c3 : Complement} ;
-    PN = {s :  Case => Str ; g : Gender ; anim : Animacy} ;
-
-
+linref
+  N = \s -> s.snom ;
+  PN = \s -> s.snom ;
+  N2 = \s -> s.snom ++ s.c2.s ;   -- TODO
+  N3 = \s -> s.snom ++ s.c2.s ++ s.c3.s ;   -- TODO
+  A = \s -> case s.preferShort of {PrefShort => s.sm ; _ => s.msnom} ;
+  A2 = \s -> case s.preferShort of {PrefShort => s.sm ; _ => s.msnom} ++ s.c.s ;  -- ?
+  V = \s -> verbInf s ;
+  V2 = \s -> (verbInf s) ++ s.c.s ;
+  V2V = \s -> (verbInf s) ++ s.c.s ;
+  V2A = \s -> (verbInf s) ++ s.c.s ;
+  V3 = \s -> (verbInf s) ++ s.c.s ++ s.c2.s ;
+  Ord = \s -> s.nsnom ;
+  S = \s -> s.s ! Ind ;
+  SSlash = \s -> s.s ! Ind ++ s.c.s ;  --?
+  VP = \s -> s.adv ! Ag (GSg Neut) P3 ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Ag (GSg Neut) P3 ;      -- Are these useful?
+  Comp = \s -> copula.inf ++ s.s ! Ag (GSg Neut) P3 ++ s.adv ;
+  IComp = \s -> s.s ! Ag (GSg Neut) P3 ++ s.adv ++ copula.inf;
+  VPSlash = \s -> s.adv ! Ag (GSg Neut) P3 ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Ag (GSg Neut) P3 ++ s.c.s ; -- Are these useful?
+  Cl = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ;
+  ClSlash = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ;
+  QCl = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ;
+  RCl = \s -> s.subj ! GSg Neut ! Inanimate ! Nom ++ s.adv ! Ag (GSg Neut) P3 ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Ag (GSg Neut) P3  ;
+  IP = \s -> s.nom ;
+  RP = \s -> s.nom ;
 }
-
