@@ -83,7 +83,7 @@ lin
   doctor_N = mkN "доктор" masculine animate ;
   dog_N = mkN "собака" feminine animate ;
   door_N = mkN "дверь" ;
-  drink_V2 = mkV2 (mkV imperfective "пить" "пиью" "пьёт");
+  drink_V2 = mkV2 (mkV imperfective "пить" "пью" "пьёт");
   dry_A = mkA "сухой" "" "3b/c'";
   dull_A = mkA "скучный" ;
   dust_N = mkN "пыль" ;

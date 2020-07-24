@@ -69,14 +69,16 @@ oper
 -- Nouns
 
   mkN = overload {
-    mkN : (nom : Str) -> N
+    mkN : Str -> N
       = \nom -> lin N (guessNounForms nom) ;
+    mkN : Str -> Animacy -> N
+      = \nom,anim -> lin N ((guessNounForms nom) ** {anim=anim}) ;
     mkN : Str -> Gender -> Animacy -> N
-      = \nom, g, a -> lin N (guessLessNounForms nom g a) ;
+      = \nom, g, anim -> lin N (guessLessNounForms nom g anim) ;
     mkN : Str -> Gender -> Animacy -> Z.ZNIndex -> N
-      = \word, g, a, z -> lin N (noMinorCases (Z.makeNoun word g a z)) ;
+      = \word, g, anim, z -> lin N (noMinorCases (Z.makeNoun word g anim z)) ;
     mkN : Str -> Gender -> Animacy -> Str -> N
-      = \word, g, a, zi -> lin N (noMinorCases (Z.makeNoun word g a (Z.parseIndex zi))) ;
+      = \word, g, anim, zi -> lin N (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
     mkN : A -> Gender -> Animacy -> N
       = \a, g, anim -> lin N (makeNFFromAF a g anim) ;
   } ;
@@ -87,7 +89,7 @@ oper
     mkN2 : N -> Prep -> N2
       = \n, p -> lin N2 (mkFun n p) ;
     mkN2 : Str -> Gender -> Animacy -> Str -> Prep -> N2
-      = \word, g, a, zi, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g a (Z.parseIndex zi))) p)   ;
+      = \word, g, anim, zi, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) p)   ;
   } ;
 
   nullPrep : Prep = lin Prep {s=[]; c=Gen; hasPrep=False} ;
@@ -96,20 +98,22 @@ oper
     mkN3 : N -> Prep -> Prep -> N3
       = \n, p2, p3 -> lin N3 (mkFun2 n p2 p3) ;
     mkN3 : Str -> Gender -> Animacy -> Str -> Prep -> Prep -> N3
-      = \word, g, a, zi, p2, p3 -> lin N3 (mkFun2 (noMinorCases (Z.makeNoun word g a (Z.parseIndex zi))) p2 p3) ;
+      = \word, g, anim, zi, p2, p3 -> lin N3 (mkFun2 (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) p2 p3) ;
   } ;
 
   mkPN = overload {
     mkPN : N -> PN
       = \n -> lin PN n ;
-    mkPN : (nom : Str) -> PN
+    mkPN : Str -> PN
       = \nom -> lin PN (guessNounForms nom) ;
     mkPN : Str -> Gender -> Animacy -> PN
-      = \nom, g, a -> lin PN (guessLessNounForms nom g a) ;
+      = \nom, g, anim -> lin PN (guessLessNounForms nom g anim) ;
+    mkPN : Str -> Gender -> Number -> Animacy -> PN
+      = \nom, g, n, anim -> lin PN (guessLessNounForms nom g anim) ;
     mkPN : Str -> Gender -> Animacy -> Z.ZNIndex -> PN
-      = \word, g, a, z -> lin PN (noMinorCases (Z.makeNoun word g a z)) ;
+      = \word, g, anim, z -> lin PN (noMinorCases (Z.makeNoun word g anim z)) ;
     mkPN : Str -> Gender -> Animacy -> Str -> PN
-      = \word, g, a, zi -> lin PN (noMinorCases (Z.makeNoun word g a (Z.parseIndex zi))) ;
+      = \word, g, anim, zi -> lin PN (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
   } ;
 
 ---------------------
@@ -197,4 +201,6 @@ oper
   mkInterj : Str -> Interj
     = \s -> lin Interj {s = s} ;
 
+  mkPrep : Str -> Case -> Prep
+    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
 }
