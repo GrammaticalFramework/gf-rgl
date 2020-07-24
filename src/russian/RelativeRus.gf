@@ -1,37 +1,44 @@
---# -path=.:../abstract:../common:../../prelude
+concrete RelativeRus of Relative = CatRus ** open
+  ParadigmsRus,
+  ResRus,
+  MorphoRus,
+  Prelude, Coordination in {
 
-concrete RelativeRus of Relative = CatRus ** open ResRus, MorphoRus in {
-
-  flags optimize=all_subs ; coding=utf8 ;
-
-  lin
-
-    RelCl A =   {s = \\b,clf,gn,c, anim => 
-     takoj.s ! AF c anim gn ++ "что" ++ A.s !b!clf};
-
-    RelVP kotoruj gulyaet =
-    { s = \\b,clf,gn, c, anim =>  let { nu = numGenNum gn } in
-      kotoruj.s ! gn ! c ! anim ++ gulyaet.s2 ++ gulyaet.s ! clf ! gn !P3 ++ 
-       gulyaet.s3 ! genGNum gn ! nu
+lin
+  -- : Cl -> RCl ;            -- such that John loves her
+  RelCl cl = {
+    subj=such.s ;
+    adv=\\a=> comma ++ "что" ++ cl.adv ;  -- TODO: this should be after subj in this case
+    verb=cl.verb ;
+    dep=cl.dep ;
+    compl=\\a=>cl.compl ;
+    a=cl.a
+    } ;
+  -- : RP -> ClSlash -> RCl ; -- whom John loves
+  RelSlash rp cls = let rp_as_adj = rp.poss ** {preferShort=PrefFull;  sf,sm,sn,sp,comp = []} in {
+    subj=(adjFormsAdjective rp_as_adj).s ;     -- TODO: cls.c and applyPrep not used?
+    adv=\\a=>cls.adv ;  -- TODO: this should be after subj in this case
+    verb=cls.verb ;
+    dep=cls.dep ;
+    compl=\\a=>cls.compl ;
+    a=cls.a
     } ;
 
-
--- Preposition stranding: "that we are looking at". Pied-piping is
--- deferred to $ExtRus.gf$ ("at which we are looking").
-
-    RelSlash kotoruj yaVizhu =
-    {s = \\b,clf,gn, _ , anim => yaVizhu.s2 ++ 
-         kotoruj.s ! gn ! yaVizhu.c ! anim 
-         ++ yaVizhu.s!b!clf 
+  -- RelVP : RP -> VP -> RCl ;      -- who loves John
+  RelVP rp vp =
+    let rp_as_adj = rp.poss ** {preferShort=PrefFull;  sf,sm,sn,sp,comp = []} in {
+    subj=(adjFormsAdjective rp_as_adj).s ;
+    adv=\\a=>[] ;
+    verb=vp.verb ;
+    dep=vp.dep ;
+    compl=vp.compl ;
+    a=rp.a
     } ;
 
-    FunRP p mama kotoruj =
-    {s = \\gn,c, anim => let {nu = numGenNum gn} in
-           mama.s ! PF c No NonPoss ++  
-           p.s ++ kotoruj.s !  gn ! p.c ! anim
-    } ;
+  -- : RP ;                      -- which
+  IdRP = lin RP (doKotoryjPron "который" (Ag (GSg Neut) P3) Inanimate) ;
 
-    IdRP ={ s  = \\gn, c, anim => 
-     kotorujDet.s ! (AF c anim gn )} ;
+  -- Prep -> NP -> RP -> RP ;  -- the mother of whom
+  FunRP prep np rp = (prependIP (np.s ! Nom ++ prep.s) rp) ;   -- TODO: This is wrong... RP should be in agreement, but with records it's a bit hard...
+
 }
-

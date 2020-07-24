@@ -1,398 +1,1245 @@
---# -path=.:../abstract:../common:../../prelude
+resource ResRus = ParamRus ** open Prelude, ZaliznyakAlgo in {
+flags coding=utf8 ; optimize=all ;
 
---1 Russian auxiliary operations.
+---------------
+-- Nouns -- Существительные
+---------------
 
--- This module contains operations that are needed to make the
--- resource syntax work. To define everything that is needed to
--- implement $Test$, it moreover contains regular lexical
--- patterns needed for $Lex$.
+-- novel idea (for RGL): lexical items stored as records rather than tables. See [???]
+-- advantages:
+-- - easier to make exceptions to paradigms (by ** {})
+-- - easier to keep the number of forms minimal
+-- - easier to see what is happening than with lots of anonymous arguments to mkN, mkA, mkV
 
-resource ResRus = ParamX ** open Prelude in {
+-- so this is the lincat of N
 
-flags  coding=utf8 ; optimize=all ;
-
---2 Enumerated parameter types 
---
--- These types are the ones found in school grammars.
--- Their parameter values are atomic.
-
--- Some parameters, such as $Number$, are inherited from $ParamX$.
-param
-  Gender     = Masc | Fem | Neut ;
-  Case       = Nom | Gen | Dat | Acc | Inst | Prepos PrepKind ;
-  PrepKind   = PrepOther | PrepVNa;
-  Animacy    = Animate | Inanimate ;
-  Voice        = Act | Pass ;
-  Aspect     = Imperfective | Perfective ;
-  RusTense      = Present | PastRus | Future ;
---  Degree     = Pos | Comp | Super ;
-  AfterPrep  = Yes | No ; 
-  Possessive = NonPoss | Poss GenNum ;
---  Anteriority = Simul | Anter ; 
-  ClForm =  ClIndic RusTense Anteriority | ClCondit  | ClInfinit | ClImper;      
-  -- "naked infinitive" clauses
---  DetForm = NonNum | Few | Many ;
-
--- A number of Russian nouns have common gender. They can
--- denote both males and females: "умница" (a clever person), "инженер" (an engineer).
--- We overlook this phenomenon for now.
-
--- The AfterPrep parameter is introduced in order to describe
--- the variations of the third person personal pronoun forms
--- depending on whether they come after a preposition or not. 
-
--- Declination forms depend on Case, Animacy , Gender: 
--- "большие дома" - "больших домов" (big houses - big houses'), 
--- Animacy plays role only in the Accusative case (Masc Sg and Plural forms):
--- Accusative Animate = Genetive, Accusaive Inanimate = Nominative
--- "я люблю большие дома-"я люблю больших мужчин"
--- (I love big houses - I love big men);
--- and on Number: "большой дом - "большие дома"
--- (a big house - big houses).
--- The plural never makes a gender distinction.
-
-  GenNum = GSg Gender | GPl ;
-
-  -- Coercions between the compound gen-num type and gender and number:
 oper
-  gennum : Gender -> Number -> GenNum = \g,n ->
-    case n of {
-      Sg => GSg g ;
-      Pl => GPl
+
+-- Mnemonics for cases: (add to lexicon as well)
+-- Nom есть (кто? что?)
+-- Gen нет (кого? чего?)
+-- Dat дать (кому? чему?)
+-- Acc вижу (кого? что?)
+-- Ins горжусь (кем? чем?)
+-- Pre думать (о ком? о чём?)
+-- Loc нахожусь (где? на чём? в чём?)  -- add if different from Pre
+-- Ptv налей (чего?)                   -- add variant if different from Gen
+-- VocRus "здравствуй, {}!"            -- add variant if different from Nom
+
+  NounForms : Type = {
+    snom, sgen, sdat, sacc, sins, sprep, sloc, sptv, svoc,
+    pnom, pgen, pdat, pacc, pins, pprep : Str ;
+    g : Gender ;
+    anim : Animacy
+  } ;
+
+-- But traditional tables make agreement easier to handle in syntax
+-- so this is the lincat of CN
+
+  Noun : Type = {
+    s : Number => Case => Str ;
+    g : Gender ;
+    anim : Animacy
+  } ;
+
+  Noun2Forms = NounForms ** {c2 : ComplementCase} ;
+  Noun3Forms = NounForms ** {c2,c3 : ComplementCase} ;
+
+-- this is used in UseN
+
+  nounFormsNoun : NounForms -> Noun
+    = \forms -> {
+      s = table {
+        Sg => table {
+          Nom => forms.snom ;
+          Gen => forms.sgen ;
+          Dat => forms.sdat ;
+          Acc => forms.sacc ;
+          Ins => forms.sins ;
+          Pre => forms.sprep ;
+          Loc => forms.sloc ;
+          Ptv => forms.sptv ;
+          VocRus => forms.svoc
+        } ;
+        Pl => table {
+          Nom => forms.pnom ;
+          Gen => forms.pgen ;
+          Dat => forms.pdat ;
+          Acc => forms.pacc ;
+          Ins => forms.pins ;
+          Pre => forms.pprep ;
+          Loc => forms.pprep ;
+          Ptv => forms.pgen ;
+          VocRus => forms.pnom
+        }
+      } ;
+      g = forms.g ;
+      anim = forms.anim
+    } ;
+
+  guessNounForms : Str -> NounForms
+    = \word ->
+    let nfb : NounFormsBase =
+    case word of {
+      _ + "уть"                            => makeNoun word Masc Inanimate (ZN 8 No B NoC) ;
+      _ + "ий"                             => makeNoun word Masc Inanimate (ZN 7 No A NoC) ;
+      _ + "ия"                             => makeNoun word Fem Inanimate (ZN 7 No A NoC) ;
+      _ + "ие"                             => makeNoun word Neut Inanimate (ZN 7 No A NoC) ;
+      _ + "ье"                             => makeNoun word Neut Inanimate (ZN 6 Ast A NoC) ;
+      _ + "тель"                           => makeNoun word Masc Inanimate (ZN 2 No A NoC) ;
+      _ + "ь"                              => makeNoun word Fem Inanimate (ZN 8 No A NoC) ;
+      _ + "и"                              => makeNoun word Neut Inanimate ZN0 ;
+      _ + #consonant + ("к"|"х"|"г") + "а" => makeNoun word Fem Inanimate (ZN 3 Ast A NoC) ;
+      _ + ("к" | "х" | "г")                => makeNoun word Masc Inanimate (ZN 3 No A NoC) ;
+      _ + ("к" | "х" | "г") + "а"          => makeNoun word Fem Inanimate (ZN 3 No A NoC) ;
+      _ + "ца"                             => makeNoun word Fem Animate (ZN 5 No A NoC) ;
+      _ + "й"                              => makeNoun word Masc Inanimate (ZN 6 No A NoC) ;
+      _ + ("ж" | "ш" | "ч" | "щ")          => makeNoun word Masc Inanimate (ZN 4 No A NoC) ;
+      _ + "ша"                             => makeNoun word Fem Animate (ZN 4 No A NoC) ;
+      _ + ("ж" | "ш" | "ч" | "щ") + "а"    => makeNoun word Fem Inanimate (ZN 4 No A NoC) ;
+      _ + "ц"                              => makeNoun word Masc Inanimate (ZN 5 Ast A NoC) ;
+      _ + "о"                              => makeNoun word Neut Inanimate (ZN 1 No A NoC) ;
+      _ + "а"                              => makeNoun word Fem Inanimate (ZN 1 No A NoC) ;
+      _                                    => makeNoun word Masc Inanimate (ZN 1 No A NoC)
+    } in
+    noMinorCases nfb ;
+
+  -- TODO: gender can help identify cases more precisely
+  guessLessNounForms : Str -> Gender -> Animacy -> NounForms
+    = \word, g, anim ->
+    let nfb : NounFormsBase =
+    case word of {
+      _ + "уть"                            => makeNoun word g anim (ZN 8 No B NoC) ;
+      _ + "ий"                             => makeNoun word g anim (ZN 7 No A NoC) ;
+      _ + "ия"                             => makeNoun word g anim (ZN 7 No A NoC) ;
+      _ + "ие"                             => makeNoun word g anim (ZN 7 No A NoC) ;
+      _ + "ье"                             => makeNoun word g anim (ZN 6 Ast A NoC) ;
+      _ + "тель"                           => makeNoun word g anim (ZN 2 No A NoC) ;
+      _ + "ь"                              => makeNoun word g anim
+                                               (case g of {Fem => (ZN 8 No A NoC); _ => (ZN 2 No A NoC)});
+      _ + "и"                              => makeNoun word g anim ZN0 ;
+      _ + #consonant + ("к"|"х"|"г") + "а" => makeNoun word g anim (ZN 3 Ast A NoC) ;
+      _ + ("к" | "х" | "г")                => makeNoun word g anim (ZN 3 No A NoC) ;
+      _ + ("к" | "х" | "г") + "а"          => makeNoun word g anim (ZN 3 No A NoC) ;
+      _ + "ца"                             => makeNoun word g anim (ZN 5 No A NoC) ;
+      _ + "й"                              => makeNoun word g anim (ZN 6 No A NoC) ;
+      _ + ("ж" | "ш" | "ч" | "щ")          => makeNoun word g anim (ZN 4 No A NoC) ;
+      _ + "ша"                             => makeNoun word g anim (ZN 4 No A NoC) ;
+      _ + ("ж" | "ш" | "ч" | "щ") + "а"    => makeNoun word g anim (ZN 4 No A NoC) ;
+      _ + "ц"                              => makeNoun word g anim (ZN 5 Ast A NoC) ;
+      _ + "о"                              => makeNoun word g anim (ZN 1 No A NoC) ;
+      _ + "а"                              => makeNoun word g anim (ZN 1 No A NoC) ;
+      _                                    => makeNoun word g anim (ZN 1 No A NoC)
+    } in
+    noMinorCases nfb ;
+
+  immutableNounForms : Str -> Gender -> Animacy -> NounForms
+    = \s, g, anim -> noMinorCases (immutableNounCases s g anim ) ;
+
+  noMinorCases : NounFormsBase -> NounForms
+    = \base -> base ** {
+      sloc = base.sprep ;
+      sptv = base.sgen ;
+      svoc = base.snom ;
+    } ;
+
+  mkNAltPl : NounForms -> NounForms -> NounForms
+    = \sgn, pln -> sgn ** {
+      pnom =  pln.pnom ;
+      pgen =  pln.pgen ;
+      pdat =  pln.pdat ;
+      pacc =  pln.pacc ;
+      pins =  pln.pins ;
+      pprep=  pln.pprep
+    } ;
+
+  mkNplus : NounForms -> NounForms
+    = \nf -> nf ;
+
+  mkN2plus : Noun2Forms -> Noun2Forms
+    = \nf -> nf ;
+
+  mkFun : NounForms -> ComplementCase -> Noun2Forms = \f, p -> f ** {c2 = p} ;
+  mkFun2 : NounForms -> ComplementCase -> ComplementCase -> Noun3Forms = \f, p2, p3 -> f ** {c2=p2; c3=p3} ;
+
+  ellNoun : NounForms -> NounForms
+   = \n -> noMinorCases (immutableNounCases "" n.g n.anim) ;
+
+  AgrTable = Agr => Str ;
+
+  agree : ComplementCase -> AgrTable
+    = \c -> table {
+      _ => c.s  -- TODO: implement
+    } ;
+
+  selectCase : (Case => Str) -> ComplementCase -> Str
+    = \np,prep -> prep.s ++ np ! prep.c ;  -- TODO: NP - pronoun special treatment
+
+  from2 = {s="из"; c=Gen; hasPrep=True} ;
+
+---------------------------
+-- Adjectives -- Прилагательные
+
+  AdjTable = GenNum => Animacy => Case => Str ;
+
+  Adjective : Type = {
+    s : AdjTable ;
+    short : AgrTable ;
+    preferShort : ShortFormPreference
+    } ;
+
+  noShorts : PronForms -> AdjForms  -- ???
+    = \base -> base ** {
+      sm = [] ;
+      sf = [] ;
+      sn = [] ;
+      sp = [] ;
+      comp = [] ;
+      preferShort = PrefFull
+    } ;
+
+  immutableAdjForms = immutableAdjectiveCases ;
+
+  mkAplus : AdjForms -> AdjForms
+    = \af -> af ;
+
+  mkAltShort : AdjForms -> AdjForms -> AdjForms
+    = \full, short -> full ** {
+      sm =  short.sm ;
+      sf =  short.sf ;
+      sn =  short.sn ;
+      sp =  short.sp
+    } ;
+
+  adjFormsAdjective : AdjForms -> Adjective
+    = \forms -> {
+      short = adjFormsToShort forms ;
+      s = table {
+        GSg Fem => table {
+          (Inanimate|Animate) => table {
+            Nom => forms.fsnom ;
+            Gen => forms.fsgen ;
+            Dat => forms.fsgen ;
+            Acc => forms.fsacc ;
+            Ins => forms.fsins ;
+            Pre => forms.fsgen ;
+            Loc => forms.fsgen ;
+            Ptv => forms.fsgen ;
+            VocRus => forms.fsnom
+          }
+        } ;
+        GSg Masc => table {
+          Inanimate => table {
+            Nom => forms.msnom ;
+            Gen => forms.msgen ;
+            Dat => forms.msdat ;
+            Acc => forms.msnom ;
+            Ins => forms.msins ;
+            Pre => forms.msprep ;
+            Loc => forms.msprep ;
+            Ptv => forms.msgen ;
+            VocRus => forms.msnom
+          } ;
+          Animate => table {
+            Nom => forms.msnom ;
+            Gen => forms.msgen ;
+            Dat => forms.msdat ;
+            Acc => forms.msgen ;
+            Ins => forms.msins ;
+            Pre => forms.msprep ;
+            Loc => forms.msprep ;
+            Ptv => forms.msgen ;
+            VocRus => forms.msnom
+          }
+        } ;
+        GSg Neut => table {
+          (Inanimate | Animate) => table {
+            Nom => forms.nsnom ;
+            Gen => forms.msgen ;
+            Dat => forms.msdat ;
+            Acc => forms.nsnom ;
+            Ins => forms.msins ;
+            Pre => forms.msprep ;
+            Loc => forms.msprep ;
+            Ptv => forms.msgen ;
+            VocRus => forms.nsnom
+          }
+        } ;
+        GPl => table {
+          Inanimate => table {
+            Nom => forms.pnom ;
+            Gen => forms.pgen ;
+            Dat => forms.msins ;
+            Acc => forms.pnom ;
+            Ins => forms.pins ;
+            Pre => forms.pgen ;
+            Loc => forms.pgen ;
+            Ptv => forms.pgen ;
+            VocRus => forms.pnom
+          } ;
+          Animate => table {
+            Nom => forms.pnom ;
+            Gen => forms.pgen ;
+            Dat => forms.msins ;
+            Acc => forms.pgen ;
+            Ins => forms.pins ;
+            Pre => forms.pgen ;
+            Loc => forms.pgen ;
+            Ptv => forms.pgen ;
+            VocRus => forms.pnom
+          }
+        }
+      } ;
+      g = forms.g ;
+      -- a = forms.a ;
+      preferShort = forms.preferShort
+    } ;
+
+  guessAdjectiveForms : Str -> AdjForms
+    = \word ->
+      let stem = Predef.tk 2 word in
+      case word of {
+        _ + "шеий"                 => makeAdjective word (ZA 6 No A_ NoC) PrefFull ;
+        _ + "цый"                  => makeAdjective word (ZA 5 No A_ NoC) PrefFull ;
+        _ + ("к"|"г"|"х") +"ий"    => makeAdjective word (ZA 3 No A_ NoC) PrefFull ;
+        _ + ("ш"|"ж"|"ч"|"щ")+"ий" => makeAdjective word (ZA 4 No A_ NoC) PrefFull ;
+        _ + #consonant + "ный"     => makeAdjective word (ZA 1 Ast A_ NoC) PrefFull ;
+        _ + #consonant + "ний"     => makeAdjective word (ZA 2 Ast A_ NoC) PrefFull ;
+        _ + "ый"                   => makeAdjective word (ZA 1 No A_ NoC) PrefFull ;
+        _ + "ой"                   => makeAdjective word (ZA 1 No B_ NoC) PrefFull ;
+        _ + "ий"                   => makeAdjective word (ZA 2 No A_ NoC) PrefFull ;
+        _                          => makeAdjective word (ZA 1 No A_ NoC) PrefFull
+    } ;
+
+  makeAdjectiveForms : Str -> Str -> Str -> ShortFormPreference -> AdjForms
+    = \nom, comp, zi, spf ->
+        let af = makeAdjective nom (parseAdjIndex zi) spf in
+        let comp' = case (Predef.length comp) of {0 => af.comp; _ => comp} in
+        af ** {comp=comp'} ;
+
+  makeAdjectiveFromNoun : Noun -> Adjective
+    = \n -> {
+       s = \\gn,anim,cas=> n.s ! numGenNum gn ! cas ;
+       short=\\a=>[] ;
+       preferShort=PrefFull
+    } ;
+
+  the_most = guessAdjectiveForms "самый" ;
+  utmost_Adv = makeAdverb "наиболее" ;
+
+  -- [ISACHENKO],p.220 there are three forms in Russian: самый важный; наиболее важный/важен; важнее (всех, всего)
+  -- here only first one:
+  long_superlative : AdjForms -> AdjForms
+    = \af -> {
+      msnom = the_most.msnom  ++ af.msnom ;
+      fsnom = the_most.fsnom  ++ af.fsnom ;
+      nsnom = the_most.nsnom  ++ af.nsnom ;
+      pnom  = the_most.pnom   ++ af.pnom  ;
+      msgen = the_most.msgen  ++ af.msgen ;
+      fsgen = the_most.fsgen  ++ af.fsgen ;
+      pgen  = the_most.pgen   ++ af.pgen  ;
+      msdat = the_most.msdat  ++ af.msdat ;
+      fsacc = the_most.fsacc  ++ af.fsacc ;
+      msins = the_most.msins  ++ af.msins ;
+      fsins = the_most.fsins  ++ af.fsins ;
+      pins  = the_most.pins   ++ af.pins  ;
+      msprep= the_most.msprep ++ af.msprep;
+      sm    = the_most.sm     ++ af.sm    ;
+      sf    = the_most.sf     ++ af.sf    ;
+      sn    = the_most.sn     ++ af.sn    ;
+      sp    = the_most.sp     ++ af.sp    ;
+      comp  = the_most.comp   ++ af.comp  ;
+      g=af.g ;
+      -- a=af.a ;
+      preferShort = PrefFull
+    } ;
+
+  makeNFFromAF : AdjForms -> Gender -> Animacy -> NounForms
+    = \af, g, anim ->
+      case g of {
+        Fem => {
+          snom = af.fsnom ;
+          pnom = af.pnom ;
+          sgen = af.fsgen ;
+          pgen = af.pgen ;
+          sdat = af.fsgen ;
+          pdat = af.msins ;
+          sacc = af.fsacc ;
+          pacc = case anim of {Animate => af.pgen ; Inanimate => af.pnom} ;
+          sins = af.fsins ;  -- TODO: there is also variant fsins == fsgen
+          pins = af.pins ;
+          sprep= af.fsgen ;
+          pprep= af.pgen ;
+          sloc = af.fsgen ;
+          sptv = af.fsgen ;
+          svoc = af.fsnom ;
+          g=g ;
+          anim=anim
+        } ;
+        Masc => {
+          snom = af.msnom ;
+          pnom = af.pnom ;
+          sgen = af.msgen ;
+          pgen = af.pgen ;
+          sdat = af.msdat ;
+          pdat = af.msins ;
+          sacc = case anim of {Animate => af.msgen ; Inanimate => af.msnom} ;
+          pacc = case anim of {Animate => af.pgen ; Inanimate => af.pnom} ;
+          sins = af.msins ;
+          pins = af.pins ;
+          sprep= af.msprep ;
+          pprep= af.pgen ;
+          sloc = af.msprep ;
+          sptv = af.msgen ;
+          svoc = af.msnom ;
+          g=g ;
+          anim=anim
+        } ;
+        Neut => {
+          snom = af.nsnom ;
+          pnom = af.pnom ;
+          sgen = af.msgen ;
+          pgen = af.pgen ;
+          sdat = af.msdat ;
+          pdat = af.msins ;
+          sacc = af.nsnom ;
+          pacc = case anim of {Animate => af.pgen ; Inanimate => af.pnom} ;
+          sins = af.msins ;
+          pins = af.pins ;
+          sprep= af.msprep ;
+          pprep= af.pgen ;
+          sloc = af.msprep ;
+          sptv = af.msgen ;
+          svoc = af.nsnom ;
+          g=g ;
+          anim=anim
+        }
       } ;
 
-  numGenNum : GenNum -> Number = \gn -> 
-    case gn of {
-      GSg _  => Sg ;
-      GPl    => Pl
+  adjFormsToShort : AdjForms -> AgrTable
+    = \af -> table {
+      Ag (GSg Fem) _ => af.sf ;
+      Ag (GSg Masc) _ => af.sm ;
+      Ag (GSg Neut) _ => af.sn ;
+      Ag GPl _ => af.sp
+    } ;
+
+---------------------
+-- Verbs -- Глаголы
+
+-- Note 1. Passive voice can be formed only for transitive imperfective verbs
+-- Passive has no P1, P2, imperative,
+-- Reflexive verbs are to provides as as separate lexical entries.
+-- Note 2. Imperative Sg P2 of reflexive verbs, can be сь as well as ся, but because there is no passive forms
+-- we can store the sya-schema and 'BIND++' as necessary.
+
+  Verb : Type = {
+    s : Voice => Tense => Agr => Str ;
+    refl : Reflexivity ;
+    tran : Transitivity
+  } ;
+
+oper
+
+  guessVerbForms : Aspect -> Transitivity -> Str -> Str -> Str -> VerbForms
+    = \asp,tran,inf,sg1,sg3 ->
+      let guessed : ZVIndex * Reflexivity = guessRegularIndex inf sg1 sg3 in
+      let corr_tran = case guessed.p2 of {Reflexive=>Intransitive ; NonReflexive=>tran} in
+      makeVerb inf sg1 sg3 guessed.p1 asp corr_tran guessed.p2 ;
+
+  quickGuessVerbForms : Str -> VerbForms
+    = \inf ->
+      let stem_info = infStemFromVerb inf in
+      let stem = stem_info.p1 in
+      guessVerbForms Imperfective Transitive inf (stem+"ю") (stem+"ет") ;
+
+  passivateNonReflexive : VerbForms -> VerbForms
+    = \vf -> vf ** {refl=Reflexive} ;
+
+  passivate : VerbForms -> VerbForms
+    = \vf ->
+      case vf.refl of {
+        Reflexive => vf ;
+        NonReflexive => passivateNonReflexive vf
+      } ;
+
+  shortPastPassPart : VerbForms -> GenNum -> Str
+    = \vf,gn ->
+      case gn of {
+        GSg Masc => vf.pppss ;
+        GSg Fem => vf.pppss ++ BIND ++ "а" ;
+        GSg Neut => vf.pppss ++ BIND ++ "о" ;
+        GPl => vf.pppss ++ BIND ++ "ы"
+        } ;
+
+  copula : VerbForms
+    = {
+      inf="быть" ;
+      infrefl="являться" ;  --?
+      prsg1="—";
+      prsg2="—";
+      prsg3="есть";
+      prpl1="—";
+      prpl2="—";
+      prpl3="—";   -- also "суть"
+      fut=BeFuture ;
+      psgm="был";
+      psgs="бы";
+      isg2="будь";
+      isg2refl="явись" ; -- ?
+      ipl1="давайте будем";
+      pppss="";
+      prtr="будучи";
+      ptr="быв";
+      asp=Imperfective;
+      refl=NonReflexive;
+      tran=Intransitive
+    } ;
+
+  -- normal copula require Nom in Pres. So this is Ins-friendly substitute.
+  -- TODO: Provide also Nom-based as idiomatic (?)
+  copulaIns : VerbForms
+    = copula ** {
+      prsg1="являюсь" ;
+      prsg2="являешься" ;
+      prsg3="является" ;
+      prpl1="являемся" ;
+      prpl2="являетесь" ;
+      prpl3="являются"
+    } ;
+
+  copulaEll : VerbForms
+    = copula ** {
+      prsg1="" ;
+      prsg2="" ;
+      prsg3="" ;
+      prpl1="" ;
+      prpl2="" ;
+      prpl3=""
+    } ;
+
+  selectCopula : CopulaType -> VerbForms
+    = \cop -> case cop of {
+       NomCopula => copula ;
+       EllCopula => copulaEll ;
+       InsCopula => copulaIns
+    } ;
+
+  can : VerbForms
+    = {
+      inf="мочь";
+      infrefl="мочь" ;
+      prsg1="могу";
+      prsg2="можешь";
+      prsg3="может";
+      prpl1="можем";
+      prpl2="можете";
+      prpl3="могут";
+      fut=CanFuture ;
+      psgm="мог";
+      psgs="мог";
+      isg2refl="будь способны" ;   -- *
+      isg2="будь способен";  -- some improvisation here
+      ipl1="давайте будем способны";   -- maybe, special like for future?
+      pppss="";
+      prtr="";
+      ptr="могши";
+      asp=Imperfective;
+      refl=NonReflexive;
+      tran=Intransitive
+    } ;
+
+  want : VerbForms
+    = {
+      inf="хотеть";
+      infrefl="хотеться" ;
+      prsg1="хочу";
+      prsg2="хочешь";
+      prsg3="хочет";
+      prpl1="хотим";
+      prpl2="хотите";
+      prpl3="хотят";
+      fut=WantFuture ;
+      psgm="хотел";
+      psgs="хоте";
+      isg2="желай";
+      isg2refl="желайся" ;
+      ipl1="давайте будем хотеть";
+      pppss="";
+      prtr="хотя";
+      ptr="хотев";
+      asp=Imperfective;
+      refl=NonReflexive;
+      tran=Transitive
+    } ;
+
+  nullVerb : VerbForms
+    = {
+      inf, infrefl,
+      prsg1, prsg2, prsg3, prpl1, prpl2, prpl3,
+      psgm, psgs,
+      isg2, isg2refl, ipl1,
+      pppss,
+      prtr, ptr ="";
+      fut=NullFuture ;
+      asp=Imperfective;
+      refl=NonReflexive;
+      tran=Intransitive
+    } ;
+
+  verbPastAgree : VerbForms -> Agr -> Str -> TempParts
+    = \vf,a,after -> <"", case a of {
+      Ag (GSg Masc) _ => vf.psgm ++ (verbReflAfterConsonant vf) ++ after ;
+      Ag (GSg Fem) _ => vf.psgs ++ BIND ++ "ла" ++ (verbRefl vf) ++ after ;
+      Ag (GSg Neut) _ => vf.psgs ++ BIND ++ "ло" ++ (verbRefl vf) ++ after ;
+      Ag GPl _ => vf.psgs ++ BIND ++ "ли"++ (verbRefl vf) ++ after
+    }> ;
+
+  verbReflAfterConsonant : VerbForms -> Str
+    = \vf -> case vf.refl of {Reflexive => BIND ++ "ся" ; NonReflexive => ""} ;
+
+  verbRefl : VerbForms -> Str
+    = \vf -> case vf.refl of {Reflexive => BIND ++ "сь" ; NonReflexive => ""} ;
+
+  verbInf : VerbForms -> Str
+    = \vf -> case vf.refl of {Reflexive => vf.infrefl ; NonReflexive => vf.inf} ;
+
+  verbPresAgree : VerbForms -> Agr -> Str
+    = \vf,a -> case a of {
+      Ag (GSg _) P1 => vf.prsg1 ++ (verbRefl vf) ;
+      Ag (GSg _) P2 => vf.prsg2 ++ (verbReflAfterConsonant vf) ;
+      Ag (GSg _) P3 => vf.prsg3 ++ (verbReflAfterConsonant vf) ;
+      Ag GPl P1 => vf.prpl1 ++ (verbReflAfterConsonant vf) ;
+      Ag GPl P2 => vf.prpl2 ++ (verbRefl vf) ;
+      Ag GPl P3 => vf.prpl3 ++ (verbReflAfterConsonant vf)
+    } ;
+
+  beFuture : Agr -> Str
+    = \a -> case a of {
+      Ag (GSg _) P1 => "буду" ;
+      Ag (GSg _) P2 => "будешь" ;
+      Ag (GSg _) P3 => "будет" ;
+      Ag GPl P1     => "будем" ;
+      Ag GPl P2     => "будете" ;
+      Ag GPl P3     => "будут"
+    } ;
+
+  verbFutAgree : VerbForms -> Agr -> Str
+    = \vf,a -> case <vf.fut,a> of {
+      <NullFuture,_> => [] ;
+      <WantFuture,Ag (GSg _) P1> => "захочу" ;
+      <WantFuture,Ag (GSg _) P2> => "захочешь" ;
+      <WantFuture,Ag (GSg _) P3> => "захочет" ;
+      <WantFuture,Ag GPl P1    > => "захотим" ;
+      <WantFuture,Ag GPl P2    > => "захотите" ;
+      <WantFuture,Ag GPl P3    > => "захотят" ;
+      <CanFuture,Ag (GSg _) P1> => "смогу" ;
+      <CanFuture,Ag (GSg _) P2> => "сможешь" ;
+      <CanFuture,Ag (GSg _) P3> => "сможет" ;
+      <CanFuture,Ag GPl P1    > => "сможем" ;
+      <CanFuture,Ag GPl P2    > => "сможете" ;
+      <CanFuture,Ag GPl P3    > => "смогут" ;
+      <BeFuture,_> => beFuture a ;
+      _ => case vf.asp of {
+        Perfective => verbPresAgree vf a ;
+        Imperfective => (beFuture a) ++ verbInf vf
+        }
+      } ;
+
+  verbImperativeAgree : VerbForms -> Agr -> TempParts
+    = \vf,a -> case a of {
+      Ag (GSg _) P1 => <"давайте", (verbInf vf)> ;  -- ?
+      Ag (GSg _) P2 => <"", case vf.refl of {NonReflexive=>vf.isg2; Reflexive=>vf.isg2refl}> ;
+      Ag (GSg x) P3 => <"пусть", verbFutAgree vf (Ag (GSg x) P3)> ;  -- ?
+      Ag GPl P1 => <"", vf.ipl1> ;
+      Ag GPl P2 => <"", vf.isg2 ++ BIND ++ "те" ++ (verbRefl vf)> ;
+      Ag GPl P3 => <"пусть", verbFutAgree vf (Ag GPl P3)>
+    } ;
+
+  verbAgr : VerbForms -> Mood -> Tense -> Agr -> Polarity -> TempParts
+    = \vf,m,temp,a,pol ->
+      case <vf.fut,m,temp> of {
+        <NullFuture, _, _> => <"",""> ;
+        <_, Ind, Past> => verbPastAgree vf a "";
+        <_, Ind, Pres> => <"",verbPresAgree vf a>;
+        <_, Ind, Fut> => <"",verbFutAgree vf a>;
+        <_, Ind, Cond> => verbPastAgree vf a "бы" ;
+        <_, Sbjv, _> => verbPastAgree vf a "бы" ;
+        <_, Imperative, _> => verbImperativeAgree vf a ;
+        <_, Infinitive, _> => <"",verbInf vf>
+      } ;
+
+---------------------------
+-- Pronouns -- Местоимения
+
+  PronounForms : Type = {
+    nom, gen, dat, acc, ins, prep : Str ;
+    nPrefix : Bool ;  -- can have forms with prepended "н". Only with personal pronouns, not possessive
+    poss : PronForms ;
+    a : Agr
+  } ;
+
+  IPronounForms : Type = {
+    nom, gen, dat, acc, ins, prep : Str ;
+    poss : PronForms ;
+    anim : Animacy ;
+    a : Agr
+  } ;
+
+  PronTable = GenNum => Animacy => Case => Str ;
+
+  mkPronTable : PronForms -> PronTable
+    = \forms -> table {
+      GSg Fem => table {
+        (Inanimate|Animate) => table {
+          Nom => forms.fsnom ;
+          Gen => forms.fsgen ;
+          Dat => forms.fsgen ;
+          Acc => forms.fsacc ;
+          Ins => forms.fsins ;
+          Pre => forms.fsgen ;
+          Loc => forms.fsgen ;
+          Ptv => forms.fsgen ;
+          VocRus => forms.fsnom
+        }
+      } ;
+      GSg Masc => table {
+        Inanimate => table {
+          Nom => forms.msnom ;
+          Gen => forms.msgen ;
+          Dat => forms.msdat ;
+          Acc => forms.msnom ;
+          Ins => forms.msins ;
+          Pre => forms.msprep ;
+          Loc => forms.msprep ;
+          Ptv => forms.msgen ;
+          VocRus => forms.msnom
+        } ;
+        Animate => table {
+          Nom => forms.msnom ;
+          Gen => forms.msgen ;
+          Dat => forms.msdat ;
+          Acc => forms.msgen ;
+          Ins => forms.msins ;
+          Pre => forms.msprep ;
+          Loc => forms.msprep ;
+          Ptv => forms.msgen ;
+          VocRus => forms.msnom
+        }
+      } ;
+      GSg Neut => table {
+        (Inanimate | Animate) => table {
+          Nom => forms.nsnom ;
+          Gen => forms.msgen ;
+          Dat => forms.msdat ;
+          Acc => forms.nsnom ;
+          Ins => forms.msins ;
+          Pre => forms.msprep ;
+          Loc => forms.msprep ;
+          Ptv => forms.msgen ;
+          VocRus => forms.nsnom
+        }
+      } ;
+      GPl => table {
+        Inanimate => table {
+          Nom => forms.pnom ;
+          Gen => forms.pgen ;
+          Dat => forms.msins ;
+          Acc => forms.pnom ;
+          Ins => forms.pins ;
+          Pre => forms.pgen ;
+          Loc => forms.pgen ;
+          Ptv => forms.pgen ;
+          VocRus => forms.pnom
+        } ;
+        Animate => table {
+          Nom => forms.pnom ;
+          Gen => forms.pgen ;
+          Dat => forms.msins ;
+          Acc => forms.pgen ;
+          Ins => forms.pins ;
+          Pre => forms.pgen ;
+          Loc => forms.pgen ;
+          Ptv => forms.pgen ;
+          VocRus => forms.pnom
+        }
+      }
+    } ;
+
+  Pronoun = {
+    s : Case => Str ;
+    pron : Bool ;
+    poss : PronTable ;
+    a : Agr
+    } ;
+
+  -- From [RUSGRAM]:
+  -- personal      -- личные
+  -- possessive    -- притяжательные
+  -- reflexive     -- возвратные
+  -- indefinite    -- неопределённые
+  -- demonstrative -- указательные
+  -- interrogative -- вопросительные
+  -- relative      -- относительные
+     -- TODO: animacy - see [KHOLODILOVA1]
+  -- reciprocal    -- взаимные
+  -- determinative -- определительные
+  -- negative      -- отрицательные
+  -- Also [RUWIKT]:
+  -- exclamative   -- восклицательные
+
+  personalPron : Agr -> PronounForms
+    = \a -> {a=a} **
+      case a of {
+        Ag (GSg _) P1 => {
+          nom, voc = "я" ;
+          gen, acc, ptv = "меня" ;
+          dat, prep, loc = "мне" ;
+          ins = variants {"мной" ; "мною"} ;
+          nPrefix = False ;
+          poss = doPossessivePronSgP1P2 "мо"
+        } ;
+        Ag (GSg _) P2 => {
+          nom, voc = "ты" ;
+          gen, acc, ptv = "тебя" ;
+          dat, prep, loc = "тебе" ;
+          ins = variants {"тобой" ; "тобою"} ;
+          nPrefix = False ;
+          poss = doPossessivePronSgP1P2 "тво"
+        } ;
+        Ag (GSg Masc) P3 => {
+          nom, voc = "он" ;
+          gen, acc, ptv = "его" ;   -- TODO: n
+          dat = "ему" ;   -- TODO: n
+          ins = "им" ;   -- TODO: n
+          prep, loc = "нём" ;
+          nPrefix = True ;
+          poss = doPossessivePronP3 "его"
+        } ;
+        Ag (GSg Fem) P3 => {
+          nom, voc = "она" ;
+          gen, ptv = variants { "её"; "ей" } ;           -- TODO: n
+          dat = "ей" ;                     -- TODO: n
+          acc = "её" ;           -- TODO: n
+          ins = variants { "ей"; "ею" } ;   -- TODO: n
+          prep, loc = "ней" ;
+          nPrefix = True ;
+          poss = doPossessivePronP3 "её"
+        } ;
+        Ag (GSg Neut) P3 => {
+          nom, voc = "оно" ;
+          gen, acc, ptv = "его" ;   -- TODO: n
+          dat = "ему" ;   -- TODO: n
+          ins = "им" ;   -- TODO: n
+          prep, loc = "нём" ;
+          nPrefix = True ;
+          poss = doPossessivePronP3 "его"
+        } ;
+        Ag GPl P1 => {
+          nom, voc = "мы" ;
+          gen, acc, ptv = "нас" ;
+          dat = "нам" ;
+          ins = "нами" ;
+          prep, loc = "нас" ;
+          nPrefix = False ;
+          poss = doPossessivePronPlP1P2 "наш"
+        } ;
+        Ag GPl P2 => {
+          nom, voc = "вы" ;
+          gen, acc, ptv = "вас" ;
+          dat = "вам" ;
+          ins = "вами" ;
+          prep, loc = "вас" ;
+          nPrefix = False ;
+          poss = doPossessivePronPlP1P2 "ваш"
+        } ;
+        Ag GPl P3 => {
+          nom, voc = "они" ;
+          gen, acc, ptv = "их" ;   -- TODO: n
+          dat = "им" ;   -- TODO: n
+          ins = "ими" ;   -- TODO: n
+          prep, loc = "них" ;
+          nPrefix = False ;
+          poss = doPossessivePronP3 "их"
+        }
+      } ;
+
+-- Possessive pronouns are more like adjectives
+
+  doPossessivePronSgP1P2 : Str -> PronForms
+    = \mo -> {
+      msnom = mo + "й" ;
+      fsnom = mo + "я" ;
+      nsnom = mo + "ё" ;
+      pnom = mo + "и" ;
+      msgen = mo + "его" ;
+      fsgen = mo + "ей" ;
+      pgen  = mo + "их" ;
+      msdat = mo + "ему" ;
+      fsacc = mo + "ю" ;
+      msins = mo + "им" ;
+      fsins = mo + "ей" ;
+      pins  = mo + "ими" ;
+      msprep = mo + "ём"
+    } ;
+
+  doPossessivePronPlP1P2 : Str -> PronForms
+    = \nash -> {
+      msnom = nash ;
+      fsnom = nash + "а" ;
+      nsnom = nash + "е" ;
+      pnom = nash + "и" ;
+      msgen = nash + "его" ;
+      fsgen = nash + "ей" ;
+      pgen  = nash + "их" ;
+      msdat = nash + "ему" ;
+      fsacc = nash + "у" ;
+      msins = nash + "им" ;
+      fsins = nash + "ей" ;
+      pins  = nash + "ими" ;
+      msprep = nash + "ем"
+    } ;
+
+  doPossessivePronP3 : Str -> PronForms
+    = \ego -> {
+      msnom,
+      fsnom,
+      nsnom,
+      pnom,
+      msgen,
+      fsgen,
+      pgen,
+      msdat,
+      fsacc,
+      msins,
+      fsins,
+      pins,
+      msprep = ego
+    } ;
+
+  selectPronCase : PronounForms -> Case -> Str  -- apply nPrefix ?
+    = \forms,cas -> case cas of {
+      (Nom | VocRus) => forms.nom ;
+      (Gen | Ptv)    => forms.gen ;
+      Dat            => forms.dat ;
+      Acc            => forms.acc ;
+      Ins            => forms.ins ;
+      (Pre | Loc)    => forms.prep
+    } ;
+
+  selectIPronCase : IPronounForms -> Case -> Str  -- apply nPrefix ?
+    = \forms,cas -> case cas of {
+      (Nom | VocRus) => forms.nom ;
+      (Gen | Ptv)    => forms.gen ;
+      Dat            => forms.dat ;
+      Acc            => forms.acc ;
+      Ins            => forms.ins ;
+      (Pre | Loc)    => forms.prep
     } ;
 
 
--- The Possessive parameter is introduced in order to describe
--- the possessives of personal pronouns, which are used in the 
--- Genetive constructions like "моя мама" (my mother) instead of 
--- "мама моя" (the mother of mine). 
-
---2 For $Noun$
--- Nouns decline according to number and case.
--- For the sake of shorter description these parameters are 
--- combined in the type SubstForm.
-param
-  NForm = NF Number Case Size ;
-
-
--- Real parameter types (i.e. ones on which words and phrases depend) 
--- are mostly hierarchical. The alternative would be cross-products of
--- simple parameters, but this would usually overgenerate.
-
--- However, we use the cross-products in complex cases 
--- (for example, aspect and tense parameter in the verb description)
--- where the relationship between the parameters are non-trivial
--- even though we aware that some combinations do not exist
--- (for example, present perfective does not exist, but removing 
--- this combination would lead to having different descriptions 
--- for perfective and imperfective verbs, which we do not want for the 
--- sake of uniformity).
-
-param  PronForm = PF Case AfterPrep Possessive;
-
-oper Pronoun = { s : PronForm => Str ; n : Number ; p : Person ;
-           g: PronGen ;  pron: Bool} ;     
-
--- Gender is not morphologically determined for first
---  and second person pronouns.
-
--- NF: but adjectives and verbs in past tense have to agree with gender of the
--- person speaking!
-
-param  PronGen = PGen Gender | PNoGen ;
-
--- The following coercion is useful:
-
-oper
-  pgen2gen : PronGen -> Gender = \p -> case p of {
-    PGen g => g ;
-    PNoGen => Masc ---- variants {Masc ; Fem} --- the best we can do for ya, tu
+  pronFormsPronoun : PronounForms -> Pronoun
+    = \forms -> {
+      s = \\cas => selectPronCase forms cas ;
+      pron = forms.nPrefix ;
+      poss = mkPronTable forms.poss ;
+      a = forms.a
     } ;
 
+  doReflexivePron : Str -> Agr -> PronounForms
+    -- Nominative is not strictly correct, but also usually not needed
+    = \nom,a -> {
+      nom=nom ; gen="себя" ; dat="себе" ; acc="себя" ; ins="собой" ; prep="себе" ;
+      nPrefix=False ;
+      poss=doPossessivePronSgP1P2 "сво" ;  -- "myself's" to "my own" this may be too artificially put here...
+      a=a} ;
 
-oper
-  extCase: PronForm -> Case = \pf -> case pf of { PF c _ _ => c } ;
+  reflexivePron : Agr -> PronounForms
+    = \a -> {a = a; nPrefix=False} **
+      case a of {
+        Ag (GSg Masc) _ => doReflexivePron "сам" a;
+        Ag (GSg Fem) _ => doReflexivePron "сама" a;
+        Ag (GSg Neut) _ => doReflexivePron "само" a;
+        Ag GPl _ => doReflexivePron "сами" a
+        };
 
-  mkPronForm: Case -> AfterPrep -> Possessive -> PronForm = 
-    \c,n,p -> PF c n p ;
-  
-  CommNoun = {s : NForm => Str ; g : Gender ; anim : Animacy } ;
+  sam = pronFormsPronoun (reflexivePron (Ag (GSg Masc) P3)) ;
 
-  NounPhrase : Type = { s : PronForm => Str ; n : Number ; 
-   p : Person ; g: PronGen ; anim : Animacy ;  pron: Bool} ;
+  all_Pron = pronoun2AstB "весь" ;
+  only_Pron = guessAdjectiveForms "единственный" ;
 
-  mkNP : Number -> CommNoun -> NounPhrase = \n,chelovek -> 
-    {s = \\cas => chelovek.s ! NF n (extCase cas) (case n of {
-                                                     Sg => nom ;
-                                                     Pl => plg });
-     n = n ; g = PGen chelovek.g ; p = P3 ; pron =False ;
-     anim = chelovek.anim 
+  vse : PronounForms = {
+    nom="все" ; gen="всех" ; dat="всем" ; acc="всех" ; ins="всеми" ; prep="всех" ;
+    nPrefix=False ;
+    poss=all_Pron ;
+    a=Ag GPl P3
     } ;
 
-  det2NounPhrase : Adjective -> NounPhrase = \eto -> 
-    {s = \\pf => eto.s ! (AF (extCase pf) Inanimate (GSg Neut)); n = Sg ; g = PGen Neut ; pron = False ; p = P3 ; anim = Inanimate } ;
-
-
- 
- pron2NounPhraseNum : Pronoun -> Animacy -> Number -> NounPhrase = \ona, anim, num -> 
-    {s = ona.s ; n = num ; g =  ona.g ; 
-     pron = ona.pron; p = ona.p ; anim = anim } ;
-
-
--- Agreement of $NP$ is a record. We'll add $Gender$ later.
---  oper  Agr = {n : Number ; p : Person} ;
-
-
-----2 For $Verb$
-
--- Mood is the main verb classification parameter.
--- The verb mood can be infinitive, subjunctive, imperative, and indicative.
-
--- Note: subjunctive mood is analytical, i.e. formed from the past form of the
--- indicative mood plus the particle "ли". That is why they have the same GenNum 
--- parameter. We choose to keep the "redundant" form in order to indicate 
--- the presence of the subjunctive mood in Russian verbs. 
-
--- Aspect and Voice parameters are present in every mood, so Voice is put
--- before the mood parameter in verb form description the hierachy.
--- Moreover Aspect is regarded as an inherent parameter of a verb entry.
--- The primary reason for that is that one imperfective form can have several
--- perfective forms: "ломать" - "сломать" - "поломать" (to break).
--- Besides, the perfective form could be formed from imperfective 
--- by prefixation, but also by taking a completely different stem:
--- "говорить"-"сказать" (to say). In the later case it is even natural to 
--- regard them as different verb entries.
--- Another reason is that looking at the Aspect as an inherent verb parameter
--- seem to be customary in other similar projects:
--- http://starling.rinet.ru/morph.htm
-
--- Note: Of course, the whole inflection table has many redundancies
--- in a sense that many verbs do not have all grammatically possible
--- forms. For example, passive does not exist for the verb 
--- "любить" (to love), but exists for the verb "ломаться" (to break).
--- In present tense verbs do not conjugate according to Genus,
--- so parameter GenNum instead Number is used for the sake of 
--- using for example as adjective in predication.
-
--- Depending on the tense verbs conjugate according to combinations
--- of gender, person and number of the verb objects. 
--- Participles (Present and PastRus) and Gerund forms are not included in the
--- current description. This is the verb type used in the lexicon:
-
-oper Verbum : Type = { s: VerbForm => Str ; asp : Aspect };
-
-param
-
-  VerbForm = VFORM Voice VerbConj ;
-  VerbConj =  VIND GenNum VTense | VIMP Number Person | VINF | VSUB GenNum ;
-  VTense   = VPresent Person | VPast | VFuture Person ;
-
-oper 
-   getVTense : RusTense -> Person -> VTense= \t,p ->
-   case t of { Present => VPresent p ; PastRus => VPast; Future => VFuture p } ;
-
-   getTense : Tense -> RusTense= \t ->
-   case t of { Pres => Present  
-    ; Fut => Future   --# notpresent
-    ; _ => PastRus    --# notpresent
+  vse_ina : PronounForms = {
+    nom="всё" ; gen="всего" ; dat="всему" ; acc="всё" ; ins="всем" ; prep="всём" ;
+    nPrefix=False ;
+    poss=all_Pron ;
+    a=Ag (GSg Neut) P3
     } ;
 
-  
-   getVoice: VerbForm -> Voice = \vf ->
-   case vf of {
-    VFORM Act _ => Act;
-    VFORM Pass _ => Pass
-  };
-oper sebya : Case => Str =table {
-Nom => "";
-Gen => "себя";
-Dat=> "себе";
-Acc => "себя";
-Inst => "собой";
-Prep =>"себе"};
+  doChPron : Str -> Agr -> Animacy -> IPronounForms  -- что, ничто
+    = \ch, a, anim -> {  -- "ч", "нич"
+      a = a ;
+      anim=anim ;
+      nom, voc = ch + "то" ;
+      gen, acc, ptv = ch + "его" ;
+      dat = ch + "ему" ;
+      prep, loc = ch + "ём" ;
+      ins = ch + "ем" ;
+      poss = {
+        msnom = ch + "ей" ;
+        fsnom = ch + "ья" ;
+        nsnom = ch + "ьё" ;
+        pnom = ch + "ьи" ;
+        msgen = ch + "ьего" ;
+        fsgen = ch + "ьей" ;
+        pgen  = ch + "ьих" ;
+        msdat = ch + "ьему" ;
+        fsacc = ch + "ью" ;
+        msins = ch + "ьим" ;
+        fsins = ch + "ьей" ;
+        pins  = ch + "ьими" ;
+        msprep = ch + "ьём"
+      }
+    } ;
 
-  Verb : Type = {s : ClForm => GenNum => Person => Str ; asp : Aspect ; w: Voice} ;
--- Verb phrases are discontinuous: the parts of a verb phrase are
--- (s) an inflected verb, (s2) verb adverbials (not negation though), and
--- (s3) complement. This discontinuity is needed in sentence formation
--- to account for word order variations.
- 
-  VerbPhrase : Type = Verb ** {s2: Str; s3 : Gender => Number => Str ;
-    negBefore: Bool} ;
+  doKPron : Str -> Agr -> Animacy -> IPronounForms  -- кто, никто
+    = \ch, a, anim ->   -- "к", "ник"
+      let subPoss = (Predef.tk 1 ch) + "ч" in {
+      a = a ;
+      anim=anim ;
+      nom, voc = ch + "то" ;
+      gen, acc, ptv = ch + "ого" ;
+      dat = ch + "ому" ;
+      prep, loc = ch + "ом" ;
+      ins = ch + "ем" ;
+      poss = (doChPron subPoss a anim).poss
+    } ;
 
+  doKotoryjPron : Str -> Agr -> Animacy -> IPronounForms
+    = \w, a, anim ->   -- "который", "некоторый"
+      let stem = (Predef.tk 2 w) in {
+      a = a ;
+      anim=anim ;
+      nom, voc = stem + "ое" ;
+      gen, acc, ptv = stem + "ого" ;
+      dat = stem + "ому" ;
+      prep, loc = stem + "ом" ;
+      ins = stem + "ым" ;
+      poss = guessAdjectiveForms w
+    } ;
 
--- This is one instance of Gazdar's *slash categories*, corresponding to his
--- $S/NP$.
--- We cannot have - nor would we want to have - a productive slash-category former.
--- Perhaps a handful more will be needed.
---
--- Notice that the slash category has the same relation to sentences as
--- transitive verbs have to verbs: it's like a *sentence taking a complement*.
+  prependIP : Str -> IPronounForms -> IPronounForms
+    = \s,ip -> ip ** {
+      nom=s ++ ip.nom ;
+      gen=s ++ ip.gen ;
+      dat=s ++ ip.dat ;
+      acc=s ++ ip.acc ;
+      ins=s ++ ip.ins ;
+      prep=s ++ ip.prep ;
+      poss={
+        msnom = s ++ ip.poss.msnom ;
+        fsnom = s ++ ip.poss.fsnom ;
+        nsnom = s ++ ip.poss.nsnom ;
+        pnom  = s ++ ip.poss.pnom ;
+        msgen = s ++ ip.poss.msgen ;
+        fsgen = s ++ ip.poss.fsgen ;
+        pgen  = s ++ ip.poss.pgen ;
+        msdat = s ++ ip.poss.msdat ;
+        fsacc = s ++ ip.poss.fsacc ;
+        msins = s ++ ip.poss.msins ;
+        fsins = s ++ ip.poss.fsins ;
+        pins  = s ++ ip.poss.pins ;
+        msprep= s ++ ip.poss.msprep ;
+      }
+    } ;
 
-  SlashNounPhrase = Clause ** {c2 : Complement} ;
-  Clause = {s : Polarity => ClForm => Str} ;
+  appendToIP : IPronounForms -> Str -> IPronounForms
+    = \ip,s -> ip ** {
+      nom=ip.nom ++ s;
+      gen=ip.gen ++ s;
+      dat=ip.dat ++ s;
+      acc=ip.acc ++ s;
+      ins=ip.ins ++ s;
+      prep=ip.prep ++ s;
+      poss={
+        msnom = ip.poss.msnom ++ s;
+        fsnom = ip.poss.fsnom ++ s;
+        nsnom = ip.poss.nsnom ++ s;
+        pnom  = ip.poss.pnom ++ s;
+        msgen = ip.poss.msgen ++ s;
+        fsgen = ip.poss.fsgen ++ s;
+        pgen  = ip.poss.pgen ++ s;
+        msdat = ip.poss.msdat ++ s;
+        fsacc = ip.poss.fsacc ++ s;
+        msins = ip.poss.msins ++ s;
+        fsins = ip.poss.fsins ++ s;
+        pins  = ip.poss.pins ++ s;
+        msprep= ip.poss.msprep ++ s;
+      }
+    } ;
 
--- This is the traditional $S -> NP VP$ rule. 
+  nounToNounForm : Noun -> NounForms
+    = \n -> {
+      snom=n.s ! Sg ! Nom ;
+      sgen=n.s ! Sg ! Gen ;
+      sdat=n.s ! Sg ! Dat ;
+      sacc=n.s ! Sg ! Acc ;
+      sins=n.s ! Sg ! Ins ;
+      sprep=n.s ! Sg ! Pre ;
+      sloc=n.s ! Sg ! Loc ;
+      sptv=n.s ! Sg ! Ptv ;
+      svoc=n.s ! Sg ! VocRus ;
+      pnom=n.s ! Pl ! Nom ;
+      pgen=n.s ! Pl ! Gen ;
+      pdat=n.s ! Pl ! Dat ;
+      pacc=n.s ! Pl ! Acc ;
+      pins=n.s ! Pl ! Ins ;
+      pprep=n.s ! Pl ! Pre ;
+      ploc=n.s ! Pl ! Loc ;
+      pptv=n.s ! Pl ! Ptv ;
+      pvoc=n.s ! Pl ! VocRus ;
+      g=n.g ;
+      anim=n.anim
+    } ;
 
-    predVerbPhrase : NounPhrase -> VerbPhrase -> SlashNounPhrase = 
-    \Ya, tebyaNeVizhu -> {
-       s = \\b,clf => let { ya = Ya.s ! (mkPronForm Nom No NonPoss);
-                            khorosho = tebyaNeVizhu.s2;
-                            vizhu = tebyaNeVizhu.s ! clf !(gennum (pgen2gen Ya.g) Ya.n)! Ya.p;
-                            tebya = tebyaNeVizhu.s3 ! (pgen2gen Ya.g) ! Ya.n 
-                          }
-                      in ya ++  khorosho ++ vizhu ++ tebya;
-       c2 = {s = ""; c = Nom}
-       } ;
+  caseTableToRecord : (Case => Str) -> Agr -> Animacy -> IPronounForms
+    = \ct,a,anim -> {
+      nom=ct ! Nom ;
+      gen=ct ! Gen ;
+      dat=ct ! Dat ;
+      acc=ct ! Acc ;
+      ins=ct ! Ins ;
+      prep=ct ! Pre ;
+      poss={
+        msnom = [] ;
+        fsnom = [] ;
+        nsnom = [] ;
+        pnom  = [] ;
+        msgen = [] ;
+        fsgen = [] ;
+        pgen  = [] ;
+        msdat = [] ;
+        fsacc = [] ;
+        msins = [] ;
+        fsins = [] ;
+        pins  = [] ;
+        msprep= [] ;
+      } ;
+      a=a ;
+      anim=anim
+    } ;
 
--- Questions are either direct ("Ты счастлив?") 
--- or indirect ("Потом он спросил счастлив ли ты").
+  that_forms = {
+    msnom, sm = "тот" ;
+    fsnom, sf = "та" ;
+    nsnom, sn = "то" ;
+    pnom, sp = "те" ;
+    msgen = "того" ;
+    fsgen = "той" ;
+    pgen  = "тех" ;
+    msdat = "тому" ;
+    fsacc = "ту" ;
+    msins = "тем" ;
+    fsins = "той" ;
+    pins  = "тех" ;
+    msprep = "том" ;
+    preferShort = PrefFull ;
+    comp = []
+    } ;
 
-param 
-  QuestForm = DirQ | IndirQ ;
+  this_forms = {
+    msnom, sm = "этот" ;
+    fsnom, sf = "эта" ;
+    nsnom, sn = "это" ;
+    pnom, sp = "эти" ;
+    msgen = "этого" ;
+    fsgen = "этой" ;
+    pgen  = "этих" ;
+    msdat = "этому" ;
+    fsacc = "эту" ;
+    msins = "этим" ;
+    fsins = "этой" ;
+    pins  = "этих" ;
+    msprep = "этом" ;
+    preferShort = PrefFull ;
+    comp = []
+    } ;
 
----- The order of sentence is needed already in $VP$.
---
---    Order = ODir | OQuest ;
+---------------
+-- Numerals -- Числительные
+---------------
+
+param DForm = unit | teen | ten | hund ;
+param Place = attr | indep ;
+oper
+  mille : NumSize => Str = table {
+    Num1 => "тысяча" ;
+    Num2_4 => "тысячи" ;   -- NumAll ?
+    _     => "тысяч"
+    } ;
+  sizeNumCase : (Number => Case => Str) -> NumSize -> Str
+    = \nt,size -> case size of {
+      Num1 => nt ! Sg ! Nom ;
+      Num2_4 => nt ! Sg ! Gen ;   --?
+      Num5 => nt ! Pl ! Gen ;
+      NumAll => nt ! Pl ! Nom
+    } ;
+
+---------------
+-- Adverbs -- Наречия
+
+  Adverb = { s : Str ; } ;
+
+  makeAdverb : Str -> Adverb
+    = \word -> {s=word} ;
+
+--------------------------------
+-- combining nouns with numerals
 
 oper
-   getActVerbForm : ClForm -> Gender -> Number -> Person -> VerbForm = \clf,g,n, p -> case clf of
-   { ClIndic Future _ => VFORM Act (VIND (gennum g n) (VFuture p));
-     ClIndic PastRus _ => VFORM Act (VIND (gennum g n) VPast);
-      ClIndic Present _ => VFORM Act (VIND (gennum g n) (VPresent p));
-      ClCondit => VFORM Act (VSUB (gennum g n));
-      ClInfinit => VFORM Act VINF ;
-      ClImper => VFORM Act (VIMP n p) 
-   };
+  DetTable = Gender => Animacy => Case => Str ;
 
-   getPassVerbForm : ClForm -> Gender -> Number -> Person -> VerbForm = \clf,g,n, p -> case clf of
-   { ClIndic Future _ => VFORM Pass (VIND (gennum g n) (VFuture p));
-     ClIndic PastRus _ => VFORM Pass (VIND (gennum g n) VPast);
-      ClIndic Present _ => VFORM Pass (VIND (gennum g n) (VPresent p));
-      ClCondit => VFORM Pass (VSUB (gennum g n));
-      ClInfinit => VFORM Pass VINF ;
-      ClImper => VFORM Pass (VIMP n p) 
-   };
+  NumDet : Type = {
+    s : DetTable ;
+    size : NumSize
+    } ;
 
+  -- Number from size to be used in agreement after numeral has been applied
+  numSizeNumber : NumSize -> Number
+    = \ns -> case ns of {Num1 => Sg ; NumAll | Num2_4 | Num5 => Pl} ;
 
---2 For $Adjective$
+  -- The following two used in tandem to form the word, controlled by numeral
+  numSizeNum : NumSize -> Number
+    = \ns -> case ns of {Num1 | Num2_4 => Sg ; Num5 | NumAll => Pl} ;
+  numSizeCase : NumSize -> Case
+    = \ns -> case ns of {Num1 | NumAll => Nom ; Num2_4 | Num5 => Gen} ;
 
--- The short form is only inflected in gender and number.
--- Fixing this would require changing the Degree type.
-param
-  AdjForm = AF Case Animacy GenNum | AFShort GenNum | AdvF;
-  ShortFormPreference = PrefShort | PrefFull ;
-  
-oper
-  Complement = {s : Str ; c : Case} ;
+oper -- TODO:
+  ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
 
-oper Refl ={s: Case => Str};
-oper sam: Refl=
-{s = table{
-     Nom => "сам";
-     Gen => "себя";
-     Dat => "себе";
-     Acc => "себя";
-     Inst => "собой";
-     Prepos _ => "себе"
-     }
-};
-
-  pgNum : PronGen -> Number -> GenNum = \g,n -> 
-    case n of 
-   {   Sg => GSg (pgen2gen g) ; -- assuming pronoun "I" is a male
-       Pl => GPl
-   } ;
-              --    _  => variants {GSg Masc ; GSg Fem}  } ; 
-              --  "variants" version cause "no term variants" error during linearization
-
-oper genGNum : GenNum -> Gender = \gn ->
-   case gn of { GSg Fem => Fem; GSg Masc => Masc; _ => Neut } ;
-
-oper numAF: AdjForm -> Number = \af ->
-   case af of { AdvF => Sg; AFShort gn => numGenNum gn; AF _ _  gn => (numGenNum gn) } ;
-
-oper genAF: AdjForm -> Gender = \af ->
-   case af of { AdvF => Neut; AFShort gn => genGNum gn; AF _ _  gn => genGNum gn } ;
-
-oper caseAF: AdjForm -> Case = \af ->
-   case af of { AdvF => Nom; AFShort _ => Nom; AF c _ _ => c } ;
-
-oper animAF: AdjForm -> Animacy = \af ->
-   case af of { AF _ a _ => a ; _ => Inanimate } ;
-
--- The Degree parameter should also be more complex, since most Russian
--- adjectives have two comparative forms: 
--- attributive (syntactic (compound), declinable) - 
--- "более высокий" (corresponds to "more high")
--- and predicative (indeclinable)- "выше" (higher) and more than one 
--- superlative forms: "самый высокий" (corresponds to "the most high") - 
--- "высочайший" (the highest). 
-
--- Even one more parameter independent of the degree can be added,
--- since Russian adjectives in the positive degree also have two forms: 
--- long  (attributive and predicative) - "высокий" (high) and short (predicative) - "высок" 
--- although this parameter will not be exactly orthogonal to the 
--- degree parameter. 
--- Short form has no case declension, so in principle
--- it can be considered as an additional case.
-
--- Note: although the predicative usage of the long 
--- form is perfectly grammatical, it can have a slightly different meaning
--- compared to the short form. 
--- For example: "он - больной"  (long, predicative) vs. 
--- "он - болен" (short, predicative). 
-
---3 Adjective phrases
--- 
--- An adjective phrase may contain a complement, e.g. "моложе Риты".
--- Then it is used as postfix in modification, e.g. "человек, моложе Риты".
-param
-  AdjStress = EndStress | StemStress ;
-  AdjType = Qual | Rel ;
+----------------
+-- Misc
 
 oper
-  IsPostfixAdj = Bool ;
+  applyPrep : ComplementCase -> NounPhrase -> Str
+    = \prep,np -> case <np.pron, prep.hasPrep, prep.c> of {
+      <True, True, Gen|Dat|Acc|Ins|Ptv> => prep.s ++ "н" ++ BIND ++ (np.s ! prep.c) ;
+      _ => prep.s ++ np.s ! prep.c
+    } ;
 
--- Simple adjectives are not postfix:
+  applyIPronPrep : ComplementCase -> IPronounForms -> Str
+    = \prep,ip -> prep.s ++ selectIPronCase ip prep.c ;
 
--- Adjective type includes both non-degree adjective classes:
--- possesive ("мамин"[mother's], "лисий" [fox'es]) 
--- and relative ("русский" [Russian]) adjectives.
-
-  Adjective : Type = {s : AdjForm => Str} ;
-
--- A special type of adjectives just having positive forms 
--- (for semantic reasons)  is useful, e.g. "финский".
-
-  AdjPhrase = Adjective ** {p : IsPostfixAdj} ; 
-
-
- mkAdjPhrase : Adjective -> IsPostfixAdj  -> AdjPhrase = \novuj ,p -> novuj ** {p = p} ;
-
-----2 For $Relative$
--- 
---    RAgr = RNoAg | RAg {n : Number ; p : Person} ;
---    RCase = RPrep | RC Case ;
---
---2 For $Numeral$
-
-param DForm = unit  | teen  | ten | hund ;
-param Place = attr  | indep  ;
-param Size  = nom | nompl | sgg | plg ;
---param Gend = masc | fem | neut ;
-oper mille : Size => Str = table {
-  nom => "тысяча" ;
-  sgg => "тысячи" ;
-  _     => "тысяч"} ;
-
-oper gg : Str -> Gender => Str = \s -> table {_ => s} ;
-
---    CardOrd = NCard | NOrd ;
+  NounPhrase = {
+    s : Case => Str ;
+    -- , prep : Case => Str   -- what for is this neeeded?
+    pron : Bool ; -- this only indicates n-prefixable pronouns
+    a : Agr
+    } ;
 }
