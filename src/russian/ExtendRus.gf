@@ -25,7 +25,7 @@ concrete ExtendRus of Extend =
     UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
    ]
   with (Grammar=GrammarRus)
-  ** open Prelude, ResRus, ParadigmsRus, Overload, (E=Extend) in {
+  ** open Prelude, ResRus, ParadigmsRus, (E=Extend) in {
 
 lincat
   RNP     = {s : Agr => Str} ;

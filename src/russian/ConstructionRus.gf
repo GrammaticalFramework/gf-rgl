@@ -1,17 +1,17 @@
 concrete ConstructionRus of Construction = CatRus **
-  open Predef, SyntaxRus, SymbolicRus, ParadigmsRus, ResRus, Prelude,
+  open Predef, SyntaxRus, SymbolicRus, (P=ParadigmsRus), ResRus, Prelude,
     QuestionRus, SentenceRus, AdverbRus, AdjectiveRus, VerbRus, IdiomRus, (E=ExtendRus), (EX=ExtraRus) in {
 
 lin
-  hungry_VP = mkVP (mkA "голодный" "" "1*a/c'" PrefShort) ;
-  thirsty_VP = mkVP want_VV (mkVP (mkV imperfective "пить" "пью" "пьёт")) ;
-  tired_VP = mkVP (mkA "усталый" "" "1*a/c'" PrefFull) ;
-  scared_VP = mkVP (mkV imperfective "бояться" "боюсь" "боится") ;   -- intran
-  ill_VP = mkVP ( mkA "больной" "" "1*b" PrefShort) ;
-  ready_VP = mkVP (mkA "готовый" "" "1a" PrefShort) ;
+  hungry_VP = mkVP (P.mkA "голодный" "" "1*a/c'" PrefShort) ;
+  thirsty_VP = mkVP want_VV (mkVP (P.mkV Imperfective "пить" "пью" "пьёт")) ;
+  tired_VP = mkVP (P.mkA "усталый" "" "1*a/c'" PrefFull) ;
+  scared_VP = mkVP (P.mkV Imperfective "бояться" "боюсь" "боится") ;   -- intran
+  ill_VP = mkVP ( P.mkA "больной" "" "1*b" PrefShort) ;
+  ready_VP = mkVP (P.mkA "готовый" "" "1a" PrefShort) ;
 
   -- : NP -> QCl ;          -- what is x's name / wie heisst x (Ger)
-  what_name_QCl np = E.PredIAdvVP how_IAdv (ComplSlash (SlashV2a (mkV2 (mkV imperfective "звать" "зову" "зовёт") Gen)) np) ;
+  what_name_QCl np = E.PredIAdvVP how_IAdv (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Gen)) np) ;
 
 -- languages
 
@@ -26,20 +26,20 @@ lincat
 
 oper
   mkLanguage = overload {
-    mkLanguage : Str -> N = \s -> mkN (mkA s) masculine animate ;
-    mkLanguage : Str -> Str -> N = \s,zi -> mkN s masculine inanimate zi;
+    mkLanguage : Str -> N = \s -> P.mkN (P.mkA s) Masc Animate ;
+    mkLanguage : Str -> Str -> N = \s,zi -> P.mkN s Masc Inanimate zi;
   } ;
   mkHour : Str -> Symb = \s -> lin Symb {s=s} ;
 
 lin
   -- : Card -> Timeunit -> Adv ; -- (for) three hours
-  timeunitAdv card time = mkAdv ((mkNP <lin Card card : Card> time).s ! Nom) ;
+  timeunitAdv card time = P.mkAdv ((mkNP <lin Card card : Card> time).s ! Nom) ;
 
   -- : Card -> Card -> Timeunit -> Adv ; -- (cats live) ten to twenty years
   timeunitRange l u time = {
     -- TODO: Fancier logic. Also reqrite with applyPrep
-    s = from_Prep.s ++ (mkAdv ((mkNP <lin Card l : Card> <lin N (ellNoun time) : N>).s ! from_Prep.c)).s
-      ++ EX.on_to_Prep.s ++ (mkAdv ((mkNP <lin Card u : Card> time).s ! EX.on_to_Prep.c)).s
+    s = from_Prep.s ++ (P.mkAdv ((mkNP <lin Card l : Card> <lin N (ellNoun time) : N>).s ! from_Prep.c)).s
+      ++ EX.on_to_Prep.s ++ (P.mkAdv ((mkNP <lin Card u : Card> time).s ! EX.on_to_Prep.c)).s
     } ;
 
   oneHour = mkHour "1" ;
@@ -68,32 +68,32 @@ lin
   twentyFourHour = mkHour "24" ;
 
   -- : Hour -> Adv ; -- at three a.m./p.m.
-  timeHour h = mkAdv (in_Prep.s ++ h.s) ;
+  timeHour h = P.mkAdv (in_Prep.s ++ h.s) ;
 
   -- : Hour -> Card -> Adv ; -- at six forty a.m./p.m.
-  timeHourMinute h card = mkAdv ((timeHour h).s ++ BIND ++ ":" ++ BIND ++ card.s ! Neut ! Inanimate ! Nom) ;  -- TODO: ?
+  timeHourMinute h card = P.mkAdv ((timeHour h).s ++ BIND ++ ":" ++ BIND ++ card.s ! Neut ! Inanimate ! Nom) ;  -- TODO: ?
 
  -- TODO: Fix the following (genders)
   -- : Weekday -> Adv ;  -- on Monday
-  weekdayPunctualAdv w = mkAdv (in_Prep.s ++ w.sacc) ;         -- on Sunday
+  weekdayPunctualAdv w = P.mkAdv (in_Prep.s ++ w.sacc) ;         -- on Sunday
   -- : Weekday -> Adv ;  -- on Mondays
-  weekdayHabitualAdv w = mkAdv (EX.along_Prep.s ++ (w.pdat)) ; -- on Sundays
+  weekdayHabitualAdv w = P.mkAdv (EX.along_Prep.s ++ (w.pdat)) ; -- on Sundays
   -- : Weekday -> Adv ;      -- last Monday
-  weekdayLastAdv w = mkAdv (EX.to2_Prep.s ++ (PositA (mkA "прошлый")).s ! GSg Fem ! Inanimate ! Acc ++ w.sacc) ;
+  weekdayLastAdv w = P.mkAdv (EX.to2_Prep.s ++ (PositA (P.mkA "прошлый")).s ! GSg Fem ! Inanimate ! Acc ++ w.sacc) ;
   -- : Weekday -> Adv ;      -- next Monday
-  weekdayNextAdv w = mkAdv (EX.to2_Prep.s ++ (PositA (mkA "следующий")).s ! GSg Fem ! Inanimate ! Acc ++ w.sacc) ;
+  weekdayNextAdv w = P.mkAdv (EX.to2_Prep.s ++ (PositA (P.mkA "следующий")).s ! GSg Fem ! Inanimate ! Acc ++ w.sacc) ;
 
   -- : Month -> Adv ;                        -- in June
-  monthAdv month = mkAdv ("в" ++ month.sloc) ;
+  monthAdv month = P.mkAdv ("в" ++ month.sloc) ;
   -- : Year -> Adv ;                         -- in 1976
-  yearAdv year = mkAdv ("в" ++ year.s ! Loc) ;
+  yearAdv year = P.mkAdv ("в" ++ year.s ! Loc) ;
 
   -- : Monthday -> Month -> Adv ;            -- on 17 May
-  dayMonthAdv monthday month = mkAdv (monthday.s ! Gen ++ month.sgen) ;
+  dayMonthAdv monthday month = P.mkAdv (monthday.s ! Gen ++ month.sgen) ;
   -- : Month -> Year -> Adv ;                -- in May 2013
-  monthYearAdv month year = mkAdv ("в" ++ month.sloc ++ year.s ! Gen ++ "года") ;
+  monthYearAdv month year = P.mkAdv ("в" ++ month.sloc ++ year.s ! Gen ++ "года") ;
   -- : Monthday -> Month -> Year -> Adv ;    -- on 17 May 2013
-  dayMonthYearAdv monthday month year = mkAdv (monthday.s ! Gen ++ month.sgen ++ year.s ! Gen ++ "года") ;
+  dayMonthYearAdv monthday month year = P.mkAdv (monthday.s ! Gen ++ month.sgen ++ year.s ! Gen ++ "года") ;
 
   -- : Int -> Year ;  -- (year) 1963
   intYear = symb ;
@@ -142,34 +142,34 @@ lin
 ---- lexicon of special names
 
 lin
-  second_Timeunit = mkN "секунда" ;
-  minute_Timeunit = mkN "минута" ;
-  hour_Timeunit = mkN "час" Masc Inanimate "1c" ;
-  day_Timeunit = mkN "день" masculine inanimate "2*b" ;
-  week_Timeunit = mkN "неделя" Fem Inanimate "2a" ;
-  month_Timeunit = mkN "месяц" Masc Inanimate "5a" ;
-  year_Timeunit = lin N ((mkNplus (mkN "год")) ** {sloc="году"; pgen="лет"}) ;
+  second_Timeunit = P.mkN "секунда" ;
+  minute_Timeunit = P.mkN "минута" ;
+  hour_Timeunit = P.mkN "час" Masc Inanimate "1c" ;
+  day_Timeunit = P.mkN "день" Masc Inanimate "2*b" ;
+  week_Timeunit = P.mkN "неделя" Fem Inanimate "2a" ;
+  month_Timeunit = P.mkN "месяц" Masc Inanimate "5a" ;
+  year_Timeunit = lin N ((mkNplus (P.mkN "год")) ** {sloc="году"; pgen="лет"}) ;
 
-  monday_Weekday = mkN "понедельник" masculine inanimate ;
-  tuesday_Weekday = mkN "вторник" masculine inanimate ;
-  wednesday_Weekday = mkN "среда" feminine inanimate ;
-  thursday_Weekday = mkN "четверг" masculine inanimate ;
-  friday_Weekday = mkN "пятница" feminine inanimate ;
-  saturday_Weekday = mkN "суббота" feminine inanimate ;
-  sunday_Weekday = mkN "воскресенье" neuter inanimate ;
+  monday_Weekday = P.mkN "понедельник" Masc Inanimate ;
+  tuesday_Weekday = P.mkN "вторник" Masc Inanimate ;
+  wednesday_Weekday = P.mkN "среда" Fem Inanimate ;
+  thursday_Weekday = P.mkN "четверг" Masc Inanimate ;
+  friday_Weekday = P.mkN "пятница" Fem Inanimate ;
+  saturday_Weekday = P.mkN "суббота" Fem Inanimate ;
+  sunday_Weekday = P.mkN "воскресенье" Neut Inanimate ;
 
-  january_Month = mkN "январь" masculine inanimate;
-  february_Month = mkN "февраль" masculine inanimate;
-  march_Month = mkN "март" ;
-  april_Month = mkN "апрель" masculine inanimate "2a";
-  may_Month = mkN "май" ;
-  june_Month = mkN "июнь" masculine inanimate ;
-  july_Month = mkN "июль" masculine inanimate ;
-  august_Month = mkN "август" ;
-  september_Month = mkN "сентябрь" masculine inanimate ;
-  october_Month = mkN "октябрь" masculine inanimate ;
-  november_Month = mkN "ноябрь" masculine inanimate ;
-  december_Month = mkN "декабрь" masculine inanimate ;
+  january_Month = P.mkN "январь" Masc Inanimate;
+  february_Month = P.mkN "февраль" Masc Inanimate;
+  march_Month = P.mkN "март" ;
+  april_Month = P.mkN "апрель" Masc Inanimate "2a";
+  may_Month = P.mkN "май" ;
+  june_Month = P.mkN "июнь" Masc Inanimate ;
+  july_Month = P.mkN "июль" Masc Inanimate ;
+  august_Month = P.mkN "август" ;
+  september_Month = P.mkN "сентябрь" Masc Inanimate ;
+  october_Month = P.mkN "октябрь" Masc Inanimate ;
+  november_Month = P.mkN "ноябрь" Masc Inanimate ;
+  december_Month = P.mkN "декабрь" Masc Inanimate ;
 
 -- : Language -> Adv ; -- in English, auf englisch, englanniksi, etc
 lin
