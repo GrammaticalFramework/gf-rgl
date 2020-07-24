@@ -79,7 +79,7 @@ lin
 
   -- : Quant -> Num -> Det ;  -- these five
   DetQuant quant num = {
-    s=\\g,a,c => num.s ! g ! a ! c ++ quant.s ! (gennum g (numSizeNumber num.size)) ! a ! c ;
+    s=\\g,a,c => quant.s ! (gennum g (numSizeNumber num.size)) ! a ! c ++ num.s ! g ! a ! c ;
     g=quant.g ;
     c=quant.c ;
     size=num.size
