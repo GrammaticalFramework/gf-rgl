@@ -38,26 +38,26 @@ lin
     c=Nom
     } ;
 
-  above_Prep = {s="над" ; c=Ins; hasPrep=True} ;
-  after_Prep = {s="после" ; c=Gen; hasPrep=True };
-  before_Prep = {s="перед" ; c=Ins; hasPrep=True};
-  behind_Prep = {s="за" ; c=Ins; hasPrep=True };
-  between_Prep = {s="между" ; c=Ins; hasPrep=True};
-  by8agent_Prep = {s=["с помощью"] ; c=Gen; hasPrep=True};
-  by8means_Prep = {s=["с помощью"] ; c=Gen; hasPrep=True};
-  during_Prep = {s=["в течение"] ; c=Gen; hasPrep=True};
-  except_Prep = {s=["за исключением"] ; c=Gen; hasPrep=True};
-  for_Prep = {s="для" ; c=Gen ; hasPrep=True};
-  from_Prep = {s="от" ; c=Gen ; hasPrep=True} ;
-  in8front_Prep = {s="перед" ; c=Ins; hasPrep=True};
-  in_Prep = {s="в" ; c=Loc ; hasPrep=True} ;
-  on_Prep = {s="на" ; c=Loc ; hasPrep=True};
+  above_Prep = mkPrep "над" Ins ;
+  after_Prep = mkPrep "после" Gen ;
+  before_Prep = mkPrep "перед" Ins ;
+  behind_Prep = mkPrep "за" Ins ;
+  between_Prep = mkPrep "между" Ins ;
+  by8agent_Prep = mkPrep ["с помощью"] Gen ;
+  by8means_Prep = mkPrep ["с помощью"] Gen ;
+  during_Prep = mkPrep "в течение" Gen ;
+  except_Prep = mkPrep ["за исключением"] Gen ;
+  for_Prep = mkPrep "для" Gen ;
+  from_Prep = mkPrep "от" Gen ;
+  in8front_Prep = mkPrep "перед" Ins ;
+  in_Prep = mkPrep "в" Loc ;
+  on_Prep = mkPrep "на" Loc ;
   part_Prep = {s="" ; c=Nom ; hasPrep=False }; -- missing in Russian???
   possess_Prep = {s="" ; c=Gen ; hasPrep=False};
-  through_Prep = {s="через" ; c=Acc ; hasPrep=True};
-  to_Prep = {s="к" ; c=Dat ; hasPrep=True} ;
-  under_Prep = {s="под" ; c=Ins ; hasPrep=True};
-  without_Prep = {s="без" ; c=Gen; hasPrep=True };
+  through_Prep = mkPrep "через" Acc ;
+  to_Prep = mkPrep "к" Dat ;
+  under_Prep = mkPrep "под" Ins ;
+  without_Prep = mkPrep "без" Gen ;
 
   or_Conj = mkConj "или" Sg ;
   and_Conj = mkConj "и" Pl ;
@@ -65,7 +65,7 @@ lin
   either7or_DConj = mkConj "либо" (comma ++ "либо") Sg ;
   if_then_Conj = mkConj "если" (comma ++ "то") Sg ;
 
-  with_Prep = {s="с" ; c=Ins; hasPrep=True};
+  with_Prep = mkPrep "с" Ins ;
 
   please_Voc = ss "пожалуйста" ;
 
