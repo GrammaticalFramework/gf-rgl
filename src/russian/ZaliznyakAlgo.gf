@@ -838,7 +838,7 @@ oper
     = \v ->
       case v of {
         s + ("у" | "ю" | "усь" | "юсь") => s ;
-        _ => Predef.error "Error: incorrect Sg P1 Pres/Fut"
+        _ => Predef.error ("Error: incorrect Sg P1 Pres/Fut:" + v)
       } ;
 
   sg3StemAndConjFromVerb : Str -> Str * Conjug
@@ -894,7 +894,7 @@ oper
         <I | I', i+("ать"|"ять"), s2, s3> => 6 ;
         <II, i+"ить", s2, s3> => 4 ;  -- после шип  -- here and below alternations possible
         <II, i+("ать"|"ять"|"еть"), s2, s3> => 5 ;
-        _ => Predef.error ("Error: guessing verb conjugation does not work for " ++ inf)
+        _ => Predef.error ("Error: guessing verb conjugation does not work for:" + sg1 + sg3.p1 + ":" + inf + ":" + sgP1PresFut + ":" + sgP3PresFut)
       } in <ZV conjtype No (VSS (case sg3.p2 of {I' => _B; _ => _A}) _A), refl> ;
 
   makeVerb : Str -> Str -> Str -> ZVIndex -> Aspect -> Transitivity -> Reflexivity -> VerbForms

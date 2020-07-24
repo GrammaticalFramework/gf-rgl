@@ -81,6 +81,16 @@ oper
       = \word, g, anim, zi -> lin N (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
     mkN : A -> Gender -> Animacy -> N
       = \a, g, anim -> lin N (makeNFFromAF a g anim) ;
+
+    -- For backwards compatibility:
+    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N
+      = \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim ->
+        lin N {
+          snom=nomSg;pnom=nomPl;sgen=genSg;pgen=genPl;sdat=datSg;pdat=datPl;sacc=accSg;pacc=accPl;sins=instSg;pins=instPl;sprep=preposSg;pprep=preposPl;
+          sloc=prepos2Sg; sptv=genSg ; svoc=nomSg ;
+          anim=anim;
+          g=g
+        } ;
   } ;
 
   mkN2 = overload {
@@ -159,15 +169,30 @@ oper
       = \asp,tran,inf,sg1,sg3 -> lin V (guessVerbForms asp tran inf sg1 sg3) ;
     mkV : Aspect -> Transitivity -> Str -> Str -> Str -> Str -> V
       = \asp,tran,inf,sg1,sg3,zv -> lin V (Z.makeVerb inf sg1 sg3 (Z.parseVerbIndex zv) asp tran (Z.infStemFromVerb inf).p2 ) ;
+    -- For backwards compatibility:
+    mkV : Aspect -> (presSg1,presSg2,presSg3,presPl1,presPl2,presPl3,pastSgMasc,imp,inf: Str) -> V
+      = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3, sgMascPast, imperSgP2, inf ->
+        lin V ((guessVerbForms asp Transitive inf sgP1 sgP3) ** {
+          prsg1=Z.dropRefl sgP1 ;
+          prsg2=Z.dropRefl sgP2 ;
+          prsg3=Z.dropRefl sgP3 ;
+          prpl1=Z.dropRefl plP1 ;
+          prpl2=Z.dropRefl plP2 ;
+          prpl3=Z.dropRefl plP3 ;
+        })
   } ;
 
   mkV2 = overload {
     mkV2 : V -> V2
       = \vf -> lin V2 (vf ** {c={s=[] ; c=Acc ; hasPrep=False}}) ;
     mkV2 : V -> Case -> V2
-      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; hasPrep=False}}) ;
+      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; hasPrep=True}}) ;
     mkV2 : V -> Prep -> V2
       = \vf, prep -> lin V2 (vf ** {c=prep}) ;
+
+    -- For backwards compatibility:
+    mkV2 : V -> Str -> Case -> V2
+      = \vf, prep_s, c -> lin V2 (vf ** {c={s=prep_s ; c=c ; hasPrep=True}})
     } ;
 
   mkV3 = overload {
@@ -175,12 +200,35 @@ oper
       = \vf, cas1, cas2 -> lin V3 (vf ** {c={s=[] ; c=cas1 ; hasPrep=False} ; c2={s=[] ; c=cas2 ; hasPrep=False}} ) ;
     mkV3 : V -> Prep -> Prep -> V3   -- "сложить письмо в конверт"
       = \vf, prep1, prep2 -> lin V3 (vf ** {c=prep1 ; c2=prep2} ) ;
+
+    -- For backwards compatibility:
+    mkV3 : V -> Str -> Str -> Case -> Case -> V3
+      = \vf, prep1, prep2, cas1, cas2 -> lin V3 (vf ** {c={s=prep1 ; c=cas1 ; hasPrep=True} ; c2={s=prep2 ; c=cas2 ; hasPrep=True}} ) ;
   } ;
 
   dirV2 : V -> V2 ;
   dirV2 v = mkV2 v Acc ;
   tvDirDir : V -> V3 ;
   tvDirDir v = mkV3 v Acc Dat ;
+
+  -- for backwards compatibility only. Use mkV methods instead.
+  -- These are deprecated!
+param Conjugation = First | FirstE | Second | SecondA | Mixed | Dolzhen | Foreign ;
+oper
+  first, firstE, second, mixed, dolzhen, foreign : Conjugation ;
+  first = First ; firstE = FirstE ; second = Second ; secondA = SecondA ; mixed = Mixed ; dolzhen = Dolzhen; foreign = Foreign;
+
+  -- Do not use the following method as it is only approximate because it does not use most informative SgP3 amd
+  -- SgP3 is being guessed instead from SgP1.
+  regV : Aspect -> Conjugation -> (stemPresSg1,endPresSg1,pastSg1,imp,inf : Str) -> V ;
+  regV asp bconj stemPresSg1 endPresSg1 pastSg1 imp inf =
+    let sg1=stemPresSg1 + endPresSg1 in
+    let sg3 : Str = case bconj of {
+      First => (Z.sg1StemFromVerb sg1) + "ет" ;
+      FirstE => (Z.sg1StemFromVerb sg1) + "ёт" ;
+      Second | SecondA => (Z.sg1StemFromVerb sg1) + "ит" ;
+      _ => (Z.sg1StemFromVerb sg1) + "ет"
+      } in (guessVerbForms asp Transitive inf sg1 sg3);
 
 ------------------------
 -- Adverbs, prepositions, conjunctions, ...
