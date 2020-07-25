@@ -8,13 +8,12 @@ lin
   tired_VP = mkVP (P.mkA "усталый" "" "1*a/c'" PrefFull) ;
   scared_VP = mkVP (P.mkV Imperfective "бояться" "боюсь" "боится") ;   -- intran
   ill_VP = mkVP ( P.mkA "больной" "" "1*b" PrefShort) ;
-  ready_VP = mkVP (P.mkA "готовый" "" "1a" PrefShort) ;
+  ready_VP = mkVP (P.mkA "готовый" "" "1a" PrefFull) ;
 
   -- : NP -> QCl ;          -- what is x's name / wie heisst x (Ger)
   what_name_QCl np = E.PredIAdvVP how_IAdv (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Gen)) np) ;
 
 -- languages
-
 lincat
   Language = N ;
   Timeunit = N ;
@@ -79,9 +78,9 @@ lin
   -- : Weekday -> Adv ;  -- on Mondays
   weekdayHabitualAdv w = P.mkAdv (EX.along_Prep.s ++ (w.pdat)) ; -- on Sundays
   -- : Weekday -> Adv ;      -- last Monday
-  weekdayLastAdv w = P.mkAdv (EX.to2_Prep.s ++ (PositA (P.mkA "прошлый")).s ! GSg Fem ! Inanimate ! Acc ++ w.sacc) ;
+  weekdayLastAdv w = P.mkAdv (EX.to2_Prep.s ++ (PositA (P.mkA "прошлый")).s ! GSg w.g ! Inanimate ! Acc ++ w.sacc) ;
   -- : Weekday -> Adv ;      -- next Monday
-  weekdayNextAdv w = P.mkAdv (EX.to2_Prep.s ++ (PositA (P.mkA "следующий")).s ! GSg Fem ! Inanimate ! Acc ++ w.sacc) ;
+  weekdayNextAdv w = P.mkAdv (EX.to2_Prep.s ++ (PositA (P.mkA "следующий")).s ! GSg w.g ! Inanimate ! Acc ++ w.sacc) ;
 
   -- : Month -> Adv ;                        -- in June
   monthAdv month = P.mkAdv ("в" ++ month.sloc) ;
@@ -115,7 +114,7 @@ lin
     let ap=adjFormsAdjective a in
     let as_n_units=(how_IAdv.s
       ++ card.s ! Neut ! Inanimate ! Nom
-      ++ cn.s ! numSizeNum card.size ! (numSizeCase card.size)) in {
+      ++ cn.s ! numSizeNum Nom card.size ! (numSizeCase Nom card.size)) in {   --? Nom?
     s=\\gn,anim,cas=> ap.s!gn!anim!cas ++ as_n_units ;
     short=\\a=> ap.short ! a ++ as_n_units ;
     preferShort=PrefFull ;
@@ -125,7 +124,7 @@ lin
   -- : Card -> CN -> NP -> NP ;  -- x ounces of this flour
   n_units_of_NP card cn np = {
     s = \\cas => card.s ! Neut ! Inanimate ! cas
-      ++ cn.s ! numSizeNum card.size ! (numSizeCase card.size)
+      ++ cn.s ! numSizeNum cas card.size ! (numSizeCase cas card.size)
       ++ np.s ! Gen ;
     pron=False ;
     a = Ag (gennum cn.g (numSizeNumber card.size)) P3
@@ -135,7 +134,7 @@ lin
     s=\\n,cas=> cn.s ! n ! cas
       ++ "на"
       ++ card.s ! Neut ! Inanimate ! Nom
-      ++ cn_unit.s ! (numSizeNum card.size) ! (numSizeCase card.size)
+      ++ cn_unit.s ! numSizeNum Nom card.size ! numSizeCase Nom card.size
     } ;
 
 ----------------------------------------------

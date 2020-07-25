@@ -12,8 +12,8 @@ lin
       Infinitive => let parts = R.verbAgr cl.verb Infinitive temp.t cl.a pol.p in
         temp.s ++ parts.p1 ++ cl.subj ++ pol.s ++ cl.adv ++ parts.p2 ++ cl.dep ++ cl.compl ;
       Ind => let parts = R.verbAgr cl.verb Ind temp.t cl.a pol.p in
---          temp.s ++ parts.p1 ++ cl.subj ++ pol.s ++ cl.adv ++ parts.p2 ++ cl.dep ++ cl.compl ;
-          temp.s ++ cl.adv ++ pol.s ++ parts.p1 ++ parts.p2 ++ cl.dep ++ cl.subj ++ cl.compl ;
+          temp.s ++ parts.p1 ++ cl.subj ++ pol.s ++ cl.adv ++ parts.p2 ++ cl.dep ++ cl.compl ;
+--          temp.s ++ cl.adv ++ pol.s ++ parts.p1 ++ parts.p2 ++ cl.dep ++ cl.subj ++ cl.compl ;
       Sbjv => let parts = R.verbAgr cl.verb Sbjv temp.t cl.a pol.p in
         temp.s ++ parts.p1 ++ cl.subj ++ pol.s ++ cl.adv ++ parts.p2 ++ cl.dep ++ cl.compl ;
       Imperative => let parts = R.verbAgr cl.verb Imperative temp.t cl.a pol.p in
@@ -102,7 +102,7 @@ lin
   -- : NP -> VP -> Cl ;         -- John walks - Иван гуляет
   PredVP np vp = {
     subj=np.s ! Nom ;
-    adv=[] ;
+    adv=vp.adv ! np.a ;
     verb=vp.verb ;
     dep=vp.dep ;
     compl=vp.compl ! np.a ;
@@ -112,7 +112,7 @@ lin
   -- : SC -> VP -> Cl ;         -- that she goes is good - что она идёт есть хорошо
   PredSCVP sc vp = {
     subj=sc.s ;
-    adv=[] ;
+    adv=vp.adv ! (Ag (GSg Neut) P3) ;  -- ???
     verb=vp.verb ;
     dep=vp.dep ;
     compl=vp.compl ! Ag (GSg Neut) P3 ;  -- ???

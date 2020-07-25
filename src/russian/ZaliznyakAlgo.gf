@@ -894,7 +894,8 @@ oper
         <I | I', i+("ать"|"ять"), s2, s3> => 6 ;
         <II, i+"ить", s2, s3> => 4 ;  -- после шип  -- here and below alternations possible
         <II, i+("ать"|"ять"|"еть"), s2, s3> => 5 ;
-        _ => Predef.error ("Error: guessing verb conjugation does not work for:" + sg1 + sg3.p1 + ":" + inf + ":" + sgP1PresFut + ":" + sgP3PresFut)
+       -- _ => 1
+         _ => Predef.error ("Error: guessing verb conjugation does not work for:" + sg1 + sg3.p1 + ":" + inf + ":" + sgP1PresFut + ":" + sgP3PresFut)
       } in <ZV conjtype No (VSS (case sg3.p2 of {I' => _B; _ => _A}) _A), refl> ;
 
   makeVerb : Str -> Str -> Str -> ZVIndex -> Aspect -> Transitivity -> Reflexivity -> VerbForms
