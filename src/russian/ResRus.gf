@@ -1171,6 +1171,42 @@ oper
     comp = []
     } ;
 
+  a_forms = { -- these are approximate translations of indef article; preventing DetNP parsing problems
+    msnom, sm = "некий" ;
+    fsnom, sf = "некая" ;
+    nsnom, sn = "некое" ;
+    pnom, sp = "некии" ;
+    msgen = "некого" ;
+    fsgen = "некой" ;
+    pgen  = "неких" ;
+    msdat = "некому" ;
+    fsacc = "некую" ;
+    msins = "неким" ;
+    fsins = "некой" ;
+    pins  = "неким" ;
+    msprep = "некой" ;
+    preferShort = PrefFull ;
+    comp = []
+    } ;
+
+  the_forms = { -- these are approximate translations of def article; preventing DetNP parsing problems
+    msnom, sm = "данный" ;
+    fsnom, sf = "данная" ;
+    nsnom, sn = "данное" ;
+    pnom, sp = "данные" ;
+    msgen = "данного" ;
+    fsgen = "данной" ;
+    pgen  = "данных" ;
+    msdat = "данному" ;
+    fsacc = "данную" ;
+    msins = "данным" ;
+    fsins = "данной" ;
+    pins  = "данных" ;
+    msprep = "данном" ;
+    preferShort = PrefFull ;
+    comp = []
+    } ;
+
 ---------------
 -- Numerals -- Числительные
 ---------------
