@@ -23,7 +23,7 @@ lin
 
   -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and
   CNSymbNP det cn xs = {
-    s=\\cas => det.s ! cn.g ! cn.anim ! cas ++ sizeNumCase cn.s det.size ++ xs.s ;
+    s=\\cas => det.s ! cn.g ! cn.anim ! cas ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ++ xs.s ;
     pron=False ;
     a=Ag (gennum cn.g (numSizeNumber det.size)) P3
 		} ;

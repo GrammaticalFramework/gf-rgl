@@ -1183,13 +1183,6 @@ oper
     Num2_4 => "тысячи" ;   -- NumAll ?
     _     => "тысяч"
     } ;
-  sizeNumCase : (Number => Case => Str) -> NumSize -> Str
-    = \nt,size -> case size of {
-      Num1 => nt ! Sg ! Nom ;
-      Num2_4 => nt ! Sg ! Gen ;   --?
-      Num5 => nt ! Pl ! Gen ;
-      NumAll => nt ! Pl ! Nom
-    } ;
 
 ---------------
 -- Adverbs -- Наречия
@@ -1215,10 +1208,20 @@ oper
     = \ns -> case ns of {Num1 => Sg ; NumAll | Num2_4 | Num5 => Pl} ;
 
   -- The following two used in tandem to form the word, controlled by numeral
-  numSizeNum : NumSize -> Number
-    = \ns -> case ns of {Num1 | Num2_4 => Sg ; Num5 | NumAll => Pl} ;
-  numSizeCase : NumSize -> Case
-    = \ns -> case ns of {Num1 | NumAll => Nom ; Num2_4 | Num5 => Gen} ;
+  numSizeNum : Case -> NumSize -> Number
+    = \cas,ns -> case <cas,ns> of {
+      <Nom|Acc,Num2_4> => Sg ;
+      <_,Num1> => Sg ;
+      _ => Pl
+      } ;
+  numSizeCase : Case -> NumSize -> Case
+    = \cas,ns -> case <cas,ns> of {
+      <Nom,Num1 | NumAll> => Nom ;
+      <Nom,Num2_4 | Num5> => Gen ;
+      <Acc,Num1 | NumAll> => Nom ;
+      <Acc,Num2_4 | Num5> => Gen ;
+      _ => cas
+      } ;
 
 oper -- TODO:
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;

@@ -20,7 +20,7 @@ lin
   -- : VV -> VP -> VP ;  -- want to run
   ComplVV vv vp = vp ** {
     verb=vv.v ;
-    dep=verbInf vp.verb ;
+    dep=verbInf vp.verb ++ vp.dep ;
     adv=\\a=>vv.modal ! a ++ vp.adv ! a
     } ;
 
@@ -111,7 +111,7 @@ lin
 
   -- : VPSlash -> NP -> VP ; -- love it
   ComplSlash vps np = vps ** {
-    compl=\\a => vps.compl ! a ++ (applyPrep vps.c np)      -- hasPrep? order?
+    compl=\\a => vps.compl ! np.a ++ (applyPrep vps.c np)      -- hasPrep? order? compl agr lost?
     } ;
 
   -- : VV -> VPSlash -> VPSlash ;       -- want to buy

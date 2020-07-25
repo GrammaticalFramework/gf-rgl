@@ -9,8 +9,7 @@ lin
   -- : Det -> CN -> NP ;   -- the man
   DetCN det cn =
     let n = numSizeNumber det.size in {
-      -- TODO: fix some cases in README
-      s=\\cas => det.s ! cn.g ! cn.anim ! cas ++ sizeNumCase cn.s det.size ;
+      s=\\cas => det.s ! cn.g ! cn.anim ! cas ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size;
       pron=False ;
       a=Ag (gennum det.g n) P3
       } ;
@@ -26,7 +25,7 @@ lin
   UsePron pron = lin NP (pronFormsPronoun pron) ;
 
   -- : Predet -> NP -> NP ; -- only the man
-  PredetNP predet np = np ** {s=\\cas => predet.s ! (agrGenNum np.a) ! Inanimate ! cas ++ np.s ! numSizeCase predet.size} ;
+  PredetNP predet np = np ** {s=\\cas => predet.s ! (agrGenNum np.a) ! Inanimate ! cas ++ np.s ! numSizeCase cas predet.size} ;
 
   -- : NP -> V2  -> NP ;    -- the man seen
   PPartNP np v2 = np ** {
@@ -43,14 +42,14 @@ lin
 
   -- : Det -> NP ;        -- these five
   DetNP det = {
-    s=\\c => det.s ! det.g ! Inanimate ! c ;
+    s=\\cas => det.s ! det.g ! Inanimate ! cas ;
     pron=False ;
     a=Ag (gennum det.g (numSizeNumber det.size)) P3
     } ;
 
   -- : CN -> NP ;           -- (beer)
   MassNP cn = {
-    s = \\c => cn.s ! Sg ! c ;   -- can it be plural-only? eg квасцы
+    s = \\cas => cn.s ! Sg ! cas ;   -- can it be plural-only? eg квасцы
     pron=False ;
     a = Ag (gennum cn.g Sg) P3
     } ;
@@ -73,13 +72,13 @@ lin
   -- : Numeral -> Card  ;  -- fifty-one
   NumNumeral n = n ;
   -- : Card -> Num
-  NumCard c = c ;
+  NumCard card = card ;
   -- : Digits -> Card ;  -- 51
   NumDigits n = {s = \\_,_,_ => n.s ; size = n.size } ;
 
   -- : Quant -> Num -> Det ;  -- these five
   DetQuant quant num = {
-    s=\\g,a,c => quant.s ! (gennum g (numSizeNumber num.size)) ! a ! c ++ num.s ! g ! a ! c ;
+    s=\\g,a,cas => quant.s ! (gennum g (numSizeNumber num.size)) ! a ! cas ++ num.s ! g ! a ! cas ;
     g=quant.g ;
     c=quant.c ;
     size=num.size
@@ -87,10 +86,9 @@ lin
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   DetQuantOrd quant num ord = {
-    s=\\g,a,c => num.s ! g ! a ! c
-      ++ quant.s ! (gennum g (numSizeNumber num.size)) ! a ! c
-      --GenNum => Animacy => Case => Str
-      ++ (adjFormsAdjective ord).s ! gennum quant.g (numSizeNum num.size) ! Inanimate ! numSizeCase num.size ;
+    s=\\g,a,cas => num.s ! g ! a ! cas
+      ++ quant.s ! (gennum g (numSizeNumber num.size)) ! a ! cas
+      ++ (adjFormsAdjective ord).s ! gennum quant.g (numSizeNum cas num.size) ! Inanimate ! numSizeCase cas num.size ;
     g=quant.g ;
     c=quant.c ;
     size=num.size
@@ -115,14 +113,14 @@ lin
 
   -- : AdN -> Card -> Card
   AdNum adn card = card ** {
-    s=\\g,a,c => adn.s ++ card.s ! g ! a ! c
+    s=\\g,a,cas => adn.s ++ card.s ! g ! a ! cas
     } ;
 
 ---------------
 -- Common nouns
 
   -- : AP -> CN -> CN ;   -- big house - большой дом
-  AdjCN ap cn = cn ** {s = \\n,c => preOrPost (notB ap.isPost) (ap.s ! (gennum cn.g n) ! cn.anim ! c) (cn.s ! n ! c)} ;
+  AdjCN ap cn = cn ** {s = \\n,cas => preOrPost (notB ap.isPost) (ap.s ! (gennum cn.g n) ! cn.anim ! cas) (cn.s ! n ! cas)} ;
 
   -- : N -> CN
   UseN n = nounFormsNoun n ;

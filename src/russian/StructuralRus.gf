@@ -144,8 +144,8 @@ lin
       <Animate,Acc> => "скольких"   -- also as Nom?
       } ;
     g=Neut ;
-    size=NumAll ;    --it depends???
-    c=Nom    --???
+    size=Num5 ;    --it depends???
+    c=Gen    --???
     } ;
 
   almost_AdA = ss "почти" ;
