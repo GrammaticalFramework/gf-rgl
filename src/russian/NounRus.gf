@@ -182,8 +182,10 @@ lin
 ---------------------------------------------------
 -- Backwards compatibility
   --  : Quant ;       -- the (house), the (houses)
-  DefArt = {s = \\gn,anim,cas=>[] ; short=\\a=>[] ; c=Nom; g = Neut; size = Num1 ; preferShort=PrefFull};
+  DefArt = adjFormsAdjective the_forms ** {preferShort=PrefFull ; g=Neut ; c=Nom} ;
   --  : Quant ;       -- a (house), (houses)
-  IndefArt = {s = \\gn,anim,cas=>[] ; short=\\a=>[] ; c=Nom; g = Neut; size = Num1 ; preferShort=PrefFull};
+  -- IndefArt = {s = \\gn,anim,cas=>[] ; short=\\a=>[] ; c=Nom; g = Neut; size = Num1 ; preferShort=PrefFull};
+
+  IndefArt = adjFormsAdjective a_forms ** {preferShort=PrefFull ; g=Neut ; c=Nom} ;
 
 }
