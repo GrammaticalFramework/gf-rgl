@@ -137,7 +137,7 @@ oper sot : (Gender => Animacy => Case => Str) -> (Gender => Animacy => Case => S
 		  <(Nom|VocRus|Acc), _  >     => n ! Fem ! Animate ! c + "сот";
 		  <Gen|Ptv, _        >     => n ! Fem ! Animate ! c + "сот";
 		  <Dat, _        >     => n ! Fem ! Animate ! c + "стам";
-		  <Ins, _       >     => n ! Fem ! Animate ! c + "юстами";
+		  <Ins, _       >     => n ! Fem ! Animate ! c + "стами";
 		  <Pre|Loc, _   >     => n ! Fem ! Animate ! c + "ста"
 		};
 
