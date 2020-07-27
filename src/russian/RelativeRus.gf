@@ -16,11 +16,11 @@ lin
     } ;
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls = {
-    subj=rp.s ;
-    adv=\\a=>cls.adv ;  -- TODO: this should be after subj in this case
+    subj=\\gn,anim,cas => cls.c.s ++ (rp.s ! gn ! Inanimate ! cls.c.c) ++ cls.subj ;
+    adv=\\a=>cls.adv ;
     verb=cls.verb ;
     dep=cls.dep ;
-    compl=\\a=>cls.compl ;
+    compl=\\a=> cls.compl ;
     a=cls.a
     } ;
 

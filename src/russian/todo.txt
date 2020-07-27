@@ -29,3 +29,7 @@ AllRus: складываем &+ те всех в кого &+ -то пит
 LangRus-NEW> некоторое из этих двадцати червей существует
 
 Inherent number for nouns. eg, for geonames or pluralia tantum.
+
+** UseCl (TTAnt TPres ASimul) PPos (CleftNP (UsePron she_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash ∅ (SlashVP somebody_NP (SlashV2a write_V2)))))
+LangRus-NEW> она это , которую кто &+ -то пишет
+LangRus-OLD> это она , которую кто-то пишет
