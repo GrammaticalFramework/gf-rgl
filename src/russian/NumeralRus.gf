@@ -220,9 +220,9 @@ lin pot2plus d e =
 lin pot2as3 n =
   {s = n.s ! indep ; size = n.size} ;
 lin pot3 n =
-  {s = \\ g, a, c => n.s ! attr ! Fem ! a ! c ++ mille ! n.size ; size = Num5} ;
+  {s = \\ g, a, c => n.s ! attr ! Fem ! a ! c ++ mille.s ! numSizeNum c n.size ! numSizeCase c n.size ; size = Num5} ;
 lin pot3plus n m =
-  {s = \\ g, a, c => n.s ! attr ! Fem ! a ! c ++ mille ! n.size ++ m.s ! indep ! g ! a ! c ; size = Num5} ;
+  {s = \\ g, a, c => n.s ! attr ! Fem ! a ! c ++ mille.s ! numSizeNum c n.size ! numSizeCase c n.size ++ m.s ! indep ! g ! a ! c ; size = Num5} ;
 
 --- TODO
 --- raz/odin

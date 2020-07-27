@@ -81,6 +81,7 @@ concrete ConjunctionRus of Conjunction =
     -- ConjDet  : Conj -> ListDAP -> Det ;   -- his or her
     ConjDet conj xs = {
       s=\\g,anim,cas => conj.s1 ++ xs.s1 ! g ! anim ! cas ++ conj.s2 ++ xs.s2 ! g ! anim ! cas ;
+      type=NormalDet ; -- hopefully ok to drop empty cases
       g=xs.g ;
       c=xs.c ;
       size=xs.size
