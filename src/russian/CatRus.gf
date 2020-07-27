@@ -46,7 +46,7 @@ lincat
   ClSlash = {
     subj,compl,adv : Str ;
     verb : VerbForms ;
-    dep : Str ;  -- dependent infinites and such
+    dep : Str ;  -- dependent infiniteve and such
     a : Agr ;
     c : ComplementCase
     } ;
