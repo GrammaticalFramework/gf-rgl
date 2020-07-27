@@ -227,6 +227,7 @@ oper
     let sg1=stemPresSg1 + endPresSg1 in
     let sg3 : Str = case bconj of {
       First => (Z.sg1StemFromVerb sg1) + "ет" ;
+      Mixed => (Z.sg1StemFromVerb sg1) + "чет" ;
       FirstE => (Z.sg1StemFromVerb sg1) + "ёт" ;
       Second | SecondA => (Z.sg1StemFromVerb sg1) + "ит" ;
       _ => (Z.sg1StemFromVerb sg1) + "ет"

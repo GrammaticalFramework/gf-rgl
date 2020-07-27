@@ -55,12 +55,14 @@ lincat
 
   Det, DAP = {
     s : DetTable ;
+    type : DetType ; -- main purpose is to avoid emptiness of articles, but can be reused later for something else
     g : Gender ;
     c : Case ;
     size : NumSize
     } ;
   Predet = ResRus.Adjective ** {size : NumSize} ;
-  Quant, IQuant = ResRus.Adjective ** {g: Gender; c: Case} ;
+  IQuant = ResRus.Adjective ** {g: Gender; c: Case} ;
+  Quant = ResRus.Adjective ** {g: Gender; c: Case; type: DetType} ;
   Num, Numeral, Card = NumDet ;
   Digits = {s : Str ; size: NumSize} ;
 
@@ -72,7 +74,8 @@ lincat
     a : Agr
     } ;
 
-  IP, RP = ResRus.IPronounForms ;
+  IP = ResRus.IPronounForms ;
+  RP = ResRus.RPronounForms ;
   IComp = {s : AgrTable ; adv : Str ; cop : CopulaType } ;
   IDet = {
     s : DetTable ;
@@ -116,5 +119,5 @@ linref
   QCl = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ;
   RCl = \s -> s.subj ! GSg Neut ! Inanimate ! Nom ++ s.adv ! Ag (GSg Neut) P3 ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Ag (GSg Neut) P3  ;
   IP = \s -> s.nom ;
-  RP = \s -> s.nom ;
+  RP = \s -> s.s!GSg Neut!Inanimate!Nom ;
 }

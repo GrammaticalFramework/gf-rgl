@@ -15,8 +15,8 @@ lin
     a=cl.a
     } ;
   -- : RP -> ClSlash -> RCl ; -- whom John loves
-  RelSlash rp cls = let rp_as_adj = rp.poss ** {preferShort=PrefFull;  sf,sm,sn,sp,comp = []} in {
-    subj=(adjFormsAdjective rp_as_adj).s ;     -- TODO: cls.c and applyPrep not used?
+  RelSlash rp cls = {
+    subj=rp.s ;
     adv=\\a=>cls.adv ;  -- TODO: this should be after subj in this case
     verb=cls.verb ;
     dep=cls.dep ;
@@ -24,10 +24,9 @@ lin
     a=cls.a
     } ;
 
-  -- RelVP : RP -> VP -> RCl ;      -- who loves John
-  RelVP rp vp =
-    let rp_as_adj = rp.poss ** {preferShort=PrefFull;  sf,sm,sn,sp,comp = []} in {
-    subj=(adjFormsAdjective rp_as_adj).s ;
+  -- : RP -> VP -> RCl ;      -- who loves John
+  RelVP rp vp = {
+    subj=rp.s;
     adv=\\a=>[] ;
     verb=vp.verb ;
     dep=vp.dep ;
@@ -36,9 +35,11 @@ lin
     } ;
 
   -- : RP ;                      -- which
-  IdRP = lin RP (doKotoryjPron "который" (Ag (GSg Neut) P3) Inanimate) ;
+  IdRP = lin RP (doKotoryjPron "который" (Ag (GSg Neut) P3)) ;
 
   -- Prep -> NP -> RP -> RP ;  -- the mother of whom
-  FunRP prep np rp = (prependIP (np.s ! Nom ++ prep.s) rp) ;   -- TODO: This is wrong... RP should be in agreement, but with records it's a bit hard...
-
+  FunRP prep np rp = {
+    s=\\gn,anim,cas => np.s ! cas ++ prep.s ++ rp.s ! gn ! Inanimate ! prep.c ;
+    a=np.a
+    } ;
 }

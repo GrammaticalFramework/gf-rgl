@@ -31,6 +31,7 @@ param
   ShortFormPreference = PrefShort | PrefFull ;
   CopulaType = NomCopula | InsCopula | EllCopula;
   SpecialFuture = NormalFuture | BeFuture | CanFuture | WantFuture | NullFuture ;
+  DetType = NormalDet | EmptyDef | EmptyIndef ; -- artificial parameter to side-step DetNP parsing issues
 oper
   -- GenNum helpers and coercions
   MSg        = GSg Masc ;

@@ -686,6 +686,11 @@ oper
     a : Agr
   } ;
 
+  RPronounForms : Type = {
+    s : AdjTable ;
+    a : Agr
+  } ;
+
   PronTable = GenNum => Animacy => Case => Str ;
 
   mkPronTable : PronForms -> PronTable
@@ -1019,20 +1024,13 @@ oper
       prep, loc = ch + "ом" ;
       ins = ch + "ем" ;
       poss = (doChPron subPoss a anim).poss
-    } ;
+      } ;
 
-  doKotoryjPron : Str -> Agr -> Animacy -> IPronounForms
-    = \w, a, anim ->   -- "который", "некоторый"
-      let stem = (Predef.tk 2 w) in {
+  doKotoryjPron : Str -> Agr -> RPronounForms
+    = \w, a -> {   -- "который"
       a = a ;
-      anim=anim ;
-      nom, voc = stem + "ое" ;
-      gen, acc, ptv = stem + "ого" ;
-      dat = stem + "ому" ;
-      prep, loc = stem + "ом" ;
-      ins = stem + "ым" ;
-      poss = guessAdjectiveForms w
-    } ;
+      s=(adjFormsAdjective (guessAdjectiveForms w)).s
+      } ;
 
   prependIP : Str -> IPronounForms -> IPronounForms
     = \s,ip -> ip ** {
@@ -1056,8 +1054,8 @@ oper
         fsins = s ++ ip.poss.fsins ;
         pins  = s ++ ip.poss.pins ;
         msprep= s ++ ip.poss.msprep ;
-      }
-    } ;
+        }
+      } ;
 
   appendToIP : IPronounForms -> Str -> IPronounForms
     = \ip,s -> ip ** {
@@ -1165,17 +1163,17 @@ oper
     fsacc = "эту" ;
     msins = "этим" ;
     fsins = "этой" ;
-    pins  = "этих" ;
+    pins  = "этими" ;
     msprep = "этом" ;
     preferShort = PrefFull ;
     comp = []
     } ;
 
-  a_forms = { -- these are approximate translations of indef article; preventing DetNP parsing problems
+  a_forms = { -- this pronoun is an approximate translation of indef article; preventing DetNP parsing problems
     msnom, sm = "некий" ;
     fsnom, sf = "некая" ;
     nsnom, sn = "некое" ;
-    pnom, sp = "некии" ;
+    pnom, sp = "некие" ;
     msgen = "некого" ;
     fsgen = "некой" ;
     pgen  = "неких" ;
@@ -1189,7 +1187,24 @@ oper
     comp = []
     } ;
 
-  the_forms = { -- these are approximate translations of def article; preventing DetNP parsing problems
+  a_Det = {
+    s : DetTable = \\g => (adjFormsAdjective a_forms).s ! GSg g;
+    type=NormalDet ;
+    g = Masc ;
+    c = Nom ;
+    size = Num1 ;
+    } ;
+
+  a_Pl_Det = {
+    s : DetTable = \\g => (adjFormsAdjective a_forms).s ! GPl;
+    type=NormalDet ;
+    g = Masc ;
+    c = Nom ;
+    size = NumAll ;
+    } ;
+
+
+  the_forms = { -- this pronoun is an approximate translation of def article; preventing DetNP parsing problems
     msnom, sm = "данный" ;
     fsnom, sf = "данная" ;
     nsnom, sn = "данное" ;
@@ -1207,6 +1222,22 @@ oper
     comp = []
     } ;
 
+  the_Det = {
+    s : DetTable = \\g => (adjFormsAdjective the_forms).s ! GSg g;
+    type=NormalDet ;
+    g = Masc ;
+    c = Nom ;
+    size = Num1 ;
+    } ;
+
+  the_Pl_Det = {
+    s : DetTable = \\g => (adjFormsAdjective the_forms).s ! GPl;
+    type=NormalDet ;
+    g = Masc ;
+    c = Nom ;
+    size = NumAll ;
+    } ;
+
 ---------------
 -- Numerals -- Числительные
 ---------------
@@ -1214,11 +1245,7 @@ oper
 param DForm = unit | teen | ten | hund ;
 param Place = attr | indep ;
 oper
-  mille : NumSize => Str = table {
-    Num1 => "тысяча" ;
-    Num2_4 => "тысячи" ;   -- NumAll ?
-    _     => "тысяч"
-    } ;
+  mille : Noun = nounFormsNoun ((guessNounForms "тысяча") ** {sins=variants {"тысячей" ; "тысячью"}});
 
 ---------------
 -- Adverbs -- Наречия
@@ -1258,6 +1285,8 @@ oper
       <Acc,Num2_4 | Num5> => Gen ;
       _ => cas
       } ;
+  numSizeGenAgr : NumSize -> Gender -> Person -> Agr
+    = \ns,g,p -> Ag (case ns of {Num1 => GSg g ; NumAll | Num2_4 | Num5 => GPl}) p ;
 
 oper -- TODO:
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
