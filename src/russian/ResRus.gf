@@ -104,7 +104,6 @@ oper
     } in
     noMinorCases nfb ;
 
-  -- TODO: gender can help identify cases more precisely
   guessLessNounForms : Str -> Gender -> Animacy -> NounForms
     = \word, g, anim ->
     let nfb : NounFormsBase =

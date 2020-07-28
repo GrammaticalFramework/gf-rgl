@@ -24,9 +24,8 @@ lin
   -- : Temp -> Pol -> RCl -> RS ;  -- that had not slept
   UseRCl temp pol rcl = {
     s = \\gn,anim,cas =>
-      let a=genNumAgrP3 gn in
-      let parts = R.verbAgr rcl.verb Ind temp.t a pol.p in
-      temp.s ++ parts.p1 ++ pol.s ++ rcl.subj ! gn ! anim ! cas ++ rcl.adv ! a ++ parts.p2 ++ rcl.dep ++ rcl.compl ! a ;
+      let parts = R.verbAgr rcl.verb Ind temp.t rcl.a pol.p in
+      temp.s ++ parts.p1 ++ pol.s ++ rcl.subj ! gn ! anim ! Nom ++ rcl.adv ! rcl.a ++ parts.p2 ++ rcl.dep ++ rcl.compl ! rcl.a ;
     c = Nom
     } ;
 
@@ -86,7 +85,6 @@ lin
 
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
   AdvSlash cls adv = cls ** {
---    subj=cls.subj ++ adv.s    -- two variants? TODO: check
     adv=cls.adv ++ adv.s
     } ;
 

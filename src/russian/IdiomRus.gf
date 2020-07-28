@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../../prelude
 
-concrete IdiomRus of Idiom = CatRus ** open Prelude, TenseRus, ResRus, Coordination, MorphoRus in {
+concrete IdiomRus of Idiom = CatRus ** open Prelude, ParamX, TenseRus, ResRus, Coordination, MorphoRus in {
 flags optimize=all_subs ;  coding=utf8 ;
 
 lin
@@ -12,20 +12,20 @@ lin
 
   -- : NP -> RS -> Cl ; -- it is I who did it
   CleftNP np rs = {
-    subj=np.s ! Nom ;
-    adv="это" ;
-    verb=nullVerb ;   -- ???
+    subj="это" ++ np.s ! Nom ;
+    adv=[];
+    verb=copulaEll ;   -- ???
     dep=[] ;
     compl=embedInCommas (rs.s ! agrGenNum np.a ! Animate ! Nom) ;  -- TODO: here or in subj???
     a=np.a
     } ;
   -- : Adv -> S -> Cl ; -- it is here she slept
   CleftAdv adv s = {
-    subj="это" ++ adv.s ++ comma ++ s.s ! Ind ;  -- TODO: Check what is expressed by this? Why comma?
-    adv=[] ;
+    subj="это" ;
+    adv=adv.s ;
     verb=nullVerb ;   -- ???
     dep=[] ;
-    compl=[] ;
+    compl=s.s ! Ind ;
     a=Ag (GSg Neut) P3
     } ;
 
@@ -49,7 +49,7 @@ lin
   ImpPl1 vp =
     let a = Ag GPl P1 in
     let pol = PPos in
-    let parts = verbAgr vp.verb Infinitive Pres a pol.p in
+    let parts = verbAgr vp.verb Infinitive Pres a pol.p in    -- colloquial, should be Fut, but then present fails...
     let p1 = "давайте" in {
       s = p1 ++ pol.s ++ vp.adv ! a ++ parts.p2 ++ vp.dep ++ vp.compl ! a
       } ;
