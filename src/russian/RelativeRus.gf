@@ -27,7 +27,7 @@ lin
   -- : RP -> VP -> RCl ;      -- who loves John
   RelVP rp vp = {
     subj=rp.s;
-    adv=\\a=>[] ;
+    adv=\\a=>vp.adv ! Ag (GSg Neut) P3 ;
     verb=vp.verb ;
     dep=vp.dep ;
     compl=vp.compl ;

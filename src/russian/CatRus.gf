@@ -22,13 +22,13 @@ lincat
   VP = {
     adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
     verb : ResRus.VerbForms ;
-    dep : Str ;  -- dependent infinites and such
+    dep : Str ;  -- dependent infinitives and such
     compl : AgrTable
     } ;
   VPSlash = {
     adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
     verb : ResRus.VerbForms ;
-    dep : Str ;  -- dependent infinites and such
+    dep : Str ;  -- dependent infinitives and such
     compl : AgrTable ;
     c : ComplementCase
     } ; ----
@@ -40,13 +40,13 @@ lincat
   Cl = {
     subj,compl,adv : Str ;
     verb : VerbForms ;
-    dep : Str ;  -- dependent infinites and such
+    dep : Str ;  -- dependent infinitives and such
     a : Agr
     } ;
   ClSlash = {
     subj,compl,adv : Str ;
     verb : VerbForms ;
-    dep : Str ;  -- dependent infiniteve and such
+    dep : Str ;  -- dependent infinitives and such
     a : Agr ;
     c : ComplementCase
     } ;
@@ -70,7 +70,7 @@ lincat
   QCl = {
     subj,compl,adv : Str ;
     verb : VerbForms ;
-    dep : Str ;  -- dependent infinites and such
+    dep : Str ;  -- dependent infinitives and such
     a : Agr
     } ;
 
@@ -88,7 +88,7 @@ lincat
     subj : AdjTable ;
     compl,adv : AgrTable ;
     verb : VerbForms ;
-    dep : Str ;  -- dependent infinites and such
+    dep : Str ;  -- dependent infinitives and such
     a : Agr
     } ;
 
