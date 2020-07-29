@@ -188,7 +188,7 @@ oper
     mkV2 : V -> V2
       = \vf -> lin V2 (vf ** {c={s=[] ; c=Acc ; hasPrep=False}}) ;
     mkV2 : V -> Case -> V2
-      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; hasPrep=True}}) ;
+      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; hasPrep=False}}) ;
     mkV2 : V -> Prep -> V2
       = \vf, prep -> lin V2 (vf ** {c=prep}) ;
 

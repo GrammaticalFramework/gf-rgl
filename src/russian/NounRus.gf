@@ -218,7 +218,7 @@ lin
     preferShort=PrefFull
     } ;
   -- DefArt = adjFormsAdjective the_forms ** {preferShort=PrefFull ; g=Neut ; c=Nom} ;
-  --  : Quant ;       -- a (house), (houses)
+  -- : Quant ;       -- a (house), (houses)
   IndefArt = {
     s=\\gn,anim,cas=>[] ;
     type=EmptyIndef ;

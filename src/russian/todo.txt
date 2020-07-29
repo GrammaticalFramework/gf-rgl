@@ -3,14 +3,11 @@
 > l UttS (AdvS (AdAdv quite_Adv (ComparAdvAdj less_CAdv narrow_A everything_NP)) (UseCl (TTAnt TPres ASimul) PNeg (ExistNP something_NP)))
 довольно менее узко , чем всё что &+ -то не существует
 
-Lang: DetCN (DetQuantOrd (PossPron he_Pron) (NumCard (NumDigits (IDig D_0))) (OrdSuperl bad_A)) (RelCN (ConjCN both7and_DConj (BaseCN (UseN2 mother_N2) (UseN lamp_N))) (UseRCl (TTAnt TPast ASimul) PNeg (RelCl (ImpersCl ready_VP))))
-LangRus: 0 его самых плохих как матерей , так и ламп , не таких , что бы &+ ли готовым
+> l UseCl (TTAnt TPres AAnter) PNeg (CleftNP (PredetNP not_Predet (CountNP somePl_Det everybody_NP)) (UseRCl (TTAnt TFut AAnter) PNeg (RelVP IdRP ready_VP)))
+это не некоторые из всех не , не которые будут готовыми
 
-Lang: AdvS there7from_Adv (UseCl (TTAnt TFut AAnter) PPos (CleftNP everybody_NP (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP in8front_Prep (languageNP polish_Language) IdRP) (SlashPrep (PredVP somebody_NP hungry_VP) through_Prep)))))
-LangRus: оттуда все это , через польского перед которыми кто &+ -то голоден
-
-AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (CleftNP (PredetNP not_Predet (CountNP somePl_Det everybody_NP)) (UseRCl (TTAnt TFut AAnter) PNeg (RelVP IdRP ready_VP)))
-AllRus: не некоторые из всех не это , не которые будут готовыми
+> l UseCl (TTAnt TPres AAnter) PNeg (CleftNP (PredetNP only_Predet (CountNP somePl_Det everybody_NP)) (UseRCl (TTAnt TFut AAnter) PNeg (RelVP IdRP ready_VP)))
+это единственные некоторые из всех не , не которые будут готовыми
 
 > l PrepNP above_Prep (UsePron i_Pron)
 над мной
@@ -23,15 +20,7 @@ AllRus: складываем &+ те всех в кого &+ -то пит
 
 Inherent number for nouns. eg, for geonames or pluralia tantum.
 
-** UseCl (TTAnt TPres ASimul) PPos (CleftNP (UsePron she_Pron) (UseRCl (TTAnt TCond ASimul) PPos (RelSlash IdRP (SlashVP somebody_NP (SlashV2a write_V2)))))
-LangRus-NEW> она это , которую кто &+ -то писал бы
-LangRus-OLD> это она , которую кто-то пишет
-
-** UseCl (TTAnt TPres ASimul) PPos (CleftNP (UsePron she_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP with_Prep somebody_NP IdRP) thirsty_VP)))
-LangRus-NEW> она это, кто-то с которой хочет пить
-LangRus-OLD> это она , кто-то с которой хочет пить
-
-** UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ReflVP (SlashV2A paint_V2A (PositA ∅))))
+** UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ReflVP (SlashV2A paint_V2A (PositA hot_A))))
 LangRus-NEW> рисует горячее себя
 LangRus-OLD> рисует горячим себя
 
@@ -40,8 +29,3 @@ AllRusAbs> l UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ReflVP (SlashV2A paint_V
 
 AllRusAbs> p "рисуешь горячий себя"
 UseCl (TTAnt TPres ASimul) PPos (GenericCl (ReflVP (SlashV2A paint_V2A (PositA hot_A))))
-
-** UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2A paint_V2A (PositA hot_A)) (UsePron she_Pron)))
-LangRus-NEW> рисуешь горячую неё
-LangRus-OLD> ты рисуешь горячим её
-

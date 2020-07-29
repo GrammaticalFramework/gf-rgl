@@ -20,10 +20,10 @@ lin
   -- : AP -> SC -> AP ;  -- good that she is here
   SentAP ap sc = ap ** {s = \\gn,a,c => ap.s ! gn ! a ! c ++ [", "] ++ sc.s ; isPost = True} ;
 
-  -- : A  -> NP -> AP ;  -- warmer than I - теплее меня
+  -- : A -> NP -> AP ;  -- warmer than I - теплее меня
   ComparA a np = {
     s = \\gn,anim,cas => a.comp ++ (applyPrep {s="" ; c=Gen ; hasPrep=False} np) ; -- True?
-    short = \\ag=>a.comp ++ (applyPrep {s="" ; c=Gen ; hasPrep=True} np) ;
+    short = \\ag=>a.comp ++ (applyPrep {s="" ; c=Gen ; hasPrep=False} np) ;
     isPost = False ;
     preferShort = PrefShort
     } ;
@@ -33,8 +33,8 @@ lin
 
   -- : A2 -> NP -> AP ;  -- married to him - замужем за ним (NB: gender change requires different word!)
   ComplA2 a2 np = let af=adjFormsAdjective a2 in  {
-    s = \\gn,anim,cas => af.s ! gn ! anim ! (a2.c.c) ++ a2.c.s ++ np.s ! (a2.c.c) ;
-    short = \\a=>af.short ! a ++ a2.c.s ++ np.s ! (a2.c.c) ;
+    s = \\gn,anim,cas => af.s ! gn ! anim ! (a2.c.c) ++ applyPrep a2.c np ;
+    short = \\a=>af.short ! a ++ applyPrep a2.c np ;
     isPost = False ;
     preferShort = a2.preferShort
     } ;
