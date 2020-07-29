@@ -1,6 +1,6 @@
 concrete ConstructionRus of Construction = CatRus **
   open Predef, SyntaxRus, SymbolicRus, (P=ParadigmsRus), ResRus, Prelude,
-    QuestionRus, SentenceRus, AdverbRus, AdjectiveRus, VerbRus, IdiomRus, (E=ExtendRus), (EX=ExtraRus) in {
+    QuestionRus, SentenceRus, AdverbRus, AdjectiveRus, VerbRus, (N=NounRus), IdiomRus, (E=ExtendRus), (EX=ExtraRus) in {
 
 lin
   hungry_VP = mkVP (P.mkA "голодный" "" "1*a/c'" PrefShort) ;
@@ -11,7 +11,7 @@ lin
   ready_VP = mkVP (P.mkA "готовый" "" "1a" PrefFull) ;
 
   -- : NP -> QCl ;          -- what is x's name / wie heisst x (Ger)
-  what_name_QCl np = E.PredIAdvVP how_IAdv (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Gen)) np) ;
+  what_name_QCl np = E.PredIAdvVP how_IAdv (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Acc)) np) ;
 
 -- languages
 lincat
@@ -29,17 +29,14 @@ oper
     mkLanguage : Str -> Str -> N = \s,zi -> P.mkN s Masc Inanimate zi;
   } ;
   mkHour : Str -> Symb = \s -> lin Symb {s=s} ;
+  cardCN : Card -> N -> NP = \card,n -> (N.DetCN ((DetArtCard N.IndefArt card)**{type=NormalDet}) (N.UseN n)) ;
 
 lin
   -- : Card -> Timeunit -> Adv ; -- (for) three hours
-  timeunitAdv card time = P.mkAdv ((mkNP <lin Card card : Card> time).s ! Nom) ;
+  timeunitAdv card time = P.mkAdv ((cardCN card time).s ! Nom) ;
 
   -- : Card -> Card -> Timeunit -> Adv ; -- (cats live) ten to twenty years
-  timeunitRange l u time = {
-    -- TODO: Fancier logic. Also reqrite with applyPrep
-    s = from_Prep.s ++ (P.mkAdv ((mkNP <lin Card l : Card> <lin N (ellNoun time) : N>).s ! from_Prep.c)).s
-      ++ EX.on_to_Prep.s ++ (P.mkAdv ((mkNP <lin Card u : Card> time).s ! EX.on_to_Prep.c)).s
-    } ;
+  timeunitRange l u time = P.mkAdv (applyPrep from_Prep (cardCN l (ellNoun time)) ++ applyPrep EX.on_to_Prep (cardCN u time)) ;
 
   oneHour = mkHour "1" ;
   twoHour = mkHour "2" ;

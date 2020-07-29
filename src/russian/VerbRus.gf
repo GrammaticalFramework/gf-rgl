@@ -53,14 +53,14 @@ lin
     } ;
 
   -- : V2 -> VPSlash ;  -- love (it)
-  SlashV2a v2 = {adv=\\a=>[] ; verb=v2 ; dep=[] ; compl=\\_ => [] ; c=v2.c} ; -- looses complement info?
+  SlashV2a v2 = {adv=\\a=>[] ; verb=v2 ; dep=[] ; compl=\\_ => [] ; c=v2.c} ;
 
   -- : V3 -> NP -> VPSlash ;  -- give it (to her)
   Slash2V3 v3 np = {
     adv=\\a=>[] ;
     verb=v3 ;
     dep=[] ;
-    compl=\\a=> v3.c.s ++ np.s ! v3.c.c;
+    compl=\\a=> applyPrep v3.c np ;
     c=v3.c2
     } ;
 
@@ -69,7 +69,7 @@ lin
     adv=\\a=>[] ;
     verb=v3 ;
     dep=[] ;
-    compl=\\a=> v3.c2.s ++ np.s ! v3.c2.c;
+    compl=\\a=> applyPrep v3.c2 np ;
     c=v3.c
     } ;
 

@@ -16,7 +16,7 @@ lin
     } ;
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls = {
-    subj=\\gn,anim,cas => cls.c.s ++ (rp.s ! gn ! Inanimate ! cls.c.c) ++ cls.subj ;
+    subj=\\gn,anim,cas => cls.c.s ++ (rp.s ! gn ! anim ! cls.c.c) ++ cls.subj ;
     adv=\\a=>cls.adv ;
     verb=cls.verb ;
     dep=cls.dep ;
