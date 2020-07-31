@@ -2,8 +2,10 @@
 
 concrete ExtendRus of Extend =
   CatRus ** ExtendFunctor - [
-    iFem_Pron,
-    theyFem_Pron, weFem_Pron, youFem_Pron, youPlFem_Pron, youPolFem_Pron, youPolPlFem_Pron, youPolPl_Pron,
+    -- iFem_Pron,
+    theyFem_Pron, weFem_Pron,
+    -- youFem_Pron,
+    youPlFem_Pron, youPolFem_Pron, youPolPlFem_Pron, youPolPl_Pron,
     VPS, ListVPS, VPI, ListVPI, VPS2, ListVPS2, VPI2, ListVPI2, RNP, RNPList,
     UseComp, RelNP, UseComp_estar, SubjRelNP, PredAPVP, ImpersCl, UseComp, CompAP, EmbedVP, ExistNP, UseQCl,
     QuestCl, ExistNP, UseQCl, ExistIP, AdvVP, AdvVP, AdvVP, UseComp, CompAP, ExistS, ExistNPQS, ExistIPQS,
@@ -40,4 +42,7 @@ lin
 
   -- : IAdv -> VP -> QCl ; -- how to walk?
   PredIAdvVP iadv vp = QuestIAdv iadv (GenericCl vp) ; -- DEFAULT how does one walk
+
+  iFem_Pron = personalPron (Ag (GSg Fem) P1) ;
+  youFem_Pron = personalPron (Ag (GSg Fem) P2) ;
 } ;

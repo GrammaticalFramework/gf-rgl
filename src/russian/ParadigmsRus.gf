@@ -231,7 +231,7 @@ oper
       FirstE => (Z.sg1StemFromVerb sg1) + "ёт" ;
       Second | SecondA => (Z.sg1StemFromVerb sg1) + "ит" ;
       _ => (Z.sg1StemFromVerb sg1) + "ет"
-      } in (guessVerbForms asp Transitive inf sg1 sg3);
+      } in (guessVerbForms asp Transitive inf sg1 sg3) ** {lock_V=<>} ;
 
 ------------------------
 -- Adverbs, prepositions, conjunctions, ...

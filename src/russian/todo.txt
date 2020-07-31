@@ -29,3 +29,9 @@ AllRusAbs> l UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ReflVP (SlashV2A paint_V
 
 AllRusAbs> p "рисуешь горячий себя"
 UseCl (TTAnt TPres ASimul) PPos (GenericCl (ReflVP (SlashV2A paint_V2A (PositA hot_A))))
+
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youSg_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это ты , который бы &+ ло готовым
+-> ?
+AllRus: это ты , который был готовым

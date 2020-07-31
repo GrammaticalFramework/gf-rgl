@@ -62,7 +62,13 @@ lin
       s = p1 ++ pol.s ++ vp.adv ! a ++ np.s ! Nom ++ parts.p2 ++ vp.dep ++ vp.compl ! a
       } ;
 
-  -- TODO: SelfAdvVP : VP -> VP ;        -- is at home himself
-  -- TODO: SelfAdVVP : VP -> VP ;        -- is himself at home
-  -- TODO: SelfNP    : NP -> NP ;        -- the president himself (is at home)
+  -- : VP -> VP ;        -- is at home himself
+  SelfAdvVP vp = vp ** {compl=\\a => vp.compl ! a ++ (adjFormsAdjective sam).s ! agrGenNum a ! Animate ! Nom} ;
+  -- : VP -> VP ;        -- is himself at home
+  SelfAdVVP vp = vp ** {adv=\\a => (adjFormsAdjective sam).s ! agrGenNum a ! Animate ! Nom ++ vp.adv ! a} ;
+  -- : NP -> NP ;        -- the president himself (is at home)
+  SelfNP np = np ** {
+    s=\\cas => ((adjFormsAdjective sam).s ! agrGenNum np.a ! Animate ! cas ) ++ np.s ! cas
+    } ;
+
 }

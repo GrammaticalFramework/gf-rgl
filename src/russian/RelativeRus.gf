@@ -2,6 +2,7 @@ concrete RelativeRus of Relative = CatRus ** open
   ParadigmsRus,
   ResRus,
   MorphoRus,
+  Maybe,
   Prelude, Coordination in {
 
 lin
@@ -12,7 +13,7 @@ lin
     verb=cl.verb ;
     dep=cl.dep ;
     compl=\\a=>cl.compl ;
-    a=cl.a
+    a=Just Agr cl.a
     } ;
   -- : RP -> ClSlash -> RCl ; -- whom John loves
   RelSlash rp cls = {
@@ -21,7 +22,7 @@ lin
     verb=cls.verb ;
     dep=cls.dep ;
     compl=\\a=> cls.compl ;
-    a=cls.a
+    a=Just Agr cls.a
     } ;
 
   -- : RP -> VP -> RCl ;      -- who loves John
@@ -31,7 +32,7 @@ lin
     verb=vp.verb ;
     dep=vp.dep ;
     compl=vp.compl ;
-    a=rp.a
+    a=Nothing Agr (Ag (GSg Neut) P3)
     } ;
 
   -- : RP ;                      -- which
