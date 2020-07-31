@@ -103,7 +103,7 @@ lin
     verb=v2a ;
     dep=[] ;
     compl=case ap.preferShort of {
-      PrefFull => (\\a => ap.s ! agrGenNum a ! Inanimate ! v2a.c.c) ;   -- TODO: Check acc dep on animacy
+      PrefFull => (\\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c) ;   -- TODO: Acc depends on animacy!
       PrefShort => ap.short
       } ;
     c=v2a.c

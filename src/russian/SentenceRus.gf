@@ -77,7 +77,6 @@ lin
     c=ss.c
   } ;
 
-
   -- : S -> Subj -> S -> S ;       -- I go home, if she comes
   SSubjS s subj s2 = {
     s=\\m => s.s ! m ++ comma ++ subj.s ++ s2.s ! Ind
@@ -136,6 +135,6 @@ lin
 
   -- : S -> RS -> S ;              -- she sleeps, which is good
   RelS s rs = {
-    s=\\m=>s.s ! m ++ embedInCommas (rs.s ! GSg Neut ! Inanimate ! Nom) ;
+    s=\\m=>s.s ! m ++ comma ++ rs.s ! GSg Neut ! Inanimate ! Nom ;
     } ;
 }

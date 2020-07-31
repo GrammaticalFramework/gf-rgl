@@ -50,7 +50,7 @@ lin
   butter_N = mkN "масло";
   buy_V2 = mkV2 (mkV imperfective "покупать" "покупаю");
   camera_N = mkN "фотоаппарат" ;
-  cap_N = mkN "чашка" ;
+  cap_N = mkN "шапка" ;
   car_N = mkN "машина" ;
   carpet_N = mkN "ковёр" masculine inanimate "1*b" ;
   cat_N = mkN "кошка" feminine animate "3*a" ;

@@ -1,0 +1,29 @@
+-- invoke script with command :
+-- > gf --run AllRus.gf < test_rus_grammar.gfs
+gt what_name_QCl (UsePron ?) | l -treebank
+gt UseCl (TTAnt ? AAnter) ? (have_name_Cl (UsePron he_Pron) (UsePN john_PN)) |l -treebank
+gt UseCl (TTAnt ? AAnter) PPos (have_name_Cl (UsePron he_Pron) (PredetNP not_Predet (UsePN john_PN))) | l -treebank
+gt UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (MassNP (UseN apple_N))))  | l -treebank
+gt UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron ?) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))  | l -treebank
+gt UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron ?) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))  | l -treebank
+gt UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron ?) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))  | l -treebank
+gt UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (AdvCN (UseN apple_N) (weekdayNextAdv monday_Weekday))) ready_VP) | l -treebank
+gt UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron ?) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N)))) | l -treebank
+gt UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron ?) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N)))) | l -treebank
+gt UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V)) | l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompCN (RelCN (UseN worm_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP thirsty_VP)))))) | l -treebank
+gt UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV ?) for_Prep)))  | l -treebank
+gt RelCN (UseN apple_N) (UseRCl ? PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN))))) | l -treebank
+gt RelCN (UseN apple_N) (UseRCl (TTAnt TCond AAnter) PPos (RelSlash IdRP (SlashVP (MassNP (RelCN (UseN bird_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 send_V3 (UsePN paris_PN))))))) (Slash3V3 add_V3 (UsePN paris_PN))))) | l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a like_V2) (MassNP (RelCN (UseN worm_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP thirsty_VP)))))) | l -treebank
+gt RelSlash IdRP (SlashPrep (CleftAdv now_Adv (ConjS and_Conj (BaseS (UseCl (TTAnt TPres ASimul) PNeg (PredVP everybody_NP UseCopula)) (UseCl (TTAnt TPast ASimul) PPos (ImpersCl hungry_VP))))) in8front_Prep) | l -treebank
+gt UseRCl (TTAnt TCond ASimul) PPos ( RelSlash IdRP (  SlashPrep ( CleftAdv now_Adv ( ConjS and_Conj (BaseS (UseCl (TTAnt TPres ASimul) PNeg (PredVP everybody_NP UseCopula)) (UseCl (TTAnt TPast ASimul) PPos (ImpersCl hungry_VP)))  )  ) after_Prep  ) ) |l -treebank
+gt UseCl (TTAnt TPres AAnter) PPos (CleftNP  (UsePron ?)  (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP))) | l -treebank
+gt ComplA2 ? (UsePron she_Pron) | l -treebank
+gt ReflA2 ? |l -treebank
+gt EmbedQS (UseQCl (TTAnt ? ASimul) PNeg (ExistIP whatSg_IP)) | l -treebank
+gt timeunitRange (NumDigits (IDig ?)) (NumDigits (IDig ?)) second_Timeunit | l -treebank
+gt timeunitAdv (NumDigits (IDig ?))  second_Timeunit | l -treebank
+gt SelfNP (UsePron ? ) |l -treebank
+
+gt RelCN (UseN apple_N) (UseRCl ? PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))) | l -treebank

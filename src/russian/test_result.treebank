@@ -1,0 +1,546 @@
+AllRusAbs: what_name_QCl (UsePron he_Pron)
+AllRus: как звать его
+AllRusAbs: what_name_QCl (UsePron i_Pron)
+AllRus: как звать меня
+AllRusAbs: what_name_QCl (UsePron it_Pron)
+AllRus: как звать его
+AllRusAbs: what_name_QCl (UsePron she_Pron)
+AllRus: как звать её
+AllRusAbs: what_name_QCl (UsePron they_Pron)
+AllRus: как звать их
+AllRusAbs: what_name_QCl (UsePron we_Pron)
+AllRus: как звать нас
+AllRusAbs: what_name_QCl (UsePron youPl_Pron)
+AllRus: как звать вас
+AllRusAbs: what_name_QCl (UsePron youPol_Pron)
+AllRus: как звать вас
+AllRusAbs: what_name_QCl (UsePron youSg_Pron)
+AllRus: как звать тебя
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: не его имя бы &+ ло бы Иван
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: его имя бы &+ ло бы Иван
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: не его имя будет Иван
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: его имя будет Иван
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: не его имя бы &+ ло Иван
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: его имя бы &+ ло Иван
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: не его имя Иван
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: его имя Иван
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (have_name_Cl (UsePron he_Pron) (PredetNP not_Predet (UsePN john_PN)))
+AllRus: его имя бы &+ ло бы не Иван
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (have_name_Cl (UsePron he_Pron) (PredetNP not_Predet (UsePN john_PN)))
+AllRus: его имя будет не Иван
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (have_name_Cl (UsePron he_Pron) (PredetNP not_Predet (UsePN john_PN)))
+AllRus: его имя бы &+ ло не Иван
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (have_name_Cl (UsePron he_Pron) (PredetNP not_Predet (UsePN john_PN)))
+AllRus: его имя не Иван
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (MassNP (UseN apple_N))))
+AllRus: он кушал яблоко
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: он сам хотел быть усталым в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: я сам хотел быть усталым в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: оно само хоте &+ ло быть усталым в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: она сама хоте &+ ла быть усталой в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: они сами хоте &+ ли быть усталыми в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: мы сами хоте &+ ли быть усталыми в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: вы сами хоте &+ ли быть усталыми в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: вы сами хоте &+ ли быть усталыми в сентябре
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (SelfAdVVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: ты сам хотел быть усталым в сентябре
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: он кушал некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: я кушал некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: оно куша &+ ло некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: она куша &+ ла некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: они куша &+ ли некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: мы куша &+ ли некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: вы куша &+ ли некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: вы куша &+ ли некое яблоко
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
+AllRus: ты кушал некое яблоко
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: он хотел быть усталым в сентябре сам
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: я хотел быть усталым в сентябре сам
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: оно хоте &+ ло быть усталым в сентябре само
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: она хоте &+ ла быть усталой в сентябре сама
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: они хоте &+ ли быть усталыми в сентябре сами
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: мы хоте &+ ли быть усталыми в сентябре сами
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: вы хоте &+ ли быть усталыми в сентябре сами
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: вы хоте &+ ли быть усталыми в сентябре сами
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
+AllRus: ты хотел быть усталым в сентябре сам
+
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (AdvCN (UseN apple_N) (weekdayNextAdv monday_Weekday))) ready_VP)
+AllRus: данные яблоки в следующий понедельник будут готовыми
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: он кушал данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: я кушал данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: оно куша &+ ло данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: она куша &+ ла данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: они куша &+ ли данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: мы куша &+ ли данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: вы куша &+ ли данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: вы куша &+ ли данные 2 яблока
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
+AllRus: ты кушал данные 2 яблока
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: он кушал данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: я кушал данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: оно куша &+ ло данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: она куша &+ ла данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: они куша &+ ли данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: мы куша &+ ли данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: вы куша &+ ли данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: вы куша &+ ли данные 5 яблок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
+AllRus: ты кушал данные 5 яблок
+
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V))
+AllRus: она не спа &+ ла
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompCN (RelCN (UseN worm_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP thirsty_VP))))))
+AllRus: являешься червем , который хочет пить
+
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV blow_V) for_Prep)))
+AllRus: для чего Иван дует
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV breathe_V) for_Prep)))
+AllRus: для чего Иван дышит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV burn_V) for_Prep)))
+AllRus: для чего Иван горит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV come_V) for_Prep)))
+AllRus: для чего Иван приходит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV die_V) for_Prep)))
+AllRus: для чего Иван умирает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV dig_V) for_Prep)))
+AllRus: для чего Иван копает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV fall_V) for_Prep)))
+AllRus: для чего Иван падает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV float_V) for_Prep)))
+AllRus: для чего Иван плавает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV flow_V) for_Prep)))
+AllRus: для чего Иван течёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV fly_V) for_Prep)))
+AllRus: для чего Иван летает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV freeze_V) for_Prep)))
+AllRus: для чего Иван замерзает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV go_V) for_Prep)))
+AllRus: для чего Иван ходит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV jump_V) for_Prep)))
+AllRus: для чего Иван прыгает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV laugh_V) for_Prep)))
+AllRus: для чего Иван смеёт &+ ся
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV lie_V) for_Prep)))
+AllRus: для чего Иван лжёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV live_V) for_Prep)))
+AllRus: для чего Иван живёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV play_V) for_Prep)))
+AllRus: для чего Иван играет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV rain_V0) for_Prep)))
+AllRus: для чего Иван дождит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV run_V) for_Prep)))
+AllRus: для чего Иван бежит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sew_V) for_Prep)))
+AllRus: для чего Иван шьёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sing_V) for_Prep)))
+AllRus: для чего Иван поёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sit_V) for_Prep)))
+AllRus: для чего Иван сидит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sleep_V) for_Prep)))
+AllRus: для чего Иван спит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV smell_V) for_Prep)))
+AllRus: для чего Иван пахнет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV spit_V) for_Prep)))
+AllRus: для чего Иван плюёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV stand_V) for_Prep)))
+AllRus: для чего Иван стоит
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV stop_V) for_Prep)))
+AllRus: для чего Иван останавливает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV swell_V) for_Prep)))
+AllRus: для чего Иван опухает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV swim_V) for_Prep)))
+AllRus: для чего Иван плывёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV think_V) for_Prep)))
+AllRus: для чего Иван думает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV travel_V) for_Prep)))
+AllRus: для чего Иван путешествовует
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV turn_V) for_Prep)))
+AllRus: для чего Иван поворачивает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV vomit_V) for_Prep)))
+AllRus: для чего Иван блюёт
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV walk_V) for_Prep)))
+AllRus: для чего Иван гуляет
+
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TCond AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван складывал бы в Париж
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TCond ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван складывал бы в Париж
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TFut AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван будет складывать в Париж
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TFut ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван будет складывать в Париж
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPast AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван складывал в Париж
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван складывал в Париж
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван складывает в Париж
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое Иван складывает в Париж
+
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TCond AAnter) PPos (RelSlash IdRP (SlashVP (MassNP (RelCN (UseN bird_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 send_V3 (UsePN paris_PN))))))) (Slash3V3 add_V3 (UsePN paris_PN)))))
+AllRus: яблоко , которое птица , которую Иван посылает Парижу , складыва &+ ла бы в Париж
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a like_V2) (MassNP (RelCN (UseN worm_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP thirsty_VP))))))
+AllRus: нравишь &+ ся червю , который хочет пить
+
+AllRusAbs: RelSlash IdRP (SlashPrep (CleftAdv now_Adv (ConjS and_Conj (BaseS (UseCl (TTAnt TPres ASimul) PNeg (PredVP everybody_NP UseCopula)) (UseCl (TTAnt TPast ASimul) PPos (ImpersCl hungry_VP))))) in8front_Prep)
+AllRus: перед которым это сейчас все не являются и бы &+ ло голодно
+
+AllRusAbs: UseRCl (TTAnt TCond ASimul) PPos (RelSlash IdRP (SlashPrep (CleftAdv now_Adv (ConjS and_Conj (BaseS (UseCl (TTAnt TPres ASimul) PNeg (PredVP everybody_NP UseCopula)) (UseCl (TTAnt TPast ASimul) PPos (ImpersCl hungry_VP))))) after_Prep))
+AllRus: после которого это сейчас все не являются и бы &+ ло голодно
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron he_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это он , который был готовым
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron i_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это я , который был готовым
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron it_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это оно , которое бы &+ ло готовым
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron she_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это она , которая бы &+ ла готовой
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron they_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это они , которые бы &+ ли готовыми
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron we_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это мы , которые бы &+ ли готовыми
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPl_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это вы , которые бы &+ ли готовыми
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPol_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это вы , которые бы &+ ли готовыми
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youSg_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP)))
+AllRus: это ты , который был готовым
+
+AllRusAbs: ComplA2 easy_A2V (UsePron she_Pron)
+AllRus: лёгкого для н &+ её
+AllRusAbs: ComplA2 married_A2 (UsePron she_Pron)
+AllRus: замужем за н &+ ей
+
+AllRusAbs: ReflA2 easy_A2V
+AllRus: лёгкий для себя
+AllRusAbs: ReflA2 married_A2
+AllRus: замужем за собой
+
+AllRusAbs: EmbedQS (UseQCl (TTAnt TCond ASimul) PNeg (ExistIP whatSg_IP))
+AllRus: что не существова &+ ло бы
+AllRusAbs: EmbedQS (UseQCl (TTAnt TFut ASimul) PNeg (ExistIP whatSg_IP))
+AllRus: что не будет существовать
+AllRusAbs: EmbedQS (UseQCl (TTAnt TPast ASimul) PNeg (ExistIP whatSg_IP))
+AllRus: что не существова &+ ло
+AllRusAbs: EmbedQS (UseQCl (TTAnt TPres ASimul) PNeg (ExistIP whatSg_IP))
+AllRus: что не существует
+
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 0 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 0 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 0 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 0 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 0 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 0 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 0 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 0 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 0 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_0)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 0 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 1 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 1 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 1 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 1 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 1 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 1 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 1 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 1 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 1 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_1)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 1 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 2 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 2 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 2 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 2 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 2 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 2 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 2 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 2 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 2 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_2)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 2 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 3 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 3 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 3 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 3 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 3 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 3 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 3 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 3 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 3 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_3)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 3 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 4 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 4 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 4 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 4 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 4 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 4 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 4 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 4 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 4 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_4)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 4 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 5 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 5 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 5 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 5 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 5 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 5 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 5 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 5 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 5 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_5)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 5 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 6 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 6 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 6 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 6 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 6 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 6 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 6 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 6 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 6 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_6)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 6 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 7 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 7 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 7 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 7 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 7 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 7 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 7 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 7 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 7 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_7)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 7 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 8 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 8 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 8 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 8 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 8 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 8 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 8 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 8 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 8 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_8)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 8 до 9 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_0)) second_Timeunit
+AllRus: от 9 до 0 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_1)) second_Timeunit
+AllRus: от 9 до 1 секунды
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_2)) second_Timeunit
+AllRus: от 9 до 2 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_3)) second_Timeunit
+AllRus: от 9 до 3 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_4)) second_Timeunit
+AllRus: от 9 до 4 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_5)) second_Timeunit
+AllRus: от 9 до 5 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_6)) second_Timeunit
+AllRus: от 9 до 6 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_7)) second_Timeunit
+AllRus: от 9 до 7 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_8)) second_Timeunit
+AllRus: от 9 до 8 секунд
+AllRusAbs: timeunitRange (NumDigits (IDig D_9)) (NumDigits (IDig D_9)) second_Timeunit
+AllRus: от 9 до 9 секунд
+
+AllRusAbs: timeunitAdv (NumDigits (IDig D_0)) second_Timeunit
+AllRus: 0 секунд
+AllRusAbs: timeunitAdv (NumDigits (IDig D_1)) second_Timeunit
+AllRus: 1 секунда
+AllRusAbs: timeunitAdv (NumDigits (IDig D_2)) second_Timeunit
+AllRus: 2 секунды
+AllRusAbs: timeunitAdv (NumDigits (IDig D_3)) second_Timeunit
+AllRus: 3 секунды
+AllRusAbs: timeunitAdv (NumDigits (IDig D_4)) second_Timeunit
+AllRus: 4 секунды
+AllRusAbs: timeunitAdv (NumDigits (IDig D_5)) second_Timeunit
+AllRus: 5 секунд
+AllRusAbs: timeunitAdv (NumDigits (IDig D_6)) second_Timeunit
+AllRus: 6 секунд
+AllRusAbs: timeunitAdv (NumDigits (IDig D_7)) second_Timeunit
+AllRus: 7 секунд
+AllRusAbs: timeunitAdv (NumDigits (IDig D_8)) second_Timeunit
+AllRus: 8 секунд
+AllRusAbs: timeunitAdv (NumDigits (IDig D_9)) second_Timeunit
+AllRus: 9 секунд
+
+AllRusAbs: SelfNP (UsePron he_Pron)
+AllRus: сам он
+AllRusAbs: SelfNP (UsePron i_Pron)
+AllRus: сам я
+AllRusAbs: SelfNP (UsePron it_Pron)
+AllRus: само оно
+AllRusAbs: SelfNP (UsePron she_Pron)
+AllRus: сама она
+AllRusAbs: SelfNP (UsePron they_Pron)
+AllRus: сами они
+AllRusAbs: SelfNP (UsePron we_Pron)
+AllRus: сами мы
+AllRusAbs: SelfNP (UsePron youPl_Pron)
+AllRus: сами вы
+AllRusAbs: SelfNP (UsePron youPol_Pron)
+AllRus: сами вы
+AllRusAbs: SelfNP (UsePron youSg_Pron)
+AllRus: сам ты
+
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TCond AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван говорил бы о Париже
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TCond ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван говорил бы о Париже
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TFut AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван будет говорить о Париже
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TFut ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван будет говорить о Париже
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPast AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван говорил о Париже
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван говорил о Париже
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван говорит о Париже
+AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: яблоко , с которым Иван говорит о Париже
+
