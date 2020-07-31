@@ -11,12 +11,12 @@ lin
     let n = numSizeNumber det.size in {
       s=case det.type of {
         EmptyIndef => \\cas =>
-          let d=case (numSizeNum cas det.size ) of {Pl=>a_Pl_Det; _=>a_Det} in
+          let d=case n of {Pl=>a_Pl_Det; _=>a_Det} in
           d.s ! det.g ! Inanimate ! cas
           ++ det.s ! cn.g ! cn.anim ! cas
           ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ;
         EmptyDef => \\cas =>
-          let d=case (numSizeNum cas det.size ) of {Pl=>the_Pl_Det; _=>the_Det} in
+          let d=case n of {Pl=>the_Pl_Det; _=>the_Det} in
           d.s ! det.g ! Inanimate ! cas
           ++ det.s ! cn.g ! cn.anim ! cas
           ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ;
@@ -217,7 +217,6 @@ lin
     size=Num1 ;
     preferShort=PrefFull
     } ;
-  -- DefArt = adjFormsAdjective the_forms ** {preferShort=PrefFull ; g=Neut ; c=Nom} ;
   -- : Quant ;       -- a (house), (houses)
   IndefArt = {
     s=\\gn,anim,cas=>[] ;

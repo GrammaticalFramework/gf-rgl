@@ -59,8 +59,8 @@ lin
   in8front_Prep = mkPrep "перед" Ins ;
   in_Prep = mkPrep "в" Loc ;
   on_Prep = mkPrep "на" Loc ;
-  part_Prep = {s="" ; c=Nom ; hasPrep=False }; -- missing in Russian???
-  possess_Prep = {s="" ; c=Gen ; hasPrep=False};
+  part_Prep = {s="" ; c=Ptv ; hasPrep=False } ;
+  possess_Prep = {s="" ; c=Gen ; hasPrep=False} ;
   through_Prep = mkPrep "через" Acc ;
   to_Prep = mkPrep "к" Dat ;
   under_Prep = mkPrep "под" Ins ;

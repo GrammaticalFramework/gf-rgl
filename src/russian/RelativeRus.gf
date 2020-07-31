@@ -9,7 +9,7 @@ lin
   -- : Cl -> RCl ;            -- such that John loves her
   RelCl cl = {
     subj=such.s ;
-    adv=\\a=> comma ++ "что" ++ cl.adv ;  -- TODO: this should be after subj in this case
+    adv=\\a=> cl.subj ++ comma ++ "что" ++ cl.adv ;  -- TODO: this should be after subj in this case
     verb=cl.verb ;
     dep=cl.dep ;
     compl=\\a=>cl.compl ;
@@ -38,7 +38,7 @@ lin
   -- : RP ;                      -- which
   IdRP = lin RP (doKotoryjPron "который" (Ag (GSg Neut) P3)) ;
 
-  -- Prep -> NP -> RP -> RP ;  -- the mother of whom
+  -- : Prep -> NP -> RP -> RP ;  -- the mother of whom
   FunRP prep np rp = {
     s=\\gn,anim,cas => np.s ! cas ++ prep.s ++ rp.s ! gn ! Inanimate ! prep.c ;
     a=np.a

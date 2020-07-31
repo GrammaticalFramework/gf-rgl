@@ -25,6 +25,13 @@ lin
     a=Ag (GSg L.name_N.g) P3 ;
     } ;
 
+  -- : NP -> CN ;       -- bottle of beer
+  bottle_of_CN np = N.ComplN2 (P.mkN2 (P.mkN "бутылка" Fem Inanimate "3*a") part_Prep) np ;
+  -- : NP -> CN ;       -- cup of tea
+  cup_of_CN np = N.ComplN2 (P.mkN2 (P.mkN "чашка" Fem Inanimate) part_Prep) np ;
+  -- : NP -> CN ;       -- glass of wine
+  glass_of_CN np = N.ComplN2 (P.mkN2 (P.mkN "стакан") part_Prep) np ;
+
 -- languages
 lincat
   Language = N ;

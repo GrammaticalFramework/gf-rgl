@@ -30,7 +30,7 @@ lin
     } ;
 
   -- : NP -> Cl ;        -- there is a house
-  ExistNP np = {subj=np.s ! Nom ; compl="" ; verb=to_exist ; dep=[] ; adv=[] ; a=np.a} ;  -- TODO: Different order!
+  ExistNP np = {subj=np.s ! Nom ; compl="" ; verb=to_exist ; dep=[] ; adv=[] ; a=np.a} ;  -- TODO: Different order?
 
   -- : IP -> QCl ;       -- which houses are there
   ExistIP ip = {
@@ -55,11 +55,10 @@ lin
       } ;
   -- : NP -> VP -> Utt ; -- let John walk
   ImpP3 np vp =
-    let a = Ag (GSg Neut) P3 in
     let pol = PPos in
-    let parts = verbAgr vp.verb Ind Pres a pol.p in
+    let parts = verbAgr vp.verb Ind Pres np.a pol.p in
     let p1 = "пусть" in {
-      s = p1 ++ pol.s ++ vp.adv ! a ++ np.s ! Nom ++ parts.p2 ++ vp.dep ++ vp.compl ! a
+      s = p1 ++ pol.s ++ vp.adv ! np.a ++ np.s ! Nom ++ parts.p2 ++ vp.dep ++ vp.compl ! np.a
       } ;
 
   -- : VP -> VP ;        -- is at home himself
