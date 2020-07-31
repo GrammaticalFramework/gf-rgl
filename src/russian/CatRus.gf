@@ -89,7 +89,7 @@ lincat
     compl,adv : AgrTable ;
     verb : VerbForms ;
     dep : Str ;  -- dependent infinitives and such
-    a : Agr
+    a : MaybeAgr
     } ;
 
   Prep = ResRus.ComplementCase ;

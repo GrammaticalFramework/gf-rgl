@@ -1,4 +1,4 @@
-concrete SentenceRus of Sentence = CatRus ** open Prelude, TenseRus, ParamRus, Coordination, (R=ResRus) in {
+concrete SentenceRus of Sentence = CatRus ** open Prelude, TenseRus, ParamRus, Coordination, Maybe, (R=ResRus) in {
 flags optimize=all_subs ; coding=utf8 ;
 lin
   -- : Adv -> S -> S ;            -- then I will go home
@@ -24,7 +24,8 @@ lin
   -- : Temp -> Pol -> RCl -> RS ;  -- that had not slept
   UseRCl temp pol rcl = {
     s = \\gn,anim,cas =>
-      let parts = R.verbAgr rcl.verb Ind temp.t (genNumAgrP3 gn) pol.p in
+      let a : Agr = fromMaybe Agr (genNumAgrP3 gn) rcl.a in
+      let parts = R.verbAgr rcl.verb Ind temp.t a pol.p in
       temp.s ++ parts.p1 ++ rcl.subj ! gn ! anim ! Nom ++ rcl.adv ! (genNumAgrP3 gn) ++ pol.s ++ parts.p2 ++ rcl.dep ++ rcl.compl ! (genNumAgrP3 gn)
     } ;
 

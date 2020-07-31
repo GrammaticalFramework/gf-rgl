@@ -41,8 +41,8 @@ lin
 
   -- : A2 -> AP ;        -- married to itself - замужем за собой
   ReflA2 a2 = let af=adjFormsAdjective a2 in {
-    s = \\gn,anim,cas => af.s ! gn ! anim ! cas ++ a2.c.s ++ sam.s ! (a2.c.c) ;
-    short = \\a=>af.short ! a ++ a2.c.s ++ sam.s ! (a2.c.c) ;
+    s = \\gn,anim,cas => af.s ! gn ! anim ! cas ++ a2.c.s ++ sebya.s ! (a2.c.c) ;
+    short = \\a=>af.short ! a ++ a2.c.s ++ sebya.s ! (a2.c.c) ;
     isPost = False ;
     preferShort = a2.preferShort
     } ;

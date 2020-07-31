@@ -1,4 +1,4 @@
-resource ParamRus = ParamX, CommonX [Temp] ** open Prelude in {
+resource ParamRus = ParamX, CommonX [Temp] ** open Prelude, Maybe in {
   -- Mostly follows https://en.wikipedia.org/wiki/List_of_glossing_abbreviations
   -- see theory.txt
 
@@ -33,6 +33,7 @@ param
   SpecialFuture = NormalFuture | BeFuture | CanFuture | WantFuture | NullFuture ;
   DetType = NormalDet | EmptyDef | EmptyIndef ; -- artificial parameter to side-step DetNP parsing issues
 oper
+  MaybeAgr = Maybe Agr ;
   -- GenNum helpers and coercions
   MSg        = GSg Masc ;
   FSg        = GSg Fem ;

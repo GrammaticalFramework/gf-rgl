@@ -1,6 +1,8 @@
 concrete ConstructionRus of Construction = CatRus **
   open Predef, SyntaxRus, SymbolicRus, (P=ParadigmsRus), ResRus, Prelude,
-    QuestionRus, SentenceRus, AdverbRus, AdjectiveRus, VerbRus, (N=NounRus), IdiomRus, (E=ExtendRus), (EX=ExtraRus) in {
+    QuestionRus, SentenceRus, AdverbRus, AdjectiveRus, VerbRus,
+    (L=LexiconRus),
+    (N=NounRus), IdiomRus, (E=ExtendRus), (EX=ExtraRus) in {
 
 lin
   hungry_VP = mkVP (P.mkA "голодный" "" "1*a/c'" PrefShort) ;
@@ -8,10 +10,20 @@ lin
   tired_VP = mkVP (P.mkA "усталый" "" "1*a/c'" PrefFull) ;
   scared_VP = mkVP (P.mkV Imperfective "бояться" "боюсь" "боится") ;   -- intran
   ill_VP = mkVP ( P.mkA "больной" "" "1*b" PrefShort) ;
-  ready_VP = mkVP (P.mkA "готовый" "" "1a" PrefFull) ;
+  ready_VP = mkVP L.ready_A ;
 
   -- : NP -> QCl ;          -- what is x's name / wie heisst x (Ger)
   what_name_QCl np = E.PredIAdvVP how_IAdv (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Acc)) np) ;
+
+  -- : NP -> NP -> Cl ;     -- x's name is y / x s'appelle y (Fre)
+  have_name_Cl np np1 = {
+    subj=[];
+    adv=np.s ! Acc ++ L.name_N.snom;
+    verb=copulaEll ;   -- ???
+    dep=[] ;
+    compl=np1.s ! Nom ;
+    a=Ag (GSg L.name_N.g) P3 ;
+    } ;
 
 -- languages
 lincat
@@ -33,10 +45,11 @@ oper
 
 lin
   -- : Card -> Timeunit -> Adv ; -- (for) three hours
-  timeunitAdv card time = P.mkAdv ((cardCN card time).s ! Nom) ;
+  timeunitAdv card time = P.mkAdv ((cardCN (lin Card card) time).s ! Nom) ;
 
   -- : Card -> Card -> Timeunit -> Adv ; -- (cats live) ten to twenty years
-  timeunitRange l u time = P.mkAdv (applyPrep from_Prep (cardCN l (ellNoun time)) ++ applyPrep EX.on_to_Prep (cardCN u time)) ;
+  timeunitRange l u time = P.mkAdv (applyPrep from_Prep (cardCN (lin Card l) (lin N (ellNoun time)))
+    ++ applyPrep EX.on_to_Prep (cardCN (lin Card u) time)) ;
 
   oneHour = mkHour "1" ;
   twoHour = mkHour "2" ;
@@ -141,10 +154,10 @@ lin
   second_Timeunit = P.mkN "секунда" ;
   minute_Timeunit = P.mkN "минута" ;
   hour_Timeunit = P.mkN "час" Masc Inanimate "1c" ;
-  day_Timeunit = P.mkN "день" Masc Inanimate "2*b" ;
+  day_Timeunit = L.day_N ;
   week_Timeunit = P.mkN "неделя" Fem Inanimate "2a" ;
   month_Timeunit = P.mkN "месяц" Masc Inanimate "5a" ;
-  year_Timeunit = lin N ((mkNplus (P.mkN "год")) ** {sloc="году"; pgen="лет"}) ;
+  year_Timeunit = L.year_N ;
 
   monday_Weekday = P.mkN "понедельник" Masc Inanimate ;
   tuesday_Weekday = P.mkN "вторник" Masc Inanimate ;

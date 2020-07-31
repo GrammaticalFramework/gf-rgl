@@ -967,7 +967,20 @@ oper
         Ag GPl _ => doReflexivePron "сами" a
         };
 
-  sam = pronFormsPronoun (reflexivePron (Ag (GSg Masc) P3)) ;
+  sebya = pronFormsPronoun (reflexivePron (Ag (GSg Masc) P3)) ;
+  sam = (guessAdjectiveForms "самый") ** {
+    fsnom="сама" ;
+    msnom="сам" ;
+    nsnom="само" ;
+    fsacc="саму" ;
+    fsins=variants {"самой"; "самою"} ;
+    msins="самим";
+    nsins="самим";
+    pgen="самих" ;
+    pnom="сами" ;
+    pins="самими" ;
+    sp="сами"
+    } ;
 
   all_Pron = pronoun2AstB "весь" ;
   only_Pron = guessAdjectiveForms "единственный" ;
