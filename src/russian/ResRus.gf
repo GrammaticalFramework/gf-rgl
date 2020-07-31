@@ -432,12 +432,6 @@ oper
 -- Note 2. Imperative Sg P2 of reflexive verbs, can be сь as well as ся, but because there is no passive forms
 -- we can store the sya-schema and 'BIND++' as necessary.
 
-  Verb : Type = {
-    s : Voice => Tense => Agr => Str ;
-    refl : Reflexivity ;
-    tran : Transitivity
-  } ;
-
 oper
 
   guessVerbForms : Aspect -> Transitivity -> Str -> Str -> Str -> VerbForms
