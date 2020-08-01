@@ -111,7 +111,7 @@ lin
 
   -- : VPSlash -> NP -> VP ; -- love it
   ComplSlash vps np = vps ** {
-    compl=\\a => vps.compl ! np.a ++ (applyPrep vps.c np)      -- hasPrep? order? compl agr lost?
+    compl=\\a => vps.compl ! a ++ (applyPrep vps.c np)
     } ;
 
   -- : VV -> VPSlash -> VPSlash ;       -- want to buy

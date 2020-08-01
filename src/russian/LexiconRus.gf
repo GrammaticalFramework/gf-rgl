@@ -87,7 +87,7 @@ lin
   dry_A = mkA "сухой" "" "3b/c'";
   dull_A = mkA "скучный" ;
   dust_N = mkN "пыль" ;
-  ear_N = mkN "ухо" ;
+  ear_N = (mkNplus (mkN "ухо" neuter inanimate "3e")) ** {pnom="уши";pgen="ушей";pdat="ушам";pacc="уши";pins="ушами";pprep="ушах"} ;
   earth_N = mkN "земля" feminine inanimate "2*d" ;
   easy_A2V = mkA2 (mkA "лёгкий" "легче" "3*a/b") for_Prep ;
   eat_V2 = mkV2 (mkV imperfective "кушать" "кушаю");
