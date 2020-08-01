@@ -18,7 +18,7 @@ lin
   -- : NP -> NP -> Cl ;     -- x's name is y / x s'appelle y (Fre)
   have_name_Cl np np1 = {
     subj=[];
-    adv=np.s ! Acc ++ L.name_N.snom;
+    adv=np.s ! Gen ++ L.name_N.snom;
     verb=copulaEll ;   -- ???
     dep=[] ;
     compl=np1.s ! Nom ;
