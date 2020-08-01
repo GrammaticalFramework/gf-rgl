@@ -728,3 +728,6 @@ AllRus: надеяться , что не его имя Иван
 AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
 AllRus: надеяться , что его имя Иван
 
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep ill_VP possess_Prep) (UsePron we_Pron)))
+AllRus: бы &+ ло больно у нас
+
