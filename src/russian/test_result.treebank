@@ -66,23 +66,23 @@ AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (SelfAdV
 AllRus: ты сам хотел быть усталым в сентябре
 
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: он кушал некое яблоко
+AllRus: он кушал яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: я кушал некое яблоко
+AllRus: я кушал яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: оно куша &+ ло некое яблоко
+AllRus: оно куша &+ ло яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: она куша &+ ла некое яблоко
+AllRus: она куша &+ ла яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: они куша &+ ли некое яблоко
+AllRus: они куша &+ ли яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: мы куша &+ ли некое яблоко
+AllRus: мы куша &+ ли яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: вы куша &+ ли некое яблоко
+AllRus: вы куша &+ ли яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: вы куша &+ ли некое яблоко
+AllRus: вы куша &+ ли яблоко
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))
-AllRus: ты кушал некое яблоко
+AllRus: ты кушал яблоко
 
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (SelfAdvVP (ComplVV want_VV (AdvVP tired_VP (monthAdv september_Month)))))
 AllRus: он хотел быть усталым в сентябре сам
@@ -104,45 +104,45 @@ AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (SelfAdv
 AllRus: ты хотел быть усталым в сентябре сам
 
 AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (AdvCN (UseN apple_N) (weekdayNextAdv monday_Weekday))) ready_VP)
-AllRus: данные яблоки в следующий понедельник будут готовыми
+AllRus: яблоки в следующий понедельник будут готовыми
 
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: он кушал данные 2 яблока
+AllRus: он кушал 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: я кушал данные 2 яблока
+AllRus: я кушал 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: оно куша &+ ло данные 2 яблока
+AllRus: оно куша &+ ло 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: она куша &+ ла данные 2 яблока
+AllRus: она куша &+ ла 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: они куша &+ ли данные 2 яблока
+AllRus: они куша &+ ли 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: мы куша &+ ли данные 2 яблока
+AllRus: мы куша &+ ли 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: вы куша &+ ли данные 2 яблока
+AllRus: вы куша &+ ли 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: вы куша &+ ли данные 2 яблока
+AllRus: вы куша &+ ли 2 яблока
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN apple_N))))
-AllRus: ты кушал данные 2 яблока
+AllRus: ты кушал 2 яблока
 
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: он кушал данные 5 яблок
+AllRus: он кушал 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: я кушал данные 5 яблок
+AllRus: я кушал 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: оно куша &+ ло данные 5 яблок
+AllRus: оно куша &+ ло 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: она куша &+ ла данные 5 яблок
+AllRus: она куша &+ ла 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: они куша &+ ли данные 5 яблок
+AllRus: они куша &+ ли 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: мы куша &+ ли данные 5 яблок
+AllRus: мы куша &+ ли 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: вы куша &+ ли данные 5 яблок
+AllRus: вы куша &+ ли 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: вы куша &+ ли данные 5 яблок
+AllRus: вы куша &+ ли 5 яблок
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN apple_N))))
-AllRus: ты кушал данные 5 яблок
+AllRus: ты кушал 5 яблок
 
 AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V))
 AllRus: она не спа &+ ла
@@ -543,4 +543,188 @@ AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP
 AllRus: яблоко , с которым Иван говорит о Париже
 AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
 AllRus: яблоко , с которым Иван говорит о Париже
+
+AllRusAbs: bottle_of_CN (MassNP (UseN wine_N))
+AllRus: бутылка вина
+
+AllRusAbs: glass_of_CN (MassNP (UseN wine_N))
+AllRus: стакан вина
+
+AllRusAbs: cup_of_CN (MassNP (UseN silver_N))
+AllRus: чашка серебра
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: он пил 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: я пил 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: оно пи &+ ло 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: она пи &+ ла 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: они пи &+ ли 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: мы пи &+ ли 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: вы пи &+ ли 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: вы пи &+ ли 2 чашки воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (cup_of_CN (MassNP (UseN water_N))))))
+AllRus: ты пил 2 чашки воды
+
+AllRusAbs: n_units_of_NP (NumNumeral (num (pot3plus (pot1as2 pot110) (pot2plus pot01 pot111)))) (UseN cap_N) (MassNP (UseN water_N))
+AllRus: десять тысяч сто одиннадцать шапок воды
+
+AllRusAbs: n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))
+AllRus: бутылка воды на десять шапок
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: он пил бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: я пил бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: оно пи &+ ло бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: она пи &+ ла бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: они пи &+ ли бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: мы пи &+ ли бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: вы пи &+ ли бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: вы пи &+ ли бутылку воды на десять шапок
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a drink_V2) (MassNP (n_unit_CN (NumNumeral (num (pot2as3 (pot1as2 pot110)))) (UseN cap_N) (bottle_of_CN (MassNP (UseN water_N)))))))
+AllRus: ты пил бутылку воды на десять шапок
+
+AllRusAbs: UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))
+AllRus: Иван не говорил бы о Париже с
+AllRusAbs: UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))
+AllRus: Иван говорил бы о Париже с
+
+AllRusAbs: SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))
+AllRus: малыш знать , что Иван не говорил бы о Париже
+AllRusAbs: SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))
+AllRus: малыш знать , что Иван говорил бы о Париже
+
+AllRusAbs: RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: с которым малыш знать , что Иван не говорил бы о Париже
+AllRusAbs: RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))
+AllRus: с которым малыш знать , что Иван говорил бы о Париже
+
+AllRusAbs: UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))))
+AllRus: с которым малыш не знал , что Иван не говорил бы о Париже
+AllRusAbs: UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))))
+AllRus: с которым малыш не знал , что Иван говорил бы о Париже
+AllRusAbs: UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))))
+AllRus: с которым малыш знал , что Иван не говорил бы о Париже
+AllRusAbs: UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))))
+AllRus: с которым малыш знал , что Иван говорил бы о Париже
+
+AllRusAbs: RelCN (UseN house_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: дом , с которым малыш не знал , что Иван не говорил бы о Париже
+AllRusAbs: RelCN (UseN house_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: дом , с которым малыш не знал , что Иван говорил бы о Париже
+AllRusAbs: RelCN (UseN house_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: дом , с которым малыш знал , что Иван не говорил бы о Париже
+AllRusAbs: RelCN (UseN house_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: дом , с которым малыш знал , что Иван говорил бы о Париже
+
+AllRusAbs: RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: женщина , с которой малыш не знал , что Иван не говорил бы о Париже
+AllRusAbs: RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: женщина , с которой малыш не знал , что Иван говорил бы о Париже
+AllRusAbs: RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: женщина , с которой малыш знал , что Иван не говорил бы о Париже
+AllRusAbs: RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVS (MassNP (UseN baby_N)) know_VS (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN)))))))
+AllRus: женщина , с которой малыш знал , что Иван говорил бы о Париже
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ExistNP everything_NP)
+AllRus: всё существует
+
+AllRusAbs: SSubjS (UseCl (TTAnt TPres AAnter) PPos (ExistNP everything_NP)) because_Subj (UseCl (TTAnt TPres AAnter) PPos (ExistNP everything_NP))
+AllRus: всё существует , потому что всё существует
+
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (AdvSlash (SlashVP (UsePN john_PN) (VPSlashPrep (UseV walk_V) for_Prep)) here_Adv))
+AllRus: для чего Иван здесь гуляет
+
+AllRusAbs: ImpVP (AdvVP (AdVVP always_AdV (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday))
+AllRus: будь всегда голоден сам в следующую пятницу
+
+AllRusAbs: PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP
+AllRus: сколько везде никто не существовал бы быть голодно
+
+AllRusAbs: RelCl (PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP)
+AllRus: такое сколько везде никто не существовал бы , что быть голодно
+
+AllRusAbs: RelCl (PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP)
+AllRus: такое сколько везде никто не существовал бы , что быть голодно
+
+AllRusAbs: UseRCl (TTAnt TPres ASimul) PPos (RelCl (PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP))
+AllRus: такой сколько везде никто не существовал бы , что голодно
+
+AllRusAbs: RelS (UseCl (TTAnt TPres ASimul) PNeg (GenericCl scared_VP)) (UseRCl (TTAnt TPres ASimul) PPos (RelCl (PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP)))
+AllRus: не боишь &+ ся , такое сколько везде никто не существовал бы , что голодно
+
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: не рисовал бы молодого себя
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: рисовал бы молодого себя
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: не будешь рисовать молодого себя
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: будешь рисовать молодого себя
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: не рисовал молодого себя
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: рисовал молодого себя
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: не рисуешь молодого себя
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A))))
+AllRus: рисуешь молодого себя
+
+AllRusAbs: ImpP3 (MassNP (UseN woman_N)) (ReflVP (SlashV2A paint_V2A (PositA young_A)))
+AllRus: пусть женщина рисует молодую себя
+
+AllRusAbs: ImpPl1 (ReflVP (SlashV2A paint_V2A (PositA young_A)))
+AllRus: давайте рисовать молодых себя
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_V2))
+AllRus: сердце не сжима &+ ло &+ сь бы
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_V2))
+AllRus: сердце сжима &+ ло &+ сь бы
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV can8know_VV (PassV2 squeeze_V2)))
+AllRus: сердце не мог &+ ло бы сжиматься
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV can_VV (PassV2 squeeze_V2)))
+AllRus: сердце не мог &+ ло бы сжиматься
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV must_VV (PassV2 squeeze_V2)))
+AllRus: сердце не должно сжиматься
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV want_VV (PassV2 squeeze_V2)))
+AllRus: сердце не хоте &+ ло бы сжиматься
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV can8know_VV (PassV2 squeeze_V2)))
+AllRus: сердце мог &+ ло бы сжиматься
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV can_VV (PassV2 squeeze_V2)))
+AllRus: сердце мог &+ ло бы сжиматься
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV must_VV (PassV2 squeeze_V2)))
+AllRus: сердце должно сжиматься
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV want_VV (PassV2 squeeze_V2)))
+AllRus: сердце хоте &+ ло бы сжиматься
+
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TCond AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что не его имя бы &+ ло бы Иван
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TCond AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что его имя бы &+ ло бы Иван
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TFut AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что не его имя будет Иван
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TFut AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что его имя будет Иван
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPast AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что не его имя бы &+ ло Иван
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPast AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что его имя бы &+ ло Иван
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что не его имя Иван
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что его имя Иван
 

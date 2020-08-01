@@ -213,6 +213,9 @@ oper
   tvDirDir : V -> V3 ;
   tvDirDir v = mkV3 v Acc Dat ;
 
+  mkVV : V -> VV;
+  mkVV = \v -> lin VV {v=v; modal=\\a=>[]} ;
+
   -- for backwards compatibility only. Use mkV methods instead.
   -- These are deprecated!
 param Conjugation = First | FirstE | Second | SecondA | Mixed | Dolzhen | Foreign ;

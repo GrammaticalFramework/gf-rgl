@@ -10,16 +10,16 @@ lin
   DetCN det cn =
     let n = numSizeNumber det.size in {
       s=case det.type of {
-        EmptyIndef => \\cas =>
-          let d=case n of {Pl=>a_Pl_Det; _=>a_Det} in
-          d.s ! det.g ! Inanimate ! cas
-          ++ det.s ! cn.g ! cn.anim ! cas
-          ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ;
-        EmptyDef => \\cas =>
-          let d=case n of {Pl=>the_Pl_Det; _=>the_Det} in
-          d.s ! det.g ! Inanimate ! cas
-          ++ det.s ! cn.g ! cn.anim ! cas
-          ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ;
+        -- EmptyIndef => \\cas =>
+        --   let d=case n of {Pl=>a_Pl_Det; _=>a_Det} in
+        --   d.s ! det.g ! Inanimate ! cas
+        --   ++ det.s ! cn.g ! cn.anim ! cas
+        --   ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ;
+        -- EmptyDef => \\cas =>
+        --   let d=case n of {Pl=>the_Pl_Det; _=>the_Det} in
+        --   d.s ! det.g ! Inanimate ! cas
+        --   ++ det.s ! cn.g ! cn.anim ! cas
+        --   ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ;
         _ => \\cas => det.s ! cn.g ! cn.anim ! cas
           ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size
         } ;
