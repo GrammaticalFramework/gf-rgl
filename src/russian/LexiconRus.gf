@@ -13,13 +13,13 @@ lin
   apartment_N = mkN "квартира" ;
   apple_N = mkN "яблоко" neuter inanimate "3a(1)" ;
   art_N = mkN "искусство" ;
-  ashes_N = mkN "пепел" masculine inanimate "1*a" ;
+  ashes_N = mkN "пепел" masculine inanimate "1*a" only_singular;
   ask_V2Q = dirV2 (mkV perfective "спросить" "спрошу" "спросит") ;
   baby_N = mkN "малыш" masculine animate "4b" ;
   back_N = mkN "спина" ;
   bad_A = mkA "плохой" "хуже" "3b/c'";
   bank_N = mkN "банк" ;
-  bark_N = mkN "кора";
+  bark_N = (mkNplus (mkN "кора")) ** {mayben=only_singular} ;
   beautiful_A = mkA "красивый" ;
   become_VA = mkV imperfective intransitive "становиться" "становлюсь" "становится";
   beer_N = mkN "пиво" neuter inanimate ;
@@ -101,7 +101,7 @@ lin
   fat_N = mkN "жир" ;
   father_N2 = mkN2 (mkN "отец" masculine inanimate "5*b");
   fear_V2 = mkV2 (mkV imperfective intransitive "бояться" "боюсь" "боится") Gen ;
-  fear_VS = mkV imperfective "бояться" "боюсь" "боится";  --intran
+  fear_VS = mkVS (mkV imperfective "бояться" "боюсь" "боится" ) ;  --intran
   feather_N = (mkNplus (mkN "перо" neuter inanimate "1d")) ** {pnom="перья";pgen="перьев";pdat="перьям";pacc="перья";pins="перьями";pprep="перьях"};
   fight_V2 = mkV2 (mkV imperfective intransitive "бороться" "борюсь" "борется") with_Prep ;
   find_V2 = mkV2 (mkV imperfective "находить" "нахожу" "находит");
@@ -128,7 +128,7 @@ lin
   give_V3 = tvDirDir (mkV imperfective "давать" "даю" "даёт") ;
   glove_N = mkN "перчатка" feminine inanimate "3*a";
   go_V = mkV imperfective intransitive "ходить" "хожу" "ходит";
-  gold_N = mkN "золото" ;
+  gold_N = (mkNplus (mkN "золото")) ** {mayben=only_singular} ;
   good_A = mkA "хороший" "лучше" ;
   grammar_N = mkN "грамматика";
   grass_N = mkN "трава";
@@ -144,27 +144,27 @@ lin
   heart_N = mkN "сердце" neuter inanimate "5*c" ;
   heavy_A = (mkAltShort (mkA "тяжёлый" "тяжелее") (mkA "тяжелый")) ** {sm="тяжёл"} ;   -- TODO: same
   hill_N = mkN "холм" ;
-  hit_V2 = mkV2 (mkV imperfective "ударять" "ударяю" "ударяет");
-  hold_V2 = mkV2 (mkV imperfective "держать" "держу" "держит");
-  hope_VS= mkV imperfective "надеяться" "надеюсь" ;
+  hit_V2 = mkV2 (mkV imperfective "ударять" "ударяю" "ударяет") ;
+  hold_V2 = mkV2 (mkV imperfective "держать" "держу" "держит") ;
+  hope_VS = mkVS (mkV imperfective "надеяться" "надеюсь") ;
   horn_N = mkN "рог" masculine inanimate "3c(1)" ;
   horse_N = mkN "лошадь" feminine animate "8e" ;
   hot_A = mkA "горячий" "" "4a/b";
   house_N = mkN "дом" masculine inanimate "1c(1)" ;
   hunt_V2 = mkV2 (mkV imperfective intransitive "охотиться" "охочусь" "охотится") (lin Prep {s="на" ; c=Acc ; hasPrep=True}) ;
   husband_N = (mkNplus (mkN "муж" masculine animate "4c")) ** {pnom="мужья";pgen="мужей";pdat="мужьям";pacc="мужей";pins="мужьями";pprep="мужьях"};
-  ice_N = (mkNplus (mkN "лёд"  masculine animate "1b")) ** {sloc="льду";sptv="льду"} ;
+  ice_N = (mkNplus (mkN "лёд"  masculine animate "1*b")) ** {sloc="льду";sptv="льду"} ;
   important_A = mkA "важный" ;
   industry_N = mkN "промышленность" ;
-  iron_N = mkN "железо" ;
+  iron_N = (mkNplus (mkN "железо")) ** {mayben=only_singular};
   john_PN = mkPN "Иван" masculine animate ;
   jump_V = mkV imperfective intransitive "прыгать" "прыгаю" "прыгает";
   kill_V2 = mkV2 (mkV imperfective "убивать" "убиваю");
   king_N = mkN "король" masculine animate "2b";
   knee_N = (mkNplus (mkN "колено" neuter inanimate "1a")) ** {pnom="колени";pgen="коленей";pdat="коленям";pacc="колени";pins="коленями";pprep="коленях"} ;
-  know_V2 = mkV2 (mkV imperfective "знать" "знаю");
-  know_VQ = mkV imperfective "знать" "знаю";
-  know_VS= mkV imperfective "знать" "знаю" ;
+  know_V2 = mkV2 (mkV imperfective "знать" "знаю") ;
+  know_VQ = mkVQ (mkV imperfective "знать" "знаю") ;
+  know_VS = mkVS (mkV imperfective "знать" "знаю") ;
   lake_N = (mkNplus (mkN "озеро" neuter inanimate "1a"))  ** {pnom="озёра";pgen="озёр";pdat="озёрам";pacc="озёра";pins="озёрами";pprep="озёрах"} ;
   lamp_N = mkN "лампа" ;
   language_N = mkN "язык" ;
@@ -188,7 +188,7 @@ lin
   man_N = (mkNAltPl (mkN "человек" masculine animate "3a") (mkN "людь" masculine animate)) ** {pins="людьми"};
   married_A2 = mkA2 (mkA "замужем" "" "0") behind_Prep ;  -- for Fem only
   meat_N = mkN "мясо" neuter inanimate "1c" ;
-  milk_N = mkN "молоко" neuter inanimate "3d(1)" ;
+  milk_N = mkN "молоко" neuter inanimate "3d(1)" only_singular ;
   moon_N = mkN "луна" ;
   mother_N2 = (mkN2plus (mkN2 "матерь" feminine animate "8e" nullPrep)) ** {snom="мать";sacc="мать";svoc="мать";} ;
   mountain_N = mkN "гора" ;
@@ -249,7 +249,7 @@ lin
   run_V = mkV imperfective intransitive "бегать" "бегу" "бежит" ;
   salt_N = mkN "соль" ;
   sand_N = (mkNplus (mkN "песок"  masculine inanimate "3*b")) ** {sptv="песку"} ;
-  say_VS = mkV imperfective "говорить" "говорю" "говорит" ;
+  say_VS = mkVS (mkV imperfective "говорить" "говорю" "говорит") ;
   school_N = mkN "школа" ;
   science_N = mkN "наука" ;
   scratch_V2 = mkV2 (mkV imperfective "чесать" "чешу" "чешет");
@@ -267,7 +267,7 @@ lin
   shoe_N = mkN "туфля" feminine inanimate "2*a" ;
   shop_N = mkN "магазин" ;
   short_A = mkA "короткий" "короче" "3*a/c'";
-  silver_N = mkN "серебро" ;
+  silver_N = (mkNplus (mkN "серебро")) ** {mayben=only_singular};
   sister_N = mkN "сестра" feminine animate ;
   sit_V = mkV imperfective intransitive "сидеть" "сижу" "сидит";
   skin_N = mkN "кожа" ;
@@ -344,7 +344,7 @@ lin
   wing_N = (mkNplus (mkN "крыло" neuter inanimate "1d")) ** {pnom="крылья";pgen="крыльев";pdat="крыльям";pacc="крылья";pins="крыльями";pprep="крыльях"};
   wipe_V2 = mkV2 (mkV imperfective "вытирать" "вытираю");
   woman_N = mkN "женщина" feminine animate ;
-  wonder_VQ = mkV imperfective "интересовать" "интересую" "интересует";
+  wonder_VQ = mkVQ (mkV imperfective "интересовать" "интересую" "интересует") ;
   wood_N = mkN "древесина" feminine inanimate "1a" ;
   worm_N = mkN "червь" masculine animate ;
   write_V2 = mkV2 (mkV imperfective "писать" "пишу" "пишет");
