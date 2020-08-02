@@ -2,7 +2,7 @@ concrete ConstructionRus of Construction = CatRus **
   open Predef, SyntaxRus, SymbolicRus, (P=ParadigmsRus), ResRus, Prelude,
     QuestionRus, SentenceRus, AdverbRus, AdjectiveRus, VerbRus,
     (L=LexiconRus),
-    (N=NounRus), IdiomRus, (E=ExtendRus), (EX=ExtraRus) in {
+    (N=NounRus), IdiomRus, (EX=ExtraRus) in {
 
 lin
   hungry_VP = mkVP (P.mkA "голодный" "" "1*a/c'" PrefShort) ;
@@ -13,7 +13,7 @@ lin
   ready_VP = mkVP L.ready_A ;
 
   -- : NP -> QCl ;          -- what is x's name / wie heisst x (Ger)
-  what_name_QCl np = E.PredIAdvVP how_IAdv (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Acc)) np) ;
+  what_name_QCl np = QuestIAdv how_IAdv (GenericCl (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Acc)) np)) ;
 
   -- : NP -> NP -> Cl ;     -- x's name is y / x s'appelle y (Fre)
   have_name_Cl np np1 = {

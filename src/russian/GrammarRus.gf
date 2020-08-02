@@ -11,7 +11,7 @@ concrete GrammarRus of Grammar =
   RelativeRus,
   ConjunctionRus,
   PhraseRus,
-  TextRus,
+  TextX,
   StructuralRus,
   IdiomRus,
   TenseRus
