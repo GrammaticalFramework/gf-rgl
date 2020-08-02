@@ -1,13 +1,12 @@
-concrete TenseRus of Tense = CatRus, TenseX - [PNeg,PPos]
-  ** open ResRus, (P=ParamRus), Prelude in {
+concrete TenseRus of Tense = TenseX - [PNeg,PPos] ** open (R = ParamX) in {
 flags coding=utf8 ; optimize=all ;
 lin
   PNeg = {
     s = "не" ;
-    p = Neg
+    p = R.Neg
     } ;
   PPos = {
     s = [] ;
-    p = Pos
+    p = R.Pos
     } ;
 }
