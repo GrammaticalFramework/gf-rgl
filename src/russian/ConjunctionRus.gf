@@ -26,6 +26,7 @@ concrete ConjunctionRus of Conjunction =
       } ;
     [CN] = {s1,s2 : Number => Case => Str ;
       g : Gender ;
+      mayben : MaybeNumber ;
       anim : Animacy
       } ;
     [S] = {s1,s2 : Mood => Str} ;
@@ -125,12 +126,14 @@ concrete ConjunctionRus of Conjunction =
       s1 = x.s ;
       s2 = y.s ;
       g = y.g ;
+      mayben = JustPl ;
       anim = conjAnim x.anim y.anim
       } ;
 
     -- : CN -> ListCN -> ListCN ;  -- man, woman, child
     ConsCN x xs = consrTable2 Number Case comma x xs ** {
       g = conjGender x.g xs.g ;
+      mayben = JustPl ;
       anim = conjAnim x.anim xs.anim
       } ;
 
@@ -138,6 +141,7 @@ concrete ConjunctionRus of Conjunction =
     ConjCN conj xs = {
       s = \\n,cas => conj.s1 ++ xs.s1 ! n ! cas ++ conj.s2 ++ xs.s2 ! n ! cas ;
       g = xs.g ;
+      mayben = JustPl ;
       anim = xs.anim
     } ;
 

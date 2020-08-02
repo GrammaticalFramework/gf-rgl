@@ -96,7 +96,7 @@ lin
 
   less_CAdv = X.mkCAdv "менее" "чем" ;
   more_CAdv = X.mkCAdv "более" "чем" ;
-  as_CAdv = X.mkCAdv "так же" "как и" ;
+  as_CAdv = X.mkCAdv "так же" "как и" ;  -- requires short form adjective
 
   can8know_VV = {v=can; modal=\\a=>[]} ;
   can_VV = {v=can; modal=\\a=>[]} ;

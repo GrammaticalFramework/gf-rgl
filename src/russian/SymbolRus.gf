@@ -15,17 +15,19 @@ lin
   NumPN card = (immutableNounForms (card.s ! Neut ! Inanimate ! Nom) Neut Inanimate) ** {g = Neut; a = Inanimate} ;
 
   -- : CN -> Card -> NP ;          -- level five ; level 5
-  CNNumNP cn n = {
-    s = \\cas => cn.s ! Sg ! cas ++ n.s ! cn.g ! cn.anim ! cas ;
+  CNNumNP cn card = {
+    s = \\cas => cn.s ! Sg ! cas ++ card.s ! cn.g ! cn.anim ! cas ;
     pron=False ;
-    a = Ag (gennum cn.g Sg) P3
+    a = Ag (gennum cn.g (forceMaybeNum cn.mayben Sg)) P3
     } ;
 
   -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and
   CNSymbNP det cn xs = {
-    s=\\cas => det.s ! cn.g ! cn.anim ! cas ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size ++ xs.s ;
+    s=\\cas => det.s ! cn.g ! cn.anim ! cas
+      ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size
+      ++ xs.s ;
     pron=False ;
-    a=Ag (gennum cn.g (numSizeNumber det.size)) P3
+    a=Ag (gennum cn.g (forceMaybeNum cn.mayben ((numSizeNumber det.size)))) P3
 		} ;
 
   -- : Symb -> S ;                 -- A

@@ -1,4 +1,4 @@
-resource ResRus = ParamRus ** open Prelude, ZaliznyakAlgo in {
+resource ResRus = ParamRus ** open Prelude, ZaliznyakAlgo, Maybe in {
 flags coding=utf8 ; optimize=all ;
 
 ---------------
@@ -30,8 +30,11 @@ oper
     snom, sgen, sdat, sacc, sins, sprep, sloc, sptv, svoc,
     pnom, pgen, pdat, pacc, pins, pprep : Str ;
     g : Gender ;
+    mayben : MaybeNumber ;
     anim : Animacy
   } ;
+  Noun2Forms = NounForms ** {c2 : ComplementCase} ;
+  Noun3Forms = NounForms ** {c2,c3 : ComplementCase} ;
 
 -- But traditional tables make agreement easier to handle in syntax
 -- so this is the lincat of CN
@@ -39,13 +42,15 @@ oper
   Noun : Type = {
     s : Number => Case => Str ;
     g : Gender ;
+    mayben : MaybeNumber ;  -- used to control dependent words
     anim : Animacy
   } ;
 
-  Noun2Forms = NounForms ** {c2 : ComplementCase} ;
-  Noun3Forms = NounForms ** {c2,c3 : ComplementCase} ;
-
--- this is used in UseN
+  NounPhrase = {
+    s : Case => Str ;
+    pron : Bool ; -- this only indicates n-prefixable pronouns
+    a : Agr
+    } ;
 
   nounFormsNoun : NounForms -> Noun
     = \forms -> {
@@ -74,6 +79,7 @@ oper
         }
       } ;
       g = forms.g ;
+      mayben=forms.mayben ;
       anim = forms.anim
     } ;
 
@@ -140,17 +146,42 @@ oper
       sloc = base.sprep ;
       sptv = base.sgen ;
       svoc = base.snom ;
+      mayben = BothSgPl
     } ;
 
   mkNAltPl : NounForms -> NounForms -> NounForms
     = \sgn, pln -> sgn ** {
-      pnom =  pln.pnom ;
-      pgen =  pln.pgen ;
-      pdat =  pln.pdat ;
-      pacc =  pln.pacc ;
-      pins =  pln.pins ;
-      pprep=  pln.pprep
+      pnom  = pln.pnom ;
+      pgen  = pln.pgen ;
+      pdat  = pln.pdat ;
+      pacc  = pln.pacc ;
+      pins  = pln.pins ;
+      pprep = pln.pprep
     } ;
+
+  applyMaybeNumber : NounForms -> NounForms
+    = \nf -> case <nf.mayben.exists, fromMaybe Number Sg nf.mayben> of {
+      <True,Sg> => nf **  {
+        pnom  = nf.snom ;
+        pgen  = nf.sgen ;
+        pdat  = nf.sdat ;
+        pacc  = nf.sacc ;
+        pins  = nf.sins ;
+        pprep = nf.sprep
+        } ;
+      <True,Pl> => nf ** {
+        snom  = nf.pnom ;
+        sgen  = nf.pgen ;
+        sdat  = nf.pdat ;
+        sacc  = nf.pacc ;
+        sins  = nf.pins ;
+        sprep = nf.pprep ;
+        sloc  = nf.pprep ;
+        sptv  = nf.pgen ;
+        svoc  = nf.pnom ;
+        } ;
+      _ => nf
+      } ;
 
   mkNplus : NounForms -> NounForms
     = \nf -> nf ;
@@ -175,6 +206,27 @@ oper
     = \np,prep -> prep.s ++ np ! prep.c ;  -- TODO: NP - pronoun special treatment
 
   from2 = {s="из"; c=Gen; hasPrep=True} ;
+
+  compoundN : NounForms -> Str -> NounForms -> NounForms
+    = \n1,link,n2 ->
+      let l : Str=case link of {x+"-" => BIND ++ "-" ++ BIND ; _ => link} in
+      n1 ** {
+        snom = n1.snom ++ l ++ n2.snom ;
+        sgen = n1.sgen ++ l ++ n2.sgen ;
+        sdat = n1.sdat ++ l ++ n2.sdat ;
+        sacc = n1.sacc ++ l ++ n2.sacc ;
+        sins = n1.sins ++ l ++ n2.sins ;
+        sprep = n1.sprep ++ l ++ n2.sprep ;
+        sloc = n1.sloc ++ l ++ n2.sloc ;
+        sptv = n1.sptv ++ l ++ n2.sptv ;
+        svoc = n1.svoc ++ l ++ n2.svoc ;
+        pnom = n1.pnom ++ l ++ n2.pnom ;
+        pgen = n1.pgen ++ l ++ n2.pgen ;
+        pdat = n1.pdat ++ l ++ n2.pdat ;
+        pacc = n1.pacc ++ l ++ n2.pacc ;
+        pins = n1.pins ++ l ++ n2.pins ;
+        pprep = n1.pprep ++ l ++ n2.pprep
+      } ;
 
 ---------------------------
 -- Adjectives -- Прилагательные
@@ -373,6 +425,7 @@ oper
           sptv = af.fsgen ;
           svoc = af.fsnom ;
           g=g ;
+          mayben=BothSgPl ;
           anim=anim
         } ;
         Masc => {
@@ -392,6 +445,7 @@ oper
           sptv = af.msgen ;
           svoc = af.msnom ;
           g=g ;
+          mayben=BothSgPl ;
           anim=anim
         } ;
         Neut => {
@@ -411,6 +465,7 @@ oper
           sptv = af.msgen ;
           svoc = af.nsnom ;
           g=g ;
+          mayben=BothSgPl ;
           anim=anim
         }
       } ;
@@ -511,9 +566,20 @@ oper
       prpl3=""
     } ;
 
+  copulaFull : VerbForms
+    = copula ** {
+      prsg1="есть" ;
+      prsg2="есть" ;
+      prsg3="есть" ;
+      prpl1="есть" ;
+      prpl2="есть" ;
+      prpl3="есть"
+    } ;
+
   selectCopula : CopulaType -> VerbForms
     = \cop -> case cop of {
        NomCopula => copula ;
+       ExplicitCopula => copulaFull ;
        EllCopula => copulaEll ;
        InsCopula => copulaIns
     } ;
@@ -1109,6 +1175,7 @@ oper
       pptv=n.s ! Pl ! Ptv ;
       pvoc=n.s ! Pl ! VocRus ;
       g=n.g ;
+      mayben=n.mayben ;
       anim=n.anim
     } ;
 
@@ -1272,6 +1339,10 @@ oper
     size : NumSize
     } ;
 
+  -- choose number, force limited number if necessary
+  forceMaybeNum : MaybeNumber -> Number -> Number
+    = \mbn,n -> fromMaybe Number n mbn;
+
   -- Number from size to be used in agreement after numeral has been applied
   numSizeNumber : NumSize -> Number
     = \ns -> case ns of {Num1 => Sg ; NumAll | Num2_4 | Num5 => Pl} ;
@@ -1294,13 +1365,12 @@ oper
   numSizeGenAgr : NumSize -> Gender -> Person -> Agr
     = \ns,g,p -> Ag (case ns of {Num1 => GSg g ; NumAll | Num2_4 | Num5 => GPl}) p ;
 
-oper -- TODO:
-  ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
-
 ----------------
 -- Misc
 
 oper
+  ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
+
   applyPrep : ComplementCase -> NounPhrase -> Str
     = \prep,np -> case <np.pron, prep.hasPrep, prep.c> of {
       <True, True, Gen|Dat|Acc|Ins|Ptv> => prep.s ++ "н" ++ BIND ++ (np.s ! prep.c) ;
@@ -1310,10 +1380,4 @@ oper
   applyIPronPrep : ComplementCase -> IPronounForms -> Str
     = \prep,ip -> prep.s ++ selectIPronCase ip prep.c ;
 
-  NounPhrase = {
-    s : Case => Str ;
-    -- , prep : Case => Str   -- what for is this neeeded?
-    pron : Bool ; -- this only indicates n-prefixable pronouns
-    a : Agr
-    } ;
 }
