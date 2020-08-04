@@ -207,7 +207,7 @@ oper
 
   from2 = {s="из"; c=Gen; hasPrep=True} ;
 
-  compoundN : NounForms -> Str -> NounForms -> NounForms
+  mkCompoundN : NounForms -> Str -> NounForms -> NounForms
     = \n1,link,n2 ->
       let l : Str=case link of {x+"-" => BIND ++ "-" ++ BIND ; _ => link} in
       n1 ** {
