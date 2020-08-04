@@ -47,3 +47,9 @@ AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PNeg (
 AllRus: сколько не является яблок у Ивана ?
 AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv how8much_IAdv (ImpersCl (AdvVP (AdvVP UseCopula (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))) (PrepNP possess_Prep (UsePN john_PN))))))) NoVoc) TEmpty
 AllRus: сколько является яблок у Ивана ?
+
+## Exists idiom requires genetive in negation
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ExistsNP (MassNP (UseN number_N)))
+AllRus: не существует число
+Should be: не существует числа

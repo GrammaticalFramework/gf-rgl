@@ -98,6 +98,7 @@ lincat
 linref
   N = \s -> s.snom ;
   PN = \s -> s.snom ;
+  Pron = \s -> s.nom ;
   N2 = \s -> s.snom ++ s.c2.s ;   -- TODO
   N3 = \s -> s.snom ++ s.c2.s ++ s.c3.s ;   -- TODO
   A = \s -> case s.preferShort of {PrefShort => s.sm ; _ => s.msnom} ;

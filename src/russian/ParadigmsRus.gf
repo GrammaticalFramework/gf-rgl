@@ -214,7 +214,7 @@ oper
     mkN : A -> Gender -> Animacy -> MaybeNumber -> N
       = \a, g, anim, mbn -> lin N (applyMaybeNumber ((makeNFFromAF a g anim) ** {mayben=mbn})) ;
     mkN : N -> Str -> N -> N
-      = \n1,link,n2 -> lin N (compoundN n1 link n2) ;
+      = \n1,link,n2 -> lin N (mkCompoundN n1 link n2) ;
 
     -- For backwards compatibility:
     mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N
@@ -250,7 +250,7 @@ oper
     mkPN : N -> PN
       = \n -> lin PN n ;
     mkPN : N -> Str -> N -> PN
-      = \n1,link,n2 -> lin PN (compoundN n1 link n2) ;
+      = \n1,link,n2 -> lin PN (mkCompoundN n1 link n2) ;
     mkPN : Str -> PN
       = \nom -> lin PN (guessNounForms nom) ;
     mkPN : Str -> Gender -> Animacy -> PN
