@@ -177,12 +177,15 @@ oper
 ------------------------
 --2 Adverbs, prepositions, conjunctions, ...
 
-  mkAdv : Str -> Adv ;
+  mkAdv : overload {
+    mkAdv : Str -> Adv ;
+    mkAdv : Temp -> Pol -> VPSlash -> Adv ;  -- introduce transgressive: "делая что-то ,"
+    } ;
   mkIAdv : Str -> IAdv ;
   mkConj : overload {
     mkConj : Str -> Number -> Conj ;  -- only middle conjunction
     mkConj : Str -> Str -> Number -> Conj ; -- two-part conjunction
-  } ;
+    } ;
 
   mkInterj : Str -> Interj ;
   mkPrep : Str -> Case -> Prep ;
@@ -363,8 +366,21 @@ oper
 ------------------------
 -- Adverbs, prepositions, conjunctions, ...
 
-  mkAdv : Str -> Adv
-    = \s -> lin Adv (makeAdverb s) ;
+  mkAdv = overload {
+    mkAdv : Str -> Adv
+      = \s -> lin Adv (makeAdverb s) ;
+    mkAdv : Temp -> Pol -> VPSlash -> Adv
+      = \temp,pol,vps -> lin Adv {
+        s=vps.adv ! Ag (GSg Neut) P3
+          ++ pol.s
+          ++ case temp.t of {Pres => vps.verb.prtr ; _ => vps.verb.ptr }
+          ++ verbRefl vps.verb
+          ++ case temp.t of {Cond => "бы" ; _ => []}
+          ++ vps.dep
+          ++ vps.compl ! Ag (GSg Neut) P3
+          ++ vps.c.s ;  -- comma is needed. Up to user?
+        } ;
+    } ;
 
   mkIAdv : Str -> IAdv
     = \s -> lin IAdv (makeAdverb s) ;
