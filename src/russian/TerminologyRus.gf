@@ -79,6 +79,14 @@ lin
   negative_Parameter = mkN "отрицательное" ;
   positivePol_Parameter = mkN "утвердительное" ;
 
+  gender_ParameterType = mkN "род" ;
+  number_ParameterType = mkN "число" ;
+  person_ParameterType = mkN "лицо" ;
+
+  person1_Parameter = mkN "1 л." ;
+  person2_Parameter = mkN "2 л." ;
+  person3_Parameter = mkN "3 л." ;
+
   long_Parameter = mkN "длинная" ;
   short_Parameter = mkN "краткая" ;
 
@@ -87,7 +95,7 @@ lin
   nounHeading n = ss n.snom ;
   nounPluralHeading n = ss n.pnom ;
 
-  formGF_N = mkN "форма" ;
+  formGr_N = mkN "форма" ;
   exampleGr_N = mkN "пример" ;
 
 }

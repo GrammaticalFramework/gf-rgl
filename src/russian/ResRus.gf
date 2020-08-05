@@ -707,10 +707,10 @@ oper
 
   verbImperativeAgree : VerbForms -> Agr -> TempParts
     = \vf,a -> case a of {
-      Ag (GSg _) P1 => <"давайте", (verbInf vf)> ;  -- ?
+      Ag (GSg _) P1 => <"", (verbInf vf)> ;  -- ?
       Ag (GSg _) P2 => <"", case vf.refl of {NonReflexive=>vf.isg2; Reflexive=>vf.isg2refl}> ;
       Ag (GSg x) P3 => <"пусть", verbFutAgree vf (Ag (GSg x) P3)> ;  -- ?
-      Ag GPl P1 => <"", vf.ipl1> ;
+      Ag GPl P1 => <"", vf.ipl1 ++ verbReflAfterConsonant vf> ;
       Ag GPl P2 => <"", vf.isg2 ++ BIND ++ "те" ++ (verbRefl vf)> ;
       Ag GPl P3 => <"пусть", verbFutAgree vf (Ag GPl P3)>
     } ;

@@ -19,7 +19,8 @@ concrete ExtendRus of Extend =
 
     --ConjRNP, ConjVPS, ConsVPS, Cons_nr_RNP, Cons_rr_RNP, DetNPMasc, DetNPFem, EmbedPresPart, EmptyRelSlash,
     ExistsNP,
-    -- ExistCN, ExistMassCN, ExistPluralCN, ProDrop,
+    -- ExistCN, ExistMassCN, ExistPluralCN,
+    ProDrop,
     -- FocusAP, FocusAdV, FocusAdv, FocusObj, GenIP, GenModIP, GenModNP, GenNP, GenRP,
     -- GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP,
     InOrderToVP,
@@ -73,4 +74,12 @@ lin
   youFem_Pron = personalPron (Ag (GSg Fem) P2) ;
 
   CompoundN n1 n2 = mkCompoundN n1 "-" n2 ;
+
+  -- : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
+  ProDrop pron = {
+    nom,gen,dat,acc,ins,prep=[] ;
+    nPrefix=False ;
+    poss={msnom,fsnom,nsnom,pnom,msgen,fsgen,pgen,msdat,fsacc,msins,fsins,pins,msprep=[]} ;
+    a=pron.a
+    } ;
 } ;
