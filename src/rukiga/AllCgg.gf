@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:../prelude
 
 concrete AllCgg of AllCggAbs = 
-  LangCgg, SentenceExtraCgg
+  LangCgg, SentenceExtraCgg,LexiconExtraCgg
   ** {} ;

@@ -92,7 +92,7 @@ lin
 
   --ditransitive verbs
   bite_V2 = mkV2 "rum";
-  break_V2 = mkV2 "hend"; --: V2 ;
+  break_V2 = mkV2 "hen" "da" "zire"; --: V2 ;
   buy_V2   = mkV2 "gur" ;  --: V2 ;
   close_V2 = mkV2 "king";
   count_V2 = mkV2 "ba" "ra" "zire";
