@@ -14,7 +14,7 @@ lin
           ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size
         } ;
       pron=False ;
-      a=Ag (gennum det.g (forceMaybeNum cn.mayben n)) P3
+      a=Ag (gennum cn.g (forceMaybeNum cn.mayben n)) P3
       } ;
 
   -- : PN -> NP ;          -- John

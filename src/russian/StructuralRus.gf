@@ -86,11 +86,11 @@ lin
   there7to_Adv = mkAdv "туда" ;
   there7from_Adv = mkAdv "оттуда" ;
 
-  how_IAdv  = ss "как" ;
-  how8much_IAdv   = ss "сколько" ;
+  how_IAdv = ss "как" ;
+  how8much_IAdv = ss "сколько" ;
   when_IAdv = ss "когда" ;
-  where_IAdv  = ss "где" ;
-  why_IAdv  = ss "почему" ;
+  where_IAdv = ss "где" ;
+  why_IAdv = ss "почему" ;
 
   so_AdA = ss "так";
 
