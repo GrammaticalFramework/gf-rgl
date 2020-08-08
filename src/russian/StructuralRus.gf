@@ -18,34 +18,34 @@ lin
   whoPl_IP = who_pl ;
 
   -- : IQuant ;
-  which_IQuant = (adjFormsAdjective (makeAdjectiveForms "который" "" "1a" PrefFull)) ** {
-    preferShort=PrefFull ;
+  which_IQuant = (adjFormsAdjective (makeAdjectiveForms "который" "" "1a" PreferFull)) ** {
+    preferShort=PreferFull ;
     g=Neut ;
     c=Nom
     } ;
   -- : Quant ;
   this_Quant = (adjFormsAdjective this_forms) ** {
     type=NormalDet ;
-    preferShort=PrefFull ;
+    preferShort=PreferFull ;
     g=Neut ;
     c=Nom
     } ;
   -- : Quant ;
   that_Quant = (adjFormsAdjective that_forms) ** {
     type=NormalDet ;
-    preferShort=PrefFull ;
+    preferShort=PreferFull ;
     g=Neut ;
     c=Nom
     } ;
   -- : Quant ;
-  no_Quant = (adjFormsAdjective (makeAdjectiveForms "никакой" "" "3b" PrefFull)) ** {
+  no_Quant = (adjFormsAdjective (makeAdjectiveForms "никакой" "" "3b" PreferFull)) ** {
     type=NormalDet ;
-    preferShort=PrefFull ;
+    preferShort=PreferFull ;
     g=Neut ;
     c=Nom
     } ;
 
-  above_Prep = mkPrep "над" Ins ;
+  above_Prep = mkPrep above_prep_ins_mod Ins ;
   after_Prep = mkPrep "после" Gen ;
   before_Prep = mkPrep "перед" Ins ;
   behind_Prep = mkPrep "за" Ins ;
@@ -55,15 +55,15 @@ lin
   during_Prep = mkPrep "в течение" Gen ;
   except_Prep = mkPrep ["за исключением"] Gen ;
   for_Prep = mkPrep "для" Gen ;
-  from_Prep = mkPrep "от" Gen ;
+  from_Prep = mkPrep ot_prep_gen_mod Gen ;
   in8front_Prep = mkPrep "перед" Ins ;
-  in_Prep = mkPrep "в" Loc ;
+  in_Prep = mkPrep v_prep_mod Loc ;
   on_Prep = mkPrep "на" Loc ;
   part_Prep = {s="" ; c=Ptv ; hasPrep=False } ;
   possess_Prep = {s="у" ; c=Gen ; hasPrep=False} ;
   through_Prep = mkPrep "через" Acc ;
-  to_Prep = mkPrep "к" Dat ;
-  under_Prep = mkPrep "под" Ins ;
+  to_Prep = mkPrep k_prep_dat_mod Dat ;
+  under_Prep = mkPrep pod_prep_mod Ins ;
   without_Prep = mkPrep "без" Gen ;
 
   or_Conj = mkConj "или" Sg ;
@@ -72,7 +72,7 @@ lin
   either7or_DConj = mkConj "либо" (comma ++ "либо") Sg ;
   if_then_Conj = mkConj "если" (comma ++ "то") Sg ;
 
-  with_Prep = mkPrep "с" Ins ;
+  with_Prep = mkPrep s_prep_mod Ins ;
 
   please_Voc = ss "пожалуйста" ;
 
@@ -100,12 +100,12 @@ lin
 
   can8know_VV = {v=can; modal=\\a=>[]} ;
   can_VV = {v=can; modal=\\a=>[]} ;
-  must_VV = {v=nullVerb; modal=adjFormsToShort (makeAdjectiveForms "должный" "" "1*a" PrefFull)} ;
+  must_VV = {v=nullVerb; modal=adjFormsToShort (makeAdjectiveForms "должный" "" "1*a" PreferFull)} ;
   want_VV = {v=want; modal=\\a=>[]} ;
 
   -- : Det ;
   every_Det = {
-    s = \\g => (adjFormsAdjective (makeAdjectiveForms "каждый" "" "1*a" PrefFull)).s ! GSg g;
+    s = \\g => (adjFormsAdjective (makeAdjectiveForms "каждый" "" "1*a" PreferFull)).s ! GSg g;
     type=NormalDet ;
     g = Masc ;
     c = Nom ;
@@ -113,7 +113,7 @@ lin
     } ;
   -- : Det ;
   someSg_Det   = {
-    s = \\g => (adjFormsAdjective (makeAdjectiveForms "некоторый" "" "1*a" PrefFull)).s ! GSg g;
+    s = \\g => (adjFormsAdjective (makeAdjectiveForms "некоторый" "" "1*a" PreferFull)).s ! GSg g;
     type=NormalDet ;
     g = Masc ;
     c = Nom ;
@@ -121,15 +121,15 @@ lin
     } ;
   -- : Det ;
   somePl_Det = {
-    s = \\g => (adjFormsAdjective (makeAdjectiveForms "некоторый" "" "1*a" PrefFull)).s ! GPl;
+    s = \\g => (adjFormsAdjective (makeAdjectiveForms "некоторый" "" "1*a" PreferFull)).s ! GPl;
     type=NormalDet ;
     g = Masc ;
     c = Nom ;
     size = NumAll ;
     } ;
   -- : Det ;
-  few_Det = { -- numeral! TODO: мало ? немного ?
-    s = \\g => (adjFormsAdjective (makeAdjectiveForms "немногий"  "" "3a" PrefFull)).s ! GPl;
+  few_Det = {
+    s = \\g => (adjFormsAdjective (makeAdjectiveForms "немногий"  "" "3a" PreferFull)).s ! GPl;
     type=NormalDet ;
     g = Masc ;
     c = Nom ;
@@ -137,7 +137,7 @@ lin
     } ;
   -- : Det ;
   many_Det, much_Det = {
-    s = \\g => (adjFormsAdjective (makeAdjectiveForms "многий"  "" "3a" PrefFull)).s ! GPl;
+    s = \\g => (adjFormsAdjective (makeAdjectiveForms "многий"  "" "3a" PreferFull)).s ! GPl;
     type=NormalDet ;
     g = Neut ;
     c = Gen ;
@@ -166,8 +166,8 @@ lin
   almost_AdA = ss "почти" ;
   almost_AdN = ss "почти" ;
   always_AdV = ss "всегда" ;
-  at_least_AdN = ss "по меньшей мере" ; -- TODO: ?
-  at_most_AdN = ss "самое большее" ; -- TODO: ?
+  at_least_AdN = ss "по меньшей мере" ;
+  at_most_AdN = ss "самое большее" ;
   too_AdA = ss "слишком" ;
   very_AdA = ss "очень" ;
 

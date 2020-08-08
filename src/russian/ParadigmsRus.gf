@@ -30,7 +30,7 @@ oper
   short : ShortFormPreference
     = PrefShort ;
   full : ShortFormPreference
-    = PrefFull ;
+    = PreferFull ;
 
 -- Animacy is needed for nouns and some pronouns.
   animate : Animacy
@@ -132,14 +132,15 @@ oper
 
   ShortenA : A -> A ;
 
--- Two-place adjectives need a preposition and a case as extra arguments.
+-- Two-place adjectives need a preposition
 
-  -- TODO: ? mkA2 : A -> Str -> Case -> A2 ;  -- "делим на"
-  mkA2 : A -> Prep -> A2 ;
+  mkA2 : overload {
+    mkA2 : A -> Prep -> A2 ;
+    } ;
 
   mkOrd : overload {
     mkOrd : (nom : Str) -> Ord ;
-  } ;
+    } ;
 
 -------------------------
 --2 Verbs
@@ -275,7 +276,7 @@ oper
     mkA : Str -> Str -> A
       = \nom, comp -> lin A ((guessAdjectiveForms nom) ** {comp=comp}) ;
     mkA : Str -> Str -> Str -> A
-      = \nom, comp, zi -> lin A (makeAdjectiveForms nom comp zi PrefFull) ;
+      = \nom, comp, zi -> lin A (makeAdjectiveForms nom comp zi PreferFull) ;
     mkA : Str -> Str -> Str -> ShortFormPreference -> A
       = \nom, comp, zi, spf -> lin A (makeAdjectiveForms nom comp zi spf) ;
   } ;
@@ -285,14 +286,17 @@ oper
 
 -- Two-place adjectives need a preposition and a case as extra arguments.
 
-  -- TODO: ? mkA2 : A -> Str -> Case -> A2 ;  -- "делим на"
-  mkA2 : A -> Prep -> A2
-    = \a,p -> lin A2 (a ** {c = p}) ;
+  mkA2 = overload {
+    mkA2 : A -> Prep -> A2
+      = \a,p -> lin A2 (a ** {c = p}) ;
+    mkA2 : A -> Str -> Case -> A2
+      = \a,p,cas -> lin A2 (a ** {c = mkPrep p cas}) ;
+    } ;
 
   mkOrd = overload {
     mkOrd : (nom : Str) -> Ord
       = \nom -> lin Ord (guessAdjectiveForms nom) ;
-  } ;
+    } ;
 
 -------------------------
 -- Verbs

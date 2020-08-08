@@ -36,8 +36,8 @@ lin
   -- : Symb -> Card ;              -- n
   SymbNum symb = {s = \\_,_,_ => symb.s ; size = Num5} ;
 
-  -- : Symb -> Ord ;               -- n'th
-  SymbOrd symb = immutableAdjForms symb.s ;  -- TODO: better implementation
+  -- : Symb -> Ord ;               -- n'th  (i-й "итый")
+  SymbOrd symb = ith_forms symb.s ;
 
 lincat
   Symb, [Symb] = SS ;

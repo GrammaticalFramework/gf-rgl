@@ -125,7 +125,7 @@ concrete ConjunctionRus of Conjunction =
     BaseCN x y = {
       s1 = x.s ;
       s2 = y.s ;
-      g = y.g ;
+      g = conjGender x.g y.g ;
       mayben = JustPl ;
       anim = conjAnim x.anim y.anim
       } ;
@@ -202,6 +202,6 @@ concrete ConjunctionRus of Conjunction =
       = \sfp1,sfp2 ->
       case <sfp1,sfp2> of {
         <PrefShort, PrefShort> => PrefShort ;
-        _ => PrefFull
+        _ => PreferFull
         } ;
 }

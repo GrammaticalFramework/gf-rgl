@@ -19,8 +19,8 @@ lin
 
   -- : IP -> ClSlash -> QCl ; -- whom does John love
   QuestSlash ip cls = cls ** {
-    subj=(applyIPronPrep cls.c ip) ++ cls.subj ;   -- cls.subj ???
-    a=ip.a
+    subj=(applyIPronPrep cls.c ip) ++ cls.subj ;
+    a=cls.a
     } ;
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk

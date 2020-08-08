@@ -197,14 +197,6 @@ oper
 
   AgrTable = Agr => Str ;
 
-  agree : ComplementCase -> AgrTable
-    = \c -> table {
-      _ => c.s  -- TODO: implement
-    } ;
-
-  selectCase : (Case => Str) -> ComplementCase -> Str
-    = \np,prep -> prep.s ++ np ! prep.c ;  -- TODO: NP - pronoun special treatment
-
   from2 = {s="из"; c=Gen; hasPrep=True} ;
 
   mkCompoundN : NounForms -> Str -> NounForms -> NounForms
@@ -246,7 +238,8 @@ oper
       sn = [] ;
       sp = [] ;
       comp = [] ;
-      preferShort = PrefFull
+      preferShort = PreferFull ;
+      p = False
     } ;
 
   immutableAdjForms = immutableAdjectiveCases ;
@@ -346,33 +339,43 @@ oper
       preferShort = forms.preferShort
     } ;
 
+  doGuessAdjectiveForms : Str -> AdjForms
+    = \word -> case word of {
+      _ + "шеий"                 => makeAdjective word (ZA 6 No A_ NoC) PreferFull ;
+      _ + "цый"                  => makeAdjective word (ZA 5 No A_ NoC) PreferFull ;
+      _ + ("к"|"г"|"х") +"ий"    => makeAdjective word (ZA 3 No A_ NoC) PreferFull ;
+      _ + ("ш"|"ж"|"ч"|"щ")+"ий" => makeAdjective word (ZA 4 No A_ NoC) PreferFull ;
+      _ + #consonant + "ный"     => makeAdjective word (ZA 1 Ast A_ NoC) PreferFull ;
+      _ + #consonant + "ний"     => makeAdjective word (ZA 2 Ast A_ NoC) PreferFull ;
+      _ + "ый"                   => makeAdjective word (ZA 1 No A_ NoC) PreferFull ;
+      _ + "ой"                   => makeAdjective word (ZA 1 No B_ NoC) PreferFull ;
+      _ + "ий"                   => makeAdjective word (ZA 2 No A_ NoC) PreferFull ;
+      _                          => makeAdjective word (ZA 1 No A_ NoC) PreferFull
+      } ;
+
   guessAdjectiveForms : Str -> AdjForms
-    = \word ->
-      let stem = Predef.tk 2 word in
-      case word of {
-        _ + "шеий"                 => makeAdjective word (ZA 6 No A_ NoC) PrefFull ;
-        _ + "цый"                  => makeAdjective word (ZA 5 No A_ NoC) PrefFull ;
-        _ + ("к"|"г"|"х") +"ий"    => makeAdjective word (ZA 3 No A_ NoC) PrefFull ;
-        _ + ("ш"|"ж"|"ч"|"щ")+"ий" => makeAdjective word (ZA 4 No A_ NoC) PrefFull ;
-        _ + #consonant + "ный"     => makeAdjective word (ZA 1 Ast A_ NoC) PrefFull ;
-        _ + #consonant + "ний"     => makeAdjective word (ZA 2 Ast A_ NoC) PrefFull ;
-        _ + "ый"                   => makeAdjective word (ZA 1 No A_ NoC) PrefFull ;
-        _ + "ой"                   => makeAdjective word (ZA 1 No B_ NoC) PrefFull ;
-        _ + "ий"                   => makeAdjective word (ZA 2 No A_ NoC) PrefFull ;
-        _                          => makeAdjective word (ZA 1 No A_ NoC) PrefFull
-    } ;
+    = \word -> case word of {
+      s + "ся" => appendToAF (doGuessAdjectiveForms s) "ся" ;
+      _        => doGuessAdjectiveForms word
+      } ;
+
+  doMakeAdjectiveForms : Str -> Str -> Str -> ShortFormPreference -> AdjForms
+    = \nom, comp, zi, spf ->
+      let af = makeAdjective nom (parseAdjIndex zi) spf in
+      let comp' = case (Predef.length comp) of {0 => af.comp; _ => comp} in
+      af ** {comp=comp'} ;
 
   makeAdjectiveForms : Str -> Str -> Str -> ShortFormPreference -> AdjForms
-    = \nom, comp, zi, spf ->
-        let af = makeAdjective nom (parseAdjIndex zi) spf in
-        let comp' = case (Predef.length comp) of {0 => af.comp; _ => comp} in
-        af ** {comp=comp'} ;
+    = \nom, comp, zi, spf -> case nom of {
+      s + "ся" => appendToAF (doMakeAdjectiveForms s comp zi spf) "ся" ;
+      _ => doMakeAdjectiveForms nom comp zi spf
+      } ;
 
   makeAdjectiveFromNoun : Noun -> Adjective
     = \n -> {
        s = \\gn,anim,cas=> n.s ! numGenNum gn ! cas ;
        short=\\a=>[] ;
-       preferShort=PrefFull
+       preferShort=PreferFull
     } ;
 
   the_most = guessAdjectiveForms "самый" ;
@@ -401,9 +404,44 @@ oper
       sp    = the_most.sp     ++ af.sp    ;
       comp  = the_most.comp   ++ af.comp  ;
       g=af.g ;
-      -- a=af.a ;
-      preferShort = PrefFull
+      preferShort = PreferFull ;
+      p = af.p
     } ;
+
+  prependPF : Str -> PronForms -> PronForms
+    = \s,pf -> {
+      msnom = s ++ pf.msnom ;
+      fsnom = s ++ pf.fsnom ;
+      nsnom = s ++ pf.nsnom ;
+      pnom  = s ++ pf.pnom  ;
+      msgen = s ++ pf.msgen ;
+      fsgen = s ++ pf.fsgen ;
+      pgen  = s ++ pf.pgen  ;
+      msdat = s ++ pf.msdat ;
+      fsacc = s ++ pf.fsacc ;
+      msins = s ++ pf.msins ;
+      fsins = s ++ pf.fsins ;
+      pins  = s ++ pf.pins  ;
+      msprep= s ++ pf.msprep
+    } ;
+
+  appendToAF : AdjForms -> Str -> AdjForms
+    = \af,s -> af ** {
+      msnom = af.msnom ++ BIND ++ s;
+      fsnom = af.fsnom ++ BIND ++ s;
+      nsnom = af.nsnom ++ BIND ++ s;
+      pnom  = af.pnom ++ BIND ++ s;
+      msgen = af.msgen ++ BIND ++ s;
+      fsgen = af.fsgen ++ BIND ++ s;
+      pgen  = af.pgen ++ BIND ++ s;
+      msdat = af.msdat ++ BIND ++ s;
+      fsacc = af.fsacc ++ BIND ++ s;
+      msins = af.msins ++ BIND ++ s;
+      fsins = af.fsins ++ BIND ++ s;
+      pins  = af.pins ++ BIND ++ s;
+      msprep= af.msprep ++ BIND ++ s;
+      } ;
+
 
   makeNFFromAF : AdjForms -> Gender -> Animacy -> NounForms
     = \af, g, anim ->
@@ -548,6 +586,7 @@ oper
   -- TODO: Provide also Nom-based as idiomatic (?)
   copulaIns : VerbForms
     = copula ** {
+      fut=BeFuture2 ;
       prsg1="являюсь" ;
       prsg2="являешься" ;
       prsg3="является" ;
@@ -646,13 +685,13 @@ oper
       tran=Intransitive
     } ;
 
-  verbPastAgree : VerbForms -> Agr -> Str -> TempParts
-    = \vf,a,after -> <"", case a of {
+  verbPastAgree : VerbForms -> Agr -> Str -> Str
+    = \vf,a,after -> case a of {
       Ag (GSg Masc) _ => vf.psgm ++ (verbReflAfterConsonant vf) ++ after ;
       Ag (GSg Fem) _ => vf.psgs ++ BIND ++ "ла" ++ (verbRefl vf) ++ after ;
       Ag (GSg Neut) _ => vf.psgs ++ BIND ++ "ло" ++ (verbRefl vf) ++ after ;
       Ag GPl _ => vf.psgs ++ BIND ++ "ли"++ (verbRefl vf) ++ after
-    }> ;
+    } ;
 
   verbReflAfterConsonant : VerbForms -> Str
     = \vf -> case vf.refl of {Reflexive => BIND ++ "ся" ; NonReflexive => ""} ;
@@ -698,7 +737,7 @@ oper
       <CanFuture,Ag GPl P1    > => "сможем" ;
       <CanFuture,Ag GPl P2    > => "сможете" ;
       <CanFuture,Ag GPl P3    > => "смогут" ;
-      <BeFuture,_> => beFuture a ;
+      <BeFuture | BeFuture2,_> => beFuture a ;
       _ => case vf.asp of {
         Perfective => verbPresAgree vf a ;
         Imperfective => (beFuture a) ++ verbInf vf
@@ -715,18 +754,31 @@ oper
       Ag GPl P3 => <"пусть", verbFutAgree vf (Ag GPl P3)>
     } ;
 
-  verbAgr : VerbForms -> Mood -> Tense -> Agr -> Polarity -> TempParts
-    = \vf,m,temp,a,pol ->
-      case <vf.fut,m,temp> of {
-        <NullFuture, _, _> => <"",""> ;
-        <_, Ind, Past> => verbPastAgree vf a "";
-        <_, Ind, Pres> => <"",verbPresAgree vf a>;
-        <_, Ind, Fut> => <"",verbFutAgree vf a>;
-        <_, Ind, Cond> => verbPastAgree vf a "бы" ;
-        <_, Sbjv, _> => verbPastAgree vf a "бы" ;
-        <_, Imperative, _> => verbImperativeAgree vf a ;
-        <_, Infinitive, _> => <"",verbInf vf>
+  verbEnvAgr : Str -> Str -> VerbForms -> Mood -> Tense -> Agr -> Pol -> Str
+    = \subj,adv,vf,m,temp,a,pol ->
+      case vf.fut of {
+        NullFuture => subj ++ pol.s ++ adv ;
+        BeFuture => case <m,temp, pol.p> of {
+          <Ind, Past, _> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "" ;
+          <Ind, Pres, Pos> => subj ++ pol.s ++ adv ++ verbPresAgree vf a ;
+          <Ind, Pres, Neg> => subj ++ "нет" ++ adv ;
+          <Ind, Fut, _> => subj ++ pol.s ++ adv ++ verbFutAgree vf a ;
+          <Ind, Cond, _> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "бы" ;
+          <Sbjv, _, _> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "бы" ;
+          <Imperative, _, _> => let p = verbImperativeAgree vf a in p.p1 ++ subj ++ pol.s ++ adv ++ p.p2 ;
+          <Infinitive, _, _> => subj ++ pol.s ++ adv ++  verbInf vf
+          } ;
+        _ => case <m,temp> of {
+          <Ind, Past> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "" ;
+          <Ind, Pres> => subj ++ pol.s ++ adv ++ verbPresAgree vf a ;
+          <Ind, Fut> => subj ++ pol.s ++ adv ++ verbFutAgree vf a ;
+          <Ind, Cond> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "бы" ;
+          <Sbjv, _> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "бы" ;
+          <Imperative, _> => let p = verbImperativeAgree vf a in p.p1 ++ subj ++ pol.s ++ adv ++ p.p2 ;
+          <Infinitive, _> => subj ++ pol.s ++ adv ++  verbInf vf
+          }
       } ;
+
 
 ---------------------------
 -- Pronouns -- Местоимения
@@ -923,7 +975,7 @@ oper
           dat = "им" ;   -- TODO: n
           ins = "ими" ;   -- TODO: n
           prep, loc = "них" ;
-          nPrefix = False ;
+          nPrefix = True ;
           poss = doPossessivePronP3 "их"
         }
       } ;
@@ -1220,8 +1272,9 @@ oper
     fsins = "той" ;
     pins  = "тех" ;
     msprep = "том" ;
-    preferShort = PrefFull ;
-    comp = []
+    preferShort = PreferFull ;
+    comp = [] ;
+    p = False
     } ;
 
   this_forms = {
@@ -1238,8 +1291,9 @@ oper
     fsins = "этой" ;
     pins  = "этими" ;
     msprep = "этом" ;
-    preferShort = PrefFull ;
-    comp = []
+    preferShort = PreferFull ;
+    comp = [] ;
+    p = False
     } ;
 
   a_forms = { -- this pronoun is an approximate translation of indef article; preventing DetNP parsing problems
@@ -1256,8 +1310,9 @@ oper
     fsins = "некой" ;
     pins  = "неким" ;
     msprep = "некой" ;
-    preferShort = PrefFull ;
-    comp = []
+    preferShort = PreferFull ;
+    comp = [] ;
+    p = False
     } ;
 
   a_Det = {
@@ -1291,8 +1346,9 @@ oper
     fsins = "данной" ;
     pins  = "данных" ;
     msprep = "данном" ;
-    preferShort = PrefFull ;
-    comp = []
+    preferShort = PreferFull ;
+    comp = [] ;
+    p = False
     } ;
 
   the_Det = {
@@ -1320,6 +1376,27 @@ param Place = attr | indep ;
 oper
   mille : Noun = nounFormsNoun ((guessNounForms "тысяча") ** {sins=variants {"тысячей" ; "тысячью"}});
 
+  ith_forms : Str -> AdjForms
+    = \s -> {
+      msnom = s ++ BIND ++ "-й" ;  -- after vowel
+      fsnom = s ++ BIND ++ "-я" ;
+      nsnom = s ++ BIND ++ "-е" ;
+      pnom  = s ++ BIND ++ "-е" ;
+      msgen = s ++ BIND ++ "-го" ; -- after consonant
+      fsgen = s ++ BIND ++ "-й" ;
+      pgen  = s ++ BIND ++ "-х" ;
+      msdat = s ++ BIND ++ "-му" ;
+      fsacc = s ++ BIND ++ "-ю" ;
+      msins = s ++ BIND ++ "-м" ;
+      fsins = s ++ BIND ++ "-й" ;
+      pins  = s ++ BIND ++ "-ми" ;
+      msprep= s ++ BIND ++ "-м" ;
+      sm, sf, sn, sp = s ;
+      comp = s ++ BIND ++ "-е" ; --*
+      p = False ;
+      preferShort=PreferFull
+    } ;
+
 ---------------
 -- Adverbs -- Наречия
 
@@ -1333,6 +1410,12 @@ oper
 
 oper
   DetTable = Gender => Animacy => Case => Str ;
+
+  NumeralForms : Type = {
+    s : DetTable ;
+    o : PronForms ;
+    size : NumSize
+    } ;
 
   NumDet : Type = {
     s : DetTable ;

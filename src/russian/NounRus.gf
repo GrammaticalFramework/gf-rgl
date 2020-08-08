@@ -30,7 +30,7 @@ lin
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {s=\\cas => predet.s ! (agrGenNum np.a) ! Inanimate ! cas ++ np.s ! numSizeCase cas predet.size} ;
 
-  -- : NP -> V2  -> NP ;    -- the man seen
+  -- : NP -> V2 -> NP ;    -- the man seen
   PPartNP np v2 = np ** {
     s = \\cas => np.s ! cas ++ (shortPastPassPart v2 (agrGenNum np.a))
     } ;
@@ -112,10 +112,15 @@ lin
   NumPl = {s = \\_,_,_ => [] ; size = NumAll } ;
 
   -- Digits -> Ord ;  -- 51st
-  OrdDigits d = immutableAdjForms d.s ;  -- TODO: better implementation
+  OrdDigits d = ith_forms d.s ;
 
-  -- TODO: : Numeral -> Ord ;  -- fifty-first
-  OrdNumeral numeral = variants {} ;
+  -- : Numeral -> Ord ;  -- fifty-first
+  OrdNumeral numeral = numeral.o ** {
+    sm,sf,sn,sp=[] ;
+    comp=[] ;
+    p=False ;
+    preferShort=PreferFull
+  } ;
 
   -- : A -> Ord ;
   OrdSuperl a = long_superlative a ;
@@ -127,7 +132,7 @@ lin
     short=\\a=>[] ;
     g=Neut ;
     c=Nom ;
-    preferShort=PrefFull
+    preferShort=PreferFull
     } ;
 
   -- : AdN -> Card -> Card
@@ -188,7 +193,7 @@ lin
 
   -- : Det -> NP -> NP ;    -- three of them, some of the boys
   CountNP det np = {
-    s=\\cas => det.s ! Neut ! Inanimate ! cas ++ selectCase np.s from2 ;
+    s=\\cas => det.s ! Neut ! Inanimate ! cas ++ applyPrep from2 np ;
     pron=False ;
     a=numSizeGenAgr det.size Neut P3
     } ;
@@ -214,7 +219,7 @@ lin
     c=Nom ;
     g=Neut ;
     size=Num1 ;
-    preferShort=PrefFull
+    preferShort=PreferFull
     } ;
   -- : Quant ;       -- a (house), (houses)
   IndefArt = {
@@ -224,7 +229,7 @@ lin
     c=Nom ;
     g=Neut ;
     size=Num1 ;
-    preferShort=PrefFull
+    preferShort=PreferFull
     } ;
 
 }
