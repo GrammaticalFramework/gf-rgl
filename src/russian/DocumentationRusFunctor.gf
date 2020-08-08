@@ -140,7 +140,7 @@ oper
   inflVerb : CatRus.V -> Str = \v ->
     let fut : Agr=>Str = \\a => verbFutAgree v a in
     let pres : Agr=>Str = \\a => verbPresAgree v a in
-    let past : Agr=>Str = \\a => (verbPastAgree v a "").p2 in
+    let past : Agr=>Str = \\a => verbPastAgree v a "" in
     let imp : Agr=>Str = \\a => ((verbImperativeAgree v a).p1 ++ (verbImperativeAgree v a).p2) in
     let ppp : GenNum=>Str = \\gn => shortPastPassPart v gn in
     case v.asp of {Imperfective => "несовершенного вида" ; Perfective => "совершенного вида"} ++ "," ++

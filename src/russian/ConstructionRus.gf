@@ -7,7 +7,7 @@ concrete ConstructionRus of Construction = CatRus **
 lin
   hungry_VP = mkVP (P.mkA "голодный" "" "1*a/c'" PrefShort) ;
   thirsty_VP = mkVP want_VV (mkVP (P.mkV Imperfective "пить" "пью" "пьёт")) ;
-  tired_VP = mkVP (P.mkA "усталый" "" "1*a/c'" PrefFull) ;
+  tired_VP = mkVP (P.mkA "усталый" "" "1*a/c'" PreferFull) ;
   scared_VP = mkVP (P.mkV Imperfective "бояться" "боюсь" "боится") ;   -- intran
   ill_VP = mkVP ( P.mkA "больной" "" "1*b" PrefShort) ;
   ready_VP = mkVP L.ready_A ;
@@ -87,9 +87,8 @@ lin
   timeHour h = P.mkAdv (in_Prep.s ++ h.s) ;
 
   -- : Hour -> Card -> Adv ; -- at six forty a.m./p.m.
-  timeHourMinute h card = P.mkAdv ((timeHour h).s ++ BIND ++ ":" ++ BIND ++ card.s ! Neut ! Inanimate ! Nom) ;  -- TODO: ?
+  timeHourMinute h card = P.mkAdv ((timeHour h).s ++ BIND ++ ":" ++ BIND ++ card.s ! Neut ! Inanimate ! Nom) ;  -- TODO: 00?
 
- -- TODO: Fix the following (genders)
   -- : Weekday -> Adv ;  -- on Monday
   weekdayPunctualAdv w = P.mkAdv (in_Prep.s ++ w.sacc) ;         -- on Sunday
   -- : Weekday -> Adv ;  -- on Mondays
@@ -134,7 +133,7 @@ lin
       ++ cn.s ! numSizeNum Nom card.size ! (numSizeCase Nom card.size)) in {   --? Nom?
     s=\\gn,anim,cas=> ap.s!gn!anim!cas ++ as_n_units ;
     short=\\a=> ap.short ! a ++ as_n_units ;
-    preferShort=PrefFull ;
+    preferShort=PreferFull ;
     isPost=True
     } ;
   -- This does not work in Russian naturally

@@ -20,17 +20,21 @@ concrete ExtendRus of Extend =
     --ConjRNP, ConjVPS, ConsVPS, Cons_nr_RNP, Cons_rr_RNP, DetNPMasc, DetNPFem, EmbedPresPart, EmptyRelSlash,
     ExistsNP,
     -- ExistCN, ExistMassCN, ExistPluralCN,
-    ProDrop,
+    --ProDrop,
     -- FocusAP, FocusAdV, FocusAdv, FocusObj, GenIP, GenModIP, GenModNP, GenNP, GenRP,
     -- GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP,
     InOrderToVP,
     -- MkVPS, NominalizeVPSlashNP,
-    -- PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj, PredVPS, PredVPSVV, PredetRNP, PrepCN,
+    -- PassAgentVPSlash, PassVPSlash, ProgrVPSlash,
+    PastPartAP,
+    -- PastPartAgentAP, PositAdVAdj, PredVPS, PredVPSVV, PredetRNP, PrepCN,
     -- EmbedSSlash, PresPartAP,
     PurposeVP,
     -- ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
-    PredIAdvVP
-    -- UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
+    PredIAdvVP,
+    -- UncontractedNeg, UttAccIP, UttAccNP,
+    UttAdV
+    -- UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
    ]
   with (Grammar=GrammarRus)
   ** open Prelude, ResRus, ParadigmsRus, (M = MorphoRus) in {
@@ -73,7 +77,20 @@ lin
   iFem_Pron = personalPron (Ag (GSg Fem) P1) ;
   youFem_Pron = personalPron (Ag (GSg Fem) P2) ;
 
+  -- : N -> N -> N ;
   CompoundN n1 n2 = mkCompoundN n1 "-" n2 ;
+
+  -- VPSlash -> AP ; -- lost (opportunity) ; (opportunity) lost in space
+  PastPartAP vps = {
+    s=\\gn,anim,cas => vps.adv ! (genNumAgrP3 gn)
+      ++ (shortPastPassPart vps.verb gn) ++ vps.dep ++ vps.compl ! (genNumAgrP3 gn) ;
+    short=\\a => vps.adv ! a ++ (shortPastPassPart vps.verb (agrGenNum a)) ++ vps.dep ++ vps.compl ! a ++ vps.c.s ; --
+    isPost = False ;
+    preferShort=PreferFull
+    } ;
+
+  -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
+  -- use PlP2 + "ый"
 
   -- : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
   ProDrop pron = {
@@ -82,4 +99,7 @@ lin
     poss={msnom,fsnom,nsnom,pnom,msgen,fsgen,pgen,msdat,fsacc,msins,fsins,pins,msprep=[]} ;
     a=pron.a
     } ;
+
+  -- : AdV -> Utt ;                  -- always(!)
+  UttAdV adv = {s=adv.s} ;
 } ;

@@ -7,10 +7,16 @@ With what should be correct approach, produces:
 > l DetCN (DetQuant (PossPron i_Pron) NumSg)  (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N))))
 мой грамматика , яблоко и цветок
 
+> l ComplN2 mother_N2  ( DetCN (DetQuant (PossPron i_Pron) NumSg)  (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N)))) )
+мать моего грамматики , яблока и цветка
+
 Correct text requires AdvNP tricks. Resulting trees are quite artificial, one example:
 
 > l ConjNP and_Conj (ConsNP (AdvNP (DetNP (DetQuant (PossPron i_Pron) NumPl)) (PrepNP obj_no_Prep (DetCN (DetQuant DefArt NumSg) (UseN grammar_N)))) (BaseNP (MassNP (UseN apple_N)) (MassNP (UseN flower_N))))
 мои грамматика , яблоко и цветок
+
+> l ComplN2 mother_N2  ( ConjNP and_Conj (ConsNP (AdvNP (DetNP (DetQuant (PossPron i_Pron) NumPl)) (PrepNP obj_no_Prep (DetCN (DetQuant DefArt NumSg) (UseN grammar_N)))) (BaseNP (MassNP (UseN apple_N)) (MassNP (UseN flower_N)))) )
+мать моих грамматика , яблока и цветка
 
 Proper resolution? It's hard to go through Dets and Quants (and will make them more complex). Probably, correct solution would be to make the same as if possessive pronoun is an adjective:
 
@@ -53,3 +59,43 @@ AllRus: сколько является яблок у Ивана ?
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ExistsNP (MassNP (UseN number_N)))
 AllRus: не существует число
 Should be: не существует числа
+
+## Copula negation is not that simple
+
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что нет его имя Иван
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: нет его имя Иван
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
+AllRus: небо нет везде
+(must be: небо не везде есть)
+
+
+## Some past participles are not correct
+
+> gt AdjCN (PastPartAP ( SlashV2a ? )  )   (UseN house_N) | l -treebank
+AllRusAbs: AdjCN (PastPartAP (SlashV2a break_V2)) (UseN house_N)
+AllRus: прерыван дом   - прерываем
+AllRusAbs: AdjCN (PastPartAP (SlashV2a buy_V2)) (UseN house_N)
+AllRus: покупан дом    - покупаем
+AllRusAbs: AdjCN (PastPartAP (SlashV2a close_V2)) (UseN house_N)
+AllRus: закрыван дом   - закрываем
+AllRusAbs: AdjCN (PastPartAP (SlashV2a find_V2)) (UseN house_N)
+AllRus: нахожен дом    - находим(ый)
+AllRusAbs: AdjCN (PastPartAP (SlashV2a love_V2)) (UseN house_N)
+AllRus: люблен дом   -- любим(ый)
+AllRusAbs: AdjCN (PastPartAP (SlashV2a seek_V2)) (UseN house_N)
+AllRus: искан дом    -- исканный
+
+
+## Ordinals
+
+OrdNumeral (num (pot3 (pot2plus pot01 pot111)))
+should be: стоодиннадцатитысячное
+
+> l OrdNumeral (num (pot3 (pot2 pot01)))
+ста &+ тысячное
+should be: стотысячное
+

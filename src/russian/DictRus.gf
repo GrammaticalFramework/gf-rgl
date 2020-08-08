@@ -1,5 +1,5 @@
 concrete DictRus of DictRusAbs = CatRus ** open ParadigmsRus, Prelude,
-  ZaliznyakAlgo,  -- TODO: convert to Str-based index and remove
+  ZaliznyakAlgo,
   ResRus in {
   flags optimize=values ; coding=utf8 ;
 -- About 1000 most frequent nouns (source: wiktionary)

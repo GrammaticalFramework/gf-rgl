@@ -542,7 +542,8 @@ oper
   immutableAdjectiveCases : Str -> AdjForms
     = \s -> {
       msnom=s;fsnom=s;nsnom=s;pnom=s;msgen=s;fsgen=s;pgen=s;msdat=s;fsacc=s;msins=s;fsins=s;pins=s;msprep=s;sm=s;sf=s;sn=s;sp=s;comp=[];
-      preferShort=PrefFull
+      preferShort=PreferFull ;
+      p=False
     } ;
 
   makeAdjective : Str -> ZAIndex -> ShortFormPreference -> AdjForms
@@ -643,7 +644,8 @@ oper
         sn    = sstem + aef.sn ;
         sp    = sstem + aef.sp ;
         comp  = comps + aef.comp ;
-        preferShort = aef.preferShort
+        preferShort = aef.preferShort ;
+        p = aef.p
       } ;
 
   doAlternationsAdj : Str -> AdjForms -> DeclType -> AdjStressSchema -> ZCirc -> AdjForms
@@ -670,7 +672,8 @@ oper
         sn    = sstem + aef.sn ;
         sp    = sstem + aef.sp ;
         comp  = comps + aef.comp ;
-        preferShort = aef.preferShort
+        preferShort = aef.preferShort ;
+        p = False
       } ;
 
   endingsSelectionAdj : DeclType -> AlterType -> AdjStressSchema -> ShortFormPreference -> AdjForms
@@ -700,7 +703,8 @@ oper
         sn     = stressSelectionAdj aef1.sn     ss "sn" ;
         sp     = stressSelectionAdj aef1.sp     ss "sp" ;
         comp   = stressSelectionAdj aef1.comp   ss "comp" ;
-        preferShort = sfp
+        preferShort = sfp ;
+        p = False
     } ;
 
   stressSelectionAdj : EndingSpec -> AdjStressSchema -> Str -> Str
@@ -745,14 +749,21 @@ oper
 -----------
 -- Pronouns
 
+  -- these are needed for numerals
+  pronounAdj1A : Str -> PronForms
+    = \word -> makeAdjective word (ZA 1 No A_ NoC) PreferFull ;
+
+  pronounAdj1B : Str -> PronForms
+    = \word -> makeAdjective word (ZA 1 No B_ NoC) PreferFull ;
+
+  pronounAdj1AstA : Str -> PronForms
+    = \word -> makeAdjective word (ZA 1 Ast A_ NoC) PreferFull ;
+
   pronoun2AstB : Str -> PronForms
     = \word -> -- весь
-      let cmp_base : Str = case word of {s + "ь" => s ; _ => word} in
+      let cmp_base : Str = case word of {s + "ь" => s ; _ => word} in --
       let last = Predef.dp 1 cmp_base in
-      let butLast = Predef.tk 1 cmp_base in
-      let secondLast = Predef.dp 1 butLast in
-      let butTwolast = Predef.tk 2 cmp_base in
-      let thirdLast = Predef.dp 1 butTwolast in
+      let butTwolast = Predef.tk 2 cmp_base in  --
       let stem = cmp_base in
       let stem2 = butTwolast + last in
       {
@@ -770,6 +781,29 @@ oper
         pins=stem2   +"еми" ;
         msprep=stem2 +"ем" ;  --ём
     } ;
+
+  pronoun6AstA : Str -> PronForms
+    = \word -> -- третий
+      let cmp_base : Str = case word of {_ => word} in --
+      let butTwolast = Predef.tk 2 cmp_base in --
+      let stem = cmp_base in  --
+      let stem2 = butTwolast + "ь" in --
+      {
+        msnom=stem   ;
+        fsnom=stem2  +"я" ;
+        nsnom=stem2  +"е" ;
+        pnom=stem2   +"и" ;
+        msgen=stem2  +"его" ;
+        fsgen=stem2  +"ей" ;
+        pgen=stem2   +"их" ;
+        msdat=stem2  +"ему" ;
+        fsacc=stem2  +"ю" ;
+        msins=stem2  +"им" ;
+        fsins=stem2  +"ей" ;
+        pins=stem2   +"ими" ;
+        msprep=stem2 +"ем" ;
+    } ;
+
 
 --------
 -- Verbs

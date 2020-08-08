@@ -47,7 +47,7 @@ lin
     dep=[] ;
     adv=\\a=>[] ;
     compl=case ap.preferShort of {
-      PrefFull => (\\a => ap.s ! agrGenNum a ! Inanimate ! Ins) ;
+      PreferFull => (\\a => ap.s ! agrGenNum a ! Inanimate ! Ins) ;
       PrefShort => ap.short
       }
     } ;
@@ -64,7 +64,7 @@ lin
     c=v3.c2
     } ;
 
-  -- : V3  -> NP -> VPSlash ;  -- give (it) to her
+  -- : V3 -> NP -> VPSlash ;  -- give (it) to her
   Slash3V3 v3 np = {
     adv=\\a=>[] ;
     verb=v3 ;
@@ -80,7 +80,7 @@ lin
     c=v2v.c
     } ;
 
-  -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
+  -- : V2S -> S -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2s s = {
     adv=\\a=>[] ;
     verb=v2s ;
@@ -103,7 +103,7 @@ lin
     verb=v2a ;
     dep=[] ;
     compl=case ap.preferShort of {
-      PrefFull => (\\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c) ;   -- TODO: Acc depends on animacy!
+      PreferFull => (\\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c) ;   -- TODO: Acc depends on animacy!
       PrefShort => ap.short
       } ;
     c=v2a.c
@@ -130,7 +130,7 @@ lin
 
   -- : VPSlash -> VP ;         -- love himself
   ReflVP vps = vps ** {
-    compl=\\a => vps.compl ! a ++ vps.c.s ++ sebya.s ! vps.c.c  -- TODO: use applyPronounPrep (search all ".c.s" also)
+    compl=\\a => vps.compl ! a ++ vps.c.s ++ sebya.s ! vps.c.c
     } ;
 
   -- : Comp -> VP ;            -- be warm
@@ -160,7 +160,7 @@ lin
   VPSlashPrep vp prep = vp ** {c=prep} ;
   -- : AP -> Comp ;            -- (be) small
   CompAP ap = case ap.preferShort of {
-    PrefFull => {s=\\a=>ap.s ! agrGenNum a ! Inanimate ! Ins ; adv=[] ; cop=InsCopula} ;
+    PreferFull => {s=\\a=>ap.s ! agrGenNum a ! Inanimate ! Ins ; adv=[] ; cop=InsCopula} ;
     PrefShort => {s=ap.short ; adv=[] ; cop=EllCopula}
     };
 

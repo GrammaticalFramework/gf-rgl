@@ -3,14 +3,13 @@
 concrete ExtraRus of ExtraRusAbs = CatRus **
   open ResRus, MorphoRus, (P=ParadigmsRus), Prelude, NounRus in {
   flags optimize=all ; coding=utf8 ;
-
 lin
   obj_no_Prep = {s="" ; c=Acc ; hasPrep=False} ;
-  to2_Prep = P.mkPrep "в" Acc ;
+  to2_Prep = P.mkPrep v_prep_mod Acc ;
   on_to_Prep = P.mkPrep "до" Gen ;
   along_Prep = P.mkPrep "по" Loc ;
   from2_Prep = from2 ;
-  about_Prep = P.mkPrep "о" Pre ;
+  about_Prep = P.mkPrep o_prep_pre_mod Pre ;
 
   have_V3 = P.mkV3 est_ell_V nom_Prep u_Prep;
   have2_V3 = P.mkV3 est_V nom_Prep u_Prep;

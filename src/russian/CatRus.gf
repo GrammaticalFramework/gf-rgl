@@ -63,7 +63,9 @@ lincat
   Predet = ResRus.Adjective ** {size : NumSize} ;
   IQuant = ResRus.Adjective ** {g: Gender; c: Case} ;
   Quant = ResRus.Adjective ** {g: Gender; c: Case; type: DetType} ;
-  Num, Numeral, Card = NumDet ;
+  Numeral = NumeralForms ;
+  Num = NumDet ;
+  Card = NumDet ;
   Digits = {s : Str ; size: NumSize} ;
 
   QS  = {s : QForm => Str} ;
@@ -99,8 +101,8 @@ linref
   N = \s -> s.snom ;
   PN = \s -> s.snom ;
   Pron = \s -> s.nom ;
-  N2 = \s -> s.snom ++ s.c2.s ;   -- TODO
-  N3 = \s -> s.snom ++ s.c2.s ++ s.c3.s ;   -- TODO
+  N2 = \s -> s.snom ++ s.c2.s ;
+  N3 = \s -> s.snom ++ s.c2.s ++ s.c3.s ;
   A = \s -> case s.preferShort of {PrefShort => s.sm ; _ => s.msnom} ;
   A2 = \s -> case s.preferShort of {PrefShort => s.sm ; _ => s.msnom} ++ s.c.s ;  -- ?
   V = \s -> verbInf s ;

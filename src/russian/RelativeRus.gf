@@ -8,11 +8,11 @@ concrete RelativeRus of Relative = CatRus ** open
 lin
   -- : Cl -> RCl ;            -- such that John loves her
   RelCl cl = {
-    subj=such.s ;
-    adv=\\a=> cl.subj ++ comma ++ "что" ++ cl.adv ;  -- TODO: this should be after subj in this case
+    subj=\\gn,anim,cas => such.s ! gn ! anim ! cas ++ comma ++ "что" ++ cl.subj ;
+    adv=\\a => cl.adv ;
     verb=cl.verb ;
     dep=cl.dep ;
-    compl=\\a=>cl.compl ;
+    compl=\\a => cl.compl ;
     a=Just Agr cl.a
     } ;
   -- : RP -> ClSlash -> RCl ; -- whom John loves
