@@ -3555,6 +3555,26 @@ AllRus: нет у вас воды
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
 AllRus: нет у вас воды
 
+AllRusAbs: ComparAdvAdj less_CAdv narrow_A everything_NP
+AllRus: менее узко , чем всё
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , существовал бы
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , существовал бы
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , будет существовать
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , будет существовать
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , существовал
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , существовал
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
+AllRus: дом менее узко , чем всё , существует
+
 AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
 AllRus: небо не везде бы &+ ло бы
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
