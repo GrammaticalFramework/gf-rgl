@@ -21,7 +21,7 @@ lin
     adv=np.s ! Gen ++ L.name_N.snom;
     verb=copulaEll ;   -- ???
     dep=[] ;
-    compl=np1.s ! Nom ;
+    compl=\\_ => np1.s ! Nom ;   -- ???
     a=Ag (GSg L.name_N.g) P3 ;
     } ;
 

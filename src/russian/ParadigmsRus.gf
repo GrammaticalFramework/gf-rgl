@@ -180,7 +180,7 @@ oper
 
   mkAdv : overload {
     mkAdv : Str -> Adv ;
-    mkAdv : Temp -> Pol -> VPSlash -> Adv ;  -- introduce transgressive: "делая что-то ,"
+    mkAdv : Temp -> Pol -> VPSlash -> Adv ;  -- introduce transgressive: "делая что-то ," = "(was) (not) doing smth, "
     } ;
   mkIAdv : Str -> IAdv ;
   mkConj : overload {
@@ -198,7 +198,7 @@ oper
 ------------------------------
 -- Nouns
 
-  nullPrep : Prep = lin Prep {s=[]; c=Gen; hasPrep=False} ;
+  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
 
   mkN = overload {
     mkN : Str -> N
@@ -241,7 +241,7 @@ oper
       = \word, g, anim, zi, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) p)   ;
   } ;
 
-  nullPrep : Prep = lin Prep {s=[]; c=Gen; hasPrep=False} ;
+  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
 
   mkN3 = overload {
     mkN3 : N -> Prep -> Prep -> N3
@@ -333,26 +333,26 @@ oper
 
   mkV2 = overload {
     mkV2 : V -> V2
-      = \vf -> lin V2 (vf ** {c={s=[] ; c=Acc ; hasPrep=False}}) ;
+      = \vf -> lin V2 (vf ** {c={s=[] ; c=Acc ; neggen=True ; hasPrep=False}}) ;
     mkV2 : V -> Case -> V2
-      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; hasPrep=False}}) ;
+      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; neggen=False ; hasPrep=False}}) ;
     mkV2 : V -> Prep -> V2
       = \vf, prep -> lin V2 (vf ** {c=prep}) ;
 
     -- For backwards compatibility:
     mkV2 : V -> Str -> Case -> V2
-      = \vf, prep_s, c -> lin V2 (vf ** {c={s=prep_s ; c=c ; hasPrep=True}})
+      = \vf, prep_s, c -> lin V2 (vf ** {c={s=prep_s ; c=c ; neggen=False ; hasPrep=True}})
     } ;
 
   mkV3 = overload {
     mkV3 : V -> Case -> Case -> V3   -- "сложить письмо в конверт"
-      = \vf, cas1, cas2 -> lin V3 (vf ** {c={s=[] ; c=cas1 ; hasPrep=False} ; c2={s=[] ; c=cas2 ; hasPrep=False}} ) ;
+      = \vf, cas1, cas2 -> lin V3 (vf ** {c={s=[] ; c=cas1 ; neggen=False ; hasPrep=False} ; c2={s=[] ; c=cas2 ; neggen=False ; hasPrep=False}} ) ;
     mkV3 : V -> Prep -> Prep -> V3   -- "сложить письмо в конверт"
       = \vf, prep1, prep2 -> lin V3 (vf ** {c=prep1 ; c2=prep2} ) ;
 
     -- For backwards compatibility:
     mkV3 : V -> Str -> Str -> Case -> Case -> V3
-      = \vf, prep1, prep2, cas1, cas2 -> lin V3 (vf ** {c={s=prep1 ; c=cas1 ; hasPrep=True} ; c2={s=prep2 ; c=cas2 ; hasPrep=True}} ) ;
+      = \vf, prep1, prep2, cas1, cas2 -> lin V3 (vf ** {c={s=prep1 ; c=cas1 ; neggen=False ; hasPrep=True} ; c2={s=prep2 ; c=cas2 ; neggen=False ; hasPrep=True}} ) ;
   } ;
 
 
@@ -381,7 +381,7 @@ oper
           ++ verbRefl vps.verb
           ++ case temp.t of {Cond => "бы" ; _ => []}
           ++ vps.dep
-          ++ vps.compl ! Ag (GSg Neut) P3
+          ++ vps.compl ! pol.p ! Ag (GSg Neut) P3
           ++ vps.c.s ;  -- comma is needed. Up to user?
         } ;
     } ;
@@ -400,7 +400,11 @@ oper
     = \s -> lin Interj {s = s} ;
 
   mkPrep : Str -> Case -> Prep
-    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
+    = \s,c -> lin Prep {s = s ; c = c ; neggen = False ; hasPrep = True} ;
+
+
+oper
+  on2_Prep = mkPrep "на" Acc ;
 
   -- for backwards compatibility only. Use mkV methods instead.
   -- These are deprecated!

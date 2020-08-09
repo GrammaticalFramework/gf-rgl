@@ -13,7 +13,7 @@ lin
     adv=vp.adv ! ip.a ;
     verb=vp.verb ;
     dep=vp.dep ;
-    compl=vp.compl ! ip.a ;  --???
+    compl=\\p => vp.compl ! p ! ip.a ;  --???
     a=ip.a
     } ;
 
@@ -31,7 +31,10 @@ lin
   -- : IComp -> NP -> QCl ;   -- where is John
   QuestIComp icomp np = {
     subj=icomp.s ! Ag (GSg Neut) P3 ;  --???
-    compl=np.s ! Nom ;  --???
+    compl=table {
+      Pos => np.s ! Nom ;  --???
+      Neg => np.s ! Gen    -- TODO: Check!
+      };
     adv=icomp.adv ;
     verb=selectCopula icomp.cop ;
     dep=[] ;

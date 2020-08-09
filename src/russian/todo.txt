@@ -56,10 +56,6 @@ AllRus: сколько является яблок у Ивана ?
 
 ## Exists idiom requires genetive in negation
 
-AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ExistsNP (MassNP (UseN number_N)))
-AllRus: не существует число
-Should be: не существует числа
-
 ## Copula negation is not that simple
 
 AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))

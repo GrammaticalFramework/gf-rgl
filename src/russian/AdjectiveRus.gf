@@ -22,8 +22,8 @@ lin
 
   -- : A -> NP -> AP ;  -- warmer than I - теплее меня
   ComparA a np = {
-    s = \\gn,anim,cas => a.comp ++ (applyPrep {s="" ; c=Gen ; hasPrep=False} np) ; -- True?
-    short = \\ag=>a.comp ++ (applyPrep {s="" ; c=Gen ; hasPrep=False} np) ;
+    s = \\gn,anim,cas => a.comp ++ (applyPrep {s="" ; c=Gen ; neggen=True ; hasPrep=False} np) ; -- True?
+    short = \\ag=>a.comp ++ (applyPrep {s="" ; c=Gen ; neggen=True ; hasPrep=False} np) ;
     isPost = False ;
     preferShort = PrefShort
     } ;

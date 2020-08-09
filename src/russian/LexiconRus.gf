@@ -151,7 +151,7 @@ lin
   horse_N = mkN "лошадь" feminine animate "8e" ;
   hot_A = mkA "горячий" "" "4a/b";
   house_N = mkN "дом" masculine inanimate "1c(1)" ;
-  hunt_V2 = mkV2 (mkV imperfective intransitive "охотиться" "охочусь" "охотится") (lin Prep {s="на" ; c=Acc ; hasPrep=True}) ;
+  hunt_V2 = mkV2 (mkV imperfective intransitive "охотиться" "охочусь" "охотится") on2_Prep ;
   husband_N = (mkNplus (mkN "муж" masculine animate "4c")) ** {pnom="мужья";pgen="мужей";pdat="мужьям";pacc="мужей";pins="мужьями";pprep="мужьях"};
   ice_N = (mkNplus (mkN "лёд"  masculine animate "1*b")) ** {sloc="льду";sptv="льду"} ;
   important_A = mkA "важный" ;

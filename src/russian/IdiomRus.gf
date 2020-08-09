@@ -5,10 +5,26 @@ flags optimize=all_subs ;  coding=utf8 ;
 
 lin
   -- : VP -> Cl ;        -- it is hot
-  ImpersCl vp = let a = Ag (GSg Neut) P3 in {subj="" ; compl=vp.compl ! a ; verb=vp.verb ; dep=vp.dep ; adv=vp.adv ! a ; a=a } ;
+  ImpersCl vp =
+    let a = Ag (GSg Neut) P3 in {
+      subj="" ;
+      adv=vp.adv ! a ;
+      verb=vp.verb ;
+      dep=vp.dep ;
+      compl=\\p => vp.compl ! p ! a ;
+      a=a
+      } ;
 
   -- : VP -> Cl ;        -- one sleeps
-  GenericCl vp = let a = Ag (GSg Masc) P2 in {subj="" ; compl=vp.compl ! a ; verb=vp.verb ; dep=vp.dep ; adv=vp.adv ! a; a=a } ;
+  GenericCl vp =
+    let a = Ag (GSg Masc) P2 in {
+      subj="" ;
+      adv=vp.adv ! a ;
+      verb=vp.verb ;
+      dep=vp.dep ;
+      compl=\\p => vp.compl ! p ! a ;
+      a=a
+      } ;
 
   -- : NP -> RS -> Cl ; -- it is I who did it
   CleftNP np rs = {
@@ -16,7 +32,7 @@ lin
     adv=[];
     verb=copulaEll ;   -- ???
     dep=[] ;
-    compl=embedInCommas (rs.s ! agrGenNum np.a ! Animate ! Nom) ;  -- TODO: here or in subj???
+    compl=\\_ => embedInCommas (rs.s ! agrGenNum np.a ! Animate ! Nom) ;  -- TODO: here or in subj???
     a=np.a
     } ;
   -- : Adv -> S -> Cl ; -- it is here she slept
@@ -25,12 +41,19 @@ lin
     adv=adv.s ;
     verb=nullVerb ;   -- ???
     dep=[] ;
-    compl=s.s ! Ind ;
+    compl=\\_ => s.s ! Ind ;
     a=Ag (GSg Neut) P3
     } ;
 
   -- : NP -> Cl ;        -- there is a house
-  ExistNP np = {subj=np.s ! Nom ; compl="" ; verb=to_exist ; dep=[] ; adv=[] ; a=np.a} ;
+  ExistNP np = {
+    subj=np.s ! Nom ;
+    compl=\\_ => [] ;
+    verb=to_exist ;
+    dep=[] ;
+    adv=[] ;
+    a=np.a
+    } ;
 
   -- : IP -> QCl ;       -- which houses are there
   ExistIP ip = {
@@ -38,16 +61,16 @@ lin
     adv=[] ;
     verb=to_exist;
     dep=[] ;
-    compl=[];
+    compl=\\_ => [] ;
     a=ip.a
     } ;
   -- : NP -> Adv -> Cl ;    -- there is a house in Paris
   ExistNPAdv np adv = {
     subj=np.s ! Nom ;
-    compl="" ;
+    adv=adv.s ;
     verb=to_exist ;
     dep=[] ;
-    adv=adv.s ;
+    compl=\\_ => [] ;
     a=np.a
     } ;
   -- : IP -> Adv -> QCl ;   -- which houses are there in Paris
@@ -56,7 +79,7 @@ lin
     adv=adv.s ;
     verb=to_exist;
     dep=[] ;
-    compl=[];
+    compl=\\_ => [] ;
     a=ip.a
     } ;
 
@@ -65,15 +88,17 @@ lin
   -- : VP -> Utt ;       -- let's go
   ImpPl1 vp =
     let a = Ag GPl P1 in {
-      s = (verbEnvAgr "давайте" (vp.adv ! a) vp.verb Infinitive Pres a PPos) ++ vp.dep ++ vp.compl ! a
+      s = (verbEnvAgr "давайте" (vp.adv ! a) vp.verb Infinitive Pres a PPos) ++ vp.dep ++ vp.compl ! Pos ! a
       } ;
   -- : NP -> VP -> Utt ; -- let John walk
   ImpP3 np vp = {
-    s = (verbEnvAgr "пусть" (vp.adv ! np.a ++ np.s ! Nom) vp.verb Ind Pres np.a PPos) ++ vp.dep ++ vp.compl ! np.a
+    s = (verbEnvAgr "пусть" (vp.adv ! np.a ++ np.s ! Nom) vp.verb Ind Pres np.a PPos) ++ vp.dep ++ vp.compl ! Pos ! np.a
     } ;
 
   -- : VP -> VP ;        -- is at home himself
-  SelfAdvVP vp = vp ** {compl=\\a => vp.compl ! a ++ (adjFormsAdjective sam).s ! agrGenNum a ! Animate ! Nom} ;
+  SelfAdvVP vp = vp ** {
+    compl=\\p,a => vp.compl ! p ! a ++ (adjFormsAdjective sam).s ! agrGenNum a ! Animate ! Nom
+    } ;
   -- : VP -> VP ;        -- is himself at home
   SelfAdVVP vp = vp ** {adv=\\a => (adjFormsAdjective sam).s ! agrGenNum a ! Animate ! Nom ++ vp.adv ! a} ;
   -- : NP -> NP ;        -- the president himself (is at home)

@@ -55,7 +55,7 @@ gt UseRCl (TTAnt TPres ASimul) PPos (RelCl (PredSCVP (EmbedQS (UseQCl (TTAnt TCo
 gt RelS (UseCl (TTAnt TPres ASimul) PNeg (GenericCl scared_VP)) (UseRCl (TTAnt TPres ASimul) PPos (RelCl (PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP) )) | l -treebank
 
 gt UseCl (TTAnt ? ASimul) ? (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A)))) | l -treebank
-gt ImpP3 (MassNP (UseN woman_N))  (ReflVP (SlashV2A paint_V2A (PositA young_A)))  | l -treebank
+gt ImpP3 (MassNP (UseN woman_N)) (ReflVP (SlashV2A paint_V2A (PositA young_A)))  | l -treebank
 gt ImpPl1  (ReflVP (SlashV2A paint_V2A (PositA young_A)))  | l -treebank
 
 gt UseCl (TTAnt TCond AAnter) ? (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_V2) ) | l -treebank
@@ -114,6 +114,7 @@ gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) ? (PredVP (UsePron
 gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) ? (PredVP (UsePron he_Pron) (AdvVP (PassV2 learn_V2) (weekdayLastAdv ?))))) NoVoc) TEmpty |l -treebank
 gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePron ?) (AdvVP (PassV2 teach_V2) (yearAdv (intYear 2024)))))) NoVoc) TEmpty |l -treebank
 gt UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN boy_N)) (AdvVP (UseV fly_V) (PrepCN on_Prep (UseN (CompoundN carpet_N airplane_N))))) |l -treebank
+gt UseQCl ? ? (QuestIAdv how8much_IAdv (PredVP ( DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V))) | l -treebank
 
 gt UseComp (CompAdv here_Adv) | l -treebank
 gt PredSCVP (EmbedVP (UseV think_V)) thirsty_VP | l -treebank
@@ -148,6 +149,9 @@ gt OrdNumeral (num (pot3 (pot1as2 (pot1to19 n2)))) | l -treebank
 gt OrdNumeral (num (pot3 (pot1as2 (pot0as1 pot01)))) | l -treebank
 gt OrdNumeral (num (pot3 (pot1as2 pot110))) | l -treebank
 
+gt UseCl ? PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron )) (MassNP (UseN water_N) ))) | l -treebank
+gt UseCl ? PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron )) (MassNP (UseN water_N) ))) | l -treebank
+
  -- from extend
 
 gt UseCl (TTAnt ? AAnter) ? (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))  | l -treebank
@@ -165,10 +169,24 @@ gt AdvS (timeunitAdv (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0
 gt AdvS (timeunitAdv (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) second_Timeunit) (ExistS (TTAnt TFut ASimul) PPos (MassNP (cup_of_CN (MassNP (UseN water_N))))) |l -treebank
 gt AdvS (timeunitAdv (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) second_Timeunit) (ExistS (TTAnt TFut ASimul) PPos (MassNP (cup_of_CN (MassNP (UseN water_N))))) | l -treebank
 
+gt ImpVP (AdvVP (AdVVP (PositAdVAdj dull_A) (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday)) |l -treebank
+
+gt UseCl (TTAnt TPast AAnter) PPos (FrontComplDirectVS (MassNP (UseN apple_N)) say_VS (ImpP3 (MassNP (UseN woman_N)) (ReflVP (SlashV2A paint_V2A (PositA young_A))))) | l
+gt UseCl (TTAnt TPast AAnter) PPos (FrontComplDirectVQ (MassNP (UseN man_N)) know_VQ (UttAdv (weekdayNextAdv sunday_Weekday))) | l -treebank
+
+gt ProgrVP (ComplDirectVS say_VS (ImpP3 (MassNP (UseN woman_N)) (ReflVP (SlashV2A paint_V2A (PositA young_A))))) | l -treebank
+gt ProgrVP (ComplDirectVQ know_VQ (UttAdv (weekdayNextAdv sunday_Weekday))) | l -treebank
+gt UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePN john_PN) (ComplDirectVS say_VS (UttAdv (weekdayNextAdv sunday_Weekday)))) | l -treebank
+gt UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePN john_PN) (ComplDirectVQ know_VQ (UttAdv (weekdayNextAdv sunday_Weekday)))) | l -treebank
+
+gt FocusObj (UsePron she_Pron) ( UseSlash (TTAnt TCond AAnter) ? (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))) )  | l -treebank
+
+gt UseCl (TTAnt ? ASimul) PNeg (ExistsNP (MassNP (UseN number_N))) | l -treebank
+
  -- these below sound unnatural
 
 gt OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 ?))))) | l -treebank
-
+gt UseCl ? PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron )) (MassNP (UseN water_N) ))) | l -treebank
 
 -- here some participles are not formed correctly
 gt AdjCN (PastPartAP ( SlashV2a ? )  )   (UseN house_N) | l -treebank
