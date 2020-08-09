@@ -1433,18 +1433,20 @@ oper
     = \ns -> case ns of {Num1 => Sg ; NumAll | Num2_4 | Num5 => Pl} ;
 
   -- The following two used in tandem to form the word, controlled by numeral
-  numSizeNum : Case -> NumSize -> Number
-    = \cas,ns -> case <cas,ns> of {
-      <Nom|Acc,Num2_4> => Sg ;
-      <_,Num1> => Sg ;
+  animNumSizeNum : Animacy -> Case -> NumSize -> Number
+    = \anim,cas,ns -> case <anim,cas,ns> of {
+      <Animate,Acc,Num2_4> => Pl ;
+      <Inanimate,Acc,Num2_4> => Sg ;
+      <_,Nom,Num2_4> => Sg ;
+      <_,_,Num1> => Sg ;
       _ => Pl
       } ;
   numSizeCase : Case -> NumSize -> Case
     = \cas,ns -> case <cas,ns> of {
       <Nom,Num1 | NumAll> => Nom ;
       <Nom,Num2_4 | Num5> => Gen ;
-      <Acc,Num1 | NumAll> => Nom ;
-      <Acc,Num2_4 | Num5> => Gen ;
+      <Acc,Num2_4> => Gen ;
+      <Acc,Num5> => Gen ;
       _ => cas
       } ;
   numSizeGenAgr : NumSize -> Gender -> Person -> Agr
@@ -1458,7 +1460,7 @@ oper
 
   applyPrep : ComplementCase -> NounPhrase -> Str
     = \prep,np -> case <np.pron, prep.hasPrep, prep.c> of {
-      <True, True, Gen|Dat|Acc|Ins|Ptv> => prep.s ++ "н" ++ BIND ++ (np.s ! prep.c) ;
+      <True, True, Gen|Dat|Acc|Ins|Ptv|Loc> => prep.s ++ "н" ++ BIND ++ (np.s ! prep.c) ;
       _ => prep.s ++ np.s ! prep.c
     } ;
 

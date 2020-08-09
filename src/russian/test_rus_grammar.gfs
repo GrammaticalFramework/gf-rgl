@@ -130,6 +130,14 @@ gt UseQCl (TTAnt ? ASimul) ? (QuestSlash whatSg_IP (SlashVP (UsePron she_Pron) (
 gt UseQCl (TTAnt ? ASimul) PPos (QuestIComp (CompIAdv when_IAdv)  (MassNP (UseN apple_N))) | l -treebank
 gt UseQCl (TTAnt ? ASimul) PNeg (QuestIAdv when_IAdv (ImpersCl (AdvVP UseCopula (PrepNP part_Prep (MassNP (UseN apple_N)))))) | l -treebank
 
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_1)))) (UseN woman_N))   ))  | l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN woman_N))   ))  | l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN woman_N))   ))  | l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN woman_N))))  | l -treebank
+
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2plus pot01 (pot0as1 (pot0 n2)))))))))))) | l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 ?)))))))))) | l -treebank
+
 gt ImpVP (UseCopula) | l -treebank
 gt CountNP many_Det (MassNP (UseN city_N)) | l -treebank
 gt CountNP many_Det (UsePron they_Pron) | l -treebank

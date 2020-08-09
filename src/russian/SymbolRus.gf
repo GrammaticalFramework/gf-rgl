@@ -24,7 +24,7 @@ lin
   -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and
   CNSymbNP det cn xs = {
     s=\\cas => det.s ! cn.g ! cn.anim ! cas
-      ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size
+      ++ cn.s ! animNumSizeNum cn.anim cas det.size ! numSizeCase cas det.size
       ++ xs.s ;
     pron=False ;
     a=Ag (gennum cn.g (forceMaybeNum cn.mayben ((numSizeNumber det.size)))) P3

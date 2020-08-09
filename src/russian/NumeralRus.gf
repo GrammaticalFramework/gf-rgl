@@ -254,8 +254,7 @@ lin pot01 = {
     attr => table {
       hund => \\ g, a, c => case <g, a, c> of {
         <_, _, (Nom|VocRus|Acc)> => "сто";
-        <_, _, (Gen|Ptv|Dat|Pre|Loc)> => "ста";
-        <_, _, Ins> => "сотней"
+        <_, _, (Gen|Ptv|Dat|Ins|Pre|Loc)> => "ста"
         } ;
 		  _ => \\ g, a, c => []
 		  } ;
@@ -383,7 +382,7 @@ lin pot2as3 n = {
 
 -- : Sub1000 -> Sub1000000 ;                -- m * 1000
 lin pot3 n = {  -- TODO: fix cases like: 111000, 100000
-  s = \\g, a, c => n.s ! attr ! Fem ! a ! c ++ mille.s ! numSizeNum c n.size ! numSizeCase c n.size ;
+  s = \\g, a, c => n.s ! attr ! Fem ! a ! c ++ mille.s ! animNumSizeNum Animate c n.size ! numSizeCase c n.size ;
   o = prependPF (case n.just1 of {
        False => n.s ! attr ! Neut ! Inanimate ! Gen ++ BIND ;
        True => ""
@@ -397,9 +396,9 @@ lin pot3 n = {  -- TODO: fix cases like: 111000, 100000
 -- : Sub1000 -> Sub1000 -> Sub1000000 ; -- m * 1000 + n
 lin pot3plus n m = {
   s = \\g, a, c => n.s ! attr ! Fem ! a ! c
-    ++ mille.s ! numSizeNum c n.size ! numSizeCase c n.size
+    ++ mille.s ! animNumSizeNum Animate c n.size ! numSizeCase c n.size
     ++ m.s ! indep ! g ! a ! c ;
-  o = prependPF (n.s ! attr ! Neut ! Inanimate ! Nom ++ mille.s ! numSizeNum Nom n.size ! numSizeCase Nom n.size)
+  o = prependPF (n.s ! attr ! Neut ! Inanimate ! Nom ++ mille.s ! animNumSizeNum Animate Nom n.size ! numSizeCase Nom n.size)
     (m.o ! indep) ; -- TODO: chk
   just1 = False ;
   size = Num5

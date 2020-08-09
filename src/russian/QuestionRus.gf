@@ -66,7 +66,7 @@ lin
 
   -- : IDet -> CN -> IP ;       -- which five songs
   IdetCN idet cn = caseTableToRecord (\\cas => idet.s ! cn.g ! cn.anim ! cas
-      ++ cn.s ! numSizeNum cas idet.size ! numSizeCase cas idet.size)
+      ++ cn.s ! animNumSizeNum cn.anim cas idet.size ! numSizeCase cas idet.size)
     (Ag (gennum cn.g (forceMaybeNum cn.mayben (numSizeNumber idet.size))) P3) cn.anim ;
 
   -- : IDet -> IP ;       -- which five

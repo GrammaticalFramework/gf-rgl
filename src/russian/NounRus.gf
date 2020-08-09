@@ -11,7 +11,7 @@ lin
     let n = numSizeNumber det.size in {
       s=case det.type of {
         _ => \\cas => det.s ! cn.g ! cn.anim ! cas
-          ++ cn.s ! numSizeNum cas det.size ! numSizeCase cas det.size
+          ++ cn.s ! animNumSizeNum cn.anim cas det.size ! numSizeCase cas det.size
         } ;
       pron=False ;
       a=Ag (gennum cn.g (forceMaybeNum cn.mayben n)) P3
@@ -99,7 +99,7 @@ lin
   DetQuantOrd quant num ord = {
     s=\\g,a,cas => num.s ! g ! a ! cas
       ++ quant.s ! (gennum g (numSizeNumber num.size)) ! a ! cas
-      ++ (adjFormsAdjective ord).s ! gennum quant.g (numSizeNum cas num.size) ! Inanimate ! numSizeCase cas num.size ;
+      ++ (adjFormsAdjective ord).s ! gennum quant.g (animNumSizeNum Inanimate cas num.size) ! Inanimate ! numSizeCase cas num.size ;
     type=quant.type ;
     g=quant.g ;
     c=quant.c ;
