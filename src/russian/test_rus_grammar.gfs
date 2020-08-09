@@ -152,8 +152,11 @@ gt OrdNumeral (num (pot3 (pot1as2 pot110))) | l -treebank
 gt UseCl ? PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron )) (MassNP (UseN water_N) ))) | l -treebank
 gt UseCl ? PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron )) (MassNP (UseN water_N) ))) | l -treebank
 
+gt ComparAdvAdj less_CAdv narrow_A everything_NP | l -treebank
+
  -- from extend
 
+gt UseCl ? PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP)  ) | l -treebank
 gt UseCl (TTAnt ? AAnter) ? (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))  | l -treebank
 gt UseCl (TTAnt ? AAnter) PPos (AdvIsNPAP everywhere_Adv (MassNP (UseN sky_N)) (PositA blue_A))  | l -treebank
 gt UseCl ? PPos (ExistsNP (MassNP (UseN number_N))) | l -treebank
