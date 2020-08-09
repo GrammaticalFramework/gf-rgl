@@ -2593,19 +2593,19 @@ AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron he_Pron) (Comp
 AllRus: он ждёт машину у её окон
 
 AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
-AllRus: он не считал бы машины у её окон
+AllRus: он не считал бы машин у её окон
 AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
 AllRus: он считал бы машины у её окон
 AllRusAbs: UttS (UseCl (TTAnt TFut AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
-AllRus: он не будет считать машины у её окон
+AllRus: он не будет считать машин у её окон
 AllRusAbs: UttS (UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
 AllRus: он будет считать машины у её окон
 AllRusAbs: UttS (UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
-AllRus: он не считал машины у её окон
+AllRus: он не считал машин у её окон
 AllRusAbs: UttS (UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
 AllRus: он считал машины у её окон
 AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
-AllRus: он не считает машины у её окон
+AllRus: он не считает машин у её окон
 AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
 AllRus: он считает машины у её окон
 
@@ -2614,7 +2614,7 @@ UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN worm_N)) (ComplSlash
 UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
 
 AllRusAbs: TFullStop (PhrUtt NoPConj (UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a do_V2) (MassNP (UseN apple_N))))) NoVoc) TEmpty
-AllRus: не делай яблоко .
+AllRus: не делай яблока .
 AllRusAbs: TFullStop (PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a do_V2) (MassNP (UseN apple_N))))) NoVoc) TEmpty
 AllRus: делай яблоко .
 
@@ -2622,7 +2622,7 @@ AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (
 AllRus: как делает машину ?
 
 AllRusAbs: TExclMark (PhrUtt NoPConj (UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a do_V2) (MassNP (UseN car_N))))) (VocNP (UsePN john_PN))) TEmpty
-AllRus: не делай машину , Иван !
+AllRus: не делай машины , Иван !
 AllRusAbs: TExclMark (PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a do_V2) (MassNP (UseN car_N))))) (VocNP (UsePN john_PN))) TEmpty
 AllRus: делай машину , Иван !
 
@@ -3293,6 +3293,39 @@ AllRus: ты будешь учиться в 2024 .
 AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN boy_N)) (AdvVP (UseV fly_V) (PrepCN on_Prep (UseN (CompoundN carpet_N airplane_N)))))
 AllRus: мальчик летал на ковре &+ - &+ самолёте
 
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не гуля &+ ла бы
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина гуля &+ ла бы
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не гуля &+ ла бы
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина гуля &+ ла бы
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не будет гулять
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина будет гулять
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не будет гулять
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина будет гулять
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не гуля &+ ла
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина гуля &+ ла
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не гуля &+ ла
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина гуля &+ ла
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не гуляет
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина гуляет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина не гуляет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
+AllRus: сколько эта женщина гуляет
+
 AllRusAbs: UseComp (CompAdv here_Adv)
 AllRus: здесь быть
 
@@ -3488,6 +3521,40 @@ AllRus: тысячное
 AllRusAbs: OrdNumeral (num (pot3 (pot1as2 pot110)))
 AllRus: десяти &+ тысячное
 
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: бы &+ ло бы у вас вода
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: бы &+ ло бы у вас вода
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: будет у вас вода
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: будет у вас вода
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: бы &+ ло у вас вода
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: бы &+ ло у вас вода
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: у вас вода
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: у вас вода
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло бы у вас воды
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло бы у вас воды
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: будет у вас воды
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: будет у вас воды
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло у вас воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло у вас воды
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: нет у вас воды
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: нет у вас воды
+
 AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
 AllRus: небо не везде бы &+ ло бы
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
@@ -3617,6 +3684,40 @@ AllRus: самое большее одна секунда чашка воды б
 AllRusAbs: AdvS (timeunitAdv (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) second_Timeunit) (ExistS (TTAnt TFut ASimul) PPos (MassNP (cup_of_CN (MassNP (UseN water_N)))))
 AllRus: почти две секунды чашка воды будет существовать
 
+AllRusAbs: ImpVP (AdvVP (AdVVP (PositAdVAdj dull_A) (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday))
+AllRus: будь скучно голоден сам в следующую пятницу
+
+« пусть женщина рисует молодую себя » , — яблоко говори &+ ло
+
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (FrontComplDirectVQ (MassNP (UseN man_N)) know_VQ (UttAdv (weekdayNextAdv sunday_Weekday)))
+AllRus: « в следующее воскресенье » , — человек знал
+
+AllRusAbs: ProgrVP (ComplDirectVS say_VS (ImpP3 (MassNP (UseN woman_N)) (ReflVP (SlashV2A paint_V2A (PositA young_A)))))
+AllRus: говорить : « пусть женщина рисует молодую себя »
+
+AllRusAbs: ProgrVP (ComplDirectVQ know_VQ (UttAdv (weekdayNextAdv sunday_Weekday)))
+AllRus: знать : « в следующее воскресенье »
+
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePN john_PN) (ComplDirectVS say_VS (UttAdv (weekdayNextAdv sunday_Weekday))))
+AllRus: Иван будет говорить : « в следующее воскресенье »
+
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePN john_PN) (ComplDirectVQ know_VQ (UttAdv (weekdayNextAdv sunday_Weekday))))
+AllRus: Иван знал : « в следующее воскресенье »
+
+AllRusAbs: FocusObj (UsePron she_Pron) (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))
+AllRus: с н &+ ей Иван не говорил бы о Париже
+AllRusAbs: FocusObj (UsePron she_Pron) (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))
+AllRus: с н &+ ей Иван говорил бы о Париже
+
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (ExistsNP (MassNP (UseN number_N)))
+AllRus: не существова &+ ло бы числа
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (ExistsNP (MassNP (UseN number_N)))
+AllRus: не будет существовать числа
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (ExistsNP (MassNP (UseN number_N)))
+AllRus: не существова &+ ло числа
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ExistsNP (MassNP (UseN number_N)))
+AllRus: не существует числа
+
 AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n2)))))
 AllRus: двадцати двух &+ тысячное
 AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n3)))))
@@ -3633,6 +3734,23 @@ AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n8)))))
 AllRus: двадцати восьми &+ тысячное
 AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n9)))))
 AllRus: двадцати девяти &+ тысячное
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло бы у вас воды
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло бы у вас воды
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не будет у вас воды
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не будет у вас воды
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло у вас воды
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: не бы &+ ло у вас воды
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: нет у вас воды
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
+AllRus: нет у вас воды
 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a bite_V2)) (UseN house_N)
 AllRus: кусан дом

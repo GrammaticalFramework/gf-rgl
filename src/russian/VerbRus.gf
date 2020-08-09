@@ -6,7 +6,7 @@ lin
     adv = \\a=>[] ;
     verb = v ;
     dep=[] ;
-    compl = \\_ => []
+    compl = \\_,_ => []
     } ;
 
   -- : V2 -> VP ;         -- be loved
@@ -14,7 +14,7 @@ lin
     adv = \\a=>[] ;
     verb = passivate v2 ;
     dep=[] ;
-    compl = \\a=>[]
+    compl = \\p,a => []
   } ;
 
   -- : VV -> VP -> VP ;  -- want to run
@@ -29,7 +29,7 @@ lin
     verb = vs ;
     dep=[] ;
     adv=\\a=>[] ;
-    compl=\\A=>comma ++ "что" ++ s.s ! Ind
+    compl=\\_,_ => comma ++ "что" ++ s.s ! Ind
     } ;
 
   -- : VQ -> QS -> VP ;  -- wonder who runs
@@ -37,7 +37,7 @@ lin
     verb = vq ;
     dep=[] ;
     adv=\\a=>[] ;
-    compl=\\A=>comma ++ "что" ++ qs.s ! QDir
+    compl=\\_,_ => comma ++ "что" ++ qs.s ! QDir
     } ;
 
 
@@ -46,21 +46,27 @@ lin
     verb=va ;
     dep=[] ;
     adv=\\a=>[] ;
-    compl=case ap.preferShort of {
+    compl=\\_ => case ap.preferShort of {
       PreferFull => (\\a => ap.s ! agrGenNum a ! Inanimate ! Ins) ;
       PrefShort => ap.short
       }
     } ;
 
   -- : V2 -> VPSlash ;  -- love (it)
-  SlashV2a v2 = {adv=\\a=>[] ; verb=v2 ; dep=[] ; compl=\\_ => [] ; c=v2.c} ;
+  SlashV2a v2 = {
+    adv=\\a=>[] ;
+    verb=v2 ;
+    dep=[] ;
+    compl=\\_,_ => [] ;
+    c=v2.c
+    } ;
 
   -- : V3 -> NP -> VPSlash ;  -- give it (to her)
   Slash2V3 v3 np = {
     adv=\\a=>[] ;
     verb=v3 ;
     dep=[] ;
-    compl=\\a=> applyPrep v3.c np ;
+    compl=\\p,a => applyPolPrep p v3.c np ;
     c=v3.c2
     } ;
 
@@ -69,7 +75,7 @@ lin
     adv=\\a=>[] ;
     verb=v3 ;
     dep=[] ;
-    compl=\\a=> applyPrep v3.c2 np ;
+    compl=\\p,a => applyPolPrep p v3.c2 np ;
     c=v3.c
     } ;
 
@@ -85,7 +91,7 @@ lin
     adv=\\a=>[] ;
     verb=v2s ;
     dep=[] ;
-    compl=\\a=> embedInCommas ("что" ++ s.s ! Ind) ;
+    compl=\\_,a=> embedInCommas ("что" ++ s.s ! Ind) ;
     c=v2s.c
     } ;
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
@@ -93,7 +99,7 @@ lin
     adv=\\a=>[] ;
     verb=v2q ;
     dep=[] ;
-    compl=\\a=>qs.s ! QDir;
+    compl=\\_,a=>qs.s ! QDir;
     c=v2q.c
     } ;
 
@@ -102,16 +108,25 @@ lin
     adv=\\a=>[] ;
     verb=v2a ;
     dep=[] ;
-    compl=case ap.preferShort of {
-      PreferFull => (\\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c) ;   -- TODO: Acc depends on animacy!
-      PrefShort => ap.short
+    compl=table {
+      Pos => case ap.preferShort of {
+        PreferFull => \\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c ;
+        PrefShort => ap.short
+        } ;
+      Neg => case ap.preferShort of {
+        PreferFull => case v2a.c.neggen of {
+            False => \\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c ;
+            True => \\a => ap.s ! agrGenNum a ! Animate ! Gen
+          } ;
+        PrefShort => ap.short
+        }
       } ;
     c=v2a.c
     } ;
 
   -- : VPSlash -> NP -> VP ; -- love it
   ComplSlash vps np = vps ** {
-    compl=\\a => vps.compl ! a ++ (applyPrep vps.c np)
+    compl=\\p,a => vps.compl ! p ! a ++ applyPolPrep p vps.c np
     } ;
 
   -- : VV -> VPSlash -> VPSlash ;       -- want to buy
@@ -123,35 +138,39 @@ lin
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
   SlashV2VNP v2v np vps = vps ** {
     verb=v2v ;
+    compl=\\p,a => vps.compl ! p ! a ++ applyPolPrep p vps.c np ;
     dep=(verbInf vps.verb) ++ vps.dep ;
-    compl=\\a=>vps.compl ! a ++ (applyPrep vps.c np);   -- hasPrep? Order?
     c=v2v.c
     } ;
 
   -- : VPSlash -> VP ;         -- love himself
   ReflVP vps = vps ** {
-    compl=\\a => vps.compl ! a ++ vps.c.s ++ sebya.s ! vps.c.c
+    compl=\\p,a => vps.compl ! p ! a ++ vps.c.s ++ sebya.s ! vps.c.c
     } ;
 
   -- : Comp -> VP ;            -- be warm
   UseComp comp = {
-    adv=\\a=>comp.adv ;
-    compl=comp.s ;
+    adv=\\a => comp.adv ;
     verb=selectCopula comp.cop ;
     dep=[] ;
+    compl=\\p => comp.s
     } ;
 
   -- : VP -> Adv -> VP ;        -- sleep here
-  AdvVP vp adv = vp ** {compl=\\a => vp.compl ! a ++ adv.s} ;
+  AdvVP vp adv = vp ** {
+    compl=\\p,a => vp.compl ! p ! a ++ adv.s
+    } ;
 
   -- : VP -> Adv -> VP ;        -- sleep , even though ...
-  ExtAdvVP vp adv = vp ** {compl=\\a => vp.compl ! a ++ embedInCommas adv.s};
+  ExtAdvVP vp adv = vp ** {
+    compl=\\p,a => vp.compl ! p ! a ++ embedInCommas adv.s
+    } ;
 
   -- : AdV -> VP -> VP ;        -- always sleep
   AdVVP adv vp = vp ** {adv=\\a => adv.s ++ vp.adv ! a} ;
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
-  AdvVPSlash vps adv = vps ** {compl=\\a => vps.compl ! a ++ adv.s} ;
+  AdvVPSlash vps adv = vps ** {compl=\\p,a => vps.compl ! p ! a ++ adv.s} ;
 
   -- : AdV -> VPSlash -> VPSlash ;  -- always use (it)
   AdVVPSlash adv vps = vps ** {adv=\\a=>adv.s ++ vps.adv ! a} ;
@@ -177,5 +196,5 @@ lin
     } ;
 
   -- : VP ;                     -- be
-  UseCopula = {adv=\\a=>[] ; verb=copulaIns ; dep=[] ; compl=\\a=>[]} ;
+  UseCopula = {adv=\\a=>[] ; verb=copulaIns ; dep=[] ; compl=\\p,a=>[]} ;
 }

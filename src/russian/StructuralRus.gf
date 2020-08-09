@@ -59,8 +59,8 @@ lin
   in8front_Prep = mkPrep "перед" Ins ;
   in_Prep = mkPrep v_prep_mod Loc ;
   on_Prep = mkPrep "на" Loc ;
-  part_Prep = {s="" ; c=Ptv ; hasPrep=False } ;
-  possess_Prep = {s="у" ; c=Gen ; hasPrep=False} ;
+  part_Prep = {s="" ; c=Ptv ; neggen=False ; hasPrep=False } ;
+  possess_Prep = {s="у" ; c=Gen ; neggen=False ; hasPrep=False} ;
   through_Prep = mkPrep "через" Acc ;
   to_Prep = mkPrep k_prep_dat_mod Dat ;
   under_Prep = mkPrep pod_prep_mod Ins ;

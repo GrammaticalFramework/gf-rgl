@@ -12,7 +12,7 @@ lin
     adv=\\a => cl.adv ;
     verb=cl.verb ;
     dep=cl.dep ;
-    compl=\\a => cl.compl ;
+    compl=\\p,a => cl.compl ! p ;
     a=Just Agr cl.a
     } ;
   -- : RP -> ClSlash -> RCl ; -- whom John loves
@@ -21,7 +21,7 @@ lin
     adv=\\a=>cls.adv ;
     verb=cls.verb ;
     dep=cls.dep ;
-    compl=\\a=> cls.compl ;
+    compl=\\p,a => cls.compl ! p ;
     a=Just Agr cls.a
     } ;
 
