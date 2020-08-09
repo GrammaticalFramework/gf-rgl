@@ -25,7 +25,7 @@ lin
   beer_N = mkN "пиво" neuter inanimate ;
   beg_V2V = dirV2 (mkV imperfective transitive "просить" "прошу" "просит" "4c");
   belly_N = mkN "живот" ;
-  big_A = (mkAltShort (mkA "большой" "больше") (mkA "великий")) ;
+  big_A = (mkAltShort (mkA "большой" "больше" "4b") (mkA "великий")) ;
   bike_N = mkN "велосипед" ;
   bird_N = mkN "птица" feminine animate ;
   bite_V2 = mkV2 (mkV imperfective "кусать" "кусаю") ;
@@ -59,7 +59,7 @@ lin
   cheese_N = mkN "сыр" ;
   child_N = (mkNAltPl (mkN "ребёнок" masculine animate "3*a") (mkN "деть")) ** {pins="детьми"};
   church_N = mkN "церковь" feminine animate "8*e" ;
-  city_N = mkN "город" ;
+  city_N = mkN "город" masculine inanimate "1c(1)" ;
   clean_A = mkA "чистый" "чище";
   clever_A = mkA "умный" "" "1*a/b";
   close_V2 = mkV2 (mkV imperfective "закрывать" "закрываю");
@@ -196,7 +196,7 @@ lin
   music_N = mkN "музыка" ;
   name_N = mkN "имя" neuter inanimate "8°c";
   narrow_A = mkA "узкий" "уже" "3*a/c'";
-  near_A = mkA "близкий" "ближе";
+  near_A = mkA "близкий" "ближе" "3*a/c'";
   neck_N = mkN "шея" feminine inanimate "6a";
   new_A = mkA "новый" ;
   newspaper_N = mkN "газета" ;
@@ -246,7 +246,7 @@ lin
   rub_V2 = mkV2 (mkV imperfective "тереть" "тру" "трёт");
   rubber_N = mkN "резина" ;
   rule_N = mkN "правило" ;
-  run_V = mkV imperfective intransitive "бегать" "бегу" "бежит" ;
+  run_V = mkV imperfective intransitive "бегать" "бегаю" "бегает" ;
   salt_N = mkN "соль" ;
   sand_N = (mkNplus (mkN "песок"  masculine inanimate "3*b")) ** {sptv="песку"} ;
   say_VS = mkVS (mkV imperfective "говорить" "говорю" "говорит") ;
