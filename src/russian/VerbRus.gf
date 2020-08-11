@@ -135,6 +135,8 @@ lin
     dep=(verbInf vps.verb) ++ vps.dep ;
     adv=\\a=>vv.modal ! a ++ vps.adv ! a
     } ;
+
+  {- This is very heavy, but can be replaced (see todo.txt)
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
   SlashV2VNP v2v np vps = vps ** {
     verb=v2v ;
@@ -142,6 +144,8 @@ lin
     dep=(verbInf vps.verb) ++ vps.dep ;
     c=v2v.c
     } ;
+  -}
+  SlashV2VNP = variants {} ;
 
   -- : VPSlash -> VP ;         -- love himself
   ReflVP vps = vps ** {
