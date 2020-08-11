@@ -1,5 +1,16 @@
 # Some problematic situations
 
+## Missing SlashV2VNP
+
+It is heavy, and does not seem to be necessary, for example:
+
+(ComplSlash (SlashV2VNP beg_V2V (UsePron we_Pron) (SlashV2a like_V2)) (UsePron he_Pron))
+
+can be replaced with:
+
+(ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a like_V2) (UsePron he_Pron))) (UsePron weFem_Pron))
+
+
 ## Possessive pronouns over a list/conjunction of CNs
 
 With what should be correct approach, produces:
@@ -121,3 +132,11 @@ should be: стотысячное
 + Slash2V3 1492992 (107136,31)
 + Slash3V3 1492992 (107136,31)
 + SlashV2VNP 71663616 (214272,62)
+
+## Some natural constucts missing
+
+> p "я прошу нас нравиться ему"
+The sentence is not complete
+
+> p -cat=S "я просил его делать машины"
+The sentence is not complete

@@ -162,6 +162,10 @@ gt UseCl ? PPos (ImpersCl (ComplSlash (Slash3V3 have_not_V3 (UsePron youPl_Pron 
 
 gt ComparAdvAdj less_CAdv narrow_A everything_NP | l -treebank
 
+-- can SlashV2VNP support be removed?
+gt UseCl (TTAnt TPres ASimul) ? (PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron we_Pron) (SlashV2a like_V2)) (UsePron he_Pron)) ) |l -treebank
+gt UseCl (TTAnt TPres ASimul) ? (PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a like_V2) (UsePron he_Pron))) (UsePron weFem_Pron))) | l -treebank
+
  -- from extend
 
 gt UseCl ? PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP)  ) | l -treebank

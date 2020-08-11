@@ -1099,7 +1099,7 @@ AllRus: для чего Иван играет
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV rain_V0) for_Prep)))
 AllRus: для чего Иван дождит
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV run_V) for_Prep)))
-AllRus: для чего Иван бежит
+AllRus: для чего Иван бегает
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sew_V) for_Prep)))
 AllRus: для чего Иван шьёт
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sing_V) for_Prep)))
@@ -3429,6 +3429,40 @@ AllRus: когда не бы &+ ло яблока
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (QuestIAdv when_IAdv (ImpersCl (AdvVP UseCopula (PrepNP part_Prep (MassNP (UseN apple_N))))))
 AllRus: когда не является яблока
 
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_1)))) (UseN woman_N))))
+AllRus: пишешь 1 женщину
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_2)))) (UseN woman_N))))
+AllRus: пишешь 2 женщин
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_5)))) (UseN woman_N))))
+AllRus: пишешь 5 женщин
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN woman_N))))
+AllRus: пишешь твою женщину
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2plus pot01 (pot0as1 (pot0 n2))))))))))))
+AllRus: являешься этими ста двумя тысячами
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n2)))))))))))
+AllRus: являешься этими двумястами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n3)))))))))))
+AllRus: являешься этими тремястами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n4)))))))))))
+AllRus: являешься этими четырьмястами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n5)))))))))))
+AllRus: являешься этими пятьюстами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n6)))))))))))
+AllRus: являешься этими шестьюстами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n7)))))))))))
+AllRus: являешься этими семьюстами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n8)))))))))))
+AllRus: являешься этими восемьюстами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 (pot0 n9)))))))))))
+AllRus: являешься этими девятьюстами тысячами
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot3 (pot2 pot01))))))))))
+AllRus: являешься этими ста тысячами
+
 AllRusAbs: ImpVP UseCopula
 AllRus: будь
 
@@ -3557,6 +3591,12 @@ AllRus: нет у вас воды
 
 AllRusAbs: ComparAdvAdj less_CAdv narrow_A everything_NP
 AllRus: менее узко , чем всё
+
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a like_V2) (UsePron he_Pron))) (UsePron weFem_Pron)))
+AllRus: я не прошу нравиться ему нас
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a like_V2) (UsePron he_Pron))) (UsePron weFem_Pron)))
+AllRus: я прошу нравиться ему нас
 
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ExistNPAdv (MassNP (UseN house_N)) (ComparAdvAdj less_CAdv narrow_A everything_NP))
 AllRus: дом менее узко , чем всё , существовал бы
