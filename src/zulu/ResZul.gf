@@ -443,8 +443,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFSubj _ => []
     } ;
 
-
-
   -- chooses the form of the root to use for N-prefixes
   aformN : Agr -> AForm = \agr ->
     case agr of {

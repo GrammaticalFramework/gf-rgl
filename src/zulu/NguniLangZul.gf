@@ -2,7 +2,9 @@
 
 concrete NguniLangZul of NguniLangAbs =
   GrammarZul,
-  NguniLexiconZul
+  NguniLexiconZul,
+  -- GuesserZul,
+  TempZul
   -- ,ConstructionZul
   -- ,DocumentationZul --# notpresent
   -- ,MarkupZul - [stringMark]

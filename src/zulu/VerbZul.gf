@@ -15,19 +15,50 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude in {
       aux_root = [] ;
       hasAux = False
     } ;
---
+
 --     SlashV2a v = predVc v ** {c2 = v.c2 ; gapInMiddle = False} ;
 --     Slash2V3 v np =
 --       insertObjc (\\_ => v.c2 ++ np.s ! NPAcc) (predVc v ** {c2 = v.c3 ; gapInMiddle = False}) ;
 --     Slash3V3 v np =
 --       insertObjc (\\_ => v.c3 ++ np.s ! NPAcc) (predVc v) ; ----
---
+
 --     ComplVV v vp = insertObj (\\a => infVP v.typ vp False Simul CPos a) (predVV v) ;  ---- insertExtra?
---     ComplVS v s  = insertExtra (conjThat ++ s.s) (predV v) ;
+
+    ComplVS vs s = vs ** {
+      -- s = vs.s ;
+      oc = [] ;
+      comp = s.subjs ;
+      hasComp = True ;
+      -- r = vs.r ;
+      -- syl = vs.syl ;
+      asp = Null ;
+      vptype = SComp ;
+      comp_agr = First Sg ; -- this could be anything...
+      ap_comp = \\_ => [] ;
+      ap_bool = False ;
+      aux_root = [] ;
+      hasAux = False
+    } ;
+
 -- ---    ComplVS v s  = insertObj (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predV v) ;
 --     ComplVQ v q  = insertExtra (q.s ! QIndir) (predV v) ;
---     ComplVA v ap = insertObj (ap.s) (predV v) ;
---
+
+    ComplVA va ap = va ** {
+      -- s = va.s ;
+      oc = [] ;
+      comp = [] ;
+      hasComp = True ;
+      -- r = va.r ;
+      -- syl = va.syl ;
+      asp = Null ;
+      vptype = APComp ;
+      comp_agr = First Sg ; -- this could be anything...
+      ap_comp = ap.s ;
+      ap_bool = ap.b ;
+      aux_root = [] ;
+      hasAux = False
+    } ;
+
 --     SlashV2V v vp = insertObjc (\\a => v.c3 ++ infVP v.typ vp False Simul CPos a) (predVc v) ;
 --     SlashV2S v s  = insertExtrac (conjThat ++ s.s) (predVc v) ;   ---- insertExtra?
 -- ---    SlashV2S v s  = insertObjc (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predVc v) ;
@@ -123,7 +154,23 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude in {
       }
     } ;
 
---     AdvVP vp adv = insertObj (\\_ => adv.s) vp ;
+    AdvVP vp adv = {
+      s = vp.s ;
+      perfSuff = vp.perfSuff ;
+      oc = vp.oc ;
+      comp = vp.comp ++ adv.s ;
+      hasComp = True ;
+      r = vp.r ;
+      syl = vp.syl ;
+      asp = vp.asp ;
+      vptype = vp.vptype ;
+      comp_agr = vp.comp_agr ;
+      ap_comp = vp.ap_comp ;
+      ap_bool = vp.ap_bool ;
+      aux_root = vp.aux_root ;
+      hasAux = vp.hasAux
+    } ;
+
 --     ExtAdvVP vp adv = insertObj (\\_ => frontComma ++ adv.s ++ finalComma) vp ;
 --     AdVVP adv vp = insertAdV adv.s vp ;
 --

@@ -237,8 +237,8 @@ concrete ExtraZul of ExtraZulAbs =
     all_QuantStem = { s = "nke" ; n = Pl } ;
     painful_RelStem = { s = "buhlungu" } ;
 
-    TPerfPast = { s = [] ; t = Relative PerfTense PastTense } ;
-    -- TPresPres = { s = [] ; t = Relative PresTense PresTense } ;
+    -- TPerfPast = { s = [] ; t = Relative PerfTense PastTense } ;
+    TPresPres = { s = [] ; t = Relative PresTense PresTense } ;
     -- TPastPres = { s = [] ; t = Relative PastTense PresTense } ;
     -- TPastPerf = { s = [] ; t = Relative PastTense PerfTense } ;
 

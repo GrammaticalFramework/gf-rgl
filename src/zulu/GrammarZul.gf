@@ -14,7 +14,7 @@ concrete GrammarZul of Grammar =
   TextX - [Temp,Adv],
   StructuralZul,
   IdiomZul,
-  TenseX - [Temp,Adv]
+  TenseX [PPos,PNeg] -- - [Temp,Adv]
   ** open ResZul, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

@@ -5,7 +5,7 @@ concrete StructuralZul of Structural = CatZul **
 
   flags optimize=all ;
 
---   lin
+  lin
 --   above_Prep = mkPrep "above" ;
 --   after_Prep = mkPrep "after" ;
 --   all_Predet = ss "all" ;
@@ -71,7 +71,7 @@ concrete StructuralZul of Structural = CatZul **
 --   how8many_IDet = mkDeterminer plural ["how many"] ;
 --   if_Subj = ss "if" ;
 --   in8front_Prep = mkPrep ["in front of"] ;
---   i_Pron  = mkPron "I" "me" "my" "mine" singular P1 human ;
+  i_Pron  = { s = "mi" ; agr = First Sg ; empty = [] } ;
 --   in_Prep = mkPrep "in" ;
 --   it_Pron  = mkPron "it" "it" "its" "its" singular P3 nonhuman ;
 --   less_CAdv = mkCAdv "less" "no less" "than" ;

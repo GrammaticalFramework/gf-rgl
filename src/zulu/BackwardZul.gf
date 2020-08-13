@@ -30,8 +30,34 @@ concrete BackwardZul of Backward = CatZul ** open ResZul in {
       aux_root = [] ;
       hasAux = False
     } ;
---     ComplV3 v np np2 =
---       insertObj (\\_ => v.c2 ++ np.s ! Acc ++ v.c3 ++ np2.s ! Acc) (predV v) ;
+    
+    ComplV3 v3 np1 np2 = v3 ** {
+      -- s = v3.s ;
+      oc = case np1.isPron of {
+        True => objConc np1.agr v3.r v3.syl ;
+        False => []
+      } ;
+      comp = case np1.isPron of {
+        True => case v3.voice of {
+          Active => np2.nom ! Full ++ np2.desc ;
+          Passive => (cop_pref np2.agr) ++BIND++ np2.nom ! Full ++ np2.desc
+        } ;
+        False => case v3.voice of {
+          Active => np1.nom ! Full ++ np1.desc ++ np2.nom ! Full ++ np2.desc ;
+          Passive => (cop_pref np1.agr) ++BIND++ np1.nom ! Full ++ np1.desc ++ np2.nom ! Full ++ np2.desc
+        }
+      } ;
+      hasComp = True ;
+      -- r = v3.r ;
+      -- syl = v3.syl ;
+      asp = Null ;
+      vptype = NPComp ;
+      comp_agr = np1.agr ; -- this could be anything...
+      ap_comp = \\_ => [] ;
+      ap_bool = False ;
+      aux_root = [] ;
+      hasAux = False
+    } ;
 --     ComplV2V v np vp =
 --       insertObj (\\a => infVP v.isAux vp False Simul CPos a)
 --         (insertObj (\\_ => v.c2 ++ np.s ! Acc) (predV v)) ;
