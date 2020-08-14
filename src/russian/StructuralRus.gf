@@ -53,7 +53,7 @@ lin
   by8agent_Prep = mkPrep ["с помощью"] Gen ;
   by8means_Prep = mkPrep ["с помощью"] Gen ;
   during_Prep = mkPrep "в течение" Gen ;
-  except_Prep = mkPrep ["за исключением"] Gen ;
+  except_Prep = mkPrep ["за исключением"] Gen ; -- fix n
   for_Prep = mkPrep "для" Gen ;
   from_Prep = mkPrep ot_prep_gen_mod Gen ;
   in8front_Prep = mkPrep "перед" Ins ;

@@ -31,9 +31,6 @@ Correct text requires AdvNP tricks. Resulting trees are quite artificial, one ex
 
 Proper resolution? It's hard to go through Dets and Quants (and will make them more complex). Probably, correct solution would be to make the same as if possessive pronoun is an adjective:
 
-> l MassNP (AdjCN (PositA red_A) (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N)))))
-красные грамматика , яблоко и цветок
-
 This would require some Russian-specific (though quite straightforwward) Pron -> AP addition.
 
 ## Not clear
@@ -56,9 +53,6 @@ LangRus-NEW> говоришь на его
 LangRus-NEW> кто-то в 2:двадцать существует
 LangRus-OLD> [ExistNPAdv]
 
-** UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN worm_N))))
-LangRus-NEW> пишешь этих двух червя
-
 > l UttS (AdvS (AdAdv quite_Adv (ComparAdvAdj less_CAdv narrow_A everything_NP)) (UseCl (TTAnt TPres ASimul) PNeg (ExistNP something_NP)))
 довольно менее узко , чем всё что &+ -то не существует
 
@@ -76,10 +70,6 @@ Verb zv index does not support "*", it figures forms out from 3 given examples i
 
 AllRusAbs: UttImpPol PPos (ImpVP (ComplSlash (Slash2V3 add_V3 everybody_NP) (PPartNP somebody_NP drink_V2)))
 AllRus: складываем &+ те всех в кого &+ -то пит
-
-
-gt UttS (UseCl (TTAnt ? AAnter) ? (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg))))))) |l -treebank
-AllRus: червь не сиде &+ ло бы в его красном яблоке
 
 AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PNeg (QuestIAdv how8much_IAdv (ImpersCl (AdvVP (AdvVP UseCopula (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))) (PrepNP possess_Prep (UsePN john_PN))))))) NoVoc) TEmpty
 AllRus: сколько не является яблок у Ивана ?
@@ -140,3 +130,40 @@ The sentence is not complete
 
 > p -cat=S "я просил его делать машины"
 The sentence is not complete
+
+
+## From, api treebank
+
+AllRusAbs: PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc
+AllRus: , так и сейчас
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: Она рисует красную данное
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))
+AllRus: Она рисует красную его
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Является здесь что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Здесь есть что она спит
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)))
+AllRus: Данное пять самых хороших
+
+AllRusAbs: UttNP (PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2)
+AllRus: Человек вижен
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
+AllRus: Данное пятые
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl small_A)))
+AllRus: Некое самые маленькие
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))
+AllRus: Женщина, которая рисует очень красную его
+
+AllRusAbs: UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A)
+)))))
+AllRus: Ребёнок, все учителя которого является молодым

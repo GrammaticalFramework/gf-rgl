@@ -9,7 +9,7 @@ lin
   alas_Interj = mkInterj "увы" ;
   already_Adv = mkAdv "уже" ;
   animal_N = mkN (mkA "животный") masculine animate ;
-  answer_V2S = dirV2 (mkV imperfective "отвечать" "отвечаю" "отвечает");
+  answer_V2S = mkV2 (mkV imperfective "отвечать" "отвечаю" "отвечает") to_dat_Prep ;
   apartment_N = mkN "квартира" ;
   apple_N = mkN "яблоко" neuter inanimate "3a(1)" ;
   art_N = mkN "искусство" ;
@@ -66,7 +66,7 @@ lin
   cloud_N = mkN "облако" neuter inanimate "3c(2)" ;
   coat_N = mkN "пальто" masculine inanimate "0";
   cold_A = mkA "холодный";
-  come_V = mkV imperfective intransitive "приходить" "прихожу" "приходит";
+  come_V = mkV imperfective intransitive "приходить" "прихожу" "приходит" "4c" ;
   computer_N = mkN "компьютер" ;
   correct_A = mkA "правильный" "" "1*a";
   count_V2 = mkV2 (mkV imperfective "считать" "считаю");
@@ -207,7 +207,7 @@ lin
   oil_N = mkN "нефть" ;
   old_A = mkA "старый" "старше" "1a/c''";  -- Grammatically correct variant "старее" is being used less
   open_V2 = mkV2 (mkV imperfective "открывать" "открываю");
-  paint_V2A = dirV2 (mkV imperfective "рисовать" "рисую") ;
+  paint_V2A = mkV2 (mkV imperfective "рисовать" "рисую") Ins;
   paper_N = mkN "бумага" ;
   paris_PN = mkPN "Париж" masculine inanimate ;
   peace_N = mkN "мир" ;
@@ -254,7 +254,7 @@ lin
   science_N = mkN "наука" ;
   scratch_V2 = mkV2 (mkV imperfective "чесать" "чешу" "чешет");
   sea_N = mkN "море" neuter inanimate "2c" ;
-  see_V2 = mkV2 (mkV imperfective "видеть" "вижу" "видит");
+  see_V2 = mkV2 (mkV imperfective transitive "видеть" "вижу" "видит" "5a") ;  -- {pppss="виден"}
   seed_N = mkN "семя" neuter inanimate "8°c" ;
   seek_V2 = mkV2 (mkV imperfective "искать" "ищу" "ищет");
   sell_V3 = tvDirDir (mkV imperfective "продавать" "продаю" "продаёт");
@@ -344,7 +344,7 @@ lin
   wing_N = (mkNplus (mkN "крыло" neuter inanimate "1d")) ** {pnom="крылья";pgen="крыльев";pdat="крыльям";pacc="крылья";pins="крыльями";pprep="крыльях"};
   wipe_V2 = mkV2 (mkV imperfective "вытирать" "вытираю");
   woman_N = mkN "женщина" feminine animate ;
-  wonder_VQ = mkVQ (mkV imperfective "интересовать" "интересую" "интересует") ;
+  wonder_VQ = mkVQ (mkV imperfective "интересоваться" "интересуюсь" "интересуется") ;
   wood_N = mkN "древесина" feminine inanimate "1a" ;
   worm_N = mkN "червь" masculine animate ;
   write_V2 = mkV2 (mkV imperfective "писать" "пишу" "пишет");
