@@ -121,12 +121,12 @@ lin
         PrefShort => ap.short
         }
       } ;
-    c=v2a.c
+    c={s="" ; c=Acc ; neggen=True ; hasPrep=False}
     } ;
 
   -- : VPSlash -> NP -> VP ; -- love it
   ComplSlash vps np = vps ** {
-    compl=\\p,a => vps.compl ! p ! a ++ applyPolPrep p vps.c np
+    compl=\\p,a => applyPolPrep p vps.c np ++ vps.compl ! p ! a
     } ;
 
   -- : VV -> VPSlash -> VPSlash ;       -- want to buy

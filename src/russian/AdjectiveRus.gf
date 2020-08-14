@@ -8,17 +8,30 @@ lin
   UseComparA a = adjFormsAdjective (immutableAdjForms a.comp)
                  ** {isPost = a.p; preferShort = PrefShort} ;  -- TODO: non-qual
   -- : AP -> Adv -> AP ; -- warm by nature
-  AdvAP ap adv = ap ** {s = \\gn,a,c => adv.s ++ ap.s ! gn ! a ! c ; isPost = False} ;
+  AdvAP ap adv = ap ** {
+    s = \\gn,a,c => adv.s ++ ap.s ! gn ! a ! c ;
+    short=\\a => adv.s ++ ap.short ! a ;
+    isPost = False
+    } ;
 
   -- : AdA -> AP -> AP ;
-  AdAP ada ap = ap ** {s=\\gn,a,c => ada.s ++ ap.s ! gn ! a ! c } ;
+  AdAP ada ap = ap ** {
+    s=\\gn,anim,c => ada.s ++ ap.s ! gn ! anim ! c ;
+    short=\\a => ada.s ++ ap.short ! a
+    } ;
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
   CAdvAP cadv ap np = ap ** {
-    s = \\gn,a,c => cadv.s ++ ap.s ! gn ! a ! c ++ embedInCommas (cadv.p ++ np.s ! Nom)
-  } ;
+    s = \\gn,anim,c => cadv.s ++ ap.s ! gn ! anim ! c ++ embedInCommas (cadv.p ++ np.s ! Nom) ;
+    short = \\a => cadv.s ++ ap.short ! a ++ embedInCommas (cadv.p ++ np.s ! Nom)
+    } ;
 
   -- : AP -> SC -> AP ;  -- good that she is here
-  SentAP ap sc = ap ** {s = \\gn,a,c => ap.s ! gn ! a ! c ++ sc.s ; isPost = True} ;
+  SentAP ap sc = ap ** {
+    s = \\gn,anim,c => ap.s ! gn ! anim ! c ++ sc.s ;
+    short = \\a => ap.short ! a ++ sc.s ;
+    preferShort = PrefShort ;
+    isPost = True
+    } ;
 
   -- : A -> NP -> AP ;  -- warmer than I - теплее меня
   ComparA a np = {

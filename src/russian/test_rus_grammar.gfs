@@ -21,6 +21,7 @@ gt UseRCl (TTAnt TCond ASimul) PPos ( RelSlash IdRP (SlashPrep ( CleftAdv now_Ad
 gt UseCl (TTAnt TPres AAnter) PPos (CleftNP  (UsePron ?)  (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP ready_VP))) | l -treebank
 gt ComplA2 ? (UsePron she_Pron) | l -treebank
 gt ReflA2 ? |l -treebank
+gt AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))) )) (UseN apple_N)   | l -treebank
 gt CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2)) | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttAP (SentAP (CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))) (EmbedQS (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (UsePron ?) (AdvVP (UseV sit_V) (PrepNP on_Prep (MassNP (UseN table_N)))))))))) NoVoc) TEmpty | l -treebank
 gt EmbedQS (UseQCl (TTAnt ? ASimul) PNeg (ExistIP whatSg_IP)) | l -treebank
@@ -44,8 +45,11 @@ gt RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) ? (RelSlash IdRP ( SlashVS 
 gt UseCl (TTAnt TPres AAnter) PPos (ExistNP everything_NP) | l -treebank
 gt SSubjS (UseCl (TTAnt TPres AAnter) PPos (ExistNP everything_NP)) because_Subj (UseCl (TTAnt TPres AAnter) PPos (ExistNP everything_NP)) | l -treebank
 gt UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (AdvSlash (SlashVP (UsePN john_PN) (VPSlashPrep (UseV walk_V) for_Prep)) here_Adv ) )  | l -treebank
-
+gt PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) somewhere_Adv) |l -treebank
+gt PastPartAP (SlashV2A paint_V2A (AdvAP (PositA uncertain_A) there_Adv)) |l -treebank
+gt AdjCN (PastPartAP (SlashV2V beg_V2V (ComplVA become_VA (AdjOrd left_Ord)))) (UseN cat_N) |l -treebank
 gt ImpVP (AdvVP (AdVVP always_AdV (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday)) |l -treebank
+gt AdjCN (PastPartAgentAP (VPSlashPrep ill_VP after_Prep) (DetNP every_Det)) (UseN woman_N) |l -treebank
 
 gt PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP | l -treebank
 gt RelCl (PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP) | l -treebank
@@ -62,7 +66,7 @@ gt UseCl (TTAnt TCond AAnter) ? (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_
 gt UseCl (TTAnt TCond AAnter) ? (PredVP (MassNP (UseN heart_N)) ( ComplVV ? (PassV2 squeeze_V2)   ) ) | l -treebank
 gt ComplVS hope_VS ( UseCl (TTAnt ? AAnter) ? (have_name_Cl (UsePron he_Pron) (UsePN john_PN)) )  | l -treebank
 gt UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep ill_VP possess_Prep) (UsePron we_Pron))) | l -treebank
-
+gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a bite_V2) (MassNP (UseN apple_N))))) |l -treebank
 gt UseQCl (TTAnt ? ASimul) PPos (what_name_QCl (UsePron youSg_Pron)) | l -treebank
 
 gt UseA2 easy_A2V | l -treebank
@@ -128,6 +132,7 @@ gt UseQCl (TTAnt TPres ASimul) PPos (QuestVP whatSg_IP (UseComp (CompNP (DetCN (
 gt UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (UsePron youSg_Pron) (UseV fly_V))) | l -treebank
 gt UseQCl (TTAnt ? ASimul) ? (QuestSlash whatSg_IP (SlashVP (UsePron she_Pron) (SlashV2a do_V2))) | l -treebank
 gt UseQCl (TTAnt ? ASimul) PPos (QuestIComp (CompIAdv when_IAdv)  (MassNP (UseN apple_N))) | l -treebank
+gt UseQCl (TTAnt ? ASimul) PPos (QuestIComp (CompIQuant which_IQuant)  (MassNP (UseN apple_N))) | l -treebank
 gt UseQCl (TTAnt ? ASimul) PNeg (QuestIAdv when_IAdv (ImpersCl (AdvVP UseCopula (PrepNP part_Prep (MassNP (UseN apple_N)))))) | l -treebank
 
 gt UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant DefArt (NumCard (NumDigits (IDig D_1)))) (UseN woman_N))   ))  | l -treebank
@@ -197,37 +202,12 @@ gt UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePN john_PN) (ComplDirectVQ know_V
 gt FocusObj (UsePron she_Pron) ( UseSlash (TTAnt TCond AAnter) ? (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))) )  | l -treebank
 
 gt UseCl (TTAnt ? ASimul) PNeg (ExistsNP (MassNP (UseN number_N))) | l -treebank
-
- -- these below sound unnatural
-
-gt OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 ?))))) | l -treebank
 gt UseCl ? PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron )) (MassNP (UseN water_N) ))) | l -treebank
 
--- here some participles are not formed correctly
-gt AdjCN (PastPartAP ( SlashV2a ? )  )   (UseN house_N) | l -treebank
-
-gt QuestCl ( PredSCVP (EmbedVP (UseV play_V)) thirsty_VP ) | l -treebank
-gt UseQCl ? ? ( QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP) ) | l -treebank
-gt UseQCl (TTAnt TCond AAnter) ? (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)) | l -treebank
-gt UttQS ( UseQCl (TTAnt TCond AAnter) ? (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)) ) | l -treebank
-gt ComplVQ know_VQ ( UseQCl (TTAnt TCond AAnter) ? (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)) ) | l -treebank
-
 gt EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron)) | l -treebank
-gt SentCN  (UseN apple_N)   (EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron))) | l -treebank
-gt PredSCVP (EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron)))    ( PassV2 count_V2 )  | l -treebank
 gt UseQCl ? ? ( QuestCl (PredSCVP (EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron)))    ( PassV2 count_V2 )) ) | l -treebank
-
-
 gt PredVP (somebody_NP) (ComplVA become_VA ( SentAP (UseA2 easy_A2V) ( EmbedVP (ComplSlash (VPSlashPrep (UseV fall_V) possess_Prep) (UsePron we_Pron)) ))) |l -treebank
 gt UseCl ? ? (PredVP (somebody_NP) (ComplVA become_VA ( SentAP (UseA2 easy_A2V) ( EmbedVP (ComplSlash (VPSlashPrep (UseV fall_V) possess_Prep) (UsePron we_Pron)) ))) )|l -treebank
-
-gt PredSCVP (EmbedVP (UseV play_V))  (UseComp (CompAP (PositA clean_A)) ) | l -treebank
 gt UseCl ? ? (  PredSCVP (EmbedVP (UseV play_V))  (UseComp (CompAP (PositA clean_A)) ) ) |l -treebank
-
 gt UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedVP (UseV play_V)) (UseComp (CompCN (AdjCN (PositA clean_A) (UseN war_N))))) | l -treebank
 
-
-
--- not implemented
-
-gt AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))) )) (UseN apple_N)   | l -treebank

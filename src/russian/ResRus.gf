@@ -553,11 +553,12 @@ oper
 
   shortPastPassPart : VerbForms -> GenNum -> Str
     = \vf,gn ->
-      case gn of {
-        GSg Masc => vf.pppss ;
-        GSg Fem => vf.pppss ++ BIND ++ "а" ;
-        GSg Neut => vf.pppss ++ BIND ++ "о" ;
-        GPl => vf.pppss ++ BIND ++ "ы"
+      case <vf.fut,gn> of {
+        <NormalFuture,GSg Masc> => vf.pppss ;
+        <NormalFuture,GSg Fem> => vf.pppss ++ BIND ++ "а" ;
+        <NormalFuture,GSg Neut> => vf.pppss ++ BIND ++ "о" ;
+        <NormalFuture,GPl> => vf.pppss ++ BIND ++ "ы" ;
+        _ => vf.pppss
         } ;
 
   copula : VerbForms

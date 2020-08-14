@@ -6,6 +6,7 @@ concrete ExtraRus of ExtraRusAbs = CatRus **
 lin
   obj_no_Prep = {s="" ; c=Acc ; neggen=True ; hasPrep=False} ;
   to2_Prep = P.mkPrep v_prep_mod Acc ;
+  to_dat_Prep = {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
   on_to_Prep = P.mkPrep "до" Gen ;
   along_Prep = P.mkPrep "по" Loc ;
   from2_Prep = from2 ;

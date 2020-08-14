@@ -32,7 +32,7 @@ concrete ExtendRus of Extend =
     -- MkVPS, NominalizeVPSlashNP,
     -- PassAgentVPSlash, PassVPSlash, ProgrVPSlash,
     PastPartAP,
-    -- PastPartAgentAP,
+    PastPartAgentAP,
     PositAdVAdj,
     -- PredVPS, PredVPSVV, PredetRNP, PrepCN,
     -- EmbedSSlash, PresPartAP,
@@ -100,12 +100,12 @@ lin
   PastPartAP vps = {
     s=\\gn,anim,cas =>
       vps.adv ! (genNumAgrP3 gn)
-      ++ (shortPastPassPart vps.verb gn)
+      ++ shortPastPassPart vps.verb gn
       ++ vps.dep
       ++ vps.compl ! Pos ! (genNumAgrP3 gn) ;
     short=\\a =>
       vps.adv ! a
-      ++ (shortPastPassPart vps.verb (agrGenNum a))
+      ++ shortPastPassPart vps.verb (agrGenNum a)
       ++ vps.dep
       ++ vps.compl ! Pos ! a
       ++ vps.c.s ; --
@@ -113,6 +113,23 @@ lin
     preferShort=PreferFull
     } ;
 
+  -- : VPSlash -> NP -> AP ;   -- (opportunity) lost by the company
+  PastPartAgentAP vps np ={
+    s=\\gn,anim,cas =>
+      vps.adv ! (genNumAgrP3 gn)
+      ++ shortPastPassPart vps.verb gn
+      ++ vps.dep
+      ++ applyPolPrep Pos vps.c np
+      ++ vps.compl ! Pos ! (genNumAgrP3 gn) ;
+    short=\\a =>
+      vps.adv ! a
+      ++ shortPastPassPart vps.verb (agrGenNum a)
+      ++ vps.dep
+      ++ applyPolPrep Pos vps.c np
+      ++ vps.compl ! Pos ! a ;
+    isPost = False ;
+    preferShort=PreferFull
+    } ;
   -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
   -- use PlP2 + "ый"
 
@@ -161,6 +178,17 @@ lin
     compl = \\_ => [] ;
     a = np.a
     } ;
+
+  -- : IQuant -> IComp ;   -- which (is it) [agreement to NP]
+  CompIQuant iq = {
+    s = \\a => case iq.preferShort of {
+      prefShort => iq.short ;
+      _ => iq.s ! agrGenNum a ! Inanimate ! Nom
+    } ;
+    adv = [];
+    cop = NomCopula ;
+    } ;
+
 oper
   rus_quoted : Str -> Str = \s -> "«" ++ s ++ "»" ; ---- TODO bind ; move to Prelude?
 } ;
