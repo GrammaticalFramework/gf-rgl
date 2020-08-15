@@ -74,7 +74,7 @@ concrete StructuralKam of Structural = CatKam **
   in8front_Prep = mkPrep ["mbee wa"]  False;
  i_Pron   =mkPron "nyie" "akwa" G1 Sg P1 ;
   in_Prep = mkPrep "thini" True ;
- it_Pron   ={ s=\\c=>"yo"; poss=\\n,g=> ""; a=Ag G4 Sg P3};
+ it_Pron   ={ s=\\c=>"yo"; poss=\\n,g=> ""; a=toAgr G4 Sg P3};
        
   less_CAdv = C.mkCAdv "ninangi" "kwi" ;
  much_Det, many_Det = { s =\\g => Manyprefix g + "ingi" ;

@@ -284,7 +284,7 @@ mkVerb :(gen,preneg,inf,habit : Str) -> Verb= \gen,preneg,inf,habit ->
             v_prefix = (polanttense.s!pol!tes!ant!ag).p1 ; in
             case < tes, ant,pol > of {
               <Pres, Simul, Neg> =>  v_prefix + preneg ;
-              <Pres, Simul,Pos> =>  v_prefix + gen;-- | habit;
+              <Pres, Simul,Pos> =>  v_prefix + gen ;--| habit;
               <_, _,_> => v_prefix +gen
               };
               progV = [];
@@ -372,37 +372,38 @@ Poltemp : Type ={ s: Polarity => Tense => Anteriority =>  Agr => Str *Str};
 
 VerbSubjclitic : Type = {s : Agr => Str * Str };
 subjclitic : VerbSubjclitic = { s=\\a => case a of {
-            Ag G1 Sg P1 =><"ni","si">;
-            Ag G1 Sg P2 => <"u","hu">;
-            Ag G1 Sg P3 => <"a","ha">;
-            Ag G1 Pl P1 =><"tu","hatu">;
-            Ag G1 Pl P2 => <"m","ham">;
-            Ag G1 Pl P3 => <"wa","hawa">;
-            Ag G2 Sg P3=><"u","hau">;
-            Ag G2 Pl P3 =><"i","hai">;
-            Ag G3 Sg P3 =><"li","hali">;
-            Ag G3 Pl P3 =><"ya","haya">;
-            Ag G4 Sg P3 => <"ki","haki">;
-            Ag G4 Pl P3 => <"vi","havi">;
-            Ag G5 Sg P3 => <"i","hai">;
-            Ag G5 Pl P3 => <"zi","hazi">;
-            Ag G6 Sg P3 => <"u","hau">;
-            Ag G6 Pl P3 =><"zi","hazi">;
-            Ag G7 Sg P3 => <"u","hau">;
-            Ag G7 Pl P3 =><"u","hau">;
-            Ag G8 Sg P3 =><"u","hau">;
-            Ag G8 Pl P3 =><"ya","haya">;
-            Ag G9 Sg P3 =><"ya","haya">;
-            Ag G9 Pl P3 => <"ya","haya">;
-            Ag G10 Sg P3 => <"i","hai">;
-            Ag G10 Pl P3=><"i","hai">;
-            Ag G11 Sg P3 =><"ku","haku">;
-            Ag G11 Pl P3 =><"ku","haku">;
-            Ag G12 Sg P3 =><"pa","hapa">;
-            Ag G12 Pl P3 => <"pa","hapa">;
-            Ag G13 Sg P3 => <"m","ham">;
-            Ag G13 Pl P3=><"m","ham">;
-            Ag  _  _  _ =><"",""> }};
+            AgP1  Sg =><"ni","si">;
+            AgP2  Sg  => <"u","hu">;
+            AgP3 G1 Sg  => <"a","ha">;
+            AgP1 Pl  =><"tu","hatu">;
+            AgP2  Pl  => <"m","ham">;
+            AgP3 G1 Pl  => <"wa","hawa">;
+            AgP3 G2 Sg =><"u","hau">;
+            AgP3 G2 Pl  =><"i","hai">;
+            AgP3 G3 Sg  =><"li","hali">;
+            AgP3 G3 Pl  =><"ya","haya">;
+            AgP3 G4 Sg  => <"ki","haki">;
+            AgP3 G4 Pl  => <"vi","havi">;
+            AgP3 G5 Sg  => <"i","hai">;
+            AgP3 G5 Pl  => <"zi","hazi">;
+            AgP3 G6 Sg  => <"u","hau">;
+            AgP3 G6 Pl  =><"zi","hazi">;
+            AgP3 G7 Sg  => <"u","hau">;
+            AgP3 G7 Pl  =><"u","hau">;
+            AgP3 G8 Sg  =><"u","hau">;
+            AgP3 G8 Pl  =><"ya","haya">;
+            AgP3 G9 Sg  =><"ya","haya">;
+            AgP3 G9 Pl  => <"ya","haya">;
+            AgP3 G10 Sg => <"i","hai">;
+            AgP3 G10 Pl=><"i","hai">;
+            AgP3 G11 Sg =><"ku","haku">;
+            AgP3 G11 Pl =><"ku","haku">;
+            AgP3 G12 Sg =><"pa","hapa">;
+            AgP3 G12 Pl => <"pa","hapa">;
+            AgP3 G13 Sg => <"m","ham">;
+            AgP3 G13 Pl=><"m","ham"> --;
+           -- Ag  _  _   =><"",""> 
+           }};
            mkClitic  : Str -> Str = \c -> c ++ Predef.BIND ;
 }
 

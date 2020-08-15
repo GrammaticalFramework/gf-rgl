@@ -1,0 +1,409 @@
+s VInf : sleep
+s VPres : sleeps
+s VPPart : slept
+s VPresPart : sleeping
+s VPast : slept
+p : 
+s VPreProg : komete
+s VInf : kukoma
+s VPast : komie
+s VPreDef : komaa
+s VGen : koma
+s (VExtension EPassive) : komwa
+s (VExtension EApplicative) : komia
+s (VExtension EReciprocal) : komana
+s (VExtension ECausative) : komithya
+s (VExtension EDistributive) : komanga
+imp Pos (ImpF Sg False) : koma
+imp Pos (ImpF Sg True) : koma
+imp Pos (ImpF Pl False) : komai
+imp Pos (ImpF Pl True) : komai
+imp Neg (ImpF Sg False) : 
+imp Neg (ImpF Sg True) : 
+imp Neg (ImpF Pl False) : 
+imp Neg (ImpF Pl True) : 
+progV : komete
+s1 Pos Pres Simul (AgP2 Sg) : ninukomaa
+s1 Pos Pres Simul (AgP2 Pl) : nimukomaa
+s1 Pos Pres Simul (AgP3 G1 Sg) : ninukomaa
+s1 Pos Pres Simul (AgP3 G1 Pl) : nimakomaa
+s1 Pos Pres Simul (AgP3 G2 Sg) : niukomaa
+s1 Pos Pres Simul (AgP3 G2 Pl) : niikomaa
+s1 Pos Pres Simul (AgP3 G3 Sg) : niyikomaa
+s1 Pos Pres Simul (AgP3 G3 Pl) : nimakomaa
+s1 Pos Pres Simul (AgP3 G4 Sg) : nikikomaa
+s1 Pos Pres Simul (AgP3 G4 Pl) : niikomaa
+s1 Pos Pres Simul (AgP3 G5 Sg) : nikakomaa
+s1 Pos Pres Simul (AgP3 G5 Pl) : nitukomaa
+s1 Pos Pres Simul (AgP3 G6 Sg) : nivakomaa
+s1 Pos Pres Simul (AgP3 G6 Pl) : nikukomaa
+s1 Pos Pres Simul (AgP3 G7 Sg) : niikomaa
+s1 Pos Pres Simul (AgP3 G7 Pl) : niikomaa
+s1 Pos Pres Simul (AgP3 G8 Sg) : niukomaa
+s1 Pos Pres Simul (AgP3 G8 Pl) : nimakomaa
+s1 Pos Pres Simul (AgP3 G9 Sg) : niukomaa
+s1 Pos Pres Simul (AgP3 G9 Pl) : niikomaa
+s1 Pos Pres Simul (AgP3 G10 Sg) : nikukomaa
+s1 Pos Pres Simul (AgP3 G10 Pl) : nimakomaa
+s1 Pos Pres Simul (AgP1 Sg) : ninikomaa
+s1 Pos Pres Simul (AgP1 Pl) : nitukomaa
+s1 Pos Pres Anter (AgP2 Sg) : niwakoma
+s1 Pos Pres Anter (AgP2 Pl) : nimwakoma
+s1 Pos Pres Anter (AgP3 G1 Sg) : niwakoma
+s1 Pos Pres Anter (AgP3 G1 Pl) : nimakoma
+s1 Pos Pres Anter (AgP3 G2 Sg) : niwakoma
+s1 Pos Pres Anter (AgP3 G2 Pl) : niyakoma
+s1 Pos Pres Anter (AgP3 G3 Sg) : niyakoma
+s1 Pos Pres Anter (AgP3 G3 Pl) : nimakoma
+s1 Pos Pres Anter (AgP3 G4 Sg) : nikyakoma
+s1 Pos Pres Anter (AgP3 G4 Pl) : nisyakoma
+s1 Pos Pres Anter (AgP3 G5 Sg) : nikakoma
+s1 Pos Pres Anter (AgP3 G5 Pl) : nitwakoma
+s1 Pos Pres Anter (AgP3 G6 Sg) : nivakoma
+s1 Pos Pres Anter (AgP3 G6 Pl) : nikwakoma
+s1 Pos Pres Anter (AgP3 G7 Sg) : niyakoma
+s1 Pos Pres Anter (AgP3 G7 Pl) : nisyakoma
+s1 Pos Pres Anter (AgP3 G8 Sg) : niwakoma
+s1 Pos Pres Anter (AgP3 G8 Pl) : nimakoma
+s1 Pos Pres Anter (AgP3 G9 Sg) : niwakoma
+s1 Pos Pres Anter (AgP3 G9 Pl) : nimakoma
+s1 Pos Pres Anter (AgP3 G10 Sg) : nikwakoma
+s1 Pos Pres Anter (AgP3 G10 Pl) : nimakoma
+s1 Pos Pres Anter (AgP1 Sg) : ninakoma
+s1 Pos Pres Anter (AgP1 Pl) : nitwakoma
+s1 Pos Past Simul (AgP2 Sg) : niunakomie
+s1 Pos Past Simul (AgP2 Pl) : nimunakomie
+s1 Pos Past Simul (AgP3 G1 Sg) : niunakomie
+s1 Pos Past Simul (AgP3 G1 Pl) : nimanakomie
+s1 Pos Past Simul (AgP3 G2 Sg) : niunakomie
+s1 Pos Past Simul (AgP3 G2 Pl) : ni-nakomie
+s1 Pos Past Simul (AgP3 G3 Sg) : niyinakomie
+s1 Pos Past Simul (AgP3 G3 Pl) : nimanakomie
+s1 Pos Past Simul (AgP3 G4 Sg) : nikinakomie
+s1 Pos Past Simul (AgP3 G4 Pl) : ni-nakomie
+s1 Pos Past Simul (AgP3 G5 Sg) : nikanakomie
+s1 Pos Past Simul (AgP3 G5 Pl) : nitunakomie
+s1 Pos Past Simul (AgP3 G6 Sg) : nivanakomie
+s1 Pos Past Simul (AgP3 G6 Pl) : nikunakomie
+s1 Pos Past Simul (AgP3 G7 Sg) : ni-nakomie
+s1 Pos Past Simul (AgP3 G7 Pl) : ni-nakomie
+s1 Pos Past Simul (AgP3 G8 Sg) : niunakomie
+s1 Pos Past Simul (AgP3 G8 Pl) : nimanakomie
+s1 Pos Past Simul (AgP3 G9 Sg) : niunakomie
+s1 Pos Past Simul (AgP3 G9 Pl) : ni-nakomie
+s1 Pos Past Simul (AgP3 G10 Sg) : nikunakomie
+s1 Pos Past Simul (AgP3 G10 Pl) : nimanakomie
+s1 Pos Past Simul (AgP1 Sg) : nininakomie
+s1 Pos Past Simul (AgP1 Pl) : nitunakomie
+s1 Pos Past Anter (AgP2 Sg) : niwakomete
+s1 Pos Past Anter (AgP2 Pl) : nimwakomete
+s1 Pos Past Anter (AgP3 G1 Sg) : niwakomete
+s1 Pos Past Anter (AgP3 G1 Pl) : nimakomete
+s1 Pos Past Anter (AgP3 G2 Sg) : niwakomete
+s1 Pos Past Anter (AgP3 G2 Pl) : niyakomete
+s1 Pos Past Anter (AgP3 G3 Sg) : niyakomete
+s1 Pos Past Anter (AgP3 G3 Pl) : nimakomete
+s1 Pos Past Anter (AgP3 G4 Sg) : nikyakomete
+s1 Pos Past Anter (AgP3 G4 Pl) : nisyakomete
+s1 Pos Past Anter (AgP3 G5 Sg) : nikaakomete
+s1 Pos Past Anter (AgP3 G5 Pl) : nitwakomete
+s1 Pos Past Anter (AgP3 G6 Sg) : nivakomete
+s1 Pos Past Anter (AgP3 G6 Pl) : nikwakomete
+s1 Pos Past Anter (AgP3 G7 Sg) : niyakomete
+s1 Pos Past Anter (AgP3 G7 Pl) : nisyakomete
+s1 Pos Past Anter (AgP3 G8 Sg) : niwakomete
+s1 Pos Past Anter (AgP3 G8 Pl) : nimakomete
+s1 Pos Past Anter (AgP3 G9 Sg) : niwakomete
+s1 Pos Past Anter (AgP3 G9 Pl) : nisyakomete
+s1 Pos Past Anter (AgP3 G10 Sg) : nikwakomete
+s1 Pos Past Anter (AgP3 G10 Pl) : nimakomete
+s1 Pos Past Anter (AgP1 Sg) : ninakomete
+s1 Pos Past Anter (AgP1 Pl) : nitwakomete
+s1 Pos Fut Simul (AgP2 Sg) : ukakoma
+s1 Pos Fut Simul (AgP2 Pl) : mukakoma
+s1 Pos Fut Simul (AgP3 G1 Sg) : akakoma
+s1 Pos Fut Simul (AgP3 G1 Pl) : makakoma
+s1 Pos Fut Simul (AgP3 G2 Sg) : ukakoma
+s1 Pos Fut Simul (AgP3 G2 Pl) : ikakoma
+s1 Pos Fut Simul (AgP3 G3 Sg) : ikakoma
+s1 Pos Fut Simul (AgP3 G3 Pl) : makakoma
+s1 Pos Fut Simul (AgP3 G4 Sg) : kikakoma
+s1 Pos Fut Simul (AgP3 G4 Pl) : ikakoma
+s1 Pos Fut Simul (AgP3 G5 Sg) : kakakoma
+s1 Pos Fut Simul (AgP3 G5 Pl) : tukakoma
+s1 Pos Fut Simul (AgP3 G6 Sg) : vakakoma
+s1 Pos Fut Simul (AgP3 G6 Pl) : kukakoma
+s1 Pos Fut Simul (AgP3 G7 Sg) : ikakoma
+s1 Pos Fut Simul (AgP3 G7 Pl) : ikakoma
+s1 Pos Fut Simul (AgP3 G8 Sg) : ukakoma
+s1 Pos Fut Simul (AgP3 G8 Pl) : makakoma
+s1 Pos Fut Simul (AgP3 G9 Sg) : ukakoma
+s1 Pos Fut Simul (AgP3 G9 Pl) : ikakoma
+s1 Pos Fut Simul (AgP3 G10 Sg) : kukakoma
+s1 Pos Fut Simul (AgP3 G10 Pl) : makakoma
+s1 Pos Fut Simul (AgP1 Sg) : nikakoma
+s1 Pos Fut Simul (AgP1 Pl) : tukakoma
+s1 Pos Fut Anter (AgP2 Sg) : ni unakoma
+s1 Pos Fut Anter (AgP2 Pl) : ni munakoma
+s1 Pos Fut Anter (AgP3 G1 Sg) : ukeethiwa unakoma
+s1 Pos Fut Anter (AgP3 G1 Pl) : makeethiwa manakoma
+s1 Pos Fut Anter (AgP3 G2 Sg) : ukeethiwa unakoma
+s1 Pos Fut Anter (AgP3 G2 Pl) : ikeethiwa inakoma
+s1 Pos Fut Anter (AgP3 G3 Sg) : ikeethiwa yinakoma
+s1 Pos Fut Anter (AgP3 G3 Pl) : makeethiwa manakoma
+s1 Pos Fut Anter (AgP3 G4 Sg) : kikeethiwa kinakoma
+s1 Pos Fut Anter (AgP3 G4 Pl) : ikeethiwa iinakoma
+s1 Pos Fut Anter (AgP3 G5 Sg) : Kakeethiwa kanakoma
+s1 Pos Fut Anter (AgP3 G5 Pl) : Tukeethiwa tunakoma
+s1 Pos Fut Anter (AgP3 G6 Sg) : vakeethiwa vanakoma
+s1 Pos Fut Anter (AgP3 G6 Pl) : kukeethiwa kunakoma
+s1 Pos Fut Anter (AgP3 G7 Sg) : ikeethiwa yinakoma
+s1 Pos Fut Anter (AgP3 G7 Pl) : syikeethiwa syinakoma
+s1 Pos Fut Anter (AgP3 G8 Sg) : ukeethiwa unakoma
+s1 Pos Fut Anter (AgP3 G8 Pl) : makeethiwa manakoma
+s1 Pos Fut Anter (AgP3 G9 Sg) : ukeethiwa unakoma
+s1 Pos Fut Anter (AgP3 G9 Pl) : syikeethiwa syinakoma
+s1 Pos Fut Anter (AgP3 G10 Sg) : kukeethiwa kunakoma
+s1 Pos Fut Anter (AgP3 G10 Pl) : makeethiwa manakoma
+s1 Pos Fut Anter (AgP1 Sg) : ni ninakoma
+s1 Pos Fut Anter (AgP1 Pl) : ni tunakoma
+s1 Pos Cond Simul (AgP2 Sg) : ni wakomie
+s1 Pos Cond Simul (AgP2 Pl) : ni mwakomie
+s1 Pos Cond Simul (AgP3 G1 Sg) : ukeethiwa wakomie
+s1 Pos Cond Simul (AgP3 G1 Pl) : makeethiwa makomie
+s1 Pos Cond Simul (AgP3 G2 Sg) : ukeethiwa wakomie
+s1 Pos Cond Simul (AgP3 G2 Pl) : ikeethiwa yakomie
+s1 Pos Cond Simul (AgP3 G3 Sg) : ikeethiwa yakomie
+s1 Pos Cond Simul (AgP3 G3 Pl) : makeethiwa makomie
+s1 Pos Cond Simul (AgP3 G4 Sg) : kikeethiwa kyakomie
+s1 Pos Cond Simul (AgP3 G4 Pl) : ikeethiwa syakomie
+s1 Pos Cond Simul (AgP3 G5 Sg) : Kakeethiwa kaakomie
+s1 Pos Cond Simul (AgP3 G5 Pl) : Tukeethiwa twakomie
+s1 Pos Cond Simul (AgP3 G6 Sg) : vakeethiwa vakomie
+s1 Pos Cond Simul (AgP3 G6 Pl) : kukeethiwa kwakomie
+s1 Pos Cond Simul (AgP3 G7 Sg) : ikeethiwa yakomie
+s1 Pos Cond Simul (AgP3 G7 Pl) : syikeethiwa syakomie
+s1 Pos Cond Simul (AgP3 G8 Sg) : ukeethiwa wakomie
+s1 Pos Cond Simul (AgP3 G8 Pl) : makeethiwa makomie
+s1 Pos Cond Simul (AgP3 G9 Sg) : ukeethiwa wakomie
+s1 Pos Cond Simul (AgP3 G9 Pl) : syikeethiwa syakomie
+s1 Pos Cond Simul (AgP3 G10 Sg) : kukeethiwa kwakomie
+s1 Pos Cond Simul (AgP3 G10 Pl) : makeethiwa makomie
+s1 Pos Cond Simul (AgP1 Sg) : ni nakomie
+s1 Pos Cond Simul (AgP1 Pl) : ni twakomie
+s1 Pos Cond Anter (AgP2 Sg) : nikukoma
+s1 Pos Cond Anter (AgP2 Pl) : nikukoma
+s1 Pos Cond Anter (AgP3 G1 Sg) : niwesaakukoma
+s1 Pos Cond Anter (AgP3 G1 Pl) : nimesaakukoma
+s1 Pos Cond Anter (AgP3 G2 Sg) : niwesaakukoma
+s1 Pos Cond Anter (AgP3 G2 Pl) : niyesaakukoma
+s1 Pos Cond Anter (AgP3 G3 Sg) : niyesaakukoma
+s1 Pos Cond Anter (AgP3 G3 Pl) : nimesaakukoma
+s1 Pos Cond Anter (AgP3 G4 Sg) : nikyesaakukoma
+s1 Pos Cond Anter (AgP3 G4 Pl) : nisyesaakukoma
+s1 Pos Cond Anter (AgP3 G5 Sg) : nikesaakukoma
+s1 Pos Cond Anter (AgP3 G5 Pl) : nitwesaakukoma
+s1 Pos Cond Anter (AgP3 G6 Sg) : nivesaakukoma
+s1 Pos Cond Anter (AgP3 G6 Pl) : nikwesaakukoma
+s1 Pos Cond Anter (AgP3 G7 Sg) : niyesaakukoma
+s1 Pos Cond Anter (AgP3 G7 Pl) : nisyesaakukoma
+s1 Pos Cond Anter (AgP3 G8 Sg) : niwesaakukoma
+s1 Pos Cond Anter (AgP3 G8 Pl) : nimesaakukoma
+s1 Pos Cond Anter (AgP3 G9 Sg) : niwesaakukoma
+s1 Pos Cond Anter (AgP3 G9 Pl) : nisyesaakukoma
+s1 Pos Cond Anter (AgP3 G10 Sg) : nikwesaakukoma
+s1 Pos Cond Anter (AgP3 G10 Pl) : nimesaakukoma
+s1 Pos Cond Anter (AgP1 Sg) : nikukoma
+s1 Pos Cond Anter (AgP1 Pl) : nikukoma
+s1 Neg Pres Simul (AgP2 Sg) : ndukomaa
+s1 Neg Pres Simul (AgP2 Pl) : muikomaa
+s1 Neg Pres Simul (AgP3 G1 Sg) : ndakomaa
+s1 Neg Pres Simul (AgP3 G1 Pl) : tiakomaa
+s1 Neg Pres Simul (AgP3 G2 Sg) : ndukomaa
+s1 Neg Pres Simul (AgP3 G2 Pl) : ndikomaa
+s1 Neg Pres Simul (AgP3 G3 Sg) : yiikomaa
+s1 Neg Pres Simul (AgP3 G3 Pl) : maikomaa
+s1 Neg Pres Simul (AgP3 G4 Sg) : kiikomaa
+s1 Neg Pres Simul (AgP3 G4 Pl) : iikomaa
+s1 Neg Pres Simul (AgP3 G5 Sg) : kaikomaa
+s1 Neg Pres Simul (AgP3 G5 Pl) : tuikomaa
+s1 Neg Pres Simul (AgP3 G6 Sg) : vaikomaa
+s1 Neg Pres Simul (AgP3 G6 Pl) : kuikomaa
+s1 Neg Pres Simul (AgP3 G7 Sg) : ndikomaa
+s1 Neg Pres Simul (AgP3 G7 Pl) : syikomaa
+s1 Neg Pres Simul (AgP3 G8 Sg) : ndukomaa
+s1 Neg Pres Simul (AgP3 G8 Pl) : maikomaa
+s1 Neg Pres Simul (AgP3 G9 Sg) : ndukomaa
+s1 Neg Pres Simul (AgP3 G9 Pl) : syikomaa
+s1 Neg Pres Simul (AgP3 G10 Sg) : kuikomaa
+s1 Neg Pres Simul (AgP3 G10 Pl) : maikomaa
+s1 Neg Pres Simul (AgP1 Sg) : ndikomaa
+s1 Neg Pres Simul (AgP1 Pl) : tuikomaa
+s1 Neg Pres Anter (AgP2 Sg) : ndunakoma
+s1 Neg Pres Anter (AgP2 Pl) : muinakoma
+s1 Neg Pres Anter (AgP3 G1 Sg) : ndanakoma
+s1 Neg Pres Anter (AgP3 G1 Pl) : mainakoma
+s1 Neg Pres Anter (AgP3 G2 Sg) : ndunakoma
+s1 Neg Pres Anter (AgP3 G2 Pl) : ndinakoma
+s1 Neg Pres Anter (AgP3 G3 Sg) : yinakoma
+s1 Neg Pres Anter (AgP3 G3 Pl) : mainakoma
+s1 Neg Pres Anter (AgP3 G4 Sg) : kinakoma
+s1 Neg Pres Anter (AgP3 G4 Pl) : iinakoma
+s1 Neg Pres Anter (AgP3 G5 Sg) : kanakoma
+s1 Neg Pres Anter (AgP3 G5 Pl) : tuinakoma
+s1 Neg Pres Anter (AgP3 G6 Sg) : vainakoma
+s1 Neg Pres Anter (AgP3 G6 Pl) : kuinakoma
+s1 Neg Pres Anter (AgP3 G7 Sg) : ndinakoma
+s1 Neg Pres Anter (AgP3 G7 Pl) : syinakoma
+s1 Neg Pres Anter (AgP3 G8 Sg) : ndunakoma
+s1 Neg Pres Anter (AgP3 G8 Pl) : mainakoma
+s1 Neg Pres Anter (AgP3 G9 Sg) : ndunakoma
+s1 Neg Pres Anter (AgP3 G9 Pl) : syinakoma
+s1 Neg Pres Anter (AgP3 G10 Sg) : kuinakoma
+s1 Neg Pres Anter (AgP3 G10 Pl) : mainakoma
+s1 Neg Pres Anter (AgP1 Sg) : ndinakoma
+s1 Neg Pres Anter (AgP1 Pl) : tuinakoma
+s1 Neg Past Simul (AgP2 Sg) : ndutineekoma
+s1 Neg Past Simul (AgP2 Pl) : mutineekoma
+s1 Neg Past Simul (AgP3 G1 Sg) : ndutineekoma
+s1 Neg Past Simul (AgP3 G1 Pl) : matineekoma
+s1 Neg Past Simul (AgP3 G2 Sg) : ndutineekoma
+s1 Neg Past Simul (AgP3 G2 Pl) : nditineekoma
+s1 Neg Past Simul (AgP3 G3 Sg) : yitineekoma
+s1 Neg Past Simul (AgP3 G3 Pl) : matineekoma
+s1 Neg Past Simul (AgP3 G4 Sg) : kitineekoma
+s1 Neg Past Simul (AgP3 G4 Pl) : itineekoma
+s1 Neg Past Simul (AgP3 G5 Sg) : katineekoma
+s1 Neg Past Simul (AgP3 G5 Pl) : tutineekoma
+s1 Neg Past Simul (AgP3 G6 Sg) : vatineekoma
+s1 Neg Past Simul (AgP3 G6 Pl) : kutineekoma
+s1 Neg Past Simul (AgP3 G7 Sg) : ndetineekoma
+s1 Neg Past Simul (AgP3 G7 Pl) : itineekoma
+s1 Neg Past Simul (AgP3 G8 Sg) : ndetineekoma
+s1 Neg Past Simul (AgP3 G8 Pl) : matineekoma
+s1 Neg Past Simul (AgP3 G9 Sg) : ndetineekoma
+s1 Neg Past Simul (AgP3 G9 Pl) : itineekoma
+s1 Neg Past Simul (AgP3 G10 Sg) : kutineekoma
+s1 Neg Past Simul (AgP3 G10 Pl) : matineekoma
+s1 Neg Past Simul (AgP1 Sg) : nditineekoma
+s1 Neg Past Simul (AgP1 Pl) : tutineekoma
+s1 Neg Past Anter (AgP2 Sg) : ndwakomete
+s1 Neg Past Anter (AgP2 Pl) : muyakomete
+s1 Neg Past Anter (AgP3 G1 Sg) : ndwakomete
+s1 Neg Past Anter (AgP3 G1 Pl) : mayakomete
+s1 Neg Past Anter (AgP3 G2 Sg) : ndwakomete
+s1 Neg Past Anter (AgP3 G2 Pl) : ndyakomete
+s1 Neg Past Anter (AgP3 G3 Sg) : yiakomete
+s1 Neg Past Anter (AgP3 G3 Pl) : mayakomete
+s1 Neg Past Anter (AgP3 G4 Sg) : kiyakomete
+s1 Neg Past Anter (AgP3 G4 Pl) : iyakomete
+s1 Neg Past Anter (AgP3 G5 Sg) : kayakomete
+s1 Neg Past Anter (AgP3 G5 Pl) : tuyakomete
+s1 Neg Past Anter (AgP3 G6 Sg) : vayakomete
+s1 Neg Past Anter (AgP3 G6 Pl) : kuyakomete
+s1 Neg Past Anter (AgP3 G7 Sg) : ndyakomete
+s1 Neg Past Anter (AgP3 G7 Pl) : iyakomete
+s1 Neg Past Anter (AgP3 G8 Sg) : ndwakomete
+s1 Neg Past Anter (AgP3 G8 Pl) : mayakomete
+s1 Neg Past Anter (AgP3 G9 Sg) : ndwakomete
+s1 Neg Past Anter (AgP3 G9 Pl) : iyakomete
+s1 Neg Past Anter (AgP3 G10 Sg) : kuyakomete
+s1 Neg Past Anter (AgP3 G10 Pl) : mayakomete
+s1 Neg Past Anter (AgP1 Sg) : ndyakomete
+s1 Neg Past Anter (AgP1 Pl) : tuyakomete
+s1 Neg Fut Simul (AgP2 Sg) : ndukakoma
+s1 Neg Fut Simul (AgP2 Pl) : mutikakoma
+s1 Neg Fut Simul (AgP3 G1 Sg) : ndukakoma
+s1 Neg Fut Simul (AgP3 G1 Pl) : matikakoma
+s1 Neg Fut Simul (AgP3 G2 Sg) : ndukakoma
+s1 Neg Fut Simul (AgP3 G2 Pl) : ndikakoma
+s1 Neg Fut Simul (AgP3 G3 Sg) : iikakoma
+s1 Neg Fut Simul (AgP3 G3 Pl) : maikakoma
+s1 Neg Fut Simul (AgP3 G4 Sg) : kiikakoma
+s1 Neg Fut Simul (AgP3 G4 Pl) : iikakoma
+s1 Neg Fut Simul (AgP3 G5 Sg) : kaikakoma
+s1 Neg Fut Simul (AgP3 G5 Pl) : tuikakoma
+s1 Neg Fut Simul (AgP3 G6 Sg) : vaikakoma
+s1 Neg Fut Simul (AgP3 G6 Pl) : kuikakoma
+s1 Neg Fut Simul (AgP3 G7 Sg) : iikakoma
+s1 Neg Fut Simul (AgP3 G7 Pl) : syiikakoma
+s1 Neg Fut Simul (AgP3 G8 Sg) : ndukakoma
+s1 Neg Fut Simul (AgP3 G8 Pl) : maikakoma
+s1 Neg Fut Simul (AgP3 G9 Sg) : ndukakoma
+s1 Neg Fut Simul (AgP3 G9 Pl) : syiikakoma
+s1 Neg Fut Simul (AgP3 G10 Sg) : kuikakoma
+s1 Neg Fut Simul (AgP3 G10 Pl) : maikakoma
+s1 Neg Fut Simul (AgP1 Sg) : ndikakoma
+s1 Neg Fut Simul (AgP1 Pl) : tutikakoma
+s1 Neg Fut Anter (AgP2 Sg) : ni utanakoma
+s1 Neg Fut Anter (AgP2 Pl) : ni mutanakoma
+s1 Neg Fut Anter (AgP3 G1 Sg) : ukeethiwa utanakoma
+s1 Neg Fut Anter (AgP3 G1 Pl) : makeethiwa matanakoma
+s1 Neg Fut Anter (AgP3 G2 Sg) : ukeethiwa utanakoma
+s1 Neg Fut Anter (AgP3 G2 Pl) : ikeethiwa itanakoma
+s1 Neg Fut Anter (AgP3 G3 Sg) : ikeethiwa yitanakoma
+s1 Neg Fut Anter (AgP3 G3 Pl) : makeethiwa matanakoma
+s1 Neg Fut Anter (AgP3 G4 Sg) : kikeethiwa kitanakoma
+s1 Neg Fut Anter (AgP3 G4 Pl) : ikeethiwa syitanakoma
+s1 Neg Fut Anter (AgP3 G5 Sg) : Kakeethiwa katanakoma
+s1 Neg Fut Anter (AgP3 G5 Pl) : Tukeethiwa tutanakoma
+s1 Neg Fut Anter (AgP3 G6 Sg) : vakeethiwa vatanakoma
+s1 Neg Fut Anter (AgP3 G6 Pl) : kukeethiwa kutanakoma
+s1 Neg Fut Anter (AgP3 G7 Sg) : ikeethiwa yitanakoma
+s1 Neg Fut Anter (AgP3 G7 Pl) : syikeethiwa syitanakoma
+s1 Neg Fut Anter (AgP3 G8 Sg) : ukeethiwa utanakoma
+s1 Neg Fut Anter (AgP3 G8 Pl) : makeethiwa matanakoma
+s1 Neg Fut Anter (AgP3 G9 Sg) : ukeethiwa utanakoma
+s1 Neg Fut Anter (AgP3 G9 Pl) : syikeethiwa syitanakoma
+s1 Neg Fut Anter (AgP3 G10 Sg) : kukeethiwa kutanakoma
+s1 Neg Fut Anter (AgP3 G10 Pl) : makeethiwa matanakoma
+s1 Neg Fut Anter (AgP1 Sg) : ni ndanakoma
+s1 Neg Fut Anter (AgP1 Pl) : ni tutanakoma
+s1 Neg Cond Simul (AgP2 Sg) : niwakoma
+s1 Neg Cond Simul (AgP2 Pl) : nimwakoma
+s1 Neg Cond Simul (AgP3 G1 Sg) : ndukeethiwawakoma
+s1 Neg Cond Simul (AgP3 G1 Pl) : maikeethiwamakoma
+s1 Neg Cond Simul (AgP3 G2 Sg) : ndukeethiwawakoma
+s1 Neg Cond Simul (AgP3 G2 Pl) : ndikeethiwayakoma
+s1 Neg Cond Simul (AgP3 G3 Sg) : yiikeethiwayakoma
+s1 Neg Cond Simul (AgP3 G3 Pl) : maikeethiwamakoma
+s1 Neg Cond Simul (AgP3 G4 Sg) : kiikeethiwakyakoma
+s1 Neg Cond Simul (AgP3 G4 Pl) : iikeethiwasyakoma
+s1 Neg Cond Simul (AgP3 G5 Sg) : Kaikeethiwakaakoma
+s1 Neg Cond Simul (AgP3 G5 Pl) : Tuikeethiwatwakoma
+s1 Neg Cond Simul (AgP3 G6 Sg) : vaikeethiwavakoma
+s1 Neg Cond Simul (AgP3 G6 Pl) : kuikeethiwakwakoma
+s1 Neg Cond Simul (AgP3 G7 Sg) : ndikeethiwayakoma
+s1 Neg Cond Simul (AgP3 G7 Pl) : syikeethiwasyakoma
+s1 Neg Cond Simul (AgP3 G8 Sg) : ndukeethiwawakoma
+s1 Neg Cond Simul (AgP3 G8 Pl) : maikeethiwamakoma
+s1 Neg Cond Simul (AgP3 G9 Sg) : ndukeethiwawakoma
+s1 Neg Cond Simul (AgP3 G9 Pl) : syikeethiwasyakoma
+s1 Neg Cond Simul (AgP3 G10 Sg) : kuikeethiwakwakoma
+s1 Neg Cond Simul (AgP3 G10 Pl) : maikeethiwamakoma
+s1 Neg Cond Simul (AgP1 Sg) : ninakoma
+s1 Neg Cond Simul (AgP1 Pl) : nitwakoma
+s1 Neg Cond Anter (AgP2 Sg) : nikukoma
+s1 Neg Cond Anter (AgP2 Pl) : nikukoma
+s1 Neg Cond Anter (AgP3 G1 Sg) : ndesaakukoma
+s1 Neg Cond Anter (AgP3 G1 Pl) : mayesaakukoma
+s1 Neg Cond Anter (AgP3 G2 Sg) : ndwesaakukoma
+s1 Neg Cond Anter (AgP3 G2 Pl) : ndyesaakukoma
+s1 Neg Cond Anter (AgP3 G3 Sg) : iyesaakukoma
+s1 Neg Cond Anter (AgP3 G3 Pl) : mayesaakukoma
+s1 Neg Cond Anter (AgP3 G4 Sg) : kiyesaakukoma
+s1 Neg Cond Anter (AgP3 G4 Pl) : iyesaakukoma
+s1 Neg Cond Anter (AgP3 G5 Sg) : kayesaakukoma
+s1 Neg Cond Anter (AgP3 G5 Pl) : tuyesaakukoma
+s1 Neg Cond Anter (AgP3 G6 Sg) : vayesaakukoma
+s1 Neg Cond Anter (AgP3 G6 Pl) : kuyesaakukoma
+s1 Neg Cond Anter (AgP3 G7 Sg) : ndeesaakukoma
+s1 Neg Cond Anter (AgP3 G7 Pl) : iyesaakukoma
+s1 Neg Cond Anter (AgP3 G8 Sg) : ndwesaakukoma
+s1 Neg Cond Anter (AgP3 G8 Pl) : mayesaakukoma
+s1 Neg Cond Anter (AgP3 G9 Sg) : ndwesaakukoma
+s1 Neg Cond Anter (AgP3 G9 Pl) : iyesaakukoma
+s1 Neg Cond Anter (AgP3 G10 Sg) : kuyesaakukoma
+s1 Neg Cond Anter (AgP3 G10 Pl) : mayesaakukoma
+s1 Neg Cond Anter (AgP1 Sg) : nikukoma
+s1 Neg Cond Anter (AgP1 Pl) : nikukoma

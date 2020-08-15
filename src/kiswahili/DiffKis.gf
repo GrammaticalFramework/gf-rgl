@@ -12,16 +12,14 @@ param
   kuna="kuna";
    conjGender : Cgender -> Cgender -> Cgender = \m,n -> 
     case m of { G1 => n ; _ => G2 } ;
-  reflPron :Agr => Str = \\ag=> case <ag >  of  {
-         < Ag G1 Sg P1  >     => "mimi" ;
-         < Ag G1 Sg P2  >     => "wewe" ;
-         < Ag G1 Sg P3 >     => "yeye" ;
-         < Ag _ Sg P3 >     => "" ;
-         < Ag G1 Pl P1 >     => "sisi" ;
-         < Ag G1 Pl P2  >     => "nyinyi" ;
-         < Ag G1 Pl P3 >     => "wao" ;
-         < Ag _ _ _ >     => "" 
-        
+  reflPron :Agr => Str = \\ag=> case <ag >  of  {  -- AgP3  Cgender Number P3 | AgP2  G1 Number P2 | AgP1  G1 Number P1
+         < AgP1 Sg  >     => "mimi" ;
+         < AgP2  Sg   >     => "wewe" ;
+         < AgP3 G1 Sg  >     => "yeye" ;
+         < AgP1 Pl  >     => "sisi" ;
+         < AgP2  Pl   >     => "nyinyi" ;
+         < AgP3 G1 Pl  >     => "wao" ;
+         < AgP3 _ _ >     => ""        
          };
 
    extension : VExte -> Str=\type ->case type of{

@@ -1,0 +1,441 @@
+s VInf : sleep
+s VPres : sleeps
+s VPPart : slept
+s VPresPart : sleeping
+s VPast : slept
+p : 
+s Vanter : rarire
+s VInf : korara
+s VGen : rara
+s VNeg : rareti
+s (VExtension EPassive) : rargwa
+s (VExtension EApplicative) : rarera
+s (VExtension EReciprocal) : rarena
+s (VExtension EStative) : rareka
+s (VExtension ECausative) : rarikaa
+s VFut : korara
+imp Pos (ImpF Sg False) : rara
+imp Pos (ImpF Sg True) : rara
+imp Pos (ImpF Pl False) : rara
+imp Pos (ImpF Pl True) : rara
+imp Neg (ImpF Sg False) : 
+imp Neg (ImpF Sg True) : 
+imp Neg (ImpF Pl False) : 
+imp Neg (ImpF Pl True) : 
+progV : 
+s1 Pos Pres Simul (AgP2 Sg) : okorara
+s1 Pos Pres Simul (AgP2 Pl) : mokorara
+s1 Pos Pres Simul (AgP3 G1 Sg) : akorara
+s1 Pos Pres Simul (AgP3 G1 Pl) : bakorara
+s1 Pos Pres Simul (AgP3 G2 Sg) : okorara
+s1 Pos Pres Simul (AgP3 G2 Pl) : ekorara
+s1 Pos Pres Simul (AgP3 G3 Sg) : ekorara
+s1 Pos Pres Simul (AgP3 G3 Pl) : chikorara
+s1 Pos Pres Simul (AgP3 G4 Sg) : rikorara
+s1 Pos Pres Simul (AgP3 G4 Pl) : akorara
+s1 Pos Pres Simul (AgP3 G5 Sg) : gekorara
+s1 Pos Pres Simul (AgP3 G5 Pl) : bikorara
+s1 Pos Pres Simul (AgP3 G6 Sg) : rokorara
+s1 Pos Pres Simul (AgP3 G6 Pl) : chikorara
+s1 Pos Pres Simul (AgP3 G7 Sg) : gakorara
+s1 Pos Pres Simul (AgP3 G7 Pl) : bikorara
+s1 Pos Pres Simul (AgP3 G8 Sg) : bokorara
+s1 Pos Pres Simul (AgP3 G8 Pl) : akorara
+s1 Pos Pres Simul (AgP3 G9 Sg) : gokorara
+s1 Pos Pres Simul (AgP3 G9 Pl) : akorara
+s1 Pos Pres Simul (AgP3 G10 Sg) : akorara
+s1 Pos Pres Simul (AgP3 G10 Pl) : korara
+s1 Pos Pres Simul (AgP3 G11 Sg) : akorara
+s1 Pos Pres Simul (AgP3 G11 Pl) : akorara
+s1 Pos Pres Simul (AgP1 Sg) : nkorara
+s1 Pos Pres Simul (AgP1 Pl) : ntokorara
+s1 Pos Pres Anter (AgP2 Sg) : twararire
+s1 Pos Pres Anter (AgP2 Pl) : orarire
+s1 Pos Pres Anter (AgP3 G1 Sg) : kwararire
+s1 Pos Pres Anter (AgP3 G1 Pl) : bararire
+s1 Pos Pres Anter (AgP3 G2 Sg) : orarire
+s1 Pos Pres Anter (AgP3 G2 Pl) : erarire
+s1 Pos Pres Anter (AgP3 G3 Sg) : erarire
+s1 Pos Pres Anter (AgP3 G3 Pl) : chiararire
+s1 Pos Pres Anter (AgP3 G4 Sg) : riararire
+s1 Pos Pres Anter (AgP3 G4 Pl) : ararire
+s1 Pos Pres Anter (AgP3 G5 Sg) : kiararire
+s1 Pos Pres Anter (AgP3 G5 Pl) : biararire
+s1 Pos Pres Anter (AgP3 G6 Sg) : rwararire
+s1 Pos Pres Anter (AgP3 G6 Pl) : chiararire
+s1 Pos Pres Anter (AgP3 G7 Sg) : kararire
+s1 Pos Pres Anter (AgP3 G7 Pl) : biararire
+s1 Pos Pres Anter (AgP3 G8 Sg) : bwararire
+s1 Pos Pres Anter (AgP3 G8 Pl) : ararire
+s1 Pos Pres Anter (AgP3 G9 Sg) : gwararire
+s1 Pos Pres Anter (AgP3 G9 Pl) : ararire
+s1 Pos Pres Anter (AgP3 G10 Sg) : ararire
+s1 Pos Pres Anter (AgP3 G10 Pl) : ararire
+s1 Pos Pres Anter (AgP3 G11 Sg) : ararire
+s1 Pos Pres Anter (AgP3 G11 Pl) : ararire
+s1 Pos Pres Anter (AgP1 Sg) : nararire
+s1 Pos Pres Anter (AgP1 Pl) : mwararire
+s1 Pos Past Simul (AgP2 Sg) : okarara
+s1 Pos Past Simul (AgP2 Pl) : mokarara
+s1 Pos Past Simul (AgP3 G1 Sg) : akarara
+s1 Pos Past Simul (AgP3 G1 Pl) : bakarara
+s1 Pos Past Simul (AgP3 G2 Sg) : okarara
+s1 Pos Past Simul (AgP3 G2 Pl) : ekarara
+s1 Pos Past Simul (AgP3 G3 Sg) : ekarara
+s1 Pos Past Simul (AgP3 G3 Pl) : chikarara
+s1 Pos Past Simul (AgP3 G4 Sg) : rikarara
+s1 Pos Past Simul (AgP3 G4 Pl) : akarara
+s1 Pos Past Simul (AgP3 G5 Sg) : gekarara
+s1 Pos Past Simul (AgP3 G5 Pl) : bikarara
+s1 Pos Past Simul (AgP3 G6 Sg) : rokarara
+s1 Pos Past Simul (AgP3 G6 Pl) : chikarara
+s1 Pos Past Simul (AgP3 G7 Sg) : gakarara
+s1 Pos Past Simul (AgP3 G7 Pl) : bikarara
+s1 Pos Past Simul (AgP3 G8 Sg) : bokarara
+s1 Pos Past Simul (AgP3 G8 Pl) : akarara
+s1 Pos Past Simul (AgP3 G9 Sg) : gokarara
+s1 Pos Past Simul (AgP3 G9 Pl) : akarara
+s1 Pos Past Simul (AgP3 G10 Sg) : akarara
+s1 Pos Past Simul (AgP3 G10 Pl) : karara
+s1 Pos Past Simul (AgP3 G11 Sg) : akarara
+s1 Pos Past Simul (AgP3 G11 Pl) : akarara
+s1 Pos Past Simul (AgP1 Sg) : nkarara
+s1 Pos Past Simul (AgP1 Pl) : ntokarara
+s1 Pos Past Anter (AgP2 Sg) : konye twararire
+s1 Pos Past Anter (AgP2 Pl) : konye orarire
+s1 Pos Past Anter (AgP3 G1 Sg) : konye kwararire
+s1 Pos Past Anter (AgP3 G1 Pl) : konye bararire
+s1 Pos Past Anter (AgP3 G2 Sg) : konye orarire
+s1 Pos Past Anter (AgP3 G2 Pl) : konye erarire
+s1 Pos Past Anter (AgP3 G3 Sg) : konye erarire
+s1 Pos Past Anter (AgP3 G3 Pl) : konye chiararire
+s1 Pos Past Anter (AgP3 G4 Sg) : konye riararire
+s1 Pos Past Anter (AgP3 G4 Pl) : konye ararire
+s1 Pos Past Anter (AgP3 G5 Sg) : konye kiararire
+s1 Pos Past Anter (AgP3 G5 Pl) : konye biararire
+s1 Pos Past Anter (AgP3 G6 Sg) : konye rwararire
+s1 Pos Past Anter (AgP3 G6 Pl) : konye chiararire
+s1 Pos Past Anter (AgP3 G7 Sg) : konye kararire
+s1 Pos Past Anter (AgP3 G7 Pl) : konye biararire
+s1 Pos Past Anter (AgP3 G8 Sg) : konye bwararire
+s1 Pos Past Anter (AgP3 G8 Pl) : konye ararire
+s1 Pos Past Anter (AgP3 G9 Sg) : konye gwararire
+s1 Pos Past Anter (AgP3 G9 Pl) : konye ararire
+s1 Pos Past Anter (AgP3 G10 Sg) : konye ararire
+s1 Pos Past Anter (AgP3 G10 Pl) : konye ararire
+s1 Pos Past Anter (AgP3 G11 Sg) : konye ararire
+s1 Pos Past Anter (AgP3 G11 Pl) : konye ararire
+s1 Pos Past Anter (AgP1 Sg) : konye nararire
+s1 Pos Past Anter (AgP1 Pl) : konye mwararire
+s1 Pos Fut Simul (AgP2 Sg) : ogocha korara
+s1 Pos Fut Simul (AgP2 Pl) : mogocha korara
+s1 Pos Fut Simul (AgP3 G1 Sg) : agocha korara
+s1 Pos Fut Simul (AgP3 G1 Pl) : bagocha korara
+s1 Pos Fut Simul (AgP3 G2 Sg) : ogocha korara
+s1 Pos Fut Simul (AgP3 G2 Pl) : egocha korara
+s1 Pos Fut Simul (AgP3 G3 Sg) : egocha korara
+s1 Pos Fut Simul (AgP3 G3 Pl) : chigocha korara
+s1 Pos Fut Simul (AgP3 G4 Sg) : rigocha korara
+s1 Pos Fut Simul (AgP3 G4 Pl) : agocha korara
+s1 Pos Fut Simul (AgP3 G5 Sg) : gegocha korara
+s1 Pos Fut Simul (AgP3 G5 Pl) : bigocha korara
+s1 Pos Fut Simul (AgP3 G6 Sg) : rogocha korara
+s1 Pos Fut Simul (AgP3 G6 Pl) : chigocha korara
+s1 Pos Fut Simul (AgP3 G7 Sg) : gagocha korara
+s1 Pos Fut Simul (AgP3 G7 Pl) : bigocha korara
+s1 Pos Fut Simul (AgP3 G8 Sg) : bogocha korara
+s1 Pos Fut Simul (AgP3 G8 Pl) : agocha korara
+s1 Pos Fut Simul (AgP3 G9 Sg) : gogocha korara
+s1 Pos Fut Simul (AgP3 G9 Pl) : agocha korara
+s1 Pos Fut Simul (AgP3 G10 Sg) : agocha korara
+s1 Pos Fut Simul (AgP3 G10 Pl) : gocha korara
+s1 Pos Fut Simul (AgP3 G11 Sg) : agocha korara
+s1 Pos Fut Simul (AgP3 G11 Pl) : agocha korara
+s1 Pos Fut Simul (AgP1 Sg) : ngocha korara
+s1 Pos Fut Simul (AgP1 Pl) : ntogocha korara
+s1 Pos Fut Anter (AgP2 Sg) : onyore twararire
+s1 Pos Fut Anter (AgP2 Pl) : onyore orarire
+s1 Pos Fut Anter (AgP3 G1 Sg) : onyore kwararire
+s1 Pos Fut Anter (AgP3 G1 Pl) : onyore bararire
+s1 Pos Fut Anter (AgP3 G2 Sg) : onyore orarire
+s1 Pos Fut Anter (AgP3 G2 Pl) : onyore erarire
+s1 Pos Fut Anter (AgP3 G3 Sg) : onyore erarire
+s1 Pos Fut Anter (AgP3 G3 Pl) : onyore chiararire
+s1 Pos Fut Anter (AgP3 G4 Sg) : onyore riararire
+s1 Pos Fut Anter (AgP3 G4 Pl) : onyore ararire
+s1 Pos Fut Anter (AgP3 G5 Sg) : onyore kiararire
+s1 Pos Fut Anter (AgP3 G5 Pl) : onyore biararire
+s1 Pos Fut Anter (AgP3 G6 Sg) : onyore rwararire
+s1 Pos Fut Anter (AgP3 G6 Pl) : onyore chiararire
+s1 Pos Fut Anter (AgP3 G7 Sg) : onyore kararire
+s1 Pos Fut Anter (AgP3 G7 Pl) : onyore biararire
+s1 Pos Fut Anter (AgP3 G8 Sg) : onyore bwararire
+s1 Pos Fut Anter (AgP3 G8 Pl) : onyore ararire
+s1 Pos Fut Anter (AgP3 G9 Sg) : onyore gwararire
+s1 Pos Fut Anter (AgP3 G9 Pl) : onyore ararire
+s1 Pos Fut Anter (AgP3 G10 Sg) : onyore ararire
+s1 Pos Fut Anter (AgP3 G10 Pl) : onyore ararire
+s1 Pos Fut Anter (AgP3 G11 Sg) : onyore ararire
+s1 Pos Fut Anter (AgP3 G11 Pl) : onyore ararire
+s1 Pos Fut Anter (AgP1 Sg) : onyore nararire
+s1 Pos Fut Anter (AgP1 Pl) : onyore mwararire
+s1 Pos Cond Simul (AgP2 Sg) : okorara
+s1 Pos Cond Simul (AgP2 Pl) : mokorara
+s1 Pos Cond Simul (AgP3 G1 Sg) : akorara
+s1 Pos Cond Simul (AgP3 G1 Pl) : bakorara
+s1 Pos Cond Simul (AgP3 G2 Sg) : okorara
+s1 Pos Cond Simul (AgP3 G2 Pl) : ekorara
+s1 Pos Cond Simul (AgP3 G3 Sg) : ekorara
+s1 Pos Cond Simul (AgP3 G3 Pl) : chikorara
+s1 Pos Cond Simul (AgP3 G4 Sg) : rikorara
+s1 Pos Cond Simul (AgP3 G4 Pl) : akorara
+s1 Pos Cond Simul (AgP3 G5 Sg) : gekorara
+s1 Pos Cond Simul (AgP3 G5 Pl) : bikorara
+s1 Pos Cond Simul (AgP3 G6 Sg) : rokorara
+s1 Pos Cond Simul (AgP3 G6 Pl) : chikorara
+s1 Pos Cond Simul (AgP3 G7 Sg) : gakorara
+s1 Pos Cond Simul (AgP3 G7 Pl) : bikorara
+s1 Pos Cond Simul (AgP3 G8 Sg) : bokorara
+s1 Pos Cond Simul (AgP3 G8 Pl) : akorara
+s1 Pos Cond Simul (AgP3 G9 Sg) : gokorara
+s1 Pos Cond Simul (AgP3 G9 Pl) : akorara
+s1 Pos Cond Simul (AgP3 G10 Sg) : akorara
+s1 Pos Cond Simul (AgP3 G10 Pl) : korara
+s1 Pos Cond Simul (AgP3 G11 Sg) : akorara
+s1 Pos Cond Simul (AgP3 G11 Pl) : akorara
+s1 Pos Cond Simul (AgP1 Sg) : nkorara
+s1 Pos Cond Simul (AgP1 Pl) : ntokorara
+s1 Pos Cond Anter (AgP2 Sg) : oranyore konye twararire
+s1 Pos Cond Anter (AgP2 Pl) : oranyore konye orarire
+s1 Pos Cond Anter (AgP3 G1 Sg) : oranyore konye kwararire
+s1 Pos Cond Anter (AgP3 G1 Pl) : oranyore konye bararire
+s1 Pos Cond Anter (AgP3 G2 Sg) : oranyore konye orarire
+s1 Pos Cond Anter (AgP3 G2 Pl) : oranyore konye erarire
+s1 Pos Cond Anter (AgP3 G3 Sg) : oranyore konye erarire
+s1 Pos Cond Anter (AgP3 G3 Pl) : oranyore konye chiararire
+s1 Pos Cond Anter (AgP3 G4 Sg) : oranyore konye riararire
+s1 Pos Cond Anter (AgP3 G4 Pl) : oranyore konye ararire
+s1 Pos Cond Anter (AgP3 G5 Sg) : oranyore konye kiararire
+s1 Pos Cond Anter (AgP3 G5 Pl) : oranyore konye biararire
+s1 Pos Cond Anter (AgP3 G6 Sg) : oranyore konye rwararire
+s1 Pos Cond Anter (AgP3 G6 Pl) : oranyore konye chiararire
+s1 Pos Cond Anter (AgP3 G7 Sg) : oranyore konye kararire
+s1 Pos Cond Anter (AgP3 G7 Pl) : oranyore konye biararire
+s1 Pos Cond Anter (AgP3 G8 Sg) : oranyore konye bwararire
+s1 Pos Cond Anter (AgP3 G8 Pl) : oranyore konye ararire
+s1 Pos Cond Anter (AgP3 G9 Sg) : oranyore konye gwararire
+s1 Pos Cond Anter (AgP3 G9 Pl) : oranyore konye ararire
+s1 Pos Cond Anter (AgP3 G10 Sg) : oranyore konye ararire
+s1 Pos Cond Anter (AgP3 G10 Pl) : oranyore konye ararire
+s1 Pos Cond Anter (AgP3 G11 Sg) : oranyore konye ararire
+s1 Pos Cond Anter (AgP3 G11 Pl) : oranyore konye ararire
+s1 Pos Cond Anter (AgP1 Sg) : oranyore konye nararire
+s1 Pos Cond Anter (AgP1 Pl) : oranyore konye mwararire
+s1 Neg Pres Simul (AgP2 Sg) : tori gokorara
+s1 Neg Pres Simul (AgP2 Pl) : mori gokorara
+s1 Neg Pres Simul (AgP3 G1 Sg) : tari gokorara
+s1 Neg Pres Simul (AgP3 G1 Pl) : mbari gokorara
+s1 Neg Pres Simul (AgP3 G2 Sg) : tori gokorara
+s1 Neg Pres Simul (AgP3 G2 Pl) : teri gokorara
+s1 Neg Pres Simul (AgP3 G3 Sg) : teri gokorara
+s1 Neg Pres Simul (AgP3 G3 Pl) : chitari gokorara
+s1 Neg Pres Simul (AgP3 G4 Sg) : ndiri gokorara
+s1 Neg Pres Simul (AgP3 G4 Pl) : atari gokorara
+s1 Neg Pres Simul (AgP3 G5 Sg) : getari gokorara
+s1 Neg Pres Simul (AgP3 G5 Pl) : bitari gokorara
+s1 Neg Pres Simul (AgP3 G6 Sg) : rotari gokorara
+s1 Neg Pres Simul (AgP3 G6 Pl) : chitari gokorara
+s1 Neg Pres Simul (AgP3 G7 Sg) : gatari gokorara
+s1 Neg Pres Simul (AgP3 G7 Pl) : bitari gokorara
+s1 Neg Pres Simul (AgP3 G8 Sg) : botari gokorara
+s1 Neg Pres Simul (AgP3 G8 Pl) : atari gokorara
+s1 Neg Pres Simul (AgP3 G9 Sg) : gotari gokorara
+s1 Neg Pres Simul (AgP3 G9 Pl) : atari gokorara
+s1 Neg Pres Simul (AgP3 G10 Sg) : atari gokorara
+s1 Neg Pres Simul (AgP3 G10 Pl) : ri gokorara
+s1 Neg Pres Simul (AgP3 G11 Sg) : atari gokorara
+s1 Neg Pres Simul (AgP3 G11 Pl) : atari gokorara
+s1 Neg Pres Simul (AgP1 Sg) : tindiri gokorara
+s1 Neg Pres Simul (AgP1 Pl) : ntori gokorara
+s1 Neg Pres Anter (AgP2 Sg) : torarara
+s1 Neg Pres Anter (AgP2 Pl) : tararara
+s1 Neg Pres Anter (AgP3 G1 Sg) : torarara
+s1 Neg Pres Anter (AgP3 G1 Pl) : mbararara
+s1 Neg Pres Anter (AgP3 G2 Sg) : torarara
+s1 Neg Pres Anter (AgP3 G2 Pl) : terarara
+s1 Neg Pres Anter (AgP3 G3 Sg) : terarara
+s1 Neg Pres Anter (AgP3 G3 Pl) : chirarara
+s1 Neg Pres Anter (AgP3 G4 Sg) : ndirarara
+s1 Neg Pres Anter (AgP3 G4 Pl) : atararara
+s1 Neg Pres Anter (AgP3 G5 Sg) : gerarara
+s1 Neg Pres Anter (AgP3 G5 Pl) : birarara
+s1 Neg Pres Anter (AgP3 G6 Sg) : ndorarara
+s1 Neg Pres Anter (AgP3 G6 Pl) : chirarara
+s1 Neg Pres Anter (AgP3 G7 Sg) : gararara
+s1 Neg Pres Anter (AgP3 G7 Pl) : birarara
+s1 Neg Pres Anter (AgP3 G8 Sg) : borarara
+s1 Neg Pres Anter (AgP3 G8 Pl) : atararara
+s1 Neg Pres Anter (AgP3 G9 Sg) : gotararara
+s1 Neg Pres Anter (AgP3 G9 Pl) : atararara
+s1 Neg Pres Anter (AgP3 G10 Sg) : atararara
+s1 Neg Pres Anter (AgP3 G10 Pl) : tararara
+s1 Neg Pres Anter (AgP3 G11 Sg) : tararara
+s1 Neg Pres Anter (AgP3 G11 Pl) : tararara
+s1 Neg Pres Anter (AgP1 Sg) : tindarara
+s1 Neg Pres Anter (AgP1 Pl) : ntorarara
+s1 Neg Past Simul (AgP2 Sg) : torareti
+s1 Neg Past Simul (AgP2 Pl) : morareti
+s1 Neg Past Simul (AgP3 G1 Sg) : tarareti
+s1 Neg Past Simul (AgP3 G1 Pl) : mbarareti
+s1 Neg Past Simul (AgP3 G2 Sg) : torareti
+s1 Neg Past Simul (AgP3 G2 Pl) : terareti
+s1 Neg Past Simul (AgP3 G3 Sg) : terareti
+s1 Neg Past Simul (AgP3 G3 Pl) : chirareti
+s1 Neg Past Simul (AgP3 G4 Sg) : ndirareti
+s1 Neg Past Simul (AgP3 G4 Pl) : atarareti
+s1 Neg Past Simul (AgP3 G5 Sg) : gerareti
+s1 Neg Past Simul (AgP3 G5 Pl) : birareti
+s1 Neg Past Simul (AgP3 G6 Sg) : rorareti
+s1 Neg Past Simul (AgP3 G6 Pl) : chirareti
+s1 Neg Past Simul (AgP3 G7 Sg) : garareti
+s1 Neg Past Simul (AgP3 G7 Pl) : birareti
+s1 Neg Past Simul (AgP3 G8 Sg) : borareti
+s1 Neg Past Simul (AgP3 G8 Pl) : atarareti
+s1 Neg Past Simul (AgP3 G9 Sg) : gorareti
+s1 Neg Past Simul (AgP3 G9 Pl) : atarareti
+s1 Neg Past Simul (AgP3 G10 Sg) : atarareti
+s1 Neg Past Simul (AgP3 G10 Pl) : rareti
+s1 Neg Past Simul (AgP3 G11 Sg) : atarareti
+s1 Neg Past Simul (AgP3 G11 Pl) : atarareti
+s1 Neg Past Simul (AgP1 Sg) : tirareti
+s1 Neg Past Simul (AgP1 Pl) : ntorareti
+s1 Neg Past Anter (AgP2 Sg) : konye torarara
+s1 Neg Past Anter (AgP2 Pl) : konye tararara
+s1 Neg Past Anter (AgP3 G1 Sg) : konye torarara
+s1 Neg Past Anter (AgP3 G1 Pl) : konye mbararara
+s1 Neg Past Anter (AgP3 G2 Sg) : konye torarara
+s1 Neg Past Anter (AgP3 G2 Pl) : konye terarara
+s1 Neg Past Anter (AgP3 G3 Sg) : konye terarara
+s1 Neg Past Anter (AgP3 G3 Pl) : konye chirarara
+s1 Neg Past Anter (AgP3 G4 Sg) : konye ndirarara
+s1 Neg Past Anter (AgP3 G4 Pl) : konye atararara
+s1 Neg Past Anter (AgP3 G5 Sg) : konye gerarara
+s1 Neg Past Anter (AgP3 G5 Pl) : konye birarara
+s1 Neg Past Anter (AgP3 G6 Sg) : konye ndorarara
+s1 Neg Past Anter (AgP3 G6 Pl) : konye chirarara
+s1 Neg Past Anter (AgP3 G7 Sg) : konye gararara
+s1 Neg Past Anter (AgP3 G7 Pl) : konye birarara
+s1 Neg Past Anter (AgP3 G8 Sg) : konye borarara
+s1 Neg Past Anter (AgP3 G8 Pl) : konye atararara
+s1 Neg Past Anter (AgP3 G9 Sg) : konye gotararara
+s1 Neg Past Anter (AgP3 G9 Pl) : konye atararara
+s1 Neg Past Anter (AgP3 G10 Sg) : konye atararara
+s1 Neg Past Anter (AgP3 G10 Pl) : konye tararara
+s1 Neg Past Anter (AgP3 G11 Sg) : konye tararara
+s1 Neg Past Anter (AgP3 G11 Pl) : konye tararara
+s1 Neg Past Anter (AgP1 Sg) : konye tindarara
+s1 Neg Past Anter (AgP1 Pl) : konye ntorarara
+s1 Neg Fut Simul (AgP2 Sg) : tokorara
+s1 Neg Fut Simul (AgP2 Pl) : mokorara
+s1 Neg Fut Simul (AgP3 G1 Sg) : takorara
+s1 Neg Fut Simul (AgP3 G1 Pl) : mbakorara
+s1 Neg Fut Simul (AgP3 G2 Sg) : tokorara
+s1 Neg Fut Simul (AgP3 G2 Pl) : tekorara
+s1 Neg Fut Simul (AgP3 G3 Sg) : tekorara
+s1 Neg Fut Simul (AgP3 G3 Pl) : chitakorara
+s1 Neg Fut Simul (AgP3 G4 Sg) : ndikorara
+s1 Neg Fut Simul (AgP3 G4 Pl) : atakorara
+s1 Neg Fut Simul (AgP3 G5 Sg) : getakorara
+s1 Neg Fut Simul (AgP3 G5 Pl) : bitakorara
+s1 Neg Fut Simul (AgP3 G6 Sg) : rotakorara
+s1 Neg Fut Simul (AgP3 G6 Pl) : chitakorara
+s1 Neg Fut Simul (AgP3 G7 Sg) : gatakorara
+s1 Neg Fut Simul (AgP3 G7 Pl) : bitakorara
+s1 Neg Fut Simul (AgP3 G8 Sg) : botakorara
+s1 Neg Fut Simul (AgP3 G8 Pl) : atakorara
+s1 Neg Fut Simul (AgP3 G9 Sg) : gotakorara
+s1 Neg Fut Simul (AgP3 G9 Pl) : atakorara
+s1 Neg Fut Simul (AgP3 G10 Sg) : atakorara
+s1 Neg Fut Simul (AgP3 G10 Pl) : korara
+s1 Neg Fut Simul (AgP3 G11 Sg) : atakorara
+s1 Neg Fut Simul (AgP3 G11 Pl) : atakorara
+s1 Neg Fut Simul (AgP1 Sg) : tindikorara
+s1 Neg Fut Simul (AgP1 Pl) : ntokorara
+s1 Neg Fut Anter (AgP2 Sg) : tokonyora twararire
+s1 Neg Fut Anter (AgP2 Pl) : tokonyora orarire
+s1 Neg Fut Anter (AgP3 G1 Sg) : tokonyora kwararire
+s1 Neg Fut Anter (AgP3 G1 Pl) : tokonyora bararire
+s1 Neg Fut Anter (AgP3 G2 Sg) : tokonyora orarire
+s1 Neg Fut Anter (AgP3 G2 Pl) : tokonyora erarire
+s1 Neg Fut Anter (AgP3 G3 Sg) : tokonyora erarire
+s1 Neg Fut Anter (AgP3 G3 Pl) : tokonyora chiararire
+s1 Neg Fut Anter (AgP3 G4 Sg) : tokonyora riararire
+s1 Neg Fut Anter (AgP3 G4 Pl) : tokonyora ararire
+s1 Neg Fut Anter (AgP3 G5 Sg) : tokonyora kiararire
+s1 Neg Fut Anter (AgP3 G5 Pl) : tokonyora biararire
+s1 Neg Fut Anter (AgP3 G6 Sg) : tokonyora rwararire
+s1 Neg Fut Anter (AgP3 G6 Pl) : tokonyora chiararire
+s1 Neg Fut Anter (AgP3 G7 Sg) : tokonyora kararire
+s1 Neg Fut Anter (AgP3 G7 Pl) : tokonyora biararire
+s1 Neg Fut Anter (AgP3 G8 Sg) : tokonyora bwararire
+s1 Neg Fut Anter (AgP3 G8 Pl) : tokonyora ararire
+s1 Neg Fut Anter (AgP3 G9 Sg) : tokonyora gwararire
+s1 Neg Fut Anter (AgP3 G9 Pl) : tokonyora ararire
+s1 Neg Fut Anter (AgP3 G10 Sg) : tokonyora ararire
+s1 Neg Fut Anter (AgP3 G10 Pl) : tokonyora ararire
+s1 Neg Fut Anter (AgP3 G11 Sg) : tokonyora ararire
+s1 Neg Fut Anter (AgP3 G11 Pl) : tokonyora ararire
+s1 Neg Fut Anter (AgP1 Sg) : tokonyora nararire
+s1 Neg Fut Anter (AgP1 Pl) : tokonyora mwararire
+s1 Neg Cond Simul (AgP2 Sg) : nkwarekorara
+s1 Neg Cond Simul (AgP2 Pl) : timwarekorara
+s1 Neg Cond Simul (AgP3 G1 Sg) : tarekorara
+s1 Neg Cond Simul (AgP3 G1 Pl) : mbarekorara
+s1 Neg Cond Simul (AgP3 G2 Sg) : torekorara
+s1 Neg Cond Simul (AgP3 G2 Pl) : tiyarekorara
+s1 Neg Cond Simul (AgP3 G3 Sg) : tiyarekorara
+s1 Neg Cond Simul (AgP3 G3 Pl) : tichiarekorara
+s1 Neg Cond Simul (AgP3 G4 Sg) : ndiarekorara
+s1 Neg Cond Simul (AgP3 G4 Pl) : tarekorara
+s1 Neg Cond Simul (AgP3 G5 Sg) : Ngerikorara
+s1 Neg Cond Simul (AgP3 G5 Pl) : Mbirikorara
+s1 Neg Cond Simul (AgP3 G6 Sg) : ndwarekorara
+s1 Neg Cond Simul (AgP3 G6 Pl) : tichiarekorara
+s1 Neg Cond Simul (AgP3 G7 Sg) : nkarekorara
+s1 Neg Cond Simul (AgP3 G7 Pl) : Mbiarekorara
+s1 Neg Cond Simul (AgP3 G8 Sg) : tibwarekorara
+s1 Neg Cond Simul (AgP3 G8 Pl) : tarekorara
+s1 Neg Cond Simul (AgP3 G9 Sg) : nkwarekorara
+s1 Neg Cond Simul (AgP3 G9 Pl) : tarekorara
+s1 Neg Cond Simul (AgP3 G10 Sg) : tarekorara
+s1 Neg Cond Simul (AgP3 G10 Pl) : korara
+s1 Neg Cond Simul (AgP3 G11 Sg) : tarekorara
+s1 Neg Cond Simul (AgP3 G11 Pl) : tarekorara
+s1 Neg Cond Simul (AgP1 Sg) : tinarekorara
+s1 Neg Cond Simul (AgP1 Pl) : ntwarekorara
+s1 Neg Cond Anter (AgP2 Sg) : tokonyora twararire
+s1 Neg Cond Anter (AgP2 Pl) : tokonyora orarire
+s1 Neg Cond Anter (AgP3 G1 Sg) : tokonyora kwararire
+s1 Neg Cond Anter (AgP3 G1 Pl) : tokonyora bararire
+s1 Neg Cond Anter (AgP3 G2 Sg) : tokonyora orarire
+s1 Neg Cond Anter (AgP3 G2 Pl) : tokonyora erarire
+s1 Neg Cond Anter (AgP3 G3 Sg) : tokonyora erarire
+s1 Neg Cond Anter (AgP3 G3 Pl) : tokonyora chiararire
+s1 Neg Cond Anter (AgP3 G4 Sg) : tokonyora riararire
+s1 Neg Cond Anter (AgP3 G4 Pl) : tokonyora ararire
+s1 Neg Cond Anter (AgP3 G5 Sg) : tokonyora kiararire
+s1 Neg Cond Anter (AgP3 G5 Pl) : tokonyora biararire
+s1 Neg Cond Anter (AgP3 G6 Sg) : tokonyora rwararire
+s1 Neg Cond Anter (AgP3 G6 Pl) : tokonyora chiararire
+s1 Neg Cond Anter (AgP3 G7 Sg) : tokonyora kararire
+s1 Neg Cond Anter (AgP3 G7 Pl) : tokonyora biararire
+s1 Neg Cond Anter (AgP3 G8 Sg) : tokonyora bwararire
+s1 Neg Cond Anter (AgP3 G8 Pl) : tokonyora ararire
+s1 Neg Cond Anter (AgP3 G9 Sg) : tokonyora gwararire
+s1 Neg Cond Anter (AgP3 G9 Pl) : tokonyora ararire
+s1 Neg Cond Anter (AgP3 G10 Sg) : tokonyora ararire
+s1 Neg Cond Anter (AgP3 G10 Pl) : tokonyora ararire
+s1 Neg Cond Anter (AgP3 G11 Sg) : tokonyora ararire
+s1 Neg Cond Anter (AgP3 G11 Pl) : tokonyora ararire
+s1 Neg Cond Anter (AgP1 Sg) : tokonyora nararire
+s1 Neg Cond Anter (AgP1 Pl) : tokonyora mwararire

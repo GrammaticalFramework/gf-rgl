@@ -13,14 +13,14 @@ oper
    conjGender : Cgender -> Cgender -> Cgender = \m,n -> 
     case m of { G1 => n ; _ => G2 } ;
   reflPron :Agr => Str = \\ag=> case <ag >  of  {
-         < Ag G1 Sg P1  >     => "mimi" ;
-         < Ag G1 Sg P2  >     => "wewe" ;
-         < Ag G1 Sg P3 >     => "yeye" ;
-         < Ag _ Sg P3 >     => "" ;
-         < Ag G1 Pl P1 >     => "sisi" ;
-         < Ag G1 Pl P2  >     => "nyinyi" ;
-         < Ag G1 Pl P3 >     => "wao" ;
-          < Ag _ _ _ >     => "" 
+         < AgP1 Sg   >     => "mimi" ;
+         < AgP2  Sg   >     => "wewe" ;
+         < AgP3 G1 Sg  >     => "yeye" ;
+         --< Ag _ Sg P3 >     => "" ;
+         < AgP1 Pl  >     => "sisi" ;
+         < AgP2  Pl   >     => "nyinyi" ;
+         < AgP3 G1 Pl  >     => "wao" ;
+          < AgP3 _ _  >     => "" 
         
          };
  possess_Prepof,mkPrepof : Number => Cgender => Str = 

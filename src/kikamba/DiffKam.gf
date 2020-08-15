@@ -192,14 +192,14 @@ oper
   such = "ota";
   that="uu";
   reflPron : Agr => Str = \\ag=> case ag of {
-    Ag G1 Sg P1 => "nyie" ;
-    Ag G1 Sg P2 => "we" ;
-    Ag G1 Sg P3 => "we" ;
-    Ag _  Sg P3 => "yo" ;
-    Ag G1 Pl P1 => "ithyi" ;
-    Ag G1 Pl P2 => "nyui" ;
-    Ag G1 Pl P3 => "mo" ;
-    Ag _  _  _  => "" 
+    AgP1 Sg  => "nyie" ;
+    AgP2  Sg => "we" ;
+    AgP3 G1 Sg => "we" ;
+    AgP3 _ Sg  => "yo" ;
+    AgP1 Pl  => "ithyi" ;
+    AgP2  Pl => "nyui" ;
+    AgP3 G1 Pl => "mo" ;
+    AgP3 _ Pl  => ""     
     };
 
   superVery ="vyu";

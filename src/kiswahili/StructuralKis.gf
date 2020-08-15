@@ -1,7 +1,9 @@
 concrete StructuralKis of Structural = CatKis ** 
   open MorphoKis, ParadigmsKis, DiffKis, 
   (C = ConstructX), Prelude in {
+
   flags optimize=all ;
+
   lin
   above_Prep = mkPrep "juu ya" False;
   after_Prep = mkPrep "baada ya" False;
@@ -41,7 +43,7 @@ concrete StructuralKis of Structural = CatKis **
   in8front_Prep = mkPrep ["umbele "] False;
  i_Pron   =mkPron "mimi" "angu" G1 Sg P1 ;
   in_Prep = mkPrep "kwenye" True;
- it_Pron   ={ s=\\c=>nonExist; poss=\\n,g=> nonExist; a=Ag G4 Sg P3};
+ --it_Pron   ={ s=\\c=>nonExist; poss=\\n,g=> nonExist; a=Ag G4 Sg P3};
  more_CAdv =C.mkCAdv "zaidi" "";
  --less_CAdv = C.mkCAdv "kasoro" ;
  much_Det, many_Det = { s =\\g =>  Many_prefix g + "ngi" ; n= Pl; isPre =True };
@@ -49,7 +51,7 @@ concrete StructuralKis of Structural = CatKis **
   more_Adv = mkAdv "zaidi" ; 
   most_Predet = {s = \\g => MorphoKis.Mostpredetprefix g + "ngi"} ;
  --  must_VV = {   
-  no_Phr = ss "hapana" ;
+no_Phr = ss "hapana" ;
   no_Utt = ss "hapana" ;
   on_Prep = mkPrep "kwenye" True | mkPrep "kuhusu"  True;
   one_Quant = {s = \\n,g =>  "moja" } ; 

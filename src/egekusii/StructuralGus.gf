@@ -43,7 +43,7 @@ concrete StructuralGus of Structural = CatGus **
   in8front_Prep = mkPrep "bosio" False;
  i_Pron   =mkPron "inche" "ne" G1 Sg P1 ;
   in_Prep =  mkPrep "ase" False | mkPrep "ime" False ;
- it_Pron   ={ s=\\c=>"yo"; poss=\\n,g=> ""; a=Ag G4 Sg P3};-- mkPron "yo" ""G4 Sg P3  ;
+ it_Pron   ={ s=\\c=>"yo"; poss=\\n,g=> ""; a=toAgr G4 Sg P3};-- mkPron "yo" ""G4 Sg P3  ;
      
   less_CAdv = C.mkCAdv "inge" "" ;
    much_Det, many_Det = { s =\\g =>  Many_prefix g + "nge" ; n= Pl; isPre =True };
