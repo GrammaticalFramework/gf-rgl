@@ -74,7 +74,7 @@ oper
      -- Special "conjunction": just put comma with NPs, no conjunction.
      -- Used in a specific (proprietary) application grammar, don't remove this.
     <Comma,NStar,_> => "," ;
-    <Comma,VStar,Consonant> => "으며" ;
+    <Comma,VStar,Consonant> => "이며" ;
     <Comma,VStar,Vowel> => "며" ;
 
     -- In the normal case, conjunctions are repeated after each element in ListX
