@@ -3353,6 +3353,15 @@ AllRus: сколько эта женщина не гуляет
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
 AllRus: сколько эта женщина гуляет
 
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (PositAdvAdj correct_A)) (UseV fall_V))
+AllRus: он правильно падает
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (AdAP (PositAdAAdj clean_A) (PositA old_A)))))
+AllRus: она становит &+ ся чисто старой
+
+AllRusAbs: UttAdv (ComparAdvAdj rather_CAdv warm_A (UsePron he_Pron))
+AllRus: Скорее тепло, чем он
+
 AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
 AllRus: человек не был бы женат на женщине
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
