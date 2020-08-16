@@ -2959,4 +2959,8 @@ fun
   shshsh_Interj : Interj;
   shshsh_Interj : Interj;
   uh_Interj : Interj;
+
+  skoree_Adv : Adv ;
+  skoro_Adv : Adv ;
+  skoraja_N : N ;
 }

@@ -79,5 +79,7 @@ fun
   nechto_NP : NP ;
   anybody_NP : NP ;
 
+  rather_CAdv : CAdv ;
+
   CompoundA : A -> A -> A ;
 }
