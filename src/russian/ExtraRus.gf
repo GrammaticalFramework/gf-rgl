@@ -1,7 +1,7 @@
 -- Seems like this is deprecated - need to use ExtendRus instead
 
 concrete ExtraRus of ExtraRusAbs = CatRus **
-  open ResRus, MorphoRus, (P=ParadigmsRus), Prelude, NounRus in {
+  open ResRus, MorphoRus, (P=ParadigmsRus), (X = ConstructX), Prelude, NounRus in {
   flags optimize=all ; coding=utf8 ;
 lin
   obj_no_Prep = {s="" ; c=Acc ; neggen=True ; hasPrep=False} ;
@@ -98,6 +98,8 @@ lin
   have2_V3 = P.mkV3 est_V nom_Prep u_Prep;
   have_not_V3 = P.mkV3 net_V obj_neg_Prep u_Prep;
   be_V3 = P.mkV3 be_ell_V nom_Prep dat_Prep;
+
+  rather_CAdv = X.mkCAdv "скорее" "чем" ;
 
   -- : A -> A -> A ;
   CompoundA a1 a2 = mkCompoundA a1 "-" a2 ;

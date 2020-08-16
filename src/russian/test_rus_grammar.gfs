@@ -124,6 +124,10 @@ gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TFut AAnter) PPos (PredVP (UseP
 gt UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN boy_N)) (AdvVP (UseV fly_V) (PrepCN on_Prep (UseN (CompoundN carpet_N airplane_N))))) |l -treebank
 gt UseQCl ? ? (QuestIAdv how8much_IAdv (PredVP ( DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V))) | l -treebank
 
+gt UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) ( PositAdvAdj correct_A  )) (UseV fall_V)) | l -treebank
+gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (AdAP (PositAdAAdj clean_A) (PositA old_A))))) | l -treebank
+gt  UttAdv (ComparAdvAdj rather_CAdv warm_A (UsePron he_Pron)) | l -treebank -unlextext
+
 gt UseCl ? ? (married_Cl (MassNP (UseN man_N))  (MassNP (UseN woman_N))) |l -treebank
 gt UseCl ? ? (married_Cl (MassNP (UseN woman_N))  (MassNP (UseN man_N))) |l -treebank
 gt UseCl ? ? (married_Cl ((DetCN (DetQuant (PossPron i_Pron) NumPl)) (UseN man_N)) (MassNP (UseN woman_N))) |l -treebank

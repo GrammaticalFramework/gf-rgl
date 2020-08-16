@@ -2975,4 +2975,8 @@ lin
   shshsh_Interj = mkInterj "ш-ш-ш" ;
   uh_Interj = mkInterj "ух" ;
 
+  skoree_Adv = mkAdv skoryj_A.comp ;
+  skoro_Adv = mkAdv skoryj_A.sn ;
+  skoraja_N = mkN skoryj_A feminine inanimate ;
+
 }
