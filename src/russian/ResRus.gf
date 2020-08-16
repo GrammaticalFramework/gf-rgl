@@ -1,4 +1,4 @@
-resource ResRus = ParamRus ** open Prelude, ZaliznyakAlgo, Maybe in {
+resource ResRus = ParamRus ** open Prelude, InflectionRus, Maybe in {
 flags coding=utf8 ; optimize=all ;
 
 ---------------

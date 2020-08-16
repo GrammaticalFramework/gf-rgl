@@ -1,4 +1,4 @@
-resource ZaliznyakAlgo = open Prelude, ParamRus in {
+resource InflectionRus = open Prelude, ParamRus in {
 flags coding=utf8 ; optimize=all ;
 
 param

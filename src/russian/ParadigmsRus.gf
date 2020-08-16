@@ -1,6 +1,6 @@
 --1 Russian Lexical Paradigms
 
-resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=ZaliznyakAlgo), Prelude, Maybe in {
+resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=InflectionRus), Prelude, Maybe in {
 
 --2 Parameters
 --
