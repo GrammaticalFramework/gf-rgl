@@ -21,6 +21,9 @@ lin
   have_not_V3 = P.mkV3 net_V obj_neg_Prep u_Prep;
   be_V3 = P.mkV3 be_ell_V nom_Prep dat_Prep;
 
+  -- : A -> A -> A ;
+  CompoundA a1 a2 = mkCompoundA a1 "-" a2 ;
+
 oper
   est_V : V = lin V {
     inf="есть";

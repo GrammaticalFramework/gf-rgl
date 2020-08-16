@@ -16,4 +16,5 @@ fun
   to2_Prep : Prep ;
   to_dat_Prep : Prep ;
   u_Prep : Prep ;
+  CompoundA : A -> A -> A ;
 }
