@@ -182,7 +182,7 @@ AllRus: не его имя бы &+ ло Иван
 AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
 AllRus: его имя бы &+ ло Иван
 AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
-AllRus: нет его имя Иван
+AllRus: не его имя Иван
 AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
 AllRus: его имя Иван
 
@@ -2433,7 +2433,7 @@ AllRus: надеяться , что не его имя бы &+ ло Иван
 AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPast AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
 AllRus: надеяться , что его имя бы &+ ло Иван
 AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
-AllRus: надеяться , что нет его имя Иван
+AllRus: надеяться , что не его имя Иван
 AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
 AllRus: надеяться , что его имя Иван
 
@@ -2626,6 +2626,15 @@ AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron he_Pron) (Comp
 AllRus: он не считает окон у её машин
 AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
 AllRus: он считает окон у её машины
+
+AllRusAbs: MassNP (AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))) (UseN apple_N))
+AllRus: третье яблоко
+
+AllRusAbs: MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) big_A)) (UseN car_N))
+AllRus: пятая самая большая машина
+
+AllRusAbs: TFullStop (PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a do_V2) (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) big_A)) (UseN tree_N)))))) NoVoc) TEmpty
+AllRus: делай пятое самое большое дерево .
 
 UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
 
@@ -3344,11 +3353,381 @@ AllRus: сколько эта женщина не гуляет
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how8much_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV walk_V)))
 AllRus: сколько эта женщина гуляет
 
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не был бы женат на женщине
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек был бы женат на женщине
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не был бы женат на женщине
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек был бы женат на женщине
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не будет женат на женщине
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек будет женат на женщине
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не будет женат на женщине
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек будет женат на женщине
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не был женат на женщине
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек был женат на женщине
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не был женат на женщине
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек был женат на женщине
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не женат на женщине
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек женат на женщине
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек не женат на женщине
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: человек женат на женщине
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не бы &+ ла бы замужем за человеком
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина бы &+ ла бы замужем за человеком
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не бы &+ ла бы замужем за человеком
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина бы &+ ла бы замужем за человеком
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не будет замужем за человеком
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина будет замужем за человеком
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не будет замужем за человеком
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина будет замужем за человеком
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не бы &+ ла замужем за человеком
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина бы &+ ла замужем за человеком
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не бы &+ ла замужем за человеком
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина бы &+ ла замужем за человеком
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не замужем за человеком
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина замужем за человеком
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина не замужем за человеком
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (MassNP (UseN man_N)))
+AllRus: женщина замужем за человеком
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не бы &+ ли бы женаты на женщине
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди бы &+ ли бы женаты на женщине
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не бы &+ ли бы женаты на женщине
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди бы &+ ли бы женаты на женщине
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не будут женаты на женщине
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди будут женаты на женщине
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не будут женаты на женщине
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди будут женаты на женщине
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не бы &+ ли женаты на женщине
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди бы &+ ли женаты на женщине
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не бы &+ ли женаты на женщине
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди бы &+ ли женаты на женщине
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не женаты на женщине
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди женаты на женщине
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди не женаты на женщине
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (MassNP (UseN woman_N)))
+AllRus: мои люди женаты на женщине
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не бы &+ ла бы замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина бы &+ ла бы замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не бы &+ ла бы замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина бы &+ ла бы замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не будет замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина будет замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не будет замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина будет замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не бы &+ ла замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина бы &+ ла замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не бы &+ ла замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина бы &+ ла замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина не замужем за моими людьми
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (married_Cl (MassNP (UseN woman_N)) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)))
+AllRus: женщина замужем за моими людьми
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не бы &+ ли бы женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди бы &+ ли бы женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не бы &+ ли бы женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди бы &+ ли бы женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не будут женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди будут женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не будут женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди будут женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не бы &+ ли женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди бы &+ ли женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не бы &+ ли женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди бы &+ ли женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди не женаты на твоих женщинах
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (married_Cl (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN man_N)) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мои люди женаты на твоих женщинах
+
 AllRusAbs: UseComp (CompAdv here_Adv)
 AllRus: здесь быть
 
 AllRusAbs: PredSCVP (EmbedVP (UseV think_V)) thirsty_VP
 AllRus: думать хотеть пить
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop he_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это он , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop iFem_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop i_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop it_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это оно , которое бы &+ ло неправо
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop she_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это она , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop theyFem_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop they_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop weFem_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop we_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youFem_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youPlFem_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youPl_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youPolFem_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youPolPlFem_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youPolPl_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youPol_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop youSg_Pron))))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop he_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это он , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop iFem_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop i_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop it_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это оно , которое бы &+ ло неправо
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop she_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это она , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop theyFem_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop they_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop weFem_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop we_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youFem_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youPlFem_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youPl_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youPolFem_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youPolPlFem_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youPolPl_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youPol_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop (ProDrop youSg_Pron)))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop he_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это он , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop iFem_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop i_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop it_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это оно , которое бы &+ ло неправо
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop she_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это она , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop theyFem_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop they_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop weFem_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop we_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youFem_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youPlFem_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youPl_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youPolFem_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youPolPlFem_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youPolPl_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youPol_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop (ProDrop youSg_Pron))) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop he_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это он , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop iFem_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop i_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop it_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это оно , которое бы &+ ло неправо
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop she_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это она , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop theyFem_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop they_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop weFem_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop we_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youFem_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youPlFem_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youPl_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youPolFem_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youPolPlFem_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youPolPl_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youPol_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron (ProDrop youSg_Pron)) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron he_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это он , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron iFem_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron i_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это я , который был неправ
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron it_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это оно , которое бы &+ ло неправо
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron she_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это она , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron theyFem_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron they_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это они , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron weFem_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron we_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это мы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youFem_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , которая бы &+ ла неправа
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPlFem_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPl_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPolFem_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPolPlFem_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPolPl_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youPol_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это вы , которые бы &+ ли неправы
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron youSg_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_wrong_VP)))
+AllRus: это ты , который был неправ
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron he_Pron) (UseRCl (TTAnt TPast AAnter) PNeg (RelVP IdRP is_right_VP)))
+AllRus: это он , который не был прав
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (CleftNP (UsePron he_Pron) (UseRCl (TTAnt TPast AAnter) PPos (RelVP IdRP is_right_VP)))
+AllRus: это он , который был прав
+
+AllRusAbs: AdjCN (PositA blue_A) (AdjCN (PositA big_A) (UseN house_N))
+AllRus: голубой большой дом
+
+AllRusAbs: AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))) (AdjCN (AdjOrd (OrdSuperl blue_A)) (UseN house_N))
+AllRus: третий самый голубой дом
+
+AllRusAbs: AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))) blue_A)) (UseN house_N)
+AllRus: третий самый голубой дом
+
+AllRusAbs: UttAP (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) small_A))
+AllRus: пятый самый маленький
+
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TCond ASimul) PNeg (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево не люби &+ ло бы её
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TCond ASimul) PPos (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево люби &+ ло бы её
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TFut ASimul) PNeg (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево не будет любить её
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TFut ASimul) PPos (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево будет любить её
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TPast ASimul) PNeg (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево не люби &+ ло её
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TPast ASimul) PPos (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево люби &+ ло её
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PNeg (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево не любит её
+AllRusAbs: RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelCl (PredVP (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))))
+AllRus: женщина , такая , что второе самое большое дерево любит её
 
 AllRusAbs: RelCl (PredVP (UsePN john_PN) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron)))
 AllRus: такое , что Иван любить её
@@ -3655,7 +4034,7 @@ AllRus: небо не везде бы &+ ло
 AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
 AllRus: небо везде бы &+ ло
 AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
-AllRus: небо нет везде
+AllRus: небо не везде
 AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
 AllRus: небо везде есть
 
@@ -3791,6 +4170,183 @@ AllRus: Иван будет говорить : « в следующее воск
 AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePN john_PN) (ComplDirectVQ know_VQ (UttAdv (weekdayNextAdv sunday_Weekday))))
 AllRus: Иван знал : « в следующее воскресенье »
 
+AllRusAbs: CompoundA yellow_A red_A
+AllRus: жёлто &+ - &+ красный
+
+AllRusAbs: has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))
+AllRus: быть по меньшей мере восемь лет
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не был бы по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван был бы по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не был бы по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван был бы по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не будет по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван будет по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не будет по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван будет по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не был по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван был по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не был по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван был по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван не по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Иван по меньшей мере восемь лет
+
+AllRusAbs: VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep
+AllRus: быть по меньшей мере восемь лет
+
+AllRusAbs: ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)
+AllRus: быть Ивану по меньшей мере восемь лет
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло бы Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло бы Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло бы Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло бы Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не будет Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: будет Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не будет Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: будет Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не Ивану восемь лет
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: Ивану восемь лет
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло бы Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло бы Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло бы Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло бы Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не будет Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: будет Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не будет Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: будет Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не Ивану по меньшей мере восемь лет
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: Ивану по меньшей мере восемь лет
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не бы &+ ло бы яблоку два года
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: бы &+ ло бы яблоку два года
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не бы &+ ло бы яблоку два года
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: бы &+ ло бы яблоку два года
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не будет яблоку два года
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: будет яблоку два года
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не будет яблоку два года
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: будет яблоку два года
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не бы &+ ло яблоку два года
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: бы &+ ло яблоку два года
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не бы &+ ло яблоку два года
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: бы &+ ло яблоку два года
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не яблоку два года
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: яблоку два года
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: не яблоку два года
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) to_dat_Prep) (MassNP (UseN apple_N))))
+AllRus: яблоку два года
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло бы Ивану один год
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло бы Ивану один год
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло бы Ивану один год
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло бы Ивану один год
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не будет Ивану один год
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: будет Ивану один год
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не будет Ивану один год
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: будет Ивану один год
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло Ивану один год
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло Ивану один год
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не бы &+ ло Ивану один год
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: бы &+ ло Ивану один год
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не Ивану один год
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: Ивану один год
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: не Ивану один год
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
+AllRus: Ивану один год
+
 AllRusAbs: FocusObj (UsePron she_Pron) (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))
 AllRus: с н &+ ей Иван не говорил бы о Париже
 AllRusAbs: FocusObj (UsePron she_Pron) (UseSlash (TTAnt TCond AAnter) PPos (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))
@@ -3818,9 +4374,9 @@ AllRus: не бы &+ ло воды у вас
 AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
 AllRus: не бы &+ ло воды у вас
 AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
-AllRus: нет воды у вас
+AllRus: не воды у вас
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplSlash (Slash3V3 have_V3 (UsePron youPl_Pron)) (MassNP (UseN water_N))))
-AllRus: нет воды у вас
+AllRus: не воды у вас
 
 AllRusAbs: EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron))
 AllRus: быть у нас голодно
@@ -3929,4 +4485,165 @@ AllRus: играть является чистым
 
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedVP (UseV play_V)) (UseComp (CompCN (AdjCN (PositA clean_A) (UseN war_N)))))
 AllRus: играть является чистой войной
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко был бы Париж
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко был бы Париж
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко будет Париж
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко будет Париж
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко был Париж
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко был Париж
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко Париж
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (how_far_QCl (UsePN paris_PN))
+AllRus: как далеко Париж
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не бы &+ ло бы тепло
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (weather_adjCl (PositA warm_A))
+AllRus: бы &+ ло бы тепло
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не бы &+ ло бы тепло
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (weather_adjCl (PositA warm_A))
+AllRus: бы &+ ло бы тепло
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не будет тепло
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (weather_adjCl (PositA warm_A))
+AllRus: будет тепло
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не будет тепло
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (weather_adjCl (PositA warm_A))
+AllRus: будет тепло
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не бы &+ ло тепло
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (weather_adjCl (PositA warm_A))
+AllRus: бы &+ ло тепло
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не бы &+ ло тепло
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (weather_adjCl (PositA warm_A))
+AllRus: бы &+ ло тепло
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не тепло
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (weather_adjCl (PositA warm_A))
+AllRus: тепло
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (weather_adjCl (PositA warm_A))
+AllRus: не тепло
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (weather_adjCl (PositA warm_A))
+AllRus: тепло
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько бы &+ ло бы вам лет
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько бы &+ ло бы вам лет
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько будет вам лет
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько будет вам лет
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько бы &+ ло вам лет
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько бы &+ ло вам лет
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько вам лет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (how_old_QCl (UsePron youPl_Pron))
+AllRus: сколько вам лет
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько бы &+ ло бы тебе лет
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько бы &+ ло бы тебе лет
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько будет тебе лет
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько будет тебе лет
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько бы &+ ло тебе лет
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько бы &+ ло тебе лет
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько тебе лет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (how_old_QCl (UsePron youSg_Pron))
+AllRus: сколько тебе лет
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько бы &+ ло бы ему лет
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько бы &+ ло бы ему лет
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько будет ему лет
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько будет ему лет
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько бы &+ ло ему лет
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько бы &+ ло ему лет
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько ему лет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (how_old_QCl (UsePron he_Pron))
+AllRus: сколько ему лет
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не бы &+ ло бы ей лет
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько бы &+ ло бы ей лет
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не бы &+ ло бы ей лет
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько бы &+ ло бы ей лет
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не будет ей лет
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько будет ей лет
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не будет ей лет
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько будет ей лет
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не бы &+ ло ей лет
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько бы &+ ло ей лет
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не бы &+ ло ей лет
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько бы &+ ло ей лет
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не ей лет
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько ей лет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (how_old_QCl (UsePron she_Pron))
+AllRus: сколько не ей лет
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (how_old_QCl (UsePron she_Pron))
+AllRus: сколько ей лет
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv wherefrom_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
+AllRus: откуда эта женщина не бега &+ ла бы
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv wherefrom_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
+AllRus: откуда эта женщина бега &+ ла бы
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv wherefor_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
+AllRus: зачем эта женщина не бега &+ ла бы
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv wherefor_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
+AllRus: зачем эта женщина бега &+ ла бы
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv whereto_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
+AllRus: куда эта женщина не бега &+ ла бы
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv whereto_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
+AllRus: куда эта женщина бега &+ ла бы
+
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) elsewhen_Adv)
+AllRus: должен бояться когда-нибудь
+
+AllRusAbs: MkDocument (NoDefinition "") (InflectionV run_V) ""
+AllRus: <h1> глагол </h1> <p> она бегает </p> несовершенного вида, невозвратный, непереходный, <h2> инфинитив </h2> <table rules=all border=yes> <tr> <td> бегать </td> <td> бегаться </td> </tr> </table> <table rules=all border=yes> <tr> <th> лицо </th> <th> число </th> <th> род </th> <th> прошлое </th> <th> настоящее </th> <th> будущее </th> <th> повелительное </th> </tr> <tr> <th> 1 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаю </td> <td> буду бегать </td> <td> бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаем </td> <td> будем бегать </td> <td> бегаем </td> </tr> <tr> <th> 2 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаешь </td> <td> будешь бегать </td> <td> бегай </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаете </td> <td> будете бегать </td> <td> бегайте </td> </tr> <tr> <th> 3 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегает </td> <td> будет бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегают </td> <td> будут бегать </td> <td> пусть будут бегать </td> </tr> </table> <h2> краткие причастия прошедшего времени </h2> <table rules=all border=yes> <tr> <th> мужской </th> <th> женский </th> <th> средний </th> <th> мн.ч. </th> </tr> <tr> <td> беган </td> <td> бегана </td> <td> бегано </td> <td> беганы </td> </tr> </table> <h2> деепричастия </h2> <table rules=all border=yes> <tr> <th> прошлое </th> <th> настоящее </th> </tr> <tr> <td> бегая </td> <td> бегавши </td> </tr> </table> <p> </p>
+
+AllRusAbs: MkDocument (NoDefinition "") (InflectionA yellow_A) ""
+AllRus: <h1> прилагательное </h1> <h2> женский </h2> <table rules=all border=yes> <tr> <th> </th> <th> ед.ч. </th> <th> мн.ч. </th> </tr> <tr> <th> именительный </th> <td> жёлтая </td> <td> жёлтые </td> </tr> <tr> <th> родительный </th> <td> жёлтой </td> <td> жёлтых </td> </tr> <tr> <th> дательный </th> <td> жёлтой </td> <td> жёлтым </td> </tr> <tr> <th> винительный </th> <td> жёлтую </td> <td> жёлтые </td> </tr> <tr> <th> творительный </th> <td> жёлтой </td> <td> жёлтыми </td> </tr> <tr> <th> предложный </th> <td> жёлтой </td> <td> жёлтых </td> </tr> <tr> <th> разделительный </th> <td> жёлтой </td> <td> - </td> </tr> <tr> <th> местный </th> <td> жёлтой </td> <td> - </td> </tr> <tr> <th> звательный </th> <td> жёлтая </td> <td> - </td> </tr> </table> <h2> мужской </h2> <table rules=all border=yes> <tr> <th> </th> <th> ед.ч. </th> <th> мн.ч. </th> </tr> <tr> <th> именительный </th> <td> жёлтый </td> <td> жёлтые </td> </tr> <tr> <th> родительный </th> <td> жёлтого </td> <td> жёлтых </td> </tr> <tr> <th> дательный </th> <td> жёлтому </td> <td> жёлтым </td> </tr> <tr> <th> винительный </th> <td> жёлтый </td> <td> жёлтые </td> </tr> <tr> <th> творительный </th> <td> жёлтым </td> <td> жёлтыми </td> </tr> <tr> <th> предложный </th> <td> жёлтом </td> <td> жёлтых </td> </tr> <tr> <th> разделительный </th> <td> жёлтого </td> <td> - </td> </tr> <tr> <th> местный </th> <td> жёлтом </td> <td> - </td> </tr> <tr> <th> звательный </th> <td> жёлтый </td> <td> - </td> </tr> </table> <h2> средний </h2> <table rules=all border=yes> <tr> <th> </th> <th> ед.ч. </th> <th> мн.ч. </th> </tr> <tr> <th> именительный </th> <td> жёлтое </td> <td> жёлтые </td> </tr> <tr> <th> родительный </th> <td> жёлтого </td> <td> жёлтых </td> </tr> <tr> <th> дательный </th> <td> жёлтому </td> <td> жёлтым </td> </tr> <tr> <th> винительный </th> <td> жёлтое </td> <td> жёлтые </td> </tr> <tr> <th> творительный </th> <td> жёлтым </td> <td> жёлтыми </td> </tr> <tr> <th> предложный </th> <td> жёлтом </td> <td> жёлтых </td> </tr> <tr> <th> разделительный </th> <td> жёлтого </td> <td> - </td> </tr> <tr> <th> местный </th> <td> жёлтом </td> <td> - </td> </tr> <tr> <th> звательный </th> <td> жёлтое </td> <td> - </td> </tr> </table> <h2> сравнительная </h2> <table rules=all border=yes> <tr> <tr> желтее </tr> </tr> </table> <p> </p>
+
+AllRusAbs: MkDocument (NoDefinition "") (InflectionN man_N) ""
+AllRus: <h1> существительное </h1> <table rules=all border=yes> <tr> <th> </th> <th> ед.ч. </th> <th> мн.ч. </th> </tr> <tr> <th> именительный </th> <td> человек </td> <td> люди </td> </tr> <tr> <th> родительный </th> <td> человека </td> <td> людей </td> </tr> <tr> <th> дательный </th> <td> человеку </td> <td> людям </td> </tr> <tr> <th> винительный </th> <td> человека </td> <td> людей </td> </tr> <tr> <th> творительный </th> <td> человеком </td> <td> людьми </td> </tr> <tr> <th> предложный </th> <td> человеке </td> <td> людях </td> </tr> <tr> <th> разделительный </th> <td> человека </td> <td> - </td> </tr> <tr> <th> местный </th> <td> человеке </td> <td> - </td> </tr> <tr> <th> звательный </th> <td> человек </td> <td> - </td> </tr> </table> <p> </p>
 

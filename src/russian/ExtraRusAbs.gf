@@ -16,5 +16,68 @@ fun
   to2_Prep : Prep ;
   to_dat_Prep : Prep ;
   u_Prep : Prep ;
+
+  wherefor_IAdv : IAdv ;
+  wherefor_IAdv : IAdv ;
+  wherefrom_IAdv : IAdv ;
+  whereto_IAdv : IAdv ;
+
+  presently_Adv : Adv ;
+  therefore_Adv : Adv ;
+  fromhere_Adv : Adv ;
+  tohere_Adv : Adv ;
+  here2_Adv : Adv ;
+  this_way_Adv : Adv ;
+  presently_Adv : Adv ;
+  that_is_why_Adv : Adv ;
+  fromthere_Adv : Adv ;
+  tothere_Adv : Adv ;
+  there2_Adv : Adv ;
+  that_way_Adv : Adv ;
+  always2_Adv : Adv ;
+  from_everywhere_Adv : Adv ;
+  to_everywhere_Adv : Adv ;
+  everywhere2_Adv : Adv ;
+  that_way_Adv : Adv ;
+  any_way_Adv : Adv ;
+  never_Adv : Adv ;
+  from_nowhere_Adv : Adv ;
+  to_nowhere_Adv : Adv ;
+  nowhere_Adv : Adv ;
+  nohow_Adv : Adv ;
+  no_need_Adv : Adv ;
+  no_time_Adv : Adv ;
+  there_is_nowhere_from_Adv : Adv ;
+  there_is_nowhere_to_Adv : Adv ;
+  there_is_nowhere_Adv : Adv ;
+  somehow_Adv : Adv ;
+  somehow2_Adv : Adv ;
+  somehow3_Adv : Adv ;
+  somehow4_Adv : Adv ;
+  somewhere2_Adv : Adv ;
+  somewhere3_Adv : Adv ;
+  somewhere4_Adv : Adv ;
+  somewither_Adv : Adv ;
+  somewither2_Adv : Adv ;
+  somewither3_Adv : Adv ;
+  somewither4_Adv : Adv ;
+  from_somewhere_Adv : Adv ;
+  from_somewhere2_Adv : Adv ;
+  from_somewhere3_Adv : Adv ;
+  from_somewhere4_Adv : Adv ;
+  elsewhen_Adv : Adv ;
+  elsewhen2_Adv : Adv ;
+  elsewhen3_Adv : Adv ;
+  elsewhen4_Adv : Adv ;
+  for_some_reason_Adv : Adv ;
+  for_some_reason2_Adv : Adv ;
+  for_any_reason_Adv : Adv ;
+  wherefor_Adv : Adv ;
+  wherefrom_Adv : Adv ;
+  whereto_Adv : Adv ;
+
+  nechto_NP : NP ;
+  anybody_NP : NP ;
+
   CompoundA : A -> A -> A ;
 }

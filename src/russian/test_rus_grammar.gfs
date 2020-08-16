@@ -250,3 +250,13 @@ gt UseQCl ? PPos (how_old_QCl (UsePron youPl_Pron)) |l -treebank
 gt UseQCl ? PPos (how_old_QCl (UsePron youSg_Pron)) |l -treebank
 gt UseQCl ? PPos (how_old_QCl (UsePron he_Pron)) |l -treebank
 gt UseQCl ? ? (how_old_QCl (UsePron she_Pron)) |l -treebank
+
+gt UseQCl (TTAnt TCond AAnter) ? (QuestIAdv wherefrom_IAdv (PredVP ( DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V))) | l -treebank
+gt UseQCl (TTAnt TCond AAnter) ? (QuestIAdv wherefor_IAdv (PredVP ( DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V))) | l -treebank
+gt UseQCl (TTAnt TCond AAnter) ? (QuestIAdv whereto_IAdv (PredVP ( DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V))) | l -treebank
+gt PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) elsewhen_Adv) |l -treebank
+
+gt MkDocument (NoDefinition "") (InflectionV run_V) "" |l -treebank -unlextext
+gt MkDocument (NoDefinition "") (InflectionA yellow_A) "" |l -treebank -unlextext
+gt MkDocument (NoDefinition "") (InflectionN man_N) "" |l -treebank -unlextext
+

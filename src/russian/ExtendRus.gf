@@ -94,7 +94,7 @@ lin
   youFem_Pron = personalPron (Ag (GSg Fem) P2) ;
 
   -- : N -> N -> N ;
-  --CompoundN n1 n2 = mkCompoundN n1 "-" n2 ;
+  CompoundN n1 n2 = mkCompoundN n1 "-" n2 ;
 
   -- VPSlash -> AP ; -- lost (opportunity) ; (opportunity) lost in space
   PastPartAP vps = {

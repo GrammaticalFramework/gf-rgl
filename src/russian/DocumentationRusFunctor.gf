@@ -206,12 +206,17 @@ oper
           ) ;
 
 lin
+  -- : String -> Definition ;
   NoDefinition   t     = {s=t.s};
+  -- : String -> String -> Definition ;
   MkDefinition   t d   = {s="<p><b>" ++ (heading formGr_N) ++ "</b>"++t.s++d.s++"</p>"};
+  -- : String -> String -> String -> Definition ;
   MkDefinitionEx t d e = {s="<p><b>" ++ (heading formGr_N) ++ "</b>"++t.s++d.s++"</p><p><b>" ++ (heading exampleGr_N) ++":</b>"++e.s++"</p>"};
 
 lin
+  -- : Definition -> Inflection -> String -> Document ;
   MkDocument d i e = ss (i.s1 ++ d.s ++ i.s2 ++ paragraph e.s) ;  -- explanation appended in a new paragraph
+  -- : Inflection -> Tag ;
   MkTag i = ss (i.t) ;
 
 {- --# notpresent

@@ -8,8 +8,6 @@ lincat
   A, Ord = ResRus.AdjForms ;
   A2 = ResRus.AdjForms ** {c : ComplementCase} ;
 
-  Pron = ResRus.PronounForms ;
-
   V, VS, VQ, VA = ResRus.VerbForms ;
   V2, V2S, V2Q, V2A = ResRus.VerbForms ** {c : ComplementCase} ;
   V3 = ResRus.VerbForms ** {c : ComplementCase ; c2 : ComplementCase} ;
@@ -82,6 +80,7 @@ lincat
     a : Agr
     } ;
 
+  Pron = ResRus.PronounForms ;
   IP = ResRus.IPronounForms ;
   RP = ResRus.RPronounForms ;
   IComp = {s : AgrTable ; adv : Str ; cop : CopulaType } ;

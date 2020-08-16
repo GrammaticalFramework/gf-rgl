@@ -16,6 +16,84 @@ lin
   from2_Prep = from2 ;
   about_Prep = P.mkPrep o_prep_pre_mod Pre ;
 
+  wherefor_IAdv = ss "зачем" ;
+  wherefrom_IAdv = ss "откуда" ;
+  whereto_IAdv = ss "куда" ;
+
+  -- near deixis
+  presently_Adv = P.mkAdv "теперь" ;
+  therefore_Adv = P.mkAdv "поэтому" ;
+  fromhere_Adv = P.mkAdv "отсюда" ;
+  tohere_Adv = P.mkAdv "сюда" ;
+  here2_Adv = P.mkAdv "тут" ;
+  this_way_Adv = P.mkAdv "так" ;
+
+  -- far deixis
+  then_Adv = P.mkAdv "тогда" ;
+  that_is_why_Adv = P.mkAdv "потому" ;
+  fromthere_Adv = P.mkAdv "оттуда" ;
+  tothere_Adv = P.mkAdv "туда" ;
+  there2_Adv = P.mkAdv "там" ;
+  that_way_Adv = P.mkAdv "этак" ;
+
+  -- universal
+  always2_Adv = P.mkAdv ["когда угодно"] ;
+  from_everywhere_Adv = P.mkAdv "отовсюду" ;
+  to_everywhere_Adv = P.mkAdv "повсюду" ;
+  everywhere2_Adv = P.mkAdv "всюду" ;
+  that_way_Adv = P.mkAdv "этак" ;
+  any_way_Adv = P.mkAdv "всяко" ;
+
+  -- negative
+  never_Adv = P.mkAdv "никогда" ;
+  from_nowhere_Adv = P.mkAdv "ниоткуда" ;
+  to_nowhere_Adv = P.mkAdv "никуда" ;
+  nowhere_Adv = P.mkAdv "нигде" ;
+  nohow_Adv = P.mkAdv "никак" ;
+
+  -- negative predicatives
+  no_need_Adv = P.mkAdv "незачем" ;
+  no_time_Adv = P.mkAdv "некогда" ;
+  there_is_nowhere_from_Adv = P.mkAdv "неоткуда" ;
+  there_is_nowhere_to_Adv = P.mkAdv "некуда" ;
+  there_is_nowhere_Adv = P.mkAdv "негде" ;
+
+  -- indefinite
+  nechto_NP = lin NP nechto ;  -- "something unknown". Use Nom, Acc only
+  anybody_NP = lin NP anybody ;  -- "somenoby unknown". Use Nom only
+
+  somehow_Adv = P.mkAdv "как-нибудь";
+  somehow2_Adv = P.mkAdv "как-то";
+  somehow3_Adv = P.mkAdv "как-либо";
+  somehow4_Adv = P.mkAdv "кое-как";
+
+  somewhere2_Adv = P.mkAdv "где-то";
+  somewhere3_Adv = P.mkAdv "где-либо";
+  somewhere4_Adv = P.mkAdv "кое-где";
+
+  somewither_Adv = P.mkAdv "куда-нибудь";
+  somewither2_Adv = P.mkAdv "куда-то";
+  somewither3_Adv = P.mkAdv "куда-либо";
+  somewither4_Adv = P.mkAdv "кое-куда";
+
+  from_somewhere_Adv = P.mkAdv "откуда-нибудь";
+  from_somewhere2_Adv = P.mkAdv "откуда-то";
+  from_somewhere3_Adv = P.mkAdv "откуда-либо";
+  from_somewhere4_Adv = P.mkAdv "кое-откуда";
+
+  elsewhen_Adv = P.mkAdv "когда-нибудь";
+  elsewhen2_Adv = P.mkAdv "когда-то";
+  elsewhen3_Adv = P.mkAdv "когда-либо";
+  elsewhen4_Adv = P.mkAdv "кое-когда";
+
+  for_some_reason_Adv = P.mkAdv "зачем-то";
+  for_some_reason2_Adv = P.mkAdv "почему-то";
+  for_any_reason_Adv = P.mkAdv "почему-либо";
+
+  wherefor_Adv = ss "зачем" ;
+  wherefrom_Adv = ss "откуда" ;
+  whereto_Adv = ss "куда" ;
+
   have_V3 = P.mkV3 est_ell_V nom_Prep u_Prep;
   have2_V3 = P.mkV3 est_V nom_Prep u_Prep;
   have_not_V3 = P.mkV3 net_V obj_neg_Prep u_Prep;

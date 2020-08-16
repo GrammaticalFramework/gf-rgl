@@ -1,3 +1,5 @@
 --# -path=.:../abstract:../common:prelude
 
-abstract AllRusAbs = Lang, ExtraRusAbs, DictRusAbs, Extend ** {};
+abstract AllRusAbs = Lang, ExtraRusAbs,
+  -- DictRusAbs,
+  Extend ** {};
