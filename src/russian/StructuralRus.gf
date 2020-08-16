@@ -144,9 +144,9 @@ lin
     size = NumAll
     } ;
 
-  only_Predet = (adjFormsAdjective (noShorts only_Pron)) ** {size=Num1} ;
+  only_Predet = (adjFormsAdjective (pronToAdj only_Pron)) ** {size=Num1} ;
   most_Predet = (makeAdjectiveFromNoun (nounFormsNoun (guessNounForms "большинство"))) ** {size=Num5} ;
-  all_Predet = (adjFormsAdjective (noShorts all_Pron)) ** {size=NumAll};
+  all_Predet = (adjFormsAdjective (pronToAdj all_Pron)) ** {size=NumAll};
   not_Predet = (adjFormsAdjective (mkA "не" "" "0")) ** {size=Num1} ;
 
   how8many_IDet = {

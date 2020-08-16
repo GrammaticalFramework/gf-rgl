@@ -128,6 +128,9 @@ oper
     mkA : Str -> Str -> A ;  -- same, but comparative given as a second argument
     mkA : Str -> Str -> (idx : Str) -> A ; -- nom masc, comparative and third parameter is Zaliznyak's dictionary index, for example, "1a"
     mkA : Str -> Str -> (idx : Str) -> ShortFormPreference -> A ; -- same, but with short form preference given
+    mkA : Str -> ZAIndex -> A ;
+    mkA : Str -> Str -> ZAIndex -> A ;
+    mkA : Str -> Str -> ZAIndex -> ShortFormPreference -> A
   } ;
 
   ShortenA : A -> A ;
@@ -149,6 +152,7 @@ oper
     mkV : (inf : Str) -> (sg1 : Str) -> V ;  -- guess some I conjugation verbs (not "ё") from infinitive and Sg P1, perfective, transitive
     mkV : (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> V ; -- guess verb forms given Inf, Sg P1, Sg P3, perfective, transitive
     mkV : Aspect -> (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> V ; -- same, but aspect as first parameter
+    mkV : Aspect -> Transitivity -> (inf : Str) -> V ;  -- for irregular verbs
     mkV : Aspect -> Transitivity -> (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> V ;  -- aspect, transitivity, Inf, Sg P1, Sg P3
     mkV : Aspect -> Transitivity -> (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> (idx : Str) -> V    -- aspect, transitivity, Inf, Sg P1, Sg P3 and index from Zaliznyak's dictionary, eg "14a"
   } ;
@@ -275,10 +279,18 @@ oper
       = \nom -> lin A (guessAdjectiveForms nom) ;
     mkA : Str -> Str -> A
       = \nom, comp -> lin A ((guessAdjectiveForms nom) ** {comp=comp}) ;
+    mkA : Str -> Z.ZAIndex -> A
+      = \nom, zi -> lin A (makeAdjectiveFormsUseIndex nom "" zi PreferFull) ;
     mkA : Str -> Str -> Str -> A
       = \nom, comp, zi -> lin A (makeAdjectiveForms nom comp zi PreferFull) ;
+    mkA : Str -> Str -> Z.ZAIndex -> A
+      = \nom, comp, zi -> lin A (makeAdjectiveFormsUseIndex nom comp zi PreferFull) ;
     mkA : Str -> Str -> Str -> ShortFormPreference -> A
       = \nom, comp, zi, spf -> lin A (makeAdjectiveForms nom comp zi spf) ;
+    mkA : Str -> Str -> Z.ZAIndex -> ShortFormPreference -> A
+      = \nom, comp, zi, spf -> lin A (makeAdjectiveFormsUseIndex nom comp zi spf) ;
+    mkA : PronForms -> A
+      = \pf -> pronToAdj pf ;
   } ;
 
   ShortenA : A -> A
@@ -310,6 +322,8 @@ oper
       = \asp,inf,sg1 -> lin V (guessVerbForms asp Transitive inf sg1 (Z.sg1StemFromVerb sg1 + "ет")) ;
     mkV : Aspect -> Str -> Str -> Str -> V
       = \asp,inf,sg1,sg3 -> lin V (guessVerbForms asp Transitive inf sg1 sg3) ;
+    mkV : Aspect -> Transitivity -> Str -> V  -- for irregular verbs
+      = \asp,tran,inf -> lin V (guessIrregularVerbForms asp tran inf) ;
     mkV : Aspect -> Transitivity -> Str -> Str -> V
       = \asp,tran,inf,sg1 -> lin V (guessVerbForms asp tran inf sg1 (Z.sg1StemFromVerb sg1 + "ет")) ;
     mkV : Aspect -> Transitivity -> Str -> Str -> Str -> V

@@ -233,7 +233,7 @@ oper
     preferShort : ShortFormPreference
     } ;
 
-  noShorts : PronForms -> AdjForms  -- ???
+  pronToAdj : PronForms -> AdjForms
     = \base -> base ** {
       sm = [] ;
       sf = [] ;
@@ -361,13 +361,20 @@ oper
       _        => doGuessAdjectiveForms word
       } ;
 
-  doMakeAdjectiveForms : Str -> Str -> Str -> ShortFormPreference -> AdjForms
+  doMakeAdjectiveForms : Str -> Str -> ZAIndex -> ShortFormPreference -> AdjForms
     = \nom, comp, zi, spf ->
-      let af = makeAdjective nom (parseAdjIndex zi) spf in
+      let af = makeAdjective nom zi spf in
       let comp' = case (Predef.length comp) of {0 => af.comp; _ => comp} in
       af ** {comp=comp'} ;
 
   makeAdjectiveForms : Str -> Str -> Str -> ShortFormPreference -> AdjForms
+    = \nom, comp, zi_str, spf ->
+      let zi = parseAdjIndex zi_str in case nom of {
+        s + "ся" => appendToAF (doMakeAdjectiveForms s comp zi spf) "ся" ;
+        _ => doMakeAdjectiveForms nom comp zi spf
+        } ;
+
+  makeAdjectiveFormsUseIndex : Str -> Str -> ZAIndex -> ShortFormPreference -> AdjForms
     = \nom, comp, zi, spf -> case nom of {
       s + "ся" => appendToAF (doMakeAdjectiveForms s comp zi spf) "ся" ;
       _ => doMakeAdjectiveForms nom comp zi spf
@@ -405,6 +412,31 @@ oper
       sn    = the_most.sn     ++ af.sn    ;
       sp    = the_most.sp     ++ af.sp    ;
       comp  = the_most.comp   ++ af.comp  ;
+      g=af.g ;
+      preferShort = PreferFull ;
+      p = af.p
+    } ;
+
+  ord_long_superlative : PronForms -> AdjForms -> AdjForms
+    = \pf,af -> {
+      msnom = pf.msnom ++ the_most.msnom  ++ af.msnom ;
+      fsnom = pf.fsnom ++ the_most.fsnom  ++ af.fsnom ;
+      nsnom = pf.nsnom ++ the_most.nsnom  ++ af.nsnom ;
+      pnom  = pf.pnom  ++ the_most.pnom   ++ af.pnom  ;
+      msgen = pf.msgen ++ the_most.msgen  ++ af.msgen ;
+      fsgen = pf.fsgen ++ the_most.fsgen  ++ af.fsgen ;
+      pgen  = pf.pgen  ++ the_most.pgen   ++ af.pgen  ;
+      msdat = pf.msdat ++ the_most.msdat  ++ af.msdat ;
+      fsacc = pf.fsacc ++ the_most.fsacc  ++ af.fsacc ;
+      msins = pf.msins ++ the_most.msins  ++ af.msins ;
+      fsins = pf.fsins ++ the_most.fsins  ++ af.fsins ;
+      pins  = pf.pins  ++ the_most.pins   ++ af.pins  ;
+      msprep= pf.msprep++ the_most.msprep ++ af.msprep;
+      sm    = pf.msnom ++ the_most.sm     ++ af.sm    ;
+      sf    = pf.fsnom ++ the_most.sf     ++ af.sf    ;
+      sn    = pf.nsnom ++ the_most.sn     ++ af.sn    ;
+      sp    = pf.pnom  ++ the_most.sp     ++ af.sp    ;
+      comp  = pf.msnom ++ the_most.comp   ++ af.comp  ;
       g=af.g ;
       preferShort = PreferFull ;
       p = af.p
@@ -534,6 +566,22 @@ oper
       let guessed : ZVIndex * Reflexivity = guessRegularIndex inf sg1 sg3 in
       let corr_tran = case guessed.p2 of {Reflexive=>Intransitive ; NonReflexive=>tran} in
       makeVerb inf sg1 sg3 guessed.p1 asp corr_tran guessed.p2 ;
+
+  guessIrregularVerbForms : Aspect -> Transitivity -> Str -> VerbForms
+    = \asp,tran,inf -> case inf of {
+     s + ("есть"  |"есться") => makeVerbEst asp tran inf ;
+     s + ("дать"  |"даться") => makeVerbDat6 asp tran inf ;
+     s + ("хотеть"|"хотеться") => makeVerbKhotet6 asp tran inf ;
+     s + ("быть"  |"быться") => makeVerbByt6 asp tran inf ;
+     "идти" => makeVerbJti asp tran inf ;
+     s + ("йти" |"йтись") => makeVerbJti asp tran inf ;
+      _ => let stem_info = infStemFromVerb inf in
+        let stem = stem_info.p1 in
+        guessVerbForms asp tran inf (stem+"ю") (stem+"ет")
+    } ;
+
+  mkVplus : VerbForms -> VerbForms
+    = \vf -> vf ;
 
   quickGuessVerbForms : Str -> VerbForms
     = \inf ->
@@ -764,7 +812,7 @@ oper
         BeFuture => case <m,temp, pol.p> of {
           <Ind, Past, _> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "" ;
           <Ind, Pres, Pos> => subj ++ pol.s ++ adv ++ verbPresAgree vf a ;
-          <Ind, Pres, Neg> => subj ++ "нет" ++ adv ;
+          <Ind, Pres, Neg> => subj ++ "не" ++ adv ;
           <Ind, Fut, _> => subj ++ pol.s ++ adv ++ verbFutAgree vf a ;
           <Ind, Cond, _> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "бы" ;
           <Sbjv, _, _> => subj ++ pol.s ++ adv ++ verbPastAgree vf a "бы" ;
@@ -984,6 +1032,14 @@ oper
       } ;
 
 -- Possessive pronouns are more like adjectives
+
+  mkP : Str -> Str -> PronForms
+    = \msnom, zi ->
+      case zi of {
+        "6*a" => pronoun6AstA msnom ;
+        "2*b" => pronoun2AstB msnom ;
+        _ => pronoun1A msnom   -- add more when needed
+      } ;
 
   doPossessivePronSgP1P2 : Str -> PronForms
     = \mo -> {

@@ -12,8 +12,60 @@ lin
   ill_VP = mkVP ( P.mkA "больной" "" "1*b" PrefShort) ;
   ready_VP = mkVP L.ready_A ;
 
+  is_right_VP = mkVP (P.mkA "правый" "" "1a'" PrefShort) ;
+  is_wrong_VP = mkVP (P.mkA "неправый" "" "1a'" PrefShort) ;
+
+  -- : NP -> NP -> Cl ;     -- x is married to y / x on naimisissa y:n kanssa (Fin)
+  married_Cl np1 np2 =
+    let married : A = case np1.a of {
+      Ag (GSg Fem) _ => P.mkA "замужем" "" "0" ;
+      _ => P.mkA "женатый" "" "1a" PrefShort
+      } in
+      let cc : Prep = case np1.a of {
+        Ag (GSg Fem) _ => behind_Prep ;
+        _ => on_Prep
+      } in {
+        subj=np1.s ! Nom ;
+        adv=[];
+        verb=copulaEll ;   -- ???
+        dep=[] ;
+        compl=\\_ => (PositA married).short ! np1.a ++ applyPrep cc np2 ;
+        a=np1.a ; ---
+        } ;
+
+  -- : NP -> QCl ;          -- how far is x / quanto dista x (Ita)
+  how_far_QCl np = QuestIComp (CompIAdv (AdvIAdv how_IAdv L.far_Adv)) np ;
+
   -- : NP -> QCl ;          -- what is x's name / wie heisst x (Ger)
   what_name_QCl np = QuestIAdv how_IAdv (GenericCl (ComplSlash (SlashV2a (P.mkV2 (P.mkV Imperfective "звать" "зову" "зовёт") Acc)) np)) ;
+
+  -- : Card -> VP ;         -- x is y years old / x a y ans (Fre)
+  has_age_VP card = {
+    adv=\\a => [] ;
+    verb=copulaEll ;
+    dep=[] ;
+    compl=\\p,a => (timeunitAdv card year_Timeunit).s;
+    } ;
+
+  -- : NP -> QCl ;          -- how old is x / quanti anni ha x (Ita)
+  how_old_QCl np = {
+    subj=how8much_IAdv.s ;
+    adv=[] ;
+    compl=\\p => np.s ! Dat ++ "лет";
+    verb=copulaEll ;
+    dep=[] ;
+    a=Ag (GSg Neut) P3
+    } ;
+
+  -- : AP -> Cl ;           -- it is warm / il fait chaud (Fre)
+  weather_adjCl ap = {
+    subj=[] ;
+    adv=[] ;
+    verb=copulaEll ;
+    dep=ap.short ! Ag (GSg Neut) P3 ;
+    compl=\\p=>[] ;
+    a=Ag (GSg Neut) P3
+    } ;
 
   -- : NP -> NP -> Cl ;     -- x's name is y / x s'appelle y (Fre)
   have_name_Cl np np1 = {
