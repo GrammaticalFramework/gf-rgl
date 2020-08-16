@@ -968,7 +968,7 @@ lin
 
   arestovatq_V = mkV perfective transitive "арестовать" "арестую" "арестует" "2a" ;
   begatq_V = mkV imperfective transitive "бегать" "бегаю" "бегает" "1a" ;
-  bezhatq_V = mkV imperfective transitive "бежать" "бегу" "бежит" ;
+  bezhatq_V = mkV imperfective transitive "бежать" ;
   besedovatq_V = mkV imperfective transitive "беседовать" "беседую" "беседует" "2a" ;
   bespokoitqsja_V = mkV imperfective intransitive "беспокоиться" "беспокоюсь" "беспокоится" "4a" ;
   bitq_V = mkV imperfective transitive "бить" "бью" "бьёт" "11b" ;
@@ -1220,7 +1220,7 @@ lin
   igratq_V = mkV imperfective transitive "играть" "играю" "играет" "1a" ;
   idti_V = mkV imperfective intransitive "идти" ;
   izbavitqsja_V = mkV perfective intransitive "избавиться" "избавлюсь" "избавится" "4a" ;
-  izbezhatq_V = mkV perfective transitive "избежать" "избегу" "избежит" "5b" ;
+  izbezhatq_V = mkV perfective transitive "избежать" ;
   izbratq_V = mkV perfective transitive "избрать" "изберу" "изберёт" "6°b/c" ;
   izvinitq_V = mkV perfective transitive "извинить" "извиню" "извинит" "4b" ;
   izdatq_V = mkV perfective transitive "издать" ;
@@ -1465,7 +1465,7 @@ lin
   platitq_V = mkV imperfective transitive "платить" "плачу" "платит" "4c" ;
   plytq_V = mkV imperfective transitive "плыть" "плыву" "плывёт" "16b/c" ;
   pobeditq_V = mkV perfective transitive "победить" "побежу" "победит" "4b" ;
-  pobezhatq_V = mkV perfective transitive "побежать" "побегу" "побежит" "5b" ;
+  pobezhatq_V = mkV perfective transitive "побежать" ;
   pobyvatq_V = mkV perfective transitive "побывать" "побываю" "побывает" "1a" ;
   povezti_V = mkV perfective transitive "повезти" "повезу" "повезёт" ;
   poveritq_V = mkV perfective transitive "поверить" "поверю" "поверит" "4a" ;
@@ -1889,7 +1889,7 @@ lin
   tjanutqsja_V = mkV imperfective intransitive "тянуться" "тянусь" "тянется" "3c" ;
   ubeditq_V = mkV perfective transitive "убедить" "убежу" "убедит" "4b" ;
   ubeditqsja_V = mkV perfective intransitive "убедиться" "убежусь" "убедится" "4b" ;
-  ubezhatq_V = mkV perfective transitive "убежать" "убегу" "убежит" "5b" ;
+  ubezhatq_V = mkV perfective transitive "убежать" ;
   ubivatq_V = mkV imperfective transitive "убивать" "убиваю" "убивает" "1a" ;
   ubitq_V = mkV perfective transitive "убить" "убью" "убьёт" "11b" ;
   ubratq_V = mkV perfective transitive "убрать" "уберу" "уберёт" "6°b/c" ;

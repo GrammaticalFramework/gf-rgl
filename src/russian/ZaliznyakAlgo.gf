@@ -1094,6 +1094,35 @@ oper
         tran=tran
         } ;
 
+  makeVerbBezhat6 : Aspect -> Transitivity -> Str -> VerbForms
+    = \asp,tran,inf ->
+      let inf1 = dropRefl inf in
+      let stem_info = infStemFromVerb inf in
+      let inf_s : Str = stem_info.p1 in
+      let com : Str = case inf_s of {c + "жа" => c ; _ => inf_s} in
+      let refl = stem_info.p2 in {
+        inf=inf1 ;
+        infrefl=inf1 + "ся" ;
+        prsg1=com + "гу";
+        prsg2=com + "жишь";
+        prsg3=com + "жит";
+        prpl1=com + "жим";
+        prpl2=com + "жите";
+        prpl3=com + "гут";
+        fut=NormalFuture ; -- ?
+        psgm=com + "жал";
+        psgs=com + "жа";
+        isg2=com + "ги";
+        isg2refl=com + "гись";
+        ipl1=[];
+        pppss="";
+        prtr=com + "жа"; -- *
+        ptr=com + "жав";
+        asp=asp;
+        refl=refl;
+        tran=tran
+        } ;
+
   makeVerbEst : Aspect -> Transitivity -> Str -> VerbForms
     = \asp,tran,inf ->
       let inf1 = dropRefl inf in

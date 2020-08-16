@@ -596,6 +596,7 @@ oper
      s + ("есть"  |"есться") => makeVerbEst asp tran inf ;
      s + ("дать"  |"даться") => makeVerbDat6 asp tran inf ;
      s + ("хотеть"|"хотеться") => makeVerbKhotet6 asp tran inf ;
+     s + ("бежать"|"бежаться") => makeVerbBezhat6 asp tran inf ;
      s + ("быть"  |"быться") => makeVerbByt6 asp tran inf ;
      "идти" => makeVerbJti asp tran inf ;
      s + ("йти" |"йтись") => makeVerbJti asp tran inf ;
