@@ -1,5 +1,5 @@
 concrete DictRus of DictRusAbs = CatRus ** open ParadigmsRus, Prelude,
-  ZaliznyakAlgo, (S=StructuralRus),
+  InflectionRus, (S=StructuralRus),
   ResRus in {
   flags optimize=values ; coding=utf8 ;
 -- About 1000 most frequent nouns (source: wiktionary)

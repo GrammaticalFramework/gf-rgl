@@ -28,7 +28,7 @@ fun
   tohere_Adv : Adv ;
   here2_Adv : Adv ;
   this_way_Adv : Adv ;
-  presently_Adv : Adv ;
+  then_Adv : Adv ;
   that_is_why_Adv : Adv ;
   fromthere_Adv : Adv ;
   tothere_Adv : Adv ;
