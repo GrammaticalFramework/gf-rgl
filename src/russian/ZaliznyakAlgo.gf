@@ -759,6 +759,25 @@ oper
   pronounAdj1AstA : Str -> PronForms
     = \word -> makeAdjective word (ZA 1 Ast A_ NoC) PreferFull ;
 
+  pronoun1A : Str -> PronForms
+    = \word -> -- Христов
+      let stem = word in
+      {
+        msnom=stem ;
+        fsnom=stem  +"а" ;
+        nsnom=stem  +"о" ;
+        pnom=stem   +"ы" ;
+        msgen=stem  +"а" ;
+        fsgen=stem  +"ой" ;
+        pgen=stem   +"ых" ;
+        msdat=stem  +"у" ;
+        fsacc=stem  +"у" ;
+        msins=stem  +"ым" ;
+        fsins=stem  +"ой" ; -- ою
+        pins=stem   +"ыми" ;
+        msprep=stem +"ом" ;
+    } ;
+
   pronoun2AstB : Str -> PronForms
     = \word -> -- весь
       let cmp_base : Str = case word of {s + "ь" => s ; _ => word} in --
@@ -881,7 +900,7 @@ oper
         s + ("ет" | "ется") => <s, I> ;
         s + ("ёт" | "ётся") => <s, I'> ;
         s + ("ит" | "ится") => <s, II> ;
-        _ => Predef.error "Error: incorrect Sg P3 Pres/Fut"
+        _ => Predef.error ("Error: incorrect Sg P3 Pres/Fut:" + v)
       } ;
 
   parseVerbIndex : Str -> ZVIndex
@@ -1045,4 +1064,149 @@ oper
       <_, s> => psgm+"ши"
       } ;
     } ;
+
+  makeVerbKhotet6 : Aspect -> Transitivity -> Str -> VerbForms
+    = \asp,tran,inf ->
+      let inf1 = dropRefl inf in
+      let stem_info = infStemFromVerb inf in
+      let inf_s : Str = stem_info.p1 in
+      let com : Str = case inf_s of {c + "те" => c ; _ => inf_s} in
+      let refl = stem_info.p2 in {
+        inf=inf1 ;
+        infrefl=inf1 + "ся" ;
+        prsg1=com + "чу";
+        prsg2=com + "чешь";
+        prsg3=com + "чет";
+        prpl1=com + "тим";
+        prpl2=com + "тите";
+        prpl3=com + "тят";
+        fut=NormalFuture ; -- ?
+        psgm=com + "тел";
+        psgs=com + "те";
+        isg2=com + "ти";
+        isg2refl=com + "тись";
+        ipl1=[];
+        pppss="";
+        prtr=com + "тя";
+        ptr=com + "тев";
+        asp=asp;
+        refl=refl;
+        tran=tran
+        } ;
+
+  makeVerbEst : Aspect -> Transitivity -> Str -> VerbForms
+    = \asp,tran,inf ->
+      let inf1 = dropRefl inf in
+      let stem_info = infStemFromVerb inf in
+      let inf_s : Str = stem_info.p1 in
+      let com : Str = case inf_s of {c + "с" => c ; _ => inf_s} in
+      let refl = stem_info.p2 in {
+        inf=inf1 ;
+        infrefl=inf1 + "ся" ;
+        prsg1=com + "м";
+        prsg2=com + "шь";
+        prsg3=com + "ст";
+        prpl1=com + "дим";
+        prpl2=com + "дите";
+        prpl3=com + "дят";
+        fut=NormalFuture ;
+        psgm=com + "л";
+        psgs=com ;
+        isg2=com + "шь";
+        isg2refl=com + "шься";
+        ipl1=[];
+        pppss="";
+        prtr=com + "дя";
+        ptr=com + "в";
+        asp=asp;
+        refl=refl;
+        tran=tran
+        } ;
+
+  makeVerbDat6 : Aspect -> Transitivity -> Str -> VerbForms
+    = \asp,tran,inf ->
+      let inf1 = dropRefl inf in
+      let stem_info = infStemFromVerb inf in
+      let com : Str = stem_info.p1 in
+      let refl = stem_info.p2 in {
+        inf=inf1 ;
+        infrefl=inf1 + "ся" ;
+        prsg1=com + "м";
+        prsg2=com + "шь";
+        prsg3=com + "ст";
+        prpl1=com + "дим";
+        prpl2=com + "дите";
+        prpl3=com + "дут";
+        fut=NormalFuture ;
+        psgm=com + "л";
+        psgs=com ;
+        isg2=com + "й";
+        isg2refl=com + "йся";
+        ipl1=[];
+        pppss="";
+        prtr=com + "вая";
+        ptr=com + "в";
+        asp=asp;
+        refl=refl;
+        tran=tran
+        } ;
+
+  makeVerbByt6 : Aspect -> Transitivity -> Str -> VerbForms
+    = \asp,tran,inf ->
+      let inf1 = dropRefl inf in
+      let stem_info = infStemFromVerb inf in
+      let inf_s : Str = stem_info.p1 in
+      let com : Str = case inf_s of {c + "ы" => c ; _ => inf_s} in
+      let refl = stem_info.p2 in {
+        inf=inf1 ;
+        infrefl=inf1 + "ся" ;
+        prsg1=com + "уду";
+        prsg2=com + "удешь";
+        prsg3=com + "удет";
+        prpl1=com + "удем";
+        prpl2=com + "удете";
+        prpl3=com + "удут";
+        fut=NormalFuture ;
+        psgm=com + "ыл";
+        psgs=com + "ы";
+        isg2=com + "удь";
+        isg2refl=com + "удься";
+        ipl1=[];
+        pppss="";
+        prtr=com + "ывая";
+        ptr=com + "ыв";
+        asp=asp;
+        refl=refl;
+        tran=tran
+        } ;
+
+  makeVerbJti: Aspect -> Transitivity -> Str -> VerbForms
+    = \asp,tran,inf ->
+      let inf1 = dropRefl inf in
+      let stem_info = infStemFromVerb inf in
+      let inf_s : Str = stem_info.p1 in
+      let com : Str = case inf_s of {"ид" => "и" ; c + "й" => inf_s ; _ => inf_s} in
+      let comPast : Str = case inf_s of {"ид" => "ш" ; _ => (Predef.tk 1 inf_s) + "ш" } in
+      let refl = stem_info.p2 in {
+        inf=inf1 ;
+        infrefl=inf1 + "сь" ;
+        prsg1=com + "ду";
+        prsg2=com + "дёшь";
+        prsg3=com + "дёт";
+        prpl1=com + "дём";
+        prpl2=com + "дёте";
+        prpl3=com + "дут";
+        fut=NormalFuture ;
+        psgm=comPast + "ёл";
+        psgs=comPast ;
+        isg2=com + "ди";
+        isg2refl=com + "дись";
+        ipl1=[];
+        pppss="";
+        prtr=com + "дя";
+        ptr=[];
+        asp=asp;
+        refl=refl;
+        tran=tran
+        } ;
 }

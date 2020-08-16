@@ -125,6 +125,9 @@ lin
   -- : A -> Ord ;
   OrdSuperl a = long_superlative a ;
 
+  -- : Numeral -> A -> Ord ; -- third largest
+  OrdNumeralSuperl num a = ord_long_superlative num.o a  ;
+
   -- : Pron -> Quant ;    -- my (house)
   PossPron pron = {
     s=mkPronTable pron.poss ;

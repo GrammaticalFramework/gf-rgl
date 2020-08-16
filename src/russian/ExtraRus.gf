@@ -7,6 +7,10 @@ lin
   obj_no_Prep = {s="" ; c=Acc ; neggen=True ; hasPrep=False} ;
   to2_Prep = P.mkPrep v_prep_mod Acc ;
   to_dat_Prep = {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
+  obj_neg_Prep = lin Prep {s="" ; c=Gen ; neggen=False ; hasPrep=False} ;
+  nom_Prep = lin Prep {s="" ; c=Nom ; neggen=True ; hasPrep=False} ;
+  dat_Prep = lin Prep {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
+  u_Prep = lin Prep {s="у" ; c=Gen ; neggen=False ; hasPrep=True} ;
   on_to_Prep = P.mkPrep "до" Gen ;
   along_Prep = P.mkPrep "по" Loc ;
   from2_Prep = from2 ;
@@ -18,10 +22,6 @@ lin
   be_V3 = P.mkV3 be_ell_V nom_Prep dat_Prep;
 
 oper
-  nom_Prep : Prep = lin Prep {s="" ; c=Nom ; neggen=True ; hasPrep=False} ;
-  obj_neg_Prep : Prep = lin Prep {s="" ; c=Gen ; neggen=False ; hasPrep=False} ;
-  dat_Prep : Prep = lin Prep {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
-  u_Prep : Prep = lin Prep {s="у" ; c=Gen ; neggen=False ; hasPrep=True} ;
   est_V : V = lin V {
     inf="есть";
     infrefl="" ;
