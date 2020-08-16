@@ -130,7 +130,8 @@ oper
     mkA : Str -> Str -> (idx : Str) -> ShortFormPreference -> A ; -- same, but with short form preference given
     mkA : Str -> ZAIndex -> A ;
     mkA : Str -> Str -> ZAIndex -> A ;
-    mkA : Str -> Str -> ZAIndex -> ShortFormPreference -> A
+    mkA : Str -> Str -> ZAIndex -> ShortFormPreference -> A ;
+    mkA : A -> Str -> A -> A  -- Compound adjective like социально-экономический
   } ;
 
   ShortenA : A -> A ;
@@ -291,6 +292,8 @@ oper
       = \nom, comp, zi, spf -> lin A (makeAdjectiveFormsUseIndex nom comp zi spf) ;
     mkA : PronForms -> A
       = \pf -> pronToAdj pf ;
+    mkA : A -> Str -> A -> A
+      = \a1,link,a2 -> lin A (mkCompoundA a1 link a2) ;
   } ;
 
   ShortenA : A -> A

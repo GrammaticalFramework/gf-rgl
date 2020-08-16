@@ -21,7 +21,7 @@ fun
   avtor_N : N;
   baba_N : N;
   babushka_N : N;
-  bank_N : N;
+  bank__N : N;
   baza_N : N;
   beda_N : N;
   bereg_N : N;
@@ -755,7 +755,7 @@ fun
   stroj_N : N;
   stroka_N : N;
   struktura_N : N;
-  student_N : N;
+  student__N : N;
   stul_N : N;
   sub6ekt_N : N;
   sud_N : N;

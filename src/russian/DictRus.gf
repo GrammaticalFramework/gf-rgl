@@ -36,7 +36,7 @@ lin
   avtor_N = mkN "автор" Masc Animate n1a ;
   baba_N = mkN "баба" Fem Animate n1a ;
   babushka_N = mkN "бабушка" Fem Animate (ZN 3 Ast A NoC) ;
-  bank_N = mkN "банк" Masc Inanimate n3a ;
+  bank__N = mkN "банк" Masc Inanimate n3a ;
   baza_N = mkN "база" Fem Inanimate n1a ;
   beda_N = mkN "беда" Fem Inanimate (ZN 1 No D NoC) ;
   bereg_N = mkN "берег" Masc Inanimate (ZN 3 No C ZC1) ;
@@ -770,7 +770,7 @@ lin
   stroj_N = mkN "строй" Masc Inanimate (ZN 6 No A NoC) ;
   stroka_N = mkN "строка" Fem Inanimate (ZN 3 No D NoC) ;
   struktura_N = mkN "структура" Fem Inanimate n1a ;
-  student_N = mkN "студент" Masc Animate n1a ;
+  student__N = mkN "студент" Masc Animate n1a ;
   stul_N = mkN "стул" Masc Inanimate n1a ;
   sub6ekt_N = mkN "субъект" Masc Inanimate n1a ;
   sud_N = mkN "суд" Masc Inanimate (ZN 1 No B NoC) ;

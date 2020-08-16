@@ -550,6 +550,30 @@ oper
       Ag GPl _ => af.sp
     } ;
 
+  mkCompoundA : AdjForms -> Str -> AdjForms -> AdjForms
+    = \a1,link,a2 ->
+      let l : Str=case link of {x+"-" => BIND ++ "-" ++ BIND ; _ => link} in
+      a2 ** {
+      msnom = a1.sn ++ l ++ a2.msnom ;
+      fsnom = a1.sn ++ l ++ a2.fsnom ;
+      nsnom = a1.sn ++ l ++ a2.nsnom ;
+      pnom  = a1.sn ++ l ++ a2.pnom  ;
+      msgen = a1.sn ++ l ++ a2.msgen ;
+      fsgen = a1.sn ++ l ++ a2.fsgen ;
+      pgen  = a1.sn ++ l ++ a2.pgen  ;
+      msdat = a1.sn ++ l ++ a2.msdat ;
+      fsacc = a1.sn ++ l ++ a2.fsacc ;
+      msins = a1.sn ++ l ++ a2.msins ;
+      fsins = a1.sn ++ l ++ a2.fsins ;
+      pins  = a1.sn ++ l ++ a2.pins  ;
+      msprep= a1.sn ++ l ++ a2.msprep;
+      sm    = a1.sn ++ l ++ a2.sm    ;
+      sf    = a1.sn ++ l ++ a2.sf    ;
+      sn    = a1.sn ++ l ++ a2.sn    ;
+      sp    = a1.sn ++ l ++ a2.sp    ;
+      comp  = a1.sn ++ l ++ a2.comp  ;
+      } ;
+
 ---------------------
 -- Verbs -- Глаголы
 
