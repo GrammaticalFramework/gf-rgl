@@ -95,7 +95,7 @@ lin cat_N = mkN "kucing" ;
 -- lin doctor_N = mkN "" ;
 lin dog_N = mkN "anjing" ;
 -- lin door_N = mkN "" ;
--- lin drink_V2 = mkV2 "" ;
+lin drink_V2 = mkV2 "minum" ;
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
 -- lin dust_N = mkN "" ;
@@ -225,7 +225,7 @@ lin learn_V2 = mkV2 (mkV "ajar" Ber) emptyPrep ;
 -- lin man_N = mkN "" ;
 -- lin married_A2 = mkA "" ;
 -- lin meat_N = mkN "" ;
--- lin milk_N = mkN "" ;
+lin milk_N = mkN "susu" ;
 -- lin moon_N = mkN "" ;
 -- lin mother_N2 = mkN2 "" ;
 -- lin mountain_N = mkN "" ;
@@ -390,7 +390,7 @@ lin teach_V2 = mkV2 "ajar" ;
 -- W - Y
 
 -- lin wait_V2 = mkV2 "" ;
-lin walk_V = mkV "jalan" ;
+lin walk_V = mkV "jalan" Ber ;
 -- lin war_N = mkN "" ;
 -- lin warm_A = mkA "" ;
 -- lin wash_V2 = mkV2 "" ;
