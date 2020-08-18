@@ -49,9 +49,10 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   --   } ;
 
   -- MassNP : CN -> NP ;
-  -- MassNP cn = useN cn ** {
-  --   } ;
-
+    MassNP cn = {
+      s = cn.s ! NF Sg Bare ;
+      p = P3
+      } ;
 
 --2 Determiners
 
