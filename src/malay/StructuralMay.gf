@@ -103,14 +103,14 @@ oper
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep "" ;
--- lin in_Prep = mkPrep "" ;
+lin in_Prep = mkPrep "di" ;
 -- lin on_Prep = mkPrep "" ;
 -- lin part_Prep = mkPrep ;
 -- lin possess_Prep = mkPrep ;
 -- lin through_Prep = mkPrep ;
--- lin to_Prep = mkPrep ;
+lin to_Prep = mkPrep "ke" ;
 -- lin under_Prep = mkPrep "" ;
--- lin with_Prep = mkPrep "" ;
+lin with_Prep = mkPrep "dengan" ;
 -- lin without_Prep = mkPrep "" ;
 
 
