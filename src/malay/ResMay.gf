@@ -78,9 +78,14 @@ oper
   baseQuant : BaseQuant = {
     s = [] ;
     isPoss = False ;
-  } ;
+    } ;
 
---------------------------------------------------------------------------------
+  mkQuant : Str -> Quant = \str -> baseQuant ** {
+    s = str ;
+    sp = \\_ => str
+    } ;
+
+  --------------------------------------------------------------------------------
 -- Prepositions
 
   Preposition : Type = {

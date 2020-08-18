@@ -68,10 +68,10 @@ lin much_Det = R.indefDet "" sg ;
 lin somePl_Det =
 lin someSg_Det =
 
-lin no_Quant =
-lin that_Quant =
-lin this_Quant =
-lin which_IQuant =
+lin no_Quant = -}
+lin that_Quant = mkQuant "itu" ;
+lin this_Quant = mkQuant "ini" ;
+{-lin which_IQuant =
 
 
 -----
