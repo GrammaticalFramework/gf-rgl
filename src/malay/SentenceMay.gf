@@ -1,5 +1,6 @@
+
 concrete SentenceMay of Sentence = CatMay ** open
-  TenseX, ResMay, (AK=AdverbMay), Prelude in {
+  TenseX, ResMay, (AM=AdverbMay), Prelude in {
 
 flags optimize=all_subs ;
 
@@ -70,7 +71,7 @@ lin
   ExtAdvS = advS (SOFT_BIND ++ ",");
 
   -- : S -> Subj -> S -> S ;
-  -- SSubjS s1 subj s2 = AdvS (AK.SubjS subj s2) s1 ;
+  -- SSubjS s1 subj s2 = AdvS (AM.SubjS subj s2) s1 ;
 
   --  : S -> RS -> S ;              -- she sleeps, which is good
   -- RelS sent rs = advS {s = rs.s ! Sg3 Masc ++ SOFT_BIND ++ ","} sent ;

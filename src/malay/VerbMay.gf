@@ -88,11 +88,7 @@ lin
   AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;
 -}
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  -- VPSlashPrep vp prep =
-  --   let adv = prepNP prep emptyNP
-  --    in insertAdv vp adv ;
-
-
+  -- VPSlashPrep vp prep = vp ** {c2 = prep} ;
 
 
 --2 Complements to copula
