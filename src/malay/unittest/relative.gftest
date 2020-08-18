@@ -1,0 +1,11 @@
+Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV go_V))))
+LangEng: a cat that goes
+LangMay: kucing yang pergi
+
+Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
+LangEng: a cat that drinks milk
+LangMay: kucing yang minum susu
+
+Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashPrep (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (UseV walk_V)) with_Prep))))
+LangEng: the cat that the dog walks with
+LangMay: kucing yang anjing berjalan dengannya
