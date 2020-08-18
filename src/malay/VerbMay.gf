@@ -35,10 +35,10 @@ lin
 -}
 --------
 -- Slash
-{-
-  -- : V2 -> VPSlash
-  SlashV2a = useVc ;
 
+  -- : V2 -> VPSlash
+  SlashV2a v2 = v2 ;
+{-
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash2V3,
@@ -54,9 +54,11 @@ lin
   SlashV2Q v2q qs = ;
 
   -- : V2A -> AP -> VPSlash ;  -- paint (it) red
-  -- : VPSlash -> NP -> VP
-  ComplSlash = insertComp ;
+  SlashV2A v2a ap = ;
 -}
+  -- : VPSlash -> NP -> VP
+  ComplSlash vps np = {s = \\vf => vps.s ! vf ++ vps.c2.s ++ np.s} ;
+
 {-
   -- : VV  -> VPSlash -> VPSlash ;
                   -- Just like ComplVV except missing subject!
@@ -111,7 +113,9 @@ lin
     } ;
 
   -- : Adv  -> Comp ;
-  -- CompAdv adv = adv ;
+  CompAdv adv = {
+    s = \\_ => adv.s ;
+    } ;
 
   -- : VP -- Copula alone;
   --UseCopula = useV copula ;

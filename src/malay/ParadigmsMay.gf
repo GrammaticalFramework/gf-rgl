@@ -34,9 +34,8 @@ oper
 
 
   mkV2 : overload {
-    mkV2 : (root : Str) -> V2 ;
-    mkV2 : (root : Str) -> Prefix -> V  -- Root and prefix
-      -- TODO prepositions
+    mkV2 : (root : Str) -> V2 ; -- The prefix is meng and no preposition
+    mkV2 : V -> Prep  -> V2 ;   -- V and Prep
     } ;
 
   -- mkV3 : overload {
@@ -108,8 +107,8 @@ oper
   } ;
 
   mkV2 = overload {
-    mkV2 : Str           -> V2 = \v2   -> lin V2 (mkVerb v2 Meng) ;
-    mkV2 : Str -> Prefix -> V2 = \v2,p -> lin V2 (mkVerb v2 p)
+    mkV2 : Str       -> V2 = \v2  -> lin V2 ((mkVerb v2 Meng) ** {c2 = emptyPrep}) ;
+    mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (v ** {c2 = p})
     } ;
   --
   -- mkV3 = overload {
