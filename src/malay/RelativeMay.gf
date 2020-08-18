@@ -1,5 +1,5 @@
 concrete RelativeMay of Relative = CatMay ** open
-  ResMay, Prelude, (NS=NounMay), (SS=StructuralMay) in {
+  ResMay, Prelude in {
 
 
 lin
@@ -9,11 +9,17 @@ lin
   -- : RP -> VP -> RCl ;
   RelVP rp vp = {
     subj = rp.s ;
-    pred = vp.s ! Root ; -- TODO
+    pred = \\_ => vp.s ! Root ; -- TODO
     } ;
 
-  -- : RP -> ClSlash -> RCl ; -- whom John loves
-  -- RelSlash rp cls =
+  -- : RP -> ClSlash -> RCl ; -- who I went with
+  RelSlash rp cls = {
+    subj = rp.s            -- yang
+        ++ cls.subj ;      -- saya
+    pred =
+      \\p => cls.pred        -- ikut sama
+          ++ cls.c2.obj ! p  -- dengan+nya (depends on the head, not known yet)
+    } ;
 
   -- : RP ;
   IdRP = {s = "yang"} ;
@@ -22,6 +28,5 @@ lin
   --               'I met a man /whose foot/ was broken.'
   -- : Prep -> NP -> RP -> RP ;  -- the mother of whom
   -- FunRP prep np rp = {} ;
-
 
 }
