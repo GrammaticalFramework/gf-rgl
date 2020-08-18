@@ -1,4 +1,4 @@
-concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in {
+concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
   flags optimize=all_subs ;
 
@@ -30,8 +30,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
     in case vp.vptype of {
       NPComp => {
         s = table {
-          P.Pos => vp.s ++BIND++ "a" ++ vp.comp ;
-          P.Neg => "unga" ++ vp.s ++ "i" ++ vp.comp
+          Pos => vp.s ++BIND++ "a" ++ vp.comp ;
+          Neg => "unga" ++ vp.s ++ "i" ++ vp.comp
         }
       } ;
       -- CopIdent => {s = \\pol => (cl_with_id_cop_predicate np vp).s!pol!(Absolute PresTense)!Princ } ;
@@ -68,7 +68,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
 --
 --     EmbedS  s  = {s = conjThat ++ s.s} ;
 --     EmbedQS qs = {s = qs.s ! QIndir} ;
---     EmbedVP vp = {s = infVP VVInf vp False Simul CP.Pos (agrP3 Sg)} ;
+--     EmbedVP vp = {s = infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
     UseCl t p cl = {
       s = \\dm => t.s ++ p.s ++ cl.s ! p.p ! t.t ! dm ;
@@ -97,13 +97,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
 --
 --   oper
 --     ctr : CPolarity -> CPolarity = \x -> x ;
--- ---    ctr = contrP.Neg True ;  -- contracted negations
+-- ---    ctr = contrNeg True ;  -- contracted negations
 
   oper
 
     -- NOTE: removing everything related to auxiliaries and compound tenses
 
-    cl_with_verb_predicate : NP -> VP -> { s : P.Polarity => Tense => DMood => Str ; subjcl : P.Polarity => Tense => Str ; potcl : P.Polarity => DMood => Str } = \np,vp -> {
+    cl_with_verb_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
           subj = case np.isPron of {
@@ -131,14 +131,14 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           --   }
           -- } ;
           vow = case <vp.r,p,t> of {
-            <RC,P.Pos,PresTense> => False ;
-            <RC,P.Pos,PerfTense> => False ;
-            <_,P.Pos,PresTense> => True ;
-            <_,P.Pos,PerfTense> => True ;
+            <RC,Pos,PresTense> => False ;
+            <RC,Pos,PerfTense> => False ;
+            <_,Pos,PresTense> => True ;
+            <_,Pos,PerfTense> => True ;
             <_,_,_> => False
           } ;
           lfya = case <vp.hasComp,p,t> of {
-            <False,P.Pos,PresTense> => "ya" ++BIND ;
+            <False,Pos,PresTense> => "ya" ++BIND ;
             <_,_,_> => []
           } ;
           reqLF = case vp.hasComp of {
@@ -172,10 +172,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           -- } ;
           vform_main = VFSubj p ;
           vow = case <vp.r,p,t> of {
-            <RC,P.Pos,PresTense> => False ;
-            <RC,P.Pos,PerfTense> => False ;
-            <_,P.Pos,PresTense> => True ;
-            <_,P.Pos,PerfTense> => True ;
+            <RC,Pos,PresTense> => False ;
+            <RC,Pos,PerfTense> => False ;
+            <_,Pos,PresTense> => True ;
+            <_,Pos,PerfTense> => True ;
             <_,_,_> => False
           }
         in
@@ -204,7 +204,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           ++ vp.comp
     } ;
 
-    cl_with_ap_comp_predicate : NP -> VP -> { s : P.Polarity => Tense => DMood => Str ; subjcl : P.Polarity => Tense => Str ; potcl : P.Polarity => DMood => Str } = \np,vp -> {
+    cl_with_ap_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
           subj = case np.isPron of {
@@ -232,18 +232,18 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           --   }
           -- } ;
           vow = case <vp.r,p,t> of {
-            <RC,P.Pos,PresTense> => False ;
-            <RC,P.Pos,PerfTense> => False ;
-            <_,P.Pos,PresTense> => True ;
-            <_,P.Pos,PerfTense> => True ;
+            <RC,Pos,PresTense> => False ;
+            <RC,Pos,PerfTense> => False ;
+            <_,Pos,PresTense> => True ;
+            <_,Pos,PerfTense> => True ;
             <_,_,_> => False
           } ;
           lfya = [] ;
           reqLF = False ;
           adjf = case vp.ap_bool of {
             True => (aformN np.agr) ;
-            -- True => A2 ;
-            False => A1
+            -- True => AF2 ;
+            False => AF1
           } ;
           comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf
         in
@@ -272,16 +272,16 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           -- } ;
           vform_main = VFSubj p ;
           vow = case <vp.r,p,t> of {
-            <RC,P.Pos,PresTense> => False ;
-            <RC,P.Pos,PerfTense> => False ;
-            <_,P.Pos,PresTense> => True ;
-            <_,P.Pos,PerfTense> => True ;
+            <RC,Pos,PresTense> => False ;
+            <RC,Pos,PerfTense> => False ;
+            <_,Pos,PresTense> => True ;
+            <_,Pos,PerfTense> => True ;
             <_,_,_> => False
           } ;
           adjf = case vp.ap_bool of {
             True => (aformN np.agr) ;
-            -- True => A2 ;
-            False => A1
+            -- True => AF2 ;
+            False => AF1
           } ;
           comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf
         in
@@ -300,8 +300,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           vform_main = VFPot dm p vp.asp ;
           adjf = case vp.ap_bool of {
             True => (aformN np.agr) ;
-            -- True => A2 ;
-            False => A1
+            -- True => AF2 ;
+            False => AF1
           } ;
           comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf
         in
@@ -314,7 +314,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           ++ comp
     } ;
 
-    cl_with_id_cop_predicate : NP -> VP -> { s : P.Polarity => Tense => DMood => Str ; subjcl : P.Polarity => Tense => Str ; potcl : P.Polarity => DMood => Str } = \np,vp -> {
+    cl_with_id_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
           -- aux_tense = case t of {
@@ -382,7 +382,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           cb
     } ;
 
-    cl_with_ass_cop_predicate : NP -> VP -> { s : P.Polarity => Tense => DMood => Str ; subjcl : P.Polarity => Tense => Str ; potcl : P.Polarity => DMood => Str } = \np,vp -> {
+    cl_with_ass_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
           -- aux_tense = case t of {
@@ -447,7 +447,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           cb
     } ;
 
-    cl_with_eq_cop_predicate : NP -> VP -> { s : P.Polarity => Tense => DMood => Str ; subjcl : P.Polarity => Tense => Str ; potcl : P.Polarity => DMood => Str } = \np,vp -> {
+    cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
           -- aux_tense = case t of {
@@ -512,7 +512,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           cb
     } ;
 
-    cl_with_descr_cop_predicate : NP -> VP -> { s : P.Polarity => Tense => DMood => Str ; subjcl : P.Polarity => Tense => Str ; potcl : P.Polarity => DMood => Str } = \np,vp -> {
+    cl_with_descr_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
           -- aux_tense = case t of {
@@ -542,8 +542,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           pcp = pre_cop_pref vform_main np.agr ;
           adjf = case vp.ap_bool of {
             True => (aformN np.agr) ;
-            --  True => A2 ;
-            False => A1
+            --  True => AF2 ;
+            False => AF1
           } ;
           comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf
         in
@@ -561,8 +561,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           pcp = pre_cop_pref vform_main np.agr ;
           adjf = case vp.ap_bool of {
             True => (aformN np.agr) ;
-            -- True => A2 ;
-            False => A1
+            -- True => AF2 ;
+            False => AF1
           } ;
           comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf
         in
@@ -579,8 +579,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           pcp = pre_cop_pref vform_main np.agr ;
           adjf = case vp.ap_bool of {
             True => (aformN np.agr) ;
-            -- True => A2 ;
-            False => A1
+            -- True => AF2 ;
+            False => AF1
           } ;
           comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf
         in
@@ -589,7 +589,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           comp
     } ;
 
-    cl_with_adv_comp_predicate : NP -> VP -> { s : P.Polarity => Tense => DMood => Str ; subjcl : P.Polarity => Tense => Str ; potcl : P.Polarity => DMood => Str } = \np,vp -> {
+    cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
           subj = case np.isPron of {
@@ -617,15 +617,15 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           --   }
           -- } ;
           vow = case <vp.r,p,t> of {
-            <RC,P.Pos,PresTense> => False ;
-            <RC,P.Pos,PerfTense> => False ;
-            <_,P.Pos,PresTense> => True ;
-            <_,P.Pos,PerfTense> => True ;
+            <RC,Pos,PresTense> => False ;
+            <RC,Pos,PerfTense> => False ;
+            <_,Pos,PresTense> => True ;
+            <_,Pos,PerfTense> => True ;
             <_,_,_> => False
           } ;
           lfya = case <vp.hasComp,p,t> of {
-            -- <False,P.Pos,Absolute PresTense> => "ya" ++BIND ;
-            <False,P.Pos,PresTense> => "ya" ++BIND ;
+            -- <False,Pos,Absolute PresTense> => "ya" ++BIND ;
+            <False,Pos,PresTense> => "ya" ++BIND ;
             <_,_,_> => []
           } ;
           reqLF = case vp.hasComp of {
@@ -659,10 +659,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,(P = ParamX) in
           -- } ;
           vform_main = VFSubj p ;
           vow = case <vp.r,p,t> of {
-            <RC,P.Pos,PresTense> => False ;
-            <RC,P.Pos,PerfTense> => False ;
-            <_,P.Pos,PresTense> => True ;
-            <_,P.Pos,PerfTense> => True ;
+            <RC,Pos,PresTense> => False ;
+            <RC,Pos,PerfTense> => False ;
+            <_,Pos,PresTense> => True ;
+            <_,Pos,PerfTense> => True ;
             <_,_,_> => False
           }
         in

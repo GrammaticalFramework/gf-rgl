@@ -31,7 +31,7 @@ resource ParadigmsZul = open
   ResZul,
   CatZul,
   ExtraCatZul,
-  (R = ParamX)
+  ParamX
   in {
 --2 Parameters
 --

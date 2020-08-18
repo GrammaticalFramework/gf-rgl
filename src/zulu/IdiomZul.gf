@@ -2,7 +2,7 @@ concrete IdiomZul of Idiom = CatZul ** open Prelude, ResZul in {
 
   flags optimize=all_subs ;
 
-  lin
+  -- lin
   --   ImpersCl vp = mkClause "it" (agrP3 Sg) vp ;
   --   GenericCl vp = mkClause "one" (agrP3 Sg) vp ;
   --

@@ -1,4 +1,4 @@
-concrete VerbZul of Verb = CatZul ** open ResZul, Prelude in {
+concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 
   flags optimize=all_subs ;
 
@@ -107,7 +107,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude in {
         s = [] ;
         perfSuff = [] ;
         oc = [] ;
-        comp = comp.s!A1 ; -- doesn't matter
+        comp = comp.s!AF1 ; -- doesn't matter
         hasComp = True ;
         r = comp.r ;
         syl = SylMult ;
@@ -123,7 +123,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude in {
         s = [] ;
         perfSuff = [] ;
         oc = [] ;
-        comp = comp.s!A1 ;
+        comp = comp.s!AF1 ;
         hasComp = True ;
         r = comp.r ; -- probably works...
         syl = SylMult ;
@@ -140,7 +140,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude in {
         s = [] ;
         perfSuff = [] ;
         oc = [] ;
-        comp = comp.s!A1 ; -- doesn't matter
+        comp = comp.s!AF1 ; -- doesn't matter
         hasComp = True ;
         r = comp.r ;
         syl = SylMult ;

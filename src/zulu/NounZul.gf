@@ -1,4 +1,4 @@
-concrete NounZul of Noun = CatZul ** open ResZul, Prelude in {
+concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 
   flags optimize=all_subs ;
 
@@ -186,8 +186,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude in {
           agr = Third cn.c num ;
           adjf = case ap.b of {
             True => (aformN agr) ;
-            -- True => A2 ;
-            False => A1
+            -- True => AF2 ;
+            False => AF1
           }
         in
           adjConcLookup!agr!adjf ++BIND++ ap.s!adjf

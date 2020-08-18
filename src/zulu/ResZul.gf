@@ -3,8 +3,8 @@
 resource ResZul = open Prelude,Predef,ParamX in {
 
   param
-    Number = Sg | Pl ;
-    ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C14 | C15 | C17 ;
+    -- Number = Sg | Pl ;
+    ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C9_6 | C14 | C15 | C17 ;
     -- ClassPrefixForm = Full | NoInitVowel ;
     NForm = Full | Reduced ;
     Agr = First Number | Second Number | Third ClassGender Number ;
@@ -16,7 +16,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- Tense = Absolute BasicTense | Relative BasicTense BasicTense ;
     -- NOTE: PerfTense maps to recent past, PastTense to remote past. Remote future not yet included.
     -- BasicTense = PerfTense | PastTense | PresTense | FutTense ;
-    Tense = PerfTense | PastTense | PresTense | FutTense ;
+    ZTense = PerfTense | PastTense | PresTense | FutTense ;
     -- Polarity = Pos | Neg ;
 
     -- NOTE: Although Poulos+Msimang use "verb form" instead of mood,
@@ -25,11 +25,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- replacing BasicTense with Tense, just for now
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
-    VForm = VFIndic DMood Polarity Tense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
+    VForm = VFIndic DMood Polarity ZTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
     VPType = CopIdent | CopAssoc | CopDescr | CopEq | NPComp | APComp | NoComp | SComp | AdvComp ;
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
 
-    AForm = A1 | A2 ; -- two forms for implementing sound changes Poulos+Msimang p143
+    AForm = AF1 | AF2 ; -- two forms for implementing sound changes Poulos+Msimang p143
     SCForm = SC | SCVow | SCNeg | SCHort | SCPS | SCPart | SVowP ;
     OCForm = OC | OCAE | OCIOU | OCMono | OCThing ;
     --PCForm = (RA|RC) | EI | OU ;
@@ -127,6 +127,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C9_10 Pl =>   table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" } ;
         Third C11_10 Sg =>  table {SC => "lu" ;   SCVow => "lw" ;  SCNeg => "lu" ;  SCHort => "lu" ;  SCPart => "lu" ;  SCPS => "lu" ;  SCVowP => "lu" } ;
         Third C11_10 Pl =>  table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" } ;
+        Third C9_6 Sg =>   table {SC => "i" ;    SCVow => "y" ;   SCNeg => "yi" ;  SCHort => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" } ;
+        Third C9_6 Pl =>   table {SC => "a" ;    SCVow => [] ;    SCNeg => "wa" ;  SCHort => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" } ;
         Third C14 _ =>      table {SC => "bu" ;   SCVow => "b" ;  SCNeg => "bu" ;  SCHort => "bu" ;  SCPart => "bu" ;  SCPS => "bu" ;   SCVowP => "bu" } ;
         Third C15 _ =>      table {SC => "ku" ;   SCVow => "kw" ;  SCNeg => "ku" ;  SCHort => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" } ;
         Third C17 _ =>      table {SC => "ku" ;   SCVow => "kw" ;  SCNeg => "ku" ;  SCHort => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" }
@@ -148,7 +150,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- -be aux: reference time in relation to coding time
     -- relSubjConc : BasicTense -> Agr -> Str = \tense,agr ->
-    relSubjConc : Tense -> Agr -> Str = \tense,agr ->
+    relSubjConc : ZTense -> Agr -> Str = \tense,agr ->
       case tense of {
         PastTense => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND++ case agr of {
           Second Sg | Third C3_4 Sg => "w" ++BIND ;
@@ -179,6 +181,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C9_10 Pl =>   table {OC => "zi" ;   OCAE => "z" ;   OCIOU => "z" ;  OCMono => "zi" ;  OCThing => "zi" } ;
         Third C11_10 Sg =>  table {OC => "lu" ;   OCAE => "lw" ;  OCIOU => "l" ;  OCMono => "lu" ;  OCThing => "lu" } ;
         Third C11_10 Pl =>  table {OC => "zi" ;   OCAE => "z" ;   OCIOU => "z" ;  OCMono => "zi" ;  OCThing => "zi" } ;
+        Third C9_6 Sg =>   table {OC => "yi" ;   OCAE => "y" ;   OCIOU => "y" ;  OCMono => "yi" ;  OCThing => "yi" } ;
+        Third C9_6 Pl =>    table {OC => "wa" ;   OCAE => "w" ;   OCIOU => "w" ;  OCMono => "wa" ;  OCThing => "wa" } ;
         Third C14 _ =>      table {OC => "bu" ;   OCAE => "bw" ;  OCIOU => "b" ;  OCMono => "bu" ;  OCThing => "bu" } ;
         Third C15 _ =>      table {OC => "ku" ;   OCAE => "kw" ;  OCIOU => "k" ;  OCMono => "ku" ;  OCThing => "ku" } ;
         Third C17 _ =>      table {OC => "ku" ;   OCAE => "kw" ;  OCIOU => "k" ;  OCMono => "ku" ;  OCThing => "ku" }
@@ -350,8 +354,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
   regAdj : Str -> { s : AForm => Str ; b : Bool } = \a ->
   {
     s = table {
-      A1 => a ;
-      A2 => case a of {
+      AF1 => a ;
+      AF2 => case a of {
         "kh"+x => "nk"+x ;
         "th"+x => "nt"+x ;
         "sh"+x => "ntsh"+x ;
@@ -385,6 +389,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Third C9_10 Pl => "ezi" ;
       Third C11_10 Sg => "olu" ;
       Third C11_10 Pl => "ezi" ;
+      Third C9_6 Sg => "e" ;
+      Third C9_6 Pl => "a" ;
       Third C14 _ => "obu" ;
       Third C15 _ => "oku" ;
       Third C17 _ => "oku" ;
@@ -410,6 +416,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C9_10 Pl => "e" ;
         Third C11_10 Sg => "o" ;
         Third C11_10 Pl => "e" ;
+        Third C9_6 Sg => "e" ;
+        Third C9_6 Pl => "a" ;
         Third C14 _ => "o" ;
         Third C15 _ => "o" ;
         Third C17 _ => "o" ;
@@ -446,11 +454,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
   -- chooses the form of the root to use for N-prefixes
   aformN : Agr -> AForm = \agr ->
     case agr of {
-      Third C7_8 Pl => A2 ;
-      Third C9_10 Sg => A2 ;
-      Third C9_10 Pl => A2 ;
-      Third C11_10 Pl => A2 ;
-      _ => A1
+      Third C7_8 Pl => AF2 ;
+      Third C9_10 Sg => AF2 ;
+      Third C9_10 Pl => AF2 ;
+      Third C9_6 Sg => AF2 ;
+      Third C11_10 Pl => AF2 ;
+      _ => AF1
     } ;
 
   adjConcLookup : Agr => AForm => Str =
@@ -464,11 +473,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Third C5_6 Sg => \\_ => "eli" ;
       Third C5_6 Pl => \\_ => "ama" ;
       Third C7_8 Sg => \\_ => "esi" ;
-      Third C7_8 Pl => table { A1 => "ezin" ; A2 => "ezi" } ;
-      Third C9_10 Sg => table { A1 => "en" ; A2 => "e" } ;
-      Third C9_10 Pl => table { A1 => "ezin" ; A2 => "ezi" } ;
+      Third C7_8 Pl => table { AF1 => "ezin" ; AF2 => "ezi" } ;
+      Third C9_10 Sg => table { AF1 => "en" ; AF2 => "e" } ;
+      Third C9_10 Pl => table { AF1 => "ezin" ; AF2 => "ezi" } ;
       Third C11_10 Sg => \\_ => "olu" ;
-      Third C11_10 Pl => table { A1 => "ezin" ; A2 => "ezi" } ;
+      Third C11_10 Pl => table { AF1 => "ezin" ; AF2 => "ezi" } ;
+      Third C9_6 Sg => table { AF1 => "en" ; AF2 => "e" } ;
+      Third C9_6 Pl => \\_ => "ama" ;
       Third C14 _ => \\_ => "obu" ;
       Third C15 _ => \\_ => "oku" ;
       Third C17 _ => \\_ => "oku" ;
@@ -486,11 +497,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C5_6 Sg => \\_ => "li" ;
         Third C5_6 Pl => \\_ => "ma" ;
         Third C7_8 Sg => \\_ => "si" ;
-        Third C7_8 Pl => table { A1 => "zin" ; A2 => "zi" } ;
-        Third C9_10 Sg => table { A1 => "in" ; A2 => "i" } ;
-        Third C9_10 Pl => table { A1 => "zin" ; A2 => "zi" } ;
+        Third C7_8 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
+        Third C9_10 Sg => table { AF1 => "in" ; AF2 => "i" } ;
+        Third C9_10 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
         Third C11_10 Sg => \\_ => "lu" ;
-        Third C11_10 Pl => table { A1 => "zin" ; A2 => "zi" } ;
+        Third C11_10 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
+        Third C9_6 Sg => table { AF1 => "in" ; AF2 => "i" } ;
+        Third C9_6 Pl => \\_ => "ma" ;
         Third C14 _ => \\_ => "bu" ;
         Third C15 _ => \\_ => "ku" ;
         Third C17 _ => \\_ => "ku" ;
@@ -516,6 +529,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C9_10 Pl => "zi" ;
         Third C11_10 Sg => "lu" ;
         Third C11_10 Pl => "zi" ;
+        Third C9_6 Sg => "yi" ;
+        Third C9_6 Pl => "ma" ;
         Third C14 _ => "bu" ;
         Third C15 _ => "ku" ;
         Third C17 _ => "ku" ;
@@ -540,6 +555,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Third C9_10 Pl => "zo" ;
       Third C11_10 Sg => "lo" ;
       Third C11_10 Pl => "zo" ;
+      Third C9_6 Sg => "yo" ;
+      Third C9_6 Pl => "o" ;
       Third C14 _ => "bo" ;
       Third C15 _ => "ko" ;
       Third C17 _ => "ko" ;
@@ -596,6 +613,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Third C9_10 Pl => RI ;
       Third C11_10 Sg => RU ;
       Third C11_10 Pl => RI ;
+      Third C9_6 Sg => RI ;
+      Third C9_6 Pl => RA ;
       Third C14 _ => RU ;
       Third C15 _ => RU ;
       Third C17 _ => RU ;
@@ -691,6 +710,15 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
                                     _ => "izin"+root
                                   } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+        <C9_6,Sg> => case root of {
+                                    ("m"|"n")+_ => "i"+root ;
+                                    #labial_cons+_ => "im"+root ;
+                                    _ => "in"+root
+                                  } ; -- im for labial, in for alveolar (TODO: does this correctly split options?)
+        <C9_6,Pl> => case root of {
+                                    "i"+_ => "ame"+root ;
+                                    _ => "ama"+root
+                                  } ; -- ame for roots starting with i
         <C14,_> => "ubu"+root ;
         <C15,_> => case root of {
                                     ("a"|"e")+_ => "ukw"+root ;
@@ -750,6 +778,15 @@ resource ResZul = open Prelude,Predef,ParamX in {
                                       ("m"|"n")+_ => "ezi"+(addLocSuffix root) ;
                                       _ => "ezin"+(addLocSuffix root)
                                     } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+          <C9_6,Sg> => case root of {
+                                      ("m"|"n")+_ => "e"+(addLocSuffix root) ;
+                                      #labial_cons+_ => "em"+(addLocSuffix root) ;
+                                      _ => "en"+(addLocSuffix root)
+                                    } ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+          <C9_6,Pl> => case root of {
+                                      "i"+_ => "eme"+(addLocSuffix root) ;
+                                      _ => "ema"+(addLocSuffix root)
+                                    } ; -- ame for roots starting with i
           <C14,_> => "ebu"+(addLocSuffix root) ;
           <C15,_> => case root of {
                                       ("a"|"e")+_ => "ekw"+(addLocSuffix root) ;
@@ -782,6 +819,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
               C11_10 => table {Sg => table {(RA|RC) => "lwa" ; (RE|RI) => "lwe" ; (RO|RU) => "lo" } ;
                              Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" }
                             };
+              C9_6 => table {Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
+                              Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" }
+                            };
               C14 => table { _ => table { (RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" }
                             };
               C15 => table { _ => table { (RA|RC) => "kwa" ; (RE|RI) => "kwe" ; (RO|RU) => "ko" }
@@ -813,6 +853,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
               C11_10 => table {Sg => table {(RA|RC) => "luka" ; (RE|RI) => "luke" ; (RO|RU) => "luko" } ;
                                Pl => table {(RA|RC) => "zika" ; (RE|RI) => "zike" ; (RO|RU) => "ziko" }
                           };
+              C9_6 => table {Sg => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" } ;
+                              Pl => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" }
+                            };
               C14 => table { _ => table { (RA|RC) => "buka" ; (RE|RI) => "buke" ; (RO|RU) => "buko" }
                             };
               C15 => table { _ => table { (RA|RC) => "kuka" ; (RE|RI) => "kuke" ; (RO|RU) => "kuko" }
@@ -881,6 +924,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Third C9_10 Pl => "zo" ;
       Third C11_10 Sg => "lo" ;
       Third C11_10 Pl => "zo" ;
+      Third C9_6 Sg => "yo" ;
+      Third C9_6 Pl => "wo" ;
       Third C14 _ => "bo" ;
       Third C15 _ => "kho" ;
       Third C17 _ => "kho"

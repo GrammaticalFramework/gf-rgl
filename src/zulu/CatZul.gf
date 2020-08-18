@@ -1,12 +1,12 @@
 concrete CatZul of Cat = CommonX - [Temp,Adv] **
-  open ResZul, Prelude, (P = ParamX) in {
+  open ResZul, Prelude,ParamX in {
 
   flags optimize=all_subs ;
 
   lincat
 
     -- for now, no anteriority
-    Temp = { s : Str ; t : ResZul.Tense } ;
+    Temp = { s : Str ; t : ZTense } ;
 
 -- Tensed/Untensed
     S = {
@@ -21,21 +21,21 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
 -- Sentence
 
     Cl = {
-      s : P.Polarity => ResZul.Tense => DMood => Str ;
-      subjcl : P.Polarity => ResZul.Tense => Str ;
-      potcl : P.Polarity => DMood => Str
+      s : Polarity => ZTense => DMood => Str ;
+      subjcl : Polarity => ZTense => Str ;
+      potcl : Polarity => DMood => Str
     } ;
 --     ClSlash = {
---       s : ResZul.Tense => Anteriority => CP.Polarity => Order => Str ;
+--       s : ResZul.Tense => Anteriority => CPolarity => Order => Str ;
 --       c2 : Str
 --       } ;
-    Imp = { s : P.Polarity => Str } ;
+    Imp = { s : Polarity => Str } ;
 
 -- Question
 
     QCl = {
-      s : P.Polarity => ResZul.Tense => DMood => Str ;
-      potqcl : P.Polarity => DMood => Str ;
+      s : Polarity => ZTense => DMood => Str ;
+      potqcl : Polarity => DMood => Str ;
       qword : Str
     } ;
 --     IP = {s : NPCase => Str ; n : Number} ;
@@ -45,7 +45,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
 
 -- Relative
 
-    RCl = { s : P.Polarity => ResZul.Tense => Agr => Str } ;
+    RCl = { s : Polarity => ZTense => Agr => Str } ;
     RP = { s : Str } ;
 
 -- Verb
@@ -121,7 +121,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
     Subj = {s : Str} ;
     -- Adv = { s : Str ; asp : Aspect ; reqLocS : Bool } ;
 --     Prep = {s : Str; isPre : Bool} ;
---     CAdv = {s : P.Polarity => Str; p : Str} ;
+--     CAdv = {s : Polarity => Str; p : Str} ;
 
 -- Open lexical classes, e.g. Lexicon
     V,V2,VA = { s : Str ; r : RInit ; syl : Syl ; voice : Voice ; perfSuff : Str } ;

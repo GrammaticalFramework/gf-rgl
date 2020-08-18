@@ -1,6 +1,7 @@
 concrete ExtraZul of ExtraZulAbs =
-  GrammarZul[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS]
-  ** open ResZul,Prelude in {
+  GrammarZul[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS],
+  ExtraCatZul
+  ** open ResZul,Prelude,ParamX in {
 
   lin
     PotQS p qcl = {
@@ -183,22 +184,22 @@ concrete ExtraZul of ExtraZulAbs =
       s = \\a => relConc!a ++BIND++ adv.s
     } ;
 
-    ProgVP vp = {
-      s = vp.s ;
-      perfSuff = vp.perfSuff ;
-      oc = vp.oc ;
-      comp = vp.comp ;
-      hasComp = vp.hasComp ;
-      r = vp.r ;
-      syl = vp.syl ;
-      asp = Prog ;
-      vptype = vp.vptype ;
-      comp_agr = vp.comp_agr ;
-      ap_comp = vp.ap_comp ;
-      ap_bool = vp.ap_bool ;
-      aux_root = vp.aux_root ;
-      hasAux = vp.hasAux
-    } ;
+    -- ProgVP vp = {
+    --   s = vp.s ;
+    --   perfSuff = vp.perfSuff ;
+    --   oc = vp.oc ;
+    --   comp = vp.comp ;
+    --   hasComp = vp.hasComp ;
+    --   r = vp.r ;
+    --   syl = vp.syl ;
+    --   asp = Prog ;
+    --   vptype = vp.vptype ;
+    --   comp_agr = vp.comp_agr ;
+    --   ap_comp = vp.ap_comp ;
+    --   ap_bool = vp.ap_bool ;
+    --   aux_root = vp.aux_root ;
+    --   hasAux = vp.hasAux
+    -- } ;
 
     QuantRS quant = {
       s = \\a => relConc!a ++BIND++ quantConc!a ++BIND++ quant.s
@@ -229,7 +230,7 @@ concrete ExtraZul of ExtraZulAbs =
         let
           agr = Third cn.c num ;
         in
-          "na" ++BIND++ a.s!A2 ++ cn.desc ! num ;
+          "na" ++BIND++ a.s!AF2 ++ cn.desc ! num ;
       c = cn.c
     } ;
 
@@ -238,7 +239,7 @@ concrete ExtraZul of ExtraZulAbs =
     painful_RelStem = { s = "buhlungu" } ;
 
     -- TPerfPast = { s = [] ; t = Relative PerfTense PastTense } ;
-    TPresPres = { s = [] ; t = Relative PresTense PresTense } ;
+    TPresPres = { s = [] ; t = PresTense } ;
     -- TPastPres = { s = [] ; t = Relative PastTense PresTense } ;
     -- TPastPerf = { s = [] ; t = Relative PastTense PerfTense } ;
 
@@ -280,7 +281,7 @@ concrete ExtraZul of ExtraZulAbs =
     --   hasAux = False
     -- } ;
 
-    ConjAdv conj s = {
+    ConjNAdv conj s = {
       s = conj.s ++ s.s!Part ;
       asp = Null ;
       reqLocS = False
@@ -310,7 +311,7 @@ concrete ExtraZul of ExtraZulAbs =
     } ;
 
   oper
-    qcl_np_iadv : NP -> IAdv -> {s : Polarity => Tense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword : Str} = \np,iadv -> {
+    qcl_np_iadv : NP -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword : Str} = \np,iadv -> {
       s = \\p,t,dm =>
         let
           subj = case np.isPron of {
@@ -352,7 +353,7 @@ concrete ExtraZul of ExtraZulAbs =
       qword = []
     } ;
 
-    cl_with_np_predicate : NP -> { s : Polarity => Tense => DMood => Str ; subjcl : Polarity => Tense => Str ; potcl : Polarity => DMood => Str } = \np -> {
+    cl_with_np_predicate : NP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np -> {
       s = \\p,t,dm =>
         let
           -- aux_tense = case t of {

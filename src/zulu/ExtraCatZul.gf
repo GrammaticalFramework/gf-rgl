@@ -1,4 +1,4 @@
-concrete ExtraCatZul of ExtraCatZulAbs = open ResZul,Prelude in {
+concrete ExtraCatZul of ExtraCatZulAbs = open ResZul,Prelude,ParamX in {
 
   lincat
     QuantStem = { s : Str ; n : Number } ;

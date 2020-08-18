@@ -65,7 +65,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
   --     in {s = \\t,a,b,_ => cl.s ! t ! a ! b ! oDir} ; ----
 
   oper
-    qcl_iadv : Cl -> IAdv -> {s : Polarity => ResZul.Tense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword : Str } = \cl,iadv -> {
+    qcl_iadv : Cl -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword : Str } = \cl,iadv -> {
       s = cl.s ;
       potqcl = cl.potcl ;
       qword = iadv.s

@@ -1,5 +1,5 @@
 abstract ExtraZulAbs =
-  Grammar[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS] ** {
+  Grammar[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS], ExtraCatZulAbs ** {
 
   fun
     PotQS : Pol -> QCl -> QS ;
@@ -52,7 +52,7 @@ abstract ExtraZulAbs =
 
     ComplVAux : VAux -> VP -> VP ;
 
-    ConjAdv : ConjN -> S -> Adv ; -- lapho kunobuhlungu khona
+    ConjNAdv : ConjN -> S -> Adv ; -- lapho kunobuhlungu khona
 
     where_ConjN : ConjN ;
 

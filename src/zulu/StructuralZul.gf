@@ -1,7 +1,7 @@
 concrete StructuralZul of Structural = CatZul **
   open
     -- MorphoZul,
-    ResZul, ParadigmsZul, Prelude in {
+    ResZul, ParadigmsZul, Prelude, ParamX in {
 
   flags optimize=all ;
 

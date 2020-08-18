@@ -2,7 +2,10 @@
 
 concrete NguniLangZul of NguniLangAbs =
   GrammarZul,
-  NguniLexiconZul,
+  BackwardZul[ComplV2,ComplV3],
+  ExtraCatZul,
+  ExtraZul,
+  MonoLexZul,
   -- GuesserZul,
   TempZul
   -- ,ConstructionZul

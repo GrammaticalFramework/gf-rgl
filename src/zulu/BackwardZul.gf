@@ -1,4 +1,4 @@
-concrete BackwardZul of Backward = CatZul ** open ResZul in {
+concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
 
   flags optimize=all_subs ;
 

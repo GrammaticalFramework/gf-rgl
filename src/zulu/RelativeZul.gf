@@ -34,7 +34,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
     IdRP = { s = [] } ;
 
     oper
-      rcl_with_verb_predicate : RP -> VP -> { s : Polarity => ResZul.Tense => Agr => Str } = \rp,vp -> {
+      rcl_with_verb_predicate : RP -> VP -> { s : Polarity => ZTense => Agr => Str } = \rp,vp -> {
         s = \\p,t,a =>
           let
             -- aux_tense = case t of {
@@ -88,7 +88,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             ++ vp.comp
       } ;
 
-      rcl_with_id_cop_predicate : RP -> VP -> { s : Polarity => ResZul.Tense => Agr => Str } = \rp,vp -> {
+      rcl_with_id_cop_predicate : RP -> VP -> { s : Polarity => ZTense => Agr => Str } = \rp,vp -> {
         s = \\p,t,a =>
           let
             -- aux_tense = case t of {
@@ -117,7 +117,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             cb
       } ;
 
-      rcl_with_ass_cop_predicate : RP -> VP -> { s : Polarity => ResZul.Tense => Agr => Str } = \rp,vp -> {
+      rcl_with_ass_cop_predicate : RP -> VP -> { s : Polarity => ZTense => Agr => Str } = \rp,vp -> {
         s = \\p,t,a =>
           let
             -- aux_tense = case t of {
@@ -145,7 +145,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             cb
       } ;
 
-      rcl_with_eq_cop_predicate : RP -> VP -> { s : Polarity => ResZul.Tense => Agr => Str } = \rp,vp -> {
+      rcl_with_eq_cop_predicate : RP -> VP -> { s : Polarity => ZTense => Agr => Str } = \rp,vp -> {
         s = \\p,t,a =>
           let
             -- aux_tense = case t of {
