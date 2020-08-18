@@ -93,6 +93,11 @@ oper
     obj = \\p => dengan + poss2str (Poss p)
     } ;
 
+  emptyPrep : Preposition = {
+    s = [] ;
+    obj = \\_ => []
+    } ;
+
 --------------------------------------------------------------------------------
 -- Adjectives
 
@@ -108,8 +113,8 @@ oper
   Verb : Type = {
     s : VForm => Str
     } ;
-  Verb2 : Type = Verb ; --** {c2 : Preposition} ;
-  Verb3 : Type = Verb2 ; -- ** {c3 : Preposition} ;
+  Verb2 : Type = Verb ** {c2 : Preposition} ;
+  Verb3 : Type = Verb2 ** {c3 : Preposition} ;
 
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
