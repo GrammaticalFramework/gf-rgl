@@ -8,7 +8,11 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
 -- : Det -> CN -> NP
     DetCN det cn = {
-      s = det.s ++ cn.s ! NF det.n Bare ; -- TODO add possessive determiners
+      s =
+        case det.isPoss of {
+          True => cn.s ! NF det.n (Poss P3) ; -- TODO add possessive determiners
+          False => cn.s ! NF det.n Bare }
+        ++ det.s ;
       p = P3
       } ;
 
