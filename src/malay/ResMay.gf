@@ -156,12 +156,21 @@ oper
 
   Clause : Type = {subj, pred : Str} ;
 
+  RClause : Type = {
+    subj : Str ;
+    pred : Person => Str} ;
+
+  ClSlash : Type = Clause ** {c2 : Preposition} ;
+
   Sentence : Type = {s : Str} ;
 
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
     subj = np.s ;
     pred = vp.s ! Active ; -- TODO
     } ;
+
+  predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
+    predVP np <vps : VerbPhrase> ** {c2 = vps.c2} ;
 
 --------------------------------------------------------------------------------
 -- linrefs

@@ -15,20 +15,21 @@ lin
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
-  SlashVP = predVP ;
-{-
+  SlashVP = predVPSlash ;
+
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
-  AdvSlash cls adv = cls ** insertAdv adv cls ;
+  -- AdvSlash cls adv = cls ** insertAdv adv cls ;
 
---    SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  -- : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  SlashPrep cl prep = cl ** {c2 = prep} ;
 
+ {-
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
---  SlashVS np vs ss = {} ;
+  SlashVS np vs ss = {} ;
 
 
-  --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
-  UseSlash t p cls = {
-    } ;
+  -- : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
+  UseSlash t p cls = {} ;
 
 --2 Imperatives
   -- : VP -> Imp ;
@@ -58,8 +59,8 @@ lin
     } ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p cl = {
-    s = cl.subj ++ t.s ++ p.s ++ cl.pred ;
+  UseRCl t p cl = cl ** {
+    pred = \\per => t.s ++ p.s ++ cl.pred ! per ;
     } ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home

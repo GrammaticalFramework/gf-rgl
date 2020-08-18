@@ -9,12 +9,12 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
 
     S  = ResMay.Sentence ;
     QS = SS ;
-    RS = SS ;
+    RS = ResMay.RClause ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
     Cl = ResMay.Clause ;
-    ClSlash = ResMay.Clause ;
+    ClSlash = ResMay.ClSlash ;
     SSlash  = ResMay.Sentence ; -- sentence missing NP; e.g. "she has looked at"
     Imp     = {s : Number => Polarity => Str} ; -- imperative             e.g. "look at this"
 
@@ -30,7 +30,7 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
 
 --2 Subord clauses and pronouns
 
-    RCl = ResMay.Clause ;
+    RCl = ResMay.RClause ;
     RP = SS ;
 
 --2 Verb phrases
