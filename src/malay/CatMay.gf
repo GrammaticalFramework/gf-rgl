@@ -102,7 +102,9 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
     VA,    -- adjective-complement verb           e.g. "look"
     V = ResMay.Verb ;
 
-    VV,    -- verb-phrase-complement verb         e.g. "want"
+    VV     -- verb-phrase-complement verb         e.g. "want"
+      = SS ;
+
     V2A,   -- verb with NP and AP complement      e.g. "paint"
     V2V,   -- verb with NP and V complement       e.g. "cause"
     V2S,   -- verb with NP and S complement       e.g. "tell"

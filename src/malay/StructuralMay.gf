@@ -158,8 +158,7 @@ lin language_title_Utt = ss "bahasa Melayu" ;
 -- lin can8know_VV = can_VV ; -- can (capacity)
 -- lin can_VV = mkVV "" ;   -- can (possibility)
 -- lin must_VV = mkVV "" ;
--- lin want_VV = mkVV "" subjunctive ;
-
+lin want_VV = mkVV "mahu" ;
 
 ------
 -- Voc

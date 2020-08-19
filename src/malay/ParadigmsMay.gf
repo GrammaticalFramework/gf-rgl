@@ -43,8 +43,9 @@ oper
     mkV3 : V -> Prep -> Prep -> V3 ; -- Prepositions for direct and indirect objects given
     } ;
 
-  -- mkVV : overload {
-  --  } ;
+  mkVV : overload {
+    mkVV : Str -> VV ;
+   } ;
 
   --
   -- mkVA : Str -> VA
@@ -120,8 +121,9 @@ oper
       lin V3 (mkVerb3 v p q)
     } ;
 
-  -- mkVV = overload {
-  --  } ;
+ mkVV = overload {
+   mkVV : Str -> VV = \vv -> lin VV (ss vv)
+   } ;
 
 --------------------------------------------------------------------------------
 
