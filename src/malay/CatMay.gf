@@ -9,7 +9,7 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
 
     S  = ResMay.Sentence ;
     QS = SS ;
-    RS = ResMay.RClause ;
+    RS = ResMay.RS ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
