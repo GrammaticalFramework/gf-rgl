@@ -5,3 +5,7 @@ LangMay: anjing dicinta
 Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (PassV2 love_V2))
 LangEng: the dog isn't loved
 LangMay: anjing tidak dicinta
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (ComplVV want_VV (PassV2 love_V2)))
+LangEng: the dog doesn't want to be loved
+LangMay: anjing tidak mahu dicinta
