@@ -52,14 +52,14 @@ lin book_N = mkN "buku" ;
 -- lin brown_A = mkA "" ;
 -- lin burn_V = mkV "" ;
 -- lin butter_N = mkN "" ;
--- lin buy_V2 = mkV2 "" ;
+lin buy_V2 = mkV2 "beli" ;
 
 ----
 -- C
 
 -- lin camera_N = mkN "" ;
 -- lin cap_N = mkN "" ;
--- lin car_N = mkN "" ;
+lin car_N = mkN "kereta" ;
 -- lin carpet_N = mkN "" ;
 lin cat_N = mkN "kucing" ;
 -- lin ceiling_N = mkN "" ;
@@ -74,7 +74,7 @@ lin cat_N = mkN "kucing" ;
 -- lin cloud_N = mkN "" ;
 -- lin coat_N = mkN "" ;
 -- lin cold_A = mkA "" ;
--- lin come_V = mkV "" ;
+lin come_V = mkV "datang" ;
 -- lin computer_N = mkN "" ;
 -- lin correct_A = mkA "" ;
 -- lin count_V2 = mkV2 "" ;
@@ -118,7 +118,7 @@ lin drink_V2 = mkV2 "minum" ;
 -- lin fall_V = mkV "" ;
 -- lin far_Adv = mkA "" ;
 -- lin fat_N = mkN "" ;
--- lin father_N2 = mkN2 "" ;
+lin father_N2 = mkN2 "bapa" ;
 -- lin fear_V2 = mkV2 "" ;
 -- lin fear_VS = mkVS "" ;
 -- lin feather_N = mkN "" ;
@@ -148,7 +148,7 @@ lin drink_V2 = mkV2 "minum" ;
 
 -- lin garden_N = mkN "" ;
 -- lin girl_N = mkN "" ;
--- lin give_V3 = mkV3 "" ;
+lin give_V3 = mkV3 (mkV "beri" Meng) ;
 -- lin glove_N = mkN "" ;
 lin go_V = mkV "pergi" ;
 -- lin gold_N = mkN "" ;
@@ -308,7 +308,7 @@ lin person_N = mkN "orang" ;
 -- lin see_V2 = mkV2 "" ;
 -- lin seed_N = mkN "" ;
 -- lin seek_V2 = mkV2 "" ;
--- lin sell_V3 = mkV3 "" ;
+lin sell_V3 = mkV3 (mkV "jual" Meng) ;
 -- lin send_V3 = mkV3 "" ;
 -- lin sew_V = mkV "" ;
 -- lin sharp_A = mkA "" ;
@@ -390,7 +390,7 @@ lin teach_V2 = mkV2 "ajar" ;
 -- W - Y
 
 -- lin wait_V2 = mkV2 "" ;
-lin walk_V = mkV "jalan" Ber ;
+lin walk_V = mkV "jalan" ;
 -- lin war_N = mkN "" ;
 -- lin warm_A = mkA "" ;
 -- lin wash_V2 = mkV2 "" ;
