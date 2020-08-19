@@ -822,6 +822,7 @@ oper
 
   verbImperativeAgree : VerbForms -> Agr -> TempParts
     = \vf,a -> case a of {
+      Ag (GSg Neut) (P1|P2|P3) => <"", (verbInf vf)> ;  -- reused neuter for immediate imperative
       Ag (GSg _) P1 => <"", (verbInf vf)> ;  -- ?
       Ag (GSg _) P2 => <"", case vf.refl of {NonReflexive=>vf.isg2; Reflexive=>vf.isg2refl}> ;
       Ag (GSg x) P3 => <"пусть", verbFutAgree vf (Ag (GSg x) P3)> ;  -- ?

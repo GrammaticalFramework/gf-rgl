@@ -44,15 +44,16 @@ lin
   RelNP np rs = np ** {s=\\cas=>np.s ! cas ++ embedInCommas (rs.s ! agrGenNum np.a ! Inanimate !cas)} ;
 
   -- : Det -> NP ;        -- these five
-  DetNP det = {
-    s=case det.type of {
-      EmptyIndef => \\cas => a_Det.s ! det.g ! Inanimate ! cas ++ det.s ! det.g ! Inanimate ! cas ;
-      EmptyDef => \\cas => the_Det.s ! det.g ! Inanimate ! cas ++ det.s ! det.g ! Inanimate ! cas ;
-      _ => \\cas => det.s ! det.g ! Inanimate ! cas
+  DetNP det =
+    let g = det.g in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
       } ;
-    pron=False ;
-    a=Ag (gennum det.g (numSizeNumber det.size)) P3
-    } ;
 
   -- : CN -> NP ;           -- (beer)
   MassNP cn =

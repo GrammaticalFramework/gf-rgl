@@ -7,7 +7,7 @@ lin
   UttQS qs = {s = qs.s ! QDir} ;
 
   -- : Pol -> Imp -> Utt ;         -- (don't) love yourself
-  UttImpSg pol imp = {s = imp.s ! pol.p ! GSg Masc} ;
+  UttImpSg pol imp = {s = imp.s ! pol.p ! GSg Masc} ;  -- NB: Neut used for another kind of imperative
   -- : Pol -> Imp -> Utt ;         -- (don't) love yourselves
   UttImpPl pol imp = {s = imp.s ! pol.p ! GPl} ;
   -- : Pol -> Imp -> Utt ;         -- (don't) sleep (polite)
