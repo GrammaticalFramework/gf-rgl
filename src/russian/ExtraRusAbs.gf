@@ -13,6 +13,7 @@ fun
   obj_neg_Prep : Prep ;
   obj_no_Prep : Prep ;
   on_to_Prep : Prep ;
+  on2_Prep : Prep ;
   to2_Prep : Prep ;
   to_dat_Prep : Prep ;
   u_Prep : Prep ;
@@ -82,4 +83,7 @@ fun
   rather_CAdv : CAdv ;
 
   CompoundA : A -> A -> A ;
+  TransgrAsAdv : Temp -> Pol -> VPSlash -> Adv ;
+  TransgrAsAdv1 : Temp -> Pol -> VPSlash -> Adv ;
+  UttImpImm : Pol -> Imp -> Utt ;
 }

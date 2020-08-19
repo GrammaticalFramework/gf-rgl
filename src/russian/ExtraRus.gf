@@ -12,6 +12,7 @@ lin
   dat_Prep = lin Prep {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
   u_Prep = lin Prep {s="у" ; c=Gen ; neggen=False ; hasPrep=True} ;
   on_to_Prep = P.mkPrep "до" Gen ;
+  on2_Prep = P.on2_Prep ;
   along_Prep = P.mkPrep "по" Loc ;
   from2_Prep = from2 ;
   about_Prep = P.mkPrep o_prep_pre_mod Pre ;
@@ -103,6 +104,36 @@ lin
 
   -- : A -> A -> A ;
   CompoundA a1 a2 = mkCompoundA a1 "-" a2 ;
+
+  -- : Temp -> Pol -> VPSlash -> Adv ;  -- introduce transgressive: ", делая что-то ," = "(was) (not) doing smth, "
+  TransgrAsAdv temp pol vps = {
+    s=embedInCommas (
+      vps.adv ! Ag (GSg Neut) P3
+      ++ pol.s
+      ++ case temp.t of {Pres => vps.verb.prtr ; _ => vps.verb.ptr }
+      ++ verbRefl vps.verb
+      ++ case temp.t of {Cond => "бы" ; _ => []}
+      ++ vps.dep
+      ++ vps.compl ! pol.p ! Ag (GSg Neut) P3
+      ++ vps.c.s
+      )
+    } ;
+
+  -- : Temp -> Pol -> VPSlash -> Adv ;  -- transgressive in places, where comma already exists or in the beginning
+  TransgrAsAdv1 temp pol vps = {
+    s=vps.adv ! Ag (GSg Neut) P3
+      ++ pol.s
+      ++ case temp.t of {Pres => vps.verb.prtr ; _ => vps.verb.ptr }
+      ++ verbRefl vps.verb
+      ++ case temp.t of {Cond => "бы" ; _ => []}
+      ++ vps.dep
+      ++ vps.compl ! pol.p ! Ag (GSg Neut) P3
+      ++ vps.c.s
+      ++ endComma
+    } ;
+
+  -- : Pol -> Imp -> Utt ;         -- sleep (impolite, like immediate command)
+  UttImpImm pol imp = {s = imp.s ! pol.p ! (GSg Neut)} ; -- reused otherwise unused gender
 
 oper
   est_V : V = lin V {

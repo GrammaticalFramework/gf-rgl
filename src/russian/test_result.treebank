@@ -169,6 +169,138 @@ AllRus: как звать вас
 AllRusAbs: what_name_QCl (UsePron youSg_Pron)
 AllRus: как звать тебя
 
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не падало бы
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко падало бы
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не падало бы
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко падало бы
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не будет падать
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко будет падать
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не будет падать
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко будет падать
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не падало
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко падало
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не падало
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко падало
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не падает
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко не падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseV fall_V))
+AllRus: Яблоко падает
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не падало бы
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко падало бы
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не падало бы
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко падало бы
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не будет падать
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко будет падать
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не будет падать
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко будет падать
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не падало
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко падало
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не падало
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко падало
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не падает
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко падает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко не падает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv when_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Когда яблоко падает
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не падало бы
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко падало бы
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не падало бы
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко падало бы
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не будет падать
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко будет падать
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не будет падать
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко будет падать
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не падало
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко падало
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не падало
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко падало
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не падает
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко падает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко не падает
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv whereto_IAdv (PredVP (MassNP (UseN apple_N)) (UseV fall_V)))
+AllRus: Куда яблоко падает
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не падало бы на голову
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко падало бы на голову
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не падало бы на голову
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко падало бы на голову
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не будет падать на голову
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко будет падать на голову
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не будет падать на голову
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко будет падать на голову
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не падало на голову
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко падало на голову
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не падало на голову
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко падало на голову
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не падает на голову
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко падает на голову
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко не падает на голову
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv why_IAdv (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP on2_Prep (MassNP (UseN head_N))))))
+AllRus: Почему яблоко падает на голову
+
 AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
 AllRus: не его имя бы &+ ло бы Иван
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
@@ -1062,74 +1194,8 @@ AllRus: она не спа &+ ла
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseComp (CompCN (RelCN (UseN worm_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP thirsty_VP))))))
 AllRus: являешься червем , который хочет пить
 
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV blow_V) for_Prep)))
-AllRus: для чего Иван дует
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV breathe_V) for_Prep)))
-AllRus: для чего Иван дышит
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV burn_V) for_Prep)))
-AllRus: для чего Иван горит
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV come_V) for_Prep)))
-AllRus: для чего Иван приходит
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV die_V) for_Prep)))
-AllRus: для чего Иван умирает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV dig_V) for_Prep)))
-AllRus: для чего Иван копает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV fall_V) for_Prep)))
-AllRus: для чего Иван падает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV float_V) for_Prep)))
-AllRus: для чего Иван плавает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV flow_V) for_Prep)))
-AllRus: для чего Иван течёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV fly_V) for_Prep)))
-AllRus: для чего Иван летает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV freeze_V) for_Prep)))
-AllRus: для чего Иван замерзает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV go_V) for_Prep)))
-AllRus: для чего Иван ходит
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV jump_V) for_Prep)))
-AllRus: для чего Иван прыгает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV laugh_V) for_Prep)))
-AllRus: для чего Иван смеёт &+ ся
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV lie_V) for_Prep)))
-AllRus: для чего Иван лжёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV live_V) for_Prep)))
-AllRus: для чего Иван живёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV play_V) for_Prep)))
-AllRus: для чего Иван играет
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV rain_V0) for_Prep)))
-AllRus: для чего Иван дождит
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV run_V) for_Prep)))
-AllRus: для чего Иван бегает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sew_V) for_Prep)))
-AllRus: для чего Иван шьёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sing_V) for_Prep)))
-AllRus: для чего Иван поёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sit_V) for_Prep)))
-AllRus: для чего Иван сидит
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV sleep_V) for_Prep)))
 AllRus: для чего Иван спит
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV smell_V) for_Prep)))
-AllRus: для чего Иван пахнет
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV spit_V) for_Prep)))
-AllRus: для чего Иван плюёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV stand_V) for_Prep)))
-AllRus: для чего Иван стоит
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV stop_V) for_Prep)))
-AllRus: для чего Иван останавливает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV swell_V) for_Prep)))
-AllRus: для чего Иван опухает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV swim_V) for_Prep)))
-AllRus: для чего Иван плывёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV think_V) for_Prep)))
-AllRus: для чего Иван думает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV travel_V) for_Prep)))
-AllRus: для чего Иван путешествовует
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV turn_V) for_Prep)))
-AllRus: для чего Иван поворачивает
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV vomit_V) for_Prep)))
-AllRus: для чего Иван блюёт
-AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePN john_PN) (VPSlashPrep (UseV walk_V) for_Prep)))
-AllRus: для чего Иван гуляет
 
 AllRusAbs: RelCN (UseN apple_N) (UseRCl (TTAnt TCond AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (Slash3V3 add_V3 (UsePN paris_PN)))))
 AllRus: яблоко , которое Иван складывал бы в Париж
@@ -1335,11 +1401,23 @@ AllRusAbs: ComplA2 easy_A2V (UsePron she_Pron)
 AllRus: лёгкого для н &+ её
 AllRusAbs: ComplA2 married_A2 (UsePron she_Pron)
 AllRus: замужем за н &+ ей
+AllRusAbs: ComplA2 sklonnyj_A2 (UsePron she_Pron)
+AllRus: склонному к н &+ ей
 
 AllRusAbs: ReflA2 easy_A2V
 AllRus: лёгкий для себя
 AllRusAbs: ReflA2 married_A2
 AllRus: замужем за собой
+AllRusAbs: ReflA2 sklonnyj_A2
+AllRus: склонный к себе
+
+AllRusAbs: ImpPl1 (UseV fly_V)
+AllRus: давайте летать
+
+AllRusAbs: UttImpImm PNeg (ImpVP (UseV fly_V))
+AllRus: не летать
+AllRusAbs: UttImpImm PPos (ImpVP (UseV fly_V))
+AllRus: летать
 
 AllRusAbs: AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))) (UseN apple_N)
 AllRus: третье яблоко
@@ -2360,6 +2438,32 @@ AllRus: будь всегда голоден сам в следующую пят
 AllRusAbs: AdjCN (PastPartAgentAP (VPSlashPrep ill_VP after_Prep) (DetNP every_Det)) (UseN woman_N)
 AllRus: после каждого больна женщина
 
+AllRusAbs: UttNP (DetNPFem (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Некая пять
+
+AllRusAbs: UttNP (DetNPMasc (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Некий пять
+
+AllRusAbs: PredVP (ExtAdvNP (UsePron he_Pron) (TransgrAsAdv1 (TTAnt TPres ASimul) PPos (Slash3V3 send_V3 something_NP))) (UseV burn_V)
+AllRus: Он, посылая чему-то, гореть
+
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TCond ASimul) PNeg (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , не складывавши бы во всё
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TCond ASimul) PPos (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , складывавши бы во всё
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TFut ASimul) PNeg (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , не складывавши во всё
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TFut ASimul) PPos (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , складывавши во всё
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TPast ASimul) PNeg (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , не складывавши во всё
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TPast ASimul) PPos (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , складывавши во всё
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TPres ASimul) PNeg (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , не складывая во всё
+AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) (TransgrAsAdv (TTAnt TPres ASimul) PPos (Slash3V3 add_V3 everything_NP)))
+AllRus: должен бояться , складывая во всё
+
 AllRusAbs: PredSCVP (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv (AdvIAdv how8much_IAdv everywhere_Adv) (ExistNP nobody_NP)))) hungry_VP
 AllRus: сколько везде никто не существовал бы быть голодно
 
@@ -2403,22 +2507,10 @@ AllRus: сердце не сжима &+ ло &+ сь бы
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_V2))
 AllRus: сердце сжима &+ ло &+ сь бы
 
-AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV can8know_VV (PassV2 squeeze_V2)))
-AllRus: сердце не мог &+ ло бы сжиматься
 AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV can_VV (PassV2 squeeze_V2)))
 AllRus: сердце не мог &+ ло бы сжиматься
-AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV must_VV (PassV2 squeeze_V2)))
-AllRus: сердце не должно сжиматься
-AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (ComplVV want_VV (PassV2 squeeze_V2)))
-AllRus: сердце не хоте &+ ло бы сжиматься
-AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV can8know_VV (PassV2 squeeze_V2)))
-AllRus: сердце мог &+ ло бы сжиматься
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV can_VV (PassV2 squeeze_V2)))
 AllRus: сердце мог &+ ло бы сжиматься
-AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV must_VV (PassV2 squeeze_V2)))
-AllRus: сердце должно сжиматься
-AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (ComplVV want_VV (PassV2 squeeze_V2)))
-AllRus: сердце хоте &+ ло бы сжиматься
 
 AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TCond AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
 AllRus: надеяться , что не его имя бы &+ ло бы Иван
@@ -2461,74 +2553,8 @@ AllRus: лёгкий быть у нас голодно
 AllRusAbs: ComplVA become_VA (SentAP (UseA2 easy_A2V) (EmbedVP (ComplSlash (VPSlashPrep (UseV fall_V) possess_Prep) (UsePron we_Pron))))
 AllRus: становиться лёгко падать у нас
 
-AllRusAbs: EmbedVP (UseV blow_V)
-AllRus: дуть
 AllRusAbs: EmbedVP (UseV breathe_V)
 AllRus: дышать
-AllRusAbs: EmbedVP (UseV burn_V)
-AllRus: гореть
-AllRusAbs: EmbedVP (UseV come_V)
-AllRus: приходить
-AllRusAbs: EmbedVP (UseV die_V)
-AllRus: умирать
-AllRusAbs: EmbedVP (UseV dig_V)
-AllRus: копать
-AllRusAbs: EmbedVP (UseV fall_V)
-AllRus: падать
-AllRusAbs: EmbedVP (UseV float_V)
-AllRus: плавать
-AllRusAbs: EmbedVP (UseV flow_V)
-AllRus: течь
-AllRusAbs: EmbedVP (UseV fly_V)
-AllRus: летать
-AllRusAbs: EmbedVP (UseV freeze_V)
-AllRus: замерзать
-AllRusAbs: EmbedVP (UseV go_V)
-AllRus: ходить
-AllRusAbs: EmbedVP (UseV jump_V)
-AllRus: прыгать
-AllRusAbs: EmbedVP (UseV laugh_V)
-AllRus: смеяться
-AllRusAbs: EmbedVP (UseV lie_V)
-AllRus: лгать
-AllRusAbs: EmbedVP (UseV live_V)
-AllRus: жить
-AllRusAbs: EmbedVP (UseV play_V)
-AllRus: играть
-AllRusAbs: EmbedVP (UseV rain_V0)
-AllRus: дождить
-AllRusAbs: EmbedVP (UseV run_V)
-AllRus: бегать
-AllRusAbs: EmbedVP (UseV sew_V)
-AllRus: шить
-AllRusAbs: EmbedVP (UseV sing_V)
-AllRus: петь
-AllRusAbs: EmbedVP (UseV sit_V)
-AllRus: сидеть
-AllRusAbs: EmbedVP (UseV sleep_V)
-AllRus: спать
-AllRusAbs: EmbedVP (UseV smell_V)
-AllRus: пахнуть
-AllRusAbs: EmbedVP (UseV spit_V)
-AllRus: плевать
-AllRusAbs: EmbedVP (UseV stand_V)
-AllRus: стоять
-AllRusAbs: EmbedVP (UseV stop_V)
-AllRus: останавливать
-AllRusAbs: EmbedVP (UseV swell_V)
-AllRus: опухать
-AllRusAbs: EmbedVP (UseV swim_V)
-AllRus: плыть
-AllRusAbs: EmbedVP (UseV think_V)
-AllRus: думать
-AllRusAbs: EmbedVP (UseV travel_V)
-AllRus: путешествовать
-AllRusAbs: EmbedVP (UseV turn_V)
-AllRus: поворачивать
-AllRusAbs: EmbedVP (UseV vomit_V)
-AllRus: блевать
-AllRusAbs: EmbedVP (UseV walk_V)
-AllRus: гулять
 
 AllRusAbs: SentCN (UseN apple_N) (EmbedVP (UseV fall_V))
 AllRus: яблоко падать
@@ -2626,6 +2652,23 @@ AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron he_Pron) (Comp
 AllRus: он не считает окон у её машин
 AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (VPSlashPrep (ComplSlash (VPSlashPrep (ComplSlash (SlashV2a count_V2) (DetCN (DetQuant IndefArt NumPl) (UseN car_N))) possess_Prep) (DetNP (DetQuant (PossPron she_Pron) NumPl))) part_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN window_N)))))
 AllRus: он считает окон у её машины
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TCond ASimul) PNeg (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , не посылавши бы чему &+ -то , падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TCond ASimul) PPos (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , посылавши бы чему &+ -то , падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TFut ASimul) PNeg (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , не посылавши чему &+ -то , падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TFut ASimul) PPos (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , посылавши чему &+ -то , падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TPast ASimul) PNeg (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , не посылавши чему &+ -то , падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TPast ASimul) PPos (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , посылавши чему &+ -то , падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TPres ASimul) PNeg (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , не посылая чему &+ -то , падает
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) (TransgrAsAdv (TTAnt TPres ASimul) PPos (Slash3V3 send_V3 something_NP))) (UseV fall_V))
+AllRus: он , посылая чему &+ -то , падает
 
 AllRusAbs: MassNP (AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))) (UseN apple_N))
 AllRus: третье яблоко
@@ -3361,6 +3404,9 @@ AllRus: она становит &+ ся чисто старой
 
 AllRusAbs: UttAdv (ComparAdvAdj rather_CAdv warm_A (UsePron he_Pron))
 AllRus: Скорее тепло, чем он
+
+AllRusAbs: CountNP (ConjDet or_Conj (BaseDAP (DetDAP every_Det) (DetDAP many_Det))) (MassNP (UseN city_N))
+AllRus: каждое или многие из города
 
 AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (married_Cl (MassNP (UseN man_N)) (MassNP (UseN woman_N)))
 AllRus: человек не был бы женат на женщине
@@ -4646,6 +4692,51 @@ AllRus: куда эта женщина бега &+ ла бы
 
 AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) elsewhen_Adv)
 AllRus: должен бояться когда-нибудь
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVV bojatqsja_VV (UseV sleep_V))))
+AllRus: она боит &+ ся спать
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron (ProDrop we_Pron)) (AdvVP (UseV privesti_V) (PrepNP obj_no_Prep (DetCN somePl_Det (UseN primer_N)))))
+AllRus: мы приведём некоторые примеры
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (ComplVV can_VV (UseV peresekatqsja_V)))
+AllRus: список описаний может пересекаться
+
+AllRusAbs: ExtAdvS takim_obrazom_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (ComplVV can_VV (UseV peresekatqsja_V))))
+AllRus: таким образом , список описаний может пересекаться
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не был бы писан
+AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний был бы писан
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не был бы писан
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний был бы писан
+AllRusAbs: UseCl (TTAnt TFut AAnter) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не будет писан
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний будет писан
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не будет писан
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний будет писан
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не был писан
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний был писан
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не был писан
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний был писан
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не писан
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний писан
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний не писан
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
+AllRus: Список описаний писан
 
 AllRusAbs: MkDocument (NoDefinition "") (InflectionV run_V) ""
 AllRus: <h1> глагол </h1> <p> она бегает </p> несовершенного вида, невозвратный, непереходный, <h2> инфинитив </h2> <table rules=all border=yes> <tr> <td> бегать </td> <td> бегаться </td> </tr> </table> <table rules=all border=yes> <tr> <th> лицо </th> <th> число </th> <th> род </th> <th> прошлое </th> <th> настоящее </th> <th> будущее </th> <th> повелительное </th> </tr> <tr> <th> 1 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаю </td> <td> буду бегать </td> <td> бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаем </td> <td> будем бегать </td> <td> бегаем </td> </tr> <tr> <th> 2 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаешь </td> <td> будешь бегать </td> <td> бегай </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаете </td> <td> будете бегать </td> <td> бегайте </td> </tr> <tr> <th> 3 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегает </td> <td> будет бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегают </td> <td> будут бегать </td> <td> пусть будут бегать </td> </tr> </table> <h2> краткие причастия прошедшего времени </h2> <table rules=all border=yes> <tr> <th> мужской </th> <th> женский </th> <th> средний </th> <th> мн.ч. </th> </tr> <tr> <td> беган </td> <td> бегана </td> <td> бегано </td> <td> беганы </td> </tr> </table> <h2> деепричастия </h2> <table rules=all border=yes> <tr> <th> прошлое </th> <th> настоящее </th> </tr> <tr> <td> бегая </td> <td> бегавши </td> </tr> </table> <p> </p>

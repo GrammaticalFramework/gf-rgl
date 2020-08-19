@@ -6,21 +6,24 @@ concrete ExtendRus of Extend =
     -- theyFem_Pron, weFem_Pron,
     youFem_Pron,
     -- VPS, ListVPS, VPI, ListVPI, VPS2, ListVPS2, VPI2, ListVPI2, RNP, RNPList,
-    -- UseComp, RelNP, UseComp_estar, SubjRelNP, PredAPVP, ImpersCl, UseComp, CompAP, EmbedVP, ExistNP, UseQCl,
-    -- QuestCl, ExistNP, UseQCl, ExistIP, AdvVP, AdvVP, AdvVP, UseComp, CompAP, ExistS, ExistNPQS, ExistIPQS,
+    -- UseComp, RelNP, UseComp_estar, SubjRelNP, PredAPVP, EmbedVP,
+    -- ExistNP, ExistIP, AdvVP, AdvVP, AdvVP, ExistS, ExistNPQS, ExistIPQS,
     --
     ComplDirectVS,
     ComplDirectVQ,
     -- AdvIsNPAP, AdAdV, AdjAsNP,
     ApposNP,
     -- BaseVPS, ConsVPS, BaseVPI, ConsVPI, BaseVPS2, ConsVPS2, BaseVPI2, ConsVPI2,
-    -- MkVPS, ConjVPS, PredVPS, MkVPI, ConjVPI, ComplVPIVV,
+    -- MkVPS, ConjVPS, MkVPI, ConjVPI, ComplVPIVV,
     -- MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     -- Base_nr_RNP, Base_rn_RNP, Base_rr_RNP, ByVP, CompBareCN,
-    -- CompIQuant, CompQS, CompS, CompVP, ComplBareVS, ComplGenVV, ComplSlashPartLast, ComplVPSVV, CompoundAP,
+    -- CompQS, CompS, CompVP, ComplBareVS, ComplGenVV, ComplSlashPartLast, ComplVPSVV, CompoundAP,
     CompoundN,
 
-    --ConjRNP, ConjVPS, ConsVPS, Cons_nr_RNP, Cons_rr_RNP, DetNPMasc, DetNPFem, EmbedPresPart, EmptyRelSlash,
+    --ConjRNP, Cons_nr_RNP, Cons_rr_RNP,
+    DetNPMasc,
+    DetNPFem,
+    -- EmbedPresPart, EmptyRelSlash,
     ExistsNP,
     -- ExistCN, ExistMassCN, ExistPluralCN,
     --ProDrop,
@@ -29,8 +32,10 @@ concrete ExtendRus of Extend =
     -- GenIP, GenModIP, GenModNP, GenNP, GenRP,
     -- GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP,
     InOrderToVP,
-    -- MkVPS, NominalizeVPSlashNP,
-    -- PassAgentVPSlash, PassVPSlash, ProgrVPSlash,
+    -- NominalizeVPSlashNP,
+    -- PassAgentVPSlash,
+    PassVPSlash,
+    -- ProgrVPSlash,
     PastPartAP,
     PastPartAgentAP,
     PositAdVAdj,
@@ -43,7 +48,7 @@ concrete ExtendRus of Extend =
     FrontComplDirectVS,
     FrontComplDirectVQ,
     UttAdV
-    -- UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
+    -- UttDatIP, UttDatNP, UttVPShort, WithoutVP
    ]
   with (Grammar=GrammarRus)
   ** open Prelude, ResRus, ParadigmsRus, (M = MorphoRus) in {
@@ -130,6 +135,12 @@ lin
     isPost = False ;
     preferShort=PreferFull
     } ;
+
+  -- : VPSlash -> VP ; -- be forced to sleep
+  PassVPSlash vps = vps ** {
+    verb=copulaEll ;
+    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a)
+    } ;
   -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
   -- use PlP2 + "ый"
 
@@ -179,15 +190,29 @@ lin
     a = np.a
     } ;
 
-  -- : IQuant -> IComp ;   -- which (is it) [agreement to NP]
-  CompIQuant iq = {
-    s = \\a => case iq.preferShort of {
-      prefShort => iq.short ;
-      _ => iq.s ! agrGenNum a ! Inanimate ! Nom
-    } ;
-    adv = [];
-    cop = NomCopula ;
-    } ;
+  -- : Det -> NP ;
+  DetNPFem det =
+    let g = Fem in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
+
+  -- : Det -> NP ;
+  DetNPMasc det =
+    let g = Masc in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
 
 oper
   rus_quoted : Str -> Str = \s -> "«" ++ s ++ "»" ; ---- TODO bind ; move to Prelude?
