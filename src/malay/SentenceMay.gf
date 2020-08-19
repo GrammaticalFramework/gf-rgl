@@ -51,17 +51,17 @@ lin
 
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cl = {
-    s = cl.subj ++ t.s ++ p.s ++ cl.pred ;
+    s = cl.subj ++ t.s ++ p.s ++ cl.pred ! Active ;
     } ;
 
   -- : Temp -> Pol -> QCl -> QS ;
   UseQCl t p cl = {
-    s = cl.subj ++ t.s ++ p.s ++ cl.pred ;
+    s = cl.subj ++ t.s ++ p.s ++ cl.pred ! Active ;
     } ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p cl = cl ** {
-    pred = \\per => t.s ++ p.s ++ cl.pred ! per ;
+  UseRCl t p cl = {
+    s = \\per => cl.subj ++ t.s ++ p.s ++ cl.pred ! per ;
     } ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home

@@ -6,6 +6,10 @@ Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres A
 LangEng: a cat that drinks milk
 LangMay: kucing yang minum susu
 
+Lang: MassNP (RelCN (UseN milk_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (SlashV2a drink_V2)))))
+LangEng: milk that the cat drinks
+LangMay: susu yang kucing minum
+
 Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashPrep (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (UseV walk_V)) with_Prep))))
 LangEng: the cat that the dog walks with
-LangMay: kucing yang anjing berjalan dengannya
+LangMay: kucing yang anjing jalan dengannya

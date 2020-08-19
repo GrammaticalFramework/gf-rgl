@@ -39,7 +39,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
     RelNP np rs = np ** {
-      s = np.s ++ rs.subj ++ rs.pred ! np.p
+      s = np.s ++ rs.s ! np.p
       } ;
 
 -- Determiners can form noun phrases directly.
@@ -147,7 +147,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    s = \\nf => cn.s ! nf ++ rs.subj ++ rs.pred ! P3
+    s = \\nf => cn.s ! nf ++ rs.s ! P3
     } ;
 
 {-
