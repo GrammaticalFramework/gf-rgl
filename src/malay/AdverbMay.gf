@@ -11,7 +11,7 @@ lin
 --    ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
 
   -- : Prep -> NP -> Adv ;
-  PrepNP = cc2 ;
+  PrepNP prep np = {s = applyPrep prep np} ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 

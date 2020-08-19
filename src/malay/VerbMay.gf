@@ -43,7 +43,7 @@ lin
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
   Slash2V3 v3 dobj = useV {
-    s = \\vf => v3.s ! vf ++ v3.c2.s ++ dobj.s
+    s = \\vf => v3.s ! vf ++ applyPrep v3.c2 dobj
     } ** {
       c2 = v3.c3 -- Now the VPSlash is missing only the indirect object
     } ;
@@ -66,7 +66,7 @@ lin
 -}
   -- : VPSlash -> NP -> VP
   ComplSlash vps np = vps ** {
-    s = \\vf,pol => vps.s ! vf ! pol ++ vps.c2.s ++ np.s
+    s = \\vf,pol => vps.s ! vf ! pol ++ applyPrep vps.c2 np
     } ;
 
   -- : VV  -> VPSlash -> VPSlash ;
@@ -111,9 +111,12 @@ lin
   CompCN cn = useComp (cn.s ! NF Sg Bare) ;
 
   --  NP  -> Comp ;
-  CompNP np = useComp np.s ;
+  CompNP np = useComp (np.s ! Bare) ;
 
   -- : Adv  -> Comp ;
+  --"Both bukan and tidak may negate prepositional phrases. The choice of either
+  --depends on whether it is the noun within the phrase that is being negated
+  --or the implied verb associated with the phrase." Mintz p. 281 (10.1.4)
   CompAdv adv = useV {s = \\_ => adv.s} ;
 
   -- : VP -- Copula alone;
