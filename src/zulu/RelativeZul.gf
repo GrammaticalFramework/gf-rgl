@@ -78,7 +78,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             ++ (exclSePref vform_main)
             ++ relConc!a ++BIND
             ++ (negPref2 vform_main)
-            -- ++ (progPref vform)
+            ++ vp.asp_pref!vform_main
             -- ++ (exclKaPref vform)
             -- ++ (tensePref vform)
             ++ vp.oc

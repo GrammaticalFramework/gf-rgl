@@ -26,7 +26,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- replacing BasicTense with Tense, just for now
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
     VForm = VFIndic DMood Polarity ZTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
-    VPType = CopIdent | CopAssoc | CopDescr | CopEq | NPComp | APComp | NoComp | SComp | AdvComp ;
+    VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | VACompl | NoComp | VSCompl | AdvComp ;
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
 
     AForm = AF1 | AF2 ; -- two forms for implementing sound changes Poulos+Msimang p143
@@ -276,11 +276,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- progressive prefix
     progPref : VForm -> Str = \vform ->
       case vform of {
-        VFIndic _ Pos PastTense _ => [] ; -- progressive past does not occur
+        VFIndic _ Pos PastTense Prog => nonExist ; -- progressive past does not occur
+        VFIndic _ Pos PastTense _ => [] ;
         VFIndic _ Pos _ Prog => "sa" ++BIND ;
         VFIndic _ Pos _ _ => [] ;
         VFIndic _ Neg FutTense Prog => "se" ++BIND ;
         VFIndic _ Neg _ Prog => "sa" ++BIND ;
+        VFIndic _ _ _ Prog => nonExist ;
         VFIndic _ _ _ _ => [] ;
         VFPot _ _ Prog => "se" ++BIND ;
         VFPot _ _ _ => [] ;

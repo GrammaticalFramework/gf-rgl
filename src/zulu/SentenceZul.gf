@@ -9,7 +9,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       CopAssoc => cl_with_ass_cop_predicate np vp ;
       CopDescr => cl_with_descr_cop_predicate np vp ;
       CopEq => cl_with_eq_cop_predicate np vp ;
-      APComp => cl_with_ap_comp_predicate np vp ;
+      VACompl => cl_with_ap_comp_predicate np vp ;
       AdvComp => cl_with_adv_comp_predicate np vp ;
       _ => cl_with_verb_predicate np vp
     } ;
@@ -28,25 +28,18 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       } ;
       impTense = PresTense
     in case vp.vptype of {
-      NPComp => {
+      VNPCompl => {
         s = table {
           Pos => vp.s ++BIND++ "a" ++ vp.comp ;
           Neg => "unga" ++ vp.s ++ "i" ++ vp.comp
         }
       } ;
-      -- CopIdent => {s = \\pol => (cl_with_id_cop_predicate np vp).s!pol!(Absolute PresTense)!Princ } ;
-      -- CopAssoc => {s = \\pol => (cl_with_ass_cop_predicate np vp).s!pol!(Absolute PresTense)!Princ } ;
-      -- CopDescr => {s = \\pol => (cl_with_descr_cop_predicate np vp).s!pol!(Absolute PresTense)!Princ } ;
-      -- CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!(Absolute PresTense)!Princ } ;
-      -- APComp => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!(Absolute PresTense)!Princ } ;
-      -- AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!(Absolute PresTense)!Princ } ;
-      -- _ => {s = \\pol => (cl_with_verb_predicate np vp).s!pol!(Absolute PresTense)!Princ }
 
       CopIdent => {s = \\pol => (cl_with_id_cop_predicate np vp).s!pol!impTense!Princ } ;
       CopAssoc => {s = \\pol => (cl_with_ass_cop_predicate np vp).s!pol!impTense!Princ } ;
       CopDescr => {s = \\pol => (cl_with_descr_cop_predicate np vp).s!pol!impTense!Princ } ;
       CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!impTense!Princ } ;
-      APComp => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
+      VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
       AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!impTense!Princ } ;
       _ => {s = \\pol => (cl_with_verb_predicate np vp).s!pol!impTense!Princ }
     } ;
@@ -153,8 +146,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ (subjConc vform_main np.agr vow)
           ++ (negPref2 vform_main)
           ++ lfya
-          ++ (progPref vform_main)
-          ++ (exclKaPref vform_main)
+          ++ vp.asp_pref!vform_main
+          -- ++ (exclKaPref vform_main)
           ++ (tensePref vform_main)
           ++ vp.oc
           ++ vp.s ++ BIND
@@ -204,6 +197,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.comp
     } ;
 
+    -- become green
     cl_with_ap_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
@@ -254,8 +248,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ (subjConc vform_main np.agr vow)
           ++ (negPref2 vform_main)
           ++ lfya
-          ++ (progPref vform_main)
-          ++ (exclKaPref vform_main)
+          ++ vp.asp_pref!vform_main
+          -- ++ (exclKaPref vform_main)
           ++ (tensePref vform_main)
           ++ vp.s ++ BIND
           ++ (vtermSuff vform_main False vp.perfSuff)
@@ -343,12 +337,17 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = cop_pref vp.comp_agr ;
+          asp = case vp.asp of {
+            Prog => progPref vform_main ;
+            _ => []
+          } ;
           cb = vp.comp
         in
           subj ++
           -- aux ++
           pcp ++
           cp ++ BIND ++
+          asp ++
           cb ;
       subjcl = \\p,t =>
         let
@@ -382,6 +381,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           cb
     } ;
 
+    -- TODO: aspect
     cl_with_ass_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
@@ -447,6 +447,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           cb
     } ;
 
+    -- TODO: aspect
     cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
@@ -512,6 +513,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           cb
     } ;
 
+    -- is green
     cl_with_descr_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       s = \\p,t,dm =>
         let
@@ -545,11 +547,18 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             --  True => AF2 ;
             False => AF1
           } ;
-          comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf
+          adjpref =  adjPrefLookup!np.agr!adjf ++BIND ; --++ vp.ap_comp!adjf ;
+          asp = case vp.asp of {
+            Prog => "se" ++BIND ; -- p339
+            _ => []
+          } ;
+          comp = vp.ap_comp!adjf
         in
           subj ++
           -- aux ++
           pcp ++
+          adjpref ++
+          asp ++
           comp ;
       subjcl = \\p,t =>
         let
@@ -640,8 +649,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ (subjConc vform_main np.agr vow)
           ++ (negPref2 vform_main)
           ++ lfya
-          ++ (progPref vform_main)
-          ++ (exclKaPref vform_main)
+          ++ vp.asp_pref!vform_main
+          -- ++ (exclKaPref vform_main)
           ++ (tensePref vform_main)
           -- ++ vp.oc
           -- ++ vp.s ++ BIND

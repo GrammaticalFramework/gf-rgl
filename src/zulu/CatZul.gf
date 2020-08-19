@@ -59,6 +59,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
       r : RInit ;
       syl : Syl ;
       asp : Aspect ;
+      asp_pref : VForm => Str ;
       vptype : VPType ;
       comp_agr : Agr ;
       ap_comp : AForm => Str ;
@@ -73,6 +74,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
       r : RInit ;
       agr : Agr ;
       asp : Aspect ;
+      asp_pref : VForm => Str ;
       comptype : VPType ;
       ap_bool : Bool ;
     } ;

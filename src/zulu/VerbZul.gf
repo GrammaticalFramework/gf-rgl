@@ -8,6 +8,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       comp = [] ;
       hasComp = False ;
       asp = Null ;
+      asp_pref = \\_ => [] ;
       vptype = NoComp ;
       comp_agr = First Sg ; -- this could be anything...
       ap_comp = \\_ => [] ;
@@ -32,7 +33,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       -- r = vs.r ;
       -- syl = vs.syl ;
       asp = Null ;
-      vptype = SComp ;
+      asp_pref = \\_ => [] ;
+      vptype = VSCompl ;
       comp_agr = First Sg ; -- this could be anything...
       ap_comp = \\_ => [] ;
       ap_bool = False ;
@@ -51,7 +53,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       -- r = va.r ;
       -- syl = va.syl ;
       asp = Null ;
-      vptype = APComp ;
+      asp_pref = \\_ => [] ;
+      vptype = VACompl ;
       comp_agr = First Sg ; -- this could be anything...
       ap_comp = ap.s ;
       ap_bool = ap.b ;
@@ -96,6 +99,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         r = comp.r ; -- adjectives don't typically start on vowels
         syl = SylMult ;
         asp = comp.asp ;
+        asp_pref = comp.asp_pref ;
         vptype = comp.comptype ;
         comp_agr = comp.agr ; -- this could be anything...
         ap_comp = comp.s ;
@@ -112,6 +116,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         r = comp.r ;
         syl = SylMult ;
         asp = comp.asp ;
+        asp_pref = comp.asp_pref ;
         vptype = comp.comptype ;
         comp_agr = comp.agr ;
         ap_comp = \\_ => [] ;
@@ -128,6 +133,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         r = comp.r ; -- probably works...
         syl = SylMult ;
         asp = comp.asp ;
+        asp_pref = comp.asp_pref ;
         vptype = comp.comptype ;
         comp_agr = comp.agr ;
         ap_comp = \\_ => [] ;
@@ -145,6 +151,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         r = comp.r ;
         syl = SylMult ;
         asp = comp.asp ;
+        asp_pref = comp.asp_pref ;
         vptype = comp.comptype ;
         comp_agr = comp.agr ;
         ap_comp = \\_ => [] ;
@@ -163,6 +170,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       r = vp.r ;
       syl = vp.syl ;
       asp = vp.asp ;
+      asp_pref = vp.asp_pref ;
       vptype = vp.vptype ;
       comp_agr = vp.comp_agr ;
       ap_comp = vp.ap_comp ;
@@ -188,6 +196,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       r = RC ;
       agr = First Sg ; -- this could be anything...
       asp = Null ;
+      asp_pref = \\_ => [] ;
       comptype = CopDescr ;
       ap_bool = ap.b ;
     } ;
@@ -197,6 +206,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       r = nominit!np.agr ;
       agr = np.agr ;
       asp = Null ;
+      asp_pref = \\_ => [] ;
       comptype = CopIdent ;
       ap_bool = False
     } ;
@@ -209,6 +219,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       r = RC ; -- probably works...
       agr = First Sg ; -- this could be anything...
       asp = adv.asp ;
+      asp_pref = \\_ => [] ; -- TODO: check
       comptype = AdvComp ;
       ap_bool = False ;
     } ;

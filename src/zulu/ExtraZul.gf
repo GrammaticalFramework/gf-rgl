@@ -24,6 +24,7 @@ concrete ExtraZul of ExtraZulAbs =
       } ;
       syl = SylMult ;
       asp = Null ;
+      asp_pref = \\_ => [] ;
       vptype = CopAssoc ;
       comp_agr = np.agr ;
       ap_comp = \\_ => [] ;
@@ -47,6 +48,7 @@ concrete ExtraZul of ExtraZulAbs =
       } ;
       syl = SylMult ;
       asp = Null ;
+      asp_pref = \\_ => [] ;
       vptype = CopEq ;
       comp_agr = np.agr ;
       ap_comp = \\_ => [] ;
@@ -239,7 +241,7 @@ concrete ExtraZul of ExtraZulAbs =
     painful_RelStem = { s = "buhlungu" } ;
 
     -- TPerfPast = { s = [] ; t = Relative PerfTense PastTense } ;
-    TPresPres = { s = [] ; t = PresTense } ;
+    -- TPresPres = { s = [] ; t = PresTense } ;
     -- TPastPres = { s = [] ; t = Relative PastTense PresTense } ;
     -- TPastPerf = { s = [] ; t = Relative PastTense PerfTense } ;
 
@@ -256,6 +258,7 @@ concrete ExtraZul of ExtraZulAbs =
         r = vp.r ;
         syl = vp.syl ;
         asp = vp.asp ;
+        asp_pref = vp.asp_pref ;
         vptype = vp.vptype ;
         comp_agr = vp.comp_agr ;
         ap_comp = vp.ap_comp ;

@@ -23,14 +23,15 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
       -- r = v2.r ;
       -- syl = v2.syl ;
       asp = Null ;
-      vptype = NPComp ;
+      asp_pref = \\_ => [] ;
+      vptype = VNPCompl ;
       comp_agr = np.agr ;
       ap_comp = \\_ => [] ;
       ap_bool = False ;
       aux_root = [] ;
       hasAux = False
     } ;
-    
+
     ComplV3 v3 np1 np2 = v3 ** {
       -- s = v3.s ;
       oc = case np1.isPron of {
@@ -51,7 +52,8 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
       -- r = v3.r ;
       -- syl = v3.syl ;
       asp = Null ;
-      vptype = NPComp ;
+      asp_pref = \\_ => [] ;
+      vptype = VNPCompl ;
       comp_agr = np1.agr ; -- this could be anything...
       ap_comp = \\_ => [] ;
       ap_bool = False ;

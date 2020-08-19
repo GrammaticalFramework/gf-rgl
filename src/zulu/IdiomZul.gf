@@ -1,8 +1,8 @@
-concrete IdiomZul of Idiom = CatZul ** open Prelude, ResZul in {
+concrete IdiomZul of Idiom = CatZul ** open Prelude, ResZul,ParamX in {
 
   flags optimize=all_subs ;
 
-  -- lin
+  lin
   --   ImpersCl vp = mkClause "it" (agrP3 Sg) vp ;
   --   GenericCl vp = mkClause "one" (agrP3 Sg) vp ;
   --
@@ -39,6 +39,7 @@ concrete IdiomZul of Idiom = CatZul ** open Prelude, ResZul in {
       r = vp.r ;
       syl = vp.syl ;
       asp = Prog ;
+      asp_pref = \\vform => vp.asp_pref!vform ++ (progPref vform) ;
       vptype = vp.vptype ;
       comp_agr = vp.comp_agr ;
       ap_comp = vp.ap_comp ;
