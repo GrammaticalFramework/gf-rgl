@@ -109,13 +109,15 @@ oper
   } ;
 
   mkV2 = overload {
-    mkV2 : Str       -> V2 = \v2  -> lin V2 ((mkVerb v2 Meng) ** {c2 = emptyPrep}) ;
-    mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (v ** {c2 = p})
+    mkV2 : Str       -> V2 = \v2  -> lin V2 (mkVerb2 (mkVerb v2 Meng) emptyPrep) ;
+    mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (mkVerb2 v p)
     } ;
 
   mkV3 = overload {
-    mkV3 : V -> V3 = \v -> lin V3 (v ** {c2,c3 = emptyPrep}) ;
-    mkV3 : V -> (p,q : Prep) -> V3 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q})
+    mkV3 : V -> V3 = \v ->
+      lin V3 (mkVerb3 v emptyPrep emptyPrep) ;
+    mkV3 : V -> (p,q : Prep) -> V3 = \v,p,q ->
+      lin V3 (mkVerb3 v p q)
     } ;
 
   -- mkVV = overload {
