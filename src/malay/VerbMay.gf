@@ -38,11 +38,16 @@ lin
 
   -- : V2 -> VPSlash
   SlashV2a v2 = v2 ;
-{-
+
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
+  Slash2V3 v3 dobj = {
+    s = \\vf => v3.s ! vf ++ v3.c2.s ++ dobj.s ;
+    c2 = v3.c3 -- Now the VPSlash is missing only the indirect object
+    } ;
+
+{-
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
-  Slash2V3,
-  Slash3V3 = \v3 -> insertComp (useVc3 v3) ;
+  Slash3V3 v3 iobj =
 
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2s s =

@@ -38,8 +38,10 @@ oper
     mkV2 : V -> Prep  -> V2 ;   -- V and Prep
     } ;
 
-  -- mkV3 : overload {
-  --   } ;
+  mkV3 : overload {
+    mkV3 : V -> V3 ; -- No prepositions
+    mkV3 : V -> Prep -> Prep -> V3 ; -- Prepositions for direct and indirect objects given
+    } ;
 
   -- mkVV : overload {
   --  } ;
@@ -102,7 +104,7 @@ oper
     } ;
 
   mkV = overload {
-    mkV : Str           -> V = \v   -> lin V (mkVerb v Meng) ;
+    mkV : Str           -> V = \v   -> lin V (mkVerb v Ber) ;
     mkV : Str -> Prefix -> V = \v,p -> lin V (mkVerb v p)
   } ;
 
@@ -110,10 +112,12 @@ oper
     mkV2 : Str       -> V2 = \v2  -> lin V2 ((mkVerb v2 Meng) ** {c2 = emptyPrep}) ;
     mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (v ** {c2 = p})
     } ;
-  --
-  -- mkV3 = overload {
-  --   } ;
-  --
+
+  mkV3 = overload {
+    mkV3 : V -> V3 = \v -> lin V3 (v ** {c2,c3 = emptyPrep}) ;
+    mkV3 : V -> (p,q : Prep) -> V3 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q})
+    } ;
+
   -- mkVV = overload {
   --  } ;
 
