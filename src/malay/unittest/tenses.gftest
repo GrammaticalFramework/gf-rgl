@@ -1,0 +1,11 @@
+Lang: UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V))
+LangEng: the cat has walked
+LangMay: kucing sudah berjalan
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V))
+LangEng: the cat walks
+LangMay: kucing berjalan
+
+Lang: UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V))
+LangEng: the cat will walk
+LangMay: kucing akan berjalan
