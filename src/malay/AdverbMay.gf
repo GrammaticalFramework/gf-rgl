@@ -1,6 +1,6 @@
 concrete AdverbMay of Adverb = CatMay ** open ResMay, ParamMay, ParadigmsMay, Prelude in {
 
---lin
+lin
 
   -- : A -> Adv ;
   --PositAdvAdj adj = { } ;
@@ -11,7 +11,7 @@ concrete AdverbMay of Adverb = CatMay ** open ResMay, ParamMay, ParadigmsMay, Pr
 --    ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
 
   -- : Prep -> NP -> Adv ;
-  -- PrepNP =
+  PrepNP = cc2 ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
