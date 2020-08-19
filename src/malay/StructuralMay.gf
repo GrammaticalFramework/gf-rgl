@@ -96,8 +96,8 @@ oper
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep ""  ;
 -- lin between_Prep = = mkPrep "" ;
--- lin by8agent_Prep = mkPrep ;
--- lin by8means_Prep = mkPrep ;
+lin by8agent_Prep = mkPrep "oleh" ; -- for pronoun agent, see Mintz p. 170, 5.4.1
+lin by8means_Prep = mkPrep "dengan" ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
 -- lin for_Prep = mkPrep ;
