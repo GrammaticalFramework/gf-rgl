@@ -7,8 +7,8 @@ oper
   Noun : Type = {
     s : NForm => Str
     } ;
-  Noun2 : Type = Noun ; -- TODO eventually more parameters?
-  Noun3 : Type = Noun ;
+  Noun2 : Type = Noun ** {c2 : Preposition} ;
+  Noun3 : Type = Noun2 ** {c3 : Preposition} ;
 
   CNoun : Type = Noun ** {
     } ;
@@ -25,29 +25,40 @@ oper
   useN : Noun -> CNoun = \n -> n ;
 
 ---------------------------------------------
+-- Pronoun
+
+  Pronoun : Type = {
+    s : Str ;
+    p : Person ; -- for relative clauses
+    empty : Str ; -- need to avoid GF being silly. See https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#metavariables-or-those-question-marks-that-appear-when-parsing
+    } ;
+
+  mkPron : Str -> Person -> Pronoun = \str,p -> {
+    s = str ;
+    p = p ;
+    empty = []
+    } ;
+---------------------------------------------
 -- NP
 
-  NounPhrase = {
-    s : Str ;
-    p : Person -- for relative clauses
+  NounPhrase : Type = {
+    s : Possession => Str ; -- maybe need to keep +nya etc. open for becoming possessed? TODO check
+    a : NPAgr ; -- NP can be made out of nouns and pronouns, need to retain its origin
+    empty : Str ; -- need to avoid GF being silly. See https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#metavariables-or-those-question-marks-that-appear-when-parsing
     } ;
 
---------------------------------------------------------------------------------
--- Pronouns
-
-  Pronoun : Type = NounPhrase ** {
-    -- poss : { -- for PossPron : Pron -> Quant
-    --   } ;
-    sp : NForm => Str ;
+  emptyNP : NounPhrase = {
+    s = \\_ => [] ;
+    a = NotPron ;
+    empty = []
     } ;
-
 
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
   BaseQuant : Type = {
     s : Str ;
-    isPoss : Bool
+    poss : Possession ;
     } ;
 
   Determiner : Type = BaseQuant ** {
@@ -77,7 +88,7 @@ oper
 
   baseQuant : BaseQuant = {
     s = [] ;
-    isPoss = False ;
+    poss = Bare ;
     } ;
 
   mkQuant : Str -> Quant = \str -> baseQuant ** {
@@ -85,22 +96,34 @@ oper
     sp = \\_ => str
     } ;
 
-  --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Prepositions
 
   Preposition : Type = {
-    s : Str ;           -- dengan
-    obj : Person => Str -- dengan+nya -- needed in relative clauses to refer to the object
+    s : Str ;             -- dengan
+    obj : Person => Str ; -- dengan+nya -- needed in relative clauses to refer to the object
+    isPoss : Bool ;
     } ;
 
   mkPrep : Str -> Preposition = \dengan -> {
     s = dengan ;
-    obj = \\p => dengan + poss2str (Poss p)
+    obj = \\p => dengan + poss2str (Poss p) ;
+    isPoss = False ;
     } ;
 
   emptyPrep : Preposition = {
     s = [] ;
-    obj = \\_ => []
+    obj = table {
+      P1 => BIND ++ "ku" ;
+      P2 => BIND ++ "mu" ;
+      P3 => BIND ++ "nya" } ;
+    isPoss = True ;
+    } ;
+
+  applyPrep : Preposition -> NounPhrase -> Str = \prep,np ->
+    case np.a of {
+      IsPron p => prep.obj ! p ++ np.empty ;
+      NotPron => prep.s ++ np.s ! Bare
     } ;
 
 --------------------------------------------------------------------------------
@@ -198,7 +221,7 @@ oper
   Sentence : Type = {s : Str} ;
 
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
-    subj = np.s ;
+    subj = np.s ! Bare ;
     pred = vp.s
     } ;
 

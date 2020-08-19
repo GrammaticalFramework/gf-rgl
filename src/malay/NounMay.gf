@@ -7,13 +7,11 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 --2 Noun phrases
 
 -- : Det -> CN -> NP
-    DetCN det cn = {
-      s =
-        case det.isPoss of {
-          True => cn.s ! NF det.n (Poss P3) ; -- TODO add possessive determiners
-          False => cn.s ! NF det.n Bare }
-        ++ det.s ;
-      p = P3
+    DetCN det cn = emptyNP ** {
+      s = \\poss => case det.poss of {
+        Bare => cn.s ! NF det.n poss ;
+        _ => cn.s ! NF det.n det.poss -- TODO check if this make sense
+        } ++ det.s ;
       } ;
 
   -- : PN -> NP ;
@@ -21,7 +19,10 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 --    } ;
 
   -- : Pron -> NP ;
-  -- UsePron pron = pron ;
+    UsePron pron = pron ** {
+      s = \\_ => pron.s ;
+      a = IsPron pron.p ;
+    };
 
   -- : Predet -> NP -> NP ; -- only the man
   -- PredetNP predet np =
@@ -39,19 +40,19 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
     RelNP np rs = np ** {
-      s = np.s ++ rs.s ! np.p
+      s = \\poss => np.s ! poss ++ rs.s ! agr2p np.a
       } ;
 
 -- Determiners can form noun phrases directly.
 
   -- : Det -> NP ;
-  -- DetNP det = emptyNP ** {
-  --   } ;
+    DetNP det = emptyNP ** {
+      s = \\_ => det.s ;
+      } ;
 
   -- MassNP : CN -> NP ;
-    MassNP cn = {
-      s = cn.s ! NF Sg Bare ;
-      p = P3
+    MassNP cn = emptyNP ** {
+      s = \\poss => cn.s ! NF Sg poss
       } ;
 
 --2 Determiners
@@ -60,9 +61,10 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 -- quantifier and an optional numeral can be discerned.
 
   -- : Quant -> Num -> Det ;
-  DetQuant quant num = quant ** {
-    n = num.n
-    } ;
+    DetQuant quant num = quant ** {
+      s = quant.s ++ num.s ! Attrib ;
+      n = num.n
+      } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
   -- DetQuantOrd quant num ord =
@@ -102,8 +104,6 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- : A       -> Ord ;
   -- OrdSuperl a = {
-  --   s = \\af => "제일" ++ a.s ! af ;
-  --   n = Sg -- ?? is this meaningful?
   --   } ;
 
 -- One can combine a numeral and a superlative.
@@ -112,16 +112,16 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   -- OrdNumeralSuperl num a = num ** {  } ;
 
   -- : Quant
-  DefArt = baseQuant ** {sp = \\_ => []} ;
+  DefArt = mkQuant [] ;
 
   -- : Quant
-  IndefArt = baseQuant ** {sp = \\_ => []} ;
+  IndefArt = mkQuant [] ;
 
   -- : Pron -> Quant
-  -- PossPron pron =
-  --   let p = pron.poss ;
-  --    in DefArt ** {
-  --       } ;
+  PossPron pron = mkQuant pron.s ** {
+    poss = Bare ; -- this becomes "kucing dia". for "kucingnya", use PossNP.
+    } ;
+
 
 --2 Common nouns
 
@@ -130,7 +130,14 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   UseN,UseN2 = ResMay.useN ;
 
   -- : N2 -> NP -> CN ;
-  -- ComplN2 n2 np =
+  ComplN2 n2 np = {
+    s = \\nf =>
+      case <n2.c2.isPoss, np.a, nf> of {
+        <True, IsPron p, NF num _>
+          => n2.s ! NF num (Poss p) ++ np.empty ;
+        _ => n2.s ! nf ++ applyPrep n2.c2 np
+      }
+    } ;
 
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   -- ComplN3 n3 np =
@@ -173,8 +180,13 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  -- PossNP cn np = cn ** {
-  --   } ;
+  PossNP cn np = cn ** {
+    s = \\nf => case <np.a, nf> of {
+      <IsPron p, NF num _>
+        => cn.s ! NF num (Poss p) ++ np.empty ;
+      _ => cn.s ! nf ++ np.s ! Bare
+      }
+    } ;
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   -- PartNP cn np = cn ** {

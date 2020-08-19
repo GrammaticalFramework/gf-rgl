@@ -79,6 +79,8 @@ param
 
   NForm = NF Number Possession ;
 
+  NPAgr = NotPron | IsPron Person ;
+
 oper
   poss2str : Possession -> Str = \p -> case p of {
     Bare    => [] ;
@@ -89,6 +91,10 @@ oper
 
   duplicate : Str -> Str = \s -> s + "-" + s ;
 
+  agr2p : NPAgr -> Person = \a -> case a of {
+    NotPron => P3 ;
+    IsPron p => p
+    } ;
 --------------------------------------------------------------------------------
 -- Numerals
 

@@ -93,8 +93,8 @@ oper
 
 
   mkN2 = overload {
-    mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s) ;
-    mkN2 : N   -> N2 = \n -> lin N2 n ;
+    mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s ** {c2 = emptyPrep}) ;
+    mkN2 : N   -> N2 = \n -> lin N2 (n ** {c2 = emptyPrep}) ;
    } ;
 
   -- mkPN = overload {
