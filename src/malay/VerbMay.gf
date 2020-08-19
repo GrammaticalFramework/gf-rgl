@@ -18,9 +18,9 @@ lin
   -- ReflVP = ResMay.insertRefl ;
 
   -- : VV  -> VP -> VP ;
-  -- ComplVV vv vp = let vc = vp.vComp in case vv.vvtype of {
-  --
-  --   } ;
+  ComplVV vv vp = vp ** {
+    s = \\vf => vv.s ++ vp.s ! Root
+    } ;
 
   -- : VS  -> S  -> VP ;
   -- ComplVS vs s =
@@ -67,15 +67,14 @@ lin
   -- : VPSlash -> NP -> VP
   ComplSlash vps np = {s = \\vf => vps.s ! vf ++ vps.c2.s ++ np.s} ;
 
-{-
   -- : VV  -> VPSlash -> VPSlash ;
-                  -- Just like ComplVV except missing subject!
-  SlashVV vv vps = ComplVV vv vps ** { missing = vps.missing ;
-                                       post = vps.post } ;
+  SlashVV vv vps = ComplVV vv vps ** {
+    c2 = vps.c2 ; -- like ComplVV except missing object
+    passive = vv.s ++ vps.passive
+    } ;
 
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
-  SlashV2VNP v2v np vps =
--}
+  -- SlashV2VNP v2v np vps =
 
   -- : Comp -> VP ;
   UseComp comp = comp ;
