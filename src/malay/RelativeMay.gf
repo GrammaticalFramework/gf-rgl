@@ -9,7 +9,7 @@ lin
   -- : RP -> VP -> RCl ;
   RelVP rp vp = {
     subj = rp.s ;
-    pred = \\_ => vp.s ! Root ; -- TODO
+    pred = \\_ => vp.s ! Root ;
     } ;
 
   -- : RP -> ClSlash -> RCl ; -- who I went with
@@ -17,7 +17,7 @@ lin
     subj = rp.s            -- yang
         ++ cls.subj ;      -- saya
     pred =
-      \\p => cls.pred        -- ikut sama
+      \\p => cls.pred ! Root -- ikut sama
           ++ cls.c2.obj ! p  -- dengan+nya (depends on the head, not known yet)
     } ;
 

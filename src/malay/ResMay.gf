@@ -154,11 +154,17 @@ oper
 --------------------------------------------------------------------------------
 -- Cl, S
 
-  Clause : Type = {subj, pred : Str} ;
+  Clause : Type = {
+    subj : Str ;
+    pred : VForm => Str -- Cl may become relative clause, need to keep open
+    } ;
 
   RClause : Type = {
     subj : Str ;
-    pred : Person => Str} ;
+    pred : Person => Str
+    } ;
+
+  RS : Type = {s : Person => Str} ;
 
   ClSlash : Type = Clause ** {c2 : Preposition} ;
 
@@ -166,7 +172,7 @@ oper
 
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
     subj = np.s ;
-    pred = vp.s ! Active ; -- TODO
+    pred = vp.s
     } ;
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
