@@ -118,8 +118,14 @@ oper
   Verb : Type = {
     s : VForm => Str
     } ;
-  Verb2 : Type = Verb ** {c2 : Preposition} ;
-  Verb3 : Type = Verb2 ** {c3 : Preposition} ;
+  Verb2 : Type = Verb ** {
+    c2 : Preposition ;
+    passive : Str
+    } ;
+
+  Verb3 : Type = Verb2 ** {
+    c3 : Preposition
+    } ;
 
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
@@ -128,7 +134,15 @@ oper
       Root => str ;
       Active => prefix p str
       }
-  } ;
+    } ;
+
+  mkVerb2 : Verb -> Preposition -> Verb2 = \v,pr -> v ** {
+    c2 = pr ;
+    passive = "di" + v.s ! Root -- TODO check
+    } ;
+
+  mkVerb3 : Verb -> (p,q : Preposition) -> Verb3 = \v,p,q ->
+    mkVerb2 v p ** {c3 = q} ;
 
   copula : Verb = {s = \\_ => "ada"} ; -- TODO
 ------------------
