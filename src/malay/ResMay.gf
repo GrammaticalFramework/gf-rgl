@@ -153,29 +153,42 @@ oper
 ------------------
 -- VP
 
-  VerbPhrase : Type = Verb ** {
-    -- vComp : Str-- Maybe needed later?
-            -- {subjunc : Str ; -- inflected verb complement
-            --  inf : Str ; -- infinitive verb complement
-            --  subcl : Str} -- clause complement
+  VerbPhrase : Type = {
+    s : VForm => Polarity => Str ; -- tidak or bukan
     } ;
 
-  VPSlash : Type = Verb2 ;
+  VPSlash : Type = VerbPhrase ** {
+    c2 : Preposition ;
+    } ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
-     vComp = [] ; -- maybe needed later?
-  } ;
+    s = \\vf,pol => verbneg pol ++ v.s ! vf
+    } ;
+
+  useComp : Str -> VerbPhrase = \s -> {
+    s = \\vf,pol => nounneg pol ++ s ;
+    } ;
+
+  verbneg : Polarity -> Str = \pol -> case pol of {
+    Neg => "tidak" ; -- or "tak"?
+    Pos => []
+    } ;
+
+  nounneg : Polarity -> Str = \pol -> case pol of {
+    Neg => "bukan" ;
+    Pos => []
+    } ;
 --------------------------------------------------------------------------------
 -- Cl, S
 
   Clause : Type = {
     subj : Str ;
-    pred : VForm => Str -- Cl may become relative clause, need to keep open
+    pred : VForm => Polarity => Str -- Cl may become relative clause, need to keep open VForm
     } ;
 
   RClause : Type = {
     subj : Str ;
-    pred : Person => Str
+    pred : Person => Polarity => Str
     } ;
 
   RS : Type = {s : Person => Str} ;

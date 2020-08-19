@@ -9,17 +9,14 @@ lin
   UseV = ResMay.useV ;
 
   --  : V2 -> VP ; -- be loved
-  PassV2 v2 = {
-    s = \\_ => v2.passive
-      -- Root => v2.s ! Root ; -- TODO: passive + verbal complements = ???
-    } ;
+  PassV2 v2 = useV {s = \\_ => v2.passive} ;
 
   -- : VPSlash -> VP ;
   -- ReflVP = ResMay.insertRefl ;
 
   -- : VV  -> VP -> VP ;
-  ComplVV vv vp = vp ** {
-    s = \\vf => vv.s ++ vp.s ! Root
+  ComplVV vv vp = vp ** useV {
+    s = \\vf => vv.s ++ vp.s ! Root ! Pos
     } ;
 
   -- : VS  -> S  -> VP ;
@@ -40,12 +37,15 @@ lin
 -- Slash
 
   -- : V2 -> VPSlash
-  SlashV2a v2 = v2 ;
+  SlashV2a v2 = useV v2 ** {
+    c2 = v2.c2
+    } ;
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
-  Slash2V3 v3 dobj = v3 ** {
-    s = \\vf => v3.s ! vf ++ v3.c2.s ++ dobj.s ;
-    c2 = v3.c3 -- Now the VPSlash is missing only the indirect object
+  Slash2V3 v3 dobj = useV {
+    s = \\vf => v3.s ! vf ++ v3.c2.s ++ dobj.s
+    } ** {
+      c2 = v3.c3 -- Now the VPSlash is missing only the indirect object
     } ;
 
 {-
@@ -65,7 +65,9 @@ lin
   SlashV2A v2a ap = ;
 -}
   -- : VPSlash -> NP -> VP
-  ComplSlash vps np = {s = \\vf => vps.s ! vf ++ vps.c2.s ++ np.s} ;
+  ComplSlash vps np = vps ** {
+    s = \\vf,pol => vps.s ! vf ! pol ++ vps.c2.s ++ np.s
+    } ;
 
   -- : VV  -> VPSlash -> VPSlash ;
   SlashVV vv vps = ComplVV vv vps ** {
@@ -103,24 +105,18 @@ lin
 -- Adjectival phrases, noun phrases, and adverbs can be used.
 
   -- : AP  -> Comp ;
-  CompAP ap = ap ;
+  CompAP ap = useV ap ;
 
   -- : CN  -> Comp ;
-  CompCN cn = {
-    s = \\_ => cn.s ! NF Sg Bare ;
-    } ;
+  CompCN cn = useComp (cn.s ! NF Sg Bare) ;
 
   --  NP  -> Comp ;
-  CompNP np = {
-    s = \\_ => np.s ;
-    } ;
+  CompNP np = useComp np.s ;
 
   -- : Adv  -> Comp ;
-  CompAdv adv = {
-    s = \\_ => adv.s ;
-    } ;
+  CompAdv adv = useV {s = \\_ => adv.s} ;
 
   -- : VP -- Copula alone;
-  --UseCopula = useV copula ;
+  UseCopula = useV copula ;
 
 }

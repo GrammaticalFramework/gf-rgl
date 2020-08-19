@@ -9,16 +9,16 @@ lin
   -- : RP -> VP -> RCl ;
   RelVP rp vp = {
     subj = rp.s ;
-    pred = \\_ => vp.s ! Root ;
+    pred = \\per => vp.s ! Root ;
     } ;
 
   -- : RP -> ClSlash -> RCl ; -- who I went with
   RelSlash rp cls = {
     subj = rp.s            -- yang
         ++ cls.subj ;      -- saya
-    pred =
-      \\p => cls.pred ! Root -- ikut sama
-          ++ cls.c2.obj ! p  -- dengan+nya (depends on the head, not known yet)
+    pred = \\per,pol =>
+           cls.pred ! Root ! pol -- ikut sama
+        ++ cls.c2.obj ! per      -- dengan+nya (depends on the head, not known yet)
     } ;
 
   -- : RP ;
