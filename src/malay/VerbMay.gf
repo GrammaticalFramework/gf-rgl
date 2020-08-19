@@ -9,7 +9,10 @@ lin
   UseV = ResMay.useV ;
 
   --  : V2 -> VP ; -- be loved
-  -- PassV2 = ResMay.passV2 ;
+  PassV2 v2 = {
+    s = \\_ => v2.passive
+      -- Root => v2.s ! Root ; -- TODO: passive + verbal complements = ???
+    } ;
 
   -- : VPSlash -> VP ;
   -- ReflVP = ResMay.insertRefl ;
@@ -40,7 +43,7 @@ lin
   SlashV2a v2 = v2 ;
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
-  Slash2V3 v3 dobj = {
+  Slash2V3 v3 dobj = v3 ** {
     s = \\vf => v3.s ! vf ++ v3.c2.s ++ dobj.s ;
     c2 = v3.c3 -- Now the VPSlash is missing only the indirect object
     } ;

@@ -217,7 +217,7 @@ lin learn_V2 = mkV2 (mkV "ajar" Ber) emptyPrep ;
 -- lin lose_V2 = mkV2 "" ;
 -- lin louse_N = mkN "" ;
 -- lin love_N = mkN "" ;
--- lin love_V2 = mkV2 "" ;
+lin love_V2 = mkV2 "cinta" ;
 
 ----
 -- M

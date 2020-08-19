@@ -119,12 +119,13 @@ param
 param
   VForm =
       Root  -- infinitive, imperative, …
-    | Active ;
+    | Active
+    ;
 
  Prefix =
       Meng
     | Ber
-    ; -- TODO more
+    ; -- TODO more?
 
 --------------------------------------------------------------------------------
 -- Clauses

@@ -1,0 +1,7 @@
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (PassV2 love_V2))
+LangEng: the dog is loved
+LangMay: anjing dicinta
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (PassV2 love_V2))
+LangEng: the dog isn't loved
+LangMay: anjing tidak dicinta
