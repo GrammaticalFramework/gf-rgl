@@ -102,7 +102,7 @@ oper
   Preposition : Type = {
     s : Str ;             -- dengan
     obj : Person => Str ; -- dengan+nya -- needed in relative clauses to refer to the object
-    isPoss : Bool ;
+    isPoss : Bool ; -- TODO rename, the name is confusing
     } ;
 
   mkPrep : Str -> Preposition = \dengan -> {
