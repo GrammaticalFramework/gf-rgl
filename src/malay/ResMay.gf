@@ -11,6 +11,7 @@ oper
   Noun3 : Type = Noun2 ** {c3 : Preposition} ;
 
   CNoun : Type = Noun ** {
+    heavyMod : Str ; -- heavy stuff like relative clauses after determiner
     } ;
 
   PNoun : Type = Noun ;
@@ -22,7 +23,9 @@ oper
       }
     } ;
 
-  useN : Noun -> CNoun = \n -> n ;
+  useN : Noun -> CNoun = \n -> n ** {
+    heavyMod = []
+    } ;
 
 ---------------------------------------------
 -- Pronoun

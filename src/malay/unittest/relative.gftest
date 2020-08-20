@@ -1,6 +1,9 @@
-Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV go_V))))
-LangEng: a cat that goes
-LangMay: kucing yang pergi
+--------------------------------------------------------------
+-- Basics
+
+Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))
+LangEng: a cat that walks
+LangMay: kucing yang jalan
 
 Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
 LangEng: a cat that drinks milk
@@ -10,9 +13,22 @@ Lang: MassNP (RelCN (UseN milk_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash Id
 LangEng: milk that the cat drinks
 LangMay: susu yang kucing minum
 
+-- NB. if you feel tempted to rephrase because nobody says this in real life, that's not the point here.
+-- We can find another RGL tree that produces the more natural variant. This tree produces this variant.
 Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashPrep (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (UseV walk_V)) with_Prep))))
 LangEng: the cat that the dog walks with
 LangMay: kucing yang anjing jalan dengannya
+
+--------------------------------------------------------------
+-- Determiner placement
+
+Lang: DetCN (DetQuant this_Quant NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))
+LangEng: this cat that walks
+LangMay: kucing ini yang jalan
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
+LangEng: my cat that drinks milk
+LangMay: kucing saya yang minum susu
 
 --------------------------------------------------------------
 -- Complex example: "the book that his/her father gave him/her"
@@ -25,15 +41,11 @@ LangMay: bapanya memberi buku kepadanya
 Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron she_Pron))) (Slash2V3 give_V3 (UsePron she_Pron))))))
 LangMay: buku yang bapanya beri kepadanya
 
--- 3. A book that her father gave to me
-Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron she_Pron))) (Slash3V3 give_V3 (UsePron i_Pron))))))
-LangMay: buku yang bapanya beri kepadaku
-
 -- The preposition "kepada" comes from the definition of give_V3 in LexiconMay.gf.
--- If "buku yang bapanya beri kepadaku" is correct in the general sense, but sometimes
+-- If "buku yang bapanya beri kepadanya" is correct in general, but sometimes
 -- we want to say "buku yang bapanya beri", we can create a coercion function
 -- from V3 to V2: just drop the indirect object preposition.
--- This is easy to do in an application grammar.
+-- That is easy to do in an application grammar.
 
 -- If we want to do this consistently: always drop the indirect object in a relative clause,
 -- i.e. never say "buku yang bapanya beri kepada(ku/mu/nya)"
