@@ -11,7 +11,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
       s = \\poss => case det.poss of {
         Bare => cn.s ! NF det.n poss ;
         _ => cn.s ! NF det.n det.poss -- TODO check if this make sense
-        } ++ det.s ;
+        } ++ det.s ++ cn.heavyMod ;
       } ;
 
   -- : PN -> NP ;
@@ -52,7 +52,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- MassNP : CN -> NP ;
     MassNP cn = emptyNP ** {
-      s = \\poss => cn.s ! NF Sg poss
+      s = \\poss => cn.s ! NF Sg poss ++ cn.heavyMod
       } ;
 
 --2 Determiners
@@ -130,7 +130,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   UseN,UseN2 = ResMay.useN ;
 
   -- : N2 -> NP -> CN ;
-  ComplN2 n2 np = {
+  ComplN2 n2 np = useN n2 ** {
     s = \\nf =>
       case <n2.c2.isPoss, np.a, nf> of {
         <True, IsPron p, NF num _>
@@ -154,7 +154,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    s = \\nf => cn.s ! nf ++ rs.s ! P3
+    heavyMod = cn.heavyMod ++ rs.s ! P3
     } ;
 
 {-
