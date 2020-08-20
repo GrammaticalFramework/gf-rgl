@@ -180,6 +180,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
+  -- this produces "bukunya".
   PossNP cn np = cn ** {
     s = \\nf => case <np.a, nf> of {
       <IsPron p, NF num _>
