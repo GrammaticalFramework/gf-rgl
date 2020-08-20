@@ -111,7 +111,8 @@ oper
     isPoss = False ;
     } ;
 
-  emptyPrep : Preposition = {
+  -- direct object: "hits him" -> "memukul+nya"
+  dirPrep : Preposition = {
     s = [] ;
     obj = table {
       P1 => BIND ++ "ku" ;
@@ -119,6 +120,15 @@ oper
       P3 => BIND ++ "nya" } ;
     isPoss = True ;
     } ;
+
+  -- truly empty
+  emptyPrep : Preposition = {
+    s = [] ;
+    obj = \\_ => [] ;
+    isPoss = True ;
+    } ;
+
+  datPrep : Preposition = mkPrep "kepada" ;
 
   applyPrep : Preposition -> NounPhrase -> Str = \prep,np ->
     case np.a of {

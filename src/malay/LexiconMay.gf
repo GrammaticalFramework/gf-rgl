@@ -148,7 +148,7 @@ lin father_N2 = mkN2 "bapa" ;
 
 -- lin garden_N = mkN "" ;
 -- lin girl_N = mkN "" ;
-lin give_V3 = mkV3 (mkV "beri" Meng) ;
+lin give_V3 = mkV3 (mkV "beri" Meng) emptyPrep datPrep ;
 -- lin glove_N = mkN "" ;
 lin go_V = mkV "pergi" ;
 -- lin gold_N = mkN "" ;
@@ -308,7 +308,7 @@ lin read_V2 = mkV2 "baca" ;
 -- lin see_V2 = mkV2 "" ;
 -- lin seed_N = mkN "" ;
 -- lin seek_V2 = mkV2 "" ;
-lin sell_V3 = mkV3 (mkV "jual" Meng) ;
+lin sell_V3 = mkV3 (mkV "jual" Meng) emptyPrep emptyPrep ; -- TODO
 -- lin send_V3 = mkV3 "" ;
 -- lin sew_V = mkV "" ;
 -- lin sharp_A = mkA "" ;
