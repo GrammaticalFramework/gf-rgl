@@ -1,3 +1,6 @@
+-------------
+-- Basics
+
 Lang: UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V))
 LangEng: the cat has walked
 LangMay: kucing sudah berjalan
@@ -9,3 +12,14 @@ LangMay: kucing berjalan
 Lang: UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V))
 LangEng: the cat will walk
 LangMay: kucing akan berjalan
+
+-------------
+-- Conditions
+
+Lang: ExtAdvS (SubjS if_Subj (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (UseV walk_V)))) (UseCl (TTAnt TCond ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V)))
+LangEng: if I walked , the cat would walk
+LangMay: sekiranya saya berjalan , kucing akan berjalan
+
+Lang: ExtAdvS (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV walk_V)))) (UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V)))
+LangEng: when I walk , the cat will walk
+LangMay: kalau saya berjalan , kucing akan berjalan
