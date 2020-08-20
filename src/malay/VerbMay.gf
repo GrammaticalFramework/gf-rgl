@@ -84,10 +84,13 @@ lin
 
   -- : Comp -> VP ;
   UseComp comp = comp ;
-{-
-  -- : VP -> Adv -> VP ;  -- sleep here
-  AdvVP = insertAdv ;
 
+  -- : VP -> Adv -> VP ;  -- sleep here
+  AdvVP vp adv = vp ** {
+    s = \\vf,pol => vp.s ! vf ! pol ++ adv.s
+    } ;
+
+{-
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
   AdvVPSlash = insertAdv ;
 
