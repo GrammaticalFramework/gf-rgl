@@ -12,13 +12,14 @@ concrete GrammarMay of Grammar =
   TextX,
   StructuralMay,
   IdiomMay,
-  TenseX - [AAnter, TFut]
+  TenseX - [AAnter, TFut, TCond]
   ** open ParamX in {
 
   flags startcat = Phr ;
 
   lin
     AAnter = {s = "sudah" ; a = ParamX.Anter} ;
-    TFut  = {s = "akan" ; t = ParamX.Fut} ;
+    TFut   = {s = "akan" ; t = ParamX.Fut} ;
+    TCond  = {s = "akan" ; t = ParamX.Cond} ;
 
 } ;
