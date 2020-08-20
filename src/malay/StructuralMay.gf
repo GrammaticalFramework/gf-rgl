@@ -138,9 +138,9 @@ lin they_Pron = mkPron "mereka" P3 ;
 
 -- lin although_Subj =
 -- lin because_Subj =
--- lin if_Subj =
+lin if_Subj = ss "sekiranya" ;
 -- lin that_Subj =
--- lin when_Subj =
+lin when_Subj = ss "kalau" ;
 
 
 ------
