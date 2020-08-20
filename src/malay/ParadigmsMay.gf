@@ -93,8 +93,8 @@ oper
 
 
   mkN2 = overload {
-    mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s ** {c2 = emptyPrep}) ;
-    mkN2 : N   -> N2 = \n -> lin N2 (n ** {c2 = emptyPrep}) ;
+    mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s ** {c2 = dirPrep}) ;
+    mkN2 : N   -> N2 = \n -> lin N2 (n ** {c2 = dirPrep}) ;
    } ;
 
   -- mkPN = overload {
@@ -110,13 +110,13 @@ oper
   } ;
 
   mkV2 = overload {
-    mkV2 : Str       -> V2 = \v2  -> lin V2 (mkVerb2 (mkVerb v2 Meng) emptyPrep) ;
+    mkV2 : Str       -> V2 = \v2  -> lin V2 (mkVerb2 (mkVerb v2 Meng) dirPrep) ;
     mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (mkVerb2 v p)
     } ;
 
   mkV3 = overload {
     mkV3 : V -> V3 = \v ->
-      lin V3 (mkVerb3 v emptyPrep emptyPrep) ;
+      lin V3 (mkVerb3 v dirPrep dirPrep) ;
     mkV3 : V -> (p,q : Prep) -> V3 = \v,p,q ->
       lin V3 (mkVerb3 v p q)
     } ;
