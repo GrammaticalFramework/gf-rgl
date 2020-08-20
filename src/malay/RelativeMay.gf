@@ -17,8 +17,10 @@ lin
     subj = rp.s            -- yang
         ++ cls.subj ;      -- saya
     pred = \\per,pol =>
-           cls.pred ! Root ! pol -- ikut sama
-        ++ cls.c2.obj ! per      -- dengan+nya (depends on the head, not known yet)
+           cls.pred ! Root ! pol   -- ikut sama
+      ++ case cls.c2.isPoss of {
+        True => [] ;
+        False => cls.c2.obj ! per} -- dengan+nya (depends on the head, not known yet)
     } ;
 
   -- : RP ;

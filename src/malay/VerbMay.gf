@@ -48,10 +48,14 @@ lin
       c2 = v3.c3 -- Now the VPSlash is missing only the indirect object
     } ;
 
-{-
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
-  Slash3V3 v3 iobj =
+  Slash3V3 v3 iobj = useV {
+    s = \\vf => v3.s ! vf ++ applyPrep v3.c3 iobj
+    } ** {
+      c2 = v3.c2 -- Now the VPSlash is missing only the direct object
+    } ;
 
+ {-
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2s s =
 
