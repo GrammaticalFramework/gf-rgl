@@ -30,16 +30,16 @@ LangMay: kucing itu saya
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron he_Pron) NumSg) (UseN cat_N)) (UseComp (CompAP (PositA green_A))))
 LangMay: kucing dia hijau
 
+-- I read his/her book -- two variants, different trees
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant IndefArt NumSg) (PossNP (UseN book_N) (UsePron she_Pron)))))
+LangMay: saya membaca bukunya
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant (PossPron he_Pron) NumSg) (UseN book_N))))
+LangMay: saya membaca buku dia
+
 -- I read his/her father's book
 Lang: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (PossNP (UseN book_N) (DetCN (DetQuant DefArt NumSg) (PossNP (UseN2 father_N2) (UsePron she_Pron)))))))
 LangMay: saya membaca buku bapanya
-
--- the cat buys his/her book -- two variants
-Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant (PossPron she_Pron) NumSg) (UseN book_N))))
-LangMay: kucing itu membeli buku dia
-
-Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant IndefArt NumSg) (PossNP (UseN book_N) (UsePron she_Pron)))))
-LangMay: kucing itu membeli bukunya
 
 -- Only the noun phrase
 Lang: MassNP (PossNP (UseN book_N) (UsePron he_Pron))
@@ -51,3 +51,18 @@ LangMay: buku dia
 -- For non-pronoun NPs, only this variant
 Lang: MassNP (PossNP (UseN book_N) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))
 LangMay: buku kucing
+
+-- You can also produce nonsensical variants, in all languages.
+-- The point of RGL is to be a collection of syntactic structures,
+-- and application grammarians can choose to use them in any combinations.
+-- So the following English linearizations aren't *wrong*, they just don't make sense.
+
+-- If the Malay linearizations are merely weird, like the English ones, then they are correct.
+-- If they feel wrong in the same way as "his cat of my" would in English, then they are wrong.
+Lang: DetCN (DetQuant (PossPron he_Pron) NumSg) (PossNP (UseN cat_N) (UsePron i_Pron))
+LangEng: his cat of mine
+LangMay: kucingku dia
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (PossNP (UseN cat_N) (UsePron she_Pron))
+LangEng: my cat of hers
+LangMay: kucingnya saya
