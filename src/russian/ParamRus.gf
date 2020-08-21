@@ -102,4 +102,7 @@ oper
     refl : Reflexivity ;
     tran : Transitivity
   } ;
+  ComplementCase : Type = {s : Str ; c : Case ; neggen : Bool ; hasPrep : Bool} ;
+  VerbForms2 : Type = VerbForms ** {c : ComplementCase} ;
+  VerbForms3 : Type = VerbForms ** {c : ComplementCase ; c2 : ComplementCase} ;
 }

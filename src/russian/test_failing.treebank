@@ -338,7 +338,7 @@ AllRus: терт дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a scratch_V2)) (UseN house_N)
 AllRus: чесан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a see_V2)) (UseN house_N)
-AllRus: вижен дом
+AllRus: виден дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a seek_V2)) (UseN house_N)
 AllRus: искан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a speak_V2)) (UseN house_N)
@@ -382,6 +382,9 @@ AllRus: ста одиннадцати &+ тысячное
 AllRusAbs: OrdNumeral (num (pot3 (pot2 pot01)))
 AllRus: ста &+ тысячное
 
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: она интересует &+ ся , что кто спит
+
 AllRusAbs: PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc
 AllRus: , так и сейчас
 
@@ -402,9 +405,6 @@ AllRus: здесь есть что она спит
 
 AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)))
 AllRus: данное пять самых хороших
-
-AllRusAbs: UttNP (PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2)
-AllRus: человек вижен
 
 AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
 AllRus: данное пятые
@@ -506,7 +506,7 @@ AllRus: терт дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a scratch_V2)) (UseN house_N)
 AllRus: чесан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a see_V2)) (UseN house_N)
-AllRus: вижен дом
+AllRus: виден дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a seek_V2)) (UseN house_N)
 AllRus: искан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a speak_V2)) (UseN house_N)

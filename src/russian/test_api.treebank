@@ -668,7 +668,7 @@ AllRusAbs: UttNP (PredetNP only_Predet (DetCN (DetQuant this_Quant NumSg) (UseN 
 AllRus: Единственная эта женщина
 
 AllRusAbs: UttNP (PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2)
-AllRus: Человек вижен
+AllRus: Человек виден
 
 AllRusAbs: UttNP (AdvNP (UsePN paris_PN) today_Adv)
 AllRus: Париж сегодня

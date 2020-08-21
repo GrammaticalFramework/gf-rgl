@@ -14,7 +14,7 @@ lin
   apple_N = mkN "яблоко" neuter inanimate "3a(1)" ;
   art_N = mkN "искусство" ;
   ashes_N = mkN "пепел" masculine inanimate "1*a" only_singular;
-  ask_V2Q = dirV2 (mkV perfective "спросить" "спрошу" "спросит") ;
+  ask_V2Q = dirV2 (mkV perfective transitive "спросить" "спрошу" "спросит" "4c") ;
   baby_N = mkN "малыш" masculine animate "4b" ;
   back_N = mkN "спина" ;
   bad_A = mkA "плохой" "хуже" "3b/c'";
@@ -254,7 +254,7 @@ lin
   science_N = mkN "наука" ;
   scratch_V2 = mkV2 (mkV imperfective "чесать" "чешу" "чешет");
   sea_N = mkN "море" neuter inanimate "2c" ;
-  see_V2 = mkV2 (mkV imperfective transitive "видеть" "вижу" "видит" "5a") ;  -- {pppss="виден"}
+  see_V2 = (mkV2plus (mkV2 (mkV imperfective transitive "видеть" "вижу" "видит" "5a"))) ** {pppss="виден"} ;
   seed_N = mkN "семя" neuter inanimate "8°c" ;
   seek_V2 = mkV2 (mkV imperfective "искать" "ищу" "ищет");
   sell_V3 = tvDirDir (mkV imperfective "продавать" "продаю" "продаёт");
