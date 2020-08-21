@@ -9,10 +9,9 @@ lincat
   A2 = ResRus.AdjForms ** {c : ComplementCase} ;
 
   V, VS, VQ, VA = ResRus.VerbForms ;
-  V2, V2S, V2Q, V2A = ResRus.VerbForms ** {c : ComplementCase} ;
-  V3 = ResRus.VerbForms ** {c : ComplementCase ; c2 : ComplementCase} ;
+  V2, V2S, V2Q, V2A, V2V = ResRus.VerbForms2 ;
+  V3 = ResRus.VerbForms3 ;
   VV = {v : ResRus.VerbForms ; modal : AgrTable} ;
-  V2V, V2S, V2Q = ResRus.VerbForms ** {c : ComplementCase} ;
 
   CN = ResRus.Noun ;
 

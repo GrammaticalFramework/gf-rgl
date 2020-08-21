@@ -77,6 +77,9 @@ fun
   wherefrom_Adv : Adv ;
   whereto_Adv : Adv ;
 
+  not_AdA : AdA ;
+  rather_AdA : AdA ;
+
   nechto_NP : NP ;
   anybody_NP : NP ;
 

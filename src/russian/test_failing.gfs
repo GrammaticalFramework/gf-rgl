@@ -25,6 +25,7 @@ gt UseCl (TTAnt TPres AAnter) PNeg (AdvIsNP everywhere_Adv (MassNP (UseN sky_N))
 gt AdjCN (PastPartAP ( SlashV2a ? )  )   (UseN house_N) | l -treebank
 gt OrdNumeral (num (pot3 (pot2plus pot01 pot111))) |l -treebank
 gt OrdNumeral (num (pot3 (pot2 pot01))) |l -treebank
+gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) |l -treebank
 gt PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc |l -treebank
 gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))) |l -treebank
 gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))) |l -treebank
@@ -32,7 +33,6 @@ gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash 
 gt UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) |l -treebank
 gt UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) |l -treebank
 gt UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A))) |l -treebank
-gt UttNP (PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2) |l -treebank
 gt UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))  |l -treebank
 gt UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl small_A)))  |l -treebank
 gt UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))  |l -treebank

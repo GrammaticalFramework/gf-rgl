@@ -95,6 +95,9 @@ lin
   wherefrom_Adv = ss "откуда" ;
   whereto_Adv = ss "куда" ;
 
+  not_AdA = ss "не" ;
+  rather_AdA = ss "довольно" ;
+
   have_V3 = P.mkV3 est_ell_V nom_Prep u_Prep;
   have2_V3 = P.mkV3 est_V nom_Prep u_Prep;
   have_not_V3 = P.mkV3 net_V obj_neg_Prep u_Prep;
