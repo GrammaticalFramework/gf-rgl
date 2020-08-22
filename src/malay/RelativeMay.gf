@@ -17,10 +17,13 @@ lin
     subj = rp.s            -- yang
         ++ cls.subj ;      -- saya
     pred = \\per,pol =>
-           cls.pred ! Root ! pol   -- ikut sama
-      ++ case cls.c2.isPoss of {
-        True => [] ;
-        False => cls.c2.obj ! per} -- dengan+nya (depends on the head, not known yet)
+      let object : Str = case cls.c2.prepType of {
+            OtherPrep
+              => cls.c2.obj ! per ; -- depends on the head, not known yet
+            _ => [] -- if the preposition is dir.obj or empty, no obj. pronoun
+            } ;
+      in cls.pred ! Root ! pol   -- ikut sama
+      ++ object                  -- dengan+nya
     } ;
 
   -- : RP ;
