@@ -132,9 +132,9 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   -- : N2 -> NP -> CN ;
   ComplN2 n2 np = useN n2 ** {
     s = \\nf =>
-      case <n2.c2.isPoss, np.a, nf> of {
-        <True, IsPron p, NF num _>
-          => n2.s ! NF num (Poss p) ++ np.empty ;
+      case <n2.c2.prepType, np.a, nf> of {
+        <DirObj, IsPron p, NF num _>
+          => n2.s ! NF num (Poss p) ++ np.empty ; -- DirObj is reused here to mean possession
         _ => n2.s ! nf ++ applyPrep n2.c2 np
       }
     } ;

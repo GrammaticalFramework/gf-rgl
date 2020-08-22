@@ -105,13 +105,13 @@ oper
   Preposition : Type = {
     s : Str ;             -- dengan
     obj : Person => Str ; -- dengan+nya -- needed in relative clauses to refer to the object
-    isPoss : Bool ; -- TODO rename, the name is confusing
+    prepType : PrepType ; -- TODO rename, the name is confusing
     } ;
 
   mkPrep : Str -> Preposition = \dengan -> {
     s = dengan ;
     obj = \\p => dengan + poss2str (Poss p) ;
-    isPoss = False ;
+    prepType = OtherPrep ;
     } ;
 
   -- direct object: "hits him" -> "memukul+nya"
@@ -121,22 +121,22 @@ oper
       P1 => BIND ++ "ku" ;
       P2 => BIND ++ "mu" ;
       P3 => BIND ++ "nya" } ;
-    isPoss = True ;
+    prepType = DirObj ;
     } ;
 
   -- truly empty
   emptyPrep : Preposition = {
     s = [] ;
     obj = \\_ => [] ;
-    isPoss = True ;
+    prepType = EmptyPrep ;
     } ;
 
   datPrep : Preposition = mkPrep "kepada" ;
 
   applyPrep : Preposition -> NounPhrase -> Str = \prep,np ->
-    case np.a of {
-      IsPron p => prep.obj ! p ++ np.empty ;
-      NotPron => prep.s ++ np.s ! Bare
+    case <np.a, prep.prepType> of {
+      <IsPron p,OtherPrep> => prep.obj ! p ++ np.empty ;
+      _                    => prep.s ++ np.s ! Bare
     } ;
 
 --------------------------------------------------------------------------------
