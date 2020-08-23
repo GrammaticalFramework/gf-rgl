@@ -631,7 +631,7 @@ mkVS = overload {
     mkN2 : N -> Prep -> N2 = mmkN2
     } ;
 
-  mmkN2 : N -> Prep -> N2 = \n,c -> n ** {c2 = c ; isPre = mkIsPre c ; lock_N2 = <>} ;
+  mmkN2 : N -> Prep -> N2 = \n,c -> n ** {c2 = c ; isPre = mkIsPre c ; lock_N2 = <> ; postmod = \\_ => []} ;
   mkN3 = \n,c,e -> n ** {c2 = c ; c3 = e ;
     isPre = mkIsPre c  ; -- matka Lontoosta Pariisiin
     isPre2 = mkIsPre e ;          -- Suomen voitto Ruotsista
