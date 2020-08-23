@@ -29,7 +29,13 @@ matching, so that the suffixing functions dp and tk are in heavy use.
 ## Known issues
 
 * The object case in passives may come out wrong.
-* If a possessive suffix is added for a NP that is built out of N2 or N3, the possessive suffix will go after the complements, and not after the head noun as it's supposed to.
+* Adjectives don't have vowel harmony, so `AdjAsCN` has by default back harmony.
+* Conjunction of CNs doesn't repeat possessive suffix: you get _minun [[kissa] ja [koira]]ni_ instead of _minun kissani ja koirani_ 'my cat and dog'.
+  * If you want it repeated correctly, use ConjNP. Out of the box it repeats "minun", so _minun kissani ja minun koirani_ 'my cat and my dog'.
+  * If you want _kissani ja koirani_, use [ProDropPoss](https://github.com/GrammaticalFramework/gf-rgl/blob/master/src/finnish/ExtraFin.gf#L190-L202) for both cat and dog.
+    *  `ConjNP and_Conj (BaseNP (DetCN (DetQuant (ProDropPoss i_Pron) NumSg) (UseN cat_N)) (DetCN (DetQuant (ProDropPoss i_Pron) NumSg) (UseN dog_N)))`
+  * If you want _minun kissani ja koirani_, use ProDropPoss for only `UseN dog_N`:
+    * `ConjNP and_Conj (BaseNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN cat_N)) (DetCN (DetQuant (ProDropPoss i_Pron) NumSg) (UseN dog_N)))`
 
 
 ## Supplementary files
