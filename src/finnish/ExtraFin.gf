@@ -20,8 +20,11 @@ concrete ExtraFin of ExtraFinAbs = CatFin **
 
     GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
 
-    GenCN n1 n2 = {s = \\nf => n1.s ! NPCase Gen ++ n2.s ! nf ;
-                   h = n2.h } ;
+    GenCN n1 n2 = {
+      s = \\nf => n1.s ! NPCase Gen ++ n2.s ! nf ;
+      postmod = \\_ => [] ;
+      h = n2.h
+      } ;
 
     GenRP num cn = {
       s = \\n,c => let k = npform2case num.n c in relPron ! n ! Gen ++ cn.s ! NCase num.n k ;
@@ -287,9 +290,10 @@ concrete ExtraFin of ExtraFinAbs = CatFin **
 
 
   AdjAsCN ap = {
-      s = \\nf => ap.s ! True ! (n2nform nf) ;
-      h = Back ; ---- TODO should be ap.h, which does not exist
-      } ;
+    s = \\nf => ap.s ! True ! (n2nform nf) ;
+    postmod = \\_ => [] ;
+    h = Back ; ---- TODO should be ap.h, which does not exist
+    } ;
 
   lincat
     RNP = {s : Agr => NPForm => Str ; isPron : Bool} ;
