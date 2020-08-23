@@ -191,41 +191,47 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       postmod = \\_ => []
       } ;
 
-    UseN2 = UseN ;
+    UseN2 n = snoun2nounSep n ** {
+      postmod = n.postmod
+      } ;
 
     Use2N3 f = {
       s = f.s ;
       c2 = f.c2 ;
       h = f.h ;
-      isPre = f.isPre
+      isPre = f.isPre ;
+      postmod = \\_ => [] ;
       } ;
     Use3N3 f = {
       s = f.s ;
       c2 = f.c3 ;
       h = f.h ;
-      isPre = f.isPre2
+      isPre = f.isPre2 ;
+      postmod = \\_ => [] ;
       } ;
 
     ComplN2 f x = {
       s = \\nf =>
         case f.isPre of {
-          True => (snoun2nounSep f).s ! nf ;
-          False => compl ++ (snoun2nounSep f).s ! nf } ;
-      postmod = case f.isPre of {
-        True => \\_ => compl ;
-        False => \\_ => []
-        } ;
+          True  =>          cn.s ! nf ;
+          False => compl ++ cn.s ! nf } ;
+      postmod = \\num =>
+        case f.isPre of { -- If N2 comes from ComplN3, postmod may be filled
+          True  => cn.postmod ! num ++ compl ;
+          False => cn.postmod ! num } ;
       h = f.h }
-      where {compl : Str = appCompl True Pos f.c2 x} ;
+      where {
+        compl : Str = appCompl True Pos f.c2 x ;
+        cn : CN = UseN2 f ;
+      } ;
 
-
---- If a possessive suffix is added here it goes after the complements...
-
-    ComplN3 f x = {
-      s = \\nf => preOrPost f.isPre (f.s ! nf) (appCompl True Pos f.c2 x) ;
+    -- reuse the pre/post logic from ComplN2.
+    -- we just need to make the N3 into the lincat of N2
+    ComplN3 f x = ComplN2 (toN2 f) x ** {
       c2 = f.c3 ;
-      h = f.h ;
-      isPre = f.isPre2
+      isPre = f.isPre2 }
+      where {
+        toN2 : N3 -> N2 = \n3 -> lin N2 (n3 ** {postmod = \\_ => []})
       } ;
 
     AdjCN ap cn = cn ** {

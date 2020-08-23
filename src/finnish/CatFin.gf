@@ -93,7 +93,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     A2 = {s : Degree => SAForm => Str ; h : Harmony ; c2 : Compl} ;
 
     N  = SNoun ;
-    N2 = SNoun ** {c2 : Compl ; isPre : Bool} ;
+    N2 = SNoun ** {c2 : Compl ; isPre : Bool ; postmod : Number => Str} ;
     N3 = SNoun ** {c2,c3 : Compl ; isPre,isPre2 : Bool} ;
     PN = SPN ;
 
