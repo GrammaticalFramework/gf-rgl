@@ -44,8 +44,16 @@ LangMay: saya mahu ajar sains di sekolah
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplVV want_VV (ComplSlash (SlashV2a learn_V2) (MassNP (UseN science_N)))) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))
 LangEng: I want to learn science in the school
-LangMay: saya mahu ajar sains di sekolah
+LangMay: saya mahu belajar sains di sekolah
 
+-- How about interaction with passive? These sentences are very artificial, but imagine they made sense:
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN book_N)) (AdvVP (PassV2 learn_V2) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))) NoVoc
+LangEng: this book is learned in the school
+LangMay: buku ini dibelajar di sekolah
+
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN book_N)) (AdvVP (PassV2 teach_V2) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))) NoVoc
+LangEng: this book is taught in the school
+LangMay: buku ini diajar di sekolah
 
 ----------------------------------------
 -- Relative clauses
