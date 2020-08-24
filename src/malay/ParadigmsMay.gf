@@ -107,7 +107,14 @@ oper
   mkV = overload {
     mkV : Str           -> V = \v   -> lin V (mkVerb v Ber) ;
     mkV : Str -> Prefix -> V = \v,p -> lin V (mkVerb v p)
-  } ;
+    } ;
+
+  prefixV : V -> V = \v -> v ** {
+    s = table {
+      Root => v.s ! Active ;
+      x => v.s ! x -- TODO: how does it work with passives?
+      }
+    } ;
 
   mkV2 = overload {
     mkV2 : Str       -> V2 = \v2  -> lin V2 (mkVerb2 (mkVerb v2 Meng) dirPrep) ;
