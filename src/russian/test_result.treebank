@@ -2436,7 +2436,7 @@ AllRusAbs: ImpVP (AdvVP (AdVVP always_AdV (SelfAdvVP hungry_VP)) (weekdayNextAdv
 AllRus: будь всегда голоден сам в следующую пятницу
 
 AllRusAbs: AdjCN (PastPartAgentAP (VPSlashPrep ill_VP after_Prep) (DetNP every_Det)) (UseN woman_N)
-AllRus: после каждого больна женщина
+AllRus: 
 
 AllRusAbs: UttNP (DetNPFem (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
 AllRus: Некая пять
@@ -2575,35 +2575,35 @@ AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ kn
 AllRus: он знает , что яблоко падает
 
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TCond ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он не знает , что яблоко не всегда пада &+ ло бы
+AllRus: он не знает , что яблоко всегда не пада &+ ло бы
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TCond ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он не знает , что яблоко всегда пада &+ ло бы
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TFut ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он не знает , что яблоко не всегда будет падать
+AllRus: он не знает , что яблоко всегда не будет падать
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TFut ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он не знает , что яблоко всегда будет падать
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPast ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он не знает , что яблоко не всегда пада &+ ло
+AllRus: он не знает , что яблоко всегда не пада &+ ло
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он не знает , что яблоко всегда пада &+ ло
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он не знает , что яблоко не всегда падает
+AllRus: он не знает , что яблоко всегда не падает
 AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он не знает , что яблоко всегда падает
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TCond ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он знает , что яблоко не всегда пада &+ ло бы
+AllRus: он знает , что яблоко всегда не пада &+ ло бы
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TCond ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он знает , что яблоко всегда пада &+ ло бы
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TFut ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он знает , что яблоко не всегда будет падать
+AllRus: он знает , что яблоко всегда не будет падать
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TFut ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он знает , что яблоко всегда будет падать
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPast ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он знает , что яблоко не всегда пада &+ ло
+AllRus: он знает , что яблоко всегда не пада &+ ло
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он знает , что яблоко всегда пада &+ ло
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
-AllRus: он знает , что яблоко не всегда падает
+AllRus: он знает , что яблоко всегда не падает
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (DetCN (DetQuant DefArt NumSg) (UseN apple_N)) (AdVVP always_AdV (UseV fall_V)))))))
 AllRus: он знает , что яблоко всегда падает
 
@@ -4140,19 +4140,19 @@ AllRusAbs: TFullStop (PhrUtt NoPConj (UttNP (MassNP (AdjCN (PositA full_A) (glas
 AllRus: полный стакан вина .
 
 AllRusAbs: EmbedQS (UseQCl (TTAnt TCond ASimul) PNeg (ExistIPAdv whatSg_IP now_Adv))
-AllRus: что не сейчас существова &+ ло бы
+AllRus: что сейчас не существова &+ ло бы
 AllRusAbs: EmbedQS (UseQCl (TTAnt TCond ASimul) PPos (ExistIPAdv whatSg_IP now_Adv))
 AllRus: что сейчас существова &+ ло бы
 AllRusAbs: EmbedQS (UseQCl (TTAnt TFut ASimul) PNeg (ExistIPAdv whatSg_IP now_Adv))
-AllRus: что не сейчас будет существовать
+AllRus: что сейчас не будет существовать
 AllRusAbs: EmbedQS (UseQCl (TTAnt TFut ASimul) PPos (ExistIPAdv whatSg_IP now_Adv))
 AllRus: что сейчас будет существовать
 AllRusAbs: EmbedQS (UseQCl (TTAnt TPast ASimul) PNeg (ExistIPAdv whatSg_IP now_Adv))
-AllRus: что не сейчас существова &+ ло
+AllRus: что сейчас не существова &+ ло
 AllRusAbs: EmbedQS (UseQCl (TTAnt TPast ASimul) PPos (ExistIPAdv whatSg_IP now_Adv))
 AllRus: что сейчас существова &+ ло
 AllRusAbs: EmbedQS (UseQCl (TTAnt TPres ASimul) PNeg (ExistIPAdv whatSg_IP now_Adv))
-AllRus: что не сейчас существует
+AllRus: что сейчас не существует
 AllRusAbs: EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (ExistIPAdv whatSg_IP now_Adv))
 AllRus: что сейчас существует
 
@@ -4205,6 +4205,45 @@ AllRus: самое большее одна секунда чашка воды б
 AllRusAbs: AdvS (timeunitAdv (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) second_Timeunit) (ExistS (TTAnt TFut ASimul) PPos (MassNP (cup_of_CN (MassNP (UseN water_N)))))
 AllRus: почти две секунды чашка воды будет существовать
 
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant this_Quant one_and_half_Num) (UseN apple_N)))))
+AllRus: он не кушал бы этих полутора яблок
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant this_Quant one_and_half_Num) (UseN apple_N)))))
+AllRus: он кушал бы эти полтора яблока
+
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlashPartLast (VPSlashPrep (UseV delatq_V) obj_no_Prep) (DetCN (DetQuant DefArt one_and_half_Num) (UseN apple_N))))
+AllRus: он не делал полутора яблок
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlashPartLast (VPSlashPrep (UseV delatq_V) obj_no_Prep) (DetCN (DetQuant DefArt one_and_half_Num) (UseN apple_N))))
+AllRus: он делал полтора яблока
+
+AllRusAbs: UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlashPartLast (VPSlashPrep (UseV delatq_V) obj_no_Prep) (DetCN (DetQuant DefArt one_hundred_and_fifty_Num) (UseN car_N))))
+AllRus: он не делал полутораста машин
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlashPartLast (VPSlashPrep (UseV delatq_V) obj_no_Prep) (DetCN (DetQuant DefArt one_hundred_and_fifty_Num) (UseN car_N))))
+AllRus: он делал полтораста машин
+
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt oba_Num) (UseN apple_N)))))
+AllRus: он не кушал бы обоих яблок
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt oba_Num) (UseN apple_N)))))
+AllRus: он кушал бы оба яблока
+
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt oba_Num) (UseN car_N)))))
+AllRus: он не видел бы обеих машин
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt oba_Num) (UseN car_N)))))
+AllRus: он видел бы обе машины
+
+AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant IndefArt oba_Num) (UseN zhenszina_N)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))))
+AllRus: обе женщины кушают яблоки
+
+AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant IndefArt oba_Num) (UseN malqchik_N)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumPl) (UseN apple_N)))))
+AllRus: оба мальчика кушают яблоки
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (CountNP (DetQuant DefArt oba_Num) (UsePron youPl_Pron)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumPl) (UseN apple_N)))))
+AllRus: оба из вас кушают яблоки
+
+AllRusAbs: TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePN paris_PN) (UseComp (CompNomNP (MassNP (PartNP (UseN stolica_N) (MassNP (UseN country_N))))))))) NoVoc) TEmpty
+AllRus: Париж не столица страны .
+AllRusAbs: TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN paris_PN) (UseComp (CompNomNP (MassNP (PartNP (UseN stolica_N) (MassNP (UseN country_N))))))))) NoVoc) TEmpty
+AllRus: Париж — столица страны .
+
 AllRusAbs: ImpVP (AdvVP (AdVVP (PositAdVAdj dull_A) (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday))
 AllRus: будь скучно голоден сам в следующую пятницу
 
@@ -4225,8 +4264,14 @@ AllRus: Иван будет говорить : « в следующее воск
 AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePN john_PN) (ComplDirectVQ know_VQ (UttAdv (weekdayNextAdv sunday_Weekday))))
 AllRus: Иван знал : « в следующее воскресенье »
 
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (AdvVP (ComplSlash (SlashV2a find_V2) (MassNP (UseN upravlenie_N))) (PrepCN ins_Prep (UseN dom_N))))
+AllRus: он находит управление домом
+
 AllRusAbs: CompoundA yellow_A red_A
 AllRus: жёлто &+ - &+ красный
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (CountNP (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UsePron they_Pron)) (UseV fall_V))
+AllRus: одно из н &+ их падает
 
 AllRusAbs: has_age_VP (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))
 AllRus: быть по меньшей мере восемь лет
@@ -4401,6 +4446,9 @@ AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (ImpersCl (ComplSlash (VPSlashPrep (h
 AllRus: не Ивану один год
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplSlash (VPSlashPrep (has_age_VP (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) to_dat_Prep) (UsePN john_PN)))
 AllRus: Ивану один год
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (AdvVP (UseV pitq_V) (PrepNP for2_Prep (DetCN (DetQuant DefArt vosqmero_Num) (UseN boy_N))))))
+AllRus: он пьёт за восьмерых мальчиков
 
 AllRusAbs: FocusObj (UsePron she_Pron) (UseSlash (TTAnt TCond AAnter) PNeg (SlashVP (UsePN john_PN) (Slash3V3 talk_V3 (UsePN paris_PN))))
 AllRus: с н &+ ей Иван не говорил бы о Париже
@@ -4675,6 +4723,18 @@ AllRus: сколько не ей лет
 AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (how_old_QCl (UsePron she_Pron))
 AllRus: сколько ей лет
 
+AllRusAbs: ImpVP (ComplVV perestatq_VV (UseV bojatqsja_V))
+AllRus: перестань бояться
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt troe_Num) (UseN boy_N)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt pjatero_Num) (UseN apple_N))))
+AllRus: трое мальчиков кушают пятеро яблок
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt dvoe_Num) (UseN woman_N)) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt chetvero_Num) (UseN bird_N))))
+AllRus: двое женщин видят четверых птиц
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant IndefArt vosqmero_Num) (UseN mashina_N)) (ComplSlashPartLast (VPSlashPrep (UseV delatq_V) obj_no_Prep) (DetCN (DetQuant IndefArt shestero_Num) (UseN lake_N))))
+AllRus: восьмеро машин делают шестеро озёр
+
 AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestIAdv wherefrom_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
 AllRus: откуда эта женщина не бега &+ ла бы
 AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestIAdv wherefrom_IAdv (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UseV run_V)))
@@ -4692,6 +4752,57 @@ AllRus: куда эта женщина бега &+ ла бы
 
 AllRusAbs: PastPartAP (AdvVPSlash (SlashVV must_VV (VPSlashPrep scared_VP above_Prep)) elsewhen_Adv)
 AllRus: должен бояться когда-нибудь
+
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (PredVP (DetCN (DetQuant DefArt dvoe_Num) (UseN child_N)) (ComplSlash (VPSlashPrep (UseV pomogatq_V) to_dat_Prep) (UsePron she_Pron)))
+AllRus: двое детей помога &+ ли бы ей
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt dvoe_Num) (UseN child_N)) (ComplSlash (VPSlashPrep (UseV pomogatq_V) to_dat_Prep) (UsePron she_Pron)))
+AllRus: двое детей будут помогать ей
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt dvoe_Num) (UseN child_N)) (ComplSlash (VPSlashPrep (UseV pomogatq_V) to_dat_Prep) (UsePron she_Pron)))
+AllRus: двое детей помога &+ ли ей
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt dvoe_Num) (UseN child_N)) (ComplSlash (VPSlashPrep (UseV pomogatq_V) to_dat_Prep) (UsePron she_Pron)))
+AllRus: двое детей помогают ей
+
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она не куша &+ ла бы яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она куша &+ ла бы яблоко в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TFut AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она не будет кушать яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она будет кушать яблоко в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она не куша &+ ла яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она куша &+ ла яблоко в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она не кушает яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PNeg (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он не утверждает , что она кушает яблоко в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она не куша &+ ла бы яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TCond AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она куша &+ ла бы яблоко в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TFut AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она не будет кушать яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она будет кушать яблоко в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она не куша &+ ла яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она куша &+ ла яблоко в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPres AAnter) PNeg (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она не кушает яблока в машине
+AllRusAbs: AdvS (PrepNP nom_Prep (UsePron he_Pron)) (SSubjS (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (UseV utverzhdatq_V))) that_Subj (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlashPartLast (AdvVPSlash (SlashV2a eat_V2) (PrepCN in_Prep (UseN mashina_N))) (MassNP (UseN apple_N))))))
+AllRus: он утверждает , что она кушает яблоко в машине
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron she_Pron) (AdvVP (ComplSlash (SlashV2a eat_V2) (MassNP (UseN apple_N))) (PrepCN in_Prep (UseN car_N)))))))
+AllRus: она не говорит , что она не куша &+ ла яблока в машине
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP (ComplSlash (SlashV2a eat_V2) (MassNP (UseN apple_N))) (PrepCN in_Prep (UseN car_N)))))))
+AllRus: она не говорит , что она куша &+ ла яблоко в машине
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron she_Pron) (AdvVP (ComplSlash (SlashV2a eat_V2) (MassNP (UseN apple_N))) (PrepCN in_Prep (UseN car_N)))))))
+AllRus: она говорит , что она не куша &+ ла яблока в машине
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP (ComplSlash (SlashV2a eat_V2) (MassNP (UseN apple_N))) (PrepCN in_Prep (UseN car_N)))))))
+AllRus: она говорит , что она куша &+ ла яблоко в машине
 
 AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVV bojatqsja_VV (UseV sleep_V))))
 AllRus: она боит &+ ся спать
@@ -4738,8 +4849,65 @@ AllRus: Список описаний не писан
 AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (ComplN2 spisok_N2 (DetCN (DetQuant DefArt NumPl) (UseN opisanie_N)))) (PassVPSlash (SlashV2a write_V2)))
 AllRus: Список описаний писан
 
+AllRusAbs: UttCN (AdjCN (AdAP quite_Adv (PositA neobychnyj_A)) (UseN delo_N))
+AllRus: довольно необычное дело
+
+AllRusAbs: FocusObj (UsePron i_Pron) (UseSlash (TTAnt TPres ASimul) PPos (SlashPrep (ImpersCl (AdvVP (UseV predstojatq_V) (AdAdv quite_Adv (PrepCN nom_Prep (AdjCN (PositA neobychnyj_A) (UseN delo_N)))))) to_dat_Prep))
+AllRus: мне предстоит довольно необычное дело
+
+AllRusAbs: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplBareVS know_VS (AdvS (PrepNP to_dat_Prep (UsePron i_Pron)) (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseV predstojatq_V))))) (AdAdv quite_Adv (PrepCN nom_Prep (AdjCN (PositA neobychnyj_A) (UseN delo_N)))))))
+AllRus: я знал , что мне предстоит довольно необычное дело
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIComp (CompIAdv how_IAdv) (MassNP (AdvCN (AdjCN (AdvAP (PositA neobychnyj_A) (PurposeVP (ProgrVP (UseV vesti_V)))) (UseN delo_N)) dalee_Adv))))
+AllRus: как вести необычное дело далее
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIComp (CompIAdv (AdvIAdv (AdvIAdv how_IAdv dalee_Adv) (PurposeVP (UseV vesti_V)))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA neobychnyj_A) (UseN delo_N)))))
+AllRus: как далее вести необычное дело
+
+AllRusAbs: UttS (AdvS today_Adv (UseCl (TTAnt TFut AAnter) PPos (PredVP (AdvNP (MassNP (UseN mashina_N)) opjatq_Adv) (UseV isportitqsja_V))))
+AllRus: сегодня машина опять испортит &+ ся
+
+AllRusAbs: UttS (UseCl (TTAnt TFut AAnter) PPos (PredVP (UsePron we_Pron) (UseV nadejatqsja_V)))
+AllRus: мы будем надеяться
+
+AllRusAbs: UttS (UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron we_Pron) (ComplBareVS hope_VS (AdvS today_Adv (UseCl (TTAnt TPres ASimul) PNeg (PredVP (AdvNP (MassNP (UseN car_N)) opjatq_Adv) (UseV isportitqsja_V)))))))
+AllRus: мы не будем надеяться , что сегодня машина опять не испортит &+ ся
+AllRusAbs: UttS (UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron we_Pron) (ComplBareVS hope_VS (AdvS today_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (MassNP (UseN car_N)) opjatq_Adv) (UseV isportitqsja_V)))))))
+AllRus: мы не будем надеяться , что сегодня машина опять испортит &+ ся
+AllRusAbs: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron we_Pron) (ComplBareVS hope_VS (AdvS today_Adv (UseCl (TTAnt TPres ASimul) PNeg (PredVP (AdvNP (MassNP (UseN car_N)) opjatq_Adv) (UseV isportitqsja_V)))))))
+AllRus: мы будем надеяться , что сегодня машина опять не испортит &+ ся
+AllRusAbs: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron we_Pron) (ComplBareVS hope_VS (AdvS today_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (MassNP (UseN car_N)) opjatq_Adv) (UseV isportitqsja_V)))))))
+AllRus: мы будем надеяться , что сегодня машина опять испортит &+ ся
+
+AllRusAbs: UttCN (AdjCN (AdvAP (AdvAP (PositA chuzhoj_A) (PurposeVP (ReflVP (VPSlashPrep (UseV predstavitq_V) to_dat_Prep)))) trudno_Adv) (UseN sky_N))
+AllRus: трудно представить себе чужое небо
+
+AllRusAbs: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (AdvVP (UseV povertetq_V) (PrepNP obj_neg_Prep (AdvNP (UsePron she_Pron) (PrepNP before_Prep (DetCN (DetQuant DefArt NumPl) (UseN eye_N))))))))
+AllRus: он повертел её перед глазами
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (AdvNP everybody_NP (PrepCN with_Prep (UseN interes_N))) (AdvVP (UseV smotretq_V) (PrepNP on2_Prep (DetCN (DetQuant (PossPron he_Pron) NumPl) (UseN leg_N)))))
+AllRus: все с интересом смотре &+ ли на его ноги
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (AdjCN (PositA yellow_A) (UseN volna_N))) (UseV uspokoitqsja_V))
+AllRus: жёлтые волны успокои &+ ли &+ сь
+
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (AdvNP (DetCN (DetQuant DefArt NumPl) (AdjCN (PositA yellow_A) (UseN volna_N))) skoro_Adv) (UseV uspokoitqsja_V))
+AllRus: жёлтые волны скоро успокои &+ ли &+ сь
+
+AllRusAbs: UttS (ExtAdvS naprimer_Adv (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPlFem_Pron) (AdvVP (UseV narisovatq_V) (PrepCN nom_Prep (AdvCN (UseN person_N) (PrepNP in_Prep (DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))) (UseN sluchaj_N)))))))))
+AllRus: например , вы нарисова &+ ли лицо в трёх случаях
+
+AllRusAbs: UttS (AdvS (PrepNP nom_Prep (UsePron he_Pron)) (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlashPartLast (VPSlashPrep (ComplSlashPartLast (VPSlashPrep (UseV prinositq_V) nom_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN apple_N))) to_dat_Prep) (UsePron youPol_Pron)))))
+AllRus: он приносит вам яблоки
+
+AllRusAbs: UttAccNP (DetCN (DetQuant (PossPron youPlFem_Pron) NumSg) (SentCN (AdvCN (UseN nebo_N) (PrepNP for_Prep (UsePron we_Pron))) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIAdv how_IAdv) (MassNP (UseN zerkalo_N)))))))
+AllRus: ваше небо для нас как зеркало
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (AdjCN (PositA rovnyj_A) (AdjCN (PositA (CompoundA white_A blue_A)) (UseN svet_N)))) (AdvVP (UseV pronizyvatq_V) (PrepNP obj_neg_Prep (AdvNP (UsePron she_Pron) iznutri_Adv))))
+AllRus: ровный бело &+ - &+ голубой свет пронизывает её изнутри
+
 AllRusAbs: MkDocument (NoDefinition "") (InflectionV run_V) ""
-AllRus: <h1> глагол </h1> <p> она бегает </p> несовершенного вида, невозвратный, непереходный, <h2> инфинитив </h2> <table rules=all border=yes> <tr> <td> бегать </td> <td> бегаться </td> </tr> </table> <table rules=all border=yes> <tr> <th> лицо </th> <th> число </th> <th> род </th> <th> прошлое </th> <th> настоящее </th> <th> будущее </th> <th> повелительное </th> </tr> <tr> <th> 1 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаю </td> <td> буду бегать </td> <td> бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаем </td> <td> будем бегать </td> <td> бегаем </td> </tr> <tr> <th> 2 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаешь </td> <td> будешь бегать </td> <td> бегай </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаете </td> <td> будете бегать </td> <td> бегайте </td> </tr> <tr> <th> 3 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегает </td> <td> будет бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегают </td> <td> будут бегать </td> <td> пусть будут бегать </td> </tr> </table> <h2> краткие причастия прошедшего времени </h2> <table rules=all border=yes> <tr> <th> мужской </th> <th> женский </th> <th> средний </th> <th> мн.ч. </th> </tr> <tr> <td> беган </td> <td> бегана </td> <td> бегано </td> <td> беганы </td> </tr> </table> <h2> деепричастия </h2> <table rules=all border=yes> <tr> <th> прошлое </th> <th> настоящее </th> </tr> <tr> <td> бегая </td> <td> бегавши </td> </tr> </table> <p> </p>
+AllRus: <h1> глагол </h1> <p> она бегает </p> несовершенного вида, невозвратный, непереходный, <h2> инфинитив </h2> <table rules=all border=yes> <tr> <td> бегать </td> <td> бегаться </td> </tr> </table> <table rules=all border=yes> <tr> <th> лицо </th> <th> число </th> <th> род </th> <th> прошлое </th> <th> настоящее </th> <th> будущее </th> <th> повелительное </th> </tr> <tr> <th> 1 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаю </td> <td> буду бегать </td> <td> бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаем </td> <td> будем бегать </td> <td> бегаем </td> </tr> <tr> <th> 2 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегаешь </td> <td> будешь бегать </td> <td> бегай </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегаете </td> <td> будете бегать </td> <td> бегайте </td> </tr> <tr> <th> 3 л. </th> <th> ед.ч. </th> <th> мужской </th> <td> бегал </td> <td> бегает </td> <td> будет бегать </td> </tr> <tr> <th> </th> <th> </th> <th> женский </th> <td> бегала </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> </th> <th> средний </th> <td> бегало </td> <td> </td> <td> </td> </tr> <tr> <th> </th> <th> мн.ч. </th> <th> </th> <td> бегали </td> <td> бегают </td> <td> будут бегать </td> <td> пусть будут бегать </td> </tr> </table> <h2> краткие причастия прошедшего времени </h2> - <h2> деепричастия </h2> <table rules=all border=yes> <tr> <th> прошлое </th> <th> настоящее </th> </tr> <tr> <td> бегая </td> <td> бегавши </td> </tr> </table> <p> </p>
 
 AllRusAbs: MkDocument (NoDefinition "") (InflectionA yellow_A) ""
 AllRus: <h1> прилагательное </h1> <h2> женский </h2> <table rules=all border=yes> <tr> <th> </th> <th> ед.ч. </th> <th> мн.ч. </th> </tr> <tr> <th> именительный </th> <td> жёлтая </td> <td> жёлтые </td> </tr> <tr> <th> родительный </th> <td> жёлтой </td> <td> жёлтых </td> </tr> <tr> <th> дательный </th> <td> жёлтой </td> <td> жёлтым </td> </tr> <tr> <th> винительный </th> <td> жёлтую </td> <td> жёлтые </td> </tr> <tr> <th> творительный </th> <td> жёлтой </td> <td> жёлтыми </td> </tr> <tr> <th> предложный </th> <td> жёлтой </td> <td> жёлтых </td> </tr> <tr> <th> разделительный </th> <td> жёлтой </td> <td> - </td> </tr> <tr> <th> местный </th> <td> жёлтой </td> <td> - </td> </tr> <tr> <th> звательный </th> <td> жёлтая </td> <td> - </td> </tr> </table> <h2> мужской </h2> <table rules=all border=yes> <tr> <th> </th> <th> ед.ч. </th> <th> мн.ч. </th> </tr> <tr> <th> именительный </th> <td> жёлтый </td> <td> жёлтые </td> </tr> <tr> <th> родительный </th> <td> жёлтого </td> <td> жёлтых </td> </tr> <tr> <th> дательный </th> <td> жёлтому </td> <td> жёлтым </td> </tr> <tr> <th> винительный </th> <td> жёлтый </td> <td> жёлтые </td> </tr> <tr> <th> творительный </th> <td> жёлтым </td> <td> жёлтыми </td> </tr> <tr> <th> предложный </th> <td> жёлтом </td> <td> жёлтых </td> </tr> <tr> <th> разделительный </th> <td> жёлтого </td> <td> - </td> </tr> <tr> <th> местный </th> <td> жёлтом </td> <td> - </td> </tr> <tr> <th> звательный </th> <td> жёлтый </td> <td> - </td> </tr> </table> <h2> средний </h2> <table rules=all border=yes> <tr> <th> </th> <th> ед.ч. </th> <th> мн.ч. </th> </tr> <tr> <th> именительный </th> <td> жёлтое </td> <td> жёлтые </td> </tr> <tr> <th> родительный </th> <td> жёлтого </td> <td> жёлтых </td> </tr> <tr> <th> дательный </th> <td> жёлтому </td> <td> жёлтым </td> </tr> <tr> <th> винительный </th> <td> жёлтое </td> <td> жёлтые </td> </tr> <tr> <th> творительный </th> <td> жёлтым </td> <td> жёлтыми </td> </tr> <tr> <th> предложный </th> <td> жёлтом </td> <td> жёлтых </td> </tr> <tr> <th> разделительный </th> <td> жёлтого </td> <td> - </td> </tr> <tr> <th> местный </th> <td> жёлтом </td> <td> - </td> </tr> <tr> <th> звательный </th> <td> жёлтое </td> <td> - </td> </tr> </table> <h2> сравнительная </h2> <table rules=all border=yes> <tr> <tr> желтее </tr> </tr> </table> <p> </p>

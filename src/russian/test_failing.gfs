@@ -50,5 +50,6 @@ gt SentCN  (UseN apple_N)   (EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_
 gt PredSCVP (EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron)))    ( PassV2 count_V2 )  | l -treebank
 gt PredSCVP (EmbedVP (UseV play_V))  (UseComp (CompAP (PositA clean_A)) ) | l -treebank
 gt UseCl (TTAnt TPres AAnter) PPos (married_Cl  (UsePron weFem_Pron)     ((DetCN (DetQuant (PossPron youSg_Pron) NumPl))  (UseN woman_N))         ) |l -treebank
+gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (CountNP (DetQuant DefArt oba_Num) (UsePron youPlFem_Pron)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumPl) (UseN apple_N))))) |l -treebank
 
 gt UseQCl ? PNeg (how_far_QCl (UsePN paris_PN)) | l -treebank

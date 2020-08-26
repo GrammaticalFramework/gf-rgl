@@ -3,20 +3,22 @@ abstract ExtraRusAbs = Cat ** {
 fun
   about_Prep : Prep ;
   along_Prep : Prep ;
-  be_V3 : V3 ;
-  dat_Prep : Prep ;
+  for2_Prep : Prep ;
   from2_Prep : Prep ;
-  have2_V3 : V3 ;
-  have_not_V3 : V3 ;
-  have_V3 : V3 ;
   nom_Prep : Prep ;
   obj_neg_Prep : Prep ;
   obj_no_Prep : Prep ;
-  on_to_Prep : Prep ;
   on2_Prep : Prep ;
+  on_to_Prep : Prep ;
   to2_Prep : Prep ;
   to_dat_Prep : Prep ;
+  ins_Prep : Prep ;
   u_Prep : Prep ;
+
+  be_V3 : V3 ;
+  have2_V3 : V3 ;
+  have_not_V3 : V3 ;
+  have_V3 : V3 ;
 
   wherefor_IAdv : IAdv ;
   wherefor_IAdv : IAdv ;
@@ -85,8 +87,27 @@ fun
 
   rather_CAdv : CAdv ;
 
+  kak_Conj : Conj ;
+
+  one_and_half_Num : Num ;
+  one_hundred_and_fifty_Num : Num ;
+  oba_Num : Num ;
+  dvoe_Num : Num ;
+  troe_Num : Num ;
+  chetvero_Num : Num ;
+  pjatero_Num : Num ;
+  shestero_Num : Num ;
+  semero_Num : Num ;
+  vosqmero_Num : Num ;
+  devjatero_Num : Num ;
+  desjatero_Num : Num ;
+  stolqko_Num : Num ;
+  skolqko_Num : Num ;
+  neskolqko_Num : Num ;
+
   CompoundA : A -> A -> A ;
   TransgrAsAdv : Temp -> Pol -> VPSlash -> Adv ;
   TransgrAsAdv1 : Temp -> Pol -> VPSlash -> Adv ;
   UttImpImm : Pol -> Imp -> Utt ;
+  CompNomNP : NP -> Comp ;
 }

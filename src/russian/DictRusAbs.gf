@@ -2,6 +2,7 @@ abstract DictRusAbs = Cat ** {
 
 fun
   administracija_N : N;
+  administracija_N2 : N2;
   adres_N : N;
   akademija_N : N;
   akcija_N : N;
@@ -55,6 +56,7 @@ fun
   chas_N : N;
   chastnostq_N : N;
   chastq_N : N;
+  chastq_N2 : N2;
   chasy_N : N;
   chelovechestvo_N : N;
   chempionat_N : N;
@@ -214,7 +216,6 @@ fun
   izobrazhenie_N : N;
   izuchenie_N : N;
   izvestie_N : N;
-  jabloko_N : N;
   janvarq_N : N;
   jaszik_N : N;
   javlenie_N : N;
@@ -798,6 +799,7 @@ fun
   territorija_N : N;
   tip_N : N;
   tishina_N : N;
+  tkanq_N : N;
   tjurqma_N : N;
   tochka_N : N;
   tolpa_N : N;
@@ -1253,6 +1255,8 @@ fun
   ispolnjatq_V : V;
   ispolqzovatq_V : V;
   ispolqzovatqsja_V : V;
+  isportitq_V : V;
+  isportitqsja_V : V;
   ispugatqsja_V : V;
   ispugatqsja_VV : VV;
   ispytatq_V : V;
@@ -1518,6 +1522,8 @@ fun
   poveritq_V : V;
   povernutq_V : V;
   povernutqsja_V : V;
+  povertetq_V : V;
+  povertetqsja_V : V;
   povesitq_V : V;
   povesti_V : V;
   povtoritq_V : V;
@@ -1801,6 +1807,7 @@ fun
   proizojti_V : V;
   proishoditq_V : V;
   projti_V : V;
+  pronizyvatq_V : V;
   propastq_V : V;
   propustitq_V : V;
   prositq_V : V;
@@ -2080,6 +2087,7 @@ fun
   ustupatq_V : V;
   utverditq_V : V;
   utverzhdatq_V : V;
+  utverzhdatq_VS : VS;
   utochnitq_V : V;
   utratitq_V : V;
   uhoditq_V : V;

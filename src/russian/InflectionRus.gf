@@ -1086,7 +1086,7 @@ oper
         isg2=com + "ти";
         isg2refl=com + "тись";
         ipl1=[];
-        pppss="";
+        pppss=com + "тим";  -- incorrect, but prevents empty
         prtr=com + "тя";
         ptr=com + "тев";
         asp=asp;
@@ -1115,7 +1115,7 @@ oper
         isg2=com + "ги";
         isg2refl=com + "гись";
         ipl1=[];
-        pppss="";
+        pppss=com + "ган"; -- incorrect, but prevents parsing problems
         prtr=com + "жа"; -- *
         ptr=com + "жав";
         asp=asp;
@@ -1144,7 +1144,7 @@ oper
         isg2=com + "шь";
         isg2refl=com + "шься";
         ipl1=[];
-        pppss="";
+        pppss=com + "ден";  -- *
         prtr=com + "дя";
         ptr=com + "в";
         asp=asp;
@@ -1172,7 +1172,7 @@ oper
         isg2=com + "й";
         isg2refl=com + "йся";
         ipl1=[];
-        pppss="";
+        pppss=com + "н"; -- *
         prtr=com + "вая";
         ptr=com + "в";
         asp=asp;
@@ -1201,7 +1201,7 @@ oper
         isg2=com + "удь";
         isg2refl=com + "удься";
         ipl1=[];
-        pppss="";
+        pppss="ыт";  -- *
         prtr=com + "ывая";
         ptr=com + "ыв";
         asp=asp;
@@ -1209,8 +1209,8 @@ oper
         tran=tran
         } ;
 
-  makeVerbJti: Aspect -> Transitivity -> Str -> VerbForms
-    = \asp,tran,inf ->
+  makeVerbJti: Aspect -> Transitivity -> Str -> Str -> VerbForms
+    = \asp,tran,inf,e ->
       let inf1 = dropRefl inf in
       let stem_info = infStemFromVerb inf in
       let inf_s : Str = stem_info.p1 in
@@ -1220,18 +1220,18 @@ oper
         inf=inf1 ;
         infrefl=inf1 + "сь" ;
         prsg1=com + "ду";
-        prsg2=com + "дёшь";
-        prsg3=com + "дёт";
-        prpl1=com + "дём";
-        prpl2=com + "дёте";
+        prsg2=com + "д" + e + "шь";
+        prsg3=com + "д" + e + "т";
+        prpl1=com + "д" + e + "м";
+        prpl2=com + "д" + e + "те";
         prpl3=com + "дут";
         fut=NormalFuture ;
-        psgm=comPast + "ёл";
+        psgm=comPast + e + "л";
         psgs=comPast ;
         isg2=com + "ди";
         isg2refl=com + "дись";
         ipl1=[];
-        pppss="";
+        pppss="ден"; -- *
         prtr=com + "дя";
         ptr=[];
         asp=asp;

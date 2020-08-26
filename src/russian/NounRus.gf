@@ -117,8 +117,11 @@ lin
 
   -- : Numeral -> Ord ;  -- fifty-first
   OrdNumeral numeral = numeral.o ** {
-    sm,sf,sn,sp=[] ;
-    comp=[] ;
+    sm=numeral.s ! Masc ! Inanimate ! Nom; -- these are not correct, but needed to prevent parsing problems
+    sf=numeral.s ! Fem ! Inanimate ! Nom;
+    sn=numeral.s ! Neut ! Inanimate ! Nom;
+    sp=numeral.s ! Neut ! Inanimate ! Gen ;
+    comp=numeral.s ! Neut ! Inanimate ! Gen ;
     p=False ;
     preferShort=PreferFull
   } ;

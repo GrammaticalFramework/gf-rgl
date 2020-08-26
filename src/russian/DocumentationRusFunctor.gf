@@ -179,11 +179,14 @@ oper
         ++ td (past ! Ag GPl P3) ++ td (pres ! Ag GPl P3) ++ td (fut ! Ag GPl P3) ++ td (imp ! Ag GPl P3) )
     ) ++
     heading2 ("краткие причастия прошедшего времени") ++
-    frameTable (
-      tr (th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter)
-         ++ th (heading plural_Parameter)) ++
-      tr (td (ppp ! (GSg Masc)) ++ td (ppp ! (GSg Fem)) ++ td (ppp ! (GSg Neut)) ++ td (ppp ! GPl))
-    ) ++
+      case v.tran of {
+        Transitive => frameTable (
+          tr (th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter)
+             ++ th (heading plural_Parameter)) ++
+          tr (td (ppp ! (GSg Masc)) ++ td (ppp ! (GSg Fem)) ++ td (ppp ! (GSg Neut)) ++ td (ppp ! GPl))
+          ) ;
+        Intransitive => "-"
+        } ++
     heading2 ("деепричастия") ++
     frameTable (
       tr (th (heading past_Parameter) ++ th (heading present_Parameter)) ++
