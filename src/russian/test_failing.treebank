@@ -286,9 +286,9 @@ AllRus: пит дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a eat_V2)) (UseN house_N)
 AllRus: кушан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a fear_V2)) (UseN house_N)
-AllRus: боян дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a fight_V2)) (UseN house_N)
-AllRus: борот дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a find_V2)) (UseN house_N)
 AllRus: нахожен дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a forget_V2)) (UseN house_N)
@@ -304,7 +304,7 @@ AllRus: ударян дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a hold_V2)) (UseN house_N)
 AllRus: держан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a hunt_V2)) (UseN house_N)
-AllRus: охочен дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a kill_V2)) (UseN house_N)
 AllRus: убиван дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a know_V2)) (UseN house_N)
@@ -312,9 +312,9 @@ AllRus: знан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a learn_V2)) (UseN house_N)
 AllRus: учен дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a leave_V2)) (UseN house_N)
-AllRus: ухожен дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a like_V2)) (UseN house_N)
-AllRus: нравлен дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a listen_V2)) (UseN house_N)
 AllRus: слушан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a lose_V2)) (UseN house_N)
@@ -454,9 +454,9 @@ AllRus: пит дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a eat_V2)) (UseN house_N)
 AllRus: кушан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a fear_V2)) (UseN house_N)
-AllRus: боян дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a fight_V2)) (UseN house_N)
-AllRus: борот дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a find_V2)) (UseN house_N)
 AllRus: нахожен дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a forget_V2)) (UseN house_N)
@@ -472,7 +472,7 @@ AllRus: ударян дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a hold_V2)) (UseN house_N)
 AllRus: держан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a hunt_V2)) (UseN house_N)
-AllRus: охочен дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a kill_V2)) (UseN house_N)
 AllRus: убиван дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a know_V2)) (UseN house_N)
@@ -480,9 +480,9 @@ AllRus: знан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a learn_V2)) (UseN house_N)
 AllRus: учен дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a leave_V2)) (UseN house_N)
-AllRus: ухожен дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a like_V2)) (UseN house_N)
-AllRus: нравлен дом
+AllRus: 
 AllRusAbs: AdjCN (PastPartAP (SlashV2a listen_V2)) (UseN house_N)
 AllRus: слушан дом
 AllRusAbs: AdjCN (PastPartAP (SlashV2a lose_V2)) (UseN house_N)
@@ -606,6 +606,9 @@ AllRus: играть быть чистым
 
 AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (married_Cl (UsePron weFem_Pron) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
 AllRus: мы женаты на твоих женщинах
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (CountNP (DetQuant DefArt oba_Num) (UsePron youPlFem_Pron)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumPl) (UseN apple_N)))))
+AllRus: оба из вас кушают яблоки
 
 AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (how_far_QCl (UsePN paris_PN))
 AllRus: не как далеко был бы Парижа

@@ -139,7 +139,7 @@ lin
   -- : VPSlash -> VP ; -- be forced to sleep
   PassVPSlash vps = vps ** {
     verb=copulaEll ;
-    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a)
+    compl=\\p,a => vps.compl ! p ! a ++ shortPastPassPart vps.verb (agrGenNum a) ++ vps.c.s
     } ;
   -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
   -- use PlP2 + "ый"

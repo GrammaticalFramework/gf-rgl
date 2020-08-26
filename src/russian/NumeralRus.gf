@@ -139,24 +139,24 @@ lin n9 = {
   size = Num5
   } ;
 
-oper n59 : Str -> DetTable =
-  \n -> \\g, a, c =>
+oper n59 : Str -> DetTable
+  = \n -> \\g, a, c =>
 		case <c, g> of {
 		  <(Nom|VocRus|Acc), _> => n + "ь" ;
 		  <(Gen|Ptv|Dat|Pre|Loc), _> => n + "и" ;
 		  <Ins, _> => n + "ью"
 		} ;
 
-oper n2030 : Str -> DetTable =
-  \n -> \\g, a, c =>
+oper n2030 : Str -> DetTable
+  = \n -> \\g, a, c =>
 		case <c, g> of {
 		  <(Nom|VocRus|Acc), _> => n + "дцать" ;
 		  <(Gen|Ptv|Dat|Pre|Loc), _> => n + "дцати" ;
 		  <Ins, _> => n + "дцатью"
 		} ;
 
-oper n5070 : Str -> DetTable =
-  \n -> \\g, a, c =>
+oper n5070 : Str -> DetTable
+  = \n -> \\g, a, c =>
 		case <c, g> of {
 		  <(Nom|VocRus|Acc), _> => n + "ьдесят" ;
 		  <(Gen|Ptv|Dat|Pre|Loc), _> => n + "идесяти" ;

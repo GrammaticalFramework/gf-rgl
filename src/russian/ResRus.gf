@@ -235,11 +235,11 @@ oper
 
   pronToAdj : PronForms -> AdjForms
     = \base -> base ** {
-      sm = [] ;
-      sf = [] ;
-      sn = [] ;
-      sp = [] ;
-      comp = [] ;
+      sm = base.msnom ; -- these are incorrect, but empty causes parsing problems
+      sf = base.fsnom ;
+      sn = base.nsnom ;
+      sp = base.pnom ;
+      comp = base.nsnom ;
       preferShort = PreferFull ;
       p = False
     } ;
@@ -383,7 +383,7 @@ oper
   makeAdjectiveFromNoun : Noun -> Adjective
     = \n -> {
        s = \\gn,anim,cas=> n.s ! numGenNum gn ! cas ;
-       short=\\a=>[] ;
+       short=\\a=> [] ;
        preferShort=PreferFull
     } ;
 
@@ -598,8 +598,9 @@ oper
      s + ("хотеть"|"хотеться") => makeVerbKhotet6 asp tran inf ;
      s + ("бежать"|"бежаться") => makeVerbBezhat6 asp tran inf ;
      s + ("быть"  |"быться") => makeVerbByt6 asp tran inf ;
-     "идти" => makeVerbJti asp tran inf ;
-     s + ("йти" |"йтись") => makeVerbJti asp tran inf ;
+     "идти" => makeVerbJti asp tran inf "ё";
+     s + ("выйти" |"выйтись") => makeVerbJti asp tran inf "е";
+     s + ("йти" |"йтись") => makeVerbJti asp tran inf "ё";
       _ => let stem_info = infStemFromVerb inf in
         let stem = stem_info.p1 in
         guessVerbForms asp tran inf (stem+"ю") (stem+"ет")
@@ -630,12 +631,15 @@ oper
 
   shortPastPassPart : VerbForms -> GenNum -> Str
     = \vf,gn ->
-      case <vf.fut,gn> of {
-        <NormalFuture,GSg Masc> => vf.pppss ;
-        <NormalFuture,GSg Fem> => vf.pppss ++ BIND ++ "а" ;
-        <NormalFuture,GSg Neut> => vf.pppss ++ BIND ++ "о" ;
-        <NormalFuture,GPl> => vf.pppss ++ BIND ++ "ы" ;
-        _ => vf.pppss
+      case vf.tran of {
+        Intransitive => variants {} ;
+        Transitive => case <vf.fut,gn> of {
+          <NormalFuture,GSg Masc> => vf.pppss ;
+          <NormalFuture,GSg Fem> => vf.pppss ++ BIND ++ "а" ;
+          <NormalFuture,GSg Neut> => vf.pppss ++ BIND ++ "о" ;
+          <NormalFuture,GPl> => vf.pppss ++ BIND ++ "ы" ;
+          _ => vf.pppss
+          }
         } ;
 
   copula : VerbForms
@@ -644,7 +648,7 @@ oper
       infrefl="являться" ;  --?
       prsg1="—";
       prsg2="—";
-      prsg3="есть";
+      prsg3="—";
       prpl1="—";
       prpl2="—";
       prpl3="—";   -- also "суть"
@@ -654,7 +658,7 @@ oper
       isg2="будь";
       isg2refl="явись" ; -- ?
       ipl1="давайте будем";
-      pppss="";
+      pppss="явлен";   --*
       prtr="будучи";
       ptr="быв";
       asp=Imperfective;
@@ -719,8 +723,8 @@ oper
       isg2refl="будь способны" ;   -- *
       isg2="будь способен";  -- some improvisation here
       ipl1="давайте будем способны";   -- maybe, special like for future?
-      pppss="";
-      prtr="";
+      pppss=""; --*
+      prtr="могши";  --*
       ptr="могши";
       asp=Imperfective;
       refl=NonReflexive;
@@ -743,7 +747,7 @@ oper
       isg2="желай";
       isg2refl="желайся" ;
       ipl1="давайте будем хотеть";
-      pppss="";
+      pppss="хотим";  -- *
       prtr="хотя";
       ptr="хотев";
       asp=Imperfective;
@@ -762,7 +766,7 @@ oper
       fut=NullFuture ;
       asp=Imperfective;
       refl=NonReflexive;
-      tran=Intransitive
+      tran=Transitive
     } ;
 
   verbPastAgree : VerbForms -> Agr -> Str -> Str

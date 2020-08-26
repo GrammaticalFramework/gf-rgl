@@ -17,6 +17,7 @@ oper
   a2_a = parseAdjIndex "2*a" ;
 lin
   administracija_N = mkN "администрация" Fem Inanimate n7a ;
+  administracija_N2 = mkN2 administracija_N ;
   adres_N = mkN "адрес" Masc Inanimate (ZN 1 No C ZC1) ;
   akademija_N = mkN "академия" Fem Inanimate n7a ;
   akcija_N = mkN "акция" Fem Inanimate n7a ;
@@ -66,10 +67,11 @@ lin
   cennostq_N = mkN "ценность" Fem Inanimate n8a ;
   centr_N = mkN "центр" Masc Inanimate n1a ;
   cerkovq_N = mkN "церковь" Fem Inanimate (ZN 8 Ast E NoC) ;
-  chaj_N = mkN "чай" Masc Inanimate (ZN 6 No C NoC) ;
+  chaj_N = (mkNplus (mkN "чай" Masc Inanimate (ZN 6 No C NoC))) ** {sptv="чаю"} ;
   chas_N = mkN "час" Masc Inanimate (ZN 1 No C NoC) ;
   chastnostq_N = mkN "частность" Fem Inanimate n8a ;
   chastq_N = mkN "часть" Fem Inanimate (ZN 8 No E NoC) ;
+  chastq_N2 = mkN2 chastq_N ;
   chasy_N = mkN "часы" Masc Inanimate (ZN 1 No B NoC) ;
   chelovechestvo_N = mkN "человечество" Neut Inanimate n1a ;
   chempionat_N = mkN "чемпионат" Masc Inanimate n1a ;
@@ -229,7 +231,6 @@ lin
   izobrazhenie_N = mkN "изображение" Neut Inanimate n7a ;
   izuchenie_N = mkN "изучение" Neut Inanimate n7a ;
   izvestie_N = mkN "известие" Neut Inanimate n7a ;
-  jabloko_N = mkN "яблоко" Neut Inanimate (ZN 3 No A ZC1) ;
   janvarq_N = mkN "январь" Masc Inanimate (ZN 2 No B NoC) ;
   jaszik_N = mkN "ящик" Masc Inanimate n3a ;
   javlenie_N = mkN "явление" Neut Inanimate n7a ;
@@ -813,6 +814,7 @@ lin
   territorija_N = mkN "территория" Fem Inanimate n7a ;
   tip_N = mkN "тип" Masc Inanimate n1a ;
   tishina_N = mkN "тишина" Fem Inanimate (ZN 1 No D NoC) ;
+  tkanq_N = mkN "ткань" Fem Inanimate (ZN 8 No A NoC) ;
   tjurqma_N = mkN "тюрьма" Fem Inanimate (ZN 1 Ast D NoC) ;
   tochka_N = mkN "точка" Fem Inanimate (ZN 3 Ast A NoC) ;
   tolpa_N = mkN "толпа" Fem Inanimate (ZN 1 No D NoC) ;
@@ -1268,6 +1270,8 @@ lin
   ispolnjatq_V = mkV imperfective transitive "исполнять" "исполняю" "исполняет" "1a" ;
   ispolqzovatq_V = mkV imperfective transitive "использовать" "использую" "использует" "2a" ;
   ispolqzovatqsja_V = mkV imperfective intransitive "использоваться" "используюсь" "используется" "2a" ;
+  isportitq_V = mkV perfective transitive "испортить" "испорчу" "испортит" ;
+  isportitqsja_V = mkV perfective intransitive "испортиться" "испорчусь" "испортится" ;
   ispugatqsja_V = mkV perfective intransitive "испугаться" "испугаюсь" "испугается" "1a" ;
   ispugatqsja_VV = mkVV ispugatqsja_V ;
   ispytatq_V = mkV perfective transitive "испытать" "испытаю" "испытает" "1a" ;
@@ -1533,6 +1537,8 @@ lin
   poveritq_V = mkV perfective transitive "поверить" "поверю" "поверит" "4a" ;
   povernutq_V = mkV perfective transitive "повернуть" "поверну" "повернёт" "3b" ;
   povernutqsja_V = mkV perfective intransitive "повернуться" "повернусь" "повернётся" "3b" ;
+  povertetq_V = mkV perfective transitive "повертеть" "поверчу" "повертит" "5c" ;
+  povertetqsja_V = mkV perfective transitive "повертеться" "поверчусь" "повертится" "5c" ;
   povesitq_V = mkV perfective transitive "повесить" "повешу" "повесит" "4a" ;
   povesti_V = mkV perfective transitive "повести" "поведу" "поведёт" "7b/b" ;
   povtoritq_V = mkV perfective transitive "повторить" "повторю" "повторит" "4b" ;
@@ -1816,6 +1822,7 @@ lin
   proizojti_V = mkV perfective transitive "произойти" ;
   proishoditq_V = mkV imperfective transitive "происходить" "происхожу" "происходит" "4c" ;
   projti_V = mkV perfective transitive "пройти" ;
+  pronizyvatq_V = mkV imperfective transitive "пронизывать" "пронизываю" "пронизывает" "1a" ;
   propastq_V = mkV perfective transitive "пропасть" "пропаду" "пропадёт" "7b" ;
   propustitq_V = mkV perfective transitive "пропустить" "пропущу" "пропустит" "4c" ;
   prositq_V = mkV imperfective transitive "просить" "прошу" "просит" "4c" ;
@@ -2095,6 +2102,7 @@ lin
   ustupatq_V = mkV imperfective transitive "уступать" "уступаю" "уступает" "1a" ;
   utverditq_V = mkV perfective transitive "утвердить" "утвержу" "утвердит" "4b" ;
   utverzhdatq_V = mkV imperfective transitive "утверждать" "утверждаю" "утверждает" "1a";
+  utverzhdatq_VS = mkVS utverzhdatq_V ;
   utochnitq_V = mkV perfective transitive "уточнить" "уточню" "уточнит" "4b" ;
   utratitq_V = mkV perfective transitive "утратить" "утрачу" "утратит" "4a" ;
   uhoditq_V = mkV imperfective transitive "уходить" "ухожу" "уходит" "4c" ;

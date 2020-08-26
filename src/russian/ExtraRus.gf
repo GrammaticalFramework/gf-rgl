@@ -1,21 +1,22 @@
 -- Seems like this is deprecated - need to use ExtendRus instead
 
 concrete ExtraRus of ExtraRusAbs = CatRus **
-  open ResRus, MorphoRus, (P=ParadigmsRus), (X = ConstructX), Prelude, NounRus in {
+  open ResRus, MorphoRus, (P=ParadigmsRus), (X = ConstructX), Prelude, Coordination, NounRus in {
   flags optimize=all ; coding=utf8 ;
 lin
-  obj_no_Prep = {s="" ; c=Acc ; neggen=True ; hasPrep=False} ;
-  to2_Prep = P.mkPrep v_prep_mod Acc ;
-  to_dat_Prep = {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
-  obj_neg_Prep = lin Prep {s="" ; c=Gen ; neggen=False ; hasPrep=False} ;
   nom_Prep = lin Prep {s="" ; c=Nom ; neggen=True ; hasPrep=False} ;
-  dat_Prep = lin Prep {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
+  obj_neg_Prep = lin Prep {s="" ; c=Gen ; neggen=False ; hasPrep=False} ;
+  obj_no_Prep = lin Prep {s="" ; c=Acc ; neggen=True ; hasPrep=False} ;
+  to_dat_Prep = lin Prep {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
+  ins_Prep = lin Prep {s="" ; c=Ins ; neggen=False ; hasPrep=False} ;
+  to2_Prep = P.mkPrep v_prep_mod Acc ;
   u_Prep = lin Prep {s="у" ; c=Gen ; neggen=False ; hasPrep=True} ;
   on_to_Prep = P.mkPrep "до" Gen ;
   on2_Prep = P.on2_Prep ;
   along_Prep = P.mkPrep "по" Loc ;
   from2_Prep = from2 ;
   about_Prep = P.mkPrep o_prep_pre_mod Pre ;
+  for2_Prep = P.mkPrep "за" Gen ;
 
   wherefor_IAdv = ss "зачем" ;
   wherefrom_IAdv = ss "откуда" ;
@@ -101,9 +102,28 @@ lin
   have_V3 = P.mkV3 est_ell_V nom_Prep u_Prep;
   have2_V3 = P.mkV3 est_V nom_Prep u_Prep;
   have_not_V3 = P.mkV3 net_V obj_neg_Prep u_Prep;
-  be_V3 = P.mkV3 be_ell_V nom_Prep dat_Prep;
+  be_V3 = P.mkV3 be_ell_V nom_Prep to_dat_Prep;
 
   rather_CAdv = X.mkCAdv "скорее" "чем" ;
+
+  kak_Conj = P.mkConj (comma ++ "как") Sg ;
+
+  one_and_half_Num = {s=poltora ; size=Num2_4} ;
+  one_hundred_and_fifty_Num = {s=poltorasta ; size=Num5} ;
+
+  oba_Num = {s=oba ; size=Num2_4} ;
+  dvoe_Num =      {s=dvoe ; size=Num5} ;
+  troe_Num =      {s=troe ; size=Num5} ;
+  chetvero_Num =  {s=chetvero ; size=Num5} ;
+  pjatero_Num =   {s=pjatero ; size=Num5} ;
+  shestero_Num =  {s=shestero ; size=Num5} ;
+  semero_Num =    {s=semero ; size=Num5} ;
+  vosqmero_Num =  {s=vosqmero ; size=Num5} ;
+  devjatero_Num = {s=devjatero ; size=Num5} ;
+  desjatero_Num = {s=desjatero ; size=Num5} ;
+  stolqko_Num = {s=stolqko ; size=Num5} ;
+  skolqko_Num = {s=skolqko ; size=Num5} ;
+  neskolqko_Num = {s=neskolqko ; size=Num5} ;
 
   -- : A -> A -> A ;
   CompoundA a1 a2 = mkCompoundA a1 "-" a2 ;
@@ -138,6 +158,9 @@ lin
   -- : Pol -> Imp -> Utt ;         -- sleep (impolite, like immediate command)
   UttImpImm pol imp = {s = imp.s ! pol.p ! (GSg Neut)} ; -- reused otherwise unused gender
 
+  -- : NP -> Comp ;            -- (Париж) - столица Франции
+  CompNomNP np = {s=\\a=>np.s ! Nom ; adv=[] ; cop=NomCopula} ;
+
 oper
   est_V : V = lin V {
     inf="есть";
@@ -149,9 +172,9 @@ oper
     isg2="";
     isg2refl="" ;
     ipl1="";
-    pppss="";
-    prtr="";
-    ptr="";
+    pppss="явлен";  --*
+    prtr="существуя";  --*
+    ptr="существовав";  --*
     asp=Imperfective;
     refl=NonReflexive;
     tran=Transitive
@@ -168,9 +191,9 @@ oper
     isg2="";
     isg2refl="" ;
     ipl1="";
-    pppss="";
-    prtr="";
-    ptr="";
+    pppss=["не явлен"];  --*
+    prtr=["не существуя"];  --*
+    ptr=["не существовав"];  --*
     asp=Imperfective;
     refl=NonReflexive;
     tran=Transitive

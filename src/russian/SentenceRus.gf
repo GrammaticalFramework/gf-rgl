@@ -84,6 +84,7 @@ lin
       let pol = case polarity of {Neg => PNeg; Pos => PPos} in
       let a = Ag gn P2 in
         (R.verbEnvAgr "" "" vp.verb Imperative Pres a pol)
+        ++ vp.dep
         ++ vp.adv ! a
         ++ vp.compl ! pol.p ! a
     } ;
