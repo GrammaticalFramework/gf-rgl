@@ -40,21 +40,9 @@ linking ... OK
 Languages: AllRus
 бутылка этих двух пепла существует
 
-** UseCl (TTAnt TPres ASimul) PPos (have_name_Cl (DetNP (DetQuant (PossPron i_Pron) NumSg)) somebody_NP)
-LangRus-NEW> моего имя кто-то
-
-** UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a like_V2) (DetNP (DetQuant (PossPron he_Pron) NumSg))))
-LangRus-NEW> нравишься его
-
-** UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron ∅) NumSg))))
-LangRus-NEW> говоришь на его
-
 ** UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 ∅)))))))
 LangRus-NEW> кто-то в 2:двадцать существует
 LangRus-OLD> [ExistNPAdv]
-
-> l UttS (AdvS (AdAdv quite_Adv (ComparAdvAdj less_CAdv narrow_A everything_NP)) (UseCl (TTAnt TPres ASimul) PNeg (ExistNP something_NP)))
-довольно менее узко , чем всё что &+ -то не существует
 
 ## Prepositions change depending on next word
 
@@ -75,21 +63,6 @@ AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PNeg (
 AllRus: сколько не является яблок у Ивана ?
 AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv how8much_IAdv (ImpersCl (AdvVP (AdvVP UseCopula (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))) (PrepNP possess_Prep (UsePN john_PN))))))) NoVoc) TEmpty
 AllRus: сколько является яблок у Ивана ?
-
-## Exists idiom requires genetive in negation
-
-## Copula negation is not that simple
-
-AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
-AllRus: надеяться , что нет его имя Иван
-
-AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
-AllRus: нет его имя Иван
-
-AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
-AllRus: небо нет везде
-(must be: небо не везде есть)
-
 
 ## Some past participles are not correct
 
@@ -123,25 +96,10 @@ should be: стотысячное
 + Slash3V3 1492992 (107136,31)
 + SlashV2VNP 71663616 (214272,62)
 
-## Some natural constucts missing
-
-> p "я прошу нас нравиться ему"
-The sentence is not complete
-
-> p -cat=S "я просил его делать машины"
-The sentence is not complete
-
-
 ## From, api treebank
 
 AllRusAbs: PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc
 AllRus: , так и сейчас
-
-AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))
-AllRus: Она рисует красную данное
-
-AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))
-AllRus: Она рисует красную его
 
 AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
 AllRus: Является здесь что она спит
@@ -152,18 +110,11 @@ AllRus: Здесь есть что она спит
 AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)))
 AllRus: Данное пять самых хороших
 
-AllRusAbs: UttNP (PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2)
-AllRus: Человек вижен
-
 AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
 AllRus: Данное пятые
 
 AllRusAbs: UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl small_A)))
 AllRus: Некое самые маленькие
 
-AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))
-AllRus: Женщина, которая рисует очень красную его
-
-AllRusAbs: UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A)
-)))))
+AllRusAbs: UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A))))))
 AllRus: Ребёнок, все учителя которого является молодым
