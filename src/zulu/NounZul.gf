@@ -14,6 +14,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
     } ;
 
 --     UsePN pn = {s = \\c => pn.s ! npcase2case c ; a = agrgP3 Sg pn.g} ;
+
     UsePron pron = {
       empty = pron.empty ;
       nom = table {

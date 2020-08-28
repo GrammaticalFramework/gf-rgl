@@ -66,8 +66,25 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
       ap_bool : Bool ;
       aux_root : Str ;
       hasAux : Bool
-     } ;
---     VPSlash = ResZul.SlashVP ;
+    } ;
+
+    VPSlash = {
+      s : Str ;
+      perfSuff : Str ;
+      oc : Str ;
+      comp : Str ;
+      hasComp : Bool ;
+      r : RInit ;
+      syl : Syl ;
+      asp : Aspect ;
+      asp_pref : VForm => Str ;
+      vptype : VPType ;
+      comp_agr : Agr ;
+      ap_comp : AForm => Str ;
+      ap_bool : Bool ;
+      aux_root : Str ;
+      hasAux : Bool 
+    } ;
 
     Comp = {
       s : AForm => Str ;

@@ -17,12 +17,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       hasAux = False
     } ;
 
---     SlashV2a v = predVc v ** {c2 = v.c2 ; gapInMiddle = False} ;
---     Slash2V3 v np =
---       insertObjc (\\_ => v.c2 ++ np.s ! NPAcc) (predVc v ** {c2 = v.c3 ; gapInMiddle = False}) ;
---     Slash3V3 v np =
---       insertObjc (\\_ => v.c3 ++ np.s ! NPAcc) (predVc v) ; ----
-
 --     ComplVV v vp = insertObj (\\a => infVP v.typ vp False Simul CPos a) (predVV v) ;  ---- insertExtra?
 
     ComplVS vs s = vs ** {
@@ -62,27 +56,55 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       hasAux = False
     } ;
 
+
+    SlashV2a v = v ** {
+      oc = [] ;
+      comp = [] ;
+      hasComp = False ;
+      asp = Null ;
+      asp_pref = \\_ => [] ;
+      vptype = VNPCompl ;
+      comp_agr = First Sg ; -- this could be anything...
+      ap_comp = \\_ => [] ;
+      ap_bool = False ;
+      aux_root = [] ;
+      hasAux = False ;
+      missing_np1 = True
+    } ;
+--     Slash2V3 v np =
+--       insertObjc (\\_ => v.c2 ++ np.s ! NPAcc) (predVc v ** {c2 = v.c3 ; gapInMiddle = False}) ;
+--     Slash3V3 v np =
+--       insertObjc (\\_ => v.c3 ++ np.s ! NPAcc) (predVc v) ; ----
 --     SlashV2V v vp = insertObjc (\\a => v.c3 ++ infVP v.typ vp False Simul CPos a) (predVc v) ;
 --     SlashV2S v s  = insertExtrac (conjThat ++ s.s) (predVc v) ;   ---- insertExtra?
 -- ---    SlashV2S v s  = insertObjc (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predVc v) ;
 --     SlashV2Q v q  = insertExtrac (q.s ! QIndir) (predVc v) ;
 --     SlashV2A v ap = insertObjc (\\a => v.c3 ++ ap.s ! a) (predVc v) ; ----
---
---     ComplSlash vp np =
---       let vp' = case vp.gapInMiddle of {
---                   True  => insertObjPre (\\_ => vp.c2 ++ np.s ! NPAcc) vp ;
---                   False => insertObj    (\\_ => vp.c2 ++ np.s ! NPAcc) vp } ;
---
---           -- IL 24/04/2018
---           -- If the missing argument is not an adverbial, make previous object
---           -- agree with the argument of ComplSlash.
---           -- Example: "you help /me/ like /myself/", not "*you help me like yourself".
---           -- Different order of ReflVP and ComplSlash produces "you /yourself/ help me like me".
---             f = case vp.missingAdv of {
---                   True => id VP ;
---                   False => objAgr np } ;
---       in f vp' ;
---
+
+    -- ComplSlash vp np = {
+    --   s = vp.s ;
+    --   perfSuff = vp.perfSuff ;
+    --   oc = case np.isPron of {
+    --     True => objConc np.agr v2.r v2.syl ;
+    --     False => np.empty
+    --   comp = case v2.voice of {
+    --     Active => vp.comp ++ np.nom ! Full ++ np.desc ;
+    --     Passive => vp.comp ++ (cop_pref np.agr) ++BIND++ np.nom ! Full ++ np.desc
+    --   } ;
+    --   hasComp = True ;
+    --   r = vp.r ;
+    --   syl = vp.syl ;
+    --   asp = vp.asp ;
+    --   asp_pref = vp.asp_pref ;
+    --   vptype = VNPCompl ;
+    --   comp_agr = np.agr ;
+    --   ap_comp = vp.ap_comp ;
+    --   ap_bool = vp.ap_bool ;
+    --   aux_root = vp.aux_root ;
+    --   hasAux = vp.hasAux
+    -- } ;
+
+
 --     SlashVV vv vp = vp **
 --       insertObj (\\a => infVP vv.typ vp False Simul CPos a) (predVV vv) ;
 --     SlashV2VNP vv np vp = vp **
@@ -233,5 +255,30 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 --     UseCopula = predAux auxBe ;
 --
 --     VPSlashPrep vp p = vp ** {c2 = p.s ; gapInMiddle = False; missingAdv = True } ;
+
+  -- oper
+  --   insert_np : VPSlash -> NP -> VP = \vp,np -> {
+  --     s = vp.s ;
+  --     perfSuff = vp.perfSuff ;
+  --     oc = case np.isPron of {
+  --       True => objConc np.agr v2.r v2.syl ;
+  --       False => np.empty
+  --     } ;
+  --     comp = case np.isPron of {
+  --       True => vp.comp ;
+  --       False => vp.comp ++ np.nom ! Full ++ np.desc
+  --     } ;
+  --     hasComp = True ;
+  --     r = vp.r ;
+  --     syl = vp.syl ;
+  --     asp = vp.asp ;
+  --     asp_pref = vp.asp_pref ;
+  --     vptype = VNPCompl ;
+  --     comp_agr = np.agr ; -- this could be anything...
+  --     ap_comp = vp.ap_comp ;
+  --     ap_bool = vp.ap_bool ;
+  --     aux_root = vp.aux_root ;
+  --     hasAux = vp.hasAux
+  --   } ;
 
 }
