@@ -1,0 +1,529 @@
+
+
+
+Unable to find: 
+  /usr/share/x86_64-linux-ghc-7.10.3/gf-3.10/lib/LangEng.gfo
+
+
+Unable to find: 
+  /usr/share/x86_64-linux-ghc-7.10.3/gf-3.10/lib/LangSwe.gfo
+
+
+Unable to find: 
+  /usr/share/x86_64-linux-ghc-7.10.3/gf-3.10/lib/LangBul.gfo
+AllRusAbs: PositA warm_A
+AllRus: тёплый
+
+AllRusAbs: ComparA warm_A (UsePron i_Pron)
+AllRus: теплее меня
+
+AllRusAbs: ComplA2 married_A2 (UsePron she_Pron)
+AllRus: замужем за н &+ ей
+
+AllRusAbs: ComplA2 married_A2 (DetNP (DetQuant (PossPron she_Pron) NumPl))
+AllRus: замужем за её
+
+AllRusAbs: ComplA2 married_A2 (DetNP (DetQuant (PossPron she_Pron) NumSg))
+AllRus: замужем за её
+
+AllRusAbs: ReflA2 married_A2
+AllRus: замужем за собой
+
+Couldn't match expected type A
+       against inferred type AP
+In the expression: UseA2 married_A2
+AllRusAbs: SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAdv here_Adv)))))
+AllRus: хороший что она здесь есть
+
+AllRusAbs: AdAP very_AdA (PositA warm_A)
+AllRus: очень тёплый
+
+AllRusAbs: PositAdvAdj warm_A
+AllRus: тепло
+
+AllRusAbs: PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N))
+AllRus: в доме
+
+AllRusAbs: ComparAdvAdj more_CAdv warm_A (UsePN john_PN)
+AllRus: более тепло , чем Иван
+
+AllRusAbs: ComparAdvAdjS more_CAdv warm_A (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseV run_V)))
+AllRus: более тепло чем он бегает
+
+AllRusAbs: SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: когда она спит
+
+AllRusAbs: AdNum (AdnCAdv more_CAdv) (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))
+AllRus: более чем пять
+
+AllRusAbs: ConjS and_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseV walk_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV run_V))))
+AllRus: он гуляет и она бегает
+
+AllRusAbs: ConjAP and_Conj (BaseAP (PositA cold_A) (PositA warm_A))
+AllRus: холодный и тёплый
+
+AllRusAbs: ConjNP or_Conj (BaseNP (UsePron she_Pron) (UsePron we_Pron))
+AllRus: она или мы
+
+AllRusAbs: ConjAdv or_Conj (BaseAdv here_Adv there_Adv)
+AllRus: здесь или там
+
+AllRusAbs: ConjS either7or_DConj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseV walk_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV run_V))))
+AllRus: либо он гуляет , либо она бегает
+
+AllRusAbs: ConjAP both7and_DConj (BaseAP (PositA warm_A) (PositA cold_A))
+AllRus: как тёплый , так и холодный
+
+AllRusAbs: ConjNP either7or_DConj (BaseNP (UsePron he_Pron) (UsePron she_Pron))
+AllRus: либо он , либо она
+
+AllRusAbs: ConjAdv both7and_DConj (BaseAdv here_Adv there_Adv)
+AllRus: как здесь , так и там
+
+AllRusAbs: ImpersCl (UseComp (CompAP (PositA hot_A)))
+AllRus: быть горячим
+
+AllRusAbs: GenericCl (UseV sleep_V)
+AllRus: спать
+
+AllRusAbs: CleftNP (UsePron i_Pron) (UseRCl (TTAnt TPast ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a do_V2) (UsePron it_Pron))))
+AllRus: это я быть , который делал его
+
+AllRusAbs: CleftAdv here_Adv (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: это здесь она спа &+ ла
+
+AllRusAbs: ExistNP (DetCN (DetQuant IndefArt NumSg) (UseN house_N))
+AllRus: дом существовать
+
+AllRusAbs: ExistIP (IdetCN (IdetQuant which_IQuant NumPl) (UseN house_N))
+AllRus: которые дома существовать
+
+AllRusAbs: PredVP (UsePron i_Pron) (ProgrVP (UseV sleep_V))
+AllRus: я спать
+
+AllRusAbs: ImpPl1 (UseV go_V)
+AllRus: давайте ходить
+
+AllRusAbs: DetCN (DetQuant DefArt NumSg) (UseN man_N)
+AllRus: человек
+
+AllRusAbs: UsePN john_PN
+AllRus: Иван
+
+AllRusAbs: UsePron he_Pron
+AllRus: он
+
+AllRusAbs: PredetNP only_Predet (DetCN (DetQuant DefArt NumSg) (UseN man_N))
+AllRus: единственный человек
+
+AllRusAbs: PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2
+AllRus: человек виден
+
+AllRusAbs: AdvNP (UsePN paris_PN) today_Adv
+AllRus: Париж сегодня
+
+AllRusAbs: RelNP (UsePN paris_PN) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAdv here_Adv))))
+AllRus: Париж , который здесь есть
+
+AllRusAbs: DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
+AllRus: эти пять
+
+AllRusAbs: DetCN (DetQuantOrd this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)) (UseN man_N)
+AllRus: пять эти самых хороших людей
+
+AllRusAbs: DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N)
+AllRus: эти пять людей
+
+AllRusAbs: DetCN (DetQuant this_Quant NumPl) (UseN man_N)
+AllRus: эти люди
+
+AllRusAbs: DetCN (DetQuant this_Quant NumSg) (UseN man_N)
+AllRus: этот человек
+
+AllRusAbs: NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))
+AllRus: пять
+
+AllRusAbs: NumCard (NumDigits (IIDig D_5 (IDig D_1)))
+AllRus: 5 &+ 1
+
+AllRusAbs: NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot1plus n5 pot01)))))
+AllRus: пятьдесят один
+
+AllRusAbs: NumCard (AdNum almost_AdN (NumDigits (IIDig D_5 (IDig D_1))))
+AllRus: почти 5 &+ 1
+
+AllRusAbs: OrdDigits (IIDig D_5 (IDig D_1))
+AllRus: 5 &+ 1 &+ -е
+
+AllRusAbs: OrdNumeral (num (pot2as3 (pot1as2 (pot1plus n5 pot01))))
+AllRus: пятьдесят первое
+
+AllRusAbs: OrdSuperl warm_A
+AllRus: самое тёплое
+
+AllRusAbs: DetCN (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)) (UseN man_N)
+AllRus: пять самых хороших людей
+
+AllRusAbs: DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N)
+AllRus: пять людей
+
+AllRusAbs: DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN man_N)
+AllRus: один человек
+
+AllRusAbs: DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN man_N)
+AllRus: один человек
+
+AllRusAbs: DetCN (DetQuant DefArt NumSg) (UseN man_N)
+AllRus: человек
+
+AllRusAbs: DetCN (DetQuant DefArt NumPl) (UseN man_N)
+AllRus: люди
+
+AllRusAbs: MassNP (UseN beer_N)
+AllRus: пиво
+
+AllRusAbs: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)
+AllRus: мой дом
+
+AllRusAbs: UseN house_N
+AllRus: дом
+
+AllRusAbs: ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN king_N))
+AllRus: мать короля
+
+AllRusAbs: ComplN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (UsePN paris_PN)
+AllRus: расстояние от этого города до Парижа
+
+AllRusAbs: UseN2 mother_N2
+AllRus: мать
+
+AllRusAbs: ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (UseN city_N))
+AllRus: расстояние от этого города
+
+AllRusAbs: ComplN2 (Use3N3 distance_N3) (UsePN paris_PN)
+AllRus: расстояние от Парижа
+
+AllRusAbs: UseN2 (Use2N3 distance_N3)
+AllRus: расстояние
+
+AllRusAbs: AdjCN (PositA big_A) (UseN house_N)
+AllRus: большой дом
+
+AllRusAbs: RelCN (UseN house_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a buy_V2))))
+AllRus: дом , который Иван покупал
+
+AllRusAbs: AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))
+AllRus: дом на холме
+
+AllRusAbs: SentCN (UseN question_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron she_Pron) (UseV sleep_V)))))
+AllRus: вопрос где она спит
+
+AllRusAbs: DetCN (DetQuant DefArt NumSg) (ApposCN (UseN city_N) (UsePN paris_PN))
+AllRus: город Париж
+
+AllRusAbs: DetCN (DetQuant (PossPron i_Pron) NumSg) (ApposCN (UseN friend_N) (UsePN john_PN))
+AllRus: мой друг Иван
+
+AllRusAbs: num (pot2as3 (pot1as2 (pot0as1 (pot0 n6))))
+AllRus: шесть
+
+AllRusAbs: num (pot2as3 (pot1as2 (pot0as1 pot01)))
+AllRus: один
+
+AllRusAbs: num (pot2as3 (pot1as2 (pot1 n6)))
+AllRus: шестьдесят
+
+AllRusAbs: num (pot2as3 (pot1as2 pot110))
+AllRus: десять
+
+AllRusAbs: num (pot2as3 (pot1as2 pot111))
+AllRus: одиннадцать
+
+AllRusAbs: num (pot2as3 (pot1as2 (pot1to19 n6)))
+AllRus: шестнадцать
+
+AllRusAbs: num (pot2as3 (pot1as2 (pot1 n6)))
+AllRus: шестьдесят
+
+AllRusAbs: num (pot2as3 (pot1as2 (pot1plus n6 (pot0 n5))))
+AllRus: шестьдесят пять
+
+AllRusAbs: num (pot2as3 (pot2 (pot0 n4)))
+AllRus: четыреста
+
+AllRusAbs: num (pot2as3 (pot2plus (pot0 n4) (pot1plus n6 (pot0 n7))))
+AllRus: четыреста шестьдесят семь
+
+AllRusAbs: num (pot3 (pot2plus (pot0 n4) (pot1plus n6 (pot0 n7))))
+AllRus: четыреста шестьдесят семь тысяч
+
+AllRusAbs: num (pot3plus (pot2plus (pot0 n4) (pot1plus n6 (pot0 n7))) (pot1as2 (pot1plus n8 (pot0 n9))))
+AllRus: четыреста шестьдесят семь тысяч восемьдесят девять
+
+AllRusAbs: IDig D_8
+AllRus: 8
+
+AllRusAbs: IIDig D_8 (IIDig D_0 (IIDig D_0 (IIDig D_1 (IIDig D_7 (IIDig D_8 (IDig D_9))))))
+AllRus: 8 &+ 0 &+ 0 &+ 1 &+ 7 &+ 8 &+ 9
+
+AllRusAbs: PhrUtt but_PConj (UttImpSg PPos (ImpVP (AdvVP (UseV come_V) here_Adv))) (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N)))
+AllRus: но приходи здесь , мой друг
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseV walk_V)))) NoVoc
+AllRus: Иван гуляет
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron it_Pron) (UseComp (CompAP (PositA good_A))))))
+AllRus: оно является хорошим
+
+AllRusAbs: UttImpSg PNeg (ImpVP (ReflVP (SlashV2a love_V2)))
+AllRus: не люби себя
+
+AllRusAbs: UttImpPl PNeg (ImpVP (ReflVP (SlashV2a love_V2)))
+AllRus: не люби &+ те себя
+
+AllRusAbs: UttImpPol PNeg (ImpVP (UseV sleep_V))
+AllRus: не спи &+ те
+
+AllRusAbs: UttIP whoPl_IP
+AllRus: кто
+
+AllRusAbs: UttIP whoSg_IP
+AllRus: кто
+
+AllRusAbs: UttIAdv why_IAdv
+AllRus: почему
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N))
+AllRus: этот человек
+
+AllRusAbs: UttAdv here_Adv
+AllRus: здесь
+
+AllRusAbs: UttVP (UseV sleep_V)
+AllRus: спать
+
+AllRusAbs: VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N))
+AllRus: , мой друг
+
+AllRusAbs: QuestCl (PredVP (UsePN john_PN) (UseV walk_V))
+AllRus: Иван гулять
+
+AllRusAbs: QuestVP whoSg_IP (UseV walk_V)
+AllRus: кто гулять
+
+AllRusAbs: QuestSlash whoSg_IP (SlashVP (UsePN john_PN) (SlashV2a love_V2))
+AllRus: кого Иван любить
+
+AllRusAbs: QuestIAdv why_IAdv (PredVP (UsePN john_PN) (UseV walk_V))
+AllRus: почему Иван гулять
+
+AllRusAbs: QuestIComp (CompIAdv where_IAdv) (UsePN john_PN)
+AllRus: где быть Иван
+
+AllRusAbs: IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN song_N)
+AllRus: которые пять песен
+
+AllRusAbs: IdetIP (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
+AllRus: которые пять
+
+AllRusAbs: AdvIP whoSg_IP (PrepNP in_Prep (UsePN paris_PN))
+AllRus: кто в Париже
+
+AllRusAbs: IdetIP (IdetQuant which_IQuant NumSg)
+AllRus: которое
+
+AllRusAbs: PrepIP with_Prep whoSg_IP
+AllRus: с кем
+
+AllRusAbs: QuestIComp (CompIAdv where_IAdv) (UsePron it_Pron)
+AllRus: где быть оно
+
+AllRusAbs: QuestIComp (CompIP whoSg_IP) (UsePron it_Pron)
+AllRus: кто быть оно
+
+AllRusAbs: ExistNP (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelCl (PredVP (UsePN john_PN) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron)))))))
+AllRus: женщина , такая , что Иван любит её , существовать
+
+AllRusAbs: ExistNP (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a love_V2) (UsePN john_PN))))))
+AllRus: женщина , которая любит Ивана , существовать
+
+AllRusAbs: ExistNP (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a love_V2))))))
+AllRus: женщина , которую Иван любит , существовать
+
+AllRusAbs: ExistNP (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN2 mother_N2)) IdRP) (SlashVP (UsePN john_PN) (SlashV2a love_V2))))))
+AllRus: женщина , мать у которой Иван любит , существовать
+
+AllRusAbs: PredVP (UsePN john_PN) (UseV walk_V)
+AllRus: Иван гулять
+
+AllRusAbs: PredSCVP (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV go_V)))) (UseComp (CompAP (PositA good_A)))
+AllRus: что она ходит быть хорошим
+
+AllRusAbs: RelCN (UseN girl_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron he_Pron) (SlashV2a see_V2))))
+AllRus: девочка , которую он видит
+
+AllRusAbs: RelCN (UseN girl_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (AdvSlash (SlashVP (UsePron he_Pron) (SlashV2a see_V2)) today_Adv)))
+AllRus: девочка , которую он сегодня видит
+
+AllRusAbs: RelCN (UseN girl_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashPrep (PredVP (UsePron he_Pron) (UseV walk_V)) with_Prep)))
+AllRus: девочка , с которой он гуляет
+
+AllRusAbs: RelCN (UseN girl_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVS (UsePron she_Pron) say_VS (UseSlash (TTAnt TPres ASimul) PPos (SlashVP (UsePron he_Pron) (SlashV2a love_V2))))))
+AllRus: девочка , которую она говорит , что он любит
+
+AllRusAbs: ImpVP (ReflVP (SlashV2a love_V2))
+AllRus: люби себя
+
+AllRusAbs: EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV go_V)))
+AllRus: что она ходит
+
+AllRusAbs: EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV go_V)))
+AllRus: кто ходит
+
+AllRusAbs: EmbedVP (UseV go_V)
+AllRus: ходить
+
+AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePN john_PN) (UseV walk_V))
+AllRus: Иван не гулял бы
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestCl (PredVP (UsePN john_PN) (UseV walk_V)))
+AllRus: Иван не гулял бы
+
+AllRusAbs: RelCN (UseN girl_N) (UseRCl (TTAnt TCond AAnter) PNeg (RelVP IdRP (UseV walk_V)))
+AllRus: девочка , которая не гуля &+ ла бы
+
+AllRusAbs: RelCN (UseN girl_N) (UseRCl (TTAnt TCond AAnter) PNeg (RelSlash IdRP (SlashPrep (PredVP (UsePron i_Pron) (UseV walk_V)) with_Prep)))
+AllRus: девочка , с которой я не гулял бы
+
+AllRusAbs: RelS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (PositA good_A)))))
+AllRus: она спит , которое является хорошим
+
+AllRusAbs: TEmpty
+AllRus: 
+
+AllRusAbs: TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseV walk_V)))) NoVoc) TEmpty
+AllRus: Иван гуляет .
+
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron they_Pron) (UseComp (CompAdv here_Adv)))))) NoVoc) TEmpty
+AllRus: они здесь есть ?
+
+AllRusAbs: TExclMark (PhrUtt NoPConj (ImpPl1 (UseV go_V)) NoVoc) TEmpty
+AllRus: давайте ходить !
+
+AllRusAbs: PredVP (UsePron i_Pron) (UseV sleep_V)
+AllRus: я спать
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplVV want_VV (UseV run_V))
+AllRus: я хотеть бегать
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV run_V))))
+AllRus: я говорить , что она бегает
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV run_V))))
+AllRus: я интересоваться , что кто бегает
+
+AllRusAbs: PredVP (UsePron they_Pron) (ComplVA become_VA (PositA red_A))
+AllRus: они становиться красными
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 give_V3 (UsePron he_Pron)) (UsePron it_Pron))
+AllRus: я давать его ему
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (UseV go_V)) (UsePron she_Pron))
+AllRus: я просить ходить её
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (PositA good_A)))))) (UsePron he_Pron))
+AllRus: я отвечать ему , что оно является хорошим
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPast ASimul) PPos (QuestVP whoSg_IP (UseV come_V)))) (UsePron he_Pron))
+AllRus: я спросить его кто приходил
+
+AllRusAbs: PredVP (UsePron i_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))
+AllRus: я рисовать его красным
+
+AllRusAbs: RelCN (UseN car_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (SlashVV want_VV (SlashV2a buy_V2)))))
+AllRus: машина , которую я хочу покупать
+
+AllRusAbs: RelCN (UseN car_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron they_Pron) (SlashV2VNP beg_V2V (UsePron i_Pron) (SlashV2a buy_V2)))))
+AllRus: 
+
+AllRusAbs: PredVP (UsePron he_Pron) (ReflVP (SlashV2a love_V2))
+AllRus: он любить себя
+
+AllRusAbs: PredVP (DetNP (DetQuant this_Quant NumSg)) (UseComp (CompAP (PositA warm_A)))
+AllRus: это быть тёплым
+
+AllRusAbs: PredVP (UsePron we_Pron) (PassV2 love_V2)
+AllRus: мы любиться
+
+AllRusAbs: PredVP (UsePron we_Pron) (AdvVP (UseV sleep_V) here_Adv)
+AllRus: мы спать здесь
+
+AllRusAbs: PredVP (UsePron we_Pron) (AdVVP always_AdV (UseV sleep_V))
+AllRus: мы всегда спать
+
+AllRusAbs: PredVP (UsePron we_Pron) (UseComp (CompAP (PositA small_A)))
+AllRus: мы быть маленькими
+
+AllRusAbs: PredVP (UsePron i_Pron) (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N))))
+AllRus: я быть человеком
+
+AllRusAbs: PredVP (UsePron i_Pron) (UseComp (CompAdv here_Adv))
+AllRus: я здесь быть
+
+AllRusAbs: RelCN (UseN car_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron they_Pron) (SlashV2VNP beg_V2V (UsePron i_Pron) (SlashVV want_VV (SlashV2A paint_V2A (PositA red_A)))))))
+AllRus: 
+
+AllRusAbs: PhrUtt NoPConj (UttImpSg PPos (ImpVP (AdVVP always_AdV (ComplSlash (SlashV2a listen_V2) (DetCN (DetQuant DefArt NumSg) (UseN sea_N)))))) NoVoc
+AllRus: слушай всегда море
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNP (PredetNP only_Predet (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TCond ASimul) PPos (RelSlash IdRP (SlashPrep (PredVP (UsePron i_Pron) (ComplVV want_VV (PassV2 see_V2))) with_Prep)))) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN rain_N))))))))) NoVoc
+AllRus: единственные две женщины , с которой я хотел бы видеться , в дожди существуют
+
+AllRusAbs: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2A paint_V2A (ConjAP both7and_DConj (BaseAP (ComparA small_A (DetCN (DetQuant DefArt NumSg) (UseN sun_N))) (ComparA big_A (DetCN (DetQuant DefArt NumSg) (UseN moon_N)))))) (DetCN (DetQuant DefArt NumSg) (UseN earth_N))))) NoVoc
+AllRus: рисуй землю как меньше солнца , так и больше луны
+
+AllRusAbs: PhrUtt NoPConj (ImpPl1 (ComplVS hope_VS (ConjS either7or_DConj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (DetCN (DetQuant DefArt NumSg) (UseN baby_N)))) (UseV run_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN2 (Use2N3 distance_N3))) (UseComp (CompAP (PositA small_A))))))))) NoVoc
+AllRus: давайте надеяться , что либо отец малыша бегает , либо расстояние является маленьким
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN every_Det (UseN baby_N)) (UseComp (CompNP (ConjNP either7or_DConj (BaseNP (DetCN (DetQuant IndefArt NumSg) (UseN boy_N)) (DetCN (DetQuant IndefArt NumSg) (UseN girl_N))))))))) NoVoc
+AllRus: каждый малыш является либо мальчиком , либо девочкой
+
+AllRusAbs: PhrUtt NoPConj (UttAdv (ConjAdv either7or_DConj (ConsAdv here7from_Adv (BaseAdv there_Adv everywhere_Adv)))) NoVoc
+AllRus: либо отсюда , там , либо везде
+
+AllRusAbs: PhrUtt NoPConj (UttVP (PassV2 know_V2)) NoVoc
+AllRus: знаться
+
+AllRusAbs: RelCN (UseN bird_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (SlashVV want_VV (SlashV2A paint_V2A (PositA red_A))))))
+AllRus: птица , которую я хочу рисовать красным
+
+AllRusAbs: UttImpSg PPos (ImpVP (ComplVV want_VV (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron))))
+AllRus: желай покупать его
+
+AllRusAbs: UttImpSg PPos (ImpVP (ComplVV want_VV (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))
+AllRus: желай рисовать его красным
+
+AllRusAbs: UttImpSg PPos (ImpVP (ComplSlash (SlashVV want_VV (SlashV2VNP beg_V2V (UsePron i_Pron) (SlashV2a buy_V2))) (UsePron it_Pron)))
+AllRus: 
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN fruit_N)) (ReflVP (Slash3V3 sell_V3 (DetCN (DetQuant DefArt NumSg) (UseN road_N))))))) NoVoc
+AllRus: фрукты продают дороге себя
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ReflVP (SlashV2V beg_V2V (UseV live_V)))))) NoVoc
+AllRus: я прошу жить себя
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ReflVP (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ComplVV must_VV (ReflVP (SlashV2a understand_V2)))))))))) NoVoc
+AllRus: я отвечаю , что должно понимать себя , себе
+
+AllRusAbs: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ReflVP (SlashV2Q ask_V2Q (UseQCl (TTAnt TPast ASimul) PPos (QuestVP whoSg_IP (UseV come_V))))))) NoVoc
+AllRus: спроси кто приходил себя
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ReflVP (SlashV2A paint_V2A (ComparA beautiful_A (UsePN john_PN))))))) NoVoc
+AllRus: я рисовал красивее Ивана себя
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN grammar_N)) (ComplSlash (SlashV2a speak_V2) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot1to19 n2))))))) (UseN language_N)))))
+AllRus: эта грамматика говорит на двенадцати языках
+
+AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA red_A) (UseN house_N)))))
+AllRus: она покупа &+ ла красный дом
+
