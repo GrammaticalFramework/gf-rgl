@@ -4247,6 +4247,26 @@ AllRus: Париж — столица страны .
 AllRusAbs: ImpVP (AdvVP (AdVVP (PositAdVAdj dull_A) (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday))
 AllRus: будь скучно голоден сам в следующую пятницу
 
+AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко не бы &+ ло бы цветом хаки
+AllRusAbs: UseCl (TTAnt TCond ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко бы &+ ло бы цветом хаки
+AllRusAbs: UseCl (TTAnt TFut ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко не будет цветом хаки
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко будет цветом хаки
+AllRusAbs: UseCl (TTAnt TPast ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко не бы &+ ло цветом хаки
+AllRusAbs: UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко бы &+ ло цветом хаки
+AllRusAbs: UseCl (TTAnt TPres ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко не является цветом хаки
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
+AllRus: яблоко является цветом хаки
+
+AllRusAbs: UseCl (TTAnt TFut ASimul) PPos (PredVP (MassNP (UseN apple_N)) (AdvVP UseCopula (PrepCN obj_neg_Prep (AdjCN (PositA green_A) (UseN cvet_N)))))
+AllRus: яблоко будет зелёного цвета
+
 « пусть женщина рисует молодой себя » , — яблоко говори &+ ло
 
 AllRusAbs: UseCl (TTAnt TPast AAnter) PPos (FrontComplDirectVQ (MassNP (UseN man_N)) know_VQ (UttAdv (weekdayNextAdv sunday_Weekday)))

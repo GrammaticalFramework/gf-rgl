@@ -242,6 +242,9 @@ gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) ? (PredVP (UsePN 
 
 gt ImpVP (AdvVP (AdVVP (PositAdVAdj dull_A) (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday)) |l -treebank
 
+gt UseCl (TTAnt ? ASimul) ? (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N)))))) | l -treebank
+gt UseCl (TTAnt TFut ASimul) PPos (PredVP (MassNP (UseN apple_N)) (AdvVP UseCopula (PrepCN obj_neg_Prep (AdjCN (PositA green_A) (UseN cvet_N))))) | l -treebank
+
 gt UseCl (TTAnt TPast AAnter) PPos (FrontComplDirectVS (MassNP (UseN apple_N)) say_VS (ImpP3 (MassNP (UseN woman_N)) (ReflVP (SlashV2A paint_V2A (PositA young_A))))) | l
 gt UseCl (TTAnt TPast AAnter) PPos (FrontComplDirectVQ (MassNP (UseN man_N)) know_VQ (UttAdv (weekdayNextAdv sunday_Weekday))) | l -treebank
 

@@ -312,7 +312,7 @@ lin
   thin_A = mkA "тонкий" "тоньше" "3*a/c'";
   think_V = mkV imperfective intransitive "думать" "думаю";
   throw_V2 = mkV2 (mkV imperfective "бросать" "бросаю");
-  tie_V2 = mkV2 (mkV imperfective "вязать" "вяжу" "вяжет");
+  tie_V2 = mkV2 (mkV imperfective transitive "вязать" "вяжу" "вяжет" "6c");
   today_Adv = mkAdv "сегодня" ;
   tongue_N = mkN "язык" ;
   tooth_N = mkN "зуб" ;
