@@ -64,7 +64,7 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
     Det = ResMay.Determiner ;
     Predet = SS ;
     Quant = ResMay.Quant ;
-    Num = ResMay.Num ;
+    Num = ResMay.CardNum ;
     Ord = {
       s : Str ; -- AForm => Str ; -- Ord can came from AP and become AP again
       n : Number -- Ord can come from Num, which has inherent number
@@ -76,9 +76,9 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
 
 -- Constructed in NumeralMay.
 
-    Card = ResMay.Num ;
-    Numeral = ResMay.Numeral ;
-    Digits = {s : CardOrd => Str ; n : Number} ;
+    Card = ResMay.CardNum ;
+    Numeral = ResMay.CardOrdNum ;
+    Digits = ResMay.DigNum ;
 
 
 
