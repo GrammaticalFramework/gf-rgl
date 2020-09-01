@@ -1,4 +1,4 @@
-resource ResMay = ParamMay ** open Prelude, Predef, ParamMay in {
+resource ResMay = ParamMay ** open Prelude, Predef in {
 
 --------------------------------------------------------------------------------
 -- Nouns
@@ -59,19 +59,15 @@ oper
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
-  BaseQuant : Type = {
+  Quant : Type = {
     s : Str ;
+    sp : NForm => Str ;
     poss : Possession ;
     } ;
 
-  Determiner : Type = BaseQuant ** {
-    sp : NForm => Str ;
+  Determiner : Type = Quant ** {
     n : Number ;
 --    numtype : NumType ; -- number as in "5" or "Sg/Pl", often makes a difference in lots of things
-    } ;
-
-  Quant : Type = BaseQuant ** {
-    sp : NForm => Str ;
     } ;
 
   Num : Type = {
@@ -89,8 +85,9 @@ oper
     ord : Str
     } ;
 
-  baseQuant : BaseQuant = {
+  baseQuant : Quant = {
     s = [] ;
+    sp = \\_ => [] ;
     poss = Bare ;
     } ;
 
