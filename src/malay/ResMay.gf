@@ -70,19 +70,23 @@ oper
 --    numtype : NumType ; -- number as in "5" or "Sg/Pl", often makes a difference in lots of things
     } ;
 
-  Num : Type = {
-    s : DForm => Str ; -- independent or attribute
+  CardNum : Type = {
+    s : Str ;
     n : Number
     } ;
 
-  baseNum : Num = {
-    s = \\_ => [] ;
+  baseNum : CardNum = {
+    s = [] ;
     n = Sg ;
     numtype = NoNum
     } ;
 
-  Numeral : Type = Num ** {
+  CardOrdNum : Type = CardNum ** {
     ord : Str
+    } ;
+
+  DigNum : Type = {
+    s : CardOrd => Str ;
     } ;
 
   baseQuant : Quant = {
