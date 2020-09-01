@@ -4,11 +4,11 @@ concrete NumeralMay of Numeral = CatMay [Numeral,Digits] **
   open Prelude, ResMay in {
 
   lincat
-    Digit = CardOrdNum ;      -- 2..9
+    Digit = OrdNum ;          -- 2..9
     Sub10,                    -- 1..9
     Sub100,                   -- 1..99
     Sub1000 = LinNumber ;     -- 1..999
-    Sub1000000 = CardOrdNum ; -- 1..999999
+    Sub1000000 = OrdNum ;     -- 1..999999
 
   oper
     LinNumber : Type = {
@@ -16,6 +16,8 @@ concrete NumeralMay of Numeral = CatMay [Numeral,Digits] **
       n : Number ; -- This is an internal number that tells which form of digits to choose. When quantifying a noun, the noun is in singular.
       ord : Str ;
       } ;
+
+    OrdNum : Type = CardOrdNum ** {n : Number} ;
 
   lin
     -- : Sub1000000 -> Numeral ; -- 123456 [coercion to top category]
@@ -100,10 +102,10 @@ oper
     ord = "ke" + s ; -- Works for all but number 1
     } ;
 
-  mkDigit : Str -> CardOrdNum = \s -> mkNum s ** {s=s} ;
+  mkDigit : Str -> OrdNum = \s -> mkNum s ** {s=s} ;
 
   -- Only for Digit -> Sub*: we won't run into 1 here.
-  mkNum3 : (digit : CardOrdNum) -> (ten,unit : Str) -> LinNumber = \tiga,puluh,dua -> {
+  mkNum3 : (digit : OrdNum) -> (ten,unit : Str) -> LinNumber = \tiga,puluh,dua -> {
     n = Pl ;
     s = \\_ => tiga.s ++ puluh ++ dua ;
     ord = tiga.ord ++ puluh ++ dua

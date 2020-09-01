@@ -66,19 +66,21 @@ oper
     } ;
 
   Determiner : Type = Quant ** {
-    n : Number ;
---    numtype : NumType ; -- number as in "5" or "Sg/Pl", often makes a difference in lots of things
+    pr : Str ; -- prefix for numbers
+    n : NumType ; -- number as in 5 (noun in singular), Sg or Pl
     } ;
 
   CardNum : Type = {
     s : Str ;
-    n : Number
     } ;
 
-  baseNum : CardNum = {
+  Num : Type = CardNum ** {
+    n : NumType
+    } ;
+
+  baseNum : Num = {
     s = [] ;
-    n = Sg ;
-    numtype = NoNum
+    n = NoNum Sg
     } ;
 
   CardOrdNum : Type = CardNum ** {
