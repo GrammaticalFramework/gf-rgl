@@ -104,13 +104,17 @@ param
 
   CardOrd = NOrd | NCard ;
 
-  -- TODO see if this is needed
-  NumType = NoNum | IsDigit | IsNumber ;
+  NumType = NoNum Number | IsNumber ;
 
 oper
   isNum : NumType -> Bool = \nt -> case nt of {
-    NoNum => False ;
-    _     => True
+    NoNum _ => False ;
+    _       => True
+    } ;
+
+  toNum : NumType -> Number = \nt -> case nt of {
+    NoNum n => n ;
+    _       => Sg
     } ;
 --------------------------------------------------------------------------------
 -- Adjectives
