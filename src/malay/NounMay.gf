@@ -8,9 +8,13 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
 -- : Det -> CN -> NP
     DetCN det cn = emptyNP ** {
-      s = \\poss => case det.poss of {
-        Bare => cn.s ! NF det.n poss ;
-        _ => cn.s ! NF det.n det.poss -- TODO check if this make sense
+      s = \\poss =>
+        det.pr
+        -- TODO classifier is necessary if numeral comes after noun. See Mintz p. 298.
+        -- ++ if_then_Str (isNum det.n) "buah" [] -- TODO store classifier in CN
+        ++ case det.poss of {
+          Bare => cn.s ! NF (toNum det.n) poss ;
+          _ => cn.s ! NF (toNum det.n) det.poss -- TODO check if this make sense
         } ++ det.s ++ cn.heavyMod ;
       } ;
 
@@ -62,7 +66,8 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- : Quant -> Num -> Det ;
     DetQuant quant num = quant ** {
-      s = quant.s ++ num.s ! Attrib ;
+      pr = num.s ; -- if it's not a number or digit, num.s is empty
+      s = quant.s ;
       n = num.n
       } ;
 
@@ -79,16 +84,20 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 -- the inherent number.
 
   NumSg = baseNum ;
-  NumPl = baseNum ** {n = Pl} ;
+  NumPl = baseNum ** {n = NoNum Pl} ;
 
   -- : Card -> Num ;
-  -- NumCard card =
+  NumCard card = card ** {
+    n = IsNumber  -- for the purposes of modifying a noun, this is singular
+    } ;
 
   -- : Digits  -> Card ;
-  --  NumDigits dig =
+  NumDigits dig = {
+    s = dig.s ! NCard
+    } ;
 
   -- : Numeral -> Card ;
-  -- NumNumeral num
+  NumNumeral num = num ;
 
 {-
   -- : AdN -> Card -> Card ;
