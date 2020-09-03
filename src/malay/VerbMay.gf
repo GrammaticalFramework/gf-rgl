@@ -112,7 +112,7 @@ lin
 -- Adjectival phrases, noun phrases, and adverbs can be used.
 
   -- : AP  -> Comp ;
-  CompAP ap = useV ap ;
+  CompAP ap = useComp ap.s ;
 
   -- : CN  -> Comp ;
   CompCN cn = useComp (cn.s ! NF Sg Bare) ;
