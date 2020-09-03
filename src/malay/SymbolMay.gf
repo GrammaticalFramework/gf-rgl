@@ -1,7 +1,7 @@
 --# -path=.:../abstract:../common:../prelude
 
 concrete SymbolMay of Symbol = CatMay **
-  open Prelude, ParadigmsMay, ResMay, (NS=NounMay) in {
+  open Prelude, ParadigmsMay, ResMay, (NM=NounMay) in {
 
 lin
 
@@ -17,33 +17,33 @@ lin
   -- : Card -> PN ;                -- twelve [as proper name]
   NumPN i = mkPN i.s ;
 
-{-
 lin
 --  CNIntNP cn i = {} ;
 
   -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and y
   CNSymbNP det cn xs =
-    let cnSymb = cn ** { comp = cn.comp ++ xs.s }
-     in NS.DetCN det cnSymb ;
+    let cnSymb = cn ** {heavyMod = cn.heavyMod ++ xs.s}
+     in NM.DetCN det cnSymb ;
 
   -- : CN -> Card -> NP ;          -- level five ; level 5
-  CNNumNP cn i = NS.MassNP (cn ** { comp = cn.comp ++ i.s }) ;
+  CNNumNP cn i = NM.MassNP (cn ** {heavyMod = cn.heavyMod ++ i.s}) ;
 
   -- : Symb -> S ;
-  SymbS sy = {s = } ;
+  SymbS sy = sy ;
+
   -- : Symb -> Card ;
-  SymbNum sy = { s = sy.s ; n = Pl } ;
+  SymbNum sy = sy ;
 
   -- : Symb -> Ord ;
-  SymbOrd sy = { s =} ;
--}
+  SymbOrd sy = sy ;
+
 lincat
   Symb, [Symb] = SS ;
 
 lin
   MkSymb s = s ;
 
-  BaseSymb = infixSS "과" ; -- 와 after vowel. TODO make it a table.
+  BaseSymb = infixSS "dan" ; -- TODO check
   ConsSymb = infixSS "," ;
 
 

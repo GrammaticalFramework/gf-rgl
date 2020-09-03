@@ -67,7 +67,7 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
     Num = ResMay.Num ;
     Ord = {
       s : Str ; -- AForm => Str ; -- Ord can came from AP and become AP again
-      n : Number -- Ord can come from Num, which has inherent number
+      -- n : Number -- Ord can come from Num, which has inherent number
       } ;
     DAP = ResMay.Determiner ;
 
@@ -85,7 +85,7 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
 --2 Structural words
 
 -- Constructed in StructuralMay.
-    Conj = {s2 : Bool => Str ; s1 : Str ; n : Number } ;
+    Conj = {s2 : Str ; s1 : Str ; n : Number } ;
     Subj = SS ;
     Prep = ResMay.Preposition ;
 
