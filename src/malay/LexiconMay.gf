@@ -24,7 +24,7 @@ concrete LexiconMay of Lexicon = CatMay **
 -- lin bad_A = mkA "" ;
 -- lin bank_N = mkN "" ;
 -- lin bark_N = mkN "" ;
--- lin beautiful_A = mkA "" ;
+lin beautiful_A = mkA "cantik" ;
 -- lin become_VA = mkVA "" ;
 -- lin beer_N = mkN "" ;
 -- lin beg_V2V = mkV2 "" ;
@@ -44,7 +44,7 @@ concrete LexiconMay of Lexicon = CatMay **
 lin book_N = mkN "buku" ;
 -- lin boy_N = mkN "" ;
 -- lin bread_N = mkN "" ;
--- lin break_V2 = mkV2 "" ;
+lin break_V2 = mkV2 "patahkan" ; -- TODO figure out if -kan needs to be separated
 -- lin breast_N = mkN "" ;
 -- lin breathe_V = mkV "" ;
 -- lin broad_A = mkA "" ;
@@ -82,10 +82,10 @@ lin come_V = mkV "datang" ;
 -- lin cousin_N = mkN "" ;
 -- lin cow_N = mkN "" ;
 -- lin cut_V2 = mkV2 "" ;
---
--- ----
--- -- D
---
+
+----
+-- D
+
 -- lin day_N = mkN "" ;
 -- lin die_V = mkV "" ;
 -- lin dig_V = mkV "" ;
@@ -189,7 +189,7 @@ lin house_N = mkN "rumah" ;
 -- lin john_PN = mkPN "" ;
 -- lin jump_V = mkV "" ;
 -- lin kill_V2 = mkV2 "" ;
--- lin king_N = mkN "" ;
+lin king_N = mkN "raja" ;
 -- lin knee_N = mkN "" ;
 -- lin know_V2 = mkV2 "" ;
 -- lin know_VQ = mkVQ "" ;
@@ -209,11 +209,11 @@ lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
 -- lin leave_V2 = mkV2 "" ;
 -- lin leg_N = mkN "" ;
 -- lin lie_V = mkV "" ;
--- lin like_V2 = mkV2 "" ;
+lin like_V2 = mkV2 "suka" ;
 -- lin listen_V2 = mkV2 "" ;
 -- lin live_V = mkV "";
 -- lin liver_N = mkN "" ;
--- lin long_A = mkA "" ;
+lin long_A = mkA "panjang" ;
 -- lin lose_V2 = mkV2 "" ;
 -- lin louse_N = mkN "" ;
 -- lin love_N = mkN "" ;
@@ -222,7 +222,7 @@ lin love_V2 = mkV2 "cinta" ;
 ----
 -- M
 
--- lin man_N = mkN "" ;
+lin man_N = mkN "lelaki" ;
 -- lin married_A2 = mkA "" ;
 -- lin meat_N = mkN "" ;
 lin milk_N = mkN "susu" ;
@@ -245,13 +245,13 @@ lin milk_N = mkN "susu" ;
 -- lin nose_N = mkN "" ;
 lin now_Adv = mkAdv "sekarang" ;
 -- lin number_N = mkN "" ;
---
--- --------
--- -- O - P
---
---
+
+--------
+-- O - P
+
+
 -- lin oil_N = mkN "" ;
--- lin old_A = mkA "" ;
+lin old_A = mkA "tua" ;
 -- lin open_V2 = mkV2 "" ;
 -- lin paint_V2A = mkV2A "" ;
 -- lin paper_N = mkN "" ;
@@ -267,11 +267,12 @@ lin person_N = mkN "orang" ;
 -- lin pull_V2 = mkV2 "" ;
 -- lin push_V2 = mkV2 "" ;
 -- lin put_V2 = mkV2 "" ;
---
--- --------
--- -- Q - R
---
--- lin queen_N = mkN "" ;
+
+--------
+-- Q - R
+
+
+lin queen_N = mkN "ratu" ;
 -- lin question_N = mkN "" ;
 -- lin radio_N = mkN "" ;
 lin rain_N = mkN "hujan" ;
@@ -379,7 +380,7 @@ lin teach_V2 = mkV2 "ajar" ;
 --------
 -- U - V
 
--- lin ugly_A = mkA "" ;
+lin ugly_A = mkA "jelek" ;
 -- lin uncertain_A = mkA "" ;
 -- lin understand_V2 = mkV2 "" ;
 -- lin university_N = mkN "" ;
@@ -406,13 +407,13 @@ lin walk_V = mkV "jalan" ;
 -- lin wine_N = mkN "" ;
 -- lin wing_N = mkN "" ;
 -- lin wipe_V2 = mkV2 "" ;
--- lin woman_N = mkN "" ;
+lin woman_N = mkN "wanita" ;
 -- lin wonder_VQ = mkVQ "" ;
 -- lin wood_N = mkN "" ;
 -- lin worm_N = mkN "" ;
 -- lin write_V2 = mkV2 "" ;
 -- lin year_N = mkN "" ;
 -- lin yellow_A = mkA "" ;
--- lin young_A = mkA "" ;
+lin young_A = mkA "muda" ;
 
 }
