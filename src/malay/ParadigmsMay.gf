@@ -16,6 +16,10 @@ oper
     mkN : (noun : Str) -> N ; -- Predictable nouns
   } ;
 
+  mkPN : overload {
+    mkPN : Str -> PN ; -- Proper nouns
+  } ;
+
 --2 Adjectives
 
   mkA : overload {
@@ -97,8 +101,9 @@ oper
     mkN2 : N   -> N2 = \n -> lin N2 (n ** {c2 = dirPrep}) ;
    } ;
 
-  -- mkPN = overload {
-  --   } ;
+  mkPN = overload {
+    mkPN : Str -> PN = \s -> lin PN {s = \\_ => s} ;
+    } ;
 
   mkA = overload {
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
