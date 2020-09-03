@@ -38,7 +38,7 @@ lin there_Adv = ss "" ;
 -------
 -- Conj
 
--- lin and_Conj = {s2 = table {x => "" ; y => ""} ; s1 = [] ; n = Pl} ;
+lin and_Conj = {s2 = "dan" ; s1 = [] ; n = Pl} ;
 -- lin or_Conj = {s2 = \\_ => "" ; s1 = [] ; n = Sg} ;
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;
@@ -106,7 +106,7 @@ lin by8means_Prep = mkPrep "dengan" ;
 lin in_Prep = mkPrep "di" ;
 -- lin on_Prep = mkPrep "" ;
 -- lin part_Prep = mkPrep ;
--- lin possess_Prep = mkPrep ;
+lin possess_Prep = mkPrep [] ; -- TODO check Mintz p. 39-40, 2.2.1.2
 -- lin through_Prep = mkPrep ;
 lin to_Prep = mkPrep "ke" ;
 -- lin under_Prep = mkPrep "" ;
