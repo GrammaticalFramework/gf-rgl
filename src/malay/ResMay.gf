@@ -145,10 +145,10 @@ oper
 --------------------------------------------------------------------------------
 -- Adjectives
 
-  Adjective : Type = Verb ; -- TODO check if meaningful
+  Adjective : Type = SS ;
   Adjective2 : Type = Adjective ;
 
-  mkAdj : Str -> Adjective = \str -> {s = \\_ => str} ;
+  mkAdj : Str -> Adjective = \str -> {s = str} ;
 
   AdjPhrase : Type = Adjective ; -- ** {compar : Str} ;
 --------------------------------------------------------------------------------
