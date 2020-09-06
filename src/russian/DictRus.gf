@@ -4152,4 +4152,5 @@ lin
   napravivshij_A = mkA napravitq_V Act Past ;
   napravlennyj_A = mkA napravitq_V Pass Past ;
 
+  okazavshijsja_A = mkA okazatqsja_V Act Past ;
 }
