@@ -539,6 +539,10 @@ oper
     msnom=<"","">;fsnom=<"","">;nsnom=<"","">;pnom=<"","">;msgen=<"","">;fsgen=<"","">;pgen=<"","">;msdat=<"","">;fsacc=<"","">;msins=<"","">;fsins=<"","">;pins=<"","">;msprep=<"","">;sm=<"","">;sf=<"","">;sn=<"","">;sp=<"","">;comp=<"","">;
   } ;
 
+  onlyParticipleForms : AdjForms -> AdjForms
+    -- To prevent shadowing homonymic forms while parsing or empty, here asterisk has been to incorect forms
+    = \af -> af ** {sm=af.sm+"*"; sf=af.sf+"*"; sn=af.sn+"*"; sp=af.sp+"*"; comp=af.comp+"*"} ;
+
   immutableAdjectiveCases : Str -> AdjForms
     = \s -> {
       msnom=s;fsnom=s;nsnom=s;pnom=s;msgen=s;fsgen=s;pgen=s;msdat=s;fsacc=s;msins=s;fsins=s;pins=s;msprep=s;sm=s;sf=s;sn=s;sp=s;comp=[];
