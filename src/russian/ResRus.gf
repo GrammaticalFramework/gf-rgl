@@ -1563,4 +1563,54 @@ oper
   applyIPronPrep : ComplementCase -> IPronounForms -> Str
     = \prep,ip -> prep.s ++ selectIPronCase ip prep.c ;
 
+  printNounInflections : NounForms -> Str = \nf ->
+  nf.snom ++ "-"
+    ++ nf.snom  ++ "," ++ nf.pnom ++ ","
+    ++ nf.sgen  ++ "," ++ nf.pgen ++ ","
+    ++ nf.sdat  ++ "," ++ nf.pdat ++ ","
+    ++ nf.sacc  ++ "," ++ nf.pacc ++ ","
+    ++ nf.sins  ++ "," ++ nf.pins ++ ","
+    ++ nf.sprep ++ "," ++ nf.pprep ++ ","
+    ++ nf.sloc  ++ "," ++ nf.sptv ;
+
+  printAdjectiveInflections : AdjForms -> Str = \af ->
+    let mf = makeNFFromAF af Masc Inanimate in
+    let ff = makeNFFromAF af Fem Inanimate in
+    let nf = makeNFFromAF af Neut Inanimate in
+    let mfa = makeNFFromAF af Masc Animate in
+    let ffa = makeNFFromAF af Fem Animate in
+    let nfa = makeNFFromAF af Neut Animate in
+    af.msnom ++ "-"
+      ++ mf.snom  ++ "," ++ ff.snom  ++ "," ++ nf.snom  ++ "," ++ mf.pnom  ++ ","
+      ++ mf.sgen  ++ "," ++ ff.sgen  ++ "," ++ nf.sgen  ++ "," ++ mf.pgen  ++ ","
+      ++ mf.sdat  ++ "," ++ ff.sdat  ++ "," ++ nf.sdat  ++ "," ++ mf.pdat  ++ ","
+      ++ mf.sacc  ++ "," ++ ff.sacc  ++ "," ++ nf.sacc  ++ "," ++ mf.pacc  ++ ","
+      ++ mfa.sacc ++ "," ++ ffa.sacc ++ "," ++ nfa.sacc ++ "," ++ mfa.pacc ++ ","
+      ++ mf.sins  ++ "," ++ ff.sins  ++ "," ++ nf.sins  ++ "," ++ mf.pins  ++ ","
+      ++ mf.sprep ++ "," ++ ff.sprep ++ "," ++ nf.sprep ++ "," ++ mf.pprep ++ ","
+      ++ af.sm    ++ "," ++ af.sf    ++ "," ++ af.sn    ++ "," ++ af.sp    ++ ","
+      ++ af.comp
+      ;
+
+  printVerbInflections : VerbForms -> Str = \v ->
+    let fut : Agr=>Str = \\a => verbFutAgree v a in
+    let pres : Agr=>Str = \\a => verbPresAgree v a in
+    let past : Agr=>Str = \\a => verbPastAgree v a "" in
+    let imp : Agr=>Str = \\a => ((verbImperativeAgree v a).p1 ++ (verbImperativeAgree v a).p2) in
+    let ppp : GenNum=>Str = \\gn => shortPastPassPart v gn in
+    let inf = verbInf v in
+    inf ++ "-"
+      ++ inf ++ ","
+      ++ pres ! Ag (GSg Masc) P1 ++ "," ++ pres ! Ag GPl P1 ++ ","
+      ++ pres ! Ag (GSg Masc) P2 ++ "," ++ pres ! Ag GPl P2 ++ ","
+      ++ pres ! Ag (GSg Masc) P3 ++ "," ++ pres ! Ag GPl P3 ++ ","
+      ++ v.prtr ++ verbRefl v ++ ","
+      ++ past ! Ag (GSg Masc) P1 ++ ","  ++ past ! Ag (GSg Fem) P1 ++ "," ++ past ! Ag (GSg Neut) P1 ++ "," ++ past ! Ag GPl P1 ++ ","
+      ++ imp ! Ag (GSg Masc) P2 ++ "," ++ imp ! Ag GPl P2 ++ ","
+      ++ v.ptr ++ verbRefl v
+      ++ case v.tran of {
+        Transitive => "," ++ ppp ! (GSg Masc) ++ "," ++ ppp ! (GSg Fem) ++ "," ++ ppp ! (GSg Neut) ++ "," ++ ppp ! GPl ;
+        _ => ""
+        } ;
+
 }

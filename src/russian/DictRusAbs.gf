@@ -1138,6 +1138,7 @@ fun
   dostatq_V : V;
   dostatqsja_V : V;
   dostigatq_V : V;
+  dostigatqsja_V : V;
   dostignutq_V : V;
   dohoditq_V : V;
   drozhatq_V : V;
@@ -1592,6 +1593,7 @@ fun
   polagatq_V : V;
   polagatq_VS : VS;
   polagatqsja_V : V;
+  polzti_V : V;
   poleztq_V : V;
   poleztq_VV : VV;
   poletetq_V : V;
@@ -4121,4 +4123,7 @@ fun
 
   skoree_Adv : Adv ;
   skoraja_N : N ;
+
+  uvidennyi_A : A ;
+  uvidevshyi_A : A ;
 }
