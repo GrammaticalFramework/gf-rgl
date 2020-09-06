@@ -131,6 +131,8 @@ gt TFullStop (PhrUtt NoPConj (UttS (ConjS and_Conj (BaseS (UseCl (TTAnt TPres AA
 gt TFullStop (PhrUtt NoPConj (UttCN (AdjCN (PositA red_A) (UseN apple_N))) NoVoc) TEmpty | l -treebank
 gt (UttCN (AdjCN (PositA pojuszij_A) (UseN heart_N))) | l -treebank
 gt (UttCN (AdjCN (PositA pevshij_A) (UseN bird_N))) | l -treebank
+gt UseCl (TTAnt TFut AAnter) PPos (AdvIsNPAP (PrepCN ins_Prep (UseN bird_N)) (UsePron she_Pron) (PositA okazavshijsja_A)) | l -treebank
+gt UseCl (TTAnt TFut AAnter) PPos (ImpersCl (AdvVP UseCopula (PrepCN nom_Prep (AdjCN (PositA okazavshijsja_A) (UseN bird_N))))) | l -treebank
 gt DetNPMasc (ConjDet and_Conj (BaseDAP (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA veduszij_A)) (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA vedomyj_A)))) | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (RelNP (MassNP (UseN apple_N)) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a eat_V2))))) (UseComp (CompAP (PositA young_A)))))) NoVoc) TEmpty | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttNP (MassNP (AdvCN (RelCN (UseN apple_N) (UseRCl (TTAnt TPast AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a eat_V2))))) here_Adv))) NoVoc) TEmpty | l -treebank

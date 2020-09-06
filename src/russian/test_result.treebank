@@ -2761,6 +2761,12 @@ AllRus: поющее сердце
 AllRusAbs: UttCN (AdjCN (PositA pevshij_A) (UseN bird_N))
 AllRus: певшая птица
 
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (AdvIsNPAP (PrepCN ins_Prep (UseN bird_N)) (UsePron she_Pron) (PositA okazavshijsja_A))
+AllRus: она будет оказавшей &+ ся птицей
+
+AllRusAbs: UseCl (TTAnt TFut AAnter) PPos (ImpersCl (AdvVP UseCopula (PrepCN nom_Prep (AdjCN (PositA okazavshijsja_A) (UseN bird_N)))))
+AllRus: будет оказавшая &+ ся птица
+
 AllRusAbs: DetNPMasc (ConjDet and_Conj (BaseDAP (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA veduszij_A)) (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA vedomyj_A))))
 AllRus: ведущий и ведомый
 
