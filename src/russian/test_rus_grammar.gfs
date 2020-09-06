@@ -241,6 +241,8 @@ gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (CountNP (DetQuant DefArt oba_N
 gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) ? (PredVP (UsePN paris_PN) (UseComp (CompNomNP (MassNP (PartNP (UseN stolica_N) (MassNP (UseN country_N))))))))) NoVoc) TEmpty | l -treebank
 
 gt ImpVP (AdvVP (AdVVP (PositAdVAdj dull_A) (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday)) |l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (UsePron theyFem_Pron) (ComplVV can_VV (UseV dostigatqsja_V)))))) (UseComp (CompAP (UseComparA ehffektivnyj_A)))) | l -treebank
+gt UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIComp (CompIQuant what_kind_of_IQuant) (MassNP (UseN apple_N))))) (UseV fall_V)) | l -treebank
 
 gt UseCl (TTAnt ? ASimul) ? (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N)))))) | l -treebank
 gt UseCl (TTAnt TFut ASimul) PPos (PredVP (MassNP (UseN apple_N)) (AdvVP UseCopula (PrepCN obj_neg_Prep (AdjCN (PositA green_A) (UseN cvet_N))))) | l -treebank
@@ -332,6 +334,8 @@ gt UseCl (TTAnt TPast ASimul) PPos (PredVP (AdvNP (DetCN (DetQuant DefArt NumPl)
 
 gt UttS (ExtAdvS naprimer_Adv (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPlFem_Pron) (AdvVP (UseV narisovatq_V) (PrepCN nom_Prep (AdvCN (UseN person_N) (PrepNP in_Prep (DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))) (UseN sluchaj_N))))))))) | l -treebank
 gt UttS (AdvS (PrepNP nom_Prep (UsePron he_Pron)) (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlashPartLast (VPSlashPrep (ComplSlashPartLast (VPSlashPrep (UseV prinositq_V) nom_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN apple_N))) to_dat_Prep) (UsePron youPol_Pron))))) | l -treebank
+
+gt AdvS (PrepNP ins_Prep (DetCN (DetQuant DefArt NumPl) (UseN issledovanie_N))) (UseCl (TTAnt TPast AAnter) PPos (ImpersCl (PassVPSlash (VPSlashPrep (UseV ustanovitq_V) to_dat_Prep)))) | l -treebank
 
 gt UttAccNP (DetCN (DetQuant (PossPron youPlFem_Pron) NumSg) (SentCN (AdvCN (UseN nebo_N) (PrepNP for_Prep (UsePron we_Pron))) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIAdv how_IAdv) (MassNP (UseN zerkalo_N))))))) |l -treebank
 

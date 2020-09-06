@@ -22,6 +22,13 @@ lin
   wherefrom_IAdv = ss "откуда" ;
   whereto_IAdv = ss "куда" ;
 
+  -- : IQuant ;
+  what_kind_of_IQuant = (adjFormsAdjective (makeAdjectiveForms "какой" "" "3b" PreferFull)) ** {
+    preferShort=PreferFull ;
+    g=Neut ;
+    c=Nom
+    } ;
+
   -- near deixis
   presently_Adv = P.mkAdv "теперь" ;
   therefore_Adv = P.mkAdv "поэтому" ;

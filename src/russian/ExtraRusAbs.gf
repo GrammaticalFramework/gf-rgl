@@ -25,6 +25,8 @@ fun
   wherefrom_IAdv : IAdv ;
   whereto_IAdv : IAdv ;
 
+  what_kind_of_IQuant : IQuant ;
+
   presently_Adv : Adv ;
   therefore_Adv : Adv ;
   fromhere_Adv : Adv ;

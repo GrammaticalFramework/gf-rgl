@@ -1153,6 +1153,7 @@ lin
   dostatq_V = mkV perfective transitive "достать" "достану" "достанет" "15a" ;
   dostatqsja_V = mkV perfective intransitive "достаться" "достанусь" "достанется" "15a" ;
   dostigatq_V = mkV imperfective transitive "достигать" "достигаю" "достигает" "1a" ;
+  dostigatqsja_V = mkV imperfective transitive "достигаться" "достигаюсь" "достигается" "1a" ;
   dostignutq_V = mkV perfective transitive "достигнуть" "достигну" "достигнет" ;
   dohoditq_V = mkV imperfective transitive "доходить" "дохожу" "доходит" "4c" ;
   drozhatq_V = mkV imperfective transitive "дрожать" "дрожу" "дрожит" "5b" ;
@@ -1607,6 +1608,7 @@ lin
   polagatq_V = mkV imperfective transitive "полагать" "полагаю" "полагает" "1a" ;
   polagatq_VS = mkVS polagatq_V ;
   polagatqsja_V = mkV imperfective intransitive "полагаться" "полагаюсь" "полагается" "1a" ;
+  polzti_V = mkV imperfective intransitive "ползти" "ползу" "ползёт" "7b/b" ;
   poleztq_V = mkV perfective transitive "полезть" "полезу" "полезет" "7a" ;
   poleztq_VV = mkVV poleztq_V ;
   poletetq_V = mkV perfective transitive "полететь" "полечу" "полетит" "5b" ;
@@ -4137,4 +4139,6 @@ lin
   skoree_Adv = mkAdv skoryj_A.comp ;
   skoraja_N = mkN skoryj_A feminine inanimate ;
 
+  uvidennyi_A = mkA (uvidetq_V ** {pppss="увиден"}) Pass Past ;
+  uvidevshyi_A = mkA (uvidetq_V ** {pppss="увиден"}) Act Past ;
 }
