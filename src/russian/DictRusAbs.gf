@@ -4118,7 +4118,6 @@ fun
   hi_hi_Interj : Interj;
   hmmm_Interj : Interj;
   shshsh_Interj : Interj;
-  shshsh_Interj : Interj;
   uh_Interj : Interj;
 
   skoree_Adv : Adv ;
@@ -4126,4 +4125,13 @@ fun
 
   uvidennyi_A : A ;
   uvidevshyi_A : A ;
+  veduszij_A : A ;
+  vedshij_A : A ;
+  vedomyj_A : A ;
+  vedyonnyj_A : A ;
+  pevshij_A : A ;
+  pojuszij_A : A ;
+  petyj_A : A ;
+  napravivshij_A : A ;
+  napravlennyj_A : A ;
 }

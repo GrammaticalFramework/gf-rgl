@@ -306,7 +306,14 @@ oper
       = \v,voice,t ->
         let refl = case v.refl of {Reflexive => "ся" ; _ => ""} in
         case <voice,t> of {
-          <Pass,Past|Cond> => lin A (guessAdjectiveForms (v.pppss + "ный")) ;
+          <Pass,Past|Cond> => lin A ( -- TODO: very rough. Cover more cases
+            guessAdjectiveForms (v.pppss + "ный") ** {
+              sm=v.pppss ;
+              sf=v.pppss + "а";
+              sn=v.pppss + "о";
+              sp=v.pppss + "ы"
+              }
+            ) ;
           <Pass,Pres> => lin A ( -- overgenerated
             let s : Str = case v.prpl1 of {
               f + #consonant + "ём" => (Predef.tk 2 v.prpl1) + "омый" ;
@@ -314,13 +321,14 @@ oper
               } in
             makeAdjectiveFormsUseIndex s "" (Z.ZA 1 Z.No Z.A_ Z.NoC) PreferFull) ;
           <Act,Pres> => lin A (
-            makeAdjectiveFormsUseIndex (((Predef.tk 1 v.prpl3) + "щий") + refl) "" (Z.ZA 4 Z.No Z.A_ Z.NoC) PreferFull) ;
+            Z.onlyParticipleForms (
+             makeAdjectiveFormsUseIndex (((Predef.tk 1 v.prpl3) + "щий") + refl) "" (Z.ZA 4 Z.No Z.A_ Z.NoC) PreferFull)) ;
           <Act,Past|Cond> => lin A (
             let s : Str = case v.inf of {
               _ + ("сти"|"зти") => (Predef.tk 1 v.prsg1) + "ший" ;  -- TODO: check if not all of these cases are ok
               _  => (Predef.tk 1 v.psgm) + "вший"
               } in
-              makeAdjectiveFormsUseIndex (s + refl) "" (Z.ZA 4 Z.No Z.A_ Z.NoC) PreferFull) ;
+              Z.onlyParticipleForms (makeAdjectiveFormsUseIndex (s + refl) "" (Z.ZA 4 Z.No Z.A_ Z.NoC) PreferFull)) ;
           _ => Predef.error "Error: participle for this voice and tense does not exist"
           }  -- TODO: suppress comp and short for all but Pass Pres
   } ;

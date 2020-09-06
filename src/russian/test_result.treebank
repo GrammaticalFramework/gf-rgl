@@ -1425,6 +1425,9 @@ AllRus: третье яблоко
 AllRusAbs: CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))
 AllRus: менее полный , чем брат
 
+AllRusAbs: CAdvAP less_CAdv (PositA vedomyj_A) (MassNP (UseN2 brother_N2))
+AllRus: менее ведомый , чем брат
+
 AllRusAbs: TFullStop (PhrUtt NoPConj (UttAP (SentAP (CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))) (EmbedQS (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop he_Pron))))) (AdvVP (UseV sit_V) (PrepNP on_Prep (MassNP (UseN table_N)))))))))) NoVoc) TEmpty
 AllRus: менее полный , чем брат , он сидел на столе .
 AllRusAbs: TFullStop (PhrUtt NoPConj (UttAP (SentAP (CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))) (EmbedQS (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (UsePron (ProDrop (ProDrop (ProDrop (ProDrop iFem_Pron))))) (AdvVP (UseV sit_V) (PrepNP on_Prep (MassNP (UseN table_N)))))))))) NoVoc) TEmpty
@@ -2502,6 +2505,9 @@ AllRus: пусть женщина рисует молодой себя
 AllRusAbs: ImpPl1 (ReflVP (SlashV2A paint_V2A (PositA young_A)))
 AllRus: давайте рисовать молодыми себя
 
+AllRusAbs: ImpPl1 (ReflVP (SlashV2A paint_V2A (PositA napravivshij_A)))
+AllRus: давайте рисовать направившими себя
+
 AllRusAbs: UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_V2))
 AllRus: сердце не сжима &+ ло &+ сь бы
 AllRusAbs: UseCl (TTAnt TCond AAnter) PPos (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_V2))
@@ -2679,6 +2685,9 @@ AllRus: пятая самая большая машина
 AllRusAbs: TFullStop (PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a do_V2) (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) big_A)) (UseN tree_N)))))) NoVoc) TEmpty
 AllRus: делай пятое самое большое дерево .
 
+AllRusAbs: MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) napravlennyj_A)) (UseN car_N))
+AllRus: пятая самая направленная машина
+
 UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
 
 UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
@@ -2745,6 +2754,15 @@ AllRus: ты падаешь и поёшь на окне .
 
 AllRusAbs: TFullStop (PhrUtt NoPConj (UttCN (AdjCN (PositA red_A) (UseN apple_N))) NoVoc) TEmpty
 AllRus: красное яблоко .
+
+AllRusAbs: UttCN (AdjCN (PositA pojuszij_A) (UseN heart_N))
+AllRus: поющее сердце
+
+AllRusAbs: UttCN (AdjCN (PositA pevshij_A) (UseN bird_N))
+AllRus: певшая птица
+
+AllRusAbs: DetNPMasc (ConjDet and_Conj (BaseDAP (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA veduszij_A)) (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA vedomyj_A))))
+AllRus: ведущий и ведомый
 
 AllRusAbs: TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (RelNP (MassNP (UseN apple_N)) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a eat_V2))))) (UseComp (CompAP (PositA young_A)))))) NoVoc) TEmpty
 AllRus: яблоко , которое Иван кушает , является молодым .
@@ -3764,6 +3782,9 @@ AllRus: третий самый голубой дом
 AllRusAbs: AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))) blue_A)) (UseN house_N)
 AllRus: третий самый голубой дом
 
+AllRusAbs: AdjCN (PositA uvidennyi_A) (AdjCN (PositA big_A) (UseN house_N))
+AllRus: увиденный большой дом
+
 AllRusAbs: UttAP (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) small_A))
 AllRus: пятый самый маленький
 
@@ -4246,6 +4267,12 @@ AllRus: Париж — столица страны .
 
 AllRusAbs: ImpVP (AdvVP (AdVVP (PositAdVAdj dull_A) (SelfAdvVP hungry_VP)) (weekdayNextAdv friday_Weekday))
 AllRus: будь скучно голоден сам в следующую пятницу
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (UsePron theyFem_Pron) (ComplVV can_VV (UseV dostigatqsja_V)))))) (UseComp (CompAP (UseComparA ehffektivnyj_A))))
+AllRus: как они могут достигаться эффективнее
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIComp (CompIQuant what_kind_of_IQuant) (MassNP (UseN apple_N))))) (UseV fall_V))
+AllRus: какое яблоко падает
 
 AllRusAbs: UseCl (TTAnt TCond ASimul) PNeg (PredVP (MassNP (UseN apple_N)) (UseComp (CompBareCN (PartNP (UseN cvet_N) (MassNP (UseN haki_N))))))
 AllRus: яблоко не бы &+ ло бы цветом хаки
@@ -4919,6 +4946,9 @@ AllRus: например , вы нарисова &+ ли лицо в трёх с
 
 AllRusAbs: UttS (AdvS (PrepNP nom_Prep (UsePron he_Pron)) (UseCl (TTAnt TPres AAnter) PPos (ImpersCl (ComplSlashPartLast (VPSlashPrep (ComplSlashPartLast (VPSlashPrep (UseV prinositq_V) nom_Prep) (DetCN (DetQuant IndefArt NumPl) (UseN apple_N))) to_dat_Prep) (UsePron youPol_Pron)))))
 AllRus: он приносит вам яблоки
+
+AllRusAbs: AdvS (PrepNP ins_Prep (DetCN (DetQuant DefArt NumPl) (UseN issledovanie_N))) (UseCl (TTAnt TPast AAnter) PPos (ImpersCl (PassVPSlash (VPSlashPrep (UseV ustanovitq_V) to_dat_Prep))))
+AllRus: исследованиями бы &+ ло установлен &+ о
 
 AllRusAbs: UttAccNP (DetCN (DetQuant (PossPron youPlFem_Pron) NumSg) (SentCN (AdvCN (UseN nebo_N) (PrepNP for_Prep (UsePron we_Pron))) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIAdv how_IAdv) (MassNP (UseN zerkalo_N)))))))
 AllRus: ваше небо для нас как зеркало

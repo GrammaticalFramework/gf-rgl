@@ -4133,7 +4133,6 @@ lin
   hi_hi_Interj = mkInterj "хи-хи" ;
   hmmm_Interj = mkInterj "хм" ;
   shshsh_Interj = mkInterj "ш-ш-ш" ;
-  shshsh_Interj = mkInterj "ш-ш-ш" ;
   uh_Interj = mkInterj "ух" ;
 
   skoree_Adv = mkAdv skoryj_A.comp ;
@@ -4141,4 +4140,16 @@ lin
 
   uvidennyi_A = mkA (uvidetq_V ** {pppss="увиден"}) Pass Past ;
   uvidevshyi_A = mkA (uvidetq_V ** {pppss="увиден"}) Act Past ;
+
+  vedshij_A = mkA vesti_V Act Past ;
+  vedomyj_A = mkA vesti_V Pass Pres ;
+  vedyonnyj_A = mkA vesti_V Pass Past ;
+
+  pevshij_A = mkA petq_V Act Past ;
+  pojuszij_A = mkA petq_V Act Pres ;
+  petyj_A = mkA petq_V Pass Past ;
+
+  napravivshij_A = mkA napravitq_V Act Past ;
+  napravlennyj_A = mkA napravitq_V Pass Past ;
+
 }

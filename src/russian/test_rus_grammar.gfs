@@ -29,6 +29,7 @@ gt ImpPl1 (UseV fly_V) | l -treebank
 gt UttImpImm ? ( ImpVP (UseV fly_V )) |l -treebank
 gt AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))) )) (UseN apple_N)   | l -treebank
 gt CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2)) | l -treebank
+gt CAdvAP less_CAdv (PositA vedomyj_A) (MassNP (UseN2 brother_N2)) | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttAP (SentAP (CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))) (EmbedQS (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (UsePron ?) (AdvVP (UseV sit_V) (PrepNP on_Prep (MassNP (UseN table_N)))))))))) NoVoc) TEmpty | l -treebank
 gt EmbedQS (UseQCl (TTAnt ? ASimul) PNeg (ExistIP whatSg_IP)) | l -treebank
 gt timeunitRange (NumDigits (IDig ?)) (NumDigits (IDig ?)) second_Timeunit | l -treebank
@@ -73,6 +74,7 @@ gt RelS (UseCl (TTAnt TPres ASimul) PNeg (GenericCl scared_VP)) (UseRCl (TTAnt T
 gt UseCl (TTAnt ? ASimul) ? (GenericCl (ReflVP (SlashV2A paint_V2A (PositA young_A)))) | l -treebank
 gt ImpP3 (MassNP (UseN woman_N)) (ReflVP (SlashV2A paint_V2A (PositA young_A)))  | l -treebank
 gt ImpPl1  (ReflVP (SlashV2A paint_V2A (PositA young_A)))  | l -treebank
+gt ImpPl1  (ReflVP (SlashV2A paint_V2A (PositA napravivshij_A)))  | l -treebank
 
 gt UseCl (TTAnt TCond AAnter) ? (PredVP (MassNP (UseN heart_N)) (PassV2 squeeze_V2) ) | l -treebank
 gt UseCl (TTAnt TCond AAnter) ? (PredVP (MassNP (UseN heart_N)) ( ComplVV can_VV (PassV2 squeeze_V2)   ) ) | l -treebank
@@ -106,6 +108,8 @@ gt MassNP (AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))
 gt MassNP (AdjCN ( AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) big_A)  ) (UseN car_N)) |l -treebank
 gt TFullStop (PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a do_V2) (MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) big_A)) (UseN tree_N)))))) NoVoc) TEmpty |l -treebank
 
+gt MassNP (AdjCN ( AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) napravlennyj_A)  ) (UseN car_N)) |l -treebank
+
 gt UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
 
 gt UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (MassNP (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (CAdvAP less_CAdv (PositA full_A) (MassNP (UseN2 brother_N2))) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
@@ -125,6 +129,9 @@ gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (Pre
 gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN bird_N)) (ComplSlash (SlashV2a love_V2) (UsePN john_PN))))) NoVoc) TEmpty | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttS (ConjS and_Conj (BaseS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron youSg_Pron) (UseV fall_V))) (UseCl (TTAnt TPres AAnter) PPos (GenericCl (ComplSlash (VPSlashPrep (UseV sing_V) on_Prep) (MassNP (UseN window_N)))))))) NoVoc) TEmpty | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttCN (AdjCN (PositA red_A) (UseN apple_N))) NoVoc) TEmpty | l -treebank
+gt (UttCN (AdjCN (PositA pojuszij_A) (UseN heart_N))) | l -treebank
+gt (UttCN (AdjCN (PositA pevshij_A) (UseN bird_N))) | l -treebank
+gt DetNPMasc (ConjDet and_Conj (BaseDAP (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA veduszij_A)) (AdjDAP (DetDAP (DetQuant IndefArt NumPl)) (PositA vedomyj_A)))) | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (RelNP (MassNP (UseN apple_N)) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a eat_V2))))) (UseComp (CompAP (PositA young_A)))))) NoVoc) TEmpty | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttNP (MassNP (AdvCN (RelCN (UseN apple_N) (UseRCl (TTAnt TPast AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a eat_V2))))) here_Adv))) NoVoc) TEmpty | l -treebank
 gt TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPast AAnter) PPos (PredVP (RelNP (MassNP (UseN apple_N)) (UseRCl (TTAnt TPast AAnter) PPos (RelSlash IdRP (SlashVP (UsePN john_PN) (SlashV2a eat_V2))))) (AdvVP (UseV fall_V) here_Adv)))) NoVoc) TEmpty |l -treebank
@@ -159,6 +166,8 @@ gt UseCl (TTAnt TPres AAnter) PPos (CleftNP  (UsePron he_Pron)  (UseRCl (TTAnt T
 gt AdjCN (PositA blue_A) (AdjCN (PositA big_A) (UseN house_N)) | l -treebank
 gt AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))) (AdjCN (AdjOrd (OrdSuperl blue_A)) (UseN house_N)) | l -treebank
 gt AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))) blue_A)) (UseN house_N)| l -treebank
+
+gt AdjCN (PositA uvidennyi_A) (AdjCN (PositA big_A) (UseN house_N)) | l -treebank
 
 gt UttAP (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) small_A)) | l -treebank
 gt RelNP (MassNP (UseN woman_N)) (UseRCl (TTAnt ? ASimul) ? (RelCl (PredVP ( MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))) big_A)) (UseN tree_N))   ) (ComplSlashPartLast (SlashV2a love_V2) (UsePron she_Pron))))) | l -treebank
