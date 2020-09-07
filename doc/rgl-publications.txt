@@ -126,6 +126,9 @@ Appendix to the GF book (A. Ranta, //Grammatical Framework//, CSLI 2011),
 http://www.grammaticalframework.org/gf-book/gf-chinese-appendix.pdf
 
 
+===Czech===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/czech (Aarne Ranta, Michal Měchura)
 
 ===Danish===
 
@@ -497,6 +500,16 @@ Implementing GF Resource Grammar for Sindhi language,
 MSc Thesis, Chalmers University of Technology,
 2012.
 http://publications.lib.chalmers.se/records/fulltext/163234.pdf
+
+
+===Slovak===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/slovak (Aarne Ranta, Slavomír Čéplö, Michal Měchura)
+
+
+===Slovenian===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/slovenian (Krasimir Angelov, Anna Ehrlemark)
 
 
 ===Spanish===
