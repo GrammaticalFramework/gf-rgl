@@ -66,7 +66,16 @@ http://acl.ldc.upenn.edu/W/W07/W07-08.pdf
 //A case study with the resource grammar, focusing on the morphosyntax//
 //and agreement of constructions with numerals.//
 
+===Basque===
 
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/basque (Inari Listenmaa, Francis Tyers)
+
+- **Publications**
+
+Inari Listenmaa.
+//Formal Methods for Testing Grammars.// PhD thesis. Chalmers University of Technology and University of Gothenburg. 2019. [PDF https://gupea.ub.gu.se/bitstream/2077/59037/1/gupea_2077_59037_1.pdf]
+#BR
+//Mentioned in Chapter 5 of the thesis.//
 
 
 ===Bulgarian===
@@ -155,8 +164,13 @@ The GF Resource Grammar Library.
 
 - **Source**: http://www.grammaticalframework.org/lib/src/estonian (Kaarel Kaljurand, Inari Listenmaa)
 
-%- **Publications**
+- **Publications**
 
+Inari Listenmaa and Kaarel Kaljurand.
+Computational Estonian Grammar in Grammatical Framework.
+//Proceedings of the SALTMIL Workshop at LREC//,
+2014.
+[PDF http://ixa2.si.ehu.es/~jipsagak/SALTMIL/LREC_2014_Workshop_Proceedings_Saltmil.pdf]
 
 
 ===Finnish===
@@ -255,7 +269,9 @@ Hindi and Urdu share a grammar but not the lexicon.
 In The 3rd Workshop
 on South and Southeast Asian NLP, COLING 2012. //Reprinted in Shafqat's thesis//
 
+===Hungarian===
 
+-- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/hungarian (Inari Listenmaa, Julia Jansson)
 
 
 ===Icelandic===
@@ -281,8 +297,6 @@ Bjarki Traustason, MSc thesis, Chalmers
 %- **Publications**
 
 
-
-
 ===Japanese===
 
 - **Source**: http://www.grammaticalframework.org/lib/src/japanese (Liza Zimina)
@@ -302,7 +316,9 @@ Lecture Notes in Computer Science Volume 7614, 2012, pp 156-167.
 http://link.springer.com/chapter/10.1007%2F978-3-642-33983-7_16
 
 
+===Korean===
 
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/korean (Inari Listenmaa)
 
 ===Latin===
 
@@ -396,6 +412,14 @@ Slide presentation, TYPES 2010, Warsaw,
 2010.
 http://www.mimuw.edu.pl/~asl/publications/types2010-slides.pdf
 
+===Portuguese===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/portuguese (Bruno Cuconato)
+
+- **Publications**
+
+Bruno Cuconato Claro.
+//A computational grammar for Portuguese//. MSc thesis. Rio de Janeiro, 2019.
 
 
 ===Punjabi===
@@ -485,7 +509,8 @@ http://publications.lib.chalmers.se/records/fulltext/163234.pdf
 
 ===Swahili===
 
-- **Source**: http://www.grammaticalframework.org/lib/src/swahili (Wanjiku Ng'ang'a)
+- **Source**: http://www.grammaticalframework.org/lib/src/swahili (Benson Kituku).
+- **Previous version**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/swahili/old (Wanjiku Ng'ang'a).
 
 
 - **Publications**
@@ -556,3 +581,16 @@ July 21-22, 2007, LSA 2007 Linguistic Institute, Stanford University.
 2007.
 
 See also **Hindi** above.
+
+===Zulu===
+
+- **Source:** https://github.com/LauretteM/gf-rgl-zul/tree/master/src/zulu (Laurette Marais, Laurette Pretorius)
+
+- **Publications**
+
+Laurette Marais, Johannes A. Louw, Jaco Badenhorst, Karen Calteaux, Ilana Wilken, Nina van Niekerk,and Glenn Stein.
+AwezaMed: A Multilingual, MultimodalSpeech-To-Speech Translation Application for Maternal Health Care.
+//Proceedings of the 23rd International Conference on Information Fusion//.
+July 6-9, 2020.
+#BR
+//The article presents a health care translation system, which uses the Zulu resource grammar.//
