@@ -465,7 +465,7 @@ LNCS 6008,
 
 ===Russian===
 
-- **Source**: http://www.grammaticalframework.org/lib/src/russian (Janna Khegai, Nikita Frolov)
+- **Source**: http://www.grammaticalframework.org/lib/src/russian (Janna Khegai, Nikita Frolov, Roman Suzi)
 
 - **Publications**
 
