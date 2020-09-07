@@ -66,6 +66,7 @@ http://acl.ldc.upenn.edu/W/W07/W07-08.pdf
 //A case study with the resource grammar, focusing on the morphosyntax//
 //and agreement of constructions with numerals.//
 
+
 ===Basque===
 
 - **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/basque (Inari Listenmaa, Francis Tyers)
@@ -129,6 +130,7 @@ http://www.grammaticalframework.org/gf-book/gf-chinese-appendix.pdf
 ===Czech===
 
 - **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/czech (Aarne Ranta, Michal Měchura)
+
 
 ===Danish===
 
@@ -272,9 +274,10 @@ Hindi and Urdu share a grammar but not the lexicon.
 In The 3rd Workshop
 on South and Southeast Asian NLP, COLING 2012. //Reprinted in Shafqat's thesis//
 
+
 ===Hungarian===
 
--- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/hungarian (Inari Listenmaa, Julia Jansson)
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/hungarian (Inari Listenmaa, Julia Jansson)
 
 
 ===Icelandic===
@@ -323,12 +326,27 @@ http://link.springer.com/chapter/10.1007%2F978-3-642-33983-7_16
 
 - **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/korean (Inari Listenmaa)
 
+
+
 ===Latin===
 
-- **Source**: http://www.grammaticalframework.org/lib/src/latin (Aarne Ranta)
+- **Source**: http://www.grammaticalframework.org/lib/src/latin (Herbert Lange, Aarne Ranta)
 
-%- **Publications**
+- **Publications**
 
+Herbert Lange.
+Erstellen einer Grammatik für das Lateinische im “Grammatical Framework”,
+Master’s thesis (Magiserarbeit), Ludwig-Maximilians-University Munich, 2013.
+
+Herbert Lange. Implementation of a Latin Grammar in Grammatical Framework, //DATeCH//, 2017.
+
+Herbert Lange and Peter Ljunglöf.
+MULLE: A grammar-based Latin language learning tool to supplement the classroom setting.
+//Proceedings of the 5th Workshop on Natural Language Processing Techniques for Educational Applications//,
+2018.
+[PDF https://www.aclweb.org/anthology/W18-3715.pdf]
+#BR
+//Latin RGL used in a language-learning application.//
 
 
 ===Latvian===
@@ -414,6 +432,7 @@ Some Interesting Features of the Polish Language in Grammatical Framework.
 Slide presentation, TYPES 2010, Warsaw,
 2010.
 http://www.mimuw.edu.pl/~asl/publications/types2010-slides.pdf
+
 
 ===Portuguese===
 
@@ -512,6 +531,11 @@ http://publications.lib.chalmers.se/records/fulltext/163234.pdf
 - **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/slovenian (Krasimir Angelov, Anna Ehrlemark)
 
 
+===Somali===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/somali (Inari Listenmaa)
+
+
 ===Spanish===
 
 - **Source**: http://www.grammaticalframework.org/lib/src/spanish  http://www.grammaticalframework.org/lib/src/romance
@@ -557,10 +581,6 @@ P. Sojka et al (eds), TSD 2012, LNCS 7499, pp. 183-190.
 http://link.springer.com/content/pdf/10.1007%2F978-3-642-32790-2_22.pdf
 
 
-
-
-
-
 ===Thai===
 
 - **Source**: http://www.grammaticalframework.org/lib/src/thai (Aarne Ranta, Chotiros Kairoje)
@@ -594,6 +614,7 @@ July 21-22, 2007, LSA 2007 Linguistic Institute, Stanford University.
 2007.
 
 See also **Hindi** above.
+
 
 ===Zulu===
 
