@@ -25,8 +25,8 @@ lin
                 in 
   case <temp.t,temp.a, pol.p> of {
       <Pres,Simul, Pos> => case cl.isPresBlank of { 
-                                  True  => {s = subj ++ clitic ++ root  ++ compl};
-                                  False => {s = subj ++ clitic ++ root  ++ Predef.BIND ++ compl}
+                                  True  => {s = subj ++ clitic ++ root  ++ Predef.BIND ++ "a" ++ compl};
+                                  False => {s = subj ++ clitic ++ root  ++ Predef.BIND ++ presRestOfVerb ++ compl}
                           };
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
       <Pres,Simul, Neg> => case cl.isPresBlank of { 
@@ -46,32 +46,33 @@ lin
 
 
       <Past,Simul, Pos> => case cl.isPerfBlank of { 
-                                  True  => {s = subj ++ clitic ++ "ka" ++ Predef.BIND ++ root  ++ compl};
-                                  False => {s = subj ++ clitic  ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
+                                  _  => {s = subj ++ clitic ++ "ka" ++ Predef.BIND ++ root ++ Predef.BIND ++ presRestOfVerb ++ compl}--;
+                                  --False => {s = subj ++ clitic  ++ "ka" ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
                           };
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
       <Past,Simul, Neg> => case cl.isPerfBlank of { 
-                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ root  ++ compl};
-                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ 
-                                              root ++ pastRestOfVerb ++ compl}
+                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ Predef.BIND ++ "ra" ++ 
+                                              Predef.BIND ++ root ++ Predef.BIND ++ "ire" ++ compl};
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "ra" ++ Predef.BIND ++ 
+                                              root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
                                 };
 
       <Past,Anter, Pos> => case cl.isPerfBlank of { 
                                   True  => {s = subj ++ clitic ++ "kaba" ++Predef.BIND ++ clitic ++
-                                               root ++  compl};
-                                  False => {s = subj ++ clitic ++ "kaba" ++ clitic ++  "a" ++ Predef.BIND ++ 
+                                               root ++ Predef.BIND ++ "ire"++  compl};
+                                  False => {s = subj ++ clitic ++ "kaba" ++ clitic ++ 
                                                 root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
                               };       
       <Past,Anter, Neg> =>case cl.isPerfBlank of { 
                                   True  => {s = subj ++ clitic ++ "ka" ++Predef.BIND ++ clitic ++
-                                               root ++  compl};
-                                  False => {s = subj ++ clitic ++ "kaba" ++ clitic ++  "taa" ++ Predef.BIND ++ 
+                                               root ++ Predef.BIND ++ "ire"++  compl};
+                                  False => {s = subj ++ clitic ++ "kaba" ++ clitic ++  "ta" ++ Predef.BIND ++ 
                                                 root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
                               };
 
       <Fut,Simul, Pos> => case cl.isPresBlank of { 
                                   True  => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
-                                            root ++ compl};
+                                            root ++ "a" ++ compl};
                                   False => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za ku" ++ Predef.BIND ++  --choice of za over ija
               root ++ Predef.BIND ++ presRestOfVerb ++ compl}
                               };
@@ -79,23 +80,23 @@ lin
       
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
       <Fut,Simul, Neg> => case cl.isPresBlank of { 
-                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kuza ku" ++ Predef.BIND ++ 
+                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "raaza ku" ++ Predef.BIND ++ 
                                             root ++ compl};
-                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "kuza ku" ++ Predef.BIND ++ 
+                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "raaza ku" ++ Predef.BIND ++ 
                                             root ++ BIND ++ presRestOfVerb ++ compl}
                               };
       <Fut,Anter, Pos> => case cl.isPerfBlank of { 
-                                  True  => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za kuba" ++ Predef.BIND ++ clitic ++ --choice of za over ija
+                                  True  => {s = subj ++ Predef.BIND ++clitic ++ "raaba" ++ clitic ++ --choice of za over ija
                                             root ++ Predef.BIND ++ "ire" ++ compl};
-                                  False => {s = subj ++ "ni" ++ Predef.BIND ++clitic ++ "za kuba" ++ Predef.BIND ++ clitic ++ --choice of za over ija
+                                  False => {s = subj ++ Predef.BIND ++clitic ++ "raaba"  ++ clitic ++ --choice of za over ija
                                             root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
                               };
              
       <Fut,Anter, Neg> => case cl.isPerfBlank of { 
-                                  True  => {s = subj ++ "ni" ++ Predef.BIND ++ clitic ++ "za kuba" ++ clitic  ++ Predef.BIND ++ 
+                                  True  => {s = subj ++ Predef.BIND ++ clitic ++ "raaba " ++ clitic  ++ "ta"++ Predef.BIND ++ 
                                               root ++ "ire" ++ compl};
-                                  False => {s = subj ++ "ni" ++ Predef.BIND ++ clitic ++ "za kuba" ++ clitic ++ "taka" ++ Predef.BIND ++ 
-                                              root ++ pastRestOfVerb ++ compl}
+                                  False => {s = subj ++ Predef.BIND ++ clitic ++ "raaba " ++ clitic ++ "ta" ++ Predef.BIND ++ 
+                                              root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
                               };
       <Cond,Simul, Pos> => case cl.isPresBlank of { 
                                   True  => {s = subj ++ clitic ++ "kaa" ++Predef.BIND ++ root ++ compl};
@@ -142,8 +143,8 @@ lin
                                               _        => mkRPs!RSubj! AgP3 Sg MU_BA
                                       };
                             robjClitic = case rcl.agr of {
-                                              AgrYes a => mkRPs!RObj! a;
-                                              _        => mkRPs!RObj! AgP3 Sg MU_BA
+                                              AgrYes a => mkRPsNoClitic!RObj! a;
+                                              _        => mkRPsNoClitic!RObj! AgP3 Sg MU_BA
                                       };
                             presSimul =  vMorphs ! VFPres; --this is not delivering the string
                             presAnt = vMorphs ! VFPastPart; --this is not delivering the string
@@ -186,7 +187,7 @@ lin
                             <Past,Simul, Pos> => {
                                                     s = table { 
                                                                 RF RSubj  => subj ++ rsubjClitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
-                                                                RF RObj   => subj ++ robjClitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
+                                                                RF RObj   => robjClitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl;
                                                                 Such_That => "kugira ngu" ++ subjClitic ++ root ++ Predef.BIND ++ pastRestOfVerb ++ compl
                                                               }
                                                             };
@@ -279,8 +280,9 @@ lin
                       };
 
   
-  PredVP np vp = case vp.isCompApStem of{
-              False    => {
+
+    PredVP np vp = case <vp.isCompApStem, vp.containsAdV> of {
+              <False,True>    => {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;
@@ -297,9 +299,10 @@ lin
                       pastPart  = mkVerbPastPart vp.root;                              -- subject
                       -}
                       --root = vp.root ;
-                        compl = vp.comp
+                        compl = vp.adV
                         };
-              True    =>  {
+
+              <_, _>    =>  {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;
@@ -319,8 +322,6 @@ lin
                         compl = mkSubjClitic np.agr   ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
                       }
         };--: NP -> VP -> Cl ; -- John walks / John does not walk
-    
-
   
     {-
     Note: It seems mkSubjClitic comes with a Predef.BIND already
@@ -382,9 +383,25 @@ lin
     --AdvSlash  : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
     --SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks 
     --SlashVS   : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
+    --2 Embedded sentences
 
+-- Sentences, questions, and infinitival phrases can be used as
+-- subjects and (adverbial) complements.
 
+    --EmbedS    : S  -> SC ;               -- that she goes
+    --EmbedQS   : QS -> SC ;               -- who goes
+    --EmbedVP   : VP -> SC ;               -- to go
+    EmbedVP vp = case  vp.isPresBlank of {
+                        TRUE => {s= "oku" ++ Predef.BIND ++ vp.s ++ BIND ++ "a"};
+                        _    => {s= "oku" ++ Predef.BIND ++ vp.s ++ BIND ++ vp.pres}
+    };
 
+-- An adverb can be added to the beginning of a sentence, either with comma ("externally")
+-- or without:
+
+    --AdvS     : Adv -> S  -> S ;            -- then I will go home
+    --ExtAdvS  : Adv -> S  -> S ;            -- next week, I will go home
+    ExtAdvS adv s = {s=adv.s ++ "," ++ s.s};
 
 
 {-

@@ -61,34 +61,34 @@ lin
       whichRel = RF RSubj;                           
       };
 	
-      --RelSlash : RP -> ClSlash -> RCl ; -- whom John loves
-      RelSlash rp clSlash =
-      	let comp = case clSlash.complType of{
-      					Ap 			  => clSlash.ap;
-      					Adverbial 	  => clSlash.adv;
-      					AdverbialVerb => clSlash.adV;
-      					_		  => []
-      				};
-      		isCompApStem = case clSlash.complType of{
-	      					    Adverbial => True;
-	      					    _		  => False
-      				};
-      	in 
-	      	{ 
-		      s = clSlash.s; 
-		      agr = AgrYes clSlash.subjAgr; 
-		      rp = rp.s;
-		      --rObjVariant2 = rp.rObjVariant2;
-		      pres   = clSlash.pres;
-	        perf   = clSlash.perf;
-		      root   = clSlash.root;
-		      --morphs = clSlash.morphs;
-          isPresBlank = clSlash.isPresBlank;
-          isPerfBlank = clSlash.isPerfBlank;
-		      compl  = comp;
-		      isCompApStem = isCompApStem;
-		      whichRel = RF RObj;                           
-	      };
+  --RelSlash : RP -> ClSlash -> RCl ; -- whom John loves
+  RelSlash rp clSlash =
+  	let comp = case clSlash.complType of{
+  					Ap 			  => clSlash.ap;
+  					Adverbial 	  => clSlash.adv;
+  					AdverbialVerb => clSlash.adV;
+  					_		  => []
+  				};
+  		isCompApStem = case clSlash.complType of{
+    					    Adverbial => True;
+    					    _		  => False
+  				};
+  	in 
+    	{ 
+      s = clSlash.s; 
+      agr = AgrYes clSlash.subjAgr; 
+      rp = rp.s;
+      --rObjVariant2 = rp.rObjVariant2;
+      pres   = clSlash.pres;
+      perf   = clSlash.perf;
+      root   = clSlash.root;
+      --morphs = clSlash.morphs;
+      isPresBlank = clSlash.isPresBlank;
+      isPerfBlank = clSlash.isPerfBlank;
+      compl  = comp;
+      isCompApStem = isCompApStem;
+      whichRel = RF RObj;                           
+    };
 
 	{-
 --1 Relative clauses and pronouns
