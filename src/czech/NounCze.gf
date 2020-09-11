@@ -30,28 +30,28 @@ lin
     UsePron pron = {
       s = table {
         Nom | Voc => pron.nom ;
-	Gen => pron.gen ;
-	Dat => pron.dat ;
-	Acc => pron.acc ;
-	Loc => pron.loc ;
-	Ins => pron.ins
+        Gen => pron.gen ;
+        Dat => pron.dat ;
+        Acc => pron.acc ;
+        Loc => pron.loc ;
+        Ins => pron.ins
         } ;
       clit = table {
         Nom => pron.cnom ;
-	Voc => pron.nom ;
-	Gen => pron.cgen ;
-	Dat => pron.cdat ;
-	Acc => pron.cacc ;
-	Loc => pron.loc ;
-	Ins => pron.ins
+        Voc => pron.nom ;
+        Gen => pron.cgen ;
+        Dat => pron.cdat ;
+        Acc => pron.cacc ;
+        Loc => pron.loc ;
+        Ins => pron.ins
         } ;
       prep = table {
         Nom | Voc => pron.nom ;
-	Gen => pron.pgen ;
-	Dat => pron.pdat ;
-	Acc => pron.pacc ;
-	Loc => pron.loc ;
-	Ins => pron.pins
+        Gen => pron.pgen ;
+        Dat => pron.pdat ;
+        Acc => pron.pacc ;
+        Loc => pron.loc ;
+        Ins => pron.pins
         } ;
       a = pron.a ;
       hasClit = True ;
