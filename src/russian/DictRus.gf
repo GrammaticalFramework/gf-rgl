@@ -4138,8 +4138,8 @@ lin
   skoree_Adv = mkAdv skoryj_A.comp ;
   skoraja_N = mkN skoryj_A feminine inanimate ;
 
-  uvidennyi_A = mkA (uvidetq_V ** {pppss="увиден"; ppps="увиден"}) Pass Past ; --# notpresent
-  uvidevshyi_A = mkA (uvidetq_V ** {pppss="увиден"; ppps="увиден"}) Act Past ; --# notpresent
+  uvidennyi_A = mkA (uvidetq_V ** {pppss="увиден"; ppps="увиденн"}) Pass Past ; --# notpresent
+  uvidevshyi_A = mkA (uvidetq_V ** {pppss="увиден"; ppps="увиденн"}) Act Past ; --# notpresent
 
   vedshij_A = mkA vesti_V Act Past ;--# notpresent
   vedomyj_A = mkA vesti_V Pass Pres ;
