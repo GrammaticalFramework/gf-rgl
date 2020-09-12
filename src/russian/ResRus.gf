@@ -620,26 +620,25 @@ oper
       guessVerbForms Imperfective Transitive inf (stem+"ю") (stem+"ет") ;
 
   passivateNonReflexive : VerbForms -> VerbForms
-    = \vf -> vf ** {refl=Reflexive} ;
+    = \vf -> vf ** {refltran=Refl} ;
 
   passivate : VerbForms -> VerbForms
     = \vf ->
-      case vf.refl of {
-        Reflexive => vf ;
-        NonReflexive => passivateNonReflexive vf
+      case vf.refltran of {
+        Refl => vf ;
+        _ => passivateNonReflexive vf
       } ;
 
   shortPastPassPart : VerbForms -> GenNum -> Str
     = \vf,gn ->
-      case vf.tran of {
-        Intransitive => variants {} ;
-        Transitive => case <vf.fut,gn> of {
+      case vf.refltran of {
+        Trans => case <vf.fut,gn> of {
           <NormalFuture,GSg Masc> => vf.pppss ;
           <NormalFuture,GSg Fem> => vf.pppss ++ BIND ++ "а" ;
           <NormalFuture,GSg Neut> => vf.pppss ++ BIND ++ "о" ;
           <NormalFuture,GPl> => vf.pppss ++ BIND ++ "ы" ;
-          _ => vf.pppss
-          }
+          _ => vf.pppss } ;
+        _ => variants {}
         } ;
 
   copula : VerbForms
@@ -663,8 +662,9 @@ oper
       prtr="будучи";
       ptr="быв";
       asp=Imperfective;
-      refl=NonReflexive;
-      tran=Intransitive
+      refltran = Intrans ;
+      -- refl=NonReflexive;
+      -- tran=Intransitive
     } ;
 
   -- normal copula require Nom in Pres. So this is Ins-friendly substitute.
@@ -729,8 +729,9 @@ oper
       prtr="могши";  --*
       ptr="могши";
       asp=Imperfective;
-      refl=NonReflexive;
-      tran=Intransitive
+      refltran = Intrans ;
+      -- refl=NonReflexive;
+      -- tran=Intransitive
     } ;
 
   want : VerbForms
@@ -754,8 +755,9 @@ oper
       prtr="хотя";
       ptr="хотев";
       asp=Imperfective;
-      refl=NonReflexive;
-      tran=Transitive
+      refltran = Trans ;
+      -- refl=NonReflexive;
+      -- tran=Transitive
     } ;
 
   nullVerb : VerbForms
@@ -768,8 +770,9 @@ oper
       prtr, ptr ="";
       fut=NullFuture ;
       asp=Imperfective;
-      refl=NonReflexive;
-      tran=Transitive
+      refltran = Trans ;
+      -- refl=NonReflexive;
+      -- tran=Transitive
     } ;
 
   verbPastAgree : VerbForms -> Agr -> Str -> Str
@@ -781,13 +784,13 @@ oper
     } ;
 
   verbReflAfterConsonant : VerbForms -> Str
-    = \vf -> case vf.refl of {Reflexive => BIND ++ "ся" ; NonReflexive => ""} ;
+    = \vf -> case vf.refltran of {Refl => BIND ++ "ся" ; _ => ""} ;
 
   verbRefl : VerbForms -> Str
-    = \vf -> case vf.refl of {Reflexive => BIND ++ "сь" ; NonReflexive => ""} ;
+    = \vf -> case vf.refltran of {Refl => BIND ++ "сь" ; _ => ""} ;
 
   verbInf : VerbForms -> Str
-    = \vf -> case vf.refl of {Reflexive => vf.infrefl ; NonReflexive => vf.inf} ;
+    = \vf -> case vf.refltran of {Refl => vf.infrefl ; _ => vf.inf} ;
 
   verbPresAgree : VerbForms -> Agr -> Str
     = \vf,a -> case a of {
@@ -835,7 +838,7 @@ oper
     = \vf,a -> case a of {
       Ag (GSg Neut) (P1|P2|P3) => <"", (verbInf vf)> ;  -- reused neuter for immediate imperative
       Ag (GSg _) P1 => <"", (verbInf vf)> ;  -- ?
-      Ag (GSg _) P2 => <"", case vf.refl of {NonReflexive=>vf.isg2; Reflexive=>vf.isg2refl}> ;
+      Ag (GSg _) P2 => <"", case vf.refltran of {Refl=>vf.isg2refl; _=>vf.isg2}> ;
       Ag (GSg x) P3 => <"пусть", verbFutAgree vf (Ag (GSg x) P3)> ;  -- ?
       Ag GPl P1 => <"", vf.ipl1 ++ verbReflAfterConsonant vf> ;
       Ag GPl P2 => <"", vf.isg2 ++ BIND ++ "те" ++ (verbRefl vf)> ;
@@ -1611,8 +1614,8 @@ oper
       ++ past ! Ag (GSg Masc) P1 ++ ","  ++ past ! Ag (GSg Fem) P1 ++ "," ++ past ! Ag (GSg Neut) P1 ++ "," ++ past ! Ag GPl P1 ++ ","
       ++ imp ! Ag (GSg Masc) P2 ++ "," ++ imp ! Ag GPl P2 ++ ","
       ++ v.ptr ++ verbRefl v
-      ++ case v.tran of {
-        Transitive => "," ++ ppp ! (GSg Masc) ++ "," ++ ppp ! (GSg Fem) ++ "," ++ ppp ! (GSg Neut) ++ "," ++ ppp ! GPl ;
+      ++ case v.refltran of {
+        Trans => "," ++ ppp ! (GSg Masc) ++ "," ++ ppp ! (GSg Fem) ++ "," ++ ppp ! (GSg Neut) ++ "," ++ ppp ! GPl ;
         _ => ""
         } ;
 

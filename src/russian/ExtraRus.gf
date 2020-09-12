@@ -184,8 +184,9 @@ oper
     prtr="существуя";  --*
     ptr="существовав";  --*
     asp=Imperfective;
-    refl=NonReflexive;
-    tran=Transitive
+    refltran = Trans ;
+    -- refl=NonReflexive;
+    -- tran=Transitive
   } ;
   est_ell_V = est_V ** {prsg1, prsg2, prsg3, prpl1, prpl2, prpl3=""} ;
   be_ell_V = est_ell_V ** {inf=""} ;
@@ -204,7 +205,8 @@ oper
     prtr=["не существуя"];  --*
     ptr=["не существовав"];  --*
     asp=Imperfective;
-    refl=NonReflexive;
-    tran=Transitive
+    refltran = Trans ;
+    -- refl=NonReflexive;
+    -- tran=Transitive
   } ;
 }
