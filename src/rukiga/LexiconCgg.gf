@@ -17,7 +17,7 @@ lin
   bread_N  = mkN "omugati" MU_MI;
   car_N    = mkN "emootoka" N_N ;
   cat_N    = mkN "enjangu" N_N ;
-  --chair_N  = mkN "entebbe" N_N ;
+  chair_N  = mkN "entebbe" N_N ;
   child_N  = mkN "omwana" MU_BA ;
   city_N   = mkN "ekibúga" KI_BI; --orurêmbo pl endêmbo
   cloud_N  = mkN "ekikyu" KI_BI ;
@@ -25,6 +25,7 @@ lin
   cow_N   = mkN "ente" N_N ;
   dog_N   = mkN "embwa" N_N ;
   --person_N = mkN "omuntu" "abantu" MU_BA ;
+  eye_N  = mkN "eriisho" RI_MA;
   fire_N = mkN "omuriro" MU_MI ;
   fish_N = mkN "eky'ényanja" KI_BI ;
   flower_N = mkN "ekimuri" KI_BI ;
@@ -44,9 +45,11 @@ lin
   horse_N = mkN "embaráàsi" N_N ;
   house_N = mkN "enju" N_N ;
   language_N = mkN "orurími" "endími" RU_N ;
+  meat_N = mkN "enyama" N_N;
   man_N = mkN "omushaija" MU_BA ;
   milk_N = mkN "amate" ZERO_MA ;
   music_N = mkN "music" ZERO_ZERO ; -- I have not found the translation
+  rule_N = mkN "ekiragiro" KI_BI;
   river_N = mkN "omugyera" MU_MI ; --omurîndi,
   sea_N = mkN "enyanja" N_N ;
   ship_N = mkN "ekyombo" KI_BI ; -- eméèri [NC_n_n] 
@@ -56,7 +59,9 @@ lin
   water_N = mkN "amáìzi" ZERO_MA ;
   wine_N = mkN "víìnyo" ZERO_ZERO ;
   woman_N = mkN "omwishiki" MU_BA ;
-  
+  reason_N = mkN "enshoonga" N_N;
+  sheep_N = mkN "entaama"  N_N;
+  hat_N    = mkN "enkofira"   N_N;
   --Proper Nouns
   john_PN = mkPN "Yohana" (AgP3 Sg MU_BA) False;
   paris_PN = mkPN "Paris" (AgP3 Sg N_N) True; --Noun class for places???
@@ -68,24 +73,26 @@ lin
   black_A = mkAdjective "kwirangura" Post False False;
   blue_A = mkAdjective "buuru" Post True True ;
   clean_A = mkAdjective "yonjo" Post False False; --: A ;
-  cold_A = mkAdjective "rikufuka" Post False False; --: A ;
+  cold_A = mkAdjective "kufuka" Post False False; --: A ;
+  correct_A = mkAdjective "hikire" Post False False; --: A ;
   good_A =mkAdjective "rungi" Post False False; --: A ;
-  heavy_A = mkAdjective "rikuremeera" Post False False; --: A ; --notice ri as a verb is
-  hot_A = mkAdjective "rikwotsya" Post False False; -- rikutagata -- problematic words like hot we need a new set of clitics
+  heavy_A = mkAdjective "kuremeera" Post False False; --: A ; --notice ri as a verb is
+  hot_A = mkAdjective "kwosya" Post False False; -- rikutagata -- problematic words like hot we need a new set of clitics
   new_A = mkAdjective "sya" Post False False; --: A ;
   old_A = mkAdjective "kúru" Post False False; --: A ;
   ready_A = mkAdjective "eteekateekire" Post False False; --: A ;
-  red_A = mkAdjective "ríkutukura" Post False False; --: A ;
+  red_A = mkAdjective "kutukura" Post False False; --: A ;
   small_A = mkAdjective "kye" Post False False;
-  warm_A = mkAdjective "rikutagata" Post False False;--: A ;
+  warm_A = mkAdjective "kutagata" Post False False;--: A ;
   white_A = mkAdjective "rikwera" Post False False;--: A ;
   yellow_A = mkAdjective "kinekye" Post True True;--: A ; or yero, or kyenju
   young_A = mkAdjective "to" Post False False;--: A ;
   green_A =mkAdjective "kijubwe" Post False True;
+  thin_A = mkAdjective "kye" Post False False;
 
   --ditransitive verbs
   bite_V2 = mkV2 "rum";
-  break_V2 = mkV2 "hend"; --: V2 ;
+  break_V2 = mkV2 "hen" "da" "zire"; --: V2 ;
   buy_V2   = mkV2 "gur" ;  --: V2 ;
   close_V2 = mkV2 "king";
   count_V2 = mkV2 "ba" "ra" "zire";
@@ -96,13 +103,13 @@ lin
   fear_V2 = mkV2 "tiin";
   find_V2 = mkV2 "bon" ; --: V2 ; -- many words; kureeba, kubóna,kushanga, kumamya,kujumbura
   kill_V2 = mkV2 "it"; --: V2 ;
-  love_V2 = mkV2 "kûnd"; --: V2 ;
+  love_V2 = mkV2 "kûnd" "da" "zire"; --: V2 ;
   read_V2 = mkV2 "shom";--: V2 ;
   see_V2 = mkV2 "reeb"; --: V2 ;
   teach_V2 = mkV2 "shomes" ; --: V2 ; or kwegyesa
   understand_V2 = mkV2 "étegyerez"; --: V2 ;
   wait_V2 = mkV2 "tegyerez"; --: V2 ;
-
+ 
   -- ditransitive verbs
   add_V3  = mkV3 "gáìt";
   give_V3 = mkV3 "héére" "za" "ize";
@@ -113,12 +120,13 @@ lin
 
 -- Intransitive verbs
   come_V = mkV "ij";
-  go_V = mkV "gyend"; --: V ; -- Many words: kuza, kuraba,kutoora, kugyenda=go away, kushuma=go down
+  die_V  = mkV "f";
+  go_V = mkV "gyen" "da" "zire"; --: V ; -- Many words: kuza, kuraba,kutoora, kugyenda=go away, kushuma=go down
   jump_V = mkV "guruk" ;
   play_V = mkV "záàn"; --: V ;
   live_V = mkV "tuur" ; --manyF: kutuura i.e. live somewhere, stay = kuráàra
   run_V = mkV "íruk"; -- : V ;
-  sleep_V = mkV "nyama" ; --: V ;--Kugwejegyera, kubyama
+  sleep_V = mkV "gwejegyer" ; --: V ;--Kugwejegyera, kubyama
   swim_V = mkV "og"; --: V ;
   travel_V = mkV "gyen" "da" "zire" ;--: V ;
   walk_V = mkV "ribá" "ta" "si"; --: V ; or kuribata Runynakore it is different
@@ -143,7 +151,7 @@ lin
   now_Adv = mkAdv "hati" AgrNo;
   --far_Adv = mkAdv "hare";
   
-  --today_Adv = mkAdv "erizooba" AgrNo;
+  today_Adv = mkAdv "erizooba" AgrNo;
 
   father_N2 = mkN2 (mkN "tata" ZERO_BAA) (lin Prep (mkPrep [] [] True)) ;
 
@@ -151,6 +159,247 @@ lin
   
   alas_Interj ={s="ryakareeba"; }; --: Interj ;
 
+
+-- New Lexicon
+  switch8off_V2 = mkV2 "raza" "za" "riize";
+  television_N  = mkN "TV" N_N;
+  doctor_N = mkN "omushaho"  MU_BA;
+  clever_A =mkAdjective "amagyezi" Post False True;
+  laugh_V = mkV "sheka";
+
+  airplane_N = mkN "endegye" N_N;
+{--
+  answer_V2S 
+  apartment_N
+  art_N
+  ashes_N
+  ask_V2Q
+  back_N
+  bank_N
+  bark_N
+  beautiful_A
+  beg_V2V
+  belly_N
+  blow_V
+  bone_N
+  boot_N
+  boss_N
+  breast_N
+  breathe_V
+  broad_A
+  brother_N2
+  brown_A
+  burn_V
+  butter_N
+  camera_N
+  cap_N
+  carpet_N
+  ceiling_N
+  cheese_N
+  church_N
+  coat_N
+  country_N
+  cousin_N
+  day_N
+  dig_V
+  dirty_A
+  doctor_N
+  door_N
+  dry_A
+  dull_A
+  dust_N
+  ear_N
+  earth_N
+  easy_A2V
+  egg_N
+  empty_A
+  enemy_N
+  factory_N
+  fall_V
+  far_Adv
+  fat_N
+  feather_N
+  fight_V2
+  fingernail_N
+  float_V
+  floor_N
+  flow_V
+  fly_V
+  fog_N
+  foot_N
+  forest_N
+  forget_V2
+  freeze_V
+  fridge_N
+  fruit_N
+  full_A
+  fun_AV
+  garden_N
+  glove_N
+  gold_N
+  grass_N
+  guts_N
+  hair_N
+  hand_N
+  harbour_N
+  hat_N
+  hate_V2
+  head_N
+  hear_V2
+  heart_N
+  hill_N
+  hit_V2
+  hold_V2
+  horn_N
+  hunt_V2
+  husband_N
+  ice_N
+  important_A
+  industry_N
+  iron_N
+  king_N
+  knee_N
+  know_V2
+  lake_N
+  lamp_N
+  leaf_N
+  learn_V2
+  leather_N
+  leave_V2
+  left_Ord
+  leg_N
+  lie_V
+  like_V2
+  listen_V2
+  liver_N
+  long_A
+  lose_V2
+  louse_N
+  love_N
+  married_A2
+  moon_N
+  mother_N2
+  mountain_N
+  mouth_N
+  name_N
+  narrow_A
+  near_A
+  neck_N
+  newspaper_N
+  night_N
+  nose_N
+  number_N
+  oil_N
+  open_V2
+  paint_V2A
+  paper_N
+  peace_N
+  pen_N
+  person_N
+  planet_N
+  plastic_N
+  play_V2
+  policeman_N
+  priest_N
+  probable_AS
+  pull_V2
+  push_V2
+  put_V2
+  queen_N
+  question_N
+  radio_N
+  rain_N
+  rain_V0
+  religion_N
+  restaurant_N
+  right_Ord
+  road_N
+  rock_N
+  roof_N
+  root_N
+  rope_N
+  rotten_A
+  round_A
+  rub_V2
+  rubber_N
+  salt_N
+  sand_N
+  school_N
+  science_N
+  scratch_V2
+  seed_N
+  seek_V2
+  sew_V
+  sharp_A
+  shirt_N
+  shoe_N
+  shop_N
+  short_A
+  silver_N
+  sing_V
+  sister_N
+  sit_V
+  skin_N
+  sky_N
+  smell_V
+  smoke_N
+  smooth_A
+  snake_N
+  snow_N
+  sock_N
+  song_N
+  speak_V2
+  spit_V
+  split_V2
+  squeeze_V2
+  stab_V2
+  stand_V
+  steel_N
+  stick_N
+  stone_N
+  stop_V
+  stove_N
+  straight_A
+  student_N
+  stupid_A
+  suck_V2
+  sun_N
+  swell_V
+  switch8on_V2
+  table_N
+  tail_N
+  teacher_N
+  thick_A
+  think_V
+  throw_V2
+  tie_V2
+  tongue_N
+  tooth_N
+  turn_V
+  ugly_A
+  uncertain_A
+  university_N
+  village_N
+  vomit_V
+  war_N
+  wash_V2
+  watch_V2
+  wet_A
+  wide_A
+  wife_N
+  win_V2
+  wind_N
+  window_N
+  wing_N
+  wipe_V2
+  wonder_VQ
+  wood_N
+  worm_N
+  write_V2
+  
+--}
+year_N = mkN "omwaka" "emyaka" MU_MI;
+-- End of New Lexicon
 oper
   aboutP = mkPrep "about" ;
   atP = mkPrep "at" ;

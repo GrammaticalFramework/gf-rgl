@@ -15,19 +15,20 @@ concrete StructuralCgg of Structural = CatCgg **
 
 lin
   --Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool };
-  a_Det = {s =[] ; s2 = \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False};     --: Det ; indefinite singular ---s
-  aPl_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Pl; pos = Pre; doesAgree = False}; -- : Det ;indefinite plural   ---s
-  the_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
+  a_Det = {s =[] ; s2 = \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False};     --: Det ; indefinite singular ---s
+  aPl_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Pl; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False}; -- : Det ;indefinite plural   ---s
+  the_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
   
-  every_Det = {s ="buri"; s2 = \\_ => []; ntype=Incomplete; num=Sg; pos=Pre; doesAgree = False} ;
-  few_Det = {s="kye"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False} ;
-  many_Det ={s="ingi"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False} ;
+  every_Det = {s ="buri"; s2 = \\_ => []; ntype=Incomplete; num=Sg; pos=Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False} ;
+  few_Det = {s="kye"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False; numeralS=\\_=>[]; numeralExists = False} ;
+  many_Det ={s="ingi"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False; numeralS=\\_=>[]; numeralExists = False} ;
   
   i_Pron            = {s = table{Gen => glueGen (AgMUBAP1 Sg); _=> mkSStand (AgMUBAP1 Sg)}; third = \\_,_=>[];  agr = AgrYes (AgMUBAP1 Sg)};--mkPron "nyowe" "nyowe" (AgMUBAP1 Sg);
   youSg_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Sg); _=>mkSStand (AgMUBAP2 Sg)}; third = \\_,_=>[];  agr = AgrYes(AgMUBAP2 Sg)};--mkPron "iwe" "we" (AgMUBAP2 Sg); 
   he_Pron, she_Pron = {s = table{Gen => glueGen (AgP3 Sg MU_BA); _=>mkSStand (AgP3 Sg MU_BA)}; third = \\_,_=>[];  agr = AgrYes(AgP3 Sg MU_BA)};--mkPron "uwe" "uwe" (AgP3 Sg MU_BA);
   we_Pron           = {s = table{Gen => glueGen (AgMUBAP1 Pl); _=>mkSStand (AgMUBAP1 Pl)}; third = \\_,_=>[];  agr = AgrYes (AgMUBAP1 Pl)}; --mkPron "itwe" "itwe" (AgMUBAP1 Pl);
   youPl_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Pl); _=>mkSStand (AgMUBAP2 Pl)}; third = \\_,_=>[]; agr =AgrYes (AgMUBAP2 Pl)};--mkPron "imwe" "imwe" (AgMUBAP2 Pl);    they_Pron         = {s = table{Gen => glueGen  AgP3 Pl MU_BA; _=>mkSStand (AgP3 Pl MU_BA)}; third = \\_,_=>[]; itP3Required=False};--mkPron "bo" "bo" (AgP3 Pl MU_BA);
+  they_Pron         = {s = table{Gen => glueGen  (AgP3 Pl MU_BA); _=>mkSStand (AgP3 Pl MU_BA)}; third = \\_,_=>[]; agr =AgrYes (AgP3 Pl MU_BA)};--mkPron "bo" "bo" (AgP3 Pl MU_BA);
   -- default implementation Using KI_BI. Use mkmkGenPrepNoIVClitic and 
   it_Pron = {
     s = \\_=>[]; 
@@ -97,7 +98,7 @@ lin
       n  = Sg 
     };
     
-   have_V2 ={s= "ine"; pres=[]; perf =[]; isPresBlank = False;
+   have_V2 ={s= "in"; pres="e"; perf ="e"; isPresBlank = False;
                         isPerfBlank = False; morphs = mkVerbMorphs; comp = []; isRegular=False};  --: V2 ;
 
   {-
@@ -145,7 +146,7 @@ lin
   that_Quant  = {s={s = \\_=>[]; third =\\_,_=>[]; agr = AgrNo}; s2 = mkThat; doesAgree = True; isPron = False}; --: Quant ;
   this_Quant =  {s={s = \\_=>[]; third =\\_,_=>[]; agr = AgrNo}; s2 = mkThis; doesAgree = True; isPron = False}; --: Quant ;
     
-  no_Quant = {s ={s=\\_=>"tihariho";third =\\_,_=>[]; agr=AgrNo}; s2 =\\_=> []; doesAgree = False; isPron = False};--: Quant ;
+  no_Quant = {s ={s=\\_=>"tihariho";third =\\_,_=>[]; agr=AgrNo}; s2 =\\_=> "tihariho"; doesAgree = False; isPron = False};--: Quant ;
   {-End of Quantifiers-}
 
 
@@ -165,7 +166,7 @@ lin
   whatPl_IP = { s= "ki";  n = IPl;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True} ; -- what (plural)
   whatSg_IP = { s= "ki";  n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ; -- what (singular)
   whoPl_IP  = { s=  "ha";  n = IPl; isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True} ;--: IP ;  -- who (plural)
-  whoSg_IP =  { s=  "ha"; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux=[]; endOfSentence = True}; --: IP ;  -- who (singular)
+  whoSg_IP =  { s=  "ha"; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True}; --: IP ;  -- who (singular)
   --You may need to use booleans to indicate that you need these tables rather than carrying them.
   how_IAdv = {s ="ta"; requiresSubjPrefix = True; endOfSentence =True};  --: IAdv ;
   --how8much_IAdv = {s ="kwiga"; s2requireSubjPrefix = True};--: IAdv ;
@@ -191,17 +192,21 @@ lin
       s2 =\\agr => mkSubjCliticTableSg ! agr ++ BIND++ "mwe"; 
       ntype = Complete;
       num = Sg;
-      pos = Pre;
-      doesAgree = True
+      pos = Post;
+      doesAgree = True; 
+      numeralS=\\_=>[]; 
+      numeralExists = False
     };
   somePl_Det  =
     {
       s =[]; 
-      s2 =\\agr => mkSubjCliticTablePl ! agr ++ BIND++ "mwe"; 
+      s2 =\\agr => "mwe";-- mkSubjCliticTablePl ! agr ++ "mwe"; 
       ntype = Complete;
       num = Pl;
-      pos = Pre;
-      doesAgree = True
+      pos = Post;
+      doesAgree = True; 
+      numeralS=\\_=>[]; 
+      numeralExists = False
     };--: Det ;
   
    want_VV =  {s = "yend"; pres="da"; perf = "zire"; isPresBlank = False;
@@ -219,6 +224,8 @@ lin
     --somewhere_Adv : Adv ;
 
   that_Subj = ss "ngu" ;
+  when_Subj = ss "obu";
+  because_Subj = ss "ahabwokuba";
 
   --Adjective modifying Adverbs
   almost_AdA = {s="haihi"; position=Pre}; --: AdA ;
