@@ -114,7 +114,7 @@ lin
         PrefShort => ap.short
         } ;
       Neg => case ap.preferShort of {
-        PreferFull => case v2a.c.neggen of {
+        PreferFull => case neggen v2a.c of {
             False => \\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c ;
             True => \\a => ap.s ! agrGenNum a ! Animate ! Gen
           } ;

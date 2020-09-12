@@ -1563,7 +1563,7 @@ oper
   applyPolPrep : Polarity -> ComplementCase -> NounPhrase -> Str
     = \pol,prep,np ->
       let prep'=prep ** {
-        c=case <pol, prep.neggen> of {<Neg, True> => Gen ; _ => prep.c}
+        c=case <pol, neggen prep> of {<Neg, True> => Gen ; _ => prep.c}
       } in applyPrep prep' np ;
 
   applyIPronPrep : ComplementCase -> IPronounForms -> Str

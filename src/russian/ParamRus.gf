@@ -105,7 +105,7 @@ oper
     -- refl : Reflexivity ;
     -- tran : Transitivity
     } ;
-  ComplementCase : Type = {s : Str ; c : Case ; neggen : Bool ; hasPrep : Bool} ;
+  ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
   VerbForms2 : Type = VerbForms ** {c : ComplementCase} ;
   VerbForms3 : Type = VerbForms ** {c : ComplementCase ; c2 : ComplementCase} ;
 
@@ -114,5 +114,12 @@ oper
       <Reflexive,_> => Refl ;
       <_,Transitive> => Trans ;
       <_,Intransitive> => Intrans
+    } ;
+
+  -- Whether the noun that the preposition governs turns genitive in negative context
+  -- NB. I'm just guessing here, this is an exercise in shaving concrete categories. /IL
+  neggen : ComplementCase -> Bool = \c -> case c.c of {
+    Nom|Acc => True ;
+    _       => False
     } ;
 }
