@@ -4135,4 +4135,6 @@ fun
   napravivshij_A : A ;
   napravlennyj_A : A ;
   okazavshijsja_A : A ;
+  vzjatyj_A : A ;
+  vzjvshij_A : A ;
 }

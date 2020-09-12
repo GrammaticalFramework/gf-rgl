@@ -94,7 +94,8 @@ oper
     prsg1, prsg2, prsg3, prpl1, prpl2, prpl3,
     psgm, psgs,
     isg2, ipl1, isg2refl,
-    pppss,   -- past passive participle. Here only short stem
+    ppps,   -- past passive participle, stem
+    pppss,   -- past passive participle, short stem
     prtr, ptr  -- present and past transgressives (converbs)
     : Str ;
     fut : SpecialFuture ;

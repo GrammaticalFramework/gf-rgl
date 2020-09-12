@@ -254,7 +254,7 @@ lin
   science_N = mkN "наука" ;
   scratch_V2 = mkV2 (mkV imperfective "чесать" "чешу" "чешет");
   sea_N = mkN "море" neuter inanimate "2c" ;
-  see_V2 = (mkV2plus (mkV2 (mkV imperfective transitive "видеть" "вижу" "видит" "5a"))) ** {pppss="виден"} ;
+  see_V2 = (mkV2plus (mkV2 (mkV imperfective transitive "видеть" "вижу" "видит" "5a"))) ** {pppss="виден"; ppps="виденн"} ;
   seed_N = mkN "семя" neuter inanimate "8°c" ;
   seek_V2 = mkV2 (mkV imperfective "искать" "ищу" "ищет");
   sell_V3 = tvDirDir (mkV imperfective "продавать" "продаю" "продаёт");

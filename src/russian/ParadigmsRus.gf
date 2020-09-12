@@ -306,8 +306,8 @@ oper
       = \v,voice,t ->
         let refl = case v.refl of {Reflexive => "ся" ; _ => ""} in
         case <voice,t> of {
-          <Pass,Past|Cond> => lin A ( --# notpresent TODO: very rough. Cover more cases
-            guessAdjectiveForms (v.pppss + "ный") ** {  --# notpresent
+          <Pass,Past|Cond> => lin A ( --# notpresent TODO: check
+            guessAdjectiveForms (v.ppps + "ый") ** {  --# notpresent
               sm=v.pppss ;  --# notpresent
               sf=v.pppss + "а"; --# notpresent
               sn=v.pppss + "о"; --# notpresent
