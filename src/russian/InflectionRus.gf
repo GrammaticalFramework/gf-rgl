@@ -1107,8 +1107,6 @@ oper
         ptr=com + "тев";
         asp=asp;
         refltran = reflTran refl tran ;
-        -- refl=refl;
-        -- tran=tran
         } ;
 
   makeVerbBezhat6 : Aspect -> Transitivity -> Str -> VerbForms
@@ -1138,8 +1136,6 @@ oper
         ptr=com + "жав";
         asp=asp;
         refltran = reflTran refl tran ;
-        -- refl=refl;
-        -- tran=tran
         } ;
 
   makeVerbEst : Aspect -> Transitivity -> Str -> VerbForms
@@ -1169,8 +1165,6 @@ oper
         ptr=com + "в";
         asp=asp;
         refltran = reflTran refl tran ;
-        -- refl=refl;
-        -- tran=tran
         } ;
 
   makeVerbDat6 : Aspect -> Transitivity -> Str -> VerbForms
@@ -1199,8 +1193,6 @@ oper
         ptr=com + "в";
         asp=asp;
         refltran = reflTran refl tran ;
-        -- refl=refl;
-        -- tran=tran
         } ;
 
   makeVerbByt6 : Aspect -> Transitivity -> Str -> VerbForms
@@ -1230,8 +1222,6 @@ oper
         ptr=com + "ыв";
         asp=asp;
         refltran = reflTran refl tran ;
-        -- refl=refl;
-        -- tran=tran
         } ;
 
   makeVerbJti: Aspect -> Transitivity -> Str -> Str -> VerbForms
@@ -1262,7 +1252,5 @@ oper
         ptr=[];
         asp=asp;
         refltran = reflTran refl tran ;
-        -- refl=refl;
-        -- tran=tran
         } ;
 }
