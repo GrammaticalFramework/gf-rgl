@@ -662,9 +662,7 @@ oper
       prtr="будучи";
       ptr="быв";
       asp=Imperfective;
-      refltran = Intrans ;
-      -- refl=NonReflexive;
-      -- tran=Intransitive
+      refltran = Intrans ; -- used to be refl=NonReflexive; tran=Intransitive
     } ;
 
   -- normal copula require Nom in Pres. So this is Ins-friendly substitute.
@@ -729,9 +727,7 @@ oper
       prtr="могши";  --*
       ptr="могши";
       asp=Imperfective;
-      refltran = Intrans ;
-      -- refl=NonReflexive;
-      -- tran=Intransitive
+      refltran = Intrans ; -- used to be refl=NonReflexive; tran=Intransitive
     } ;
 
   want : VerbForms
@@ -755,9 +751,7 @@ oper
       prtr="хотя";
       ptr="хотев";
       asp=Imperfective;
-      refltran = Trans ;
-      -- refl=NonReflexive;
-      -- tran=Transitive
+      refltran = Trans ; -- used to be refl=NonReflexive; tran=Transitive
     } ;
 
   nullVerb : VerbForms
@@ -770,9 +764,7 @@ oper
       prtr, ptr ="";
       fut=NullFuture ;
       asp=Imperfective;
-      refltran = Trans ;
-      -- refl=NonReflexive;
-      -- tran=Transitive
+      refltran = Trans ; -- used to be refl=NonReflexive; tran=Transitive
     } ;
 
   verbPastAgree : VerbForms -> Agr -> Str -> Str

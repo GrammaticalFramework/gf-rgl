@@ -102,8 +102,6 @@ oper
     fut : SpecialFuture ;
     asp : Aspect ;
     refltran : ReflTran ;
-    -- refl : Reflexivity ;
-    -- tran : Transitivity
     } ;
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
   VerbForms2 : Type = VerbForms ** {c : ComplementCase} ;
