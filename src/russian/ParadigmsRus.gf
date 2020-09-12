@@ -304,7 +304,7 @@ oper
       = \a1,link,a2 -> lin A (mkCompoundA a1 link a2) ;
     mkA : V -> Voice -> Tense -> A
       = \v,voice,t ->
-        let refl = case v.refl of {Reflexive => "ся" ; _ => ""} in
+        let refl = case v.refltran of {Refl => "ся" ; _ => ""} in
         case <voice,t> of {
           <Pass,Past|Cond> => lin A ( --# notpresent TODO: check
             guessAdjectiveForms (v.ppps + "ый") ** {  --# notpresent

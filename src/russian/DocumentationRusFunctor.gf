@@ -144,8 +144,10 @@ oper
     let imp : Agr=>Str = \\a => ((verbImperativeAgree v a).p1 ++ (verbImperativeAgree v a).p2) in
     let ppp : GenNum=>Str = \\gn => shortPastPassPart v gn in
     case v.asp of {Imperfective => "несовершенного вида" ; Perfective => "совершенного вида"} ++ "," ++
-    case v.refl of {Reflexive => "возвратный" ; NonReflexive => "невозвратный"} ++ "," ++
-    case v.tran of {intransitive => "непереходный" ; Transitive => "переходный"} ++ "," ++
+    case v.refltran of {
+      Refl => "возвратный" ;
+      Intrans => "непереходный" ;
+      Trans => "переходный"} ++ "," ++
     heading2 (heading infinitive_Parameter) ++
     frameTable (
       tr (td v.inf ++ td v.infrefl)
@@ -179,13 +181,13 @@ oper
         ++ td (past ! Ag GPl P3) ++ td (pres ! Ag GPl P3) ++ td (fut ! Ag GPl P3) ++ td (imp ! Ag GPl P3) )
     ) ++
     heading2 ("краткие причастия прошедшего времени") ++
-      case v.tran of {
-        Transitive => frameTable (
+      case v.refltran of {
+        Trans => frameTable (
           tr (th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter)
              ++ th (heading plural_Parameter)) ++
           tr (td (ppp ! (GSg Masc)) ++ td (ppp ! (GSg Fem)) ++ td (ppp ! (GSg Neut)) ++ td (ppp ! GPl))
           ) ;
-        Intransitive => "-"
+        _ => "-"
         } ++
     heading2 ("деепричастия") ++
     frameTable (
