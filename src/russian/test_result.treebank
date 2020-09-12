@@ -3795,7 +3795,7 @@ AllRusAbs: AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0
 AllRus: третий самый голубой дом
 
 AllRusAbs: AdjCN (PositA uvidennyi_A) (AdjCN (PositA big_A) (UseN house_N))
-AllRus: увиденый большой дом
+AllRus: увиденный большой дом
 
 AllRusAbs: UttAP (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) small_A))
 AllRus: пятый самый маленький
