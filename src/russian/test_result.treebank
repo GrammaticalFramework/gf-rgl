@@ -3429,6 +3429,12 @@ AllRus: она становит &+ ся чисто старой
 AllRusAbs: UttAdv (ComparAdvAdj rather_CAdv warm_A (UsePron he_Pron))
 AllRus: Скорее тепло, чем он
 
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (AdjCN (PositA vzjvshij_A) (UseN apple_N))) (UseV fall_V))
+AllRus: Взявшее яблоко падает
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (AdjCN (PositA vzjatyj_A) (UseN apple_N))) (UseV fall_V))
+AllRus: Взятое яблоко падает
+
 AllRusAbs: CountNP (ConjDet or_Conj (BaseDAP (DetDAP every_Det) (DetDAP many_Det))) (MassNP (UseN city_N))
 AllRus: каждое или многие из города
 
@@ -3789,7 +3795,7 @@ AllRusAbs: AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0
 AllRus: третий самый голубой дом
 
 AllRusAbs: AdjCN (PositA uvidennyi_A) (AdjCN (PositA big_A) (UseN house_N))
-AllRus: увиденный большой дом
+AllRus: увиденый большой дом
 
 AllRusAbs: UttAP (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))) small_A))
 AllRus: пятый самый маленький
