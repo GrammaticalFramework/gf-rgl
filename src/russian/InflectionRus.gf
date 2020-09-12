@@ -873,7 +873,8 @@ oper
     } ;
 
   VerbPassPastPart : Type = {
-    pppss : Str
+    ppps : Str ;  -- full form stem
+    pppss : Str   -- short stem
     } ;
 
   VerbTransgressive : Type = {
@@ -987,6 +988,7 @@ oper
         isg2=imp.isg2 ;
         isg2refl=imp.isg2refl ;
         ipl1=imp.ipl1 ;
+        ppps=ppp.ppps ;
         pppss=ppp.pppss ;
         prtr=tr.prtr ;
         ptr=tr.ptr
@@ -1045,6 +1047,14 @@ oper
 
   makeVerbPassPastPart : ConjType -> Str -> Str -> Str -> Str -> VerbPassPastPart =
     \ct, infs, sg1, sg3, psgm -> {
+      ppps=case <ct,infs> of { -- TODO
+        <9|11|12|14|15|16,_> => case psgm of {s+"л"=>s+"т"; _=>psgm+"т"} ;
+        <4,_> => sg1 + "енн" ;   -- TODO: ён
+        <5,s+("е"|"ё")> => sg1 + "енн" ;  -- TODO: ён
+        <7|8,_> => sg3 + "енн" ;  -- TODO: ён
+        <3|10,_> => infs + "т" ;
+        _ => infs + "нн"
+        } ;
       pppss=case <ct,infs> of {
         <9|11|12|14|15|16,_> => case psgm of {s+"л"=>s+"т"; _=>psgm+"т"} ;
         <4,_> => sg1 + "ен" ;   -- TODO: ён
@@ -1090,6 +1100,7 @@ oper
         isg2=com + "ти";
         isg2refl=com + "тись";
         ipl1=[];
+        ppps=com + "тим";  -- incorrect, but prevents empty
         pppss=com + "тим";  -- incorrect, but prevents empty
         prtr=com + "тя";
         ptr=com + "тев";
@@ -1119,6 +1130,7 @@ oper
         isg2=com + "ги";
         isg2refl=com + "гись";
         ipl1=[];
+        ppps=com + "ган"; -- incorrect, but prevents parsing problems
         pppss=com + "ган"; -- incorrect, but prevents parsing problems
         prtr=com + "жа"; -- *
         ptr=com + "жав";
@@ -1148,6 +1160,7 @@ oper
         isg2=com + "шь";
         isg2refl=com + "шься";
         ipl1=[];
+        ppps=com + "денн";  -- *
         pppss=com + "ден";  -- *
         prtr=com + "дя";
         ptr=com + "в";
@@ -1176,6 +1189,7 @@ oper
         isg2=com + "й";
         isg2refl=com + "йся";
         ipl1=[];
+        ppps=com + "нн"; -- *
         pppss=com + "н"; -- *
         prtr=com + "вая";
         ptr=com + "в";
@@ -1205,7 +1219,8 @@ oper
         isg2=com + "удь";
         isg2refl=com + "удься";
         ipl1=[];
-        pppss="ыт";  -- *
+        ppps=com + "ыт";  -- *
+        pppss=com + "ыт";  -- *
         prtr=com + "ывая";
         ptr=com + "ыв";
         asp=asp;
@@ -1235,7 +1250,8 @@ oper
         isg2=com + "ди";
         isg2refl=com + "дись";
         ipl1=[];
-        pppss="ден"; -- *
+        ppps=com + "денн"; -- *
+        pppss="com + ден"; -- *
         prtr=com + "дя";
         ptr=[];
         asp=asp;

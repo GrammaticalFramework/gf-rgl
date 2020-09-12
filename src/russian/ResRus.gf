@@ -658,6 +658,7 @@ oper
       isg2="будь";
       isg2refl="явись" ; -- ?
       ipl1="давайте будем";
+      ppps="явленн";   --*
       pppss="явлен";   --*
       prtr="будучи";
       ptr="быв";
@@ -723,6 +724,7 @@ oper
       isg2refl="будь способны" ;   -- *
       isg2="будь способен";  -- some improvisation here
       ipl1="давайте будем способны";   -- maybe, special like for future?
+      ppps=""; --*
       pppss=""; --*
       prtr="могши";  --*
       ptr="могши";
@@ -747,6 +749,7 @@ oper
       isg2="желай";
       isg2refl="желайся" ;
       ipl1="давайте будем хотеть";
+      ppps="хотим";  -- *
       pppss="хотим";  -- *
       prtr="хотя";
       ptr="хотев";
@@ -761,7 +764,7 @@ oper
       prsg1, prsg2, prsg3, prpl1, prpl2, prpl3,
       psgm, psgs,
       isg2, isg2refl, ipl1,
-      pppss,
+      ppps, pppss,
       prtr, ptr ="";
       fut=NullFuture ;
       asp=Imperfective;
