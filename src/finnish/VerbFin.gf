@@ -121,7 +121,7 @@ concrete VerbFin of Verb = CatFin ** open Prelude, ResFin, StemFin in {
               Sg => Nom ;  -- minä olen iso ; te olette iso
               Pl => Part   -- me olemme isoja ; te olette isoja
               }            --- definiteness of NP ?
-          in cn.s ! (NCase n c)
+          in linCN (NCase n c) cn ;
       } ;
     CompNP np = {s = \\_ => np.s ! NPSep} ;
     CompAdv a = {s = \\_ => a.s} ;
