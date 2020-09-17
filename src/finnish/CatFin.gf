@@ -48,7 +48,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 
 -- The $Bool$ tells if a possessive suffix is attached, which affects the case.
 
-    CN   = {s : NForm => Str ; h : Harmony ; postmod : Number => Str} ;
+    CN   = LinCN ; -- {s : NForm => Str ; h : Harmony ; postmod : Number => Str} ;
     Pron = {s : NPForm => Str ; a : Agr ; hasPoss : Bool ; poss : Str} ;
     NP   = {s : NPForm => Str ; a : Agr ; isPron : Bool ; isNeg : Bool} ;
     DAP, Det = {
@@ -101,6 +101,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     SSlash = \ss -> ss.s ++ ss.c2.s.p1  ;
     ClSlash = \cls -> cls.s ! Pres ! Simul ! Pos ++ cls.c2.s.p1 ;
     NP = \np -> np.s ! NPAcc ; ----NPSep ;
+    CN = cnRef ;
 
     VP = vpRef ;
     VPSlash = \vps -> vpRef vps ++ vps.c2.s.p1 ;
@@ -115,5 +116,5 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 
   oper
    vpRef : StemFin.VP -> Str = \vp -> infVP SCNom Pos (agrP3 Sg) vp Inf1 ;
-
+   cnRef : LinCN -> Str = linCN (NCase Sg Nom) ;
 }

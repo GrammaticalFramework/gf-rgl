@@ -43,7 +43,6 @@ concrete ConjunctionFin of Conjunction =
     BaseCN x y = twoTable NForm (mergeCN x) (mergeCN y) ; -- put postmod in s field
     ConsCN x xs = consrTable NForm comma (mergeCN x) xs;
   oper
-    LinCN : Type = {s : NForm => Str ; h : Harmony ; postmod : Number => Str} ;
     -- RS, SC and Adv are in separate fields, to prevent "lasi viiniänsa" for "lasinsa viiniä".
     -- But for coordination, we just give up and attach the postmod.
     -- Really, if you want to have "lasinsa viiniä ja kuppinsa teetä", just use ConjNP instead.
