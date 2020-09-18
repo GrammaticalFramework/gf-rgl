@@ -60,7 +60,7 @@ concrete QuestionFin of Question = CatFin ** open ResFin, StemFin, Prelude in {
             _            => NCase n  k      -- mitkä kytkimet
             }
         in
-        idet.s ! k ++ cn.s ! ncase ;
+        idet.s ! k ++ linCN ncase cn ;
       n = n
       } ;
 

@@ -1,9 +1,9 @@
 --# -path=.:../abstract:../common
 
-concrete MarkupFin of Markup = CatFin, MarkHTMLX ** {
+concrete MarkupFin of Markup = CatFin, MarkHTMLX ** open ResFin in {
 
 lin
-  MarkupCN   m cn  = cn ** {s = \\nf   => appMark m (cn.s ! nf)} ;
+  MarkupCN   m cn  = cn ** {s = \\nf   => appMark m (linCN nf cn)} ;
   MarkupNP   m np  = np ** {s = \\c    => appMark m (np.s ! c)} ;
   MarkupAP   m ap  = ap ** {s = \\b,nf => appMark m (ap.s ! b ! nf)} ;
   MarkupAdv  m adv =       {s =          appMark m adv.s} ;
