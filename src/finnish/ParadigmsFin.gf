@@ -126,6 +126,11 @@ oper
     mkN : V -> N ;   -- verbal noun: "tekeminen"
   } ;
 
+-- Verban nouns of type "tekeminen"
+
+    verbalN : V -> N   -- tekeminen
+      = \v -> mkN (v.s ! (Inf Inf4Nom)) ;
+
 -- Some nouns are regular except for the singular nominative (e.g. "mies").
 
     exceptNomN : N -> Str -> N ;
