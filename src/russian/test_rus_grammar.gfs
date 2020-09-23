@@ -151,6 +151,8 @@ gt UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (UsePron he_Pron) ( PositAdvAd
 gt UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (AdAP (PositAdAAdj clean_A) (PositA old_A))))) | l -treebank
 gt UttAdv (ComparAdvAdj rather_CAdv warm_A (UsePron he_Pron)) | l -treebank -unlextext
 
+gt UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN apple_N)) (AdvVP (UseV fall_V) (PrepNP nom_Prep (AdvNP (DetCN (DetQuant DefArt neskolqko_Num) (UseN year_N)) nazad_Adv)))) | l -treebank -unlextext
+
 gt UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (AdjCN (PositA vzjvshij_A) (UseN apple_N))) (UseV fall_V))  | l -treebank -unlextext
 gt UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (AdjCN (PositA vzjatyj_A) (UseN apple_N))) (UseV fall_V))  | l -treebank -unlextext
 
