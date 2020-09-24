@@ -199,10 +199,14 @@ oper
   invarA : Str -> A  -- invariant adjective, e.g. "kelpo"
     = \s -> lin A {s = \\_,_ => s ; h = Back ; p = [] ; hasPrefix = False} ; ----- stemming adds bogus endings
 
-  prefixA : Str -> A -> A = \pr,a -> a ** {
-    p = pr ;
-    hasPrefix = True
-    } ;
+  compoundA : Str -> A -> A  -- prefix glued to adjective, e.g. "hevos"+"vetoinen"
+    = \s,a -> lin A {s = \\d,c => s + a.s ! d ! c  ; h = a.h ; p = s + a.p ; hasPrefix = a.hasPrefix} ;
+
+  prefixA : Str -> A -> A -- in modifying use, an uninflected glued prefix, e.g. "sähkö" for "sähköinen"
+    = \pr,a -> a ** {
+      p = pr ;
+      hasPrefix = True
+      } ;
 
 -- Two-place adjectives need a case for the second argument.
 
