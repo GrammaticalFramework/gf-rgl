@@ -99,6 +99,12 @@ oper
     mkN : Str -> N -> N -- e.g. baby + boom
   } ;
 
+--3 Verbal nouns
+--
+-- A systematic way to form a verbal noun is the ending "-ing".
+
+    verbalN : V -> N ; -- e.g. sing -> singing
+
 
 --3 Relational nouns 
 
@@ -405,6 +411,8 @@ mkInterj : Str -> Interj
   genderN g man = lin N {s = man.s ; g = g} ;
 
   compoundN s n = lin N {s = \\x,y => s ++ n.s ! x ! y ; g=n.g} ;
+
+  verbalN v = regN (v.s ! VPresPart) ;
 
   mkPN = overload {
     mkPN : Str -> PN = regPN ;
