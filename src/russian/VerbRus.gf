@@ -1,431 +1,204 @@
+concrete VerbRus of Verb = CatRus ** open ResRus, Prelude, Coordination in {
 
---# -path=.:../abstract:../common:../../prelude
+lin
+  -- : V -> VP ;        -- sleep
+  UseV v = {
+    adv = \\a=>[] ;
+    verb = v ;
+    dep=[] ;
+    compl = \\_,_ => []
+    } ;
 
-concrete VerbRus of Verb = CatRus ** open ResRus, Prelude in {
+  -- : V2 -> VP ;         -- be loved
+  PassV2 v2 = {
+    adv = \\a=>[] ;
+    verb = passivate v2 ;
+    dep=[] ;
+    compl = \\p,a => []
+  } ;
 
--- 1.4 additions by AR 17/6/2008
+  -- : VV -> VP -> VP ;  -- want to run
+  ComplVV vv vp = vp ** {
+    verb=vv.v ;
+    dep=verbInf vp.verb ++ vp.dep ;
+    adv=\\a=>vv.modal ! a ++ vp.adv ! a
+    } ;
 
-  flags optimize=all_subs ;  coding=utf8 ;
-  lin
-  CompNP masha =
- { s=\\clf,gn,p => case clf of 
-   {
-        (ClIndic Present _) =>  masha.s ! (mkPronForm Nom No NonPoss) ;
-        (ClIndic PastRus _) => case  gn of 
-    {   (GSg Fem)  =>"была"++masha.s ! (mkPronForm Inst No NonPoss);
-      (GSg Masc)  =>"был" ++ masha.s!(mkPronForm Inst No NonPoss);
-     (GSg Neut)  =>"было" ++ masha.s!(mkPronForm Inst No NonPoss);
-      GPl => "были" ++ masha.s ! (mkPronForm Inst No NonPoss)
-   };
-    (ClIndic Future _) => case gn of 
-   {    GPl => case p of
-      { P3 => "будут"++masha.s ! (mkPronForm Inst No NonPoss);
-        P2 => "будете"++masha.s !(mkPronForm Inst No NonPoss);
-        P1 => "будем"++masha.s ! (mkPronForm Inst No NonPoss)
-      };
-      (GSg _) => case p of
-      {  P3=>"будет"++masha.s!(mkPronForm Inst No NonPoss) ;
-         P2 => "будешь"++ masha.s ! (mkPronForm Inst No NonPoss) ;
-         P1=> "буду"++ masha.s ! (mkPronForm Inst No NonPoss)      
-      } --case p
-    }; --case gn
-      ClCondit => masha.s!(mkPronForm Inst No NonPoss) ;        
-      ClImper  => case (numGenNum gn) of 
-        {Sg  => "будь" ++ masha.s ! (mkPronForm Inst No NonPoss);
-         Pl => "будьте" ++  masha.s ! (mkPronForm Inst No NonPoss) 
-       };
-       ClInfin => "быть" ++   masha.s ! (mkPronForm Inst No NonPoss)
-};  -- case clf     
-      asp = Imperfective ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n => ""
-   } ;
+  -- : VS -> S -> VP ;  -- say that she runs
+  ComplVS vs s = {
+    verb = vs ;
+    dep=[] ;
+    adv=\\a=>[] ;
+    compl=\\_,_ => comma ++ "что" ++ s.s ! Ind
+    } ;
 
-  CompAP zloj ={
- s= \\clf,gn,p => case clf of { 
--- person is ignored !
-       ClInfinit => "быть" ++ zloj.s ! AF Inst Animate (GSg Masc) ; 
-        ClImper => case gn of 
-          {  (GSg _) => "будь" ++ zloj.s ! AF Inst Animate (GSg Masc);
-             GPl => "будьте" ++ zloj.s ! AF Inst Animate GPl  
-          };  
--- infinitive does not save GenNum, 
--- but indicative does for the sake of adjectival predication !
---        ClIndic Present _ =>  zloj.s ! AF Nom Animate gn ;
-        ClIndic Present _ | ClCondit =>  zloj.s ! AFShort gn ; ---- CLCondit AR 6/2/2013
-        ClIndic PastRus _ => case gn of
-       { (GSg Fem)   => "была" ++ zloj.s! AF Nom Animate (GSg Fem);
-          (GSg Masc)  => "был" ++ zloj.s! AF Nom Animate (GSg Masc);
-          (GSg Neut)   => "был" ++ zloj.s! AF Nom Animate (GSg Neut);
-           GPl => "были" ++ zloj.s! AF Nom Animate GPl
-       };
-       ClIndic Future _ => case gn of 
-       { GPl => case p of 
-          { P3 => "будут" ++ zloj.s! AF Nom Animate GPl;
-            P2 => "будете" ++ zloj.s! AF Nom Animate GPl;
-            P1 => "будем" ++ zloj.s! AF Nom Animate GPl
-          } ;
-         (GSg _) => case p of 
-         {P3 => "будет" ++ zloj.s! AF Nom Animate (GSg (genGNum gn));
-          P2 => "будешь"++ zloj.s! AF Nom Animate (GSg (genGNum gn));
-          P1=> "буду" ++ zloj.s! AF Nom Animate (GSg (genGNum gn))
-        }
+  -- : VQ -> QS -> VP ;  -- wonder who runs
+  ComplVQ vq qs = {
+    verb = vq ;
+    dep=[] ;
+    adv=\\a=>[] ;
+    compl=\\_,_ => comma ++ "что" ++ qs.s ! QDir
+    } ;
+
+
+  -- : VA -> AP -> VP ;  -- they become red
+  ComplVA va ap = {
+    verb=va ;
+    dep=[] ;
+    adv=\\a=>[] ;
+    compl=\\_ => case ap.preferShort of {
+      PreferFull => (\\a => ap.s ! agrGenNum a ! Inanimate ! Ins) ;
+      PrefShort => ap.short
       }
-      ---- ; ClCondit => "" 
-      } ;        
-
-      asp = Imperfective ;      
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n=> ""
     } ;
 
--- AR 7/12/2010 --- hmmm
-  CompCN zloj ={
- s= \\clf,gn,p => 
-   let num = numGenNum gn ;
-       zlojsg = zloj.nounpart ! NF Sg Nom nom ++ zloj.relcl ! Sg ! Nom ;
-       zlojpl = zloj.nounpart ! NF Pl Nom plg ++ zloj.relcl ! Pl ! Nom 
-   in
-   case clf of { 
--- person is ignored !
-       ClInfinit => "быть" ++ zloj.nounpart ! NF Sg Inst nom ++ zloj.relcl ! Sg ! Inst ; 
-        ClImper => case gn of 
-          {  (GSg _) => "будь" ++ zloj.nounpart ! NF Sg Inst plg ++ zloj.relcl ! Sg ! Inst ;
-             GPl => "будьте" ++ zloj.nounpart ! NF Pl Inst plg ++ zloj.relcl ! Pl ! Inst
-          };  
--- infinitive does not save GenNum, 
--- but indicative does for the sake of adjectival predication !
-        ClIndic Present _ | ClCondit =>  zloj.nounpart ! NF num Nom nom ++ zloj.relcl ! num ! Nom ;
-        ClIndic PastRus _ => case gn of
-       { (GSg Fem)   => "была" ++ zlojsg ;
-          (GSg Masc)  => "был" ++ zlojsg ;
-          (GSg Neut)   => "был" ++ zlojsg ;
-           GPl => "были" ++ zlojpl
-       };
-       ClIndic Future _ => case gn of 
-       { GPl => case p of 
-          { P3 => "будут" ++ zlojpl ;
-            P2 => "будете" ++ zlojpl ;
-            P1 => "будем" ++ zlojpl
+  -- : V2 -> VPSlash ;  -- love (it)
+  SlashV2a v2 = {
+    adv=\\a=>[] ;
+    verb=v2 ;
+    dep=[] ;
+    compl=\\_,_ => [] ;
+    c=v2.c
+    } ;
+
+  -- : V3 -> NP -> VPSlash ;  -- give it (to her)
+  Slash2V3 v3 np = {
+    adv=\\a=>[] ;
+    verb=v3 ;
+    dep=[] ;
+    compl=\\p,a => applyPolPrep p v3.c np ;
+    c=v3.c2
+    } ;
+
+  -- : V3 -> NP -> VPSlash ;  -- give (it) to her
+  Slash3V3 v3 np = {
+    adv=\\a=>[] ;
+    verb=v3 ;
+    dep=[] ;
+    compl=\\p,a => applyPolPrep p v3.c2 np ;
+    c=v3.c
+    } ;
+
+  -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
+  SlashV2V v2v vp = vp ** {
+    verb=v2v ;
+    dep=verbInf vp.verb ;
+    c=v2v.c
+    } ;
+
+  -- : V2S -> S -> VPSlash ;  -- answer (to him) that it is good
+  SlashV2S v2s s = {
+    adv=\\a=>[] ;
+    verb=v2s ;
+    dep=[] ;
+    compl=\\_,a=> embedInCommas ("что" ++ s.s ! Ind) ;
+    c=v2s.c
+    } ;
+  -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
+  SlashV2Q v2q qs = {
+    adv=\\a=>[] ;
+    verb=v2q ;
+    dep=[] ;
+    compl=\\_,a=>qs.s ! QDir;
+    c=v2q.c
+    } ;
+
+  -- : V2A -> AP -> VPSlash ;  -- paint (it) red
+  SlashV2A v2a ap = {
+    adv=\\a=>[] ;
+    verb=v2a ;
+    dep=[] ;
+    compl=table {
+      Pos => case ap.preferShort of {
+        PreferFull => \\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c ;
+        PrefShort => ap.short
+        } ;
+      Neg => case ap.preferShort of {
+        PreferFull => case neggen v2a.c of {
+            False => \\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c ;
+            True => \\a => ap.s ! agrGenNum a ! Animate ! Gen
           } ;
-         (GSg _) => case p of 
-         {P3 => "будет" ++ zlojsg  ;
-          P2 => "будешь"++ zlojsg ;
-          P1=> "буду" ++ zlojsg 
+        PrefShort => ap.short
         }
-      }
-----   ; ClCondit => ""
-      } ;        
-
-      asp = Imperfective ;      
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n=> ""
+      } ;
+    c={s="" ; c=Acc ; neggen=True ; hasPrep=False}
     } ;
 
-
--- Verb phrases can also be formed from adjectives (" молод"),
--- common nouns (" человек"), and noun phrases (" самый молодой").
--- The third rule is overgenerating: " каждый человек" has to be ruled out
--- on semantic grounds.
--- Note: we omit a dash "-" because it will cause problems with negation word order:
--- "Я не - волшебник". Alternatively, we can consider verb-based VP and
--- all the rest.
-
-  CompAdv zloj =
-    { s= \\clf,gn,p => case clf of {
-        ClImper => case gn of 
-     { GSg _ => "будь" ++ zloj.s;    -- person is ignored !
-       GPl => "будьте" ++ zloj.s
-     };
-     ClInfinit => "быть" ++ zloj.s;
-        ClIndic Present  _ | ClCondit => zloj.s ;
-        ClIndic PastRus _ => case gn of 
-       { (GSg Fem)  => "была" ++ zloj.s;
-         (GSg Masc) => "был" ++ zloj.s;
-          (GSg Neut) => "было" ++ zloj.s;
-         GPl => "были" ++ zloj.s
-       };
-        ClIndic Future _ => case gn of 
-       { (GSg _) => "будет" ++ zloj.s;
-         GPl => "будут" ++ zloj.s
-        }
-----  ;      ClCondit => ""
-        } ;        
-      asp = Imperfective ;
-      w = Act;
-      s2 = "";
-      negBefore = True;
-      s3 = \\g,n => ""
+  -- : VPSlash -> NP -> VP ; -- love it
+  ComplSlash vps np = vps ** {
+    compl=\\p,a => applyPolPrep p vps.c np ++ vps.compl ! p ! a
     } ;
 
-
-
-   UseComp comp = comp ;
-
---    CompAP ap = ap ;
---    CompNP np = {s = \\_ => np.s ! Acc} ;
---    CompAdv a = {s = \\_ => a.s} ;
-
-
--- A simple verb can be made into a verb phrase with an empty complement.
--- There are two versions, depending on if we want to negate the verb.
--- N.B. negation is *not* a function applicable to a verb phrase, since
--- double negations with "inte" are not grammatical.
-
-    UseV se = 
-    {s=\\clf,gn,p =>  se.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ; 
-      asp = se.asp ;
-     w=Act;      
-    s2 = "";
-      negBefore = True;
-      s3 = table{_=> table{_ => ""}}
+  -- : VV -> VPSlash -> VPSlash ;       -- want to buy
+  SlashVV vv vps = vps ** {
+    verb=vv.v ;
+    dep=(verbInf vps.verb) ++ vps.dep ;
+    adv=\\a=>vv.modal ! a ++ vps.adv ! a
     } ;
 
--- The rule for using transitive verbs is the complementization rule:
-  SlashV2a se =
-    {s = \\clf,gn,p =>  se.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ;
-      asp = se.asp ; 
-      w = Act;
-      s2 = "";
-      s3 = \\g,n => ""; 
-      negBefore = True ;
-      sc = se.c2.s ;
-      c = se.c2.c
+  {- This is very heavy, but can be replaced (see todo.txt)
+  -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
+  SlashV2VNP v2v np vps = vps ** {
+    verb=v2v ;
+    compl=\\p,a => vps.compl ! p ! a ++ applyPolPrep p vps.c np ;
+    dep=(verbInf vps.verb) ++ vps.dep ;
+    c=v2v.c
+    } ;
+  -}
+  SlashV2VNP = variants {} ;
+
+  -- : VPSlash -> VP ;         -- love himself
+  ReflVP vps = vps ** {
+    compl=\\p,a => vps.compl ! p ! a ++ vps.c.s ++ sebya.s ! vps.c.c
     } ;
 
-  ComplSlash se tu =
-    {s = \\clf,gn,p =>  se.s ! clf ! gn ! p
-     ++ se.sc ++ tu.s ! (mkPronForm se.c No NonPoss) ; 
-      asp = se.asp ; 
-      w = se.w;
-      s2 = se.s2;
-      s3 = se.s3; 
-      negBefore = se.negBefore
+  -- : Comp -> VP ;            -- be warm
+  UseComp comp = {
+    adv=\\a => comp.adv ;
+    verb=selectCopula comp.cop ;
+    dep=[] ;
+    compl=\\p => comp.s
     } ;
 
-  Slash2V3 dat tu =
-      let
-        tebepivo = dat.c2.s ++ tu.s ! PF dat.c2.c No NonPoss ++ dat.c3.s ;
-      in
-      {s  = \\clf,gn,p => dat.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ++ tebepivo ; 
-      asp = dat.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n=> "" ;
-      sc = dat.c3.s ;
-      c = dat.c3.c
+  -- : VP -> Adv -> VP ;        -- sleep here
+  AdvVP vp adv = vp ** {
+    compl=\\p,a => vp.compl ! p ! a ++ adv.s
     } ;
 
-  Slash3V3 dat pivo =
-      let
-        tebepivo = dat.c3.s ++ pivo.s ! PF dat.c3.c Yes NonPoss 
-      in
-      {s  = \\clf,gn,p => dat.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ++ tebepivo ; 
-      asp = dat.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n=> "" ;
-      sc = dat.c2.s ;
-      c = dat.c2.c
+  -- : VP -> Adv -> VP ;        -- sleep , even though ...
+  ExtAdvVP vp adv = vp ** {
+    compl=\\p,a => vp.compl ! p ! a ++ embedInCommas adv.s
     } ;
 
-  ---- AR 17/12/2008
-  SlashV2Q dat esliOnPridet =
-       {s  = \\clf,gn,p => dat.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ++ esliOnPridet.s ! QDir ; 
-      asp = dat.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n=> "" ;
-      sc = dat.c2.s ;
-      c = dat.c2.c
-    } ;
+  -- : AdV -> VP -> VP ;        -- always sleep
+  AdVVP adv vp = vp ** {adv=\\a => adv.s ++ vp.adv ! a} ;
 
-  ---- AR 17/12/2008
-  SlashV2S   vidit tuUlubaeshsya =
-    {s = \\clf,gn,p => vidit.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p)
-     ++ [", что"] ++ tuUlubaeshsya.s ;
-     asp = vidit.asp;
-     w = Act;
-     s2="";
-      negBefore = True;
-      s3 = \\g,n => "" ;
-      sc = vidit.c2.s ;
-      c = vidit.c2.c
-   } ;
+  -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
+  AdvVPSlash vps adv = vps ** {compl=\\p,a => vps.compl ! p ! a ++ adv.s} ;
 
-  ---- AR 17/12/2008
-  SlashV2V putatsya bezhat =
-  { s =  \\clf,gn,p => putatsya.s ! (getActVerbForm clf (genGNum gn) 
-       (numGenNum gn) p) ++ bezhat.s!ClInfinit !gn!p ; 
-      asp = putatsya.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 =\\g,n => "" ;
-      sc = putatsya.c2.s ;
-      c = putatsya.c2.c
-  } ;
+  -- : AdV -> VPSlash -> VPSlash ;  -- always use (it)
+  AdVVPSlash adv vps = vps ** {adv=\\a=>adv.s ++ vps.adv ! a} ;
 
-  ---- AR 17/12/2008
-  ReflVP vp = 
-    { s  = \\clf,gn,p => vp.s ! clf ! gn ! p ++ vp.s2 ++ sebya ! vp.c; 
-      asp = vp.asp ;
-      w = Act ;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n=> ""
- } ;
-
-  ---- AR 17/12/2008
-  SlashVV putatsya bezhat =
-  { s =  \\clf,gn,p => putatsya.s ! (getActVerbForm clf (genGNum gn) 
-       (numGenNum gn) p) ++ bezhat.s!ClInfinit !gn!p ; 
-      asp = putatsya.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 =\\g,n => "" ;
-      sc = bezhat.s2 ;
-      c = bezhat.c
-  } ;
-
-  ---- AR 17/12/2008
-  SlashV2VNP putatsya np bezhat =
-  { s =  \\clf,gn,p => 
-        putatsya.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ++ 
-        np.s ! (mkPronForm putatsya.c2.c No NonPoss) ++ ---- ? 
-        bezhat.s!ClInfinit !gn!p ;
-      asp = putatsya.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 =\\g,n => "" ;
-      sc = bezhat.s2 ; ---- ?
-      c = bezhat.c
-  } ;
-
-
--- To generate "сказал, что Иван гуляет" / "не сказал, что Иван гуляет":
-  ComplVS   vidit tuUlubaeshsya =
-    {s = \\clf,gn,p => vidit.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p)
-     ++ [", что"] ++ tuUlubaeshsya.s ;
-     asp = vidit.asp;
-     w = Act;
-     s2="";
-      negBefore = True;
-      s3 = \\g,n => ""
- } ;
-
-
--- To generate "can walk"/"can't walk"; "tries to walk"/"does not try to walk":
--- The contraction of "not" is not provided, since it would require changing
--- the verb parameter type.
-
-  ComplVV putatsya bezhat =
-  { s =  \\clf,gn,p => putatsya.s ! (getActVerbForm clf (genGNum gn) 
-       (numGenNum gn) p) ++ bezhat.s!ClInfinit !gn!p ++ bezhat.s2 ; ---- s2 added by AR 7/12/2012 - but where should s3 go? 
-      asp = putatsya.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 =\\g,n => ""
-  } ;
-  ComplVQ dat esliOnPridet =
-       {s  = \\clf,gn,p => dat.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ++ esliOnPridet.s ! QDir ; 
-      asp = dat.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n=> ""
-    } ;
-  ComplVA vuglyadet molodoj =
-      {s  = \\clf,gn,p => vuglyadet.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ; 
-      asp = vuglyadet.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n => molodoj.s!(AF Inst Animate (gennum g n))  
-    } ;
-
-  SlashV2A  obechat molodoj =
-    {s  = \\clf,gn,p => 
-          obechat.s ! (getActVerbForm clf (genGNum gn) (numGenNum gn) p) ++  
-          molodoj.s ! AF Inst Inanimate (GSg Neut) ;
-                      ---- AR 17/6; AF Inst tu.anim (pgNum tu.g tu.n) ; 
-      asp = obechat.asp ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n =>"" ;
-      sc = obechat.c2.s ;
-      c = obechat.c2.c
-    } ;
-
-  AdvVP poet khorosho =
-    {s = \\clf,gn,p => poet.s ! clf!gn!p; s2 = poet.s2 ++ khorosho.s; s3 = poet.s3;
-     asp = poet.asp; w = poet.w; t = poet.t ; negBefore = poet.negBefore } ;
-
-  AdVVP khorosho poet =
-    {s = \\clf,gn,p => poet.s ! clf!gn!p; s2 = khorosho.s ++ poet.s2; s3 = poet.s3;
-     asp = poet.asp; w = poet.w; t = poet.t ; negBefore = poet.negBefore } ;
-
-PassV2  se =
-    {s=\\clf,gn,p =>  se.s ! (getPassVerbForm clf (genGNum gn) (numGenNum gn) p) ; 
-    asp=se.asp; w=Pass;      s2 = se.c2.s;
-      negBefore = True;
-      s3 = table{_=> table{_ => ""}}
-};
-
-    VPSlashPrep vp prep = vp ** {sc = prep.s ; c = prep.c} ; ---- AR
-
-
----- AR 6/2/2013. Unfortunately there's no copula in the resources...
-
-  UseCopula =
- { s=\\clf,gn,p => case clf of 
-   {
-        (ClIndic Present _) => [] ;
-        (ClIndic PastRus _) => case  gn of 
-    {   (GSg Fem)  =>"была" ;
-      (GSg Masc)  =>"был" ; 
-     (GSg Neut)  =>"было" ;
-      GPl => "были" 
+  -- : VP -> Prep -> VPSlash ;  -- live in (it)
+  VPSlashPrep vp prep = vp ** {c=prep} ;
+  -- : AP -> Comp ;            -- (be) small
+  CompAP ap = case ap.preferShort of {
+    PreferFull => {s=\\a=>ap.s ! agrGenNum a ! Inanimate ! Ins ; adv=[] ; cop=InsCopula} ;
+    PrefShort => {s=ap.short ; adv=[] ; cop=EllCopula}
     };
-    (ClIndic Future _) => case gn of 
-   {    GPl => case p of
-      { P3 => "будут" ;
-        P2 => "будете" ;
-        P1 => "будем"
-      };
-      (GSg _) => case p of
-      {  P3=>"будет" ;
-         P2 => "будешь" ;
-         P1=> "буду"
-      } --case p
-    }; --case gn
-      ClCondit => "" ;        
-      ClImper  => case (numGenNum gn) of 
-        {Sg  => "будь" ;
-         Pl => "будьте"
-       };
-       ClInfin => "быть" 
-};  -- case clf     
-      asp = Imperfective ;
-      w = Act;
-      negBefore = True;
-      s2 = "";
-      s3 = \\g,n => ""
-   } ;
 
+  -- : NP -> Comp ;            -- (be) the man
+  CompNP np = {s=\\a=>np.s ! Ins ; adv=[] ; cop=InsCopula} ;
 
+  -- : Adv -> Comp ;            -- (be) here
+  CompAdv adv = {s=\\a=>[] ; adv=adv.s ; cop=ExplicitCopula} ;
+  -- : CN -> Comp ;             -- (be) a man/men
+  CompCN cn = {
+    s=\\a=>cn.s ! numGenNum (agrGenNum a) ! Ins ;
+    adv=[] ;
+    cop=InsCopula
+    } ;
+
+  -- : VP ;                     -- be
+  UseCopula = {adv=\\a=>[] ; verb=copulaIns ; dep=[] ; compl=\\p,a=>[]} ;
 }
-

@@ -2,40 +2,48 @@
 
 concrete SymbolRus of Symbol = CatRus ** open Prelude, ResRus in {
 flags coding=utf8;
-{- TODO! -}
+
 lin
-  SymbPN i = {s = table  {_ => i.s} ; g = Neut; anim = Inanimate } ;
-  IntPN i = {s = table  {_ => i.s} ; g = Neut; anim = Inanimate } ;
-  FloatPN i = {s = table  {_ => i.s} ; g = Neut; anim = Inanimate } ;
-  NumPN n = {s = table  {_ => n.s ! Neut ! Inanimate ! Nom} ; g = Neut; anim = Inanimate } ;
+  -- : Symb -> PN ;                -- x
+  SymbPN i = (immutableNounForms i.s Neut Inanimate) ** {g = Neut; a = Inanimate} ;
 
-  CNIntNP cn i = {s = \\cas => cn.nounpart ! NF Sg (extCase cas) nom ++ cn.relcl ! Sg ! extCase cas ++ i.s;
-		  n = Sg ; p = P3 ;
-		  g = PGen cn.g ; anim = cn.anim ; pron = False } ;
-  CNNumNP cn n = {s = \\cas => cn.nounpart ! NF Sg (extCase cas) nom ++ cn.relcl ! Sg ! extCase cas
-		    ++ n.s ! cn.g ! cn. anim ! (extCase cas) ;
-		  n = Sg ; p = P3 ;
-		  g = PGen cn.g ; anim = cn.anim ; pron = False } ;
+  -- : Int -> PN ;                 -- 27
+  IntPN i = (immutableNounForms i.s Neut Inanimate) ** {g = Neut; a = Inanimate} ;
+  -- : Float -> PN ;               -- 3.14159
+  FloatPN i = (immutableNounForms i.s Neut Inanimate) ** {g = Neut; a = Inanimate} ;
+  -- : Card -> PN ;                -- twelve [as proper name]  -- TODO: implement properly
+  NumPN card = (immutableNounForms (card.s ! Neut ! Inanimate ! Nom) Neut Inanimate) ** {g = Neut; a = Inanimate} ;
 
-  CNSymbNP d cn ss = {s = \\cas => cn.nounpart ! NF Sg (extCase cas) nom ++ cn.relcl ! Sg ! extCase cas ;
-			n = Sg ; p = P3 ;
-			g = PGen cn.g ; anim = cn.anim ; pron = False } ;
+  -- : CN -> Card -> NP ;          -- level five ; level 5
+  CNNumNP cn card = {
+    s = \\cas => cn.s ! Sg ! cas ++ card.s ! cn.g ! cn.anim ! cas ;
+    pron=False ;
+    a = Ag (gennum cn.g (forceMaybeNum cn.mayben Sg)) P3
+    } ;
 
-  SymbS sy = sy ; 
+  -- : Det -> CN -> [Symb] -> NP ; -- (the) (2) numbers x and
+  CNSymbNP det cn xs = {
+    s=\\cas => det.s ! cn.g ! cn.anim ! cas
+      ++ cn.s ! animNumSizeNum cn.anim cas det.size ! numSizeCase cas det.size
+      ++ xs.s ;
+    pron=False ;
+    a=Ag (gennum cn.g (forceMaybeNum cn.mayben ((numSizeNumber det.size)))) P3
+		} ;
 
-  SymbNum sy = { s = \\_,_,_=>sy.s; n=Pl ; size = plg };
+  -- : Symb -> S ;                 -- A
+  SymbS symb = {s=\\m=>symb.s};
 
-  SymbOrd sy = { s = \\af => sy.s } ;
+  -- : Symb -> Card ;              -- n
+  SymbNum symb = {s = \\_,_,_ => symb.s ; size = Num5} ;
 
-lincat 
+  -- : Symb -> Ord ;               -- n'th  (i-й "итый")
+  SymbOrd symb = ith_forms symb.s ;
 
+lincat
   Symb, [Symb] = SS ;
 
 lin
   MkSymb s = s ;
-
   BaseSymb = infixSS "и" ;
   ConsSymb = infixSS "," ;
-
-
 }

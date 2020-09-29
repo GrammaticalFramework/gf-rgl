@@ -1,608 +1,490 @@
---# -path=.:../abstract:../../prelude:../common
-
 --1 Russian Lexical Paradigms
---
--- Janna Khegai 2003--2006
---
--- This is an API for the user of the resource grammar
--- for adding lexical items. It gives functions for forming
--- expressions of open categories: nouns, adjectives, verbs.
---
--- Closed categories (determiners, pronouns, conjunctions) are
--- accessed through the resource syntax API, $Structural.gf$.
---
--- The main difference with $MorphoRus.gf$ is that the types
--- referred to are compiled resource grammar types. We have moreover
--- had the design principle of always having existing forms, rather
--- than stems, as string arguments of the paradigms.
---
--- The structure of functions for each word class $C$ is the following:
--- first we give a handful of patterns that aim to cover all
--- regular cases. Then we give a worst-case function $mkC$, which serves as an
--- escape to construct the most irregular words of type $C$.
---
--- The following modules are presupposed:
 
-resource ParadigmsRus = open
-  Prelude,
-  MorphoRus,
-  CatRus,
-  NounRus
-  in {
-
-flags  coding=utf8 ;
+resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=InflectionRus), Prelude, Maybe in {
 
 --2 Parameters
 --
--- To abstract over gender names, we define the following identifiers.
 
 oper
-  Gender : Type ; -- Parameter for mkN*
-  masculine : Gender ;
-  feminine  : Gender ;
-  neuter    : Gender ;
+-- Abstracting gender. Gender is a parameter for mkN, mkN2, mkN3
+  masculine : Gender
+    = Masc ;
+  feminine : Gender
+    = Fem ;
+  neuter : Gender
+    = Neut ;
 
--- To abstract over case names, we define the following.
-  Case : Type ; -- Parameter for mkPrep, mkA2, mkV2, mkV3
+-- Abstracting numbers. Number is a parameter for mkPN, mkConj
+  singular : Number
+    = Sg ;
+  plural : Number
+    = Pl ;
 
-  nominative    : Case ;
-  genitive      : Case ;
-  dative        : Case ;
-  accusative    : Case ;
-  instructive   : Case ;
-  prepositional : Case ;
+-- Limiting number
+  only_singular : MaybeNumber
+    = JustSg ;
+  only_plural : MaybeNumber
+    = JustPl ;
 
--- In some (written in English) textbooks accusative case
--- is put on the second place. However, we follow the case order
--- standard for Russian textbooks.
+-- Adjectives can have short and full form. ShortFormPreference type is a parameter for mkA
+  short : ShortFormPreference
+    = PrefShort ;
+  full : ShortFormPreference
+    = PreferFull ;
 
--- To abstract over number names, we define the following.
-  Number : Type ; -- Parameter for mkPN
+-- Animacy is needed for nouns and some pronouns.
+  animate : Animacy
+    = Animate ;
+  inanimate : Animacy
+    = Inanimate ;
 
-  singular : Number ;
-  plural   : Number ;
+-- Main cases:
+  nominative : Case
+    = Nom ;
+  genitive : Case
+    = Gen ;
+  dative : Case
+    = Dat ;
+  accusative : Case
+    = Acc ;
+  instrumental : Case
+    = Ins ;
+  prepositional : Case
+    = Pre ;
 
+-- "Minor" cases:
+  locative : Case   -- or Pre-2, some nouns have this different from prepositional case
+    = Loc ;
+  partitive : Case  -- or Gen-2. Some nouns like "tee", have this in addition to genitive, usually spoken language
+    = Ptv ;
+  vocative : Case   -- can be used in spoken language
+    = VocRus ;
+
+-- Degrees of adjectives
+  positive : Degree
+    = Posit ;
+  comparative : Degree
+    = Compar ;
+  superlative : Degree
+    = Superl ;
+
+-- Aspects of verbs
+  perfective : Aspect
+    = Perfective ;
+  imperfective : Aspect
+    = Imperfective ;
+
+-- Transitivity is verb's inherent characteristic. Can influence which forms are possible
+  transitive : Transitivity
+    = Transitive ;
+  intransitive : Transitivity
+    = Intransitive ;
+
+-- Reflexivity is traditionally understood as inherent characteristic. Not to be confused with passive forms
+   reflexive : Reflexivity
+     = Reflexive ;
+   non_reflexive : Reflexivity
+     = NonReflexive ;
+
+-- Voice
+   active : Voice
+     = Act ;
+   passive : Voice
+     = Pass ;
+
+------------------------------
 --2 Nouns
 
-  Animacy : Type ; -- Parameter for mkN, mkPN
-
-  animate : Animacy;
-  inanimate : Animacy;
-
--- Indeclinabe nouns: "кофе", "пальто", "ВУЗ".
-
-  mkIndeclinableNoun: Str -> Gender -> Animacy -> N ;
-
-  mkNAltPl: Str -> Str -> Gender -> Animacy -> N ;
-
   mkN : overload {
-
--- The regular function captures the variants for some common noun endings.
-
-    mkN : (karta : Str) -> N ;
-    mkN : (tigr : Str) -> Animacy -> N ;
-
--- Worst case - give six singular forms:
--- Nominative, Genetive, Dative, Accusative, Instructive and Prepositional;
--- and the prepositional form after в and на, and
--- the corresponding six plural forms and the gender and animacy.
-
-    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N -- Worst case - give six singular forms: Nominative, Genetive, Dative, Accusative, Instructive and Prepositional; and the prepositional form after в and на, and the corresponding six plural forms and the gender and animacy.
+    mkN : Str -> N ;     -- can guess declension and gender of some nouns given nominative
+    mkN : Str -> Gender -> Animacy -> N ;  -- can guess declension of more nouns
+    mkN : Str -> Gender -> Animacy -> (idx : Str) -> N ;  -- Fourth parameter is a declension type index (based on Zaliznyak's dictionary), for example, "1*a(1)"
+    mkN : Str -> Gender -> Animacy -> (idx : Str) -> MaybeNumber -> N ;  -- Same, but number restrictions can be added
+    mkN : A -> Gender -> Animacy -> N ;  -- for nouns, which decline as adjective
+    mkN : A -> Gender -> Animacy -> MaybeNumber -> N ;  -- same, with possibility to limit number (usually to only_singular)
+    mkN : N -> (link : Str) -> N -> N ; -- compound noun. Link can end on "-", in which case parts are glued together. First one characterizes the whole.
   } ;
 
   mkN2 : overload {
-
--- Genitive with no preposition.
-
     mkN2 : N -> N2 ;
     mkN2 : N -> Prep -> N2 ;
+    mkN2 : Str -> Gender -> Animacy -> (idx : Str) -> Prep -> N2 ; -- convenience for making N2. Fourth parameter is a declension type index (based on Zaliznyak's dictionary), for example, "1*f''(1)"
   } ;
 
+  mkN3 : overload {
+    mkN3 : N -> Prep -> Prep -> N3 ;
+    mkN3 : Str -> Gender -> Animacy -> (idx : Str) -> Prep -> Prep -> N3 ;  -- convenience for making N2. Fourth parameter is a declension type index (based on Zaliznyak's dictionary), for example, "4*b"
+  } ;
 
-  mkN3 : N -> Prep -> Prep -> N3 ;
-
--- Proper names.
-
-  mkPN  : Str -> Gender -> Number -> Animacy -> PN ;          -- "Иван", "Маша"
-  nounPN : N -> PN ;
-
+  mkPN : overload {
+    mkPN : N -> PN ;
+    mkPN : N -> Str -> N -> PN ; -- see compound noun
+  } ;
 
 --2 Adjectives
 
--- Non-comparison (only positive degree) one-place adjectives need 28 (4 by 7)
--- forms in the worst case:
-
-
---  (Masculine  | Feminine | Neutral | Plural) *
-
---  (Nominative | Genitive | Dative | Accusative Inanimate | Accusative Animate |
---  Instructive | Prepositional)
-
-
--- Notice that 4 short forms, which exist for some adjectives are not included
--- in the current description, otherwise there would be 32 forms for
--- positive degree.
-
-   mkA : overload {
-
--- Regular and invariant adjectives with regular comparative.
-
-     mkA : (positive : Str) -> A ;
-
--- Adjectives with irregular comparative.
-
-     mkA : (positive, comparative : Str) -> A ;
-
+  mkA : overload {
+    mkA : Str -> A ;  -- can guess declension of many adjectives given nominative masculine
+    mkA : Str -> Str -> A ;  -- same, but comparative given as a second argument
+    mkA : Str -> Str -> (idx : Str) -> A ; -- nom masc, comparative and third parameter is Zaliznyak's dictionary index, for example, "1a"
+    mkA : Str -> Str -> (idx : Str) -> ShortFormPreference -> A ; -- same, but with short form preference given
+    mkA : Str -> ZAIndex -> A ;
+    mkA : Str -> Str -> ZAIndex -> A ;
+    mkA : Str -> Str -> ZAIndex -> ShortFormPreference -> A ;
+    mkA : A -> Str -> A -> A ;  -- Compound adjective like социально-экономический
+    mkA : V -> Voice -> Tense -> A ;        -- make participles
   } ;
 
--- Two-place adjectives need a preposition and a case as extra arguments.
+  ShortenA : A -> A ;
 
-   mkA2 : A -> Str -> Case -> A2 ;  -- "делим на"
+-- Two-place adjectives need a preposition
 
--- Comparison adjectives need a positive adjective
--- (28 forms without short forms).
--- Taking only one comparative form (non-syntactic) and
--- only one superlative form (syntactic) we can produce the
--- comparison adjective with only one extra argument -
--- non-syntactic comparative form.
--- Syntactic forms are based on the positive forms.
+  mkA2 : overload {
+    mkA2 : A -> Prep -> A2 ;
+    } ;
 
+  mkOrd : overload {
+    mkOrd : (nom : Str) -> Ord ;
+    } ;
 
---   mkADeg : A -> Str -> ADeg ;
-
--- On top level, there are adjectival phrases. The most common case is
--- just to use a one-place adjective.
---   ap : A  -> IsPostfixAdj -> AP ;
-
---2 Adverbs
-
--- Adverbs are not inflected.
-
-  mkAdv : Str -> Adv ;
-
---2 Prepositions
-  mkPrep : Str -> Case -> Prep ; -- as in German
-
+-------------------------
 --2 Verbs
---
--- In our lexicon description ("Verbum") there are 62 forms:
--- 2 (Voice) by { 1 (infinitive) + [2(number) by 3 (person)](imperative) +
--- [ [2(Number) by 3(Person)](present) + [2(Number) by 3(Person)](future) +
--- 4(GenNum)(past) ](indicative)+ 4 (GenNum) (subjunctive) }
--- Participles (Present and Past) and Gerund forms are not included,
--- since they fuction more like Adjectives and Adverbs correspondingly
--- rather than verbs. Aspect is regarded as an inherent parameter of a verb.
--- Notice, that some forms are never used for some verbs.
 
-  Voice : Type ; -- Parameter to mkV*
-  active : Voice ;
-  passive : Voice ;
+  mkV : overload {
+    mkV : (inf : Str) -> (sg1 : Str) -> V ;  -- guess some I conjugation verbs (not "ё") from infinitive and Sg P1, perfective, transitive
+    mkV : (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> V ; -- guess verb forms given Inf, Sg P1, Sg P3, perfective, transitive
+    mkV : Aspect -> (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> V ; -- same, but aspect as first parameter
+    mkV : Aspect -> Transitivity -> (inf : Str) -> V ;  -- for irregular verbs
+    mkV : Aspect -> Transitivity -> (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> V ;  -- aspect, transitivity, Inf, Sg P1, Sg P3
+    mkV : Aspect -> Transitivity -> (inf : Str) -> (sg1 : Str) -> (sg3 : Str) -> (idx : Str) -> V    -- aspect, transitivity, Inf, Sg P1, Sg P3 and index from Zaliznyak's dictionary, eg "14a"
+  } ;
 
-  Aspect : Type ; -- Parameter to mkV*
-  imperfective : Aspect ;
-  perfective : Aspect ;
+  mkV2 : overload {
+    mkV2 : V -> V2 ;  -- most common case with Acc and no preposition
+    mkV2 : V -> Case -> V2 ; -- given case, but no preposition
+    mkV2 : V -> Prep -> V2 ;
+    } ;
 
-  Conjugation : Type ; -- Parameter to mkV*
-  first   : Conjugation ; -- "гуля-Ешь, гуля-Ем"
-  firstE  : Conjugation ; -- Verbs with vowel "ё": "даёшь" (give), "пьёшь" (drink)
-  second  : Conjugation ; -- "вид-Ишь, вид-Им"
-  mixed   : Conjugation ; -- "хоч-Ешь - хот-Им"
-  dolzhen : Conjugation ; -- irregular
-  foreign: Conjugation; -- deprecated, not needed
+  mkV3 : overload {
+    mkV3 : V -> Case -> Case -> V3 ;
+    mkV3 : V -> Prep -> Prep -> V3 ;
+  } ;
 
-  Bool: Type;
-  true:  Bool;
-  false: Bool;
-
--- Common conjugation patterns are two conjugations:
---  first - verbs ending with "-ать/-ять" and second - "-ить/-еть".
--- Instead of 6 present forms of the worst case, we only need
--- a present stem and one ending (singular, first person):
--- "я люб-лю", "я жд-у", etc. To determine where the border
--- between stem and ending lies it is sufficient to compare
--- first person from with second person form:
--- "я люб-лю", "ты люб-ишь". Stems shoud be the same.
--- So the definition for verb "любить"  looks like:
--- regV Imperfective Second "люб" "лю" "любил" "люби" "любить";
-
-  regV : Aspect -> Conjugation -> (stemPresSg1,endPresSg1,pastSg1,imp,inf : Str) -> V ; -- Example for verb "любить": `regV Imperfective Second "люб" "лю" "любил" "люби" "любить"`
-
--- The worst case need 6 forms of the present tense in indicative mood
--- ("я бегу", "ты бежишь", "он бежит", "мы бежим", "вы бежите", "они бегут"),
--- a past form (singular, masculine: "я бежал"), an imperative form
--- (singular, second person: "беги"), an infinitive ("бежать").
--- Inherent aspect should also be specified.
-
---   mkVerbum : Aspect -> (presentSgP1,presentSgP2,presentSgP3,
-   mkV : Aspect -> (presSg1,presSg2,presSg3,presPl1,presPl2,presPl3,pastSgMasc,imp,inf: Str) -> V ; -- The worst case need 6 forms of the present tense in indicative mood ("я бегу", "ты бежишь", "он бежит", "мы бежим", "вы бежите", "они бегут"), a past form (singular, masculine: "я бежал"), an imperative form (singular, second person: "беги"), an infinitive ("бежать"). Inherent aspect should also be specified.
-
-
-
-
--- Two-place verbs, and the special case with direct object. Notice that
--- a particle can be included in a $V$.
-
-   mkV2  : V   -> Str -> Case -> V2 ;   -- "войти в дом"; "в", accusative
-   mkV3  : V -> Str -> Str -> Case -> Case -> V3 ; -- "сложить письмо в конверт"
    mkVS  : V -> VS ;
    mkVQ  : V -> VQ ;
-   mkV2V : V -> Str -> Case -> V2V ;
-   mkV2S : V -> Str -> Case -> V2S ;
-   mkV2Q : V -> Str -> Case -> V2Q ;
-   mkV2A : V -> Str -> Case -> V2A ;
+   mkV2V : overload {
+     mkV2V : V -> Prep -> V2V ;
+   } ;
+   mkV2S : overload {
+    mkV2S : V -> Prep -> V2S ;
+   } ;
+   mkV2Q : overload {
+    mkV2Q : V -> Prep -> V2Q ;
+   } ;
+   mkV2A : overload {
+    mkV2A : V -> Prep -> V2A ;
+   } ;
 
-   dirV2    : V -> V2 ;                    -- "видеть", "любить"
-   tvDirDir : V -> V3 ;
+  dirV2 : V -> V2 ;
+  tvDirDir : V -> V3 ;
+  mkVV : V -> VV;
+
+------------------------
+--2 Adverbs, prepositions, conjunctions, ...
+
+  mkAdv : overload {
+    mkAdv : Str -> Adv ;
+    } ;
+  mkIAdv : Str -> IAdv ;
+  mkConj : overload {
+    mkConj : Str -> Number -> Conj ;  -- only middle conjunction
+    mkConj : Str -> Str -> Number -> Conj ; -- two-part conjunction
+    } ;
+
+  mkInterj : Str -> Interj ;
+  mkPrep : Str -> Case -> Prep ;
 
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 --.
-  Gender = MorphoRus.Gender ;
-  Case = MorphoRus.Case ;
-  Number = MorphoRus.Number ;
-  Animacy = MorphoRus.Animacy;
-  Aspect = MorphoRus.Aspect;
-  Voice = MorphoRus.Voice ;
-  --Tense = Tense ;
-   Bool = Prelude.Bool ;
-  Conjugation = MorphoRus.Conjugation;
-first = First ;
-firstE = FirstE ;
-second = Second ;
-secondA = SecondA ;
-mixed = Mixed ;
-dolzhen = Dolzhen;
-foreign = Foreign; -- deprecated. Not needed
 
-  true = True;
-  false = False ;
-  masculine = Masc ;
-  feminine  = Fem ;
-  neuter = Neut ;
-  nominative = Nom ;
-  accusative = Acc ;
-  dative = Dat ;
-  genitive = Gen ;
-  instructive = Inst ;
-  prepositional = Prepos PrepOther ; -- FIXME: not correct for v and na
-  singular = Sg ;
-  plural = Pl ;
-  animate = Animate ;
-  inanimate = Inanimate ;
-  active = Act ;
-  passive = Pass ;
-  imperfective = Imperfective ;
-  perfective = Perfective ;
- -- present = Present ;
-  --past = Past ;
-  Degree     = Posit | Compar | Superl ;
+------------------------------
+-- Nouns
 
- -- Person     = P1 | P2 | P3 ;
- -- AfterPrep  = Yes | No ;
- -- Possessive = NonPoss | Poss GenNum ;
+  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
 
--- Noun definitions
+  mkN = overload {
+    mkN : Str -> N
+      = \nom -> lin N (guessNounForms nom) ;
+    mkN : Str -> Animacy -> N
+      = \nom,anim -> lin N ((guessNounForms nom) ** {anim=anim}) ;
+    mkN : Str -> Gender -> Animacy -> N
+      = \nom, g, anim -> lin N (guessLessNounForms nom g anim) ;
+    mkN : Str -> Gender -> Animacy -> Z.ZNIndex -> N
+      = \word, g, anim, z -> lin N (noMinorCases (Z.makeNoun word g anim z)) ;
+    mkN : Str -> Gender -> Animacy -> Str -> N
+      = \word, g, anim, zi -> lin N (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
+    mkN : Str -> Gender -> Animacy -> Str -> MaybeNumber -> N
+      = \word, g, anim, zi, mbn -> lin N (applyMaybeNumber ((noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ** {mayben=mbn})) ;
+    mkN : A -> Gender -> Animacy -> N
+      = \a, g, anim -> lin N (makeNFFromAF a g anim) ;
+    mkN : A -> Gender -> Animacy -> MaybeNumber -> N
+      = \a, g, anim, mbn -> lin N (applyMaybeNumber ((makeNFFromAF a g anim) ** {mayben=mbn})) ;
+    mkN : N -> Str -> N -> N
+      = \n1,link,n2 -> lin N (mkCompoundN n1 link n2) ;
 
- mkN = overload {
-    mkN : (karta : Str) -> N = mk1N ;
-    mkN : (tigr : Str) -> Animacy -> N = \nom, anim -> case anim of { Animate   => lin N (nAnimate (mk1N nom)) ;
-								      Inanimate => mk1N nom } ;
-    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg,
-          nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N = mkWorstN
+    -- For backwards compatibility:
+    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N
+      = \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim ->
+        lin N {
+          snom=nomSg;pnom=nomPl;sgen=genSg;pgen=genPl;sdat=datSg;pdat=datPl;sacc=accSg;pacc=accPl;sins=instSg;pins=instPl;sprep=preposSg;pprep=preposPl;
+          sloc=prepos2Sg; sptv=genSg ; svoc=nomSg ;
+          anim=anim;
+          mayben=BothSgPl ;
+          g=g
+        } ;
   } ;
 
-  mkIndeclinableNoun = \s,g, anim ->
-   {
-     s = table { NF _ _ _ => s } ;
-     g = g ;
-     anim = anim
-   } ** {lock_N = <>};
-
-  mkNAltPl = \s, alt, g, anim ->
-    let {singular = mkN s ; plural = mkN alt} in {
-    s = table { NF Sg c size   => singular.s ! NF Sg c size;
-		NF Pl c nom    => singular.s ! NF Sg c nom;
-		NF Pl c nompl  => plural.s ! NF Sg c nompl;
-		NF Pl c sgg    => plural.s ! NF Sg c sgg;
-		NF Pl c plg    => plural.s ! NF Pl c plg } ;
-    g = g ;
-    anim = anim
-    } ** {lock_N = <>};
-
-  oper mkWorstN  : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg,
-          nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N
-    =  \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg,
-          nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim ->
-   {
-     s = table {
-           NF Sg Nom _ => nomSg ;
-           NF Sg Gen _ => genSg ;
-           NF Sg Dat _ => datSg ;
-           NF Sg Acc _ => accSg ;
-           NF Sg Inst _ => instSg ;
-           NF Sg (Prepos PrepOther) _ => preposSg ;
-           NF Sg (Prepos PrepVNa) _ => prepos2Sg ;
-           NF Pl Nom _ => nomPl ;
-           NF Pl Gen _ => genPl ;
-           NF Pl Dat _ => datPl ;
-           NF Pl Acc _ => accPl ;
-           NF Pl Inst _ => instPl ;
-           NF Pl (Prepos _) _ => preposPl
-     } ;
-     g = g ;
-     anim = anim
-   } ** {lock_N = <>} ;
-
-  oper mk1N : Str -> N = \x ->
-        case x of {
-	  stem+"онок" => nDecl10Hard stem ;
-	  stem+"ёнок" => nDecl10Soft stem ;
---        stem+"aнин" => nDecl11 stem ;
-          stem@(_+"и")+"й"   => nDecl7Masc stem;
-          stem@(_+"и")+"я"   => nDecl7Fem stem;
-	  stem@(_+"и")+"е"   => nDecl7Neut stem;
-	  stem+"ее"   => nAdj { s = (mk1A (stem+"ий")).s!Posit } Neut;
-	  stem+"ое"   => nAdj { s = (mk1A (stem+(iAfter stem)+"й")).s!Posit } Neut;
-          stem+"мя"   => nDecl9 stem ;
-          stem@(_+("а"|"е"|"ё"|"о"|"у"|"ы"|"э"|"ю"|"я"))+"й" => nDecl6Masc stem ;
-          stem@(_+("а"|"е"|"ё"|"о"|"у"|"ы"|"э"|"ю"|"я"))+"е" => nDecl6Neut stem ;
-          stem@(_+("а"|"е"|"ё"|"о"|"у"|"ы"|"э"|"ю"|"я"))+"я" => nDecl6Fem stem ;
-          stem@(_+("ч"|"щ"|"ш"|"ж"|"п"|"эн"|"м"|"ф"))+"ь" => nDecl8 stem ;
-          stem@(_+("д"|"т"|"ст"|"с"|"в"|"б"))+"ь"         => nDecl8 stem ;
-	  stem@(_+"ш"|"ж"|"ч"|"щ"|"ц")+"е" => nRegHardNeut stem;
-          stem+"е"                         => nRegSoftNeut stem ;
-          stem+"я"                         => nRegSoftFem stem ;
-          stem+"ь"                         => nRegSoftMasc stem ;
-          stem+"о"                         => nRegHardNeut stem ;
-          stem+"а"                         => nRegHardFem stem ;
-          stem                             => nRegHardMasc stem
-         } ** {lock_N = <>} ;
-
-
-
--- An individual-valued function is a common noun together with the
--- preposition prefixed to its argument ("клZ+ о' дома").
--- The situation is analogous to two-place adjectives and transitive verbs.
---
--- We allow the genitive construction to be used as a variant of
--- all function applications. It would definitely be too restrictive only
--- to allow it when the required case is genitive. We don't know if there
--- are counterexamples to the liberal choice we've made.
-
-  oper mkN2 = overload {
-    mkN2 : N -> N2 = \n -> mkFun n nullPrep ;
-    mkN2 : N -> Prep -> N2 = mkFun;
+  mkN2 = overload {
+    mkN2 : N -> N2
+      = \n -> lin N2 (mkFun n nullPrep) ;
+    mkN2 : N -> Prep -> N2
+      = \n, p -> lin N2 (mkFun n p) ;
+    mkN2 : Str -> Gender -> Animacy -> Str -> Prep -> N2
+      = \word, g, anim, zi, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) p)   ;
   } ;
 
-  mkFun : N -> Prep -> N2 = \f,p -> f ** {c2 = p ; lock_N2 = <>} ;
+  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
 
-  nullPrep : Prep = {s = []; c= Gen; lock_Prep=<>} ;
-
-  mkN3 f p2 p3 = f ** {c2 = p2; c3 = p3; lock_N3 = <>} ;
-
-
-  -- mkPN = \ivan, g, n, anim ->
-  --   case n of {
-  --     Sg => case g of {
-  -- 	Masc => mkProperNameMasc ivan anim ;
-  -- 	Fem  => mkProperNameFem ivan anim ;
-  -- 	_ => mkProperNameMasc ivan anim
-  -- 	} ;
-  --     Pl => mkProperNamePl ivan anim
-  --   } ** {lock_PN =<>};
-
-  mkPN ivan g n anim = nounPN (mk1N ivan);
-
-  nounPN n = {s=\\c => n.s! NF Sg c nom; anim=n.anim; g=n.g; lock_PN=<>};
-
--- On the top level, it is maybe $CN$ that is used rather than $N$, and
--- $NP$ rather than $PN$.
-
-  makeCN  : N -> CN ;
-  makeNP  : Str -> Gender -> Animacy -> NP ;
-
-
-  makeCN = UseN;
-
-  makeNP = \x,y,z -> UsePN (mkPN x y singular z) ;
-
-   mkA = overload {
-     mkA : (positive : Str) -> A = mk1A ;
-     mkA : (positive : Str) -> AdjType -> A = mk1Ab ;
-     mkA : (positive, shortMasc, shortFem, shortNeut, shortPl : Str) -> A = mk3A ;  -- to make correct short forms (Liza Zimina 04/2018)
-     mkA : (positive, comparative : Str) -> A = mk2A ;
-     mkA : (positive : Str) -> ShortFormPreference -> A  = mk4A ; -- adjectives preferring full forms in conjunction
-                                                                  -- (e.g. "он классический и элегантный" vs "он классический и элегантен") Liza Zimina 04/2018
-     mkA : (positive : Str) -> Bool -> A  = mk5A ; -- postfix adjectives (e.g. "цвета кости") Liza Zimina 04/2018
+  mkN3 = overload {
+    mkN3 : N -> Prep -> Prep -> N3
+      = \n, p2, p3 -> lin N3 (mkFun2 n p2 p3) ;
+    mkN3 : Str -> Gender -> Animacy -> Str -> Prep -> Prep -> N3
+      = \word, g, anim, zi, p2, p3 -> lin N3 (mkFun2 (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) p2 p3) ;
   } ;
 
-  mk1A : Str -> A = \positive ->
-    let stem = Predef.tk 2 positive in mk2A positive (stem+"ее") ;
+  mkPN = overload {
+    mkPN : N -> PN
+      = \n -> lin PN n ;
+    mkPN : N -> Str -> N -> PN
+      = \n1,link,n2 -> lin PN (mkCompoundN n1 link n2) ;
+    mkPN : Str -> PN
+      = \nom -> lin PN (guessNounForms nom) ;
+    mkPN : Str -> Gender -> Animacy -> PN
+      = \nom, g, anim -> lin PN (guessLessNounForms nom g anim) ;
+    mkPN : Str -> Gender -> Number -> Animacy -> PN
+      = \nom, g, n, anim -> lin PN (guessLessNounForms nom g anim) ;
+    mkPN : Str -> Gender -> Animacy -> Z.ZNIndex -> PN
+      = \word, g, anim, z -> lin PN (noMinorCases (Z.makeNoun word g anim z)) ;
+    mkPN : Str -> Gender -> Animacy -> Str -> PN
+      = \word, g, anim, zi -> lin PN (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
+  } ;
 
-  mk2A : Str -> Str -> A = \positive, comparative ->
-    case positive of {
-      stem+"ый"                        => mkAdjDeg (aRegHard StemStress Qual stem) comparative ;
-      stem+"ой"                        => mkAdjDeg (aRegHard EndStress Qual stem) comparative ;
-      stem@(_+("г"|"к"|"х"))+"ий"       => mkAdjDeg (aRegHard StemStress Qual stem) comparative;
-      stem@(_+("ш"|"ж"|"ч"|"щ"))+"ий" => mkAdjDeg (aRegHard StemStress Qual stem) comparative;
-      stem+"ий"                        => mkAdjDeg (aRegSoft Qual stem) comparative ;
-      stem                             => mkAdjDeg (adjInvar stem) comparative
+---------------------
+-- Adjectives
+
+  mkA = overload {
+    mkA : Str -> A
+      = \nom -> lin A (guessAdjectiveForms nom) ;
+    mkA : Str -> Str -> A
+      = \nom, comp -> lin A ((guessAdjectiveForms nom) ** {comp=comp}) ;
+    mkA : Str -> Z.ZAIndex -> A
+      = \nom, zi -> lin A (makeAdjectiveFormsUseIndex nom "" zi PreferFull) ;
+    mkA : Str -> Str -> Str -> A
+      = \nom, comp, zi -> lin A (makeAdjectiveForms nom comp zi PreferFull) ;
+    mkA : Str -> Str -> Z.ZAIndex -> A
+      = \nom, comp, zi -> lin A (makeAdjectiveFormsUseIndex nom comp zi PreferFull) ;
+    mkA : Str -> Str -> Str -> ShortFormPreference -> A
+      = \nom, comp, zi, spf -> lin A (makeAdjectiveForms nom comp zi spf) ;
+    mkA : Str -> Str -> Z.ZAIndex -> ShortFormPreference -> A
+      = \nom, comp, zi, spf -> lin A (makeAdjectiveFormsUseIndex nom comp zi spf) ;
+    mkA : PronForms -> A
+      = \pf -> pronToAdj pf ;
+    mkA : A -> Str -> A -> A
+      = \a1,link,a2 -> lin A (mkCompoundA a1 link a2) ;
+    mkA : V -> Voice -> Tense -> A
+      = \v,voice,t ->
+        let refl = case v.refltran of {Refl => "ся" ; _ => ""} in
+        case <voice,t> of {
+          <Pass,Past|Cond> => lin A ( --# notpresent TODO: check
+            guessAdjectiveForms (v.ppps + "ый") ** {  --# notpresent
+              sm=v.pppss ;  --# notpresent
+              sf=v.pppss + "а"; --# notpresent
+              sn=v.pppss + "о"; --# notpresent
+              sp=v.pppss + "ы" --# notpresent
+              } --# notpresent
+            ) ;--# notpresent
+          <Pass,Pres> => lin A ( -- overgenerated
+            let s : Str = case v.prpl1 of {
+              f + #consonant + "ём" => (Predef.tk 2 v.prpl1) + "омый" ;
+              _ => v.prpl1 + "ый"
+              } in
+            makeAdjectiveFormsUseIndex s "" (Z.ZA 1 Z.No Z.A_ Z.NoC) PreferFull) ;
+          <Act,Past|Cond> => lin A ( --# notpresent
+            let s : Str = case v.inf of { --# notpresent
+              _ + ("сти"|"зти") => (Predef.tk 1 v.prsg1) + "ший" ;  --# notpresent TODO: check if not all of these cases are ok
+              _  => (Predef.tk 1 v.psgm) + "вший" --# notpresent
+              } in Z.onlyParticipleForms (makeAdjectiveFormsUseIndex (s + refl) "" (Z.ZA 4 Z.No Z.A_ Z.NoC) PreferFull)) ; --# notpresent
+          <Act,Pres> => lin A (
+            Z.onlyParticipleForms (
+             makeAdjectiveFormsUseIndex (((Predef.tk 1 v.prpl3) + "щий") + refl) "" (Z.ZA 4 Z.No Z.A_ Z.NoC) PreferFull)) ;
+          _ => Predef.error "Error: participle for this voice and tense does not exist"
+          }  -- TODO: suppress comp and short for all but Pass Pres
+  } ;
+
+  ShortenA : A -> A
+    = \a -> a ** {preferShort = PrefShort} ;
+
+-- Two-place adjectives need a preposition and a case as extra arguments.
+
+  mkA2 = overload {
+    mkA2 : A -> Prep -> A2
+      = \a,p -> lin A2 (a ** {c = p}) ;
+    mkA2 : A -> Str -> Case -> A2
+      = \a,p,cas -> lin A2 (a ** {c = mkPrep p cas}) ;
     } ;
 
-  mk1Ab : Str -> AdjType -> A = \positive, at ->
-    let { stem = Predef.tk 2 positive;
-	  comparative = stem + "ее"
-	  } in case positive of {
-      stem+"ый"                        => mkAdjDeg (aRegHard StemStress at stem) comparative ;
-      stem+"ой"                        => mkAdjDeg (aRegHard EndStress at stem) comparative ;
-      stem@(_+("г"|"к"|"х"))+"ий"       => mkAdjDeg (aRegHard StemStress at stem) comparative;
-      stem@(_+("ш"|"ж"|"ч"|"щ"))+"ий" => mkAdjDeg (aRegHard StemStress at stem) comparative;
-      stem+"ий"                        => mkAdjDeg (aRegSoft at stem) comparative ;
-      stem                             => mkAdjDeg (adjInvar stem) comparative
+  mkOrd = overload {
+    mkOrd : (nom : Str) -> Ord
+      = \nom -> lin Ord (guessAdjectiveForms nom) ;
     } ;
 
+-------------------------
+-- Verbs
 
-  -- khaki, mini, hindi, netto
-  adjInvar : Str -> Adjective = \stem -> { s = \\_ => stem } ;
+  mkV = overload {
+    mkV : Str -> Str -> V
+      = \inf,sg1 -> lin V (guessVerbForms Perfective Transitive inf sg1 (Z.sg1StemFromVerb sg1 + "ет")) ;
+    mkV : Str -> Str -> Str -> V
+      = \inf,sg1,sg3 -> lin V (guessVerbForms Perfective Transitive inf sg1 sg3) ;
+    mkV : Aspect -> Str -> Str -> V
+      = \asp,inf,sg1 -> lin V (guessVerbForms asp Transitive inf sg1 (Z.sg1StemFromVerb sg1 + "ет")) ;
+    mkV : Aspect -> Str -> Str -> Str -> V
+      = \asp,inf,sg1,sg3 -> lin V (guessVerbForms asp Transitive inf sg1 sg3) ;
+    mkV : Aspect -> Transitivity -> Str -> V  -- for irregular verbs
+      = \asp,tran,inf -> lin V (guessIrregularVerbForms asp tran inf) ;
+    mkV : Aspect -> Transitivity -> Str -> Str -> V
+      = \asp,tran,inf,sg1 -> lin V (guessVerbForms asp tran inf sg1 (Z.sg1StemFromVerb sg1 + "ет")) ;
+    mkV : Aspect -> Transitivity -> Str -> Str -> Str -> V
+      = \asp,tran,inf,sg1,sg3 -> lin V (guessVerbForms asp tran inf sg1 sg3) ;
+    mkV : Aspect -> Transitivity -> Str -> Str -> Str -> Str -> V
+      = \asp,tran,inf,sg1,sg3,zv -> lin V (Z.makeVerb inf sg1 sg3 (Z.parseVerbIndex zv) asp tran (Z.infStemFromVerb inf).p2 ) ;
+    mkV : Aspect -> Transitivity -> Str -> Str -> Str -> Z.ZVIndex -> V
+      = \asp,tran,inf,sg1,sg3,zvi -> lin V (Z.makeVerb inf sg1 sg3 zvi asp tran (Z.infStemFromVerb inf).p2 ) ;
+    -- For backwards compatibility:
+    mkV : Aspect -> (presSg1,presSg2,presSg3,presPl1,presPl2,presPl3,pastSgMasc,imp,inf: Str) -> V
+      = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3, sgMascPast, imperSgP2, inf ->
+        lin V ((guessVerbForms asp Transitive inf sgP1 sgP3) ** {
+          prsg1=Z.dropRefl sgP1 ;
+          prsg2=Z.dropRefl sgP2 ;
+          prsg3=Z.dropRefl sgP3 ;
+          prpl1=Z.dropRefl plP1 ;
+          prpl2=Z.dropRefl plP2 ;
+          prpl3=Z.dropRefl plP3 ;
+        })
+  } ;
 
-  oper mkAdjDeg: Adjective -> Str -> A = \adj, s ->
-   {s = table
-           {
-              Posit => adj.s ;
-              Compar => \\af => s ;
-              Superl => \\af =>  samuj.s !af ++ adj.s ! af
-           } ;
-    p = False ;
-    preferShort = PrefShort
-  } ** {lock_A = <>};
+  mkV2 = overload {
+    mkV2 : V -> V2
+      = \vf -> lin V2 (vf ** {c={s=[] ; c=Acc ; neggen=True ; hasPrep=False}}) ;
+    mkV2 : V -> Case -> V2
+      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; neggen=False ; hasPrep=False}}) ;
+    mkV2 : V -> Prep -> V2
+      = \vf, prep -> lin V2 (vf ** {c=prep}) ;
 
-  oper mkAdjDegFull: Adjective -> Str -> ShortFormPreference -> A = \adj, s,sfp ->
-   {s = table
-           {
-              Posit => adj.s ;
-              Compar => \\af => s ;
-              Superl => \\af =>  samuj.s !af ++ adj.s ! af
-           } ;
-    p = False ;
-    preferShort = sfp
-  } ** {lock_A = <>};
-
-
-  oper mkParticiple : Voice -> VTense -> V -> A = \voice, tense, v ->
-	 let vstem = verbStem v in
-	 let actpres = verbHasEnding v in
-	 let actpast = stemHasEnding vstem in
-	 let passpast = case hasConj v of {
-	       (First|FirstE) => "ем" ;
-	       (Second|SecondA) => "им" ;
-	       _ => "ем"
-	       } in
-	 case <voice, tense> of {
-	   <Act, VPresent _> => mkA (vstem + actpres + "ий") ;
-	   <Act, VPast> => mkA (vstem + actpast + "ий") ;
-	   <Pass, VPresent _> => mkA (vstem + "нный") ;
-	   <Pass, VPast> => mkA (vstem + passpast + "ый") ;
-	   _ => mkA "" -- Russian participles do not have a future tense
-	 } ;
-
-  oper mkActPresParticiple : V -> A = mkParticiple Act (VPresent P3) ;
-  oper mkActPastParticiple : V -> A = mkParticiple Act (VPresent P3) ;
-  oper mkPassPresParticiple : V -> A = mkParticiple Pass VPast ;
-  oper mkPassPastParticiple : V -> A = mkParticiple Pass VPast ;
-
-  oper mkGerund : VTense -> V -> Adv = \tense, v ->
-	 let vstem = verbStem v in
-	 let suffix = case hasConj v of {
-	       SecondA => "а" ;
-	       _ => "я"
-	       } in
-	 case tense of {
-	   VPresent _ => mkAdv (vstem + suffix) ;
-	   VPast => mkAdv (vstem + "в") ;
-	   _ => mkAdv "" -- Russian gerunds do not have a future tense
-	 } ;
-
-  mkA2 a p c=  a ** {c2 = {s=p; c=c}; lock_A2 = <>};
---  mkADeg a s = mkAdjDeg a s ** {lock_ADeg = <>}; -- defined in morpho.RusU
-
---  ap a p = mkAdjPhrase a p ** {lock_AP = <>};  -- defined in syntax module
-
-  mkAdv x = ss x ** {lock_Adv = <>} ;
-
--- Prepositions definitions
-  mkPrep s c = {s = s ; c = c ; lock_Prep = <>} ;
-
--- Verb definitions
-
---   mkVerbum = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3,
-   mkV = \asp, sgP1, sgP2, sgP3, plP1, plP2, plP3,
-     sgMascPast, imperSgP2, inf -> case asp of {
-       Perfective  =>
-         mkVerbPerfective inf imperSgP2
-         (presentConj sgP1 sgP2 sgP3 plP1 plP2 plP3) (pastConj sgMascPast)
-         ** {    lock_V=<> };
-       Imperfective  =>
-         mkVerbImperfective inf imperSgP2
-         (presentConj sgP1 sgP2 sgP3 plP1 plP2 plP3) (pastConj sgMascPast)
-         ** {    lock_V=<> }
-        };
-
-   oper presentConj: (_,_,_,_,_,_: Str) -> PresentVerb =
-     \sgP1, sgP2, sgP3, plP1, plP2, plP3 ->
-     table {
-       PRF (GSg _) P1 => sgP1 ;
-       PRF (GSg _) P2 => sgP2 ;
-       PRF (GSg _) P3 => sgP3 ;
-       PRF APl P1 => plP1 ;
-       PRF APl P2 => plP2 ;
-       PRF APl P3 => plP3
-     };
-
-    regV a b c d e f g = verbDecl a b c d e f g ** {lock_V = <>} ;
-   -- defined in morpho.RusU.gf
-{-
-   mkV a b = extVerb a b ** {lock_V = <>};                         -- defined in types.RusU.gf
-
-   mkPresentV = \aller, vox ->
-    { s = table {
-       VFin gn p => aller.s ! VFORM vox (VIND (VPresent (numGNum gn) p)) ;
-       VImper n p => aller.s ! VFORM vox (VIMP n p) ;
-       VInf => aller.s ! VFORM vox VINF ;
-       VSubj gn => aller.s ! VFORM vox (VSUB gn)
-       }; t = Present ; a = aller.asp ; w = vox ; lock_V = <>} ;
--}
-   mkV2 v p cas = v ** {c2 = {s=p; c=cas}; lock_V2 = <>};
-   dirV2 v = mkV2 v [] Acc;
-
-
-   tvDirDir v = mkV3 v "" "" Acc Dat;
-
--- *Ditransitive verbs* are verbs with three argument places.
--- We treat so far only the rule in which the ditransitive
--- verb takes both complements to form a verb phrase.
-
-   mkV3 v s1 s2 c1 c2 = v ** {c2 = {s=s1; c=c1}; c3={s=s2; c=c2}; lock_V3 = <>};
-
-   mkVS v = v ** {lock_VS = <>} ;
-   mkVQ v = v ** {lock_VQ = <>} ;
-   mkV2V v p cas = v ** {c2 = {s=p; c=cas}; lock_V2V = <>};
-   mkV2S v p cas = v ** {c2 = {s=p; c=cas}; lock_V2S = <>};
-   mkV2Q v p cas = v ** {c2 = {s=p; c=cas}; lock_V2Q = <>};
-   mkV2A v p cas = v ** {c2 = {s=p; c=cas}; lock_V2A = <>};
-
--- Liza Zimina 04/2018: to make correct short forms of adjectives
-
-  mk3A : Str -> Str -> Str -> Str -> Str -> A = \positive,shortMasc,shortFem,shortNeut,shortPl  ->
-    let {koren = Predef.tk 2 positive ;
-         comparative = koren + "ее"} in
-    case positive of {
-      stem+"ый"                        => mkAdjDeg (aRegHardWorstCase StemStress Qual stem shortMasc shortFem shortNeut shortPl) comparative ;
-      stem+"ой"                        => mkAdjDeg (aRegHardWorstCase EndStress Qual stem shortMasc shortFem shortNeut shortPl) comparative ;
-      stem@(_+("г"|"к"|"х"))+"ий"       => mkAdjDeg (aRegHardWorstCase StemStress Qual stem shortMasc shortFem shortNeut shortPl) comparative;
-      stem@(_+("ш"|"ж"|"ч"|"щ"))+"ий" => mkAdjDeg (aRegHardWorstCase StemStress Qual stem shortMasc shortFem shortNeut shortPl) comparative;
-      stem+"ий"                        => mkAdjDeg (aRegSoftWorstCase Qual stem shortMasc shortFem shortNeut shortPl) comparative ;
-      stem                             => mkAdjDeg (adjInvar stem) comparative
+    -- For backwards compatibility:
+    mkV2 : V -> Str -> Case -> V2
+      = \vf, prep_s, c -> lin V2 (vf ** {c={s=prep_s ; c=c ; neggen=False ; hasPrep=True}})
     } ;
 
-  mk4A : Str -> ShortFormPreference -> A = \positive,prefshort ->
-    let {koren = Predef.tk 2 positive ;
-         comparative = koren + "ее"} in
-    case positive of {
-      stem+"ый"                        => mkAdjDegFull (aRegHardFull StemStress Qual stem) comparative prefshort ;
-      stem+"ой"                        => mkAdjDegFull (aRegHardFull EndStress Qual stem) comparative prefshort ;
-      stem@(_+("г"|"к"|"х"))+"ий"       => mkAdjDegFull (aRegHardFull StemStress Qual stem) comparative prefshort ;
-      stem@(_+("ш"|"ж"|"ч"|"щ"))+"ий" => mkAdjDegFull (aRegHardFull StemStress Qual stem) comparative prefshort ;
-      stem+"ий"                        => mkAdjDegFull (aRegSoftFull Qual stem) comparative prefshort ;
-      stem                             => mkAdjDegFull (adjInvar stem) comparative prefshort
+  mkV3 = overload {
+    mkV3 : V -> Case -> Case -> V3   -- "сложить письмо в конверт"
+      = \vf, cas1, cas2 -> lin V3 (vf ** {c={s=[] ; c=cas1 ; neggen=False ; hasPrep=False} ; c2={s=[] ; c=cas2 ; neggen=False ; hasPrep=False}} ) ;
+    mkV3 : V -> Prep -> Prep -> V3   -- "сложить письмо в конверт"
+      = \vf, prep1, prep2 -> lin V3 (vf ** {c=prep1 ; c2=prep2} ) ;
+
+    -- For backwards compatibility:
+    mkV3 : V -> Str -> Str -> Case -> Case -> V3
+      = \vf, prep1, prep2, cas1, cas2 -> lin V3 (vf ** {c={s=prep1 ; c=cas1 ; neggen=False ; hasPrep=True} ; c2={s=prep2 ; c=cas2 ; neggen=False ; hasPrep=True}} ) ;
+  } ;
+
+
+  dirV2 v = mkV2 v Acc ;
+  tvDirDir v = mkV3 v Acc Dat ;
+  mkVV = \v -> lin VV {v=v; modal=\\a=>[]} ;
+
+  mkVS v = lin VS v ;
+  mkVQ v = lin VQ v ;
+  mkV2V = overload {
+    mkV2V : V -> Prep -> V2V
+      = \v, prep -> lin V2V (v ** {c=prep}) ;
+    mkV2V : V -> Str -> Case -> V2V
+      = \v, prep, cas -> lin V2V (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+  } ;
+  mkV2S = overload {
+     mkV2S : V -> Prep -> V2S
+       = \v, prep -> lin V2S (v ** {c=prep}) ;
+     mkV2S : V -> Str -> Case -> V2S
+       = \v, prep, cas -> lin V2S (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+  } ;
+  mkV2Q = overload {
+     mkV2Q : V -> Prep -> V2Q
+       = \v, prep -> lin V2Q (v ** {c=prep}) ;
+     mkV2Q : V -> Str -> Case -> V2Q
+       = \v, prep, cas -> lin V2Q (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+  } ;
+  mkV2A = overload {
+     mkV2A : V -> Prep -> V2A
+       = \v, prep -> lin V2A (v ** {c=prep}) ;
+     mkV2A : V -> Str -> Case -> V2A
+       = \v, prep, cas -> lin V2A (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+  } ;
+
+------------------------
+-- Adverbs, prepositions, conjunctions, ...
+
+  mkAdv = overload {
+    mkAdv : Str -> Adv
+      = \s -> lin Adv (makeAdverb s) ;
     } ;
 
-  mk5A : Str -> Bool -> A = \adj,postfix ->
-    case postfix of {
-      False => mk1A adj ;
-      True => lin A {
-        s = \\d,af => adj ;
-        p = True ;
-        preferShort = PrefFull
-        }
-      } ;
-} ;
+  mkIAdv : Str -> IAdv
+    = \s -> lin IAdv (makeAdverb s) ;
+
+  mkConj = overload {
+    mkConj : Str -> Number -> Conj
+      = \s, n -> lin Conj {s1 = [] ; s2 = s ; n = n} ;
+    mkConj : Str -> Str -> Number -> Conj
+      = \s1, s2, n -> lin Conj {s1 = s1 ; s2 = s2 ; n = n} ;
+  } ;
+
+  mkInterj : Str -> Interj
+    = \s -> lin Interj {s = s} ;
+
+  mkPrep : Str -> Case -> Prep
+    = \s,c -> lin Prep {s = s ; c = c ; neggen = False ; hasPrep = True} ;
+
+
+oper
+  on2_Prep = mkPrep "на" Acc ;
+
+  -- for backwards compatibility only. Use mkV methods instead.
+  -- These are deprecated!
+param Conjugation = First | FirstE | Second | SecondA | Mixed | Dolzhen | Foreign ;
+oper
+  first, firstE, second, mixed, dolzhen, foreign : Conjugation ;
+  first = First ; firstE = FirstE ; second = Second ; secondA = SecondA ; mixed = Mixed ; dolzhen = Dolzhen; foreign = Foreign;
+
+  -- Do not use the following method as it is only approximate because it does not use most informative SgP3 amd
+  -- SgP3 is being guessed instead from SgP1.
+  regV : Aspect -> Conjugation -> (stemPresSg1,endPresSg1,pastSg1,imp,inf : Str) -> V ;
+  regV asp bconj stemPresSg1 endPresSg1 pastSg1 imp inf =
+    let sg1=stemPresSg1 + endPresSg1 in
+    let sg3 : Str = case bconj of {
+      First => (Z.sg1StemFromVerb sg1) + "ет" ;
+      Mixed => (Z.sg1StemFromVerb sg1) + "чет" ;
+      FirstE => (Z.sg1StemFromVerb sg1) + "ёт" ;
+      Second | SecondA => (Z.sg1StemFromVerb sg1) + "ит" ;
+      _ => (Z.sg1StemFromVerb sg1) + "ет"
+      } in (guessVerbForms asp Transitive inf sg1 sg3) ** {lock_V=<>} ;
+}
