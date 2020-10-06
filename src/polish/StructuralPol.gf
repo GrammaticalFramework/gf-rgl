@@ -114,7 +114,7 @@ lin
   youPl_Pron = pronWy;
   yes_Utt = ss "tak";
   youSg_Pron = pronTy;
-  youPol_Pron =  pronTy;
+  youPol_Pron =  pronWy;
 
   as_CAdv = { s,sn="tak"; p,pn="jak"} ;
 
