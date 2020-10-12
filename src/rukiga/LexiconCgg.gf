@@ -172,11 +172,11 @@ lin
         surface realisation comes from verb tense e.g nagyenzire implies I have alredy gone.
     -}
     already_Adv = mkAdv "" AgrNo; -- Already is realized as a verb form
-    answer_V2S = mkV2S (mkV "garu" "kamu" "kiremu") noPrep; 
+    --answer_V2S = mkV2S (mkV "garu" "kamu" "kiremu") noPrep; 
     apartment_N = mkN "apatimenti" "apatimenti" N_N;
     art_N = mkN "aati" "aati" N_N;
     ashes_N = mkN "eiju" "eiju" N_N;
-    ask_V2Q = mkV2Q (mkV2 "bunza" "za" "rize") noPrep;
+    --ask_V2Q = mkV2Q (mkV2 "bunza" "za" "rize") noPrep;
     back_N = mkN "omugongo" MU_MI;
     bank_N = mkN "banka" "banka" N_N;
     bark_N = mkN  "ask for the Rukiga equivalent of bark" N_N; --TODO find actual word

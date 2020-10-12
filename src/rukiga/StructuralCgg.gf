@@ -99,7 +99,10 @@ lin
     };
     
    have_V2 ={s= "in"; pres="e"; perf ="e"; isPresBlank = False;
-                        isPerfBlank = False; morphs = mkVerbMorphs; comp = []; isRegular=False};  --: V2 ;
+                        isPerfBlank = False;
+                        p = []; isRefl = False;
+                        morphs = mkVerbMorphs; comp = []; isCompN2 = False; 
+                        isRegular=False};  --: V2 ;
 
   {-
     All Predeterminers are given here.
@@ -210,15 +213,15 @@ lin
     };--: Det ;
   
    want_VV =  {s = "yend"; pres="da"; perf = "zire"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
    can8know_VV = {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
    can_VV =  {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
    -- must_VV used especially in the perfective mood: see dictionary entry shemerera on Pg 501 of Mpairwe
    -- must has no passive form
    must_VV = {s = "shemere"; pres="ra"; perf = "ire"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
+                        isPerfBlank = False; isRegular = False; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
     --somebody_NP = {}; --: NP ;
     --something_NP : NP ;
     --somewhere_Adv : Adv ;

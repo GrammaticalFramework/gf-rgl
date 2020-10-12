@@ -963,7 +963,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
               AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "za" ;
               AgP3 Sg GU_GA =>  "gwa" ;
               AgP3 Pl GU_GA =>  "ga" ;
-              _  => Predef.error "Error mkGenPrepNoIV" -- error checking for any case not catered for
+              _  => "Error mkGenPrepNoIV" -- error checking for any case not catered for
 
     };
 
@@ -996,7 +996,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
               AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "eza" ;
               AgP3 Sg GU_GA =>  "ogwa" ;
               AgP3 Pl GU_GA =>  "aga" ;
-              _  => Predef.error "Error in mkGenPrepWithIVClitic : no pattern matched" -- error checking for any case not catered for
+              _  => "Error in mkGenPrepWithIVClitic : no pattern matched" -- error checking for any case not catered for
 
     };
    

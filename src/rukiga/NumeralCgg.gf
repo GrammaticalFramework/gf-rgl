@@ -125,7 +125,7 @@ lin pot3plus n m = let
       n : Number 
     } ;
 
-    mkOrdinal : Str -> Agreement => Str =\c -> \\agr => mkGenPrepWithIVClitic ! agr ++ c;
+    mkOrdinal : Str -> Agreement => Str =\c -> \\agr => mkGenPrepWithIV ! agr ++ c;
 {-
 --1 Numerals
 
