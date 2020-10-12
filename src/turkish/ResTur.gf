@@ -16,14 +16,20 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     Agr = {n : Number ; p : Person} ;
     Noun = {
       s   : Number => Case => Str ;
-      gen : Number => Agr => Str  ;
-      harmony : Harmony
+      gen : Number => Agr => Str ;
+      h   : Harmony
     } ;
-    Pron = {s : Case => Str; a : Agr} ;
+    Pron = {s : Case => Str ;
+            h : Harmony;
+            a : Agr} ;
 
     agrP3 : Number -> Agr ;
     agrP3 n = {n = n; p = P3} ;
     -- For $Adjective$
+
+    conjAgr : Agr -> Agr -> Agr = \a,b -> 
+      {n=conjNumber a.n b.n; p=conjPerson a.p b.p} ;
+
   oper
     Adjective = Noun ** { adv : Str } ;
 
@@ -69,6 +75,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
        Abess Pos => benli ;
        Abess Neg => bensiz
        } ;
+     h = getHarmony ben ;
      a = {n=n; p=p} ;
      } ;
 
@@ -78,8 +85,12 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     mkPrep : Str -> Case -> {s : Str; c : Case; lock_Prep : {}} =
       \s, c -> lin Prep {s=s; c=c};
 
-    mkNP : Noun -> Number -> Person -> {s : Case => Str; a : Agr} =
-      \noun, n, p -> {s = noun.s ! n; a = {n = n; p = p}} ;
+    mkNP : Noun -> Number -> Person -> {s : Case => Str; h : Harmony; a : Agr} =
+      \noun, n, p -> {
+        s = noun.s ! n;
+        h = noun.h;
+        a = {n = n; p = p}
+      } ;
 
     mkClause : Str -> Agr -> Verb -> {s : Tense => Str; subord : Str} =
       \np, a, v -> {
@@ -95,28 +106,6 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     mkDet : Str -> Number -> UseGen -> {s : Str; n : Number; useGen : UseGen} =
       \s, n, ug -> {s = s; n = n; useGen = ug} ;
 
-    mkConj : overload {
-      mkConj : Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} ;
-      mkConj : Str -> Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} ;
-    } ;
-
-    mkConj = overload {
-      mkConj : Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} =
-        \s -> {
-          s  = s  ;
-          s1 = s  ;
-          s2 = [] ;
-          ct = Infix
-        } ;
-      mkConj : Str -> Str -> {s : Str ; s1 : Str ; s2 : Str ; ct : ConjType} =
-        \s1, s2 -> {
-          s  = s1 ++ s2 ;
-          s1 = s1 ;
-          s2 = s2 ;
-          ct = Mixfix
-        } ;
-    } ;
-
     attachMe : Verb -> {s : Str} =
       \v ->
         let
@@ -126,4 +115,8 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
             (_ + #vowel + _ )* + (_ + #frontVowel + _) => ss (s ++ "me") ;
             (_ + #vowel + _)*  + (_ + #backVowel  + _) => ss (s ++ "ma")
           } ;
+
+    linCoord : Str -> Ints 4 => Str ;
+    linCoord comma = table {0 => "hem"; 1=>"ya"; 2=>"ne"; 3=>comma; 4=>[]} ;
+
 }

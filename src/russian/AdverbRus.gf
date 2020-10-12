@@ -1,24 +1,33 @@
 --# -path=.:../abstract:../common:../../prelude
 
-concrete AdverbRus of Adverb = CatRus ** open ResRus, Prelude in {
-flags  coding=utf8 ;
+concrete AdverbRus of Adverb = CatRus ** open ResRus, Prelude, Coordination in {
+flags coding=utf8 ;
 
-  lin
-    PositAdvAdj a = {s = a.s !Posit! AdvF} ;
-    ComparAdvAdj cadv a np = {
-      s = cadv.s ++ a.s !Posit! AdvF ++ "чем" ++ np.s ! PF Nom No NonPoss
-      } ;
-    ComparAdvAdjS cadv a s = {
-      s = cadv.s ++ a.s !Posit! AdvF ++ "чем" ++ s.s
-      } ;
+lin
+  -- : A -> Adv ;                 -- warmly - тепло
+  PositAdvAdj a = {s = a.sn} ;    -- only qual
 
-    PrepNP na stol = ss (na.s ++ stol.s ! PF na.c Yes NonPoss) ;
+  -- : A -> AdA ;                 -- extremely - исключительно
+  PositAdAAdj a = {s = a.sn} ;    -- only qual
 
-    AdAdv = cc2 ;
+  -- : CAdv -> A -> NP -> Adv ;   -- more warmly than John - более тепло чем Иван
+  ComparAdvAdj cadv a np = {
+    s = cadv.s ++ a.sn ++ embedInCommas (cadv.p ++ np.s ! Nom)
+    } ;
+  -- : CAdv -> A -> S -> Adv ;   -- more warmly than he runs - более тепло чем он бежал
+  ComparAdvAdjS cadv a s = {
+    s = cadv.s ++ a.sn ++ cadv.p ++ s.s ! Ind
+    } ;
 
-    SubjS = cc2 ;
+  -- : Prep -> NP -> Adv ;        -- in the house - в доме
+  PrepNP prep np = ss (applyPrep prep np) ;
 
-    AdnCAdv cadv = {s = cadv.s ++ "чем"} ;
+  -- : AdA -> Adv -> Adv ;        -- very quickly - очень быстро
+  AdAdv = cc2 ;
 
+  -- : Subj -> S -> Adv ;         -- when she sleeps - когда она спит
+  SubjS subj s = {s=subj.s ++ s.s ! Ind} ;
+
+  -- : CAdv -> AdN ;              -- less (than five) - менее (пяти)
+  AdnCAdv cadv = {s = cadv.s ++ cadv.p} ;
 }
-

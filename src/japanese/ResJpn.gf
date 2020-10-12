@@ -23,40 +23,40 @@ param
 
 oper
 
-  NP          : Type = {s : Style => Str ; prepositive : Style => Str ; needPart : Bool ; 
+  NP          : Type = {s : Style => Str ; prepositive : Style => Str ; needPart : Bool ;
                         changePolar : Bool ; meaning : Speaker ; anim : Animateness} ;
-  VP          : Type = {verb : Speaker => Animateness => Style => TTense => Polarity => Str ; 
-                        a_stem, i_stem : Speaker => Animateness => Style => Str ; 
+  VP          : Type = {verb : Speaker => Animateness => Style => TTense => Polarity => Str ;
+                        a_stem, i_stem : Speaker => Animateness => Style => Str ;
                         te, ba : Speaker => Animateness => Style => Polarity => Str ;
                         prep : Str ; obj : Style => Str ; prepositive : Style => Str ;
                         needSubject : Bool} ;
-                        
-  Noun        : Type = {s : Number => Style => Str ; anim : Animateness ; 
+
+  Noun        : Type = {s : Number => Style => Str ; anim : Animateness ;
                         counter : Str ; counterReplace : Bool ; counterTsu : Bool} ;
   PropNoun    : Type = {s : Style => Str ; anim : Animateness} ;
   Adj         : Type = {pred : Style => TTense => Polarity => Str ; attr, dropNaEnging : Str ;
-                        te, ba, adv : Polarity => Str} ; 
-  Adj2        : Type = {pred : Style => TTense => Polarity => Str ; attr, dropNaEnging,  
-                        prep : Str ; te, ba, adv : Polarity => Str} ; 
+                        te, ba, adv : Polarity => Str} ;
+  Adj2        : Type = {pred : Style => TTense => Polarity => Str ; attr, dropNaEnging,
+                        prep : Str ; te, ba, adv : Polarity => Str} ;
   Adverb      : Type = {s : Style => Str ; prepositive : Bool} ;
   Pronoun     : Type = {s : Style => Str ; Pron1Sg : Bool ; anim : Animateness} ;
-  Determiner  : Type = {quant : Style => Str ; postpositive : Str ; num : Str ; n : Number ; 
+  Determiner  : Type = {quant : Style => Str ; postpositive : Str ; num : Str ; n : Number ;
                         inclCard : Bool ; sp : Style => Str ; no : Bool ; tenPlus : Bool} ;
-  Num         : Type = {s : Str ; postpositive : Str ; n : Number ; inclCard : Bool ; 
+  Num         : Type = {s : Str ; postpositive : Str ; n : Number ; inclCard : Bool ;
                         tenPlus : Bool} ;
   Preposition : Type = {s : Str ; null : Str} ;
-  Verb        : Type = {s : Style => TTense => Polarity => Str ; a_stem, i_stem : Str ; 
+  Verb        : Type = {s : Style => TTense => Polarity => Str ; a_stem, i_stem : Str ;
                         te, ba : Polarity => Str ; needSubject : Bool} ;
-  Verb2       : Type = {s, pass : Style => TTense => Polarity => Str ; a_stem, i_stem, pass_a_stem, 
+  Verb2       : Type = {s, pass : Style => TTense => Polarity => Str ; a_stem, i_stem, pass_a_stem,
                         pass_i_stem, prep : Str ; te, ba, pass_te, pass_ba : Polarity => Str} ;
-  Verb3       : Type = {s : Speaker => Style => TTense => Polarity => Str ; a_stem, i_stem : 
+  Verb3       : Type = {s : Speaker => Style => TTense => Polarity => Str ; a_stem, i_stem :
                         Speaker => Str ; te, ba : Speaker => Polarity => Str ; prep1, prep2 : Str} ;
-  VV          : Type = {s : Speaker => Style => TTense => Polarity => Str ; a_stem, i_stem : 
+  VV          : Type = {s : Speaker => Style => TTense => Polarity => Str ; a_stem, i_stem :
                         Speaker => Str ; te, ba : Speaker => Polarity => Str ; sense : ModSense} ;
   Conjunction : Type = {s : Str ; null : Str ; type : ConjType} ;
   Subjunction : Type = {s : Str ; type : SubjType} ;
-                       
-  mkNoun : Str -> Str -> Str -> Str -> Animateness -> Str -> Bool -> Bool -> Noun = 
+
+  mkNoun : Str -> Str -> Str -> Str -> Animateness -> Str -> Bool -> Bool -> Noun =
     \man1,man2,man3,man4,a,c,b1,b2 -> {
       s = table {
         Sg => table {
@@ -73,24 +73,24 @@ oper
       counterReplace = b1 ;
       counterTsu = b2
     } ;
-    
-  regNoun : Str -> Animateness -> Str -> Bool -> Bool -> Noun = \s,a,c,b1,b2 -> 
+
+  regNoun : Str -> Animateness -> Str -> Bool -> Bool -> Noun = \s,a,c,b1,b2 ->
     mkNoun s s s s a c b1 b2 ;
-  
+
   styleNoun : Str -> Str -> Animateness -> Str -> Bool -> Bool -> Noun = \kane,okane,a,c,b1,b2 ->
     mkNoun kane okane kane okane a c b1 b2 ;
-  
-  numberNoun : Str -> Animateness -> Str -> Bool -> Str -> Bool -> Noun = \n,a,c,b1,pl,b2 -> 
+
+  numberNoun : Str -> Animateness -> Str -> Bool -> Str -> Bool -> Noun = \n,a,c,b1,pl,b2 ->
     mkNoun n n pl pl a c b1 b2 ;
-  
+
   regAdj : Str -> Adj = \a -> case a of {
     chiisa + "い"     => i_mkAdj a ;
     _                 => na_mkAdj a --    ooki + ("な"|"の") => na_mkAdj a
     } ;
 
-  i_mkAdj : Str -> Adj = \chiisai -> 
+  i_mkAdj : Str -> Adj = \chiisai ->
     let
-      chiisa = init chiisai ;     
+      chiisa = init chiisai ;
     in {
     pred = table {
       Resp => table {
@@ -110,43 +110,43 @@ oper
           } ;
         TPast => table {
           Pos => chiisa + "かった" ;
-          Neg => chiisa + "くなかった" 
+          Neg => chiisa + "くなかった"
           }
         }
       } ;
     attr = chiisai ;
-    te = table { 
+    te = table {
       Pos => chiisa + "くて" ;
-      Neg => chiisa + "くなくて" 
+      Neg => chiisa + "くなくて"
       } ;
-    ba = table { 
-      Pos => chiisa + "ければ" ; 
-      Neg => chiisa + "くなければ" 
+    ba = table {
+      Pos => chiisa + "ければ" ;
+      Neg => chiisa + "くなければ"
       } ;
-    adv = table { 
+    adv = table {
       Pos => chiisa + "く" ;
       Neg => chiisa + "くなく"
       } ;
     dropNaEnging = chiisai
-    } ;  
-  
-  na_mkAdj : Str -> Adj = \ookina -> 
+    } ;
+
+  na_mkAdj : Str -> Adj = \ookina ->
     let
-      ooki = init ookina    
+      ooki = init ookina
     in {
     pred = \\st,t,p => ooki ++ mkCopula.s ! st ! t ! p ;
     attr = ookina ;
-    te = table { 
+    te = table {
       Pos => ooki + "で" ;
       Neg => ooki + "ではなくて"
       } ;
     ba = \\p => ooki ++ mkCopula.ba ! p ;
-    adv = table { 
+    adv = table {
       Pos => ooki + "に" ;
-      Neg => ooki + "ではなく" 
+      Neg => ooki + "ではなく"
       } ;
     dropNaEnging = ooki
-    } ; 
+    } ;
 
   -- Added by IL 2017-07. Used in NounJpn and SymbolJpn.
   mkOrd : SS -> Adj = \symb -> {
@@ -158,23 +158,52 @@ oper
     dropNaEnging = symb.s ++ "番目の"
       } ;
 
-  VerbalA : Str -> Str -> Adj = \kekkonshiteiru,kikonno -> 
-    let
-      kekkonshite = Predef.tk 2 kekkonshiteiru    
-    in {
-    pred = \\st,t,p => kekkonshite ++ mkExistV.verb ! SomeoneElse ! Anim ! st ! t ! p ;
+  -- Added by IL 2020-06.
+  vp2verb : VP -> Speaker -> Animateness -> Style -> Verb = \vp,sp,an,st -> vp ** {
+    s = vp.verb ! sp ! an ; -- Style => TTense => Polarity => Str ;
+    a_stem = vp.a_stem ! sp ! an ! st ;
+    i_stem = vp.i_stem ! sp ! an ! st ;
+    te = vp.te ! sp ! an ! st ;
+    ba = vp.ba ! sp ! an ! st ;
+    } ;
+
+  VerbalA : Str -> Str -> Adj = \kekkonshiteiru,kikonno ->
+    let kikon : Str = case kikonno of {
+       kikon + ("の"|"な") => kikon ;
+       _                  => kikonno } ;
+     in case kekkonshiteiru of {
+        kekkonshite + "いる"
+          => mkVerbalA kekkonshite kikonno kikon (vp2verb mkExistV SomeoneElse Anim Resp) ;
+        kekkonshite + "ある"
+          => mkVerbalA kekkonshite kikonno kikon (vp2verb mkExistV SomeoneElse Inanim Resp) ;
+        kekkonshite + "する"
+          => mkVerbalA kekkonshite kikonno kikon (mkVerb "する" Suru) ;
+        kekkonshite + "来る"
+          => mkVerbalA kekkonshite kikonno kikon (mkVerb "来る" Kuru) ;
+        _ + "る" -- The whole kekkonshite+iru is in the verb, prefix is empty
+          => mkVerbalA [] kikonno kikon (mkVerb kekkonshiteiru Gr2) ;
+        _ => mkVerbalA [] kikonno kikon (mkVerb kekkonshiteiru Gr1)
+    } ;
+
+  mkVerbalA : (kekkonshite, -- Predicative without the inflecting part
+               kikonno,     -- Attributive with no or na (if needed)
+               kikon        -- Attributive without no/na. If no の/な, identical to kikonno.
+               : Str)
+           -> (iru : Verb)  -- The inflecting verb for the predicate
+           -> Adj = \kekkonshite,kikonno,kikon,iru -> {
+    pred = \\st,t,p => kekkonshite + iru.s ! st ! t ! p ;
     attr = kikonno ;
-    te = \\p => kekkonshite ++ mkExistV.te ! SomeoneElse ! Anim ! Resp ! p ;
-    ba = \\p => kekkonshite ++ mkExistV.ba ! SomeoneElse ! Anim ! Resp ! p ;
-    adv = table { 
-      Pos => init kikonno + "で" ;
-      Neg => init kikonno + "ではなく"
+    te = \\p => kekkonshite ++ iru.te ! p ;
+    ba = \\p => kekkonshite ++ iru.ba ! p ;
+    adv = table {
+      Pos => kikon + "で" ;      -- TODO check: 疲れで or 疲れたで (tired_VP)
+      Neg => kikon + "ではなく"
       } ;
-    dropNaEnging = init kikonno
-    } ; 
-  
-  mkVerb : Str -> VerbGroup -> Verb = 
-    \yomu,gr -> 
+    dropNaEnging = kikon
+    } ;
+
+  mkVerb : Str -> VerbGroup -> Verb =
+    \yomu,gr ->
     let
       yoma = mk_a_stem yomu gr ;
       yomi = mk_i_stem yomu gr ;
@@ -207,7 +236,7 @@ oper
         yon + "だ" => yon + "で" ;
         yon + "た" => yon + "て"
         } ;
-      Neg => yoma + "ないで" 
+      Neg => yoma + "ないで"
       } ;
     a_stem = yoma ;
     i_stem = yomi ;
@@ -217,9 +246,9 @@ oper
       } ;
     needSubject = True
     } ;
-      
-  mkVerb2 : Str -> Str -> VerbGroup -> Verb2 = 
-    \yomu,p,gr -> 
+
+  mkVerb2 : Str -> Str -> VerbGroup -> Verb2 =
+    \yomu,p,gr ->
     let
       yoma = mk_a_stem yomu gr ;
     in {
@@ -256,7 +285,7 @@ oper
               Gr1  => yoma + "れませんでした" ;
               Gr2  => yoma + "られませんでした" ;
               Suru => Predef.tk 2 yomu + "されませんでした" ;
-              Kuru => "来られませんでした" 
+              Kuru => "来られませんでした"
               }
             }
           } ;
@@ -303,7 +332,7 @@ oper
           Gr2  => yoma + "られないで" ;
           Suru => Predef.tk 2 yomu + "されないで" ;
           Kuru => "来られないで"
-          } 
+          }
         } ;
       pass_a_stem = case gr of {
         Gr1  => yoma + "れ" ;
@@ -329,12 +358,12 @@ oper
           Gr2  => yoma + "られなければ" ;
           Suru => Predef.tk 2 yomu + "されなければ" ;
           Kuru => "来られなければ"
-          } 
+          }
         } ;
       needSubject = True
       } ;
-                        
-  mkVerb3 : Str -> Str -> Str -> VerbGroup -> Verb3 = 
+
+  mkVerb3 : Str -> Str -> Str -> VerbGroup -> Verb3 =
     \uru,p1,p2,gr -> {
       s = \\sp => (mkVerb uru gr).s ;
       te = \\sp => (mkVerb uru gr).te ;
@@ -344,13 +373,13 @@ oper
       prep1 = p1 ;
       prep2 = p2
     } ;
-  
+
   mkCopula : Verb = {
     s = table {
       Resp => table {
         (TPres|TFut) => table {
           Pos => "です" ;
-          Neg => "ではありません" 
+          Neg => "ではありません"
           } ;
         TPast => table {
           Pos => "でした" ;
@@ -367,7 +396,7 @@ oper
           Neg => "ではなかった"
           }
         }
-      } ; 
+      } ;
     te = table {
       Pos => "だって" ;
       Neg => "ではなくて"
@@ -379,11 +408,11 @@ oper
     a_stem, i_stem = "で" ;  -- not used
     needSubject = True  -- not used
     } ;
-  
+
   mkExistV : VP = {
     verb = \\sp => table {
       Anim => \\st,t,p => (mkVerb "いる" Gr2).s ! st ! t ! p ;
-      Inanim => table { 
+      Inanim => table {
         Resp => table {
           (TPres|TFut) => table {
             Pos => "あります" ;
@@ -404,7 +433,7 @@ oper
             Neg => "なかった"
             }
           }
-        } 
+        }
       } ;
     te = \\sp => table {
       Anim => \\st => table {
@@ -438,11 +467,11 @@ oper
     prepositive, obj = \\st => [] ;
     needSubject = True
     } ;
-          
+
   mkWant : VV = {
     s = table {
       Me => \\st,t,p => (i_mkAdj "たい").pred ! st ! t ! p ;
-      SomeoneElse => \\st,t,p => "たがって" ++ (mkVerb "いる" Gr2).s ! st ! t ! p 
+      SomeoneElse => \\st,t,p => "たがって" ++ (mkVerb "いる" Gr2).s ! st ! t ! p
       } ;
     te = table {
       Me => table {
@@ -456,7 +485,7 @@ oper
       } ;
     a_stem = table {
       Me => "たいで" ;
-      SomeoneElse => "たがってい" 
+      SomeoneElse => "たがってい"
       } ;
     i_stem = table {
       Me => "たいで" ;
@@ -474,21 +503,21 @@ oper
       } ;
     sense = Wish
     } ;
-  
+
   mkCan : VV = {
     s = \\sp,st,t,p => (mkVerb "できる" Gr2).s ! st ! t ! p ;
     te = \\sp => table {
       Pos => "できて" ;
-      Neg => "できないで" 
+      Neg => "できないで"
       } ;
     a_stem, i_stem = \\sp => "でき" ;
     ba = \\sp => table {
       Pos => "できれば" ;
-      Neg => "できなければ" 
+      Neg => "できなければ"
       } ;
     sense = Abil
     } ;
-  
+
   mkMust : VV = {
     s = \\sp,st,t,p => (mkVerb "なる" Gr1).s ! st ! t ! Neg ;
     te = \\sp,p => "ならなくて" ;
@@ -505,7 +534,7 @@ oper
     i_stem = \\sp => (mkVerb yomu gr).i_stem ;
     ba = \\sp => (mkVerb yomu gr).ba ;
     sense = Abil
-    } ; 
+    } ;
 
   mkGive : Verb3 = {
     s = table {
@@ -518,19 +547,19 @@ oper
       } ;
     a_stem, i_stem = table {
       Me => "呉れ" ;
-      SomeoneElse => "上げ" 
+      SomeoneElse => "上げ"
       } ;
     ba = table {
       Me => (mkVerb "呉れる" Gr2).ba ;
       SomeoneElse => (mkVerb "上げる" Gr2).ba
       } ;
     prep1 = "に" ;
-    prep2 = "を" 
+    prep2 = "を"
     } ;
 
   mkGo : Verb = {
     s = table {
-      Resp => (mkVerb "行く" Gr1).s ! Resp ; 
+      Resp => (mkVerb "行く" Gr1).s ! Resp ;
       Plain => table {
         (TPres|TFut) => (mkVerb "行く" Gr1).s ! Plain ! TPres ;
         TPast => table {
@@ -541,7 +570,7 @@ oper
       } ;
     te = table {
       Pos => "行って" ;
-      Neg => "行かないで" 
+      Neg => "行かないで"
       } ;
     a_stem = "行か" ;
     i_stem = "行き" ;
@@ -556,13 +585,13 @@ oper
     inclCard = False ;
     tenPlus = False
     } ;
-  
+
   regPron : Str -> Bool -> Animateness -> Pronoun = \kare,b,a -> {
     s = \\st => kare ;
     Pron1Sg = b ;
     anim = a
-    } ;    
-  
+    } ;
+
   mkDet : Str -> Str -> Number -> Determiner = \q,sp,n -> {
     quant = \\st => q ;
     postpositive = [] ;
@@ -573,7 +602,7 @@ oper
     no = False ;
     tenPlus = False
     } ;
-                       
+
   stylePron : Str -> Str -> Bool -> Animateness -> Pronoun = \boku,watashi,b,a -> {
     s = table {
       Plain => boku ;
@@ -581,8 +610,8 @@ oper
       } ;
     Pron1Sg = b ;
     anim = a
-    } ;    
-    
+    } ;
+
   regPN : Str -> PropNoun = \paris -> {
     s = table {
       Plain => paris ;
@@ -590,7 +619,7 @@ oper
       } ;
     anim = Inanim
     } ;
-  
+
   personPN : Str -> Str -> PropNoun = \jon,jonsan -> {
     s = table {
       Plain => jon ;
@@ -598,27 +627,27 @@ oper
       } ;
     anim = Anim
     } ;
-  
+
   mkAdv : Str -> Adverb = \adv -> {
-    s = \\st => adv ; 
+    s = \\st => adv ;
     prepositive = False
     } ;
-  
+
   mkNP : Str -> Bool -> Bool -> Animateness -> NP = \np,b1,b2,a -> {
-    s = \\st => np ; 
+    s = \\st => np ;
     prepositive = \\st => [] ;
-    needPart = b1 ; 
-    changePolar = b2 ; 
-    meaning = SomeoneElse ; 
+    needPart = b1 ;
+    changePolar = b2 ;
+    meaning = SomeoneElse ;
     anim = a
     } ;
-  
+
   mkConj : Str -> ConjType -> Conjunction = \c,t -> {
     s = c ;
     null = "" ;
     type = t
     } ;
-    
+
   mkPrep : Str -> Preposition = \p -> {
     s = p ;
     null = "" ;
@@ -692,10 +721,10 @@ oper
       "つ" => init neru + "てば" ;
       _    => init neru + "えば"
     } ;
-      
+
   mkFirst : Adj = {
     pred = \\st,t,p => "一番目" ++ mkCopula.s ! st ! t ! p ;
-    attr = "一番目の" ; 
+    attr = "一番目の" ;
     te = \\p => "一番目" ++ mkCopula.te ! p ;
     ba = \\p => "一番目" ++ mkCopula.ba ! p ;
     adv = table {
@@ -704,12 +733,12 @@ oper
       } ;
     dropNaEnging = "一番目"
     } ;
-                 
+
   mkRain : Verb = {
     s = \\st,t,p => "雨が" ++ (mkVerb "降っている" Gr2).s ! st ! t ! p ;  -- "ame ga furu"
     te = table {
       Pos => "雨が降っていて" ;
-      Neg => "雨が降っていないで" 
+      Neg => "雨が降っていないで"
       } ;
     a_stem = "雨が降ってい" ;
     i_stem = "雨が降ってい" ;
@@ -720,4 +749,3 @@ oper
     needSubject = False
     } ;
 }
-

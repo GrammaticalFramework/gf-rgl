@@ -4,21 +4,21 @@ concrete CompatibilityBul of Compatibility = CatBul ** open Prelude, ResBul in {
 
 -- from Noun 19/4/2008
 flags
-  coding = cp1251 ;
+  coding = utf8 ;
 
 lin
   NumInt n = {s = \\_ => n.s; n = Pl; nonEmpty = True} ;
   OrdInt n = {s = \\aform => n.s ++ "-" ++ 
                              case aform of {
-                               ASg Masc Indef => "òè" ;
-                               ASg Fem  Indef => "òà" ;
-                               ASg Neut Indef => "òî" ;
-                               ASg Masc Def   => "òèÿ" ;
-                               ASg Fem  Def   => "òàòà" ;
-                               ASg Neut Def   => "òîòî" ;
-                               ASgMascDefNom  => "òèÿò" ;
-                               APl Indef      => "òè" ;
-                               APl Def        => "òèòå"
+                               ASg Masc Indef => "Ñ‚Ð¸" ;
+                               ASg Fem  Indef => "Ñ‚Ð°" ;
+                               ASg Neut Indef => "Ñ‚Ð¾" ;
+                               ASg Masc Def   => "Ñ‚Ð¸Ñ" ;
+                               ASg Fem  Def   => "Ñ‚Ð°Ñ‚Ð°" ;
+                               ASg Neut Def   => "Ñ‚Ð¾Ñ‚Ð¾" ;
+                               ASgMascDefNom  => "Ñ‚Ð¸ÑÑ‚" ;
+                               APl Indef      => "Ñ‚Ð¸" ;
+                               APl Def        => "Ñ‚Ð¸Ñ‚Ðµ"
                              }
                 } ;
 

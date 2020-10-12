@@ -1,0 +1,72 @@
+------------------------------
+-- These need to be correct --
+------------------------------
+
+--"ami" instead of "amit" for most examples
+
+-- LangEng: I see a man that flies
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV fly_V))))))))) NoVoc
+LangHun: én látok egy férfi &+ t ami repül
+
+-- LangEng: I see the man that flies
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV fly_V))))))))) NoVoc
+LangHun: én látom a férfi &+ t ami repül
+
+-- LangEng: I see the man that sees a cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))))))))))) NoVoc
+LangHun: én látom a férfi &+ t ami egy macská &+ t lát
+
+-- LangEng: I see the man that sees the cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))))))) NoVoc
+LangHun: én látom a férfi &+ t ami a macská &+ t látja
+
+-- LangEng: I see the man that has a cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))))))))))) NoVoc
+LangHun: én látom a férfi &+ t aminek egy macskáj &+ a van
+
+-- LangEng: I see the man that has the cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))))))) NoVoc
+LangHun: én látom a férfi &+ t aminek megvan a macska
+-- vet inte riktigt hur jag ska tänka med "the cat", tyckte det kändes mer rätt med "meg-" konstruktionen
+
+-- LangEng: I see the cat that flies and that is red
+-- Do we need copula in "is red" or is it still fine without?
+-- This constructor repeats amit, we have other constructors that don't. I think we don't need it
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (ConjRS and_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV fly_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (PositA red_A))))))))))))) NoVoc
+LangHun: én látom a macská &+ t ami repül és piros
+--skulle dock byta plats på "piros" och "repül"
+
+-- LangEng: I see the man that flies and that has a cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (ConjRS and_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV fly_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))))))))))))) NoVoc
+LangHun: én látom a férfi &+ t ami repül és aminek egy macskáj &+ a van
+
+
+-------------------------------------------------------------
+-- These are just for fun and lower prio to fix in grammar --
+-------------------------------------------------------------
+
+-- LangEng: I see the man that the cat sees
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (SlashV2a see_V2)))))))))) NoVoc
+LangHun: én látom a férfi &+ t amit a macska lát
+
+-- LangEng: I see a man that the cat sees
+-- Should this be "amit a macska lát"? Yes
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (SlashV2a see_V2)))))))))) NoVoc
+LangHun: én látok egy férfi &+ t amit a macska lát
+
+--These last cases not corrected due to "van" confusion
+-- LangEng: I see a cat that the man has
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) (SlashV2a have_V2)))))))))) NoVoc
+LangHun: én látok egy macská &+ t amit a férfi &+ nak van
+
+-- LangEng: I see the cat that the man has
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) (SlashV2a have_V2)))))))))) NoVoc
+LangHun: én látom a macská &+ t amit a férfi &+ nak van
+
+-- LangEng: I see the cat that the man has and that flies
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (ConjRS and_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) (SlashV2a have_V2)))) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV fly_V))))))))))) NoVoc
+LangHun: én látom a macská &+ t amit a férfi &+ nak van és amit repül
+
+-- LangEng: I am redder than the cats that those women have
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (ComparA red_A (DetCN (DetQuant DefArt NumPl) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant that_Quant NumPl) (UseN woman_N)) (SlashV2a have_V2)))))))))))) NoVoc
+LangHun: én pirosabb vagyok a macskák &+ nál amik azoknak a nők &+ nek vannak

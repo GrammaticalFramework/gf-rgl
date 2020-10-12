@@ -1,0 +1,23 @@
+Lang: MassNP (UseN horse_N)
+LangHun: ló
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN horse_N)))
+LangHun: én látok egy lova &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN horse_N))
+LangHun: egy lovon
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN horse_N)
+LangHun: lovak
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN horse_N)))
+LangHun: én látok lovak &+ at
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN horse_N))
+LangHun: egy lóhoz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN horse_N))
+LangHun: lovak &+ hoz
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN horse_N)
+LangHun: én lova &+ m

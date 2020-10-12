@@ -1,0 +1,23 @@
+Lang: MassNP (UseN water_N)
+LangHun: víz
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN water_N)))
+LangHun: én látok egy vize &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN water_N))
+LangHun: egy vízen
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN water_N)
+LangHun: vizek
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN water_N)))
+LangHun: én látok vizek &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN water_N))
+LangHun: egy vízhez
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN water_N))
+LangHun: vizek &+ hez
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN water_N)
+LangHun: én vize &+ m

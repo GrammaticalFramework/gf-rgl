@@ -1,0 +1,23 @@
+Lang: MassNP (UseN year_N)
+LangHun: év
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN year_N)))
+LangHun: én látok egy éve &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN year_N))
+LangHun: egy éven
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN year_N)
+LangHun: évek
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN year_N)))
+LangHun: én látok évek &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN year_N))
+LangHun: egy évhez
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN year_N))
+LangHun: évek &+ hez
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN year_N)
+LangHun: én éve &+ m

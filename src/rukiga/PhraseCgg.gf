@@ -62,6 +62,7 @@ lin
     --UttAP     : AP   -> Utt ;               -- fine
     --UttInterj : Interj -> Utt ;             -- alas
     UttInterj interj = let agr = AgMUBAP2 Pl in {s= mkObjClitic agr ++ interj.s};
+
 {-
 --1 Phrase: Phrases and Utterances
 

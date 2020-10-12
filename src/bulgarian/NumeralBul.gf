@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete NumeralBul of Numeral = CatBul [Numeral,Digits] ** open Prelude, ResBul in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
 lincat 
@@ -11,43 +11,43 @@ lincat
   Sub1000000 = {s : CardOrd => NumF => Str; n : Number} ;
 
 lin num x = {s = \\c => x.s ! c ! Formal; n=x.n} ;
-lin n2 = mkDigit "два"    "двама"    "две"    "втори"    "двайсет"    "двеста" "двестата" ;
-lin n3 = mkDigit "три"    "трима"    "три"    "трети"    "трийсет"    "триста" "тристата" ;
-lin n4 = mkDigit "четири" "четирима" "четири" "четвърти" "четирийсет" "четиристотин" "четиристотинте" ;
-lin n5 = mkDigit "пет"    "петима"   "пет"    "пети"     "петдесет"   "петстотин" "петстотинте" ;
-lin n6 = mkDigit "шест"   "шестима"  "шест"   "шести"    "шейсет"     "шестстотин" "шестстотинте" ;
-lin n7 = mkDigit "седем"  "седмина"  "седем"  "седми"    "седемдесет" "седемстотин" "седемстотинте" ;
-lin n8 = mkDigit "осем"   "осмина"   "осем"   "осми"     "осемдесет"  "осемстотин" "осемстотинте" ;
-lin n9 = mkDigit "девет"  "деветима" "девет"  "девети"   "деветдесет" "деветстотин" "деветстотинте" ;
+lin n2 = mkDigit "РґРІР°"    "РґРІР°РјР°"    "РґРІРµ"    "РІС‚РѕСЂРё"    "РґРІР°Р№СЃРµС‚"    "РґРІРµСЃС‚Р°" "РґРІРµСЃС‚Р°С‚Р°" ;
+lin n3 = mkDigit "С‚СЂРё"    "С‚СЂРёРјР°"    "С‚СЂРё"    "С‚СЂРµС‚Рё"    "С‚СЂРёР№СЃРµС‚"    "С‚СЂРёСЃС‚Р°" "С‚СЂРёСЃС‚Р°С‚Р°" ;
+lin n4 = mkDigit "С‡РµС‚РёСЂРё" "С‡РµС‚РёСЂРёРјР°" "С‡РµС‚РёСЂРё" "С‡РµС‚РІСЉСЂС‚Рё" "С‡РµС‚РёСЂРёР№СЃРµС‚" "С‡РµС‚РёСЂРёСЃС‚РѕС‚РёРЅ" "С‡РµС‚РёСЂРёСЃС‚РѕС‚РёРЅС‚Рµ" ;
+lin n5 = mkDigit "РїРµС‚"    "РїРµС‚РёРјР°"   "РїРµС‚"    "РїРµС‚Рё"     "РїРµС‚РґРµСЃРµС‚"   "РїРµС‚СЃС‚РѕС‚РёРЅ" "РїРµС‚СЃС‚РѕС‚РёРЅС‚Рµ" ;
+lin n6 = mkDigit "С€РµСЃС‚"   "С€РµСЃС‚РёРјР°"  "С€РµСЃС‚"   "С€РµСЃС‚Рё"    "С€РµР№СЃРµС‚"     "С€РµСЃС‚СЃС‚РѕС‚РёРЅ" "С€РµСЃС‚СЃС‚РѕС‚РёРЅС‚Рµ" ;
+lin n7 = mkDigit "СЃРµРґРµРј"  "СЃРµРґРјРёРЅР°"  "СЃРµРґРµРј"  "СЃРµРґРјРё"    "СЃРµРґРµРјРґРµСЃРµС‚" "СЃРµРґРµРјСЃС‚РѕС‚РёРЅ" "СЃРµРґРµРјСЃС‚РѕС‚РёРЅС‚Рµ" ;
+lin n8 = mkDigit "РѕСЃРµРј"   "РѕСЃРјРёРЅР°"   "РѕСЃРµРј"   "РѕСЃРјРё"     "РѕСЃРµРјРґРµСЃРµС‚"  "РѕСЃРµРјСЃС‚РѕС‚РёРЅ" "РѕСЃРµРјСЃС‚РѕС‚РёРЅС‚Рµ" ;
+lin n9 = mkDigit "РґРµРІРµС‚"  "РґРµРІРµС‚РёРјР°" "РґРµРІРµС‚"  "РґРµРІРµС‚Рё"   "РґРµРІРµС‚РґРµСЃРµС‚" "РґРµРІРµС‚СЃС‚РѕС‚РёРЅ" "РґРµРІРµС‚СЃС‚РѕС‚РёРЅС‚Рµ" ;
 
 lin pot01 =
       {s = table {
              unit    => table {
-                          NCard (CFMasc Indef _)    => "един" ;
-                          NCard (CFMasc Def _)      => "единия" ;
-                          NCard (CFMascDefNom _)    => "единият" ;
-                          NCard (CFFem  Indef)      => "една" ;
-                          NCard (CFFem  Def)        => "едната" ;
-                          NCard (CFNeut Indef)      => "едно" ;
-                          NCard (CFNeut Def)        => "едното" ;
+                          NCard (CFMasc Indef _)    => "РµРґРёРЅ" ;
+                          NCard (CFMasc Def _)      => "РµРґРёРЅРёСЏ" ;
+                          NCard (CFMascDefNom _)    => "РµРґРёРЅРёСЏС‚" ;
+                          NCard (CFFem  Indef)      => "РµРґРЅР°" ;
+                          NCard (CFFem  Def)        => "РµРґРЅР°С‚Р°" ;
+                          NCard (CFNeut Indef)      => "РµРґРЅРѕ" ;
+                          NCard (CFNeut Def)        => "РµРґРЅРѕС‚Рѕ" ;
                           NOrd  aform               => case aform of {
-                                                         ASg Masc Indef => "първи" ;
-                                                         ASg Masc Def   => "първия" ;
-                                                         ASgMascDefNom  => "първият" ;
-                                                         ASg Fem  Indef => "първа" ;
-                                                         ASg Fem  Def   => "първата" ;
-                                                         ASg Neut Indef => "първо" ;
-                                                         ASg Neut Def   => "първото" ;
-                                                         APl Indef      => "първи" ;
-                                                         APl Def        => "първите"
+                                                         ASg Masc Indef => "РїСЉСЂРІРё" ;
+                                                         ASg Masc Def   => "РїСЉСЂРІРёСЏ" ;
+                                                         ASgMascDefNom  => "РїСЉСЂРІРёСЏС‚" ;
+                                                         ASg Fem  Indef => "РїСЉСЂРІР°" ;
+                                                         ASg Fem  Def   => "РїСЉСЂРІР°С‚Р°" ;
+                                                         ASg Neut Indef => "РїСЉСЂРІРѕ" ;
+                                                         ASg Neut Def   => "РїСЉСЂРІРѕС‚Рѕ" ;
+                                                         APl Indef      => "РїСЉСЂРІРё" ;
+                                                         APl Def        => "РїСЉСЂРІРёС‚Рµ"
                                                        }
                         } ;
              teen nf => case nf of {
-                          Formal   => mkCardOrd "единадесет" "единадесетима" "единадесет" "единадесети" ;
-                          Informal => mkCardOrd "единайсет"  "единайсет"     "единайсет"  "единайсти"
+                          Formal   => mkCardOrd "РµРґРёРЅР°РґРµСЃРµС‚" "РµРґРёРЅР°РґРµСЃРµС‚РёРјР°" "РµРґРёРЅР°РґРµСЃРµС‚" "РµРґРёРЅР°РґРµСЃРµС‚Рё" ;
+                          Informal => mkCardOrd "РµРґРёРЅР°Р№СЃРµС‚"  "РµРґРёРЅР°Р№СЃРµС‚"     "РµРґРёРЅР°Р№СЃРµС‚"  "РµРґРёРЅР°Р№СЃС‚Рё"
                         } ;
-             ten  nf => mkCardOrd "десет" "десетима" "десет" "десети" ;
-             hundred => mkCardOrd100 "сто" "стоте" "стотен"
+             ten  nf => mkCardOrd "РґРµСЃРµС‚" "РґРµСЃРµС‚РёРјР°" "РґРµСЃРµС‚" "РґРµСЃРµС‚Рё" ;
+             hundred => mkCardOrd100 "СЃС‚Рѕ" "СЃС‚РѕС‚Рµ" "СЃС‚РѕС‚РµРЅ"
            }
       ;n = Sg
       } ;
@@ -59,12 +59,12 @@ lin pot1to19 d = {s = \\c,nf => d.s ! teen nf ! c; n = Pl; i = True} ;
 lin pot0as1 n = {s = \\c,nf => n.s ! unit ! c; n = n.n; i = True} ;
 lin pot1 d = {s = \\c,nf => d.s ! ten nf ! c; n = Pl; i = True} ;
 lin pot1plus d e = {
-   s = \\c,nf => d.s ! ten nf ! NCard (CFMasc Indef NonHuman) ++ "и" ++ e.s ! unit ! c ; n = Pl; i = False} ;
+   s = \\c,nf => d.s ! ten nf ! NCard (CFMasc Indef NonHuman) ++ "Рё" ++ e.s ! unit ! c ; n = Pl; i = False} ;
 
 lin pot1as2 n = n ;
 lin pot2 n = {s = \\c,nf => n.s ! hundred ! c; n = Pl; i = True} ;
 lin pot2plus d e = {
-  s = \\c,nf => d.s ! hundred ! NCard (CFMasc Indef NonHuman) ++ case e.i of {False => []; True  => "и"} ++ e.s ! c ! nf ;
+  s = \\c,nf => d.s ! hundred ! NCard (CFMasc Indef NonHuman) ++ case e.i of {False => []; True  => "Рё"} ++ e.s ! c ! nf ;
   n = Pl ;
   i = False
   } ;
@@ -72,17 +72,17 @@ lin pot2plus d e = {
 lin pot2as3 n = n ;
 lin pot3 n = {
   s = \\c,nf => case n.n of {
-                  Sg => mkCardOrd100 "хиляда" "хилядата" "хиляден" ! c ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "хиляди" "хилядите" "хиляден" ! c
+                  Sg => mkCardOrd100 "С…РёР»СЏРґР°" "С…РёР»СЏРґР°С‚Р°" "С…РёР»СЏРґРµРЅ" ! c ;
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "С…РёР»СЏРґРё" "С…РёР»СЏРґРёС‚Рµ" "С…РёР»СЏРґРµРЅ" ! c
                 } ;
   n = Pl
   } ;
 lin pot3plus n m = {
   s = \\c,nf => case n.n of {
-                  Sg => mkCardOrd100 "хиляда" "хилядата" "хиляден" ! NCard (CFMasc Indef NonHuman) ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "хиляди" "хилядите" "хиляден" ! NCard (CFMasc Indef NonHuman)
+                  Sg => mkCardOrd100 "С…РёР»СЏРґР°" "С…РёР»СЏРґР°С‚Р°" "С…РёР»СЏРґРµРЅ" ! NCard (CFMasc Indef NonHuman) ;
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "С…РёР»СЏРґРё" "С…РёР»СЏРґРёС‚Рµ" "С…РёР»СЏРґРµРЅ" ! NCard (CFMasc Indef NonHuman)
                 }
-                ++ case m.i of {False => []; True  => "и"} ++ m.s ! c ! nf ;
+                ++ case m.i of {False => []; True  => "Рё"} ++ m.s ! c ! nf ;
   n = Pl
   } ;
 
@@ -101,16 +101,16 @@ lin pot3plus n m = {
       tail = inc i.tail
     } ;
 
-    D_0 = mk3Dig "0" "0" "0ев" Pl ;
-    D_1 = mk3Dig "1" "1" "1ви" Sg ;
-    D_2 = mk2Dig "2" "2ри" ;
+    D_0 = mk3Dig "0" "0" "0РµРІ" Pl ;
+    D_1 = mk3Dig "1" "1" "1РІРё" Sg ;
+    D_2 = mk2Dig "2" "2СЂРё" ;
     D_3 = mkDig "3" ;
     D_4 = mkDig "4" ;
     D_5 = mkDig "5" ;
     D_6 = mkDig "6" ;
-    D_7 = mk3Dig "7" "7на" "7ми" Pl ;
-    D_8 = mk3Dig "8" "8на" "8ми" Pl ;
-    D_9 = mk3Dig "9" "9има" "9ти" Pl ;
+    D_7 = mk3Dig "7" "7РЅР°" "7РјРё" Pl ;
+    D_8 = mk3Dig "8" "8РЅР°" "8РјРё" Pl ;
+    D_9 = mk3Dig "9" "9РёРјР°" "9С‚Рё" Pl ;
 
   oper
     spaceIf : DTail -> Str = \t -> case t of {
@@ -124,8 +124,8 @@ lin pot3plus n m = {
       T3 => T1
       } ;
 
-    mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c (c+"ма") o Pl ;
-    mkDig : Str -> TDigit = \c -> mk2Dig c (c + "ти") ;
+    mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c (c+"РјР°") o Pl ;
+    mkDig : Str -> TDigit = \c -> mk2Dig c (c + "С‚Рё") ;
 
     mk3Dig : Str -> Str -> Str -> Number -> TDigit = \c1,c2,o,n -> {
       s = mkCardOrd c1 c2 c1 o ;

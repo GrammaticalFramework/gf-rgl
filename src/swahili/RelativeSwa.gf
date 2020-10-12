@@ -1,4 +1,2 @@
-concrete RelativeSwa of Relative = CatSwa ** open ResSwa in {
-
-  
-}
+concrete RelativeSwa of Relative = CatSwa ** RelativeBantu with
+ (ResBantu = ResSwa);  

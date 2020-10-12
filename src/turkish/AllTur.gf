@@ -2,4 +2,5 @@
 
 concrete AllTur of AllTurAbs = 
   LangTur
+--  ,ExtendTur
   ** {} ;

@@ -1,94 +1,127 @@
-concrete CatHun of Cat = CommonX ** open ResHun, Prelude in 
-{
+concrete CatHun of Cat = CommonX - [Adv] ** open ResHun, Prelude in {
+
+  flags optimize=all_subs ;
+
   lincat
---
----- exception to CommonX, due to the distinction contracted/uncontracted negation
---
---    Pol = {s : Str ; p : CPolarity} ;
---
----- Tensed/Untensed
---
---    S  = {s : Str} ;
---    QS = {s : QForm => Str} ;
---    RS = {s : Agr => Str ; c : NPCase} ; -- c for it clefts
---    SSlash = {s : Str ; c2 : Str} ;
---
----- Sentence
---
---    Cl = {s : ResHun.Tense => Anteriority => CPolarity => Order => Str} ;
---    ClSlash = {
---      s : ResHun.Tense => Anteriority => CPolarity => Order => Str ;
---      c2 : Str
---      } ;
---    Imp = {s : CPolarity => ImpForm => Str} ;
---
----- Question
---
---    QCl = {s : ResHun.Tense => Anteriority => CPolarity => QForm => Str} ;
---    IP = {s : NPCase => Str ; n : Number} ;
---    IComp = {s : Str} ;    
---    IDet = {s : Str ; n : Number} ;
---    IQuant = {s : Number => Str} ;
---
----- Relative
---
---    RCl = {
---      s : ResHun.Tense => Anteriority => CPolarity => Agr => Str ; 
---      c : NPCase
---      } ;
---    RP = {s : RCase => Str ; a : RAgr} ;
---
----- Verb
---
---    VP = ResHun.VP ;
---    VPSlash = ResHun.VP ** {c2 : Str} ;
---    Comp = {s : Agr => Str} ; 
---
----- Adjective
---
---    AP = {s : Agr => Str ; isPre : Bool} ; 
---
----- Noun
---
-  N = {s : Number => Case => Str} ;
---    NP = {s : NPCase => Str ; a : Agr} ;
---    Pron = {s : NPCase => Str ; sp : Case => Str ; a : Agr} ;
---    Det = {s : Str ; sp : NPCase => Str ; n : Number ; hasNum : Bool} ;
---    Predet = {s : Str} ;
---    Ord = { s : Case => Str } ;
---    Num  = {s : Case => Str ; n : Number ; hasCard : Bool} ;
---    Card = {s : Case => Str ; n : Number} ;
---    Quant = {s : Bool => Number => Str ; sp : Bool => Number => NPCase => Str} ;
---
----- Numeral
---
---    Numeral = {s : CardOrd => Case => Str ; n : Number} ;
---    Digits  = {s : CardOrd => Case => Str ; n : Number ; tail : DTail} ;
---
----- Structural
---
---    Conj = {s1,s2 : Str ; n : Number} ;
------b    Conj = {s : Str ; n : Number} ;
------b    DConj = {s1,s2 : Str ; n : Number} ;
---    Subj = {s : Str} ;
---    Prep = {s : Str} ;
---
----- Open lexical classes, e.g. Lexicon
---
---    V, VS, VQ, VA = Verb ; -- = {s : VForm => Str} ;
---    V2, V2A, V2Q, V2S = Verb ** {c2 : Str} ;
---    V3 = Verb ** {c2, c3 : Str} ;
---    VV = {s : VVForm => Str ; typ : VVType} ;
---    V2V = Verb ** {c2,c3 : Str ; typ : VVType} ;
---
---    A = {s : AForm => Str} ;
---    A2 = {s : AForm => Str ; c2 : Str} ;
---
---    N = {s : Number => Case => Str ; g : Gender} ;
---    N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
---    N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
---    PN = {s : Case => Str ; g : Gender} ;
---
---}
+
+--2 Sentences and clauses
+-- Constructed in SentenceHun, and also in IdiomHun
+
+    S  = ResHun.Sentence ;
+    QS = SS ;
+    RS = ResHun.RP ;
+    -- relative sentence. Tense and polarity fixed,
+    -- but agreement may depend on the CN/NP it modifies.
+
+    Cl = ResHun.ClSlash ;
+    ClSlash = ResHun.ClSlash ;
+    SSlash  = ResHun.Sentence ; -- sentence missing NP; e.g. "she has looked at"
+    Imp     = {s : Number => Polarity => Str} ; -- imperative             e.g. "look at this"
+
+--2 Questions and interrogatives
+
+-- Constructed in QuestionHun.
+
+    QCl = ResHun.QClause ;
+    IComp = SS ;                -- interrogative complement of copula  e.g. "where"
+    IDet = ResHun.Determiner ;  -- interrogative determiner            e.g. "how many"
+    IQuant = ResHun.Quant ;     -- interrogative quantifier            e.g. "which"
+    IP = ResHun.NounPhrase ;    -- interrogative pronoun               e.g. "who"
+
+--2 Subord clauses and pronouns
+
+    RCl = ResHun.RClause ;
+    RP = ResHun.RP ;
+
+--2 Verb phrases
+
+-- Constructed in VerbHun.
+
+    VP = ResHun.VerbPhrase ;
+    VPSlash = ResHun.VPSlash ;
+    Comp = ResHun.VerbPhrase ;
+
+
+--2 Adjectival phrases
+
+-- Constructed in AdjectiveHun.
+
+    AP = ResHun.AdjPhrase ;
+
+
+--2 Nouns and noun phrases
+
+-- Constructed in NounHun.
+-- Many atomic noun phrases e.g. "everybody"
+-- are constructed in StructuralHun.
+-- The determiner structure is
+-- ``` Predet (QuantSg | QuantPl Num) Ord
+-- as defined in NounHun.
+
+    CN = ResHun.CNoun ;
+    NP = ResHun.NounPhrase ;
+    Pron = ResHun.Pronoun ; --Pronouns need enough info to turn it into NP or Quant.
+    Det = ResHun.Determiner ;
+    Predet = {s : Str} ;
+    Quant = ResHun.Quant ;
+    Num = ResHun.Num ;
+    Ord = {
+      s : Number => Case => Str ; -- Ord can come from AP and become AP again
+      n : Number -- Ord can come from Num, which has inherent number
+      } ;
+    DAP = ResHun.Determiner ;
+
+
+--2 Numerals
+
+-- Constructed in NumeralHun.
+
+    Card = ResHun.Numeral ;
+    Numeral = ResHun.Numeral ;
+    Digits = {s : CardOrd => Str} ;
+
+
+
+--2 Structural words
+
+-- Constructed in StructuralHun.
+    Conj = ResHun.Conj ;
+    Subj = SS ;
+    Prep = ResHun.Adposition ;
+
+
+
+--2 Words of open classes
+
+-- These are constructed in LexiconHun and in
+-- additional lexicon modules.
+
+    VS,    -- sentence-complement verb            e.g. "claim"
+    -- TODO: eventually different lincats
+    VQ,    -- question-complement verb            e.g. "wonder"
+    VA,    -- adjective-complement verb           e.g. "look"
+    V = ResHun.Verb ;
+
+    VV,    -- verb-phrase-complement verb         e.g. "want"
+    V2A,   -- verb with NP and AP complement      e.g. "paint"
+    V2V,   -- verb with NP and V complement       e.g. "cause"
+    V2S,   -- verb with NP and S complement       e.g. "tell"
+    V2Q,   -- verb with NP and Q complement       e.g. "ask"
+    V2 = ResHun.Verb2 ;
+    V3 = ResHun.Verb3 ;
+
+    A = ResHun.Adjective ;
+    A2  = ResHun.Adjective2 ;
+
+    N,
+    N2,
+    N3 = ResHun.Noun ;
+    PN = ResHun.NounPhrase ;
+
+    Adv = {s : Str ; isPre : Bool} ;
+
+linref
+   CN = linCN ;
+   NP = linNP ;
 
 }

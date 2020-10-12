@@ -1,0 +1,993 @@
+-- invoke script with command :
+-- > gf --run AllRus.gf < test_api_treebank.gfs
+gt  TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))) NoVoc) (TFullStop (PhrUtt NoPConj yes_Utt NoVoc) TEmpty) | l -treebank -unlextext
+gt  TFullStop (PhrUtt NoPConj yes_Utt NoVoc) TEmpty | l -treebank -unlextext
+gt  TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc) TEmpty | l -treebank -unlextext
+gt  TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc) TEmpty | l -treebank -unlextext
+gt  TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))) NoVoc) TEmpty | l -treebank -unlextext
+gt  TExclMark (PhrUtt NoPConj (UttImpPl PNeg (ImpVP (UseV sleep_V))) NoVoc) TEmpty | l -treebank -unlextext
+gt  TExclMark (PhrUtt NoPConj (UttImpPol PNeg (ImpVP (UseV sleep_V))) NoVoc) TEmpty | l -treebank -unlextext
+gt  TExclMark (PhrUtt NoPConj (UttImpSg PNeg (ImpVP (UseV sleep_V))) NoVoc) TEmpty | l -treebank -unlextext
+gt  TQuestMark (PhrUtt NoPConj (UttIAdv where_IAdv) NoVoc) (TFullStop (PhrUtt NoPConj (UttAdv here_Adv) NoVoc) (TQuestMark (PhrUtt NoPConj (UttIAdv when_IAdv) NoVoc) (TExclMark (PhrUtt NoPConj (UttAdv now_Adv) NoVoc) TEmpty))) | l -treebank -unlextext
+gt  TFullStop (PhrUtt NoPConj yes_Utt NoVoc) TEmpty | l -treebank -unlextext
+gt  TQuestMark (PhrUtt NoPConj yes_Utt NoVoc) TEmpty | l -treebank -unlextext
+gt  TExclMark (PhrUtt NoPConj yes_Utt NoVoc) TEmpty | l -treebank -unlextext
+gt  PhrUtt but_PConj (UttImpPl PPos (ImpVP (UseV sleep_V))) (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N))) | l -treebank -unlextext
+gt  PhrUtt but_PConj (UttImpPol PPos (ImpVP (UseV sleep_V))) (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N))) | l -treebank -unlextext
+gt  PhrUtt but_PConj (UttImpSg PPos (ImpVP (UseV sleep_V))) (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N))) | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttQS (UseQCl (TTAnt TCond ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))) NoVoc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttImpPl PPos (ImpVP (UseV sleep_V))) NoVoc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttImpPol PPos (ImpVP (UseV sleep_V))) NoVoc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttImpSg PPos (ImpVP (UseV sleep_V))) NoVoc | l -treebank -unlextext
+gt  PhrUtt (PConjConj and_Conj) (UttAdv now_Adv) NoVoc | l -treebank -unlextext
+gt  PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc | l -treebank -unlextext
+gt  PhrUtt NoPConj yes_Utt (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N))) | l -treebank -unlextext
+gt  PhrUtt NoPConj (ImpPl1 (UseV sleep_V)) NoVoc | l -treebank -unlextext
+gt  PhrUtt but_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP UseCopula here_Adv)))) NoVoc | l -treebank -unlextext
+gt  PhrUtt but_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAdv here_Adv))))) NoVoc | l -treebank -unlextext
+gt  PhrUtt otherwise_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV laugh_V)))) NoVoc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttImpPl PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))) please_Voc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttImpPol PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))) please_Voc | l -treebank -unlextext
+gt  PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))) please_Voc | l -treebank -unlextext
+gt  PhrUtt therefore_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV laugh_V)))) NoVoc | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPast ASimul) PNeg (QuestVP whoSg_IP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPast ASimul) PNeg (QuestVP whoPl_IP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttImpPl PNeg (ImpVP (UseComp (CompCN (UseN man_N)))) | l -treebank -unlextext
+gt  UttImpPl PNeg (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpPol PNeg (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpSg PNeg (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N))))) | l -treebank -unlextext
+gt  UttIP whoPl_IP | l -treebank -unlextext
+gt  UttIP whoSg_IP | l -treebank -unlextext
+gt  UttIAdv why_IAdv | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N)) | l -treebank -unlextext
+gt  UttAdv here_Adv | l -treebank -unlextext
+gt  UttVP (UseV sleep_V) | l -treebank -unlextext
+gt  UttCN (UseN beer_N) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN beer_N)) | l -treebank -unlextext
+gt  UttAP (PositA good_A) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (UseComp (CompCN (UseN man_N)))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (UseComp (CompCN (UseN man_N)))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (UseComp (CompCN (UseN man_N)))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (UseComp (CompCN (UseN man_N)))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N))))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (UseComp (CompCN (UseN man_N)))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (ConjS and_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V))))) | l -treebank -unlextext
+gt  UttS (ConjS and_Conj (ConsS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPol_Pron) (UseV walk_V)))))) | l -treebank -unlextext
+gt  UttS (ConjS and_Conj (ConsS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (UseV walk_V)))))) | l -treebank -unlextext
+gt  UttS (ConjS and_Conj (ConsS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPl_Pron) (UseV walk_V)))))) | l -treebank -unlextext
+gt  UttS (AdvS today_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a love_V2) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVV want_VV (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (PositA old_A)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (AdAP very_AdA (PositA old_A))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (PositA old_A))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (ComparA old_A (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (married_Cl (UsePron she_Pron) (UsePron he_Pron))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (AdAP very_AdA (PositA old_A)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompCN (UseN woman_N))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP UseCopula here_Adv))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAdv here_Adv)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdVVP always_AdV (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNP (DetCN (DetQuant IndefArt NumSg) (UseN house_N)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN house_N))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNP (DetCN many_Det (UseN house_N)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (CleftNP (UsePron she_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (CleftAdv here_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseV rain_V0))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseV rain_V0))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseV rain_V0))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ProgrVP (UseV rain_V0)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (ProgrVP (UseV rain_V0)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (ProgrVP (UseV rain_V0)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (UseComp (CompAP (PositA good_A))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant IndefArt NumSg)) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))))) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttVP (UseV sleep_V) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttVP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplVV want_VV (UseV sleep_V)) | l -treebank -unlextext
+gt  UttVP (ComplVS know_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttVP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttVP (ComplVA become_VA (PositA red_A)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAP (PositA old_A))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAP (ComparA old_A (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttVP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron))) | l -treebank -unlextext
+gt  UttVP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAP (AdAP very_AdA (PositA old_A)))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompCN (UseN woman_N))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttVP (AdvVP UseCopula here_Adv) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAdv here_Adv)) | l -treebank -unlextext
+gt  UttVP (AdvVP (UseV sleep_V) here_Adv) | l -treebank -unlextext
+gt  UttVP (AdVVP always_AdV (UseV sleep_V)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttVP (ReflVP (SlashV2A paint_V2A (PositA black_A))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAP (PositA warm_A))) | l -treebank -unlextext
+gt  UttAdv (PrepNP to_Prep (SelfNP (MassNP (UseN love_N)))) | l -treebank -unlextext
+gt  UttVP (ReflVP (SlashV2a love_V2)) | l -treebank -unlextext
+gt  UttVP (ReflVP (SlashV2A paint_V2A (PositA black_A))) | l -treebank -unlextext
+gt  UttVP (PassV2 love_V2) | l -treebank -unlextext
+gt  UttVP (AdvVP (PassV2 love_V2) (PrepNP by8agent_Prep (UsePron she_Pron))) | l -treebank -unlextext
+gt  UttVP (AdvVP (PassV2 love_V2) (PrepNP by8means_Prep (UsePron she_Pron))) | l -treebank -unlextext
+gt  UttVP (ComplSlash (VPSlashPrep (PassV2 love_V2) by8agent_Prep) (UsePron she_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplSlash (VPSlashPrep (PassV2 love_V2) by8means_Prep) (UsePron she_Pron)) | l -treebank -unlextext
+gt  UttVP (ProgrVP (UseV sleep_V)) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAP (PositA old_A))) | l -treebank -unlextext
+gt  UttVP (UseComp (CompNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N)))) | l -treebank -unlextext
+gt  UttVP (AdvVP UseCopula here_Adv) | l -treebank -unlextext
+gt  UttVP (UseComp (CompAdv here_Adv)) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (UseComp (CompAP (PositA important_A))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UseComp (CompAP (PositA important_A))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedVP (UseV sleep_V)) (UseComp (CompAP (PositA important_A))))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (AdvVP (UseV come_V) (PrepNP to_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (ComplSlash (VPSlashPrep (UseV come_V) to_Prep) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (AdvVP (UseV come_V) (PrepNP to_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (ComplSlash (VPSlashPrep (UseV come_V) to_Prep) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (AdvVP (UseV come_V) (PrepNP to_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (ComplSlash (VPSlashPrep (UseV come_V) to_Prep) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (UseV come_V)) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (UseV come_V)) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (UseV come_V)) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (DetNP (DetQuant DefArt NumSg)))) | l -treebank -unlextext
+gt  UttImpPl PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (DetNP (DetQuant DefArt NumSg)))) | l -treebank -unlextext
+gt  UttImpPol PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (DetNP (DetQuant DefArt NumSg)))) | l -treebank -unlextext
+gt  UttImpSg PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant NumSg) (AdjCN (PositA old_A) (UseN man_N))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA old_A) (UseN man_N))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA old_A) (UseN man_N))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA old_A) (UseN man_N))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt (NumCard (NumDigits (IIDig D_5 (IDig D_1))))) (AdjCN (PositA old_A) (UseN man_N))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt (NumCard (NumDigits (IIDig D_5 (IDig D_1))))) (UseN man_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (AdjCN (PositA old_A) (UseN man_N))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN man_N)) | l -treebank -unlextext
+gt  UttNP (UsePN paris_PN) | l -treebank -unlextext
+gt  UttNP (UsePron we_Pron) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant NumSg)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA old_A) (UseN beer_N)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA old_A) (UseN beer_N))) | l -treebank -unlextext
+gt  UttCN (UseN beer_N) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN beer_N)) | l -treebank -unlextext
+gt  UttNP (PredetNP only_Predet (DetCN (DetQuant this_Quant NumSg) (UseN woman_N))) | l -treebank -unlextext
+gt  UttNP (PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2) | l -treebank -unlextext
+gt  UttNP (AdvNP (UsePN paris_PN) today_Adv) | l -treebank -unlextext
+gt  UttNP (ConjNP or_Conj (BaseNP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UsePN john_PN))) | l -treebank -unlextext
+gt  UttNP (ConjNP or_Conj (ConsNP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (BaseNP (UsePN john_PN) (UsePron i_Pron)))) | l -treebank -unlextext
+gt  UttNP (UsePron i_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPl_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPol_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youSg_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPl_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPol_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youSg_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron he_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron she_Pron) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant DefArt NumSg)) | l -treebank -unlextext
+gt  UttNP (UsePron it_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron we_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPl_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPol_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youSg_Pron) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant DefArt NumPl)) | l -treebank -unlextext
+gt  UttNP (UsePron they_Pron) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant NumSg)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant NumSg)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant that_Quant NumSg)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant NumPl)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant that_Quant NumPl)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant NumPl)) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant (PossPron i_Pron) NumSg)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant (PossPron i_Pron) NumPl)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant (PossPron i_Pron) (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant DefArt NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant DefArt NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant DefArt NumPl) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt NumPl) (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant that_Quant NumSg) (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant NumPl) (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant that_Quant NumPl) (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant DefArt NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant IndefArt NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot1 n2)))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant (NumCard (NumDigits (IIDig D_2 (IDig D_1)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant (NumCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant this_Quant (NumCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7))))))))) | l -treebank -unlextext
+gt  UttAP (AdjOrd (OrdSuperl small_A)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl small_A))) | l -treebank -unlextext
+gt  UttCard (AdNum (AdnCAdv more_CAdv) (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum (AdnCAdv more_CAdv) (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot2 (pot0 n9))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot2 (pot0 n9)))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot2plus (pot0 n9) pot111)))) | l -treebank -unlextext
+gt  UttNP (ConjNP and_Conj (BaseNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot2 (pot0 n9)))))))) (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 pot111))))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot2plus (pot0 n9) pot111))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot1to19 n3))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot1to19 n3)))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt NumSg)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n4)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n4))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n6)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n6))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))))) | l -treebank -unlextext
+gt  UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n9)))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n9))))))))) | l -treebank -unlextext
+gt  UttCard (NumDigits (IDig D_4)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumDigits (IDig D_4))))) | l -treebank -unlextext
+gt  UttCard (NumDigits (IIDig D_1 (IIDig D_2 (IIDig D_3 (IIDig D_3 (IIDig D_4 (IIDig D_8 (IDig D_6)))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (NumDigits (IIDig D_1 (IIDig D_2 (IIDig D_3 (IIDig D_3 (IIDig D_4 (IIDig D_8 (IDig D_6))))))))))) | l -treebank -unlextext
+gt  UttCN (UseN house_N) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN house_N)) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN2 mother_N2) (PrepNP part_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N)))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN2 mother_N2) (PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N)))) | l -treebank -unlextext
+gt  UttCN (ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN king_N))) | l -treebank -unlextext
+gt  UttCN (PartNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N))) | l -treebank -unlextext
+gt  UttCN (PossNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN2 mother_N2)) (PrepNP part_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N)))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN2 mother_N2)) (PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN2 mother_N2) (PrepNP part_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN2 mother_N2) (PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN king_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (PartNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (PossNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N)))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (AdvCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (AdvCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (AdvCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (AdvCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (AdvCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (AdvCN (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (ComplN2 (Use2N3 distance_N3) (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttCN (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (ComplN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (UsePN paris_PN)) | l -treebank -unlextext
+gt  UttCN (UseN2 (ComplN3 distance_N3 (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttCN (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN2 (Use2N3 distance_N3))) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN2 (Use2N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN2 (Use3N3 distance_N3))) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN2 (Use3N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (AdvNP (MassNP (UseN2 (Use2N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (AdvNP (MassNP (UseN2 (Use3N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N))))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N))))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N))))) (PrepNP to_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ComplN2 (Use2N3 distance_N3) (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ComplN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN2 (ComplN3 distance_N3 (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))) | l -treebank -unlextext
+gt  UttCN (UseN2 mother_N2) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN2 mother_N2)) | l -treebank -unlextext
+gt  UttCN (UseN2 (Use2N3 distance_N3)) | l -treebank -unlextext
+gt  UttCN (UseN2 (Use3N3 distance_N3)) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN2 (Use2N3 distance_N3))) | l -treebank -unlextext
+gt  UttNP (MassNP (UseN2 (Use3N3 distance_N3))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA big_A) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA big_A) (UseN house_N))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA big_A) (AdjCN (PositA blue_A) (UseN house_N))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA big_A) (AdjCN (PositA blue_A) (UseN house_N)))) | l -treebank -unlextext
+gt  UttCN (AdjCN (AdAP very_AdA (PositA big_A)) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (AdAP very_AdA (PositA big_A)) (UseN house_N))) | l -treebank -unlextext
+gt  UttCN (AdjCN (AdAP very_AdA (PositA big_A)) (AdjCN (PositA blue_A) (UseN house_N))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (AdAP very_AdA (PositA big_A)) (AdjCN (PositA blue_A) (UseN house_N)))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA old_A) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (AdjCN (PositA old_A) (UseN man_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))) | l -treebank -unlextext
+gt  UttCN (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA old_A) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (AdjCN (PositA old_A) (UseN man_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN house_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA big_A) (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (AdjCN (PositA big_A) (UseN house_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (AdjCN (PositA big_A) (UseN house_N))) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA big_A) (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (AdjCN (PositA big_A) (UseN house_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN rule_N) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN rule_N) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN rule_N)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN rule_N) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN rule_N) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (ApposCN (ApposCN (UseN rule_N) (DetNP (DetQuant that_Quant NumSg))) (UsePron she_Pron))) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttCN (AdvCN (UseN question_N) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN question_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (UseN question_N)) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (UseN question_N) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN question_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttCN (ApposCN (UseN king_N) (UsePN john_PN)) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (UseN king_N) (UsePN john_PN))) | l -treebank -unlextext
+gt  UttCN (AdjCN (PositA old_A) (ApposCN (UseN king_N) (UsePN john_PN))) | l -treebank -unlextext
+gt  UttCN (ApposCN (AdjCN (PositA old_A) (UseN king_N)) (UsePN john_PN)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (PositA old_A) (ApposCN (UseN king_N) (UsePN john_PN)))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (AdjCN (PositA old_A) (UseN king_N)) (UsePN john_PN))) | l -treebank -unlextext
+gt  UttAP (PositA warm_A) | l -treebank -unlextext
+gt  UttAP (ComparA warm_A (UsePN paris_PN)) | l -treebank -unlextext
+gt  UttAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron she_Pron))) | l -treebank -unlextext
+gt  UttAP (ComplA2 married_A2 (UsePron she_Pron)) | l -treebank -unlextext
+gt  UttAP (UseA2 married_A2) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAP (PositA good_A))) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseComp (CompAP (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseComp (CompAP (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (AdvVP (UseComp (CompAP (PositA good_A))) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseComp (CompAP (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseComp (CompAP (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseComp (CompAP (PositA good_A))) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (weather_adjCl (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (weather_adjCl (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseComp (CompAP (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseComp (CompAP (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (weather_adjCl (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (SentAP (PositA ready_A) (EmbedVP (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (SentAP (PositA ready_A) (EmbedVP (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttAP (AdAP very_AdA (PositA old_A)) | l -treebank -unlextext
+gt  UttAP (AdAP very_AdA (AdAP very_AdA (PositA old_A))) | l -treebank -unlextext
+gt  UttAP (ConjAP or_Conj (BaseAP (PositA old_A) (PositA young_A))) | l -treebank -unlextext
+gt  UttAP (ConjAP and_Conj (ConsAP (PositA old_A) (BaseAP (PositA big_A) (PositA warm_A)))) | l -treebank -unlextext
+gt  UttAP (AdjOrd (OrdSuperl old_A)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl old_A))) | l -treebank -unlextext
+gt  UttAP (CAdvAP as_CAdv (PositA old_A) (UsePron she_Pron)) | l -treebank -unlextext
+gt  UttAP (ReflA2 married_A2) | l -treebank -unlextext
+gt  UttAP (UseComparA warm_A) | l -treebank -unlextext
+gt  UttAdv (PositAdvAdj warm_A) | l -treebank -unlextext
+gt  UttAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N))) | l -treebank -unlextext
+gt  UttAdv (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttAdv (ComparAdvAdj more_CAdv warm_A (UsePron he_Pron)) | l -treebank -unlextext
+gt  UttAdv (ComparAdvAdjS more_CAdv warm_A (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseV run_V)))) | l -treebank -unlextext
+gt  UttAdv (AdAdv very_AdA (PositAdvAdj warm_A)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv and_Conj (BaseAdv here_Adv now_Adv)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv and_Conj (ConsAdv (PrepNP with_Prep (UsePron she_Pron)) (BaseAdv here_Adv now_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoSg_IP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoPl_IP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseV sleep_V) here_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron she_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron she_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron she_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (DetNP (DetQuant DefArt NumSg))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (UsePron it_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (PositA old_A)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (AdAP very_AdA (PositA old_A))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (PositA old_A))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComparA old_A (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdAP very_AdA (PositA old_A)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (UseN woman_N))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP UseCopula here_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAdv here_Adv)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdVVP always_AdV (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoPl_IP) (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoSg_IP) (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron she_Pron) UseCopula))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIAdv where_IAdv) (UsePron she_Pron))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant this_Quant NumSg) (UseN man_N)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant this_Quant NumSg) (UseN man_N)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (ExistIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (AdvVP UseCopula there7to_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (AdvVP UseCopula there_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (UseComp (CompAdv there7to_Adv)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (UseComp (CompAdv there_Adv)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (UsePron she_Pron))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA big_A) (UseN city_N))) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN city_N)) | l -treebank -unlextext
+gt  UttIP (IdetIP (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant NumSg) (AdjCN (PositA big_A) (UseN city_N))) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA big_A) (UseN city_N))) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) | l -treebank -unlextext
+gt  UttIP (AdvIP whoPl_IP (PrepNP in_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttIP (AdvIP whoSg_IP (PrepNP in_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttIP whatPl_IP | l -treebank -unlextext
+gt  UttIP whatSg_IP | l -treebank -unlextext
+gt  UttIP whoPl_IP | l -treebank -unlextext
+gt  UttIP whoSg_IP | l -treebank -unlextext
+gt  UttIAdv (PrepIP in_Prep (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N))) | l -treebank -unlextext
+gt  UttIAdv (AdvIAdv where_IAdv (PrepNP in_Prep (UsePN paris_PN))) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant NumPl) (UseN house_N)) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant NumPl) (UseN house_N)) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TCond AAnter) PNeg (RelVP IdRP (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoSg_IP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoPl_IP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TCond AAnter) PNeg (RelVP IdRP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoSg_IP (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoPl_IP (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (ConjRS or_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (ConjRS or_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))) here_Adv) | l -treebank -unlextext
+gt  UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))) here_Adv) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseV sleep_V) here_Adv)))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseV sleep_V) here_Adv))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))) here_Adv) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) here_Adv) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))) here_Adv)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))) here_Adv)) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseV sleep_V) here_Adv))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseV sleep_V) here_Adv)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVV want_VV (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVV want_VV (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (PositA old_A))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (PositA old_A)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (PositA old_A)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (PositA old_A))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (AdAP very_AdA (PositA old_A)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (AdAP very_AdA (PositA old_A))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (AdAP very_AdA (PositA old_A))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (AdAP very_AdA (PositA old_A)))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (PositA old_A)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (PositA old_A))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (PositA old_A))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (PositA old_A)))))))) | l -treebank -unlextext
+gt  UttCN (AdjCN (ComparA old_A (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))) | l -treebank -unlextext
+gt  UttCN (AdjCN (ComparA old_A (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComparA old_A (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComparA old_A (UsePron he_Pron)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (ComparA old_A (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (ComparA old_A (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComparA old_A (UsePron he_Pron)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComparA old_A (UsePron he_Pron))))))))) | l -treebank -unlextext
+gt  UttCN (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))) | l -treebank -unlextext
+gt  UttCN (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))) | l -treebank -unlextext
+gt  UttCN (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))) | l -treebank -unlextext
+gt  UttCN (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (UseA2 married_A2)))))) (PrepNP to_Prep (UsePron he_Pron))) | l -treebank -unlextext
+gt  UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (UseA2 married_A2))))))) (PrepNP to_Prep (UsePron he_Pron))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron)))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron)))))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (UseA2 married_A2))))))) (PrepNP to_Prep (UsePron he_Pron))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (UseA2 married_A2)))))))) (PrepNP to_Prep (UsePron he_Pron))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (UseA2 married_A2)))))) (PrepNP to_Prep (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (UseA2 married_A2))))))) (PrepNP to_Prep (UsePron he_Pron)))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron)))))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron))))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdAP very_AdA (PositA old_A))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdAP very_AdA (PositA old_A)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdAP very_AdA (PositA old_A)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdAP very_AdA (PositA old_A))))))))) | l -treebank -unlextext
+gt  UttCN (ApposCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) | l -treebank -unlextext
+gt  UttCN (ApposCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))))) | l -treebank -unlextext
+gt  UttCN (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) | l -treebank -unlextext
+gt  UttCN (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (UseN woman_N)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (UseN woman_N))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (UseN woman_N))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))))))) | l -treebank -unlextext
+gt  UttCN (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttCN (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))) | l -treebank -unlextext
+gt  UttNP (MassNP (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N)))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N))))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) here_Adv) | l -treebank -unlextext
+gt  UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) here_Adv) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP UseCopula here_Adv)))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAdv here_Adv))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP UseCopula here_Adv))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAdv here_Adv)))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))) here_Adv) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))) here_Adv) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) here_Adv)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) here_Adv)) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP UseCopula here_Adv))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAdv here_Adv)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP UseCopula here_Adv)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAdv here_Adv))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdVVP always_AdV (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdVVP always_AdV (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdVVP always_AdV (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdVVP always_AdV (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))))) | l -treebank -unlextext
+gt  UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))) today_Adv) | l -treebank -unlextext
+gt  UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv) | l -treebank -unlextext
+gt  UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))))) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) today_Adv) | l -treebank -unlextext
+gt  UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) today_Adv) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))) today_Adv)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv)) | l -treebank -unlextext
+gt  UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv)) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A)))))) | l -treebank -unlextext
+gt  UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A)))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A))))))) | l -treebank -unlextext
+gt  UttNP (MassNP (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A))))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoPl_IP) (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoSg_IP) (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a see_V2)) today_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a see_V2) today_Adv)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a see_V2)) today_Adv))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a see_V2) today_Adv)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVS (UsePron she_Pron) know_VS (UseSlash (TTAnt TPast AAnter) PNeg (SlashVP (UsePron we_Pron) (SlashV2a see_V2)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVS (UsePron she_Pron) know_VS (UseSlash (TTAnt TPast AAnter) PNeg (SlashVP (UsePron we_Pron) (SlashV2a see_V2)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2)))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (UsePron it_Pron))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg)))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (UsePron it_Pron))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2A paint_V2A (PositA red_A))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2A paint_V2A (PositA red_A))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron i_Pron) (UseV sleep_V)))))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron i_Pron) (UseV sleep_V)))))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2V beg_V2V (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2V beg_V2V (UseV sleep_V))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2VNP beg_V2V (UsePron i_Pron) (SlashV2a see_V2))))) | l -treebank -unlextext
+gt  UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2VNP beg_V2V (UsePron i_Pron) (SlashV2a see_V2))))) | l -treebank -unlextext
+gt  UttAdv (PrepNP above_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP above_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP after_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP after_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttNP (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN man_N))) | l -treebank -unlextext
+gt  UttAP (AdAP almost_AdA (PositA red_A)) | l -treebank -unlextext
+gt  UttCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))) | l -treebank -unlextext
+gt  UttAdv (SubjS although_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdVVP always_AdV (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttAdv (ConjAdv and_Conj (BaseAdv here_Adv now_Adv)) | l -treebank -unlextext
+gt  UttAdv (SubjS because_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttAdv (PrepNP before_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP before_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP behind_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP behind_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP between_Prep (ConjNP and_Conj (BaseNP (UsePron youPl_Pron) (UsePron i_Pron)))) | l -treebank -unlextext
+gt  UttAdv (PrepNP between_Prep (ConjNP and_Conj (BaseNP (UsePron youPol_Pron) (UsePron i_Pron)))) | l -treebank -unlextext
+gt  UttAdv (PrepNP between_Prep (ConjNP and_Conj (BaseNP (UsePron youSg_Pron) (UsePron i_Pron)))) | l -treebank -unlextext
+gt  UttAdv (ConjAdv both7and_DConj (BaseAdv here_Adv there7to_Adv)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv both7and_DConj (BaseAdv here_Adv there_Adv)) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8agent_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8agent_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8means_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8means_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8agent_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8agent_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8means_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP by8means_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttVP (ComplVV can8know_VV (UseV sleep_V)) | l -treebank -unlextext
+gt  UttVP (ComplVV can_VV (UseV sleep_V)) | l -treebank -unlextext
+gt  UttVP (ComplVV can8know_VV (UseV sleep_V)) | l -treebank -unlextext
+gt  UttVP (ComplVV can_VV (UseV sleep_V)) | l -treebank -unlextext
+gt  UttAdv (PrepNP during_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP during_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv either7or_DConj (BaseAdv here_Adv there7to_Adv)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv either7or_DConj (BaseAdv here_Adv there_Adv)) | l -treebank -unlextext
+gt  UttNP (DetCN every_Det (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP everybody_NP | l -treebank -unlextext
+gt  UttNP everything_NP | l -treebank -unlextext
+gt  UttAdv everywhere_Adv | l -treebank -unlextext
+gt  UttNP (DetCN few_Det (UseN woman_N)) | l -treebank -unlextext
+gt  UttAdv (PrepNP for_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP for_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP from_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP from_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttNP (UsePron he_Pron) | l -treebank -unlextext
+gt  UttAdv here_Adv | l -treebank -unlextext
+gt  UttAdv here7to_Adv | l -treebank -unlextext
+gt  UttAdv here7from_Adv | l -treebank -unlextext
+gt  UttIAdv how_IAdv | l -treebank -unlextext
+gt  UttIP (IdetCN how8many_IDet (UseN house_N)) | l -treebank -unlextext
+gt  UttIAdv how8much_IAdv | l -treebank -unlextext
+gt  UttNP (UsePron i_Pron) | l -treebank -unlextext
+gt  UttAdv (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttAdv (PrepNP in8front_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP in8front_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP in_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP in_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant DefArt NumSg)) | l -treebank -unlextext
+gt  UttNP (UsePron it_Pron) | l -treebank -unlextext
+gt  UttAP (CAdvAP less_CAdv (PositA warm_A) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))) | l -treebank -unlextext
+gt  UttNP (DetCN many_Det (UseN house_N)) | l -treebank -unlextext
+gt  UttAP (CAdvAP more_CAdv (PositA warm_A) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP most_Predet (DetCN (DetQuant IndefArt NumPl) (UseN man_N))) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttNP (DetCN much_Det (UseN wine_N)) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV must_VV (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP only_Predet (DetCN (DetQuant IndefArt NumPl) (UseN man_N))) (UseV sleep_V))) | l -treebank -unlextext
+gt  UttAdv (PrepNP on_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP on_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv or_Conj (BaseAdv here_Adv there7to_Adv)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv or_Conj (BaseAdv here_Adv there_Adv)) | l -treebank -unlextext
+gt  UttAdv (PrepNP part_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP part_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP possess_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP possess_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP part_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP part_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP possess_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP possess_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttNP (UsePron she_Pron) | l -treebank -unlextext
+gt  UttAP (AdAP so_AdA (PositA warm_A)) | l -treebank -unlextext
+gt  UttNP (DetCN someSg_Det (UseN wine_N)) | l -treebank -unlextext
+gt  UttNP (DetCN somePl_Det (UseN woman_N)) | l -treebank -unlextext
+gt  UttNP somebody_NP | l -treebank -unlextext
+gt  UttNP something_NP | l -treebank -unlextext
+gt  UttAdv somewhere_Adv | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant that_Quant NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttAdv (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttAdv there7to_Adv | l -treebank -unlextext
+gt  UttAdv there_Adv | l -treebank -unlextext
+gt  UttAdv there7to_Adv | l -treebank -unlextext
+gt  UttAdv there_Adv | l -treebank -unlextext
+gt  UttAdv there7from_Adv | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant DefArt NumPl)) | l -treebank -unlextext
+gt  UttNP (UsePron they_Pron) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant this_Quant NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttAdv (PrepNP through_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP through_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP to_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP to_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAP (AdAP too_AdA (PositA warm_A)) | l -treebank -unlextext
+gt  UttAdv (PrepNP under_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP under_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAP (AdAP very_AdA (PositA warm_A)) | l -treebank -unlextext
+gt  UttVP (ComplVV want_VV (UseV sleep_V)) | l -treebank -unlextext
+gt  UttNP (UsePron we_Pron) | l -treebank -unlextext
+gt  UttIP whatPl_IP | l -treebank -unlextext
+gt  UttIP whatSg_IP | l -treebank -unlextext
+gt  UttIP whatPl_IP | l -treebank -unlextext
+gt  UttIP whatSg_IP | l -treebank -unlextext
+gt  UttIAdv when_IAdv | l -treebank -unlextext
+gt  UttAdv (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) | l -treebank -unlextext
+gt  UttIAdv where_IAdv | l -treebank -unlextext
+gt  UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttIP whoPl_IP | l -treebank -unlextext
+gt  UttIP whoSg_IP | l -treebank -unlextext
+gt  UttIP whoPl_IP | l -treebank -unlextext
+gt  UttIP whoSg_IP | l -treebank -unlextext
+gt  UttIAdv why_IAdv | l -treebank -unlextext
+gt  UttAdv (PrepNP with_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP with_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAdv (PrepNP without_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP without_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  no_Utt | l -treebank -unlextext
+gt  yes_Utt | l -treebank -unlextext
+gt  UttNP (UsePron youPl_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPol_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youSg_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPl_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPol_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youSg_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPl_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youPol_Pron) | l -treebank -unlextext
+gt  UttNP (UsePron youSg_Pron) | l -treebank -unlextext
+gt  UttNP (DetCN (DetQuant no_Quant NumSg) (UseN house_N)) | l -treebank -unlextext
+gt  UttNP (PredetNP not_Predet everybody_NP) | l -treebank -unlextext
+gt  UttAdv (ConjAdv if_then_Conj (BaseAdv here_Adv there7to_Adv)) | l -treebank -unlextext
+gt  UttAdv (ConjAdv if_then_Conj (BaseAdv here_Adv there_Adv)) | l -treebank -unlextext
+gt  UttCard (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))) | l -treebank -unlextext
+gt  UttCard (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))) | l -treebank -unlextext
+gt  UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))) | l -treebank -unlextext
+gt  UttNP nobody_NP | l -treebank -unlextext
+gt  UttNP nothing_NP | l -treebank -unlextext
+gt  UttAdv (PrepNP except_Prep (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttAdv (PrepNP except_Prep (UsePron it_Pron)) | l -treebank -unlextext
+gt  UttAP (CAdvAP as_CAdv (PositA warm_A) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2a have_V2) (DetNP (DetQuant DefArt NumSg))) | l -treebank -unlextext
+gt  UttVP (ComplSlash (SlashV2a have_V2) (UsePron it_Pron)) | l -treebank -unlextext

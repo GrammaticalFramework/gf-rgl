@@ -15,25 +15,25 @@ resource MorphoFin = ResFin ** open Prelude in {
 
   oper
 
-  dLujuus : Str -> NForms = \lujuus -> 
+  dLujuus : Str -> NForms = \lujuus ->
     let
       lujuu = init lujuus ;
       lujuuksi = lujuu + "ksi" ;
       a = vowHarmony (last lujuu) ;
     in nForms10
-      lujuus (lujuu + "den") (lujuu + "tt" + a) 
+      lujuus (lujuu + "den") (lujuu + "tt" + a)
       (lujuu + "ten" + a) (lujuu + "teen")
-      (lujuuksi + "en") (lujuuksi + a) 
-      (lujuuksi + "n" + a) (lujuuksi + "ss" + a) (lujuuksi + "in") ; 
+      (lujuuksi + "en") (lujuuksi + a)
+      (lujuuksi + "n" + a) (lujuuksi + "ss" + a) (lujuuksi + "in") ;
 
   dNainen : Str -> NForms = \nainen ->
-    let 
+    let
       a = vowHarmony nainen ;
       nais = Predef.tk 3 nainen + "s"
     in nForms11
       nainen (nais + "en") (nais + "t" + a) (nais + "en" + a) (nais + "een")
-      (nais + "ten") (nais + "i" + a) 
-      (nais + "in" + a) (nais + "iss" + a) (nais + "iin") nais ; 
+      (nais + "ten") (nais + "i" + a)
+      (nais + "in" + a) (nais + "iss" + a) (nais + "iin") nais ;
 
   dPaluu : Str -> NForms = \paluu ->
     let
@@ -42,7 +42,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       u = last paluu ;
     in nForms10
       paluu (paluu + "n") (paluu + "t" + a) (paluu + "n" + a)  (paluu + "seen")
-      (palui + "den") (palui + "t" + a) 
+      (palui + "den") (palui + "t" + a)
       (palui + "n" + a) (palui + "ss" + a) (palui + "siin") ;
 
   dPuu : Str -> NForms = \puu ->
@@ -52,7 +52,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       u = last puu ;
     in nForms10
       puu (puu + "n") (puu + "t" + a) (puu + "n" + a)  (puu + "h" + u + "n")
-      (pui + "den") (pui + "t" + a) 
+      (pui + "den") (pui + "t" + a)
       (pui + "n" + a) (pui + "ss" + a) (pui + "hin") ;
 
   dSuo : Str -> NForms = \suo ->
@@ -62,7 +62,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       soi = Predef.tk 2 suo + o + "i" ;
     in nForms10
       suo (suo + "n") (suo + "t" + a) (suo + "n" + a)  (suo + "h" + o + "n")
-      (soi + "den") (soi + "t" + a) 
+      (soi + "den") (soi + "t" + a)
       (soi + "n" + a) (soi + "ss" + a) (soi + "hin") ;
 
   dKorkea : Str -> NForms = \korkea ->
@@ -70,10 +70,10 @@ resource MorphoFin = ResFin ** open Prelude in {
       a = last korkea ;
       korke = init korkea ;
     in nForms10
-      korkea (korkea + "n") (korkea + a) 
+      korkea (korkea + "n") (korkea + a)
       (korkea + "n" + a)  (korkea + a + "n")
-      (korke + "iden") (korke + "it" + a) 
-      (korke + "in" + a) (korke + "iss" + a) 
+      (korke + "iden") (korke + "it" + a)
+      (korke + "in" + a) (korke + "iss" + a)
       (korke + "isiin") ; --- NSSK: korkeihin
 
   dKaunis : Str -> NForms = \kaunis ->
@@ -81,10 +81,10 @@ resource MorphoFin = ResFin ** open Prelude in {
       a = vowHarmony kaunis ;
       kaunii = init kaunis + "i" ;
     in nForms10
-      kaunis (kaunii + "n") (kaunis + "t" + a) 
+      kaunis (kaunii + "n") (kaunis + "t" + a)
       (kaunii + "n" + a)  (kaunii + "seen")
-      (kaunii + "den") (kaunii + "t" + a) 
-      (kaunii + "n" + a) (kaunii + "ss" + a) 
+      (kaunii + "den") (kaunii + "t" + a)
+      (kaunii + "n" + a) (kaunii + "ss" + a)
       (kaunii + "siin") ;
 
   dLiitin : (_,_ : Str) -> NForms = \liitin,liittimen ->
@@ -92,21 +92,32 @@ resource MorphoFin = ResFin ** open Prelude in {
       a = vowHarmony liitin ;
       liittim = Predef.tk 2 liittimen ;
     in nForms10
-      liitin (liittim + "en") (liitin + "t" + a) 
+      liitin (liittim + "en") (liitin + "t" + a)
       (liittim + "en" + a)  (liittim + "een")
-      (liittim + "ien") (liittim + "i" + a) 
-      (liittim + "in" + a) (liittim + "iss" + a) 
+      (liittim + "ien") (liittim + "i" + a)
+      (liittim + "in" + a) (liittim + "iss" + a)
       (liittim + "iin") ;
+
+  dLämmin : (_,_ : Str) -> NForms = \lämmin,lämpimän ->
+    let                   -- NB. for sisin~sisimmän, use dSuurin
+      a = vowHarmony lämmin ;
+      lämpim = Predef.tk 2 lämpimän ;
+    in nForms10
+      lämmin lämpimän (lämmin + "t" + a)
+      (lämpim + a + "n" + a)  (lämpim + a + a + "n")
+      (lämpim + "ien") (lämpim + "i" + a)
+      (lämpim + "in" + a) (lämpim + "iss" + a)
+      (lämpim + "iin") ;
 
   dOnneton : Str -> NForms = \onneton ->
     let
       a = vowHarmony onneton ;
       onnettom = Predef.tk 2 onneton + "t" + last (init onneton) + "m" ;
     in nForms10
-      onneton (onnettom + a + "n") (onneton + "t" + a) 
+      onneton (onnettom + a + "n") (onneton + "t" + a)
       (onnettom + a + "n" + a)  (onnettom + a + a + "n")
-      (onnettom + "ien") (onnettom + "i" + a) 
-      (onnettom + "in" + a) (onnettom + "iss" + a) 
+      (onnettom + "ien") (onnettom + "i" + a)
+      (onnettom + "in" + a) (onnettom + "iss" + a)
       (onnettom + "iin") ;
 
   -- 2-syllable a/ä, o/ö, u/y
@@ -118,7 +129,7 @@ resource MorphoFin = ResFin ** open Prelude in {
         uko = init ukon ;
         uk  = init uko ;
         ukkoja = case <ukko : Str> of {
-          _ + "ä" =>                        -- kylä,kyliä,kylien,kylissä,kyliin 
+          _ + "ä" =>                        -- kylä,kyliä,kylien,kylissä,kyliin
              <ukk + "iä", ukk + "ien", ukk, uk, ukk + "iin"> ;
           _ + ("au" | "eu") + _ + "a" =>    -- kauhojen,seurojen
              <ukk + "oja",ukk + "ojen",ukk + "o", uk + "o", ukk + "oihin"> ;
@@ -129,12 +140,12 @@ resource MorphoFin = ResFin ** open Prelude in {
           _   =>                            -- suku,sukuja,sukujen,-uissa,-uihin
              <ukko + "j" + a,ukko + "jen",ukko, uko, ukko + "ihin">
         } ;
-        ukkoina = ukkoja.p3 + "in" + a ; 
+        ukkoina = ukkoja.p3 + "in" + a ;
         ukoissa = ukkoja.p4 + "iss" + a ;
       in nForms10
         ukko ukon (ukko + a) (ukko + "n" + a) (ukko + o + "n")
         ukkoja.p2 ukkoja.p1
-        ukkoina ukoissa ukkoja.p5 ; 
+        ukkoina ukoissa ukkoja.p5 ;
 
   -- 3-syllable a/ä/o/ö
   dSilakka : (_,_,_ : Str) -> NForms = \silakka,silakan,silakoita ->
@@ -155,14 +166,14 @@ resource MorphoFin = ResFin ** open Prelude in {
           <silakka+a,silakk+O+"jen",silakk+O, silak+O, silakk +O+ "ihin"> ;
         _ + O@("o" | "ö" | "u" | "y" | "e") + ("ita" | "itä") =>      -- silakoita
           <silakkaa, silak+O+"iden",silakk+O, silak+O, silakk +O+ "ihin"> ;
-        _   => Predef.error silakoita                    
+        _   => Predef.error silakoita
         } ;
-      silakkoina = silakoiden.p3 + "in" + a ; 
+      silakkoina = silakoiden.p3 + "in" + a ;
       silakoissa = silakoiden.p4 + "iss" + a ;
     in nForms10
       silakka silakan silakoiden.p1 (silakka + "n" + a) (silakka + o + "n")
       silakoiden.p2 silakoita
-      silakkoina silakoissa silakoiden.p5 ; 
+      silakkoina silakoissa silakoiden.p5 ;
 
    dArpi : (_,_ : Str) -> NForms = \arpi,arven ->
       let
@@ -178,16 +189,16 @@ resource MorphoFin = ResFin ** open Prelude in {
                <arp + "t" + a,arp + "ien",arpi, arp>
             } ;
          "r" | "n" =>                                -- suurta,suurten
-               <arp + "t" + a,arp + "ten",arpi, arp>; 
+               <arp + "t" + a,arp + "ten",arpi, arp>;
          "l" | "h" =>                           -- tuulta,tuulien
-               <arp + "t" + a,arp + "ien",arpi, arp>; 
+               <arp + "t" + a,arp + "ien",arpi, arp>;
           _   =>                                -- arpea,arpien,arvissa
-               <arp + "e" + a,arp + "ien",arv+"i",arp>   
+               <arp + "e" + a,arp + "ien",arv+"i",arp>
           } ;                                   ---- pieni,pientä; uni,unta
         in nForms10
             arpi arven arpe.p1 (arpe.p4 + "en" + a) (arpe.p4 + "een")
             arpe.p2 (arpi + a)
-            (arp + "in" + a) (arpe.p3 + "ss" + a) (arp + "iin") ; 
+            (arp + "in" + a) (arpe.p3 + "ss" + a) (arp + "iin") ;
 
   dRae : (_,_ : Str) -> NForms = \rae,rakeen ->
       let
@@ -195,17 +206,17 @@ resource MorphoFin = ResFin ** open Prelude in {
         rakee  = init rakeen ;
         rakei  = init rakee + "i" ;
         raetta = case <rae : Str> of {
-          _ + "e" => 
+          _ + "e" =>
             <rae + "tt" + a, rakee + "seen"> ;  -- raetta,rakeeseen
-          _ + "u" => 
+          _ + "u" =>
             <rae + "tt" + a, rakee + "seen"> ;  -- kiiru, kiiruuseen
-          _ + "i" => 
+          _ + "i" =>
             <rae + "tt" + a, rakee + "seen"> ;  -- ori, oriin
-          _ + "s" => 
+          _ + "s" =>
             <rae + "t" + a,  rakee + "seen"> ;  -- rengasta,renkaaseen
-          _ + "t" => 
+          _ + "t" =>
             <rae + "t" + a,  rakee + "en"> ;    -- olutta,olueen
-          _ + "r" => 
+          _ + "r" =>
             <rae + "t" + a,  rakee + "en"> ;    -- sisarta,sisareen
           _ => Predef.error (["expected ending e/t/s/r, found"] ++ rae)
           } ;
@@ -222,8 +233,8 @@ resource MorphoFin = ResFin ** open Prelude in {
       paate = init paati + "e" ;
     in nForms10
       paatti paatin (paatti + a) (paatti + "n" + a) (paatti + "in")
-      (paatti + "en") (paatte + "j" + a) 
-      (paatte + "in" + a) (paate + "iss" + a) (paatte + "ihin") ; 
+      (paatti + "en") (paatte + "j" + a)
+      (paatte + "in" + a) (paate + "iss" + a) (paatte + "ihin") ;
 
   dTohtori : (_ : Str) -> NForms = \tohtori ->
     let
@@ -231,24 +242,24 @@ resource MorphoFin = ResFin ** open Prelude in {
       tohtor = init tohtori ;
     in nForms10
       tohtori (tohtori+"n") (tohtori + a) (tohtori + "n" + a) (tohtori + "in")
-      (tohtor + "eiden") (tohtor + "eit" + a) 
-      (tohtor + "ein" + a) (tohtor + "eiss" + a) (tohtor + "eihin") ; 
+      (tohtor + "eiden") (tohtor + "eit" + a)
+      (tohtor + "ein" + a) (tohtor + "eiss" + a) (tohtor + "eihin") ;
 
   dPiennar : (_,_ : Str) -> NForms = \piennar,pientaren ->
-    let 
+    let
       a = vowHarmony piennar ;
       pientar = Predef.tk 2 pientaren ;
     in nForms10
-      piennar pientaren (piennar +"t" + a) 
+      piennar pientaren (piennar +"t" + a)
       (pientar + "en" + a) (pientar + "een")
       (piennar + "ten") (pientar + "i" + a) (pientar + "in" + a)
       (pientar + "iss" + a) (pientar + "iin") ;
 
   dUnix : (_ : Str) -> NForms = \unix ->
-    let 
+    let
       a = vowHarmony unix ;
-      unixi = unix + "i" ; 
-      unixe = unix + "e" ; 
+      unixi = unix + "i" ;
+      unixe = unix + "e" ;
     in nForms10
       unix (unixi + "n") (unixi + a) (unixi + "n" + a) (unixi + "in")
       (unixi + "en") (unixe + "j" + a) (unixe + "in" + a)
@@ -265,45 +276,45 @@ resource MorphoFin = ResFin ** open Prelude in {
       (nukk + "ien") (nukk + "ej" + a) (nukk + "ein" + a)
       (nuke + "iss" + a) (nukk + "eihin") ;
 
-  dJalas : Str -> NForms = \jalas -> 
+  dJalas : Str -> NForms = \jalas ->
     let
       a = vowHarmony jalas ;
       jalaks = init jalas + "ks" ;
       jalaksi = jalaks + "i" ;
     in nForms10
-      jalas (jalaks + "en") (jalas + "t" + a) 
+      jalas (jalaks + "en") (jalas + "t" + a)
       (jalaks + "en" + a) (jalaks + "een")
-      (jalas + "ten") (jalaksi + a) 
-      (jalaksi + "n" + a) (jalaksi + "ss" + a) (jalaksi + "in") ; 
+      (jalas + "ten") (jalaksi + a)
+      (jalaksi + "n" + a) (jalaksi + "ss" + a) (jalaksi + "in") ;
 
   dSDP : Str -> NForms = \SDP ->
-    let 
+    let
       c = case Predef.toUpper (last SDP) of {
-        "A" => 
+        "A" =>
            <"n","ta","na","han","iden","ita","ina","issa","ihin"> ;
-        "B" | "C" | "D" | "E" | "G" | "P" | "T" | "V" | "W" => 
+        "B" | "C" | "D" | "E" | "G" | "P" | "T" | "V" | "W" =>
            <"n","tä","nä","hen","iden","itä","inä","issä","ihin"> ;
-        "F" | "L" | "M" | "N" | "R" | "S" | "X" => 
+        "F" | "L" | "M" | "N" | "R" | "S" | "X" =>
            <"n","ää","nä","ään","ien","iä","inä","issä","iin"> ;
-        "H" | "K" | "O" | "Å" => 
+        "H" | "K" | "O" | "Å" =>
            <"n","ta","na","hon","iden","ita","ina","issa","ihin"> ;
-        "I" | "J" => 
+        "I" | "J" =>
            <"n","tä","nä","hin","iden","itä","inä","issä","ihin"> ;
-        "Q" | "U" => 
+        "Q" | "U" =>
            <"n","ta","na","hun","iden","ita","ina","issa","ihin"> ;
-        "Z" => 
+        "Z" =>
            <"n","aa","na","aan","ojen","oja","oina","oissa","oihin"> ;
-        "Ä" => 
+        "Ä" =>
            <"n","tä","nä","hän","iden","itä","inä","issä","ihin"> ;
-        "Ö" => 
+        "Ö" =>
            <"n","tä","nä","hön","iden","itä","inä","issä","ihin"> ;
-        "Y" => 
+        "Y" =>
            <"n","tä","nä","hyn","iden","itä","inä","issä","ihin"> ;
         _ => Predef.error (["illegal abbreviation"] ++ SDP)
         } ;
     in nForms10
-      SDP (SDP + ":" + c.p1) (SDP + ":" + c.p2) (SDP + ":" + c.p3) 
-      (SDP + ":" + c.p4) (SDP + ":" + c.p5) (SDP + ":" + c.p6) 
+      SDP (SDP + ":" + c.p1) (SDP + ":" + c.p2) (SDP + ":" + c.p3)
+      (SDP + ":" + c.p4) (SDP + ":" + c.p5) (SDP + ":" + c.p6)
       (SDP + ":" + c.p7) (SDP + ":" + c.p8) (SDP + ":" + c.p9) ;
 
 -- for adjective comparison
@@ -314,10 +325,10 @@ resource MorphoFin = ResFin ** open Prelude in {
       suuremp = init suurempi ;
       suuremm = Predef.tk 2 suurempi + "m" ;
     in nForms10
-      suurempi (suuremm + a + "n") (suuremp + a + a) 
+      suurempi (suuremm + a + "n") (suuremp + a + a)
       (suuremp + a + "n" + a) (suuremp + a + a + "n")
-      (suuremp + "ien") (suurempi + a) 
-      (suurempi + "n" + a) (suuremm + "iss" + a) (suurempi + "in") ; 
+      (suuremp + "ien") (suurempi + a)
+      (suurempi + "n" + a) (suuremm + "iss" + a) (suurempi + "in") ;
 
   dSuurin : Str -> NForms = \suurin ->
     let
@@ -325,10 +336,10 @@ resource MorphoFin = ResFin ** open Prelude in {
       suurimm = init suurin + "mm" ;
       suurimp = init suurimm + "p" ;
     in nForms10
-      suurin (suurimm + a + "n") (suurin + "t" + a) 
+      suurin (suurimm + a + "n") (suurin + "t" + a)
       (suurimp + a + "n" + a) (suurimp + a + a + "n")
-      (suurimp + "ien") (suurimp + "i" + a) 
-      (suurimp + "in" + a) (suurimm + "iss" + a) (suurimp + "iin") ; 
+      (suurimp + "ien") (suurimp + "i" + a)
+      (suurimp + "in" + a) (suurimm + "iss" + a) (suurimp + "iin") ;
 
 -- for verb participle forms
 
@@ -338,10 +349,10 @@ resource MorphoFin = ResFin ** open Prelude in {
       ottane = Predef.tk 2 ottanut + "e" ;
       ottanee = ottane + "e" ;
     in nForms10
-      ottanut (ottanee + "n") (ottanut + "t" + a) 
+      ottanut (ottanee + "n") (ottanut + "t" + a)
       (ottanee + "n" + a) (ottanee + "seen")
-      (ottane + "iden") (ottane + "it" + a) 
-      (ottane + "in" + a) (ottane + "iss" + a) (ottane + "isiin") ; 
+      (ottane + "iden") (ottane + "it" + a)
+      (ottane + "in" + a) (ottane + "iss" + a) (ottane + "isiin") ;
 
 -------------------
 -- auxiliaries ----
@@ -351,7 +362,7 @@ resource MorphoFin = ResFin ** open Prelude in {
 
     NForms : Type = Predef.Ints 10 => Str ;
 
-    nForms10 : (x1,_,_,_,_,_,_,_,_,x10 : Str) -> NForms = 
+    nForms10 : (x1,_,_,_,_,_,_,_,_,x10 : Str) -> NForms =
       \Ukko,ukon,ukkoa,ukkona,ukkoon,
        ukkojen,ukkoja,ukkoina,ukoissa,ukkoihin -> table {
       0 => Ukko ;
@@ -366,8 +377,8 @@ resource MorphoFin = ResFin ** open Prelude in {
       9 => ukkoihin ;
       10 => Ukko
       } ;
-         
-    nForms11 : (x1,_,_,_,_,_,_,_,_,_,x11 : Str) -> NForms = 
+
+    nForms11 : (x1,_,_,_,_,_,_,_,_,_,x11 : Str) -> NForms =
       \Ukko,ukon,ukkoa,ukkona,ukkoon,
        ukkojen,ukkoja,ukkoina,ukoissa,ukkoihin,ukko_ -> table {
       0 => Ukko ;
@@ -385,7 +396,7 @@ resource MorphoFin = ResFin ** open Prelude in {
 
     Noun = {s : NForm => Str; h : Harmony} ;
 
-    nForms2N : NForms -> Noun = \f -> 
+    nForms2N : NForms -> Noun = \f ->
       let
         Ukko = f ! 0 ;
         ukon = f ! 1 ;
@@ -404,12 +415,12 @@ resource MorphoFin = ResFin ** open Prelude in {
         ukko  = Predef.tk 2 ukkona ;
         ukkoi = Predef.tk 2 ukkoina ;
         ukoi  = Predef.tk 3 ukoissa ;
-        harmony : Harmony = case a of 
+        harmony : Harmony = case a of
           {"a" => Back ; _   => Front  } ;
-      in 
+      in
     {s = table {
       NCase Sg Nom    => Ukko ;
-      NCase Sg Gen    => uko + "n" ;
+      NCase Sg Gen    => ukon ;
       NCase Sg Part   => ukkoa ;
       NCase Sg Transl => uko + "ksi" ;
       NCase Sg Ess    => ukkona ;
@@ -477,22 +488,22 @@ resource MorphoFin = ResFin ** open Prelude in {
     aForms2A : AForms -> Adjective = \afs -> {
       s = table {
         Posit => table {
-          AN n => (nForms2N afs.posit).s ! n ; 
+          AN n => (nForms2N afs.posit).s ! n ;
           AAdv => afs.adv_posit
           } ;
         Compar => table {
-          AN n => (nForms2N afs.compar).s ! n ; 
+          AN n => (nForms2N afs.compar).s ! n ;
           AAdv => afs.adv_compar
           } ;
         Superl => table {
-          AN n => (nForms2N afs.superl).s ! n ; 
+          AN n => (nForms2N afs.superl).s ! n ;
           AAdv => afs.adv_superl
           }
         } ;
       lock_A = <>
       } ;
 
-    nforms2aforms : NForms -> AForms = \nforms -> 
+    nforms2aforms : NForms -> AForms = \nforms ->
       let
         suure = init (nforms ! 1) ;
         suur = Predef.tk 4 (nforms ! 8) ;
@@ -508,7 +519,7 @@ resource MorphoFin = ResFin ** open Prelude in {
 
   oper
 
-  cHukkua : (_,_ : Str) -> VForms = \hukkua,hukun -> 
+  cHukkua : (_,_ : Str) -> VForms = \hukkua,hukun ->
     let
       a     = last hukkua ;
       hukku = init hukkua ;
@@ -519,8 +530,8 @@ resource MorphoFin = ResFin ** open Prelude in {
         _ => u
         } ;
       y = uyHarmony a ;
-      hukkui = init hukku + i + "i" ; 
-      hukui  = init huku + i + "i" ; 
+      hukkui = init hukku + i + "i" ;
+      hukui  = init huku + i + "i" ;
     in vForms12
       hukkua
       hukun
@@ -535,7 +546,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       (huku + "tt" + y)
       (hukku + "nee") ;
 
-  cOttaa : (_,_,_,_ : Str) -> VForms = \ottaa,otan,otin,otti -> 
+  cOttaa : (_,_,_,_ : Str) -> VForms = \ottaa,otan,otin,otti ->
     let
       a    = last ottaa ;
       aa   = a + a ;
@@ -547,8 +558,8 @@ resource MorphoFin = ResFin ** open Prelude in {
       ottaa
       otan
       ottaa
-      (otta + "v" + a + "t") 
-      (otta + "k" + aa) 
+      (otta + "v" + a + "t")
+      (otta + "k" + aa)
       (ote  + "t" + aa + "n")
       otin
       otti
@@ -557,7 +568,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       (ote + "tt" + u)
       (otta + "nee") ;
 
-  cJuosta : (_,_ : Str) -> VForms = \juosta,juoksen -> 
+  cJuosta : (_,_ : Str) -> VForms = \juosta,juoksen ->
     let
       a      = last juosta ;
       juos   = Predef.tk 2 juosta ;
@@ -580,7 +591,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       (juos + "t" + u)
       (juoss + "ee") ;
 
-  cJuoda : (_ : Str) -> VForms = \juoda -> 
+  cJuoda : (_ : Str) -> VForms = \juoda ->
     let
       a      = last juoda ;
       juo    = Predef.tk 2 juoda ;
@@ -605,7 +616,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       (juo + "t" + u)
       (juo + "nee") ;
 
-  cPudota : (_,_ : Str) -> VForms = \pudota,putosi -> 
+  cPudota : (_,_ : Str) -> VForms = \pudota,putosi ->
     let
       a      = last pudota ;
       pudot  = init pudota ;
@@ -630,7 +641,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       (pudot + "t" + u)
       (pudo  + "nnee") ;
 
-  cHarkita : (_ : Str) -> VForms = \harkita -> 
+  cHarkita : (_ : Str) -> VForms = \harkita ->
     let
       a      = last harkita ;
       harkit = init harkita ;
@@ -650,7 +661,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       (harkit + "t" + u)
       (harki  + "nnee") ;
 
-  cValjeta : (_,_ : Str) -> VForms = \valjeta,valkeni -> 
+  cValjeta : (_,_ : Str) -> VForms = \valjeta,valkeni ->
     let
       a      = last valjeta ;
       valjet = init valjeta ;
@@ -671,7 +682,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       (valjet + "t" + u)
       (valje  + "nnee") ;
 
-  cKuunnella : (_,_ : Str) -> VForms = \kuunnella,kuuntelin -> 
+  cKuunnella : (_,_ : Str) -> VForms = \kuunnella,kuuntelin ->
     let
       a       = last kuunnella ;
       kuunnel = Predef.tk 2 kuunnella ;
@@ -701,7 +712,7 @@ resource MorphoFin = ResFin ** open Prelude in {
 
     VForms : Type = Predef.Ints 11 => Str ;
 
-    vForms12 : (x1,_,_,_,_,_,_,_,_,_,_,x12 : Str) -> VForms = 
+    vForms12 : (x1,_,_,_,_,_,_,_,_,_,_,x12 : Str) -> VForms =
       \olla,olen,on,ovat,olkaa,ollaan,olin,oli,olisi,ollut,oltu,lienee ->
       table {
         0 => olla ;
@@ -718,16 +729,16 @@ resource MorphoFin = ResFin ** open Prelude in {
        11 => lienee
       } ;
 
-    vforms2V : VForms -> Verb ** {qp : Bool} = \vh -> 
+    vforms2V : VForms -> Verb ** {qp : Bool} = \vh ->
     let
-      tulla = vh ! 0 ; 
+      tulla = vh ! 0 ;
       tull = init tulla ;
-      tulen = vh ! 1 ; 
-      tulee = vh ! 2 ; 
+      tulen = vh ! 1 ;
+      tulee = vh ! 2 ;
       tulevat = vh ! 3 ;
-      tulkaa = vh ! 4 ; 
-      tullaan = vh ! 5 ; 
-      tulin = vh ! 6 ; 
+      tulkaa = vh ! 4 ;
+      tullaan = vh ! 5 ;
+      tulin = vh ! 6 ;
       tuli = vh ! 7 ;
       tulisi = vh ! 8 ;
       tullut = vh ! 9 ;
@@ -744,7 +755,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       tulleen = (nForms2N (dOttanut tullut)).s ;
       tullu : Str = weakGrade tultu ;
       tullun  = (nForms2N (dUkko tultu (tullu + "n"))).s ;
-      tule__ = Predef.tk 3 tulevat ; 
+      tule__ = Predef.tk 3 tulevat ;
       tulema = tule__ + "m" + a ;
       tuleva = tule__ + "v" + a ;
       vat = "v" + a + "t" ;
@@ -769,7 +780,7 @@ resource MorphoFin = ResFin ** open Prelude in {
       Inf Inf3Instr => tulema + "n" ;
       Inf Inf3InstrPass => tult + a + "m" + a + "n" ;
       Inf Inf4Nom   => tule__ + "minen" ;
-      Inf Inf4Part  => tule__ + "mist" + a ; 
+      Inf Inf4Part  => tule__ + "mist" + a ;
       Inf Inf5      => tulema + "isill" + a ;
       Inf InfPresPart => tuleva + "n" ;
       Inf InfPresPartAgr => tuleva ;
@@ -861,9 +872,9 @@ resource MorphoFin = ResFin ** open Prelude in {
         ("k"|"p") + "t" + _ => kukko ; -- *projekti-projekdin
         "uku" => ku + "uvu" ;
 	"yky" => ku + "yvy" ;
-        x + "k" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x      + o ; 
-        x + "p" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x + "v" + o ; 
-        x + "t" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x + "d" + o ; 
+        x + "k" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x      + o ;
+        x + "p" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x + "v" + o ;
+        x + "t" + ("a" | "e" | "i" | "o" | "u" | "y" | "ä" | "ö") => ku + x + "d" + o ;
         _ => kukko
         } ;
 
@@ -872,8 +883,8 @@ resource MorphoFin = ResFin ** open Prelude in {
   strongGrade : Str -> Str = \hanke ->
     let
       ha = Predef.tk 3 hanke ;
-      nke = Predef.dp 3 hanke ; 
-    in 
+      nke = Predef.dp 3 hanke ;
+    in
     ha + case nke of {
       "ng" + a => "nk" + a ;
       "nn" + e => "nt" + e ;
@@ -881,9 +892,9 @@ resource MorphoFin = ResFin ** open Prelude in {
       "rr" + e => "rt" + e ;
       "ll" + a => "lt" + a ;
       h@("h" | "l") + "je" + e => h + "ke" ; -- pohje/lahje impossible
-      ("tk" | "hk" | "sk" | "sp" | "st") + _ => nke ;       -- viuhke,kuiske 
+      ("tk" | "hk" | "sk" | "sp" | "st") + _ => nke ;       -- viuhke,kuiske
       a + k@("k"|"p"|"t") + e@("e"|"a"|"ä"|"u"|"y"|"i"|"o"|"ö")  => a + k + k + e ;
-      a + "d" + e@("e"|"a"|"ä"|"u"|"i"|"o"|"ö")  => a + "t" + e ; 
+      a + "d" + e@("e"|"a"|"ä"|"u"|"i"|"o"|"ö")  => a + "t" + e ;
       s + a@("a"|"ä"|"o"|"ö") + "e" => s + a + "ke" ;  -- säe, tae, koe
       s + "u" + i@("i"|"e")         => s + "uk" + i ;  -- ruis, aueta
       s + "aa"                      => s + "aka" ;       -- taata
@@ -911,7 +922,7 @@ resource MorphoFin = ResFin ** open Prelude in {
 -- for Structural
 -----------------------
 
-caseTable : Number -> CommonNoun -> Case => Str = \n,cn -> 
+caseTable : Number -> CommonNoun -> Case => Str = \n,cn ->
   \\c => cn.s ! NCase n c ;
 
   mkDet = mkDetPol False ;
@@ -940,16 +951,16 @@ caseTable : Number -> CommonNoun -> Case => Str = \n,cn ->
 -- Here we define personal and relative pronouns.
 -- Personal pronouns have possessive suffix (hänen talonsa) but "se" doesn't (sen talo)
 
-  mkPronoun : (_,_,_,_,_ : Str) ->  Number -> Person -> 
+  mkPronoun : (_,_,_,_,_ : Str) ->  Number -> Person ->
     {s : NPForm => Str ; a : Agr ; hasPoss : Bool ; poss : Str} = mkPronounGen True ;
 
-  mkPronounGen : Bool -> (_,_,_,_,_ : Str) ->  Number -> Person -> 
-    {s : NPForm => Str ; a : Agr ; hasPoss : Bool ; poss : Str} = 
+  mkPronounGen : Bool -> (_,_,_,_,_ : Str) ->  Number -> Person ->
+    {s : NPForm => Str ; a : Agr ; hasPoss : Bool ; poss : Str} =
     \hasPoss, mina, minun, minua, minuna, minuun, n, p ->
     let {
       minu = Predef.tk 2 minuna ;
       a    = Predef.dp 1 minuna
-    } in 
+    } in
     {s = table {
       NPCase Nom | NPSep => mina ;
       NPCase Gen    => minun ;
@@ -968,10 +979,10 @@ caseTable : Number -> CommonNoun -> Case => Str = \n,cn ->
      a = Ag n p ;
      hasPoss = hasPoss ;
      poss = minun ;
-    } ; 
+    } ;
 
-  mkDemPronoun : (_,_,_,_,_ : Str) ->  Number -> 
-    {s : NPForm => Str ; a : Agr} = 
+  mkDemPronoun : (_,_,_,_,_ : Str) ->  Number ->
+    {s : NPForm => Str ; a : Agr} =
     \tuo, tuon, tuota, tuona, tuohon, n ->
     let pro = mkPronoun tuo tuon tuota tuona tuohon n P3
     in {
@@ -982,7 +993,7 @@ caseTable : Number -> CommonNoun -> Case => Str = \n,cn ->
       a = pro.a
       } ;
 
--- The relative pronoun, "joka", is inflected in case and number, 
+-- The relative pronoun, "joka", is inflected in case and number,
 -- like common nouns, but it does not take possessive suffixes.
 -- The inflextion shows a surprising similarity with "suo".
 
@@ -994,7 +1005,7 @@ oper
         Nom => "joka" ;
         Gen => "jonka" ;
         c   => jo.s ! NCase Sg c
-       } ; 
+       } ;
       Pl => table {
         Nom => "jotka" ;
         c   => "j" + (jo.s ! NCase Pl c)

@@ -37,6 +37,7 @@ oper
   mkV3 = overload {
     mkV3 : Str -> Verb3 = \root ->mkV2 root ** {comp2 =[]};
     mkV3 : Str -> Str ->Str -> Verb3 = \root ,s1,s2 ->mkV2 root s1 s2 ** {comp2 =[]};
+    --mkV3 : Str -> Str ->Str ->Str ->Verb3 =\root, s1, s2, prep
   };
 
   

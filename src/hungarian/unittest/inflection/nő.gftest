@@ -1,0 +1,23 @@
+Lang: MassNP (UseN woman_N)
+LangHun: nő
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))
+LangHun: én látok egy nő &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))
+LangHun: egy nőn
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN woman_N)
+LangHun: nők
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN woman_N)))
+LangHun: én látok nők &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))
+LangHun: egy nőhöz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN woman_N))
+LangHun: nők &+ höz
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN woman_N)
+LangHun: én nő &+ m

@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete PhraseBul of Phrase = CatBul ** open Prelude, ResBul in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   lin

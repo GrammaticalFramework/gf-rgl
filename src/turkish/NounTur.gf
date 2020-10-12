@@ -12,13 +12,17 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
           YesGen a => \\c => det.s ++ cn.gen ! det.n ! a ;
           UseIndef => \\c => det.s ++ cn.s ! det.n ! c
         } ;
+      h   = cn.h ;
       a = agrP3 det.n
       } ;
 
     UsePron p = p ;
 
-    -- TODO: look further into how correct this is.
-    UsePN pn = { s = \\c => pn.s ! Sg ! c; a = {n = Sg; p = P1}} ;
+    UsePN pn = { 
+      s = \\c => pn.s ! Sg ! c;
+      h = pn.h;
+      a = {n = Sg; p = P3}
+    } ;
 
     PossPron p = {s = []; useGen = YesGen p.a} ;
 
@@ -52,50 +56,74 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
 
     UseN2 n = n;
 
-    MassNP cn = { s = cn.s ! Sg; a = { n = Sg; p = P1 } } ;
+    Use2N3 n = variants {} ;
+
+    MassNP cn = {
+      s = cn.s ! Sg;
+      h = cn.h;
+      a = { n = Sg; p = P1 }
+    } ;
 
     ComplN2 f x =
-      let
-        h : Harmony = {vow = f.harmony.vow; con = f.harmony.con}
-      in
         case f.c.c of {
           Nom => {
             s = \\n, c => x.s ! Gen ++ f.s ! n ! Acc;
-            gen = \\_, _ => "TODO"
+            gen = \\_, _ => "TODO";
+            h = f.h
           };
-          Acc => {s = \\_,_ => "TODO"; gen = \\_, _ => "TODO"};
+          Acc => {
+            s = \\_,_ => "TODO";
+            gen = \\_, _ => "TODO";
+            h = f.h};
           Gen => {
             s =
               \\n, c =>
                 x.s ! Gen ++ f.gen ! n ! {n = Sg; p = P3}
-                ++ BIND ++ (caseSuffixes ! c).st ! h.con ! h.vow;
-            gen = \\_, _ => "TODO"
+                ++ BIND ++ (caseSuffixes ! c).st ! f.h.con ! f.h.vow;
+            gen = \\_, _ => "TODO";
+            h = f.h
           };
           Dat => {
             s = \\n, c =>
               x.s ! Gen ++ f.gen ! n ! {n = Sg; p = P3}
-                ++ datSuffixN.st ! h.con ! h.vow;
-            gen = \\_, _ => "TODO"
+                ++ datSuffixN.st ! f.h.con ! f.h.vow;
+            gen = \\_, _ => "TODO";
+            h = f.h
           };
-          Loc => {s = \\_,_ => "TODO"; gen = \\_, _ => "TODO"};
-          Ablat => {s = \\_,_ => "TODO"; gen = \\_, _ => "TODO"};
-          Abess _ => {s = \\_,_ => "TODO"; gen = \\_, _ => "TODO"}
+          Loc => {
+            s = \\_,_ => "TODO";
+            gen = \\_, _ => "TODO";
+            h = f.h
+          };
+          Ablat => {
+            s = \\_,_ => "TODO";
+            gen = \\_, _ => "TODO";
+            h = f.h
+          };
+          Abess _ => {
+            s = \\_,_ => "TODO";
+            gen = \\_, _ => "TODO";
+            h = f.h
+          }
         };
 
 
     AdjCN ap cn = {
       s = \\n,c => ap.s ! Sg ! Nom ++ cn.s ! n ! c;
-      gen = \\n, a => ap.s ! Sg ! Nom ++ cn.gen ! n ! a
+      gen = \\n, a => ap.s ! Sg ! Nom ++ cn.gen ! n ! a;
+      h   = cn.h
       } ;
 
     -- lin CN = {s : Number => Case => Str; gen : Number => Agr => Str} ;
     AdvCN cn adv = {
       s = \\n, c => adv.s ++ cn.s ! n ! c;
-      gen = \\n, a => adv.s ++ cn.gen ! n ! a
+      gen = \\n, a => adv.s ++ cn.gen ! n ! a;
+      h   = cn.h
     } ;
 
     AdvNP np adv = {
       s = \\c => adv.s ++ np.s ! c;
+      h = np.h ;
       a = np.a
     } ;
 
@@ -109,21 +137,23 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
 
     -- TODO: further test how correct this is.
     ApposCN cn np = {
-      s = \\n,c => cn.s ! n ! c ++ np.s ! c ;
-      gen = cn.gen
+      s   = \\n,c => cn.s ! n ! c ++ np.s ! c ;
+      gen = cn.gen ;
+      h   = cn.h
     } ;
 
     ComplN3 f x = {
-      s       = \\n, c => x.s ! Ablat ++ f.s ! n ! c ;
-      gen     = f.gen ;
-      c       = f.c2 ;
-      harmony = f.harmony ;
+      s   = \\n, c => x.s ! Ablat ++ f.s ! n ! c ;
+      gen = f.gen ;
+      c   = f.c2 ;
+      h   = f.h ;
     } ;
 
     -- TODO: not entirely sure `CountNP` is sensible in Turkish but it should
     -- look something like this.
     CountNP det np = {
       s = \\c => det.s ++ np.s ! Ablat ;
+      h = np.h ;
       a = np.a
     } ;
 
@@ -132,12 +162,14 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
     -- TODO: further check the correctness of this.
     DetNP det = {
       s = \\c => det.s ;
+      h = {vow=I_Har; con=SCon Soft} ;  -- to be fixed
       a = {n = det.n ; p = P1}
     } ;
 
     ExtAdvNP np adv = {
       s = \\c => np.s ! c ++ "," ++ adv.s ;
-      a = np.a
+      a = np.a ;
+      h = np.h
     } ;
 
     NumDigits n = {
@@ -150,6 +182,7 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
 
     PPartNP np v2 = {
       s = \\c => np.s ! c ++ v2.s ! (VPast np.a);
+      h = np.h ;
       a = np.a
     } ;
 
@@ -159,35 +192,41 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
     -- Further check the correctness.
     PartNP cn np = {
       s   = \\n,c => np.s ! Gen ++ cn.s ! n ! Gen ;
-      gen = cn.gen
+      gen = cn.gen ;
+      h   = cn.h
     } ;
 
     PossNP cn np = {
       s   = \\n,c => np.s ! Gen ++ cn.s ! n ! c ;
-      gen = cn.gen
+      gen = cn.gen ;
+      h   = cn.h
     } ;
 
     -- TODO: currently I am not able to generate trees for this but should be
     -- quite close what is needed.
     PredetNP pred np = {
       s = \\c => pred.s ++ np.s ! c ;
+      h = np.h ;
       a = np.a
     } ;
 
     SentCN cn sc = {
-      s = \\n,c => "(TODO: SentCN)" ;
-      gen = cn.gen
+      s   = \\n,c => "(TODO: SentCN)" ;
+      gen = cn.gen ;
+      h   = cn.h
     } ;
 
     -- TODO: currently not able to generate trees.
     RelCN cn rs = {
       s   = \\n,c => "(TODO: RelCN)" ;
-      gen = cn.gen
+      gen = cn.gen ;
+      h   = cn.h
     } ;
 
     RelNP np rs = {
       s   = \\c => "(TODO: RelNP)" ;
       gen = np.gen ;
+      h   = np.h ;
       a   = np.a ;
       c   = np.c
     } ;

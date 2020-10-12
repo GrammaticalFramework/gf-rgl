@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:../prelude
---# -coding=cp1251
+--# -coding=utf8
 
 resource ParadigmsBul = MorphoFunsBul ** open
   Predef,
@@ -7,7 +7,7 @@ resource ParadigmsBul = MorphoFunsBul ** open
   MorphoBul,
   CatBul
   in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 oper
  -- numbers refer to Krustev, Bulg. Morph. in 187 Tables
@@ -15,28 +15,28 @@ oper
   mkN001 : Str -> N ;
   mkN001 base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"‡" ;
-                       NF Pl Indef => base+"Ó‚Â" ;
-                       NF Pl Def   => base+"Ó‚ÂÚÂ" ;
-                       NFSgDefNom  => base+"˙Ú" ;
-                       NFPlCount   => base+"‡" ;
-                       NFVocative  => base+"Â"
+                       NF Sg Def   => base+"–∞" ;
+                       NF Pl Indef => base+"–æ–≤–µ" ;
+                       NF Pl Def   => base+"–æ–≤–µ—Ç–µ" ;
+                       NFSgDefNom  => base+"—ä—Ç" ;
+                       NFPlCount   => base+"–∞" ;
+                       NFVocative  => base+"–µ"
                      } ;
-                 rel = \\_ => base ; relPost = False ;
+                 rel = \\_ => base ; relType = Pref ;
                  g = AMasc NonHuman ;
                  lock_N = <>
                 } ;
   mkN001a : Str -> N ;
   mkN001a base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"‡" ;
-                       NF Pl Indef => base+"Ó‚Â" ;
-                       NF Pl Def   => base+"Ó‚ÂÚÂ" ;
-                       NFSgDefNom  => base+"˙Ú" ;
-                       NFPlCount   => base+"Ó‚Â" ;
-                       NFVocative  => base+"Â"
+                       NF Sg Def   => base+"–∞" ;
+                       NF Pl Indef => base+"–æ–≤–µ" ;
+                       NF Pl Def   => base+"–æ–≤–µ—Ç–µ" ;
+                       NFSgDefNom  => base+"—ä—Ç" ;
+                       NFPlCount   => base+"–æ–≤–µ" ;
+                       NFVocative  => base+"–µ"
                      } ;
-                 rel = \\_ => base ; relPost = False ;
+                 rel = \\_ => base ; relType = Pref ;
                  g = AMasc Human ;
                  lock_N = <>
                 } ;
@@ -45,15 +45,15 @@ oper
                     v1 = last (base);
                     g  = AMasc NonHuman
                 in {s = table {
-                          NF Sg Indef => v0+"ˇ"+v1 ;
-                          NF Sg Def   => v0+"Â"+v1+"‡" ;
-                          NF Pl Indef => v0+"Â"+v1+"Ó‚Â" ;
-                          NF Pl Def   => v0+"Â"+v1+"Ó‚ÂÚÂ" ;
-                          NFSgDefNom  => v0+"Â"+v1+"‡" ;
-                          NFPlCount   => v0+"ˇ"+v1+"‡" ;
-                          NFVocative  => v0+"ˇ"+v1
+                          NF Sg Indef => v0+"—è"+v1 ;
+                          NF Sg Def   => v0+"–µ"+v1+"–∞" ;
+                          NF Pl Indef => v0+"–µ"+v1+"–æ–≤–µ" ;
+                          NF Pl Def   => v0+"–µ"+v1+"–æ–≤–µ—Ç–µ" ;
+                          NFSgDefNom  => v0+"–µ"+v1+"–∞" ;
+                          NFPlCount   => v0+"—è"+v1+"–∞" ;
+                          NFVocative  => v0+"—è"+v1
                         } ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -62,15 +62,15 @@ oper
                      v1 = last (base);
                      g  = AMasc NonHuman
                  in {s = table {
-                          NF Sg Indef => v0+"ˇ"+v1 ;
-                          NF Sg Def   => v0+"ˇ"+v1+"‡" ;
-                          NF Pl Indef => v0+"Â"+v1+"Ó‚Â" ;
-                          NF Pl Def   => v0+"Â"+v1+"Ó‚ÂÚÂ" ;
-                          NFSgDefNom  => v0+"Â"+v1+"‡" ;
-                          NFPlCount   => v0+"ˇ"+v1+"‡" ;
-                          NFVocative  => v0+"ˇ"+v1
+                          NF Sg Indef => v0+"—è"+v1 ;
+                          NF Sg Def   => v0+"—è"+v1+"–∞" ;
+                          NF Pl Indef => v0+"–µ"+v1+"–æ–≤–µ" ;
+                          NF Pl Def   => v0+"–µ"+v1+"–æ–≤–µ—Ç–µ" ;
+                          NFSgDefNom  => v0+"–µ"+v1+"–∞" ;
+                          NFPlCount   => v0+"—è"+v1+"–∞" ;
+                          NFVocative  => v0+"—è"+v1
                         } ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -79,27 +79,27 @@ oper
                     v1 = last (base);
                     g  = AMasc NonHuman
                 in {s = table {
-                          NF Sg Indef => v0+"˙"+v1 ;
-                          NF Sg Def   => v0+"˙"+v1+"‡" ;
-                          NF Pl Indef => v0+"˙"+v1+"Ó‚Â" ;
-                          NF Pl Def   => v0+"˙"+v1+"Ó‚ÂÚÂ" ;
-                          NFSgDefNom  => v0+"˙"+v1+"˙Ú" ;
-                          NFPlCount   => v0+"˙"+v1+"Ó‚Â" ;
-                          NFVocative  => v0+"˙"+v1
+                          NF Sg Indef => v0+"—Ä—ä"+v1 ;
+                          NF Sg Def   => v0+"—ä—Ä"+v1+"–∞" ;
+                          NF Pl Indef => v0+"—ä—Ä"+v1+"–æ–≤–µ" ;
+                          NF Pl Def   => v0+"—ä—Ä"+v1+"–æ–≤–µ—Ç–µ" ;
+                          NFSgDefNom  => v0+"—ä—Ä"+v1+"—ä—Ç" ;
+                          NFPlCount   => v0+"—ä—Ä"+v1+"–æ–≤–µ" ;
+                          NFVocative  => v0+"—Ä—ä"+v1
                         } ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    } ;
   mkN004 : Str -> N ;
   mkN004 base = let v0 = tk 4 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ˇÚ˙")
-                               (v0+"ÂÚÓ‚Â")
-                               (v0+"ˇÚ˙‡")
-                               (v0+"ÂÚÂ")
+                in {s = mkNoun (v0+"—è—Ç—ä—Ä")
+                               (v0+"–µ—Ç—Ä–æ–≤–µ")
+                               (v0+"—è—Ç—ä—Ä–∞")
+                               (v0+"–µ—Ç—Ä–µ")
                                g;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -107,11 +107,11 @@ oper
   mkN005 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"Ó‚Â")
-                               (v0+"‡")
+                               (v0+"–æ–≤–µ")
+                               (v0+"–∞")
                                (v0)
                                g;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -119,25 +119,25 @@ oper
   mkN006 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"Ó‚Â")
-                               (v0+"‡")
+                               (v0+"–æ–≤–µ")
+                               (v0+"–∞")
                                (v0)
                                g;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
   mkN007 : Str -> N ;
   mkN007 base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"‡" ;
-                       NF Pl Indef => base+"Ë" ;
-                       NF Pl Def   => base+"ËÚÂ" ;
-                       NFSgDefNom  => base+"˙Ú" ;
-                       NFPlCount   => base+"‡" ;
-                       NFVocative  => base+"Â"
+                       NF Sg Def   => base+"–∞" ;
+                       NF Pl Indef => base+"–∏" ;
+                       NF Pl Def   => base+"–∏—Ç–µ" ;
+                       NFSgDefNom  => base+"—ä—Ç" ;
+                       NFPlCount   => base+"–∞" ;
+                       NFVocative  => base+"–µ"
                      } ;
-                 rel = \\_ => base; relPost = False;
+                 rel = \\_ => base; relType = Pref;
                  g   = AMasc NonHuman;
                  lock_N = <>
                 } ;
@@ -145,25 +145,25 @@ oper
   mkN007b base = let v0 = base;
                      g  = AMasc NonHuman
                  in {s = mkNoun (v0)
-                                (v0+"Ë")
-                                (v0+"‡")
-                                (v0+"Ó")
+                                (v0+"–∏")
+                                (v0+"–∞")
+                                (v0+"–æ")
                                 g ;
-                     rel = \\_ => base; relPost = False;
+                     rel = \\_ => base; relType = Pref;
                      g   = g ;
                      lock_N = <>                     
                     } ;
   mkN007a : Str -> N ;
   mkN007a base = {s = table {
                        NF Sg Indef => base ;
-                       NF Sg Def   => base+"‡" ;
-                       NF Pl Indef => base+"Ë" ;
-                       NF Pl Def   => base+"ËÚÂ" ;
-                       NFSgDefNom  => base+"˙Ú" ;
-                       NFPlCount   => base+"Ë" ;
-                       NFVocative  => base+"Â"
+                       NF Sg Def   => base+"–∞" ;
+                       NF Pl Indef => base+"–∏" ;
+                       NF Pl Def   => base+"–∏—Ç–µ" ;
+                       NFSgDefNom  => base+"—ä—Ç" ;
+                       NFPlCount   => base+"–∏" ;
+                       NFVocative  => base+"–µ"
                      } ;
-                  rel = (mkA078 (base+"ÒÍË")).s; relPost = False;
+                  rel = (mkA078 (base+"—Å–∫–∏")).s; relType = AdjMod;
                   g   = AMasc Human ;
                   lock_N = <>
                  } ;
@@ -171,12 +171,12 @@ oper
   mkN008 base = let v0 = tk 2 base;
                     v1 = last base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"Â"+v1)
-                               (v0+v1+"Ë")
-                               (v0+"Â"+v1+"‡")
-                               (v0+"Â"+v1+"Ó")
+                in {s = mkNoun (v0+"–µ"+v1)
+                               (v0+v1+"–∏")
+                               (v0+"–µ"+v1+"–∞")
+                               (v0+"–µ"+v1+"–æ")
                                g ;
-                    rel = \\_ => base; relPost = False;
+                    rel = \\_ => base; relType = Pref;
                     g   = g ;
                     lock_N = <>
                    } ;
@@ -184,12 +184,12 @@ oper
   mkN008b base = let v0 = tk 2 base;
                      v1 = last (base);
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"Â"+v1)
-                                (v0+v1+"Ë")
-                                (v0+"Â"+v1+"‡")
-                                (v0+"Â"+v1+"Â")
+                 in {s = mkNoun (v0+"–µ"+v1)
+                                (v0+v1+"–∏")
+                                (v0+"–µ"+v1+"–∞")
+                                (v0+"–µ"+v1+"–µ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -197,24 +197,24 @@ oper
   mkN008c base = let v0 = tk 2 base;
                      v1 = last (base);
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"Â"+v1)
-                                (v0+v1+"Ë")
-                                (v0+"Â"+v1+"‡")
-                                (v0+v1+"Â")
+                 in {s = mkNoun (v0+"–µ"+v1)
+                                (v0+v1+"–∏")
+                                (v0+"–µ"+v1+"–∞")
+                                (v0+v1+"–µ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
   mkN008a : Str -> N ;
   mkN008a base = let v0 = tk 2 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"Âˆ")
-                                (v0+"ˆË")
-                                (v0+"ˆË")
-                                (v0+"ÂˆÓ")
+                 in {s = mkNoun (v0+"–µ—Ü")
+                                (v0+"—Ü–∏")
+                                (v0+"—Ü–∏")
+                                (v0+"–µ—Ü–æ")
                                 g ;
-                     rel = (mkA078 (v0+"ÒÍË")).s ; relPost = False;
+                     rel = (mkA078 (v0+"—Å–∫–∏")).s ; relType = AdjMod;
                      g   = g ;
                      lock_N = <>
                     } ;
@@ -222,36 +222,36 @@ oper
   mkN009 base = let v0 = tk 2 base;
                     v1 = last (base);
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"˙"+v1)
-                               (v0+v1+"Ë")
-                               (v0+"˙"+v1+"‡")
-                               (v0+v1+"Â")
+                in {s = mkNoun (v0+"—ä"+v1)
+                               (v0+v1+"–∏")
+                               (v0+"—ä"+v1+"–∞")
+                               (v0+v1+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    } ;
   mkN009a : Str -> N ;
   mkN009a base = let v0 = tk 2 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"˙")
-                                (v0+"Ó‚Â")
-                                (v0+"˙‡")
-                                (v0+"Â")
+                 in {s = mkNoun (v0+"—ä—Ä")
+                                (v0+"—Ä–æ–≤–µ")
+                                (v0+"—ä—Ä–∞")
+                                (v0+"—Ä–µ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     } ;
   mkN010 : Str -> N ;
   mkN010 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"˙")
-                               (v0+"Ë")
-                               (v0+"‡")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"—ä—Ä")
+                               (v0+"—Ä–∏")
+                               (v0+"—Ä–∞")
+                               (v0+"—Ä–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -259,135 +259,135 @@ oper
   mkN011 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
                 in {s = table {
-                          NF Sg Indef => v0+"˙Ï" ;
-                          NF Sg Def   => v0+"Ï‡" ;
-                          NF Pl Indef => v0+"ÏË" ;
-                          NF Pl Def   => v0+"ÏËÚÂ" ;
-                          NFSgDefNom  => v0+"Ï˙Ú" ;
-                          NFPlCount   => v0+"Ï‡" ;
-                          NFVocative  => v0+"ÏÂ"
+                          NF Sg Indef => v0+"—ä–º" ;
+                          NF Sg Def   => v0+"–º–∞" ;
+                          NF Pl Indef => v0+"–º–∏" ;
+                          NF Pl Def   => v0+"–º–∏—Ç–µ" ;
+                          NFSgDefNom  => v0+"–º—ä—Ç" ;
+                          NFPlCount   => v0+"–º–∞" ;
+                          NFVocative  => v0+"–º–µ"
                         } ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN012 : Str -> N ;
   mkN012 base = let v0 = tk 3 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"˙Í")
-                               (v0+"˙ˆË")
-                               (v0+"˙ˆË")
-                               (v0+"˙ÍÓ")
+                in {s = mkNoun (v0+"—Ä—ä–∫")
+                               (v0+"—ä—Ä—Ü–∏")
+                               (v0+"—ä—Ä—Ü–∏")
+                               (v0+"—ä—Ä–∫–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN013 : Str -> N ;
   mkN013 base = let v0 = tk 2 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"Âˆ")
-                               (v0+"ÈˆË")
-                               (v0+"ÈˆË")
-                               (v0+"ÂˆÓ")
+                in {s = mkNoun (v0+"–µ—Ü")
+                               (v0+"–π—Ü–∏")
+                               (v0+"–π—Ü–∏")
+                               (v0+"–µ—Ü–æ")
                                g ;
-                    rel = (mkA078 (base+"ÈÒÍË")).s; relPost = False;
+                    rel = (mkA078 (base+"–π—Å–∫–∏")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
   mkN014 : Str -> N ;
   mkN014 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"Í")
-                               (v0+"ˆË")
-                               (v0+"Í‡")
-                               (v0+"Í")
+                in {s = mkNoun (v0+"–∫")
+                               (v0+"—Ü–∏")
+                               (v0+"–∫–∞")
+                               (v0+"–∫")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN014a : Str -> N ;
   mkN014a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"Í")
-                                (v0+"ˆË")
-                                (v0+"Í‡")
-                                (v0+"ÍÓ")
+                 in {s = mkNoun (v0+"–∫")
+                                (v0+"—Ü–∏")
+                                (v0+"–∫–∞")
+                                (v0+"–∫–æ")
                                 g ;
-                     rel = (mkA078 (v0+"˜ÂÒÍË")).s; relPost = False;
+                     rel = (mkA078 (v0+"—á–µ—Å–∫–∏")).s; relType = AdjMod;
                      g   = g ;
                      lock_N = <>
                     };
   mkN015 : Str -> N ;
   mkN015 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"„")
-                               (v0+"ÁË")
-                               (v0+"„‡")
-                               (v0+"ÁÂ")
+                in {s = mkNoun (v0+"–≥")
+                               (v0+"–∑–∏")
+                               (v0+"–≥–∞")
+                               (v0+"–∑–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN015a : Str -> N ;
   mkN015a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"„")
-                                (v0+"ÁË")
-                                (v0+"„‡")
-                                (v0+"ÁÂ")
+                 in {s = mkNoun (v0+"–≥")
+                                (v0+"–∑–∏")
+                                (v0+"–≥–∞")
+                                (v0+"–∑–µ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN016 : Str -> N ;
   mkN016 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ı")
-                               (v0+"ÒË")
-                               (v0+"ı‡")
-                               (v0+"ıÓ")
+                in {s = mkNoun (v0+"—Ö")
+                               (v0+"—Å–∏")
+                               (v0+"—Ö–∞")
+                               (v0+"—Ö–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN016a : Str -> N ;
   mkN016a base = let v0 = tk 1 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"ı")
-                                (v0+"ÒË")
-                                (v0+"ı‡")
-                                (v0+"ÒÂ")
+                 in {s = mkNoun (v0+"—Ö")
+                                (v0+"—Å–∏")
+                                (v0+"—Ö–∞")
+                                (v0+"—Å–µ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN017 : Str -> N ;
   mkN017 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"Í")
-                               (v0+"ÌË")
-                               (v0+"Í‡")
-                               (v0+"ÍÓ")
+                in {s = mkNoun (v0+"–∫")
+                               (v0+"–Ω–∏")
+                               (v0+"–∫–∞")
+                               (v0+"–∫–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN018 : Str -> N ;
   mkN018 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ËÌ")
-                               (v0+"Ë")
-                               (v0+"Ë")
-                               (v0+"ËÌÂ")
+                in {s = mkNoun (v0+"–∏–Ω")
+                               (v0+"–∏")
+                               (v0+"–∏")
+                               (v0+"–∏–Ω–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -395,36 +395,36 @@ oper
   mkN018a base = let v0 = tk 2 base;
                      v1 = last (base);
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"Ë"+v1)
-                                (v0+"Ë")
-                                (v0+"Ë")
-                                (v0+"Ë"+v1+"Ó")
+                 in {s = mkNoun (v0+"–∏"+v1)
+                                (v0+"–∏")
+                                (v0+"–∏")
+                                (v0+"–∏"+v1+"–æ")
                                 g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN019 : Str -> N ;
   mkN019 base = let v0 = tk 2 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"˙Í")
-                               (v0+"ˆË")
-                               (v0+"ˆË")
-                               (v0+"ÍÓ")
+                in {s = mkNoun (v0+"—ä–∫")
+                               (v0+"—Ü–∏")
+                               (v0+"—Ü–∏")
+                               (v0+"–∫–æ")
                                g ;
-                    rel = (mkA078 (v0+"ÒÍË")).s; relPost = False;
+                    rel = (mkA078 (v0+"—Å–∫–∏")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
   mkN019a : Str -> N ;
   mkN019a base = let v0 = tk 2 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"ÂÍ")
-                                (v0+"ÈˆË")
-                                (v0+"ÂÍ‡")
-                                (v0+"ÈÓ")
+                 in {s = mkNoun (v0+"–µ–∫")
+                                (v0+"–π—Ü–∏")
+                                (v0+"–µ–∫–∞")
+                                (v0+"–π–æ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -432,24 +432,24 @@ oper
   mkN020 base = let v0 = tk 3 base;
                     v1 = last (tk 2 base);
                     g  = AMasc Human
-                in {s = mkNoun (v0+v1+"Âˆ")
-                               (v0+"˙"+v1+"ˆË")
-                               (v0+"˙"+v1+"ˆË")
-                               (v0+v1+"ÂˆÓ")
+                in {s = mkNoun (v0+v1+"–µ—Ü")
+                               (v0+"—ä"+v1+"—Ü–∏")
+                               (v0+"—ä"+v1+"—Ü–∏")
+                               (v0+v1+"–µ—Ü–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN021 : Str -> N ;
   mkN021 base = let v0 = tk 3 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"˜ËÌ")
-                               (v0+"ˆË")
-                               (v0+"ˆË")
-                               (v0+"˜ËÌÓ")
+                in {s = mkNoun (v0+"—á–∏–Ω")
+                               (v0+"—Ü–∏")
+                               (v0+"—Ü–∏")
+                               (v0+"—á–∏–Ω–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -457,35 +457,35 @@ oper
   mkN022 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"‡")
-                               (v0+"‡")
-                               (v0+"Ó")
+                               (v0+"–∞")
+                               (v0+"–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN023 : Str -> N ;
   mkN023 base = let v0 = tk 2 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"ËÌ")
-                               (v0+"‡")
-                               (v0+"‡")
-                               (v0+"ËÌÂ")
+                in {s = mkNoun (v0+"–∏–Ω")
+                               (v0+"–∞")
+                               (v0+"–∞")
+                               (v0+"–∏–Ω–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN024a : Str -> N ;
   mkN024a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"Á")
-                                (v0+"ÁÂ")
-                                (v0+"ÁÂ")
-                                (v0+"ÊÂ")
+                 in {s = mkNoun (v0+"–∑")
+                                (v0+"–∑–µ")
+                                (v0+"–∑–µ")
+                                (v0+"–∂–µ")
                                 g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -493,11 +493,11 @@ oper
   mkN024 base = let v0 = base;
                     g  = AMasc Human
                 in {s = mkNoun (v0)
-                               (v0+"Â")
-                               (v0+"Â")
-                               (v0+"Ó")
+                               (v0+"–µ")
+                               (v0+"–µ")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -505,11 +505,11 @@ oper
   mkN025 base = let v0 = base;
                     g  = AMasc Human
                 in {s = mkNoun (v0)
-                               (v0+"ˇ")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                               (v0+"—è")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = (mkA078 (base+"ÒÍË")).s; relPost = False;
+                    rel = (mkA078 (base+"—Å–∫–∏")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
@@ -517,47 +517,47 @@ oper
   mkN026 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"ËÎË˘‡")
-                               (v0+"ËÎË˘‡")
-                               (v0+"Â")
+                               (v0+"–∏–ª–∏—â–∞")
+                               (v0+"–∏–ª–∏—â–∞")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN027 : Str -> N ;
   mkN027 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"Âˆ")
-                               (v0+"Ó‚ˆÂ")
-                               (v0+"Âˆ‡")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–µ—Ü")
+                               (v0+"–æ–≤—Ü–µ")
+                               (v0+"–µ—Ü–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN028 : Str -> N ;
   mkN028 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"È")
-                               (v0+"Â‚Â")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"–π")
+                               (v0+"–µ–≤–µ")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN028a : Str -> N ;
   mkN028a base = let v0 = tk 1 base;
                      g  = AMasc NonHuman
-                 in {s = mkNoun (v0+"È")
-                                (v0+"ÈÓ‚Â")
-                                (v0+"ˇ")
-                                (v0+"ÈÓ")
+                 in {s = mkNoun (v0+"–π")
+                                (v0+"–π–æ–≤–µ")
+                                (v0+"—è")
+                                (v0+"–π–æ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -565,23 +565,23 @@ oper
   mkN029 base = let v0 = base;
                     g  = AMasc Human
                 in {s = mkNoun (v0)
-                               (v0+"¸Ó‚Â")
-                               (v0+"¸Ó‚Â")
-                               (v0+"ÍÓ")
+                               (v0+"—å–æ–≤–µ")
+                               (v0+"—å–æ–≤–µ")
+                               (v0+"–∫–æ")
                                g ;
-                    rel = (mkA078 (base+"ÒÍË")).s; relPost = False;
+                    rel = (mkA078 (base+"—Å–∫–∏")).s; relType = AdjMod;
                     g   = g ;
                     lock_N = <>
                    };
   mkN030 : Str -> N ;
   mkN030 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"˙Ì")
-                               (v0+"Ì¸Ó‚Â")
-                               (v0+"˙Ìˇ")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"—ä–Ω")
+                               (v0+"–Ω—å–æ–≤–µ")
+                               (v0+"—ä–Ω—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -589,11 +589,11 @@ oper
   mkN031 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"Ë")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                               (v0+"–∏")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -601,11 +601,11 @@ oper
   mkN031a base = let v0 = base;
                      g  = AMasc Human
                  in {s = mkNoun (v0)
-                                (v0+"Ë")
-                                (v0+"Ë")
-                                (v0+"˛")
+                                (v0+"–∏")
+                                (v0+"–∏")
+                                (v0+"—é")
                                 g ;
-                     rel = (mkA078 (base+"ÒÍË")).s ; relPost = False ;
+                     rel = (mkA078 (base+"—Å–∫–∏")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -614,47 +614,47 @@ oper
                     v1 = tk 1 base ;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v1+"Ë")
-                               (v1+"ˇ")
-                               (v0+"Ó")
+                               (v1+"–∏")
+                               (v1+"—è")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN032a : Str -> N ;
   mkN032a base = let v0 = tk 1 base;
                      g  = AMasc Human
-                 in {s = mkNoun (v0+"È")
-                                (v0+"Ë")
-                                (v0+"ˇ")
-                                (v0+"˛")
+                 in {s = mkNoun (v0+"–π")
+                                (v0+"–∏")
+                                (v0+"—è")
+                                (v0+"—é")
                                 g ;
-                     rel = (mkA078 (base+"ÒÍË")).s ; relPost = False ;
+                     rel = (mkA078 (base+"—Å–∫–∏")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN033 : Str -> N ;
   mkN033 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"ÂÌ")
-                               (v0+"ÌË")
-                               (v0+"ÂÌ‡")
-                               (v0+"ÂÌÂ")
+                in {s = mkNoun (v0+"–µ–Ω")
+                               (v0+"–Ω–∏")
+                               (v0+"–µ–Ω–∞")
+                               (v0+"–µ–Ω–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN034 : Str -> N ;
   mkN034 base = let v0 = tk 2 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"˙Ú")
-                               (v0+"ÚË")
-                               (v0+"˙Úˇ")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"—ä—Ç")
+                               (v0+"—Ç–∏")
+                               (v0+"—ä—Ç—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -662,11 +662,11 @@ oper
   mkN035 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"Â")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                               (v0+"–µ")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -674,23 +674,23 @@ oper
   mkN035a base = let v0 = base;
                      g  = AMasc Human
                  in {s = mkNoun (v0)
-                                (v0+"Â")
-                                (v0+"ˇ")
-                                (v0+"˛")
+                                (v0+"–µ")
+                                (v0+"—è")
+                                (v0+"—é")
                                 g ;
-                     rel = (mkA078 (base+"ÒÍË")).s ; relPost = False ;
+                     rel = (mkA078 (base+"—Å–∫–∏")).s ; relType = AdjMod ;
                      g   = g ;
                      lock_N = <>                     
                     };
   mkN036 : Str -> N ;
   mkN036 base = let v0 = tk 1 base;
                     g  = AMasc NonHuman
-                in {s = mkNoun (v0+"È")
-                               (v0+"Ë˘‡")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"–π")
+                               (v0+"–∏—â–∞")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -698,48 +698,48 @@ oper
   mkN037 base = let v0 = base;
                     g  = AMasc NonHuman
                 in {s = mkNoun (v0)
-                               (v0+"Ë˘‡")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                               (v0+"–∏—â–∞")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN038 : Str -> N ;
   mkN038 base = let v0 = tk 1 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"‡")
-                               (v0+"Ë")
-                               (v0+"Ë")
-                               (v0+"‡")
+                in {s = mkNoun (v0+"–∞")
+                               (v0+"–∏")
+                               (v0+"–∏")
+                               (v0+"–∞")
                                g ;
-                    rel = (mkAdjective base (base+"Ú‡") (base+"Ú‡") base (base+"Ú‡") base (base+"Ú‡") (v0+"Ë") (v0+"ËÚÂ")).s ;
-                    relPost = False ;
+                    rel = (mkAdjective base (base+"—Ç–∞") (base+"—Ç–∞") base (base+"—Ç–∞") base (base+"—Ç–∞") (v0+"–∏") (v0+"–∏—Ç–µ")).s ;
+                    relType = AdjMod ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN039 : Str -> N ;
   mkN039 base = let v0 = tk 1 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"ˇ")
-                               (v0+"Ë")
-                               (v0+"Ë")
-                               (v0+"Èo")
+                in {s = mkNoun (v0+"—è")
+                               (v0+"–∏")
+                               (v0+"–∏")
+                               (v0+"–πo")
                                g ;
-                    rel = (mkA078 (v0+"ÈÒÍË")).s ; relPost = False ;
+                    rel = (mkA078 (v0+"–π—Å–∫–∏")).s ; relType = AdjMod ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN040 : Str -> N ;
   mkN040 base = let v0 = tk 1 base;
                     g  = AMasc Human
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"Ó‚ˆË")
-                               (v0+"Ó‚ˆË")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–æ–≤—Ü–∏")
+                               (v0+"–æ–≤—Ü–∏")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -747,47 +747,47 @@ oper
   mkN040a base = let v0 = base;
                      g  = AMasc NonHuman
                  in {s = mkNoun (v0)
-                                (v0+"Ë")
-                                (v0+"‡")
-                                (v0+"Â")
+                                (v0+"–∏")
+                                (v0+"–∞")
+                                (v0+"–µ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN041 : Str -> N ;
   mkN041 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"‡")
-                               (v0+"Ë")
-                               (v0+"Ë")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–∞")
+                               (v0+"–∏")
+                               (v0+"–∏")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN041a : Str -> N ;
   mkN041a base = let v0 = tk 1 base;
                      g  = AFem
-                 in {s = mkNoun (v0+"‡")
-                                (v0+"Ë")
-                                (v0+"Ë")
-                                (v0+"Ó")
+                 in {s = mkNoun (v0+"–∞")
+                                (v0+"–∏")
+                                (v0+"–∏")
+                                (v0+"–æ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN041b : Str -> N ;
   mkN041b base = let v0 = tk 1 base;
                      g  = AFem
-                 in {s = mkNoun (v0+"‡")
-                                (v0+"Ë")
-                                (v0+"Ë")
-                                (v0+"Â")
+                 in {s = mkNoun (v0+"–∞")
+                                (v0+"–∏")
+                                (v0+"–∏")
+                                (v0+"–µ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                    };
@@ -799,7 +799,7 @@ oper
                                (v0)
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                   };
@@ -807,12 +807,12 @@ oper
   mkN043 base = let v0 = tk 3 base;
                     v1 = last (tk 1 base);
                     g  = AFem
-                in {s = mkNoun (v0+"ˇ"+v1+"‡")
-                               (v0+"Â"+v1+"Ë")
-                               (v0+"Â"+v1+"Ë")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"—è"+v1+"–∞")
+                               (v0+"–µ"+v1+"–∏")
+                               (v0+"–µ"+v1+"–∏")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                   };
@@ -820,72 +820,72 @@ oper
   mkN043a base = let v0 = tk 4 base;
                      v1 = last (tk 2 base);
                      g  = AFem
-                 in {s = mkNoun (v0+"ˇ"+v1+"Í‡")
-                                (v0+"Â"+v1+"ÍË")
-                                (v0+"Â"+v1+"ÍË")
-                                (v0+"Ó")
+                 in {s = mkNoun (v0+"—è"+v1+"–∫–∞")
+                                (v0+"–µ"+v1+"–∫–∏")
+                                (v0+"–µ"+v1+"–∫–∏")
+                                (v0+"–æ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN044 : Str -> N ;
   mkN044 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"‡")
-                               (v0+"Â")
-                               (v0+"Â")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–∞")
+                               (v0+"–µ")
+                               (v0+"–µ")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                   };
   mkN045 : Str -> N ;
   mkN045 base = let v0 = tk 2 base;
                     g  = AFem
-                in {s = mkNoun (v0+"Í‡")
-                               (v0+"ˆÂ")
-                               (v0+"ˆÂ")
-                               (v0+"Í‡")
+                in {s = mkNoun (v0+"–∫–∞")
+                               (v0+"—Ü–µ")
+                               (v0+"—Ü–µ")
+                               (v0+"–∫–∞")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN046 : Str -> N ;
   mkN046 base = let v0 = tk 2 base;
                     g  = AFem
-                in {s = mkNoun (v0+"„‡")
-                               (v0+"ÁÂ")
-                               (v0+"ÁÂ")
-                               (v0+"„‡")
+                in {s = mkNoun (v0+"–≥–∞")
+                               (v0+"–∑–µ")
+                               (v0+"–∑–µ")
+                               (v0+"–≥–∞")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN047 : Str -> N ;
   mkN047 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"ˇ")
-                               (v0+"Ë")
-                               (v0+"Ë")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"—è")
+                               (v0+"–∏")
+                               (v0+"–∏")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN048 : Str -> N ;
   mkN048 base = let v0 = tk 1 base;
                     g  = AFem
-                in {s = mkNoun (v0+"ˇ")
-                               (v0+"Â")
-                               (v0+"Â")
-                               (v0+"¸Ó")
+                in {s = mkNoun (v0+"—è")
+                               (v0+"–µ")
+                               (v0+"–µ")
+                               (v0+"—å–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -893,23 +893,23 @@ oper
   mkN049 base = let v0 = base;
                     g  = AFem
                 in {s = mkNoun (v0)
-                               (v0+"Ë")
-                               (v0+"Ë")
+                               (v0+"–∏")
+                               (v0+"–∏")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN050 : Str -> N ;
   mkN050 base = let v0 = tk 2 base;
                     g  = AFem
-                in {s = mkNoun (v0+"ÂÌ")
-                               (v0+"ÌË")
-                               (v0+"ÌË")
-                               (v0+"ÂÌ")
+                in {s = mkNoun (v0+"–µ–Ω")
+                               (v0+"–Ω–∏")
+                               (v0+"–Ω–∏")
+                               (v0+"–µ–Ω")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -917,36 +917,36 @@ oper
   mkN051 base = let v0 = tk 2 base;
                     v1 = last (base);
                     g  = AFem
-                in {s = mkNoun (v0+"˙"+v1)
-                               (v0+v1+"Ë")
-                               (v0+v1+"Ë")
-                               (v0+"˙"+v1)
+                in {s = mkNoun (v0+"—ä"+v1)
+                               (v0+v1+"–∏")
+                               (v0+v1+"–∏")
+                               (v0+"—ä"+v1)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN052 : Str -> N ;
   mkN052 base = let v0 = tk 5 base;
                     g  = AFem
-                in {s = mkNoun (v0+"ˇÎÓÒÚ")
-                               (v0+"ˇÎÓÒÚË")
-                               (v0+"ˇÎÓÒÚË")
-                               (v0+"ˇÎÓÒÚ")
+                in {s = mkNoun (v0+"—è–ª–æ—Å—Ç")
+                               (v0+"—è–ª–æ—Å—Ç–∏")
+                               (v0+"—è–ª–æ—Å—Ç–∏")
+                               (v0+"—è–ª–æ—Å—Ç")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN052a : Str -> N ;
   mkN052a base = let v0 = tk 6 base;
                      g  = AFem
-                 in {s = mkNoun (v0+"ˇÌÓÒÚ")
-                                (v0+"ˇÌÓÒÚË")
-                                (v0+"ˇÌÓÒÚË")
-                                (v0+"ˇÌÓÒÚ")
+                 in {s = mkNoun (v0+"—è—Ä–Ω–æ—Å—Ç")
+                                (v0+"—è—Ä–Ω–æ—Å—Ç–∏")
+                                (v0+"—è—Ä–Ω–æ—Å—Ç–∏")
+                                (v0+"—è—Ä–Ω–æ—Å—Ç")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
@@ -954,48 +954,48 @@ oper
   mkN053 base = let v0 = tk 3 base;
                     v1 = last (base);
                     g  = AFem
-                in {s = mkNoun (v0+"˙"+v1)
-                               (v0+"˙"+v1+"Ë")
-                               (v0+"˙"+v1+"Ë")
-                               (v0+"˙"+v1)
+                in {s = mkNoun (v0+"—Ä—ä"+v1)
+                               (v0+"—ä—Ä"+v1+"–∏")
+                               (v0+"—ä—Ä"+v1+"–∏")
+                               (v0+"—Ä—ä"+v1)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN054 : Str -> N ;
   mkN054 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"‡")
-                               (v0+"‡")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–∞")
+                               (v0+"–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN055 : Str -> N ;
   mkN055 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"‡")
-                               (v0+"‡")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–∞")
+                               (v0+"–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN056 : Str -> N ;
   mkN056 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"‡")
-                               (v0+"‡")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–∞")
+                               (v0+"–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1003,108 +1003,108 @@ oper
   mkN057 base = let v0 = tk 3 base;
                     v1 = last (tk 1 base);
                     g  = ANeut
-                in {s = mkNoun (v0+"ˇ"+v1+"Ó")
-                               (v0+"Â"+v1+"‡")
-                               (v0+"Â"+v1+"‡")
-                               (v0+"ˇ"+v1+"Ó")
+                in {s = mkNoun (v0+"—è"+v1+"–æ")
+                               (v0+"–µ"+v1+"–∞")
+                               (v0+"–µ"+v1+"–∞")
+                               (v0+"—è"+v1+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN057a : Str -> N ;
   mkN057a base = let v0 = tk 4 base;
                      g  = ANeut
-                 in {s = mkNoun (v0+"ˇÒÚÓ")
-                                (v0+"ÂÒÚ‡")
-                                (v0+"ÂÒÚ‡")
-                                (v0+"ˇÒÚÓ")
+                 in {s = mkNoun (v0+"—è—Å—Ç–æ")
+                                (v0+"–µ—Å—Ç–∞")
+                                (v0+"–µ—Å—Ç–∞")
+                                (v0+"—è—Å—Ç–æ")
                                 g ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g   = g ;
                      lock_N = <>
                     };
   mkN058 : Str -> N ;
   mkN058 base = let v0 = tk 3 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"ˇÌÓ")
-                               (v0+"ÂÌ‡")
-                               (v0+"ÂÌ‡")
-                               (v0+"ˇÌÓ")
+                in {s = mkNoun (v0+"—è–Ω–æ")
+                               (v0+"–µ–Ω–∞")
+                               (v0+"–µ–Ω–∞")
+                               (v0+"—è–Ω–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN059 : Str -> N ;
   mkN059 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"ÂÌÂ")
-                               (v0+"ÂÌÂ")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–µ–Ω–µ")
+                               (v0+"–µ–Ω–µ")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN060 : Str -> N ;
   mkN060 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"ÂÒ‡")
-                               (v0+"ÂÒ‡")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–µ—Å–∞")
+                               (v0+"–µ—Å–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN061 : Str -> N ;
   mkN061 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"‡")
-                               (v0+"‡")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–∞")
+                               (v0+"–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN062 : Str -> N ;
   mkN062 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"Ë")
-                               (v0+"Ë")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–∏")
+                               (v0+"–∏")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN063 : Str -> N ;
   mkN063 base = let v0 = tk 2 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"ÍÓ")
-                               (v0+"˜Ë")
-                               (v0+"˜Ë")
-                               (v0+"ÍÓ")
+                in {s = mkNoun (v0+"–∫–æ")
+                               (v0+"—á–∏")
+                               (v0+"—á–∏")
+                               (v0+"–∫–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN064 : Str -> N ;
   mkN064 base = let v0 = tk 2 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"ıÓ")
-                               (v0+"¯Ë")
-                               (v0+"¯Ë")
-                               (v0+"ıÓ")
+                in {s = mkNoun (v0+"—Ö–æ")
+                               (v0+"—à–∏")
+                               (v0+"—à–∏")
+                               (v0+"—Ö–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g;
                     lock_N = <>
                    };
@@ -1112,47 +1112,47 @@ oper
   mkN065 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"Ú‡")
-                               (v0+"Ú‡")
+                               (v0+"—Ç–∞")
+                               (v0+"—Ç–∞")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN066 : Str -> N ;
   mkN066 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Â")
-                               (v0+"‡")
-                               (v0+"‡")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"–µ")
+                               (v0+"–∞")
+                               (v0+"–∞")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
  mkN067 : Str -> N ;
   mkN067 base = let v0 = tk 2 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"ÚÂ")
-                               (v0+"ˆ‡")
-                               (v0+"ˆ‡")
-                               (v0+"ÚÂ")
+                in {s = mkNoun (v0+"—Ç–µ")
+                               (v0+"—Ü–∞")
+                               (v0+"—Ü–∞")
+                               (v0+"—Ç–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN068 : Str -> N ;
   mkN068 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Â")
-                               (v0+"ˇ")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"–µ")
+                               (v0+"—è")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1160,11 +1160,11 @@ oper
   mkN069 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"Ì‡")
-                               (v0+"Ì‡")
+                               (v0+"–Ω–∞")
+                               (v0+"–Ω–∞")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1172,35 +1172,35 @@ oper
   mkN070 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"Ò‡")
-                               (v0+"Ò‡")
+                               (v0+"—Å–∞")
+                               (v0+"—Å–∞")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN071 : Str -> N ;
   mkN071 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Â")
-                               (v0+"Ëˇ")
-                               (v0+"Ëˇ")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"–µ")
+                               (v0+"–∏—è")
+                               (v0+"–∏—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkN072 : Str -> N ;
   mkN072 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Â")
-                               (v0+"ˇ")
-                               (v0+"ˇ")
-                               (v0+"Â")
+                in {s = mkNoun (v0+"–µ")
+                               (v0+"—è")
+                               (v0+"—è")
+                               (v0+"–µ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1208,11 +1208,11 @@ oper
   mkN073 base = let v0 = base;
                     g  = ANeut
                 in {s = mkNoun (v0)
-                               (v0+"Ú‡")
-                               (v0+"Ú‡")
+                               (v0+"—Ç–∞")
+                               (v0+"—Ç–∞")
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1221,12 +1221,12 @@ oper
                 in { s = table {
                            NF Sg _     => v0 ;
                            NF Pl Indef => v0 ;
-                           NF Pl Def   => v0+"Ú‡" ;
+                           NF Pl Def   => v0+"—Ç–∞" ;
                            NFSgDefNom  => v0 ;
                            NFPlCount   => v0 ;
                            NFVocative  => v0
                          } ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g = ANeut ;
                      lock_N = <>
                    } ;
@@ -1235,24 +1235,24 @@ oper
                 in { s = table {
                            NF Sg _     => Prelude.nonExist ;
                            NF Pl Indef => v0 ;
-                           NF Pl Def   => v0+"ÚÂ" ;
+                           NF Pl Def   => v0+"—Ç–µ" ;
                            NFSgDefNom  => Prelude.nonExist ;
                            NFPlCount   => v0 ;
                            NFVocative  => v0
                          } ;
-                     rel = \\_ => base ; relPost = False ;
+                     rel = \\_ => base ; relType = Pref ;
                      g = ANeut ;
                      lock_N = <>
                    } ;
   mkN076 : Str -> N ;
   mkN076 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"Ó")
-                               (v0+"ÂÚ‡")
-                               (v0+"ÂÚ‡")
-                               (v0+"Ó")
+                in {s = mkNoun (v0+"–æ")
+                               (v0+"–µ—Ç–∞")
+                               (v0+"–µ—Ç–∞")
+                               (v0+"–æ")
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
@@ -1264,180 +1264,180 @@ oper
                                nonExist
                                (v0)
                                g ;
-                    rel = \\_ => base ; relPost = False ;
+                    rel = \\_ => base ; relType = Pref ;
                     g   = g ;
                     lock_N = <>
                    };
   mkA076 : Str -> A ;
   mkA076 base = let v0 = base
                 in mkAdjective (v0)
-                               (v0+"Ëˇ")
-                               (v0+"ËˇÚ")
-                               (v0+"‡")
-                               (v0+"‡Ú‡")
-                               (v0+"Ó")
-                               (v0+"ÓÚÓ")
-                               (v0+"Ë")
-                               (v0+"ËÚÂ") ;
+                               (v0+"–∏—è")
+                               (v0+"–∏—è—Ç")
+                               (v0+"–∞")
+                               (v0+"–∞—Ç–∞")
+                               (v0+"–æ")
+                               (v0+"–æ—Ç–æ")
+                               (v0+"–∏")
+                               (v0+"–∏—Ç–µ") ;
   mkA077 : Str -> A ;
   mkA077 base = let v0 = base
                 in mkAdjective (v0)
-                               (v0+"Ëˇ")
-                               (v0+"ËˇÚ")
-                               (v0+"‡")
-                               (v0+"‡Ú‡")
-                               (v0+"Â")
-                               (v0+"ÂÚÓ")
-                               (v0+"Ë")
-                               (v0+"ËÚÂ") ;
+                               (v0+"–∏—è")
+                               (v0+"–∏—è—Ç")
+                               (v0+"–∞")
+                               (v0+"–∞—Ç–∞")
+                               (v0+"–µ")
+                               (v0+"–µ—Ç–æ")
+                               (v0+"–∏")
+                               (v0+"–∏—Ç–µ") ;
   mkA078 : Str -> A ;
   mkA078 base = let v0 = tk 1 base
-                in adjAdv (mkAdjective (v0+"Ë")
-                                       (v0+"Ëˇ")
-                                       (v0+"ËˇÚ")
-                                       (v0+"‡")
-                                       (v0+"‡Ú‡")
-                                       (v0+"Ó")
-                                       (v0+"ÓÚÓ")
-                                       (v0+"Ë")
-                                       (v0+"ËÚÂ")) (v0+"Ë") ;
+                in adjAdv (mkAdjective (v0+"–∏")
+                                       (v0+"–∏—è")
+                                       (v0+"–∏—è—Ç")
+                                       (v0+"–∞")
+                                       (v0+"–∞—Ç–∞")
+                                       (v0+"–æ")
+                                       (v0+"–æ—Ç–æ")
+                                       (v0+"–∏")
+                                       (v0+"–∏—Ç–µ")) (v0+"–∏") ;
   mkA079 : Str -> A ;
   mkA079 base = let v0 = tk 2 base
-                in mkAdjective (v0+"ÂÌ")
-                               (v0+"ÌËˇ")
-                               (v0+"ÌËˇÚ")
-                               (v0+"Ì‡")
-                               (v0+"Ì‡Ú‡")
-                               (v0+"ÌÓ")
-                               (v0+"ÌÓÚÓ")
-                               (v0+"ÌË")
-                               (v0+"ÌËÚÂ") ;
+                in mkAdjective (v0+"–µ–Ω")
+                               (v0+"–Ω–∏—è")
+                               (v0+"–Ω–∏—è—Ç")
+                               (v0+"–Ω–∞")
+                               (v0+"–Ω–∞—Ç–∞")
+                               (v0+"–Ω–æ")
+                               (v0+"–Ω–æ—Ç–æ")
+                               (v0+"–Ω–∏")
+                               (v0+"–Ω–∏—Ç–µ") ;
   mkA080 : Str -> A ;
   mkA080 base = let v0 = tk 2 base;
                     v1 = last (base)
-                in mkAdjective (v0+"˙"+v1)
-                               (v0+v1+"Ëˇ")
-                               (v0+v1+"ËˇÚ")
-                               (v0+v1+"‡")
-                               (v0+v1+"‡Ú‡")
-                               (v0+v1+"Ó")
-                               (v0+v1+"ÓÚÓ")
-                               (v0+v1+"Ë")
-                               (v0+v1+"ËÚÂ") ;
+                in mkAdjective (v0+"—ä"+v1)
+                               (v0+v1+"–∏—è")
+                               (v0+v1+"–∏—è—Ç")
+                               (v0+v1+"–∞")
+                               (v0+v1+"–∞—Ç–∞")
+                               (v0+v1+"–æ")
+                               (v0+v1+"–æ—Ç–æ")
+                               (v0+v1+"–∏")
+                               (v0+v1+"–∏—Ç–µ") ;
   mkA081 : Str -> A ;
   mkA081 base = let v0 = tk 2 base;
                     v1 = last (base)
-                in mkAdjective (v0+"ˇ"+v1)
-                               (v0+"Â"+v1+"Ëˇ")
-                               (v0+"Â"+v1+"ËˇÚ")
-                               (v0+"ˇ"+v1+"‡")
-                               (v0+"ˇ"+v1+"‡Ú‡")
-                               (v0+"ˇ"+v1+"Ó")
-                               (v0+"ˇ"+v1+"ÓÚÓ")
-                               (v0+"Â"+v1+"Ë")
-                               (v0+"Â"+v1+"ËÚÂ") ;
+                in mkAdjective (v0+"—è"+v1)
+                               (v0+"–µ"+v1+"–∏—è")
+                               (v0+"–µ"+v1+"–∏—è—Ç")
+                               (v0+"—è"+v1+"–∞")
+                               (v0+"—è"+v1+"–∞—Ç–∞")
+                               (v0+"—è"+v1+"–æ")
+                               (v0+"—è"+v1+"–æ—Ç–æ")
+                               (v0+"–µ"+v1+"–∏")
+                               (v0+"–µ"+v1+"–∏—Ç–µ") ;
   mkA082 : Str -> A ;
   mkA082 base = let v0 = tk 3 base;
                     v1 = last (base)
-                in mkAdjective (v0+"˙"+v1)
-                               (v0+"˙"+v1+"Ëˇ")
-                               (v0+"˙"+v1+"ËˇÚ")
-                               (v0+"˙"+v1+"‡")
-                               (v0+"˙"+v1+"‡Ú‡")
-                               (v0+"˙"+v1+"Ó")
-                               (v0+"˙"+v1+"ÓÚÓ")
-                               (v0+"˙"+v1+"Ë")
-                               (v0+"˙"+v1+"ËÚÂ") ;
+                in mkAdjective (v0+"—Ä—ä"+v1)
+                               (v0+"—ä—Ä"+v1+"–∏—è")
+                               (v0+"—ä—Ä"+v1+"–∏—è—Ç")
+                               (v0+"—ä—Ä"+v1+"–∞")
+                               (v0+"—ä—Ä"+v1+"–∞—Ç–∞")
+                               (v0+"—ä—Ä"+v1+"–æ")
+                               (v0+"—ä—Ä"+v1+"–æ—Ç–æ")
+                               (v0+"—ä—Ä"+v1+"–∏")
+                               (v0+"—ä—Ä"+v1+"–∏—Ç–µ") ;
   mkA082a : Str -> A ;
   mkA082a base = let v0 = tk 5 base
-                 in mkAdjective (v0+"˙Á˙Í")
-                                (v0+"˙ÁÍËˇ")
-                                (v0+"˙ÁÍËˇÚ")
-                                (v0+"˙ÁÍ‡")
-                                (v0+"˙ÁÍ‡Ú‡")
-                                (v0+"˙ÁÍÓ")
-                                (v0+"˙ÁÍÓÚÓ")
-                                (v0+"˙ÁÍË")
-                                (v0+"˙ÁÍËÚÂ") ;
+                 in mkAdjective (v0+"—ä—Ä–∑—ä–∫")
+                                (v0+"—Ä—ä–∑–∫–∏—è")
+                                (v0+"—Ä—ä–∑–∫–∏—è—Ç")
+                                (v0+"—Ä—ä–∑–∫–∞")
+                                (v0+"—Ä—ä–∑–∫–∞—Ç–∞")
+                                (v0+"—Ä—ä–∑–∫–æ")
+                                (v0+"—Ä—ä–∑–∫–æ—Ç–æ")
+                                (v0+"—Ä—ä–∑–∫–∏")
+                                (v0+"—Ä—ä–∑–∫–∏—Ç–µ") ;
   mkA083 : Str -> A ;
   mkA083 base = let v0 = tk 4 base;
                     v1 = last (tk 2 base)
-                in mkAdjective (v0+"ˇ"+v1+"˙Í")
-                               (v0+"Â"+v1+"ÍËˇ")
-                               (v0+"Â"+v1+"ÍËˇÚ")
-                               (v0+"ˇ"+v1+"Í‡")
-                               (v0+"ˇ"+v1+"Í‡Ú‡")
-                               (v0+"ˇ"+v1+"ÍÓ")
-                               (v0+"ˇ"+v1+"ÍÓÚÓ")
-                               (v0+"Â"+v1+"ÍË")
-                               (v0+"Â"+v1+"ÍËÚÂ") ;
+                in mkAdjective (v0+"—è"+v1+"—ä–∫")
+                               (v0+"–µ"+v1+"–∫–∏—è")
+                               (v0+"–µ"+v1+"–∫–∏—è—Ç")
+                               (v0+"—è"+v1+"–∫–∞")
+                               (v0+"—è"+v1+"–∫–∞—Ç–∞")
+                               (v0+"—è"+v1+"–∫–æ")
+                               (v0+"—è"+v1+"–∫–æ—Ç–æ")
+                               (v0+"–µ"+v1+"–∫–∏")
+                               (v0+"–µ"+v1+"–∫–∏—Ç–µ") ;
   mkA084 : Str -> A ;
   mkA084 base = let v0 = tk 4 base;
                     v1 = last (tk 2 base)
-                in mkAdjective (v0+"Â"+v1+"ÂÌ")
-                               (v0+"Â"+v1+"ÌËˇ")
-                               (v0+"Â"+v1+"ÌËˇÚ")
-                               (v0+"ˇ"+v1+"Ì‡")
-                               (v0+"ˇ"+v1+"Ì‡Ú‡")
-                               (v0+"ˇ"+v1+"ÌÓ")
-                               (v0+"ˇ"+v1+"ÌÓÚÓ")
-                               (v0+"Â"+v1+"ÌË")
-                               (v0+"Â"+v1+"ÌËÚÂ") ;
+                in mkAdjective (v0+"–µ"+v1+"–µ–Ω")
+                               (v0+"–µ"+v1+"–Ω–∏—è")
+                               (v0+"–µ"+v1+"–Ω–∏—è—Ç")
+                               (v0+"—è"+v1+"–Ω–∞")
+                               (v0+"—è"+v1+"–Ω–∞—Ç–∞")
+                               (v0+"—è"+v1+"–Ω–æ")
+                               (v0+"—è"+v1+"–Ω–æ—Ç–æ")
+                               (v0+"–µ"+v1+"–Ω–∏")
+                               (v0+"–µ"+v1+"–Ω–∏—Ç–µ") ;
   mkA084a : Str -> A ;
   mkA084a base = let v0 = tk 5 base
-                 in mkAdjective (v0+"ÂÒÚÂÌ")
-                                (v0+"ÂÒÚÌËˇ")
-                                (v0+"ÂÒÚÌËˇÚ")
-                                (v0+"ˇÒÚÌ‡")
-                                (v0+"ˇÒÚÌ‡Ú‡")
-                                (v0+"ˇÒÚÌÓ")
-                                (v0+"ˇÒÚÌÓÚ‡")
-                                (v0+"ÂÒÚÌË")
-                                (v0+"ÂÒÚÌËÚÂ") ;
+                 in mkAdjective (v0+"–µ—Å—Ç–µ–Ω")
+                                (v0+"–µ—Å—Ç–Ω–∏—è")
+                                (v0+"–µ—Å—Ç–Ω–∏—è—Ç")
+                                (v0+"—è—Å—Ç–Ω–∞")
+                                (v0+"—è—Å—Ç–Ω–∞—Ç–∞")
+                                (v0+"—è—Å—Ç–Ω–æ")
+                                (v0+"—è—Å—Ç–Ω–æ—Ç–∞")
+                                (v0+"–µ—Å—Ç–Ω–∏")
+                                (v0+"–µ—Å—Ç–Ω–∏—Ç–µ") ;
   mkA085 : Str -> A ;
   mkA085 base = let v0 = tk 2 base
-                in mkAdjective (v0+"ÂÌ")
-                               (v0+"ÈÌËˇ")
-                               (v0+"ÈÌËˇÚ")
-                               (v0+"ÈÌ‡")
-                               (v0+"ÈÌ‡Ú‡")
-                               (v0+"ÈÌÓ")
-                               (v0+"ÈÌÓÚÓ")
-                               (v0+"ÈÌË")
-                               (v0+"ÈÌËÚÂ") ;
+                in mkAdjective (v0+"–µ–Ω")
+                               (v0+"–π–Ω–∏—è")
+                               (v0+"–π–Ω–∏—è—Ç")
+                               (v0+"–π–Ω–∞")
+                               (v0+"–π–Ω–∞—Ç–∞")
+                               (v0+"–π–Ω–æ")
+                               (v0+"–π–Ω–æ—Ç–æ")
+                               (v0+"–π–Ω–∏")
+                               (v0+"–π–Ω–∏—Ç–µ") ;
   mkA086 : Str -> A ;
   mkA086 base = let v0 = base
                 in mkAdjective (v0)
-                               (v0+"Ëˇ")
-                               (v0+"ËˇÚ")
-                               (v0+"ˇ")
-                               (v0+"ˇÚ‡")
-                               (v0+"¸Ó")
-                               (v0+"¸ÓÚÓ")
-                               (v0+"Ë")
-                               (v0+"ËÚÂ") ;
+                               (v0+"–∏—è")
+                               (v0+"–∏—è—Ç")
+                               (v0+"—è")
+                               (v0+"—è—Ç–∞")
+                               (v0+"—å–æ")
+                               (v0+"—å–æ—Ç–æ")
+                               (v0+"–∏")
+                               (v0+"–∏—Ç–µ") ;
   mkA087 : Str -> A ;
   mkA087 base = let v0 = tk 1 base
-                in mkAdjective (v0+"Ë")
-                               (v0+"Ëˇ")
-                               (v0+"ËˇÚ")
-                               (v0+"‡")
-                               (v0+"‡Ú‡")
-                               (v0+"Â")
-                               (v0+"ÂÚÓ")
-                               (v0+"Ë")
-                               (v0+"ËÚÂ") ;
+                in mkAdjective (v0+"–∏")
+                               (v0+"–∏—è")
+                               (v0+"–∏—è—Ç")
+                               (v0+"–∞")
+                               (v0+"–∞—Ç–∞")
+                               (v0+"–µ")
+                               (v0+"–µ—Ç–æ")
+                               (v0+"–∏")
+                               (v0+"–∏—Ç–µ") ;
   mkA088 : Str -> A ;
   mkA088 base = let v0 = tk 1 base
-                in mkAdjective (v0+"Ë")
-                               (v0+"Ëˇ")
-                               (v0+"ËˇÚ")
-                               (v0+"ˇ")
-                               (v0+"ˇÚ‡")
-                               (v0+"Â")
-                               (v0+"ÂÚÓ")
-                               (v0+"Ë")
-                               (v0+"ËÚÂ") ;
+                in mkAdjective (v0+"–∏")
+                               (v0+"–∏—è")
+                               (v0+"–∏—è—Ç")
+                               (v0+"—è")
+                               (v0+"—è—Ç–∞")
+                               (v0+"–µ")
+                               (v0+"–µ—Ç–æ")
+                               (v0+"–∏")
+                               (v0+"–∏—Ç–µ") ;
   mkA089a : Str -> A ;
   mkA089a base = let v0 = base
                  in mkAdjective (v0)
@@ -1451,654 +1451,654 @@ oper
                                 (v0) ;
   mkV142 : Str -> VTable ;
   mkV142 base = let v0 = tk 3 base
-                in mkVerb (v0+"Ò˙Ï")
-                          (v0+"Â")
-                          (v0+"·ˇı")
-                          (v0+"·ˇı")
-                          (v0+"·ËÎ")
-                          (v0+"·ËÎ")
+                in mkVerb (v0+"—Å—ä–º")
+                          (v0+"–µ")
+                          (v0+"–±—è—Ö")
+                          (v0+"–±—è—Ö")
+                          (v0+"–±–∏–ª")
+                          (v0+"–±–∏–ª")
                           (v0+"-")
                           (v0+"-")
-                          (v0+"·˙‰Ë")
-                          (v0+"·ˇÌÂ") ;
+                          (v0+"–±—ä–¥–∏")
+                          (v0+"–±—è–Ω–µ") ;
   mkV143 : Str -> VTable ;
   mkV143 base = let v0 = tk 3 base
-                in mkVerb (v0+"˙‰‡")
-                          (v0+"˙‰Â")
-                          (v0+"Ëı")
-                          (v0+"˙‰Âı")
-                          (v0+"ËÎ")
-                          (v0+"˙‰ÂÎ")
+                in mkVerb (v0+"—ä–¥–∞")
+                          (v0+"—ä–¥–µ")
+                          (v0+"–∏—Ö")
+                          (v0+"—ä–¥–µ—Ö")
+                          (v0+"–∏–ª")
+                          (v0+"—ä–¥–µ–ª")
                           (v0+"-")
-                          (v0+"˙‰Â˘")
-                          (v0+"˙‰Ë")
-                          (v0+"˙‰ÂÌÂ") ;
+                          (v0+"—ä–¥–µ—â")
+                          (v0+"—ä–¥–∏")
+                          (v0+"—ä–¥–µ–Ω–µ") ;
   mkV144 : Str -> VTable ;
   mkV144 base = let v0 = tk 1 base
-                in mkVerb (v0+"‡")
-                          (v0+"Â")
-                          (v0+"ˇı")
-                          (v0+"ˇı")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÎ")
+                in mkVerb (v0+"–∞")
+                          (v0+"–µ")
+                          (v0+"—è—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"—è–ª")
+                          (v0+"—è–ª")
                           (v0+"-")
                           (v0+"-")
                           (v0+"-")
-                          (v0+"ˇÌÂ") ;
+                          (v0+"—è–Ω–µ") ;
   mkV145 : Str -> VTable ;
   mkV145 base = let v0 = tk 2 base;
                     v1 = last (tk 1 base)
-                in mkVerb (v0+v1+"‡")
-                          (v0+v1+"Â")
-                          (v0+v1+"Óı")
-                          (v0+v1+"ˇı")
-                          (v0+"Î")
-                          (v0+v1+"ˇÎ")
-                          (v0+v1+"ÂÌ")
-                          (v0+v1+"ˇ˘")
-                          (v0+v1+"Ë")
-                          (v0+v1+"ÂÌÂ") ;
+                in mkVerb (v0+v1+"–∞")
+                          (v0+v1+"–µ")
+                          (v0+v1+"–æ—Ö")
+                          (v0+v1+"—è—Ö")
+                          (v0+"–ª")
+                          (v0+v1+"—è–ª")
+                          (v0+v1+"–µ–Ω")
+                          (v0+v1+"—è—â")
+                          (v0+v1+"–∏")
+                          (v0+v1+"–µ–Ω–µ") ;
   mkV145a : Str -> VTable ;
   mkV145a base = let v0 = tk 3 base;
                      v1 = last (tk 2 base)
-                 in mkVerb (v0+v1+"Ò‡")
-                           (v0+v1+"ÒÂ")
-                           (v0+v1+"ÒÓı")
-                           (v0+v1+"Òˇı")
-                           (v0+v1+"Ò˙Î")
-                           (v0+v1+"ÒˇÎ")
-                           (v0+v1+"ÒÂÌ")
-                           (v0+v1+"Òˇ˘")
-                           (v0+v1+"ÒË")
-                           (v0+v1+"ÒˇÌÂ") ;
+                 in mkVerb (v0+v1+"—Å–∞")
+                           (v0+v1+"—Å–µ")
+                           (v0+v1+"—Å–æ—Ö")
+                           (v0+v1+"—Å—è—Ö")
+                           (v0+v1+"—Å—ä–ª")
+                           (v0+v1+"—Å—è–ª")
+                           (v0+v1+"—Å–µ–Ω")
+                           (v0+v1+"—Å—è—â")
+                           (v0+v1+"—Å–∏")
+                           (v0+v1+"—Å—è–Ω–µ") ;
   mkV145b : Str -> VTable ;
   mkV145b base = let v0 = tk 2 base
-                 in mkVerb (v0+"Ú‡")
-                           (v0+"ÚÂ")
-                           (v0+"ÚÓı")
-                           (v0+"Úˇı")
-                           (v0+"˙Î")
-                           (v0+"ÚˇÎ")
+                 in mkVerb (v0+"—Ç–∞")
+                           (v0+"—Ç–µ")
+                           (v0+"—Ç–æ—Ö")
+                           (v0+"—Ç—è—Ö")
+                           (v0+"—ä–ª")
+                           (v0+"—Ç—è–ª")
                            (v0+"-")
-                           (v0+"Úˇ˘")
-                           (v0+"ÚË")
-                           (v0+"ÚˇÌÂ") ;
+                           (v0+"—Ç—è—â")
+                           (v0+"—Ç–∏")
+                           (v0+"—Ç—è–Ω–µ") ;
   mkV146 : Str -> VTable ;
   mkV146 base = let v0 = tk 2 base
-                in mkVerb (v0+"‰‡")
-                          (v0+"‰Â")
-                          (v0+"‰Óı")
-                          (v0+"‰Âı")
-                          (v0+"¯˙Î")
-                          (v0+"‰ÂÎ")
+                in mkVerb (v0+"–¥–∞")
+                          (v0+"–¥–µ")
+                          (v0+"–¥–æ—Ö")
+                          (v0+"–¥–µ—Ö")
+                          (v0+"—à—ä–ª")
+                          (v0+"–¥–µ–ª")
                           (v0+"-")
                           (v0+"-")
-                          (v0+"‰Ë")
-                          (v0+"‰ÂÌÂ") ;
+                          (v0+"–¥–∏")
+                          (v0+"–¥–µ–Ω–µ") ;
   mkV146a : Str -> VTable ;
   mkV146a base = let v0 = tk 3 base
-                 in mkVerb (v0+"È‰‡")
-                           (v0+"È‰Â")
-                           (v0+"È‰Óı")
-                           (v0+"È‰Âı")
-                           (v0+"¯˙Î")
-                           (v0+"È‰ÂÎ")
+                 in mkVerb (v0+"–π–¥–∞")
+                           (v0+"–π–¥–µ")
+                           (v0+"–π–¥–æ—Ö")
+                           (v0+"–π–¥–µ—Ö")
+                           (v0+"—à—ä–ª")
+                           (v0+"–π–¥–µ–ª")
                            (v0+"-")
                            (v0+"-")
-                           (v0+"È‰Ë")
-                           (v0+"È‰ÂÌÂ") ;
+                           (v0+"–π–¥–∏")
+                           (v0+"–π–¥–µ–Ω–µ") ;
   mkV147 : Str -> VTable ;
   mkV147 base = let v0 = tk 3 base
-                in mkVerb (v0+"ˇÁ‡")
-                          (v0+"ÂÁÂ")
-                          (v0+"ˇÁÓı")
-                          (v0+"ÂÁÂı")
-                          (v0+"ˇÁ˙Î")
-                          (v0+"ÂÁÂÎ")
-                          (v0+"-")
-                          (v0+"ËÁ‡˘")
-                          (v0+"ÂÁ")
-                          (v0+"ÂÁÂÌÂ") ;
+                in mkVerb (v0+"—è–∑–∞")
+                          (v0+"–µ–∑–µ")
+                          (v0+"—è–∑–æ—Ö")
+                          (v0+"–µ–∑–µ—Ö")
+                          (v0+"—è–∑—ä–ª")
+                          (v0+"–µ–∑–µ–ª")
+                          (v0+"—è–∑—ä–ª")
+                          (v0+"–∏–∑–∞—â")
+                          (v0+"–µ–∑")
+                          (v0+"–µ–∑–µ–Ω–µ") ;
   mkV148 : Str -> VTable ;
   mkV148 base = let v0 = tk 2 base
-                in mkVerb (v0+"Í‡")
-                          (v0+"˜Â")
-                          (v0+"ÍÓı")
-                          (v0+"˜Âı")
-                          (v0+"Í˙Î")
-                          (v0+"˜ÂÎ")
-                          (v0+"˜ÂÌ")
-                          (v0+"˜‡˘")
-                          (v0+"˜Ë")
-                          (v0+"˜ÂÌÂ") ;
+                in mkVerb (v0+"–∫–∞")
+                          (v0+"—á–µ")
+                          (v0+"–∫–æ—Ö")
+                          (v0+"—á–µ—Ö")
+                          (v0+"–∫—ä–ª")
+                          (v0+"—á–µ–ª")
+                          (v0+"—á–µ–Ω")
+                          (v0+"—á–∞—â")
+                          (v0+"—á–∏")
+                          (v0+"—á–µ–Ω–µ") ;
   mkV149 : Str -> VTable ;
   mkV149 base = let v0 = tk 3 base
-                in mkVerb (v0+"ÂÍ‡")
-                          (v0+"Â˜Â")
-                          (v0+"ˇÍÓı")
-                          (v0+"Â˜Âı")
-                          (v0+"ˇÍ˙Î")
-                          (v0+"Â˜ÂÎ")
-                          (v0+"Â˜ÂÌ")
+                in mkVerb (v0+"–µ–∫–∞")
+                          (v0+"–µ—á–µ")
+                          (v0+"—è–∫–æ—Ö")
+                          (v0+"–µ—á–µ—Ö")
+                          (v0+"—è–∫—ä–ª")
+                          (v0+"–µ—á–µ–ª")
+                          (v0+"–µ—á–µ–Ω")
                           (v0+"-")
-                          (v0+"Â˜Ë")
-                          (v0+"Â˜ÂÌÂ") ;
+                          (v0+"–µ—á–∏")
+                          (v0+"–µ—á–µ–Ω–µ") ;
   mkV150 : Str -> VTable ;
   mkV150 base = let v0 = tk 1 base
-                in mkVerb (v0+"‡")
-                          (v0+"Â")
-                          (v0+"ˇı")
-                          (v0+"ˇı")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÌ")
+                in mkVerb (v0+"–∞")
+                          (v0+"–µ")
+                          (v0+"—è—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"—è–ª")
+                          (v0+"—è–ª")
+                          (v0+"—è–Ω")
                           (v0+"-")
-                          (v0+"Ë")
-                          (v0+"ˇÌÂ") ;
+                          (v0+"–∏")
+                          (v0+"—è–Ω–µ") ;
   mkV150a : Str -> VTable ;
   mkV150a base = let v0 = tk 1 base
-                 in mkVerb (v0+"‡")
-                           (v0+"Â")
-                           (v0+"ˇı")
-                           (v0+"ˇı")
-                           (v0+"ˇÎ")
-                           (v0+"ˇÎ")
+                 in mkVerb (v0+"–∞")
+                           (v0+"–µ")
+                           (v0+"—è—Ö")
+                           (v0+"—è—Ö")
+                           (v0+"—è–ª")
+                           (v0+"—è–ª")
                            (v0+"-")
                            (v0+"-")
-                           (v0+"Ë")
-                           (v0+"ˇÌÂ") ;
+                           (v0+"–∏")
+                           (v0+"—è–Ω–µ") ;
   mkV151 : Str -> VTable ;
   mkV151 base = let v0 = tk 1 base
-                in mkVerb (v0+"‡")
-                          (v0+"Â")
-                          (v0+"‡ı")
-                          (v0+"ˇı")
-                          (v0+"‡Î")
-                          (v0+"ˇÎ")
-                          (v0+"‡Ì")
-                          (v0+"ˇ˘")
-                          (v0+"Ë")
-                          (v0+"ˇÌÂ") ;
+                in mkVerb (v0+"–∞")
+                          (v0+"–µ")
+                          (v0+"–∞—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"–∞–ª")
+                          (v0+"—è–ª")
+                          (v0+"–∞–Ω")
+                          (v0+"—è—â")
+                          (v0+"–∏")
+                          (v0+"—è–Ω–µ") ;
   mkV152 : Str -> VTable ;
   mkV152 base = let v0 = tk 1 base
-                in mkVerb (v0+"‡")
-                          (v0+"Â")
-                          (v0+"‡ı")
-                          (v0+"Âı")
-                          (v0+"‡Î")
-                          (v0+"ÂÎ")
-                          (v0+"‡Ú")
+                in mkVerb (v0+"–∞")
+                          (v0+"–µ")
+                          (v0+"–∞—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"–∞–ª")
+                          (v0+"–µ–ª")
+                          (v0+"–∞—Ç")
                           (v0+"-")
-                          (v0+"Ë")
-                          (v0+"ÂÌÂ") ;
+                          (v0+"–∏")
+                          (v0+"–µ–Ω–µ") ;
   mkV152a : Str -> VTable ;
   mkV152a base = let v0 = tk 4 base
-                 in mkVerb (v0+"ˇ„Ì‡")
-                           (v0+"Â„ÌÂ")
-                           (v0+"ˇ„Ì‡ı")
-                           (v0+"ˇ„ÌÂı")
-                           (v0+"ˇ„Ì‡Î")
-                           (v0+"ˇ„ÌÂÎ")
-                           (v0+"ˇ„Ì‡Ú")
+                 in mkVerb (v0+"—è–≥–Ω–∞")
+                           (v0+"–µ–≥–Ω–µ")
+                           (v0+"—è–≥–Ω–∞—Ö")
+                           (v0+"—è–≥–Ω–µ—Ö")
+                           (v0+"—è–≥–Ω–∞–ª")
+                           (v0+"—è–≥–Ω–µ–ª")
+                           (v0+"—è–≥–Ω–∞—Ç")
                            (v0+"-")
-                           (v0+"Â„ÌË")
-                           (v0+"ˇ„ÌÂÌÂ") ;
+                           (v0+"–µ–≥–Ω–∏")
+                           (v0+"—è–≥–Ω–µ–Ω–µ") ;
   mkV153 : Str -> VTable ;
   mkV153 base = let v0 = tk 3 base
-                in mkVerb (v0+"ˇÌ‡")
-                          (v0+"ÂÌÂ")
-                          (v0+"ˇÌ‡ı")
-                          (v0+"ÂÌÂı")
-                          (v0+"ˇÌ‡Î")
-                          (v0+"ÂÌÂÎ")
-                          (v0+"ˇÌ‡Ú")
+                in mkVerb (v0+"—è–Ω–∞")
+                          (v0+"–µ–Ω–µ")
+                          (v0+"—è–Ω–∞—Ö")
+                          (v0+"–µ–Ω–µ—Ö")
+                          (v0+"—è–Ω–∞–ª")
+                          (v0+"–µ–Ω–µ–ª")
+                          (v0+"—è–Ω–∞—Ç")
                           (v0+"-")
-                          (v0+"ÂÌË")
-                          (v0+"ÂÌÂÌÂ") ;
+                          (v0+"–µ–Ω–∏")
+                          (v0+"–µ–Ω–µ–Ω–µ") ;
   mkV154 : Str -> VTable ;
   mkV154 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Â")
-                          (v0+"‡ı")
-                          (v0+"Âı")
-                          (v0+"‡Î")
-                          (v0+"ÂÎ")
-                          (v0+"‡Ì")
-                          (v0+"Â˘")
-                          (v0+"Ë")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–µ")
+                          (v0+"–∞—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"–∞–ª")
+                          (v0+"–µ–ª")
+                          (v0+"–∞–Ω")
+                          (v0+"–µ—â")
+                          (v0+"–∏")
+                          (v0+"–µ–Ω–µ") ;
   mkV155 : Str -> VTable ;
   mkV155 base = let v0 = tk 2 base
-                in mkVerb (v0+"˜‡")
-                          (v0+"˜Â")
-                          (v0+"Í‡ı")
-                          (v0+"˜Âı")
-                          (v0+"Í‡Î")
-                          (v0+"˜ÂÎ")
-                          (v0+"Í‡Ì")
-                          (v0+"˜Â˘")
-                          (v0+"˜Ë")
-                          (v0+"˜ÂÌÂ") ;
+                in mkVerb (v0+"—á–∞")
+                          (v0+"—á–µ")
+                          (v0+"–∫–∞—Ö")
+                          (v0+"—á–µ—Ö")
+                          (v0+"–∫–∞–ª")
+                          (v0+"—á–µ–ª")
+                          (v0+"–∫–∞–Ω")
+                          (v0+"—á–µ—â")
+                          (v0+"—á–∏")
+                          (v0+"—á–µ–Ω–µ") ;
   mkV156 : Str -> VTable ;
   mkV156 base = let v0 = tk 2 base
-                in mkVerb (v0+"Ê‡")
-                          (v0+"ÊÂ")
-                          (v0+"Á‡ı")
-                          (v0+"ÊÂı")
-                          (v0+"Á‡Î")
-                          (v0+"ÊÂÎ")
-                          (v0+"Á‡Ì")
+                in mkVerb (v0+"–∂–∞")
+                          (v0+"–∂–µ")
+                          (v0+"–∑–∞—Ö")
+                          (v0+"–∂–µ—Ö")
+                          (v0+"–∑–∞–ª")
+                          (v0+"–∂–µ–ª")
+                          (v0+"–∑–∞–Ω")
                           (v0+"-")
-                          (v0+"ÊË")
-                          (v0+"ÊÂÌÂ") ;
+                          (v0+"–∂–∏")
+                          (v0+"–∂–µ–Ω–µ") ;
   mkV157 : Str -> VTable ;
   mkV157 base = let v0 = tk 3 base
-                in mkVerb (v0+"ÂÊ‡")
-                          (v0+"ÂÊÂ")
-                          (v0+"ˇÁ‡ı")
-                          (v0+"ÂÊÂı")
-                          (v0+"ˇÁ‡Î")
-                          (v0+"ÂÊÂÎ")
-                          (v0+"ˇÁ‡Ì")
-                          (v0+"ÂÊÂ˘")
-                          (v0+"ÂÊË")
-                          (v0+"ÂÊÂÌÂ") ;
+                in mkVerb (v0+"–µ–∂–∞")
+                          (v0+"–µ–∂–µ")
+                          (v0+"—è–∑–∞—Ö")
+                          (v0+"–µ–∂–µ—Ö")
+                          (v0+"—è–∑–∞–ª")
+                          (v0+"–µ–∂–µ–ª")
+                          (v0+"—è–∑–∞–Ω")
+                          (v0+"–µ–∂–µ—â")
+                          (v0+"–µ–∂–∏")
+                          (v0+"–µ–∂–µ–Ω–µ") ;
   mkV158 : Str -> VTable ;
   mkV158 base = let v0 = tk 2 base
-                in mkVerb (v0+"Ê‡")
-                          (v0+"ÊÂ")
-                          (v0+"„‡ı")
-                          (v0+"ÊÂı")
-                          (v0+"„‡Î")
-                          (v0+"ÊÂÎ")
-                          (v0+"„‡Ì")
-                          (v0+"ÊÂ˘")
-                          (v0+"ÊË")
-                          (v0+"ÊÂÌÂ") ;
+                in mkVerb (v0+"–∂–∞")
+                          (v0+"–∂–µ")
+                          (v0+"–≥–∞—Ö")
+                          (v0+"–∂–µ—Ö")
+                          (v0+"–≥–∞–ª")
+                          (v0+"–∂–µ–ª")
+                          (v0+"–≥–∞–Ω")
+                          (v0+"–∂–µ—â")
+                          (v0+"–∂–∏")
+                          (v0+"–∂–µ–Ω–µ") ;
   mkV159 : Str -> VTable ;
   mkV159 base = let v0 = tk 2 base
-                in mkVerb (v0+"¯‡")
-                          (v0+"¯Â")
-                          (v0+"Ò‡ı")
-                          (v0+"¯Âı")
-                          (v0+"Ò‡Î")
-                          (v0+"¯ÂÎ")
-                          (v0+"Ò‡Ì")
-                          (v0+"¯Â˘")
-                          (v0+"¯Ë")
-                          (v0+"¯ÂÌÂ") ;
+                in mkVerb (v0+"—à–∞")
+                          (v0+"—à–µ")
+                          (v0+"—Å–∞—Ö")
+                          (v0+"—à–µ—Ö")
+                          (v0+"—Å–∞–ª")
+                          (v0+"—à–µ–ª")
+                          (v0+"—Å–∞–Ω")
+                          (v0+"—à–µ—â")
+                          (v0+"—à–∏")
+                          (v0+"—à–µ–Ω–µ") ;
   mkV160 : Str -> VTable ;
   mkV160 base = let v0 = tk 2 base
-                in mkVerb (v0+"Âˇ")
-                          (v0+"ÂÂ")
-                          (v0+"ˇı")
-                          (v0+"ÂÂı")
-                          (v0+"ˇÎ")
-                          (v0+"ÂÂÎ")
-                          (v0+"ˇÌ")
-                          (v0+"ÂÂ˘")
-                          (v0+"ÂÈ")
-                          (v0+"ÂÂÌÂ") ;
+                in mkVerb (v0+"–µ—è")
+                          (v0+"–µ–µ")
+                          (v0+"—è—Ö")
+                          (v0+"–µ–µ—Ö")
+                          (v0+"—è–ª")
+                          (v0+"–µ–µ–ª")
+                          (v0+"—è–Ω")
+                          (v0+"–µ–µ—â")
+                          (v0+"–µ–π")
+                          (v0+"–µ–µ–Ω–µ") ;
   mkV160a : Str -> VTable ;
   mkV160a base = let v0 = tk 2 base
-                 in mkVerb (v0+"Âˇ")
-                           (v0+"ÂÂ")
-                           (v0+"‡ı")
-                           (v0+"ÂÂı")
-                           (v0+"‡Î")
-                           (v0+"ÂÂÎ")
-                           (v0+"‡Ì")
-                           (v0+"ÂÂ˘")
-                           (v0+"ÂÈ")
-                           (v0+"ÂÂÌÂ") ;
+                 in mkVerb (v0+"–µ—è")
+                           (v0+"–µ–µ")
+                           (v0+"–∞—Ö")
+                           (v0+"–µ–µ—Ö")
+                           (v0+"–∞–ª")
+                           (v0+"–µ–µ–ª")
+                           (v0+"–∞–Ω")
+                           (v0+"–µ–µ—â")
+                           (v0+"–µ–π")
+                           (v0+"–µ–µ–Ω–µ") ;
   mkV161 : Str -> VTable ;
   mkV161 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Â")
-                          (v0+"ı")
-                          (v0+"Âı")
-                          (v0+"Î")
-                          (v0+"ÂÎ")
-                          (v0+"Ì")
-                          (v0+"Â˘")
-                          (v0+"È")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–µ")
+                          (v0+"—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"–ª")
+                          (v0+"–µ–ª")
+                          (v0+"–Ω")
+                          (v0+"–µ—â")
+                          (v0+"–π")
+                          (v0+"–µ–Ω–µ") ;
   mkV161a : Str -> VTable ;
   mkV161a base = let v0 = tk 1 base
-                 in mkVerb (v0+"ˇ")
-                           (v0+"Â")
-                           (v0+"ı")
-                           (v0+"Âı")
-                           (v0+"Î")
-                           (v0+"ÂÎ")
-                           (v0+"Ú")
-                           (v0+"Â˘")
-                           (v0+"È")
-                           (v0+"ÂÌÂ") ;
+                 in mkVerb (v0+"—è")
+                           (v0+"–µ")
+                           (v0+"—Ö")
+                           (v0+"–µ—Ö")
+                           (v0+"–ª")
+                           (v0+"–µ–ª")
+                           (v0+"—Ç")
+                           (v0+"–µ—â")
+                           (v0+"–π")
+                           (v0+"–µ–Ω–µ") ;
   mkV162 : Str -> VTable ;
   mkV162 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Â")
-                          (v0+"ˇı")
-                          (v0+"Âı")
-                          (v0+"ˇÎ")
-                          (v0+"ÂÎ")
-                          (v0+"ˇÌ")
-                          (v0+"Â˘")
-                          (v0+"È")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–µ")
+                          (v0+"—è—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"—è–ª")
+                          (v0+"–µ–ª")
+                          (v0+"—è–Ω")
+                          (v0+"–µ—â")
+                          (v0+"–π")
+                          (v0+"–µ–Ω–µ") ;
   mkV163 : Str -> VTable ;
   mkV163 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Â")
-                          (v0+"ı")
-                          (v0+"Âı")
-                          (v0+"Î")
-                          (v0+"ÂÎ")
-                          (v0+"Ú")
-                          (v0+"Â˘")
-                          (v0+"È")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–µ")
+                          (v0+"—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"–ª")
+                          (v0+"–µ–ª")
+                          (v0+"—Ç")
+                          (v0+"–µ—â")
+                          (v0+"–π")
+                          (v0+"–µ–Ω–µ") ;
   mkV164 : Str -> VTable ;
   mkV164 base = let v0 = tk 2 base
-                in mkVerb (v0+"Âˇ")
-                          (v0+"ÂÂ")
-                          (v0+"ˇı")
-                          (v0+"ÂÂı")
-                          (v0+"ˇÎ")
-                          (v0+"ÂÂÎ")
-                          (v0+"ˇÚ")
-                          (v0+"ÂÂ˘")
-                          (v0+"ÂÈ")
-                          (v0+"ÂÂÌÂ") ;
+                in mkVerb (v0+"–µ—è")
+                          (v0+"–µ–µ")
+                          (v0+"—è—Ö")
+                          (v0+"–µ–µ—Ö")
+                          (v0+"—è–ª")
+                          (v0+"–µ–µ–ª")
+                          (v0+"—è—Ç")
+                          (v0+"–µ–µ—â")
+                          (v0+"–µ–π")
+                          (v0+"–µ–µ–Ω–µ") ;
   mkV165 : Str -> VTable ;
   mkV165 base = let v0 = tk 1 base
-                in mkVerb (v0+"‡")
-                          (v0+"Â")
-                          (v0+"Óı")
-                          (v0+"Âı")
+                in mkVerb (v0+"–∞")
+                          (v0+"–µ")
+                          (v0+"–æ—Ö")
+                          (v0+"–µ—Ö")
                           (v0+"-")
-                          (v0+"ÂÎ")
+                          (v0+"–µ–ª")
                           (v0+"-")
-                          (v0+"Â˘")
-                          (v0+"Ë")
-                          (v0+"ÂÌÂ") ;
+                          (v0+"–µ—â")
+                          (v0+"–∏")
+                          (v0+"–µ–Ω–µ") ;
   mkV166 : Str -> VTable ;
   mkV166 base = let v0 = tk 2 base
-                in mkVerb (v0+"„‡")
-                          (v0+"ÊÂ")
-                          (v0+"Ê‡ı")
-                          (v0+"ÊÂı")
-                          (v0+"„˙Î")
-                          (v0+"ÊÂÎ")
+                in mkVerb (v0+"–≥–∞")
+                          (v0+"–∂–µ")
+                          (v0+"–∂–∞—Ö")
+                          (v0+"–∂–µ—Ö")
+                          (v0+"–≥—ä–ª")
+                          (v0+"–∂–µ–ª")
                           (v0+"-")
-                          (v0+"ÊÂ˘")
+                          (v0+"–∂–µ—â")
                           (v0+"-")
-                          (v0+"ÊÂÌÂ") ;
+                          (v0+"–∂–µ–Ω–µ") ;
   mkV167 : Str -> VTable ;
   mkV167 base = let v0 = tk 2 base
-                in mkVerb (v0+"Í‡")
-                          (v0+"˜Â")
-                          (v0+"Í‡ı")
-                          (v0+"˜Âı")
-                          (v0+"Í‡Î")
-                          (v0+"˜ÂÎ")
-                          (v0+"Í‡Ì")
-                          (v0+"˜Â˘")
-                          (v0+"˜Ë")
-                          (v0+"˜ÂÌÂ") ;
+                in mkVerb (v0+"–∫–∞")
+                          (v0+"—á–µ")
+                          (v0+"–∫–∞—Ö")
+                          (v0+"—á–µ—Ö")
+                          (v0+"–∫–∞–ª")
+                          (v0+"—á–µ–ª")
+                          (v0+"–∫–∞–Ω")
+                          (v0+"—á–µ—â")
+                          (v0+"—á–∏")
+                          (v0+"—á–µ–Ω–µ") ;
   mkV168 : Str -> VTable ;
   mkV168 base = let v0 = tk 1 base
-                in mkVerb (v0+"Ï")
-                          (v0+"‰Â")
-                          (v0+"‰Óı")
-                          (v0+"‰ˇı")
-                          (v0+"Î")
-                          (v0+"‰ˇÎ")
-                          (v0+"‰ÂÌ")
+                in mkVerb (v0+"–º")
+                          (v0+"–¥–µ")
+                          (v0+"–¥–æ—Ö")
+                          (v0+"–¥—è—Ö")
+                          (v0+"–ª")
+                          (v0+"–¥—è–ª")
+                          (v0+"–¥–µ–Ω")
                           (v0+"-")
-                          (v0+"È")
-                          (v0+"‰ˇÌÂ") ;
+                          (v0+"–π")
+                          (v0+"–¥—è–Ω–µ") ;
   mkV169 : Str -> VTable ;
   mkV169 base = let v0 = tk 1 base
-                in mkVerb (v0+"Ï")
-                          (v0+"‰Â")
-                          (v0+"‰Óı")
-                          (v0+"‰ˇı")
-                          (v0+"Î")
-                          (v0+"‰ˇÎ")
-                          (v0+"‰ÂÌ")
-                          (v0+"‰Â˘")
-                          (v0+"Ê")
-                          (v0+"‰ˇÌÂ") ;
+                in mkVerb (v0+"–º")
+                          (v0+"–¥–µ")
+                          (v0+"–¥–æ—Ö")
+                          (v0+"–¥—è—Ö")
+                          (v0+"–ª")
+                          (v0+"–¥—è–ª")
+                          (v0+"–¥–µ–Ω")
+                          (v0+"–¥–µ—â")
+                          (v0+"–∂")
+                          (v0+"–¥—è–Ω–µ") ;
   mkV170 : Str -> VTable ;
   mkV170 base = let v0 = tk 3 base
-                in mkVerb (v0+"Â‡")
-                          (v0+"ÂÂ")
-                          (v0+"‡ı")
-                          (v0+"Âˇı")
-                          (v0+"‡Î")
-                          (v0+"ÂˇÎ")
-                          (v0+"‡Ì")
-                          (v0+"Âˇ˘")
-                          (v0+"ÂË")
-                          (v0+"ÂˇÌÂ") ;
+                in mkVerb (v0+"–µ—Ä–∞")
+                          (v0+"–µ—Ä–µ")
+                          (v0+"—Ä–∞—Ö")
+                          (v0+"–µ—Ä—è—Ö")
+                          (v0+"—Ä–∞–ª")
+                          (v0+"–µ—Ä—è–ª")
+                          (v0+"—Ä–∞–Ω")
+                          (v0+"–µ—Ä—è—â")
+                          (v0+"–µ—Ä–∏")
+                          (v0+"–µ—Ä—è–Ω–µ") ;
   mkV171 : Str -> VTable ;
   mkV171 base = let v0 = tk 2 base
-                in mkVerb (v0+"Ï‡")
-                          (v0+"ÏÂ")
-                          (v0+"ı")
-                          (v0+"ÏÂı")
-                          (v0+"Î")
-                          (v0+"ÏÂÎ")
-                          (v0+"Ú")
+                in mkVerb (v0+"–º–∞")
+                          (v0+"–º–µ")
+                          (v0+"—Ö")
+                          (v0+"–º–µ—Ö")
+                          (v0+"–ª")
+                          (v0+"–º–µ–ª")
+                          (v0+"—Ç")
                           (v0+"-")
-                          (v0+"ÏË")
-                          (v0+"ÏÂÌÂ") ;
+                          (v0+"–º–∏")
+                          (v0+"–º–µ–Ω–µ") ;
   mkV172 : Str -> VTable ;
   mkV172 base = let v0 = tk 4 base
-                in mkVerb (v0+"˙ÎÌ‡")
-                          (v0+"˙ÎÌÂ")
-                          (v0+"ÎÂı")
-                          (v0+"˙ÎÌÂı")
-                          (v0+"ÎÂÎ")
-                          (v0+"˙ÎÌÂÎ")
-                          (v0+"˙ÎÌ‡Ú")
-                          (v0+"˙ÎÌÂ˘")
-                          (v0+"˙ÎÌË")
-                          (v0+"˙ÎÌÂÌÂ") ;
+                in mkVerb (v0+"—ä–ª–Ω–∞")
+                          (v0+"—ä–ª–Ω–µ")
+                          (v0+"–ª–µ—Ö")
+                          (v0+"—ä–ª–Ω–µ—Ö")
+                          (v0+"–ª–µ–ª")
+                          (v0+"—ä–ª–Ω–µ–ª")
+                          (v0+"—ä–ª–Ω–∞—Ç")
+                          (v0+"—ä–ª–Ω–µ—â")
+                          (v0+"—ä–ª–Ω–∏")
+                          (v0+"—ä–ª–Ω–µ–Ω–µ") ;
   mkV173 : Str -> VTable ;
   mkV173 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Ë")
-                          (v0+"Ëı")
-                          (v0+"Âı")
-                          (v0+"ËÎ")
-                          (v0+"ÂÎ")
-                          (v0+"ÂÌ")
-                          (v0+"Â˘")
-                          (v0+"Ë")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–∏")
+                          (v0+"–∏—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"–∏–ª")
+                          (v0+"–µ–ª")
+                          (v0+"–µ–Ω")
+                          (v0+"–µ—â")
+                          (v0+"–∏")
+                          (v0+"–µ–Ω–µ") ;
   mkV174 : Str -> VTable ;
   mkV174 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Ë")
-                          (v0+"Ëı")
-                          (v0+"ˇı")
-                          (v0+"ËÎ")
-                          (v0+"ˇÎ")
-                          (v0+"ÂÌ")
-                          (v0+"ˇ˘")
-                          (v0+"Ë")
-                          (v0+"ˇÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–∏")
+                          (v0+"–∏—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"–∏–ª")
+                          (v0+"—è–ª")
+                          (v0+"–µ–Ω")
+                          (v0+"—è—â")
+                          (v0+"–∏")
+                          (v0+"—è–Ω–µ") ;
   mkV175 : Str -> VTable ;
   mkV175 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Ë")
-                          (v0+"Ëı")
-                          (v0+"ˇı")
-                          (v0+"ËÎ")
-                          (v0+"ˇÎ")
-                          (v0+"ÂÌ")
-                          (v0+"ˇ˘")
-                          (v0+"È")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–∏")
+                          (v0+"–∏—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"–∏–ª")
+                          (v0+"—è–ª")
+                          (v0+"–µ–Ω")
+                          (v0+"—è—â")
+                          (v0+"–π")
+                          (v0+"–µ–Ω–µ") ;
   mkV176 : Str -> VTable ;
   mkV176 base = let v0 = tk 1 base
-                in mkVerb (v0+"‡")
-                          (v0+"Ë")
-                          (v0+"Ëı")
-                          (v0+"Âı")
-                          (v0+"ËÎ")
-                          (v0+"ÂÎ")
-                          (v0+"ÂÌ")
-                          (v0+"Â˘")
-                          (v0+"Ë")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"–∞")
+                          (v0+"–∏")
+                          (v0+"–∏—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"–∏–ª")
+                          (v0+"–µ–ª")
+                          (v0+"–µ–Ω")
+                          (v0+"–µ—â")
+                          (v0+"–∏")
+                          (v0+"–µ–Ω–µ") ;
   mkV177 : Str -> VTable ;
   mkV177 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Ë")
-                          (v0+"ˇı")
-                          (v0+"ˇı")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÌ")
-                          (v0+"ˇ˘")
-                          (v0+"Ë")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–∏")
+                          (v0+"—è—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"—è–ª")
+                          (v0+"—è–ª")
+                          (v0+"—è–Ω")
+                          (v0+"—è—â")
+                          (v0+"–∏")
+                          (v0+"–µ–Ω–µ") ;
   mkV178 : Str -> VTable ;
   mkV178 base = let v0 = tk 1 base
-                in mkVerb (v0+"‡")
-                          (v0+"Ë")
-                          (v0+"‡ı")
-                          (v0+"Âı")
-                          (v0+"‡Î")
-                          (v0+"ÂÎ")
-                          (v0+"ËÚÂÎÂÌ")
-                          (v0+"‡˘")
-                          (v0+"Ë")
-                          (v0+"ÂÌÂ") ;
+                in mkVerb (v0+"–∞")
+                          (v0+"–∏")
+                          (v0+"–∞—Ö")
+                          (v0+"–µ—Ö")
+                          (v0+"–∞–ª")
+                          (v0+"–µ–ª")
+                          (v0+"–∏—Ç–µ–ª–µ–Ω")
+                          (v0+"–∞—â")
+                          (v0+"–∏")
+                          (v0+"–µ–Ω–µ") ;
   mkV179 : Str -> VTable ;
   mkV179 base = let v0 = tk 4 base
-                in mkVerb (v0+"˙Ê‡")
-                          (v0+"˙ÊË")
-                          (v0+"˙Ê‡ı")
-                          (v0+"˙ÊÂı")
-                          (v0+"˙Ê‡Î")
-                          (v0+"˙ÊÂÎ")
-                          (v0+"˙Ê‡Ì")
-                          (v0+"˙Ê‡˘")
-                          (v0+"˙Ê")
-                          (v0+"˙ÊÂÌÂ") ;
+                in mkVerb (v0+"—ä—Ä–∂–∞")
+                          (v0+"—ä—Ä–∂–∏")
+                          (v0+"—ä—Ä–∂–∞—Ö")
+                          (v0+"—ä—Ä–∂–µ—Ö")
+                          (v0+"—ä—Ä–∂–∞–ª")
+                          (v0+"—ä—Ä–∂–µ–ª")
+                          (v0+"—ä—Ä–∂–∞–Ω")
+                          (v0+"—ä—Ä–∂–∞—â")
+                          (v0+"—Ä—ä–∂")
+                          (v0+"—ä—Ä–∂–µ–Ω–µ") ;
   mkV180 : Str -> VTable ;
   mkV180 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Ë")
-                          (v0+"ˇı")
-                          (v0+"ˇı")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÎ")
+                in mkVerb (v0+"—è")
+                          (v0+"–∏")
+                          (v0+"—è—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"—è–ª")
+                          (v0+"—è–ª")
                           (v0+"-")
-                          (v0+"ˇ˘")
-                          (v0+"È")
-                          (v0+"ˇÌÂ") ;
+                          (v0+"—è—â")
+                          (v0+"–π")
+                          (v0+"—è–Ω–µ") ;
   mkV181 : Str -> VTable ;
   mkV181 base = let v0 = tk 2 base
-                in mkVerb (v0+"‰ˇ")
-                          (v0+"‰Ë")
-                          (v0+"‰ˇı")
-                          (v0+"‰Âı")
-                          (v0+"‰ˇÎ")
-                          (v0+"‰ÂÎ")
-                          (v0+"‰ˇÌ")
+                in mkVerb (v0+"–¥—è")
+                          (v0+"–¥–∏")
+                          (v0+"–¥—è—Ö")
+                          (v0+"–¥–µ—Ö")
+                          (v0+"–¥—è–ª")
+                          (v0+"–¥–µ–ª")
+                          (v0+"–¥—è–Ω")
                           (v0+"-")
-                          (v0+"Ê")
-                          (v0+"‰ÂÌÂ") ;
+                          (v0+"–∂")
+                          (v0+"–¥–µ–Ω–µ") ;
   mkV182 : Str -> VTable ;
   mkV182 base = let v0 = tk 1 base
-                in mkVerb (v0+"ˇ")
-                          (v0+"Ë")
-                          (v0+"‡ı")
-                          (v0+"ˇı")
-                          (v0+"‡Î")
-                          (v0+"ˇÎ")
-                          (v0+"‡Ì")
-                          (v0+"ˇ˘")
-                          (v0+"Ë")
-                          (v0+"‡ÌÂ") ;
+                in mkVerb (v0+"—è")
+                          (v0+"–∏")
+                          (v0+"–∞—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"–∞–ª")
+                          (v0+"—è–ª")
+                          (v0+"–∞–Ω")
+                          (v0+"—è—â")
+                          (v0+"–∏")
+                          (v0+"–∞–Ω–µ") ;
   mkV183 : Str -> VTable ;
   mkV183 base = let v0 = tk 3 base
-                in mkVerb (v0+"ÂÊ‡")
-                          (v0+"ÂÊË")
-                          (v0+"ˇÁ‡ı")
-                          (v0+"ÂÊÂı")
-                          (v0+"ˇÁ‡Î")
-                          (v0+"ÂÊÂÎ")
-                          (v0+"ˇÁ‡Ì")
-                          (v0+"ÂÊÂ˘")
-                          (v0+"ÂÊË")
-                          (v0+"ÂÊÂÌÂ") ;
+                in mkVerb (v0+"–µ–∂–∞")
+                          (v0+"–µ–∂–∏")
+                          (v0+"—è–∑–∞—Ö")
+                          (v0+"–µ–∂–µ—Ö")
+                          (v0+"—è–∑–∞–ª")
+                          (v0+"–µ–∂–µ–ª")
+                          (v0+"—è–∑–∞–Ω")
+                          (v0+"–µ–∂–µ—â")
+                          (v0+"–µ–∂–∏")
+                          (v0+"–µ–∂–µ–Ω–µ") ;
   mkV184 : Str -> VTable ;
   mkV184 base = let v0 = tk 3 base
-                in mkVerb (v0+"ÂÎˇ")
-                          (v0+"ÂÎË")
-                          (v0+"Îˇı")
-                          (v0+"ÂÎÂı")
-                          (v0+"ÎˇÎ")
-                          (v0+"ÂÎÂÎ")
-                          (v0+"ÎˇÌ")
-                          (v0+"ÂÎÂ˘")
-                          (v0+"ÂÎË")
-                          (v0+"ÂÎÂÌÂ") ;
+                in mkVerb (v0+"–µ–ª—è")
+                          (v0+"–µ–ª–∏")
+                          (v0+"–ª—è—Ö")
+                          (v0+"–µ–ª–µ—Ö")
+                          (v0+"–ª—è–ª")
+                          (v0+"–µ–ª–µ–ª")
+                          (v0+"–ª—è–Ω")
+                          (v0+"–µ–ª–µ—â")
+                          (v0+"–µ–ª–∏")
+                          (v0+"–µ–ª–µ–Ω–µ") ;
   mkV185 : Str -> VTable ;
   mkV185 base = let v0 = tk 3 base
-                in mkVerb (v0+"ÓÎˇ")
-                          (v0+"ÓÎË")
-                          (v0+"Î‡ı")
-                          (v0+"ÓÎÂı")
-                          (v0+"Î‡Î")
-                          (v0+"ÓÎÂÎ")
-                          (v0+"Î‡Ì")
-                          (v0+"ÓÎÂ˘")
-                          (v0+"ÓÎË")
-                          (v0+"ÓÎÂÌÂ") ;
+                in mkVerb (v0+"–æ–ª—è")
+                          (v0+"–æ–ª–∏")
+                          (v0+"–ª–∞—Ö")
+                          (v0+"–æ–ª–µ—Ö")
+                          (v0+"–ª–∞–ª")
+                          (v0+"–æ–ª–µ–ª")
+                          (v0+"–ª–∞–Ω")
+                          (v0+"–æ–ª–µ—â")
+                          (v0+"–æ–ª–∏")
+                          (v0+"–æ–ª–µ–Ω–µ") ;
   mkV186 : Str -> VTable ;
   mkV186 base = let v0 = tk 2 base
-                in mkVerb (v0+"‡Ï")
-                          (v0+"‡")
-                          (v0+"‡ı")
-                          (v0+"‡ı")
-                          (v0+"‡Î")
-                          (v0+"‡Î")
-                          (v0+"‡Ì")
-                          (v0+"‡˘")
-                          (v0+"‡È")
-                          (v0+"‡ÌÂ") ;
+                in mkVerb (v0+"–∞–º")
+                          (v0+"–∞")
+                          (v0+"–∞—Ö")
+                          (v0+"–∞—Ö")
+                          (v0+"–∞–ª")
+                          (v0+"–∞–ª")
+                          (v0+"–∞–Ω")
+                          (v0+"–∞—â")
+                          (v0+"–∞–π")
+                          (v0+"–∞–Ω–µ") ;
   mkV187 : Str -> VTable ;
   mkV187 base = let v0 = tk 2 base
-                in mkVerb (v0+"ˇÏ")
-                          (v0+"ˇ")
-                          (v0+"ˇı")
-                          (v0+"ˇı")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÎ")
-                          (v0+"ˇÌ")
-                          (v0+"ˇ˘")
-                          (v0+"ˇÈ")
-                          (v0+"ˇÌÂ") ;
+                in mkVerb (v0+"—è–º")
+                          (v0+"—è")
+                          (v0+"—è—Ö")
+                          (v0+"—è—Ö")
+                          (v0+"—è–ª")
+                          (v0+"—è–ª")
+                          (v0+"—è–Ω")
+                          (v0+"—è—â")
+                          (v0+"—è–π")
+                          (v0+"—è–Ω–µ") ;
   mkV188 : Str -> VTable ;
   mkV188 base = let v0 = tk 2 base
-                in mkVerb (v0+"‡Ï")
-                          (v0+"‡Â")
-                          (v0+"‡ı")
-                          (v0+"‡ı")
-                          (v0+"‡Î")
-                          (v0+"‡Î")
-                          (v0+"‡Ì")
-                          (v0+"‡˘")
-                          (v0+"‡È")
-                          (v0+"‡ÌÂ") ;
+                in mkVerb (v0+"–∞–º")
+                          (v0+"–∞–µ")
+                          (v0+"–∞—Ö")
+                          (v0+"–∞—Ö")
+                          (v0+"–∞–ª")
+                          (v0+"–∞–ª")
+                          (v0+"–∞–Ω")
+                          (v0+"–∞—â")
+                          (v0+"–∞–π")
+                          (v0+"–∞–Ω–µ") ;
 
   adjAdv : A -> Str -> A =
     \a,adv -> a ** {adv = adv} ;

@@ -5,6 +5,7 @@ Ara,Arabic,arabic,,,,,,y,,y
 Bul,Bulgarian,bulgarian,,,y,,,,,y
 Cat,Catalan,catalan,Romance,,y,,,,y,y
 Chi,Chinese (simplified),chinese,,,,,,,,y
+Cze,Czech,czech,,,,,,n,,y
 Dan,Danish,danish,Scand,,y,,,,,y
 Dut,Dutch,dutch,,,y,,,,,y
 Eng,English,english,,,y,,,,y,y
@@ -17,11 +18,12 @@ Grc,Ancient Greek,ancient_greek,,,y,,n,n,,n
 Gre,Greek,greek,,,,,,,,y
 Heb,Hebrew,hebrew,,,,,n,n,,n
 Hin,Hindi,hindi,Hindustani,to_devanagari,y,,,,,y
-Hun,Hungarian,hungarian,,,y,n,n,n,,n
+Hun,Hungarian,hungarian,,,n,y,y,y,n,n
 Ice,Icelandic,icelandic,,,,,,n,,y
 Ina,Interlingua,interlingua,,,y,,n,n,,n
 Ita,Italian,italian,Romance,,y,,,,y,y
 Jpn,Japanese,japanese,,,,,,,,y
+Kor,Korean,korean,,,n,y,y,y,n,n
 Lat,Latin,latin,,,,,y,y,n,y
 Lav,Latvian,latvian,,,,,,,y,y
 Mlt,Maltese,maltese,,,,,,,,y
@@ -35,12 +37,13 @@ Pol,Polish,polish,,,,,,,,y
 Por,Portuguese,portuguese,Romance,,y,,,,y,y
 Ron,Romanian,romanian,,,y,,,,,y
 Rus,Russian,russian,,,y,,,,,y
+Slo,Slovak,slovak,,,,,,n,,y
 Slv,Slovenian,slovenian,,,,,n,n,,n
 Snd,Sindhi,sindhi,,,,,,,,y
 Spa,Spanish,spanish,Romance,,y,,,,y,y
-Swa,Swahili,swahili,,,,n,n,n,y,n
+Swa,Swahili,swahili,Bantu,,,n,n,n,n,n
 Swe,Swedish,swedish,Scand,,y,,,,y,y
 Tel,Telugu,telugu,,,y,n,n,n,,n
 Tha,Thai,thai,,to_thai,,,,,,y
-Tur,Turkish,turkish,,,,,n,n,,n
+Tur,Turkish,turkish,,,y,,,n,,n
 Urd,Urdu,urdu,Hindustani,,,,,,,y

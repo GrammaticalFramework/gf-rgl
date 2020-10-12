@@ -8,11 +8,13 @@ concrete ExtendSwe of Extend = CatSwe **
     PassVPSlash, PassAgentVPSlash, UttVPShort, ByVP, InOrderToVP,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
+    MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     ICompAP,ProDrop,EmbedSSlash,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
     Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
-    CompoundN, CompoundAP, AdvIsNP
+    CompoundN, CompoundAP, AdvIsNP,
+    UttAccNP
   ]
   with (Grammar = GrammarSwe)
     **
@@ -120,6 +122,56 @@ concrete ExtendSwe of Extend = CatSwe **
 
     ConjVPS = conjunctDistrTable2 Order Agr ;
 
+  lincat
+    VPS2   = {s : Order => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+    [VPS2] = {s1,s2 : Order => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+
+  lin
+    BaseVPS2 x y = twoTable2 Order Agr x y ** {c2 = y.c2} ;
+    ConsVPS2 x xs = consrTable2 Order Agr comma x xs ** {c2 = xs.c2};
+
+
+    MkVPS2 t p vp = {
+      s = \\o,a =>
+            let
+              verb  = vp.s ! Act ! VPFinite t.t t.a ;
+	      neg   = verb.a1 ! p.p ! a ;
+              compl = vp.n2 ! a ++ vp.a2 ++ vp.ext ;
+	      pron  = vp.n1 ! a
+            in t.s ++ p.s ++ case o of {
+              Main => verb.fin ++ neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl ;
+              Inv  => verb.fin ++ neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl ; ----
+              Sub  => neg.p1 ++ neg.p2 ++ verb.fin ++ verb.inf ++ pron ++ compl
+              } ;
+       c2 = vp.c2
+      } ;
+      
+    ComplVPS2 vps2 np = {
+        s = \\o,a => vps2.s !o ! a ++ vps2.c2.s ++ np.s ! NPAcc
+        } ;
+	
+    ConjVPS2 c xs = conjunctDistrTable2 Order Agr c xs ** {c2 = xs.c2} ;
+
+  lincat
+    VPI2   = {s : VPIForm => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+    [VPI2] = {s1,s2 : VPIForm => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+
+  lin
+    BaseVPI2 x y = twoTable2 VPIForm Agr x y ** {c2 = y.c2} ;
+    ConsVPI2 x xs = consrTable2 VPIForm Agr comma x xs ** {c2 = xs.c2} ;
+
+    MkVPI2 vp = {
+      s = \\v,a => infVP vp a  ; ---- no sup
+      c2 = vp.c2
+      } ;
+    ConjVPI2 c xs = conjunctDistrTable2 VPIForm Agr c xs ** {c2 = xs.c2} ;
+
+    ComplVPI2 vpi2 np = {
+        s = \\t,a => vpi2.s ! t ! a ++ vpi2.c2.s ++  np.s ! NPAcc
+        } ;
+
+-----------
+
     ICompAP ap = {s = \\a => hur_IAdv.s ++ ap.s ! a} ;
 
     ProDrop pro = pro ** {s = \\_ => []} ;
@@ -193,15 +245,17 @@ concrete ExtendSwe of Extend = CatSwe **
     } ;
 
     PastPartAP vp = {
-      s = \\af => case vp.isSimple of {
-                    True  => partVPPlus     vp (PartPret af Nom) (aformpos2agr af) Pos ;
-                    False => partVPPlusPost vp (PartPret af Nom) (aformpos2agr af) Pos
-                  } ;
+      s = \\af => let vp' = vp**{n2 : Agr => Str =\\a => vp.n2 ! a ++ vp.n3 ! a}
+                  in case vp.isSimple of {
+                       True  => partVPPlus     vp' (PartPret af Nom) (aformpos2agr af) Pos ;
+                       False => partVPPlusPost vp' (PartPret af Nom) (aformpos2agr af) Pos
+                     } ;
       isPre = vp.isSimple
     } ;
 
     PastPartAgentAP vp np = {
-      s = \\af => partVPPlusPost vp (PartPret af Nom) (aformpos2agr af) Pos ++ "av" ++ np.s ! accusative ;
+      s = \\af => let vp' = vp**{n2 : Agr => Str =\\a => vp.n2 ! a ++ vp.n3 ! a}
+                  in partVPPlusPost vp' (PartPret af Nom) (aformpos2agr af) Pos ++ "av" ++ np.s ! accusative ;
       isPre = False
     } ;
 
@@ -232,4 +286,6 @@ concrete ExtendSwe of Extend = CatSwe **
     AdvIsNP adv np = PredVP {s = \\_ => adv.s ; a = np.a ; isPron = False} (UseComp (CompNP np)) ;
 
     EmbedSSlash ss = {s = "det" ++ ss.s ! Main ++ ss.c2.s ++ ss.n3 ! agrUSgP3} ;
+
+    UttAccNP np = {s = np.s ! NPAcc} ;
 }

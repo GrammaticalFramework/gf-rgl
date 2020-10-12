@@ -1,0 +1,23 @@
+Lang: MassNP (UseN love_N)
+LangHun: szerelem
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN love_N)))
+LangHun: én látok egy szerelme &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN love_N))
+LangHun: egy szerelmen
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN love_N)
+LangHun: szerelmek
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN love_N)))
+LangHun: én látok szerelmek &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN love_N))
+LangHun: egy szerelemhez
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN love_N))
+LangHun: szerelmek &+ hez
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN love_N)
+LangHun: én szerelme &+ m

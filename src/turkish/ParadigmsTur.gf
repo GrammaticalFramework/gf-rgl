@@ -143,10 +143,10 @@ resource ParadigmsTur = open
     regN : Str -> N ;
 
     -- Paradigm for proper noun
-    regPN : Str -> Noun ;
+    regPN : Str -> PN ;
 
     -- Worst case function for proper nouns
-    makePN : Str -> Str -> Noun ;
+    makePN : Str -> Str -> PN ;
 
     -- digits can be seen as proper noun, but we need an additional harmony argument
     -- since harmony information can not be extracted from digit string.
@@ -322,31 +322,31 @@ resource ParadigmsTur = open
       lin N {
         s   = table {
                 Sg => table {
-            Nom     => sn ;
-            Acc     => sa ;
-            Dat     => sd ;
-            Gen     => sg ;
-            Loc     => sl ;
-            Ablat   => sabl ;
-            Abess Pos => sgabPos ;
+                        Nom       => sn ;
+                        Acc       => sa ;
+                        Dat       => sd ;
+                        Gen       => sg ;
+                        Loc       => sl ;
+                        Ablat     => sabl ;
+                        Abess Pos => sgabPos ;
                         Abess Neg => sgabNeg
-          } ;
+                      } ;
                 Pl => table {
-            Abess Pos => addSuffix sgabPos plHar plSuffix;
-            Abess Neg => addSuffix sgabNeg plHar plSuffix;
-            c => addSuffix pln plHar (caseSuffixes ! c)
-          }
-                  } ;
+                        Abess Pos => addSuffix sgabPos plHar plSuffix;
+                        Abess Neg => addSuffix sgabNeg plHar plSuffix;
+                        c         => addSuffix pln plHar (caseSuffixes ! c)
+                      }
+              } ;
         gen = table {
                 Sg => table {
-      -- Genitive suffix for P3 is always -ları, always selecting plural form of
-      -- base and harmony is a trick to implement this
-            {n=Pl; p=P3} => addSuffix pln plHar genPlP3Suffix ;
-            s            => addSuffix sgs har (genSuffixes ! s)
-        } ;
+                        -- Genitive suffix for P3 is always -ları, always selecting plural form of
+                        -- base and harmony is a trick to implement this
+                        {n=Pl; p=P3} => addSuffix pln plHar genPlP3Suffix ;
+                        s            => addSuffix sgs har (genSuffixes ! s)
+                      } ;
                 Pl => \\s => addSuffix pln plHar (genSuffixes ! s)
-          } ;
-        harmony = har
+              } ;
+        h = har
       } ;
 
     irregN_h sn sg har = irregN har sn sg ;
@@ -429,33 +429,33 @@ resource ParadigmsTur = open
             plHar = getHarmony pn
         in lin N {
           s   = table {
-                Sg => table {
-            Nom     => sn ; --tereyağı
-            Acc     => addSuffix sn sgHar accSuffixN ; --tereyağını
-            Dat     => addSuffix sn sgHar datSuffixN ; --tereyağına
-            Gen     => addSuffix sn sgHar genSuffix ; --tereyağının
-            Loc     => addSuffix sn sgHar locSuffixN ; --tereyağında
-            Ablat   => addSuffix sn sgHar ablatSuffixN ; --tereyağından
-            Abess Pos => sgAbessPos ; --tereyağlı
-                        Abess Neg => sgAbessNeg   --tereyağsız
-          } ;
-                Pl => table {
-            Nom     => pn ;--tereyağları
-            Acc     => addSuffix pn plHar accSuffixN ; --tereyağlarını
-            Dat     => addSuffix pn plHar datSuffixN ; --tereyağlarına
-            Gen     => addSuffix pn plHar genSuffix ; --tereyağlarının
-            Loc     => addSuffix pn plHar locSuffixN ; --tereyağlarında
-            Ablat   => addSuffix pn plHar ablatSuffixN ; --tereyağlarından
-            Abess   Pos => addSuffix sgAbessPos plHar abessPosSuffix ; --tereyağlılar
-            Abess   Neg => addSuffix sgAbessNeg plHar abessNegSuffix   --tereyağsızlar
+                  Sg => table {
+                          Nom     => sn ; --tereyağı
+                          Acc     => addSuffix sn sgHar accSuffixN ; --tereyağını
+                          Dat     => addSuffix sn sgHar datSuffixN ; --tereyağına
+                          Gen     => addSuffix sn sgHar genSuffix ; --tereyağının
+                          Loc     => addSuffix sn sgHar locSuffixN ; --tereyağında
+                          Ablat   => addSuffix sn sgHar ablatSuffixN ; --tereyağından
+                          Abess Pos => sgAbessPos ; --tereyağlı
+                          Abess Neg => sgAbessNeg   --tereyağsız
+                        } ;
+                  Pl => table {
+                          Nom     => pn ;--tereyağları
+                          Acc     => addSuffix pn plHar accSuffixN ; --tereyağlarını
+                          Dat     => addSuffix pn plHar datSuffixN ; --tereyağlarına
+                          Gen     => addSuffix pn plHar genSuffix ; --tereyağlarının
+                          Loc     => addSuffix pn plHar locSuffixN ; --tereyağlarında
+                          Ablat   => addSuffix pn plHar ablatSuffixN ; --tereyağlarından
+                          Abess   Pos => addSuffix sgAbessPos plHar abessPosSuffix ; --tereyağlılar
+                          Abess   Neg => addSuffix sgAbessNeg plHar abessNegSuffix   --tereyağsızlar
                       }
                   } ;
           gen = case ct of {
                   Con => \\num,agr => n1sn + n2.gen ! num ! agr ;
                   Sep => \\num,agr => n1sn ++ n2.gen ! num ! agr
-          } ;
-    harmony = sgHar
-      } ;
+                } ;
+          h = sgHar
+        } ;
 
     mkN = overload {
       mkN : (araba : Str) -> N =
@@ -571,6 +571,9 @@ resource ParadigmsTur = open
         n = num
       } ;
 
+    mkConj : Str -> Number -> Conj = 
+      \s,n -> {s = s; sep = 3; n = n; lock_Conj = <>} ;
+
   -- Helper functions and parameters
     -- finds which aorist type will be used with a base, see aorist type parameter for more info
     getAoristType : Str -> AoristType =
@@ -608,7 +611,7 @@ resource ParadigmsTur = open
 
     ablat_Case : Prep = mkPrep [] Ablat;
     dat_Case   : Prep = mkPrep [] Dat;
-    acc_Case   : Prep = mkPrep [] Dat;
+    acc_Case   : Prep = mkPrep [] Acc;
 
     mkQuant : Str -> Quant = \s -> lin Quant {s=s; useGen = NoGen} ;
 

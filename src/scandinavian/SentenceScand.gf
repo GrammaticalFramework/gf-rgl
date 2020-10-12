@@ -1,5 +1,5 @@
 incomplete concrete SentenceScand of Sentence = 
-  CatScand ** open CommonScand, ResScand, Prelude in {
+  CatScand ** open CommonScand, ResScand, Coordination, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -60,10 +60,10 @@ incomplete concrete SentenceScand of Sentence =
     } ;
 
     AdvS a s = {s = \\o => a.s ++ s.s ! Inv} ;
-    ExtAdvS a s = {s = \\o => a.s ++ "," ++ s.s ! Inv} ;
+    ExtAdvS a s = {s = \\o => a.s ++ comma ++ s.s ! Inv} ;
 
-    RelS s r = {s = \\o => s.s ! o ++ "," ++ r.s ! agrP3 Neutr Sg ! RPrep True } ; --- vilket
+    RelS s r = {s = \\o => s.s ! o ++ comma ++ r.s ! agrP3 Neutr Sg ! RPrep True } ; --- vilket
 
-    SSubjS a s b = {s = \\o => a.s ! o ++ "," ++ s.s ++ b.s ! Sub} ;
+    SSubjS a s b = {s = \\o => a.s ! o ++ comma ++ s.s ++ b.s ! Sub} ;
 
 }

@@ -1,10 +1,11 @@
 --# -path=.:../abstract:../common
 
-concrete SymbolTur of Symbol = CatTur ** open Prelude, ResTur in {
+concrete SymbolTur of Symbol = CatTur ** open Prelude, ResTur, HarmonyTur in {
+
+lin
+  SymbPN i = {s,gen = \\_,_ => i.s ; h = {vow=I_Har; con=SCon Soft}} ;  -- just a placeholder, probably wrong
 
 {- TODO!
-lin
-  SymbPN i = {s = addGenitiveS i.s ; g = Neutr} ;
   IntPN i  = {s = addGenitiveS i.s ; g = Neutr} ;
   FloatPN i = {s = addGenitiveS i.s ; g = Neutr} ;
   NumPN i = {s = i.s ; g = Neutr} ;

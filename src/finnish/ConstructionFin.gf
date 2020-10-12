@@ -1,6 +1,6 @@
 --# -path=alltenses:.:../abstract
 
-concrete ConstructionFin of Construction = CatFin ** 
+concrete ConstructionFin of Construction = CatFin **
   open SyntaxFin, SymbolicFin, ParadigmsFin, (L = LexiconFin), (E = ExtraFin), (R = ResFin), Prelude  in {
 flags coding=utf8 ;
 
@@ -21,10 +21,10 @@ lin
   how_old_QCl x = mkQCl (E.ICompAP (mkAP L.old_A)) (lin NP x) ;
   how_far_QCl x = mkQCl (E.IAdvAdv L.far_Adv) (lin NP x) ;
   n_unit_CN card unit cn = mkCN (invarA (SyntaxFin.mkAdv (casePrep genitive) (mkNP <lin Card card : Card> (lin CN unit))).s) cn ;
-  
+
 -- some more things
   weather_adjCl ap = mkCl (mkVP (lin AP ap)) ;
-   
+
   is_right_VP = mkVP (ParadigmsFin.mkAdv "oikeassa") ;
   is_wrong_VP = mkVP (ParadigmsFin.mkAdv "väärässä") ;
 
@@ -37,16 +37,16 @@ lin
 
   few_X_short_of_Y np x y =
     let kaikki_xt : Str =  (mkNP all_Predet ( mkNP aPl_Det x)).s ! R.NPCase R.Nom ;
-  	yssa : Str = y.s ! R.NCase R.Sg R.Iness ; 
+  	yssa : Str = y.s ! R.NCase R.Sg R.Iness ;
 	kaikki_xt_yssa : Adv = ParadigmsFin.mkAdv (kaikki_xt ++ yssa) ;
 	olla_V : V = lin V have_V2 ;
-    in mkS negativePol 
+    in mkS negativePol
          (mkCl np (mkVP (mkVP olla_V) kaikki_xt_yssa)) ;
 
 {-
   where_go_QCl np = mkQCl (lin IAdv (ss "minne")) (mkCl np (mkVP L.go_V)) ;
   where_come_from_QCl np =  mkQCl (lin IAdv (ss "mistä")) (mkCl np (mkVP L.come_V)) ;
-  
+
   go_here_VP = mkVP (mkVP L.go_V) (mkAdv "tänne") ;
   come_here_VP = mkVP (mkVP L.come_V) (mkAdv "tänne") ;
   come_from_here_VP = mkVP (mkVP L.come_V) (mkAdv "täältä") ;
@@ -74,14 +74,14 @@ lin
   yearAdv y = SyntaxFin.mkAdv (prePrep nominative "vuonna") y ;
   dayMonthAdv d m = ParadigmsFin.mkAdv ((mkUtt d).s ++ BIND ++ "." ++ (mkUtt (mkNP m)).s) ;
   monthYearAdv m y = SyntaxFin.mkAdv in_Prep (mkNP (mkNP m) (SyntaxFin.mkAdv (casePrep nominative) y)) ;
-----  dayMonthYearAdv d m y = 
-----    lin Adv {s = d.s ! R.NPCase R.Nom ++ BIND ++ "." ++ m.s ! R.NCase R.Sg R.Part ++ y.s ! R.NPCase R.Nom} ;  
+----  dayMonthYearAdv d m y =
+----    lin Adv {s = d.s ! R.NPCase R.Nom ++ BIND ++ "." ++ m.s ! R.NCase R.Sg R.Part ++ y.s ! R.NPCase R.Nom} ;
 
   intYear = symb ;
   intMonthday = symb ;
 
 oper
-  pointWeekday : Weekday -> Str = \w -> (SyntaxFin.mkAdv (casePrep essive) (mkNP w.noun)).s ; 
+  pointWeekday : Weekday -> Str = \w -> (SyntaxFin.mkAdv (casePrep essive) (mkNP w.noun)).s ;
 
 lincat Language = N ;
 
@@ -101,14 +101,14 @@ lin
 
 oper mkLanguage : Str -> N = \s -> mkN s ;
 
-oper mkWeekday : Str -> Weekday = \d -> 
+oper mkWeekday : Str -> Weekday = \d ->
       lin Weekday {
-       noun = mkN d ; 
+       noun = mkN d ;
        habitual = case d of {
          _ + "i" => ParadigmsFin.mkAdv (d + "sin") ; -- tiistaisin
          _ => ParadigmsFin.mkAdv (d + "isin")  -- keskiviikkoisin
          }
-      } ; 
+      } ;
 
 lin second_Timeunit = mkN "sekuntti" ;
 lin minute_Timeunit = mkN "minuutti" ;
@@ -126,9 +126,9 @@ lin friday_Weekday = mkWeekday "perjantai" ;
 lin saturday_Weekday = mkWeekday"lauantai" ;
 lin sunday_Weekday = mkWeekday "sunnuntai" ;
 
-lin january_Month = mkN "tammikuu" ; 
-lin february_Month = mkN "helmikuu" ; 
-lin march_Month = mkN "maaliskuu" ; 
+lin january_Month = mkN "tammikuu" ;
+lin february_Month = mkN "helmikuu" ;
+lin march_Month = mkN "maaliskuu" ;
 lin april_Month = mkN "huhtikuu" ;
 lin may_Month = mkN "toukokuu" ;
 lin june_Month = mkN "kesäkuu" ;

@@ -1,74 +1,84 @@
 --# -path=.:../abstract:../common:../../prelude
 
 concrete QuestionRus of Question = CatRus ** open ResRus, Prelude in {
+flags optimize=all_subs ; coding=utf8 ;
 
-  flags optimize=all_subs ; coding=utf8 ;
+lin
+  -- : Cl -> QCl ;            -- does John walk
+  QuestCl cl = cl ** {qf=QDir} ;
 
-  lin
-
-    QuestCl cl = {s = \\b,cf,_ => cl.s ! b ! cf  } ; 
-
-    QuestVP kto spit =
-    {s = \\b,clf,qf  => (predVerbPhrase kto spit).s!b!clf  } ;
-
-    QuestSlash Kto yaGovoruO =
-    let {  kom = Kto.s ! (mkPronForm yaGovoruO.c No NonPoss) ; o = yaGovoruO.s2 } in 
-    {s =  \\b,clf,_ => o ++ kom ++ yaGovoruO.s ! b ! clf  
+  -- : IP -> VP -> QCl ;      -- who walks
+  QuestVP ip vp = {
+    subj=ip.nom ;
+    adv=vp.adv ! ip.a ;
+    verb=vp.verb ;
+    dep=vp.dep ;
+    compl=\\p => vp.compl ! p ! ip.a ;  --???
+    a=ip.a
     } ;
 
-    QuestIAdv kak tuPozhivaesh =
-    {s = \\b,clf,q => kak.s ++ tuPozhivaesh.s!b!clf } ; 
- 
-    QuestIComp kak tuPozhivaesh =
-    {s = \\b,clf,q => let ne = case b of {Neg => ""; Pos => []}
-     in 
-     kak.s ++ ne ++tuPozhivaesh.s! PF Nom No NonPoss } ; 
-
-
-    PrepIP p ip = {s = p.s ++ ip.s ! PF Nom No NonPoss} ;
-
-    AdvIP ip adv = {
-      s = \\c => ip.s ! c ++ adv.s ;
-       n = ip.n; p=ip.p; g=ip.g; anim=ip.anim; pron=ip.pron 
-      } ;
-
-    IdetCN kakoj okhotnik =
-    {s = \\pf => case kakoj.c of {
-       Nom => 
-        kakoj.s ! AF (extCase pf) okhotnik.anim (gennum okhotnik.g kakoj.n) ++ 
-         okhotnik.nounpart ! NF kakoj.n (extCase pf) nom ++ okhotnik.relcl ! kakoj.n ! extCase pf ; 
-       _ => 
-        kakoj.s ! AF (extCase pf) okhotnik.anim (gennum okhotnik.g kakoj.n) ++ 
-        okhotnik.nounpart ! NF kakoj.n kakoj.c plg } ++ okhotnik.relcl ! kakoj.n ! kakoj.c ;
-     n = kakoj.n ; 
-     p = P3 ;
-     pron = False;
-     g = kakoj.g ;
-     anim = okhotnik.anim 
+  -- : IP -> ClSlash -> QCl ; -- whom does John love
+  QuestSlash ip cls = cls ** {
+    subj=(applyIPronPrep cls.c ip) ++ cls.subj ;
+    a=cls.a
     } ;
 
--- 1.4 additions 17/6/2008 by AR
-
-    IdetIP kakoj = let anim = Inanimate in
-    {s = \\pf => kakoj.s ! AF (extCase pf) anim (pgNum kakoj.g kakoj.n) ;
-     n = kakoj.n ; 
-     p = P3 ;
-     pron = False;
-     g = kakoj.g ; 
-     anim = anim 
-    } ;
- 
-    IdetQuant kakoj pyat = -- okhotnik =
-    {s = \\af => 
-           kakoj.s ! pyat.n ! af ++
-           pyat.s ! genAF af ! animAF af ! caseAF af ;
-     n = pyat.n ;
-     g = kakoj.g ;
-     c = kakoj.c 
+  -- : IAdv -> Cl -> QCl ;    -- why does John walk
+  QuestIAdv iadv cl = cl ** {
+    subj=iadv.s ++ cl.subj
     } ;
 
-    AdvIAdv i a = {s = i.s ++ a.s} ;
+  -- : IComp -> NP -> QCl ;   -- where is John
+  QuestIComp icomp np = {
+    subj=icomp.s ! Ag (GSg Neut) P3 ;  --???
+    compl=table {
+      Pos => np.s ! Nom ;  --???
+      Neg => np.s ! Gen    -- TODO: Check!
+      };
+    adv=icomp.adv ;
+    verb=selectCopula icomp.cop ;
+    dep=[] ;
+    a=np.a
+    } ;
 
-    CompIAdv a = a ;
-    CompIP ip = {s = ip.s ! PF Nom No NonPoss} ;
+  -- : Prep -> IP -> IAdv ;  -- with whom
+  PrepIP prep ip = {s=applyIPronPrep prep ip} ;
+
+  -- : IP -> Adv -> IP
+  AdvIP ip adv = appendToIP (ip ** {a=ip.a}) adv.s ;
+
+  -- : IAdv -> Adv -> IAdv ;    -- where in Paris
+  AdvIAdv = cc2 ;
+
+  -- : IAdv -> IComp ;          -- where (is it)
+  CompIAdv iadv = {
+    s=\\a=>[] ;
+    adv=iadv.s ;
+    cop=EllCopula   -- ???
+  } ;
+
+  -- : IP -> IComp ;          -- who (is it)
+  CompIP ip = {
+    s=\\a=>ip.nom ;   -- ???
+    adv=[] ;
+    cop=EllCopula   -- ???
+  } ;
+
+  -- : IDet -> CN -> IP ;       -- which five songs
+  IdetCN idet cn = caseTableToRecord (\\cas => idet.s ! cn.g ! cn.anim ! cas
+      ++ cn.s ! animNumSizeNum cn.anim cas idet.size ! numSizeCase cas idet.size)
+    (Ag (gennum cn.g (forceMaybeNum cn.mayben (numSizeNumber idet.size))) P3) cn.anim ;
+
+  -- : IDet -> IP ;       -- which five
+  IdetIP idet = caseTableToRecord (\\cas => idet.s ! idet.g ! Inanimate ! cas)
+    (Ag (gennum idet.g (numSizeNumber idet.size)) P3) Inanimate ;
+
+  -- : IQuant -> Num -> IDet ;  -- which (five)
+  IdetQuant iq num = {
+    s=\\g,a,cas => iq.s ! gennum g (numSizeNumber num.size) ! a ! cas ++ num.s ! iq.g ! a ! cas ;
+    size=num.size ;
+    g=iq.g ;
+    c=iq.c
+    } ;
+
 }

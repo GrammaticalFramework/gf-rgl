@@ -14,7 +14,7 @@ concrete PhraseFin of Phrase = CatFin ** open ResFin, StemFin, (P = Prelude) in 
     UttNP np = {s = addNegation np.isNeg ++ np.s ! NPSep} ;
     UttVP vp = {s = addNegation vp.vptyp.isNeg ++ infVP SCNom Pos (agrP3 Sg) vp Inf1} ;
     UttAdv adv = adv ;
-    UttCN np = {s = np.s ! NCase Sg Nom} ;
+    UttCN cn = {s = cnRef cn} ;
     UttAP np = {s = np.s ! P.False ! NCase Sg Nom} ;
     UttCard n = {s = n.s ! Sg ! Nom} ;
     UttInterj i = i ;

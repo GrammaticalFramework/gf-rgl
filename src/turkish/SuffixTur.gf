@@ -95,6 +95,21 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     p1PlVerbalSuffix : Suffix = regSuffix "iz" "k" ;
     p2PlVerbalSuffix : Suffix = regSuffix21 "siniz" "niz" ;
     p3PlVerbalSuffix : Suffix = regSuffix "ler" "ler" ;
+
+    p1SgAlethicCopulaSuffix : Suffix = regSuffix "dim" "ydim" ;
+    p2SgAlethicCopulaSuffix : Suffix = regSuffix "din" "ydin" ;
+    p3SgAlethicCopulaSuffix : Suffix = regSuffix "di"  "ydi" ;
+    p1PlAlethicCopulaSuffix : Suffix = regSuffix "dik" "ydik" ;
+    p2PlAlethicCopulaSuffix : Suffix = regSuffix "diniz" "ydiniz" ;
+    p3PlAlethicCopulaSuffix : Suffix = regSuffix "diler" "ydiler" ;
+
+    p1SgCondCopulaSuffix : Suffix = regSuffix "sem" "sem" ;
+    p2SgCondCopulaSuffix : Suffix = regSuffix "sen" "sen" ;
+    p3SgCondCopulaSuffix : Suffix = regSuffix "se" "se" ;
+    p1PlCondCopulaSuffix : Suffix = regSuffix "sek" "sek" ;
+    p2PlCondCopulaSuffix : Suffix = regSuffix21 "seniz" "seniz" ;
+    p3PlCondCopulaSuffix : Suffix = regSuffix "lerse" "lerse" ;
+
     subordSuffixDik  : Suffix = regSuffix2 "dik" "dikler" ;
     softSubordSuffixDik : Suffix = regSuffix2 "diğ" "dikler" ;
 
@@ -135,6 +150,26 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
 	{n=Pl; p=P3} => p3PlVerbalSuffix
       } ;
 
+    alethicCopulaSuffixes : Agr => Suffix =
+      table {
+	{n=Sg; p=P1} => p1SgAlethicCopulaSuffix ;
+	{n=Sg; p=P2} => p2SgAlethicCopulaSuffix ;
+	{n=Sg; p=P3} => p3SgAlethicCopulaSuffix ;
+	{n=Pl; p=P1} => p1PlAlethicCopulaSuffix ;
+	{n=Pl; p=P2} => p2PlAlethicCopulaSuffix ;
+	{n=Pl; p=P3} => p3PlAlethicCopulaSuffix
+      } ;
+
+    condCopulaSuffixes : Agr => Suffix =
+      table {
+	{n=Sg; p=P1} => p1SgCondCopulaSuffix ;
+	{n=Sg; p=P2} => p2SgCondCopulaSuffix ;
+	{n=Sg; p=P3} => p3SgCondCopulaSuffix ;
+	{n=Pl; p=P1} => p1PlCondCopulaSuffix ;
+	{n=Pl; p=P2} => p2PlCondCopulaSuffix ;
+	{n=Pl; p=P3} => p3PlCondCopulaSuffix
+      } ;
+
 --  Adds a suffix to the base given as Str using Harmony.
 --  If only one form of base is given then it is assumed that base does not soften
     addSuffix = overload {
@@ -148,6 +183,8 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     addSuffixTable : (Softness => Str) -> Harmony -> Suffix -> Str =
       \baseTable,har,suf -> (baseTable ! suf.stemT) + suf.st ! har.con ! har.vow ;
 
+    suffixStr : Harmony -> Suffix -> Str =
+      \har,suf -> BIND ++ suf.st ! har.con ! har.vow ;
 
     regSuffix larC larV =
 	{

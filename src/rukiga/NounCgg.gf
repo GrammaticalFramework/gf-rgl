@@ -18,20 +18,14 @@ lin
   --UsePron pron = pron; -- the result of use pron is a NounPhrase
   --MassNP     : CN -> NP ;            -- (beer)
   MassNP cn = {s = \\_ =>cn.s ! Sg ! Complete; agr = AgP3 Sg cn.gender; nounCat = ComNoun};   --: CN -> NP ; -- milk
-  --DetCN det cn = mkDeterminer det cn; --Should be nemed mkDetCN
+  --DetCN det cn = mkDeterminer det cn; --Should be named mkDetCN
   DetCN  det cn =  mkDetCN det cn;       -- the man
-    {-
-    case det.pos of{ 
-                     PreDeterminer =>{s = det.s ++ cn.s!det.ntype!det.num} ;
-                     PostDeterminer=>{s = cn.s!det.ntype!det.num ++ mkNCParticles!SubjM!AgP3 det.num cn.nc + det.s}
-                   }; --use a function because code is becoming long
-    -}
   UseN noun = noun ;
 
   --Noun = {s : NounType=>Number => Str ; nc : NClass} ;
   --AdjCN ap cn = {s=\\ntype, num=>cn.s!ntype!num ++ ap.s!AgP3 num cn.nc; nc=cn.nc};
   --AdjCN   : AP -> CN  -> CN ;  -- big house
-    AdjCN ap cn = 
+  AdjCN ap cn = 
       case <ap.position, ap.isProper, > of {
           <Pre, True> => { 
                     s = \\ num, ns =>ap.s ! AgP3 num cn.gender ++ cn.s ! num ! ns ; 
@@ -39,7 +33,7 @@ lin
                   };
           <Post, False> => case ap.isPrep of {
                      False  =>  { 
-                            s = \\ num, ns => cn.s  ! num ! ns ++ mkAdjPronIVClitic (AgP3 num cn.gender) 
+                            s = \\ num, ns => cn.s  ! num ! ns ++ mkAdjClitic ! (AgP3 num cn.gender) 
                                  ++ ap.s ! AgP3 Sg KI_BI; 
                               gender = cn.gender; nounCat = cn.nounCat 
                           };
@@ -62,7 +56,8 @@ lin
     };        -- big house
 
     --RelCN   : CN -> RS  -> CN ;   -- house that John bought
-    RelCN cn rs = {s=\\n,ns => cn.s !n ! ns ++ rs.s! (RF RObj); gender = cn.gender; nounCat = cn.nounCat};
+    --RelCN cn rs = {s=\\n,ns => cn.s !n ! ns ++ rs.s! (RF RObj); gender = cn.gender; nounCat = cn.nounCat};
+    RelCN cn rs = {s=\\n,ns => cn.s !n ! ns ++ mkRPsNoClitic !RObj ! (AgP3 n cn.gender) ++ rs.s! (RF RObj); gender = cn.gender; nounCat = cn.nounCat};
 
     {-
       A predeterminer is any word that modifies a noun Phrase.
@@ -95,8 +90,8 @@ lin
   -- quantifier and an optional numeral can be discerned.
      --DetQuant    : Quant -> Num -> Det ;  -- these five
      DetQuant  quant num = case quant.isPron of {
-                                True => {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=Pre; doesAgree = quant.doesAgree};
-                                False => {s= quant.s.s ! Nom; s2 =\\_ =>[]; ntype = Complete; num = num.n; pos=Pre; doesAgree = quant.doesAgree} --
+                                False => {s=[]; s2 = quant.s2; ntype = Incomplete; num = num.n; pos=Pre; doesAgree = quant.doesAgree; numeralS = num.s; numeralExists=num.numeralExists;};
+                                True => {s= quant.s.s ! Nom; s2 =\\_ =>[]; ntype = Complete; num = num.n; pos=Pre; doesAgree = quant.doesAgree; numeralS = num.s; numeralExists=num.numeralExists;} --
           };
                                 
      --DetQuantOrd : Quant -> Num -> Ord -> Det ;  -- these five best
@@ -106,13 +101,15 @@ lin
       ntype = Complete;
       num = num.n;
       pos = Pre;
-      doesAgree = True
+      doesAgree = True;
+      numeralS = num.s;
+      numeralExists = num.numeralExists
     };
 
-    NumSg = {s=\\_=>[]; n=Sg}; --Num
-    NumPl = {s=\\_=>[]; n=Pl}; --Num
+    NumSg = {s=\\_=>[]; n=Sg; numeralExists=False}; --Num
+    NumPl = {s=\\_=>[]; n=Pl; numeralExists=False}; --Num
     --NumCard : Card -> Num ; -- one/five [explicit numeral]
-    NumCard card = {s =\\agr =>card.s ! agr; n=card.n };
+    NumCard card = {s =\\agr =>card.s ! agr; n=card.n; numeralExists=True; };
     --Quant = {s : Res.Pronoun; s2 :Res.Agreement => Str; doesAgree : Bool; isPron: Bool} ;
     IndefArt = {s={s=\\_=>[]; third = \\_,_=>[];agr = AgrNo }; s2 = \\_=>[]; doesAgree = False; isPron=False};
     DefArt = {s={s =\\_=>[]; third = \\_,_=>[]; agr = AgrNo }; s2 = \\_=>[]; doesAgree = False; isPron = False}; -- noun with initial vowel
@@ -151,7 +148,9 @@ lin
                   ntype = dap.ntype ; 
                   num = dap.num ; 
                   pos = dap.pos; 
-                  doesAgree= True 
+                  doesAgree= True;
+                  numeralS = dap.numeralS;
+                  numeralExists=dap.numeralExists;
                 };
     
     --DetDAP : Det -> DAP ;          -- this (or that)

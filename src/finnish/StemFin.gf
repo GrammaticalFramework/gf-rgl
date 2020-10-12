@@ -23,16 +23,16 @@ oper
 
 
     snoun2np : Number -> SPN -> NPForm => Str = \n,sn ->
-      \\c => sn.s ! (npform2case n c) ; 
+      \\c => sn.s ! (npform2case n c) ;
 
     noun2snoun : Noun -> SNoun = \n -> n ;
 
-    aHarmony : Str -> Harmony = \a -> case a of 
+    aHarmony : Str -> Harmony = \a -> case a of
        {"a" => Back ; _   => Front} ;
 
     harmonyA : Harmony -> Str = harmonyV "a" "ä" ;
 
-    harmonyV : Str -> Str -> Harmony -> Str = \u,y,h -> case h of 
+    harmonyV : Str -> Str -> Harmony -> Str = \u,y,h -> case h of
        {Back => u ; Front => y} ;
 
 
@@ -64,9 +64,9 @@ oper
   snoun2sadj : SNoun -> SAdj = snoun2sadjComp True ;
 
   snoun2sadjComp : Bool -> SNoun -> SAdj = \isPos,tuore ->
-    let 
+    let
       tuoree = init (tuore.s ! NCase Sg Gen) ;
-      tuoreesti  = tuoree + "sti" ; 
+      tuoreesti  = tuoree + "sti" ;
       tuoreemmin =  init tuoree ;
     in {s = table {
          AN f => tuore.s ! f ;
@@ -84,11 +84,11 @@ oper
         Posit => table {
            AN nf => h.s ! nf ;
            AAdv  => hn
-           } ; 
+           } ;
         Compar => table {
            AN nf => p.s ! nf ;
            AAdv  => pn
-           } ; 
+           } ;
         Superl => table {
            AN nf => ps.s ! nf ;
            AAdv  => ph
@@ -114,24 +114,24 @@ oper
   sverb2verbBind : SVerb -> Verb = sverb2verb True ;
   sverb2verbSep  : SVerb -> Verb = sverb2verb False ;
 
-  vforms2sverb : VForms -> SVerb = \v -> 
+  vforms2sverb : VForms -> SVerb = \v ->
     {s = (vforms2V v).s ; h = case (last (v ! 0)) of {"a" => Back ; _ => Front}} ;
 
   sverb2verb : Bool -> SVerb -> Verb = \b,sverb -> {s = sverb.s} ;
 
   predSV : SVerb1 -> VP = \sv ->
-    predV sv ; 
+    predV sv ;
     -- (sverb2verbSep sv ** {p = sv.p ; sc = sv.sc ; h = sv.h}) ;
 
 -- word formation functions
 
   sverb2snoun : SVerb1 -> SNoun = \v ->    -- syöminen
-    let tekem = Predef.tk 4 (v.s ! Inf Inf3Iness) in 
+    let tekem = Predef.tk 4 (v.s ! Inf Inf3Iness) in
     nforms2snoun (dNainen (tekem + "inen")) ;
 
 {-
   sverb2nounPresPartAct : SVerb1 -> SNoun = \v ->  -- syövä
-    let teke = Predef.tk 5 (v.s ! Inf Inf3Iness) in 
+    let teke = Predef.tk 5 (v.s ! Inf Inf3Iness) in
     nforms2snoun (dLava (teke + "v" + last (v.s ! Inf1))) ;
 
   sverb2nounPresPartPass : SVerb1 -> SNoun = \v ->  -- syötävä
@@ -140,7 +140,7 @@ oper
 -}
 
   dLava : Str -> NForms = \s -> dUkko s (s + "n") ;
-  
+
  --- to use these at run time in ParseFin
   partPlus = glue ;
 
@@ -148,12 +148,12 @@ oper
 
     plusIf : Bool -> Str -> Str -> Str = \b,x,y -> case b of {
       True  => x + y ;
-      False => glue x y 
+      False => glue x y
       } ;
 
 -- for Symbol
 
-  addStemEnding : Str -> SPN = \i -> 
+  addStemEnding : Str -> SPN = \i ->
     {s = \\c => i ++ bindColonIfS (NCase Sg c) ++ defaultCaseEnding c} ;
 
   bindIfS : SNForm -> Str = \c -> case c of {
@@ -167,15 +167,15 @@ oper
     } ;
 
 -----------------------------------------------------------------------
----- a hack to make VerbFin compile accurately for library (here), 
+---- a hack to make VerbFin compile accurately for library (here),
 ---- and in a simplified way for ParseFin (in stemmed/)
 
-  slashV2VNP : (SVerb1 ** {c2 : Compl ; vi : VVType}) -> (NP ** {isNeg : Bool}) -> 
-    (VP ** {c2 : Compl}) -> (VP ** {c2 : Compl}) 
-    = \v, np, vp -> 
+  slashV2VNP : (SVerb1 ** {c2 : Compl ; vi : VVType}) -> (NP ** {isNeg : Bool}) ->
+    (VP ** {c2 : Compl}) -> (VP ** {c2 : Compl})
+    = \v, np, vp ->
       insertObjPre np.isNeg
-        (\fin,b,a ->  appCompl fin b v.c2 np ++ 
-                      infVP v.sc b a vp (vvtype2infform v.vi)) 
+        (\fin,b,a ->  appCompl fin b v.c2 np ++
+                      infVP v.sc b a vp (vvtype2infform v.vi))
           (predSV v) ** {c2 = vp.c2} ;
 
 
@@ -190,9 +190,9 @@ oper
     } ;
 
   defaultVPTyp = {isNeg = False ; isPass = False} ;
-    
+
   HVerb : Type = Verb ** {sc : SubjCase ; h : Harmony ; p : Str} ;
- 
+
   predV : HVerb -> VP = \verb -> {
     s = verb ;
     s2 = \\_,_,_ => [] ;
@@ -202,7 +202,7 @@ oper
     } ;
 
   old_VP = {
-    s   : VIForm => Anteriority => Polarity => Agr => {fin, inf : Str} ; 
+    s   : VIForm => Anteriority => Polarity => Agr => {fin, inf : Str} ;
     s2  : Bool => Polarity => Agr => Str ; -- talo/talon/taloa
     adv : Polarity => Str ; -- ainakin/ainakaan
     ext : Str ;
@@ -211,17 +211,17 @@ oper
     h   : Harmony
     } ;
 
-  vp2old_vp : VP -> old_VP = \vp -> 
-    let 
-     verb = vp.s ; 
-     sverb :  VIForm => Anteriority => Polarity => Agr => {fin, inf : Str} = \\vi,ant,b,agr0 => 
+  vp2old_vp : VP -> old_VP = \vp ->
+    let
+     verb = vp.s ;
+     sverb :  VIForm => Anteriority => Polarity => Agr => {fin, inf : Str} = \\vi,ant,b,agr0 =>
       let
         agr = verbAgr agr0 ;
         verbs = verb.s ;
         part  : Str = case vi of {
-          VIPass _ => verbs ! PastPartPass (AN (NCase agr.n Nom)) ; 
+          VIPass _ => verbs ! PastPartPass (AN (NCase agr.n Nom)) ;
           _        => verbs ! PastPartAct (AN (NCase agr.n Nom))
-          } ; 
+          } ;
 
         eiv : Str = case agr of {
           {n = Sg ; p = P1} => "en" ;
@@ -258,7 +258,7 @@ oper
            vf => verbOlla.s ! vf
            } ;
 
-        vf : Str -> Str -> {fin, inf : Str} = \x,y -> 
+        vf : Str -> Str -> {fin, inf : Str} = \x,y ->
           {fin = x ; inf = y} ;
         mkvf : VForm -> {fin, inf : Str} = \p -> case <ant,b> of {
           <Simul,Pos> => vf (verbs ! p) [] ;
@@ -277,14 +277,14 @@ oper
         VIPass Past    => mkvf (PassImpf passPol) ;  --# notpresent
         VIPass Cond    => mkvf (PassCondit passPol) ; --# notpresent
         VIPass Fut     => mkvf (PassPresn passPol) ;  --# notpresent
-        VIPass Pres    => mkvf (PassPresn passPol) ;  
+        VIPass Pres    => mkvf (PassPresn passPol) ;
         VIInf i    => mkvf (Inf i)
         }
     in {
     s = case vp.vptyp.isPass of {
           True => \\vif,ant,pol,agr => case vif of {
             VIFin t  => sverb ! VIPass t ! ant ! pol ! agr ;
-           _ => sverb ! vif ! ant ! pol ! agr 
+           _ => sverb ! vif ! ant ! pol ! agr
            } ;
           _ => sverb
           } ;
@@ -293,7 +293,7 @@ oper
     ext = vp.ext ;
     sc = verb.sc ;
     h = verb.h ;
-    isNeg = vp.vptyp.isNeg 
+    isNeg = vp.vptyp.isNeg
     } ;
 
   insertObj : (Bool => Polarity => Agr => Str) -> VP -> VP = \obj,vp -> {
@@ -301,7 +301,7 @@ oper
     s2 = \\fin,b,a => vp.s2 ! fin ! b ! a  ++ obj ! fin ! b ! a ;
     adv = vp.adv ;
     ext = vp.ext ;
-    sc = vp.sc ; 
+    sc = vp.sc ;
     h = vp.h ;
     vptyp = vp.vptyp
     } ;
@@ -319,7 +319,7 @@ oper
     s2 = vp.s2 ;
     ext = vp.ext ;
     adv = \\b => vp.adv ! b ++ adv ! b ;
-    sc = vp.sc ; 
+    sc = vp.sc ;
     h = vp.h ;
     vptyp = vp.vptyp --- missään
     } ;
@@ -329,7 +329,7 @@ oper
     s2 = \\b,p,a => pr.s.p1 ++ vp.s2 ! b ! p ! a ++ pr.s.p2 ; ---- possessive suffix
     ext = vp.ext ;
     adv = vp.adv ;
-    vptyp = {isNeg = vp.vptyp.isNeg ; isPass = True} ; 
+    vptyp = {isNeg = vp.vptyp.isNeg ; isPass = True} ;
     } ;
 
   insertExtrapos : Str -> VP -> VP = \obj,vp -> {
@@ -337,29 +337,29 @@ oper
     s2 = vp.s2 ;
     ext = vp.ext ++ obj ;
     adv = vp.adv ;
-    sc = vp.sc ; 
+    sc = vp.sc ;
     h = vp.h ;
     vptyp = vp.vptyp
     } ;
 
-  mkClausePol : Bool -> (Polarity -> Str) -> Agr -> VP -> Clause = 
+  mkClausePol : Bool -> (Polarity -> Str) -> Agr -> VP -> Clause =
     \isNeg,sub,agr,vp -> {
-      s = \\t,a,b => 
+      s = \\t,a,b =>
          let
            pol = case isNeg of {
-            True => Neg ; 
+            True => Neg ;
             _ => b
-            } ; 
-           c = (mkClausePlus sub agr vp).s ! t ! a ! pol 
-         in 
+            } ;
+           c = (mkClausePlus sub agr vp).s ! t ! a ! pol
+         in
          table {
            SDecl  => c.subj ++ c.fin ++ c.inf ++ c.compl ++ c.adv ++ c.ext ;
            SQuest => c.fin ++ BIND ++ questPart c.h ++ c.subj ++ c.inf ++ c.compl ++ c.adv ++ c.ext
            }
       } ;
-  mkClause : (Polarity -> Str) -> Agr -> VP -> Clause = 
+  mkClause : (Polarity -> Str) -> Agr -> VP -> Clause =
     \sub,agr,vp -> {
-      s = \\t,a,b => let c = (mkClausePlus sub agr vp).s ! t ! a ! b in 
+      s = \\t,a,b => let c = (mkClausePlus sub agr vp).s ! t ! a ! b in
          table {
            SDecl  => c.subj ++ c.fin ++ c.inf ++ c.compl ++ c.adv ++ c.ext ;
            SQuest => c.fin ++ BIND ++ questPart c.h ++ c.subj ++ c.inf ++ c.compl ++ c.adv ++ c.ext
@@ -368,24 +368,24 @@ oper
 
   mkClausePlus : (Polarity -> Str) -> Agr -> VP -> ClausePlus =
     \sub,agr,vp0 -> let vp = vp2old_vp vp0 in {
-      s = \\t,a,b => 
-        let 
+      s = \\t,a,b =>
+        let
           agrfin = case vp.sc of {
                     SCNom => <agr,True> ;
                     _ => <agrP3 Sg,False>      -- minun täytyy, minulla on
                     } ;
           verb  = vp.s ! VIFin t ! a ! b ! agrfin.p1 ;
-        in {subj = sub b ; 
-            fin  = verb.fin ; 
-            inf  = verb.inf ; 
+        in {subj = sub b ;
+            fin  = verb.fin ;
+            inf  = verb.inf ;
             compl = vp.s2 ! agrfin.p2 ! b ! agr ;
-            adv  = vp.adv ! b ; 
-            ext  = vp.ext ; 
+            adv  = vp.adv ! b ;
+            ext  = vp.ext ;
             h    = selectPart vp0 a b
             }
      } ;
 
-  selectPart : VP -> Anteriority -> Polarity -> Harmony = \vp,a,p -> 
+  selectPart : VP -> Anteriority -> Polarity -> Harmony = \vp,a,p ->
     case p of {
       Neg => Front ;  -- eikö tule
       _ => case a of {
@@ -398,7 +398,7 @@ oper
 -- ([main] tahdon | en tahdo) ([internal] nukkua | olla nukkumatta)
   infVPGen : Polarity -> SubjCase -> Polarity -> Agr -> VP -> InfForm -> Str =
     \ipol,sc,pol,agr,vp0,vi ->
-        let 
+        let
           vp = vp2old_vp vp0 ;
           fin = case sc of {     -- subject case
             SCNom => True ; -- minä tahdon nähdä auton

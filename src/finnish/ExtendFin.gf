@@ -165,11 +165,11 @@ lin
   PassVPSlash vp = S.passVP vp vp.c2 ;
 
   PassAgentVPSlash vp np = {
-      s = {s = vp.s.s ; h = vp.s.h ; p = vp.s.p ; sc = npform2subjcase vp.c2.c} ; 
+      s = {s = vp.s.s ; h = vp.s.h ; p = vp.s.p ; sc = npform2subjcase vp.c2.c} ;
       s2 = \\b,p,a => np.s ! NPSep ++ vp.s2 ! b ! p ! a ;
       adv = vp.adv ;
       ext = vp.ext ;
       vptyp = vp.vptyp ;
-      } ; 
+      } ;
 
 }

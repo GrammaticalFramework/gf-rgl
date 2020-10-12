@@ -1,0 +1,198 @@
+Lang: PhrUtt NoPConj (UttNP (AdvNP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a see_V2) (UsePron they_Pron))))))) NoVoc
+LangEng: the children when we see them
+LangCgg: abaana [SubjS]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant IndefArt NumSg) (SentCN (UseN reason_N) (EmbedVP (UseV go_V)))))))) NoVoc
+LangEng: I have a reason to go
+LangCgg: nyowe nine[SentCN]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a like_V2) (DetCN (DetQuant DefArt NumSg) (SentCN (UseN rule_N) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN book_N)) (UseComp (CompAP (PositA thin_A)))))))))))) NoVoc
+LangEng: I like the rule that the books are thin
+LangCgg: nyowe n[like_V2][SentCN]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron youSg_Pron) (SlashV2a love_V2)))))))))) NoVoc
+LangEng: I saw the man that you love
+LangCgg: nyowe nreebire omushaija iwe oukûnda
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron youSg_Pron) (SlashV2a buy_V2)))))))))) NoVoc
+LangEng: I saw the book that you bought
+LangCgg: nyowe nreebire ekitabo iwe ougurire
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (AdvVP (UseV jump_V) (SubjS when_Subj (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (UseV come_V)))))))) NoVoc
+LangEng: the cat jumped when the dog came
+LangCgg: enjangu egurukire [SubjS]
+Lang: PhrUtt NoPConj (UttS (ExtAdvS (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TPast ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a do_V2) (UsePron it_Pron)))))))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVV must_VV (UseV go_V)))))) NoVoc
+LangEng: if you know who did it , you must go
+LangCgg: [ExtAdvS]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (AdvVP (UseComp (CompAP (PositA ready_A))) (SubjS when_Subj (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (UsePron he_Pron))))))))) NoVoc
+LangEng: he was ready when I saw him
+LangCgg: uwe akaba [SubjS]
+Lang: PhrUtt NoPConj (UttCN (AdjCN (AdAP (PositAdAAdj clever_A) (PositA correct_A)) (UseN rule_N))) NoVoc
+LangEng: cleverly correct rule
+LangCgg: [rule_N] omu[correct_A] [PositAdAAdj]
+Lang: PhrUtt NoPConj (UttAdv (ComparAdvAdj less_CAdv probable_AS (UsePN john_PN))) NoVoc
+LangEng: less probably than John
+LangCgg: [ComparAdvAdj]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (ComplSlash (SlashV2a eat_V2) (MassNP (AdjCN (PositA red_A) (UseN meat_N))))))) NoVoc
+LangEng: John eats red meat
+LangCgg: Yohana ary[meat_N] omuríkutukura
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePN john_PN) (UseV die_V)))) NoVoc
+LangEng: John has died
+LangCgg: Yohana a[die_V][die_V]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVV must_VV (UseV go_V))))) NoVoc
+LangEng: he must go
+LangCgg: uwe ashemereire kugyenda
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePN john_PN) (PassV2 kill_V2)))) NoVoc
+LangEng: John has been killed
+LangCgg: Yohana a[PassV2][PassV2] [PassV2]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (PassV2 kill_V2)))) NoVoc
+LangEng: John was killed
+LangCgg: Yohana a[PassV2][PassV2] [PassV2]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (AdvCN (UseN cat_N) (PrepNP in_Prep (DetCN (DetQuant IndefArt NumSg) (UseN hat_N))))))))) NoVoc
+LangEng: I saw a cat in a hat
+LangCgg: nyowe nreebire enjangu omu [hat_N]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))) (PrepNP with_Prep (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN eye_N))))))) NoVoc
+LangEng: I saw a cat with my eyes
+LangCgg: nyowe nreebire na [eye_N] ba
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseComp (CompAP (ComplA2 married_A2 (UsePron she_Pron))))))) NoVoc
+LangEng: he is married to her
+LangCgg: uwe aba a[ComplA2]
+Lang: PhrUtt (PConjConj and_Conj) (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (UseV go_V)))) NoVoc
+LangEng: and we went
+LangCgg: [PConjConj] itwe tugyendire
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (ConjNP both7and_DConj (BaseNP (DetCN (DetQuant DefArt NumPl) (UseN boy_N)) (DetCN (DetQuant DefArt NumPl) (UseN girl_N)))) (UseComp (CompAdv here_Adv))))) NoVoc
+LangEng: both the boys and the girls are here
+LangCgg: [ConjNP] aba hanu
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVV want_VV (UseV swim_V)))))))) NoVoc
+LangEng: he says that you want to swim
+LangCgg: uwe agiiwe oyendda kuoga
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (SentAP (PositA uncertain_A) (EmbedS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a do_V2) (UsePron it_Pron))))))))))) NoVoc
+LangEng: I am uncertain that he did it
+LangCgg: nyowe nba n[SentAP]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot3 (pot1as2 (pot0as1 (pot0 n4)))))))) (UseN sheep_N)))))) NoVoc
+LangEng: I have four thousand sheep
+LangCgg: nyowe nine[sheep_N] enkumi ina
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a switch8off_V2) (DetCN (DetQuant DefArt NumSg) (UseN television_N)))))) NoVoc
+LangEng: they switch off the television
+LangCgg: [they_Pron] ki[switch8off_V2][television_N]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAP (ConjAP and_Conj (BaseAP (PositA big_A) (PositA clever_A)))))))) NoVoc
+LangEng: John is big and clever
+LangCgg: Yohana aba a[ConjAP]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompCN (AdjCN (PositA clever_A) (UseN man_N))))))) NoVoc
+LangEng: John is a clever man
+LangCgg: Yohana aba omushaija omu[clever_A]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAdv (PrepNP from_Prep (DetCN (DetQuant DefArt NumSg) (UseN city_N)))))))) NoVoc
+LangEng: John is from the city
+LangCgg: Yohana aba kurunga ekibúga
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAP (PositA clever_A)))))) NoVoc
+LangEng: John is clever
+LangCgg: Yohana aba a[clever_A]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAdv today_Adv))))) NoVoc
+LangEng: it was today
+LangCgg: kyo kikaba [today_Adv]
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whatSg_IP) (DetNP (DetQuant that_Quant NumSg))))) NoVoc
+LangEng: what is that
+LangCgg: ekyokiri ki
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAdv (SubjS because_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompAP (PositA clever_A))))))))))) NoVoc
+LangEng: it was because John is clever
+LangCgg: kyo kikaba [SubjS]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (ComplVA become_VA (PositA clever_A))))) NoVoc
+LangEng: John became clever
+LangCgg: Yohana abire a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (ProgrVP (UseV sleep_V))))) NoVoc
+LangEng: John is sleeping
+LangCgg: Yohana a[ProgrVP][ProgrVP]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv (DetCN (DetQuant IndefArt NumSg) (UseN cow_N)) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN forest_N)))))) NoVoc
+LangEng: there is a cow in the forest
+LangCgg: [ExistNPAdv] a[ExistNPAdv][ExistNPAdv]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whatSg_IP (SlashVP (UsePron she_Pron) (SlashV2a do_V2))))) (UseComp (CompAP (PositA important_A)))))) NoVoc
+LangEng: what she did is important
+LangCgg: [PredSCVP] a[PredSCVP][PredSCVP]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredSCVP (EmbedS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (AdvVP (PassV2 see_V2) (PrepNP by8agent_Prep (DetNP every_Det)))))) NoVoc
+LangEng: that she slept was seen by everything
+LangCgg: [PredSCVP] a[PredSCVP][PredSCVP] [PredSCVP]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) (UseComp (CompAdv here_Adv))))) NoVoc
+LangEng: the man is here
+LangCgg: omushaija aba hanu
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN book_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a like_V2))))) NoVoc
+LangEng: which book do you like
+LangCgg: 
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN boy_N))) (UseComp (CompAdv here_Adv))))) NoVoc
+LangEng: all the boys are here
+LangCgg: abojo boòna baba hanu
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 give_V3 (UsePron i_Pron)) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N)))))) NoVoc
+LangEng: she gave me an apple
+LangCgg: uwe ahééreize nyowe apple
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N)))))) NoVoc
+LangEng: there is a cat in the house
+LangCgg: [ExistNPAdv] a[ExistNPAdv][ExistNPAdv]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 give_V3 (UsePron i_Pron)) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N)))))) NoVoc
+LangEng: she gave me an apple
+LangCgg: uwe ahééreize nyowe apple
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant IndefArt NumPl) (UseN boy_N)) (AdvVP (ProgrVP (UseV swim_V)) (SubjS when_Subj (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN girl_N)) (UseV come_V)))))))) NoVoc
+LangEng: boys were swimming when the girls came
+LangCgg: abojo ba[ProgrVP][ProgrVP] [SubjS]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVV want_VV (UseV swim_V)))))))) NoVoc
+LangEng: he says that you want to swim
+LangCgg: uwe agiiwe oyendda kuoga
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a eat_V2) (UsePron it_Pron)))))) NoVoc
+LangEng: I wanted to eat it
+LangCgg: nyowe nkayendda kurya kyo
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompNP (PredetNP not_Predet (DetCN (DetQuant IndefArt NumSg) (UseN doctor_N)))))))) NoVoc
+LangEng: John is not a doctor
+LangCgg: Yohana aba [doctor_N] ti
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePN john_PN) (UseV laugh_V)))) NoVoc
+LangEng: John doesn't laugh
+LangCgg: Yohana tia[laugh_V][laugh_V]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant no_Quant NumPl) (UseN animal_N)))))) NoVoc
+LangEng: John saw no animals
+LangCgg: Yohana areebire enyamaishwa
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (PossNP (UseN house_N) (DetCN (DetQuant DefArt NumSg) (UseN doctor_N))))) NoVoc
+LangEng: the house of the doctor
+LangCgg: enju wa[doctor_N]
+Lang: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (Slash2V3 send_V3 (DetCN (DetQuant DefArt NumPl) (UseN apple_N))) (DetCN (DetQuant DefArt NumPl) (UseN child_N))))) NoVoc
+LangEng: send the apples to the children
+LangCgg: tuma apple abaana
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN boy_N)) (has_age_VP (NumDigits (IDig D_6)))))) NoVoc
+LangEng: the boy is 6 years old
+LangCgg: omwojo a[has_age_VP][has_age_VP]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN science_N)) (SelfAdVVP (UseComp (CompAP (PositA important_A))))))) NoVoc
+LangEng: the science is itself important
+LangCgg: [science_N] a[SelfAdVVP][SelfAdVVP]
+Lang: PhrUtt NoPConj (UttS (ExtAdvS today_Adv (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (UseV swim_V) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN sea_N)))))))) NoVoc
+LangEng: today , I swam in the sea
+LangCgg: [ExtAdvS]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (AdvVP (ComplVV must_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (PrepNP before_Prep (UsePN (weekdayPN monday_Weekday))))))) NoVoc
+LangEng: you must read the book before Monday
+LangCgg: 
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (ComplSlash (SlashV2a kill_V2) (UsePron he_Pron))))) NoVoc
+LangEng: John killed him
+LangCgg: Yohana aitire uwe
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (AdvVP (PassV2 kill_V2) (PrepNP by8agent_Prep (UsePN john_PN)))))) NoVoc
+LangEng: he was killed by John
+LangCgg: uwe a[PassV2][PassV2] [by8agent_Prep] Yohana
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt (NumCard (NumDigits (IDig D_3)))) (UseN sheep_N)))))) NoVoc
+LangEng: John ate 3 sheep
+LangCgg: Yohana aryire [sheep_N] 3
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePN john_PN) (ComplSlash (SlashV2a find_V2) (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot1 n4))))))) (UseN cat_N)))))) NoVoc
+LangEng: John found forty cats
+LangCgg: Yohana abonire enjangu ana
+Lang: TExclMark (PhrUtt NoPConj (UttImpSg PPos (ImpVP (AdvVP (UseV go_V) (PrepNP to_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N)))))) NoVoc) TEmpty
+LangEng: go to the house !
+LangCgg: gyenda aha enju !
+Lang: TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a love_V2) (DetCN (DetQuant IndefArt NumPl) (AdjCN (PositA red_A) (UseN apple_N))))))) NoVoc) TEmpty
+LangEng: I love red apples .
+LangCgg: nyowe nkûndapple eziríkutukura .
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePN john_PN) (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA clever_A) (UseN man_N)))))))) NoVoc
+LangEng: John is a clever man
+LangCgg: Yohana aba omushaija omu[clever_A]
+Lang: PhrUtt NoPConj (UttImpSg PPos (ImpVP (AdvVP (UseV come_V) here_Adv))) (VocNP (DetCN (DetQuant IndefArt NumPl) (UseN boy_N)))
+LangEng: come here , boys
+LangCgg: ija hanu [VocNP]
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVV want_VV (UseV swim_V)))))))) NoVoc
+LangEng: he says that you want to swim
+LangCgg: uwe agiiwe oyendda kuoga
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a find_V2) (DetCN (DetQuant (PossPron she_Pron) NumSg) (UseN dog_N)))) (UsePN john_PN))))) NoVoc
+LangEng: she begged John to find her dog
+LangCgg: uwe a[SlashV2V][SlashV2V] [SlashV2V] Yohana
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))) NoVoc
+LangEng: I paint it red
+LangCgg: nyowe n[SlashV2A][SlashV2A] kyo
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (AdAP very_AdA (PositA beautiful_A)))))) NoVoc
+LangEng: she becomes very beautiful
+LangCgg: uwe aba

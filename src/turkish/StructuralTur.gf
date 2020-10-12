@@ -83,9 +83,8 @@ concrete StructuralTur of Structural = CatTur **
     between_Prep =
       mkPrep "arasındaki" Gen ;
 
-    and_Conj = mkConj "ile" ;
-
-    or_Conj = mkConj "veya" ;
+    and_Conj = mkConj "ve" Pl ;
+    or_Conj = mkConj "veya" Sg ;
 
     yes_Utt = ss "evet" ;
     no_Utt  = ss "hayır" ;
@@ -136,8 +135,8 @@ concrete StructuralTur of Structural = CatTur **
 
     if_Subj        = {s = "eğer"} ;
 
-    both7and_DConj  = mkConj "hem" "hem de" ;
-    either7or_DConj = mkConj "ya"  "ya da"  ;
+    both7and_DConj  = mkConj "hem de" Pl ** {sep=0} ;
+    either7or_DConj = mkConj "ya da"  Sg ** {sep=1} ;
 
     few_Det = mkDet "birkaç" Sg NoGen ;
 
@@ -181,10 +180,6 @@ concrete StructuralTur of Structural = CatTur **
     how8much_IAdv = {s = "ne kadar"} ;
 
     how_IAdv = {s = "nasıl"} ;
-
-    -- Conditionals in Turkish are handled through inflections.
-    -- I will decide what to do with this later.
-    if_then_Conj = mkConj "foo" "bar" ;
 
     -- TODO: in8front_Prep
     in8front_Prep = mkPrep "önünde" Gen ;
@@ -252,10 +247,6 @@ concrete StructuralTur of Structural = CatTur **
 
     whatSg_IP = { s = "ne" } ;
 
-    -- Not sure what this is for given that we have separate functions for the
-    -- plural "what" case and the singular "what" case.
-    what_IP = { s = "ne" } ;
-
     when_IAdv = { s = "ne zaman" } ;
 
     which_IQuant = { s = "hangi" } ;
@@ -277,5 +268,7 @@ concrete StructuralTur of Structural = CatTur **
     at_least_AdN = { s = "en az"; c = Nom } ;
 
     as_CAdv = {s = "kadar"; p = "kadar"; c = Nom} ; 
+
+    have_V2 = mkV2 (mkV "görmek") ;
 
 }

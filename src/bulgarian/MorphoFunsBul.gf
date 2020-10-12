@@ -1,4 +1,4 @@
---# -coding=cp1251
+--# -coding=utf8
 --# -path=.:../abstract:../../prelude:../common
 
 resource MorphoFunsBul = open
@@ -6,7 +6,7 @@ resource MorphoFunsBul = open
   CatBul,
   MorphoBul
   in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
 oper
@@ -57,11 +57,11 @@ oper
   dualV : VTable -> VTable -> V ;
   dualV imperf perf = { 
     s = table {Imperf=>imperf; Perf=>perf};
-    n = let v0 = init (imperf ! (VImperfect Sg P1)) + "н"
-        in (mkNoun (v0+"е")
-                   (v0+"ия")
-                   (v0+"ия")
-                   (v0+"е")
+    n = let v0 = init (imperf ! (VImperfect Sg P1)) + "РЅ"
+        in (mkNoun (v0+"Рµ")
+                   (v0+"РёСЏ")
+                   (v0+"РёСЏ")
+                   (v0+"Рµ")
                    ANeut).s;
     vtype = VNormal;
     lock_V=<>
@@ -72,11 +72,11 @@ oper
   singleV : VTable -> V ;
   singleV vtable = { 
     s = \\_=>vtable;
-    n = let v0 = init (vtable ! (VImperfect Sg P1)) + "н"
-        in (mkNoun (v0+"е")
-                   (v0+"ия")
-                   (v0+"ия")
-                   (v0+"е")
+    n = let v0 = init (vtable ! (VImperfect Sg P1)) + "РЅ"
+        in (mkNoun (v0+"Рµ")
+                   (v0+"РёСЏ")
+                   (v0+"РёСЏ")
+                   (v0+"Рµ")
                    ANeut).s;
     vtype = VNormal;
     lock_V=<>
@@ -136,6 +136,9 @@ oper
 
   mkV2V : V -> Prep -> Prep -> V2V ;
   mkV2V v p t = prepV2 v p ** {c3 = t ; subjCtrl = False ; lock_V2V = <>} ;
+
+  imperfV2V : V -> VV ;
+  imperfV2V  v = v ** {typ = VVInf Imperf; lock_VV = <>} ;
   
   subjCtrlV2V : V -> Prep -> Prep -> V2V ;
   subjCtrlV2V v p t = prepV2 v p ** {c3 = t ; subjCtrl = True ; lock_V2V = <>} ;
@@ -198,9 +201,9 @@ oper
 
   compoundN = overload {
     compoundN : Str -> N -> N 
-      = \s,n -> {s = \\nform => s ++ n.s ! nform ; rel = \\aform => s ++ n.rel ! aform; relPost = True; g=n.g ; anim=n.anim ; lock_N = <>} ;
+      = \s,n -> {s = \\nform => s ++ n.s ! nform ; rel = \\aform => s ++ n.rel ! aform; relType = AdvMod; g=n.g ; anim=n.anim ; lock_N = <>} ;
     compoundN : N -> Str -> N 
-      = \n,s -> {s = \\nform => n.s ! nform ++ s; rel = \\aform => n.rel ! aform ++ s; relPost = True; g=n.g ; anim=n.anim ; lock_N = <>} ;
+      = \n,s -> {s = \\nform => n.s ! nform ++ s; rel = \\aform => n.rel ! aform ++ s; relType = AdvMod; g=n.g ; anim=n.anim ; lock_N = <>} ;
     compoundN : N -> N -> N 
       = \n1,n2 -> lin N
                 {s = table {
@@ -209,14 +212,14 @@ oper
                        NFPlCount   => n1.s ! NFPlCount     ++ n2.s ! (NF Pl Indef) ;
                        NFVocative  => n1.s ! NFVocative    ++ n2.s ! (NF Sg Indef)
                      } ;
-                 rel = \\aform => n1.rel ! aform; relPost = True;
+                 rel = \\aform => n1.rel ! aform; relType = AdvMod;
                  g = n1.g
                 } ;
     compoundN : A -> N -> N 
       = \a,n -> lin N
               {s   = \\nf => (a.s ! nform2aform nf n.g) ++ (n.s ! (indefNForm nf)) ;
                rel = \\aform => a.s ! aform ++ n.rel ! indefAForm aform ;
-               relPost = False ;
+               relType = AdjMod ;
                g   = n.g
               } ;
   } ;
@@ -224,7 +227,7 @@ oper
   dualN = overload {
     dualN : N -> A -> N
       = \n,a -> lin N { s   = n.s;
-                        rel = a.s; relPost = False;
+                        rel = a.s; relType = AdjMod;
                         g   = n.g
                       } ;
                       
@@ -232,14 +235,14 @@ oper
       = \n,p -> lin N { s   = n.s;
                         rel = \\_ => linPrep p ++
                                      n.s ! NF Sg Def ;
-                        relPost = True;
+                        relType = AdvMod;
                         g   = n.g
                       } ;
 
     dualN : N -> Str -> N
       = \n,adv -> lin N { s   = n.s;
                           rel = \\_ => adv ;
-                          relPost = True;
+                          relType = AdvMod;
                           g   = n.g
                         }
 
@@ -250,7 +253,7 @@ oper
   substantiveN : A -> AGender -> N;
   substantiveN a g = lin N {
     s   = \\nform => a.s ! nform2aform nform g;
-    rel = a.s; relPost = False;
+    rel = a.s; relType = AdjMod;
     g   = g
   } ;
 
@@ -283,5 +286,5 @@ oper
 --
 
   mkIAdv : Str -> IAdv ;
-  mkIAdv s = {s = table {QDir=>s;QIndir=>s+"то"}; lock_IAdv = <>} ;
+  mkIAdv s = {s = table {QDir=>s;QIndir=>s+"С‚Рѕ"}; lock_IAdv = <>} ;
 }

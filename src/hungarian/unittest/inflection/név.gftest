@@ -1,0 +1,23 @@
+Lang: MassNP (UseN name_N)
+LangHun: név
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN name_N)))
+LangHun: én látok egy neve &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN name_N))
+LangHun: egy néven
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN name_N)
+LangHun: nevek
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN name_N)))
+LangHun: én látok nevek &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN name_N))
+LangHun: egy névhez
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN name_N))
+LangHun: nevek &+ hez
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN name_N)
+LangHun: én neve &+ m
