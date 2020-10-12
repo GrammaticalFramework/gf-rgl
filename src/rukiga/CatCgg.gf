@@ -34,7 +34,7 @@ lincat
   V,VS, VQ, VA = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
   V2,V2Q, V2S = Res.Verb2;
   V2A,V3 = Res.Verb3;    -- three-place verb                    e.g. "show"
-  
+  V2V = Res.Verb ** {comp,c3 : Str ; typ : Res.VVType} ;
   VP = Res.VerbPhrase ;           -- verb phrase                         e.g. "is very warm"
   
   N = Res.Noun ;                  -- common noun                         e.g. "house"

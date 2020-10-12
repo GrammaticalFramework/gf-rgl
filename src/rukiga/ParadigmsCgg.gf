@@ -27,12 +27,14 @@ oper
     mkV  : Str -> Verb  
     = \root -> lin V (smartVerb root);  --{s =root; pres =[]; perf = []; morphs= mkVerbMorphs; isRegular = True}; --only those verbs whose conjugation involves change of last letter and are done in the same way in both runyankore and rukiga
     mkV  : Str -> Str ->Str -> Verb 
-    = \root, restPres, restPerf ->lin V (mkVerb root restPres restPerf); --{s =root; pres =restPres; perf = restPerf; morphs= mkVerbMorphs; isRegular = False};
+    = \root, restPres, restPerf ->lin V (mkVerb root restPres restPerf);
+    mkV  : Str -> Str ->Str ->Str -> Bool -> Verb 
+    = \root, restPres, restPerf, p, bool ->lin V (mkVerbV2X root restPres restPerf p bool);
   };
   
   mkV2 = overload {
-    mkV2 : Str -> Verb2 = \root ->mkV root **  {comp =[]};
-    mkV2 : Str -> Str ->Str -> Verb2 = \root, s1, s2 ->mkV root s1 s2 **  {comp =[]};
+    mkV2 : Str -> V2 = \root ->dirV2 (smartVerb root); --**  {comp =[] ; isCompN2 = False};
+    mkV2 : Str -> Str ->Str -> V2 = \root, s1, s2 ->dirV2 (mkVerb root s1 s2); --**  {comp =[] ; isCompN2 = False};
   };
   mkV3 = overload {
     mkV3 : Str -> Verb3 = \root ->mkV2 root ** {comp2 =[]};
@@ -44,36 +46,37 @@ oper
   --3 Relational nouns 
 
   mkN2 : overload {
-    mkN2 : Str -> N2 ; -- reg. noun, prep. "of" --% 
-    mkN2 : N -> N2 ; -- e.g. wife of (default prep. to)
-    mkN2 : N -> Str -> N2 ; -- access to --%
+    --mkN2 : Str -> N2 ; -- reg. noun, prep. "of" --% 
+    --mkN2 : N -> N2 ; -- e.g. wife of (default prep. to)
+    --mkN2 : N -> Str -> N2 ; -- access to --%
     mkN2 : N -> Prep -> N2 ; -- e.g. access to
-    mkN2 : Str -> Str -> N2 ; -- access to (regular noun) --%
+    --mkN2 : Str -> Str -> N2 ; -- access to (regular noun) --%
   } ;
 
-  --3 Relational nouns 
-
-  mkN2 : overload {
-    mkN2 : Str -> N2; -- reg. noun, prep. "of" --% 
-    mkN2 : N -> N2 ; -- e.g. wife of (default prep. to)
-    mkN2 : N -> Str -> N2 ; -- access to --%
-    mkN2 : N -> Prep -> N2 ; -- e.g. access to
-    mkN2 : Str -> Str -> N2 ; -- access to (regular noun) --%
+  mkN2 = overload {
+    mkN2 : N -> Prep -> N2 = prepN2 ;
+    --mkN2 : N -> Str -> N2 = \n,s -> prepN2 n (mkPrep s);
+    --mkN2 : Str -> Str -> N2 = \n,s -> prepN2 (regN n) (mkPrep s);
+    --mkN2 : N -> N2         = \n -> prepN2 n (mkPrep "of") ;
+    --mkN2 : Str -> N2       = \s -> prepN2 (regN s) (mkPrep "of") 
   } ;
   
-  mkN2 : N -> Prep -> N2 ;
-  mkN2  : N -> Prep -> N2 = \n,p -> case p.isGenPrep of{
+  -- mkN2  : N -> Prep -> N2 = \n,p -> case p.isGenPrep of{
+  --                                         False => lin N2 (n ** {c2 =\\_=> p.s}) ; 
+  --                                         True  => lin N2 (n ** {c2 = mkGenPrepWithIV }) --avoiding lock_C fields
+  --                                       };
+  prepN2  : N -> Prep -> N2 = \n,p -> case p.isGenPrep of{
                                           False => lin N2 (n ** {c2 =\\_=> p.s}) ; 
-                                          True  => lin N2 (n ** {c2 = mkGenPrepWithIVClitic}) --avoiding lock_C fields
+                                          True  => lin N2 (n ** {c2 = mkGenPrepWithIV }) --avoiding lock_C fields
                                         };
   -- Three-place relational nouns ("the connection from x to y") need two prepositions.
 
   mkN3 : N -> Prep -> Prep -> N3 ; -- e.g. connection from x to y
   mkN3 = \n,p,q -> case <p.isGenPrep,q.isGenPrep> of{
                         <False,False>  => lin N3 ( lin N2 (n ** {c2 =\\_=> p.s}) ** {c3 =\\_=> q.s}); --method of avoiding lock_C fields
-                        <True, False>  => n ** {c2 = mkGenPrepWithIVClitic ; c3 =\\_=> q.s; lock_N2 = <>;lock_N3 = <>} ;
-                        <False,True>   => n ** {c2 =\\_=> p.s ; c3 = mkGenPrepWithIVClitic; lock_N2 = <>;lock_N3 = <>} ;
-                        <True,True>    => n ** {c2 = mkGenPrepWithIVClitic; c3 = mkGenPrepWithIVClitic; lock_N2 = <>; lock_N3 = <>}
+                        <True, False>  => n ** {c2 = mkGenPrepWithIV ; c3 =\\_=> q.s; lock_N2 = <>;lock_N3 = <>} ;
+                        <False,True>   => n ** {c2 =\\_=> p.s ; c3 = mkGenPrepWithIV; lock_N2 = <>;lock_N3 = <>} ;
+                        <True,True>    => n ** {c2 = mkGenPrepWithIV; c3 = mkGenPrepWithIV; lock_N2 = <>; lock_N3 = <>}
                                         };
   
    mkVS  : V -> VS ; -- sentence-compl e.g. say (that S)
@@ -84,27 +87,51 @@ oper
    mkVA  : V -> VA ; -- e.g. become (AP)  
    mkVA  v = lin VA v ;
 
-  {-
-  prepV2 v p = lin V2 {s = v.s ; p = v.p ; c2 = p.s ; isRefl = v.isRefl} ;
-  dirV2 v = prepV2 v noPrep ;
-  
-  --2 Prepositions
---
--- A preposition as used for rection in the lexicon, as well as to
--- build $PP$s in the resource API, just requires a string.
 
-  mkPrep : Str -> Prep ; -- e.g. "in front of"
-  --mkPost : Str -> Prep ; -- e.g. "ago" 
-  noPrep : Prepostion; -- no preposition
-  noPrep = mkPrep [] ;
-  -}
-  {-
-  --V2V verbs
+   mkV2S : V -> Prep -> V2S ; -- e.g. tell (NP) (that S)
+   mkV2S v p = lin V2S (prepV2 v p) ;
+   --mkPrep : Str -> Str ->Bool -> Preposition ; -- e.g. "in front of"
+   mkPrep : Str -> Str  ->Bool -> Preposition; 
+   mkPrep first other bool = lin Prep {
+     s = first ;
+     other = other;
+     isGenPrep = bool
+   };
+   prepV2 : V -> Prep -> V2 ;
+   prepV2 v p = lin V2 {s = v.s ; 
+                        pres = v.pres ; 
+                        perf = v.perf ;
+                        isPresBlank = v.isPresBlank ; 
+                        isPerfBlank = v.isPerfBlank; 
+                        isRegular = v.isRegular; 
+                        p = v.p ;
+                        isRefl = v.isRefl; 
+                        comp = p.s;
+                        isCompN2 = p.isGenPrep}; --; isRefl = v.isRefl} ;
+  dirV2 : V -> V2 = \v -> prepV2 v noPrep ;
+  noPrep = mkPrep [] [] False;
+  --2 Prepositions
+  --
+  -- A preposition as used for rection in the lexicon, as well as to
+  -- build $PP$s in the resource API, just requires a string.
+
+  -- mkPrep : Str -> Str ->Bool -> Prep ; -- e.g. "in front of"
+  -- noPrep : Prep; -- no preposition
+  -- noPrep = mkPrep [] [] False;
+  
+  --mkVQ  : V -> VQ ; -- e.g. wonder (QS)
+  mkV2Q : V -> Prep -> V2Q ; -- e.g. ask (NP) (QS)
+  mkV2Q v p = lin V2Q (prepV2 v p) ;
+
+   --V2V verbs
   mkV2V = overload {
-    mkV2V : Str -> V2V = \s -> lin V2V (dirV2 (regV s) ** {c3 = [] ; typ = VVAux}) ;
+    -- mkV2V : Str -> V2V = \s -> lin V2V (dirV2 (mkV s) ** {c3 = [] ; typ = VVAux}) ;
     mkV2V : V -> V2V = \v -> lin V2V (dirV2 v ** {c3 = [] ; typ = VVAux}) ;
     mkV2V : V -> Prep -> Prep -> V2V = \v,p,t -> lin V2V (prepV2 v p ** {c3 = t.s ; typ = VVAux}) ;
-    } ;
+  } ;
+
+  {-
+ 
 
 
   mkV2V : overload {
