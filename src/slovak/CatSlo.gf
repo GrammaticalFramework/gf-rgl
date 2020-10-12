@@ -39,7 +39,7 @@ concrete CatSlo of Cat =
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;
     Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; 
-    Pron = PronForms ;
+    Pron = PronForms ** {poss : DemPronForms} ;
 
     Adv  = {s : Str} ;
     Prep = ResSlo.ComplementCase ; -- {s : Str ; c : Case ; hasPrep : Bool} ;

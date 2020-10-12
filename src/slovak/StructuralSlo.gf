@@ -20,9 +20,11 @@ lin
     to_Prep = mkPrep "do" Gen ;
     with_Prep = mkPrep (pre {"s" => "so" ; _ => "s"}) Ins ; 
 
-    i_Pron = personalPron (Ag (Masc Anim) Sg P1) ;
-    youSg_Pron = personalPron (Ag (Masc Anim) Sg P2) ;
-    he_Pron = personalPron (Ag (Masc Anim) Sg P3) ;
-    she_Pron = personalPron (Ag Fem Sg P3) ;
-
+    i_Pron = mkPron (Ag (Masc Anim) Sg P1) ;   --- to add Fem pronouns in Extend
+    youSg_Pron = mkPron (Ag (Masc Anim) Sg P2) ;
+    he_Pron = mkPron (Ag (Masc Anim) Sg P3) ;
+    she_Pron = mkPron (Ag Fem Sg P3) ;
+    we_Pron = mkPron (Ag (Masc Anim) Pl P1) ;
+    youPl_Pron = mkPron (Ag (Masc Anim) Pl P2) ;
+    they_Pron = mkPron (Ag (Masc Anim) Pl P3) ;
 }

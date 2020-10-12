@@ -821,6 +821,58 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
       } ;
 
+  possessivePron : Agr -> DemPronForms = \a -> case a of {
+
+      Ag _ Sg P1 => otcovA "moj" ** {
+        msnom = "môj" ; msgen = "môjho" ; msdat = "môjmu" ;
+	msins = "mojím" ;
+	ampnom = "moji" ;
+	nsnom, fpnom = "moje" ;
+	pgen = "mojich" ;
+	pdat = "mojim" ;
+	pins = "mojimi" ;
+	} ;
+	
+      Ag _ Sg P2 => otcovA "tvoj" ** {
+        msnom = "tvoj" ; msgen = "tvojho" ; msdat = "tvojmu" ;
+	msins = "tvojím" ;
+	ampnom = "tvoji" ;
+	nsnom, fpnom = "tvoje" ;
+	pgen = "tvojich" ;
+	pdat = "tvojim" ;
+	pins = "tvojimi" ;
+	} ;
+
+      Ag _ Pl P1 => otcovA "naš" ** {
+        msnom = "náš" ; msgen = "nášho" ; msdat = "nášmu" ;
+	msins = "naším" ;
+	ampnom = "naši" ;
+	nsnom, fpnom = "naše" ;
+	pgen = "našich" ;
+	pdat = "našim" ;
+	pins = "našimi" ;
+	} ;
+	
+      Ag _ Pl P2 => otcovA "vaš" ** {
+        msnom = "váš" ; msgen = "vášho" ; msdat = "vášmu" ;
+	msins = "vaším" ;
+	ampnom = "vaši" ;
+	nsnom, fpnom = "vaše" ;
+	pgen = "vašich" ;
+	pdat = "vašim" ;
+	pins = "vašimi" ;
+	} ;
+	
+      Ag (Masc _ | Neutr) Sg P3 => invarDemPronForms "jeho" ** {pdat = "jeho"} ;
+      Ag Fem Sg P3 => invarDemPronForms "jej" ** {pdat = "jej"} ;
+      Ag _ Pl P3 => invarDemPronForms "ich" ** {pdat = "ich"}
+
+    } ;
+
+
+  mkPron : Agr -> PronForms ** {poss : DemPronForms} = \a ->
+    personalPron a ** {poss = possessivePron a} ;
+
 --------------------------------
 -- demonstrative pronouns, used for Quant and Det
 
@@ -850,6 +902,20 @@ oper
 	<Masc Inanim | Fem | Neutr, Pl, Nom|Acc> => dem.fpnom ;
         _ => adjAdj.s ! g ! n ! c
         } + s
+      } ;
+      
+  justDemPronFormsAdjective : DemPronForms -> Adjective =
+    \dem ->
+    let
+      demAdj = dem ** {fsdat = dem.fsgen} ;
+      adjAdj = adjFormsAdjective demAdj
+    in {
+      s = \\g,n,c => case <g,n,c> of {
+        <_,Pl,Dat> => dem.pdat ;
+	<Masc Anim,         Pl,     Acc> => dem.pgen ;
+	<Masc Inanim | Fem | Neutr, Pl, Nom|Acc> => dem.fpnom ;
+        _ => adjAdj.s ! g ! n ! c
+        }
       } ;
 
   Determiner : Type = {
