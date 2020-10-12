@@ -722,6 +722,41 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
       } ;
 
+  possessivePron : Agr -> DemPronForms = \a -> case a of {
+      Ag _ Sg P1 => mladyAdjForms "my" ** {msnom = "můj" ; pdat = "mým"} ;  --- alts: moje, moji,...
+      Ag _ Sg P2 => mladyAdjForms "tvy" ** {msnom = "tvůj" ; pdat = "tvým"} ;
+      
+      Ag _ Pl P1   => jarniAdjForms "naše" ** {
+        msnom = "náš" ;
+	msins = "naším" ;
+	fsgen,mpnom = "naši" ;
+	fsins = "naší" ;
+	pdat, msins = "našim" ;
+	pgen = "našich" ;
+	pins = "našimi" ;
+	} ;
+      Ag _ Pl P2   => jarniAdjForms "vaše" ** {
+        msnom = "váš" ;
+	msins = "vaším" ;
+	fsgen,mpnom = "vaši" ;
+	fsins = "vaší" ;
+	pdat, msins = "vašim" ;
+	pgen = "vašich" ;
+	pins = "vašimi" ;
+	} ;
+	
+      Ag Fem Sg P3 => jarniAdjForms "její" ** {pdat = "jejím"} ;
+
+      Ag (Masc _ | Neutr) Sg P3 => invarDemPronForms "jeho" ** {pdat = "jeho"} ;
+      Ag _ Pl P3 => invarDemPronForms "jejich" ** {pdat = "jejich"}
+
+
+    } ;
+
+
+  mkPron : Agr -> PronForms ** {poss : DemPronForms} = \a ->
+    personalPron a ** {poss = possessivePron a} ;
+  
 --------------------------------
 -- demonstrative pronouns, used for Quant and Det
 
@@ -751,6 +786,20 @@ oper
         _ => adjAdj.s ! g ! n ! c
         } + s
       } ;
+      
+  justDemPronFormsAdjective : DemPronForms -> Adjective =
+    \dem ->
+    let
+      demAdj = dem ** {fsdat = dem.fsgen} ;
+      adjAdj = adjFormsAdjective demAdj
+    in {
+      s = \\g,n,c => case <g,n,c> of {
+        <_,Pl,Dat> => dem.pdat ;
+	<Masc _ | Fem, Pl, Acc> => dem.fpnom ;
+        _ => adjAdj.s ! g ! n ! c
+        }
+      } ;
+
 
   Determiner : Type = {
     s : Gender => Case => Str ;
