@@ -57,6 +57,8 @@ lin
       hasClit = True ;
       } ;
 
+    PossPron pron = justDemPronFormsAdjective pron.poss ;
+
     UsePN pn = {
       s,clit,prep = \\c => pn.s ! c ;
       a = Ag pn.g Sg P3 ;
