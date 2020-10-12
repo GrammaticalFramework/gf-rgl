@@ -24,7 +24,7 @@ lin
   computer_N = mkN "kanyabwêngye" ZERO_ZERO ; --kanyabwêngye, embiikabwengye, kompyuta
   cow_N   = mkN "ente" N_N ;
   dog_N   = mkN "embwa" N_N ;
-  --person_N = mkN "omuntu" "abantu" MU_BA ;
+  person_N = mkN "omuntu"  MU_BA ;
   eye_N  = mkN "eriisho" RI_MA;
   fire_N = mkN "omuriro" MU_MI ;
   fish_N = mkN "eky'ényanja" KI_BI ;
@@ -68,7 +68,6 @@ lin
  
   --Adjectives
   bad_A    = mkAdjective "bi" Post False False; --False means the adjective is a stem and comes after the complete noun
-  --beautiful_A = mkAdjective "rungi" False;
   big_A = mkAdjective "hango" Post False False;
   black_A = mkAdjective "kwirangura" Post False False;
   blue_A = mkAdjective "buuru" Post True True ;
@@ -158,298 +157,257 @@ lin
   distance_N3 = mkN3 (mkN "orugyendo" ZERO_BU) (lin Prep (mkPrep "kurunga" "" False)) (lin Prep (mkPrep "mpáka" "" False)); --could orugyendo work in its place?
   
   alas_Interj ={s="ryakareeba"; }; --: Interj ;
-
-
--- New Lexicon
   switch8off_V2 = mkV2 "raza" "za" "riize";
   television_N  = mkN "TV" N_N;
   doctor_N = mkN "omushaho"  MU_BA;
   clever_A =mkAdjective "amagyezi" Post False True;
   laugh_V = mkV "sheka";
-
+  beautiful_A = mkAdjective "rungi" Post  False False;
   airplane_N = mkN "endegye" N_N;
-{--
-  answer_V2S 
-  apartment_N
-  art_N
-  ashes_N
-  ask_V2Q
-  back_N
-  bank_N
-  bark_N
-  beautiful_A
-  beg_V2V
-  belly_N
-  blow_V
-  bone_N
-  boot_N
-  boss_N
-  breast_N
-  breathe_V
-  broad_A
-  brother_N2
-  brown_A
-  burn_V
-  butter_N
-  camera_N
-  cap_N
-  carpet_N
-  ceiling_N
-  cheese_N
-  church_N
-  coat_N
-  country_N
-  cousin_N
-  day_N
-  dig_V
-  dirty_A
-  doctor_N
-  door_N
-  dry_A
-  dull_A
-  dust_N
-  ear_N
-  earth_N
-  easy_A2V
-  egg_N
-  empty_A
-  enemy_N
-  factory_N
-  fall_V
-  far_Adv
-  fat_N
-  feather_N
-  fight_V2
-  fingernail_N
-  float_V
-  floor_N
-  flow_V
-  fly_V
-  fog_N
-  foot_N
-  forest_N
-  forget_V2
-  freeze_V
-  fridge_N
-  fruit_N
-  full_A
-  fun_AV
-  garden_N
-  glove_N
-  gold_N
-  grass_N
-  guts_N
-  hair_N
-  hand_N
-  harbour_N
-  hat_N
-  hate_V2
-  head_N
-  hear_V2
-  heart_N
-  hill_N
-  hit_V2
-  hold_V2
-  horn_N
-  hunt_V2
-  husband_N
-  ice_N
-  important_A
-  industry_N
-  iron_N
-  king_N
-  knee_N
-  know_V2
-  lake_N
-  lamp_N
-  leaf_N
-  learn_V2
-  leather_N
-  leave_V2
-  left_Ord
-  leg_N
-  lie_V
-  like_V2
-  listen_V2
-  liver_N
-  long_A
-  lose_V2
-  louse_N
-  love_N
-  married_A2
-  moon_N
-  mother_N2
-  mountain_N
-  mouth_N
-  name_N
-  narrow_A
-  near_A
-  neck_N
-  newspaper_N
-  night_N
-  nose_N
-  number_N
-  oil_N
-  open_V2
-  paint_V2A
-  paper_N
-  peace_N
-  pen_N
-  person_N
-  planet_N
-  plastic_N
-  play_V2
-  policeman_N
-  priest_N
-  probable_AS
-  pull_V2
-  push_V2
-  put_V2
-  queen_N
-  question_N
-  radio_N
-  rain_N
-  rain_V0
-  religion_N
-  restaurant_N
-  right_Ord
-  road_N
-  rock_N
-  roof_N
-  root_N
-  rope_N
-  rotten_A
-  round_A
-  rub_V2
-  rubber_N
-  salt_N
-  sand_N
-  school_N
-  science_N
-  scratch_V2
-  seed_N
-  seek_V2
-  sew_V
-  sharp_A
-  shirt_N
-  shoe_N
-  shop_N
-  short_A
-  silver_N
-  sing_V
-  sister_N
-  sit_V
-  skin_N
-  sky_N
-  smell_V
-  smoke_N
-  smooth_A
-  snake_N
-  snow_N
-  sock_N
-  song_N
-  speak_V2
-  spit_V
-  split_V2
-  squeeze_V2
-  stab_V2
-  stand_V
-  steel_N
-  stick_N
-  stone_N
-  stop_V
-  stove_N
-  straight_A
-  student_N
-  stupid_A
-  suck_V2
-  sun_N
-  swell_V
-  switch8on_V2
-  table_N
-  tail_N
-  teacher_N
-  thick_A
-  think_V
-  throw_V2
-  tie_V2
-  tongue_N
-  tooth_N
-  turn_V
-  ugly_A
-  uncertain_A
-  university_N
-  village_N
-  vomit_V
-  war_N
-  wash_V2
-  watch_V2
-  wet_A
-  wide_A
-  wife_N
-  win_V2
-  wind_N
-  window_N
-  wing_N
-  wipe_V2
-  wonder_VQ
-  wood_N
-  worm_N
-  write_V2
-  
---}
-year_N = mkN "omwaka" "emyaka" MU_MI;
+  year_N = mkN "omwaka" "emyaka" MU_MI;
+
+-- New Lexicon
+    {-
+        Perhaps create an adverb form whose
+        surface realisation comes from verb tense e.g nagyenzire implies I have alredy gone.
+    -}
+    already_Adv = mkAdv "" AgrNo; -- Already is realized as a verb form
+    answer_V2S = mkV2S (mkV "garu" "kamu" "kiremu") noPrep; 
+    apartment_N = mkN "apatimenti" "apatimenti" N_N;
+    art_N = mkN "aati" "aati" N_N;
+    ashes_N = mkN "eiju" "eiju" N_N;
+    ask_V2Q = mkV2Q (mkV2 "bunza" "za" "rize") noPrep;
+    back_N = mkN "omugongo" MU_MI;
+    bank_N = mkN "banka" "banka" N_N;
+    bark_N = mkN  "ask for the Rukiga equivalent of bark" N_N; --TODO find actual word
+    beg_V2V = mkV2V (mkV "shab" "a" "ire") noPrep toP ;
+    belly_N = mkN "eibondo" "amabondo" I_MA ;
+    blow_V  = mkV "hag" "a" "ire" ;
+    bone_N  = mkN "eigufa" "amagufa" I_MA ;
+    boot_N  = mkN "buuntu" "buuntu" N_N ;
+    boss_N  = mkN "mukama" "bakama" MU_BA ;
+    breast_N = mkN "eibere" "amabere" I_MA ;
+    breathe_V = mkV "is" "a" "ire";
+    broad_A = mkAdjective  "TODO : Ask for the right word" Post False False;
+    --Note: younger brother. mukuru and others
+    brother_N2 = mkN2 (mkN "murumuna" "barumuna" MU_BA) (mkPrep "" ""  True) ; 
+    newspaper_N = mkN "eihurire" I_MA;
+    night_N = mkN "ekiro" N_ZERO;
+    nose_N  = mkN "enyindo" N_N;
+    --number_N = mkN "enamba" N_N -- TODO look out for the correct word
+    oil_N = mkN "amajuta" N_N;
+    open_V2 = mkV2 "yingura" "ura" "wire";
+    -- brown_A
+    -- burn_V
+    -- butter_N
+    -- camera_N
+    -- cap_N
+    -- carpet_N
+    -- ceiling_N
+    -- cheese_N
+    -- church_N
+    -- coat_N
+    -- country_N
+    -- cousin_N
+    -- day_N
+    -- dig_V
+    -- dirty_A
+    -- door_N
+    -- dry_A
+    -- dull_A
+    -- dust_N
+    -- ear_N
+    -- earth_N
+    -- easy_A2V
+    -- egg_N
+    -- empty_A
+    -- enemy_N
+    -- factory_N
+    -- fall_V
+    -- far_Adv
+    -- fat_N
+    -- feather_N
+    -- fight_V2
+    -- fingernail_N
+    -- float_V
+    -- floor_N
+    -- flow_V
+    -- fly_V
+    -- fog_N
+    -- foot_N
+    -- forest_N
+    -- forget_V2
+    -- freeze_V
+    -- fridge_N
+    -- fruit_N
+    -- full_A
+    -- fun_AV
+    -- garden_N
+    -- glove_N
+    -- gold_N
+    -- grass_N
+    -- guts_N
+    -- hair_N
+    -- hand_N
+    -- harbour_N
+    -- hate_V2
+    -- head_N
+    -- hear_V2
+    -- heart_N
+    -- hill_N
+    -- hit_V2
+    -- hold_V2
+    -- horn_N
+    -- hunt_V2
+    -- husband_N
+    -- ice_N
+    -- important_A
+    -- industry_N
+    -- iron_N
+    -- king_N
+    -- knee_N
+    -- know_V2
+    -- lake_N
+    -- lamp_N
+    -- leaf_N
+    -- learn_V2
+    -- leather_N
+    -- leave_V2
+    -- left_Ord
+    -- leg_N
+    -- lie_V
+    -- like_V2
+    -- listen_V2
+    -- liver_N
+    -- long_A
+    -- lose_V2
+    -- louse_N
+    -- love_N
+    -- married_A2
+    -- moon_N
+    -- mother_N2
+    -- mountain_N
+    -- mouth_N
+    -- name_N
+    -- narrow_A
+    -- near_A
+    -- neck_N
+    -- paint_V2A
+    -- paper_N
+    -- peace_N
+    -- pen_N
+    -- planet_N
+    -- plastic_N
+    -- play_V2
+    -- policeman_N
+    -- priest_N
+    -- probable_AS
+    -- pull_V2
+    -- push_V2
+    -- put_V2
+    -- queen_N
+    -- question_N
+    -- radio_N
+    -- rain_N
+    -- rain_V0
+    -- religion_N
+    -- restaurant_N
+    -- right_Ord
+    -- road_N
+    -- rock_N
+    -- roof_N
+    -- root_N
+    -- rope_N
+    -- rotten_A
+    -- round_A
+    -- rub_V2
+    -- rubber_N
+    -- salt_N
+    -- sand_N
+    -- school_N
+    -- science_N
+    -- scratch_V2
+    -- seed_N
+    -- seek_V2
+    -- sew_V
+    -- sharp_A
+    -- shirt_N
+    -- shoe_N
+    -- shop_N
+    -- short_A
+    -- silver_N
+    -- sing_V
+    -- sister_N
+    -- sit_V
+    -- skin_N
+    -- sky_N
+    -- smell_V
+    -- smoke_N
+    -- smooth_A
+    -- snake_N
+    -- snow_N
+    -- sock_N
+    -- song_N
+    -- speak_V2
+    -- spit_V
+    -- split_V2
+    -- squeeze_V2
+    -- stab_V2
+    -- stand_V
+    -- steel_N
+    -- stick_N
+    -- stone_N
+    -- stop_V
+    -- stove_N
+    -- straight_A
+    -- student_N
+    -- stupid_A
+    -- suck_V2
+    -- sun_N
+    -- swell_V
+    -- switch8on_V2
+    -- table_N
+    -- tail_N
+    -- teacher_N
+    -- thick_A
+    -- think_V
+    -- throw_V2
+    -- tie_V2
+    -- tongue_N
+    -- tooth_N
+    -- turn_V
+    -- ugly_A
+    -- uncertain_A
+    -- university_N
+    -- village_N
+    -- vomit_V
+    -- war_N
+    -- wash_V2
+    -- watch_V2
+    -- wet_A
+    -- wide_A
+    -- wife_N
+    -- win_V2
+    -- wind_N
+    -- window_N
+    -- wing_N
+    -- wipe_V2
+    -- wonder_VQ
+    -- wood_N
+    -- worm_N
+    -- write_V2
+
+
+
 -- End of New Lexicon
 oper
-  aboutP = mkPrep "about" ;
-  atP = mkPrep "at" ;
-  forP = mkPrep "for" ;
+  aboutP = mkPrep  "TODO : find rukiga equivalent of about" "" False ;
+  atP = mkPrep  "TODO : find rukiga equivalent of at" "" False ;
+  forP = mkPrep  "TODO : find rukiga equivalent of for"  "" False;
   fromP = mkPrep "kurunga" "" False;
   inP = mkPrep "omu" "omuri" False;
   onP = mkPrep "aha" "ahari" False;
-  toP = mkPrep "aha" [] False;
-
-
-
-
-  {-
-  --Old LexiconCgg.gf
-  burn_V  = mkV "sya" ;
-  die_V   = mkV "fa" ;
-  fly_V   = mkV "guruka" ;
-  run_V   = mkV "iruka" ;
-  sleep_V = mkV "byama" ;
-  walk_V  = mkV "tabula" ;
-  
-  bird_N   = mkN "ekinyonyi" KI_BI ;
-  boat_N   = mkN "eryato" RI_MA ;
-  book_N   = mkN "ekitabo" KI_BI ;
-  boy_N    = mkN "omwojo" "abojo" MU_BA ;
-  car_N    = mkN "emootoka" N_N ;
-  chair_N  = mkN "entebbe" N_N;
-  cloud_N  = mkN "ekikyu" KI_BI ;
-  person_N = mkN "omuntu" "abantu" MU_BA ;
-  girl_N   = mkN "omwishiki" MU_BA ;
-  shoe_N   = mkN "ekaito" N_N ;
-  table_N  = mkN "emeza" N_N ;
-  bad_A    = mkAdjective "bi" False; --False means the adjective is a stem and comes after the complet noun
-  beautiful_A = mkAdjective "rungi" False; 
-  far_Adv = mkAdv "hare";
-  now_Adv = mkAdv "hati";
-  today_Adv = mkAdv "erizooba";
-  bite_V2 = mkV2 "ruma";
-  break_V2 = mkV2 "henda";
-  buy_V2 = mkV2 "gura";
-  close_V2 = mkV2 "kinga";
-  count_V2 = mkV2 "bara";
-  cut_V2 = mkV2 "shara";
-  do_V2 = mkV2 "kora";
-  drink_V2 = mkV2 "nywa";
-  eat_V2 = mkV2 "rya";
-  fear_V2 = mkV2 "tiina";
-
--------------------------Differences Rukiga only--------------------
-airplane_N : mkN "endegye" N_N;
--}
+  toP = mkPrep ("ku" ++ Predef.BIND) [] False;
+  --noPrep = mkPrep [] [] False;
 
 }

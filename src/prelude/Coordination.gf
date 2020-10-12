@@ -6,14 +6,14 @@ param
 oper 
   ListX = {s1,s2 : Str} ;
 
-  twoStr : (x,y : Str) -> ListX = \x,y -> 
+  twoStr : (x,y : Str) -> ListX = \x,y ->  --stores two strings in a record
     {s1 = x ; s2 = y} ; 
-  consStr : Str -> ListX -> Str -> ListX = \comma,xs,x -> 
+  consStr : Str -> ListX -> Str -> ListX = \comma,xs,x ->
     {s1 = xs.s1 ++ comma ++ xs.s2 ; s2 = x } ; 
 
-  twoSS : (_,_ : SS) -> ListX = \x,y -> 
+  twoSS : (_,_ : SS) -> ListX = \x,y ->  --stores two string records into one record
     twoStr x.s y.s ;
-  consSS : Str -> ListX -> SS -> ListX = \comma,xs,x -> 
+  consSS : Str -> ListX -> SS -> ListX = \comma,xs,x -> -- Combines and a record into a record separated by a comma.
     consStr comma xs x.s ;
 
   Conjunction : Type = SS ;
@@ -33,7 +33,7 @@ oper
 
   -- all this lifted to tables
 
-  ListTable : PType -> Type = \P -> {s1,s2 : P => Str} ; 
+  ListTable : PType -> Type = \P -> {s1,s2 : P => Str} ; --Type family for tables
 
   twoTable : (P : PType) -> (_,_ : {s : P => Str}) -> ListTable P = \_,x,y ->
     {s1 = x.s ; s2 = y.s} ; 
