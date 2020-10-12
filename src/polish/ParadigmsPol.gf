@@ -21,6 +21,7 @@
       mkN : Str -> N ; -- One argument: singular nominative
       mkN : Str -> Gender -> N ;-- Two arguments: singular nom, gender
       mkN : Str -> Str -> N  -- Two arguments: sgnom, sggen
+
     } ;
 
     mkA2 : A -> Str -> ComplCase -> A2 ;
@@ -52,106 +53,105 @@
     mkA2 adj s c = lin A2 (adj ** { c={s=s; c=c} });
 
     mkN = overload {
-    mkN : Str -> N = mkNGuessGender ;
-    mkN : Str -> Gender -> N = mkNGender ;
-    mkN : Str -> Str -> N = mkNGuessGender 
-    } ;
+      mkN : Str -> N = mkNGuessGender ;
+      mkN : Str -> Gender -> N = mkNGender ;
+      mkN : Str -> Str -> N = mkNGuessGender 
+      } ;
 
 
     -- TODO: Make gender guesser smarter
     mkNGuessGender = overload { 
-    -- 1 string
-     mkNGuessGender :   (sgnom : Str) -> N = \sgnom ->
-      let gender : Gender = case sgnom of {
-        _ + "a" => Fem ;
-        _ + "ść" => Fem ;
-        _ + "noc" => Fem ;
-        _ + "wieś" => Fem ;
-        _ + "sól" => Fem ;
-        _ + "rzecz" => Fem ;
-        _ + "o" => Neut ;
-        _ + "e" => Neut ;
-        _ + "ę" => Neut ;
-        _ + "um" => Neut ;
-        _ + "nie" => Neut ;
-        _       => Masc Inanimate
-      } in mkNGender sgnom gender ;
-    -- 2 string
-    mkNGuessGender :  (sgnom : Str) -> (sggen : Str) -> N = \sgnom,sggen ->
-      let gender : Gender = case sgnom of {
-        _ + "a" => Fem ;
-        _ + "ść" => Fem ;
-        _ + "noc" => Fem ;
-        _ + "wieś" => Fem ;
-        _ + "sól" => Fem ;
-        _ + "rzecz" => Fem ;
-        _ + "o" => Neut ;
-        _ + "e" => Neut ;
-        _ + "ę" => Neut ;
-        _ + "um" => Neut ;
-        _ + "nie" => Neut ;
-        _       => Masc Inanimate
-      } in mkNGender sgnom sggen gender ;
-
+      -- 1 string
+      mkNGuessGender :   (sgnom : Str) -> N = \sgnom ->
+        let gender : Gender = case sgnom of {
+          _ + "a" => Fem ;
+          _ + "ść" => Fem ;
+          _ + "noc" => Fem ;
+          _ + "wieś" => Fem ;
+          _ + "sól" => Fem ;
+          _ + "rzecz" => Fem ;
+          _ + "o" => Neut ;
+          _ + "e" => Neut ;
+          _ + "ę" => Neut ;
+          _ + "um" => Neut ;
+          _ + "nie" => Neut ;
+          _       => Masc Inanimate
+        } in mkNGender sgnom gender ;
+      -- 2 string
+      mkNGuessGender :  (sgnom : Str) -> (sggen : Str) -> N = \sgnom,sggen ->
+        let gender : Gender = case sgnom of {
+          _ + "a" => Fem ;
+          _ + "ść" => Fem ;
+          _ + "noc" => Fem ;
+          _ + "wieś" => Fem ;
+          _ + "sól" => Fem ;
+          _ + "rzecz" => Fem ;
+          _ + "o" => Neut ;
+          _ + "e" => Neut ;
+          _ + "ę" => Neut ;
+          _ + "um" => Neut ;
+          _ + "nie" => Neut ;
+          _       => Masc Inanimate
+        } in mkNGender sgnom sggen gender ;
     };
 
     mkNGender = overload { 
-    -- 1 string
-    mkNGender : Str -> Gender -> N = \sgnom,gender ->
-     let ntable : SubstForm => Str = guess_paradigm_basic sgnom in
-     lin N (NM.mkN ntable gender) ;
-    -- 2 string
-    mkNGender : Str -> Str -> Gender -> N = \sgnom,sggen,gender ->
-     let ntable : SubstForm => Str = guess_paradigm sgnom in
-     lin N (NM.mkN ntable gender) ;
-     
+      -- 1 string
+      mkNGender : Str -> Gender -> N = \sgnom,gender ->
+        let ntable : SubstForm => Str = guess_paradigm_basic sgnom in
+        lin N (NM.mkN ntable gender) ;
+      -- 2 string
+      mkNGender : Str -> Str -> Gender -> N = \sgnom,sggen,gender ->
+       let ntable : SubstForm => Str = guess_paradigm sgnom in
+       lin N (NM.mkN ntable gender) ;
      };
 
     guess_paradigm = overload {
-    -- 2 string
+      -- 2 string
       guess_paradigm : (sgnom, sggen : Str) -> SubstForm => Str
       = \sgnom,sggen -> case <sgnom,sggen> of {
-    <_ + "a",_ + ""> => NM.mkNTable0308 sgnom ;  -- Alternatives: mkNTable0364, mkNTable0644,mkNTable1022,mkNTable0701,mkNTable0189
-    <_ + "a",_ + "a"> => NM.mkNTable1045 sgnom ;
-    <_ + "a",_ + "i"> => NM.mkNTable0073 sgnom ;  -- Alternatives: mkNTable0287,mkNTable0020,mkNTable0021,mkNTable0055,mkNTable0060,mkNTable0088,mkNTable0254,mkNTable0253,mkNTable0580,mkNTable0921
-    <_ + "a",_ + "y"> => NM.mkNTable0021 sgnom ; -- Alternatives: mkNTable0576,mkNTable0530,mkNTable0300,mkNTable0110,mkNTable0411,mkNTable0100,mkNTable0274,mkNTable0302,mkNTable0014,mkNTable0382,mkNTable0099,mkNTable0159,mkNTable0352,mkNTable0161,mkNTable0175,mkNTable0546,mkNTable0565,mkNTable0990,mkNTable0950,mkNTable0760,mkNTable0630,mkNTable0702,mkNTable0721,mkNTable0727
-    <_ + "a",_ + "ów"> => NM.mkNTable0501 sgnom ;
-    <_ + "a",_ + "ej"> => NM.mkNTable0013 sgnom ;  -- Alternatives: mkNTable0504,mkNTable0755
-    <_ + "a",_ + "iej"> => NM.mkNTable0283 sgnom ;
-    <_ + "a",_ + "ego"> => NM.mkNTable0614 sgnom ;  
-    <_ + "ć",_ + "cia"> => NM.mkNTable0069 sgnom ; -- Alternatives: mkNTable0573,mkNTable0923,mkNTable0922,mkNTable0838,mkNTable0649,mkNTable0734,mkNTable0794,mkNTable0793
-    <_ + "ć",_ + "ci"> => NM.mkNTable0475 sgnom ; -- Alternatives: mkNTable0567,mkNTable1014,mkNTable0792,mkNTable0814
-    <_ + "ć",_ + ""> => NM.mkNTable0069 sgnom ; -- Alternatives: 
-    <_ + "e",_ + ""> => NM.mkNTable0107 sgnom ; 
-    <_ + "e",_ + "a"> => NM.mkNTable0413 sgnom ; -- Alternatives: mkNTable0477,mkNTable0836,mkNTable0553
-    <_ + "e",_ + "e"> => NM.mkNTable0438 sgnom ; -- Alternatives: mkNTable0527,mkNTable0963,mkNTable0646,mkNTable0714
-    <_ + "e",_ + "i"> => NM.mkNTable0081 sgnom ; -- Alternatives: 
-    <_ + "e",_ + "u"> => NM.mkNTable0715 sgnom ; -- Alternatives: 
-    <_ + "e",_ + "y"> => NM.mkNTable0311 sgnom ; -- Alternatives: 
-    <_ + "e",_ + "ów"> => NM.mkNTable0214 sgnom ; -- Alternatives: mkNTable0764
-    <_ + "e",_ + "ego"> => NM.mkNTable0472 sgnom ; -- Alternatives: mkNTable0554,mkNTable0694
-    <_ + "e",_ + "ych"> => NM.mkNTable0508 sgnom ;
-    <_ + "o",_ + "a"> => NM.mkNTable0079 sgnom ; -- Alternatives: mkNTable0158, mkNTable0205,mkNTable0250,mkNTable0265,mkNTable0295,mkNTable0332,mkNTable0388,mkNTable1012,mkNTable1013,mkNTable0618
-    <_ + "o",_+"o"> => NM.mkNTable0162 sgnom ; -- Alternatives: mkNTable0182,mkNTable0217,mkNTable0403,mkNTable0918,mkNTable0962
-    <_ + "o",_ + "y"> => NM.mkNTable0239 sgnom ;
-     -- Alternatives: mkNTable0239
-    <_ + "o",_ + "ina"> => NM.mkNTable0083 sgnom ; 
-    <_,_ + "a"> => NM.mkNTable0503 sgnom ; -- Alternatives: mkNTable0944,mkNTable0497,mkNTable0244,mkNTable0350,mkNTable0282,mkNTable0197,mkNTable0131
-    <_,_ + "i"> => NM.mkNTable0995 sgnom ; -- Alternatives: mkNTable0995,mkNTable0583
-    <_,_ + "u"> => NM.mkNTable0171 sgnom ; -- Alternatives: mkNTable0696,mkNTable0111,mkNTable0539,mkNTable0247
-    <_,_ + "y"> => NM.mkNTable0550 sgnom ;
-    <_,_ + "ia"> => NM.mkNTable0803 sgnom  ;-- Alternative: mkNTable0648
-    <_,_ + "iu"> => NM.mkNTable0662 sgnom ;
-    <_,_ + "na"> => NM.mkNTable0286 sgnom ;
-    <_,_ + "ego"> => NM.mkNTable0589 sgnom ; -- Alternative: mkNTable0966
-    <_,_> => guess_paradigm_basic sgnom}; 
-   -- 1 string
-   guess_paradigm : (sgnom : Str) -> SubstForm => Str = \sgnom ->  guess_paradigm_basic sgnom } ;
+        <_ + "a",_ + ""> => NM.mkNTable0308 sgnom ;  -- Alternatives: mkNTable0364, mkNTable0644,mkNTable1022,mkNTable0701,mkNTable0189
+        <_ + "a",_ + "a"> => NM.mkNTable1045 sgnom ;
+        <_ + "a",_ + "i"> => NM.mkNTable0073 sgnom ;  -- Alternatives: mkNTable0287,mkNTable0020,mkNTable0021,mkNTable0055,mkNTable0060,mkNTable0088,mkNTable0254,mkNTable0253,mkNTable0580,mkNTable0921
+        <_ + "a",_ + "y"> => NM.mkNTable0021 sgnom ; -- Alternatives: mkNTable0576,mkNTable0530,mkNTable0300,mkNTable0110,mkNTable0411,mkNTable0100,mkNTable0274,mkNTable0302,mkNTable0014,mkNTable0382,mkNTable0099,mkNTable0159,mkNTable0352,mkNTable0161,mkNTable0175,mkNTable0546,mkNTable0565,mkNTable0990,mkNTable0950,mkNTable0760,mkNTable0630,mkNTable0702,mkNTable0721,mkNTable0727
+        <_ + "a",_ + "ów"> => NM.mkNTable0501 sgnom ;
+        <_ + "a",_ + "ej"> => NM.mkNTable0013 sgnom ;  -- Alternatives: mkNTable0504,mkNTable0755
+        <_ + "a",_ + "iej"> => NM.mkNTable0283 sgnom ;
+        <_ + "a",_ + "ego"> => NM.mkNTable0614 sgnom ;  
+        <_ + "ć",_ + "cia"> => NM.mkNTable0069 sgnom ; -- Alternatives: mkNTable0573,mkNTable0923,mkNTable0922,mkNTable0838,mkNTable0649,mkNTable0734,mkNTable0794,mkNTable0793
+        <_ + "ć",_ + "ci"> => NM.mkNTable0475 sgnom ; -- Alternatives: mkNTable0567,mkNTable1014,mkNTable0792,mkNTable0814
+        <_ + "ć",_ + ""> => NM.mkNTable0069 sgnom ; -- Alternatives: 
+        <_ + "e",_ + ""> => NM.mkNTable0107 sgnom ; 
+        <_ + "e",_ + "a"> => NM.mkNTable0413 sgnom ; -- Alternatives: mkNTable0477,mkNTable0836,mkNTable0553
+        <_ + "e",_ + "e"> => NM.mkNTable0438 sgnom ; -- Alternatives: mkNTable0527,mkNTable0963,mkNTable0646,mkNTable0714
+        <_ + "e",_ + "i"> => NM.mkNTable0081 sgnom ; -- Alternatives: 
+        <_ + "e",_ + "u"> => NM.mkNTable0715 sgnom ; -- Alternatives: 
+        <_ + "e",_ + "y"> => NM.mkNTable0311 sgnom ; -- Alternatives: 
+        <_ + "e",_ + "ów"> => NM.mkNTable0214 sgnom ; -- Alternatives: mkNTable0764
+        <_ + "e",_ + "ego"> => NM.mkNTable0472 sgnom ; -- Alternatives: mkNTable0554,mkNTable0694
+        <_ + "e",_ + "ych"> => NM.mkNTable0508 sgnom ;
+        <_ + "o",_ + "a"> => NM.mkNTable0079 sgnom ; -- Alternatives: mkNTable0158, mkNTable0205,mkNTable0250,mkNTable0265,mkNTable0295,mkNTable0332,mkNTable0388,mkNTable1012,mkNTable1013,mkNTable0618
+        <_ + "o",_+"o"> => NM.mkNTable0162 sgnom ; -- Alternatives: mkNTable0182,mkNTable0217,mkNTable0403,mkNTable0918,mkNTable0962
+        <_ + "o",_ + "y"> => NM.mkNTable0239 sgnom ;
+         -- Alternatives: mkNTable0239
+        <_ + "o",_ + "ina"> => NM.mkNTable0083 sgnom ; 
+        <_,_ + "a"> => NM.mkNTable0503 sgnom ; -- Alternatives: mkNTable0944,mkNTable0497,mkNTable0244,mkNTable0350,mkNTable0282,mkNTable0197,mkNTable0131
+        <_,_ + "i"> => NM.mkNTable0995 sgnom ; -- Alternatives: mkNTable0995,mkNTable0583
+        <_,_ + "u"> => NM.mkNTable0171 sgnom ; -- Alternatives: mkNTable0696,mkNTable0111,mkNTable0539,mkNTable0247
+        <_,_ + "y"> => NM.mkNTable0550 sgnom ;
+        <_,_ + "ia"> => NM.mkNTable0803 sgnom  ;-- Alternative: mkNTable0648
+        <_,_ + "iu"> => NM.mkNTable0662 sgnom ;
+        <_,_ + "na"> => NM.mkNTable0286 sgnom ;
+        <_,_ + "ego"> => NM.mkNTable0589 sgnom ; -- Alternative: mkNTable0966
+        <_,_> => guess_paradigm_basic sgnom}; 
+     -- 1 string
+     guess_paradigm : (sgnom : Str) -> SubstForm => Str = guess_paradigm_basic 
+     } ;
 
 
     -- Basic 1-str fall-back guesser
     guess_paradigm_basic  : (sgnom : Str) -> SubstForm => Str
-    = \sgnom ->  case sgnom of {
+    = \sgnom -> case sgnom of {
         -- Non-ambiguous suffixes
         _ + "pospolita" => NM.mkNTable0971 sgnom ;
         _ + "człowiek" => NM.mkNTable0668 sgnom ;
@@ -381,7 +381,6 @@
         _ + "a" => NM.mkNTable0021 sgnom ;  
         -- NB: Covered in 2-string, including all alternatives: mkNTable0308,mkNTable0364,mkNTable0644,mkNTable0701,mkNTable1022,mkNTable0013,mkNTable0014,mkNTable0020,mkNTable0021,mkNTable0055,mkNTable0060,mkNTable0073,mkNTable0088,mkNTable0099,mkNTable0100,mkNTable0110,mkNTable0159,mkNTable0161,mkNTable0175,mkNTable0189,mkNTable0253,mkNTable0254,mkNTable0274,mkNTable0283,mkNTable0287,mkNTable0300,mkNTable0302,mkNTable0352,mkNTable0382,mkNTable0411,mkNTable0501,mkNTable0504,mkNTable0530,mkNTable0546,mkNTable0565,mkNTable0576,mkNTable0580,mkNTable0614,mkNTable0630,mkNTable0702,mkNTable0721,mkNTable0727,mkNTable0755,mkNTable0760,mkNTable0921,mkNTable0950,mkNTable0990,mkNTable1045
         _ => NM.mkNTable0171 sgnom  -- Alternatives: mkNTable0000,mkNTable0001,mkNTable0002,mkNTable0003,mkNTable0010,mkNTable0015,mkNTable0028,mkNTable0037,mkNTable0043,mkNTable0044,mkNTable0053,mkNTable0064,mkNTable0067,mkNTable0075,mkNTable0091,mkNTable0096,mkNTable0111,mkNTable0117,mkNTable0118,mkNTable0129,mkNTable0131,mkNTable0168,mkNTable0171,mkNTable0173,mkNTable0176,mkNTable0181,mkNTable0191,mkNTable0197,mkNTable0213,mkNTable0243,mkNTable0244,mkNTable0247,mkNTable0248,mkNTable0271,mkNTable0281,mkNTable0282,mkNTable0286,mkNTable0304,mkNTable0309,mkNTable0312,mkNTable0315,mkNTable0324,mkNTable0333,mkNTable0338,mkNTable0348,mkNTable0350,mkNTable0365,mkNTable0373,mkNTable0375,mkNTable0428,mkNTable0444,mkNTable0467,mkNTable0495,mkNTable0497,mkNTable0500,mkNTable0503,mkNTable0514,mkNTable0516,mkNTable0518,mkNTable0519,mkNTable0523,mkNTable0539,mkNTable0542,mkNTable0550,mkNTable0552,mkNTable0570,mkNTable0578,mkNTable0583,mkNTable0589,mkNTable0648,mkNTable0662,mkNTable0691,mkNTable0696,mkNTable0717,mkNTable0773,mkNTable0803,mkNTable0826,mkNTable0828,mkNTable0859,mkNTable0868,mkNTable0869,mkNTable0944,mkNTable0964,mkNTable0965,mkNTable0966,mkNTable0970,mkNTable0981,mkNTable0991,mkNTable0995
-};
-
+     } ;
 
 }
