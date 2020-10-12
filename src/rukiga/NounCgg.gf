@@ -39,7 +39,7 @@ lin
                           };
                      True  =>  { 
                             s = \\ num, ns => (cn.s  ! num ! ns) ++ 
-                                mkGenPrepNoIVClitic (AgP3 num cn.gender) ++ ap.s ! AgP3 Sg KI_BI; 
+                                mkGenPrepNoIV (AgP3 num cn.gender) ++ ap.s ! AgP3 Sg KI_BI; 
                             gender = cn.gender; nounCat = cn.nounCat
                           }
                   };
@@ -210,9 +210,9 @@ SentCN cn sc = {s = \\ n, ns => cn.s!n!ns  ++ sc.s; gender = cn.gender; nounCat 
     -- (New 13/3/2013 AR; Structural.possess_Prep and part_Prep should be deprecated in favour of these.)
 
     --PossNP  : CN -> NP -> CN ;     -- house of Paris, house of mine
-    PossNP  cn np ={s =\\n,ns => cn.s! n ! ns ++ mkGenPrepNoIVClitic np.agr ++ np.s ! Nom; gender = cn.gender; nounCat = cn.nounCat};
+    PossNP  cn np ={s =\\n,ns => cn.s! n ! ns ++ mkGenPrepNoIV np.agr ++ np.s ! Nom; gender = cn.gender; nounCat = cn.nounCat};
     --PartNP  : CN -> NP -> CN ;     -- glass of wine
-    PartNP cn np ={s =\\n,ns => cn.s! n ! ns ++ mkGenPrepNoIVClitic np.agr ++ np.s ! Nom; gender = cn.gender; nounCat = cn.nounCat};
+    PartNP cn np ={s =\\n,ns => cn.s! n ! ns ++ mkGenPrepNoIV np.agr ++ np.s ! Nom; gender = cn.gender; nounCat = cn.nounCat};
 {-
 --1 Noun: Nouns, noun phrases, and determiners
 
