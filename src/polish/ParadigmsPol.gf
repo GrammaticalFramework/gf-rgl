@@ -145,7 +145,7 @@
         <_,_ + "ego"> => NM.mkNTable0589 sgnom ; -- Alternative: mkNTable0966
         <_,_> => guess_paradigm_basic sgnom}; 
      -- 1 string
-     guess_paradigm : (sgnom : Str) -> SubstForm => Str = guess_paradigm_basic 
+     guess_paradigm : (sgnom : Str) -> SubstForm => Str = guess_paradigm_basic sgnom
      } ;
 
 
