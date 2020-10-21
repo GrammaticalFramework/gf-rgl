@@ -177,7 +177,7 @@ oper
 
         < "e" + "ki" + stem, KI_BI > => mkNoun omuntu (combine_morphemes "ebi" stem) g  ;
         < "e" + "ki" + stem, KI_ZERO > => mkNoun omuntu (combine_morphemes "" "") g  ; -- does not exist as plural
-        < "e" + "i" + stem, I_MA > => mkNoun omuntu (combine_morphemes "ama" "") g  ;
+        < "e" + "i" + stem, I_MA > => mkNoun omuntu (combine_morphemes "ama" stem) g  ;
         < "e" + "i" + stem, I_ZERO > => mkNoun omuntu (combine_morphemes "" "") g  ; -- does not exist as plural
         < "e" + "ri" + stem, RI_MA > => mkNoun omuntu (combine_morphemes "ama" stem) g  ;
         < "e" + "ri" + stem, RI_ZERO > => mkNoun omuntu (combine_morphemes "" "") g ; -- does not exist as plural
@@ -188,7 +188,7 @@ oper
         --< _ ,ZERO_MA > => mkNoun omuntu  ("ama" + stem) g (Predef.drop 1 omuntu);
         --< _ ,> => mkNoun omuntu  omuntu g (Predef.drop 1 omuntu);
         <_ , ZERO_BAA>  => mkNoun omuntu ("baa" + omuntu) g ;
-        < _ ,_ > => mkNoun omuntu  omuntu g-- improve as we go on.
+        < _ ,_ > => mkNoun omuntu  omuntu g -- improve as we go on.
     };
 
 
@@ -590,9 +590,14 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     --AdjectivalPhrase : Type {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool} ;
     AdjectivalPhrase : Type = {s : Str ; position : Position; isProper : Bool; isPrep: Bool};
     --Adjective : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
-    Adjective : Type = {s : Str ; position : Position; isProper : Bool; isPrep: Bool};
-    mkAdjective: Str -> Position -> Bool -> Bool -> Adjective = \ a , pos, isProper, isPrep -> 
-     { s = a ; position = pos ; isPre = False; isProper = isProper; isPrep = isPrep}; 
+    Adjective : Type = {s : Str ; 
+                        position : Position; 
+                        isProper : Bool; 
+                        isPrep: Bool; 
+                        isNeg : Bool -- this is for specifying that uncertain is the negative of certain
+                      };
+    mkAdjective: Str -> Position -> Bool -> Bool ->Bool-> Adjective = \ a , pos, isProper, isPrep,isNeg -> 
+     { s = a ; position = pos ; isPre = False; isProper = isProper; isPrep = isPrep; isNeg = isNeg}; 
       
     {-
         TO DO:
