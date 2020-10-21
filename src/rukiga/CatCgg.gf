@@ -94,7 +94,7 @@ lincat
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
   
   DAP = Res.Determiner ;
-  N2  = Res.Noun ** {c2 : Res.Agreement =>Str};    -- relational noun                     e.g. "son"   
+  N2  = Res.Noun ** {c2 : Res.Agreement =>Str};    -- relational noun                     e.g. "son"
   Prep = Res.Preposition;  -- preposition, or just case           e.g. "in"
   N3   = N2 ** {c3 : Res.Agreement =>Str};
   VV = Res.Verb ** {inf:Str; whenUsed: Res.VVMood}; --inf is the other verb
