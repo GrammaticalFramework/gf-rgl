@@ -207,8 +207,57 @@ mkInterj : Str -> Interj
 -- Rearrange this document in future so that a paradigms file is
 -- as should be i.e with an abstract part and a a part with 
 -- definitions
-
+  mkOrd : Str -> Ord = \s -> lin Ord { s =  \\_=>s; position = Post};
   V0 : Type = V ;
   AS, A2S, AV : Type = A ;
   A2V : Type = A2 ;
+  mkV0 : V -> V;
+  mkV0  v = v ;
+  mkA2 : Str -> Position -> Bool -> Bool ->Bool-> A2 = \a2, pos, isProper, isPrep,isNeg -> 
+    lin A2 ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});
+  --mkA2V : A -> A2V;
+  --mkA2V a = lin A2V (a * {c2 = ""; isPre = True});
+  mkA2V : Str -> Position -> Bool -> Bool ->Bool-> A2V =\a2, pos, isProper, isPrep,isNeg -> lin A2V ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});
+
+  
+  -- Adverbs modifying numerals
+
+  mkAdN : Str -> AdN ; -- e.g. approximately
+  mkCAdv : Str -> CAdv ;
+  mkAdN x = lin AdN (ss x) ;
+  mkCAdv x = lin CAdv (ss x ** {p = []}) ;
+
+  mkConj : overload {
+    mkConj : Str -> Conj ;                  -- and (plural agreement) --%
+    mkConj : Str -> Number -> Conj ;        -- or (agrement number given as argument) --%
+    mkConj : Str -> Str -> Conj ;           -- both ... and (plural) --%
+    mkConj : Str -> Str -> Number -> Conj ; -- either ... or (agrement number given as argument) --%
+  } ;
+
+  mkConj = overload {
+    mkConj : Str -> Conj = \y -> mk2Conj [] y Pl ; -- when you have simply and
+    mkConj : Str -> Number -> Conj = \y,n -> mk2Conj [] y n ;
+    mkConj : Str -> Str -> Conj = \x,y -> mk2Conj x y Pl ; -- when you have both ... and ...
+    mkConj : Str -> Str -> Number -> Conj = mk2Conj ;
+  } ;
+
+  mk2Conj : Str -> Str -> Number -> Conj = \x,y,n -> 
+    lin Conj {s = \\_=>x; s2 = y; n = n};
+
+  --2 Adverbs
+
+  -- Adverbs are not inflected. Most lexical ones have position
+  -- after the verb. Some can be preverbal (e.g. "always").
+
+  mkAdv : Str -> AgrExist -> Adv ; -- e.g. today
+  
+  --mkAdV : Str -> AdV ; -- e.g. always
+
+  -- Adverbs modifying adjectives and sentences can also be formed.
+
+  mkAdA  : Str -> Position -> AdA ; -- e.g. quite
+  --mkCAdv : Str -> Str -> Str -> CAdv ;   -- more than/no more than
+
+  mkAdv x agrEx = lin Adv {s = x ; agr = agrEx } ;
+  mkAdA x pos = lin AdA {s = x ; position = pos } ; -- e.g. quite
 }

@@ -218,9 +218,9 @@ lin
     dust_N = mkN "omucuucu" "omucuucu" ZERO_ZERO;
     ear_N = mkN "okutu" "amatu" KU_MA;
     earth_N = mkN "ensi" "ensi" N_N;
-    -- easy_A2V
+    easy_A2V = mkA2V "yaguhi" Post False False False;
     egg_N = mkN "eihuri" "amahuri" I_MA;
-    -- empty_A
+    empty_A = mkAdjective "rimu busha" Post False True False;
     enemy_N = mkN "TODO : cofirm omurabe" "TODO : cofirm abarabe" MU_BA;
     factory_N = mkN "TODO : cofirm fakatore" "TODO : cofirm fakatore" N_N;
     fall_V = mkV "gw" "a" "ire";
@@ -240,9 +240,9 @@ lin
     fridge_N = mkN "firigi" "firigi" ZERO_ZERO; 
     fruit_N = mkN "ekijuma" "ebijuma" KI_BI;
     full_A = mkAdjective "injwire" Post False True False;
-    -- fun_AV
+    --fun_AV = mkAdjective
     garden_N = mkN "omusiri" "emisiri" MU_MI;
-    --glove_N
+    glove_N = mkN "gilavu" "gilavu" ZERO_ZERO;
     gold_N = mkN "TODO:feza" "TODO:feza" ZERO_ZERO;
     grass_N = mkN "akanyaasi" "obunyaasi" KA_BU;
     guts_N = mkN "orubondo" "amabondo" RU_MA;
@@ -272,7 +272,7 @@ lin
     learn_V2 = mkV2 "yeg" "a" "ire";
     leather_N = mkN "oruhu" "empu" RU_N; --I think plural should be oruhu again
     leave_V2 = mkV2 "rug" "a" "ire";
-    -- left_Ord
+    left_Ord = mkOrd "bumosho";
     leg_N = mkN "okuguru" "amaguru" KU_MA;
     lie_V = mkV "beih" "a" "ire";
     like_V2 = mkV2 "kun" "da"  "zire";
@@ -311,7 +311,7 @@ lin
     -- rain_V0
     religion_N = mkN "endiini" "endiini" N_N;
     restaurant_N = mkN "hooteeri" "hooteeri" ZERO_ZERO;
-    -- right_Ord
+    right_Ord = mkOrd "buryo";
     road_N = mkN "orugundo" "engundo" RU_N;
     -- rock_N
     --roof_N = mkN ""
