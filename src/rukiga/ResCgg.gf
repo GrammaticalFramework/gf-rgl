@@ -563,8 +563,8 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           
           _ => mkClitic "-" -- Hopefully exhausted all forms 
         };
-    Adverb = {s :Str; agr : AgrExist} ;
-    mkAdv: Str -> AgrExist -> Adverb =\str, agr ->{s=str; agr=agr};
+    Adverb : Type = {s :Str; agr : AgrExist} ;
+    
     --dealing with the adjective 
     {-
       The Adjective can be before the noun for TRUE or
@@ -1277,12 +1277,13 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     
     -- Structural
     -- prepositions sometimes have two kinds, near or far i.e omu or omuri
-    -- We ignore the distal dexis  to be entered as a separate lemma
-    -- Instead str for positional arguments 1 & 2 cater for prepositions that inflect with Number
-    -- while str for positional argument 3 caters for those that do not inflect with Number
+    -- We provide for two kinds: near and distal plus a status checker for 
+    -- genitive prepositions
+    
     Preposition : Type = {s : Str; other : Str; isGenPrep : Bool}; 
     
     NounPhrase : Type = {s :Case => Str; agr : Agreement};
+    
     {-
       Operation to create Noun Phrases from a Determiner and Nouns.
       In Runyankore and Rukiga, depending on the particular Determiner,
