@@ -1626,6 +1626,7 @@ oper
 
 
   --Conjunctions
+  -- arguments to conjunctions determine which version is used
   Conjunction : Type = {s : AgrConj =>Str ;s2 : Str ; n : Number} ;
 
   -- For $Numeral$.

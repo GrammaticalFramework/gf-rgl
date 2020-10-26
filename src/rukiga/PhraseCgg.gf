@@ -9,6 +9,7 @@ lin
   PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
   NoPConj = {s = ""} ;
+  PConjConj conj = {s = conj.s ! AConj Other} ;
   NoVoc = {s = ""} ;
   VocNP np = {s=np.s !Nom} ;
 
