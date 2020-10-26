@@ -10,6 +10,7 @@ lin
 
   NoPConj = {s = ""} ;
   NoVoc = {s = ""} ;
+  VocNP np = {s=np.s !Nom} ;
 
   -- Utterances are formed from sentences, questions, and imperatives.
   UttNP     np = {s= np.s!Acc}; --: NP -> Utt ;
