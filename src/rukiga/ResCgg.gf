@@ -1622,7 +1622,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 param 
   CompSource = NounP | ADverb | AdjP | CommonNoun;
 oper
-  Comp : Type = {s:Str; source : CompSource };
+  Comp : Type = {s:Str; source : CompSource};
 
 
   --Conjunctions
