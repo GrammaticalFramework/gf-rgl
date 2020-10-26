@@ -161,7 +161,7 @@ lin
   television_N  = mkN "TV" N_N;
   doctor_N = mkN "omushaho"  MU_BA;
   clever_A =mkAdjective "amagyezi" Post False True False;
-  laugh_V = mkV "sheka";
+  laugh_V = mkV "shek";
   beautiful_A = mkAdjective "rungi" Post  False False False;
   airplane_N = mkN "endegye" N_N;
   year_N = mkN "omwaka" "emyaka" MU_MI;
