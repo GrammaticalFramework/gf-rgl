@@ -703,35 +703,35 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     -- TThis is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
     mkThis  = table{
-              AgMUBAP1 Sg => mkClitic "ogu";
-              AgMUBAP1 Pl => mkClitic "aba" ;
-              AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
-              AgMUBAP2 Pl => mkClitic "aba" ;
-              AgP3 Sg MU_BA => mkClitic "ogu";
-              AgP3 Pl MU_BA => mkClitic "aba" ;
-              AgP3 Pl ZERO_BU => mkClitic "obu" ;
-              AgP3 Sg BU_MA => mkClitic "obu" ;
-              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
-              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
-              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
-              AgP3 Sg ZERO_MA => mkClitic "aga";
-              AgP3 ( Pl) HA  => mkClitic "aha" ; -- of place HA 
-              AgP3 ( Pl) MU => mkClitic "omu" ; -- of place  MU
-              AgP3 ( Pl) KU => mkClitic "oku" ; -- of place KU
-              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
-              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
-              AgP3 Sg KI_BI   => mkClitic "eki" ;
-              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
-              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
-              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
-              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
-              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
-              AgP3 Pl ZERO_MI =>mkClitic "egi" ;
-              AgP3 Pl MU_MI => mkClitic "egi";
-              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
-              AgP3 Sg GU_GA => mkClitic "ogu" ;
-              AgP3 Pl GU_GA => mkClitic "aga" ;
-              _  => mkClitic "XXXThisThese" -- error checking for any case not catered for
+              AgMUBAP1 Sg =>  "ogu";
+              AgMUBAP1 Pl =>  "aba" ;
+              AgMUBAP2 Sg =>  "ogu"; --probably an error check your grammar book
+              AgMUBAP2 Pl =>  "aba" ;
+              AgP3 Sg MU_BA =>  "ogu";
+              AgP3 Pl MU_BA =>  "aba" ;
+              AgP3 Pl ZERO_BU =>  "obu" ;
+              AgP3 Sg BU_MA =>  "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "aga";
+              AgP3 Sg ZERO_MA =>  "aga";
+              AgP3 ( Pl) HA  =>  "aha" ; -- of place HA 
+              AgP3 ( Pl) MU =>  "omu" ; -- of place  MU
+              AgP3 ( Pl) KU =>  "oku" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "aka" ;
+              AgP3 Sg KI_BI   =>  "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) => "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "egi" ;
+              AgP3 Pl ZERO_MI => "egi" ;
+              AgP3 Pl MU_MI =>  "egi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "ezi" ;
+              AgP3 Sg GU_GA =>  "ogu" ;
+              AgP3 Pl GU_GA =>  "aga" ;
+              _  =>  "XXXThisThese" -- error checking for any case not catered for
 
     };
 
@@ -1283,6 +1283,8 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     Preposition : Type = {s : Str; other : Str; isGenPrep : Bool}; 
     
     NounPhrase : Type = {s :Case => Str; agr : Agreement};
+
+    --NounPhrase : Type = {s : Number=>  NounState => Str; agr : Agreement};
     
     {-
       Operation to create Noun Phrases from a Determiner and Nouns.
