@@ -1379,7 +1379,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
       						adv:Str; 
       						containsAdv: Bool;
       						adV:Str;
-      						containsAdV:Bool
+      						containsAdV:Bool;
+                  containsComp : Bool;
+                  containsComp2 : Bool
       					};
       -- in VP formation, all verbs are lifted to GVerb, but morphology doesn't need to know this
      verb2gverb : Verb ->Str -> GVerb = \v, ba -> {
@@ -1587,7 +1589,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
   					adv:Str; 
   					containsAdv:Bool;
   					adV:Str;
-  					containsAdV:Bool
+  					containsAdV:Bool;
+            containsComp : Bool;
+            containsComp2 : Bool
   					}; --comp is empty
   
 

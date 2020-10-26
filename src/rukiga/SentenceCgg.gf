@@ -281,8 +281,8 @@ lin
 
   
 
-    PredVP np vp = case <vp.isCompApStem, vp.containsAdV> of {
-              <False,True>    => {
+    PredVP np vp = case <vp.isCompApStem, vp.containsAdV,vp.containsComp, vp.containsComp2> of {
+              <False,True,False,False>    => {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;
@@ -293,16 +293,16 @@ lin
                         isPerfBlank = vp.isPerfBlank;
                         {-
                         inf  = mkVerbInrf vp.root;
-                      pres  = mkVerbPres vp.root; 
-                      past  = mkVerbPast vp.root; 
-                      presPart  = mkVerbPresPart vp.root; 
-                      pastPart  = mkVerbPastPart vp.root;                              -- subject
-                      -}
+                        pres  = mkVerbPres vp.root; 
+                        past  = mkVerbPast vp.root; 
+                        presPart  = mkVerbPresPart vp.root; 
+                        pastPart  = mkVerbPastPart vp.root;                              -- subject
+                        -}
                       --root = vp.root ;
                         compl = vp.adV
                         };
 
-              <_, _>    =>  {
+              <_, _,True,False>    =>  {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;
@@ -313,13 +313,51 @@ lin
                         isPerfBlank = vp.isPerfBlank;
                         {-
                         inf  = mkVerbInrf vp.root;
-                      pres  = mkVerbPres vp.root; 
-                      past  = mkVerbPast vp.root; 
-                      presPart  = mkVerbPresPart vp.root; 
-                      pastPart  = mkVerbPastPart vp.root;                              -- subject
+                        pres  = mkVerbPres vp.root; 
+                        past  = mkVerbPast vp.root; 
+                        presPart  = mkVerbPresPart vp.root; 
+                        pastPart  = mkVerbPastPart vp.root;                              -- subject
                       -}
                       --root = vp.root ;
                         compl = mkSubjClitic np.agr   ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
+                      };
+              <_, _,True, True>    =>  {
+                        s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                        subjAgr = np.agr;
+                        pres = vp.pres;
+                        perf = vp.perf;
+                        root = vp.s;
+                        --morphs = vp.morphs;
+                        isPresBlank = vp.isPresBlank;
+                        isPerfBlank = vp.isPerfBlank;
+                        {-
+                        inf  = mkVerbInrf vp.root;
+                        pres  = mkVerbPres vp.root; 
+                        past  = mkVerbPast vp.root; 
+                        presPart  = mkVerbPresPart vp.root; 
+                        pastPart  = mkVerbPastPart vp.root;                              -- subject
+                      -}
+                      --root = vp.root ;
+                        compl = mkSubjClitic np.agr ++ vp.comp ++ vp.comp2--mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
+                      };
+              <_, _,_, _>    =>  {
+                        s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                        subjAgr = np.agr;
+                        pres = vp.pres;
+                        perf = vp.perf;
+                        root = vp.s;
+                        --morphs = vp.morphs;
+                        isPresBlank = vp.isPresBlank;
+                        isPerfBlank = vp.isPerfBlank;
+                        {-
+                        inf  = mkVerbInrf vp.root;
+                        pres  = mkVerbPres vp.root; 
+                        past  = mkVerbPast vp.root; 
+                        presPart  = mkVerbPresPart vp.root; 
+                        pastPart  = mkVerbPastPart vp.root;                              -- subject
+                      -}
+                      --root = vp.root ;
+                        compl = [] --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
                       }
         };--: NP -> VP -> Cl ; -- John walks / John does not walk
   
