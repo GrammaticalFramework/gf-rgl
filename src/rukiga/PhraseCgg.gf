@@ -33,8 +33,14 @@ lin
   --UttAdv    : Adv  -> Utt ;               -- here
   UttAdv adv = {s= adv.s};
 
-  --can be improved upon
-  UttVP vp  = {s = vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2 ++ vp.ap };
+  -- better but can be improved upon
+  UttVP vp  = case <vp.isCompApStem,vp.containsAdv, vp.containsAdV,vp.containsComp, vp.containsComp2> of {
+                <False,False,True,False,False> => {s = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres ++ vp.adV};
+                <False,True,False,False,False> =>{s = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres ++ vp.adv};
+                <_, _,_,True,False>  => {s = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres ++ vp.comp};
+                <_, _,_,True, True> => {s = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++ vp.comp2};
+                <_, _,_,_, _>    => {s = "ku" ++ BIND ++ vp.s ++ BIND ++ vp.pres}
+              };
 
   UttAP ap  = {s=ap.s!(AgP3 Sg KI_BI)};
 
