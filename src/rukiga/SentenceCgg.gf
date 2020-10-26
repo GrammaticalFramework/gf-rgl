@@ -281,8 +281,8 @@ lin
 
   
 
-    PredVP np vp = case <vp.isCompApStem, vp.containsAdV,vp.containsComp, vp.containsComp2> of {
-              <False,True,False,False>    => {
+    PredVP np vp = case <vp.isCompApStem,vp.containsAdv, vp.containsAdV,vp.containsComp, vp.containsComp2> of {
+              <False,False,True,False,False>    => {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;
@@ -301,8 +301,27 @@ lin
                       --root = vp.root ;
                         compl = vp.adV
                         };
+              <False,True,False,False,False>    => {
+                        s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
+                        subjAgr = np.agr;
+                        pres = vp.pres;
+                        perf = vp.perf;
+                        root = vp.s;
+                        --morphs = vp.morphs;
+                        isPresBlank = vp.isPresBlank;
+                        isPerfBlank = vp.isPerfBlank;
+                        {-
+                        inf  = mkVerbInrf vp.root;
+                        pres  = mkVerbPres vp.root; 
+                        past  = mkVerbPast vp.root; 
+                        presPart  = mkVerbPresPart vp.root; 
+                        pastPart  = mkVerbPastPart vp.root;                              -- subject
+                        -}
+                      --root = vp.root ;
+                        compl = vp.adv
+                        };
 
-              <_, _,True,False>    =>  {
+              <_, _,_,True,False>    =>  {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;
@@ -321,7 +340,7 @@ lin
                       --root = vp.root ;
                         compl = mkSubjClitic np.agr   ++ vp.comp --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
                       };
-              <_, _,True, True>    =>  {
+              <_, _,_,True, True>    =>  {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;
@@ -340,7 +359,7 @@ lin
                       --root = vp.root ;
                         compl = mkSubjClitic np.agr ++ vp.comp ++ vp.comp2 --mkSubjClitic np.agr ++ Predef.BIND ++ vp.comp
                       };
-              <_, _,_, _>    =>  {
+              <_, _,_,_, _>    =>  {
                         s = np.s ! Nom;   --: NP -> VP -> Cl ;            -- John walks / John does not walk
                         subjAgr = np.agr;
                         pres = vp.pres;

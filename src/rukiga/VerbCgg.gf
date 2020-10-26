@@ -32,7 +32,7 @@ lin
         --in
         case comp.source of{
               AdjP => {
-                      s = mkBecome.s ++ BIND ++ mkBecome.pres;  --Assuming there is no AP which is prepositional
+                      s = mkBecome.s ;  --Assuming there is no AP which is prepositional
                       pres =[]; 
                       perf = [];
                       isPresBlank = True;
@@ -51,14 +51,54 @@ lin
                       containsComp = True;
                       containsComp2 = False
                     };
-              _    => {
-                        s = mkBecome.s ++ BIND ++mkBecome.pres++ comp.s;  --Assuming there is no AP which is prepositional
+              ADverb    => {
+                        s = mkBecome.s ;  --Assuming there is no AP which is prepositional
                         pres =[]; 
                         perf = [];
                         --morphs=\\form,morphs=>[]; 
                         isPresBlank = True;
                         isPerfBlank = True;
                         comp = [];
+                        comp2 = [];
+                        ap = [];
+                        isCompApStem = False; 
+                        agr = AgrNo;
+                        isRegular = False;
+                        adv = comp.s;
+                        containsAdv =True;  
+                        adV =[];
+                        containsAdV = False;
+                        containsComp = False;
+                        containsComp2 = False
+                      };
+              NounP    => {
+                        s = mkBecome.s  ;  --Assuming there is no AP which is prepositional
+                        pres =[]; 
+                        perf = [];
+                        --morphs=\\form,morphs=>[]; 
+                        isPresBlank = True;
+                        isPerfBlank = True;
+                        comp = comp.s;
+                        comp2 = [];
+                        ap = [];
+                        isCompApStem = False; 
+                        agr = AgrNo;
+                        isRegular = False;
+                        adv = [];
+                        containsAdv =False;
+                        adV =[];
+                        containsAdV = False;
+                        containsComp = True;
+                        containsComp2 = False
+                      };
+              _       => {
+                        s = mkBecome.s ;  --Assuming there is no AP which is prepositional
+                        pres =[]; 
+                        perf = [];
+                        --morphs=\\form,morphs=>[]; 
+                        isPresBlank = True;
+                        isPerfBlank = True;
+                        comp = comp.s;
                         comp2 = [];
                         ap = [];
                         isCompApStem = False; 
