@@ -108,7 +108,7 @@ oper
    mkV2S : V -> Prep -> V2S ; -- e.g. tell (NP) (that S)
    mkV2S v p = lin V2S (prepV2 v p) ;
    --mkPrep : Str -> Str ->Bool -> Preposition ; -- e.g. "in front of"
-   mkPrep : Str -> Str  ->Bool -> Preposition; 
+   mkPrep : Str -> Str  ->Bool -> Prep; 
    mkPrep first other bool = lin Prep {
      s = first ;
      other = other;
@@ -213,11 +213,11 @@ mkInterj : Str -> Interj
   A2V : Type = A2 ;
   mkV0 : V -> V;
   mkV0  v = v ;
-  mkA2 : Str -> Position -> Bool -> Bool ->Bool-> A2 = \a2, pos, isProper, isPrep,isNeg -> 
-    lin A2 ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});
+  mkA2 : Str -> Position -> Bool -> Bool ->Bool-> A2V = \a2, pos, isProper, isPrep,isNeg -> 
+    lin A2V ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});
   --mkA2V : A -> A2V;
   --mkA2V a = lin A2V (a * {c2 = ""; isPre = True});
-  mkA2V : Str -> Position -> Bool -> Bool ->Bool-> A2V =\a2, pos, isProper, isPrep,isNeg -> lin A2V ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});
+  mkA2V : Str -> Position -> Bool -> Bool ->Bool-> A2 =\a2, pos, isProper, isPrep,isNeg -> lin A2 ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});
 
   
   -- Adverbs modifying numerals
