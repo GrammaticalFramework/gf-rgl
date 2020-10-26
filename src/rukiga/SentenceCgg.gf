@@ -51,9 +51,9 @@ lin
                           };
       {-Note: when I use pol.s instead of ti, the word alignment instead becomes worse-}
       <Past,Simul, Neg> => case cl.isPerfBlank of { 
-                                  True  => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ Predef.BIND ++ "ra" ++ 
+                                  True  => {s = subj ++ "ta" ++ Predef.BIND ++ clitic ++ Predef.BIND ++ "ra" ++ 
                                               Predef.BIND ++ root ++ Predef.BIND ++ "ire" ++ compl};
-                                  False => {s = subj ++ "ti" ++ Predef.BIND ++ clitic ++ "ra" ++ Predef.BIND ++ 
+                                  False => {s = subj ++ "ta" ++ Predef.BIND ++ clitic ++ "ra" ++ Predef.BIND ++ 
                                               root ++ Predef.BIND ++ pastRestOfVerb ++ compl}
                                 };
 
