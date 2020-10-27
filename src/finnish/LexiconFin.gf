@@ -2,7 +2,7 @@
 
 concrete LexiconFin of Lexicon = CatFin ** open MorphoFin, StemFin, ParadigmsFin in {
 
-flags 
+flags
     coding=utf8 ;
   optimize=values ;
 
@@ -23,7 +23,7 @@ lin
   beer_N = mkN "olut" "oluita" ;
   beg_V2V = mkV2V (mk2V "pyytää" "pyysi") (casePrep partitive) ;
   big_A = mkA (mkN "suuri" "suuria") "suurempi" "suurin" ;
-  bike_N = mkN "polku" (mkN "pyörä") ; 
+  bike_N = mkN "polku" (mkN "pyörä") ;
   bird_N = mkN "lintu" ;
   black_A = mkA (mkN "musta") "mustempi" "mustin" ;
   blue_A = mkA (mkN "sininen") "sinisempi" "sinisin" ;
@@ -36,7 +36,7 @@ lin
   break_V2 = mkV2 (mkV "rikkoa") ;
   broad_A = mkA (mkN "leveä") "leveämpi" "levein" ;
   brother_N2 = mkN2 (
-    mkN "veli" "veljen" "veljenä" "veljeä" "veljeen" 
+    mkN "veli" "veljen" "veljenä" "veljeä" "veljeen"
         "veljinä" "veljissä" "veljien" "veljiä" "veljiin") ;
   brown_A = mkA (mkN "ruskea") "ruskeampi" "ruskein" ;
   butter_N = mk3N "voi" "voin" "voita" ;  ---- errors in Part
@@ -49,7 +49,7 @@ lin
   ceiling_N = mkN "katto" ;
   chair_N = mkN "tuoli" ;
   cheese_N = mkN "juusto" ;
-  child_N = mkN "lapsi" "lapsen" "lasta" "lapsena" "lapseen" 
+  child_N = mkN "lapsi" "lapsen" "lasta" "lapsena" "lapseen"
               "lasten" "lapsia" "lapsina" "lapsissa" "lapsiin" ;
   church_N = mkN "kirkko" ;
   city_N = mkN "kaupunki" ;
@@ -70,7 +70,7 @@ lin
   dog_N = mkN "koira" ;
   door_N = mkN "ovi" "ovia" ;
   drink_V2 = mkV2 (mkV "juoda") (casePrep partitive) ;
-  easy_A2V = mkA2 (mkA (mkN "helppo") "helpompi" "helpoin") 
+  easy_A2V = mkA2 (mkA (mkN "helppo") "helpompi" "helpoin")
     (casePrep allative) ;
   eat_V2 = mkV2 (mkV "syödä") (casePrep partitive) ;
   empty_A = mkA (mkN "tyhjä") "tyhjempi" "tyhjin" ;
@@ -111,7 +111,7 @@ lin
   know_V2 = mkV2 (mkV "tuntea" "tunsi") ;
   lake_N = mkN "järvi" "järviä" ;
   lamp_N = mkN "lamppu" ;
-  learn_V2 = 
+  learn_V2 =
     mkV2 (mk12V "oppia" "opin" "oppii" "oppivat" "oppikaa" "opitaan"
       "opin" "oppi" "oppisi" "oppinut" "opittu" "opitun") ;
   leather_N = mkN "nahka" ; --- nahan
@@ -123,8 +123,8 @@ lin
   lose_V2 = mkV2 (mkV "hävitä" "hävisi") ; --- hukata
   love_N = mk3N "rakkaus" "rakkauden" "rakkauksia" ;
   love_V2 = mkV2 (mkV "rakastaa") partitive ;
-  man_N = mkN "mies" "miehen" "miestä" "miehenä" "mieheen" 
-              "miesten" "miehiä" "miehinä" "miehissä" "miehiin" ; 
+  man_N = mkN "mies" "miehen" "miestä" "miehenä" "mieheen"
+              "miesten" "miehiä" "miehinä" "miehissä" "miehiin" ;
   married_A2 = mkA2 (mkA "avioitunut") (postPrep genitive "kanssa") ; ---- infl
   meat_N = mkN "liha" ;
   milk_N = mkN "maito" ;
@@ -169,7 +169,7 @@ lin
   seek_V2 = mkV2 (mkV "etsiä") cpartitive ;
   see_V2 = mkV2 (
     mk12V "nähdä" "näen" "näkee" "näkevät" "nähkää" "nähdään"
-      "näin" "näki" "näkisi" "nähnyt" "nähty" "nähdyn") ; 
+      "näin" "näki" "näkisi" "nähnyt" "nähty" "nähdyn") ;
   sell_V3 = mkV3 (mkV "myydä") accPrep (casePrep allative) ;
   send_V3 = mkV3 (mkV "lähettää") accPrep (casePrep allative) ;
   sheep_N = mkN "lammas" ;
@@ -211,10 +211,10 @@ lin
   village_N = mkN "kylä" ;
   wait_V2 = mkV2 (mkV "odottaa") partitive ;
   walk_V = mkV "kävellä" "käveli" ;
-  warm_A = mkA 
-    (mkN "lämmin" "lämpimän" "lämmintä" "lämpimänä" "lämpimään" 
+  warm_A = mkA
+    (mkN "lämmin" "lämpimän" "lämmintä" "lämpimänä" "lämpimään"
          "lämpiminä" "lämpimiä" "lämpimien" "lämpimissä" "lämpimiin"
-	 ) 
+	 )
     "lämpimämpi" "lämpimin" ;
   war_N = mkN "sota" ;
   watch_V2 = mkV2 (mkV "katsella") cpartitive ;
@@ -232,7 +232,7 @@ lin
 
   do_V2 = mkV2 (
     mkV "tehdä" "teen" "tekee" "tekevät" "tehkää" "tehdään"
-      "tein" "teki" "tekisi" "tehnyt" "tehty" "tehdyn") ; 
+      "tein" "teki" "tekisi" "tehnyt" "tehty" "tehdyn") ;
 
   now_Adv = mkAdv "nyt" ;
   already_Adv = mkAdv "jo" ;
@@ -289,8 +289,8 @@ lin
   heart_N = mkN "sydän" "sydämen" "sydäntä" "sydämenä" "sydämeen"
                 "sydänten" "sydämiä" "sydäminä" "sydämissä" "sydämiin" ;
   horn_N = mk2N "sarvi" "sarvia" ;
-  husband_N = mkN "mies" "miehen" "miestä" "miehenä" "mieheen" 
-                  "miesten" "miehiä" "miehinä" "miehissä" "miehiin" ; 
+  husband_N = mkN "mies" "miehen" "miestä" "miehenä" "mieheen"
+                  "miesten" "miehiä" "miehinä" "miehissä" "miehiin" ;
   ice_N = mkN "jää" ;
   knee_N = mk2N "polvi" "polvia" ;
   leaf_N = mk2N "lehti" "lehtiä" ;

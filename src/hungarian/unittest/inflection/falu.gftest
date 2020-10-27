@@ -1,0 +1,25 @@
+--This constructor also takes care of szó  <Sg,Acc> or <Sg,Sup> case ("szót" not "szavat")
+
+Lang: MassNP (UseN village_N)
+LangHun: falu
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN village_N)))
+LangHun: én látok egy falu &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN village_N))
+LangHun: egy falun
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN village_N)
+LangHun: falvak
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN village_N)))
+LangHun: én látok falvak &+ at
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN village_N))
+LangHun: egy faluhoz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN village_N))
+LangHun: falvak &+ hoz
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN village_N)
+LangHun: én falu &+ m

@@ -9,4 +9,5 @@
 instance ResPor of ResRomance = DiffPor ** open CommonRomance, Prelude in {
   oper
     vowel : pattern Str = #("a" | "e" | "i" | "o" | "u") ;
+
 } ;

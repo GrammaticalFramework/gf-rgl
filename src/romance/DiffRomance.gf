@@ -52,7 +52,7 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   oper mkImperative : Bool -> Person -> VP -> RPolarity => Gender => Number => Str ;
 
--- To render the copula (ser/estar in Spa,Cat)
+-- To render the copula (ser/estar in Spa,Cat,Por)
 
   oper CopulaType : PType ;
   oper selectCopula : CopulaType -> Verb ;
@@ -62,6 +62,10 @@ interface DiffRomance = open CommonRomance, Prelude in {
 -- To decide if adverbial questions are inverted
 
   oper iAdvQuestionInv : Direct = DInv ; -- except Fre
+
+  oper iCompQuestionInv : Direct = DInv ; -- for Cat,Por,Spa where otherInv will be DDir
+
+  oper otherInv : Direct = DInv ; -- except Cat, Por, Spa
 
 --2 Constants that must derivatively depend on language
 
@@ -169,5 +173,25 @@ oper
 
   contractInf : Bool -> Bool -> Bool = \_,_ -> False ; -- only True in Ita, by orB
 
-}
+  chooseTA : RTense -> Anteriority
+    -> (VF => Str) -> (VF => Str)
+    -> Number -> Person -> Mood -> Str -> Str * Str ;
+  chooseTA t a verb vaux n p m part = case <t,a> of {
+    <RPast,Simul>  => <verb ! VFin (VImperf m) n p, []> ; --# notpresent
+    <RPast,Anter>  => <vaux ! VFin (VImperf m) n p, part> ; --# notpresent
+    <RFut,Simul>   => <verb ! VFin VFut n p, []> ; --# notpresent
+    <RFut,Anter>   => <vaux ! VFin VFut n p, part> ; --# notpresent
+    <RCond,Simul>  => <verb ! VFin VCondit n p, []> ; --# notpresent
+    <RCond,Anter>  => <vaux ! VFin VCondit n p, part> ; --# notpresent
+    <RPasse,Simul> => <verb ! VFin VPasse n p, []> ; --# notpresent
+    <RPasse,Anter> => <vaux ! VFin VPasse n p, part> ; --# notpresent
+    <RPres,Anter>  => <vaux ! VFin (VPres m) n p, part> ; --# notpresent
+    <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
+    } ;
 
+  oper
+    essere_V : Verb ;
+    stare_V : Verb ;
+    stare_V = essere_V ;
+
+} ;

@@ -1,2 +1,0 @@
-concrete ExtraLexiconLat of ExtraLexiconLatAbs = {
-};

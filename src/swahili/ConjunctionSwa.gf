@@ -1,6 +1,2 @@
-concrete ConjunctionSwa of Conjunction = 
-  CatSwa ** open ResSwa, Coordination, Prelude in {
-
- 
-
-  }
+concrete ConjunctionSwa of Conjunction = CatSwa ** ConjunctionBantu with
+ (ResBantu = ResSwa);  

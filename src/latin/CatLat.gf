@@ -1,4 +1,4 @@
-concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
+concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -6,8 +6,9 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
 
 ---- Tensed/Untensed
 --
-    S  = {s : Str} ;
+    S  = Sentence ;
     QS = {s : QForm => Str} ;
+    RS = { s : Gender => Number => Str } ; -- Sentence ;
 --    RS = {s : Agr => Str ; c : Case} ; -- c for it clefts
 --    SSlash = {s : Str ; c2 : Str} ;
 --
@@ -15,11 +16,12 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
 --
     Cl = Clause ;
     ClSlash = Clause ;
-    Imp = {s : Polarity => ImpForm => Str} ;
+    Imp = {s : Polarity => VImpForm => Str} ;
 --
 ---- Question
---
-    QCl = {s : ResLat.Tense => Anteriority => Polarity => QForm => Str } ;
+    --
+    -- TO FIX
+    QCl = Clause ** { q : Str } ; 
     IP = {s : Case => Str ; n : Number} ;
     IComp = {s : Str} ;    
     IDet = Determiner ; --{s : Str ; n : Number} ;
@@ -27,46 +29,44 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
 --
 ---- Relative
 --
---    RCl = {
+    RCl = { s : Gender => Number => Clause };
 --      s : ResLat.Tense => Anteriority => CPolarity => Agr => Str ; 
 --      c : Case
 --      } ;
---    RP = {s : RCase => Str ; a : RAgr} ;
+    RP = {s : Agr => Str } ;
 --
 ---- Verb
 --
     VP = ResLat.VerbPhrase ;
-    VPSlash = VP ** {c2 : Preposition} ;
+    VPSlash = ResLat.ObjectVerbPhrase ; -- VP ** {c2 : Preposition} ;
     Comp = {s : Agr => Str} ; 
 --
 ---- Adjective
 --
 --    AP = Adjective ** {isPre : Bool} ; ---- {s : Agr => Str ; isPre : Bool} ; 
-    AP = 
-      { 
-	s : Agr => Str ;
---	isPre : Bool ; -- should have no use in latin because adjectives can appear variably before and after nouns
-      } ;
+    AP = AdjectivePhrase ;
+ 
 --
 ---- Noun
 --
-    CN = ResLat.ComplexNoun ;
+    CN = ResLat.CommonNoun ;
     NP = ResLat.NounPhrase ;
     Pron = ResLat.Pronoun ;
     Det = Determiner ;
-    Predet, Ord = {s : Str} ;
+    Predet = {s : Str} ;
+    Ord = { s : Gender => Number => Case => Str } ;
     Num  = {s : Gender => Case => Str ; n : Number} ;
---    Card = {s : Str ; n : Number} ;
+    Card = {s : Gender => Case => Str ; n : Number} ;
     Quant = Quantifier ;
 --
 ---- Numeral
 --
---    Numeral = {s : CardOrd => Str ; n : Number} ;
+    Numeral = ResLat.TNumeral ;
     Digits  = {s : Str ; unit : Unit} ;
 --
 ---- Structural
 --
-    Conj = {s1,s2 : Str ; n : Number} ;
+    Conj = ResLat.Conjunction; --{s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
     Prep = ResLat.Preposition ;
 --
@@ -79,10 +79,20 @@ concrete CatLat of Cat = CommonX ** open ResLat, ParamX, Prelude in {
     V2V = Verb ** {c2 : Str ; isAux : Bool} ;
 
     A = Adjective ;
-
+    Adv = Adverb ;
+    
     N = Noun ;
     N2 = Noun ** { c : Prep } ;
     N3 = Noun ** { c : Prep ; c2 : Prep } ;
-    PN = Noun ;
+    PN = { s : Case => Str ; n : Number ; g : Gender } ;
     A2 = Adjective ** { c : Prep} ;
+
+  linref
+    NP = \np -> combineNounPhrase np ! PronNonDrop ! APreN ! DPostN ! Nom ; 
+    VP = \vp -> vp.adv ++ vp.inf !  VInfActPres ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ;
+    S = \s -> defaultSentence s ! SOV ;
+    V, VS, VQ, VA, VV = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
+    V2, V2A, V2Q, V2S = \v -> v.act ! (VAct VSim (VPres VInd) Sg P1) ;
+    Pron = \p -> p.pers.s ! PronNonDrop ! PronNonRefl ! Nom ;
+    Conj = \c -> c.s1 ++ c.s2 ++ c.s3 ;
 }

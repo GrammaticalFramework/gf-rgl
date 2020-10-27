@@ -1,0 +1,62 @@
+-- Examples from Saeed p. 119
+
+--------------
+-- Positive --
+--------------
+
+-- Declarative
+-- LangEng: he/she/it waits (for him/her/it)
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron))))) NoVoc
+LangSom: waa sugaa
+
+-- Interrogative
+-- LangEng: does he/she/it wait (for him/her/it)
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))))) NoVoc
+LangSom: ma sugaa
+
+-- Imperative
+-- LangEng: wait for it (sg and pl)
+Lang: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))) NoVoc
+LangSom: sug
+
+Lang: PhrUtt NoPConj (UttImpPl PPos (ImpVP (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))) NoVoc
+LangSom: suga
+
+-- Conditional
+-- LangEng: he/she/it would wait (for him/her/it)
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron))))) NoVoc
+LangSom: waa sugi lahaa
+
+-- Optative and potential not implemented (yet?)
+
+
+--------------
+-- Negative --
+--------------
+
+-- Declarative
+-- LangEng: he/she/it doesn't wait (for him/her/it)
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron))))) NoVoc
+LangSom: ma sugo
+
+-- Interrogative 1: TODO
+-- LangEng: does he/she/it wait (for him/her/it)
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))))) NoVoc
+LangSom: ma aan sugo
+
+-- LangEng: why doesn't it wait for it
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))))) NoVoc
+LangSom: maxaa u sugi waayaa
+
+-- Imperative
+-- LangEng: don't wait for it (sg and pl)
+Lang: PhrUtt NoPConj (UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))) NoVoc
+LangSom: ha sugin
+
+Lang: PhrUtt NoPConj (UttImpPl PNeg (ImpVP (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))) NoVoc
+LangSom: ha sugina
+
+-- Conditional
+-- LangEng: he/she/it wouldn't wait (for him/her/it)
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PNeg (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron))))) NoVoc
+LangSom: ma sugeen

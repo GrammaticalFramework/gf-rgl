@@ -1,0 +1,55 @@
+-------------------------------
+-- Numerals with determiners --
+-------------------------------
+
+-- LangEng: the two cats
+LangSom: laba BIND da bisadood
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN cat_N))) NoVoc
+
+-- LangEng: those three men
+LangSom: saddex BIND daas nin
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant that_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))) (UseN man_N))) NoVoc
+
+-- LangEng: my three fathers
+LangSom: saddex BIND dayd BIND a aabbe
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant (PossPron i_Pron) (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))) (UseN2 father_N2))) NoVoc
+
+-- LangEng: she is the first cat
+LangSom: waa bisad BIND da kowaad
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN cat_N))))))) NoVoc
+
+-- LangEng: she is my first cat
+LangSom: waa bisad BIND dayd BIND a kowaad
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuantOrd (PossPron i_Pron) NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN cat_N))))))) NoVoc
+
+-- LangEng: he is my first father
+LangSom: waa aabb BIND ahay kowaad
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseComp (CompNP (DetCN (DetQuantOrd (PossPron i_Pron) NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN2 father_N2))))))) NoVoc
+
+-- LangEng: he is my first man
+LangSom: waa nin BIND kayg BIND a kowaad
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseComp (CompNP (DetCN (DetQuantOrd (PossPron i_Pron) NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN man_N))))))) NoVoc
+
+--------------------------------------
+-- Numerals with multiple modifiers --
+--------------------------------------
+
+-- LangEng: two cats
+LangSom: laba bisadood
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN cat_N))) NoVoc
+
+-- LangEng: two small cats
+LangSom: laba bisadood oo yar
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (AdjCN (PositA small_A) (UseN cat_N)))) NoVoc
+
+-- LangEng: two small cats that have meat
+LangSom: laba bisadood oo yar oo hilib leh
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (RelCN (AdjCN (PositA small_A) (UseN cat_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a have_V2) (MassNP (UseN meat_N)))))))) NoVoc
+
+-- LangEng: two thousand cats
+LangSom: laba kun oo bisadood
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN cat_N))) NoVoc
+
+-- LangEng: two thousand small cats
+LangSom: laba kun oo bisadood oo yar
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot3 (pot1as2 (pot0as1 (pot0 n2)))))))) (AdjCN (PositA small_A) (UseN cat_N)))) NoVoc

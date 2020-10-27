@@ -1,0 +1,23 @@
+Lang: MassNP (UseN beer_N)
+LangHun: sör
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN beer_N)))
+LangHun: én látok egy sör &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN beer_N))
+LangHun: egy sörön
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN beer_N)
+LangHun: sörök
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN beer_N)))
+LangHun: én látok sörök &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN beer_N))
+LangHun: egy sörhöz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN beer_N))
+LangHun: sörök &+ höz
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN beer_N)
+LangHun: én sörö &+ m

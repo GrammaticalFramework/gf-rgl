@@ -45,8 +45,8 @@ lin
     s1 = heading1 (nounHeading adjective_Category).s ;
     s2 = frameTable (
            tr (th ""                            ++ th (heading singular_Parameter)  ++ th  (heading plural_Parameter)) ++
-           tr (th (heading masculine_Parameter) ++ td (adj.s ! Posit ! (AF Masc Sg)) ++ td (adj.s ! Posit ! (AF Masc Pl))) ++
-           tr (th (heading feminine_Parameter)  ++ td (adj.s ! Posit ! (AF Fem Sg))  ++ td (adj.s ! Posit ! (AF Fem Pl)))
+           tr (th (heading masculine_Parameter) ++ td (adj.s ! Posit ! (genNum2Aform Masc Sg)) ++ td (adj.s ! Posit ! (genNum2Aform Masc Pl))) ++
+           tr (th (heading feminine_Parameter)  ++ td (adj.s ! Posit ! (genNum2Aform Fem Sg))  ++ td (adj.s ! Posit ! (genNum2Aform Fem Pl)))
          )
     } ;
 

@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:prelude
---# -coding=cp1251
+--# -coding=utf8
 
 concrete GrammarBul of Grammar = 
   NounBul,
@@ -17,7 +17,7 @@ concrete GrammarBul of Grammar =
   IdiomBul,
   TenseX - [CAdv,IAdv,AdV,SC]
   ** {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

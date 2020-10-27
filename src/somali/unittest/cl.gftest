@@ -1,0 +1,81 @@
+-- Restrictive relative clauses (RelCN)
+-- Saeed p. 213
+
+-- LangEng: the books that the men buy
+LangSom: buugaag BIND ta niman BIND ku iibsadaan
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN man_N)) (SlashV2a buy_V2))))))) NoVoc
+
+-- LangEng: the books that the man doesn't buy
+LangSom: buugaag BIND ta nin BIND ku aan iibsado
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) (SlashV2a buy_V2))))))) NoVoc
+
+
+-- LangEng: the men that buy the books
+LangSom: niman BIND ka buugaag BIND ta iibsada
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N)))))))) NoVoc
+
+-- LangEng: the men that don't buy the books
+LangSom: niman BIND ka aan buugaag BIND ta iibsado
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N)))))))) NoVoc
+
+
+-- LangEng: the men that buy the books are these
+LangSom: niman BIND ka buugaag BIND ta iibsadaa waa kuwan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N))))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumPl))))))) NoVoc
+
+-- LangEng: the men that don't buy the books are these
+LangSom: niman BIND ka aan buugaag BIND ta iibsado waa kuwan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant DefArt NumPl) (UseN book_N))))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumPl))))))) NoVoc
+
+
+-- LangEng: the books that the men buy are these
+LangSom: buugaag BIND ta niman BIND ku iibsadaan waa kuwan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN man_N)) (SlashV2a buy_V2)))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumPl))))))) NoVoc
+
+-- LangEng: the books that the men don't buy are these
+LangSom: buugaag BIND ta niman BIND ku aan iibsadaan waa kuwan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN man_N)) (SlashV2a buy_V2)))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumPl))))))) NoVoc
+
+-- LangEng: the books that the man doesn't buy are these
+LangSom: buugaag BIND ta nin BIND ku aan iibsado waa kuwan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (RelCN (UseN book_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) (SlashV2a buy_V2)))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumPl))))))) NoVoc
+
+
+-- With a verb that takes a preposition
+-- LangEng: the woman that you taught
+LangSom: naag BIND ta aad ku bartay
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (UsePron youSg_Pron) (SlashV2a teach_V2))))))) NoVoc
+
+-- Combine with passive
+-- LangEng: the woman that was taught
+LangSom: naag BIND ta lagu baray
+Lang: PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN woman_N) (UseRCl (TTAnt TPast ASimul) PPos (RelVP IdRP (PassV2 teach_V2)))))) NoVoc
+
+
+-- Negative forms
+-- LangEng: sheep that aren't black don't see you
+LangSom: lax aan madow aha ku BIND ma arkaan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant IndefArt NumPl) (RelCN (UseN sheep_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (UseComp (CompAP (PositA black_A))))))) (ComplSlash (SlashV2a see_V2) (UsePron youPol_Pron))))) NoVoc
+
+-- LangEng: you don't see sheep that aren't black
+LangSom: laxo aan madow ahayni ma aragto
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (RelCN (UseN sheep_N) (UseRCl (TTAnt TPres ASimul) PNeg (RelVP IdRP (UseComp (CompAP (PositA black_A))))))))))) NoVoc
+
+
+-- Appositive relative clauses (RelNP)
+
+-- LangEng: he , that the men see
+LangSom: isaga oo niman BIND ku arkaan
+Lang:  PhrUtt NoPConj (UttNP (RelNP (UsePron he_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN man_N)) (SlashV2a see_V2)))))) NoVoc
+
+-- LangEng: he , that sees the men
+LangSom: isaga oo niman BIND ka arka
+Lang: PhrUtt NoPConj (UttNP (RelNP (UsePron he_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN man_N))))))) NoVoc
+
+-- LangEng: he , that the men see , is this
+LangSom: isagu oo niman BIND ku arkaan waa kan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (RelNP (UsePron he_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumPl) (UseN man_N)) (SlashV2a see_V2))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumSg))))))) NoVoc
+
+--LangEng: he , that sees the men , is this
+LangSom: isagu oo niman BIND ka arkaa waa kan
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (RelNP (UsePron he_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant DefArt NumPl) (UseN man_N)))))) (UseComp (CompNP (DetNP (DetQuant this_Quant NumSg))))))) NoVoc

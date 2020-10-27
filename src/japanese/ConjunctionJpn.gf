@@ -327,7 +327,22 @@ concrete ConjunctionJpn of Conjunction = CatJpn ** open ResJpn, Prelude in {
       s2dropNaEnging = y.dropNaEnging ;
       prepositive = \\st => x.prepositive ! st ++ y.prepositive ! st
       } ;
-      
+            
+    ConsAP x xs = {
+      s1and = x.te ;
+      s1or = \\st => table {
+        Pos => x.dropNaEnging ! st ++ "か" ;
+        Neg => x.pred ! Plain ! TPres ! Neg ++ "か" 
+        } ;
+      s2pred = \\st,t,p => xs.s1and ! st ! p ++ xs.s2pred ! st ! t ! p ;
+      s2attr = \\st => xs.s1and ! st ! Pos ++ xs.s2attr ! st ;
+      s2te = \\st,p => xs.s1and ! st ! p ++ xs.s2te ! st ! p ;
+      s2ba = \\st,p => xs.s1and ! st ! p ++ xs.s2ba ! st ! p ;
+      s2adv = \\st => xs.s1and ! st ! Pos ++ xs.s2adv ! st ;
+      s2dropNaEnging = xs.s2dropNaEnging ;
+      prepositive = \\st => x.prepositive ! st ++ xs.prepositive ! st
+      } ;
+    {-
     ConsAP x xs = {
       s1and = \\st,p => xs.s1and ! st ! p ++ xs.s2te ! st ! p ;
       s1or = \\st => table {
@@ -342,7 +357,7 @@ concrete ConjunctionJpn of Conjunction = CatJpn ** open ResJpn, Prelude in {
       s2dropNaEnging = x.dropNaEnging ;
       prepositive = \\st => x.prepositive ! st ++ xs.prepositive ! st
       } ;
-    
+    -}
     BaseIAdv x y = {
       s = \\st => x.s ! st ++ x.particle ++ y.s ! st ;
       particle = y.particle ;

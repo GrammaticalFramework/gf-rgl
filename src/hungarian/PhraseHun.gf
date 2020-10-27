@@ -1,32 +1,29 @@
-concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in 
-{
---{
---
---  lin
---    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
---
---    UttS s = s ;
---    UttQS qs = {s = qs.s ! QDir} ;
---    UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Sg False} ;
---    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Pl False} ;
---    UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Sg True} ;
---
---    UttIP ip = {s = ip.s ! npNom} ; --- Acc also
---    UttIAdv iadv = iadv ;
---    UttNP np = {s = np.s ! npNom} ;
---    UttVP vp = {s = infVP VVInf vp (agrP3 Sg)} ;
---    UttAdv adv = adv ;
---    UttCN n = {s = n.s ! Sg ! Nom} ;
---    UttCard n = {s = n.s ! Nom} ;
---    UttAP ap = {s = ap.s ! agrP3 Sg} ;
---    UttInterj i = i ;
---
---    NoPConj = {s = []} ;
---    PConjConj conj = {s = conj.s2} ; ---
---
---    NoVoc = {s = []} ;
---    VocNP np = {s = "," ++ np.s ! npNom} ;
---
---}
+concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in {
+
+  lin
+    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
+
+    UttS s = s ;
+    UttQS qs = qs ;
+    UttIAdv iadv = iadv ;
+{-
+    UttImpSg pol imp =
+    UttImpPl pol imp =
+    UttImpPol = UttImpSg ;
+-}
+    UttIP,
+    UttNP = \np -> {s = linNP np} ;
+    UttVP vp = {s = vp.obj ++ vp.adv ++ vp.s ! VInf} ;
+    UttAdv adv = adv ;
+    UttCN cn = {s = linCN cn} ;
+    UttCard n = {s = n.s ! Indep} ;
+    UttAP ap = {s = ap.s ! Sg ! Nom ++ ap.compl ! Sg} ;
+    UttInterj i = i ;
+
+    NoPConj = {s = []} ;
+--    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
+
+    NoVoc = {s = []} ;
+--    VocNP np = { s = "," ++ np.s ! … } ; -}
 
 }

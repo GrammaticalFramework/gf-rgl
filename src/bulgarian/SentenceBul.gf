@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete SentenceBul of Sentence = CatBul ** open Prelude, ResBul in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   flags optimize=all_subs ;
@@ -11,7 +11,7 @@ concrete SentenceBul of Sentence = CatBul ** open Prelude, ResBul in {
                                 VMedial  _ => np.s ! RSubj ;
                                 VPhrasal c => linCase c (personPol np.p) ++ np.s ! RObj CPrep}) np.gn np.p vp ;
 
-    PredSCVP sc vp = mkClause (sc.s ! {gn=GSg Masc; p=P3}) (GSg Masc) (NounP3 Pos) vp ;
+    PredSCVP sc vp = mkClause sc.s (GSg Masc) (NounP3 Pos) vp ;
 
     ImpVP vp = {
       s = \\p,gn => 
@@ -27,7 +27,7 @@ concrete SentenceBul of Sentence = CatBul ** open Prelude, ResBul in {
                      }
         in case orPol p vp.p of {
              Pos => vp.ad.s ++ verb Perf ++ clitic ;
-             Neg => "не" ++ vp.ad.s ++ clitic ++ verb Imperf
+             Neg => "РЅРµ" ++ vp.ad.s ++ clitic ++ verb Imperf
            } ++ compl ;
     } ;
 
@@ -51,13 +51,13 @@ concrete SentenceBul of Sentence = CatBul ** open Prelude, ResBul in {
     
     SlashVS np vs slash = {
       s = \\agr => (mkClause (np.s ! RSubj) np.gn np.p
-                             (insertObj (\\_ => "че" ++ slash.s ! agr) Pos (predV vs))).s ;
+                             (insertObj (\\_ => "С‡Рµ" ++ slash.s ! agr) Pos (predV vs))).s ;
       c2 = slash.c2
     } ;
 
-    EmbedS  s  = {s = \\_ => "че" ++ s.s} ;
-    EmbedQS qs = {s = \\_ => qs.s ! QIndir} ;
-    EmbedVP vp = {s = \\agr => daComplex Simul vp.p vp ! Perf ! agr} ;
+    EmbedS  s  = {s = "С‡Рµ" ++ s.s} ;
+    EmbedQS qs = {s = qs.s ! QIndir} ;
+    EmbedVP vp = {s = daComplex Simul vp.p vp ! Perf ! agrP3 (GSg Masc)} ;
 
     UseCl t p cl = {
       s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Main

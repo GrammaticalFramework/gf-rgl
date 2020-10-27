@@ -1,6 +1,5 @@
---# -path=.:../abstract:../common:../prelude:../api
+--# -path=.:../abstract:../common:../api:../prelude
 
-concrete AllRus of AllRusAbs = 
-  LangRus,
-  ExtraRus
-  ** {flags coding=utf8 ;} ;
+concrete AllRus of AllRusAbs = LangRus, ExtraRus,
+  DictRus,
+  ExtendRus ** {flags optimize=all ; coding=utf8;}

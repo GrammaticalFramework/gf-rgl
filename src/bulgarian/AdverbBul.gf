@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete AdverbBul of Adverb = CatBul ** open ResBul, Prelude in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
   lin
     PositAdvAdj a = {s = a.adv} ;
@@ -8,7 +8,7 @@ concrete AdverbBul of Adverb = CatBul ** open ResBul, Prelude in {
       s = cadv.s ++ a.s ! ASg Neut Indef ++ cadv.p ++ np.s ! RObj CPrep
       } ;
     ComparAdvAdjS cadv a s = {
-      s = cadv.s ++ a.s ! ASg Neut Indef ++ cadv.p ++ "колкото" ++ s.s
+      s = cadv.s ++ a.s ! ASg Neut Indef ++ cadv.p ++ "РєРѕР»РєРѕС‚Рѕ" ++ s.s
       } ;
 
     PrepNP prep np = {s = prep.s ++ np.s ! RObj prep.c} ;

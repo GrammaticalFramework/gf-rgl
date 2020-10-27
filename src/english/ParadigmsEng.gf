@@ -99,6 +99,12 @@ oper
     mkN : Str -> N -> N -- e.g. baby + boom
   } ;
 
+--3 Verbal nouns
+--
+-- A systematic way to form a verbal noun is the ending "-ing".
+
+    verbalN : V -> N ; -- e.g. sing -> singing
+
 
 --3 Relational nouns 
 
@@ -168,6 +174,7 @@ oper
     compoundA : A -> A ; -- force comparison with more/most
     simpleA   : A -> A ; -- force comparison with -er,-est
     irregAdv  : A -> Str -> A ;  -- adverb irreg, e.g. "fast"
+    invarA    : Str -> A ; -- adjective that does not vary in morphology
 
 --3 Two-place adjectives
 
@@ -312,7 +319,8 @@ oper
   mkVS  : V -> VS ; -- sentence-compl e.g. say (that S)
   mkV2S : V -> Prep -> V2S ; -- e.g. tell (NP) (that S)
   mkVV  : V -> VV ; -- e.g. want (to VP)
-  infVV : V -> VV ; -- e.g. want (to VP)
+  auxVV : V -> VV ; -- e.g. must (VP)
+  infVV : V -> VV ; -- e.g. must (VP) (old name of auxVV)
   ingVV : V -> VV ; -- e.g. start (VPing)
   mkV2V : overload {
     mkV2V : Str -> V2V ;
@@ -403,6 +411,8 @@ mkInterj : Str -> Interj
   genderN g man = lin N {s = man.s ; g = g} ;
 
   compoundN s n = lin N {s = \\x,y => s ++ n.s ! x ! y ; g=n.g} ;
+
+  verbalN v = regN (v.s ! VPresPart) ;
 
   mkPN = overload {
     mkPN : Str -> PN = regPN ;
@@ -578,8 +588,13 @@ mkInterj : Str -> Interj
     p = v.p ; 
     typ = VVInf
     } ;
-  infVV  v = lin VV {
-    s = table {VVF vf => v.s ! vf ; _ => v.s ! VInf} ;
+  auxVV, infVV = \v -> lin VV {
+    s = table {
+          VVF vf => v.s ! vf ; 
+          VVPresNeg => v.s ! VPres ++ "not" ; 
+          VVPastNeg => v.s ! VPast ++ "not" ; --# notpresent
+          _ => v.s ! VInf
+          } ;
     p = v.p ; 
     typ = VVAux
     } ;
@@ -653,6 +668,8 @@ mkInterj : Str -> Interj
     mkA : (good,better,best,well : Str) -> A = \a,b,c,d ->
       mkAdjective a b c d
     } ;
+
+  invarA s = mkAdjective s s s s ;
 
   compoundA = compoundADeg ;
   simpleA a = 

@@ -1,58 +1,109 @@
 --# -path=.:../abstract:../common:../../prelude
 
-concrete IdiomRus of Idiom = CatRus ** open Prelude, ResRus, MorphoRus in {
+concrete IdiomRus of Idiom = CatRus ** open Prelude, ParamX, TenseRus, ResRus, Coordination, MorphoRus in {
+flags optimize=all_subs ;  coding=utf8 ;
 
-  flags optimize=all_subs ;  coding=utf8 ;
+lin
+  -- : VP -> Cl ;        -- it is hot
+  ImpersCl vp =
+    let a = Ag (GSg Neut) P3 in {
+      subj="" ;
+      adv=vp.adv ! a ;
+      verb=vp.verb ;
+      dep=vp.dep ;
+      compl=\\p => vp.compl ! p ! a ;
+      a=a
+      } ;
 
-  lin
-    ExistNP = \bar ->
-    {s =\\b,clf => case b of 
-        {Pos =>  verbSuchestvovat.s ! (getActVerbForm clf (pgen2gen bar.g) Sg P3) 
-           ++ bar.s ! PF Nom No NonPoss;
-        Neg => "не" ++ verbSuchestvovat.s ! (getActVerbForm clf (pgen2gen bar.g) Sg P3) 
-           ++ bar.s ! PF Nom No NonPoss
-       }
-} ;
+  -- : VP -> Cl ;        -- one sleeps
+  GenericCl vp =
+    let a = Ag (GSg Masc) P2 in {
+      subj="" ;
+      adv=vp.adv ! a ;
+      verb=vp.verb ;
+      dep=vp.dep ;
+      compl=\\p => vp.compl ! p ! a ;
+      a=a
+      } ;
 
-    ExistIP Kto =
-    let {  kto = Kto.s ! (PF Nom No NonPoss) } in 
-       {s =  \\b,clf,_ => case b of 
-        {Pos =>  kto ++ verbSuchestvovat.s ! (getActVerbForm clf (pgen2gen Kto.g) Sg P3) ;
-        Neg => kto ++ "не" ++ verbSuchestvovat.s ! (getActVerbForm clf (pgen2gen Kto.g) Sg P3) 
-       }
+  -- : NP -> RS -> Cl ; -- it is I who did it
+  CleftNP np rs = {
+    subj="это" ++ np.s ! Nom ;
+    adv=[];
+    verb=copulaEll ;   -- ???
+    dep=[] ;
+    compl=\\_ => embedInCommas (rs.s ! agrGenNum np.a ! Animate ! Nom) ;  -- TODO: here or in subj???
+    a=np.a
+    } ;
+  -- : Adv -> S -> Cl ; -- it is here she slept
+  CleftAdv adv s = {
+    subj="это" ;
+    adv=adv.s ;
+    verb=nullVerb ;   -- ???
+    dep=[] ;
+    compl=\\_ => s.s ! Ind ;
+    a=Ag (GSg Neut) P3
     } ;
 
-    CleftAdv adv sen = {s= \\ b, clf =>  let ne= case b of {Pos =>[]; Neg =>"не"}
-      in 
-      "это" ++ ne ++ adv.s  ++ [", "]++ sen.s }; 
+  -- : NP -> Cl ;        -- there is a house
+  ExistNP np = {
+    subj=np.s ! Nom ;
+    compl=\\_ => [] ;
+    verb=to_exist ;
+    dep=[] ;
+    adv=[] ;
+    a=np.a
+    } ;
 
-    CleftNP np rs = {s= \\ b, clf =>  
-       let 
-         ne= case b of {Pos =>[]; Neg =>"не"};
-         gn = case np.n of {Pl => GPl; _=> GSg (pgen2gen np.g)}
-      in 
-      "это" ++ ne ++ np.s ! (PF Nom No NonPoss)  ++ 
-        rs.s ! gn !Nom!Animate  }; 
+  -- : IP -> QCl ;       -- which houses are there
+  ExistIP ip = {
+    subj=ip.nom ; -- gen?
+    adv=[] ;
+    verb=to_exist;
+    dep=[] ;
+    compl=\\_ => [] ;
+    a=ip.a
+    } ;
+  -- : NP -> Adv -> Cl ;    -- there is a house in Paris
+  ExistNPAdv np adv = {
+    subj=np.s ! Nom ;
+    adv=adv.s ;
+    verb=to_exist ;
+    dep=[] ;
+    compl=\\_ => [] ;
+    a=np.a
+    } ;
+  -- : IP -> Adv -> QCl ;   -- which houses are there in Paris
+  ExistIPAdv ip adv = {
+    subj=ip.nom ; -- gen?
+    adv=adv.s ;
+    verb=to_exist;
+    dep=[] ;
+    compl=\\_ => [] ;
+    a=ip.a
+    } ;
 
-    ImpPl1 vp = {s= "давайте" ++ vp.s! (ClIndic Future Simul)! GPl ! P1}; 
+  -- : VP -> VP ;        -- be sleeping
+  ProgrVP vp = vp ;
+  -- : VP -> Utt ;       -- let's go
+  ImpPl1 vp =
+    let a = Ag GPl P1 in {
+      s = (verbEnvAgr "давайте" (vp.adv ! a) vp.verb Infinitive Pres a PPos) ++ vp.dep ++ vp.compl ! Pos ! a
+      } ;
+  -- : NP -> VP -> Utt ; -- let John walk
+  ImpP3 np vp = {
+    s = (verbEnvAgr "пусть" (vp.adv ! np.a ++ np.s ! Nom) vp.verb Ind Pres np.a PPos) ++ vp.dep ++ vp.compl ! Pos ! np.a
+    } ;
 
-    ImpersCl vp = {s= \\ b, clf =>  let ne= case b of {Pos =>[]; Neg =>"не"}
-      in 
-      ne ++ vp.s! clf! (GSg Neut) ! P3  }; 
-
--- No direct correspondance in Russian. Usually expressed by infinitive:
--- "Если очень захотеть, можно в космос улететь" 
--- (If one really wants one can fly into the space).
--- Note that the modal verb "can" is trasferred into adverb 
--- "можно" (it is possible) in Russian
--- The closest subject is "ты" (you), which is omitted in the final sentence:
--- "Если очень захочешь, можешь в космос улететь"
-
-    GenericCl vp = {s= \\ b, clf =>  let ne= case b of {Pos =>[]; Neg =>"не"}
-      in 
-      "ты" ++ ne ++ vp.s! clf! (GSg Masc) ! P2  }; 
-
-    ProgrVP vp = vp ;
+  -- : VP -> VP ;        -- is at home himself
+  SelfAdvVP vp = vp ** {
+    compl=\\p,a => vp.compl ! p ! a ++ (adjFormsAdjective sam).s ! agrGenNum a ! Animate ! Nom
+    } ;
+  -- : VP -> VP ;        -- is himself at home
+  SelfAdVVP vp = vp ** {adv=\\a => (adjFormsAdjective sam).s ! agrGenNum a ! Animate ! Nom ++ vp.adv ! a} ;
+  -- : NP -> NP ;        -- the president himself (is at home)
+  SelfNP np = np ** {
+    s=\\cas => ((adjFormsAdjective sam).s ! agrGenNum np.a ! Animate ! cas ) ++ np.s ! cas
+    } ;
 
 }
-

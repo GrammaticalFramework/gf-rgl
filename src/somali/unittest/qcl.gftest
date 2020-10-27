@@ -1,0 +1,70 @@
+
+-- Question clauses
+
+-- Polar questions
+-- LangEng: do you teach the cat
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))) NoVoc
+LangSom: ma ku bartaa bisad BIND da
+
+-- LangEng: don't you teach the cat
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))) NoVoc
+LangSom: miyaanad ku barto bisad BIND da
+
+-- Wh-questions
+-- LangEng: who wants to go
+-- subject pronoun not included, because who is a subject. STM merged to pron.
+LangSom: yaa rabaa in uu tago
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V))))) NoVoc
+
+-- to whom did mother give the meat
+-- subject pronoun 'ay' included, because whom is an object. STM merged.
+LangSom: yaa ay siisey hooyo hilib BIND ka
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whoSg_IP (SlashVP (MassNP (UseN2 mother_N2))  (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N))))))) NoVoc
+
+-- LangEng: which cat teaches him
+-- subject pronoun not included, STM not merged.
+LangSom: bisad BIND dee baa ku bartaa
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a teach_V2) (UsePron he_Pron))))) NoVoc
+
+-- LangEng: which woman did you see
+-- subject pronoun included, STM not merged.
+LangSom: naag BIND tee baa aad aragtay
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN woman_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a see_V2))))) NoVoc
+
+-- LangEng: where did you go
+-- subject pronoun included, because IAdv xaggee 'where' is fronted and aad 'you' is subject. STM not merged.
+LangSom: xaggee baa aad tagtay
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V))))) NoVoc
+
+-- LangEng: why did you go
+-- subject pronoun included, STM merged.
+LangSom: maxaa aad u tagtay
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V))))) NoVoc
+
+-- Negative wh-question, Saeed p. 203
+-- LangEng: why didn't you go
+LangSom: maxaa aad u tagi weydey
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V))))) NoVoc
+
+-- IComp
+-- LangEng: who is the man
+-- Saeed p. 212  Ninkii ay raaceen waa ayo? man-the they accompanied DM who
+-- 'The man they travelled with is who?'
+LangSom: nin BIND ku waa ayo
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant DefArt NumSg) (UseN man_N))))) NoVoc
+
+--- Longer example, unsure about word order -- TODO check
+-- LangEng: how does your mother paint the house black
+LangSom: sidee baa ay hooya BIND daa madow u rinjiyeysaa guri BIND ga
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN2 mother_N2)) (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N))))))) NoVoc
+
+-- Some examples from Nilsson, adjusted to the GF lexicon
+-- Maxaa ay u samaysay sidaas? Varför gjorde hon så?
+--LangEng: why did she eat the meat
+LangSom: maxaa ay u cuntay hilib BIND ka
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumSg) (UseN meat_N))))))) NoVoc
+
+-- Maxaa ay ahaa dharka cusub ee Faadumo loo iibiyay? Vad/Vilka var de nya kläder som man köpt åt Fadumo? TODO why is there subject pronoun here?
+--LangEng: what was the meat that was eaten
+LangSom: maxaa uu ahaa hilib BIND ka la cunay
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestVP whatSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN meat_N) (UseRCl (TTAnt TPast ASimul) PPos (RelVP IdRP (PassV2 eat_V2)))))))))) NoVoc

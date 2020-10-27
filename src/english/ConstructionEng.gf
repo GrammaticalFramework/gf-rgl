@@ -28,7 +28,8 @@ lin
   is_wrong_VP = mkVP (ParadigmsEng.mkA "wrong") ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
-
+----  n_units_of_NP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+  n_unit_CN card unit cn = mkCN (invarA ((mkUtt card).s ++ (mkUtt unit).s)) cn ;
 
   bottle_of_CN np = mkCN (lin N2 (mkN2 "bottle")) (lin NP np) ;
   cup_of_CN    np = mkCN (lin N2 (mkN2 "cup"))    (lin NP np) ;
@@ -73,6 +74,8 @@ lincat
       let n_card : Card   = n ;
           n_hours_NP : NP = mkNP n_card time ;
       in  Sy.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
+
+    timeunitRange l u time = {s = l.s ! True ! R.Nom ++ to_Prep.s ++ u.s ! True ! R.Nom ++ time.s ! R.Pl ! R.Nom} ;
 
     oneHour         = mkHour "1"  True ;
     twoHour         = mkHour "2"  True ;

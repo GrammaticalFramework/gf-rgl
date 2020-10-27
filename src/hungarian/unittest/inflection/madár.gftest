@@ -1,0 +1,23 @@
+Lang: MassNP (UseN bird_N)
+LangHun: madár
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN bird_N)))
+LangHun: én látok egy madara &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN bird_N))
+LangHun: egy madáron
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN bird_N)
+LangHun: madarak
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN bird_N)))
+LangHun: én látok madarak &+ at
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN bird_N))
+LangHun: egy madárhoz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN bird_N))
+LangHun: madarak &+ hoz
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN bird_N)
+LangHun: én madara &+ m

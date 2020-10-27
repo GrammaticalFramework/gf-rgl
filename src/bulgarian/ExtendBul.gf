@@ -1,5 +1,7 @@
 --# -path=.:../abstract:../common:prelude
 concrete ExtendBul of Extend = CatBul ** open Prelude, Predef, ResBul, GrammarBul, MorphoFunsBul in {
+flags
+  coding=utf8;
 
 lin
   GenModNP num np cn = DetCN (DetQuant DefArt num) (AdvCN cn (PrepNP (mkPrep "на") np)) ;
@@ -7,18 +9,19 @@ lin
   AdAdV a adv = {s = a.s ++ adv.s; p = adv.p} ;
 
   EmptyRelSlash slash = {
-      s = \\t,a,p,agr => slash.c2.s ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
+      s = \\t,a,p,agr => linPrep slash.c2 ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
       } ;
 
   CompoundN n1 n2 = 
     let comp : NForm => Str
-             = \\nf => case n1.relPost of {
-                          True  => n2.s ! nf ++ n1.rel ! nform2aform nf n2.g ;
-                          False => n1.rel ! nform2aform nf n2.g ++ n2.s ! indefNForm nf
+             = \\nf => case n1.relType of {
+                          Pref   => n1.rel ! nform2aform nf n2.g ++ n2.s ! nf ;
+                          AdjMod => n1.rel ! nform2aform nf n2.g ++ n2.s ! indefNForm nf ;
+                          AdvMod => n2.s ! nf ++ n1.rel ! nform2aform nf n2.g
                         }
     in {
          s   = comp ;
-         rel = \\af => "на" ++ comp ! NF Sg Def ;  relPost = True ;
+         rel = \\af => "на" ++ comp ! NF Sg Def ;  relType = AdvMod ;
          g   = n2.g
     } ;
 
@@ -71,9 +74,10 @@ lin
     {s = vp.ad.s ++
          vp.s ! Imperf ! VGerund ++
          case vp.vtype of {
-           VNormal => "" ;
-           VMedial c => reflClitics ! c ;
-           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
+           VNormal => vp.clitics ;
+           VMedial c => vp.clitics++reflClitics ! c ;
+           VPhrasal Dat => personalClitics (agrP3 (GSg Masc)) ! Dat++vp.clitics ;
+           VPhrasal c   => vp.clitics++personalClitics (agrP3 (GSg Masc)) ! c
          } ++
          vp.compl ! {gn=GSg Neut; p=P3}} ;
 
@@ -101,9 +105,14 @@ lin
   UttVPShort vp = {
     s = let agr = agrP3 (GSg Neut) ;
             clitic = case vp.vtype of {
-                       VNormal    => {s=[]; agr=agr} ;
-                       VMedial c  => {s=reflClitics ! c; agr=agr} ;
-                       VPhrasal c => {s=personalClitics agr ! c; agr={gn=GSg Neut; p=P3}}
+                       VNormal    => {s=vp.clitics; agr=agr} ;
+                       VMedial c  => {s=vp.clitics++reflClitics ! c; agr=agr} ;
+                       VPhrasal c => {s=case c of {
+                                          Dat => personalClitics agr ! c++vp.clitics;
+                                          c   => vp.clitics++personalClitics agr ! c
+                                        } ;
+                                      agr={gn=GSg Neut; p=P3}
+                                     }
                      } ;
         in vp.ad.s ++ clitic.s ++
            vp.s ! Imperf ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ++

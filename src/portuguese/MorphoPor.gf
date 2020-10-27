@@ -14,8 +14,6 @@ resource MorphoPor = CommonRomance, ResPor **
         coding=utf8 ;
 --2 Nouns
 --
--- The following macro is useful for creating the forms of
--- number-dependent tables, such as common nouns.
 
 oper
 -- For example:
@@ -43,29 +41,40 @@ oper
   nomCanal : Str -> Number => Str = \canal ->
     numForms canal (init canal + "is") ;
 
-  acuteVowel : Str -> Str = \v ->
+  nomReptil : Str -> Number => Str = \reptil ->
+    numForms reptil (tk 2 reptil + "eis") ;
+
+  nomNounNoun : Str -> Str -> Number => Str = \couve,flor ->
+    let couves = mkNomReg' couve ;
+        flores = mkNomReg' flor
+    in numForms (couve + "-" + flor) (couves.s ! Pl + "-" + flores.s ! Pl) ;
+
+  nomVerbNoun : Str -> Str -> Number => Str = \guarda,chuva ->
+    let chuvas = mkNomReg' chuva
+    in numForms (guarda + "-" + chuva) (guarda + "-" + chuvas.s ! Pl) ;
+
+  nomChapeudesol : Str -> Str -> Str -> Number => Str = \chapeu,de,sol ->
+    let chapeus = mkNomReg' chapeu
+    in numForms (chapeu + "-" + de + "-" + sol) (chapeus.s ! Pl + "-" + de + "-" + sol) ;
+
+  vowelToAcute : Str -> Str = \v ->
     case v of {
       "a" => "á" ;
       "e" => "é" ;
       "i" => "í" ;
       "o" => "ó" ;
       "u" => "ú" ;
-      _ => error "input must be vowel character."
+      _ => error ("input" ++ v ++ "must be vowel character.")
     } ;
 
-  nomReptil : Str -> Number => Str = \reptil ->
-    numForms reptil (tk 2 reptil + "eis") ;
-
-  nomFenol : Str -> Number => Str = \fenol ->
-    case fenol of {
-      fen + v@("a"|"e"|"i"|"o"|"u") + "l" => numForms fenol (fen + acuteVowel v + "is")
-    };
-
-  nomVowelL : Str -> Number => Str = \nom ->
-    -- papel -> papéis, móvel -> móveis
-    case occurs "áéíúó" nom of {
-      PTrue => nomCanal nom ;
-      PFalse => nomFenol nom
+  diacriticToVowel : Str -> Str = \v ->
+    case v of {
+      ("á"|"â"|"ã") => "a" ;
+      ("é"|"ê") => "e" ;
+      "í" => "i" ;
+      ("ó"|"ô"|"õ") => "o" ;
+      "ú" => "u" ;
+      _ => error ("input" ++ v ++ "must be a vowel character with an accent.")
     } ;
 
 -- Common nouns are inflected in number and have an inherent gender.
@@ -76,41 +85,65 @@ oper
   mkNounIrreg : Str -> Str -> Gender -> Noun = \mec,mecs ->
     mkNoun (numForms mec mecs) ;
 
-  smartGenNoun : Str -> Gender -> Noun = \vinho,g -> case vinho of {
-    rapa + ("z"|"s") => -- capataz/Masc, flor/Fem, obus/Masc
-      mkNoun (nomRapaz vinho) g ;
-    can  + "al" => -- canal/Masc, vogal/Fem
-      mkNoun (nomCanal vinho) g ;
-    pap + "el" => -- cascavel/Fem, infiel/Masc
-      mkNoun (nomVowelL vinho) g ;
-    home  + "m" => -- homem/Masc, nuvem/nuvens
-      mkNoun (nomNuvem vinho) g ;
-    tóra + "x" => -- tórax/Masc, xerox/Fem
-      mkNoun (nomAreia vinho) g ;
-    _ =>
-      mkNoun (nomVinho vinho) g
-    } ;
-
   mkNomReg : Str -> Noun = \vinho -> case vinho of {
-    cas   + ("a" | "ã" | "dade" | "tude" | "ise" | "ite")  =>
-      -- casa, artesã, saudade, juventude, marquise, artrite
-      mkNoun (nomVinho vinho) Fem ;
-    va + "gem" =>
-      mkNoun (nomNuvem vinho) Fem ;
-    certid  + "ão" => -- other rules depend on stress, can this be built with gf?
-      mkNoun (nomFalcao vinho) Fem ;
-    proble + ("ma" | "n" | "o" | "á") => -- problema, líquen, carro, maracujá
-      mkNoun (nomVinho vinho) Masc ;
-    can + "r" => -- feminine words ending with 'r' usually are also masculine
-      mkNoun (nomRapaz vinho) Masc ;
-    can  + ("i" | "u") + "l"  =>  -- canil, azul | what about fóssil?
-      mkNoun (nomCanal vinho) Masc ;
-    fen + "ol" => mkNoun (nomVowelL vinho) Masc ;
-    urub + "u" => mkNoun (nomVinho vinho) Masc ;
-    _           => smartGenNoun vinho Masc
+    chapéu + "-" + de + "-" + sol => mkNoun (nomChapeudesol chapéu de sol) Masc ;
+
+    -- use nomVerbNoun for compounds of verb+noun
+    couve + "-" + flor => mkNoun (nomNounNoun couve flor) Masc ;
+
+    _ => mkNomReg' vinho
+
     } ;
 
---2 Adjectives
+  mkNomReg' : Str -> Noun = \vinho -> case vinho of {
+
+    -- casa, artesã, saudade, juventude, marquise, artrite
+    cas + ("a"|"ã"|"dade"|"tude"|"ise"|"ite")  =>
+      mkNoun (nomVinho vinho) Fem ;
+
+    va + "gem" => mkNoun (nomNuvem vinho) Fem ;
+
+    -- if syllable stress is not on -ão, orthographical rules say that
+    -- it should be marked with an accented letter
+    s + ("ó"|"â"|"á"|"ê"|"é"|"ô"|"í"|"ú") + t + "ão"
+      => mkNoun (nomVinho vinho) Masc ; -- although gender is still not predictable, counterexample *bênção
+
+    -- fails for e.g. *coração, but the productive morpheme -ção is
+    -- feminine (https://en.wiktionary.org/wiki/-%C3%A7%C3%A3o#Suffix)
+    revolu + "ção" => mkNoun (nomFalcao vinho) Fem ;
+
+    certid + "ão" =>
+      mkNoun (nomFalcao vinho) Masc ;
+
+    -- problema, carro, maracujá
+    -- proble + ("ma"|"o"|"á") =>
+    --   mkNoun (nomVinho vinho) Masc ;
+
+    ma + ("r"|"z"|"n") => mkNoun (nomRapaz vinho) Masc ;
+
+    -- fóssil, míssil, móbil, portátil, útil
+    f + ("ó"|"á"|"é"|"í"|"ú") + s + "il" => mkNoun (nomReptil vinho) Masc ;
+
+    can  + ("a"|"e"|"o"|"u") + "l"  => mkNoun (nomCanal vinho) Masc ;
+
+    can + "il" => mkNoun (numForms vinho (can + "is")) Masc ;
+
+    home  + "m" => mkNoun (nomNuvem vinho) Masc ;
+
+    g + v@("á"|"é"|"í"|"ó"|"ú"|"ê") + "s" => mkNoun (numForms vinho (g + (diacriticToVowel v) + "ses")) Masc ;
+
+    ônibu + "s" => mkNoun (nomAreia vinho) Masc ;
+
+    --urub + "u" => mkNoun (nomVinho vinho) Masc ;
+
+    -- tórax/Masc, xerox/Fem
+    tóra + "x" => mkNoun (nomAreia vinho) Masc ;
+
+    _           => mkNoun (nomVinho vinho) Masc
+
+    } ;
+
+--3 Adjectives
 --
 -- Adjectives are conveniently seen as gender-dependent nouns.  Here
 -- are some patterns. First one that describes the worst case.
@@ -118,82 +151,51 @@ oper
   mkAdj : (_,_,_,_,_ : Str) -> Adj =
     \burro,burra,burros,burras,burramente ->
     {s = table {
-       AF Masc n => numForms burro burros ! n ;
-       AF Fem  n => numForms burra burras ! n ;
-       AA        => burramente
+       ASg g _ => genForms burro burra ! g ;
+       APl g   => genForms burros burras ! g ;
+       AA      => burramente
        }
     } ;
 
-  mkAdj2 : (_,_: Str) -> Adj ;
-  mkAdj2 aj av = let
-    adj = mkAdjReg aj
+  mkAdj4 : (_,_,_,_ : Str) -> Adj ;
+  mkAdj4 ms fs mp fp =
+    let adv : Str = case fs of {
+          exeg + vo@("é"|"á"|"í"|"ó"|"ú"|"ê"|"ô") + tica
+            => exeg + (diacriticToVowel vo) + tica ;
+
+          comu + "m" => comu ; -- for Brazilian Portuguese
+
+          _          => fs
+          } + "mente" ;
     in {
       s = table {
-        AF g n => adj.s ! AF g n ;
-        AA => av
+        ASg g _ => genForms ms fs ! g ;
+        APl g   => genForms mp fp ! g ;
+        AA      => adv
         }
     } ;
 
--- Then the regular and invariant patterns.
+  mkAdjFromNouns : Noun -> Noun -> Adj ;
+  mkAdjFromNouns nm nf = mkAdj4 (nm.s ! Sg) (nf.s ! Sg) (nm.s ! Pl) (nf.s ! Pl) ;
 
-  adjPreto : Str -> Adj = \preto ->
-    let
-      pret = Predef.tk 1 preto
-    in
-    mkAdj preto (pret + "a") (pret + "os") (pret + "as") (pret + "amente") ;
+  mkAdjReg2 : Str -> Str -> Adj ;
+  mkAdjReg2 ms fs = mkAdjFromNouns (mkNomReg ms) (mkNomReg fs) ;
 
-  -- masculine and feminine are identical:
-  -- adjectives ending with -e, -a and many but not all that end in a
-  -- consonant
-  adjUtil : Str -> Str -> Adj = \útil,úteis ->
-    mkAdj útil útil úteis úteis (útil + "mente") ;
-
-  -- adjectives that end in consonant but have different masc and fem
-  -- forms español, hablador ...
-  adjOuvidor : Str -> Str -> Adj = \ouvidor,ouvidora ->
-    mkAdj ouvidor ouvidora (ouvidor + "es") (ouvidor + "as") (ouvidora + "mente") ;
-
-  adjBlu : Str -> Adj = \blu ->
-    mkAdj blu blu blu blu blu ; --- blasé
-
- -- francês francesa franceses francesas
-  adjFrances : Str -> Adj = \francês ->
-    let franc  : Str = Predef.tk 2 francês ;
-        frances : Str = franc + "es" ;
-    in mkAdj francês (frances + "a") (frances + "es") (frances + "as") (frances + "amente") ;
-
-
-  -- alemão alemã alemães alemãs
-  -- is there really a need for this? is it as useful as the spanish
-  -- one?
-  adjVo : Str -> Adj = \alemão ->
-    let alemã : Str = init alemão ;
-        alem  : Str = init alemã ;
-        ã : Str = last alemã ;
-        v : Str = case ã of {
-          "ã" => "a"
-        } ;
-        alemvo : Str = alem + v + "o" ;
-    in mkAdj alemão alemã (alemã + "s") (alemã + "es") (alemã + "mente") ;
-
-  adjEuropeu : Str -> Adj = \europeu -> let europe = init europeu in
-    mkAdj europeu (europe + "ia") (europeu + "s") (europe + "ias")
-      (europe + "iamente") ;
-
+  -- smart paradigm for adjectives amounts to guessing the feminine
+  -- form from the masculine form given, and then using the noun smart
+  -- paradigm for the plural forms
   mkAdjReg : Str -> Adj = \a ->
-    case a of {
-      pret + "o" => adjPreto a ;
-      anarquist + v@("e" | "a") => adjUtil a (a + "s") ;
-      ouvido + "r" => adjOuvidor a (ouvido + "ra") ;
-      chin + "ês" => adjFrances a ;
-      europ + "eu" => adjEuropeu a ;
-      alem + "ão" => adjVo a ;
-      provav + v@("e" | "i") + "l" => adjUtil a (provav + "eis") ;
-      jove + "m" => adjUtil a (jove + "ns") ;
-      _   => adjUtil a (a + "s")
+    let mkAdj : Str -> Adj = mkAdjReg2 a ;
+    in case a of {
+      alem   + "ão" => mkAdj (alem + "ã") ; -- fails for patrão/patroa
+      pret   + "o"  => mkAdj (pret + "a") ;
+      ouvido + "r"  => mkAdj (ouvido + "ra") ;
+      chin   + "ês" => mkAdj (chin + "esa") ;
+      europ  + "eu" => mkAdj (europ + "eia") ;
+      _             => mkAdj a
     } ;
 
---2 Personal pronouns
+--4 Personal pronouns
 --
 -- All the eight personal pronouns can be built by the following macro.
 -- The use of "ne" as atonic genitive is debatable.
@@ -239,17 +241,17 @@ oper
     (pronAgr pron g n p) ** pronLin você o lhe Você ;
 
 
---2 Determiners
+--5 Determiners
 --
 -- Determiners, traditionally called indefinite pronouns, are
 -- inflected in gender and number, like adjectives.
 
   pronForms : Adj -> Gender -> Number -> Str =
-    \tale,g,n -> tale.s ! AF g n ;
+    \tale,g,n -> tale.s ! (genNum2Aform g n) ;
 
   mkOrdinal : A -> Ord = \adj ->
   lin Ord {
-    s = \\ag => adj.s ! Posit ! AF ag.g ag.n ;
+    s = \\ag => adj.s ! Posit ! (genNum2Aform ag.g ag.n) ;
     } ;
 
   mkQuantifier : (esse,essa,esses,essas : Str) -> Quant = \esse,essa,esses,essas->
@@ -279,4 +281,4 @@ oper
         n = number
         } ;
 
-}
+} ;

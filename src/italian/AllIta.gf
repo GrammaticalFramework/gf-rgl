@@ -4,4 +4,5 @@ concrete AllIta of AllItaAbs =
   LangIta,
 --  IrregIta,
   ExtraIta 
-  ** {} ;
+  ** open ExtendIta
+  in {} ;

@@ -1,0 +1,23 @@
+Lang: MassNP (UseN man_N)
+LangHun: férfi
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN man_N)))
+LangHun: én látok egy férfi &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN man_N))
+LangHun: egy férfin
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN man_N)
+LangHun: férfiak
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))
+LangHun: én látok férfiak &+ at
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN man_N))
+LangHun: egy férfihoz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN man_N))
+LangHun: férfiak &+ hoz
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN man_N)
+LangHun: én férfi &+ m

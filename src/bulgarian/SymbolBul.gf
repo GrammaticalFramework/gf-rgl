@@ -1,10 +1,10 @@
 --# -path=.:../abstract:../common:../prelude
---# -coding=cp1251
+--# -coding=utf8
 
 concrete SymbolBul of Symbol = CatBul ** open Prelude, ResBul in {
 
 flags
-  coding = cp1251 ;
+  coding = utf8 ;
 
 lin
   SymbPN i = {s = i.s ; g = Neut} ;
@@ -32,15 +32,15 @@ lin
   SymbNum sy = {s = \\_ => sy.s; nn = NNum Pl} ;
   SymbOrd sy = {s = \\aform => sy.s ++ "-" ++ 
                                case aform of {
-                                 ASg Masc Indef => "òè" ;
-                                 ASg Fem  Indef => "òà" ;
-                                 ASg Neut Indef => "òî" ;
-                                 ASg Masc Def   => "òèÿ" ;
-                                 ASg Fem  Def   => "òàòà" ;
-                                 ASg Neut Def   => "òîòî" ;
-                                 ASgMascDefNom  => "òèÿò" ;
-                                 APl Indef      => "òè" ;
-                                 APl Def        => "òèòå"
+                                 ASg Masc Indef => "Ñ‚Ð¸" ;
+                                 ASg Fem  Indef => "Ñ‚Ð°" ;
+                                 ASg Neut Indef => "Ñ‚Ð¾" ;
+                                 ASg Masc Def   => "Ñ‚Ð¸Ñ" ;
+                                 ASg Fem  Def   => "Ñ‚Ð°Ñ‚Ð°" ;
+                                 ASg Neut Def   => "Ñ‚Ð¾Ñ‚Ð¾" ;
+                                 ASgMascDefNom  => "Ñ‚Ð¸ÑÑ‚" ;
+                                 APl Indef      => "Ñ‚Ð¸" ;
+                                 APl Def        => "Ñ‚Ð¸Ñ‚Ðµ"
                                }
                 } ;
 
@@ -52,7 +52,7 @@ lin
 
   MkSymb s = s ;
 
-  BaseSymb = infixSS "è" ;
+  BaseSymb = infixSS "Ð¸" ;
   ConsSymb = infixSS bindComma ;
 
 }

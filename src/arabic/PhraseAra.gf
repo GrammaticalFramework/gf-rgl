@@ -12,13 +12,13 @@ concrete PhraseAra of Phrase = CatAra ** open
     UttImpPl,UttImpPol = \pol,imp -> {s = \\g => imp.s ! pol.p ! g ! ResAra.Pl ++ pol.s} ;
     UttInterj i = {s = \\g => i.s} ;
 
-    UttIP ip = {s = \\g => ip.s ! False ! g ! Def ! Nom} ; --IL
+    UttIP ip = {s = \\g => ip.s ! False ! g ! Const ! Nom} ; --IL
     UttAP ap = {s = ResAra.uttAP ap} ; --IL
     UttCard c = {s = ResAra.uttNum c} ; --IL
 
     UttCN cn = {s = ResAra.uttCN cn } ; --IL
     UttNP np = {s = \\_ => np.s ! Nom} ;
-    UttVP vp = {s = uttVP vp} ; --IL
+    UttVP vp = {s = uttVP VPPerf vp} ; --IL
     UttS s = {s = \\_ => s.s ! Verbal} ;
     UttAdv,
     UttIAdv = \s -> {s = \\_ => s.s} ; ---- OK? AR

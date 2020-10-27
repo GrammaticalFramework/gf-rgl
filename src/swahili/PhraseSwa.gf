@@ -1,5 +1,3 @@
-concrete PhraseSwa of Phrase = CatSwa ** open Prelude, ResSwa in {
-
-    
-
-}
+concrete PhraseSwa of Phrase = CatSwa ** PhraseBantu with
+ (ResBantu = ResSwa);  
+  

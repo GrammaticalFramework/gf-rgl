@@ -1,14 +1,10 @@
 incomplete concrete SentenceBantu of Sentence = 
   CatBantu ** open Prelude, CommonBantu, ResBantu in {
-{-
-  flags optimize=all_subs ;
-    coding=utf8 ;
 
   lin
-      
-                         
-  PredVP np vp = mkClause (np.s ! npNom) np.a vp ;
 
+  PredVP np vp = mkClause (np.s ! npNom) (agrFeatures np.a) vp ;
+{-
     PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
     ImpVP vp = {
@@ -43,11 +39,12 @@ incomplete concrete SentenceBantu of Sentence =
     EmbedS  s  = {s = conjThat ++ s.s} ;
     EmbedQS qs = {s = qs.s ! QIndir} ;
     EmbedVP vp = {s = infVP VVInf vp Simul CPos (agrP3 Sg)} ; --- agr
-    UseCl  t p cl = {
-      s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.b  } ;
+-}
+    UseCl  t p cl =
+      let b : Bool = case p.p of {Pos => True ; _ => False}
+      in {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! b} ;
 
-   -- UseCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! p.b} ; 
-   UseQCl t p cl = {
+{-   UseQCl t p cl = {
       s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! q
     } ;
     UseRCl t p cl = {

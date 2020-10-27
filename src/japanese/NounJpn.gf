@@ -10,16 +10,16 @@ flags coding = utf8 ;
           True => case cn.hasAttr of {
             True => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
                     ++ "の" ++ cn.s ! det.n ! st ;
-            False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive 
+            False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
             } ;
           False => case <det.tenPlus, cn.counterTsu> of {
-            <True, True> => cn.object ! st ++ det.quant ! st ++ det.num ++ "個" ++ det.postpositive 
+            <True, True> => cn.object ! st ++ det.quant ! st ++ det.num ++ "個" ++ det.postpositive
                             ++ "の" ++ cn.s ! det.n ! st ;
-             _ => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive 
-                  ++ "の" ++ cn.s ! det.n ! st 
-            } 
+             _ => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
+                  ++ "の" ++ cn.s ! det.n ! st
+            }
           } ;
-        False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.s ! det.n ! st 
+        False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.s ! det.n ! st
         } ;
       prepositive = cn.prepositive ;
       needPart = True ;
@@ -30,7 +30,7 @@ flags coding = utf8 ;
       meaning = SomeoneElse ;
       anim = cn.anim
       } ;
-      
+
     UsePN pn = {
       s = \\st => pn.s ! st ;
       prepositive = \\st => [] ;
@@ -39,7 +39,7 @@ flags coding = utf8 ;
       meaning = SomeoneElse ;
       anim = pn.anim
     } ;
-    
+
     UsePron pron = {
       s = pron.s ;
       prepositive = \\st => [] ;
@@ -51,19 +51,15 @@ flags coding = utf8 ;
         } ;
       anim = pron.anim
       } ;
-    
-    PredetNP p np = {
+
+    PredetNP p np = np ** {
       s = \\st => p.s ++ np.s ! st ;
-      prepositive = np.prepositive ;
-      needPart = np.needPart ;
       changePolar = case p.not of {
         True => True ;
         False => np.changePolar
         } ;
-      meaning = np.meaning ;
-      anim = np.anim
       } ;
-      
+
     PPartNP np v2 = np ** {
       s = \\st => v2.pass ! Plain ! TPast ! Pos ++ np.s ! st ;
       } ;
@@ -71,20 +67,20 @@ flags coding = utf8 ;
     AdvNP np adv = np ** {
       s = \\st => case adv.prepositive of {
         True => np.s ! st ;
-        False => adv.s ! st ++ np.s ! st 
+        False => adv.s ! st ++ np.s ! st
         } ;
       prepositive = \\st => case adv.prepositive of {
         True => adv.s ! st ;
-        False => [] 
-        } 
+        False => []
+        }
       } ;
 
     ExtAdvNP = AdvNP ;
-    
+
     RelNP np rs = np ** {
-      s = \\st => rs.s ! np.anim ! st ++ np.s ! st 
+      s = \\st => rs.s ! np.anim ! st ++ np.s ! st
       } ;
-    
+
     DetNP det = {
       s = det.sp ;
       prepositive = \\st => [] ;
@@ -96,7 +92,7 @@ flags coding = utf8 ;
       meaning = SomeoneElse ;
       anim = Inanim   -- not always, depends on the context
       } ;
-    
+
     DetQuant quant num = {
       quant = quant.s ;
       postpositive = num.postpositive ;
@@ -113,7 +109,7 @@ flags coding = utf8 ;
       no = quant.no ;
       tenPlus = num.tenPlus
       } ;
-      
+
     DetQuantOrd quant num ord = {
       quant = \\st => quant.s ! st ++ ord.attr ;
       postpositive = num.postpositive ;
@@ -132,15 +128,15 @@ flags coding = utf8 ;
       } ;
 
     NumSg = mkNum "" Sg ;
-    
+
     NumPl = mkNum "" Pl ;
-    
+
     NumCard card = card ** {inclCard = True} ;
-    
+
     NumDigits num = num ** {postpositive = []} ;
-    
+
     NumNumeral num = num ** {postpositive = []} ;
-    
+
     AdNum adn card = case adn.postposition of {
       True => {
         s = card.s ;
@@ -153,11 +149,11 @@ flags coding = utf8 ;
         postpositive = [] ;
         n = card.n ;
         tenPlus = card.tenPlus
-        } 
+        }
       } ;
-    
+
     OrdDigits, OrdNumeral = mkOrd ; -- "banme"
-      
+
     OrdSuperl a = {
       pred = \\st,t,p => "一番" ++ a.pred ! st ! t ! p ;  -- "ichiban"
       attr = "一番" ++ a.attr ;
@@ -175,53 +171,51 @@ flags coding = utf8 ;
       adv = \\p => n.s ++ "番" ++ a.adv ! p ;
       dropNaEnging = n.s ++ "番" ++ a.dropNaEnging
       } ;
-    
+
     IndefArt = {s = \\st => "" ; sp = \\st => "何か" ; no = False} ;
-    
+
     DefArt = {s = \\st => "" ; sp = \\st => "これ" ; no = False} ;
-    
-    MassNP cn = {
+
+    MassNP cn = cn ** {
       s = \\st => cn.object ! st ++ cn.s ! Pl ! st ;
-      prepositive = cn.prepositive ;
       needPart = True ;
       changePolar = False ;
       meaning = SomeoneElse ;
-      anim = cn.anim
       } ;
-    
+
     PossPron pron = {
       s, sp = \\st => pron.s ! st ++ "の" ;
       no = False
       } ;
-    
+
     UseN n = n ** {
       object = \\st => [] ;
       prepositive = \\st => [] ;
       hasAttr = False ;
       } ;
-      
+
     ComplN2 n2 np = n2 ** {
       object = \\st => n2.object ! st ++ np.s ! st ++ n2.prep ;
       prepositive = np.prepositive ;
       hasAttr = False ;
       } ;
-      
+
     ComplN3 n3 np = n3 ** {
       object = \\st => np.s ! st ++ n3.prep1 ;
       prepositive = np.prepositive ;
       prep = n3.prep2 ;
       } ;
-      
+
     UseN2 n2 = n2 ** {
       prepositive = \\st => [] ;
       hasAttr = False ;
       } ;
-      
+
     Use2N3 n3 = n3 ** {
       object = \\st => [] ;
       prep = n3.prep1 ;
       } ;
-    
+
     Use3N3 n3 = n3 ** {
       object = \\st => [] ;
       prep = n3.prep2 ;
@@ -230,7 +224,7 @@ flags coding = utf8 ;
     AdjCN ap cn = cn ** {
       s = \\n,st => case cn.hasAttr of {
         False => ap.attr ! st ++ cn.s ! n ! st ;
-        True => ap.te ! st ! Pos ++ cn.s ! n ! st 
+        True => ap.te ! st ! Pos ++ cn.s ! n ! st
         } ;
       hasAttr = True ;
       } ;
@@ -238,29 +232,29 @@ flags coding = utf8 ;
     RelCN cn rs = cn ** {
       object = \\st => rs.s ! cn.anim ! st ++ cn.object ! st ;
       } ;
-                                  
+
     AdvCN cn adv = cn ** {
       object = \\st => case adv.prepositive of {
         True => cn.object ! st ;
-        False => adv.s ! st ++ cn.object ! st 
+        False => adv.s ! st ++ cn.object ! st
         } ;
       prepositive = \\st => case adv.prepositive of {
-        True => adv.s ! st ;
-        False => []
+        True => adv.s ! st ++ cn.prepositive ! st ;
+        False => cn.prepositive ! st
         } ;
       } ;
-      
+
     SentCN cn sc = cn ** {
       object = \\st => sc.s ! Ga ! st ++ cn.object ! st ;
       } ;
-    
+
     ApposCN cn np = cn ** {
       s = \\n,st => np.s ! st ++ cn.s ! n ! st ;
       } ;
 
     PossNP cn np = cn ** {     -- house of Paris, house of mine
       s = \\n,st => np.s ! st ++ "の" ++ cn.s ! n ! st ;
-      } ;      
+      } ;
 
     PartNP = PossNP ;
 
@@ -276,13 +270,13 @@ flags coding = utf8 ;
     AdjDAP dap ap = lin Det {
       quant = \\st => dap.quant ! st ++ ap.prepositive ! st ++ ap.attr ! st ;
       num = dap.num ;
-      postpositive = dap.postpositive ; 
-      n = dap.n ; 
-      inclCard = dap.inclCard ; 
+      postpositive = dap.postpositive ;
+      n = dap.n ;
+      inclCard = dap.inclCard ;
       sp = \\st => dap.sp ! st ++ ap.prepositive ! st ++ ap.attr ! st ;
-      no = dap.no ; 
-      tenPlus = dap.tenPlus    
-      } ;  
+      no = dap.no ;
+      tenPlus = dap.tenPlus
+      } ;
 
     DetDAP det = det ;
 }

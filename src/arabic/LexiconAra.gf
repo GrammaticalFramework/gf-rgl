@@ -11,15 +11,14 @@ flags
   lin
 
   airplane_N   = sdfN "طءر" "فاعِلة" Fem NoHum ;
-  answer_V2S   = dirV2 (v3 "جوب") ;
+  answer_V2S   = mkV2S (v3 "جوب") ;
   apartment_N  = brkN "شقّ" "فِعّة" "فِعَل" Fem NoHum ;
   apple_N      = sdfN "تفح" "فِعّالة" Fem NoHum ;
   art_N        = brkN "فنن" "فَعّ" "فُعُول" Masc NoHum ;
   ask_V2Q      = dirV2 (regV "يَسءَل") ;
 --  ask_V2Q      = dirV2 (v1 "سءل" a a) ;
   baby_N       = brkN "طفل" "فِعل" "أَفعَال" Masc Hum;
---  bad_A        = sndA "سوء" "فَيِّع" ;
-  bad_A        = degrA "سَيِّئ" "سَيِّئَة" "سَيِّئِين" ;
+  bad_A        = sndA "سوء" "فَيِّع" ;
   bank_N       = brkN "بنك" "فَعل" "فُعُول" Masc NoHum ;
   beautiful_A  = sndA "جمل" "فَعِيل" ;
   become_VA    = mkVA (v4 "صبح") ;
@@ -73,7 +72,7 @@ flags
   door_N       = brkN "بوب" "فاع" "أَفعَال" Masc NoHum ;
   drink_V2     = dirV2 (regV "شَرِب") ;
 --  drink_V2     = dirV2 (v1 "شرب" i a) ;
-  easy_A2V     = mkA2 (sndA "سهل" "فَعل") datPrep ;
+  easy_A2V     = mkA2 (sndA "سهل" "فَعل") liPrep ;
   eat_V2       = dirV2 (mkV "ءكل" FormI) ;
   empty_A      = sndA "فرغ" "فاعِل" ;
   enemy_N      = brkN "عدو" "فَعُلّ" "أَفعَاء" Masc Hum ;
@@ -133,7 +132,7 @@ flags
   meat_N       = brkN "لحم" "فَعلة" "فُعُول" Masc NoHum ;
   milk_N       = brkN "حلب" "فَعِيل" "فَعِيل" Masc NoHum ; --no plur
   moon_N       = brkN "قمر" "فَعَل" "أَفعَال" Masc NoHum ;
-  mother_N2    = mkN2 (sdfN "ءم" "فُعَّ" Fem Hum) ;
+  mother_N2    = mkN2 (mkN "أُمّ" "أُمَّات" Fem Hum) ;
   mountain_N   = brkN "جبل" "فَعَل" "فِعَال" Masc NoHum ;
   music_N      = mkN (reg "مُوسِيقَى" "مُوسِيقَى") Fem NoHum ; --no plur
   narrow_A     = sndA "ضيق" "فَعِّل" ;
@@ -143,7 +142,7 @@ flags
   old_A        = sndA "قدم" "فَعِيل" ;
   open_V2      = dirV2 (regV "يَفتَح") ;
 --  open_V2      = dirV2 (v1 "فتح" a a ) ;
-  paint_V2A    = mkV2A (regV "يَدهَن" ) [] ;
+  paint_V2A    = dirV2 (regV "يَدهَن" ) ;
 --  paint_V2A    = mkV2A (v1 "دهن" a a ) [] ;
   paper_N      = brkN "ورق" "فَعَلة" "أَفعَال" Fem NoHum ;
   paris_PN     = mkPN "بارِيس" Fem NoHum  ;
@@ -203,7 +202,7 @@ flags
   switch8off_V2 = dirV2 (v4 "طفء") ;
   switch8on_V2 = dirV2 (v4 "شعل") ;
   table_N      = sdfN "طول" "فاعِلة" Fem NoHum ;
-  talk_V3      = mkV3 (v5 "حدث") datPrep (mkPrep "عَن") ;
+  talk_V3      = mkV3 (v5 "حدث") liPrep (mkPrep "عَن") ;
   teacher_N    = sdmN "علم" "مُفَعِّل" Masc Hum ; --mucal~imö
   teach_V2     = dirV2 (v2 "علم") ;
   television_N = mkN (sndf "تِلِفِزيُون") Masc NoHum ;

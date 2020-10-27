@@ -2,7 +2,7 @@
 
 concrete AllIce of AllIceAbs = 
   LangIce,
-  IrregIce
+  WiktIrregIce -- AR 2019-08-06
 --  ExtraIce
   ** 
 {

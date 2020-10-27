@@ -1,6 +1,6 @@
 # A simple wrapper over the Haskell-based RGL build script
 
-RUNMAKE=runghc Make.hs
+RUNMAKE=runghc Setup.hs
 
 .PHONY: build copy install doc clean
 

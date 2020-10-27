@@ -67,6 +67,16 @@ http://acl.ldc.upenn.edu/W/W07/W07-08.pdf
 //and agreement of constructions with numerals.//
 
 
+===Basque===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/basque (Inari Listenmaa, Francis Tyers)
+
+- **Publications**
+
+Inari Listenmaa.
+//Formal Methods for Testing Grammars.// PhD thesis. Chalmers University of Technology and University of Gothenburg. 2019. [PDF https://gupea.ub.gu.se/bitstream/2077/59037/1/gupea_2077_59037_1.pdf]
+#BR
+//Mentioned in Chapter 5 of the thesis.//
 
 
 ===Bulgarian===
@@ -117,6 +127,10 @@ Appendix to the GF book (A. Ranta, //Grammatical Framework//, CSLI 2011),
 http://www.grammaticalframework.org/gf-book/gf-chinese-appendix.pdf
 
 
+===Czech===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/czech (Aarne Ranta, Michal Měchura)
+
 
 ===Danish===
 
@@ -155,8 +169,13 @@ The GF Resource Grammar Library.
 
 - **Source**: http://www.grammaticalframework.org/lib/src/estonian (Kaarel Kaljurand, Inari Listenmaa)
 
-%- **Publications**
+- **Publications**
 
+Inari Listenmaa and Kaarel Kaljurand.
+Computational Estonian Grammar in Grammatical Framework.
+//Proceedings of the SALTMIL Workshop at LREC//,
+2014.
+[PDF http://ixa2.si.ehu.es/~jipsagak/SALTMIL/LREC_2014_Workshop_Proceedings_Saltmil.pdf]
 
 
 ===Finnish===
@@ -256,6 +275,9 @@ In The 3rd Workshop
 on South and Southeast Asian NLP, COLING 2012. //Reprinted in Shafqat's thesis//
 
 
+===Hungarian===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/hungarian (Inari Listenmaa, Julia Jansson)
 
 
 ===Icelandic===
@@ -281,8 +303,6 @@ Bjarki Traustason, MSc thesis, Chalmers
 %- **Publications**
 
 
-
-
 ===Japanese===
 
 - **Source**: http://www.grammaticalframework.org/lib/src/japanese (Liza Zimina)
@@ -302,14 +322,31 @@ Lecture Notes in Computer Science Volume 7614, 2012, pp 156-167.
 http://link.springer.com/chapter/10.1007%2F978-3-642-33983-7_16
 
 
+===Korean===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/korean (Inari Listenmaa)
+
 
 
 ===Latin===
 
-- **Source**: http://www.grammaticalframework.org/lib/src/latin (Aarne Ranta)
+- **Source**: http://www.grammaticalframework.org/lib/src/latin (Herbert Lange, Aarne Ranta)
 
-%- **Publications**
+- **Publications**
 
+Herbert Lange.
+Erstellen einer Grammatik für das Lateinische im “Grammatical Framework”,
+Master’s thesis (Magiserarbeit), Ludwig-Maximilians-University Munich, 2013.
+
+Herbert Lange. Implementation of a Latin Grammar in Grammatical Framework, //DATeCH//, 2017.
+
+Herbert Lange and Peter Ljunglöf.
+MULLE: A grammar-based Latin language learning tool to supplement the classroom setting.
+//Proceedings of the 5th Workshop on Natural Language Processing Techniques for Educational Applications//,
+2018.
+[PDF https://www.aclweb.org/anthology/W18-3715.pdf]
+#BR
+//Latin RGL used in a language-learning application.//
 
 
 ===Latvian===
@@ -397,6 +434,15 @@ Slide presentation, TYPES 2010, Warsaw,
 http://www.mimuw.edu.pl/~asl/publications/types2010-slides.pdf
 
 
+===Portuguese===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/portuguese (Bruno Cuconato)
+
+- **Publications**
+
+Bruno Cuconato Claro.
+//A computational grammar for Portuguese//. MSc thesis. Rio de Janeiro, 2019.
+
 
 ===Punjabi===
 
@@ -438,7 +484,7 @@ LNCS 6008,
 
 ===Russian===
 
-- **Source**: http://www.grammaticalframework.org/lib/src/russian (Janna Khegai, Nikita Frolov)
+- **Source**: http://www.grammaticalframework.org/lib/src/russian (Janna Khegai, Nikita Frolov, Roman Suzi)
 
 - **Publications**
 
@@ -475,6 +521,21 @@ MSc Thesis, Chalmers University of Technology,
 http://publications.lib.chalmers.se/records/fulltext/163234.pdf
 
 
+===Slovak===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/slovak (Aarne Ranta, Slavomír Čéplö, Michal Měchura)
+
+
+===Slovenian===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/slovenian (Krasimir Angelov, Anna Ehrlemark)
+
+
+===Somali===
+
+- **Source**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/somali (Inari Listenmaa)
+
+
 ===Spanish===
 
 - **Source**: http://www.grammaticalframework.org/lib/src/spanish  http://www.grammaticalframework.org/lib/src/romance
@@ -485,7 +546,8 @@ http://publications.lib.chalmers.se/records/fulltext/163234.pdf
 
 ===Swahili===
 
-- **Source**: http://www.grammaticalframework.org/lib/src/swahili (Wanjiku Ng'ang'a)
+- **Source**: http://www.grammaticalframework.org/lib/src/swahili (Benson Kituku).
+- **Previous version**: https://github.com/GrammaticalFramework/gf-rgl/tree/master/src/swahili/old (Wanjiku Ng'ang'a).
 
 
 - **Publications**
@@ -517,10 +579,6 @@ Malin Ahlberg and Ramona Enache.
 A Type-Theoretical Wide-Coverage Computational Grammar for Swedish.
 P. Sojka et al (eds), TSD 2012, LNCS 7499, pp. 183-190.
 http://link.springer.com/content/pdf/10.1007%2F978-3-642-32790-2_22.pdf
-
-
-
-
 
 
 ===Thai===
@@ -556,3 +614,17 @@ July 21-22, 2007, LSA 2007 Linguistic Institute, Stanford University.
 2007.
 
 See also **Hindi** above.
+
+
+===Zulu===
+
+- **Source:** https://github.com/LauretteM/gf-rgl-zul/tree/master/src/zulu (Laurette Marais, Laurette Pretorius)
+
+- **Publications**
+
+Laurette Marais, Johannes A. Louw, Jaco Badenhorst, Karen Calteaux, Ilana Wilken, Nina van Niekerk,and Glenn Stein.
+AwezaMed: A Multilingual, MultimodalSpeech-To-Speech Translation Application for Maternal Health Care.
+//Proceedings of the 23rd International Conference on Information Fusion//.
+July 6-9, 2020.
+#BR
+//The article presents a health care translation system, which uses the Zulu resource grammar.//

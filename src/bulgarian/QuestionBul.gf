@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete QuestionBul of Question = CatBul ** open ResBul, Prelude in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   flags optimize=all_subs ;
@@ -12,7 +12,7 @@ concrete QuestionBul of Question = CatBul ** open ResBul, Prelude in {
             let cls = cl.s ! t ! a ! p 
             in table {
               QDir   => cls ! Quest ;
-              QIndir => "ако" ++ cls ! Main
+              QIndir => "Р°РєРѕ" ++ cls ! Main
               } ---- "whether" in ExtEng
       } ;
       
@@ -22,7 +22,7 @@ concrete QuestionBul of Question = CatBul ** open ResBul, Prelude in {
       } ;
 
     QuestSlash ip slash = 
-      mkQuestion {s = \\qform => slash.c2.s ++ case slash.c2.c of {Dat=>"на";_=>[]} ++ ip.s ! (RObj slash.c2.c) ! qform}
+      mkQuestion {s = \\qform => slash.c2.s ++ case slash.c2.c of {Dat=>"РЅР°";_=>[]} ++ ip.s ! (RObj slash.c2.c) ! qform}
                  {s = slash.s ! (agrP3 ip.gn) } ;
 
     QuestIAdv iadv cl = mkQuestion iadv cl ;
@@ -30,7 +30,7 @@ concrete QuestionBul of Question = CatBul ** open ResBul, Prelude in {
     QuestIComp icomp np = 
       mkQuestion icomp (mkClause (np.s ! RSubj) np.gn np.p (predV verbBe)) ;
 
-    PrepIP p ip = {s = \\qform => p.s ++ case p.c of {Dat=>"на";_=>[]} ++ ip.s ! RSubj ! qform} ;
+    PrepIP p ip = {s = \\qform => p.s ++ case p.c of {Dat=>"РЅР°";_=>[]} ++ ip.s ! RSubj ! qform} ;
 
     AdvIP ip adv = {
       s = \\role,qform => ip.s ! role ! qform ++ adv.s ;

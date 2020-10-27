@@ -27,7 +27,7 @@ oper
    heading : N -> Str = \n -> (nounHeading n).s ;
 
 lin
-  InflectionN, InflectionN3, InflectionN3 = \noun -> {
+  InflectionN, InflectionN2, InflectionN3 = \noun -> {
     t = "n" ;
     s1 = heading1 (heading noun_Category ++
                    case noun.g of {
@@ -45,8 +45,8 @@ lin
     s1 = heading1 (nounHeading adjective_Category).s ;
     s2 = frameTable (
            tr (th ""                            ++ th (heading singular_Parameter)  ++ th  (heading plural_Parameter)) ++
-           tr (th (heading masculine_Parameter) ++ td (adj.s ! Posit ! (AF Masc Sg)) ++ td (adj.s ! Posit ! (AF Masc Pl))) ++
-           tr (th (heading feminine_Parameter)  ++ td (adj.s ! Posit ! (AF Fem Sg))  ++ td (adj.s ! Posit ! (AF Fem Pl)))
+           tr (th (heading masculine_Parameter) ++ td (adj.s ! Posit ! (genNum2Aform Masc Sg)) ++ td (adj.s ! Posit ! (genNum2Aform Masc Pl))) ++
+           tr (th (heading feminine_Parameter)  ++ td (adj.s ! Posit ! (genNum2Aform Fem Sg))  ++ td (adj.s ! Posit ! (genNum2Aform Fem Pl)))
          )
     } ;
 
@@ -111,8 +111,8 @@ lin
   InflectionVV v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v (S.mkVP (L.sleep_V)))) ;
-    s2 = inflVerb v
+         paragraph (verbExample (S.mkCl S.she_NP (lin VV v) (S.mkVP L.sleep_V))) ;
+    s2 = inflVerb (lin VV v)
     } ;
 
   InflectionVS v = {
@@ -223,4 +223,4 @@ oper
 {- --# notpresent
 -}
 
-}
+} ;

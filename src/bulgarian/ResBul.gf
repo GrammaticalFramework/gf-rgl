@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:../../prelude
---# -coding=cp1251
+--# -coding=utf8
 
 --1 Bulgarian auxiliary operations.
 
@@ -11,7 +11,7 @@
 resource ResBul = ParamX ** open Prelude, Predef in {
 
   flags
-    coding=cp1251 ;  optimize=all ;
+    coding=utf8 ;  optimize=all ;
 
 
 -- Some parameters, such as $Number$, are inherited from $ParamX$.
@@ -30,7 +30,9 @@ resource ResBul = ParamX ** open Prelude, Predef in {
       | NFPlCount
       | NFVocative
       ;
-      
+
+    NRelType = Pref | AdjMod | AdvMod ;
+
     NNumber =
         NNum Number
       | NCountable
@@ -326,149 +328,149 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
     auxBe : VTable =
       table {
-        VPres      Sg P1  => "Ò˙Ï" ; 
-        VPres      Sg P2  => "ÒË" ;
-        VPres      Sg P3  => "Â" ;
-        VPres      Pl P1  => "ÒÏÂ" ; 
-        VPres      Pl P2  => "ÒÚÂ" ;
-        VPres      Pl P3  => "Ò‡" ;
-        VAorist    Sg P1  => "·ˇı" ; 
-        VAorist    Sg _   => "·Â¯Â" ;
-        VAorist    Pl P1  => "·ˇıÏÂ" ; 
-        VAorist    Pl P2  => "·ˇıÚÂ" ;
-        VAorist    Pl P3  => "·ˇı‡" ;
-        VImperfect Sg P1  => "·ˇı" ; 
-        VImperfect Sg _   => "·Â¯Â" ;
-        VImperfect Pl P1  => "·ˇıÏÂ" ; 
-        VImperfect Pl P2  => "·ˇıÚÂ" ;
-        VImperfect Pl P3  => "·ˇı‡" ;
-        VPerfect    aform => regAdjective "·ËÎ" ! aform ;
-        VPluPerfect aform => regAdjective "·ËÎ" ! aform ;
-        VPassive    aform => regAdjective "·˙‰ÂÌ" ! aform ;
-        VPresPart   aform => regAdjective "·˙‰Â˘" ! aform ;
-        VImperative Sg    => "·˙‰Ë" ;
-        VImperative Pl    => "·˙‰ÂÚÂ" ;
-        VNoun _           => "·˙‰ÂÌÂ";
-        VGerund           => "·Ë‰ÂÈÍË"
+        VPres      Sg P1  => "—Å—ä–º" ; 
+        VPres      Sg P2  => "—Å–∏" ;
+        VPres      Sg P3  => "–µ" ;
+        VPres      Pl P1  => "—Å–º–µ" ; 
+        VPres      Pl P2  => "—Å—Ç–µ" ;
+        VPres      Pl P3  => "—Å–∞" ;
+        VAorist    Sg P1  => "–±—è—Ö" ; 
+        VAorist    Sg _   => "–±–µ—à–µ" ;
+        VAorist    Pl P1  => "–±—è—Ö–º–µ" ; 
+        VAorist    Pl P2  => "–±—è—Ö—Ç–µ" ;
+        VAorist    Pl P3  => "–±—è—Ö–∞" ;
+        VImperfect Sg P1  => "–±—è—Ö" ; 
+        VImperfect Sg _   => "–±–µ—à–µ" ;
+        VImperfect Pl P1  => "–±—è—Ö–º–µ" ; 
+        VImperfect Pl P2  => "–±—è—Ö—Ç–µ" ;
+        VImperfect Pl P3  => "–±—è—Ö–∞" ;
+        VPerfect    aform => regAdjective "–±–∏–ª" ! aform ;
+        VPluPerfect aform => regAdjective "–±–∏–ª" ! aform ;
+        VPassive    aform => regAdjective "–±—ä–¥–µ–Ω" ! aform ;
+        VPresPart   aform => regAdjective "–±—ä–¥–µ—â" ! aform ;
+        VImperative Sg    => "–±—ä–¥–∏" ;
+        VImperative Pl    => "–±—ä–¥–µ—Ç–µ" ;
+        VNoun _           => "–±—ä–¥–µ–Ω–µ";
+        VGerund           => "–±–∏–¥–µ–π–∫–∏"
       } ;
 
     auxWould : VTable =
       table {
-        VPres      Sg P1  => "·˙‰‡" ; 
-        VPres      Sg P2  => "·˙‰Â¯" ;
-        VPres      Sg P3  => "·˙‰Â" ; 
-        VPres      Pl P1  => "·˙‰ÂÏ" ; 
-        VPres      Pl P2  => "·˙‰ÂÚÂ" ;
-        VPres      Pl P3  => "·˙‰‡Ú" ;
-        VAorist    Sg P1  => "·ˇı" ; 
-        VAorist    Sg _   => "·Â¯Â" ;
-        VAorist    Pl P1  => "·ˇıÏÂ" ; 
-        VAorist    Pl P2  => "·ˇıÚÂ" ;
-        VAorist    Pl P3  => "·ˇı‡" ;
-        VImperfect Sg P1  => "·˙‰Âı" ; 
-        VImperfect Sg _   => "·˙‰Â¯Â" ;
-        VImperfect Pl P1  => "·˙‰ÂıÏÂ" ; 
-        VImperfect Pl P2  => "·˙‰ÂıÚÂ" ;
-        VImperfect Pl P3  => "·˙‰Âı‡" ;
-        VPerfect    aform => regAdjective "·ËÎ" ! aform ;
-        VPluPerfect aform => regAdjective "·˙‰ÂÎ" ! aform ;
-        VPassive    aform => regAdjective "·˙‰ÂÌ" ! aform ;
-        VPresPart   aform => regAdjective "·˙‰Â˘" ! aform ;
-        VImperative Sg    => "·˙‰Ë" ;
-        VImperative Pl    => "·˙‰ÂÚÂ" ;
-        VNoun _           => "·˙‰ÂÌÂ";
-        VGerund           => "·˙‰ÂÈÍË"
+        VPres      Sg P1  => "–±—ä–¥–∞" ; 
+        VPres      Sg P2  => "–±—ä–¥–µ—à" ;
+        VPres      Sg P3  => "–±—ä–¥–µ" ; 
+        VPres      Pl P1  => "–±—ä–¥–µ–º" ; 
+        VPres      Pl P2  => "–±—ä–¥–µ—Ç–µ" ;
+        VPres      Pl P3  => "–±—ä–¥–∞—Ç" ;
+        VAorist    Sg P1  => "–±—è—Ö" ; 
+        VAorist    Sg _   => "–±–µ—à–µ" ;
+        VAorist    Pl P1  => "–±—è—Ö–º–µ" ; 
+        VAorist    Pl P2  => "–±—è—Ö—Ç–µ" ;
+        VAorist    Pl P3  => "–±—è—Ö–∞" ;
+        VImperfect Sg P1  => "–±—ä–¥–µ—Ö" ; 
+        VImperfect Sg _   => "–±—ä–¥–µ—à–µ" ;
+        VImperfect Pl P1  => "–±—ä–¥–µ—Ö–º–µ" ; 
+        VImperfect Pl P2  => "–±—ä–¥–µ—Ö—Ç–µ" ;
+        VImperfect Pl P3  => "–±—ä–¥–µ—Ö–∞" ;
+        VPerfect    aform => regAdjective "–±–∏–ª" ! aform ;
+        VPluPerfect aform => regAdjective "–±—ä–¥–µ–ª" ! aform ;
+        VPassive    aform => regAdjective "–±—ä–¥–µ–Ω" ! aform ;
+        VPresPart   aform => regAdjective "–±—ä–¥–µ—â" ! aform ;
+        VImperative Sg    => "–±—ä–¥–∏" ;
+        VImperative Pl    => "–±—ä–¥–µ—Ç–µ" ;
+        VNoun _           => "–±—ä–¥–µ–Ω–µ";
+        VGerund           => "–±—ä–¥–µ–π–∫–∏"
       } ;
 
     auxCond : Number => Person => Str =
       table {
         Sg => table {
-                P1 => "·Ëı" ;
-                _  => "·Ë"
+                P1 => "–±–∏—Ö" ;
+                _  => "–±–∏"
               } ;
         Pl => table {
-                P1 => "·ËıÏÂ" ;
-                P2 => "·ËıÚÂ" ;
-                P3 => "·Ëı‡"
+                P1 => "–±–∏—Ö–º–µ" ;
+                P2 => "–±–∏—Ö—Ç–µ" ;
+                P3 => "–±–∏—Ö–∞"
               }
       } ;
 
     verbBe    : Verb = {s=table Aspect [auxBe; auxWould] ; vtype=VNormal} ;
 
-    reflClitics : Case => Str = table {Acc => "ÒÂ"; Dat => "ÒË"; WithPrep => with_Word ++ "ÒÂ·Â ÒË"; CPrep => "ÒÂ·Â ÒË"} ;
+    reflClitics : Case => Str = table {Acc => "—Å–µ"; Dat => "—Å–∏"; WithPrep => with_Word ++ "—Å–µ–±–µ —Å–∏"; CPrep => "—Å–µ–±–µ —Å–∏"} ;
 
     personalClitics : Agr -> Case => Str = \agr ->
       table {
         Acc      => case agr.gn of {
                       GSg g => case agr.p of {
-                                 P1 => "ÏÂ" ;
-                                 P2 => "ÚÂ" ;
+                                 P1 => "–º–µ" ;
+                                 P2 => "—Ç–µ" ;
                                  P3 => case g of {
-                                         Masc => "„Ó" ;
-                                         Fem  => "ˇ" ;
-                                         Neut => "„Ó"
+                                         Masc => "–≥–æ" ;
+                                         Fem  => "—è" ;
+                                         Neut => "–≥–æ"
                                        }
                                } ;
                       GPl   => case agr.p of {
-                                 P1 => "ÌË" ;
-                                 P2 => "‚Ë" ;
-                                 P3 => "„Ë"
+                                 P1 => "–Ω–∏" ;
+                                 P2 => "–≤–∏" ;
+                                 P3 => "–≥–∏"
                                }
                     } ;
         Dat      => case agr.gn of {
                       GSg g => case agr.p of {
-                                 P1 => "ÏË" ;
-                                 P2 => "ÚË" ;
+                                 P1 => "–º–∏" ;
+                                 P2 => "—Ç–∏" ;
                                  P3 => case g of {
-                                         Masc => "ÏÛ" ;
-                                         Fem  => "È" ;
-                                         Neut => "ÏÛ"
+                                         Masc => "–º—É" ;
+                                         Fem  => "–π" ;
+                                         Neut => "–º—É"
                                        }
                                } ;
                       GPl   => case agr.p of {
-                                 P1     => "ÌË" ;
-                                 P2     => "‚Ë" ;
-                                 P3     => "ËÏ"
+                                 P1     => "–Ω–∏" ;
+                                 P2     => "–≤–∏" ;
+                                 P3     => "–∏–º"
                                }
                     } ;
         WithPrep => case agr.gn of {
                       GSg g => case agr.p of {
-                                 P1 => with_Word ++ "ÏÂÌ" ;
-                                 P2 => with_Word ++ "ÚÂ·" ;
+                                 P1 => with_Word ++ "–º–µ–Ω" ;
+                                 P2 => with_Word ++ "—Ç–µ–±" ;
                                  P3 => case g of {
-                                         Masc => with_Word ++ "ÌÂ„Ó" ;
-                                         Fem  => with_Word ++ "ÌÂˇ" ;
-                                         Neut => with_Word ++ "ÌÂ„Ó"
+                                         Masc => with_Word ++ "–Ω–µ–≥–æ" ;
+                                         Fem  => with_Word ++ "–Ω–µ—è" ;
+                                         Neut => with_Word ++ "–Ω–µ–≥–æ"
                                        }
                                } ;
                       GPl   => case agr.p of {
-                                 P1     => with_Word ++ "Ì‡Ò" ;
-                                 P2     => with_Word ++ "‚‡Ò" ;
-                                 P3     => with_Word ++ "Úˇı"
+                                 P1     => with_Word ++ "–Ω–∞—Å" ;
+                                 P2     => with_Word ++ "–≤–∞—Å" ;
+                                 P3     => with_Word ++ "—Ç—è—Ö"
                                }
                     } ;
         CPrep    => case agr.gn of {
                       GSg g => case agr.p of {
-                                 P1 => "ÏÂÌ" ;
-                                 P2 => "ÚÂ·" ;
+                                 P1 => "–º–µ–Ω" ;
+                                 P2 => "—Ç–µ–±" ;
                                  P3 => case g of {
-                                         Masc => "ÌÂ„Ó" ;
-                                         Fem  => "ÌÂˇ" ;
-                                         Neut => "ÌÂ„Ó"
+                                         Masc => "–Ω–µ–≥–æ" ;
+                                         Fem  => "–Ω–µ—è" ;
+                                         Neut => "–Ω–µ–≥–æ"
                                        }
                                } ;
                       GPl   => case agr.p of {
-                                 P1     => "Ì‡Ò" ;
-                                 P2     => "‚‡Ò" ;
-                                 P3     => "Úˇı"
+                                 P1     => "–Ω–∞—Å" ;
+                                 P2     => "–≤–∞—Å" ;
+                                 P3     => "—Ç—è—Ö"
                                }
                     }
       } ;
 
-    ia2e : Str -> Str =           -- to be used when the next syllable has vowel different from "‡","˙","Ó" or "Û"
+    ia2e : Str -> Str =           -- to be used when the next syllable has vowel different from "–∞","—ä","–æ" or "—É"
       \s -> case s of {
-              x@(_*+_) + "ˇ" + y@(("·"|"‚"|"„"|"‰"|"Ê"|"Á"|"Í"|"Î"|"Ï"|"Ì"|"Ô"|""|"Ò"|"Ú"|"Ù"|"ı"|"ˆ"|"˜"|"¯")*)
-                => x+"Â"+y;
+              x@(_*+_) + "—è" + y@(("–±"|"–≤"|"–≥"|"–¥"|"–∂"|"–∑"|"–∫"|"–ª"|"–º"|"–Ω"|"–ø"|"—Ä"|"—Å"|"—Ç"|"—Ñ"|"—Ö"|"—Ü"|"—á"|"—à")*)
+                => x+"–µ"+y;
               _ => s
             };
 
@@ -476,19 +478,19 @@ resource ResBul = ParamX ** open Prelude, Predef in {
     \base -> 
        let base0 : Str
                  = case base of {
-                     x+"Ë" => x;
+                     x+"–∏" => x;
                      x     => x
                    }
        in table {
             ASg Masc Indef => base  ;
-            ASg Masc Def   => (base0+"Ëˇ") ;
-            ASgMascDefNom  => (base0+"ËˇÚ") ;
-            ASg Fem  Indef => (base0+"‡") ;
-            ASg Fem  Def   => (base0+"aÚa") ;
-            ASg Neut Indef => (base0+"Ó") ;
-            ASg Neut Def   => (base0+"ÓÚÓ") ;
-            APl Indef      => (ia2e base0+"Ë") ;
-            APl Def        => (ia2e base0+"ËÚÂ")
+            ASg Masc Def   => (base0+"–∏—è") ;
+            ASgMascDefNom  => (base0+"–∏—è—Ç") ;
+            ASg Fem  Indef => (base0+"–∞") ;
+            ASg Fem  Def   => (base0+"–∞—Ç–∞") ;
+            ASg Neut Indef => (base0+"–æ") ;
+            ASg Neut Def   => (base0+"–æ—Ç–æ") ;
+            APl Indef      => (ia2e base0+"–∏") ;
+            APl Def        => (ia2e base0+"–∏—Ç–µ")
           };
     
 -- For $Sentence$.
@@ -543,37 +545,37 @@ resource ResBul = ParamX ** open Prelude, Predef in {
               _        => auxPres++s++clitic.s
             } ;
 
-          li0 = case <verb.ad.isEmpty,q0> of {<False,True> => "ÎË"; _ => []} ;
+          li0 = case <verb.ad.isEmpty,q0> of {<False,True> => "–ª–∏"; _ => []} ;
 
           q   = case verb.ad.isEmpty of {True => q0; False => False} ;
-          li  = case q of {True => "ÎË"; _ => []} ;
+          li  = case q of {True => "–ª–∏"; _ => []} ;
 
           vf1 : Str -> {s1 : Str; s2 : Str} = \s ->
             case p of {
-              Pos => case q of {True  => {s1=[]; s2="ÎË"++apc []};
+              Pos => case q of {True  => {s1=[]; s2="–ª–∏"++apc []};
                                 False => {s1=apc []; s2=[]}} ;
-              Neg => {s1="ÌÂ"++apc li; s2=[]}
+              Neg => {s1="–Ω–µ"++apc li; s2=[]}
             } ;
 
           vf2 : Str -> {s1 : Str; s2 : Str} = \s ->
             case p of {
-              Pos => case q of {True  => {s1=[]; s2="ÎË"++s};
+              Pos => case q of {True  => {s1=[]; s2="–ª–∏"++s};
                                 False => {s1=s;  s2=[]}} ;
               Neg => case verb.vtype of
-                       {VNormal => {s1="ÌÂ"++s;     s2=li} ;
-                        _       => {s1="ÌÂ"++s++li; s2=[]}}
+                       {VNormal => {s1="–Ω–µ"++s;     s2=li} ;
+                        _       => {s1="–Ω–µ"++s++li; s2=[]}}
             } ;
 
           vf3 : Str -> {s1 : Str; s2 : Str} = \s ->
             case p of {
-              Pos => {s1="˘Â"++s; s2=li} ;
-              Neg => {s1="ÌˇÏ‡"++li++"‰‡"++s; s2=[]}
+              Pos => {s1="—â–µ"++s; s2=li} ;
+              Neg => {s1="–Ω—è–º–∞"++li++"–¥–∞"++s; s2=[]}
             } ;
 
           vf4 : Str -> {s1 : Str; s2 : Str} = \s ->
             case p of {
               Pos => {s1=      s++li++clitic.s; s2=[]} ;
-              Neg => {s1="ÌÂ"++s++li++clitic.s; s2=[]}
+              Neg => {s1="–Ω–µ"++s++li++clitic.s; s2=[]}
             } ;
 
           verbs : {aux:{s1:Str; s2:Str}; main:Str} =
@@ -598,8 +600,8 @@ resource ResBul = ParamX ** open Prelude, Predef in {
                      VPhrasal Dat => {s=personalClitics agr ! Dat++vp.clitics; agr={gn=GSg Neut; p=P3}} ;
                      VPhrasal c   => {s=vp.clitics++personalClitics agr ! c;   agr={gn=GSg Neut; p=P3}}
                    } ;                   
-          pol = case p of {Pos => ""; Neg => "ÌÂ"}
-      in vp.ad.s ++ "‰‡" ++ pol ++ clitic.s ++
+          pol = case p of {Pos => ""; Neg => "–Ω–µ"}
+      in vp.ad.s ++ "–¥–∞" ++ pol ++ clitic.s ++
          case a of {
            Simul => vp.s ! asp ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ;
            Anter => auxBe ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ++
@@ -611,9 +613,14 @@ resource ResBul = ParamX ** open Prelude, Predef in {
     \vp ->
       let agr = {gn = GSg Neut; p = P1};
           clitic = case vp.vtype of {
-                     VNormal    => {s=[]; agr=agr} ;
-                     VMedial c  => {s=reflClitics ! c; agr=agr} ;
-                     VPhrasal c => {s=personalClitics agr ! c; agr={gn=GSg Neut; p=P3}}
+                     VNormal    => {s=vp.clitics; agr=agr} ;
+                     VMedial  c => {s=vp.clitics++reflClitics ! c; agr=agr} ;
+                     VPhrasal c => {s=case c of {
+                                        Dat => personalClitics agr ! Dat++vp.clitics;
+                                        _   => vp.clitics++personalClitics agr ! c
+                                      };
+                                    agr={gn=GSg Neut; p=P3}
+                                   }
                    } ;
       in vp.ad.s ++
          vp.s ! Imperf ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ++ clitic.s ++
@@ -622,10 +629,10 @@ resource ResBul = ParamX ** open Prelude, Predef in {
   linCase : Case -> Polarity -> Str =
     \c,p -> case c of {
               Acc      => "" ;
-              Dat      => "Ì‡" ;
+              Dat      => "–Ω–∞" ;
               WithPrep => case p of {
                             Pos => with_Word ;
-                            Neg => "·ÂÁ"
+                            Neg => "–±–µ–∑"
                           } ;
               CPrep    => ""
             } ;
@@ -649,17 +656,17 @@ resource ResBul = ParamX ** open Prelude, Predef in {
       {s = table {
              unit                  => mkCardOrd dva dvama dve vtori ;
              teen nf               => case nf of {
-                                        Formal   => mkCardOrd (dva+"Ì‡‰ÂÒÂÚ") (dva+"Ì‡‰ÂÒÂÚËÏ‡") (dva+"Ì‡‰ÂÒÂÚ") (dva+"Ì‡‰ÂÒÂÚË") ;
-                                        Informal => mkCardOrd (dva+"Ì‡ÈÒÂÚ")  (dva+"Ì‡ÈÒÂÚ")     (dva+"Ì‡ÈÒÂÚ")  (dva+"Ì‡ÈÒÚË")
+                                        Formal   => mkCardOrd (dva+"–Ω–∞–¥–µ—Å–µ—Ç") (dva+"–Ω–∞–¥–µ—Å–µ—Ç–∏–º–∞") (dva+"–Ω–∞–¥–µ—Å–µ—Ç") (dva+"–Ω–∞–¥–µ—Å–µ—Ç–∏") ;
+                                        Informal => mkCardOrd (dva+"–Ω–∞–π—Å–µ—Ç")  (dva+"–Ω–∞–π—Å–µ—Ç")     (dva+"–Ω–∞–π—Å–µ—Ç")  (dva+"–Ω–∞–π—Å—Ç–∏")
                                       } ;
              ten  nf               => case nf of {
-                                        Formal   => mkCardOrd (dva+"‰ÂÒÂÚ")   (dva+"‰ÂÒÂÚËÏ‡")   (dva+"‰ÂÒÂÚ")   (dva+"‰ÂÒÂÚË") ;
-                                        Informal => mkCardOrd dvaiset         dvaiset            dvaiset         (dvaiset+"Ë")
+                                        Formal   => mkCardOrd (dva+"–¥–µ—Å–µ—Ç")   (dva+"–¥–µ—Å–µ—Ç–∏–º–∞")   (dva+"–¥–µ—Å–µ—Ç")   (dva+"–¥–µ—Å–µ—Ç–∏") ;
+                                        Informal => mkCardOrd dvaiset         dvaiset            dvaiset         (dvaiset+"–∏")
                                       } ;
              hundred               => let dvesten : Str
                                                   = case dvesta of {
-                                                      dvest+"‡"        => dvest+"ÂÌ" ;
-                                                      chetiristot+"ËÌ" => chetiristot+"ÂÌ"
+                                                      dvest+"–∞"        => dvest+"–µ–Ω" ;
+                                                      chetiristot+"–∏–Ω" => chetiristot+"–µ–Ω"
                                                     }
                                       in mkCardOrd100 dvesta dvestata dvesten
            }
@@ -669,19 +676,19 @@ resource ResBul = ParamX ** open Prelude, Predef in {
       \dva, dvama, dve, vtori ->
                table {
                  NCard dg   => digitGenderSpecies dva dvama dve ! dg ;
-                 NOrd aform => let vtora : Str = case vtori of {_+"‚" => vtori; _ => init vtori} + "‡" ;
-                                   vtoro : Str = case vtori of {_+"‚" => vtori; _ => init vtori} + "Ó";
-                                   i     : Str = case vtori of {_+"‚" => "Ë"; _ => ""}
+                 NOrd aform => let vtora : Str = case vtori of {_+"–≤" => vtori; _ => init vtori} + "–∞" ;
+                                   vtoro : Str = case vtori of {_+"–≤" => vtori; _ => init vtori} + "–æ";
+                                   i     : Str = case vtori of {_+"–≤" => "–∏"; _ => ""}
                                in case aform of {
                                     ASg Masc Indef => vtori ;
-                                    ASg Masc Def   => vtori+i+"ˇ" ;
-                                    ASgMascDefNom  => vtori+i+"ˇÚ" ;
+                                    ASg Masc Def   => vtori+i+"—è" ;
+                                    ASgMascDefNom  => vtori+i+"—è—Ç" ;
                                     ASg Fem  Indef => vtora ;
-                                    ASg Fem  Def   => vtora+"Ú‡" ;
+                                    ASg Fem  Def   => vtora+"—Ç–∞" ;
                                     ASg Neut Indef => vtoro ;
-                                    ASg Neut Def   => vtoro+"ÚÓ" ;
+                                    ASg Neut Def   => vtoro+"—Ç–æ" ;
                                     APl Indef      => vtori+i ;
-                                    APl Def        => vtori+i+"ÚÂ"
+                                    APl Def        => vtori+i+"—Ç–µ"
                                   }
                } ;
 
@@ -698,14 +705,14 @@ resource ResBul = ParamX ** open Prelude, Predef in {
                  NOrd aform => let stotn = init (init stoten) + last stoten ;
                                in case aform of {
                                     ASg Masc Indef => stoten ;
-                                    ASg Masc Def   => stotn+"Ëˇ" ;
-                                    ASgMascDefNom  => stotn+"ËˇÚ" ;
-                                    ASg Fem  Indef => stotn+"‡" ;
-                                    ASg Fem  Def   => stotn+"‡Ú‡" ;
-                                    ASg Neut Indef => stotn+"Ó" ;
-                                    ASg Neut Def   => stotn+"ÓÚÓ" ;
-                                    APl Indef      => stotn+"Ë" ;
-                                    APl Def        => stotn+"ËÚÂ"
+                                    ASg Masc Def   => stotn+"–∏—è" ;
+                                    ASgMascDefNom  => stotn+"–∏—è—Ç" ;
+                                    ASg Fem  Indef => stotn+"–∞" ;
+                                    ASg Fem  Def   => stotn+"–∞—Ç–∞" ;
+                                    ASg Neut Indef => stotn+"–æ" ;
+                                    ASg Neut Def   => stotn+"–æ—Ç–æ" ;
+                                    APl Indef      => stotn+"–∏" ;
+                                    APl Def        => stotn+"–∏—Ç–µ"
                                   }
                } ;
 
@@ -713,12 +720,12 @@ resource ResBul = ParamX ** open Prelude, Predef in {
       \dva, dvama, dve
             -> let addDef : Str -> Gender -> Str =
                      \s,g -> case s of {
-		             dves+"Ú‡" => dves+"Ú‡ÚÂ" ;
-		             dv+"‡"    => dv+"‡Ú‡" ;
-		             "0"       => s+"Ú‡" ;
-		             "1"       => s+case g of {Masc => "ˇÚ"; Fem => "Ú‡"; Neut => "ÚÓ"} ;
-		             "2"       => s+case g of {Masc => "Ú‡"; _ => "ÚÂ"} ;
-		             x         => x+"ÚÂ"
+		             dves+"—Ç–∞" => dves+"—Ç–∞—Ç–µ" ;
+		             dv+"–∞"    => dv+"–∞—Ç–∞" ;
+		             "0"       => s+"—Ç–∞" ;
+		             "1"       => s+case g of {Masc => "—è—Ç"; Fem => "—Ç–∞"; Neut => "—Ç–æ"} ;
+		             "2"       => s+case g of {Masc => "—Ç–∞"; _ => "—Ç–µ"} ;
+		             x         => x+"—Ç–µ"
                      }
                in table {
                     CFMasc Indef  NonHuman => dva ;
@@ -736,19 +743,19 @@ resource ResBul = ParamX ** open Prelude, Predef in {
     mkIP : Str -> Str -> GenNum -> {s : Role => QForm => Str ; gn : GenNum} =
       \koi,kogo,gn -> {
       s = table {
-            RSubj         => table QForm [koi;  koi+"ÚÓ"] ;
-            RObj Acc      => table QForm [kogo; kogo+"ÚÓ"] ;
-            RObj Dat      => table QForm ["Ì‡" ++ kogo; "Ì‡" ++ kogo+"ÚÓ"] ;
-            RObj WithPrep => table QForm [with_Word ++ kogo; with_Word ++ kogo+"ÚÓ"] ;
-            RObj CPrep    => table QForm [kogo; kogo+"ÚÓ"] ;
-            RVoc          => table QForm [koi;  koi+"ÚÓ"]
+            RSubj         => table QForm [koi;  koi+"—Ç–æ"] ;
+            RObj Acc      => table QForm [kogo; kogo+"—Ç–æ"] ;
+            RObj Dat      => table QForm ["–Ω–∞" ++ kogo; "–Ω–∞" ++ kogo+"—Ç–æ"] ;
+            RObj WithPrep => table QForm [with_Word ++ kogo; with_Word ++ kogo+"—Ç–æ"] ;
+            RObj CPrep    => table QForm [kogo; kogo+"—Ç–æ"] ;
+            RVoc          => table QForm [koi;  koi+"—Ç–æ"]
           } ;
       gn = gn
       } ;
 
     with_Word : Str
-      = pre { "Ò" ; 
-              "Ò˙Ò" / strs {"Ò" ; "Á" ; "—" ; "«"}
+      = pre { "—Å" ; 
+              "—Å—ä—Å" / strs {"—Å" ; "–∑" ; "–°" ; "–ó"}
             } ;
 
     mkPron : (az,moj,moia,moiat,moia_,moiata,moe,moeto,moi,moite : Str) -> 
@@ -805,43 +812,43 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
     whichRP : GenNum => Str
             = table {
-                GSg Masc => "ÍÓÈÚÓ" ;
-                GSg Fem  => "ÍÓˇÚÓ" ;
-                GSg Neut => "ÍÓÂÚÓ" ;
-                GPl      => "ÍÓËÚÓ"
+                GSg Masc => "–∫–æ–π—Ç–æ" ;
+                GSg Fem  => "–∫–æ—è—Ç–æ" ;
+                GSg Neut => "–∫–æ–µ—Ç–æ" ;
+                GPl      => "–∫–æ–∏—Ç–æ"
               } ;
 
     suchRP : GenNum => Str
            = table {
-               GSg Masc => "Ú‡Í˙‚" ;
-               GSg Fem  => "Ú‡Í‡‚‡" ;
-               GSg Neut => "Ú‡ÍÓ‚‡" ;
-               GPl      => "Ú‡ÍË‚‡"
+               GSg Masc => "—Ç–∞–∫—ä–≤" ;
+               GSg Fem  => "—Ç–∞–∫–∞–≤–∞" ;
+               GSg Neut => "—Ç–∞–∫–æ–≤–∞" ;
+               GPl      => "—Ç–∞–∫–∏–≤–∞"
              } ;
              
     thisRP : GenNum => Str
            = table {
-               GSg Masc => "ÚÓÁË" ;
-               GSg Fem  => "ÚaÁË" ;
-               GSg Neut => "ÚÓ‚‡" ;
-               GPl      => "ÚÂÁË"
+               GSg Masc => "—Ç–æ–∑–∏" ;
+               GSg Fem  => "—Ça–∑–∏" ;
+               GSg Neut => "—Ç–æ–≤–∞" ;
+               GPl      => "—Ç–µ–∑–∏"
              } ;
 
     linCoord : Str -> Ints 4 => Str ;
-    linCoord comma = table {0 => "Ë"; 1=>"ËÎË"; 2=>"ÌËÚÓ"; 3=>comma; 4=>[]} ;
+    linCoord comma = table {0 => "–∏"; 1=>"–∏–ª–∏"; 2=>"–Ω–∏—Ç–æ"; 3=>comma; 4=>[]} ;
 
     hyphen : Str = SOFT_BIND ++ "-" ++ SOFT_BIND ;
 
     reflPron : AForm => Str =
       table {
-        ASg Masc Indef => "Ò‚ÓÈ" ;
-        ASg Masc Def   => "Ò‚Óˇ" ;
-        ASgMascDefNom  => "Ò‚ÓˇÚ" ;
-        ASg Fem  Indef => "Ò‚Óˇ" ;
-        ASg Fem  Def   => "Ò‚ÓˇÚ‡" ;
-        ASg Neut Indef => "Ò‚ÓÂ" ;
-        ASg Neut Def   => "Ò‚ÓÂÚÓ" ;
-        APl Indef      => "Ò‚ÓË" ;
-        APl Def        => "Ò‚ÓËÚÂ"
+        ASg Masc Indef => "—Å–≤–æ–π" ;
+        ASg Masc Def   => "—Å–≤–æ—è" ;
+        ASgMascDefNom  => "—Å–≤–æ—è—Ç" ;
+        ASg Fem  Indef => "—Å–≤–æ—è" ;
+        ASg Fem  Def   => "—Å–≤–æ—è—Ç–∞" ;
+        ASg Neut Indef => "—Å–≤–æ–µ" ;
+        ASg Neut Def   => "—Å–≤–æ–µ—Ç–æ" ;
+        APl Indef      => "—Å–≤–æ–∏" ;
+        APl Def        => "—Å–≤–æ–∏—Ç–µ"
       } ;
 }

@@ -165,7 +165,9 @@ oper
 -- With irregular comparison, there are as it were two adjectives:
 -- the positive ("buono") and the comparative ("migliore"). 
 
-    mkA : A -> A -> A -- special comparison, e.g. buono - migliore
+    mkA : A -> A -> A ; -- special comparison, e.g. buono - migliore
+
+    mkA : A -> CopulaType -> A -- force copula type
     } ;
 
 -- All the functions above create postfix adjectives. To switch
@@ -367,18 +369,19 @@ oper
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
   mk5A a b c d e = 
-   compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; lock_A = <>} ;
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; lock_A = <>} ;
-  prefA a = {s = a.s ; isPre = True ; lock_A = <>} ;
+   compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  prefA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
+  adjCopula a cop = a ** {copTyp = cop} ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
   mkADeg a b = 
    {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ; 
-    isPre = a.isPre ; lock_A = <>} ;
+    isPre = a.isPre ; copTyp = serCopula ; lock_A = <>} ;
   compADeg a = 
     {s = table {Posit => a.s ! Posit ; _ => \\f => "più" ++ a.s ! Posit ! f} ; 
-     isPre = a.isPre ;
+     isPre = a.isPre ; copTyp = a.copTyp ;
      lock_A = <>} ;
   regADeg a = compADeg (regA a) ;
 
@@ -510,11 +513,13 @@ oper
   mkA = overload {
     mkA : (bianco : Str) -> A = regA ;
     mkA : (solo,sola,soli,sole, solamente : Str) -> A = mk5A ;
-    mkA : A -> A -> A = mkADeg
+    mkA : A -> A -> A = mkADeg ;
+    mkA : A -> CopulaType -> A = adjCopula ;
     } ;
   mk5A : (solo,sola,soli,sole, solamente : Str) -> A ;
   regA : Str -> A ;
   prefA : A -> A ;
+  adjCopula : A -> CopulaType -> A ;
   mkADeg : A -> A -> A ;
   compADeg : A -> A ;
   regADeg : Str -> A ;

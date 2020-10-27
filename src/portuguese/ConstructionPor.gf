@@ -1,15 +1,15 @@
---# -path=alltenses:.:../abstract
+--# -path=alltenses:.:../abstract:../common:../prelude:../romance:../api
 
 concrete ConstructionPor of Construction = CatPor **
   open SyntaxPor, SymbolicPor, ParadigmsPor, BeschPor,
-  (L = LexiconPor), (E = ExtraPor), (B = IrregBeschPor), (R = ResPor),
+  (L = LexiconPor), (D = DiffPor), (R = ResPor),
   (S = SyntaxPor), (C = CommonRomance), CommonRomance,
        Prelude in {
   flags coding=utf8 ;
 
 lin
-  hungry_VP = E.ComplCN have_V2 (mkCN (mkN "fome" feminine)) ;
-  thirsty_VP = E.ComplCN have_V2 (mkCN (mkN "sede" feminine)) ;
+  hungry_VP = mkVP have_V2 (mkNP (mkN "fome" feminine)) ;
+  thirsty_VP = mkVP have_V2 (mkNP (mkN "sede" feminine)) ;
   tired_VP = mkVP (mkA "cansado") ;
   scared_VP = mkVP (mkA "assustado") ;
   ill_VP = mkVP (mkA "doente") ;
@@ -17,23 +17,33 @@ lin
   has_age_VP card = mkVP have_V2 (mkNP <lin Card card : Card> L.year_N) ;
 
   have_name_Cl x y = mkCl x (mkV2 (reflV (mkV "chamar"))) y ;
-  married_Cl x y = mkCl (lin NP x) L.married_A2 (lin NP y) | mkCl (mkNP and_Conj (lin NP x) (lin NP y)) (mkA "casado") ;
+  married_Cl x y = mkCl (lin NP x) L.married_A2 (lin NP y)
+    | mkCl (mkNP and_Conj (lin NP x) (lin NP y)) (mkA "casado") ;
 
   what_name_QCl x = mkQCl how_IAdv (mkCl (lin NP x) (reflV (mkV "chamar"))) ;
   how_old_QCl x = mkQCl (mkIP how8many_IDet L.year_N) x have_V2 ;
-  how_far_QCl x = mkQCl (lin IAdv (ss "a que distância")) (mkCl x B.estar_V) ;
+  how_far_QCl x = mkQCl (lin IAdv (ss "a que distância")) (mkCl x D.stare_V) ;
 
 -- some more things
-  weather_adjCl ap = mkCl (mkVP (mkVA B.fazer_V) (lin AP ap)) ;
+  weather_adjCl ap = mkCl (mkVP (mkVA (mkV (fazer_Besch "fazer"))) (lin AP ap)) ;
 
-  is_right_VP = E.ComplCN have_V2 (mkCN (mkN "razão")) ;
-  is_wrong_VP = mkVP (mkVA B.estar_V) (mkAP (mkA "errado")) ;
+  is_right_VP = mkVP (mkVA D.stare_V) (mkAP (mkA "certo")) ;
+  is_wrong_VP = mkVP (mkVA D.stare_V) (mkAP (mkA "errado")) ;
 
-  n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
-
+  n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn))))
+                              (lin A a) ;
+  n_units_of_NP card cn np = mkNP card (mkCN (lin N2 cn) np) ;
+  n_unit_CN card cn cn =
+    let s : Str = "de" ++ card.s ! cn.g ++ cn.s ! card.n ;
+        adj : A = mkA s s s s s ;
+    in mkCN adj cn ;
+  
   bottle_of_CN np = mkCN (lin N2 (mkN2 (mkN "garrafa" feminine) part_Prep)) np ;
   cup_of_CN    np = mkCN (lin N2 (mkN2 (mkN "copo") part_Prep)) np ;
   glass_of_CN  np = mkCN (lin N2 (mkN2 (mkN "taça") part_Prep)) np ;
+
+  -- falta X para NP ser Y
+  few_X_short_of_Y np cn cn = variants {} ;
 
 {-
 -- spatial deixis and motion verbs
@@ -48,11 +58,11 @@ lin
   go_there_VP = mkVP (mkVP L.go_V)  there_Adv ;
   come_there_VP = mkVP (mkVP L.come_V) there_Adv ;
   come_from_there_VP = mkVP (mkVP L.come_V) (mkAdv "de allí") ; -- "de allá"
--}
-
+  -}
+    
   lincat
     Timeunit = N ;
-    Hour = {s : Str ; pe : Period ; n : Number} ;
+    Hour = {s : Str ; pe : Period ; n : ParadigmsPor.Number} ;
     Weekday = N ;
     Monthday = NP ;
     Month = N ;
@@ -69,6 +79,8 @@ lin
       let n_card : Card = lin Card n;
           n_hours_NP : NP = mkNP n_card time ;
       in  S.mkAdv for_Prep n_hours_NP | S.mkAdv to_Prep n_hours_NP ;--| S.mkAdv (n_hours_NP.s ! R.Nom) ;
+    timeunitRange l u time = {s = "de" ++ l.s ! time.g
+                                ++ "a" ++ u.s ! time.g ++ time.s ! u.n } ;
 
     oneHour         = mkHour "1" Manha Sg ;
     twoHour         = mkHour "2" Manha Pl ;
@@ -95,15 +107,15 @@ lin
     twentyThreeHour = mkHour "23" Noite Pl ;
     twentyFourHour  = {s = "meia-noite" ; pe = None ; n = Sg} ;
 
-    timeHour h = mkAdv (a ! h.n ++ h.s ++ period ! h.pe) ;
+    timeHour h = ParadigmsPor.mkAdv (R.a ! Fem ! h.n ++ h.s ++ period ! h.pe) ;
 
     timeHourMinute h m = let
       min = m.s ! Masc
       in
-      mkAdv (a ! h.n ++ h.s ++ "e" ++ min ++ period ! h.pe) ;
+      ParadigmsPor.mkAdv (R.a ! Fem ! h.n ++ h.s ++ "e" ++ min ++ period ! h.pe) ;
 
   oper
-    mkHour : Str -> Period -> Number -> {s : Str ; pe : Period ; n : Number} ;
+    mkHour : Str -> Period -> ParadigmsPor.Number -> {s : Str ; pe : Period ; n : ParadigmsPor.Number} ;
     mkHour num pe n = S.mkUtt (S.mkCard num) ** {pe = pe ; n = n} ;
     
     period : Period => Str ;
@@ -113,9 +125,6 @@ lin
       Noite => "da noite" ;
       None  => ""
       } ;
-
-    a : Number => Str ;
-    a = numForms "à" "às" ;
 
   lin
   weekdayPunctualAdv w = lin Adv {s = w.s ! C.Sg} ;         -- lundi
@@ -216,4 +225,4 @@ lin thai_Language      = mkLanguage "tailandês" ;
 lin turkish_Language   = mkLanguage "turco" ;
 lin urdu_Language      = mkLanguage "urdu" ;
 
-}
+} ;

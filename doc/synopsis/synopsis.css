@@ -1,0 +1,35 @@
+/* Quick links */
+
+#quicklinks {
+  line-height: 140%;
+}
+
+#quicklinks.sidebar {
+  overflow-y: scroll;
+  height: 100%;
+  position: fixed;
+}
+
+#quicklinks a {
+  display: block;
+}
+
+/* Reveal popup */
+
+.popup {
+  display: none;
+  background: #ffffccee;
+  border: 1px solid #dee2e6;
+  padding: 1em 1em 1em 0;
+}
+
+.reveal:hover .popup {
+  display: block;
+  position: absolute;
+  margin: 0 1em;
+}
+
+/* General */
+.table td, .table th {
+  padding: 0.5em .75rem;
+}

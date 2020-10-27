@@ -1,5 +1,5 @@
 --# -coding=utf8
-concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef, (R = ParamX) in {
+concrete CatBul of Cat = CommonX - [IAdv,AdV] ** open ResBul, Prelude, Predef, (R = ParamX) in {
 
   lincat
 -- Tensed/Untensed
@@ -46,7 +46,6 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
 
     IAdv = {s : QForm => Str} ;
     AdV  = {s : Str; p : Polarity} ;
-    SC   = {s : Agr => Str} ;
 
 -- Noun
 
@@ -84,9 +83,9 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
     A = {s : AForm => Str; adv : Str; isPre : Bool} ;
     A2 = {s : AForm => Str; adv : Str; c2 : Preposition} ;
 
-    N  = {s : NForm => Str; rel : AForm => Str; relPost : Bool; g : AGender} ;
-    N2 = {s : NForm => Str; rel : AForm => Str; relPost : Bool; g : AGender} ** {c2 : Preposition} ;
-    N3 = {s : NForm => Str; rel : AForm => Str; relPost : Bool; g : AGender} ** {c2,c3 : Preposition} ;
+    N  = {s : NForm => Str; rel : AForm => Str; relType : NRelType; g : AGender} ;
+    N2 = {s : NForm => Str; rel : AForm => Str; relType : NRelType; g : AGender} ** {c2 : Preposition} ;
+    N3 = {s : NForm => Str; rel : AForm => Str; relType : NRelType; g : AGender} ** {c2,c3 : Preposition} ;
     PN = {s : Str; g : Gender} ;
 
   lindef
@@ -106,9 +105,9 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV,SC] ** open ResBul, Prelude, Predef
 	A = \s -> {s = \\_ => s; adv = s; isPre = True};
     A2 = \s -> {s = \\_ => s; adv = s; c2 = {s=""; c=Acc}};
 
-    N  = \s -> {s = \\_ => s; rel = \\_ => s; relPost = False; g = AMasc NonHuman};
-    N2 = \s -> {s = \\_ => s; rel = \\_ => s; relPost = False; g = AMasc NonHuman; c2 = {s=""; c=Acc}};
-    N3 = \s -> {s = \\_ => s; rel = \\_ => s; relPost = False; g = AMasc NonHuman; c2,c3 = {s=""; c=Acc}};
+    N  = \s -> {s = \\_ => s; rel = \\_ => s; relType = Pref; g = AMasc NonHuman};
+    N2 = \s -> {s = \\_ => s; rel = \\_ => s; relType = Pref; g = AMasc NonHuman; c2 = {s=""; c=Acc}};
+    N3 = \s -> {s = \\_ => s; rel = \\_ => s; relType = Pref; g = AMasc NonHuman; c2,c3 = {s=""; c=Acc}};
     
   linref
     SSlash = \ss -> ss.s ! agrP3 (GSg Masc) ++ ss.c2.s;

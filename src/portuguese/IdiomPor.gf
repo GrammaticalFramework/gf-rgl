@@ -1,5 +1,5 @@
 concrete IdiomPor of Idiom = CatPor **
-  open (P = ParamX), MorphoPor, ParadigmsPor, BeschPor, (B = IrregBeschPor), Prelude in {
+  open (P = ParamX), MorphoPor, ParadigmsPor, BeschPor, (B = DiffPor), Prelude in {
 
   flags optimize=all_subs ;
 
@@ -21,7 +21,7 @@ concrete IdiomPor of Idiom = CatPor **
     ExistNP np =
       mkClause [] True False (agrP3 Masc Sg)
       (insertComplement (\\_ => (np.s ! Acc).ton) (predV B.haver_V)) ;
-    
+
     ExistIP ip = {
       s = \\t,a,p,_ =>
         ip.s ! Nom ++
@@ -46,10 +46,28 @@ concrete IdiomPor of Idiom = CatPor **
            in
            vp.s.s ! VGer ++ clpr.p1 ++ obj
         )
-        (predV B.estar_V) ;
+        (predV B.stare_V) ;
 
     ImpPl1 vp = {s =
       mkImperative False P1 vp ! RPos ! Masc ! Pl ; --- fem
       } ;
 
-}
+    ImpP3 np vp = {
+      s = "deixe" ++ (np.s ! Nom).ton ++ infVP vp np.a ;
+        } ;
+
+    SelfAdvVP vp = variants {} ;
+
+    SelfAdVVP = insertComplement (
+      \\agr => case agr of {
+        {g = g ; n = n ; p = p} => table {
+          P1 => numForms "eu próprio" "nós próprios" ! n ;
+          P2 => genNumForms "você mesmo" "você mesma" "vocês mesmos" "vocês mesmas" ! g ! n ;
+          P3 => genNumForms "ele próprio" "ela própria" "eles mesmos" "elas mesmas" ! g ! n
+          } ! p
+        }
+      ) ;
+
+    SelfNP np = variants {} ;
+
+} ;

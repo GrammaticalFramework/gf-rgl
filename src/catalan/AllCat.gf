@@ -3,5 +3,6 @@
 concrete AllCat of AllCatAbs = 
   LangCat,
   IrregCat,
-  ExtraCat 
-  ** {} ;
+  ExtraCat
+  ** open ExtendCat
+  in {} ;

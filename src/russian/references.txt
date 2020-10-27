@@ -1,0 +1,25 @@
+
+Some references:
+
+[KING1] Katherine E. King Master of Arts Thesis. University of Washington Mixed Gender Agreement in Russian DPs.
+https://digital.lib.washington.edu/researchworks/bitstream/handle/1773/35231/King_washington_0250O_15352.pdf?sequence=1&isAllowed=y
+
+[LISTENMAA1] https://inariksit.github.io/gf/2018/09/22/grammar-blowup.html#inflection-tables-vs-glu--ing-morph--eme--s
+
+[RUSGRAM] Проект корпусного описания русской грамматики (http://rusgram.ru);
+
+[RUWIKT] https://ru.wiktionary.org
+
+[RUWIKI] https://ru.wikipedia.org
+
+[KHOLODILOVA1] Холодилова М. А. Словоизменительная одушевленность местоимения который. Труды института русского языка им. В.В. Виноградова. 2016. Т. X. С. 342-355.
+
+[ZALIZNYAK] http://gramdict.ru/ А. А. Зализняк Грамматический словарь русского языка Словоизменение
+
+[MALKOVSKYETAL] М. Г. Мальковский, Т. Ю. Грацианова, И. Н. Полякова Прикладное программное обеспечение: системы автоматической обработки текстов
+
+[VEREMEY] Веремей, В.В. Алгоритмы создания и пополнения грамматического словаря русского языка для синтеза речи по тексту / В.В. Веремей, Л.И. Цирульник / Информатика – 2012 – № 1 – С.61-68.
+
+[ISACHENKO]	Исаченко, А.В. Грамматический строй русского языка в сопоставлении с словацким. Братислава : Словацкая акад. наук, 1954-1960
+
+[MAREEVA] https://marjulia.livejournal.com/95532.html

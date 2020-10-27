@@ -1,0 +1,7 @@
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseComp (CompAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N)))))))) NoVoc
+LangEng: the cat is in the house
+LangKor: 고양이가 집 &+ 에서 있어요
+
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseComp (CompAdv (PrepNP behind_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N)))))))) NoVoc
+LangEng: the cat is behind the house
+LangKor: 고양이가 집 뒤에 있어요

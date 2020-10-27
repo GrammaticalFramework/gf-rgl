@@ -29,10 +29,10 @@ lin
   MkVPI vp = variants {} ;     -- Temp -> Pol -> VP -> VPI ; -- to sleep / hasn't slept
   ConjVPI = variants {} ;     -- Conj -> [VPI] -> VPI ; -- has walked and won't sleep
   ComplVPIVV = variants {} ;     -- VV -> VPI -> VP ; -- want to sleep and to walk
-  MkVPS2 = variants {} ;     --     : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved       
+  MkVPS2 = variants {} ;     --     : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
   ConjVPS2 = variants {} ;     --   : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates
   ComplVPS2 = variants {} ;     --  : VPS2 -> NP -> VPS ;               -- has loved and now hates that person
-  MkVPI2 = variants {} ;     --     : Ant  -> Pol -> VPSlash -> VPI2 ;  -- to have loved       
+  MkVPI2 = variants {} ;     --     : Ant  -> Pol -> VPSlash -> VPI2 ;  -- to have loved
   ConjVPI2 = variants {} ;     --   : Conj -> [VPI2] -> VPI2 ;          -- to love and have hated
   ComplVPI2 = variants {} ;     --  : VPI2 -> NP -> VPI ;               -- to love and hate that person
   ProDrop pro = pro ;     -- am tired ; DEFAULT I am tired (no pro drop)
@@ -50,10 +50,13 @@ lin
   PastPartAP = variants {} ;     -- VPSlash -> AP ; -- lost (opportunity) ; (opportunity) lost in space
   PastPartAgentAP = variants {} ;     -- VPSlash -> NP -> AP ; -- (opportunity) lost by the company
   NominalizeVPSlashNP = variants {} ;     -- VPSlash -> NP -> NP ;
+  ProgrVPSlash = variants {} ;            -- VPSlash -> VPSlash ;
   ExistsNP = ExistNP ;     -- NP -> Cl ; -- there exists a number / there exist numbers
   ExistCN cn = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;
   ExistMassCN cn = ExistNP (MassNP cn) ;
   ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
+  AdvIsNP adv np = PredVP np (UseComp (CompAdv adv)) ;  -- here is the tree / here are the trees ; DEFAULT the tree is  here
+  AdvIsNPAP adv np ap = PredVP np (AdvVP (UseComp (CompAP ap)) adv) ; -- here are the instructions documented ; DEFAULT the instructions are documented here
   PurposeVP = variants {} ;     -- VP -> Adv ; -- to become happy
   ComplBareVS = ComplVS ;     -- VS -> S -> VP ; -- say she runs ; DEFAULT say that she runs
   SlashBareV2S = SlashV2S ;     -- V2S -> S -> VPSlash ; -- answer (to him) it is good ; DEFAULT answer that it is good
@@ -62,6 +65,8 @@ lin
   FrontComplDirectVS = variants {} ; -- NP -> VS -> Utt -> Cl ;      -- "I am here", she said
   FrontComplDirectVQ  = variants {} ; -- NP -> VQ -> Utt -> Cl ;      -- "where", she asked
   PredAPVP ap vp = ImpersCl (UseComp (CompAP (SentAP ap (EmbedVP vp)))) ; -- DEFAULT it is (good to walk)
+  PredIAdvVP iadv vp = QuestIAdv iadv (GenericCl vp) ; -- DEFAULT how does one walk
+  EmbedSSlash = variants {} ; -- SSlash -> SC ; -- what we did (was fun)
   AdjAsCN = variants {} ;     -- AP -> CN ; -- a green one ; en grön (Swe)
   AdjAsNP = variants {} ;     -- AP -> NP ; -- green (is good)
   ReflRNP = variants {} ;     -- VPSlash -> RNP -> VP ; -- love my family and myself
@@ -76,7 +81,7 @@ lin
   Cons_nr_RNP = variants {} ;     -- NP -> RNPList -> RNPList ; -- John, my family, myself
   ComplGenVV = variants {} ;     -- VV -> Ant -> Pol -> VP -> VP ; -- want not to have slept
   ComplSlashPartLast = ComplSlash ;
-  SlashV2V = variants {} ;     -- V2V -> Ant -> Pol -> VPS -> VPSlash ; -- force (her) not to have slept
+  --SlashV2V = variants {} ;     -- V2V -> Ant -> Pol -> VPS -> VPSlash ; -- force (her) not to have slept
   CompoundN = variants {} ;     -- N -> N -> N ; -- control system / controls system / control-system
   CompoundAP = variants {} ;     -- N -> A -> AP ; -- language independent / language-independent
   GerundCN = variants {} ;     -- VP -> CN ; -- publishing of the document (can get a determiner)
@@ -95,7 +100,8 @@ lin
 
   DetNPMasc = DetNP ;
   DetNPFem = DetNP ;
-
+  SubjRelNP = RelNP ;
+  UseComp_estar = UseComp ; -- DEFAULT UseComp
   iFem_Pron = i_Pron ; -- DEFAULT I (masc)
   youFem_Pron = youSg_Pron ; -- DEFAULT you (masc)
   weFem_Pron = we_Pron ;  -- DEFAULT we (masc)
@@ -104,10 +110,20 @@ lin
   youPolFem_Pron = youPol_Pron ;  -- DEFAULT you polite (masc)
   youPolPl_Pron = youPl_Pron ;  -- DEFAULT you plural (masc)
   youPolPlFem_Pron = youPl_Pron ;  -- DEFAULT you plural (masc)
+  UncontractedNeg = variants {} ; -- do not, etc, as opposed to don't
   UttAccNP = UttNP ; -- him (accusative) ; DEFAULT he
   UttDatNP np = UttAccNP (lin NP np) ; -- him(dative) ; DEFAULT he
   UttAccIP = UttIP ; -- whom (accusative) ; DEFAULT who
   UttDatIP ip = UttAccIP (lin IP ip) ; -- whom (dative) ; DEFAULT who
+  UttVPShort = UttVP ; -- have fun, as opposed to "to have fun" ; DEFAULT UttVP
+
+  SQuestVPS = variants {} ; -- : NP   -> VPS -> QS ;         -- has she walked
+  QuestVPS = variants {} ; --  : IP   -> VPS -> QS ;         -- who has walked
+
+-- these will probably not need language-specific implementations
+  ExistS t p np = UseCl t p (ExistNP np) ;
+  ExistNPQS t p np = UseQCl t p (QuestCl (ExistNP np)) ;
+  ExistIPQS t p np = UseQCl t p (ExistIP np) ;
 
 oper
   quoted : Str -> Str = \s -> "\"" ++ s ++ "\"" ; ---- TODO bind ; move to Prelude?

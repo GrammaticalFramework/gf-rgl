@@ -1,7 +1,7 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete ExtraBul of ExtraBulAbs = CatBul ** 
   open ResBul, MorphoFunsBul, Coordination, Prelude, Predef in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   lin
@@ -30,21 +30,21 @@ concrete ExtraBul of ExtraBulAbs = CatBul **
       s = \\t,a,p,agr => slash.c2.s ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
       } ;
 
-    i8fem_Pron  = mkPron "аз" "мой" "моя" "моят" "моя" "моята" "мое" "моето" "мои" "моите" (GSg Fem)  PronP1 ;
-    i8neut_Pron = mkPron "аз" "мой" "моя" "моят" "моя" "моята" "мое" "моето" "мои" "моите" (GSg Neut) PronP1 ;
+    i8fem_Pron  = mkPron "Р°Р·" "РјРѕР№" "РјРѕСЏ" "РјРѕСЏС‚" "РјРѕСЏ" "РјРѕСЏС‚Р°" "РјРѕРµ" "РјРѕРµС‚Рѕ" "РјРѕРё" "РјРѕРёС‚Рµ" (GSg Fem)  PronP1 ;
+    i8neut_Pron = mkPron "Р°Р·" "РјРѕР№" "РјРѕСЏ" "РјРѕСЏС‚" "РјРѕСЏ" "РјРѕСЏС‚Р°" "РјРѕРµ" "РјРѕРµС‚Рѕ" "РјРѕРё" "РјРѕРёС‚Рµ" (GSg Neut) PronP1 ;
     
-    whatSg8fem_IP  = mkIP "каква" "каква" (GSg Fem) ;
-    whatSg8neut_IP = mkIP "какво" "какво" (GSg Neut) ;
+    whatSg8fem_IP  = mkIP "РєР°РєРІР°" "РєР°РєРІР°" (GSg Fem) ;
+    whatSg8neut_IP = mkIP "РєР°РєРІРѕ" "РєР°РєРІРѕ" (GSg Neut) ;
 
-    whoSg8fem_IP  = mkIP "коя" "кого" (GSg Fem) ;
-    whoSg8neut_IP = mkIP "кое" "кого" (GSg Neut) ;
+    whoSg8fem_IP  = mkIP "РєРѕСЏ" "РєРѕРіРѕ" (GSg Fem) ;
+    whoSg8neut_IP = mkIP "РєРѕРµ" "РєРѕРіРѕ" (GSg Neut) ;
     
-    youSg8fem_Pron  = mkPron "ти" "твой" "твоя" "твоят" "твоя" "твоята" "твое" "твоето" "твои" "твоите" (GSg Fem)  PronP2 ;
-    youSg8neut_Pron = mkPron "ти" "твой" "твоя" "твоят" "твоя" "твоята" "твое" "твоето" "твои" "твоите" (GSg Neut) PronP2 ;
+    youSg8fem_Pron  = mkPron "С‚Рё" "С‚РІРѕР№" "С‚РІРѕСЏ" "С‚РІРѕСЏС‚" "С‚РІРѕСЏ" "С‚РІРѕСЏС‚Р°" "С‚РІРѕРµ" "С‚РІРѕРµС‚Рѕ" "С‚РІРѕРё" "С‚РІРѕРёС‚Рµ" (GSg Fem)  PronP2 ;
+    youSg8neut_Pron = mkPron "С‚Рё" "С‚РІРѕР№" "С‚РІРѕСЏ" "С‚РІРѕСЏС‚" "С‚РІРѕСЏ" "С‚РІРѕСЏС‚Р°" "С‚РІРѕРµ" "С‚РІРѕРµС‚Рѕ" "С‚РІРѕРё" "С‚РІРѕРёС‚Рµ" (GSg Neut) PronP2 ;
 
     onePl_Num = {s = table {
-                       CFMasc Indef _ | CFFem Indef | CFNeut Indef            => "едни" ;
-                       CFMasc Def _ | CFMascDefNom _ | CFFem Def | CFNeut Def => "едните"
+                       CFMasc Indef _ | CFFem Indef | CFNeut Indef            => "РµРґРЅРё" ;
+                       CFMasc Def _ | CFMascDefNom _ | CFFem Def | CFNeut Def => "РµРґРЅРёС‚Рµ"
                      } ;
                  nn = NCountable;
                  nonEmpty = True
@@ -53,7 +53,7 @@ concrete ExtraBul of ExtraBulAbs = CatBul **
     UttImpSg8fem  pol imp = {s = pol.s ++ imp.s ! pol.p ! GSg Fem} ;
     UttImpSg8neut pol imp = {s = pol.s ++ imp.s ! pol.p ! GSg Fem} ;
     
-    IAdvAdv adv = {s = \\qf => (mkIAdv "колко").s ! qf ++ adv.s} ;
+    IAdvAdv adv = {s = \\qf => (mkIAdv "РєРѕР»РєРѕ").s ! qf ++ adv.s} ;
 
   lincat
     VPI   = {s : Agr => Str} ;
@@ -95,7 +95,7 @@ concrete ExtraBul of ExtraBulAbs = CatBul **
                                        vp.compl1 ! a ++ vp.compl2 ! a) Pos (predV verbBe) ;
 
     PassAgentVPSlash vp np =
-      insertObj (\\_ => "от" ++ np.s ! RObj CPrep) Pos
+      insertObj (\\_ => "РѕС‚" ++ np.s ! RObj CPrep) Pos
                      (insertObj (\\a => vp.ad.s ++ vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
                                         vp.compl1 ! a ++ vp.compl2 ! a) Pos (predV verbBe)) ;
 

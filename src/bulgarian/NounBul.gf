@@ -1,6 +1,6 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
-  flags optimize=all_subs ; coding=cp1251 ;
+  flags optimize=all_subs ; coding=utf8 ;
 
   lin
     DetCN det cn =
@@ -123,17 +123,17 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
     
     AdNum adn num = {s = \\gspec => adn.s ++ num.s ! gspec; nn = num.nn} ;
 
-    OrdSuperl a = {s = \\aform => "най" ++ hyphen ++ a.s ! aform} ;
+    OrdSuperl a = {s = \\aform => "РЅР°Р№" ++ hyphen ++ a.s ! aform} ;
 
     DefArt = {
       s  = table {
              True  => \\_ => [] ;
              False => table {
-                        ASg Masc _    => "той" ;
-                        ASgMascDefNom => "той" ;
-                        ASg Fem  _    => "тя"  ;
-                        ASg Neut _    => "то"  ;
-                        APl      _    => "те"
+                        ASg Masc _    => "С‚РѕР№" ;
+                        ASgMascDefNom => "С‚РѕР№" ;
+                        ASg Fem  _    => "С‚СЏ"  ;
+                        ASg Neut _    => "С‚Рѕ"  ;
+                        APl      _    => "С‚Рµ"
                       }
            } ;
       nonEmpty = False ;
@@ -145,11 +145,11 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
       s  = table {
              True  => \\_ => [] ;
              False => table {
-                        ASg Masc _    => "един" ;
-                        ASgMascDefNom => "един" ;
-                        ASg Fem  _    => "една" ;
-                        ASg Neut _    => "едно" ;
-                        APl      _    => "едни"
+                        ASg Masc _    => "РµРґРёРЅ" ;
+                        ASgMascDefNom => "РµРґРёРЅ" ;
+                        ASg Fem  _    => "РµРґРЅР°" ;
+                        ASg Neut _    => "РµРґРЅРѕ" ;
+                        APl      _    => "РµРґРЅРё"
                       }
            } ;
       nonEmpty = False ;
@@ -171,10 +171,10 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
     UseN2 noun = noun ;
 
     ComplN2 f x = {s = \\nf => f.s ! nf ++ f.c2.s ++ x.s ! RObj f.c2.c; g=f.g} ;
-    ComplN3 f x = {s = \\nf => f.s ! nf ++ f.c2.s ++ x.s ! RObj f.c2.c; rel = \\af => f.rel ! af ++ f.c2.s ++ x.s ! RObj f.c2.c; relPost = True; c2 = f.c3; g=f.g} ;
+    ComplN3 f x = {s = \\nf => f.s ! nf ++ f.c2.s ++ x.s ! RObj f.c2.c; rel = \\af => f.rel ! af ++ f.c2.s ++ x.s ! RObj f.c2.c; relType = AdvMod; c2 = f.c3; g=f.g} ;
 
-    Use2N3 f = {s = f.s ; rel = f.rel ; relPost = f.relPost ; g=f.g ; c2 = f.c2} ;
-    Use3N3 f = {s = f.s ; rel = f.rel ; relPost = f.relPost ; g=f.g ; c2 = f.c3} ;
+    Use2N3 f = {s = f.s ; rel = f.rel ; relType = f.relType ; g=f.g ; c2 = f.c2} ;
+    Use3N3 f = {s = f.s ; rel = f.rel ; relType = f.relType ; g=f.g ; c2 = f.c3} ;
 
 
     AdjCN ap cn = {
@@ -193,13 +193,13 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
       g = cn.g
     } ;
 
-    SentCN cn sc = {s = \\nf => cn.s ! nf ++ sc.s ! agrP3 (gennum cn.g (numNForm nf)); g=cn.g} ;
+    SentCN cn sc = {s = \\nf => cn.s ! nf ++ sc.s; g=cn.g} ;
 
     ApposCN cn np = {s = \\nf => cn.s ! nf ++ np.s ! RSubj; g=cn.g} ;
 
-    PossNP cn np = {s = \\nf => cn.s ! nf ++ "на" ++ np.s ! (RObj CPrep); g = cn.g} ;
+    PossNP cn np = {s = \\nf => cn.s ! nf ++ "РЅР°" ++ np.s ! (RObj CPrep); g = cn.g} ;
     
-    PartNP cn np = {s = \\nf => cn.s ! nf ++ "от" ++ np.s ! (RObj CPrep); g = cn.g} ;
+    PartNP cn np = {s = \\nf => cn.s ! nf ++ "РѕС‚" ++ np.s ! (RObj CPrep); g = cn.g} ;
 
     CountNP det np = {
       s = \\role => let g = case np.gn of { -- this is lossy

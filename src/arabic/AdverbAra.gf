@@ -11,12 +11,12 @@ concrete AdverbAra of Adverb = CatAra ** open ResAra, Prelude in {
     --   s = cadv.s ++ a.s ! AAdv ++ "مِنْ" ++ s.s
     --   } ;
 
-    PrepNP prep np = {s = prep.s ++ np.s ! prep.c} ;
+    PrepNP prep np = {s = prep.s ++ bindIf (orB np.a.isPron prep.binds) ++ np.s ! prep.c} ;
 
-    AdAdv ad av = cc2 av ad ;
+    AdAdv ad av = cc2 ad av ;
 
     -- : Subj -> S -> Adv ;              -- when she sleeps
-    SubjS subj s = {s = subj.s ++ s.s ! Subord} ;
+    SubjS subj s = {s = subj.s ++ s.s ! subj.o} ;
 
 --    AdvSC s = s ; --- this rule give stack overflow in ordinary parsing
 

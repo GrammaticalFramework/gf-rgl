@@ -8,11 +8,13 @@ concrete ExtendSwe of Extend = CatSwe **
     PassVPSlash, PassAgentVPSlash, UttVPShort, ByVP, InOrderToVP,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
-    ICompAP,
+    MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
+    ICompAP,ProDrop,EmbedSSlash,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
     Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
-    CompoundN, CompoundAP
+    CompoundN, CompoundAP, AdvIsNP,
+    UttAccNP
   ]
   with (Grammar = GrammarSwe)
     **
@@ -23,7 +25,7 @@ concrete ExtendSwe of Extend = CatSwe **
 
   lin
     GenNP np = {
-      s,sp = \\n,_,_,g  => np.s ! NPPoss (gennum (ngen2gen g) n) Nom ; 
+      s,sp = \\n,_,_,g  => np.s ! NPPoss (gennum (ngen2gen g) n) Nom ;
       det = DDef Indef
       } ;
 
@@ -31,26 +33,26 @@ concrete ExtendSwe of Extend = CatSwe **
 
     ComplBareVS v s  = insertObj (\\_ => s.s ! Sub) (predV v) ;
 
-    CompBareCN cn = {s = \\a => case a.n of { 
+    CompBareCN cn = {s = \\a => case a.n of {
       Sg => cn.s ! Sg ! DIndef ! Nom ;
       Pl => cn.s ! Pl ! DIndef ! Nom
       }
     } ;
 
     StrandRelSlash rp slash  = {
-      s = \\t,a,p,ag,_ => 
+      s = \\t,a,p,ag,_ =>
           rp.s ! ag.g ! ag.n ! RNom ++ slash.s ! t ! a ! p ! Sub ++ slash.n3 ! ag ++ slash.c2.s ;
       c = NPAcc
       } ;
     EmptyRelSlash slash = {
-      s = \\t,a,p,ag,_ => 
+      s = \\t,a,p,ag,_ =>
           slash.s ! t ! a ! p ! Sub ++ slash.n3 ! ag ++ slash.c2.s ;
       c = NPAcc
       } ;
 
     StrandQuestSlash ip slash = {
-      s = \\t,a,p => 
-            let 
+      s = \\t,a,p =>
+            let
               cls = slash.s ! t ! a ! p ;
               who = ip.s ! accusative ;
 	      agr = agrP3 ip.g ip.n ;
@@ -61,9 +63,9 @@ concrete ExtendSwe of Extend = CatSwe **
       } ;
 
   lin
-    PassVPSlash vps = 
+    PassVPSlash vps =
       insertObj (\\a => vps.c2.s ++ vps.n3 ! a) (passiveVP vps) ;
-    PassAgentVPSlash vps np = 
+    PassAgentVPSlash vps np =
       insertObjPost (\\a => vps.c2.s ++ vps.n3 ! a) (insertObj (\\_ => (PrepNP by8agent_Prep np).s) (passiveVP vps)) ;
 
   lin UttVPShort vp = {s = infVP vp (agrP3 Utr Sg)} ;
@@ -90,23 +92,23 @@ concrete ExtendSwe of Extend = CatSwe **
     BaseVPS = twoTable2 Order Agr ;
     ConsVPS = consrTable2 Order Agr comma ;
 
-    PredVPS np vpi = 
+    PredVPS np vpi =
       let
         subj = np.s ! nominative ;
         agr  = np.a ;
       in {
-        s = \\o => 
-          let verb = vpi.s ! o ! agr 
+        s = \\o =>
+          let verb = vpi.s ! o ! agr
           in case o of {
             Main => subj ++ verb ;
             Inv  => verb ++ subj ;   ---- älskar henne och sover jag
-            Sub  => subj ++ verb 
+            Sub  => subj ++ verb
             }
         } ;
 
     MkVPS t p vp = {
-      s = \\o,a => 
-            let 
+      s = \\o,a =>
+            let
               verb  = vp.s ! Act ! VPFinite t.t t.a ;
 	      neg   = verb.a1 ! p.p ! a ;
               compl = vp.n2 ! a ++ vp.a2 ++ vp.ext ;
@@ -120,21 +122,71 @@ concrete ExtendSwe of Extend = CatSwe **
 
     ConjVPS = conjunctDistrTable2 Order Agr ;
 
+  lincat
+    VPS2   = {s : Order => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+    [VPS2] = {s1,s2 : Order => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+
+  lin
+    BaseVPS2 x y = twoTable2 Order Agr x y ** {c2 = y.c2} ;
+    ConsVPS2 x xs = consrTable2 Order Agr comma x xs ** {c2 = xs.c2};
+
+
+    MkVPS2 t p vp = {
+      s = \\o,a =>
+            let
+              verb  = vp.s ! Act ! VPFinite t.t t.a ;
+	      neg   = verb.a1 ! p.p ! a ;
+              compl = vp.n2 ! a ++ vp.a2 ++ vp.ext ;
+	      pron  = vp.n1 ! a
+            in t.s ++ p.s ++ case o of {
+              Main => verb.fin ++ neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl ;
+              Inv  => verb.fin ++ neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl ; ----
+              Sub  => neg.p1 ++ neg.p2 ++ verb.fin ++ verb.inf ++ pron ++ compl
+              } ;
+       c2 = vp.c2
+      } ;
+      
+    ComplVPS2 vps2 np = {
+        s = \\o,a => vps2.s !o ! a ++ vps2.c2.s ++ np.s ! NPAcc
+        } ;
+	
+    ConjVPS2 c xs = conjunctDistrTable2 Order Agr c xs ** {c2 = xs.c2} ;
+
+  lincat
+    VPI2   = {s : VPIForm => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+    [VPI2] = {s1,s2 : VPIForm => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
+
+  lin
+    BaseVPI2 x y = twoTable2 VPIForm Agr x y ** {c2 = y.c2} ;
+    ConsVPI2 x xs = consrTable2 VPIForm Agr comma x xs ** {c2 = xs.c2} ;
+
+    MkVPI2 vp = {
+      s = \\v,a => infVP vp a  ; ---- no sup
+      c2 = vp.c2
+      } ;
+    ConjVPI2 c xs = conjunctDistrTable2 VPIForm Agr c xs ** {c2 = xs.c2} ;
+
+    ComplVPI2 vpi2 np = {
+        s = \\t,a => vpi2.s ! t ! a ++ vpi2.c2.s ++  np.s ! NPAcc
+        } ;
+
+-----------
+
     ICompAP ap = {s = \\a => hur_IAdv.s ++ ap.s ! a} ;
 
-
+    ProDrop pro = pro ** {s = \\_ => []} ;
 
   lincat
     RNP     = {s : Agr => Str ; isPron : Bool} ;   ---- inherent Agr needed: han färgar sitt hår vitt. But also depends on subject
     RNPList = {s1,s2 : Agr => Str} ;
 
-  lin 
-    ReflRNP vps rnp = 
+  lin
+    ReflRNP vps rnp =
       insertObjPron
         (andB (notB vps.c2.hasPrep) rnp.isPron)
         rnp.s
 	(insertObj (\\a => vps.c2.s ++ vps.n3 ! a) vps) ;
-	
+
     ReflPron = {s = \\a => reflPron a ; isPron = True} ; ---- agr ??
     ReflPoss num cn = {
       s = \\a => possPron a.n a.p num.n (ngen2gen cn.g) ++ num.s ! cn.g ++ cn.s ! num.n ! DDef Indef ! Nom ;
@@ -159,7 +211,7 @@ concrete ExtendSwe of Extend = CatSwe **
     ApposNP np1 np2 = {s = \\nform => np1.s ! nform ++ comma ++ np2.s ! nform; a = np1.a; isPron = False} ;
 
     DetNPMasc, DetNPFem = \det ->
-      let 
+      let
         g = utrum ; ----
         m = True ;  ---- is this needed for other than Art?
       in {
@@ -173,7 +225,7 @@ concrete ExtendSwe of Extend = CatSwe **
       co = n1.co ++ BIND ++ n2.co ;
       g  = n2.g
     } ;
-    
+
     CompoundAP noun adj = {
       s = \\ap => noun.co ++ BIND ++ adj.s ! AF (APosit ap) Nom ;
       isPre = True
@@ -183,7 +235,7 @@ concrete ExtendSwe of Extend = CatSwe **
     AdAdV = cc2 ;
 
     PositAdVAdj a = {s = a.s ! AAdv} ;
-    
+
     PresPartAP vp = {
       s = \\af => case vp.isSimple of {
                     True  => partVPPlus     vp (PartPres Sg Indef Nom) (aformpos2agr af) Pos ;
@@ -193,26 +245,28 @@ concrete ExtendSwe of Extend = CatSwe **
     } ;
 
     PastPartAP vp = {
-      s = \\af => case vp.isSimple of {
-                    True  => partVPPlus     vp (PartPret af Nom) (aformpos2agr af) Pos ;
-                    False => partVPPlusPost vp (PartPret af Nom) (aformpos2agr af) Pos
-                  } ;
+      s = \\af => let vp' = vp**{n2 : Agr => Str =\\a => vp.n2 ! a ++ vp.n3 ! a}
+                  in case vp.isSimple of {
+                       True  => partVPPlus     vp' (PartPret af Nom) (aformpos2agr af) Pos ;
+                       False => partVPPlusPost vp' (PartPret af Nom) (aformpos2agr af) Pos
+                     } ;
       isPre = vp.isSimple
     } ;
 
     PastPartAgentAP vp np = {
-      s = \\af => partVPPlusPost vp (PartPret af Nom) (aformpos2agr af) Pos ++ "av" ++ np.s ! accusative ;
+      s = \\af => let vp' = vp**{n2 : Agr => Str =\\a => vp.n2 ! a ++ vp.n3 ! a}
+                  in partVPPlusPost vp' (PartPret af Nom) (aformpos2agr af) Pos ++ "av" ++ np.s ! accusative ;
       isPre = False
     } ;
 
     GerundCN vp = {  -- infinitive: att dricka öl, att vara glad
-      s = \\_,_,_ => "att" ++ infVP vp {g = Utr ; n = Sg ; p = P3} ; 
+      s = \\_,_,_ => "att" ++ infVP vp {g = Utr ; n = Sg ; p = P3} ;
       g = Neutr ;
       isMod = False
     } ;
 
     GerundNP vp = {  -- infinitive: att dricka öl, att vara glad
-      s = \\_ => "att" ++ infVP vp {g = Utr ; n = Sg ; p = P3} ; 
+      s = \\_ => "att" ++ infVP vp {g = Utr ; n = Sg ; p = P3} ;
       a = {g = Neutr ; n = Sg ; p = P3} ;
       isPron = False
     } ;
@@ -220,12 +274,18 @@ concrete ExtendSwe of Extend = CatSwe **
     GerundAdv vp = {
       s = partVPPlusPost vp (PartPres Sg Indef (Nom|Gen)) {g = Utr ; n = Sg ; p = P3} Pos -- sovande(s) i sängen
     } ;
-    
+
     ByVP vp = {  -- infinitive: att dricka öl, att vara glad
       s = "genom att" ++ infVP vp {g = Utr ; n = Sg ; p = P3}
     } ;
-    
+
     InOrderToVP vp = {  -- infinitive: att dricka öl, att vara glad
       s = "för att" ++ infVP vp {g = Utr ; n = Sg ; p = P3}
     } ;
+
+    AdvIsNP adv np = PredVP {s = \\_ => adv.s ; a = np.a ; isPron = False} (UseComp (CompNP np)) ;
+
+    EmbedSSlash ss = {s = "det" ++ ss.s ! Main ++ ss.c2.s ++ ss.n3 ! agrUSgP3} ;
+
+    UttAccNP np = {s = np.s ! NPAcc} ;
 }

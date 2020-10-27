@@ -1,0 +1,34 @@
+--------------------------------
+-- Adjectives with complement --
+--------------------------------
+-- LangEng: I am married to you
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (ComplA2 married_A2 (UsePron youSg_Pron))))))) NoVoc
+LangHun: én házas vagyok veled
+
+
+----------------
+-- Comparison --
+----------------
+-- LangEng: I am as red as you
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (CAdvAP as_CAdv (PositA red_A) (UsePron youSg_Pron))))))) NoVoc
+LangHun: én olyan piros vagyok mint te
+
+-- LangEng: I am redder than you
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (ComparA red_A (UsePron youSg_Pron))))))) NoVoc
+LangHun: én pirosabb vagyok nálad
+
+
+------------------
+-- Superlatives --
+------------------
+-- LangEng: I am reddest
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (AdjOrd (OrdSuperl red_A))))))) NoVoc
+LangHun: én legpirosabb vagyok
+
+-- LangEng: I am the reddest
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompNP (DetNP (DetQuantOrd DefArt NumSg (OrdSuperl red_A)))))))) NoVoc
+LangHun: én a legpirosabb vagyok
+
+--  It works!
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompNP (DetNP (DetQuantOrd DefArt NumPl (OrdSuperl red_A)))))))) NoVoc
+LangHun: én a legpirosabbok vagyok

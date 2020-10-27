@@ -1,75 +1,79 @@
-concrete SentenceHun of Sentence = CatHun ** open Prelude, ResHun in 
-{
---{
---
---  flags optimize=all_subs ;
---
---  lin
---
---    PredVP np vp = mkClause (np.s ! npNom) np.a vp ;
---
---    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
---
---    ImpVP vp = {
---      s = \\pol,n => 
---        let 
---          agr   = AgP2 (numImp n) ;
---          verb  = infVP VVAux vp agr ;
---          dont  = case pol of {
---            CNeg True => "don't" ;
---            CNeg False => "do" ++ "not" ;
---            _ => []
---            }
---        in
---        dont ++ verb
---    } ;
---
---    SlashVP np vp = 
---      mkClause (np.s ! npNom) np.a vp ** {c2 = vp.c2} ;
---
---    AdvSlash slash adv = {
---      s  = \\t,a,b,o => slash.s ! t ! a ! b ! o ++ adv.s ;
---      c2 = slash.c2
---    } ;
---
---    SlashPrep cl prep = cl ** {c2 = prep.s} ;
---
---    SlashVS np vs slash = 
---      mkClause (np.s ! npNom) np.a 
---        (insertObj (\\_ => conjThat ++ slash.s) (predV vs))  **
---        {c2 = slash.c2} ;
---
---    EmbedS  s  = {s = conjThat ++ s.s} ;
---    EmbedQS qs = {s = qs.s ! QIndir} ;
---    EmbedVP vp = {s = infVP VVInf vp (agrP3 Sg)} ; --- agr
---
---    UseCl  t p cl = {
---      s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! ODir
---    } ;
---    UseQCl t p cl = {
---      s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! q
---    } ;
---    UseRCl t p cl = {
---      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
---      c = cl.c
---    } ;
---    UseSlash t p cl = {
---      s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p  ! ODir ;
---      c2 = cl.c2
---    } ;
---
---    AdvS a s = {s = a.s ++ s.s} ;
---    ExtAdvS a s = {s = a.s ++ "," ++ s.s} ;
---
---    SSubjS a s b = {s = a.s ++ s.s ++ b.s} ;
---
---    RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ;
---
---  oper
---    ctr : CPolarity -> CPolarity = \x -> x ;
------    ctr = contrNeg True ;  -- contracted negations
---
---}
---
+concrete SentenceHun of Sentence = CatHun ** open
+  TenseX, ResHun, (AK=AdverbHun), Prelude in {
+
+flags optimize=all_subs ;
+
+lin
+
+--2 Clauses
+
+  -- : NP -> VP -> Cl
+  PredVP = predVP ;
+
+  -- : SC -> VP -> Cl ;         -- that she goes is good (Saeed p. 94)
+  --PredSCVP sc vp = ;
+
+--2 Clauses missing object noun phrases
+  -- : NP -> VPSlash -> ClSlash ;
+  SlashVP np vps = predVP np (vps ** {s = vps.s ! Indef ; obj = []}) ;
+{-
+  -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
+  AdvSlash cls adv = cls ** insertAdv adv cls ;
+
+--    SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+
+  -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
+--  SlashVS np vs ss = {} ;
+
+
+  --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
+  UseSlash t p cls = {
+    } ;
+
+--2 Imperatives
+  -- : VP -> Imp ;
+  ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
+
+--2 Embedded sentences
+
+  -- : S  -> SC ;
+  EmbedS s = {s = s.s ! True} ; -- choose subordinate
+
+  -- : QS -> SC ;
+  -- EmbedQS qs = { } ;
+
+  -- : VP -> SC ;
+  EmbedVP vp = {s = infVP vp} ;
+-}
+--2 Sentences
+
+  -- : Temp -> Pol -> Cl -> S ;
+  UseCl t p cl = {
+    s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
+    } ;
+
+  -- : Temp -> Pol -> QCl -> QS ;
+  UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
+
+  -- : Temp -> Pol -> RCl -> RS ;
+  UseRCl t p cl = {s = \\n,c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! n ! c} ;
+
+  -- AdvS : Adv -> S  -> S ;            -- then I will go home
+  AdvS = advS "" ;
+
+  -- ExtAdvS : Adv -> S  -> S ;         -- next week, I will go home
+  ExtAdvS = advS (SOFT_BIND ++ ",");
+
+  -- : S -> Subj -> S -> S ;
+  -- SSubjS s1 subj s2 = AdvS (AK.SubjS subj s2) s1 ;
+
+  --  : S -> RS -> S ;              -- she sleeps, which is good
+  -- RelS sent rs = advS {s = rs.s ! Sg3 Masc ++ SOFT_BIND ++ ","} sent ;
+
+oper
+
+  advS : (comma : Str) -> SS -> S -> S = \comma,a,sent -> sent ** {
+    s = a.s ++ comma ++ sent.s
+    } ;
 
 }

@@ -1,11 +1,9 @@
 incomplete concrete VerbBantu of Verb = 
   CatBantu ** open Prelude, CommonBantu, ResBantu in {
-{-
-  flags optimize=all_subs ;
 
   lin
      UseV = predV ;
-
+{-
     SlashV2a v = predV v ** {c2 = v.c2 ; gapInMiddle = False} ;
     Slash2V3 v np = 
       insertObjc (\\_ => v.c2 ++ np.s ! NPAcc) (predV v ** {c2 = v.c3 ; gapInMiddle = False}) ;

@@ -1,0 +1,37 @@
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 give_V3 (UsePron we_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (PassVPSlash (Slash2V3 give_V3 (UsePron we_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 give_V3 (DetCN (DetQuant DefArt NumPl) (UseN car_N)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 send_V3 (UsePron we_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (PassVPSlash (Slash3V3 send_V3 (UsePron we_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 send_V3 (UsePron we_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (PassVPSlash (Slash3V3 send_V3 (UsePron we_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 send_V3 (UsePron we_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PNeg (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron we_Pron) (Pass3V3 send_V3 (PredetNP not_Predet (DetCN (DetQuant DefArt NumSg) (UseN car_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (Pass3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (Pass2V3 erklaeren_dat_V3 (UsePron we_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron we_Pron) (Pass3V3 erklaeren_dat_V3 (DetCN (DetQuant DefArt NumSg) (UseN car_N)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youPl_Pron) (PassVPSlash (Slash3V3 danken_dat_fuer_V3 (DetCN (DetQuant DefArt NumSg) (UseN gold_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN book_N)) (PassVPSlash (Slash2V3 danken_dat_fuer_V3 (UsePron youPl_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN car_N)) (ComplSlash (Pass2V4 kaufen_bei_fuer_V4 (DetCN much_Det (UseN gold_N))) (UsePron youSg_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (PassVPSlash (Slash3V3 debattieren_mit_ueber_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron i_Pron) (PassVPSlash (Slash3V3 debattieren_mit_ueber_V3 (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (PassVPSlash (Slash2V3 debattieren_mit_ueber_V3 (UsePron i_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (PassVPSlash (Slash2V3 debattieren_mit_ueber_V3 (UsePron i_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN friend_N)) (Pass2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN friend_N)) (PassVPSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN friend_N)) (PassVPSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (Pass2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN science_N))))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (Pass2V3 lehren_V3 (UsePron she_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (Pass2V3 lehren_V3 (UsePron they_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash2V3 lehren_V3 (UsePron she_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash2V3 lehren_V3 (UsePron they_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash3V3 lehren_V3 (UsePron she_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (PassVPSlash (Slash3V3 lehren_V3 (UsePron they_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (Pass2V3 lehren_V3 (UsePron he_Pron))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (PassVPSlash (Slash2V3 lehren_V3 (UsePron he_Pron)))))) NoVoc
+ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (PassVPSlash (Slash3V3 lehren_V3 (UsePron he_Pron)))))) NoVoc

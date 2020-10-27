@@ -1,0 +1,118 @@
+--------------------------------------------------------------------------------
+-- Intransitive
+
+-- LangEng: they went
+LangSom: waa ay tageen
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (UseV go_V)))) NoVoc
+
+--------------------------------------------------------------------------------
+-- Transitive
+
+-- LangEng: they saw you
+LangSom: waa ay ku arkeen
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: they didn't see you
+LangSom: ku BIND ma arkin
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (UsePron they_Pron) (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: you taught yourself
+LangSom: waa aad isku bartay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (ReflVP (SlashV2a teach_V2))))) NoVoc
+
+-- LangEng: you don't teach yourself
+LangSom: isku BIND ma barto
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (ReflVP (SlashV2a teach_V2))))) NoVoc
+
+-- LangEng: one saw you
+LangSom: waa lagu arkay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (GenericCl (ComplSlash (SlashV2a see_V2) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: you were seen
+LangSom: waa lagu arkay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youSg_Pron) (PassV2 see_V2)))) NoVoc
+
+-- LangEng: we were seen
+LangSom: waa inala arkay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (PassV2 see_V2)))) NoVoc
+
+-- LangEng: you were seen
+LangSom: waa laydin arkay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron youPl_Pron) (PassV2 see_V2)))) NoVoc
+
+--------------------------------------------------------------------------------
+-- Ditransitive
+
+-- LangEng: mother gave you us
+LangSom: hooyo waa ay ina kaa siisey
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: mother didn't give you us
+LangSom: hooyo ina BIND ma kaa siin
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PNeg (PredVP (MassNP (UseN2 mother_N2)) (ComplSlash (Slash3V3 give_V3 (UsePron we_Pron)) (UsePron youSg_Pron))))) NoVoc
+
+-- LangEng: he gave himself bread
+LangSom: rooti waa uu is siiyey
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ReflVP (Slash2V3 give_V3 (MassNP (UseN bread_N))))))) NoVoc
+
+-- LangEng: one adds salt to the meat
+LangSom: cusbo hilib BIND ka waa lagu daraa
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (Slash3V3 add_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N))) (MassNP (UseN salt_N)))))) NoVoc
+
+-- LangEng: one can add salt to meat
+LangSom: cusbo hilib waa lagu dari karaa
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplVV can_VV (ComplSlash (Slash3V3 add_V3 (MassNP (UseN meat_N))) (MassNP (UseN salt_N))))))) NoVoc
+
+--------------------------------------------------------------------------------
+-- Other complements
+
+--LangEng: we knew that he is coming
+LangSom: in uu imanayo waa aynu ogaannay
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVS know_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ProgrVP (UseV come_V)))))))) NoVoc
+
+-- LangEng: you must see mother of the cat
+LangSom: waa in aad aragtaa bisad BIND da hooya BIND deed
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplVV must_VV (ComplSlash (SlashV2a see_V2) (MassNP (ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))))) NoVoc
+
+-- LangEng: the mother of the cat must be seen
+LangSom: waa in la arkaa bisad BIND da hooya BIND deed
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplVV must_VV (ComplSlash (SlashV2a see_V2) (MassNP (ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))))) NoVoc
+
+-- LangEng: I want to read the book
+LangSom: waxa aan rabaa in aan buug BIND ga akhriyo
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+
+-- LangEng: I don't want to read the book
+LangSom: ma rabo in aan buug BIND ga akhriyo
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))) NoVoc
+
+-- LangEng: you want to see us under the chair
+LangSom: waxa aad rabtaa in aad inagu aragto kursi BIND ga hoos BIND tiis BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplVV want_VV (AdvVP (ComplSlash (SlashV2a see_V2) (UsePron we_Pron)) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN chair_N)))))))) NoVoc
+
+--------------------------------------------------------------------------------
+-- Adverbials
+
+-- LangEng: I can jump above it
+LangSom: waa aan ka dul boodi karaa
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplVV can_VV (UseV jump_V)) (PrepNP above_Prep (UsePron it_Pron)))))) NoVoc
+
+-- LangEng: you can't jump above me
+LangSom: iga BIND ma dul boodi karto
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youSg_Pron) (AdvVP (ComplVV can_VV (UseV jump_V)) (PrepNP above_Prep (UsePron i_Pron)))))) NoVoc
+
+-- LangEng: I am taught in front of the house
+LangSom: waa laygu baraa guri BIND ga hor BIND tiis BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (PassV2 teach_V2) (PrepNP in8front_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N))))))) NoVoc
+
+-- LangEng: I am taught in front of my mother
+LangSom: waa laygu baraa hooya BIND day hor BIND teed BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (PassV2 teach_V2) (PrepNP in8front_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 mother_N2))))))) NoVoc
+
+-- LangEng: I see a cat under the chair
+LangSom: bisad waa aan ku arkaa kursi BIND ga hoos BIND tiis BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN chair_N))))))) NoVoc
+
+-- LangEng: my mother lives under the sea
+LangSom: hooya BIND day waa ku nool tahay bad BIND da hoos BIND teed BIND a
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 mother_N2)) (AdvVP (UseV live_V) (PrepNP under_Prep (DetCN (DetQuant DefArt NumSg) (UseN sea_N))))))) NoVoc

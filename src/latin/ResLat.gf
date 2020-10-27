@@ -2,7 +2,7 @@
 
 --1 Latin auxiliary operations.
 
-resource ResLat = ParamX ** open Prelude,TenseX in {
+resource ResLat = ParamX ** open Prelude, Predef, (C=CommonX) in {
 
 param
   Case = Nom | Acc | Gen | Dat | Abl | Voc ;
@@ -12,39 +12,60 @@ param
   oper
     consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "qu" | "h" );
 
-    Noun : Type = {s : Number => Case => Str ; g : Gender} ;
+    Noun : Type = {s : Number => Case => Str ; g : Gender } ; -- massable : Bool } ;
     NounPhrase : Type = 
       {
-	s : Case => Str ; 
+	s : PronDropForm => Case => Str ; 
 	g : Gender ; 
 	n : Number ; 
 	p : Person ;
+	adv : Str ;
+	preap : {s : Agr => Str } ;
+	postap : {s : Agr => Str } ;
+	det : { s, sp : Case => Str } ; 
       } ;
   param
-    Order = SVO | VSO | VOS | OSV | OVS | SOV ; 
+    -- Parameters to determine word order
+    -- top level order, e.g. subject verb object
+    Order = SVO | VSO | VOS | OSV | OVS | SOV ;
+    -- determiner position in a noun phrase, e.g. before or after noun
+    DetPos = DPreN | DPostN ;
+    -- verb position, eithe regular or interleaved in the subject
+    VPos = VReg | VInS ;
+    -- (verb-modifying) adverb position
+    AdvPos = APreS | APreV | APreO | APreNeg | AInV | AInS | APreN | APostN ; -- | InO
+    -- verb complement position in relation to verb
+    ComplPos = CPreV | CPostV ;
+    -- sentence adverb position
+    SAdvPos = SAPreS | SAPreV | SAPreO | SAPreNeg ;
   param
     Agr = Ag Gender Number Case ; -- Agreement for NP et al.
   oper
     Adjective : Type = {
       s : Degree => Agr => Str ; 
 --      comp_adv : Str ; 
---      super_adv : Str 
+      --      super_adv : Str
+      adv : Adverb ;
       } ;
-    ComplexNoun : Type = 
+    CommonNoun : Type = 
     {
       s : Number => Case => Str ; 
       g : Gender ;
+      adv : Str ;
       preap : {s : Agr => Str } ;
-      postap : {s : Agr => Str } ;
-    } ;
+      postap : {s : Agr => Str }
+	--	massable : Bool
+      } ;
+    
 -- nouns
-  useCNasN : ComplexNoun -> Noun = \cn ->
+  useCNasN : CommonNoun -> Noun = \cn ->
     {
       s = cn.s ;
-      g = cn.g ;
+      g = cn.g
+--      massable = cn.massable;
     } ;
 
-  pluralN : Noun -> Noun = \n ->
+  pluralNoun : Noun -> Noun = \n ->
     { 
       s = table {
 	Pl => n.s ! Pl ;
@@ -52,11 +73,41 @@ param
 	};
       g = n.g ;
       preap = n.preap ;
-      postap = n.postap ;
+      postap = n.postap
+--      massable = n.massable ;
     };
-  
-  mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun = 
+
+  singularNoun : Noun -> Noun = \n ->
+    lin N { 
+      s = table {
+	Sg => n.s ! Sg ;
+	Pl => \\_ => nonExist -- no plural forms
+	};
+      g = n.g ;
+      preap = n.preap ;
+      postap = n.postap 
+--      massable = n.massable ;
+    };
+  constNoun : Str -> Gender -> Noun = \s,g ->
+    { s = \\_,_ => s ; g = g } ;
+
+  param
+    AdjPos = Pre | Post ;
+  oper
+    addAdjToCN : AdjectivePhrase -> CommonNoun -> AdjPos -> CommonNoun = \ap,cn,pos ->
+      {
+	s = cn.s ;
+	postap = case pos of { Pre => cn.postap ; Post => { s = \\a => ap.s ! a ++ cn.postap.s ! a } } ;
+	preap = case pos of { Pre => { s = \\a => ap.s ! a ++ cn.preap.s ! a } ; Post => cn.preap } ;
+	g = cn.g ;
+	adv = cn.adv 
+--	massable = cn.massable
+      } ;
+	  
+  mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Noun =
     \sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g -> {
+--  mkNoun : (n1,_,_,_,_,_,_,_,_,n10 : Str) -> Gender -> Bool -> Noun = 
+    --\sn,sa,sg,sd,sab,sv,pn,pa,pg,pd,g,m -> {
       s = table {
 	Sg => table {
           Nom => sn ;
@@ -74,31 +125,60 @@ param
           }
 	} ;
       g = g
+--      massable = m
     } ;
   
 -- to change the default gender
 
-  nounWithGen : Gender -> Noun -> Noun = \g,n ->
-    {s = n.s ; g = g} ;
+  nounWithGender : Gender -> Noun -> Noun = \g,n ->
+    {s = n.s ; g = g } ; -- massable = n.massable ;} ;
 
+  -- nounMassable : Bool -> Noun -> Noun = \m,n ->
+  --   {s = n.s ; g = n.g ; massable = m } ;
+
+  prefixNoun : Str -> Noun -> Noun =
+    \p,n ->
+    { s = \\num,cas => addPrefix p (n.s ! num ! cas) ; g = n.g };
+    
+    
   regNP : (_,_,_,_,_,_ : Str) -> Gender -> Number -> NounPhrase = 
     \nom,acc,gen,dat,abl,voc,g,n ->
     {
-      s = table Case [ nom ; acc ; gen ; dat ; abl ; voc ] ;
+      s = \\_ => table Case [ nom ; acc ; gen ; dat ; abl ; voc ] ;
       g = g ;
       n = n ;
-      p = P3 
+      p = P3;
+      adv = "" ;
+      preap, postap = { s = \\_ => "" } ;
+      det = { s,sp = \\_ => "" ; n = n} ;
     } ;
+  
+  dummyNP : Str -> NounPhrase = \s -> regNP s s s s s s Masc Sg ;
+	  
+  emptyNP : NounPhrase = { s = \\_,_ => ""; g = Masc; n = Sg; p = P3 ; adv = "" ; preap, postap = { s = \\_ => "" } ; det = { s , sp = \\_ => "" ; n = Sg } ;};
 
-  emptyNP : NounPhrase = { s = \\_ => ""; g = Masc; n = Sg; p = P1 }; 
+  combineNounPhrase : NounPhrase -> PronDropForm => AdvPos => DetPos => Case => Str = \np ->
+    let detpren : DetPos -> { s , sp : Case => Str}  = \dp -> case dp of { DPreN => np.det ; _ => { s, sp = \\_ => [] } } ;
+	detpostn : DetPos -> { s , sp : Case => Str}  = \dp -> case dp of { DPostN => np.det ; _ => { s, sp = \\_ => [] } } ;
+	apren : AdvPos -> Str = \ap -> case ap of { APreN => np.adv ; _ => [] } ;
+	apostn : AdvPos -> Str = \ap -> case ap of { APostN => np.adv ; _ => [] } ;
+    in
+    \\pd,ap,dp,c => apren ap ++ (detpren dp).s ! c ++ np.preap.s ! (Ag np.g np.n c) ++ np.s ! pd ! c ++ np.postap.s ! (Ag np.g np.n c) ++ (detpren dp).sp ! c ++ (detpostn dp).s ! c ++ apostn ap ; 
 -- also used for adjectives and so on
 
 -- adjectives
 
-  mkAdjective : (_,_,_ : Noun) -> 
+  AdjectivePhrase : Type = { 
+	s : Agr => Str ;
+--	isPre : Bool ; -- should have no use in latin because adjectives can appear variably before and after nouns
+    } ;
+  
+  mkAdjective : (bonus,bona,bonum : Noun) -> 
     ( (Agr => Str) * Str ) -> 
-    ( (Agr => Str) * Str ) -> Adjective = 
-    \bonus,bona,bonum,melior,optimus ->
+    ( (Agr => Str) * Str ) ->
+    (bono,bonius,bonissimo : Str) ->
+    Adjective = 
+    \bonus,bona,bonum,melior,optimus,bono,bonius,bonissimo ->
     {
       s = table {
 	Posit => table {
@@ -110,7 +190,8 @@ param
 	Superl => optimus.p1 
 	} ;
       comp_adv = melior.p2 ;
-      super_adv = optimus.p2
+      super_adv = optimus.p2 ;
+      adv = { s = table { Posit => bono ; Compar => bonius ; Superl => bonissimo } };
     } ;
 
 
@@ -126,11 +207,58 @@ param
       audaces audaces (audac + "ium") (audac + "ibus") 
       g ;
 
+  regAdj : Str -> Gender => Number => Case => Str = \s ->
+    case s of {
+	un + "us" => \\g,n,c => un + (regAdjSuffixes s g n c)
+    } ;
 
+  regAdjSuffixes : Str -> Gender -> Number -> Case -> Str = \str,g,n,c ->
+    case <g,n,c> of {
+      <Masc ,Sg,Nom> => "us" ;
+      <Masc ,Sg,Gen> => "i" ;
+      <Masc ,Sg,Dat> => "o" ;
+      <Masc ,Sg,Acc> => "um" ;
+      <Masc ,Sg,Abl> => "o" ;
+      <Masc ,Sg,Voc> => case str of { _ + "ius" => "i" ; _ => "e" } ;
+      <Masc ,Pl,Nom> => "i" ;
+      <Masc ,Pl,Gen> => "orum" ;
+      <Masc ,Pl,Dat> => "is" ;
+      <Masc ,Pl,Acc> => "os" ;
+      <Masc ,Pl,Abl> => "is" ;
+      <Masc ,Pl,Voc> => "i" ;
+      <Neutr,Sg,Nom> => "um" ;
+      <Neutr,Sg,Gen> => "i" ;
+      <Neutr,Sg,Dat> => "o" ;
+      <Neutr,Sg,Acc> => "um" ;
+      <Neutr,Sg,Abl> => "o" ;
+      <Neutr,Sg,Voc> => "um";
+      <Neutr,Pl,Nom> => "a" ;
+      <Neutr,Pl,Gen> => "orum" ;
+      <Neutr,Pl,Dat> => "is" ;
+      <Neutr,Pl,Acc> => "os" ;
+      <Neutr,Pl,Abl> => "is" ;
+      <Neutr,Pl,Voc> => "a" ;
+      <Fem  ,Sg,Nom> => "a" ;
+      <Fem  ,Sg,Gen> => "ae" ;
+      <Fem  ,Sg,Dat> => "ae" ;
+      <Fem  ,Sg,Acc> => "am" ;
+      <Fem  ,Sg,Abl> => "a" ;
+      <Fem  ,Sg,Voc> => "a";
+      <Fem  ,Pl,Nom> => "ae" ;
+      <Fem  ,Pl,Gen> => "arum" ;
+      <Fem  ,Pl,Dat> => "is" ;
+      <Fem  ,Pl,Acc> => "as" ;
+      <Fem  ,Pl,Abl> => "is" ;
+      <Fem  ,Pl,Voc> => "ae" 
+    } ;
+    
   emptyAdj : Adjective = 
-    { s = \\_,_ => "" ; comp_adv = "" ; super_adv = "" } ; 
+    { s = \\_,_ => "" ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
 
--- verbs
+  constAdj : Str -> Adjective = \a ->
+    { s = \\_,_ => a ; comp_adv = "" ; super_adv = "" ; adv = { s = \\_ => "" } } ; 
+
+  -- verbs
 
 param 
   VActForm  = VAct VAnter VTense Number Person ;
@@ -149,12 +277,29 @@ param
   
   oper
   VerbPhrase : Type = {
-    fin : VActForm => VQForm => Str ;
+    s : VActForm => VQForm => Str ;
+    pass : VPassForm => VQForm => Str ;
+    part : VPartForm => Agr => Str ;
     inf : VInfForm => Str ;
+    imp : VImpForm => Str ;
     obj : Str ;
-    adj : Agr => Str
-  } ;
+    compl : Agr => Str ; -- general complement. Agr might be ignored except for adjectives
+    adv : Str
+    } ;
 
+  ObjectVerbPhrase : Type = VerbPhrase ** {c : Preposition} ;
+
+  emptyVP : VerbPhrase = {
+    s = \\_,_ => "" ;
+    pass = \\_,_ => "" ;
+    part = \\_,_ => "" ;
+    inf = \\_ => "" ;
+    imp = \\_ => "" ;
+    obj = "";
+    compl = \\_ => "" ;
+    adv = ""
+    } ;
+  
   Verb : Type = {
     act   : VActForm => Str ;
     pass  : VPassForm => Str ;
@@ -203,10 +348,11 @@ param
 
   useVPasV : VerbPhrase -> Verb = \vp ->
     {
-      act = \\a => vp.obj ++ vp.fin ! a ! VQFalse;
+      act = \\a => vp.obj ++ vp.s ! a ! VQFalse;
       pass = \\_ => nonExist ;
-      inf = \\a => vp.obj ++ vp.inf ! a ;
-      imp = \\_ => nonExist ;
+      --      inf = \\a => vp.obj ++ vp.inf ! a ;
+      inf = vp.inf ;
+      imp = vp.imp ;
       ger = \\_ => nonExist ;
       geriv = \\_ => nonExist ;
       sup = \\_ => nonExist ;
@@ -231,6 +377,7 @@ param
           VAct VSim (VPres VInd)  Sg P1 => -- Present Indicative
 	    ( case pres_ind_base of {
 		_ + "a" =>  ( init pres_ind_base ) ;
+		-- | _ + "ui" =>  ( init pres_ind_base ) ;
 		_ => pres_ind_base
 		}
 	    ) + "o" ; --actPresEnding Sg P1 ;
@@ -311,6 +458,7 @@ param
 	  VPass VFut          Pl P3 => -- Future I
 	    ( case fut_I_base of {
 		_ + "bi" => ( init fut_I_base ) + "u" ;
+		"eri" => "eru" ; -- handle copula properly
 		_ => fut_I_base
 		}
 	    ) + passPresEnding Pl P3 ;
@@ -378,25 +526,26 @@ param
 	    pres_stem + fill.p1 + "ndo" 
 	} ;
       geriv = 
-	( mkAdjective
-	    ( mkNoun ( pres_stem + fill.p1 + "ndus" ) ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndi" ) 
-		( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "nde" ) 
-		( pres_stem + fill.p1 + "ndi" ) ( pres_stem + fill.p1 + "ndos" ) ( pres_stem + fill.p1 + "ndorum" ) 
-		( pres_stem + fill.p1 + "ndis" ) 
-		Masc )
-	    ( mkNoun ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "ndam" ) ( pres_stem + fill.p1 + "ndae" ) 
-		( pres_stem + fill.p1 + "ndae" ) ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "nda" ) 
-		( pres_stem + fill.p1 + "ndae" ) ( pres_stem + fill.p1 + "ndas" ) (pres_stem + fill.p1 +"ndarum" ) 
-		( pres_stem + fill.p1 + "ndis" ) 
-		Fem )
-	    ( mkNoun ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndi" ) 
-		( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndum" ) 
-		( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "ndorum" ) 
-		( pres_stem + fill.p1 + "ndis" ) 
-		Neutr )
-	    < \\_ => "" , "" >
-	    < \\_ => "" , "" >
-	).s!Posit ;
+      	( mkAdjective
+      	    ( mkNoun ( pres_stem + fill.p1 + "ndus" ) ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndi" ) 
+      		( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "nde" ) 
+      		( pres_stem + fill.p1 + "ndi" ) ( pres_stem + fill.p1 + "ndos" ) ( pres_stem + fill.p1 + "ndorum" ) 
+      		( pres_stem + fill.p1 + "ndis" ) 
+      		Masc )
+      	    ( mkNoun ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "ndam" ) ( pres_stem + fill.p1 + "ndae" ) 
+      		( pres_stem + fill.p1 + "ndae" ) ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "nda" ) 
+      		( pres_stem + fill.p1 + "ndae" ) ( pres_stem + fill.p1 + "ndas" ) (pres_stem + fill.p1 +"ndarum" ) 
+      		( pres_stem + fill.p1 + "ndis" ) 
+      		Fem )
+      	    ( mkNoun ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndum" ) ( pres_stem + fill.p1 + "ndi" ) 
+      		( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndo" ) ( pres_stem + fill.p1 + "ndum" ) 
+      		( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "nda" ) ( pres_stem + fill.p1 + "ndorum" ) 
+      		( pres_stem + fill.p1 + "ndis" ) 
+      		Neutr )
+      	    < \\_ => "" , "" > -- Comparative
+      	    < \\_ => "" , "" > -- Superlative
+	    "" "" "" -- Adverb part
+      	).s!Posit ;
       sup = 
 	table {
 	  VSupAcc => -- Supin
@@ -436,6 +585,7 @@ param
 		  Neutr )
 	      < \\_ => "" , "" >
 	      < \\_ => "" , "" >
+	      "" "" ""
 	  ).s!Posit ;
 	VPassPerf => 
 	  ( mkAdjective
@@ -453,6 +603,7 @@ param
 		  Neutr ) 
 	      < \\_ => "" , "" >
 	      < \\_ => "" , "" >
+	      "" "" ""
 	  ).s!Posit
 	}
     } ;
@@ -607,6 +758,7 @@ param
 		      Neutr )
 	    < \\_ => "" , "" >
 	    < \\_ => "" , "" >
+	    "" "" ""
 	).s!Posit ;
       sup = 
 	table {
@@ -648,6 +800,7 @@ param
 		  Neutr )
 	      < \\_ => "" , "" >
 	      < \\_ => "" , "" >
+	      "" "" ""
 	  ).s!Posit ;
 	VPassPerf =>
 	  ( mkAdjective
@@ -668,10 +821,40 @@ param
 		  Neutr ) 
 	      < \\_ => "" , "" >
 	      < \\_ => "" , "" >
+	      "" "" ""
 	  ).s!Posit
 	}
     } ;
 
+  -- at the moment only fills present tense
+  impersonalVerb : Str -> Verb = \s ->
+    {
+      act = table {
+	VAct VSim (VPres VInd)  Sg P1 => s ;
+	_ => nonExist
+	} ;
+      pass = \\_ => nonExist ;
+      imp = \\_ => nonExist ;
+      inf = \\_ => nonExist ;
+      ger = \\_ => nonExist ;
+      geriv = \\_ => nonExist ;
+      part = \\_,_ => nonExist ;
+      sup = \\_ => nonExist ;
+    } ;
+
+  constVerb : Str -> Verb = \s ->
+    {
+      act = table {
+	_ => s
+	} ;
+      pass = \\_ => nonExist ;
+      imp = \\_ => nonExist ;
+      inf = \\_ => nonExist ;
+      ger = \\_ => nonExist ;
+      geriv = \\_ => nonExist ;
+      part = \\_,_ => nonExist ;
+      sup = \\_ => nonExist ;
+    } ;
   actPresEnding : Number -> Person -> Str = 
     useEndingTable <"m", "s", "t", "mus", "tis", "nt"> ;
 
@@ -690,7 +873,7 @@ param
 	  }
     in
     (useEndingTable endings n p) + passPresEnding n p ;
-    
+  
   useEndingTable : (Str*Str*Str*Str*Str*Str) -> Number -> Person -> Str = 
     \es,n,p -> case n of {
       Sg => case p of {
@@ -705,11 +888,215 @@ param
         }
       } ;
 
+
+    addPrefix : Str -> Str -> Str =
+      \prefix,verb ->
+      case <prefix,verb> of {
+	<p + "b","f"      + _ > => p + verb ;
+	<p + "b", "te"    + r > => prefix + "sti" + r;
+	<p + "b", "t"     + r > => prefix + "s" + verb;
+	<p + "b", "iact"  + r > => prefix + "iect" + r;
+	<p + "b", "iac"   + r > => prefix + "ic" + r;
+	<p + "d","capt"   + r > => p + "ccept" + r ;
+	<p + "d","ca"     + r > => p + "cci" + r ;
+	<p      ,"spe"     + r > => p + "spi" + r ;
+	<p      ,"spex"     + r > => prefix + verb;
+	<p      ,"stat"     + r > => p + "stit" + r ;
+	<p      ,"tex"     + r > => p + verb ;
+	<p      ,"te"     + r > => p + "ti" + r ;
+	<p + "d","c"      + _ >  => p + "c" + verb ;
+	<p + "d","t"      + _ >  => p + "t" + verb ;
+	<p + "d","l"      + _  > => p + "l" + verb ;
+	_ => prefix + verb
+      } ;-- TODO too simple e.g. ab+fuit = afuit
+
+    prefixVerb2 : Str -> Verb2 -> Verb2 =
+      \prefix,verb ->
+      let v = { act = verb.act ; pass = verb.pass ; inf = verb.inf ; imp = verb.imp ; ger = verb.ger ; geriv = verb.geriv ; sup = verb.sup ; part = verb.part }
+      in
+      (prefixVerb prefix v) ** { c = verb.c };
+    
+    prefixVerb : Str -> Verb -> Verb =
+      \prefix,verb ->
+      {
+	act = \\form => addPrefix prefix (verb.act ! form) ;
+	pass = \\form => addPrefix prefix (verb.pass ! form) ;
+	inf = \\form => addPrefix prefix (verb.inf ! form) ;
+	imp = \\form => addPrefix prefix (verb.imp ! form) ;
+	ger = \\form => addPrefix prefix (verb.ger ! form) ;
+	geriv = \\agr => addPrefix prefix (verb.geriv ! agr) ;
+	sup = \\form => addPrefix prefix (verb.sup ! form) ;
+	part = \\form,agr => addPrefix prefix (verb.part ! form ! agr) ;
+      } ;
+
+
+    esseAux : Verb =     -- Bayer-Lindauer 93 1
+    let
+      pres_stem = "s" ;
+      pres_ind_base = "su" ;
+      pres_conj_base = "si" ;
+      impf_ind_base = "era" ;
+      impf_conj_base = "esse" ;
+      fut_I_base = "eri" ;
+      imp_base = "es" ;
+      perf_stem = "fu" ;
+      perf_ind_base = "fu" ;
+      perf_conj_base = "fueri" ;
+      pqperf_ind_base = "fuera" ;
+      pqperf_conj_base = "fuisse" ;
+      fut_II_base = "fueri" ;
+      part_stem = "fut" ;
+      verb = mkVerb "esse" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
+    	imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+    in
+    {
+      act = 
+	table {
+    	  VAct VSim (VPres VInd)  n  p  => 
+	    table Number [ table Person [ "sum" ; "es" ; "est" ] ;
+    			   table Person [ "sumus" ; "estis" ; "sunt" ]
+    	    ] ! n ! p ;
+    	  a => verb.act ! a
+	};
+      pass =
+	\\_ => nonExist ; -- no passive forms 
+      inf =
+	verb.inf ;
+      imp =
+	table {
+	  VImp1 Sg => "es" ;
+	  VImp1 Pl => "este" ;
+	  VImp2 Pl P2 => "estote" ;
+	  a => verb.imp ! a
+	} ;
+      sup =
+	\\_ => nonExist ; -- no supin forms
+      ger =
+	\\_ => nonExist ; -- no gerund forms
+      geriv = 
+	\\_ => nonExist ; -- no gerundive forms
+      part = table {
+	VActFut =>
+	  verb.part ! VActFut ;
+	VActPres => 
+	  \\_ => nonExist ; -- no such participle
+	VPassPerf =>
+	  \\_ => nonExist -- no such participle
+	}
+    } ;
+
+  ferreAux : Verb =
+    let
+      pres_stem = "fer" ;
+      pres_ind_base = "fer" ;
+      pres_conj_base = "fera" ;
+      impf_ind_base = "fereba" ;
+      impf_conj_base = "ferre" ;
+      fut_I_base = "fere" ;
+      imp_base = "fer" ;
+      perf_stem = "tul" ;
+      perf_ind_base = "tul" ;
+      perf_conj_base = "tuleri" ;
+      pqperf_ind_base = "tulera" ;
+      pqperf_conj_base = "tulisse" ;
+      fut_II_base = "tuleri" ;
+      part_stem = "lat" ;
+      verb = mkVerb "ferre" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
+	imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+    in
+    {
+      act =
+	table {
+	  VAct VSim (VPres VInd) n p => 
+	    table Number [ table Person [ "fero" ; "fers" ; "fert" ] ;
+			   table Person [ "ferimus" ; "fertis" ; "ferunt" ] 
+	    ] ! n ! p ;
+	  a => verb.act ! a
+	} ;
+      pass = 
+	table {
+	  VPass (VPres VInd) n p => 
+	    table Number [ table Person [ "feror" ; "ferris" ; "fertur" ] ;
+			   table Person [ "ferimur" ; "ferimini" ; "feruntur" ]
+	    ] ! n ! p ;
+	  a => verb.pass ! a
+	} ;
+      inf = 
+	verb.inf ;	  
+      imp =
+	table {
+	  VImp1 n => table Number [ "fer" ; "ferte" ] ! n ;
+	  VImp2 Sg ( P2 | P3 ) => "ferto" ;
+	  VImp2 Pl P2 => "fertote" ;
+	  a => verb.imp ! a 
+	} ; 
+      sup = 
+	verb.sup ;
+      ger =
+	verb.ger ;
+      geriv =
+	verb.geriv ;
+      part = verb.part ;
+    };
+
+  posseAux : Verb =
+    let
+      pres_stem = "pos" ;
+      pres_ind_base = "pos" ;
+      pres_conj_base = "possi" ;
+      impf_ind_base = "potera" ;
+      impf_conj_base = "posse" ;
+      fut_I_base = "poteri" ;
+      imp_base = "" ;
+      perf_stem = "potu" ;
+      perf_ind_base = "potu" ;
+      perf_conj_base = "potueri" ;
+      pqperf_ind_base = "potuera" ;
+      pqperf_conj_base = "potuisse" ;
+      fut_II_base = "potueri" ;
+      part_stem = "" ;
+      verb = mkVerb "posse" pres_stem pres_ind_base pres_conj_base impf_ind_base impf_conj_base fut_I_base
+    	imp_base perf_stem perf_ind_base perf_conj_base pqperf_ind_base pqperf_conj_base fut_II_base part_stem ;
+    in
+    {
+      act =
+    	table {
+    	  VAct VSim (VPres VInd)  n  p  => 
+	    table Number [ table Person [ "possum" ; "potes" ; "potest" ] ;
+    			   table Person [ "possumus" ; "potestis" ; "possunt" ]
+    	    ] ! n ! p ;
+    	  a => verb.act ! a
+    	} ;
+      pass = 
+    	\\_ => nonExist ; -- no passive forms
+      inf = 
+	table {
+	  VInfActFut _ => nonExist ;
+	  a => verb.inf ! a
+	} ;
+      imp = 
+	\\_ => nonExist ;
+      sup = 
+	\\_ => nonExist ;
+      ger =
+	\\_ => nonExist ;
+      geriv =
+	\\_ => nonExist ;
+      part = table {
+	VActFut =>
+    	  \\_ => nonExist ; -- no such participle
+    	VActPres => 
+	  \\_ => nonExist ; -- no such participle
+    	VPassPerf =>
+    	  \\_ => nonExist -- no such participle
+	} ;
+    };
+  
 -- pronouns
 
 param
   PronReflForm = PronRefl | PronNonRefl ;
-  PronDropForm = PronDrop | PronNonDrop;
+  PronDropForm = PronDrop | PronNonDrop ;
 --  PronIndefUsage = PronSubst | PronAdj ;
 --  PronIndefPol = PronPos | PronNeg ;
 --  PronIndefMeaning = PronSomeone | PronCertainOne | PronEvery ;
@@ -717,15 +1104,31 @@ param
 --    PronIndef PronIndefUsage PronIndefPol PronIndefMeaning ;
 
 oper
-  
-  Pronoun : Type = {
-    pers : PronDropForm => PronReflForm => Case => Str ;
-    poss : PronReflForm => Agr => Str ;
+
+  PersonalPronoun = {
+    s : PronDropForm => PronReflForm => Case => Str ;
     g : Gender ;
-    n : Number ;
-    p : Person ;
+    n : Number
     } ;
 
+  PossessivePronoun = {
+    s : PronReflForm => Agr => Str ;
+    } ;
+  
+  -- Pronoun : Type = {
+  --   pers : PronDropForm => PronReflForm => Case => Str ;
+  --   poss : PronReflForm => Agr => Str ;
+  --   g : Gender ;
+  --   n : Number ;
+  --   p : Person ;
+  --   } ;
+
+  Pronoun : Type = {
+    pers : PersonalPronoun ;
+    poss : PossessivePronoun ;
+    p : Person
+    } ;
+  
   pronForms = overload {
     pronForms : (_,_,_,_,_ : Str) -> Case => Str = 
       \ego,me,mei,mihi,mee -> table Case [ego ; me ; mei ; mihi ; mee ; ego] ;
@@ -839,90 +1242,230 @@ oper
       createPronouns g n p ;
     in
     {
-     pers = prons.p1 ;
-     poss = prons.p2 ;
-     g = g ;
-     n = n ;
+     pers = { s = prons.p1 ; g = g ; n = n } ;
+     poss = { s = prons.p2 } ;
      p = p
     } ;
 
 -- prepositions
 
-  Preposition : Type = {s : Str ; c : Case} ;
+  Preposition : Type = {s : Str ; c : Case ; isPost : Bool } ;
 
--- Bayer-Lindauer $149ff.
-  about_P = lin Prep (mkPrep "de" Gen ) ; -- L...
-  at_P = lin Prep (mkPrep "ad" Acc ) ; -- L...
-  on_P = lin Prep ( mkPrep "ad" Gen ) ; -- L...
-  to_P = lin Prep ( mkPrep "ad" Acc ) ; -- L...
-  Gen_Prep = lin Prep ( mkPrep "" Gen ) ;
-  Acc_Prep = lin Prep ( mkPrep "" Acc ) ;
-  Dat_Prep = lin Prep ( mkPrep "" Dat ) ;
-  Abl_Prep = lin Prep ( mkPrep "" Abl ) ;
-
-  VPSlash = VerbPhrase ** {c2 : Preposition} ;
+  -- conjunctions
+param Coordinator = Aut | Et | Sed | Si | Vel | Comma | Colon | Empty | Missing ; -- Missing means not implemented yet
+oper
+  Conjunction : Type = { s1 : Str ; s2 : Str ; s3 : Str ; n : Number ; c : Coordinator } ; -- s1 is in the beginning of the coordination phrase, s2 in the middle and s3 is a potential enclitic, s is the prefered number of the coordination phrase and c is the parameter to define which string to put within the phrase
+  mkConjunction : Str -> Str -> Str -> Number -> Coordinator -> Conjunction =
+\s1,s2,s3,num,coord -> { s1 = s1; s2 = s2 ; s3 = s3 ; n = num ; c = coord } ;
+  
+  VPSlash = VerbPhrase ** {c : Preposition} ;
 
   predV : Verb -> VerbPhrase = \v -> {
-    fin = \\a,q => v.act ! a ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
+    s = \\a,q => v.act ! a ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
+    pass = \\p,q => v.pass ! p ++ case q of { VQTrue => Prelude.BIND ++ "ne"; VQFalse => "" };
+    part = v.part;
+    imp = v.imp ;
     inf = v.inf ;
     obj = [] ;
-    adj = \\a => []
+    compl = \\a => [] ;
+    adv = "" 
   } ;
 
   predV2 : Verb2 -> VPSlash = \v ->
-    predV v ** {c2 = v.c} ;
+    predV v ** {c = v.c} ;
 
   predV3 : Verb3 -> VPSlash = \v
-    -> predV v ** {c2 = v.c2; c3 = v.c3 } ;
+    -> predV v ** {c = v.c; c2 = v.c2 } ;
 
   appPrep : Preposition -> (Case => Str) -> Str = \c,s -> c.s ++ s ! c.c ;
 
-  insertObj : Str -> VerbPhrase -> VerbPhrase = \obj,vp -> {
-    fin = vp.fin ;
+  insertObj : NounPhrase -> Preposition -> VerbPhrase -> VerbPhrase = \np,prep,vp -> {
+    s = vp.s ;
+    pass = vp.pass ;
+    part = vp.part ;
+    imp = vp.imp ;
     inf = vp.inf ;
-    obj = obj ++ vp.obj ;
-    adj = vp.adj
+    obj = np.det.s ! prep.c ++ np.preap.s ! (Ag np.g np.n prep.c) ++ (appPrep prep (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n prep.c) ++ np.det.sp ! prep.c ++ vp.obj ;
+    compl = vp.compl ;
+    adv = vp.adv ++ np.adv
   } ;
 
-   insertObjc: Str -> VPSlash -> VPSlash = \obj,vp -> {
-    fin = vp.fin ;
+  insertObjc: NounPhrase -> VPSlash -> VPSlash = \np,vp -> {
+    s = vp.s ;
+    pass = vp.pass ;
+    part = vp.part ;
+    imp = vp.imp ;
     inf = vp.inf ;
-    obj = obj ++ vp.obj ;
-    adj = vp.adj ;
-    c2 = vp.c2
+    obj = np.det.s ! vp.c.c ++ np.preap.s ! (Ag np.g np.n vp.c.c) ++ (appPrep vp.c (np.s ! PronNonDrop)) ++ np.postap.s ! (Ag np.g np.n vp.c.c) ++ np.det.sp ! vp.c.c ++ vp.obj ;
+    compl = vp.compl ;
+    c = vp.c ;
+    adv = vp.adv ++ np.adv
     } ;
     
   insertAdj : (Agr => Str) -> VerbPhrase -> VerbPhrase = \adj,vp -> {
-    fin = vp.fin ;
+    s = vp.s ;
+    pass = vp.pass ;
+    part = vp.part ;
+    imp = vp.imp ;
     inf = vp.inf ;
     obj = vp.obj ;
-    adj = \\a => adj ! a ++ vp.adj ! a
+    compl = \\a => adj ! a ++ vp.compl ! a ;
+    adv = vp.adv
   } ;
 
+  insertAdv : Adverb -> VerbPhrase -> VerbPhrase = \a,vp -> {
+    s = vp.s ;
+    pass = vp.pass ;
+    part = vp.part ;
+    imp = vp.imp ;
+    inf = vp.inf ;
+    obj = vp.obj ;
+    compl = vp.compl ;
+    adv = vp.adv ++ (a.s ! Posit)
+    } ;
+  
   -- clauses
-  Clause = {s : Tense => Anteriority => Polarity => VQForm => Order => Str} ;
-  QClause = {s : Tense => Anteriority => Polarity => QForm => Str} ;
+  Sentence =
+    {
+      s,o,neg : AdvPos => Str ; -- Subject, verbphrase, object and negation particle plus potential adverb
+      v : AdvPos => Str ;
+      t : C.Tense ; -- tense marker
+      p : C.Pol ; -- polarity marker
+      sadv : Str ; -- sentence adverb¡
+      det : { s , sp : Case => Str }  ;
+      compl : Str -- verb complement
+    } ;
+  
+  Clause =
+    {s : AdvPos => Str ;
+     o : AdvPos => Str ;
+     v : Tense => Anteriority => VQForm => AdvPos => Str ;
+     det : { s , sp : Case => Str } ; 
+     compl : Str ;
+     neg : Polarity => AdvPos => Str ;
+     adv : Str } ;
+  QClause = {s : C.Tense => Anteriority => C.Pol => QForm => Str} ;
 
-  -- The VQForm parameter defines if the ordinary verbform or the quistion form with suffix "-ne" will be used
-  mkClause : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
-    s = \\tense,anter,pol,vqf,order => case order of {
-      SVO => np.s ! Nom ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.inf ! VInfActPres ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ vp.obj ;
-      VSO => negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ np.s ! Nom ++ vp.obj ;
-      VOS => negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ vp.obj ++ np.s ! Nom ;
-      OSV => vp.obj ++ np.s ! Nom ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ;
-      OVS => vp.obj ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ++ np.s ! Nom ;
-      SOV => np.s ! Nom ++ vp.obj ++ negation pol ++ vp.adj ! Ag np.g Sg Nom ++ vp.fin ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf 
-      } 
-      -- np.s ! Nom ++ vp.obj ++ vp.adj ! np.g ! np.n ++ negation p ++ vp.fin ! VAct a t np.n np.p
+  mkClause : NounPhrase -> VerbPhrase -> Clause = \np,vp ->
+    let
+      -- combines adverbs from noun phrase and verb phrase
+      adv  = np.adv ++ vp.adv ;
+      -- extracts the complement from the verb phrase
+      compl = vp.compl ! Ag np.g np.n Nom ;
+      -- helper functions to either place the adverb in the designated position
+      -- or an empty string instead
+      pres   : AdvPos -> Str = \ap -> case ap of { APreS => adv ; _ => [] } ;
+      prev   : AdvPos -> Str = \ap -> case ap of { APreV => adv ; _ => [] } ;
+      preo   : AdvPos -> Str = \ap -> case ap of { APreO => adv ; _ => [] } ;
+      preneg : AdvPos -> Str = \ap -> case ap of { APreNeg => adv ; _ => [] } ;
+      ins    : AdvPos -> Str = \ap -> case ap of { AInS  => adv ; _ => [] } ;
+      inv    : AdvPos -> Str = \ap -> case ap of { AInV  => adv ; _ => [] } ;
+    in
+    {
+      -- subject part of the clause:
+      -- advpos is the adverb position in the clause
+      s = \\advpos =>
+	pres advpos ++                       -- adverbs can be placed in the beginning of the clause
+	np.preap.s ! (Ag np.g np.n Nom) ++   -- adjectives which come before the subject noun, agreeing with it
+	ins advpos ++                            -- adverbs can be placed within the subject noun phrase
+	np.s ! PronDrop ! Nom ++                        -- the noun of the subject noun phrase in nominative
+	np.postap .s ! (Ag np.g np.n Nom) ; -- adjectives which come after the subject noun, agreeing with it
+      -- verb part of the clause:
+      -- tense and anter(ority) for the verb tense
+      -- vqf is the VQForm parameter which defines if the ordinary verbform or the quistion form with suffix "-ne" will be used
+      -- advposis the adverb position in the clause
+      -- comppos is the position of the verb complement
+      v = \\tense,anter,vqf,advpos =>
+	prev advpos ++                           -- adverbs can be placed in the before the verb phrase
+	inv advpos ++                            -- adverbs can be placed within the verb phrase
+	-- verb form with conversion between different forms of tense and aspect
+	vp.s ! VAct ( anteriorityToVAnter anter ) ( tenseToVTense tense ) np.n np.p ! vqf ; -- ++
+      det = np.det ;
+      -- verb complement
+      compl = compl ;
+      -- object part of the clause
+      o = \\advpos => preo advpos ++ vp.obj ;
+      -- optional negation particle, adverbs can be placed before the negation
+      neg = \\pol,advpos => preneg advpos ++ negation pol ;
+      adv = ""
+    } ;
+  
+  combineClause : Clause -> C.Tense -> Anteriority -> C.Pol -> VQForm -> Sentence = \cl,tense,anter,pol,vqf ->
+    cl **
+    {
+      v =  \\advpos => cl.v ! tense.t ! anter ! vqf ! advpos ;
+      neg = cl.neg ! pol.p ;
+      sadv = cl.adv ;
+      t = tense ;
+      p = pol ;
     } ;
 
+  combineSentence : Sentence -> ( SAdvPos => AdvPos => DetPos => VPos => ComplPos => Order => Str ) = \s ->
+    let
+      advpres   : SAdvPos -> Str = \ap -> case ap of { SAPreS =>    s.sadv ; _ => [] } ;
+      advprev   : SAdvPos -> Str = \ap -> case ap of { SAPreV =>    s.sadv ; _ => [] } ;
+      advpreo   : SAdvPos -> Str = \ap -> case ap of { SAPreO =>    s.sadv ; _ => [] } ;
+      advpreneg : SAdvPos -> Str = \ap -> case ap of { SAPreNeg =>  s.sadv ; _ => [] } ;
+      detpren : DetPos -> { s, sp : Case => Str } = \dp -> case dp of { DPreN => s.det; _ => { s,sp = \\_ => [] } } ;
+      detpostn : DetPos -> { s, sp : Case => Str } = \dp -> case dp of { DPostN => s.det ; _ => { s , sp = \\_ => [] } } ;
+      verbins : VPos -> ResLat.AdvPos => Str = \vp -> case vp of { VInS => s.v ; _ => \\_ => [] } ;
+      verbreg : VPos -> ResLat.AdvPos => Str = \vp -> case vp of { VReg => s.v ; _ => \\_ => [] } ;
+      complprev  : ComplPos -> Str = \cp -> case cp of { CPreV => s.compl ; _ => [] } ;
+      complpostv : ComplPos -> Str = \cp -> case cp of { CPostV => s.compl ; _ => [] }
+    in
+    -- sadvpos is the position of the sentence adverbial
+    -- advpos is the position of the adverb
+    -- detpos is the position of the determiner (relative to the noun)
+    -- vpos is the position of the main verb (either regular or interleaved)
+    -- complosp is the position of the verb complement
+    \\sadvpos,advpos,detpos,verbpos,complpos,order  => case order of {
+      SVO =>
+	s.t.s ++ s.p.s ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpreo sadvpos   ++ s.o ! advpos;
+      VSO =>
+	s.t.s ++ s.p.s ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
+	advpreo sadvpos   ++ s.o ! advpos;
+      VOS =>
+	s.t.s ++ s.p.s ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ;
+      OSV =>
+	s.t.s ++ s.p.s ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ;
+      OVS =>
+	s.t.s ++ s.p.s ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ;
+      SOV =>
+	s.t.s ++ s.p.s ++
+	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
+	advpreo sadvpos   ++ s.o ! advpos ++
+	advpreneg sadvpos ++ s.neg ! advpos ++
+	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos)
+      } ;
+
+  defaultSentence : Sentence -> Order => Str = \s -> combineSentence s ! SAPreS ! APreV ! DPreN ! VReg ! CPreV ;
+  
   -- questions
   mkQuestion : SS -> Clause -> QClause = \ss,cl -> {
-    s = \\tense,anter,pol,form => case form of {
-      QDir => ss.s ++ cl.s ! tense ! anter ! pol ! VQFalse ! OVS;
-      QIndir => ss.s ++ cl.s ! tense ! anter ! pol ! VQFalse ! OSV
-      }
-    } ;
+     s = \\tense,anter,pol,form => case form of {
+       QDir => ss.s ++ (defaultSentence (combineClause cl tense anter pol VQFalse)) ! OVS  ;
+       QIndir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SAPreO ! APreO ! DPreN ! VReg ! CPreV ! OSV
+       }
+    };
   
   negation : Polarity -> Str = \p -> case p of {
     Pos => [] ;   
@@ -932,7 +1475,7 @@ oper
 -- determiners
 
   Determiner : Type = {
-    s : Gender => Case => Str ; -- s,sp : Gender => Case => Str ; Don't know what sp is for
+    s,sp : Gender => Case => Str ; -- sp for split determiners (not clear if really needed)
     n : Number
     } ;
 
@@ -940,6 +1483,7 @@ oper
     {
       n = n ;
       s = \\g,c => a.s ! Posit ! Ag g n c ;
+      sp = \\_,_ => ""
     } ;
 
   Quantifier : Type = {
@@ -985,11 +1529,68 @@ oper
        "illa" "illorum" "illis")
     ;
 
-  mkPrep : Str -> Case -> Preposition  = \s,c -> lin Preposition {s = s ; c = c} ;
+  mkPreposition : Str -> Case -> Preposition  = \s,c ->  {s = s ; c = c; isPost = False} ;
 
-  mkAdv : Str -> { s: Str } = \adv -> { s = adv } ;
+  mkPostposition : Str -> Case -> Preposition = \s,c ->  {s = s ; c = c ; isPost = True } ;
 
-param
-  Unit = one | ten | hundred | thousand | ten_thousand | hundred_thousand ;
+  -- adverbs
+  Adverb : Type = { s : Degree => Str} ;
+  mkAdverb : Str -> Adverb = \adv ->
+    { s = table { Posit => adv ; _ => nonExist } } ;
+
+  mkFullAdverb : (pos,comp,sup : Str) -> Adverb = \p,c,s ->
+    { s = table { Posit => p ; Compar => c ; Super => s } };
+  -- numerals
+  param
+  --   CardOrd = NCard | NOrd ;
+    Unit = one | eleven | ten | hundred | thousand | ten_thousand | hundred_thousand ;
+    Below8 = Yes | No8 | No9 | Ign ;
+  oper
+    -- Numerals are by default cardinal numbers but have a field for ordinal numbers
+    TDigit : Type = { s : Unit => Gender => Case => Str ; tenNext : Str ; below8 : Below8 ; ord : Unit => Gender => Number => Case => Str } ;
+    TNumeral : Type = { s : Gender => Case => Str ; d : { num, ord : Unit => Gender => Case => Str } ; n : Number ; below8 : Below8 ; ord : Gender => Number => Case => Str } ;
+
+    -- Inflection for cardinal numbers
+    cardFlex : Str -> Gender => Case => Str =
+      \c -> case c of { "unus" => \\gen,cas => case <gen,cas> of {
+			  <Masc, Nom | Voc> => "unus" ; <Masc, Acc> => "unum" ; <Masc, Abl> => "uno" ;
+			  <Fem, Nom | Abl | Voc> => "una" ; <Fem, Acc> => "unam" ;
+			  <Neutr, Nom | Acc | Voc> => "unum" ; <Neutr, Abl> => "uno" ;
+			  <_, Gen> => "unius" ; <_, Dat> => "uni"
+			  } ;
+			"duo" => table {
+			  Masc | Neutr => table Case [ "duo" ; "duo" ; "duorum" ; "duobus" ; "duobus" ; "duo" ] ;
+			  Fem => table Case [ "duae" ; "duas" ; "duarum" ; "duabus" ; "duabus" ; "duae" ] } ;
+			"tres" => \\gen,cas => case <gen,cas> of {
+			  <Neutr, Nom | Acc | Voc > => "tria" ; <_, Nom | Acc | Voc > => "tres" ;
+			  <_, Gen> => "trium" ; <_, Dat | Abl > => "tribus"
+			  } ;
+			tre + "centi" => \\g,c => regAdj (tre + "centus") ! g ! Pl ! c ;
+			"milia" => table {
+			  _ => table Case [ "milia" ; "milia" ; "milium" ; "milibus" ; "milibus" ; "milia" ]
+			  } ;
+			_ => \\_,_ => c
+      } ;
+    ordFlex : Str -> Gender => Number => Case => Str = 
+      \o -> case o of {
+      	stem + "us" => table {
+      	  Masc => table Number [ table Case [ stem + "us" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "e" ] ;
+      				 table Case [ stem + "i" ; stem + "os" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "i" ] ;
+      	    ];
+      	  Fem => table Number [ table Case [ stem + "a" ; stem + "am" ; stem + "ae" ; stem + "ae" ; stem + "a" ; stem + "a" ] ;
+      				table Case [ stem + "ae" ; stem + "as" ; stem + "arum" ; stem + "is" ; stem + "is" ; stem + "ae" ] ;
+      	    ] ;
+      	  Neutr => table Number [ table Case [ stem + "um" ; stem + "um" ; stem + "i" ; stem + "o" ; stem + "o" ; stem + "um" ] ;
+      				  table Case [ stem + "a" ; stem + "a" ; stem + "orum" ; stem + "is" ; stem + "is" ; stem + "a" ] ;
+      	    ]
+      	  } ;
+      	_ => error "unsupported ordinal form"
+      } ;
+      -- in
+    -- { s = cardFlex ; n = case c of { "unus" => Sg ; _ => Pl }  ; ord = ordFlex } ;
+
+    -- fixedNumeral : Str -> Str -> Numeral = \c,o ->
+    --    { s = \\_,_,_=> c ; n = Pl ; ord = \\g,n,c => (mkA o).s ! Posit ! Ag g n c} ;
+    
 
 }

@@ -1,9 +1,19 @@
-Some of the sources are transliterated, in
+# Persian
 
- ./src
+## Language info
 
-Before compilation, do
+* English name: Persian
+* Autonym: فارسی
+* ISO code: [Per](https://www.loc.gov/standards/iso639-2/php/langcodes_name.php?code_ID=357) or [Fas](https://www.loc.gov/standards/iso639-2/php/langcodes_name.php?code_ID=357); [Pes](https://iso639-3.sil.org/code/pes) for Iranian Persian
 
-  gf -s <translit.gfs
+## Authors
 
-to get unicode.
+* Shafqat Virk (2012)
+* Elnaz Abolahrar (2012)
+* Inari Listenmaa (2019-)
+
+With contributions from Nasrin Mostofian and Aarne Ranta.
+
+## Publications
+
+Shafqat Virk and Elnaz Abolahrar, *An Open Source Persian Computational Grammar*. Proceedings of the Eight International Conference on Language Resources and Evaluation (LREC'12). [[Link](http://www.lrec-conf.org/proceedings/lrec2012/pdf/1028_Paper.pdf)]

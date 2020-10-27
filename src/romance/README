@@ -1,0 +1,23 @@
+# -*- mode:org -*-
+#+TITLE: Romance functor
+
+This functor generalizes the grammars of the following languages:
+French, Italian, Catalan, Spanish, and Portuguese.
+
+* special modules
+** Common
+The Common module contains non-exhaustively:
+- the declarations of common parameters such as gender and verb forms;
+- the declarations of common types such as nouns and adjectives;
+- utility opers dealing with parameters: how to build parameters from
+  their components, how extract components from the params;
+- utility opers to build inflection tables;
+
+** Diff
+This interface module tries to encompass the main differences between
+the Romance languages. It is meant to be filled by each functor
+instantiation.
+
+#* history
+
+#* bibliography

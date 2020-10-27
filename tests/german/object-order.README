@@ -1,0 +1,281 @@
+Implementing pronoun switch e.a. in LangGer        HL 13.6.2019 -- 20.6.2019
+-------------------------------------------
+Ternary verbs v:V3 with two objects of category NP order them
+depending on their being (personal) pronouns or not. Basically
+
+non-pronoun order:  NonPronNP.dat < NonPronNP.acc
+pronoun/nonpronoun: Pron < NonPronNP
+pronoun order:      Pron.acc < Pron.dat
+
+See also (section II):
+http://www.dartmouth.edu/~deutsch/Grammatik/WordOrder/WordOrder.html     
+
+What about verbs with other complement cases? Apparently we have
+- NP.acc < NP.gen: wir verdächtigen ihn|den Mann ihrer|der Tat
+- NP.acc[indir] < NonPronNP.acc[dir]: wir lehren ihn|den Studenten die Kunst
+- Pron.acc[dir] < Pron.acc[indir]:    wir lehren sie ihn (?)
+
+A collection of relevant example sentences to do some regression tests is
+contained in examples.txt. (Definiteness seems to be relevant to order, too.)
+
+============== Main changes made: (cf. discussion below) ======================
+
+1. Categories VP and VPSlash have nn : Agr => Str * Str * Str * Str, where now
+
+   nn.p1 contains refl+pron   (pron.acc < refl, refl < pron.dat, refl < pron.gen),
+   nn.p2 contains nonpron NPs (np.dat < np.acc | np.gen) (cf. insertObjNP below)
+   nn.p3 contains prep NPs
+   nn.p4 contains predicative A | CN | Adv (inserted by UseComp)
+
+   Note: keeping complements in 4 nn-fields may be useful to insert adverbs in between 
+        (not done yet), besides ordering them relative to negation (see below).
+
+   Note: become_VA is not treated like a copula (i.e. not using CompAP) (also in Eng):
+             "bin alt" = (UseComp (CompAP adj)) adds adj to nn.p3 (was:nn.p2), 
+           "werde alt" = (ComplVA become_VA adj), inserts adj into vp.adj
+         So there is no uniform treatment of copula verbs "sein", "werden", "bleiben".
+
+2. Pronoun switch is done by (insertObjectNP np vp.c vp), such that pron.acc < refl < pron.dat|gen:
+
+     (insertObjNP pron acc  vp).nn = <pron.acc ++ vp.nn.p1(refl),  vp.nn.p2, vp.nn.p3, vp.nn.p4>
+     (insertObjNP pron case vp).nn = <vp.nn.p1(refl) ++ pron!case, vp.nn.p2, vp.nn.p3, vp.nn.p4>
+
+   For other object np's, we enforce np.dat < np.acc|gen:   (this doesn't enforce np.acc < np.gen)
+
+     (insertObjNP np   dat  vp).nn = <vp.nn.p1,          np!dat ++ vp.nn.p2, vp.nn.p3, vp.nn.p4> 
+     (insertObjNP np   case vp).nn = <vp.nn.p1,         vp.nn.p2 ++ np!case, vp.nn.p3, vp.nn.p4> 
+
+   Object pp's are collected in nn.p3:
+
+     (insertObjNP np   prep vp).nn = <vp.nn.p1,    vp.nn.p2, vp.nn.p3 ++ app(prep,np), vp.nn.p4> 
+
+   Complements (AP|Adv|CN) are collected in vp.nn.p4, using the existing insertObj:
+     (insertObj   compl     vp).nn = <vp.nn.p1,            vp.nn.p2, vpnn.p3, compl ++ vp.nn.p4> 
+
+   For verbs v:V3 with 2 acc-arguments, "ich lehre ihn sie|die Mathematik", we can't distinguish 
+   direct object (acc: die Mathematik) from indirect object (acc: ihn), so we get two trees.
+  
+   Bug: ConstructionGer (mkVP have_V2 (mkNP n:N)) (for "Angst|Recht haben") puts n into nn.p2, 
+        which comes before negation. 
+       (Maybe we need np.isLight to prevent this and put n in nn.p3, or apply UseComp with n.)
+ 
+3. The ordering of objects, complements and negation in mkClause is changed !!!
+
+   The "default" order (if it exists) is subtle, depending on whether objects are 
+   definite, indefinite Sg, indefinitePl, pron, quantified, negated indefinite. We now have
+
+   (mkClause subj agr vp) : Clause = 
+   let
+      obj1  = (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2; -- refl,pronouns < nonpronouns
+      obj2  = (vp.nn ! agr).p3 ;                    -- (prep + np)s
+      compl = (vp.nn ! agr).p4 ++ vp.adj ++ vp.a2 ; -- compl via useComp
+   in 
+      Main => subj ++ verb.fin ++ obj1 ++ neg ++ obj2 ++ compl ++ vp.infExt ++ infs ++ extra ;
+      Inv  => verb.fin ++ subj ++ obj1 ++ neg ++ obj2 ++ compl ++ vp.infExt ++ infs ++ extra ;
+      Sub  => subj ++ obj1 ++ neg ++ obj2 ++ compl ++ vp.infExt ++ inffin ++ extra
+
+   I have *removed* the difference between "light" and "heavy" complements, which gave the 
+   ordering  light < neg < heavy. It was using np.isPron=True as "light", but also set 
+   indefinite nps (and DetNPs) as heavy. But this ignored the number, which is also relevant: 
+
+             ich sehe den Mann nicht ; ich sehe nicht einen Mann
+   but       ich liebe Männer nicht  ; * ich liebe nicht Männer
+
+   The change now gives: nonpronNP < neg,
+
+             ich sehe einen Mann nicht     [ ich sehe keinen Mann:  via no_Predet ]
+             ich trinke warmes Bier nicht  [ ich trinke nicht Bier: via no_Predet ]
+
+   The order  accPron < refl < (gen|dat)Pron < neg < nonpronNP  sometimes sounds
+   better, but expresses a different meaning (often available via no_Predet):
+
+             sie hat sich nicht alle|viele|?mehrere Namen gemerkt
+             sie hat sich alle?|viele|mehrere Namen nicht gemerkt
+
+   The implemented order nonpronNP < neg gives negation narrow scope relative to the 
+   quantifiers in the objects (a meaning that cannot otherwise be expressed):
+
+        einige Lehrer haben jedem Studenten viele Bücher nicht geschickt|empfohlen
+        =?= some teachers haven't sent|recommended many books to every student
+        
+   For tests, see examples.txt and how to do regression tests (see below).
+ 
+   Rem.: Having more nn-fields may be useful to put adverbs in between (with 
+         additional scope problems).
+
+4. For reflexive V2's (ich bediene mich einer Sache, ich merke mir eine Sache) or 
+   reflexive V3's (ich entschuldige mich bei dat für acc, ich leihe mir acc bei dat), 
+   some tests are in examples.txt and TestLangGer|Eng. We have enforced  refl < neg.
+
+   TestLangGer introduces ternary predicates VPSlashSlash. These can be built by
+   Slash2V4, Slash3V4, Slash4V4 from quaternary verbs v:V4 and a noun phrase np:NP. 
+   (A function SlashV3a : V3 -> VPSlashSlash is omitted to reduce ambiguities.)
+
+   SlashV2a turns a (DictVerbsGer-) verb_rV2:V2 into a reflexive VPSlash:
+
+     SlashV2a bedienen_gen_rV2 : VPSlash = sich einer Sache bedienen
+
+   A reflexive VPSlash can also be built from a V3 by
+
+     ReflVPSlash : V3 -> VPSlash,
+
+   but maybe this is unnecessary, as 
+
+    (ComplSlash (ReflVPSlash v3) np) = (ReflVP (Slash3V3 v3 np)).
+
+   Todo: Some of this ought to go to ExtraGer.gf.
+
+5. I changed ParadigmsGer.accdatV3 from "mkV3 v dat acc" to "mkV3 v acc dat"
+   = dirV3 v dat, so that it fits to "dirV3 v p" in Eng and gives the corresponding
+   trees for sentences with main verb v:V3.
+
+============= Motivating discussion of the situation in gf-3.9 / gf-rgl ==============
+
+LexiconGer has those V3s:
+  add_V3 = dirV3 (prefixV "hinzu" (regV "fügen")) zu_Prep ;
+  give_V3 = accdatV3 Irreg.geben_V ; 
+  sell_V3 = accdatV3 (no_geV (regV "verkaufen")) ;
+  send_V3 = accdatV3 (regV "schicken") ;
+  talk_V3 = mkV3 (regV "reden") datPrep von_Prep ;
+
+ParadigmsGer defines
+  mkV3 = overload {
+    mkV3 : V -> V3  = \v -> lin V3 (v ** {c2 = accPrep ; c3 = datPrep}) ;
+    mkV3 : V -> Prep -> Prep -> V3 = \v,c,d -> lin V3 (v ** {c2 = c ; c3 = d}) ;
+    } ;
+  dirV3 v p = mkV3 v accPrep p ;         -- v ** {c2=accPrep; c3=p} 
+  accdatV3 v = mkV3 v datPrep accPrep ;  -- v ** {c2=datPrep; c3=accPrep} 
+
+LexiconEng says, using, roughly, dirV3 v p = v ** {c2=noPrep ; c3=p}:
+  give_V3 = mkV3 give_V noPrep noPrep ;
+  sell_V3 = dirV3 (irregV "sell" "sold" "sold") toP ;
+  send_V3 = dirV3 (irregV "send" "sent" "sent") toP ;
+
+Apparently, the idea is: 
+  (Ger) direct object = acc = c2; indirect object = dat|gen = c3
+  (Eng) direct object = noPrep = c2; indirect object = toPrep = c3
+
+BUT then, accdatV3 v should be = dirV3 v datPrep = v**{c2=accPrep,c3=datPrep} !!
+
+Which object is bound "closer" to the verb? Is this regulated by using
+Slash2V3 versus Slash3V3, and does this binding strength manifest
+itself outside of extraction phenomena? 
+
+abstract/Verb.gf says:
+
+  ComplSlash : VPSlash -> NP -> VP ; -- love it
+  SlashV2a : V2        -> VPSlash ;  -- love (it)
+
+  Slash2V3 : V3  -> NP -> VPSlash ;  -- give it (to her)
+  Slash3V3 : V3  -> NP -> VPSlash ;  -- give (it) to her
+
+Roughly, gf-3.9/../VerbGer.gf has:
+
+  Slash2V3 v np = insertObjc np!v.c2 (predVc v) ** {c2 = v.c3}
+  Slash3V3 v np = insertObjc np!v.c3 (predVc v) ** {c2 = v.c2}
+
+So, regardless if any object comes with a preposition, 
+
+  Slash2V3 v np  binds   direct object c2 to the verb, 
+  Slash3V3 v np  binds indirect object c3 to the verb. 
+
+But which is direct, which indirect for acc+acc-verbs: 
+      sie lehrt ihn die Kunst, probably: c2=die Kunst, c3=ihn
+And which object is direct, which indirect, for prep+prep-verbs?
+      sie redet mit ihm über die Kunst:  c2=die Kunst, c3=ihm ?
+
+PROBLEM: who tells the user which argument is direct, which not?
+
+Eng: sell_V3 = dirV3 sell_V toP,              so c2="", c3="to"
+     talk_V3 = mkV3 (regV "talk") toP aboutP, so c2="to", c3="about"
+     (Isn't this inconsistent? Shouldn't we have "mkV3 v dir indir"?)
+Ger: sell_V3 = accdatV3 verkaufen_V
+             = mkV3 verkaufen_V datPrep accPrep, so c2=dat, c3=acc
+
+To get trees with similar meaning, I CHANGED accdatV3 to "mkV3 v acc dat"
+in ParadigmsGer (so that it fits to "dirV3 v p" in Eng).
+
+The best would be if mkV3 (with acc-obj) were only available through
+dirV3 v p, so one could not use (mkV3 v datPrep accPrep) etc.
+
+---------------- word order in ResGer.mkClause in gf-rgl -------------------
+
+In gf-3.9 resp. gf-rgl, VP.nn : Str*Str collects the nominal (and
+adjectival) objects; those object-NPs with flag
+
+  isPron = True ; --- means: this is not a heavy NP, but comes before negation
+
+are put before the negation in mkClause:
+
+    obj0  = (vp.nn ! agr).p1 ;
+    obj   = (vp.nn ! agr).p2 ;
+    compl = obj0 ++ neg  ++ vp.adj ++ obj ++ vp.a2 ; -- adj added
+    inf   = vp.inf ++ verb.inf.p1 ; -- not used for linearisation of Main/Inv
+    extra = vp.ext ;
+    inffin : Str = case <a,vp.isAux> of {                       
+	           <Anter,True> => verb.fin ++ inf ; -- double inf   --# notpresent
+                   _            => inf ++ verb.fin   --- or just auxiliary vp
+            } ;   
+  in case o of {
+    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ verb.inf ++ extra ++ vp.inf ;
+    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ verb.inf ++ extra ++ vp.inf ;
+    Sub  => subj ++ compl ++ vp.infExt ++ inffin ++ extra
+
+This is too simple:
+
+DetCN creates an NP with
+    isPron = det.isDef ;   -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
+
+i.e. (definite article + CN | pronoun) are put in nn.p1, to come before negation
+ 
+    ich sehe ihn nicht, ich sehe den Mann nicht:  compl = (nn.p1 + neg + ..)
+    ich sehe nicht einen Mann                  :  compl = neg ++ nn.p2
+    =? ich sehe keinen Mann 
+
+But: plural indefinite NPs behave different:
+    I don't see men:      ich sehe Männer nicht
+                          ich sehe *(nicht Männer) | keine Männer
+Also, singular mass-NPs behave different:    
+    ich trinke nicht *((kaltes) Bier) 
+    ich trinke (kaltes) Bier nicht | ich trinke kein (kaltes) Bier
+
+PROBLEM: do V2 + neg behave the same as V3 + neg? Aren't the relative 
+scopes of negation and quantifiers fixed (or restricted) by intonation?
+
+------------- Generating some example trees and linearize them (LangGer|Eng) -----------
+
+gr -tr -number=4 UseCl (TTAnt ? ?) ? (PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a see_V2)) (DetCN (DetQuant ? ?) (UseN man_N)))) | l
+
+Pronoun switch with V3 and Slash?V2 works:
+
+l UseCl (TTAnt TPast AAnter) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 sell_V3 (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
+I had sold the book to a woman
+ich hatte einer Frau das Buch verkauft
+
+l UseCl (TTAnt TCond ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 sell_V3 (UsePron she_Pron)) (UsePron it_Pron)))
+I wouldn't sell it to her
+ich würde es ihr nicht verkaufen
+
+------ Regression tests: use  gf --run < object-order.gfs  or  gf> eh object-order.gfs
+
+Form Ger to Eng: 
+
+example.txt contains german example sentences marked "positive", "negative", "dubious",
+some with two marks. The marks may not always be convincing, as some orderings of negation 
+and quantified nps afford particular intonation and meaning. (Also, there are incorrect 
+parse trees due to misuse of MassNP etc., so it needs some inspection to see if the content
+of examples.*.out is as it ought to be.)
+
+Part of examples.txt needs TestLangGer|Eng for parsing and translation, in particular
+those with reflexive ternary verbs or quaternary verbs (which are not in the RGL).
+
+From Eng to Ger: 
+
+examples.eng.txt could also be parsed using LangEng instead of TestLangEng|Ger.
+
+Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="Eng,Ger" -treebank | wf -file=examples.eng.tmp
+Lang> rf -file=examples.eng.txt -lines | p -lang=LangEng | l -lang="Eng,Ger" | wf -file=examples.eng2ger.new
+
+Using give_V3 is confusing, as both objects are connected with noPrep. The examples are
+repeated using send_V3, which attaches its indirect object with toPrep.
+-------------------------------------------------------------------------------------End

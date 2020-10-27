@@ -1,0 +1,629 @@
+
+AllRusAbs: DetCN (DetQuant (PossPron i_Pron) NumSg) (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N))))
+AllRus: мой грамматика , яблоко и цветок
+
+AllRusAbs: ComplN2 mother_N2 (DetCN (DetQuant (PossPron i_Pron) NumSg) (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N)))))
+AllRus: мать моего грамматики , яблока и цветка
+
+AllRusAbs: ConjNP and_Conj (ConsNP (AdvNP (DetNP (DetQuant (PossPron i_Pron) NumPl)) (PrepNP obj_no_Prep (DetCN (DetQuant DefArt NumSg) (UseN grammar_N)))) (BaseNP (MassNP (UseN apple_N)) (MassNP (UseN flower_N))))
+AllRus: мои грамматику , яблоко и цветок
+
+AllRusAbs: ComplN2 mother_N2 (ConjNP and_Conj (ConsNP (AdvNP (DetNP (DetQuant (PossPron i_Pron) NumPl)) (PrepNP obj_no_Prep (DetCN (DetQuant DefArt NumSg) (UseN grammar_N)))) (BaseNP (MassNP (UseN apple_N)) (MassNP (UseN flower_N)))))
+AllRus: мать моих грамматику , яблока и цветка
+
+AllRusAbs: MassNP (AdjCN (PositA red_A) (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N)))))
+AllRus: красные грамматика , яблоко и цветок
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих двух пепла существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих трёх пепла существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n4)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих четырех пепла существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих пяти пепла существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n6)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих шести пепла существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих семи пепла существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих восьми пепла существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n9)))))))) (UseN ashes_N)))))
+AllRus: бутылка этих девяти пепла существует
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (have_name_Cl (DetNP (DetQuant (PossPron i_Pron) NumSg)) somebody_NP)
+AllRus: моего имя кто &+ -то
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a like_V2) (DetNP (DetQuant (PossPron he_Pron) NumSg))))
+AllRus: нравишь &+ ся его
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop he_Pron))))) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop iFem_Pron))))) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop i_Pron))))) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop it_Pron))))) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop she_Pron))))) NumSg))))
+AllRus: говоришь на её
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop theyFem_Pron))))) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop they_Pron))))) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop weFem_Pron))))) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop we_Pron))))) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youFem_Pron))))) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youPlFem_Pron))))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youPl_Pron))))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youPolFem_Pron))))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youPolPlFem_Pron))))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youPolPl_Pron))))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youPol_Pron))))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop (ProDrop youSg_Pron))))) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop he_Pron)))) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop iFem_Pron)))) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop i_Pron)))) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop it_Pron)))) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop she_Pron)))) NumSg))))
+AllRus: говоришь на её
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop theyFem_Pron)))) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop they_Pron)))) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop weFem_Pron)))) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop we_Pron)))) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youFem_Pron)))) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youPlFem_Pron)))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youPl_Pron)))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youPolFem_Pron)))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youPolPlFem_Pron)))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youPolPl_Pron)))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youPol_Pron)))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop (ProDrop youSg_Pron)))) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop he_Pron))) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop iFem_Pron))) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop i_Pron))) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop it_Pron))) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop she_Pron))) NumSg))))
+AllRus: говоришь на её
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop theyFem_Pron))) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop they_Pron))) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop weFem_Pron))) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop we_Pron))) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youFem_Pron))) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youPlFem_Pron))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youPl_Pron))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youPolFem_Pron))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youPolPlFem_Pron))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youPolPl_Pron))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youPol_Pron))) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop (ProDrop youSg_Pron))) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop he_Pron)) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop iFem_Pron)) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop i_Pron)) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop it_Pron)) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop she_Pron)) NumSg))))
+AllRus: говоришь на её
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop theyFem_Pron)) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop they_Pron)) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop weFem_Pron)) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop we_Pron)) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youFem_Pron)) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youPlFem_Pron)) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youPl_Pron)) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youPolFem_Pron)) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youPolPlFem_Pron)) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youPolPl_Pron)) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youPol_Pron)) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron (ProDrop youSg_Pron)) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron he_Pron) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron iFem_Pron) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron i_Pron) NumSg))))
+AllRus: говоришь на моём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron it_Pron) NumSg))))
+AllRus: говоришь на его
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron she_Pron) NumSg))))
+AllRus: говоришь на её
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron theyFem_Pron) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron they_Pron) NumSg))))
+AllRus: говоришь на их
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron weFem_Pron) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron we_Pron) NumSg))))
+AllRus: говоришь на нашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youFem_Pron) NumSg))))
+AllRus: говоришь на твоём
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youPlFem_Pron) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youPl_Pron) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youPolFem_Pron) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youPolPlFem_Pron) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youPolPl_Pron) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youPol_Pron) NumSg))))
+AllRus: говоришь на вашем
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a speak_V2) (DetNP (DetQuant (PossPron youSg_Pron) NumSg))))
+AllRus: говоришь на твоём
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n2)))))))
+AllRus: кто &+ -то в 2 &+ : &+ двадцать существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n3)))))))
+AllRus: кто &+ -то в 2 &+ : &+ тридцать существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n4)))))))
+AllRus: кто &+ -то в 2 &+ : &+ сорок существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n5)))))))
+AllRus: кто &+ -то в 2 &+ : &+ пятьдесят существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n6)))))))
+AllRus: кто &+ -то в 2 &+ : &+ шестьдесят существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n7)))))))
+AllRus: кто &+ -то в 2 &+ : &+ семьдесят существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n8)))))))
+AllRus: кто &+ -то в 2 &+ : &+ восемьдесят существует
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 n9)))))))
+AllRus: кто &+ -то в 2 &+ : &+ девяносто существует
+
+AllRusAbs: UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (SlashV2a write_V2) (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN worm_N))))
+AllRus: пишешь этих двух червей
+
+AllRusAbs: UttS (AdvS (AdAdv quite_Adv (ComparAdvAdj less_CAdv narrow_A everything_NP)) (UseCl (TTAnt TPres ASimul) PNeg (ExistNP something_NP)))
+AllRus: довольно менее узко , чем всё , что &+ -то не существует
+
+Function treebank is not in scope
+AllRusAbs: UttImpPol PPos (ImpVP (ComplSlash (Slash2V3 add_V3 everybody_NP) (PPartNP somebody_NP drink_V2)))
+AllRus: складывай &+ те в кого &+ -то пит всех
+
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь не сидел бы в его красном яблоке
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PPos (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь сидел бы в его красном яблоке
+AllRusAbs: UttS (UseCl (TTAnt TFut AAnter) PNeg (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь не будет сидеть в его красном яблоке
+AllRusAbs: UttS (UseCl (TTAnt TFut AAnter) PPos (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь будет сидеть в его красном яблоке
+AllRusAbs: UttS (UseCl (TTAnt TPast AAnter) PNeg (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь не сидел в его красном яблоке
+AllRusAbs: UttS (UseCl (TTAnt TPast AAnter) PPos (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь сидел в его красном яблоке
+AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PNeg (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь не сидит в его красном яблоке
+AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN worm_N)) (ComplSlash (VPSlashPrep (UseV sit_V) in_Prep) (MassNP (PossNP (AdjCN (PositA red_A) (UseN apple_N)) (DetNP (DetQuant (PossPron he_Pron) NumSg)))))))
+AllRus: червь сидит в его красном яблоке
+
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PNeg (QuestIAdv how8much_IAdv (ImpersCl (AdvVP (AdvVP UseCopula (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))) (PrepNP possess_Prep (UsePN john_PN))))))) NoVoc) TEmpty
+AllRus: сколько не является яблок у Ивана ?
+
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv how8much_IAdv (ImpersCl (AdvVP (AdvVP UseCopula (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))) (PrepNP possess_Prep (UsePN john_PN))))))) NoVoc) TEmpty
+AllRus: сколько является яблок у Ивана ?
+
+AllRusAbs: ComplVS hope_VS (UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN)))
+AllRus: надеяться , что не его имя Иван
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (have_name_Cl (UsePron he_Pron) (UsePN john_PN))
+AllRus: не его имя Иван
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PNeg (AdvIsNP everywhere_Adv (MassNP (UseN sky_N)))
+AllRus: небо не везде
+
+AllRusAbs: AdjCN (PastPartAP (SlashV2a bite_V2)) (UseN house_N)
+AllRus: кусан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a break_V2)) (UseN house_N)
+AllRus: прерыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a buy_V2)) (UseN house_N)
+AllRus: покупан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a close_V2)) (UseN house_N)
+AllRus: закрыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a count_V2)) (UseN house_N)
+AllRus: считан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a cut_V2)) (UseN house_N)
+AllRus: резан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a do_V2)) (UseN house_N)
+AllRus: делан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a drink_V2)) (UseN house_N)
+AllRus: пит дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a eat_V2)) (UseN house_N)
+AllRus: кушан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a fear_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a fight_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a find_V2)) (UseN house_N)
+AllRus: нахожен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a forget_V2)) (UseN house_N)
+AllRus: забыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hate_V2)) (UseN house_N)
+AllRus: ненавижен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a have_V2)) (UseN house_N)
+AllRus: имен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hear_V2)) (UseN house_N)
+AllRus: слушан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hit_V2)) (UseN house_N)
+AllRus: ударян дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hold_V2)) (UseN house_N)
+AllRus: держан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hunt_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a kill_V2)) (UseN house_N)
+AllRus: убиван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a know_V2)) (UseN house_N)
+AllRus: знан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a learn_V2)) (UseN house_N)
+AllRus: учен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a leave_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a like_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a listen_V2)) (UseN house_N)
+AllRus: слушан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a lose_V2)) (UseN house_N)
+AllRus: терян дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a love_V2)) (UseN house_N)
+AllRus: люблен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a open_V2)) (UseN house_N)
+AllRus: открыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a play_V2)) (UseN house_N)
+AllRus: игран дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a pull_V2)) (UseN house_N)
+AllRus: тянут дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a push_V2)) (UseN house_N)
+AllRus: толкан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a put_V2)) (UseN house_N)
+AllRus: кладен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a read_V2)) (UseN house_N)
+AllRus: читан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a rub_V2)) (UseN house_N)
+AllRus: терт дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a scratch_V2)) (UseN house_N)
+AllRus: чесан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a see_V2)) (UseN house_N)
+AllRus: виден дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a seek_V2)) (UseN house_N)
+AllRus: искан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a speak_V2)) (UseN house_N)
+AllRus: говорен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a split_V2)) (UseN house_N)
+AllRus: разбиван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a squeeze_V2)) (UseN house_N)
+AllRus: сжиман дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a stab_V2)) (UseN house_N)
+AllRus: колот дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a suck_V2)) (UseN house_N)
+AllRus: сосан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a switch8off_V2)) (UseN house_N)
+AllRus: выключан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a switch8on_V2)) (UseN house_N)
+AllRus: включан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a teach_V2)) (UseN house_N)
+AllRus: учен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a throw_V2)) (UseN house_N)
+AllRus: бросан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a tie_V2)) (UseN house_N)
+AllRus: вязан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a understand_V2)) (UseN house_N)
+AllRus: пониман дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a wait_V2)) (UseN house_N)
+AllRus: ждан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a wash_V2)) (UseN house_N)
+AllRus: мыт дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a watch_V2)) (UseN house_N)
+AllRus: смотрен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a win_V2)) (UseN house_N)
+AllRus: выигрыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a wipe_V2)) (UseN house_N)
+AllRus: вытиран дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a write_V2)) (UseN house_N)
+AllRus: писан дом
+
+AllRusAbs: OrdNumeral (num (pot3 (pot2plus pot01 pot111)))
+AllRus: ста одиннадцати &+ тысячное
+
+AllRusAbs: OrdNumeral (num (pot3 (pot2 pot01)))
+AllRus: ста &+ тысячное
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: она интересует &+ ся , что кто спит
+
+AllRusAbs: PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc
+AllRus: , так и сейчас
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: она рисует данное красной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))
+AllRus: она рисует его красной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron))))
+AllRus: она отвечает ему , что мы спим
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: является здесь что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: здесь есть что она спит
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)))
+AllRus: данное пять самых хороших
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
+AllRus: данное пятые
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl small_A)))
+AllRus: некое самые маленькие
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))
+AllRus: женщина , которая рисует его очень красной
+
+AllRusAbs: UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A))))))
+AllRus: ребёнок , все учителя которого является молодым
+
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n2)))))
+AllRus: двадцати двух &+ тысячное
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n3)))))
+AllRus: двадцати трёх &+ тысячное
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n4)))))
+AllRus: двадцати четырех &+ тысячное
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n5)))))
+AllRus: двадцати пяти &+ тысячное
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n6)))))
+AllRus: двадцати шести &+ тысячное
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n7)))))
+AllRus: двадцати семи &+ тысячное
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n8)))))
+AllRus: двадцати восьми &+ тысячное
+AllRusAbs: OrdNumeral (num (pot3 (pot1as2 (pot1plus n2 (pot0 n9)))))
+AllRus: двадцати девяти &+ тысячное
+
+AllRusAbs: AdjCN (PastPartAP (SlashV2a bite_V2)) (UseN house_N)
+AllRus: кусан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a break_V2)) (UseN house_N)
+AllRus: прерыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a buy_V2)) (UseN house_N)
+AllRus: покупан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a close_V2)) (UseN house_N)
+AllRus: закрыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a count_V2)) (UseN house_N)
+AllRus: считан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a cut_V2)) (UseN house_N)
+AllRus: резан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a do_V2)) (UseN house_N)
+AllRus: делан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a drink_V2)) (UseN house_N)
+AllRus: пит дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a eat_V2)) (UseN house_N)
+AllRus: кушан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a fear_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a fight_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a find_V2)) (UseN house_N)
+AllRus: нахожен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a forget_V2)) (UseN house_N)
+AllRus: забыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hate_V2)) (UseN house_N)
+AllRus: ненавижен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a have_V2)) (UseN house_N)
+AllRus: имен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hear_V2)) (UseN house_N)
+AllRus: слушан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hit_V2)) (UseN house_N)
+AllRus: ударян дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hold_V2)) (UseN house_N)
+AllRus: держан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a hunt_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a kill_V2)) (UseN house_N)
+AllRus: убиван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a know_V2)) (UseN house_N)
+AllRus: знан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a learn_V2)) (UseN house_N)
+AllRus: учен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a leave_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a like_V2)) (UseN house_N)
+AllRus: 
+AllRusAbs: AdjCN (PastPartAP (SlashV2a listen_V2)) (UseN house_N)
+AllRus: слушан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a lose_V2)) (UseN house_N)
+AllRus: терян дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a love_V2)) (UseN house_N)
+AllRus: люблен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a open_V2)) (UseN house_N)
+AllRus: открыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a play_V2)) (UseN house_N)
+AllRus: игран дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a pull_V2)) (UseN house_N)
+AllRus: тянут дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a push_V2)) (UseN house_N)
+AllRus: толкан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a put_V2)) (UseN house_N)
+AllRus: кладен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a read_V2)) (UseN house_N)
+AllRus: читан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a rub_V2)) (UseN house_N)
+AllRus: терт дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a scratch_V2)) (UseN house_N)
+AllRus: чесан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a see_V2)) (UseN house_N)
+AllRus: виден дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a seek_V2)) (UseN house_N)
+AllRus: искан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a speak_V2)) (UseN house_N)
+AllRus: говорен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a split_V2)) (UseN house_N)
+AllRus: разбиван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a squeeze_V2)) (UseN house_N)
+AllRus: сжиман дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a stab_V2)) (UseN house_N)
+AllRus: колот дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a suck_V2)) (UseN house_N)
+AllRus: сосан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a switch8off_V2)) (UseN house_N)
+AllRus: выключан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a switch8on_V2)) (UseN house_N)
+AllRus: включан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a teach_V2)) (UseN house_N)
+AllRus: учен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a throw_V2)) (UseN house_N)
+AllRus: бросан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a tie_V2)) (UseN house_N)
+AllRus: вязан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a understand_V2)) (UseN house_N)
+AllRus: пониман дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a wait_V2)) (UseN house_N)
+AllRus: ждан дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a wash_V2)) (UseN house_N)
+AllRus: мыт дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a watch_V2)) (UseN house_N)
+AllRus: смотрен дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a win_V2)) (UseN house_N)
+AllRus: выигрыван дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a wipe_V2)) (UseN house_N)
+AllRus: вытиран дом
+AllRusAbs: AdjCN (PastPartAP (SlashV2a write_V2)) (UseN house_N)
+AllRus: писан дом
+
+AllRusAbs: QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)
+AllRus: играть хотеть пить
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не хоте &+ ло бы пить
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть хоте &+ ло бы пить
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не хоте &+ ло бы пить
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть хоте &+ ло бы пить
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не захочет пить
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть захочет пить
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не захочет пить
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть захочет пить
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не хоте &+ ло пить
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть хоте &+ ло пить
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не хоте &+ ло пить
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть хоте &+ ло пить
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не хочет пить
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть хочет пить
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не хочет пить
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть хочет пить
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть не хоте &+ ло бы пить
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP))
+AllRus: играть хоте &+ ло бы пить
+
+AllRusAbs: UttQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)))
+AllRus: играть не хоте &+ ло бы пить
+AllRusAbs: UttQS (UseQCl (TTAnt TCond AAnter) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)))
+AllRus: играть хоте &+ ло бы пить
+
+AllRusAbs: ComplVQ know_VQ (UseQCl (TTAnt TCond AAnter) PNeg (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)))
+AllRus: знать , что играть не хоте &+ ло бы пить
+AllRusAbs: ComplVQ know_VQ (UseQCl (TTAnt TCond AAnter) PPos (QuestCl (PredSCVP (EmbedVP (UseV play_V)) thirsty_VP)))
+AllRus: знать , что играть хоте &+ ло бы пить
+
+AllRusAbs: SentCN (UseN apple_N) (EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron)))
+AllRus: яблоко быть у нас голодно
+
+AllRusAbs: PredSCVP (EmbedVP (ComplSlash (VPSlashPrep hungry_VP possess_Prep) (UsePron we_Pron))) (PassV2 count_V2)
+AllRus: быть у нас голодно считаться
+
+AllRusAbs: PredSCVP (EmbedVP (UseV play_V)) (UseComp (CompAP (PositA clean_A)))
+AllRus: играть быть чистым
+
+AllRusAbs: UseCl (TTAnt TPres AAnter) PPos (married_Cl (UsePron weFem_Pron) (DetCN (DetQuant (PossPron youSg_Pron) NumPl) (UseN woman_N)))
+AllRus: мы женаты на твоих женщинах
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (CountNP (DetQuant DefArt oba_Num) (UsePron youPlFem_Pron)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumPl) (UseN apple_N)))))
+AllRus: оба из вас кушают яблоки
+
+AllRusAbs: UseQCl (TTAnt TCond AAnter) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко был бы Парижа
+AllRusAbs: UseQCl (TTAnt TCond ASimul) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко был бы Парижа
+AllRusAbs: UseQCl (TTAnt TFut AAnter) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко будет Парижа
+AllRusAbs: UseQCl (TTAnt TFut ASimul) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко будет Парижа
+AllRusAbs: UseQCl (TTAnt TPast AAnter) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко был Парижа
+AllRusAbs: UseQCl (TTAnt TPast ASimul) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко был Парижа
+AllRusAbs: UseQCl (TTAnt TPres AAnter) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко Парижа
+AllRusAbs: UseQCl (TTAnt TPres ASimul) PNeg (how_far_QCl (UsePN paris_PN))
+AllRus: не как далеко Парижа
+

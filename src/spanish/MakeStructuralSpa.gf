@@ -55,17 +55,14 @@ oper
   mkDet = overload {
     -- Does not inflect for number
     mkDet : Str -> Number -> Det = \piu,n -> lin Det {
-      s,sp = \\_,_ => piu ;
+      s,sp = \\_,c => prepCase c ++ piu ;
       n = n ;
       s2 = [] ;
       isNeg = False
     } ;
     -- Inflects for number
     mkDet : Str -> Str -> Number -> Det = \alcuni,alcune,n -> lin Det {
-      s,sp = table {
-        Masc => \\_ => alcuni ;
-        Fem  => \\_ => alcune
-      } ;
+      s,sp = \\g,c => prepCase c ++ genForms alcuni alcune ! g ;
       n = n ;
       s2 = [] ;
       isNeg = False

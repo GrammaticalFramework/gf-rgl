@@ -22,7 +22,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 
     QCl    = {s : ResFin.Tense => Anteriority => Polarity => Str} ;
     IP     = {s : NPForm => Str ; n : Number} ;
-    IComp  = {s : Agr => Str} ; 
+    IComp  = {s : Agr => Str} ;
     IDet   = {s : Case => Str ; n : Number ; isNum : Bool} ;
     IQuant = {s : Number => Case => Str} ;
 
@@ -34,24 +34,24 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 -- Verb
 
     VP   = StemFin.VP ;
-    VPSlash = StemFin.VP ** {c2 : Compl} ; 
-    Comp = {s : Agr => Str} ; 
+    VPSlash = StemFin.VP ** {c2 : Compl} ;
+    Comp = {s : Agr => Str} ;
 
 -- Adjective
 
 -- The $Bool$ tells whether usage is modifying (as opposed to
 -- predicative), e.g. "x on suurempi kuin y" vs. "y:tä suurempi luku".
 
-    AP = {s : Bool => NForm => Str ; p : Str ; hasPrefix : Bool} ; 
+    AP = {s : Bool => NForm => Str ; p : Str ; hasPrefix : Bool} ;
 
 -- Noun
 
 -- The $Bool$ tells if a possessive suffix is attached, which affects the case.
 
-    CN   = {s : NForm => Str ; h : Harmony} ;
+    CN   = LinCN ; -- {s : NForm => Str ; h : Harmony ; postmod : Number => Str} ;
     Pron = {s : NPForm => Str ; a : Agr ; hasPoss : Bool ; poss : Str} ;
     NP   = {s : NPForm => Str ; a : Agr ; isPron : Bool ; isNeg : Bool} ;
-    Det  = {
+    DAP, Det = {
       s1 : Case => Str ;       -- minun kolme
       s2 : Harmony => Str ;    -- -ni (Front for -nsä, Back for -nsa)
       sp : Case => Str ;       -- se   (substantival form)
@@ -82,7 +82,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ = SVerb1 ; 
+    V, VS, VQ = SVerb1 ;
     V2, VA, V2Q, V2S = SVerb1 ** {c2 : Compl} ;
     V2A = SVerb1 ** {c2, c3 : Compl} ;
     VV = SVerb1 ** {vi : VVType} ; ---- infinitive form
@@ -93,7 +93,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     A2 = {s : Degree => SAForm => Str ; h : Harmony ; c2 : Compl} ;
 
     N  = SNoun ;
-    N2 = SNoun ** {c2 : Compl ; isPre : Bool} ;
+    N2 = SNoun ** {c2 : Compl ; isPre : Bool ; postmod : Number => Str} ;
     N3 = SNoun ** {c2,c3 : Compl ; isPre,isPre2 : Bool} ;
     PN = SPN ;
 
@@ -101,6 +101,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     SSlash = \ss -> ss.s ++ ss.c2.s.p1  ;
     ClSlash = \cls -> cls.s ! Pres ! Simul ! Pos ++ cls.c2.s.p1 ;
     NP = \np -> np.s ! NPAcc ; ----NPSep ;
+    CN = cnRef ;
 
     VP = vpRef ;
     VPSlash = \vps -> vpRef vps ++ vps.c2.s.p1 ;
@@ -115,5 +116,5 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
 
   oper
    vpRef : StemFin.VP -> Str = \vp -> infVP SCNom Pos (agrP3 Sg) vp Inf1 ;
-
+   cnRef : LinCN -> Str = linCN (NCase Sg Nom) ;
 }

@@ -31,6 +31,8 @@ oper
     mkN : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> AGender -> N = worstN ;
     } ;
 
+  mkN2 : N -> Prep -> N2 = \n,c -> n ** {c=c} ;
+
 --All masculine forms (except those with long pluralstem) are formed here. 
 --Takes the baseform + the genitive singular form + animacy. 
 --In case the genitive singular has an extra vowel in the end, it is dropped before coming here.  
@@ -199,6 +201,7 @@ oper
     } ;
 
   mkV = overload {
+    mkV : (inf : Str) -> V = \v -> regV v (dp 2 v) ; 
     mkV : (inf,stem : Str) -> V = regV ; 
     mkV : (inf,stem,lstem : Str) -> V = irregVa ; 
     mkV : (inf,stem,lstem,imp : Str) -> V = irregVb ; 
@@ -319,6 +322,9 @@ oper
     mkV3 : V -> Prep -> Prep -> V3 = \v,p2,p3 -> lin V2 (v ** {c2 = p2 ; c3 = p3}) ;
   } ; 
 
+  mkVA : V -> VA ;
+  mkVA v = lin VA v ;
+
   mkVS : V -> VS ;
   mkVS v = lin VS v ;
 
@@ -327,6 +333,20 @@ oper
 
   mkVV : V -> VV ;
   mkVV v = lin VV v ;
+
+  mkV2A : V -> V2A ;
+  mkV2A v = lin V2A v;
+
+  mkV2S : V -> V2S ;
+  mkV2S v = lin V2S v;
+
+  mkV2Q : V -> V2Q ;
+  mkV2Q v = lin V2Q v;
+
+  mkV2V : V -> V2V ;
+  mkV2V v = lin V2V v;
+
+  noPrep : Prep = lin Prep {s=""; c=Acc} ;
 
 -- Adjectives
 
@@ -338,6 +358,8 @@ oper
     mkA : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,x57 : Str) -> A = positA ;
     mkA : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,x166 : Str) -> A = worstA ;
     } ;
+    
+  mkA2 : A -> Prep -> A2 = \a,c -> a ** {c=c} ;
 
   irregA : (_,_,_,_,_,_ :Str) -> A = \masc,fem,neut,mascC,femC,neutC -> lin A {
     s = table {
@@ -633,6 +655,7 @@ oper
 
   mkAdA : Str -> AdA = \s -> lin AdA {s=s} ;
 
+  mkAdN : Str -> AdN = \s -> lin AdN {s=s} ;
 
   regPron: (x1,_,_,_,_,_,x7:Str) -> Gender -> Number -> Person -> Pron = \nom,acc,gen,dat,loc,inst,poss,g,n,p -> lin Pron {
        s = table {  Nom => nom;

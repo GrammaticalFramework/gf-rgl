@@ -1,0 +1,9 @@
+-- Comparatives
+
+-- LangEng: I am smaller than a cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompAP (ComparA small_A (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)))))))) NoVoc
+LangKor: 제가 고양이 &+ 보다 더 작아요
+
+-- LangEng: I am a woman smaller than a cat
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseComp (CompCN (AdjCN (ComparA small_A (DetCN (DetQuant IndefArt NumSg) (UseN cat_N))) (UseN woman_N))))))) NoVoc
+LangKor: 제가 고양이 &+ 보다 더 작은 여자 &+ 예요
