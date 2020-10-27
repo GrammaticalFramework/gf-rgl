@@ -1,5 +1,4 @@
 --# -path=.:../prelude:../abstract:../common
---# -path=.:../abstract:../../prelude:../common
 
 --1 Rukiga Lexical Paradigms
 --
