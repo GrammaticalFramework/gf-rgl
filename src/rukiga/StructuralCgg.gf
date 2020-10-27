@@ -6,7 +6,7 @@ concrete StructuralCgg of Structural = CatCgg **
 
 {-variants
     NOTE: Please add them to the abstract syntax, ask aarne 
-    or creat you own abstract Lexicon which inherits from the 
+    or creat your own abstract Lexicon which inherits from the 
     standard one. See how english does it. i.e. use DictCggAbs.gf for the funs.
     and DictCgg.gf for the lins.
 
@@ -15,14 +15,15 @@ concrete StructuralCgg of Structural = CatCgg **
 
 lin
   --Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool };
-  a_Det = {s =[] ; s2 = \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False};     --: Det ; indefinite singular ---s
-  aPl_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Pl; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False}; -- : Det ;indefinite plural   ---s
-  the_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
-  
+  --a_Det = {s =[] ; s2 = \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False};     --: Det ; indefinite singular ---s
+  --aPl_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Pl; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False}; -- : Det ;indefinite plural   ---s
+  --the_Det = {s =[]; s2= \\_ => []; ntype = Complete; num = Sg; pos = Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False};  --: Det ;                   -- definite singular   ---s    thePl_Det = {s =[]; ntype = Complete; num = Pl; pos = PreDeterminer}; --: Det ;definite plural     ---s
+  -- 1 Determiners
   every_Det = {s ="buri"; s2 = \\_ => []; ntype=Incomplete; num=Sg; pos=Pre; doesAgree = False; numeralS=\\_=>[]; numeralExists = False} ;
   few_Det = {s="kye"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False; numeralS=\\_=>[]; numeralExists = False} ;
   many_Det ={s="ingi"; s2 = \\_ => []; ntype =Complete; num=Pl; pos=Post; doesAgree = False; numeralS=\\_=>[]; numeralExists = False} ;
   
+  -- 2 Pronouns
   i_Pron            = {s = table{Gen => glueGen (AgMUBAP1 Sg); _=> mkSStand (AgMUBAP1 Sg)}; third = \\_,_=>[];  agr = AgrYes (AgMUBAP1 Sg)};--mkPron "nyowe" "nyowe" (AgMUBAP1 Sg);
   youSg_Pron        = {s = table{Gen => glueGen (AgMUBAP2 Sg); _=>mkSStand (AgMUBAP2 Sg)}; third = \\_,_=>[];  agr = AgrYes(AgMUBAP2 Sg)};--mkPron "iwe" "we" (AgMUBAP2 Sg); 
   he_Pron, she_Pron = {s = table{Gen => glueGen (AgP3 Sg MU_BA); _=>mkSStand (AgP3 Sg MU_BA)}; third = \\_,_=>[];  agr = AgrYes(AgP3 Sg MU_BA)};--mkPron "uwe" "uwe" (AgP3 Sg MU_BA);
@@ -35,7 +36,9 @@ lin
     third = \\agr => table{Gen =>glueGen agr; _ => mkSStand agr}; 
     agr = AgrNo
     }; --mkPron "kyo" "kyo" (AgP3 Sg KI_BI); -- should form an it_Pron_NClass in extra module
-  
+  youPol_Pron  = {s = table{Gen => glueGen (AgMUBAP2 Pl); _=>mkSStand (AgMUBAP2 Pl)}; third = \\_,_=>[]; agr =AgrYes (AgMUBAP2 Pl)};--mkPron "imwe" "imwe" (AgMUBAP2 Pl); 
+  -- 3 Prepositions
+  above_Prep = mkPrep "ahinguru ya" [] False;
   behind_Prep = mkPrep "enyuma ya" [] False;
   between_Prep =mkPrep "hagati ya" [] False;
   to_Prep = mkPrep "aha" [] False;
@@ -45,16 +48,33 @@ lin
   on_Prep        = mkPrep "aha" "ahari" False;
 
   in8front_Prep  = mkPrep "enyuma ya" [] False; --: Prep ; -- in front of
+  by8agent_Prep =  mkPrep "by8agent_Prep" [] False ; -- when you meet by, use the passive of the verb
+  by8means_Prep = mkPrep "by8means_Prep" [] False;
+  during_Prep = mkPrep "omu" "omuri"  False;
+  except_Prep = mkPrep "kwihaho" [] False;
+  for_Prep = mkPrep "for_Prep: would need paraphrasing" [] False;
+
+
+  {-
+    the word before is realised as a phrase in RR.
+    We use the negative version of the verb
+    used in the main clause.
+    it is always paraphrased. Let us put a hint for post processing
+  -}
+  before_Prep = mkPrep "PostProcess_before_proximal" "PostProcess_before_distal" False;
   
---na --please this string varies with vowels use combine_morphemes or 
---combine_words when using it.
+  --na --please this string varies with vowels use combine_morphemes or 
+  --combine_words when using it.
   with_Prep      = mkPrep "na" [] False; 
 
   from_Prep =mkPrep "kurunga" "" False;
   under_Prep = mkPrep "hansi ya" "" False;
   after_Prep = mkPrep "omu maisho" "" False; --: Prep ;
-  
-  ---Structural
+  part_Prep = mkPrep "part_Prep=of:Disambiguate" [] False; -- suspect "part of"
+  possess_Prep = mkPrep [] [] True; -- of is a huge table we should not be carrying arround
+  through_Prep = mkPrep "raba omu" [] False;
+  without_Prep = mkPrep "tiine" [] False;
+  -- 4 Conjunctions
   {-
     --there are several and i.e. 
     -- na (two nouns, 2 Noun Phrases, 2 Pronouns, 2 relative subject clauses, )
@@ -97,9 +117,16 @@ lin
       s2 =[];
       n  = Sg 
     };
+    if_then_Conj = mkConj "kuri" [] Sg;
+    -- Distributed Conjunction
+    both7and_DConj = mkConj "mbi" "na";
+    either7or_DConj = mkConj "mwe ahari" "nari" Sg; 
     
    have_V2 ={s= "in"; pres="e"; perf ="e"; isPresBlank = False;
-                        isPerfBlank = False; morphs = mkVerbMorphs; comp = []; isRegular=False};  --: V2 ;
+                        isPerfBlank = False;
+                        p = []; isRefl = False;
+                        morphs = mkVerbMorphs; comp = []; isCompN2 = False; 
+                        isRegular=False};  --: V2 ;
 
   {-
     All Predeterminers are given here.
@@ -136,6 +163,12 @@ lin
   always_AdV = {s = "obutóòsha"; agr = AgrNo};
   everywhere_Adv = {s = "hóòna"; agr = AgrNo}; -- adverb of place.
   here_Adv = {s = "hanu"; agr = AgrNo};
+  here7from_Adv = mkAdv "here7from_Adv:findout" AgrNo;
+  quite_Adv = mkAdA "quite_Adv:findout" Post;
+  there7from_Adv = mkAdv "there7from_Adv:findout" AgrNo;
+  there7to_Adv = mkAdv "there7to_Adv:findout" AgrNo;
+  here7to_Adv = mkAdv "here7to_Adv:findout" AgrNo;
+  there_Adv = mkAdv "hari" AgrNo;
   {-End of Adverbs Adverbs-}
 
   {-Begining of Quantifiers-}
@@ -168,8 +201,9 @@ lin
   whoPl_IP  = { s=  "ha";  n = IPl; isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True} ;--: IP ;  -- who (plural)
   whoSg_IP =  { s=  "ha"; n = ISg;  isVerbSuffix = True; requiresIPPrefix = False; aux="ni"; endOfSentence = True}; --: IP ;  -- who (singular)
   --You may need to use booleans to indicate that you need these tables rather than carrying them.
+  --interogative adverbs
   how_IAdv = {s ="ta"; requiresSubjPrefix = True; endOfSentence =True};  --: IAdv ;
-  --how8much_IAdv = {s ="kwiga"; s2requireSubjPrefix = True};--: IAdv ;
+  how8much_IAdv = {s ="kwigana"; requiresSubjPrefix = True; endOfSentence =True};--: IAdv ;
 
   when_IAdv = {s ="ryari"; requiresSubjPrefix = False; endOfSentence =True}; --: IAdv ;
   where_IAdv = {s ="nkahe"; requiresSubjPrefix = False; endOfSentence =True}; --: IAdv ;
@@ -208,28 +242,51 @@ lin
       numeralS=\\_=>[]; 
       numeralExists = False
     };--: Det ;
+
+  much_Det = 
+    {
+      s =[]; 
+      s2 =\\agr => "ingi";-- mkSubjCliticTablePl ! agr ++ "mwe"; 
+      ntype = Complete;
+      num = Pl;
+      pos = Post;
+      doesAgree = True; 
+      numeralS=\\_=>[]; 
+      numeralExists = False
+    };--: Det ;
+
   
-   want_VV =  {s = "yend"; pres="da"; perf = "zire"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
-   can8know_VV = {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
-   can_VV =  {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
+  want_VV =  {s = "yend"; pres="da"; perf = "zire"; isPresBlank = False;
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
+  can8know_VV = {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
+  can_VV =  {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
    -- must_VV used especially in the perfective mood: see dictionary entry shemerera on Pg 501 of Mpairwe
    -- must has no passive form
    must_VV = {s = "shemere"; pres="ra"; perf = "ire"; isPresBlank = False;
-                        isPerfBlank = False; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
-    --somebody_NP = {}; --: NP ;
-    --something_NP : NP ;
-    --somewhere_Adv : Adv ;
+                        isPerfBlank = False; isRegular = False; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
+  everybody_NP = {s = \\_=>"buri muntu" ; agr=AgP3 Sg MU_BA};
+  everything_NP = {s = \\_=>"buri kintu" ; agr=AgP3 Sg KI_BI};
+  somebody_NP = {s = \\_=>"somebody:omuntu omwe" ; agr=AgP3 Sg MU_BA}; --: NP ;
+  something_NP = {s = \\_=>"Something:ekintu kimwe" ; agr=AgP3 Sg KI_BI} ; -- NP ;
+  nobody_NP = {s = \\_=>"tihiine muntu" ; agr=AgP3 Sg MU_BA};
+  nothing_NP = {s = \\_=>"tihiine kintu" ; agr=AgP3 Sg KI_BI};
 
+  
+
+  -- Subjunctives
   that_Subj = ss "ngu" ;
   when_Subj = ss "obu";
   because_Subj = ss "ahabwokuba";
-
+  although_Subj = ss "nobu";
+  if_Subj = ss "kuri";
   --Adjective modifying Adverbs
   almost_AdA = {s="haihi"; position=Pre}; --: AdA ;
   --quite_Adv ss "kimwe"; --: AdA ; used in the pr
+  somewhere_Adv = mkAdv "hamwe ahantu" (AgrYes (AgP3 Sg HA)); -- : Adv ;
+  
+
   so_AdA = {s="munônga"; position=Post};--: AdA ;
   too_AdA = {s="munônga"; position=Post}; --: AdA ;
   very_AdA  = {s="munônga"; position=Post}; --: AdA ;
@@ -239,6 +296,23 @@ lin
   but_PConj = ss "báìtu"; --: PConj ; -- variants béìtu
   otherwise_PConj = ss "okûndi"; --: PConj ;
   therefore_PConj = ss "n'ahabwe'êkyo";  --: PConj ;
+  
+
+  -- Comparative Adverb
+  as_CAdv = mkCAdv "nka" ;
+  less_CAdv = mkCAdv "kye ahari";
+  more_CAdv = mkCAdv "ingi ahari";
+
+  
+  -- Adverbs modifying numerals
+  at_most_AdN = mkAdN "ekihango";
+  
+  -- Utterances
+  no_Utt = ss "apaana";
+  yes_Utt = ss "yego";
+  lin language_title_Utt = ss "Rukiga" ;
+
+
   {-
   and_Conj : Conj ;
   both7and_DConj : Conj ; -- both...and
