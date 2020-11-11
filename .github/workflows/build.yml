@@ -19,6 +19,7 @@ jobs:
 
     - name: Build RGL
       run: |
+        mkdir -p ${DEST}
         bash Setup.sh --dest=${DEST} --gf=gf --verbose
 
     - name: Create archive
