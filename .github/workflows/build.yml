@@ -5,24 +5,25 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-18.04
+    env:
+      GF_VERSION: 3.10-1
+      DEST: out/
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Install GF
-      env:
-        GF_VERSION: 3.10-1
       run: |
         curl -s https://www.grammaticalframework.org/download/gf_${GF_VERSION}_amd64.deb -o gf.deb
         sudo dpkg -i gf.deb
 
     - name: Build RGL
       run: |
-        bash Setup.sh --dest=dist/ --gf=gf --verbose
+        bash Setup.sh --dest=${DEST} --gf=gf --verbose
 
     - name: Create archive
       run: |
-        tar --create --gzip --verbose --file dist.tar.gz dist/
+        tar --create --gzip --verbose --file dist.tar.gz ${DEST}
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
