@@ -14,7 +14,7 @@ jobs:
         GF_VERSION: 3.10-1
       run: |
         curl -s https://www.grammaticalframework.org/download/gf_${GF_VERSION}_amd64.deb -o gf.deb
-        dpkg -i gf.deb
+        sudo dpkg -i gf.deb
 
     - name: Build RGL
       run: |
