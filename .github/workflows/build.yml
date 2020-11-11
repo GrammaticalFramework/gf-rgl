@@ -25,6 +25,6 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: gf-rgl-${{ env.GITHUB_SHA }}
+        name: gf-rgl-${{ github.sha }}
         path: ${{ env.DEST }}
         if-no-files-found: error
