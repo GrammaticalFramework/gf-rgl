@@ -18,8 +18,13 @@ jobs:
 
     - name: Build RGL
       run: |
-        bash Setup.sh --dest=dist/ --gf= --verbose
+        bash Setup.sh --dest=dist/ --gf=gf --verbose
 
-    # - uses: actions/upload-artifact@v2
-    #   with:
-    #     path: dist
+    - name: Create archive
+      run: |
+        tar --create --gzip --verbose --file dist.tar.gz dist/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        path: dist.tar.gz
