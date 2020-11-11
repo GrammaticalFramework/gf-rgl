@@ -22,11 +22,9 @@ jobs:
         mkdir -p ${DEST}
         bash Setup.sh --dest=${DEST} --gf=gf --verbose
 
-    - name: Create archive
-      run: |
-        tar --create --gzip --verbose --file dist.tar.gz ${DEST}
-
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        path: dist.tar.gz
+        name: gf-rgl-${{ env.GITHUB_SHA }}
+        path: ${{ env.DEST }}
+        if-no-files-found: error
