@@ -1,0 +1,61 @@
+name: Create RGL release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (should be YYYYMMDD format)
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    env:
+      GF_VERSION: 3.10-1
+      DEST: gf-rgl-${{ github.event.inputs.tag  }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install GF
+      run: |
+        curl -s https://www.grammaticalframework.org/download/gf_${GF_VERSION}_amd64.deb -o gf.deb
+        sudo dpkg -i gf.deb
+
+    - name: Build RGL
+      run: |
+        mkdir -p ${DEST}
+        bash Setup.sh --dest=${DEST} --gf=gf --verbose
+
+    - name: Create archive
+      run: |
+        zip asset.zip -r ${{ env.DEST }}
+
+    # - name: Upload artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: gf-rgl-${{ github.sha }}
+    #     path: ${{ env.DEST }}
+    #     if-no-files-found: error
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.event.inputs.tag  }}
+        release_name: Release ${{ github.event.inputs.tag }}
+        draft: false
+        prerelease: false
+
+    - name: Upload release asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: asset.zip
+        asset_name: gf-rgl-${{ github.event.inputs.tag }}.zip
+        asset_content_type: application/zip
