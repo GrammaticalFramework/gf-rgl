@@ -4,7 +4,7 @@ concrete PhraseZul of Phrase = CatZul ** open Prelude, ResZul in {
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
   --
     UttS sent = { s = sent.s ! Princ } ;
-    UttQS sent = { s = sent.s ++ sent.qword } ;
+    UttQS sent = { s = sent.qword_pre ++ sent.s ++ sent.qword_post } ;
     UttImpSg pol imp = { s = imp.s!pol.p } ;
   --   UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Pl False} ;
   --   UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Sg True} ;
@@ -21,7 +21,7 @@ concrete PhraseZul of Phrase = CatZul ** open Prelude, ResZul in {
 
     NoPConj = {s = []} ;
   --   PConjConj conj = {s = conj.s2} ; ---
-  
+
     NoVoc = {s = []} ;
   --   VocNP np = {s = frontComma ++ np.s ! npNom} ;
 

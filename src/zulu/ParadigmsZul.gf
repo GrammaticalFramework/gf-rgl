@@ -136,7 +136,7 @@ oper
 
   mkAdv = overload {
     mkAdv : Str -> Adv = \adv -> lin Adv (regAdv adv) ;
-    mkAdv : Str -> Aspect -> Adv = \adv,asp -> lin Adv (aspAdv adv asp) ;
+    -- mkAdv : Str -> Aspect -> Adv = \adv,asp -> lin Adv (aspAdv adv asp) ;
   } ;
 
   -- mkPredet = overload {

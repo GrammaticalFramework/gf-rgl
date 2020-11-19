@@ -67,7 +67,7 @@ concrete StructuralZul of Structural = CatZul **
 --   here7to_Adv = mkAdv ["to here"] ;
 --   here7from_Adv = mkAdv ["from here"] ;
 --   how_IAdv = ss "how" ;
---   how8much_IAdv = ss "how much" ;
+  how8much_IAdv = {s = "kangakanani"} ;
 --   how8many_IDet = mkDeterminer plural ["how many"] ;
 --   if_Subj = ss "if" ;
 --   in8front_Prep = mkPrep ["in front of"] ;
@@ -139,7 +139,7 @@ concrete StructuralZul of Structural = CatZul **
 --   with_Prep = mkPrep "with" ;
 -- ---b  yes_Phr = ss "yes" ;
 --   yes_Utt = ss "yes" ;
---   youSg_Pron = mkPron "you" "you" "your" "yours" singular P2 human ;
+  youSg_Pron = { s = "we" ; agr = Second Sg ; empty = [] } ;
 --   youPl_Pron = mkPron "you" "you" "your" "yours" plural P2 human ;
 --   youPol_Pron = mkPron "you" "you" "your" "yours" singular P2 human ;
 --

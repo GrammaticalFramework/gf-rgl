@@ -25,13 +25,14 @@ concrete SymbolZul of Symbol = CatZul ** open Prelude, ResZul in {
 --   SymbNum sy = { s,sp = \\_ => addGenitiveS sy.s ; n = Pl ; hasCard = True } ;
 --   SymbOrd sy = { s    = \\c => sy.s ++ (regGenitiveS "th")!c} ;
 --
--- lincat
---
---   Symb, [Symb] = SS ;
---
--- lin
---   MkSymb s = s ;
---
+lincat
+
+  Symb = { s : Str } ;
+  [Symb] = SS ;
+
+lin
+  MkSymb s = s ;
+
 --   BaseSymb = infixSS "and" ;
 --   ConsSymb = infixSS frontComma ;
 --

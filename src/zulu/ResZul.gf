@@ -16,7 +16,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- Tense = Absolute BasicTense | Relative BasicTense BasicTense ;
     -- NOTE: PerfTense maps to recent past, PastTense to remote past. Remote future not yet included.
     -- BasicTense = PerfTense | PastTense | PresTense | FutTense ;
-    ZTense = PerfTense | PastTense | PresTense | FutTense ;
+    BasicTense = PerfTense | PastTense | PresTense | FutTense ;
+    ZTense = Absolute BasicTense | Relative BasicTense BasicTense ;
+    -- ImpForm = Imper | Polite ;
     -- Polarity = Pos | Neg ;
 
     -- NOTE: Although Poulos+Msimang use "verb form" instead of mood,
@@ -25,12 +27,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- replacing BasicTense with Tense, just for now
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
-    VForm = VFIndic DMood Polarity ZTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
+    VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
     VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | VACompl | NoComp | VSCompl | AdvComp ;
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
 
     AForm = AF1 | AF2 ; -- two forms for implementing sound changes Poulos+Msimang p143
-    SCForm = SC | SCVow | SCNeg | SCHort | SCPS | SCPart | SVowP ;
+    SCForm = SC | SCVow | SCNeg | SCHort | SCPS | SCPart | SCVowP | SCBe ;
     OCForm = OC | OCAE | OCIOU | OCMono | OCThing ;
     --PCForm = (RA|RC) | EI | OU ;
 
@@ -109,30 +111,49 @@ resource ResZul = open Prelude,Predef,ParamX in {
     subjConcLookup : Agr => SCForm => Str =
       table {
         -- agr                     default        before vowel     after neg pref   after hort        sit/part         potential/subjunct
-        First Sg =>         table {SC => "ngi" ;  SCVow => "ng" ;  SCNeg => "ngi" ; SCHort => "ngi" ; SCPart => "ngi" ; SCPS => "ngi" ; SCVowP => "ngi" } ;
-        Second Sg =>        table {SC => "u" ;    SCVow => "w" ;   SCNeg => "wu" ;  SCHort => "u" ;   SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" } ;
-        First Pl =>         table {SC => "si" ;   SCVow => "s" ;   SCNeg => "si" ;  SCHort => "si" ;  SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" } ;
-        Second Pl =>        table {SC => "ni" ;   SCVow => "n" ;   SCNeg => "ni" ;  SCHort => "ni" ;  SCPart => "ni" ;  SCPS => "ni" ;  SCVowP => "ni" } ;
-        Third C1_2 Sg =>    table {SC => "u" ;    SCVow => "w" ;   SCNeg => "ka" ;  SCHort => "ka" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" } ;
-        Third C1_2 Pl =>    table {SC => "ba" ;   SCVow => "b" ;   SCNeg => "ba" ;  SCHort => "ba" ;  SCPart => "be" ;  SCPS => "ba" ;  SCVowP => "ba" } ;
-        Third C1a_2a Sg =>  table {SC => "u" ;    SCVow => "w" ;   SCNeg => "ka" ;  SCHort => "ka" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" } ;
-        Third C1a_2a Pl =>  table {SC => "ba" ;   SCVow => "b" ;   SCNeg => "ba" ;  SCHort => "ba" ;  SCPart => "be" ;  SCPS => "ba" ;  SCVowP => "ba" } ;
-        Third C3_4 Sg =>    table {SC => "u" ;    SCVow => "w" ;   SCNeg => "wu" ;  SCHort => "wu" ;  SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" } ;
-        Third C3_4 Pl =>    table {SC => "i" ;    SCVow => "y" ;   SCNeg => "yi" ;  SCHort => "yi" ;  SCPart => "i" ;   SCPS => "i" ;   SCVowP => "yi" } ;
-        Third C5_6 Sg =>    table {SC => "li" ;   SCVow => "l" ;   SCNeg => "li" ;  SCHort => "li" ;  SCPart => "li" ;  SCPS => "li" ;  SCVowP => "li" } ;
-        Third C5_6 Pl =>    table {SC => "a" ;    SCVow => [] ;    SCNeg => "wa" ;  SCHort => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" } ;
-        Third C7_8 Sg =>    table {SC => "si" ;   SCVow => "s" ;   SCNeg => "si" ;  SCHort => "si" ;  SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" } ;
-        Third C7_8 Pl =>    table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" } ;
-        Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "y" ;   SCNeg => "yi" ;  SCHort => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" } ;
-        Third C9_10 Pl =>   table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" } ;
-        Third C11_10 Sg =>  table {SC => "lu" ;   SCVow => "lw" ;  SCNeg => "lu" ;  SCHort => "lu" ;  SCPart => "lu" ;  SCPS => "lu" ;  SCVowP => "lu" } ;
-        Third C11_10 Pl =>  table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" } ;
-        Third C9_6 Sg =>   table {SC => "i" ;    SCVow => "y" ;   SCNeg => "yi" ;  SCHort => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" } ;
-        Third C9_6 Pl =>   table {SC => "a" ;    SCVow => [] ;    SCNeg => "wa" ;  SCHort => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" } ;
-        Third C14 _ =>      table {SC => "bu" ;   SCVow => "b" ;  SCNeg => "bu" ;  SCHort => "bu" ;  SCPart => "bu" ;  SCPS => "bu" ;   SCVowP => "bu" } ;
-        Third C15 _ =>      table {SC => "ku" ;   SCVow => "kw" ;  SCNeg => "ku" ;  SCHort => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" } ;
-        Third C17 _ =>      table {SC => "ku" ;   SCVow => "kw" ;  SCNeg => "ku" ;  SCHort => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" }
+        First Sg =>         table {SC => "ngi" ;  SCVow => "ng" ;  SCNeg => "ngi" ; SCHort => "ngi" ; SCPart => "ngi" ; SCPS => "ngi" ; SCVowP => "ngi" ; SCBe => "ngi" } ;
+        Second Sg =>        table {SC => "u" ;    SCVow => "w" ;   SCNeg => "wu" ;  SCHort => "u" ;   SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" ; SCBe => "wu" } ;
+        First Pl =>         table {SC => "si" ;   SCVow => "s" ;   SCNeg => "si" ;  SCHort => "si" ;  SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" ; SCBe => "si" } ;
+        Second Pl =>        table {SC => "ni" ;   SCVow => "n" ;   SCNeg => "ni" ;  SCHort => "ni" ;  SCPart => "ni" ;  SCPS => "ni" ;  SCVowP => "ni" ; SCBe => "ni" } ;
+        Third C1_2 Sg =>    table {SC => "u" ;    SCVow => "w" ;   SCNeg => "ka" ;  SCHort => "ka" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" ; SCBe => "ye" } ;
+        Third C1_2 Pl =>    table {SC => "ba" ;   SCVow => "b" ;   SCNeg => "ba" ;  SCHort => "ba" ;  SCPart => "be" ;  SCPS => "ba" ;  SCVowP => "ba" ; SCBe => "be" } ;
+        Third C1a_2a Sg =>  table {SC => "u" ;    SCVow => "w" ;   SCNeg => "ka" ;  SCHort => "ka" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" ; SCBe => "ye" } ;
+        Third C1a_2a Pl =>  table {SC => "ba" ;   SCVow => "b" ;   SCNeg => "ba" ;  SCHort => "ba" ;  SCPart => "be" ;  SCPS => "ba" ;  SCVowP => "ba" ; SCBe => "be" } ;
+        Third C3_4 Sg =>    table {SC => "u" ;    SCVow => "w" ;   SCNeg => "wu" ;  SCHort => "wu" ;  SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" ; SCBe => "wu" } ;
+        Third C3_4 Pl =>    table {SC => "i" ;    SCVow => "y" ;   SCNeg => "yi" ;  SCHort => "yi" ;  SCPart => "i" ;   SCPS => "i" ;   SCVowP => "yi" ; SCBe => "yi" } ;
+        Third C5_6 Sg =>    table {SC => "li" ;   SCVow => "l" ;   SCNeg => "li" ;  SCHort => "li" ;  SCPart => "li" ;  SCPS => "li" ;  SCVowP => "li" ; SCBe => "li" } ;
+        Third C5_6 Pl =>    table {SC => "a" ;    SCVow => [] ;    SCNeg => "wa" ;  SCHort => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ; SCBe => "ye" } ;
+        Third C7_8 Sg =>    table {SC => "si" ;   SCVow => "s" ;   SCNeg => "si" ;  SCHort => "si" ;  SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" ; SCBe => "si" } ;
+        Third C7_8 Pl =>    table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ; SCBe => "zi" } ;
+        Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "y" ;   SCNeg => "yi" ;  SCHort => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ; SCBe => "yi" } ;
+        Third C9_10 Pl =>   table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ; SCBe => "zi" } ;
+        Third C11_10 Sg =>  table {SC => "lu" ;   SCVow => "lw" ;  SCNeg => "lu" ;  SCHort => "lu" ;  SCPart => "lu" ;  SCPS => "lu" ;  SCVowP => "lu" ; SCBe => "lu" } ;
+        Third C11_10 Pl =>  table {SC => "zi" ;   SCVow => "z" ;   SCNeg => "zi" ;  SCHort => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ; SCBe => "zi" } ;
+        Third C9_6 Sg =>   table {SC => "i" ;    SCVow => "y" ;   SCNeg => "yi" ;  SCHort => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ; SCBe => "yi" } ;
+        Third C9_6 Pl =>   table {SC => "a" ;    SCVow => [] ;    SCNeg => "wa" ;  SCHort => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ; SCBe => "ye" } ;
+        Third C14 _ =>      table {SC => "bu" ;   SCVow => "b" ;  SCNeg => "bu" ;  SCHort => "bu" ;  SCPart => "bu" ;  SCPS => "bu" ;   SCVowP => "bu" ; SCBe => "bu" } ;
+        Third C15 _ =>      table {SC => "ku" ;   SCVow => "kw" ;  SCNeg => "ku" ;  SCHort => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" ; SCBe => "ku" } ;
+        Third C17 _ =>      table {SC => "ku" ;   SCVow => "kw" ;  SCNeg => "ku" ;  SCHort => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" ; SCBe => "ku" }
       } ;
+
+    --
+    icompSubjConc : VForm -> Agr -> Str = \vform,agr -> case vform of {
+      VFIndic _ Pos PresTense _ => subjConcLookup ! agr ! SC ++BIND ;
+      VFIndic _ Pos PastTense _ => "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ;
+      VFIndic _ Pos PerfTense _ => "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ;
+      VFIndic _ Pos FutTense _ => subjConcLookup ! agr ! SC ++BIND ++ "zobe" ++ subjConcLookup ! agr ! SC ++BIND;
+
+      -- might have to add an SCNegBe to the table
+      VFIndic _ Neg PresTense _ => subjConcLookup ! agr ! SCNeg ++BIND ;
+      VFIndic _ Neg PastTense _ => "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ;
+      VFIndic _ Neg PerfTense _ => "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ;
+      VFIndic _ Neg FutTense _ => subjConcLookup ! agr ! SCNeg ++BIND ++ "zobe" ++ subjConcLookup ! agr ! SCBe ++BIND;
+
+      VFPot _ Pos _ => subjConcLookup ! agr ! SC ++BIND++"ngaba" ++ subjConcLookup ! agr ! SCPS ++BIND ;
+      VFPot _ Neg _ => subjConcLookup ! agr ! SC ++BIND++"ngebe" ++ subjConcLookup ! agr ! SCPS ++BIND ;
+      VFSubj Neg => subjConcLookup ! agr ! SCNeg ++BIND ;
+      VFSubj Pos => subjConcLookup ! agr ! SC ++BIND
+    } ;
 
     subjConc : VForm -> Agr -> Bool -> Str = \vform,agr,prevow ->
       case prevow of {
@@ -150,7 +171,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- -be aux: reference time in relation to coding time
     -- relSubjConc : BasicTense -> Agr -> Str = \tense,agr ->
-    relSubjConc : ZTense -> Agr -> Str = \tense,agr ->
+    relSubjConc : BasicTense -> Agr -> Str = \tense,agr ->
       case tense of {
         PastTense => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND++ case agr of {
           Second Sg | Third C3_4 Sg => "w" ++BIND ;
@@ -273,20 +294,53 @@ resource ResZul = open Prelude,Predef,ParamX in {
           VFSubj Pos => []
         } ;
 
+    icompNeg1 : VForm -> Str = \vform -> case vform of {
+      VFIndic _ Neg PresTense _ => "a"++BIND ;
+      VFIndic _ _ _ _ => [] ;
+      VFPot _ _ _ => [] ;
+      VFSubj _ => []
+    } ;
+
+    icompNeg2 : VForm -> Str = \vform -> case vform of {
+      VFIndic _ Neg _ _ => "nga"++BIND ;
+      VFIndic _ _ _ _ => [] ;
+      VFPot _ Neg _ => "nga"++BIND ;
+      VFPot _ _ _ => [] ;
+      VFSubj Neg => "nga"++BIND ;
+      VFSubj Pos => []
+    } ;
+
+    -- -- progressive prefix
+    -- progPref : VForm -> Str = \vform ->
+    --   case vform of {
+    --     VFIndic _ Pos PastTense Prog => nonExist ; -- progressive past does not occur
+    --     VFIndic _ Pos PastTense _ => [] ;
+    --     VFIndic _ Pos _ Prog => "sa" ++BIND ;
+    --     VFIndic _ Pos _ _ => [] ;
+    --     VFIndic _ Neg FutTense Prog => "se" ++BIND ;
+    --     VFIndic _ Neg _ Prog => "sa" ++BIND ;
+    --     VFIndic _ _ _ Prog => nonExist ;
+    --     VFIndic _ _ _ _ => [] ;
+    --     VFPot _ _ Prog => "se" ++BIND ;
+    --     VFPot _ _ _ => [] ;
+    --     VFSubj _ => []
+    --
+    --   } ;
+
     -- progressive prefix
     progPref : VForm -> Str = \vform ->
       case vform of {
-        VFIndic _ Pos PastTense Prog => nonExist ; -- progressive past does not occur
-        VFIndic _ Pos PastTense _ => [] ;
-        VFIndic _ Pos _ Prog => "sa" ++BIND ;
-        VFIndic _ Pos _ _ => [] ;
-        VFIndic _ Neg FutTense Prog => "se" ++BIND ;
-        VFIndic _ Neg _ Prog => "sa" ++BIND ;
-        VFIndic _ _ _ Prog => nonExist ;
-        VFIndic _ _ _ _ => [] ;
-        VFPot _ _ Prog => "se" ++BIND ;
-        VFPot _ _ _ => [] ;
-        VFSubj _ => []
+        VFIndic _ Pos PastTense _ => nonExist ; -- progressive past does not occur
+        -- VFIndic _ Pos PastTense _ => [] ;
+        VFIndic _ Pos _ _ => "sa" ++BIND ;
+        -- VFIndic _ Pos _ _ => [] ;
+        VFIndic _ Neg FutTense _ => "se" ++BIND ;
+        VFIndic _ Neg _ _ => "sa" ++BIND ;
+        VFIndic _ _ _ _ => nonExist ;
+        -- VFIndic _ _ _ _ => [] ;
+        VFPot _ _ _ => "se" ++BIND ;
+        -- VFPot _ _ _ => [] ;
+        VFSubj _ => nonExist
 
       } ;
 
@@ -353,7 +407,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
   --------------------
   -- ADJ STRUCTURES --
   --------------------
-  regAdj : Str -> { s : AForm => Str ; b : Bool } = \a ->
+  regAdj : Str -> { s : AForm => Str ; b : Bool ; empty : Str } = \a ->
   {
     s = table {
       AF1 => a ;
@@ -372,7 +426,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
       ("m"|"n")+_ => True ;
       _ => False
-    }
+    } ;
+    empty = []
   } ;
 
   relConc : Agr => Str =
@@ -571,17 +626,18 @@ resource ResZul = open Prelude,Predef,ParamX in {
   -- NOUN STRUCTURES --
   ---------------------
     -- worst case
-    mkNoun : (noms,nomp,locs,locp : Str) -> ClassGender -> { nom : Number => NForm => Str ; loc : Number => Str ; c : ClassGender } =
+    mkNoun : (noms,nomp,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } =
       \noms,nomp,locs,locp,cg ->
       {
-        nom = table { Sg => table { Full => noms ; Reduced => (drop_init_vowel noms) } ;
+        s = table { Sg => table { Full => noms ; Reduced => (drop_init_vowel noms) } ;
                       Pl => table { Full => nomp ; Reduced => (drop_init_vowel nomp) } } ;
         loc = table { Sg => locs ;
                       Pl => locp } ;
-        c = cg
+        c = cg ;
+        empty = []
       } ;
 
-    semiRegNoun : (root,locs,locp : Str) -> ClassGender -> { nom : Number => NForm => Str ; loc : Number => Str ; c : ClassGender } =
+    semiRegNoun : (root,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } =
       \root,locs,locp,cg ->
       let
         noms : Str = nomNoun root Sg cg ;
@@ -589,13 +645,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
       in
       mkNoun noms nomp locs locp cg ;
 
-    regNoun : Str -> ClassGender -> {nom : Number => NForm => Str ; loc : Number => Str ; c : ClassGender} =
+    regNoun : Str -> ClassGender -> { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } =
       \root,cg ->
       let
         noms : Str = nomNoun root Sg cg ;
         nomp : Str = nomNoun root Pl cg ;
         locs : Str = locNoun root Sg cg ;
-        locp : Str = locNoun root Pl cg
+        locp : Str = locNoun root Pl cg ;
+        empty = []
       in
       mkNoun noms nomp locs locp cg ;
 
@@ -675,6 +732,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         <C3_4,Sg> => case root of {
                                     ("m"|"n")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
                                     _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um"+root ;
+                                    "o"+_ => "um"+root ;
                                     _ => "umu"+root
                                   } ; -- umu for single syllables, um for the rest
         <C3_4,Pl> => "imi"+root ;

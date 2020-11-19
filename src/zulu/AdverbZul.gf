@@ -3,7 +3,6 @@ concrete AdverbZul of Adverb = CatZul ** open ResZul, Prelude in {
   lin
     PositAdvAdj a = {
       s = "ka" ++BIND++ a.s!AF1 ;
-      asp = Null ;
       reqLocS = False
     } ;
     -- ComparAdvAdj cadv a np = {
@@ -20,7 +19,6 @@ concrete AdverbZul of Adverb = CatZul ** open ResZul, Prelude in {
 
     SubjS subj s = {
       s = subj.s ++ s.subjs ;
-      asp = Null ;
       reqLocS = False
     } ;
 

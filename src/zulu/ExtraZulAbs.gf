@@ -3,6 +3,7 @@ abstract ExtraZulAbs =
 
   fun
     PotQS : Pol -> QCl -> QS ;
+    SubjunctS : S -> Utt ;
 
     AssocCop : NP -> VP ;
     EqCop : NP -> VP ;
@@ -39,16 +40,17 @@ abstract ExtraZulAbs =
     painful_RelStem : RelStem ;
     sharp_RelStem : RelStem ;
 
-    TPerfPast : Temp ;
-    TPastPast : Temp ;
-    TPresPres : Temp ;
-    TPastPres : Temp ;
-    TPastPerf : Temp ;
-    TPerfPerf : Temp ;
+    -- TPerfPast : Temp ;
+    -- TPastPast : Temp ;
+    -- TPresPres : Temp ;
+    -- TPastPres : Temp ;
+    -- TPastPerf : Temp ;
+    -- TPerfPerf : Temp ;
 
     PredNP : NP -> Cl ;
     IAdvQCl : NP -> IAdv -> QCl ; -- (the pregnancy) (in which year)
 
+    AdvQCl : Adv -> QCl -> QCl ;
 
     ComplVAux : VAux -> VP -> VP ;
 
@@ -78,5 +80,9 @@ abstract ExtraZulAbs =
     how_many_IAdj : IAdj ;
 
     IAdjIAdv : NP -> IAdj -> IAdv ;
+
+    how_IComp : IComp ; -- -njani
+
+    AdvQS     : Adv -> QS  -> QS ;            -- maybe it is a pain that burns
 
 }

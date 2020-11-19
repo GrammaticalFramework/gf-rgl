@@ -1,4 +1,4 @@
-concrete CatZul of Cat = CommonX - [Temp,Adv] **
+concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
   open ResZul, Prelude,ParamX in {
 
   flags optimize=all_subs ;
@@ -14,7 +14,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
       subjs : Str ;
       pots : DMood => Str
     } ;
-    QS = { s : Str ; qword : Str } ;
+    QS = { s : Str ; qword_pre : Str ; qword_post : Str } ;
     RS = { s : Agr => Str } ;
 --     SSlash = {s : Str ; c2 : Str} ;
 
@@ -22,6 +22,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
 
     Cl = {
       s : Polarity => ZTense => DMood => Str ;
+      advs : Str ;
       subjcl : Polarity => ZTense => Str ;
       potcl : Polarity => DMood => Str
     } ;
@@ -36,10 +37,11 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
     QCl = {
       s : Polarity => ZTense => DMood => Str ;
       potqcl : Polarity => DMood => Str ;
-      qword : Str
+      qword_pre : Str ;
+      qword_post : Str
     } ;
 --     IP = {s : NPCase => Str ; n : Number} ;
---     IComp = {s : Str} ;
+    IComp = { s : Str } ; -- possibly needs parameter for comp type
 --     IDet = {s : Str ; n : Number} ;
 --     IQuant = {s : Number => Str} ;
 
@@ -55,6 +57,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
       perfSuff : Str ;
       oc : Str ;
       comp : Str ;
+      advs : Str ;
       hasComp : Bool ;
       r : RInit ;
       syl : Syl ;
@@ -83,7 +86,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
       ap_comp : AForm => Str ;
       ap_bool : Bool ;
       aux_root : Str ;
-      hasAux : Bool 
+      hasAux : Bool
     } ;
 
     Comp = {
@@ -98,19 +101,20 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
 
 -- Adjective
 
-    AP = { s : AForm => Str ; b : Bool } ;
+    AP = { s : AForm => Str ; b : Bool ; empty : Str } ;
 
 -- Noun
 
     CN = {
-      nom : Number => NForm => Str ;
+      s : Number => NForm => Str ;
       loc : Number => Str ;
       desc : Number => Str ;
-      c : ClassGender
+      c : ClassGender ;
+      empty : Str
     } ;
     NP = {
       empty : Str ;
-      nom : NForm => Str ;
+      s : NForm => Str ;
       loc : Str ;
       desc : Str ;
       agr : Agr ;
@@ -124,10 +128,10 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
     Det = { s : Str ; n : Number } ;
 --     Predet = {s : Str} ;
 --     Ord = { s : Case => Str } ;
---     Num  = {s,sp : Bool => Case => Str ; n : Number ; hasCard : Bool} ;
+    Num  = { s: Str ; n : Number } ;
 --     Card = {s,sp : Bool => Case => Str ; n : Number} ;
 --     ACard = {s : Case => Str ; n : Number} ;
---     Quant = {s : Bool => Number => Str ; sp : Gender => Bool => Number => NPCase => Str; isDef : Bool} ;
+    Quant = { s : Str } ;
 
 -- Numeral
 
@@ -151,14 +155,16 @@ concrete CatZul of Cat = CommonX - [Temp,Adv] **
     -- V = {s : VVForm => Str ; p : Str ; typ : VVType} ;
     -- V2V = Verb ** {c2,c3 : Str ; typ : VVType} ;
 
-    A = { s : AForm => Str ; b : Bool } ;
+    A = { s : AForm => Str ; b : Bool ; empty : Str } ;
 --     A2 = {s : AForm => Str ; c2 : Str ; isPre : Bool} ;
 
-    N = { nom : Number => NForm => Str ; loc : Number => Str ; c : ClassGender } ;
+    N = { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } ;
 --     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
 --     N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
 --     PN = {s : Case => Str ; g : Gender} ;
 
-    Adv = { s : Str ; asp : Aspect ; reqLocS : Bool } ;
+    Adv = { s : Str ; reqLocS : Bool } ;
+
+    IAdv = { s : Str ; postIAdv : Bool } ;
 
 }

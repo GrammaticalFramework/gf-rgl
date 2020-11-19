@@ -6,19 +6,19 @@
 -- $NP$s in $Verb$ need not know how $NP$s are constructed in $Noun$:
 -- it is enough that both $Verb$ and $Noun$ use the same type $NP$,
 -- which is given here in $Cat$.
--- 
+--
 -- Some categories are inherited from [``Common`` Common.html].
 -- The reason they are defined there is that they have the same
 -- implementation in all languages in the resource (typically,
 -- just a string). These categories are
--- $AdA, AdN, AdV, Adv, Ant, CAdv, IAdv, PConj, Phr$, 
+-- $AdA, AdN, AdV, Adv, Ant, CAdv, IAdv, PConj, Phr$,
 -- $Pol, SC, Tense, Text, Utt, Voc, Interj$.
 --
 -- Moreover, the list categories $ListAdv, ListAP, ListNP, ListS$
 -- are defined on $Conjunction$ and only used locally there.
 
 
-abstract Cat = Common ** {
+abstract Cat = Common-[IAdv] ** {
 
   cat
 
@@ -68,7 +68,7 @@ abstract Cat = Common ** {
 
 --2 Nouns and noun phrases
 
--- Constructed in [Noun Noun.html]. 
+-- Constructed in [Noun Noun.html].
 -- Many atomic noun phrases e.g. "everybody"
 -- are constructed in [Structural Structural.html].
 -- The determiner structure is
@@ -105,10 +105,10 @@ abstract Cat = Common ** {
 
 --2 Words of open classes
 
--- These are constructed in [Lexicon Lexicon.html] and in 
+-- These are constructed in [Lexicon Lexicon.html] and in
 -- additional lexicon modules.
 
-    V ;     -- one-place verb                      e.g. "sleep" 
+    V ;     -- one-place verb                      e.g. "sleep"
     V2 ;    -- two-place verb                      e.g. "love"
     V3 ;    -- three-place verb                    e.g. "show"
     VV ;    -- verb-phrase-complement verb         e.g. "want"

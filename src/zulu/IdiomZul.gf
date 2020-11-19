@@ -2,7 +2,7 @@ concrete IdiomZul of Idiom = CatZul ** open Prelude, ResZul,ParamX in {
 
   flags optimize=all_subs ;
 
-  lin
+  -- lin
   --   ImpersCl vp = mkClause "it" (agrP3 Sg) vp ;
   --   GenericCl vp = mkClause "one" (agrP3 Sg) vp ;
   --
@@ -30,23 +30,23 @@ concrete IdiomZul of Idiom = CatZul ** open Prelude, ResZul,ParamX in {
   --     mkQuestion (ss (ip.s ! npNom))
   --       (mkClause "there" (agrP3 ip.n) (insertObj (\\_ => adv.s) (predAux auxBe))) ;
 
-    ProgrVP vp = {
-      s = vp.s ;
-      perfSuff = vp.perfSuff ;
-      oc = vp.oc ;
-      comp = vp.comp ;
-      hasComp = vp.hasComp ;
-      r = vp.r ;
-      syl = vp.syl ;
-      asp = Prog ;
-      asp_pref = \\vform => vp.asp_pref!vform ++ (progPref vform) ;
-      vptype = vp.vptype ;
-      comp_agr = vp.comp_agr ;
-      ap_comp = vp.ap_comp ;
-      ap_bool = vp.ap_bool ;
-      aux_root = vp.aux_root ;
-      hasAux = vp.hasAux
-    } ;
+    -- ProgrVP vp = {
+    --   s = vp.s ;
+    --   perfSuff = vp.perfSuff ;
+    --   oc = vp.oc ;
+    --   comp = vp.comp ;
+    --   hasComp = vp.hasComp ;
+    --   r = vp.r ;
+    --   syl = vp.syl ;
+    --   asp = Prog ;
+    --   asp_pref = \\vform => vp.asp_pref!vform ++ (progPref vform) ;
+    --   vptype = vp.vptype ;
+    --   comp_agr = vp.comp_agr ;
+    --   ap_comp = vp.ap_comp ;
+    --   ap_bool = vp.ap_bool ;
+    --   aux_root = vp.aux_root ;
+    --   hasAux = vp.hasAux
+    -- } ;
 
   --   ImpPl1 vp = {s = "let's" ++ infVP VVAux vp False Simul CPos (AgP1 Pl)} ;
   --

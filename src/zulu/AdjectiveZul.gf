@@ -40,7 +40,8 @@ concrete AdjectiveZul of Adjective = CatZul ** open ResZul, Prelude in {
 
     AdAP ada ap = {
       s = \\a => ap.s!a ++ ada.s ;
-      b = ap.b
+      b = ap.b ;
+      empty = ap.empty
     } ;
 
     -- UseA2 a = {

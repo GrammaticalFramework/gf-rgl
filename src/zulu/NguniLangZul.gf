@@ -5,7 +5,9 @@ concrete NguniLangZul of NguniLangAbs =
   BackwardZul[ComplV2,ComplV3],
   ExtraCatZul,
   ExtraZul,
-  DevLexZul,
+  MonoLexZul,
+  ChunkZul,
+  SymbolZul - [Symb],
   -- GuesserZul,
   TempZul
   -- ,ConstructionZul

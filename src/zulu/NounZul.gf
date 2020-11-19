@@ -4,9 +4,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 
   lin
     DetCN det cn = {
-      empty = [] ;
-      nom = cn.nom ! det.n ;
-      loc = cn.loc ! det.n ;
+      empty = cn.empty ;
+      s = \\nform => det.s ++ cn.s ! det.n ! nform ;
+      loc =  det.s ++ cn.loc ! det.n ;
       desc = cn.desc ! det.n ;
       agr = Third cn.c det.n ;
       isPron = False ;
@@ -17,7 +17,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 
     UsePron pron = {
       empty = pron.empty ;
-      nom = table {
+      s = table {
         Full => full_pron pron.s ;
         Reduced => pron.s
       } ;
@@ -54,17 +54,12 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 --       a = np.a
 --       } ;
 --
---
---     DetQuant quant num = {
---       s  = quant.s ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom;
---       sp = \\g,hasAdj,c => case <num.hasCard,num.n> of {
---                              <False,Sg> => quant.sp ! g ! hasAdj ! num.n ! c ++ num.s  ! quant.isDef ! Nom ;
---                              _          => quant.s  !     True   ! num.n     ++ num.sp ! quant.isDef ! npcase2case c
---                            } ;
---       n  = num.n ;
---       hasNum = num.hasCard
---       } ;
---
+
+    DetQuant quant num = {
+      s  = quant.s ++ num.s ;
+      n  = num.n
+    } ;
+
 --     DetQuantOrd quant num ord = {
 --       s  =            quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! Nom;
 --       sp = \\g,_,c => quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! npcase2case c ;
@@ -98,15 +93,15 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
     --     Third _ Pl => RC
     --   } ;
     -- in {
-    --   nom = \\n,cpf => cn.nom!n!cpf ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
+    --   s = \\n,cpf => cn.s!n!cpf ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
     --   loc = \\n => cn.loc!n ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
     --   desc = \\n => cn.desc!n ;
     --   c = cn.c
     -- } ;
 
---     NumSg = {s,sp = \\_,c => []; n = Sg ; hasCard = False} ;
---     NumPl = {s,sp = \\_,c => []; n = Pl ; hasCard = False} ;
---
+    NumSg = { s = [] ; n = Sg } ;
+    NumPl = { s = [] ; n = Pl } ;
+
 --     NumCard n = n ** {hasCard = True} ;
 --
 --     NumDigits n = {s,sp = \\_ => n.s ! NCard ; n = n.n} ;
@@ -132,12 +127,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 --         } ;
 --       isDef = True
 --       } ;
---
---     IndefArt = {
---       s = \\hasCard,n => case <n,hasCard> of {
---         <Sg,False> => artIndef ;
---         _          => []
---         } ;
+
+    IndefArt = { s = [] } ;
 --       sp = \\g,hasCard,n => case <n,hasCard> of {
 --         <Sg,False> => table {NCase Gen => "one's"; _ => "one" };
 --         <Pl,False> => table {NCase Gen => "ones'"; _ => "ones" } ;
@@ -147,8 +138,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 --       } ;
 
     MassNP cn = {
-      empty = [] ;
-      nom = cn.nom ! Sg ;
+      empty = cn.empty ;
+      s = cn.s ! Sg ;
       loc = cn.loc ! Sg ;
       desc = cn.desc ! Sg ;
       agr = Third cn.c Sg ;
@@ -180,7 +171,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 --       } ;
 
     AdjCN ap cn = {
-      nom = cn.nom ;
+      empty = cn.empty ++ ap.empty ;
+      s = cn.s ;
       loc = cn.loc ;
       desc = \\num =>
         let
@@ -195,15 +187,18 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
             ++ cn.desc ! num ;
       c = cn.c
     } ;
+    
     RelCN cn rs = {
-      nom = cn.nom ;
+      empty = cn.empty ;
+      s = cn.s ;
       loc = cn.loc ;
       desc = \\n => cn.desc!n ++ rs.s!(Third cn.c n) ;
       -- desc = cn.desc ;
       c = cn.c
     } ;
     AdvCN cn adv = {
-      nom = cn.nom ;
+      empty = cn.empty ;
+      s = cn.s ;
       loc = cn.loc ;
       desc = case adv.reqLocS of {
         True => \\n => cn.desc!n ++ poss_concord!cn.c!n!RC ++BIND++ "s" ++BIND++ adv.s ;
@@ -219,9 +214,10 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
     -- flashing of the lights / ukukhanya kwezibani
     PossNP cn np = case np.isPron of {
       False => {
-        nom = \\n,cpf => cn.nom!n!cpf ;
+        empty = np.empty ;
+        s = \\n,cpf => cn.s!n!cpf ;
         loc = \\n => cn.loc!n ;
-        desc = \\n => cn.desc!n ++ poss_concord!cn.c!n!(nominit!np.agr) ++BIND++ np.nom!Reduced ++ np.desc ;
+        desc = \\n => cn.desc!n ++ poss_concord!cn.c!n!(nominit!np.agr) ++BIND++ np.s!Reduced ++ np.desc ;
         c = cn.c
       } ;
       True =>
@@ -243,7 +239,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
             Third _ Pl => RC
           } ;
         in {
-          nom = \\n,cpf => cn.nom!n!cpf ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
+          empty = np.empty ;
+          s = \\n,cpf => cn.s!n!cpf ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
           loc = \\n => cn.loc!n ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
           desc = \\n => cn.desc!n ;
           c = cn.c

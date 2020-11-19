@@ -16,8 +16,8 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
         False => np.empty
       } ;
       comp = case v2.voice of {
-        Active => np.nom ! Full ++ np.desc ;
-        Passive => (cop_pref np.agr) ++BIND++ np.nom ! Full ++ np.desc
+        Active => np.s ! Full ++ np.desc ;
+        Passive => (cop_pref np.agr) ++BIND++ np.s ! Full ++ np.desc
       } ;
       hasComp = True ;
       -- r = v2.r ;
@@ -40,12 +40,12 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
       } ;
       comp = case np1.isPron of {
         True => case v3.voice of {
-          Active => np2.nom ! Full ++ np2.desc ;
-          Passive => (cop_pref np2.agr) ++BIND++ np2.nom ! Full ++ np2.desc
+          Active => np2.s ! Full ++ np2.desc ;
+          Passive => (cop_pref np2.agr) ++BIND++ np2.s ! Full ++ np2.desc
         } ;
         False => case v3.voice of {
-          Active => np1.nom ! Full ++ np1.desc ++ np2.nom ! Full ++ np2.desc ;
-          Passive => (cop_pref np1.agr) ++BIND++ np1.nom ! Full ++ np1.desc ++ np2.nom ! Full ++ np2.desc
+          Active => np1.s ! Full ++ np1.desc ++ np2.s ! Full ++ np2.desc ;
+          Passive => (cop_pref np1.agr) ++BIND++ np1.s ! Full ++ np1.desc ++ np2.s ! Full ++ np2.desc
         }
       } ;
       hasComp = True ;

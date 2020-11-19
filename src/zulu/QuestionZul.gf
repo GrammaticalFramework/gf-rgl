@@ -7,7 +7,8 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
     QuestCl cl = {
       s = \\p,t,m => cl.s!p!t!m ;
       potqcl = cl.potcl ;
-      qword = "na"
+      qword_pre = [] ;
+      qword_post = "na"
     } ; -- guessing this will work...
 
   --   QuestVP qp vp =
@@ -22,10 +23,40 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
 
     QuestIAdv iadv cl = qcl_iadv cl iadv ;
 
-  --   QuestIComp icomp np =
-  --     mkQuestion icomp (mkClause (np.s ! npNom) np.a (predAux auxBe)) ;
-  --
-  --
+    QuestIComp icomp np = {
+      s = \\p,t,m =>
+      let
+        -- TODO: deal with auxiliaries properly.
+        aux_tense = case t of {
+          Absolute bt => bt ;
+          Relative b1 b2 => b1
+        } ;
+        main_tense = case t of {
+          Absolute bt => bt ;
+          Relative b1 b2 => b2
+        } ;
+        vform = VFIndic m p main_tense Null ;
+        vform_aux = VFIndic m p aux_tense Null ;
+        neg1 = icompNeg1 vform ;
+        neg2 = icompNeg2 vform ;
+        aux = case t of {
+          Absolute bt => [] ;
+          Relative _ _ => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+        }
+      in
+          aux ++ neg1 ++ (icompSubjConc vform np.agr) ++ neg2 ++ icomp.s ++ np.s!Full ;
+      potqcl = \\p,m =>
+      let
+        vform = VFPot m p Null ;
+        neg = icompNeg2 vform
+      in
+          (icompSubjConc vform np.agr) ++ neg ++ icomp.s ++ np.s!Full ;
+      qword_pre = [] ;
+      qword_post = []
+    } ;
+      -- mkQuestion icomp (mkClause (np.s ! npNom) np.a (predAux auxBe)) ;
+
+
   --   PrepIP p ip = {s = p.s ++ ip.s ! NPAcc} ;
   --
   --   AdvIP ip adv = {
@@ -65,10 +96,17 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
   --     in {s = \\t,a,b,_ => cl.s ! t ! a ! b ! oDir} ; ----
 
   oper
-    qcl_iadv : Cl -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword : Str } = \cl,iadv -> {
-      s = cl.s ;
+    qcl_iadv : Cl -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
+      s = case iadv.postIAdv of {
+        True => cl.s ++ iadv.s ++ cl.advs ;
+        False => cl.s ++ cl.advs
+      } ;
       potqcl = cl.potcl ;
-      qword = iadv.s
+      qword_pre = case iadv.postIAdv of {
+        True => [] ;
+        False => iadv.s
+        } ;
+      qword_post = []
     } ;
 
 }

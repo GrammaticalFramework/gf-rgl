@@ -6,6 +6,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     UseV v = v ** {
       oc = [] ;
       comp = [] ;
+      advs = [] ;
       hasComp = False ;
       asp = Null ;
       asp_pref = \\_ => [] ;
@@ -23,6 +24,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       -- s = vs.s ;
       oc = [] ;
       comp = s.subjs ;
+      advs = [] ;
       hasComp = True ;
       -- r = vs.r ;
       -- syl = vs.syl ;
@@ -43,6 +45,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       -- s = va.s ;
       oc = [] ;
       comp = [] ;
+      advs = [] ;
       hasComp = True ;
       -- r = va.r ;
       -- syl = va.syl ;
@@ -60,6 +63,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     SlashV2a v = v ** {
       oc = [] ;
       comp = [] ;
+      advs = [] ;
       hasComp = False ;
       asp = Null ;
       asp_pref = \\_ => [] ;
@@ -88,8 +92,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     --     True => objConc np.agr v2.r v2.syl ;
     --     False => np.empty
     --   comp = case v2.voice of {
-    --     Active => vp.comp ++ np.nom ! Full ++ np.desc ;
-    --     Passive => vp.comp ++ (cop_pref np.agr) ++BIND++ np.nom ! Full ++ np.desc
+    --     Active => vp.comp ++ np.s ! Full ++ np.desc ;
+    --     Passive => vp.comp ++ (cop_pref np.agr) ++BIND++ np.s ! Full ++ np.desc
     --   } ;
     --   hasComp = True ;
     --   r = vp.r ;
@@ -116,7 +120,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         s = [] ;
         perfSuff = [] ;
         oc = [] ;
-        comp = [] ;
+        comp = [] ; -- doesn't matter
+        advs = [] ;
         hasComp = True ;
         r = comp.r ; -- adjectives don't typically start on vowels
         syl = SylMult ;
@@ -134,6 +139,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         perfSuff = [] ;
         oc = [] ;
         comp = comp.s!AF1 ; -- doesn't matter
+        advs = [] ;
         hasComp = True ;
         r = comp.r ;
         syl = SylMult ;
@@ -150,7 +156,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         s = [] ;
         perfSuff = [] ;
         oc = [] ;
-        comp = comp.s!AF1 ;
+        comp = [] ;
+        advs = comp.s!AF1 ;
         hasComp = True ;
         r = comp.r ; -- probably works...
         syl = SylMult ;
@@ -169,6 +176,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         perfSuff = [] ;
         oc = [] ;
         comp = comp.s!AF1 ; -- doesn't matter
+        advs = [] ;
         hasComp = True ;
         r = comp.r ;
         syl = SylMult ;
@@ -187,8 +195,9 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       s = vp.s ;
       perfSuff = vp.perfSuff ;
       oc = vp.oc ;
-      comp = vp.comp ++ adv.s ;
-      hasComp = True ;
+      comp = vp.comp ;
+      advs = vp.advs ++ adv.s ;
+      hasComp = False ; -- This might have to depend on the kind of adverb
       r = vp.r ;
       syl = vp.syl ;
       asp = vp.asp ;
@@ -224,7 +233,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     } ;
 
     CompNP np = {
-      s = \\_ => np.nom ! Full ++ np.desc ;
+      s = \\_ => np.s ! Full ++ np.desc ;
       r = nominit!np.agr ;
       agr = np.agr ;
       asp = Null ;
@@ -240,7 +249,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       } ++ adv.s ;
       r = RC ; -- probably works...
       agr = First Sg ; -- this could be anything...
-      asp = adv.asp ;
+      asp = Null ;
       asp_pref = \\_ => [] ; -- TODO: check
       comptype = AdvComp ;
       ap_bool = False ;
@@ -266,7 +275,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
   --     } ;
   --     comp = case np.isPron of {
   --       True => vp.comp ;
-  --       False => vp.comp ++ np.nom ! Full ++ np.desc
+  --       False => vp.comp ++ np.s ! Full ++ np.desc
   --     } ;
   --     hasComp = True ;
   --     r = vp.r ;

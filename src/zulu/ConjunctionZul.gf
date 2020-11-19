@@ -12,12 +12,12 @@ concrete ConjunctionZul of Conjunction =
 
     -- ConjNP np1 conj np2 =
     -- let
-    --   np2_loose = np2.nom!Full ;
-    --   np2_fixed = np2.nom!Reduced
+    --   np2_loose = np2.s!Full ;
+    --   np2_fixed = np2.s!Reduced
     -- in {
     --   empty = [] ;
-    --   nom = \\f =>
-    --         np1.nom!f ++ np1.desc
+    --   s = \\f =>
+    --         np1.s!f ++ np1.desc
     --         ++
     --         (link_conj
     --           (conj.s!(nominit!np2.agr))

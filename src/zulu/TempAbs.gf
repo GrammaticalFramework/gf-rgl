@@ -5,4 +5,7 @@ abstract TempAbs = Cat ** {
     TPerfTemp : Temp ;
     TPastTemp : Temp ;
     TFutTemp : Temp ;
+
+    TPastPresTemp : Temp ;
+    TFutPresTemp : Temp ;
 }

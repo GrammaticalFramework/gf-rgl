@@ -5,7 +5,9 @@ abstract NguniLangAbs =
   Backward[ComplV2,ComplV3],
   ExtraCatZulAbs,
   ExtraZulAbs,
-  DevLexAbs,
+  MonoLexAbs,
+  Chunk,
+  Symbol - [Symb],
   -- GuesserAbs,
   TempAbs
   -- ,Construction  --- could be compiled here, but not in concretes, as they call Syntax and Grammar
