@@ -57,6 +57,7 @@ lin
   in8front_Prep  = mkPrep "przed" Instr;
   in_Prep  =  mkPrep "w" Loc;
   it_Pron    = pronOno;
+  it_ReflPron    = pronRefl;
   language_title_Utt = ss "polski";
   less_CAdv = {s,sn = "mniej" ; p,pn = "niż" } ;
   many_Det  = wieleDet;
