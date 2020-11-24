@@ -216,7 +216,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 
 
 -- A loose translation of "its" (reflexive)
-  oper pronRefl: Pron = pronTyFoo PNoGen;
+  oper pronRefl: Pron = pronReflFoo PNoGen;
   oper pronReflFoo: PronGen -> Pron = \gender ->
 	 { sp = table {
 	     AF (MascPersSg|MascAniSg|MascInaniSg) Nom => "swój";
@@ -271,7 +271,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	   p = P2 ;
 	   g = gender
 	 };
-     
+
 -- for "it", "its"
   oper pronOno: Pron = 
 	 { nom = "ono" ;
