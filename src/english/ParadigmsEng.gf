@@ -412,7 +412,15 @@ mkInterj : Str -> Interj
 
   compoundN s n = lin N {s = \\x,y => s ++ n.s ! x ! y ; g=n.g} ;
 
-  verbalN v = regN (v.s ! VPresPart) ;
+  -- NB. this only works when constructing lexicon, not applied to runtime arguments
+  verbalN v =
+    let switching : Str = v.s ! VPresPart ;
+        on : Str = v.p ;
+     in particleN (regN switching) on ;
+
+  particleN : N -> Str -> N = \n,str -> n ** {
+    s = \\num,cas => n.s ! num ! cas ++ str
+    } ;
 
   mkPN = overload {
     mkPN : Str -> PN = regPN ;
