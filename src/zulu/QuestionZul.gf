@@ -41,7 +41,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
         neg2 = icompNeg2 vform ;
         aux = case t of {
           Absolute bt => [] ;
-          Relative _ _ => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+          Relative _ _ => (subjConcLookup!np.agr!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
         }
       in
           aux ++ neg1 ++ (icompSubjConc vform np.agr) ++ neg2 ++ icomp.s ++ np.s!Full ;
@@ -96,15 +96,15 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
   --     in {s = \\t,a,b,_ => cl.s ! t ! a ! b ! oDir} ; ----
 
   oper
-    qcl_iadv : Cl -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
+    qcl_iadv : Cl -> CatZul.IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
       s = case iadv.postIAdv of {
-        True => cl.s ++ iadv.s ++ cl.advs ;
-        False => cl.s ++ cl.advs
+        False => \\p,t,m => cl.s!p!t!m ++ iadv.s ++ cl.advs ;
+        True => \\p,t,m => cl.s!p!t!m ++ cl.advs
       } ;
       potqcl = cl.potcl ;
       qword_pre = case iadv.postIAdv of {
-        True => [] ;
-        False => iadv.s
+        False => [] ;
+        True => iadv.s
         } ;
       qword_post = []
     } ;

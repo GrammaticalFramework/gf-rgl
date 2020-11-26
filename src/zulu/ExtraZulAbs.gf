@@ -1,5 +1,5 @@
 abstract ExtraZulAbs =
-  Grammar[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS], ExtraCatZulAbs ** {
+  Grammar[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv], ExtraCatZulAbs ** {
 
   fun
     PotQS : Pol -> QCl -> QS ;

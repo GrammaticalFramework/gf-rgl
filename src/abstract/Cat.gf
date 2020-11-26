@@ -18,7 +18,7 @@
 -- are defined on $Conjunction$ and only used locally there.
 
 
-abstract Cat = Common-[IAdv] ** {
+abstract Cat = Common ** {
 
   cat
 

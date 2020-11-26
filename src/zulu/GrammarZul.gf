@@ -11,7 +11,7 @@ concrete GrammarZul of Grammar =
   RelativeZul,
   ConjunctionZul,
   PhraseZul,
-  TextX - [Temp,Adv],
+  TextX - [Temp,Adv,IAdv],
   StructuralZul,
   IdiomZul,
   TenseX [PPos,PNeg] -- - [Temp,Adv]

@@ -1,5 +1,5 @@
 concrete ExtraZul of ExtraZulAbs =
-  GrammarZul[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS],
+  GrammarZul[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv],
   ExtraCatZul
   ** open ResZul,Prelude,ParamX in {
 
@@ -320,12 +320,13 @@ concrete ExtraZul of ExtraZulAbs =
     it15_Pron = { s = "ko" ; agr = Third C15 Sg ; empty = [] } ;
     it17_Pron = { s = "ko" ; agr = Third C17 Sg ; empty = [] } ;
 
-    at_which_IAdv np = { s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full } ;
+    at_which_IAdv np = { s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ; postIAdv = False } ;
 
     how_many_IAdj = regAdj "ngaki" ;
 
     IAdjIAdv np iadj = {
-      s = np.loc ++ np.desc ++ adjConcLookup!np.agr!(aformN np.agr) ++BIND++ iadj.s!(aformN np.agr)
+      s = np.loc ++ np.desc ++ adjConcLookup!np.agr!(aformN np.agr) ++BIND++ iadj.s!(aformN np.agr) ;
+      postIAdv = False
     } ;
 
     how_IComp = { s = "njani" } ; -- -njani
@@ -376,7 +377,8 @@ concrete ExtraZul of ExtraZulAbs =
       qword_post = []
     } ;
 
-    cl_with_np_predicate : NP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np -> {
+    cl_with_np_predicate : NP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np -> {
+      advs = [] ;
       s = \\p,t,dm =>
         let
           aux_tense = case t of {
