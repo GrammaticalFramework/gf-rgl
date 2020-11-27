@@ -24,6 +24,7 @@ lin
     youSg_Pron = mkPron (Ag (Masc Anim) Sg P2) ;
     he_Pron = mkPron (Ag (Masc Anim) Sg P3) ;
     she_Pron = mkPron (Ag Fem Sg P3) ;
+    it_Pron = mkPron (Ag Neutr Sg P3) ;
     we_Pron = mkPron (Ag (Masc Anim) Pl P1) ;
     youPl_Pron = mkPron (Ag (Masc Anim) Pl P2) ;
     they_Pron = mkPron (Ag (Masc Anim) Pl P3) ;
