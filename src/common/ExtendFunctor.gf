@@ -79,6 +79,7 @@ lin
   Base_rn_RNP = variants {} ;     -- RNP -> NP -> RNPList ; -- myself, John
   Cons_rr_RNP = variants {} ;     -- RNP -> RNPList -> RNPList ; -- my family, myself, John
   Cons_nr_RNP = variants {} ;     -- NP -> RNPList -> RNPList ; -- John, my family, myself
+  ReflPossPron = PossPron he_Pron ;  -- : Quant ;  -- Swe sin,sitt,sina
   ComplGenVV = variants {} ;     -- VV -> Ant -> Pol -> VP -> VP ; -- want not to have slept
   ComplSlashPartLast = ComplSlash ;
   --SlashV2V = variants {} ;     -- V2V -> Ant -> Pol -> VPS -> VPSlash ; -- force (her) not to have slept

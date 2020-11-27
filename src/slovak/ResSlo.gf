@@ -869,6 +869,15 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
     } ;
 
+  reflPossessivePron : DemPronForms = otcovA "svoj" ** {
+        msnom = "svoj" ; msgen = "svojho" ; msdat = "svojmu" ;
+	msins = "svojím" ;
+	ampnom = "svoji" ;
+	nsnom, fpnom = "svoje" ;
+	pgen = "svojich" ;
+	pdat = "svojim" ;
+	pins = "svojimi" ;
+	} ;
 
   mkPron : Agr -> PronForms ** {poss : DemPronForms} = \a ->
     personalPron a ** {poss = possessivePron a} ;
