@@ -1,0 +1,9 @@
+abstract MorphoDictItaAbs =
+  Cat [N,A,V,Adv,Prep] **
+{
+
+-- converted from https://github.com/TALP-UPC/FreeLing/tree/master/data/it/dictionary/entries
+-- inheriting its license https://creativecommons.org/licenses/by-sa/3.0/
+
+cat NSg ; NPl ;
+

@@ -193,6 +193,9 @@ abstract Extend = Cat ** {
     Cons_nr_RNP : NP  -> RNPList -> RNPList ;   -- John, my family, myself
 ----    Cons_rn_RNP : RNP -> ListNP  -> RNPList ;   -- myself, John, Mary
 
+-- reflexive possessive on its own right, like in Swedish, Czech, Slovak
+
+    ReflPossPron : Quant ;  -- Swe sin,sitt,sina
 
 --- from Extensions
 

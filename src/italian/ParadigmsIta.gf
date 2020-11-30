@@ -160,7 +160,9 @@ oper
 -- case (masc and fem singular, masc plural, adverbial), given that
 -- comparison is formed by "più".
 
-    mkA : (solo,sola,soli,sole,solamente : Str) -> A ; -- irregular adjective
+    mkA : (solo,sola,soli,sole : Str) -> A ; -- possibly irregular adjective
+
+    mkA : (solo,sola,soli,sole,solamente : Str) -> A ; -- irregular adjective, with adverb
 
 -- With irregular comparison, there are as it were two adjectives:
 -- the positive ("buono") and the comparative ("migliore"). 
@@ -391,13 +393,16 @@ oper
 
   regV x = 
     let 
-      are = Predef.dp 3 x ;
+----      are = Predef.dp 3 x ;
       ci  = Predef.dp 2 (Predef.tk 3 x) ;
       i   = last ci ;
-      verb = case are of {
-        "ire" =>  finire_100 x ;
-        "ere" =>  temere_20 x ;
-        "are" => case i of {
+      verb : {s : VForm => Str} = case x of {
+        _ + "ire" =>  finire_100 x ;
+        _ + "ere" =>  temere_20 x ;
+        _ + "durre" =>  condurre_36 x ;
+        _ + "trarre" =>  trarre_91 x ;
+	_ + "rre" =>  porre_68 x ; --- all other verbs in -rre?
+        _ + "are" => case i of {
           "c" => cercare_7 x ;
           "g" => legare_8 x ;
           _ => case ci of {
@@ -512,6 +517,7 @@ oper
 
   mkA = overload {
     mkA : (bianco : Str) -> A = regA ;
+    mkA : (solo,sola,soli,sole : Str) -> A = \solo,sola,soli,sole -> mk5A solo sola soli sole (sola + "mente") ;
     mkA : (solo,sola,soli,sole, solamente : Str) -> A = mk5A ;
     mkA : A -> A -> A = mkADeg ;
     mkA : A -> CopulaType -> A = adjCopula ;
