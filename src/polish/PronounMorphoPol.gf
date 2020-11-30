@@ -214,7 +214,6 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 };
        
 
-
 -- A loose translation of "its" (reflexive)
   oper pronRefl: Pron = pronReflFoo PNoGen;
   oper pronReflFoo: PronGen -> Pron = \gender ->

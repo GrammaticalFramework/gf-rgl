@@ -56,8 +56,8 @@ lin
   if_then_Conj = {s1="jeżeli"; s2=[", to"];  sent1="jeżeli"; sent2=[", to"]};
   in8front_Prep  = mkPrep "przed" Instr;
   in_Prep  =  mkPrep "w" Loc;
-  it_Pron    = pronOno;
-  -- it_ReflPron    = pronRefl; -- Use directly in PronounMorphoPol for "swój" as a pronoun/poss. pronoun 
+  it_Pron = pronOno;
+  reflPossessivePron = pronRefl; -- Defined in PronounMorphoPol for "swój" as a pronoun/poss. pronoun 
   language_title_Utt = ss "polski";
   less_CAdv = {s,sn = "mniej" ; p,pn = "niż" } ;
   many_Det  = wieleDet;
