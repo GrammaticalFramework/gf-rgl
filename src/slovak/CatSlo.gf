@@ -24,6 +24,7 @@ concrete CatSlo of Cat =
     VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase} ; ----
     V  = ResSlo.VerbForms ;
     V2 = ResSlo.VerbForms ** {c : ComplementCase} ;
+    VS,VQ  = ResSlo.VerbForms ;
 
     A  = ResSlo.AdjForms ;
     AP = ResSlo.Adjective ** {isPost : Bool} ; -- {s : Gender => Number => Case => Str}

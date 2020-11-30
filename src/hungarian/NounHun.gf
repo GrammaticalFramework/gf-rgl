@@ -99,14 +99,13 @@ concrete NounHun of Noun = CatHun ** open
     quant ** num ** {
       s = \\c => case <isNum num,isIndefArt quant> of {
                    <True,True> => [] ; -- don't output "a 2 cars"
-                   _           => quant.s ! n ! c }
+                   _           => quant.s ! n ! c } -- az/azok a …
               ++ num.s ! Attrib ;      -- TODO: add inflection table in numbers
       sp = \\c => case <isNum num,isIndefArt quant> of {
                    <True,True> => [] ;
-                   _           => quant.sp ! n ! c }
+                   _           => quant.sp ! n ! c } -- az/azok …
               ++ num.s ! Indep ;
       n = n ;
-      dt = qt2dt quant.qt ;
       } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
@@ -170,20 +169,20 @@ concrete NounHun of Noun = CatHun ** open
   DefArt = mkQuant "a" "a" ** {
     s,
     sp = \\_,_ => pre {"a" ; "az" / v } ;
-    qt = DefQuant ;
+    dt = DefDet ;
     } ;
 
   -- : Quant
   IndefArt = mkQuant "egy" [] ** {
     s = \\n,_ => case n of {Sg => "egy" ; Pl => []} ;
     sp = \\n,_ => case n of {Sg => "egy" ; Pl => "sok"} ;
-    qt = IndefArticle ;
+    dt = IndefDet ;
     } ;
 
   -- : Pron -> Quant
   PossPron pron = pron ** {
     s,sp = \\_ => pron.s ;
-    qt = QuantPoss (agr2pstem pron.agr) ;
+    dt = DetPoss (agr2pstem pron.agr) ;
     caseagr = False ;
     } ;
 

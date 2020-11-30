@@ -1,6 +1,7 @@
 --# -path=.:../abstract:../common:prelude
 
 abstract AllSloAbs =
-  Lang
+  Lang,
+  Extend
   ;
 

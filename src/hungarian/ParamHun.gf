@@ -17,17 +17,11 @@ oper
 -- Quant
 
 param
-  QuantType =
-    IndefArticle  -- Needed to prevent "a 2 cars"
-  | IndefQuant    -- Not IndefArt, not poss, not def
-  | DefQuant
-  | QuantPoss PossStem -- Which possessive stem it takes
-  ;
 
   DetType =
-    DefDet  -- distinction between Article and Other no longer needed
-  | IndefDet -- still need def or indef
-  | DetPoss PossStem -- Sill need to know which stem it takes if Poss
+    DefDet
+  | IndefDet         -- Def or Indef relevant for verb agreement
+  | DetPoss PossStem -- Which possessive stem it takes
   ;
 
   -- Singular stems. Plural is always same, no need to add here.
@@ -35,10 +29,10 @@ param
 
 oper
   -- standard trick to prevent "a one car"
-  isIndefArt : {qt : QuantType} -> Bool = \quant ->
-    case quant.qt of {
-      IndefArticle => True ;
-      _            => False
+  isIndefArt : {dt : DetType} -> Bool = \quant ->
+    case quant.dt of {
+      IndefDet => True ;
+      _        => False
     } ;
 
   dt2objdef : DetType -> ObjDef = \dt -> case dt of {
@@ -49,12 +43,6 @@ oper
   objdef2dt : ObjDef -> DetType = \od -> case od of {
     Def => DefDet ;
     Indef => IndefDet
-    } ;
-
-  qt2dt : QuantType -> DetType = \qt -> case qt of {
-    QuantPoss x => DetPoss x ;
-    DefQuant => DefDet ;
-    _ => IndefDet
     } ;
 
   agr2pstem : Person*Number -> PossStem = \pn ->

@@ -1,6 +1,7 @@
 --# -path=.:../abstract:../common:../api
 
 concrete AllSlo of AllSloAbs =
-  LangSlo
+  LangSlo,
+  ExtendSlo
   ;
 

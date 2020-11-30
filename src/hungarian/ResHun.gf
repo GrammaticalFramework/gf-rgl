@@ -203,13 +203,13 @@ oper
   Quant : Type = BaseQuant ** {
     s, -- form that comes before noun: "{this} car"
     sp : Number => Case => Str ; -- independent form, "I like {this}" (DetNP)
-    qt : QuantType ;
+    dt : DetType ;
     } ;
 
   mkQuant : (s,sp : Str) -> Quant = \s,sp -> {
     s = mkCaseNoun s ;
     sp = mkCaseNoun sp ;
-    qt = DefQuant ;
+    dt = DefDet ;
     caseagr = True ;
     poss = harm1 [] ;
     } ;

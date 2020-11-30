@@ -632,8 +632,6 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     a : Agr
     } ;
 
----- TODO: possessives
-
   personalPron : Agr -> PronForms = \a ->
     {a = a ; cnom = []} **
     case a of {
@@ -753,6 +751,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
     } ;
 
+  reflPossessivePron : DemPronForms = mladyAdjForms "svy" ** {msnom = "svůj" ; pdat = "svým"} ;
 
   mkPron : Agr -> PronForms ** {poss : DemPronForms} = \a ->
     personalPron a ** {poss = possessivePron a} ;

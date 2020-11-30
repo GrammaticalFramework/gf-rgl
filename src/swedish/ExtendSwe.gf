@@ -12,14 +12,16 @@ concrete ExtendSwe of Extend = CatSwe **
     ICompAP,ProDrop,EmbedSSlash,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
-    Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
+    Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP, ReflPossPron,
     CompoundN, CompoundAP, AdvIsNP,
     UttAccNP
   ]
   with (Grammar = GrammarSwe)
     **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
-      NounSwe, Coordination, AdjectiveSwe, SentenceSwe, AdverbSwe, RelativeSwe, (P = ParadigmsSwe) in {
+      NounSwe, Coordination, AdjectiveSwe, SentenceSwe, AdverbSwe, RelativeSwe, (P = ParadigmsSwe),
+      (M = MakeStructuralSwe)
+in {
 
   flags coding=utf8 ;
 
@@ -207,6 +209,8 @@ concrete ExtendSwe of Extend = CatSwe **
     Cons_rr_RNP x xs = consrTable Agr comma x xs ;
     Cons_nr_RNP x xs = consrTable Agr comma {s = \\a => x.s ! NPAcc} xs ;
 
+    ReflPossPron = M.mkQuant "sin" "sitt" "sina" ;
+    
   lin
     ApposNP np1 np2 = {s = \\nform => np1.s ! nform ++ comma ++ np2.s ! nform; a = np1.a; isPron = False} ;
 
