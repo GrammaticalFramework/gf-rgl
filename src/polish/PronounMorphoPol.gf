@@ -130,7 +130,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	   p = P2 ;
 	   g = gender
 	 };
-       
+
+
 -- for "you polite" (very idiomatic: pron you = 'sir') male version
   oper pronPan: Pron = 
 	 { nom = "pan" ;
@@ -212,6 +213,64 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	   g = PGen Fem;
 	 };
        
+
+
+-- A loose translation of "its" (reflexive)
+  oper pronRefl: Pron = pronReflFoo PNoGen;
+  oper pronReflFoo: PronGen -> Pron = \gender ->
+	 { sp = table {
+	     AF (MascPersSg|MascAniSg|MascInaniSg) Nom => "swój";
+	     AF (MascPersSg|MascAniSg|MascInaniSg) Gen => "swojego";
+	     AF (MascPersSg|MascAniSg|MascInaniSg) Dat => "swojemu"; -- zróbmy to po swojemu
+	     AF MascInaniSg Acc => "swój"; 
+	     AF (MascPersSg|MascAniSg|MascInaniSg) Acc => "swojego"; 
+	     AF (MascPersSg|MascAniSg|MascInaniSg) Instr => "swoim";
+	     AF (MascPersSg|MascAniSg|MascInaniSg) Loc => "swoim"; 
+	     AF (MascPersSg|MascAniSg|MascInaniSg) VocP => "swój";
+	     
+	     AF FemSg Nom  => "swoja" ; 
+	     AF FemSg Gen => "swojej";
+	     AF FemSg Dat => "swojej"; 
+	     AF FemSg Acc => "swoją"; 
+	     AF FemSg Instr => "swoją";
+	     AF FemSg Loc => "swojej";
+	     AF FemSg VocP => "swoja";   
+	     
+	     AF NeutSg Nom => "swoje" ; 
+	     AF NeutSg Gen => "swojego";
+	     AF NeutSg Dat  => "swojemu"; 
+	     AF NeutSg Acc => "swoje"; 
+	     AF NeutSg Instr => "swoim";
+	     AF NeutSg Loc => "swoim";
+	     AF NeutSg VocP => "swoje"; 
+	     
+	     AF MascPersPl Nom => "swoi"; 
+	     AF (MascPersPl|OthersPl) Nom => "swoje"; 
+	     AF (MascPersPl|OthersPl) Gen => "swoich";
+	     AF (MascPersPl|OthersPl)  Dat   => "swoim"; 
+	     AF MascPersPl Acc => "swoich"; 
+	     AF (MascPersPl|OthersPl) Acc => "swoje"; 
+	     AF (MascPersPl|OthersPl) Instr => "swoimi";
+	     AF (MascPersPl|OthersPl) Loc => "swoich";
+	     AF MascPersPl VocP => "swoi"; 
+	     AF (MascPersPl|OthersPl)  VocP => "swoje"
+	     };
+	   nom = "ono" ; -- The true nom. and voc. forms will be that of the subject 
+	   voc = "ono" ; -- Here, we use the neuter pronoun as a shortcut
+	   dep = table {  
+	     GenNoPrep => "się";
+	     GenPrep => "siebie";
+	     DatNoPrep => "sobie";
+	     DatPrep => "sobie";
+	     AccNoPrep => "się";
+	     AccPrep => "siebie";
+	     InstrC => "sobą";
+	     LocPrep => "sobie"
+	     };
+	   n = Sg;
+	   p = P2 ;
+	   g = gender
+	 };
 
 -- for "it", "its"
   oper pronOno: Pron = 
