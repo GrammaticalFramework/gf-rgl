@@ -56,21 +56,6 @@ concrete ExtraBul of ExtraBulAbs = CatBul **
     IAdvAdv adv = {s = \\qf => (mkIAdv "колко").s ! qf ++ adv.s} ;
 
   lincat
-    VPI   = {s : Agr => Str} ;
-    [VPI] = {s : Agr => Ints 4 => Str} ;
-
-  lin
-    BaseVPI x y = {s  = \\a=>table {4 => y.s!a;    _ => x.s!a}} ;
-    ConsVPI x xs = {s  = \\a=>table {4 => xs.s!a!4; t => x.s!a++linCoord bindComma!t++xs.s!a!t}};
-
-    MkVPI vp = {s = daComplex Simul Pos vp ! Perf} ;
-    ConjVPI conj vpi = {
-      s = \\a =>  linCoord []!conj.sep ++ vpi.s!a!conj.sep ++ conj.s ++ vpi.s!a!4
-      } ;
-    ComplVPIVV vv vpi = 
-      insertObj (\\a => vpi.s ! a) Pos (predV vv) ;
-
-  lincat
     VPS   = {s : Agr => Str} ;
     [VPS] = {s : Agr => Ints 4 => Str} ;
 
