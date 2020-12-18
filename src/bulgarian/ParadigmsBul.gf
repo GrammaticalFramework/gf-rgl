@@ -978,10 +978,15 @@ oper
   mkN055 : Str -> N ;
   mkN055 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"о")
+                in {s = variants {
+                          mkNoun (v0+"о")
+                                 (v0+"а")
+                                 (v0+"а")
+                                 (v0+"о") ;
+                          mkNoun (v0+"о")
+                                 (v0+"ета")
+                                 (v0+"ета")
+                                 (v0+"о")}
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
@@ -990,10 +995,15 @@ oper
   mkN056 : Str -> N ;
   mkN056 base = let v0 = tk 1 base;
                     g  = ANeut
-                in {s = mkNoun (v0+"о")
-                               (v0+"а")
-                               (v0+"а")
-                               (v0+"о")
+                in {s = variants {
+                          mkNoun (v0+"о")
+                                 (v0+"а")
+                                 (v0+"а")
+                                 (v0+"о") ;
+                          mkNoun (v0+"о")
+                                 (v0+"е")
+                                 (v0+"а")
+                                 (v0+"о")}
                                g ;
                     rel = \\_ => base ; relType = Pref ;
                     g   = g ;
