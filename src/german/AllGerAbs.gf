@@ -3,5 +3,6 @@
 abstract AllGerAbs = 
   Lang,
   IrregGerAbs,
+----  Extend,
   ExtraGerAbs
   ** {} ;
