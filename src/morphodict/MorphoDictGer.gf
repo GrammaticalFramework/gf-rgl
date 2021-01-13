@@ -2846,7 +2846,7 @@ lin
   anweisen_5_V = prefixV "an" (irregV "weisen" "weist" "wies" "wiese" "gewiesen") ; 
   anweisung_N = mkN "Anweisung" ;
   anwendbar_A = regA "anwendbar" ;
-  anwenden_V = prefixV "an" (regV "wenden") ;
+  anwenden_V = prefixV "an" IrregGer.wenden_V ;
   anwendung_N = mkN "Anwendung" ;
   anwendungsform_N = mkN  "Anwendungsform" "Anwendungsformen" feminine ;
   anwesen_N = mkN  "Anwesen" "Anwesen" neuter ;
