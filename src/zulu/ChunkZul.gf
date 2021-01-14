@@ -25,7 +25,7 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   --   AdN_Chunk : AdN -> Chunk ;
     S_Chunk s = { s = variants { s.s!Princ ; s.s!Part ; s.subjs ; s.pots!Princ ; s.pots!Part } } ;
   --   SSlash_Chunk : SSlash -> Chunk ;
-    QS_Chunk s = { s = s.qword ++ s.s } ;
+    QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
   --   CN_Pl_Chunk  : CN -> Chunk ;
     -- CN_Sg_Chunk cn = { s = variants { cn.s!Sg!Full ; cn.loc!Sg } } ;
   --   CN_Pl_Gen_Chunk : CN -> Chunk ;
