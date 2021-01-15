@@ -48,7 +48,7 @@ abstract ExtraZulAbs =
     -- TPerfPerf : Temp ;
 
     PredNP : NP -> Cl ;
-    IAdvQCl : NP -> IAdv -> QCl ; -- (the pregnancy) (in which year)
+    IAdvQS : NP -> INAdv -> QS ; -- where is the wine? iwayini liphi?
 
     AdvQCl : Adv -> QCl -> QCl ;
 
@@ -83,6 +83,6 @@ abstract ExtraZulAbs =
 
     how_IComp : IComp ; -- -njani
 
-    AdvQS     : Adv -> QS  -> QS ;            -- maybe it is a pain that burns
+    -- AdvQS     : IAdv -> S  -> QS ;            -- maybe it is a pain that burns 2020-01-15: consider that this should rather be dealt with using QuestIAdv)
 
 }

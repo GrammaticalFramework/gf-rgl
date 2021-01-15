@@ -34,6 +34,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     AForm = AF1 | AF2 ; -- two forms for implementing sound changes Poulos+Msimang p143
     SCForm = SC | SCVow | SCNeg | SCHort | SCPS | SCPart | SCVowP | SCBe ;
     OCForm = OC | OCAE | OCIOU | OCMono | OCThing ;
+    RCForm = RelC | RelCA ;
     --PCForm = (RA|RC) | EI | OU ;
 
     -- verb root characteristics
@@ -232,7 +233,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
                   VFIndic _ Pos PastTense _ => "a" ; -- VTerm
                   VFIndic _ Neg PresTense _ => "i" ; -- VTerm
                   VFIndic _ Neg FutTense _ => "a" ; -- VTerm
-                  VFIndic _ Neg PerfTense Null => perfsuff ; -- VPLF
+                  -- VFIndic Princ Neg PerfTense Null => perfsuff ; -- VPLF
+                  -- VFIndic Part Neg PerfTense Null => "" ; -- VPLF
                   VFIndic _ Neg PerfTense _ => "anga" ; -- VNegP
                   VFIndic _ Neg PastTense _ => "anga" ; -- VNegP
                   VFPot _ Pos _ => "a" ;
@@ -270,12 +272,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- negative prefixes
     negPref : VForm -> Agr -> Str = \vform,agr ->
       case vform of {
-        VFIndic Princ Neg PastTense _ => case agr of {
-          Third (C1_2 | C1a_2a) Sg => "a"++BIND ;
-          Third _ _ => "ka"++BIND ;
-          First _ => "ka"++BIND ;
-          Second _ => "ka"++BIND
-        } ;
+        -- VFIndic Princ Neg PastTense _ => case agr of {
+        --   Third (C1_2 | C1a_2a) Sg => "a"++BIND ;
+        --   Third _ _ => "ka"++BIND ;
+        --   First _ => "ka"++BIND ;
+        --   Second _ => "ka"++BIND
+        -- } ;
         VFIndic Princ Neg _ _ => "a"++BIND ;
         VFIndic _ _ _ _ => [] ;
         VFPot _ _ _ => [] ;
@@ -285,7 +287,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       -- TODO : sound rules to choose between nge and nga
       negPref2 : VForm -> Str = \vform ->
         case vform of {
-          VFIndic Part Neg FutTense Null => "nge" ++BIND ;
+          VFIndic Part Neg FutTense Null => "nga" ++BIND ; -- sometimes nge? p274
           -- VFIndic Part Neg _ _ => pre { "z" => "nge" ; _ => "nga" } ++BIND ;
           VFIndic Part Neg _ _ => "nga" ++BIND ;
           VFIndic _ _ _ _ => [] ;
@@ -430,31 +432,31 @@ resource ResZul = open Prelude,Predef,ParamX in {
     empty = []
   } ;
 
-  relConc : Agr => Str =
+  relConc : Agr => RCForm => Str =
     table {
-      Third C1_2 Sg => "o" ;
-      Third C1_2 Pl => "aba" ;
-      Third C1a_2a Sg => "o" ;
-      Third C1a_2a Pl => "aba" ;
-      Third C3_4 Sg  => "o" ;
-      Third C3_4 Pl => "e" ;
-      Third C5_6 Sg => "eli" ;
-      Third C5_6 Pl => "a" ;
-      Third C7_8 Sg => "esi" ;
-      Third C7_8 Pl => "ezi" ;
-      Third C9_10 Sg => "e" ;
-      Third C9_10 Pl => "ezi" ;
-      Third C11_10 Sg => "olu" ;
-      Third C11_10 Pl => "ezi" ;
-      Third C9_6 Sg => "e" ;
-      Third C9_6 Pl => "a" ;
-      Third C14 _ => "obu" ;
-      Third C15 _ => "oku" ;
-      Third C17 _ => "oku" ;
-      First Sg => "engi" ;
-      First Pl => "esi" ;
-      Second Sg  => "o" ;
-      Second Pl => "eni"
+      Third C1_2 Sg => table { RelC => "o" ; RelCA => "ow" } ;
+      Third C1_2 Pl => table { _ => "aba" } ;
+      Third C1a_2a Sg => table { RelC => "o" ; RelCA => "ow" } ;
+      Third C1a_2a Pl => table { _ => "aba" } ;
+      Third C3_4 Sg  => table { RelC => "o" ; RelCA => "ow" } ;
+      Third C3_4 Pl => table { RelC => "e" ; RelCA => "ey" } ;
+      Third C5_6 Sg => table { RelC => "eli" ; RelCA => "el" } ;
+      Third C5_6 Pl => table { _ => "a" } ;
+      Third C7_8 Sg => table { RelC => "esi" ; RelCA => "es" } ;
+      Third C7_8 Pl => table { RelC => "ezi" ; RelCA => "ez" } ;
+      Third C9_10 Sg => table { RelC => "e" ; RelCA => "ey" } ;
+      Third C9_10 Pl => table { RelC => "ezi" ; RelCA => "ez" } ;
+      Third C11_10 Sg => table { RelC => "olu" ; RelCA => "olw" } ;
+      Third C11_10 Pl => table { RelC => "ezi" ; RelCA => "ez" } ;
+      Third C9_6 Sg => table { RelC => "e" ; RelCA => "ey" } ;
+      Third C9_6 Pl => table { _ => "a" } ;
+      Third C14 _ => table { RelC => "obu" ; RelCA => "ob" } ;
+      Third C15 _ => table { RelC => "oku" ; RelCA => "okw" } ;
+      Third C17 _ => table { RelC => "oku" ; RelCA => "okw" } ;
+      First Sg => table { RelC => "engi" ; RelCA => "eng" } ;
+      First Pl => table { RelC =>  "esi" ; RelCA => "es" } ;
+      Second Sg  => table { RelC => "o" ; RelCA => "ow" } ;
+      Second Pl => table { RelC => "eni" ; RelCA => "en" }
     } ;
 
     shortRelConc : Agr => Str =
@@ -490,20 +492,26 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --   False => []
     -- } ;
 
+    rel_yo : Str = pre {
+      #vowel => [] ;
+      #cons => [] ;
+      _ => BIND++"yo"
+    } ;
+
     relSuf : VForm -> Str -> Str = \vform,perfsuff -> case vform of {
-      VFIndic _ Pos PresTense _ => BIND ++ "yo" ;
+      VFIndic _ Pos PresTense _ => rel_yo ;
       VFIndic _ Pos FutTense _ => [] ;
-      VFIndic Princ Pos PerfTense _ => BIND ++"yo" ;
+      VFIndic Princ Pos PerfTense _ => rel_yo ;
       VFIndic Part Pos PerfTense _ => [] ;
-      VFIndic _ Pos PastTense _ => BIND ++"yo" ;
+      VFIndic _ Pos PastTense _ => rel_yo ;
 
       VFIndic _ Neg FutTense _ => [] ;
       VFIndic _ Neg PerfTense _ => [] ; -- TODO : make dependent on boolean; p157
       VFIndic _ Neg PastTense _ => [] ;
-      VFIndic _ Neg PresTense _ => "yo" ;
+      VFIndic _ Neg PresTense _ => rel_yo ;
 
-      VFPot _ Pos _ => "yo" ;
-      VFPot _ Neg _ => "yo" ;
+      VFPot _ Pos _ => rel_yo ;
+      VFPot _ Neg _ => rel_yo ;
 
       VFSubj _ => []
     } ;

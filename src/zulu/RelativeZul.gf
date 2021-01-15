@@ -70,17 +70,23 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
               True => [] ;
               False => relSuf vform_main vp.perfSuff
             } ;
+            rcform = case vform_main of {
+              VFIndic Part Pos PastTense _ => RelCA ;
+              VFIndic _ _ _ _ => RelC ;
+              VFPot _ _ _ => RelC ;
+              VFSubj _ => RelC
+            } ;
           in
             -- naively only took out the subject
             rp.s
             ++ aux
             ++ (negPref vform_main a)
             ++ (exclSePref vform_main)
-            ++ relConc!a ++BIND
+            ++ relConc!a!rcform ++BIND
             ++ (negPref2 vform_main)
             ++ vp.asp_pref!vform_main
             -- ++ (exclKaPref vform)
-            -- ++ (tensePref vform)
+            ++ (tensePref vform_main)
             ++ vp.oc
             ++ vp.s ++ BIND
             ++ (vtermSuff vform_main reqLF vp.perfSuff)
@@ -106,7 +112,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
               Absolute _ => [] ;
               Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e")
             } ;
-            pcp = relConc!a ++BIND ;
+            pcp = relConc!a!RelC ++BIND ;
             cp = cop_pref vp.comp_agr ;
             cb = vp.comp ;
             -- asp = case vp.asp of {
@@ -141,7 +147,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
               Absolute _ => [] ;
               Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e")
             } ;
-            pcp = relConc!a ++BIND;
+            pcp = relConc!a!RelC ++BIND;
             cp = cop_pref vp.comp_agr ;
             cb = (advPref ! vp.r) ++ BIND ++ vp.comp ;
             -- asp = case vp.asp of {
@@ -175,7 +181,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
               Absolute _ => [] ;
               Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e")
             } ;
-            pcp = relConc!a ++BIND;
+            pcp = relConc!a!RelC ++BIND;
             cp = cop_pref vp.comp_agr ;
             cb = (eqPref ! vp.r) ++ BIND ++ vp.comp ;
             -- asp = case vp.asp of {

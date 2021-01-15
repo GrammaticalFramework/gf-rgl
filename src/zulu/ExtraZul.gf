@@ -189,7 +189,7 @@ concrete ExtraZul of ExtraZulAbs =
     } ;
 
     RelAdv adv = {
-      s = \\a => relConc!a ++BIND++ adv.s
+      s = \\a => relConc!a!RelC ++BIND++ adv.s
     } ;
 
     -- ProgVP vp = {
@@ -210,11 +210,11 @@ concrete ExtraZul of ExtraZulAbs =
     -- } ;
 
     QuantRS quant = {
-      s = \\a => relConc!a ++BIND++ quantConc!a ++BIND++ quant.s
+      s = \\a => relConc!a!RelC ++BIND++ quantConc!a ++BIND++ quant.s
     } ;
 
     RelRS rel = {
-      s = \\a => relConc!a ++BIND++ rel.s
+      s = \\a => relConc!a!RelC ++BIND++ rel.s
     } ;
 
     QuantCN quant cn =
@@ -254,7 +254,17 @@ concrete ExtraZul of ExtraZulAbs =
 
     PredNP np = cl_with_np_predicate np ;
 
-    IAdvQCl np iadv = qcl_np_iadv np iadv ;
+    IAdvQS np iadv = {
+      s = case np.isPron of {
+        True => np.empty ;
+        False => np.s ! Full ++ np.desc
+        } ;
+      qword_pre = [] ;
+      qword_post = let
+        vform = VFIndic Princ Pos PresTense Null
+        in
+        (subjConc vform np.agr False) ++ iadv.s
+    } ;
 
     AdvQCl adv qcl = {
       s = \\p,t,m => qcl.s!p!t!m ++ adv.s ;
@@ -331,51 +341,51 @@ concrete ExtraZul of ExtraZulAbs =
 
     how_IComp = { s = "njani" } ; -- -njani
 
-    AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
+    -- AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
 
   oper
-    qcl_np_iadv : NP -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \np,iadv -> {
-      s = \\p,t,dm =>
-        let
-          subj = case np.isPron of {
-            True => np.empty ;
-            False => np.s ! Full ++ np.desc
-          } ;
-          aux_tense = case t of {
-            Absolute bt => bt ;
-            Relative b1 b2 => b1
-          } ;
-          main_tense = case t of {
-            Absolute bt => bt ;
-            Relative b1 b2 => b2
-          } ;
-          vform_aux = VFIndic dm p aux_tense Null ;
-          vform_main = VFIndic dm p main_tense Null ;
-          aux = case t of {
-            Absolute bt => [] ;
-            Relative _ _ => relSubjConc aux_tense np.agr -- (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False)
-          } ;
-        in
-          subj ++
-          aux ++
-          (subjConc vform_main np.agr False) ++
-          iadv.s ;
-      potqcl = \\p,dm =>
-        let
-          subj = case np.isPron of {
-            True => np.empty ;
-            False => np.s ! Full ++ np.desc
-          } ;
-          vform_main = VFPot dm p Null ;
-        in
-          subj ++
-          -- aux ++
-          (subjConc vform_main np.agr False) ++
-          (potPref vform_main) ++
-          iadv.s ;
-      qword_pre = [] ;
-      qword_post = []
-    } ;
+    -- qcl_np_iadv : NP -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \np,iadv -> {
+    --   s = \\p,t,dm =>
+    --     let
+    --       subj = case np.isPron of {
+    --         True => np.empty ;
+    --         False => np.s ! Full ++ np.desc
+    --       } ;
+    --       aux_tense = case t of {
+    --         Absolute bt => bt ;
+    --         Relative b1 b2 => b1
+    --       } ;
+    --       main_tense = case t of {
+    --         Absolute bt => bt ;
+    --         Relative b1 b2 => b2
+    --       } ;
+    --       vform_aux = VFIndic dm p aux_tense Null ;
+    --       vform_main = VFIndic dm p main_tense Null ;
+    --       aux = case t of {
+    --         Absolute bt => [] ;
+    --         Relative _ _ => relSubjConc aux_tense np.agr -- (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False)
+    --       } ;
+    --     in
+    --       subj ++
+    --       aux ++
+    --       (subjConc vform_main np.agr False) ++
+    --       iadv.s ;
+    --   potqcl = \\p,dm =>
+    --     let
+    --       subj = case np.isPron of {
+    --         True => np.empty ;
+    --         False => np.s ! Full ++ np.desc
+    --       } ;
+    --       vform_main = VFPot dm p Null ;
+    --     in
+    --       subj ++
+    --       -- aux ++
+    --       (subjConc vform_main np.agr False) ++
+    --       (potPref vform_main) ++
+    --       iadv.s ;
+    --   qword_pre = [] ;
+    --   qword_post = []
+    -- } ;
 
     cl_with_np_predicate : NP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np -> {
       advs = [] ;
