@@ -1,5 +1,5 @@
-PhrUtt 0.99
-ChunkPhr 0.01
+PhrUtt 0.999
+ChunkPhr 0.001
 S_Chunk 0.49
 NP_Nom_Chunk 0.25
 AP_Chunk 0.25
