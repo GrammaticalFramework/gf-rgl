@@ -1,9 +1,9 @@
 --1 Predefined functions for concrete syntax
 
 -- The definitions of these constants are hard-coded in GF, and defined
--- in [AppPredefined.hs ../src/GF/Grammar/AppPredefined.hs]. Applying
--- them to run-time variables leads to compiler errors that are often
--- only detected at the code generation time.
+-- in Predef.hs (gf-core/src/compiler/GF/Compile/Compute/Predef.hs).
+-- Applying them to run-time variables leads to compiler errors that are
+-- often only detected at the code generation time.
 
 resource Predef = {
 
