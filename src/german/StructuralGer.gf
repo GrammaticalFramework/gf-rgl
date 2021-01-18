@@ -29,7 +29,7 @@ concrete StructuralGer of Structural = CatGer **
         "konnte" "konntest" "konnten" "konntet"
         "könnte" "gekonnt" [] 
         VHaben) ;
-  during_Prep = mkPrep "während" P.genitive | P.mkPrep P.accusative "über" ; 
+  during_Prep = mkPrep "während" P.genitive ; --- no variants in the rgl | P.mkPrep P.accusative "über" ; 
   either7or_DConj = sd2 "entweder" "oder" ** {n = Sg} ;
   everybody_NP = nameNounPhrase {s = caselist "jeder" "jeden" "jedem" "jedes"} ;
   every_Det = detUnlikeAdj False Sg "jed" ;
@@ -46,7 +46,7 @@ concrete StructuralGer of Structural = CatGer **
   how_IAdv = ss "wie" ;
   how8much_IAdv = ss "wieviel" ;
   how8many_IDet = {s = \\g,c => (detUnlikeAdj False Pl "wie viel").s ! g ! NPC c ; n = Pl} ;
-  if_Subj = ss "wenn" | ss "falls" ;
+  if_Subj = ss "wenn" ; --- no variants in the RGL! | ss "falls" ;
   in8front_Prep = mkPrep "vor" P.dative ;
   i_Pron = mkPronPers "ich" "mich" "mir" "meiner" "mein" Masc Sg P1 ;
   in_Prep = mkPrep [] (NPP CInDat) ;
@@ -91,7 +91,7 @@ concrete StructuralGer of Structural = CatGer **
      jener : Number => Gender => PCase => Str = \\n => (detUnlikeAdj True n "jen").s in 
      {s,sp = \\_ => jener ; a,aPl = Weak} ;
 ---b  that_NP = nameNounPhrase {s = caselist "das" "das" "denem" "dessen"} ; ----
-  there_Adv = ss "da" | ss "dort" ;
+  there_Adv = ss "da" ; --- no variants in the rgl | ss "dort" ;
   there7to_Adv = ss "dahin" ;
   there7from_Adv = ss ["daher"] ;
   therefore_PConj = ss "deshalb" ;
