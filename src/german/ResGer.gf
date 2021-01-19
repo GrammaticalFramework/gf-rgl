@@ -680,7 +680,7 @@ resource ResGer = ParamX ** open Prelude in {
     in
     {s = table {
       VFin _ (VPresInd Pl (P1 | P3)) => "sind" ;
-      VFin _ (VPresSubj Sg P2) => (variants {"seiest" ; "seist"}) ;
+      VFin _ (VPresSubj Sg P2) => "seiest" ; --- (variants {"seiest" ; "seist"}) ; -- no variants in the RGL
       VFin _ (VPresSubj Sg _)  => "sei" ;
       VFin _ (VPresSubj Pl P2) => "seiet" ;
       VFin _ (VPresSubj Pl _)  => "seien" ;

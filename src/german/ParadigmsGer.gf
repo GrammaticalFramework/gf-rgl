@@ -662,7 +662,7 @@ mkV2 : overload {
     mkN : N -> N -> N  
       = \n,x -> mkCompoundN n.co x ;
     mkN : Str -> Gender -> Gender -> N 
-      = \s,g,h -> reg1N s g | reg1N s h ;
+      = \s,g,h -> reg1N s g ; --- | reg1N s h ; -- no variants in the RGL
 
     mkN : (x1,_,_,_,_,x6 : Str) -> N  
       = \a,b,c,d,e,f -> mk6N a b c d e f ((regN a).g) ; ---- temporary: to deal with genderless uses AR 29/5/2014
