@@ -165,7 +165,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     ComplGenVV = variants {} ;     -- VV -> Ant -> Pol -> VP -> VP ; -- want not to have slept
     ComplSlashPartLast = ComplSlash ;
 
-    CompoundN = variants {} ;     -- N -> N -> N ; -- control system / controls system / control-system
+    CompoundN a b = lin N {s = \\n => b.s ! n ++ a.s ! Sg ; g = b.g} ; -- connessione internet = internet connection
     CompoundAP = variants {} ;     -- N -> A -> AP ; -- language independent / language-independent
 
   lin

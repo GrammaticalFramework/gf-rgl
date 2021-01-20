@@ -5,6 +5,7 @@ concrete LangIta of Lang =
   LexiconIta
   ,DocumentationIta --# notpresent
   ,ConstructionIta
+  ,MarkupIta - [stringMark]
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

@@ -5,6 +5,7 @@ concrete LangGer of Lang =
   LexiconGer
   ,ConstructionGer
   ,DocumentationGer --# notpresent
+  ,MarkupGer - [stringMark]
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;
