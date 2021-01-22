@@ -64,7 +64,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 --     EmbedVP vp = {s = infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
     UseCl t p cl = {
-      s = \\dm => t.s ++ p.s ++ cl.s ! p.p ! t.t ! dm ++ cl.advs ;
+      s = \\dm => t.s ++ p.s ++ cl.s ! p.p ! t.t ! dm  ;
       subjs = t.s ++ p.s ++ cl.subjcl ! p.p ! t.t ;
       pots = \\dm => t.s ++ p.s ++ cl.potcl ! p.p ! dm
     } ;
@@ -97,8 +97,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
     -- NOTE: removing everything related to auxiliaries and compound tenses
 
-    cl_with_verb_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np,vp -> {
-      advs = vp.advs ;
+    cl_with_verb_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+      -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
           subj = case np.isPron of {
@@ -130,7 +130,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             } ;
             Relative _ _ => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e" vp.suff) -- relSubjConc aux_tense np.agr --
             }
           } ;
           vow = case <vp.r,p,main_tense> of {
@@ -161,8 +161,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ (tensePref vform_main)
           ++ vp.oc
           ++ vp.s ++ BIND
-          ++ (vtermSuff vform_main reqLF vp.perfSuff)
-          ++ vp.comp ;
+          ++ (vtermSuff vform_main reqLF vp.perfSuff vp.suff)
+          ++ vp.iadv
+          ++ vp.comp
+          ++ vp.advs ;
       subjcl = \\p,t =>
         let
           subj = case np.isPron of {
@@ -188,8 +190,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ (negPref2 vform_main)
           ++ vp.oc
           ++ vp.s ++ BIND
-          ++ (vtermSuff vform_main False vp.perfSuff)
-          ++ vp.comp ;
+          ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+          ++ vp.iadv
+          ++ vp.comp
+          ++ vp.advs ;
       potcl = \\p,dm =>
         let
           subj = case np.isPron of {
@@ -205,13 +209,15 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.asp_pref!vform_main
           ++ vp.oc
           ++ vp.s ++ BIND
-          ++ (vtermSuff vform_main False vp.perfSuff)
+          ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+          ++ vp.iadv
           ++ vp.comp
+          ++ vp.advs
     } ;
 
     -- become green
-    cl_with_ap_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np,vp -> {
-      advs = vp.advs ;
+    cl_with_ap_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+      -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
           subj = case np.isPron of {
@@ -231,11 +237,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux = case t of {
             Absolute bt => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => []
+              False => aux_be vform_aux np.agr
             } ;
             Relative _ _ => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+              False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
           vow = case <vp.r,p,main_tense> of {
@@ -265,8 +271,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ (exclKaPref vform_main)
           ++ (tensePref vform_main)
           ++ vp.s ++ BIND
-          ++ (vtermSuff vform_main False vp.perfSuff)
-          ++ comp ;
+          ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+          ++ vp.iadv
+          ++ comp
+          ++ vp.advs ;
       subjcl = \\p,t =>
         let
           subj = case np.isPron of {
@@ -298,8 +306,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ (negPref2 vform_main)
           ++ vp.asp_pref!vform_main
           ++ vp.s ++ BIND
-          ++ (vtermSuff vform_main False vp.perfSuff)
-          ++ comp ;
+          ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+          ++ vp.iadv
+          ++ comp
+          ++ vp.advs ;
       potcl = \\p,dm =>
         let
           subj = case np.isPron of {
@@ -320,12 +330,14 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ (negPref2 vform_main)
           ++ vp.asp_pref!vform_main
           ++ vp.s ++ BIND
-          ++ (vtermSuff vform_main False vp.perfSuff)
+          ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+          ++ vp.iadv
           ++ comp
+          ++ vp.advs
     } ;
 
-    cl_with_id_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np,vp -> {
-      advs = vp.advs ;
+    cl_with_id_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+      -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
           aux_tense = case t of {
@@ -341,11 +353,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux = case t of {
             Absolute bt => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => []
+              False => aux_be vform_aux np.agr
             } ;
             Relative _ _ => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+              False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
           subj = case np.isPron of {
@@ -365,7 +377,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           pcp ++
           cp ++ BIND ++
           vp.asp_pref!vform_main ++
-          cb ;
+          cb
+          ++ vp.iadv ++ vp.advs ;
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
@@ -385,7 +398,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           pcp ++
           cp ++ BIND ++
           vp.asp_pref!vform_main ++
-          cb ;
+          cb
+          ++ vp.iadv ++ vp.advs ;
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
@@ -406,11 +420,12 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           cp ++ BIND ++
           vp.asp_pref!vform_main ++
           cb
+          ++ vp.iadv ++ vp.advs
     } ;
 
     -- TODO: aspect
-    cl_with_ass_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np,vp -> {
-      advs = vp.advs ;
+    cl_with_ass_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+      -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
           aux_tense = case t of {
@@ -426,11 +441,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux = case t of {
             Absolute bt => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => []
+              False => aux_be vform_aux np.agr
             } ;
             Relative _ _ => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+              False => aux_be vform_aux np.agr -- (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
             }
           } ;
           subj = case np.isPron of {
@@ -449,7 +464,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux ++
           pcp ++
           vp.asp_pref!vform_main ++
-          cb ;
+          cb
+          ++ vp.iadv ++ vp.advs ;
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
@@ -468,7 +484,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj ++
           pcp ++
           vp.asp_pref!vform_main ++
-          cb ;
+          cb
+          ++ vp.iadv ++ vp.advs;
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
@@ -488,11 +505,12 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           pcp ++
           vp.asp_pref!vform_main ++
           cb
+          ++ vp.iadv ++ vp.advs
     } ;
 
     -- TODO: aspect
-    cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np,vp -> {
-      advs = vp.advs ;
+    cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+      -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
           aux_tense = case t of {
@@ -508,11 +526,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux = case t of {
             Absolute bt => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => []
+              False => aux_be vform_aux np.agr
             } ;
             Relative _ _ => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+              False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
           subj = case np.isPron of {
@@ -531,7 +549,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux ++
           pcp ++
           vp.asp_pref!vform_main ++
-          cb ;
+          cb
+          ++ vp.iadv ++ vp.advs ;
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
@@ -550,7 +569,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj ++
           pcp ++
           vp.asp_pref!vform_main ++
-          cb ;
+          cb
+          ++ vp.iadv ++ vp.advs ;
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
@@ -570,11 +590,12 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           pcp ++
           vp.asp_pref!vform_main ++
           cb
+          ++ vp.iadv ++ vp.advs
     } ;
 
     -- is green
-    cl_with_descr_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np,vp -> {
-      advs = vp.advs ;
+    cl_with_descr_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+      -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
           aux_tense = case t of {
@@ -590,11 +611,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux = case t of {
             Absolute bt => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => []
+              False => aux_be vform_aux np.agr
             } ;
             Relative _ _ => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+              False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
           subj = case np.isPron of {
@@ -619,7 +640,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           pcp ++
           adjpref ++
           vp.asp_pref!vform_main ++
-          comp ;
+          comp
+          ++ vp.iadv ++ vp.advs ;
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
@@ -642,7 +664,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj ++
           pcp ++
           vp.asp_pref!vform_main ++
-          comp ;
+          comp
+          ++ vp.iadv ++ vp.advs ;
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
@@ -666,10 +689,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           pcp ++
           vp.asp_pref!vform_main ++
           comp
+          ++ vp.iadv ++ vp.advs
     } ;
 
-    cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np,vp -> {
-      advs = vp.advs ;
+    cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+      -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
           subj = case np.isPron of {
@@ -689,11 +713,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           aux = case t of {
             Absolute bt => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => []
+              False => aux_be vform_aux np.agr
             } ;
             Relative _ _ => case vp.hasAux of {
               True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
+              False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
           vow = case <vp.r,p,main_tense> of {
@@ -726,7 +750,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ vp.oc
           -- ++ vp.s ++ BIND
           -- ++ (vtermSuff vform_main reqLF vp.perfSuff)
-          ++ vp.comp ;
+          ++ vp.comp
+          ++ vp.iadv ++ vp.advs ;
       subjcl = \\p,t =>
         let
           subj = case np.isPron of {
@@ -753,7 +778,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ vp.s ++ BIND
           -- ++ (vtermSuff vform_main False vp.perfSuff)
           ++ vp.asp_pref!vform_main
-          ++ vp.comp ;
+          ++ vp.comp
+          ++ vp.iadv ++ vp.advs ;
       potcl = \\p,dm =>
         let
           subj = case np.isPron of {
@@ -771,6 +797,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ (vtermSuff vform_main False vp.perfSuff)
           ++ vp.asp_pref!vform_main
           ++ vp.comp
+          ++ vp.iadv ++ vp.advs
     } ;
 
 }

@@ -1,5 +1,5 @@
 concrete ExtraZul of ExtraZulAbs =
-  GrammarZul[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv],
+  GrammarZul[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp],
   ExtraCatZul
   ** open ResZul,Prelude,ParamX in {
 
@@ -15,11 +15,13 @@ concrete ExtraZul of ExtraZulAbs =
     AssocCop np = {
       s = [] ;
       perfSuff = [] ;
+      suff = [] ;
       oc = [] ;
       comp = case np.isPron of {
-        True => np.s!Full ;
+        True => np.s!Full ++ np.desc ;
         False => np.s!Reduced ++ np.desc
       } ;
+      iadv = [] ;
       advs = [] ;
       hasComp = True ;
       r = case np.isPron of {
@@ -40,11 +42,13 @@ concrete ExtraZul of ExtraZulAbs =
     EqCop np = {
       s = [] ;
       perfSuff = [] ;
+      suff = [] ;
       oc = [] ;
       comp = case np.isPron of {
-        True => np.s!Full ;
+        True => np.s!Full ++ np.desc ;
         False => np.s!Reduced ++ np.desc
       } ;
+      iadv = [] ;
       advs = [] ;
       hasComp = True ;
       r = case np.isPron of {
@@ -254,17 +258,26 @@ concrete ExtraZul of ExtraZulAbs =
 
     PredNP np = cl_with_np_predicate np ;
 
-    IAdvQS np iadv = {
-      s = case np.isPron of {
-        True => np.empty ;
-        False => np.s ! Full ++ np.desc
-        } ;
-      qword_pre = [] ;
-      qword_post = let
-        vform = VFIndic Princ Pos PresTense Null
-        in
-        (subjConc vform np.agr False) ++ iadv.s
-    } ;
+    -- IAdvQS np iadv = {
+    --   s = case np.isPron of {
+    --     True => np.empty ;
+    --     False => np.s ! Full ++ np.desc
+    --     } ;
+    --   qword_pre = case iadv.postIAdv of {
+    --     False => let
+    --               vform = VFIndic Princ Pos PresTense Null
+    --             in
+    --               (subjConc vform np.agr False) ++ iadv.s ;
+    --     True => []
+    --   } ;
+    --   qword_post = case iadv.postIAdv of {
+    --     True => let
+    --               vform = VFIndic Princ Pos PresTense Null
+    --             in
+    --               (subjConc vform np.agr False) ++ iadv.s ;
+    --     False => []
+    --   } ;
+    -- } ;
 
     AdvQCl adv qcl = {
       s = \\p,t,m => qcl.s!p!t!m ++ adv.s ;
@@ -276,8 +289,10 @@ concrete ExtraZul of ExtraZulAbs =
     ComplVAux vaux vp = {
         s = vp.s ;
         perfSuff = vp.perfSuff ;
+        suff = vp.suff ;
         oc = vp.oc ;
         comp = vp.comp ;
+        iadv = vp.iadv ;
         advs = vp.advs ;
         hasComp = vp.hasComp ;
         r = vp.r ;
@@ -317,6 +332,27 @@ concrete ExtraZul of ExtraZulAbs =
 
     where_ConjN = { s = "lapho" } ;
 
+    IAdvVP vp iadv = {
+      s = vp.s ;
+      perfSuff = vp.perfSuff ;
+      suff = vp.suff ;
+      oc = vp.oc ;
+      iadv = vp.iadv ++ iadv.s ;
+      comp = vp.comp ;
+      advs = vp.advs ;
+      hasComp = True ;
+      r = vp.r ;
+      syl = vp.syl ;
+      asp = vp.asp ;
+      asp_pref = vp.asp_pref ;
+      vptype = vp.vptype ;
+      comp_agr = vp.comp_agr ;
+      ap_comp = vp.ap_comp ;
+      ap_bool = vp.ap_bool ;
+      aux_root = vp.aux_root ;
+      hasAux = vp.hasAux
+    } ;
+
     it3_Pron = { s = "wo" ; agr = Third C3_4 Sg ; empty = [] } ;
     they4_Pron = { s = "yo" ; agr = Third C3_4 Pl ; empty = [] } ;
     it5_Pron = { s = "lo" ; agr = Third C5_6 Sg ; empty = [] } ;
@@ -330,7 +366,9 @@ concrete ExtraZul of ExtraZulAbs =
     it15_Pron = { s = "ko" ; agr = Third C15 Sg ; empty = [] } ;
     it17_Pron = { s = "ko" ; agr = Third C17 Sg ; empty = [] } ;
 
-    at_which_IAdv np = { s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ; postIAdv = False } ;
+    at_which_IAdv np = { s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ++ np.desc ; postIAdv = False } ;
+
+    what_IAdv = {s = BIND++"ni" ; postIAdv = True } ;
 
     how_many_IAdj = regAdj "ngaki" ;
 
@@ -339,7 +377,9 @@ concrete ExtraZul of ExtraZulAbs =
       postIAdv = False
     } ;
 
-    how_IComp = { s = "njani" } ; -- -njani
+    how_IComp = { s = "njani" ; postIComp = False } ; -- -njani
+    where_IComp = { s = "phi" ; postIComp = True } ; -- -phi
+    how_much_IComp = { s = "ngakanani" ; postIComp = False } ; -- -ngakanani
 
     -- AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
 
@@ -387,8 +427,8 @@ concrete ExtraZul of ExtraZulAbs =
     --   qword_post = []
     -- } ;
 
-    cl_with_np_predicate : NP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str ; advs : Str } = \np -> {
-      advs = [] ;
+    cl_with_np_predicate : NP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np -> {
+      -- advs = [] ;
       s = \\p,t,dm =>
         let
           aux_tense = case t of {

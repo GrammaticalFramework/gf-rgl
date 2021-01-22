@@ -22,7 +22,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
 
     Cl = {
       s : Polarity => ZTense => DMood => Str ;
-      advs : Str ;
+      -- advs : Str ;
       subjcl : Polarity => ZTense => Str ;
       potcl : Polarity => DMood => Str
     } ;
@@ -41,7 +41,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
       qword_post : Str
     } ;
 --     IP = {s : NPCase => Str ; n : Number} ;
-    IComp = { s : Str } ; -- possibly needs parameter for comp type
+    IComp = { s : Str ; postIComp : Bool } ; -- possibly needs parameter for comp type
 --     IDet = {s : Str ; n : Number} ;
 --     IQuant = {s : Number => Str} ;
 
@@ -55,8 +55,10 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
     VP = {
       s : Str ;
       perfSuff : Str ;
+      suff : Str ;
       oc : Str ;
       comp : Str ;
+      iadv : Str ;
       advs : Str ;
       hasComp : Bool ;
       r : RInit ;
@@ -74,6 +76,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
     VPSlash = {
       s : Str ;
       perfSuff : Str ;
+      suff : Str ;
       oc : Str ;
       comp : Str ;
       hasComp : Bool ;
@@ -147,8 +150,8 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
 --     CAdv = {s : Polarity => Str; p : Str} ;
 
 -- Open lexical classes, e.g. Lexicon
-    V,V2,VA = { s : Str ; r : RInit ; syl : Syl ; voice : Voice ; perfSuff : Str } ;
-    VS, V3 = { s : Str ; r : RInit ; syl : Syl ; voice : Voice ; perfSuff : Str } ;
+    V,V2,VA = { s : Str ; r : RInit ; syl : Syl ; voice : Voice ; perfSuff : Str ; suff : Str } ;
+    VS, V3 = { s : Str ; r : RInit ; syl : Syl ; voice : Voice ; perfSuff : Str ; suff : Str } ;
     -- VQ = Verb ;
     -- V2Q, V2S = Verb ** {c2 : Str} ;
     -- V2A,V3 = Verb ** {c2, c3 : Str} ;

@@ -19,6 +19,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
         Active => np.s ! Full ++ np.desc ;
         Passive => (cop_pref np.agr) ++BIND++ np.s ! Full ++ np.desc
       } ;
+      iadv = [] ;
       advs = [] ;
       hasComp = True ;
       -- r = v2.r ;
@@ -49,6 +50,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
           Passive => (cop_pref np1.agr) ++BIND++ np1.s ! Full ++ np1.desc ++ np2.s ! Full ++ np2.desc
         }
       } ;
+      iadv = [] ;
       advs = [] ;
       hasComp = True ;
       -- r = v3.r ;

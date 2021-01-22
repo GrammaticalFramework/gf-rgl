@@ -49,7 +49,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             vform_main = VFIndic Part p main_tense vp.asp ;
             aux = case t of {
               Absolute _ => [] ;
-              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "k" ++BIND++ (vtermSuff vform_aux False "e")
+              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "k" ++BIND++ (vtermSuff vform_aux False "e" vp.suff)
             } ;
             vow = case <vp.r,p,main_tense> of {
               <RC,Pos,PresTense> => False ;
@@ -89,8 +89,9 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             ++ (tensePref vform_main)
             ++ vp.oc
             ++ vp.s ++ BIND
-            ++ (vtermSuff vform_main reqLF vp.perfSuff)
+            ++ (vtermSuff vform_main reqLF vp.perfSuff vp.suff)
             ++ relsuf
+            ++ vp.iadv
             ++ vp.comp
             ++ vp.advs
       } ;
@@ -110,7 +111,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             vform_main = VFIndic Part p main_tense vp.asp ;
             aux = case t of {
               Absolute _ => [] ;
-              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e")
+              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e" vp.suff)
             } ;
             pcp = relConc!a!RelC ++BIND ;
             cp = cop_pref vp.comp_agr ;
@@ -127,6 +128,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             cp ++ BIND ++
             vp.asp_pref!vform_main ++
             cb ++
+            vp.iadv ++
             vp.advs
       } ;
 
@@ -145,7 +147,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             vform_main = VFIndic Part p main_tense vp.asp ;
             aux = case t of {
               Absolute _ => [] ;
-              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e")
+              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e" vp.suff)
             } ;
             pcp = relConc!a!RelC ++BIND;
             cp = cop_pref vp.comp_agr ;
@@ -161,6 +163,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             pcp ++
             vp.asp_pref!vform_main ++
             cb ++
+            vp.iadv ++
             vp.advs
       } ;
 
@@ -179,7 +182,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             vform_main = VFIndic Part p main_tense vp.asp ;
             aux = case t of {
               Absolute _ => [] ;
-              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e")
+              Relative _ _ => (subjConcLookup!a!ResZul.SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e" vp.suff)
             } ;
             pcp = relConc!a!RelC ++BIND;
             cp = cop_pref vp.comp_agr ;
@@ -195,6 +198,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             pcp ++
             vp.asp_pref!vform_main ++
             cb ++
+            vp.iadv ++
             vp.advs
       } ;
 

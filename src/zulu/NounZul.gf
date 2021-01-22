@@ -43,11 +43,16 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 --       a = np.a
 --       } ;
 
-    -- NOTE: EMRG has an AdvNP that does something else
-    -- AdvNP np adv = {
-    --   s = \\c => np.s ! c ++ adv.s ;
-    --   a = np.a
-    --   } ;
+    AdvNP np adv = {
+      empty = np.empty ;
+      s = np.s ;
+      loc = np.loc ;
+      desc = np.desc ++ adv.s ;
+      agr = np.agr ;
+      isPron = np.isPron ;
+      reqLocS = np.reqLocS
+    } ;
+    -- { s : Str ; reqLocS : Bool } ;
 
 --     ExtAdvNP np adv = {
 --       s = \\c => np.s ! c ++ embedInCommas adv.s ;
@@ -187,7 +192,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
             ++ cn.desc ! num ;
       c = cn.c
     } ;
-    
+
     RelCN cn rs = {
       empty = cn.empty ;
       s = cn.s ;

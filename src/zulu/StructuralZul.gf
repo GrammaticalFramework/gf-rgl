@@ -13,7 +13,7 @@ concrete StructuralZul of Structural = CatZul **
 --   almost_AdN = mkAdN "almost" ;
 --   although_Subj = ss "although" ;
 --   always_AdV = mkAdV "always" ;
---   and_Conj = mkConj "and" ;
+    and_Conj = { s = \\_ => "futhi" ; fix = False } ;
 --   because_Subj = ss "because" ;
 --   before_Prep = mkPrep "before" ;
 --   behind_Prep = mkPrep "behind" ;
@@ -66,7 +66,7 @@ concrete StructuralZul of Structural = CatZul **
 --   here_Adv = mkAdv "here" ;
 --   here7to_Adv = mkAdv ["to here"] ;
 --   here7from_Adv = mkAdv ["from here"] ;
---   how_IAdv = ss "how" ;
+  how_IAdv = {s = "kanjani" ; postIAdv = False } ;
   how8much_IAdv = {s = "kangakanani" ; postIAdv = False } ;
 --   how8many_IDet = mkDeterminer plural ["how many"] ;
 --   if_Subj = ss "if" ;

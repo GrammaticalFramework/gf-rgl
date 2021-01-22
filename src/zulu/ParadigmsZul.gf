@@ -86,12 +86,13 @@ oper
   mkV = overload {
     mkV : (hamb : Str) -> V  = \hamb -> lin V (regVerb hamb) ;
     mkV : (fakw : Str) -> Voice -> V = \fakw,voice -> lin V (passiveVerb fakw voice) ;
-    mkV : (hamb,perfsuff : Str) -> V  = \hamb,perfsuff -> lin V (semiRegVerb hamb perfsuff) ;
+    mkV : (th,perfsuff,suff : Str) -> V  = \hamb,perfsuff,suff -> lin V (semiRegVerb hamb perfsuff suff) ;
   } ;
 
   mkV2 = overload {
     mkV2 : (phuz : Str) -> V2  = \phuz -> lin V2 (regVerb phuz) ;
     mkV2 : (phathw : Str) -> Voice -> V2 = \phathw,voice -> lin V2 (passiveVerb phathw voice) ;
+    mkV2 : (th,perfsuff,suff : Str) -> V2  = \hamb,perfsuff,suff -> lin V2 (semiRegVerb hamb perfsuff suff) ;
   } ;
 
   mkV3 = overload {
@@ -136,6 +137,11 @@ oper
 
   mkAdv = overload {
     mkAdv : Str -> Adv = \adv -> lin Adv (regAdv adv) ;
+    -- mkAdv : Str -> Aspect -> Adv = \adv,asp -> lin Adv (aspAdv adv asp) ;
+  } ;
+
+  mkIAdv = overload {
+    mkIAdv : Str -> Adv = \adv -> lin IAdv (regAdv adv) ;
     -- mkAdv : Str -> Aspect -> Adv = \adv,asp -> lin Adv (aspAdv adv asp) ;
   } ;
 

@@ -1,5 +1,5 @@
 abstract ExtraZulAbs =
-  Grammar[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv], ExtraCatZulAbs ** {
+  Grammar[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp], ExtraCatZulAbs ** {
 
   fun
     PotQS : Pol -> QCl -> QS ;
@@ -48,7 +48,8 @@ abstract ExtraZulAbs =
     -- TPerfPerf : Temp ;
 
     PredNP : NP -> Cl ;
-    IAdvQS : NP -> INAdv -> QS ; -- where is the wine? iwayini liphi?
+    -- IAdvQS : NP -> INAdv -> QS ; -- where is the wine? iwayini liphi?
+    -- IAdvQCl : NP -> INAdv -> QCl ; -- where is the wine? iwayini liphi?
 
     AdvQCl : Adv -> QCl -> QCl ;
 
@@ -57,6 +58,8 @@ abstract ExtraZulAbs =
     ConjNAdv : ConjN -> S -> Adv ; -- lapho kunobuhlungu khona
 
     where_ConjN : ConjN ;
+
+    IAdvVP : VP -> IAdv -> VP ; -- kushisa kangakanani eGoli
 
     it3_Pron : Pron ;
     they4_Pron : Pron ;
@@ -74,6 +77,7 @@ abstract ExtraZulAbs =
     all_Det : Det ;
 
     at_which_IAdv : NP -> IAdv ;
+    what_IAdv : IAdv ;
 
     about_NP_Adv : NP -> Adv ;
 
@@ -82,6 +86,8 @@ abstract ExtraZulAbs =
     IAdjIAdv : NP -> IAdj -> IAdv ;
 
     how_IComp : IComp ; -- -njani
+    where_IComp : IComp ; -- -phi
+    how_much_IComp : IComp ; -- -ngakanani
 
     -- AdvQS     : IAdv -> S  -> QS ;            -- maybe it is a pain that burns 2020-01-15: consider that this should rather be dealt with using QuestIAdv)
 
