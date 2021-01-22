@@ -6,6 +6,6 @@ abstract ExtraCatZulAbs = {
     VAux ;
     ConjN ; -- Nguni conjunction
     IAdj ;   -- how many
-    INAdv ; -- which/-phi?
+    -- INAdv ; -- which/-phi?
 
 }

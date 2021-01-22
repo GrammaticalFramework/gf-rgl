@@ -6,6 +6,6 @@ concrete ExtraCatZul of ExtraCatZulAbs = open ResZul,Prelude,ParamX in {
     VAux = { s : Str ; at : AuxType } ;
     ConjN = { s : Str } ;
     IAdj = { s : AForm => Str ; b : Bool } ;
-    INAdv = { s : Str ; postIAdv : Bool } ;
+    -- INAdv = { s : Str ; postIAdv : Bool } ;
 
 }
