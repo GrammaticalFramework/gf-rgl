@@ -13,6 +13,8 @@ oper
     lin IQuant {s = table {Sg => s ; Pl => n}} ;
     
   mkDet = overload {
+    mkDet : Str -> Det = \s ->
+      lin Det (mkDeterminer singular s) ;
     mkDet : Str -> Number -> Det = \s,n ->
       lin Det (mkDeterminer n s) ;
     mkDet : Str -> Det -> Det = \s,d ->
