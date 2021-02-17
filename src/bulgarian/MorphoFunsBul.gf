@@ -278,8 +278,12 @@ oper
 
 --2 Proper Names
 --
-  mkPN : Str -> Gender -> PN ;
-  mkPN s g = {s = s; g = g ; lock_PN = <>} ;
+  mkPN = overload {
+    mkPN : Str -> Gender -> PN = 
+      \s,g -> {s = s; gn = GSg g ; lock_PN = <>} ;
+    mkPN : Str -> GenNum -> PN = 
+      \s,gn -> {s = s; gn = gn ; lock_PN = <>} ;
+  } ;
 
 
 --2 IAdv
