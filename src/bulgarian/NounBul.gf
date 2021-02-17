@@ -42,7 +42,7 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
                        RObj c => linCase c Pos ++ pn.s; 
                        _      => pn.s
                      } ;
-                 gn = GSg pn.g ;
+                 gn = pn.gn ;
                  p = NounP3 Pos
                } ;
     UsePron p = p ;

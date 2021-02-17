@@ -7,10 +7,10 @@ flags
   coding = utf8 ;
 
 lin
-  SymbPN i = {s = i.s ; g = Neut} ;
-  IntPN i  = {s = i.s ; g = Neut} ;
-  FloatPN i = {s = i.s ; g = Neut} ;
-  NumPN i = {s = i.s ! CFNeut Indef ; g = Neut} ;
+  SymbPN i = {s = i.s ; gn = GSg Neut} ;
+  IntPN i  = {s = i.s ; gn = GSg Neut} ;
+  FloatPN i = {s = i.s ; gn = GSg Neut} ;
+  NumPN i = {s = i.s ! CFNeut Indef ; gn = GSg Neut} ;
   CNIntNP cn i = {
     s  = \\c => cn.s ! NF Sg Indef ++ i.s ;
     gn = gennum cn.g Sg ;
