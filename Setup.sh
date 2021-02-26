@@ -97,5 +97,5 @@ done
 
 # Copy
 echo "Copying to ${dest}"
-mkdir -p $dest
+mkdir -p "${dest}"
 cp -R "${dist}"/* "${dest}"
