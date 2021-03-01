@@ -2098,17 +2098,21 @@ oper
                           (v0+"яй")
                           (v0+"яне") ;
   mkV188 : Str -> VTable ;
-  mkV188 base = let v0 = tk 2 base
-                in mkVerb (v0+"ам")
-                          (v0+"ае")
-                          (v0+"ах")
-                          (v0+"ах")
-                          (v0+"ал")
-                          (v0+"ал")
-                          (v0+"ан")
-                          (v0+"ащ")
-                          (v0+"ай")
-                          (v0+"ане") ;
+  mkV188 base = let v0 = tk 2 base;
+                    vt = mkVerb base
+                                (v0+"ае")
+                                (v0+"аех")
+                                (v0+"аех")
+                                (v0+"ал")
+                                (v0+"ал")
+                                (v0+"ан")
+                                (v0+"ащ")
+                                (v0+"ай")
+                                (v0+"ане")
+                in table {
+                     VAorist Sg (P2|P3) => v0+"аеше";
+                     vform              => vt ! vform
+                   } ;
 
   adjAdv : A -> Str -> A =
     \a,adv -> a ** {adv = adv} ;
