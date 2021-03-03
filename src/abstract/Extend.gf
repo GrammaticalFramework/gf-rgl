@@ -69,6 +69,7 @@ abstract Extend = Cat ** {
     MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
     ConjVPS2  : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates
     ComplVPS2 : VPS2 -> NP -> VPS ;               -- has loved and now hates that person
+    ReflVPS2  : VPS2 -> RNP -> VPS ;              -- have loved and now hate myself and my car
 
     MkVPI2    : VPSlash -> VPI2 ;                 -- to love
     ConjVPI2  : Conj -> [VPI2] -> VPI2 ;          -- to love and hate
