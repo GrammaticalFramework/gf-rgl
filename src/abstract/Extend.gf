@@ -124,6 +124,11 @@ abstract Extend = Cat ** {
 
     ProgrVPSlash : VPSlash -> VPSlash;
 
+-- construct VPSlash from A2 and N2
+
+    A2VPSlash : A2 -> VPSlash ; -- is married to (that person)
+    N2VPSlash : N2 -> VPSlash ; -- is a mother of (that person)
+
 -- existential for mathematics
 
     ExistsNP : NP -> Cl ;  -- there exists a number / there exist numbers
@@ -134,7 +139,7 @@ abstract Extend = Cat ** {
     ExistMassCN   : CN -> Cl ;  -- there is beer / there is no beer
     ExistPluralCN : CN -> Cl ;  -- there are trees / there are no trees
 
--- generalisation of existential, with adverb as a parameter
+-- generalisation of existential, with adverb as an argument
     AdvIsNP : Adv -> NP -> Cl ;  -- here is the tree / here are the trees
     AdvIsNPAP : Adv -> NP -> AP -> Cl ; -- here are the instructions documented
 
