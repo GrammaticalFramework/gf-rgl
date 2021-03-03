@@ -14,7 +14,8 @@ concrete ExtendSwe of Extend = CatSwe **
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
     Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP, ReflPossPron,
     CompoundN, CompoundAP, AdvIsNP,
-    UttAccNP
+    UttAccNP,
+    A2VPSlash, N2VPSlash
   ]
   with (Grammar = GrammarSwe)
     **
@@ -69,6 +70,23 @@ in {
       insertObj (\\a => vps.c2.s ++ vps.n3 ! a) (passiveVP vps) ;
     PassAgentVPSlash vps np =
       insertObjPost (\\a => vps.c2.s ++ vps.n3 ! a) (insertObj (\\_ => (PrepNP by8agent_Prep np).s) (passiveVP vps)) ;
+
+
+    N2VPSlash n2 =
+      let vp : CatSwe.VP = UseComp (CompCN (UseN2 n2)) ;
+          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
+      in dummyVPS **  -- has necessary fields for VPSlash
+               vp **  -- has all the right fields except for c2
+              {c2 = n2.c2} ; -- has the right c2
+
+
+
+    A2VPSlash a2 =
+      let vp : CatSwe.VP = UseComp (CompAP (UseA2 a2)) ;
+          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
+      in dummyVPS **  -- has necessary fields for VPSlash
+               vp **  -- has all the right fields except for c2
+              {c2 = a2.c2} ; -- has the right c2
 
   lin UttVPShort vp = {s = infVP vp (agrP3 Utr Sg)} ;
 
@@ -147,11 +165,11 @@ in {
               } ;
        c2 = vp.c2
       } ;
-      
+
     ComplVPS2 vps2 np = {
         s = \\o,a => vps2.s !o ! a ++ vps2.c2.s ++ np.s ! NPAcc
         } ;
-	
+
     ConjVPS2 c xs = conjunctDistrTable2 Order Agr c xs ** {c2 = xs.c2} ;
 
   lincat
@@ -210,7 +228,7 @@ in {
     Cons_nr_RNP x xs = consrTable Agr comma {s = \\a => x.s ! NPAcc} xs ;
 
     ReflPossPron = M.mkQuant "sin" "sitt" "sina" ;
-    
+
   lin
     ApposNP np1 np2 = {s = \\nform => np1.s ! nform ++ comma ++ np2.s ! nform; a = np1.a; isPron = False} ;
 

@@ -16,7 +16,7 @@ concrete ExtendEng of Extend =
     GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, MkVPS, NominalizeVPSlashNP,
     PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj, PredVPS, PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
-    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
+    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2, A2VPSlash, N2VPSlash
    ]
   with
     (Grammar = GrammarEng) **
@@ -224,6 +224,19 @@ concrete ExtendEng of Extend =
     PassAgentVPSlash vps np = passVPSlash (lin VPS vps) ("by" ++ np.s ! NPAcc) ;
     ProgrVPSlash vp = insertObjc (\\a => vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a)
       (predAux auxBe ** {c2 = vp.c2; gapInMiddle = vp.gapInMiddle; missingAdv = vp.missingAdv});
+
+    N2VPSlash n2 =
+      let prep : Prep = mkPrep n2.c2 ;
+          dummyVPS : VPSlash = SlashV2a (mkV2 (mkV "dummy") prep);
+      in dummyVPS **  -- has necessary fields for VPSlash, and c2 from the N2
+           UseComp (CompCN (UseN2 n2)) ; -- has all the right fields except for c2
+
+    A2VPSlash a2 =
+      let prep : Prep = mkPrep a2.c2 ;
+          dummyVPS : VPSlash = SlashV2a (mkV2 (mkV "dummy") prep) ;
+      in dummyVPS **  -- has necessary fields for VPSlash, and c2 from the A2
+           UseComp (CompAP (UseA2 a2)) ; -- has all the right fields except for c2
+
 
    --- AR 7/3/2013
    ComplSlashPartLast vps np = case vps.gapInMiddle of {
