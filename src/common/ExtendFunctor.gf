@@ -51,6 +51,8 @@ lin
   PastPartAgentAP = variants {} ;     -- VPSlash -> NP -> AP ; -- (opportunity) lost by the company
   NominalizeVPSlashNP = variants {} ;     -- VPSlash -> NP -> NP ;
   ProgrVPSlash = variants {} ;            -- VPSlash -> VPSlash ;
+  A2VPSlash = variants {} ;           -- A2 -> VPSlash ;
+  N2VPSlash = variants {} ;           -- N2 -> VPSlash ;
   ExistsNP = ExistNP ;     -- NP -> Cl ; -- there exists a number / there exist numbers
   ExistCN cn = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;
   ExistMassCN cn = ExistNP (MassNP cn) ;
