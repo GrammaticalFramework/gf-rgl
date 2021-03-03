@@ -8,7 +8,7 @@ concrete ExtendSwe of Extend = CatSwe **
     PassVPSlash, PassAgentVPSlash, UttVPShort, ByVP, InOrderToVP,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
-    MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
+    MkVPS2, ConjVPS2, ComplVPS2, ReflVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     ICompAP,ProDrop,EmbedSSlash,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP, ConjRNP,
@@ -168,6 +168,9 @@ in {
 
     ComplVPS2 vps2 np = {
         s = \\o,a => vps2.s !o ! a ++ vps2.c2.s ++ np.s ! NPAcc
+        } ;
+    ReflVPS2 vps2 rnp = {
+        s = \\o,a => vps2.s ! o ! a ++ vps2.c2.s ++ rnp.s ! a
         } ;
 
     ConjVPS2 c xs = conjunctDistrTable2 Order Agr c xs ** {c2 = xs.c2} ;

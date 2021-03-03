@@ -7,7 +7,7 @@ concrete ExtendEng of Extend =
     AdAdV, AdjAsCN, AdjAsNP, ApposNP, AdvIsNP,
     BaseVPS, ConsVPS, BaseVPI, ConsVPI, BaseVPS2, ConsVPS2, BaseVPI2, ConsVPI2,
     MkVPS, ConjVPS, PredVPS, MkVPI, ConjVPI, ComplVPIVV,
-    MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
+    MkVPS2, ConjVPS2, ComplVPS2, ReflVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     Base_nr_RNP, Base_rn_RNP, Base_rr_RNP, ByVP, CompBareCN,
     CompIQuant, CompQS, CompS, CompVP, ComplBareVS, ComplGenVV, ComplSlashPartLast, ComplVPSVV, CompoundAP,
     CompoundN, ConjRNP, ConjVPS, ConsVPS, Cons_nr_RNP, Cons_rr_RNP, DetNPMasc, DetNPFem, EmbedPresPart, EmptyRelSlash,
@@ -120,7 +120,9 @@ concrete ExtendEng of Extend =
     ComplVPI2 vpi2 np = {
         s = \\t,a => vpi2.s ! t ! a ++ vpi2.c2 ++  np.s ! NPAcc
         } ;
-
+    ReflVPS2 vps2 rnp = {
+        s = \\a => vps2.s ! a ++ vps2.c2 ++ rnp.s ! a
+        } ;
   oper
     mkVPS : Temp -> Pol -> VP -> VPS = \t,p,vp -> lin VPS {
       s = \\a =>
