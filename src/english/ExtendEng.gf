@@ -70,21 +70,63 @@ concrete ExtendEng of Extend =
       } ;
 
   lincat
-    VPS   = {s : Agr => Str} ;
-    [VPS] = {s1,s2 : Agr => Str} ;
+    VPS   = {s : Order => Agr => {fin, inf : Str}} ;
+    [VPS] = {s1,s2 : Order => Agr => Str ; fin : Order => Agr => Str} ;
     VPI   = {s : VVType => Agr => Str} ;
     [VPI] = {s1,s2 : VVType => Agr => Str} ;
 
   lin
-    BaseVPS = twoTable Agr ;
-    ConsVPS = consrTable Agr comma ;
+    BaseVPS x y =
+      let baseX : OneFinVPS = baseVPS x ;
+          baseY : OneFinVPS = baseVPS y ;
+       in twoTable2 Order Agr baseX baseY ** {fin = baseX.fin} ;
 
+    ConsVPS x xs =
+      let baseX : OneFinVPS = baseVPS x ;
+       in consrTable2 Order Agr comma baseX xs ** {fin = baseX.fin} ; -- keep only the first fin
+  oper
+    {- IL 03/2021 for VPS conjunction: separate the first finite verb for questions
+           [do]:fin (you) [eat bread and sleep?]:inf
+           (you) [  ]:fin [eat bread and sleep]:inf
+       The fin field becomes empty for ODir, but no problem: order is just subj++fin++inf.
+       Weird results for CompNP/AP/…, but coordination of those already covered in RGL. -}
+    OneFinVPS : Type = {s : Order => Agr => Str ; fin : Order => Agr => Str} ;
+    baseVPS : VPS -> OneFinVPS = \vps -> {
+      s = \\o,a => let vp = vps.s ! o ! a in
+        case o of {
+          OQuest => vp.inf ;
+          ODir _ => vp.fin ++ vp.inf
+        } ;
+      fin = \\o,a => let vp = vps.s ! o ! a in
+        case o of {
+          OQuest => vp.fin ;
+          ODir _ => []
+        }
+      } ;
+
+  lin
     BaseVPI = twoTable2 VVType Agr ;
     ConsVPI = consrTable2 VVType Agr comma ;
 
     MkVPS t p vp = mkVPS (lin Temp t) (lin Pol p) (lin VP vp) ;
-    ConjVPS c xs = conjunctDistrTable Agr c xs ;
-    PredVPS np vps = {s = np.s ! npNom ++ vps.s ! np.a} ;
+    ConjVPS c xs = {
+      s = \\o,a => {
+        fin = xs.fin ! o ! a ;
+        inf = c.s1 ++ xs.s1 ! o ! a ++ c.s2 ++ xs.s2 ! o ! a}
+      } ;
+    PredVPS np vps = let vp = vps.s ! oDir ! np.a in {
+      s = np.s ! npNom ++ vp.fin ++ vp.inf
+      } ;
+    SQuestVPS np vps = let
+      vp = vps.s ! OQuest ! np.a ;
+      vpindir = vps.s ! oDir ! np.a in {
+      s = table {
+        QDir => vp.fin ++ np.s ! npNom ++ vp.inf ;
+        QIndir => "if" ++ np.s ! npNom ++ vpindir.fin ++ vpindir.inf}
+      } ;
+    QuestVPS ip vps = let vp = vps.s ! oDir ! toAgr ip.n P3 Neutr  in {
+      s = \\q => ip.s ! npNom ++ vp.fin ++ vp.inf
+      } ;
 
 
     MkVPI vp = mkVPI (lin VP vp) ;
@@ -95,8 +137,11 @@ concrete ExtendEng of Extend =
 -------- two-place verb conjunction
 
   lincat
-    VPS2   = {s : Agr => Str ; c2 : Str} ;
-    [VPS2] = {s1,s2 : Agr => Str ; c2 : Str} ;
+    VPS2   = {s : Order => Agr => {fin,inf : Str} ; c2 : Str} ;
+    [VPS2] = {
+      fin : Order => Agr => Str ;   -- Q: do         ; DIR:
+      s1,s2 : Order => Agr => Str ; -- Q: eat, drink ; DIR: eat, drink
+      c2 : Str} ;
     VPI2   = {s : VVType => Agr => Str ; c2 : Str} ;
     [VPI2] = {s1,s2 : VVType => Agr => Str ; c2 : Str} ;
 
@@ -104,33 +149,36 @@ concrete ExtendEng of Extend =
     MkVPS2 t p vpsl = mkVPS (lin Temp t) (lin Pol p) (lin VP vpsl) ** {c2 = vpsl.c2} ;
     MkVPI2 vpsl = mkVPI (lin VP vpsl) ** {c2 = vpsl.c2} ;
 
-    BaseVPS2 x y = twoTable Agr x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
-    ConsVPS2 x xs = consrTable Agr comma x xs ** {c2 = xs.c2} ;
+    BaseVPS2 x y = BaseVPS x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
+    ConsVPS2 x xs = ConsVPS x xs ** {c2 = xs.c2} ;
 
     BaseVPI2 x y = twoTable2 VVType Agr x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
     ConsVPI2 x xs = consrTable2 VVType Agr comma x xs ** {c2 = xs.c2} ;
 
 
-    ConjVPS2 c xs = conjunctDistrTable Agr c xs ** {c2 = xs.c2} ;
+    ConjVPS2 c xs = ConjVPS c xs ** {c2 = xs.c2} ;
     ConjVPI2 c xs = conjunctDistrTable2 VVType Agr c xs ** {c2 = xs.c2} ;
 
 
     ComplVPS2 vps2 np = {
-        s = \\a => vps2.s ! a ++ vps2.c2 ++ np.s ! NPAcc
+        s = \\o,a => let vps2s = vps2.s ! o ! a in
+            vps2s ** {inf = vps2s.inf ++ vps2.c2 ++ np.s ! NPAcc} -- keep fin, add object to inf
         } ;
     ComplVPI2 vpi2 np = {
         s = \\t,a => vpi2.s ! t ! a ++ vpi2.c2 ++  np.s ! NPAcc
         } ;
     ReflVPS2 vps2 rnp = {
-        s = \\a => vps2.s ! a ++ vps2.c2 ++ rnp.s ! a
+        s = \\o,a => let vps2s = vps2.s ! o ! a in
+            vps2s ** {inf = vps2s.inf ++ vps2.c2 ++ rnp.s ! a}
         } ;
   oper
     mkVPS : Temp -> Pol -> VP -> VPS = \t,p,vp -> lin VPS {
-      s = \\a =>
-            let
-              verb = vp.s ! t.t ! t.a ! p.p ! oDir ! a ;
-              verbf = verb.aux ++ verb.adv ++ verb.fin ++ verb.inf ;
-            in t.s ++ p.s ++ vp.ad ! a ++ verbf ++ vp.p ++ vp.s2 ! a ++ vp.ext
+      s = \\o,a =>
+        let
+          verb = vp.s ! t.t ! t.a ! p.p ! o ! a ; -- choice of Order determines aux or not
+          compl = vp.s2 ! a ++ vp.ext
+        in {fin = verb.aux ;
+            inf = verb.adv ++ vp.ad ! a ++ verb.fin ++ verb.inf ++ vp.p ++ compl} ;
       } ;
 
     mkVPI : VP -> VPI = \vp -> lin VPI {
