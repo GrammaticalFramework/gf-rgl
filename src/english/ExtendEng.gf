@@ -331,10 +331,21 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
     RNPList = {s1,s2 : Agr => Str} ;
 
   lin
-    ReflRNP vps rnp = insertObjPre (\\a => vps.c2 ++ rnp.s ! a) vps ;
+    ReflRNP vps rnp = insertObj (\\a => vps.c2 ++ rnp.s ! a) vps ;
     ReflPron = {s = reflPron} ;
     ReflPoss num cn = {s = \\a => possPron ! a ++ num.s ! True ! Nom ++ cn.s ! num.n ! Nom} ;
     PredetRNP predet rnp = {s = \\a => predet.s ++ rnp.s ! a} ;
+
+    AdvRNP np prep rnp = {s = \\a => np.s ! NPAcc ++ prep.s ++ rnp.s ! a} ;
+    AdvRVP vp prep rnp = insertObj (\\a => prep.s ++ rnp.s ! a) vp ;
+    AdvRAP ap prep rnp = {s = \\a => ap.s ! a ++ prep.s ++ rnp.s ! a ; isPre = False} ;
+
+    ReflA2RNP a rnp = {
+      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ rnp.s ! ag ; 
+      isPre = False
+      } ;
+
+    PossPronRNP pron num cn rnp = DetCN (DetQuant (PossPron pron) num) (PossNP cn (lin NP {s = \\_ => rnp.s ! pron.a; a = pron.a})) ;
 
     ConjRNP conj rpns = conjunctDistrTable Agr conj rpns ;
 

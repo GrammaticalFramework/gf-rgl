@@ -227,6 +227,20 @@ lin
     gn = rnp.gn
   } ;
 
+  AdvRNP np prep rnp = {s = \\role => np.s ! role ++ prep.s ++ rnp.s ! RObj prep.c; gn = np.gn; p = np.p} ;
+  AdvRVP vp prep rnp = insertObj (\\a => prep.s ++ rnp.s ! RObj prep.c) Pos vp ;
+  AdvRAP ap prep rnp = {
+    s = \\aform,p => ap.s ! aform ! p ++ prep.s ++ rnp.s ! RObj prep.c ;
+    isPre = False
+  } ;
+
+  ReflA2RNP a rnp = {
+    s = \\aform,_ => a.s ! aform ++ a.c2.s ++ rnp.s ! RObj a.c2.c ;
+    isPre = False
+  } ;
+
+  PossPronRNP pron num cn rnp = DetCN (DetQuant (PossPron pron) num) (PossNP cn (lin NP {s = rnp.s; gn = rnp.gn; p=NounP3 Pos})) ;    
+
 lin
   ApposNP np1 np2 = {s = \\role => case role of {
                                      RObj c => linCase c (personPol np1.p) ++ np1.s ! RObj CPrep ;

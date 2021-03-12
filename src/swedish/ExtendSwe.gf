@@ -216,6 +216,30 @@ lin BaseImp = twoTable2 Polarity Number ;
       isPron = False
       } ;
 
+    AdvRNP np prep rnp = {s = \\a => np.s ! NPAcc ++ prep.s ++ rnp.s ! a; isPron = False} ;
+    AdvRVP vp prep rnp = insertObjPost (\\a => prep.s ++ rnp.s ! a) vp ;
+    AdvRAP ap prep rnp = {
+      s = \\a => let agr = case a of {
+                              Strong (GSg g) => agrP3 g Sg ;
+                              Strong GPl => agrP3 Utr Pl ;
+                              Weak n => agrP3 Utr n
+                            }
+                  in ap.s ! a ++ prep.s ++ rnp.s ! agr ;
+      isPre = ap.isPre
+      } ;
+
+    ReflA2RNP a rnp = {
+      s = \\ap => let agr = case ap of {
+                              Strong (GSg g) => agrP3 g Sg ;
+                              Strong GPl => agrP3 Utr Pl ;
+                              Weak n => agrP3 Utr n
+                            }
+                  in a.s ! AF (APosit ap) Nom ++ a.c2.s ++ rnp.s ! agr ;
+      isPre = False
+      } ;
+
+    PossPronRNP pron num cn rnp = DetCN (DetQuant (PossPron pron) num) (PossNP cn (lin NP {s = \\_ => rnp.s ! pron.a; a = pron.a; isPron=False})) ;
+
     ConjRNP conj rpns = conjunctDistrTable Agr conj rpns ** {isPron = False} ;
 
     Base_rr_RNP x y = twoTable Agr x y ;

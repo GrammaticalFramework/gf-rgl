@@ -192,6 +192,15 @@ abstract Extend = Cat ** {
 
     PredetRNP : Predet -> RNP -> RNP ; -- all my brothers
 
+    AdvRNP : NP -> Prep -> RNP -> RNP ;   -- a dispute with his wife
+    AdvRVP : VP -> Prep -> RNP -> VP ;    -- lectured about her travels
+    AdvRAP : AP -> Prep -> RNP -> AP ;    -- adamant in his refusal
+
+    ReflA2RNP : A2 -> RNP -> AP ;         -- indifferent to their surroundings
+                                               -- NOTE: generalizes ReflA2
+
+    PossPronRNP : Pron -> Num -> CN -> RNP -> NP ; -- his abandonment of his wife and children
+
     ConjRNP : Conj -> RNPList -> RNP ;  -- my family, John and myself
 
     Base_rr_RNP : RNP -> RNP -> RNPList ;       -- my family, myself
