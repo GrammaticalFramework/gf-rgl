@@ -74,6 +74,14 @@ abstract Extend = Cat ** {
     ConjVPI2  : Conj -> [VPI2] -> VPI2 ;          -- to love and hate
     ComplVPI2 : VPI2 -> NP -> VPI ;               -- to love and hate that person
 
+-- Conjunction of copula complements
+  cat [Comp]{2} ;
+  fun ConjComp : Conj -> ListComp -> Comp ;
+
+-- Conjunction of imperatives
+  cat [Imp] {2} ;
+  fun ConjImp : Conj -> ListImp -> Imp ;
+
   fun
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
 

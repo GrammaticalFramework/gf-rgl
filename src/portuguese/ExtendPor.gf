@@ -28,9 +28,10 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
   Prelude,
   ParadigmsPor,
   (L = LexiconPor),
-  (S = StructuralPor) in {
+  (S = StructuralPor),
+  (P = ParamX) in {
 
-    lin
+  lin
     ExistsNP np =
       mkClause [] True False np.a
       (insertComplement (\\_ => (np.s ! Nom).ton)
@@ -87,6 +88,21 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
     InOrderToVP vp = {
       s = "a fim de" ++ infStr vp
       } ;
+
+  lincat ListComp = {s1,s2 : Agr => Str ; cop : CopulaType} ;
+
+  lin
+    -- should one allow different copulas?
+    BaseComp x y = twoTable Agr x y ** {cop = x.cop } ;
+    ConsComp xs x = consrTable Agr comma xs x ** xs ;
+    ConjComp conj cs = conjunctDistrTable Agr conj cs ** {cop = cs.cop} ;
+
+  lincat ListImp = {s1,s2 : RPolarity => P.ImpForm => Gender => Str} ;
+
+  lin
+    BaseImp = twoTable3 RPolarity P.ImpForm Gender ;
+    ConsImp = consrTable3 RPolarity P.ImpForm Gender comma ;
+    ConjImp conj is = conjunctDistrTable3 RPolarity P.ImpForm Gender conj is ;
 
   lin
     iFem_Pron = pronAgr S.i_Pron Fem Sg P1 ;

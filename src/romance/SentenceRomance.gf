@@ -15,6 +15,10 @@ incomplete concrete SentenceRomance of Sentence =
         }
       } ;
 
+    AdvImp adv imp = {
+      s = \\pol,impform,g => imp.s ! pol ! impform ! g ++ adv.s
+      } ;
+
 {-
     SlashVP np vps = 
       -- agreement decided afterwards: la fille qu'il a trouvée
