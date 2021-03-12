@@ -22,6 +22,10 @@ concrete SentenceEng of Sentence = CatEng ** open Prelude, ResEng in {
         dont ++ verb
     } ;
 
+    AdvImp adv imp = {
+      s = \\pol,impform => adv.s ++ imp.s ! pol ! impform
+    } ;
+
     SlashVP np vp = 
       mkClause (np.s ! npNom) np.a vp ** {c2 = vp.c2} ;
 

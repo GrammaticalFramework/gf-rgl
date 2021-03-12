@@ -96,6 +96,10 @@ lin
 lin
   PassVPSlash vp = insertObj (\\a => vp.ad.s ++ vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
                                      vp.compl1 ! a ++ vp.compl2 ! a) Pos (predV verbBe) ;
+  ProgrVPSlash vp = vp ** {
+      s   = \\_ => vp.s ! Imperf ;
+      isSimple = False
+      } ;
 
   PassAgentVPSlash vp np =
     insertObj (\\_ => "от" ++ np.s ! RObj CPrep) Pos
@@ -154,6 +158,25 @@ lin
   ConjVPS conj vps = {
     s = \\a => linCoord []!conj.sep ++ vps.s!a!conj.sep ++ conj.s ++ vps.s!a!4
     } ;
+
+lincat [Comp] = {s : Agr => Ints 4 => Str} ;
+lin BaseComp x y =
+      {s = \\agr=>table {4 => y.s!agr; _ => x.s!agr}} ;
+    ConsComp x xs =
+      {s = \\agr=>table {4 => xs.s!agr!4; t => x.s!agr++linCoord bindComma!t++xs.s!agr!t}} ;
+    ConjComp conj ss = {
+      s = \\agr => linCoord [] ! conj.sep ++ ss.s!agr!conj.sep ++ conj.s ++ ss.s!agr!4 ;
+      p = Pos
+      } ;
+
+lincat ListImp = {s : Polarity => GenNum => Ints 4 => Str} ;
+lin BaseImp x y =
+      {s  = \\p,gn=>table {4 => y.s!p!gn; _ => x.s!p!gn}} ;
+    ConsImp x xs =
+      {s  = \\p,gn=>table {4 => xs.s!p!gn!4; t => x.s!p!gn++linCoord bindComma!t++xs.s!p!gn!t}} ;
+    ConjImp conj ss = {
+      s  = \\p,gn => linCoord [] ! conj.sep ++ ss.s!p!gn!conj.sep ++ conj.s ++ ss.s!p!gn!4
+      } ;
 
 lin
   ComplBareVS = ComplVS ;

@@ -138,6 +138,20 @@ concrete ExtendEng of Extend =
             }
       } ;
 
+-- Conjunction of copula complements
+
+lincat [Comp] = {s1,s2 : Agr => Str} ;
+lin BaseComp x y = twoTable Agr x y ;
+    ConsComp xs x = consrTable Agr comma xs x ;
+    ConjComp conj ss = conjunctDistrTable Agr conj ss ;
+
+-- Conjunction of imperatives
+
+lincat ListImp = {s1,s2 : CPolarity => ImpForm => Str} ;
+lin BaseImp = twoTable2 CPolarity ImpForm ;
+    ConsImp = consrTable2 CPolarity ImpForm comma ;
+    ConjImp conj ss = conjunctDistrTable2 CPolarity ImpForm conj ss ;
+
 -----
 
   lin

@@ -69,6 +69,11 @@ in {
       insertObj (\\a => vps.c2.s ++ vps.n3 ! a) (passiveVP vps) ;
     PassAgentVPSlash vps np =
       insertObjPost (\\a => vps.c2.s ++ vps.n3 ! a) (insertObj (\\_ => (PrepNP by8agent_Prep np).s) (passiveVP vps)) ;
+    ProgrVPSlash vp = 
+      insertObj (\\a => "att" ++ infVP vp a) (predV (P.partV I.hålla_V "på")) **
+        { n3 = vp.n3 ;
+          c2 = vp.c2
+        } ;
 
   lin UttVPShort vp = {s = infVP vp (agrP3 Utr Sg)} ;
 
@@ -171,6 +176,16 @@ in {
     ComplVPI2 vpi2 np = {
         s = \\t,a => vpi2.s ! t ! a ++ vpi2.c2.s ++  np.s ! NPAcc
         } ;
+
+lincat [Comp] = {s1,s2 : Agr => Str} ;
+lin BaseComp x y = twoTable Agr x y ;
+    ConsComp xs x = consrTable Agr comma xs x ;
+    ConjComp conj ss = conjunctDistrTable Agr conj ss ;
+
+lincat ListImp = {s1,s2 : Polarity => Number => Str} ;
+lin BaseImp = twoTable2 Polarity Number ;
+    ConsImp = consrTable2 Polarity Number comma ;
+    ConjImp conj ss = conjunctDistrTable2 Polarity Number conj ss ;
 
 -----------
 
