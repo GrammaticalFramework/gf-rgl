@@ -59,6 +59,12 @@ lin
           )
     } ;
 
+  InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
+    t  = "adv" ;
+    s1 = heading1 "Adverb" ;
+    s2 = adv.s
+    } ;
+
   InflectionPrep = \prep -> {
     t  = "prep" ;
     s1 = heading1 "Preposition" ;

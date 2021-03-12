@@ -62,7 +62,7 @@ lin
          s2 = dtable positive_Parameter Posit ++ dtable comparative_Parameter Compar ++ dtable superlative_Parameter Superl
        } ;
 
-  InflectionAdv adv = {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t  = "adverb" ;
     s1 = heading1 (heading adverb_Category) ;
     s2 = paragraph adv.s
