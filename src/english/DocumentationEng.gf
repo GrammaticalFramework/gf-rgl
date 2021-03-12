@@ -24,6 +24,20 @@ lin
          )
     } ;
 
+  InflectionPN = \pn -> {
+    t  = "pn" ;
+    s1 = heading1 ("Proper Name" ++
+                    case pn.g of {
+                      Neutr => "";
+                      Masc  => "(masc)";
+                      Fem   => "(fem)"
+                    }) ;
+    s2 = frameTable (
+           tr (th "nom"        ++ th "gen") ++
+           tr (td (pn.s ! Nom) ++ td (pn.s ! Gen))
+         )
+    } ;
+
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 "Adjective" ;
@@ -37,7 +51,7 @@ lin
          paragraph (adj.s ! AAdv)
     } ;
 
-  InflectionAdv = \adv -> {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t = "adv" ;
     s1= heading1 "Adverb" ;
     s2= paragraph (adv.s) ;

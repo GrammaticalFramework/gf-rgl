@@ -50,7 +50,7 @@ lin
          )
     } ;
 
-  InflectionAdv adv = {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t  = "adv" ;
     s1 = heading1 "Adverbi" ;
     s2 = paragraph adv.s

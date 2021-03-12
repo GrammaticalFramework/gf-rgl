@@ -32,6 +32,18 @@ lin
            )
      } ;
 
+  InflectionPN = \pn -> {
+    t  = "nm" ;
+    s1 = heading1 ("Namn" ++ case pn.g of {
+                               Utr   => "(utr)" ;
+                               Neutr => "(neutr)"
+                             }) ;
+    s2 = frameTable (
+           tr (th "nom" ++ td (pn.s ! Nom)) ++
+           tr (th "gen" ++ td (pn.s ! Gen))
+           )
+     } ;
+
   InflectionA, InflectionA2 = \adj -> { 
     t  = "a" ;
     s1 = heading1 "Adjektiv" ;
@@ -66,7 +78,7 @@ lin
               td (adj.s ! (AF (APosit (Weak Pl)) c))) ;
     } ;
 
-  InflectionAdv adv = {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t  = "adv" ;
     s1 = heading1 "Adverb" ;
     s2 = paragraph adv.s

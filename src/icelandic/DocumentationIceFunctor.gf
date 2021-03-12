@@ -74,7 +74,7 @@ lin
        } ;
 
 {-
-  InflectionAdv adv = {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t  = "adverb" ;
     s1 = heading1 (heading adverb_Category) ;
     s2 = paragraph adv.s
