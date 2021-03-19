@@ -331,7 +331,7 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
     RNPList = {s1,s2 : Agr => Str} ;
 
   lin
-    ReflRNP vps rnp = insertObj (\\a => vps.c2 ++ rnp.s ! a) vps ;
+    ReflRNP vps rnp = insertObjPre (\\a => vps.c2 ++ rnp.s ! a) vps ;
     ReflPron = {s = reflPron} ;
     ReflPoss num cn = {s = \\a => possPron ! a ++ num.s ! True ! Nom ++ cn.s ! num.n ! Nom} ;
     PredetRNP predet rnp = {s = \\a => predet.s ++ rnp.s ! a} ;
