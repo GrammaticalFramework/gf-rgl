@@ -635,6 +635,9 @@ mkVS = overload {
             ukon ++ ukkoja ++ ukkoa)
       } ;
 
+--- this is a paradigm hidden from the API. It should not be used without caution
+  invarN : Str -> N = \s -> <lin N {s = \\_ => s ; h = Back} : N> ;
+  
   mkN2 = overload {
     mkN2 : N -> N2 = \n -> mmkN2 n (casePrep genitive) ;
     mkN2 : N -> Prep -> N2 = mmkN2
