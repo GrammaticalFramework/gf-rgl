@@ -199,10 +199,9 @@ lin BaseImp = twoTable2 Polarity Number ;
 
   lin
     ReflRNP vps rnp =
-      insertObjPron
-        (andB (notB vps.c2.hasPrep) rnp.isPron)
-        rnp.s
-	(insertObj (\\a => vps.c2.s ++ vps.n3 ! a) vps) ;
+      insertObjPost (\\a => vps.n3 ! a)
+        (insertObjPron (andB rnp.isPron (notB vps.c2.hasPrep)) (\\a => vps.c2.s ++ rnp.s ! a)
+          vps) ;
 
     ReflPron = {s = \\a => reflPron a ; isPron = True} ; ---- agr ??
     ReflPoss num cn = {
