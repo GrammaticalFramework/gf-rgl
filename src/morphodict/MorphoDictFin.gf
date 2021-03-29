@@ -24619,7 +24619,7 @@ lin pienennös_N = mkN {s = d39 "pienennös"} ;
 lin pienentyä_V = mkV {s = c52A "pienentyä"} ;
 lin pienentää_V = mkV {s = c54A "pienentää"} ;
 lin pienetä_V = mkV {s = c72 "pienetä"} ;
-lin pieni_N = mkN {s = d26 "pieni"} ;
+lin pieni_A = mkA (mkN {s = d26 "pieni"}) ;
 lin pieniä_V = mkV {s = c61 "pieniä"} ;
 lin piennar_N = mkN {s = d49A "piennar"} ;
 lin pienoinen_N = mkN {s = d38 "pienoinen"} ;

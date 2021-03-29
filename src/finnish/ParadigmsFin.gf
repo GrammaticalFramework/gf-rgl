@@ -76,14 +76,16 @@ oper
   casePrep    : Case ->        Prep ;  -- just case, e.g. adessive
 
   mkPrep = overload {
-    mkPrep : Case -> Prep
+    mkPrep : Case -> Prep  -- inessive
      = casePrep ;
-    mkPrep : Str -> Prep
+    mkPrep : Str -> Prep   -- kanssa
      = postGenPrep ;
-    mkPrep : Case -> Str -> Prep
+    mkPrep : Case -> Str -> Prep  -- genitive kanssa
      = postPrep ;
-    mkPrep : Str -> Case -> Prep
+    mkPrep : Str -> Case -> Prep  -- ilman partitive
      = \s,c -> prePrep c s ;
+    mkPrep : Str -> Case -> Str -> Prep  -- yhdessä genitive kanssa
+     = \s,c,t -> lin Prep {c = NPCase c ; s = <s,t,\\_ => []>}
     } ;
 
   accusative : Prep
