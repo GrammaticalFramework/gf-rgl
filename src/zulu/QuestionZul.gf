@@ -8,7 +8,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
       s = \\p,t,m => cl.s!p!t!m ;
       potqcl = cl.potcl ;
       qword_pre = [] ;
-      qword_post = "na"
+      qword_post = variants { "na" ; [] } ;
     } ; -- guessing this will work...
 
   --   QuestVP qp vp =
@@ -39,17 +39,17 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
         vform_aux = VFIndic m p aux_tense Null ;
         -- neg1 = icompNeg1 vform ;
         -- neg2 = icompNeg2 vform ;
-        -- aux = case t of {
-        --   Absolute bt => icomp_pref ;
-        --   Relative _ _ => (subjConcLookup!np.agr!ResZul.SCBe) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e" "a") -- relSubjConc aux_tense np.agr --
-        -- } ;
+        aux = case t of {
+          Absolute bt => [] ;
+          Relative _ _ => aux_be vform_aux np.agr -- (subjConcLookup!np.agr!ResZul.SCBe) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e" "a") -- relSubjConc aux_tense np.agr --
+        } ;
 
         pre_icomp = case icomp.postIComp of {
-          False => (icomp_pref vform np.agr) ++ icomp.s ;
+          False => aux ++ (icomp_pref vform np.agr) ++ icomp.s ;
           True => []
         } ;
         post_icomp = case icomp.postIComp of {
-          True => (icomp_pref vform np.agr) ++ icomp.s ;
+          True => aux ++ (icomp_pref vform np.agr) ++ icomp.s ;
           False => []
         }
       in

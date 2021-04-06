@@ -8,5 +8,8 @@ concrete TempZul of TempAbs = CatZul ** open ResZul in {
 
     TPastPresTemp = { s = [] ; t = Relative PastTense PresTense } ;
     TFutPresTemp = { s = [] ; t = Relative FutTense PresTense } ;
+    TPerfPerfTemp = { s = [] ; t = Relative PerfTense PerfTense } ;
+    TFutPerfTemp = { s = [] ; t = Relative FutTense PerfTense } ;
+    TPerfPresTemp = { s = [] ; t = Relative PerfTense PresTense } ;
 
 }

@@ -32,7 +32,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 --       s = \\c => pred.s ++ np.s ! c ;
 --       a = np.a
 --       } ;
---
+
 --     PPartNP np v2 = {
 --       s = \\c => np.s ! c ++ v2.s ! VPPart ;
 --       a = np.a

@@ -13,7 +13,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
       -- s = v2.s ;
       oc = case np.isPron of {
         True => objConc np.agr v2.r v2.syl ;
-        False => np.empty
+        False => np.empty -- ++ np.desc
       } ;
       comp = case v2.voice of {
         Active => np.s ! Full ++ np.desc ;

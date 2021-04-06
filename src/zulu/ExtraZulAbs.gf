@@ -33,7 +33,7 @@ abstract ExtraZulAbs =
 
     QuantCN : QuantStem -> CN -> NP ;
 
-    NumAdjCN : A -> CN -> CN ;
+    NumAdjCN : CN -> A -> CN ;
 
     only_QuantStem : QuantStem ;
     all_QuantStem : QuantStem ;
@@ -51,7 +51,7 @@ abstract ExtraZulAbs =
     -- IAdvQS : NP -> INAdv -> QS ; -- where is the wine? iwayini liphi?
     -- IAdvQCl : NP -> INAdv -> QCl ; -- where is the wine? iwayini liphi?
 
-    AdvQCl : Adv -> QCl -> QCl ;
+    -- AdvQCl : Adv -> QCl -> QCl ;
 
     ComplVAux : VAux -> VP -> VP ;
 
@@ -88,6 +88,9 @@ abstract ExtraZulAbs =
     how_IComp : IComp ; -- -njani
     where_IComp : IComp ; -- -phi
     how_much_IComp : IComp ; -- -ngakanani
+
+    how2_IAdv : IAdv ;
+    how8much2_IAdv : IAdv ;
 
     -- AdvQS     : IAdv -> S  -> QS ;            -- maybe it is a pain that burns 2020-01-15: consider that this should rather be dealt with using QuestIAdv)
 

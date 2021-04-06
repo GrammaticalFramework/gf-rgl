@@ -28,7 +28,7 @@ concrete SymbolZul of Symbol = CatZul ** open Prelude, ResZul in {
 lincat
 
   Symb = { s : Str } ;
-  [Symb] = SS ;
+  -- [Symb] = SS ;
 
 lin
   MkSymb s = s ;

@@ -1,6 +1,5 @@
 PhrUtt 0.999
 ChunkPhr 0.001
-S_Chunk 0.49
-NP_Nom_Chunk 0.25
-AP_Chunk 0.25
-Symb_Chunk 0.01
+N_Sg_Chunk 0.005
+N_Pl_Chunk 0.005
+Symb_Chunk 0.0000001

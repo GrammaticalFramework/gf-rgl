@@ -121,9 +121,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 
     UseComp comp = case comp.comptype of {
       CopDescr => {
-        s = [] ;
-        perfSuff = [] ;
-        suff = [] ;
+        s = \\_ => [] ;
         oc = [] ;
         comp = [] ; -- doesn't matter
         iadv = [] ;
@@ -141,9 +139,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         hasAux = False
       } ;
       CopIdent => {
-        s = [] ;
-        perfSuff = [] ;
-        suff = [] ;
+        s = \\_ => [] ;
         oc = [] ;
         comp = comp.s!AF1 ; -- doesn't matter
         iadv = [] ;
@@ -161,9 +157,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         hasAux = False
       } ;
       AdvComp => {
-        s = [] ;
-        perfSuff = [] ;
-        suff = [] ;
+        s = \\_ => [] ;
         oc = [] ;
         comp = [] ;
         iadv = [] ;
@@ -182,9 +176,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       } ;
       -- the default tries to treat the comp as a NP type
       _ => {
-        s = [] ;
-        perfSuff = [] ;
-        suff = [] ;
+        s = \\_ => [] ;
         oc = [] ;
         comp = comp.s!AF1 ; -- doesn't matter
         iadv = [] ;
@@ -205,8 +197,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 
     AdvVP vp adv = {
       s = vp.s ;
-      perfSuff = vp.perfSuff ;
-      suff = vp.suff ;
       oc = vp.oc ;
       comp = vp.comp ;
       iadv = vp.iadv ;

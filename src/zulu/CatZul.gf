@@ -53,9 +53,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
 -- Verb
 
     VP = {
-      s : Str ;
-      perfSuff : Str ;
-      suff : Str ;
+      s : RForm => Str ;
       oc : Str ;
       comp : Str ;
       iadv : Str ;
@@ -74,9 +72,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
     } ;
 
     VPSlash = {
-      s : Str ;
-      perfSuff : Str ;
-      suff : Str ;
+      s : RForm => Str ;
       oc : Str ;
       comp : Str ;
       hasComp : Bool ;
@@ -150,8 +146,12 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
 --     CAdv = {s : Polarity => Str; p : Str} ;
 
 -- Open lexical classes, e.g. Lexicon
-    V,V2,VA = { s : Str ; r : RInit ; syl : Syl ; voice : Voice ; perfSuff : Str ; suff : Str } ;
-    VS, V3 = { s : Str ; r : RInit ; syl : Syl ; voice : Voice ; perfSuff : Str ; suff : Str } ;
+    V,V2,VA,VS,V3 = {
+      s : RForm => Str ;
+      r : RInit ;
+      syl : Syl ;
+      voice : Voice
+    } ;
     -- VQ = Verb ;
     -- V2Q, V2S = Verb ** {c2 : Str} ;
     -- V2A,V3 = Verb ** {c2, c3 : Str} ;
@@ -161,7 +161,7 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
     A = { s : AForm => Str ; b : Bool ; empty : Str } ;
 --     A2 = {s : AForm => Str ; c2 : Str ; isPre : Bool} ;
 
-    N = { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } ;
+    N, N2, N3, PN = { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } ;
 --     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
 --     N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
 --     PN = {s : Case => Str ; g : Gender} ;

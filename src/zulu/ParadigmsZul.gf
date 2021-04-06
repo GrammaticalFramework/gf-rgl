@@ -85,14 +85,24 @@ oper
 
   mkV = overload {
     mkV : (hamb : Str) -> V  = \hamb -> lin V (regVerb hamb) ;
-    mkV : (fakw : Str) -> Voice -> V = \fakw,voice -> lin V (passiveVerb fakw voice) ;
-    mkV : (th,perfsuff,suff : Str) -> V  = \hamb,perfsuff,suff -> lin V (semiRegVerb hamb perfsuff suff) ;
+    mkV : (th,thi : Str) -> V  = \th,thi -> lin V (th_Verb th thi) ;
+    mkV : (guqubal,guqubala,guqubele : Str) -> V = \guqubal,guqubala,guqubele -> lin V (three_Verb guqubal guqubala guqubele) ;
+    mkV : (guqubal,guqubala,guqubele,guqubele_2 : Str) -> V = \guqubal,guqubala,guqubele,guqubele_2 -> lin V (four_Verb guqubal guqubala guqubele guqubele_2) ;
+  } ;
+
+  passV = overload {
+    passV: Str -> V = \fakw -> lin V (passiveVerb fakw) ;
+  } ;
+
+  passV2 = overload {
+    passV2: Str -> V2 = \fakw -> lin V2 (passiveVerb fakw) ;
   } ;
 
   mkV2 = overload {
-    mkV2 : (phuz : Str) -> V2  = \phuz -> lin V2 (regVerb phuz) ;
-    mkV2 : (phathw : Str) -> Voice -> V2 = \phathw,voice -> lin V2 (passiveVerb phathw voice) ;
-    mkV2 : (th,perfsuff,suff : Str) -> V2  = \hamb,perfsuff,suff -> lin V2 (semiRegVerb hamb perfsuff suff) ;
+    mkV2 : (hamb : Str) -> V2  = \hamb -> lin V2 (regVerb hamb) ;
+    mkV2 : (th,thi : Str) -> V2  = \th,thi -> lin V2 (th_Verb th thi) ;
+    mkV2 : (guqubal,guqubala,guqubele : Str) -> V2 = \guqubal,guqubala,guqubele -> lin V2 (three_Verb guqubal guqubala guqubele) ;
+    mkV2 : (guqubal,guqubala,guqubele,guqubele_2 : Str) -> V2 = \guqubal,guqubala,guqubele,guqubele_2 -> lin V2 (four_Verb guqubal guqubala guqubele guqubele_2) ;
   } ;
 
   mkV3 = overload {
@@ -141,14 +151,11 @@ oper
   } ;
 
   mkIAdv = overload {
-    mkIAdv : Str -> Adv = \adv -> lin IAdv (regAdv adv) ;
+    mkIAdv : Str -> Bool -> IAdv = \adv,b -> lin IAdv { s = "ingabe" ; postIAdv = b } ;
     -- mkAdv : Str -> Aspect -> Adv = \adv,asp -> lin Adv (aspAdv adv asp) ;
   } ;
 
   -- mkPredet = overload {
   --   mkPredet : Str -> Predet = \predet -> lin Predet { s = predet ; p = TPos } ;
   -- } ;
-
-  -- NOTE: removing this, because it creates circularity
-  -- all_Quant : QuantStem = all_QuantStem ;
 } ;

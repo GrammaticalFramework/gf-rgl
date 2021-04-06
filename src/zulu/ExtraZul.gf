@@ -13,9 +13,7 @@ concrete ExtraZul of ExtraZulAbs =
     SubjunctS s = { s = s.subjs } ;
 
     AssocCop np = {
-      s = [] ;
-      perfSuff = [] ;
-      suff = [] ;
+      s = \\_ => [] ;
       oc = [] ;
       comp = case np.isPron of {
         True => np.s!Full ++ np.desc ;
@@ -40,9 +38,7 @@ concrete ExtraZul of ExtraZulAbs =
     } ;
 
     EqCop np = {
-      s = [] ;
-      perfSuff = [] ;
-      suff = [] ;
+      s = \\_ => [] ;
       oc = [] ;
       comp = case np.isPron of {
         True => np.s!Full ++ np.desc ;
@@ -235,14 +231,14 @@ concrete ExtraZul of ExtraZulAbs =
       reqLocS = False
     } ;
 
-    NumAdjCN a cn = {
+    NumAdjCN cn a = {
       s = cn.s ;
       loc = cn.loc ;
       desc = \\num =>
         let
           agr = Third cn.c num ;
         in
-          "na" ++BIND++ a.s!AF2 ++ cn.desc ! num ;
+          cn.desc ! num ++ "na" ++BIND++ a.s!AF2 ;
       c = cn.c ;
       empty = cn.empty ++ a.empty
     } ;
@@ -381,7 +377,10 @@ concrete ExtraZul of ExtraZulAbs =
     where_IComp = { s = "phi" ; postIComp = True } ; -- -phi
     how_much_IComp = { s = "ngakanani" ; postIComp = False } ; -- -ngakanani
 
-    -- AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
+    how2_IAdv = {s = "anjani" ; postIAdv = False } ;
+    how8much2_IAdv = {s = "angakanani" ; postIAdv = False } ;
+
+    AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
 
   oper
     -- qcl_np_iadv : NP -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \np,iadv -> {

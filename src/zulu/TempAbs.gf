@@ -8,4 +8,7 @@ abstract TempAbs = Cat ** {
 
     TPastPresTemp : Temp ;
     TFutPresTemp : Temp ;
+    TPerfPerfTemp : Temp ;
+    TFutPerfTemp : Temp ;
+    TPerfPresTemp : Temp ;
 }

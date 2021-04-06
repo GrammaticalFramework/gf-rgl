@@ -20,14 +20,15 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
 
     AP_Chunk ap = { s = ap_vars ap } ;
   --   AdA_Chunk : AdA -> Chunk ;
-  --   Adv_Chunk : Adv -> Chunk ;
+    Adv_Chunk adv = { s = adv_vars adv.s } ;
   --   AdV_Chunk : AdV -> Chunk ;
   --   AdN_Chunk : AdN -> Chunk ;
     S_Chunk s = { s = variants { s.s!Princ ; s.s!Part ; s.subjs ; s.pots!Princ ; s.pots!Part } } ;
   --   SSlash_Chunk : SSlash -> Chunk ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
   --   CN_Pl_Chunk  : CN -> Chunk ;
-    -- CN_Sg_Chunk cn = { s = variants { cn.s!Sg!Full ; cn.loc!Sg } } ;
+    CN_Sg_Chunk cn = { s = variants { cn.s!Sg!Full ++ cn.desc!Sg ; cn.loc!Sg ++ cn.desc!Sg } } ;
+    CN_Pl_Chunk cn = { s = variants { cn.s!Pl!Full ++ cn.desc!Pl ; cn.loc!Pl ++ cn.desc!Pl } } ;
   --   CN_Pl_Gen_Chunk : CN -> Chunk ;
   --   CN_Sg_Gen_Chunk : CN -> Chunk ;
   --   Conj_Chunk : Conj -> Chunk ;
@@ -47,7 +48,10 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   --   RP_Gen_Chunk : RP -> Chunk ;
   --   RP_Acc_Chunk : RP -> Chunk ;
   --   Subj_Chunk   : Subj -> Chunk ;
+    -- IComp_Chunk icomp = { } ;
   -- --- PConj_Chunk  : PConj -> Chunk ;
+  N_Sg_Chunk n = { s = variants { n.s!Sg!Full ; n.loc!Sg } } ;
+  N_Pl_Chunk n = { s = variants { n.s!Pl!Full ; n.loc!Pl } } ;
   --
   --   VPS_Chunk    : VPS -> Chunk ;
   --   VPI_Chunk    : VPI -> Chunk ;
@@ -94,15 +98,15 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   --   past_perfect_Chunk : Chunk ;
   --   past_perfect_neg_Chunk : Chunk ;
 
-    fullstop_Chunk = sbSS "." ;
-    exclmark_Chunk = sbSS "!" ;
-    questmark_Chunk = sbSS "?" ;
-    comma_Chunk = sbSS "," ;
-    colon_Chunk = sbSS ":" ;
-    semicolon_Chunk = sbSS ";" ;
-    quote_Chunk = variants {sbSS "\"" ; ss ("\"" ++ SOFT_BIND) } ;
-    lpar_Chunk = ss ("(" ++ SOFT_BIND) ;
-    rpar_Chunk = sbSS ")" ;
+    -- fullstop_Chunk = sbSS "." ;
+    -- exclmark_Chunk = sbSS "!" ;
+    -- questmark_Chunk = sbSS "?" ;
+    -- comma_Chunk = sbSS "," ;
+    -- colon_Chunk = sbSS ":" ;
+    -- semicolon_Chunk = sbSS ";" ;
+    -- quote_Chunk = variants {sbSS "\"" ; ss ("\"" ++ SOFT_BIND) } ;
+    -- lpar_Chunk = ss ("(" ++ SOFT_BIND) ;
+    -- rpar_Chunk = sbSS ")" ;
     dash_Chunk = sbSS "-" ;
 
     oper
@@ -118,6 +122,70 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
       --   reqLocS = False
       -- } ;
       sbSS : Str -> SS = \s -> ss (SOFT_BIND ++ s) ;
+
+      adv_vars : Str -> Str = \s -> variants {
+        s ;
+        rel_adv_vars s ;
+        poss_adv_vars s
+      } ;
+
+      rel_adv_vars : Str -> Str = \s -> variants {
+        relConc!(Third C1_2 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C1_2 Pl)!RelC ++BIND++ s ;
+        relConc!(Third C1a_2a Sg)!RelC ++BIND++ s ;
+        relConc!(Third C1a_2a Pl)!RelC ++BIND++ s ;
+        relConc!(Third C3_4 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C3_4 Pl)!RelC ++BIND++ s ;
+        relConc!(Third C5_6 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C5_6 Pl)!RelC ++BIND++ s ;
+        relConc!(Third C7_8 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C7_8 Pl)!RelC ++BIND++ s ;
+        relConc!(Third C9_10 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C9_10 Pl)!RelC ++BIND++ s ;
+        relConc!(Third C11_10 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C11_10 Pl)!RelC ++BIND++ s ;
+        relConc!(Third C9_6 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C9_6 Pl)!RelC ++BIND++ s ;
+        relConc!(Third C14 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C15 Sg)!RelC ++BIND++ s ;
+        relConc!(Third C17 Sg)!RelC ++BIND++ s ;
+        relConc!(First Sg)!RelC ++BIND++ s ;
+        relConc!(First Pl)!RelC ++BIND++ s ;
+        relConc!(Second Sg)!RelC ++BIND++ s ;
+        relConc!(Second Pl)!RelC ++BIND++ s
+      } ;
+
+      poss_adv_vars : Str -> Str = \s -> variants {
+        poss_conc_adv (Third C1_2 Sg) s ;
+        poss_conc_adv (Third C1_2 Pl) s ;
+        poss_conc_adv (Third C1a_2a Sg) s ;
+        poss_conc_adv (Third C1a_2a Pl) s ;
+        poss_conc_adv (Third C3_4 Sg) s ;
+        poss_conc_adv (Third C3_4 Pl) s ;
+        poss_conc_adv (Third C5_6 Sg) s ;
+        poss_conc_adv (Third C5_6 Pl) s ;
+        poss_conc_adv (Third C7_8 Sg) s ;
+        poss_conc_adv (Third C7_8 Pl) s ;
+        poss_conc_adv (Third C9_10 Sg) s ;
+        poss_conc_adv (Third C9_10 Pl) s ;
+        poss_conc_adv (Third C11_10 Sg) s ;
+        poss_conc_adv (Third C9_6 Sg) s ;
+        poss_conc_adv (Third C11_10 Pl) s ;
+        poss_conc_adv (Third C9_6 Pl) s ;
+        poss_conc_adv (Third C14 Sg) s ;
+        poss_conc_adv (Third C15 Sg) s ;
+        poss_conc_adv (Third C17 Sg) s ;
+        poss_conc_adv (First Sg) s ;
+        poss_conc_adv (First Pl) s ;
+        poss_conc_adv (Second Sg) s ;
+        poss_conc_adv (Second Pl) s
+      } ;
+
+      poss_conc_adv : Agr -> Str -> Str = \a,s -> case a of {
+        Third c n => (poss_concord!c!n!RC) ++BIND++ "s" ++BIND++ s ;
+        First n   => (poss_concord!C1_2!n!RC) ++BIND++ "s" ++BIND++ s ;
+        Second n => (poss_concord!C1_2!n!RC) ++BIND++ "s" ++BIND++ s
+      } ;
 
       agr_vars : Agr = variants {
         Third C1_2 Sg ;
