@@ -61,4 +61,6 @@ concrete AdjectiveEst of Adjective = CatEst ** open ResEst, Prelude in {
       infl = a.infl
       } ;
 
+    AdvAP ap adv = {s = \\b,af => ap.s ! b ! af ++ adv.s ; infl = ap.infl} ; -- KA: guessed
+
 }
