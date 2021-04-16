@@ -1,4 +1,4 @@
-abstract DevLexAbs = Cat ** {
+abstract DevLex = Cat ** {
 
    fun
    -- adjective stems

@@ -1,4 +1,4 @@
-abstract NguniLexiconAbs = Cat,ExtraCatZulAbs ** {
+abstract NguniLexicon = Cat,ExtraCatZulAbs ** {
 fun
   --
   coward_N : N ;
