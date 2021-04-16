@@ -1,15 +1,14 @@
 --# -path=.:../abstract:../common:../api:../prelude
 
-concrete NguniLangZul of NguniLangAbs =
-  GrammarZul,
+concrete NguniLangZul of NguniLang =
+  NguniGrammarZul,
   BackwardZul[ComplV2,ComplV3],
   ExtraCatZul,
-  ExtraZul,
-  MonoLexZul,
-  ChunkZul,
-  SymbolZul - [Symb],
-  -- GuesserZul,
-  TempZul
+  ExtraZul
+  -- MonoLexZul,
+  -- ChunkZul,
+  -- SymbolZul - [Symb],
+  -- TempZul
   -- ,ConstructionZul
   -- ,DocumentationZul --# notpresent
   -- ,MarkupZul - [stringMark]

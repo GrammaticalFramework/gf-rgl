@@ -1,4 +1,4 @@
-concrete NguniLexiconZul of NguniLexiconAbs =
+concrete NguniLexiconZul of NguniLexicon =
   CatZul,
   ExtraCatZul **
 

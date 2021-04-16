@@ -1,0 +1,1 @@
+abstract MonoLexLang = NguniLang ** MonoLex ;
