@@ -3,7 +3,7 @@ concrete ConjunctionZul of Conjunction =
 
   flags optimize=all_subs ;
 
-  -- lin
+  lin
 
     -- should deal correctly with futhi, not with na-
     -- ConjS conj ss = {
