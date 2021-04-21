@@ -68,7 +68,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             -- } ;
             relsuf = case vp.hasComp of {
               True => [] ;
-              False => relSuf vform_main 
+              False => relSuf vform_main
             } ;
             rcform = case vform_main of {
               VFIndic Part Pos PastTense _ => RelCA ;

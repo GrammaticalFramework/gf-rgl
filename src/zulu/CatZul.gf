@@ -1,5 +1,5 @@
-concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
-  open ResZul, Prelude,ParamX in {
+concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
+  open ResZul, Prelude, ParamX in {
 
   flags optimize=all_subs ;
 
@@ -117,12 +117,12 @@ concrete CatZul of Cat = CommonX - [Temp,Adv,IAdv] **
       loc : Str ;
       desc : Str ;
       agr : Agr ;
-      isPron : Bool ;
+      proDrop : Bool ;
       reqLocS : Bool
     } ;
 
     -- Pronoun
-    Pron = { s : Str ; agr : Agr ; empty : Str } ;
+    Pron = { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } ;
 --     DAP
     Det = { s : Str ; n : Number } ;
 --     Predet = {s : Str} ;

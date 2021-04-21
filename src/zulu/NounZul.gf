@@ -1,4 +1,4 @@
-concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
+concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 
   flags optimize=all_subs ;
 
@@ -9,7 +9,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
       loc =  det.s ++ cn.loc ! det.n ;
       desc = cn.desc ! det.n ;
       agr = Third cn.c det.n ;
-      isPron = False ;
+      proDrop = False ;
       reqLocS = True -- TODO: change if a Det is ever added that has a non-empty string
     } ;
 
@@ -21,10 +21,10 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
         Full => full_pron pron.s ;
         Reduced => pron.s
       } ;
-      loc = full_pron pron.s ;
+      loc = "ki" ++BIND++ full_pron pron.s ;
       desc = [] ;
       agr = pron.agr ;
-      isPron = True ;
+      proDrop = pron.proDrop ;
       reqLocS = True
     } ;
 
@@ -49,7 +49,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
       loc = np.loc ;
       desc = np.desc ++ adv.s ;
       agr = np.agr ;
-      isPron = np.isPron ;
+      proDrop = np.proDrop ;
       reqLocS = np.reqLocS
     } ;
     -- { s : Str ; reqLocS : Bool } ;
@@ -148,7 +148,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
       loc = cn.loc ! Sg ;
       desc = cn.desc ! Sg ;
       agr = Third cn.c Sg ;
-      isPron = False ;
+      proDrop = False ;
       reqLocS = True
     } ;
 
@@ -217,7 +217,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
 --     ApposCN cn np = {s = \\n,c => cn.s ! n ! Nom ++ np.s ! NCase c ; g = cn.g} ;
 
     -- flashing of the lights / ukukhanya kwezibani
-    PossNP cn np = case np.isPron of {
+    PossNP cn np = case np.proDrop of {
       False => {
         empty = np.empty ;
         s = \\n,cpf => cn.s!n!cpf ;
@@ -226,7 +226,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude,ParamX in {
         c = cn.c
       } ;
       True =>
-        let
+        let -- p149
           stem = case np.agr of {
             First Sg => "mi" ;
             First Pl => "thu" ;

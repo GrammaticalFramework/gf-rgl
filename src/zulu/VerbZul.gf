@@ -92,7 +92,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     -- ComplSlash vp np = {
     --   s = vp.s ;
     --   perfSuff = vp.perfSuff ;
-    --   oc = case np.isPron of {
+    --   oc = case np.proDrop of {
     --     True => objConc np.agr v2.r v2.syl ;
     --     False => np.empty
     --   comp = case v2.voice of {
@@ -273,11 +273,11 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
   --   insert_np : VPSlash -> NP -> VP = \vp,np -> {
   --     s = vp.s ;
   --     perfSuff = vp.perfSuff ;
-  --     oc = case np.isPron of {
+  --     oc = case np.proDrop of {
   --       True => objConc np.agr v2.r v2.syl ;
   --       False => np.empty
   --     } ;
-  --     comp = case np.isPron of {
+  --     comp = case np.proDrop of {
   --       True => vp.comp ;
   --       False => vp.comp ++ np.s ! Full ++ np.desc
   --     } ;

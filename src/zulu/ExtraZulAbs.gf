@@ -1,6 +1,10 @@
 abstract ExtraZulAbs =
-  Grammar[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp], ExtraCatZulAbs ** {
+  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol],
+  ExtraCatZulAbs ** {
 
+  fun
+    ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
+    
   fun
     PotQS : Pol -> QCl -> QS ;
     SubjunctS : S -> Utt ;
@@ -47,7 +51,7 @@ abstract ExtraZulAbs =
     -- TPastPerf : Temp ;
     -- TPerfPerf : Temp ;
 
-    PredNP : NP -> Cl ;
+    -- PredNP : NP -> Cl ;
     -- IAdvQS : NP -> INAdv -> QS ; -- where is the wine? iwayini liphi?
     -- IAdvQCl : NP -> INAdv -> QCl ; -- where is the wine? iwayini liphi?
 

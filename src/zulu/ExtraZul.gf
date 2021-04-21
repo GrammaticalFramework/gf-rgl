@@ -1,7 +1,15 @@
 concrete ExtraZul of ExtraZulAbs =
-  GrammarZul[NP,VP,CN,V,Temp,Pol,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp],
+  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol],
   ExtraCatZul
   ** open ResZul,Prelude,ParamX in {
+
+  lin
+    ProDrop pron = {
+      s = pron.s ;
+      agr = pron.agr ;
+      empty = pron.empty ;
+      proDrop = True
+    } ;
 
   lin
     PotQS pol qcl = {
@@ -15,14 +23,14 @@ concrete ExtraZul of ExtraZulAbs =
     AssocCop np = {
       s = \\_ => [] ;
       oc = [] ;
-      comp = case np.isPron of {
+      comp = case np.proDrop of {
         True => np.s!Full ++ np.desc ;
         False => np.s!Reduced ++ np.desc
       } ;
       iadv = [] ;
       advs = [] ;
       hasComp = True ;
-      r = case np.isPron of {
+      r = case np.proDrop of {
         True => RC ;
         False => nominit!np.agr
       } ;
@@ -40,14 +48,14 @@ concrete ExtraZul of ExtraZulAbs =
     EqCop np = {
       s = \\_ => [] ;
       oc = [] ;
-      comp = case np.isPron of {
+      comp = case np.proDrop of {
         True => np.s!Full ++ np.desc ;
         False => np.s!Reduced ++ np.desc
       } ;
       iadv = [] ;
       advs = [] ;
       hasComp = True ;
-      r = case np.isPron of {
+      r = case np.proDrop of {
         True => RC ;
         False => nominit!np.agr
       } ;
@@ -98,7 +106,7 @@ concrete ExtraZul of ExtraZulAbs =
 
     InstrNPAdv np =
     let
-      pref = case np.isPron of {
+      pref = case np.proDrop of {
         True => "nga" ;
         False => instrument_pref np.agr
         }
@@ -110,7 +118,7 @@ concrete ExtraZul of ExtraZulAbs =
 
     InstrAdvNPAdv adv np =
     let
-      pref = case np.isPron of {
+      pref = case np.proDrop of {
         True => "nga" ;
         False => instrument_pref np.agr
         }
@@ -152,7 +160,7 @@ concrete ExtraZul of ExtraZulAbs =
 
     -- locative ku
     KuNPAdv np = {
-      s = case np.isPron of {
+      s = case np.proDrop of {
         True => "ki" ;
         False => case (nominit!np.agr) of {
           RI  => "ki" ;
@@ -168,7 +176,7 @@ concrete ExtraZul of ExtraZulAbs =
 
     KuAdvNPAdv adv np = {
       s = adv.s ++
-        case np.isPron of {
+        case np.proDrop of {
           True => "ki" ;
           False => case (nominit!np.agr) of {
             RI  => "ki" ;
@@ -227,7 +235,7 @@ concrete ExtraZul of ExtraZulAbs =
       loc = quantConc!cn_agr ++BIND++ quant.s ++ cn.loc ! quant.n ;
       desc = cn.desc ! quant.n ;
       agr = cn_agr ;
-      isPron = False ;
+      proDrop = False ;
       reqLocS = False
     } ;
 
@@ -255,7 +263,7 @@ concrete ExtraZul of ExtraZulAbs =
     PredNP np = cl_with_np_predicate np ;
 
     -- IAdvQS np iadv = {
-    --   s = case np.isPron of {
+    --   s = case np.proDrop of {
     --     True => np.empty ;
     --     False => np.s ! Full ++ np.desc
     --     } ;
@@ -349,18 +357,18 @@ concrete ExtraZul of ExtraZulAbs =
       hasAux = vp.hasAux
     } ;
 
-    it3_Pron = { s = "wo" ; agr = Third C3_4 Sg ; empty = [] } ;
-    they4_Pron = { s = "yo" ; agr = Third C3_4 Pl ; empty = [] } ;
-    it5_Pron = { s = "lo" ; agr = Third C5_6 Sg ; empty = [] } ;
-    they6_Pron = { s = "wo" ; agr = Third C5_6 Pl ; empty = [] } ;
-    it7_Pron = { s = "so" ; agr = Third C7_8 Sg ; empty = [] } ;
-    they8_Pron = { s = "zo" ; agr = Third C7_8 Pl ; empty = [] } ;
-    it9_Pron = { s = "yo" ; agr = Third C9_10 Sg ; empty = [] } ;
-    they10_Pron = { s = "zo" ; agr = Third C9_10 Pl ; empty = [] } ;
-    it11_Pron = { s = "lo" ; agr = Third C11_10 Sg ; empty = [] } ;
-    it14_Pron = { s = "bo" ; agr = Third C14 Sg ; empty = [] } ;
-    it15_Pron = { s = "ko" ; agr = Third C15 Sg ; empty = [] } ;
-    it17_Pron = { s = "ko" ; agr = Third C17 Sg ; empty = [] } ;
+    it3_Pron = mkPron "wo" (Third C3_4 Sg) ;
+    they4_Pron = mkPron "yo" (Third C3_4 Pl) ;
+    it5_Pron = mkPron "lo" (Third C5_6 Sg) ;
+    they6_Pron = mkPron "wo" (Third C5_6 Pl) ;
+    it7_Pron = mkPron "so" (Third C7_8 Sg) ;
+    they8_Pron = mkPron "zo" (Third C7_8 Pl) ;
+    it9_Pron = mkPron "yo" (Third C9_10 Sg) ;
+    they10_Pron = mkPron "zo" (Third C9_10 Pl) ;
+    it11_Pron = mkPron "lo" (Third C11_10 Sg) ;
+    it14_Pron = mkPron "bo" (Third C14 Sg) ;
+    it15_Pron = mkPron "ko" (Third C15 Sg) ;
+    it17_Pron = mkPron "ko" (Third C17 Sg) ;
 
     at_which_IAdv np = { s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ++ np.desc ; postIAdv = False } ;
 
@@ -386,7 +394,7 @@ concrete ExtraZul of ExtraZulAbs =
     -- qcl_np_iadv : NP -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \np,iadv -> {
     --   s = \\p,t,dm =>
     --     let
-    --       subj = case np.isPron of {
+    --       subj = case np.proDrop of {
     --         True => np.empty ;
     --         False => np.s ! Full ++ np.desc
     --       } ;
@@ -411,7 +419,7 @@ concrete ExtraZul of ExtraZulAbs =
     --       iadv.s ;
     --   potqcl = \\p,dm =>
     --     let
-    --       subj = case np.isPron of {
+    --       subj = case np.proDrop of {
     --         True => np.empty ;
     --         False => np.s ! Full ++ np.desc
     --       } ;

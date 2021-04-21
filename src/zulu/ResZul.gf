@@ -47,6 +47,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --NomInit = NA | NI | NO | NU | NC ;
 
   oper
+    mkPron : Str -> Agr -> { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \s,agr -> {
+      s = s ;
+      agr = agr ;
+      empty = [] ;
+      proDrop = False
+    } ;
 
   ---------------------
   -- VERB STRUCTURES --

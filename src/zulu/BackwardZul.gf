@@ -11,7 +11,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
 
     ComplV2 v2 np = v2 ** {
       -- s = v2.s ;
-      oc = case np.isPron of {
+      oc = case np.proDrop of {
         True => objConc np.agr v2.r v2.syl ;
         False => np.empty -- ++ np.desc
       } ;
@@ -36,11 +36,11 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude in {
 
     ComplV3 v3 np1 np2 = v3 ** {
       -- s = v3.s ;
-      oc = case np1.isPron of {
+      oc = case np1.proDrop of {
         True => objConc np1.agr v3.r v3.syl ;
         False => []
       } ;
-      comp = case np1.isPron of {
+      comp = case np1.proDrop of {
         True => case v3.voice of {
           Active => np2.s ! Full ++ np2.desc ;
           Passive => (cop_pref np2.agr) ++BIND++ np2.s ! Full ++ np2.desc
