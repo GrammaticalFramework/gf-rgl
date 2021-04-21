@@ -1,1 +1,3 @@
-concrete DevLexLangZul of DevLexLang = NguniLangZul, DevLexZul ** {} ;
+concrete DevLexLangZul of DevLexLang =
+  NguniLangZul,
+  DevLexZul ** {} ;

@@ -12,9 +12,9 @@ concrete NguniGrammarZul of NguniGrammar =
   -- Conjunction,
   PhraseZul [PhrUtt, UttS, UttQS, UttImpSg, NoPConj, NoVoc],
   TextX - [Temp,Adv,IAdv],
-  StructuralZul [and_Conj, how_IAdv, how8much_IAdv, i_Pron, youSg_Pron],
+  StructuralZul [and_Conj,how_IAdv,how8much_IAdv,i_Pron,youSg_Pron,he_Pron,she_Pron,we_Pron,youPl_Pron],
   -- Idiom,
-  TenseX [PPos,PNeg]
+  TenseX [PPos,PNeg],
   -- Transfer ,
   TempZul [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ** open ResZul, Prelude in {
