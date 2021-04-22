@@ -1,7 +1,7 @@
 --# -path=.:../common:../abstract
 
 concrete ExtendSom of Extend = CatSom
-  ** ExtendFunctor - [GenModNP, FocusObj, ComplDirectVS, ComplDirectVQ]
+  ** ExtendFunctor - [GenModNP, FocusObj, ComplDirectVS, ComplDirectVQ, ExistIPQS]
   with (Grammar=GrammarSom)
   ** open Prelude, ResSom, NounSom in {
 
