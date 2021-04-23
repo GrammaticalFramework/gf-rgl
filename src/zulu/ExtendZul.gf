@@ -29,7 +29,16 @@ concrete ExtendZul of Extend =
     -- MorphoZul,
     ParadigmsZul in {
 
---   lin
+  lin
+
+    ProDrop pron = {
+      s = pron.s ;
+      agr = pron.agr ;
+      empty = pron.empty ;
+      proDrop = True
+    } ;
+
+
 --     GenNP np = {s = \\_,_ => np.s ! npGen ; sp = \\_,_,_,_ => np.s ! npGen ; isDef = True} ;
 --     GenIP ip = {s = \\_ => ip.s ! NCase Gen} ;
 --     GenRP nu cn = {
