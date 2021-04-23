@@ -59,7 +59,7 @@ lin
          s2 = dtable
        } ;
 
-  InflectionAdv adv = {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t  = "adv" ;
     s1 = heading1 (heading preposition_Category) ;
     s2 = paragraph adv.s

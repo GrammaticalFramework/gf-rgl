@@ -70,6 +70,28 @@ in {
       insertObj (\\a => vps.c2.s ++ vps.n3 ! a) (passiveVP vps) ;
     PassAgentVPSlash vps np =
       insertObjPost (\\a => vps.c2.s ++ vps.n3 ! a) (insertObj (\\_ => (PrepNP by8agent_Prep np).s) (passiveVP vps)) ;
+    ProgrVPSlash vp = 
+      insertObj (\\a => "att" ++ infVP vp a) (predV (P.partV I.hålla_V "på")) **
+        { n3 = vp.n3 ;
+          c2 = vp.c2
+        } ;
+
+
+    N2VPSlash n2 =
+      let vp : CatSwe.VP = UseComp (CompCN (UseN2 n2)) ;
+          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
+      in dummyVPS **  -- has necessary fields for VPSlash
+               vp **  -- has all the right fields except for c2
+              {c2 = n2.c2} ; -- has the right c2
+
+
+
+    A2VPSlash a2 =
+      let vp : CatSwe.VP = UseComp (CompAP (UseA2 a2)) ;
+          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
+      in dummyVPS **  -- has necessary fields for VPSlash
+               vp **  -- has all the right fields except for c2
+              {c2 = a2.c2} ; -- has the right c2
 
 
     N2VPSlash n2 =
@@ -193,6 +215,16 @@ in {
         s = \\t,a => vpi2.s ! t ! a ++ vpi2.c2.s ++  np.s ! NPAcc
         } ;
 
+lincat [Comp] = {s1,s2 : Agr => Str} ;
+lin BaseComp x y = twoTable Agr x y ;
+    ConsComp xs x = consrTable Agr comma xs x ;
+    ConjComp conj ss = conjunctDistrTable Agr conj ss ;
+
+lincat ListImp = {s1,s2 : Polarity => Number => Str} ;
+lin BaseImp = twoTable2 Polarity Number ;
+    ConsImp = consrTable2 Polarity Number comma ;
+    ConjImp conj ss = conjunctDistrTable2 Polarity Number conj ss ;
+
 -----------
 
     ICompAP ap = {s = \\a => hur_IAdv.s ++ ap.s ! a} ;
@@ -205,10 +237,9 @@ in {
 
   lin
     ReflRNP vps rnp =
-      insertObjPron
-        (andB (notB vps.c2.hasPrep) rnp.isPron)
-        rnp.s
-	(insertObj (\\a => vps.c2.s ++ vps.n3 ! a) vps) ;
+      insertObjPost (\\a => vps.n3 ! a)
+        (insertObjPron (andB rnp.isPron (notB vps.c2.hasPrep)) (\\a => vps.c2.s ++ rnp.s ! a)
+          vps) ;
 
     ReflPron = {s = \\a => reflPron a ; isPron = True} ; ---- agr ??
     ReflPoss num cn = {
@@ -221,6 +252,30 @@ in {
 ----      a = case pred.a of {PAg n => agrP3 np.a.g n ; _ => np.a} ;
       isPron = False
       } ;
+
+    AdvRNP np prep rnp = {s = \\a => np.s ! NPAcc ++ prep.s ++ rnp.s ! a; isPron = False} ;
+    AdvRVP vp prep rnp = insertObjPost (\\a => prep.s ++ rnp.s ! a) vp ;
+    AdvRAP ap prep rnp = {
+      s = \\a => let agr = case a of {
+                              Strong (GSg g) => agrP3 g Sg ;
+                              Strong GPl => agrP3 Utr Pl ;
+                              Weak n => agrP3 Utr n
+                            }
+                  in ap.s ! a ++ prep.s ++ rnp.s ! agr ;
+      isPre = ap.isPre
+      } ;
+
+    ReflA2RNP a rnp = {
+      s = \\ap => let agr = case ap of {
+                              Strong (GSg g) => agrP3 g Sg ;
+                              Strong GPl => agrP3 Utr Pl ;
+                              Weak n => agrP3 Utr n
+                            }
+                  in a.s ! AF (APosit ap) Nom ++ a.c2.s ++ rnp.s ! agr ;
+      isPre = False
+      } ;
+
+    PossPronRNP pron num cn rnp = DetCN (DetQuant (PossPron pron) num) (PossNP cn (lin NP {s = \\_ => rnp.s ! pron.a; a = pron.a; isPron=False})) ;
 
     ConjRNP conj rpns = conjunctDistrTable Agr conj rpns ** {isPron = False} ;
 

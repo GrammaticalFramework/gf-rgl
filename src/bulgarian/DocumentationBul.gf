@@ -79,6 +79,19 @@ lin
     s3 = ""
     } ;
 
+  InflectionPN = \pn -> {
+    t = "същ.с." ;
+    s1= heading1 ("Съществително Собствено"++
+                  case pn.gn of {
+                    GSg Masc => "(м.р.)" ;
+                    GSg Fem  => "(ж.р.)" ;
+                    GSg Neut => "(ср.р.)" ;
+                    GPl      => "(мн.ч.)"
+                  }) ;
+    s2 = pn.s ;
+    s3 = ""
+    } ;
+
   InflectionA, InflectionA2 = \a -> {
     t = "пр" ;
     s1= heading1 ("Прилагателно") ;
@@ -104,7 +117,7 @@ lin
     s3= ""
     } ;
 
-  InflectionAdv = \adv -> {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t = "нар" ;
     s1= heading1 ("Наречие") ;
     s2= paragraph (adv.s) ;

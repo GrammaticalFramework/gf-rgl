@@ -16,5 +16,8 @@ lin
       s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
     } ;
 
+    ExtAdvS a s = {s = a.s ++ bindComma ++ s.s} ;
+    AdvS a s = {s = a.s ++ s.s} ;
+
 }
 

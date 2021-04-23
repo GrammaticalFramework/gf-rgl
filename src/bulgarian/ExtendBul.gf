@@ -96,6 +96,10 @@ lin
 lin
   PassVPSlash vp = insertObj (\\a => vp.ad.s ++ vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
                                      vp.compl1 ! a ++ vp.compl2 ! a) Pos (predV verbBe) ;
+  ProgrVPSlash vp = vp ** {
+      s   = \\_ => vp.s ! Imperf ;
+      isSimple = False
+      } ;
 
   PassAgentVPSlash vp np =
     insertObj (\\_ => "от" ++ np.s ! RObj CPrep) Pos
@@ -155,6 +159,25 @@ lin
     s = \\a => linCoord []!conj.sep ++ vps.s!a!conj.sep ++ conj.s ++ vps.s!a!4
     } ;
 
+lincat [Comp] = {s : Agr => Ints 4 => Str} ;
+lin BaseComp x y =
+      {s = \\agr=>table {4 => y.s!agr; _ => x.s!agr}} ;
+    ConsComp x xs =
+      {s = \\agr=>table {4 => xs.s!agr!4; t => x.s!agr++linCoord bindComma!t++xs.s!agr!t}} ;
+    ConjComp conj ss = {
+      s = \\agr => linCoord [] ! conj.sep ++ ss.s!agr!conj.sep ++ conj.s ++ ss.s!agr!4 ;
+      p = Pos
+      } ;
+
+lincat ListImp = {s : Polarity => GenNum => Ints 4 => Str} ;
+lin BaseImp x y =
+      {s  = \\p,gn=>table {4 => y.s!p!gn; _ => x.s!p!gn}} ;
+    ConsImp x xs =
+      {s  = \\p,gn=>table {4 => xs.s!p!gn!4; t => x.s!p!gn++linCoord bindComma!t++xs.s!p!gn!t}} ;
+    ConjImp conj ss = {
+      s  = \\p,gn => linCoord [] ! conj.sep ++ ss.s!p!gn!conj.sep ++ conj.s ++ ss.s!p!gn!4
+      } ;
+
 lin
   ComplBareVS = ComplVS ;
   ComplSlashPartLast = ComplSlash ;
@@ -203,6 +226,20 @@ lin
     s  = \\c => pred.s ! rnp.gn ++ rnp.s ! c ;
     gn = rnp.gn
   } ;
+
+  AdvRNP np prep rnp = {s = \\role => np.s ! role ++ prep.s ++ rnp.s ! RObj prep.c; gn = np.gn; p = np.p} ;
+  AdvRVP vp prep rnp = insertObj (\\a => prep.s ++ rnp.s ! RObj prep.c) Pos vp ;
+  AdvRAP ap prep rnp = {
+    s = \\aform,p => ap.s ! aform ! p ++ prep.s ++ rnp.s ! RObj prep.c ;
+    isPre = False
+  } ;
+
+  ReflA2RNP a rnp = {
+    s = \\aform,_ => a.s ! aform ++ a.c2.s ++ rnp.s ! RObj a.c2.c ;
+    isPre = False
+  } ;
+
+  PossPronRNP pron num cn rnp = DetCN (DetQuant (PossPron pron) num) (PossNP cn (lin NP {s = rnp.s; gn = rnp.gn; p=NounP3 Pos})) ;    
 
 lin
   ApposNP np1 np2 = {s = \\role => case role of {

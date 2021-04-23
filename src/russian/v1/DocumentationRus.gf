@@ -357,7 +357,7 @@ intagAttr "tr" "style=\"border-top-color:white;border-left-color:white;border-ri
 
   } ;    
 
-  InflectionAdv = \adv -> {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t = "нар" ;
     s1= heading1 ("Наречие") ;
     s2= paragraph (adv.s) ;

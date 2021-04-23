@@ -75,6 +75,14 @@ abstract Extend = Cat ** {
     ConjVPI2  : Conj -> [VPI2] -> VPI2 ;          -- to love and hate
     ComplVPI2 : VPI2 -> NP -> VPI ;               -- to love and hate that person
 
+-- Conjunction of copula complements
+  cat [Comp]{2} ;
+  fun ConjComp : Conj -> ListComp -> Comp ;
+
+-- Conjunction of imperatives
+  cat [Imp] {2} ;
+  fun ConjImp : Conj -> ListImp -> Imp ;
+
   fun
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
 
@@ -189,6 +197,15 @@ abstract Extend = Cat ** {
     ReflPoss : Num -> CN -> RNP ;      -- my car(s)
 
     PredetRNP : Predet -> RNP -> RNP ; -- all my brothers
+
+    AdvRNP : NP -> Prep -> RNP -> RNP ;   -- a dispute with his wife
+    AdvRVP : VP -> Prep -> RNP -> VP ;    -- lectured about her travels
+    AdvRAP : AP -> Prep -> RNP -> AP ;    -- adamant in his refusal
+
+    ReflA2RNP : A2 -> RNP -> AP ;         -- indifferent to their surroundings
+                                               -- NOTE: generalizes ReflA2
+
+    PossPronRNP : Pron -> Num -> CN -> RNP -> NP ; -- his abandonment of his wife and children
 
     ConjRNP : Conj -> RNPList -> RNP ;  -- my family, John and myself
 

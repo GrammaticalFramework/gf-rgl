@@ -40,6 +40,7 @@ abstract Sentence = Cat ** {
 -- To fix these parameters, see [Phrase Phrase.html].
 
     ImpVP     : VP -> Imp ;              -- love yourselves
+    AdvImp : Adv -> Imp -> Imp ;         -- please love yourselves
 
 --2 Embedded sentences
 

@@ -22,7 +22,7 @@ lin
     s2 = adj.s
     } ;
     
-  InflectionAdv adv = {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t  = "adv" ;
     s1 = heading1 "Adverb" ;
     s2 = paragraph adv.s

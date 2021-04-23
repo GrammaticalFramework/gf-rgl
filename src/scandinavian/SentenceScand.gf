@@ -19,6 +19,10 @@ incomplete concrete SentenceScand of Sentence =
         verb.fin ++ neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ vp.n2 ! agr ++ vp.a2 ++ vp.ext
     } ;
 
+    AdvImp adv imp = {
+      s = \\p,n => adv.s ++ imp.s ! p ! n
+    } ;
+
     SlashVP np vp = 
       mkClause 
         (np.s ! nominative) np.a 

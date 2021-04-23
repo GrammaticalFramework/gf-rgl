@@ -76,14 +76,16 @@ oper
   casePrep    : Case ->        Prep ;  -- just case, e.g. adessive
 
   mkPrep = overload {
-    mkPrep : Case -> Prep
+    mkPrep : Case -> Prep  -- inessive
      = casePrep ;
-    mkPrep : Str -> Prep
+    mkPrep : Str -> Prep   -- kanssa
      = postGenPrep ;
-    mkPrep : Case -> Str -> Prep
+    mkPrep : Case -> Str -> Prep  -- genitive kanssa
      = postPrep ;
-    mkPrep : Str -> Case -> Prep
+    mkPrep : Str -> Case -> Prep  -- ilman partitive
      = \s,c -> prePrep c s ;
+    mkPrep : Str -> Case -> Str -> Prep  -- yhdessä genitive kanssa
+     = \s,c,t -> lin Prep {c = NPCase c ; s = <s,t,\\_ => []>}
     } ;
 
   accusative : Prep
@@ -635,6 +637,9 @@ mkVS = overload {
             ukon ++ ukkoja ++ ukkoa)
       } ;
 
+--- this is a paradigm hidden from the API. It should not be used without caution
+  invarN : Str -> N = \s -> <lin N {s = \\_ => s ; h = Back} : N> ;
+  
   mkN2 = overload {
     mkN2 : N -> N2 = \n -> mmkN2 n (casePrep genitive) ;
     mkN2 : N -> Prep -> N2 = mmkN2
