@@ -181,6 +181,8 @@ concrete ExtendEng of Extend =
             inf = verb.adv ++ vp.ad ! a ++ verb.fin ++ verb.inf ++ vp.p ++ compl} ;
       } ;
 
+    linVPS : Agr -> {s : Order => Agr => {fin,inf : Str}} -> Str = \agr,vps -> let vpss = vps.s ! ODir True ! agr in vpss.fin ++ vpss.inf ;
+
     mkVPI : VP -> VPI = \vp -> lin VPI {
       s = table {
             VVAux      => \\a =>         vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ;
@@ -188,6 +190,10 @@ concrete ExtendEng of Extend =
             VVPresPart => \\a =>         vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a
             }
       } ;
+
+linref
+  VPS = linVPS (agrP3 Sg) ;
+  VPS2 = \vps -> linVPS (agrP3 Sg) vps ++ vps.c2 ;
 
 -- Conjunction of copula complements
 
@@ -440,8 +446,5 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
 
     UncontractedNeg = {s = [] ; p = CNeg False} ;
     UttVPShort vp = {s = infVP VVAux vp False Simul CPos (agrP3 Sg)} ;
-
-
-
 
 }
