@@ -24614,6 +24614,7 @@ fun pienentyä_V : V ;
 fun pienentää_V : V ;
 fun pienetä_V : V ;
 fun pieni_A : A ;
+fun pieni_N : N ;
 fun pieniä_V : V ;
 fun piennar_N : N ;
 fun pienoinen_N : N ;
