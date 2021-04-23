@@ -108,7 +108,7 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = case np.proDrop of {
         True => "nga" ;
-        False => instrument_pref np.agr
+        False => instrPref np.agr
         }
     in {
       s = pref ++ np.s!Reduced ++ np.desc ;
@@ -120,7 +120,7 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = case np.proDrop of {
         True => "nga" ;
-        False => instrument_pref np.agr
+        False => instrPref np.agr
         }
     in {
       s = adv.s ++ pref ++ np.s!Reduced ++ np.desc ;
@@ -191,7 +191,7 @@ concrete ExtraZul of ExtraZulAbs =
     } ;
 
     NaNPAdv np = {
-      s = advPref ! (nominit!np.agr) ++ BIND ++ np.s!Reduced ++ np.desc ;
+      s = withPref ! (nominit!np.agr) ++ BIND ++ np.s!Reduced ++ np.desc ;
       -- asp = Null ;
       reqLocS = False
     } ;

@@ -152,7 +152,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             } ;
             pcp = relConc!a!RelC ++BIND;
             cp = cop_pref vp.comp_agr ;
-            cb = (advPref ! vp.r) ++ BIND ++ vp.comp ;
+            cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
             -- asp = case vp.asp of {
             --   Prog => progPref vform_main ;
             --   _ => []

@@ -549,7 +549,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           } ;
           pcp = pre_cop_pref vform_cop np.agr ;
           cp = cop_pref vp.comp_agr ;
-          cb = (advPref ! vp.r) ++ BIND ++ vp.comp ;
+          cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -570,7 +570,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = cop_pref vp.comp_agr ;
-          cb = (advPref ! vp.r) ++ BIND ++ vp.comp ;
+          cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -590,7 +590,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = cop_pref vp.comp_agr ;
-          cb = (advPref ! vp.r) ++ BIND ++ vp.comp ;
+          cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
