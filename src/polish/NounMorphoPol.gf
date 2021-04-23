@@ -22,6 +22,21 @@ resource NounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
     oper mkN: (SubstForm => Str) -> Gender -> CommNoun;
     oper mkN tab gen = { s = tab; g = gen };
 
+    oper nounPN : (SubstForm => Str) -> GenNum -> NounPhrase;
+    oper nounPN forms gn = 
+      { nom = forms!SF Sg Nom;
+        voc = forms!SF Sg VocP;
+        dep = table {
+                GenPrep|GenNoPrep=>forms!SF Sg Gen;
+                AccPrep|AccNoPrep=>forms!SF Sg Acc;
+                DatPrep|DatNoPrep=>forms!SF Sg Dat;
+                InstrC           =>forms!SF Sg Instr;
+                LocPrep          =>forms!SF Sg Loc
+              };
+        gn = gn ;
+        p  = P3
+      } ;
+
     oper mkNTable0000: Str -> SubstForm => Str; --%
     oper mkNTable0000 lexem = 
       let x = lexem in
