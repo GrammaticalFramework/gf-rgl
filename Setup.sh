@@ -72,6 +72,7 @@ for lang in $langs; do
   for mod in $modules_langs $modules_api; do
     if [ $mod == "Compatibility" ] && [[ "$langs_compat" != *"$lang"* ]]; then continue; fi
     if [ $mod == "Try" ] && [[ "$langs_try" != *"$lang"* ]]; then continue; fi
+    if [ $mod == "Symbol" ] && [[ "$langs_try" != *"$lang"* ]]; then continue; fi
     if [ $mod == "Symbolic" ] && [[ "$langs_symbolic" != *"$lang"* ]]; then continue; fi
     for file in "${src}"/*/"${mod}${lang}".gf; do
       if [ ! -f "$file" ]; then continue; fi
