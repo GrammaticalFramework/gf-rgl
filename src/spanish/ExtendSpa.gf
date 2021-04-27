@@ -96,7 +96,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
     CompVP ant p vp = let
       neg = negation ! p.p
       in {
-        s = \\agr => ant.s ++ p.s ++ "de" ++ neg.p1 ++ infVP vp agr ;
+        s = \\agr => ant.s ++ p.s ++ "de" ++ neg.p1 ++ infVP vp RPos agr ;
         cop = serCopula
       } ;
 
