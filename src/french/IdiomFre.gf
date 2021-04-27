@@ -31,7 +31,7 @@ concrete IdiomFre of Idiom = CatFre **
 
     ProgrVP vp = 
       insertComplement 
-        (\\a => "en" ++ "train" ++ elisDe ++ infVP vp a) 
+        (\\a => "en" ++ "train" ++ elisDe ++ infVP vp RPos a) 
         (predV copula) ;
 
     ImpPl1 vp = {

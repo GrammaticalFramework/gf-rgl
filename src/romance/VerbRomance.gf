@@ -7,7 +7,7 @@ incomplete concrete VerbRomance of Verb =
     UseV = predV ;
 
     ComplVV v vp =
-      insertComplement (\\a => prepCase v.c2.c ++ infVP vp a) (predV v) ;
+      insertComplement (\\a => prepCase v.c2.c ++ infVP vp RPos a) (predV v) ;
     ComplVS v s  = insertExtrapos (\\b => conjThat ++ s.s ! (v.m ! b)) (predV v) ;
     ComplVQ v q  = insertExtrapos (\\_ => q.s ! QIndir) (predV v) ;
     ComplVA v ap =
@@ -21,7 +21,7 @@ incomplete concrete VerbRomance of Verb =
     SlashV2V v vp =
       mkVPSlash v.c2
        (insertComplement
-         (\\a => v.c3.s ++ prepCase v.c3.c ++ infVP vp a)
+         (\\a => v.c3.s ++ prepCase v.c3.c ++ infVP vp RPos a)
          (predV v)) ;
 
     SlashV2S v s =
@@ -63,7 +63,7 @@ incomplete concrete VerbRomance of Verb =
 
     SlashVV v vp =
       mkVPSlash vp.c2
-        (insertComplement (\\a => prepCase v.c2.c ++ infVP vp a) (predV v)) ;
+        (insertComplement (\\a => prepCase v.c2.c ++ infVP vp RPos a) (predV v)) ;
 
     SlashV2VNP v np vps = let obj = np.s ! v.c2.c in {
       s     = v ;
@@ -73,7 +73,7 @@ incomplete concrete VerbRomance of Verb =
       clit3 = {s,imp = [] ; hasClit = False} ; ---- shortcut from insertObject, to check AR 20/11/2013
       isNeg = False ;
       neg   = negation ;
-      comp  = \\a => v.c2.s ++ obj.comp ++ prepCase v.c3.c ++ infVP vps a ;
+      comp  = \\a => v.c2.s ++ obj.comp ++ prepCase v.c3.c ++ infVP vps RPos a ;
       ext   = \\p => [] ;
       c2    = vps.c2
       } ;
@@ -82,7 +82,7 @@ incomplete concrete VerbRomance of Verb =
     SlashV2VNP v np vp =
       mkVPSlash vp.c2
        (insertComplement
-         (\\a => prepCase v.c3.c ++ infVP vp a)
+         (\\a => prepCase v.c3.c ++ infVP vp RPos a)
          (insertObject v.c2 np (predV v))) ;
 -}
 
