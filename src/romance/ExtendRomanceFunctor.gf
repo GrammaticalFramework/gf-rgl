@@ -239,6 +239,26 @@ incomplete concrete ExtendRomanceFunctor of Extend =
            hasClit = False
            } ;
 
+
+    UseDAP, UseDAPMasc = \dap ->
+      let
+        g = Masc ;
+        n = dap.n
+      in heavyNPpol dap.isNeg {
+        s = dap.sp ! g ;
+        a = agrP3 g n ;
+        hasClit = False
+        } ;
+    UseDAPFem dap =
+      let
+        g = Fem ;
+        n = dap.n
+      in heavyNPpol dap.isNeg {
+           s = dap.sp ! g ;
+           a = agrP3 g n ;
+           hasClit = False
+           } ;
+
   lin
     iFem_Pron = i_Pron ; -- DEFAULT I (masc)
     youFem_Pron = youSg_Pron ; -- DEFAULT you (masc)

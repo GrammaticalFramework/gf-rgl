@@ -205,4 +205,7 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
         s= \\n,c=> cn.s!n!c ++ sc.s;
         g= cn.g
     };
+
+    DetDAP d = d ;
+
 }

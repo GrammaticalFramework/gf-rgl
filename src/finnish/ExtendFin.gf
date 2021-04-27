@@ -210,4 +210,20 @@ lin
       vptyp = vp.vptyp ;
       } ;
 
+  UseDAP, UseDAPFem, UseDAPMasc = \dap ->
+      let
+        n : ParadigmsFin.Number = case dap.isNum of {
+          True => Sg ;
+          _ => dap.n
+          } ;
+      in {
+        s = \\c => let k = npform2case n c in
+                 dap.sp ! k ; -- det.s2 is possessive suffix
+        a = agrP3 (case dap.isDef of {
+            False => Sg ;  -- autoja menee; kolme autoa menee
+            _ => dap.n
+            }) ;
+        isPron = False ; isNeg = dap.isNeg
+      } ;
+
 }

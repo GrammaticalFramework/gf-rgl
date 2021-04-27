@@ -277,4 +277,13 @@ abstract Extend = Cat ** {
   UttDatIP : IP -> Utt ; -- whom (dative)
 
 
+-- UseDAP replaces DetNP from the RGL which is more limited.
+-- Instead of (DetNP d) use (UseDAP (DetDAP d)). The advantage
+-- is that now we can also have an adjective inserted, i.e.
+-- (UseDAP (AdjDAP (DetDAP d) a). There are also versions of
+-- UseDAP for different genders.
+fun UseDAP     : DAP -> NP ;
+    UseDAPMasc : DAP -> NP ;
+    UseDAPFem  : DAP -> NP ;
+
 }

@@ -101,4 +101,18 @@ lin
   ICompAP ap = {s = \\agr => "hoe" ++ ap.s ! agr ! APred} ; 
 
   IAdvAdv adv = {s = "hoe" ++ adv.s} ;
+
+lin
+  UseDAP dap = dap ** {
+    s = \\_ => dap.sp ! Neutr ;
+    a = agrP3 dap.n ;
+    isPron = False
+    } ;
+
+  UseDAPMasc, UseDAPFem = \dap -> dap ** {
+    s = \\_ => dap.sp ! Utr ;
+    a = agrP3 dap.n ;
+    isPron = False
+    } ;
+
 }
