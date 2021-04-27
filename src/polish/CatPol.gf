@@ -122,5 +122,10 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
     PN = NounPhrase;
     
     CAdv = {s,p,sn,pn : Str} ;
+
+  linref
+    A = \a -> a.pos.s1 ;
+    A2 = \a -> a.pos.s1 ++ a.c.s ;
+
 };
 
