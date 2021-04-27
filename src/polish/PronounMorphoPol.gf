@@ -19,8 +19,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 --4.2 Personal pronouns and their possessive forms  
 
 -- for "I", "my", "mine"
-  oper pronJa: Pron = pronJaFoo PNoGen;
-  oper pronJaFoo: PronGen -> Pron = \gender ->
+  oper pronJa: GenNum -> Pron = \gn ->
 	 { nom = "ja";
 	   voc = "ja";
 	   dep = table {
@@ -68,15 +67,13 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     AF MascPersPl VocP => "moi"; 
 	     AF (MascPersPl|OthersPl) VocP=> "moje"
 	   };
-	   n = Sg;
-	   p = P1 ;
-	   g = gender
+	   p  = P1 ;
+	   gn = gn
 	 };
        
 
 -- for "you", "yours"
-  oper pronTy: Pron = pronTyFoo PNoGen;
-  oper pronTyFoo: PronGen -> Pron = \gender ->
+  oper pronTy: GenNum -> Pron = \gn ->
 	 { sp = table {
 	     AF (MascPersSg|MascAniSg|MascInaniSg) Nom => "twój";
 	     AF (MascPersSg|MascAniSg|MascInaniSg) Gen => "twojego";
@@ -126,9 +123,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     InstrC => "tobą";
 	     LocPrep => "tobie"
 	     };
-	   n = Sg;
-	   p = P2 ;
-	   g = gender
+	   p  = P2 ;
+	   gn = gn
 	 };
 
 
@@ -147,9 +143,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep => "panu"
 	     };
 	   sp = \\_ => "pana";
-	   n = Sg;
 	   p = P3 ;
-	   g = PGen (Masc Personal)
+	   gn = MascPersSg
 	 };
 
 -- for "you polite" (very idiomatic: pron you = 'madam') female version
@@ -167,9 +162,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep => "pani"
 	     };
 	   sp = \\_ => "pani";
-	   n = Sg;
-	   p = P3 ;
-	   g = PGen (Fem)
+	   p  = P3 ;
+	   gn = FemSg
 	 };
 
 -- for "he", "his" 
@@ -187,9 +181,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep => "nim"
 	     };
 	   sp = \\_ => "jego";
-	   n = Sg;
-	   p = P3 ;
-	   g = PGen (Masc Personal)
+	   p  = P3 ;
+	   gn = MascPersSg
 	 };
 
 
@@ -208,16 +201,12 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep => "niej"
 	     };
 	   sp = \\_ => "jej";
-	   n = Sg;
-	   p = P3 ;
-	   g = PGen Fem;
+	   p  = P3 ;
+	   gn = FemSg
 	 };
-       
-
 
 -- A loose translation of "its" (reflexive)
-  oper pronRefl: Pron = pronReflFoo PNoGen;
-  oper pronReflFoo: PronGen -> Pron = \gender ->
+  oper pronRefl: GenNum -> Pron = \gn ->
 	 { sp = table {
 	     AF (MascPersSg|MascAniSg|MascInaniSg) Nom => "swój";
 	     AF (MascPersSg|MascAniSg|MascInaniSg) Gen => "swojego";
@@ -267,9 +256,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     InstrC => "sobą";
 	     LocPrep => "sobie"
 	     };
-	   n = Sg;
-	   p = P2 ;
-	   g = gender
+	   p  = P2 ;
+	   gn = gn
 	 };
 
 -- for "it", "its"
@@ -277,9 +265,9 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "ono" ;
 	   voc = "ono" ;
 	   dep= table {
-	     GenNoPrep  => "jego"; --"go"};
+	     GenNoPrep  => "jego"; --"go";
 	     GenPrep  => "niego";
-	     DatNoPrep  => "jemu"; --"mu"};
+	     DatNoPrep  => "jemu"; --"mu";
 	     DatPrep  => "niemu";
 	     AccNoPrep  => "je";
 	     AccPrep  => "nie"; 
@@ -287,9 +275,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep  => "nim"
 	     };
 	   sp = \\_ => "jej";
-	   n = Sg;
 	   p = P3 ;
-	   g = PGen Neut
+	   gn = NeutSg
 	 };
 
 
@@ -341,9 +328,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     AF MascPersPl VocP => "nasi"; 
 	     AF (MascPersPl|OthersPl)  VocP   => "nasze"
 	   };
-	   n = Pl;
-	   p = P1 ;
-	   g = PNoGen
+	   p  = P1 ;
+	   gn = MascPersPl
 	 };
       
 
@@ -395,9 +381,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     AF MascPersPl VocP => "wasi"; 
 	     AF (MascPersPl|OthersPl)  VocP => "wasze"
 	     };
-	   n = Pl;
-	   p = P2 ;
-	   g = PNoGen
+	   p  = P2 ;
+	   gn = MascPersPl
 	 };
 
 
@@ -416,9 +401,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep => "nich"
 	     };
 	   sp = \\_ => "ich";
-	   n = Pl;
-	   p = P3 ;
-	   g = PGen (Masc Personal)
+	   p  = P3 ;
+	   gn = MascPersPl
 	 };
 
 
@@ -437,9 +421,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep => "nich"
 	     };
 	   sp = \\_ => "ich";
-	   n = Pl;
-	   p = P3 ;
-	   g = PGen Fem
+	   p  = P3 ;
+	   gn = OthersPl
 	 };
   
   oper pronOneNeut: Pron = 
@@ -456,9 +439,8 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	     LocPrep => "nich"
 	     };
 	   sp = \\_ => "ich";
-	   n = Pl;
-	   p = P3 ;
-	   g = PGen Neut
+	   p  = P3 ;
+	   gn = OthersPl
 	 };
 --4.3 Interrogative pronouns  
 {-

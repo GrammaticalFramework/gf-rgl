@@ -2,5 +2,5 @@
 
 concrete AllPol of AllPolAbs = 
   LangPol,
-  ExtraPol
+  ExtendPol
   ** {} ;

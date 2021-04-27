@@ -54,11 +54,8 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
   
     CN = { s : Number => Case => Str; g : Gender };
 
---   NounPhrase : Type = { s : PronForm => Str; n : Number; g: Gender; p : Person };
     NP = NounPhrase;
 
---  oper Pron = { s : PronForm => Str ; sp: AForm => Str ; n : Number ; p : Person ;
--- 		   g: PronGen } ;
     Pron = ResPol.Pron;
     
     Det = Determiner;
