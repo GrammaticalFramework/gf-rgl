@@ -62,7 +62,7 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     CN      = {s : Number => Str ; g : Gender} ;
     Pron    = Pronoun ;
     NP      = NounPhrase ;
-    Det     = {
+    Det,DAP = {
       s : Gender => Case => Str ;
       n : Number ;
       s2 : Str ;            -- -ci
@@ -75,7 +75,6 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
       sp : Number => Gender => Case => Str ;
       isNeg : Bool -- negative element, e.g. aucun
       } ;
-    DAP = {s : Gender => Case => Str ; n : Number} ;
     Predet  = {
       s : AAgr   => Case => Str ;
       c : Case ; -- c : la plupart de

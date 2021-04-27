@@ -368,4 +368,30 @@ lin BaseImp = twoTable2 Polarity Number ;
     EmbedSSlash ss = {s = "det" ++ ss.s ! Main ++ ss.c2.s ++ ss.n3 ! agrUSgP3} ;
 
     UttAccNP np = {s = np.s ! NPAcc} ;
+
+lin UseDAP dap =
+      let
+        g = neutrum ; ----
+        m = True ;  ---- is this needed for other than Art?
+      in {
+        s = table {
+               NPPoss _ _ => dap.sp ! m ! g ++ BIND ++ "s" ;
+               _          => dap.sp ! m ! g
+            } ;
+        a = agrP3 (ngen2gen g) dap.n ;
+        isPron = False
+      } ;
+
+lin UseDAPMasc, UseDAPFem = \dap ->
+      let
+        g = utrum ; ----
+        m = True ;  ---- is this needed for other than Art?
+      in {
+        s = table {
+               NPPoss _ _ => dap.sp ! m ! g ++ BIND ++ "s" ;
+               _          => dap.sp ! m ! g
+            } ;
+        a = agrP3 (ngen2gen g) dap.n ;
+        isPron = False
+      } ;
 }

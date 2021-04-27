@@ -104,6 +104,25 @@ lin
 
     ConjVPS = conjunctDistrTable2 Order Agr ;
     
+    UseDAP det = {
+      s = \\c => det.sp ! Neutr ! c ;
+      a = agrP3 det.n ;
+      w = case det.isDef of { True => WLight ; _ => WHeavy } ;
+      rc, ext = []
+      } ;
 
+    UseDAPMasc det = {
+      s = \\c => det.sp ! Masc ! c ;
+      a = agrP3 det.n ;
+      w = WLight ;
+      rc, ext = []
+      } ;
+
+    UseDAPFem det = {
+      s = \\c => det.sp ! Fem ! c ;
+      a = agrP3 det.n ;
+      w = WLight ;
+      rc, ext = []
+      } ;
 
 }

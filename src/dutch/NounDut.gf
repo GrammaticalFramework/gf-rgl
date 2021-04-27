@@ -197,4 +197,6 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
       g = cn.g
       } ;
 
+    DetDAP det = det ;
+
 }

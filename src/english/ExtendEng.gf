@@ -447,4 +447,19 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
     UncontractedNeg = {s = [] ; p = CNeg False} ;
     UttVPShort vp = {s = infVP VVAux vp False Simul CPos (agrP3 Sg)} ;
 
+lin UseDAP dap = {
+      s = dap.sp ! Neutr ! False ;
+      a = agrP3 dap.n
+    } ;
+
+lin UseDAPMasc dap = {
+      s = dap.sp ! Masc ! False ;
+      a = agrgP3 dap.n Masc
+    } ;
+
+lin UseDAPFem dap = {
+      s = dap.sp ! Fem ! False ;
+      a = agrgP3 dap.n Fem
+    } ;
+
 }
