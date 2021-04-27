@@ -223,7 +223,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
 
     --TODO: actually use ant
     CompVP ant p vp = {
-        s = \\agr => ant.s ++ p.s ++ "de" ++ neg.p1 ++ infVP vp p.p agr ;
+        s = \\agr => ant.s ++ p.s ++ "de" ++ infVP vp p.p agr ;
         cop = serCopula
       } ;
 

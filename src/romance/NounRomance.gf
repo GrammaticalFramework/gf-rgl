@@ -190,10 +190,10 @@ incomplete concrete NounRomance of Noun =
        a = np.a ** {n = det.n} } ;
 
     AdjDAP det ap = {
-      s = \\g => det.s ! g ++ ap.s ! genNum2Aform g det.n ;
+      s = \\g,c => det.s ! g ! c ++ ap.s ! genNum2Aform g det.n ;
       n = det.n ;
       } ;
 
-    DetDAP det = {s = \\g => det.s ! g ! Nom ; n = det.n } ;
+    DetDAP det = {s = \\g,c => det.s ! g ! c ; n = det.n } ;
 
 }
