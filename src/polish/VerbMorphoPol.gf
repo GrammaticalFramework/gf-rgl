@@ -493,14 +493,14 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
                 }
         };
         
-    infinitive_form : Verb -> Bool -> Polarity ->  Str;
-    infinitive_form verb imienne pol = 
+    infinitive_form : Verb -> Bool -> Polarity -> GenNum -> Str;
+    infinitive_form verb imienne pol gn = 
         case imienne of {
             True =>
                 let byc = case verb.asp of { Perfective   => "zostać"; _ => "być" }; in
                 case pol of {
-                    Pos => byc ++ (mkAtable (table2record verb.pparti))! AF MascPersSg Nom;
-                    Neg => "nie" ++ byc ++ (mkAtable (table2record verb.pparti))! AF MascPersSg Nom
+                    Pos => byc ++ (mkAtable (table2record verb.pparti))! AF gn Nom;
+                    Neg => "nie" ++ byc ++ (mkAtable (table2record verb.pparti))! AF gn Nom
                     };
             False => 
                 let sie = verb.refl; in
@@ -509,8 +509,7 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
                     Neg => "nie" ++ verb.si ! VInfM ++ sie
                 }
         };
-  
-        
+
     badz_op : Number * Person => Str = table {
         <Sg, P1> => ["niech będę"];
         <Sg, P2> => ["bądź"];

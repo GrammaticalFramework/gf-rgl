@@ -88,7 +88,7 @@ lin
 --     EmbedVP   : VP -> SC ;               -- to go
     EmbedVP vp = {
         s = vp.prefix ++
-            (infinitive_form vp.verb vp.imienne Pos) ++ 
+            (infinitive_form vp.verb vp.imienne Pos MascPersSg) ++ 
             vp.sufix !Pos !MascPersSg 
     };
 
