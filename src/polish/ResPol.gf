@@ -180,14 +180,6 @@
 
 ----------------------- Parameter for pronouns -------------------------
 
--- Gender is not morphologically determined for first
--- and second person pronouns in Sg. and Pl.
--- (for Sg: "ja", "ty", Pl: "my", "wy").
--- Therefore some pronouns don't have gender or it is not 
--- possible to decline them. (-> PNoGen)
-
-  param PronGen = PGen Gender | PNoGen ;
-  
 -- The AfterPrep parameter is introduced in order to describe --FIXME
 -- the variations of the third person personal pronoun forms
 -- depending on whether they come after a preposition or not. 
@@ -196,8 +188,7 @@
 
 -- The sp field stands for the possesive variant of the pronoun.
 
-  oper Pron = { nom: Str; voc:Str; dep: ComplCase => Str ; sp: AForm => Str ; n : Number ; p : Person ;
-		   g: PronGen } ;
+  oper Pron = NounPhrase ** { sp: AForm => Str } ;
 
 --6 Complement definition
   
@@ -245,7 +236,7 @@
   NounPhrase : Type = { 
     nom: Str; voc: Str; dep: ComplCase => Str; -- dep = dependent cases
     gn: GenNum; p : Person };
-    
+  
   cast_gennum = table { 
     <Masc Personal,Sg> => MascPersSg; 
     <Masc Animate,Sg> => MascAniSg; 
