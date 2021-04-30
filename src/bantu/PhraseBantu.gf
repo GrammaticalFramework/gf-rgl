@@ -12,11 +12,11 @@ incomplete concrete PhraseBantu of Phrase =
 
     UttIP ip = {s = ip.s ! Nom} ; --- Acc also -}
     UttIAdv iadv = iadv ;
-{-    UttNP np = {s = (np.s ! Nom).ton} ;
-    UttVP vp = {s = infVP vp (agrP3 Fem Sg)} ; --- Agr -}
+    UttNP np = {s = np.s ! npNom} ;
+{-    UttVP vp = {s = infVP vp (agrP3 Fem Sg)} ; --- Agr -}
     UttAdv adv = adv ;
-{-    UttCN n = {s = n.s ! Sg} ;
-    UttAP ap = {s = ap.s ! AF Masc Sg} ;
+    UttCN n = {s = n.s ! Sg ! Nom} ;
+{-    UttAP ap = {s = ap.s ! AF Masc Sg} ;
     UttCard n = {s = n.s ! Masc} ;-}
     UttInterj i = i ;
 
