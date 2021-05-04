@@ -26,6 +26,7 @@ lin
   MkVPS vp = variants {} ;     -- Temp -> Pol -> VP -> VPS ; -- hasn't slept
   ConjVPS = variants {} ;     -- Conj -> [VPS] -> VPS ; -- has walked and won't sleep
   PredVPS = variants {} ;     -- NP -> VPS -> S ; -- has walked and won't sleep
+  RelVPS = variants {} ;      -- RP -> VPS -> RS ; -- which won't sleep
   MkVPI vp = variants {} ;     -- Temp -> Pol -> VP -> VPI ; -- to sleep / hasn't slept
   ConjVPI = variants {} ;     -- Conj -> [VPI] -> VPI ; -- has walked and won't sleep
   ComplVPIVV = variants {} ;     -- VV -> VPI -> VP ; -- want to sleep and to walk

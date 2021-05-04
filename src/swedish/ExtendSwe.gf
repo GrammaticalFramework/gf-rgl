@@ -7,7 +7,7 @@ concrete ExtendSwe of Extend = CatSwe **
     StrandRelSlash, EmptyRelSlash, StrandQuestSlash,
     PassVPSlash, PassAgentVPSlash, UttVPShort, ByVP, InOrderToVP,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
-    MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
+    MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, RelVPS,
     MkVPS2, ConjVPS2, ComplVPS2, ReflVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     ICompAP,ProDrop,EmbedSSlash,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
@@ -130,6 +130,16 @@ in {
             Sub  => subj ++ verb
             }
         } ;
+
+    RelVPS rp vps = {
+      s = \\ag,rcase =>
+        let agr = case rp.a of {  -- RP's agr may override in the regular RelativeScand, is this true with VPS too?
+                    RNoAg => ag ;
+                    RAg g n p => {g = g ; n = n ; p = p}
+                  } ;
+         in rp.s ! ag.g ! ag.n ! rcase ++ vps.s ! Sub ! agr ;
+      c = NPNom
+      } ;
 
     MkVPS t p vp = {
       s = \\o,a =>

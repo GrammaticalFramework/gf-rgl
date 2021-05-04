@@ -5,7 +5,7 @@ concrete ExtendEng of Extend =
   [
     VPS, ListVPS, VPI, ListVPI, VPS2, ListVPS2, VPI2, ListVPI2, RNP, RNPList,
     AdAdV, AdjAsCN, AdjAsNP, ApposNP, AdvIsNP,
-    MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, QuestVPS, SQuestVPS,
+    MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, QuestVPS, SQuestVPS, RelVPS,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
     MkVPS2, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, ReflVPS2,
     MkVPI2, BaseVPI2, ConsVPI2, ConjVPI2, ComplVPI2,
@@ -126,6 +126,11 @@ concrete ExtendEng of Extend =
       } ;
     QuestVPS ip vps = let vp = vps.s ! oDir ! toAgr ip.n P3 Neutr  in {
       s = \\q => ip.s ! npNom ++ vp.fin ++ vp.inf
+      } ;
+    RelVPS rp vps = {
+      s = \\agr => let vp = vps.s ! oDir ! agr in
+           rp.s ! RC (fromAgr agr).g npNom ++ vp.fin ++ vp.inf ;
+      c = npNom ;
       } ;
 
 
