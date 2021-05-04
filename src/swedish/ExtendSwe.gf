@@ -94,22 +94,6 @@ in {
               {c2 = a2.c2} ; -- has the right c2
 
 
-    N2VPSlash n2 =
-      let vp : CatSwe.VP = UseComp (CompCN (UseN2 n2)) ;
-          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
-      in dummyVPS **  -- has necessary fields for VPSlash
-               vp **  -- has all the right fields except for c2
-              {c2 = n2.c2} ; -- has the right c2
-
-
-
-    A2VPSlash a2 =
-      let vp : CatSwe.VP = UseComp (CompAP (UseA2 a2)) ;
-          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
-      in dummyVPS **  -- has necessary fields for VPSlash
-               vp **  -- has all the right fields except for c2
-              {c2 = a2.c2} ; -- has the right c2
-
   lin UttVPShort vp = {s = infVP vp (agrP3 Utr Sg)} ;
 
   lincat
