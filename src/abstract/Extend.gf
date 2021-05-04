@@ -47,6 +47,7 @@ abstract Extend = Cat ** {
     PredVPS    : NP   -> VPS -> S ;          -- she [has walked and won't sleep]
     SQuestVPS  : NP   -> VPS -> QS ;         -- has she walked
     QuestVPS   : IP   -> VPS -> QS ;         -- who has walked
+    RelVPS     : RP   -> VPS -> RS ;         -- which won't sleep
 
 -- existentials that work in the absence of Cl
     ExistS     : Temp -> Pol -> NP -> S ;    -- there was a party
