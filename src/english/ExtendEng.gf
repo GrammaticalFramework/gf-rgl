@@ -177,7 +177,7 @@ concrete ExtendEng of Extend =
         let
           verb = vp.s ! t.t ! t.a ! p.p ! o ! a ; -- choice of Order determines aux or not
           compl = vp.s2 ! a ++ vp.ext
-        in {fin = verb.aux ;
+        in {fin = verb.aux ++ t.s ++ p.s ;
             inf = verb.adv ++ vp.ad ! a ++ verb.fin ++ verb.inf ++ vp.p ++ compl} ;
       } ;
 
