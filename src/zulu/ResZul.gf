@@ -40,12 +40,21 @@ resource ResZul = open Prelude,Predef,ParamX in {
     Syl = SylMono | SylMult ;
     Voice = Active | Passive ;
 
+    QuantDef = Def | Indef ;
+
   oper
     --------------
     -- PRONOUNS --
     --------------
-    mkPron : Str -> Agr -> { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \s,agr -> {
+    mkFullPron : Str -> Agr -> { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \s,agr -> {
       s = s ;
+      agr = agr ;
+      empty = [] ;
+      proDrop = False
+    } ;
+
+    mkPron : Agr -> { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \agr -> {
+      s = pron_stem!agr ;
       agr = agr ;
       empty = [] ;
       proDrop = False

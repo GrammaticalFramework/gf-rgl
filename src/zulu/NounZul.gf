@@ -10,7 +10,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = cn.desc ! det.n ;
       agr = Third cn.c det.n ;
       proDrop = False ;
-      reqLocS = True -- TODO: change if a Det is ever added that has a non-empty string
+      reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
+      qdef = det.qdef
     } ;
 
 --     UsePN pn = {s = \\c => pn.s ! npcase2case c ; a = agrgP3 Sg pn.g} ;
@@ -25,7 +26,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = [] ;
       agr = pron.agr ;
       proDrop = pron.proDrop ;
-      reqLocS = True
+      reqLocS = True ;
+      qdef = Def
     } ;
 
 --     PredetNP pred np = {
@@ -50,7 +52,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = np.desc ++ adv.s ;
       agr = np.agr ;
       proDrop = np.proDrop ;
-      reqLocS = np.reqLocS
+      reqLocS = np.reqLocS ;
+      qdef = np.qdef
     } ;
     -- { s : Str ; reqLocS : Bool } ;
 
@@ -62,7 +65,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 
     DetQuant quant num = {
       s  = quant.s ++ num.s ;
-      n  = num.n
+      n  = num.n ;
+      qdef = quant.qdef
     } ;
 
 --     DetQuantOrd quant num ord = {
@@ -122,18 +126,10 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 --     OrdSuperl a = {s = \\c => a.s ! AAdj Superl c } ;
 --
 --     OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ a.s ! AAdj Superl c } ;
---
---     DefArt = {
---       s  = \\hasCard,n => artDef ;
---       sp = \\g,hasCard,n => case <n,hasCard> of {
---         <Sg,False> => table { NCase Gen => table Gender ["its"; "his"; "her"] ! g; _ => table Gender ["it"; "he"; "she"] ! g } ;
---         <Pl,False> => table { NCase Nom => "they"; NPAcc => "them"; _ => "theirs" } ;
---         _          => \\c => artDef
---         } ;
---       isDef = True
---       } ;
 
-    IndefArt = { s = [] } ;
+    DefArt = { s = [] ; qdef = Def } ;
+
+    IndefArt = { s = [] ; qdef = Indef } ;
 --       sp = \\g,hasCard,n => case <n,hasCard> of {
 --         <Sg,False> => table {NCase Gen => "one's"; _ => "one" };
 --         <Pl,False> => table {NCase Gen => "ones'"; _ => "ones" } ;
@@ -149,7 +145,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = cn.desc ! Sg ;
       agr = Third cn.c Sg ;
       proDrop = False ;
-      reqLocS = True
+      reqLocS = True ;
+      qdef = Indef
     } ;
 
     UseN n = n ** { desc = \\_ => [] } ;

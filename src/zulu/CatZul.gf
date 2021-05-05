@@ -118,19 +118,20 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       desc : Str ;
       agr : Agr ;
       proDrop : Bool ;
-      reqLocS : Bool
+      reqLocS : Bool ;
+      qdef : QuantDef
     } ;
 
     -- Pronoun
     Pron = { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } ;
 --     DAP
-    Det = { s : Str ; n : Number } ;
+    Det = { s : Str ; n : Number ; qdef : QuantDef } ;
 --     Predet = {s : Str} ;
 --     Ord = { s : Case => Str } ;
     Num  = { s: Str ; n : Number } ;
 --     Card = {s,sp : Bool => Case => Str ; n : Number} ;
 --     ACard = {s : Case => Str ; n : Number} ;
-    Quant = { s : Str } ;
+    Quant = { s : Str ; qdef : QuantDef } ;
 
 -- Numeral
 

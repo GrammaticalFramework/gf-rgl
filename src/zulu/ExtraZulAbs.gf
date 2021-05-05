@@ -1,10 +1,10 @@
 abstract ExtraZulAbs =
-  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol],
+  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant],
   ExtraCatZulAbs ** {
 
   fun
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
-    
+
   fun
     PotQS : Pol -> QCl -> QS ;
     SubjunctS : S -> Utt ;

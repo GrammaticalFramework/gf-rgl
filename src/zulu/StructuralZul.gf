@@ -115,16 +115,16 @@ concrete StructuralZul of Structural = CatZul **
   --   except_Prep = mkPrep "except" ;
 
   -- Pron
-    i_Pron  = mkPron "mi" (First Sg) ;
-    we_Pron = mkPron "thi" (First Pl) ;
+    i_Pron  = mkPron (First Sg) ;
+    we_Pron = mkPron (First Pl) ;
 
-    youSg_Pron = mkPron "we" (Second Sg) ;
-    youPl_Pron = mkPron "ni" (Second Pl) ;
+    youSg_Pron = mkPron (Second Sg) ;
+    youPl_Pron = mkPron (Second Pl) ;
 
-    he_Pron = mkPron "ye" (Third C1_2 Sg) ;
-    it_Pron = mkPron "wo" (Third C3_4 Sg) ;
-    she_Pron = mkPron "ye" (Third C1_2 Sg) ;
-    they_Pron = mkPron "bo" (Third C1_2 Pl) ;
+    he_Pron = mkPron (Third C1_2 Sg) ;
+    it_Pron = mkPron (Third C3_4 Sg) ;
+    she_Pron = mkPron (Third C1_2 Sg) ;
+    they_Pron = mkPron (Third C1_2 Pl) ;
 
     --   youPol_Pron = mkPron "you" "you" "your" "yours" singular P2 human ;
 

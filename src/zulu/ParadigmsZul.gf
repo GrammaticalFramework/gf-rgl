@@ -134,7 +134,7 @@ oper
   -- } ;
 
   mkPlDet = overload {
-    mkPlDet : Str -> Det = \s -> lin Det { s = s ; n = Pl } ;
+    mkPlDet : Str -> Det = \s -> lin Det { s = s ; n = Pl ; qdef = Def } ;
   } ;
 
   -- -- mkVS = overload {

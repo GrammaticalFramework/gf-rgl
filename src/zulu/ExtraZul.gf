@@ -1,5 +1,5 @@
 concrete ExtraZul of ExtraZulAbs =
-  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol],
+  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant],
   ExtraCatZul
   ** open ResZul,Prelude,ParamX in {
 
@@ -236,7 +236,8 @@ concrete ExtraZul of ExtraZulAbs =
       desc = cn.desc ! quant.n ;
       agr = cn_agr ;
       proDrop = False ;
-      reqLocS = False
+      reqLocS = False ;
+      qdef = Def
     } ;
 
     NumAdjCN cn a = {
@@ -357,18 +358,18 @@ concrete ExtraZul of ExtraZulAbs =
       hasAux = vp.hasAux
     } ;
 
-    it3_Pron = mkPron "wo" (Third C3_4 Sg) ;
-    they4_Pron = mkPron "yo" (Third C3_4 Pl) ;
-    it5_Pron = mkPron "lo" (Third C5_6 Sg) ;
-    they6_Pron = mkPron "wo" (Third C5_6 Pl) ;
-    it7_Pron = mkPron "so" (Third C7_8 Sg) ;
-    they8_Pron = mkPron "zo" (Third C7_8 Pl) ;
-    it9_Pron = mkPron "yo" (Third C9_10 Sg) ;
-    they10_Pron = mkPron "zo" (Third C9_10 Pl) ;
-    it11_Pron = mkPron "lo" (Third C11_10 Sg) ;
-    it14_Pron = mkPron "bo" (Third C14 Sg) ;
-    it15_Pron = mkPron "ko" (Third C15 Sg) ;
-    it17_Pron = mkPron "ko" (Third C17 Sg) ;
+    it3_Pron = mkPron (Third C3_4 Sg) ;
+    they4_Pron = mkPron (Third C3_4 Pl) ;
+    it5_Pron = mkPron (Third C5_6 Sg) ;
+    they6_Pron = mkPron (Third C5_6 Pl) ;
+    it7_Pron = mkPron (Third C7_8 Sg) ;
+    they8_Pron = mkPron (Third C7_8 Pl) ;
+    it9_Pron = mkPron (Third C9_10 Sg) ;
+    they10_Pron = mkPron (Third C9_10 Pl) ;
+    it11_Pron = mkPron (Third C11_10 Sg) ;
+    it14_Pron = mkPron (Third C14 Sg) ;
+    it15_Pron = mkPron (Third C15 Sg) ;
+    it17_Pron = mkPron (Third C17 Sg) ;
 
     at_which_IAdv np = { s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ++ np.desc ; postIAdv = False } ;
 
