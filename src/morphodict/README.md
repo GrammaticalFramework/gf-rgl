@@ -27,7 +27,7 @@ They should be numbered as
 
 Such distinctions are made in all cases where there are alternative inflections, even if there is no sense distinction:
 - `learn_1_V` ("learn, learned, learned")
-- `learn_1_V` ("learn, learnt, learnt")
+- `learn_2_V` ("learn, learnt, learnt")
 
 Hence,
 - no `variants` should appear in the MorphoDict
@@ -37,6 +37,20 @@ Hence,
 The dictionary will also exclude *multiwords* consisting of several tokens.
 Most of the time, even *compounds* written as single tokens should be excluded.
 However, as the status of a compound is not always clear, and since they do not create spurious morphological analyses, they can be tolerated, in particular if extracted from legacy sources.
+
+Since multiwords and compounds are excluded, `Paradigms` and `MakeStructural` should for each language provide API functions for easy definitions of them, preferably of the form
+```
+ mkC : Str -> C -> C
+```
+The situation when this is not enough is when separate functions are needed for gluing and concatenation compounds.
+
+*Open question*: what to do with compound prepositions that are common in e.g. English?
+The above principles imply
+```
+ according_to_Prep = mkPrep "according" to_Prep
+```
+defined *outside* `MorphoDictEng`, so that `mkPrep` comes from `ParadigmsEng` and `to_Prep` from `MorphoDictEng`.
+This may sound like against tradition, but follows the general guidelines of morphological dictionaries.
 
 
 ## Relevant categories 
@@ -85,6 +99,20 @@ However, if the word contains characters that are not legal in identifiers, the 
 If function names are formed by the API function `PGF.mkCId`, these conventions are automatically followed.
 
 
+## Coding conventions
+
+To enable easy ocular and automatic inspection,
+- write one entry per line, each prefixed by `fun` or `lin` keyword
+- sort the entries alphabetically
+- use paradigms with enough many arguments to make the characteristic forms explicit
+
+To guarantee compatibility with the rest of the RGL and application grammars,
+- paradigms used should be imported from `Paradigms` and `MakeStructural` rather than defined in `MorphoDict` itself
+- import of *low-level modules* such as `Res` should be avoided
+- `MorphoDict` should be self-contained, i.e. not inherit from other modules such as `Structural` or `Irreg`. But it is OK to `open` them in a qualified mode to use when defining linearizations.
+
+
+
 ## Bootstrapping with `MkMorphoDict`
 
 THIS WAS AN EARLY EXPERIMENT, TO BE UPDATED
@@ -107,3 +135,12 @@ Swedish, using a dump of SALDO (not available in these sources)
   runghc MkMorphodict.hs saldo/Saldo.pgf MorphoDictSwe
 ```
   
+## Things to do
+
+To support the construction of a `MorphoDict`, the following should be guaranteed in the RGL:
+- in `Paradigms`, explicit smart paradigms with characteristic forms and inherent features for each category
+- in `Paradigms`, API constants for all inherent features that are needed
+- in `Paradigms`, compound-constructing functions for all categories that need them
+- in `Extra`, the extra categories that one wants to include in that language
+
+
