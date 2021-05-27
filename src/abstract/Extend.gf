@@ -287,4 +287,6 @@ fun UseDAP     : DAP -> NP ;
     UseDAPMasc : DAP -> NP ;
     UseDAPFem  : DAP -> NP ;
 
+cat X ; -- for words that are difficult to classify, mainly for MorphoDict
+
 }

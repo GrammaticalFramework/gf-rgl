@@ -4,6 +4,8 @@ lincat
   RNP = Grammar.NP ;
   RNPList = Grammar.ListNP ;
 
+  X = {s : Str} ; -- for words that are difficult to classify, mainly for MorphoDict
+
 lin
   BaseVPS = variants {} ;
   ConsVPS = variants {} ;
