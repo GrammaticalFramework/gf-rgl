@@ -26,10 +26,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- replacing BasicTense with Tense, just for now
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
     VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
-    VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | VACompl | NoComp | VSCompl | AdvComp ;
+    VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | NoComp | VSCompl | AdvComp ; -- VACompl |
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
+    AType = AdjType | RelType | EnumType ;
 
-    AForm = AF1 | AF2 ; -- two forms for implementing sound changes Poulos+Msimang p143
+    AForm = AF1 | AF2 | AF3 ; -- two forms for implementing sound changes Poulos+Msimang p143, one for monosyllabic
     SCForm = SC | SCVow | SCNeg | SCPS | SCPart | SCVowP | SCBe ;
     OCForm = OC | OCAE | OCIOU | OCMono | OCThing ;
     RCForm = RelC | RelCA ;
@@ -40,9 +41,24 @@ resource ResZul = open Prelude,Predef,ParamX in {
     Syl = SylMono | SylMult ;
     Voice = Active | Passive ;
 
-    QuantDef = Def | Indef ;
+    QuantDef = Article Definiteness | Demonstrative Distance ;
+    Definiteness = Indef | Def ;
+    Distance = Dem1 | Dem2 | Dem3 ;
 
   oper
+
+    prefix_nasal : Str -> Str = \r -> case r of {
+      "ph"+x => "mp" + x ;
+      #nasal_de_asp+"h"+x => "n"+(take 1 r) + x ;
+      "hl"+x => "nhl"+x ;
+      "h"+x => "nk"+x ;
+      "sh"+x => "ntsh"+x ;
+      "l"+x => "nd"+x ;
+      #nasal_m+x => "m"+r ;
+      #nasal_ng+x => "ng"+r ;
+      #nasal+x => r ;
+      _ => "n"+r
+    } ;
     --------------
     -- PRONOUNS --
     --------------
@@ -87,6 +103,126 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Third C15 _ => "kho" ;
       Third C17 _ => "kho"
     } ;
+
+    dem_pron : Distance => Agr => Str = table {
+      Dem1 => table {
+        First Sg => "lo" ;
+        First Pl => "laba" ;
+        Second Sg => "lo" ;
+        Second Pl => "laba" ;
+        Third C1_2 Sg => "lo" ;
+        Third C1_2 Pl => "laba" ;
+        Third C1a_2a Sg => "lo" ;
+        Third C1a_2a Pl => "laba" ;
+        Third C3_4 Sg => "lo" ;
+        Third C3_4 Pl => "le" ;
+        Third C5_6 Sg => "leli" ;
+        Third C5_6 Pl => "la" ;
+        Third C7_8 Sg => "lesi" ;
+        Third C7_8 Pl => "lezi" ;
+        Third C9_10 Sg => "le" ;
+        Third C9_10 Pl => "lezi" ;
+        Third C11_10 Sg => "lolu" ;
+        Third C11_10 Pl => "lezi" ;
+        Third C9_6 Sg => "le" ;
+        Third C9_6 Pl => "la" ;
+        Third C14 _ => "lobu" ;
+        Third C15 _ => "lokhu" ;
+        Third C17 _ => "lapha"
+      } ;
+      Dem2 => table {
+        First Sg => "lowo" ;
+        First Pl => "labo" ;
+        Second Sg => "lowo" ;
+        Second Pl => "labo" ;
+        Third C1_2 Sg => "lowo" ;
+        Third C1_2 Pl => "labo" ;
+        Third C1a_2a Sg => "lowo" ;
+        Third C1a_2a Pl => "labo" ;
+        Third C3_4 Sg => "lowo" ;
+        Third C3_4 Pl => "leyo" ;
+        Third C5_6 Sg => "lelo" ;
+        Third C5_6 Pl => "lawo" ;
+        Third C7_8 Sg => "leso" ;
+        Third C7_8 Pl => "lezo" ;
+        Third C9_10 Sg => "leyo" ;
+        Third C9_10 Pl => "lezo" ;
+        Third C11_10 Sg => "lolo" ;
+        Third C11_10 Pl => "lezo" ;
+        Third C9_6 Sg => "leyo" ;
+        Third C9_6 Pl => "lawo" ;
+        Third C14 _ => "lobo" ;
+        Third C15 _ => "lokho" ;
+        Third C17 _ => "lapho"
+      } ;
+      Dem3 => table {
+        First Sg => "loya" ;
+        First Pl => "labaya" ;
+        Second Sg => "loya" ;
+        Second Pl => "labaya" ;
+        Third C1_2 Sg => "loya" ;
+        Third C1_2 Pl => "labaya" ;
+        Third C1a_2a Sg => "loya" ;
+        Third C1a_2a Pl => "labaya" ;
+        Third C3_4 Sg => "loya" ;
+        Third C3_4 Pl => "leya" ;
+        Third C5_6 Sg => "leliya" ;
+        Third C5_6 Pl => "lawaya" ;
+        Third C7_8 Sg => "lesiya" ;
+        Third C7_8 Pl => "leziya" ;
+        Third C9_10 Sg => "leya" ;
+        Third C9_10 Pl => "leziya" ;
+        Third C11_10 Sg => "loluya" ;
+        Third C11_10 Pl => "leziya" ;
+        Third C9_6 Sg => "leya" ;
+        Third C9_6 Pl => "lawaya" ;
+        Third C14 _ => "lobuya" ;
+        Third C15 _ => "lokhuya" ;
+        Third C17 _ => "laphaya"
+      }
+    } ;
+
+    -- dem_pron : Distance => ClassGender => Number => Str = table {
+    --   Dem1 => table {
+    --     C1_2 => table { Sg => "lo" ; Pl => "laba" } ;
+    --     C1a_2a => table { Sg => "lo" ; Pl => "laba" } ;
+    --     C3_4  => table { Sg => "lo" ; Pl => "le" } ;
+    --     C5_6 => table { Sg => "leli" ; Pl => "la" } ;
+    --     C7_8 => table { Sg => "lesi" ; Pl => "lezi" } ;
+    --     C9_10 => table { Sg => "le" ; Pl => "lezi" } ;
+    --     C11_10 => table { Sg => "lolu" ; Pl => "lezi" } ;
+    --     C9_6 => table { Sg => "le" ; Pl => "la" } ;
+    --     C14 => \\_ => "lobu" ;
+    --     C15 => \\_ => "lokhu" ;
+    --     C17 => \\_ => "lapha"
+    --   } ;
+    --   Dem2 => table {
+    --     C1_2 => table { Sg => "lowo" ; Pl => "labo" } ;
+    --     C1a_2a => table { Sg => "lowo" ; Pl => "labo" } ;
+    --     C3_4  => table { Sg => "lowo" ; Pl => "leyo" } ;
+    --     C5_6 => table { Sg => "lelo" ; Pl => "lawo" } ;
+    --     C7_8 => table { Sg => "leso" ; Pl => "lezo" } ;
+    --     C9_10 => table { Sg => "leyo" ; Pl => "lezo" } ;
+    --     C11_10 => table { Sg => "lolo" ; Pl => "lezo" } ;
+    --     C9_6 => table { Sg => "leyo" ; Pl => "lawo" } ;
+    --     C14 => \\_ => "lobo" ;
+    --     C15 => \\_ => "lokho" ;
+    --     C17 => \\_ => "lapho"
+    --   } ;
+    --   Dem3 => table {
+    --     C1_2 => table { Sg => "loya" ; Pl => "labaya" } ;
+    --     C1a_2a => table { Sg => "loya" ; Pl => "labaya" } ;
+    --     C3_4  => table { Sg => "loya" ; Pl => "leya" } ;
+    --     C5_6 => table { Sg => "leliya" ; Pl => "lawaya" } ;
+    --     C7_8 => table { Sg => "lesiya" ; Pl => "leziya" } ;
+    --     C9_10 => table { Sg => "leya" ; Pl => "leziya" } ;
+    --     C11_10 => table { Sg => "loluya" ; Pl => "leziya" } ;
+    --     C9_6 => table { Sg => "leya" ; Pl => "lawaya" } ;
+    --     C14 => \\_ => "lobuya" ;
+    --     C15 => \\_ => "lokhuya" ;
+    --     C17 => \\_ => "laphaya"
+    --   }
+    -- } ;
 
     -----------
     -- VERBS --
@@ -399,21 +535,21 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --   } ;
 
     -- progressive prefix
-    progPref : VForm -> Str = \vform ->
-      case vform of {
-        VFIndic _ Pos PastTense _ => nonExist ; -- progressive past does not occur
-        -- VFIndic _ Pos PastTense _ => [] ;
-        VFIndic _ Pos _ _ => "sa" ++BIND ;
-        -- VFIndic _ Pos _ _ => [] ;
-        VFIndic _ Neg FutTense _ => "se" ++BIND ;
-        VFIndic _ Neg _ _ => "sa" ++BIND ;
-        VFIndic _ _ _ _ => nonExist ;
-        -- VFIndic _ _ _ _ => [] ;
-        VFPot _ _ _ => "se" ++BIND ;
-        -- VFPot _ _ _ => [] ;
-        VFSubj _ => nonExist
-
-      } ;
+    -- progPref : VForm -> Str = \vform ->
+    --   case vform of {
+    --     VFIndic _ Pos PastTense _ => nonExist ; -- progressive past does not occur
+    --     -- VFIndic _ Pos PastTense _ => [] ;
+    --     VFIndic _ Pos _ _ => "sa" ++BIND ;
+    --     -- VFIndic _ Pos _ _ => [] ;
+    --     VFIndic _ Neg FutTense _ => "se" ++BIND ;
+    --     VFIndic _ Neg _ _ => "sa" ++BIND ;
+    --     VFIndic _ _ _ _ => nonExist ;
+    --     -- VFIndic _ _ _ _ => [] ;
+    --     VFPot _ _ _ => "se" ++BIND ;
+    --     -- VFPot _ _ _ => [] ;
+    --     VFSubj _ => nonExist
+    --
+    --   } ;
 
     -- exclusive se prefix
     exclSePref : VForm -> Str = \vform ->
@@ -525,40 +661,57 @@ resource ResZul = open Prelude,Predef,ParamX in {
     } ;
 
     -- with
-    instrPref : Agr -> Str = \agr ->
-    let
-      i = nominit!agr ;
-    in
-      case i of {
-        (RA | RE | RC) => "nga" ++BIND ;
-        RI => "nge" ++BIND ;
-        (RO | RU) => "ngo" ++BIND
+      instrPref : RInit => Str = table {
+        RU => "ngo" ;
+        RI => "nge" ;
+        RO => "ngo" ;
+        _  => "nga"
       } ;
 
     --------------------
     -- QUALIFICATIVES --
     --------------------
-    regAdj : Str -> { s : AForm => Str ; b : Bool ; empty : Str } = \a ->
+    regAdj : Str -> { s : AForm => Str ; empty : Str ; t : AType } = \a ->
     {
       s = table {
         AF1 => a ;
-        AF2 => case a of {
-          "kh"+x => "nk"+x ;
-          "th"+x => "nt"+x ;
-          "sh"+x => "ntsh"+x ;
-          --"b"+#vowel => a ; -- TODO: check: monosyllabic, like bi?
-          "b"+x => "mb"+x ;
-          "f"+x => "mf"+x ;
-          "hl"+x => "nhl"+x ;
+        AF2 => prefix_nasal a ;
+        AF3 => case a of {
+          #cons+#cons*+#vowel => "u"+a ;
           _ => a
         }
       } ;
-      b = case a of {
-        ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
-        ("m"|"n")+_ => True ;
-        _ => False
-      } ;
-      empty = []
+      -- b = case a of {
+      --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
+      --   ("m"|"n")+_ => True ;
+      --   _ => False
+      -- } ;
+      empty = [] ;
+      t = AdjType
+    } ;
+
+    relAdj : Str -> { s : AForm => Str ; empty : Str ; t : AType } = \a ->
+    {
+      s = \\_ => a ;
+      -- b = case a of {
+      --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
+      --   ("m"|"n")+_ => True ;
+      --   _ => False
+      -- } ;
+      empty = [] ;
+      t = RelType
+    } ;
+
+    enumAdj : Str -> { s : AForm => Str ; empty : Str ; t : AType } = \a ->
+    {
+      s = \\_ => a ;
+      -- b = case a of {
+      --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
+      --   ("m"|"n")+_ => True ;
+      --   _ => False
+      -- } ;
+      empty = [] ;
+      t = EnumType
     } ;
 
     -- relSuf : VForm -> Bool -> Str = \longform ->
@@ -594,6 +747,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- chooses the form of the root to use for N-prefixes
     aformN : Agr -> AForm = \agr ->
       case agr of {
+        Third C1_2 Sg => AF3 ;
+        Third C1a_2a Sg => AF3 ;
+        Third C3_4 Sg => AF3 ;
         Third C7_8 Pl => AF2 ;
         Third C9_10 Sg => AF2 ;
         Third C9_10 Pl => AF2 ;
@@ -602,32 +758,59 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _ => AF1
       } ;
 
-    adjPrefLookup : Agr => AForm => Str =
+    adjPrefLookup : Agr => Str =
       table {
-        Third C1_2 Sg => \\_ => "mu" ;
-        Third C1_2 Pl => \\_ => "ba" ;
-        Third C1a_2a Sg => \\_ => "mu" ;
-        Third C1a_2a Pl => \\_ => "ba" ;
-        Third C3_4 Sg  => \\_ => "mu" ;
-        Third C3_4 Pl => \\_ => "mi" ;
-        Third C5_6 Sg => \\_ => "li" ;
-        Third C5_6 Pl => \\_ => "ma" ;
-        Third C7_8 Sg => \\_ => "si" ;
-        Third C7_8 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
-        Third C9_10 Sg => table { AF1 => "in" ; AF2 => "i" } ;
-        Third C9_10 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
-        Third C11_10 Sg => \\_ => "lu" ;
-        Third C11_10 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
-        Third C9_6 Sg => table { AF1 => "in" ; AF2 => "i" } ;
-        Third C9_6 Pl => \\_ => "ma" ;
-        Third C14 _ => \\_ => "bu" ;
-        Third C15 _ => \\_ => "ku" ;
-        Third C17 _ => \\_ => "ku" ;
-        First Sg => \\_ => "mu" ;
-        First Pl => \\_ => "ba" ;
-        Second Sg => \\_ => "mu" ;
-        Second Pl => \\_ => "om"
+        Third C1_2 Sg => "m" ;
+        Third C1_2 Pl => "ba" ;
+        Third C1a_2a Sg => "m" ;
+        Third C1a_2a Pl => "ba" ;
+        Third C3_4 Sg  => "m" ;
+        Third C3_4 Pl => "mi" ;
+        Third C5_6 Sg => "li" ;
+        Third C5_6 Pl => "ma" ;
+        Third C7_8 Sg => "si" ;
+        Third C7_8 Pl => "zi" ; -- nasal for 8,9,10 assumed to be fixed to root
+        Third C9_10 Sg => "i" ;
+        Third C9_10 Pl => "zi" ;
+        Third C11_10 Sg => "lu" ;
+        Third C11_10 Pl => "zi" ;
+        Third C9_6 Sg => "i" ;
+        Third C9_6 Pl => "ma" ;
+        Third C14 _ => "bu" ;
+        Third C15 _ => "ku" ;
+        Third C17 _ => "ku" ;
+        First Sg => "mu" ;
+        First Pl => "ba" ;
+        Second Sg => "mu" ;
+        Second Pl => "om"
       } ;
+
+    -- adjPrefLookup : Agr => AForm => Str =
+    --   table {
+    --     Third C1_2 Sg => \\_ => "m" ;
+    --     Third C1_2 Pl => \\_ => "ba" ;
+    --     Third C1a_2a Sg => \\_ => "m" ;
+    --     Third C1a_2a Pl => \\_ => "ba" ;
+    --     Third C3_4 Sg  => \\_ => "m" ;
+    --     Third C3_4 Pl => \\_ => "mi" ;
+    --     Third C5_6 Sg => \\_ => "li" ;
+    --     Third C5_6 Pl => \\_ => "ma" ;
+    --     Third C7_8 Sg => \\_ => "si" ;
+    --     Third C7_8 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
+    --     Third C9_10 Sg => table { AF1 => "in" ; AF2 => "i" } ;
+    --     Third C9_10 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
+    --     Third C11_10 Sg => \\_ => "lu" ;
+    --     Third C11_10 Pl => table { AF1 => "zin" ; AF2 => "zi" } ;
+    --     Third C9_6 Sg => table { AF1 => "in" ; AF2 => "i" } ;
+    --     Third C9_6 Pl => \\_ => "ma" ;
+    --     Third C14 _ => \\_ => "bu" ;
+    --     Third C15 _ => \\_ => "ku" ;
+    --     Third C17 _ => \\_ => "ku" ;
+    --     First Sg => \\_ => "mu" ;
+    --     First Pl => \\_ => "ba" ;
+    --     Second Sg => \\_ => "mu" ;
+    --     Second Pl => \\_ => "om"
+    --   } ;
 
     atwhichPhiPref : Agr => Str =
       table {
@@ -690,6 +873,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
       in
       mkNoun noms nomp locs locp cg ;
 
+    initNP : Bool -> Agr -> RInit = \ispron,agr -> case ispron of {
+      True => RC ;
+      False => nominit!agr
+    } ;
+
     nominit : Agr => RInit =
     table {
       Third C1_2 Sg => RU ;
@@ -750,8 +938,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
     vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
     cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"y"|"z") ;
     labial_cons : pattern Str = #("p"|"b"|"f"|"v"|"w") ;
-    bilabial_cons : pattern Str = #("m"|"bh"|"ph"|"b"|"p") ;
     alveolar_cons : pattern Str = #("s"|"d"|"t"|"z") ;
+    nasal_de_asp : pattern Str = #("t"|"k"|"x"|"c"|"q") ;
+    nasal_m : pattern Str = #("v"|"f"|"b") ;
+    nasal_ng : pattern Str = #("x"|"c"|"q") ;
+    nasal : pattern Str = #("n"|"m") ;
 
     nomNoun : Str -> Number -> ClassGender -> Str = \root,n,cg ->
       case <cg,n> of
@@ -781,33 +972,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
         } ; -- is for roots starting with vowel
         <C7_8,Pl> => case root of {
           #vowel+_ => "iz"+root ;
-          _ => "izi"+root
-        } ; -- iz for roots starting with vowel
-        <C9_10,Sg> => case root of {
-          ("m"|"n")+_ => "i"+root ;
-          #labial_cons+_ => "im"+root ;
-          _ => "in"+root
-        } ; -- im for labial, in for alveolar (TODO: does this correctly split options?)
-        <C9_10,Pl> => case root of {
-          ("m"|"n")+_ => "izi"+root ;
-          #labial_cons+_ => "izim"+root ;
-          _ => "izin"+root
-        } ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+          _ => "izi" + root
+        } ;
+        <C9_10,Sg> => "i" + prefix_nasal root ;
+        <C9_10,Pl> => "izi" + prefix_nasal root ;
         <C11_10,Sg> => "u"+root ;
-        <C11_10,Pl> => case root of {
-          "kh"+_ => "izink" + (drop 2 root) ;
-          "ph"+_ => "izimp" + (drop 2 root) ;
-          "th"+_ => "izint" + (drop 2 root) ;
-          "sh"+_ => "izintsh" + (drop 2 root) ;
-          #labial_cons+_ => "izim"+root ;
-          ("m"|"n")+_ => "izi"+root ;
-          _ => "izin"+root
-        } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
-        <C9_6,Sg> => case root of {
-          ("m"|"n")+_ => "i"+root ;
-          #labial_cons+_ => "im"+root ;
-          _ => "in"+root
-        } ; -- im for labial, in for alveolar (TODO: does this correctly split options?)
+        <C11_10,Pl> => "izi" + prefix_nasal root ;
+        <C9_6,Sg> => "i" + prefix_nasal root ;
         <C9_6,Pl> => case root of {
           "i"+_ => "ame"+root ;
           _ => "ama"+root
@@ -833,10 +1004,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <C1a_2a,Pl> => "ko"+root ;
           <C3_4,Sg> => case root of {
             ("m"|"n")+_ => "e"+(addLocSuffix root) ;
-            #labial_cons+_ => "em"+(addLocSuffix root) ;
-            "gw"+_ => "em"+(addLocSuffix root) ;
-            _ => "en"+(addLocSuffix root)
-          } ; -- -- em for labial, en for alveolar (TODO: does this correctly split options?)
+            -- #labial_cons+_ => "em"+(addLocSuffix root) ;
+            -- "gw"+_ => "em"+(addLocSuffix root) ;
+            -- "hl"+_ => "em"+(addLocSuffix root) ;
+            _ => "em"+(addLocSuffix root)
+          } ;
           <C3_4,Pl> => "emi"+(addLocSuffix root) ;
           <C5_6,Sg> => "e"+(addLocSuffix root) ; -- ili long form (not used?)
           <C5_6,Pl> => case root of {
@@ -849,33 +1021,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
           } ; -- is for roots starting with vowel
           <C7_8,Pl> => case root of {
             #vowel+_ => "ez"+(addLocSuffix root) ;
-            _ => "ezi"+(addLocSuffix root)
-          } ; -- iz for roots starting with vowel
-          <C9_10,Sg> => case root of {
-            ("m"|"n")+_ => "e"+(addLocSuffix root) ;
-            #labial_cons+_ => "em"+(addLocSuffix root) ;
-            _ => "en"+(addLocSuffix root)
-          } ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
-          <C9_10,Pl> => case root of {
-            ("m"|"n")+_ => "ezi"+(addLocSuffix root) ;
-            #labial_cons+_ => "ezim"+(addLocSuffix root) ;
-            _ => "ezin"+(addLocSuffix root)
-          } ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+            _ => "ezi"+(addLocSuffix root)  -- iz for roots starting with vowel
+          } ;
+          <C9_10,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+          <C9_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
           <C11_10,Sg> => "o"+(addLocSuffix root) ;
-          <C11_10,Pl> => case root of {
-            "kh"+_ => "ezink" + (drop 2 (addLocSuffix root)) ;
-            "ph"+_ => "ezimp" + (drop 2 (addLocSuffix root)) ;
-            "th"+_ => "ezint" + (drop 2 (addLocSuffix root)) ;
-            "sh"+_ => "ezintsh" + (drop 2 (addLocSuffix root)) ;
-            #labial_cons+_ => "ezim"+(addLocSuffix root) ;
-            ("m"|"n")+_ => "ezi"+(addLocSuffix root) ;
-            _ => "ezin"+(addLocSuffix root)
-          } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
-          <C9_6,Sg> => case root of {
-            ("m"|"n")+_ => "e"+(addLocSuffix root) ;
-            #labial_cons+_ => "em"+(addLocSuffix root) ;
-            _ => "en"+(addLocSuffix root)
-          } ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+          <C11_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+          <C9_6,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
             "i"+_ => "eme"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
@@ -899,7 +1051,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- TODO: SC following vowel
     subjConcLookup : Agr => SCForm => Str =
       table {
-        -- agr                     default        before vowel     after neg pref    sit/part         potential/subjunct
+        -- agr                     default        before vowel     after neg pref    sit/part         potential/subjunct/indirect relative
         First Sg =>         table {SC => "ngi" ;  SCVow => "ng" ;  SCNeg => "ngi" ; SCPart => "ngi" ; SCPS => "ngi" ; SCVowP => "ngi" ; SCBe => "bengi" } ;
         Second Sg =>        table {SC => "u" ;    SCVow => "w" ;   SCNeg => "wu" ;  SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" ;  SCBe => "ubu" } ;
         First Pl =>         table {SC => "si" ;   SCVow => "s" ;   SCNeg => "si" ;  SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" ;  SCBe => "besi" } ;
@@ -1017,28 +1169,28 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- ADJECTIVE ANTECEDENT AGREEMENT MORPHEME --
 
-    adjConcLookup : Agr => AForm => Str =
+    adjConcLookup : Agr => Str =
       table {
-        Third C1_2 Sg => \\_ => "om" ;
-        Third C1_2 Pl => \\_ => "aba" ;
-        Third C1a_2a Sg => \\_ => "omu" ;
-        Third C1a_2a Pl => \\_ => "aba" ;
-        Third C3_4 Sg  => \\_ => "omu" ;
-        Third C3_4 Pl => \\_ => "emi" ;
-        Third C5_6 Sg => \\_ => "eli" ;
-        Third C5_6 Pl => \\_ => "ama" ;
-        Third C7_8 Sg => \\_ => "esi" ;
-        Third C7_8 Pl => table { AF1 => "ezin" ; AF2 => "ezi" } ;
-        Third C9_10 Sg => table { AF1 => "en" ; AF2 => "e" } ;
-        Third C9_10 Pl => table { AF1 => "ezin" ; AF2 => "ezi" } ;
-        Third C11_10 Sg => \\_ => "olu" ;
-        Third C11_10 Pl => table { AF1 => "ezin" ; AF2 => "ezi" } ;
-        Third C9_6 Sg => table { AF1 => "en" ; AF2 => "e" } ;
-        Third C9_6 Pl => \\_ => "ama" ;
-        Third C14 _ => \\_ => "obu" ;
-        Third C15 _ => \\_ => "oku" ;
-        Third C17 _ => \\_ => "oku" ;
-        (First _ | Second _ )  => \\_ => "om"
+        Third C1_2 Sg => "om" ;
+        Third C1_2 Pl => "aba" ;
+        Third C1a_2a Sg => "om" ;
+        Third C1a_2a Pl => "aba" ;
+        Third C3_4 Sg  => "om" ;
+        Third C3_4 Pl => "emi" ;
+        Third C5_6 Sg => "eli" ;
+        Third C5_6 Pl => "ama" ;
+        Third C7_8 Sg => "esi" ;
+        Third C7_8 Pl => "ezi" ;
+        Third C9_10 Sg => "e" ;
+        Third C9_10 Pl => "ezi" ;
+        Third C11_10 Sg => "olu" ;
+        Third C11_10 Pl => "ezi" ;
+        Third C9_6 Sg => "e" ;
+        Third C9_6 Pl => "ama" ;
+        Third C14 _ => "obu" ;
+        Third C15 _ => "oku" ;
+        Third C17 _ => "oku" ;
+        (First _ | Second _ )  => "om"
       } ;
 
     -- RELATIVE ANTECEDENT AGREEMENT MORPHEME --
@@ -1068,6 +1220,32 @@ resource ResZul = open Prelude,Predef,ParamX in {
         First Pl => table { RelC =>  "esi" ; RelCA => "es" } ;
         Second Sg  => table { RelC => "o" ; RelCA => "ow" } ;
         Second Pl => table { RelC => "eni" ; RelCA => "en" }
+    } ;
+
+    -- ENUMERATIVE ANTECEDENT AGREEMENT MORPHEME --
+
+    enumConcLookup : Agr => Str =
+      table {
+        Third C1_2 Sg => "mu" ;
+        Third C1_2 Pl => "ba" ;
+        Third C1a_2a Sg => "mu" ;
+        Third C1a_2a Pl => "ba" ;
+        Third C3_4 Sg  => "mu" ;
+        Third C3_4 Pl => "mi" ;
+        Third C5_6 Sg => "li" ;
+        Third C5_6 Pl => "ma" ;
+        Third C7_8 Sg => "si" ;
+        Third C7_8 Pl => "zi" ;
+        Third C9_10 Sg => "yi" ;
+        Third C9_10 Pl => "zi" ;
+        Third C11_10 Sg => "lu" ;
+        Third C11_10 Pl => "zi" ;
+        Third C9_6 Sg => "yi" ;
+        Third C9_6 Pl => "ma" ;
+        Third C14 _ => "bu" ;
+        Third C15 _ => "ku" ;
+        Third C17 _ => "ku" ;
+        (First _ | Second _ )  => "mu"
       } ;
 
     shortRelConc : Agr => Str =
@@ -1098,6 +1276,33 @@ resource ResZul = open Prelude,Predef,ParamX in {
       } ;
 
     -- POSSESSIVE ANTECEDENT AGREEMENT MORPHEME --
+
+    poss_concord_agr : Agr => RInit => Str =
+      table {
+        First Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
+        First Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
+        Second Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
+        Second Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
+        Third C1_2 Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
+        Third C1_2 Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
+        Third C1a_2a Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
+        Third C1a_2a Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
+        Third C3_4 Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
+        Third C3_4 Pl => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
+        Third C5_6 Sg => table {(RA|RC) => "la" ; (RE|RI) => "le" ; (RO|RU) => "lo" } ;
+        Third C5_6 Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" } ;
+        Third C7_8 Sg => table {(RA|RC) => "sa" ; (RE|RI) => "se" ; (RO|RU) => "so" } ;
+        Third C7_8 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
+        Third C9_10 Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
+        Third C9_10 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
+        Third C11_10 Sg => table {(RA|RC) => "lwa" ; (RE|RI) => "lwe" ; (RO|RU) => "lo" } ;
+        Third C11_10 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
+        Third C9_6 Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
+        Third C9_6 Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" } ;
+        Third C14 _ => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
+        Third C15 _ => table {(RA|RC) => "kwa" ; (RE|RI) => "kwe" ; (RO|RU) => "ko" } ;
+        Third C17 _ => table {(RA|RC) => "kwa" ; (RE|RI) => "kwe" ; (RO|RU) => "ko" }
+      } ;
 
     poss_concord : ClassGender => Number => RInit => Str =
       table {
@@ -1245,10 +1450,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
         VFPot _ Neg _ => sc ; --sc ++ "ngebe" ;
         VFSubj Pos => sc ; --sc ++ "be" ++BIND ;
         VFSubj Neg => sc -- sc ++ "ngabi"
-      } ;
+    } ;
 
       -- REF: Poulos & Msimang p355
-      -- cop_pref has the following forms
+      -- id_cop_pref has the following forms
       -- ngu:
       --     - absolute pronoun of 2nd person sg
       --     - class 1
@@ -1257,28 +1462,61 @@ resource ResZul = open Prelude,Predef,ParamX in {
       -- y:
       --     - i- commencing absolute pronouns and nouns
       --
-      -- yi:
+      -- ngu:
       --     - everything else?
 
-    cop_pref : Agr -> Str = \agr ->
-    let
-      i = nominit!agr ;
-    in
-      case i of {
-        (RA | RO | RU) => case agr of {
-          Third C11_10 Sg => "w" ; -- pp356,358
-          (First _ | Second _ ) => subjConcLookup!agr!SC ++BIND++ "ng" ;
-          Third _ _ => "ng" -- variants { "ng" ; "w" }  -- u is deleted before vowel ; variant see p358
-        } ;
-        RI => case agr of {
-          Second Sg => "u" ;
-          Third C1_2 Sg => "ng" ; -- variants { "ng" ; "w" } ; -- umu/um already has u ; variant see p358
-          (First _ | Second _) => subjConcLookup!agr!SC ++BIND++ "y" ;
-          Third _ _ => "y"
-        } ;
-        _ => case agr of {
-          (First _ | Second _) => subjConcLookup!agr!SC ++BIND++ "yi" ; -- variants { "yi" ; "i" } ;
-          Third _ _ => "yi"
+      id_cop_pref : Agr -> Str = \agr -> case agr of {
+        Third C1_2 Sg => "ng" ;
+        Third C1_2 Pl => "ng" ;
+        Third C1a_2a Sg => "ng" ;
+        Third C1a_2a Pl => "ng" ;
+        Third C3_4 Sg  => "ng" ;
+        Third C3_4 Pl => "y" ;
+        Third C5_6 Sg => "y" ;
+        Third C5_6 Pl => "ng" ;
+        Third C7_8 Sg => "y" ;
+        Third C7_8 Pl => "y" ;
+        Third C9_10 Sg => "y" ;
+        Third C9_10 Pl => "y" ;
+        Third C11_10 Sg => "w" ;
+        Third C11_10 Pl => "y" ;
+        Third C9_6 Sg => "y" ;
+        Third C9_6 Pl => "ng" ;
+        Third C14 _ => "ng" ;
+        Third C15 _ => "ng" ;
+        Third C17 _ => "ng" ;
+        First Sg => "y" ;
+        First Pl => "y" ;
+        Second Sg  => "ng" ;
+        Second Pl => "y"
+      } ;
+
+      assoc_cop_pref : Agr -> Polarity => Str = \agr -> table {
+        Neg => "na" ;
+        Pos => case agr of {
+          Third C1_2 Sg => "no" ;
+          Third C1_2 Pl => "na" ;
+          Third C1a_2a Sg => "no" ;
+          Third C1a_2a Pl => "na" ;
+          Third C3_4 Sg  => "no" ;
+          Third C3_4 Pl => "ne" ;
+          Third C5_6 Sg => "ne" ;
+          Third C5_6 Pl => "na" ;
+          Third C7_8 Sg => "ne" ;
+          Third C7_8 Pl => "ne" ;
+          Third C9_10 Sg => "ne" ;
+          Third C9_10 Pl => "ne" ;
+          Third C11_10 Sg => "no" ;
+          Third C11_10 Pl => "ne" ;
+          Third C9_6 Sg => "ne" ;
+          Third C9_6 Pl => "na" ;
+          Third C14 _ => "no" ;
+          Third C15 _ => "no" ;
+          Third C17 _ => "no" ;
+          First Sg => "na" ;
+          First Pl => "na" ;
+          Second Sg  => "na" ;
+          Second Pl => "na"
         }
       } ;
 

@@ -3,7 +3,7 @@ abstract MonoLex = Cat ** {
    fun
    -- -- MANUAL ADDITIONS --
    -- gcwele_RelStem : RelStem ;
-
+   ningi_5_N : N ;
 
    -- adjective stems
    bana_A : A ;

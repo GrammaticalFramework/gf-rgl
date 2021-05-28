@@ -10,8 +10,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = cn.desc ! det.n ;
       agr = Third cn.c det.n ;
       proDrop = False ;
+      isPron = False ;
       reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
-      qdef = det.qdef
+      qdef = det.qdef ;
     } ;
 
 --     UsePN pn = {s = \\c => pn.s ! npcase2case c ; a = agrgP3 Sg pn.g} ;
@@ -26,8 +27,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = [] ;
       agr = pron.agr ;
       proDrop = pron.proDrop ;
+      isPron = True ;
       reqLocS = True ;
-      qdef = Def
+      qdef = Article Def
     } ;
 
 --     PredetNP pred np = {
@@ -52,6 +54,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = np.desc ++ adv.s ;
       agr = np.agr ;
       proDrop = np.proDrop ;
+      isPron = np.isPron ;
       reqLocS = np.reqLocS ;
       qdef = np.qdef
     } ;
@@ -81,6 +84,11 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 --       s = det.sp ! Neutr ! False ;
 --       a = agrP3 det.n
 --       } ;
+
+    -- PossPron pron = {
+    --   s = pron_stem!pron.agr ;
+    --   qdef = PronounDef
+    -- } ;
 
     --NOTE: this comes, commented out, from the EMRG
     -- PossPron cn pron =
@@ -127,9 +135,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 --
 --     OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ a.s ! AAdj Superl c } ;
 
-    DefArt = { s = [] ; qdef = Def } ;
+    DefArt = { s = [] ; qdef = Article Def } ;
 
-    IndefArt = { s = [] ; qdef = Indef } ;
+    IndefArt = { s = [] ; qdef = Article Indef } ;
 --       sp = \\g,hasCard,n => case <n,hasCard> of {
 --         <Sg,False> => table {NCase Gen => "one's"; _ => "one" };
 --         <Pl,False> => table {NCase Gen => "ones'"; _ => "ones" } ;
@@ -145,8 +153,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = cn.desc ! Sg ;
       agr = Third cn.c Sg ;
       proDrop = False ;
+      isPron = False ;
       reqLocS = True ;
-      qdef = Indef
+      qdef = Article Indef
     } ;
 
     UseN n = n ** { desc = \\_ => [] } ;
@@ -179,13 +188,17 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       desc = \\num =>
         let
           agr = Third cn.c num ;
-          adjf = case ap.b of {
-            True => (aformN agr) ;
-            -- True => AF2 ;
-            False => AF1
+          adjf = case ap.t of {
+            AdjType => aformN agr ;
+            _ => AF1
+          } ;
+          conc = case ap.t of {
+            AdjType => adjConcLookup!agr ;
+            RelType => relConc!agr!RelC ;
+            EnumType => enumConcLookup!agr
           }
         in
-          adjConcLookup!agr!adjf ++BIND++ ap.s!adjf
+          conc ++BIND++ ap.s!adjf
             ++ cn.desc ! num ;
       c = cn.c
     } ;
@@ -198,6 +211,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       -- desc = cn.desc ;
       c = cn.c
     } ;
+
     AdvCN cn adv = {
       empty = cn.empty ;
       s = cn.s ;
@@ -219,7 +233,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
         empty = np.empty ;
         s = \\n,cpf => cn.s!n!cpf ;
         loc = \\n => cn.loc!n ;
-        desc = \\n => cn.desc!n ++ poss_concord!cn.c!n!(nominit!np.agr) ++BIND++ np.s!Reduced ++ np.desc ;
+        desc = \\n => cn.desc!n ++ poss_concord!cn.c!n!(initNP np.isPron np.agr) ++BIND++ np.s!Reduced ++ np.desc ;
         c = cn.c
       } ;
       True =>

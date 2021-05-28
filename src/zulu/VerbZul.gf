@@ -5,7 +5,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
   lin
     UseV v = v ** {
       oc = [] ;
-      comp = [] ;
+      comp = \\_ => [] ;
       iadv = [] ;
       advs = [] ;
       hasComp = False ;
@@ -14,7 +14,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       vptype = NoComp ;
       comp_agr = First Sg ; -- this could be anything...
       ap_comp = \\_ => [] ;
-      ap_bool = False ;
       aux_root = [] ;
       hasAux = False
     } ;
@@ -24,7 +23,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     ComplVS vs s = vs ** {
       -- s = vs.s ;
       oc = [] ;
-      comp = s.subjs ;
+      comp = \\_ => s.subjs ;
       iadv = [] ;
       advs = [] ;
       hasComp = True ;
@@ -35,7 +34,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       vptype = VSCompl ;
       comp_agr = First Sg ; -- this could be anything...
       ap_comp = \\_ => [] ;
-      ap_bool = False ;
       aux_root = [] ;
       hasAux = False
     } ;
@@ -43,29 +41,29 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 -- ---    ComplVS v s  = insertObj (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predV v) ;
 --     ComplVQ v q  = insertExtra (q.s ! QIndir) (predV v) ;
 
-    ComplVA va ap = va ** {
-      -- s = va.s ;
-      oc = [] ;
-      comp = [] ;
-      iadv = [] ;
-      advs = [] ;
-      hasComp = True ;
-      -- r = va.r ;
-      -- syl = va.syl ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      vptype = VACompl ;
-      comp_agr = First Sg ; -- this could be anything...
-      ap_comp = ap.s ;
-      ap_bool = ap.b ;
-      aux_root = [] ;
-      hasAux = False
-    } ;
+    -- ComplVA va ap = va ** {
+    --   -- s = va.s ;
+    --   oc = [] ;
+    --   comp = \\_ => [] ;
+    --   iadv = [] ;
+    --   advs = [] ;
+    --   hasComp = True ;
+    --   -- r = va.r ;
+    --   -- syl = va.syl ;
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   vptype = VACompl ;
+    --   comp_agr = First Sg ; -- this could be anything...
+    --   ap_comp = ap.s ;
+    --   ap_bool = ap.b ;
+    --   aux_root = [] ;
+    --   hasAux = False
+    -- } ;
 
 
     SlashV2a v = v ** {
       oc = [] ;
-      comp = [] ;
+      comp = \\_ => [] ;
       iadv = [] ;
       advs = [] ;
       hasComp = False ;
@@ -74,7 +72,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       vptype = VNPCompl ;
       comp_agr = First Sg ; -- this could be anything...
       ap_comp = \\_ => [] ;
-      ap_bool = False ;
       aux_root = [] ;
       hasAux = False ;
       missing_np1 = True
@@ -123,7 +120,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       CopDescr => {
         s = \\_ => [] ;
         oc = [] ;
-        comp = [] ; -- doesn't matter
+        comp = \\_ => [] ; -- doesn't matter
         iadv = [] ;
         advs = [] ;
         hasComp = True ;
@@ -134,14 +131,13 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         vptype = comp.comptype ;
         comp_agr = comp.agr ; -- this could be anything...
         ap_comp = comp.s ;
-        ap_bool = comp.ap_bool ;
         aux_root = [] ;
         hasAux = False
       } ;
       CopIdent => {
         s = \\_ => [] ;
         oc = [] ;
-        comp = comp.s!AF1 ; -- doesn't matter
+        comp = \\_ => comp.s!AF1 ; -- doesn't matter
         iadv = [] ;
         advs = [] ;
         hasComp = True ;
@@ -152,14 +148,13 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         vptype = comp.comptype ;
         comp_agr = comp.agr ;
         ap_comp = \\_ => [] ;
-        ap_bool = False ;
         aux_root = [] ;
         hasAux = False
       } ;
       AdvComp => {
         s = \\_ => [] ;
         oc = [] ;
-        comp = [] ;
+        comp = \\_ => [] ;
         iadv = [] ;
         advs = comp.s!AF1 ;
         hasComp = True ;
@@ -170,7 +165,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         vptype = comp.comptype ;
         comp_agr = comp.agr ;
         ap_comp = \\_ => [] ;
-        ap_bool = False ;
         aux_root = [] ;
         hasAux = False
       } ;
@@ -178,7 +172,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       _ => {
         s = \\_ => [] ;
         oc = [] ;
-        comp = comp.s!AF1 ; -- doesn't matter
+        comp = \\_ => comp.s!AF1 ; -- doesn't matter
         iadv = [] ;
         advs = [] ;
         hasComp = True ;
@@ -189,7 +183,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         vptype = comp.comptype ;
         comp_agr = comp.agr ;
         ap_comp = \\_ => [] ;
-        ap_bool = False ;
         aux_root = [] ;
         hasAux = False
       }
@@ -209,7 +202,6 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       vptype = vp.vptype ;
       comp_agr = vp.comp_agr ;
       ap_comp = vp.ap_comp ;
-      ap_bool = vp.ap_bool ;
       aux_root = vp.aux_root ;
       hasAux = vp.hasAux
     } ;
@@ -232,18 +224,16 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       agr = First Sg ; -- this could be anything...
       asp = Null ;
       asp_pref = \\_ => [] ;
-      comptype = CopDescr ;
-      ap_bool = ap.b ;
+      comptype = CopDescr
     } ;
 
     CompNP np = {
       s = \\_ => np.s ! Full ++ np.desc ;
-      r = nominit!np.agr ;
+      r = initNP np.isPron np.agr ;
       agr = np.agr ;
       asp = Null ;
       asp_pref = \\_ => [] ;
-      comptype = CopIdent ;
-      ap_bool = False
+      comptype = CopIdent
     } ;
 
     CompAdv adv = {
@@ -255,8 +245,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       agr = First Sg ; -- this could be anything...
       asp = Null ;
       asp_pref = \\_ => [] ; -- TODO: check
-      comptype = AdvComp ;
-      ap_bool = False ;
+      comptype = AdvComp
     } ;
 
     -- CompCN cn = {s = \\a => case (fromAgr a).n of {

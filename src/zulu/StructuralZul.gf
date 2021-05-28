@@ -129,8 +129,8 @@ concrete StructuralZul of Structural = CatZul **
     --   youPol_Pron = mkPron "you" "you" "your" "yours" singular P2 human ;
 
   -- Quant
-  --   that_Quant = mkQuant "that" "those" ;
-  --   this_Quant = mkQuant "this" "these" ;
+    that_Quant = { s = [] ; qdef = Demonstrative Dem2 } ;
+    this_Quant = { s = [] ; qdef = Demonstrative Dem1 } ;
   --   no_Quant = mkQuant "no" "no" "none" "none" ;
 
   -- Subj

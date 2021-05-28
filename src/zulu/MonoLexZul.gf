@@ -1,8 +1,9 @@
-concrete MonoLexZul of MonoLexAbs = CatZul ** open ResZul,ParadigmsZul in {
+concrete MonoLexZul of MonoLex = CatZul ** open ResZul,ParadigmsZul in {
 
    lin
    -- MANUAL ADDITIONS --
    gcwele_RelStem = { s = "gcwele" } ;
+   ningi_5_N = mkN "ningi" C5_6 ;
 
    -- AUTOMATED ADDITIONS --
 
@@ -3287,7 +3288,7 @@ concrete MonoLexZul of MonoLexAbs = CatZul ** open ResZul,ParadigmsZul in {
    sizo_11_N = mkN "sizo" C11_10 ;
    so_14_N = mkN "so" C14 ;
    so_3_N = mkN "so" C3_4 ;
-   so_5_6_N = mkN "so" C5_6 ;
+   so_5_6_N = mkN "iso" "amehlo" "esweni" "emehlweni" C5_6 ;
    sobho_5_6_N = mkN "sobho" C5_6 ;
    sobo_3_4_N = mkN "sobo" C3_4 ;
    soco_3_4_N = mkN "soco" C3_4 ;

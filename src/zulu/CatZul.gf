@@ -55,7 +55,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     VP = {
       s : RForm => Str ;
       oc : Str ;
-      comp : Str ;
+      comp : Polarity => Str ;
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ;
@@ -66,7 +66,6 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       vptype : VPType ;
       comp_agr : Agr ;
       ap_comp : AForm => Str ;
-      ap_bool : Bool ;
       aux_root : Str ;
       hasAux : Bool
     } ;
@@ -74,7 +73,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     VPSlash = {
       s : RForm => Str ;
       oc : Str ;
-      comp : Str ;
+      comp : Polarity => Str ;
       hasComp : Bool ;
       r : RInit ;
       syl : Syl ;
@@ -83,7 +82,6 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       vptype : VPType ;
       comp_agr : Agr ;
       ap_comp : AForm => Str ;
-      ap_bool : Bool ;
       aux_root : Str ;
       hasAux : Bool
     } ;
@@ -94,13 +92,12 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       agr : Agr ;
       asp : Aspect ;
       asp_pref : VForm => Str ;
-      comptype : VPType ;
-      ap_bool : Bool ;
+      comptype : VPType
     } ;
 
 -- Adjective
 
-    AP = { s : AForm => Str ; b : Bool ; empty : Str } ;
+    AP = { s : AForm => Str ; empty : Str ; t : AType } ;
 
 -- Noun
 
@@ -118,6 +115,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       desc : Str ;
       agr : Agr ;
       proDrop : Bool ;
+      isPron : Bool ;
       reqLocS : Bool ;
       qdef : QuantDef
     } ;
@@ -159,7 +157,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     -- V = {s : VVForm => Str ; p : Str ; typ : VVType} ;
     -- V2V = Verb ** {c2,c3 : Str ; typ : VVType} ;
 
-    A = { s : AForm => Str ; b : Bool ; empty : Str } ;
+    A = { s : AForm => Str ; empty : Str ; t : AType } ;
 --     A2 = {s : AForm => Str ; c2 : Str ; isPre : Bool} ;
 
     N, N2, N3, PN = { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } ;

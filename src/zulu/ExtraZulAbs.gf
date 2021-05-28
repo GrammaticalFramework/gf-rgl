@@ -1,12 +1,12 @@
 abstract ExtraZulAbs =
-  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant],
+  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N],
   ExtraCatZulAbs ** {
 
   fun
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
 
   fun
-    PotQS : Pol -> QCl -> QS ;
+    -- PotQS : Pol -> QCl -> QS ;
     SubjunctS : S -> Utt ;
 
     AssocCop : NP -> VP ;
@@ -30,7 +30,7 @@ abstract ExtraZulAbs =
 
     RelAdv : Adv -> RS ;
 
-    ProgVP : VP -> VP ;
+    -- ProgVP : VP -> VP ;
 
     QuantRS : QuantStem -> RS ; -- elilodwa
     RelRS : RelStem -> RS ; -- elibuhlungu
@@ -41,6 +41,8 @@ abstract ExtraZulAbs =
 
     only_QuantStem : QuantStem ;
     all_QuantStem : QuantStem ;
+    all_post_QuantStem : QuantStem ;
+
     painful_RelStem : RelStem ;
     sharp_RelStem : RelStem ;
 
@@ -57,7 +59,7 @@ abstract ExtraZulAbs =
 
     -- AdvQCl : Adv -> QCl -> QCl ;
 
-    ComplVAux : VAux -> VP -> VP ;
+    -- ComplVAux : VAux -> VP -> VP ;
 
     ConjNAdv : ConjN -> S -> Adv ; -- lapho kunobuhlungu khona
 
@@ -78,6 +80,8 @@ abstract ExtraZulAbs =
     it15_Pron : Pron ;
     it17_Pron : Pron ;
 
+    yonder_Quant : Quant ;
+
     all_Det : Det ;
 
     at_which_IAdv : NP -> IAdv ;
@@ -95,6 +99,8 @@ abstract ExtraZulAbs =
 
     how2_IAdv : IAdv ;
     how8much2_IAdv : IAdv ;
+
+    Deverb15 : V -> N ;
 
     -- AdvQS     : IAdv -> S  -> QS ;            -- maybe it is a pain that burns 2020-01-15: consider that this should rather be dealt with using QuestIAdv)
 

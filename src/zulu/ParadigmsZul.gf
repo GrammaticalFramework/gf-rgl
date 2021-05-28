@@ -73,6 +73,7 @@ oper
   mkN = overload {
     mkN : (ngane : Str) -> ClassGender -> N  = \n,c -> lin N (regNoun n c) ;   -- "thing" nouns
     mkN : (nyaka,onyakeni,eminyakeni : Str) -> ClassGender -> N = \n,ls,lp,c -> lin N (semiRegNoun n ls lp c) ;
+    mkN : (iso,amehlo,esweni,emehlweni : Str) -> ClassGender -> N = \ns,np,ls,lp,c -> lin N (mkNoun ns np ls lp c) ;
   } ;
 
   -- mkPN = overload {
@@ -81,6 +82,14 @@ oper
 
   mkA = overload {
     mkA : (kahle : Str) -> A = \a -> lin A (regAdj a) ; -- regular adjective
+  } ;
+
+  mkRelA = overload {
+    mkRelA : (mnandi : Str) -> A = \a -> lin A (relAdj a) ; -- relative stem "adjective"
+  } ;
+
+  mkEnumA = overload {
+    mkEnumA : (mbe : Str) -> A = \a -> lin A (enumAdj a) ; -- relative stem "adjective"
   } ;
 
   mkV = overload {
@@ -134,7 +143,7 @@ oper
   -- } ;
 
   mkPlDet = overload {
-    mkPlDet : Str -> Det = \s -> lin Det { s = s ; n = Pl ; qdef = Def } ;
+    mkPlDet : Str -> Det = \s -> lin Det { s = s ; n = Pl ; qdef = Article Def } ;
   } ;
 
   -- -- mkVS = overload {

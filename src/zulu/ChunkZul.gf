@@ -242,12 +242,13 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
       ap_form : Agr -> AP -> Str = \agr,ap ->
       let
         agr = agr_vars ;
-        adjf = case ap.b of {
-          True => (aformN agr) ;
-          -- True => AF2 ;
-          False => AF1
-        }
+        -- adjf = case ap.b of {
+        --   True => (aformN agr) ;
+        --   -- True => AF2 ;
+        --   False => AF1
+        -- }
+        adjf = variants { AF1 ; AF2 ; AF3 } ;
       in
-        adjConcLookup!agr!adjf ++BIND++ ap.s!adjf ;
+        adjConcLookup!agr ++BIND++ ap.s!adjf ;
 
 }

@@ -1,1 +1,3 @@
-abstract MonoLexLang = NguniLang ** MonoLex ;
+abstract MonoLexLang = NguniLang,MonoLex ** {
+  flags startcat=Phr ;
+} ;

@@ -9,7 +9,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       CopAssoc => cl_with_ass_cop_predicate np vp ;
       CopDescr => cl_with_descr_cop_predicate np vp ;
       CopEq => cl_with_eq_cop_predicate np vp ;
-      VACompl => cl_with_ap_comp_predicate np vp ;
+      -- VACompl => cl_with_ap_comp_predicate np vp ;
       AdvComp => cl_with_adv_comp_predicate np vp ;
       _ => cl_with_verb_predicate np vp
     } ;
@@ -24,14 +24,16 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         desc = [] ;
         agr = Second Sg ;
         proDrop = True ;
-        reqLocS = True
+        isPron = True ;
+        reqLocS = True ;
+        qdef = Article Def
       } ;
       impTense = Absolute PresTense
     in case vp.vptype of {
       VNPCompl => {
         s = table {
-          Pos => vp.s!R_a ++ vp.comp ++ vp.advs ;
-          Neg => "unga" ++ vp.s!R_i ++ vp.comp ++ vp.advs
+          Pos => vp.s!R_a ++ vp.comp!Pos ++ vp.advs ;
+          Neg => "unga" ++ vp.s!R_i ++ vp.comp!Neg ++ vp.advs
         }
       } ;
 
@@ -39,7 +41,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       CopAssoc => {s = \\pol => (cl_with_ass_cop_predicate np vp).s!pol!impTense!Princ } ;
       CopDescr => {s = \\pol => (cl_with_descr_cop_predicate np vp).s!pol!impTense!Princ } ;
       CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!impTense!Princ } ;
-      VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
+      -- VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
       AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!impTense!Princ } ;
       _ => {s = \\pol => (cl_with_verb_predicate np vp).s!pol!impTense!Princ }
     } ;
@@ -101,9 +103,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
+          subj = case <np.proDrop,np.qdef> of {
+            <True,Article d> => np.empty ++ np.desc ;
+            <True,Demonstrative d> => np.empty ++ np.desc ;
+            <False,Article d> => np.s ! Full ++ np.desc ;
+            <False,Demonstrative Dem1> => dem_pron!Dem1!np.agr ++ np.s ! Reduced ++ np.desc ;
+            <False,Demonstrative Dem2> => dem_pron!Dem2!np.agr ++ np.s ! Reduced ++ np.desc ;
+            <False,Demonstrative Dem3> => dem_pron!Dem3!np.agr ++ np.s ! Reduced ++ np.desc 
           } ;
           aux_tense = case t of {
             Absolute bt => bt ;
@@ -156,7 +162,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ (vtermSuff vform_main reqLF vp.perfSuff vp.suff)
           ++ vp.s!(rform vform_main reqLF)
           ++ vp.iadv
-          ++ vp.comp
+          ++ vp.comp!p
           ++ vp.advs ;
       subjcl = \\p,t =>
         let
@@ -186,7 +192,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
           ++ vp.s!(rform vform_main False)
           ++ vp.iadv
-          ++ vp.comp
+          ++ vp.comp!p
           ++ vp.advs ;
       potcl = \\p,dm =>
         let
@@ -206,7 +212,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
           ++ vp.s!(rform vform_main False)
           ++ vp.iadv
-          ++ vp.comp
+          ++ vp.comp!p
           ++ vp.advs
     } ;
 
@@ -298,131 +304,134 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     } ;
 
     -- become green
-    cl_with_ap_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
-      -- advs = vp.advs ;
-      s = \\p,t,dm =>
-        let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
-          aux_tense = case t of {
-            Absolute bt => bt ;
-            Relative b1 b2 => b1
-          } ;
-          main_tense = case t of {
-            Absolute bt => bt ;
-            Relative b1 b2 => b2
-          } ;
-          vform_aux = VFIndic dm p aux_tense vp.asp ;
-          vform_main = case t of {
-            Absolute bt => VFIndic dm p bt vp.asp ;
-            Relative b1 b2 => VFIndic Part p b2 vp.asp
-          } ;
-          aux = case t of {
-            Absolute bt => case vp.hasAux of {
-              True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => aux_be vform_aux np.agr
-            } ;
-            Relative _ _ => case vp.hasAux of {
-              True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
-              False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
-            }
-          } ;
-          vow = case <vp.r,p,main_tense> of {
-            <RC,Pos,PresTense> => False ;
-            <RC,Pos,PerfTense> => False ;
-            <_,Pos,PresTense> => True ;
-            <_,Pos,PerfTense> => True ;
-            <_,_,_> => False
-          } ;
-          lfya = [] ;
-          reqLF = False ;
-          adjf = case vp.ap_bool of {
-            True => (aformN np.agr) ;
-            -- True => AF2 ;
-            False => AF1
-          } ;
-          comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf ++ vp.comp
-        in
-          subj
-          ++ aux
-          ++ (negPref vform_main np.agr)
-          ++ (exclSePref vform_main)
-          ++ (subjConc vform_main np.agr vow)
-          ++ (negPref2 vform_main)
-          ++ lfya
-          ++ vp.asp_pref!vform_main
-          -- ++ (exclKaPref vform_main)
-          ++ (tensePref vform_main)
-          -- ++ vp.s ++ BIND
-          -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
-          ++ vp.s ! (rform vform_main False)
-          ++ vp.iadv
-          ++ comp
-          ++ vp.advs ;
-      subjcl = \\p,t =>
-        let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
-          main_tense = case t of {
-            Absolute bt => bt ;
-            Relative b1 b2 => b2
-          } ;
-          vform_main = VFSubj p ;
-          vow = case <vp.r,p,main_tense> of {
-            <RC,Pos,PresTense> => False ;
-            <RC,Pos,PerfTense> => False ;
-            <_,Pos,PresTense> => True ;
-            <_,Pos,PerfTense> => True ;
-            <_,_,_> => False
-          } ;
-          adjf = case vp.ap_bool of {
-            True => (aformN np.agr) ;
-            -- True => AF2 ;
-            False => AF1
-          } ;
-          comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf ++ vp.comp
-        in
-          subj
-          -- ++ aux
-          ++ (subjConc vform_main np.agr vow)
-          ++ (negPref2 vform_main)
-          ++ vp.asp_pref!vform_main
-          -- ++ vp.s ++ BIND
-          -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
-          ++ vp.s ! (rform vform_main False)
-          ++ vp.iadv
-          ++ comp
-          ++ vp.advs ;
-      potcl = \\p,dm =>
-        let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
-          vform_main = VFPot dm p vp.asp ;
-          adjf = case vp.ap_bool of {
-            True => (aformN np.agr) ;
-            -- True => AF2 ;
-            False => AF1
-          } ;
-          comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf ++ vp.comp
-        in
-          subj
-          ++ (subjConc vform_main np.agr False)
-          ++ (potPref vform_main)
-          ++ (negPref2 vform_main)
-          ++ vp.asp_pref!vform_main
-          -- ++ vp.s ++ BIND
-          -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
-          ++ vp.s!(rform vform_main False)
-          ++ vp.iadv
-          ++ comp
-          ++ vp.advs
-    } ;
+    -- cl_with_ap_comp_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
+    --   -- advs = vp.advs ;
+    --   s = \\p,t,dm =>
+    --     let
+    --       subj = case np.proDrop of {
+    --         True => np.empty ++ np.desc ;
+    --         False => np.s ! Full ++ np.desc
+    --       } ;
+    --       aux_tense = case t of {
+    --         Absolute bt => bt ;
+    --         Relative b1 b2 => b1
+    --       } ;
+    --       main_tense = case t of {
+    --         Absolute bt => bt ;
+    --         Relative b1 b2 => b2
+    --       } ;
+    --       vform_aux = VFIndic dm p aux_tense vp.asp ;
+    --       vform_main = case t of {
+    --         Absolute bt => VFIndic dm p bt vp.asp ;
+    --         Relative b1 b2 => VFIndic Part p b2 vp.asp
+    --       } ;
+    --       aux = case t of {
+    --         Absolute bt => case vp.hasAux of {
+    --           True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
+    --           False => aux_be vform_aux np.agr
+    --         } ;
+    --         Relative _ _ => case vp.hasAux of {
+    --           True => (subjConcLookup!np.agr!SC) ++BIND++ vp.aux_root ;
+    --           False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
+    --         }
+    --       } ;
+    --       vow = case <vp.r,p,main_tense> of {
+    --         <RC,Pos,PresTense> => False ;
+    --         <RC,Pos,PerfTense> => False ;
+    --         <_,Pos,PresTense> => True ;
+    --         <_,Pos,PerfTense> => True ;
+    --         <_,_,_> => False
+    --       } ;
+    --       lfya = [] ;
+    --       reqLF = False ;
+    --       adjf = case vp.ap_bool of {
+    --         True => (aformN np.agr) ;
+    --         -- True => AF2 ;
+    --         False => AF1
+    --       } ;
+    --       comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf -- ++ vp.comp
+    --     in
+    --       subj
+    --       ++ aux
+    --       ++ (negPref vform_main np.agr)
+    --       ++ (exclSePref vform_main)
+    --       ++ (subjConc vform_main np.agr vow)
+    --       ++ (negPref2 vform_main)
+    --       ++ lfya
+    --       ++ vp.asp_pref!vform_main
+    --       -- ++ (exclKaPref vform_main)
+    --       ++ (tensePref vform_main)
+    --       -- ++ vp.s ++ BIND
+    --       -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+    --       ++ vp.s ! (rform vform_main False)
+    --       ++ vp.iadv
+    --       ++ comp
+    --       ++ vp.comp!p
+    --       ++ vp.advs ;
+    --   subjcl = \\p,t =>
+    --     let
+    --       subj = case np.proDrop of {
+    --         True => np.empty ++ np.desc ;
+    --         False => np.s ! Full ++ np.desc
+    --       } ;
+    --       main_tense = case t of {
+    --         Absolute bt => bt ;
+    --         Relative b1 b2 => b2
+    --       } ;
+    --       vform_main = VFSubj p ;
+    --       vow = case <vp.r,p,main_tense> of {
+    --         <RC,Pos,PresTense> => False ;
+    --         <RC,Pos,PerfTense> => False ;
+    --         <_,Pos,PresTense> => True ;
+    --         <_,Pos,PerfTense> => True ;
+    --         <_,_,_> => False
+    --       } ;
+    --       adjf = case vp.ap_bool of {
+    --         True => (aformN np.agr) ;
+    --         -- True => AF2 ;
+    --         False => AF1
+    --       } ;
+    --       comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf -- ++ vp.comp
+    --     in
+    --       subj
+    --       -- ++ aux
+    --       ++ (subjConc vform_main np.agr vow)
+    --       ++ (negPref2 vform_main)
+    --       ++ vp.asp_pref!vform_main
+    --       -- ++ vp.s ++ BIND
+    --       -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+    --       ++ vp.s ! (rform vform_main False)
+    --       ++ vp.iadv
+    --       ++ comp
+    --       ++ vp.comp!p
+    --       ++ vp.advs ;
+    --   potcl = \\p,dm =>
+    --     let
+    --       subj = case np.proDrop of {
+    --         True => np.empty ++ np.desc ;
+    --         False => np.s ! Full ++ np.desc
+    --       } ;
+    --       vform_main = VFPot dm p vp.asp ;
+    --       adjf = case vp.ap_bool of {
+    --         True => (aformN np.agr) ;
+    --         -- True => AF2 ;
+    --         False => AF1
+    --       } ;
+    --       comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf -- ++ vp.comp
+    --     in
+    --       subj
+    --       ++ (subjConc vform_main np.agr False)
+    --       ++ (potPref vform_main)
+    --       ++ (negPref2 vform_main)
+    --       ++ vp.asp_pref!vform_main
+    --       -- ++ vp.s ++ BIND
+    --       -- ++ (vtermSuff vform_main False vp.perfSuff vp.suff)
+    --       ++ vp.s!(rform vform_main False)
+    --       ++ vp.iadv
+    --       ++ comp
+    --
+    --       ++ vp.advs
+    -- } ;
 
     cl_with_id_cop_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       -- advs = vp.advs ;
@@ -456,12 +465,12 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
+          cp = id_cop_pref vp.comp_agr ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
           -- } ;
-          cb = vp.comp
+          cb = vp.comp!p
         in
           subj ++
           aux ++
@@ -478,8 +487,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = vp.comp ;
+          cp = id_cop_pref vp.comp_agr ;
+          cb = vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -499,8 +508,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = vp.comp ;
+          cp = id_cop_pref vp.comp_agr ;
+          cb = vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -548,8 +557,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_cop np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
+          cp = (assoc_cop_pref vp.comp_agr)!p ;
+          cb = (withPref ! vp.r) ++ BIND ++ vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -569,8 +578,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
+          cp = (assoc_cop_pref vp.comp_agr)!p ;
+          cb = (withPref ! vp.r) ++ BIND ++ vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -589,8 +598,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
+          cp = (assoc_cop_pref vp.comp_agr)!p ;
+          cb = (withPref ! vp.r) ++ BIND ++ vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -636,8 +645,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = (eqPref ! vp.r) ++ BIND ++ vp.comp ;
+          -- cp = id_cop_pref vp.comp_agr ;
+          cb = (eqPref ! vp.r) ++ BIND ++ vp.comp!p ;
         in
           subj ++
           aux ++
@@ -653,8 +662,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = (eqPref ! vp.r) ++ BIND ++ vp.comp ;
+          -- cp = id_cop_pref vp.comp_agr ;
+          cb = (eqPref ! vp.r) ++ BIND ++ vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -673,8 +682,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          cp = cop_pref vp.comp_agr ;
-          cb = (eqPref ! vp.r) ++ BIND ++ vp.comp ;
+          -- cp = id_cop_pref vp.comp_agr ;
+          cb = (eqPref ! vp.r) ++ BIND ++ vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -720,17 +729,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          adjf = case vp.ap_bool of {
-            True => (aformN np.agr) ;
-            --  True => AF2 ;
-            False => AF1
-          } ;
-          adjpref =  adjPrefLookup!np.agr!adjf ++BIND ; --++ vp.ap_comp!adjf ;
+          adjf = aformN np.agr ;
+          adjpref =  adjPrefLookup!np.agr ++BIND ;
           -- asp = case vp.asp of {
           --   Prog => "se" ++BIND ; -- p339
           --   _ => []
           -- } ;
-          comp = vp.ap_comp!adjf ++ vp.comp
+          comp = vp.ap_comp!adjf ++ vp.comp!p
         in
           subj ++
           aux ++
@@ -747,12 +752,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          adjf = case vp.ap_bool of {
-            True => (aformN np.agr) ;
-            -- True => AF2 ;
-            False => AF1
-          } ;
-          comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf ++ vp.comp ;
+          adjf = aformN np.agr ;
+          comp =  adjPrefLookup!np.agr ++BIND++ vp.ap_comp!adjf ++ vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -771,12 +772,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             False => np.s ! Full ++ np.desc
           } ;
           pcp = pre_cop_pref vform_main np.agr ;
-          adjf = case vp.ap_bool of {
-            True => (aformN np.agr) ;
-            -- True => AF2 ;
-            False => AF1
-          } ;
-          comp =  adjPrefLookup!np.agr!adjf ++BIND++ vp.ap_comp!adjf ++ vp.comp ;
+          adjf = aformN np.agr ;
+          comp =  adjPrefLookup!np.agr ++BIND++ vp.ap_comp!adjf ++ vp.comp!p ;
           -- asp = case vp.asp of {
           --   Prog => progPref vform_main ;
           --   _ => []
@@ -850,7 +847,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ vp.oc
           -- ++ vp.s ++ BIND
           -- ++ (vtermSuff vform_main reqLF vp.perfSuff)
-          ++ vp.comp
+          ++ vp.comp!p
           ++ vp.iadv ++ vp.advs ;
       subjcl = \\p,t =>
         let
@@ -878,7 +875,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ vp.s ++ BIND
           -- ++ (vtermSuff vform_main False vp.perfSuff)
           ++ vp.asp_pref!vform_main
-          ++ vp.comp
+          ++ vp.comp!p
           ++ vp.iadv ++ vp.advs ;
       potcl = \\p,dm =>
         let
@@ -896,7 +893,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ vp.s ++ BIND
           -- ++ (vtermSuff vform_main False vp.perfSuff)
           ++ vp.asp_pref!vform_main
-          ++ vp.comp
+          ++ vp.comp!p
           ++ vp.iadv ++ vp.advs
     } ;
 

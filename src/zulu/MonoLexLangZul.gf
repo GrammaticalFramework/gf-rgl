@@ -1,1 +1,3 @@
-concrete MonoLexLangZul of MonoLexLang = NguniLangZul ** MonoLexZul ;
+concrete MonoLexLangZul of MonoLexLang =
+  NguniLangZul,
+  MonoLexZul ** {} ;
