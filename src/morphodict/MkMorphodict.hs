@@ -147,9 +147,13 @@ mkMorphoDict env =
   shrink fls = case fls of
     fl@(_:_):_ | all ((==head fl) . head) fls -> shrink (map tail fls)
     fl@(_:_):_ | all ((==last fl) . last) fls -> shrink (map init fls)
+    _ -> shrinkMore fls
+
+  shrinkMore fls = case fls of
+    _ | length (nub (map init fls)) == length fls -> shrinkMore (map init fls)
+    _ | length (nub (map tail fls)) == length fls -> shrinkMore (map tail fls)
     _ -> fls
-    
-  formlists fls = [wfs | (_:ws,fs) <- map (snd . snd) fls, let wfs = ws ++ fs]
+
       
 mkFun = showCId . mkCId . concat . intersperse "_"
 
