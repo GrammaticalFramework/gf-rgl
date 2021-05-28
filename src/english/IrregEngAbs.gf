@@ -9,6 +9,7 @@ fun
   beset_V : V ;
   bet_V : V ;
   bid_V : V ;
+  bid_bade_V : V ;
   bind_V : V ;
   bite_V : V ;
   bleed_V : V ;
@@ -133,9 +134,11 @@ fun
   spill_V : V ;
   spin_V : V ;
   spit_V : V ;
+  spit_spat_V : V ;
   split_V : V ;
   spread_V : V ;
   spring_V : V ;
+  spring_sprung_V : V ;
   stand_V : V ;
   steal_V : V ;
   stick_V : V ;
