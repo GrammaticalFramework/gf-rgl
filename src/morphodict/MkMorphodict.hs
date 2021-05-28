@@ -139,10 +139,17 @@ mkMorphoDict env =
 
   renames :: [RawRule] -> [RuleData]
 --  renames fls = [((mkFun (f ++ [show i,c]),c),l) | (i,((f,c),l)) <- zip [1..] fls] -- disambiguate with int
-  renames fls = [((mkFun (f ++ diff l ++ [c]),c),l) | (i,((f,c),l)) <- zip [1..] fls] -- disambiguate with different forms
-    where
-      diff l = let (_:ws, fs) = snd l in ws ++ fs
-----      formlists = [ws ++ fs | (_:ws,fs) <- map (snd . snd) ls]
+  renames fls = [((mkFun (f ++ fs ++ [c]),c),l) | (i,(((f,c),l),fs)) <- zip [1..] (zip fls (minimize fls))] -- disambiguate with different forms
+
+  minimize :: [RawRule] -> [[String]]
+  minimize fls = shrink [ws ++ fs | (_,(_,(_:ws,fs))) <- fls]
+
+  shrink fls = case fls of
+    fl@(_:_):_ | all ((==head fl) . head) fls -> shrink (map tail fls)
+    fl@(_:_):_ | all ((==last fl) . last) fls -> shrink (map init fls)
+    _ -> fls
+    
+  formlists fls = [wfs | (_:ws,fs) <- map (snd . snd) fls, let wfs = ws ++ fs]
       
 mkFun = showCId . mkCId . concat . intersperse "_"
 
