@@ -20,7 +20,6 @@ import System.Environment (getArgs)
 
 -- example:
 --   gf -make ../english/DictEng.gf
---   runghc
 --   runghc MkMorphodict.hs pgf MorphoDictEng.config DictEngAbs.pgf MorphoDictEng
 -- 64923 ->  56599 functions
 
@@ -138,7 +137,7 @@ mkMorphoDict env =
     _ -> []
 
   renames :: [RawRule] -> [RuleData]
---  renames fls = [((mkFun (f ++ [show i,c]),c),l) | (i,((f,c),l)) <- zip [1..] fls] -- disambiguate with int
+---  renames fls = [((mkFun (f ++ [show i,c]),c),l) | (i,((f,c),l)) <- zip [1..] fls] -- disambiguate with int
   renames fls = [((mkFun (f ++ fs ++ [c]),c),l) | (i,(((f,c),l),fs)) <- zip [1..] (zip fls (minimize fls))] -- disambiguate with different forms
 
   minimize :: [RawRule] -> [[String]]
