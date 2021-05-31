@@ -81,9 +81,10 @@ In addition, structural words should appear here with their native lemma names:
 - `Subj`
 
 Additional language-specific categories can be included if the reasons are clear.
-They must then be defined in the `Ext` module for that language.
+They must then be importable from the `Paradigms` module for that language, together with `mk` functions.
+The `Extend` module may also put them in use in syntax.
 
-Following the model of Universal Tagset, we add a category `X` for unspecified words in `Ext`, with the linearization type `{s : Str}`.
+Following the model of Universal Tagset, we add a category `X` for unspecified words in `Extend`, with the linearization type `{s : Str}`.
 Hence it can only be used for uninflected strings with unclear status.
 
 ## Naming
@@ -161,10 +162,10 @@ Some things TODO:
 
 ## Things to do
 
-To support the construction of a `MorphoDict`, the following should be guaranteed in the RGL:
-- in `Paradigms`, explicit smart paradigms with characteristic forms and inherent features for each category
-- in `Paradigms`, API constants for all inherent features that are needed
-- in `Paradigms`, compound-constructing functions for all categories that need them
-- in `Extra`, the extra categories that one wants to include in that language
+To support the construction of a `MorphoDict`, the following should be provided in `Paradigms`:
+- explicit smart paradigms with characteristic forms and inherent features for each category
+- API constants for all inherent features that are needed
+- compound-constructing functions for all categories that need them
+- the extra categories that one wants to include in that language
 
 
