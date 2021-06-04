@@ -41,7 +41,7 @@ main = do
       rawdata <- case mode of
         "pgf" -> pgfFile2rawData config datafile
         "raw" -> readFile datafile >>= return . map getRawData . filter (not . null) . lines
-        _ -> putStrLn $ "Expected mode (pgf|raw), got " ++ mode
+        _ -> error $ "Expected mode (pgf|raw), got " ++ mode
       rawdata2gf config rawdata outfile
 
 
@@ -94,8 +94,9 @@ mkConfig ls = M.fromList [(c,i) | Left (c,i) <- map mkOne (lines ls)]
     cat:":":tcat:oper:ints -> Left (cat,(tcat,oper,mkArgs ints))
     _ -> Right s
   mkArgs ints = case break (=="#") ints of
-    (ss,[])   -> (map read ss, [])
-    (ss,_:fs) -> (map read ss, map read fs)
+    (ss,[])   -> (map read'  ss, [])
+    (ss,_:fs) -> (map read' ss, map read' fs)
+  read' a = readNote [] a -- Safe.readNote provides better error message
 
 getRawData s = case words s of
   c:cs -> (c,cs)
