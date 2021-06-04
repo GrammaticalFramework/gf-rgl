@@ -159,6 +159,8 @@ oper
      s = \\c => (StemFin.snoun2nounBind veri).s ! NCase n Gen + paine.s ! c
      } ;
 
+   foreignN : Str -> N ; -- foreign word without Finnish alternations, e.g. sake/saken/sakeja
+
 -- Nouns used as functions need a case, of which the default is
 -- the genitive.
 
@@ -667,7 +669,8 @@ mkVS = overload {
 
   mkPN_1 : Str -> PN = \s -> lin PN (snoun2spn (mk1N s)) ;
 
-  foreignPN : Str -> PN = \s -> (lin PN (snoun2spn (nforms2snoun (noun s)))) where {
+  foreignPN : Str -> PN = \s -> mkPN (foreignN s) ;
+  foreignN : Str -> N = \s -> (lin N (nforms2snoun (noun s))) where {
     noun : Str -> NForms = \s -> case s of {
       _ + "i" => dPaatti s (s + "n") ;
       _ + "e" => dNukke s (s + "n") ;
