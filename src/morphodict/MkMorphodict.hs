@@ -163,13 +163,17 @@ mkMorphoDict env =
     _ | length (nub (map tail fls)) == length fls -> shrinkMore (map tail fls)
     _ -> fls
 
-
-mkFun = showCId . mkCId . concat . intersperse "_"
+-- >>> mkFun ["hello", "world", "hello friends", "hello-all"]
+-- "hello_world_hello_friends_hello_all"
+mkFun :: [String] -> String                          -- if word contains space or hyphen, replace with underscore
+mkFun = showCId . mkCId . concat . intersperse "_" . concatMap (words . removeHyphen)
+  where
+    removeHyphen [] = []
+    removeHyphen ['-'] = ['-'] -- If hyphen is the last character, it's usually meaningful, leave it
+    removeHyphen ('-':cs) = ' ' : removeHyphen cs
+    removeHyphen (c:cs) = c : removeHyphen cs
 
 quote s = "\"" ++ s ++ "\""
-
-
-
 
 {- ---- let us ignore this
   findCompounds :: [RuleData] -> [RuleData]
