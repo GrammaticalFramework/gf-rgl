@@ -5,7 +5,9 @@ import PGF
 import qualified Data.Map as M
 import Data.Char
 import Data.List
+import Safe
 import System.Environment (getArgs)
+import Debug.Trace
 
 -- AR 2020-02-28
 
@@ -28,7 +30,10 @@ usage = "runghc MkMorphodict (raw|pgf) <configfile> <datafile> <outfile>"
 main = do
   xx <- getArgs
   if length xx /= 4
-    then putStrLn usage
+    then do
+      putStrLn "Usage:"
+      putStrLn usage
+      putStrLn $ "Got instead: " ++ show xx
     else do
       let mode:configfile:datafile:outfile:_ = xx
       config <- readFile configfile >>= return . mkConfig
@@ -36,6 +41,7 @@ main = do
       rawdata <- case mode of
         "pgf" -> pgfFile2rawData config datafile
         "raw" -> readFile datafile >>= return . map getRawData . filter (not . null) . lines
+        _ -> putStrLn $ "Expected mode (pgf|raw), got " ++ mode
       rawdata2gf config rawdata outfile
 
 
@@ -118,10 +124,13 @@ mkMorphoDict env =
     (([lemma],newcat),(oper, appSig sig args)) |
         (oldcat,args) <- raws,
         Just (newcat, oper, sig) <- [M.lookup oldcat (config env)],
-        let lemma = args !! head (fst sig)
+        let lemma = args `at` head (fst sig)
    ]
 
-  appSig (ints,feats) args = ([args !! i | i <- ints], [args !! i | i <- feats])
+  appSig (ints,feats) args =
+    -- If there's wrong number in config file, uncomment the line below to see which number it should be
+    -- trace (intercalate "\n" $ map show (zip [0..] args)) $
+    ([args `at` i | i <- ints], [args `at` i | i <- feats])
 
   mergeRules :: [RawRule] -> [RawRule]
   mergeRules = map head . groupBy (\x y -> snd x == snd y) . sortOn snd
