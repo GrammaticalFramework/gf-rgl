@@ -1,0 +1,10 @@
+concrete MorphoDictFin of MorphoDictFinAbs = CatFin ** open
+  ParadigmsFin,
+--  MorphoFin,
+  Kotus
+--  Prelude
+ in {
+
+-- extracted from http://kaino.kotus.fi/sanat/nykysuomi/, licensed under LGPL
+
+flags coding = utf8 ;
