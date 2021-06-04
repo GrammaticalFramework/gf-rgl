@@ -30,27 +30,27 @@ main = do
   if length xx /= 4
     then putStrLn usage
     else do
-      let mode:configfile:datafile:outfile:_ = xx 
+      let mode:configfile:datafile:outfile:_ = xx
       config <- readFile configfile >>= return . mkConfig
-  
+
       rawdata <- case mode of
         "pgf" -> pgfFile2rawData config datafile
-        "raw" -> readFile datafile >>= return . map getRawData . filter (not . null) . lines 
+        "raw" -> readFile datafile >>= return . map getRawData . filter (not . null) . lines
       rawdata2gf config rawdata outfile
 
 
 rawdata2gf config rawdata outfile = do
-  
+
   let env = MDEnv rawdata config
   let (absrules,cncrules) = mkMorphoDict env
-  
+
   absheader <- readFile (outfile ++ "Abs.header")
   cncheader <- readFile (outfile ++ ".header")
-  
+
   writeFile (outfile ++ "Abs.gf") absheader
   appendFile (outfile ++ "Abs.gf") $ unlines $ sort absrules
   appendFile (outfile ++ "Abs.gf") "}"
-  
+
   writeFile (outfile ++ ".gf") cncheader
   appendFile (outfile ++ ".gf") $ unlines $ sort cncrules
   appendFile (outfile ++ ".gf") "}"
@@ -68,7 +68,7 @@ pgfFile2rawData config pgffile = do
         cat  <- cats,
         f    <- functionsByCat pgf (mkCId cat),
         lin  <- tabularLinearizes pgf lang (mkApp f [])
-    ] 
+    ]
 
 type Cat  = String
 type Fun  = String
@@ -84,7 +84,7 @@ mkConfig :: String -> Config  -- N : N mkN 0 2 4 6 # 9
 mkConfig ls = M.fromList [(c,i) | Left (c,i) <- map mkOne (lines ls)]
  where
   mkOne s = case words s of
-    "--":_                 -> Right s 
+    "--":_                 -> Right s
     cat:":":tcat:oper:ints -> Left (cat,(tcat,oper,mkArgs ints))
     _ -> Right s
   mkArgs ints = case break (=="#") ints of
@@ -119,7 +119,7 @@ mkMorphoDict env =
         (oldcat,args) <- raws,
         Just (newcat, oper, sig) <- [M.lookup oldcat (config env)],
         let lemma = args !! head (fst sig)
-   ] 
+   ]
 
   appSig (ints,feats) args = ([args !! i | i <- ints], [args !! i | i <- feats])
 
@@ -153,7 +153,7 @@ mkMorphoDict env =
     _ | length (nub (map tail fls)) == length fls -> shrinkMore (map tail fls)
     _ -> fls
 
-      
+
 mkFun = showCId . mkCId . concat . intersperse "_"
 
 quote s = "\"" ++ s ++ "\""
@@ -162,7 +162,7 @@ quote s = "\"" ++ s ++ "\""
 
 
 {- ---- let us ignore this
-  findCompounds :: [RuleData] -> [RuleData] 
+  findCompounds :: [RuleData] -> [RuleData]
   findCompounds = getCompounds . sortOn cat_orthrevforms
 
   cat_orthrevforms (_,(cat,_:forms)) = (cat,[map (!!i) fss | let fss = map reverse forms, i <- [0..minimum (map length fss) - 1]])
@@ -171,9 +171,9 @@ quote s = "\"" ++ s ++ "\""
   revstem = head . snd . cat_revforms
   wforms (_,(_,_:forms)) = forms
 
-  getCompounds :: [RuleData] -> [RuleData] 
+  getCompounds :: [RuleData] -> [RuleData]
   getCompounds fls = case fls of
-    fl : fls1 | length (revstem fl) < 2 -> markWith fl [] : getCompounds fls1 
+    fl : fls1 | length (revstem fl) < 2 -> markWith fl [] : getCompounds fls1
     fl : fls2 -> case span (\x -> and [isPrefixOf (reverse w) (reverse w1) | (w,w1) <- zip (wforms fl) (wforms x)]) fls2 of
       ([],_:_) -> markWith fl [] : getCompounds fls2
       (fls1,fls3) -> markWith fl [] : map (markCompound fl) fls1 ++ getCompounds fls3
@@ -188,7 +188,7 @@ quote s = "\"" ++ s ++ "\""
 
   isPrefixWord x xy =
     length suff > 1 &&                                ---- compound first part must be at least two letters long
-    any (\c -> elem c "-0123456789aeiouyåäö") suff && ---- must contain a vowel or a digit 
+    any (\c -> elem c "-0123456789aeiouyåäö") suff && ---- must contain a vowel or a digit
     isPrefixOf x xy                                   ---- and of course be a prefix
    where
      suff = drop (length x) xy
