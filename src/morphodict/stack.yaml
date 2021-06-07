@@ -1,0 +1,16 @@
+resolver: lts-12.26
+
+packages:
+- .
+
+# so that `stack build --copy-bins` puts bin here
+local-bin-path: .
+
+extra-deps:
+- gf-3.10
+- cgi-3001.3.0.3 # dependency of gf
+
+flags:
+     # this excludes PGF2 module in gf package
+  gf:
+    c-runtime: false
