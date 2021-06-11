@@ -1,7 +1,7 @@
 -- All functions are explicitly inherited, in order to allow useful probabilities
 
 concrete NguniGrammarZul of NguniGrammar =
-  NounZul [DetCN, UsePron, AdvNP, DetQuant, NumSg, NumPl, IndefArt, DefArt, MassNP, UseN, AdjCN, RelCN, AdvCN, PossNP],
+  NounZul [DetCN, UsePron, AdvNP, DetQuant, NumSg, NumPl, IndefArt, DefArt, UseN, AdjCN, RelCN, AdvCN, PossNP,PredetNP,UsePN], -- MassNP,
   VerbZul [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv],
   AdjectiveZul [PositA, AdAP],
   AdverbZul [PositAdvAdj, SubjS],
@@ -12,7 +12,7 @@ concrete NguniGrammarZul of NguniGrammar =
   -- Conjunction,
   PhraseZul [PhrUtt, UttS, UttQS, UttImpSg, NoPConj, NoVoc],
   TextX - [Temp,Adv,IAdv],
-  StructuralZul [and_Conj,how_IAdv,how8much_IAdv,i_Pron,youSg_Pron,he_Pron,she_Pron,we_Pron,youPl_Pron,this_Quant,that_Quant],
+  StructuralZul [and_Conj,how_IAdv,how8much_IAdv,i_Pron,youSg_Pron,he_Pron,she_Pron,we_Pron,youPl_Pron,this_Quant,that_Quant,all_Predet,only_Predet],
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,

@@ -1,5 +1,5 @@
 concrete ExtraZul of ExtraZulAbs =
-  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N],
+  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
   ExtraCatZul
   ** open ResZul,Prelude,ParamX in {
 
@@ -8,7 +8,8 @@ concrete ExtraZul of ExtraZulAbs =
       s = pron.s ;
       agr = pron.agr ;
       empty = pron.empty ;
-      proDrop = True
+      proDrop = True ;
+      poss = pron.poss
     } ;
 
   lin
@@ -65,6 +66,18 @@ concrete ExtraZul of ExtraZulAbs =
       hasAux = False
     } ;
 
+    UsePNPl pn = {
+      empty,predet_pre,predet_post = pn.empty ;
+      s = \\nform => pn.s ! Pl ! nform ;
+      -- loc =  cn.loc ! Sg ;
+      desc = pn.empty ;
+      agr = Third pn.c Pl ;
+      proDrop = False ;
+      isPron = False ;
+      reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
+      qdef = Article Def ;
+    } ;
+
     -- NOTE: this is only here to play nice with Xhosa; commented out now.
     -- DescrNP cn np = {
     --   s = \\n,cpf => cn.s!n!cpf ;
@@ -73,37 +86,11 @@ concrete ExtraZul of ExtraZulAbs =
     --   c = cn.c
     -- } ;
 
-    PossPronZul cn pron =
-    let
-      stem = case pron.agr of {
-        First Sg => "mi" ;
-        First Pl => "thu" ;
-        Second Sg => "kho" ;
-        Second Pl => "nu" ;
-        Third _ Sg => "khe" ;
-        Third _ Pl => "bo"
-      } ;
-      proninit = case pron.agr of {
-        First Sg => RC ;
-        First Pl => RI ;
-        Second Sg => RC ;
-        Second Pl => RI ;
-        Third _ Sg => RC ;
-        Third _ Pl => RC
-      } ;
-    in {
-      s = \\n,cpf => cn.s!n!cpf ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
-      loc = \\n => cn.loc!n ++ poss_concord!cn.c!n!proninit ++BIND++ stem ;
-      desc = \\n => cn.desc!n ;
-      c = cn.c ;
-      empty = cn.empty ++ pron.empty
-    } ;
-
     InstrNPAdv np =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = pref ++ np.s!Reduced ++ np.desc ;
+      s = pref ++BIND++ np.s!Reduced ++ np.desc ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -112,25 +99,32 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = adv.s ++ pref ++ np.s!Reduced ++ np.desc ;
+      s = adv.s ++ pref ++BIND++ np.s!Reduced ++ np.desc ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
     LocNPAdv np = {
-      s = np.loc ++ np.desc ;
+      s = np.s!Loc ++ np.desc ;
       -- asp = Null ;
-      reqLocS = True
+      reqLocS = False
     } ;
 
     LocAdvNPAdv adv np = {
-      s = adv.s ++ np.loc ++ np.desc ;
+      s = adv.s ++ np.s!Loc ++ np.desc ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
+    -- locative kwa
+    KwaNPAdv np = {
+      s = "kwa" ++BIND++ np.s!Reduced ++ np.desc ;
+      -- asp = Null ;
+      reqLocS = False
+    } ;
+
     -- NOTE: this seems to be a specific construction. Not yet found in Poulos+Msimang
-    KwaNPAdv adv np =
+    KwaAdvNPAdv adv np =
       let
         c = case np.agr of {
           (First _ | Second _) => C1_2 ; -- people class as default
@@ -149,7 +143,7 @@ concrete ExtraZul of ExtraZulAbs =
 
     -- locative ku
     KuNPAdv np = {
-      s = case np.proDrop of {
+      s = case np.isPron of {
         True => "ki" ;
         False => case (initNP np.isPron np.agr) of {
           RI  => "ki" ;
@@ -214,28 +208,30 @@ concrete ExtraZul of ExtraZulAbs =
       s = \\a => relConc!a!RelC ++BIND++ rel.s
     } ;
 
-    QuantCN quant cn =
-    let
-      cn_agr = Third cn.c quant.n
-    in
-    {
-      empty = cn.empty ;
-      s = \\p => case quant.isPost of {
-        True => cn.s ! quant.n ! p ++ quantConc!cn_agr ++BIND++ quant.s ;
-        False => quantConc!cn_agr ++BIND++ quant.s ++ cn.s ! quant.n ! p
-      } ;
-      loc = quantConc!cn_agr ++BIND++ quant.s ++ cn.loc ! quant.n ;
-      desc = cn.desc ! quant.n ;
-      agr = cn_agr ;
-      proDrop = False ;
-      isPron = False ;
-      reqLocS = False ;
-      qdef = Article Def
-    } ;
+    -- QuantCN quant cn =
+    -- let
+    --   cn_agr = Third cn.c quant.n
+    -- in
+    -- {
+    --   empty = cn.empty ;
+    --   s = \\p => case quant.isPost of {
+    --     True => cn.s ! quant.n ! p ++ quantConc!cn_agr ++BIND++ quant.s ;
+    --     False => quantConc!cn_agr ++BIND++ quant.s ++ cn.s ! quant.n ! p
+    --   } ;
+    --   loc = quantConc!cn_agr ++BIND++ quant.s ++ cn.loc ! quant.n ;
+    --   desc = cn.desc ! quant.n ;
+    --   det = cn.empty ;
+    --   poss = poss_concord!cn.c!quant.n!(initNP False cn_agr) ++ cn.s ! quant.n ! Reduced ;
+    --   agr = cn_agr ;
+    --   proDrop = False ;
+    --   isPron = False ;
+    --   reqLocS = False ;
+    --   qdef = Article Def
+    -- } ;
 
     NumAdjCN cn a = {
       s = cn.s ;
-      loc = cn.loc ;
+      -- loc = cn.loc ;
       desc = \\num =>
         let
           agr = Third cn.c num ;
@@ -245,9 +241,9 @@ concrete ExtraZul of ExtraZulAbs =
       empty = cn.empty ++ a.empty
     } ;
 
-    only_QuantStem = { s = "dwa" ; n = Sg ; isPost = True } ;
-    all_QuantStem = { s = "nke" ; n = Pl ; isPost = False } ;
-    all_post_QuantStem = { s = "nke" ; n = Pl ; isPost = True } ;
+    -- only_QuantStem = { s = "dwa" ; n = Sg ; isPost = True } ;
+    -- all_QuantStem = { s = "nke" ; n = Pl ; isPost = False } ;
+    all_pre_Predet = { s = "nke" ; isPost = False } ;
     painful_RelStem = { s = "buhlungu" } ;
 
     -- TPerfPast = { s = [] ; t = Relative PerfTense PastTense } ;
@@ -372,7 +368,7 @@ concrete ExtraZul of ExtraZulAbs =
     how_many_IAdj = regAdj "ngaki" ;
 
     IAdjIAdv np iadj = {
-      s = np.loc ++ np.desc ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
+      s = np.s!Loc ++ np.desc ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
       postIAdv = False
     } ;
 
@@ -385,7 +381,11 @@ concrete ExtraZul of ExtraZulAbs =
 
     AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
 
-    Deverb15 v = {
+    Deverb15 v =
+    let
+      agr = Third C15 Sg ;
+    in
+    {
       s = \\_ => table {
         Full => case v.r of {
           RC => "uku"++BIND++(v.s!R_a) ;
@@ -396,13 +396,23 @@ concrete ExtraZul of ExtraZulAbs =
           RC => "ku"++BIND++(v.s!R_a) ;
           (RA|RE) => "kw"++BIND++(v.s!R_a) ;
           _ => "k"++BIND++(v.s!R_a)
+        } ;
+        Poss => case v.r of {
+          RC => "ku"++BIND++(v.s!R_a) ;
+          (RA|RE) => "kw"++BIND++(v.s!R_a) ;
+          _ => "k"++BIND++(v.s!R_a)
+        } ;
+        Loc => case v.r of {
+          RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
+          (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
+          _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
         }
       } ;
-      loc = \\_ => case v.r of {
-        RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
-        (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
-        _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
-      } ;
+      -- loc = \\_ => case v.r of {
+      --   RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
+      --   (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
+      --   _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
+      -- } ;
       c = C15 ;
       empty = []
     } ;

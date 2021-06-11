@@ -76,9 +76,15 @@ oper
     mkN : (iso,amehlo,esweni,emehlweni : Str) -> ClassGender -> N = \ns,np,ls,lp,c -> lin N (mkNoun ns np ls lp c) ;
   } ;
 
-  -- mkPN = overload {
-  --   mkPN : Str -> Gender -> PN = \s,g -> lin PN { s = s ; a = Ag Sg Per3 g} ; -- proper name
-  --   } ;
+  mkPN = overload {
+    mkPN : (John : Str) -> ClassGender -> N  = \n,c -> lin N (regNoun n c) ;   -- "thing" nouns
+    mkPN : (nyaka,onyakeni,eminyakeni : Str) -> ClassGender -> N = \n,ls,lp,c -> lin N (semiRegNoun n ls lp c) ;
+    mkPN : (iso,amehlo,esweni,emehlweni : Str) -> ClassGender -> N = \ns,np,ls,lp,c -> lin N (mkNoun ns np ls lp c) ;
+    } ;
+
+  mkKwaPN = overload {
+    mkKwaPN : (Zulu : Str) -> ClassGender -> PN = \n,c -> lin PN (kwaProperName n c) ;
+  } ;
 
   mkA = overload {
     mkA : (kahle : Str) -> A = \a -> lin A (regAdj a) ; -- regular adjective
@@ -142,9 +148,9 @@ oper
   --   mkSgDet : Str -> Det = \s -> lin Det { s = s ; n = Sg ; p = TPos } ;
   -- } ;
 
-  mkPlDet = overload {
-    mkPlDet : Str -> Det = \s -> lin Det { s = s ; n = Pl ; qdef = Article Def } ;
-  } ;
+  -- mkPlDet = overload {
+  --   mkPlDet : Str -> Det = \s -> lin Det { s = s ; n = Pl ; qdef = Article Def } ;
+  -- } ;
 
   -- -- mkVS = overload {
   -- --   mkVS : V -> VS = \weet -> lin VS { v = weet ; c = "dat" } ;

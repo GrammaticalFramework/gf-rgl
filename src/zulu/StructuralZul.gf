@@ -86,10 +86,10 @@ concrete StructuralZul of Structural = CatZul **
   --   therefore_PConj = ss "therefore" ;
 
   -- Predet
-  --   all_Predet = ss "all" ;
+    all_Predet = { s = "nke" ; isPost = True } ;
   --   most_Predet = ss "most" ;
-  --   only_Predet = ss "only" ;
-  --   not_Predet = {s = "not" ; lock_Predet = <>} ;
+    only_Predet = { s = "dwa" ; isPost = True } ;
+    -- not_Predet = { s : Str ; n : Number ; isPost : Bool }
 
   -- Prep
   --   above_Prep = mkPrep "above" ;

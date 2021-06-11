@@ -1,5 +1,5 @@
 abstract ExtraZulAbs =
-  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N],
+  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
   ExtraCatZulAbs ** {
 
   fun
@@ -12,6 +12,8 @@ abstract ExtraZulAbs =
     AssocCop : NP -> VP ;
     EqCop : NP -> VP ;
 
+    UsePNPl : PN -> NP ;
+
     DescrNP : CN -> NP -> CN ;
     PossLocNP : CN -> NP -> CN ;
     PossPronZul : CN -> Pron -> CN ; -- of you (yours)
@@ -21,7 +23,8 @@ abstract ExtraZulAbs =
     InstrAdvNPAdv : Adv -> NP -> Adv ; -- cishe ngehora
     LocNPAdv : NP -> Adv ;   -- emahoreni
     LocAdvNPAdv : Adv -> NP -> Adv ;   -- cishe emahoreni
-    KwaNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
+    KwaNPAdv : NP -> Adv ; -- kwa-Laurette
+    KwaAdvNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
     KuNPAdv : NP -> Adv ; -- kwixesha [elingangeyure enye egqithileyo]
     KuAdvNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
     NaNPAdv : NP -> Adv ;
@@ -35,13 +38,13 @@ abstract ExtraZulAbs =
     QuantRS : QuantStem -> RS ; -- elilodwa
     RelRS : RelStem -> RS ; -- elibuhlungu
 
-    QuantCN : QuantStem -> CN -> NP ;
+    -- QuantCN : QuantStem -> CN -> NP ;
 
-    NumAdjCN : CN -> A -> CN ;
+    -- NumAdjCN : CN -> A -> CN ;
 
-    only_QuantStem : QuantStem ;
-    all_QuantStem : QuantStem ;
-    all_post_QuantStem : QuantStem ;
+    -- only_QuantStem : QuantStem ;
+    -- all_QuantStem : QuantStem ;
+    all_pre_Predet : Predet ;
 
     painful_RelStem : RelStem ;
     sharp_RelStem : RelStem ;

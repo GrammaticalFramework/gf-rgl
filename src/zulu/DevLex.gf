@@ -23,8 +23,11 @@ abstract DevLex = Cat ** {
    -- noun stems
 
    ntu_1_2_N : N ;
+   hlahla_7_8_N : N ;
    ncwadi_9_10_N : N ;
-   khomo_9_10 : N ;
+   ndlu_9_10_N : N ;
+   khomo_9_10_N : N ;
+   John : N ;
 
    -- verb roots
    ab_V : V ;
@@ -33,5 +36,6 @@ abstract DevLex = Cat ** {
    aban_V2 : V2 ;
    bon_V2 : V2 ;
    hamb_V : V ;
+   sh_V : V ;
 
 }

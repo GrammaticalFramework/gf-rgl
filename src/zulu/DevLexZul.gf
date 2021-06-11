@@ -22,8 +22,11 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
 
    -- noun stems
    ntu_1_2_N = mkN "ntu" C1_2 ;
+   hlahla_7_8_N = mkN "hlahla" C7_8 ;
    ncwadi_9_10_N = mkN "ncwadi" C9_10 ;
-   khomo_9_10 = mkN "khomo" C9_10 ;
+   ndlu_9_10_N = mkN "ndlu" C9_10 ;
+   khomo_9_10_N = mkN "khomo" C9_10 ;
+   John = mkN "John" C1a_2a ;
 
    -- verb roots
    ab_V = mkV "ab" ;
@@ -32,4 +35,5 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    aban_V2 = mkV2 "aban" ;
    bon_V2 = mkV2 "bon" ;
    hamb_V = mkV "hamb" ;
+   sh_V = mkV "sh" ;
 }

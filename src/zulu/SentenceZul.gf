@@ -18,10 +18,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
     ImpVP vp = let
       np = {
-        empty = [] ;
-        s = table {Full|Reduced => []} ;
-        loc = [] ;
+        empty,predet_pre,predet_post = [] ;
+        s = table {Full|Reduced|Poss|Loc => []} ;
+        -- loc = [] ;
         desc = [] ;
+        det = [] ;
         agr = Second Sg ;
         proDrop = True ;
         isPron = True ;
@@ -99,18 +100,21 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
     -- NOTE: removing everything related to auxiliaries and compound tenses
 
+    subjNP : NP -> Str = \np ->
+    np.predet_pre ++
+    case <np.proDrop,np.qdef> of {
+      <True,Article d> => np.empty ++ np.desc ;
+      <True,Demonstrative d> => dem_pron!d!np.agr ++ np.empty ++ np.desc ;
+      <False,Article d> => np.s ! Full ++ np.desc ;
+      <False,Demonstrative d> => dem_pron!d!np.agr ++ np.s ! Reduced ++ np.desc
+    }
+    ++ np.predet_post ;
+
     cl_with_verb_predicate : NP -> VP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np,vp -> {
       -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
-          subj = case <np.proDrop,np.qdef> of {
-            <True,Article d> => np.empty ++ np.desc ;
-            <True,Demonstrative d> => np.empty ++ np.desc ;
-            <False,Article d> => np.s ! Full ++ np.desc ;
-            <False,Demonstrative Dem1> => dem_pron!Dem1!np.agr ++ np.s ! Reduced ++ np.desc ;
-            <False,Demonstrative Dem2> => dem_pron!Dem2!np.agr ++ np.s ! Reduced ++ np.desc ;
-            <False,Demonstrative Dem3> => dem_pron!Dem3!np.agr ++ np.s ! Reduced ++ np.desc 
-          } ;
+          subj = subjNP np ;
           aux_tense = case t of {
             Absolute bt => bt ;
             Relative b1 b2 => b1

@@ -4,7 +4,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
   param
     ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C9_6 | C14 | C15 | C17 ;
-    NForm = Full | Reduced ;
+    NForm = Full | Reduced | Poss | Loc ;
     Agr = First Number | Second Number | Third ClassGender Number ;
 
     -- SMood = SIndic | SPot | SSubj ; -- | SConsec ;
@@ -62,15 +62,20 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --------------
     -- PRONOUNS --
     --------------
-    mkFullPron : Str -> Agr -> { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \s,agr -> {
-      s = s ;
-      agr = agr ;
-      empty = [] ;
-      proDrop = False
-    } ;
+    -- mkFullPron : Str -> Agr -> { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \s,agr -> {
+    --   s = s ;
+    --   agr = agr ;
+    --   empty = [] ;
+    --   proDrop = False
+    -- } ;
 
-    mkPron : Agr -> { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \agr -> {
-      s = pron_stem!agr ;
+    mkPron : Agr -> { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \agr -> {
+      s = table {
+        Full => pron_stem!agr +"na" ;
+        Reduced => pron_stem!agr ;
+        Poss => poss_pron_stem!agr ;
+        Loc => "ki" ++BIND++ pron_stem!agr
+      } ;
       agr = agr ;
       empty = [] ;
       proDrop = False
@@ -86,6 +91,32 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Third C1_2 Sg => "ye" ;
       Third C1_2 Pl => "bo" ;
       Third C1a_2a Sg => "ye" ;
+      Third C1a_2a Pl => "bo" ;
+      Third C3_4 Sg  => "wo" ;
+      Third C3_4 Pl => "yo" ;
+      Third C5_6 Sg => "lo" ;
+      Third C5_6 Pl => "wo" ;
+      Third C7_8 Sg => "so" ;
+      Third C7_8 Pl => "zo" ;
+      Third C9_10 Sg => "yo" ;
+      Third C9_10 Pl => "zo" ;
+      Third C11_10 Sg => "lo" ;
+      Third C11_10 Pl => "zo" ;
+      Third C9_6 Sg => "yo" ;
+      Third C9_6 Pl => "wo" ;
+      Third C14 _ => "bo" ;
+      Third C15 _ => "kho" ;
+      Third C17 _ => "kho"
+    } ;
+
+    poss_pron_stem : Agr => Str = table {
+      First Sg => "mi" ;
+      First Pl => "thu" ;
+      Second Sg => "kho" ;
+      Second Pl => "nu" ;
+      Third C1_2 Sg => "khe" ;
+      Third C1_2 Pl => "bo" ;
+      Third C1a_2a Sg => "khe" ;
       Third C1a_2a Pl => "bo" ;
       Third C3_4 Sg  => "wo" ;
       Third C3_4 Pl => "yo" ;
@@ -661,12 +692,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
     } ;
 
     -- with
-      instrPref : RInit => Str = table {
-        RU => "ngo" ;
-        RI => "nge" ;
-        RO => "ngo" ;
-        _  => "nga"
-      } ;
+    instrPref : RInit => Str = table {
+      RU => "ngo" ;
+      RI => "nge" ;
+      RO => "ngo" ;
+      _  => "nga"
+    } ;
 
     --------------------
     -- QUALIFICATIVES --
@@ -843,18 +874,32 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- NOUNS --
     -----------
     -- worst case
-    mkNoun : (noms,nomp,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } =
+    mkNoun : (noms,nomp,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
       \noms,nomp,locs,locp,cg ->
+      let
+        sg_agr = Third cg Sg ;
+        pl_agr = Third cg Pl ;
+      in
       {
-        s = table { Sg => table { Full => noms ; Reduced => (drop_init_vowel noms) } ;
-                      Pl => table { Full => nomp ; Reduced => (drop_init_vowel nomp) } } ;
-        loc = table { Sg => locs ;
-                      Pl => locp } ;
+        s = table {
+          Sg => table {
+            Full => noms ;
+            Reduced => (drop_init_vowel noms) ;
+            Poss => (drop_init_vowel noms) ;
+            Loc => locs
+        } ;
+          Pl => table {
+            Full => nomp ;
+            Reduced => (drop_init_vowel nomp) ;
+            Poss => (drop_init_vowel nomp) ;
+            Loc => locp
+          }
+        } ;
         c = cg ;
         empty = []
       } ;
 
-    semiRegNoun : (root,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } =
+    semiRegNoun : (root,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
       \root,locs,locp,cg ->
       let
         noms : Str = nomNoun root Sg cg ;
@@ -862,7 +907,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       in
       mkNoun noms nomp locs locp cg ;
 
-    regNoun : Str -> ClassGender -> { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } =
+    regNoun : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
       \root,cg ->
       let
         noms : Str = nomNoun root Sg cg ;
@@ -871,6 +916,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
         locp : Str = locNoun root Pl cg ;
         empty = []
       in
+      mkNoun noms nomp locs locp cg ;
+
+    kwaProperName : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
+    \root,cg ->
+    let
+      noms : Str = nomNoun root Sg cg ;
+      nomp : Str = nomNoun root Sg cg ;
+      locs : Str = "Kwa"+root ;
+      locp : Str = "Kwa"+root ;
+    in
       mkNoun noms nomp locs locp cg ;
 
     initNP : Bool -> Agr -> RInit = \ispron,agr -> case ispron of {

@@ -15,15 +15,17 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
         True => objConc np.agr v2.r v2.syl ;
         False => np.empty -- ++ np.desc
       } ;
-      comp = case <v2.voice,np.qdef> of {
-        <Active,Article Def> => \\_ => np.s ! Full ++ np.desc ;
-        <Active,Article Indef> => table {
-          Neg => np.s ! Reduced ++ np.desc ;
-          Pos => np.s ! Full ++ np.desc
+      comp = case <np.qdef,np.proDrop> of {
+        <Article Indef,_> => table {
+          Neg => np.predet_pre ++ np.s ! Reduced ++ np.desc ++ np.predet_post ;
+          Pos => np.predet_pre ++ np.s ! Full ++ np.desc ++ np.predet_post
         } ;
-        <Active,Demonstrative dist> =>
-          \\_ => dem_pron!dist!np.agr ++ np.s ! Reduced ++ np.desc ;
-        <Passive,_> => \\_ => (id_cop_pref np.agr) ++BIND++ np.s ! Full ++ np.desc
+        <Article Def,False> =>
+          \\_ => np.predet_pre ++ np.s ! Full ++ np.desc ++ np.predet_post ;
+        <Article Def,True> =>
+          \\_ => np.predet_pre ++ np.empty ++ np.desc ++ np.predet_post ;
+        <Demonstrative d> =>
+          \\_ => np.predet_pre ++ dem_pron!d!np.agr ++ np.s ! Reduced ++ np.desc ++ np.predet_post 
       } ;
       iadv = [] ;
       advs = [] ;

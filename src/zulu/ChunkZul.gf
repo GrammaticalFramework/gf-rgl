@@ -27,15 +27,15 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   --   SSlash_Chunk : SSlash -> Chunk ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
   --   CN_Pl_Chunk  : CN -> Chunk ;
-    CN_Sg_Chunk cn = { s = variants { cn.s!Sg!Full ++ cn.desc!Sg ; cn.loc!Sg ++ cn.desc!Sg } } ;
-    CN_Pl_Chunk cn = { s = variants { cn.s!Pl!Full ++ cn.desc!Pl ; cn.loc!Pl ++ cn.desc!Pl } } ;
+    CN_Sg_Chunk cn = { s = variants { cn.s!Sg!Full ++ cn.desc!Sg ; cn.s!Sg!Loc ++ cn.desc!Sg } } ;
+    CN_Pl_Chunk cn = { s = variants { cn.s!Pl!Full ++ cn.desc!Pl ; cn.s!Pl!Loc ++ cn.desc!Pl } } ;
   --   CN_Pl_Gen_Chunk : CN -> Chunk ;
   --   CN_Sg_Gen_Chunk : CN -> Chunk ;
   --   Conj_Chunk : Conj -> Chunk ;
   --   Det_Chunk : Det -> Chunk ; -- needed if article form is different from NP form, e.g. English a/an
   --   IAdv_Chunk : IAdv -> Chunk ;
   --   IP_Chunk : IP -> Chunk ;
-    NP_Nom_Chunk np = { s = variants { np.s!Full ++ np.desc ; np.loc ++ np.desc } } ;
+    NP_Nom_Chunk np = { s = variants { np.s!Full ++ np.desc ; np.s!Loc ++ np.desc } } ;
   --   NP_Acc_Chunk : NP -> Chunk ;
   --   NP_Gen_Chunk : NP -> Chunk ;
   --   Numeral_Nom_Chunk : Numeral -> Chunk ;
@@ -50,8 +50,8 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   --   Subj_Chunk   : Subj -> Chunk ;
     -- IComp_Chunk icomp = { } ;
   -- --- PConj_Chunk  : PConj -> Chunk ;
-  N_Sg_Chunk n = { s = variants { n.s!Sg!Full ; n.loc!Sg } } ;
-  N_Pl_Chunk n = { s = variants { n.s!Pl!Full ; n.loc!Pl } } ;
+  N_Sg_Chunk n = { s = variants { n.s!Sg!Full ; n.s!Sg!Loc } } ;
+  N_Pl_Chunk n = { s = variants { n.s!Pl!Full ; n.s!Pl!Loc } } ;
   --
   --   VPS_Chunk    : VPS -> Chunk ;
   --   VPI_Chunk    : VPI -> Chunk ;

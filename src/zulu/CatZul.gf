@@ -103,7 +103,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
     CN = {
       s : Number => NForm => Str ;
-      loc : Number => Str ;
+      -- loc : Number => Str ;
       desc : Number => Str ;
       c : ClassGender ;
       empty : Str
@@ -111,8 +111,10 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     NP = {
       empty : Str ;
       s : NForm => Str ;
-      loc : Str ;
+      -- loc : Str ;
       desc : Str ;
+      predet_pre : Str ;
+      predet_post : Str ;
       agr : Agr ;
       proDrop : Bool ;
       isPron : Bool ;
@@ -121,10 +123,10 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     } ;
 
     -- Pronoun
-    Pron = { s : Str ; agr : Agr ; empty : Str ; proDrop : Bool } ;
+    Pron = { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } ;
 --     DAP
     Det = { s : Str ; n : Number ; qdef : QuantDef } ;
---     Predet = {s : Str} ;
+    Predet = { s : Str ; isPost : Bool } ;
 --     Ord = { s : Case => Str } ;
     Num  = { s: Str ; n : Number } ;
 --     Card = {s,sp : Bool => Case => Str ; n : Number} ;
@@ -160,10 +162,14 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     A = { s : AForm => Str ; empty : Str ; t : AType } ;
 --     A2 = {s : AForm => Str ; c2 : Str ; isPre : Bool} ;
 
-    N, N2, N3, PN = { s : Number => NForm => Str ; loc : Number => Str ; c : ClassGender ; empty : Str } ;
+    N, N2, N3, PN = {
+      s : Number => NForm => Str ;
+      -- loc : Number => Str ;
+      c : ClassGender ;
+      empty : Str
+    } ;
 --     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
 --     N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
---     PN = {s : Case => Str ; g : Gender} ;
 
     Adv = { s : Str ; reqLocS : Bool } ;
 
