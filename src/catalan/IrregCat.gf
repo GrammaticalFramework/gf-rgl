@@ -20,6 +20,7 @@ lin escopir_V = verbV (escopir_49 "escopir") ;
 lin fondre_V = verbV (fondre_57 "fendre") ;
 lin jeure_V = verbV (jeure_62 "jeure" (True|False)) ;
 lin omplir_V = verbV (omplir_80 "omplir") ;
+lin tossir_V = verbV tossir_x ;
 lin venir_V = verbV (venir_117 "venir" (True|False)) ;
 
 }

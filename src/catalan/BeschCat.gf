@@ -5595,7 +5595,71 @@ let t_ = Predef.tk 5 tòrcer in
 VP (Imp Sg P1) => nonExist 
 }
 } ;
---- tossir-- is not in the used source .
+
+oper tossir_x : Verbum =  -- TODO Xurriguera code 
+let to_ = "toss" ;
+    tu_ = "tus" in 
+{s = table { 
+ VI Infn => to_ + "ir" ;
+ VI Ger =>  to_ + "int" ;
+ VP (Pres Ind Pl  P1) => to_ + "im" ;
+ VP (Pres Ind Sg  P1) => tu_ + "so" ;
+ VP (Pres Ind Pl  P2) => to_ + "iu" ;
+ VP (Pres Ind Sg  P2) => tu_ + "ses" ;
+ VP (Pres Ind Pl  P3) => tu_ + "sen" ;
+ VP (Pres Ind Sg  P3) => tu_ ;
+ VP (Pres Sub Pl  P1) => to_ + "im" ;
+ VP (Pres Sub Sg  P1) => tu_ + "si" ;
+ VP (Pres Sub Pl  P2) => to_ + "iu" ;
+ VP (Pres Sub Sg  P2) => tu_ + "sis" ;
+ VP (Pres Sub Pl  P3) => tu_ + "sin" ;
+ VP (Pres Sub Sg  P3) => tu_ + "si" ;
+ VP (Impf Ind Pl  P1) => to_ + "íem" ;--# notpresent
+ VP (Impf Ind Sg  P1) => to_ + "ia" ;--# notpresent
+ VP (Impf Ind Pl  P2) => to_ + "íeu" ;--# notpresent
+ VP (Impf Ind Sg  P2) => to_ + "ies" ;--# notpresent
+ VP (Impf Ind Pl  P3) => to_ + "ien" ;--# notpresent
+ VP (Impf Ind Sg  P3) => to_ + "ia" ;--# notpresent
+ VP (Impf Sub Pl  P1) => to_ + "íssim" ;--# notpresent
+ VP (ImpfSubPlE   P1) => to_ + "íssem" ;--# notpresent
+ VP (Impf Sub Sg  P1) => to_ + "ís" ;--# notpresent
+ VP (Impf Sub Pl  P2) => to_ + "íssiu" ;--# notpresent
+ VP (ImpfSubPlE   P2) => to_ + "ísseu" ;--# notpresent
+ VP (Impf Sub Sg  P2) => to_ + "issis" ;--# notpresent
+ VP ImpfSubSgE        => to_ + "isses" ;--# notpresent
+ VP (Impf Sub Pl  P3) => to_ + "issin" ;--# notpresent
+ VP (ImpfSubPlE   P3) => to_ + "issen" ;--# notpresent
+ VP (Impf Sub Sg  P3) => to_ + "ís" ;--# notpresent
+ VP (Fut Pl  P1)  => to_ + "irem" ;--# notpresent
+ VP (Fut Sg  P1)  => to_ + "iré" ;--# notpresent
+ VP (Fut Pl  P2) => to_ + "ireu" ;--# notpresent
+ VP (Fut Sg  P2) => to_ + "iràs" ;--# notpresent
+ VP (Fut Pl  P3) => to_ + "iran" ;--# notpresent
+ VP (Fut Sg  P3) => to_ + "irà" ;--# notpresent
+ VP (Pret Pl  P1) => to_ + "írem" ;--# notpresent
+ VP (Pret Sg  P1) => to_ + "í" ;--# notpresent
+ VP (Pret Pl  P2) => to_ + "íreu" ;--# notpresent
+ VP (Pret Sg  P2) => to_ + "ires" ;--# notpresent
+ VP (Pret Pl  P3) => to_ + "iren" ;--# notpresent
+ VP (Pret Sg  P3) => to_ + "í" ;--# notpresent
+ VP (Cond Pl  P1)  => to_ + "iríem" ;--# notpresent
+ VP (Cond Sg  P1)  => to_ + "iria" ;--# notpresent
+ VP (Cond Pl  P2) => to_ + "iríeu" ;--# notpresent
+ VP (Cond Sg  P2) => to_ + "iries" ;--# notpresent
+ VP (Cond Pl  P3) => to_ + "irien" ;--# notpresent
+ VP (Cond Sg  P3) => to_ + "iria" ;--# notpresent
+ VP (Imp Pl  P1)  => tu_ + "sim" ;
+ VP (Imp Pl  P2) => tu_ + "siu" ;
+ VP (Imp Sg  P2) => "tus" ;
+ VP (Imp Pl  P3) => tu_ + "sin" ;
+ VP (Imp Sg  P3) => tu_ + "si" ;
+ VP (Pass Pl  Fem) => to_ + "ides" ;
+ VP (Pass Sg  Fem) => to_ + "ida" ;
+ VP (Pass Pl  Masc) => to_ + "its" ;
+ VP (Pass Sg  Masc) => to_ + "it" ;
+VP (Imp Sg P1) => nonExist 
+}
+} ;
 
 oper trencar_112 : Str -> Verbum = \trencar ->
 let tren_ = Predef.tk 3 trencar in

@@ -4,3 +4,4 @@ dist/
 *.o
 *.pgf
 *.tmp
+languages.csv
