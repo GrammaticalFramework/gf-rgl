@@ -21,22 +21,22 @@ concrete AdjectiveEng of Adjective = CatEng ** open ResEng, Prelude in {
       } ;
 
     CAdvAP ad ap np = {
-      s = \\a => ad.s ! Pos ++ ap.s ! a ++ ad.p ++ np.s ! npNom ; 
+      s = \\a => ad.s ! Pos ++ ap.s ! a ++ ad.p ++ np.s ! npNom ;
       isPre = False
       } ;
 
     ComplA2 a np = {
-      s = \\_ => a.s ! AAdj Posit Nom ++ a.c2 ++ np.s ! NPAcc ; 
+      s = \\_ => a.s ! AAdj Posit Nom ++ a.c2 ++ np.s ! NPAcc ;
       isPre = False
       } ;
 
     ReflA2 a = {
-      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ reflPron ! ag ; 
+      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ reflPron ! ag ;
       isPre = False
       } ;
 
     SentAP ap sc = {
-      s = \\a => ap.s ! a ++ sc.s ; 
+      s = \\a => ap.s ! a ++ sc.s ;
       isPre = False
       } ;
 
