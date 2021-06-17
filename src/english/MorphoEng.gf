@@ -14,9 +14,9 @@ resource MorphoEng = open Prelude, (Predef=Predef), ResEng in {
 
 --2 Determiners
 
-  oper 
+  oper
 
-  mkDeterminer : Number -> Str -> 
+  mkDeterminer : Number -> Str ->
     {s : Str ; sp : Gender => Bool => NPCase => Str; n : Number ; hasNum : Bool} = \n,s -> mkDeterminerSpec n s s s False ; --- was True!?
 
   mkDeterminerSpec : Number -> Str -> Str -> Str -> Bool ->
@@ -30,7 +30,7 @@ resource MorphoEng = open Prelude, (Predef=Predef), ResEng in {
 --2 Pronouns
 
 
-  mkPron : (i,me,my,mine : Str) -> Number -> Person -> Gender -> 
+  mkPron : (i,me,my,mine : Str) -> Number -> Person -> Gender ->
     {s : NPCase => Str ; sp : Case => Str ; a : Agr} =
      \i,me,my,mine,n,p,g -> {
      s = table {

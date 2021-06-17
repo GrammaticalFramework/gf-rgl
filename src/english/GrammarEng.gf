@@ -1,8 +1,8 @@
 --# -path=.:../abstract:../common:prelude
 
-concrete GrammarEng of Grammar = 
-  NounEng, 
-  VerbEng, 
+concrete GrammarEng of Grammar =
+  NounEng,
+  VerbEng,
   AdjectiveEng,
   AdverbEng,
   NumeralEng,

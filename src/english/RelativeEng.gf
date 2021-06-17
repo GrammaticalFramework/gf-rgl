@@ -5,13 +5,13 @@ concrete RelativeEng of Relative = CatEng ** open ResEng in {
   lin
 
     RelCl cl = {
-      s = \\t,a,p,_ => "such" ++ "that" ++ cl.s ! t ! a ! p ! oDir ; 
+      s = \\t,a,p,_ => "such" ++ "that" ++ cl.s ! t ! a ! p ! oDir ;
       c = npNom
       } ;
 
     RelVP rp vp = {
-      s = \\t,ant,b,ag => 
-        let 
+      s = \\t,ant,b,ag =>
+        let
           agr = case rp.a of {
             RNoAg => ag ;
             RAg a => a
@@ -23,11 +23,11 @@ concrete RelativeEng of Relative = CatEng ** open ResEng in {
       } ;
 
 -- Pied piping: "that we are looking at". Pied piping and empty
--- relative are defined in $ExtraEng.gf$ ("at which we are looking", 
+-- relative are defined in $ExtraEng.gf$ ("at which we are looking",
 -- "we are looking at").
 
     RelSlash rp slash = {
-      s = \\t,a,p,ag => 
+      s = \\t,a,p,ag =>
         rp.s ! RC (fromAgr ag).g NPAcc ++ slash.s ! t ! a ! p ! oDir ++ slash.c2 ;
       c = NPAcc
       } ;
@@ -42,7 +42,7 @@ concrete RelativeEng of Relative = CatEng ** open ResEng in {
 
     IdRP =
      { s = table {
-        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ; 
+        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ;
         RC Neutr _  => "that" ;
         RC _ NPAcc    => "that" ;
         RC _ (NCase Nom)    => "that" ;

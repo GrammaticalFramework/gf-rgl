@@ -2,8 +2,8 @@
 
 resource MakeStructuralEng = open CatEng, ParadigmsEng, ResEng, MorphoEng, Prelude in {
 
-oper 
-  mkSubj : Str -> Subj = \x -> 
+oper
+  mkSubj : Str -> Subj = \x ->
     lin Subj {s = x} ;
   mkNP : Str -> ParadigmsEng.Number -> NP = \s,n ->
     lin NP (regNP s n) ;
@@ -11,7 +11,7 @@ oper
     lin IDet {s = s ; n = n} ;
   mkIQuant : Str -> Str -> IQuant = \s,n ->
     lin IQuant {s = table {Sg => s ; Pl => n}} ;
-    
+
   mkDet = overload {
     mkDet : Str -> Det = \s ->
       lin Det (mkDeterminer singular s) ;

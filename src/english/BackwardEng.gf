@@ -10,44 +10,44 @@ concrete BackwardEng of Backward = CatEng ** open ResEng in {
 -- from Verb 19/4/2008
 
     ComplV2 v np = insertObj (\\_ => v.c2 ++ np.s ! Acc) (predV v) ;
-    ComplV3 v np np2 = 
+    ComplV3 v np np2 =
       insertObj (\\_ => v.c2 ++ np.s ! Acc ++ v.c3 ++ np2.s ! Acc) (predV v) ;
-    ComplV2V v np vp = 
+    ComplV2V v np vp =
       insertObj (\\a => infVP v.isAux vp False Simul CPos a)
         (insertObj (\\_ => v.c2 ++ np.s ! Acc) (predV v)) ;
-    ComplV2S v np s = 
+    ComplV2S v np s =
       insertObj (\\_ => conjThat ++ s.s)
         (insertObj (\\_ => v.c2 ++ np.s ! Acc) (predV v)) ;
-    ComplV2Q v np q = 
-      insertObj (\\_ => q.s ! QIndir) 
+    ComplV2Q v np q =
+      insertObj (\\_ => q.s ! QIndir)
         (insertObj (\\_ => v.c2 ++ np.s ! Acc) (predV v)) ;
-    ComplV2A v np ap = 
+    ComplV2A v np ap =
       insertObj (\\_ => v.c2 ++ np.s ! Acc ++ ap.s ! np.a) (predV v) ;
 
     ReflV2 v = insertObj (\\a => v.c2 ++ reflPron ! a) (predV v) ;
 
 -- from Sentence 19/4/2008
 
-    SlashV2 np v2 = 
+    SlashV2 np v2 =
       mkClause (np.s ! Nom) np.a (predV v2) ** {c2 = v2.c2} ;
 
-    SlashVVV2 np vv v2 = 
-      mkClause (np.s ! Nom) np.a 
+    SlashVVV2 np vv v2 =
+      mkClause (np.s ! Nom) np.a
         (insertObj (\\a => infVP vv.isAux (predV v2) False Simul CPos a) (predVV vv))  **
         {c2 = v2.c2} ;
 
 -- from Noun 19/4/2008
 
-    NumInt n = {s = n.s ; n = Pl} ; 
+    NumInt n = {s = n.s ; n = Pl} ;
     OrdInt n = {s = n.s ++ "th"} ; --- DEPRECATED
 
     DetSg quant ord = {
-      s = quant.s ! Sg ++ ord.s ; 
+      s = quant.s ! Sg ++ ord.s ;
       n = Sg
       } ;
 
     DetPl quant num ord = {
-      s = quant.s ! num.n ++ num.s ++ ord.s ; 
+      s = quant.s ! num.n ++ num.s ++ ord.s ;
       n = num.n
       } ;
 
@@ -57,7 +57,7 @@ concrete BackwardEng of Backward = CatEng ** open ResEng in {
 
     IndefArt = {
       s = table {
-        Sg => artIndef ; 
+        Sg => artIndef ;
         Pl => []
         }
       } ;

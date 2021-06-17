@@ -28,14 +28,14 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
 
     QCl = {s : ResEng.Tense => Anteriority => CPolarity => QForm => Str} ;
     IP = {s : NPCase => Str ; n : Number} ;
-    IComp = {s : Str} ;    
+    IComp = {s : Str} ;
     IDet = {s : Str ; n : Number} ;
     IQuant = {s : Number => Str} ;
 
 -- Relative
 
     RCl = {
-      s : ResEng.Tense => Anteriority => CPolarity => Agr => Str ; 
+      s : ResEng.Tense => Anteriority => CPolarity => Agr => Str ;
       c : NPCase
       } ;
     RP = {s : RCase => Str ; a : RAgr} ;
@@ -44,11 +44,11 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
 
     VP = ResEng.VP ;
     VPSlash = ResEng.SlashVP ;
-    Comp = {s : Agr => Str} ; 
+    Comp = {s : Agr => Str} ;
 
 -- Adjective
 
-    AP = {s : Agr => Str ; isPre : Bool} ; 
+    AP = {s : Agr => Str ; isPre : Bool} ;
 
 -- Noun
 
@@ -97,8 +97,8 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
     VV = {s : VVForm => Str ; p : Str ; typ : VVType} ;
     V2V = Verb ** {c2,c3 : Str ; typ : VVType} ;
 
-    A = {s : AForm => Str ; isPre : Bool} ;
-    A2 = {s : AForm => Str ; c2 : Str ; isPre : Bool} ;
+    A = ResEng.Adjective ;
+    A2 = ResEng.Adjective ** {c2 : Str} ;
 
     N = {s : Number => Case => Str ; g : Gender} ;
     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
@@ -118,8 +118,8 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
     VV = \s -> {s = \\_ => s; p = ""; isRefl = False; typ = VVInf} ;
     V2V = \s -> {s = \\_ => s; p = ""; isRefl = False; c2,c3="" ; typ = VVInf} ;
 
-    A = \s -> {s = \\_ => s; isPre = True} ;
-    A2 = \s -> {s = \\_ => s; c2 = ""; isPre = True} ;
+    A = \s -> {s = \\_ => s; isPre = True ; isMost = False} ;
+    A2 = \s -> {s = \\_ => s; c2 = ""; isPre = True ; isMost = False} ;
 
     N = \s -> {s = \\_,_ => s; g = Neutr} ;
     N2 = \s -> {s = \\_,_ => s; c2 = ""; g = Neutr} ;
