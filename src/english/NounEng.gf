@@ -3,8 +3,8 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = { 
-      s = \\c => det.s ++ cn.s ! det.n ! npcase2case c ; 
+    DetCN det cn = {
+      s = \\c => det.s ++ cn.s ! det.n ! npcase2case c ;
       a = agrgP3 det.n cn.g
       } ;
 
@@ -48,8 +48,8 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
       } ;
 
     DetQuantOrd quant num ord = {
-      s  =            quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! Nom; 
-      sp = \\g,_,c => quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! npcase2case c ; 
+      s  =            quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! Nom;
+      sp = \\g,_,c => quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! npcase2case c ;
       n  = num.n ;
       hasNum = True
       } ;
