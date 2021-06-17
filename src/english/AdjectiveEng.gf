@@ -7,11 +7,11 @@ concrete AdjectiveEng of Adjective = CatEng ** open ResEng, Prelude in {
       isPre = a.isPre
       } ;
     ComparA a np = {
-      s = \\_ => a.s ! AAdj Compar Nom ++ "than" ++ np.s ! npNom ; 
+      s = \\_ => getCompar Nom a ++ "than" ++ np.s ! npNom ;
       isPre = False
       } ;
     UseComparA a = {
-      s = \\_ => a.s ! AAdj Compar Nom ; 
+      s = \\_ => getCompar Nom a ;
       isPre = a.isPre
       } ;
 

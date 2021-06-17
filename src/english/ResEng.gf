@@ -141,15 +141,37 @@ param
         }
       } ;
 
-    mkAdjective : (_,_,_,_ : Str) -> {s : AForm => Str; isPre : Bool; lock_A : {}} = 
-      \good,better,best,well -> lin A {
-      s = table {
-        AAdj Posit  c => (regGenitiveS good) ! c ;
-        AAdj Compar c => (regGenitiveS better) ! c ;
-        AAdj Superl c => (regGenitiveS best) ! c ;
-        AAdv          => well
-        } ;
-      isPre = True
+    Adjective : Type = {s : AForm => Str ; isPre, isMost : Bool} ;
+    mkAdjective : (_,_,_,_ : Str) -> Adjective = \good,better,best,well ->
+     let adjCompar : Adjective = {
+            s = table {
+              AAdj Posit  c => (regGenitiveS good) ! c ;
+              AAdj Compar c => (regGenitiveS better) ! c ;
+              AAdj Superl c => (regGenitiveS best) ! c ;
+              AAdv          => well
+              } ;
+            isPre = True ;
+            isMost = False ;
+            } ;
+      in case better of {
+            "more" + _
+              => adjCompar ** {
+                    s = table {
+                          AAdj Posit c => adjCompar.s ! AAdj Posit c ;
+                          AAdv         => adjCompar.s ! AAdv ;
+                          _            => nonExist } ; -- IL 06/2021. Replace with an actual string, if this causes problems.
+                    isMost = True } ;
+            _ => adjCompar
+          } ;
+
+    -- IL 06/2021: remove "more" and "most" from A & A2's inflection table
+    getCompar : Case -> Adjective -> Str = \c,a -> case a.isMost of {
+      True => "more" ++ a.s ! AAdj Posit c ;
+      False => a.s ! AAdj Compar c
+      } ;
+    getSuperl : Case -> Adjective -> Str = \c,a -> case a.isMost of {
+      True => "most" ++ a.s ! AAdj Posit c ;
+      False => a.s ! AAdj Superl c
       } ;
 
     mkVerb : (_,_,_,_,_ : Str) -> Verb =

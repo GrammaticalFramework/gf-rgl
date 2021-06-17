@@ -510,8 +510,9 @@ mkInterj : Str -> Interj
     (fat + last fat + "er") (fat + last fat + "est") (adj2adv fat) ;
 
   compoundADeg a =
-    let ad = (a.s ! AAdj Posit Nom) 
-    in mkADeg ad ("more" ++ ad) ("most" ++ ad) (a.s ! AAdv) ;
+    let ad : Str = a.s ! AAdj Posit Nom ;
+        a' : Adjective = mkADeg ad nonExist nonExist (a.s ! AAdv) ;
+    in a' ** {isMost = True} ;
 
   adegA a = a ;
 
@@ -677,14 +678,17 @@ mkInterj : Str -> Interj
       mkAdjective a b c d
     } ;
 
-  invarA s = mkAdjective s s s s ;
+  invarA s = lin A {
+    s = \\_ => s ;
+    isPre = True ;
+    isMost = False} ;
 
   compoundA = compoundADeg ;
   simpleA a =
     let ad = (a.s ! AAdj Posit Nom)
     in regADeg ad ;
 
-  irregAdv a adv = lin A {s = table {AAdv => adv; aform => a.s ! aform}; isPre = a.isPre} ;
+  irregAdv a adv = a ** {s = table {AAdv => adv; aform => a.s ! aform}} ;
 
   prepA2 : A -> Prep -> A2 ;
 
