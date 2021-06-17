@@ -84,9 +84,9 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
                      sp = \\_,c => adn.s ++ num.sp!False!c ;
                      n  = num.n} ;
 
-    OrdSuperl a = {s = \\c => a.s ! AAdj Superl c } ;
+    OrdSuperl a = {s = \\c => getSuperl c a} ;
 
-    OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ a.s ! AAdj Superl c } ;
+    OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ getSuperl c a} ;
 
     DefArt = {
       s  = \\hasCard,n => artDef ;

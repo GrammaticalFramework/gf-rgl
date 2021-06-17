@@ -35,9 +35,8 @@ lin
     s1 = heading1 (heading adjective_Category) ;
     s2 = frameTable (
            tr (th (heading positive_Parameter)    ++ tdf (adj.s ! AAdj Posit Nom)) ++
-           tr (th (heading comparative_Parameter) ++ tdf (adj.s ! AAdj Compar Nom)) ++
-           tr (th (heading superlative_Parameter) ++ tdf (adj.s ! AAdj Superl Nom)) ++
-           tr (th (heading adverb_Category)       ++ tdf (adj.s ! AAdv)) 
+           tr (th (heading comparative_Parameter) ++ tdf (getCompar Nom adj)) ++
+           tr (th (heading superlative_Parameter) ++ tdf (getSuperl Nom adj)) ++
            tr (th (heading adverb_Category)       ++ tdf (adj.s ! AAdv))
          )
     } ;
