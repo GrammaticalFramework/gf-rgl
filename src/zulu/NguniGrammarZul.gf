@@ -2,7 +2,7 @@
 
 concrete NguniGrammarZul of NguniGrammar =
   NounZul [DetCN, UsePron, DetQuant, NumSg, NumPl, IndefArt, DefArt, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP,ApposCN], -- MassNP, AdvCN,AdvNP,
-  VerbZul [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv],
+  VerbZul [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash],
   AdjectiveZul [PositA, AdAP],
   AdverbZul [PositAdvAdj, SubjS],
   -- Numeral,

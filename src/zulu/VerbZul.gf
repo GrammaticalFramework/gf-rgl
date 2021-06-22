@@ -64,8 +64,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     SlashV2a v = v ** {
       oc = [] ;
       comp = \\_ => [] ;
-      iadv = [] ;
-      advs = [] ;
+      -- iadv = [] ;
+      -- advs = [] ;
       hasComp = False ;
       asp = Null ;
       asp_pref = \\_ => [] ;
@@ -73,8 +73,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       comp_agr = First Sg ; -- this could be anything...
       ap_comp = \\_ => [] ;
       aux_root = [] ;
-      hasAux = False ;
-      missing_np1 = True
+      hasAux = False -- ;
+      -- missing_np1 = True
     } ;
 --     Slash2V3 v np =
 --       insertObjc (\\_ => v.c2 ++ np.s ! NPAcc) (predVc v ** {c2 = v.c3 ; gapInMiddle = False}) ;
@@ -86,28 +86,36 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 --     SlashV2Q v q  = insertExtrac (q.s ! QIndir) (predVc v) ;
 --     SlashV2A v ap = insertObjc (\\a => v.c3 ++ ap.s ! a) (predVc v) ; ----
 
-    -- ComplSlash vp np = {
-    --   s = vp.s ;
-    --   perfSuff = vp.perfSuff ;
-    --   oc = case np.proDrop of {
-    --     True => objConc np.agr v2.r v2.syl ;
-    --     False => np.empty
-    --   comp = case v2.voice of {
-    --     Active => vp.comp ++ np.s ! Full ++ np.desc ;
-    --     Passive => vp.comp ++ (cop_pref np.agr) ++BIND++ np.s ! Full ++ np.desc
-    --   } ;
-    --   hasComp = True ;
-    --   r = vp.r ;
-    --   syl = vp.syl ;
-    --   asp = vp.asp ;
-    --   asp_pref = vp.asp_pref ;
-    --   vptype = VNPCompl ;
-    --   comp_agr = np.agr ;
-    --   ap_comp = vp.ap_comp ;
-    --   ap_bool = vp.ap_bool ;
-    --   aux_root = vp.aux_root ;
-    --   hasAux = vp.hasAux
-    -- } ;
+    -- TODO: this simply adds the new np to the end of vp.comp; to be expanded beyond V2 using missing_np1
+    ComplSlash vp np = {
+      oc = case np.proDrop of {
+        True => objConc np.agr vp.r vp.syl ;
+        False => np.empty
+      } ;
+      comp = case <np.qdef> of {
+        <Article Indef> => table {
+          Neg => vp.comp!Neg ++ np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
+          Pos => vp.comp!Pos ++ np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post
+        } ;
+        <Article Def> =>
+          \\p => vp.comp!p ++ np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
+        <Demonstrative d> =>
+          \\p => vp.comp!p ++ np.predet_pre ++ dem_pron!d!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post
+      } ;
+      iadv = [] ;
+      advs = [] ;
+      hasComp = True ;
+      s = vp.s ;
+      r = vp.r ;
+      syl = vp.syl ;
+      asp = vp.asp ;
+      asp_pref = vp.asp_pref ;
+      vptype = VNPCompl ;
+      comp_agr = np.agr ;
+      ap_comp = vp.ap_comp ;
+      aux_root = vp.aux_root ;
+      hasAux = vp.hasAux
+    } ;
 
 
 --     SlashVV vv vp = vp **
