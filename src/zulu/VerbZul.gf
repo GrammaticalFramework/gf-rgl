@@ -228,7 +228,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     } ;
 
     CompNP np = {
-      s = \\_ => np.s ! Full ++ np.desc ;
+      s = \\_ => np.predet_pre ++ np.s ! Full ++ np.mod ++ np.predet_post ;
       r = initNP np.isPron np.agr ;
       agr = np.agr ;
       asp = Null ;

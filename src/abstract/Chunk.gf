@@ -30,7 +30,7 @@ fun
   -- Det_Chunk : Det -> Chunk ; -- needed if article form is different from NP form, e.g. English a/an
   -- IAdv_Chunk : IAdv -> Chunk ;
   -- IP_Chunk : IP -> Chunk ;
-  -- NP_Nom_Chunk : NP -> Chunk ;
+  NP_Nom_Chunk : NP -> Chunk ;
   -- NP_Acc_Chunk : NP -> Chunk ;
   -- NP_Gen_Chunk : NP -> Chunk ;
   -- Numeral_Nom_Chunk : Numeral -> Chunk ;

@@ -24,7 +24,7 @@ concrete ExtraZul of ExtraZulAbs =
     AssocCop np = {
       s = \\_ => [] ;
       oc = [] ;
-      comp = \\_ => np.s!Reduced ++ np.desc ;
+      comp = \\_ => np.s!Reduced ++ np.mod ;
       iadv = [] ;
       advs = [] ;
       hasComp = True ;
@@ -46,8 +46,8 @@ concrete ExtraZul of ExtraZulAbs =
       s = \\_ => [] ;
       oc = [] ;
       comp = case np.isPron of {
-        True => \\_ => np.s!Full ++ np.desc ;
-        False => \\_ => np.s!Reduced ++ np.desc
+        True => \\_ => np.s!Full ++ np.mod ;
+        False => \\_ => np.s!Reduced ++ np.mod
       } ;
       iadv = [] ;
       advs = [] ;
@@ -68,9 +68,8 @@ concrete ExtraZul of ExtraZulAbs =
 
     UsePNPl pn = {
       empty,predet_pre,predet_post = pn.empty ;
-      s = \\nform => pn.s ! Pl ! nform ;
-      -- loc =  cn.loc ! Sg ;
-      desc = pn.empty ;
+      s = pn.s!Pl ;
+      mod = pn.empty ;
       agr = Third pn.c Pl ;
       proDrop = False ;
       isPron = False ;
@@ -90,7 +89,7 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = pref ++BIND++ np.s!Reduced ++ np.desc ;
+      s = pref ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -99,26 +98,29 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = adv.s ++ pref ++BIND++ np.s!Reduced ++ np.desc ;
+      s = adv.s ++ pref ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
     LocNPAdv np = {
-      s = np.s!Loc ++ np.desc ;
+      s = case np.qdef of {
+        Article d => np.predet_pre ++ np.s!Loc ++ np.mod ++ np.predet_post ;
+        Demonstrative d => np.predet_pre ++ np.s!Loc ++ np.mod ++ dem_pron!d!np.agr ++ np.predet_post
+      } ;
       -- asp = Null ;
-      reqLocS = False
+      reqLocS = True
     } ;
 
     LocAdvNPAdv adv np = {
-      s = adv.s ++ np.s!Loc ++ np.desc ;
+      s = adv.s ++ np.predet_pre ++ np.s!Loc ++ np.mod ++ np.predet_post ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
     -- locative kwa
     KwaNPAdv np = {
-      s = "kwa" ++BIND++ np.s!Reduced ++ np.desc ;
+      s = np.predet_pre ++ "kwa" ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_post ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -136,7 +138,7 @@ concrete ExtraZul of ExtraZulAbs =
         }
       in
       {
-        s = adv.s ++ poss_concord!C15!Sg!(initNP np.isPron np.agr) ++BIND++ np.s!Reduced ++ np.desc ;
+        s = adv.s ++ poss_concord!C15!Sg!(initNP np.isPron np.agr) ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
         -- asp = adv.asp ;
         reqLocS = False
       } ;
@@ -146,13 +148,13 @@ concrete ExtraZul of ExtraZulAbs =
       s = case np.isPron of {
         True => "ki" ;
         False => case (initNP np.isPron np.agr) of {
-          RI  => "ki" ;
+          -- RI  => "ki" ;
           RO  => "ko" ;
           RA  => "kw" ;
           _   => "ku"
         }
       }
-      ++BIND++ np.s!Reduced ++ np.desc ;
+      ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -168,13 +170,13 @@ concrete ExtraZul of ExtraZulAbs =
             _   => "ku"
           }
         }
-      ++BIND++ np.s!Reduced ++ np.desc ;
+      ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
       -- asp = Null ;
       reqLocS = False
     } ;
 
     NaNPAdv np = {
-      s = withPref ! (initNP np.isPron np.agr) ++ BIND ++ np.s!Reduced ++ np.desc ;
+      s = withPref ! (initNP np.isPron np.agr) ++ BIND ++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -208,7 +210,18 @@ concrete ExtraZul of ExtraZulAbs =
       s = \\a => relConc!a!RelC ++BIND++ rel.s
     } ;
 
-    -- QuantCN quant cn =
+    QuantCN quant cn = {
+      empty = cn.empty ;
+      s = \\num,nform =>
+        let
+          agr = Third cn.c num
+        in
+        case quant.isPost of {
+          True => cn.s ! num ! nform ++ quantConc!agr ++BIND++ quant.s ;
+          False => quantConc!agr ++BIND++ quant.s ++ cn.s ! num ! nform
+        } ;
+      c = cn.c
+    } ;
     -- let
     --   cn_agr = Third cn.c quant.n
     -- in
@@ -230,19 +243,19 @@ concrete ExtraZul of ExtraZulAbs =
     -- } ;
 
     NumAdjCN cn a = {
-      s = cn.s ;
+      s = \\num,nform => cn.s!num!nform ++ "na" ++BIND++ a.s!AF2 ;
       -- loc = cn.loc ;
-      desc = \\num =>
-        let
-          agr = Third cn.c num ;
-        in
-          cn.desc ! num ++ "na" ++BIND++ a.s!AF2 ;
+      -- desc = \\num =>
+      --   let
+      --     agr = Third cn.c num ;
+      --   in
+      --     cn.desc ! num ++ "na" ++BIND++ a.s!AF2 ;
       c = cn.c ;
       empty = cn.empty ++ a.empty
     } ;
 
     -- only_QuantStem = { s = "dwa" ; n = Sg ; isPost = True } ;
-    -- all_QuantStem = { s = "nke" ; n = Pl ; isPost = False } ;
+    -- all_QuantStem = { s = "nke" ; n = Pl ; isPost = True } ;
     all_pre_Predet = { s = "nke" ; isPost = False } ;
     painful_RelStem = { s = "buhlungu" } ;
 
@@ -361,14 +374,20 @@ concrete ExtraZul of ExtraZulAbs =
 
     yonder_Quant = { s = [] ; qdef = Demonstrative Dem3 } ;
 
-    at_which_IAdv np = { s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ++ np.desc ; postIAdv = False } ;
+    at_which_IAdv np = {
+      s = case np.proDrop of {
+        False => np.predet_pre ++ "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ++ np.mod ++ np.predet_post ;
+        True => np.predet_pre ++ "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Reduced ++ np.mod ++ np.predet_post -- only Full is empty
+      } ;
+      postIAdv = False
+    } ;
 
     what_IAdv = {s = BIND++"ni" ; postIAdv = True } ;
 
     how_many_IAdj = regAdj "ngaki" ;
 
     IAdjIAdv np iadj = {
-      s = np.s!Loc ++ np.desc ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
+      s = np.predet_pre ++ np.s!Loc ++ np.mod ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ++ np.predet_post ;
       postIAdv = False
     } ;
 
@@ -481,18 +500,17 @@ concrete ExtraZul of ExtraZulAbs =
           } ;
           --pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref np.agr ;
-          cb = np.s ! Full ++ np.desc
+          cb = np.s ! Full ++ np.mod ++ np.predet_pre ++ np.predet_post
         in
           aux ++
-          --pcp ++
-          cp ++ BIND ++
+          cp ++BIND++
           cb ;
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
           --pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref np.agr ;
-          cb = np.s ! Full ++ np.desc
+          cb = np.s ! Full ++ np.mod
         in
           --pcp ++
           cp ++ BIND ++
@@ -502,7 +520,7 @@ concrete ExtraZul of ExtraZulAbs =
           vform_main = VFPot dm p ;
           --pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref np.agr ;
-          cb = np.s ! Full ++ np.desc
+          cb = np.s ! Full ++ np.mod
         in
           --pcp ++
           cp ++ BIND ++

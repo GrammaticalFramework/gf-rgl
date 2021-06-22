@@ -6,8 +6,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     DetCN det cn = {
       empty,predet_pre,predet_post = cn.empty ;
       s = \\nform => det.s ++ cn.s ! det.n ! nform ;
-      -- loc =  det.s ++ cn.loc ! det.n ;
-      desc = cn.desc ! det.n ;
+      mod = cn.mod ! det.n ;
       agr = Third cn.c det.n ;
       proDrop = False ;
       isPron = False ;
@@ -18,8 +17,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     UsePN pn = {
       empty,predet_pre,predet_post = pn.empty ;
       s = \\nform => pn.s ! Sg ! nform ;
-      -- loc =  cn.loc ! Sg ;
-      desc = pn.empty ;
+      mod = pn.empty ;
       agr = Third pn.c Sg ;
       proDrop = False ;
       isPron = False ;
@@ -29,9 +27,16 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 
     UsePron pron = {
       empty,predet_pre,predet_post = pron.empty ;
-      s = pron.s ;
-      -- loc = "ki" ++BIND++ (pron.s!Full) ;
-      desc = [] ;
+      s = case pron.proDrop of {
+        False => pron.s ;
+        True => table {
+          Full => pron.empty ;
+          Reduced => pron.s!Reduced ;
+          Poss => pron.s!Poss ;
+          Loc => pron.s!Loc
+        }
+      } ;
+      mod = pron.empty ;
       agr = pron.agr ;
       proDrop = pron.proDrop ;
       isPron = True ;
@@ -39,17 +44,23 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       qdef = Article Def
     } ;
 
+    RelNP np rs = {
+      empty = np.empty ;
+      s = \\nform => np.s!nform ;
+      mod = np.mod ++ rs.s!np.agr ;
+      predet_pre = np.predet_pre ;
+      predet_post = np.predet_post ;
+      agr = np.agr ;
+      proDrop = np.proDrop ;
+      isPron = np.isPron ;
+      reqLocS = np.reqLocS ;
+      qdef = np.qdef
+    } ;
+
     PredetNP pred np = {
       empty = np.empty ;
       s = np.s ;
-      -- s = \\nform => case pred.isPost of {
-      --   True => np.s ! nform ++ quantConc!np.agr ++BIND++ pred.s ;
-      --   False => quantConc!np.agr ++BIND++ pred.s ++ np.s ! nform
-      -- } ;
-      -- loc = case pred.isPost of {
-      --   True => "ki" ++BIND++ np.loc ++ quantConc!np.agr ++BIND++ pred.s ;
-      --   False => quantConc!np.agr ++BIND++ pred.s ++ "ki" ++BIND++ np.loc
-      -- } ;
+      mod = np.mod ;
       predet_post = case pred.isPost of {
         True => quantConc!np.agr ++BIND++ pred.s ;
         False => []
@@ -58,7 +69,6 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
         True => [] ;
         False => quantConc!np.agr ++BIND++ pred.s
       } ;
-      desc = np.desc ;
       agr = np.agr ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
@@ -79,19 +89,19 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 --       a = np.a
 --       } ;
 
-    AdvNP np adv = {
-      empty = np.empty ;
-      s = np.s ;
-      -- loc = np.loc ;
-      predet_pre = np.predet_pre ;
-      predet_post = np.predet_post ;
-      desc = np.desc ++ adv.s ;
-      agr = np.agr ;
-      proDrop = np.proDrop ;
-      isPron = np.isPron ;
-      reqLocS = np.reqLocS ;
-      qdef = np.qdef
-    } ;
+    -- AdvNP np adv = {
+    --   empty = np.empty ;
+    --   s = \\nform => np.s!nform ++ adv.s ;
+    --   -- loc = np.loc ;
+    --   predet_pre = np.predet_pre ;
+    --   predet_post = np.predet_post ;
+    --   -- desc = np.desc ++ adv.s ;
+    --   agr = np.agr ;
+    --   proDrop = np.proDrop ;
+    --   isPron = np.isPron ;
+    --   reqLocS = np.reqLocS ;
+    --   qdef = np.qdef
+    -- } ;
     -- { s : Str ; reqLocS : Bool } ;
 
 --     ExtAdvNP np adv = {
@@ -183,8 +193,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     MassNP cn = {
       empty,predet_pre,predet_post = cn.empty ;
       s = cn.s ! Sg ;
-      -- loc = cn.loc ! Sg ;
-      desc = cn.desc ! Sg ;
+      mod = cn.mod ! Sg ;
       agr = Third cn.c Sg ;
       proDrop = False ;
       isPron = False ;
@@ -192,7 +201,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       qdef = Article Indef
     } ;
 
-    UseN n = n ** { desc = \\_ => [] } ;
+    UseN n = n ** { mod = \\_ => [] } ;
 --     UseN2 n = n ;
 -- ---b    UseN3 n = n ;
 --
@@ -218,55 +227,54 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     AdjCN ap cn = {
       empty = cn.empty ++ ap.empty ;
       s = cn.s ;
-      -- loc = cn.loc ;
-      desc = \\num =>
-        let
-          agr = Third cn.c num ;
-          adjf = case ap.t of {
-            AdjType => aformN agr ;
-            _ => AF1
-          } ;
-          conc = case ap.t of {
-            AdjType => adjConcLookup!agr ;
-            RelType => relConc!agr!RelC ;
-            EnumType => enumConcLookup!agr
-          }
-        in
-          conc ++BIND++ ap.s!adjf
-            ++ cn.desc ! num ;
+      mod = \\num =>
+      let
+        agr = Third cn.c num ;
+        adjf = case ap.t of {
+          AdjType => aformN agr ;
+          _ => AF1
+        } ;
+        conc = case ap.t of {
+          AdjType => adjConcLookup!agr ;
+          RelType => relConc!agr!RelC ;
+          EnumType => enumConcLookup!agr
+        }
+      in
+        cn.mod!num ++ conc ++BIND++ ap.s!adjf ;
       c = cn.c
     } ;
 
     RelCN cn rs = {
       empty = cn.empty ;
-      s = cn.s ;
-      -- loc = cn.loc ;
-      desc = \\n => cn.desc!n ++ rs.s!(Third cn.c n) ;
-      -- desc = cn.desc ;
+      s = \\num,nform => cn.s!num!nform ;
+      mod = \\num => cn.mod!num ++ rs.s!(Third cn.c num) ;
       c = cn.c
     } ;
 
-    AdvCN cn adv = {
-      empty = cn.empty ;
-      s = cn.s ;
-      -- loc = cn.loc ;
-      desc = case adv.reqLocS of {
-        True => \\n => cn.desc!n ++ poss_concord!cn.c!n!RC ++BIND++ "s" ++BIND++ adv.s ;
-        False => \\n => cn.desc!n ++ adv.s
-      } ;
-      c = cn.c
-    } ;
+    -- AdvCN cn adv = {
+    --   empty = cn.empty ;
+    --   s = \\num,nform => cn.s!num!nform ;
+    --   mod = \\num => cn.mod!num ++ case adv.reqLocS of {
+    --     True => shortRelConc!(Third cn.c num) ++BIND++ "s" ++BIND++ adv.s ;
+    --     False => shortRelConc!(Third cn.c num) ++BIND++ adv.s
+    --   } ;
+    --   c = cn.c
+    -- } ;
 
 --     SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s ; g = cn.g} ;
 --
---     ApposCN cn np = {s = \\n,c => cn.s ! n ! Nom ++ np.s ! NCase c ; g = cn.g} ;
+    ApposCN cn np = {
+      empty = cn.empty ;
+      s = \\nform,num => cn.s!nform!num ;
+      mod = \\num => cn.mod!num ++ np.s!Full ;
+      c = cn.c
+    } ;
 
     -- flashing of the lights / ukukhanya kwezibani
     PossNP cn np = {
       empty,predet_pre,predet_post = cn.empty ;
-      s = \\n,cpf => cn.s!n!cpf ;
-      -- loc = \\n => cn.loc!n ;
-      desc = \\n => cn.desc!n ++ poss_concord!cn.c!n!(initNP np.isPron np.agr) ++BIND++ np.s!Poss ++ np.desc ;
+      s = \\n,nform => cn.s!n!nform ;
+      mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!(initNP np.isPron np.agr) ++BIND++ np.s!Poss ;
       c = cn.c
     } ;
 

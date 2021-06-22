@@ -18,10 +18,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
     ImpVP vp = let
       np = {
-        empty,predet_pre,predet_post = [] ;
+        empty,predet_pre,predet_post,mod = [] ;
         s = table {Full|Reduced|Poss|Loc => []} ;
         -- loc = [] ;
-        desc = [] ;
+        -- desc = [] ;
         det = [] ;
         agr = Second Sg ;
         proDrop = True ;
@@ -102,11 +102,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
     subjNP : NP -> Str = \np ->
     np.predet_pre ++
-    case <np.proDrop,np.qdef> of {
-      <True,Article d> => np.empty ++ np.desc ;
-      <True,Demonstrative d> => dem_pron!d!np.agr ++ np.empty ++ np.desc ;
-      <False,Article d> => np.s ! Full ++ np.desc ;
-      <False,Demonstrative d> => dem_pron!d!np.agr ++ np.s ! Reduced ++ np.desc
+    case <np.qdef,np.isPron> of {
+      <Article d,_> => np.s ! Full ++ np.mod ;
+      <Demonstrative d,False> => dem_pron!d!np.agr ++ np.s ! Reduced ++ np.mod ;
+      <Demonstrative d,True> => dem_pron!d!np.agr ++ np.s ! Full ++ np.mod 
     }
     ++ np.predet_post ;
 
@@ -170,10 +169,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.advs ;
       subjcl = \\p,t =>
         let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           main_tense = case t of {
             Absolute bt => bt ;
             Relative b1 b2 => b2
@@ -200,10 +196,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.advs ;
       potcl = \\p,dm =>
         let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           vform_main = VFPot dm p vp.asp ;
         in
           subj
@@ -464,10 +457,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
               False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ; -- () ngiyiphoyisa (I am a policeman) p359
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref vp.comp_agr ;
           -- asp = case vp.asp of {
@@ -486,10 +476,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref vp.comp_agr ;
           cb = vp.comp!p ;
@@ -507,10 +494,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref vp.comp_agr ;
           cb = vp.comp!p ;
@@ -556,10 +540,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
               False => aux_be vform_aux np.agr -- (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e") -- relSubjConc aux_tense np.agr --
             }
           } ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_cop np.agr ;
           cp = (assoc_cop_pref vp.comp_agr)!p ;
           cb = (withPref ! vp.r) ++ BIND ++ vp.comp!p ;
@@ -577,10 +558,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = (assoc_cop_pref vp.comp_agr)!p ;
           cb = (withPref ! vp.r) ++ BIND ++ vp.comp!p ;
@@ -597,10 +575,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           cp = (assoc_cop_pref vp.comp_agr)!p ;
           cb = (withPref ! vp.r) ++ BIND ++ vp.comp!p ;
@@ -644,10 +619,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
               False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           -- cp = id_cop_pref vp.comp_agr ;
           cb = (eqPref ! vp.r) ++ BIND ++ vp.comp!p ;
@@ -661,10 +633,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           -- cp = id_cop_pref vp.comp_agr ;
           cb = (eqPref ! vp.r) ++ BIND ++ vp.comp!p ;
@@ -681,10 +650,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           -- cp = id_cop_pref vp.comp_agr ;
           cb = (eqPref ! vp.r) ++ BIND ++ vp.comp!p ;
@@ -728,10 +694,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
               False => aux_be vform_aux np.agr -- relSubjConc aux_tense np.agr --
             }
           } ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           adjf = aformN np.agr ;
           adjpref =  adjPrefLookup!np.agr ++BIND ;
@@ -751,10 +714,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       subjcl = \\p,t =>
         let
           vform_main = VFSubj p ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           adjf = aformN np.agr ;
           comp =  adjPrefLookup!np.agr ++BIND++ vp.ap_comp!adjf ++ vp.comp!p ;
@@ -771,10 +731,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       potcl = \\p,dm =>
         let
           vform_main = VFPot dm p vp.asp ;
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           pcp = pre_cop_pref vform_main np.agr ;
           adjf = aformN np.agr ;
           comp =  adjPrefLookup!np.agr ++BIND++ vp.ap_comp!adjf ++ vp.comp!p ;
@@ -794,10 +751,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       -- advs = vp.advs ;
       s = \\p,t,dm =>
         let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           aux_tense = case t of {
             Absolute bt => bt ;
             Relative b1 b2 => b1
@@ -855,10 +809,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.iadv ++ vp.advs ;
       subjcl = \\p,t =>
         let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           main_tense = case t of {
             Absolute bt => bt ;
             Relative b1 b2 => b2
@@ -883,10 +834,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.iadv ++ vp.advs ;
       potcl = \\p,dm =>
         let
-          subj = case np.proDrop of {
-            True => np.empty ++ np.desc ;
-            False => np.s ! Full ++ np.desc
-          } ;
+          subj = subjNP np ;
           vform_main = VFPot dm p vp.asp ;
         in
           subj

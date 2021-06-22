@@ -86,6 +86,10 @@ oper
     mkKwaPN : (Zulu : Str) -> ClassGender -> PN = \n,c -> lin PN (kwaProperName n c) ;
   } ;
 
+  mkAdA = overload {
+    mkAdA : (kakhulu : Str ) -> AdA = \a -> lin AdA (ss a) ;
+  } ;
+
   mkA = overload {
     mkA : (kahle : Str) -> A = \a -> lin A (regAdj a) ; -- regular adjective
   } ;

@@ -38,12 +38,13 @@ abstract ExtraZulAbs =
     QuantRS : QuantStem -> RS ; -- elilodwa
     RelRS : RelStem -> RS ; -- elibuhlungu
 
-    -- QuantCN : QuantStem -> CN -> NP ;
+    -- QuantCN : QuantStem -> CN -> CN ; -- izindlu zonke
 
     -- NumAdjCN : CN -> A -> CN ;
 
     -- only_QuantStem : QuantStem ;
     -- all_QuantStem : QuantStem ;
+    -- all_pre_QuantStem : QuantStem ;
     all_pre_Predet : Predet ;
 
     painful_RelStem : RelStem ;
@@ -84,8 +85,6 @@ abstract ExtraZulAbs =
     it17_Pron : Pron ;
 
     yonder_Quant : Quant ;
-
-    all_Det : Det ;
 
     at_which_IAdv : NP -> IAdv ;
     what_IAdv : IAdv ;

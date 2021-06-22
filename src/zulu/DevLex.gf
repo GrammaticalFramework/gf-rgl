@@ -15,6 +15,7 @@ abstract DevLex = Cat ** {
    nzima_R : A ;
    mbalwa_R : A ;
    qotho_R : A ;
+   mhlophe_R : A ;
 
    -- enumerative stems
    mbe_E : A ;
@@ -23,11 +24,15 @@ abstract DevLex = Cat ** {
    -- noun stems
 
    ntu_1_2_N : N ;
+   bhubesi_5_6_N : N ;
+   phoyisa_5_6_N : N ;
    hlahla_7_8_N : N ;
    ncwadi_9_10_N : N ;
    ndlu_9_10_N : N ;
    khomo_9_10_N : N ;
-   John : N ;
+   taba_9_10_N : N ;
+   ngane_9_10_N : N ;
+   John_PN : PN ;
 
    -- verb roots
    ab_V : V ;
@@ -37,5 +42,8 @@ abstract DevLex = Cat ** {
    bon_V2 : V2 ;
    hamb_V : V ;
    sh_V : V ;
+
+   ngaphezu_Adv : Adv ;
+   -- kakhulu_AdA : AdA ;
 
 }

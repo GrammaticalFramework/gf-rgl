@@ -13,6 +13,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
       CopIdent => rcl_with_id_cop_predicate rp vp ;
       CopAssoc => rcl_with_ass_cop_predicate rp vp ;
       CopEq => rcl_with_eq_cop_predicate rp vp ;
+      CopDescr => rcl_with_descr_predicate rp vp ;
       _ => rcl_with_verb_predicate rp vp
     } ;
 
@@ -202,5 +203,48 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             vp.iadv ++
             vp.advs
       } ;
+
+      rcl_with_descr_predicate : RP -> VP -> { s : Polarity => ZTense => Agr => Str } = \rp,vp -> {
+      s = \\p,t,a =>
+        let
+          aux_tense = case t of {
+            Absolute bt => bt ;
+            Relative b1 b2 => b1
+          } ;
+          main_tense = case t of {
+            Absolute bt => bt ;
+            Relative b1 b2 => b2
+          } ;
+          vform_aux = VFIndic Part p aux_tense vp.asp ;
+          vform_main = case t of {
+            Absolute bt => VFIndic Part p bt vp.asp ;
+            Relative b1 b2 => VFIndic Part p b2 vp.asp
+          } ;
+          aux = case t of {
+            Absolute bt => case vp.hasAux of {
+              True => (subjConcLookup!a!SC) ++BIND++ vp.aux_root ;
+              False => aux_be vform_aux a
+            } ;
+            Relative _ _ => case vp.hasAux of {
+              True => (subjConcLookup!a!SC) ++BIND++ vp.aux_root ;
+              False => aux_be vform_aux a -- relSubjConc aux_tense np.agr --
+            }
+          } ;
+          pcp = pre_cop_pref vform_main a ;
+          adjf = aformN a ;
+          adjpref =  adjPrefLookup!a ++BIND ;
+          -- asp = case vp.asp of {
+          --   Prog => "se" ++BIND ; -- p339
+          --   _ => []
+          -- } ;
+          comp = vp.ap_comp!adjf ++ vp.comp!p
+        in
+          aux ++
+          pcp ++
+          adjpref ++
+          vp.asp_pref!vform_main ++
+          comp
+          ++ vp.iadv ++ vp.advs
+        } ;
 
 }

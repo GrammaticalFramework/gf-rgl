@@ -104,15 +104,14 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     CN = {
       s : Number => NForm => Str ;
       -- loc : Number => Str ;
-      desc : Number => Str ;
+      mod : Number => Str ;
       c : ClassGender ;
       empty : Str
     } ;
     NP = {
       empty : Str ;
       s : NForm => Str ;
-      -- loc : Str ;
-      desc : Str ;
+      mod : Str ;
       predet_pre : Str ;
       predet_post : Str ;
       agr : Agr ;

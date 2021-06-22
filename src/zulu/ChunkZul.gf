@@ -27,15 +27,15 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   --   SSlash_Chunk : SSlash -> Chunk ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
   --   CN_Pl_Chunk  : CN -> Chunk ;
-    CN_Sg_Chunk cn = { s = variants { cn.s!Sg!Full ++ cn.desc!Sg ; cn.s!Sg!Loc ++ cn.desc!Sg } } ;
-    CN_Pl_Chunk cn = { s = variants { cn.s!Pl!Full ++ cn.desc!Pl ; cn.s!Pl!Loc ++ cn.desc!Pl } } ;
+    CN_Sg_Chunk cn = { s = variants { cn.s!Sg!Full ; cn.s!Sg!Loc } } ;
+    CN_Pl_Chunk cn = { s = variants { cn.s!Pl!Full ; cn.s!Pl!Loc } } ;
   --   CN_Pl_Gen_Chunk : CN -> Chunk ;
   --   CN_Sg_Gen_Chunk : CN -> Chunk ;
   --   Conj_Chunk : Conj -> Chunk ;
   --   Det_Chunk : Det -> Chunk ; -- needed if article form is different from NP form, e.g. English a/an
   --   IAdv_Chunk : IAdv -> Chunk ;
   --   IP_Chunk : IP -> Chunk ;
-    NP_Nom_Chunk np = { s = variants { np.s!Full ++ np.desc ; np.s!Loc ++ np.desc } } ;
+    NP_Nom_Chunk np = { s = variants { np.s!Full ; np.s!Loc } } ;
   --   NP_Acc_Chunk : NP -> Chunk ;
   --   NP_Gen_Chunk : NP -> Chunk ;
   --   Numeral_Nom_Chunk : Numeral -> Chunk ;

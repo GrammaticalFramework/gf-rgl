@@ -10,7 +10,7 @@ concrete StructuralZul of Structural = CatZul **
   --   almost_AdA = mkAdA "almost" ;
   --   so_AdA = mkAdA "so" ;
   --   too_AdA = mkAdA "too" ;
-  --   very_AdA = mkAdA "very" ;
+    very_AdA = mkAdA "kakhulu" ;
 
   -- AdN
   --   almost_AdN = mkAdN "almost" ;
