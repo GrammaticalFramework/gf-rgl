@@ -24,7 +24,7 @@ concrete ExtraZul of ExtraZulAbs =
     AssocCop np = {
       s = \\_ => [] ;
       oc = [] ;
-      comp = \\_ => np.s!Reduced ++ np.mod ;
+      comp = \\_ => pref_lin_NP np ;
       iadv = [] ;
       advs = [] ;
       hasComp = True ;
@@ -45,10 +45,7 @@ concrete ExtraZul of ExtraZulAbs =
     EqCop np = {
       s = \\_ => [] ;
       oc = [] ;
-      comp = case np.isPron of {
-        True => \\_ => np.s!Full ++ np.mod ;
-        False => \\_ => np.s!Reduced ++ np.mod
-      } ;
+      comp = \\_ => lin_NP np ;
       iadv = [] ;
       advs = [] ;
       hasComp = True ;
@@ -73,8 +70,50 @@ concrete ExtraZul of ExtraZulAbs =
       agr = Third pn.c Pl ;
       proDrop = False ;
       isPron = False ;
-      reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
+      reqLocS = True ;
       qdef = Article Def ;
+    } ;
+
+    PNAsCN pn = pn ** { mod = \\_ => [] } ;
+
+    EmphNP np = {
+      empty = np.empty ;
+      s = np.s ;
+      mod = np.mod ;
+      predet_pre = pron_stem!np.agr ++BIND++"na" ++ np.predet_pre ;
+      predet_post = np.predet_post ;
+      agr = np.agr ;
+      proDrop = np.proDrop ;
+      isPron = np.isPron ;
+      reqLocS = np.reqLocS ;
+      qdef = np.qdef ;
+    } ;
+
+    ContrastCN cn = {
+      s = cn.s ;
+      mod = \\num => cn.mod!num ++ pron_stem!(Third cn.c num) ;
+      c = cn.c ;
+      empty = cn.empty
+    } ;
+
+    ContrastNP np = {
+      empty = np.empty ;
+      s = np.s;
+      mod = np.mod ;
+      predet_pre = np.predet_pre ;
+      predet_post = np.predet_post ++ pron_stem!np.agr ++BIND++"na" ;
+      agr = np.agr ;
+      proDrop = np.proDrop ;
+      isPron = np.isPron ;
+      reqLocS = np.reqLocS ;
+      qdef = np.qdef ;
+    } ;
+
+    ApposCNCN cn1 cn2 = {
+      s = cn1.s ;
+      mod = \\n => cn1.mod!n ++ cn2.s!n!Full ++ cn2.mod!n ;
+      c = cn1.c ;
+      empty = cn1.empty ++ cn2.empty
     } ;
 
     -- NOTE: this is only here to play nice with Xhosa; commented out now.
@@ -89,7 +128,7 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = pref ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+      s = pref ++BIND++ (pref_lin_NP np) ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -98,50 +137,50 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = adv.s ++ pref ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+      s = adv.s ++ pref ++BIND++ (pref_lin_NP np) ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
     LocNPAdv np = {
-      s = case np.qdef of {
-        Article d => np.predet_pre ++ np.s!Loc ++ np.mod ++ np.predet_post ;
-        Demonstrative d => np.predet_pre ++ np.s!Loc ++ np.mod ++ dem_pron!d!np.agr ++ np.predet_post
-      } ;
+      s = loc_NP np ;
       -- asp = Null ;
-      reqLocS = True
+      reqLocS = case np.isPron of {
+        False => True ;
+        True => False -- ki-
+      } ;
     } ;
 
     LocAdvNPAdv adv np = {
-      s = adv.s ++ np.predet_pre ++ np.s!Loc ++ np.mod ++ np.predet_post ;
+      s = adv.s ++ (loc_NP np) ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
     -- locative kwa
     KwaNPAdv np = {
-      s = np.predet_pre ++ "kwa" ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_post ;
+      s = "kwa" ++BIND++ (pref_lin_NP np) ;
       -- asp = Null ;
       reqLocS = False
     } ;
 
-    -- NOTE: this seems to be a specific construction. Not yet found in Poulos+Msimang
-    KwaAdvNPAdv adv np =
-      let
-        c = case np.agr of {
-          (First _ | Second _) => C1_2 ; -- people class as default
-          Third c _ => c
-        } ;
-        n = case np.agr of {
-          (First Sg | Second Sg | Third _ Sg) => Sg ;
-          (First Pl | Second Pl | Third _ Pl) => Pl
-        }
-      in
-      {
-        s = adv.s ++ poss_concord!C15!Sg!(initNP np.isPron np.agr) ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
-        -- asp = adv.asp ;
-        reqLocS = False
-      } ;
+    -- -- NOTE: this seems to be a specific construction. Not yet found in Poulos+Msimang
+    -- KwaAdvNPAdv adv np =
+    --   let
+    --     c = case np.agr of {
+    --       (First _ | Second _) => C1_2 ; -- people class as default
+    --       Third c _ => c
+    --     } ;
+    --     n = case np.agr of {
+    --       (First Sg | Second Sg | Third _ Sg) => Sg ;
+    --       (First Pl | Second Pl | Third _ Pl) => Pl
+    --     }
+    --   in
+    --   {
+    --     s = adv.s ++ poss_concord!C15!Sg!(initNP np.isPron np.agr) ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+    --     -- asp = adv.asp ;
+    --     reqLocS = False
+    --   } ;
 
     -- locative ku
     KuNPAdv np = {
@@ -154,7 +193,7 @@ concrete ExtraZul of ExtraZulAbs =
           _   => "ku"
         }
       }
-      ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+      ++BIND++ (pref_lin_NP np) ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -170,13 +209,13 @@ concrete ExtraZul of ExtraZulAbs =
             _   => "ku"
           }
         }
-      ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+      ++BIND++ (pref_lin_NP np) ;
       -- asp = Null ;
       reqLocS = False
     } ;
 
     NaNPAdv np = {
-      s = withPref ! (initNP np.isPron np.agr) ++ BIND ++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+      s = withPref ! (initNP np.isPron np.agr) ++BIND++ (pref_lin_NP np) ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -375,10 +414,7 @@ concrete ExtraZul of ExtraZulAbs =
     yonder_Quant = { s = [] ; qdef = Demonstrative Dem3 } ;
 
     at_which_IAdv np = {
-      s = case np.proDrop of {
-        False => np.predet_pre ++ "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Full ++ np.mod ++ np.predet_post ;
-        True => np.predet_pre ++ "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ np.s!Reduced ++ np.mod ++ np.predet_post -- only Full is empty
-      } ;
+      s = np.predet_pre ++ "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (lin_NP np) ;
       postIAdv = False
     } ;
 
@@ -387,7 +423,7 @@ concrete ExtraZul of ExtraZulAbs =
     how_many_IAdj = regAdj "ngaki" ;
 
     IAdjIAdv np iadj = {
-      s = np.predet_pre ++ np.s!Loc ++ np.mod ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ++ np.predet_post ;
+      s = (loc_NP np) ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
       postIAdv = False
     } ;
 
@@ -500,7 +536,7 @@ concrete ExtraZul of ExtraZulAbs =
           } ;
           --pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref np.agr ;
-          cb = np.s ! Full ++ np.mod ++ np.predet_pre ++ np.predet_post
+          cb = lin_NP np
         in
           aux ++
           cp ++BIND++
@@ -510,7 +546,7 @@ concrete ExtraZul of ExtraZulAbs =
           vform_main = VFSubj p ;
           --pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref np.agr ;
-          cb = np.s ! Full ++ np.mod
+          cb = lin_NP np
         in
           --pcp ++
           cp ++ BIND ++
@@ -520,7 +556,7 @@ concrete ExtraZul of ExtraZulAbs =
           vform_main = VFPot dm p ;
           --pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref np.agr ;
-          cb = np.s ! Full ++ np.mod
+          cb = lin_NP np
         in
           --pcp ++
           cp ++ BIND ++

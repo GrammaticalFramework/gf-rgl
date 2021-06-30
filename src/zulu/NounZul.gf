@@ -263,18 +263,18 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 
 --     SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s ; g = cn.g} ;
 --
-    ApposCN cn np = {
-      empty = cn.empty ;
-      s = \\nform,num => cn.s!nform!num ;
-      mod = \\num => cn.mod!num ++ np.s!Full ;
-      c = cn.c
-    } ;
+    -- ApposCN cn np = {
+    --   empty = cn.empty ;
+    --   s = \\nform,num => cn.s!nform!num ;
+    --   mod = \\num => cn.mod!num ++ (lin_NP np) ;
+    --   c = cn.c
+    -- } ;
 
     -- flashing of the lights / ukukhanya kwezibani
     PossNP cn np = {
       empty,predet_pre,predet_post = cn.empty ;
       s = \\n,nform => cn.s!n!nform ;
-      mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!(initNP np.isPron np.agr) ++BIND++ np.s!Poss ;
+      mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!(initNP np.isPron np.agr) ++BIND++ (poss_NP np) ;
       c = cn.c
     } ;
 

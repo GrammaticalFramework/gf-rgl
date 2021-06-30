@@ -13,6 +13,12 @@ abstract ExtraZulAbs =
     EqCop : NP -> VP ;
 
     UsePNPl : PN -> NP ;
+    PNAsCN : PN -> CN ;
+
+    EmphNP : NP -> NP ; --
+    ContrastCN : CN -> CN ;
+    ApposCNCN : CN -> CN -> CN ;
+    -- ContrastNP : NP -> NP ;
 
     DescrNP : CN -> NP -> CN ;
     PossLocNP : CN -> NP -> CN ;
