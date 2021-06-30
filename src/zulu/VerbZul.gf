@@ -104,7 +104,10 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       } ;
       iadv = [] ;
       advs = [] ;
-      hasComp = True ;
+      hasComp = case np.proDrop of {
+        True => False ;
+        False => True
+      } ;
       s = vp.s ;
       r = vp.r ;
       syl = vp.syl ;
@@ -236,7 +239,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     } ;
 
     CompNP np = {
-      s = \\_ => np.predet_pre ++ np.s ! Full ++ np.mod ++ np.predet_post ;
+      s = \\_ => lin_NP np ;
       r = initNP np.isPron np.agr ;
       agr = np.agr ;
       asp = Null ;

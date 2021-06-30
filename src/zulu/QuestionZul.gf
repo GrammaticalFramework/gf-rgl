@@ -53,7 +53,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
           False => []
         }
       in
-          pre_icomp ++ np.s!Full ++ np.mod ++ post_icomp ;
+          pre_icomp ++ (lin_NP np) ++ post_icomp ;
       potqcl = \\p,m =>
       let
         vform = VFPot m p Null ;
@@ -67,7 +67,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
           False => []
         } ;
       in
-        pre_icomp ++ np.s!Full ++ np.mod ++ post_icomp ;
+        pre_icomp ++ (lin_NP np) ++ post_icomp ;
       qword_pre = [] ;
       qword_post = []
     } ;
