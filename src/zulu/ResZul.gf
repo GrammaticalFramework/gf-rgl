@@ -1096,6 +1096,74 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <C17,_> => "eku"+(addLocSuffix root)  -- sometimes ukw
         } ;
 
+      lin_NP : {
+        empty : Str ;
+        s : NForm => Str ;
+        mod : Str ;
+        predet_pre : Str ;
+        predet_post : Str ;
+        agr : Agr ;
+        -- proDrop : Bool ;
+        isPron : Bool ;
+        reqLocS : Bool ;
+        qdef : QuantDef
+      } -> Str = \np ->
+      np.predet_pre ++
+      case <np.qdef,np.isPron> of {
+        <Article d,_> => np.s ! Full ++ np.mod ;
+        <Demonstrative d,False> => dem_pron!d!np.agr ++ np.s ! Reduced ++ np.mod ;
+        <Demonstrative d,True> => dem_pron!d!np.agr ++ np.s ! Full ++ np.mod
+      }
+      ++ np.predet_post ;
+
+      loc_NP : {
+        empty : Str ;
+        s : NForm => Str ;
+        mod : Str ;
+        predet_pre : Str ;
+        predet_post : Str ;
+        agr : Agr ;
+        proDrop : Bool ;
+        isPron : Bool ;
+        reqLocS : Bool ;
+        qdef : QuantDef
+      } -> Str = \np -> case np.qdef of {
+        Article d => np.s!Loc ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+        Demonstrative d => np.s!Loc ++ dem_pron!d!np.agr ++ np.mod ++ np.predet_pre ++ np.predet_post
+      } ;
+
+      poss_NP : {
+        empty : Str ;
+        s : NForm => Str ;
+        mod : Str ;
+        predet_pre : Str ;
+        predet_post : Str ;
+        agr : Agr ;
+        proDrop : Bool ;
+        isPron : Bool ;
+        reqLocS : Bool ;
+        qdef : QuantDef
+      } -> Str = \np -> case np.qdef of {
+        Article d => np.s!Poss ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+        Demonstrative d => np.s!Poss ++ dem_pron!d!np.agr ++ np.mod ++ np.predet_pre ++ np.predet_post
+      } ;
+
+      pref_lin_NP : {
+        empty : Str ;
+        s : NForm => Str ;
+        mod : Str ;
+        predet_pre : Str ;
+        predet_post : Str ;
+        agr : Agr ;
+        proDrop : Bool ;
+        isPron : Bool ;
+        reqLocS : Bool ;
+        qdef : QuantDef
+      } -> Str = \np -> case np.qdef of {
+        Article d => np.s ! Reduced ++ np.mod ;
+        Demonstrative d => np.s ! Reduced ++ dem_pron!d!np.agr ++ np.mod
+      } ++ np.predet_pre ++ np.predet_post ;
+
     ----------------
     -- CONGRUENCE --
     ----------------
