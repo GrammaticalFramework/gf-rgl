@@ -25,13 +25,16 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    ntu_1_2_N = mkN "ntu" C1_2 ;
    bhubesi_5_6_N = mkN "bhubesi" C5_6 ;
    phoyisa_5_6_N = mkN "phoyisa" C5_6 ;
+   jele_5_6_N = mkN "jele" "ejele" "emajele" C5_6 ;
    hlahla_7_8_N = mkN "hlahla" C7_8 ;
    ncwadi_9_10_N = mkN "ncwadi" C9_10 ;
    ndlu_9_10_N = mkN "ndlu" C9_10 ;
    khomo_9_10_N = mkN "khomo" C9_10 ;
    taba_9_10_N = mkN "taba" C9_10 ;
    ngane_9_10_N = mkN "ngane" C9_10 ;
+   doda_9_10_N = mkN "doda" C9_10 ;
    John_PN = mkPN "John" C1a_2a ;
+   John_1a_2a_N = mkN "John" C1a_2a ;
    Goli_PN = mkPN "Goli" C5_6 ;
 
    -- verb roots

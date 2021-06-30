@@ -26,13 +26,16 @@ abstract DevLex = Cat ** {
    ntu_1_2_N : N ;
    bhubesi_5_6_N : N ;
    phoyisa_5_6_N : N ;
+   jele_5_6_N : N ;
    hlahla_7_8_N : N ;
    ncwadi_9_10_N : N ;
    ndlu_9_10_N : N ;
    khomo_9_10_N : N ;
    taba_9_10_N : N ;
    ngane_9_10_N : N ;
+   doda_9_10_N : N ;
    John_PN : PN ;
+   John_1a_2a_N : N ;
 
    -- verb roots
    ab_V : V ;
