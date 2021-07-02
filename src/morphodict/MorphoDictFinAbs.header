@@ -1,0 +1,4 @@
+abstract MorphoDictFinAbs =
+  Cat [N,A,V,Adv,Prep] **
+{
+

@@ -23,6 +23,14 @@ concrete IdiomIta of Idiom = CatIta **
         (insertClit3 (elision "ci" "c'" "ci") 
           (insertComplement (\\_ => (np.s ! Nom).ton) 
             (predV copula))) ;
+	    
+    ExistNPAdv np adv =
+      let npa = complAgr np.a in
+      mkClause [] True False (agrP3 npa.g npa.n)
+      (insertAdv adv.s 
+        (insertClit3 (elision "ci" "c'" "ci") 
+          (insertComplement (\\_ => (np.s ! Nom).ton) 
+            (predV copula)))) ;
 
     ExistIP ip = {
       s = \\t,a,p,_ =>

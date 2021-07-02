@@ -7,7 +7,7 @@ concrete ExtendSwe of Extend = CatSwe **
     StrandRelSlash, EmptyRelSlash, StrandQuestSlash,
     PassVPSlash, PassAgentVPSlash, UttVPShort, ByVP, InOrderToVP,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
-    MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
+    MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, RelVPS,
     MkVPS2, ConjVPS2, ComplVPS2, ReflVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     ICompAP,ProDrop,EmbedSSlash,
     AdAdV, PositAdVAdj, GerundCN, GerundNP, GerundAdv, PresPartAP, PastPartAP, PastPartAgentAP,
@@ -94,22 +94,6 @@ in {
               {c2 = a2.c2} ; -- has the right c2
 
 
-    N2VPSlash n2 =
-      let vp : CatSwe.VP = UseComp (CompCN (UseN2 n2)) ;
-          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
-      in dummyVPS **  -- has necessary fields for VPSlash
-               vp **  -- has all the right fields except for c2
-              {c2 = n2.c2} ; -- has the right c2
-
-
-
-    A2VPSlash a2 =
-      let vp : CatSwe.VP = UseComp (CompAP (UseA2 a2)) ;
-          dummyVPS : VPSlash = SlashV2a (P.mkV2 "dummy") ;
-      in dummyVPS **  -- has necessary fields for VPSlash
-               vp **  -- has all the right fields except for c2
-              {c2 = a2.c2} ; -- has the right c2
-
   lin UttVPShort vp = {s = infVP vp (agrP3 Utr Sg)} ;
 
   lincat
@@ -147,6 +131,16 @@ in {
             Sub  => subj ++ verb
             }
         } ;
+
+    RelVPS rp vps = {
+      s = \\ag,rcase =>
+        let agr = case rp.a of {  -- RP's agr may override in the regular RelativeScand, is this true with VPS too?
+                    RNoAg => ag ;
+                    RAg g n p => {g = g ; n = n ; p = p}
+                  } ;
+         in rp.s ! ag.g ! ag.n ! rcase ++ vps.s ! Sub ! agr ;
+      c = NPNom
+      } ;
 
     MkVPS t p vp = {
       s = \\o,a =>
