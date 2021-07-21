@@ -6,8 +6,9 @@ incomplete resource Symbolic = open Symbol, Grammar, PredefCnc in {
     symb : overload {
       symb : Symb -> NP ;                      -- x
       symb : Str -> NP ;                       -- x
-      symb : Int -> NP ;                       -- 23
+      symb : Int -> NP ;                       -- 23 (is prime)
       symb : Float -> NP ;                     -- 0.99
+      symb : Int -> Card ;                     -- 23 (houses)
       symb : N  -> Digits -> NP ;              -- level 4
       symb : N  -> Card -> NP ;                -- level at least four
       symb : CN -> Card -> NP ;                -- advanced level at least four
@@ -45,6 +46,8 @@ incomplete resource Symbolic = open Symbol, Grammar, PredefCnc in {
                           = \i -> UsePN (IntPN i) ;
       symb : Float -> NP 
                           = \i -> UsePN (FloatPN i) ;
+      symb : Int -> Card
+                          = \s -> SymbNum (mkSymb s.s) ;
       symb : N -> Digits -> NP 
                           = \c,i -> CNNumNP (UseN c) (NumDigits i) ;
       symb : N -> Card -> NP 
