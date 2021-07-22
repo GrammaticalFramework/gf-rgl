@@ -183,6 +183,19 @@ oper
 
   foreignPN : Str -> PN ; -- Dieppe-Dieppen
 
+-- To inspect the number of an NP
+
+  ifPluralNP : NP -> Bool  -- False if singular, True if plural
+    = \np -> case np.a of {
+      Ag Pl _ => True ;
+      _ => False
+      } ;
+
+-- To force a number on NP
+
+  forceNumberNP : Number -> NP -> NP  -- e.g. Yhdysvallat plural in form, singular in agreement
+    = \n,np -> np ** {a = agrP3 n} ; --- also forces 3rd person
+
 --2 Adjectives
 
 -- Non-comparison one-place adjectives are just like nouns.
