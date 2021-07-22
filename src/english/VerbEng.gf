@@ -6,13 +6,13 @@ concrete VerbEng of Verb = CatEng ** open ResEng, Prelude in {
     UseV = predV ;
 
     SlashV2a v = predVc v ** {c2 = v.c2 ; gapInMiddle = False} ;
-    Slash2V3 v np = 
+    Slash2V3 v np =
       insertObjc (\\_ => v.c2 ++ np.s ! NPAcc) (predVc v ** {c2 = v.c3 ; gapInMiddle = False}) ;
-    Slash3V3 v np = 
+    Slash3V3 v np =
       insertObjc (\\_ => v.c3 ++ np.s ! NPAcc) (predVc v) ; ----
 
     ComplVV v vp = insertObj (\\a => infVP v.typ vp False Simul CPos a) (predVV v) ;  ---- insertExtra?
-    ComplVS v s  = insertExtra (conjThat ++ s.s) (predV v) ; 
+    ComplVS v s  = insertExtra (conjThat ++ s.s) (predV v) ;
 ---    ComplVS v s  = insertObj (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predV v) ;
     ComplVQ v q  = insertExtra (q.s ! QIndir) (predV v) ;
     ComplVA v ap = insertObj (ap.s) (predV v) ;
@@ -62,7 +62,7 @@ concrete VerbEng of Verb = CatEng ** open ResEng, Prelude in {
     CompAP ap = ap ;
     CompNP np = {s = \\_ => np.s ! NPAcc} ;
     CompAdv a = {s = \\_ => a.s} ;
-    CompCN cn = {s = \\a => case (fromAgr a).n of { 
+    CompCN cn = {s = \\a => case (fromAgr a).n of {
       Sg => artIndef ++ cn.s ! Sg ! Nom ;
       Pl => cn.s ! Pl ! Nom
       }

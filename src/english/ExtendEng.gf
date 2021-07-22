@@ -416,7 +416,7 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
     AdvRAP ap prep rnp = {s = \\a => ap.s ! a ++ prep.s ++ rnp.s ! a ; isPre = False} ;
 
     ReflA2RNP a rnp = {
-      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ rnp.s ! ag ; 
+      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ rnp.s ! ag ;
       isPre = False
       } ;
 
