@@ -10,7 +10,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = Third cn.c det.n ;
       proDrop = False ;
       isPron = False ;
-      reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
+      -- reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
       qdef = det.qdef ;
     } ;
 
@@ -21,7 +21,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = Third pn.c Sg ;
       proDrop = False ;
       isPron = False ;
-      reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
+      -- reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
       qdef = Article Def ;
     } ;
 
@@ -40,7 +40,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = pron.agr ;
       proDrop = pron.proDrop ;
       isPron = True ;
-      reqLocS = True ;
+      -- reqLocS = True ;
       qdef = Article Def
     } ;
 
@@ -53,7 +53,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = np.agr ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
-      reqLocS = np.reqLocS ;
+      -- reqLocS = np.reqLocS ;
       qdef = np.qdef
     } ;
 
@@ -72,9 +72,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = np.agr ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
-      reqLocS = case pred.isPost of {
-        True => np.reqLocS ;
-        False => False
+      -- reqLocS = case pred.isPost of {
+        -- True => np.reqLocS ;
+        -- False => False
       } ;
       qdef = np.qdef
       } ;
@@ -197,7 +197,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = Third cn.c Sg ;
       proDrop = False ;
       isPron = False ;
-      reqLocS = True ;
+      -- reqLocS = True ;
       qdef = Article Indef
     } ;
 

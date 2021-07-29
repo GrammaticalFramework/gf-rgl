@@ -117,7 +117,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       agr : Agr ;
       proDrop : Bool ; -- used when NP is object
       isPron : Bool ; -- used to choose correct between Full/Reduced
-      reqLocS : Bool ;
+      -- reqLocS : Bool ;
       qdef : QuantDef
     } ;
 

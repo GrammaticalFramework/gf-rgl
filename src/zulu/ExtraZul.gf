@@ -70,7 +70,7 @@ concrete ExtraZul of ExtraZulAbs =
       agr = Third pn.c Pl ;
       proDrop = False ;
       isPron = False ;
-      reqLocS = True ;
+      -- reqLocS = True ;
       qdef = Article Def ;
     } ;
 
@@ -85,13 +85,13 @@ concrete ExtraZul of ExtraZulAbs =
       agr = np.agr ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
-      reqLocS = np.reqLocS ;
+      -- reqLocS = np.reqLocS ;
       qdef = np.qdef ;
     } ;
 
     ContrastCN cn = {
       s = cn.s ;
-      mod = \\num => cn.mod!num ++ pron_stem!(Third cn.c num) ;
+      mod = \\num => pron_stem!(Third cn.c num) ++BIND++ "na" ++ cn.mod!num ;
       c = cn.c ;
       empty = cn.empty
     } ;
@@ -105,7 +105,7 @@ concrete ExtraZul of ExtraZulAbs =
       agr = np.agr ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
-      reqLocS = np.reqLocS ;
+      -- reqLocS = np.reqLocS ;
       qdef = np.qdef ;
     } ;
 

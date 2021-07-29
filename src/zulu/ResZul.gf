@@ -74,7 +74,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Full => pron_stem!agr +"na" ;
         Reduced => pron_stem!agr ;
         Poss => poss_pron_stem!agr ;
-        Loc => "ki" ++BIND++ pron_stem!agr
+        Loc => case agr of {
+          First _ | Second Pl => "ki" ++BIND++ pron_stem!agr ;
+          _ => "ku" ++BIND++ pron_stem!agr
+        } ;
       } ;
       agr = agr ;
       empty = [] ;
@@ -1103,9 +1106,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
         predet_pre : Str ;
         predet_post : Str ;
         agr : Agr ;
-        -- proDrop : Bool ;
+        proDrop : Bool ;
         isPron : Bool ;
-        reqLocS : Bool ;
+        -- reqLocS : Bool ;
         qdef : QuantDef
       } -> Str = \np ->
       np.predet_pre ++
@@ -1125,7 +1128,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         agr : Agr ;
         proDrop : Bool ;
         isPron : Bool ;
-        reqLocS : Bool ;
+        -- reqLocS : Bool ;
         qdef : QuantDef
       } -> Str = \np -> case np.qdef of {
         Article d => np.s!Loc ++ np.mod ++ np.predet_pre ++ np.predet_post ;
@@ -1141,7 +1144,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         agr : Agr ;
         proDrop : Bool ;
         isPron : Bool ;
-        reqLocS : Bool ;
+        -- reqLocS : Bool ;
         qdef : QuantDef
       } -> Str = \np -> case np.qdef of {
         Article d => np.s!Poss ++ np.mod ++ np.predet_pre ++ np.predet_post ;
@@ -1157,7 +1160,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         agr : Agr ;
         proDrop : Bool ;
         isPron : Bool ;
-        reqLocS : Bool ;
+        -- reqLocS : Bool ;
         qdef : QuantDef
       } -> Str = \np -> case np.qdef of {
         Article d => np.s ! Reduced ++ np.mod ;
