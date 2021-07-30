@@ -7,6 +7,7 @@ concrete ExtendFin of Extend =
     ,ExistCN, ExistMassCN, ICompAP, ByVP
     ,CompoundN, GenNP, GenIP, AdvIsNP, EmbedSSlash
     ,PassVPSlash, PassAgentVPSlash
+    ,CardCNCard
     ]
   with
     (Grammar = GrammarFin) **
@@ -226,7 +227,11 @@ lin
         isPron = False ; isNeg = dap.isNeg
       } ;
       
-lin CardCNCard card cn =
-  {s = \\n,c => card.s ! n ! c ++ cn.s ! card.n ! NCase n c ; n = Pl} ;
+lin CardCNCard card cn = {
+  s = \\n,c =>
+    let k = case <card.n, c> of {<Pl,Nom> => Part ; _ => c}
+    in card.s ! n ! c ++ cn.s ! NCase Sg k ;
+  n = Pl
+  } ;
 
 }
