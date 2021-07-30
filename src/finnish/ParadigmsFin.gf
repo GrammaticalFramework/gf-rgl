@@ -396,6 +396,8 @@ mkVS = overload {
       Part => lin Det (MorphoFin.mkDetPol isNeg nu (snoun2nounBind noun)) ** {isNum = True} ; --- works like "kolme autoa"
       _ => lin Det (MorphoFin.mkDetPol isNeg nu (snoun2nounBind noun)) ---- are there other cases?
       } ;
+    mkDet : Str -> Det -> Det -- add a string to a Det, e.g. "suunnilleen jokainen"
+      = \s,det -> det ** {s1 = \\c => s ++ det.s1 ! c} ;
     } ;
 
   mkQuant = overload {

@@ -143,8 +143,10 @@ mkN : overload {
 
     } ;
 
+-- To extract the number of a noun phrase
 
-
+    ifPluralNP : NP -> Bool
+      = \np -> case (numberAgr np.a) of {Sg => False ; Pl => True} ;
 
 
 --2 Adjectives
