@@ -17,7 +17,8 @@ concrete ExtendEng of Extend =
     GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, NominalizeVPSlashNP,
     PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj,  PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
-    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2, A2VPSlash, N2VPSlash
+    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash,
+    CardCNCard
    ]
   with
     (Grammar = GrammarEng) **
@@ -466,5 +467,8 @@ lin UseDAPFem dap = {
       s = dap.sp ! Fem ! False ;
       a = agrgP3 dap.n Fem
     } ;
+
+lin CardCNCard card cn =
+  {s,sp = \\d,c => card.s ! d ! Nom ++ cn.s ! card.n ! c ; n = Pl} ;
 
 }

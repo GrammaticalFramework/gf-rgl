@@ -225,5 +225,8 @@ lin
             }) ;
         isPron = False ; isNeg = dap.isNeg
       } ;
+      
+lin CardCNCard card cn =
+  {s = \\n,c => card.s ! n ! c ++ cn.s ! card.n ! NCase n c ; n = Pl} ;
 
 }
