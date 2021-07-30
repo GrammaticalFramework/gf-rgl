@@ -138,6 +138,12 @@ oper
     mkPN : N -> PN --%
   } ;
 
+-- To extract the number of a noun phrase
+
+    ifPluralNP : NP -> Bool
+      = \np -> case (fromAgr np.a).n of {Sg => False ; Pl => True} ;
+
+
 --3 Determiners and quantifiers
 
   mkQuant : overload {
