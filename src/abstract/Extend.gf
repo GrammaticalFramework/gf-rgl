@@ -289,4 +289,7 @@ fun UseDAP     : DAP -> NP ;
 
 cat X ; -- for words that are difficult to classify, mainly for MorphoDict
 
+fun
+  CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
+
 }
