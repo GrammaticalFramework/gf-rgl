@@ -117,7 +117,14 @@ oper
 
     exceptNomSNoun : SNoun -> Str -> SNoun = \noun,nom -> {
       s = table {
-        0 => nom ;
+        5 => nom ;
+        f => noun.s ! f
+	} ;
+      h = noun.h
+      } ;
+    exceptPlGenSNoun : SNoun -> Str -> SNoun = \noun,plgen -> {
+      s = table {
+        5 => init plgen ;
         f => noun.s ! f
 	} ;
       h = noun.h

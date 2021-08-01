@@ -47,6 +47,13 @@ oper
 	} ;
       h = noun.h
       } ;
+  exceptPlGenSNoun : SNoun -> Str -> SNoun = \noun,plgen -> {
+      s = table {
+        NCase Pl Gen => plgen ;
+        f => noun.s ! f
+	} ;
+      h = noun.h
+      } ;
 
 
 

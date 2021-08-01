@@ -137,6 +137,10 @@ oper
 
     exceptNomN : N -> Str -> N ;
 
+-- Some nouns have special, or variant, plural genitives (e.g. "valta" - "valtojen"|"valtain").
+
+    exceptPlGenN : N -> Str -> N ;
+
 -- Nouns where the parts are separate (should perhaps be treated as CN)
 
    separateN = overload {
@@ -489,6 +493,7 @@ mkVS = overload {
   } ;
 
     exceptNomN : N -> Str -> N = \noun,nom -> lin N (exceptNomSNoun noun nom) ;
+    exceptPlGenN : N -> Str -> N = \noun,nom -> lin N (exceptPlGenSNoun noun nom) ;
 
 ----  mk1A : Str -> A = \jalo -> aForms2A (nforms2aforms (nForms1 jalo)) ;
 ----  mkNA : N -> A = snoun2sadj ;
