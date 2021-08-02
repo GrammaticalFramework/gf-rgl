@@ -18,7 +18,7 @@ concrete ExtendEng of Extend =
     PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj,  PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
     UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash,
-    CardCNCard
+    CardCNCard, ProDrop
    ]
   with
     (Grammar = GrammarEng) **
@@ -32,6 +32,10 @@ concrete ExtendEng of Extend =
     ParadigmsEng in {
 
   lin
+    ProDrop pro = pro ** {
+      s = \\_ => []
+    } ;
+
     GenNP np = {s = \\_,_ => np.s ! npGen ; sp = \\_,_,_,_ => np.s ! npGen ; isDef = True} ;
     GenIP ip = {s = \\_ => ip.s ! NCase Gen} ;
     GenRP nu cn = {
