@@ -1,6 +1,6 @@
 --# -path=.:../english:../common:../abstract:../prelude
 
-resource TryEng = SyntaxEng-[mkAdN], LexiconEng, ParadigmsEng - [mkAdv,mkAdN,mkOrd,mkQuant] ** 
+resource TryEng = SyntaxEng-[mkAdN], LexiconEng, ParadigmsEng - [mkAdv,mkAdN,mkOrd,mkQuant,mkVoc] **
   open (P = ParadigmsEng) in {
 
 oper
