@@ -359,6 +359,8 @@ oper
 mkSubj : Str -> Subj = \s -> lin Subj {s = s} ; --%
 mkInterj : Str -> Interj
   = \s -> lin Interj (ss s) ;
+mkVoc : Str -> Voc ; -- Any other vocative expression not coming from a NP or a preconstructed Voc
+mkVoc s = lin Voc (ss s) ;
 
 --.
 --2 Definitions of paradigms
