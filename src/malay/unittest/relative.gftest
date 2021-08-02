@@ -22,6 +22,7 @@ LangMay: kucing yang anjing jalan dengannya
 --------------------------------------------------------------
 -- Determiner placement
 
+-- TODO check determiner placement?
 Lang: DetCN (DetQuant this_Quant NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))
 LangEng: this cat that walks
 LangMay: kucing ini yang jalan
@@ -29,6 +30,13 @@ LangMay: kucing ini yang jalan
 Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
 LangEng: my cat that drinks milk
 LangMay: kucing saya yang minum susu
+
+
+-- TODO verb form?
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant this_Quant NumSg)) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))))))
+LangEng: this is the cat that walks
+LangMay: ini kucing yang jalan
+
 
 --------------------------------------------------------------
 -- Complex example: "the book that his/her father gave him/her"
