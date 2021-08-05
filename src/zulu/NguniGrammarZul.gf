@@ -1,7 +1,7 @@
 -- All functions are explicitly inherited, in order to allow useful probabilities
 
 concrete NguniGrammarZul of NguniGrammar =
-  NounZul [DetCN, UsePron, DetQuant, NumSg, NumPl, IndefArt, DefArt, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP], -- MassNP, AdvCN,AdvNP,
+  NounZul [DetCN, UsePron, DetQuant, NumSg, NumPl, IndefArt, DefArt, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP, MassNP], -- MassNP, AdvCN,AdvNP,
   VerbZul [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash],
   AdjectiveZul [PositA, AdAP],
   AdverbZul [PositAdvAdj, SubjS],
