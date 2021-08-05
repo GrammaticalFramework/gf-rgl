@@ -37,6 +37,13 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    John_1a_2a_N = mkN "John" C1a_2a ;
    Goli_PN = mkPN "Goli" C5_6 ;
 
+   Tatjana_PN = mkPN "Tatjana" C1a_2a ;
+   medal_N = mkN "dondo" C9_10 ;
+   gold_N = mkN "golide" C5_6 ;
+   day_N = mkN "suku" C11_10 ;
+   swimmer_N = mkN "hlambi" C9_10 ;
+   majority_N = mkN "ningi" C5_6 ;
+
    -- verb roots
    ab_V = mkV "ab" ;
    ab_V2 = mkV2 "ab" ;
@@ -45,6 +52,12 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    bon_V2 = mkV2 "bon" ;
    hamb_V = mkV "hamb" ;
    sh_V = mkV "sh" ;
+
+   be_hot_V = mkV "shis" ;
+   be_healthy_V = mkV "phil" ;
+   be_fast_V = mkV "shes" ;
+
+   win_V2 = mkV2 "zuz" ;
 
    ngaphezu_Adv = mkAdv "ngaphezu" ;
    -- kakhulu_AdA = { s = "kakhulu" } ;

@@ -37,6 +37,13 @@ abstract DevLex = Cat ** {
    John_PN : PN ;
    John_1a_2a_N : N ;
 
+   Tatjana_PN : PN ;
+   medal_N : N ;
+   gold_N : N ;
+   day_N : N ;
+   swimmer_N : N ;
+   majority_N : N ;
+
    -- verb roots
    ab_V : V ;
    ab_V2 : V2 ;
@@ -45,6 +52,13 @@ abstract DevLex = Cat ** {
    bon_V2 : V2 ;
    hamb_V : V ;
    sh_V : V ;
+   th_V : V ;
+
+   be_hot_V : V ;
+   be_healthy_V : V ;
+   be_fast_V : V ;
+
+   win_V2 : V2 ;
 
    ngaphezu_Adv : Adv ;
    -- kakhulu_AdA : AdA ;
