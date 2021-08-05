@@ -26,7 +26,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         agr = Second Sg ;
         proDrop = True ;
         isPron = True ;
-        -- reqLocS = True ;
+        reqLocS = True ;
         qdef = Article Def
       } ;
       impTense = Absolute PresTense
