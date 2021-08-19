@@ -70,7 +70,7 @@ in {
       insertObj (\\a => vps.c2.s ++ vps.n3 ! a) (passiveVP vps) ;
     PassAgentVPSlash vps np =
       insertObjPost (\\a => vps.c2.s ++ vps.n3 ! a) (insertObj (\\_ => (PrepNP by8agent_Prep np).s) (passiveVP vps)) ;
-    ProgrVPSlash vp =
+    ProgrVPSlash vp = 
       insertObj (\\a => "att" ++ infVP vp a) (predV (P.partV I.hålla_V "på")) **
         { n3 = vp.n3 ;
           c2 = vp.c2
@@ -183,6 +183,10 @@ in {
 
     ComplVPS2 vps2 np = {
         s = \\o,a => vps2.s !o ! a ++ vps2.c2.s ++ np.s ! NPAcc
+        } ;
+
+    ReflVPS2 vps2 rnp = {
+        s = \\o,a => vps2.s ! o ! a ++ vps2.c2.s ++ rnp.s ! a
         } ;
 
     ConjVPS2 c xs = conjunctDistrTable2 Order Agr c xs ** {c2 = xs.c2} ;

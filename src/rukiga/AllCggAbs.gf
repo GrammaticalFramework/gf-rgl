@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:prelude
 
-abstract AllCggAbs =
+abstract AllCggAbs = 
   Lang,
   SentenceExtra,
   LexiconExtra
