@@ -97,6 +97,7 @@ for module in $modules_alltenses; do
 done
 
 # Copy
+if [ $dest == $dist ]; then exit 0; fi
 echo "Copying to ${dest}"
 mkdir -p "${dest}"
 cp -R "${dist}"/* "${dest}"
