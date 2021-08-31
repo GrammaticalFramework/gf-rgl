@@ -341,7 +341,10 @@ oper
     mkV2A : V -> Prep -> Prep -> V2A ; -- e.g. strike (NP) as (AP)
     } ;
   mkVQ  : V -> VQ ; -- e.g. wonder (QS)
-  mkV2Q : V -> Prep -> V2Q ; -- e.g. ask (NP) (QS)
+  mkV2Q : overload {
+    mkV2Q : V -> Prep -> V2Q ; -- e.g. ask (NP) (QS)
+    mkV2Q : V -> V2Q -- e.g. ask (NP) (QS)
+  } ;
 
   mkAS  : A -> AS ; --%
   mkA2S : A -> Prep -> A2S ; --%
@@ -642,7 +645,12 @@ mkVoc s = lin Voc (ss s) ;
     mkV2A : V -> Prep -> V2A = \v,p -> lin V2A (dirV3 v p) ;
     mkV2A : V -> Prep -> Prep -> V2A = \v,p1,p2 -> lin V2A (prepPrepV3 v p1 p2) ;
     } ;
-  mkV2Q v p = lin V2Q (prepV2 v p) ;
+  mkV2Q = overload {
+    mkV2Q : V -> Prep -> V2Q = \v,p -> lin V2Q (prepV2 v p) ;
+    mkV2Q : V -> V2Q = \v -> lin V2Q (dirV2 v) ;
+    mkV2Q : V2 -> V2Q = \v2 -> lin V2Q v2 ;
+    mkV2Q : Str -> V2Q = \s -> lin V2Q (dirV2 (regV s)) ;
+  } ;
 
   mkAS  v = v ;
   mkA2S v p = lin A (prepA2 v p) ;
