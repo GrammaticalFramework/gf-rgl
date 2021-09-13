@@ -81,6 +81,8 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
       _ => prepCase c ++ artDef False g Sg (CPrep P_di)
       } ;
 -}
+    piuComp = "più" ;
+
     conjunctCase : Case -> Case = \c -> case c of {
       Nom => Nom ;
       _ => Acc 
