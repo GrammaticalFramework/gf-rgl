@@ -251,7 +251,7 @@ oper
 
   mkOrdinal : A -> Ord = \adj ->
   lin Ord {
-    s = \\ag => adj.s ! Posit ! (genNum2Aform ag.g ag.n) ;
+    s = \\ag => adj.s ! genNum2Aform ag.g ag.n ;
     } ;
 
   mkQuantifier : (esse,essa,esses,essas : Str) -> Quant = \esse,essa,esses,essas->

@@ -207,48 +207,52 @@ oper
     } ;
 
 --2 Adjectives
-  compADeg : A -> A ; --%
-  compADeg a = a ** {
-    s = table {
-      Posit => a.s ! Posit ;
-      _ => \\f => "mais" ++  a.s ! Posit ! f
-      } ;
-    } ;
+  compADeg : Adj -> A ; --%
+  compADeg a = lin A
+    {s = a.s ;
+     compar = \\_ => nonExist ; --
+     isPre = False ;       -- default values
+     copTyp = serCopula ;
+     isDeg = False
+     } ;
 
-  liftAdj : Adj -> A ; --%
-  liftAdj adj = compADeg (lin A {s = \\_ => adj.s ; isPre = False ; copTyp = serCopula}) ;
+  -- liftAdj : Adj -> A ; --%
+  -- liftAdj adj = compADeg (lin A {s = \\_ => adj.s ; isPre = False ; copTyp = serCopula}) ;
 
   regA : Str -> A ; --%
-  regA a = liftAdj (mkAdjReg a) ;
+  regA a = compADeg (mkAdjReg a) ;
 
   mk2A : (patrão,patroa : Str) -> A ; --%
-  mk2A ms fs = liftAdj (mkAdjReg2 ms fs) ;
+  mk2A ms fs = compADeg (mkAdjReg2 ms fs) ;
 
   mk4A : (bobão,bobona,bobões,bobonas : Str) -> A ; --%
-  mk4A a b c d = liftAdj (mkAdj4 a b c d) ;
+  mk4A a b c d = compADeg (mkAdj4 a b c d) ;
 
   mk5A : (preto,preta,pretos,pretas,pretamente : Str) -> A ; --%
-  mk5A a b c d e = liftAdj (mkAdj a b c d e) ;
+  mk5A a b c d e = compADeg (mkAdj a b c d e) ;
 
   adjCopula : A -> CopulaType -> A ; --%
   adjCopula a cop = a ** {copTyp = cop} ;
 
+  -- mkADeg a b = a ** {
+  --   s = table {
+  --     Posit => a.s ! Posit ;
+  --     _ => b.s ! Posit
+  --       -- Compar => b.s ! Posit ;
+  --       -- Superl => "o" ++ b.s ! Posit ;
+  --     }
+  --   } ;
   mkADeg : A -> A -> A ; --%
   mkADeg a b = a ** {
-    s = table {
-      Posit => a.s ! Posit ;
-      _ => b.s ! Posit
-        -- Compar => b.s ! Posit ;
-        -- Superl => "o" ++ b.s ! Posit ;
-      }
-    } ;
+    compar = \\num => b.s ! AF Masc num ; -- melhor, melhores
+    isDeg = True } ;
 
   invarA : Str -> A ; -- invariable adjective, e.g. "simples"
-  invarA a = liftAdj (mkAdj4 a a a a) ;
+  invarA a = compADeg (mkAdj4 a a a a) ;
 
   mkNonInflectA : A -> Str -> A ;
   mkNonInflectA blanco hueso = blanco ** {
-    s = \\x,y => blanco.s ! x ! y ++ hueso
+    s = \\x => blanco.s ! x ++ hueso
     } ;
 
   mkA = overload {

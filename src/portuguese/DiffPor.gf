@@ -20,6 +20,8 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
     vpAgrSubj v = <verbDefaultPart v, False> ;
 
   oper
+    piuComp = "mais" ;
+
     conjunctCase : Case -> Case = \c -> case c of {
       Nom => Nom ;
       _ => Acc
