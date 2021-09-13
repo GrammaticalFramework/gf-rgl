@@ -3,25 +3,24 @@ incomplete concrete AdjectiveRomance of Adjective =
   flags coding=utf8;
   lin
 
-    PositA a = {
+    PositA a = a ** {
       s = a.s ! Posit ;
-      isPre = a.isPre ;
-      copTyp = a.copTyp
       } ;
-    ComparA a np = {
-      s = \\af => a.s ! Compar ! af ++ conjThan ++ (np.s ! Nom).ton ;
+    ComparA a np = a ** {
+      s = \\af =>
+        let compar : Str = case a.isDeg of {
+          True => a.s ! Compar ! af ;        -- bueno, mejor
+          False => piuComp ++ a.s ! Posit ! af } ; -- cher, plus cher
+        in compar ++ conjThan ++ (np.s ! Nom).ton ;
       isPre = False ;
-      copTyp = a.copTyp
       } ;
     CAdvAP ad ap np = {
       s = \\af => ad.s ++ ap.s ! af ++ ad.p ++ (np.s ! Nom).ton ;
       isPre = False ;
       copTyp = ap.copTyp
       } ;
-    UseComparA a = {
+    UseComparA a = a ** {
       s = \\af => a.s ! Compar ! af ;
-      isPre = a.isPre ;
-      copTyp = a.copTyp
       } ;
     AdjOrd ord = {
       s = \\af => ord.s ! aform2aagr af ; ----
