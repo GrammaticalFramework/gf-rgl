@@ -104,8 +104,8 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     V3, V2A, V2V = Verb ** {c2,c3 : Compl} ;
     VS = Verb ** {m : RPolarity => Mood} ;
 
-    A  = {s : Degree => AForm => Str ; isPre : Bool ; copTyp : CopulaType ; isDeg : Bool} ;
-    A2 = {s : Degree => AForm => Str ; c2 : Compl ; copTyp : CopulaType ; isDeg : Bool} ;
+    A  = {s : AForm => Str ; compar : Number => Str ; isPre : Bool ; copTyp : CopulaType ; isDeg : Bool} ;
+    A2 = {s : AForm => Str ; compar : Number => Str ; c2 : Compl ; copTyp : CopulaType ; isDeg : Bool} ;
 
     N  = Noun ;
     N2 = Noun  ** {c2 : Compl} ;
@@ -133,8 +133,8 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     NP = \np -> (np.s ! Nom).comp ;
     Conj = \c -> c.s2 ;
 
-    A = \a -> a.s ! Posit ! ASg Masc APred ;
-    A2 = \a -> a.s ! Posit ! ASg Masc APred ++ a.c2.s ;
+    A = \a -> a.s ! ASg Masc APred ;
+    A2 = \a -> a.s ! ASg Masc APred ++ a.c2.s ;
 
     N = \n -> n.s ! Sg ;
     N2 = \n -> n.s ! Sg ++ n.c2.s ;
