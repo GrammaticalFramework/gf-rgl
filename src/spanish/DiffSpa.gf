@@ -70,6 +70,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
       _ => prepCase c ++ artDef g Sg (CPrep P_de)
       } ;
 -}
+    piuComp = "más" ;
 
     conjunctCase : Case -> Case = \c -> case c of {
       Nom => Nom ;
