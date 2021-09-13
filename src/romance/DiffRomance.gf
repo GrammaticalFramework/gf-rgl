@@ -43,7 +43,7 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   oper clitInf : Bool -> Str -> Str -> Str ;
 
--- To render pronominal arguments as clitics and/or ordinary complements. 
+-- To render pronominal arguments as clitics and/or ordinary complements.
 -- Returns $True$ if there are any clitics.
 
   oper pronArg : Number -> Person -> CAgr -> CAgr -> Str * Str * Bool ;
@@ -100,6 +100,8 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   subjIf    : Str ;
 
+  piuComp   : Str ; -- to form comparative and superlative: plus cher, más grande, …
+
   relPron   : Bool => AAgr => Case => Str ;
   pronSuch  : AAgr => Str ;
 
@@ -114,7 +116,7 @@ interface DiffRomance = open CommonRomance, Prelude in {
 --2 Constants needed in type signatures above
 
 param
-  Case = Nom | Acc | CPrep Prepos ; 
+  Case = Nom | Acc | CPrep Prepos ;
 
 oper
   Verb = {s : VF => Str ; vtyp : VType ; p : Str} ;
@@ -122,7 +124,7 @@ oper
   VPAgrType : Type              = Str * Bool ;                                                  ---- originally VPAgr, expensive
   getVPAgr  : Verb -> VPAgrType = \v -> <verbDefaultPart v, partAgr v.vtyp> ;          -- str may be used
   vpAgrSubj : Verb -> VPAgrType = \v -> <verbDefaultPart v, True> ;                  -- str not used but subject instead    ---- VPAgrSubj
-  vpAgrClits : Verb -> AAgr -> VPAgrType = \v,a -> <v.s ! (VPart a.g a.n), False> ;    -- str used from clitic             ---- vpAgrClit 
+  vpAgrClits : Verb -> AAgr -> VPAgrType = \v,a -> <v.s ! (VPart a.g a.n), False> ;    -- str used from clitic             ---- vpAgrClit
   verbDefaultPart : Verb -> Str = \v -> v.s ! (VPart Masc Sg) ;
 
 
@@ -165,7 +167,7 @@ oper
 -- AR 21/2/2013
 -- inverted clause order, only deviant in Fre where also the intervening -t- has to be taken to account
 
-  invertedClause : 
+  invertedClause :
     VType -> (RTense * Anteriority * Number * Person) -> Bool -> (Str * Str) -> Str -> (clit,fin,inf,compl,subj,ext : Str) -> Str =
     \_,_,_,neg,_,clit,fin,inf,compl,subj,ext -> neg.p1 ++ clit ++ fin ++ neg.p2 ++ inf ++ compl ++ subj ++ ext ;
 
