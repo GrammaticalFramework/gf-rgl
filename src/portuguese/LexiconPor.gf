@@ -55,7 +55,7 @@ lin
    uncertain_A = mkA (mkA "incerto") D.estarCopula ;
    warm_A      = mkA "quente" ;
    wet_A       = mkA "molhado" ;
-   white_A     = compADeg (mkA "branco") ;
+   white_A     = mkA "branco" ;
    wide_A      = mkA "largo" ; -- extenso
    yellow_A    = mkA "amarelo" ;
    young_A     = prefixA (mkA "jovem") ;
