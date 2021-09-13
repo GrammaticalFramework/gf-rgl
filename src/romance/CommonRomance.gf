@@ -46,6 +46,13 @@ param
 oper
   AF : Gender -> Number -> AForm = \g,n -> case n of {Sg => ASg g AAttr ; Pl => APl g} ;
 
+-- helper functions for comparative/superlative forms
+oper
+  af2num : AForm -> Number = \af -> case af of {
+      APl _ => Pl ;
+      _     => Sg  -- singular and adverbial use Sg form. As of 2021, there are no funs from AP to Adv, so it doesn't matter.
+    } ;
+
 -- The following coercions are useful:
 
 oper
@@ -267,8 +274,8 @@ oper
     vpAgrNone : VPAgr = VPAgrClit Masc Sg ;
 
   oper
-    mkOrd : {s : Degree => AForm => Str} -> {s : AAgr => Str} ;
-    mkOrd x = {s = \\ag => x.s ! Posit ! aagr2aform ag } ;
+    mkOrd : Adj -> {s : AAgr => Str} ;
+    mkOrd x = {s = \\ag => x.s ! aagr2aform ag } ;
 
 -- This is used in Spanish and Italian to bind clitics with preceding verb.
 
