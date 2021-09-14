@@ -103,7 +103,7 @@ incomplete concrete NounRomance of Noun =
 
     OrdSuperl adj = {
       s = \\a => case adj.isDeg of {
-        True => adj.compar ! a.n ;
+        True => adj.compar ! aagr2compar a ;
         False => piuComp ++ adj.s ! genNum2Aform a.g a.n }
       } ;
 
