@@ -15,7 +15,8 @@ concrete ExtendSwe of Extend = CatSwe **
     Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP, ReflPossPron,
     CompoundN, CompoundAP, AdvIsNP,
     UttAccNP,
-    A2VPSlash, N2VPSlash
+    A2VPSlash, N2VPSlash,
+    CardCNCard 
   ]
   with (Grammar = GrammarSwe)
     **
@@ -388,4 +389,8 @@ lin UseDAPMasc, UseDAPFem = \dap ->
         a = agrP3 (ngen2gen g) dap.n ;
         isPron = False
       } ;
+
+lin CardCNCard card cn =
+  {s = \\g => card.s ! cn.g ++ cn.s ! card.n ! DIndef ! Nom ; n = Pl} ;
+  
 }
