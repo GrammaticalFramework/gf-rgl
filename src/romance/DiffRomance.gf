@@ -59,6 +59,12 @@ interface DiffRomance = open CommonRomance, Prelude in {
   oper serCopula : CopulaType ;
   oper estarCopula : CopulaType ;
 
+-- Whether comparatives and superlatives inflect in only number, or also in gender: el/la mejor, but le meilleur, la meilleure
+  oper ComparAgr : PType = Number ; -- except Fre, where it's Number and Gender
+
+  oper af2compar : AForm -> ComparAgr = af2num ; -- except Fre
+  oper aagr2compar : AAgr -> ComparAgr = \a -> a.n ; -- except Fre
+
 -- To decide if adverbial questions are inverted
 
   oper iAdvQuestionInv : Direct = DInv ; -- except Fre

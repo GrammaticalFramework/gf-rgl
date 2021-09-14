@@ -7,7 +7,7 @@ incomplete concrete AdjectiveRomance of Adjective =
     ComparA a np = a ** {
       s = \\af =>
         let compar : Str = case a.isDeg of {
-                    True => a.compar ! af2num af ;   -- bueno, mejor
+                    True => a.compar ! af2compar af ;   -- bueno, mejor
                     False => piuComp ++ a.s ! af } ; -- cher, plus cher
         in compar ++ conjThan ++ (np.s ! Nom).ton ;
       isPre = False ;
@@ -18,7 +18,7 @@ incomplete concrete AdjectiveRomance of Adjective =
       } ;
     UseComparA a = a ** {
       s = \\af => case a.isDeg of {
-                    True => a.compar ! af2num af ;
+                    True => a.compar ! af2compar af ;
                     False => piuComp ++ a.s ! af }
       } ;
     AdjOrd ord = {
