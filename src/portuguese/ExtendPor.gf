@@ -75,7 +75,7 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
 
     CompoundAP noun adj = {
       s = \\af => case (aform2aagr af) of {
-        {n = n} => adj.s ! Posit ! (genNum2Aform noun.g n) ++ "de" ++ noun.s ! n
+        {n = n} => adj.s ! genNum2Aform noun.g n ++ "de" ++ noun.s ! n
         } ;
       isPre = adj.isPre ;
       copTyp = adj.copTyp

@@ -214,7 +214,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
       } ;
     UttAdV av = av ;
     PositAdVAdj a = {
-      s = a.s ! Posit ! AA
+      s = a.s ! AA
       } ;
 
   lin
