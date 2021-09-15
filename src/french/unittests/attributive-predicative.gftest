@@ -1,0 +1,24 @@
+-- Attributive forms: special form before vowel
+Lang: UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN friend_N)))
+LangFre: un vieil ami
+
+Lang: UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA new_A) (UseN friend_N)))
+LangFre: un nouvel ami
+
+-- Regular form before consonant
+Lang: UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN dog_N)))
+LangFre: un vieux chien
+
+Lang: UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA new_A) (UseN wine_N)))
+LangFre: un nouveau vin
+
+-- Predicative forms: always regular form
+Lang: PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN dog_N)) (UseComp (CompAP (PositA old_A)))
+LangFre: mon chien est vieux
+
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN wine_N)) (UseComp (CompAP (PositA new_A)))))
+LangFre: ce vin est nouveau
+
+-- Regular form even before a vowel: not *nouvel et bon
+Lang: PredVP (DetCN (DetQuant this_Quant NumSg) (UseN wine_N)) (UseComp (CompAP (ConjAP and_Conj (BaseAP (PositA new_A) (PositA good_A)))))
+LangFre: ce vin est nouveau et bon
