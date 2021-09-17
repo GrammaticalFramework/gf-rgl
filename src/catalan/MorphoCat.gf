@@ -96,11 +96,11 @@ oper
 
   mkAdjFull : (x1,_,_,_,_,x6 : Str) -> Adj = \bon,bo,prima,prims,primes,primament ->
     {s = table {
-       ASg Masc AAttr => bon ;
-       ASg Masc APred => bo ;
-       ASg Fem  _ => prima ;
-       APl Masc   => prims ;
-       APl Fem    => primes ;
+       AAttrMasc  => bon ;
+       AF Masc Sg => bo ;
+       AF Fem  Sg => prima ;
+       AF Masc Pl => prims ;
+       AF Fem  Pl => primes ;
        AA         => primament
        }
     } ;
@@ -121,8 +121,8 @@ oper
     let fond = Predef.tk 1 fondo
     in  adjBlau fondo (fond + "a") ;
 
-  adjBo : (bo,bon : Str) -> Adj = \bo,bon ->
-    mkAdjFull bon bo (bon + "a") (bon + "s") (bon + "es") (bon + "ament") ;
+  adjBo : (bo,bon,be : Str) -> Adj = \bo,bon,be ->
+    mkAdjFull bon bo (bon + "a") (bon + "s") (bon + "es") be ;
 
   adjFidel : Str -> Adj = \fidel ->
     let fidels : Str = case (last fidel) of {
