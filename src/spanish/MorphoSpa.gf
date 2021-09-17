@@ -60,12 +60,9 @@ oper
 
   mkAdj : (x1,_,_,_,_,_,x7 : Str) -> Adj = \buen,solo,gran,sola,solos,solas,solamente ->
     {s = table {
-      ASg Masc AAttr => buen ;
-      ASg Masc APred => solo ;
-      ASg Fem AAttr => gran ;
-      ASg Fem APred => sola ;
-      APl Masc   => solos ;
-      APl Fem    => solas ;
+      AAttr g => genForms buen gran ! g ; -- un buen amigo, una gran idea
+      AF g Sg => genForms solo sola ! g ;
+      AF g Pl => genForms solos solas ! g ;
       AA         => solamente
       }
     } ;
