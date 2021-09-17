@@ -92,7 +92,7 @@ lin
    girl_N = regFN "noia" ;
    glove_N = regMN "guant" ;
    gold_N = regMN "or" ;
-   good_A = mkA (prefA "bo" "bon") (mkA "millor") ;
+   good_A = mkA (prefA "bo" "bon" "bé") (mkA "millor") ;
    go_V = (verbV (anar_4 "anar" 0)) ;
    green_A = regADeg "verd" ;
    harbour_N = regMN "port" ;
