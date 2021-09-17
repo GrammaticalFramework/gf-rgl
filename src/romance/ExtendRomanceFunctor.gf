@@ -142,12 +142,12 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     PredAPVP ap vp = ImpersCl (UseComp (CompAP (SentAP ap (EmbedVP vp)))) ; -- DEFAULT it is (good to walk)
 
     AdjAsCN ap = {
-      s =\\n => ap.s ! (genNum2Aform Masc n) ;
+      s = \\n => ap.s ! genNum2Aform Masc n ;
       g = Masc
       } ;
 
     AdjAsNP ap = heavyNP {
-      s = \\_c => ap.s ! ASg Masc APred ;
+      s = \\_c => ap.s ! genNum2Aform Masc Sg ;
       a = Ag Masc Sg P3
       } ;
 
