@@ -29,7 +29,7 @@ lin
    dull_A      = mkA "desafilado" ;
    empty_A     = mkA "vazio" ;
    full_A      = mkA "cheio" ;
-   good_A      = prefixA (mkA (mkA "bom") (mkA "melhor")) ; ---- adv?
+   good_A      = prefixA (mkA (mkA "bom" "boa" "bons" "boas" "bem") (mkA "melhor")) ;
    green_A     = mkA "verde" ;
    heavy_A     = mkA "pesado" ;
    hot_A       = mkA "quente" ;
