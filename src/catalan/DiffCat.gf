@@ -1,5 +1,5 @@
 --# -path=.:../romance:../abstract:../common:prelude
-instance DiffCat of DiffRomance - [partAgr,stare_V,vpAgrSubj,vpAgrClits] = open CommonRomance, PhonoCat, BeschCat, Prelude in {
+instance DiffCat of DiffRomance - [partAgr,stare_V,vpAgrSubj,vpAgrClits,AFormSimple] = open CommonRomance, PhonoCat, BeschCat, Prelude in {
 
   flags optimize=noexpand ;
   coding=utf8 ;
@@ -64,6 +64,21 @@ oper
       }
      } ;
 
+-- AForm and comparatives
+  param
+    AFormComplex = AF Gender Number | AAttrMasc | AA ;
+  oper
+    AForm = AFormComplex ;
+    aform2aagr : AForm -> AAgr = \a -> case a of {
+      DiffCat.AF g n => aagr g n ;
+      _              => aagr Masc Sg -- "le plus lentement"
+      } ;
+    genNum2Aform : Gender -> Number -> AForm = DiffCat.AF ;
+    genNumPos2Aform : Gender -> Number -> Bool -> AForm = \g,n,isPre ->
+      case <g,n,isPre> of {
+        <Masc,Sg,True> => AAttrMasc ;
+        _              => genNum2Aform g n
+      } ;
     piuComp = "més" ;
 
     possCase = \_,_,c -> prepCase c ;
