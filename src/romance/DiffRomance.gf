@@ -59,11 +59,27 @@ interface DiffRomance = open CommonRomance, Prelude in {
   oper serCopula : CopulaType ;
   oper estarCopula : CopulaType ;
 
--- Whether comparatives and superlatives inflect in only number, or also in gender: el/la mejor, but le meilleur, la meilleure
-  oper ComparAgr : PType = Number ; -- except Fre, where it's Number and Gender
+-- Adjective and AForm, two things:
+-- 1) Whether AForm has different attributive forms:
+--    e.g. un bon amic (Cat), una gran parte (Spa) vs. predicative bo/bona, grande
+  oper AForm : PType ;
+  oper Adj : Type = {s : AForm => Str} ;
+  oper mkOrd : Adj -> {s : AAgr => Str} = \x -> {s = \\ag => x.s ! aagr2aform ag} ;
 
-  oper af2compar : AForm -> ComparAgr = af2num ; -- except Fre
+  oper aform2aagr : AForm -> AAgr ;
+  oper aform2gender : AForm -> Gender = \af -> (aform2aagr af).g ;
+  oper aform2number : AForm -> Number = \af -> (aform2aagr af).n ;
+
+  oper aagr2aform : AAgr -> AForm = \a -> genNum2Aform a.g a.n ;
+  oper genNum2Aform : Gender -> Number -> AForm ;
+  oper genNumPos2Aform : Gender -> Number -> Bool -> AForm ; -- depends on language, whether attributive is different from predicative
+
+-- 2) Whether comparatives and superlatives inflect in only number, or also in gender:
+--    e.g. el/la mejor, but le meilleur, la meilleure
+  oper ComparAgr : PType = Number ; -- except Fre, where it's Number and Gender
+  oper af2compar : AForm -> ComparAgr = aform2number ; -- except Fre
   oper aagr2compar : AAgr -> ComparAgr = \a -> a.n ; -- except Fre
+
 
 -- To decide if adverbial questions are inverted
 
