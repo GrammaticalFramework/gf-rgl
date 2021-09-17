@@ -340,7 +340,10 @@ oper
   prefA = overload {
     prefA : A -> A = \a -> a ** {isPre = True} ;
     prefA : Str -> Str -> A = \bo,bon ->
-      let adj : A = compADeg (adjBo bo bon) ;
+      let adj : A = compADeg (adjBo bo bon (bon+"ament")) ; -- not sure if there is any actual adjective that behaves like this /IL
+       in adj ** {isPre = True} ;
+    prefA : (bo,bon,be : Str) -> A = \bo,bon,be ->
+      let adj : A = compADeg (adjBo bo bon be) ;
        in adj ** {isPre = True} ;
   } ;
 
