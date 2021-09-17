@@ -159,10 +159,29 @@ instance DiffFre of DiffRomance - [
 
     bindHyphen : Str = BIND ++ "-" ++ BIND ;
 
-    piuComp = "plus" ;
+-- AForm
+  param
+    AFormComplex = AF Gender Number | AAttrMasc | AA ;
+  oper
+    AForm = AFormComplex ;
+    aform2aagr : AForm -> AAgr = \a -> case a of {
+      DiffFre.AF g n => aagr g n ;
+      _              => aagr Masc Sg -- "le plus lentement"
+      } ;
+    genNum2Aform : Gender -> Number -> AForm = DiffFre.AF ;
+    genNumPos2Aform : Gender -> Number -> Bool -> AForm = \g,n,isPre ->
+      case <g,n,isPre> of {
+        <Masc,Sg,True> => AAttrMasc ;
+        _              => genNum2Aform g n
+      } ;
+
+-- Comparatives
     ComparAgr = AAgr ;
     af2compar = aform2aagr ;
     aagr2compar = id AAgr ;
+    piuComp = "plus" ;
+
+
 
     CopulaType = {} ;
     selectCopula = \isEstar -> copula ;

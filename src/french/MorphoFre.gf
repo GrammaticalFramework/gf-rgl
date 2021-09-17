@@ -75,11 +75,12 @@ oper
   mkAdj' : (_,_,_,_,_ : Str) -> Adj ;
   mkAdj' vieux vieil vieille vieuxs vieillement = {
     s = table {
-      ASg Masc AAttr => pre {#voyelle => vieil ; "h" => vieil ; _ => vieux} ;
-      ASg Masc APred => vieux ; -- `ce vin est nouveau et bon', not *nouvel et bon
-      ASg Fem _  => vieille ;
-      APl g      => genForms vieuxs (vieille + "s") ! g ;
-      AA         => vieillement
+      -- vieil, nouvel only comes as attributive, not predicative:
+      -- 'un vieil ami', but 'ce vin est nouveau et bon', not *nouvel et bon.
+      AAttrMasc => pre {#voyelle => vieil ; "h" => vieil ; _ => vieux} ;
+      AF g Sg   => genForms vieux vieille ! g ;
+      AF g Pl   => genForms vieuxs (vieille + "s") ! g ;
+      AA        => vieillement
       }
     } ;
 
