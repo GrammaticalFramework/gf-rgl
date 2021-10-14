@@ -1,6 +1,6 @@
 concrete NumeralEng of Numeral = CatEng [Numeral,Digits] ** open Prelude, ResEng in {
 
-lincat 
+lincat
   Digit = {s : DForm => CardOrd => Case => Str} ;
   Sub10 = {s : DForm => CardOrd => Case => Str ; n : Number} ;
   Sub100     = {s : CardOrd => Case => Str ; n : Number} ;
@@ -44,7 +44,7 @@ lin pot3plus n m = {
 
 -- numerals as sequences of digits
 
-  lincat 
+  lincat
     Dig = TDigit ;
 
   lin

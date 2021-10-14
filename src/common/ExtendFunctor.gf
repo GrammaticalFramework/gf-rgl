@@ -132,6 +132,12 @@ lin
   ExistNPQS t p np = UseQCl t p (QuestCl (ExistNP np)) ;
   ExistIPQS t p np = UseQCl t p (ExistIP np) ;
 
+lincat
+  X = {s : Str} ;
+
+lin
+  CardCNCard = variants {} ;
+
 oper
   quoted : Str -> Str = \s -> "\"" ++ s ++ "\"" ; ---- TODO bind ; move to Prelude?
 

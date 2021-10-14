@@ -137,6 +137,10 @@ oper
 
     exceptNomN : N -> Str -> N ;
 
+-- Some nouns have special, or variant, plural genitives (e.g. "valta" - "valtojen"|"valtain").
+
+    exceptPlGenN : N -> Str -> N ;
+
 -- Nouns where the parts are separate (should perhaps be treated as CN)
 
    separateN = overload {
@@ -182,6 +186,19 @@ oper
 -- A special function for foreign names: no grade alternation, no final aspiration.
 
   foreignPN : Str -> PN ; -- Dieppe-Dieppen
+
+-- To inspect the number of an NP
+
+  ifPluralNP : NP -> Bool  -- False if singular, True if plural
+    = \np -> case np.a of {
+      Ag Pl _ => True ;
+      _ => False
+      } ;
+
+-- To force a number on NP
+
+  forceNumberNP : Number -> NP -> NP  -- e.g. Yhdysvallat plural in form, singular in agreement
+    = \n,np -> np ** {a = agrP3 n} ; --- also forces 3rd person
 
 --2 Adjectives
 
@@ -383,6 +400,8 @@ mkVS = overload {
       Part => lin Det (MorphoFin.mkDetPol isNeg nu (snoun2nounBind noun)) ** {isNum = True} ; --- works like "kolme autoa"
       _ => lin Det (MorphoFin.mkDetPol isNeg nu (snoun2nounBind noun)) ---- are there other cases?
       } ;
+    mkDet : Str -> Det -> Det -- add a string to a Det, e.g. "suunnilleen jokainen"
+      = \s,det -> det ** {s1 = \\c => s ++ det.s1 ! c} ;
     } ;
 
   mkQuant = overload {
@@ -474,6 +493,7 @@ mkVS = overload {
   } ;
 
     exceptNomN : N -> Str -> N = \noun,nom -> lin N (exceptNomSNoun noun nom) ;
+    exceptPlGenN : N -> Str -> N = \noun,nom -> lin N (exceptPlGenSNoun noun nom) ;
 
 ----  mk1A : Str -> A = \jalo -> aForms2A (nforms2aforms (nForms1 jalo)) ;
 ----  mkNA : N -> A = snoun2sadj ;

@@ -17,7 +17,8 @@ concrete ExtendEng of Extend =
     GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, NominalizeVPSlashNP,
     PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj,  PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
-    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash
+    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash,
+    CardCNCard, ProDrop
    ]
   with
     (Grammar = GrammarEng) **
@@ -31,6 +32,10 @@ concrete ExtendEng of Extend =
     ParadigmsEng in {
 
   lin
+    ProDrop pro = pro ** {
+      s = \\_ => []
+    } ;
+
     GenNP np = {s = \\_,_ => np.s ! npGen ; sp = \\_,_,_,_ => np.s ! npGen ; isDef = True} ;
     GenIP ip = {s = \\_ => ip.s ! NCase Gen} ;
     GenRP nu cn = {
@@ -416,7 +421,7 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
     AdvRAP ap prep rnp = {s = \\a => ap.s ! a ++ prep.s ++ rnp.s ! a ; isPre = False} ;
 
     ReflA2RNP a rnp = {
-      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ rnp.s ! ag ; 
+      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ rnp.s ! ag ;
       isPre = False
       } ;
 
@@ -466,5 +471,8 @@ lin UseDAPFem dap = {
       s = dap.sp ! Fem ! False ;
       a = agrgP3 dap.n Fem
     } ;
+
+lin CardCNCard card cn =
+  {s,sp = \\d,c => card.s ! d ! Nom ++ cn.s ! card.n ! c ; n = Pl} ;
 
 }
