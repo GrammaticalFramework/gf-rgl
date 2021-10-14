@@ -6,7 +6,8 @@ concrete ExtendGer of Extend =
     InOrderToVP,
     VPS, ListVPS, VPI, ListVPI,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, 
-    MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV
+    MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
+    CardCNCard
     ]
   with
     (Grammar = GrammarGer) **
@@ -125,4 +126,11 @@ lin
       rc, ext = []
       } ;
 
+lin
+  CardCNCard card cn = {
+    s = \\g,c =>
+      (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! NPC c ;
+    n = Pl
+    } ;
+  
 }
