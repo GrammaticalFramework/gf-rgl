@@ -63,30 +63,28 @@ concrete ExtraZul of ExtraZulAbs =
       hasAux = False
     } ;
 
-    UsePNPl pn = {
+    UsePNPl pn = let
+      agr = Third pn.c Pl
+    in {
       empty,predet_pre,predet_post = pn.empty ;
       s = pn.s!Pl ;
       mod = pn.empty ;
-      agr = Third pn.c Pl ;
+      dem = pn.empty ;
+      agr = agr ;
+      i = nominit!agr ;
       proDrop = False ;
       isPron = False ;
       -- reqLocS = True ;
-      qdef = Article Def ;
+      qdef = Article Spec ;
     } ;
 
     PNAsCN pn = pn ** { mod = \\_ => [] } ;
 
-    EmphNP np = {
-      empty = np.empty ;
-      s = np.s ;
-      mod = np.mod ;
-      predet_pre = pron_stem!np.agr ++BIND++"na" ++ np.predet_pre ;
-      predet_post = np.predet_post ;
-      agr = np.agr ;
-      proDrop = np.proDrop ;
-      isPron = np.isPron ;
-      -- reqLocS = np.reqLocS ;
-      qdef = np.qdef ;
+    EmphCN cn = {
+      s = \\num,nform => pron_stem!(Third cn.c num) ++BIND++ "na" ++ cn.s!num!nform ;
+      mod = cn.mod ;
+      c = cn.c ;
+      empty = cn.empty
     } ;
 
     ContrastCN cn = {
@@ -100,20 +98,43 @@ concrete ExtraZul of ExtraZulAbs =
       empty = np.empty ;
       s = np.s;
       mod = np.mod ;
+      dem = np.dem ;
       predet_pre = np.predet_pre ;
       predet_post = np.predet_post ++ pron_stem!np.agr ++BIND++"na" ;
       agr = np.agr ;
+      i = np.i ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
       -- reqLocS = np.reqLocS ;
       qdef = np.qdef ;
     } ;
 
-    ApposCNCN cn1 cn2 = {
-      s = cn1.s ;
-      mod = \\n => cn1.mod!n ++ cn2.s!n!Full ++ cn2.mod!n ;
-      c = cn1.c ;
-      empty = cn1.empty ++ cn2.empty
+    -- ApposCNCN cn1 cn2 = {
+    --   s = cn1.s ;
+    --   mod = \\n => cn1.mod!n ++ cn2.s!n!Full ++ cn2.mod!n ;
+    --   c = cn1.c ;
+    --   empty = cn1.empty ++ cn2.empty
+    -- } ;
+
+    ApposNPN np n = let
+      num = case np.agr of {
+        First n => n ;
+        Second n => n ;
+        Third c n => n
+      } ;
+    in {
+      empty = np.empty ;
+      s = np.s;
+      mod = np.mod ++ np.predet_post ++ n.s!num!Full ;
+      dem = np.dem ;
+      predet_pre = np.predet_pre ;
+      predet_post = np.empty ;
+      agr = Third n.c num ;
+      i = np.i ;
+      proDrop = np.proDrop ;
+      isPron = np.isPron ;
+      -- reqLocS = np.reqLocS ;
+      qdef = np.qdef ;
     } ;
 
     -- NOTE: this is only here to play nice with Xhosa; commented out now.
@@ -463,11 +484,6 @@ concrete ExtraZul of ExtraZulAbs =
           _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
         }
       } ;
-      -- loc = \\_ => case v.r of {
-      --   RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
-      --   (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
-      --   _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
-      -- } ;
       c = C15 ;
       empty = []
     } ;

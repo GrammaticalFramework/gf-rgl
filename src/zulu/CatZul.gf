@@ -103,7 +103,6 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
     CN = {
       s : Number => NForm => Str ;
-      -- loc : Number => Str ;
       mod : Number => Str ;
       c : ClassGender ;
       empty : Str
@@ -112,12 +111,13 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       empty : Str ;
       s : NForm => Str ;
       mod : Str ;
+      dem : Str ;
       predet_pre : Str ;
       predet_post : Str ;
       agr : Agr ;
+      i : RInit ;
       proDrop : Bool ; -- used when NP is object
       isPron : Bool ; -- used to choose correct between Full/Reduced
-      -- reqLocS : Bool ;
       qdef : QuantDef
     } ;
 
@@ -163,8 +163,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
     N, N2, N3, PN = {
       s : Number => NForm => Str ;
-      -- loc : Number => Str ;
       c : ClassGender ;
+      -- sem : SemanticType ;
       empty : Str
     } ;
 --     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;

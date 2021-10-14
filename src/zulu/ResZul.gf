@@ -4,6 +4,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
   param
     ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C9_6 | C14 | C15 | C17 ;
+    SemanticType = Human | Animate | Misc ;
     NForm = Full | Reduced | Poss | Loc ;
     Agr = First Number | Second Number | Third ClassGender Number ;
 
@@ -41,8 +42,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
     Syl = SylMono | SylMult ;
     Voice = Active | Passive ;
 
-    QuantDef = Article Definiteness | Demonstrative Distance ;
-    Definiteness = Indef | Def ;
+    QuantDef = Article Specificity | Demonstrative Distance ;
+    -- Definiteness = Indef | Def ;
+    Specificity = Spec | Nonspec ;
     Distance = Dem1 | Dem2 | Dem3 ;
 
   oper
@@ -77,7 +79,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Loc => case agr of {
           First _ | Second Pl => "ki" ++BIND++ pron_stem!agr ;
           _ => "ku" ++BIND++ pron_stem!agr
-        } ;
+        }
       } ;
       agr = agr ;
       empty = [] ;
@@ -264,14 +266,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
     regVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \root ->
     {
       s = table {
-        R_a => root + "a" ;
+        R_a => root ++BIND++ "a" ;
         R_ile => case root of {
-          _+"el" => root + "e" ;
-          _ => root + "ile"
+          _+"el" => root ++BIND++ "e" ;
+          _ => root ++BIND++ "ile"
         } ;
-        R_e => root + "e" ;
-        R_i => root + "i" ;
-        R_anga => root + "anga"
+        R_e => root ++BIND++ "e" ;
+        R_i => root ++BIND++ "i" ;
+        R_anga => root ++BIND++ "anga"
       } ;
       r = case root of {
         "a"+_ => RA ;
@@ -292,10 +294,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
     {
       s = table {
         R_a => thi ;
-        R_ile => th + "ile" ;
-        R_e => th + "e" ;
-        R_i => th + "i" ;
-        R_anga => th + "anga"
+        R_ile => th ++BIND++ "ile" ;
+        R_e => th ++BIND++ "e" ;
+        R_i => th ++BIND++ "i" ;
+        R_anga => th ++BIND++ "anga"
       } ;
       r = case th of {
         "a"+_ => RA ;
@@ -316,9 +318,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       s = table {
         R_a => r_a ;
         R_ile => r_ile ;
-        R_e => root + "e" ;
-        R_i => root + "i" ;
-        R_anga => root + "anga"
+        R_e => root ++BIND++ "e" ;
+        R_i => root ++BIND++ "i" ;
+        R_anga => root ++BIND++ "anga"
       } ;
       r = case root of {
         "a"+_ => RA ;
@@ -340,8 +342,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         R_a => r_a ;
         R_ile => r_ile ;
         R_e => r_e ;
-        R_i => root + "i" ;
-        R_anga => root + "anga"
+        R_i => root ++BIND++ "i" ;
+        R_anga => root ++BIND++ "anga"
       } ;
       r = case root of {
         "a"+_ => RA ;
@@ -384,11 +386,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
     passiveVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \root ->
     {
       s = table {
-        R_a => root + "a" ;
-        R_ile => root + "ile" ;
-        R_e => root + "e" ;
-        R_i => root + "i" ;
-        R_anga => root + "anga"
+        R_a => root ++BIND++ "a" ;
+        R_ile => root ++BIND++ "ile" ;
+        R_e => root ++BIND++ "e" ;
+        R_i => root ++BIND++ "i" ;
+        R_anga => root ++BIND++ "anga"
       } ;
       r = case root of {
         "a"+_ => RA ;
@@ -760,20 +762,22 @@ resource ResZul = open Prelude,Predef,ParamX in {
       _ => BIND++"yo"
     } ;
 
+    rel_yo_2 : Str = BIND++"yo" ;
+
     relSuf : VForm -> Str = \vform -> case vform of {
-      VFIndic _ Pos PresTense _ => rel_yo ;
+      VFIndic _ Pos PresTense _ => rel_yo_2 ;
       VFIndic _ Pos FutTense _ => [] ;
-      VFIndic Princ Pos PerfTense _ => rel_yo ;
+      VFIndic Princ Pos PerfTense _ => rel_yo_2 ;
       VFIndic Part Pos PerfTense _ => [] ;
-      VFIndic _ Pos PastTense _ => rel_yo ;
+      VFIndic _ Pos PastTense _ => rel_yo_2 ;
 
       VFIndic _ Neg FutTense _ => [] ;
       VFIndic _ Neg PerfTense _ => [] ; -- TODO : make dependent on boolean; p157
       VFIndic _ Neg PastTense _ => [] ;
-      VFIndic _ Neg PresTense _ => rel_yo ;
+      VFIndic _ Neg PresTense _ => rel_yo_2 ;
 
-      VFPot _ Pos _ => rel_yo ;
-      VFPot _ Neg _ => rel_yo ;
+      VFPot _ Pos _ => rel_yo_2 ;
+      VFPot _ Neg _ => rel_yo_2 ;
 
       VFSubj _ => []
     } ;
@@ -1103,6 +1107,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         empty : Str ;
         s : NForm => Str ;
         mod : Str ;
+        dem : Str ;
         predet_pre : Str ;
         predet_post : Str ;
         agr : Agr ;
@@ -1114,8 +1119,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       np.predet_pre ++
       case <np.qdef,np.isPron> of {
         <Article d,_> => np.s ! Full ++ np.mod ;
-        <Demonstrative d,False> => dem_pron!d!np.agr ++ np.s ! Reduced ++ np.mod ;
-        <Demonstrative d,True> => dem_pron!d!np.agr ++ np.s ! Full ++ np.mod
+        <Demonstrative d,False> => np.dem ++ np.s ! Reduced ++ np.mod ;
+        <Demonstrative d,True> => np.dem ++ np.s ! Full ++ np.mod
       }
       ++ np.predet_post ;
 
@@ -1123,6 +1128,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         empty : Str ;
         s : NForm => Str ;
         mod : Str ;
+        dem : Str ;
         predet_pre : Str ;
         predet_post : Str ;
         agr : Agr ;
@@ -1130,15 +1136,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
         isPron : Bool ;
         -- reqLocS : Bool ;
         qdef : QuantDef
-      } -> Str = \np -> case np.qdef of {
-        Article d => np.s!Loc ++ np.mod ++ np.predet_pre ++ np.predet_post ;
-        Demonstrative d => np.s!Loc ++ dem_pron!d!np.agr ++ np.mod ++ np.predet_pre ++ np.predet_post
-      } ;
+      } -> Str = \np -> np.s!Loc ++ np.dem ++ np.mod ++ np.predet_pre ++ np.predet_post ;
 
       poss_NP : {
         empty : Str ;
         s : NForm => Str ;
         mod : Str ;
+        dem : Str ;
         predet_pre : Str ;
         predet_post : Str ;
         agr : Agr ;
@@ -1146,15 +1150,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
         isPron : Bool ;
         -- reqLocS : Bool ;
         qdef : QuantDef
-      } -> Str = \np -> case np.qdef of {
-        Article d => np.s!Poss ++ np.mod ++ np.predet_pre ++ np.predet_post ;
-        Demonstrative d => np.s!Poss ++ dem_pron!d!np.agr ++ np.mod ++ np.predet_pre ++ np.predet_post
-      } ;
+      } -> Str = \np -> np.s!Poss ++ np.dem ++ np.mod ++ np.predet_pre ++ np.predet_post ;
 
       pref_lin_NP : {
         empty : Str ;
         s : NForm => Str ;
         mod : Str ;
+        dem : Str ;
         predet_pre : Str ;
         predet_post : Str ;
         agr : Agr ;
@@ -1162,10 +1164,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         isPron : Bool ;
         -- reqLocS : Bool ;
         qdef : QuantDef
-      } -> Str = \np -> case np.qdef of {
-        Article d => np.s ! Reduced ++ np.mod ;
-        Demonstrative d => np.s ! Reduced ++ dem_pron!d!np.agr ++ np.mod
-      } ++ np.predet_pre ++ np.predet_post ;
+      } -> Str = \np -> np.s ! Reduced ++ np.dem ++ np.mod
+      ++ np.predet_pre ++ np.predet_post ;
 
     ----------------
     -- CONGRUENCE --

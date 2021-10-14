@@ -18,16 +18,17 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
     ImpVP vp = let
       np = {
-        empty,predet_pre,predet_post,mod = [] ;
+        empty,dem,predet_pre,predet_post,mod = [] ;
         s = table {Full|Reduced|Poss|Loc => []} ;
         -- loc = [] ;
         -- desc = [] ;
         det = [] ;
         agr = Second Sg ;
+        i = nominit!(Second Sg) ;
         proDrop = True ;
         isPron = True ;
         reqLocS = True ;
-        qdef = Article Def
+        qdef = Article Spec
       } ;
       impTense = Absolute PresTense
     in case vp.vptype of {

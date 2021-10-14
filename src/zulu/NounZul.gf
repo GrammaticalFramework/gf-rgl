@@ -3,30 +3,40 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = {
+    DetCN det cn = let
+      agr = Third cn.c det.n ;
+    in {
       empty,predet_pre,predet_post = cn.empty ;
       s = \\nform => det.s ++ cn.s ! det.n ! nform ;
       mod = cn.mod ! det.n ;
-      agr = Third cn.c det.n ;
+      dem = case det.qdef of {
+        Article _ => cn.empty ;
+        Demonstrative d => dem_pron!d!agr
+      } ;
+      agr = agr ;
+      i = nominit!agr ;
       proDrop = False ;
       isPron = False ;
       -- reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
       qdef = det.qdef ;
     } ;
 
-    UsePN pn = {
-      empty,predet_pre,predet_post = pn.empty ;
+    UsePN pn = let
+      agr = Third pn.c Sg ;
+    in {
+      empty,dem,predet_pre,predet_post = pn.empty ;
       s = \\nform => pn.s ! Sg ! nform ;
       mod = pn.empty ;
-      agr = Third pn.c Sg ;
+      agr = agr ;
+      i = nominit!agr ;
       proDrop = False ;
       isPron = False ;
       -- reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
-      qdef = Article Def ;
+      qdef = Article Spec ;
     } ;
 
     UsePron pron = {
-      empty,predet_pre,predet_post = pron.empty ;
+      empty,dem,predet_pre,predet_post = pron.empty ;
       s = case pron.proDrop of {
         False => pron.s ;
         True => table {
@@ -38,19 +48,22 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       } ;
       mod = pron.empty ;
       agr = pron.agr ;
+      i = RC ;
       proDrop = pron.proDrop ;
       isPron = True ;
       -- reqLocS = True ;
-      qdef = Article Def
+      qdef = Article Spec
     } ;
 
     RelNP np rs = {
       empty = np.empty ;
       s = \\nform => np.s!nform ;
       mod = np.mod ++ rs.s!np.agr ;
+      dem = np.dem ;
       predet_pre = np.predet_pre ;
       predet_post = np.predet_post ;
       agr = np.agr ;
+      i = np.i ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
       -- reqLocS = np.reqLocS ;
@@ -61,6 +74,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = np.empty ;
       s = np.s ;
       mod = np.mod ;
+      dem = np.dem ;
       predet_post = case pred.isPost of {
         True => quantConc!np.agr ++BIND++ pred.s ;
         False => []
@@ -70,12 +84,13 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
         False => quantConc!np.agr ++BIND++ pred.s
       } ;
       agr = np.agr ;
+      i = np.i ;
       proDrop = np.proDrop ;
       isPron = np.isPron ;
       -- reqLocS = case pred.isPost of {
         -- True => np.reqLocS ;
         -- False => False
-      } ;
+      -- } ;
       qdef = np.qdef
       } ;
 
@@ -179,9 +194,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 --
 --     OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ a.s ! AAdj Superl c } ;
 
-    DefArt = { s = [] ; qdef = Article Def } ;
+    DefArt = { s = [] ; qdef = Article Spec } ;
 
-    IndefArt = { s = [] ; qdef = Article Indef } ;
+    IndefArt = { s = [] ; qdef = Article Nonspec } ;
 --       sp = \\g,hasCard,n => case <n,hasCard> of {
 --         <Sg,False> => table {NCase Gen => "one's"; _ => "one" };
 --         <Pl,False> => table {NCase Gen => "ones'"; _ => "ones" } ;
@@ -190,16 +205,19 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 --       isDef = False
 --       } ;
 
-    MassNP cn = {
-      empty,predet_pre,predet_post = cn.empty ;
-      s = cn.s ! Sg ;
-      mod = cn.mod ! Sg ;
-      agr = Third cn.c Sg ;
-      proDrop = False ;
-      isPron = False ;
-      -- reqLocS = True ;
-      qdef = Article Indef
-    } ;
+    -- MassNP cn = let
+    --   agr = Third cn.c Sg ;
+    -- in {
+    --   empty,dem,predet_pre,predet_post = cn.empty ;
+    --   s = cn.s ! Sg ;
+    --   mod = cn.mod ! Sg ;
+    --   agr = agr ;
+    --   i = nominit!agr ;
+    --   proDrop = False ;
+    --   isPron = False ;
+    --   -- reqLocS = True ;
+    --   qdef = Article Nonspec
+    -- } ;
 
     UseN n = n ** { mod = \\_ => [] } ;
 --     UseN2 n = n ;
@@ -274,7 +292,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     PossNP cn np = {
       empty,predet_pre,predet_post = cn.empty ;
       s = \\n,nform => cn.s!n!nform ;
-      mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!(initNP np.isPron np.agr) ++BIND++ (poss_NP np) ;
+      mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!np.i ++BIND++ (poss_NP np) ;
       c = cn.c
     } ;
 

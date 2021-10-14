@@ -16,6 +16,7 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    mbalwa_R = mkRelA "mbalwa" ;
    qotho_R = mkRelA "qotho" ;
    mhlophe_R = mkRelA "mhlophe" ;
+   mbe_R = mkRelA "mbe" ;
 
    -- enumerative stems
    mbe_E = mkEnumA "mbe" ;
@@ -29,7 +30,7 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    hlahla_7_8_N = mkN "hlahla" C7_8 ;
    ncwadi_9_10_N = mkN "ncwadi" C9_10 ;
    ndlu_9_10_N = mkN "ndlu" C9_10 ;
-   khomo_9_10_N = mkN "khomo" C9_10 ;
+   komo_9_10_N = mkN "komo" C9_10 ;
    taba_9_10_N = mkN "taba" C9_10 ;
    ngane_9_10_N = mkN "ngane" C9_10 ;
    doda_9_10_N = mkN "doda" C9_10 ;

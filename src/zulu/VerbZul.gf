@@ -100,7 +100,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         <Article Def> =>
           \\p => vp.comp!p ++ np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
         <Demonstrative d> =>
-          \\p => vp.comp!p ++ np.predet_pre ++ dem_pron!d!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post
+          \\p => vp.comp!p ++ np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post
       } ;
       iadv = [] ;
       advs = [] ;

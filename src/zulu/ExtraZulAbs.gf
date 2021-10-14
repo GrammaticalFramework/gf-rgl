@@ -15,9 +15,9 @@ abstract ExtraZulAbs =
     UsePNPl : PN -> NP ;
     PNAsCN : PN -> CN ;
 
-    EmphNP : NP -> NP ; --
+    EmphCN : CN -> CN ; --
     ContrastCN : CN -> CN ;
-    ApposCNCN : CN -> CN -> CN ;
+    ApposNPN : NP -> N -> NP ;
     -- ContrastNP : NP -> NP ;
 
     DescrNP : CN -> NP -> CN ;

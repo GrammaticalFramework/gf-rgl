@@ -16,14 +16,14 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
         False => np.empty
       } ;
       comp = case <np.qdef> of {
-        <Article Indef> => table {
+        <Article Nonspec> => table {
           Neg => np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
           Pos => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post
         } ;
-        <Article Def> =>
+        <Article Spec> =>
           \\_ => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
         <Demonstrative d> =>
-          \\_ => np.predet_pre ++ dem_pron!d!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post
+          \\_ => np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post
       } ;
       iadv = [] ;
       advs = [] ;

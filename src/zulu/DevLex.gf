@@ -16,6 +16,7 @@ abstract DevLex = Cat ** {
    mbalwa_R : A ;
    qotho_R : A ;
    mhlophe_R : A ;
+   mbe_R : A ;
 
    -- enumerative stems
    mbe_E : A ;
@@ -30,7 +31,7 @@ abstract DevLex = Cat ** {
    hlahla_7_8_N : N ;
    ncwadi_9_10_N : N ;
    ndlu_9_10_N : N ;
-   khomo_9_10_N : N ;
+   komo_9_10_N : N ;
    taba_9_10_N : N ;
    ngane_9_10_N : N ;
    doda_9_10_N : N ;

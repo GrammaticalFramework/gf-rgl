@@ -28,16 +28,10 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
   --   CN_Pl_Chunk  : CN -> Chunk ;
     CN_Sg_Chunk cn = {
-      s = variants {
-        cn.s!Sg!Full ++ cn.mod!Sg ;
-        cn.s!Sg!Loc ++ cn.mod!Sg
-      }
+      s = cn.s!Sg!Full ++ cn.mod!Sg
     } ;
     CN_Pl_Chunk cn = {
-      s = variants {
-        cn.s!Pl!Full ++ cn.mod!Pl ;
-        cn.s!Pl!Loc ++ cn.mod!Pl
-      }
+      s = cn.s!Pl!Full ++ cn.mod!Pl
     } ;
   --   CN_Pl_Gen_Chunk : CN -> Chunk ;
   --   CN_Sg_Gen_Chunk : CN -> Chunk ;
@@ -48,7 +42,7 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
     NP_Nom_Chunk np = {
       s = variants {
         np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
-        np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ; -- [anginoni] nkomo 
+        np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ; -- [anginoni] nkomo
         np.predet_pre ++ dem_pron!Dem1!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
         np.predet_pre ++ dem_pron!Dem2!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
         np.predet_pre ++ dem_pron!Dem3!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
@@ -72,8 +66,10 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   --   Subj_Chunk   : Subj -> Chunk ;
     -- IComp_Chunk icomp = { } ;
   -- --- PConj_Chunk  : PConj -> Chunk ;
-  N_Sg_Chunk n = { s = variants { n.s!Sg!Full ; n.s!Sg!Loc } } ;
-  N_Pl_Chunk n = { s = variants { n.s!Pl!Full ; n.s!Pl!Loc } } ;
+  -- N_Sg_Chunk n = { s = variants { n.s!Sg!Full ; n.s!Sg!Loc } } ;
+  -- N_Pl_Chunk n = { s = variants { n.s!Pl!Full ; n.s!Pl!Loc } } ;
+  N_Sg_Chunk n = { s = n.s!Sg!Full } ;
+  N_Pl_Chunk n = { s = n.s!Pl!Full } ;
   --
   --   VPS_Chunk    : VPS -> Chunk ;
   --   VPI_Chunk    : VPI -> Chunk ;
