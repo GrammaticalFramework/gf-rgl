@@ -86,7 +86,12 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
 
     Conj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
-    Prep = {s : Str; isPre : Bool} ;
+    Prep = {
+        s : Str ;       -- "with", "ago"
+        isPre : Bool ;  -- whether it's pre- or postposition: "with"=True, "ago"=False
+        isPoss : Bool ; -- whether it becomes "whose" in FunRP: "John, whose mother is wise"
+        empty : Str ;   -- dummy empty string to avoid issues with parsing, if s field is replaced by "whose" in FunRP
+        } ;
     CAdv = {s : Polarity => Str; p : Str} ;
 
 -- Open lexical classes, e.g. Lexicon

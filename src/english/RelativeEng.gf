@@ -32,8 +32,16 @@ concrete RelativeEng of Relative = CatEng ** open ResEng in {
       c = NPAcc
       } ;
 
+    -- John , whose every friend is right
     FunRP p np rp = {
-      s = \\c => np.s ! NPAcc ++ p.s ++ rp.s ! RPrep (fromAgr np.a).g ;
+      s = \\c =>
+        let npGender : Gender = (fromAgr np.a).g in
+        case p.isPoss of {
+          True  => rp.s ! RC npGender NPNomPoss ++  -- whose
+                   p.empty ++                       -- empty string to avoid metavariables
+                   np.s ! NCase Nom ;               -- NP in nom: "whose every friend"
+          False => np.s ! NPAcc ++ p.s ++ rp.s ! RPrep npGender
+          } ;
       a = RAg np.a
       } ;
 

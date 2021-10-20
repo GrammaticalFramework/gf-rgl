@@ -534,9 +534,20 @@ mkVoc s = lin Voc (ss s) ;
 
   mkCAdv sp sn p = lin CAdv {s = table Polarity [sp;sn]; p = p} ;
 
-  mkPrep p = lin Prep {s=p; isPre=True} ;
-  mkPost p = lin Prep {s=p; isPre=False} ;
+  mkPrep p = lin Prep {
+    s = p ;           -- the string: "with", "in front of"
+    isPre = True ;    -- default case: it is a preposition, not postposition
+    isPoss = False ;  -- default case: not possessive (i.e. no change in FunRP)
+    empty = []        -- dummy field to prevent an issue with parsing. only relevant when isPoss=True, and FunRP overrides the s field with "whose". for explanation of the issue, see https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#metavariables-or-those-question-marks-that-appear-when-parsing
+    } ;
+  mkPost p = mkPrep p ** {
+    isPre = False -- postposition: e.g. "ago"
+    } ;
   noPrep = mkPrep [] ;
+
+  possPrep : Str -> Prep = \p -> mkPrep p ** {
+    isPoss = True -- for possessive, FunRP overrides the Prep's string with "whose":
+    } ;           -- e.g. "whose mother" instead of "mother of which"
 
   mk5V a b c d e = lin V (mkVerb a b c d e ** {s1 = []}) ;
 
