@@ -113,7 +113,7 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
 
     MassNP cn = {
       s = \\c => cn.s ! Sg ! npcase2case c ;
-      a = agrP3 Sg
+      a = agrgP3 Sg cn.g
       } ;
 
     UseN n = n ;
