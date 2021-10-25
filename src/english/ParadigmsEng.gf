@@ -483,7 +483,7 @@ mkVoc s = lin Voc (ss s) ;
 
   mkOrd : Str -> Ord = \x -> lin Ord { s = regGenitiveS x};
 
-  mk2A a b = mkAdjective a a a b ;
+  mk2A a b = lin A (mkAdjective a a a b) ;
   regA a = case a of {
     _ + ("a" | "e" | "i" | "o" | "u" | "y") + ? + _ +
         ("a" | "e" | "i" | "o" | "u" | "y") + ? + _  =>
@@ -495,7 +495,7 @@ mkVoc s = lin Voc (ss s) ;
 
   ADeg = A ; ----
 
-  mkADeg a b c d = mkAdjective a b c d ;
+  mkADeg a b c d = lin A (mkAdjective a b c d) ;
 
   regADeg happy =
     let
@@ -523,7 +523,7 @@ mkVoc s = lin Voc (ss s) ;
   compoundADeg a =
     let ad : Str = a.s ! AAdj Posit Nom ;
         a' : Adjective = mkADeg ad nonExist nonExist (a.s ! AAdv) ;
-    in a' ** {isMost = True} ;
+    in lin A (a' ** {isMost = True}) ;
 
   adegA a = a ;
 
@@ -611,9 +611,8 @@ mkVoc s = lin Voc (ss s) ;
   auxVV, infVV = \v -> lin VV {
     s = table {
           VVF vf => v.s ! vf ;
-          VVPresNeg => v.s ! VPres ++ "not" ;
-          VVPastNeg => v.s ! VPast ++ "not" ; --# notpresent
-          _ => v.s ! VInf
+          VVPresNeg => v.s ! VPres ++ "not" 
+          ; VVPastNeg => v.s ! VPast ++ "not"  --# notpresent
           } ;
     p = v.p ;
     typ = VVAux
@@ -687,11 +686,11 @@ mkVoc s = lin Voc (ss s) ;
   regA : Str -> A ;
 
   mkA = overload {
-    mkA : Str -> A = regA ;
+    mkA : Str -> A = \s -> lin A (regA s) ;
     mkA : (fat,fatter : Str) -> A = \fat,fatter ->
-      mkAdjective fat fatter (init fatter + "st") (adj2adv fat) ;
+      lin A (mkAdjective fat fatter (init fatter + "st") (adj2adv fat)) ;
     mkA : (good,better,best,well : Str) -> A = \a,b,c,d ->
-      mkAdjective a b c d
+      lin A (mkAdjective a b c d) 
     } ;
 
   invarA s = lin A {
