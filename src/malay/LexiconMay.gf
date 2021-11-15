@@ -209,7 +209,10 @@ lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
 -- lin leave_V2 = mkV2 "" ;
 -- lin leg_N = mkN "" ;
 -- lin lie_V = mkV "" ;
-lin like_V2 = mkV2 "suka" ;
+lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
+  s = \\_ => "suka" ;
+  passive = "disukai" ;
+} ;
 -- lin listen_V2 = mkV2 "" ;
 -- lin live_V = mkV "";
 -- lin liver_N = mkN "" ;
