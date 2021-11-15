@@ -53,7 +53,7 @@ lin and_Conj = {s2 = "dan" ; s1 = [] ; n = Pl} ;
 -- *Det and Quant
 
 
-lin how8many_IDet = mkIdet "berapa banyak" Pl True;
+lin how8many_IDet = mkIdet "berapa" "berapa banyak" Sg True;
 {-}
 lin all_Predet = {s = ""} ;
 lin not_Predet = { s = "" } ;
