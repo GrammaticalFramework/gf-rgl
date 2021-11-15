@@ -1,8 +1,20 @@
 concrete QuestionMay of Question = CatMay ** open
-  Prelude, ResMay, ParadigmsMay, (VS=VerbMay), (NS=NounMay), (SS=StructuralMay) in {
+  Prelude, ResMay, ParadigmsMay, (VS=VerbMay), (NM=NounMay), (SS=StructuralMay) in {
 
 -- A question can be formed from a clause ('yes-no question') or
 -- with an interrogative.
+
+-- Interrogative pronouns can be formed with interrogative
+-- determiners, with or without a noun.
+lin
+  -- : IDet -> CN -> IP ;       -- which five songs
+  IdetCN idet cn = NM.DetCN idet cn ;
+
+  -- : IDet       -> IP ;       -- which five
+  IdetIP idet = NM.DetNP idet ;
+
+  -- : IQuant -> Num -> IDet ;  -- which (five)
+  IdetQuant = NM.DetQuant ;
 
 {-
   lin
