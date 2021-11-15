@@ -25,8 +25,8 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
     QCl = ResMay.Clause ;
     IComp = SS ;                -- interrogative complement of copula  e.g. "where"
     IDet = ResMay.Determiner ;  -- interrogative determiner            e.g. "how many"
-    IQuant = ResMay.Quant ;     -- interrogative quantifier            e.g. "which"
-    IP = ResMay.NounPhrase ;    -- interrogative pronoun               e.g. "who"
+    IQuant = ResMay.IQuant ;     -- interrogative quantifier            e.g. "which"
+    IP = ResMay.IPhrase ;    -- interrogative pronoun               e.g. "who"
 
 --2 Subord clauses and pronouns
 
