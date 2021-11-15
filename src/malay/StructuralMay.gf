@@ -71,12 +71,12 @@ lin someSg_Det =
 lin no_Quant = -}
 lin that_Quant = mkQuant "itu" ;
 lin this_Quant = mkQuant "ini" ;
-{-lin which_IQuant =
+lin which_IQuant = mkQuant "apa" ;
 
 
 -----
 -- NP
-
+{-
 lin everybody_NP = defNP "" N.NumPl ;
 lin everything_NP = defNP "" N.NumSg ;
 lin nobody_NP = mkVerb; ""
@@ -118,14 +118,14 @@ lin with_Prep = mkPrep "dengan" ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsMay.
-  -- it_Pron =
+lin it_Pron = mkPron "dia" P3 ;
 lin i_Pron = mkPron "saya" P1 ;
--- lin youPol_Pron = mkPron "" P3 ;
--- lin youSg_Pron =
+lin youPol_Pron = mkPron "kamu" P2 ;
+lin youSg_Pron = mkPron "awak" P2 ;
 lin he_Pron = mkPron "dia" P3 ;
 lin she_Pron = mkPron "dia" P3 ;
 lin we_Pron = mkPron "kami" P1 ;
--- lin youPl_Pron =
+lin youPl_Pron = mkPron "kamu" P2;
 lin they_Pron = mkPron "mereka" P3 ;
 
 --lin whatPl_IP = ;
