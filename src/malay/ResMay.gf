@@ -115,11 +115,12 @@ oper
     n = NoNum num ;
   } ;
 
-  mkIdet : Str -> Number -> Bool -> Determiner = \str, num, isPre -> mkDet str num ** {
+  mkIdet : Str -> Str -> Number -> Bool -> Determiner = \str, standalone, num, isPre -> mkDet str num ** {
     pr = case isPre of {True => str ; False => [] } ;
     -- if isPre is True, then: "berapa kucing"
     s = case isPre of { False => str ; True => [] };
 
+    sp = \\_ => standalone ;
   } ;
 
 --------------------------------------------------------------------------------
