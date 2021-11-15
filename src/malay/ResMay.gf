@@ -50,6 +50,10 @@ oper
     empty : Str ; -- need to avoid GF being silly. See https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#metavariables-or-those-question-marks-that-appear-when-parsing
     } ;
 
+  IPhrase : Type = NounPhrase ** {
+    sp : NForm => Str ; -- standalone berapa banyak kucing
+  } ;
+
   emptyNP : NounPhrase = {
     s = \\_ => [] ;
     a = NotPron ;
@@ -60,10 +64,14 @@ oper
 -- Det, Quant, Card, Ord
 
   Quant : Type = {
-    s : Str ;
-    sp : NForm => Str ;
+    s : Str ; -- quantifier in a context, eg. 'berapa (kucing)'
+    sp : NForm => Str ; -- a standalone, eg. '(kucing) berapa banyak'
     poss : Possession ;
     } ;
+
+  IQuant : Type = Quant ** {
+    isPre : Bool ;
+  } ;
 
   Determiner : Type = Quant ** {
     pr : Str ; -- prefix for numbers
@@ -101,6 +109,18 @@ oper
     s = str ;
     sp = \\_ => str
     } ;
+
+  mkDet : Str -> Number -> Determiner = \str, num -> mkQuant str ** {
+    pr = "" ;
+    n = NoNum num ;
+  } ;
+
+  mkIdet : Str -> Number -> Bool -> Determiner = \str, num, isPre -> mkDet str num ** {
+    pr = case isPre of {True => str ; False => [] } ;
+    -- if isPre is True, then: "berapa kucing"
+    s = case isPre of { False => str ; True => [] };
+
+  } ;
 
 --------------------------------------------------------------------------------
 -- Prepositions

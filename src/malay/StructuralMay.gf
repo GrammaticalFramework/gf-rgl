@@ -52,9 +52,9 @@ lin and_Conj = {s2 = "dan" ; s1 = [] ; n = Pl} ;
 -----------------
 -- *Det and Quant
 
-{-
-lin how8many_IDet = ;
 
+lin how8many_IDet = mkIdet "berapa banyak" Pl True;
+{-}
 lin all_Predet = {s = ""} ;
 lin not_Predet = { s = "" } ;
 lin only_Predet = { s = "" } ;
@@ -71,7 +71,7 @@ lin someSg_Det =
 lin no_Quant = -}
 lin that_Quant = mkQuant "itu" ;
 lin this_Quant = mkQuant "ini" ;
-lin which_IQuant = mkQuant "apa" ;
+lin which_IQuant = mkQuant "apa" ** {isPre = False} ;
 
 
 -----
@@ -154,7 +154,10 @@ lin language_title_Utt = ss "bahasa Melayu" ;
 -------
 -- Verb
 
---lin have_V2 = mkV2 have_V ;
+lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
+  s = \\_ => "ada" ;
+  passive = "diadakan" ;
+} ;
 -- lin can8know_VV = can_VV ; -- can (capacity)
 -- lin can_VV = mkVV "" ;   -- can (possibility)
 -- lin must_VV = mkVV "" ;

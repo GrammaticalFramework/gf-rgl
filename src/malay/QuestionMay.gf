@@ -8,13 +8,24 @@ concrete QuestionMay of Question = CatMay ** open
 -- determiners, with or without a noun.
 lin
   -- : IDet -> CN -> IP ;       -- which five songs
-  IdetCN idet cn = NM.DetCN idet cn ;
+  IdetCN idet cn = NM.DetCN idet cn ** {sp = idet.sp} ;
 
   -- : IDet       -> IP ;       -- which five
-  IdetIP idet = NM.DetNP idet ;
+  IdetIP idet = NM.DetNP idet ** {sp = idet.sp};
 
   -- : IQuant -> Num -> IDet ;  -- which (five)
-  IdetQuant = NM.DetQuant ;
+  IdetQuant iquant num = iquant ** {
+    pr = num.s ++ case iquant.isPre of {True => iquant.s ; False => [] } ;
+    -- if isPre is True, then: "berapa kucing"
+    s = case iquant.isPre of { False => iquant.s ; True => [] };
+    -- if isPre is False, use s: "kucing berapa"
+    n = num.n
+  } ;
+
+  -- : IP -> ClSlash -> QCl ; -- whom does John love
+  QuestSlash ip cls = cls ** {
+    pred = \\vf,pol => cls.pred ! vf ! pol ++ ip.s ! Bare
+  } ;
 
 {-
   lin
@@ -23,9 +34,6 @@ lin
 
   -- : IP -> VP -> QCl ;
   QuestVP ip vp =
-
-  -- : IP -> ClSlash -> QCl ; -- whom does John love
-  QuestSlash ip cls =
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk
   QuestIAdv iadv cls =
