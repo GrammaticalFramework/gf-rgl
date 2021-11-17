@@ -1,4 +1,4 @@
-concrete RelativeEng of Relative = CatEng ** open ResEng in {
+concrete RelativeEng of Relative = CatEng ** open ResEng, Prelude in {
 
   flags optimize=all_subs ;
 
