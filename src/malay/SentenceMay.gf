@@ -56,7 +56,7 @@ lin
 
   -- : Temp -> Pol -> QCl -> QS ;
   UseQCl t p cl = {
-    s = cl.subj ++ t.s ++ p.s ++ cl.pred ! Active ! p.p ;
+    s = t.s ++ p.s ++ cl.subj ++ cl.pred ! Active ! p.p ;
     } ;
 
   -- : Temp -> Pol -> RCl -> RS ;

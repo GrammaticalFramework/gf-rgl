@@ -29,10 +29,32 @@ lin
     pred = \\vf,pol => cls.pred ! vf ! pol ++ ip.s ! Bare
   } ;
 
+  -- : Subj -> Pred -> QCl ;
+  -- QuestCl cl = cl ** {
+  --   pred = \\vf,pol => cl.pred ! vf ! pol
+  -- };
+  QuestCl cl = cl ** {
+    subj = "adakah" ++ cl.subj;
+  } ;
+
+
+{- ----
+      s = \\t,a,p =>
+            let
+              cl = oldClause slash ;
+              cls : Direct -> Str =
+                    \d -> cl.s !        d ! t ! a ! p ! Indic ;
+----                \d -> cl.s ! ip.a ! d ! t ! a ! p ! Indic ;
+              who = slash.c2.s ++ ip.s ! slash.c2.c
+            in table {
+              QDir   => who ++ cls DInv ;
+              QIndir => who ++ cls DDir
+              }
+-}
+
 {-
   lin
-  -- : Cl -> QCl ;
-  QuestCl =
+
 
   -- : IP -> VP -> QCl ;
   QuestVP ip vp =
