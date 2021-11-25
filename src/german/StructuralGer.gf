@@ -116,7 +116,7 @@ concrete StructuralGer of Structural = CatGer **
   we_Pron = mkPronPers "wir" "uns"  "uns"   "unser"  "unser" Fem Pl P1 ;
 
   whatSg_IP = {s = caselist "was" "was" "was" "wessen" ; n = Sg} ; ----
-  whatPl_IP = {s = caselist "was" "was" "was" "wessen" ; n = Sg} ; -- HL 6/2016
+  whatPl_IP = {s = caselist "was" "was" "was" "wessen" ; n = Pl} ; -- HL 6/2016
 
   when_IAdv = ss "wann" ;
   when_Subj = ss "wenn" ;
