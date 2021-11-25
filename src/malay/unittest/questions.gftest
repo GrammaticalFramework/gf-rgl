@@ -20,4 +20,4 @@ LangMay: adakah awak mengajar kucing
 
 Lang: UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))
 LangEng: don't you teach the cat
-LangMay: adakah awak mengajar kucing
+LangMay: adakah awak tidak mengajar kucing
