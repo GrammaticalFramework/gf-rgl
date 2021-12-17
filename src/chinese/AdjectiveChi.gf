@@ -18,12 +18,20 @@ concrete AdjectiveChi of Adjective = CatChi ** open ResChi, Prelude in {
 
     ReflA2 a = complexAP (a.s ++ appPrep a.c2 reflPron) ;
 
-    SentAP ap sc = complexAP (ap.s ++ sc.s) ;
+
+    -- SentAP ap sc = complexAP (ap.s ++ sc.s) ;
+    SentAP ap sc =  ap ** {
+
+        s = table { adjPlace => ap.s ! adjPlace ++ sc.s }
+        } ;
 
     AdAP ada ap = {s = ada.s ++ ap.s ; monoSyl = False ; hasAdA = True} ;
 
     UseA2 a = a ** {hasAdA = False} ;
-   
-    AdvAP ap adv = complexAP (adv.s ++ ap.s) ; ----
+
+   --  AdvAP ap adv = complexAP (adv.s ++ ap.s) ;
+   AdvAP ap adv = ap ** {
+      s = table { adjPlace => adv.s ++ ap.s ! adjPlace }
+   };
 
 }
