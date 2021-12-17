@@ -67,9 +67,9 @@ resource ResChi = ParamX ** open Prelude in {
   bword : Str -> Str -> Str = \x,y -> x ++ y ; -- change to x + y to treat words as single tokens
 
   word : Str -> Str = \s -> case s of {
-      x@? + y@? + z@? + u@? + v@? + w@? + a@? + b@? + c@? + d@? + e@? => 
+      x@? + y@? + z@? + u@? + v@? + w@? + a@? + b@? + c@? + d@? + e@? =>
         bword x (bword y (bword z (bword u (bword v (bword w (bword a (bword b (bword c (bword d e))))))))) ;
-      x@? + y@? + z@? + u@? + v@? + w@? + a@? + b@? + c@? + d@? => 
+      x@? + y@? + z@? + u@? + v@? + w@? + a@? + b@? + c@? + d@? =>
         bword x (bword y (bword z (bword u (bword v (bword w (bword a (bword b (bword c d)))))))) ;
       x@? + y@? + z@? + u@? + v@? + w@? + a@? + b@? + c@? => bword x (bword y (bword z (bword u (bword v (bword w (bword a (bword b c))))))) ;
       x@? + y@? + z@? + u@? + v@? + w@? + a@? + b@? => bword x (bword y (bword z (bword u (bword v (bword w (bword a b)))))) ;
@@ -96,6 +96,8 @@ param
 
     AdvType = ATPlace Bool | ATTime | ATManner | ATPoss ; -- ATPlace True = has zai_s already
 
+    AdjPlace = Attr | Pred ; -- a green cat / the cat is green colour
+
 -- parts of speech
 
 oper
@@ -103,25 +105,29 @@ oper
   VP = {
     topic : Str ;   -- topicalized item, before subject
     prePart : Str ; -- between subject and verb
-    verb : Verb ; 
+    verb : Verb ;
     compl : Str ;    -- after verb
-    isAdj : Bool ;   -- whether it is an adjectival predication and behaves differently in relative 
+    isAdj : Bool ;   -- whether it is an adjectival predication and behaves differently in relative
     } ;
 
-  NP = {s : Str} ; 
+  NP = {s : Str} ;
 
 -- for morphology
 
   Noun : Type = {s : Str ; c : Str} ;
-  Adj  : Type = {s : Str ; monoSyl: Bool} ;
+  Adj  : Type = {s : AdjPlace => Str ; monoSyl: Bool} ;
   Verb : Type = {s,sn : Str ; pp,ds,dp,ep : Str ; neg : Str} ; --- sn=[] needed for "hen" as copula
 
   regNoun : Str -> Str -> Noun = \s,c -> {s = word s ; c = word c};
 
-  mkAdj : Str -> Bool -> Adj = \s,b -> {s = word s ; monoSyl = b};
+  mkAdj : Str -> Bool -> Adj = \s,b -> {s =
+      table {
+        _ => word s
+      };
+   monoSyl = b};
 
-  complexAP : Str -> Adj ** {hasAdA : Bool} = 
-    \s -> {s = s ; monoSyl = False ; hasAdA = False} ; --- not used for adding AdA
+  complexAP : Str -> Adj ** {hasAdA : Bool} =
+    \s -> mkAdj s False  ** {hasAdA  = False} ; --- not used for adding AdA
 
   simpleAdj : Str -> Adj = \s -> case s of {
     ? => mkAdj s True ; -- monosyllabic
@@ -129,22 +135,22 @@ oper
     } ;
 
   copula : Verb = mkVerb "是" [] [] [] [] "不" ;
-  hen_copula : Verb = 
-    {s = hen_s ; sn = [] ; pp = [] ; ds = [] ; dp = [] ; ep = [] ; neg = "不"} ; --- 
-  nocopula : Verb = 
-    {s = [] ; sn = [] ; pp = [] ; ds = [] ; dp = [] ; ep = [] ; neg = "不"} ; --- 
-  adjcopula : Verb = 
-    {s = "是" ; sn = [] ; pp = [] ; ds = [] ; dp = [] ; ep = [] ; neg = "不"} ; --- 
+  hen_copula : Verb =
+    {s = hen_s ; sn = [] ; pp = [] ; ds = [] ; dp = [] ; ep = [] ; neg = "不"} ; ---
+  nocopula : Verb =
+    {s = [] ; sn = [] ; pp = [] ; ds = [] ; dp = [] ; ep = [] ; neg = "不"} ; ---
+  adjcopula : Verb =
+    {s = "是" ; sn = [] ; pp = [] ; ds = [] ; dp = [] ; ep = [] ; neg = "不"} ; ---
 
-  regVerb : (walk : Str) -> Verb = \v -> 
+  regVerb : (walk : Str) -> Verb = \v ->
     mkVerb v "了" "着" "在" "过" "不" ; -- 没" ;
 
   noVerb : Verb = regVerb [] ; ---?? -- used as copula for verbal adverbs
 
-  mkVerb : (v : Str) -> (pp,ds,dp,ep,neg : Str) -> Verb = \v,pp,ds,dp,ep,neg -> 
+  mkVerb : (v : Str) -> (pp,ds,dp,ep,neg : Str) -> Verb = \v,pp,ds,dp,ep,neg ->
     {s,sn = word v ; pp = pp ; ds = ds ; dp = dp ; ep = ep ; neg = neg} ;
 
-  useVerb : Verb -> Polarity => Aspect => Str = \v -> 
+  useVerb : Verb -> Polarity => Aspect => Str = \v ->
     table {
           Pos => table {
             APlain   => v.s ;
@@ -162,37 +168,37 @@ oper
             }
      } ;
 
-  infVP : VP -> Str = \vp -> vp.topic ++ vp.prePart ++ vp.verb.s ++ vp.compl ; 
+  infVP : VP -> Str = \vp -> vp.topic ++ vp.prePart ++ vp.verb.s ++ vp.compl ;
 
   predV : Verb -> Str -> VP = \v,part -> {
-      verb = v ; 
+      verb = v ;
       compl = part ;
       prePart, topic = [] ;
       isAdj = False ;
-      } ; 
+      } ;
 
   insertObj : NP -> VP -> VP = \np,vp -> vp ** {
      compl = np.s ++ vp.compl ;
-     } ; 
+     } ;
 
   insertObjPost : NP -> VP -> VP = \np,vp -> vp ** {
      compl = vp.compl ++ np.s ;
-     } ; 
+     } ;
 
    insertAdv : SS -> VP -> VP = \adv,vp -> vp ** {
      prePart = adv.s ++ vp.prePart ;
-     } ; 
+     } ;
 
    insertTopic : SS -> VP -> VP = \adv,vp -> vp ** {
      topic = adv.s ++ vp.topic
-     } ; 
+     } ;
    insertAdvPost : SS -> VP -> VP = \adv,vp -> vp ** {
      prePart = vp.prePart ++ adv.s ;
-     } ; 
+     } ;
 
    insertPP : SS -> VP -> VP = \pp,vp -> vp ** {
      prePart = vp.prePart ++ pp.s ;
-     } ; 
+     } ;
 
    insertExtra : SS -> VP -> VP = \ext,vp ->
      insertObjPost ext vp ;
@@ -200,33 +206,33 @@ oper
 -- clauses: keep np and vp separate to enable insertion of IAdv
 
    Clause : Type = {
-     s  : Polarity => Aspect => Str ; 
-     np : Str; 
-     vp : VP 
-     } ; 
+     s  : Polarity => Aspect => Str ;
+     np : Str;
+     vp : VP
+     } ;
 
 
    mkClause = overload {
-     mkClause : Str -> Verb -> Clause = \np,v -> 
+     mkClause : Str -> Verb -> Clause = \np,v ->
        mkClauseCompl np (predV v []) [] ;
      mkClause : Str -> Verb -> Str -> Clause = \subj,verb,obj ->
        mkClauseCompl subj (predV verb []) obj ;
-     mkClause : Str -> VP -> Clause = \np,vp -> 
+     mkClause : Str -> VP -> Clause = \np,vp ->
        mkClauseCompl np vp [] ;
-     mkClause : Str -> VP -> Str -> Clause = 
+     mkClause : Str -> VP -> Str -> Clause =
        mkClauseCompl ;
      } ;
- 
+
    mkClauseCompl : Str -> VP -> Str -> Clause = \np,vp,compl -> {
      s = \\p,a => vp.topic ++ np ++ vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl ++ compl ;
      np = vp.topic ++ np ;
      vp = insertObj (ss compl) vp ;
      } ;
-   
+
 
 -- for structural words
 
-param 
+param
   DetType = DTFull Number | DTNum | DTPoss ;  -- this, these, five, our
   NumType = NTFull | NTVoid Number ;          -- five, sg, pl
 
@@ -250,8 +256,8 @@ oper
     s = word s
     } ;
 
-  Preposition = {prepPre : Str ; prepPost : Str ; advType : AdvType ; hasDe : Bool} ;  
-    
+  Preposition = {prepPre : Str ; prepPost : Str ; advType : AdvType ; hasDe : Bool} ;
+
   mkPreposition : Str -> Str -> AdvType -> Preposition = \s1,s2,at -> {
     prepPre  = word s1 ;
     prepPost = word s2 ;
@@ -262,8 +268,8 @@ oper
   advTypeHasDe : AdvType -> Bool = \at -> case at of {
       ATPoss => True ;
       _ => False
-      } ; 
-    
+      } ;
+
   getAdvType : Str -> AdvType = \s -> case s of {
     "的"     => ATPoss ;
     "在" + _ => ATPlace True ; -- certain that True
@@ -271,7 +277,7 @@ oper
     } ;
 
   possessiveIf : Bool -> Str = \hasDe -> case hasDe of {
-    True => [] ;   --- to avoid double "de" 
+    True => [] ;   --- to avoid double "de"
     _ => possessive_s
     } ;
 
@@ -285,7 +291,7 @@ oper
 
   mkNP     : Str -> NP = ss ;  -- not to be used in lexicon building
 
-  appPrep : Preposition -> Str -> Str = \prep,s -> 
+  appPrep : Preposition -> Str -> Str = \prep,s ->
     prep.prepPre ++ s ++ prep.prepPost ;
 
 }
