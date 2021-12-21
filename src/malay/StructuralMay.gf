@@ -19,7 +19,9 @@ lin how_IAdv = ss "" :
 
 lin how8much_IAdv = ss "" ;
 lin when_IAdv = ss "" ;
-lin where_IAdv = ss "" :
+-}
+lin where_IAdv = ss "mana" ;
+{-
 lin why_IAdv = ss "" :
 
 lin always_AdV = ss "" ;
@@ -72,7 +74,6 @@ lin no_Quant = -}
 lin that_Quant = mkQuant "itu" ;
 lin this_Quant = mkQuant "ini" ;
 lin which_IQuant = mkQuant "apa" ** {isPre = False} ;
-
 
 -----
 -- NP
