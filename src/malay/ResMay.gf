@@ -105,6 +105,15 @@ oper
     poss = Bare ;
     } ;
 
+      -- \\vf,pol, =>
+      -- let
+      --   verb   : Str    = joinVP vp tense ant pol agr ;
+      --   obj    : Str    = vp.s2 ! agr ;
+      -- in case ord of {
+      --   ODir   => subj ++ verb ++ obj ;  -- Ġanni jiekol ħut
+      --   OQuest => verb ++ obj ++ subj    -- jiekol ħut Ġanni ?
+      -- }
+
   mkQuant : Str -> Quant = \str -> baseQuant ** {
     s = str ;
     sp = \\_ => str
@@ -122,6 +131,12 @@ oper
 
     sp = \\_ => standalone ;
   } ;
+
+
+
+  --   s = \\p,a => vp.topic ++ np ++ vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl ++ compl ;
+  -- np = vp.topic ++ np ;
+  -- vp = insertObj (ss compl) vp ;
 
 --------------------------------------------------------------------------------
 -- Prepositions
@@ -264,6 +279,38 @@ oper
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
     predVP np <vps : VerbPhrase> ** {c2 = vps.c2} ;
+
+  -- mkClause : Str -> NounPhrase -> VPSlash -> Clause = \str,np,vp -> {
+  --   subj = str ++ np.s ! Bare;
+  --   pred = vp.s
+  -- } ;
+
+
+  -- mkClause : Str -> IPhrase -> VerbPhrase -> Clause = \str,ip,vp -> {
+  --   subj = ip.s ! Bare ;
+  --   pred = vp.s ;
+  -- } ;
+
+
+  -- baseQuant : Quant = {
+  --   s = [] ;
+  --   sp = \\_ => [] ;
+  --   poss = Bare ;
+  --   } ;
+
+  --     -- \\vf,pol, =>
+  --     -- let
+  --     --   verb   : Str    = joinVP vp tense ant pol agr ;
+  --     --   obj    : Str    = vp.s2 ! agr ;
+  --     -- in case ord of {
+  --     --   ODir   => subj ++ verb ++ obj ;  -- Ġanni jiekol ħut
+  --     --   OQuest => verb ++ obj ++ subj    -- jiekol ħut Ġanni ?
+  --     -- }
+
+  -- mkQuant : Str -> Quant = \str -> baseQuant ** {
+  --   s = str ;
+  --   sp = \\_ => str
+  --   } ;
 
 --------------------------------------------------------------------------------
 -- linrefs

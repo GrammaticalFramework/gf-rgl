@@ -21,3 +21,15 @@ LangMay: adakah awak mengajar kucing
 Lang: UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))
 LangEng: don't you teach the cat
 LangMay: adakah awak tidak mengajar kucing
+
+# Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V)))
+# LangEng: who wants to go
+# LangMay: Siapa mahu pergi
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a teach_V2) (UsePron he_Pron)))
+LangEng: which cat teaches him
+LangMay: kucing apa mengajar dia
+
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
+LangEng: where did you go
+LangMay: awak pergi mana

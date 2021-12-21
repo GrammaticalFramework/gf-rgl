@@ -37,6 +37,26 @@ lin
     subj = "adakah" ++ cl.subj;
   } ;
 
+    -- missing record fields: pred type of vp
+
+  -- : IP -> VP -> QCl ;
+  --  expected: ParamMay.VForm => ParamX.Polarity => Str
+  --   inferred: {s : ParamMay.VForm => ParamX.Polarity => Str}
+
+  QuestVP ip cl =  cl ** {
+    pred = \\vf,pol => cl.s ! vf ! pol;
+    subj = ip.s ! Bare ;
+  };
+
+  -- : IAdv -> Cl -> QCl ;    -- why does John walk
+  QuestIAdv iadv cls = {
+    pred = \\vf,pol => cls.pred ! vf ! pol  ++ iadv.s;
+    subj = cls.subj ;
+  } ;
+
+  --   {
+  --   pred = \\vf,pol => ip.s ++ vp.s ! vf ! pol;
+  -- } ;
 
 {- ----
       s = \\t,a,p =>
@@ -56,11 +76,7 @@ lin
   lin
 
 
-  -- : IP -> VP -> QCl ;
-  QuestVP ip vp =
 
-  -- : IAdv -> Cl -> QCl ;    -- why does John walk
-  QuestIAdv iadv cls =
 
 
   -- : IComp -> NP -> QCl ;   -- where is John?
