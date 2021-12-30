@@ -50,7 +50,7 @@ lin
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk
   QuestIAdv iadv cls = {
-    pred = \\vf,pol => cls.pred ! vf ! pol  ++ iadv.s;
+    pred = \\vf,pol => cls.pred ! Root ! pol  ++ iadv.s;
     subj = cls.subj ;
   } ;
 

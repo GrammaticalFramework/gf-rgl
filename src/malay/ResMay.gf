@@ -133,7 +133,6 @@ oper
   } ;
 
 
-
   --   s = \\p,a => vp.topic ++ np ++ vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl ++ compl ;
   -- np = vp.topic ++ np ;
   -- vp = insertObj (ss compl) vp ;
