@@ -74,7 +74,7 @@ lin someSg_Det =
 lin no_Quant = -}
 lin that_Quant = mkQuant "itu" ;
 lin this_Quant = mkQuant "ini" ;
-lin which_IQuant = mkQuant "apa" ** {isPre = False} ;
+lin which_IQuant = mkQuant "yang mana" ** {isPre = False} ;
 
 -----
 -- NP
@@ -115,7 +115,6 @@ lin to_Prep = mkPrep "ke" ;
 lin with_Prep = mkPrep "dengan" ;
 -- lin without_Prep = mkPrep "" ;
 
-
 -------
 -- Pron
 
@@ -141,7 +140,7 @@ lin they_Pron = mkPron "mereka" P3 ;
 -- lin although_Subj =
 -- lin because_Subj =
 lin if_Subj = ss "sekiranya" ;
--- lin that_Subj =
+lin that_Subj = ss "yang" ;
 lin when_Subj = ss "kalau" ;
 
 
