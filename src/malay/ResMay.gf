@@ -222,7 +222,13 @@ oper
 ------------------
 -- Adv
 
-  Adverb : Type = SS ;
+  Adverb : Type = {
+    s : Str;
+  } ;
+
+  IAdv : Type = Adverb ** {
+    isPre : Bool ;
+  } ;
 
 ------------------
 -- VP

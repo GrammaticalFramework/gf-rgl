@@ -33,3 +33,7 @@ LangMay: kucing apa mengajar dia
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
 LangEng: where did you go
 LangMay: awak pergi mana
+
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
+LangEng: why did you go
+LangMay: mengapa awak pergi
