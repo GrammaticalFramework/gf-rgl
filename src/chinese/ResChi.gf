@@ -99,7 +99,6 @@ param
     AdjPlace = Attr | Pred ; -- a green cat / the cat is green colour
 
 -- parts of speech
-
 oper
 
   VP = {
@@ -133,6 +132,16 @@ oper
     ? => mkAdj s True ; -- monosyllabic
     _ => mkAdj s False
     } ;
+
+  colourAdj : Str -> Adj = \s -> {
+    s = table {
+      Attr => word s ;
+      Pred => word s ++ "色"
+    };
+    monoSyl = case s of {
+      ? => True ;
+      _ => False }
+    };
 
   copula : Verb = mkVerb "是" [] [] [] [] "不" ;
   hen_copula : Verb =
