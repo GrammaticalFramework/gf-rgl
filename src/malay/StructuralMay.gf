@@ -20,9 +20,10 @@ lin how_IAdv = ss "" :
 lin how8much_IAdv = ss "" ;
 lin when_IAdv = ss "" ;
 -}
-lin where_IAdv = ss "mana" ;
+lin where_IAdv = { s = "mana"; isPre = False } ;
+lin why_IAdv = {s = "mengapa"; isPre = True } ;
 {-
-lin why_IAdv = ss "" :
+
 
 lin always_AdV = ss "" ;
 

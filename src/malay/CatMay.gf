@@ -1,4 +1,4 @@
-concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
+concrete CatMay of Cat = CommonX - [IAdv] ** open ResMay, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -27,6 +27,7 @@ concrete CatMay of Cat = CommonX ** open ResMay, Prelude in {
     IDet = ResMay.Determiner ;  -- interrogative determiner            e.g. "how many"
     IQuant = ResMay.IQuant ;     -- interrogative quantifier            e.g. "which"
     IP = ResMay.IPhrase ;    -- interrogative pronoun               e.g. "who"
+    IAdv = ResMay.IAdv ;
 
 --2 Subord clauses and pronouns
 

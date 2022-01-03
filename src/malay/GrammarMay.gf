@@ -9,10 +9,10 @@ concrete GrammarMay of Grammar =
   RelativeMay,
   ConjunctionMay,
   PhraseMay,
-  TextX,
+  TextX - [IAdv],
   StructuralMay,
   IdiomMay,
-  TenseX - [AAnter, TFut, TCond]
+  TenseX - [AAnter, TFut, TCond, IAdv]
   ** open ParamX in {
 
   flags startcat = Phr ;
