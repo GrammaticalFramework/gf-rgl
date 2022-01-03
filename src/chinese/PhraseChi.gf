@@ -13,7 +13,7 @@ concrete PhraseChi of Phrase = CatChi ** open Prelude, ResChi in {
     UttIAdv iadv = iadv ;
     UttNP np = np ;
     UttCN cn = cn ;
-    UttAP ap = ap ;
+    UttAP ap = {s = ap.s!Attr}  ;
     UttCard x = x ;
     UttVP vp = ss (infVP vp) ;
     UttAdv adv = adv ;
