@@ -22,10 +22,6 @@ Lang: UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (Co
 LangEng: don't you teach the cat
 LangMay: adakah awak tidak mengajar kucing
 
-# Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V)))
-# LangEng: who wants to go
-# LangMay: Siapa mahu pergi
-
 Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a teach_V2) (UsePron he_Pron)))
 LangEng: which cat teaches him
 LangMay: kucing yang mana mengajar dia
@@ -46,3 +42,12 @@ LangMay: mengapa awak tidak pergi
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN woman_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a see_V2)))
 LangEng: which woman did you see
 LangMay : awak melihat perempuan yang mana
+
+# -- should be to whom did mother give the meat
+# Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whoSg_IP (SlashVP (MassNP (UseN2 mother_N2))  (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N)))))
+# LangEng: whom did mother give the meat
+# LangMay:
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V)))
+LangEng: who wants to go
+LangMay: siapa mahu pergi

@@ -132,8 +132,10 @@ lin they_Pron = mkPron "mereka" P3 ;
 --lin whatPl_IP = ;
 --lin whatSg_IP = :
 --lin whoPl_IP = ;
---lin whoSg_IP = ;
+lin whoSg_IP = mkIP "siapa";
 
+-- expected: {s : ParamMay.Possession => Str; a : ParamMay.NPAgr;
+--  empty : Str; sp : ParamMay.NForm => Str}
 -------
 -- Subj
 

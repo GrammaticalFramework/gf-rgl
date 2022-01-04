@@ -60,6 +60,13 @@ oper
     empty = []
     } ;
 
+  mkIP : Str -> IPhrase = \str -> {
+    s = \\_ => str ;
+    a = NotPron ;
+    empty = [] ;
+    sp = \\_ => str ;
+  } ;
+
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
