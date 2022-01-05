@@ -23,7 +23,7 @@ concrete CatMay of Cat = CommonX - [IAdv] ** open ResMay, Prelude in {
 -- Constructed in QuestionMay.
 
     QCl = ResMay.Clause ;
-    IComp = SS ;                -- interrogative complement of copula  e.g. "where"
+    IComp = {s: Str} ;                -- interrogative complement of copula  e.g. "where"
     IDet = ResMay.Determiner ;  -- interrogative determiner            e.g. "how many"
     IQuant = ResMay.IQuant ;     -- interrogative quantifier            e.g. "which"
     IP = ResMay.IPhrase ;    -- interrogative pronoun               e.g. "who"
