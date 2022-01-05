@@ -59,6 +59,16 @@ lin
     } ;
   } ;
 
+
+  -- : IP -> IComp ;
+  CompIP ip = {s = ip.s ! Bare } ;    -- who (is it)
+
+  -- : IComp -> NP -> QCl ;   -- where is John?
+  QuestIComp icomp np = {
+    pred = \\vf,pol => np.s ! Bare ;
+    subj = icomp.s ;
+  } ;
+
 -- \\vf,pol,posadv =>
   --   {
   --   pred = \\vf,pol => ip.s ++ vp.s ! vf ! pol;
@@ -121,9 +131,6 @@ lin
 
   -- : IAdv -> IComp ;
   CompIAdv iadv = iadv ;            -- where (is it)
-
-  -- : IP -> IComp ;
-  CompIP ip = {s = ip.s ! Abs} ;    -- who (is it)
 
 
 -- More $IP$, $IDet$, and $IAdv$ are defined in $Structural$.

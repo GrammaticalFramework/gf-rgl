@@ -38,7 +38,6 @@ Lang: UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron youS
 LangEng: why didn't you go
 LangMay: mengapa awak tidak pergi
 
--- With ComplSlash: Wh-word is the object
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN woman_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a see_V2)))
 LangEng: which woman did you see
 LangMay : awak melihat perempuan yang mana
@@ -51,3 +50,7 @@ LangMay : awak melihat perempuan yang mana
 Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V)))
 LangEng: who wants to go
 LangMay: siapa mahu pergi
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))
+LangEng: who is the cat
+LangMay: siapa kucing
