@@ -1,0 +1,3 @@
+-- One way of saying "he/she gives me a cat"
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (Slash2V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN cat_N))) (UsePron i_Pron)))
+LangChi: 他 把 猫 给 我
