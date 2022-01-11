@@ -13,9 +13,9 @@ incomplete concrete NounScand of Noun =
       let 
         g = cn.g ;
         m = cn.isMod ;
-        dd = case <det.det,detDef,m> of {
-          <DDef Def, Indef, True> => DDef Indef ;
-          <d,_,_> => d
+        dd = case <detDef,det.det,m> of {
+          <Indef, DDef Def, True> => DDef Indef ;
+          <_,d,_> => d
           }
       in {
       s = \\c => det.s ! m ! g ++
