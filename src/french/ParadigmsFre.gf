@@ -403,8 +403,26 @@ oper
 
   mkA = overload {
     mkA : Str -> A = regA ;
-    mkA : (sec,seche : Str) -> A = \sec,seche -> mk4A sec seche (sec + "s") (seche + "ment") ;
-    mkA : (banal,banale,banaux : Str) -> A = \sec,seche,secs -> mk4A sec seche secs (seche + "ment") ;
+    mkA : (sec,seche : Str) -> A = \sec,seche ->
+      let a = regA sec
+      in a ** {
+        s = table {
+	  AF Fem Sg => seche ;
+	  AF Fem Pl => seche  + "s" ;
+	  AA => case seche of {
+	    _ + "ée" => init seche + "ment" ;
+	    _ => seche + "ment"
+	    } ;
+	  c => a.s ! c
+	  }
+	} ;
+
+    mkA : (banal,banale,banaux : Str) -> A = \sec,seche,secs ->
+      let sechement : Str = case seche of {
+	    _ + "ée" => init seche + "ment" ;
+	    _ => seche + "ment"
+	    }
+      in mk4A sec seche secs sechement ;
     mkA : (banal,banale,banaux,banalement : Str) -> A = mk4A ;
     mkA : (vieux,vieil,vieille,vieuxs,vieuxment : Str) -> A = mk5A ;
     mkA : A -> A -> A = mkADeg ;
