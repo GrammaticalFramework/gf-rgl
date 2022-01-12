@@ -55,6 +55,15 @@ lin
       c2 = v3.c2 -- Now the VPSlash is missing only the direct object
     } ;
 
+  -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
+  --   insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
+
+  SlashV2A v2 adj = useV {
+    s = \\vf => v2.s ! vf ++ adj.s;
+  } ** {
+    c2 = v2.c2
+  } ;
+
  {-
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2s s =
@@ -70,7 +79,10 @@ lin
 -}
   -- : VPSlash -> NP -> VP
   ComplSlash vps np = vps ** {
-    s = \\vf,pol => vps.s ! vf ! pol ++ applyPrep vps.c2 np
+    s = \\vf,pol =>
+      vps.s ! vf ! pol
+      ++ applyPrep vps.c2 np
+    -- s = \\vf,pol => vps.s ! vf ! pol ++ applyPrep vps.c2 np
     } ;
 
   -- : VV  -> VPSlash -> VPSlash ;

@@ -15,13 +15,13 @@ lin very_AdA = mkAdA "" ;
 lin as_CAdv = { s = "" ; p = [] } ;
 lin less_CAdv = { s = "" ; p = [] } ;
 lin more_CAdv = { s = "" ; p = [] } ;
-lin how_IAdv = ss "" :
 
 lin how8much_IAdv = ss "" ;
 lin when_IAdv = ss "" ;
 -}
-lin where_IAdv = { s = "mana"; isPre = False } ;
-lin why_IAdv = {s = "mengapa"; isPre = True } ;
+lin how_IAdv = { s = "bagaimana"; isPre = True ; vf = Active } ;
+lin where_IAdv = { s = "mana"; isPre = False ; vf = Root } ;
+lin why_IAdv = {s = "mengapa"; isPre = True ; vf = Root } ;
 {-
 
 

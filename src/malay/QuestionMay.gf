@@ -54,8 +54,8 @@ lin
       True => iadv.s ++ cls.subj ; False => cls.subj
     } ;
     pred = \\vf,pol => case iadv.isPre of {
-      True => cls.pred ! Root ! pol ;
-      False => cls.pred ! Root ! pol ++ iadv.s
+      True => cls.pred ! iadv.vf ! pol ;
+      False => cls.pred ! iadv.vf ! pol ++ iadv.s
     } ;
   } ;
 

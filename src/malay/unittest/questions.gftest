@@ -54,3 +54,7 @@ LangMay: siapa mahu pergi
 Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))
 LangEng: who is the cat
 LangMay: siapa kucing
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN2 mother_N2)) (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))))
+LangEng: how does your mother paint the house black
+LangMay: bagaimana ibu awak mengecat rumah hitam
