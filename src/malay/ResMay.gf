@@ -67,6 +67,7 @@ oper
     sp = \\_ => str ;
   } ;
 
+
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
@@ -235,6 +236,7 @@ oper
 
   IAdv : Type = Adverb ** {
     isPre : Bool ;
+    vf : VForm ;
   } ;
 
 ------------------
@@ -255,6 +257,7 @@ oper
   useComp : Str -> VerbPhrase = \s -> {
     s = \\vf,pol => nounneg pol ++ s ;
     } ;
+
 
   verbneg : Polarity -> Str = \pol -> case pol of {
     Neg => "tidak" ; -- or "tak"?

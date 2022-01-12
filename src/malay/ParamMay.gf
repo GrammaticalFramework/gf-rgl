@@ -31,6 +31,8 @@ oper
     } ;
 
   prefixMeng : Str -> Str = \makan -> case makan of {
+    ? + ? + c => "menge" + makan ;
+
     (#v|"g"|"h") + _
       => "meng" + makan ; -- prefix meng: e.g. meng+atur
     "k" + enal
@@ -48,6 +50,8 @@ oper
 
     "s" + alak
       => "meny" + alak ; -- replace s with meny
+
+
 
     ("r"|"l"|"w"|"y"|"m"|"n"|"ny"|"ng") + _
       => "me" + makan ; -- prefix me
