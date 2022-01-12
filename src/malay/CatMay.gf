@@ -108,7 +108,7 @@ concrete CatMay of Cat = CommonX - [IAdv] ** open ResMay, Prelude in {
 
     V2A,   -- verb with NP and AP complement      e.g. "paint"
     V2V,   -- verb with NP and V complement       e.g. "cause"
-    V2S,   -- verb with NP and S complement       e.g. "tell"
+    V2S,   -- Reverb with NP and S complement       e.g. "tell"
     V2Q,   -- verb with NP and Q complement       e.g. "ask"
     V2 = ResMay.Verb2 ;
     V3 = ResMay.Verb3 ;

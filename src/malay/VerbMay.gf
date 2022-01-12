@@ -38,30 +38,38 @@ lin
 
   -- : V2 -> VPSlash
   SlashV2a v2 = useV v2 ** {
-    c2 = v2.c2
+    c2 = v2.c2 ;
+    adjCompl = []
     } ;
+
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
   Slash2V3 v3 dobj = useV {
     s = \\vf => v3.s ! vf ++ applyPrep v3.c2 dobj
+
     } ** {
-      c2 = v3.c3 -- Now the VPSlash is missing only the indirect object
+      c2 = v3.c3; -- Now the VPSlash is missing only the indirect object
+      adjCompl = []
     } ;
 
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash3V3 v3 iobj = useV {
-    s = \\vf => v3.s ! vf ++ iobj.s ! Bare -- applyPrep v3.c3 iobj -- TODO check if this works for all -- probably not
+    s = \\vf => v3.s ! vf ++ iobj.s ! Bare ++ applyPrep v3.c3 emptyNP;
+    --iobj.s ! Bare -- applyPrep v3.c3 iobj -- TODO check if this works for all -- probably not
     } ** {
-      c2 = v3.c2 -- Now the VPSlash is missing only the direct object
+      c2 = v3.c2 ;-- Now the VPSlash is missing only the direct object
+      adjCompl = []
+
     } ;
 
   -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
   --   insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
 
   SlashV2A v2 adj = useV {
-    s = \\vf => v2.s ! vf ++ adj.s;
+    s = \\vf => v2.s ! vf;
   } ** {
-    c2 = v2.c2
+    c2 = v2.c2;
+    adjCompl = adj.s
   } ;
 
  {-
@@ -81,14 +89,16 @@ lin
   ComplSlash vps np = vps ** {
     s = \\vf,pol =>
       vps.s ! vf ! pol
-      ++ applyPrep vps.c2 np
+      ++ applyPrep vps.c2 np ++ vps.adjCompl
     -- s = \\vf,pol => vps.s ! vf ! pol ++ applyPrep vps.c2 np
     } ;
+
 
   -- : VV  -> VPSlash -> VPSlash ;
   SlashVV vv vps = ComplVV vv vps ** {
     c2 = vps.c2 ; -- like ComplVV except missing object
-    passive = vv.s ++ vps.passive
+    passive = vv.s ++ vps.passive;
+    adjCompl = vps.adjCompl ;
     } ;
 
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy

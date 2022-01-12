@@ -227,7 +227,7 @@ lin love_V2 = mkV2 "cinta" ;
 
 lin man_N = mkN "lelaki" ;
 -- lin married_A2 = mkA "" ;
--- lin meat_N = mkN "" ;
+lin meat_N = mkN "daging" ;
 lin milk_N = mkN "susu" ;
 -- lin moon_N = mkN "" ;
 lin mother_N2 = mkN2 "ibu" ;
@@ -364,7 +364,7 @@ lin song_N = mkN "lagu" ;
 
 -- lin table_N = mkN "" ;
 -- lin tail_N = mkN "" ;
--- lin talk_V3 = mkV3 "" ;
+lin talk_V3 = mkV3 (mkV "cakap" Ber) (mkPrep "tentang") (mkPrep "dengan") ;
 lin teach_V2 = mkV2 "ajar" ;
 -- lin teacher_N = mkN "" ;
 -- lin television_N = mkN "" ;

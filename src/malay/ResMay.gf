@@ -248,6 +248,7 @@ oper
 
   VPSlash : Type = VerbPhrase ** {
     c2 : Preposition ;
+    adjCompl : Str ;
     } ;
 
   useV : Verb -> VerbPhrase = \v -> v ** {
@@ -294,6 +295,7 @@ oper
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
     predVP np <vps : VerbPhrase> ** {c2 = vps.c2} ;
+
 
   -- mkClause : Str -> NounPhrase -> VPSlash -> Clause = \str,np,vp -> {
   --   subj = str ++ np.s ! Bare;
