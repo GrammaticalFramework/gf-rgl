@@ -130,7 +130,7 @@ lin youPl_Pron = mkPron "kamu" P2;
 lin they_Pron = mkPron "mereka" P3 ;
 
 --lin whatPl_IP = ;
---lin whatSg_IP = :
+lin whatSg_IP = mkIP "apa";
 --lin whoPl_IP = ;
 lin whoSg_IP = mkIP "siapa";
 
