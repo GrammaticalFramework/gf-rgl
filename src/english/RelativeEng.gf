@@ -32,16 +32,10 @@ concrete RelativeEng of Relative = CatEng ** open ResEng, Prelude in {
       c = NPAcc
       } ;
 
-    -- John , whose every friend is right
+    -- a number, [the square of which] is 4
+    -- For a construction like "John , [whose every friend] is right", use Extend.GenRP
     FunRP p np rp = {
-      s = \\c =>
-        let npGender : Gender = (fromAgr np.a).g in
-        case p.isPoss of {
-          True  => rp.s ! RC npGender NPNomPoss ++  -- whose
-                   p.empty ++                       -- empty string to avoid metavariables
-                   np.s ! NCase Nom ;               -- NP in nom: "whose every friend"
-          False => np.s ! NPAcc ++ p.s ++ rp.s ! RPrep npGender
-          } ;
+      s = \\c => np.s ! NPAcc ++ p.s ++ rp.s ! RPrep (fromAgr np.a).g ;
       a = RAg np.a
       } ;
 
