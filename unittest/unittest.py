@@ -92,7 +92,7 @@ def collect_testcases(testlines):
         elif ':' in line:
             lang, sentence = stripstrings(line.split(':', 1))
             langfile = importfile(linenr, lang)
-            is_tree = '/abstract/' in langfile
+            is_tree = ('/abstract/' in langfile) or 'Abs' in langfile
             test.append((is_tree, linenr, lang, langfile, sentence))
         else:
             error(linenr, "Ill-formatted line in test file:", line)
