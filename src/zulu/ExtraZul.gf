@@ -80,6 +80,36 @@ concrete ExtraZul of ExtraZulAbs =
 
     PNAsCN pn = pn ** { mod = \\_ => [] } ;
 
+    DemPron quant pron = let
+    d = case quant.qdef of {
+      Article _ => Dem1 ;
+      Demonstrative d => d
+    }
+    in {
+      empty,predet_pre,dem,predet_post = pron.empty ;
+      -- dem = case quant.qdef of {
+      --   Article _ => dem_pron!Dem1!pron.agr ;
+      --   Demonstrative d => dem_pron!d!pron.agr
+      -- } ;
+      -- s = \\nform => quant.s ++ pron.s!nform ;
+      s = table {
+        Full => quant.s ++ dem_pron!d!pron.agr ++ pron.empty ;
+        Reduced => quant.s ++ dem_pron!d!pron.agr ++ pron.empty ;
+        Poss => quant.s ++ dem_pron!d!pron.agr ++ pron.empty ;
+        Loc => quant.s ++ dem_pron!d!pron.agr ++ pron.empty
+      } ;
+      mod = pron.empty ;
+      agr = pron.agr ;
+      i = RC ;
+      proDrop = False ;
+      isPron = True ;
+      -- reqLocS = True ;
+      qdef = case quant.qdef of {
+        Article _ => Demonstrative Dem1 ;
+        Demonstrative d => Demonstrative d
+      }
+    } ;
+
     EmphCN cn = {
       s = \\num,nform => pron_stem!(Third cn.c num) ++BIND++ "na" ++ cn.s!num!nform ;
       mod = cn.mod ;
@@ -137,13 +167,12 @@ concrete ExtraZul of ExtraZulAbs =
       qdef = np.qdef ;
     } ;
 
-    -- NOTE: this is only here to play nice with Xhosa; commented out now.
-    -- DescrNP cn np = {
-    --   s = \\n,cpf => cn.s!n!cpf ;
-    --   loc = \\n => cn.loc!n ;
-    --   desc = \\n => cn.desc!n ++ np.s!Full ++ np.desc ;
-    --   c = cn.c
-    -- } ;
+    PossLocNP locn np = {
+      empty,predet_pre,predet_post = locn.empty ;
+      s = \\n,nform => locn.s ;
+      mod = \\num => poss_concord!(C17)!Sg!np.i ++BIND++ (poss_NP np) ;
+      c = C17
+    } ;
 
     InstrNPAdv np =
     let
@@ -180,7 +209,8 @@ concrete ExtraZul of ExtraZulAbs =
 
     -- locative kwa
     KwaNPAdv np = {
-      s = "kwa" ++BIND++ (pref_lin_NP np) ;
+      -- s = "kwa" ++BIND++ (pref_lin_NP np) ;
+      s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (pref_lin_NP np) ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -454,6 +484,8 @@ concrete ExtraZul of ExtraZulAbs =
 
     how2_IAdv = {s = "anjani" ; postIAdv = False } ;
     how8much2_IAdv = {s = "angakanani" ; postIAdv = False } ;
+
+    phakathi_LocN = { s = "phakathi" ; empty = [] } ;
 
     AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
 

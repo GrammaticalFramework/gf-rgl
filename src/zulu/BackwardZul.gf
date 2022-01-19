@@ -27,7 +27,10 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       } ;
       iadv = [] ;
       advs = [] ;
-      hasComp = True ;
+      hasComp = case np.proDrop of {
+        True => False ;
+        False => True
+      } ;
       -- r = v2.r ;
       -- syl = v2.syl ;
       asp = Null ;

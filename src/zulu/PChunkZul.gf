@@ -1,4 +1,4 @@
-concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
+concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
   -- ChunkFunctor - [Det_Chunk]
   --  with (Syntax = SyntaxZul) ** --, (Extensions = ExtensionsZul) **
   open
@@ -9,17 +9,23 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
   lincat
     Chunks = {s : Str} ;
     Chunk = {s : Str};
-    Chunk_CN = {s: Str} ;
+    Chunk_AP, Chunk_Adv, Chunk_S, Chunk_QS, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
 
     VC = V ;
 
   lin
     OneChunk c = c ;
     PlusChunk c cs = cc2 c cs ;
-
-    CN_Chunker c = c ;
-
     ChunkPhr c = ss ("*" ++ c.s) | c ;
+
+    AP_Chunker c = c ;
+    Adv_Chunker c = c ;
+    S_Chunker c = c ;
+    QS_Chunker c = c ;
+    CN_Chunker c = c ;
+    NP_Chunker c = c ;
+    N_Chunker c = c ;
+    Symb_Chunker c = c ;
 
     AP_Chunk ap = { s = ap_vars ap } ;
   --   AdA_Chunk : AdA -> Chunk ;

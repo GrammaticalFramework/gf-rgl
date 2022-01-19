@@ -1,6 +1,7 @@
 abstract ExtraCatZulAbs = {
 
   cat
+    LocN ;
     QuantStem ;
     RelStem ;
     VAux ;

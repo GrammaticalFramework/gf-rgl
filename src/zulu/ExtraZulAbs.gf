@@ -15,15 +15,19 @@ abstract ExtraZulAbs =
     UsePNPl : PN -> NP ;
     PNAsCN : PN -> CN ;
 
+    DemPron : Quant -> Pron -> NP ;
+
     EmphCN : CN -> CN ; --
     ContrastCN : CN -> CN ;
     ApposNPN : NP -> N -> NP ;
     -- ContrastNP : NP -> NP ;
 
     DescrNP : CN -> NP -> CN ;
-    PossLocNP : CN -> NP -> CN ;
-    PossPronZul : CN -> Pron -> CN ; -- of you (yours)
+    -- PossLocNP : CN -> NP -> CN ;
+    -- PossPronZul : CN -> Pron -> CN ; -- of you (yours)
     -- RelV : CN -> V -> Temp -> Pol -> CN ; -- lights that flash
+
+    PossLocNP : LocN -> NP -> CN ;
 
     InstrNPAdv : NP -> Adv ; -- ngokuhlinzwa
     InstrAdvNPAdv : Adv -> NP -> Adv ; -- cishe ngehora
@@ -107,6 +111,8 @@ abstract ExtraZulAbs =
 
     how2_IAdv : IAdv ;
     how8much2_IAdv : IAdv ;
+
+    phakathi_LocN : LocN ;
 
     Deverb15 : V -> N ;
 

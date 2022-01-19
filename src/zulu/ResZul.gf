@@ -51,6 +51,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     prefix_nasal : Str -> Str = \r -> case r of {
       "ph"+x => "mp" + x ;
+      "bh"+x => "mb" + x ;
       #nasal_de_asp+"h"+x => "n"+(take 1 r) + x ;
       "hl"+x => "nhl"+x ;
       "h"+x => "nk"+x ;
@@ -1189,7 +1190,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C3_4 Sg =>    table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "wu" ;  SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" ;  SCBe => "ubu" } ;
         Third C3_4 Pl =>    table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCPart => "i" ;   SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" } ;
         Third C5_6 Sg =>    table {SC => "li" ;   SCVow => "l"++BIND ;   SCNeg => "li" ;  SCPart => "li" ;  SCPS => "li" ;  SCVowP => "li" ;  SCBe => "beli" } ;
-        Third C5_6 Pl =>    table {SC => "a" ;    SCVow => [] ;    SCNeg => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ;  SCBe => "abe" } ;
+        Third C5_6 Pl =>    table {SC => "a" ;    SCVow => [] ;          SCNeg => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ;  SCBe => "abe" } ;
         Third C7_8 Sg =>    table {SC => "si" ;   SCVow => "s"++BIND ;   SCNeg => "si" ;  SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" ;  SCBe => "besi" } ;
         Third C7_8 Pl =>    table {SC => "zi" ;   SCVow => "z"++BIND ;   SCNeg => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ;  SCBe => "bezi" } ;
         Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" } ;
@@ -1197,7 +1198,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C11_10 Sg =>  table {SC => "lu" ;   SCVow => "lw"++BIND ;  SCNeg => "lu" ;  SCPart => "lu" ;  SCPS => "lu" ;  SCVowP => "lu" ;  SCBe => "belu" } ;
         Third C11_10 Pl =>  table {SC => "zi" ;   SCVow => "z"++BIND ;   SCNeg => "zi" ;  SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ;  SCBe => "bezi" } ;
         Third C9_6 Sg =>    table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" } ;
-        Third C9_6 Pl =>    table {SC => "a" ;    SCVow => [] ;    SCNeg => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ;  SCBe => "abe" } ;
+        Third C9_6 Pl =>    table {SC => "a" ;    SCVow => [] ;          SCNeg => "wa" ;  SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ;  SCBe => "abe" } ;
         Third C14 _ =>      table {SC => "bu" ;   SCVow => "b"++BIND ;   SCNeg => "bu" ;  SCPart => "bu" ;  SCPS => "bu" ;  SCVowP => "bu" ;  SCBe => "bebu" } ;
         Third C15 _ =>      table {SC => "ku" ;   SCVow => "kw"++BIND ;  SCNeg => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" ;  SCBe => "beku" } ;
         Third C17 _ =>      table {SC => "ku" ;   SCVow => "kw"++BIND ;  SCNeg => "ku" ;  SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" ;  SCBe => "beku" }
