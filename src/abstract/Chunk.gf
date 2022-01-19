@@ -32,7 +32,7 @@ fun
   -- IP_Chunk : IP -> Chunk ;
   NP_Nom_Chunk : NP -> Chunk ;
   -- NP_Acc_Chunk : NP -> Chunk ;
-  -- NP_Gen_Chunk : NP -> Chunk ;
+  NP_Gen_Chunk : NP -> Chunk ;
   -- Numeral_Nom_Chunk : Numeral -> Chunk ;
   -- Numeral_Gen_Chunk : Numeral -> Chunk ;
   -- Ord_Nom_Chunk : Ord -> Chunk ;
