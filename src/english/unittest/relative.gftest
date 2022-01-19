@@ -6,32 +6,32 @@ AllEngAbs: RelCN (UseN computer_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash I
 AllEng: computer that everybody loves
 
 
--- IdRP possessive, RelVP
-AllEngAbs: RelCN (UseN teacher_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (DetCN every_Det (UseN friend_N)) IdRP) (UseV run_V)))
-AllEng: teacher whose every friend runs
-
-AllEngAbs: RelCN (UseN car_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (MassNP (UseN oil_N)) IdRP) (UseV run_V)))
-AllEng: car whose oil runs
-
--- IdRP possessive, RelSlash
+-- IdRP + possess_Prep, RelSlash
 AllEngAbs: PredVP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN boss_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP possess_Prep (MassNP (UseN computer_N)) IdRP) (SlashVP everybody_NP (SlashV2a love_V2))))) (UseComp (CompAdv here_Adv))
 AllEng: the boss , computer of which everybody loves , is here
 
--- GenRP
+-- IdRP + part_Prep, RelSlash
+AllEngAbs: RelNP (MassNP (UseN butter_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP part_Prep (DetCN (DetQuant IndefArt NumSg) (UseN stick_N)) IdRP) (SlashVP (UsePron i_Pron) (SlashV2a eat_V2))))
+AllEng: butter , a stick of which I eat
+
+-- GenRP + RelVP
+-- NB. with GenRP, can't parse "teacher whose every friend runs", because GenRP takes only a CN
+AllEngAbs: RelCN (UseN teacher_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (GenRP NumSg (UseN friend_N)) (UseV run_V)))
+AllEng: teacher whose friend runs
+
+AllEngAbs: RelCN (UseN car_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (GenRP NumSg (UseN oil_N)) (UseV run_V)))
+AllEng: car whose oil runs
+
+-- GenRP + RelSlash
 AllEngAbs: PredVP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN boss_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (GenRP NumSg (UseN computer_N)) (SlashVP everybody_NP (SlashV2a love_V2))))) (UseComp (CompAdv here_Adv))
 AllEng: the boss , whose computer everybody loves , is here
 
 AllEngAbs: PredVP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN restaurant_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (GenRP NumSg (UseN fruit_N)) (SlashVP everybody_NP (SlashV2a love_V2))))) (UseComp (CompAdv here_Adv))
 AllEng: the restaurant , whose fruit everybody loves , is here
 
--- Note that every instance of "of" is not possessive—with part_Prep, we get "beer, a glass of which I drink"
--- unfortunately glass_N is not in lexicon, so I substituted words with others
-AllEngAbs: RelNP (MassNP (UseN butter_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP part_Prep (DetCN (DetQuant IndefArt NumSg) (UseN stick_N)) IdRP) (SlashVP (UsePron i_Pron) (SlashV2a eat_V2))))
-AllEng: butter , a stick of which I eat
-
 -- IdRP other, RelSlash
 -- RelVP really doesn't make sense–the preposition in FunRP looks like an object complement?
--- e.g. "Paris , the best city *in* which *I have lived* -- gap: "I have loved *in Paris*
+-- e.g. "Paris , the best city *in* which *I have lived* -- gap: "I have lived *in Paris*
 -- for RelVP, the noun is a subject:
 -- e.g. "Paris , the best city ∅    which sleeps"     -- no gap: "Paris sleeps"
 
@@ -42,6 +42,8 @@ AllEng: butter , a stick of which I eat
 
 -- Transitive verb + preposition in RP
 -- The RP is the whole [the best city in which]
+-- We can't even do "lived in", because because live_V is intransitive and RelSlash requires transitive.
+-- So let's switch to love_V2 instead.
 AllEngAbs: RelNP (UsePN paris_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP in_Prep (DetCN (DetQuantOrd DefArt NumSg (OrdSuperl good_A)) (UseN city_N)) IdRP) (SlashVP (UsePron i_Pron) (SlashV2a love_V2))))
 AllEng: Paris , the best city in which I have loved
 
