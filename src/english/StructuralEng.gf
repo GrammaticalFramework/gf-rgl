@@ -99,7 +99,7 @@ concrete StructuralEng of Structural = CatEng **
   otherwise_PConj = ss "otherwise" ;
   part_Prep = mkPrep "of" ;
   please_Voc = ss "please" ;
-  possess_Prep = possPrep "of" ;
+  possess_Prep = mkPrep "of" ;
   quite_Adv = mkAdv "quite" ;
   she_Pron = mkPron "she" "her" "her" "hers" singular P3 feminine ;
   so_AdA = mkAdA "so" ;
@@ -159,4 +159,3 @@ concrete StructuralEng of Structural = CatEng **
   lin language_title_Utt = ss "English" ;
 
 }
-
