@@ -324,7 +324,6 @@ lin sell_V3 = mkV3 (mkV "jual" Meng) emptyPrep emptyPrep ; -- TODO
 -- lin short_A = mkA "" ;
 -- lin silver_N = mkN "" ;
 lin sing_V = mkV "nyanyi" ;
-lin sing_V2 = mkV2 "nyanyi" ;
 -- lin sister_N = mkN "" ;
 -- lin sit_V = mkV "" ;
 -- lin skin_N = mkN "" ;
