@@ -6,7 +6,7 @@ concrete AdjectiveMay of Adjective = CatMay ** open ResMay, Prelude in {
 
   -- : A  -> AP ;
   PositA a = a ** {
-    compar = a.s ;
+    compar = [] ;
     } ;
 
   -- : A  -> NP -> AP ;

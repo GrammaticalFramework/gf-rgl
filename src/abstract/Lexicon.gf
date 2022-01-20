@@ -265,7 +265,6 @@ fun
   short_A : A ;
   silver_N : N ;
   sing_V : V ;
-  sing_V2 : V2 ;
   sister_N : N ;
   sit_V : V ;
   skin_N : N ;
