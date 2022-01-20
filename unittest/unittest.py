@@ -17,6 +17,8 @@ from subprocess import Popen, PIPE
 from glob import glob
 
 GRAMMARDIR = '../src'
+# For compilation on Windows replace the previous line with something like this:
+# GRAMMARDIR = '/src'
 ENCODING = 'utf-8'
 
 
