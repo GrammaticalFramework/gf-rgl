@@ -125,7 +125,8 @@ lin youPol_Pron = mkPron "kamu" P2 ;
 lin youSg_Pron = mkPron "awak" P2 ;
 lin he_Pron = mkPron "dia" P3 ;
 lin she_Pron = mkPron "dia" P3 ;
-lin we_Pron = mkPron "kami" P1 ;
+-- inclusive we
+lin we_Pron = mkPron "kita" P1 ;
 lin youPl_Pron = mkPron "kamu" P2;
 lin they_Pron = mkPron "mereka" P3 ;
 
