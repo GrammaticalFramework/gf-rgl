@@ -55,7 +55,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     VP = {
       s : RForm => Str ;
       oc : Str ;
-      comp : Polarity => Str ;
+      comp : Str ;
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ;
@@ -73,7 +73,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     VPSlash = {
       s : RForm => Str ;
       oc : Str ;
-      comp : Polarity => Str ;
+      comp : Str ;
       hasComp : Bool ;
       r : RInit ;
       syl : Syl ;
@@ -110,27 +110,27 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     NP = {
       empty : Str ;
       s : NForm => Str ;
-      mod : Str ;
-      dem : Str ;
-      predet_pre : Str ;
-      predet_post : Str ;
+      -- mod : Str ;
+      -- dem : Str ;
+      -- predet_pre : Str ;
+      -- predet_post : Str ;
       agr : Agr ;
       i : RInit ;
       proDrop : Bool ; -- used when NP is object
       isPron : Bool ; -- used to choose correct between Full/Reduced
-      qdef : QuantDef
+      -- qdef : QuantDef
     } ;
 
     -- Pronoun
     Pron = { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } ;
 --     DAP
-    Det = { s : Str ; n : Number ; qdef : QuantDef } ;
-    Predet = { s : Str ; isPost : Bool } ;
+    Det = { s : Str ; n : Number } ;
+    Predet = { s : Agr => Str ; hasDem : Bool } ;
 --     Ord = { s : Case => Str } ;
     Num  = { s: Str ; n : Number } ;
 --     Card = {s,sp : Bool => Case => Str ; n : Number} ;
 --     ACard = {s : Case => Str ; n : Number} ;
-    Quant = { s : Str ; qdef : QuantDef } ;
+    Quant = { s : Str ; dist : Distance } ;
 
 -- Numeral
 
