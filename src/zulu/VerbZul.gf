@@ -4,39 +4,38 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 
   lin
     UseV v = v ** {
-      oc = [] ;
-      comp = \\_ => [] ;
-      iadv = [] ;
-      advs = [] ;
-      hasComp = False ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      vptype = NoComp ;
-      comp_agr = First Sg ; -- this could be anything...
+      s = table {
+        MainCl => \\a,p,t => v.s!(rform (VFIndic MainCl p t) True) ;
+        RelCl => \\a,p,t => let
+          vform = (VFIndic RelCl p t)
+        in (relConc p a) ++ v.s!(rform vform True) ++ (relSuf vform) -- ***present tense hack
+      } ;
+      iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
-      aux_root = [] ;
-      hasAux = False
+      hasComp = False ;
+      r = v.r ;
+      vptype = NoComp
     } ;
 
 --     ComplVV v vp = insertObj (\\a => infVP v.typ vp False Simul CPos a) (predVV v) ;  ---- insertExtra?
 
-    ComplVS vs s = vs ** {
-      -- s = vs.s ;
-      oc = [] ;
-      comp = \\_ => s.subjs ;
-      iadv = [] ;
-      advs = [] ;
-      hasComp = True ;
-      -- r = vs.r ;
-      -- syl = vs.syl ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      vptype = VSCompl ;
-      comp_agr = First Sg ; -- this could be anything...
-      ap_comp = \\_ => [] ;
-      aux_root = [] ;
-      hasAux = False
-    } ;
+    -- ComplVS vs s = vs ** {
+    --   -- s = vs.s ;
+    --   oc = [] ;
+    --   comp = s.subjs ;
+    --   iadv = [] ;
+    --   advs = [] ;
+    --   hasComp = True ;
+    --   -- r = vs.r ;
+    --   -- syl = vs.syl ;
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   vptype = VSCompl ;
+    --   comp_agr = First Sg ; -- this could be anything...
+    --   ap_comp = \\_ => [] ;
+    --   aux_root = [] ;
+    --   hasAux = False
+    -- } ;
 
 -- ---    ComplVS v s  = insertObj (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predV v) ;
 --     ComplVQ v q  = insertExtra (q.s ! QIndir) (predV v) ;
@@ -61,21 +60,21 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     -- } ;
 
 
-    SlashV2a v = v ** {
-      oc = [] ;
-      comp = \\_ => [] ;
-      -- iadv = [] ;
-      -- advs = [] ;
-      hasComp = False ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      vptype = VNPCompl ;
-      comp_agr = First Sg ; -- this could be anything...
-      ap_comp = \\_ => [] ;
-      aux_root = [] ;
-      hasAux = False -- ;
-      -- missing_np1 = True
-    } ;
+    -- SlashV2a v = v ** {
+    --   oc = [] ;
+    --   comp = [] ;
+    --   -- iadv = [] ;
+    --   -- advs = [] ;
+    --   hasComp = False ;
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   vptype = VNPCompl ;
+    --   comp_agr = First Sg ; -- this could be anything...
+    --   ap_comp = \\_ => [] ;
+    --   aux_root = [] ;
+    --   hasAux = False -- ;
+    --   -- missing_np1 = True
+    -- } ;
 --     Slash2V3 v np =
 --       insertObjc (\\_ => v.c2 ++ np.s ! NPAcc) (predVc v ** {c2 = v.c3 ; gapInMiddle = False}) ;
 --     Slash3V3 v np =
@@ -87,135 +86,120 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 --     SlashV2A v ap = insertObjc (\\a => v.c3 ++ ap.s ! a) (predVc v) ; ----
 
     -- TODO: this simply adds the new np to the end of vp.comp; to be expanded beyond V2 using missing_np1
-    ComplSlash vp np = {
-      oc = case np.proDrop of {
-        True => objConc np.agr vp.r vp.syl ;
-        False => np.empty
-      } ;
-      comp = case <np.qdef> of {
-        <Article Indef> => table {
-          Neg => vp.comp!Neg ++ np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
-          Pos => vp.comp!Pos ++ np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post
-        } ;
-        <Article Def> =>
-          \\p => vp.comp!p ++ np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
-        <Demonstrative d> =>
-          \\p => vp.comp!p ++ np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post
-      } ;
-      iadv = [] ;
-      advs = [] ;
-      hasComp = case np.proDrop of {
-        True => False ;
-        False => True
-      } ;
-      s = vp.s ;
-      r = vp.r ;
-      syl = vp.syl ;
-      asp = vp.asp ;
-      asp_pref = vp.asp_pref ;
-      vptype = VNPCompl ;
-      comp_agr = np.agr ;
-      ap_comp = vp.ap_comp ;
-      aux_root = vp.aux_root ;
-      hasAux = vp.hasAux
-    } ;
+    -- ComplSlash vp np = {
+    --   oc = case np.proDrop of {
+    --     True => objConc np.agr vp.r vp.syl ;
+    --     False => np.empty
+    --   } ;
+    --   comp = np.s!Full ;
+    --   iadv = [] ;
+    --   advs = [] ;
+    --   hasComp = case np.proDrop of {
+    --     True => False ;
+    --     False => True
+    --   } ;
+    --   s = vp.s ;
+    --   r = vp.r ;
+    --   syl = vp.syl ;
+    --   asp = vp.asp ;
+    --   asp_pref = vp.asp_pref ;
+    --   vptype = VNPCompl ;
+    --   comp_agr = np.agr ;
+    --   ap_comp = vp.ap_comp ;
+    --   aux_root = vp.aux_root ;
+    --   hasAux = vp.hasAux
+    -- } ;
 
+    -- UseComp comp = case comp.comptype of {
+    --   CopDescr => {
+    --     s = \\_ => [] ;
+    --     oc = [] ;
+    --     comp = [] ; -- doesn't matter
+    --     iadv = [] ;
+    --     advs = [] ;
+    --     hasComp = True ;
+    --     r = comp.r ; -- adjectives don't typically start on vowels
+    --     syl = SylMult ;
+    --     asp = comp.asp ;
+    --     asp_pref = comp.asp_pref ;
+    --     vptype = comp.comptype ;
+    --     comp_agr = comp.agr ; -- this could be anything...
+    --     ap_comp = comp.s ;
+    --     aux_root = [] ;
+    --     hasAux = False
+    --   } ;
+    --   CopIdent => {
+    --     s = \\_ => [] ;
+    --     oc = [] ;
+    --     comp = comp.s!AF1 ; -- doesn't matter
+    --     iadv = [] ;
+    --     advs = [] ;
+    --     hasComp = True ;
+    --     r = comp.r ;
+    --     syl = SylMult ;
+    --     asp = comp.asp ;
+    --     asp_pref = comp.asp_pref ;
+    --     vptype = comp.comptype ;
+    --     comp_agr = comp.agr ;
+    --     ap_comp = \\_ => [] ;
+    --     aux_root = [] ;
+    --     hasAux = False
+    --   } ;
+    --   AdvComp => {
+    --     s = \\_ => [] ;
+    --     oc = [] ;
+    --     comp = [] ;
+    --     iadv = [] ;
+    --     advs = comp.s!AF1 ;
+    --     hasComp = True ;
+    --     r = comp.r ; -- probably works...
+    --     syl = SylMult ;
+    --     asp = comp.asp ;
+    --     asp_pref = comp.asp_pref ;
+    --     vptype = comp.comptype ;
+    --     comp_agr = comp.agr ;
+    --     ap_comp = \\_ => [] ;
+    --     aux_root = [] ;
+    --     hasAux = False
+    --   } ;
+    --   -- the default tries to treat the comp as a NP type
+    --   _ => {
+    --     s = \\_ => [] ;
+    --     oc = [] ;
+    --     comp = comp.s!AF1 ; -- doesn't matter
+    --     iadv = [] ;
+    --     advs = [] ;
+    --     hasComp = True ;
+    --     r = comp.r ;
+    --     syl = SylMult ;
+    --     asp = comp.asp ;
+    --     asp_pref = comp.asp_pref ;
+    --     vptype = comp.comptype ;
+    --     comp_agr = comp.agr ;
+    --     ap_comp = \\_ => [] ;
+    --     aux_root = [] ;
+    --     hasAux = False
+    --   }
+    -- } ;
 
---     SlashVV vv vp = vp **
---       insertObj (\\a => infVP vv.typ vp False Simul CPos a) (predVV vv) ;
---     SlashV2VNP vv np vp = vp **
---       insertObjPre (\\_ => vv.c2 ++ np.s ! NPAcc)
---       (insertObjc (\\a => vv.c3 ++ infVP vv.typ vp False Simul CPos a) (predVc vv)) ;
-
-    UseComp comp = case comp.comptype of {
-      CopDescr => {
-        s = \\_ => [] ;
-        oc = [] ;
-        comp = \\_ => [] ; -- doesn't matter
-        iadv = [] ;
-        advs = [] ;
-        hasComp = True ;
-        r = comp.r ; -- adjectives don't typically start on vowels
-        syl = SylMult ;
-        asp = comp.asp ;
-        asp_pref = comp.asp_pref ;
-        vptype = comp.comptype ;
-        comp_agr = comp.agr ; -- this could be anything...
-        ap_comp = comp.s ;
-        aux_root = [] ;
-        hasAux = False
-      } ;
-      CopIdent => {
-        s = \\_ => [] ;
-        oc = [] ;
-        comp = \\_ => comp.s!AF1 ; -- doesn't matter
-        iadv = [] ;
-        advs = [] ;
-        hasComp = True ;
-        r = comp.r ;
-        syl = SylMult ;
-        asp = comp.asp ;
-        asp_pref = comp.asp_pref ;
-        vptype = comp.comptype ;
-        comp_agr = comp.agr ;
-        ap_comp = \\_ => [] ;
-        aux_root = [] ;
-        hasAux = False
-      } ;
-      AdvComp => {
-        s = \\_ => [] ;
-        oc = [] ;
-        comp = \\_ => [] ;
-        iadv = [] ;
-        advs = comp.s!AF1 ;
-        hasComp = True ;
-        r = comp.r ; -- probably works...
-        syl = SylMult ;
-        asp = comp.asp ;
-        asp_pref = comp.asp_pref ;
-        vptype = comp.comptype ;
-        comp_agr = comp.agr ;
-        ap_comp = \\_ => [] ;
-        aux_root = [] ;
-        hasAux = False
-      } ;
-      -- the default tries to treat the comp as a NP type
-      _ => {
-        s = \\_ => [] ;
-        oc = [] ;
-        comp = \\_ => comp.s!AF1 ; -- doesn't matter
-        iadv = [] ;
-        advs = [] ;
-        hasComp = True ;
-        r = comp.r ;
-        syl = SylMult ;
-        asp = comp.asp ;
-        asp_pref = comp.asp_pref ;
-        vptype = comp.comptype ;
-        comp_agr = comp.agr ;
-        ap_comp = \\_ => [] ;
-        aux_root = [] ;
-        hasAux = False
-      }
-    } ;
-
-    AdvVP vp adv = {
-      s = vp.s ;
-      oc = vp.oc ;
-      comp = vp.comp ;
-      iadv = vp.iadv ;
-      advs = vp.advs ++ adv.s ;
-      hasComp = vp.hasComp ;
-      r = vp.r ;
-      syl = vp.syl ;
-      asp = vp.asp ;
-      asp_pref = vp.asp_pref ;
-      vptype = vp.vptype ;
-      comp_agr = vp.comp_agr ;
-      ap_comp = vp.ap_comp ;
-      aux_root = vp.aux_root ;
-      hasAux = vp.hasAux
-    } ;
+    AdvVP vp adv = vp ** { advs = vp.advs ++ adv.s } ;
+    -- {
+    --   s = vp.s ;
+    --   oc = vp.oc ;
+    --   comp = vp.comp ;
+    --   iadv = vp.iadv ;
+    --   advs = vp.advs ++ adv.s ;
+    --   hasComp = vp.hasComp ;
+    --   r = vp.r ;
+    --   syl = vp.syl ;
+    --   asp = vp.asp ;
+    --   asp_pref = vp.asp_pref ;
+    --   vptype = vp.vptype ;
+    --   comp_agr = vp.comp_agr ;
+    --   ap_comp = vp.ap_comp ;
+    --   aux_root = vp.aux_root ;
+    --   hasAux = vp.hasAux
+    -- } ;
 
 --     ExtAdvVP vp adv = insertObj (\\_ => frontComma ++ adv.s ++ finalComma) vp ;
 --     AdVVP adv vp = insertAdV adv.s vp ;
@@ -229,35 +213,35 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 --
 -- ---b    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no "to"
 
-    CompAP ap = {
-      s = ap.s ;
-      r = RC ;
-      agr = First Sg ; -- this could be anything...
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      comptype = CopDescr
-    } ;
-
-    CompNP np = {
-      s = \\_ => lin_NP np ;
-      r = initNP np.isPron np.agr ;
-      agr = np.agr ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      comptype = CopIdent
-    } ;
-
-    CompAdv adv = {
-      s = \\_ => case adv.reqLocS of {
-        True => "s" ++BIND ;
-        False => []
-      } ++ adv.s ;
-      r = RC ; -- probably works...
-      agr = First Sg ; -- this could be anything...
-      asp = Null ;
-      asp_pref = \\_ => [] ; -- TODO: check
-      comptype = AdvComp
-    } ;
+    -- CompAP ap = {
+    --   s = ap.s ;
+    --   r = RC ;
+    --   agr = First Sg ; -- this could be anything...
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   comptype = CopDescr
+    -- } ;
+    --
+    -- CompNP np = {
+    --   s = \\nform => np.s!nform ; -- TODO: refactor
+    --   r = initNP np.isPron np.agr ;
+    --   agr = np.agr ;
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   comptype = CopIdent
+    -- } ;
+    --
+    -- CompAdv adv = {
+    --   s = \\_ => case adv.reqLocS of {
+    --     True => "s" ++BIND ;
+    --     False => []
+    --   } ++ adv.s ;
+    --   r = RC ; -- probably works...
+    --   agr = First Sg ; -- this could be anything...
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ; -- TODO: check
+    --   comptype = AdvComp
+    -- } ;
 
     -- CompCN cn = {s = \\a => case (fromAgr a).n of {
     --   Sg => artIndef ++ cn.s ! Sg ! Nom ;
@@ -294,4 +278,25 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
   --     hasAux = vp.hasAux
   --   } ;
 
+  oper
+    v_prefix : RInit -> Bool -> Agr -> Polarity -> BasicTense -> Str = \r,c,a,p,t ->
+    let
+      vow = case <r,p,t> of {
+        <RC,Pos,PresTense> => False ;
+        <_,Pos,PresTense> => True ;
+        <_,_,_> => False
+      } ;
+      lfya = case <c,p,t> of {
+        <False,Pos,PresTense> => "ya" ++BIND ;
+        <_,_,_> => []
+      } ;
+      vform_main = VFIndic MainCl p t
+    in
+      (negPref vform_main)
+      -- ++ (exclSePref vform_main)
+      ++ (subjConc vform_main a vow)
+      -- ++ (negPref2 vform_main)
+      ++ lfya
+      -- ++ (tensePref vform_main)
+      ;
 }

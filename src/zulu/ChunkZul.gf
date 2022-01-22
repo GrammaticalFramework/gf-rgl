@@ -243,32 +243,56 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
       } ;
 
       ap_vars : AP -> Str = \ap -> variants {
-        ap_form (Third C1_2 Sg) ap ;
-        ap_form (Third C1_2 Pl) ap ;
-        ap_form (Third C1a_2a Sg) ap ;
-        ap_form (Third C1a_2a Pl) ap ;
-        ap_form (Third C3_4 Sg) ap ;
-        ap_form (Third C3_4 Pl) ap ;
-        ap_form (Third C5_6 Sg) ap ;
-        ap_form (Third C5_6 Pl) ap ;
-        ap_form (Third C7_8 Sg) ap ;
-        ap_form (Third C7_8 Pl) ap ;
-        ap_form (Third C9_10 Sg) ap ;
-        ap_form (Third C9_10 Pl) ap ;
-        ap_form (Third C11_10 Sg) ap ;
-        ap_form (Third C11_10 Pl) ap ;
-        ap_form (Third C9_6 Sg) ap ;
-        ap_form (Third C9_6 Pl) ap ;
-        ap_form (Third C14 Sg) ap ;
-        ap_form (Third C15 Sg) ap ;
-        ap_form (Third C17 Sg) ap ;
-        ap_form (First Sg) ap ;
-        ap_form (First Pl) ap ;
-        ap_form (Second Sg) ap ;
-        ap_form (Second Pl) ap
+        ap_form Pos (Third C1_2 Sg) ap ;
+        ap_form Pos (Third C1_2 Pl) ap ;
+        ap_form Pos (Third C1a_2a Sg) ap ;
+        ap_form Pos (Third C1a_2a Pl) ap ;
+        ap_form Pos (Third C3_4 Sg) ap ;
+        ap_form Pos (Third C3_4 Pl) ap ;
+        ap_form Pos (Third C5_6 Sg) ap ;
+        ap_form Pos (Third C5_6 Pl) ap ;
+        ap_form Pos (Third C7_8 Sg) ap ;
+        ap_form Pos (Third C7_8 Pl) ap ;
+        ap_form Pos (Third C9_10 Sg) ap ;
+        ap_form Pos (Third C9_10 Pl) ap ;
+        ap_form Pos (Third C11_10 Sg) ap ;
+        ap_form Pos (Third C11_10 Pl) ap ;
+        ap_form Pos (Third C9_6 Sg) ap ;
+        ap_form Pos (Third C9_6 Pl) ap ;
+        ap_form Pos (Third C14 Sg) ap ;
+        ap_form Pos (Third C15 Sg) ap ;
+        ap_form Pos (Third C17 Sg) ap ;
+        ap_form Pos (First Sg) ap ;
+        ap_form Pos (First Pl) ap ;
+        ap_form Pos (Second Sg) ap ;
+        ap_form Pos (Second Pl) ap ;
+
+        ap_form Neg (Third C1_2 Sg) ap ;
+        ap_form Neg (Third C1_2 Pl) ap ;
+        ap_form Neg (Third C1a_2a Sg) ap ;
+        ap_form Neg (Third C1a_2a Pl) ap ;
+        ap_form Neg (Third C3_4 Sg) ap ;
+        ap_form Neg (Third C3_4 Pl) ap ;
+        ap_form Neg (Third C5_6 Sg) ap ;
+        ap_form Neg (Third C5_6 Pl) ap ;
+        ap_form Neg (Third C7_8 Sg) ap ;
+        ap_form Neg (Third C7_8 Pl) ap ;
+        ap_form Neg (Third C9_10 Sg) ap ;
+        ap_form Neg (Third C9_10 Pl) ap ;
+        ap_form Neg (Third C11_10 Sg) ap ;
+        ap_form Neg (Third C11_10 Pl) ap ;
+        ap_form Neg (Third C9_6 Sg) ap ;
+        ap_form Neg (Third C9_6 Pl) ap ;
+        ap_form Neg (Third C14 Sg) ap ;
+        ap_form Neg (Third C15 Sg) ap ;
+        ap_form Neg (Third C17 Sg) ap ;
+        ap_form Neg (First Sg) ap ;
+        ap_form Neg (First Pl) ap ;
+        ap_form Neg (Second Sg) ap ;
+        ap_form Neg (Second Pl) ap
       } ;
 
-      ap_form : Agr -> AP -> Str = \agr,ap ->
+      ap_form : Polarity -> Agr -> AP -> Str = \pol,agr,ap ->
       let
         agr = agr_vars ;
         -- adjf = case ap.b of {
@@ -278,6 +302,6 @@ concrete ChunkZul of Chunk = CatZul, SymbolZul [Symb] **
         -- }
         adjf = variants { AF1 ; AF2 ; AF3 } ;
       in
-        adjConcLookup!agr ++BIND++ ap.s!adjf ;
+        relAdjAgrLookup!pol!agr ++BIND++ ap.s!adjf ;
 
 }

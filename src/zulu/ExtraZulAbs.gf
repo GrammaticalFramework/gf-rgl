@@ -12,17 +12,17 @@ abstract ExtraZulAbs =
     AssocCop : NP -> VP ;
     EqCop : NP -> VP ;
 
-    UsePNPl : PN -> NP ;
-    PNAsCN : PN -> CN ;
+    -- UsePNPl : PN -> NP ;
+    -- PNAsCN : PN -> CN ;
 
-    DemPron : Quant -> Pron -> NP ;
+    -- DemPron : Quant -> Pron -> NP ;
 
-    EmphCN : CN -> CN ; --
-    ContrastCN : CN -> CN ;
-    ApposNPN : NP -> N -> NP ;
+    -- EmphCN : CN -> CN ; --
+    -- ContrastCN : CN -> CN ;
+    -- ApposNPN : NP -> N -> NP ;
     -- ContrastNP : NP -> NP ;
 
-    DescrNP : CN -> NP -> CN ;
+    -- DescrNP : CN -> NP -> CN ;
     -- PossLocNP : CN -> NP -> CN ;
     -- PossPronZul : CN -> Pron -> CN ; -- of you (yours)
     -- RelV : CN -> V -> Temp -> Pol -> CN ; -- lights that flash
@@ -52,10 +52,10 @@ abstract ExtraZulAbs =
 
     -- NumAdjCN : CN -> A -> CN ;
 
-    -- only_QuantStem : QuantStem ;
-    -- all_QuantStem : QuantStem ;
+    only_QuantStem : QuantStem ;
+    all_QuantStem : QuantStem ;
     -- all_pre_QuantStem : QuantStem ;
-    all_pre_Predet : Predet ;
+    -- all_pre_Predet : Predet ;
 
     painful_RelStem : RelStem ;
     sharp_RelStem : RelStem ;
@@ -114,7 +114,7 @@ abstract ExtraZulAbs =
 
     phakathi_LocN : LocN ;
 
-    Deverb15 : V -> N ;
+    -- Deverb15 : V -> N ;
 
     -- AdvQS     : IAdv -> S  -> QS ;            -- maybe it is a pain that burns 2020-01-15: consider that this should rather be dealt with using QuestIAdv)
 

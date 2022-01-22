@@ -2,45 +2,45 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
 
   flags optimize=all_subs ;
 
-  lin
+  -- lin
 
 -- A repository of obsolete constructs, needed for backward compatibility.
 -- They create spurious ambiguities if used in combination with Lang.
 
 -- from Verb 19/4/2008
 
-    ComplV2 v2 np = v2 ** {
-      -- s = v2.s ;
-      oc = case np.proDrop of {
-        True => objConc np.agr v2.r v2.syl ;
-        False => np.empty
-      } ;
-      comp = case <np.qdef> of {
-        <Article Nonspec> => table {
-          Neg => np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
-          Pos => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post
-        } ;
-        <Article Spec> =>
-          \\_ => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
-        <Demonstrative d> =>
-          \\_ => np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post
-      } ;
-      iadv = [] ;
-      advs = [] ;
-      hasComp = case np.proDrop of {
-        True => False ;
-        False => True
-      } ;
-      -- r = v2.r ;
-      -- syl = v2.syl ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      vptype = VNPCompl ;
-      comp_agr = np.agr ;
-      ap_comp = \\_ => [] ;
-      aux_root = [] ;
-      hasAux = False
-    } ;
+    -- ComplV2 v2 np = v2 ** {
+    --   -- s = v2.s ;
+    --   oc = case np.proDrop of {
+    --     True => objConc np.agr v2.r v2.syl ;
+    --     False => np.empty
+    --   } ;
+    --   comp = case <np.qdef> of {
+    --     <Article Nonspec> => table {
+    --       Neg => np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
+    --       Pos => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post
+    --     } ;
+    --     <Article Spec> =>
+    --       \\_ => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
+    --     <Demonstrative d> =>
+    --       \\_ => np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post
+    --   } ;
+    --   iadv = [] ;
+    --   advs = [] ;
+    --   hasComp = case np.proDrop of {
+    --     True => False ;
+    --     False => True
+    --   } ;
+    --   -- r = v2.r ;
+    --   -- syl = v2.syl ;
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   vptype = VNPCompl ;
+    --   comp_agr = np.agr ;
+    --   ap_comp = \\_ => [] ;
+    --   aux_root = [] ;
+    --   hasAux = False
+    -- } ;
 
     -- ComplV3 v3 np1 np2 = v3 ** {
     --   -- s = v3.s ;

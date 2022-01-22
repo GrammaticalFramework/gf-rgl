@@ -6,14 +6,10 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
   lincat
 
     -- for now, no anteriority
-    Temp = { s : Str ; t : ZTense } ;
+    Temp = { s : Str ; t : BasicTense } ;
 
 -- Tensed/Untensed
-    S = {
-      s : DMood => Str ;
-      subjs : Str ;
-      pots : DMood => Str
-    } ;
+    S = { s : Str } ;
     QS = { s : Str ; qword_pre : Str ; qword_post : Str } ;
     RS = { s : Agr => Str } ;
 --     SSlash = {s : Str ; c2 : Str} ;
@@ -21,10 +17,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Sentence
 
     Cl = {
-      s : Polarity => ZTense => DMood => Str ;
-      -- advs : Str ;
-      subjcl : Polarity => ZTense => Str ;
-      potcl : Polarity => DMood => Str
+      s : Polarity => BasicTense => Str
     } ;
 --     ClSlash = {
 --       s : ResZul.Tense => Anteriority => CPolarity => Order => Str ;
@@ -35,8 +28,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Question
 
     QCl = {
-      s : Polarity => ZTense => DMood => Str ;
-      potqcl : Polarity => DMood => Str ;
+      s : Polarity => BasicTense => Str ;
+      -- potqcl : Polarity => Str ;
       qword_pre : Str ;
       qword_post : Str
     } ;
@@ -47,27 +40,27 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
 -- Relative
 
-    RCl = { s : Polarity => ZTense => Agr => Str } ;
+    RCl = { s : Agr => Polarity => BasicTense => Str } ;
     RP = { s : Str } ;
 
 -- Verb
 
     VP = {
-      s : RForm => Str ;
-      oc : Str ;
+      s : CType => Agr => Polarity => BasicTense => Str ;
+      -- oc : Str ;
       comp : Str ;
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ;
       r : RInit ;
-      syl : Syl ;
-      asp : Aspect ;
-      asp_pref : VForm => Str ;
+      -- syl : Syl ;
+      -- asp : Aspect ;
+      -- asp_pref : VForm => Str ;
       vptype : VPType ;
-      comp_agr : Agr ;
-      ap_comp : AForm => Str ;
-      aux_root : Str ;
-      hasAux : Bool
+      -- comp_agr : Agr ;
+      -- ap_comp : AForm => Str -- ;
+      -- aux_root : Str ;
+      -- hasAux : Bool
     } ;
 
     VPSlash = {

@@ -9,4 +9,6 @@ abstract ExtraCatZulAbs = {
     IAdj ;   -- how many
     -- INAdv ; -- which/-phi?
 
+    Postdet ;
+
 }

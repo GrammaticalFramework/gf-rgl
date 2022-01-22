@@ -5,8 +5,8 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
   lin
 
     QuestCl cl = {
-      s = \\p,t,m => cl.s!p!t!m ;
-      potqcl = cl.potcl ;
+      s = \\p,t => cl.s!p!t ;
+      -- potqcl = cl.potcl ;
       qword_pre = [] ;
       qword_post = variants { "na" ; [] } ;
     } ; -- guessing this will work...
@@ -24,40 +24,9 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
     QuestIAdv iadv cl = qcl_iadv cl iadv ;
 
     QuestIComp icomp np = {
-      s = \\p,t,m =>
+      s = \\p,t =>
       let
-        -- TODO: deal with auxiliaries properly.
-        aux_tense = case t of {
-          Absolute bt => bt ;
-          Relative b1 b2 => b1
-        } ;
-        main_tense = case t of {
-          Absolute bt => bt ;
-          Relative b1 b2 => b2
-        } ;
-        vform = VFIndic m p main_tense Null ;
-        vform_aux = VFIndic m p aux_tense Null ;
-        -- neg1 = icompNeg1 vform ;
-        -- neg2 = icompNeg2 vform ;
-        aux = case t of {
-          Absolute bt => [] ;
-          Relative _ _ => aux_be vform_aux np.agr -- (subjConcLookup!np.agr!ResZul.SCBe) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False "e" "a") -- relSubjConc aux_tense np.agr --
-        } ;
-
-        pre_icomp = case icomp.postIComp of {
-          False => aux ++ (icomp_pref vform np.agr) ++ icomp.s ;
-          True => []
-        } ;
-        post_icomp = case icomp.postIComp of {
-          True => aux ++ (icomp_pref vform np.agr) ++ icomp.s ;
-          False => []
-        }
-      in
-          pre_icomp ++ (lin_NP np) ++ post_icomp ;
-      potqcl = \\p,m =>
-      let
-        vform = VFPot m p Null ;
-        -- neg = icompNeg2 vform ;
+        vform = VFIndic MainCl p t ;
         pre_icomp = case icomp.postIComp of {
           False => (icomp_pref vform np.agr) ++ icomp.s ;
           True => []
@@ -65,9 +34,9 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
         post_icomp = case icomp.postIComp of {
           True => (icomp_pref vform np.agr) ++ icomp.s ;
           False => []
-        } ;
+        }
       in
-        pre_icomp ++ (lin_NP np) ++ post_icomp ;
+          pre_icomp ++ (np.s!Full) ++ post_icomp ;
       qword_pre = [] ;
       qword_post = []
     } ;
@@ -126,9 +95,8 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
     --   qword_post = []
     -- } ;
 
-    qcl_iadv : Cl -> CatZul.IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
-      s = \\p,t,m => cl.s!p!t!m ;
-      potqcl = cl.potcl ;
+    qcl_iadv : Cl -> CatZul.IAdv -> {s : Polarity => BasicTense => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
+      s = \\p,t => cl.s!p!t ;
       qword_pre = case iadv.postIAdv of {
         True => [] ;
         False => iadv.s

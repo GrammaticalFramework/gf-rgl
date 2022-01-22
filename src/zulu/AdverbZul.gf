@@ -17,10 +17,10 @@ concrete AdverbZul of Adverb = CatZul ** open ResZul, Prelude in {
     -- AdAdv = cc2 ;
     -- PositAdAAdj a = {s = a.s ! AAdv} ;
 
-    SubjS subj s = {
-      s = subj.s ++ s.subjs ;
-      reqLocS = False
-    } ;
+    -- SubjS subj s = {
+    --   s = subj.s ++ s.subjs ;
+    --   reqLocS = False
+    -- } ;
 
     -- AdnCAdv cadv = {s = cadv.s ! Pos ++ cadv.p} ;
 

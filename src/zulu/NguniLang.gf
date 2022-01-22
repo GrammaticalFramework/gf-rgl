@@ -3,7 +3,9 @@
 abstract NguniLang =
   NguniGrammar,
   Backward[ComplV2,ComplV3],
-  ExtraZulAbs
+  ExtraZulAbs,
+  NounExt,
+  VerbExt
   -- MonoLexAbs,
   -- Chunk
   -- Symbol - [Symb],

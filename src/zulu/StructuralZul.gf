@@ -86,9 +86,9 @@ concrete StructuralZul of Structural = CatZul **
   --   therefore_PConj = ss "therefore" ;
 
   -- Predet
-    all_Predet = { s = "nke" ; isPost = True } ;
+    -- all_Predet = { s = "nke" ; isPost = True } ;
   --   most_Predet = ss "most" ;
-    only_Predet = { s = "dwa" ; isPost = True } ;
+    -- only_Predet = { s = "dwa" ; isPost = True } ;
     -- not_Predet = { s : Str ; n : Number ; isPost : Bool }
 
   -- Prep
@@ -128,9 +128,9 @@ concrete StructuralZul of Structural = CatZul **
 
     --   youPol_Pron = mkPron "you" "you" "your" "yours" singular P2 human ;
 
-  -- Quant
-    that_Quant = { s = [] ; qdef = Demonstrative Dem2 } ;
-    this_Quant = { s = [] ; qdef = Demonstrative Dem1 } ;
+  -- Quant (we use this category for demonstratives only)
+    that_Quant = { s = [] ; dist = Dem2 } ;
+    this_Quant = { s = [] ; dist = Dem1 } ;
   --   no_Quant = mkQuant "no" "no" "none" "none" ;
 
   -- Subj

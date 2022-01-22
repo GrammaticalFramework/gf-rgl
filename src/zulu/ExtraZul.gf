@@ -13,72 +13,72 @@ concrete ExtraZul of ExtraZulAbs =
     } ;
 
   lin
-    PotQS pol qcl = {
-      s = pol.s ++ qcl.potqcl!pol.p!Princ ;
-      qword_pre = qcl.qword_pre ;
-      qword_post = qcl.qword_post
-    } ;
+    -- PotQS pol qcl = {
+    --   s = pol.s ++ qcl.potqcl!pol.p!Princ ;
+    --   qword_pre = qcl.qword_pre ;
+    --   qword_post = qcl.qword_post
+    -- } ;
 
-    SubjunctS s = { s = s.subjs } ;
+    -- SubjunctS s = { s = s.subjs } ;
 
-    AssocCop np = {
-      s = \\_ => [] ;
-      oc = [] ;
-      comp = \\_ => pref_lin_NP np ;
-      iadv = [] ;
-      advs = [] ;
-      hasComp = True ;
-      r = case np.proDrop of {
-        True => RC ;
-        False => initNP np.isPron np.agr
-      } ;
-      syl = SylMult ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      vptype = CopAssoc ;
-      comp_agr = np.agr ;
-      ap_comp = \\_ => [] ;
-      aux_root = [] ;
-      hasAux = False
-    } ;
+    -- AssocCop np = {
+    --   s = \\_ => [] ;
+    --   oc = [] ;
+    --   comp = np.s!Reduced ;
+    --   iadv = [] ;
+    --   advs = [] ;
+    --   hasComp = True ;
+    --   r = case np.proDrop of {
+    --     True => RC ;
+    --     False => initNP np.isPron np.agr
+    --   } ;
+    --   syl = SylMult ;
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   vptype = CopAssoc ;
+    --   comp_agr = np.agr ;
+    --   ap_comp = \\_ => [] ;
+    --   aux_root = [] ;
+    --   hasAux = False
+    -- } ;
+    --
+    -- EqCop np = {
+    --   s = \\_ => [] ;
+    --   oc = [] ;
+    --   comp = np.s!Full ;
+    --   iadv = [] ;
+    --   advs = [] ;
+    --   hasComp = True ;
+    --   r = case np.isPron of {
+    --     True => RC ;
+    --     False => initNP np.isPron np.agr
+    --   } ;
+    --   syl = SylMult ;
+    --   asp = Null ;
+    --   asp_pref = \\_ => [] ;
+    --   vptype = CopEq ;
+    --   comp_agr = np.agr ;
+    --   ap_comp = \\_ => [] ;
+    --   aux_root = [] ;
+    --   hasAux = False
+    -- } ;
 
-    EqCop np = {
-      s = \\_ => [] ;
-      oc = [] ;
-      comp = \\_ => lin_NP np ;
-      iadv = [] ;
-      advs = [] ;
-      hasComp = True ;
-      r = case np.isPron of {
-        True => RC ;
-        False => initNP np.isPron np.agr
-      } ;
-      syl = SylMult ;
-      asp = Null ;
-      asp_pref = \\_ => [] ;
-      vptype = CopEq ;
-      comp_agr = np.agr ;
-      ap_comp = \\_ => [] ;
-      aux_root = [] ;
-      hasAux = False
-    } ;
+    -- UsePNPl pn = let
+    --   agr = Third pn.c Pl
+    -- in {
+    --   empty,predet_pre,predet_post = pn.empty ;
+    --   s = pn.s!Pl ;
+    --   mod = pn.empty ;
+    --   dem = pn.empty ;
+    --   agr = agr ;
+    --   i = nominit!agr ;
+    --   proDrop = False ;
+    --   isPron = False ;
+    --   -- reqLocS = True ;
+    --   qdef = Article Spec ;
+    -- } ;
 
-    UsePNPl pn = let
-      agr = Third pn.c Pl
-    in {
-      empty,predet_pre,predet_post = pn.empty ;
-      s = pn.s!Pl ;
-      mod = pn.empty ;
-      dem = pn.empty ;
-      agr = agr ;
-      i = nominit!agr ;
-      proDrop = False ;
-      isPron = False ;
-      -- reqLocS = True ;
-      qdef = Article Spec ;
-    } ;
-
-    PNAsCN pn = pn ** { mod = \\_ => [] } ;
+    -- PNAsCN pn = pn ** { mod = \\_ => [] } ;
 
     DemPron quant pron = let
     d = case quant.qdef of {
@@ -124,21 +124,6 @@ concrete ExtraZul of ExtraZulAbs =
       empty = cn.empty
     } ;
 
-    ContrastNP np = {
-      empty = np.empty ;
-      s = np.s;
-      mod = np.mod ;
-      dem = np.dem ;
-      predet_pre = np.predet_pre ;
-      predet_post = np.predet_post ++ pron_stem!np.agr ++BIND++"na" ;
-      agr = np.agr ;
-      i = np.i ;
-      proDrop = np.proDrop ;
-      isPron = np.isPron ;
-      -- reqLocS = np.reqLocS ;
-      qdef = np.qdef ;
-    } ;
-
     -- ApposCNCN cn1 cn2 = {
     --   s = cn1.s ;
     --   mod = \\n => cn1.mod!n ++ cn2.s!n!Full ++ cn2.mod!n ;
@@ -178,7 +163,7 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = pref ++BIND++ (pref_lin_NP np) ;
+      s = pref ++BIND++ (np.s!Reduced) ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -187,13 +172,13 @@ concrete ExtraZul of ExtraZulAbs =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
-      s = adv.s ++ pref ++BIND++ (pref_lin_NP np) ;
+      s = adv.s ++ pref ++BIND++ (np.s!Reduced) ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
     LocNPAdv np = {
-      s = loc_NP np ;
+      s = np.s!Loc ;
       -- asp = Null ;
       reqLocS = case np.isPron of {
         False => True ;
@@ -202,15 +187,15 @@ concrete ExtraZul of ExtraZulAbs =
     } ;
 
     LocAdvNPAdv adv np = {
-      s = adv.s ++ (loc_NP np) ;
+      s = adv.s ++ (np.s!Loc) ;
       -- asp = adv.asp ;
       reqLocS = False
     } ;
 
     -- locative kwa
     KwaNPAdv np = {
-      -- s = "kwa" ++BIND++ (pref_lin_NP np) ;
-      s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (pref_lin_NP np) ;
+      -- s = "kwa" ++BIND++ (np.s!Reduced) ;
+      s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!Reduced) ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -244,7 +229,7 @@ concrete ExtraZul of ExtraZulAbs =
           _   => "ku"
         }
       }
-      ++BIND++ (pref_lin_NP np) ;
+      ++BIND++ (np.s!Reduced) ;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -260,19 +245,19 @@ concrete ExtraZul of ExtraZulAbs =
             _   => "ku"
           }
         }
-      ++BIND++ (pref_lin_NP np) ;
+      ++BIND++ (np.s!Reduced) ;
       -- asp = Null ;
       reqLocS = False
     } ;
 
     NaNPAdv np = {
-      s = withPref ! (initNP np.isPron np.agr) ++BIND++ (pref_lin_NP np) ;
+      s = withPref ! (initNP np.isPron np.agr) ++BIND++ (np.s!Reduced) ;
       -- asp = Null ;
       reqLocS = False
     } ;
 
     RelAdv adv = {
-      s = \\a => relConc!a!RelC ++BIND++ adv.s
+      s = \\a => relConcLookup!a!RelC ++BIND++ adv.s
     } ;
 
     -- ProgVP vp = {
@@ -293,11 +278,11 @@ concrete ExtraZul of ExtraZulAbs =
     -- } ;
 
     QuantRS quant = {
-      s = \\a => relConc!a!RelC ++BIND++ quantConc!a ++BIND++ quant.s
+      s = \\a => relConcLookup!a!RelC ++BIND++ quantConc!a ++BIND++ quant.s
     } ;
 
     RelRS rel = {
-      s = \\a => relConc!a!RelC ++BIND++ rel.s
+      s = \\a => relConcLookup!a!RelC ++BIND++ rel.s
     } ;
 
     QuantCN quant cn = {
@@ -344,9 +329,9 @@ concrete ExtraZul of ExtraZulAbs =
       empty = cn.empty ++ a.empty
     } ;
 
-    -- only_QuantStem = { s = "dwa" ; n = Sg ; isPost = True } ;
-    -- all_QuantStem = { s = "nke" ; n = Pl ; isPost = True } ;
-    all_pre_Predet = { s = "nke" ; isPost = False } ;
+    only_QuantStem = { s = "dwa" } ;
+    all_QuantStem = { s = "nke" } ;
+    -- all_pre_Predet = { s = "nke" ; isPost = False } ;
     painful_RelStem = { s = "buhlungu" } ;
 
     -- TPerfPast = { s = [] ; t = Relative PerfTense PastTense } ;
@@ -422,7 +407,7 @@ concrete ExtraZul of ExtraZulAbs =
     -- } ;
 
     ConjNAdv conj s = {
-      s = conj.s ++ s.s!Part ;
+      s = conj.s ++ s.s;
       -- asp = Null ;
       reqLocS = False
     } ;
@@ -462,10 +447,10 @@ concrete ExtraZul of ExtraZulAbs =
     it15_Pron = mkPron (Third C15 Sg) ;
     it17_Pron = mkPron (Third C17 Sg) ;
 
-    yonder_Quant = { s = [] ; qdef = Demonstrative Dem3 } ;
+    yonder_Quant = { s = [] ; dist = Dem3 } ;
 
     at_which_IAdv np = {
-      s = np.predet_pre ++ "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (lin_NP np) ;
+      s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (np.s!Full) ;
       postIAdv = False
     } ;
 
@@ -473,10 +458,10 @@ concrete ExtraZul of ExtraZulAbs =
 
     how_many_IAdj = regAdj "ngaki" ;
 
-    IAdjIAdv np iadj = {
-      s = (loc_NP np) ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
-      postIAdv = False
-    } ;
+    -- IAdjIAdv np iadj = {
+    --   s = (np.s!Loc) ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
+    --   postIAdv = False
+    -- } ;
 
     how_IComp = { s = "njani" ; postIComp = False } ; -- -njani
     where_IComp = { s = "phi" ; postIComp = True } ; -- -phi
@@ -489,36 +474,36 @@ concrete ExtraZul of ExtraZulAbs =
 
     AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
 
-    Deverb15 v =
-    let
-      agr = Third C15 Sg ;
-    in
-    {
-      s = \\_ => table {
-        Full => case v.r of {
-          RC => "uku"++BIND++(v.s!R_a) ;
-          (RA|RE) => "ukw"++BIND++(v.s!R_a) ;
-          _ => "uk"++BIND++(v.s!R_a)
-        } ;
-        Reduced => case v.r of {
-          RC => "ku"++BIND++(v.s!R_a) ;
-          (RA|RE) => "kw"++BIND++(v.s!R_a) ;
-          _ => "k"++BIND++(v.s!R_a)
-        } ;
-        Poss => case v.r of {
-          RC => "ku"++BIND++(v.s!R_a) ;
-          (RA|RE) => "kw"++BIND++(v.s!R_a) ;
-          _ => "k"++BIND++(v.s!R_a)
-        } ;
-        Loc => case v.r of {
-          RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
-          (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
-          _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
-        }
-      } ;
-      c = C15 ;
-      empty = []
-    } ;
+    -- Deverb15 v =
+    -- let
+    --   agr = Third C15 Sg ;
+    -- in
+    -- {
+    --   s = \\_ => table {
+    --     Full => case v.r of {
+    --       RC => "uku"++BIND++(v.s!R_a) ;
+    --       (RA|RE) => "ukw"++BIND++(v.s!R_a) ;
+    --       _ => "uk"++BIND++(v.s!R_a)
+    --     } ;
+    --     Reduced => case v.r of {
+    --       RC => "ku"++BIND++(v.s!R_a) ;
+    --       (RA|RE) => "kw"++BIND++(v.s!R_a) ;
+    --       _ => "k"++BIND++(v.s!R_a)
+    --     } ;
+    --     Poss => case v.r of {
+    --       RC => "ku"++BIND++(v.s!R_a) ;
+    --       (RA|RE) => "kw"++BIND++(v.s!R_a) ;
+    --       _ => "k"++BIND++(v.s!R_a)
+    --     } ;
+    --     Loc => case v.r of {
+    --       RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
+    --       (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
+    --       _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
+    --     }
+    --   } ;
+    --   c = C15 ;
+    --   empty = []
+    -- } ;
 
   oper
     -- qcl_np_iadv : NP -> IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \np,iadv -> {
@@ -564,50 +549,16 @@ concrete ExtraZul of ExtraZulAbs =
     --   qword_post = []
     -- } ;
 
-    cl_with_np_predicate : NP -> { s : Polarity => ZTense => DMood => Str ; subjcl : Polarity => ZTense => Str ; potcl : Polarity => DMood => Str } = \np -> {
+    cl_with_np_predicate : NP -> { s : Polarity => BasicTense => Str } = \np -> {
       -- advs = [] ;
-      s = \\p,t,dm =>
+      s = \\p,t =>
         let
-          aux_tense = case t of {
-            Absolute bt => bt ;
-            Relative b1 b2 => b1
-          } ;
-          main_tense = case t of {
-            Absolute bt => bt ;
-            Relative b1 b2 => b2
-          } ;
-          vform_aux = VFIndic dm p aux_tense Null ;
-          vform_main = VFIndic dm p main_tense Null ;
-          aux = case t of {
-            Absolute bt => [] ;
-            Relative _ _ => relSubjConc aux_tense np.agr -- (subjConcLookup!np.agr!SC) ++BIND++ "b" ++BIND++ (vtermSuff vform_aux False)
-          } ;
+          vform_main = VFIndic MainCl p t ;
           --pcp = pre_cop_pref vform_main np.agr ;
           cp = id_cop_pref np.agr ;
-          cb = lin_NP np
+          cb = np.s!Full
         in
-          aux ++
           cp ++BIND++
-          cb ;
-      subjcl = \\p,t =>
-        let
-          vform_main = VFSubj p ;
-          --pcp = pre_cop_pref vform_main np.agr ;
-          cp = id_cop_pref np.agr ;
-          cb = lin_NP np
-        in
-          --pcp ++
-          cp ++ BIND ++
-          cb ;
-      potcl = \\p,dm =>
-        let
-          vform_main = VFPot dm p ;
-          --pcp = pre_cop_pref vform_main np.agr ;
-          cp = id_cop_pref np.agr ;
-          cb = lin_NP np
-        in
-          --pcp ++
-          cp ++ BIND ++
           cb
     } ;
 

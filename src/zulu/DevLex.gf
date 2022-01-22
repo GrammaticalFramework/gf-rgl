@@ -25,6 +25,8 @@ abstract DevLex = Cat ** {
    -- noun stems
 
    ntu_1_2_N : N ;
+   fana_1_2_N : N ;
+   fundi_1_2_N : N ;
    bhubesi_5_6_N : N ;
    phoyisa_5_6_N : N ;
    jele_5_6_N : N ;
@@ -35,6 +37,7 @@ abstract DevLex = Cat ** {
    taba_9_10_N : N ;
    ngane_9_10_N : N ;
    doda_9_10_N : N ;
+   moto_9_10_N : N ;
    John_PN : PN ;
    John_1a_2a_N : N ;
 
