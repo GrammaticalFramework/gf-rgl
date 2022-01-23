@@ -818,6 +818,7 @@ oper
   num200 : State => Case => Str =
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     \\s,c => defArt s c "مِٱَة" + dl ! s ! c ;
 =======
     \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
@@ -825,12 +826,15 @@ oper
 =======
     \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
 >>>>>>> parent of d93594a9 (Updating num200 & num2000)
+=======
+    \\s,c => defArt s c "مِئَتَ" + dl ! s ! c ;
+>>>>>>> parent of 1a705632 (Revert "Updating num200 & num2000")
 
   num1000 : State => Case => Str =
     \\s,c => defArt s c "أَلف" + dec1sg ! s ! c;
 
   num2000 : State => Case => Str =
-    \\s,c => defArt s c "أَلف" + dl ! s ! c ;
+    \\s,c => defArt s c "أَلفَ" + dl ! s ! c ;
 
   teen : Gender => Str =
     table {
