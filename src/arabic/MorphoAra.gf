@@ -1013,7 +1013,7 @@ oper
       utAbic  = "ُ" + tAbic ;
       utAbac = mkStrong ufAcal tbc ;
       mutAbac = "م" + utAbac ;
-      mutAbacAt = mutAbac + "َاَة"
+      mutAbacAt = mutAbac + "َة"
     } in verb tAbac twbic utAbic utAbac tAbic mutAbac mutAbacAt ;
 
   ----------
