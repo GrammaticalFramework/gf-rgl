@@ -813,9 +813,10 @@ oper
     };
 
   num100 : State => Case => Str =
-    \\s,c => defArt s c "مِٱَة" + dec1sg ! s ! c;
+    \\s,c => defArt s c "مِئَة" + dec1sg ! s ! c;
 
   num200 : State => Case => Str =
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -829,6 +830,9 @@ oper
 =======
     \\s,c => defArt s c "مِئَتَ" + dl ! s ! c ;
 >>>>>>> parent of 1a705632 (Revert "Updating num200 & num2000")
+=======
+    \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
+>>>>>>> parent of eed0f1f9 (Revert "wrong spelling of the word hundred")
 
   num1000 : State => Case => Str =
     \\s,c => defArt s c "أَلف" + dec1sg ! s ! c;
