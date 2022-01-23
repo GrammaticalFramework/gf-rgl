@@ -82,7 +82,7 @@ lincat
       s = \\co,_,d,c => case dig.n of {
         One => num100 ! d ! c ;
         Two => num200 ! d ! c ;
-        _ => dig.s ! unit ! co ! Masc ! (toDef d ThreeTen) ! c ++ "مِئَةِ"
+        _ => dig.s ! unit ! co ! Masc ! (toDef d ThreeTen) ! c ++ "مِٱَةِ"
         };
       n = Hundreds
      };
@@ -91,7 +91,7 @@ lincat
        s = \\co,g,d,c => case m.n of {
          One => num100 ! d ! c;
          Two => num200 ! d ! c;
-         _ => m.s ! unit ! co ! Masc ! (toDef d ThreeTen) ! c ++ "مِئَةٌ"
+         _ => m.s ! unit ! co ! Masc ! (toDef d ThreeTen) ! c ++ "مِٱَةٌ"
          } ++ "وَ" ++ e.s ! co ! g ! d ! c ;
        n = e.n
        };
