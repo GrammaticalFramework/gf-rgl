@@ -813,10 +813,10 @@ oper
     };
 
   num100 : State => Case => Str =
-    \\s,c => defArt s c "مِئَة" + dec1sg ! s ! c;
+    \\s,c => defArt s c "مِٱَة" + dec1sg ! s ! c;
 
   num200 : State => Case => Str =
-    \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
+    \\s,c => defArt s c "مِٱَة" + dl ! s ! c ;
 
   num1000 : State => Case => Str =
     \\s,c => defArt s c "أَلف" + dec1sg ! s ! c;
