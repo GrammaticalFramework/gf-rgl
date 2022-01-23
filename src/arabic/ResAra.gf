@@ -817,7 +817,11 @@ oper
 
   num200 : State => Case => Str =
 <<<<<<< HEAD
+<<<<<<< HEAD
     \\s,c => defArt s c "مِٱَة" + dl ! s ! c ;
+=======
+    \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
+>>>>>>> parent of d93594a9 (Updating num200 & num2000)
 =======
     \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
 >>>>>>> parent of d93594a9 (Updating num200 & num2000)
