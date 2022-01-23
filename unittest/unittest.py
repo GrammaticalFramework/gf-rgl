@@ -164,6 +164,8 @@ def runtest(testlines, args):
 
     # calling GF from a subprocess:
     command = 'gf -run'.split()
+    # For compilation on Windows replace the previous line with something like this:
+    # command = 'gf.exe -run'.split()
     gfinput = '\n'.join(gfscript) + '\n'
     gf = Popen(command, stdin=PIPE, stdout=PIPE)
     stdout, _stderr = gf.communicate(gfinput.encode(ENCODING))
