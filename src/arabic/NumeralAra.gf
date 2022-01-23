@@ -51,8 +51,8 @@ lincat
   lin pot1to19 dig = {
        s = \\co,g,d,c => case dig.n of {
          Two => Al ! d + num2.s ! unit ! co ! g ! Const ! c ++ teen ! g ;
-         _ => dig.s ! unit ! co ! (genPolarity ! g) ! (toDef d ThreeTen) ! Acc ++
-           teen ! g
+         _ => dig.s ! unit ! co ! g ! (toDef d ThreeTen) ! Acc ++
+           teen ! (genPolarity ! g)
          };
        n = case dig.n of {
          Two => NonTeen;

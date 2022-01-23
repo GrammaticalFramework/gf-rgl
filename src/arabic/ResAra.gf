@@ -820,6 +820,7 @@ oper
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     \\s,c => defArt s c "مِٱَة" + dl ! s ! c ;
 =======
     \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
@@ -830,6 +831,9 @@ oper
 =======
     \\s,c => defArt s c "مِئَتَ" + dl ! s ! c ;
 >>>>>>> parent of 1a705632 (Revert "Updating num200 & num2000")
+=======
+    \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
+>>>>>>> parent of eed0f1f9 (Revert "wrong spelling of the word hundred")
 =======
     \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
 >>>>>>> parent of eed0f1f9 (Revert "wrong spelling of the word hundred")
