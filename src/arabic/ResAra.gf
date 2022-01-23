@@ -816,7 +816,11 @@ oper
     \\s,c => defArt s c "مِٱَة" + dec1sg ! s ! c;
 
   num200 : State => Case => Str =
+<<<<<<< HEAD
     \\s,c => defArt s c "مِٱَة" + dl ! s ! c ;
+=======
+    \\s,c => defArt s c "مِئَة" + dl ! s ! c ;
+>>>>>>> parent of d93594a9 (Updating num200 & num2000)
 
   num1000 : State => Case => Str =
     \\s,c => defArt s c "أَلف" + dec1sg ! s ! c;
