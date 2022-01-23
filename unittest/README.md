@@ -9,6 +9,8 @@ python path/to/unittest.py [-h] [-v] [--no-pmcfg] path/to/testfile.gftest (...)
 The script must be located in a sibling directory
 to the RGL `src` directory to work properly.
 
+**Note:** On Windows use WSL (Windows Subsystem for Linux) to run `unittest.py` script, also replace the commented lines for Windows inside the script.
+
 ## Test format
 
 The test file should look something like this:
