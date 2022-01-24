@@ -5,10 +5,12 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
   lin
     UseV v = v ** {
       s = table {
-        MainCl => \\a,p,t => v.s!(rform (VFIndic MainCl p t) True) ;
+        MainCl => \\a,p,t => let
+          vform = (VFIndic MainCl p t) ;
+        in (tensePref vform) ++ v.s!(rform (VFIndic MainCl p t) True) ;
         RelCl => \\a,p,t => let
-          vform = (VFIndic RelCl p t)
-        in (relConc p a) ++ v.s!(rform vform True) ++ (relSuf vform) -- ***present tense hack
+          vform = (VFIndic RelCl p t) ;
+        in (relConc p a) ++ (tensePref vform) ++ v.s!(rform vform True) ++ (relSuf vform)
       } ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
@@ -182,7 +184,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
     --   }
     -- } ;
 
-    AdvVP vp adv = vp ** { advs = vp.advs ++ adv.s } ;
+    -- AdvVP vp adv = vp ** { advs = vp.advs ++ adv.s } ;
     -- {
     --   s = vp.s ;
     --   oc = vp.oc ;

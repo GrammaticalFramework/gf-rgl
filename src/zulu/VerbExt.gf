@@ -5,6 +5,8 @@ abstract VerbExt = Cat ** {
     CopAP : AP -> VP ;
     CopNP : NP -> VP ;
     CopNPAssoc : NP -> VP ;
-    -- CopAdv : Adv -> VP ; 
+    -- CopAdv : Adv -> VP ;
+
+    ComplV2Nonspec : V2 -> NP -> VP ;
 
 }

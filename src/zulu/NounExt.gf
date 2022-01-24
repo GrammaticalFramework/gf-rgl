@@ -14,7 +14,7 @@ abstract NounExt = Cat,ExtraCatZulAbs ** {
 
     DemQuantPostdet : Quant -> QuantStem -> Postdet ;
 
-    NumDet : Num -> Det ;
+    DetNum : Num -> Det ;
 
     PostdetCN : CN -> Postdet -> Det -> NP ;
 

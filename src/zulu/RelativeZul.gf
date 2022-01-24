@@ -38,7 +38,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
       rcl_with_verb_predicate : RP -> VP -> { s : Agr => Polarity => BasicTense => Str } = \rp,vp -> {
         s = \\a,p,t =>
           let
-            vform_main = VFIndic RelCl p t ;
+            vform = VFIndic RelCl p t ;
             vow = case <vp.r,p,t> of {
               <RC,Pos,PresTense> => False ;
               <_,Pos,PresTense> => True ;
@@ -50,7 +50,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             } ;
             relsuf = case vp.hasComp of {
               True => [] ;
-              False => relSuf vform_main
+              False => relSuf vform
             } ;
             rcform = RelC ; -- case vform_main of {
             --   VFIndic Part Pos PastTense _ => RelCA ;
@@ -66,7 +66,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             -- ++ relConc!a!rcform ++BIND
             -- -- ++ (negPref2 vform_main)
             -- -- ++ (exclKaPref vform)
-            -- -- ++ (tensePref vform_main)
+            -- ++ (tensePref vform)
             -- ++ vp.oc
             -- ++ vp.s!(rform vform_main reqLF)
             ++ vp.s!RelCl!a!p!t
@@ -136,6 +136,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
           -- adjpref =  relAdjAgrLookup!p!a ++BIND ;
           -- comp = vp.ap_comp!adjf ++ vp.comp
         in
+          rp.s ++
           -- adjpref ++
           vp.s!RelCl!a!p!t
           ++ vp.iadv ++ vp.advs

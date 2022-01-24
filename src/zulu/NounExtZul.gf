@@ -18,47 +18,55 @@ concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, Par
     } ;
 
     DemPostdet q = {
-      s = \\a => dem_pron!q.dist!a
+      s = \\a => dem_pron!q.dist!a ++ q.s
     } ;
 
     QuantDemPostdet q d = {
-      s = \\a => quantConc!a ++BIND++ q.s ++ dem_pron!d.dist!a
+      s = \\a => quantConc!a ++BIND++ q.s ++ dem_pron!d.dist!a ++ d.s
     } ;
 
     DemQuantPostdet d q = {
-      s = \\a => dem_pron!d.dist!a ++ quantConc!a ++BIND++ q.s
+      s = \\a => dem_pron!d.dist!a ++ quantConc!a ++BIND++ q.s ++ d.s
     } ;
 
-    NumDet n = n ;
+    DetNum n = n ** { spec = Spec } ;
+
+    NonspecDet n = n ** { spec = Nonspec } ;
 
     PostdetCN cn postdet det = let
       agr = Third cn.c det.n
     in {
       empty = cn.empty ;
-      s = \\nform => cn.s!det.n!nform ++ cn.mod!det.n ++ postdet.s!agr ;
+      -- s = \\nform => cn.s!det.n!nform ++ cn.mod!det.n ++ postdet.s!agr ;
+      s = \\nform => cn.s!det.n!nform ++ postdet.s!agr ++ det.s ;
       agr = agr ;
       i = nominit!agr ;
       proDrop = False ;
       isPron = False
     } ;
 
-    -- RelN : RS -> N -> CN ;
+    RelN rs n = {
+      empty = n.empty ;
+      s = \\num,nform => rs.s!(Third n.c num) ++ n.s!num!nform ;
+      -- mod = \\_ => [] ;
+      c = n.c
+    } ;
 
-    -- -- TODO : check whether nform of n should be chosen as consistent with cn
-    -- ApposCN cn n = {
-    --   s = cn.s ; -- \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
-    --   mod = \\num => n.s!num!Full ++ cn.mod!num ;
-    --   c = cn.c ; -- takes agr of cn
-    --   empty = cn.empty
-    -- } ;
-    --
-    -- -- TODO : check whether nform of n should be chosen as consistent with cn
-    -- ApposN cn n = {
-    --   s = cn.s ; -- \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
-    --   mod = \\num => n.s!num!Full ++ cn.mod!num ;
-    --   c = n.c ; -- takes agr of n
-    --   empty = cn.empty
-    -- } ;
+    -- TODO : check mod
+    ApposCN cn n = {
+      s = \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
+      -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
+      c = cn.c ; -- takes agr of cn
+      empty = cn.empty
+    } ;
+
+    -- TODO : check mod
+    ApposN cn n = {
+      s = \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
+      -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
+      c = n.c ; -- takes agr of n
+      empty = cn.empty
+    } ;
 
     PredetN predet n = {
       s = case predet.hasDem of {
@@ -68,7 +76,7 @@ concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, Par
         } ;
         False => \\num,nform => predet.s!(Third n.c num) ++ n.s!num!nform
       } ;
-      mod = \\_ => [] ;
+      -- mod = \\_ => [] ;
       c = n.c ;
       empty = n.empty
     };
@@ -79,12 +87,12 @@ concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, Par
     } ;
 
     DemPredet q = {
-      s = \\a => dem_pron!q.dist!a ;
+      s = \\a => dem_pron!q.dist!a ++ q.s ;
       hasDem = True
     } ;
 
     QuantDemPredet q d = {
-      s = \\a => quantConc!a ++BIND++ q.s ++ dem_pron!d.dist!a ;
+      s = \\a => quantConc!a ++BIND++ q.s ++ dem_pron!d.dist!a ++ d.s ;
       hasDem = True
     } ;
 
@@ -95,14 +103,14 @@ concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, Par
         Poss => poss_pron_stem!(Third cn.c num) ++ cn.s!num!Full ;
         Loc => "ku" ++BIND++ pron_stem!(Third cn.c num) ++ cn.s!num!Full
       } ;
-      mod = cn.mod ;
+      -- mod = cn.mod ;
       c = cn.c ;
       empty = cn.empty
     } ;
 
     ContrastCN cn = {
-      s = cn.s ;
-      mod = \\num => pron_stem!(Third cn.c num) ++BIND++ "na" ++ cn.mod!num ;
+      s = \\num,nform => cn.s!num!nform ++ pron_stem!(Third cn.c num) ++BIND++ "na" ;
+      -- mod = \\num => pron_stem!(Third cn.c num) ++BIND++ "na" ++ cn.mod!num ;
       c = cn.c ;
       empty = cn.empty
     } ;

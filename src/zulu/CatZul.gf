@@ -96,7 +96,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
     CN = {
       s : Number => NForm => Str ;
-      mod : Number => Str ;
+      -- mod : Number => Str ;
       c : ClassGender ;
       empty : Str
     } ;
@@ -117,7 +117,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     -- Pronoun
     Pron = { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } ;
 --     DAP
-    Det = { s : Str ; n : Number } ;
+    Det = { s : Str ; n : Number ; spec : Specificity } ;
     Predet = { s : Agr => Str ; hasDem : Bool } ;
 --     Ord = { s : Case => Str } ;
     Num  = { s: Str ; n : Number } ;

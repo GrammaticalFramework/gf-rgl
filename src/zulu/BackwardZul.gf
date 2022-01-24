@@ -2,7 +2,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
 
   flags optimize=all_subs ;
 
-  -- lin
+  lin
 
 -- A repository of obsolete constructs, needed for backward compatibility.
 -- They create spurious ambiguities if used in combination with Lang.
@@ -41,6 +41,31 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
     --   aux_root = [] ;
     --   hasAux = False
     -- } ;
+
+    ComplV2 v2 np = {
+      s = table {
+        MainCl => \\a,p,t => let
+          vform = (VFIndic MainCl p t)
+        in case np.proDrop of {
+          True => (tensePref vform) ++ (objConc np.agr v2.r v2.syl) ++ v2.s!(rform (VFIndic MainCl p t) True) ++ np.s!Full ;
+          False => (tensePref vform) ++ v2.s!(rform (VFIndic MainCl p t) True) ++ np.s!Full
+        } ;
+        RelCl => \\a,p,t => let
+          vform = (VFIndic RelCl p t)
+        in case np.proDrop of {
+          True => (relConc p a) ++ (tensePref vform) ++ (objConc np.agr v2.r v2.syl) ++ v2.s!(rform vform True) ++ np.s!Full ;
+          False => (relConc p a) ++ (tensePref vform) ++ v2.s!(rform vform True) ++ np.s!Full -- ***present tense hack
+        }
+      } ;
+      iadv, advs, comp = [] ;
+      ap_comp = \\_ => [] ;
+      hasComp = case np.proDrop of {
+        True => False ;
+        False => True
+      } ;
+      r = v2.r ;
+      vptype = VNPCompl
+    } ;
 
     -- ComplV3 v3 np1 np2 = v3 ** {
     --   -- s = v3.s ;

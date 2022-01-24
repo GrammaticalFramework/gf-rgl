@@ -5,13 +5,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
   lin
 
     PredVP np vp = case vp.vptype of {
-      CopIdent => cl_with_id_cop_predicate np vp ;
-      CopAssoc => cl_with_ass_cop_predicate np vp ;
-      CopDescr => cl_with_descr_cop_predicate np vp ;
+      CopIdent => comp_pred np vp ;
+      CopAssoc => comp_pred np vp ;
+      CopDescr => comp_pred np vp ;
       CopEq => cl_with_eq_cop_predicate np vp ;
       -- VACompl => cl_with_ap_comp_predicate np vp ;
       AdvComp => cl_with_adv_comp_predicate np vp ;
-      NoComp => {
+      (NoComp | VNPCompl) => {
         s = \\p,t => np.s!Full ++ (verb_prefix vp p t np.agr) ++ vp.s!MainCl!np.agr!p!t
       } ;
       _ => cl_with_verb_predicate np vp
@@ -141,14 +141,14 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           <False,Pos,PresTense> => "ya" ++BIND ;
           <_,_,_> => []
         } ;
-        vform_main = VFIndic MainCl p t
+        vform = VFIndic MainCl p t
       in
-          (negPref vform_main)
+          (negPref vform)
        -- ++ (exclSePref vform_main)
-       ++ (subjConc vform_main agr vow)
+       ++ (subjConc vform agr vow)
        -- ++ (negPref2 vform_main)
        ++ lfya
-       -- ++ (tensePref vform_main)
+       -- ++ (tensePref vform)
     ;
 
     -- TODO: aspect

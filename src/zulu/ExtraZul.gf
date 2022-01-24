@@ -414,25 +414,25 @@ concrete ExtraZul of ExtraZulAbs =
 
     where_ConjN = { s = "lapho" } ;
 
-    IAdvVP vp iadv = {
-      s = vp.s ;
-      perfSuff = vp.perfSuff ;
-      suff = vp.suff ;
-      oc = vp.oc ;
-      iadv = vp.iadv ++ iadv.s ;
-      comp = vp.comp ;
-      advs = vp.advs ;
-      hasComp = True ;
-      r = vp.r ;
-      syl = vp.syl ;
-      asp = vp.asp ;
-      asp_pref = vp.asp_pref ;
-      vptype = vp.vptype ;
-      comp_agr = vp.comp_agr ;
-      ap_comp = vp.ap_comp ;
-      aux_root = vp.aux_root ;
-      hasAux = vp.hasAux
-    } ;
+    -- IAdvVP vp iadv = {
+    --   s = vp.s ;
+    --   perfSuff = vp.perfSuff ;
+    --   suff = vp.suff ;
+    --   oc = vp.oc ;
+    --   iadv = vp.iadv ++ iadv.s ;
+    --   comp = vp.comp ;
+    --   advs = vp.advs ;
+    --   hasComp = True ;
+    --   r = vp.r ;
+    --   syl = vp.syl ;
+    --   asp = vp.asp ;
+    --   asp_pref = vp.asp_pref ;
+    --   vptype = vp.vptype ;
+    --   comp_agr = vp.comp_agr ;
+    --   ap_comp = vp.ap_comp ;
+    --   aux_root = vp.aux_root ;
+    --   hasAux = vp.hasAux
+    -- } ;
 
     it3_Pron = mkPron (Third C3_4 Sg) ;
     they4_Pron = mkPron (Third C3_4 Pl) ;
