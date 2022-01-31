@@ -7,16 +7,16 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
         AdjType => table {
           MainCl => \\a,p,t => let
             vform = VFIndic MainCl p t ;
-            pcp = ap_cop_pref vform a ; -- u- / uzoba-
-            adjpref =  adjPrefLookup!a!vform ++BIND ; -- m-
+            pcp = ap_cop_pref vform a AdjType ; -- u- / uzoba
+            adjpref =  adjPref a vform ; -- m-
             cop_base = ap.s!(aformN a) -- khulu
           in
             pcp ++ adjpref ++ cop_base ;
           RelCl => \\a,p,t => let
             vform = VFIndic RelCl p t ;
             rcp = (relConcCop p a RC) ; -- o- / onge-
-            pcp = ap_cop_pref vform a ; -- [] / zoba-
-            adjpref =  adjPrefLookup!a!vform ++ BIND ; -- m-
+            pcp = ap_cop_pref vform a AdjType ; -- [] / zoba
+            adjpref =  adjPref a vform ; -- m-
             cop_base = ap.s!(aformN a) -- khulu
           in
             rcp ++ pcp ++ adjpref ++ cop_base
@@ -24,14 +24,14 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
         RelType => table {
           MainCl => \\a,p,t => let
             vform = VFIndic MainCl p t ;
-            pcp = ap_cop_pref vform a ; -- u-
+            pcp = ap_cop_pref vform a RelType ; -- u-
             cop_base = ap.s!AF1 -- qotho
           in
             pcp ++ cop_base ;
           RelCl => \\a,p,t => let
             vform = VFIndic RelCl p t ;
             rcp = (relConcCop p a RC) ; -- o- / onge-
-            pcp = ap_cop_pref vform a ; -- [] / zoba-
+            pcp = ap_cop_pref vform a RelType ; -- [] / zoba
             cop_base = ap.s!AF1 -- qotho
           in
             rcp ++ pcp ++ cop_base
@@ -39,16 +39,17 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
         EnumType => table { -- TODO!
           MainCl => \\a,p,t => let
             vform = VFIndic MainCl p t ;
-            pcp = ap_cop_pref vform a ;
-            adjpref =  adjPrefLookup!a!vform ++BIND ;
+            pcp = ap_cop_pref vform a EnumType;
+            adjpref =  adjPref a vform ;
           in
-            (ap_cop_pref vform a) ++ adjpref ++ ap.s!AF1 ;
+            (ap_cop_pref vform a EnumType) ++ adjpref ++ ap.s!AF1 ;
           RelCl => \\a,p,t => (enumConc p a) ++BIND++ ap.s!AF1
         }
       } ;
       comp, iadv, advs = [] ;
       hasComp = True ;
       r = RC ; -- should not be used
+      syl = SylMult ;
       vptype = CopDescr
     } ;
 
@@ -73,6 +74,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
       comp, iadv, advs = [] ;
       hasComp = True ;
       r = RC ; -- should not be used
+      syl = SylMult ;
       vptype = CopIdent
     } ;
 
@@ -97,6 +99,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
       comp, iadv, advs = [] ;
       hasComp = True ;
       r = RC ; -- should not be used
+      syl = SylMult ;
       vptype = CopAssoc
     } ;
 
@@ -104,7 +107,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
       s = table {
         MainCl => \\a,p,t => let
           vform = VFIndic MainCl p t ;
-          tp = tensePref vform v2.r ;
+          tp = tensePref vform v2.r v2.syl ;
           oc = objConc np.agr v2.r v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) True) ;
           obj = case p of {
@@ -118,7 +121,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
         RelCl => \\a,p,t => let
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ;
-          tp = tensePref vform v2.r ;
+          tp = tensePref vform v2.r v2.syl ;
           oc = objConc np.agr v2.r v2.syl ;
           r = v2.s!(rform vform True) ;
           obj = case p of {
@@ -137,6 +140,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
         False => True
       } ;
       r = v2.r ;
+      syl = v2.syl ;
       vptype = VNPCompl
     } ;
 

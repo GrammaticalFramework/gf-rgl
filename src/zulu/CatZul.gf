@@ -46,14 +46,14 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Verb
 
     VP = {
-      s : CType => Agr => Polarity => BasicTense => Str ;
+      s : CType => Agr => Polarity => BasicTense => Str ; -- TODO: mood
       -- oc : Str ;
       comp : Str ;
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ;
       r : RInit ;
-      -- syl : Syl ;
+      syl : Syl ;
       -- asp : Aspect ;
       -- asp_pref : VForm => Str ;
       vptype : VPType ;

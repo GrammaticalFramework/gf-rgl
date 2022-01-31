@@ -7,14 +7,14 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       s = table {
         MainCl => \\a,p,t => let
           vform = VFIndic MainCl p t ;
-          tp = tensePref vform v.r ; -- [] / zo- / zuku-
+          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform (VFIndic MainCl p t) True) -- hamba
           -- rest of verb prefix built later (eg no "ya" with certain question words)
         in tp ++ r ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
           rc = relConc vform a v.r ; -- o-
-          tp = tensePref vform v.r ; -- [] / zo- / zuku-
+          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform vform True) ; -- hamba
           suf = relSuf vform -- [] / -yo
         in rc ++ tp ++ r ++ suf
@@ -23,6 +23,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       -- ap_comp = \\_ => [] ;
       hasComp = False ;
       r = v.r ;
+      syl = v.syl ;
       vptype = NoComp
     } ;
 

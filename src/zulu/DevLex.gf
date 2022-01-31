@@ -46,7 +46,7 @@ abstract DevLex = Cat ** {
    lwane_7_8_N : N ;
    sila_3_4_N : N ;
    khova_7_8_N : N ;
-
+   tombi_9_10_N : N ;
 
    Tatjana_PN : PN ;
    medal_N : N ;

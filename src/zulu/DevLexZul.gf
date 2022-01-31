@@ -46,6 +46,7 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    lwane_7_8_N = mkN "lwane" C7_8 ;
    sila_3_4_N = mkN "sila" C3_4 ;
    khova_7_8_N = mkN "khova" C7_8 ;
+   tombi_9_10_N = mkN "tombi" C9_10 ;
 
    Tatjana_PN = mkPN "Tatjana" C1a_2a ;
    medal_N = mkN "dondo" C9_10 ;
