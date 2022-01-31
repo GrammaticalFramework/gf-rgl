@@ -80,7 +80,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
         s = \\a,p,t =>
           let
             vform_main = VFIndic RelCl p t ;
-            pcp = relConcLookup!a!RelC ++BIND ;
+            pcp = relConcLookup!a!vp.r ++BIND ;
             -- cp = id_cop_pref vp.comp_agr ;
             cb = vp.comp ;
           in
@@ -96,7 +96,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
         s = \\a,p,t =>
           let
             vform_main = VFIndic RelCl p t ;
-            pcp = relConcLookup!a!RelC ++BIND;
+            pcp = relConcLookup!a!vp.r ++BIND;
             -- cp = (assoc_cop_pref vp.comp_agr) ;
             -- cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
             -- asp = case vp.asp of {
@@ -116,7 +116,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
         s = \\a,p,t =>
           let
             vform_main = VFIndic RelCl p t ;
-            pcp = relConcLookup!a!RelC ++BIND;
+            pcp = relConcLookup!a!vp.r ++BIND;
             -- cb = (eqPref ! vp.r) ++ BIND ++ vp.comp ;
           in
             -- naively removed subject

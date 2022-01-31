@@ -257,7 +257,7 @@ concrete ExtraZul of ExtraZulAbs =
     } ;
 
     RelAdv adv = {
-      s = \\a => relConcLookup!a!RelC ++BIND++ adv.s
+      s = \\a => relConcLookup!a!RC ++BIND++ adv.s
     } ;
 
     -- ProgVP vp = {
@@ -278,11 +278,11 @@ concrete ExtraZul of ExtraZulAbs =
     -- } ;
 
     QuantRS quant = {
-      s = \\a => relConcLookup!a!RelC ++BIND++ quantConc!a ++BIND++ quant.s
+      s = \\a => relConcLookup!a!RC ++BIND++ quantConc!a ++BIND++ quant.s
     } ;
 
     RelRS rel = {
-      s = \\a => relConcLookup!a!RelC ++BIND++ rel.s
+      s = \\a => relConcLookup!a!RC ++BIND++ rel.s
     } ;
 
     QuantCN quant cn = {
@@ -416,22 +416,22 @@ concrete ExtraZul of ExtraZulAbs =
 
     -- IAdvVP vp iadv = {
     --   s = vp.s ;
-    --   perfSuff = vp.perfSuff ;
-    --   suff = vp.suff ;
-    --   oc = vp.oc ;
+    --   -- perfSuff = vp.perfSuff ;
+    --   -- suff = vp.suff ;
+    --   -- oc = vp.oc ;
     --   iadv = vp.iadv ++ iadv.s ;
     --   comp = vp.comp ;
     --   advs = vp.advs ;
     --   hasComp = True ;
     --   r = vp.r ;
-    --   syl = vp.syl ;
-    --   asp = vp.asp ;
-    --   asp_pref = vp.asp_pref ;
-    --   vptype = vp.vptype ;
-    --   comp_agr = vp.comp_agr ;
-    --   ap_comp = vp.ap_comp ;
-    --   aux_root = vp.aux_root ;
-    --   hasAux = vp.hasAux
+    --   -- syl = vp.syl ;
+    --   -- asp = vp.asp ;
+    --   -- asp_pref = vp.asp_pref ;
+    --   vptype = vp.vptype -- ;
+    --   -- comp_agr = vp.comp_agr ;
+    --   -- ap_comp = vp.ap_comp ;
+    --   -- aux_root = vp.aux_root ;
+    --   -- hasAux = vp.hasAux
     -- } ;
 
     it3_Pron = mkPron (Third C3_4 Sg) ;

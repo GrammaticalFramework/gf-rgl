@@ -9,6 +9,7 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    hle_A = mkA "hle" ;
    khulu_A = mkA "khulu" ;
    ningi_A = mkA "ningi" ;
+   de_A = mkA "de" ;
 
    -- relative stems
    mnandi_R = mkRelA "mnandi" ;
@@ -17,6 +18,7 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    qotho_R = mkRelA "qotho" ;
    mhlophe_R = mkRelA "mhlophe" ;
    mbe_R = mkRelA "mbe" ;
+   mnyama_R = mkRelA "mnyama" ;
 
    -- enumerative stems
    mbe_E = mkEnumA "mbe" ;
@@ -40,6 +42,10 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    John_PN = mkPN "John" C1a_2a ;
    John_1a_2a_N = mkN "John" C1a_2a ;
    Goli_PN = mkPN "Goli" C5_6 ;
+   nkonyana_5_6_N = mkN "nkonyana" C5_6 ;
+   lwane_7_8_N = mkN "lwane" C7_8 ;
+   sila_3_4_N = mkN "sila" C3_4 ;
+   khova_7_8_N = mkN "khova" C7_8 ;
 
    Tatjana_PN = mkPN "Tatjana" C1a_2a ;
    medal_N = mkN "dondo" C9_10 ;
@@ -56,6 +62,8 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    bon_V2 = mkV2 "bon" ;
    hamb_V = mkV "hamb" ;
    sh_V = mkV "sh" ;
+   eq_V = mkV "eq" ;
+   f_V = mkV "f" ;
 
    be_hot_V = mkV "shis" ;
    be_healthy_V = mkV "phil" ;

@@ -8,15 +8,15 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           MainCl => \\a,p,t => let
             vform = VFIndic MainCl p t ;
             pcp = ap_cop_pref vform a ; -- u- / uzoba-
-            adjpref =  adjPrefLookup!a ++BIND ; -- m-
+            adjpref =  adjPrefLookup!a!vform ++BIND ; -- m-
             cop_base = ap.s!(aformN a) -- khulu
           in
             pcp ++ adjpref ++ cop_base ;
           RelCl => \\a,p,t => let
             vform = VFIndic RelCl p t ;
-            rcp = (relConcCop p a) ; -- o- / onge-
+            rcp = (relConcCop p a RC) ; -- o- / onge-
             pcp = ap_cop_pref vform a ; -- [] / zoba-
-            adjpref =  relAdjPrefLookup!a ++ BIND ; -- m-
+            adjpref =  adjPrefLookup!a!vform ++ BIND ; -- m-
             cop_base = ap.s!(aformN a) -- khulu
           in
             rcp ++ pcp ++ adjpref ++ cop_base
@@ -30,7 +30,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
             pcp ++ cop_base ;
           RelCl => \\a,p,t => let
             vform = VFIndic RelCl p t ;
-            rcp = (relConcCop p a) ; -- o- / onge-
+            rcp = (relConcCop p a RC) ; -- o- / onge-
             pcp = ap_cop_pref vform a ; -- [] / zoba-
             cop_base = ap.s!AF1 -- qotho
           in
@@ -40,7 +40,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           MainCl => \\a,p,t => let
             vform = VFIndic MainCl p t ;
             pcp = ap_cop_pref vform a ;
-            adjpref =  adjPrefLookup!a ++BIND ;
+            adjpref =  adjPrefLookup!a!vform ++BIND ;
           in
             (ap_cop_pref vform a) ++ adjpref ++ ap.s!AF1 ;
           RelCl => \\a,p,t => (enumConc p a) ++BIND++ ap.s!AF1
@@ -56,15 +56,15 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
       s = table {
         MainCl => \\a,p,t => let
           vform = VFIndic MainCl p t ;
-          pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba
+          pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = np.s!Full -- umfundi
         in
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop p a) ; -- o-
-          pcp = (id_pre_cop_pref vform a) ; -- [] / zoba
+          rcp = (relConcCop p a RC) ; -- o-
+          pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = np.s!Full -- umfundi
         in
@@ -87,7 +87,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop p a) ; -- o-
+          rcp = (relConcCop p a RC) ; -- o-
           pcp = (assoc_pre_cop_pref vform a) ; -- [] / zoba
           cp = (assoc_cop_pref p np.agr) ; -- ne
           cop_base = np.s!Reduced -- moto
@@ -103,22 +103,31 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
     ComplV2Nonspec v2 np = {
       s = table {
         MainCl => \\a,p,t => let
-          vform = VFIndic MainCl p t
+          vform = VFIndic MainCl p t ;
+          tp = tensePref vform v2.r ;
+          oc = objConc np.agr v2.r v2.syl ;
+          r = v2.s!(rform (VFIndic MainCl p t) True) ;
+          obj = case p of {
+            Pos => np.s!Full ;
+            Neg => np.s!Reduced
+          } ;
         in case np.proDrop of {
-          True => (tensePref vform) ++ (objConc np.agr v2.r v2.syl) ++ v2.s!(rform (VFIndic MainCl p t) True) ++ np.s!Full ;
-          False => case p of {
-            Neg => (tensePref vform) ++ v2.s!(rform (VFIndic MainCl p t) True) ++ np.s!Reduced ;
-            Pos => (tensePref vform) ++ v2.s!(rform (VFIndic MainCl p t) True) ++ np.s!Full
-          }
+          True => tp ++ oc ++ r ++ obj ;
+          False => tp ++ r ++ obj
         } ;
         RelCl => \\a,p,t => let
-          vform = (VFIndic RelCl p t)
+          vform = (VFIndic RelCl p t) ;
+          rc = relConc vform a v2.r ;
+          tp = tensePref vform v2.r ;
+          oc = objConc np.agr v2.r v2.syl ;
+          r = v2.s!(rform vform True) ;
+          obj = case p of {
+            Pos => np.s!Full ;
+            Neg => np.s!Reduced
+          } ;
         in case np.proDrop of {
-          True => (relConc p a) ++ (objConc np.agr v2.r v2.syl) ++ v2.s!(rform vform True) ++ np.s!Full ;
-          False => case p of {
-            Neg => (relConc p a) ++ v2.s!(rform vform True) ++ np.s!Reduced ;
-            Pos => (relConc p a) ++ v2.s!(rform vform True) ++ np.s!Full -- ***present tense hack
-          }
+          True => rc ++ tp ++ oc ++ r ++ obj ;
+          False => rc ++ tp ++ r ++ obj
         }
       } ;
       iadv, advs, comp = [] ;

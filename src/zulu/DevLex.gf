@@ -9,6 +9,7 @@ abstract DevLex = Cat ** {
    hle_A : A ;
    khulu_A : A ;
    ningi_A : A ;
+   de_A : A ;
 
    -- relative stems
    mnandi_R : A ;
@@ -17,6 +18,7 @@ abstract DevLex = Cat ** {
    qotho_R : A ;
    mhlophe_R : A ;
    mbe_R : A ;
+   mnyama_R : A ;
 
    -- enumerative stems
    mbe_E : A ;
@@ -40,6 +42,11 @@ abstract DevLex = Cat ** {
    moto_9_10_N : N ;
    John_PN : PN ;
    John_1a_2a_N : N ;
+   nkonyana_5_6_N : N ;
+   lwane_7_8_N : N ;
+   sila_3_4_N : N ;
+   khova_7_8_N : N ;
+
 
    Tatjana_PN : PN ;
    medal_N : N ;
@@ -57,6 +64,8 @@ abstract DevLex = Cat ** {
    hamb_V : V ;
    sh_V : V ;
    th_V : V ;
+   eq_V : V ;
+   f_V : V ;
 
    be_hot_V : V ;
    be_healthy_V : V ;

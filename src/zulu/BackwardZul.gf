@@ -9,52 +9,28 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
 
 -- from Verb 19/4/2008
 
-    -- ComplV2 v2 np = v2 ** {
-    --   -- s = v2.s ;
-    --   oc = case np.proDrop of {
-    --     True => objConc np.agr v2.r v2.syl ;
-    --     False => np.empty
-    --   } ;
-    --   comp = case <np.qdef> of {
-    --     <Article Nonspec> => table {
-    --       Neg => np.predet_pre ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
-    --       Pos => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post
-    --     } ;
-    --     <Article Spec> =>
-    --       \\_ => np.predet_pre ++ np.s!Full ++ np.mod ++ np.predet_post ;
-    --     <Demonstrative d> =>
-    --       \\_ => np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post
-    --   } ;
-    --   iadv = [] ;
-    --   advs = [] ;
-    --   hasComp = case np.proDrop of {
-    --     True => False ;
-    --     False => True
-    --   } ;
-    --   -- r = v2.r ;
-    --   -- syl = v2.syl ;
-    --   asp = Null ;
-    --   asp_pref = \\_ => [] ;
-    --   vptype = VNPCompl ;
-    --   comp_agr = np.agr ;
-    --   ap_comp = \\_ => [] ;
-    --   aux_root = [] ;
-    --   hasAux = False
-    -- } ;
-
     ComplV2 v2 np = {
       s = table {
         MainCl => \\a,p,t => let
-          vform = (VFIndic MainCl p t)
+          vform = (VFIndic MainCl p t) ;
+          tp = tensePref vform v2.r ; -- [] / zo- / zuku-
+          oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          r = v2.s!(rform (VFIndic MainCl p t) True) ; -- bona / boni
+          obj = np.s!Full -- [] / inkomo
         in case np.proDrop of {
-          True => (tensePref vform) ++ (objConc np.agr v2.r v2.syl) ++ v2.s!(rform (VFIndic MainCl p t) True) ++ np.s!Full ;
-          False => (tensePref vform) ++ v2.s!(rform (VFIndic MainCl p t) True) ++ np.s!Full
+          True => tp ++ oc ++ r ++ obj ;
+          False => tp ++ r ++ obj
         } ;
         RelCl => \\a,p,t => let
-          vform = (VFIndic RelCl p t)
+          vform = (VFIndic RelCl p t) ;
+          rc = relConc vform a v2.r ; -- o- / onga-
+          tp = tensePref vform v2.r ; -- [] / zo- / zuku-
+          oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          r = v2.s!(rform vform True) ; -- bona / boni
+          obj = np.s!Full -- [] / inkomo
         in case np.proDrop of {
-          True => (relConc p a) ++ (tensePref vform) ++ (objConc np.agr v2.r v2.syl) ++ v2.s!(rform vform True) ++ np.s!Full ;
-          False => (relConc p a) ++ (tensePref vform) ++ v2.s!(rform vform True) ++ np.s!Full -- ***present tense hack
+          True => rc ++ tp ++ oc ++ r ++ obj ;
+          False => rc ++ tp ++ r ++ obj
         }
       } ;
       iadv, advs, comp = [] ;
