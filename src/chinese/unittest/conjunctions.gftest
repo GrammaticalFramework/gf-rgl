@@ -1,0 +1,33 @@
+Lang: ConjS if_then_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV walk_V))))
+LangChi: 如 果 我 睡 觉 那 么 她 就 会 走
+LangEng: if I sleep then she walks
+
+Lang: ConjS if_then_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))) (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron she_Pron) (UseV walk_V))))
+LangChi: 如 果 我 睡 觉 那 么 她 将 会 走
+LangEng: if I sleep then she will walk
+
+Lang: ConjS if_then_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV die_V))))
+LangChi: 如 果 我 睡 觉 那 么 她 死
+LangEng: if I sleep then she dies
+
+Lang: ConjS if_then_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))) (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron she_Pron) (UseV die_V))))
+LangChi: 如 果 我 睡 觉 那 么 她 将 会 死
+LangEng: if I sleep then she will die
+
+Lang: ConjS if_then_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))) (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron she_Pron) (UseV die_V))))
+LangChi: 如 果 我 睡 觉 那 么 她 不 死
+LangEng: if I sleep then she doesn't die
+
+Lang: ConjS if_then_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))) (UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron she_Pron) (UseV die_V))))
+LangChi: 如 果 我 睡 觉 那 么 她 将 不 会 死
+LangEng: if I sleep then she won't die
+
+-- NP conjunctions
+Lang: ConjNP or_Conj (BaseNP (MassNP (UseN fish_N)) (MassNP (UseN beer_N)))
+LangChi: 鱼 或 啤 酒
+LangEng: fish or beer
+
+--NB: unnatural non-empty strings just for testing purpose
+Lang: ConjNP if_then_Conj (BaseNP (MassNP (UseN fish_N)) (MassNP (UseN beer_N)))
+LangChi: 鱼 啤 酒
+LangEng: if fish then beer
