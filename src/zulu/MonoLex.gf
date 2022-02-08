@@ -816,6 +816,7 @@ abstract MonoLex = Cat ** {
    fasimbe_11_N : N ;
    fasitela_5_6_N : N ;
    fasitele_5_6_N : N ;
+   fayili_5_6_N : N ;
    fazana_7_N : N ;
    fazane_7_N : N ;
    fazi_1_2_N : N ;
@@ -1682,6 +1683,8 @@ abstract MonoLex = Cat ** {
    kheli_5_6_N : N ;
    khemese_5_6_N : N ;
    khemezelo_3_4_N : N ;
+   khemisi_1_2_N : N ;
+   khemisi_5_6_N : N ;
    khencekhence_14_N : N ;
    khephunkephu_9_N : N ;
    kheshe_11_N : N ;
@@ -1742,6 +1745,7 @@ abstract MonoLex = Cat ** {
    khomishini_9_6_N : N ;
    khomo_9_10_N : N ;
    khomololo_7_8_N : N ;
+   khompyuta_5_6_N : N ;
    khona_14_N : N ;
    khonde_5_6_N : N ;
    khondo_11_10_N : N ;
@@ -3081,6 +3085,7 @@ abstract MonoLex = Cat ** {
    randi_5_6_N : N ;
    rayisi_5_6_N : N ;
    rekhodi_5_6_N : N ;
+   rediyo_5_6_N : N ;
    rikhi_7_8_N : N ;
    riphabhuliki_5_6_N : N ;
    sa_3_N : N ;
@@ -4392,6 +4397,7 @@ abstract MonoLex = Cat ** {
    thonjana_7_8_N : N ;
    thonjaneni_3_4_N : N ;
    thonselana_3_4_N : N ;
+   thoyilethe_5_6_N : N ;
    thudlana_11_10_N : N ;
    thungana_5_6_N : N ;
    thunjana_11_10_N : N ;
