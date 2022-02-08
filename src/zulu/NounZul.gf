@@ -12,7 +12,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = agr ;
       i = nominit!agr ;
       proDrop = False ;
-      isPron = False -- ;
+      isPron = False ;
+      heavy = True
       -- reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
       -- qdef = det.qdef ;
     } ;
@@ -26,25 +27,31 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = agr ;
       i = nominit!agr ;
       proDrop = False ;
-      isPron = False
+      isPron = False ;
+      heavy = True
     } ;
 
     -- TODO: check refactor
     UsePron pron = {
       empty = pron.empty ;
-      s = case pron.proDrop of {
-        False => pron.s ;
-        True => table {
-          Full => pron.empty ;
-          Reduced => pron.s!Reduced ;
-          Poss => pron.s!Poss ;
-          Loc => pron.s!Loc
-        }
-      } ;
+      -- s = case pron.proDrop of {
+      --   False => pron.s ;
+      --   True => table {
+      --     NFull => pron.empty ;
+      --     NReduced => pron.s!NReduced ;
+      --     NPoss => pron.s!NPoss ;
+      --     NLoc => pron.s!NLoc
+      --   }
+      -- } ;
+      s = pron.s ;
       agr = pron.agr ;
       i = RC ;
       proDrop = pron.proDrop ;
-      isPron = True
+      isPron = True ;
+      heavy = case pron.proDrop of {
+        True => False ;
+        False => True
+      }
     } ;
 
     -- PredetNP, PPartNP, AdvNP, ExtAdvNP : not implemented
@@ -56,7 +63,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       agr = np.agr ;
       i = np.i ;
       proDrop = False ; -- probably right?
-      isPron = np.isPron
+      isPron = np.isPron ;
+      heavy = True
     } ;
 
     -- DetNP, DetQuant, DetQuantOrd : not implemented
@@ -80,7 +88,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     -- TODO: check refactor (no change?)
     PossNP cn np = {
       empty = cn.empty ;
-      s = \\num,nform => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!Poss;
+      s = \\num,nform => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!NPoss;
       -- mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!np.i ++BIND++ (poss_NP np) ;
       c = cn.c
     } ;

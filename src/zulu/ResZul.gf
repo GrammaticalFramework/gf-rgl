@@ -5,7 +5,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
   param
     ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C9_6 | C14 | C15 | C17 ;
     SemanticType = Human | Animate | Misc ;
-    NForm = Full | Reduced | Poss | Loc ;
+    NForm = NFull | NReduced | NPoss | NLoc ;
     Agr = First Number | Second Number | Third ClassGender Number ;
 
     -- SMood = SIndic | SPot | SSubj ; -- | SConsec ;
@@ -29,7 +29,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
     VForm = VFIndic CType Polarity BasicTense ;
-    VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | NoComp | VSCompl | AdvComp ; -- VACompl |
+    VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | NoComp | VSCompl | AdvComp | CopLoc ; -- VACompl |
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
     AType = AdjType | RelType | EnumType ;
 
@@ -76,10 +76,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     mkPron : Agr -> { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \agr -> {
       s = table {
-        Full => pron_stem!agr +"na" ;
-        Reduced => pron_stem!agr ;
-        Poss => poss_pron_stem!agr ;
-        Loc => case agr of {
+        NFull => pron_stem!agr +"na" ;
+        NReduced => pron_stem!agr ;
+        NPoss => poss_pron_stem!agr ;
+        NLoc => case agr of {
           First _ | Second Pl => "ki" ++BIND++ pron_stem!agr ;
           _ => "ku" ++BIND++ pron_stem!agr
         }
@@ -788,16 +788,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
       {
         s = table {
           Sg => table {
-            Full => noms ;
-            Reduced => (drop_init_vowel noms) ;
-            Poss => (drop_init_vowel noms) ;
-            Loc => locs
+            NFull => noms ;
+            NReduced => (drop_init_vowel noms) ;
+            NPoss => (drop_init_vowel noms) ;
+            NLoc => locs
         } ;
           Pl => table {
-            Full => nomp ;
-            Reduced => (drop_init_vowel nomp) ;
-            Poss => (drop_init_vowel nomp) ;
-            Loc => locp
+            NFull => nomp ;
+            NReduced => (drop_init_vowel nomp) ;
+            NPoss => (drop_init_vowel nomp) ;
+            NLoc => locp
           }
         } ;
         c = cg ;
@@ -809,6 +809,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
       let
         noms : Str = nomNoun root Sg cg ;
         nomp : Str = nomNoun root Pl cg ;
+      in
+      mkNoun noms nomp locs locp cg ;
+
+    mkELocN : (root : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
+      \root,cg ->
+      let
+        noms : Str = nomNoun root Sg cg ;
+        nomp : Str = nomNoun root Pl cg ;
+        locs : Str = onlyLocPrefix root Sg cg ;
+        locp : Str = onlyLocPrefix root Pl cg ;
       in
       mkNoun noms nomp locs locp cg ;
 
@@ -872,16 +882,66 @@ resource ResZul = open Prelude,Predef,ParamX in {
       (First _ | Second _ )  => RC
     } ;
 
-    -- Src: Doke
+    onlyLocPrefix : Str -> Number -> ClassGender -> Str = \root,n,cg ->
+    case <cg,n> of
+    {
+      <C1_2,Sg> => case root of {
+        _+#cons+#vowel+#cons+_+#vowel+_ => "kum"+root ;
+        _ => "kumu"+root
+      } ; -- umu for single syllables, um for the rest
+      <C1_2,Pl> => "kuba"+root ; -- abe for tribes or guilds
+      <C1a_2a,Sg> => "ku"+root ;
+      <C1a_2a,Pl> => "ko"+root ;
+      <C3_4,Sg> => case root of {
+        ("m"|"n")+_ => "e"+root ;
+        _ => "em"+root
+      } ;
+      <C3_4,Pl> => "emi"+root ;
+      <C5_6,Sg> => "e"+root ; -- ili long form (not used?)
+      <C5_6,Pl> => case root of {
+        "i"+_ => "eme"+root ;
+        _ => "ema"+root
+      } ; -- ame for roots starting with i
+      <C7_8,Sg> => case root of {
+        #vowel+_ => "es"+root ;
+        _ => "esi"+root
+      } ; -- is for roots starting with vowel
+      <C7_8,Pl> => case root of {
+        #vowel+_ => "ez"+root ;
+        _ => "ezi"+root  -- iz for roots starting with vowel
+      } ;
+      <C9_10,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+      <C9_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+      <C11_10,Sg> => "o"+root ;
+      <C11_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+      <C9_6,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+      <C9_6,Pl> => case root of {
+        "i"+_ => "eme"+root ;
+        _ => "ema"+root
+      } ; -- ame for roots starting with i
+      <C14,_> => "ebu"+root ;
+      <C15,_> => case root of {
+        ("a"|"e")+_ => "ekw"+root ;
+        (#cons|"y")+_ => "eku"+root ;
+        _ => "ek"+root
+        } ; -- ukw for roots starting with a/e, uk for roots starting with o
+      <C17,_> => "eku"+root  -- sometimes ukw
+    } ;
+
+    -- Src: Doke, Linda Hall
     addLocSuffix : Str -> Str = \root ->
       case root of
       {
-        _+"bo" => (tk 2 root) + "tsheni" ;
+        _+"mbo" => (tk 3 root) + "njeni" ;
+        _+"mbu" => (tk 3 root) + "njini" ;
         _+"pho" => (tk 3 root) + "sheni" ;
         _+"bho" => (tk 3 root) + "jeni" ;
-        _+"bu" => (tk 2 root) + "tshini" ;
         _+"phu" => (tk 3 root) + "shini" ;
         _+"bhu" => (tk 3 root) + "jini" ;
+        _+"bo" => (tk 2 root) + "tsheni" ;
+        _+"bu" => (tk 2 root) + "tshini" ;
+        _+"mo" => (tk 2 root) + "nyeni" ;
+        _+"mu" => (tk 2 root) + "nyini" ;
         _+("a"|"e") => (init root)+"eni" ;
         _+"i" => (init root)+"ini" ;
         _+"o" => (init root)+"weni" ;
@@ -964,9 +1024,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <C1a_2a,Pl> => "ko"+root ;
           <C3_4,Sg> => case root of {
             ("m"|"n")+_ => "e"+(addLocSuffix root) ;
-            -- #labial_cons+_ => "em"+(addLocSuffix root) ;
-            -- "gw"+_ => "em"+(addLocSuffix root) ;
-            -- "hl"+_ => "em"+(addLocSuffix root) ;
             _ => "em"+(addLocSuffix root)
           } ;
           <C3_4,Pl> => "emi"+(addLocSuffix root) ;
@@ -1001,6 +1058,30 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <C17,_> => "eku"+(addLocSuffix root)  -- sometimes ukw
         } ;
 
+      locS : Agr => Str = table {
+        Third C1_2 _ => [] ;
+        Third C1a_2a _ => [] ;
+        Third _ _  => "s"++BIND ;
+        (First _ | Second _ )  => []
+      } ;
+
+      -- loc_n_cop_pref : VForm -> Agr -> Str = \vform,agr -> case vform of {
+      --   VFIndic _ Neg PresTense => kho_cop vform agr ;
+      --   VFIndic _ _ _ => id_pre_cop_pref vform agr
+      -- } ;
+
+      loc_n_cop_base : {
+        empty : Str ;
+        s : NForm => Str ;
+        agr : Agr ;
+        i : RInit ;
+        proDrop : Bool ;
+        isPron : Bool ;
+        } -> VForm -> Str = \np,vform -> case vform of {
+        VFIndic _ Neg PresTense => np.s!NLoc ;
+        VFIndic _ _ _ => locS!np.agr ++ np.s!NLoc
+      } ;
+
       lin_NP : {
         empty : Str ;
         s : NForm => Str ;
@@ -1016,9 +1097,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       } -> Str = \np ->
       np.predet_pre ++
       case <np.qdef,np.isPron> of {
-        <Article d,_> => np.s ! Full ++ np.mod ;
-        <Demonstrative d,False> => np.dem ++ np.s ! Reduced ++ np.mod ;
-        <Demonstrative d,True> => np.dem ++ np.s ! Full ++ np.mod
+        <Article d,_> => np.s ! NFull ++ np.mod ;
+        <Demonstrative d,False> => np.dem ++ np.s ! NReduced ++ np.mod ;
+        <Demonstrative d,True> => np.dem ++ np.s ! NFull ++ np.mod
       }
       ++ np.predet_post ;
 
@@ -1034,7 +1115,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         isPron : Bool ;
         -- reqLocS : Bool ;
         qdef : QuantDef
-      } -> Str = \np -> np.s!Loc ++ np.dem ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+      } -> Str = \np -> np.s!NLoc ++ np.dem ++ np.mod ++ np.predet_pre ++ np.predet_post ;
 
       poss_NP : {
         empty : Str ;
@@ -1048,7 +1129,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         isPron : Bool
         -- reqLocS : Bool ;
         -- qdef : QuantDef
-      } -> Str = \np -> np.s!Poss ;
+      } -> Str = \np -> np.s!NPoss ;
 
       pref_lin_NP : {
         empty : Str ;
@@ -1062,7 +1143,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         isPron : Bool ;
         -- reqLocS : Bool ;
         qdef : QuantDef
-      } -> Str = \np -> np.s ! Reduced ++ np.dem ++ np.mod
+      } -> Str = \np -> np.s ! NReduced ++ np.dem ++ np.mod
       ++ np.predet_pre ++ np.predet_post ;
 
     ----------------
@@ -1250,25 +1331,25 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     relConcLookup : Agr => RInit => Str =
       table {
-        Third C1_2 Sg => table { RO => [] ; RE => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
         Third C1_2 Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C1a_2a Sg => table { RO => [] ; RE => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
         Third C1a_2a Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C3_4 Sg  => table { RO => [] ; RE => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C3_4 Pl => table { RE => [] ; _ => "e"++BIND } ;
+        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C3_4 Pl => table { RE => [] ; (RA|RO) => "ey" ; _ => "e"++BIND } ;
         Third C5_6 Sg => table { RC => "eli"++BIND ; _ => "el"++BIND } ;
-        Third C5_6 Pl => table { RA => [] ; _ => "a"++BIND } ;
+        Third C5_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
         Third C7_8 Sg => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
         Third C7_8 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_10 Sg => table { RE => [] ; _ => "e"++BIND } ;
+        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey" ; _ => "e"++BIND } ;
         Third C9_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C11_10 Sg => table { RC => "olu"++BIND ; _ => "ol"++BIND } ;
+        Third C11_10 Sg => table { RC => "olu"++BIND ; (RA|RE) => "olw" ; _ => "ol"++BIND } ;
         Third C11_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_6 Sg => table { RE => [] ; _ => "e"++BIND } ;
-        Third C9_6 Pl => table { RA => [] ; _ => "a"++BIND } ;
+        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey" ; _ => "e"++BIND } ;
+        Third C9_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
         Third C14 _ => table { RC => "obu"++BIND ; _ => "ob"++BIND } ;
-        Third C15 _ => table { RC => "oku"++BIND ; _ => "ok"++BIND } ;
-        Third C17 _ => table { RC => "oku"++BIND ; _ => "ok"++BIND } ;
+        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
+        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
         First Sg => table { RC => "engi"++BIND ; _ => "eng"++BIND } ;
         First Pl => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
         Second Sg  => table { RE => "ow"++BIND ; _ => "o"++BIND } ;
@@ -1455,7 +1536,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- QUANTITATIVE AGREEMENT MORPHEME --
     -- (demonstatives)
 
-    quantConc : Agr => Str = table {
+    exclQuantConc : Agr => Str = table {
       Third C1_2 Sg => "ye" ;
       Third C1_2 Pl => "bo" ;
       Third C1a_2a Sg => "ye" ;
@@ -1510,8 +1591,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       case vform of {
         VFIndic MainCl Pos PresTense => case <agr,atype> of {
           <(Third _ _ | First _ | Second _),AdjType> => [] ;
-          <(Third C9_10 Sg | Third C9_6 Sg),_> => sc ++BIND ; -- i++i = i
-          <(Third _ _ | First _ | Second _),_> => sc ++BIND
+          <(Third C9_10 Sg | Third C9_6 Sg),_> => sc  ; -- i++i = i
+          <(Third _ _ | First _ | Second _),_> => sc
         } ;
         VFIndic MainCl Neg PresTense => case <agr,atype> of {
           <(Third C9_10 Sg | Third C9_6 Sg),AdjType> => "a" ++BIND++ "y" ++BIND ;
@@ -1627,6 +1708,43 @@ resource ResZul = open Prelude,Predef,ParamX in {
           Second Pl => "na"
         } ++BIND
       } ;
+
+      kho_cop : VForm -> Agr -> Str = \vform,agr -> case vform of {
+        VFIndic MainCl Neg PresTense => neg_kho_cop_pref agr ++ "kho";
+        VFIndic RelCl Neg PresTense => (relConcCop Neg agr RC) ++ (ap_cop_pref (VFIndic RelCl Neg PresTense) agr RelType) ++BIND++ "kho" ;
+        VFIndic RelCl p t => (relConcCop p agr RC) ++ (ap_cop_pref (VFIndic RelCl p t) agr RelType) ++ "khona" ;
+        VFIndic MainCl p t => (ap_cop_pref (VFIndic MainCl p t) agr RelType) ++ "khona"
+      } ;
+
+      neg_kho_cop_pref : Agr -> Str = \agr ->
+        "a" ++BIND++
+         case agr of {
+          Third C1_2 Sg => "ke" ;
+          Third C1_2 Pl => "be" ;
+          Third C1a_2a Sg => "ke" ;
+          Third C1a_2a Pl => "be" ;
+          -- Third C3_4 Sg  => "no" ;
+          -- Third C3_4 Pl => "ne" ;
+          -- Third C5_6 Sg => "ne" ;
+          Third C5_6 Pl => "we" ;
+          -- Third C7_8 Sg => "ne" ;
+          -- Third C7_8 Pl => "ne" ;
+          -- Third C9_10 Sg => "ne" ;
+          -- Third C9_10 Pl => "ne" ;
+          -- Third C11_10 Sg => "no" ;
+          -- Third C11_10 Pl => "ne" ;
+          -- Third C9_6 Sg => "ne" ;
+          -- Third C9_6 Pl => "na" ;
+          -- Third C14 _ => "no" ;
+          -- Third C15 _ => "no" ;
+          -- Third C17 _ => "no" ;
+          -- First Sg => "na" ;
+          -- First Pl => "na" ;
+          -- Second Sg  => "na" ;
+          -- Second Pl => "na"
+          (First _ | Second _ | Third _ _ ) => subjConcLookup!agr!SCNeg
+        } ++BIND ;
+
 
     ----------------------------------------
     -- OTHER

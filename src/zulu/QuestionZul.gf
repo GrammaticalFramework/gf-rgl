@@ -36,7 +36,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
           False => []
         }
       in
-          pre_icomp ++ (np.s!Full) ++ post_icomp ;
+          pre_icomp ++ (np.s!NFull) ++ post_icomp ;
       qword_pre = [] ;
       qword_post = []
     } ;

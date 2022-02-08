@@ -16,7 +16,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           r = v2.s!(rform (VFIndic MainCl p t) True) ; -- bona / boni
-          obj = np.s!Full -- [] / inkomo
+          obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
           True => tp ++ oc ++ r ++ obj ;
           False => tp ++ r ++ obj
@@ -27,7 +27,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           r = v2.s!(rform vform True) ; -- bona / boni
-          obj = np.s!Full -- [] / inkomo
+          obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
           True => rc ++ tp ++ oc ++ r ++ obj ;
           False => rc ++ tp ++ r ++ obj
@@ -35,10 +35,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       } ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
-      hasComp = case np.proDrop of {
-        True => False ;
-        False => True
-      } ;
+      hasComp = np.heavy ;
       r = v2.r ;
       syl = v2.syl ;
       vptype = VNPCompl
@@ -52,12 +49,12 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
     --   } ;
     --   comp = case np1.proDrop of {
     --     True => case v3.voice of {
-    --       Active => np2.s ! Full ++ np2.desc ;
-    --       Passive => (cop_pref np2.agr) ++BIND++ np2.s ! Full ++ np2.desc
+    --       Active => np2.s ! NFull ++ np2.desc ;
+    --       Passive => (cop_pref np2.agr) ++BIND++ np2.s ! NFull ++ np2.desc
     --     } ;
     --     False => case v3.voice of {
-    --       Active => np1.s ! Full ++ np1.desc ++ np2.s ! Full ++ np2.desc ;
-    --       Passive => (cop_pref np1.agr) ++BIND++ np1.s ! Full ++ np1.desc ++ np2.s ! Full ++ np2.desc
+    --       Active => np1.s ! NFull ++ np1.desc ++ np2.s ! NFull ++ np2.desc ;
+    --       Passive => (cop_pref np1.agr) ++BIND++ np1.s ! NFull ++ np1.desc ++ np2.s ! NFull ++ np2.desc
     --     }
     --   } ;
     --   iadv = [] ;

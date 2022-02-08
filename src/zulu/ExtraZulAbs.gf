@@ -45,8 +45,8 @@ abstract ExtraZulAbs =
 
     -- ProgVP : VP -> VP ;
 
-    QuantRS : QuantStem -> RS ; -- elilodwa
-    RelRS : RelStem -> RS ; -- elibuhlungu
+    -- QuantRS : QuantStem -> RS ; -- elilodwa
+    -- RelRS : RelStem -> RS ; -- elibuhlungu
 
     -- QuantCN : QuantStem -> CN -> CN ; -- izindlu zonke
 
@@ -113,6 +113,18 @@ abstract ExtraZulAbs =
     how8much2_IAdv : IAdv ;
 
     phakathi_LocN : LocN ;
+    phansi_LocN : LocN ;
+    phesheya_LocN : LocN ;
+    phandle_LocN : LocN ;
+    phambili_LocN : LocN ;
+    phambi_LocN : LocN ;
+    phakade_LocN : LocN ;
+    phezulu_LocN : LocN ;
+
+    lapha_Loc : Loc ;
+    khona_Loc : Loc ;
+
+    kakhulu_Adv : Adv ;
 
     -- Deverb15 : V -> N ;
 

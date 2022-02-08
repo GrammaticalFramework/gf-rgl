@@ -40,4 +40,8 @@ abstract NounExt = Cat,ExtraCatZulAbs ** {
 
     Deverb15 : V -> N ;
 
+    LocNP : NP -> Loc ;
+
+    LocNLoc : LocN -> Loc ;
+
 }

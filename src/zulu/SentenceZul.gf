@@ -8,11 +8,12 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       CopIdent => comp_pred np vp ;
       CopAssoc => comp_pred np vp ;
       CopDescr => comp_pred np vp ;
+      CopLoc   => comp_pred np vp ;
       CopEq => cl_with_eq_cop_predicate np vp ;
       -- VACompl => cl_with_ap_comp_predicate np vp ;
       AdvComp => cl_with_adv_comp_predicate np vp ;
       (NoComp | VNPCompl) => {
-        s = \\p,t => np.s!Full ++ (verb_prefix vp p t np.agr) ++ vp.s!MainCl!np.agr!p!t ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        s = \\p,t => np.s!NFull ++ (verb_prefix vp p t np.agr) ++ vp.s!MainCl!np.agr!p!t ++ vp.comp ++ vp.iadv ++ vp.advs ;
       } ;
       _ => cl_with_verb_predicate np vp
     } ;
@@ -22,14 +23,15 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     ImpVP vp = let
       np = {
         empty = [] ;
-        s = table {Full|Reduced|Poss|Loc => []} ;
+        s = table {NFull|NReduced|NPoss|NLoc => []} ;
         -- loc = [] ;
         -- desc = [] ;
         -- det = [] ;
         agr = Second Sg ;
         i = nominit!(Second Sg) ;
         proDrop = True ;
-        isPron = True -- ;
+        isPron = True ;
+        heavy = False
         -- reqLocS = True ;
         -- qdef = Article Spec
       } ;
@@ -103,7 +105,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     comp_pred : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
       s = \\p,t =>
         let
-          subj = np.s!Full
+          subj = np.s!NFull
         in
           subj ++
           vp.s!MainCl!np.agr!p!t
@@ -113,7 +115,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     cl_with_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
       s = \\p,t =>
         let
-          subj = np.s!Full ;
+          subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
           reqLF = case vp.hasComp of {
             True => False ;
@@ -163,7 +165,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       s = \\p,t =>
         let
           vform_main = VFIndic MainCl p t ;
-          subj = np.s!Full ;
+          subj = np.s!NFull ;
           pcp = pre_cop_pref vform_main np.agr ;
           -- cb = (eqPref ! vp.r) ++ BIND ++ vp.comp ;
         in
@@ -176,7 +178,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
       s = \\p,t =>
         let
-          subj = np.s!Full ;
+          subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
           vow = case <vp.r,p,t> of {
             <RC,Pos,PresTense> => False ;

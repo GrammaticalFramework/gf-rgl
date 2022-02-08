@@ -1,4 +1,4 @@
-concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
+concrete VerbExtZul of VerbExt = CatZul,ExtraCatZul ** open ResZul, Prelude, ParamX in {
 
   lin
 
@@ -59,7 +59,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           vform = VFIndic MainCl p t ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
           cp = (id_cop_pref np.agr) ; -- ng-
-          cop_base = np.s!Full -- umfundi
+          cop_base = np.s!NFull -- umfundi
         in
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t => let
@@ -67,12 +67,12 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           rcp = (relConcCop p a RC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
           cp = (id_cop_pref np.agr) ; -- ng-
-          cop_base = np.s!Full -- umfundi
+          cop_base = np.s!NFull -- umfundi
         in
           rcp ++ pcp ++ cp ++ cop_base
       } ;
       comp, iadv, advs = [] ;
-      hasComp = True ;
+      hasComp = np.heavy ;
       r = RC ; -- should not be used
       syl = SylMult ;
       vptype = CopIdent
@@ -84,7 +84,7 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           vform = VFIndic MainCl p t ;
           pcp = (assoc_pre_cop_pref vform a) ; -- u- / uzoba
           cp = (assoc_cop_pref p np.agr) ; -- ne-
-          cop_base = np.s!Reduced -- moto
+          cop_base = np.s!NReduced -- moto
         in
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t => let
@@ -92,12 +92,12 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           rcp = (relConcCop p a RC) ; -- o-
           pcp = (assoc_pre_cop_pref vform a) ; -- [] / zoba
           cp = (assoc_cop_pref p np.agr) ; -- ne
-          cop_base = np.s!Reduced -- moto
+          cop_base = np.s!NReduced -- moto
         in
           rcp ++ pcp ++ cp ++ cop_base
       } ;
       comp, iadv, advs = [] ;
-      hasComp = True ;
+      hasComp = np.heavy ;
       r = RC ; -- should not be used
       syl = SylMult ;
       vptype = CopAssoc
@@ -111,8 +111,8 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           oc = objConc np.agr v2.r v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) True) ;
           obj = case p of {
-            Pos => np.s!Full ;
-            Neg => np.s!Reduced
+            Pos => np.s!NFull ;
+            Neg => np.s!NReduced
           } ;
         in case np.proDrop of {
           True => tp ++ oc ++ r ++ obj ;
@@ -125,8 +125,8 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
           oc = objConc np.agr v2.r v2.syl ;
           r = v2.s!(rform vform True) ;
           obj = case p of {
-            Pos => np.s!Full ;
-            Neg => np.s!Reduced
+            Pos => np.s!NFull ;
+            Neg => np.s!NReduced
           } ;
         in case np.proDrop of {
           True => rc ++ tp ++ oc ++ r ++ obj ;
@@ -135,13 +135,19 @@ concrete VerbExtZul of VerbExt = CatZul ** open ResZul, Prelude, ParamX in {
       } ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
-      hasComp = case np.proDrop of {
-        True => False ;
-        False => True
-      } ;
+      hasComp = np.heavy ;
       r = v2.r ;
       syl = v2.syl ;
       vptype = VNPCompl
+    } ;
+
+    CopLoc loc = {
+      s = loc.s ;
+      comp,advs,iadv = [] ;
+      hasComp = True ;
+      r = RC ;
+      syl = SylMult ;
+      vptype = CopLoc
     } ;
 
 }
