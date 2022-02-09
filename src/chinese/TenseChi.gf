@@ -1,4 +1,4 @@
-concrete TenseChi of Tense = 
+concrete TenseChi of Tense =
   CatChi [Tense,Temp,Ant], TenseX [Pol,PNeg,PPos] ** open ResChi in {
 
   lin
@@ -6,11 +6,11 @@ concrete TenseChi of Tense =
 
     ---- ??
     TPres = {s = [] ; t = APlain} ;
-    TPast = {s = [] ; t = APerf} ;   
-    TFut  = {s = [] ; t = ADurProg} ;   
+    TPast = {s = [] ; t = APerf} ;
+    TFut  = {s = [] ; t = AFut} ;
     TCond = {s = [] ; t = ADurStat} ;
 
     ASimul = {s = [] ; t = APlain} ;
-    AAnter = {s = [] ; t = APerf} ;   
+    AAnter = {s = [] ; t = APerf} ;
 
 }

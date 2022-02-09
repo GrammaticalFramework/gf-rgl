@@ -42,6 +42,8 @@ resource ResChi = ParamX ** open Prelude in {
   geng_s = "更" ; -- more, in comparison
   hen_s = "很" ; -- very, or predicating a monosyllabic adjective
   taN_s = "它" ;
+  jiu_s = "就" ;
+  hui_s = "会" ;
 
   zai_V = mkVerb "在" [] [] [] [] "不" ;
   fullstop_s = "。" ;
@@ -89,7 +91,7 @@ resource ResChi = ParamX ** open Prelude in {
 -- parameters
 
 param
-    Aspect = APlain | APerf | ADurStat | ADurProg | AExper ;  ---- APlain added by AR
+    Aspect = APlain | APerf | ADurStat | ADurProg | AExper | AFut ;  ---- APlain added by AR
     ConjForm = CPhr CPosType | CSent;
     CPosType = CAPhrase | CNPhrase | CVPhrase ;
     DeForm = DeNoun | NdNoun ;    -- parameter created for noun with/out partical "de"
@@ -166,14 +168,16 @@ oper
             APerf    => v.s ++ v.pp ;
             ADurStat => v.s ++ v.ds ;
             ADurProg => v.dp ++ v.s ;
-            AExper   => v.s ++ v.ep
+            AExper   => v.s ++ v.ep ;
+            AFut     => jiu_s ++ hui_s ++ v.s
             } ;
           Neg => table {
             APlain   => v.neg ++ v.sn ; --- neg?
             APerf    => "不" ++ v.sn ++ v.pp ;
             ADurStat => "不" ++ v.sn ;
             ADurProg => v.neg ++ v.dp ++ v.sn ;  -- mei or bu
-            AExper   => v.neg ++ v.sn ++ v.ep
+            AExper   => v.neg ++ v.sn ++ v.ep ;
+            AFut     => jiu_s ++ "不" ++ hui_s ++ v.s
             }
      } ;
 
