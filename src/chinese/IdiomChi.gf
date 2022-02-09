@@ -12,7 +12,7 @@ concrete IdiomChi of Idiom = CatChi ** open Prelude, ResChi in {
     ---- it is John who did it
     CleftNP np rs = mkClause rs.s copula np.s ; -- did it + de + is I
 
-    CleftAdv ad s = mkClause (s.s ++ possessive_s) copula ad.s ;  -- she sleeps + de + is here
+    CleftAdv ad s = mkClause (linS s ++ possessive_s) copula ad.s ;  -- she sleeps + de + is here
 
     ExistNP np = mkClause [] (regVerb you_s) np.s ; ---- infl of you
 

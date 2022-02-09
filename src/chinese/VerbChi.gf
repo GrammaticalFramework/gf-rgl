@@ -13,7 +13,7 @@ concrete VerbChi of Verb = CatChi ** open ResChi, Prelude in {
     SlashV2A v ap = insertObj {s = ap.s ! Pred} (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
 
     SlashV2V v vp = insertObj (mkNP (infVP vp))   (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
-    SlashV2S v s  = insertObj (ss (say_s ++ s.s)) (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
+    SlashV2S v s  = insertObj (ss (say_s ++ linS s)) (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
     SlashV2Q v q  = insertObj (ss (say_s ++ q.s ! False)) (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
 
     ComplVV v vp = {
@@ -23,7 +23,7 @@ concrete VerbChi of Verb = CatChi ** open ResChi, Prelude in {
       isAdj = False ;
       } ;
 
-    ComplVS v s  = insertObj s  (predV v []) ;
+    ComplVS v s  = insertObj (ss (linS s))  (predV v []) ;
     ComplVQ v q  = insertObj (ss (q.s ! False)) (predV v []) ;
     ComplVA v ap = insertObj {s = ap.s ! Pred} (predV v []) ;
 
