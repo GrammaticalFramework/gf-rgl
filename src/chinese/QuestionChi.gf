@@ -7,22 +7,7 @@ concrete QuestionChi of Question = CatChi **
   lin
 
     QuestCl cl = {
-      s = table {
-        True => \\p,a => cl.s ! p ! a ++ question_s ; -- redup question as variant in ExtraChi
-        False => \\p,a =>                             --- code copied from ExtraChi
-          let
-          v = cl.vp.verb ;
-          verb = case a of {
-            APlain   => v.s  ++ v.neg ++ v.sn ;
-            APerf    => v.s  ++ neg_s ++ v.sn ++ v.pp ;
-            ADurStat => v.s  ++ neg_s ++ v.sn ;
-            ADurProg => v.s  ++ v.neg ++ v.dp ++ v.sn ;  -- mei or bu
-            AExper   => v.s  ++ v.neg ++ v.sn ++ v.ep ;
-            AFut     => jiu_s ++ hui_s ++ v.s  ++ v.neg ++ v.sn ++ v.ep -- TODO check placement of jiang
-            }
-          in
-          cl.np ++ cl.vp.prePart ++ verb ++ cl.vp.compl
-        }
+      s = \\b,p,a => cl.s ! p ! a ++ question_s ; -- redup question as variant in ExtraChi
      } ;
 
     QuestVP ip vp = {
