@@ -49,7 +49,8 @@ concrete ExtraChi of ExtraChiAbs = CatChi **
             APerf    => v.s  ++ "不"  ++ v.sn ++ v.pp ;
             ADurStat => v.s  ++ "不"  ++ v.sn ;
             ADurProg => v.s  ++ v.neg ++ v.dp ++ v.sn ;  -- mei or bu
-            AExper   => v.s  ++ v.neg ++ v.sn ++ v.ep
+            AExper   => v.s  ++ v.neg ++ v.sn ++ v.ep ;
+            AFut     => jiu_s ++ v.s  ++ v.neg ++ v.sn ++ v.ep -- TODO check placement of jiang
             }
           in
           cl.np ++ cl.vp.prePart ++ verb ++ cl.vp.compl
