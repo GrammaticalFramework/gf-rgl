@@ -22,8 +22,9 @@ Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant this_Quant NumPl)
 LangChi: 这 些 猫 不 想 走
 LangEng: these cats don't want to walk
 
+-- this tree does not make semantic sense in chinese but is compositionally correct due to the direct word for word translation for "must"
 Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant that_Quant NumPl) (UseN cat_N)) (ComplVV must_VV (UseV walk_V)))
-LangChi: 那 些 猫 不 行 走
+LangChi: 那 些 猫 不 必 须 走
 LangEng: those cats mustn't walk
 
 -- 没有 and must not , bu ke yi
