@@ -193,9 +193,9 @@ oper
     = \s -> lin Subj (ResChi.mkSubj s []) ;
   mkConj = overload {
     mkConj : Str -> Conj
-      = \s -> lin Conj {s = \\_ => mkConjForm s} ;
+      = \s -> lin Conj {s = \\_ => mkConjForm s ; conjType = NotJiu} ;
     mkConj : (both,and : Str) -> Conj
-      = \s,t -> lin Conj {s = \\_ => mkConjForm2 s t} ;
+      = \s,t -> lin Conj {s = \\_ => mkConjForm2 s t ; conjType = NotJiu} ;
    } ;
   mkpDet : Str -> Det
     = \s -> lin Det {s = word s ; detType = DTFull Sg} ;

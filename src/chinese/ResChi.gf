@@ -93,6 +93,7 @@ resource ResChi = ParamX ** open Prelude in {
 param
     Aspect = APlain | APerf | ADurStat | ADurProg | AExper | AFut ;  ---- APlain added by AR
     ConjForm = CPhr CPosType | CSent;
+    ConjType = Jiu | NotJiu ; -- to put conjunction in the right place in ConjS: "I sleep *and* she walks" vs. "if I sleep, she *then* walks"
     CPosType = CAPhrase | CNPhrase | CVPhrase ;
     DeForm = DeNoun | NdNoun ;    -- parameter created for noun with/out partical "de"
 
@@ -169,7 +170,7 @@ oper
             ADurStat => v.s ++ v.ds ;
             ADurProg => v.dp ++ v.s ;
             AExper   => v.s ++ v.ep ;
-            AFut     => jiu_s ++ hui_s ++ v.s
+            AFut     => hui_s ++ v.s
             } ;
           Neg => table {
             APlain   => v.neg ++ v.sn ; --- neg?
@@ -177,7 +178,7 @@ oper
             ADurStat => "不" ++ v.sn ;
             ADurProg => v.neg ++ v.dp ++ v.sn ;  -- mei or bu
             AExper   => v.neg ++ v.sn ++ v.ep ;
-            AFut     => jiu_s ++ "不" ++ hui_s ++ v.s
+            AFut     => "不" ++ hui_s ++ v.s
             }
      } ;
 
@@ -218,11 +219,21 @@ oper
 
 -- clauses: keep np and vp separate to enable insertion of IAdv
 
-   Clause : Type = {
+  Clause : Type = {
      s  : Polarity => Aspect => Str ;
-     np : Str;
-     vp : VP
+     np : Str ;
+     vp : VP ;
+     postJiu : Polarity => Aspect => Str ;
      } ;
+
+  Sentence : Type = {
+    preJiu, -- everything until the subject
+    postJiu  -- everything after the subject
+    : Str
+  } ;
+
+  linS : Sentence -> Str = \s -> s.preJiu ++ s.postJiu ;
+  simpleS : Str -> Sentence = \s -> {preJiu=s ; postJiu=[]} ;
 
 
    mkClause = overload {
@@ -240,6 +251,7 @@ oper
      s = \\p,a => vp.topic ++ np ++ vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl ++ compl ;
      np = vp.topic ++ np ;
      vp = insertObj (ss compl) vp ;
+     postJiu = \\p,a => vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl ++ compl ;
      } ;
 
 
