@@ -2,7 +2,14 @@ concrete ConjunctionChi of Conjunction = CatChi ** open ResChi, Prelude, Coordin
 
   lin
 
-    ConjS c = conjunctDistrSS (c.s ! CSent) ;
+    ConjS c ss =
+      let conj = c.s ! CSent
+       in case c.conjType of {
+        Jiu    => {preJiu = conj.s1 ++ ss.s1 ++ comma ++ ss.preJiu ;
+                   postJiu = conj.s2 ++ ss.postJiu} ;
+        NotJiu => {preJiu = conj.s1 ++ ss.s1 ++ conj.s2 ++ ss.preJiu ;
+                   postJiu = ss.postJiu}
+        } ;
     ConjAdv c as = conjunctDistrSS (c.s ! CSent) as ** {advType = as.advType ; hasDe = as.hasDe} ; ---- ??
     ConjNP c = conjunctDistrSS (c.s ! CPhr CNPhrase) ;
     ConjAP c as = conjunctDistrTable AdjPlace (c.s ! CPhr CAPhrase) as ** {monoSyl = notB as.monoSyl ; hasAdA = True} ; ---- add de iff as doesn't
@@ -11,8 +18,14 @@ concrete ConjunctionChi of Conjunction = CatChi ** open ResChi, Prelude, Coordin
 
 -- These fun's are generated from the list cat's.
 
-    BaseS = twoSS ;
-    ConsS = consrSS duncomma ;
+    BaseS s t = t ** {
+      s1 = linS s
+    } ;
+
+    ConsS s ss = -- here we do the same thing actually, the crucial split has happened in BaseS
+     ss ** {s1 = linS s ++ comma ++ ss.s1};
+
+
     BaseAdv x y = twoSS x y ** {advType = x.advType ; hasDe = y.hasDe} ; ---- ??
     ConsAdv x xs = consrSS duncomma x xs ** {advType = x.advType ; hasDe = xs.hasDe} ; ---- ??
     BaseNP = twoSS ;
@@ -25,7 +38,8 @@ concrete ConjunctionChi of Conjunction = CatChi ** open ResChi, Prelude, Coordin
     ConsCN x xs = consrSS duncomma x xs ** {c = x.c} ;
 
   lincat
-    [S] = {s1,s2 : Str} ;
+    --[S] = ConjType => {s1,s2 : Str} ;
+    [S] = {s1,preJiu,postJiu : Str} ;
     [Adv] = {s1,s2 : Str ; advType : AdvType ; hasDe : Bool} ;
     [NP] = {s1,s2 : Str} ;
     [AP] = {s1,s2 : AdjPlace => Str ; monoSyl : Bool} ;

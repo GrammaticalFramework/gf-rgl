@@ -18,7 +18,7 @@ concrete ExtraChi of ExtraChiAbs = CatChi **
     BaseVPS = twoSS ;
     ConsVPS = consrSS duncomma ;
 
-    PredVPS np vps = {s = np.s ++ vps.s} ;
+    PredVPS np vps = {preJiu = np.s ; postJiu = vps.s} ;
 
     MkVPI vp = {s = (mkClause [] vp).s ! Pos ! APlain} ; --- ?? almost just a copy of VPS
     ConjVPI c = conjunctDistrSS (c.s ! CSent) ;

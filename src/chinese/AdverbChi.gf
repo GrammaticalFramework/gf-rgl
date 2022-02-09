@@ -8,11 +8,11 @@ concrete AdverbChi of Adverb = CatChi **
 
     ComparAdvAdj cadv a np = ss (a.s!Attr ++ cadv.s ++ cadv.p ++ np.s) ** {advType = ATManner ; hasDe = False} ;
 
-    ComparAdvAdjS cadv a s = ss (a.s!Attr ++ cadv.s ++ cadv.p ++ s.s) ** {advType = ATManner ; hasDe = False} ;
+    ComparAdvAdjS cadv a s = ss (a.s!Attr ++ cadv.s ++ cadv.p ++ linS s) ** {advType = ATManner ; hasDe = False} ;
 
     AdAdv ad adv = adv ** {s = ad.s ++ adv.s} ;
 
-    SubjS subj s = ss (subj.prePart ++ s.s ++ subj.sufPart)  ** {advType = ATTime ; hasDe = False} ;
+    SubjS subj s = ss (subj.prePart ++ linS s ++ subj.sufPart)  ** {advType = ATTime ; hasDe = False} ;
 
     AdnCAdv cadv = ss (cadv.s ++ conjThat) ** {advType = ATManner ; hasDe = False} ; -----
 
