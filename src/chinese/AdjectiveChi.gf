@@ -5,13 +5,13 @@ concrete AdjectiveChi of Adjective = CatChi ** open ResChi, Prelude in {
     PositA  a = a ** {hasAdA = False} ;
 
     ComparA a np = a ** {
-      s = table { adjPlace => than_s ++ np.s ++ a.s!adjPlace};
+      s = table {_=> than_s ++ np.s ++ a.s!Attr};
       hasAdA = False
 
     };
 
     UseComparA a = a ** {
-      s = table { adjPlace => geng_s ++ a.s!adjPlace};
+      s = table { _=> geng_s ++ a.s!Attr};
       hasAdA = False
     };
 
