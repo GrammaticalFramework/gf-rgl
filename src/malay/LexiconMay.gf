@@ -224,7 +224,9 @@ lin long_A = mkA "panjang" ;
 -- lin lose_V2 = mkV2 "" ;
 -- lin louse_N = mkN "" ;
 -- lin love_N = mkN "" ;
-lin love_V2 = mkV2 "cinta" ;
+lin love_V2 = let love' : V2 = mkV2 "cinta" in love' ** {
+  s = \\_ => "mencintai" ;
+} ;
 
 ----
 -- M
