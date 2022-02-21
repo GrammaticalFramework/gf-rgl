@@ -123,5 +123,6 @@ concrete CatMay of Cat = CommonX - [IAdv] ** open ResMay, Prelude in {
 
     linref
         CN = \cn -> cn.s ! NF Sg Bare ++ cn.heavyMod;
-
+        ClSlash = \cl -> cl.subj ++ cl.pred ! Root ! Pos ++ cl.c2.s;
+        RCl = \cl -> cl.subj ++ cl.pred ! P1 ! Pos;
 }
