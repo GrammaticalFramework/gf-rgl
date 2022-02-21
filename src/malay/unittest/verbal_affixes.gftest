@@ -9,42 +9,42 @@
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN cat_N)) (UseV walk_V)))
 LangEng: my cat walks
-LangMay: kucing saya berjalan
+LangMay: kucing aku berjalan
 
 -- As a verbal complement
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN cat_N)) (ComplVV want_VV (UseV walk_V))))
 LangEng: my cat wants to walk
-LangMay: kucing saya mahu jalan
+LangMay: kucing aku mahu jalan
 
 -- Transitive verbs
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant this_Quant NumSg) (UseN book_N)))))
 LangEng: I read this book
-LangMay: saya membaca buku ini
+LangMay: aku membaca buku ini
 
 -- As a verbal complement
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant this_Quant NumSg) (UseN book_N))))))
 LangEng: I want to read this book
-LangMay: saya mahu baca buku ini
+LangMay: aku mahu baca buku ini
 
 -- How about words like mengajar and belajar? Is the prefix more important here?
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplSlash (SlashV2a learn_V2) (MassNP (UseN science_N))) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))
 LangEng: I learn science in the school
-LangMay: saya belajar sains di sekolah
+LangMay: aku belajar sains di sekolah
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplSlash (SlashV2a teach_V2) (MassNP (UseN science_N))) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))
 LangEng: I teach science in the school
-LangMay: saya mengajar sains di sekolah
+LangMay: aku mengajar sains di sekolah
 
 -- The way the grammar is currently defined, we'd get the same output for both "I want to learn/study science". Is this correct, or should one or both of the verbs keep the ber/meng prefix in this context?
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplVV want_VV (ComplSlash (SlashV2a teach_V2) (MassNP (UseN science_N)))) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))
 LangEng: I want to teach science in the school
-LangMay: saya mahu ajar sains di sekolah
+LangMay: aku mahu ajar sains di sekolah
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplVV want_VV (ComplSlash (SlashV2a learn_V2) (MassNP (UseN science_N)))) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))
 LangEng: I want to learn science in the school
-LangMay: saya mahu belajar sains di sekolah
+LangMay: aku mahu belajar sains di sekolah
 
 -- How about interaction with passive? These sentences are very artificial, but imagine they made sense:
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN book_N)) (AdvVP (PassV2 learn_V2) (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN school_N))))))) NoVoc
@@ -67,7 +67,7 @@ LangMay: kucing yang jalan
 -- In a context
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))))))
 LangEng: I buy a cat that walks
-LangMay: saya membeli kucing yang jalan
+LangMay: aku membeli kucing yang jalan
 
 -- Transitive verbs
 
@@ -84,11 +84,11 @@ LangMay: susu yang kucing minum
 -- Both in context
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a buy_V2) (DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))))))
 LangEng: I buy a cat that drinks milk
-LangMay: saya membeli kucing yang minum susu
+LangMay: aku membeli kucing yang minum susu
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a buy_V2) (MassNP (RelCN (UseN milk_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)) (SlashV2a drink_V2)))))))))
 LangEng: I buy milk that a cat drinks
-LangMay: saya membeli susu yang kucing minum
+LangMay: aku membeli susu yang kucing minum
 
 
 ----------------------------------------
@@ -102,7 +102,7 @@ LangMay: hujan sekarang
 -- In a context
 Lang: UttS (AdvS (SubjS if_Subj (UseCl (TTAnt TPast ASimul) PNeg (ImpersCl (UseV rain_V0)))) (ExtAdvS now_Adv (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron i_Pron) (UseV walk_V)))))
 LangEng: if it didn't rain now , I would walk
-LangMay: sekiranya tidak hujan sekarang , saya akan berjalan
+LangMay: sekiranya tidak hujan sekarang , aku akan berjalan
 
 ----------------------------------------
 -- Imperative

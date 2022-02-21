@@ -4,29 +4,29 @@ concrete LexiconMay of Lexicon = CatMay **
 ----
 -- A
 
--- lin add_V3 = mkV3 ""  ;
--- lin airplane_N = mkN "" ;
+-- lin add_V3 = mkV3 "tambah"  ;
+lin airplane_N = mkN "kapal terbang" ;
 -- lin alas_Interj = mkInterj "" ;
--- lin already_Adv = mkA "" ;
--- lin animal_N = mkN "동물" ;
--- lin answer_V2S = mkV2S "" ;
--- lin apartment_N = mkN "" ;
--- lin apple_N = mkN "" ;
--- lin art_N = mkN "" ;
--- lin ashes_N = mkN "" ;
--- lin ask_V2Q = mkV2 "" ;
+lin already_Adv = mkA "sudah" ;
+lin animal_N = mkN "haiwan" ;
+-- lin answer_V2S = mkV2S "jawab" ;
+lin apartment_N = mkN "pangsapuri" ;
+lin apple_N = mkN "epal" ;
+lin art_N = mkN "seni" ;
+lin ashes_N = mkN "abu" ;
+lin ask_V2Q = mkV2 "tanya" ;
 
 ----
 -- B
 
--- lin baby_N = mkN "" ;
--- lin back_N = mkN "" ;
+lin baby_N = mkN "bayi" ;
+lin back_N = mkN "belakang" ;
 -- lin bad_A = mkA "" ;
--- lin bank_N = mkN "" ;
+lin bank_N = mkN "bank" ;
 -- lin bark_N = mkN "" ;
 lin beautiful_A = mkA "cantik" ;
--- lin become_VA = mkVA "" ;
--- lin beer_N = mkN "" ;
+-- lin become_VA = mkVA "jadi" ;
+lin beer_N = mkN "bir" ;
 -- lin beg_V2V = mkV2 "" ;
 -- lin belly_N = mkN "" ;
 -- lin big_A = mkA "" ;
@@ -34,7 +34,7 @@ lin beautiful_A = mkA "cantik" ;
 -- lin bird_N = mkN "" ;
 -- lin bite_V2 = mkV2 "" ;
 lin black_A = mkA "hitam" ;
--- lin blood_N = mkN "" ;
+lin blood_N = mkN "darah" ;
 -- lin blow_V = mkV "" ;
 -- lin blue_A = mkA "" ;
 -- lin boat_N = mkN "" ;
@@ -95,7 +95,9 @@ lin come_V = mkV "datang" ;
 -- lin doctor_N = mkN "" ;
 lin dog_N = mkN "anjing" ;
 -- lin door_N = mkN "" ;
-lin drink_V2 = mkV2 "minum" ;
+lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** {
+  s = \\_ => "minum" ;
+};
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
 -- lin dust_N = mkN "" ;
@@ -105,7 +107,9 @@ lin drink_V2 = mkV2 "minum" ;
 
 -- lin ear_N = mkN "" ;
 -- lin earth_N = mkN "" ;
-lin eat_V2 = mkV2 "makan" ;
+lin eat_V2 = let eat' : V2 = mkV2 "makan" in eat' ** {
+  s = \\_ => "makan" ;
+};
 -- lin egg_N = mkN "" ;
 -- lin empty_A = mkA "" ;
 -- lin enemy_N = mkN "" ;
@@ -148,7 +152,7 @@ lin father_N2 = mkN2 "bapa" ;
 
 -- lin garden_N = mkN "" ;
 -- lin girl_N = mkN "" ;
-lin give_V3 = mkV3 (mkV "beri" Meng) emptyPrep datPrep ;
+lin give_V3 = mkV3 (mkV "beri" Meng) emptyPrep datPrep ; -- memberi for living and memberikan for nonliving
 -- lin glove_N = mkN "" ;
 lin go_V = mkV "pergi" ;
 -- lin gold_N = mkN "" ;
@@ -204,7 +208,7 @@ lin king_N = mkN "raja" ;
 -- lin language_N = mkN "" ;
 -- lin laugh_V = mkV "" ;
 -- lin leaf_N = mkN "" ;
-lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
+-- lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
 -- lin leather_N = mkN "" ;
 -- lin leave_V2 = mkV2 "" ;
 -- lin leg_N = mkN "" ;
@@ -312,7 +316,7 @@ lin science_N = mkN "sains" ;
 lin see_V2 = mkV2 "lihat" ;
 -- lin seed_N = mkN "" ;
 -- lin seek_V2 = mkV2 "" ;
-lin sell_V3 = mkV3 (mkV "jual" Meng) emptyPrep emptyPrep ; -- TODO
+-- lin sell_V3 = mkV3 (mkV "jual" Meng) emptyPrep emptyPrep ; -- TODO
 -- lin send_V3 = mkV3 "" ;
 -- lin sew_V = mkV "" ;
 -- lin sharp_A = mkA "" ;

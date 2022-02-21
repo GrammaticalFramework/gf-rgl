@@ -3,33 +3,36 @@ concrete RelativeMay of Relative = CatMay ** open
 
 
 lin
-  --  : Cl -> RCl ;            -- such that John loves her
-  -- RelCl cl = ;
+  -- : Cl -> RCl ;            -- such that John loves her
+  -- RelCl cl = cl ** {
+  --   subj = cl.subj ;
+  --   pred = cl.pred ;
+  -- };
 
   -- : RP -> VP -> RCl ;
   RelVP rp vp = {
     subj = rp.s ;
-    pred = \\per => vp.s ! Root ;
+    pred = \\per,pol => vp.s ! Active ! pol;
     } ;
 
   -- : RP -> ClSlash -> RCl ; -- who I went with
   RelSlash rp cls = {
     subj = rp.s            -- yang
-        ++ cls.subj ;      -- saya
+        ++ cls.subj ;      -- aku
     pred = \\per,pol =>
       let object : Str = case cls.c2.prepType of {
             OtherPrep
               => cls.c2.obj ! per ; -- depends on the head, not known yet
             _ => [] -- if the preposition is dir.obj or empty, no obj. pronoun
             } ;
-      in cls.pred ! Root ! pol   -- ikut sama
+      in cls.pred ! Active ! pol   -- ikut sama
       ++ object                  -- dengan+nya
     } ;
 
   -- : RP ;
   IdRP = {s = "yang"} ;
 
-  -- Mintz page 49: Saya jumpa orang /yang kaki+nya/ patah.
+  -- Mintz page 49: aku jumpa orang /yang kaki+nya/ patah.
   --               'I met a man /whose foot/ was broken.'
   -- : Prep -> NP -> RP -> RP ;  -- the mother of whom
   -- FunRP prep np rp = {} ;

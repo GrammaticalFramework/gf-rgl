@@ -16,7 +16,7 @@ lin
 
   -- : VV  -> VP -> VP ;
   ComplVV vv vp = vp ** useV {
-    s = \\vf => vv.s ++ vp.s ! Root ! Pos
+    s = \\vf => vv.s ++ vp.s ! Active ! Pos
     } ;
 
   -- : VS  -> S  -> VP ;
@@ -54,12 +54,11 @@ lin
 
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash3V3 v3 iobj = useV {
-    s = \\vf => v3.s ! vf ++ iobj.s ! Bare ++ applyPrep v3.c3 emptyNP;
+    s = \\vf => v3.s ! vf ++ applyPrep v3.c3 emptyNP ++ iobj.s ! Bare;
     --iobj.s ! Bare -- applyPrep v3.c3 iobj -- TODO check if this works for all -- probably not
     } ** {
       c2 = v3.c2 ;-- Now the VPSlash is missing only the direct object
       adjCompl = []
-
     } ;
 
   -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
@@ -100,6 +99,13 @@ lin
     passive = vv.s ++ vps.passive;
     adjCompl = vps.adjCompl ;
     } ;
+
+  -- SlashVV vv vp = vp ** useV {
+  --   s = \\vf => vv.s ++ vp.s ! Active ! Pos ;
+  --   c2 = vp.c2 ;
+  --   passive = vv.s ++ vp.passive;
+  --   adjCompl = vp.adjCompl ;
+  --   } ;
 
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
   -- SlashV2VNP v2v np vps =

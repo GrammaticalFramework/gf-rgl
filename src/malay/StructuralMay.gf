@@ -120,9 +120,9 @@ lin with_Prep = mkPrep "dengan" ;
 
 -- Pronouns are closed class, no constructor in ParadigmsMay.
 lin it_Pron = mkPron "dia" P3 ;
-lin i_Pron = mkPron "saya" P1 ;
+lin i_Pron = mkPron "aku" P1 ;
 lin youPol_Pron = mkPron "kamu" P2 ;
-lin youSg_Pron = mkPron "awak" P2 ;
+lin youSg_Pron = mkPron "kamu" P2 ;
 lin he_Pron = mkPron "dia" P3 ;
 lin she_Pron = mkPron "dia" P3 ;
 -- inclusive we

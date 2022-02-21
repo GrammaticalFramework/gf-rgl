@@ -120,4 +120,8 @@ concrete CatMay of Cat = CommonX - [IAdv] ** open ResMay, Prelude in {
     N2 = ResMay.Noun2 ;
     N3 = ResMay.Noun3 ;
     PN = ResMay.PNoun ;
+
+    linref
+        CN = \cn -> cn.s ! NF Sg Bare ++ cn.heavyMod;
+
 }

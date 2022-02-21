@@ -59,7 +59,6 @@ lin
     } ;
   } ;
 
-
   -- : IP -> IComp ;
   CompIP ip = {s = ip.s ! Bare } ;    -- who (is it)
 
