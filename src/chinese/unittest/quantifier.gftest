@@ -50,7 +50,7 @@ Lang: DetCN every_Det (UseN rule_N)
 LangChi: 每 项 规 则
 LangEng: every rule
 
-Lang: DetCN few_Det (UseN child_N) 
+Lang: DetCN few_Det (UseN child_N)
 LangChi: 少 些 孩 子
 LangEng: few children
 
