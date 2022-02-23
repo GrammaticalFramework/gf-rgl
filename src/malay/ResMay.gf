@@ -209,6 +209,11 @@ oper
     c3 : Preposition
     } ;
 
+  Verb4 : Type = Verb ** {
+    c2 : Preposition ;
+    passive : Str
+    } ;
+
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
   mkVerb : Str -> Prefix -> Verb = \str,p -> {
@@ -220,11 +225,17 @@ oper
 
   mkVerb2 : Verb -> Preposition -> Verb2 = \v,pr -> v ** {
     c2 = pr ;
-    passive = "di" + v.s ! Root -- TODO check
+    passive = "di" + v.s ! Root
     } ;
 
   mkVerb3 : Verb -> (p,q : Preposition) -> Verb3 = \v,p,q ->
     mkVerb2 v p ** {c3 = q} ;
+
+  mkVerb4 : Verb -> Preposition -> Str -> Verb4 = \v,pr,str -> v ** {
+    s = \\_ => v.s ! Active + str;
+    c2 = pr ;
+    passive = "di" + v.s ! Root + str
+    } ;
 
   copula : Verb = {s = \\_ => "ada"} ; -- TODO
 ------------------

@@ -44,7 +44,7 @@ lin blood_N = mkN "darah" ;
 lin book_N = mkN "buku" ;
 -- lin boy_N = mkN "" ;
 -- lin bread_N = mkN "" ;
-lin break_V2 = mkV2 "patahkan" ; -- TODO figure out if -kan needs to be separated
+lin break_V2 = mkV4 "patah" "kan"; -- TODO figure out if -kan needs to be separated
 -- lin breast_N = mkN "" ;
 -- lin breathe_V = mkV "" ;
 -- lin broad_A = mkA "" ;
@@ -224,9 +224,11 @@ lin long_A = mkA "panjang" ;
 -- lin lose_V2 = mkV2 "" ;
 -- lin louse_N = mkN "" ;
 -- lin love_N = mkN "" ;
-lin love_V2 = let love' : V2 = mkV2 "cinta" in love' ** {
-  s = \\_ => "mencintai" ;
-} ;
+-- lin love_V2 = let love' : V2 = mkV2 "cinta" in love' ** {
+--   s = \\_ => "mencintai" ;
+--   passive = "dicintai" ;
+-- } ;
+lin love_V2 = mkV4 "cinta" "i";
 
 ----
 -- M
@@ -302,7 +304,7 @@ lin read_V2 = mkV2 "baca" ;
 -- lin round_A = mkA "" ;
 -- lin rub_V2 = mkV2 "" ;
 -- lin rubber_N = mkN "" ;
--- lin rule_N = mkN "" ;
+lin rule_N = mkN "peraturan" ;
 -- lin run_V = mkV "" ;
 
 ----
@@ -353,7 +355,7 @@ lin song_N = mkN "lagu" ;
 -- lin steel_N = mkN "" ;
 -- lin stick_N = mkN "" ;
 -- lin stone_N = mkN "" ;
--- lin stop_V =  mkV "" ;
+lin stop_V =  mkV "henti" ;
 -- lin stove_N = mkN "" ;
 -- lin straight_A = mkA "" ;
 -- lin student_N = mkN "" ;

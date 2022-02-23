@@ -133,6 +133,12 @@ oper
       lin V3 (mkVerb3 v p q)
     } ;
 
+  mkV4 = overload {
+    mkV4 : Str       -> Str -> V2 = \v2,str  ->
+      lin V2 (mkVerb4 (mkVerb v2 Meng) dirPrep str) ;
+    mkV4 : V -> Prep -> Str -> V2 = \v,p,str -> lin V2 (mkVerb4 v p str)
+    } ;
+
  mkVV = overload {
    mkVV : Str -> VV = \vv -> lin VV (ss vv)
    } ;
