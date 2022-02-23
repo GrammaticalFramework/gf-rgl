@@ -54,8 +54,8 @@ when_IAdv = mkIAdvL "什么时候" ;
 how_IAdv = mkIAdvL "如何" ;
 all_Predet = ssword "所有" ;
 many_Det = mkDet (word "很多") DTPoss ;
-someSg_Det = mkDet (word "一些") Sg ;
-somePl_Det = mkDet (word "一些") Sg ;
+someSg_Det = mkDet (word "一些") DTPoss ;
+somePl_Det = mkDet (word "一些") DTPoss ;
 few_Det = mkDet "少" Pl ;
 other_A = mkA "其他" ;
 
