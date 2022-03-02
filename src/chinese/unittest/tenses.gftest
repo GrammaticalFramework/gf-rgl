@@ -21,6 +21,17 @@ Lang: PredVP (DetCN (DetQuant this_Quant NumSg) (UseN cat_N)) (ComplVV can_VV (U
 LangChi: 这 只 猫 能 走
 LangEng: this cat can walk
 
+-- As a verbal complement
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN cat_N)) (ComplVV want_VV (UseV walk_V)))
+LangChi: 我 的 猫 想 走
+LangEng: my cat wants to walk
+
+-- Transitive verbs
+
+Lang: UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN fish_N))))
+LangChi: 我 吃 了 一 条 鱼
+LangEng: I have eaten a fish
+
 -------------
 -- Conditions
 
