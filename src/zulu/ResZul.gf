@@ -230,9 +230,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
         R_a => root ++BIND++ "a" ;
         R_ile => case root of {
           _+"el" => root ++BIND++ "e" ;
+          _+"al" => (tk 2 root) + "el" ++BIND++ "e" ;
           _ => root ++BIND++ "ile"
         } ;
-        R_e => root ++BIND++ "e" ;
+        R_e => case root of {
+          _+"al" => (tk 2 root) + "el" ++BIND++ "e" ;
+          _ => root ++BIND++ "e"
+        } ;
         R_i => root ++BIND++ "i" ;
         R_anga => root ++BIND++ "anga"
       } ;
