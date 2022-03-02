@@ -1,5 +1,6 @@
 PhrUtt 0.999
 ChunkPhr 0.001
-N_Sg_Chunk 0.005
-N_Pl_Chunk 0.005
-Symb_Chunk 0.000000001
+NP_Chunker 0.5
+Symb_Chunker 0.00000000000000001
+ProDrop 0.000000001
+ComplV2Nonspec 0.05
