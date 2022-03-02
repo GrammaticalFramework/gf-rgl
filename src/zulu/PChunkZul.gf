@@ -9,7 +9,7 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
   lincat
     Chunks = {s : Str} ;
     Chunk = {s : Str};
-    Chunk_AP, Chunk_Adv, Chunk_S, Chunk_QS, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
+    Chunk_AP, Chunk_Adv, Chunk_S, Chunk_RS, Chunk_QS, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
 
     VC = V ;
 
@@ -21,6 +21,7 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
     AP_Chunker c = c ;
     Adv_Chunker c = c ;
     S_Chunker c = c ;
+    RS_Chunker c = c ;
     QS_Chunker c = c ;
     CN_Chunker c = c ;
     NP_Chunker c = c ;
@@ -29,18 +30,19 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
 
     AP_Chunk ap = { s = ap_vars ap } ;
   --   AdA_Chunk : AdA -> Chunk ;
-    Adv_Chunk adv = { s = adv_vars adv.s } ;
+    -- Adv_Chunk adv = { s = adv_vars adv.s } ;
   --   AdV_Chunk : AdV -> Chunk ;
   --   AdN_Chunk : AdN -> Chunk ;
-    S_Chunk s = { s = variants { s.s!Princ ; s.s!Part ; s.subjs ; s.pots!Princ ; s.pots!Part } } ;
+    S_Chunk s = { s = s.s } ;
+    RS_Chunk rs = { s = rs.s!agr_vars } ;
   --   SSlash_Chunk : SSlash -> Chunk ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
   --   CN_Pl_Chunk  : CN -> Chunk ;
     CN_Sg_Chunk cn = {
-      s = cn.s!Sg!Full ++ cn.mod!Sg
+      s = cn.s!Sg!NFull
     } ;
     CN_Pl_Chunk cn = {
-      s = cn.s!Pl!Full ++ cn.mod!Pl
+      s = cn.s!Pl!NFull
     } ;
   --   CN_Pl_Gen_Chunk : CN -> Chunk ;
   --   CN_Sg_Gen_Chunk : CN -> Chunk ;
@@ -49,10 +51,9 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
   --   IAdv_Chunk : IAdv -> Chunk ;
   --   IP_Chunk : IP -> Chunk ;
     NP_Nom_Chunk np = {
-      s = case np.isPron of {
-        False => variants {
-          np.predet_pre ++ np.dem ++ np.s!Full ++ np.mod ++ np.predet_post ;
-          np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post -- ; -- [anginoni] nkomo
+      s = variants {
+          np.s!NFull ;
+          np.s!NReduced -- ; -- [anginoni] nkomo
           -- np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
           -- np.predet_pre ++ dem_pron!Dem2!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
           -- np.predet_pre ++ dem_pron!Dem3!np.agr ++ np.s!Reduced ++ np.mod ++ np.predet_post ;
@@ -60,16 +61,11 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
           -- np.predet_pre ++ dem_pron!Dem2!np.agr ++ np.s!Full ++ np.mod ++ np.predet_post ; -- meant to catch pronouns
           -- np.predet_pre ++ dem_pron!Dem3!np.agr ++ np.s!Full ++ np.mod ++ np.predet_post ; -- meant to catch pronouns
           -- np.predet_pre ++ np.dem ++ np.s!Loc ++ np.mod ++ np.predet_post
-        } ;
-        True => case np.proDrop of {
-          False => np.predet_pre ++ np.dem ++ np.s!Full ++ np.mod ++ np.predet_post ;
-          True => np.predet_pre ++ np.dem ++ np.s!Reduced ++ np.mod ++ np.predet_post
-        }
       }
     } ;
   --   NP_Acc_Chunk : NP -> Chunk ;
     NP_Gen_Chunk np = {
-      s = poss_concord_agr!agr_vars!np.i ++BIND++ np.s!Poss ++ np.dem ++ np.mod ++ np.predet_pre ++ np.predet_post
+      s = poss_concord_agr!agr_vars!np.i ++BIND++ np.s!NPoss
     } ;
   --   Numeral_Nom_Chunk : Numeral -> Chunk ;
   --   Numeral_Gen_Chunk : Numeral -> Chunk ;
@@ -85,8 +81,8 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
   -- --- PConj_Chunk  : PConj -> Chunk ;
   -- N_Sg_Chunk n = { s = variants { n.s!Sg!Full ; n.s!Sg!Reduced } } ;
   -- N_Pl_Chunk n = { s = variants { n.s!Pl!Full ; n.s!Pl!Reduced } } ;
-  N_Sg_Chunk n = { s = n.s!Sg!Full } ;
-  N_Pl_Chunk n = { s = n.s!Pl!Full } ;
+  -- N_Sg_Chunk n = { s = n.s!Sg!NFull } ;
+  -- N_Pl_Chunk n = { s = n.s!Pl!NFull } ;
   --
   --   VPS_Chunk    : VPS -> Chunk ;
   --   VPI_Chunk    : VPI -> Chunk ;
@@ -158,37 +154,37 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
       -- } ;
       sbSS : Str -> SS = \s -> ss (SOFT_BIND ++ s) ;
 
-      adv_vars : Str -> Str = \s -> variants {
-        s ;
-        rel_adv_vars s ;
-        poss_adv_vars s
-      } ;
-
-      rel_adv_vars : Str -> Str = \s -> variants {
-        relConc!(Third C1_2 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C1_2 Pl)!RelC ++BIND++ s ;
-        relConc!(Third C1a_2a Sg)!RelC ++BIND++ s ;
-        relConc!(Third C1a_2a Pl)!RelC ++BIND++ s ;
-        relConc!(Third C3_4 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C3_4 Pl)!RelC ++BIND++ s ;
-        relConc!(Third C5_6 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C5_6 Pl)!RelC ++BIND++ s ;
-        relConc!(Third C7_8 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C7_8 Pl)!RelC ++BIND++ s ;
-        relConc!(Third C9_10 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C9_10 Pl)!RelC ++BIND++ s ;
-        relConc!(Third C11_10 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C11_10 Pl)!RelC ++BIND++ s ;
-        relConc!(Third C9_6 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C9_6 Pl)!RelC ++BIND++ s ;
-        relConc!(Third C14 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C15 Sg)!RelC ++BIND++ s ;
-        relConc!(Third C17 Sg)!RelC ++BIND++ s ;
-        relConc!(First Sg)!RelC ++BIND++ s ;
-        relConc!(First Pl)!RelC ++BIND++ s ;
-        relConc!(Second Sg)!RelC ++BIND++ s ;
-        relConc!(Second Pl)!RelC ++BIND++ s
-      } ;
+      -- adv_vars : Str -> Str = \s -> variants {
+      --   s ;
+      --   rel_adv_vars s ;
+      --   poss_adv_vars s
+      -- } ;
+      --
+      -- rel_adv_vars : Str -> Str = \s -> variants {
+      --   relConc!(Third C1_2 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C1_2 Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C1a_2a Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C1a_2a Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C3_4 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C3_4 Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C5_6 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C5_6 Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C7_8 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C7_8 Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C9_10 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C9_10 Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C11_10 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C11_10 Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C9_6 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C9_6 Pl)!RelC ++BIND++ s ;
+      --   relConc!(Third C14 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C15 Sg)!RelC ++BIND++ s ;
+      --   relConc!(Third C17 Sg)!RelC ++BIND++ s ;
+      --   relConc!(First Sg)!RelC ++BIND++ s ;
+      --   relConc!(First Pl)!RelC ++BIND++ s ;
+      --   relConc!(Second Sg)!RelC ++BIND++ s ;
+      --   relConc!(Second Pl)!RelC ++BIND++ s
+      -- } ;
 
       poss_adv_vars : Str -> Str = \s -> variants {
         poss_conc_adv (Third C1_2 Sg) s ;
@@ -308,6 +304,6 @@ concrete PChunkZul of PChunk = CatZul, SymbolZul [Symb] **
         -- }
         adjf = variants { AF1 ; AF2 ; AF3 } ;
       in
-        relAdjAgrLookup!pol!agr ++BIND++ ap.s!adjf ;
+        relAdjPrefLookup!agr ++BIND++ ap.s!adjf ;
 
 }

@@ -6,12 +6,12 @@ cat
   Chunk_AP ;
   Chunk_Adv ;
   Chunk_S ;
+  Chunk_RS ;
   Chunk_QS ;
   Chunk_CN ;
   Chunk_NP ;
   Chunk_N ;
   Chunk_Symb ;
-
   VC ;
 
 fun
@@ -22,6 +22,7 @@ fun
   AP_Chunker : Chunk_AP -> Chunk ;
   Adv_Chunker : Chunk_Adv -> Chunk ;
   S_Chunker : Chunk_S -> Chunk ;
+  RS_Chunker : Chunk_RS -> Chunk ;
   QS_Chunker : Chunk_QS -> Chunk ;
   CN_Chunker : Chunk_CN -> Chunk ;
   NP_Chunker : Chunk_NP -> Chunk ;
@@ -34,6 +35,7 @@ fun
   -- AdV_Chunk : AdV -> Chunk ;
   -- AdN_Chunk : AdN -> Chunk ;
   S_Chunk      : S   -> Chunk_S ;
+  RS_Chunk     : RS -> Chunk_RS ;
   -- SSlash_Chunk : SSlash -> Chunk ;
   QS_Chunk     : QS  -> Chunk_QS ;
   CN_Pl_Chunk  : CN -> Chunk_CN ;

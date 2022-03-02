@@ -4,6 +4,8 @@ abstract NguniChunk =
   NguniGrammar,
   Backward[ComplV2,ComplV3],
   ExtraZulAbs,
+  NounExt,
+  VerbExt,
   -- MonoLexAbs,
   PChunk,
   Symbol - [Symb]
