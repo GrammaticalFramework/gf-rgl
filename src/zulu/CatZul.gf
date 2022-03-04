@@ -103,22 +103,17 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     NP = {
       empty : Str ;
       s : NForm => Str ;
-      -- mod : Str ;
-      -- dem : Str ;
-      -- predet_pre : Str ;
-      -- predet_post : Str ;
       agr : Agr ;
       i : RInit ;
       proDrop : Bool ; -- used when NP is object
       isPron : Bool ; -- used to choose correct between Full/Reduced
       heavy : Bool -- has object/adv/qword
-      -- qdef : QuantDef
     } ;
 
     -- Pronoun
     Pron = { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } ;
 --     DAP
-    Det = { s : Str ; n : Number ; spec : Specificity } ;
+    Det = { s : Str ; n : Number } ;
     Predet = { s : Agr => Str ; hasDem : Bool } ;
 --     Ord = { s : Case => Str } ;
     Num  = { s: Str ; n : Number } ;

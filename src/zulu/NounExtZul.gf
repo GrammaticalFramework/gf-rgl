@@ -30,9 +30,9 @@ concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, Par
       s = \\a => dem_pron!d.dist!a ++ q.s!a ++ d.s
     } ;
 
-    DetNum n = n ** { spec = Spec } ;
+    DetNum n = n ; -- ** { spec = Spec } ;
 
-    NonspecDet n = n ** { spec = Nonspec } ;
+    -- NonspecDet n = n ** { spec = Nonspec } ;
 
     PostdetCN cn postdet det = let
       agr = Third cn.c det.n
