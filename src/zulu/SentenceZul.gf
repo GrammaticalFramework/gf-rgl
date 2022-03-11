@@ -117,15 +117,9 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
-          reqLF = case vp.hasComp of {
-            True => False ;
-            False => True
-          } ;
         in
           subj
           ++ (verb_prefix vp p t np.agr)
-          -- ++ vp.oc
-          -- ++ vp.s!(rform vform_main reqLF)
           ++ vp.s!MainCl!np.agr!p!t
           ++ vp.iadv
           ++ vp.comp

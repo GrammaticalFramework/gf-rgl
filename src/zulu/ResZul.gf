@@ -1211,11 +1211,17 @@ resource ResZul = open Prelude,Predef,ParamX in {
     in
     case vform of {
       VFIndic _ Pos PresTense => subjConcLookup ! agr ! SC ++BIND ;
+      VFIndic _ Pos PastTense => [] ; -- "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ;
+      VFIndic _ Pos RemPastTense => subjConcLookup ! agr ! SC ++BIND++ "be" ++ subjConcLookup ! agr ! SCBe ++BIND ;
+      VFIndic _ Pos FutTense => subjConcLookup ! agr ! SC ++BIND ++ "zobe" ++ subjConcLookup ! agr ! SC ++BIND ;
+      VFIndic _ Pos RemFutTense => subjConcLookup ! agr ! SC ++BIND ++ "yobe" ++ subjConcLookup ! agr ! SC ++BIND ;
+
+      -- might have to add an SCNegBe to the table
       VFIndic _ Neg PresTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ neg2 ;
-      VFIndic _ _ FutTense => "icomp_pref_fut" ;
-      VFIndic _ _ RemFutTense => "icomp_pref_remfut" ;
-      VFIndic _ _ PastTense => "icomp_pref_past" ;
-      VFIndic _ _ RemPastTense => "icomp_pref_rempast"
+      VFIndic _ Neg PastTense => "nga" ; -- neg1 ++ "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFIndic _ Neg RemPastTense => neg1 ++ subjConcLookup ! agr ! SC ++BIND++ "be" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFIndic _ Neg FutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "zobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFIndic _ Neg RemFutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "yobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2
     } ;
 
     -- OBJECT AGREEMENT MORPHEME --
