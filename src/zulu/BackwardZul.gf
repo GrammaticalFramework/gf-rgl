@@ -15,7 +15,11 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           vform = (VFIndic MainCl p t) ;
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           oc = objConc np.agr v2.r v2.syl ; -- [] / m -
-          r = v2.s!(rform (VFIndic MainCl p t) True) ; -- bona / boni
+          longform = case np.heavy of {
+            True => False ;
+            False => True
+          } ;
+          r = v2.s!(rform (VFIndic MainCl p t) longform) ; -- bona / boni
           obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
           True => tp ++ oc ++ r ++ obj ;
@@ -26,7 +30,11 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           rc = relConc vform a v2.r ; -- o- / onga-
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           oc = objConc np.agr v2.r v2.syl ; -- [] / m -
-          r = v2.s!(rform vform True) ; -- bona / boni
+          longform = case np.heavy of {
+            True => False ;
+            False => True
+          } ;
+          r = v2.s!(rform vform longform) ; -- bona / boni
           obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
           True => rc ++ tp ++ oc ++ r ++ obj ;

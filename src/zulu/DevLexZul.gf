@@ -21,8 +21,8 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    mnyama_R = mkRelA "mnyama" ;
 
    -- enumerative stems
-   mbe_E = mkEnumA "mbe" ;
-   nye_E = mkEnumA "nye" ;
+   mbe_E = mkA "mbe" ;
+   nye_E = mkA "nye" ;
 
    -- noun stems
    ntu_1_2_N = mkN "ntu" C1_2 ;
@@ -65,6 +65,7 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    hamb_V = mkV "hamb" ;
    sh_V = mkV "sh" ;
    eq_V = mkV "eq" ;
+   ehl_V = mkV "ehl" ;
    f_V = mkV "f" ;
 
    be_hot_V = mkV "shis" ;

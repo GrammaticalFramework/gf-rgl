@@ -7,7 +7,7 @@ abstract ExtraZulAbs =
 
   fun
     -- PotQS : Pol -> QCl -> QS ;
-    SubjunctS : S -> Utt ;
+    -- SubjunctS : S -> Utt ;
 
     AssocCop : NP -> VP ;
     EqCop : NP -> VP ;
@@ -41,7 +41,7 @@ abstract ExtraZulAbs =
 
     -- InstrAdvNP   : NP -> NP -> NP ; -- questions about your pregnancy
 
-    RelAdv : Adv -> RS ;
+    -- RelAdv : Adv -> RS ;
 
     -- ProgVP : VP -> VP ;
 

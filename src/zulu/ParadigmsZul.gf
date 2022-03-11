@@ -98,9 +98,9 @@ oper
     mkRelA : (mnandi : Str) -> A = \a -> lin A (relAdj a) ; -- relative stem "adjective"
   } ;
 
-  mkEnumA = overload {
-    mkEnumA : (mbe : Str) -> A = \a -> lin A (enumAdj a) ; -- relative stem "adjective"
-  } ;
+  -- mkEnumA = overload {
+  --   mkEnumA : (mbe : Str) -> A = \a -> lin A (enumAdj a) ; -- relative stem "adjective"
+  -- } ;
 
   mkV = overload {
     mkV : (hamb : Str) -> V  = \hamb -> lin V (regVerb hamb) ;

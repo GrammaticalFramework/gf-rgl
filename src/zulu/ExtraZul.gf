@@ -550,7 +550,7 @@ concrete ExtraZul of ExtraZulAbs =
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop p a RC) ; -- o- / onge-
+          rcp = (relConcCop vform a RC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- [] / zoba
           cop_base = "lapha" -- lapha
         in

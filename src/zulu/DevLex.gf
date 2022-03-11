@@ -66,6 +66,7 @@ abstract DevLex = Cat ** {
    sh_V : V ;
    th_V : V ;
    eq_V : V ;
+   ehl_V : V ;
    f_V : V ;
 
    be_hot_V : V ;

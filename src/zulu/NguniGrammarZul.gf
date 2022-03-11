@@ -16,7 +16,7 @@ concrete NguniGrammarZul of NguniGrammar =
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,
-  TempZul [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempZul -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ** open ResZul, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

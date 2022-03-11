@@ -1,8 +1,5 @@
 concrete PChunkZul of PChunk = CatZul, ExtraCatZul, SymbolZul [Symb] **
-  -- ChunkFunctor - [Det_Chunk]
-  --  with (Syntax = SyntaxZul) ** --, (Extensions = ExtensionsZul) **
   open
-    -- SyntaxZul, Prelude, (E = ExtensionsZul),
     Prelude, ResZul, ParamX,
     (R = ResZul), (P = ParadigmsZul) in {
 

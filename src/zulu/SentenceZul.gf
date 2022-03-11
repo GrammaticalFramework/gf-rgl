@@ -148,6 +148,10 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           <_,_,PresTense,_> => True ;
           -- <_,Pos,PerfTense,RC> => False ;
           -- <_,Pos,PerfTense,_> => True ;
+          <_,_,PastTense,RC> => False ;
+          <_,_,PastTense,_> => True ;
+          <_,_,RemPastTense,RC> => False ;
+          <_,_,RemPastTense,_> => True ;
           <_,_,_,_> => False
         } ;
         vform = VFIndic MainCl p t

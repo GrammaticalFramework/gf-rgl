@@ -173,7 +173,7 @@ concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, Par
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop p a RC) ; -- o- / onge-
+          rcp = (relConcCop vform a RC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
           cop_base = loc_n_cop_base np vform
         in
@@ -197,7 +197,7 @@ concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, Par
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop p a RC) ; -- o- / onge-
+          rcp = (relConcCop vform a RC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
           cop_base = locn.s
         in

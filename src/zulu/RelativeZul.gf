@@ -42,6 +42,8 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             vow = case <vp.r,p,t> of {
               <RC,Pos,PresTense> => False ;
               <_,Pos,PresTense> => True ;
+              <RC,_,PastTense> => False ;
+              <_,_,PastTense> => True ;
               <_,_,_> => False
             } ;
             reqLF = case vp.hasComp of {
