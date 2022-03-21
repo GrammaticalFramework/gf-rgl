@@ -85,6 +85,8 @@ param
 
   NPAgr = NotPron | IsPron Person ;
 
+  Animacy = Animate | Inanimate ;
+
 oper
   poss2str : Possession -> Str = \p -> case p of {
     Bare    => [] ;
@@ -129,6 +131,10 @@ param
 -- Prepositions
 param
   PrepType = DirObj | EmptyPrep | OtherPrep ;
+
+
+--------------------------------------------------------------------------------
+-- Adverbs
 
 --------------------------------------------------------------------------------
 -- Verbs

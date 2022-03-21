@@ -19,7 +19,7 @@ lin ask_V2Q = mkV2 "tanya" ;
 ----
 -- B
 
-lin baby_N = mkN "bayi" ;
+lin baby_N = mkN "bayi" Animate ;
 lin back_N = mkN "belakang" ;
 -- lin bad_A = mkA "" ;
 lin bank_N = mkN "bank" ;
@@ -29,7 +29,7 @@ lin beautiful_A = mkA "cantik" ;
 lin beer_N = mkN "bir" ;
 -- lin beg_V2V = mkV2 "" ;
 -- lin belly_N = mkN "" ;
--- lin big_A = mkA "" ;
+lin big_A = mkA "besar" ;
 -- lin bike_N = mkN "" ;
 -- lin bird_N = mkN "" ;
 -- lin bite_V2 = mkV2 "" ;
@@ -208,7 +208,7 @@ lin king_N = mkN "raja" ;
 -- lin language_N = mkN "" ;
 -- lin laugh_V = mkV "" ;
 -- lin leaf_N = mkN "" ;
--- lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
+lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
 -- lin leather_N = mkN "" ;
 -- lin leave_V2 = mkV2 "" ;
 -- lin leg_N = mkN "" ;

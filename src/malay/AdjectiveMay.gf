@@ -39,6 +39,8 @@ concrete AdjectiveMay of Adjective = CatMay ** open ResMay, Prelude in {
   -- AdjOrd ord = ord ** {
   --   compar = []
   --   } ;
+  -- AdjOrd : Ord -> AP  =
+  AdjOrd ord = ord ;
 
 -- Sentence and question complements defined for all adjectival
 -- phrases, although the semantics is only clear for some adjectives.

@@ -23,3 +23,6 @@ LangMay: sekiranya aku berjalan , kucing akan berjalan
 Lang: ExtAdvS (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV walk_V)))) (UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V)))
 LangEng: when I walk , the cat will walk
 LangMay: kalau aku berjalan , kucing akan berjalan
+
+---
+

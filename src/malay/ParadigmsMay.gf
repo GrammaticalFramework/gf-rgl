@@ -93,6 +93,7 @@ oper
 
   mkN = overload {
     mkN : Str -> N = \s -> lin N (mkNoun s) ;
+    mkN : Str -> Animacy -> N = \s,a -> lin N (mkNoun s) ;
     } ;
 
 

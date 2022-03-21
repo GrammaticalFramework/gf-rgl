@@ -9,3 +9,31 @@ LangMay: lima kucing ini
 Lang: DetCN (DetQuant (PossPron i_Pron) (NumCard (NumNumeral (num (pot2as3 (pot2 (pot0 n7))))))) (UseN cat_N)
 LangEng: my seven hundred cats
 LangMay: tujuh ratus kucing aku
+
+Lang: AdjCN (AdjOrd (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) (UseN cat_N)
+LangEng: second cat
+LangMay: kucing kedua
+
+Lang: DetQuantOrd IndefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))
+LangEng: second
+LangMay: kedua
+
+Lang: UttNP (DetCN (DetQuantOrd (PossPron i_Pron) NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) (UseN cat_N))
+LangEng: my second cat
+LangMay: kucing kedua aku
+
+Lang: UttNP (DetCN (DetQuantOrd (PossPron i_Pron) (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))) (UseN cat_N))
+LangEng: my two second cats
+LangMay: dua kucing kedua aku
+
+Lang: CountNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (DetCN (DetQuant (PossPron i_Pron) NumPl) (UseN cat_N))
+LangEng: two of my cats
+LangMay: kedua-dua kucing aku
+
+Lang: MassNP (AdjCN (AdjOrd (OrdNumeralSuperl (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))) big_A)) (UseN cat_N))
+LangEng: third biggest cat
+LangMay: kucing ketiga terbesar
+
+Lang: MassNP (AdjCN (AdjOrd (OrdSuperl big_A)) (UseN cat_N))
+LangEng: biggest cat
+LangMay: kucing terbesar

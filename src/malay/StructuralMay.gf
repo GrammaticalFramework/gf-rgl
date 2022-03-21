@@ -110,7 +110,18 @@ lin in_Prep = mkPrep "di" ;
 -- lin part_Prep = mkPrep ;
 lin possess_Prep = mkPrep [] ; -- TODO check Mintz p. 39-40, 2.2.1.2
 -- lin through_Prep = mkPrep ;
-lin to_Prep = mkPrep "ke" ;
+-- lin to_Prep = mkPrep "ke"  ;
+lin to_Prep =
+  let ke : Preposition = mkPrep "ke";
+      kepada : Preposition = mkPrep "kepada" ;
+  in ke ** {
+    obj = kepada.obj
+  } ;
+
+-- lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
+--   s = \\_ => "ada" ;
+--   passive = "diadakan" ;
+-- } ;
 -- lin under_Prep = mkPrep "" ;
 lin with_Prep = mkPrep "dengan" ;
 -- lin without_Prep = mkPrep "" ;

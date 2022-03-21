@@ -81,6 +81,9 @@ oper
     isPre : Bool ;
   } ;
 
+  linDet : Determiner -> Str = \det -> det.pr ++ det.s ;
+
+-- add field in determiner for kedua-dua numbers
   Determiner : Type = Quant ** {
     pr : Str ; -- prefix for numbers
     n : NumType ; -- number as in 5 (noun in singular), Sg or Pl
