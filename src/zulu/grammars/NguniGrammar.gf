@@ -16,5 +16,5 @@ abstract NguniGrammar =
   -- Idiom,
   Tense [PPos, PNeg],
   -- Transfer ,
-  TempAbs -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempExt -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ;
