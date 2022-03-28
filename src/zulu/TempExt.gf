@@ -1,4 +1,4 @@
-abstract TempAbs = Cat ** {
+abstract TempExt = Cat ** {
 
   fun
     TPresTemp : Temp ;

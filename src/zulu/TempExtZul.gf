@@ -1,4 +1,4 @@
-concrete TempZul of TempAbs = CatZul ** open ResZul in {
+concrete TempExtZul of TempExt = CatZul ** open ResZul in {
 
   lin
     TPresTemp = { s = [] ; t = PresTense } ;
