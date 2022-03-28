@@ -15,7 +15,6 @@ concrete PChunkZul of PChunk = CatZul, ExtraCatZul, SymbolZul [Symb] **
     PlusChunk c cs = cc2 c cs ;
     ChunkPhr c = ss ("*" ++ c.s) | c ;
 
-    AP_Chunker c = c ;
     Adv_Chunker c = c ;
     S_Chunker c = c ;
     RS_Chunker c = c ;
@@ -27,7 +26,6 @@ concrete PChunkZul of PChunk = CatZul, ExtraCatZul, SymbolZul [Symb] **
     Postdet_Chunker c = c ;
     Symb_Chunker c = c ;
 
-    AP_Chunk ap = { s = ap_vars ap } ;
     S_Chunk s = { s = s.s } ;
     RS_Chunk rs = { s = rs.s!agr_vars } ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;

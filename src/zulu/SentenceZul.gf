@@ -50,7 +50,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!impTense } ;
       -- VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
       AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!impTense } ;
-      _ => {s = \\pol => (cl_with_verb_predicate np vp).s!pol!impTense }
+      _ => {s = \\pol => (imp_verb_predicate np vp).s!pol!impTense }
     } ;
 
 --     SlashVP np vp =
@@ -111,6 +111,46 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           vp.s!MainCl!np.agr!p!t
           ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
+
+    imp_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
+      s = \\p,t =>
+        let
+          subj = np.s!NFull ;
+          vform_main = VFIndic MainCl p t ;
+        in
+          subj
+          ++ (imp_verb_prefix vp p t np.agr)
+          ++ vp.s!MainCl!np.agr!p!t
+          ++ vp.iadv
+          ++ vp.comp
+          ++ vp.advs
+    } ;
+
+    imp_verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
+      let
+        -- vow = case <vp.hasComp,vp.r,p,t> of {
+        vow = case <vp.hasComp,p,t,vp.r> of {
+          <False,Pos,PresTense,RC> => False ; -- force the compiler to understand the table
+          <False,Pos,PresTense,_> => False ; -- long form ya
+
+          <_,_,PresTense,RC> => False ;
+          <_,_,PresTense,_> => True ;
+          -- <_,Pos,PerfTense,RC> => False ;
+          -- <_,Pos,PerfTense,_> => True ;
+          <_,_,PastTense,RC> => False ;
+          <_,_,PastTense,_> => True ;
+          <_,_,RemPastTense,RC> => False ;
+          <_,_,RemPastTense,_> => True ;
+          <_,_,_,_> => False
+        } ;
+        vform = VFIndic MainCl p t
+      in
+          (negPref vform)
+       -- ++ (exclSePref vform_main)
+       ++ (subjConc vform agr vow)
+       -- ++ (negPref2 vform_main)
+       -- ++ (tensePref vform)
+    ;
 
     cl_with_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
       s = \\p,t =>
