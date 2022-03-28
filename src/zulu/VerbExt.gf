@@ -1,4 +1,4 @@
-abstract VerbExt = Cat,ExtraCatZulAbs ** {
+abstract VerbExt = Cat,CatExt ** {
 
   fun
 

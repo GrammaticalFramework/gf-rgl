@@ -1,6 +1,6 @@
-abstract ExtraZulAbs =
+abstract ExtraExt =
   Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
-  ExtraCatZulAbs ** {
+  CatExt ** {
 
   fun
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"

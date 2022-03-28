@@ -1,4 +1,4 @@
-concrete VerbExtZul of VerbExt = CatZul,ExtraCatZul ** open ResZul, Prelude, ParamX in {
+concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, ParamX in {
 
   lin
 

@@ -3,7 +3,7 @@
 abstract NguniChunk =
   NguniGrammar,
   Backward[ComplV2,ComplV3],
-  ExtraZulAbs,
+  ExtraExt,
   NounExt,
   VerbExt,
   -- MonoLexAbs,

@@ -1,4 +1,4 @@
-abstract ExtraCatZulAbs = {
+abstract CatExt = {
 
   cat
     Loc ;

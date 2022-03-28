@@ -1,4 +1,4 @@
-concrete NounExtZul of NounExt = CatZul,ExtraCatZul ** open ResZul, Prelude, ParamX in {
+concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, ParamX in {
 
   lin
 

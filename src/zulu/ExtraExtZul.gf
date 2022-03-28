@@ -1,6 +1,6 @@
-concrete ExtraZul of ExtraZulAbs =
+concrete ExtraExtZul of ExtraExt =
   CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
-  ExtraCatZul
+  CatExtZul
   ** open ResZul,Prelude,ParamX in {
 
   lin

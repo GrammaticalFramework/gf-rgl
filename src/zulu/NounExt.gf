@@ -1,4 +1,4 @@
-abstract NounExt = Cat,ExtraCatZulAbs ** {
+abstract NounExt = Cat,CatExt ** {
 
   fun
 

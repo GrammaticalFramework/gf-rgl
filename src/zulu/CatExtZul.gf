@@ -1,4 +1,4 @@
-concrete ExtraCatZul of ExtraCatZulAbs = open ResZul,Prelude,ParamX in {
+concrete CatExtZul of CatExt = open ResZul,Prelude,ParamX in {
 
   lincat
     Loc = { s : CType => Agr => Polarity => BasicTense => Str } ;
