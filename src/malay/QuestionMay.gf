@@ -21,7 +21,8 @@ lin
     -- if isPre is True, then: "berapa kucing"
     s = case iquant.isPre of { False => iquant.s ; True => [] };
     -- if isPre is False, use s: "kucing berapa"
-    n = num.n
+    n = num.n ;
+    count = "" ;
   } ;
 
   -- : IP -> ClSlash -> QCl ; -- whom does John love

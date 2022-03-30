@@ -68,7 +68,8 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
     DetQuant quant num = quant ** {
       pr = num.s ; -- if it's not a number or digit, num.s is empty
       s = quant.s ;
-      n = num.n
+      n = num.n ;
+      count = "ke" ++ BIND ++ num.s ++ BIND ++ "-" ++ BIND ++ num.s;
       } ;
 
   -- : Quant -> Num -> Ord -> Det ;
@@ -76,6 +77,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
       pr = num.s ;
       n = num.n ;
       s = ord.s ++ quant.s ;
+      count = "" ;
     } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
@@ -208,7 +210,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   -- : Det -> NP -> NP ;
   CountNP det np = np **
     {
-      s = \\pos => "ke" ++ BIND ++ linDet det ++ BIND ++ "-" ++ BIND ++ linDet det ++ np.s ! pos;
+      s = \\pos => det.count ++ np.s ! pos;
     } ; -- Nonsense for DefArt or IndefArt
 
 

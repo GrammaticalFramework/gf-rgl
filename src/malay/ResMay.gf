@@ -87,6 +87,7 @@ oper
   Determiner : Type = Quant ** {
     pr : Str ; -- prefix for numbers
     n : NumType ; -- number as in 5 (noun in singular), Sg or Pl
+    count: Str ;
     } ;
 
   CardNum : Type = {
@@ -130,16 +131,17 @@ oper
     sp = \\_ => str
     } ;
 
-  mkDet : Str -> Number -> Determiner = \str, num -> mkQuant str ** {
+  mkDet : Str -> Str -> Number -> Determiner = \cnt, str, num -> mkQuant str ** {
     pr = "" ;
     n = NoNum num ;
+    count = "" ;
   } ;
 
-  mkIdet : Str -> Str -> Number -> Bool -> Determiner = \str, standalone, num, isPre -> mkDet str num ** {
+  mkIdet : Str -> Str -> Str -> Number -> Bool -> Determiner = \cnt, str, standalone, num, isPre -> mkDet cnt str num ** {
     pr = case isPre of {True => str ; False => [] } ;
     -- if isPre is True, then: "berapa kucing"
     s = case isPre of { False => str ; True => [] };
-
+    count = cnt ;
     sp = \\_ => standalone ;
   } ;
 
