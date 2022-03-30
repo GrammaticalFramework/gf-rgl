@@ -28,7 +28,10 @@ lin
 --2 Imperatives
   -- : VP -> Imp ;
   ImpVP vp = {
-    s = \\num,pol => vp.s ! Root ! pol
+    s = \\num,pol => case pol of {
+      Neg => "jangan" ++ vp.s ! Root ! Pos;
+      Pos => vp.s ! Root ! Pos
+    }
   } ;
 
  {-
