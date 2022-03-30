@@ -94,7 +94,7 @@ lin come_V = mkV "datang" ;
 -- lin do_V2 = lin V2 egin_V ;
 -- lin doctor_N = mkN "" ;
 lin dog_N = mkN "anjing" ;
--- lin door_N = mkN "" ;
+lin door_N = mkN "pintu" ;
 lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** {
   s = \\_ => "minum" ;
 };
@@ -263,7 +263,7 @@ lin now_Adv = mkAdv "sekarang" ;
 
 -- lin oil_N = mkN "" ;
 lin old_A = mkA "tua" ;
--- lin open_V2 = mkV2 "" ;
+lin open_V2 = mkV2 "buka" ;
 lin paint_V2A = mkV2 "cat" ;
 -- lin paper_N = mkN "" ;
 -- lin paris_PN = mkPN "Paris" ;
@@ -422,7 +422,7 @@ lin woman_N = mkN "perempuan" ;
 -- lin wonder_VQ = mkVQ "" ;
 -- lin wood_N = mkN "" ;
 -- lin worm_N = mkN "" ;
--- lin write_V2 = mkV2 "" ;
+lin write_V2 = mkV2 "tulis" ;
 -- lin year_N = mkN "" ;
 -- lin yellow_A = mkA "" ;
 lin young_A = mkA "muda" ;

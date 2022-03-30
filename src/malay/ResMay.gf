@@ -275,6 +275,7 @@ oper
     s = \\vf,pol => nounneg pol ++ s ;
     } ;
 
+-- https://www.reddit.com/r/indonesian/comments/gsizsv/when_to_use_tidak_bukan_jangan_belum/
 
   verbneg : Polarity -> Str = \pol -> case pol of {
     Neg => "tidak" ; -- or "tak"?
@@ -285,6 +286,11 @@ oper
     Neg => "bukan" ;
     Pos => []
     } ;
+
+  impneg : Polarity -> Str = \pol -> case pol of {
+    Neg => "jangan" ;
+    Pos => []
+  } ;
 --------------------------------------------------------------------------------
 -- Cl, S
 

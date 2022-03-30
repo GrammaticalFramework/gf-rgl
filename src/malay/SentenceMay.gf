@@ -24,6 +24,13 @@ lin
   -- : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
   SlashPrep cl prep = cl ** {c2 = prep} ;
 
+
+--2 Imperatives
+  -- : VP -> Imp ;
+  ImpVP vp = {
+    s = \\num,pol => vp.s ! Root ! pol
+  } ;
+
  {-
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
   SlashVS np vs ss = {} ;
@@ -34,7 +41,7 @@ lin
 
 --2 Imperatives
   -- : VP -> Imp ;
-  ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
+  -- ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
 
 --2 Embedded sentences
 

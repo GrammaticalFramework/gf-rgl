@@ -106,6 +106,8 @@ LangMay: sekiranya tidak hujan sekarang , aku akan berjalan
 ----------------------------------------
 -- Imperative
 
-
+Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a open_V2) (DetCN (DetQuant DefArt NumSg) (UseN door_N))))
+LangEng: open the door
+LangMay: buka pintu
 ----------------------------------------
 -- Questions
