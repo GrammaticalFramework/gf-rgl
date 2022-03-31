@@ -143,7 +143,7 @@ concrete StructuralZul of Structural = CatZul **
   -- Utt
   --   no_Utt = ss "no" ;
   --   yes_Utt = ss "yes" ;
-  --   language_title_Utt = ss "Zulu" ;
+    language_title_Utt = ss "Zulu" ;
 
   -- Voc
   --   please_Voc = ss "please" ;

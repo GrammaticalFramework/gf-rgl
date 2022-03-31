@@ -21,7 +21,7 @@ fun
   PlusChunk : Chunk -> Chunks -> Chunks ;
   ChunkPhr : Chunks -> Phr ;
 
-  AP_Chunker : Chunk_AP -> Chunk ;
+  -- AP_Chunker : Chunk_AP -> Chunk ;
   Adv_Chunker : Chunk_Adv -> Chunk ;
   S_Chunker : Chunk_S -> Chunk ;
   RS_Chunker : Chunk_RS -> Chunk ;
@@ -33,7 +33,7 @@ fun
   Postdet_Chunker : Chunk_Postdet -> Chunk ;
   Symb_Chunker : Chunk_Symb -> Chunk ;
 
-  AP_Chunk  : AP  -> Chunk_AP ;
+  -- AP_Chunk  : AP  -> Chunk_AP ;
   Adv_Chunk : Adv -> Chunk_Adv ;
   S_Chunk      : S   -> Chunk_S ;
   RS_Chunk     : RS -> Chunk_RS ;
@@ -44,8 +44,8 @@ fun
   NP_Gen_Chunk : NP -> Chunk_NP ;
   Predet_Chunk : Predet -> Chunk_Predet ;
   Postdet_Chunk : Postdet -> Chunk_Postdet ;
-  N_Sg_Chunk : N -> Chunk_N ;
-  N_Pl_Chunk : N -> Chunk_N ;
+  -- N_Sg_Chunk : N -> Chunk_N ;
+  -- N_Pl_Chunk : N -> Chunk_N ;
 
 -- for unknown words that are not names
 

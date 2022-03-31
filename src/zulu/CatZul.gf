@@ -63,30 +63,30 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       -- hasAux : Bool
     } ;
 
-    VPSlash = {
-      s : RForm => Str ;
-      oc : Str ;
-      comp : Str ;
-      hasComp : Bool ;
-      r : RInit ;
-      syl : Syl ;
-      asp : Aspect ;
-      asp_pref : VForm => Str ;
-      vptype : VPType ;
-      comp_agr : Agr ;
-      ap_comp : AForm => Str ;
-      aux_root : Str ;
-      hasAux : Bool
-    } ;
+    -- VPSlash = {
+    --   s : RForm => Str ;
+    --   oc : Str ;
+    --   comp : Str ;
+    --   hasComp : Bool ;
+    --   r : RInit ;
+    --   syl : Syl ;
+    --   asp : Aspect ;
+    --   asp_pref : VForm => Str ;
+    --   vptype : VPType ;
+    --   comp_agr : Agr ;
+    --   ap_comp : AForm => Str ;
+    --   aux_root : Str ;
+    --   hasAux : Bool
+    -- } ;
 
-    Comp = {
-      s : AForm => Str ;
-      r : RInit ;
-      agr : Agr ;
-      asp : Aspect ;
-      asp_pref : VForm => Str ;
-      comptype : VPType
-    } ;
+    -- Comp = {
+    --   s : AForm => Str ;
+    --   r : RInit ;
+    --   agr : Agr ;
+    --   asp : Aspect ;
+    --   asp_pref : VForm => Str ;
+    --   comptype : VPType
+    -- } ;
 
 -- Adjective
 

@@ -1412,7 +1412,7 @@ abstract MonoLex = Cat ** {
    hlobo_14_N : N ;
    hlobo_1_2_N : N ;
    hlobo_3_4_N : N ;
-   hlobo_5_N : N ;
+   -- hlobo_5_N : N ;
    hlobo_5_6_N : N ;
    hlobo_7_8_N : N ;
    hlobo_9_10_N : N ;
@@ -1454,7 +1454,7 @@ abstract MonoLex = Cat ** {
    hlukuzo_5_6_N : N ;
    hlule_5_6_N : N ;
    hlungu_14_N : N ;
-   hlungu_14_10_N : N ;
+   -- hlungu_14_10_N : N ;
    hlungu_5_6_N : N ;
    hlungu_7_8_N : N ;
    hlungwana_14_N : N ;
@@ -1661,7 +1661,7 @@ abstract MonoLex = Cat ** {
    khawukhawu_7_8_N : N ;
    khawuko_3_4_N : N ;
    khawulo_3_4_N : N ;
-   khaya_3_N : N ;
+   -- khaya_3_N : N ;
    khaya_3_4_N : N ;
    khaya_5_6_N : N ;
    khaza_6_N : N ;
@@ -3652,7 +3652,7 @@ abstract MonoLex = Cat ** {
    twa_11_10_N : N ;
    twayi_11_N : N ;
    twetwe_5_N : N ;
-   ulu_1_6_N : N ;
+   -- ulu_1_6_N : N ;
    ulu_5_N : N ;
    ulu_7_N : N ;
    ulu_7_8_N : N ;

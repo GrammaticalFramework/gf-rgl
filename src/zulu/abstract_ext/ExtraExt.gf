@@ -9,8 +9,8 @@ abstract ExtraExt =
     -- PotQS : Pol -> QCl -> QS ;
     -- SubjunctS : S -> Utt ;
 
-    AssocCop : NP -> VP ;
-    EqCop : NP -> VP ;
+    -- AssocCop : NP -> VP ;
+    -- EqCop : NP -> VP ;
 
     -- UsePNPl : PN -> NP ;
     -- PNAsCN : PN -> CN ;
@@ -34,7 +34,7 @@ abstract ExtraExt =
     LocNPAdv : NP -> Adv ;   -- emahoreni
     LocAdvNPAdv : Adv -> NP -> Adv ;   -- cishe emahoreni
     KwaNPAdv : NP -> Adv ; -- kwa-Laurette
-    KwaAdvNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
+    -- KwaAdvNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
     KuNPAdv : NP -> Adv ; -- kwixesha [elingangeyure enye egqithileyo]
     KuAdvNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
     NaNPAdv : NP -> Adv ;
@@ -57,8 +57,8 @@ abstract ExtraExt =
     -- all_pre_QuantStem : QuantStem ;
     -- all_pre_Predet : Predet ;
 
-    painful_RelStem : RelStem ;
-    sharp_RelStem : RelStem ;
+    -- painful_RelStem : RelStem ;
+    -- sharp_RelStem : RelStem ;
 
     -- TPerfPast : Temp ;
     -- TPastPast : Temp ;
@@ -99,11 +99,11 @@ abstract ExtraExt =
     at_which_IAdv : NP -> IAdv ;
     what_IAdv : IAdv ;
 
-    about_NP_Adv : NP -> Adv ;
+    -- about_NP_Adv : NP -> Adv ;
 
     how_many_IAdj : IAdj ;
 
-    IAdjIAdv : NP -> IAdj -> IAdv ;
+    -- IAdjIAdv : NP -> IAdj -> IAdv ;
 
     how_IComp : IComp ; -- -njani
     where_IComp : IComp ; -- -phi
