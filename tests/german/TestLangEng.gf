@@ -4,7 +4,7 @@
 concrete TestLangEng of TestLang = 
   GrammarEng
   , TestLexiconEng
---  , ConstructionEng
+  , ConstructionEng
   ** open (R=ResEng), (P=ParadigmsEng), Prelude, (E=ExtendEng)
   in {
 

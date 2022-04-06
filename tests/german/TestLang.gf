@@ -1,7 +1,7 @@
 abstract TestLang = 
   Grammar, 
   TestLexiconGerAbs
---  , Construction
+  , Construction
   ** {    
   flags startcat=Phr ;
 
