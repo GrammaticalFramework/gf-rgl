@@ -1,9 +1,9 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
-concrete LexiconIta of Lexicon = CatIta ** open 
+concrete LexiconIta of Lexicon = CatIta ** open
   MorphoIta, ParadigmsIta, BeschIta, IrregIta in {
 
-flags 
+flags
   optimize=values ; coding=utf8 ;
 
 lin
@@ -84,8 +84,9 @@ lin
   girl_N = regN "ragazza" ;
   glove_N = regN "guanto" ;
   gold_N = regN "oro" ;
-  good_A = prefA (mkADeg (regA "buono") 
-    (mkA "migliore" "migliore" "migliori" "migliori" "meglio")) ;
+  good_A = prefA
+            (mkA (mkA "buono" "buona" "buoni" "buone" "bene")
+                 (mkA "migliore" "migliore" "migliori" "migliori" "meglio")) ;
   go_V = essereV (verboV (andare_14 "andare")) ;
   green_A = regADeg "verde" ;
   harbour_N = regN "porto" ;
@@ -118,7 +119,7 @@ lin
   love_N = regN "amore" ;
   love_V2 = dirV2 (regV "amare") ;
   man_N = mkN "uomo" "uomini" masculine ;
-  married_A2 = mkA2 (regA "sposato") (mkPrep "con");--ParadigmsIta.dative 
+  married_A2 = mkA2 (regA "sposato") (mkPrep "con");--ParadigmsIta.dative
   meat_N = femN (regN "carne") ;
   milk_N = regN "latte" ;
   moon_N = regN "luna" ;
@@ -131,7 +132,7 @@ lin
   oil_N = regN "olio" ;
   old_A =  prefA (regADeg "vecchio") ;
   open_V2 = dirV2 (verboV (aprire_102 "aprire")) ;
-  paint_V2A = 
+  paint_V2A =
     mkV2A (verboV (cingere_31 "dipingere")) ParadigmsIta.accusative ParadigmsIta.accusative; ---- has some other forms, but this is ok for most uses
   paper_N = regN "carta" ;
   paris_PN = mkPN "Parigi" masculine ;

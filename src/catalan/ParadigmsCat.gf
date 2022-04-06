@@ -334,25 +334,31 @@ oper
 
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
-  mk5A a b c d e =
-    compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
-  mk2A a b = compADeg {s = \\_ => (mkAdj2Reg a b).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  mk5A a b c d e = compADeg (mkAdj a b c d e) ;
+  mk2A a b = compADeg (mkAdj2Reg a b) ;
+  regA a = compADeg (mkAdjReg a) ;
   prefA = overload {
     prefA : A -> A = \a -> a ** {isPre = True} ;
     prefA : Str -> Str -> A = \bo,bon ->
-        compADeg (lin A {s = \\_ => (adjBo bo bon).s ; isPre = True ; copTyp = serCopula}) ;
+      let adj : A = compADeg (adjBo bo bon (bon+"ament")) ; -- not sure if there is any actual adjective that behaves like this /IL
+       in adj ** {isPre = True} ;
+    prefA : (bo,bon,be : Str) -> A = \bo,bon,be ->
+      let adj : A = compADeg (adjBo bo bon be) ;
+       in adj ** {isPre = True} ;
   } ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
-  mkADeg a b =
-   {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ;
-    isPre = a.isPre ; copTyp = serCopula ; lock_A = <>} ;
-  compADeg a =
-    {s = table {Posit => a.s ! Posit ; _ => \\f => "més" ++ a.s ! Posit ! f} ;
-     isPre = a.isPre ; copTyp = a.copTyp ;
-     lock_A = <>} ;
+  mkADeg a b = a ** {
+    compar = \\num => b.s ! AF Masc num ; -- millor, millors
+    isDeg = True } ;
+  compADeg a = lin A
+    {s = a.s ;
+     compar = \\_ => nonExist ;
+     isPre = False ;       -- default values
+     copTyp = serCopula ;
+     isDeg = False
+     } ;
   regADeg a = compADeg (regA a) ;
 
   mkAdv x = ss x ** {lock_Adv = <>} ;
@@ -440,7 +446,7 @@ oper
 
   special_ppV ve pa = {
     s = table {
-      VPart g n => (regA pa).s ! Posit ! genNum2Aform g n ;
+      VPart g n => (regA pa).s ! genNum2Aform g n ;
       p => ve.s ! p
       } ;
     lock_V = <> ;
@@ -518,7 +524,7 @@ oper
   mk2A : (lleig,lletja : Str) -> A ;
   regA : Str -> A ;
   mkADeg : A -> A -> A ;
-  compADeg : A -> A ;
+  compADeg : Adj -> A ;
   regADeg : Str -> A ;
   prefA : overload {
     prefA : A -> A ; -- gran

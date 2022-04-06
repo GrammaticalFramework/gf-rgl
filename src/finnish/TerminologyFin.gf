@@ -91,7 +91,7 @@ lin
   nounHeading n = ss ((snoun2nounSep n).s ! NCase Sg Nom) ;
   nounPluralHeading n = ss ((snoun2nounSep n).s ! NCase Pl Nom) ;
 
-  formGF_N = mkN "muoto" ;
+  formGr_N = mkN "muoto" ;
   exampleGr_N = mkN "esimerkki" ;
 
 }

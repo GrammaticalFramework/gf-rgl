@@ -39,7 +39,6 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 --   L |4  4  4  4  7      10    10
 --   (V = N)
   
-  
 --   oper adj11forms : Type = { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 : Str };
 -- 
 --   oper Adj : Type = {
@@ -113,10 +112,26 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
       s1=stem + "y"; s2=stem + "ego"; s3=stem + "emu"; s4=stem + "ym";
       s5=stem + "e"; s6=stem + "a"; s7=stem + "ej"; s8=stem + "ą";
       s9=form9; s10=stem + "ych"; s11=stem + "ymi"
-    };
+    };  
     
   oper model_comp : Str -> adj11forms = \comp -> model4 comp ((Predef.tk 2 comp)+"i");
-  
+
+  oper mkAForms : adj11forms -> Str -> Adj =
+      \pos, comp -> {
+          pos = pos;
+          comp = model_comp comp;
+          super = model_comp ("naj"+comp) ;
+          advpos = nonExist;
+          advcomp = nonExist;
+          advsuper = nonExist;
+        };
+
+  oper mkA = overload {
+    mkA : adj11forms -> Adj =
+      \pos -> mkAForms pos ("bardziej" ++ pos.s1) ;
+    mkA : adj11forms -> Str -> Adj = mkAForms ;
+    } ;
+
   oper guess_model : Str -> adj11forms = \form ->
     case form of {
       x + ("pi"|"bi"|"fi"|"wi"|"mi"|"si"|"zi"|"ci"|"dzi"|"ni") => model1 form;

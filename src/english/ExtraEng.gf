@@ -1,11 +1,11 @@
-concrete ExtraEng of ExtraEngAbs = CatEng ** 
+concrete ExtraEng of ExtraEngAbs = CatEng **
   open ResEng, Coordination, Prelude, MorphoEng, ParadigmsEng in {
 
   lin
     GenNP np = {s = \\_,_ => np.s ! npGen ; sp = \\_,_,_,_ => np.s ! npGen; isDef = True} ;
     GenIP ip = {s = \\_ => ip.s ! NCase Gen} ;
     GenRP nu cn = {
-      s = \\c => "whose" ++ nu.s ! False ! Nom ++ 
+      s = \\c => "whose" ++ nu.s ! False ! Nom ++
                  case c of {
                    RC _ (NCase Gen) => cn.s ! nu.n ! Gen ;
                    _ => cn.s ! nu.n ! Nom
@@ -14,12 +14,12 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
       } ;
 
     PiedPipingRelSlash rp slash = {
-      s = \\t,a,p,agr => 
+      s = \\t,a,p,agr =>
           slash.c2 ++ rp.s ! RPrep (fromAgr agr).g ++ slash.s ! t ! a ! p ! oDir ;
       c = NPAcc
       } ;
     StrandRelSlash rp slash = {
-      s = \\t,a,p,ag => 
+      s = \\t,a,p,ag =>
         rp.s ! RC (fromAgr ag).g NPAcc ++ slash.s ! t ! a ! p ! oDir ++ slash.c2 ;
       c = NPAcc
       } ;
@@ -28,11 +28,11 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
       c = NPAcc
       } ;
 
-    PiedPipingQuestSlash ip slash = 
+    PiedPipingQuestSlash ip slash =
       mkQuestion (ss (slash.c2 ++ ip.s ! NPAcc)) slash ;
 
-    StrandQuestSlash ip slash = 
-      {s = \\t,a,b,q => 
+    StrandQuestSlash ip slash =
+      {s = \\t,a,b,q =>
          (mkQuestion (ss (ip.s ! NPAcc)) slash).s ! t ! a ! b ! q ++ slash.c2
       };
 
@@ -52,7 +52,7 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
           }
       } ;
     ConjVPI = conjunctDistrTable2 VVType Agr ;
-    ComplVPIVV vv vpi = 
+    ComplVPIVV vv vpi =
       insertObj (\\a => vpi.s ! vv.typ ! a) (predVV vv) ;
 
   lin
@@ -73,8 +73,8 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
     PredVPS np vpi = {s = np.s ! npNom ++ vpi.s ! np.a} ;
 
     MkVPS t p vp = {
-      s = \\a => 
-            let 
+      s = \\a =>
+            let
               verb = vp.s ! t.t ! t.a ! p.p ! oDir ! a ;
               verbf = verb.aux ++ verb.adv ++ verb.fin ++ verb.inf ;
             in t.s ++ p.s ++ vp.ad ! a ++ verbf ++ vp.p ++ vp.s2 ! a ++ vp.ext
@@ -110,7 +110,7 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
     } ;
 
    may_VV = lin VV {
-     s = table { 
+     s = table {
       VVF VInf => ["be allowed to"] ;
       VVF VPres => "may" ;
       VVF VPPart => ["been allowed to"] ;
@@ -124,21 +124,21 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
     } ;
 
    shall_VV = lin VV {
-     s = table { 
+     s = table {
       VVF VInf => ["be obliged to"] ; ---
       VVF VPres => "shall" ;
       VVF VPPart => ["been obliged to"] ;
       VVF VPresPart => ["being obliged to"] ;
       VVF VPast => "should" ; --# notpresent
       VVPastNeg => "shouldn't" ; --# notpresent
-      VVPresNeg => "shan't" 
+      VVPresNeg => "shan't"
       } ;
     p = [] ;
     typ = VVAux
     } ;
 
    ought_VV = lin VV {
-     s = table { 
+     s = table {
       VVF VInf => ["be obliged to"] ; ---
       VVF VPres => "ought to" ;
       VVF VPPart => ["been obliged to"] ;
@@ -152,37 +152,37 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
     } ;
 
    used_VV = lin VV {
-     s = table { 
+     s = table {
       VVF VInf => Predef.nonExist ; ---
       VVF VPres => Predef.nonExist ;
       VVF VPPart => ["used to"] ;
       VVF VPresPart => ["being used to"] ;
       VVF VPast => "used to" ; --# notpresent
       VVPastNeg => "used not to" ; --# notpresent
-      VVPresNeg => Predef.nonExist 
+      VVPresNeg => Predef.nonExist
       } ;
     p = [] ;
     typ = VVAux
     } ;
 
 
-   NominalizeVPSlashNP vpslash np = 
+   NominalizeVPSlashNP vpslash np =
      let vp : ResEng.VP = insertObjPre (\\_ => vpslash.c2 ++ np.s ! NPAcc) vpslash ;
          a = AgP3Sg Neutr
-     in 
-     lin NP {s = \\_ => vp.ad ! a ++ vp.prp ++ vp.s2 ! a ; a = a} ;  
+     in
+     lin NP {s = \\_ => vp.ad ! a ++ vp.prp ++ vp.s2 ! a ; a = a} ;
 
 lin
-  UncNeg = {s = [] ; p = CNeg False} ; 
+  UncNeg = {s = [] ; p = CNeg False} ;
 
-  oper passVPSlash : VPSlash -> Str -> ResEng.VP = 
-   \vps,ag -> 
-    let 
+  oper passVPSlash : VPSlash -> Str -> ResEng.VP =
+   \vps,ag ->
+    let
       be = predAux auxBe ;
       ppt = vps.ptp
     in {
     s = be.s ;
-    p = [] ; 
+    p = [] ;
     prp = be.prp ;
     ptp = be.ptp ;
     inf = be.inf ;
@@ -192,7 +192,7 @@ lin
     ext = vps.ext
     } ;
 
-  lin 
+  lin
     PassVPSlash vps = passVPSlash vps [] ;
     PassAgentVPSlash vps np = passVPSlash vps ("by" ++ np.s ! NPAcc) ;
 
@@ -202,8 +202,8 @@ lin
      } ;
 
    --- AR 22/5/2013
-   ExistsNP np = 
-      mkClause "there" (agrP3 (fromAgr np.a).n) 
+   ExistsNP np =
+      mkClause "there" (agrP3 (fromAgr np.a).n)
         (insertObj (\\_ => np.s ! NPAcc) (predV (regV "exist"))) ;
 
    PurposeVP vp = {s = infVP VVInf vp False Simul CPos (agrP3 Sg)} ; --- agr
@@ -238,8 +238,8 @@ lin
     CompoundCN a b = {s = \\n,c => a.s ! Sg ! Nom ++ b.s ! n ! c ; g = b.g} ;
 
     FrontExtPredVP np vp = {
-      s = \\t,a,b,o => 
-        let 
+      s = \\t,a,b,o =>
+        let
           subj  = np.s ! npNom ;
           agr   = np.a ;
           verb  = vp.s ! t ! a ! b ! o ! agr ;
@@ -252,8 +252,8 @@ lin
     } ;
 
     InvFrontExtPredVP np vp = {
-      s = \\t,a,b,o => 
-        let 
+      s = \\t,a,b,o =>
+        let
           subj  = np.s ! npNom ;
           agr   = np.a ;
           verb  = vp.s ! t ! a ! b ! o ! agr ;
@@ -269,7 +269,7 @@ lin
 
   oper
     unc : CPolarity -> CPolarity = \x -> case x of {
-      CNeg _ => CNeg False ; 
+      CNeg _ => CNeg False ;
       _ => x
       } ;
 -------
@@ -285,7 +285,7 @@ lin
     RNP     = {s : Agr => Str} ;
     RNPList = {s1,s2 : Agr => Str} ;
 
-  lin 
+  lin
     ReflRNP vps rnp = insertObjPre (\\a => vps.c2 ++ rnp.s ! a) vps ;
     ReflPron = {s = reflPron} ;
     ReflPoss num cn = {s = \\a => possPron ! a ++ num.s ! True ! Nom ++ cn.s ! num.n ! Nom} ;
@@ -299,7 +299,7 @@ lin
     Cons_rr_RNP x xs = consrTable Agr comma x xs ;
     Cons_nr_RNP x xs = consrTable Agr comma {s = \\a => x.s ! NPAcc} xs ;
 
-    
+
 ---- TODO: RNPList construction
 
 
@@ -307,7 +307,7 @@ lin
 
   that_RP =
      { s = table {
-        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ; 
+        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ;
         RC Neutr _  => "that" ;
         RC _ NPAcc    => "that" ;
         RC _ (NCase Nom)    => "that" ;
@@ -319,7 +319,7 @@ lin
 
   which_who_RP =
      { s = table {
-        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ; 
+        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ;
         RC Neutr _  => "which" ;
         RC _ NPAcc    => "whom" ;
         RC _ (NCase Nom)    => "who" ;
@@ -328,18 +328,18 @@ lin
         } ;
       a = RNoAg
       } ;
-      
+
   who_RP =
      { s = table {
-        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ; 
+        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ;
         _     => "who"
         } ;
       a = RNoAg
       } ;
-      
+
   which_RP =
      { s = table {
-        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ; 
+        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ;
         _     => "which"
         } ;
       a = RNoAg
@@ -347,7 +347,7 @@ lin
 
   emptyRP =
      { s = table {
-        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ; 
+        RC _ (NCase Gen) | RC _ NPNomPoss => "whose" ;
         RC _ NPAcc    => [] ;
         RC _ (NCase Nom)    => "that" ;
         RPrep Neutr => "which" ;

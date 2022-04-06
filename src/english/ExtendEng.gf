@@ -5,18 +5,20 @@ concrete ExtendEng of Extend =
   [
     VPS, ListVPS, VPI, ListVPI, VPS2, ListVPS2, VPI2, ListVPI2, RNP, RNPList,
     AdAdV, AdjAsCN, AdjAsNP, ApposNP, AdvIsNP,
-    BaseVPS, ConsVPS, BaseVPI, ConsVPI, BaseVPS2, ConsVPS2, BaseVPI2, ConsVPI2,
-    MkVPS, ConjVPS, PredVPS, MkVPI, ConjVPI, ComplVPIVV,
-    MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
+    MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, QuestVPS, SQuestVPS, RelVPS,
+    MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
+    MkVPS2, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, ReflVPS2,
+    MkVPI2, BaseVPI2, ConsVPI2, ConjVPI2, ComplVPI2,
     Base_nr_RNP, Base_rn_RNP, Base_rr_RNP, ByVP, CompBareCN,
     CompIQuant, CompQS, CompS, CompVP, ComplBareVS, ComplGenVV, ComplSlashPartLast, ComplVPSVV, CompoundAP,
-    CompoundN, ConjRNP, ConjVPS, ConsVPS, Cons_nr_RNP, Cons_rr_RNP, DetNPMasc, DetNPFem, EmbedPresPart, EmptyRelSlash,
+    CompoundN, ConjRNP, Cons_nr_RNP, Cons_rr_RNP, DetNPMasc, DetNPFem, EmbedPresPart, EmptyRelSlash,
     ExistsNP, ExistCN, ExistMassCN, ExistPluralCN,
     FocusAP, FocusAdV, FocusAdv, FocusObj, GenIP, GenModIP, GenModNP, GenNP, GenRP,
-    GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, MkVPS, NominalizeVPSlashNP,
-    PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj, PredVPS, PredVPSVV, PredetRNP, PrepCN,
+    GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, NominalizeVPSlashNP,
+    PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj,  PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
-    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, MkVPS2
+    UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash,
+    CardCNCard, ProDrop
    ]
   with
     (Grammar = GrammarEng) **
@@ -30,6 +32,10 @@ concrete ExtendEng of Extend =
     ParadigmsEng in {
 
   lin
+    ProDrop pro = pro ** {
+      s = \\_ => []
+    } ;
+
     GenNP np = {s = \\_,_ => np.s ! npGen ; sp = \\_,_,_,_ => np.s ! npGen ; isDef = True} ;
     GenIP ip = {s = \\_ => ip.s ! NCase Gen} ;
     GenRP nu cn = {
@@ -69,21 +75,68 @@ concrete ExtendEng of Extend =
       } ;
 
   lincat
-    VPS   = {s : Agr => Str} ;
-    [VPS] = {s1,s2 : Agr => Str} ;
+    VPS   = {s : Order => Agr => {fin, inf : Str}} ;
+    [VPS] = {s1,s2 : Order => Agr => Str ; fin : Order => Agr => Str} ;
     VPI   = {s : VVType => Agr => Str} ;
     [VPI] = {s1,s2 : VVType => Agr => Str} ;
 
   lin
-    BaseVPS = twoTable Agr ;
-    ConsVPS = consrTable Agr comma ;
+    BaseVPS x y =
+      let baseX : OneFinVPS = baseVPS x ;
+          baseY : OneFinVPS = baseVPS y ;
+       in twoTable2 Order Agr baseX baseY ** {fin = baseX.fin} ;
 
+    ConsVPS x xs =
+      let baseX : OneFinVPS = baseVPS x ;
+       in consrTable2 Order Agr comma baseX xs ** {fin = baseX.fin} ; -- keep only the first fin
+  oper
+    {- IL 03/2021 for VPS conjunction: separate the first finite verb for questions
+           [do]:fin (you) [eat bread and sleep?]:inf
+           (you) [  ]:fin [eat bread and sleep]:inf
+       The fin field becomes empty for ODir, but no problem: order is just subj++fin++inf.
+       Weird results for CompNP/AP/…, but coordination of those already covered in RGL. -}
+    OneFinVPS : Type = {s : Order => Agr => Str ; fin : Order => Agr => Str} ;
+    baseVPS : VPS -> OneFinVPS = \vps -> {
+      s = \\o,a => let vp = vps.s ! o ! a in
+        case o of {
+          OQuest => vp.inf ;
+          ODir _ => vp.fin ++ vp.inf
+        } ;
+      fin = \\o,a => let vp = vps.s ! o ! a in
+        case o of {
+          OQuest => vp.fin ;
+          ODir _ => []
+        }
+      } ;
+
+  lin
     BaseVPI = twoTable2 VVType Agr ;
     ConsVPI = consrTable2 VVType Agr comma ;
 
     MkVPS t p vp = mkVPS (lin Temp t) (lin Pol p) (lin VP vp) ;
-    ConjVPS c xs = conjunctDistrTable Agr c xs ;
-    PredVPS np vps = {s = np.s ! npNom ++ vps.s ! np.a} ;
+    ConjVPS c xs = {
+      s = \\o,a => {
+        fin = xs.fin ! o ! a ;
+        inf = c.s1 ++ xs.s1 ! o ! a ++ c.s2 ++ xs.s2 ! o ! a}
+      } ;
+    PredVPS np vps = let vp = vps.s ! oDir ! np.a in {
+      s = np.s ! npNom ++ vp.fin ++ vp.inf
+      } ;
+    SQuestVPS np vps = let
+      vp = vps.s ! OQuest ! np.a ;
+      vpindir = vps.s ! oDir ! np.a in {
+      s = table {
+        QDir => vp.fin ++ np.s ! npNom ++ vp.inf ;
+        QIndir => "if" ++ np.s ! npNom ++ vpindir.fin ++ vpindir.inf}
+      } ;
+    QuestVPS ip vps = let vp = vps.s ! oDir ! toAgr ip.n P3 Neutr  in {
+      s = \\q => ip.s ! npNom ++ vp.fin ++ vp.inf
+      } ;
+    RelVPS rp vps = {
+      s = \\agr => let vp = vps.s ! oDir ! agr in
+           rp.s ! RC (fromAgr agr).g npNom ++ vp.fin ++ vp.inf ;
+      c = npNom ;
+      } ;
 
 
     MkVPI vp = mkVPI (lin VP vp) ;
@@ -94,8 +147,11 @@ concrete ExtendEng of Extend =
 -------- two-place verb conjunction
 
   lincat
-    VPS2   = {s : Agr => Str ; c2 : Str} ;
-    [VPS2] = {s1,s2 : Agr => Str ; c2 : Str} ;
+    VPS2   = {s : Order => Agr => {fin,inf : Str} ; c2 : Str} ;
+    [VPS2] = {
+      fin : Order => Agr => Str ;   -- Q: do         ; DIR:
+      s1,s2 : Order => Agr => Str ; -- Q: eat, drink ; DIR: eat, drink
+      c2 : Str} ;
     VPI2   = {s : VVType => Agr => Str ; c2 : Str} ;
     [VPI2] = {s1,s2 : VVType => Agr => Str ; c2 : Str} ;
 
@@ -103,32 +159,39 @@ concrete ExtendEng of Extend =
     MkVPS2 t p vpsl = mkVPS (lin Temp t) (lin Pol p) (lin VP vpsl) ** {c2 = vpsl.c2} ;
     MkVPI2 vpsl = mkVPI (lin VP vpsl) ** {c2 = vpsl.c2} ;
 
-    BaseVPS2 x y = twoTable Agr x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
-    ConsVPS2 x xs = consrTable Agr comma x xs ** {c2 = xs.c2} ;
+    BaseVPS2 x y = BaseVPS x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
+    ConsVPS2 x xs = ConsVPS x xs ** {c2 = xs.c2} ;
 
     BaseVPI2 x y = twoTable2 VVType Agr x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
     ConsVPI2 x xs = consrTable2 VVType Agr comma x xs ** {c2 = xs.c2} ;
 
 
-    ConjVPS2 c xs = conjunctDistrTable Agr c xs ** {c2 = xs.c2} ;
+    ConjVPS2 c xs = ConjVPS c xs ** {c2 = xs.c2} ;
     ConjVPI2 c xs = conjunctDistrTable2 VVType Agr c xs ** {c2 = xs.c2} ;
 
 
     ComplVPS2 vps2 np = {
-        s = \\a => vps2.s ! a ++ vps2.c2 ++ np.s ! NPAcc
+        s = \\o,a => let vps2s = vps2.s ! o ! a in
+            vps2s ** {inf = vps2s.inf ++ vps2.c2 ++ np.s ! NPAcc} -- keep fin, add object to inf
         } ;
     ComplVPI2 vpi2 np = {
         s = \\t,a => vpi2.s ! t ! a ++ vpi2.c2 ++  np.s ! NPAcc
         } ;
-
+    ReflVPS2 vps2 rnp = {
+        s = \\o,a => let vps2s = vps2.s ! o ! a in
+            vps2s ** {inf = vps2s.inf ++ vps2.c2 ++ rnp.s ! a}
+        } ;
   oper
     mkVPS : Temp -> Pol -> VP -> VPS = \t,p,vp -> lin VPS {
-      s = \\a =>
-            let
-              verb = vp.s ! t.t ! t.a ! p.p ! oDir ! a ;
-              verbf = verb.aux ++ verb.adv ++ verb.fin ++ verb.inf ;
-            in t.s ++ p.s ++ vp.ad ! a ++ verbf ++ vp.p ++ vp.s2 ! a ++ vp.ext
+      s = \\o,a =>
+        let
+          verb = vp.s ! t.t ! t.a ! p.p ! o ! a ; -- choice of Order determines aux or not
+          compl = vp.s2 ! a ++ vp.ext
+        in {fin = verb.aux ++ t.s ++ p.s ;
+            inf = verb.adv ++ vp.ad ! a ++ verb.fin ++ verb.inf ++ vp.p ++ compl} ;
       } ;
+
+    linVPS : Agr -> {s : Order => Agr => {fin,inf : Str}} -> Str = \agr,vps -> let vpss = vps.s ! ODir True ! agr in vpss.fin ++ vpss.inf ;
 
     mkVPI : VP -> VPI = \vp -> lin VPI {
       s = table {
@@ -137,6 +200,24 @@ concrete ExtendEng of Extend =
             VVPresPart => \\a =>         vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a
             }
       } ;
+
+linref
+  VPS = linVPS (agrP3 Sg) ;
+  VPS2 = \vps -> linVPS (agrP3 Sg) vps ++ vps.c2 ;
+
+-- Conjunction of copula complements
+
+lincat [Comp] = {s1,s2 : Agr => Str} ;
+lin BaseComp x y = twoTable Agr x y ;
+    ConsComp xs x = consrTable Agr comma xs x ;
+    ConjComp conj ss = conjunctDistrTable Agr conj ss ;
+
+-- Conjunction of imperatives
+
+lincat ListImp = {s1,s2 : CPolarity => ImpForm => Str} ;
+lin BaseImp = twoTable2 CPolarity ImpForm ;
+    ConsImp = consrTable2 CPolarity ImpForm comma ;
+    ConjImp conj ss = conjunctDistrTable2 CPolarity ImpForm conj ss ;
 
 -----
 
@@ -224,6 +305,19 @@ concrete ExtendEng of Extend =
     PassAgentVPSlash vps np = passVPSlash (lin VPS vps) ("by" ++ np.s ! NPAcc) ;
     ProgrVPSlash vp = insertObjc (\\a => vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a)
       (predAux auxBe ** {c2 = vp.c2; gapInMiddle = vp.gapInMiddle; missingAdv = vp.missingAdv});
+
+    N2VPSlash n2 =
+      let prep : Prep = mkPrep n2.c2 ;
+          dummyVPS : VPSlash = SlashV2a (mkV2 (mkV "dummy") prep);
+      in dummyVPS **  -- has necessary fields for VPSlash, and c2 from the N2
+           UseComp (CompCN (UseN2 n2)) ; -- has all the right fields except for c2
+
+    A2VPSlash a2 =
+      let prep : Prep = mkPrep a2.c2 ;
+          dummyVPS : VPSlash = SlashV2a (mkV2 (mkV "dummy") prep) ;
+      in dummyVPS **  -- has necessary fields for VPSlash, and c2 from the A2
+           UseComp (CompAP (UseA2 a2)) ; -- has all the right fields except for c2
+
 
    --- AR 7/3/2013
    ComplSlashPartLast vps np = case vps.gapInMiddle of {
@@ -322,6 +416,17 @@ concrete ExtendEng of Extend =
     ReflPoss num cn = {s = \\a => possPron ! a ++ num.s ! True ! Nom ++ cn.s ! num.n ! Nom} ;
     PredetRNP predet rnp = {s = \\a => predet.s ++ rnp.s ! a} ;
 
+    AdvRNP np prep rnp = {s = \\a => np.s ! NPAcc ++ prep.s ++ rnp.s ! a} ;
+    AdvRVP vp prep rnp = insertObj (\\a => prep.s ++ rnp.s ! a) vp ;
+    AdvRAP ap prep rnp = {s = \\a => ap.s ! a ++ prep.s ++ rnp.s ! a ; isPre = False} ;
+
+    ReflA2RNP a rnp = {
+      s = \\ag => a.s ! AAdj Posit Nom ++ a.c2 ++ rnp.s ! ag ;
+      isPre = False
+      } ;
+
+    PossPronRNP pron num cn rnp = DetCN (DetQuant (PossPron pron) num) (PossNP cn (lin NP {s = \\_ => rnp.s ! pron.a; a = pron.a})) ;
+
     ConjRNP conj rpns = conjunctDistrTable Agr conj rpns ;
 
     Base_rr_RNP x y = twoTable Agr x y ;
@@ -352,7 +457,22 @@ concrete ExtendEng of Extend =
     UncontractedNeg = {s = [] ; p = CNeg False} ;
     UttVPShort vp = {s = infVP VVAux vp False Simul CPos (agrP3 Sg)} ;
 
+lin UseDAP dap = {
+      s = dap.sp ! Neutr ! False ;
+      a = agrP3 dap.n
+    } ;
 
+lin UseDAPMasc dap = {
+      s = dap.sp ! Masc ! False ;
+      a = agrgP3 dap.n Masc
+    } ;
 
+lin UseDAPFem dap = {
+      s = dap.sp ! Fem ! False ;
+      a = agrgP3 dap.n Fem
+    } ;
+
+lin CardCNCard card cn =
+  {s,sp = \\d,c => card.s ! d ! Nom ++ cn.s ! card.n ! c ; n = Pl} ;
 
 }

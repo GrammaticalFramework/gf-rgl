@@ -1,0 +1,73 @@
+Lang: IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN song_N)
+LangEng: which five songs
+LangMay: lima lagu yang mana
+
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumPl) (UseN song_N)) (SlashVP (UsePron youPl_Pron) (SlashV2a like_V2))))) NoVoc
+LangEng: which songs do you like
+LangMay: kamu suka lagu-lagu yang mana
+
+Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash (IdetCN how8many_IDet (UseN cat_N)) (SlashVP (UsePron youPl_Pron) (SlashV2a have_V2))))) NoVoc
+LangEng: how many cats do you have
+LangMay: kamu ada berapa kucing
+
+Lang: PhrUtt NoPConj (UttIP (IdetCN how8many_IDet (UseN cat_N))) NoVoc
+LangEng: how many cats
+LangMay: berapa banyak kucing
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))
+LangEng: do you teach the cat
+LangMay: adakah awak mengajar kucing
+
+Lang: UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))
+LangEng: don't you teach the cat
+LangMay: adakah awak tidak mengajar kucing
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a teach_V2) (UsePron he_Pron)))
+LangEng: which cat teaches him
+LangMay: kucing yang mana mengajar dia
+
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
+LangEng: where did you go
+LangMay: awak pergi mana
+
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
+LangEng: why did you go
+LangMay: mengapa awak pergi
+
+Lang: UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
+LangEng: why didn't you go
+LangMay: mengapa awak tidak pergi
+
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN woman_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a see_V2)))
+LangEng: which woman did you see
+LangMay : awak melihat perempuan yang mana
+
+# -- should be to whom did mother give the meat
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whoSg_IP (SlashVP (MassNP (UseN2 mother_N2))  (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N)))))
+LangEng: whom did mother give the meat
+LangMay: ibu memberi daging kepada siapa
+
+# -- should be to whom did mother talk the meat
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whoSg_IP (SlashVP (MassNP (UseN2 mother_N2))  (Slash3V3 talk_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N)))))
+LangEng: whom did mother talk about the meat to
+LangMay: ibu bercakap daging dengan siapa
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V)))
+LangEng: who wants to go
+LangMay: siapa mahu pergi
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))
+LangEng: who is the cat
+LangMay: siapa kucing
+
+Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN2 mother_N2)) (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))))
+LangEng: how does your mother paint the house black
+LangMay: bagaimana ibu awak mengecat rumah hitam
+
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumSg) (UseN meat_N)))))
+LangEng: why did she eat the meat
+LangMay: mengapa dia makan daging
+
+Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestVP whatSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN meat_N) (UseRCl (TTAnt TPast ASimul) PPos (RelVP IdRP (PassV2 eat_V2))))))))
+LangEng: what was the meat that was eaten
+LangMay: apa daging yang dimakan

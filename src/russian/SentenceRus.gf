@@ -1,139 +1,139 @@
+concrete SentenceRus of Sentence = CatRus ** open Prelude, TenseRus, ParamRus, Coordination, Maybe, (R=ResRus) in {
+flags optimize=all_subs ; coding=utf8 ;
+lin
+  -- : Adv -> S -> S ;            -- then I will go home
+  AdvS adv s = {s=\\m => adv.s ++ s.s ! m} ;
+  -- : Adv -> S -> S ;            -- next week, I will go home
+  ExtAdvS adv s = {s=\\m => adv.s ++ comma ++ s.s ! m} ;
 
---# -path=.:../abstract:../common:../../prelude
-
-
-concrete SentenceRus of Sentence = CatRus ** open Prelude, ResRus in {
-
-  flags optimize=all_subs ; coding=utf8 ;
-
-  lin
-
-    PredVP Ya tebyaNeVizhu = { s = \\b,clf =>
-       let  { 
-          ya = Ya.s ! (case clf of {
-              ClInfinit => (mkPronForm Acc No NonPoss); 
-               _ => (mkPronForm Nom No NonPoss)
-               });
-         ne = case b of {Pos=>""; Neg=>"не"};
-         vizhu = tebyaNeVizhu.s ! clf ! (pgNum Ya.g Ya.n)! Ya.p;
-         khorosho = tebyaNeVizhu.s2 ;
-         tebya = tebyaNeVizhu.s3 ! (pgen2gen Ya.g) ! Ya.n 
-       }
-       in
-       if_then_else Str tebyaNeVizhu.negBefore  
-        (ya ++ ne ++ vizhu ++ tebya ++ khorosho)
-        (ya ++ vizhu ++ ne ++ tebya ++ khorosho)
+  -- : Temp -> Pol -> Cl -> S ;   -- she had not slept - она не спала
+  UseCl temp pol cl = {
+    s : Mood => Str = \\m =>
+      temp.s
+      ++ (R.verbEnvAgr cl.subj cl.adv cl.verb m temp.t cl.a pol)
+      ++ cl.dep
+      ++ cl.compl ! pol.p ;
     } ;
 
-
-    PredSCVP sc vp = { s = \\b,clf => 
-       let  { 
-         ne = case b of {Pos=>""; Neg=>"не"};
-         vizhu = vp.s ! clf ! (GSg Neut)! P3;
-         tebya = vp.s3 ! Neut ! Sg 
-       }
-       in
-       if_then_else Str vp.negBefore  
-        (sc.s ++ ne ++ vizhu ++ tebya)
-        (sc.s ++ vizhu ++ ne ++ tebya)
+  -- : Temp -> Pol -> RCl -> RS ;  -- that had not slept
+  UseRCl temp pol rcl = {
+    s = \\gn,anim,cas =>
+      let a : Agr = fromMaybe Agr (genNumAgrP3 gn) rcl.a in
+       temp.s
+       ++ (R.verbEnvAgr (rcl.subj ! gn ! anim ! Nom) (rcl.adv ! (genNumAgrP3 gn)) rcl.verb Ind temp.t a pol)
+       ++ rcl.dep
+       ++ rcl.compl ! pol.p ! (genNumAgrP3 gn)
     } ;
 
-
-    ---- AR 17/12/2008
-    SlashVP Ya tebyaNeVizhu = { 
-      s = \\b,clf =>
-       let  { 
-          ya = Ya.s ! (case clf of {
-              ClInfinit => (mkPronForm Acc No NonPoss); 
-               _ => (mkPronForm Nom No NonPoss)
-               });
-         ne = case b of {Pos=>""; Neg=>"не"};
-         vizhu = tebyaNeVizhu.s ! clf ! (pgNum Ya.g Ya.n)! Ya.p;
-         khorosho = tebyaNeVizhu.s2 ;
-         tebya = tebyaNeVizhu.s3 ! (pgen2gen Ya.g) ! Ya.n 
-       }
-       in
-       if_then_else Str tebyaNeVizhu.negBefore  
-        (ya ++ ne ++ vizhu ++ tebya ++ khorosho)
-        (ya ++ vizhu ++ ne ++ tebya ++ khorosho) ;
-      s2=tebyaNeVizhu.s2 ; 
-      c=tebyaNeVizhu.c 
+  -- : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
+  UseSlash temp pol cls = {
+    s : Mood => Str = \\m =>
+      temp.s
+      ++ (R.verbEnvAgr cls.subj cls.adv cls.verb m temp.t cls.a pol)
+      ++ cls.dep
+      ++ cls.compl ! pol.p ;
+    c=cls.c
     } ;
 
-    AdvSlash slash adv = {
-      s  = \\b,clf => slash.s ! b ! clf ++ adv.s ;
-      c = slash.c;
-      s2 = slash.s2;
+  -- : NP -> VPSlash -> ClSlash ;      -- (whom) he sees
+  SlashVP np vps = {
+    subj=np.s ! Nom ; -- ????????
+    adv=vps.adv ! np.a ;  -- ??
+    verb=vps.verb ;
+    dep=vps.dep ;
+    compl=\\p => vps.compl ! p ! np.a ;  -- ??
+    a=np.a ;
+    c=vps.c
+  } ;
+
+  -- : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  SlashPrep cl prep = {
+    subj=cl.subj ;
+    compl=cl.compl ;
+    adv=cl.adv ;
+    verb=cl.verb ;
+    dep=cl.dep ;
+    a=cl.a ;
+    c=prep
     } ;
 
-    SlashPrep cl p =  {s=cl.s; s2=p.s; c=p.c} ;     
+  -- NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
+  SlashVS np vs ss = {
+    subj=np.s ! Nom  ; -- ????????
+    compl=\\_ => embedInCommas ("что" ++ ss.s ! Ind) ;  -- ?? that?
+    adv=[];  -- ??
+    verb=vs ;
+    dep=[] ;
+    a=np.a ;
+    c=ss.c
+  } ;
 
-    --- AR 3/11/2007
-    SlashVS ivan vidit tuUlubaeshsya = { 
-      s=\\b,clf => ivan.s ! PF Nom No NonPoss ++ 
-         vidit.s! (getActVerbForm clf (pgen2gen ivan.g) ivan.n ivan.p) ++
-         [", что"] ++ tuUlubaeshsya.s ;
-      s2=tuUlubaeshsya.s2; 
-      c=tuUlubaeshsya.c 
+  -- : S -> Subj -> S -> S ;       -- I go home, if she comes
+  SSubjS s subj s2 = {
+    s=\\m => s.s ! m ++ comma ++ subj.s ++ s2.s ! Ind
     } ;
 
-
-
-    ImpVP inf = {s = \\pol, g,n =>          
-        let 
-          dont  = case pol of {
-            Neg => "не" ;
-            _ => []
-            }
-        in
-        dont ++ inf.s ! ClImper ! gennum g n ! P2 ++ 
-        inf.s2++inf.s3!g!n
+  -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
+  AdvSlash cls adv = cls ** {
+    adv=cls.adv ++ adv.s
     } ;
 
-    EmbedS  s  = {s = "что" ++ s.s} ;
- -- In Russian "Whether you go" transformed in "go whether you":
-    EmbedQS qs = {s = qs.s ! QIndir} ;
-    EmbedVP vp = {s = vp.s2  ++ vp.s!ClInfinit!(GSg Masc) !P3 ++ vp.s3!Masc!Sg} ;
+  -- : VP -> Imp ;             -- love yourselves
+  ImpVP vp = {
+    s = \\polarity, gn =>
+      let pol = case polarity of {Neg => PNeg; Pos => PPos} in
+      let a = Ag gn P2 in
+        (R.verbEnvAgr "" "" vp.verb Imperative Pres a pol)
+        ++ vp.dep
+        ++ vp.adv ! a
+        ++ vp.compl ! pol.p ! a
+    } ;
 
-    UseCl t p cl = {s = t.s ++ p.s ++ case t.t of { 
-      Cond => cl.s! p.p ! ClCondit ; --# notpresent
-      Pres => cl.s! p.p ! ClIndic Present t.a   ---- AR work-around 13/12/2007
-        ; --# notpresent
-      _ => cl.s! p.p ! ClIndic (getTense t.t) t.a --# notpresent
-      }
-    };
+  -- : NP -> VP -> Cl ;         -- John walks - Иван гуляет
+  PredVP np vp = {
+    subj=np.s ! Nom ;
+    adv=vp.adv ! np.a ;
+    verb=vp.verb ;
+    dep=vp.dep ;
+    compl=\\p => vp.compl ! p ! np.a ;
+    a=np.a
+    } ;
 
-    UseQCl t p qcl= {s = case t.t of { 
-      Cond => qcl.s! p.p ! ClCondit ; --# notpresent
-      Pres => qcl.s! p.p ! ClIndic Present t.a 
-       ; --# notpresent
-      _ => qcl.s!p.p! ClIndic (getTense t.t) t.a --# notpresent
-      }};
+  -- : SC -> VP -> Cl ;         -- that she goes is good - что она идёт есть хорошо
+  PredSCVP sc vp = {
+    subj=sc.s ;
+    adv=vp.adv ! (Ag (GSg Neut) P3) ;  -- ???
+    verb=vp.verb ;
+    dep=vp.dep ;
+    compl=\\p => vp.compl ! p ! Ag (GSg Neut) P3 ;  -- ???
+    a=Ag (GSg Neut) P3   -- ???
+    } ;
 
-    UseRCl t p rcl ={s = \\gn,c,anim => case t.t of { 
-      Cond => [", "] ++ rcl.s! p.p ! ClCondit ! gn !c !anim ; --# notpresent
-      Pres => [", "] ++ rcl.s! p.p ! ClIndic Present t.a !gn !c !anim
-      ; --# notpresent
-      _ => [", "] ++ rcl.s! p.p ! ClIndic (getTense t.t) t.a !gn !c !anim --# notpresent
-      }};
+  -- : S -> SC ;               -- that she goes - что она идёт
+  EmbedS s = {s = "что" ++ s.s ! Ind} ;
 
-    UseSlash  t p cl = {
-      s = case t.t of { 
-        Cond => cl.s! p.p ! ClCondit ; --# notpresent
-        Pres => cl.s! p.p ! ClIndic Present t.a 
-        ; --# notpresent
-        _ => cl.s! p.p ! ClIndic (getTense t.t) t.a --# notpresent
-        } ;
-      s2 = cl.s2 ;
-      c = cl.c
-    };
+  -- : Temp -> Pol -> QCl -> QS ;  -- who had not slept
+  UseQCl temp pol cl = {
+    s = \\qf =>
+      temp.s
+      ++ (R.verbEnvAgr cl.subj cl.adv cl.verb Ind temp.t cl.a pol)
+      ++ cl.dep
+      ++ cl.compl ! pol.p
+    } ;
 
+  -- : QS -> SC ;               -- who goes
+  EmbedQS qs = {s = qs.s ! QIndir} ;
 
-    AdvS a s = {s = a.s ++ s.s} ; ---- AR 19/6/2007
-    ExtAdvS a s = {s = a.s ++ "," ++ s.s} ; ---- AR 1/9/2011
+  -- : VP -> SC ;               -- to go
+  EmbedVP vp = {
+    s=vp.adv ! Ag (GSg Neut) P3
+      ++ (R.verbInf vp.verb)
+      ++ vp.dep
+      ++ vp.compl ! Pos ! Ag (GSg Neut) P3    -- ???
+    } ;
 
-    ---- AR 17/12/2008
-    RelS s r = {s = s.s ++ "," ++ r.s ! gennum Neut Sg ! Nom ! Inanimate} ; ---- ?
-
+  -- : S -> RS -> S ;              -- she sleeps, which is good
+  RelS s rs = {
+    s=\\m=>s.s ! m ++ comma ++ rs.s ! GSg Neut ! Inanimate ! Nom ;
+    } ;
 }
-

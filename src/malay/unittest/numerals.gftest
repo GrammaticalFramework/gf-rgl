@@ -1,0 +1,11 @@
+Lang: DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN cat_N)
+LangEng: one cat
+LangMay: satu kucing
+
+Lang: DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN cat_N)
+LangEng: these five cats
+LangMay: lima kucing ini
+
+Lang: DetCN (DetQuant (PossPron i_Pron) (NumCard (NumNumeral (num (pot2as3 (pot2 (pot0 n7))))))) (UseN cat_N)
+LangEng: my seven hundred cats
+LangMay: tujuh ratus kucing saya

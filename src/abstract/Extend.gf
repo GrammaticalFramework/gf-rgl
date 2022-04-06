@@ -47,6 +47,7 @@ abstract Extend = Cat ** {
     PredVPS    : NP   -> VPS -> S ;          -- she [has walked and won't sleep]
     SQuestVPS  : NP   -> VPS -> QS ;         -- has she walked
     QuestVPS   : IP   -> VPS -> QS ;         -- who has walked
+    RelVPS     : RP   -> VPS -> RS ;         -- which won't sleep
 
 -- existentials that work in the absence of Cl
     ExistS     : Temp -> Pol -> NP -> S ;    -- there was a party
@@ -69,6 +70,7 @@ abstract Extend = Cat ** {
     MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
     ConjVPS2  : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates
     ComplVPS2 : VPS2 -> NP -> VPS ;               -- has loved and now hates that person
+    ReflVPS2  : VPS2 -> RNP -> VPS ;              -- have loved and now hate myself and my car
 
     MkVPI2    : VPSlash -> VPI2 ;                 -- to love
     ConjVPI2  : Conj -> [VPI2] -> VPI2 ;          -- to love and hate
@@ -124,6 +126,11 @@ abstract Extend = Cat ** {
 
     ProgrVPSlash : VPSlash -> VPSlash;
 
+-- construct VPSlash from A2 and N2
+
+    A2VPSlash : A2 -> VPSlash ; -- is married to (that person)
+    N2VPSlash : N2 -> VPSlash ; -- is a mother of (that person)
+
 -- existential for mathematics
 
     ExistsNP : NP -> Cl ;  -- there exists a number / there exist numbers
@@ -134,7 +141,7 @@ abstract Extend = Cat ** {
     ExistMassCN   : CN -> Cl ;  -- there is beer / there is no beer
     ExistPluralCN : CN -> Cl ;  -- there are trees / there are no trees
 
--- generalisation of existential, with adverb as a parameter
+-- generalisation of existential, with adverb as an argument
     AdvIsNP : Adv -> NP -> Cl ;  -- here is the tree / here are the trees
     AdvIsNPAP : Adv -> NP -> AP -> Cl ; -- here are the instructions documented
 
@@ -270,5 +277,19 @@ abstract Extend = Cat ** {
   UttAccIP : IP -> Utt ; -- whom (accusative)
   UttDatIP : IP -> Utt ; -- whom (dative)
 
+
+-- UseDAP replaces DetNP from the RGL which is more limited.
+-- Instead of (DetNP d) use (UseDAP (DetDAP d)). The advantage
+-- is that now we can also have an adjective inserted, i.e.
+-- (UseDAP (AdjDAP (DetDAP d) a). There are also versions of
+-- UseDAP for different genders.
+fun UseDAP     : DAP -> NP ;
+    UseDAPMasc : DAP -> NP ;
+    UseDAPFem  : DAP -> NP ;
+
+cat X ; -- for words that are difficult to classify, mainly for MorphoDict
+
+fun
+  CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
 
 }

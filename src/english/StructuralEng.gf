@@ -1,4 +1,4 @@
-concrete StructuralEng of Structural = CatEng ** 
+concrete StructuralEng of Structural = CatEng **
   open MorphoEng, ResEng, ParadigmsEng, MakeStructuralEng, Prelude in {
 
   flags optimize=all ;
@@ -38,7 +38,7 @@ concrete StructuralEng of Structural = CatEng **
     typ = VVAux
     } |
  {
-    s = table { 
+    s = table {
       VVF VInf => ["be able to"] ;
       VVF VPres => "can" ;
       VVF VPPart => ["been able to"] ;
@@ -159,4 +159,3 @@ concrete StructuralEng of Structural = CatEng **
   lin language_title_Utt = ss "English" ;
 
 }
-

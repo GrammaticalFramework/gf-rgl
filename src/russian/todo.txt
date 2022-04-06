@@ -1,0 +1,120 @@
+# Some problematic situations
+
+## Missing SlashV2VNP
+
+It is heavy, and does not seem to be necessary, for example:
+
+(ComplSlash (SlashV2VNP beg_V2V (UsePron we_Pron) (SlashV2a like_V2)) (UsePron he_Pron))
+
+can be replaced with:
+
+(ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2a like_V2) (UsePron he_Pron))) (UsePron weFem_Pron))
+
+
+## Possessive pronouns over a list/conjunction of CNs
+
+With what should be correct approach, produces:
+
+> l DetCN (DetQuant (PossPron i_Pron) NumSg)  (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N))))
+мой грамматика , яблоко и цветок
+
+> l ComplN2 mother_N2  ( DetCN (DetQuant (PossPron i_Pron) NumSg)  (ConjCN and_Conj (ConsCN (UseN grammar_N) (BaseCN (UseN apple_N) (UseN flower_N)))) )
+мать моего грамматики , яблока и цветка
+
+Correct text requires AdvNP tricks. Resulting trees are quite artificial, one example:
+
+> l ConjNP and_Conj (ConsNP (AdvNP (DetNP (DetQuant (PossPron i_Pron) NumPl)) (PrepNP obj_no_Prep (DetCN (DetQuant DefArt NumSg) (UseN grammar_N)))) (BaseNP (MassNP (UseN apple_N)) (MassNP (UseN flower_N))))
+мои грамматика , яблоко и цветок
+
+> l ComplN2 mother_N2  ( ConjNP and_Conj (ConsNP (AdvNP (DetNP (DetQuant (PossPron i_Pron) NumPl)) (PrepNP obj_no_Prep (DetCN (DetQuant DefArt NumSg) (UseN grammar_N)))) (BaseNP (MassNP (UseN apple_N)) (MassNP (UseN flower_N)))) )
+мать моих грамматика , яблока и цветка
+
+Proper resolution? It's hard to go through Dets and Quants (and will make them more complex). Probably, correct solution would be to make the same as if possessive pronoun is an adjective:
+
+This would require some Russian-specific (though quite straightforwward) Pron -> AP addition.
+
+## Not clear
+
+> gt UseCl (TTAnt TPres ASimul) PPos (ExistNP (MassNP (bottle_of_CN (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 ?)))))))) (UseN ashes_N))))) | l
+linking ... OK
+Languages: AllRus
+бутылка этих двух пепла существует
+
+** UseCl (TTAnt TPres ASimul) PPos (ExistNPAdv somebody_NP (timeHourMinute twoHour (NumNumeral (num (pot2as3 (pot1as2 (pot1 ∅)))))))
+LangRus-NEW> кто-то в 2:двадцать существует
+LangRus-OLD> [ExistNPAdv]
+
+## Prepositions change depending on next word
+
+> l PrepNP above_Prep (UsePron i_Pron)
+над мной
+(should be: надо мной)
+
+## Note
+
+Verb zv index does not support "*", it figures forms out from 3 given examples instead. Most of the time.
+
+## Past particle limited to short form, not always fit
+
+AllRusAbs: UttImpPol PPos (ImpVP (ComplSlash (Slash2V3 add_V3 everybody_NP) (PPartNP somebody_NP drink_V2)))
+AllRus: складываем &+ те всех в кого &+ -то пит
+
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PNeg (QuestIAdv how8much_IAdv (ImpersCl (AdvVP (AdvVP UseCopula (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))) (PrepNP possess_Prep (UsePN john_PN))))))) NoVoc) TEmpty
+AllRus: сколько не является яблок у Ивана ?
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres AAnter) PPos (QuestIAdv how8much_IAdv (ImpersCl (AdvVP (AdvVP UseCopula (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (UseN apple_N)))) (PrepNP possess_Prep (UsePN john_PN))))))) NoVoc) TEmpty
+AllRus: сколько является яблок у Ивана ?
+
+## Some past participles are not correct
+
+> gt AdjCN (PastPartAP ( SlashV2a ? )  )   (UseN house_N) | l -treebank
+AllRusAbs: AdjCN (PastPartAP (SlashV2a break_V2)) (UseN house_N)
+AllRus: прерыван дом   - прерываем
+AllRusAbs: AdjCN (PastPartAP (SlashV2a buy_V2)) (UseN house_N)
+AllRus: покупан дом    - покупаем
+AllRusAbs: AdjCN (PastPartAP (SlashV2a close_V2)) (UseN house_N)
+AllRus: закрыван дом   - закрываем
+AllRusAbs: AdjCN (PastPartAP (SlashV2a find_V2)) (UseN house_N)
+AllRus: нахожен дом    - находим(ый)
+AllRusAbs: AdjCN (PastPartAP (SlashV2a love_V2)) (UseN house_N)
+AllRus: люблен дом   -- любим(ый)
+AllRusAbs: AdjCN (PastPartAP (SlashV2a seek_V2)) (UseN house_N)
+AllRus: искан дом    -- исканный
+
+
+## Ordinals
+
+OrdNumeral (num (pot3 (pot2plus pot01 pot111)))
+should be: стоодиннадцатитысячное
+
+> l OrdNumeral (num (pot3 (pot2 pot01)))
+ста &+ тысячное
+should be: стотысячное
+
+## Optimization
+
++ Slash2V3 1492992 (107136,31)
++ Slash3V3 1492992 (107136,31)
++ SlashV2VNP 71663616 (214272,62)
+
+## From, api treebank
+
+AllRusAbs: PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc
+AllRus: , так и сейчас
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Является здесь что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Здесь есть что она спит
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)))
+AllRus: Данное пять самых хороших
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
+AllRus: Данное пятые
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl small_A)))
+AllRus: Некое самые маленькие
+
+AllRusAbs: UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A))))))
+AllRus: Ребёнок, все учителя которого является молодым

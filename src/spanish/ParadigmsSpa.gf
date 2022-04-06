@@ -369,25 +369,28 @@ oper
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
   mk7A a b c d e f g =
-    compADeg {s = \\_ => (mkAdj a b c d e f g).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+    compADeg (mkAdj a b c d e f g) ;
 
   mk5A a b c d e = mk7A a a b b c d e ;
 
-  mk2A a b = compADeg {s = \\_ => (adjEspanol a b).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  mk2A a b = compADeg (adjEspanol a b) ;
 
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  regA a = compADeg (mkAdjReg a) ;
   adjCopula a cop = a ** {copTyp = cop} ;
-  prefA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
+  prefA a = a ** {isPre = True} ;
 
-  mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
+  mkA2 a p = lin A2 (a ** {c2 = p}) ;
 
-  mkADeg a b =
-   {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ;
-    isPre = a.isPre ; copTyp = a.copTyp ; lock_A = <>} ;
-  compADeg a =
-    {s = table {Posit => a.s ! Posit ; _ => \\f => "más" ++ a.s ! Posit ! f} ;
-     isPre = a.isPre ; copTyp = a.copTyp ;
-     lock_A = <>} ;
+  mkADeg a b = a ** {
+    compar = \\num => b.s ! AF Masc num ; -- mejor, mejores
+    isDeg = True } ;
+  compADeg a = lin A
+    {s = a.s ;
+     compar = \\_ => nonExist ; --
+     isPre = False ;       -- default values
+     copTyp = serCopula ;
+     isDeg = False
+     } ;
   regADeg a = compADeg (regA a) ;
 
   mkAdv x = ss x ** {lock_Adv = <>} ;
@@ -544,7 +547,7 @@ oper
     mkA : (_,_,_,_,_,_,_ : Str) -> A = mk7A ;
     mkA : (bueno : A) -> (mejor : A) -> A = mkADeg ;
     mkA : (blanco : A) -> (hueso : Str) -> A = \blanco,hueso -> blanco **
-      { s = \\x,y => blanco.s ! x ! y ++ hueso } ;
+      { s = \\x => blanco.s ! x ++ hueso } ;
     mkA : A -> CopulaType -> A =
       adjCopula ;
     } ;
@@ -555,7 +558,7 @@ oper
   regA : Str -> A ;
   adjCopula : A -> CopulaType -> A ;
   mkADeg : A -> A -> A ;
-  compADeg : A -> A ;
+  compADeg : Adj -> A ;
   regADeg : Str -> A ;
   prefA : A -> A ;
   prefixA = prefA ;
@@ -581,7 +584,5 @@ oper
     } ;
   mk2V2  : V -> Prep -> V2 ;
   dirV2 : V -> V2 ;
-
-
 
 } ;

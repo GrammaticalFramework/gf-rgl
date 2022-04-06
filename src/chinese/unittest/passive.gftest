@@ -1,0 +1,11 @@
+Lang: PredVP (DetCN (DetQuant that_Quant NumSg) (UseN boy_N)) (PassV2 kill_V2)
+LangEng: that boy is killed
+LangChi: 那 个 男 孩 被 杀
+
+Lang: PredVP (DetCN (DetQuant DefArt NumSg) (UseN chair_N)) (PassV2 split_V2)
+LangEng: the chair is split
+LangChi: 椅 子 被 劈 开
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN boy_N)) (ComplVV want_VV (PassV2 kill_V2)))
+LangEng: that boy doesn't want to be killed
+LangChi: 那 个 男 孩 不 想 被 杀

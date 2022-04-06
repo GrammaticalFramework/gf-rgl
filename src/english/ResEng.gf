@@ -39,7 +39,7 @@ resource ResEng = ParamX ** open Prelude in {
   param
     Agr = AgP1 Number | AgP2 Number | AgP3Sg Gender | AgP3Pl Gender ;
 
-  param 
+  param
     Gender = Neutr | Masc | Fem ;
 
 
@@ -48,7 +48,7 @@ resource ResEng = ParamX ** open Prelude in {
 -- Only these five forms are needed for open-lexicon verbs.
 
   param
-    VForm = 
+    VForm =
        VInf
      | VPres
      | VPPart
@@ -58,13 +58,13 @@ resource ResEng = ParamX ** open Prelude in {
 
 -- Auxiliary verbs have special negative forms.
 
-    VVForm = 
+    VVForm =
        VVF VForm
      | VVPresNeg
      | VVPastNeg  --# notpresent
      ;
 
--- The order of sentence is needed already in $VP$ because the need of "do" depends on it. 
+-- The order of sentence is needed already in $VP$ because the need of "do" depends on it.
 -- $ODir True$ means contracted forms ("'s", "'d", "'ve". "'re").
 -- Notice that inverted forms ($OQuest$) don't allow verb contractions: *"'s he arrived".
 
@@ -83,7 +83,7 @@ param
     AForm = AAdj Degree Case | AAdv ;
 
 --2 For $Relative$
- 
+
     RAgr = RNoAg | RAg Agr ;
     RCase = RPrep Gender | RC Gender NPCase ;
 
@@ -95,7 +95,7 @@ param
 --2 Transformations between parameter types
 
   oper
-    toAgr : Number -> Person -> Gender -> Agr = \n,p,g -> 
+    toAgr : Number -> Person -> Gender -> Agr = \n,p,g ->
       case p of {
         P1 => AgP1 n ;
         P2 => AgP2 n ;
@@ -116,8 +116,8 @@ param
 
     agrgP3 : Number -> Gender -> Agr = \n,g -> toAgr n P3 g ;
 
-    conjAgr : Agr -> Agr -> Agr = \a0,b0 -> 
-      let a = fromAgr a0 ; b = fromAgr b0 
+    conjAgr : Agr -> Agr -> Agr = \a0,b0 ->
+      let a = fromAgr a0 ; b = fromAgr b0
       in
       toAgr
         (conjNumber a.n b.n)
@@ -127,7 +127,7 @@ param
 
 -- For each lexical category, here are the worst-case constructors.
 
-    mkNoun : (_,_,_,_ : Str) -> {s : Number => Case => Str} = 
+    mkNoun : (_,_,_,_ : Str) -> {s : Number => Case => Str} =
       \man,mans,men,mens -> {
       s = table {
         Sg => table {
@@ -141,18 +141,40 @@ param
         }
       } ;
 
-    mkAdjective : (_,_,_,_ : Str) -> {s : AForm => Str; isPre : Bool; lock_A : {}} = 
-      \good,better,best,well -> lin A {
-      s = table {
-        AAdj Posit  c => (regGenitiveS good) ! c ;
-        AAdj Compar c => (regGenitiveS better) ! c ;
-        AAdj Superl c => (regGenitiveS best) ! c ;
-        AAdv          => well
-        } ;
-      isPre = True
+    Adjective : Type = {s : AForm => Str ; isPre, isMost : Bool} ;
+    mkAdjective : (_,_,_,_ : Str) -> Adjective = \good,better,best,well ->
+     let adjCompar : Adjective = {
+            s = table {
+              AAdj Posit  c => (regGenitiveS good) ! c ;
+              AAdj Compar c => (regGenitiveS better) ! c ;
+              AAdj Superl c => (regGenitiveS best) ! c ;
+              AAdv          => well
+              } ;
+            isPre = True ;
+            isMost = False ;
+            } ;
+      in case better of {
+            "more" + _
+              => adjCompar ** {
+                    s = table {
+                          AAdj Posit c => adjCompar.s ! AAdj Posit c ;
+                          AAdv         => adjCompar.s ! AAdv ;
+                          _            => nonExist } ; -- IL 06/2021. Replace with an actual string, if this causes problems.
+                    isMost = True } ;
+            _ => adjCompar
+          } ;
+
+    -- IL 06/2021: remove "more" and "most" from A & A2's inflection table
+    getCompar : Case -> Adjective -> Str = \c,a -> case a.isMost of {
+      True => "more" ++ a.s ! AAdj Posit c ;
+      False => a.s ! AAdj Compar c
+      } ;
+    getSuperl : Case -> Adjective -> Str = \c,a -> case a.isMost of {
+      True => "most" ++ a.s ! AAdj Posit c ;
+      False => a.s ! AAdj Superl c
       } ;
 
-    mkVerb : (_,_,_,_,_ : Str) -> Verb = 
+    mkVerb : (_,_,_,_,_ : Str) -> Verb =
       \go,goes,went,gone,going -> {
       s = table {
         VInf   => go ;
@@ -167,12 +189,12 @@ param
 
     mkIP : (i,me,my : Str) -> Number -> {s : NPCase => Str ; n : Number} =
      \i,me,my,n -> let who = mkNP i me my n P3 Neutr in {
-        s = who.s ; 
+        s = who.s ;
         n = n
         } ;
 
-    mkNP : (i,me,my : Str) -> Number -> Person -> Gender -> 
-     {s : NPCase => Str ; a : Agr} = \i,me,my,n,p,g -> 
+    mkNP : (i,me,my : Str) -> Number -> Person -> Gender ->
+     {s : NPCase => Str ; a : Agr} = \i,me,my,n,p,g ->
    { s = table {
        NCase Nom => i ;
        NPAcc => me ;
@@ -184,7 +206,7 @@ param
     regNP : Str -> Number -> {s : NPCase => Str ; a : Agr} = \that,n ->
       mkNP that that (that + "'s") n P3 Neutr ;
 
-    regGenitiveS : Str -> Case => Str = \s -> 
+    regGenitiveS : Str -> Case => Str = \s ->
       table { Gen => genitiveS s; _ => s } ;
 
     genitiveS : Str -> Str = \dog ->
@@ -199,7 +221,7 @@ param
 
     artIndef = pre {
       "eu" | "Eu" | "uni" | "up" => "a" ;
-      "un" => "an" ; 
+      "un" => "an" ;
       "a" | "e" | "i" | "o" | "A" | "E" | "I" | "O" => "an" ;
       "SMS" | "sms" => "an" ; ---
       _ => "a"
@@ -216,7 +238,7 @@ param
     } ;
 
   param
-  CPolarity = 
+  CPolarity =
      CPos
    | CNeg Bool ;  -- contracted or not
 
@@ -227,13 +249,13 @@ param
     } ;
 
   VerbForms : Type =
-    Tense => Anteriority => CPolarity => Order => Agr => 
+    Tense => Anteriority => CPolarity => Order => Agr =>
       {aux, adv, fin, inf : Str} ; -- would, not, sleeps, slept
 
   VP : Type = {
     s   : VerbForms ;
     p   : Str ;   -- verb particle
-    prp : Str ;   -- present participle 
+    prp : Str ;   -- present participle
     ptp : Str ;   -- past participle
     inf : Str ;   -- the infinitive form ; VerbForms would be the logical place
     ad  : Agr => Str ; -- sentence adverb (can be Xself, hence Agr)
@@ -248,13 +270,13 @@ param
                    missingAdv : Bool -- The sentence has been through VPSlashPrep, and the only missing thing is just an adverbial and shouldn't affect the agreement.
 } ;
 
-  predVc : (Verb ** {c2 : Str}) -> SlashVP = \verb -> 
+  predVc : (Verb ** {c2 : Str}) -> SlashVP = \verb ->
     predV verb ** {c2 = verb.c2 ; gapInMiddle = True; missingAdv = False} ;
 
   cBind : Str -> Str = \s -> Predef.BIND ++ ("'" + s) ;
 
   predV : Verb -> VP = \verb -> {
-    s = \\t,ant,b,ord,agr => 
+    s = \\t,ant,b,ord,agr =>
       let
         inf  = verb.s ! VInf ;
         fin  = presVerb verb agr ;
@@ -303,8 +325,8 @@ param
     } ;
 
   predAux : Aux -> VP = \verb -> {
-    s = \\t,ant,cb,ord,agr => 
-      let 
+    s = \\t,ant,cb,ord,agr =>
+      let
         b = case cb of {
           CPos => Pos ;
           _ => Neg
@@ -321,7 +343,7 @@ param
         <Pres,Anter,CPos,_>           => vf (have      agr)   part ; --# notpresent
         <Pres,Anter,CNeg c,ODir True> => vfn c (haveContr agr) (haventContr agr) part ; --# notpresent
         <Pres,Anter,CNeg c,_>         => vfn c (have agr) (havent agr) part ; --# notpresent
- 
+
         <Past,Anter,CPos,ODir True>   => vf (cBind "d")         part ; --# notpresent
         <Past,Anter,CPos,_>           => vf "had"        part ; --# notpresent
         <Past,Anter,CNeg c,ODir True> => vfn c (cBind "d") (cBind "d not")     part ; --# notpresent
@@ -349,7 +371,7 @@ param
         <Pres,Simul,CPos,  _>         => vf fin           [] ;
         <Pres,Simul,CNeg c,ODir True> => vfn c cfinp fin  [] ;
         <Pres,Simul,CNeg c,  _>       => vfn c finp fin   []
- 
+
         } ;
     p = [] ;
     prp = verb.prpart ;
@@ -360,14 +382,14 @@ param
     isSimple = True ;
     s2 = \\_ => []
     } ;
-        
-  vff : Str -> Str -> {aux, adv, fin, inf : Str} = \x,y -> 
+
+  vff : Str -> Str -> {aux, adv, fin, inf : Str} = \x,y ->
     {aux = [] ; adv = [] ; fin = x ; inf = y} ;
 
   vf : Str -> Str -> {aux, adv, fin, inf : Str} = \x,y -> vfn True x x y ;
 
-  vfn : Bool -> Str -> Str -> Str -> {aux, fin, adv, inf : Str} = 
-    \contr,x,y,z -> 
+  vfn : Bool -> Str -> Str -> Str -> {aux, fin, adv, inf : Str} =
+    \contr,x,y,z ->
     case contr of {
       True  => {aux = y ; adv = [] ; fin = [] ; inf = z} ;
       False => {aux = x ; adv = "not" ; fin = [] ; inf = z}
@@ -393,9 +415,9 @@ param
     isSimple = False ;
     } ;
 
-  insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp -> 
+  insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
     insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
-  insertExtrac : Str -> SlashVP -> SlashVP = \obj,vp -> 
+  insertExtrac : Str -> SlashVP -> SlashVP = \obj,vp ->
     insertExtra obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
 
 --- AR 7/3/2013 move the particle after the object
@@ -408,7 +430,7 @@ param
     ad = vp.ad ;
     s2 = \\a => obj ! a ++ vp.s2 ! a ++ vp.p ; -- and put it here ; corresponds to insertObjPre
     isSimple = False ;
-    ext = vp.ext    
+    ext = vp.ext
     } ;
 
 --- The adverb should be before the finite verb.
@@ -439,7 +461,7 @@ param
     ext = vp.ext ++ e  --- there should be at most one, one might think; but: I would say that it will be raining if I saw clouds
     } ;
 
--- 
+--
 
   predVV : {s : VVForm => Str ; p : Str ; typ : VVType} -> VP = \verb ->
     let verbs = verb.s
@@ -462,14 +484,14 @@ param
       _    => predV {s = \\vf => verbs ! VVF vf ; p = verb.p ; isRefl = False}
       } ;
 
-  presVerb : {s : VForm => Str} -> Agr -> Str = \verb -> 
+  presVerb : {s : VForm => Str} -> Agr -> Str = \verb ->
     agrVerb (verb.s ! VPres) (verb.s ! VInf) ;
 
   infVP : VVType -> VP -> Bool -> Anteriority -> CPolarity -> Agr -> Str = \typ,vp,ad_pos,ant,cb,a ->
     case cb of {CPos => ""; _ => "not"} ++
     case ant of {
       Simul => case typ of {
-                 VVAux => vp.ad ! a ++ vp.inf ; 
+                 VVAux => vp.ad ! a ++ vp.inf ;
                  VVInf => case ad_pos of {            ---- this is the "split infinitive"
                             True  => vp.ad ! a ++ "to" ++ vp.inf ;
                             False => "to" ++ vp.ad ! a ++ vp.inf
@@ -487,7 +509,7 @@ param
     } ++ vp.p ++
     vp.s2 ! a ++ vp.ext ;
 
-  agrVerb : Str -> Str -> Agr -> Str = \has,have,agr -> 
+  agrVerb : Str -> Str -> Agr -> Str = \has,have,agr ->
     case agr of {
       AgP3Sg _ => has ;
       _        => have
@@ -502,20 +524,20 @@ param
   haventContr = agrVerb (cBind "s not")  (cBind "ve not") ;
 
   Aux = {
-    pres  : Polarity => Agr => Str ; 
-    contr : Polarity => Agr => Str ;  -- contracted forms 
+    pres  : Polarity => Agr => Str ;
+    contr : Polarity => Agr => Str ;  -- contracted forms
     past  : Polarity => Agr => Str ;  --# notpresent
     inf,ppart,prpart : Str
     } ;
 
   auxBe : Aux = {
     pres = \\b,a => case <b,a> of {
-      <Pos,AgP1 Sg> => "am" ; 
+      <Pos,AgP1 Sg> => "am" ;
       <Neg,AgP1 Sg> => ["am not"] ; --- am not I
       _ => agrVerb (posneg b "is")  (posneg b "are") a
       } ;
     contr = \\b,a => case <b,a> of {
-      <Pos,AgP1 Sg> => cBind "m" ; 
+      <Pos,AgP1 Sg> => cBind "m" ;
       <Neg,AgP1 Sg> => cBind "m not" ; --- am not I
       _ => agrVerb (posneg b (cBind "s"))  (posneg b (cBind "re")) a
       } ;
@@ -545,7 +567,7 @@ param
     AgP2 Pl      => "yourselves" ;
     AgP3Pl _     => "themselves"
     } ;
-    
+
   possPron : Agr => Str = table {
     AgP1 Sg      => "my" ;
     AgP2 Sg      => "your" ;
@@ -565,8 +587,8 @@ param
 
   mkClause : Str -> Agr -> VP -> Clause =
     \subj,agr,vp -> {
-      s = \\t,a,b,o => 
-        let 
+      s = \\t,a,b,o =>
+        let
           verb  = vp.s ! t ! a ! b ! o ! agr ;
           compl = vp.s2 ! agr ++ vp.ext
         in
@@ -583,41 +605,41 @@ param
          _     => neg.s ! t ! a ! CPos ! o
          }
      } ;
-     
+
 
 -- For $Numeral$.
 
-  mkNum : Str -> Str -> Str -> Str -> {s : DForm => CardOrd => Case => Str} = 
+  mkNum : Str -> Str -> Str -> Str -> {s : DForm => CardOrd => Case => Str} =
     \two, twelve, twenty, second ->
     {s = table {
-       unit => table {NCard => regGenitiveS two ; NOrd => regGenitiveS second} ; 
-       teen => \\c => mkCard c twelve ; 
+       unit => table {NCard => regGenitiveS two ; NOrd => regGenitiveS second} ;
+       teen => \\c => mkCard c twelve ;
        ten  => \\c => mkCard c twenty
        }
     } ;
 
-  regNum : Str -> {s : DForm => CardOrd => Case => Str} = 
+  regNum : Str -> {s : DForm => CardOrd => Case => Str} =
     \six -> mkNum six (six + "teen") (six + "ty") (regOrd six) ;
 
   regCardOrd : Str -> {s : CardOrd => Case => Str} = \ten ->
-    {s = table {NCard => regGenitiveS ten ; 
+    {s = table {NCard => regGenitiveS ten ;
 		NOrd => regGenitiveS (regOrd ten)} } ;
 
-  mkCard : CardOrd -> Str -> Case => Str = \o,ten -> 
-    (regCardOrd ten).s ! o ; 
+  mkCard : CardOrd -> Str -> Case => Str = \o,ten ->
+    (regCardOrd ten).s ! o ;
 
-  regOrd : Str -> Str = \ten -> 
+  regOrd : Str -> Str = \ten ->
     case last ten of {
       "y" => init ten + "ieth" ;
       _   => ten + "th"
       } ;
 
-  mkQuestion : 
-      {s : Str} -> Clause -> 
+  mkQuestion :
+      {s : Str} -> Clause ->
       {s : Tense => Anteriority => CPolarity => QForm => Str} = \wh,cl ->
       {
-      s = \\t,a,p => 
-            let 
+      s = \\t,a,p =>
+            let
               cls = cl.s ! t ! a ! p ;
               why = wh.s
             in table {

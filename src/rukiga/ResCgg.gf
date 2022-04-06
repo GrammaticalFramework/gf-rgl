@@ -40,6 +40,8 @@ param
   
   ImpPol = ImpPos | ImpNeg;
   INumber = ISg | IPl | INeut;
+  -- copied from the English Resource Grammar
+  VVType = VVAux | VVInf | VVPresPart ; -- can do / try to do / start doing
   {-
     --there are several and i.e. 
     -- na (two nouns, 2 Noun Phrases, 2 Pronouns, 2 relative subject clauses, )
@@ -49,10 +51,12 @@ param
   ConjArg = Nn_Nn | Nps_Nps | Pns_Pns | RelSubjCls | Other;
   AgrConj = AConj ConjArg;
   Agreement =  AgP3 Number Gender | AgMUBAP1 Number |AgMUBAP2 Number | NONE; --Default is AgP3 Sg KI_BI
+  AgreementPl =  AgP3Pl Gender | AgMUBAP1Pl |AgMUBAP2Pl | NONExistPl; --Default is AgP3 Sg KI_BI
+  AgreementSg =  AgP3Sg Gender | AgMUBAP1Sg |AgMUBAP2Sg | NONExistSg; --Default is AgP3 Sg KI_BI
   AgrExist = AgrNo | AgrYes Agreement;
   --Position = PostDeterminer | PreDeterminer ;
   Position = Post | Pre;
-  Variants = V1|V2;
+  --Variants = V1|V2;
 	--Functional forms of the regular verb
 	Mood = Infinitive | Imperative | Subjunctive | Perfective;
 	VerbCat = Simple | Prepositional | Causative;
@@ -64,11 +68,13 @@ param
   PrepForm = Form1 | Form2; -- omu and omuri, aha, ahari
   -- for Extra Tenses not implemented
   -- would be better if I had alliases
-  TensesExtra = RemotePast | ImmediatePast | RemoteFuture;
+  --Tenses = RemotePast|NearPast | ImmediatePast |ExPres|NearFut |RemoteFut;
 
   -- for Extra Aspects not implemented
   -- would be better if I had alliases
-  Aspect = Performative | Perfect | Resultative | Retrospective | Habitual | Progressive | Persitive; 
+  --Aspect = Performative | Perfect | Resultative | Retrospective | Habitual | Progressive | Persitive;
+
+
 {-
 	Complete = Nouns with IV, 
 	Incomplete = Nouns without IV: important for use with pre-determiners
@@ -111,7 +117,22 @@ oper
       isPerfBlank =  False;
     	--morphs = mkVerbMorphs;
     	isRegular = False;
+      p = [];
+      isRefl = False
 	};
+  -- creates a verb of type that has particles (prepositions or 
+  --adverbials. this is for phrasal verbs)
+  mkVerbV2X : Str ->Str ->Str ->Str -> Bool->Verb = \rad, end1,end2, p, bool ->{
+      s = rad;
+      pres = end1;
+      perf = end2;
+      isPresBlank = False;
+      isPerfBlank =  False;
+      --morphs = mkVerbMorphs;
+      isRegular = False;
+      p = p;
+      isRefl = bool
+  };
 	--These are regular verbs with {a-ire} entry in the dictionary
 	smartVerb : Str ->Verb = \rad ->{
     	s = rad;
@@ -121,6 +142,8 @@ oper
       isPresBlank = False;
       isPerfBlank = False;
     	isRegular = True;
+      p = [];
+      isRefl = False
 	};
   
   {-  Smart paradigm
@@ -154,7 +177,7 @@ oper
 
         < "e" + "ki" + stem, KI_BI > => mkNoun omuntu (combine_morphemes "ebi" stem) g  ;
         < "e" + "ki" + stem, KI_ZERO > => mkNoun omuntu (combine_morphemes "" "") g  ; -- does not exist as plural
-        < "e" + "i" + stem, I_MA > => mkNoun omuntu (combine_morphemes "ama" "") g  ;
+        < "e" + "i" + stem, I_MA > => mkNoun omuntu (combine_morphemes "ama" stem) g  ;
         < "e" + "i" + stem, I_ZERO > => mkNoun omuntu (combine_morphemes "" "") g  ; -- does not exist as plural
         < "e" + "ri" + stem, RI_MA > => mkNoun omuntu (combine_morphemes "ama" stem) g  ;
         < "e" + "ri" + stem, RI_ZERO > => mkNoun omuntu (combine_morphemes "" "") g ; -- does not exist as plural
@@ -165,7 +188,7 @@ oper
         --< _ ,ZERO_MA > => mkNoun omuntu  ("ama" + stem) g (Predef.drop 1 omuntu);
         --< _ ,> => mkNoun omuntu  omuntu g (Predef.drop 1 omuntu);
         <_ , ZERO_BAA>  => mkNoun omuntu ("baa" + omuntu) g ;
-        < _ ,_ > => mkNoun omuntu  omuntu g-- improve as we go on.
+        < _ ,_ > => mkNoun omuntu  omuntu g -- improve as we go on.
     };
 
 
@@ -363,7 +386,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           AgP3 Pl KA_ZERO  => mkClitic "" ;
           _        => mkClitic "SubjNotKnown" --for checking if there is some class unaccounted for
       };
-
+  
       mkSubjCliticTableSg : Agreement => Str = table {
           AgMUBAP1 Sg => mkClitic "n" ;
           --AgMUBAP1 Pl => "tu" ;
@@ -432,12 +455,56 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           AgP3 Pl ZERO_TU  => mkClitic "tu" ;
           --AgP3 Sg (ZERO_MI | ZERO_ZERO)  => mkClitic "" ;
           AgP3 Pl ZERO_MI  => mkClitic "e" ;
-          AgP3 Pl KA_ZERO  => mkClitic "" ;
-          _        => mkClitic "Plural" --for checking if there is some class unaccounted for
+          AgP3 Pl KA_ZERO  => mkClitic "give example" ;
+          AgP3 Pl GU_GA    => mkClitic "ga";
+          AgP3 Pl ZERO_ZERO => mkClitic "give example";
+          AgP3 Pl KA_TU     => mkClitic "tu";
+          AgP3 Pl HA        => mkClitic "ha";
+          AgP3 Pl (MU | KU |I_ZERO |ZERO_BAA |N_ZERO |KI_ZERO|Null)       =>  "";
+          AgP3 Pl ZERO_N          => mkClitic "zimwe";
+          _ => "Plural-NonExist" --;_        => mkClitic "Plural-NonExist" --for checking if there is some class unaccounted for
+          
       };
+
+      agrToAgrPl: Agreement -> AgreementPl = \a -> case a of {
+          AgMUBAP1 Sg => NONExistPl;
+          AgMUBAP1 Pl => AgMUBAP1Pl;
+          AgMUBAP2 Sg => NONExistPl;
+          AgMUBAP2 Pl => AgMUBAP2Pl ;
+          AgP3 Sg MU_BA  => NONExistPl;
+          AgP3 Pl MU_BA  => AgP3Pl MU_BA ;          
+          AgP3 Sg KI_BI   => NONExistPl;
+          AgP3 Pl (KI_BI | ZERO_BI)   => AgP3Pl (KI_BI | ZERO_BI) ;
+          AgP3 Sg (RU_N | RU_MA | RU_ZERO | RU_BU)   => NONExistPl ; 
+          AgP3 Pl RU_N => AgP3Pl RU_N ; --| "i"; 
+          AgP3 Sg N_N => NONExistPl;
+          AgP3 Pl N_N => AgP3Pl N_N; --| "i";
+          AgP3 Sg (MU_MI | MU_ZERO)   => NONExistPl; 
+          AgP3 Pl MU_MI   => AgP3Pl MU_MI;
+          AgP3 Sg (RI_MA | RI_ZERO | I_ZERO) =>NONExistPl;
+          AgP3 Pl (RI_MA | BU_MA | KU_MA | ZERO_MA | I_MA |RU_MA)  => AgP3Pl (RI_MA | BU_MA | KU_MA | ZERO_MA | I_MA |RU_MA) ;
+          AgP3 Sg (KA_BU | KA_ZERO | KA_TU)   => NONExistPl; 
+          AgP3 Pl (KA_BU | RU_BU)  => AgP3Pl (KA_BU | RU_BU);
+          AgP3 Sg ZERO_BU  => NONExistPl;
+          AgP3 Pl ZERO_BU  => AgP3Pl ZERO_BU ;
+          AgP3 Sg ZERO_BI  => NONExistPl; 
+          AgP3 Sg ZERO_MA  => NONExistPl;
+          AgP3 Pl RI_ZERO  => AgP3Pl RI_ZERO ;
+          AgP3 Sg KU_ZERO  => NONExistPl;
+          AgP3 Pl KU_ZERO  => AgP3Pl KU_ZERO;
+          AgP3 Pl MU_ZERO  => AgP3Pl MU_ZERO ;
+          AgP3 Pl RU_ZERO  => AgP3Pl RU_ZERO ;
+          AgP3 Sg ZERO_TU  => NONExistPl;
+          AgP3 Pl ZERO_TU  => AgP3Pl ZERO_TU ;
+          AgP3 Sg (ZERO_MI | ZERO_ZERO)  => NONExistPl;
+          AgP3 Pl ZERO_MI  => AgP3Pl ZERO_MI ;
+          AgP3 Pl KA_ZERO  => AgP3Pl KA_ZERO ;
+          _        => NONExistPl --for checking if there is some class unaccounted for
+    };
        {-Object particle may be used as 
           1. a prefix: e.g mu-kwate = catch him,
           2. an infix: o-mu-kwate   = you catch him
+      }
 
       -}
       mkObjClitic : Agreement -> Str = \a ->case a of {
@@ -496,8 +563,8 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           
           _ => mkClitic "-" -- Hopefully exhausted all forms 
         };
-    Adverb = {s :Str; agr : AgrExist} ;
-    mkAdv: Str -> AgrExist -> Adverb =\str, agr ->{s=str; agr=agr};
+    Adverb : Type = {s :Str; agr : AgrExist} ;
+    
     --dealing with the adjective 
     {-
       The Adjective can be before the noun for TRUE or
@@ -523,9 +590,14 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     --AdjectivalPhrase : Type {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool} ;
     AdjectivalPhrase : Type = {s : Str ; position : Position; isProper : Bool; isPrep: Bool};
     --Adjective : Type = {s : Str ; post : Str; isPre : Bool; isProper : Bool; isPrep: Bool};
-    Adjective : Type = {s : Str ; position : Position; isProper : Bool; isPrep: Bool};
-    mkAdjective: Str -> Position -> Bool -> Bool -> Adjective = \ a , pos, isProper, isPrep -> 
-     { s = a ; position = pos ; isPre = True; isProper = isProper; isPrep = isPrep}; 
+    Adjective : Type = {s : Str ; 
+                        position : Position; 
+                        isProper : Bool; 
+                        isPrep: Bool; 
+                        isNeg : Bool -- this is for specifying that uncertain is the negative of certain
+                      };
+    mkAdjective: Str -> Position -> Bool -> Bool ->Bool-> Adjective = \ a , pos, isProper, isPrep,isNeg -> 
+     { s = a ; position = pos ; isPre = False; isProper = isProper; isPrep = isPrep; isNeg = isNeg}; 
       
     {-
         TO DO:
@@ -631,36 +703,107 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     -- TThis is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
     mkThis  = table{
-              AgMUBAP1 Sg => mkClitic "ogu";
-              AgMUBAP1 Pl => mkClitic "aba" ;
-              AgMUBAP2 Sg => mkClitic "ogu"; --probably an error check your grammar book
-              AgMUBAP2 Pl => mkClitic "aba" ;
-              AgP3 Sg MU_BA => mkClitic "ogu";
-              AgP3 Pl MU_BA => mkClitic "aba" ;
-              AgP3 Pl ZERO_BU => mkClitic "obu" ;
-              AgP3 Sg BU_MA => mkClitic "obu" ;
-              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
-              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
-              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
-              AgP3 ( Pl) HA  => mkClitic "aha" ; -- of place HA 
-              AgP3 ( Pl) MU => mkClitic "omu" ; -- of place  MU
-              AgP3 ( Pl) KU => mkClitic "oku" ; -- of place KU
-              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "eri" ;
-              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
-              AgP3 Sg KI_BI   => mkClitic "eki" ;
-              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "oku" ;
-              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogu" ;
-              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "oru" ;
-              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otu" ;
-              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "egi" ;
-              AgP3 Pl ZERO_MI =>mkClitic "egi" ;
-              AgP3 Pl MU_MI => mkClitic "egi";
-              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "ezi" ;
-              AgP3 Sg GU_GA => mkClitic "ogu" ;
-              AgP3 Pl GU_GA => mkClitic "aga" ;
-              _  => mkClitic "XXXThisThese" -- error checking for any case not catered for
+              AgMUBAP1 Sg =>  "ogu";
+              AgMUBAP1 Pl =>  "aba" ;
+              AgMUBAP2 Sg =>  "ogu"; --probably an error check your grammar book
+              AgMUBAP2 Pl =>  "aba" ;
+              AgP3 Sg MU_BA =>  "ogu";
+              AgP3 Pl MU_BA =>  "aba" ;
+              AgP3 Pl ZERO_BU =>  "obu" ;
+              AgP3 Sg BU_MA =>  "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "aga";
+              AgP3 Sg ZERO_MA =>  "aga";
+              AgP3 ( Pl) HA  =>  "aha" ; -- of place HA 
+              AgP3 ( Pl) MU =>  "omu" ; -- of place  MU
+              AgP3 ( Pl) KU =>  "oku" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "aka" ;
+              AgP3 Sg KI_BI   =>  "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) => "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "egi" ;
+              AgP3 Pl ZERO_MI => "egi" ;
+              AgP3 Pl MU_MI =>  "egi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "ezi" ;
+              AgP3 Sg GU_GA =>  "ogu" ;
+              AgP3 Pl GU_GA =>  "aga" ;
+              _  =>  "XXXThisThese" -- error checking for any case not catered for
 
     };
+
+    -- TThis is for demonstrative pronouns which can also be use as Quantifiers
+    -- These are self-standing
+    -- How can it be done without code repeation?
+    mkThisNoClitic  = table{
+              AgMUBAP1 Sg => "ogu";
+              AgMUBAP1 Pl =>  "aba" ;
+              AgMUBAP2 Sg =>  "ogu"; --probably an error check your grammar book
+              AgMUBAP2 Pl =>  "aba" ;
+              AgP3 Sg MU_BA =>  "ogu";
+              AgP3 Pl MU_BA =>  "aba" ;
+              AgP3 Pl ZERO_BU =>  "obu" ;
+              AgP3 Sg BU_MA =>  "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "aga";
+              AgP3 Sg ZERO_MA =>  "aga";
+              AgP3 ( Pl) HA  =>  "aha" ; -- of place HA 
+              AgP3 ( Pl) MU =>  "omu" ; -- of place  MU
+              AgP3 ( Pl) KU =>  "oku" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "aka" ;
+              AgP3 Sg KI_BI   =>  "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) => "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "egi" ;
+              AgP3 Pl ZERO_MI => "egi" ;
+              AgP3 Pl MU_MI =>  "egi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "ezi" ;
+              AgP3 Sg GU_GA =>  "ogu" ;
+              AgP3 Pl GU_GA =>  "aga" ;
+              _  =>  "XXXThisThese" -- error checking for any case not catered for
+
+    };
+
+    mkAdjClitic  = table{
+              AgMUBAP1 Sg => "ogu";
+              AgMUBAP1 Pl =>  "aba" ;
+              AgMUBAP2 Sg =>  "ogu"; --probably an error check your grammar book
+              AgMUBAP2 Pl =>  "aba" ;
+              AgP3 Sg MU_BA =>  "ogu";
+              AgP3 Pl MU_BA =>  "aba" ;
+              AgP3 Pl ZERO_BU =>  "obu" ;
+              AgP3 Sg BU_MA =>  "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "aga";
+              AgP3 Sg ZERO_MA =>  "aga";
+              AgP3 ( Pl) HA  =>  "aha" ; -- of place HA 
+              AgP3 ( Pl) MU =>  "omu" ; -- of place  MU
+              AgP3 ( Pl) KU =>  "oku" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "aka" ;
+              AgP3 Sg KI_BI   =>  "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) => "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "en" ;
+              AgP3 Pl ZERO_MI => "egi" ;
+              AgP3 Pl MU_MI =>  "egi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "ezi" ;
+              AgP3 Sg GU_GA =>  "ogu" ;
+              AgP3 Pl GU_GA =>  "aga" ;
+              _  =>  "XXXThisThese" -- error checking for any case not catered for
+
+    };
+
     {-
     -- TThis is for demonstrative pronouns which can also be use as Quantifiers
     -- How can it be done without code repeation?
@@ -744,6 +887,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
               --AgP3 Pl (KA_BU | RU_BU) => mkClitic "obu" ;
               --AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebi" ;
               --AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
+              AgP3 Sg ZERO_MA => mkClitic "agwo";
               AgP3 (Sg ) HA  => mkClitic "aho" ; -- of place HA 
               AgP3 (Sg ) MU => mkClitic "omwo" ; -- of place  MU
               AgP3 (Sg ) KU => mkClitic "okwo" ; -- of place KU
@@ -795,69 +939,69 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
               _  => mkClitic "XX" -- error checking for any case not catered for
 
     };
-    -- Genetive Preposition: simple "of" without Initila vowel
-    mkGenPrepNoIVClitic : Agreement -> Str = \a -> case a of {
-              AgMUBAP1 n => mkClitics "wa" "ba" n;
-              --AgMUBAP1 Pl => "aba" ;
-              AgMUBAP2 n => mkClitics "wa" "ba" n; --probably an error check your grammar book
-              --AgMUBAP2 Pl => "aba" ;
-              AgP3 n MU_BA => mkClitics "wa" "ba" n;
-              --AgP3 Pl MU_BA => "aba" ;
-              AgP3 Pl ZERO_BU => mkClitic "bwa" ;
-              AgP3 Sg BU_MA => mkClitic "bwa" ;
-              AgP3 Pl (KA_BU | RU_BU) => mkClitic "bwa" ;
-              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "bya" ;
-              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "ga";
-              AgP3 (Sg | Pl) HA => mkClitic "ha" ; -- of place HA 
-              AgP3 (Sg | Pl) MU => mkClitic "mwa" ; -- of place MU
-              AgP3 (Sg | Pl) KU => mkClitic "ya" ; -- of place KU
-              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "rya" ;
-              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "ka" ;
-              AgP3 Sg KI_BI   => mkClitic "kya" ;
-              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "kwa" ;
-              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "gwa" ;
-              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "rwa" ;
-              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "twa" ;
-              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "ya" ;
-              AgP3 Pl ZERO_MI =>mkClitic "ya" ;
-              AgP3 Pl MU_MI => mkClitic "emi";
-              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "za" ;
-              AgP3 Sg GU_GA => mkClitic "gwa" ;
-              AgP3 Pl GU_GA => mkClitic "ga" ;
-              _  => mkClitic "Error mkGenPrepNoIVClitic" -- error checking for any case not catered for
+    -- Genetive Preposition: simple "of" without Initila vowel. It does not combine
+    mkGenPrepNoIV : Agreement -> Str = \a -> case a of {
+              AgMUBAP1 Sg =>  "wa";
+              AgMUBAP1 Pl => "ba" ;
+              AgMUBAP2 Sg =>  "wa" ; --probably an error check your grammar book
+              AgMUBAP2 Pl => "ba" ;
+              AgP3 Sg MU_BA => "wa" ;
+              AgP3 Pl MU_BA => "ba" ;
+              AgP3 Pl ZERO_BU =>  "bwa" ;
+              AgP3 Sg BU_MA =>  "bwa" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "bwa" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  "bya" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "ga";
+              AgP3 (Sg | Pl) HA =>  "ha" ; -- of place HA 
+              AgP3 (Sg | Pl) MU =>  "mwa" ; -- of place MU
+              AgP3 (Sg | Pl) KU =>  "ya" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "rya" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "ka" ;
+              AgP3 Sg KI_BI   =>  "kya" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "kwa" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "gwa" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "rwa" ;
+              AgP3 Pl (ZERO_TU | KA_TU) => "twa" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "ya" ;
+              AgP3 Pl ZERO_MI => "ya" ;
+              AgP3 Pl MU_MI =>  "emi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "za" ;
+              AgP3 Sg GU_GA =>  "gwa" ;
+              AgP3 Pl GU_GA =>  "ga" ;
+              _  => "Error mkGenPrepNoIV" -- error checking for any case not catered for
 
     };
 
     -- Genetive Preposition: simple "of" with Initil vowel
-    mkGenPrepWithIVClitic : Agreement => Str = table {
-              AgMUBAP1 n => mkClitics "owa" "aba" n;
-              --AgMUBAP1 Pl => "aba" ;
-              AgMUBAP2 n => mkClitics "owa" "aba" n; --probably an error check your grammar book
-              --AgMUBAP2 Pl => "aba" ;
-              AgP3 n MU_BA => mkClitics "owa" "aba" n;
-              --AgP3 Pl MU_BA => "aba" ;
-              AgP3 Pl ZERO_BU => mkClitic "obwa" ;
-              AgP3 Sg BU_MA => mkClitic "obwa" ;
-              AgP3 Pl (KA_BU | RU_BU) => mkClitic "obwa" ;
-              AgP3 Pl (KI_BI | ZERO_BI) => mkClitic "ebya" ;
-              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) => mkClitic "aga";
-              AgP3 (Sg | Pl) HA => mkClitic "aha" ; -- of place HA 
-              AgP3 (Sg | Pl) MU => mkClitic "amwa" ; -- of place MU
-              AgP3 (Sg | Pl) KU => mkClitic "aya" ; -- of place KU
-              AgP3 Sg (I_ZERO | I_MA | RI_MA) =>mkClitic "arya" ;
-              AgP3 Sg (KA_ZERO | KA_BU) =>mkClitic "aka" ;
-              AgP3 Sg KI_BI   => mkClitic "ekya" ;
-              AgP3 Sg (KU_ZERO | KU_MA) => mkClitic "okwa" ;
-              AgP3 Sg (MU_MI | MU_ZERO) => mkClitic "ogwa" ;
-              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) => mkClitic "orwa" ;
-              AgP3 Pl (ZERO_TU | KA_TU) =>mkClitic "otwa" ;
-              AgP3 Sg (ZERO_ZERO | N_N) =>mkClitic "eya" ;
-              AgP3 Pl ZERO_MI =>mkClitic "eya" ;
-              AgP3 Pl MU_MI => mkClitic "emi";
-              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  =>mkClitic "eza" ;
-              AgP3 Sg GU_GA => mkClitic "ogwa" ;
-              AgP3 Pl GU_GA => mkClitic "aga" ;
-              _  => mkClitic "Error mkGenPrepWithIVClitic" -- error checking for any case not catered for
+    mkGenPrepWithIV : Agreement => Str = table {
+              AgMUBAP1 Sg =>  "owa" ;
+              AgMUBAP1 Pl => "aba" ;
+              AgMUBAP2 Sg =>  "owa" ; --probably an error check your grammar book
+              AgMUBAP2 Pl => "aba" ;
+              AgP3 Sg MU_BA => "owa" ;
+              AgP3 Pl MU_BA => "aba" ;
+              AgP3 Pl ZERO_BU =>  "obwa" ;
+              AgP3 Sg BU_MA =>  "obwa" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "obwa" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>  "ebya" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "aga";
+              AgP3 (Sg | Pl) HA =>  "aha" ; -- of place HA 
+              AgP3 (Sg | Pl) MU =>  "amwa" ; -- of place MU
+              AgP3 (Sg | Pl) KU =>  "aya" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "arya" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "aka" ;
+              AgP3 Sg KI_BI   =>  "ekya" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "okwa" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "ogwa" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "orwa" ;
+              AgP3 Pl (ZERO_TU | KA_TU) => "otwa" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "eya" ;
+              AgP3 Pl ZERO_MI => "eya" ;
+              AgP3 Pl MU_MI =>  "emi";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "eza" ;
+              AgP3 Sg GU_GA =>  "ogwa" ;
+              AgP3 Pl GU_GA =>  "aga" ;
+              _  => "Error in mkGenPrepWithIVClitic : no pattern matched" -- error checking for any case not catered for
 
     };
    
@@ -960,6 +1104,71 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 		}
  	};
 
+  mkRPsNoClitic : RCase => Agreement =>Str = table{
+      RSubj => table {
+          AgMUBAP1 Sg =>  "o";
+              AgMUBAP1 Pl =>  "aba" ;
+              AgMUBAP2 Sg =>  "o"; 
+              AgMUBAP2 Pl =>  "aba" ;
+              AgP3 Sg MU_BA =>  "o";
+              AgP3 Pl MU_BA =>  "aba" ;
+              AgP3 Pl ZERO_BU =>  "obu" ;
+              AgP3 Sg BU_MA =>  "obu" ;
+              AgP3 Pl (KA_BU | RU_BU) =>  "obu" ;
+              AgP3 Pl (KI_BI | ZERO_BI) =>   "ebi" ;
+              AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "aga";
+              AgP3 (Sg ) HA  =>  "aha" ; -- of place HA 
+              AgP3 (Sg ) MU =>  "aha" ; -- of place  MU
+              AgP3 (Sg ) KU =>  "e" ; -- of place KU
+              AgP3 Sg (I_ZERO | I_MA | RI_MA) => "eri" ;
+              AgP3 Sg (KA_ZERO | KA_BU) => "aka" ;
+              AgP3 Sg KI_BI   =>  "eki" ;
+              AgP3 Sg (KU_ZERO | KU_MA) =>  "oku" ;
+              AgP3 Sg (MU_MI | MU_ZERO) =>  "ogu" ;
+              AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "oru" ;
+              AgP3 Pl (ZERO_TU | KA_TU) => "otu" ;
+              AgP3 Sg (ZERO_ZERO | N_N) => "e" ;
+              AgP3 Pl ZERO_MI => "e" ;
+              AgP3 Pl MU_MI =>  "e";
+              AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "ezi" ;
+              AgP3 Sg GU_GA => "ogu" ;
+              AgP3 Pl GU_GA =>  "aga" ;
+              _  =>  "XXXThat" -- error checking for any case not catered for
+        
+        };
+    _ => table {
+        AgMUBAP1 Sg =>  "ou"; 
+          AgMUBAP1 Pl =>  "abu" ; --note: abu or abi is used. GF does not allow free variation. However, abu is more natural
+          AgMUBAP2 Sg =>  "ou"; --probably an error check your grammar book
+          AgMUBAP2 Pl =>  "abu" ;
+          AgP3 Sg MU_BA =>  "o";
+          AgP3 Pl MU_BA =>  "abu" ;
+          AgP3 Pl ZERO_BU =>  "obu" ;
+          AgP3 Sg BU_MA =>  "obu" ;
+          AgP3 Pl (KA_BU | RU_BU) =>  "obu" ;
+          AgP3 Pl (KI_BI | ZERO_BI) =>  "ebi" ;
+          AgP3 Pl (ZERO_MA | KU_MA | RI_MA | I_MA | BU_MA) =>  "agu";
+          AgP3 (Sg ) HA  =>  "ahu" ; -- of place HA 
+          AgP3 (Sg ) MU =>  "ahu" ; -- of place  MU
+          AgP3 (Sg ) KU =>  "ei" ; -- of place KU
+          AgP3 Sg (I_ZERO | I_MA | RI_MA) => "eri" ;
+          AgP3 Sg (KA_ZERO | KA_BU) => "aku" ;
+          AgP3 Sg KI_BI   =>  "eki" ;
+          AgP3 Sg (KU_ZERO | KU_MA) =>  "oku" ;
+          AgP3 Sg (MU_MI | MU_ZERO) =>  "ogu" ;
+          AgP3 Sg (RU_ZERO | RU_BU | RU_MA| RU_N) =>  "oru" ;
+          AgP3 Pl (ZERO_TU | KA_TU) => "otu" ;
+          AgP3 Sg (ZERO_ZERO | N_N) => "ei" ;
+          AgP3 Pl ZERO_MI => "ei" ;
+          AgP3 Pl MU_MI =>  "ei";
+          AgP3 Pl (ZERO_ZERO | ZERO_N | N_N | RU_N)  => "ezi" ;
+          AgP3 Sg GU_GA =>  "ogu" ;
+          AgP3 Pl GU_GA =>  "agu" ;
+         _  => mkClitic "XXXThat" -- error checking for any case not catered for
+      
+    }
+  };
+
  	mkIPPref : Agreement =>Str = table{	
 	  AgMUBAP1 Sg => mkClitic "o";
       AgMUBAP1 Pl => mkClitic "ba" ;
@@ -1034,7 +1243,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
         4. Cardinal numbers
         6. Ordinal numbers
     -}
-    Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool};
+    Determiner : Type = {s : Str ; s2: Agreement=>Str; ntype : NounState ; num : Number ; pos : Position; doesAgree: Bool; numeralS:Agreement=>Str; numeralExists : Bool};
     mkDet : Str -> NounState -> Number -> Position -> Determiner 
       = \ det, ns, num,pos ->
         {
@@ -1043,7 +1252,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           ntype = ns;
           num = num;
           pos = pos;
-          doesAgree = False
+          doesAgree = False;
+          numeralS = \\_ => [];            -- A true determiner is not a quantifier
+          numeralExists = False;
         };
 
     -- Pronouns must have agreement because they are used 
@@ -1066,14 +1277,15 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
     
     -- Structural
     -- prepositions sometimes have two kinds, near or far i.e omu or omuri
-    -- ho
-    Preposition = {s,other : Str; isGenPrep : Bool}; 
-    mkPrep : Str -> Str ->Bool -> Preposition = \ first, other, isGenPrep -> {
-      s = first ;
-      other = other;
-      isGenPrep = isGenPrep
-    };
+    -- We provide for two kinds: near and distal plus a status checker for 
+    -- genitive prepositions
+    
+    Preposition : Type = {s : Str; other : Str; isGenPrep : Bool}; 
+    
     NounPhrase : Type = {s :Case => Str; agr : Agreement};
+
+    --NounPhrase : Type = {s : Number=>  NounState => Str; agr : Agreement};
+    
     {-
       Operation to create Noun Phrases from a Determiner and Nouns.
       In Runyankore and Rukiga, depending on the particular Determiner,
@@ -1096,13 +1308,16 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
   mkDetCN : Determiner -> Noun -> NounPhrase = \ det, cn ->
     let subjClitic = mkSubjClitic (AgP3 det.num cn.gender) 
     in
-      case <det.pos, det.num> of { 
-           <Post, Pl> => {s = \\_=> subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
-           <Post, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
-           <Pre, n> => { s =\\_ => det.s ++ cn.s !n  ! det.ntype; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat} --;
+      case <det.pos, det.num> of {
+            <Post, Pl> => {s = \\_=> cn.s!det.num! det.ntype ++ subjClitic ++ det.s2 !AgP3 det.num cn.gender; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat}; --subjClitic ++ cn.s!det.num! det.ntype ++ subjClitic ++ det.s2 !AgP3 det.num cn.gender; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+            <Post, Sg> => {s = \\_=>cn.s!det.num! det.ntype ++ subjClitic ++ det.s2 ! AgP3 det.num cn.gender; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+            <Pre, n> => case det.numeralExists  of {
+                              False => { s =\\_ =>  det.s2 !(AgP3 det.num cn.gender) ++ cn.s !n  ! Complete; agr = AgP3 det.num cn.gender; nounCat = cn.nounCat};
+                              True  => { s =\\_ =>  cn.s !n  ! Complete ++ det.numeralS ! (AgP3 n cn.gender); agr = AgP3 det.num cn.gender; nounCat = cn.nounCat}
+                            }
           --<PostDeterminer, PFalse> => {s = \\_=> cn.s!det.ntype!det.num; agr = AgP3 det.num cn.gender }    
-           };
-  
+      };
+                           
 
     
     
@@ -1118,7 +1333,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
                       --morphs: VFormMini => VerbMorphPos=> Str; 
                       isPresBlank : Bool;
                       isPerfBlank : Bool;
-                      isRegular:Bool
+                      isRegular: Bool;
+                      p : Str;  -- some verbs have particles such as prepositions and adverbial that give the verb a meaning different from what would be automatically deduced
+                      isRefl : Bool
                     };
       
       GVerb : Type = {
@@ -1137,7 +1354,7 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
         Because of the fusion, I have deffered including this in 
         the compPrep. Actually, it is going to be empty in the next version
       -}
-      Verb2 : Type = Verb ** {comp:Str};
+      Verb2 : Type = Verb ** {comp: Str; isCompN2: Bool};
       Verb3 : Type = Verb2 ** {comp2 : Str} ;
       {-
         Given a root, can you form the different verbforms?
@@ -1164,7 +1381,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
       						adv:Str; 
       						containsAdv: Bool;
       						adV:Str;
-      						containsAdV:Bool
+      						containsAdV:Bool;
+                  containsComp : Bool;
+                  containsComp2 : Bool
       					};
       -- in VP formation, all verbs are lifted to GVerb, but morphology doesn't need to know this
      verb2gverb : Verb ->Str -> GVerb = \v, ba -> {
@@ -1195,7 +1414,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           --morphs= mkVerbMorphs;
           isPresBlank = True;
           isPerfBlank = True;
-          isRegular=False
+          isRegular=False;
+          p = [];
+          isRefl = False
         };
        mkBecome  :  Verb  ={
          	s = "b" ; 
@@ -1204,7 +1425,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
           isPresBlank = False;
           isPerfBlank = False;
           --morphs= mkVerbMorphs; 
-          isRegular=False
+          isRegular=False;
+          p = [];
+          isRefl = False
         };
 
 
@@ -1348,10 +1571,10 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 
     glue: Str -> Str ->Str =\ x, y -> x ++ BIND ++ y;
   	--Concatenates two strings for the genetive case
-  	glueGen: Agreement ->Str = \ a -> mkGenPrepNoIVClitic a ++ BIND ++ mkGenAdjSuffix a;
+  	glueGen: Agreement ->Str = \ a -> mkGenPrepNoIV a ++ BIND ++ mkGenAdjSuffix a;
 
   --Number determining element
-  Numer : Type = { s: Agreement => Str ; n : Number};
+  Numer : Type = { s: Agreement => Str ; n : Number; numeralExists:Bool};
 
   --VPSlash : Type = VerbPhrase ** { c : Str };
   VPSlash : Type = {
@@ -1368,7 +1591,9 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
   					adv:Str; 
   					containsAdv:Bool;
   					adV:Str;
-  					containsAdV:Bool
+  					containsAdV:Bool;
+            containsComp : Bool;
+            containsComp2 : Bool
   					}; --comp is empty
   
 
@@ -1399,10 +1624,11 @@ mkSubjPrefix : Agreement -> Str =\a ->case a of {
 param 
   CompSource = NounP | ADverb | AdjP | CommonNoun;
 oper
-  Comp : Type = {s:Str; source : CompSource };
+  Comp : Type = {s:Str; source : CompSource};
 
 
   --Conjunctions
+  -- arguments to conjunctions determine which version is used
   Conjunction : Type = {s : AgrConj =>Str ;s2 : Str ; n : Number} ;
 
   -- For $Numeral$.

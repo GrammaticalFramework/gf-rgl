@@ -54,7 +54,7 @@ lin
         paragraph (adj.adv) ;
     } ;
 
-  InflectionAdv = \adv -> {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t = "b" ;
     s1= heading1 ("Belirteç") ;
     s2= paragraph (adv.s) ;

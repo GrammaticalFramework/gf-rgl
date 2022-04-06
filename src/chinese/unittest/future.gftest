@@ -1,0 +1,32 @@
+Lang: UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron i_Pron) (UseV die_V))
+LangChi: 我 会 死
+LangEng: I will die
+
+Lang: ExtAdvS (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))) (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron she_Pron) (UseV walk_V)))
+LangChi: 如 果 我 睡 觉 ， 她 会 走
+LangEng: if I sleep , she will walk
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ProgrVP (UseV die_V)))
+LangChi: 我 在 死
+LangEng: I am dying
+
+Lang: UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron i_Pron) (UseV die_V))
+LangChi: 我 不 会 死
+LangEng: I won't die
+
+Lang: UseQCl (TTAnt TFut ASimul) PPos (QuestCl (PredVP (UsePron i_Pron) (UseV die_V)))
+-- LangChi: 我 会 不 会 死
+LangChi: 我 会 死 吗
+LangEng: will I die
+
+Lang: UseQCl (TTAnt TFut ASimul) PNeg (QuestCl (PredVP (UsePron i_Pron) (UseV die_V)))
+LangChi: 我 不 会 死 吗
+LangEng: won't I die
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TFut ASimul) PPos (QuestCl (PredVP (UsePron i_Pron) (UseV die_V))))))
+LangChi: 我 不 知 道 我 会 死 吗
+LangEng: I don't know if I will die
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplVQ know_VQ (UseQCl (TTAnt TFut ASimul) PNeg (QuestCl (PredVP (UsePron i_Pron) (UseV die_V))))))
+LangChi:  我 不 知 道 我 不 会 死 吗
+LangEng: I don't know if I won't die

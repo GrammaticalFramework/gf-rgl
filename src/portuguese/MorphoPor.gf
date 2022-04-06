@@ -151,8 +151,8 @@ oper
   mkAdj : (_,_,_,_,_ : Str) -> Adj =
     \burro,burra,burros,burras,burramente ->
     {s = table {
-       ASg g _ => genForms burro burra ! g ;
-       APl g   => genForms burros burras ! g ;
+       AF g Sg => genForms burro burra ! g ;
+       AF g Pl => genForms burros burras ! g ;
        AA      => burramente
        }
     } ;
@@ -169,8 +169,8 @@ oper
           } + "mente" ;
     in {
       s = table {
-        ASg g _ => genForms ms fs ! g ;
-        APl g   => genForms mp fp ! g ;
+        AF g Sg => genForms ms fs ! g ;
+        AF g Pl => genForms mp fp ! g ;
         AA      => adv
         }
     } ;
@@ -251,7 +251,7 @@ oper
 
   mkOrdinal : A -> Ord = \adj ->
   lin Ord {
-    s = \\ag => adj.s ! Posit ! (genNum2Aform ag.g ag.n) ;
+    s = \\ag => adj.s ! genNum2Aform ag.g ag.n ;
     } ;
 
   mkQuantifier : (esse,essa,esses,essas : Str) -> Quant = \esse,essa,esses,essas->

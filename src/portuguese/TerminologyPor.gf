@@ -116,7 +116,7 @@ lin
 
   nounHeading n = ss (n.s ! Sg) ;
   nounPluralHeading n = ss (n.s ! Pl) ;
-  modNounHeading a n = ss (n.s ! Sg ++ a.s ! Posit ! genNumPos2Aform n.g Sg False) ;
+  modNounHeading a n = ss (n.s ! Sg ++ a.s ! genNum2Aform n.g Sg) ;
 
   exampleGr_N = mkN "exemplo" ;
   formGr_N = mkN "forma" ;

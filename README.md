@@ -2,8 +2,6 @@
 
 # GF Resource Grammar Library (RGL)
 
-[![Build Status](https://travis-ci.org/GrammaticalFramework/gf-rgl.svg?branch=master)](https://travis-ci.org/GrammaticalFramework/gf-rgl)
-
 The GF Resource Grammar Library is the standard library for Grammatical Framework. It covers the morphology and basic syntax of over 30 languages.
 
 For more about the RGL, see the [synopsis page](http://www.grammaticalframework.org/lib/doc/synopsis/).
@@ -47,12 +45,7 @@ This file should be kept up-to-date and all build methods should read this confi
 
 If default is `y` then anything other than `n`, including the empty string, is treated as true (and vice versa when default is `n`).
 
-## Haskell script: `Setup.hs`
-
-This build method gives you most options.
-You will need Haskell installed on your system.
-
-### Basic
+## Using Make
 
 If you have `Make` installed and don't care about advanced settings,
 you can compile the RGL and install it to the default location with:
@@ -64,9 +57,15 @@ make install
 This is the same as `make build` followed by `make copy`.
 There is also `make clean` available.
 
-### Advanced
+The Makefile will try to use the Haskell install script,
+falling back to the shell script if you do not have Haskell installed.
 
-For more fine-grained control over the build process, you can run the build script directly:
+## Haskell script: `Setup.hs`
+
+This build method gives you most options.
+You will need Haskell installed on your system.
+
+Run the build script with:
 
 ```
 runghc Setup.hs ...

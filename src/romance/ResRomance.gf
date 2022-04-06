@@ -248,17 +248,17 @@ oper
 -- have a "-" with possibly a special verb form with "t":
 -- "comment fera-t-il" vs. "comment fera Pierre"
 
-  infVP : VP -> Agr -> Str = nominalVP VInfin ;
+  infVP : VP -> RPolarity -> Agr -> Str = nominalVP VInfin ;
 
-  gerVP : VP -> Agr -> Str = nominalVP (\_ -> VGer) ;
+  gerVP : VP -> RPolarity -> Agr -> Str = nominalVP (\_ -> VGer) ;
 
-  nominalVP : (Bool -> VF) -> VP -> Agr -> Str = \vf,vp,agr ->
+  nominalVP : (Bool -> VF) -> VP -> RPolarity -> Agr -> Str = \vf,vp,pol,agr ->
       let
         ----iform = orB vp.clit3.hasClit (isVRefl vp.s.vtyp) ;
         iform = contractInf vp.clit3.hasClit (isVRefl vp.s.vtyp) ;
         inf   = vp.s.s ! vf iform ;
-        neg   = vp.neg ! RPos ;             --- Neg not in API
-        obj   = vp.s.p ++ vp.comp ! agr ++ vp.ext ! RPos ; ---- pol
+        neg   = vp.neg ! pol ;
+        obj   = vp.s.p ++ vp.comp ! agr ++ vp.ext ! pol ; ---- pol
         refl  = case isVRefl vp.s.vtyp of {
             True => reflPron agr.n agr.p Acc ; ---- case ?
             _ => []

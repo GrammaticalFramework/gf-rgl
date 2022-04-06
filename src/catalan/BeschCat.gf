@@ -1741,6 +1741,71 @@ VP (Imp Sg P1) => nonExist
 }
 } ;
 
+oper tossir_31b : Str -> Verbum = \tossir ->
+let t_ = Predef.tk 5 tossir in
+{s = table { 
+ VI Infn => t_ + "ossir" ;
+ VI Ger => t_ + "ossint" ;
+ VP (Pres Ind Pl  P1) => t_ + "ossim" ;
+ VP (Pres Ind Sg  P1) => t_ + "usso" ;
+ VP (Pres Ind Pl  P2) => t_ + "ossiu" ;
+ VP (Pres Ind Sg  P2) => t_ + "usses" ;
+ VP (Pres Ind Pl  P3) => t_ + "ussen" ;
+ VP (Pres Ind Sg  P3) => t_ + "us" ;
+ VP (Pres Sub Pl  P1) => t_ + "ossim" ;
+ VP (Pres Sub Sg  P1) => t_ + "ussi" ;
+ VP (Pres Sub Pl  P2) => t_ + "ossiu" ;
+ VP (Pres Sub Sg  P2) => t_ + "ussis" ;
+ VP (Pres Sub Pl  P3) => t_ + "ussin" ;
+ VP (Pres Sub Sg  P3) => t_ + "ussi" ;
+ VP (Impf Ind Pl  P1) => t_ + "ossíem" ;--# notpresent
+ VP (Impf Ind Sg  P1) => t_ + "ossia" ;--# notpresent
+ VP (Impf Ind Pl  P2) => t_ + "ossíeu" ;--# notpresent
+ VP (Impf Ind Sg  P2) => t_ + "ossies" ;--# notpresent
+ VP (Impf Ind Pl  P3) => t_ + "ossien" ;--# notpresent
+ VP (Impf Ind Sg  P3) => t_ + "ossia" ;--# notpresent
+ VP (Impf Sub Pl  P1) => t_ + "ossíssim" ;--# notpresent
+ VP (ImpfSubPlE   P1) => t_ + "ossíssem" ;--# notpresent
+ VP (Impf Sub Sg  P1) => t_ + "ossís" ;--# notpresent
+ VP (Impf Sub Pl  P2) => t_ + "ossíssiu" ;--# notpresent
+ VP (ImpfSubPlE   P2) => t_ + "ossísseu" ;--# notpresent
+ VP (Impf Sub Sg  P2) => t_ + "ossissis" ;--# notpresent
+ VP ImpfSubSgE        => t_ + "ossisses" ;--# notpresent
+ VP (Impf Sub Pl  P3) => t_ + "ossissin" ;--# notpresent
+ VP (ImpfSubPlE   P3) => t_ + "ossissen" ;--# notpresent
+ VP (Impf Sub Sg  P3) => t_ + "ossís" ;--# notpresent
+ VP (Fut Pl  P1)  => t_ + "ossirem" ;--# notpresent
+ VP (Fut Sg  P1)  => t_ + "ossiré" ;--# notpresent
+ VP (Fut Pl  P2) => t_ + "ossireu" ;--# notpresent
+ VP (Fut Sg  P2) => t_ + "ossiràs" ;--# notpresent
+ VP (Fut Pl  P3) => t_ + "ossiran" ;--# notpresent
+ VP (Fut Sg  P3) => t_ + "ossirà" ;--# notpresent
+ VP (Pret Pl  P1) => t_ + "ossírem" ;--# notpresent
+ VP (Pret Sg  P1) => t_ + "ossí" ;--# notpresent
+ VP (Pret Pl  P2) => t_ + "ossíreu" ;--# notpresent
+ VP (Pret Sg  P2) => t_ + "ossires" ;--# notpresent
+ VP (Pret Pl  P3) => t_ + "ossiren" ;--# notpresent
+ VP (Pret Sg  P3) => t_ + "ossí" ;--# notpresent
+ VP (Cond Pl  P1)  => t_ + "ossiríem" ;--# notpresent
+ VP (Cond Sg  P1)  => t_ + "ossiria" ;--# notpresent
+ VP (Cond Pl  P2) => t_ + "ossiríeu" ;--# notpresent
+ VP (Cond Sg  P2) => t_ + "ossiries" ;--# notpresent
+ VP (Cond Pl  P3) => t_ + "ossirien" ;--# notpresent
+ VP (Cond Sg  P3) => t_ + "ossiria" ;--# notpresent
+ VP (Imp Pl  P1)  => t_ + "ossim" ;
+ VP (Imp Pl  P2) => t_ + "ossiu" ;
+ VP (Imp Sg  P2) => t_ + "us" ;
+ VP (Imp Pl  P3) => t_ + "ussin" ;
+ VP (Imp Sg  P3) => t_ + "ussi" ;
+ VP (Pass Pl  Fem) => t_ + "ossides" ;
+ VP (Pass Sg  Fem) => t_ + "ossida" ;
+ VP (Pass Pl  Masc) => t_ + "ossits" ;
+ VP (Pass Sg  Masc) => t_ + "ossit" ;
+VP (Imp Sg P1) => nonExist 
+}
+} ;
+
+
 oper coure_32 : Str -> Verbum = \coure ->
 let c_ = Predef.tk 4 coure in
 {s = table { 
@@ -5595,7 +5660,6 @@ let t_ = Predef.tk 5 tòrcer in
 VP (Imp Sg P1) => nonExist 
 }
 } ;
---- tossir-- is not in the used source .
 
 oper trencar_112 : Str -> Verbum = \trencar ->
 let tren_ = Predef.tk 3 trencar in

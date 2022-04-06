@@ -24,6 +24,7 @@ concrete CatSlo of Cat =
     VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase} ; ----
     V  = ResSlo.VerbForms ;
     V2 = ResSlo.VerbForms ** {c : ComplementCase} ;
+    VS,VQ  = ResSlo.VerbForms ;
 
     A  = ResSlo.AdjForms ;
     AP = ResSlo.Adjective ** {isPost : Bool} ; -- {s : Gender => Number => Case => Str}
@@ -39,7 +40,7 @@ concrete CatSlo of Cat =
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;
     Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; 
-    Pron = PronForms ;
+    Pron = PronForms ** {poss : DemPronForms} ;
 
     Adv  = {s : Str} ;
     Prep = ResSlo.ComplementCase ; -- {s : Str ; c : Case ; hasPrep : Bool} ;

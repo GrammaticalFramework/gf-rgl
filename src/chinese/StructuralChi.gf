@@ -5,7 +5,7 @@ concrete StructuralChi of Structural = CatChi **
 
 lin
     every_Det = mkDet "每" Sg ;
-        
+
     this_Quant = mkQuant "这" ;
     that_Quant = mkQuant "那" ;
 
@@ -25,18 +25,20 @@ lin
     possess_Prep = mkPrep [] "的" ATPoss ;
     with_Prep = mkPrep "和" "一起" (ATPlace True) ; -- "with you"
 ----    with_Prep = mkPrep "和" [] ; -- "with bread"
- 
+
 and_Conj = {s = table {
                     CPhr CNPhrase => mkConjForm "和" ;
                     CPhr CAPhrase => mkConjForm "而" ;
                     CPhr CVPhrase => mkConjForm "又" ;
-                    CSent => mkConjForm "并且"             --modified by chenpneg 11.19
-                          }
+                    CSent => mkConjForm "而"             --modified by chenpneg 11.19
+                    } ;
+                    conjType = NotJiu ;
                 } ;
  or_Conj = {s = table {
                     CPhr _ => mkConjForm "或" ;
                     CSent => mkConjForm "还是"
-                          }
+                    } ;
+                    conjType = NotJiu ;
                 } ;
 
     although_Subj = mkSubj "虽然" "但";
@@ -52,8 +54,8 @@ when_IAdv = mkIAdvL "什么时候" ;
 how_IAdv = mkIAdvL "如何" ;
 all_Predet = ssword "所有" ;
 many_Det = mkDet (word "很多") DTPoss ;
-someSg_Det = mkDet (word "一些") Sg ;
-somePl_Det = mkDet (word "一些") Sg ;
+someSg_Det = mkDet (word "一些") DTPoss ;
+somePl_Det = mkDet (word "一些") DTPoss ;
 few_Det = mkDet "少" Pl ;
 other_A = mkA "其他" ;
 
@@ -116,13 +118,14 @@ as_CAdv = {s = word "和" ; p = word "一样" } ; -- modified by chenpeng 11.24
 at_least_AdN = ssword "最少" ; -- at least five
 at_most_AdN = ssword "最多" ;
 behind_Prep = mkPrep "在" "后面" ;
-  
+
 both7and_DConj = {s = table { -- modified by chenpeng 11.19
                     CPhr CNPhrase => mkConjForm2 "包括" "和" ;
                     CPhr CAPhrase => mkConjForm2 "即" "又" ;
                     CPhr CVPhrase => mkConjForm2 "不但" "而且" ;
                     CSent => mkConjForm2 "不但" "而且"
-                    }
+                    } ;
+                    conjType = NotJiu ;
                 } ;
 
 by8agent_Prep = mkPrep "被" [] mannerAdvType; -- by for agent in passive
@@ -135,7 +138,8 @@ either7or_DConj = {s = table { -- modified by chenpeng 11.19
                     CPhr CAPhrase => mkConjForm2 "要么" "要么" ;
                     CPhr CVPhrase => mkConjForm2 "要么" "要么" ;
                     CSent => mkConjForm2 "要么" "要么"
-                    }
+                    } ;
+                    conjType = NotJiu ;
                 } ;
 
 everybody_NP = ssword "每个人" ; -- [mark] "每个人": 每(every)+个(classifier)+人(person)
@@ -152,11 +156,10 @@ less_CAdv = {s = than_s ; p = word "没更"} ; -- modified by chenpeng 11.24
 more_CAdv = {s = than_s ; p = word "更"} ; -- modified by chenpeng 11.24
 most_Predet = ssword "大多数" ;
 if_then_Conj = {s = table { -- added by chenpeng 11.19
-                    CPhr CNPhrase => mkConjForm [] ;
-                    CPhr CAPhrase => mkConjForm [] ;
-                    CPhr CVPhrase => mkConjForm [] ;
-                    CSent => mkConjForm2 "如果" "那么"
-                    }
+                    CSent => mkConjForm2 "如果" "就" ;  -- if she walks, I then sleep
+                    CPhr _ => mkConjForm2 "如果" "那么" -- if fish , then rice
+                    } ;
+                    conjType = Jiu ;
                 } ;
 nobody_NP = ssword "没人" ;
 nothing_NP = ssword "没有什么" ;
@@ -171,7 +174,7 @@ there7from_Adv = mkAdv "从那里" ; -- from there
 there7to_Adv = mkAdv "到那里" ;
 therefore_PConj = ssword "因此" ;
 through_Prep = mkPrep "通过" ;
-which_IQuant = mkIQuant "哪" ; -- 
+which_IQuant = mkIQuant "哪" ; --
 --which_IQuant = ssword [] ; -- [mark] in sent, it depends on the context
 without_Prep = mkPrep "没有" [] mannerAdvType ;
 youPol_Pron = ssword "您" ; -- polite you

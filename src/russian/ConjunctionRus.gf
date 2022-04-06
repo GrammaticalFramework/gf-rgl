@@ -1,120 +1,207 @@
 --# -path=.:../abstract:../common:../../prelude
 
-concrete ConjunctionRus of Conjunction = 
+concrete ConjunctionRus of Conjunction =
   CatRus ** open ResRus, Coordination, Prelude in {
 
   flags optimize=all_subs ;  coding=utf8 ;
 
-  lin
-
-    ConjS = conjunctDistrSS ;
-
-    ConjAdv = conjunctDistrSS ;
-                                                    
-    ConjNP c xs =
-    conjunctDistrTable PronForm c xs ** {n = conjNumber c.n xs.n ; 
-      p = xs.p ; pron = xs.pron ; anim = xs.anim ; 
-       g = xs.g } ;
-        
-    ConjAP or xs = 
-      {s = \\af => case af of  {
-        AF c a gn => or.s1++ xs.s1 ! AF c a gn ++ or.s2 ++ xs.s2 ! AF c a gn ;
-        AFShort gn => case xs.preferShort of {
-          PrefShort => or.s1++ xs.s1 ! AFShort gn ++ or.s2 ++ xs.s2 ! AFShort gn ;
-          _ => or.s1++ xs.s1 ! AF Nom Inanimate gn ++ or.s2 ++ xs.s2 ! AF Nom Inanimate gn} ;
-        AdvF => or.s1++ xs.s1 ! AdvF ++ or.s2 ++ xs.s2 ! AdvF 
-        } ;
-     p = xs.p ;
-     preferShort = xs.preferShort 
+  lincat
+    [Adv] = {s1,s2 : Str} ;
+    [IAdv] = {s1,s2 : Str} ;
+    [AdV] = {s1,s2 : Str} ;
+    [AP] = {s1,s2 : AdjTable ;
+      short1,short2 : AgrTable ;
+      isPost : Bool;
+      preferShort : ShortFormPreference
       } ;
+    [DAP] = {s1,s2 : DetTable ;
+      g : Gender ;
+      c : Case ;
+      size : NumSize
+      } ;
+    [NP] = {s1,s2 : Case => Str ;
+      -- prep1,prep2 : Case => Str ;
+      pron : Bool ;
+      a : Agr
+      } ;
+    [CN] = {s1,s2 : Number => Case => Str ;
+      g : Gender ;
+      mayben : MaybeNumber ;
+      anim : Animacy
+      } ;
+    [S] = {s1,s2 : Mood => Str} ;
+    [RS] = {s1,s2 : AdjTable} ;
 
-  ---- AR 17/12/2008
-    ConjRS c xs = conjunctDistrTable3 GenNum Case Animacy c xs ** {p = xs.p} ;
-
--- These fun's are generated from the list cat's.
-
-    BaseS = twoSS ;
-    ConsS = consrSS comma ;
+  lin
+    -- : Adv -> Adv -> ListAdv ;     -- here, there
     BaseAdv = twoSS ;
+
+    -- : Adv -> ListAdv -> ListAdv ; -- here, there, everywhere
     ConsAdv = consrSS comma ;
 
+    -- : AdV -> AdV -> ListAdV ;     -- always, sometimes
+    BaseAdV = twoSS ;
+    -- : AdV -> ListAdV -> ListAdV ; -- always, sometimes, never
+    ConsAdV = consrSS comma ;
 
-    ConsNP  x xs =
-    consTable PronForm comma xs x ** 
-       {n = conjNumber xs.n x.n ; g = conjPGender x.g xs.g ;
-          anim = conjAnim x.anim xs.anim ;
-          p = conjPerson xs.p x.p; pron = conjPron xs.pron x.pron} ;
-      
-    ConsAP x xs = consTable AdjForm comma xs x ** {p = andB xs.p x.p ; preferShort = selectAPForm x.preferShort xs.preferShort} ;
+    -- : IAdv -> IAdv -> ListIAdv ;     -- where, when
+    BaseIAdv = twoSS ;
+    -- : IAdv -> ListIAdv -> ListIAdv ; -- where, when, why
+    ConsIAdv = consrSS comma ;
 
-    BaseAP x y = twoTable AdjForm x y ** {p = andB x.p y.p ; preferShort = selectAPForm x.preferShort y.preferShort} ;
+    -- : AP -> AP -> ListAP ;       -- red, white
+    BaseAP x y = twoTable3 GenNum Animacy Case x y ** {
+      short1 = x.short ;
+      short2 = y.short ;
+      isPost = orB x.isPost y.isPost;
+      preferShort = selectAPForm x.preferShort y.preferShort
+      } ;
 
-    BaseNP x y = twoTable PronForm x y ** {n = conjNumber x.n y.n ; 
-       g = conjPGender x.g y.g ; p = conjPerson x.p y.p ;
-       pron = conjPron x.pron y.pron ; anim = conjAnim x.anim y.anim } ;
+    -- ConsAP : AP -> ListAP -> ListAP ;   -- red, white, blue
+    ConsAP x xs = consrTable3 GenNum Animacy Case comma x xs ** {
+      short1 = \\ag=> x.short ! ag ++ comma ++ xs.short1 ! ag ;
+      short2 = xs.short2 ;
+      isPost = orB x.isPost xs.isPost ;
+      preferShort = selectAPForm x.preferShort xs.preferShort
+      } ;
 
-  ---- AR 17/12/2008
-    BaseRS x y = twoTable3 GenNum Case Animacy x y ** {c = y.c} ;
-    ConsRS xs x = consrTable3 GenNum Case Animacy comma xs x ** {c = xs.c} ;
+    -- : DAP -> DAP -> ListDAP ;       --
+    BaseDAP x y = twoTable3 Gender Animacy Case x y ** {
+      g = conjGender x.g y.g ;
+      c = y.c ;
+      size = conjSize x.size y.size ;  -- different genders -> plural?
+      } ;
+
+    -- : DAP -> ListDAP -> ListDAP ;   --
+    ConsDAP x xs = consrTable3 Gender Animacy Case comma x xs ** {
+      g = xs.g ;  --?
+      c = xs.c ;  -- ?
+      size = xs.size  -- different genders -> plural?
+      } ;
+
+    -- : Conj -> ListDAP -> Det ;   -- his or her
+    ConjDet conj xs = {
+      s=\\g,anim,cas => conj.s1 ++ xs.s1 ! g ! anim ! cas ++ conj.s2 ++ xs.s2 ! g ! anim ! cas ;
+      type=NormalDet ; -- hopefully ok to drop empty cases
+      g=xs.g ;
+      c=xs.c ;
+      size=xs.size
+      } ;
+
+    -- : S -> S -> ListS ;      -- John walks, Mary runs
+    BaseS = twoTable Mood ;
+
+    -- : S -> ListS -> ListS ;  -- John walks, Mary runs, Bill swims
+    ConsS = consrTable Mood comma ;
+
+    -- : RS -> RS -> ListRS ;       -- who walks, whom I know
+    BaseRS x y = twoTable3 GenNum Animacy Case x y ** {c = y.c} ;
+
+    -- : RS -> ListRS -> ListRS ;   -- who walks, whom I know, who is here
+    ConsRS xs x = consrTable3 GenNum Animacy Case comma xs x ** {c = xs.c} ;
+
+    -- : Conj -> ListAdv -> Adv ;   -- here or there
+    ConjAdv = conjunctDistrSS ;
+    -- : Conj -> ListIAdv -> IAdv ;   -- where or why
+    ConjIAdv = conjunctDistrSS ;
+    -- : Conj -> ListAdV -> AdV ;   -- always or sometimes
+    ConjAdV = conjunctDistrSS ;
+
+    -- : Conj -> ListAP -> AP ;     -- cold and warm
+    ConjAP conj xs = conjunctDistrTable3 GenNum Animacy Case conj xs ** {
+      short = \\ag => conj.s1 ++ xs.short1 ! ag ++ conj.s2 ++ xs.short2 ! ag ;
+      isPost = xs.isPost;
+      preferShort = xs.preferShort
+      } ;
+
+    ConjS conj ss = conjunctDistrTable Mood conj ss ;
+
+    -- : Conj -> ListRS -> RS ;     -- who walks and whose mother runs
+    ConjRS conj ss = conjunctDistrTable3 GenNum Animacy Case conj ss ** {
+      c = ss.c
+      } ;
+
+    -- : CN -> CN -> ListCN ;      -- man, woman
+    BaseCN x y = {
+      s1 = x.s ;
+      s2 = y.s ;
+      g = conjGender x.g y.g ;
+      mayben = JustPl ;
+      anim = conjAnim x.anim y.anim
+      } ;
+
+    -- : CN -> ListCN -> ListCN ;  -- man, woman, child
+    ConsCN x xs = consrTable2 Number Case comma x xs ** {
+      g = conjGender x.g xs.g ;
+      mayben = JustPl ;
+      anim = conjAnim x.anim xs.anim
+      } ;
+
+    -- : Conj -> ListCN -> CN ;     -- man and woman
+    ConjCN conj xs = {
+      s = \\n,cas => conj.s1 ++ xs.s1 ! n ! cas ++ conj.s2 ++ xs.s2 ! n ! cas ;
+      g = xs.g ;
+      mayben = JustPl ;
+      anim = xs.anim
+    } ;
+
+    -- : NP -> NP -> ListNP ;      -- John, Mary
+    BaseNP x y = {
+      s1 = x.s ;
+      s2 = y.s ;
+    --  prep1 = x.prep ;
+    --  prep2 = y.prep ;
+      pron = y.pron ; --???
+      a = y.a
+    } ;
+
+    -- : NP -> ListNP -> ListNP ;  -- John, Mary, Bill
+    ConsNP x xs = {
+      s1 = \\c => x.s ! c ++ comma ++ xs.s1 ! c ;
+      s2 = xs.s2 ;
+      --prep1 = \\c => x.prep ! c ++ comma ++ xs.prep1 ! c ;
+      --prep2 = xs.prep2 ;
+      a = conjAgr x.a xs.a ;
+      pron = xs.pron ;
+      anim = conjAnim x.anim xs.anim
+    } ;
+
+    -- : Conj -> ListNP -> NP ;     -- she or we
+    ConjNP conj xs = {
+      s = \\c => conj.s1 ++ xs.s1 ! c ++ conj.s2 ++ xs.s2 ! c ;
+      --prep = \\c => conj.s1 ++ xs.prep1 ! c ++ conj.s2 ++ xs.prep2 ! c ;
+      a = xs.a ; -- TODO: dep. on conj as well?
+      pron = xs.pron ;
+      anim = xs.anim
+    } ;
 
   oper
-    selectAPForm : ShortFormPreference -> ShortFormPreference -> ShortFormPreference = \sfp1,sfp2 -> 
-      case <sfp1,sfp2> of 
-        {<PrefShort, PrefShort> => PrefShort ; 
-         _ => PrefFull
+    conjGender : Gender -> Gender -> Gender = \_,m -> m ;
+    conjAnim : Animacy -> Animacy -> Animacy = \m,n -> case <m,n> of {
+      <Inanimate,Inanimate> => Inanimate ;
+      _ => Animate
+    } ;
+    conjNumber : Number -> Number -> Number = \m,n -> case <m,n> of {
+      <Sg,Sg> => Sg ;
+      _ => Pl
+    } ;
+    conjSize : NumSize -> NumSize -> NumSize = \m,n -> n ;   -- TODO: check latest win?
+    conjGenNum : GenNum -> GenNum -> GenNum = \m,n -> case <m,n> of {
+      <GSg Fem,GSg Fem> => FSg ;
+      <GSg Masc,GSg Masc> => MSg ;
+      <GSg Neut,GSg Neut> => NSg ;
+      <GSg _,GSg _> => GPl;  -- TODO: Is this true for animate only or in general?
+      _ => GPl
+    } ;
+    conjAgr : Agr -> Agr -> Agr
+      = \a1,a2 ->
+        let a1rec = case a1 of {Ag gn p => {gn=gn; p=p} } in
+        let a2rec = case a2 of {Ag gn p => {gn=gn; p=p} } in
+        Ag (conjGenNum a1rec.gn a2rec.gn) (conjPerson a1rec.p a2rec.p);
+    selectAPForm : ShortFormPreference -> ShortFormPreference -> ShortFormPreference
+      = \sfp1,sfp2 ->
+      case <sfp1,sfp2> of {
+        <PrefShort, PrefShort> => PrefShort ;
+        _ => PreferFull
         } ;
-  
-  lincat
-    [S] = {s1,s2 : Str} ;
-    [Adv] = {s1,s2 : Str} ;
- -- The structure is the same as for sentences. The result is either always plural
- -- or plural if any of the components is, depending on the conjunction.
-    [NP] = { s1,s2 : PronForm => Str ; g: PronGen ; 
-             anim : Animacy ; n : Number ; p : Person ;  pron : Bool } ;
- -- The structure is the same as for sentences. The result is a prefix adjective
- -- if and only if all elements are prefix.
-    [AP] =  {s1,s2 : AdjForm => Str ; p : Bool ; preferShort : ShortFormPreference} ;
-
-  ---- AR 17/12/2008
-   [RS] = {s1,s2 : GenNum => Case => Animacy => Str} ;
-
-oper
-
--- We have to define a calculus of numbers of persons. For numbers,
--- it is like the conjunction with $Pl$ corresponding to $False$.
---
--- The following are given in $ParamX$.
---
---  conjNumber : Number -> Number -> Number = \m,n -> case <m,n> of {
---    <Sg,Sg> => Sg ;
---    _ => Pl 
---    } ;
-
--- For persons, we let the latter argument win ("либо ты, либо я пойду"
--- but "либо я, либо ты пойдешь"). This is not quite clear.
-
---  conjPerson : Person -> Person -> Person = \_,p -> 
---    p ;
-
--- For pron, we let the latter argument win - "Маша или моя мама" (Nominative case)
--- but - "моей или Машина мама" (Genetive case) both corresponds to 
--- "Masha's or my mother"), which is actually not exactly correct, since
--- different cases should be used - "Машина или моя мама".
-
-  conjPron : Bool -> Bool -> Bool = \_,p -> 
-    p ;
-
--- For gender in a similar manner as for person:
--- Needed for adjective predicates like:
--- "Маша или Оля - красивая", "Антон или Олег - красивый",
--- "Маша или Олег - красивый".
--- The later is not totally correct, but there is no correct way to say that.
-
-  conjGender : Gender -> Gender -> Gender = \_,m -> m ; 
- conjPGender : PronGen -> PronGen -> PronGen = \_,m -> m ; 
-
-  conjAnim : Animacy -> Animacy -> Animacy = \_,m -> m ; 
-
-
 }
-

@@ -3,25 +3,23 @@ incomplete concrete AdjectiveRomance of Adjective =
   flags coding=utf8;
   lin
 
-    PositA a = {
-      s = a.s ! Posit ;
-      isPre = a.isPre ;
-      copTyp = a.copTyp
-      } ;
-    ComparA a np = {
-      s = \\af => a.s ! Compar ! af ++ conjThan ++ (np.s ! Nom).ton ;
+    PositA a = a ; -- A is a subtype of AP: we lose the fields isDeg and compar
+    ComparA a np = a ** {
+      s = \\af =>
+        let compar : Str = case a.isDeg of {
+                    True => a.compar ! af2compar af ;   -- bueno, mejor
+                    False => piuComp ++ a.s ! af } ; -- cher, plus cher
+        in compar ++ conjThan ++ (np.s ! Nom).ton ;
       isPre = False ;
-      copTyp = a.copTyp
       } ;
-    CAdvAP ad ap np = {
+    CAdvAP ad ap np = ap ** {
       s = \\af => ad.s ++ ap.s ! af ++ ad.p ++ (np.s ! Nom).ton ;
       isPre = False ;
-      copTyp = ap.copTyp
       } ;
-    UseComparA a = {
-      s = \\af => a.s ! Compar ! af ;
-      isPre = a.isPre ;
-      copTyp = a.copTyp
+    UseComparA a = a ** {
+      s = \\af => case a.isDeg of {
+                    True => a.compar ! af2compar af ;
+                    False => piuComp ++ a.s ! af }
       } ;
     AdjOrd ord = {
       s = \\af => ord.s ! aform2aagr af ; ----
@@ -31,42 +29,34 @@ incomplete concrete AdjectiveRomance of Adjective =
 
 -- $SuperlA$ belongs to determiner syntax in $Noun$.
 
-    ComplA2 adj np = {
-      s = \\af => adj.s ! Posit ! af ++ appCompl adj.c2 np ;
+    ComplA2 adj np = adj ** {
+      s = \\af => adj.s ! af ++ appCompl adj.c2 np ;
       isPre = False ;
-      copTyp = adj.copTyp
       } ;
 
-    ReflA2 adj = {
+    ReflA2 adj = adj ** {
       s = \\af =>
-             adj.s ! Posit ! af ++
+             adj.s ! af ++
              adj.c2.s ++ prepCase adj.c2.c ++ reflPron Sg P3 Nom ; --- agr
       isPre = False ;
-      copTyp = adj.copTyp
       } ;
 
-    SentAP ap sc = {
+    SentAP ap sc = ap ** {
       s = \\a => ap.s ! a ++ sc.s ! dative ; -- prête à dormir --- mood
       isPre = False ;
-      copTyp = ap.copTyp
       } ;
 
-    AdAP ada ap = {
+    AdAP ada ap = ap ** {
       s = \\a => ada.s ++ ap.s ! a ;
-      isPre = ap.isPre ;
-      copTyp = ap.copTyp
       } ;
 
-    UseA2 a = {
-      s = a.s ! Posit ;
+    UseA2 a = a ** {
       isPre = False ; ---- A2 has no isPre
-      copTyp = a.copTyp
-      } ;
+      } ;             -- other than that, AP is a subtype of A2
 
-    AdvAP ap adv = {
+    AdvAP ap adv = ap ** {
       s = \\a => ap.s ! a ++ adv.s ;
       isPre = False ;
-      copTyp = ap.copTyp
       } ;
 
 

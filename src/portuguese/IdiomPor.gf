@@ -53,7 +53,7 @@ concrete IdiomPor of Idiom = CatPor **
       } ;
 
     ImpP3 np vp = {
-      s = "deixe" ++ (np.s ! Nom).ton ++ infVP vp np.a ;
+      s = "deixe" ++ (np.s ! Nom).ton ++ infVP vp RPos np.a ;
         } ;
 
     SelfAdvVP vp = variants {} ;

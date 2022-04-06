@@ -47,6 +47,7 @@ oper
   snoun2spn : SNoun -> SPN = \n -> {s = \\c => n.s ! 0 ++ tagCase c} ;
 
   exceptNomSNoun : SNoun -> Str -> SNoun = \noun,nom -> mkSNoun nom ;
+  exceptPlGenSNoun : SNoun -> Str -> SNoun = \noun,nom -> mkSNoun nom ; --- is this what is meant? AR 1/8/2021
 
 
 

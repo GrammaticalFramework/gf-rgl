@@ -54,14 +54,11 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
   
     CN = { s : Number => Case => Str; g : Gender };
 
---   NounPhrase : Type = { s : PronForm => Str; n : Number; g: Gender; p : Person };
     NP = NounPhrase;
 
---  oper Pron = { s : PronForm => Str ; sp: AForm => Str ; n : Number ; p : Person ;
--- 		   g: PronGen } ;
     Pron = ResPol.Pron;
     
-    Det = Determiner;
+    Det, DAP = Determiner;
     Predet = {s : AForm => Str; np:NounPhrase; adj:Bool }; 
 -- 'all', 'most' and 'only' belong in Polish to three completly different parts of speach
     Quant = {s,sp : AForm => Str};
@@ -125,5 +122,10 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
     PN = NounPhrase;
     
     CAdv = {s,p,sn,pn : Str} ;
+
+  linref
+    A = \a -> a.pos.s1 ;
+    A2 = \a -> a.pos.s1 ++ a.c.s ;
+
 };
 

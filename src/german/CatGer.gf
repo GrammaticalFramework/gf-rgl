@@ -57,7 +57,7 @@ concrete CatGer of Cat =
 		  g : Gender} ;
     NP = ResGer.NP ; 
     Pron = {s : NPForm => Str ; a : Agr} ;
-    Det = {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} ;
+    Det, DAP = {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} ;
     Quant = {
       s   : Bool => Number => Gender => PCase => Str ;  -- Bool is True if a cardinal number is present
       sp  : Bool => Number => Gender => PCase => Str ; 

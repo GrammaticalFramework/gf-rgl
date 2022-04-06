@@ -78,10 +78,10 @@ oper
 
   mkAdj : (_,_,_,_,_ : Str) -> Adj = \solo,sola,soli,sole,solamente ->
     {s = table {
-      ASg Masc _ => solo ;
-      ASg Fem  _ => sola ;
-      APl Masc   => soli ;
-      APl Fem    => sole ;
+      AF Masc Sg => solo ;
+      AF Fem  Sg => sola ;
+      AF Masc Pl => soli ;
+      AF Fem  Pl => sole ;
       AA         => solamente
       }
     } ;

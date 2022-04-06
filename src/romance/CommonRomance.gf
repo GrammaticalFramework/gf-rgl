@@ -30,9 +30,12 @@ param
 -- Comparative adjectives are moreover inflected in degree
 -- (which in Romance is usually syntactic, though).
 
-  AForm = ASg Gender APosition | APl Gender | AA ;
+--  AForm = AF Gender Number | AA ;
 
-  APosition = AAttr | APred ;
+-- IL 2021-09: Moved AForm from Common to Diff, because of differences between languages in
+-- attributive and predicative forms: e.g. Spanish "un/a gran __" vs. "__ es grande".
+-- Ita,Por have no distinction, Fre,Cat have special form only in masc. sg, Spa also for fem. sg.
+
 
 -- Gender is not morphologically determined for first and second person pronouns.
 
@@ -42,10 +45,6 @@ param
 
   CardOrd = NCard Gender | NOrd Gender Number ;
 
---- a workaround for a lost constructor used e.g. in Attempto: AR 2019-09-11
-oper
-  AF : Gender -> Number -> AForm = \g,n -> case n of {Sg => ASg g AAttr ; Pl => APl g} ;
-
 -- The following coercions are useful:
 
 oper
@@ -53,46 +52,6 @@ oper
     PGen g => g ;
     PNoGen => variants {Masc ; Fem} --- the best we can do for je, tu, nous, vous
     } ;
-
-
-  -- genderpos2gender : GenderPosition -> {p1:Gender,p2:Number} = \gp -> case gp of {
-  --   MascSg _ => <Masc,Sg> ;
-  --   MascPl   => <Masc,Pl> ;
-  --   FemSg    => <Fem,Sg> ;
-  --   FemPl    => <Fem,Pl>
-  --   } ;
-
-
-  aform2gender : AForm -> Gender = \a -> case a of {
-    ASg g _ => g ;
-    APl g   => g ;
-    _       => Masc -- "le plus lentement"
-    } ;
-  aform2number : AForm -> Number = \a -> case a of {
-    APl _  => Pl ;
-    _      => Sg -- "le plus lentement"
-    } ;
-  aform2aagr : AForm -> AAgr = \a -> case a of {
-    ASg g _ => aagr g Sg ;
-    APl g   => aagr g Pl ;
-    _       => aagr Masc Sg -- "le plus lentement"
-    } ;
-  aagr2aform : AAgr -> AForm = \gn -> case gn of {
-    {g=g ; n=Sg} => ASg g APred ;
-    {g=g ; n=Pl} => APl g
-    } ;
-
-  genNum2Aform : Gender -> Number -> AForm ;
-  genNum2Aform g n = case n of {
-    Sg => ASg g APred ;
-    Pl => APl g
-    } ;
-
-  genNumPos2Aform : Gender -> Number -> Bool -> AForm ;
-  genNumPos2Aform g n isPre = case n of {
-      Sg => ASg g (if_then_else APosition isPre AAttr APred) ;
-      Pl => APl g
-      } ;
 
   conjGender : Gender -> Gender -> Gender = \m,n ->
     case m of {
@@ -256,8 +215,6 @@ oper
 
     Noun = {s : Number => Str ; g : Gender} ;
 
-    Adj = {s : AForm => Str} ;
-
     appVPAgr : VPAgr -> AAgr -> AAgr = \vp,agr ->
       case vp of {
         VPAgrSubj     => agr ;
@@ -267,8 +224,6 @@ oper
     vpAgrNone : VPAgr = VPAgrClit Masc Sg ;
 
   oper
-    mkOrd : {s : Degree => AForm => Str} -> {s : AAgr => Str} ;
-    mkOrd x = {s = \\ag => x.s ! Posit ! aagr2aform ag } ;
 
 -- This is used in Spanish and Italian to bind clitics with preceding verb.
 

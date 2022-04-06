@@ -7,13 +7,4 @@ concrete ExtraPol of ExtraPolAbs = CatPol ** open ResPol in {
     g = cn.g    
   };
 
-  ProDrop p = {
-    nom = [] ;
-    voc = p.voc ;
-    dep = p.dep ;
-    sp = p.sp ;
-    n = p.n ;
-    p = p.p ;
-    g = p.g ;
- } ;
 }

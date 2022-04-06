@@ -3,25 +3,43 @@ resource Coordination = open Prelude in {
 param
   ListSize = TwoElem | ManyElem ;
 
-oper 
+oper
+  -- Type of [X] for any X whose lincat is {s : Str}.
+  -- example : ListX = {s1 = "a , b" ; s2 = "c"}
   ListX = {s1,s2 : Str} ;
 
-  twoStr : (x,y : Str) -> ListX = \x,y -> 
+  -- Helper funs for twoSS and conjSS
+  twoStr : (x,y : Str) -> ListX = \x,y ->
     {s1 = x ; s2 = y} ; 
-  consStr : Str -> ListX -> Str -> ListX = \comma,xs,x -> 
+  consStr : Str -> ListX -> Str -> ListX = \comma,xs,x ->
     {s1 = xs.s1 ++ comma ++ xs.s2 ; s2 = x } ; 
 
-  twoSS : (_,_ : SS) -> ListX = \x,y -> 
+  -- Create a ListX from two Xs. Example:
+  --     x = {s = "here"} ;
+  --     y = {s = "there"} ;
+  -- twoSS x y ==> {s1 = "here" ; s2 = "there"}
+  twoSS : (_,_ : SS) -> ListX = \x,y ->
     twoStr x.s y.s ;
-  consSS : Str -> ListX -> SS -> ListX = \comma,xs,x -> 
+
+  -- Add new X to a ListX, along with a separator. Example:
+  --     comma = ","
+  --     xs = {s1 = "here" ; s2 = "there"}
+  --     x = {s = "everywhere"}
+  -- consSS comma xs x ==> {s1 = "here , there" ; s2 = "everywhere"}
+  consSS : Str -> ListX -> SS -> ListX = \comma,xs,x ->
     consStr comma xs x.s ;
 
   Conjunction : Type = SS ;
   ConjunctionDistr : Type = {s1 : Str ; s2 : Str} ;
 
+  -- Form an X from Conjunction and ListX. Example:
+  --   or = {s = "and"}
+  --   xs = {s1 = "here , there" ; s2 = "everywhere"}
+  -- conjunctX or xs = {s = "here, there and everywhere"}
   conjunctX : Conjunction -> ListX -> Str = \or,xs ->
     xs.s1 ++ or.s ++ xs.s2 ;
-
+    
+  -- Like conjunctX, but conjunction has two parts: "both here and there"
   conjunctDistrX : ConjunctionDistr -> ListX -> Str = \or,xs ->
     or.s1 ++ xs.s1 ++ or.s2 ++ xs.s2 ;
 
@@ -33,7 +51,10 @@ oper
 
   -- all this lifted to tables
 
-  ListTable : PType -> Type = \P -> {s1,s2 : P => Str} ; 
+  -- Type for a table with the given parameter P on the LHS.
+  -- For example, if the lincat for X is {s : Number => Str},
+  -- then the lincat for [X] should be ListTable Number, which expands to {s1, s2 : Number => Str}.
+  ListTable : PType -> Type = \P -> {s1,s2 : P => Str} ;
 
   twoTable : (P : PType) -> (_,_ : {s : P => Str}) -> ListTable P = \_,x,y ->
     {s1 = x.s ; s2 = y.s} ; 

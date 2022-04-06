@@ -4,12 +4,12 @@
 --
 -- Aarne Ranta 2003
 --
--- This is an API for the user of the resource grammar 
+-- This is an API for the user of the resource grammar
 -- for adding lexical items. It gives functions for forming
 -- expressions of open categories: nouns, adjectives, verbs.
--- 
+--
 -- Closed categories (determiners, pronouns, conjunctions) are
--- accessed through the resource syntax API, $Structural.gf$. 
+-- accessed through the resource syntax API, $Structural.gf$.
 --
 -- The main difference with $MorphoIta.gf$ is that the types
 -- referred to are compiled resource grammar types. We have moreover
@@ -25,29 +25,29 @@
 -- which covers the "Bescherelle" verb conjugations.
 
 resource ParadigmsIta = BeschIta **
-  open 
-    (Predef=Predef), 
-    Prelude, 
-    MorphoIta, 
+  open
+    (Predef=Predef),
+    Prelude,
+    MorphoIta,
 --    BeschIta,
     CatIta in {
 
   flags optimize=all ;
     coding=utf8 ;
 
---2 Parameters 
+--2 Parameters
 --
 -- To abstract over gender names, we define the following identifiers.
 
 oper
-  Gender : Type ; 
+  Gender : Type ;
 
   masculine : Gender ;
   feminine  : Gender ;
 
 -- To abstract over number names, we define the following.
 
-  Number : Type ; 
+  Number : Type ;
 
   singular : Number ;
   plural   : Number ;
@@ -86,7 +86,7 @@ oper
   mkN : overload {
 
 -- The regular function takes the singular form and the gender,
--- and computes the plural and the gender by a heuristic. 
+-- and computes the plural and the gender by a heuristic.
 -- The heuristic says that the gender is feminine for nouns
 -- ending with "a", and masculine for all other words.
 
@@ -96,12 +96,12 @@ oper
 
     mkN : (carne : Str) -> Gender -> N ; -- override default gender
 
--- Worst case: give both two forms and the gender. 
+-- Worst case: give both two forms and the gender.
 
     mkN : (uomo,uomini : Str) -> Gender -> N ; -- worst case
 
 -- In *compound nouns*, the first part is inflected as a noun but
--- the second part is not inflected. e.g. "numero di telefono". 
+-- the second part is not inflected. e.g. "numero di telefono".
 -- They could be formed in syntax, but we give a shortcut here since
 -- they are frequent in lexica.
 
@@ -111,9 +111,9 @@ oper
 
 
 
---3 Relational nouns 
--- 
--- Relational nouns ("figlio di x") need a case and a preposition. 
+--3 Relational nouns
+--
+-- Relational nouns ("figlio di x") need a case and a preposition.
 -- The default is regular nouns with the genitive "di".
 
   mkN2 : overload {
@@ -133,7 +133,7 @@ oper
 -- $N3$ are purely lexical categories. But you can use the $AdvCN$
 -- and $PrepNP$ constructions to build phrases like this.
 
--- 
+--
 --3 Proper names and noun phrases
 --
 -- Proper names need a string and a gender. The gender is by default feminine if
@@ -160,10 +160,12 @@ oper
 -- case (masc and fem singular, masc plural, adverbial), given that
 -- comparison is formed by "più".
 
-    mkA : (solo,sola,soli,sole,solamente : Str) -> A ; -- irregular adjective
+    mkA : (solo,sola,soli,sole : Str) -> A ; -- possibly irregular adjective
+
+    mkA : (solo,sola,soli,sole,solamente : Str) -> A ; -- irregular adjective, with adverb
 
 -- With irregular comparison, there are as it were two adjectives:
--- the positive ("buono") and the comparative ("migliore"). 
+-- the positive ("buono") and the comparative ("migliore").
 
     mkA : A -> A -> A ; -- special comparison, e.g. buono - migliore
 
@@ -175,7 +177,7 @@ oper
 -- modification, as in "vecchia chiesa"), the following function is
 -- provided.
 
-    prefixA : A -> A -- adjective that comes before noun (default: after) 
+    prefixA : A -> A -- adjective that comes before noun (default: after)
     = prefA ;
 
 
@@ -191,7 +193,7 @@ oper
 --2 Adverbs
 
 -- Adverbs are not inflected. Most lexical ones have position
--- after the verb. 
+-- after the verb.
 
   mkAdv : Str -> Adv ;
 
@@ -215,7 +217,7 @@ oper
 -- "amare, cominciare, mangiare, legare, cercare".
 
     mkV : Str -> V ; -- regular verbs in "-are"/"-ire"
- 
+
 -- The module $BeschIta$ gives (almost) all the patterns of the "Bescherelle"
 -- book. To use them in the category $V$, wrap them with the function
 
@@ -244,7 +246,7 @@ oper
 -- (transitive verbs). Notice that a particle comes from the $V$.
 
   mkV2 : overload {
-    mkV2 : Str -> V2 ; -- regular verb, direct object 
+    mkV2 : Str -> V2 ; -- regular verb, direct object
     mkV2 : V -> V2 ;   -- direct object
     mkV2 : V -> Prep -> V2 -- prepositional object
     } ;
@@ -259,7 +261,7 @@ oper
 -- the first one or both can be absent.
 
   mkV3 : overload {
-    mkV3 : V -> V3 ;                -- donner (+ accusative + dative)    
+    mkV3 : V -> V3 ;                -- donner (+ accusative + dative)
     mkV3 : V -> Prep -> V3 ;        -- placer (+ accusative) + dans
     mkV3 : V -> Prep -> Prep -> V3  -- parler + dative + genitive
     } ;
@@ -302,9 +304,9 @@ oper
   mkAV  : A -> Prep -> AV ; --%
   mkA2V : A -> Prep -> Prep -> A2V ; --%
 
--- Notice: categories $AS, A2S, AV, A2V$ are just $A$, 
+-- Notice: categories $AS, A2S, AV, A2V$ are just $A$,
 -- and the second argument is given
--- as an adverb. Likewise 
+-- as an adverb. Likewise
 -- $V0$ is just $V$.
 
   V0 : Type ; --%
@@ -313,7 +315,7 @@ oper
 
 --2 Closed categories
 
-  mkPredet : Str -> Predet 
+  mkPredet : Str -> Predet
     = \s -> lin Predet {s = \\a,c => prepCase c ++ s ; c = Nom ; a = PNoAg} ;
 
 --.
@@ -323,7 +325,7 @@ oper
 -- hidden from the document.
 
 
-  Gender = MorphoIta.Gender ; 
+  Gender = MorphoIta.Gender ;
   Number = MorphoIta.Number ;
   masculine = Masc ;
   feminine = Fem ;
@@ -368,36 +370,42 @@ oper
 
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
-  mk5A a b c d e = 
-   compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
-  prefA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
+  mk5A a b c d e =
+   compADeg (mkAdj a b c d e) ;
+  regA a = compADeg (mkAdjReg a) ;
+  prefA a = a ** {isPre = True} ;
   adjCopula a cop = a ** {copTyp = cop} ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
-  mkADeg a b = 
-   {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ; 
-    isPre = a.isPre ; copTyp = serCopula ; lock_A = <>} ;
-  compADeg a = 
-    {s = table {Posit => a.s ! Posit ; _ => \\f => "più" ++ a.s ! Posit ! f} ; 
-     isPre = a.isPre ; copTyp = a.copTyp ;
-     lock_A = <>} ;
+  mkADeg a b = a ** {
+    compar = \\num => b.s ! AF Masc num ; -- mejor, mejores
+    isDeg = True } ;
+  compADeg a = lin A
+    {s = a.s ;
+     compar = \\_ => nonExist ; --
+     isPre = False ;       -- default values
+     copTyp = serCopula ;
+     isDeg = False
+     } ;
   regADeg a = compADeg (regA a) ;
 
   mkAdv x = ss x ** {lock_Adv = <>} ;
   mkAdV x = ss x ** {lock_AdV = <>} ;
   mkAdA x = ss x ** {lock_AdA = <>} ;
 
-  regV x = 
-    let 
-      are = Predef.dp 3 x ;
+  regV x =
+    let
+----      are = Predef.dp 3 x ;
       ci  = Predef.dp 2 (Predef.tk 3 x) ;
       i   = last ci ;
-      verb = case are of {
-        "ire" =>  finire_100 x ;
-        "ere" =>  temere_20 x ;
-        "are" => case i of {
+      verb : {s : VForm => Str} = case x of {
+        _ + "ire" =>  finire_100 x ;
+        _ + "ere" =>  temere_20 x ;
+        _ + "durre" =>  condurre_36 x ;
+        _ + "trarre" =>  trarre_91 x ;
+	_ + "rre" =>  porre_68 x ; --- all other verbs in -rre?
+        _ + "are" => case i of {
           "c" => cercare_7 x ;
           "g" => legare_8 x ;
           _ => case ci of {
@@ -412,10 +420,10 @@ oper
 
   verboV ve = verbBesch ve ** {vtyp = VHabere ; p = [] ; lock_V = <>} ;
 
-  mk11V 
-    dovere devo deve dobbiamo dovro 
+  mk11V
+    dovere devo deve dobbiamo dovro
     dovetti dovesti dovette dovettero dovi dovuto = verboV (mkVerbo
-      dovere devo deve dobbiamo dovro 
+      dovere devo deve dobbiamo dovro
       dovetti dovesti dovette dovettero dovi dovuto
       ) ;
 
@@ -502,7 +510,7 @@ oper
   regPN : Str -> PN ;           -- feminine if "-a", otherwise masculine
 
 -- obsolete
-  makeNP : Str -> Gender -> Number -> NP ; 
+  makeNP : Str -> Gender -> Number -> NP ;
 
   mkPN = overload {
     mkPN : Str -> PN = regPN ;
@@ -512,6 +520,7 @@ oper
 
   mkA = overload {
     mkA : (bianco : Str) -> A = regA ;
+    mkA : (solo,sola,soli,sole : Str) -> A = \solo,sola,soli,sole -> mk5A solo sola soli sole (sola + "mente") ;
     mkA : (solo,sola,soli,sole, solamente : Str) -> A = mk5A ;
     mkA : A -> A -> A = mkADeg ;
     mkA : A -> CopulaType -> A = adjCopula ;
@@ -521,7 +530,7 @@ oper
   prefA : A -> A ;
   adjCopula : A -> CopulaType -> A ;
   mkADeg : A -> A -> A ;
-  compADeg : A -> A ;
+  compADeg : Adj -> A ;
   regADeg : Str -> A ;
 
   mkV = overload {
@@ -530,16 +539,16 @@ oper
       _ => regV s
       } ;
     mkV : Verbo -> V = verboV ;
-    mkV : 
-     (udire,odo,ode,udiamo,udiro,udii,udisti,udi,udirono,odi,udito : Str) -> V = mk11V ; 
+    mkV :
+     (udire,odo,ode,udiamo,udiro,udii,udisti,udi,udirono,odi,udito : Str) -> V = mk11V ;
 
     mkV : V -> Str -> V = \v,p -> v ** {p = p} ;  ---- to recognize particles in dict, not yet in lincat V
     } ;
 
   regV : Str -> V ;
   verboV : Verbo -> V ;
-  mk11V : 
-    (udire,odo,ode,udiamo,udiro,udii,udisti,udi,udirono,odi,udito : Str) -> V ; 
+  mk11V :
+    (udire,odo,ode,udiamo,udiro,udii,udisti,udi,udirono,odi,udito : Str) -> V ;
 
   mkV2 = overload {
     mkV2 : Str -> V2 = \s -> dirV2 (regV s) ;

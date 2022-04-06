@@ -6,7 +6,7 @@ concrete CatCgg of Cat = CommonX -[Adv,IAdv, AdA]**
 lincat
   
   
-  Imp = {s : Res. ImpPol=> Str} ;
+  Imp = {s : Res.ImpPol=> Str} ;
   QS = {s : Str} ;
 
   -- Note: SS is a shorthand for {s:Str}, defined in Prelude.gf
@@ -34,7 +34,7 @@ lincat
   V,VS, VQ, VA = Res.Verb ;   --change to {verb : Str ; comp = []}               -- one-place verb                      e.g. "sleep"  
   V2,V2Q, V2S = Res.Verb2;
   V2A,V3 = Res.Verb3;    -- three-place verb                    e.g. "show"
-  
+  V2V = Res.Verb ** {comp,c3 : Str ; typ : Res.VVType} ;
   VP = Res.VerbPhrase ;           -- verb phrase                         e.g. "is very warm"
   
   N = Res.Noun ;                  -- common noun                         e.g. "house"
@@ -92,9 +92,9 @@ lincat
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
   Ord  = {s :Res.Agreement=>Str; position:Res.Position} ;
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
-  
+  A2 =  Res.Adjective ** { c2 : Str ; isPre : Bool} ;
   DAP = Res.Determiner ;
-  N2  = Res.Noun ** {c2 : Res.Agreement =>Str};    -- relational noun                     e.g. "son"   
+  N2  = Res.Noun ** {c2 : Res.Agreement =>Str};    -- relational noun                     e.g. "son"
   Prep = Res.Preposition;  -- preposition, or just case           e.g. "in"
   N3   = N2 ** {c3 : Res.Agreement =>Str};
   VV = Res.Verb ** {inf:Str; whenUsed: Res.VVMood}; --inf is the other verb
@@ -105,6 +105,10 @@ linref
   QCl =\qcl -> qcl.s ++ qcl.posibleSubAgr ! (Res.mkAgreement Res.MU_BA Res.P3 Res.Sg) ++ qcl.root ++ BIND ++ qcl.pres;
   VP =\vp -> vp.adv ++ vp.s ++ BIND ++ vp.pres ++ vp.comp ++vp.comp2 ++ vp.ap;
   VPSlash =\vpslash -> vpslash.s ++ BIND ++ vpslash.pres;
+
+lindef
+  A2 = \s -> {s = s; position = Res.Post; isProper = False;
+              isPrep = False; isNeg = False;c2 = ""; isPre = True};
 
 
 --1 Cat: the Category System

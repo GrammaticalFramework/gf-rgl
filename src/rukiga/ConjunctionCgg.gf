@@ -20,6 +20,9 @@ lincat
   [CN] = {s1,s2 : Number => Case => Str};
   [DAP] = {s1,s2 : Str ; n : Number};
  -}
+
+ 
+
 {-
 --1 Conjunction: Coordination
 

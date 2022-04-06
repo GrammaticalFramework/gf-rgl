@@ -41,18 +41,9 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
       gn = cast_gennum! <piwo.g, Sg>;
       p = P3 ;
     } ;
-    
-    UsePron p = {
-      nom = p.nom;
-      voc = p.voc;
-      dep = p.dep;
-      gn = cast_gennum! <case p.g of {
-        PGen x => x;
-        _ => Masc Personal
-      }, p.n>;
-      p = p.p;
-    };
-    
+
+    UsePron p = p ;
+
     AdjCN mily facet = {
       s = \\n,c => case mily.isPost of {
         True =>  (facet.s ! n ! c) ++ (mily.s ! AF (cast_gennum!<facet.g,n>) c) ;
@@ -77,8 +68,8 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     };
 
 -- surface structures of NP formed with MassNP, DefArt and IndefArt are identical
-    DefArt =   {s = \\_=>[] ; sp = (demPronTen "ten").sp ; c=Nom; g = PNoGen }; 
-    IndefArt = {s = \\_=>[] ; sp = jaki ;                  c=Nom; g = PNoGen };
+    DefArt =   {s = \\_=>[] ; sp = (demPronTen "ten").sp }; 
+    IndefArt = {s = \\_=>[] ; sp = jaki                  };
 
     UseN  sb = {
       s = \\n,c => sb.s ! SF n c; 
@@ -214,4 +205,7 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
         s= \\n,c=> cn.s!n!c ++ sc.s;
         g= cn.g
     };
+
+    DetDAP d = d ;
+
 }

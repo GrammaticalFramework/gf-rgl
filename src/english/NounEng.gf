@@ -3,8 +3,8 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
   flags optimize=all_subs ;
 
   lin
-    DetCN det cn = { 
-      s = \\c => det.s ++ cn.s ! det.n ! npcase2case c ; 
+    DetCN det cn = {
+      s = \\c => det.s ++ cn.s ! det.n ! npcase2case c ;
       a = agrgP3 det.n cn.g
       } ;
 
@@ -48,15 +48,15 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
       } ;
 
     DetQuantOrd quant num ord = {
-      s  =            quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! Nom; 
-      sp = \\g,_,c => quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! npcase2case c ; 
+      s  =            quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! Nom;
+      sp = \\g,_,c => quant.s  ! num.hasCard ! num.n ++ num.s ! quant.isDef ! Nom ++ ord.s ! npcase2case c ;
       n  = num.n ;
       hasNum = True
       } ;
 
     DetNP det = {
       -- s = case det.hasNum of {True => \\_ => det.s ; _ => \\c => det.sp ! c} ;
-      s = det.sp ! Neutr ! False ;
+      s = \\c => det.sp ! Neutr ! False ! c ;
       a = agrP3 det.n
       } ;
 
@@ -84,9 +84,9 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
                      sp = \\_,c => adn.s ++ num.sp!False!c ;
                      n  = num.n} ;
 
-    OrdSuperl a = {s = \\c => a.s ! AAdj Superl c } ;
+    OrdSuperl a = {s = \\c => getSuperl c a} ;
 
-    OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ a.s ! AAdj Superl c } ;
+    OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ getSuperl c a} ;
 
     DefArt = {
       s  = \\hasCard,n => artDef ;
@@ -113,7 +113,7 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
 
     MassNP cn = {
       s = \\c => cn.s ! Sg ! npcase2case c ;
-      a = agrP3 Sg
+      a = agrgP3 Sg cn.g
       } ;
 
     UseN n = n ;

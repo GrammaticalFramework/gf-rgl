@@ -57,12 +57,6 @@ oper
   dualV : VTable -> VTable -> V ;
   dualV imperf perf = { 
     s = table {Imperf=>imperf; Perf=>perf};
-    n = let v0 = init (imperf ! (VImperfect Sg P1)) + "н"
-        in (mkNoun (v0+"е")
-                   (v0+"ия")
-                   (v0+"ия")
-                   (v0+"е")
-                   ANeut).s;
     vtype = VNormal;
     lock_V=<>
     } ;
@@ -72,12 +66,6 @@ oper
   singleV : VTable -> V ;
   singleV vtable = { 
     s = \\_=>vtable;
-    n = let v0 = init (vtable ! (VImperfect Sg P1)) + "н"
-        in (mkNoun (v0+"е")
-                   (v0+"ия")
-                   (v0+"ия")
-                   (v0+"е")
-                   ANeut).s;
     vtype = VNormal;
     lock_V=<>
     } ;
@@ -278,8 +266,12 @@ oper
 
 --2 Proper Names
 --
-  mkPN : Str -> Gender -> PN ;
-  mkPN s g = {s = s; g = g ; lock_PN = <>} ;
+  mkPN = overload {
+    mkPN : Str -> Gender -> PN = 
+      \s,g -> {s = s; gn = GSg g ; lock_PN = <>} ;
+    mkPN : Str -> GenNum -> PN = 
+      \s,gn -> {s = s; gn = gn ; lock_PN = <>} ;
+  } ;
 
 
 --2 IAdv

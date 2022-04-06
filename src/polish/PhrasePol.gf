@@ -18,7 +18,7 @@ concrete PhrasePol of Phrase = CatPol ** open Prelude, ResPol, VerbMorphoPol in 
    UttNP np = {s = np.nom};
    UttVP vp = { -- I assume the positive polarization to avoid variants
         s = vp.prefix ++
-            (infinitive_form vp.verb vp.imienne Pos) ++ 
+            infinitive_form vp.verb vp.imienne Pos MascPersSg ++ 
             vp.sufix !Pos !MascAniSg 
    };
    UttAdv adv = adv ;

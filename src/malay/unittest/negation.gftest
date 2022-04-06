@@ -1,0 +1,17 @@
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)) (UseComp (CompCN (UseN dog_N))))
+LangEng: a cat isn't a dog
+LangMay: kucing bukan anjing
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V))
+LangEng: the cat doesn't walk
+LangMay: kucing tidak berjalan
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant this_Quant NumPl) (UseN cat_N)) (UseComp (CompAP (PositA green_A))))
+LangEng: these cats aren't green
+LangMay: kucing-kucing ini tidak hijau
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant that_Quant NumPl) (UseN cat_N)) (UseComp (CompAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N))))))
+LangEng: those cats aren't in the house
+LangMay: kucing-kucing itu tidak di rumah
+
+-- TODO: more fine-grained distinctions in adjectives

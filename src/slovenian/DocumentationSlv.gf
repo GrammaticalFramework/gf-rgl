@@ -60,7 +60,7 @@ lin
         )
       } ;
 
-  InflectionAdv = \adv -> {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t = "prs" ;
     s1= heading1 ("Prislov") ;
     s2= paragraph (adv.s)

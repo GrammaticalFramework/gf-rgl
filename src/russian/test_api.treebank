@@ -1,0 +1,2969 @@
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))) NoVoc) (TFullStop (PhrUtt NoPConj yes_Utt NoVoc) TEmpty)
+AllRus: Она спит? Да.
+
+AllRusAbs: TFullStop (PhrUtt NoPConj yes_Utt NoVoc) TEmpty
+AllRus: Да.
+
+AllRusAbs: TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc) TEmpty
+AllRus: Она спала.
+
+AllRusAbs: TFullStop (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc) TEmpty
+AllRus: Она спит.
+
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPast ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))) NoVoc) TEmpty
+AllRus: Она спала?
+
+AllRusAbs: TExclMark (PhrUtt NoPConj (UttImpPl PNeg (ImpVP (UseV sleep_V))) NoVoc) TEmpty
+AllRus: Не спите!
+
+AllRusAbs: TExclMark (PhrUtt NoPConj (UttImpPol PNeg (ImpVP (UseV sleep_V))) NoVoc) TEmpty
+AllRus: Не спите!
+
+AllRusAbs: TExclMark (PhrUtt NoPConj (UttImpSg PNeg (ImpVP (UseV sleep_V))) NoVoc) TEmpty
+AllRus: Не спи!
+
+AllRusAbs: TQuestMark (PhrUtt NoPConj (UttIAdv where_IAdv) NoVoc) (TFullStop (PhrUtt NoPConj (UttAdv here_Adv) NoVoc) (TQuestMark (PhrUtt NoPConj (UttIAdv when_IAdv) NoVoc) (TExclMark (PhrUtt NoPConj (UttAdv now_Adv) NoVoc) TEmpty)))
+AllRus: Где? Здесь. Когда? Сейчас!
+
+AllRusAbs: TFullStop (PhrUtt NoPConj yes_Utt NoVoc) TEmpty
+AllRus: Да.
+
+AllRusAbs: TQuestMark (PhrUtt NoPConj yes_Utt NoVoc) TEmpty
+AllRus: Да?
+
+AllRusAbs: TExclMark (PhrUtt NoPConj yes_Utt NoVoc) TEmpty
+AllRus: Да!
+
+AllRusAbs: PhrUtt but_PConj (UttImpPl PPos (ImpVP (UseV sleep_V))) (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N)))
+AllRus: Но спите, мой друг
+
+AllRusAbs: PhrUtt but_PConj (UttImpPol PPos (ImpVP (UseV sleep_V))) (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N)))
+AllRus: Но спите, мой друг
+
+AllRusAbs: PhrUtt but_PConj (UttImpSg PPos (ImpVP (UseV sleep_V))) (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N)))
+AllRus: Но спи, мой друг
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc
+AllRus: Она не будет спать
+
+AllRusAbs: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) NoVoc
+AllRus: Она спит
+
+AllRusAbs: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TCond ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))) NoVoc
+AllRus: Она спала бы
+
+AllRusAbs: PhrUtt NoPConj (UttImpPl PPos (ImpVP (UseV sleep_V))) NoVoc
+AllRus: Спите
+
+AllRusAbs: PhrUtt NoPConj (UttImpPol PPos (ImpVP (UseV sleep_V))) NoVoc
+AllRus: Спите
+
+AllRusAbs: PhrUtt NoPConj (UttImpSg PPos (ImpVP (UseV sleep_V))) NoVoc
+AllRus: Спи
+
+AllRusAbs: PhrUtt (PConjConj and_Conj) (UttAdv now_Adv) NoVoc
+AllRus: И сейчас
+
+AllRusAbs: PhrUtt (PConjConj both7and_DConj) (UttAdv now_Adv) NoVoc
+AllRus: , так и сейчас
+
+AllRusAbs: PhrUtt NoPConj yes_Utt (VocNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN friend_N)))
+AllRus: Да, мой друг
+
+AllRusAbs: PhrUtt NoPConj (ImpPl1 (UseV sleep_V)) NoVoc
+AllRus: Давайте спать
+
+AllRusAbs: PhrUtt but_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP UseCopula here_Adv)))) NoVoc
+AllRus: Но она является здесь
+
+AllRusAbs: PhrUtt but_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAdv here_Adv))))) NoVoc
+AllRus: Но она здесь есть
+
+AllRusAbs: PhrUtt otherwise_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV laugh_V)))) NoVoc
+AllRus: Иначе она смеётся
+
+AllRusAbs: PhrUtt NoPConj (UttImpPl PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))) please_Voc
+AllRus: Кушайте яблоко пожалуйста
+
+AllRusAbs: PhrUtt NoPConj (UttImpPol PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))) please_Voc
+AllRus: Кушайте яблоко пожалуйста
+
+AllRusAbs: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN apple_N))))) please_Voc
+AllRus: Кушай яблоко пожалуйста
+
+AllRusAbs: PhrUtt therefore_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV laugh_V)))) NoVoc
+AllRus: Следовательно она смеётся
+
+AllRusAbs: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спала
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPast ASimul) PNeg (QuestVP whoSg_IP (UseV sleep_V)))
+AllRus: Кто не спал
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPast ASimul) PNeg (QuestVP whoPl_IP (UseV sleep_V)))
+AllRus: Кто не спали
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))
+AllRus: Кто спит
+
+AllRusAbs: UttImpPl PNeg (ImpVP (UseComp (CompCN (UseN man_N))))
+AllRus: Не будьте людьми
+
+AllRusAbs: UttImpPl PNeg (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))))
+AllRus: Не будьте людьми
+
+AllRusAbs: UttImpPol PNeg (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))))
+AllRus: Не будьте людьми
+
+AllRusAbs: UttImpSg PNeg (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))))
+AllRus: Не будь людьми
+
+AllRusAbs: UttIP whoPl_IP
+AllRus: Кто
+
+AllRusAbs: UttIP whoSg_IP
+AllRus: Кто
+
+AllRusAbs: UttIAdv why_IAdv
+AllRus: Почему
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N))
+AllRus: Этот человек
+
+AllRusAbs: UttAdv here_Adv
+AllRus: Здесь
+
+AllRusAbs: UttVP (UseV sleep_V)
+AllRus: Спать
+
+AllRusAbs: UttCN (UseN beer_N)
+AllRus: Пиво
+
+AllRusAbs: UttNP (MassNP (UseN beer_N))
+AllRus: Пиво
+
+AllRusAbs: UttAP (PositA good_A)
+AllRus: Хороший
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))
+AllRus: Пять
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Некое пять
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она не спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спала
+
+AllRusAbs: UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она будет спать
+
+AllRusAbs: UttS (UseCl (TTAnt TCond ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спала бы
+
+AllRusAbs: UttImpPl PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N)))))
+AllRus: Будьте человеком
+
+AllRusAbs: UttImpPol PPos (ImpVP (UseComp (CompCN (UseN man_N))))
+AllRus: Будьте людьми
+
+AllRusAbs: UttImpPol PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N)))))
+AllRus: Будьте человеком
+
+AllRusAbs: UttImpSg PPos (ImpVP (UseComp (CompCN (UseN man_N))))
+AllRus: Будь человеком
+
+AllRusAbs: UttImpSg PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N)))))
+AllRus: Будь человеком
+
+AllRusAbs: UttImpPl PPos (ImpVP (UseComp (CompCN (UseN man_N))))
+AllRus: Будьте людьми
+
+AllRusAbs: UttImpPl PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))))
+AllRus: Будьте людьми
+
+AllRusAbs: UttImpPol PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))))
+AllRus: Будьте людьми
+
+AllRusAbs: UttImpSg PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumPl) (UseN man_N)))))
+AllRus: Будь людьми
+
+AllRusAbs: UttImpPl PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N)))))
+AllRus: Будьте человеком
+
+AllRusAbs: UttImpPol PPos (ImpVP (UseComp (CompCN (UseN man_N))))
+AllRus: Будьте людьми
+
+AllRusAbs: UttImpPol PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N)))))
+AllRus: Будьте человеком
+
+AllRusAbs: UttImpSg PPos (ImpVP (UseComp (CompCN (UseN man_N))))
+AllRus: Будь человеком
+
+AllRusAbs: UttImpSg PPos (ImpVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN man_N)))))
+AllRus: Будь человеком
+
+AllRusAbs: UttS (UseCl (TTAnt TCond AAnter) PNeg (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она не спала бы
+
+AllRusAbs: UttS (ConjS and_Conj (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V)))))
+AllRus: Она спит и я бегаю
+
+AllRusAbs: UttS (ConjS and_Conj (ConsS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPol_Pron) (UseV walk_V))))))
+AllRus: Она спит, я бегаю и вы гуляете
+
+AllRusAbs: UttS (ConjS and_Conj (ConsS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (UseV walk_V))))))
+AllRus: Она спит, я бегаю и ты гуляешь
+
+AllRusAbs: UttS (ConjS and_Conj (ConsS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))) (BaseS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV run_V))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPl_Pron) (UseV walk_V))))))
+AllRus: Она спит, я бегаю и вы гуляете
+
+AllRusAbs: UttS (AdvS today_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Сегодня она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))
+AllRus: Она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a love_V2) (UsePron he_Pron))))
+AllRus: Она любит его
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron))))
+AllRus: Она посылает ему данное
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron))))
+AllRus: Она посылает ему его
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: Она посылает данное ему
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron))))
+AllRus: Она посылает его ему
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVV want_VV (UseV sleep_V))))
+AllRus: Она хочет спать
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))
+AllRus: Она говорит, что я сплю
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: Она интересуется, что кто спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (PositA old_A))))
+AllRus: Она становится старой
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplVA become_VA (AdAP very_AdA (PositA old_A)))))
+AllRus: Она становится очень старой
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: Она рисует данное красной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))
+AllRus: Она рисует его красной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: Она рисует данное красной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))
+AllRus: Она рисует его красной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron))))
+AllRus: Она отвечает ему, что мы спим
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron))))
+AllRus: Она спросит его кто спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron))))
+AllRus: Она просит спать его
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (PositA old_A)))))
+AllRus: Она является старой
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (ComparA old_A (UsePron he_Pron))))))
+AllRus: Она старше его
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron)))))
+AllRus: Она является замужем к нему
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron))))
+AllRus: Она является к нему замужем
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron)))))))
+AllRus: Она является к нему замужем
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron))))))
+AllRus: Она является замужем за ним
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (married_Cl (UsePron she_Pron) (UsePron he_Pron)))
+AllRus: Она замужем за ним
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (AdAP very_AdA (PositA old_A))))))
+AllRus: Она является очень старой
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))
+AllRus: Она является женщиной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompCN (UseN woman_N)))))
+AllRus: Она является женщиной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))))
+AllRus: Она является женщиной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N))))))
+AllRus: Она является старой женщиной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))))
+AllRus: Она является старой женщиной
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdvVP UseCopula here_Adv)))
+AllRus: Она является здесь
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAdv here_Adv))))
+AllRus: Она здесь есть
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdVVP always_AdV (UseV sleep_V))))
+AllRus: Она всегда спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNP (DetCN (DetQuant IndefArt NumSg) (UseN house_N))))
+AllRus: Дом существует
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN house_N)))))
+AllRus: Старый дом существует
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ExistNP (DetCN many_Det (UseN house_N))))
+AllRus: Многие дома существуют
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (CleftNP (UsePron she_Pron) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))))
+AllRus: Это она, которая спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (CleftAdv here_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))
+AllRus: Это здесь она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Является здесь что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Здесь есть что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Данное является здесь что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Данное здесь есть что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (AdvVP UseCopula here_Adv) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Оно является здесь что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseComp (CompAdv here_Adv)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Оно здесь есть что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseV rain_V0)))
+AllRus: Дождит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseV rain_V0)))
+AllRus: Данное дождит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseV rain_V0)))
+AllRus: Оно дождит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (ProgrVP (UseV rain_V0))))
+AllRus: Дождит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (ProgrVP (UseV rain_V0))))
+AllRus: Данное дождит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (ProgrVP (UseV rain_V0))))
+AllRus: Оно дождит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (UseComp (CompAP (PositA good_A)))))
+AllRus: Что она спит является хорошим
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (UseV sleep_V)))
+AllRus: Спишь
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant IndefArt NumSg)) (UseV sleep_V)))
+AllRus: Некое спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))))) (UseV sleep_V)))
+AllRus: Некое одно спит
+
+AllRusAbs: UttVP (UseV sleep_V)
+AllRus: Спать
+
+AllRusAbs: UttVP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron))
+AllRus: Любить его
+
+AllRusAbs: UttVP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron))
+AllRus: Посылать ему данное
+
+AllRusAbs: UttVP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron))
+AllRus: Посылать ему его
+
+AllRusAbs: UttVP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg)))
+AllRus: Посылать данное ему
+
+AllRusAbs: UttVP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron))
+AllRus: Посылать его ему
+
+AllRusAbs: UttVP (ComplVV want_VV (UseV sleep_V))
+AllRus: Хотеть спать
+
+AllRusAbs: UttVP (ComplVS know_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Знать, что она спит
+
+AllRusAbs: UttVP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))
+AllRus: Интересоваться, что кто спит
+
+AllRusAbs: UttVP (ComplVA become_VA (PositA red_A))
+AllRus: Становиться красным
+
+AllRusAbs: UttVP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))
+AllRus: Рисовать данное красным
+
+AllRusAbs: UttVP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))
+AllRus: Рисовать его красным
+
+AllRusAbs: UttVP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (UsePron he_Pron))
+AllRus: Отвечать ему, что она спит
+
+AllRusAbs: UttVP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron))
+AllRus: Спросить его кто спит
+
+AllRusAbs: UttVP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron))
+AllRus: Просить спать его
+
+AllRusAbs: UttVP (UseComp (CompAP (PositA old_A)))
+AllRus: Быть старым
+
+AllRusAbs: UttVP (UseComp (CompAP (ComparA old_A (UsePron he_Pron))))
+AllRus: Быть старше его
+
+AllRusAbs: UttVP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron)))
+AllRus: Быть замужем к нему
+
+AllRusAbs: UttVP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron))
+AllRus: Быть к нему замужем
+
+AllRusAbs: UttVP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron)))))
+AllRus: Быть к нему замужем
+
+AllRusAbs: UttVP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron))))
+AllRus: Быть замужем за ним
+
+AllRusAbs: UttVP (UseComp (CompAP (AdAP very_AdA (PositA old_A))))
+AllRus: Быть очень старым
+
+AllRusAbs: UttVP (UseComp (CompCN (UseN woman_N)))
+AllRus: Быть женщиной
+
+AllRusAbs: UttVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))
+AllRus: Быть женщиной
+
+AllRusAbs: UttVP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N))))
+AllRus: Быть старой женщиной
+
+AllRusAbs: UttVP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))
+AllRus: Быть старой женщиной
+
+AllRusAbs: UttVP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))
+AllRus: Быть женщиной
+
+AllRusAbs: UttVP (AdvVP UseCopula here_Adv)
+AllRus: Быть здесь
+
+AllRusAbs: UttVP (UseComp (CompAdv here_Adv))
+AllRus: Здесь быть
+
+AllRusAbs: UttVP (AdvVP (UseV sleep_V) here_Adv)
+AllRus: Спать здесь
+
+AllRusAbs: UttVP (AdVVP always_AdV (UseV sleep_V))
+AllRus: Всегда спать
+
+AllRusAbs: UttVP (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (DetNP (DetQuant DefArt NumSg)))
+AllRus: Рисовать данное чёрным
+
+AllRusAbs: UttVP (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (UsePron it_Pron))
+AllRus: Рисовать его чёрным
+
+AllRusAbs: UttVP (ReflVP (SlashV2A paint_V2A (PositA black_A)))
+AllRus: Рисовать чёрным себя
+
+AllRusAbs: UttVP (UseComp (CompAP (PositA warm_A)))
+AllRus: Быть тёплым
+
+AllRusAbs: UttAdv (PrepNP to_Prep (SelfNP (MassNP (UseN love_N))))
+AllRus: К самой любви
+
+AllRusAbs: UttVP (ReflVP (SlashV2a love_V2))
+AllRus: Любить себя
+
+AllRusAbs: UttVP (ReflVP (SlashV2A paint_V2A (PositA black_A)))
+AllRus: Рисовать чёрным себя
+
+AllRusAbs: UttVP (PassV2 love_V2)
+AllRus: Любиться
+
+AllRusAbs: UttVP (AdvVP (PassV2 love_V2) (PrepNP by8agent_Prep (UsePron she_Pron)))
+AllRus: Любиться с помощью неё
+
+AllRusAbs: UttVP (AdvVP (PassV2 love_V2) (PrepNP by8means_Prep (UsePron she_Pron)))
+AllRus: Любиться с помощью неё
+
+AllRusAbs: UttVP (ComplSlash (VPSlashPrep (PassV2 love_V2) by8agent_Prep) (UsePron she_Pron))
+AllRus: Любиться с помощью неё
+
+AllRusAbs: UttVP (ComplSlash (VPSlashPrep (PassV2 love_V2) by8means_Prep) (UsePron she_Pron))
+AllRus: Любиться с помощью неё
+
+AllRusAbs: UttVP (ProgrVP (UseV sleep_V))
+AllRus: Спать
+
+AllRusAbs: UttVP (UseComp (CompAP (PositA old_A)))
+AllRus: Быть старым
+
+AllRusAbs: UttVP (UseComp (CompNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N))))
+AllRus: Быть этим человеком
+
+AllRusAbs: UttVP (AdvVP UseCopula here_Adv)
+AllRus: Быть здесь
+
+AllRusAbs: UttVP (UseComp (CompAdv here_Adv))
+AllRus: Здесь быть
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))) (UseComp (CompAP (PositA important_A)))))
+AllRus: Что она спит является важным
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UseComp (CompAP (PositA important_A)))))
+AllRus: Кто спит является важным
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredSCVP (EmbedVP (UseV sleep_V)) (UseComp (CompAP (PositA important_A)))))
+AllRus: Спать является важным
+
+AllRusAbs: UttImpPl PPos (ImpVP (AdvVP (UseV come_V) (PrepNP to_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))))
+AllRus: Приходите к моему дому
+
+AllRusAbs: UttImpPl PPos (ImpVP (ComplSlash (VPSlashPrep (UseV come_V) to_Prep) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))))
+AllRus: Приходите к моему дому
+
+AllRusAbs: UttImpPol PPos (ImpVP (AdvVP (UseV come_V) (PrepNP to_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))))
+AllRus: Приходите к моему дому
+
+AllRusAbs: UttImpPol PPos (ImpVP (ComplSlash (VPSlashPrep (UseV come_V) to_Prep) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))))
+AllRus: Приходите к моему дому
+
+AllRusAbs: UttImpSg PPos (ImpVP (AdvVP (UseV come_V) (PrepNP to_Prep (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))))
+AllRus: Приходи к моему дому
+
+AllRusAbs: UttImpSg PPos (ImpVP (ComplSlash (VPSlashPrep (UseV come_V) to_Prep) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))))
+AllRus: Приходи к моему дому
+
+AllRusAbs: UttImpPl PPos (ImpVP (UseV come_V))
+AllRus: Приходите
+
+AllRusAbs: UttImpPol PPos (ImpVP (UseV come_V))
+AllRus: Приходите
+
+AllRusAbs: UttImpSg PPos (ImpVP (UseV come_V))
+AllRus: Приходи
+
+AllRusAbs: UttImpPl PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (DetNP (DetQuant DefArt NumSg))))
+AllRus: Покупайте данное
+
+AllRusAbs: UttImpPl PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))
+AllRus: Покупайте его
+
+AllRusAbs: UttImpPol PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (DetNP (DetQuant DefArt NumSg))))
+AllRus: Покупайте данное
+
+AllRusAbs: UttImpPol PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))
+AllRus: Покупайте его
+
+AllRusAbs: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (DetNP (DetQuant DefArt NumSg))))
+AllRus: Покупай данное
+
+AllRusAbs: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))
+AllRus: Покупай его
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N))
+AllRus: Этот человек
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant NumSg) (AdjCN (PositA old_A) (UseN man_N)))
+AllRus: Этот старый человек
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA old_A) (UseN man_N)))
+AllRus: Эти пять старых людей
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N))
+AllRus: Эти пять людей
+
+AllRusAbs: UttNP (DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA old_A) (UseN man_N)))
+AllRus: Пять старых людей
+
+AllRusAbs: UttNP (DetCN (DetQuant DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N))
+AllRus: Пять людей
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA old_A) (UseN man_N)))
+AllRus: Пять старых людей
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN man_N))
+AllRus: Пять людей
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt (NumCard (NumDigits (IIDig D_5 (IDig D_1))))) (AdjCN (PositA old_A) (UseN man_N)))
+AllRus: 51 старый человек
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt (NumCard (NumDigits (IIDig D_5 (IDig D_1))))) (UseN man_N))
+AllRus: 51 человек
+
+AllRusAbs: UttNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (AdjCN (PositA old_A) (UseN man_N)))
+AllRus: Мой старый человек
+
+AllRusAbs: UttNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN man_N))
+AllRus: Мой человек
+
+AllRusAbs: UttNP (UsePN paris_PN)
+AllRus: Париж
+
+AllRusAbs: UttNP (UsePron we_Pron)
+AllRus: Мы
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant NumSg))
+AllRus: Это
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Эти пять
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)))
+AllRus: Данное пять самых хороших
+
+AllRusAbs: UttCN (AdjCN (PositA old_A) (UseN beer_N))
+AllRus: Старое пиво
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA old_A) (UseN beer_N)))
+AllRus: Старое пиво
+
+AllRusAbs: UttCN (UseN beer_N)
+AllRus: Пиво
+
+AllRusAbs: UttNP (MassNP (UseN beer_N))
+AllRus: Пиво
+
+AllRusAbs: UttNP (PredetNP only_Predet (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)))
+AllRus: Единственная эта женщина
+
+AllRusAbs: UttNP (PPartNP (DetCN (DetQuant DefArt NumSg) (UseN man_N)) see_V2)
+AllRus: Человек виден
+
+AllRusAbs: UttNP (AdvNP (UsePN paris_PN) today_Adv)
+AllRus: Париж сегодня
+
+AllRusAbs: UttNP (ConjNP or_Conj (BaseNP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (UsePN john_PN)))
+AllRus: Эта женщина или Иван
+
+AllRusAbs: UttNP (ConjNP or_Conj (ConsNP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N)) (BaseNP (UsePN john_PN) (UsePron i_Pron))))
+AllRus: Эта женщина, Иван или я
+
+AllRusAbs: UttNP (UsePron i_Pron)
+AllRus: Я
+
+AllRusAbs: UttNP (UsePron youPl_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youPol_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youSg_Pron)
+AllRus: Ты
+
+AllRusAbs: UttNP (UsePron youPl_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youPol_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youSg_Pron)
+AllRus: Ты
+
+AllRusAbs: UttNP (UsePron he_Pron)
+AllRus: Он
+
+AllRusAbs: UttNP (UsePron she_Pron)
+AllRus: Она
+
+AllRusAbs: UttNP (DetNP (DetQuant DefArt NumSg))
+AllRus: Данное
+
+AllRusAbs: UttNP (UsePron it_Pron)
+AllRus: Оно
+
+AllRusAbs: UttNP (UsePron we_Pron)
+AllRus: Мы
+
+AllRusAbs: UttNP (UsePron youPl_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youPol_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youSg_Pron)
+AllRus: Ты
+
+AllRusAbs: UttNP (DetNP (DetQuant DefArt NumPl))
+AllRus: Данное
+
+AllRusAbs: UttNP (UsePron they_Pron)
+AllRus: Они
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant NumSg))
+AllRus: Это
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant NumSg))
+AllRus: Это
+
+AllRusAbs: UttNP (DetNP (DetQuant that_Quant NumSg))
+AllRus: То
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant NumPl))
+AllRus: Эти
+
+AllRusAbs: UttNP (DetNP (DetQuant that_Quant NumPl))
+AllRus: Те
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Эти пять
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
+AllRus: Данное пятое
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt NumPl (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))
+AllRus: Данное пятые
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd DefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))) (OrdSuperl good_A)))
+AllRus: Данное пять самых хороших
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant NumPl))
+AllRus: Эти
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))
+AllRus: Пять
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Некое пять
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))
+AllRus: Пять
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Некое пять
+
+AllRusAbs: UttNP (DetNP (DetQuant (PossPron i_Pron) NumSg))
+AllRus: Моё
+
+AllRusAbs: UttNP (DetNP (DetQuant (PossPron i_Pron) NumPl))
+AllRus: Мои
+
+AllRusAbs: UttNP (DetNP (DetQuant (PossPron i_Pron) (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Мои пять
+
+AllRusAbs: UttNP (DetCN (DetQuant DefArt NumSg) (UseN house_N))
+AllRus: Дом
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt NumSg) (UseN house_N))
+AllRus: Дом
+
+AllRusAbs: UttNP (DetCN (DetQuant DefArt NumSg) (UseN house_N))
+AllRus: Дом
+
+AllRusAbs: UttNP (DetCN (DetQuant DefArt NumPl) (UseN house_N))
+AllRus: Дома
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))
+AllRus: Женщина
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt NumPl) (UseN woman_N))
+AllRus: Женщины
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant NumSg) (UseN woman_N))
+AllRus: Эта женщина
+
+AllRusAbs: UttNP (DetCN (DetQuant that_Quant NumSg) (UseN woman_N))
+AllRus: Та женщина
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant NumPl) (UseN woman_N))
+AllRus: Эти женщины
+
+AllRusAbs: UttNP (DetCN (DetQuant that_Quant NumPl) (UseN woman_N))
+AllRus: Те женщины
+
+AllRusAbs: UttNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N))
+AllRus: Мой дом
+
+AllRusAbs: UttNP (DetCN (DetQuant DefArt NumSg) (UseN house_N))
+AllRus: Дом
+
+AllRusAbs: UttNP (DetCN (DetQuant IndefArt NumSg) (UseN house_N))
+AllRus: Дом
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot1 n2))))))))
+AllRus: Эти двадцать
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant (NumCard (NumDigits (IIDig D_2 (IDig D_1))))))
+AllRus: Это 21
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant (NumCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))))
+AllRus: Эти почти пять
+
+AllRusAbs: UttNP (DetNP (DetQuant this_Quant (NumCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))))))
+AllRus: Эти почти пять
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7))))))
+AllRus: Семь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7)))))))))
+AllRus: Некое семь
+
+AllRusAbs: UttAP (AdjOrd (OrdSuperl small_A))
+AllRus: Самый маленький
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl small_A)))
+AllRus: Некое самые маленькие
+
+AllRusAbs: UttCard (AdNum (AdnCAdv more_CAdv) (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))
+AllRus: Более чем восемь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum (AdnCAdv more_CAdv) (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))))))
+AllRus: Некое более чем восемь
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot2 (pot0 n9)))))
+AllRus: Девятьсот
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot2 (pot0 n9))))))))
+AllRus: Некое девятьсот
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot2plus (pot0 n9) pot111))))
+AllRus: Девятьсот одиннадцать
+
+AllRusAbs: UttNP (ConjNP and_Conj (BaseNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot2 (pot0 n9)))))))) (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 pot111)))))))))
+AllRus: Некое девятьсот и некое одиннадцать
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot2plus (pot0 n9) pot111)))))))
+AllRus: Некое девятьсот одиннадцать
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))
+AllRus: Восемь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Некое восемь
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot1to19 n3)))))
+AllRus: Тринадцать
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot1to19 n3))))))))
+AllRus: Некое тринадцать
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))
+AllRus: Восемь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Некое восемь
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))
+AllRus: Одно
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt NumSg))
+AllRus: Некое
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))))
+AllRus: Некое одно
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2))))))
+AllRus: Два
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))))
+AllRus: Некое два
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))
+AllRus: Три
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))))
+AllRus: Некое три
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n4))))))
+AllRus: Четыре
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n4)))))))))
+AllRus: Некое четыре
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5))))))
+AllRus: Пять
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Некое пять
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n6))))))
+AllRus: Шесть
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n6)))))))))
+AllRus: Некое шесть
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7))))))
+AllRus: Семь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n7)))))))))
+AllRus: Некое семь
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))
+AllRus: Восемь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))))
+AllRus: Некое восемь
+
+AllRusAbs: UttCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n9))))))
+AllRus: Девять
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n9)))))))))
+AllRus: Некое девять
+
+AllRusAbs: UttCard (NumDigits (IDig D_4))
+AllRus: 4
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumDigits (IDig D_4)))))
+AllRus: Некое 4
+
+AllRusAbs: UttCard (NumDigits (IIDig D_1 (IIDig D_2 (IIDig D_3 (IIDig D_3 (IIDig D_4 (IIDig D_8 (IDig D_6))))))))
+AllRus: 1233486
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (NumDigits (IIDig D_1 (IIDig D_2 (IIDig D_3 (IIDig D_3 (IIDig D_4 (IIDig D_8 (IDig D_6)))))))))))
+AllRus: Некое 1233486
+
+AllRusAbs: UttCN (UseN house_N)
+AllRus: Дом
+
+AllRusAbs: UttNP (MassNP (UseN house_N))
+AllRus: Дом
+
+AllRusAbs: UttCN (AdvCN (UseN2 mother_N2) (PrepNP part_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N))))
+AllRus: Мать короля
+
+AllRusAbs: UttCN (AdvCN (UseN2 mother_N2) (PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N))))
+AllRus: Мать у короля
+
+AllRusAbs: UttCN (ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN king_N)))
+AllRus: Мать короля
+
+AllRusAbs: UttCN (PartNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N)))
+AllRus: Мать короля
+
+AllRusAbs: UttCN (PossNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N)))
+AllRus: Короля мать
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN2 mother_N2)) (PrepNP part_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N))))
+AllRus: Мать короля
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN2 mother_N2)) (PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N))))
+AllRus: Мать у короля
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN2 mother_N2) (PrepNP part_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N)))))
+AllRus: Мать короля
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN2 mother_N2) (PrepNP possess_Prep (DetCN (DetQuant DefArt NumSg) (UseN king_N)))))
+AllRus: Мать у короля
+
+AllRusAbs: UttNP (MassNP (ComplN2 mother_N2 (DetCN (DetQuant DefArt NumSg) (UseN king_N))))
+AllRus: Мать короля
+
+AllRusAbs: UttNP (MassNP (PartNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N))))
+AllRus: Мать короля
+
+AllRusAbs: UttNP (MassNP (PossNP (UseN2 mother_N2) (DetCN (DetQuant DefArt NumSg) (UseN king_N))))
+AllRus: Короля мать
+
+AllRusAbs: UttCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (AdvCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (AdvCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (AdvCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (AdvCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (AdvCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (AdvCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (AdvCN (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (AdvCN (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttCN (ComplN2 (Use2N3 distance_N3) (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (ComplN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (UsePN paris_PN))
+AllRus: Расстояние от этого города до Парижа
+
+AllRusAbs: UttCN (UseN2 (ComplN3 distance_N3 (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN2 (Use2N3 distance_N3))) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN2 (Use2N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN2 (Use3N3 distance_N3))) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN2 (Use3N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (AdvNP (MassNP (UseN2 (Use2N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (AdvNP (MassNP (UseN2 (Use3N3 distance_N3))) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N))))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N))))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N))))) (PrepNP to_Prep (UsePN paris_PN)))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N)))) (PrepNP to_Prep (UsePN paris_PN))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use2N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (AdvCN (UseN2 (Use3N3 distance_N3)) (PrepNP from_Prep (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (ComplN2 (Use2N3 distance_N3) (DetNP (DetQuant this_Quant NumSg))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (AdvNP (MassNP (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ApposCN (UseN2 (ComplN3 distance_N3 (DetNP (DetQuant this_Quant NumSg)))) (MassNP (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого город к Парижу
+
+AllRusAbs: UttNP (MassNP (ComplN2 (Use2N3 distance_N3) (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN)))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (ComplN2 (Use2N3 distance_N3) (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (ComplN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (UseN city_N))) (UsePN paris_PN)))
+AllRus: Расстояние от этого города до Парижа
+
+AllRusAbs: UttNP (MassNP (UseN2 (ComplN3 distance_N3 (AdvNP (DetCN (DetQuant this_Quant NumSg) (UseN city_N)) (PrepNP to_Prep (UsePN paris_PN))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttNP (MassNP (UseN2 (ComplN3 distance_N3 (DetCN (DetQuant this_Quant NumSg) (AdvCN (UseN city_N) (PrepNP to_Prep (UsePN paris_PN)))))))
+AllRus: Расстояние от этого города к Парижу
+
+AllRusAbs: UttCN (UseN2 mother_N2)
+AllRus: Мать
+
+AllRusAbs: UttNP (MassNP (UseN2 mother_N2))
+AllRus: Мать
+
+AllRusAbs: UttCN (UseN2 (Use2N3 distance_N3))
+AllRus: Расстояние
+
+AllRusAbs: UttCN (UseN2 (Use3N3 distance_N3))
+AllRus: Расстояние
+
+AllRusAbs: UttNP (MassNP (UseN2 (Use2N3 distance_N3)))
+AllRus: Расстояние
+
+AllRusAbs: UttNP (MassNP (UseN2 (Use3N3 distance_N3)))
+AllRus: Расстояние
+
+AllRusAbs: UttCN (AdjCN (PositA big_A) (UseN house_N))
+AllRus: Большой дом
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA big_A) (UseN house_N)))
+AllRus: Большой дом
+
+AllRusAbs: UttCN (AdjCN (PositA big_A) (AdjCN (PositA blue_A) (UseN house_N)))
+AllRus: Большой голубой дом
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA big_A) (AdjCN (PositA blue_A) (UseN house_N))))
+AllRus: Большой голубой дом
+
+AllRusAbs: UttCN (AdjCN (AdAP very_AdA (PositA big_A)) (UseN house_N))
+AllRus: Очень большой дом
+
+AllRusAbs: UttNP (MassNP (AdjCN (AdAP very_AdA (PositA big_A)) (UseN house_N)))
+AllRus: Очень большой дом
+
+AllRusAbs: UttCN (AdjCN (AdAP very_AdA (PositA big_A)) (AdjCN (PositA blue_A) (UseN house_N)))
+AllRus: Очень большой голубой дом
+
+AllRusAbs: UttNP (MassNP (AdjCN (AdAP very_AdA (PositA big_A)) (AdjCN (PositA blue_A) (UseN house_N))))
+AllRus: Очень большой голубой дом
+
+AllRusAbs: UttCN (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))
+AllRus: Человек, которого она любит
+
+AllRusAbs: UttCN (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))
+AllRus: Человек кого она любит
+
+AllRusAbs: UttCN (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))
+AllRus: Человек кого она любит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))
+AllRus: Человек, которого она любит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))
+AllRus: Человек кого она любит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))
+AllRus: Человек кого она любит
+
+AllRusAbs: UttCN (AdjCN (PositA old_A) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))
+AllRus: Старый человек, которого она любит
+
+AllRusAbs: UttCN (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttCN (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttCN (RelCN (AdjCN (PositA old_A) (UseN man_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))
+AllRus: Старый человек, которого она любит
+
+AllRusAbs: UttCN (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttCN (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA old_A) (RelCN (UseN man_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))
+AllRus: Старый человек, которого она любит
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA old_A) (SentCN (UseN man_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttNP (MassNP (RelCN (AdjCN (PositA old_A) (UseN man_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))
+AllRus: Старый человек, которого она любит
+
+AllRusAbs: UttNP (MassNP (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttNP (MassNP (SentCN (AdjCN (PositA old_A) (UseN man_N)) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))))
+AllRus: Старый человек кого она любит
+
+AllRusAbs: UttCN (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))
+AllRus: Дом на холме
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN house_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))
+AllRus: Дом на холме
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))))
+AllRus: Дом на холме
+
+AllRusAbs: UttCN (AdjCN (PositA big_A) (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))))
+AllRus: Большой дом на холме
+
+AllRusAbs: UttCN (AdvCN (AdjCN (PositA big_A) (UseN house_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))
+AllRus: Большой дом на холме
+
+AllRusAbs: UttNP (AdvNP (MassNP (AdjCN (PositA big_A) (UseN house_N))) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))
+AllRus: Большой дом на холме
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA big_A) (AdvCN (UseN house_N) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N))))))
+AllRus: Большой дом на холме
+
+AllRusAbs: UttNP (MassNP (AdvCN (AdjCN (PositA big_A) (UseN house_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN hill_N)))))
+AllRus: Большой дом на холме
+
+AllRusAbs: UttCN (AdvCN (UseN rule_N) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))
+AllRus: Правило что она спит
+
+AllRusAbs: UttCN (SentCN (UseN rule_N) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))
+AllRus: Правило что она спит
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN rule_N)) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))
+AllRus: Правило что она спит
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN rule_N) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))
+AllRus: Правило что она спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN rule_N) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))
+AllRus: Правило что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (ApposCN (ApposCN (UseN rule_N) (DetNP (DetQuant that_Quant NumSg))) (UsePron she_Pron))) (UseV sleep_V)))
+AllRus: Правило то она спит
+
+AllRusAbs: UttCN (AdvCN (UseN question_N) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))
+AllRus: Вопрос если она спит
+
+AllRusAbs: UttCN (SentCN (UseN question_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))))
+AllRus: Вопрос она спит
+
+AllRusAbs: UttNP (AdvNP (MassNP (UseN question_N)) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))
+AllRus: Вопрос если она спит
+
+AllRusAbs: UttNP (MassNP (AdvCN (UseN question_N) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))))
+AllRus: Вопрос если она спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN question_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Вопрос она спит
+
+AllRusAbs: UttCN (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V)))
+AllRus: Причина спать
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V))))
+AllRus: Причина спать
+
+AllRusAbs: UttCN (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V)))
+AllRus: Причина спать
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN reason_N) (EmbedVP (UseV sleep_V))))
+AllRus: Причина спать
+
+AllRusAbs: UttCN (ApposCN (UseN king_N) (UsePN john_PN))
+AllRus: Король Иван
+
+AllRusAbs: UttNP (MassNP (ApposCN (UseN king_N) (UsePN john_PN)))
+AllRus: Король Иван
+
+AllRusAbs: UttCN (AdjCN (PositA old_A) (ApposCN (UseN king_N) (UsePN john_PN)))
+AllRus: Старый король Иван
+
+AllRusAbs: UttCN (ApposCN (AdjCN (PositA old_A) (UseN king_N)) (UsePN john_PN))
+AllRus: Старый король Иван
+
+AllRusAbs: UttNP (MassNP (AdjCN (PositA old_A) (ApposCN (UseN king_N) (UsePN john_PN))))
+AllRus: Старый король Иван
+
+AllRusAbs: UttNP (MassNP (ApposCN (AdjCN (PositA old_A) (UseN king_N)) (UsePN john_PN)))
+AllRus: Старый король Иван
+
+AllRusAbs: UttAP (PositA warm_A)
+AllRus: Тёплый
+
+AllRusAbs: UttAP (ComparA warm_A (UsePN paris_PN))
+AllRus: Теплее Парижа
+
+AllRusAbs: UttAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron she_Pron)))
+AllRus: К ней замужем
+
+AllRusAbs: UttAP (ComplA2 married_A2 (UsePron she_Pron))
+AllRus: Замужем за ней
+
+AllRusAbs: UttAP (UseA2 married_A2)
+AllRus: Замужем
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (AdvVP (UseComp (CompAP (PositA good_A))) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Является хорошим что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseComp (CompAP (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))))
+AllRus: Является что она спит хорошим
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseComp (CompAP (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))))
+AllRus: Хороше что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (AdvVP (UseComp (CompAP (PositA good_A))) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Данное является хорошим что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseComp (CompAP (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))))
+AllRus: Данное является что она спит хорошим
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseComp (CompAP (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))))
+AllRus: Данное хороше что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseComp (CompAP (PositA good_A))) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Оно является хорошим что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))))
+AllRus: Оно является что она спит хорошим
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))))
+AllRus: Оно хороше что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (weather_adjCl (AdvAP (PositA good_A) (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Что она спит хороше
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (weather_adjCl (SentAP (PositA good_A) (EmbedS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V)))))))
+AllRus: Хороше что она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl (UseComp (CompAP (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))))
+AllRus: Неопределённо кто спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant DefArt NumSg)) (UseComp (CompAP (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))))
+AllRus: Данное неопределённо кто спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))))
+AllRus: Оно неопределённо кто спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (weather_adjCl (SentAP (PositA uncertain_A) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))
+AllRus: Неопределённо кто спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (SentAP (PositA ready_A) (EmbedVP (UseV sleep_V)))))))
+AllRus: Она готова спать
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseComp (CompAP (SentAP (PositA ready_A) (EmbedVP (UseV sleep_V)))))))
+AllRus: Она готова спать
+
+AllRusAbs: UttAP (AdAP very_AdA (PositA old_A))
+AllRus: Очень старый
+
+AllRusAbs: UttAP (AdAP very_AdA (AdAP very_AdA (PositA old_A)))
+AllRus: Очень очень старый
+
+AllRusAbs: UttAP (ConjAP or_Conj (BaseAP (PositA old_A) (PositA young_A)))
+AllRus: Старый или молодой
+
+AllRusAbs: UttAP (ConjAP and_Conj (ConsAP (PositA old_A) (BaseAP (PositA big_A) (PositA warm_A))))
+AllRus: Старый, большой и тёплый
+
+AllRusAbs: UttAP (AdjOrd (OrdSuperl old_A))
+AllRus: Самый старый
+
+AllRusAbs: UttNP (DetNP (DetQuantOrd IndefArt NumPl (OrdSuperl old_A)))
+AllRus: Некое самые старые
+
+AllRusAbs: UttAP (CAdvAP as_CAdv (PositA old_A) (UsePron she_Pron))
+AllRus: Так же старый, как и она
+
+AllRusAbs: UttAP (ReflA2 married_A2)
+AllRus: Замужем за собой
+
+AllRusAbs: UttAP (UseComparA warm_A)
+AllRus: Теплее
+
+AllRusAbs: UttAdv (PositAdvAdj warm_A)
+AllRus: Тепло
+
+AllRusAbs: UttAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N)))
+AllRus: В доме
+
+AllRusAbs: UttAdv (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Когда она спит
+
+AllRusAbs: UttAdv (ComparAdvAdj more_CAdv warm_A (UsePron he_Pron))
+AllRus: Более тепло, чем он
+
+AllRusAbs: UttAdv (ComparAdvAdjS more_CAdv warm_A (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (UseV run_V))))
+AllRus: Более тепло чем он бегает
+
+AllRusAbs: UttAdv (AdAdv very_AdA (PositAdvAdj warm_A))
+AllRus: Очень тепло
+
+AllRusAbs: UttAdv (ConjAdv and_Conj (BaseAdv here_Adv now_Adv))
+AllRus: Здесь и сейчас
+
+AllRusAbs: UttAdv (ConjAdv and_Conj (ConsAdv (PrepNP with_Prep (UsePron she_Pron)) (BaseAdv here_Adv now_Adv)))
+AllRus: С ней, здесь и сейчас
+
+AllRusAbs: UttQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoSg_IP (UseV sleep_V)))
+AllRus: Кто не спал бы
+
+AllRusAbs: UttQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoPl_IP (UseV sleep_V)))
+AllRus: Кто не спали бы
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseV sleep_V) here_Adv)))
+AllRus: Кто спит здесь
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))
+AllRus: Кто спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))
+AllRus: Кто любит её
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron she_Pron))))
+AllRus: Кто посылает ей данное
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron she_Pron))))
+AllRus: Кто посылает ей его
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: Кто посылает данное ей
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (UsePron it_Pron))))
+AllRus: Кто посылает его ей
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV sleep_V))))
+AllRus: Кто хочет спать
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))
+AllRus: Кто говорит, что я сплю
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: Кто интересуется, что кто спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (PositA old_A))))
+AllRus: Кто становится старым
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (AdAP very_AdA (PositA old_A)))))
+AllRus: Кто становится очень старым
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: Кто рисует данное красным
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))
+AllRus: Кто рисует его красным
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg)))))
+AllRus: Кто рисует данное очень красным
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron))))
+AllRus: Кто рисует его очень красным
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron))))
+AllRus: Кто отвечает ему, что мы спим
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron))))
+AllRus: Кто спросит его кто спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron))))
+AllRus: Кто просит спать его
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (PositA old_A)))))
+AllRus: Кто является старым
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComparA old_A (UsePron he_Pron))))))
+AllRus: Кто старше его
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron)))))
+AllRus: Кто является замужем к нему
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron))))
+AllRus: Кто является к нему замужем
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron)))))))
+AllRus: Кто является к нему замужем
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron))))))
+AllRus: Кто является замужем за ним
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdAP very_AdA (PositA old_A))))))
+AllRus: Кто является очень старым
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))
+AllRus: Кто женщина
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))
+AllRus: Кто женщина
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))
+AllRus: Кто является женщиной
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))
+AllRus: Кто женщина
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))
+AllRus: Кто женщина
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (UseN woman_N)))))
+AllRus: Кто является женщиной
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))))
+AllRus: Кто является женщиной
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))
+AllRus: Кто старая женщина
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))
+AllRus: Кто старая женщина
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N))))))
+AllRus: Кто является старой женщиной
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))))
+AllRus: Кто является старой женщиной
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP UseCopula here_Adv)))
+AllRus: Кто является здесь
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAdv here_Adv))))
+AllRus: Кто здесь есть
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdVVP always_AdV (UseV sleep_V))))
+AllRus: Кто всегда спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Почему она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoPl_IP) (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoSg_IP) (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep)))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep)))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron she_Pron) UseCopula)))
+AllRus: Где она является
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIAdv where_IAdv) (UsePron she_Pron)))
+AllRus: Где она
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoPl_IP) (DetCN (DetQuant this_Quant NumSg) (UseN man_N))))
+AllRus: Кто этот человек
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIP whoSg_IP) (DetCN (DetQuant this_Quant NumSg) (UseN man_N))))
+AllRus: Кто этот человек
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant this_Quant NumSg) (UseN man_N))))))
+AllRus: Кто является этим человеком
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (ExistIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N))))
+AllRus: Который город существует
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (AdvVP UseCopula there7to_Adv)))
+AllRus: Который город является туда
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (AdvVP UseCopula there_Adv)))
+AllRus: Который город является там
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (UseComp (CompAdv there7to_Adv))))
+AllRus: Который город туда есть
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)) (UseComp (CompAdv there_Adv))))
+AllRus: Который город там есть
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (UsePron she_Pron)))))
+AllRus: Кто является ей
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))
+AllRus: Кого она сегодня любит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))
+AllRus: Кого она любит сегодня
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))
+AllRus: Кого она сегодня любит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))
+AllRus: Кого она любит сегодня
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA big_A) (UseN city_N)))
+AllRus: Которые пять больших городов
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (UseN city_N))
+AllRus: Которые пять городов
+
+AllRusAbs: UttIP (IdetIP (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))))
+AllRus: Которые пять
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant NumSg) (AdjCN (PositA big_A) (UseN city_N)))
+AllRus: Который большой город
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n5)))))))) (AdjCN (PositA big_A) (UseN city_N)))
+AllRus: Которые пять больших городов
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N))
+AllRus: Который город
+
+AllRusAbs: UttIP (AdvIP whoPl_IP (PrepNP in_Prep (UsePN paris_PN)))
+AllRus: Кто в Париже
+
+AllRusAbs: UttIP (AdvIP whoSg_IP (PrepNP in_Prep (UsePN paris_PN)))
+AllRus: Кто в Париже
+
+AllRusAbs: UttIP whatPl_IP
+AllRus: Что
+
+AllRusAbs: UttIP whatSg_IP
+AllRus: Что
+
+AllRusAbs: UttIP whoPl_IP
+AllRus: Кто
+
+AllRusAbs: UttIP whoSg_IP
+AllRus: Кто
+
+AllRusAbs: UttIAdv (PrepIP in_Prep (IdetCN (IdetQuant which_IQuant NumSg) (UseN city_N)))
+AllRus: В котором городе
+
+AllRusAbs: UttIAdv (AdvIAdv where_IAdv (PrepNP in_Prep (UsePN paris_PN)))
+AllRus: Где в Париже
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant NumPl) (UseN house_N))
+AllRus: Которые дома
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN house_N))
+AllRus: Который дом
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN house_N))
+AllRus: Который дом
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant NumPl) (UseN house_N))
+AllRus: Которые дома
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TCond AAnter) PNeg (RelVP IdRP (UseV sleep_V))))
+AllRus: Женщина, которая не спала бы
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoSg_IP (UseV sleep_V)))))
+AllRus: Женщина кто не спал бы
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoPl_IP (UseV sleep_V)))))
+AllRus: Женщина кто не спали бы
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TCond AAnter) PNeg (RelVP IdRP (UseV sleep_V)))))
+AllRus: Женщина, которая не спала бы
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: Женщина кто не спал бы
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TCond AAnter) PNeg (QuestVP whoPl_IP (UseV sleep_V))))))
+AllRus: Женщина кто не спали бы
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))
+AllRus: Женщина, которая спит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))
+AllRus: Женщина кто спит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))))
+AllRus: Женщина, которая спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: Женщина кто спит
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (ConjRS or_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))))
+AllRus: Женщина, которая спит или которую мы любим
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (ConjRS or_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))))))
+AllRus: Женщина, которая спит или которую мы любим
+
+AllRusAbs: UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))) here_Adv)
+AllRus: Женщина, которая спит, здесь
+
+AllRusAbs: UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))) here_Adv)
+AllRus: Женщина кто спит здесь
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseV sleep_V) here_Adv))))
+AllRus: Женщина, которая спит здесь
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseV sleep_V) here_Adv)))))
+AllRus: Женщина кто спит здесь
+
+AllRusAbs: UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))) here_Adv)
+AllRus: Женщина, которая спит, здесь
+
+AllRusAbs: UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))) here_Adv)
+AllRus: Женщина кто спит здесь
+
+AllRusAbs: UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))) here_Adv))
+AllRus: Женщина, которая спит, здесь
+
+AllRusAbs: UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))) here_Adv))
+AllRus: Женщина кто спит здесь
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseV sleep_V) here_Adv)))))
+AllRus: Женщина, которая спит здесь
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseV sleep_V) here_Adv))))))
+AllRus: Женщина кто спит здесь
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))
+AllRus: Женщина, которая спит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))
+AllRus: Женщина кто спит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))))
+AllRus: Женщина, которая спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: Женщина кто спит
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron)))))
+AllRus: Женщина, которая любит его
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron))))))
+AllRus: Женщина кто любит его
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron))))))
+AllRus: Женщина, которая любит его
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron he_Pron)))))))
+AllRus: Женщина кто любит его
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron)))))
+AllRus: Женщина, которая посылает ему данное
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron)))))
+AllRus: Женщина, которая посылает ему его
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg))))))
+AllRus: Женщина, которая посылает данное ему
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron)))))
+AllRus: Женщина, которая посылает его ему
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron))))))
+AllRus: Женщина кто посылает ему данное
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron))))))
+AllRus: Женщина кто посылает ему его
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg)))))))
+AllRus: Женщина кто посылает данное ему
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron))))))
+AllRus: Женщина кто посылает его ему
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron))))))
+AllRus: Женщина, которая посылает ему данное
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron))))))
+AllRus: Женщина, которая посылает ему его
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg)))))))
+AllRus: Женщина, которая посылает данное ему
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron))))))
+AllRus: Женщина, которая посылает его ему
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))) (UsePron he_Pron)))))))
+AllRus: Женщина кто посылает ему данное
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (UsePron he_Pron)))))))
+AllRus: Женщина кто посылает ему его
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (DetNP (DetQuant DefArt NumSg))))))))
+AllRus: Женщина кто посылает данное ему
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (Slash3V3 send_V3 (UsePron he_Pron)) (UsePron it_Pron)))))))
+AllRus: Женщина кто посылает его ему
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVV want_VV (UseV sleep_V)))))
+AllRus: Женщина, которая хочет спать
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV sleep_V))))))
+AllRus: Женщина кто хочет спать
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVV want_VV (UseV sleep_V))))))
+AllRus: Женщина, которая хочет спать
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV sleep_V)))))))
+AllRus: Женщина кто хочет спать
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))))
+AllRus: Женщина, которая говорит, что я сплю
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))))
+AllRus: Женщина кто говорит, что я сплю
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V))))))))
+AllRus: Женщина, которая говорит, что я сплю
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVS say_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))))))
+AllRus: Женщина кто говорит, что я сплю
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))
+AllRus: Женщина, которая интересуется, что кто спит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))))
+AllRus: Женщина кто интересуется, что кто спит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))))
+AllRus: Женщина, которая интересуется, что кто спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVQ wonder_VQ (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))))))
+AllRus: Женщина кто интересуется, что кто спит
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (PositA old_A)))))
+AllRus: Женщина, которая становится старой
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (PositA old_A))))))
+AllRus: Женщина кто становится старым
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (PositA old_A))))))
+AllRus: Женщина, которая становится старой
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (PositA old_A)))))))
+AllRus: Женщина кто становится старым
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (AdAP very_AdA (PositA old_A))))))
+AllRus: Женщина, которая становится очень старой
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (AdAP very_AdA (PositA old_A)))))))
+AllRus: Женщина кто становится очень старым
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplVA become_VA (AdAP very_AdA (PositA old_A)))))))
+AllRus: Женщина, которая становится очень старой
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVA become_VA (AdAP very_AdA (PositA old_A))))))))
+AllRus: Женщина кто становится очень старым
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))))
+AllRus: Женщина, которая рисует данное красной
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))))
+AllRus: Женщина, которая рисует его красной
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))))
+AllRus: Женщина кто рисует данное красным
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))))
+AllRus: Женщина кто рисует его красным
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg)))))))
+AllRus: Женщина, которая рисует данное красной
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron))))))
+AllRus: Женщина, которая рисует его красной
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (DetNP (DetQuant DefArt NumSg))))))))
+AllRus: Женщина кто рисует данное красным
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (PositA red_A)) (UsePron it_Pron)))))))
+AllRus: Женщина кто рисует его красным
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg))))))
+AllRus: Женщина, которая рисует данное очень красной
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))
+AllRus: Женщина, которая рисует его очень красной
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg)))))))
+AllRus: Женщина кто рисует данное очень красным
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron))))))
+AllRus: Женщина кто рисует его очень красным
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg)))))))
+AllRus: Женщина, которая рисует данное очень красной
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron))))))
+AllRus: Женщина, которая рисует его очень красной
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (DetNP (DetQuant DefArt NumSg))))))))
+AllRus: Женщина кто рисует данное очень красным
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2A paint_V2A (AdAP very_AdA (PositA red_A))) (UsePron it_Pron)))))))
+AllRus: Женщина кто рисует его очень красным
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron)))))
+AllRus: Женщина, которая отвечает ему, что мы спим
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron))))))
+AllRus: Женщина кто отвечает ему, что мы спим
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron))))))
+AllRus: Женщина, которая отвечает ему, что мы спим
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (UseV sleep_V)))) (UsePron he_Pron)))))))
+AllRus: Женщина кто отвечает ему, что мы спим
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron)))))
+AllRus: Женщина, которая спросит его кто спит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron))))))
+AllRus: Женщина кто спросит его кто спит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron))))))
+AllRus: Женщина, которая спросит его кто спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))) (UsePron he_Pron)))))))
+AllRus: Женщина кто спросит его кто спит
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron)))))
+AllRus: Женщина, которая просит спать его
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron))))))
+AllRus: Женщина кто просит спать его
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron))))))
+AllRus: Женщина, которая просит спать его
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2V beg_V2V (UseV sleep_V)) (UsePron he_Pron)))))))
+AllRus: Женщина кто просит спать его
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (PositA old_A))))))
+AllRus: Женщина, которая является старой
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (PositA old_A)))))))
+AllRus: Женщина кто является старым
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (PositA old_A)))))))
+AllRus: Женщина, которая является старой
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (PositA old_A))))))))
+AllRus: Женщина кто является старым
+
+AllRusAbs: UttCN (AdjCN (ComparA old_A (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))))
+AllRus: Старше его женщина, которая является
+
+AllRusAbs: UttCN (AdjCN (ComparA old_A (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))))
+AllRus: Старше его женщина кто является
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComparA old_A (UsePron he_Pron)))))))
+AllRus: Женщина, которая старше его
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComparA old_A (UsePron he_Pron))))))))
+AllRus: Женщина кто старше его
+
+AllRusAbs: UttNP (MassNP (AdjCN (ComparA old_A (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))))
+AllRus: Старше его женщина, которая является
+
+AllRusAbs: UttNP (MassNP (AdjCN (ComparA old_A (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))))
+AllRus: Старше его женщина кто является
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComparA old_A (UsePron he_Pron))))))))
+AllRus: Женщина, которая старше его
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComparA old_A (UsePron he_Pron)))))))))
+AllRus: Женщина кто старше его
+
+AllRusAbs: UttCN (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))))
+AllRus: К нему замужем женщина, которая является
+
+AllRusAbs: UttCN (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))))
+AllRus: К нему замужем женщина кто является
+
+AllRusAbs: UttCN (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))))
+AllRus: Замужем за ним женщина, которая является
+
+AllRusAbs: UttCN (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))))
+AllRus: Замужем за ним женщина кто является
+
+AllRusAbs: UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (UseA2 married_A2)))))) (PrepNP to_Prep (UsePron he_Pron)))
+AllRus: Женщина, которая является замужем, к нему
+
+AllRusAbs: UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (UseA2 married_A2))))))) (PrepNP to_Prep (UsePron he_Pron)))
+AllRus: Женщина кто является замужем к нему
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron))))))
+AllRus: Женщина, которая является замужем к нему
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron)))))
+AllRus: Женщина, которая является к нему замужем
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))))))))
+AllRus: Женщина, которая является к нему замужем
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron)))))))
+AllRus: Женщина, которая является замужем за ним
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron)))))))
+AllRus: Женщина кто является замужем к нему
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron))))))
+AllRus: Женщина кто является к нему замужем
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron)))))))))
+AllRus: Женщина кто является к нему замужем
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron))))))))
+AllRus: Женщина кто является замужем за ним
+
+AllRusAbs: UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (UseA2 married_A2))))))) (PrepNP to_Prep (UsePron he_Pron)))
+AllRus: Женщина, которая является замужем, к нему
+
+AllRusAbs: UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (UseA2 married_A2)))))))) (PrepNP to_Prep (UsePron he_Pron)))
+AllRus: Женщина кто является замужем к нему
+
+AllRusAbs: UttNP (MassNP (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))))
+AllRus: К нему замужем женщина, которая является
+
+AllRusAbs: UttNP (MassNP (AdjCN (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))))
+AllRus: К нему замужем женщина кто является
+
+AllRusAbs: UttNP (MassNP (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))))
+AllRus: Замужем за ним женщина, которая является
+
+AllRusAbs: UttNP (MassNP (AdjCN (ComplA2 married_A2 (UsePron he_Pron)) (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))))
+AllRus: Замужем за ним женщина кто является
+
+AllRusAbs: UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (UseA2 married_A2)))))) (PrepNP to_Prep (UsePron he_Pron))))
+AllRus: Женщина, которая является замужем, к нему
+
+AllRusAbs: UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (UseA2 married_A2))))))) (PrepNP to_Prep (UsePron he_Pron))))
+AllRus: Женщина кто является замужем к нему
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron)))))))
+AllRus: Женщина, которая является замужем к нему
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron))))))
+AllRus: Женщина, которая является к нему замужем
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron)))))))))
+AllRus: Женщина, которая является к нему замужем
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron))))))))
+AllRus: Женщина, которая является замужем за ним
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP (UseComp (CompAP (UseA2 married_A2))) (PrepNP to_Prep (UsePron he_Pron))))))))
+AllRus: Женщина кто является замужем к нему
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (VPSlashPrep (UseComp (CompAP (UseA2 married_A2))) to_Prep) (UsePron he_Pron)))))))
+AllRus: Женщина кто является к нему замужем
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdvAP (UseA2 married_A2) (PrepNP to_Prep (UsePron he_Pron))))))))))
+AllRus: Женщина кто является к нему замужем
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (ComplA2 married_A2 (UsePron he_Pron)))))))))
+AllRus: Женщина кто является замужем за ним
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdAP very_AdA (PositA old_A)))))))
+AllRus: Женщина, которая является очень старой
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdAP very_AdA (PositA old_A))))))))
+AllRus: Женщина кто является очень старым
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAP (AdAP very_AdA (PositA old_A))))))))
+AllRus: Женщина, которая является очень старой
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAP (AdAP very_AdA (PositA old_A)))))))))
+AllRus: Женщина кто является очень старым
+
+AllRusAbs: UttCN (ApposCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))
+AllRus: Женщина, которая является, женщина
+
+AllRusAbs: UttCN (ApposCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))
+AllRus: Женщина кто является женщина
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))))
+AllRus: Женщина, которая является женщиной
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))))
+AllRus: Женщина кто является женщиной
+
+AllRusAbs: UttNP (MassNP (ApposCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))
+AllRus: Женщина, которая является, женщина
+
+AllRusAbs: UttNP (MassNP (ApposCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))
+AllRus: Женщина кто является женщина
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))))
+AllRus: Женщина, которая является женщиной
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))))))
+AllRus: Женщина кто является женщиной
+
+AllRusAbs: UttCN (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))
+AllRus: Студент, который является, женщина
+
+AllRusAbs: UttCN (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))
+AllRus: Студент кто является женщина
+
+AllRusAbs: UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (UseN woman_N))))))
+AllRus: Студент, который является женщиной
+
+AllRusAbs: UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))))
+AllRus: Студент, который является женщиной
+
+AllRusAbs: UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (UseN woman_N)))))))
+AllRus: Студент кто является женщиной
+
+AllRusAbs: UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))))))
+AllRus: Студент кто является женщиной
+
+AllRusAbs: UttNP (MassNP (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))
+AllRus: Студент, который является, женщина
+
+AllRusAbs: UttNP (MassNP (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))
+AllRus: Студент кто является женщина
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (UseN woman_N)))))))
+AllRus: Студент, который является женщиной
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))))))))
+AllRus: Студент, который является женщиной
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (UseN woman_N))))))))
+AllRus: Студент кто является женщиной
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))))))
+AllRus: Студент кто является женщиной
+
+AllRusAbs: UttCN (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))
+AllRus: Студент, который является, старая женщина
+
+AllRusAbs: UttCN (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))
+AllRus: Студент кто является старая женщина
+
+AllRusAbs: UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N)))))))
+AllRus: Студент, который является старой женщиной
+
+AllRusAbs: UttCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))))))
+AllRus: Студент, который является старой женщиной
+
+AllRusAbs: UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N))))))))
+AllRus: Студент кто является старой женщиной
+
+AllRusAbs: UttCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))))))
+AllRus: Студент кто является старой женщиной
+
+AllRusAbs: UttNP (MassNP (ApposCN (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))
+AllRus: Студент, который является, старая женщина
+
+AllRusAbs: UttNP (MassNP (ApposCN (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))
+AllRus: Студент кто является старая женщина
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N))))))))
+AllRus: Студент, который является старой женщиной
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN student_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N)))))))))
+AllRus: Студент, который является старой женщиной
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompCN (AdjCN (PositA old_A) (UseN woman_N)))))))))
+AllRus: Студент кто является старой женщиной
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN student_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA old_A) (UseN woman_N))))))))))
+AllRus: Студент кто является старой женщиной
+
+AllRusAbs: UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) here_Adv)
+AllRus: Женщина, которая является, здесь
+
+AllRusAbs: UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) here_Adv)
+AllRus: Женщина кто является здесь
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP UseCopula here_Adv))))
+AllRus: Женщина, которая является здесь
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAdv here_Adv)))))
+AllRus: Женщина, которая здесь есть
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP UseCopula here_Adv)))))
+AllRus: Женщина кто является здесь
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAdv here_Adv))))))
+AllRus: Женщина кто здесь есть
+
+AllRusAbs: UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula)))) here_Adv)
+AllRus: Женщина, которая является, здесь
+
+AllRusAbs: UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula))))) here_Adv)
+AllRus: Женщина кто является здесь
+
+AllRusAbs: UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP UseCopula))) here_Adv))
+AllRus: Женщина, которая является, здесь
+
+AllRusAbs: UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP UseCopula)))) here_Adv))
+AllRus: Женщина кто является здесь
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdvVP UseCopula here_Adv)))))
+AllRus: Женщина, которая является здесь
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseComp (CompAdv here_Adv))))))
+AllRus: Женщина, которая здесь есть
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdvVP UseCopula here_Adv))))))
+AllRus: Женщина кто является здесь
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseComp (CompAdv here_Adv)))))))
+AllRus: Женщина кто здесь есть
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdVVP always_AdV (UseV sleep_V)))))
+AllRus: Женщина, которая всегда спит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdVVP always_AdV (UseV sleep_V))))))
+AllRus: Женщина кто всегда спит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (AdVVP always_AdV (UseV sleep_V))))))
+AllRus: Женщина, которая всегда спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (AdVVP always_AdV (UseV sleep_V)))))))
+AllRus: Женщина кто всегда спит
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))
+AllRus: Женщина, которую мы любим
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))))
+AllRus: Женщина кого мы любим
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))))
+AllRus: Женщина кого мы любим
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashV2a love_V2))))))
+AllRus: Женщина, которую мы любим
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))))
+AllRus: Женщина кого мы любим
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron we_Pron) (SlashV2a love_V2)))))))
+AllRus: Женщина кого мы любим
+
+AllRusAbs: UttCN (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))) today_Adv)
+AllRus: Женщина, которую она любит, сегодня
+
+AllRusAbs: UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv)
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttCN (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv)
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))))
+AllRus: Женщина, которую она сегодня любит
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))))
+AllRus: Женщина, которую она любит сегодня
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))))
+AllRus: Женщина кого она сегодня любит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))))
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))))
+AllRus: Женщина кого она сегодня любит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))))
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttNP (AdvNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv)
+AllRus: Женщина, которую она любит, сегодня
+
+AllRusAbs: UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) today_Adv)
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttNP (AdvNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))))) today_Adv)
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttNP (MassNP (AdvCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (SlashV2a love_V2))))) today_Adv))
+AllRus: Женщина, которую она любит, сегодня
+
+AllRusAbs: UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv))
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttNP (MassNP (AdvCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a love_V2)))))) today_Adv))
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv)))))
+AllRus: Женщина, которую она сегодня любит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv))))))
+AllRus: Женщина, которую она любит сегодня
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))))))
+AllRus: Женщина кого она сегодня любит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))))))
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a love_V2)) today_Adv))))))
+AllRus: Женщина кого она сегодня любит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a love_V2) today_Adv)))))))
+AllRus: Женщина кого она любит сегодня
+
+AllRusAbs: UttCN (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V))))
+AllRus: Женщина, которая спит
+
+AllRusAbs: UttCN (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V)))))
+AllRus: Женщина кто спит
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN woman_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV sleep_V)))))
+AllRus: Женщина, которая спит
+
+AllRusAbs: UttNP (MassNP (SentCN (UseN woman_N) (EmbedQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (UseV sleep_V))))))
+AllRus: Женщина кто спит
+
+AllRusAbs: UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A))))))
+AllRus: Ребёнок, все учителя которого является молодым
+
+AllRusAbs: UttCN (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A))))))
+AllRus: Ребёнок, все учителя у которого является молодым
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP part_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A)))))))
+AllRus: Ребёнок, все учителя которого является молодым
+
+AllRusAbs: UttNP (MassNP (RelCN (UseN child_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))) IdRP) (UseComp (CompAP (PositA young_A)))))))
+AllRus: Ребёнок, все учителя у которого является молодым
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2))))
+AllRus: Кого она видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2))))
+AllRus: Кого она видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2))))
+AllRus: Кого она видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2))))
+AllRus: Кого она видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2)))))
+AllRus: Кого она хочет видеть
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2)))))
+AllRus: Кого она хочет видеть
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoPl_IP) (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (PrepIP with_Prep whoSg_IP) (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep)))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashPrep (PredVP (UsePron she_Pron) (UseV sleep_V)) with_Prep)))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (VPSlashPrep (UseV sleep_V) with_Prep))))
+AllRus: С кем она спит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a see_V2)) today_Adv)))
+AllRus: Кого она сегодня видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a see_V2) today_Adv))))
+AllRus: Кого она видит сегодня
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (AdvSlash (SlashVP (UsePron she_Pron) (SlashV2a see_V2)) today_Adv)))
+AllRus: Кого она сегодня видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (AdvVPSlash (SlashV2a see_V2) today_Adv))))
+AllRus: Кого она видит сегодня
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVS (UsePron she_Pron) know_VS (UseSlash (TTAnt TPast AAnter) PNeg (SlashVP (UsePron we_Pron) (SlashV2a see_V2))))))
+AllRus: Кого она знает, что мы не видели
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVS (UsePron she_Pron) know_VS (UseSlash (TTAnt TPast AAnter) PNeg (SlashVP (UsePron we_Pron) (SlashV2a see_V2))))))
+AllRus: Кого она знает, что мы не видели
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2))))
+AllRus: Кого она видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2a see_V2))))
+AllRus: Кого она видит
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))))))
+AllRus: Кому она посылает данное
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (UsePron it_Pron)))))
+AllRus: Кому она посылает его
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (DetNP (DetQuant DefArt NumSg))))))
+AllRus: Кому она посылает данное
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (Slash2V3 send_V3 (UsePron it_Pron)))))
+AllRus: Кому она посылает его
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2A paint_V2A (PositA red_A)))))
+AllRus: Кого она рисует красной
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2A paint_V2A (PositA red_A)))))
+AllRus: Кого она рисует красной
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron i_Pron) (UseV sleep_V))))))))
+AllRus: Кого она спросит где я сплю
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2Q ask_V2Q (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron i_Pron) (UseV sleep_V))))))))
+AllRus: Кого она спросит где я сплю
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))))
+AllRus: Кому она отвечает, что я сплю
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV sleep_V)))))))
+AllRus: Кому она отвечает, что я сплю
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashV2V beg_V2V (UseV sleep_V)))))
+AllRus: Кого она просит спать
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashV2V beg_V2V (UseV sleep_V)))))
+AllRus: Кого она просит спать
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoPl_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2)))))
+AllRus: Кого она хочет видеть
+
+AllRusAbs: UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestSlash whoSg_IP (SlashVP (UsePron she_Pron) (SlashVV want_VV (SlashV2a see_V2)))))
+AllRus: Кого она хочет видеть
+
+
+
+AllRusAbs: UttAdv (PrepNP above_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Над данным
+
+AllRusAbs: UttAdv (PrepNP above_Prep (UsePron it_Pron))
+AllRus: Над ним
+
+AllRusAbs: UttAdv (PrepNP after_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: После данного
+
+AllRusAbs: UttAdv (PrepNP after_Prep (UsePron it_Pron))
+AllRus: После него
+
+AllRusAbs: UttNP (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN man_N)))
+AllRus: Все люди
+
+AllRusAbs: UttAP (AdAP almost_AdA (PositA red_A))
+AllRus: Почти красный
+
+AllRusAbs: UttCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))
+AllRus: Почти восемь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum almost_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))))))
+AllRus: Некое почти восемь
+
+AllRusAbs: UttAdv (SubjS although_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Хотя она спит
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (AdVVP always_AdV (UseV sleep_V))))
+AllRus: Она всегда спит
+
+AllRusAbs: UttAdv (ConjAdv and_Conj (BaseAdv here_Adv now_Adv))
+AllRus: Здесь и сейчас
+
+AllRusAbs: UttAdv (SubjS because_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Потому что она спит
+
+AllRusAbs: UttAdv (PrepNP before_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Перед данным
+
+AllRusAbs: UttAdv (PrepNP before_Prep (UsePron it_Pron))
+AllRus: Перед ним
+
+AllRusAbs: UttAdv (PrepNP behind_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: За данным
+
+AllRusAbs: UttAdv (PrepNP behind_Prep (UsePron it_Pron))
+AllRus: За ним
+
+AllRusAbs: UttAdv (PrepNP between_Prep (ConjNP and_Conj (BaseNP (UsePron youPl_Pron) (UsePron i_Pron))))
+AllRus: Между вами и мной
+
+AllRusAbs: UttAdv (PrepNP between_Prep (ConjNP and_Conj (BaseNP (UsePron youPol_Pron) (UsePron i_Pron))))
+AllRus: Между вами и мной
+
+AllRusAbs: UttAdv (PrepNP between_Prep (ConjNP and_Conj (BaseNP (UsePron youSg_Pron) (UsePron i_Pron))))
+AllRus: Между тобой и мной
+
+AllRusAbs: UttAdv (ConjAdv both7and_DConj (BaseAdv here_Adv there7to_Adv))
+AllRus: Как здесь, так и туда
+
+AllRusAbs: UttAdv (ConjAdv both7and_DConj (BaseAdv here_Adv there_Adv))
+AllRus: Как здесь, так и там
+
+AllRusAbs: UttAdv (PrepNP by8agent_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: С помощью данного
+
+AllRusAbs: UttAdv (PrepNP by8agent_Prep (UsePron it_Pron))
+AllRus: С помощью него
+
+AllRusAbs: UttAdv (PrepNP by8means_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: С помощью данного
+
+AllRusAbs: UttAdv (PrepNP by8means_Prep (UsePron it_Pron))
+AllRus: С помощью него
+
+AllRusAbs: UttAdv (PrepNP by8agent_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: С помощью данного
+
+AllRusAbs: UttAdv (PrepNP by8agent_Prep (UsePron it_Pron))
+AllRus: С помощью него
+
+AllRusAbs: UttAdv (PrepNP by8means_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: С помощью данного
+
+AllRusAbs: UttAdv (PrepNP by8means_Prep (UsePron it_Pron))
+AllRus: С помощью него
+
+AllRusAbs: UttVP (ComplVV can8know_VV (UseV sleep_V))
+AllRus: Мочь спать
+
+AllRusAbs: UttVP (ComplVV can_VV (UseV sleep_V))
+AllRus: Мочь спать
+
+AllRusAbs: UttVP (ComplVV can8know_VV (UseV sleep_V))
+AllRus: Мочь спать
+
+AllRusAbs: UttVP (ComplVV can_VV (UseV sleep_V))
+AllRus: Мочь спать
+
+AllRusAbs: UttAdv (PrepNP during_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: В течение данного
+
+AllRusAbs: UttAdv (PrepNP during_Prep (UsePron it_Pron))
+AllRus: В течение него
+
+AllRusAbs: UttAdv (ConjAdv either7or_DConj (BaseAdv here_Adv there7to_Adv))
+AllRus: Либо здесь, либо туда
+
+AllRusAbs: UttAdv (ConjAdv either7or_DConj (BaseAdv here_Adv there_Adv))
+AllRus: Либо здесь, либо там
+
+AllRusAbs: UttNP (DetCN every_Det (UseN woman_N))
+AllRus: Каждая женщина
+
+AllRusAbs: UttNP everybody_NP
+AllRus: Все
+
+AllRusAbs: UttNP everything_NP
+AllRus: Всё
+
+AllRusAbs: UttAdv everywhere_Adv
+AllRus: Везде
+
+AllRusAbs: UttNP (DetCN few_Det (UseN woman_N))
+AllRus: Немногие женщины
+
+AllRusAbs: UttAdv (PrepNP for_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Для данного
+
+AllRusAbs: UttAdv (PrepNP for_Prep (UsePron it_Pron))
+AllRus: Для него
+
+AllRusAbs: UttAdv (PrepNP from_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: От данного
+
+AllRusAbs: UttAdv (PrepNP from_Prep (UsePron it_Pron))
+AllRus: От него
+
+AllRusAbs: UttNP (UsePron he_Pron)
+AllRus: Он
+
+AllRusAbs: UttAdv here_Adv
+AllRus: Здесь
+
+AllRusAbs: UttAdv here7to_Adv
+AllRus: Сюда
+
+AllRusAbs: UttAdv here7from_Adv
+AllRus: Отсюда
+
+AllRusAbs: UttIAdv how_IAdv
+AllRus: Как
+
+AllRusAbs: UttIP (IdetCN how8many_IDet (UseN house_N))
+AllRus: Сколько домов
+
+AllRusAbs: UttIAdv how8much_IAdv
+AllRus: Сколько
+
+AllRusAbs: UttNP (UsePron i_Pron)
+AllRus: Я
+
+AllRusAbs: UttAdv (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Если она спит
+
+AllRusAbs: UttAdv (PrepNP in8front_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Перед данным
+
+AllRusAbs: UttAdv (PrepNP in8front_Prep (UsePron it_Pron))
+AllRus: Перед ним
+
+AllRusAbs: UttAdv (PrepNP in_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: В данном
+
+AllRusAbs: UttAdv (PrepNP in_Prep (UsePron it_Pron))
+AllRus: В ннём
+
+AllRusAbs: UttNP (DetNP (DetQuant DefArt NumSg))
+AllRus: Данное
+
+AllRusAbs: UttNP (UsePron it_Pron)
+AllRus: Оно
+
+AllRusAbs: UttAP (CAdvAP less_CAdv (PositA warm_A) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))
+AllRus: Менее тёплый, чем мой дом
+
+AllRusAbs: UttNP (DetCN many_Det (UseN house_N))
+AllRus: Многие дома
+
+AllRusAbs: UttAP (CAdvAP more_CAdv (PositA warm_A) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))
+AllRus: Более тёплый, чем мой дом
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP most_Predet (DetCN (DetQuant IndefArt NumPl) (UseN man_N))) (UseV sleep_V)))
+AllRus: Большинства людей спят
+
+AllRusAbs: UttNP (DetCN much_Det (UseN wine_N))
+AllRus: Многие вина
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV must_VV (UseV sleep_V))))
+AllRus: Мы должны спать
+
+AllRusAbs: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP only_Predet (DetCN (DetQuant IndefArt NumPl) (UseN man_N))) (UseV sleep_V)))
+AllRus: Единственные люди спят
+
+AllRusAbs: UttAdv (PrepNP on_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: На данном
+
+AllRusAbs: UttAdv (PrepNP on_Prep (UsePron it_Pron))
+AllRus: На ннём
+
+AllRusAbs: UttAdv (ConjAdv or_Conj (BaseAdv here_Adv there7to_Adv))
+AllRus: Здесь или туда
+
+AllRusAbs: UttAdv (ConjAdv or_Conj (BaseAdv here_Adv there_Adv))
+AllRus: Здесь или там
+
+AllRusAbs: UttAdv (PrepNP part_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Данного
+
+AllRusAbs: UttAdv (PrepNP part_Prep (UsePron it_Pron))
+AllRus: Его
+
+AllRusAbs: UttAdv (PrepNP possess_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: У данного
+
+AllRusAbs: UttAdv (PrepNP possess_Prep (UsePron it_Pron))
+AllRus: У его
+
+AllRusAbs: UttAdv (PrepNP part_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Данного
+
+AllRusAbs: UttAdv (PrepNP part_Prep (UsePron it_Pron))
+AllRus: Его
+
+AllRusAbs: UttAdv (PrepNP possess_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: У данного
+
+AllRusAbs: UttAdv (PrepNP possess_Prep (UsePron it_Pron))
+AllRus: У его
+
+AllRusAbs: UttNP (UsePron she_Pron)
+AllRus: Она
+
+AllRusAbs: UttAP (AdAP so_AdA (PositA warm_A))
+AllRus: Так тёплый
+
+AllRusAbs: UttNP (DetCN someSg_Det (UseN wine_N))
+AllRus: Некоторое вино
+
+AllRusAbs: UttNP (DetCN somePl_Det (UseN woman_N))
+AllRus: Некоторые женщины
+
+AllRusAbs: UttNP somebody_NP
+AllRus: Кто-то
+
+AllRusAbs: UttNP something_NP
+AllRus: Что-то
+
+AllRusAbs: UttAdv somewhere_Adv
+AllRus: Где-нибудь
+
+AllRusAbs: UttNP (DetCN (DetQuant that_Quant NumSg) (UseN house_N))
+AllRus: Тот дом
+
+AllRusAbs: UttAdv (SubjS that_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Что она спит
+
+AllRusAbs: UttAdv there7to_Adv
+AllRus: Туда
+
+AllRusAbs: UttAdv there_Adv
+AllRus: Там
+
+AllRusAbs: UttAdv there7to_Adv
+AllRus: Туда
+
+AllRusAbs: UttAdv there_Adv
+AllRus: Там
+
+AllRusAbs: UttAdv there7from_Adv
+AllRus: Оттуда
+
+AllRusAbs: UttNP (DetNP (DetQuant DefArt NumPl))
+AllRus: Данное
+
+AllRusAbs: UttNP (UsePron they_Pron)
+AllRus: Они
+
+AllRusAbs: UttNP (DetCN (DetQuant this_Quant NumSg) (UseN house_N))
+AllRus: Этот дом
+
+AllRusAbs: UttAdv (PrepNP through_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Через данное
+
+AllRusAbs: UttAdv (PrepNP through_Prep (UsePron it_Pron))
+AllRus: Через него
+
+AllRusAbs: UttAdv (PrepNP to_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: К данному
+
+AllRusAbs: UttAdv (PrepNP to_Prep (UsePron it_Pron))
+AllRus: К нему
+
+AllRusAbs: UttAP (AdAP too_AdA (PositA warm_A))
+AllRus: Слишком тёплый
+
+AllRusAbs: UttAdv (PrepNP under_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Под данным
+
+AllRusAbs: UttAdv (PrepNP under_Prep (UsePron it_Pron))
+AllRus: Под ним
+
+AllRusAbs: UttAP (AdAP very_AdA (PositA warm_A))
+AllRus: Очень тёплый
+
+AllRusAbs: UttVP (ComplVV want_VV (UseV sleep_V))
+AllRus: Хотеть спать
+
+AllRusAbs: UttNP (UsePron we_Pron)
+AllRus: Мы
+
+AllRusAbs: UttIP whatPl_IP
+AllRus: Что
+
+AllRusAbs: UttIP whatSg_IP
+AllRus: Что
+
+AllRusAbs: UttIP whatPl_IP
+AllRus: Что
+
+AllRusAbs: UttIP whatSg_IP
+AllRus: Что
+
+AllRusAbs: UttIAdv when_IAdv
+AllRus: Когда
+
+AllRusAbs: UttAdv (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (UseV sleep_V))))
+AllRus: Когда она спит
+
+AllRusAbs: UttIAdv where_IAdv
+AllRus: Где
+
+AllRusAbs: UttIP (IdetCN (IdetQuant which_IQuant NumSg) (UseN house_N))
+AllRus: Который дом
+
+AllRusAbs: UttIP whoPl_IP
+AllRus: Кто
+
+AllRusAbs: UttIP whoSg_IP
+AllRus: Кто
+
+AllRusAbs: UttIP whoPl_IP
+AllRus: Кто
+
+AllRusAbs: UttIP whoSg_IP
+AllRus: Кто
+
+AllRusAbs: UttIAdv why_IAdv
+AllRus: Почему
+
+AllRusAbs: UttAdv (PrepNP with_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: С данным
+
+AllRusAbs: UttAdv (PrepNP with_Prep (UsePron it_Pron))
+AllRus: С ним
+
+AllRusAbs: UttAdv (PrepNP without_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: Без данного
+
+AllRusAbs: UttAdv (PrepNP without_Prep (UsePron it_Pron))
+AllRus: Без него
+
+AllRusAbs: no_Utt
+AllRus: Нет
+
+AllRusAbs: yes_Utt
+AllRus: Да
+
+AllRusAbs: UttNP (UsePron youPl_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youPol_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youSg_Pron)
+AllRus: Ты
+
+AllRusAbs: UttNP (UsePron youPl_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youPol_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youSg_Pron)
+AllRus: Ты
+
+AllRusAbs: UttNP (UsePron youPl_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youPol_Pron)
+AllRus: Вы
+
+AllRusAbs: UttNP (UsePron youSg_Pron)
+AllRus: Ты
+
+AllRusAbs: UttNP (DetCN (DetQuant no_Quant NumSg) (UseN house_N))
+AllRus: Никакой дом
+
+AllRusAbs: UttNP (PredetNP not_Predet everybody_NP)
+AllRus: Не все
+
+AllRusAbs: UttAdv (ConjAdv if_then_Conj (BaseAdv here_Adv there7to_Adv))
+AllRus: Если здесь, то туда
+
+AllRusAbs: UttAdv (ConjAdv if_then_Conj (BaseAdv here_Adv there_Adv))
+AllRus: Если здесь, то там
+
+AllRusAbs: UttCard (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))
+AllRus: По меньшей мере восемь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum at_least_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))))))
+AllRus: Некое по меньшей мере восемь
+
+AllRusAbs: UttCard (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))
+AllRus: Самое большее восемь
+
+AllRusAbs: UttNP (DetNP (DetQuant IndefArt (NumCard (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8))))))))))
+AllRus: Некое самое большее восемь
+
+AllRusAbs: UttNP nobody_NP
+AllRus: Никто
+
+AllRusAbs: UttNP nothing_NP
+AllRus: Ничто
+
+AllRusAbs: UttAdv (PrepNP except_Prep (DetNP (DetQuant DefArt NumSg)))
+AllRus: За исключением данного
+
+AllRusAbs: UttAdv (PrepNP except_Prep (UsePron it_Pron))
+AllRus: За исключением него
+
+AllRusAbs: UttAP (CAdvAP as_CAdv (PositA warm_A) (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN house_N)))
+AllRus: Так же тёплый, как и мой дом
+
+AllRusAbs: UttVP (ComplSlash (SlashV2a have_V2) (DetNP (DetQuant DefArt NumSg)))
+AllRus: Иметь данное
+
+AllRusAbs: UttVP (ComplSlash (SlashV2a have_V2) (UsePron it_Pron))
+AllRus: Иметь его
+

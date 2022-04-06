@@ -1,7 +1,7 @@
-concrete LexiconChi of Lexicon = CatChi ** 
+concrete LexiconChi of Lexicon = CatChi **
   open ParadigmsChi, ResChi, Prelude in {
 
-flags 
+flags
   coding = utf8 ;
 
 lin
@@ -14,13 +14,13 @@ lin
   tree_N = mkN "树" "棵";         -- "shu"  "ke"
   big_A = mkA "大" ;          -- "da"
   small_A = mkA "小" ;        -- "xiao"
-  green_A = mkA "绿" ;        -- "lv"
+  green_A = colourA "绿" ;        -- "lv"
   walk_V = mkV "走" ;             -- "zou"
   sleep_V = mkV "睡觉" ;            -- "shui"
   love_V2 = mkV2 "爱" ;            -- "ai"
   watch_V2 = mkV2 "看" ;            -- "kan"
   know_VS = mkV "知道" ;          -- "zhidao"
-  wonder_VQ = mkV "好奇" ;        -- "haoqi" 
+  wonder_VQ = mkV "好奇" ;        -- "haoqi"
   john_PN = mkPN "约翰"  ;        -- "yuehan"
 
 
@@ -63,7 +63,7 @@ horn_N = mkN "角" "根";
 tail_N = mkN "尾巴" "条"; -- [mark] "尾" -> "尾巴" , "尾" is often treated as morpheme, or if stands alone, it is a classifier itself
 feather_N = mkN "羽毛" "根";
 hair_N = mkN "头发" "根"; -- [mark] several classifiers , "根"(single hair), "把"(several hairs)
-head_N = mkN "头" "颗"; 
+head_N = mkN "头" "颗";
 ear_N = mkN "耳朵" "只";
 eye_N = mkN "眼睛" "只";
 nose_N = mkN "鼻子" ;
@@ -79,7 +79,7 @@ wing_N = mkN "翅膀" "只"; -- [mark] "翼" -> "翅膀", "翅膀" is the common
 belly_N = mkN "肚子" ;
 guts_N = mkN "肠子" "根";
 neck_N = mkN "脖子" ;
-back_N = mkN "背" ; 
+back_N = mkN "背" ;
 breast_N = mkN "胸" ;
 heart_N = mkN "心脏" "颗";
 liver_N = mkN "肝" ;
@@ -101,7 +101,7 @@ live_V = mkV "活" ;
 die_V = mkV "死" ;
 kill_V2 = mkV2 "杀" ;
 fight_V2 = mkV2 "打架" ; -- [mark] "吵架" -> "打架", "吵架" = quarrel, argue
-hunt_V2 = mkV2 "打猎" ; -- [mark] "打猎" is iv, can't think of proper translation in v2 form for hunt 
+hunt_V2 = mkV2 "打猎" ; -- [mark] "打猎" is iv, can't think of proper translation in v2 form for hunt
 hit_V2 = mkV2 "打" ;
 cut_V2 = mkV2 "割" ;
 split_V2 = mkV2 "劈开" ;
@@ -159,10 +159,10 @@ ashes_N = mkN "灰" [];
 burn_V = mkV "烧" ;
 road_N = mkN "路" "条";
 mountain_N = mkN "山" "座";
-red_A = mkA "红" ;
-yellow_A = mkA "黄" ;
-white_A = mkA "白" ;
-black_A = mkA "黑" ;
+red_A = colourA "红" ;
+yellow_A = colourA "黄" ;
+white_A = colourA "白" ;
+black_A = colourA "黑" ;
 night_N = mkN "夜晚" ; -- [mark] "夜晚" 's classifier is "个"
 day_N = mkN "白天" []; -- [mark] "白天" -> "天", "天" itself is classifier
 year_N = mkN "年" [] ; -- [mark] "年" itself is classifier
@@ -343,7 +343,7 @@ shirt_N = mkN "衬衫" "件" ;
 silver_N = mkN "银子" "块"; -- [mark] "银" --> "银子"
 sister_N = mkN "妹妹" ;
 sock_N = mkN "袜子" "只";
-steel_N = mkN "钢" "块"; 
+steel_N = mkN "钢" "块";
 stove_N = mkN "炉子" ;
 village_N = mkN "村庄" "座";
 war_N = mkN "战争" "场" ; -- [mark] rewritten
@@ -353,29 +353,27 @@ wood_N = mkN "木头" "块" ; -- [mark] "木" --> "木头"
 -- from scratch, by Jolene
 
 lin
-  alas_Interj = ssword "唉" ;  
+  alas_Interj = ssword "唉" ;
   beg_V2V = mkV2V (mkV "乞求") ;  -- beg him to do something
-  break_V2 = mkV2 "打破" ; 
-  broad_A = mkA "宽" ; 
-  brown_A = mkA "棕" ; 
-  clever_A = mkA "聪明" ; 
-  close_V2 = mkV2 "关闭" ;  
-  easy_A2V = mkA2 "简单" ;  
-  empty_A = mkA "空" ; 
-  fun_AV = mkA "有趣" ;  
-  hate_V2 = mkV2 "讨厌" ; 
-  married_A2 = mkA2 "结婚" ; 
-  paris_PN = mkPN "巴黎" ; 
-  probable_AS = mkA "可能" ;  
+  break_V2 = mkV2 "打破" ;
+  broad_A = mkA "宽" ;
+  brown_A = colourA "棕" ;
+  clever_A = mkA "聪明" ;
+  close_V2 = mkV2 "关闭" ;
+  easy_A2V = mkA2 "简单" ;
+  empty_A = mkA "空" ;
+  fun_AV = mkA "有趣" ;
+  hate_V2 = mkV2 "讨厌" ;
+  married_A2 = mkA2 "结婚" ;
+  paris_PN = mkPN "巴黎" ;
+  probable_AS = mkA "可能" ;
   ready_A = mkA "准备好" ; -- [mark] "准备好":  准备(v) + 好(adj,complement)
-  seek_V2 = mkV2 "寻求" ; 
-  stop_V = mkV "停止" ; 
-  stupid_A = mkA "笨" ; 
-  switch8off_V2 = mkV2 "关" ;  
-  switch8on_V2 = mkV2 "开" ; 
-  ugly_A = mkA "丑" ; 
+  seek_V2 = mkV2 "寻求" ;
+  stop_V = mkV "停止" ;
+  stupid_A = mkA "笨" ;
+  switch8off_V2 = mkV2 "关" ;
+  switch8on_V2 = mkV2 "开" ;
+  ugly_A = mkA "丑" ;
   uncertain_A = mkA "不确定" ; -- [mark] "不确定":  不("un-") + 确定("certain")
-
-
 
 }

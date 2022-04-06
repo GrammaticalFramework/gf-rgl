@@ -76,14 +76,16 @@ oper
   casePrep    : Case ->        Prep ;  -- just case, e.g. adessive
 
   mkPrep = overload {
-    mkPrep : Case -> Prep
+    mkPrep : Case -> Prep  -- inessive
      = casePrep ;
-    mkPrep : Str -> Prep
+    mkPrep : Str -> Prep   -- kanssa
      = postGenPrep ;
-    mkPrep : Case -> Str -> Prep
+    mkPrep : Case -> Str -> Prep  -- genitive kanssa
      = postPrep ;
-    mkPrep : Str -> Case -> Prep
+    mkPrep : Str -> Case -> Prep  -- ilman partitive
      = \s,c -> prePrep c s ;
+    mkPrep : Str -> Case -> Str -> Prep  -- yhdessä genitive kanssa
+     = \s,c,t -> lin Prep {c = NPCase c ; s = <s,t,\\_ => []>}
     } ;
 
   accusative : Prep
@@ -126,9 +128,18 @@ oper
     mkN : V -> N ;   -- verbal noun: "tekeminen"
   } ;
 
+-- Verban nouns of type "tekeminen"
+
+    verbalN : V -> N   -- tekeminen
+      = \v -> mkN (v.s ! (Inf Inf4Nom)) ;
+
 -- Some nouns are regular except for the singular nominative (e.g. "mies").
 
     exceptNomN : N -> Str -> N ;
+
+-- Some nouns have special, or variant, plural genitives (e.g. "valta" - "valtojen"|"valtain").
+
+    exceptPlGenN : N -> Str -> N ;
 
 -- Nouns where the parts are separate (should perhaps be treated as CN)
 
@@ -152,6 +163,8 @@ oper
      s = \\c => (StemFin.snoun2nounBind veri).s ! NCase n Gen + paine.s ! c
      } ;
 
+   foreignN : Str -> N ; -- foreign word without Finnish alternations, e.g. sake/saken/sakeja
+
 -- Nouns used as functions need a case, of which the default is
 -- the genitive.
 
@@ -174,6 +187,19 @@ oper
 
   foreignPN : Str -> PN ; -- Dieppe-Dieppen
 
+-- To inspect the number of an NP
+
+  ifPluralNP : NP -> Bool  -- False if singular, True if plural
+    = \np -> case np.a of {
+      Ag Pl _ => True ;
+      _ => False
+      } ;
+
+-- To force a number on NP
+
+  forceNumberNP : Number -> NP -> NP  -- e.g. Yhdysvallat plural in form, singular in agreement
+    = \n,np -> np ** {a = agrP3 n} ; --- also forces 3rd person
+
 --2 Adjectives
 
 -- Non-comparison one-place adjectives are just like nouns.
@@ -194,10 +220,14 @@ oper
   invarA : Str -> A  -- invariant adjective, e.g. "kelpo"
     = \s -> lin A {s = \\_,_ => s ; h = Back ; p = [] ; hasPrefix = False} ; ----- stemming adds bogus endings
 
-  prefixA : Str -> A -> A = \pr,a -> a ** {
-    p = pr ;
-    hasPrefix = True
-    } ;
+  compoundA : Str -> A -> A  -- prefix glued to adjective, e.g. "hevos"+"vetoinen"
+    = \s,a -> lin A {s = \\d,c => s + a.s ! d ! c  ; h = a.h ; p = s + a.p ; hasPrefix = a.hasPrefix} ;
+
+  prefixA : Str -> A -> A -- in modifying use, an uninflected glued prefix, e.g. "sähkö" for "sähköinen"
+    = \pr,a -> a ** {
+      p = pr ;
+      hasPrefix = True
+      } ;
 
 -- Two-place adjectives need a case for the second argument.
 
@@ -370,6 +400,8 @@ mkVS = overload {
       Part => lin Det (MorphoFin.mkDetPol isNeg nu (snoun2nounBind noun)) ** {isNum = True} ; --- works like "kolme autoa"
       _ => lin Det (MorphoFin.mkDetPol isNeg nu (snoun2nounBind noun)) ---- are there other cases?
       } ;
+    mkDet : Str -> Det -> Det -- add a string to a Det, e.g. "suunnilleen jokainen"
+      = \s,det -> det ** {s1 = \\c => s ++ det.s1 ! c} ;
     } ;
 
   mkQuant = overload {
@@ -461,6 +493,7 @@ mkVS = overload {
   } ;
 
     exceptNomN : N -> Str -> N = \noun,nom -> lin N (exceptNomSNoun noun nom) ;
+    exceptPlGenN : N -> Str -> N = \noun,nom -> lin N (exceptPlGenSNoun noun nom) ;
 
 ----  mk1A : Str -> A = \jalo -> aForms2A (nforms2aforms (nForms1 jalo)) ;
 ----  mkNA : N -> A = snoun2sadj ;
@@ -626,12 +659,15 @@ mkVS = overload {
             ukon ++ ukkoja ++ ukkoa)
       } ;
 
+--- this is a paradigm hidden from the API. It should not be used without caution
+  invarN : Str -> N = \s -> <lin N {s = \\_ => s ; h = Back} : N> ;
+  
   mkN2 = overload {
     mkN2 : N -> N2 = \n -> mmkN2 n (casePrep genitive) ;
     mkN2 : N -> Prep -> N2 = mmkN2
     } ;
 
-  mmkN2 : N -> Prep -> N2 = \n,c -> n ** {c2 = c ; isPre = mkIsPre c ; lock_N2 = <>} ;
+  mmkN2 : N -> Prep -> N2 = \n,c -> n ** {c2 = c ; isPre = mkIsPre c ; lock_N2 = <> ; postmod = \\_ => []} ;
   mkN3 = \n,c,e -> n ** {c2 = c ; c3 = e ;
     isPre = mkIsPre c  ; -- matka Lontoosta Pariisiin
     isPre2 = mkIsPre e ;          -- Suomen voitto Ruotsista
@@ -653,7 +689,8 @@ mkVS = overload {
 
   mkPN_1 : Str -> PN = \s -> lin PN (snoun2spn (mk1N s)) ;
 
-  foreignPN : Str -> PN = \s -> (lin PN (snoun2spn (nforms2snoun (noun s)))) where {
+  foreignPN : Str -> PN = \s -> mkPN (foreignN s) ;
+  foreignN : Str -> N = \s -> (lin N (nforms2snoun (noun s))) where {
     noun : Str -> NForms = \s -> case s of {
       _ + "i" => dPaatti s (s + "n") ;
       _ + "e" => dNukke s (s + "n") ;

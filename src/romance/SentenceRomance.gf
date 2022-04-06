@@ -15,6 +15,10 @@ incomplete concrete SentenceRomance of Sentence =
         }
       } ;
 
+    AdvImp adv imp = {
+      s = \\pol,impform,g => imp.s ! pol ! impform ! g ++ adv.s
+      } ;
+
 {-
     SlashVP np vps = 
       -- agreement decided afterwards: la fille qu'il a trouvée
@@ -152,7 +156,7 @@ incomplete concrete SentenceRomance of Sentence =
 
     EmbedS  s  = {s = \\_ => conjThat ++ s.s ! Indic} ; --- mood
     EmbedQS qs = {s = \\_ => qs.s ! QIndir} ;
-    EmbedVP vp = {s = \\c => prepCase c ++ infVP vp (agrP3 Masc Sg)} ; --- agr ---- compl
+    EmbedVP vp = {s = \\c => prepCase c ++ infVP vp RPos (agrP3 Masc Sg)} ; --- agr ---- compl
 
     UseCl  t p cl = {
       s = \\o => t.s ++ p.s ++ cl.s ! DDir ! t.t ! t.a ! p.p ! o

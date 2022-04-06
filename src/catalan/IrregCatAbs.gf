@@ -1102,5 +1102,6 @@ fun escopir_V  : V ;
 fun fondre_V  : V ;
 fun jeure_V  : V ;
 fun omplir_V  : V ;
+fun tossir_V : V ; 
 fun venir_V  : V ;
 }

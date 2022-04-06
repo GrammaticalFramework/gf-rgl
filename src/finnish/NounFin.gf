@@ -29,11 +29,14 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
             _                           => <k,  NCase n k>       -- kytkin, kytkimen,...
             }
       in {
-      s = \\c => let
-                   k = ncase c ;
-                 in
-                 det.s1 ! k.p1 ++ cn.s ! k.p2 ++ det.s2 ! cn.h ;
-      a = agrP3 (case <det.isDef, det.isNum> of {
+        s = \\c => let
+                     k = ncase c ;
+                   in
+                     det.s1 ! k.p1 ++         -- minun
+                     cn.s   ! k.p2 ++         -- kytkime
+                     det.s2 ! cn.h ++         -- ni
+                     cn.postmod ! numN k.p2 ; -- jonka/jotka myin
+        a = agrP3 (case <det.isDef, det.isNum> of {
             <False,True> => Sg ;  -- kolme kytkintä on
             _ => det.n
             }) ;
@@ -179,49 +182,67 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
         ncase : Case -> NForm = \c -> NCase n c ;
       in {
         s = \\c => let k = npform2case n c in
-                cn.s ! ncase k ;
+                cn.s ! ncase k ++ cn.postmod ! n ;
         a = agrP3 Sg ;
         isPron = False ; isNeg = False
       } ;
 
-    UseN n = snoun2nounSep n ;
+    UseN n = snoun2nounSep n ** {
+      postmod = \\_ => []
+      } ;
 
-    UseN2 n = snoun2nounSep n ;
+    UseN2 n = snoun2nounSep n ** {
+      postmod = n.postmod
+      } ;
 
     Use2N3 f = {
       s = f.s ;
       c2 = f.c2 ;
       h = f.h ;
-      isPre = f.isPre
+      isPre = f.isPre ;
+      postmod = \\_ => [] ;
       } ;
     Use3N3 f = {
       s = f.s ;
       c2 = f.c3 ;
       h = f.h ;
-      isPre = f.isPre2
+      isPre = f.isPre2 ;
+      postmod = \\_ => [] ;
       } ;
-
-
---- If a possessive suffix is added here it goes after the complements...
 
     ComplN2 f x = {
-      s = \\nf => preOrPost f.isPre ((snoun2nounSep f).s ! nf) (appCompl True Pos f.c2 x) ;
-      h = f.h } ;
-    ComplN3 f x = {
-      s = \\nf => preOrPost f.isPre (f.s ! nf) (appCompl True Pos f.c2 x) ;
-      c2 = f.c3 ;
-      h = f.h ;
-      isPre = f.isPre2
+      s = \\nf =>
+        case f.isPre of {
+          True  =>          cn.s ! nf ;
+          False => compl ++ cn.s ! nf } ;
+      postmod = \\num =>
+        case f.isPre of { -- If N2 comes from ComplN3, postmod may be filled
+          True  => cn.postmod ! num ++ compl ;
+          False => cn.postmod ! num } ;
+      h = f.h }
+      where {
+        compl : Str = appCompl True Pos f.c2 x ;
+        cn : CN = UseN2 f ;
       } ;
 
-    AdjCN ap cn = {
+    -- reuse the pre/post logic from ComplN2.
+    -- we just need to make the N3 into the lincat of N2
+    ComplN3 f x = ComplN2 (toN2 f) x ** {
+      c2 = f.c3 ;
+      isPre = f.isPre2 }
+      where {
+        toN2 : N3 -> N2 = \n3 -> lin N2 (n3 ** {postmod = \\_ => []})
+      } ;
+
+    AdjCN ap cn = cn ** {
       s = case ap.hasPrefix of {
             True  => \\nf => ap.p ++ BIND ++ cn.s ! nf ;
             False => \\nf => ap.s ! True ! (n2nform nf) ++ cn.s ! nf } ;
       h = cn.h } ;
 
-    RelCN cn rs = {s = \\nf => cn.s ! nf ++ BIND ++ "," ++  rs.s ! agrP3 (numN nf) ;
-                   h = cn.h } ;
+    RelCN cn rs = cn ** {
+      postmod = \\num => cn.postmod ! num ++ BIND ++ "," ++  rs.s ! agrP3 num ;
+      } ;
 
     RelNP np rs = {
       s = \\c => np.s ! c ++ BIND ++ "," ++ rs.s ! np.a ;
@@ -230,22 +251,26 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
       isNeg = np.isNeg
       } ;
 
-    AdvCN cn ad = {s = \\nf => cn.s ! nf ++ ad.s ;
-                   h = cn.h} ;
+    AdvCN cn ad = cn ** {
+      postmod = \\num => cn.postmod ! num ++ ad.s ;
+      } ;
 
-    SentCN cn sc = {s = \\nf=> cn.s ! nf ++ sc.s;
-                    h = cn.h } ;
+    SentCN cn sc = cn **{
+      postmod = \\num => cn.postmod ! num ++ sc.s ;
+      } ;
 
-    ApposCN cn np = {s = \\nf=> cn.s ! nf ++ np.s ! NPSep ;
-                    h = cn.h } ; --- luvun x
+    ApposCN cn np = cn ** { -- luvun x
+      postmod = \\num => cn.postmod ! num ++ np.s ! NPSep ;
+      } ;
 
-    PossNP cn np = {s = \\nf => np.s ! NPCase Gen ++ cn.s ! nf ;
-                    h = cn.h
-                   } ;
+    PossNP cn np = cn ** {
+      s = \\nf => np.s ! NPCase Gen ++ cn.s ! nf ;
+      h = cn.h
+      } ;
 
-    PartNP cn np = {s = \\nf => cn.s ! nf ++ np.s ! NPCase Part ;
-                    h = cn.h ---- gives "lasin viiniänsa" ; should be "lasinsa viiniä"
-                   } ;
+    PartNP cn np = cn ** {
+      postmod = \\num => np.s ! NPCase Part ++ cn.postmod ! num ;
+      } ;
 
 
     CountNP det np =

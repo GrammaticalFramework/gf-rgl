@@ -55,6 +55,18 @@ oper
     _ => SCNom
     } ;
 
+  LinCN : Type = {s : NForm => Str ; h : Harmony ; postmod : Number => Str} ;
+  linCN : NForm -> LinCN -> Str = \nf,cn ->
+    let n : Number = case nf of {
+          NCase n _ => n ;
+          NPossNom n => n ;
+          NPossGen n => n ;
+          NPossIllat n => n ;
+          NPossTransl n => n ;
+          _ => Sg
+          } ;
+     in cn.s ! nf ++ cn.postmod ! n ;
+
 -- Agreement of $NP$ has number*person and the polite second ("te olette valmis").
 
 param

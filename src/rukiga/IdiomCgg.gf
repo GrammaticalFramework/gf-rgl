@@ -1,8 +1,11 @@
 --# -path=.:../prelude:../abstract:../common
 
 concrete IdiomCgg of Idiom = CatCgg **
-  open Prelude, ResCgg in {
+  open Prelude,Predef, ResCgg in {
 
+
+lin
+  ImpPl1  vp = {s="tu" ++ BIND ++ vp.s ++ BIND ++ vp.pres ++ BIND ++ "6e"};      -- let's go
 {-
 --1 Idiom: Idiomatic Expressions
 

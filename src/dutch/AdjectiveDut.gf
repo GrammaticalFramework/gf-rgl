@@ -56,4 +56,6 @@ concrete AdjectiveDut of Adjective = CatDut ** open ResDut, Prelude in
       isPre = True
       } ;
 
+    AdvAP ap adv = {s = \\agr,af => ap.s ! agr ! af ++ adv.s ; isPre = False} ; -- KA: guessed
+
 }

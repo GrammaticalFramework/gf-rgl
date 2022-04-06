@@ -31,6 +31,10 @@ concrete SentenceBul of Sentence = CatBul ** open Prelude, ResBul in {
            } ++ compl ;
     } ;
 
+    AdvImp adv imp = {
+      s = \\pol,gennum => adv.s ++ imp.s ! pol ! gennum
+    } ;
+
     SlashVP np slash =  {
       s = \\agr => (mkClause (np.s ! RSubj) np.gn np.p {s      = slash.s ;
                                                         ad     = slash.ad ;

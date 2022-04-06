@@ -24,6 +24,7 @@ concrete CatCze of Cat =
     VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase} ; ----
     V  = ResCze.VerbForms ;
     V2 = ResCze.VerbForms ** {c : ComplementCase} ;
+    VS,VQ = ResCze.VerbForms ;
 
     A  = ResCze.AdjForms ;
     AP = ResCze.Adjective ** {isPost : Bool} ; -- {s : Gender => Number => Case => Str}
@@ -39,7 +40,7 @@ concrete CatCze of Cat =
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;
     Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
-    Pron = PronForms ;
+    Pron = PronForms ** {poss : DemPronForms} ;
 
     Adv  = {s : Str} ;
     Prep = ResCze.ComplementCase ; -- {s : Str ; c : Case ; hasPrep : Bool} ;
