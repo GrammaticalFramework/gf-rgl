@@ -159,12 +159,12 @@ param
                     s = table {
                           AAdj Posit c => adjCompar.s ! AAdj Posit c ;
                           AAdv         => adjCompar.s ! AAdv ;
-                          _            => nonExist } ; -- IL 06/2021. Replace with an actual string, if this causes problems.
+                          _            => nonExist } ; -- IL 2021-06. Replace with an actual string, if this causes problems.
                     isMost = True } ;
             _ => adjCompar
           } ;
 
-    -- IL 06/2021: remove "more" and "most" from A & A2's inflection table
+    -- IL 2021-06: remove "more" and "most" from A & A2's inflection table
     getCompar : Case -> Adjective -> Str = \c,a -> case a.isMost of {
       True => "more" ++ a.s ! AAdj Posit c ;
       False => a.s ! AAdj Compar c
@@ -395,7 +395,7 @@ param
       False => {aux = x ; adv = "not" ; fin = [] ; inf = z}
       } ;
 
-{- IL 24/04/2018 To fix scope of reflexives:
+{- IL 2018-04 To fix scope of reflexives:
   a) ComplSlash ( … ReflVP … ) X:    reflexive should agree with X
     LangEng> l PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ReflVP (SlashV2a like_V2))) (UsePron he_Pron))
     I beg him to like /himself/
@@ -421,42 +421,22 @@ param
     insertExtra obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
 
 --- AR 7/3/2013 move the particle after the object
-  insertObjPartLast : (Agr => Str) -> VP -> VP = \obj,vp -> {
-    s = vp.s ;
+  insertObjPartLast : (Agr => Str) -> VP -> VP = \obj,vp -> vp ** {
     p = [] ;  -- remove particle from here
-    prp = vp.prp ;
-    ptp = vp.ptp ;
-    inf = vp.inf ;
-    ad = vp.ad ;
     s2 = \\a => obj ! a ++ vp.s2 ! a ++ vp.p ; -- and put it here ; corresponds to insertObjPre
     isSimple = False ;
-    ext = vp.ext
     } ;
 
 --- The adverb should be before the finite verb.
 
   insertAdV : Str -> VP -> VP = \ad -> insertAdVAgr (\\_ => ad) ;
 
-  insertAdVAgr : (Agr => Str) -> VP -> VP = \ad,vp -> {
-    s = vp.s ;
-    p = vp.p ;
-    prp = vp.prp ;
-    ptp = vp.ptp ;
-    inf = vp.inf ;
+  insertAdVAgr : (Agr => Str) -> VP -> VP = \ad,vp -> vp ** {
     ad  = \\a => vp.ad ! a ++ ad ! a ;
-    s2 = \\a => vp.s2 ! a  ;
     isSimple = False ;
-    ext = vp.ext
     } ;
 
-  insertExtra : Str -> VP -> VP = \e,vp -> {
-    s = vp.s ;
-    p = vp.p ;
-    prp = vp.prp ;
-    ptp = vp.ptp ;
-    inf = vp.inf ;
-    ad  = vp.ad ;
-    s2 =  vp.s2  ;
+  insertExtra : Str -> VP -> VP = \e,vp -> vp ** {
     isSimple = False ;
     ext = vp.ext ++ e  --- there should be at most one, one might think; but: I would say that it will be raining if I saw clouds
     } ;
@@ -523,7 +503,7 @@ param
   haveContr   = agrVerb (cBind "s")     (cBind "ve") ;
   haventContr = agrVerb (cBind "s not")  (cBind "ve not") ;
 
-  Aux = {
+  Aux : Type = {
     pres  : Polarity => Agr => Str ;
     contr : Polarity => Agr => Str ;  -- contracted forms
     past  : Polarity => Agr => Str ;  --# notpresent
