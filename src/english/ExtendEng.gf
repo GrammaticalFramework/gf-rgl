@@ -185,7 +185,7 @@ concrete ExtendEng of Extend =
     mkVPS : Temp -> Pol -> VP -> VPS = \t,p,vp -> lin VPS {
       s = \\o,a =>
         let
-          verb = vp.s ! t.t ! t.a ! p.p ! o ! a ; -- choice of Order determines aux or not
+          verb = mkVerbForms a vp ! t.t ! t.a ! p.p ! o ! a ; -- choice of Order determines aux or not
           compl = vp.s2 ! a ++ vp.ext
         in {fin = verb.aux ++ t.s ++ p.s ;
             inf = verb.adv ++ vp.ad ! a ++ verb.fin ++ verb.inf ++ vp.p ++ compl} ;
@@ -288,16 +288,12 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
     let
       be = predAux auxBe ;
       ppt = vps.ptp
-    in {
-    s = be.s ;
-    p = [] ;
-    prp = be.prp ;
-    ptp = be.ptp ;
-    inf = be.inf ;
-    ad = \\_ => [] ;
-    s2 = \\a => vps.ad ! a ++ ppt ++ vps.p  ++ vps.s2 ! a ++ ag ++ vps.c2 ; ---- place of agent
-    isSimple = False ;
-    ext = vps.ext
+    in be ** {
+        p = [] ;
+        ad = \\_ => [] ;
+        s2 = \\a => vps.ad ! a ++ ppt ++ vps.p  ++ vps.s2 ! a ++ ag ++ vps.c2 ; ---- place of agent
+        isSimple = False ;
+        ext = vps.ext
     } ;
 
   lin
