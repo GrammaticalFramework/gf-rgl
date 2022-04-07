@@ -3,13 +3,13 @@ UseV,ComplVV,ComplVS,ComplVQ,ComplVA,SlashV2a,SlashV2V,SlashV2A,SlashV2S,Slash2V
 UseV,UseComp {"to"} PART mark head
 UseComp,CompAdv,CompAP,CompNP,CompCN,ProgrVP,QuestIComp {"is","are","am","was","were","been","be"} VERB cop head
 CompCN {"a","an"} DET det head
-PassV2 {"is","are","am","was","were""been","be"} VERB auxpass head
+PassV2 {"is","are","am","was","were""been","be"} VERB aux:pass head
 ComplVV {"to"} PART mark xcomp
 ComplVS {"that"} PART mark ccomp
 EmbedVP {"to"} PART mark head
 EmbedS {"that"} PART mark head
 SentCN {"that","to"} PART mark acl
-ExtAdvS,SubjS {","} PUNCT punct head
+ConsNP,ExtAdvS,SSubjS,VocNP {","} PUNCT punct head
 ExistNPAdv,ExistNP {"not","don't","doesn't","didn't","haven't","hasn't","hadn't","wouldn't","won't","isn't","aren't","wasn't","weren't"} PART neg head 
 ExistNPAdv,ExistNP {"has","had","have","will","would","do","does","did"} AUX aux head 
 ExistNPAdv,ExistNP {"is","are","am","was","were""been","be"} VERB cop head
@@ -34,9 +34,3 @@ PossNP,PartNP {"of"} ADP case nmod
 @"am" PresSg1
 @"is" PresSg3
 @"are" PresPl
-
-
-
-
-
-
