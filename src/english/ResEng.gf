@@ -252,18 +252,59 @@ param
     Tense => Anteriority => CPolarity => Order => Agr =>
       {aux, adv, fin, inf : Str} ; -- would, not, sleeps, slept
 
-  VP : Type = {
-    s   : VerbForms ;
-    p   : Str ;   -- verb particle
-    prp : Str ;   -- present participle
-    ptp : Str ;   -- past participle
-    inf : Str ;   -- the infinitive form ; VerbForms would be the logical place
-    ad  : Agr => Str ; -- sentence adverb (can be Xself, hence Agr)
-    s2  : Agr => Str ; -- complement
-    ext : Str ;        -- extreposed field such as S, QS, VP
-    isSimple : Bool    -- regulates the place of participle used as adjective
-    } ;
+{- IL 2022-04: reduce the fields in VP and make the grammar better suited for morphological analysis
+   All verbs except auxiliaries only need 6 forms inside VP, and other forms can be built in PredVP.
+   Auxiliaries need more forms. So we make VP an extension of Aux, and add a parameter that tells
+   which strategy to use when building a Cl: use the 4 forms, or use the fields in Aux.
+   (If we treat auxiliaries as normal verbs, we get "you don't be __" for "you aren't __".)
 
+   If we didn't care about morphological lexicon, we could just fill the Aux fields for all verbs:
+   morphologically distinct forms like "can't" for auxiliaries, and periphrastic constructions
+   like "doesn't sing/eat/play" for other verbs. However, then morphologically analysing the word
+   "doesn't" returns every single function that constructs a VP, which clutters morpho analysis.
+
+   So we use two sets of fields and a parameter for which strategy to choose in PredVP. This results
+   in significantly fewer fields than previously, and is better for morphological analysis.
+-}
+  VP : Type = {
+    -- The common parts
+    p    : Str ;   -- verb particle
+    ad   : Agr => Str ; -- sentence adverb (can be Xself, hence Agr)
+    s2   : Agr => Str ; -- complement
+    ext  : Str ;        -- extreposed field such as S, QS, VP
+    prp  : Str ;   -- present participle
+    ptp  : Str ;   -- past participle
+    inf  : Str ;   -- the infinitive form
+    isSimple : Bool ;   -- regulates the place of participle used as adjective
+
+    -- The variable parts, depending on whether the main verb of the VP is auxiliary or not
+    isAux : Bool ;
+    auxForms : { -- nonExist when isAux=False
+      past,  --# notpresent
+      contr,
+      pres : Polarity => Agr => Str ;
+      } ;
+    nonAuxForms : {  -- nonExist when isAux=True
+      pres : Agr => Str ; -- sing/sings ; can be streamlined into two forms if needed
+      past : Str ; --# notpresent
+    }
+  } ;
+
+  -- called from mkClause, when we finally put together all forms for a Cl
+  mkVerbForms : Agr -> VP -> VerbForms = \agr,vp -> case vp.isAux of {
+    True =>
+      let aux : Aux = vp.auxForms ** {
+            inf = vp.inf ;
+            ppart = vp.ptp ;
+            prpart = vp.prp } ;
+      in auxVerbForms aux ;
+    False =>
+      let fin : Str = vp.nonAuxForms.pres ! agr ;
+          inf : Str = vp.inf ;
+          part : Str = vp.ptp ;
+      in nonAuxVerbForms fin inf part
+                         vp.nonAuxForms.past --# notpresent
+    } ;
 
   SlashVP = VP ** {c2 : Str ;
                    gapInMiddle : Bool;
@@ -276,20 +317,57 @@ param
   cBind : Str -> Str = \s -> Predef.BIND ++ ("'" + s) ;
 
   predV : Verb -> VP = \verb -> {
-    s = \\t,ant,b,ord,agr =>
-      let
-        inf  = verb.s ! VInf ;
-        fin  = presVerb verb agr ;
-        part = verb.s ! VPPart ;
-      in
-      case <t,ant,b,ord> of {
+    p    = verb.p ;             -- Common to all verbs
+    prp  = verb.s ! VPresPart ;
+    ptp  = verb.s ! VPPart ;
+    inf  = verb.s ! VInf ;
+    ad   = \\_ => [] ;
+    ext  = [] ;
+    isSimple = True ; ---- but really depends on whether p == []
+    s2 = \\a => if_then_Str verb.isRefl (reflPron ! a) [] ;
+
+    isAux = False ;             -- Specific to non-Aux verbs
+    auxForms = {
+      contr,
+      past, --# notpresent
+      pres = \\_,_ => nonExist} ;
+    nonAuxForms = {
+      pres = \\agr => presVerb verb agr ;
+      past = verb.s ! VPast ; --# notpresent
+      }
+    } ;
+
+  predAux : Aux -> VP = \aux -> {
+    p = [] ;            -- Common to all verbs
+    prp = aux.prpart ;
+    ptp = aux.ppart ;
+    inf = aux.inf ;
+    ad = \\_ => [] ;
+    ext = [] ;
+    isSimple = True ;
+    s2 = \\_ => [] ;
+
+    isAux = True ;     -- Specific to Aux verbs
+    auxForms = aux ;
+    nonAuxForms = {
+      past = nonExist ; --# notpresent
+      pres = \\_ => nonExist}
+    } ;
+
+  nonAuxVerbForms : (fin,inf,part : Str) ->
+                    (past : Str) -> --# notpresent
+                    VerbForms = \fin,inf,part
+                                ,past --# notpresent
+                                ->
+    \\tns,ant,pol,ord,agr =>
+      case <tns,ant,pol,ord> of {
         <Pres,Simul,CPos,ODir _>      => vff            fin [] ;
         <Pres,Simul,CPos,OQuest>      => vf (does agr)   inf ;
         <Pres,Anter,CPos,ODir True>   => vf (haveContr agr)   part ; --# notpresent
         <Pres,Anter,CPos,_>           => vf (have      agr)   part ; --# notpresent
         <Pres,Anter,CNeg c,ODir True> => vfn c (haveContr agr) (haventContr agr) part ; --# notpresent
         <Pres,Anter,CNeg c,_>         => vfn c (have agr) (havent agr) part ; --# notpresent
-        <Past,Simul,CPos,ODir _>      => vff (verb.s ! VPast) [] ; --# notpresent
+        <Past,Simul,CPos,ODir _>      => vff past [] ; --# notpresent
         <Past,Simul,CPos,OQuest>      => vf "did"        inf ; --# notpresent
         <Past,Simul,CNeg c,_>         => vfn c "did" "didn't"     inf ; --# notpresent
         <Past,Anter,CPos,ODir True>   => vf (cBind "d")         part ; --# notpresent
@@ -314,18 +392,9 @@ param
         <Cond,Anter,CNeg c,_>         => vfn c "would" "wouldn't" ("have" ++ part) ; --# notpresent
         <Pres,Simul,CNeg c,_>         => vfn c (does agr) (doesnt agr) inf
         } ;
-    p    = verb.p ;
-    prp  = verb.s ! VPresPart ;
-    ptp  = verb.s ! VPPart ;
-    inf  = verb.s ! VInf ;
-    ad   = \\_ => [] ;
-    ext  = [] ;
-    isSimple = True ; ---- but really depends on whether p == []
-    s2 = \\a => if_then_Str verb.isRefl (reflPron ! a) []
-    } ;
 
-  predAux : Aux -> VP = \verb -> {
-    s = \\t,ant,cb,ord,agr =>
+    auxVerbForms : Aux -> VerbForms = \verb ->
+    \\t,ant,cb,ord,agr =>
       let
         b = case cb of {
           CPos => Pos ;
@@ -371,17 +440,7 @@ param
         <Pres,Simul,CPos,  _>         => vf fin           [] ;
         <Pres,Simul,CNeg c,ODir True> => vfn c cfinp fin  [] ;
         <Pres,Simul,CNeg c,  _>       => vfn c finp fin   []
-
-        } ;
-    p = [] ;
-    prp = verb.prpart ;
-    ptp = verb.ppart ;
-    inf = verb.inf ;
-    ad = \\_ => [] ;
-    ext = [] ;
-    isSimple = True ;
-    s2 = \\_ => []
-    } ;
+      } ;
 
   vff : Str -> Str -> {aux, adv, fin, inf : Str} = \x,y ->
     {aux = [] ; adv = [] ; fin = x ; inf = y} ;
@@ -569,7 +628,7 @@ param
     \subj,agr,vp -> {
       s = \\t,a,b,o =>
         let
-          verb  = vp.s ! t ! a ! b ! o ! agr ;
+          verb  = mkVerbForms agr vp ! t ! a ! b ! o ! agr ;
           compl = vp.s2 ! agr ++ vp.ext
         in
         case o of {
