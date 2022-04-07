@@ -15,6 +15,10 @@ incomplete concrete SentenceRomance of Sentence =
         }
       } ;
 
+    AdvImp adv imp = {
+      s = \\pol,impform,g => imp.s ! pol ! impform ! g ++ adv.s
+      } ;
+
 {-
     SlashVP np vps = 
       -- agreement decided afterwards: la fille qu'il a trouvée
@@ -113,19 +117,8 @@ incomplete concrete SentenceRomance of Sentence =
 ----            VPAgrClit g n => verb ! VPart g n  
 ----            } ;
 
-          vpss : Str * Str = case <te,a> of {
+          vpss : Str * Str = chooseTA te a verb vaux num per m part ;
 
-            <RPast,Simul> => <verb ! VFin (VImperf m) num per, []> ; --# notpresent
-            <RPast,Anter> => <vaux ! VFin (VImperf m) num per, part> ; --# notpresent
-            <RFut,Simul>  => <verb ! VFin (VFut) num per, []> ; --# notpresent
-            <RFut,Anter>  => <vaux ! VFin (VFut) num per, part> ; --# notpresent
-            <RCond,Simul> => <verb ! VFin (VCondit) num per, []> ; --# notpresent
-            <RCond,Anter> => <vaux ! VFin (VCondit) num per, part> ; --# notpresent
-            <RPasse,Simul> => <verb ! VFin (VPasse) num per, []> ; --# notpresent
-            <RPasse,Anter> => <vaux ! VFin (VPasse) num per, part> ; --# notpresent
-            <RPres,Anter> => <vaux ! VFin (VPres m) num per, part> ; --# notpresent
-            <RPres,Simul> => <verb ! VFin (VPres m) num per, []> 
-            } ;
           fin = vpss.p1 ;
           inf = vpss.p2 ;
           hypt = verbHyphen vp.s ; -- in French, -t- in some cases, otherwise - ; empty in other langs
@@ -163,7 +156,7 @@ incomplete concrete SentenceRomance of Sentence =
 
     EmbedS  s  = {s = \\_ => conjThat ++ s.s ! Indic} ; --- mood
     EmbedQS qs = {s = \\_ => qs.s ! QIndir} ;
-    EmbedVP vp = {s = \\c => prepCase c ++ infVP vp (agrP3 Masc Sg)} ; --- agr ---- compl
+    EmbedVP vp = {s = \\c => prepCase c ++ infVP vp RPos (agrP3 Masc Sg)} ; --- agr ---- compl
 
     UseCl  t p cl = {
       s = \\o => t.s ++ p.s ++ cl.s ! DDir ! t.t ! t.a ! p.p ! o

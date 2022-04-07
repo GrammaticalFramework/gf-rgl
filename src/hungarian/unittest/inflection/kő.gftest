@@ -1,0 +1,26 @@
+-- Julia's comments:
+-- dLó: <Sg,Sup> also "kövön" not "köven", but that is due to H_e, which is needed for "köveket" so it's conflicting
+
+Lang: MassNP (UseN stone_N)
+LangHun: kő
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN stone_N)))
+LangHun: én látok egy köve &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN stone_N))
+LangHun: egy kövön
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN stone_N)
+LangHun: kövek
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN stone_N)))
+LangHun: én látok kövek &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN stone_N))
+LangHun: egy kőhöz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN stone_N))
+LangHun: kövek &+ hez
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN stone_N)
+LangHun: én köve &+ m

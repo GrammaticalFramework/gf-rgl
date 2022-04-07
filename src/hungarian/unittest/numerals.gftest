@@ -1,0 +1,9 @@
+-- Plural
+-- LangEng: the cats fly
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN cat_N)) (UseV fly_V)))) NoVoc
+LangHun: a macskák repülnek
+
+-- Numeral
+-- LangEng: two cats fly
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n2)))))))) (UseN cat_N)) (UseV fly_V)))) NoVoc
+LangHun: két macska repül

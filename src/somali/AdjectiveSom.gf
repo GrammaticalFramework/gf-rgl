@@ -8,12 +8,15 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
 -- elliptic-relational.
 
   -- : A  -> AP ;
-  PositA a = a ;
+  PositA a = a ** {
+    compar = [] ;
+    } ;
 
   -- : A  -> NP -> AP ;
-  -- ComparA a np = a ** {
-  --   s    = \\agr => np.s ! Abs ++ "ka" ++ a.s ! AF Compar ;
-  --   } ;
+  ComparA a np = a ** {
+    s = \\af => "ka" ++ a.s ! af ;
+    compar = np.s ! Abs
+    } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
   -- ComplA2 a2 np = a2 ** { } ;
@@ -25,7 +28,10 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
   UseA2 = PositA ;
 
   -- : A  -> AP ;     -- warmer
-  --UseComparA a = a ** {} ;
+  UseComparA a = a ** {
+    s = \\af => "ka" ++ a.s ! af ;
+    compar = []
+    } ;
 
 
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
@@ -34,13 +40,17 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
 -- The superlative use is covered in $Ord$.
 
   -- : Ord -> AP ;       -- warmest
-  -- AdjOrd ord = ord ** {} ;
+  AdjOrd ord = ord ** {
+    compar = []
+    } ;
 
 -- Sentence and question complements defined for all adjectival
 -- phrases, although the semantics is only clear for some adjectives.
 
   -- : AP -> SC -> AP ;  -- good that she is here
-  -- SentAP  ap sc = ap ** { } ;
+  SentAP  ap sc = ap ** {
+    s = \\af => ap.s ! af ++ sc.s -- TODO check
+    } ;
 
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 

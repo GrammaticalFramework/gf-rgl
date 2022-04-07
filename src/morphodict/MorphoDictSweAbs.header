@@ -1,0 +1,4 @@
+abstract MorphoDictSweAbs =
+  Cat [N,A,V,Adv,Prep,PN] **
+{
+

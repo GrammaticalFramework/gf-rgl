@@ -4,14 +4,16 @@ instance DiffFre of DiffRomance - [
   imperClit,
   invertedClause,
   verbHyphen,
-  iAdvQuestionInv
-  ] 
+  iAdvQuestionInv,
+  -- for comparative forms
+  ComparAgr, af2compar, aagr2compar
+  ]
   = open CommonRomance, PhonoFre, Prelude in {
 
   flags optimize=noexpand ; coding=utf8 ;
 --  flags optimize=all ;
 
-  param 
+  param
     Prepos = P_de | P_a | PNul ;
     VType = VTyp VAux VBool ;  -- True means that -t- is required as in va-t-il, alla-t-il
     VAux  = VHabere | VEsse | VRefl ;
@@ -23,7 +25,7 @@ instance DiffFre of DiffRomance - [
 
     prepCase : Case -> Str = \c -> case c of {
       Nom => [] ;
-      Acc => [] ; 
+      Acc => [] ;
       CPrep P_a => "à" ;
       CPrep P_de => elisDe ;
       CPrep PNul => []
@@ -73,9 +75,9 @@ instance DiffFre of DiffRomance - [
 
 ----    pronArg = pronArgGen Neg ; --- takes more space and time
 
-    pronArg : Number -> Person -> CAgr -> CAgr -> Str * Str * Bool = 
+    pronArg : Number -> Person -> CAgr -> CAgr -> Str * Str * Bool =
       \n,p,acc,dat ->
-      let 
+      let
         pacc = case acc of {
           CRefl => <case p of {
             P3 => elision "s" ;  --- use of reflPron incred. expensive
@@ -98,9 +100,9 @@ instance DiffFre of DiffRomance - [
 -- Positive polarity is used in the imperative: stressed for 1st and
 -- 2nd persons.
 
-    pronArgGen : RPolarity -> Number -> Person -> CAgr -> CAgr -> Str * Str = 
+    pronArgGen : RPolarity -> Number -> Person -> CAgr -> CAgr -> Str * Str =
       \b,n,p,acc,dat ->
-      let 
+      let
         cas : Person -> Case -> Case = \pr,c -> case <pr,b> of {
           <P1 | P2, RPos> => CPrep P_de ; --- encoding in argPron
           _ => c
@@ -123,9 +125,9 @@ instance DiffFre of DiffRomance - [
           _ => <pdat ++ pacc, []>
           } ;
 
-    mkImperative b p vp = 
-      \\pol,g,n => 
-        let 
+    mkImperative b p vp =
+      \\pol,g,n =>
+        let
           agr   = Ag g n p ;
           num   = if_then_else Number b Pl n ;
           verb  = vp.s.s ! vImper num p ;
@@ -135,14 +137,14 @@ instance DiffFre of DiffRomance - [
               <Sg,False> => <"toi",elision "t",True> ;
               _ => <"vous","vous",True>
               } ;
-            _ => <[],[],False> 
+            _ => <[],[],False>
             } ;
           clpr  = <vp.clit1 ++ vp.clit2, vp.clit3.hasClit> ;
           compl = vp.comp ! agr ++ vp.ext ! pol
         in
         case pol of {
-          RPos => verb ++ if_then_Str refl.p3 bindHyphen [] ++ refl.p1 ++ 
-                          if_then_Str clpr.p2 bindHyphen [] ++ vp.clit3.imp ++ 
+          RPos => verb ++ if_then_Str refl.p3 bindHyphen [] ++ refl.p1 ++
+                          if_then_Str clpr.p2 bindHyphen [] ++ vp.clit3.imp ++
                           compl ;
           RNeg _ => neg.p1 ++ refl.p2 ++ clpr.p1 ++ verb ++ neg.p2 ++ compl
           } ;
@@ -156,6 +158,30 @@ instance DiffFre of DiffRomance - [
     iAdvQuestionInv : Direct = DDir ;
 
     bindHyphen : Str = BIND ++ "-" ++ BIND ;
+
+-- AForm
+  param
+    AFormComplex = AF Gender Number | AAttrMasc | AA ;
+  oper
+    AForm = AFormComplex ;
+    aform2aagr : AForm -> AAgr = \a -> case a of {
+      DiffFre.AF g n => aagr g n ;
+      _              => aagr Masc Sg -- "le plus lentement"
+      } ;
+    genNum2Aform : Gender -> Number -> AForm = DiffFre.AF ;
+    genNumPos2Aform : Gender -> Number -> Bool -> AForm = \g,n,isPre ->
+      case <g,n,isPre> of {
+        <Masc,Sg,True> => AAttrMasc ;
+        _              => genNum2Aform g n
+      } ;
+
+-- Comparatives
+    ComparAgr = AAgr ;
+    af2compar = aform2aagr ;
+    aagr2compar = id AAgr ;
+    piuComp = "plus" ;
+
+
 
     CopulaType = {} ;
     selectCopula = \isEstar -> copula ;
@@ -175,7 +201,7 @@ instance DiffFre of DiffRomance - [
 
     clitInf _ cli inf = cli ++ inf ;
 
-    relPron : Bool => AAgr => Case => Str = \\b,a,c => 
+    relPron : Bool => AAgr => Case => Str = \\b,a,c =>
       let
         lequel = case <a.g,a.n,c> of {
         <Masc,Sg, CPrep P_de> => "duquel" ;
@@ -215,8 +241,8 @@ instance DiffFre of DiffRomance - [
         _ => pron
         } ;
 
-    argPron : Gender -> Number -> Person -> Case -> Str = 
-      let 
+    argPron : Gender -> Number -> Person -> Case -> Str =
+      let
         cases : (x,y : Str) -> Case -> Str = \me,moi,c -> case c of {
           Acc | CPrep P_a => me ;
           _ => moi
@@ -226,8 +252,8 @@ instance DiffFre of DiffRomance - [
           CPrep P_a => leur ;
           _ => eux
           } ;
-      in 
-      \g,n,p -> case <g,n,p> of { 
+      in
+      \g,n,p -> case <g,n,p> of {
         <_,Sg,P1> => cases (elision "m") "moi" ;
         <_,Sg,P2> => cases (elision "t") "toi" ;
         <_,Pl,P1> => \_ -> "nous" ;
@@ -246,9 +272,7 @@ instance DiffFre of DiffRomance - [
 
     getVTypT : VType -> VBool = \t -> case t of {VTyp _ b => b} ; -- only in Fre
 
-    auxPassive : Verb = copula ;
-
-    copula : Verb = {s = table VF ["être";bindHyphen;"suis";"es";"est";"sommes";"êtes";"sont";"sois";"sois"
+    copula, auxPassive, essere_V : Verb = {s = table VF ["être";bindHyphen;"suis";"es";"est";"sommes";"êtes";"sont";"sois";"sois"
 ;"soit";"soyons";"soyez";"soient";
 "étais";"étais";"était";"étions";"étiez";"étaient";--# notpresent
 "fusse";"fusses";"fût";"fussions";"fussiez";"fussent";--# notpresent
@@ -282,7 +306,7 @@ instance DiffFre of DiffRomance - [
 
   polNegDirSubj = RNeg True ;
 
-  invertedClause : 
+  invertedClause :
     VType -> (RTense * Anteriority * Number * Person) -> Bool -> (Str * Str) -> Str -> (clit,fin,inf,compl,subj,ext : Str) -> Str =
     \vtyp,vform,hasClit,neg,bindHyph,clit,fin,inf,compl,subj,ext -> case <vtyp,vform,hasClit> of {
 
@@ -314,4 +338,4 @@ instance DiffFre of DiffRomance - [
 
   verbHyphen : Verb -> Str = \v -> v.s ! (VInfin True) ; --- kluge: use this field to store - or -t-
 
-}
+} ;

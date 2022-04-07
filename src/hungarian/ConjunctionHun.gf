@@ -1,58 +1,81 @@
-concrete ConjunctionHun of Conjunction = 
-  CatHun ** open ResHun, Coordination, Prelude in 
-{
---{
---
---  flags optimize=all_subs ;
---
---  lin
---
---    ConjS = conjunctDistrSS ;
---
---    ConjAdv = conjunctDistrSS ;
---
---    ConjNP conj ss = conjunctDistrTable NPCase conj ss ** {
---      a = conjAgr (agrP3 conj.n) ss.a
---      } ;
---
---    ConjAP conj ss = conjunctDistrTable Agr conj ss ** {
---      isPre = ss.isPre
---      } ;
---
---    ConjRS conj ss = conjunctDistrTable Agr conj ss ** {
---      c = ss.c
---      } ;
---
---    ConjIAdv = conjunctDistrSS ;   
---
---    ConjCN co ns = conjunctDistrTable2 Number Case co ns ** {g = Neutr} ; --- gender?
---
----- These fun's are generated from the list cat's.
---
---    BaseS = twoSS ;
---    ConsS = consrSS comma ;
---    BaseAdv = twoSS ;
---    ConsAdv = consrSS comma ;
---    BaseNP x y = twoTable NPCase x y ** {a = conjAgr x.a y.a} ;
---    ConsNP xs x = consrTable NPCase comma xs x ** {a = conjAgr xs.a x.a} ;
---    BaseAP x y = twoTable Agr x y ** {isPre = andB x.isPre y.isPre} ;
---    ConsAP xs x = consrTable Agr comma xs x ** {isPre = andB xs.isPre x.isPre} ;
---    BaseRS x y = twoTable Agr x y ** {c = y.c} ;
---    ConsRS xs x = consrTable Agr comma xs x ** {c = xs.c} ;
---    BaseIAdv = twoSS ;
---    ConsIAdv = consrSS comma ;
---    BaseCN = twoTable2 Number Case ;
---    ConsCN = consrTable2 Number Case comma ;
---
---  lincat
---    [S] = {s1,s2 : Str} ;
---    [Adv] = {s1,s2 : Str} ;
---    [IAdv] = {s1,s2 : Str} ;
---    [NP] = {s1,s2 : NPCase => Str ; a : Agr} ;
---    [AP] = {s1,s2 : Agr => Str ; isPre : Bool} ;
---    [RS] = {s1,s2 : Agr => Str ; c : NPCase} ;
---    [CN] = {s1,s2 : Number => Case => Str} ;
---
---}
+concrete ConjunctionHun of Conjunction =
+  CatHun ** open ResHun, Coordination, Prelude in {
+
+-- Adverb and other simple {s : Str} types.
+lincat
+  [AdV],[IAdv],[S] = {s1,s2 : Str} ;
+
+lin
+  BaseAdV, BaseIAdv, BaseS = twoSS ;
+  ConsAdV, ConsIAdv, ConsS = consrSS comma ;
+  ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
+
+lincat
+  [Adv] = {s1,s2 : Str ; isPre : Bool} ;
+
+lin
+  BaseAdv x y = y ** twoSS x y ;
+  ConsAdv x xs = xs ** consrSS comma x xs ;
+  ConjAdv co xs = xs ** conjunctDistrSS co xs ;
+
+-- Adjectival phrases
+lincat
+  [AP] = {s1,s2 : Number => Case => Str}  ;
+
+lin
+  BaseAP x y =
+    -- Don't try to have discontinuous comparative forms
+    let xCont : AP = x ** {s = \\n,c => x.s ! n ! c ++ x.compl ! n} ;
+        yCont : AP = y ** {s = \\n,c => y.s ! n ! c ++ y.compl ! n} ;
+     in twoTable2 Number Case xCont yCont ;
+  ConsAP a as =
+    let aCont : AP = a ** {s = \\n,c => a.s ! n ! c ++ a.compl ! n} ;
+     in consrTable2 Number Case comma aCont as ;
+  ConjAP co as = conjunctDistrTable2 Number Case co as ** {compl = \\_ => []} ;
+
+-- Noun phrases
+lincat
+  [NP] = ResHun.BaseNP ** {s1,s2 : Possessor => Case => Str ; postmod : Str} ;
+
+lin
+  BaseNP x y = twoTable2 Possessor Case (contNP x) y ** y ;
+  ConsNP x xs = xs ** consrTable2 Possessor Case comma (contNP x) xs ;
+  ConjNP co xs = conjunctDistrTable2 Possessor Case co xs ** xs ** {
+    agr = <P3, case xs.agr.p2 of {
+                  Pl => Pl ;
+                  _  => co.n }>
+    } ;
+ oper
+   contNP : NP -> NP = \np ->
+     let linTable : Possessor => Case => Str =
+      \\p,c => case <p,c> of {_ => linNP' p c np} ;
+      in np ** {s = linTable} ;
+-- Relative sentences
+lincat
+  [RS] = {s1,s2 : Number => Case => Str} ;
+
+lin
+  BaseRS = twoTable2 Number Case ;
+  ConsRS = consrTable2 Number Case comma ;
+  ConjRS = conjunctDistrTable2 Number Case ;
+
+{-
+lincat
+  [CN] = { } ;
+
+lin
+  BaseCN = {} ;
+  ConsCN = {} ;
+  ConjCN co cs = conjunctDistrTable … co cs ** cs ;
+
+lincat
+  [DAP] =
+
+lin
+  BaseDAP x y = x **
+  ConsDAP xs x = xs **
+  ConjDet conj xs = xs **
+
+-}
 
 }

@@ -13,7 +13,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     SSlash,
     S  = {s : Order => Str} ; -- subordinate clause has nominal word order and subject in acc
     QS = {s : QForm => Str} ;
-    RS = {s : Agr => Case => Str} ; -- case because the relative pronoun inflects in case
+    RS = {s : PerGenNum => Case => Str} ; -- case because the relative pronoun inflects in case
 
 -- Sentence
 
@@ -26,7 +26,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     QCl = ResAra.QCl ; -- {s : Tense => Polarity => QForm => Str} ;
     IDet = ResAra.IDet ; -- {s : Gender => State => Case => Str ; n : Number} ;
     IP   = ResAra.IP ;   -- {s : (isPred : Bool) => State => Case => Str ; n : Number} ;
-    IComp = ResAra.IComp ; -- 
+    IComp = ResAra.IComp ; --
     IQuant = {s : State => Case => Str} ;
 
 -- Relative
@@ -70,19 +70,19 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
 
 -- Structural
 
-    Conj = {s : Str ; n : ResAra.Number} ;
---    DConj = {s1,s2 : Str ; n : ResAra.Number} ;
+    Conj = {s1,s2 : Str; n : ResAra.Number} ;
     Subj = {s : Str ; o : Order} ;
     Prep = ResAra.Preposition ;
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ, VA = ResAra.Verb ; -- = {s : VForm => Str} ;
-    V2, V2A = ResAra.Verb2 ;
-    VV = ResAra.Verb2 ** {sc : Preposition} ; -- c2 is for verb
-    V2S, V2Q = ResAra.Verb2 ;
+    V, VQ, VA = ResAra.Verb ; -- = {s : VForm => Str} ;
+    VV = ResAra.Verb ** {s2 : Str ; sc : Preposition} ; -- s2 is complementiser
+    V2, V2A, V2Q = ResAra.Verb2 ;
+    V2V = ResAra.Verb2 ** {s2 : Str ; sc : Preposition} ; -- s2 is complementiser, c2 is for dir.obj
+    V2S = ResAra.Verb2 ** {s2 : Str ; o : Order} ;
+    VS = ResAra.Verb ** {s2 : Str ; o : Order} ;
     V3 = ResAra.Verb3 ;
-    V2V = ResAra.Verb3 ** {sc : Preposition} ; -- c3 is for verb, c2 is for dir.obj
 
     A = ResAra.Adj ;
     A2 = ResAra.Adj2 ;
@@ -96,6 +96,6 @@ linref
 
   CN = \cn -> uttCN cn ! Masc ;
   N = \n -> uttCN (useN n) ! Masc ;
-  VP = \vp -> uttVP vp ! Masc ;
+  VP = \vp -> uttVP VPPerf vp ! Masc ;
 
 }

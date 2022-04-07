@@ -62,7 +62,7 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     CN      = {s : Number => Str ; g : Gender} ;
     Pron    = Pronoun ;
     NP      = NounPhrase ;
-    Det     = {
+    Det,DAP = {
       s : Gender => Case => Str ;
       n : Number ;
       s2 : Str ;            -- -ci
@@ -75,7 +75,6 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
       sp : Number => Gender => Case => Str ;
       isNeg : Bool -- negative element, e.g. aucun
       } ;
-    DAP = {s : Gender => Str ; n : Number} ;
     Predet  = {
       s : AAgr   => Case => Str ;
       c : Case ; -- c : la plupart de
@@ -105,8 +104,8 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     V3, V2A, V2V = Verb ** {c2,c3 : Compl} ;
     VS = Verb ** {m : RPolarity => Mood} ;
 
-    A  = {s : Degree => AForm => Str ; isPre : Bool ; copTyp : CopulaType} ;
-    A2 = {s : Degree => AForm => Str ; c2 : Compl} ;
+    A  = {s : AForm => Str ; compar : ComparAgr => Str ; isPre : Bool ; copTyp : CopulaType ; isDeg : Bool} ;
+    A2 = {s : AForm => Str ; compar : ComparAgr => Str ; c2 : Compl ; copTyp : CopulaType ; isDeg : Bool} ;
 
     N  = Noun ;
     N2 = Noun  ** {c2 : Compl} ;
@@ -122,20 +121,20 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     SSlash = \ss -> ss.s ! aagr Masc Sg ! Indic ++ ss.c2.s ;
     ClSlash = \cls -> cls.s ! aagr Masc Sg ! DDir ! RPres ! Simul ! RPos ! Indic ++ cls.c2.s ;
 
-    VP = \vp -> infVP vp (agrP3 Masc Sg) ;
-    VPSlash = \vps -> infVP vps (agrP3 Masc Sg) ++ vps.c2.s ;
+    VP = \vp -> infVP vp RPos (agrP3 Masc Sg) ;
+    VPSlash = \vps -> infVP vps RPos (agrP3 Masc Sg) ++ vps.c2.s ;
 
-    V, VS, VQ, VA = \v -> infVP (predV v) (agrP3 Masc Sg);
-    V2, V2A, V2Q, V2S = \v -> infVP (predV v) (agrP3 Masc Sg) ++ v.c2.s ;
-    V3 = \v -> infVP (predV v) (agrP3 Masc Sg) ++ v.c2.s ++ v.c3.s ;
-    VV = \v -> infVP (predV v) (agrP3 Masc Sg) ;
-    V2V = \v -> infVP (predV v) (agrP3 Masc Sg) ;
+    V, VS, VQ, VA = \v -> infVP (predV v) RPos (agrP3 Masc Sg);
+    V2, V2A, V2Q, V2S = \v -> infVP (predV v) RPos (agrP3 Masc Sg) ++ v.c2.s ;
+    V3 = \v -> infVP (predV v) RPos (agrP3 Masc Sg) ++ v.c2.s ++ v.c3.s ;
+    VV = \v -> infVP (predV v) RPos (agrP3 Masc Sg) ;
+    V2V = \v -> infVP (predV v) RPos (agrP3 Masc Sg) ;
 
     NP = \np -> (np.s ! Nom).comp ;
     Conj = \c -> c.s2 ;
 
-    A = \a -> a.s ! Posit ! ASg Masc APred ;
-    A2 = \a -> a.s ! Posit ! ASg Masc APred ++ a.c2.s ;
+    A = \a -> a.s ! genNum2Aform Masc Sg ;
+    A2 = \a -> a.s ! genNum2Aform Masc Sg ++ a.c2.s ;
 
     N = \n -> n.s ! Sg ;
     N2 = \n -> n.s ! Sg ++ n.c2.s ;

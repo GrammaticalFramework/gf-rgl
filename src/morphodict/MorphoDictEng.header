@@ -1,0 +1,11 @@
+--# -path=.:alltenses
+concrete MorphoDictEng of MorphoDictEngAbs =
+  CatEng [N,A,V,Adv,Prep] **
+  open
+    ParadigmsEng
+  in
+ {
+
+oper mkAMost : Str -> Str -> A = \ajar,ly -> mkA ajar ("more" ++ ajar) ("most" ++ ajar) ly ;
+
+

@@ -11,10 +11,10 @@ concrete PhraseFin of Phrase = CatFin ** open ResFin, StemFin, (P = Prelude) in 
 
     UttIP ip = {s = ip.s ! NPCase Nom} ;
     UttIAdv iadv = iadv ;
-    UttNP np = {s = np.s ! NPSep} ;
-    UttVP vp = {s = infVP SCNom Pos (agrP3 Sg) vp Inf1} ;
+    UttNP np = {s = addNegation np.isNeg ++ np.s ! NPSep} ;
+    UttVP vp = {s = addNegation vp.vptyp.isNeg ++ infVP SCNom Pos (agrP3 Sg) vp Inf1} ;
     UttAdv adv = adv ;
-    UttCN np = {s = np.s ! NCase Sg Nom} ;
+    UttCN cn = {s = cnRef cn} ;
     UttAP np = {s = np.s ! P.False ! NCase Sg Nom} ;
     UttCard n = {s = n.s ! Sg ! Nom} ;
     UttInterj i = i ;
@@ -23,6 +23,8 @@ concrete PhraseFin of Phrase = CatFin ** open ResFin, StemFin, (P = Prelude) in 
     PConjConj conj = {s = conj.s2} ;
 
     NoVoc = {s = []} ;
-    VocNP np = {s = "," ++ np.s ! NPSep} ;
+    VocNP np = {s = P.SOFT_BIND ++ "," ++ np.s ! NPSep} ;
 
+oper
+  addNegation : P.Bool -> Str = \isNeg -> case isNeg of {P.True => "ei" ; _ => []} ;
 }

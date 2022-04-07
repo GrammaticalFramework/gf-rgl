@@ -1,7 +1,7 @@
 
-kayda_V = 
+kayda_V =
   let kay = Predef.tk 2 s ; kavi = init kay + "vi" in
-      vForms12 s (kay + "n") kay (kay + "vät") (kay + "kää") (kay + "dään")
+      vForms12 s (kay + "n") kay (kay + "vï¿½t") (kay + "kï¿½ï¿½") (kay + "dï¿½ï¿½n")
         (kavi + "n") kavi (kavi + "si") (kay + "nyt") (kay + "tty")
         (kay + "nee") ;
 tuntea_V =
@@ -18,4 +18,3 @@ tietaa_V
 taitaa_V
 
 siita_V
-

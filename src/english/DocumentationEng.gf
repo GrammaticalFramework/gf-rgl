@@ -24,20 +24,34 @@ lin
          )
     } ;
 
+  InflectionPN = \pn -> {
+    t  = "pn" ;
+    s1 = heading1 ("Proper Name" ++
+                    case pn.g of {
+                      Neutr => "";
+                      Masc  => "(masc)";
+                      Fem   => "(fem)"
+                    }) ;
+    s2 = frameTable (
+           tr (th "nom"        ++ th "gen") ++
+           tr (td (pn.s ! Nom) ++ td (pn.s ! Gen))
+         )
+    } ;
+
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 "Adjective" ;
     s2 = frameTable (
            tr (th ""       ++ th "nom" ++ th "gen") ++
            tr (th "posit"  ++ td (adj.s ! AAdj Posit  Nom) ++ td (adj.s ! AAdj Posit  Gen)) ++
-           tr (th "compar" ++ td (adj.s ! AAdj Compar Nom) ++ td (adj.s ! AAdj Compar Gen)) ++
-           tr (th "superl" ++ td (adj.s ! AAdj Superl Nom) ++ td (adj.s ! AAdj Superl Gen))
+           tr (th "compar" ++ td (getCompar Nom adj) ++ td (getCompar Gen adj)) ++
+           tr (th "superl" ++ td (getSuperl Nom adj) ++ td (getSuperl Gen adj))
          ) ++
          heading1 "Adverb" ++
          paragraph (adj.s ! AAdv)
     } ;
 
-  InflectionAdv = \adv -> {
+  InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
     t = "adv" ;
     s1= heading1 "Adverb" ;
     s2= paragraph (adv.s) ;
@@ -69,7 +83,7 @@ lin
 
   InflectionV3 v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    v.c2 ++ pp "arg1" ++
@@ -79,7 +93,7 @@ lin
 
   InflectionV2V v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    v.c2 ++ pp "object" ++
@@ -93,7 +107,7 @@ lin
 
   InflectionV2S v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    v.c2 ++ pp "object" ++
@@ -103,7 +117,7 @@ lin
 
   InflectionV2Q v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    pp "question") ;
@@ -112,7 +126,7 @@ lin
 
   InflectionV2A v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    v.c2 ++ pp "object" ++
@@ -122,7 +136,7 @@ lin
 
   InflectionVV v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VVF VInf ++ v.p ++
                    case v.typ of {
@@ -141,7 +155,7 @@ lin
 
   InflectionVS v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    "that" ++ pp "sentence") ;
@@ -150,7 +164,7 @@ lin
 
   InflectionVQ v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    pp "question") ;
@@ -159,7 +173,7 @@ lin
 
   InflectionVA v = {
     t = "v" ;
-    s1= heading1 "Verb" ++ 
+    s1= heading1 "Verb" ++
         paragraph (pp "subject" ++
                    v.s ! VInf ++ v.p ++
                    pp "adjective") ;

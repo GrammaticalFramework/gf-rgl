@@ -20,15 +20,21 @@ oper
   mkPrep : Str -> PCase -> Preposition = \s,c -> 
     {s = s ; s2 = [] ; c = c ; isPrep = True} ;
 
-  nameNounPhrase : {s : Case => Str} ->  {s : PCase => Str ; a : Agr ; isPron : Bool ; ext,adv,rc : Str} = \name -> heavyNP {
+  nameNounPhrase : {s : Case => Str} ->  {s : PCase => Str ; a : Agr ; 
+                                          -- isLight, isPron : Bool ; 
+                                          w : Weight ;
+                                          ext,rc : Str} = \name -> heavyNP {
       s = \\c => usePrepC c (\k -> name.s ! k) ;
-      a = agrP3 Sg ;
-	  ext, adv, rc = [] -- added
+      a = agrP3 Sg 
       } ;
 
   detLikeAdj : Bool -> Number -> Str -> 
     {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies -> 
       {s,sp = appAdj (regA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
+
+  detUnlikeAdj : Bool -> Number -> Str -> 
+    {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies -> 
+      {s,sp = appAdj (regDetA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
 
   mkOrd : {s : Degree => AForm => Str} -> {s : AForm => Str} = \a ->
     {s = a.s ! Posit} ;

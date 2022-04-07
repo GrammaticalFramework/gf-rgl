@@ -1,17 +1,17 @@
-incomplete concrete AdverbRomance of Adverb = 
+incomplete concrete AdverbRomance of Adverb =
   CatRomance ** open CommonRomance, ResRomance, Prelude in {
 
   lin
     PositAdvAdj a = {
-      s = a.s ! Posit ! AA
+      s = a.s ! AA
       } ;
-    
+
     ComparAdvAdj cadv a np = {
-      s = cadv.s ++ a.s ! Posit ! AA ++ cadv.p ++ (np.s ! Nom).ton 
+      s = cadv.s ++ a.s ! AA ++ cadv.p ++ (np.s ! Nom).ton
       } ;
-    
+
     ComparAdvAdjS cadv a s = {
-      s = cadv.s ++ a.s ! Posit ! AA ++ cadv.p ++ s.s ! Conjunct --- ne
+      s = cadv.s ++ a.s ! AA ++ cadv.p ++ s.s ! Conjunct --- ne
       } ;
 
     PrepNP prep np = {s = prep.s ++ (np.s ! prep.c).ton} ;
@@ -19,7 +19,7 @@ incomplete concrete AdverbRomance of Adverb =
     AdAdv = cc2 ;
 
     PositAdAAdj a = {
-      s = a.s ! Posit ! AA
+      s = a.s ! AA
       } ;
 
     SubjS subj s = {

@@ -1,70 +1,103 @@
---# -path=alltenses:../common:../abstract
-
-concrete ExtendSpa of Extend =
-  CatSpa ** ExtendFunctor -
-   [
-   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
-   ProDrop
-   ]                   -- put the names of your own definitions here
+--# -path=alltenses:../common:../abstract:../romance
+concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
+  [
+ CompVP,
+ CompoundAP,
+ CompoundN,
+ ExistsNP,
+ EmbedSSlash,
+ GenRP,
+ GenRP,
+ IAdvAdv,
+ ICompAP,
+ InOrderToVP,
+ WithoutVP,
+ iFem_Pron,
+ theyFem_Pron,
+ weFem_Pron,
+ youFem_Pron,
+ youPlFem_Pron,
+ youPolFem_Pron,
+ youPolPlFem_Pron,
+ youPolPl_Pron
+    ]                   -- don't forget to put the names of your own
+                       -- definitions here
   with
-    (Grammar = GrammarSpa) **
+    (Grammar = GrammarSpa), (Syntax = SyntaxSpa), (ResRomance = ResSpa) **
   open
-    GrammarSpa,
-    ResSpa,
-    MorphoSpa,
-    Coordination,
-    Prelude,
-    ParadigmsSpa in {
+  GrammarSpa,
+  ResSpa,
+  MorphoSpa,
+  Coordination,
+  Prelude,
+  ParadigmsSpa in {
     -- put your own definitions here
 
   lin
-    iFem_Pron =  mkPronoun
-      "yo" "me" "me" "mí"
-      "mi" "mi" "mis" "mis"
-      Fem Sg P1 ;
-    theyFem_Pron = mkPronoun
-      "ellas" "las" "les" "ellas"
-      "su" "su" "sus" "sus"
-      Fem Pl P3 ;
+    iFem_Pron     = agr2pron ! {g=Fem ; n=Sg ; p=P1} ;
+    youFem_Pron   = agr2pron ! {g=Fem ; n=Sg ; p=P2} ;
+    weFem_Pron    = agr2pron ! {g=Fem ; n=Pl ; p=P1} ;
+    youPlFem_Pron = agr2pron ! {g=Fem ; n=Pl ; p=P2} ;
+    theyFem_Pron  = agr2pron ! {g=Fem ; n=Pl ; p=P3} ;
 
-    weFem_Pron = mkPronoun 
-      "nosotras" "nos" "nos" "nosotras"
-      "nuestro" "nuestra" "nuestros" "nuestras"
-      Fem Pl P1 ;
-
-    youFem_Pron = mkPronoun 
-      "tú" "te" "te" "ti"
-      "tu" "tu" "tus" "tus"
-      Fem Sg P2 ;
-    youPlFem_Pron = mkPronoun
-      "vosotras" "os" "os" "vosotras"
-      "vuestro" "vuestra" "vuestros" "vuestras"
-      Fem Pl P2 ;
     youPolFem_Pron = mkPronoun
       "usted" "la" "le" "usted"
       "su" "su" "sus" "sus"
       Fem Sg P3 ;
-
     youPolPl_Pron = mkPronoun
-      "ustedes" "los" "les" "usted"
+      "ustedes" "los" "les" "ustedes"
       "su" "su" "sus" "sus"
       Masc Pl P3 ;
     youPolPlFem_Pron = mkPronoun
-      "ustedes" "las" "les" "usted"
+      "ustedes" "las" "les" "ustedes"
       "su" "su" "sus" "sus"
       Fem Pl P3 ;
 
-    ProDrop p = {
-      s = table {
-        Nom => let pn = p.s ! Nom in {c1 = pn.c1 ; c2 = pn.c2 ; comp = [] ; ton = pn.ton} ; 
-        c => p.s ! c
-        } ;
-      a = p.a ;
-      poss = p.poss ;
-      hasClit = p.hasClit ;
-      isPol = p.isPol ;
-      isNeg = False
+    ICompAP ap = {
+      s =\\a => "qué tan" ++ ap.s ! (genNum2Aform a.g a.n) ;
+      cop = serCopula
       } ;
 
+    IAdvAdv adv = {
+      s = "qué tan" ++ adv.s
+      } ;
 
-    }
+    EmbedSSlash s = {s = \\_ => "lo que" ++ s.s ! {g=Masc ; n=Sg} ! Indic} ;
+
+    ExistsNP np =
+      mkClause [] True False np.a
+      (insertComplement (\\_ => (np.s ! Nom).ton)
+         (predV (mkV "existir"))) ;
+
+    CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
+      s = \\n => noun2.s ! n
+        ++ variants {"de" ; genForms "del" "de la" ! noun.g}
+        ++ noun.s ! Sg ;
+      g = noun2.g
+      } ;
+
+    CompoundAP noun adj = {
+      s = \\af => case (aform2aagr af) of {
+        {n = n} => adj.s ! genNum2Aform noun.g n ++ "de" ++ noun.s ! n
+        } ;
+      isPre = adj.isPre ;
+      copTyp = adj.copTyp
+      } ;
+
+    WithoutVP vp = {
+      s = "sin" ++ infStr vp
+      } ;
+
+    InOrderToVP vp = {
+      s = "para" ++ infStr vp
+      } ;
+
+    --TODO: actually use ant
+    CompVP ant p vp = let
+      neg = negation ! p.p
+      in {
+        s = \\agr => ant.s ++ p.s ++ "de" ++ neg.p1 ++ infVP vp RPos agr ;
+        cop = serCopula
+      } ;
+
+} ;

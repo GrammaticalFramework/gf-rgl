@@ -14,15 +14,13 @@ lin
   --   } ;
   --IL TODO: check out some opers regarding state in ResAra. These are just dummy values.
   CNSymbNP det cn xs =
-    let g = cn.g ; n = sizeToNumber det.n  in {
+    let g = cn.g ; n = sizeToNumber det.n in emptyNP ** {
     s = \\c => det.s ! NoHum ! g ! c ++ cn2str cn n Def c ++ xs.s; ----IL word order?? Seems to be nontrivial according to ResAra comments.
-    a = dummyAgrP3 n ;
-    empty = []
+    a = dummyAgrP3 n
     } ;
-  CNNumNP cn i = {
+  CNNumNP cn i = emptyNP ** {
     s = \\c => cn2str cn Sg Def c ++ uttNum i ! cn.g ;
-    a = dummyAgrP3 Sg ;
-    empty = []
+    a = dummyAgrP3 Sg
     } ;
 
   SymbS sy = {s = \\_ => sy.s} ;

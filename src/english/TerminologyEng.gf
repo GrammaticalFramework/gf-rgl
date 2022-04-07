@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 
-concrete TerminologyEng of Terminology = CatEng ** open 
+concrete TerminologyEng of Terminology = CatEng ** open
   ResEng,
   ParadigmsEng,
   (G = GrammarEng),
@@ -22,6 +22,10 @@ lin
   verb_Category = mkN "verb" ;
   adverb_Category = mkN "adverb" ;
   preposition_Category = mkN "preposition" ;
+  numeral_Category = mkN "numeral" ;
+  pronoun_Category = mkN "pronoun" ;
+  determiner_Category = mkN "determiner" ;
+  article_Category = mkN "article" ;
 
   gender_ParameterType = mkN "Gender" ;
   finite_form_ParameterType = mkN "finite form" ;
@@ -55,7 +59,8 @@ lin
 
   active_Parameter = mkN "active" ;
   passive_Parameter = mkN "passive" ;
-  
+  middle_Parameter = mkN "middle" ;
+
   imperative_Parameter = mkN "imperative" ;
   indicative_Parameter = mkN "indicative" ;
   conjunctive_Parameter = mkN "conjunctive" ;
@@ -85,8 +90,11 @@ lin
   predicative_Parameter = mkN "predicative" ;
   negative_Parameter = mkN "negative" ;
 
-  short_Parameter = mkN "short" ;
+  short_Parameter = mkN "short" ; --- adjective
   long_Parameter = mkN "long" ;
+
+  strong_Parameter = mkN "strong" ; --- adjective
+  weak_Parameter = mkN "weak" ;
 
   nounHeading n = ss (n.s ! Sg ! Nom) ;
   nounPluralHeading n = ss (n.s ! Pl ! Nom) ;

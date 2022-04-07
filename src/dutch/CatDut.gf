@@ -48,7 +48,7 @@ concrete CatDut of Cat =
 
     Pron = Pronoun ;
 
-    Det = Determiner ;
+    Det, DAP = Determiner ;
     Quant = Quantifier ;
     Predet = {s : Number => Gender => Str} ;
     Num = {s : Str ; n : Number ; isNum : Bool} ;

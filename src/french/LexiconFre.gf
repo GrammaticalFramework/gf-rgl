@@ -1,11 +1,11 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
-concrete LexiconFre of Lexicon = CatFre ** 
+concrete LexiconFre of Lexicon = CatFre **
   open (M = MorphoFre), PhonoFre, ParadigmsFre, IrregFre in {
 
-flags 
+flags
     coding=utf8 ;
-  optimize=values ; 
+  optimize=values ;
 
 lin
   airplane_N = regGenN "avion" masculine ;
@@ -17,8 +17,8 @@ lin
   baby_N = regGenN "bébé" masculine ;
   bad_A = prefA (mkADeg (regA "mauvais") (regA "pire")) ;
   bank_N = regGenN "banque" feminine ;
-  beautiful_A = 
-    prefA (compADeg (mkA "beau" "bel" "beaux" "belle" "bellement")) ;
+  beautiful_A =
+    prefA (mkA "beau" "bel" "belle" "beaux" "bellement") ;
   become_VA = mkVA devenir_V ;
   beer_N = regGenN "bière" feminine ;
   beg_V2V = mkV2V (regV "demander") accusative dative ;
@@ -87,7 +87,7 @@ lin
   girl_N = regGenN "fille" feminine ;
   glove_N = regGenN "gant" masculine ;
   gold_N = regGenN "or" masculine ;
-  good_A = prefA (mkADeg (mkA "bon" "bonne" "bons" "bien") 
+  good_A = prefA (mkADeg (mkA "bon" "bonne" "bons" "bien")
     (mkA "meilleur" "meilleure" "meilleurs" "mieux")) ;
   go_V = aller_V ;
   green_A = regA "vert" ;
@@ -104,7 +104,7 @@ lin
   industry_N = regGenN "industrie" feminine ;
   iron_N = regGenN "fer" masculine ;
   king_N = regGenN "roi" masculine ;
-  know_V2 = connaître_V2 ; 
+  know_V2 = connaître_V2 ;
   know_VQ = mkVQ (lin V savoir_V2) ;
   know_VS = mkVS (lin V savoir_V2) ;
   lake_N = regGenN "lac" masculine ;
@@ -115,7 +115,7 @@ lin
   like_V2 = dirV2 (regV "aimer") ;
   listen_V2 = dirV2 (regV "écouter") ;
   live_V = v2V vivre_V2 ;
-  long_A = compADeg (mkA "long" "longue" "longs" "longuement") ;
+  long_A = mkA "long" "longue" "longs" "longuement" ;
   lose_V2 = perdre_V2 ;
   love_N = regGenN "amour" masculine ;
   love_V2 = dirV2 (regV "aimer") ;
@@ -128,12 +128,12 @@ lin
   mountain_N = regGenN "montagne" feminine ;
   music_N = regGenN "musique" feminine ;
   narrow_A = regA "étroit" ;
-  new_A = 
-    prefA (compADeg (mkA "nouveau" "nouvel" "nouveaux" "nouvelle" "nouvellement")) ;
+  new_A =
+    prefA (mkA "nouveau" "nouvel" "nouvelle" "nouveaux" "nouvellement") ;
   newspaper_N = regGenN "journal" masculine ;
   oil_N = regGenN "huile" feminine ;
-  old_A = 
-    prefA (compADeg (mkA "vieux" "vieil" "vieux" "vieille" "vieillement")) ; 
+  old_A =
+    prefA (mkA "vieux" "vieil" "vieille" "vieux" "vieillement") ;
   open_V2 = ouvrir_V2 ;
   paint_V2A = mkV2A (v2V peindre_V2) accusative (mkPrep "en") ;
   paper_N = regGenN "papier" masculine ;
@@ -193,7 +193,7 @@ lin
   teacher_N = regGenN "professeur" masculine ;
   teach_V2 = dirV2 (regV "enseigner") ;
   television_N = regGenN "télévision" feminine ;
-  thick_A = compADeg (mkA "épais" "épaisse" "épais" "épaissement") ;
+  thick_A = mkA "épais" "épaisse" "épais" "épaissement" ;
   thin_A = regA "fin" ;
   train_N = regGenN "train" masculine ;
   travel_V = regV "voyager" ;
@@ -203,13 +203,13 @@ lin
   understand_V2 = comprendre_V2 ;
   university_N = regGenN "université" feminine ;
   village_N = regGenN "village" masculine ;
-  wait_V2 = attendre_V2 ; 
+  wait_V2 = attendre_V2 ;
   walk_V = regV "marcher" ;
   warm_A = regA "chaud" ;
   war_N = regGenN "guerre" masculine ;
   watch_V2 = dirV2 (regV "regarder") ;
   water_N = regGenN "eau" feminine ;
-  white_A = compADeg (mkA "blanc" "blanche" "blancs" "blanchement") ;
+  white_A = mkA "blanc" "blanche" "blancs" "blanchement" ;
   window_N = regGenN "fenêtre" feminine ;
   wine_N = regGenN "vin" masculine ;
   win_V2 = dirV2 (regV "gagner") ; ---- vaincre
@@ -309,7 +309,7 @@ lin
   wing_N = regN "aile" ;
   worm_N = regN "ver" ;
   year_N = regN "an" ; --- année
-  bite_V2 = mordre_V2 ; 
+  bite_V2 = mordre_V2 ;
   blow_V = regV "souffler" ;
   breathe_V = regV "respirer" ;
   burn_V = regV "brûler" ;

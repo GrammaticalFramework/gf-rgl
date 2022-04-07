@@ -3,8 +3,8 @@
 concrete LangLat of Lang = 
   GrammarLat,
   ParadigmsLat,
---  ConjunctionLat,
   LexiconLat
+--  ConstructionLat
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

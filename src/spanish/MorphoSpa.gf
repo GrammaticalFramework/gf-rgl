@@ -42,7 +42,8 @@ oper
       _ + "a" => mkNoun (nomVino mec) Fem ;
       _ + "z" => mkNounIrreg mec (init mec + "ces") Fem ;
       _ + "ión" => mkNounIrreg mec (tk 2 mec + "ones") Fem ;
-      _ + "tud" => mkNounIrreg mec (mec + "es") Fem ;
+      _ + "tud" => mkNoun (nomPilar mec) Fem ;
+      _ + "dad" => mkNoun (nomPilar mec) Fem ;
       _ + "án" => mkNounIrreg mec (tk 2 mec + "anes") Masc ;
       _ + "én" => mkNounIrreg mec (tk 2 mec + "enes") Masc ;
       _ + "ín" => mkNounIrreg mec (tk 2 mec + "ines") Masc ;
@@ -59,12 +60,9 @@ oper
 
   mkAdj : (x1,_,_,_,_,_,x7 : Str) -> Adj = \buen,solo,gran,sola,solos,solas,solamente ->
     {s = table {
-      ASg Masc AAttr => buen ;
-      ASg Masc APred => solo ;
-      ASg Fem AAttr => gran ;
-      ASg Fem APred => sola ;
-      APl Masc   => solos ;
-      APl Fem    => solas ;
+      AAttr g => genForms buen gran ! g ; -- un buen amigo, una gran idea
+      AF g Sg => genForms solo sola ! g ;
+      AF g Pl => genForms solos solas ! g ;
       AA         => solamente
       }
     } ;
@@ -163,6 +161,71 @@ oper
     hasClit = True ; isPol = False
     } ;
 
+oper
+  -- To retrieve a matching pronoun for an NP argument.
+  -- Used in application grammars, please don't remove. /IL
+  agr2pron : Agr => Pron = table {
+    {g=Masc ; n=Sg ; p=P1}
+      => mkPronoun
+           "yo" "me" "me" "mí"
+           "mi" "mi" "mis" "mis"
+            Masc Sg P1 ;
+    {g=Masc ; n=Sg ; p=P2}
+      => mkPronoun
+           "tú" "te" "te" "ti"
+           "tu" "tu" "tus" "tus"
+            Masc Sg P2 ;
+    {g=Masc ; n=Sg ; p=P3}
+      => mkPronoun
+           "él" "lo" "le" "él"
+           "su" "su" "sus" "sus"
+            Masc Sg P3 ;
+    {g=Masc ; n=Pl ; p=P1}
+      => mkPronoun
+           "nosotros" "nos" "nos" "nosotros"
+           "nuestro" "nuestra" "nuestros" "nuestras"
+            Masc Pl P1 ;
+    {g=Masc ; n=Pl ; p=P2}
+      => mkPronoun
+           "vosotros" "os" "os" "vosotros"
+           "vuestro" "vuestra" "vuestros" "vuestras"
+            Masc Pl P2 ;
+    {g=Masc ; n=Pl ; p=P3}
+      => mkPronoun
+           "ellos" "los" "les" "ellos"
+           "su" "su" "sus" "sus"
+            Masc Pl P3 ;
+    {g=Fem ; n=Sg ; p=P1}
+      => mkPronoun
+           "yo" "me" "me" "mí"
+           "mi" "mi" "mis" "mis"
+            Fem Sg P1 ;
+    {g=Fem ; n=Sg ; p=P2}
+      => mkPronoun
+           "tú" "te" "te" "ti"
+           "tu" "tu" "tus" "tus"
+            Fem Sg P2 ;
+    {g=Fem ; n=Sg ; p=P3}
+      => mkPronoun
+           "ella" "la" "le" "ella"
+           "su" "su" "sus" "sus"
+            Fem Sg P3 ;
+    {g=Fem ; n=Pl ; p=P1}
+      => mkPronoun
+           "nosotras" "nos" "nos" "nosotras"
+           "nuestro" "nuestra" "nuestros" "nuestras"
+            Fem Pl P1 ;
+    {g=Fem ; n=Pl ; p=P2}
+      => mkPronoun
+           "vosotras" "os" "os" "vosotras"
+           "vuestro" "vuestra" "vuestros" "vuestras"
+            Fem Pl P2 ;
+    {g=Fem ; n=Pl ; p=P3}
+      => mkPronoun
+           "ellas" "las" "les" "ellas"
+           "su" "su" "sus" "sus"
+            Fem Pl P3
+    } ;
 
 --2 Determiners
 --
@@ -173,7 +236,7 @@ oper
 
   mkOrdinal : A -> Ord = \adj->
   lin Ord {
-    s = \\ag => adj.s ! Posit ! genNum2Aform ag.g ag.n ;
+    s = \\ag => adj.s ! genNum2Aform ag.g ag.n ;
     } ;
 
   mkQuantifier : (ese,esa,esos,esas : Str) -> Quant = \ese,esa,esos,esas->

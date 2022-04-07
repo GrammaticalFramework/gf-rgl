@@ -1,0 +1,23 @@
+Lang: MassNP (UseN grass_N)
+LangHun: fű
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumSg) (UseN grass_N)))
+LangHun: én látok egy füve &+ t
+
+Lang: PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN grass_N))
+LangHun: egy füvön
+
+Lang: DetCN (DetQuant IndefArt NumPl) (UseN grass_N)
+LangHun: füvek
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant IndefArt NumPl) (UseN grass_N)))
+LangHun: én látok füvek &+ et
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumSg) (UseN grass_N))
+LangHun: egy fűhöz
+
+Lang: PrepNP to_Prep (DetCN (DetQuant IndefArt NumPl) (UseN grass_N))
+LangHun: füvek &+ hez
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN grass_N)
+LangHun: én füve &+ m

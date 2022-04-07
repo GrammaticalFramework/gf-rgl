@@ -1,7 +1,7 @@
 --# -path=.:../romance:../common:../abstract:../../prelude
 
 concrete LexiconCat of Lexicon = CatCat ** open
-  (M=MorphoCat), ParadigmsCat, BeschCat, (D = DiffCat) in {
+  Prelude, (M=MorphoCat), ParadigmsCat, BeschCat, (D = DiffCat) in {
 
 flags
   coding=utf8 ;
@@ -16,7 +16,7 @@ oper
 lin
    airplane_N = regMN "avió" ;
 
-   answer_V2S = mkV2S (verbV (compondre_26 "respondre")) dative ;
+   answer_V2S = mkV2S (verbV (compondre_26 "respondre" True)) dative ;
    apartment_N = regMN "pis" ;
    apple_N = regFN "poma" ;
    art_N = regMN "art" ;
@@ -31,8 +31,8 @@ lin
    big_A = mkA "gros" "grossa" ;
    bike_N = regFN "bicicleta" ;
    bird_N = regMN "ocell" ;
-   black_A = compADeg (mkA "negre" "negra" "negres" "negres" "negrament") ;
-   blue_A = compADeg (mkA "blau" "blava" "blaus" "blaves" "blavament") ;
+   black_A = mkA "negre" "negra" "negres" "negres" "negrament" ;
+   blue_A = mkA "blau" "blava" "blaus" "blaves" "blavament" ;
    boat_N = regFN "barca" ;
    book_N = regMN "llibre" ;
    boot_N = regFN "bota" ;
@@ -42,7 +42,7 @@ lin
    break_V2 = dirV2 (verbV (trencar_112 "trencar")) ;
    broad_A = regADeg "ample" ; -- put it in MorphoCat?: like  black_A
    brother_N2 = deN2 (regMN "germà") ;
-   brown_A = compADeg (mkA "marró" "marrona" "marrons" "marrones" "marronament") ;
+   brown_A = mkA "marró" "marrona" "marrons" "marrones" "marronament" ;
    butter_N = regFN "mantega" ;
    buy_V2 = dirV2 (mkV "comprar") ;
    camera_N = regFN "càmara" ;
@@ -61,7 +61,7 @@ lin
    close_V2 = dirV2 (verbV (trencar_112 "tancar")) ;
    coat_N = regMN "abric" ;
    cold_A = regADeg "fred" ;
-   come_V = verbV (venir_117 "venir") ;
+   come_V = verbV (venir_117 "venir" True) ;
    computer_N = regMN "ordinador" ;
    country_N = mkN "país" "països" masculine ;
    cousin_N = regMN "cosí" ;
@@ -75,7 +75,7 @@ lin
    drink_V2 = dirV2 (verbV (beure_11 "beure")) ;
    easy_A2V = mkA2V (regA "fácil") dative genitive ;
    eat_V2 = dirV2 (verbV (envejar_48 "menjar")) ;
-   empty_A = compADeg (mkA "buit" "buida" "buits" "buides" "buidament") ;
+   empty_A = mkA "buit" "buida" "buits" "buides" "buidament" ;
    enemy_N = regMN "enemic" ;       -- enemiga
    factory_N = regFN "fàbrica" ;
    father_N2 = deN2 (regMN "pare") ;
@@ -92,8 +92,8 @@ lin
    girl_N = regFN "noia" ;
    glove_N = regMN "guant" ;
    gold_N = regMN "or" ;
-   good_A = mkA (prefA "bo" "bon") (mkA "millor") ;
-   go_V = (verbV (anar_4 "anar")) ;
+   good_A = mkA (prefA "bo" "bon" "bé") (mkA "millor") ;
+   go_V = (verbV (anar_4 "anar" 0)) ;
    green_A = regADeg "verd" ;
    harbour_N = regMN "port" ;
    hate_V2 = dirV2 (verbV (canviar_16 "odiar")) ;
@@ -132,7 +132,7 @@ lin
    mountain_N = regFN "muntanya" ;
    music_N = regFN "música" ;
    narrow_A = regADeg "estret" ;
-   new_A = prefixA (compADeg (mkA "nou" "nova" "nous" "noves" "novament")) ;
+   new_A = prefixA (mkA "nou" "nova" "nous" "noves" "novament") ;
    newspaper_N = regMN "diari" ;        -- periòdic
    oil_N = regMN "oli" ;
    old_A =  regADeg "vell" ;
@@ -159,14 +159,14 @@ lin
    rock_N = regFN "roca" ;
    roof_N = regFN "teulada" ;
    rubber_N = regFN "goma" ;
-   run_V = verbV (córrer_30 "córrer") ;
+   run_V = verbV (córrer_30 "córrer" True) ;
    say_VS = mkVS (verbV (dir_41 "dir")) ;
    school_N = regFN "escola" ;
    science_N = regFN "ciència" ;
    sea_N = regMN "mar" ;            -- masc & fem
    seek_V2 = dirV2 (verbV (trencar_112 "buscar")) ;
-   see_V2 = dirV2 (verbV (veure_118 "veure")) ;
-   sell_V3 = dirV3 (verbV (vendre_116 "vendre")) dative ;
+   see_V2 = dirV2 (verbV (veure_118 "veure" 0)) ;
+   sell_V3 = dirV3 (verbV (vendre_116 "vendre" True)) dative ;
    send_V3 = dirV3 (verbV (canviar_16 "enviar")) dative ;
    sheep_N = regFN "ovella" ;   -- xai
    ship_N = regMN "vaixell" ;
@@ -195,32 +195,32 @@ lin
    teacher_N = regMN "mestre" ;     -- mestra
    teach_V2 = dirV2 (mkV "ensenyar") ;
    television_N = mkN "televisió" "televisions" feminine ;  -- televisor masc
-   thick_A = compADeg (mkA "gruixut" "gruixuda" "gruixuts" "gruixudes" "gruixudament") ;
-   thin_A = compADeg (mkA "fi" "fina" "fins" "fines" "finament") ;
+   thick_A = mkA "gruixut" "gruixuda" "gruixuts" "gruixudes" "gruixudament" ;
+   thin_A = mkA "fi" "fina" "fins" "fines" "finament" ;
    train_N = regMN "tren" ;
    travel_V = verbV (envejar_48 "viatjar") ;
    tree_N = regMN "arbre" ;
   --- trousers_N = regN "pantalón" ;    -- masc
-   ugly_A = compADeg (mkA "lleig" "lletja" "lletjos" "lletges" "lletjament") ;
+   ugly_A = mkA "lleig" "lletja" "lletjos" "lletges" "lletjament" ;
    understand_V2 = dirV2 (verbV (atendre_8 "entendre")) ;
    university_N = regFN "universitat" ;
    village_N = regMN "poble" ;
    wait_V2 = mkV2 (mkV "esperar") dative ;
    walk_V = mkV "caminar" ;
-   warm_A = compADeg (mkA "tebi" "tèbia" "tebis" "tèbies" "tèbiament") ;
+   warm_A = mkA "tebi" "tèbia" "tebis" "tèbies" "tèbiament" ;
    war_N = regFN "guerra" ;
    watch_V2 = dirV2 (mkV "mirar") ;
    water_N = mkN "aigua" ; -- aigües
-   white_A = compADeg (mkA "blanc" "blanca" "blancs" "blanques" "blancament") ;
+   white_A = mkA "blanc" "blanca" "blancs" "blanques" "blancament" ;
    window_N = regFN "finestra" ;
    wine_N = regMN "vi" ;
    win_V2 = dirV2 (mkV "guanyar") ;
    woman_N = regFN "dona" ;
    wonder_VQ = mkVQ (reflV (mkV "preguntar")) ;
    wood_N = regFN "fusta" ;
-   write_V2 = dirV2 (verbV (escriure_50 "escriure")) ;
-   yellow_A = compADeg (mkA "groc" "groga" "grocs" "grogues" "grogament") ;
-   young_A = compADeg (mkA "jove" "jove" "joves" "joves" "jovement") ;
+   write_V2 = dirV2 (verbV (escriure_50 "escriure" True)) ;
+   yellow_A = mkA "groc" "groga" "grocs" "grogues" "grogament" ;
+   young_A = mkA "jove" "jove" "joves" "joves" "jovement" ;
    do_V2 =  dirV2 (verbV (fer_56 "fer")) ;
    now_Adv = mkAdv "ara" ;
    already_Adv = mkAdv "ja" ;
@@ -319,16 +319,16 @@ lin
    fear_V2 = dirV2 (verbV (témer_107 "témer")) ;
    fight_V2 = dirV2 (mkV "lluitar") ;
    float_V = mkV "surar" ;
-   flow_V = verbV (reduir_94 "fluir") ; -- also: mkV "circular"
+   flow_V = verbV (reduir_94 "fluir" True) ; -- also: mkV "circular"
    fly_V = mkV "volar" ;
    freeze_V = mkV "congelar" ;
-   give_V3 = dirdirV3 (verbV (donar_43 "donar")) ;
+   give_V3 = dirdirV3 (verbV (donar_43 "donar" True)) ;
    hit_V2 = dirV2 (verbV (trencar_112 "picar")) ;
-   hold_V2 = dirV2 (verbV (obtenir_78 "sostenir")) ;
+   hold_V2 = dirV2 (verbV (obtenir_78 "sostenir" True)) ;
    hunt_V2 = dirV2 (verbV (començar_22 "caçar")) ;
    kill_V2 = dirV2 (mkV "matar") ;
    laugh_V = verbV (riure_96 "riure") ;
-   lie_V = reflV (verbV (jeure_62 "jeure")) ;
+   lie_V = reflV (verbV (jeure_62 "jeure" True)) ;
    play_V = verbV (pregar_86 "jugar") ;
    pull_V2 = dirV2 (mkV "tibar") ;
    push_V2 = dirV2 (verbV (atènyer_59 "empènyer")) ;
@@ -336,7 +336,7 @@ lin
    scratch_V2 = dirV2 (mkV "gratar") ;
    sew_V = verbV (cosir_31 "cosir") ;
    sing_V = mkV "cantar" ;
-   sit_V = reflV (verbV (seure_102 "seure")) ;
+   sit_V = reflV (verbV (seure_102 "seure" True)) ;
    smell_V = mkV "ensumar" ;
    spit_V = verbV (escopir_49 "escopir") ;
    split_V2 = dirV2 (mkV "separar") ; -- dividir,) ;

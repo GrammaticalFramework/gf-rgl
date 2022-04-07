@@ -169,8 +169,8 @@ lin
   sea_N = reg2N "Meer" "Meere" neuter ;
   seek_V2 = dirV2 (regV "suchen") ;
   see_V2 = dirV2 Irreg.sehen_V ;
-  sell_V3 = accdatV3 (no_geV (regV "verkaufen")) ;
-  send_V3 = accdatV3 (regV "schicken") ;
+  sell_V3 = mkV3 (no_geV (regV "verkaufen")) ;    -- Eng: mkV3 v noPrep toPrep
+  send_V3 = mkV3 (regV "schicken") ; -- Ger mkV3 v = Ger: mkV3 v accPrep datPrep
   sheep_N = reg2N "Schaf" "Schafe" neuter ;
   ship_N = reg2N "Schiff" "Schiffe" neuter ;
   shirt_N = reg2N "Hemd" "Hemden" neuter ; ---- infl
@@ -196,7 +196,7 @@ lin
   switch8off_V2 = dirV2 (prefixV "aus" (regV "schalten")) ;
   switch8on_V2 = dirV2 (prefixV "ein" (regV "schalten")) ;
   table_N = mkN "Tisch"  ;
-  talk_V3 = mkV3 (regV "reden") datPrep von_Prep ;
+  talk_V3 = mkV3 (regV "reden") (mkPrep "mit" dative) (mkPrep "über" accusative) ; -- 6/2019
   teacher_N = reg2N "Lehrer" "Lehrer" masculine ;
   teach_V2 = dirV2 (no_geV (regV "unterrichten")) ;
   television_N = reg2N "Fernsehen" "Fernsehen" neuter;
@@ -316,7 +316,8 @@ lin
   flow_V = seinV (Irreg.fließen_V) ; 
   fly_V = seinV (Irreg.fliegen_V) ; 
   freeze_V = Irreg.frieren_V ; 
-  give_V3 = accdatV3 Irreg.geben_V ;
+  give_V3 = accdatV3 Irreg.geben_V ; -- c2=datPrep, c3=accPrep, to fit
+             -- to Eng ditransitive: give sb(indir) sth(dir) (no preposition)
   laugh_V = regV "lachen" ;
   lie_V = Irreg.lügen_V ; 
   play_V = regV "spielen" ;

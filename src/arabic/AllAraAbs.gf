@@ -1,3 +1,3 @@
 --# -path=.:../abstract:../common:prelude
 
-abstract AllAraAbs = Lang ;
+abstract AllAraAbs = Lang, Extend ;

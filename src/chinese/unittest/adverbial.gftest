@@ -1,0 +1,12 @@
+-- These are not ideal output. TODO: Add new constructor for semantic contexts to achieve the correct output for "地" vs "得"
+
+Lang: PredVP (AdvNP (UsePron it_Pron) (PositAdvAdj beautiful_A)) (UseV walk_V)
+LangChi: 漂 亮 地 的 它 走
+LangEng: it beautifully walks
+-- Correct LangChi: 它 漂 亮 地 走
+
+
+Lang: PredVP (UsePron it_Pron) (AdvVP (UseV walk_V) (PositAdvAdj beautiful_A))
+LangChi: 它 走 得 漂 亮 地
+LangEng: it walks beautifully
+-- Correct LangChi: 它 走 得 漂 亮

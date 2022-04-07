@@ -1,0 +1,63 @@
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a have_V2) (DetCN somePl_Det (UseN cat_N))))
+--LangChi: 我 有 一 些 只 猫
+LangChi: 我 有 一 些 猫
+LangEng: I have some cats
+
+Lang: DetCN someSg_Det (UseN water_N)
+--LangChi: 一 些 滴 水
+LangChi: 一 些 水
+LangEng: some water
+
+Lang: DetCN someSg_Det (UseN beer_N)
+--LangChi: 一 些 杯 啤 酒
+LangChi: 一 些 啤 酒
+LangEng: some beer
+
+--LangChi: 我 有 几 只 猫
+--LangEng: I have a few cats
+
+
+Lang: DetCN (DetQuant IndefArt (NumCard (NumNumeral (num (pot2as3 (pot1as2 pot111)))))) (UseN cat_N)
+LangChi: 十 一 只 猫
+LangEng: eleven cats
+
+Lang: DetCN many_Det (UseN cat_N)
+LangChi: 很 多 猫
+LangEng: many cats
+
+Lang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a have_V2) (DetCN many_Det (UseN child_N))))
+LangChi: 我 想 有 很 多 孩 子
+LangEng: I want to have many children
+
+
+Lang: DetCN (DetQuant this_Quant NumPl) (UseN cat_N)
+LangChi: 这 些 猫
+LangEng: these cats
+
+Lang: DetCN (DetQuant this_Quant NumSg) (UseN cat_N)
+LangChi: 这 只 猫
+LangEng: this cat
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a like_V2) (DetCN (DetQuant that_Quant NumPl) (UseN cat_N)))
+LangChi: 我 喜 欢 那 些 猫
+LangEng: I like those cats
+
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2a like_V2) (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)))
+LangChi: 我 喜 欢 那 只 猫
+LangEng: I like that cat
+
+Lang: DetCN every_Det (UseN rule_N)
+LangChi: 每 项 规 则
+LangEng: every rule
+
+Lang: DetCN few_Det (UseN child_N)
+LangChi: 少 些 孩 子
+LangEng: few children
+
+Lang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a have_V2) (DetCN few_Det (UseN child_N))))
+LangChi: 我 想 有 少 些 孩 子
+LangEng: I want to have few children
+
+Lang: DetCN much_Det (UseN beer_N)
+LangChi: 多 杯 啤 酒
+LangEng: much beer

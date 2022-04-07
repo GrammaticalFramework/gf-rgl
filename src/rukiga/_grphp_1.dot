@@ -1,0 +1,95 @@
+graph {
+edge[style="solid"]; node[shape="plaintext"]; 
+subgraph {rank=same;
+  n20[label="PhrUtt : Phr"]; 
+}
+ 
+subgraph {rank=same;
+  n18[label="UttS : Utt"]; 
+}
+n20 -- n18;
+ 
+subgraph {rank=same;
+  n17[label="UseCl : S"]; 
+}
+n18 -- n17;
+ 
+subgraph {rank=same;
+  n16[label="PredVP : Cl"]; 
+}
+n17 -- n16;
+ 
+subgraph {rank=same;
+  n6[label="UsePN : NP"]; 
+  n15[label="ComplSlash : VP"]; 
+  edge[style="invis"]; 
+  n6  --  n15 ;
+}
+n16 -- n6;
+n16 -- n15;
+ 
+subgraph {rank=same;
+  n5[label="john_PN : PN"]; 
+  n8[label="SlashV2a : VPSlash"]; 
+  n14[label="MassNP : NP"]; 
+  edge[style="invis"]; 
+  n5  --  n8  --  n14 ;
+}
+n6 -- n5;
+n15 -- n8;
+n15 -- n14;
+ 
+subgraph {rank=same;
+  n7[label="drink_V2 : V2"]; 
+  n13[label="AdjCN : CN"]; 
+  edge[style="invis"]; 
+  n7  --  n13 ;
+}
+n8 -- n7;
+n14 -- n13;
+ 
+subgraph {rank=same;
+  n12[label="UseN : CN"]; 
+  n10[label="PositA : AP"]; 
+  edge[style="invis"]; 
+  n12  --  n10 ;
+}
+n13 -- n12;
+n13 -- n10;
+ 
+subgraph {rank=same;
+  n11[label="water_N : N"]; 
+  n9[label="hot_A : A"]; 
+  edge[style="invis"]; 
+  n11  --  n9 ;
+}
+n12 -- n11;
+n10 -- n9;
+ 
+edge[style="dashed"]; node[shape="plaintext"]; 
+subgraph {rank=same;
+  n100000[label="Yohana"]; 
+  n100001[label="a"]; 
+  n100002[label="&+"]; 
+  n100003[label="ka"]; 
+  n100004[label="nyw"]; 
+  n100005[label="&+"]; 
+  n100006[label="a"]; 
+  n100007[label="amáìzi"]; 
+  n100008[label="aga"]; 
+  n100009[label="kwosya"]; 
+  edge[style="invis"]; 
+  n100000  --  n100001  --  n100002  --  n100003  --  n100004  --  n100005  --  n100006  --  n100007  --  n100008  --  n100009 ;
+}
+n5 -- n100000;
+n17 -- n100001;
+n17 -- n100002;
+n17 -- n100003;
+n7 -- n100004;
+n17 -- n100005;
+n17 -- n100006;
+n11 -- n100007;
+n13 -- n100008;
+n9 -- n100009;
+ 
+}

@@ -9,7 +9,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
   oper contractInf : Bool -> Bool -> Bool = orB ; -- Ita has special contracted inf forms with clitics
 
 ------
-  param 
+  param
     Prepos = P_di | P_a | P_da | P_in | P_su | P_con ;
     VType = VHabere | VEsse | VRefl ;
 
@@ -34,7 +34,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
        True => prepCase c ++ case <g,n> of {
         <Masc,Sg> => "lui" ;
         <Fem ,Sg> => "lei" ;
-        <_,Pl>    => "loro" 
+        <_,Pl>    => "loro"
         } ;
        _ => case <g,n,c> of {
         <_, _, CPrep P_di>  => prepArt "de" ;
@@ -48,7 +48,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
         <Masc,Pl, _>        => elision "i" "gli" "gli" ;
         <Fem ,Pl, _>        => "le"
         }
-      } 
+      }
        where {
          prepArt : Tok -> Tok = \de -> case <g,n> of {
            <Masc,Sg> => elision (de + "l")   (de + "ll'") (de + "llo") ;
@@ -62,28 +62,42 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
 -- In these two, "de de/du/des" becomes "de".
 
     artIndef = \isNP, g,n,c -> case <n,isNP> of {
-      <Sg,True> => prepCase c ++ 
+      <Sg,True> => prepCase c ++
                    genForms "uno" "una" ! g ;
-      <Sg,_>    => prepCase c ++ 
+      <Sg,_>    => prepCase c ++
                    genForms (pre {"un" ; "uno" / sImpuro}) (elision "una" "un'" "una") ! g ;
-      <Pl,True> => prepCase c ++ 
+      <Pl,True> => prepCase c ++
                    genForms "alcuni" "alcune" ! g ;
-      _         => prepCase c 
+      _         => prepCase c
       } ;
 
     possCase = artDef False ;
-    
+
     partitive = \_,c -> prepCase c ;
-    
+
 {-
     partitive = \g,c -> case c of {
       CPrep P_di => "di" ;
       _ => prepCase c ++ artDef False g Sg (CPrep P_di)
       } ;
 -}
+
+-- AForm and comparatives
+  param
+    AFormSimple = AF Gender Number | AA ;
+  oper
+    AForm = AFormSimple ;
+    aform2aagr : AForm -> AAgr = \a -> case a of {
+      DiffIta.AF g n => aagr g n ;
+      _                    => aagr Masc Sg -- "le plus lentement"
+      } ;
+    genNum2Aform : Gender -> Number -> AForm = DiffIta.AF ;
+    genNumPos2Aform : Gender -> Number -> Bool -> AForm = \g,n,_ -> genNum2Aform g n ;
+    piuComp = "più" ;
+
     conjunctCase : Case -> Case = \c -> case c of {
       Nom => Nom ;
-      _ => Acc 
+      _ => Acc
       } ;
 
     auxVerb : VType -> (VF => Str) = \vtyp -> case vtyp of {
@@ -101,7 +115,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
       } ;
 
     pronArg = \n,p,acc,dat ->
-      let 
+      let
         pacc = case acc of {  --- only accusative refl handled
           CRefl => case p of {
             P3 => "si" ;
@@ -127,14 +141,14 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
 
     infForm n p x y = (pronArg n p x y).p3 ;
 
-    mkImperative b p vp = 
-      \\pol,g,n => 
-        let 
+    mkImperative b p vp =
+      \\pol,g,n =>
+        let
           pe    = case b of {True => P3 ; _ => p} ;
           agr   = {g = g ; n = n ; p = pe} ;
           refl  = case vp.s.vtyp of {
             VRefl => <reflPron n pe Acc,True> ;
-            _ => <[],False> 
+            _ => <[],False>
             } ;
 
           clpr  = <vp.clit1 ++ vp.clit2,[],vp.clit3.hasClit> ;
@@ -166,7 +180,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
 
     clitInf b cli inf = inf ++ bindIf b ++ cli ;
 
-    relPron : Bool => AAgr => Case => Str = \\b,a,c => 
+    relPron : Bool => AAgr => Case => Str = \\b,a,c =>
       case c of {
         Nom | Acc => "che" ;
         CPrep P_di => "cui" ;
@@ -179,14 +193,14 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
 
     partQIndir = "ciò" ;
 
-    reflPron : Number -> Person -> Case -> Str = 
-      let 
+    reflPron : Number -> Person -> Case -> Str =
+      let
         cases : (x,y : Str) -> (Case -> Str) = \me,moi,c -> case c of {
           Acc | CPrep P_a => me ;
           _ => moi
           } ;
-      in 
-      \n,p -> case <n,p> of { 
+      in
+      \n,p -> case <n,p> of {
         <Sg,P1> => cases "mi" "me" ;
         <Sg,P2> => cases "ti" "te" ;
         <Pl,P1> => cases "ci" "noi" ; -- unlike French with just one alt!
@@ -194,21 +208,21 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
         _ => cases "si" "se"
         } ;
 
-    argPron : Gender -> Number -> Person -> Case -> Bool -> Str = 
-      let 
-        cases : (x,y,z : Str) -> Case -> Bool -> Str = 
+    argPron : Gender -> Number -> Person -> Case -> Bool -> Str =
+      let
+        cases : (x,y,z : Str) -> Case -> Bool -> Str =
           \ci,ce,noi,c,isPre -> case c of {
           Acc | CPrep P_a => if_then_Str isPre ce ci ;
           _ => noi
           } ;
         cases4 : (x,y,z,u : Str) -> Case -> Bool -> Str =
           \lo,gli,glie,lui,c,isPre -> case c of {
-          Acc => lo ; 
+          Acc => lo ;
           CPrep P_a => if_then_Str isPre glie gli ;
           _ => lui
           } ;
-      in 
-      \g,n,p -> case <g,n,p> of { 
+      in
+      \g,n,p -> case <g,n,p> of {
         <_,Sg,P1> => cases "mi" "me" "me" ;
         <_,Sg,P2> => cases "ti" "te" "te" ;
         <_,Pl,P1> => cases "ci" "ce" "noi" ; -- unlike French with just one alt!
@@ -226,7 +240,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
 
     auxPassive : Verb = venire_V ;
 
-    copula = verbBesch (essere_1 "essere") ** {vtyp = VEsse ; p = []} ;
+    copula, essere_V = verbBesch (essere_1 "essere") ** {vtyp = VEsse ; p = []} ;
     avere_V = verbBesch (avere_2 "avere") ** {vtyp = VHabere ; p = []} ;
     venire_V = verbBesch (venire_110 "venire") ** {vtyp = VEsse ; p = []} ;
 

@@ -12,30 +12,15 @@ concrete SentenceAra of Sentence = CatAra ** open
   flags optimize=all_subs ; coding=utf8 ;
 
   lin
-{-
-    PredVP np vp =
-      { s = \\t,p,o =>
-          case o of {
-            Verbal =>
-              case vp.comp.a.isPron of {
-                False => vp.s ! t ! p ! Verbal ! np.a ++ np.s ! Nom ++ vp.comp.s ! Acc ;
-                True  => vp.s ! t ! p ! Verbal ! np.a ++ vp.comp.s ! Acc ++ np.s ! Nom
-              };
-            Nominal =>
-              np.s ! Nom ++ vp.s ! t ! p ! Nominal ! np.a ++ vp.comp.s ! Acc
-          }
-      };
--}
-    PredVP = predVP ;
 
---    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
+    PredVP = predVP ;
 
     ImpVP vp = {
       s = \\p,g,n =>
         case p of {
           Pos =>          vp.s ! Per2 g n ! VPImp ;
           Neg => "لَا" ++ vp.s ! Per2 g n ! VPImpf Jus
-        } ++ vp.obj.s  ++ vp.pred.s ! {g=g;n=n} ! Acc ++ vp.s2 
+        } ++ vp.obj.s  ++ vp.pred.s ! {g=g;n=n} ! Acc ++ vp.s2
       };
 
 --
@@ -57,11 +42,9 @@ concrete SentenceAra of Sentence = CatAra ** open
 
 --  SlashVS np vs sslash = TODO
 
-
---    EmbedS  s  = {s = conjThat ++ s.s} ;
---    EmbedQS qs = {s = qs.s ! QIndir} ;
---    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
---
+    EmbedS  s  = {s = "مَا" ++ s.s ! Verbal} ;
+    EmbedQS qs = {s = qs.s ! QIndir} ;
+    EmbedVP vp = {s = uttVP VPPerf vp ! Masc} ; -- TODO: use VPGer once it's more stable
 
     UseCl t p cl =
       {s = \\o => t.s ++ p.s ++
@@ -83,7 +66,9 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     UseRCl t p cl = {s = \\agr,c => t.s ++ p.s ++ cl.s ! t.t ! p.p ! agr ! c} ;
 
-    UseSlash t p cl = UseCl t p (complClSlash cl) ;
+    -- If the cls has a c2, the preposition will just hang there without an object.
+    -- If this bothers you, call complClSlash to cls ** {c2=noPrep}. /IL
+    UseSlash t p cls = UseCl t p (complClSlash cls) ;
 
     AdvS adv s = s ** {s = \\o => adv.s ++ s.s ! o} ;
 }

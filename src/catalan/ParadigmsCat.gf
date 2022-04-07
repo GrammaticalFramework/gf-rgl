@@ -28,6 +28,7 @@ resource ParadigmsCat =
   open
     (Predef=Predef),
     Prelude,
+    DiffCat,
     MorphoCat,
     BeschCat,
     CatCat in {
@@ -64,6 +65,9 @@ oper
 
   mkPrep : Str -> Prep ; -- other preposition
 
+  CopulaType : Type ;
+  serCopula : CopulaType ;
+  estarCopula : CopulaType ;
 
 --2 Nouns
 
@@ -157,7 +161,7 @@ oper
     mkA : (bo : A) -> (millor : A) -> A ; -- special comparison (default with "mas")
 
     mkA : A -> CopulaType -> A -- force copula type
-      
+
     } ;
 
 -- The functions above create postfix adjectives. To switch
@@ -295,10 +299,13 @@ oper
 
   Gender = MorphoCat.Gender ;
   Number = MorphoCat.Number ;
+  CopulaType = DiffCat.CopulaType ;
   masculine = Masc ;
   feminine = Fem ;
   singular = Sg ;
   plural = Pl ;
+  serCopula = DiffCat.serCopula ;
+  estarCopula = DiffCat.estarCopula ;
 
   accusative = complAcc ** {lock_Prep = <>} ;
   genitive = complGen ** {lock_Prep = <>} ;
@@ -327,25 +334,31 @@ oper
 
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
-  mk5A a b c d e =
-    compADeg {s = \\_ => (mkAdj a b c d e).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
-  mk2A a b = compADeg {s = \\_ => (mkAdj2Reg a b).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  mk5A a b c d e = compADeg (mkAdj a b c d e) ;
+  mk2A a b = compADeg (mkAdj2Reg a b) ;
+  regA a = compADeg (mkAdjReg a) ;
   prefA = overload {
     prefA : A -> A = \a -> a ** {isPre = True} ;
     prefA : Str -> Str -> A = \bo,bon ->
-        compADeg (lin A {s = \\_ => (adjBo bo bon).s ; isPre = True ; copTyp = serCopula}) ;
+      let adj : A = compADeg (adjBo bo bon (bon+"ament")) ; -- not sure if there is any actual adjective that behaves like this /IL
+       in adj ** {isPre = True} ;
+    prefA : (bo,bon,be : Str) -> A = \bo,bon,be ->
+      let adj : A = compADeg (adjBo bo bon be) ;
+       in adj ** {isPre = True} ;
   } ;
 
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
 
-  mkADeg a b =
-   {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ;
-    isPre = a.isPre ; copTyp = serCopula ; lock_A = <>} ;
-  compADeg a =
-    {s = table {Posit => a.s ! Posit ; _ => \\f => "més" ++ a.s ! Posit ! f} ;
-     isPre = a.isPre ; copTyp = a.copTyp ; 
-     lock_A = <>} ;
+  mkADeg a b = a ** {
+    compar = \\num => b.s ! AF Masc num ; -- millor, millors
+    isDeg = True } ;
+  compADeg a = lin A
+    {s = a.s ;
+     compar = \\_ => nonExist ;
+     isPre = False ;       -- default values
+     copTyp = serCopula ;
+     isDeg = False
+     } ;
   regADeg a = compADeg (regA a) ;
 
   mkAdv x = ss x ** {lock_Adv = <>} ;
@@ -360,12 +373,12 @@ oper
 	"çar"    => començar_22 x ;
 	"gir"    => fugir_58 x ;
 	"ure"    => beure_11 x ;
-	"xer"    => créixer_33 x ; --conèixer,aparèixer with regAltV
+	"xer"    => créixer_33 x True ; --conèixer,aparèixer with regAltV
 
         _ + "re" => perdre_83 x ;
         _ + "er" => verbEr x ; --handles accents in infinitives and c/ç, g/j
 	_ + "ir" => dormir_44 x ; --inchoative verbs with regAltV
-	_ + "ur" => dur_45 x ;
+	_ + "ur" => dur_45 x True ;
 	_        => cantar_15 x } ;
 
   regAltV x y =
@@ -377,15 +390,15 @@ oper
 	   <"ure",_+"c"> => regV x ; --caure,viure etc. with non-smart paradigms
 
 	   --small set of irregular verbs that have unique P1 Sg
-	   <_+"ir","tinc">  => tenir_108 x ; --tenir, obtenir, ...
-	   <_+"ir","vinc">  => venir_117 x ; --venir, prevenir, ...
+	   <_+"ir","tinc">  => tenir_108 x 0 ; --tenir, obtenir, ...
+	   <_+"ir","vinc">  => venir_117 x True ; --venir, prevenir, ...
            <_+"er",_+"ig">  => fer_56 x ;
-	   <_+"re",_+"ig">  => veure_118 x ;
-	   <_+"ar",_+"ig">  => anar_4 x ;
+	   <_+"re",_+"ig">  => veure_118 x 0 ;
+	   <_+"ar",_+"ig">  => anar_4 x 0 ;
 
 	   <"xer" ,_+ "c">  => conèixer_27 x ; --créixer, merèixer with regV
-           <_+"er",_+ "c">  => valer_114 x ;
-	   <_+"re",_+ "c">  => doldre_42 x ; --participles of type dolgut
+           <_+"er",_+ "c">  => valer_114 x True ;
+	   <_+"re",_+ "c">  => doldre_42 x True ; --participles of type dolgut
 	                                     --for absolt, pres, ... use mk3V
 	   <_ ,_>           => regV x } ;
 
@@ -399,25 +412,25 @@ oper
 	   --if these are overfitting, just comment out.
            --still doesn't catch creure, seure; mk4V with creiem as 4th arg?
 	   <"ure",_, "uit"> => coure_32 x ;    --coure coem cuit
-	   <"ure",_,_+"it"> => escriure_50 x ; --escriure escrivim escrit
-	   <"ure",_,_+"et"> => treure_113 x ;  --treure traiem tret
-           <"ure",_,_+"st"> => veure_118 x ;   --veure veiem vist
+	   <"ure",_,_+"it"> => escriure_50 x True ; --escriure escrivim escrit
+	   <"ure",_,_+"et"> => treure_113 x True ;  --treure traiem tret
+           <"ure",_,_+"st"> => veure_118 x 0 ;   --veure veiem vist
            <"ure",_, "cut"> => viure_119 x ;   --viure vivim viscut
 
-	   <"dre",_,_+"st"> => compondre_26 x ; --compondre compost
+	   <"dre",_,_+"st"> => compondre_26 x True ; --compondre compost
 
-	   <"rir", _+"ixo",_+"rt"> => cobrir_20 x ;  --cob|rir cob|ert
-	   <_+"ir",_+"ixo",_+"rt"> => complir_25 x ; --compl|ir compl|ert
+	   <"rir", _+"ixo",_+"rt"> => cobrir_20 x True ;  --cob|rir cob|ert
+	   <_+"ir",_+"ixo",_+"rt"> => complir_25 x True ; --compl|ir compl|ert
 
-	   <_+"ir",_+"ixo",_+"ït"> => lluir_64 x ; --lluir lluïm lluït
+	   <_+"ir",_+"ixo",_+"ït"> => lluir_64 x 0 ; --lluir lluïm lluït
 
-	   <"dre",_,"nut"> => vendre_116 x ;
+	   <"dre",_,"nut"> => vendre_116 x True ;
 
 	   <_+"re",_+"c",_+"t"> => absoldre_1 x ; --c in sgP1 and subj, not in part
 
 	   <_+"re",_,_+"es"> => prendre_87 x ;
 	   <_+"re",_,_+"ès"> => atendre_8 x ;
-	   <_+"re",_,_+"as"> => raure_91 x ;
+	   <_+"re",_,_+"as"> => raure_91 x True ;
 	   <_+"re",_,_+"às"> => romandre_97 x ;
 	   <_+"re",_,_+"os"> => cloure_19 x ;
 	   <_+"re",_,_+"ós"> => confondre_28 x ;
@@ -433,7 +446,7 @@ oper
 
   special_ppV ve pa = {
     s = table {
-      VPart g n => (regA pa).s ! Posit ! genNum2Aform g n ;
+      VPart g n => (regA pa).s ! genNum2Aform g n ;
       p => ve.s ! p
       } ;
     lock_V = <> ;
@@ -511,7 +524,7 @@ oper
   mk2A : (lleig,lletja : Str) -> A ;
   regA : Str -> A ;
   mkADeg : A -> A -> A ;
-  compADeg : A -> A ;
+  compADeg : Adj -> A ;
   regADeg : Str -> A ;
   prefA : overload {
     prefA : A -> A ; -- gran

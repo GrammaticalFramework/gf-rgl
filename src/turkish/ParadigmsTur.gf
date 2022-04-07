@@ -51,7 +51,14 @@ resource ParadigmsTur = open
       mkV3 : (konusmak : V) -> Prep -> Prep -> V3 ;
     } ;
 
-    mkV2S : V -> V2S = \verb -> lin V2S (verb ** {c = no_Prep}) ;
+    mkV2A : V -> V2A = \verb -> lin V2A (verb ** {c = noPrep}) ;
+    mkV2V : V -> V2V = \verb -> lin V2V (verb ** {c = noPrep}) ;
+    mkV2S : V -> V2S = \verb -> lin V2S (verb ** {c = noPrep}) ;
+
+    mkVA : V -> VA = \verb -> verb ;
+    mkVV : V -> VV = \verb -> verb ;
+    mkVS : V -> VS = \verb -> verb ;
+    mkVQ : V -> VQ = \verb -> verb ;
 
     -- worst-case function
     -- bases of all forms are required.
@@ -78,14 +85,14 @@ resource ParadigmsTur = open
 
     mkV2 = overload {
       -- sormak
-      mkV2 : V -> V2 = \verb -> verb ** lin V2 {c = no_Prep} ;
+      mkV2 : V -> V2 = \verb -> verb ** lin V2 {c = noPrep} ;
       -- (bir şeyden) korkmak
       mkV2 : V -> Prep -> V2 = \verb,c -> verb ** lin V2 {c = c} ;
     } ;
 
     mkV3 = overload {
       -- (birine bir şeyi) satmak
-      mkV3 : V -> V3 = \verb -> verb ** lin V3 {c1 = no_Prep; c2 = no_Prep} ;
+      mkV3 : V -> V3 = \verb -> verb ** lin V3 {c1 = noPrep; c2 = noPrep} ;
       -- (biri ile bir şeyi) konuşmak
       mkV3 : V -> Prep -> Prep -> V3 =
         \verb,c1,c2 -> verb ** lin V3 {c1 = c1; c2 = c2} ;
@@ -110,7 +117,11 @@ resource ParadigmsTur = open
       mkN : (zeytin, yag : N) -> N ;
     } ;
 
-    mkN2 : Str -> N2 ;
+    mkN : overload {
+      -- regular noun, only nominative case is needed
+      mkN2 : Str -> N2 ;
+      mkN2 : N -> N2 ;
+    } ;
 
     mkN3 : Str -> N3 ;
 
@@ -132,10 +143,10 @@ resource ParadigmsTur = open
     regN : Str -> N ;
 
     -- Paradigm for proper noun
-    regPN : Str -> Noun ;
+    regPN : Str -> PN ;
 
     -- Worst case function for proper nouns
-    makePN : Str -> Str -> Noun ;
+    makePN : Str -> Str -> PN ;
 
     -- digits can be seen as proper noun, but we need an additional harmony argument
     -- since harmony information can not be extracted from digit string.
@@ -191,6 +202,9 @@ resource ParadigmsTur = open
   -- Adverbs
 
   mkAdv : Str -> Adv ;
+  mkAdV : Str -> AdV ;
+  mkAdA : Str -> AdA ;
+  mkAdN : Str -> Case -> AdN ;
 
   --Implementation of verb paradigms
 
@@ -257,12 +271,18 @@ resource ParadigmsTur = open
         lin V {
           s =
             table {
-              VProg agr      => addSuffix progBase   progHar (verbSuffixes ! agr) ;
-              VPast agr      => addSuffix pastBase   pastHar (verbSuffixes ! agr) ;
-              VFuture agr    => addSuffix futureTable futHar (verbSuffixes ! agr) ;
-              VAorist agr    => addSuffix aoristBase aorHar (verbSuffixes ! agr) ;
-              VImperative    => base ;
-              VInfinitive    => inf ;
+              VPres agr    =>
+                addSuffix aoristBase aorHar (verbSuffixes ! agr) ;
+              VProg agr      =>
+                addSuffix progBase   progHar (verbSuffixes ! agr) ;
+              VPast agr      =>
+                addSuffix pastBase   pastHar (verbSuffixes ! agr) ;
+              VFuture agr    =>
+                addSuffix futureTable futHar (verbSuffixes ! agr) ;
+              VImperative    =>
+                base ;
+              VInfinitive    =>
+                inf ;
               Gerund _  Acc  =>
                 case aorHar.vow of {
                   Ih_Har  => mek + "si" ;
@@ -270,8 +290,29 @@ resource ParadigmsTur = open
                   U_Har   => "TODO" ;
                   Uh_Har  => "TODO"
                 } ;
-              Gerund _  _    => mek
-            }
+              Gerund _  _    => mek ;
+              VNoun n Gen =>
+                case aorHar.vow of {
+                  Ih_Har => base + "tiği" ;
+                  I_Har  => base + "tığı" ;
+                  U_Har  => base + "duğu" ;
+                  Uh_Har => base + "düğü"
+                } ;
+              VNoun n Ablat =>
+                case aorHar.vow of {
+                  Ih_Har => base + "tıktan" ;
+                  I_Har  => base + "tıktan" ;
+                  U_Har  => base + "duktan" ;
+                  Uh_Har => base + "dükten"
+                } ;
+              VNoun n _ =>
+                case aorHar.vow of {
+                  Ih_Har => base + "(TODO: makeVerb)" ;
+                  I_Har  => base + "(TODO: makeVerb)" ;
+                  U_Har  => base + "(TODO: makeVerb)" ;
+                  Uh_Har => base + "(TODO: makeVerb)"
+                }
+            } ;
         } ;
 
     -- Implementation of noun paradigms
@@ -281,31 +322,31 @@ resource ParadigmsTur = open
       lin N {
         s   = table {
                 Sg => table {
-            Nom     => sn ;
-            Acc     => sa ;
-            Dat     => sd ;
-            Gen     => sg ;
-            Loc     => sl ;
-            Ablat   => sabl ;
-            Abess Pos => sgabPos ;
+                        Nom       => sn ;
+                        Acc       => sa ;
+                        Dat       => sd ;
+                        Gen       => sg ;
+                        Loc       => sl ;
+                        Ablat     => sabl ;
+                        Abess Pos => sgabPos ;
                         Abess Neg => sgabNeg
-          } ;
+                      } ;
                 Pl => table {
-            Abess Pos => addSuffix sgabPos plHar plSuffix;
-            Abess Neg => addSuffix sgabNeg plHar plSuffix;
-            c => addSuffix pln plHar (caseSuffixes ! c)
-          }
-                  } ;
+                        Abess Pos => addSuffix sgabPos plHar plSuffix;
+                        Abess Neg => addSuffix sgabNeg plHar plSuffix;
+                        c         => addSuffix pln plHar (caseSuffixes ! c)
+                      }
+              } ;
         gen = table {
                 Sg => table {
-      -- Genitive suffix for P3 is always -ları, always selecting plural form of
-      -- base and harmony is a trick to implement this
-            {n=Pl; p=P3} => addSuffix pln plHar genPlP3Suffix ;
-            s            => addSuffix sgs har (genSuffixes ! s)
-        } ;
+                        -- Genitive suffix for P3 is always -ları, always selecting plural form of
+                        -- base and harmony is a trick to implement this
+                        {n=Pl; p=P3} => addSuffix pln plHar genPlP3Suffix ;
+                        s            => addSuffix sgs har (genSuffixes ! s)
+                      } ;
                 Pl => \\s => addSuffix pln plHar (genSuffixes ! s)
-          } ;
-        harmony = har
+              } ;
+        h = har
       } ;
 
     irregN_h sn sg har = irregN har sn sg ;
@@ -388,33 +429,33 @@ resource ParadigmsTur = open
             plHar = getHarmony pn
         in lin N {
           s   = table {
-                Sg => table {
-            Nom     => sn ; --tereyağı
-            Acc     => addSuffix sn sgHar accSuffixN ; --tereyağını
-            Dat     => addSuffix sn sgHar datSuffixN ; --tereyağına
-            Gen     => addSuffix sn sgHar genSuffix ; --tereyağının
-            Loc     => addSuffix sn sgHar locSuffixN ; --tereyağında
-            Ablat   => addSuffix sn sgHar ablatSuffixN ; --tereyağından
-            Abess Pos => sgAbessPos ; --tereyağlı
-                        Abess Neg => sgAbessNeg   --tereyağsız
-          } ;
-                Pl => table {
-            Nom     => pn ;--tereyağları
-            Acc     => addSuffix pn plHar accSuffixN ; --tereyağlarını
-            Dat     => addSuffix pn plHar datSuffixN ; --tereyağlarına
-            Gen     => addSuffix pn plHar genSuffix ; --tereyağlarının
-            Loc     => addSuffix pn plHar locSuffixN ; --tereyağlarında
-            Ablat   => addSuffix pn plHar ablatSuffixN ; --tereyağlarından
-            Abess   Pos => addSuffix sgAbessPos plHar abessPosSuffix ; --tereyağlılar
-            Abess   Neg => addSuffix sgAbessNeg plHar abessNegSuffix   --tereyağsızlar
+                  Sg => table {
+                          Nom     => sn ; --tereyağı
+                          Acc     => addSuffix sn sgHar accSuffixN ; --tereyağını
+                          Dat     => addSuffix sn sgHar datSuffixN ; --tereyağına
+                          Gen     => addSuffix sn sgHar genSuffix ; --tereyağının
+                          Loc     => addSuffix sn sgHar locSuffixN ; --tereyağında
+                          Ablat   => addSuffix sn sgHar ablatSuffixN ; --tereyağından
+                          Abess Pos => sgAbessPos ; --tereyağlı
+                          Abess Neg => sgAbessNeg   --tereyağsız
+                        } ;
+                  Pl => table {
+                          Nom     => pn ;--tereyağları
+                          Acc     => addSuffix pn plHar accSuffixN ; --tereyağlarını
+                          Dat     => addSuffix pn plHar datSuffixN ; --tereyağlarına
+                          Gen     => addSuffix pn plHar genSuffix ; --tereyağlarının
+                          Loc     => addSuffix pn plHar locSuffixN ; --tereyağlarında
+                          Ablat   => addSuffix pn plHar ablatSuffixN ; --tereyağlarından
+                          Abess   Pos => addSuffix sgAbessPos plHar abessPosSuffix ; --tereyağlılar
+                          Abess   Neg => addSuffix sgAbessNeg plHar abessNegSuffix   --tereyağsızlar
                       }
                   } ;
           gen = case ct of {
                   Con => \\num,agr => n1sn + n2.gen ! num ! agr ;
                   Sep => \\num,agr => n1sn ++ n2.gen ! num ! agr
-          } ;
-    harmony = sgHar
-      } ;
+                } ;
+          h = sgHar
+        } ;
 
     mkN = overload {
       mkN : (araba : Str) -> N =
@@ -429,12 +470,20 @@ resource ParadigmsTur = open
         \n1,n2 -> linkNoun n1 n2 Indef Con ;
     } ;
 
-    mkN2 base = (mkN base) ** lin N2 {c = lin Prep {s=[]; c=Gen}} ;
+    mkN2 = overload {
+      mkN2 : Str -> N2 =
+        \base -> (mkN base) ** lin N2 {c = lin Prep {s=[]; c=Gen}} ;
+      mkN2 : N -> N2 =
+        \n -> n ** lin N2 {c = lin Prep {s=[]; c=Gen}} ;
+    } ;
 
     mkN3 base = (mkN base) ** lin N3 {c1,c2 = lin Prep {s=[]; c=Gen}} ;
 
     -- Implementation for adverb paradigms.
     mkAdv s = lin Adv { s = s } ;
+    mkAdV s = lin AdV { s = s } ;
+    mkAdA s = lin AdA { s = s } ;
+    mkAdN s c = lin AdN { s = s; c = c } ;
 
     -- Implementation of adjactive paradigms
     mkA = overload {
@@ -522,6 +571,9 @@ resource ParadigmsTur = open
         n = num
       } ;
 
+    mkConj : Str -> Number -> Conj = 
+      \s,n -> {s = s; sep = 3; n = n; lock_Conj = <>} ;
+
   -- Helper functions and parameters
     -- finds which aorist type will be used with a base, see aorist type parameter for more info
     getAoristType : Str -> AoristType =
@@ -559,7 +611,7 @@ resource ParadigmsTur = open
 
     ablat_Case : Prep = mkPrep [] Ablat;
     dat_Case   : Prep = mkPrep [] Dat;
-    acc_Case   : Prep = mkPrep [] Dat;
+    acc_Case   : Prep = mkPrep [] Acc;
 
     mkQuant : Str -> Quant = \s -> lin Quant {s=s; useGen = NoGen} ;
 

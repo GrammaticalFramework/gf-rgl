@@ -11,7 +11,7 @@ resource ParamX = open Prelude in {
        Simul 
      | Anter  --# notpresent
      ;
-    Tense = 
+    Tense =
        Pres 
      | Past   --# notpresent
      | Fut    --# notpresent

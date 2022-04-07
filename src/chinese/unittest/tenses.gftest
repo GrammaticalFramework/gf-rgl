@@ -1,0 +1,44 @@
+-------------
+-- Basics
+
+Lang: UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V))
+LangEng: the cat has walked
+LangChi: 猫 走 了
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN cat_N)) (UseV walk_V))
+LangEng: this cat walks
+LangChi: 这 只 猫 走
+
+Lang: UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant this_Quant NumSg) (UseN cat_N)) (UseV walk_V))
+LangEng: this cat will walk
+LangChi: 这 只 猫 会 走
+
+Lang: PredVP (DetCN (DetQuant this_Quant NumSg) (UseN cat_N)) (ComplVV can8know_VV (UseV walk_V))
+LangChi: 这 只 猫 会 走
+LangEng: this cat can walk
+
+Lang: PredVP (DetCN (DetQuant this_Quant NumSg) (UseN cat_N)) (ComplVV can_VV (UseV walk_V))
+LangChi: 这 只 猫 能 走
+LangEng: this cat can walk
+
+-- As a verbal complement
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN cat_N)) (ComplVV want_VV (UseV walk_V)))
+LangChi: 我 的 猫 想 走
+LangEng: my cat wants to walk
+
+-- Transitive verbs
+
+Lang: UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant IndefArt NumSg) (UseN fish_N))))
+LangChi: 我 吃 了 一 条 鱼
+LangEng: I have eaten a fish
+
+-------------
+-- Conditions
+
+Lang: AdvS (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV walk_V)))) (UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V)))
+LangEng: if I walk the cat will walk
+LangChi: 如 果 我 走 猫 会 走
+
+Lang: ExtAdvS (SubjS when_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (UseV walk_V)))) (UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV walk_V)))
+LangEng: when I walk , the cat will walk
+LangChi: 我 走 的 时 候 ， 猫 会 走

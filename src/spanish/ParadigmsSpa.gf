@@ -28,6 +28,7 @@ resource ParadigmsSpa =
     (Predef=Predef),
     Prelude,
     MorphoSpa,
+    DiffSpa,
     BeschSpa,
     CatSpa in {
 
@@ -59,6 +60,10 @@ oper
   accusative : Prep ; -- direct object
   genitive   : Prep ; -- preposition "de" and its contractions
   dative     : Prep ; -- preposition "a" and its contractions
+
+  CopulaType : Type ;
+  serCopula : CopulaType ;
+  estarCopula : CopulaType ;
 
   mkPrep : overload {
     mkPrep : Str -> Prep ; -- other preposition
@@ -151,7 +156,7 @@ oper
 
 -- Some adjectives need the feminine form separately.
 
-    mkA : (espanol,espanola : Str) -> A ;
+    mkA : (español,española : Str) -> A ;
 
 -- One-place adjectives compared with "mas" need five forms in the worst
 -- case (masc and fem singular, masc plural, adverbial).
@@ -177,6 +182,8 @@ oper
 
   prefixA : A -> A ; -- adjective before noun (default after noun)
 
+  invarA : Str -> A  -- invariable adjective
+   = \s -> mkA s s s s s ;
 
 --3 Two-place adjectives
 --
@@ -322,10 +329,13 @@ oper
 
   Gender = MorphoSpa.Gender ;
   Number = MorphoSpa.Number ;
+  CopulaType = DiffSpa.CopulaType ;
   masculine = Masc ;
   feminine = Fem ;
   singular = Sg ;
   plural = Pl ;
+  serCopula = DiffSpa.serCopula ;
+  estarCopula = DiffSpa.estarCopula ;
 
   accusative = complAcc ** {lock_Prep = <>} ;
   genitive = complGen ** {lock_Prep = <>} ;
@@ -359,25 +369,28 @@ oper
   makeNP x g n = {s = (pn2np (mk2PN x g)).s; a = agrP3 g n ; hasClit = False ; isPol = False ; isNeg = False} ** {lock_NP = <>} ;
 
   mk7A a b c d e f g =
-    compADeg {s = \\_ => (mkAdj a b c d e f g).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+    compADeg (mkAdj a b c d e f g) ;
 
   mk5A a b c d e = mk7A a a b b c d e ;
 
-  mk2A a b = compADeg {s = \\_ => (adjEspanol a b).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  mk2A a b = compADeg (adjEspanol a b) ;
 
-  regA a = compADeg {s = \\_ => (mkAdjReg a).s ; isPre = False ; copTyp = serCopula ; lock_A = <>} ;
+  regA a = compADeg (mkAdjReg a) ;
   adjCopula a cop = a ** {copTyp = cop} ;
-  prefA a = {s = a.s ; isPre = True ; copTyp = a.copTyp ; lock_A = <>} ;
+  prefA a = a ** {isPre = True} ;
 
-  mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
+  mkA2 a p = lin A2 (a ** {c2 = p}) ;
 
-  mkADeg a b =
-   {s = table {Posit => a.s ! Posit ; _ => b.s ! Posit} ;
-    isPre = a.isPre ; copTyp = a.copTyp ; lock_A = <>} ;
-  compADeg a =
-    {s = table {Posit => a.s ! Posit ; _ => \\f => "más" ++ a.s ! Posit ! f} ;
-     isPre = a.isPre ; copTyp = a.copTyp ;
-     lock_A = <>} ;
+  mkADeg a b = a ** {
+    compar = \\num => b.s ! AF Masc num ; -- mejor, mejores
+    isDeg = True } ;
+  compADeg a = lin A
+    {s = a.s ;
+     compar = \\_ => nonExist ; --
+     isPre = False ;       -- default values
+     copTyp = serCopula ;
+     isDeg = False
+     } ;
   regADeg a = compADeg (regA a) ;
 
   mkAdv x = ss x ** {lock_Adv = <>} ;
@@ -426,6 +439,23 @@ oper
     _  => verboV (regAlternVEr x y)
     } ;
 
+  -- hack for verbs like parecer.
+  -- NB. doesn't work properly for gustar, which agrees with the object.
+  dativeV : V -> V = \parecer -> parecer ** {
+    s = table {
+           VFin m n p => case <n,p> of {
+                <Sg,P1> => "me" ;
+                <Sg,P2> => "te" ;
+                <Sg,P3> => "le" ;
+                <Pl,P1> => "nos" ;
+                <Pl,P2> => "os" ;
+                <Pl,P3> => "les" } ++ parecer.s ! VFin m Sg P3 ;
+           VImper n => case n of {
+                SgP2 => "que te" ;
+                PlP1 => "que nos" ;
+                PlP2 => "que os" } ++ parecer.s ! VFin (VPres Conjunct) Sg P3 ;
+           x => parecer.s ! x }
+  } ;
 
 
   mk2V2 v p = lin V2 (v ** {c2 = p}) ;
@@ -517,7 +547,7 @@ oper
     mkA : (_,_,_,_,_,_,_ : Str) -> A = mk7A ;
     mkA : (bueno : A) -> (mejor : A) -> A = mkADeg ;
     mkA : (blanco : A) -> (hueso : Str) -> A = \blanco,hueso -> blanco **
-      { s = \\x,y => blanco.s ! x ! y ++ hueso } ;
+      { s = \\x => blanco.s ! x ++ hueso } ;
     mkA : A -> CopulaType -> A =
       adjCopula ;
     } ;
@@ -528,7 +558,7 @@ oper
   regA : Str -> A ;
   adjCopula : A -> CopulaType -> A ;
   mkADeg : A -> A -> A ;
-  compADeg : A -> A ;
+  compADeg : Adj -> A ;
   regADeg : Str -> A ;
   prefA : A -> A ;
   prefixA = prefA ;
@@ -554,7 +584,5 @@ oper
     } ;
   mk2V2  : V -> Prep -> V2 ;
   dirV2 : V -> V2 ;
-
-
 
 } ;

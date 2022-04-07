@@ -5,17 +5,18 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
   lin
     UseV = predV ;
 
-    SlashVV vv vps = vps ** predV vv ; ----IL
+    -- : VV -> VPSlash -> VPSlash
+    SlashVV vv vps = vps ** ComplVV vv vps ;
 
     -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
     SlashV2V v2v vp = let v2vVP = predV v2v in -- IL
       vp ** {
         s = v2vVP.s ;
-        agrObj = \\pgn => v2v.c3.s  -- أَنْ
+        agrObj = \\pgn => v2v.s2  -- أَنْ
                        ++ vp.s ! pgn ! VPImpf Cnj -- this will agree with the object added by ComplSlash
                        ++ vp.obj.s ;
         obj = emptyObj ;
-        isPred = False ;
+        vtype = NotPred ;
         c2 = v2v.c2 ; -- preposition for the direct object
         sc = v2v.sc
       } ;
@@ -25,17 +26,39 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
       vps ** {
         s = \\pgn,vpf => v2vVP.s ! pgn ! vpf -- main verb agrees with subject
                       ++ bindIfPron np v2vVP
-                      ++ v2v.c3.s  -- أَنْ
+                      ++ v2v.s2  -- أَنْ
                       ++ vps.s ! np.a.pgn ! VPImpf Cnj -- verb from old VP agrees with object
                       ++ vps.obj.s ; -- otherwise obj appears in a weird place /IL
         obj = emptyObj ;
-        isPred = False ;
+        vtype = NotPred ;
                     -- preposition for the direct object comes from VP
         sc = v2v.sc
       } ;
 
+    -- : V2S -> S -> VPSlash ;  -- answer (to him) that it is good
+    SlashV2S v2s s = slashV2 v2s ** { -- IL
+      agrObj = -- this is put into agrObj even though it doesn't depend on agr, because insertObj puts agrObj *after* the new object.
+        \\pgn => v2s.s2 -- أَنَّ
+              ++ s.s ! v2s.o ;
+      } ;
+
     SlashV2a = slashV2 ;
-    Slash3V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3 ; agrObj = \\_ => []};
+    Slash2V3 v np = insertObj np (slashV2 v) ** {c2 = v.c3 ; agrObj = \\_ => []};
+
+    Slash3V3 v np =
+      let vp = slashV2 v ** {c2 =
+            v.c2 ** {
+              s = case np.a.isPron of {
+                    True => case v.c2.binds of {
+                        True  => v.c2.s ; -- to make sure there's something for the object to attach to
+                        False => v.c2.s ++ "إِيَّا" } ; -- see https://en.wiktionary.org/wiki/%D8%A5%D9%8A%D8%A7#Particle /IL
+                    False => v.c2.s }
+            }
+          }
+       in vp ** {
+            c2 = v.c3 ;
+            agrObj = \\_ => bindIfPron np vp -- will be emptied when insertObj is called /IL
+          } ;
 
     ComplSlash vp np = insertObj np vp ;
 
@@ -43,15 +66,16 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     ComplVV vv vp = let vvVP = predV vv in -- IL
       vp ** {
         s = \\pgn,vpf => vvVP.s ! pgn ! vpf
-                      ++ vv.c2.s  -- أَنْ
+                      ++ vv.s2  -- أَنْ
                       ++ vp.s ! pgn ! VPImpf Cnj ;
-        isPred = False ;
+        vtype = NotPred ;
         sc = vv.sc
       } ;
 
     -- : VS -> S -> VP ;  -- say that she runs
     ComplVS vs s = predV vs ** { -- IL
-      obj = emptyObj ** {s = s.s ! Subord} 
+      obj = emptyObj ** {s = vs.s2 -- أَنَّ
+                          ++ s.s ! vs.o}
       } ;
 
     -- : VQ -> QS -> VP ;  -- wonder who runs
@@ -68,7 +92,7 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     UseComp xabar =
       case xabar.isNP of {
         False => kaan xabar ;
-        True  => predV copula ** {obj = xabar.obj ; isPred=True} 
+        True  => predV copula ** {obj = xabar.obj ; vtype=Copula}
       } ;
 
     UseCopula = predV copula ;
@@ -76,19 +100,25 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     -- : VP -> Prep -> VPSlash ;  -- live in (it)
     VPSlashPrep vp prep = vp ** {
       c2 = prep ;
-      agrObj = \\_ => []
+      agrObj = \\_ => [] -- to make it into VPSlash, VP didn't have that field before
       } ;
 
     AdvVP vp adv = insertStr adv.s vp ;
 
     AdVVP adv = insertStr adv.s ;
     AdVVPSlash adv vps = vps ** insertStr adv.s vps ;
---
---    ReflV2 v = insertObj (\\a => v.c2 ++ reflPron ! a) (predV v) ;
---
+
+    -- : VPSlash -> VP ;         -- love himself
+    ReflVP vps = vps ** {
+      s = \\pgn,vf => vps.s ! pgn ! vf
+                   ++ vps.obj.s -- only relevant if the VPSlash has been through VPSlashPrep
+                   ++ vps.c2.s ++ bindIf vps.c2.binds
+                   ++ reflPron vps.c2.c pgn ;
+      c2 = accPrep ;
+      obj = emptyObj ; -- because old obj was moved in s
+      } ;
+
     PassV2 = passPredV ;
---
---    UseVS, UseVQ = \vv -> {s = vv.s ; c2 = [] ; isRefl = vv.isRefl} ; -- no
 
     CompAP ap = {s   = \\agr,c => ap.s ! Hum ! agr.g ! agr.n ! Indef ! c ; --FIXME
                  obj = emptyObj ; isNP = False} ;
@@ -97,7 +127,9 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
 
     CompCN cn = {s = \\agr,c => cn2str cn agr.n Indef Nom ;
                  obj = emptyObj ; isNP = False} ;
-    CompNP np = {s = \\_,_ => [] ; obj = np ** {s = np.s ! Nom} ; isNP = True} ;
+    CompNP np = {s = \\_,_ => [] ;
+                 obj = {s = np.s ! Nom ; a = agrLite np.a} ;
+                 isNP = True} ;
 --
 --
 }

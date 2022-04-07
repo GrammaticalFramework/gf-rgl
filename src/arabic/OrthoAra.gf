@@ -42,8 +42,8 @@ oper
       l@(""|"ل"|"ال") + ("أ"|"أَ") + #hamza  + tail      => l + "آ" + tail;
       l@(""|"ال") + #hamza + v@("َ"|"ُ") + tail      => l + "أ" + v + tail;
       l@(""|"ال") + #hamza + v@("ِ")     + tail      => l + "إ" + v + tail;
-      head + v1@#vstar 
-           + #hamza + v2@(#vow|"ْ") + tail => 
+      head + v1@#vstar
+           + #hamza + v2@(#vow|"ْ") + tail =>
               case v2 of { "ْ" => head + v1 + bHmz v1 v2      + tail ; -- unsure about this /IL
                            _   => head + v1 + bHmz v1 v2 + v2 + tail } ;
       head + v1@#vstar -- the same but it ends in vowel

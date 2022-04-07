@@ -1,30 +1,30 @@
-concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
+concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
 
   flags optimize=all_subs ;
 
   lincat
 ------ Tensed/Untensed
 
-    S  = {s : Str} ;
-    QS = {s : QForm => Str} ;
-    RS = {s : AgrPes => Str } ; -- c for it clefts
-    SSlash = {s : Str ; c2 : ResPes.Compl} ;
+    S  = {s : VVForm => Str} ; -- as a complement to Subj
+    QS = {s : Str} ;
+    RS = {s : Agr => Str ; rp : RelPron => Str} ;
+    SSlash = {s : VVForm => Str ; c2 : ResPes.Compl} ;
 
 ---- Sentence
 
     Cl = ResPes.Clause ;
     ClSlash = {
       subj : Str ;
-      vp : ResPes.VPHTense => Polarity => Order => Str ;
+      vp : ResPes.TAnt => Polarity => Order => Str ;
       c2 : ResPes.Compl
       } ;
-    Imp = {s : CPolarity => ImpForm => Str} ;
+    Imp = {s : Polarity => Number => Str} ;
 
 ---- Question
-    QCl = {s : ResPes.VPHTense => Polarity => QForm => Str} ;
-    
+    QCl = {s : ResPes.TAnt => Polarity => Str} ;
+
     IP = {s: Str ; n : Number};
-    
+
 --    IDet = {s :Number => Str } ;
       IDet = {s : Str ; n : Number ; isNum : Bool} ;
     IQuant = {s : Str ; n : Number } ;
@@ -32,38 +32,34 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
 ---- Relative
 
     RCl = {
-      s : ResPes.VPHTense => Polarity => Order => AgrPes => Str ; 
-    --  c : Case
+      s : ResPes.TAnt => Polarity => Agr => Str ;
+      rp : RelPron => Str
       } ;
-    RP = {s: Str ; a:RAgr};
+    RP = {s : RelPron => Str ; a : RAgr};
 
 ---- Verb
 
     VP = ResPes.VPH ;
 
     VPSlash = ResPes.VPHSlash ;
-    Comp = {s : AgrPes => Str} ;
-  
----- Adv    
-    Adv = {s : Str} ;
+    Comp = {s : Agr => Str} ;
 
 ---- Adjective
 
-    AP = ResPes.Adjective ;
+    AP = ResPes.AP ;
 
 ---- Noun
 
-    CN = ResPes.Noun ;
+    CN = ResPes.CN ;
 
     NP = ResPes.NP ;
-    Pron = {s : Str ; ps : Str ; a : AgrPes};
+    Pron = ResPes.Pron ;
     Det = ResPes.Determiner ;
     Predet = {s : Str} ;
-    Num  = {s : Str ; n : Number} ;
+    Num  = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Str; n : Number} ;
-    Ord = {s : Str; n : Number} ;
-    Quant = {s: Number => Str ; a:AgrPes ; fromPron : Bool};
-    Art = {s : Str} ;
+    Ord = {s : Str; n : Number ; isNum,isPre : Bool} ;
+    Quant = ResPes.Quant ;
 
 ---- Numeral
 
@@ -75,22 +71,28 @@ concrete CatPes of Cat = CommonX - [Adv] ** open ResPes, Prelude in {
     Conj = {s1,s2 : Str ; n : Number} ;
 -----b    Conj = {s : Str ; n : Number} ;
 -----b    DConj = {s1,s2 : Str ; n : Number} ;
-    Subj = {s : Str} ;
-    Prep = {s : Str };
+    Subj = {
+      s : Str ;
+      compl : VVForm ;  -- subjunctive or indicative
+      relpron : RelPron -- choose between که and آنچه
+      } ;
+    VS = ResPes.Verb ** {compl : VVForm} ; -- subjunctive or indicative
+    V2S = ResPes.Verb ** {c2 : Compl ; compl : VVForm} ;
+    Prep = Compl ;
 ---- Open lexical classes, e.g. Lexicon
-    V, VS, VQ, VA = ResPes.Verb ; -- = {s : VForm => Str} ;
+    V, VQ = ResPes.Verb ;
 
-    V2, V2A, V2Q, V2S = ResPes.Verb ** {c2 : Compl} ;
-    V3 = ResPes.Verb ** {c2, c3 : Str} ;
-    VV = ResPes.Verb ** { isAux : Bool} ;
-    V2V = ResPes.Verb ** {c1 : Str ; c2 : Str  ; isAux : Bool} ;
-    A = ResPes.Adjective ; --- {s : Gender => Number => Case => Str} ;
-    A2 = ResPes.Adjective ** { c2 : Str} ;
-    
-    N = {s : Ezafa => Number => Str ; animacy : Animacy ; definitness : Bool} ;
+    V2, VA, V2A, V2Q = ResPes.Verb ** {c2 : Compl} ;
+    V3 = ResPes.Verb ** {c2, c3 : Compl} ;
+    VV = ResPes.VV ;
+    V2V = ResPes.VV ** {c2 : Compl} ;
+    A = ResPes.Adjective ;
+    A2 = ResPes.Adjective ** {c2 : Str} ;
 
-    N2 = {s : Ezafa => Number  => Str ; animacy : Animacy ; definitness : Bool} ** {c : Str};
-    N3 = {s : Ezafa => Number  => Str ; animacy : Animacy ; definitness : Bool} ** {c2 : Str ; c3 : Str } ;
+    N = ResPes.Noun ;
+
+    N2 = ResPes.Noun ** {c2 : Compl ; compl : Str}; -- when N3 is made to N2, need to retain compl
+    N3 = ResPes.Noun ** {c2 : Compl ; c3 : Compl} ;
     PN = {s : Str ; animacy : Animacy} ;
 
 }

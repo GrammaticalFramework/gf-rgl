@@ -215,7 +215,7 @@ oper
           clit = refl ++ vp.clit1 ++ vp.clit2 ++ vp.clit3.s ; ---- refl first?
 
           verb = vp.s.s ;
-          vaux = auxVerb vp.s.vtyp ;
+          vaux = auxVerb vtyp ;
 
 ---- VPAgr : this is where it really matters
           part = case vp.agr.p2 of {
@@ -228,18 +228,7 @@ oper
 ----            } ;
 
 
-          vps : Str * Str = case <te,a> of {
-            <RPast,Simul> => <verb ! VFin (VImperf m) num per, []> ; --# notpresent
-            <RPast,Anter> => <vaux ! VFin (VImperf m) num per, part> ; --# notpresent
-            <RFut,Simul>  => <verb ! VFin (VFut) num per, []> ; --# notpresent
-            <RFut,Anter>  => <vaux ! VFin (VFut) num per, part> ; --# notpresent
-            <RCond,Simul> => <verb ! VFin (VCondit) num per, []> ; --# notpresent
-            <RCond,Anter> => <vaux ! VFin (VCondit) num per, part> ; --# notpresent
-            <RPasse,Simul> => <verb ! VFin (VPasse) num per, []> ; --# notpresent
-            <RPasse,Anter> => <vaux ! VFin (VPasse) num per, part> ; --# notpresent
-            <RPres,Anter> => <vaux ! VFin (VPres m) num per, part> ; --# notpresent
-            <RPres,Simul> => <verb ! VFin (VPres m) num per, []>
-            } ;
+          vps : Str * Str = chooseTA te a verb vaux num per m part ;
 
           fin = vps.p1 ;
           inf = vps.p2 ;
@@ -259,17 +248,17 @@ oper
 -- have a "-" with possibly a special verb form with "t":
 -- "comment fera-t-il" vs. "comment fera Pierre"
 
-  infVP : VP -> Agr -> Str = nominalVP VInfin ;
+  infVP : VP -> RPolarity -> Agr -> Str = nominalVP VInfin ;
 
-  gerVP : VP -> Agr -> Str = nominalVP (\_ -> VGer) ;
+  gerVP : VP -> RPolarity -> Agr -> Str = nominalVP (\_ -> VGer) ;
 
-  nominalVP : (Bool -> VF) -> VP -> Agr -> Str = \vf,vp,agr ->
+  nominalVP : (Bool -> VF) -> VP -> RPolarity -> Agr -> Str = \vf,vp,pol,agr ->
       let
         ----iform = orB vp.clit3.hasClit (isVRefl vp.s.vtyp) ;
         iform = contractInf vp.clit3.hasClit (isVRefl vp.s.vtyp) ;
         inf   = vp.s.s ! vf iform ;
-        neg   = vp.neg ! RPos ;             --- Neg not in API
-        obj   = vp.s.p ++ vp.comp ! agr ++ vp.ext ! RPos ; ---- pol
+        neg   = vp.neg ! pol ;
+        obj   = vp.s.p ++ vp.comp ! agr ++ vp.ext ! pol ; ---- pol
         refl  = case isVRefl vp.s.vtyp of {
             True => reflPron agr.n agr.p Acc ; ---- case ?
             _ => []

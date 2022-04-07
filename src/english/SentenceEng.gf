@@ -6,11 +6,11 @@ concrete SentenceEng of Sentence = CatEng ** open Prelude, ResEng in {
 
     PredVP np vp = mkClause (np.s ! npNom) np.a vp ;
 
-    PredSCVP sc vp = let a = agrP3 Sg in mkClause (sc.s ! a) a vp ;
+    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
     ImpVP vp = {
-      s = \\pol,n => 
-        let 
+      s = \\pol,n =>
+        let
           agr   = AgP2 (numImp n) ;
           verb  = infVP VVAux vp False Simul CPos agr ;
           dont  = case pol of {
@@ -22,7 +22,11 @@ concrete SentenceEng of Sentence = CatEng ** open Prelude, ResEng in {
         dont ++ verb
     } ;
 
-    SlashVP np vp = 
+    AdvImp adv imp = {
+      s = \\pol,impform => adv.s ++ imp.s ! pol ! impform
+    } ;
+
+    SlashVP np vp =
       mkClause (np.s ! npNom) np.a vp ** {c2 = vp.c2} ;
 
     AdvSlash slash adv = {
@@ -32,14 +36,14 @@ concrete SentenceEng of Sentence = CatEng ** open Prelude, ResEng in {
 
     SlashPrep cl prep = cl ** {c2 = prep.s} ;
 
-    SlashVS np vs slash = 
-      mkClause (np.s ! npNom) np.a 
+    SlashVS np vs slash =
+      mkClause (np.s ! npNom) np.a
         (insertObj (\\_ => conjThat ++ slash.s) (predV vs))  **
         {c2 = slash.c2} ;
 
-    EmbedS  s  = {s = \\_ => conjThat ++ s.s} ;
-    EmbedQS qs = {s = \\_ => qs.s ! QIndir} ;
-    EmbedVP vp = {s = \\a => infVP VVInf vp False Simul CPos a} ;
+    EmbedS  s  = {s = conjThat ++ s.s} ;
+    EmbedQS qs = {s = qs.s ! QIndir} ;
+    EmbedVP vp = {s = infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
     UseCl  t p cl = {
       s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! oDir

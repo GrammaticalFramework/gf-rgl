@@ -1,5 +1,7 @@
 --# -path=.:../abstract:../common:prelude
 concrete ExtendBul of Extend = CatBul ** open Prelude, Predef, ResBul, GrammarBul, MorphoFunsBul in {
+flags
+  coding=utf8;
 
 lin
   GenModNP num np cn = DetCN (DetQuant DefArt num) (AdvCN cn (PrepNP (mkPrep "на") np)) ;
@@ -7,18 +9,19 @@ lin
   AdAdV a adv = {s = a.s ++ adv.s; p = adv.p} ;
 
   EmptyRelSlash slash = {
-      s = \\t,a,p,agr => slash.c2.s ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
+      s = \\t,a,p,agr => linPrep slash.c2 ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
       } ;
 
   CompoundN n1 n2 = 
     let comp : NForm => Str
-             = \\nf => case n1.relPost of {
-                          True  => n2.s ! nf ++ n1.rel ! nform2aform nf n2.g ;
-                          False => n1.rel ! nform2aform nf n2.g ++ n2.s ! indefNForm nf
+             = \\nf => case n1.relType of {
+                          Pref   => n1.rel ! nform2aform nf n2.g ++ n2.s ! nf ;
+                          AdjMod => n1.rel ! nform2aform nf n2.g ++ n2.s ! indefNForm nf ;
+                          AdvMod => n2.s ! nf ++ n1.rel ! nform2aform nf n2.g
                         }
     in {
          s   = comp ;
-         rel = \\af => "на" ++ comp ! NF Sg Def ;  relPost = True ;
+         rel = \\af => "на" ++ comp ! NF Sg Def ;  relType = AdvMod ;
          g   = n2.g
     } ;
 
@@ -71,9 +74,10 @@ lin
     {s = vp.ad.s ++
          vp.s ! Imperf ! VGerund ++
          case vp.vtype of {
-           VNormal => "" ;
-           VMedial c => reflClitics ! c ;
-           VPhrasal c => personalClitics (agrP3 (GSg Masc)) ! c
+           VNormal => vp.clitics ;
+           VMedial c => vp.clitics++reflClitics ! c ;
+           VPhrasal Dat => personalClitics (agrP3 (GSg Masc)) ! Dat++vp.clitics ;
+           VPhrasal c   => vp.clitics++personalClitics (agrP3 (GSg Masc)) ! c
          } ++
          vp.compl ! {gn=GSg Neut; p=P3}} ;
 
@@ -92,6 +96,10 @@ lin
 lin
   PassVPSlash vp = insertObj (\\a => vp.ad.s ++ vp.s ! Perf ! VPassive (aform a.gn Indef (RObj Acc)) ++
                                      vp.compl1 ! a ++ vp.compl2 ! a) Pos (predV verbBe) ;
+  ProgrVPSlash vp = vp ** {
+      s   = \\_ => vp.s ! Imperf ;
+      isSimple = False
+      } ;
 
   PassAgentVPSlash vp np =
     insertObj (\\_ => "от" ++ np.s ! RObj CPrep) Pos
@@ -101,14 +109,34 @@ lin
   UttVPShort vp = {
     s = let agr = agrP3 (GSg Neut) ;
             clitic = case vp.vtype of {
-                       VNormal    => {s=[]; agr=agr} ;
-                       VMedial c  => {s=reflClitics ! c; agr=agr} ;
-                       VPhrasal c => {s=personalClitics agr ! c; agr={gn=GSg Neut; p=P3}}
+                       VNormal    => {s=vp.clitics; agr=agr} ;
+                       VMedial c  => {s=vp.clitics++reflClitics ! c; agr=agr} ;
+                       VPhrasal c => {s=case c of {
+                                          Dat => personalClitics agr ! c++vp.clitics;
+                                          c   => vp.clitics++personalClitics agr ! c
+                                        } ;
+                                      agr={gn=GSg Neut; p=P3}
+                                     }
                      } ;
         in vp.ad.s ++ clitic.s ++
            vp.s ! Imperf ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ++
            vp.compl ! agr
     } ;
+
+lincat
+  VPI   = {s : Agr => Str} ;
+  [VPI] = {s : Agr => Ints 4 => Str} ;
+
+lin
+  BaseVPI x y = {s  = \\a=>table {4 => y.s!a;    _ => x.s!a}} ;
+  ConsVPI x xs = {s  = \\a=>table {4 => xs.s!a!4; t => x.s!a++linCoord bindComma!t++xs.s!a!t}};
+
+  MkVPI vp = {s = daComplex Simul Pos vp ! Perf} ;
+  ConjVPI conj vpi = {
+      s = \\a =>  linCoord []!conj.sep ++ vpi.s!a!conj.sep ++ conj.s ++ vpi.s!a!4
+      } ;
+  ComplVPIVV vv vpi = 
+      insertObj (\\a => vpi.s ! a) Pos (predV vv) ;
 
 lincat
   VPS   = {s : Agr => Str} ;
@@ -130,6 +158,25 @@ lin
   ConjVPS conj vps = {
     s = \\a => linCoord []!conj.sep ++ vps.s!a!conj.sep ++ conj.s ++ vps.s!a!4
     } ;
+
+lincat [Comp] = {s : Agr => Ints 4 => Str} ;
+lin BaseComp x y =
+      {s = \\agr=>table {4 => y.s!agr; _ => x.s!agr}} ;
+    ConsComp x xs =
+      {s = \\agr=>table {4 => xs.s!agr!4; t => x.s!agr++linCoord bindComma!t++xs.s!agr!t}} ;
+    ConjComp conj ss = {
+      s = \\agr => linCoord [] ! conj.sep ++ ss.s!agr!conj.sep ++ conj.s ++ ss.s!agr!4 ;
+      p = Pos
+      } ;
+
+lincat ListImp = {s : Polarity => GenNum => Ints 4 => Str} ;
+lin BaseImp x y =
+      {s  = \\p,gn=>table {4 => y.s!p!gn; _ => x.s!p!gn}} ;
+    ConsImp x xs =
+      {s  = \\p,gn=>table {4 => xs.s!p!gn!4; t => x.s!p!gn++linCoord bindComma!t++xs.s!p!gn!t}} ;
+    ConjImp conj ss = {
+      s  = \\p,gn => linCoord [] ! conj.sep ++ ss.s!p!gn!conj.sep ++ conj.s ++ ss.s!p!gn!4
+      } ;
 
 lin
   ComplBareVS = ComplVS ;
@@ -180,6 +227,20 @@ lin
     gn = rnp.gn
   } ;
 
+  AdvRNP np prep rnp = {s = \\role => np.s ! role ++ prep.s ++ rnp.s ! RObj prep.c; gn = np.gn; p = np.p} ;
+  AdvRVP vp prep rnp = insertObj (\\a => prep.s ++ rnp.s ! RObj prep.c) Pos vp ;
+  AdvRAP ap prep rnp = {
+    s = \\aform,p => ap.s ! aform ! p ++ prep.s ++ rnp.s ! RObj prep.c ;
+    isPre = False
+  } ;
+
+  ReflA2RNP a rnp = {
+    s = \\aform,_ => a.s ! aform ++ a.c2.s ++ rnp.s ! RObj a.c2.c ;
+    isPre = False
+  } ;
+
+  PossPronRNP pron num cn rnp = DetCN (DetQuant (PossPron pron) num) (PossNP cn (lin NP {s = rnp.s; gn = rnp.gn; p=NounP3 Pos})) ;    
+
 lin
   ApposNP np1 np2 = {s = \\role => case role of {
                                      RObj c => linCase c (personPol np1.p) ++ np1.s ! RObj CPrep ;
@@ -208,6 +269,36 @@ lin
     gn = gennum AFem (numnnum det.nn);
     p = NounP3 det.p
     } ;
+
+lin UseDAP dap = {
+      s  = \\role => let s = dap.s ! False ! ANeut ! role
+                     in case role of {
+                          RObj c => linCase c dap.p ++ s;
+                          _      => s
+                        } ;
+      gn = gennum ANeut (numnnum dap.nn);
+      p  = NounP3 dap.p
+      } ;
+
+    UseDAPMasc dap = {
+      s  = \\role => let s = dap.s ! False ! (AMasc Human) ! role
+                     in case role of {
+                          RObj c => linCase c dap.p ++ s;
+                          _      => s
+                        } ;
+      gn = gennum (AMasc Human) (numnnum dap.nn);
+      p  = NounP3 dap.p
+      } ;
+
+    UseDAPFem dap = {
+      s = \\role => let s = dap.s ! False ! AFem ! role
+                    in case role of {
+                         RObj c => linCase c dap.p ++ s;
+                         _      => s
+                       } ;
+      gn = gennum AFem (numnnum dap.nn);
+      p  = NounP3 dap.p
+      } ;
 
 }
 

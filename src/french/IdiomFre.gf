@@ -11,6 +11,10 @@ concrete IdiomFre of Idiom = CatFre **
     ExistNP np = 
       mkClause "il" True False (agrP3 Masc Sg)
         (insertClit3 "y" (insertComplement (\\_ => (np.s ! Acc).ton) (predV avoir_V))) ;
+	
+    ExistNPAdv np adv = 
+      mkClause "il" True False (agrP3 Masc Sg)
+        (insertAdv adv.s (insertClit3 "y" (insertComplement (\\_ => (np.s ! Acc).ton) (predV avoir_V)))) ;
 
     ExistIP ip = {
       s = \\t,a,p,_ => 
@@ -31,7 +35,7 @@ concrete IdiomFre of Idiom = CatFre **
 
     ProgrVP vp = 
       insertComplement 
-        (\\a => "en" ++ "train" ++ elisDe ++ infVP vp a) 
+        (\\a => "en" ++ "train" ++ elisDe ++ infVP vp RPos a) 
         (predV copula) ;
 
     ImpPl1 vp = {

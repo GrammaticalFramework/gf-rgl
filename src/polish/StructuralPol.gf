@@ -51,7 +51,7 @@ lin
   here7from_Adv = ss "stąd";
   how_IAdv  = ss "jak";
   how8many_IDet = ileDet; 
-  i_Pron   = pronJa;
+  i_Pron   = pronJa MascPersSg;
   if_Subj    = ss "jeśli";
   if_then_Conj = {s1="jeżeli"; s2=[", to"];  sent1="jeżeli"; sent2=[", to"]};
   in8front_Prep  = mkPrep "przed" Instr;
@@ -91,7 +91,7 @@ lin
   there7to_Adv = ss "tam";
   there7from_Adv = ss "stamtąd";
   therefore_PConj  = ss "dlatego";
-  they_Pron = pronOni;-- pronOneFem; pronOneNeut};
+  they_Pron = pronOni;
   this_Quant = demPronTen "ten";
   through_Prep  = mkPrep "przez" Acc;
   to_Prep = doPrep; 
@@ -113,8 +113,8 @@ lin
   without_Prep = mkPrep "bez" Gen;
   youPl_Pron = pronWy;
   yes_Utt = ss "tak";
-  youSg_Pron = pronTy;
-  youPol_Pron =  pronTy;
+  youSg_Pron = pronTy MascPersSg;
+  youPol_Pron =  pronWy;
 
   as_CAdv = { s,sn="tak"; p,pn="jak"} ;
 

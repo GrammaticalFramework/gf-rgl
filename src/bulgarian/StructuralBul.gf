@@ -1,132 +1,132 @@
---# -coding=cp1251
+--# -coding=utf8
 concrete StructuralBul of Structural = CatBul ** 
   open MorphoBul, ParadigmsBul, Prelude, (X = ConstructX) in {
-  flags coding=cp1251 ;
+  flags coding=utf8 ;
 
 
   flags optimize=all ;
 
   lin
-  above_Prep = mkPrep "над" ;
-  after_Prep = mkPrep "след" ;
-  all_Predet = {s = table GenNum ["всичкия";"всичката";"всичкото";"всичките"]} ;
-  almost_AdA, almost_AdN = ss "почти" ;
-  at_least_AdN, at_most_AdN =  ss "почти" ; ---- AR
-  although_Subj = ss ["въпреки че"] ;
-  always_AdV = mkAdV "винаги" ;
-  and_Conj = mkConj "и" Pl ;
-  because_Subj = ss "защото" ;
-  before_Prep = mkPrep "преди" ;
-  behind_Prep = mkPrep "зад" ;
-  between_Prep = mkPrep "между" ;
-  both7and_DConj = mkConj "и" Pl ** {sep=0} ;
-  but_PConj = ss "но" ;
-  by8agent_Prep = mkPrep "чрез" ;
-  by8means_Prep = mkPrep "чрез" ;
-  can8know_VV, can_VV = mkVV (stateV (mkV166 "мога")) ;
-  during_Prep = mkPrep ["по време на"] ;
-  either7or_DConj = mkConj "или" Sg ** {sep=1} ;
-  everybody_NP = mkNP "всеки" (GSg Masc) (NounP3 Pos);
-  every_Det = mkDeterminerSg "всеки" "всяка" "всяко";
-  everything_NP = mkNP "всичко" (GSg Neut) (NounP3 Pos);
-  everywhere_Adv = ss "навсякъде" ;
-  few_Det = {s = \\_,_,_ => "няколко"; nn = NCountable; spec = Indef; p = Pos} ;
+  above_Prep = mkPrep "РЅР°Рґ" ;
+  after_Prep = mkPrep "СЃР»РµРґ" ;
+  all_Predet = {s = table GenNum ["РІСЃРёС‡РєРёСЏ";"РІСЃРёС‡РєР°С‚Р°";"РІСЃРёС‡РєРѕС‚Рѕ";"РІСЃРёС‡РєРёС‚Рµ"]} ;
+  almost_AdA, almost_AdN = ss "РїРѕС‡С‚Рё" ;
+  at_least_AdN, at_most_AdN =  ss "РїРѕС‡С‚Рё" ; ---- AR
+  although_Subj = ss ["РІСЉРїСЂРµРєРё С‡Рµ"] ;
+  always_AdV = mkAdV "РІРёРЅР°РіРё" ;
+  and_Conj = mkConj "Рё" Pl ;
+  because_Subj = ss "Р·Р°С‰РѕС‚Рѕ" ;
+  before_Prep = mkPrep "РїСЂРµРґРё" ;
+  behind_Prep = mkPrep "Р·Р°Рґ" ;
+  between_Prep = mkPrep "РјРµР¶РґСѓ" ;
+  both7and_DConj = mkConj "Рё" Pl ** {sep=0} ;
+  but_PConj = ss "РЅРѕ" ;
+  by8agent_Prep = mkPrep "С‡СЂРµР·" ;
+  by8means_Prep = mkPrep "С‡СЂРµР·" ;
+  can8know_VV, can_VV = mkVV (stateV (mkV166 "РјРѕРіР°")) ;
+  during_Prep = mkPrep ["РїРѕ РІСЂРµРјРµ РЅР°"] ;
+  either7or_DConj = mkConj "РёР»Рё" Sg ** {sep=1} ;
+  everybody_NP = mkNP "РІСЃРµРєРё" (GSg Masc) (NounP3 Pos);
+  every_Det = mkDeterminerSg "РІСЃРµРєРё" "РІСЃСЏРєР°" "РІСЃСЏРєРѕ";
+  everything_NP = mkNP "РІСЃРёС‡РєРѕ" (GSg Neut) (NounP3 Pos);
+  everywhere_Adv = ss "РЅР°РІСЃСЏРєСЉРґРµ" ;
+  few_Det = {s = \\_,_,_ => "РЅСЏРєРѕР»РєРѕ"; nn = NCountable; spec = Indef; p = Pos} ;
 ---  first_Ord = ss "first" ; DEPRECATED
-  for_Prep = mkPrep "за" ;
-  from_Prep = mkPrep "от" ;
-  he_Pron = mkPron "той" "негов" "неговия" "неговият" "негова" "неговата" "негово" "неговото" "негови" "неговите" (GSg Masc) PronP3 ;
-  here_Adv = ss "тук" ;
-  here7to_Adv = ss ["до тук"] ;
-  here7from_Adv = ss ["от тук"] ;
-  how_IAdv = mkIAdv "как" ;
-  how8much_IAdv = mkIAdv "колко" ;
-  how8many_IDet = {s = \\_ => table QForm ["колко";"колкото"]; n = Pl; nonEmpty = False} ;
-  if_Subj = ss "ако" ;
-  in8front_Prep = mkPrep "пред" ;
-  i_Pron  = mkPron "аз" "мой" "моя" "моят" "моя" "моята" "мое" "моето" "мои" "моите" (GSg Masc) PronP1 ;
-  in_Prep = mkPrep (pre { "в" ; 
-                          "във" / strs {"в" ; "ф" ; "В" ; "Ф"}
+  for_Prep = mkPrep "Р·Р°" ;
+  from_Prep = mkPrep "РѕС‚" ;
+  he_Pron = mkPron "С‚РѕР№" "РЅРµРіРѕРІ" "РЅРµРіРѕРІРёСЏ" "РЅРµРіРѕРІРёСЏС‚" "РЅРµРіРѕРІР°" "РЅРµРіРѕРІР°С‚Р°" "РЅРµРіРѕРІРѕ" "РЅРµРіРѕРІРѕС‚Рѕ" "РЅРµРіРѕРІРё" "РЅРµРіРѕРІРёС‚Рµ" (GSg Masc) PronP3 ;
+  here_Adv = ss "С‚СѓРє" ;
+  here7to_Adv = ss ["РґРѕ С‚СѓРє"] ;
+  here7from_Adv = ss ["РѕС‚ С‚СѓРє"] ;
+  how_IAdv = mkIAdv "РєР°Рє" ;
+  how8much_IAdv = mkIAdv "РєРѕР»РєРѕ" ;
+  how8many_IDet = {s = \\_ => table QForm ["РєРѕР»РєРѕ";"РєРѕР»РєРѕС‚Рѕ"]; n = Pl; nonEmpty = False} ;
+  if_Subj = ss "Р°РєРѕ" ;
+  in8front_Prep = mkPrep "РїСЂРµРґ" ;
+  i_Pron  = mkPron "Р°Р·" "РјРѕР№" "РјРѕСЏ" "РјРѕСЏС‚" "РјРѕСЏ" "РјРѕСЏС‚Р°" "РјРѕРµ" "РјРѕРµС‚Рѕ" "РјРѕРё" "РјРѕРёС‚Рµ" (GSg Masc) PronP1 ;
+  in_Prep = mkPrep (pre { "РІ" ; 
+                          "РІСЉРІ" / strs {"РІ" ; "С„" ; "Р’" ; "Р¤"}
                         }) ;
-  it_Pron  = mkPron "то" "негов" "неговия" "неговият" "негова" "неговата" "негово" "неговото" "негови" "неговите" (GSg Neut) PronP3 ;
-  less_CAdv = X.mkCAdv "по-малко" "от" ;
-  many_Det = mkDeterminerPl "много" ;
-  more_CAdv = X.mkCAdv "повече" "от" ;
-  most_Predet = {s = \\_ => "повечето"} ;
-  much_Det = mkDeterminerSg "много" "много" "много";
+  it_Pron  = mkPron "С‚Рѕ" "РЅРµРіРѕРІ" "РЅРµРіРѕРІРёСЏ" "РЅРµРіРѕРІРёСЏС‚" "РЅРµРіРѕРІР°" "РЅРµРіРѕРІР°С‚Р°" "РЅРµРіРѕРІРѕ" "РЅРµРіРѕРІРѕС‚Рѕ" "РЅРµРіРѕРІРё" "РЅРµРіРѕРІРёС‚Рµ" (GSg Neut) PronP3 ;
+  less_CAdv = X.mkCAdv "РїРѕ-РјР°Р»РєРѕ" "РѕС‚" ;
+  many_Det = mkDeterminerPl "РјРЅРѕРіРѕ" ;
+  more_CAdv = X.mkCAdv "РїРѕРІРµС‡Рµ" "РѕС‚" ;
+  most_Predet = {s = \\_ => "РїРѕРІРµС‡РµС‚Рѕ"} ;
+  much_Det = mkDeterminerSg "РјРЅРѕРіРѕ" "РјРЅРѕРіРѕ" "РјРЅРѕРіРѕ";
   must_VV = 
     mkVV {
          s = \\_=>table {
-                    VPres      _ _ => "трябва" ;
-                    VAorist    _ _ => "трябваше" ;
-                    VImperfect _ _ => "трябвало" ;
-                    VPerfect     _ => "трябвало" ;
-                    VPluPerfect  _ => "трябвало" ;
-                    VPassive     _ => "трябвало" ;
-                    VPresPart    _ => "трябвало" ;
-                    VImperative Sg => "трябвай"  ;
-                    VImperative Pl => "трябвайте" ;
-                    VNoun _        => "трябване" ;
-                    VGerund        => "трябвайки"
+                    VPres      _ _ => "С‚СЂСЏР±РІР°" ;
+                    VAorist    _ _ => "С‚СЂСЏР±РІР°С€Рµ" ;
+                    VImperfect _ _ => "С‚СЂСЏР±РІР°Р»Рѕ" ;
+                    VPerfect     _ => "С‚СЂСЏР±РІР°Р»Рѕ" ;
+                    VPluPerfect  _ => "С‚СЂСЏР±РІР°Р»Рѕ" ;
+                    VPassive     _ => "С‚СЂСЏР±РІР°Р»Рѕ" ;
+                    VPresPart    _ => "С‚СЂСЏР±РІР°Р»Рѕ" ;
+                    VImperative Sg => "С‚СЂСЏР±РІР°Р№"  ;
+                    VImperative Pl => "С‚СЂСЏР±РІР°Р№С‚Рµ" ;
+                    VNoun _        => "С‚СЂСЏР±РІР°РЅРµ" ;
+                    VGerund        => "С‚СЂСЏР±РІР°Р№РєРё"
                   } ;
          vtype=VNormal ;
          lock_V=<>
        } ;
-  no_Utt = ss "не" ;
-  on_Prep = mkPrep "на" ;
+  no_Utt = ss "РЅРµ" ;
+  on_Prep = mkPrep "РЅР°" ;
 ----  one_Quant = mkDeterminer Sg "one" ; -- DEPRECATED
-  only_Predet = {s = \\_ => "само"} ;
-  or_Conj = mkConj "или" Sg ;
-  otherwise_PConj = ss "иначе" ;
-  part_Prep = mkPrep "от" ;
-  please_Voc = ss "моля" ;
+  only_Predet = {s = \\_ => "СЃР°РјРѕ"} ;
+  or_Conj = mkConj "РёР»Рё" Sg ;
+  otherwise_PConj = ss "РёРЅР°С‡Рµ" ;
+  part_Prep = mkPrep "РѕС‚" ;
+  please_Voc = ss "РјРѕР»СЏ" ;
   possess_Prep = mkPrep [] Dat ;
-  quite_Adv = ss "доста" ;
-  she_Pron = mkPron "тя" "неин" "нейния" "нейният" "нейна" "нейната" "нейно" "нейното" "нейни" "нейните" (GSg Fem) PronP3 ;
-  so_AdA = ss "толкова" ;
-  somebody_NP = mkNP "някой" (GSg Masc) (NounP3 Pos);
-  someSg_Det = mkDeterminerSg "някой" "някоя" "някое" ;
-  somePl_Det = mkDeterminerPl "някои" ;
-  something_NP = mkNP "нещо" (GSg Neut) (NounP3 Pos);
-  somewhere_Adv = ss "някъде" ;
-  that_Quant = mkQuant "онзи" "онази" "онова" "онези" ;
-  that_Subj = ss "че" ;
-  there_Adv = ss "там" ;
-  there7to_Adv = ss ["до там"] ;
-  there7from_Adv = ss ["от там"] ;
-  therefore_PConj = ss ["така че"] ;
-  they_Pron = mkPron "те" "техен" "техния" "техният" "тяхна" "тяхната" "тяхно" "тяхното" "техни" "техните" GPl PronP3 ; 
-  this_Quant = mkQuant "този" "тази" "това" "тези" ;
-  through_Prep = mkPrep "през" ;
-  too_AdA = ss "прекалено" ;
-  to_Prep = mkPrep "до" ;
-  under_Prep = mkPrep "под" ;
-  very_AdA = ss "много" ;
-  want_VV = mkVV (stateV (mkV186 "искам")) ;
-  we_Pron = mkPron "ние" "наш" "нашия" "нашият" "наша" "нашата" "наше" "нашето" "наши" "нашите" GPl PronP1 ;
-  whatPl_IP = mkIP "какви" "какви" GPl ;
-  whatSg_IP = mkIP "какъв" "какъв" (GSg Masc) ;
-  when_IAdv = mkIAdv "кога" ;
-  when_Subj = ss "когато" ;
-  where_IAdv = mkIAdv "къде" ;
-  which_IQuant = {s = table GenNum [table QForm ["кой";"който"];
-                                    table QForm ["коя";"която"];
-                                    table QForm ["кое";"което"];
-                                    table QForm ["кои";"които"]]} ;
-  whoSg_IP = mkIP "кой" "кого" (GSg Masc) ;
-  whoPl_IP = mkIP "кои" "кои" GPl ;
-  why_IAdv = mkIAdv "защо" ;
-  without_Prep = mkPrep "без" ;
+  quite_Adv = ss "РґРѕСЃС‚Р°" ;
+  she_Pron = mkPron "С‚СЏ" "РЅРµРёРЅ" "РЅРµР№РЅРёСЏ" "РЅРµР№РЅРёСЏС‚" "РЅРµР№РЅР°" "РЅРµР№РЅР°С‚Р°" "РЅРµР№РЅРѕ" "РЅРµР№РЅРѕС‚Рѕ" "РЅРµР№РЅРё" "РЅРµР№РЅРёС‚Рµ" (GSg Fem) PronP3 ;
+  so_AdA = ss "С‚РѕР»РєРѕРІР°" ;
+  somebody_NP = mkNP "РЅСЏРєРѕР№" (GSg Masc) (NounP3 Pos);
+  someSg_Det = mkDeterminerSg "РЅСЏРєРѕР№" "РЅСЏРєРѕСЏ" "РЅСЏРєРѕРµ" ;
+  somePl_Det = mkDeterminerPl "РЅСЏРєРѕРё" ;
+  something_NP = mkNP "РЅРµС‰Рѕ" (GSg Neut) (NounP3 Pos);
+  somewhere_Adv = ss "РЅСЏРєСЉРґРµ" ;
+  that_Quant = mkQuant "РѕРЅР·Рё" "РѕРЅР°Р·Рё" "РѕРЅРѕРІР°" "РѕРЅРµР·Рё" ;
+  that_Subj = ss "С‡Рµ" ;
+  there_Adv = ss "С‚Р°Рј" ;
+  there7to_Adv = ss ["РґРѕ С‚Р°Рј"] ;
+  there7from_Adv = ss ["РѕС‚ С‚Р°Рј"] ;
+  therefore_PConj = ss ["С‚Р°РєР° С‡Рµ"] ;
+  they_Pron = mkPron "С‚Рµ" "С‚РµС…РµРЅ" "С‚РµС…РЅРёСЏ" "С‚РµС…РЅРёСЏС‚" "С‚СЏС…РЅР°" "С‚СЏС…РЅР°С‚Р°" "С‚СЏС…РЅРѕ" "С‚СЏС…РЅРѕС‚Рѕ" "С‚РµС…РЅРё" "С‚РµС…РЅРёС‚Рµ" GPl PronP3 ; 
+  this_Quant = mkQuant "С‚РѕР·Рё" "С‚Р°Р·Рё" "С‚РѕРІР°" "С‚РµР·Рё" ;
+  through_Prep = mkPrep "РїСЂРµР·" ;
+  too_AdA = ss "РїСЂРµРєР°Р»РµРЅРѕ" ;
+  to_Prep = mkPrep "РґРѕ" ;
+  under_Prep = mkPrep "РїРѕРґ" ;
+  very_AdA = ss "РјРЅРѕРіРѕ" ;
+  want_VV = mkVV (stateV (mkV186 "РёСЃРєР°Рј")) ;
+  we_Pron = mkPron "РЅРёРµ" "РЅР°С€" "РЅР°С€РёСЏ" "РЅР°С€РёСЏС‚" "РЅР°С€Р°" "РЅР°С€Р°С‚Р°" "РЅР°С€Рµ" "РЅР°С€РµС‚Рѕ" "РЅР°С€Рё" "РЅР°С€РёС‚Рµ" GPl PronP1 ;
+  whatPl_IP = mkIP "РєР°РєРІРё" "РєР°РєРІРё" GPl ;
+  whatSg_IP = mkIP "РєР°РєСЉРІ" "РєР°РєСЉРІ" (GSg Masc) ;
+  when_IAdv = mkIAdv "РєРѕРіР°" ;
+  when_Subj = ss "РєРѕРіР°С‚Рѕ" ;
+  where_IAdv = mkIAdv "РєСЉРґРµ" ;
+  which_IQuant = {s = table GenNum [table QForm ["РєРѕР№";"РєРѕР№С‚Рѕ"];
+                                    table QForm ["РєРѕСЏ";"РєРѕСЏС‚Рѕ"];
+                                    table QForm ["РєРѕРµ";"РєРѕРµС‚Рѕ"];
+                                    table QForm ["РєРѕРё";"РєРѕРёС‚Рѕ"]]} ;
+  whoSg_IP = mkIP "РєРѕР№" "РєРѕРіРѕ" (GSg Masc) ;
+  whoPl_IP = mkIP "РєРѕРё" "РєРѕРё" GPl ;
+  why_IAdv = mkIAdv "Р·Р°С‰Рѕ" ;
+  without_Prep = mkPrep "Р±РµР·" ;
   with_Prep = mkPrep "" WithPrep ;
-  yes_Utt = ss "да" ;
-  youSg_Pron = mkPron "ти" "твой" "твоя" "твоят" "твоя" "твоята" "твое" "твоето" "твои" "твоите" (GSg Masc) PronP2 ;
-  youPl_Pron = mkPron "вие" "ваш" "вашия" "вашият" "ваша" "вашата" "ваше" "вашето" "ваши" "вашите" GPl PronP2 ;
-  youPol_Pron = mkPron "вие" "ваш" "вашия" "вашият" "ваша" "вашата" "ваше" "вашето" "ваши" "вашите" GPl PronP2 ;
+  yes_Utt = ss "РґР°" ;
+  youSg_Pron = mkPron "С‚Рё" "С‚РІРѕР№" "С‚РІРѕСЏ" "С‚РІРѕСЏС‚" "С‚РІРѕСЏ" "С‚РІРѕСЏС‚Р°" "С‚РІРѕРµ" "С‚РІРѕРµС‚Рѕ" "С‚РІРѕРё" "С‚РІРѕРёС‚Рµ" (GSg Masc) PronP2 ;
+  youPl_Pron = mkPron "РІРёРµ" "РІР°С€" "РІР°С€РёСЏ" "РІР°С€РёСЏС‚" "РІР°С€Р°" "РІР°С€Р°С‚Р°" "РІР°С€Рµ" "РІР°С€РµС‚Рѕ" "РІР°С€Рё" "РІР°С€РёС‚Рµ" GPl PronP2 ;
+  youPol_Pron = mkPron "РІРёРµ" "РІР°С€" "РІР°С€РёСЏ" "РІР°С€РёСЏС‚" "РІР°С€Р°" "РІР°С€Р°С‚Р°" "РІР°С€Рµ" "РІР°С€РµС‚Рѕ" "РІР°С€Рё" "РІР°С€РёС‚Рµ" GPl PronP2 ;
 
-  as_CAdv = X.mkCAdv [] "колкото" ;
+  as_CAdv = X.mkCAdv [] "РєРѕР»РєРѕС‚Рѕ" ;
 
-  have_V2 = dirV2 (stateV (mkV186 "имам")) ;
+  have_V2 = dirV2 (stateV (mkV186 "РёРјР°Рј")) ;
 
-  lin language_title_Utt = ss "Български" ;
+  lin language_title_Utt = ss "Р‘СЉР»РіР°СЂСЃРєРё" ;
 
 }
 

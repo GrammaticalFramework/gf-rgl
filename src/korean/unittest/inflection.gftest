@@ -1,0 +1,31 @@
+
+-----------------------
+--  Verb inflection  --
+-- (Polite informal) --
+-----------------------
+
+-- Regular
+Lang: eat_V2
+LangKor: 먹어요
+
+Lang: UseComp (CompAP (PositA good_A))
+LangKor: 좋아요
+
+-- Final ㅏ or ㅓ does not repeat itself
+Lang: go_V
+LangKor: 가요
+
+-- Monosyllabic 으-final is dropped
+Lang: UseComp (CompAP (PositA big_A))
+LangKor: 커요
+
+-- Final ㅗ + -아요  becomes ㅘ요
+Lang: see_V2
+LangKor: 봐요
+
+Lang: come_V
+LangKor: 와요
+
+-- Final ㅜ + -어요  becomes ㅝ요
+Lang: give_V3
+LangKor: 줘요

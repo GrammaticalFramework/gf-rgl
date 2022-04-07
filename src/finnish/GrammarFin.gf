@@ -1,8 +1,8 @@
 --# -path=.:../abstract:../common:prelude
 
-concrete GrammarFin of Grammar = 
-  NounFin, 
-  VerbFin, 
+concrete GrammarFin of Grammar =
+  NounFin,
+  VerbFin,
   AdjectiveFin,
   AdverbFin,
   NumeralFin,

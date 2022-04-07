@@ -1,11 +1,16 @@
-concrete AdjectiveSwa of Adjective = CatSwa ** open ResSwa, Prelude , ParamX  in {
-
+concrete AdjectiveSwa of Adjective = CatSwa **AdjectiveBantu-[ComparA,UseComparA,ComplA2] 
+with  (ResBantu = ResSwa)** open DiffSwa in
+{ 
+flags coding=utf8;
   lin
+    ComparA a np = {
+      s = \\g,n => a.s  !AAdj g n  ++ conjThan  ++ np.s ! npNom ; 
+      isPre = False} ;
 
-    PositA  a = {
-       s = a.s ! Posit  ;
-       } ;
+    UseComparA a = {s = \\g,n=> a.s !AAdj g n;isPre = True};
 
-    -- PositA a = a;
-
-}
+     ComplA2 a np = {
+      s = \\g,n => a.s  !AAdj g n  ++ a.c2 ++ np.s ! NPAcc; 
+      isPre = False
+      } ;
+    }

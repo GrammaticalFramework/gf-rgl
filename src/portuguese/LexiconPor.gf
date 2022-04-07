@@ -1,4 +1,4 @@
---# -path=.:../romance:../common:../abstract:../../prelude
+--# -path=.:../romance:../common:../abstract:../prelude
 
 concrete LexiconPor of Lexicon = CatPor ** open
   (M=MorphoPor), ParadigmsPor, BeschPor, Prelude, (D = DiffPor) in {
@@ -9,13 +9,13 @@ flags
 
 lin
    easy_A2V = mkA2V (mkA "fácil") dative genitive ;
-   married_A2 = mkA2 (mkA "casado") dative ;
-   probable_AS = mkAS (prefA (mkA "provável" "provavelmente")) ;
+   married_A2 = mkA2 (mkA "casado") (mkPrep "com") ;
+   probable_AS = mkAS (prefixA (mkA "provável")) ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
-   bad_A       = prefA (mkA (mkA "mau") (mkA "pior")) ;
-   beautiful_A = prefA (mkA "belo") ;    -- bela
-   big_A       = prefA (mkA "grande") ;
+   bad_A       = prefixA (mkA (mkA "mau") (mkA "pior")) ;
+   beautiful_A = prefixA (mkA "belo") ;    -- bela
+   big_A       = prefixA (mkA "grande") ;
    black_A     = mkA "preto" ;	-- preta
    blue_A      = mkA "azul" ;
    broad_A     = mkA "largo" ;
@@ -29,7 +29,7 @@ lin
    dull_A      = mkA "desafilado" ;
    empty_A     = mkA "vazio" ;
    full_A      = mkA "cheio" ;
-   good_A      = prefA (mkA (mkA "bom") (mkA "melhor")) ; ---- adv?
+   good_A      = prefixA (mkA (mkA "bom" "boa" "bons" "boas" "bem") (mkA "melhor")) ;
    green_A     = mkA "verde" ;
    heavy_A     = mkA "pesado" ;
    hot_A       = mkA "quente" ;
@@ -37,28 +37,28 @@ lin
    long_A      = mkA "longo" ;
    narrow_A    = mkA "estreito" ;
    near_A      = mkA "perto" ;
-   new_A       = prefA (mkA "novo") ;
-   old_A       = prefA (mkA "velho") ;
-   ready_A     = adjCopula (mkA "pronto") D.estarCopula ;
+   new_A       = prefixA (mkA "novo") ;
+   old_A       = prefixA (mkA "velho") ;
+   ready_A     = mkA (mkA "pronto") D.estarCopula ;
    red_A       = mkA "vermelho" ;
    rotten_A    = mkA "podre" ;
    round_A     = mkA "redondo" ;
    sharp_A     = mkA "afiado" ; -- pontiagudo
    short_A     = mkA "curto" ; --- breve, pequeno, baixo
-   small_A     = prefA (mkA "pequeno") ;
+   small_A     = prefixA (mkA "pequeno") ;
    smooth_A    = mkA "liso" ;     -- suave
    straight_A  = mkA "direto" ; -- reto
    stupid_A    = mkA "estúpido" ;
    thick_A     = mkA "grosso" ;
    thin_A      = mkA "fino" ; -- delgado, magro
    ugly_A      = mkA "feio" ;
-   uncertain_A = mkA "incerto" ;
+   uncertain_A = mkA (mkA "incerto") D.estarCopula ;
    warm_A      = mkA "quente" ;
    wet_A       = mkA "molhado" ;
-   white_A     = compADeg (mkA "branco") ;
+   white_A     = mkA "branco" ;
    wide_A      = mkA "largo" ; -- extenso
    yellow_A    = mkA "amarelo" ;
-   young_A     = prefA (mkA "jovem" "juvenilmente") ;
+   young_A     = prefixA (mkA "jovem") ;
    already_Adv = mkAdv "já" ;
    far_Adv = mkAdv "longe" ; ----?
    now_Adv = mkAdv "agora" ;
@@ -191,7 +191,7 @@ lin
    question_N   = mkN "pergunta" ;
    radio_N      = mkN "rádio" ;
    rain_N       = mkN "chuva" ;
-   reason_N     = mkN "razão" ;
+   reason_N     = mkN "razão" feminine ;
    religion_N   = mkN "religião" ;
    restaurant_N = mkN "restaurante" ;
    river_N      = mkN "rio" ;
@@ -232,7 +232,7 @@ lin
    table_N      = mkN "mesa" ;
    tail_N       = mkN "rabo" ;
    teacher_N    = mkN "professor" ;
-   television_N = mkN "televisão" ;
+   television_N = mkN "televisão" feminine ;
    tongue_N     = mkN "língua" ;
    tooth_N      = mkN "dente" ;
    train_N      = mkN "trem" ;
@@ -256,7 +256,7 @@ lin
    paris_PN = mkPN "Paris" feminine ;
    -- V
    rain_V0 = mkV0 (mkV (chover_Besch "chover")) ;
-   paint_V2A = mkV2A (mkV "pintar") accusative (mkPrep "em") ;
+   paint_V2A = mkV2A (mkV "pintar") accusative (mkPrep "de") ;
    ask_V2Q = mkV2Q (mkV "perguntar") dative ;
    answer_V2S = mkV2S (mkV "responder") dative ;
    beg_V2V = mkV2V (mkV "rogar") accusative dative ;   -- pedir
@@ -276,12 +276,12 @@ lin
    hate_V2       = mkV2 (mkV (odiar_Besch "odiar")) ;
    hear_V2       = mkV2 (mkV "ouvir") ;
    hit_V2        = mkV2 (mkV "bater") ;
-   hold_V2       = mkV2 (mkV (ter_Besch "ter")) ;
+   hold_V2       = mkV2 have_V ;
    hunt_V2       = mkV2 (mkV "caçar") ;
-   kill_V2       = mkV2 (mkV "matar") ;
+   kill_V2       = mkV2 (mkV "matar" "morto") ;
    know_V2       = mkV2 (mkV "conhecer") ;
    learn_V2      = mkV2 (mkV "aprender") ;
-   leave_V2      = mkV2 (mkV "partir") ;
+   leave_V2      = mkV2 (mkV "partir") genitive ;
    like_V2       = mkV2 (mkV "gostar") genitive ;
    listen_V2     = mkV2 (mkV "escutar") ;
    lose_V2       = mkV2 (mkV (perder_Besch "perder")) ;
@@ -301,7 +301,7 @@ lin
    squeeze_V2    = mkV2 (mkV "apertar") ;
    stab_V2       = mkV2 (mkV (recear_Besch "esfaquear")) ;
    suck_V2       = mkV2 (mkV "chupar") ;
-   switch8off_V2 = mkV2 (mkV "apagar") ;
+   switch8off_V2 = mkV2 (mkV "desligar") ;
    switch8on_V2  = mkV2 (mkV "ligar") ; -- acender
    teach_V2      = mkV2 (mkV "ensinar") ;
    throw_V2      = mkV2 (mkV "jogar") ;
@@ -318,13 +318,13 @@ lin
    sell_V3 = mkV3 (mkV "vender") dative ;
    send_V3 = mkV3 (mkV "enviar") dative ; -- mandar
    talk_V3 = mkV3 (mkV "falar") dative genitive ;
-   become_VA = reflV (mkV "virar") ;  --- convertirse en, volverse, ponerse
-   know_VQ = mkVQ (mkV "saber") ;
+   become_VA = reflV (mkV "tornar") ;
+   know_VQ = mkVQ know_V ;
    wonder_VQ = mkVQ (reflV (mkV "perguntar")) ;
-   fear_VS = mkVS (mkV "temer") ;
-   hope_VS = mkVS (mkV "esperar") ;
-   know_VS = mkVS (mkV "saber") ;
-   say_VS = mkVS (mkV "dizer") ;
+   fear_VS = subjVS (mkV "temer") ;
+   hope_VS = subjVS (mkV "esperar") ;
+   know_VS = mkVS know_V ;
+   say_VS = mkVS (mkV (dizer_Besch "dizer")) ;
    -- V
    blow_V    = mkV "assoprar" ;
    breathe_V = mkV "respirar" ;
@@ -347,7 +347,7 @@ lin
    sew_V     = mkV "costurar" ;
    sing_V    = mkV "cantar" ;
    sit_V     = reflV (mkV "sentar") ;
-   sleep_V   = mkV "dormir" ;
+   sleep_V   = mkV (dormir_Besch "dormir") ;
    smell_V   = mkV "cheirar" ;
    spit_V    = mkV "cuspir" ;
    stand_V   = mkV (estar_Besch "estar") ; ---- "estar de pé" ;
@@ -361,4 +361,12 @@ lin
    walk_V    = mkV "caminhar" ;
    -- interj
    alas_Interj = ss "infelizmente" ;
+
+  oper
+    know_V : V ;
+    know_V = mkV (saber_Besch "saber") ;
+
+    have_V : V ;
+    have_V = mkV (ter_Besch "ter") ;
+
 } ;

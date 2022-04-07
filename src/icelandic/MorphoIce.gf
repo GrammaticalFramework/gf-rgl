@@ -905,7 +905,7 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				pastSub = mforms ! Subjunctive ! DPast
 			in {
 			s = table {
-				VInf				=> inf ;
+				VInf v				=> mkVoice v inf ;
 				VPres v Indicative Sg p		=> persList (mkVoice v (presInd ! 0)) (mkVoice v (presInd ! 1)) (mkVoice v (presInd ! 2)) ! p;
 				VPres v Indicative Pl p 	=> persList (mkVoice v (presInd ! 3)) (mkVoice v (presInd ! 4)) (mkVoice v (presInd ! 5)) ! p;
 				VPast v Indicative Sg p		=> persList (mkVoice v (pastInd ! 0)) (mkVoice v (pastInd ! 1)) (mkVoice v (pastInd ! 2)) ! p;
@@ -915,7 +915,9 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				VPast v Subjunctive Sg p	=> persList (mkVoice v (pastSub ! 0)) (mkVoice v (pastSub ! 1)) (mkVoice v (pastSub ! 2)) ! p;
 				VPast v Subjunctive Pl p	=> persList (mkVoice v (presSub ! 3)) (mkVoice v (pastSub ! 4)) (mkVoice v (pastSub ! 5)) ! p;
 				VImp v Sg			=> mkVoice v impSg ;
-				VImp v Pl			=> mkVoice v impPl
+				VImp v Pl			=> mkVoice v impPl ;
+				VSup v	         		=> mkVoice v sup
+
 			} ;
 			p = table {
 				PWeak Sg Masc c		=> caseList (pastPartW ! Masc ! 0) (pastPartW ! Masc ! 1) (pastPartW ! Masc ! 2) (pastPartW ! Masc ! 3) ! c ;
@@ -930,8 +932,22 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				PStrong Pl Neutr c	=> caseList (pastPartS ! Neutr ! 4) (pastPartS ! Neutr ! 5) (pastPartS ! Neutr ! 6) (pastPartS ! Neutr ! 7) ! c ;
 				PPres			=> presPart
 			} ;
-			sup =\\v			=> mkVoice v sup
 		} ;
+
+-- AR 2019-08-02: deponent verbs use the Middle voice everywhere, instead of Active
+--- some forms may be inadequate, but they are in the table anyway
+
+  deponentVerb : Verb -> Verb = \verb ->
+    verb ** {
+      s = table {
+        VInf _ => verb.s ! VInf Middle ;
+	VPres _ m n p => verb.s ! VPres Middle m n p ;
+	VPast _ m n p => verb.s ! VPast Middle m n p ;
+	VImp  _   n   => verb.s ! VImp  Middle n ;
+	vf => verb.s ! vf
+        } ;
+      sup = \\v => verb.sup ! Middle ;
+      } ;
 
 
 	----------------------
@@ -960,6 +976,16 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 			front + "a" + back@(#consonant*)		=> front + "u" + back ;
 			_						=> s
 		} ;
+
+
+		-- AR 2019-08-02 what about this: gamal -> gömul
+		aa2öu : Str -> Str = \s -> case s of {
+		  front + "a" + middle@(#consonant*) + "a" + back  => front + "ö" + middle + "u" + back ;
+		  _ + "au" + _                                     => s ;
+		  front + "a" +                              back  => front + "ö" + back ;
+		  _                                                => s
+		  } ;
+		---- a2ö = aa2öu ; --- does not seem to work properly the way a2ö is used however
 
 		-- I am fairly certain it works the same way as a2ö
 		-- currently not used - keep or trash?
@@ -1076,7 +1102,8 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 		getðiditi : Str -> Str = \s -> case s of {
 			_ + "ði"	=> "ði" ;
 			_ + "di"	=> "di" ;
-			_ + "ti"	=> "ti"
+			_ + "ti"	=> "ti" ;
+			_ => Predef.error ("no telja type past ending for" ++ s)
 		} ;
 
 	param

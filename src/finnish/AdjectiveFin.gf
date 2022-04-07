@@ -32,14 +32,14 @@ concrete AdjectiveFin of Adjective = CatFin ** open ResFin, StemFin, Prelude in 
 
 
     ComplA2 a np = {
-      s = \\isMod,af => 
+      s = \\isMod,af =>
           preOrPost isMod (appCompl True Pos a.c2 np)  (sAdjFull2nforms Posit a ! af) ;
       p = [] ; hasPrefix = False
       } ;
 
     ReflA2 a = {
-      s = \\isMod,af => 
-          preOrPost isMod 
+      s = \\isMod,af =>
+          preOrPost isMod
             (appCompl True Pos a.c2 (reflPron (agrP3 Sg))) (sAdjFull2nforms Posit a ! af) ;
       p = [] ; hasPrefix = False
       } ;

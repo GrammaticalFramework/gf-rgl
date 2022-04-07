@@ -29,6 +29,12 @@ concrete NounSlv of Noun = CatSlv ** open ResSlv,Prelude in {
       isPron = True
     } ;
 
+    AdvNP np adv = {
+      s = \\c => np.s ! c ++ adv.s ;
+      a = np.a ;
+      isPron = False  -- KA: guessed
+    } ;
+
     DetQuant quant num = {
       s    = \\g,c => quant.s ! g ! c ! (numAgr2num ! num.n) ++ num.s ! g ! c;
       spec = quant.spec ;

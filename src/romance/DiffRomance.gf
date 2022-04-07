@@ -43,7 +43,7 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   oper clitInf : Bool -> Str -> Str -> Str ;
 
--- To render pronominal arguments as clitics and/or ordinary complements. 
+-- To render pronominal arguments as clitics and/or ordinary complements.
 -- Returns $True$ if there are any clitics.
 
   oper pronArg : Number -> Person -> CAgr -> CAgr -> Str * Str * Bool ;
@@ -52,16 +52,42 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   oper mkImperative : Bool -> Person -> VP -> RPolarity => Gender => Number => Str ;
 
--- To render the copula (ser/estar in Spa,Cat)
+-- To render the copula (ser/estar in Spa,Cat,Por)
 
   oper CopulaType : PType ;
   oper selectCopula : CopulaType -> Verb ;
   oper serCopula : CopulaType ;
   oper estarCopula : CopulaType ;
 
+-- Adjective and AForm, two things:
+-- 1) Whether AForm has different attributive forms:
+--    e.g. un bon amic (Cat), una gran parte (Spa) vs. predicative bo/bona, grande
+  oper AForm : PType ;
+  oper Adj : Type = {s : AForm => Str} ;
+  oper mkOrd : Adj -> {s : AAgr => Str} = \x -> {s = \\ag => x.s ! aagr2aform ag} ;
+
+  oper aform2aagr : AForm -> AAgr ;
+  oper aform2gender : AForm -> Gender = \af -> (aform2aagr af).g ;
+  oper aform2number : AForm -> Number = \af -> (aform2aagr af).n ;
+
+  oper aagr2aform : AAgr -> AForm = \a -> genNum2Aform a.g a.n ;
+  oper genNum2Aform : Gender -> Number -> AForm ;
+  oper genNumPos2Aform : Gender -> Number -> Bool -> AForm ; -- depends on language, whether attributive is different from predicative
+
+-- 2) Whether comparatives and superlatives inflect in only number, or also in gender:
+--    e.g. el/la mejor, but le meilleur, la meilleure
+  oper ComparAgr : PType = Number ; -- except Fre, where it's Number and Gender
+  oper af2compar : AForm -> ComparAgr = aform2number ; -- except Fre
+  oper aagr2compar : AAgr -> ComparAgr = \a -> a.n ; -- except Fre
+
+
 -- To decide if adverbial questions are inverted
 
   oper iAdvQuestionInv : Direct = DInv ; -- except Fre
+
+  oper iCompQuestionInv : Direct = DInv ; -- for Cat,Por,Spa where otherInv will be DDir
+
+  oper otherInv : Direct = DInv ; -- except Cat, Por, Spa
 
 --2 Constants that must derivatively depend on language
 
@@ -96,6 +122,8 @@ interface DiffRomance = open CommonRomance, Prelude in {
 
   subjIf    : Str ;
 
+  piuComp   : Str ; -- to form comparative and superlative: plus cher, más grande, …
+
   relPron   : Bool => AAgr => Case => Str ;
   pronSuch  : AAgr => Str ;
 
@@ -110,7 +138,7 @@ interface DiffRomance = open CommonRomance, Prelude in {
 --2 Constants needed in type signatures above
 
 param
-  Case = Nom | Acc | CPrep Prepos ; 
+  Case = Nom | Acc | CPrep Prepos ;
 
 oper
   Verb = {s : VF => Str ; vtyp : VType ; p : Str} ;
@@ -118,7 +146,7 @@ oper
   VPAgrType : Type              = Str * Bool ;                                                  ---- originally VPAgr, expensive
   getVPAgr  : Verb -> VPAgrType = \v -> <verbDefaultPart v, partAgr v.vtyp> ;          -- str may be used
   vpAgrSubj : Verb -> VPAgrType = \v -> <verbDefaultPart v, True> ;                  -- str not used but subject instead    ---- VPAgrSubj
-  vpAgrClits : Verb -> AAgr -> VPAgrType = \v,a -> <v.s ! (VPart a.g a.n), False> ;    -- str used from clitic             ---- vpAgrClit 
+  vpAgrClits : Verb -> AAgr -> VPAgrType = \v,a -> <v.s ! (VPart a.g a.n), False> ;    -- str used from clitic             ---- vpAgrClit
   verbDefaultPart : Verb -> Str = \v -> v.s ! (VPart Masc Sg) ;
 
 
@@ -161,7 +189,7 @@ oper
 -- AR 21/2/2013
 -- inverted clause order, only deviant in Fre where also the intervening -t- has to be taken to account
 
-  invertedClause : 
+  invertedClause :
     VType -> (RTense * Anteriority * Number * Person) -> Bool -> (Str * Str) -> Str -> (clit,fin,inf,compl,subj,ext : Str) -> Str =
     \_,_,_,neg,_,clit,fin,inf,compl,subj,ext -> neg.p1 ++ clit ++ fin ++ neg.p2 ++ inf ++ compl ++ subj ++ ext ;
 
@@ -169,5 +197,25 @@ oper
 
   contractInf : Bool -> Bool -> Bool = \_,_ -> False ; -- only True in Ita, by orB
 
-}
+  chooseTA : RTense -> Anteriority
+    -> (VF => Str) -> (VF => Str)
+    -> Number -> Person -> Mood -> Str -> Str * Str ;
+  chooseTA t a verb vaux n p m part = case <t,a> of {
+    <RPast,Simul>  => <verb ! VFin (VImperf m) n p, []> ; --# notpresent
+    <RPast,Anter>  => <vaux ! VFin (VImperf m) n p, part> ; --# notpresent
+    <RFut,Simul>   => <verb ! VFin VFut n p, []> ; --# notpresent
+    <RFut,Anter>   => <vaux ! VFin VFut n p, part> ; --# notpresent
+    <RCond,Simul>  => <verb ! VFin VCondit n p, []> ; --# notpresent
+    <RCond,Anter>  => <vaux ! VFin VCondit n p, part> ; --# notpresent
+    <RPasse,Simul> => <verb ! VFin VPasse n p, []> ; --# notpresent
+    <RPasse,Anter> => <vaux ! VFin VPasse n p, part> ; --# notpresent
+    <RPres,Anter>  => <vaux ! VFin (VPres m) n p, part> ; --# notpresent
+    <RPres,Simul>  => <verb ! VFin (VPres m) n p, []>
+    } ;
 
+  oper
+    essere_V : Verb ;
+    stare_V : Verb ;
+    stare_V = essere_V ;
+
+} ;

@@ -1,36 +1,47 @@
-concrete IdiomHun of Idiom = CatHun ** open Prelude, ResHun in 
-{
---{
---
---  flags optimize=all_subs ;
---
---  lin
---    ImpersCl vp = mkClause "it" (agrP3 Sg) vp ;
---    GenericCl vp = mkClause "one" (agrP3 Sg) vp ;
---
---    CleftNP np rs = mkClause "it" (agrP3 Sg) 
---      (insertObj (\\_ => rs.s ! np.a)
---        (insertObj (\\_ => np.s ! rs.c) (predAux auxBe))) ;
---
---    CleftAdv ad s = mkClause "it" (agrP3 Sg) 
---      (insertObj (\\_ => conjThat ++ s.s)
---        (insertObj (\\_ => ad.s) (predAux auxBe))) ;
---
---    ExistNP np = 
---      mkClause "there" (agrP3 (fromAgr np.a).n) 
---        (insertObj (\\_ => np.s ! NPAcc) (predAux auxBe)) ;
---
---    ExistIP ip = 
---      mkQuestion (ss (ip.s ! npNom)) 
---        (mkClause "there" (agrP3 ip.n) (predAux auxBe)) ;
---
---    ProgrVP vp = insertObj (\\a => vp.ad ++ vp.prp ++ vp.s2 ! a) (predAux auxBe) ;
---
---    ImpPl1 vp = {s = "let's" ++ infVP VVAux vp (AgP1 Pl)} ;
---
---    ImpP3 np vp = {s = "let" ++ np.s ! NPAcc ++ infVP VVAux vp np.a} ;
---
---}
---
+
+--1 Idiom: Idiomatic Expressions
+
+concrete IdiomHun of Idiom = CatHun ** open Prelude, ResHun, VerbHun, NounHun, StructuralHun in {
+
+-- This module defines constructions that are formed in fixed ways,
+-- often different even in closely related languages.
+
+{-  lin
+
+
+  -- ImpersCl : VP -> Cl ;        -- it is hot
+  -- GenericCl : VP -> Cl ;        -- one sleeps
+  ImpersCl,
+  GenericCl = \vp -> predVP impersNP (passVP vp) ;
+
+    CleftNP   : NP  -> RS -> Cl ; -- it is I who did it
+    CleftAdv  : Adv -> S  -> Cl ; -- it is here she slept
+
+  -- : NP -> Cl ;        -- there is a house
+  ExistNP np =
+
+  ExistIP   : IP -> QCl ;       -- which houses are there
+
+-- 7/12/2012 generalizations of these
+
+    ExistNPAdv : NP -> Adv -> Cl ;    -- there is a house in Paris
+    ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
+
+  -- : VP -> VP ;
+  ProgrVP vp = vp ** {
+    } ;
+
+
+  -- : VP -> Utt ;       -- let's go
+  ImpPl1 vp = { } ;
+
+  ImpP3     : NP -> VP -> Utt ; -- let John walk
+
+-- 3/12/2013 non-reflexive uses of "self"
+
+    SelfAdvVP : VP -> VP ;        -- is at home himself
+    SelfAdVVP : VP -> VP ;        -- is himself at home
+    SelfNP    : NP -> NP ;        -- the president himself (is at home)
+-}
 
 }

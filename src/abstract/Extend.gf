@@ -30,7 +30,7 @@ abstract Extend = Cat ** {
     StrandQuestSlash : IP -> ClSlash -> QCl ;   -- whom does John live with
     StrandRelSlash   : RP -> ClSlash -> RCl ;   -- that he lives in
     EmptyRelSlash    : ClSlash       -> RCl ;   -- he lives in
- 
+
 
 -- $VP$ conjunction, separate categories for finite and infinitive forms (VPS and VPI, respectively)
 -- covering both in the same category leads to spurious VPI parses because VPS depends on many more tenses
@@ -45,7 +45,15 @@ abstract Extend = Cat ** {
     MkVPS      : Temp -> Pol -> VP -> VPS ;  -- hasn't slept
     ConjVPS    : Conj -> [VPS] -> VPS ;      -- has walked and won't sleep
     PredVPS    : NP   -> VPS -> S ;          -- she [has walked and won't sleep]
-    
+    SQuestVPS  : NP   -> VPS -> QS ;         -- has she walked
+    QuestVPS   : IP   -> VPS -> QS ;         -- who has walked
+    RelVPS     : RP   -> VPS -> RS ;         -- which won't sleep
+
+-- existentials that work in the absence of Cl
+    ExistS     : Temp -> Pol -> NP -> S ;    -- there was a party
+    ExistNPQS  : Temp -> Pol -> NP -> QS ;   -- was there a party
+    ExistIPQS  : Temp -> Pol -> IP -> QS ;   -- what was there
+
     MkVPI      : VP -> VPI ;                 -- to sleep (TODO: Ant and Pol)
     ConjVPI    : Conj -> [VPI] -> VPI ;      -- to sleep and to walk
     ComplVPIVV : VV   -> VPI -> VP ;         -- must sleep and walk
@@ -59,17 +67,26 @@ abstract Extend = Cat ** {
     [VPI2] {2} ;  -- to love, to hate
 
   fun
-    MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved       
+    MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
     ConjVPS2  : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates
     ComplVPS2 : VPS2 -> NP -> VPS ;               -- has loved and now hates that person
+    ReflVPS2  : VPS2 -> RNP -> VPS ;              -- have loved and now hate myself and my car
 
-    MkVPI2    : VPSlash -> VPI2 ;                 -- to love       
+    MkVPI2    : VPSlash -> VPI2 ;                 -- to love
     ConjVPI2  : Conj -> [VPI2] -> VPI2 ;          -- to love and hate
     ComplVPI2 : VPI2 -> NP -> VPI ;               -- to love and hate that person
 
+-- Conjunction of copula complements
+  cat [Comp]{2} ;
+  fun ConjComp : Conj -> ListComp -> Comp ;
+
+-- Conjunction of imperatives
+  cat [Imp] {2} ;
+  fun ConjImp : Conj -> ListImp -> Imp ;
+
   fun
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
-    
+
     ICompAP : AP -> IComp ;   -- "how old"
     IAdvAdv : Adv -> IAdv ;   -- "how often"
 
@@ -88,15 +105,15 @@ abstract Extend = Cat ** {
   -- participle constructions
     PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
     EmbedPresPart : VP -> SC ;   -- looking at Mary (is fun)
-    
+
     PastPartAP      : VPSlash -> AP ;         -- lost (opportunity) ; (opportunity) lost in space
     PastPartAgentAP : VPSlash -> NP -> AP ;   -- (opportunity) lost by the company
-   
+
 -- this is a generalization of Verb.PassV2 and should replace it in the future.
 
     PassVPSlash : VPSlash -> VP ; -- be forced to sleep
 
--- the form with an agent may result in a different linearization 
+-- the form with an agent may result in a different linearization
 -- from an adverbial modification by an agent phrase.
 
     PassAgentVPSlash : VPSlash -> NP -> VP ;  -- be begged by her to go
@@ -104,6 +121,15 @@ abstract Extend = Cat ** {
 -- publishing of the document
 
     NominalizeVPSlashNP : VPSlash -> NP -> NP ;
+
+-- counterpart to ProgrVP, for VPSlash
+
+    ProgrVPSlash : VPSlash -> VPSlash;
+
+-- construct VPSlash from A2 and N2
+
+    A2VPSlash : A2 -> VPSlash ; -- is married to (that person)
+    N2VPSlash : N2 -> VPSlash ; -- is a mother of (that person)
 
 -- existential for mathematics
 
@@ -114,6 +140,10 @@ abstract Extend = Cat ** {
     ExistCN       : CN -> Cl ;  -- there is a car / there is no car
     ExistMassCN   : CN -> Cl ;  -- there is beer / there is no beer
     ExistPluralCN : CN -> Cl ;  -- there are trees / there are no trees
+
+-- generalisation of existential, with adverb as an argument
+    AdvIsNP : Adv -> NP -> Cl ;  -- here is the tree / here are the trees
+    AdvIsNPAP : Adv -> NP -> AP -> Cl ; -- here are the instructions documented
 
 -- infinitive for purpose AR 21/8/2013
 
@@ -134,12 +164,22 @@ abstract Extend = Cat ** {
 
 -- proper structure of "it is AP to VP"
 
-    PredAPVP : AP -> VP -> Cl ;   -- it is good to walk
+    PredAPVP : AP -> VP -> Cl ;      -- it is good to walk
 
 -- to use an AP as CN or NP without CN
 
     AdjAsCN : AP -> CN ;   -- a green one ; en grön (Swe)
     AdjAsNP : AP -> NP ;   -- green (is good)
+
+-- infinitive complement for IAdv
+
+    PredIAdvVP : IAdv -> VP -> QCl ; -- how to walk?
+
+-- alternative to EmbedQS. For English, EmbedQS happens to work,
+-- because "what" introduces question and relative. The default linearization
+-- could be e.g. "the thing we did (was fun)".
+
+    EmbedSSlash : SSlash -> SC  ;   -- what we did (was fun)
 
 -- reflexive noun phrases: a generalization of Verb.ReflVP, which covers just reflexive pronouns
 -- This is necessary in languages like Swedish, which have special reflexive possessives.
@@ -148,8 +188,8 @@ abstract Extend = Cat ** {
   cat
     RNP ;     -- reflexive noun phrase, e.g. "my family and myself"
     RNPList ; -- list of reflexives to be coordinated, e.g. "my family, myself, everyone"
-    
--- Notice that it is enough for one NP in RNPList to be RNP. 
+
+-- Notice that it is enough for one NP in RNPList to be RNP.
 
   fun
     ReflRNP : VPSlash -> RNP -> VP ;   -- love my family and myself
@@ -159,15 +199,27 @@ abstract Extend = Cat ** {
 
     PredetRNP : Predet -> RNP -> RNP ; -- all my brothers
 
+    AdvRNP : NP -> Prep -> RNP -> RNP ;   -- a dispute with his wife
+    AdvRVP : VP -> Prep -> RNP -> VP ;    -- lectured about her travels
+    AdvRAP : AP -> Prep -> RNP -> AP ;    -- adamant in his refusal
+
+    ReflA2RNP : A2 -> RNP -> AP ;         -- indifferent to their surroundings
+                                               -- NOTE: generalizes ReflA2
+
+    PossPronRNP : Pron -> Num -> CN -> RNP -> NP ; -- his abandonment of his wife and children
+
     ConjRNP : Conj -> RNPList -> RNP ;  -- my family, John and myself
 
-    Base_rr_RNP : RNP -> RNP -> RNPList ;       -- my family, myself 
+    Base_rr_RNP : RNP -> RNP -> RNPList ;       -- my family, myself
     Base_nr_RNP : NP  -> RNP -> RNPList ;       -- John, myself
     Base_rn_RNP : RNP -> NP  -> RNPList ;       -- myself, John
     Cons_rr_RNP : RNP -> RNPList -> RNPList ;   -- my family, myself, John
     Cons_nr_RNP : NP  -> RNPList -> RNPList ;   -- John, my family, myself
 ----    Cons_rn_RNP : RNP -> ListNP  -> RNPList ;   -- myself, John, Mary
 
+-- reflexive possessive on its own right, like in Swedish, Czech, Slovak
+
+    ReflPossPron : Quant ;  -- Swe sin,sitt,sina
 
 --- from Extensions
 
@@ -181,8 +233,8 @@ abstract Extend = Cat ** {
   GerundNP    : VP -> NP ;          -- publishing the document (by nature definite)
   GerundAdv   : VP -> Adv ;         -- publishing the document (prepositionless adverb)
 
-  WithoutVP   : VP -> Adv ;         -- without publishing the document  
-  ByVP        : VP -> Adv ;         -- by publishing the document  
+  WithoutVP   : VP -> Adv ;         -- without publishing the document
+  ByVP        : VP -> Adv ;         -- by publishing the document
   InOrderToVP : VP -> Adv ;         -- (in order) to publish the document
 
   ApposNP : NP -> NP -> NP ;        -- Mr Macron, the president of France,
@@ -206,6 +258,10 @@ abstract Extend = Cat ** {
   DetNPMasc : Det -> NP ;
   DetNPFem  : Det -> NP ;
 
+  UseComp_estar : Comp -> VP ; -- (Cat, Spa, Por) "está cheio" instead of "é cheio"
+
+  SubjRelNP : NP -> RS -> NP ; -- Force RS in subjunctive: lo que les *resulte* mejor
+
   iFem_Pron      : Pron ; -- I (Fem)
   youFem_Pron    : Pron ; -- you (Fem)
   weFem_Pron     : Pron ; -- we (Fem)
@@ -221,5 +277,19 @@ abstract Extend = Cat ** {
   UttAccIP : IP -> Utt ; -- whom (accusative)
   UttDatIP : IP -> Utt ; -- whom (dative)
 
+
+-- UseDAP replaces DetNP from the RGL which is more limited.
+-- Instead of (DetNP d) use (UseDAP (DetDAP d)). The advantage
+-- is that now we can also have an adjective inserted, i.e.
+-- (UseDAP (AdjDAP (DetDAP d) a). There are also versions of
+-- UseDAP for different genders.
+fun UseDAP     : DAP -> NP ;
+    UseDAPMasc : DAP -> NP ;
+    UseDAPFem  : DAP -> NP ;
+
+cat X ; -- for words that are difficult to classify, mainly for MorphoDict
+
+fun
+  CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
 
 }

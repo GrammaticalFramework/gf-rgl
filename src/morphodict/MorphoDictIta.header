@@ -1,0 +1,15 @@
+concrete MorphoDictIta of MorphoDictItaAbs =
+  CatIta [N,A,V,Adv,Prep] **
+  open
+    ParadigmsIta, IrregIta
+  in
+ {
+
+-- converted from https://github.com/TALP-UPC/FreeLing/tree/master/data/it/dictionary/entries
+-- inheriting its license https://creativecommons.org/licenses/by-sa/3.0/
+
+lincat NSg,NPl = N ;
+oper mkNSg : Str -> Gender -> N = \s,g -> mkN s g ;
+oper mkNPl : Str -> Gender -> N = \s,g -> mkN s s g ;
+
+

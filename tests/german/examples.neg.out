@@ -1,0 +1,75 @@
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (PredetNP not_Predet (MassNP (UseN beer_N))))))) NoVoc
+TestLangGer: wir trinken nicht Bier
+TestLangEng: we drink not beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (PredetNP not_Predet (UsePron it_Pron)))))) NoVoc
+TestLangGer: wir trinken nicht es
+TestLangEng: we drink not it
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (PredetNP not_Predet (MassNP (AdjCN (PositA warm_A) (UseN beer_N)))))))) NoVoc
+TestLangGer: wir trinken nicht warmes Bier
+TestLangEng: we drink not warm beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a drink_V2) (DetCN (DetQuant no_Quant NumSg) (AdjCN (PositA warm_A) (UseN beer_N))))))) NoVoc
+TestLangGer: wir trinken kein warmes Bier nicht
+TestLangEng: we don't drink no warm beer
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (PredetNP not_Predet (UsePron he_Pron)))))) NoVoc
+TestLangGer: ich sehe nicht ihn
+TestLangEng: I see not him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (PredetNP not_Predet somebody_NP))))) NoVoc
+TestLangGer: ich sehe nicht jemanden
+TestLangEng: I see not somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN many_Det (AdjCN (PositA bad_A) (UseN reason_N))))))) NoVoc
+TestLangGer: ich sehe viele schlechten Gründe
+TestLangEng: I see many bad reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a see_V2) (DetCN few_Det (AdjCN (PositA bad_A) (UseN reason_N))))))) NoVoc
+TestLangGer: ich sehe wenige schlechten Gründe
+TestLangEng: I see few bad reasons
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (SlashVV want_VV (SlashV2a see_V2)) (PredetNP not_Predet somebody_NP))))) NoVoc
+TestLangGer: wir wollen nicht jemanden sehen
+TestLangEng: we want to see not somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2a see_V2) (PredetNP not_Predet somebody_NP)))))) NoVoc
+TestLangGer: wir wollen nicht jemanden sehen
+TestLangEng: we want to see not somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2a see_V2) somebody_NP))))) NoVoc
+TestLangGer: wir wollen nicht jemanden sehen
+TestLangEng: we don't want to see somebody
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 send_V3 (UsePron it_Pron)) (PredetNP not_Predet (UsePron she_Pron)))))) NoVoc
+TestLangGer: ich schicke es nicht ihr
+TestLangEng: I send it to not her
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (PredetNP not_Predet (UsePron she_Pron))) (UsePron it_Pron))))) NoVoc
+TestLangGer: ich schicke es nicht ihr
+TestLangEng: I send it to not her
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron)))))))) NoVoc
+TestLangGer: wem gibt das Kind ihn nicht
+TestLangEng: whom doesn't it give child he
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoPl_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron)))))) NoVoc
+TestLangGer: wem gibt das Kind ihn nicht
+TestLangEng: whom doesn't the child give him
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetNP (DetQuant DefArt NumSg)) (Slash3V3 give_V3 (MassNP (ApposCN (UseN child_N) (UsePron he_Pron)))))))) NoVoc
+TestLangGer: wem gibt das Kind ihn nicht
+TestLangEng: whom doesn't it give child he
+TestLang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PNeg (QuestSlash whoSg_IP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN child_N)) (Slash3V3 give_V3 (UsePron he_Pron)))))) NoVoc
+TestLangGer: wem gibt das Kind ihn nicht
+TestLangEng: whom doesn't the child give him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 anklagen_gen_V3 (DetNP (DetQuant IndefArt NumPl))) (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN beer_N) (UsePron he_Pron))))))) NoVoc
+TestLangGer: ich klage einiger Biere ihn an
+TestLangEng: I accuse beers he of ones
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 anklagen_gen_V3 (DetNP somePl_Det)) (DetCN (DetQuant IndefArt NumPl) (ApposCN (UseN beer_N) (UsePron he_Pron))))))) NoVoc
+TestLangGer: ich klage einiger Biere ihn an
+TestLangEng: I accuse beers he of some
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN reason_N))) (DetCN (DetQuant DefArt NumSg) (UseN student_N)))))) NoVoc
+TestLangGer: wir lehrten den Grund den Studenten
+TestLangEng: we taught the reason the student
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumSg) (UseN reason_N))) (DetCN (DetQuant DefArt NumSg) (UseN student_N)))))) NoVoc
+TestLangGer: wir lehrten den Grund den Studenten
+TestLangEng: we taught the student the reason
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumPl) (UseN student_N)))))) NoVoc
+TestLangGer: wir lehrten ihn die Studenten
+TestLangEng: we taught him the students
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (UsePron he_Pron)) (DetCN (DetQuant DefArt NumPl) (UseN student_N)))))) NoVoc
+TestLangGer: wir lehrten ihn die Studenten
+TestLangEng: we taught the students him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash2V3 lehren_V3 (DetCN (DetQuant DefArt NumPl) (UseN student_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehrten ihn die Studenten
+TestLangEng: we taught the students him
+TestLang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplSlash (Slash3V3 lehren_V3 (DetCN (DetQuant DefArt NumPl) (UseN student_N))) (UsePron he_Pron))))) NoVoc
+TestLangGer: wir lehrten ihn die Studenten
+TestLangEng: we taught him the students

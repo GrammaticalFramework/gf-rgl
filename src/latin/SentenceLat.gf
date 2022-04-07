@@ -36,7 +36,7 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
     SlashPrep cl prep = cl ** {c2 = prep.s} ;
 --
 --    SlashVS np vs slash = 
---      mkClause (np.s ! Nom) np.a 
+--      mkClause (combineNounPhrase np ! PronNonDrop ! Nom) np.a 
 --        (insertObj (\\_ => conjThat ++ slash.s) (predV vs))  **
 --        {c2 = slash.c2} ;
 --
@@ -45,28 +45,38 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 --    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
 --
     UseCl  t p cl = -- Temp -> Pol-> Cl -> S
+      (combineClause cl (lin Tense t) t.a (lin Pol p) VQFalse) ;
+
+    -- 	UseQCl : Temp -> Pol -> QCl -> QS -- maybe use mkQuestion
+    UseQCl t p cl =
       {
-	s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! VQFalse ! SOV
-    } ;
-    UseQCl t p cl = {
-      s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! q
-    } ;
---    UseRCl t p cl = {
+	s = let qs = combineClause cl t t.a p VQTrue in
+	  \\q => case q of {
+	  QDir => cl.q ++ defaultSentence qs ! SVO ; -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
+	  QIndir => cl.q ++ defaultSentence qs ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
+	  }
+      } ;
+    -- UseRCl : Temp -> Pol -> RCl -> RS ;
+    UseRCl t p cl = {
+      s = \\g,n => defaultSentence (combineClause (cl.s ! g ! n) (lin Tense t) t.a (lin Pol p) VQFalse) ! SOV ;
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
 --      c = cl.c
---    } ;
+    } ;
 --    UseSlash t p cl = {
 --      s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p  ! ODir ;
 --      c2 = cl.c2
 --    } ;
 --
---    AdvS a s = {s = a.s ++ "," ++ s.s} ;
+    -- AdvS : Adv -> S -> S
+    AdvS adv s = -- { s = s.s ; o = s.o ; v = s.v ; neg = s.neg ; t = s.t ; p = s.p ; sadv = adv.s ! Posit ++ s.sadv } ;
+      s ** { sadv = adv.s ! Posit ++ s.sadv } ;
 
 -- This covers subjunctive clauses, but they can also be added to the end.
---  SSubjS : S -> Subj -> S -> S ;       -- I go home if she comes
-    SSubjS s1 subj s2 = ss ( subj.s ++ s2.s ++ s1.s );
+    --  SSubjS : S -> Subj -> S -> S ;       -- I go home if she comes
+    -- TO FIX
+--    SSubjS s1 subj s2 = { s =  \\_ => subj.s ++ s2.s ! PreS ++ s1.s ! PreS ; sadv = lin Adv (mkAdverb []) } ;
     
---    RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ;
+--    RelS s r = {s = s.s ! APreV ++ "," ++ r.s } ;
 --
 --  oper
 --    ctr = contrNeg True ;  -- contracted negations

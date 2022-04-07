@@ -1,0 +1,13 @@
+concrete MorphoDictFin of MorphoDictFinAbs = CatFin ** open
+  ParadigmsFin,
+--  MorphoFin,
+  Kotus
+--  Prelude
+ in {
+
+-- extracted from http://kaino.kotus.fi/sanat/nykysuomi/, licensed under LGPL
+
+flags coding = utf8 ;
+
+oper mkA' : (x1,_,_,_,_,_,_,_,_,x10 : Str) -> A = \a,b,c,d,e,f,g,h,i,j -> mkA (mkN a b c d e f g h i j) ; -- Need a single worst-case paradigm for how config is implemented
+

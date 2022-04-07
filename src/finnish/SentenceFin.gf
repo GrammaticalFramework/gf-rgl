@@ -10,8 +10,8 @@ concrete SentenceFin of Sentence = CatFin ** open Prelude, ResFin, StemFin in {
     PredSCVP sc vp = mkClause (\_ -> sc.s) (agrP3 Sg) vp ;
 
     ImpVP vp0 = let vp = vp2old_vp vp0 in {
-      s = \\pol,agr => 
-        let 
+      s = \\pol,agr =>
+        let
           verb  = vp.s ! VIImper ! Simul ! pol ! agr ;
           compl = vp.s2 ! False ! pol ! agr ++ vp.adv ! pol ++ vp.ext  --- False = like inf (osta auto)
         in
@@ -20,7 +20,7 @@ concrete SentenceFin of Sentence = CatFin ** open Prelude, ResFin, StemFin in {
 
 -- The object case is formed at the use site of $c2$, in $Relative$ and $Question$.
 
-    SlashVP np vp = { 
+    SlashVP np vp = {
       s = \\t,a,p => (mkClause (subjForm np vp.s.sc) np.a vp).s ! t ! a ! p ! SDecl ;
       c2 = vp.c2
       } ;
@@ -31,14 +31,14 @@ concrete SentenceFin of Sentence = CatFin ** open Prelude, ResFin, StemFin in {
       } ;
 
     SlashPrep cl prep = {
-      s = \\t,a,p => cl.s ! t ! a ! p ! SDecl ; 
+      s = \\t,a,p => cl.s ! t ! a ! p ! SDecl ;
       c2 = prep
       } ;
 
-    SlashVS np vs slash = { 
-      s = \\t,a,p => 
-        (mkClause (subjForm np vs.sc) np.a 
-          (insertExtrapos ("että" ++ slash.s) 
+    SlashVS np vs slash = {
+      s = \\t,a,p =>
+        (mkClause (subjForm np vs.sc) np.a
+          (insertExtrapos ("että" ++ slash.s)
              (predSV vs))
         ).s ! t ! a ! p ! SDecl ;
       c2 = slash.c2
@@ -61,10 +61,10 @@ concrete SentenceFin of Sentence = CatFin ** open Prelude, ResFin, StemFin in {
     } ;
 
     AdvS a s = {s = a.s ++ s.s} ;
-    ExtAdvS a s = {s = a.s ++ "," ++ s.s} ;
+    ExtAdvS a s = {s = a.s ++ SOFT_BIND ++ "," ++ s.s} ;
 
-    RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ; ---- mikä
+    RelS s r = {s = s.s ++ SOFT_BIND ++ "," ++ r.s ! agrP3 Sg} ; ---- mikä
 
-    SSubjS a subj b = {s = a.s ++ "," ++ subj.s ++ b.s} ;
+    SSubjS a subj b = {s = a.s ++ SOFT_BIND ++ "," ++ subj.s ++ b.s} ;
 
 }

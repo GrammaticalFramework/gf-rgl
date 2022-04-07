@@ -1,4 +1,4 @@
-concrete AdverbSom of Adverb = CatSom ** open ResSom, ParamSom, Prelude in {
+concrete AdverbSom of Adverb = CatSom ** open ResSom, ParamSom, ParadigmsSom, Prelude in {
 
 lin
 
@@ -11,12 +11,12 @@ lin
 --    ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
 
   -- : Prep -> NP -> Adv ;
-  PrepNP prep np = {s = prep.s ! np.a ; s2 = np.s ! Abs} ; ---- ?
+  PrepNP = prepNP ;
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
     --AdAdv  : AdA -> Adv -> Adv ;             -- very quickly
-  AdAdv ada adv = adv ** { s = ada.s ++ adv.s } ;
+  AdAdv ada adv = adv ** {berri = ada.s ++ adv.berri} ;
 -- Like adverbs, adadjectives can be produced by adjectives.
 
   -- : A -> AdA ;                 -- extremely
@@ -24,15 +24,10 @@ lin
 -- Subordinate clauses can function as adverbs.
 
     -- : Subj -> S -> Adv ;
---  SubjS subj s = {} ;
+  SubjS subj s = mkAdv (s.s ! True) ;
 
 -- Comparison adverbs also work as numeral adverbs.
 
     --AdnCAdv : CAdv -> AdN ;                  -- less (than five)
     --AdnCAdv cadv = {s = } ;
 } ;
-
-{-
-gt PrepNP in_Prep (DetCN (DetQuant DefArt ?) (UseN ?) | l -bind
-gt PrepNP from_Prep (DetCN (DetQuant DefArt ?) (UseN ?)) | l -bind
--}

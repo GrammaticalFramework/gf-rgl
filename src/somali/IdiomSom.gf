@@ -1,26 +1,26 @@
 
 --1 Idiom: Idiomatic Expressions
 
-concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom in {
+concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom, NounSom, StructuralSom in {
 
 -- This module defines constructions that are formed in fixed ways,
 -- often different even in closely related languages.
 
-  --lin
+  lin
 
-  -- : VP -> Cl ;        -- it is hot
-  --ImpersCl =  ;
+  -- ImpersCl : VP -> Cl ;        -- it is hot
+  -- GenericCl : VP -> Cl ;        -- one sleeps
+  ImpersCl,
+  GenericCl = \vp -> predVP impersNP (passVP vp) ;
 
-  -- : VP -> Cl ;        -- one sleeps
-  --GenericCl = ;
 {-
     CleftNP   : NP  -> RS -> Cl ; -- it is I who did it
     CleftAdv  : Adv -> S  -> Cl ; -- it is here she slept
     -}
   -- : NP -> Cl ;        -- there is a house
-  -- ExistNP np =
-  --   let vp = UseComp (CompNP np)
-  --   in  ;
+  ExistNP np =
+     let vp = UseComp (CompNP np)
+      in predVP impersNP vp ;
 
 {-    ExistIP   : IP -> QCl ;       -- which houses are there
 
@@ -30,13 +30,20 @@ concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom in {
     ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
 -}
   -- : VP -> VP ;
-  --ProgrVP vp = vp ** { } ;
+  ProgrVP vp = vp ** {
+    s = table {
+          VPres _ agr pol => vp.s ! VPres Progressive agr pol ;
+          VPast _ agr => vp.s ! VPast Progressive agr ;
+          VNegPast _ => vp.s ! VNegPast Progressive ;
+          x => vp.s ! x }
+    } ;
 
+
+  {- TODO: Saeed p. 92 and 207, optative
   -- : VP -> Utt ;       -- let's go
-  --ImpPl1 vp = { } ;
-{-
+  ImpPl1 vp = { } ;
 
-    ImpP3     : NP -> VP -> Utt ; -- let John walk
+  ImpP3     : NP -> VP -> Utt ; -- let John walk
 
 -- 3/12/2013 non-reflexive uses of "self"
 
