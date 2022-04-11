@@ -75,7 +75,7 @@ concrete ExtraEng of ExtraEngAbs = CatEng **
     MkVPS t p vp = {
       s = \\a =>
             let
-              verb = vp.s ! t.t ! t.a ! p.p ! oDir ! a ;
+              verb = mkVerbForms a vp ! t.t ! t.a ! p.p ! oDir ! a ;
               verbf = verb.aux ++ verb.adv ++ verb.fin ++ verb.inf ;
             in t.s ++ p.s ++ vp.ad ! a ++ verbf ++ vp.p ++ vp.s2 ! a ++ vp.ext
       } ;
@@ -180,17 +180,13 @@ lin
     let
       be = predAux auxBe ;
       ppt = vps.ptp
-    in {
-    s = be.s ;
-    p = [] ;
-    prp = be.prp ;
-    ptp = be.ptp ;
-    inf = be.inf ;
-    ad = \\_ => [] ;
-    s2 = \\a => vps.ad ! a ++ ppt ++ vps.p ++ vps.s2 ! a ++ ag ++ vps.c2 ; ---- place of agent
-    isSimple = False ;
-    ext = vps.ext
-    } ;
+    in be ** {
+          p = [] ;
+          ad = \\_ => [] ;
+          s2 = \\a => vps.ad ! a ++ ppt ++ vps.p ++ vps.s2 ! a ++ ag ++ vps.c2 ; ---- place of agent
+          isSimple = False ;
+          ext = vps.ext
+        } ;
 
   lin
     PassVPSlash vps = passVPSlash vps [] ;
@@ -242,7 +238,7 @@ lin
         let
           subj  = np.s ! npNom ;
           agr   = np.a ;
-          verb  = vp.s ! t ! a ! b ! o ! agr ;
+          verb  = mkVerbForms agr vp ! t ! a ! b ! o ! agr ;
           compl = vp.s2 ! agr
         in
         case o of {
@@ -256,7 +252,7 @@ lin
         let
           subj  = np.s ! npNom ;
           agr   = np.a ;
-          verb  = vp.s ! t ! a ! b ! o ! agr ;
+          verb  = mkVerbForms agr vp ! t ! a ! b ! o ! agr ;
           compl = vp.s2 ! agr
         in
         case o of {
