@@ -147,8 +147,8 @@ lin
 
 lin
   NoDefinition   t     = {s=t.s};
-  MkDefinition   t d   = {s="<p><b>Definierung:</b>"++t.s++d.s++"</p>"};
-  MkDefinitionEx t d e = {s="<p><b>Definierung:</b>"++t.s++d.s++"</p><p><b>Beispiel:</b>"++e.s++"</p>"};
+  MkDefinition   t d   = {s="<p><b>Definition:</b>"++t.s++d.s++"</p>"};
+  MkDefinitionEx t d e = {s="<p><b>Definition:</b>"++t.s++d.s++"</p><p><b>Beispiel:</b>"++e.s++"</p>"};
 
   MkDocument d i e = ss (i.s1 ++ d.s ++ i.s2 ++ paragraph e.s) ;  -- explanation appended in a new paragraph
   MkTag i = ss i.t ;

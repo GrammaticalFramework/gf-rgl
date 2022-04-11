@@ -1,7 +1,7 @@
 -- To create vp-paradigm.out, I used changes of 30/6/2019 (in git branch vp-paradigm):
--- i ../../src/german/LangGer.gf  
+i ../../src/german/LangGer.gf
 -- Use gf --run < vp-paradigm.gfs > vp-paradigm.tmp to compare with gf-rgl.  HL 3/7/2019
-i alltenses/LangGer.gfo
+-- i alltenses/LangGer.gfo
   
 -- verb phrases with modal verb
 l -lang=Ger -table (PredVP (UsePron he_Pron) (ComplVV want_VV (UseV sleep_V)))
@@ -19,3 +19,7 @@ l -table (PredVP (DetCN (DetQuant DefArt NumSg) (UseN book_N)) (PassV2 read_V2))
 l PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (DetCN (DetQuant DefArt NumSg) (UseN woman_N))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))) NoVoc
 
 l PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 send_V3 (UsePron she_Pron)) (UsePron it_Pron))))) NoVoc
+
+-- relative clause from object np is not extracted behind vpart:
+l UseCl (TTAnt TPast AAnter) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a know_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast AAnter) PPos (RelSlash IdRP (SlashVP (UsePron youPl_Pron) (SlashV2VNP beg_V2V (UsePron we_Pron) (AdvVPSlash (SlashV2a read_V2) today_Adv)))))))))
+

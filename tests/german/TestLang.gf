@@ -1,7 +1,7 @@
 abstract TestLang = 
-  Grammar, 
+  Grammar - [SlashVP, RelSlash],
   TestLexiconGerAbs
---  , Construction
+  , Construction
   ** {    
   flags startcat=Phr ;
 
@@ -32,4 +32,12 @@ abstract TestLang =
     Pass2V3 : V3 -> NP -> VP ;  -- uns erklärt werden ; Eng give_V3[indir,dir]: we are given the book
 
     Pass2V4 : V4 -> NP -> VPSlash ; -- bei dir (für Gold) gekauft werden
+
+  cat
+    ClauseSlash ;
+
+  fun
+    RelSlash : RP -> ClauseSlash -> RCl ;
+    SlashVP : NP -> VPSlash -> ClauseSlash ;
+
   } ;
