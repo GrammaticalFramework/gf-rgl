@@ -3,7 +3,7 @@ concrete PhraseChi of Phrase = CatChi ** open Prelude, ResChi in {
   lin
     PhrUtt pconj utt voc = {s = pconj.s ++ voc.s ++ utt.s} ;
 
-    UttS s = s ;
+    UttS s = ss (linS s) ;
     UttQS qs = ss (qs.s ! True) ;
     UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p} ;
     UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p} ;
@@ -13,7 +13,7 @@ concrete PhraseChi of Phrase = CatChi ** open Prelude, ResChi in {
     UttIAdv iadv = iadv ;
     UttNP np = np ;
     UttCN cn = cn ;
-    UttAP ap = ap ;
+    UttAP ap = {s = ap.s!Attr}  ;
     UttCard x = x ;
     UttVP vp = ss (infVP vp) ;
     UttAdv adv = adv ;

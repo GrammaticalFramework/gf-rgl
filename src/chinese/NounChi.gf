@@ -12,6 +12,7 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
 
     DetNP det = {s = case det.detType of {
                    DTFull Pl => det.s ++ xie_s ;
+                   DTPoss    => det.s ;
                    _         => det.s ++ ge_s
                    } ;
                 } ; ----
@@ -28,7 +29,7 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
         NTFull    => quant.pl ++ num.s ;  -- to avoid yi in indef
         NTVoid Pl => quant.pl ++ num.s ;
         _         => quant.s ++ num.s
-        } ; 
+        } ;
       detType = case num.numType of {
         NTFull => DTNum ;                     -- five
         NTVoid n => case quant.detType of {
@@ -63,8 +64,8 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
 
     AdNum adn num = {s = adn.s ++ num.s ; hasC = True} ;
 
-    OrdSuperl a = {s = superlative_s ++ a.s} ;
-    OrdNumeralSuperl n a = {s = ordinal_s ++ n.s ++ superlative_s ++ a.s} ; ---- to check AR 24/8/2014
+    OrdSuperl a = {s = superlative_s ++ a.s ! Attr} ;
+    OrdNumeralSuperl n a = {s = ordinal_s ++ n.s ++ superlative_s ++ a.s ! Attr} ; ---- to check AR 24/8/2014
 
     DefArt = mkQuant [] [] DTPoss ;          -- use that_Quant if you want the_s
     IndefArt = mkQuant yi_s [] DTNum ; -- (DTFull Sg) ;    -- empty in the plural
@@ -80,8 +81,8 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
     ComplN3 f x = {s = appPrep f.c2 x.s ++ f.s ; c = f.c ; c2 = f.c3} ;
 
     AdjCN ap cn = case ap.monoSyl of {
-            True => {s = ap.s ++ cn.s ; c = cn.c} ;
-            False => {s = ap.s ++ possessive_s ++ cn.s ; c = cn.c} 
+            True => {s = ap.s ! Attr ++ cn.s ; c = cn.c} ;
+            False => {s = ap.s ! Attr ++ possessive_s ++ cn.s ; c = cn.c}
             } ;
 
     RelCN cn rs = {s = rs.s ++ cn.s ; c = cn.c} ;

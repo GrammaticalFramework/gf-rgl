@@ -1,0 +1,57 @@
+--------------------------------------------------------------
+-- Basics
+
+Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))
+LangEng: a cat that walks
+LangChi: 一 只 走 的 猫
+
+Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
+LangEng: a cat that drinks milk
+LangChi: 一 只 喝 牛 奶 的 猫
+
+Lang: MassNP (RelCN (UseN milk_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (SlashV2a drink_V2)))))
+LangEng: milk that the cat drinks
+LangChi: 猫 喝 的 牛 奶
+
+
+Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (VPSlashPrep (UseV walk_V) with_Prep) (DetCN (DetQuant DefArt NumSg) (UseN dog_N))))))
+LangChi: 和 狗 一 起 走 的 猫
+LangEng: the cat that walks with the dog
+
+--------------------------------------------------------------
+-- Determiner placement
+
+Lang: DetCN (DetQuant this_Quant NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))
+LangEng: this cat that walks
+LangChi: 这 只 走 的 猫
+
+Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
+LangEng: my cat that drinks milk
+LangChi: 我 的 喝 牛 奶 的 猫
+
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant this_Quant NumSg)) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))))))
+LangEng: this is the cat that walks
+LangChi: 这 个 是 走 的 猫
+
+
+--------------------------------------------------------------
+-- Complex example: "the book that his/her father gave him/her"
+
+-- 1. His father gave him a book
+Lang: UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (ComplN2 father_N2 (UsePron he_Pron))) (ComplSlash (Slash2V3 give_V3 (MassNP (UseN book_N))) (UsePron he_Pron)))
+LangChi:  他 父 亲 把 书 给 了 他
+
+-- 2. the book that the father of her gave her
+Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron she_Pron))) (Slash3V3 give_V3 (UsePron she_Pron))))))
+LangChi: 她 父 亲 给 了 她 的 书
+LangEng: the book that the father of her gave her
+
+-- I want to read the book that my father gave me
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 father_N2)) (Slash3V3 give_V3 (UsePron i_Pron))))))))))
+LangChi: 我 想 读 我 的 父 亲 给 了 我 的 书
+
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 father_N2)) (SlashV2a read_V2)))))))))
+LangChi: 我 想 读 我 的 父 亲 读 了 的 书
+LangEng: I want to read the book that my father read

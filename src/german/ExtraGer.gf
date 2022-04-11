@@ -142,7 +142,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
           infObjs = (vp.inf.inpl.p1)!agr ;               -- adapted to new VP.inf, HL 3/2022
           infPred = vp.inf.inpl.p2 ;
           infCompl : Str = case <t,a,vp.isAux> of {
-                 <Fut|Cond,Anter,True> => [] ; _ => infObjs ++ infPred } ;
+              <Fut|Cond,Anter,True> => [] ;                               --# notpresent
+              _ => infObjs ++ infPred } ;
           pred : {inf, infComplfin : Str} = case <t,a,vp.isAux> of {
              <Fut|Cond,Anter,True>  =>                                    --# notpresent
                {inf    = infObjs ++ haben ++ infPred ++ verb.inf ;        --# notpresent Duden 318
@@ -182,7 +183,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     ReflPoss num cn = {s = \\a,c => num.s ! cn.g ! c ++ possPron a num.n cn.g c ++ cn.s ! adjfCase Strong c ! num.n ! c} ;
 
-    ReflPron = { s = reflPron } ;  -- reflexively used personal pronoun, with special forms in P3 Sg
+    ReflPron = { s = ResGer.reflPron } ;  -- reflexively used personal pronoun, with special forms in P3 Sg
 
     -- In P1,P2 we might use "selbst" to define a (stronger) reflexive pronoun instead: -- HL 3/2022
     --   du kennst mich vs. ich kenne mich selbst
@@ -190,7 +191,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     --   sie kennen sich (selbst) =/= sie kennen einander
     -- Likewise, instead of ReflPoss we might define a reflexive possessive pronoun:
     --   du kennst meine Fehler vs. ich kenne meine eigenen Fehler
-    --   er|sie|es kennt seine Fehler  vs. er|sie|es kennt seine|ihre|seine eigenen Fehler
+    --   er|sie|es kennt seine|ihre Fehler  vs. er|sie|es kennt seine|ihre|seine eigenen Fehler
   oper
     reflPronSelf : Agr => Case => Str = \\a => \\c => reflPron ! a ! c ++ "selbst" ;
 
@@ -299,4 +300,6 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 		
 		-- this function is not entirely satisfactory as largely 
 		-- though not entirely duplicating mkClause in ResGer
+
+
 } 

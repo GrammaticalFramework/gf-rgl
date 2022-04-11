@@ -254,7 +254,7 @@ resource ResGer = ParamX ** open Prelude in {
      --	 adv : Str ; -- die Frage [a von Max]  -- HL: cannot be extracted
      a : Agr ;
      -- isLight : Bool ;  -- light NPs come before negation in simple clauses (expensive)
-     -- isPron : Bool } ; -- needed to put accPron before datPron
+     -- isPron : Bool  ; -- needed to put accPron before datPron
      w : Weight } ;
 
   mkN  : (x1,_,_,_,_,x6,x7 : Str) -> Gender -> Noun = 
@@ -606,7 +606,7 @@ resource ResGer = ParamX ** open Prelude in {
         Fut  => vf True (wird m a) vpart haben ;         --# notpresent
         Cond => vf True (wuerde a) vpart haben ;         --# notpresent
         Pres => vf True (hat m t a) vpart []
-        } ;                                              --# notpresent
+        } ;
       VPImperat False => vf False (verb.s ! VImper (numberAgr a)) [] [] ;
       VPImperat True  => vf False (verb.s ! VFin False (VPresSubj Pl P3)) [] [] ;
       VPInfinit Anter => vf True [] (vpart ++ haben) [] ;   --# notpresent
@@ -828,7 +828,8 @@ resource ResGer = ParamX ** open Prelude in {
           -- leave inf-complement of +auxV(2)V in place,
           -- extract infzu-complement of -auxV(2)V: (ComplVV, SlashV2V)
           infCompl : Str = case <t,a,vp.isAux> of {
-                 <Fut|Cond,Anter,True> => [] ;  _ => infObjs ++ infPred } ;
+            <Fut|Cond,Anter,True> => [] ;                                 --# notpresent
+            _ => infObjs ++ infPred } ;
           pred : {inf, infComplfin : Str} = case <t,a,vp.isAux> of {
              <Fut|Cond,Anter,True>  =>                                    --# notpresent
                {inf    = infObjs ++ haben ++ infPred ++ verb.inf ;        --# notpresent Duden 318
@@ -838,15 +839,10 @@ resource ResGer = ParamX ** open Prelude in {
                {inf    = verb.inf ++ haben ;                              --# notpresent
                 infComplfin = -- es ++ wird/hat/hatte ++ tun ++ wollen    --# notpresent
                    infObjs ++ verb.fin ++ infPred ++ verb.inf ++ haben} ; --# notpresent
-              <Pres,_,_> =>
+              _ =>
                {inf    = verb.inf ++ haben ;
-                infComplfin = -- es zu tun ++ [] ++ [] ++ versucht
+                infComplfin = -- es zu tun ++ versucht/[] +[]+ hat/versuchte
                    infCompl ++ verb.inf ++ haben ++ verb.fin}
-                                                                         ; --# notpresent
-              _ =>                                                         --# notpresent
-               {inf    = verb.inf ++ haben ;                               --# notpresent
-                infComplfin = -- es zu tun ++ versucht ++ [] ++ hat        --# notpresent
-                              infCompl ++ verb.inf ++ haben ++ verb.fin}   --# notpresent
               } ;
           extra = vp.inf.extr!agr ++ vp.ext ;
         in
@@ -1005,4 +1001,3 @@ resource ResGer = ParamX ** open Prelude in {
     in <subj , agr> ;
 
 }
-

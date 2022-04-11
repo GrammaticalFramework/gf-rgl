@@ -5,11 +5,11 @@ flags coding = utf8 ;
 flags coding=utf8;
 oper
   mkN = overload {
-    mkN : (man : Str) -> N 
-      = \n -> lin N (regNoun n ge_s) ;  
-    mkN : (man : Str) -> Str -> N 
+    mkN : (man : Str) -> N
+      = \n -> lin N (regNoun n ge_s) ;
+    mkN : (man : Str) -> Str -> N
       = \n,c -> lin N (regNoun n c)
-    } ;  
+    } ;
 
   mkN2 = overload {
     mkN2 : Str -> N2
@@ -21,7 +21,7 @@ oper
   mkN3 : N -> Prep -> Prep -> N3
       = \n,p,q -> lin N3 (n ** {c2 = p ; c3 = q}) ;
 
-      
+
   mkPN : (john : Str) -> PN
      = \s -> lin PN {s = word s} ; -- normal name, in Chinese characters
 
@@ -29,11 +29,14 @@ oper
      = \s -> lin PN {s = s} ;    -- foreign name, in Latin or other non-Chinese characters
 
   mkA = overload {
-    mkA : (small : Str) -> A 
+    mkA : (small : Str) -> A
       = \a -> lin A (simpleAdj a) ;
-    mkA : (small : Str) -> Bool -> A 
+    mkA : (small : Str) -> Bool -> A
       = \a,b -> lin A (mkAdj a b) ;
-    } ; 
+    } ;
+
+  colourA : Str -> A ; -- colour Adjectives have a "色" when used as predicative
+  colourA colour = lin A (colourAdj colour);
 
   mkA2 = overload {
     mkA2 : Str -> A2
@@ -43,32 +46,32 @@ oper
     mkA2 : A -> Prep -> A2
       = \a,p -> lin A2 (a ** {c2 = p}) ;
     } ;
-    
-  mkV = overload {      
-    mkV : (walk : Str) -> V 
+
+  mkV = overload {
+    mkV : (walk : Str) -> V
       = \walk -> case walk of {
           v + "+" + p => lin V (regVerb (v + p)) ;
           _ => lin V (regVerb walk)
           } ;
-    mkV : (walk,out : Str) -> V 
+    mkV : (walk,out : Str) -> V
       = \v,p -> lin V (regVerb (v + p)) ; ----
     mkV : (arrive : Str) -> Str -> Str -> Str -> Str -> V
       = \arrive,pp,ds,dp,ep -> lin V (mkVerb arrive pp ds dp ep neg_s) ;
     mkV : (arrive : Str) -> Str -> Str -> Str -> Str -> Str -> V
       = \arrive,pp,ds,dp,ep,neg -> lin V (mkVerb arrive pp ds dp ep neg) ;
-      } ;      
+      } ;
 
   mkV2 = overload {
-    mkV2 : Str -> V2 
+    mkV2 : Str -> V2
       = \s -> case s of {
          v + "+" + p => lin V2 (regVerb v ** {c2 = emptyPrep ; hasPrep = False ; part = word p}) ;
-         v + "*" + p => lin V2 (regVerb v ** 
+         v + "*" + p => lin V2 (regVerb v **
                                 {c2 = ResChi.mkPreposition p [] (getAdvType p) ; hasPrep = True ; part = []}) ;
          _ => lin V2 (regVerb s ** {c2 = emptyPrep ; hasPrep = False ; part = []})
          } ;
-    mkV2 : V -> V2 
+    mkV2 : V -> V2
       = \v -> lin V2 (v ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ;
-    mkV2 : V -> Prep -> V2 
+    mkV2 : V -> Prep -> V2
       = \v,p -> lin V2 (v ** {c2 = p ; hasPrep = True ; part = []}) ;
     } ;
 
@@ -110,47 +113,47 @@ oper
 
   mkV2Q = overload {
     mkV2Q : V -> V2Q =
-     \v -> lin V2Q (v ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ; 
+     \v -> lin V2Q (v ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ;
     mkV2Q : Str -> V2Q =
-      \v -> lin V2Q (regVerb v ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ; 
+      \v -> lin V2Q (regVerb v ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ;
     } ;
 
   mkV2V= overload {
-    mkV2V : Str -> V2V = 
-    \s -> lin V2V (regVerb s ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ; 
+    mkV2V : Str -> V2V =
+    \s -> lin V2V (regVerb s ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ;
 
     mkV2V : V -> V2V =
-    \v -> lin V2V (v ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ; 
+    \v -> lin V2V (v ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ;
 ----  mkV2V : V -> Str -> Str -> V2V =
-----    \v,p,q -> lin V2V (v ** {c2 = mkPrep p ; c3 = mkPrep q}) ; 
+----    \v,p,q -> lin V2V (v ** {c2 = mkPrep p ; c3 = mkPrep q}) ;
     } ;
 
   mkV2S = overload {
   mkV2S : Str -> V2S =
-    \s -> lin V2S (regVerb s ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ; 
+    \s -> lin V2S (regVerb s ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ;
   mkV2S : V -> V2S =
-    \v -> lin V2S (v ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ; 
+    \v -> lin V2S (v ** {c2 = emptyPrep ; hasPrep = False ; part = []}) ;
 ----  mkV2S : V -> Str -> V2S =
-----    \v,p -> lin V2S (v ** {c2 = mkPrep p}) ; 
+----    \v,p -> lin V2S (v ** {c2 = mkPrep p}) ;
   } ;
 
   mkV2A = overload {
     mkV2A : Str -> V2A
-      = \s -> lin V2A (regVerb s ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ; 
+      = \s -> lin V2A (regVerb s ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ;
     mkV2A : V -> V2A
-      = \v -> lin V2A (v ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ; 
+      = \v -> lin V2A (v ** {c2 = emptyPrep ; c3 = emptyPrep ; hasPrep = False ; part = []}) ;
     } ;
 ----  mkV2A : V -> Str -> Str -> V2A
-----    = \v,p,q -> lin V2A (v ** {c2 = mkPrep p ; c3 = mkPrep q}) ; 
+----    = \v,p,q -> lin V2A (v ** {c2 = mkPrep p ; c3 = mkPrep q}) ;
 
   mkAdv = overload {
-    mkAdv : Str -> Adv 
+    mkAdv : Str -> Adv
       = \s -> let at = getAdvType s in lin Adv {s = word s ; advType = at ; hasDe = advTypeHasDe at} ;
-    mkAdv : Str -> Str -> Adv 
+    mkAdv : Str -> Str -> Adv
       = \s,t -> let at = getAdvType s in lin Adv {s = word (s + t) ; advType = at ; hasDe = advTypeHasDe at} ; ----
-    mkAdv : Str -> AdvType -> Adv 
+    mkAdv : Str -> AdvType -> Adv
       = \s,at -> lin Adv {s = word s ; advType = at ; hasDe = advTypeHasDe at} ;
-    mkAdv : Adv -> AdvType -> Adv -- To fix the AdvType in an Adv produced by SyntaxChi.mkAdv 
+    mkAdv : Adv -> AdvType -> Adv -- To fix the AdvType in an Adv produced by SyntaxChi.mkAdv
       = \adv,at -> adv ** {advType = at ; hasDe = advTypeHasDe at} ;
 
     } ;
@@ -165,50 +168,50 @@ oper
    = ATTime ;
   mannerAdvType : AdvType
    = ATManner ;
-    
+
   mkPrep = overload { -- first pre part, then optional post part
-    mkPrep : Str -> Prep 
+    mkPrep : Str -> Prep
      = \s -> lin Prep (ResChi.mkPreposition s [] (getAdvType s)) ;
-    mkPrep : Str -> Str -> Prep 
+    mkPrep : Str -> Str -> Prep
      = \s,t -> lin Prep (ResChi.mkPreposition s t (getAdvType s)) ;
-    mkPrep : Str -> Str -> AdvType -> Prep 
+    mkPrep : Str -> Str -> AdvType -> Prep
      = \s,t,a -> lin Prep (ResChi.mkPreposition s t a) ;
     } ;
 
-  mkInterj : Str -> Interj 
+  mkInterj : Str -> Interj
     = \s -> lin Interj {s = word s} ;
 
   emptyPrep : Preposition = mkPrep [] ;
 
-  mkpNP : Str -> CatChi.NP 
+  mkpNP : Str -> CatChi.NP
     = \s -> lin NP {s = word s} ;
-  mkAdV : Str -> AdV 
+  mkAdV : Str -> AdV
     = \s -> lin AdV {s = word s} ;
-  mkAdN : Str -> AdN 
+  mkAdN : Str -> AdN
     = \s -> lin AdN {s = word s} ;
-  mkSubj : Str -> Subj 
+  mkSubj : Str -> Subj
     = \s -> lin Subj (ResChi.mkSubj s []) ;
   mkConj = overload {
-    mkConj : Str -> Conj 
-      = \s -> lin Conj {s = \\_ => mkConjForm s} ;
-    mkConj : (both,and : Str) -> Conj 
-      = \s,t -> lin Conj {s = \\_ => mkConjForm2 s t} ;
+    mkConj : Str -> Conj
+      = \s -> lin Conj {s = \\_ => mkConjForm s ; conjType = NotJiu} ;
+    mkConj : (both,and : Str) -> Conj
+      = \s,t -> lin Conj {s = \\_ => mkConjForm2 s t ; conjType = NotJiu} ;
    } ;
-  mkpDet : Str -> Det 
+  mkpDet : Str -> Det
     = \s -> lin Det {s = word s ; detType = DTFull Sg} ;
-  mkQuant : Str -> Quant 
+  mkQuant : Str -> Quant
     = \s -> lin Quant {s,pl = word s ; detType = DTFull Sg} ;
-  mkAdA : Str -> AdA 
+  mkAdA : Str -> AdA
     = \s -> lin AdA {s = word s} ;
-  mkNum : Str -> Num 
+  mkNum : Str -> Num
     = \s -> lin Num {s = word s ; numType = NTFull} ;
-  mkPredet : Str -> Predet 
+  mkPredet : Str -> Predet
     = \s -> lin Predet {s = word s} ;
-  mkIDet : Str -> IDet 
+  mkIDet : Str -> IDet
     = \s -> lin IDet {s = word s ; detType = DTNum} ; ----
-  mkPConj : Str -> PConj 
+  mkPConj : Str -> PConj
     = \s -> lin PConj {s = word s} ;
-  mkRP : Str -> RP 
+  mkRP : Str -> RP
     = \s -> lin RP {s = table {True => [] ; False => word s}} ;
 
 

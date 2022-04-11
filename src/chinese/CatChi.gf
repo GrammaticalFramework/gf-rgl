@@ -4,14 +4,14 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 
 -- Tensed/Untensed
 
-    S  = {s : Str} ;
+    S  = Sentence ;
     QS = {s : Bool => Str} ; -- True = direct question (with ma for sentential questions)
     RS = {s : Str} ;
-    SSlash = {s : Str ; c2 : Preposition} ; 
+    SSlash = {s : Str ; c2 : Preposition} ;
 
 -- Sentence
 
-    Cl = Clause ; -- {s : Polarity => Aspect => Str ; np: Str ; vp: Polarity => Aspect => Str} ; 
+    Cl = Clause ; -- {s : Polarity => Aspect => Str ; np: Str ; vp: Polarity => Aspect => Str} ;
 
     ClSlash = Clause ** {c2 : Preposition} ;
 
@@ -21,7 +21,7 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 
     QCl = {s : Bool => Polarity => Aspect => Str} ; -- True = direct question
     IP = {s : Str} ;
-    IComp = {s : Str} ;    
+    IComp = {s : Str} ;
     IDet = {s : Str ; detType : DetType} ;
     IQuant = {s : Str} ;
 
@@ -32,7 +32,7 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 
 -- Verb
 
-    VP = ResChi.VP ; 
+    VP = ResChi.VP ;
     Comp = ResChi.VP ;
     VPSlash = ResChi.VP ** {c2 : Preposition ; isPre : Bool} ; -- whether the missing arg is before verb
 
@@ -59,13 +59,16 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 
 -- Structural
 
-    Conj = {s : ConjForm => {s1,s2 : Str}} ;    
+    Conj = {
+        s : ConjForm => {s1,s2 : Str} ; -- different form whether it's used for S, A, N, ...
+        conjType : ConjType -- different placement whether it's and,or,... or if-then
+        } ;
     Subj = {prePart : Str ; sufPart : Str} ;
     Prep = Preposition ;
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ, VA = Verb ; 
+    V, VS, VQ, VA = Verb ;
     V2, V2Q, V2S = Verb ** {c2 : Preposition ; hasPrep : Bool ; part : Str} ;
     V3, V2A, V2V = Verb ** {c2, c3 : Preposition ; hasPrep : Bool ; part : Str} ;
     VV = Verb ;
@@ -84,4 +87,6 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
     Tense = {s : Str ; t : Aspect} ;
     Ant   = {s : Str ; t : Aspect} ;
 
+linref
+    S = linS ;
 }

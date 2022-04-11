@@ -81,7 +81,8 @@ lin
           infObjs = (vp.inf.inpl.p1)!agr ;               -- adapted to new VP.inf, HL 3/2022
           infPred = vp.inf.inpl.p2 ;
           infCompl : Str = case <t,a,vp.isAux> of {
-                 <Fut|Cond,Anter,True> => [] ; _ => infObjs ++ infPred } ;
+             <Fut|Cond,Anter,True> => [] ;                                --# notpresent
+             _ => infObjs ++ infPred } ;
           pred : {inf, infComplfin : Str} = case <t,a,vp.isAux> of {
              <Fut|Cond,Anter,True>  =>                                    --# notpresent
                {inf    = infObjs ++ haben ++ infPred ++ verb.inf ;        --# notpresent Duden 318

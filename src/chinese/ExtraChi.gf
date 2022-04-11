@@ -1,9 +1,9 @@
-concrete ExtraChi of ExtraChiAbs = CatChi ** 
+concrete ExtraChi of ExtraChiAbs = CatChi **
   open ResChi, Coordination, (S = StructuralChi), Prelude in {
 
   flags coding = utf8 ;
 
-  lincat 
+  lincat
     VPS   = {s : Str} ;
     [VPS] = {s1,s2 : Str} ;
     VPI   = {s : Str} ;  --- ???
@@ -18,7 +18,7 @@ concrete ExtraChi of ExtraChiAbs = CatChi **
     BaseVPS = twoSS ;
     ConsVPS = consrSS duncomma ;
 
-    PredVPS np vps = {s = np.s ++ vps.s} ;
+    PredVPS np vps = {preJiu = np.s ; postJiu = vps.s} ;
 
     MkVPI vp = {s = (mkClause [] vp).s ! Pos ! APlain} ; --- ?? almost just a copy of VPS
     ConjVPI c = conjunctDistrSS (c.s ! CSent) ;
@@ -37,19 +37,20 @@ concrete ExtraChi of ExtraChiAbs = CatChi **
     Aspect = {s : Str ; a : ResChi.Aspect} ;
   lin
     CompBareAP ap = case ap.hasAdA of {
-      True  => insertObj (mkNP ap.s) (predV nocopula []) ; 
-      False => insertObj (mkNP ap.s) (predV hen_copula [])
-      } ; 
+      True  => insertObj (mkNP (ap.s!Pred)) (predV nocopula []) ;
+      False => insertObj (mkNP (ap.s!Pred)) (predV hen_copula [])
+      } ;
     QuestRepV cl = {
       s = \\_,p,a =>  ---- also for indirect questions?
           let
-          v = cl.vp.verb ; 
+          v = cl.vp.verb ;
           verb = case a of {
-            APlain   => v.s  ++ v.neg ++ v.sn ; 
+            APlain   => v.s  ++ v.neg ++ v.sn ;
             APerf    => v.s  ++ "不"  ++ v.sn ++ v.pp ;
             ADurStat => v.s  ++ "不"  ++ v.sn ;
             ADurProg => v.s  ++ v.neg ++ v.dp ++ v.sn ;  -- mei or bu
-            AExper   => v.s  ++ v.neg ++ v.sn ++ v.ep
+            AExper   => v.s  ++ v.neg ++ v.sn ++ v.ep ;
+            AFut     => jiu_s ++ v.s  ++ v.neg ++ v.sn ++ v.ep -- TODO check placement of jiang
             }
           in
           cl.np ++ cl.vp.prePart ++ verb ++ cl.vp.compl
@@ -57,4 +58,4 @@ concrete ExtraChi of ExtraChiAbs = CatChi **
 
   TopicAdvVP vp adv = insertTopic adv vp ;
 
-} 
+}

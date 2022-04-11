@@ -4,13 +4,12 @@ abstract ExtraGerAbs = Extra [
   VPSlash, PassVPSlash, PassAgentVPSlash, CompIQuant, PastPartAP, PastPartAgentAP,
   Temp,Tense,Pol,S,NP,VV,VP,Conj,IAdv,IQuant,IComp,ICompAP,IAdvAdv,Adv,AP,
   Foc,FocObj,FocAdv,FocAP,UseFoc,
-  RNP,ReflRNP,ReflPoss
+  RNP,ReflRNP,ReflPoss,ReflPron
   ] ** {
   flags coding=utf8;
   
   cat
 	FClause ; -- formal clause 
-	
   fun
     PPzuAdv   : CN -> Adv ;  -- zum Lied, zur Flasche
     TImpfSubj : Tense ;      -- ich möchte...   --# notpresent
@@ -27,4 +26,5 @@ abstract ExtraGerAbs = Extra [
   	FtoCl : FClause -> Cl ;  -- embedding FClause within the RGL, to allow generation of S, Utt, etc.
 
      Pass3V3 : V3 -> VPSlash ; -- wir bekommen den Beweis erklärt
+
 }
