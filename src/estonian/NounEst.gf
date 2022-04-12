@@ -106,6 +106,21 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
       isDef = quant.isDef
       } ;
 
+    DetDAP det = det ;
+
+    AdjDAP dap ap = dap ** {
+      s = \\c => dap.s ! c ++
+                   case ap.infl of {
+                     Regular => ap.s ! True ! NCase dap.n c ;
+                     _ => ap.s ! True ! NCase dap.n Nom  ---- participle
+                 } ;
+      sp = \\c => dap.sp ! c ++
+                   case ap.infl of {
+                     Regular => ap.s ! True ! NCase dap.n c ;
+                     _ => ap.s ! True ! NCase dap.n Nom  ---- participle
+                 } ;
+      } ;
+
     PossPron p = {
       s,sp = \\_,_ => p.s ! NPCase Gen ;
       isNum = False ;
