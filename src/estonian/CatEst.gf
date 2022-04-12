@@ -50,7 +50,7 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
     CN   = {s : NForm => Str} ;
     Pron = {s : NPForm => Str ; a : Agr} ;
     NP   = {s : NPForm => Str ; a : Agr ; isPron : Bool} ;
-    Det  = {
+    DAP, Det  = {
       s : Case => Str ;       -- minun kolme
       sp : Case => Str ;       -- se   (substantival form)
       n : Number ;             -- Pl   (agreement feature for verb)
