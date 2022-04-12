@@ -163,6 +163,12 @@ param
     in
     preOrPost co.isPre co.s nps ;
 
+  -- Used for passive; c2 of V2/VPSlash becomes sc of VP
+  compl2subjcase : Compl -> NPForm = \compl ->
+    case compl.c of {
+      NPCase Gen => NPCase Nom ;  -- valisin koera -> koer valitakse
+      _          => compl.c       -- rääkisin koerale -> koerale räägitakse
+    } ;
 -- For $Verb$.
 
   Verb : Type = {

@@ -79,20 +79,14 @@ concrete VerbEst of Verb = CatEst ** open Prelude, ResEst in {
 
     ReflVP v = insertObjPre (\\fin,b,agr => appCompl fin b v.c2 (reflPron agr)) v ;
 
-    PassV2 v = 
-    let 
-      vp = predV v ;
-      subjCase = case v.c2.c of { --this is probably a reason to not get rid of NPAcc; TODO check
-        NPCase Gen => NPCase Nom ; --valisin koera -> koer valitakse
-        _          => v.c2.c       --rääkisin koerale -> koerale räägitakse
-      }
-    in {
-      s = \\_ => vp.s ! VIPass Pres ;
-      s2 = \\_,_,_ => [] ;
-      adv = [] ;
-      p = vp.p ;
-      ext = vp.ext ;
-      sc = subjCase  -- koer valitakse ; koerale räägitakse 
+    PassV2 v =
+    let vp = predV v in vp ** {
+      s = \\vf => case vf of {
+                    VIFin t => vp.s ! VIPass t ;
+                    -- VIImper => v.s ! ImperPass ; -- TODO: include these forms from V into VP
+                    -- VIPresPart => v.s ! PresPart Pass ;
+                    x => vp.s ! x } ;
+      sc = compl2subjcase v.c2  -- koer valitakse ; koerale räägitakse
       } ;
 
 ----b    UseVS, UseVQ = \v -> v ** {c2 = {s = [] ; c = NPAcc ; isPre = True}} ;
