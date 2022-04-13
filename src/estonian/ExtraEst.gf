@@ -27,18 +27,24 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
       lin CN { s = \\nf => np.s ! NPCase c ++ cn.s ! nf } ;
 
   lincat
-    VPI   = {s : InfForm => Str} ;
-    [VPI] = {s1,s2 : InfForm => Str} ;
+    VPI   = {s : InfStem => Str} ;
+    [VPI] = {s1,s2 : InfStem => Str} ;
     -- VPI   = {s : Str} ;
     -- [VPI] = {s1,s2 : Str} ;
   lin
-    BaseVPI = twoTable InfForm ;
-    ConsVPI = consrTable InfForm comma ;
+    BaseVPI = twoTable InfStem ;
+    ConsVPI = consrTable InfStem comma ;
 
-    MkVPI vp = {s = \\i => infVP (NPCase Nom) Pos (agrP3 Sg) vp i} ;
-    ConjVPI = conjunctDistrTable InfForm ;
+    MkVPI vp = {s = \\i => infVPIF (NPCase Nom) Pos (agrP3 Sg) vp i} ;
+    ConjVPI = conjunctDistrTable InfStem ;
     ComplVPIVV vv vpi =
-      insertObj (\\_,_,_ => vpi.s ! vv.vi) (predV vv) ;
+      insertObj (\\_,_,_ => vpi.s ! vv.vi.stem) (predV vv) ;
+
+  oper
+    -- Version that uses InfStem
+    infVPIF : NPForm -> Polarity -> Agr -> VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
+      infVPAnt Simul sc pol agr vp {stem=if ; suf="a"} ;
+
 
   lincat
     VPS = {

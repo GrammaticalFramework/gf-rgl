@@ -81,7 +81,7 @@ oper
 
 param
   VForm =
-     Inf InfForm
+     Inf InfStem
    | Presn Number Person
    | Impf Number Person
    | Condit Number Person
@@ -99,16 +99,32 @@ param
 
   Voice = Act | Pass ;
 
-  InfForm =
-     InfDa     -- lugeda
-   | InfDes    -- lugedes
-   | InfMa     -- lugema
-   | InfMas    -- lugemas
-   | InfMast   -- lugemast
-   | InfMata   -- lugemata
-   | InfMaks   -- lugemaks
+  InfStem =
+     InfD -- luge+da/des, but can be irregular: tulla, tulles
+   | InfM -- lugema/mas/mast/maks/mata/mine
    ;
+oper
+  InfForms : Type = {stem : InfStem ; suf : Str} ;
 
+  InfDa, InfDes, InfMa, InfMas, InfMast, InfMata, InfMaks, InfMine : InfForms ;
+  InfDa  = {stem = InfD ; suf = "a"} ;    -- lugeda
+  InfDes = {stem = InfD ; suf = "es"} ;   -- lugedes
+  InfMa = {stem = InfM ; suf = "a"} ;     -- lugema
+  InfMas = {stem = InfM ; suf = "as"} ;   -- lugemas
+  InfMast = {stem = InfM ; suf = "ast"} ; -- lugemast
+  InfMata = {stem = InfM ; suf = "ata"} ; -- lugemata
+  InfMaks = {stem = InfM ; suf = "aks"} ; -- lugemaks
+  InfMine = {stem = InfM ; suf = "ine"} ; -- lugemine
+
+  applyInfFormsVP : InfForms -> VP -> {fin,inf : Str} = \if,vp ->
+    let vpforms : VPForms = mkVPForms vp.v ;
+        stemOnly : {fin,inf : Str} = vpforms ! VIInf if.stem ! Simul ! Pos ! agrP3 Sg ;
+     in stemOnly ** {fin = glue stemOnly.fin if.suf} ; -- Despite the name, the infinite form is in the "fin" field, "inf" contains participle
+
+  applyInfFormsV  : InfForms -> (VForm => Str)  -> Str = \if,vf ->
+    glue (vf  ! Inf   if.stem) if.suf ;
+
+param
   SType = SDecl | SQuest | SInv ;
 
 --2 For $Relative$
@@ -180,13 +196,12 @@ param
   Verb2 : Type = Verb1 ** {c2 : Compl} ;
   Verb3 : Type = Verb2 ** {c3 : Compl} ;
 
-  linV : Verb -> Str = \v -> v.s ! Inf InfMa ++ v.p ;
-  linV2 : Verb -> Str = \v -> v.s ! Inf InfMa ++ v.p ;
+  linV2, linV : Verb -> Str = \v -> applyInfFormsV InfMa v.s ++ v.p ;
 
 param
   VIForm =
      VIFin  Tense
-   | VIInf  InfForm
+   | VIInf  InfStem
    | VIPass Tense
    | VIPresPart
    | VIImper
@@ -276,7 +291,7 @@ oper
         } ;
 
   predV : Verb1 -> VP = \verb -> {
-    v = verb ; -- ignoring the subject
+    v = verb ; -- ignoring the subject case of Verb, it is stored in VP.sc later
     s2 = \\_,_,_ => [] ;
     adv = [] ;
     ext = [] ; --relative clause
@@ -405,17 +420,18 @@ oper
   subjForm : NP -> NPForm -> Polarity -> Str = \np,sc,b ->
     appCompl False b {s = [] ; c = sc ; isPre = True} np ;
 
-  infVP : NPForm -> Polarity -> Agr -> VP -> InfForm -> Str = infVPAnt Simul ;
+  infVP : NPForm -> Polarity -> Agr -> VP -> InfForms -> Str = infVPAnt Simul ;
 
-  infVPAnt : Anteriority -> NPForm -> Polarity -> Agr -> VP -> InfForm -> Str =
+  infVPAnt : Anteriority -> NPForm -> Polarity -> Agr -> VP -> InfForms -> Str =
     \ant,sc,pol,agr,vp,vi ->
         let
-          fin = case sc of {     -- subject case
-            NPCase Nom => True ; -- mina tahan joosta
-            _ => False           -- minul peab auto olema
+          complCase = case sc of {     -- choosing case for the complement. sometimes this function is called so that sc is the VP's subject case, but other times it's some other form.
+            NPCase Nom => True ;
+            _ => False
             } ;
-          verb  = mkVPForms vp.v ! VIInf vi ! ant ! Pos ! agr ; -- no "ei"
-          compl = vp.s2 ! fin ! pol ! agr ; -- but compl. case propagated
+          verbStem = mkVPForms vp.v ! VIInf vi.stem ! ant ! Pos ! agr ; -- no "ei"
+          verb = verbStem ** {fin = glue verbStem.fin vi.suf} ;
+          compl = vp.s2 ! complCase ! pol ! agr ;                             -- but compl. case propagated
           adv = vp.adv
         in
         -- inverted word order; e.g.
@@ -512,8 +528,8 @@ oper
       tulgu = (init tulge) + "u" ;
     in
     {s = table {
-      Inf InfDa => tulla ;
-      Inf InfDes => tulles ;
+      Inf InfD    => tull_ ;
+      Inf InfM    => init tulema ;
       Presn Sg P1 => tule_ + "n" ;
       Presn Sg P2 => tule_ + "d" ;
       Presn Sg P3 => tuleb ;
@@ -547,12 +563,7 @@ oper
       PresPart Act  => laulev ;
       PresPart Pass => tuld_ + "av" ; --d or t
       PastPart Act  => tulnud ;
-      PastPart Pass => tuldud ;
-      Inf InfMa => tulema ;
-      Inf InfMas => tulema + "s" ;
-      Inf InfMast => tulema + "st" ;
-      Inf InfMata => tulema + "ta" ;
-      Inf InfMaks => tulema + "ks"
+      PastPart Pass => tuldud
       } ;
     sc = NPCase Nom ;
     p = []
