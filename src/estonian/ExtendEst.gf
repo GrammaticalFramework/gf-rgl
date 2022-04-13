@@ -40,7 +40,7 @@ concrete ExtendEst of Extend =
     Prelude,
     MorphoEst,
     LexiconEst,
-  ParadigmsEst in {
+    ParadigmsEst in {
 
 ---------------------------------
 -- VPS, VPI, VPS2 + list versions
@@ -176,7 +176,7 @@ concrete ExtendEst of Extend =
     A2VPSlash a2 = UseComp (CompAP (UseA2 a2)) ** {c2 = a2.c2} ;
 
     -- : VP -> Adv ;
-    ByVP vp = {s = vp2adv vp True (VIInf InfDes)} ;
+    ByVP = GerundAdv ;
 
 ---------------------------------
 -- C
@@ -220,15 +220,8 @@ concrete ExtendEst of Extend =
 
   lin
 
-  {- TODO: need to change VP to get EmbedPresPart and various Gerunds to work:
-   1) Add "mine" form into VP (or switch to a BIND solution and just add a stem)
-   2) Change s2 in VP so that we can manipulate the complement to be in genitive!
-
-  -- : VP -> SC ;   -- looking at Mary (is fun) / filmide vaatamine (on tore)
-  EmbedPresPart vp =
-    let vpGen = vp ; --** { s2 = \\_,_,_ => vp.s2 ! True ! Pos ! }
-      {s = vp2adv vp True VI } ;
-   -}
+  -- : VP -> SC ;   -- looking at Mary (is fun) / filmide vaatamine (on tore) / ___ga abielus olemine,
+    EmbedPresPart vp = {s = infVP (NPCase Gen) Pos (agrP3 Sg) vp InfMine } ;
 
     EmbedSSlash s = {s = s.s ++ s.c2.s} ;
 
@@ -302,14 +295,13 @@ concrete ExtendEst of Extend =
     GenModIP num ip cn = IdetCN (IdetQuant (GenIP (lin IP ip)) num) cn ;
 
     -- : VP -> Adv
-    GerundAdv vp = {s = vp2adv vp True (VIInf InfDes)} ;
-
+    GerundAdv vp = {s = infVPdefault vp InfDes} ;
 
     -- : VP -> CN    -- publishing of the document (can get a determiner)
---    GerundCN vp = {} ;
+    GerundCN vp = {s = \\nf => infVPdefault vp InfMine} ;
 
     -- : VP -> NP    -- publishing the document (by nature definite)
---    GerundNP vp = {} ;
+    GerundNP vp = MassNP (GerundCN vp) ;
 
 ---------------------------------
 -- I - N
@@ -322,9 +314,8 @@ concrete ExtendEst of Extend =
     -- : Adv -> IAdv ;   -- "how often"
     IAdvAdv adv = { s = "kui" ++ adv.s } ;
 
-    -- : VP -> Adv
-    InOrderToVP vp = -- et raamatut paremini näha
-      { s = "et" ++ vp2adv vp True (VIInf InfDa) } ;
+    -- : VP -> Adv -- et raamatut paremini näha
+    InOrderToVP vp = {s = "et" ++ infVPdefault vp InfDa} ;
 
     -- : N2 -> VPSlash
     N2VPSlash n2 = UseComp (CompCN (UseN2 n2)) ** {c2 = n2.c2} ;
@@ -380,7 +371,7 @@ concrete ExtendEst of Extend =
        in existClause noSubj (agrP3 Sg) heaOlla ;
 
     -- : IAdv -> VP -> QCl ; -- how to walk?
-    PredIAdvVP iadv vp = {s = \\t,a,p => iadv.s ++ vp2adv vp True (VIInf InfMa)} ;
+    PredIAdvVP iadv vp = {s = \\t,a,p => iadv.s ++ infVPdefault vp InfMa} ;
 
     PrepCN prep cn = PrepNP prep (MassNP cn) ;
 
@@ -391,12 +382,19 @@ concrete ExtendEst of Extend =
     PurposeVP = InOrderToVP ; --- is there a difference?
 
   oper
+    -- calling infVP with the "default arguments": NPCase Nom, Pos, agrP3 Sg
+    infVPdefault : VP -> InfForms -> Str = infVP (NPCase Nom) Pos (agrP3 Sg) ;
+
     vp2adv : R.VP -> Bool -> VIForm -> Str = \vp,sentIsPos,vif ->
-      vp.s2 ! sentIsPos ! Pos ! agrP3 Sg  -- raamatut
-      ++ vp.adv                           -- paremini
-      ++ vp.p                             -- ära
-      ++ (mkVPForms vp.v ! vif ! Simul ! Pos ! agrP3 Sg).fin -- tunda/tundes/tundmata/...
-      ++ vp.ext ;
+      let vpforms : {fin,inf : Str} = case vif of {
+            VIInf if => applyInfFormsVP {stem=if ; suf="a"} vp ; --- this oper shouldn't be used if you want to use an InfForm but just trying to be robust here
+            _        => mkVPForms vp.v ! vif ! Simul ! Pos ! agrP3 Sg} ;
+       in  vp.s2 ! sentIsPos ! Pos ! agrP3 Sg  -- raamatut
+        ++ vp.adv                           -- paremini
+        ++ vp.p                             -- ära
+        ++ vpforms.fin -- tunda/tundes/tundmata/...
+        ++ vpforms.inf -- TODO is this necessary???
+        ++ vp.ext ;
 
 ---------------------------------
 -- S - W
@@ -415,14 +413,11 @@ concrete ExtendEst of Extend =
     UttDatIP ip = {s = ip.s ! NPCase Part} ; -- is partitive a reasonable translation?
     UttDatNP np = {s = np.s ! NPCase Part} ;
 
-    -- : VP -> Utt ;  -- There's no "short form", so just using InfMa instead of InfDa
-    UttVPShort vp = {s = infVP (NPCase Nom) Pos (agrP3 Sg) vp InfMa} ;
-    --TODO: maybe InfMa should be default in PhraseEst and InfDa here?
+    -- : VP -> Utt ;  -- There's no "short form", so just using InfDa instead of InfMa
+    UttVPShort vp = {s = infVPdefault vp InfDa} ;
 
-
-
-    WithoutVP vp = -- ilma raamatut nägemata
-      { s = "ilma" ++ vp2adv vp False (VIInf InfMata) } ;
+    -- : VP -> Adv ;  -- ilma raamatut nägemata
+    WithoutVP vp = {s = "ilma" ++ infVPdefault vp InfMata} ;
 
 
 }

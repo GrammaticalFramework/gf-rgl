@@ -12,7 +12,7 @@ concrete PhraseEst of Phrase = CatEst ** open ResEst, (P = Prelude) in {
     UttIP ip = {s = ip.s ! NPCase Nom} ;
     UttIAdv iadv = iadv ;
     UttNP np = {s = np.s ! NPCase Nom} ;
-    UttVP vp = {s = infVP (NPCase Nom) Pos (agrP3 Sg) vp InfDa} ;
+    UttVP vp = {s = infVP (NPCase Nom) Pos (agrP3 Sg) vp InfMa} ;
     UttAdv adv = adv ;
     UttCN np = {s = np.s ! NCase Sg Nom} ;
     UttAP np = {s = np.s ! P.False ! NCase Sg Nom} ;

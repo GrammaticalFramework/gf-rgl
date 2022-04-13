@@ -41,18 +41,10 @@ concrete IdiomEst of Idiom = CatEst **
 
     GenericCl vp = mkClause noSubj (agrP3 Sg) (passiveVP vp) ;
 
-    ProgrVP vp =
-      let
-        inf = (mkVPForms vp.v ! VIInf InfMas ! Simul ! Pos ! agrP3 Sg).fin ;
-        on  = predV olla
-      in {
-        v = verbOlema ;
-        s2 = \\b,p,a => vp.s2 ! b ! p ! a ++ inf ;
-        adv = vp.adv ;
-        p = vp.p ;
-        ext = vp.ext ;
-        sc = vp.sc ;
-        } ;
+    ProgrVP vp = vp ** {
+      v = verbOlema ;
+      s2 = \\b,p,a => vp.s2 ! b ! p ! a ++ (applyInfFormsVP InfMas vp).fin  ;
+      } ;
 
 -- This gives "otetaan oluet" instead of "ottakaamme oluet".
 -- The imperative is not available in a $VP$.

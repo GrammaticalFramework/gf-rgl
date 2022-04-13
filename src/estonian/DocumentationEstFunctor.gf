@@ -142,6 +142,8 @@ oper
        --verb = sverb2verbSep verb0 ;
        vfin : ResEst.VForm -> Str = \f ->
          verb.s ! f ;
+       vinf : ResEst.InfForms -> Str = \if ->
+         applyInfFormsV if verb.s ;
 
        nounNounHeading : Parameter -> Parameter -> Str = \n1,n2 ->
          (S.mkUtt (G.PossNP (S.mkCN n1) (S.mkNP n2))).s ;
@@ -218,15 +220,16 @@ oper
        heading3 (heading infinitive_Parameter) ++
        frameTable (
          tr (intagAttr "th" "rowspan=2" "da" ++
-             th (heading nominative_Parameter) ++ td (vfin (Inf InfDa))) ++
-         tr (th (heading inessive_Parameter) ++ td (vfin (Inf InfDes)))  ++
+             th (heading nominative_Parameter) ++ td (vinf InfDa)) ++
+         tr (th (heading inessive_Parameter) ++ td (vinf InfDes))  ++
 
-         tr (intagAttr "th" "rowspan=5" "ma" ++
-             th (heading illative_Parameter) ++ td (vfin (Inf InfMa))) ++
-         tr (th (heading inessive_Parameter) ++ td (vfin (Inf InfMas))) ++
-         tr (th (heading elative_Parameter)  ++ td (vfin (Inf InfMast))) ++
-         tr (th (heading abessive_Parameter) ++ td (vfin (Inf InfMata))) ++
-         tr (th (heading translative_Parameter) ++ td (vfin (Inf InfMaks)))
+         tr (intagAttr "th" "rowspan=6" "ma" ++
+             th (heading illative_Parameter) ++ td (vinf InfMa)) ++
+         tr (th (heading inessive_Parameter) ++ td (vinf InfMas)) ++
+         tr (th (heading elative_Parameter)  ++ td (vinf InfMast)) ++
+         tr (th (heading abessive_Parameter) ++ td (vinf InfMata)) ++
+         tr (th (heading abessive_Parameter) ++ td (vinf InfMaks)) ++
+         tr (th (heading translative_Parameter) ++ td (vinf InfMine))
 
        ) ++
        heading3 (heading participle_Parameter) ++

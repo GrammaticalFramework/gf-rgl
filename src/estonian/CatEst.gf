@@ -82,8 +82,8 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
     V, VS, VQ = Verb1 ; -- = {s : VForm => Str ; sc : Case} ;
     V2, VA, V2Q, V2S = Verb2 ;
     V2A, V3 = Verb3 ;
-    VV  = Verb1 ** {vi : InfForm} ;
-    V2V = Verb2 ** {vi : InfForm} ; -- infinitive form
+    VV  = Verb1 ** {vi : InfForms} ;
+    V2V = Verb2 ** {vi : InfForms} ;
 
     A  = Adjective ** {infl : Infl} ;
     A2 = A ** {c2 : Compl} ;

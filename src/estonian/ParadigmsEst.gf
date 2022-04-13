@@ -27,6 +27,7 @@ resource ParadigmsEst = open
   (Predef=Predef),
   Prelude,
   MorphoEst,
+  (ResEst=ResEst),
   HjkEst,
   CatEst
   in {
@@ -62,6 +63,8 @@ oper
   abessive    : Case ; -- e.g. "karbita"
   comitative  : Case ; -- e.g. "karbiga"
 
+  InfForm : Type ;
+
   infDa : InfForm ; -- e.g. "lugeda"
   infDes : InfForm ; -- e.g. "lugedes"
   infMa : InfForm ; -- e.g. "lugema"
@@ -69,6 +72,7 @@ oper
   infMaks : InfForm ; -- e.g. "lugemaks"
   infMast : InfForm ;  -- e.g. "lugemast"
   infMata : InfForm ; -- e.g. "lugemata"
+  infMine : InfForm ; -- e.g. "lugemine"
 
 -- The following type is used for defining *rection*, i.e. complements
 -- of many-place verbs and adjective. A complement can be defined by
@@ -293,8 +297,10 @@ oper
   abessive = Abess ;
   comitative = Comit ;
 
+  -- combination of stem + suffix, e.g. infDes = {stem = InfD ; suf = "es"} ;
+  InfForm = ResEst.InfForms ;
   infDa = InfDa ; infMa = InfMa ; infMast = InfMast ;
-  infDes = InfDes ; infMas = InfMas ; infMaks = InfMaks ; infMata = InfMata ;
+  infDes = InfDes ; infMas = InfMas ; infMaks = InfMaks ; infMata = InfMata ; infMine = InfMine ;
 
   prePrep  : Case -> Str -> Prep =
     \c,p -> {c = NPCase c ; s = p ; isPre = True ; lock_Prep = <>} ;
@@ -856,7 +862,7 @@ oper
     mkVV : V -> VV   = \v -> mkVVf v infDa ;
     mkVV : Str -> VV = \str -> mkVVf (mkV str) infDa ;
   } ;
-  mkVVf  v f = v ** {vi = f ; lock_VV = <>} ;
+  mkVVf  v f = lin VV (v ** {vi = f}) ;
   mkVQ = overload {
     mkVQ : V   -> VQ = \v -> v ** {lock_VQ = <>} ;
     mkVQ : Str -> VQ = \str -> (mkV str) ** {lock_VQ = <>} ;
