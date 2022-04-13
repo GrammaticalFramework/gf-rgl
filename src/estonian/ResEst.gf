@@ -176,6 +176,13 @@ param
     p : Str  -- particle verbs
     } ;
 
+  Verb1 : Type = Verb ** {sc : NPForm} ; --subject case, i.e. "ma näen kassi"/"mul on kass"
+  Verb2 : Type = Verb1 ** {c2 : Compl} ;
+  Verb3 : Type = Verb2 ** {c3 : Compl} ;
+
+  linV : Verb -> Str = \v -> v.s ! Inf InfMa ++ v.p ;
+  linV2 : Verb -> Str = \v -> v.s ! Inf InfMa ++ v.p ;
+
 param
   VIForm =
      VIFin  Tense
@@ -187,7 +194,7 @@ param
 
 oper
   VP : Type = {
-    s   : VIForm => Anteriority => Polarity => Agr => {fin, inf : Str} ;
+    v : Verb ;
     s2  : Bool => Polarity => Agr => Str ; -- raamat/raamatu/raamatut
     adv : Str ;
     p : Str ; --uninflecting component in multi-word verbs
@@ -195,48 +202,63 @@ oper
     sc  : NPForm ;
     } ;
 
-  predV : (Verb ** {sc : NPForm}) -> VP = \verb -> {
-    s = \\vi,ant,b,agr0 =>
-      let
-        agr = verbAgr agr0 ;
-        verbs = verb.s ;
-        part  : Str = case vi of {
-          VIPass _ => verbs ! (PastPart Pass) ;
-          _      => verbs ! (PastPart Act)
-        } ;
+  passiveVerb : Verb -> Verb = \verb -> verb ** {
+    s = table {
+      Presn _ _ => verb.s ! PassPresn True ;
+      Impf  _ _  => verb.s ! PassImpf True ;   --# notpresent
+      Condit _ _ => verb.s ! ConditPass ;  --# notpresent
+      ImperP3|ImperP1Pl|Imper _  => verb.s ! ImperPass ;
+      PresPart _  => verb.s ! PresPart Pass ;
+      PastPart _  => verb.s ! PastPart Pass ;
+      x => verb.s ! x }
+    } ;
 
-        einegole : Str * Str * Str = case <vi,agr.n> of {
-          <VIFin Pres>  => <"ei", verbs ! Imper Sg,     "ole"> ;
-          <VIFin Fut>   => <"ei", verbs ! Imper Sg,     "ole"> ;
-          <VIFin Cond>  => <"ei", verbs ! Condit Sg P3, "oleks"> ;
-          <VIFin Past>  => <"ei", part,                 "olnud"> ;
-          <VIImper, Sg> => <"ära", verbs ! Imper Sg,   "ole"> ;
-          <VIImper, Pl> => <"ärge", verbs ! Imper Pl,  "olge"> ;
-          <VIPass Pres> => <"ei", verbs ! PassPresn False,  "ole"> ;
-          <VIPass Fut>  => <"ei", verbs ! PassPresn False,  "ole"> ; --# notpresent
-          <VIPass Cond> => <"ei", verbs ! ConditPass,  "oleks"> ; --# notpresent
-          <VIPass Past> => <"ei", verbs ! PassImpf False,  "olnud"> ; --# notpresent
-          <VIPresPart>  => <"ei", verbs ! PresPart Act, "olev"> ; --# notpresent
-          <VIInf i>     => <"ei", verbs ! Inf i, verbOlema.s ! Inf i>
+  -- NB. only chooses passive verb forms, to get subject case need compl2subjcase, used in PassV2
+  passiveVP : VP -> VP = \vp -> vp ** {v = passiveVerb vp.v} ;
 
-        } ;
+  VPForms : Type = VIForm => Anteriority => Polarity => Agr => {fin, inf : Str} ;
 
-        ei  : Str = einegole.p1 ;
-        neg : Str = einegole.p2 ;
-        ole : Str = einegole.p3 ;
+  mkVPForms : Verb -> VPForms = \verb -> \\vi,ant,b,agr0 =>
+    let
+      agr = verbAgr agr0 ;
+      verbs = verb.s ;
+      part  : Str = case vi of {
+        VIPass _ => verbs ! PastPart Pass ;
+        _      => verbs ! PastPart Act
+      } ;
 
-        olema : VForm => Str = verbOlema.s ;
+      einegole : Str * Str * Str = case <vi,agr.n> of {
+        <VIFin Pres>  => <"ei", verbs ! Imper Sg,     "ole"> ;
+        <VIFin Fut>   => <"ei", verbs ! Imper Sg,     "ole"> ;
+        <VIFin Cond>  => <"ei", verbs ! Condit Sg P3, "oleks"> ;
+        <VIFin Past>  => <"ei", part,                 "olnud"> ;
+        <VIImper, Sg> => <"ära", verbs ! Imper Sg,   "ole"> ;
+        <VIImper, Pl> => <"ärge", verbs ! Imper Pl,  "olge"> ;
+        <VIPass Pres> => <"ei", verbs ! PassPresn False,  "ole"> ;
+        <VIPass Fut>  => <"ei", verbs ! PassPresn False,  "ole"> ; --# notpresent
+        <VIPass Cond> => <"ei", verbs ! ConditPass,  "oleks"> ; --# notpresent
+        <VIPass Past> => <"ei", verbs ! PassImpf False,  "olnud"> ; --# notpresent
+        <VIPresPart>  => <"ei", verbs ! PresPart Act, "olev"> ; --# notpresent
+        <VIInf i>     => <"ei", verbs ! Inf i, verbOlema.s ! Inf i>
 
-        vf : Str -> Str -> {fin, inf : Str} = \x,y -> {fin = x ; inf = y} ;
+      } ;
 
-        mkvf : VForm -> {fin, inf : Str} = \p -> case <ant,b> of {
-          <Simul,Pos> => vf (verbs ! p) [] ;
-          <Anter,Pos> => vf (olema ! p) part ;
-          <Simul,Neg> => vf (ei ++ neg) [] ;
-          <Anter,Neg> => vf (ei ++ ole) part
-        } ;
+      ei  : Str = einegole.p1 ;
+      neg : Str = einegole.p2 ;
+      ole : Str = einegole.p3 ;
 
-        passPol = case b of {Pos => True ; Neg => False} ;
+      olema : VForm => Str = verbOlema.s ;
+
+      vf : Str -> Str -> {fin, inf : Str} = \x,y -> {fin = x ; inf = y} ;
+
+      mkvf : VForm -> {fin, inf : Str} = \p -> case <ant,b> of {
+        <Simul,Pos> => vf (verbs ! p) [] ;
+        <Anter,Pos> => vf (olema ! p) part ;
+        <Simul,Neg> => vf (ei ++ neg) [] ;
+        <Anter,Neg> => vf (ei ++ ole) part
+      } ;
+
+      passPol = case b of {Pos => True ; Neg => False} ;
 
    in case vi of {
         VIFin Past  => mkvf (Impf agr.n agr.p) ; --# notpresent
@@ -252,6 +274,8 @@ oper
         VIInf i    => mkvf (Inf i)
         } ;
 
+  predV : Verb1 -> VP = \verb -> {
+    v = verb ; -- ignoring the subject
     s2 = \\_,_,_ => [] ;
     adv = [] ;
     ext = [] ; --relative clause
@@ -329,7 +353,7 @@ oper
                     NPCase Nom => <agr,True> ;
                     _ => <agrP3 Sg,False>      -- minule meeldib, minul on
                     } ;
-          verb  = vp.s ! VIFin t ! a ! b ! agrfin.p1 ;
+          verb  = mkVPForms vp.v ! VIFin t ! a ! b ! agrfin.p1 ;
         in {subj = sub b ;
             fin  = verb.fin ;
             inf  = verb.inf ;
@@ -389,7 +413,7 @@ oper
             NPCase Nom => True ; -- mina tahan joosta
             _ => False           -- minul peab auto olema
             } ;
-          verb  = vp.s ! VIInf vi ! ant ! Pos ! agr ; -- no "ei"
+          verb  = mkVPForms vp.v ! VIInf vi ! ant ! Pos ! agr ; -- no "ei"
           compl = vp.s2 ! fin ! pol ! agr ; -- but compl. case propagated
           adv = vp.adv
         in
@@ -590,8 +614,7 @@ oper
          } ;
        } ;
 
-  Noun = {s : NForm => Str} ;
-
+  Noun : Type = {s : NForm => Str} ;
 
 -- To form an adjective, it is usually enough to give a noun declension: the
 -- adverbial form is regular.
@@ -660,7 +683,7 @@ oper
 
     -- Converts 6 given strings (Nom, Gen, Part, Illat, Gen, Part) into Noun
     -- http://www.eki.ee/books/ekk09/index.php?p=3&p1=5&id=226
-    nForms2N : NForms -> Noun = \f ->
+  nForms2N : NForms -> Noun = \f ->
       let
         jogi = f ! 0 ;
         joe = f ! 1 ;

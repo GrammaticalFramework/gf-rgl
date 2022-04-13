@@ -80,21 +80,24 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
 -- Open lexical classes, e.g. Lexicon
 
     V, VS, VQ = Verb1 ; -- = {s : VForm => Str ; sc : Case} ;
-    V2, VA, V2Q, V2S = Verb1 ** {c2 : Compl} ;
-    V2A = Verb1 ** {c2, c3 : Compl} ;
-    VV = Verb1 ** {vi : InfForm} ; ---- infinitive form
-    V2V = Verb1 ** {c2 : Compl ; vi : InfForm} ; ---- infinitive form
-    V3 = Verb1 ** {c2, c3 : Compl} ;
+    V2, VA, V2Q, V2S = Verb2 ;
+    V2A, V3 = Verb3 ;
+    VV  = Verb1 ** {vi : InfForm} ;
+    V2V = Verb2 ** {vi : InfForm} ; -- infinitive form
 
     A  = Adjective ** {infl : Infl} ;
     A2 = A ** {c2 : Compl} ;
 
     N  = Noun  ;
-    N2 = Noun ** {c2 : Compl ; isPre : Bool ; lock_N2 : {}} ;
-    N3 = Noun ** {c2,c3 : Compl ; isPre,isPre2 : Bool ; lock_N3 : {}} ;
+    N2 = Noun ** {c2 : Compl ; isPre : Bool} ;
+    N3 = Noun ** {c2,c3 : Compl ; isPre,isPre2 : Bool} ;
     PN = {s : Case  => Str} ;
 
-oper Verb1 = Verb ** { sc : NPForm} ; --what is this for? --subject case, i.e. "ma näen kassi"/"mul on kass"
+  linref
+    VP = \vp -> linV vp.v ;
+    V,VS,VQ = linV ;
+    V2,VA,V2S,V2Q = linV2 ;
+
 
 
 }

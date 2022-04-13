@@ -60,7 +60,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
       } ;
 
     MkVPS t p vp = { --  Temp -> Pol -> VP -> VPS ;
-      s = \\a => let vps = vp.s ! VIFin t.t ! t.a ! p.p ! a
+      s = \\a => let vps = mkVPForms vp.v ! VIFin t.t ! t.a ! p.p ! a
                  in
                  t.s ++ p.s ++
                  vps.fin ++ vps.inf ++

@@ -11,7 +11,7 @@ concrete SentenceEst of Sentence = CatEst ** open Prelude, ResEst in {
     ImpVP vp = {
       s = \\pol,agr =>
         let
-          verb  = vp.s ! VIImper ! Simul ! pol ! agr ;
+          verb  = mkVPForms vp.v ! VIImper ! Simul ! pol ! agr ;
           compl = vp.s2 ! False ! pol ! agr ++ vp.ext  --- False = like inf (osta auto)
         in --(ära)  loe         raamat(ut) läbi
         verb.fin ++ verb.inf ++ compl   ++ vp.p ;
