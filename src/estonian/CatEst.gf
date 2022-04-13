@@ -21,7 +21,7 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
 
     QCl    = {s : ResEst.Tense => Anteriority => Polarity => Str} ;
     IP     = {s : NPForm => Str ; n : Number} ;
-    IComp  = {s : Agr => Str} ; 
+    IComp  = {s : Agr => Str} ;
     IDet   = {s : Case => Str ; n : Number ; isNum : Bool} ;
     IQuant = {s : Number => Case => Str} ;
 
@@ -33,17 +33,17 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
 -- Verb
 
     VP   = ResEst.VP ;
-    VPSlash = ResEst.VP ** {c2 : Compl} ; 
-    Comp = {s : Agr => Str} ; 
+    VPSlash = ResEst.VP ** {c2 : Compl} ;
+    Comp = {s : Agr => Str} ;
 
 -- Adjective
 
 -- The $Bool$ in s tells whether usage is modifying (as opposed to
 -- predicative), e.g. "x on suurem kui y" vs. "y:st suurem arv".
--- The $Infl$ in infl tells whether the adjective inflects as a 
+-- The $Infl$ in infl tells whether the adjective inflects as a
 -- modifier: e.g. "väsinud mehele" vs. "mees muutus väsinuks".
 
-    AP = {s : Bool => NForm => Str ; infl : Infl} ; 
+    AP = {s : Bool => NForm => Str ; infl : Infl} ;
 
 -- Noun
 
@@ -55,8 +55,9 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
       sp : Case => Str ;       -- se   (substantival form)
       n : Number ;             -- Pl   (agreement feature for verb)
       isNum : Bool ;           -- True (a numeral is present)
-      isDef : Bool             -- True (verb agrees in Pl, Nom is not Part) --I: actually, can we get rid of this? 
+      isDef : Bool             -- True (verb agrees in Pl, Nom is not Part) --I: actually, can we get rid of this?
       } ;
+
 ----    QuantSg, QuantPl = {s : Case => Str ;  isDef : Bool} ;
     Ord    = {s : NForm => Str} ;
     Predet = {s : Number => NPForm => Str} ;

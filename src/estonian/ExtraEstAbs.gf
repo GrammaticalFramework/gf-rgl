@@ -33,7 +33,7 @@ abstract ExtraEstAbs = Extra [
     me_Pron : Pron ;
     te_Pron : Pron ;
     nad_Pron : Pron ;
-    
+
     OmaPoss : Quant ;                     -- Reflexive possessive "oma"
     ProDropPoss : Pron -> Quant ;         -- vaimoni --TODO Is this relevant in Estonian? Is the agreement of pronoun ever needed, or is it the same as oma?
 

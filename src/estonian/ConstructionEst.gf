@@ -1,6 +1,6 @@
 --# -path=alltenses:.:../abstract:../api:../common
 
-concrete ConstructionEst of Construction = CatEst ** 
+concrete ConstructionEst of Construction = CatEst **
   open SyntaxEst, SymbolicEst, ParadigmsEst, (L = LexiconEst), (E = ExtraEst), (R = ResEst), Prelude  in {
 flags coding=utf8 ;
 
@@ -12,7 +12,7 @@ lin
   ill_VP = mkVP (mkA "haige") ;
   ready_VP = mkVP (ParadigmsEst.mkA "valmis") ;
 
-  has_age_VP card = 
+  has_age_VP card =
     let n_years_AdA : AdA = lin AdA (mkUtt (lin NP (mkNP <lin Card card : Card> L.year_N)))
     in  mkVP (mkAP n_years_AdA L.old_A) ;
 
@@ -25,7 +25,7 @@ lin
 
 -- some more things
   weather_adjCl ap = mkCl (mkVP (lin AP ap)) ;
-   
+
   is_right_VP = mkVP have_V2 (lin NP (mkNP (ParadigmsEst.mkN "õigus"))) ;
   is_wrong_VP = mkVP (ParadigmsEst.mkV "eksima") ;
 
@@ -37,7 +37,7 @@ lin
 
   where_go_QCl np = mkQCl (lin IAdv (ss "kuhu")) (mkCl np (mkVP L.go_V)) ;
   where_come_from_QCl np =  mkQCl (lin IAdv (ss "kust")) (mkCl np (mkVP L.come_V)) ;
-  
+
   go_here_VP = mkVP (mkVP L.go_V) (mkAdv "siia") ;
   come_here_VP = mkVP (mkVP L.come_V) (mkAdv "siia") ;
   come_from_here_VP = mkVP (mkVP L.come_V) (mkAdv "sealt") ;
@@ -61,16 +61,16 @@ lin
 
   monthAdv m = SyntaxEst.mkAdv in_Prep (mkNP m) ;
   yearAdv y = SyntaxEst.mkAdv (prePrep nominative "aastal") y ;
-----  dayMonthAdv d m = ParadigmsEst.mkAdv (d.s ! R.NPCase R.Nom ++ BIND ++ "." ++ m.s ! R.NCase R.Sg R.Part) ;  
+----  dayMonthAdv d m = ParadigmsEst.mkAdv (d.s ! R.NPCase R.Nom ++ BIND ++ "." ++ m.s ! R.NCase R.Sg R.Part) ;
 ----  monthYearAdv m y = SyntaxEst.mkAdv in_Prep (mkNP (mkNP m) (SyntaxEst.mkAdv (casePrep nominative) y)) ;
-----  dayMonthYearAdv d m y = 
-----    lin Adv {s = d.s ! R.NPCase R.Nom ++ BIND ++ "." ++ m.s ! R.NCase R.Sg R.Part ++ y.s ! R.NPCase R.Nom} ;  
+----  dayMonthYearAdv d m y =
+----    lin Adv {s = d.s ! R.NPCase R.Nom ++ BIND ++ "." ++ m.s ! R.NCase R.Sg R.Part ++ y.s ! R.NPCase R.Nom} ;
 
   intYear = symb ;
   intMonthday = symb ;
 
 oper
-  pointWeekday : Weekday -> Str = \w -> (SyntaxEst.mkAdv (casePrep essive) (mkNP w.noun)).s ; 
+  pointWeekday : Weekday -> Str = \w -> (SyntaxEst.mkAdv (casePrep essive) (mkNP w.noun)).s ;
 
 lincat Language = N ;
 
@@ -86,11 +86,11 @@ lin
 
 oper mkLanguage : Str -> N = \s -> mkN (s ++ "keel") ;
 
-oper mkWeekday : Str -> Weekday = \d -> 
+oper mkWeekday : Str -> Weekday = \d ->
       lin Weekday {
-       noun = mkN d ; 
+       noun = mkN d ;
        habitual = ParadigmsEst.mkAdv (d + "iti") ; --kolmapäeviti
-      } ; 
+      } ;
 
 
 lin monday_Weekday = mkWeekday "esmaspäev" ;
@@ -101,9 +101,9 @@ lin friday_Weekday = mkWeekday "reede" ;
 lin saturday_Weekday = mkWeekday "laupäev" ;
 lin sunday_Weekday = mkWeekday "pühapäev" ;
 
-lin january_Month = mkN "jaanuar" ; 
+lin january_Month = mkN "jaanuar" ;
 lin february_Month = mkN "veebruar" ;
-lin march_Month = mkN "märts" ; 
+lin march_Month = mkN "märts" ;
 lin april_Month = mkN "aprill" ;
 lin may_Month = mkN "mai" ;
 lin june_Month = mkN "juuni" ;

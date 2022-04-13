@@ -1,6 +1,6 @@
 concrete LexiconEst of Lexicon = CatEst ** open MorphoEst, ParadigmsEst, Prelude in {
 
-flags 
+flags
   optimize=values ; coding=utf8;
 
 
@@ -216,7 +216,7 @@ lin
   yellow_A = mkA (mkN "kollane" "kollase" "kollast" "kollasesse" "kollaste" "kollaseid") ;
   young_A = mkA (mkN "noor" "noore" "noort") ;
 
-  do_V2 = mkV2 (mkV "tegema" "teha") ; 
+  do_V2 = mkV2 (mkV "tegema" "teha") ;
 
   now_Adv = mkAdv "nüüd" ;
   already_Adv = mkAdv "juba" ;

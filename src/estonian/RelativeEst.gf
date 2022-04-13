@@ -11,14 +11,14 @@ concrete RelativeEst of Relative = CatEst ** open Prelude, ResEst, MorphoEst in 
       } ;
 
     RelVP rp vp = {
-      s = \\t,ant,b,ag => 
-        let 
+      s = \\t,ant,b,ag =>
+        let
           agr = case rp.a of {
             RNoAg => ag ;
             RAg a => a
             } ;
-          cl = mkClause 
-             (subjForm {s = rp.s ! (complNumAgr agr) ; 
+          cl = mkClause
+             (subjForm {s = rp.s ! (complNumAgr agr) ;
                         a = agr ; isPron = False} vp.sc) agr vp
         in
         cl.s ! t ! ant ! b ! SDecl ;
@@ -26,8 +26,8 @@ concrete RelativeEst of Relative = CatEst ** open Prelude, ResEst, MorphoEst in 
       } ;
 
     RelSlash rp slash = {
-      s = \\t,a,p,ag => 
-            let 
+      s = \\t,a,p,ag =>
+            let
               cls = slash.s ! t ! a ! p ;
               who = appCompl True p slash.c2 (rp2np (complNumAgr ag) rp)
             in
