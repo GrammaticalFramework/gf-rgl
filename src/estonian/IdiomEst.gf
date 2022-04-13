@@ -39,21 +39,14 @@ concrete IdiomEst of Idiom = CatEst **
 
     ImpersCl vp = mkClause noSubj (agrP3 Sg) vp ;
 
-    GenericCl vp = mkClause noSubj (agrP3 Sg) {
-      s = \\_ => vp.s ! VIPass Pres ;
-      s2 = vp.s2 ;
-      adv = vp.adv ;
-      p = vp.p ;
-      ext = vp.ext ;
-      sc = vp.sc ;
-      } ;
+    GenericCl vp = mkClause noSubj (agrP3 Sg) (passiveVP vp) ;
 
     ProgrVP vp =
       let
-        inf = (vp.s ! VIInf InfMas ! Simul ! Pos ! agrP3 Sg).fin ;
+        inf = (mkVPForms vp.v ! VIInf InfMas ! Simul ! Pos ! agrP3 Sg).fin ;
         on  = predV olla
       in {
-        s = on.s ;
+        v = verbOlema ;
         s2 = \\b,p,a => vp.s2 ! b ! p ! a ++ inf ;
         adv = vp.adv ;
         p = vp.p ;
@@ -65,7 +58,7 @@ concrete IdiomEst of Idiom = CatEst **
 -- The imperative is not available in a $VP$.
 
   ImpPl1 vp =
-    let vps = vp.s ! VIPass Pres ! Simul ! Pos ! Ag Pl P1
+    let vps = mkVPForms vp.v ! VIPass Pres ! Simul ! Pos ! Ag Pl P1
     in
     {s = vps.fin ++ vps.inf ++
          vp.s2 ! True ! Pos ! Ag Pl P1 ++ vp.p ++ vp.ext

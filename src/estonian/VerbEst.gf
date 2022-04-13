@@ -79,13 +79,7 @@ concrete VerbEst of Verb = CatEst ** open Prelude, ResEst in {
 
     ReflVP v = insertObjPre (\\fin,b,agr => appCompl fin b v.c2 (reflPron agr)) v ;
 
-    PassV2 v =
-    let vp = predV v in vp ** {
-      s = \\vf => case vf of {
-                    VIFin t => vp.s ! VIPass t ;
-                    -- VIImper => v.s ! ImperPass ; -- TODO: include these forms from V into VP
-                    -- VIPresPart => v.s ! PresPart Pass ;
-                    x => vp.s ! x } ;
+    PassV2 v = let vp : VP = passiveVP (predV v) in vp ** {
       sc = compl2subjcase v.c2  -- koer valitakse ; koerale räägitakse
       } ;
 

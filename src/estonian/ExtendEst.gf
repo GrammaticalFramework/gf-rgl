@@ -395,7 +395,7 @@ concrete ExtendEst of Extend =
       vp.s2 ! sentIsPos ! Pos ! agrP3 Sg  -- raamatut
       ++ vp.adv                           -- paremini
       ++ vp.p                             -- ära
-      ++ (vp.s ! vif ! Simul ! Pos ! agrP3 Sg).fin -- tunda/tundes/tundmata/...
+      ++ (mkVPForms vp.v ! vif ! Simul ! Pos ! agrP3 Sg).fin -- tunda/tundes/tundmata/...
       ++ vp.ext ;
 
 ---------------------------------
