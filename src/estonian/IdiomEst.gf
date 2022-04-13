@@ -1,11 +1,11 @@
-concrete IdiomEst of Idiom = CatEst ** 
+concrete IdiomEst of Idiom = CatEst **
   open MorphoEst, ParadigmsEst, Prelude in {
 
   flags optimize=all_subs ; coding=utf8;
 
   lin
-    ExistNP np = 
-      let 
+    ExistNP np =
+      let
         cas : Polarity -> NPForm = \p -> case p of {
           Pos => NPCase Nom ; -- on olemas lammas
           Neg => NPCase Part  -- ei ole olemas lammast
@@ -14,7 +14,7 @@ concrete IdiomEst of Idiom = CatEst **
       in
       existClause noSubj (agrP3 Sg) vp ;
 
-    ExistIP ip = 
+    ExistIP ip =
       let
         cas : NPForm = NPCase Nom ; ---- also partitive in Extra
         vp = insertObj (\\_,b,_ => "olemas") (predV olla) ;
@@ -45,11 +45,11 @@ concrete IdiomEst of Idiom = CatEst **
       adv = vp.adv ;
       p = vp.p ;
       ext = vp.ext ;
-      sc = vp.sc ; 
+      sc = vp.sc ;
       } ;
 
-    ProgrVP vp = 
-      let 
+    ProgrVP vp =
+      let
         inf = (vp.s ! VIInf InfMas ! Simul ! Pos ! agrP3 Sg).fin ;
         on  = predV olla
       in {
@@ -58,16 +58,16 @@ concrete IdiomEst of Idiom = CatEst **
         adv = vp.adv ;
         p = vp.p ;
         ext = vp.ext ;
-        sc = vp.sc ; 
+        sc = vp.sc ;
         } ;
 
 -- This gives "otetaan oluet" instead of "ottakaamme oluet".
 -- The imperative is not available in a $VP$.
 
-  ImpPl1 vp = 
+  ImpPl1 vp =
     let vps = vp.s ! VIPass Pres ! Simul ! Pos ! Ag Pl P1
     in
-    {s = vps.fin ++ vps.inf ++ 
+    {s = vps.fin ++ vps.inf ++
          vp.s2 ! True ! Pos ! Ag Pl P1 ++ vp.p ++ vp.ext
     } ;
 

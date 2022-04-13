@@ -11,7 +11,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
   flags optimize=all ; coding=utf8;
 
   oper
-    
+
 ----------------------
 -- morph. paradigms --
 ----------------------
@@ -19,7 +19,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
   --Noun paradigms in HjkEst
 
   --Comparative adjectives
-  --(could just use hjk_type_IVb_audit "suurem" "a") 
+  --(could just use hjk_type_IVb_audit "suurem" "a")
   -- Comparative adjectives inflect in the same way
   -- TODO: confirm this
   dSuurempi : Str -> NForms = \suurem ->
@@ -47,17 +47,17 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       saama
       (saa + "da")
       (saa + "b")
-      (saa + "dakse") 
+      (saa + "dakse")
       (saa + "ge") -- Imper Pl
       sai
-      (saa + "nud") 
+      (saa + "nud")
       (saa + "dud") ;
 
   -- TS 49
   -- no d/t in da, takse ; imperfect 3sg ends in s
   cKaima : (_ : Str) -> VForms = \kaima ->
     let
-      kai = Predef.tk 2 kaima ;      
+      kai = Predef.tk 2 kaima ;
     in vForms8
       kaima
       (kai + "a")
@@ -65,10 +65,10 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (kai + "akse")
       (kai + "ge")
       (kai + "s")
-      (kai + "nud") 
+      (kai + "nud")
       (kai + "dud") ;
 
-  -- TS 49 
+  -- TS 49
   -- vowel changes in da, takse, no d/t ; imperfect 3sg ends in i
   cJooma : (_ : Str) -> VForms = \jooma ->
     let
@@ -78,7 +78,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       u = case o of {
         "o" => "u" ;
         "ö" => "ü" ;
-         _  => o 
+         _  => o
         } ;
       q = case o of {
         ("o"|"ö") => "õ" ;
@@ -91,9 +91,9 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       juua
       (joo + "b")
       (juua + "kse")
-      (joo + "ge") 
+      (joo + "ge")
       j6i
-      (joo + "nud") 
+      (joo + "nud")
       (joo + "dud") ;
 
   -- TS 50-52 (elama, muutuma, kirjutama), 53 (tegelema) alt forms
@@ -105,10 +105,10 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       elama
       (ela + "da")
       (ela + "b")
-      (ela + "takse") 
+      (ela + "takse")
       (ela + "ge") -- Imperative P1 Pl
-      (ela + "s")  -- Imperfect P3 Sg 
-      (ela + "nud") 
+      (ela + "s")  -- Imperfect P3 Sg
+      (ela + "nud")
       (ela + "tud") ;
 
   -- TS 53 (tegelema)
@@ -121,12 +121,12 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       tegelema
       (tegel + "da")
       (tegele + "b")
-      (tegel + "dakse") 
+      (tegel + "dakse")
       (tegel + "ge") -- Imperative P1 Pl
-      (tegele + "s") -- Imperfect P3 Sg 
-      (tegel + "nud") 
-      (tegel + "dud") ; 	
-      
+      (tegele + "s") -- Imperfect P3 Sg
+      (tegel + "nud")
+      (tegel + "dud") ;
+
   -- TS 54 (tulema)
   -- consonant assimilation (l,r,n) in da, takse
   -- d in tud, g in ge
@@ -146,7 +146,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
         (tul + "i")
         (tul + "nud")
         (tul + "dud") ;
-  
+
   -- TS 55-56 (õppima, sündima)
   -- t in takse, tud ; consonant gradation on stem
   cLeppima : (_ : Str) -> VForms = \leppima ->
@@ -154,7 +154,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       leppi = Predef.tk 2 leppima ;
       i = last leppi ;
       lepp = init leppi ;
-      lepi = (weaker lepp) + i 
+      lepi = (weaker lepp) + i
     in vForms8
       leppima
       (leppi + "da")
@@ -164,7 +164,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (leppi + "s")  -- Imperfect P3 Sg
       (leppi + "nud")
       (lepi + "tud") ;
-      
+
   -- TS 57 (lugema)
   -- Like 55-56 but irregular gradation patterns, that shouldn't be in HjkEst.weaker
   --including also marssima,valssima
@@ -184,7 +184,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
         _ + ("uge"|"ude")       => l + "oe" ;
 
         _ + #c + "ssi"          => (init lug) + e;
-        _ => (weaker lug) + e 
+        _ => (weaker lug) + e
       } ;
     in vForms8
       lugema
@@ -195,8 +195,8 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (luge + "s")  -- Imperfect P3 Sg
       (luge + "nud")
       (loe + "tud") ;
-      
-      
+
+
   -- TS 58 muutma, saatma,
   -- like laskma (TS 62, 64), but no reduplication of stem consonant (muutma~muuta, not *muutta)
   -- like andma (TS 63) but different takse (muudetakse vs. antakse)
@@ -213,8 +213,8 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (muut + "is")
       (muut + "nud")
       (muud + "etud") ; -- always e?
-  
-  -- TS 59-60 (petma~petetakse, jätma~jäetakse) 
+
+  -- TS 59-60 (petma~petetakse, jätma~jäetakse)
   -- takse given as second argument
     cPetma : (_,_ : Str) -> VForms = \petma,jaetakse ->
     let
@@ -251,8 +251,8 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (jatt + "is")
       (jat + "nud")
       (ko + "etud") ;
--}      
-      
+-}
+
   -- TS 61 (laulma)
   --vowel (a/e) given with the second argument
   --veenma,naerma
@@ -268,7 +268,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (kuul + "is")
       (kuul + "nud")
       (kuul + "dud") ;
-      
+
   -- TS 62 (tõusma), 64 (mõksma)
   -- vowel (a/e) given with the second argument
   -- doesn't give alt. forms joosta, joostes
@@ -283,9 +283,9 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (las + "takse")
       (las + "ke")
       (lask + "is")
-      (lask + "nud") 
+      (lask + "nud")
       (las + "tud") ;
-      
+
   -- TS 62 alt forms
   cJooksma : (_ : Str) -> VForms = \jooksma ->
     let
@@ -298,10 +298,10 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (joos + "takse")
       (joos + "ke")
       (jooks + "is")
-      (jooks + "nud") 
+      (jooks + "nud")
       (joos + "tud") ;
 
-  -- TS 63 (andma, murdma, hoidma) 
+  -- TS 63 (andma, murdma, hoidma)
   -- vowel given in second arg (andma~annab; tundma~tunneb)
   cAndma : (_,_ : Str) -> VForms = \andma,annab ->
     let
@@ -310,18 +310,18 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       ann = weaker and ;        --murr,     hoi
       te = case (last ann) of { --to prevent teadma~teaab
          "a" => init ann ;
-         _   => ann 
+         _   => ann
       } ;
     in vForms8
       andma
       (and + "a")
-      annab 
+      annab
       (an + "takse")
       (and + "ke")
       (and + "is")
       (and + "nud")
       (an + "tud") ;
-      
+
   -- TS 65 (pesema)
   -- a consonant stem verb in disguise
   cPesema : (_ : Str) -> VForms = \pesema ->
@@ -356,9 +356,9 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (nag + "i")
       (nai + "nud")
       (nah + "tud") ;
-  
-  
-  -- TS 67-68 (hüppama, tõmbama) 
+
+
+  -- TS 67-68 (hüppama, tõmbama)
   -- strong stem in ma, b, s
   -- weak stem in da, takse, ge, nud, tud
   -- t in da, takse; k in ge
@@ -387,7 +387,7 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       omb = Predef.tk 2 omble ;
       omm = case omb of {
         "mõt" => "mõe" ; --some "double weak" patterns; however weaker (weaker omb) makes the coverage worse
-         _    => weaker omb 
+         _    => weaker omb
       } ;
       ommel = omm + e + l ;
     in vForms8
@@ -445,22 +445,22 @@ These used to be here:
     aForms2A : AForms -> Adjective = \afs -> {
       s = table {
         Posit => table {
-          AN n => (nForms2N afs.posit).s ! n ; 
+          AN n => (nForms2N afs.posit).s ! n ;
           AAdv => afs.adv_posit
           } ;
         Compar => table {
-          AN n => (nForms2N afs.compar).s ! n ; 
+          AN n => (nForms2N afs.compar).s ! n ;
           AAdv => afs.adv_compar
           } ;
         Superl => table {
-          AN n => (nForms2N afs.superl).s ! n ; 
+          AN n => (nForms2N afs.superl).s ! n ;
           AAdv => afs.adv_superl
           }
         } ;
       lock_A = <>
       } ;
 
-    nforms2aforms : NForms -> AForms = \nforms -> 
+    nforms2aforms : NForms -> AForms = \nforms ->
       let
         suure = init (nforms ! 1) ;
         suur = Predef.tk 4 (nforms ! 8) ;
@@ -477,7 +477,7 @@ These used to be here:
 
 These used to be here:
   VForms : Type = Predef.Ints 7 => Str ;
-  vForms8 : (x1,_,_,_,_,_,_,x8 : Str) -> VForms ; 
+  vForms8 : (x1,_,_,_,_,_,_,x8 : Str) -> VForms ;
   regVForms : (x1,_,_,x4 : Str) -> VForms ;
   vforms2V : VForms -> Verb ;
 -}
@@ -487,7 +487,7 @@ These used to be here:
 -- for Structural
 -----------------------
 
-caseTable : Number -> Noun -> Case => Str = \n,cn -> 
+caseTable : Number -> Noun -> Case => Str = \n,cn ->
   \\c => cn.s ! NCase n c ;
 
   mkDet : Number -> Noun -> {
@@ -510,11 +510,11 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
   -- TODO: remove NPAcc?
   -- I: keep NPAcc; see appCompl in ResEst, it takes care of finding a right case for various types of complements; incl. when pronouns get different treatment than nouns (PassVP).
   mkPronoun : (_,_,_ : Str) -> Number -> Person ->
-    {s : NPForm => Str ; a : Agr} = 
+    {s : NPForm => Str ; a : Agr} =
     \mina, minu, mind, n, p ->
     let {
       minu_short = ie_to_i minu
-    } in 
+    } in
     {s = table {
       NPCase Nom    => mina ;
       NPCase Gen    => minu ;
@@ -533,7 +533,7 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
       NPAcc         => mind
       } ;
      a = Ag n p
-    } ; 
+    } ;
 
   -- meiesse/teiesse -> meisse/teisse
   ie_to_i : Str -> Str ;
@@ -543,14 +543,14 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
 		_ => x
 	} ;
 
-  shortPronoun : (_,_,_,_ : Str) -> Number -> Person -> 
-    {s : NPForm => Str ; a : Agr} = 
+  shortPronoun : (_,_,_,_ : Str) -> Number -> Person ->
+    {s : NPForm => Str ; a : Agr} =
       \ma, mu, mind, minu, n, p ->
     let shortMa = mkPronoun ma mu mind n p ;
         mulle : Str = case mu of {
-           "mu" => "mulle" ; 
+           "mu" => "mulle" ;
            "su" => "sulle" ;
-           _     => shortMa.s ! NPCase Allat 
+           _     => shortMa.s ! NPCase Allat
         } ;
 
      in shortMa ** { s = table {
@@ -561,18 +561,18 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
          NPCase Comit  => minu + "ga" ;
          NPCase Termin => minu + "ni" ;
          x          => shortMa.s ! x } } ;
-   
+
 
 
 
 oper
 
-  relPron : NForm => Str = 
-    let mis = nForms2N (nForms6 "mis" "mille" "mida" "millesse" "mille" "mida") 
-     in fixPlNom "mis" mis.s ; 
+  relPron : NForm => Str =
+    let mis = nForms2N (nForms6 "mis" "mille" "mida" "millesse" "mille" "mida")
+     in fixPlNom "mis" mis.s ;
 
   kesPron : NForm => Str =
-    let kes = nForms2N (nForms6 "kes" "kelle" "keda" "kellesse" "kelle" "keda") 
+    let kes = nForms2N (nForms6 "kes" "kelle" "keda" "kellesse" "kelle" "keda")
      in fixPlNom "kes" kes.s ;
 
   ProperName = {s : Case => Str} ;
@@ -613,7 +613,7 @@ oper
       Allat  => "nendele" ;
       Abess  => "nendeta" ;
       Comit  => "nendega" ;
-      Termin => "nendeni" 
+      Termin => "nendeni"
       } ;
     } ;
 
