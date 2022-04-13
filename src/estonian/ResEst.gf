@@ -204,12 +204,13 @@ oper
 
   passiveVerb : Verb -> Verb = \verb -> verb ** {
     s = table {
-      Presn _ _ => verb.s ! PassPresn True ;
+      Presn _ _  => verb.s ! PassPresn True ;
       Impf  _ _  => verb.s ! PassImpf True ;   --# notpresent
       Condit _ _ => verb.s ! ConditPass ;  --# notpresent
-      ImperP3|ImperP1Pl|Imper _  => verb.s ! ImperPass ;
-      PresPart _  => verb.s ! PresPart Pass ;
-      PastPart _  => verb.s ! PastPart Pass ;
+      ImperP3    => verb.s ! ImperPass ;
+      Imper Sg   => verb.s ! PassPresn False ; -- weird hack, because the Imper Sg field is used for negative form; if VP undergoes PassV*, then its negation should also be in passive.
+      PresPart _ => verb.s ! PresPart Pass ;
+      PastPart _ => verb.s ! PastPart Pass ;
       x => verb.s ! x }
     } ;
 
