@@ -276,49 +276,66 @@ oper
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
-  Case = MorphoEst.Case ;
+  Case = MorphoEst.CasePlus ;
   Number = MorphoEst.Number ;
 
   singular = Sg ;
   plural = Pl ;
 
-  nominative = Nom ;
-  genitive = Gen ;
-  partitive = Part ;
-  illative = Illat ;
-  inessive = Iness ;
-  elative = Elat ;
-  allative = Allat ;
-  adessive = Adess ;
-  ablative = Ablat ;
-  translative = Transl ;
-  terminative = Termin ;
-  essive  = Ess ;
-  abessive = Abess ;
-  comitative = Comit ;
+  nominative  = Nominative ;
+  genitive    = Genitive ;
+  partitive   = Partitive ;
+  illative    = Illative ;
+  inessive    = Inessive ;
+  elative     = Elative ;
+  allative    = Allative ;
+  adessive    = Adessive ;
+  ablative    = Ablative ;
+  translative = Translative ;
+  terminative = Terminative ;
+  essive      = Essive ;
+  abessive    = Abessive ;
+  comitative  = Comitative ;
+
+  -- IL 2022-04: after introducing stem+suffixes, 4 other cases have just genitive stems.
+  -- isActuallyGenitive is needed for those mkN2 and mkN3 instances that take a Prep as an argument,
+  -- and actual Gen gets isPre=True, and those with genitive stem+suffix should get False.
+  -- This is confusing and error-prone, consider restructuring/renaming things later.
+  isActuallyGenitive : MorphoEst.CasePlus -> Bool = \c -> case c of {
+    {c = MorphoEst.Gen ; suf = ""} => True ;
+    _ => False
+  } ;
 
   -- combination of stem + suffix, e.g. infDes = {stem = InfD ; suf = "es"} ;
   InfForm = ResEst.InfForms ;
   infDa = InfDa ; infMa = InfMa ; infMast = InfMast ;
   infDes = InfDes ; infMas = InfMas ; infMaks = InfMaks ; infMata = InfMata ; infMine = InfMine ;
 
-  prePrep  : Case -> Str -> Prep =
-    \c,p -> {c = NPCase c ; s = p ; isPre = True ; lock_Prep = <>} ;
-  postPrep : Case -> Str -> Prep =
-    \c,p -> {c = NPCase c ; s = p ; isPre = False ; lock_Prep = <>} ;
-  postGenPrep p = {
-    c = NPCase genitive ; s = p ; isPre = False ; lock_Prep = <>} ;
-  casePrep : Case -> Prep =
-    \c -> {c = NPCase c ; s = [] ; isPre = True ; lock_Prep = <>} ;
-  accPrep =  {c = NPAcc ; s = [] ; isPre = True ; lock_Prep = <>} ;
+  mkPrep : (isPre : Bool) -> Case -> Str ->  Prep = \isPre,c,p -> lin Prep {
+    c = casep2npformp c ;
+    s = p ;
+    isPre = isPre
+    } ;
+  prePrep  : Case -> Str -> Prep = mkPrep True ;
+  postPrep : Case -> Str -> Prep = mkPrep False ;
+  postGenPrep : Str -> Prep = postPrep genitive ;
 
+  -- The Prep's isPre field is used in a special (hacky) way in mkN3 and mkN2.
+  -- Used to be able to match whether the Prep's case is Gen, but now several
+  -- Preps use the genitive stem, so we need to check if it's actually genitive.
+  casePrep : Case -> Prep = \c -> mkPrep (isActuallyGenitive c) c [] ;
+
+  -- NPAcc is different, it's not formed from a Case(Plus)
+  accPrep : Prep = lin Prep {
+    c = case2npformp NPAcc ;
+    s = [] ;
+    isPre = True
+    } ;
 
   mkAdv : Str -> Adv = \str -> {s = str ; lock_Adv = <>} ;
   mkAdV : Str -> AdV = \str -> {s = str ; lock_AdV = <>} ;
   mkAdN : Str -> AdN = \str -> {s = str ; lock_AdN = <>} ;
   mkAdA : Str -> AdA = \str -> {s = str ; lock_AdA = <>} ;
-
-
 
   mkConj = overload {
     mkConj : Str -> Conj = \ja -> lin Conj ((sd2 "" ja) ** {n = Sg}) ;
@@ -565,7 +582,7 @@ oper
     lock_N3 = <>
     } ;
 
-  mkIsPre : Prep -> Bool = \p -> case p.c of {
+  mkIsPre : Prep -> Bool = \p -> case p.c.npf of {
     NPCase Gen => notB p.isPre ;  -- Jussin veli (prep is <Gen,"",True>, isPre becomes False)
     _ => True                     -- syyte Jussia vastaan, puhe Jussin puolesta
     } ;
@@ -821,7 +838,7 @@ oper
       <_,_,_,_> => regVForms jatma jatta jatab jaetakse
     } ;
 
-  caseV c v = {s = v.s ; p = v.p; sc = NPCase c ; lock_V = <>} ;
+  caseV c v = v ** {sc = NPCase c.c} ;
 
   vOlema = verbOlema ** {sc = NPCase Nom ; lock_V = <>} ;
   vMinema = verbMinema ** {sc = NPCase Nom ; lock_V = <>} ;

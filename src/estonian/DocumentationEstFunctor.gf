@@ -23,11 +23,17 @@ lincat
 oper
   heading : N -> Str = \n -> (nounHeading n).s ;
 
+  caseplus2nf : N -> ResEst.Number -> CasePlus -> Str = \noun,num,cas ->
+    noun.s ! NCase num cas.c ++ cas.suf ;
+
+  caseplus2af : (AForm => Str) -> ResEst.Number -> CasePlus -> Str = \adj,num,cas ->
+    adj ! AN (NCase num cas.c) ++ cas.suf ;
+
 lin
   InflectionN, InflectionN2, InflectionN3 = \noun -> {
     t  = "s" ;
     s1 = heading1 (heading noun_Category) ;
-    s2 = inflNoun (\nf -> noun.s ! nf)
+    s2 = inflNoun (caseplus2nf noun)
     } ;
 
   InflectionA, InflectionA2 = \adj ->
@@ -37,11 +43,11 @@ lin
      in
     {   t  = "a" ;
         s1 = heading1 (heading adjective_Category) ;
-        s2 = inflNoun (\nf -> posit ! AN nf) ++
+        s2 = inflNoun (caseplus2af posit) ++
              heading2 (heading comparative_Parameter) ++
-             inflNoun (\nf -> compar ! AN nf) ++
+             inflNoun (caseplus2af compar) ++
              heading2 (heading superlative_Parameter) ++
-             inflNoun (\nf -> superl ! AN nf)
+             inflNoun (caseplus2af superl)
     } ;
 
   InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
@@ -248,24 +254,24 @@ oper
              td (vfin (PastPart Pass )))
           ) ; --}
 
-  inflNoun : (NForm -> Str) -> Str = \nouns ->
+  inflNoun : (Number -> CasePlus -> Str) -> Str = \nouns ->
     frameTable (
-          tr (th ""          ++ th (heading singular_Parameter)            ++ th (heading plural_Parameter)   ) ++
-          tr (th (heading nominative_Parameter) ++ td (nouns (NCase Sg Nom)) ++ td (nouns (NCase Pl Nom))) ++
-          tr (th (heading genitive_Parameter) ++ td (nouns (NCase Sg Gen)) ++ td (nouns (NCase Pl Gen))) ++
-          tr (th (heading partitive_Parameter) ++ td (nouns (NCase Sg Part)) ++ td (nouns (NCase Pl Part))) ++
-          tr (th (heading translative_Parameter) ++ td (nouns (NCase Sg Transl)) ++ td (nouns (NCase Pl Transl))) ++
-          tr (th (heading essive_Parameter) ++ td (nouns (NCase Sg Ess)) ++ td (nouns (NCase Pl Ess))) ++
-          tr (th (heading inessive_Parameter) ++ td (nouns (NCase Sg Iness)) ++ td (nouns (NCase Pl Iness))) ++
-          tr (th (heading elative_Parameter) ++ td (nouns (NCase Sg Elat)) ++ td (nouns (NCase Pl Elat))) ++
-          tr (th (heading illative_Parameter) ++ td (nouns (NCase Sg Illat)) ++ td (nouns (NCase Pl Illat))) ++
-          tr (th (heading adessive_Parameter) ++ td (nouns (NCase Sg Adess)) ++ td (nouns (NCase Pl Adess))) ++
-          tr (th (heading ablative_Parameter) ++ td (nouns (NCase Sg Ablat)) ++ td (nouns (NCase Pl Ablat))) ++
-          tr (th (heading allative_Parameter) ++ td (nouns (NCase Sg Allat)) ++ td (nouns (NCase Pl Allat))) ++
-          tr (th (heading abessive_Parameter) ++ td (nouns (NCase Sg Abess)) ++ td (nouns (NCase Pl Abess))) ++
-          tr (th (heading comitative_Parameter)  ++ td (nouns (NCase Sg Comit)) ++ td (nouns (NCase Pl Comit))) ++
-          tr (th (heading instructive_Parameter) ++ td (nouns (NCase Sg Termin)) ++ td (nouns (NCase Pl Termin))
-          )) ;
+          tr (th ""          ++ th (heading singular_Parameter)               ++ th (heading plural_Parameter)) ++
+          tr (th (heading nominative_Parameter)  ++ td (nouns Sg Nominative)  ++ td (nouns Pl Nominative)) ++
+          tr (th (heading genitive_Parameter)    ++ td (nouns Sg Genitive)    ++ td (nouns Pl Genitive)) ++
+          tr (th (heading partitive_Parameter)   ++ td (nouns Sg Partitive)   ++ td (nouns Pl Partitive)) ++
+          tr (th (heading translative_Parameter) ++ td (nouns Sg Translative) ++ td (nouns Pl Translative)) ++
+          tr (th (heading essive_Parameter)      ++ td (nouns Sg Essive)      ++ td (nouns Pl Essive)) ++
+          tr (th (heading inessive_Parameter)    ++ td (nouns Sg Inessive)    ++ td (nouns Pl Inessive)) ++
+          tr (th (heading elative_Parameter)     ++ td (nouns Sg Elative)     ++ td (nouns Pl Elative)) ++
+          tr (th (heading illative_Parameter)    ++ td (nouns Sg Illative)    ++ td (nouns Pl Illative)) ++
+          tr (th (heading adessive_Parameter)    ++ td (nouns Sg Adessive)    ++ td (nouns Pl Adessive)) ++
+          tr (th (heading ablative_Parameter)    ++ td (nouns Sg Ablative)    ++ td (nouns Pl Ablative)) ++
+          tr (th (heading allative_Parameter)    ++ td (nouns Sg Allative)    ++ td (nouns Pl Allative)) ++
+          tr (th (heading abessive_Parameter)    ++ td (nouns Sg Abessive)    ++ td (nouns Pl Abessive)) ++
+          tr (th (heading comitative_Parameter)  ++ td (nouns Sg Comitative)  ++ td (nouns Pl Comitative)) ++
+          tr (th (heading instructive_Parameter) ++ td (nouns Sg Terminative) ++ td (nouns Pl Terminative))
+          ) ;
 
 lin
   NoDefinition   t     = {s=t.s};

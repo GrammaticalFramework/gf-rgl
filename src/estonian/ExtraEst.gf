@@ -1,5 +1,5 @@
 concrete ExtraEst of ExtraEstAbs = CatEst **
-  open ResEst, MorphoEst, Coordination, Prelude, NounEst, StructuralEst, (R = ParamX) in {
+  open ResEst, MorphoEst, Coordination, Prelude, NounEst, StructuralEst, (R = ParamX), (P = ParadigmsEst) in {
   flags coding=utf8;
   lin
     GenNP np = {
@@ -9,11 +9,11 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
       isNeg = False
      } ;
 
-    GenCN = caseCN Gen ;     -- soome mees
-    ComitCN = caseCN Comit ; -- puudega mets
-    ElatCN  = caseCN Elat ;  -- puust laud
-    AbessCN = caseCN Abess ; -- autota pere
-    TerminCN = caseCN Termin ; -- maani kleit
+    GenCN = caseCN Genitive ;     -- soome mees
+    ComitCN = caseCN Comitative ; -- puudega mets
+    ElatCN  = caseCN Elative ;  -- puust laud
+    AbessCN = caseCN Abessive ; -- autota pere
+    TerminCN = caseCN Terminative ; -- maani kleit
 
     GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
 
@@ -23,8 +23,9 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
 ---      a = RAg (agrP3 num.n)
       } ;
   oper
-    caseCN : Case -> NP -> CN -> CN = \c,np,cn ->
-      lin CN { s = \\nf => np.s ! NPCase c ++ cn.s ! nf } ;
+    caseCN : CasePlus -> NP -> CN -> CN = \c,np,cn -> cn ** {
+      s = \\nf => appCompl True Pos (P.casePrep c) np ++ cn.s ! nf
+      } ;
 
   lincat
     VPI   = {s : InfStem => Str} ;

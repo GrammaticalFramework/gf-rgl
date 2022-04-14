@@ -11,7 +11,7 @@ concrete AdverbEst of Adverb = CatEst ** open ResEst, Prelude in {
       s = cadv.s ++ a.s ! Posit ! AAdv ++ cadv.p ++ s.s
       } ;
 
-    PrepNP prep np = {s = preOrPost prep.isPre prep.s (np.s ! prep.c)} ;
+    PrepNP prep np = {s = appCompl True Pos prep np} ;
 
     AdAdv = cc2 ;
 

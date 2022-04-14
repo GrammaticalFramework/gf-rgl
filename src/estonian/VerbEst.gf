@@ -34,7 +34,7 @@ concrete VerbEst of Verb = CatEst ** open Prelude, ResEst in {
       insertObj
         (\\_,b,agr =>
            let n = (complNumAgr agr) in
-           ap.s ! False ! (NCase n (npform2case n v.c2.c))) --- v.cs.s ignored
+           ap.s ! False ! (NCase n (npform2case n v.c2.c.npf))) --- v.cs.s ignored
         (predV v) ;
 
     SlashV2S v s =
@@ -47,7 +47,7 @@ concrete VerbEst of Verb = CatEst ** open Prelude, ResEst in {
     SlashV2A v ap =
       insertObj
         (\\fin,b,_ =>
-          ap.s ! False ! (NCase Sg (npform2case Sg v.c3.c))) ----agr to obj
+          ap.s ! False ! (NCase Sg (npform2case Sg v.c3.c.npf))) ----agr to obj
         (predV v) ** {c2 = v.c2} ;
 
     ComplSlash vp np = insertObjPre (\\fin,b,_ => appCompl fin b vp.c2 np) vp ;
