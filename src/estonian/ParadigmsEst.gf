@@ -158,7 +158,7 @@ oper
 -- Two-place adjectives need a case for the second argument.
 
   mkA2 : A -> Prep -> A2  -- e.g. "vihane" (postGenPrep "peale")
-    = \a,p -> a ** {c2 = p ; lock_A2 = <>};
+    = \a,p -> lin A2 (a ** {c2 = p}) ;
 
   invA : Str -> A ; -- invariable adjectives, such as genitive attributes ; no agreement to head, no comparison forms.
 
@@ -332,10 +332,10 @@ oper
     isPre = True
     } ;
 
-  mkAdv : Str -> Adv = \str -> {s = str ; lock_Adv = <>} ;
-  mkAdV : Str -> AdV = \str -> {s = str ; lock_AdV = <>} ;
-  mkAdN : Str -> AdN = \str -> {s = str ; lock_AdN = <>} ;
-  mkAdA : Str -> AdA = \str -> {s = str ; lock_AdA = <>} ;
+  mkAdv : Str -> Adv = \str -> lin Adv (ss str) ;
+  mkAdV : Str -> AdV = \str -> lin AdV (ss str) ;
+  mkAdN : Str -> AdN = \str -> lin AdN (ss str) ;
+  mkAdA : Str -> AdA = \str -> lin AdA (ss str) ;
 
   mkConj = overload {
     mkConj : Str -> Conj = \ja -> lin Conj ((sd2 "" ja) ** {n = Sg}) ;
@@ -344,7 +344,7 @@ oper
     mkConj : Str -> Str -> Number -> Conj = \nii,kui,num -> lin Conj ((sd2 nii kui) ** {n = num}) ;
   } ;
 
-  mkPConj s = ss s ** {lock_PConj = <>} ;
+  mkPConj s = lin PConj (ss s) ;
 
   mkN = overload {
     mkN : (nisu : Str) -> N = mk1N ;
@@ -360,14 +360,13 @@ oper
   -- Adjective forms (incl. comp and sup) are derived from noun forms
   mk1A : Str -> A = \suur ->
     let aforms = aForms2A (nforms2aforms (hjk_type suur))
-    in  aforms ** {infl = Regular } ;
+     in lin A (aforms ** {infl = Regular}) ;
 
   mkNA : N -> A = \suur ->
     let aforms = aForms2A (nforms2aforms (n2nforms suur)) ;
-    in  aforms ** {infl = Regular } ;
+     in lin A (aforms ** {infl = Regular}) ;
 
-
-  mk1N : (link : Str) -> N = \s -> nForms2N (hjk_type s) ** {lock_N = <> } ;
+  mk1N : (link : Str) -> N = \s -> lin N (nForms2N (hjk_type s)) ;
 
   -- mk2N, mk3N, mk4N make sure that the user specified forms end up in the paradigm,
   -- even though the rest is wrong
@@ -381,7 +380,7 @@ oper
                 4 => nfs ! 4 ;
                 5 => nfs ! 5
         } ;
-    in  nForms2N nfs_fixed ** {lock_N = <> } ;
+    in lin N (nForms2N nfs_fixed) ;
 
 
   mk3N : (tukk,tuku,tukku : Str) -> N = \tukk,tuku,tukku ->
@@ -394,7 +393,7 @@ oper
                 4 => nfs ! 4 ;
                 5 => nfs ! 5
         } ;
-    in nForms2N nfs_fixed ** {lock_N = <> } ;
+    in lin N (nForms2N nfs_fixed) ;
 
 
   mk4N : (paat,paadi,paati,paate : Str) -> N = \paat,paadi,paati,paate ->
@@ -407,17 +406,17 @@ oper
                 4 => nfs ! 4 ;
                 5 => paate
         } ;
-    in nForms2N nfs_fixed ** {lock_N = <> } ;
+    in lin N (nForms2N nfs_fixed) ;
 
 
   mk6N : (oun,ouna,ouna,ounasse,ounte,ounu : Str) -> N =
-      \a,b,c,d,e,f -> nForms2N (nForms6 a b c d e f) ** {lock_N = <> } ;
+      \a,b,c,d,e,f -> lin N (nForms2N (nForms6 a b c d e f)) ;
 
-  mkStrN : Str -> N -> N = \sora,tie -> {
-    s = \\c => sora + tie.s ! c ; lock_N = <>
+  mkStrN : Str -> N -> N = \sora,tie -> tie ** {
+    s = \\c => sora + tie.s ! c
     } ;
-  mkNN : N -> N -> N = \oma,tunto -> {
-    s = \\c => oma.s ! c + tunto.s ! c ; lock_N = <>
+  mkNN : N -> N -> N = \oma,tunto -> tunto ** {
+    s = \\c => oma.s ! c + tunto.s ! c ;
     } ; ---- TODO: oma in possessive suffix forms
 
 
@@ -575,12 +574,12 @@ oper
     mkN2 : N -> Prep -> N2 = mmkN2
     } ;
 
-  mmkN2 : N -> Prep -> N2 = \n,c -> n ** {c2 = c ; isPre = mkIsPre c ; lock_N2 = <>} ;
-  mkN3 = \n,c,e -> n ** {c2 = c ; c3 = e ;
+  mmkN2 : N -> Prep -> N2 = \n,c -> lin N (n ** {c2 = c ; isPre = mkIsPre c}) ;
+  mkN3 = \n,c,e -> lin N3 (n ** {
+    c2 = c ; c3 = e ;
     isPre = mkIsPre c  ; -- matka Londonist Pariisi
     isPre2 = mkIsPre e ;          -- Suomen voitto Ruotsista
-    lock_N3 = <>
-    } ;
+    }) ;
 
   mkIsPre : Prep -> Bool = \p -> case p.c.npf of {
     NPCase Gen => notB p.isPre ;  -- Jussin veli (prep is <Gen,"",True>, isPre becomes False)
@@ -589,37 +588,36 @@ oper
 
   mkPN = overload {
     mkPN : Str -> PN = mkPN_1 ;
-    mkPN : N -> PN = \s -> {s = \\c => s.s ! NCase Sg c ; lock_PN = <>} ;
+    mkPN : N -> PN = \s -> lin PN {s = \\c => s.s ! NCase Sg c} ;
     } ;
 
-  mkPN_1 : Str -> PN = \s -> {s = \\c => (mk1N s).s ! NCase Sg c ; lock_PN = <>} ;
+  mkPN_1 : Str -> PN = \s -> lin PN {s = \\c => (mk1N s).s ! NCase Sg c} ;
 
 -- adjectives
 
   mkA = overload {
     mkA : Str -> A  = mkA_1 ;
-    mkA : N -> A = \n -> noun2adjDeg n ** {infl = Regular ; lock_A = <>} ;
+    mkA : N -> A = \n -> noun2adjDeg n ** {infl = Regular} ;
     mkA : N -> (parem,parim : Str) -> A = regAdjective ;
-    mkA : N -> (infl : Infl) -> A = \n,infl -> noun2adjDeg n ** {infl = infl ; lock_A = <>} ;
+    mkA : N -> (infl : Infl) -> A = \n,infl -> noun2adjDeg n ** {infl = infl} ;
     -- TODO: temporary usage of regAdjective1
     mkA : N -> (valmim,valmeim : Str) -> (infl : Infl) -> A =
-		\n,c,s,infl -> (regAdjective1 n c s) ** {infl = infl ; lock_A = <>} ;
+		\n,c,s,infl -> (regAdjective1 n c s) ** {infl = infl} ;
   } ;
 
-  invA balti = {s = \\_,_ => balti ; infl = Invariable ; lock_A = <>} ;
+  invA balti = lin A {s = \\_,_ => balti ; infl = Invariable} ;
 
-  mkA_1 : Str -> A = \x -> noun2adjDeg (mk1N x) ** {infl = Regular  ; lock_A = <>} ;
+  mkA_1 : Str -> A = \x -> noun2adjDeg (mk1N x) ** {infl = Regular } ;
 
 -- auxiliaries
-  mkAdjective : (_,_,_ : Adj) -> A = \hea,parem,parim ->
-    {s = table {
+  mkAdjective : (_,_,_ : Adj) -> A = \hea,parem,parim -> lin A ({
+    s = table {
       Posit  => hea.s ;
       Compar => parem.s ;
       Superl => parim.s
       } ;
      infl = Regular ;
-     lock_A = <>
-    } ;
+    }) ;
 
   -- Adjectives whose comparison forms are explicitly given.
   -- The inflection of these forms with the audit-rule always works.
@@ -640,7 +638,7 @@ oper
   -- e.g. lai -> laiem -> laiim? / laieim?
   -- See also: http://www.eki.ee/books/ekk09/index.php?p=3&p1=4&id=208
   -- Rather use "kõige" + Comp instead of the superlative.
-  noun2adjDeg : Noun -> Adjective = \kaunis ->
+  noun2adjDeg : Noun -> A = \kaunis ->
     let
       kauni = (kaunis.s ! NCase Sg Gen) ;
       -- Convert the final 'i' to 'e' for the superlative
@@ -660,27 +658,13 @@ oper
     mkV : (aru : Str) -> (saama : V) -> V = mkPV ; -- particle verbs
   } ;
 
-  mk1V : Str -> V = \s ->
-    let vfs = vforms2V (vForms1 s) in
-      vfs ** {sc = NPCase Nom ; lock_V = <>} ;
-  mk2V : (_,_ : Str) -> V = \x,y ->
-    let
-      vfs = vforms2V (vForms2 x y)
-    in vfs ** {sc = NPCase Nom ; lock_V = <>} ;
-  mk3V : (_,_,_ : Str) -> V = \x,y,z ->
-    let
-      vfs = vforms2V (vForms3 x y z)
-    in vfs ** {sc = NPCase Nom ; lock_V = <>} ;
-  mk4V : (x1,_,_,x4 : Str) -> V = \a,b,c,d ->
-    let
-      vfs = vforms2V (vForms4 a b c d)
-    in vfs ** {sc = NPCase Nom ; lock_V = <>} ;
-  mk8V : (x1,_,_,_,_,_,_,x8 : Str) -> V = \a,b,c,d,e,f,g,h ->
-    let
-      vfs = vforms2V (vForms8 a b c d e f g h)
-    in vfs ** {sc = NPCase Nom ; lock_V = <>} ;
-  mkPV : (aru : Str) -> (saama : V) -> V = \aru,saama ->
-    {s = saama.s ; p = aru ; sc = saama.sc ; lock_V = <> } ;
+  vforms2v : ResEst.VForms -> CatEst.V = \vfs -> lin V (vforms2verb vfs ** {sc = NPCase Nom}) ;
+  mk1V : Str -> V = \s -> vforms2v (vForms1 s) ;
+  mk2V : (_,_ : Str) -> V = \x,y -> vforms2v (vForms2 x y) ;
+  mk3V : (_,_,_ : Str) -> V = \x,y,z -> vforms2v (vForms3 x y z) ;
+  mk4V : (x1,_,_,x4 : Str) -> V = \a,b,c,d -> vforms2v (vForms4 a b c d) ;
+  mk8V : (x1,_,_,_,_,_,_,x8 : Str) -> V = \a,b,c,d,e,f,g,h -> vforms2v (vForms8 a b c d e f g h) ;
+  mkPV : (aru : Str) -> (saama : V) -> V = \aru,saama -> saama ** {p=aru} ;
 
 
   -- This used to be the last case: _ => Predef.error (["expected infinitive, found"] ++ ottaa)
@@ -840,10 +824,10 @@ oper
 
   caseV c v = v ** {sc = NPCase c.c} ;
 
-  vOlema = verbOlema ** {sc = NPCase Nom ; lock_V = <>} ;
-  vMinema = verbMinema ** {sc = NPCase Nom ; lock_V = <>} ;
+  vOlema = lin V (verbOlema ** {sc = NPCase Nom}) ;
+  vMinema = lin V (verbMinema ** {sc = NPCase Nom}) ;
 
-  mk2V2 : V -> Prep -> V2 = \v,c -> v ** {c2 = c ; lock_V2 = <>} ;
+  mk2V2 : V -> Prep -> V2 = \v,c -> lin V2 (v ** {c2 = c}) ;
   caseV2 : V -> Case -> V2 = \v,c -> mk2V2 v (casePrep c) ;
   dirV2 v = mk2V2 v accPrep ;
 
@@ -860,20 +844,18 @@ oper
   dirV2 : V -> V2 ;
 
   mkV3 = overload {
-    mkV3 : V -> Prep -> Prep -> V3 = \v,p,q -> v ** {c2 = p ; c3 = q ; lock_V3 = <>} ;
-    mkV2 : V                 -> V3 = \v   -> v ** {c2 = accPrep ;
-							     c3 = (casePrep allative) ;
-							     lock_V3 = <>} ;
-    mkV2 : Str               -> V3 = \str   -> (mkV str) ** {c2 = accPrep ;
-							     c3 = (casePrep allative) ;
-							     lock_V3 = <>} ;
-   } ;
+    mkV3 : V -> Prep -> Prep -> V3 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
+    mkV3 : V  -> V3 = \v -> lin V3 (v ** {c2 = accPrep ; c3 = casePrep allative}) ;
+    mkV3 : Str -> V3 = \str ->
+      let v : V = mkV str
+      in lin V3 (v ** {c2 = accPrep ; c3 = casePrep allative})
+    } ;
   dirV3 v p = mkV3 v accPrep (casePrep p) ;
   dirdirV3 v = dirV3 v allative ;
 
   mkVS = overload {
-    mkVS : V -> VS   = \v -> v ** {lock_VS = <>} ;
-    mkVS : Str -> VS = \str -> (mkV str) ** {lock_VS = <>} ;
+    mkVS : V -> VS   = \v -> lin VS v ;
+    mkVS : Str -> VS = \str -> let v : V = mkV str in lin VS v ;
   } ;
   mkVV = overload {
     mkVV : V -> VV   = \v -> mkVVf v infDa ;
@@ -881,48 +863,50 @@ oper
   } ;
   mkVVf  v f = lin VV (v ** {vi = f}) ;
   mkVQ = overload {
-    mkVQ : V   -> VQ = \v -> v ** {lock_VQ = <>} ;
-    mkVQ : Str -> VQ = \str -> (mkV str) ** {lock_VQ = <>} ;
+    mkVQ : V   -> VQ = \v -> lin VQ v ;
+    mkVQ : Str -> VQ = \str -> let v : V = mkV str in lin VQ v ;
   } ;
 
   V0 : Type = V ;
   AS, A2S, AV : Type = A ;
   A2V : Type = A2 ;
 
-  mkV0  v = v ** {lock_V = <>} ;
+  mkV0 v = v ;
   mkV2S = overload {
-    mkV2S : V -> Prep -> V2S   = \v,p -> (mk2V2 v p) ** {lock_V2S = <>} ;
-    mkV2S : Str -> V2S = \str -> (mk2V2 (mkV str) (casePrep allative)) ** {lock_VS = <>} ;
+    mkV2S : V -> Prep -> V2S   = \v,p -> lin V2S (mk2V2 v p) ;
+    mkV2S : Str -> V2S = \str ->
+      let v : V = mkV str
+      in lin V2S (mk2V2 v (casePrep allative))
   } ;
---  mkV2S v p = mk2V2 v p ** {lock_V2S = <>} ;
+
   mkV2V = overload {
     mkV2V : V -> Prep -> V2V = \v,p -> mkV2Vf v p infMa ;
     mkV2V : V         -> V2V = \v   -> mkV2Vf v (casePrep genitive) infMa ;
     mkV2V : Str       -> V2V = \str -> mkV2Vf (mkV str) (casePrep genitive) infMa ;
   } ;
-  mkV2Vf v p f = mk2V2 v p ** {vi = f ; lock_V2V = <>} ;
+  mkV2Vf v p f = lin V2V (mk2V2 v p ** {vi = f}) ;
 
   mkVA = overload {
-    mkVA : V -> Prep -> VA = \v,p -> v ** {c2 = p ; lock_VA = <>} ;
-    mkVA : V         -> VA = \v   -> v ** {c2 = casePrep translative ; lock_VA = <>} ;
-    mkVA : Str       -> VA = \str -> (mkV str) ** {c2 = casePrep translative ; lock_VA = <>} ;
+    mkVA : V -> Prep -> VA = \v,p -> lin VA (v ** {c2 = p}) ;
+    mkVA : V -> VA = \v -> lin VA (v ** {c2 = casePrep genitive}) ;
+    mkVA : Str -> VA = \str -> let v : V = mkV str in
+      lin VA (v ** {c2 = casePrep genitive}) ;
   } ;
 
   mkV2A = overload {
-    mkV2A : V -> Prep -> Prep -> V2A = \v,p,q -> v ** {c2 = p ; c3 = q ; lock_V2A = <>} ;
-    mkV2A : V                 -> V2A = \v     -> v ** {c2 = casePrep genitive ;
-							                           c3 = casePrep translative ;
-                                                       lock_V2A = <>} ;
-    mkV2A : Str               -> V2A = \str -> (mkV str) ** {c2 = casePrep genitive ;
-							    c3 = casePrep translative ;
-							    lock_V2A = <>} ;
+    mkV2A : V -> Prep -> Prep -> V2A = \v,p,q ->
+      lin V2A (v ** {c2 = p ; c3 = q}) ;
+    mkV2A : V -> V2A = \v ->
+      lin V2A (v ** {c2 = casePrep genitive ; c3 = casePrep translative}) ;
+    mkV2A : Str -> V2A = \str -> let v : V = mkV str in
+      lin V2A (v ** {c2 = casePrep genitive ; c3 = casePrep translative}) ;
   } ;
 
-  mkV2Q v p = mk2V2 v p ** {lock_V2Q = <>} ;
+  mkV2Q v p = lin V2Q (mk2V2 v p) ;
 
-  mkAS  v = v ** {lock_A = <>} ;
-  mkA2S v p = mkA2 v p ** {lock_A = <>} ;
-  mkAV  v = v ** {lock_A = <>} ;
-  mkA2V v p = mkA2 v p ** {lock_A2 = <>} ;
+  mkAS  a = a ;
+  mkA2S a p = mkA2 a p ;
+  mkAV  a = a ;
+  mkA2V a p = mkA2 a p ;
 
 } ;

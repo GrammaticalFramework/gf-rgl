@@ -457,7 +457,6 @@ These used to be here:
           AAdv => afs.adv_superl
           }
         } ;
-      lock_A = <>
       } ;
 
     nforms2aforms : NForms -> AForms = \nforms ->

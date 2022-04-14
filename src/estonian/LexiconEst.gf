@@ -366,7 +366,7 @@ lin
 
  oper
     mkOrd1 : N -> Ord ;
-    mkOrd1 x = {s = x.s ; lock_Ord = <> } ;
+    mkOrd1 x = lin Ord x ;
     cpartitive = casePrep partitive ;
     ctranslative = casePrep translative ;
     celative = casePrep elative ;

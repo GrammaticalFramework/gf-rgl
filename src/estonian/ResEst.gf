@@ -71,7 +71,7 @@ param
   Infl = Regular | Participle | Invariable ;
 
 oper
-  Adjective : Type = {s : Degree => AForm => Str; lock_A : {}} ;
+  Adjective : Type = {s : Degree => AForm => Str} ;
 
 --2 Noun phrases
 --
@@ -495,9 +495,7 @@ oper
   --Auxiliary for internal use
   mkVerb : (x1,_,_,_,_,_,_,x8 : Str) -> Verb =
     \tulema,tulla,tuleb,tullakse,tulge,tuli,tulnud,tuldud ->
-    vforms2V (vForms8
-     tulema tulla tuleb tullakse tulge tuli tulnud tuldud
-      ) ;
+    vforms2verb (vForms8 tulema tulla tuleb tullakse tulge tuli tulnud tuldud) ;
 
 --below moved here from MorphoEst
     VForms : Type = Predef.Ints 7 => Str ;
@@ -515,7 +513,7 @@ oper
         7 => tuldud
       } ;
 
-    vforms2V : VForms -> Verb = \vh ->
+    vforms2verb : VForms -> Verb = \vh ->
     let
       tulema = vh ! 0 ;
       tulla = vh ! 1 ;
@@ -624,7 +622,7 @@ oper
 
 
   regVerb : (_,_,_,_ : Str) -> Verb = \kinkima,kinkida,kingib,kingitakse ->
-    vforms2V (regVForms kinkima kinkida kingib kingitakse) ;
+    vforms2verb (regVForms kinkima kinkida kingib kingitakse) ;
 
 
   noun2adj : Noun -> Adj = noun2adjComp True ;
@@ -746,8 +744,7 @@ oper
       NCase Pl Ablat  => jogede + "lt" ;
       NCase Pl Allat  => jogede + "le"
 
-      } --;
---    lock_N = <>
+      }
     } ;
 
 oper
