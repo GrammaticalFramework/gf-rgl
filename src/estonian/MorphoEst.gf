@@ -520,16 +520,12 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
       NPCase Gen    => minu ;
       NPCase Part   => mind ;
       NPCase Transl => minu + "ks" ;
-      NPCase Ess    => minu + "na" ;
       NPCase Iness  => minu_short + "s" ;
       NPCase Elat   => minu_short + "st" ;
       NPCase Illat  => minu_short + "sse" ;
       NPCase Adess  => minu_short + "l" ;
       NPCase Ablat  => minu_short + "lt" ;
       NPCase Allat  => minu_short + "le" ;
-      NPCase Abess  => minu + "ta" ;
-      NPCase Comit  => minu + "ga" ;
-      NPCase Termin => minu + "ni" ;
       NPAcc         => mind
       } ;
      a = Ag n p
@@ -584,16 +580,12 @@ oper
       Gen    => "selle" ;
       Part   => "seda" ;
       Transl => "selleks" ;
-      Ess    => "sellena" ;
       Iness  => "selles" ;
       Elat   => "sellest" ;
       Illat  => "sellesse" ;
       Adess  => "sellel" ;
       Ablat  => "sellelt" ;
-      Allat  => "sellele" ;
-      Abess  => "selleta" ;
-      Comit  => "sellega" ;
-      Termin => "selleni"
+      Allat  => "sellele"
       } ;
     } ;
 
@@ -604,16 +596,12 @@ oper
       Gen    => "nende" ;
       Part   => "neid" ;
       Transl => "nendeks" ;
-      Ess    => "nendena" ;
       Iness  => "nendes" ;
       Elat   => "nendest" ;
       Illat  => "nendesse" ;
       Adess  => "nendel" ;
       Ablat  => "nendelt" ;
-      Allat  => "nendele" ;
-      Abess  => "nendeta" ;
-      Comit  => "nendega" ;
-      Termin => "nendeni"
+      Allat  => "nendele"
       } ;
     } ;
 

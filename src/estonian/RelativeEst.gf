@@ -32,7 +32,7 @@ concrete RelativeEst of Relative = CatEst ** open Prelude, ResEst, MorphoEst in 
               who = appCompl True p slash.c2 (rp2np (complNumAgr ag) rp)
             in
             who ++ cls ;
-      c = slash.c2.c
+      c = slash.c2.c.npf
       } ;
 
     FunRP p np rp = {

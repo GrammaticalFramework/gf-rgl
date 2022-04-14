@@ -15,16 +15,35 @@ resource ResEst = ParamX ** open Prelude in {
 -- This is the $Case$ as needed for both nouns and $NP$s.
 
   param
-    Case = Nom | Gen | Part
+    Case = Nom | Gen | Part | Transl
          | Illat | Iness | Elat | Allat | Adess | Ablat
-         | Transl | Ess | Termin | Abess | Comit;
-
+         ;
     NForm = NCase Number Case ;
 
+  oper
+    -- Reduce the Case parameter: many cases use the Genitive stem and just add suffix to it
+    CasePlus : Type = {
+      c : Case ;  -- e.g. Gen
+      suf : Str   -- e.g. "ga" for comitative
+      } ;
 
+      Nominative  = {c = Nom ;   suf = []} ;
+      Genitive    = {c = Gen ;   suf = []} ;
+      Partitive   = {c = Part ;   suf = []} ;
+      Illative    = {c = Illat ;  suf = []} ;
+      Inessive    = {c = Iness ;  suf = []} ;
+      Elative     = {c = Elat ;   suf = []} ;
+      Allative    = {c = Allat ;  suf = []} ;
+      Adessive    = {c = Adess ;  suf = []} ;
+      Ablative    = {c = Ablat ;  suf = []} ;
+      Translative = {c = Transl ; suf = []} ;
+      Terminative = {c = Gen ;    suf = BIND ++ "ni"} ;
+      Essive      = {c = Gen ;    suf = BIND ++ "na"} ;
+      Abessive    = {c = Gen ;    suf = BIND ++ "ta"} ;
+      Comitative  = {c = Gen ;    suf = BIND ++ "ga"} ;
+
+  param
 -- Agreement of $NP$ has number*person and the polite second ("te olette valmis").
-
-
     Agr = Ag Number Person | AgPol ;
 
   oper
@@ -66,6 +85,14 @@ param
   NPForm = NPCase Case | NPAcc ;
 
 oper
+  NPFormPlus : Type = {
+    npf : NPForm ;  -- e.g. NPCase Gen
+    suf : Str       -- e.g. "ga" for comitative
+    } ;
+
+  casep2npformp : CasePlus -> NPFormPlus = \cp -> cp ** {npf = NPCase cp.c} ;
+  case2npformp  : NPForm -> NPFormPlus   = \npf-> {npf = npf ; suf = []} ;
+
   npform2case : Number -> NPForm -> Case = \n,f ->
 
 --  type signature: workaround for gfc bug 9/11/2007
@@ -150,11 +177,11 @@ param
 
 ---
 
-  Compl : Type = {s : Str ; c : NPForm ; isPre : Bool} ;
+  Compl : Type = {s : Str ; c : NPFormPlus ; isPre : Bool} ;
 
   appCompl : Bool -> Polarity -> Compl -> NP -> Str = \isFin,b,co,np ->
     let
-      c = case co.c of {
+      c = case co.c.npf of {
         NPAcc => case b of {
           Neg => NPCase Part ; -- ma ei näe raamatut/sind
           Pos => case isFin of {
@@ -165,25 +192,17 @@ param
                   }
                }
           } ;
-        _        => co.c
+        _        => co.c.npf
         } ;
-{-
-      c = case <isFin, b, co.c, np.isPron> of {
-        <_,    Neg, NPAcc,_>      => NPCase Part ; -- en näe taloa/sinua
-        <_,    Pos, NPAcc,True>   => NPAcc ;       -- näen/täytyy sinut
-        <False,Pos, NPAcc,False>  => NPCase Nom ;  -- täytyy nähdä talo
-        <_,_,coc,_>               => coc
-        } ;
--}
-      nps = np.s ! c
+      nps = np.s ! c ++ co.c.suf ; -- complement's NPFormPlus may include suffix for the cases based on Gen stem, e.g. comitative "ga"
     in
     preOrPost co.isPre co.s nps ;
 
   -- Used for passive; c2 of V2/VPSlash becomes sc of VP
   compl2subjcase : Compl -> NPForm = \compl ->
-    case compl.c of {
+    case compl.c.npf of {
       NPCase Gen => NPCase Nom ;  -- valisin koera -> koer valitakse
-      _          => compl.c       -- rääkisin koerale -> koerale räägitakse
+      _          => compl.c.npf   -- rääkisin koerale -> koerale räägitakse
     } ;
 -- For $Verb$.
 
@@ -418,7 +437,7 @@ oper
 -- This is used for subjects of passives: therefore isFin in False.
 
   subjForm : NP -> NPForm -> Polarity -> Str = \np,sc,b ->
-    appCompl False b {s = [] ; c = sc ; isPre = True} np ;
+    appCompl False b {s = [] ; c = case2npformp sc ; isPre = True} np ;
 
   infVP : NPForm -> Polarity -> Agr -> VP -> InfForms -> Str = infVPAnt Simul ;
 
@@ -709,31 +728,23 @@ oper
       NCase Sg Gen    => joe ;
       NCase Sg Part   => joge ;
       NCase Sg Transl => joe + "ks" ;
-      NCase Sg Ess    => joe + "na" ;
       NCase Sg Iness  => joe + "s" ;
       NCase Sg Elat   => joe + "st" ;
       NCase Sg Illat  => joesse ;
       NCase Sg Adess  => joe + "l" ;
       NCase Sg Ablat  => joe + "lt" ;
       NCase Sg Allat  => joe + "le" ;
-      NCase Sg Abess  => joe + "ta" ;
-      NCase Sg Comit  => joe + "ga" ;
-      NCase Sg Termin => joe + "ni" ;
 
       NCase Pl Nom    => joe + "d" ;
       NCase Pl Gen    => jogede ;
       NCase Pl Part   => jogesid ;
       NCase Pl Transl => jogede + "ks" ;
-      NCase Pl Ess    => jogede + "na" ;
       NCase Pl Iness  => jogede + "s" ;
       NCase Pl Elat   => jogede + "st" ;
       NCase Pl Illat  => jogede + "sse" ;
       NCase Pl Adess  => jogede + "l" ;
       NCase Pl Ablat  => jogede + "lt" ;
-      NCase Pl Allat  => jogede + "le" ;
-      NCase Pl Abess  => jogede + "ta" ;
-      NCase Pl Comit  => jogede + "ga" ;
-      NCase Pl Termin => jogede + "ni"
+      NCase Pl Allat  => jogede + "le"
 
       } --;
 --    lock_N = <>

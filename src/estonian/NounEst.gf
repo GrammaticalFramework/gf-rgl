@@ -19,13 +19,6 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
           case <n, c, det.isNum, det.isDef> of {
             <_, NPAcc,      True,_>  => <Nom,NCase Sg Part> ; -- kolm kassi (as object)
             <_, NPCase Nom, True,_>  => <Nom,NCase Sg Part> ; -- kolm kassi (as subject)
-
-            --Only the last word gets case ending.
-            <_, NPCase Comit, _, _>  => <Gen,NCase n Comit> ;  -- kolme kassiga
-            <_, NPCase Abess, _, _>  => <Gen,NCase n Abess> ;  -- kolme kassita
-            <_, NPCase Ess,   _, _>  => <Gen,NCase n Ess> ;    -- kolme kassina
-            <_, NPCase Termin,_, _>  => <Gen,NCase n Termin> ; -- kolme kassini
-
             <_, _, True,_>           => <k,  NCase Sg k> ;     -- kolmeks kassiks (all other cases)
             _                        => <k,  NCase n k>        -- kass, kassi, ... (det is not a number)
             }
@@ -212,10 +205,7 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
       s = \\nf =>
         case ap.infl of {
           Invariable|Participle => ap.s ! True ! NCase Sg Nom ++ cn.s ! nf ; --valmis kassile; väsinud kassile
-          Regular => case nf of {
-              NCase num (Ess|Abess|Comit|Termin) => ap.s ! True ! NCase num Gen ++ cn.s ! nf ; --suure kassiga, not *suurega kassiga
-              _ => ap.s ! True ! nf ++ cn.s ! nf
-              }
+          Regular => ap.s ! True ! nf ++ cn.s ! nf -- Ess,Abess,Comit,Termin will only get case ending after the CN, so suure kassiga, not *suurega kassiga
           }
       } ;
 
