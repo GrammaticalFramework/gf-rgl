@@ -178,13 +178,8 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
 
     UseN2 n = n ;
 
-    Use2N3 f = lin N2 {
-      s = f.s ;
-      c2 = f.c2 ;
-      isPre = f.isPre
-      } ;
-    Use3N3 f = lin N2 {
-      s = f.s ;
+    Use2N3 f = f ;
+    Use3N3 f = f ** {
       c2 = f.c3 ;
       isPre = f.isPre2
       } ;

@@ -74,7 +74,6 @@ concrete ConjunctionEst of Conjunction =
                   } ;
               infl = Regular } ;
        s2 = x ;
-       lock_ListAP = <>
       } ;
 
 

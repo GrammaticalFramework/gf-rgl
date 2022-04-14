@@ -34,7 +34,7 @@ concrete StructuralEst of Structural = CatEst **
   either7or_DConj = sd2 "kas" "või" ** {n = Sg} ;
   everybody_NP = makeNP (mkN "igaüks") Sg ;
   every_Det = mkDet Sg (mkN "iga") ;
-  everything_NP = makeNP ((mkN "kõik") ** {lock_N = <>}) Sg ;
+  everything_NP = makeNP (mkN "kõik") Sg ;
   everywhere_Adv = ss "kõikjal" ;
   few_Det = mkDet Sg (mkN "mõni") ;
 ---  first_Ord = {s = \\n,c => (mkN "ensimmäinen").s ! NCase n c} ;
@@ -257,11 +257,10 @@ oper
 
 oper
   makeNP  : N -> MorphoEst.Number -> CatEst.NP ;
-  makeNP noun num = {
+  makeNP noun num = lin NP {
     s = \\c => noun.s ! NCase num (npform2case num c) ;
     a = agrP3 num ;
     isPron = False ;
-    lock_NP = <>
     } ;
 
 lin
