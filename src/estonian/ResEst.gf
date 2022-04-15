@@ -497,7 +497,6 @@ oper
     \tulema,tulla,tuleb,tullakse,tulge,tuli,tulnud,tuldud ->
     vforms2verb (vForms8 tulema tulla tuleb tullakse tulge tuli tulnud tuldud) ;
 
---below moved here from MorphoEst
     VForms : Type = Predef.Ints 7 => Str ;
 
     vForms8 : (x1,_,_,_,_,_,_,x8 : Str) -> VForms =
