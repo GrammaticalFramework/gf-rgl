@@ -198,27 +198,21 @@ oper
         }
       } ;
 
-  --TODO does this work?
-  mikaInt : MorphoEst.Number => (MorphoEst.Case) => Str =
+  mikaInt : MorphoEst.Number => MorphoEst.Case => Str =
     let {
-      mi  = mkN "mille"
+      mi : N = mkN "mis" "mille" "mida" "millesse" "millede" "mida"
     } in
     table {
       Sg => table {
-        Nom => "mis" ;
-        Gen => "mille" ;
-        Part => "mida" ;
         c   => mi.s ! NCase Sg c
        } ;
       Pl => table {
         Nom => "mis" ;
-        Gen => "mille" ;
-        Part => "mida" ;
         c   => mi.s ! NCase Pl c
         }
       } ;
 
-  kukaInt : MorphoEst.Number => (MorphoEst.Case) => Str =
+  kukaInt : MorphoEst.Number => MorphoEst.Case => Str =
     let
       kuka = mkN "kes" "kelle" "keda" "kellesse"
                  "kellede" "keda" ;
