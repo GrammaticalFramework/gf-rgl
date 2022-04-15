@@ -520,6 +520,7 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
   -- Ess, Abess, Comit, Termin all use the long Gen stem.
   -- Alternative 1: let Gen be long form, leaving only Nom and Part actually short
   -- Alternative 2: leave Gen short, postprocess Ess, Abess, Comit, Termin in application
+  -- Alternative 3: include two Gen stems in NPForm
   shortPronoun : (_,_,_,_ : Str) -> Number -> Person ->
     {s : NPForm => Str ; a : Agr} =
       \ma, mu, mind, minu, n, p ->
@@ -531,6 +532,7 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
         } ;
 
      in shortMa ** { s = table {
+         NPCase Gen => minu ; -- this is Alternative 1, see comment above. Comment out for Alternative 2.
          NPCase Allat => mulle ;
          NPCase Transl => minu + "ks" ;
          x          => shortMa.s ! x } } ;
