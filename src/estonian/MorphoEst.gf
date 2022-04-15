@@ -416,22 +416,10 @@ resource MorphoEst = ResEst ** open Prelude, Predef, HjkEst in {
       (satu + "tud") ; -- PastPartPass
 
 
-
 -----------------
 -- auxiliaries --
 -----------------
 
-
-{- Noun internal opers moved to ResEst
-
-These used to be here:
-  NForms : Type = Predef.Ints 5 => Str ;
-  Noun : Type   = {s: NForm => Str } ;
-  nForms6  : (x1,_,_,_,_,x6 : Str) -> NForms ;
-  n2nforms : Noun -> NForms ;
-  nForms2N : NForms -> Noun ;
-
--}
 
 -- Adjective forms
 
@@ -472,15 +460,6 @@ These used to be here:
         adv_superl = suur + "immin" ;
       } ;
 
-{-  Verb internal opers moved to ResEst
-
-These used to be here:
-  VForms : Type = Predef.Ints 7 => Str ;
-  vForms8 : (x1,_,_,_,_,_,_,x8 : Str) -> VForms ;
-  regVForms : (x1,_,_,x4 : Str) -> VForms ;
-  vforms2V : VForms -> Verb ;
--}
-
 
 -----------------------
 -- for Structural
@@ -504,10 +483,9 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
 -- Here we define personal and relative pronouns.
 
   -- input forms: Nom, Gen, Part
-  -- Note that the Fin version required 5 input forms, the
-  -- Est pronouns thus seem to be much simpler.
-  -- TODO: remove NPAcc?
-  -- I: keep NPAcc; see appCompl in ResEst, it takes care of finding a right case for various types of complements; incl. when pronouns get different treatment than nouns (PassVP).
+  -- NPAcc is same as Part for Pron, and same as Gen for other nominals.
+  -- ResEst.appCompl returns right case for various types of complements,
+  -- incl. when pronouns get different treatment than nouns (like in PassV2).
   mkPronoun : (_,_,_ : Str) -> Number -> Person ->
     {s : NPForm => Str ; a : Agr} =
     \mina, minu, mind, n, p ->
@@ -538,6 +516,10 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
 		_ => x
 	} ;
 
+  -- NB. This doesn't work correctly with stem+suffix based solution:
+  -- Ess, Abess, Comit, Termin all use the long Gen stem.
+  -- Alternative 1: let Gen be long form, leaving only Nom and Part actually short
+  -- Alternative 2: leave Gen short, postprocess Ess, Abess, Comit, Termin in application
   shortPronoun : (_,_,_,_ : Str) -> Number -> Person ->
     {s : NPForm => Str ; a : Agr} =
       \ma, mu, mind, minu, n, p ->
@@ -551,13 +533,7 @@ caseTable : Number -> Noun -> Case => Str = \n,cn ->
      in shortMa ** { s = table {
          NPCase Allat => mulle ;
          NPCase Transl => minu + "ks" ;
-         NPCase Ess    => minu + "na" ;
-         NPCase Abess  => minu + "ta" ;
-         NPCase Comit  => minu + "ga" ;
-         NPCase Termin => minu + "ni" ;
          x          => shortMa.s ! x } } ;
-
-
 
 
 oper
@@ -572,7 +548,6 @@ oper
 
   ProperName = {s : Case => Str} ;
 
-  -- TODO: generate using mkPronoun
   pronSe : ProperName  = {
     s = table {
       Nom    => "see" ;
@@ -588,7 +563,6 @@ oper
       } ;
     } ;
 
-  -- TODO: generate using mkPronoun
   pronNe : ProperName  = {
     s = table {
       Nom    => "need" ;
