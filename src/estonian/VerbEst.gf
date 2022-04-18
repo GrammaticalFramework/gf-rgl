@@ -87,7 +87,7 @@ concrete VerbEst of Verb = CatEst ** open Prelude, ResEst in {
 
     CompAP = compAP ;
     CompCN = compCN ;
-    CompNP np = {s = \\_ => np.s ! NPCase Nom} ;
+    CompNP np = {s = \\_ => linNP (NPCase Nom) np} ;
     CompAdv a = {s = \\_ => a.s} ;
 
 }

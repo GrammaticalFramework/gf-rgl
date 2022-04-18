@@ -11,14 +11,14 @@ concrete AdjectiveEst of Adjective = CatEst ** open ResEst, Prelude in {
       } ;
     ComparA a np = {
       s = \\isMod,af => case isMod of {
-        True => np.s ! NPCase Elat ++ a.s ! Compar ! AN af ;        -- minust suurem
-        _    => a.s ! Compar ! AN af ++ "kui" ++ np.s ! NPCase Nom  -- suurem kui mina
+        True => linNP (NPCase Elat) np ++ a.s ! Compar ! AN af ;        -- minust suurem
+        _    => a.s ! Compar ! AN af ++ "kui" ++ linNP (NPCase Nom) np  -- suurem kui mina
         } ;
       infl = Regular ; --a.infl
       } ;
 
     CAdvAP ad ap np = {
-      s = \\m,af => ad.s ++ ap.s ! m ! af ++ ad.p ++ np.s ! NPCase Nom ;
+      s = \\m,af => ad.s ++ ap.s ! m ! af ++ ad.p ++ linNP (NPCase Nom) np ;
       infl = ap.infl
       } ;
     UseComparA a = {

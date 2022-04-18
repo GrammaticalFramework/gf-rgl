@@ -40,16 +40,15 @@ concrete QuestionEst of Question = CatEst ** open ResEst, Prelude in {
     PrepIP p ip = {s =
       appCompl True Pos p (ip ** {a = agrP3 ip.n ; isPron = False})} ;
 
-    AdvIP ip adv = {
-      s = \\c => ip.s ! c ++ adv.s ;
-      n = ip.n
+    AdvIP ip adv = ip ** {
+      postmod = ip.postmod ++ adv.s ;
       } ;
 
 -- The computation of $ncase$ is a special case of that in $NounEst.DetCN$,
 -- since we don't have possessive suffixes or definiteness.
 --- It could still be nice to have a common oper...
 
-    IdetCN idet cn = let n = idet.n in {
+    IdetCN idet cn = let n = idet.n in emptyIP ** {
       s = \\c =>
         let
           k     : Case = npform2case n c ;
@@ -67,7 +66,7 @@ concrete QuestionEst of Question = CatEst ** open ResEst, Prelude in {
       n = n
       } ;
 
-    IdetIP idet = let n = idet.n in {
+    IdetIP idet = let n = idet.n in emptyIP ** {
       s = \\c =>
         let
           k = npform2case n c ;
@@ -97,6 +96,6 @@ concrete QuestionEst of Question = CatEst ** open ResEst, Prelude in {
     AdvIAdv i a = {s = i.s ++ a.s} ;
 
     CompIAdv a = {s = \\_ => a.s} ;
-    CompIP ip = {s = \\_ => ip.s ! NPCase Nom} ;
+    CompIP ip = {s = \\_ => linIP (NPCase Nom) ip} ;
 
 }

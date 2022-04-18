@@ -18,8 +18,10 @@ concrete RelativeEst of Relative = CatEst ** open Prelude, ResEst, MorphoEst in 
             RAg a => a
             } ;
           cl = mkClause
-             (subjForm {s = rp.s ! (complNumAgr agr) ;
-                        a = agr ; isPron = False} vp.sc) agr vp
+                  (subjForm
+                        (emptyNP ** {s = rp.s ! complNumAgr agr ; a = agr})
+                        vp.sc)
+                      agr vp
         in
         cl.s ! t ! ant ! b ! SDecl ;
       c = NPCase Nom
@@ -36,7 +38,7 @@ concrete RelativeEst of Relative = CatEst ** open Prelude, ResEst, MorphoEst in 
       } ;
 
     FunRP p np rp = {
-      s = \\n,c => appCompl True Pos p (rp2np n rp) ++ np.s ! c ; --- is c OK?
+      s = \\n,c => appCompl True Pos p (rp2np n rp) ++ linNP c np ; --- is c OK?
       a = RAg np.a
       } ;
 

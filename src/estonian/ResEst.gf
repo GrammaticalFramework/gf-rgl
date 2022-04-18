@@ -57,8 +57,34 @@ resource ResEst = ParamX ** open Prelude in {
       } ;
 
   oper
-    NP = {s : NPForm => Str ; a : Agr ; isPron : Bool} ;
+    IPhrase : Type = {
+      s : NPForm => Str ; -- the noun phrase + premodifiers
+      postmod : Str ;     -- adverb, RS, etc. other postmods
+      n : Number
+    } ;
 
+    NPhrase : Type = {
+      s : NPForm => Str ; -- the noun phrase + premodifiers
+      postmod : Str ;     -- adverb, RS, etc. other postmods
+      a : Agr ;
+      isPron : Bool
+      } ;
+
+    emptyNP : NPhrase = {
+      s = \\_ => [] ;
+      postmod = [] ;
+      a = agrP3 Sg ;
+      isPron = False
+    } ;
+
+    emptyIP : IPhrase = {
+      s = \\_ => [] ;
+      postmod = [] ;
+      n = Sg ;
+    } ;
+
+    linNP : NPForm -> NPhrase -> Str = \npf,np -> np.s ! npf ++ np.postmod ;
+    linIP : NPForm -> IPhrase -> Str = \npf,ip -> ip.s ! npf ++ ip.postmod ;
 --
 --2 Adjectives
 --
@@ -72,6 +98,8 @@ param
 
 oper
   Adjective : Type = {s : Degree => AForm => Str} ;
+
+  APhrase : Type = {s : Bool => NForm => Str ; infl : Infl} ;
 
 --2 Noun phrases
 --
@@ -179,7 +207,9 @@ param
 
   Compl : Type = {s : Str ; c : NPFormPlus ; isPre : Bool} ;
 
-  appCompl : Bool -> Polarity -> Compl -> NP -> Str = \isFin,b,co,np ->
+  npfplus2compl : NPFormPlus -> Compl = \npf -> {s = [] ; c = npf ; isPre = False} ;
+
+  appCompl : Bool -> Polarity -> Compl -> NPhrase -> Str = \isFin,b,co,np ->
     let
       c = case co.c.npf of {
         NPAcc => case b of {
@@ -196,7 +226,7 @@ param
         } ;
       nps = np.s ! c ++ co.c.suf ; -- complement's NPFormPlus may include suffix for the cases based on Gen stem, e.g. comitative "ga"
     in
-    preOrPost co.isPre co.s nps ;
+    preOrPost co.isPre co.s nps ++ np.postmod ;
 
   -- Used for passive; c2 of V2/VPSlash becomes sc of VP
   compl2subjcase : Compl -> NPForm = \compl ->
@@ -436,7 +466,7 @@ oper
 
 -- This is used for subjects of passives: therefore isFin in False.
 
-  subjForm : NP -> NPForm -> Polarity -> Str = \np,sc,b ->
+  subjForm : NPhrase -> NPForm -> Polarity -> Str = \np,sc,b ->
     appCompl False b {s = [] ; c = case2npformp sc ; isPre = True} np ;
 
   infVP : NPForm -> Polarity -> Agr -> VP -> InfForms -> Str = infVPAnt Simul ;
@@ -644,6 +674,15 @@ oper
 
   Noun : Type = {s : NForm => Str} ;
 
+  CNoun : Type = Noun ** {postmod : Str} ;
+
+  emptyCN : CNoun = {
+    s = \\nf => [] ;
+    postmod = []
+  } ;
+
+  linCN : NForm -> CNoun -> Str = \nf,cn -> cn.s ! nf ++ cn.postmod ;
+
 -- To form an adjective, it is usually enough to give a noun declension: the
 -- adverbial form is regular.
 
@@ -666,13 +705,13 @@ oper
 -- Reflexive pronoun.
 --- Possessive could be shared with the more general $NounFin.DetCN$.
 
-  reflPron : Agr -> NP = \agr ->
+  reflPron : Agr -> NPhrase = \agr ->
     let
       ise = nForms2N (nForms6 "ise" "enda" "ennast" "endasse" "endi" "endid") ;
       n = case agr of {
         AgPol => Sg ;
         Ag n _ => n } ;
-     in {
+     in emptyNP ** {
       s = table {
         NPAcc => "ennast" ;
         NPCase c => fixPlNom "endid" ise.s ! NCase n c
@@ -747,7 +786,11 @@ oper
     } ;
 
 oper
-  rp2np : Number -> {s : Number => NPForm => Str ; a : RAgr} -> NP = \n,rp -> {
+  -- Technically, we could also add a postmod field for RP,
+  -- because multiple applications of FunRP add multiple complements.
+  -- But I will only add it if I see a real-world sentence that uses multiple applications of FunRP.
+  RelPron : Type = {s : Number => NPForm => Str ; a : RAgr} ;
+  rp2np : Number -> RelPron -> NPhrase = \n,rp -> emptyNP ** {
     s = rp.s ! n ;
     a = agrP3 Sg ;  -- does not matter (--- at least in Slash)
     isPron = False  -- has no special accusative
@@ -755,7 +798,17 @@ oper
 
   etta_Conj : Str = "et" ;
 
-    heavyDet : PDet -> PDet ** {sp : Case => Str} = \d -> d ** {sp = d.s} ;
+  Determiner : Type = {
+    s : Case => Str ;       -- minun kolme
+    sp : Case => Str ;       -- se   (substantival form)
+    n : Number ;             -- Pl   (agreement feature for verb)
+    isNum : Bool ;           -- True (a numeral is present)
+    isDef : Bool             -- True (verb agrees in Pl, Nom is not Part) --I: actually, can we get rid of this?
+    } ;
+
+  IDeterminer : Type = {s : Case => Str ; n : Number ; isNum : Bool} ;
+
+    heavyDet : PDet -> Determiner = \d -> d ** {sp = d.s} ;
     PDet : Type = {
       s : Case => Str ;
       n : Number ;

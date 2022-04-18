@@ -90,7 +90,7 @@ concrete ExtendEst of Extend =
     RNPList = {s1,s2 : Agr => NPForm => Str} ;
 
   oper
-    rnp2np : Agr -> RNP -> NP = \agr,rnp -> lin NP {
+    rnp2np : Agr -> RNP -> NPhrase = \agr,rnp -> emptyNP ** {
       a = agr ;
       s = rnp.s ! agr ;
       isPron = False ; -- ??
@@ -159,7 +159,7 @@ concrete ExtendEst of Extend =
     AdAdV ad adv = AdAdv ad adv ;
 
      -- : AP -> CN ;   -- a green one ; en grön (Swe)
-    AdjAsCN ap = {s = ap.s ! True} ; -- True = attributive ; False = predicative
+    AdjAsCN ap = emptyCN ** {s = ap.s ! True} ; -- True = attributive ; False = predicative
 
     -- : AP -> NP
     AdjAsNP ap = MassNP (AdjAsCN ap) ;
@@ -270,14 +270,14 @@ concrete ExtendEst of Extend =
   lin
     -- : NP -> Quant ;       -- this man's
     GenNP np = {
-      s,sp = \\_,_ => np.s ! NPCase Gen ;
+      s,sp = \\_,_ => linNP (NPCase Gen) np ;
       isNum  = False ;
       isDef  = True ;
       isNeg = False
       } ;
 
     -- : IP -> IQuant ;      -- whose
-    GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
+    GenIP ip = {s = \\_,_ => linIP (NPCase Gen) ip} ;
 
     -- : Num -> CN -> RP ;   -- whose car
     GenRP num cn = {
@@ -298,7 +298,7 @@ concrete ExtendEst of Extend =
     GerundAdv vp = {s = infVPdefault vp InfDes} ;
 
     -- : VP -> CN    -- publishing of the document (can get a determiner)
-    GerundCN vp = {s = \\nf => infVPdefault vp InfMine} ;
+    GerundCN vp = emptyCN ** {s = \\nf => infVPdefault vp InfMine} ;
 
     -- : VP -> NP    -- publishing the document (by nature definite)
     GerundNP vp = MassNP (GerundCN vp) ;
@@ -331,7 +331,7 @@ concrete ExtendEst of Extend =
 
     -- : VPSlash -> NP -> VP ;  -- be begged by her to go
     PassAgentVPSlash vps np = let vp : VP = PassVPSlash vps in vp ** {
-      adv = vp.adv ++ np.s ! NPCase Gen ++ "poolt" ;
+      adv = vp.adv ++ appCompl True Pos by8agent_Prep np ;
       } ;
 
 
@@ -357,7 +357,7 @@ concrete ExtendEst of Extend =
 
     -- : VPSlash -> NP -> AP    -- hobisukeldujate poolt leitud (süvaveepomm)
     PastPartAgentAP vp np = {
-      s = \\_,_ => np.s ! NPCase Gen ++ "poolt" ++ vp2adv vp True (VIPass Past) ;
+      s = \\_,_ => appCompl True Pos by8agent_Prep np ++ vp2adv vp True (VIPass Past) ;
       infl = Invariable
       } ;
 
@@ -407,11 +407,11 @@ concrete ExtendEst of Extend =
       UseDAPFem,
       UseDAPMasc = DetNP ;
 
-    UttAccIP ip = {s = ip.s ! NPAcc} ;
-    UttAccNP np = {s = np.s ! NPAcc} ;
+    UttAccIP ip = {s = linIP NPAcc ip} ;
+    UttAccNP np = {s = linNP NPAcc np} ;
     UttAdV adv = adv ;
-    UttDatIP ip = {s = ip.s ! NPCase Part} ; -- is partitive a reasonable translation?
-    UttDatNP np = {s = np.s ! NPCase Part} ;
+    UttDatIP ip = {s = linIP (NPCase Part) ip} ; -- is partitive a reasonable translation?
+    UttDatNP np = {s = linNP (NPCase Part) np} ;
 
     -- : VP -> Utt ;  -- There's no "short form", so just using InfDa instead of InfMa
     UttVPShort vp = {s = infVPdefault vp InfDa} ;

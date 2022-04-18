@@ -3,7 +3,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
   flags coding=utf8;
   lin
     GenNP np = {
-      s,sp = \\_,_ => np.s ! NPCase Gen ;
+      s,sp = \\_,_ => linNP (NPCase Gen) np ;
       isNum  = False ;
       isDef  = True ; --- "Jussin kolme autoa ovat" ; thus "...on" is missing
       isNeg = False
@@ -15,7 +15,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
     AbessCN = caseCN Abessive ; -- autota pere
     TerminCN = caseCN Terminative ; -- maani kleit
 
-    GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
+    GenIP ip = {s = \\_,_ => linIP (NPCase Gen) ip} ;
 
     GenRP num cn = {
       s = \\n,c => let k = npform2case num.n c in relPron ! NCase n Gen ++ cn.s ! NCase num.n k ;
@@ -87,7 +87,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
    PassAgentVPSlash vp np = vp ;
  {-
       s = {s = vp.s.s ; h = vp.s.h ; p = vp.s.p ; sc = npform2subjcase vp.c2.c} ;
-      s2 = \\b,p,a => np.s ! NPCase Nom ++ vp.s2 ! b ! p ! a ;
+      s2 = \\b,p,a => linNP (NPCase Nom) np ++ vp.s2 ! b ! p ! a ;
       adv = vp.adv ;
       ext = vp.ext ;
       vptyp = vp.vptyp ;
@@ -95,7 +95,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
 
     AdvExistNP adv np =
       mkClause (\_ -> adv.s) np.a (insertObj
-        (\\_,b,_ => np.s ! NPCase Nom) (predV (verbOlema ** {sc = NPCase Nom}))) ;
+        (\\_,b,_ => linNP (NPCase Nom) np) (predV (verbOlema ** {sc = NPCase Nom}))) ;
 
     RelExistNP prep rp np = {
       s = \\t,ant,bo,ag =>
@@ -105,7 +105,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
           (\_ -> appCompl True Pos prep (rp2np n rp))
           np.a
           (insertObj
-            (\\_,b,_ => np.s ! NPCase Nom)
+            (\\_,b,_ => linNP (NPCase Nom) np)
             (predV (verbOlema ** {sc = NPCase Nom}))) ;
       in
       cl.s ! t ! ant ! bo ! SDecl ;
@@ -114,26 +114,26 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
 
     AdvPredNP  adv v np =
       mkClause (\_ -> adv.s) np.a (insertObj
-        (\\_,b,_ => np.s ! NPCase Nom) (predV v)) ;
+        (\\_,b,_ => linNP (NPCase Nom) np) (predV v)) ;
 
     ICompExistNP adv np =
       let cl = mkClause (\_ -> adv.s ! np.a) np.a (insertObj
-        (\\_,b,_ => np.s ! NPCase Nom) (predV (verbOlema ** {sc = NPCase Nom}))) ;
+        (\\_,b,_ => linNP (NPCase Nom) np) (predV (verbOlema ** {sc = NPCase Nom}))) ;
       in  {
         s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
       } ;
 
     IAdvPredNP iadv v np =
       let cl = mkClause (\_ -> iadv.s) np.a (insertObj
-                 (\\_,b,_ => np.s ! v.sc) (predV v)) ;
+                 (\\_,b,_ => linNP v.sc np) (predV v)) ;
       in  {
         s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
       } ;
 
 --    i_implicPron = mkPronoun [] "minun" "minua" "minuna" "minuun" Sg P1 ;
-    whatPart_IP = {
+    whatPart_IP = emptyIP ** {
       s = table {
-        NPCase Nom | NPAcc => "mitä" ;
+        NPCase Nom | NPAcc => "mida" ;
         c => whatSg_IP.s ! c
         } ;
       n = Sg
@@ -142,12 +142,11 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
     PartCN cn =
       let
         acn = DetCN (DetQuant IndefArt NumSg) cn
-      in {
+      in acn ** {
         s = table {
           NPCase Nom | NPAcc => acn.s ! NPCase ResEst.Part ;
           c => acn.s ! c
           } ;
-        a = acn.a ;
         isPron = False ; isNeg = False
         } ;
 

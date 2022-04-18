@@ -574,7 +574,12 @@ oper
     mkN2 : N -> Prep -> N2 = mmkN2
     } ;
 
-  mmkN2 : N -> Prep -> N2 = \n,c -> lin N (n ** {c2 = c ; isPre = mkIsPre c}) ;
+  mmkN2 : N -> Prep -> N2 = \n,c -> lin N2 (n ** {
+    c2 = c ;
+    isPre = mkIsPre c ;
+    postmod = []
+    }) ;
+
   mkN3 = \n,c,e -> lin N3 (n ** {
     c2 = c ; c3 = e ;
     isPre = mkIsPre c  ; -- matka Londonist Pariisi
