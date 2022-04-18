@@ -8,20 +8,14 @@ lin
   FloatPN i  = {s = \\c => i.s} ; --- c
   NumPN i  = {s = \\c => i.s!Sg!Nom } ; --- c
 
-  CNIntNP cn i = {
-    s = \\c => cn.s ! NCase Sg (npform2case Sg c) ++ i.s ;
-    a = agrP3 Sg ;
-    isPron = False
+  CNIntNP cn i = let np : NP = NounEst.MassNP cn in np ** {
+    postmod = np.postmod ++ i.s ;
     } ;
-  CNSymbNP det cn xs = let detcn = NounEst.DetCN det cn in {
-    s = \\c => detcn.s ! c ++ xs.s ;
-    a = detcn.a ;
-    isPron = False
+  CNSymbNP det cn xs = let np : NP = NounEst.DetCN det cn in np ** {
+    postmod = np.postmod ++ xs.s ;
     } ;
-  CNNumNP cn i = {
-    s = \\c => cn.s ! NCase Sg (npform2case Sg c) ++ i.s ! Sg ! Nom ;
-    a = agrP3 Sg ;
-    isPron = False
+  CNNumNP cn i = let np : NP = NounEst.MassNP cn in np ** {
+    postmod = np.postmod ++ i.s ! Sg ! Nom ;
     } ;
 
   SymbS sy = sy ;

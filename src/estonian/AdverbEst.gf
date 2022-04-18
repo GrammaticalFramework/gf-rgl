@@ -5,7 +5,7 @@ concrete AdverbEst of Adverb = CatEst ** open ResEst, Prelude in {
   lin
     PositAdvAdj a = {s = a.s ! Posit ! AAdv} ;
     ComparAdvAdj cadv a np = {
-      s = cadv.s ++ a.s ! Posit ! AAdv ++ cadv.p ++ np.s ! NPCase Nom
+      s = cadv.s ++ a.s ! Posit ! AAdv ++ cadv.p ++ linNP (NPCase Nom) np
       } ;
     ComparAdvAdjS cadv a s = {
       s = cadv.s ++ a.s ! Posit ! AAdv ++ cadv.p ++ s.s

@@ -10,7 +10,7 @@ concrete IdiomEst of Idiom = CatEst **
           Pos => NPCase Nom ; -- on olemas lammas
           Neg => NPCase Part  -- ei ole olemas lammast
           } ;
-        vp = insertObj (\\_,b,_ => "olemas" ++ np.s ! cas b) (predV olla)
+        vp = insertObj (\\_,b,_ => "olemas" ++ linNP (cas b) np) (predV olla)
       in
       existClause noSubj (agrP3 Sg) vp ;
 
@@ -28,7 +28,7 @@ concrete IdiomEst of Idiom = CatEst **
 
     CleftNP np rs = mkClause (\_ -> "see") (agrP3 Sg)
       (insertExtrapos (rs.s ! np.a)
-        (insertObj (\\_,_,_ => np.s ! NPCase Nom) (predV olla))) ;
+        (insertObj (\\_,_,_ => linNP (NPCase Nom) np) (predV olla))) ;
 
 -- This gives the almost forbidden "se on Porissa kun Matti asuu".
 -- Est: "see on Toris, kus Mati elab" (?)
