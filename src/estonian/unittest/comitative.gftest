@@ -1,0 +1,146 @@
+-- Comitative, Essive, Abessive and Terminative cases are not in the inflection table of nominal categories,
+-- instead they use the Genitive stem and add a suffix with BIND token.
+-- Here are tests for those cases.
+
+-- NB. Ignore any weirdness with the word "koos".
+-- That just happens to be the linearisation of with_Prep,
+-- we can as easily replace it with just the case -ga,
+-- or in an application, have two versions, one "koos …ga" and other just "…ga".
+-- But do point out any other unexpected weirdness/ungrammaticality!
+
+-- Comitative, case attaches to the noun
+
+Lang: PredVP (UsePron i_Pron) (AdvVP (UseV play_V) (PrepNP with_Prep (DetCN (DetQuant this_Quant NumSg) (UseN dog_N))))
+LangEng: I play with this dog
+LangEst: mina mängin koos selle koera &+ ga
+
+Lang: PredVP (UsePron we_Pron) (AdvVP (UseV play_V) (PrepNP with_Prep (DetCN (DetQuant this_Quant NumPl) (UseN dog_N))))
+LangEng: we play with these dogs
+LangEst: meie mängime koos nende koerade &+ ga
+
+-- Interrogative versions
+
+-- First, reason why the interrogative pronoun doesn't inflect is this http://www.eki.ee/books/ekk09/index.php?p=5&p1=3&id=452
+--   "Üldse ei ühildu: asesõnad mis (kui ta ei osuta omadusele, vaid on identifitseerivas funktsioonis) [..],
+--   nt 'Mis keelt te räägite?' "
+-- So because of that, it doesn't inflect in any position. Here is the eki example:
+
+Lang: QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN language_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a speak_V2))
+LangEng: which language do you speak
+LangEst: mis keelt sina räägid
+
+-- But should the interrogative inflect when PrepIP is applied? Or is "koos mis koeraga" still fine?
+
+Lang: QuestIAdv (PrepIP with_Prep (IdetCN (IdetQuant which_IQuant NumSg) (UseN dog_N))) (PredVP (UsePron youSg_Pron) (UseV play_V))
+LangEng: with which dog do you play
+LangEst: koos mis koera &+ ga sina mängid
+
+Lang: QuestIAdv (PrepIP with_Prep (IdetCN (IdetQuant which_IQuant NumPl) (UseN dog_N))) (PredVP (UsePron youPl_Pron) (UseV play_V))
+LangEng: with which dogs do you play
+LangEst: koos mis koerade &+ ga teie mängite
+
+-- Adding a number, does it affect the behaviour of
+-- a) suffix attachment? b) agreement of interrogative?
+
+Lang: PredVP (UsePron i_Pron) (AdvVP (UseV play_V) (PrepNP with_Prep (DetCN (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))) (UseN dog_N))))
+LangEng: I play with these three dogs
+LangEst: mina mängin koos nende kolme koera &+ ga
+
+Lang: PredVP (UsePron i_Pron) (AdvVP (UseV play_V) (PrepNP with_Prep (DetCN (DetQuant this_Quant (NumCard (NumDigits (IDig D_3)))) (UseN dog_N))))
+LangEng: I play with these 3 dogs
+LangEst: mina mängin koos nende 3 koera &+ ga
+
+Lang: QuestIAdv (PrepIP with_Prep (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))) (UseN dog_N))) (PredVP (UsePron youPol_Pron) (UseV play_V))
+LangEng: with which three dogs do you play
+-- Which one is best?
+-- 1) koos mis kolm koeraga teie mängite
+-- 2) koos mis kolme koeraga teie mängite
+-- 3) koos mille kolme koeraga teie mängite
+-- 4) All are ungrammatical (provide more grammatical translation that is still compositional, not paraphrase)
+
+Lang: QuestIAdv (PrepIP with_Prep (IdetCN (IdetQuant which_IQuant (NumCard (NumDigits (IDig D_3)))) (UseN dog_N))) (PredVP (UsePron youPl_Pron) (UseV play_V))
+LangEng: with which 3 dogs do you play
+-- Which one is best?
+-- 1) koos mis 3 koeraga teie mängite
+-- 2) koos mille 3 koeraga teie mängite
+-- 3) All are ungrammatical (provide more grammatical translation)
+
+------------------------------------------------------------------------------------------
+-- Now we skip the content word, and make the determiner (possibly with number) into NP/IP
+-- The relevant functions are DetNP : Det -> NP and IDetIP : IDet -> IP
+
+-- No number, case attaches to determiner/interrogative
+Lang: PredVP (UsePron i_Pron) (AdvVP (UseV play_V) (PrepNP with_Prep (DetNP (DetQuant this_Quant NumPl))))
+LangEng: I play with these
+LangEst: mina mängin koos nende &+ ga
+
+Lang: QuestIAdv (PrepIP with_Prep whoSg_IP) (PredVP (UsePron youSg_Pron) (UseV sing_V))
+LangEng: with whom do you sing
+LangEst: koos kelle &+ ga sina laulad
+
+Lang: QuestIAdv (PrepIP with_Prep whoPl_IP) (PredVP (UsePron youSg_Pron) (UseV sing_V))
+LangEng: with whom do you sing
+LangEst: koos kellede &+ ga sina laulad
+
+-- Adding a number to a determiner, does this affect the comitative suffix placement?
+-- Context of the sentence is an ellipsis, "I sing with these 3 (singers)"
+
+Lang: PredVP (UsePron i_Pron) (AdvVP (UseV sing_V) (PrepNP with_Prep (DetNP (DetQuant this_Quant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))))))
+LangEng: I sing with these three
+-- Which one is better?
+-- 1) mina laulan koos nende kolmega
+-- 2) mina laulan koos nendega kolme
+
+Lang: PredVP (UsePron i_Pron) (AdvVP (UseV sing_V) (PrepNP with_Prep (DetNP (DetQuant this_Quant (NumCard (NumDigits (IDig D_3)))))))
+LangEng: I sing with these 3
+LangEst: mina laulan koos nende 3 &+ ga
+-- Which one is better?
+-- 1) mina laulan koos nende 3ga
+-- 2) mina laulan koos nendega 3
+
+-- Adding a number to an interrogative, how does suffix placement + agreement work now?
+
+Lang: QuestIAdv (PrepIP with_Prep (IdetIP (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3)))))))))) (PredVP (UsePron youSg_Pron) (UseV sing_V))
+LangEng: with which three do you sing
+-- Which one is best?
+-- 1) koos millede kolmega sina laulad
+-- 2) koos mille kolmega sina laulad
+-- 3) koos mis kolmega sina laulad
+-- 4) koos millega kolme sina laulad
+-- 5) koos milledega kolme sina laulad
+-- 6) All are ungrammatical (provide more grammatical translation)
+
+Lang: QuestIAdv (PrepIP with_Prep (IdetIP (IdetQuant which_IQuant (NumCard (NumDigits (IDig D_3)))))) (PredVP (UsePron youSg_Pron) (UseV sing_V))
+LangEng: with which 3 do you sing
+-- Which one is best?
+-- 1) koos millede 3ga sina laulad
+-- 2) koos mille 3ga sina laulad
+-- 3) koos mis 3ga sina laulad
+-- 4) koos millega 3 sina laulad
+-- 5) koos milledega 3 sina laulad
+-- 6) All are ungrammatical (provide more grammatical translation)
+
+
+-- Adding premodifiers to the number, does that change anything?
+
+-- Weird sentence, but imagine like, you point to a group of people, "I sing with these at most three",
+-- like you are the soloist and want at most 3 backup singers, who are among a group you are pointing at.
+-- If there was no ellipsis, the phrase would just be "koos nende kuni kolme lauljatega"?
+Lang: PredVP (UsePron i_Pron) (AdvVP (UseV sing_V) (PrepNP with_Prep (DetNP (DetQuant this_Quant (NumCard (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))))))))
+LangEng: I sing with these at most three
+LangEst: mina laulan koos nende kuni kolme &+ ga
+-- Which one is better?
+-- 1) mina laulan koos nende kuni kolmega
+-- 2) mina laulan koos nendega kuni kolme
+
+Lang: QuestIAdv (PrepIP with_Prep (IdetIP (IdetQuant which_IQuant (NumCard (AdNum at_most_AdN (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n3))))))))))) (PredVP (UsePron youSg_Pron) (UseV sing_V))
+LangEng: with which at most three do you sing
+LangEst: koos millede kuni kolme &+ ga sina laulad
+-- Which one is best?
+-- 1) koos millede kuni kolmega sina laulad
+-- 2) koos mille kuni kolmega sina laulad
+-- 3) koos mis kuni kolmega sina laulad
+-- 4) koos millega kuni kolme sina laulad
+-- 5) koos milledega kuni kolme sina laulad
+-- 6) All are ungrammatical (provide more grammatical translation)
+
