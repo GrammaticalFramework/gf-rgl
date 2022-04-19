@@ -232,7 +232,7 @@ lin
   correct_A = mkA (mkN "õige" "õige" "õiget" "õigesse" "õigete" "õigeid") ;
   dry_A = mkA (mkN "kuiv" "kuiva" "kuiva") "kuivem" "kuiveim" ;
   dull_A = mkA "igav" ;
-  full_A = mkA (mkN "täis" "täie" "täit" "täide" "täied" "täite") "täiem" "täiim" Invariable ; -- 'täis' is one of the non-inflecting adjectives
+  full_A = mkA (mkN "täis" "täie" "täit" "täide" "täite" "täisi") "täiem" "täiim" Invariable ; -- 'täis' is one of the non-inflecting adjectives
   heavy_A = mkA "raske" ;
   near_A = mkA "lähedane" ;
   rotten_A = mkA "mäda" ;
