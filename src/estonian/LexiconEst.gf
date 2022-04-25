@@ -65,7 +65,7 @@ lin
   -- Unfortunately, we cannot use a similar trick for the source (*Põltsamaast vs Põltsamaalt).
   distance_N3 = mkN3 (mkN "kaugus") celative (casePrep terminative) ;
   doctor_N = mkN "arst" ;
-  dog_N = mkN "koer" "koera" "koera" ;
+  dog_N = mkN "koer" "koera" "koera" "koerasse" "koerte" "koeri" ;
   door_N = mkN "uks" "ukse" "ust" "uksesse" "uste" "uksi" ;
   drink_V2 = mkV2 (mkV "jooma") cpartitive ;
   easy_A2V = mkA2 (mkA (mkN "lihtne" "lihtsa" "lihtsat" "lihtsasse" "lihtsate" "lihtsaid")) callative ;
