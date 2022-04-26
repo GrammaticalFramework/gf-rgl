@@ -162,7 +162,8 @@ concrete ExtraExtZul of ExtraExt =
       empty = np.empty ;
       s = \\n,nform => locn.s ;
       mod = \\num => poss_concord!(C17)!Sg!np.i ++BIND++ (poss_NP np) ;
-      c = C17
+      c = C17 ;
+      emph = False
     } ;
 
     InstrNPAdv np =

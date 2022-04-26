@@ -1383,9 +1383,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C1_2 Pl => "ababe"++BIND ;
         Third C1a_2a Sg => "obe"++BIND ;
         Third C1a_2a Pl => "ababe"++BIND ;
-        Third C3_4 Sg  => "obe"++BIND ;
+        Third C3_4 Sg  => "obu"++BIND ;
         Third C3_4 Pl => "ebi"++BIND ;
-        Third C5_6 Sg => "beli"++BIND ;
+        Third C5_6 Sg => "ebeli"++BIND ;
         Third C5_6 Pl => "abe"++BIND ;
         Third C7_8 Sg => "ebesi"++BIND ;
         Third C7_8 Pl => "ebezi"++BIND ;
@@ -1400,7 +1400,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C17 _ => "obeku"++BIND ;
         First Sg => "ebengi"++BIND ;
         First Pl => "ebesi"++BIND ;
-        Second Sg  => "obe"++BIND ;
+        Second Sg  => "obu"++BIND ;
         Second Pl => "ebeni"++BIND
     } ;
 
