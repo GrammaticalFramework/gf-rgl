@@ -98,8 +98,10 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       s : Number => NForm => Str ;
       -- mod : Number => Str ;
       c : ClassGender ;
-      empty : Str
+      empty : Str ;
+      emph : Bool
     } ;
+
     NP = {
       empty : Str ;
       s : NForm => Str ;

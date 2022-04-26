@@ -51,7 +51,8 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       empty = n.empty ;
       s = \\num,nform => rs.s!(Third n.c num) ++ n.s!num!nform ;
       -- mod = \\_ => [] ;
-      c = n.c
+      c = n.c ;
+      emph = False
     } ;
 
     -- TODO : check mod
@@ -59,7 +60,8 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       s = \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
       -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
       c = cn.c ; -- takes agr of cn
-      empty = cn.empty
+      empty = cn.empty ;
+      emph = cn.emph
     } ;
 
     -- TODO : check mod
@@ -67,7 +69,8 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       s = \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
       -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
       c = n.c ; -- takes agr of n
-      empty = cn.empty
+      empty = cn.empty ;
+      emph = cn.emph
     } ;
 
     PredetN predet n = {
@@ -80,7 +83,8 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       } ;
       -- mod = \\_ => [] ;
       c = n.c ;
-      empty = n.empty
+      empty = n.empty ;
+      emph = False
     };
 
     QuantPredet q = {
@@ -107,14 +111,17 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       } ;
       -- mod = cn.mod ;
       c = cn.c ;
-      empty = cn.empty
+      empty = cn.empty ;
+      emph = True
     } ;
 
     ContrastCN cn = {
       s = \\num,nform => cn.s!num!nform ++ pron_stem!(Third cn.c num) ++BIND++ "na" ;
       -- mod = \\num => pron_stem!(Third cn.c num) ++BIND++ "na" ++ cn.mod!num ;
       c = cn.c ;
-      empty = cn.empty
+      empty = cn.empty ;
+      emph = cn.emph ;
+      emph = cn.emph
     } ;
 
     UsePNPl pn = let
