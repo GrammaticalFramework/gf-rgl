@@ -113,5 +113,9 @@ LangMay: buka pintu
 Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a open_V2) (DetCN (DetQuant DefArt NumSg) (UseN door_N))))
 LangEng: don't open the door
 LangMay: jangan buka pintu
+
+Lang: UttImpPol PPos (ImpVP (ComplSlash (SlashV2a open_V2) (DetCN (DetQuant DefArt NumSg) (UseN door_N))))
+LangEng: open the door
+LangMay: bukakan pintu
 ----------------------------------------
 -- Questions

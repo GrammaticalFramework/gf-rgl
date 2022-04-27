@@ -224,7 +224,8 @@ oper
   mkVerb : Str -> Prefix -> Verb = \str,p -> {
     s = table {
       Root => str ;
-      Active => prefix p str
+      Active => prefix p str ;
+      Imperative => str ++ BIND ++ "kan"
       }
     } ;
 
