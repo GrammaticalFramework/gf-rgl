@@ -34,7 +34,7 @@ concrete StructuralEst of Structural = CatEst **
   either7or_DConj = sd2 "kas" "või" ** {n = Sg} ;
   everybody_NP = makeNP (mkN "igaüks") Sg ;
   every_Det = mkDet Sg (mkN "iga") ;
-  everything_NP = makeNP ((mkN "kõik") ** {lock_N = <>}) Sg ;
+  everything_NP = makeNP (mkN "kõik") Sg ;
   everywhere_Adv = ss "kõikjal" ;
   few_Det = mkDet Sg (mkN "mõni") ;
 ---  first_Ord = {s = \\n,c => (mkN "ensimmäinen").s ! NCase n c} ;
@@ -78,10 +78,8 @@ concrete StructuralEst of Structural = CatEst **
   quite_Adv = ss "üsna" ;
   she_Pron = mkPronoun "tema" "tema" "teda" Sg P3 ;
   so_AdA = ss "nii" ;
-  somebody_NP = {
+  somebody_NP = emptyNP ** {
     s = \\c => jokuPron ! Sg ! npform2case Sg c ;
-    a = agrP3 Sg ;
-    isPron = False
     } ;
   someSg_Det = heavyDet {
     s = jokuPron ! Sg ;
@@ -92,10 +90,8 @@ concrete StructuralEst of Structural = CatEst **
     isNum = False ; isDef = True ;
     n = Pl
     } ;
-  something_NP = {
+  something_NP = emptyNP ** {
     s = \\c => mikaInt ! Sg ! npform2case Sg c ;
-    a = agrP3 Sg ;
-    isPron = False
     } ;
   somewhere_Adv = ss "kuskil" ;
   that_Quant = heavyQuant {
@@ -133,11 +129,11 @@ concrete StructuralEst of Structural = CatEst **
   very_AdA = ss "väga" ;
   want_VV = mkVV (mkV "tahtma") ;
   we_Pron = mkPronoun "meie" "meie" "meid" Pl P1 ;
-  whatPl_IP = {
+  whatPl_IP = emptyIP ** {
     s = table {NPAcc => "mida" ; c => mikaInt ! Pl ! npform2case Pl c} ;
     n = Pl
     } ;
-  whatSg_IP = {
+  whatSg_IP = emptyIP ** {
     s = \\c => mikaInt ! Sg ! npform2case Sg c ;
     n = Sg
     } ;
@@ -145,11 +141,11 @@ concrete StructuralEst of Structural = CatEst **
   when_Subj = ss "kui" ;
   where_IAdv = ss "kus" ;
   which_IQuant = { s = mikaInt } ;
-  whoSg_IP = {
+  whoSg_IP = emptyIP ** {
     s = table {NPAcc => "keda" ; c => kukaInt ! Sg ! npform2case Sg c} ;
     n = Sg
     } ;
-  whoPl_IP = {
+  whoPl_IP = emptyIP ** {
     s = table {NPAcc => "keda" ; c => kukaInt ! Pl ! npform2case Pl c} ;
     n = Pl
     } ;
@@ -198,27 +194,21 @@ oper
         }
       } ;
 
-  --TODO does this work?
-  mikaInt : MorphoEst.Number => (MorphoEst.Case) => Str =
+  mikaInt : MorphoEst.Number => MorphoEst.Case => Str =
     let {
-      mi  = mkN "mille"
+      mi : N = mkN "mis" "mille" "mida" "millesse" "millede" "mida"
     } in
     table {
       Sg => table {
-        Nom => "mis" ;
-        Gen => "mille" ;
-        Part => "mida" ;
         c   => mi.s ! NCase Sg c
        } ;
       Pl => table {
         Nom => "mis" ;
-        Gen => "mille" ;
-        Part => "mida" ;
         c   => mi.s ! NCase Pl c
         }
       } ;
 
-  kukaInt : MorphoEst.Number => (MorphoEst.Case) => Str =
+  kukaInt : MorphoEst.Number => MorphoEst.Case => Str =
     let
       kuka = mkN "kes" "kelle" "keda" "kellesse"
                  "kellede" "keda" ;
@@ -256,12 +246,10 @@ oper
 
 
 oper
-  makeNP  : N -> MorphoEst.Number -> CatEst.NP ;
-  makeNP noun num = {
+  makeNP  : N -> MorphoEst.Number -> NPhrase ;
+  makeNP noun num = emptyNP ** {
     s = \\c => noun.s ! NCase num (npform2case num c) ;
     a = agrP3 num ;
-    isPron = False ;
-    lock_NP = <>
     } ;
 
 lin
@@ -273,16 +261,14 @@ lin
     } ;
 
   if_then_Conj = {s1 = "kui" ; s2 = "siis" ; n = Sg} ;
-  nobody_NP = {
+  nobody_NP = emptyNP ** {
     s = \\c => "mitte" ++ kukaanPron ! Sg ! npform2case Sg c ;
     a = agrP3 Sg ;
-    isPron = False
     } ;
 
-  nothing_NP = {
+  nothing_NP = emptyNP ** {
     s = \\c => "mitte" ++ mikaanPron ! Sg ! npform2case Sg c ;
     a = agrP3 Sg ;
-    isPron = False
     } ;
 
   at_least_AdN = ss "vähemalt" ;

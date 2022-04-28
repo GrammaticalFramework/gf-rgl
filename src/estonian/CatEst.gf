@@ -20,43 +20,38 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
 -- Question
 
     QCl    = {s : ResEst.Tense => Anteriority => Polarity => Str} ;
-    IP     = {s : NPForm => Str ; n : Number} ;
-    IComp  = {s : Agr => Str} ; 
+    IP     = ResEst.IPhrase ;
+    IComp  = {s : Agr => Str} ;
     IDet   = {s : Case => Str ; n : Number ; isNum : Bool} ;
     IQuant = {s : Number => Case => Str} ;
 
 -- Relative
 
     RCl   = {s : ResEst.Tense => Anteriority => Polarity => Agr => Str ; c : NPForm} ;
-    RP    = {s : Number => NPForm => Str ; a : RAgr} ;
+    RP    = ResEst.RelPron ;
 
 -- Verb
 
     VP   = ResEst.VP ;
-    VPSlash = ResEst.VP ** {c2 : Compl} ; 
-    Comp = {s : Agr => Str} ; 
+    VPSlash = ResEst.VP ** {c2 : Compl} ;
+    Comp = {s : Agr => Str} ;
 
 -- Adjective
 
 -- The $Bool$ in s tells whether usage is modifying (as opposed to
 -- predicative), e.g. "x on suurem kui y" vs. "y:st suurem arv".
--- The $Infl$ in infl tells whether the adjective inflects as a 
+-- The $Infl$ in infl tells whether the adjective inflects as a
 -- modifier: e.g. "väsinud mehele" vs. "mees muutus väsinuks".
 
-    AP = {s : Bool => NForm => Str ; infl : Infl} ; 
+    AP = ResEst.APhrase ;
 
 -- Noun
 
-    CN   = {s : NForm => Str} ;
+    CN   = ResEst.CNoun ;
     Pron = {s : NPForm => Str ; a : Agr} ;
-    NP   = {s : NPForm => Str ; a : Agr ; isPron : Bool} ;
-    Det  = {
-      s : Case => Str ;       -- minun kolme
-      sp : Case => Str ;       -- se   (substantival form)
-      n : Number ;             -- Pl   (agreement feature for verb)
-      isNum : Bool ;           -- True (a numeral is present)
-      isDef : Bool             -- True (verb agrees in Pl, Nom is not Part) --I: actually, can we get rid of this? 
-      } ;
+    NP   = ResEst.NPhrase ;
+    DAP, Det = ResEst.Determiner ;
+
 ----    QuantSg, QuantPl = {s : Case => Str ;  isDef : Bool} ;
     Ord    = {s : NForm => Str} ;
     Predet = {s : Number => NPForm => Str} ;
@@ -74,26 +69,37 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
     Conj = {s1,s2 : Str ; n : Number} ;
 ----b    DConj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
-    Prep = Compl ;
+    Prep = ResEst.Compl ;
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ = Verb1 ; -- = {s : VForm => Str ; sc : Case} ;
-    V2, VA, V2Q, V2S = Verb1 ** {c2 : Compl} ;
-    V2A = Verb1 ** {c2, c3 : Compl} ;
-    VV = Verb1 ** {vi : InfForm} ; ---- infinitive form
-    V2V = Verb1 ** {c2 : Compl ; vi : InfForm} ; ---- infinitive form
-    V3 = Verb1 ** {c2, c3 : Compl} ;
+    V, VS, VQ = ResEst.Verb1 ; -- = {s : VForm => Str ; sc : Case} ;
+    V2, VA, V2Q, V2S = ResEst.Verb2 ;
+    V2A, V3 = ResEst.Verb3 ;
+    VV  = ResEst.Verb1 ** {vi : InfForms} ;
+    V2V = ResEst.Verb2 ** {vi : InfForms} ;
 
-    A  = Adjective ** {infl : Infl} ;
-    A2 = A ** {c2 : Compl} ;
+    A  = ResEst.Adjective ** {infl : Infl} ;
+    A2 = ResEst.Adjective ** {infl : Infl ; c2 : Compl} ;
 
-    N  = Noun  ;
-    N2 = Noun ** {c2 : Compl ; isPre : Bool ; lock_N2 : {}} ;
-    N3 = Noun ** {c2,c3 : Compl ; isPre,isPre2 : Bool ; lock_N3 : {}} ;
+    N  = ResEst.Noun  ;
+    N2 = ResEst.Noun ** {
+            postmod : Str ; -- postmod, because N2 can come from N3+complement via ComplN3
+            c2 : Compl ;
+            isPre : Bool} ;
+    N3 = ResEst.Noun ** {   -- no postmod, because N3 can only come from lexical funs
+            c2,c3 : Compl ;
+            isPre,isPre2 : Bool
+            } ;
     PN = {s : Case  => Str} ;
 
-oper Verb1 = Verb ** { sc : NPForm} ; --what is this for? --subject case, i.e. "ma näen kassi"/"mul on kass"
+  linref
+    VP = \vp -> linV vp.v ;
+    NP = linNP (NPCase Nom) ;
+    CN = linCN (NCase Sg Nom) ;
+    V,VS,VQ = linV ;
+    V2,VA,V2S,V2Q = linV2 ;
+
 
 
 }
