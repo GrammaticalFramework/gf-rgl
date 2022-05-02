@@ -44,53 +44,48 @@ concrete QuestionEst of Question = CatEst ** open ResEst, Prelude in {
       postmod = ip.postmod ++ adv.s ;
       } ;
 
--- The computation of $ncase$ is a special case of that in $NounEst.DetCN$,
--- since we don't have possessive suffixes or definiteness.
---- It could still be nice to have a common oper...
+-- The computation of $IdetCN$ is a special case of that in $NounEst.DetCN$,
+-- because the interrogative doesn't agree.
 
-    IdetCN idet cn = let n = idet.n in emptyIP ** {
+   IdetCN idet cn = emptyIP ** {
       s = \\c =>
         let
-          k     : Case = npform2case n c ;
-          icase : Case = Nom ; --case k of {  --mis kassiga
-         --   (Ess|Abess|Comit|Termin) => Gen ;
-         --   _  => k
-         -- } ;
-          ncase : NForm = case <icase,idet.isNum> of {
-            <Nom,  True> => NCase Sg Part ; -- mitkä kolme kytkintä
-            <_,    True> => NCase Sg k ;    -- miksi kolmeksi kytkimeksi
-            _            => NCase n  k      -- mitkä kytkimet
+          k : Case = npform2case n c ;
+          ncase : NForm = case <k,idet.isNum> of {
+            <Nom,  True> => NCase Sg Part ; -- TODO estonian example (Fin was "mitkä kolme kytkintä")
+            <_,    True> => NCase Sg k ;    -- TODO estonian example (Fin was "miksi kolmeksi kytkimeksi")
+            _            => NCase n  k      -- TODO estonian example (Fin was "mitkä kytkimet")
           }
         in
-        idet.s ! icase ++ cn.s ! ncase ;
-      n = n
-      } ;
+          idet.s ! Nom ++        -- mis
+          idet.post ! k ++       -- kolme
+          cn.s ! ncase ;         -- kassi+ga
+      n = idet.n ; -- needed for agreement, "mis kolm kassi mängivad"
+  } where {
+    n : Number = case idet.isNum of {
+                  True  => Sg ;
+                  False => idet.n } ;
+  } ;
 
     IdetIP idet = let n = idet.n in emptyIP ** {
       s = \\c =>
         let
           k = npform2case n c ;
         in
-        idet.s ! k ;
+        case idet.isNum of {
+          True  => idet.s ! Nom ++ idet.post ! k ;
+          False => idet.s ! k ++ idet.post ! k
+        } ;
+
       n = n
       } ;
-
-    IdetQuant idet num =
-      let
-        n = num.n ;
-        isn = num.isNum
-      in {
-        s = \\k =>
-        let
-          ncase = case <k,isn> of {
-            <Nom,  True> => NCase Sg Part ; -- mitkä kolme kytkintä
-            <_,    True> => NCase Sg k ;    -- miksi kolmeksi kytkimeksi
-            _            => NCase n  k      -- mitkä kytkimet
-            }
-        in
-        idet.s ! n ! k ++ num.s ! Sg ! k ;
-      n = n ;
-      isNum = isn
+    -- The quant and the num may be inflected in different cases:
+      -- * mis kolme koeraga, mis kolmega
+      -- * millega
+      -- * mille 3-ga (this would be the preferable output, but currently outputs "mis 3ga")
+    IdetQuant idet num = num ** {
+      s = \\c => idet.s ! num.n ! c ;
+      post = \\c => num.s ! Sg ! c ;
       } ;
 
     AdvIAdv i a = {s = i.s ++ a.s} ;

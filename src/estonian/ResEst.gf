@@ -806,7 +806,9 @@ oper
     isDef : Bool             -- True (verb agrees in Pl, Nom is not Part) --I: actually, can we get rid of this?
     } ;
 
-  IDeterminer : Type = {s : Case => Str ; n : Number ; isNum : Bool} ;
+  IDeterminer : Type = {s, post : Case => Str ; n : Number ; isNum : Bool} ;
+
+  linIDet : IDeterminer -> Str = \idet -> idet.s ! Nom ++ idet.post ! Nom ;
 
     heavyDet : PDet -> Determiner = \d -> d ** {sp = d.s} ;
     PDet : Type = {
