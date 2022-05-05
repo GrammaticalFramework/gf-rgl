@@ -53,7 +53,7 @@ TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a read_V2
 TestLangGer: ich will das Buch lesen
 TestLangEng: I want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich wage das Buch , zu lesen -- wrong
+TestLangGer: ich wage das Buch zu lesen
 TestLangEng: I dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
 TestLangGer: ich muss das Buch lesen
@@ -68,22 +68,22 @@ TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV want_VV 
 TestLangGer: ich muss das Buch lesen wollen
 TestLangEng: I must want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich muss das Buch wagen , zu lesen -- wrong
+TestLangGer: ich muss das Buch zu lesen wagen
 TestLangEng: I must dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich will das Buch wagen , zu lesen -- wrong
+TestLangGer: ich will das Buch zu lesen wagen
 TestLangEng: I want to dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich wage das Buch , lesen zu wollen -- wrong
+TestLangGer: ich wage das Buch lesen zu wollen
 TestLangEng: I dare to want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
 TestLangGer: ich muss das Buch lesen wollen
 TestLangEng: I must want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
-TestLangGer: ich muss das Buch wagen , zu lesen -- wrong
+TestLangGer: ich muss das Buch wagen zu lesen -- wrong
 TestLangEng: I must dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
-TestLangGer: ich will das Buch wagen , zu lesen -- wrong
+TestLangGer: ich will das Buch wagen zu lesen -- wrong
 TestLangEng: I want to dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
 TestLangGer: ich wage , das Buch lesen zu wollen
@@ -101,22 +101,22 @@ TestLang: PredVP (UsePron i_Pron) (ComplVV wagen_VV (ComplVV want_VV (ComplSlash
 TestLangGer: ich wage , das Buch lesen zu wollen
 TestLangEng: I dare to want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
-TestLangGer: ich muss das Buch wagen wollen , zu lesen -- wrong
+TestLangGer: ich muss das Buch zu lesen wagen wollen
 TestLangEng: I must want to dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplSlash (SlashVV wagen_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
-TestLangGer: ich muss das Buch wagen wollen , zu lesen -- wrong
+TestLangGer: ich muss das Buch wagen wollen zu lesen -- wrong
 TestLangEng: I must want to dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV want_VV (ComplVV wagen_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))))
 TestLangGer: ich muss wagen wollen , das Buch zu lesen
 TestLangEng: I must want to dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2)))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich muss das Buch wagen , lesen zu wollen -- wrong
+TestLangGer: ich muss das Buch wagen lesen zu wollen -- wrong
 TestLangEng: I must dare to want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashVV must_VV (SlashVV want_VV (SlashVV wagen_VV (SlashV2a read_V2)))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich muss das Buch wagen , zu lesen wollen -- wrong
+TestLangGer: ich muss das Buch zu lesen wagen wollen
 TestLangEng: I must want to dare to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashVV wagen_VV (SlashVV want_VV (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N))))
-TestLangGer: ich muss das Buch wagen , lesen zu wollen -- wrong
+TestLangGer: ich muss das Buch wagen lesen zu wollen -- wrong
 TestLangEng: I must dare to want to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplVV must_VV (ComplVV wagen_VV (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))))
 TestLangGer: ich muss wagen , das Buch lesen zu wollen
@@ -149,43 +149,43 @@ TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (Sla
 TestLangGer: ich bitte ihn , ihm zu versprechen , das Buch zu lesen
 TestLangEng: I beg him to promise him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich lasse das Buch ihn lesen -- wrong object order (3.9 SlashV2VNP)
+TestLangGer: ich lasse ihn das Buch lesen
 TestLangEng: I let him read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich bitte das Buch ihn , zu lesen -- wrong (SlashV2VNP)
+TestLangGer: ich bitte ihn das Buch , zu lesen -- wrong (SlashV2VNP)
 TestLangEng: I beg him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich verspreche das Buch ihm , zu lesen -- wrong (SlashV2VNP)
+TestLangGer: ich verspreche ihm das Buch , zu lesen -- wrong (SlashV2VNP)
 TestLangEng: I promise him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (DetNP (DetQuant DefArt NumPl)) (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich bitte das Buch ihn die , zu lassen lesen -- wrong (SlahV2VNP) bitte die, ihn es lesen zu lassen
+TestLangGer: ich bitte die das Buch , ihn lesen zu lassen -- wrong (SlahV2VNP) 
 TestLangEng: I beg them to let him read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron they_Pron) (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich bitte das Buch ihn sie , zu lassen lesen -- wrong (SlashV2VNP)
+TestLangGer: ich bitte sie das Buch , ihn lesen zu lassen -- wrong (SlashV2VNP)
 TestLangEng: I beg them to let him read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (DetNP (DetQuant DefArt NumPl)))
-TestLangGer: ich bitte die , das Buch ihn lesen zu lassen -- wrong obj order
+TestLangGer: ich bitte die , ihn das Buch lesen zu lassen
 TestLangEng: I beg them to let him read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP lassen_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron they_Pron))
-TestLangGer: ich bitte sie , das Buch ihn lesen zu lassen -- wrong obj order
+TestLangGer: ich bitte sie , ihn das Buch lesen zu lassen
 TestLangEng: I beg them to let him read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (DetNP (DetQuant DefArt NumPl)) (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich verspreche das Buch ihn denen , zu bitten zu lesen -- wrong (SlashV2VNP gf-3.9))
+TestLangGer: ich verspreche denen das Buch , ihn zu bitten , zu lesen -- wrong (SlashV2VNP))
 TestLangEng: I promise them to beg him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron they_Pron) (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich verspreche das Buch ihn ihnen , zu bitten zu lesen -- wrong (SlashV2VNP)
+TestLangGer: ich verspreche ihnen das Buch , ihn zu bitten , zu lesen -- wrong (SlashV2VNP)
 TestLangEng: I promise them to beg him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (DetNP (DetQuant DefArt NumPl)))
-TestLangGer: ich verspreche denen , das Buch ihn zu bitten , zu lesen -- wrong obj order
+TestLangGer: ich verspreche denen , ihn das Buch zu bitten , zu lesen
 TestLangEng: I promise them to beg him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron they_Pron))
-TestLangGer: ich verspreche ihnen , das Buch ihn zu bitten , zu lesen -- wrong obj order
+TestLangGer: ich verspreche ihnen , ihn das Buch zu bitten , zu lesen -- wrong
 TestLangEng: I promise them to beg him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2VNP beg_V2V (UsePron he_Pron) (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2))) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))
-TestLangGer: ich bitte das Buch ihm ihn , zu versprechen zu lesen -- wrong (SlashV2VNP)
+TestLangGer: ich bitte ihn das Buch , ihm zu versprechen , zu lesen -- wrong (SlashV2VNP)
 TestLangEng: I beg him to promise him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2VNP versprechen_dat_V2V (UsePron he_Pron) (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (UseN book_N)))) (UsePron he_Pron))
-TestLangGer: ich bitte ihn , das Buch ihm zu versprechen , zu lesen -- wrong (SlashV2VNP)
+TestLangGer: ich bitte ihn , ihm das Buch zu versprechen , zu lesen -- wrong (SlashV2VNP)
 TestLangEng: I beg him to promise him to read the book
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ReflVP (SlashV2a love_V2))) (UsePron youSg_Pron))
 TestLangGer: ich bitte dich , dich zu lieben
@@ -200,7 +200,7 @@ TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (Com
 TestLangGer: ich verspreche ihr , mich lieben zu wollen
 TestLangEng: I promise her to want to love herself -- wrong: myself
 TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V beg_V2V (ComplSlash (SlashV2Vneg versprechen_dat_V2V (ReflVP (SlashV2a hate_V2))) (UsePron youSg_Pron))) (UsePron she_Pron)))
-TestLangGer: ich will sie bitten , dir zu versprechen , sich nicht zu hassen
+TestLangGer: ich will sie bitten , dir zu versprechen , sich nicht zu hassen   (uses SlashV2Vneg)
 TestLangEng: I want to beg her to promise you not to hate yourself -- wrong: herself
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (ReflVPSlash entschuldigen_bei_fuer_rV3) (UsePron it_Pron))) (UsePron she_Pron))
 TestLangGer: ich verspreche ihr , mich bei mir für es zu entschuldigen
@@ -209,7 +209,7 @@ TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V versprechen_dat_V2V (Com
 TestLangGer: ich verspreche uns , es mir zu geben
 TestLangEng: I promise us to give it itself -- wrong: myself
 TestLang: PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2V versprechen_dat_V2V (ComplSlash (SlashV2Vneg beg_V2V (ReflVP (SlashV2a hate_V2))) (UsePron youSg_Pron))) (UsePron she_Pron)))
-TestLangGer: ich will ihr versprechen , dich zu bitten , dich nicht zu hassen
+TestLangGer: ich will ihr versprechen , dich zu bitten , dich nicht zu hassen  -- SlashV2Vneg
 TestLangEng: I want to promise her to beg you to not hate yourself
 TestLang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (ComplSlash (ReflVPSlash entschuldigen_bei_fuer_rV3) (UsePron it_Pron))) (UsePron youSg_Pron))
 TestLangGer: ich bitte dich , dich bei dir für es zu entschuldigen
@@ -227,7 +227,7 @@ TestLang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPas
 TestLangGer: das Buch , das wir nicht lesen mussten
 TestLangEng: the book that we hadn't to read
 TestLang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV wagen_VV (SlashV2a read_V2))))))
-TestLangGer: das Buch , das wir nicht wagten , zu lesen
+TestLangGer: das Buch , das wir nicht zu lesen wagten
 TestLangEng: the book that we didn't dare to read
 TestLang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PNeg (RelSlash IdRP (SlashVP (UsePron we_Pron) (SlashVV wagen_VV (Slash3V3 erklaeren_dat_V3 (UsePron she_Pron)))))))
 TestLangGer: das Buch , das wir nicht wagten , ihr zu erklären

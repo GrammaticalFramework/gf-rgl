@@ -4,9 +4,9 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 
   lin
 
-	PredVP np vp = 
-		let subj = mkSubj np vp.subjc 
-		in mkClause subj.p1 subj.p2 vp ;
+    PredVP np vp =
+      let subj = mkSubj np vp.c1
+      in mkClause subj.p1 subj.p2 vp ;
 
 	{- applies verb's subject case to subject ;
 	   forces 3rd person sg agreement for any non-nom subjects -->
@@ -26,16 +26,16 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
             } ;
           agr  = Ag Fem (numImp n) ps.p1 ; --- g does not matter
           verb = vps.s ! False ! agr ! VPImperat ps.p3 ;
-          inf  = vp.inf.s ++ verb.inf ;  -- HL .nn
+          inf  = vp.inf.inpl.p2 ++ verb.inf ;  -- HL .s/.inpl.p2
           obj  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4
         in
 --        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
         verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ++ negation ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
     } ; 
 
-    SlashVP np vp = 
-		let subj = mkSubj np vp.subjc 
-		in mkClause subj.p1 subj.p2 vp ** {c2 = vp.c2} ;
+    SlashVP np vp =
+      let subj = mkSubj np vp.c1 ;                       -- HL 3/2022: need a mkClSlash to prevent
+      in mkClause subj.p1 subj.p2 vp ** { c2 = vp.c2 } ; -- reflexives in vp instantiated to np.a
 
     AdvSlash slash adv = {
       s  = \\m,t,a,b,o => slash.s ! m ! t ! a ! b ! o ++ adv.s ;

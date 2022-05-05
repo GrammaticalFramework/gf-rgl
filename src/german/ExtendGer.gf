@@ -35,9 +35,8 @@ lin
     ConjVPI = conjunctDistrTable Bool ;
 
     ComplVPIVV v vpi = 
---        insertInf (vpi.s ! v.isAux) (
-      insertInf {s=(vpi.s ! v.isAux);isAux=v.isAux;ctrl=SubjC} ( -- HL ??
-            predVGen v.isAux v) ; ----
+      insertInf {inpl = <\\_ => [], (vpi.s ! v.isAux)> ; extr = \\_ => []}  -- HL 3/22
+        (predVGen v.isAux v) ;
 
     BaseVPS = twoTable2 Order Agr ;
     ConsVPS = consrTable2 Order Agr comma ;
@@ -70,37 +69,46 @@ lin
           m = tm.m ;
           subj  = [] ;
           verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
+          haben = verb.inf2 ;
           neg   = tm.s ++ p.s ++ vp.a1 ++ negation ! b ; -- HL 8/19 ++ vp.a1 ! b ;
           -- obj1  = (vp.nn ! agr).p1 ;
           -- obj   = (vp.nn ! agr).p2 ; 
           -- compl = obj1 ++ neg ++ obj ++ vp.a2 ; -- from EG 15/5
-          obj1  = (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ; -- refl ++ pronouns ++ nonpronouns
-          obj2  = (vp.nn ! agr).p3 ;                     -- pp-objects
+          obj1  = (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ; -- refl ++ pronouns ++ light nps
+          obj2  = (vp.nn ! agr).p3 ;                     -- pp-objects and heavy nps
           obj3  = (vp.nn ! agr).p4 ++ vp.adj ++ vp.a2 ;  -- pred.AP|CN|Adv, via useComp HL 6/2019
           compl = obj1 ++ neg ++ obj2 ++ obj3 ;
-          inf   = vp.inf.s ++ verb.inf ++ verb.inf2 ;
-          extra = vp.ext ;
-          infE : Str =                              -- HL 30/6/2019
-            case <t,a,vp.isAux> of {
-              <Fut|Cond,Simul,True> => inf ;                           --# notpresent
-              <Fut|Cond,Anter,True> -- Duden 318: kommen wollen haben => haben kommen wollen --# notpresent
-                => verb.inf2 ++ vp.inf.s ++ verb.inf ;                   --# notpresent
-              <_,Anter,True> => inf ;                                  --# notpresent
-              _ => verb.inf ++ verb.inf2 ++ vp.inf.s } ;
-          inffin : Str =
-            case <t,a,vp.isAux> of {
-	           <Fut|Cond,Anter,True>  -- ... wird|würde haben kommen wollen --# notpresent
-                     => verb.fin ++ verb.inf2 ++ vp.inf.s ++ verb.inf ;  --# notpresent
-	           <_,Anter,True>                                      --# notpresent
-                     => verb.fin ++ inf ;            -- double inf     --# notpresent
-                   _ => inf ++ verb.fin              --- or just auxiliary vp
-            } ;
+          infObjs = (vp.inf.inpl.p1)!agr ;               -- adapted to new VP.inf, HL 3/2022
+          infPred = vp.inf.inpl.p2 ;
+          infCompl : Str = case <t,a,vp.isAux> of {
+             <Fut|Cond,Anter,True> => [] ;                                --# notpresent
+             _ => infObjs ++ infPred } ;
+          pred : {inf, infComplfin : Str} = case <t,a,vp.isAux> of {
+             <Fut|Cond,Anter,True>  =>                                    --# notpresent
+               {inf    = infObjs ++ haben ++ infPred ++ verb.inf ;        --# notpresent Duden 318
+                infComplfin = -- es ++ wird ++ haben ++ tun ++ wollen     --# notpresent
+                   infObjs ++ verb.fin ++ haben ++ infPred ++ verb.inf} ; --# notpresent
+             <_,Anter,True> =>                                            --# notpresent
+               {inf    = verb.inf ++ haben ;                              --# notpresent
+                infComplfin = -- es ++ wird/hat/hatte ++ tun ++ wollen    --# notpresent
+                   infObjs ++ verb.fin ++ infPred ++ verb.inf ++ haben} ; --# notpresent
+              <Pres,_,_> =>
+               {inf    = verb.inf ++ haben ;
+                infComplfin = -- es zu tun ++ [] ++ [] ++ versucht
+                   infCompl ++ verb.inf ++ haben ++ verb.fin}
+                                                                         ; --# notpresent
+              _ =>                                                         --# notpresent
+               {inf    = verb.inf ++ haben ;                               --# notpresent
+                infComplfin = -- es zu tun ++ versucht ++ [] ++ hat        --# notpresent
+                              infCompl ++ verb.inf ++ haben ++ verb.fin}   --# notpresent
+              } ;
+           extra = vp.inf.extr!agr ++ vp.ext ;
         in
         case o of {
-	    Main => subj ++ verb.fin ++ compl ++ vp.infExt ++ infE ++ extra ;
-	    Inv  => verb.fin ++ subj ++ compl ++ vp.infExt ++ infE ++ extra ;
-	    Sub  => subj ++ compl ++ vp.infExt ++ inffin ++ extra
-          }
+	  Main => subj ++ verb.fin ++ compl ++ infCompl ++ pred.inf ++ extra ;
+	  Inv  => verb.fin ++ subj ++ compl ++ infCompl ++ pred.inf ++ extra ;
+	  Subj =>             subj ++ compl ++   pred.infComplfin   ++ extra
+        }
     } ;
 
     ConjVPS = conjunctDistrTable2 Order Agr ;
