@@ -1204,6 +1204,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --     FutTense => subjConcLookup ! agr ! SC ++BIND++ "zobe"
     --   } ;
 
+    impPref : Polarity -> Str = \pol -> case pol of {
+      Pos => [] ;
+      Neg => "u" ++BIND++ "nga"
+    } ;
+
     icomp_pref : VForm -> Agr -> Str = \vform,agr ->
     let
       neg1 = icompNeg1 vform ;
