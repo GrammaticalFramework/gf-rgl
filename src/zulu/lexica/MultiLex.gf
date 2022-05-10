@@ -1,6 +1,64 @@
 abstract MultiLex = Cat ** {
 
   fun
+  big_A : A ;
+  bad_A : A ;
+  beautiful_A : A ;
+  better_A : A ;
+  bitter_A : A ;
+  black_A : A ;
+  blue_A : A ;
+  blunt_A : A ;
+  brown_A : A ;
+  busy_A : A ;
+  certain_A : A ;
+  cold_A : A ;
+  colourful_A : A ;
+  difficult_A : A ;
+  easy_A : A ;
+  few_A : A ;
+  five_A : A ;
+  four_A : A ;
+  green_A : A ;
+  grey_A : A ;
+  hard_A : A ;
+  holy_A : A ;
+  honest_A : A ;
+  hwvy_A : A ;
+  innocent_A : A ;
+  kind_A : A ;
+  light_A : A ;
+  long_A : A ;
+  many_A : A ;
+  most_important_A : A ;
+  new_A : A ;
+  old_A : A ;
+  one_A : A ;
+  orange_A : A ;
+  overcast_A : A ;
+  painful_A : A ;
+  peaceful_A : A ;
+  pink_A : A ;
+  pleasant_A : A ;
+  poor_A : A ;
+  purple_A : A ;
+  red_A : A ;
+  sharp_A : A ;
+  short_A : A ;
+  small_A : A ;
+  soft_A : A ;
+  sour_A : A ;
+  spotted_A : A ;
+  strong_A : A ;
+  sweet_A : A ;
+  tasteless_A : A ;
+  three_A : A ;
+  two_A : A ;
+  wet_A : A ;
+  white_A : A ;
+  wide_A : A ;
+  yellow_A : A ;
+
     -- nouns
     ability_N : N ;
     accident_N : N ;

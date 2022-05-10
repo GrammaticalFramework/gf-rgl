@@ -1,6 +1,65 @@
 concrete MultiLexZul of MultiLex = CatZul ** open ResZul,ParadigmsZul in {
 
   lin
+    -- adjectives
+    big_A = mkA "khulu" ;
+    bad_A = mkA "bi" ;
+    beautiful_A = mkA "hle" ;
+    better_A = mkA "ngcono" ;
+    bitter_A = mkA "munyu" ;
+    black_A = mkA "mnyama" ;
+    blue_A = mkA "luhlaza" ;
+    blunt_A = mkA "buthuntu" ;
+    brown_A = mkA "nsundu" ;
+    busy_A = mkA "matasatosa" ;
+    certain_A = mkA "thile" ;
+    cold_A = mkA "makhaza" ;
+    colourful_A = mkA "makhwezikhwezi" ;
+    difficult_A = mkA "nzima" ;
+    easy_A = mkA "lula" ;
+    few_A = mkA "mbalwa" ;
+    five_A = mkA "hlonu" ;
+    four_A = mkA "ne" ;
+    green_A = mkA "luhlaza" ;
+    grey_A = mkA "mpunga" ;
+    hard_A = mkA "lukhuni" ;
+    holy_A = mkA "ngcwele" ;
+    honest_A = mkA "qotho" ;
+    hwvy_A = mkA "nzima" ;
+    innocent_A = mkA "msulwa" ;
+    kind_A = mkA "mnene" ;
+    light_A = mkA "lula" ;
+    long_A = mkA "de" ;
+    many_A = mkA "ningi" ;
+    most_important_A = mkA "mqoka" ;
+    new_A = mkA "sha" ;
+    old_A = mkA "dolo" ;
+    one_A = mkA "nye" ;
+    orange_A = mkA "sawolintshi" ;
+    overcast_A = mkA "mathumbenkala" ;
+    painful_A = mkA "buhlungu" ;
+    peaceful_A = mkA "thule" ;
+    pink_A = mkA "bomvana" ;
+    pleasant_A = mkA "mnandi" ;
+    poor_A = mkA "mpofu" ;
+    purple_A = mkA "bunsomi" ;
+    red_A = mkA "bomvu" ;
+    sharp_A = mkA "bukhali" ;
+    short_A = mkA "fushane" ;
+    small_A = mkA "ncane" ;
+    soft_A = mkA "ntofontofo" ;
+    sour_A = mkA "munyu" ;
+    spotted_A = mkA "mabalabala" ;
+    strong_A = mkA "qatha" ;
+    sweet_A = mkA "mtoti" ;
+    tasteless_A = mkA "duma" ;
+    three_A = mkA "thathu" ;
+    two_A = mkA "bili" ;
+    wet_A = mkA "manzi" ;
+    white_A = mkA "mhlophe" ;
+    wide_A = mkA "banzi" ;
+    yellow_A = mkA "phuzi" ;
+
     -- nouns
     ability_N = mkN "khono" C5_6 ;
     accident_N = mkN "ngozi" C9_10 ;
