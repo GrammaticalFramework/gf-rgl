@@ -1206,7 +1206,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     impPref : Polarity -> Str = \pol -> case pol of {
       Pos => [] ;
-      Neg => "u" ++BIND++ "nga"
+      Neg => "u" ++BIND++ "nga" ++BIND
     } ;
 
     icomp_pref : VForm -> Agr -> Str = \vform,agr ->
