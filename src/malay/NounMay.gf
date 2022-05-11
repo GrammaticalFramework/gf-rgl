@@ -174,6 +174,11 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
     heavyMod = cn.heavyMod ++ rs.s ! P3
     } ;
 
+  -- : CN -> Adv -> CN ;
+  AdvCN cn adv = cn ** {
+    heavyMod = cn.heavyMod ++ adv.s
+    } ;
+
 {-
   -- : CN -> Adv -> CN ;
   AdvCN cn adv = cn ** {  } ;

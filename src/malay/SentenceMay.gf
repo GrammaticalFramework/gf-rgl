@@ -34,6 +34,9 @@ lin
     }
   } ;
 
+  -- : VP -> SC ;
+  EmbedVP vp = {s = vp.s ! Root ! Pos} ;
+
  {-
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
   SlashVS np vs ss = {} ;

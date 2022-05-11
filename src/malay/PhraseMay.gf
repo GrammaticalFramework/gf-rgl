@@ -10,6 +10,7 @@ concrete PhraseMay of Phrase = CatMay ** open Prelude, ResMay in {
     UttIP ip = {s = ip.sp ! NF Sg Bare} ;
     UttImpSg pol imp = { s = pol.s ++ imp.s ! Sg ! pol.p } ;
     UttImpPol pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p} ;
+    UttVP vp = {s = vp.s ! Active ! Pos} ;
 {-
     UttImpSg pol imp =
     UttImpPl pol imp =
