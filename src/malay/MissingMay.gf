@@ -114,7 +114,6 @@ oper Use2N3 : N3 -> N2  = notYet "Use2N3" ;
 oper Use3N3 : N3 -> N2  = notYet "Use3N3" ;
 oper UseA2 : A2 -> AP  = notYet "UseA2" ;
 oper UseComparA : A -> AP  = notYet "UseComparA" ;
-oper UsePN : PN -> NP  = notYet "UsePN" ;
 oper UseQCl : Temp -> Pol -> QCl -> QS  = notYet "UseQCl" ;
 oper UseSlash : Temp -> Pol -> ClSlash -> SSlash  = notYet "UseSlash" ;
 oper UttAP : AP -> Utt  = notYet "UttAP" ;

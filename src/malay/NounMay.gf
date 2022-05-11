@@ -19,8 +19,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
       } ;
 
   -- : PN -> NP ;
---  UsePN pn = pn ** {
---    } ;
+    UsePN pn = MassNP (UseN pn) ;
 
   -- : Pron -> NP ;
     UsePron pron = pron ** {

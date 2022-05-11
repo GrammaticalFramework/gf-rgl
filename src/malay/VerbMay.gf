@@ -16,7 +16,7 @@ lin
 
   -- : VV  -> VP -> VP ;
   ComplVV vv vp = vp ** useV {
-    s = \\vf => vv.s ++ vp.s ! Active ! Pos
+    s = \\vf => vv.s ++ linVP vp
     } ;
 
   -- : VS  -> S  -> VP ;
@@ -101,7 +101,7 @@ lin
     } ;
 
   -- SlashVV vv vp = vp ** useV {
-  --   s = \\vf => vv.s ++ vp.s ! Active ! Pos ;
+  --   s = \\vf => vv.s ++ linVP vp ;
   --   c2 = vp.c2 ;
   --   passive = vv.s ++ vp.passive;
   --   adjCompl = vp.adjCompl ;

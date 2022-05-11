@@ -9,6 +9,16 @@ concrete ExtendMay of Extend = CatMay
     , MkVPS
     , PredVPS
 
+    -- excluded because RGL funs needed for them not implemented yet
+    , SlashBareV2S
+    , PredAPVP
+    , ComplBareVS
+
+
+    ,PresPartAP, PastPartAP
+    ,GenModNP, GenNP, GenRP
+    ,CompoundN
+    ,GerundNP
 
 
     -- VPS2 ;        -- have loved (binary version of VPS)
@@ -50,6 +60,37 @@ concrete ExtendMay of Extend = CatMay
       BaseVPI vpi vpi2 = twoSS vpi vpi2 ;
       -- ConsVPI : VPI -> ListVPI -> ListVPI ;
       ConsVPI str listvpi vpi = consSS "," listvpi vpi ;
+
+      -- ConjVPI    : Conj -> [VPI] -> VPI ;      -- to sleep and to walk
+      -- ComplVPIVV : VV   -> VPI -> VP ;         -- must sleep and walk
+      ComplVPIVV vv vpi = useV {
+        s = \\vf => vv.s ++ vpi.s
+        } ;
+
+      -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
+      PresPartAP vp = {
+        s = linVP vp
+      } ;
+
+      PastPartAP vp = {
+        s = linVP vp
+      } ;
+      -- GenModNP    : Num -> NP -> CN -> NP ; -- this man's car(s)
+      GenModNP n np cn = variants {};
+
+      -- GenNP       : NP -> Quant ;       -- this man's
+      GenNP np = variants {};
+      -- GenRP       : Num -> CN -> RP ;   -- whose car
+      GenRP n cn = variants {};
+
+      -- CompoundN   : N -> N  -> N ;      -- control system / controls system / control-system
+      CompoundN n1 n2 = n2 ** {
+        s = \\nf => n1.s ! NF Sg Bare ++ n2.s ! nf
+      } ;
+      -- GerundNP    : VP -> NP ;          -- publishing the document (by nature definite)
+      GerundNP vp = emptyNP ** {
+        s = \\_ => linVP vp
+      } ;
 
 
       -- MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved

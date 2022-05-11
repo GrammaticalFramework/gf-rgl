@@ -9,6 +9,7 @@ oper
 -- should always use these constants instead of the constructors
 -- defined in $ResSom$.
 
+noPrep : Prep = mkPrep "" ;
 
 --2 Nouns
 
