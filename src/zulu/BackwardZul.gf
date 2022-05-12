@@ -11,7 +11,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
 
     ComplV2 v2 np = {
       s = table {
-        MainCl => \\a,p,t => let
+        MainCl => \\a,p,t,l => let
           vform = (VFIndic MainCl p t) ;
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           oc = objConc np.agr v2.r v2.syl ; -- [] / m -
@@ -25,7 +25,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           True => tp ++ oc ++ r ++ obj ;
           False => tp ++ r ++ obj
         } ;
-        RelCl => \\a,p,t => let
+        RelCl => \\a,p,t,l => let
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ; -- o- / onga-
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-

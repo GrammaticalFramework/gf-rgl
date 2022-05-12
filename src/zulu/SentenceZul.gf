@@ -12,8 +12,14 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       CopEq => cl_with_eq_cop_predicate np vp ;
       -- VACompl => cl_with_ap_comp_predicate np vp ;
       AdvComp => cl_with_adv_comp_predicate np vp ;
-      (NoComp | VNPCompl) => {
-        s = \\p,t => np.s!NFull ++ (verb_prefix vp p t np.agr) ++ vp.s!MainCl!np.agr!p!t ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      (NoComp | VNPCompl) =>
+      let
+        longform_suffix = case vp.hasComp of {
+          True => False ;
+          False => True
+        }
+      in {
+        s = \\p,t => np.s!NFull ++ (verb_prefix vp p t np.agr) ++ vp.s!MainCl!np.agr!p!t!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
       } ;
       _ => cl_with_verb_predicate np vp
     } ;
@@ -39,8 +45,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     in case vp.vptype of {
       VNPCompl => {
         s = table {
-          Pos => vp.s!MainCl!np.agr!Pos!impTense ++ vp.comp ++ vp.iadv ++ vp.advs ;
-          Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense ++ vp.comp ++ vp.iadv ++ vp.advs
+          Pos => vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
+          Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
         }
       } ;
 
@@ -108,7 +114,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj = np.s!NFull
         in
           subj ++
-          vp.s!MainCl!np.agr!p!t
+          vp.s!MainCl!np.agr!p!t!False
           ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
 
@@ -119,7 +125,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           vform_main = VFIndic MainCl p t ;
         in
           impPref p
-          ++ vp.s!MainCl!np.agr!p!t
+          ++ vp.s!MainCl!np.agr!p!t!False
           ++ vp.iadv
           ++ vp.comp
           ++ vp.advs
@@ -156,10 +162,14 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
+          longform_suffix = case vp.hasComp of {
+            True => False ;
+            False => True
+          }
         in
           subj
           ++ (verb_prefix vp p t np.agr)
-          ++ vp.s!MainCl!np.agr!p!t
+          ++ vp.s!MainCl!np.agr!p!t!longform_suffix
           ++ vp.iadv
           ++ vp.comp
           ++ vp.advs
@@ -208,7 +218,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         in
           subj ++
           -- pcp ++
-          vp.s!MainCl!np.agr!p!t
+          vp.s!MainCl!np.agr!p!t!False
           ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
 
@@ -239,7 +249,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ lfya
           -- -- ++ (tensePref vform_main)
           -- ++ vp.comp
-          vp.s!MainCl!np.agr!p!t
+          vp.s!MainCl!np.agr!p!t!False
           ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
 

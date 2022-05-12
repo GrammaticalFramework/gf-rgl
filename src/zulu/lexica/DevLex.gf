@@ -78,4 +78,6 @@ abstract DevLex = Cat ** {
    ngaphezu_Adv : Adv ;
    -- kakhulu_AdA : AdA ;
 
+   lapho_Adv : Adv ;
+
 }
