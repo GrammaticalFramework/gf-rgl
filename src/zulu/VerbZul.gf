@@ -16,7 +16,10 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
           rc = relConc vform a v.r ; -- o-
           tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform vform l) ; -- hamba
-          suf = relSuf vform -- [] / -yo
+          suf = case l of {
+            True => relSuf vform ;
+            False => []
+          } ;
         in rc ++ tp ++ r ++ suf
       } ;
       iadv, advs, comp = [] ;
