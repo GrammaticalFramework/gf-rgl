@@ -76,4 +76,6 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
 
    ngaphezu_Adv = mkAdv "ngaphezu" ;
    -- kakhulu_AdA = { s = "kakhulu" } ;
+
+   lapho_Adv = mkAdv "lapho" ;
 }
