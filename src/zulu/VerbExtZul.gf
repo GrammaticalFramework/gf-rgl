@@ -5,14 +5,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     CopAP ap = {
       s = case ap.t of {
         AdjType => table {
-          MainCl => \\a,p,t => let
+          MainCl => \\a,p,t,l => let
             vform = VFIndic MainCl p t ;
             pcp = ap_cop_pref vform a AdjType ; -- u- / uzoba / ube- / waye- / wayenge-
             adjpref =  adjPref a vform ; -- m-
             cop_base = ap.s!(aformN a) -- khulu
           in
             pcp ++ adjpref ++ cop_base ;
-          RelCl => \\a,p,t => let
+          RelCl => \\a,p,t,l => let
             vform = VFIndic RelCl p t ;
             rcp = (relConcCop vform a RC) ; -- o-
             pcp = ap_cop_pref vform a AdjType ; -- [] / -nge- / zoba / -be- / -benge- -waye- / -wayenge-
@@ -22,13 +22,13 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
             rcp ++ pcp ++ adjpref ++ cop_base
         } ;
         RelType => table {
-          MainCl => \\a,p,t => let
+          MainCl => \\a,p,t,l => let
             vform = VFIndic MainCl p t ;
             pcp = ap_cop_pref vform a RelType ; -- u-
             cop_base = ap.s!AF1 -- qotho
           in
             pcp ++ cop_base ;
-          RelCl => \\a,p,t => let
+          RelCl => \\a,p,t,l => let
             vform = VFIndic RelCl p t ;
             rcp = (relConcCop vform a RC) ; -- o-
             pcp = ap_cop_pref vform a RelType ; -- [] / -nge- / zoba / -benge-
@@ -46,14 +46,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     CopNP np = {
       s = table {
-        MainCl => \\a,p,t => let
+        MainCl => \\a,p,t,l => let
           vform = VFIndic MainCl p t ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = np.s!NFull -- umfundi
         in
           pcp ++ cp ++ cop_base ;
-        RelCl => \\a,p,t => let
+        RelCl => \\a,p,t,l => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
@@ -71,14 +71,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     CopNPAssoc np = {
       s = table {
-        MainCl => \\a,p,t => let
+        MainCl => \\a,p,t,l => let
           vform = VFIndic MainCl p t ;
           pcp = (assoc_pre_cop_pref vform a) ; -- u- / uzoba
           cp = (assoc_cop_pref p np.agr) ; -- ne-
           cop_base = np.s!NReduced -- moto
         in
           pcp ++ cp ++ cop_base ;
-        RelCl => \\a,p,t => let
+        RelCl => \\a,p,t,l => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o-
           pcp = (assoc_pre_cop_pref vform a) ; -- [] / zoba
@@ -96,7 +96,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     ComplV2Nonspec v2 np = {
       s = table {
-        MainCl => \\a,p,t => let
+        MainCl => \\a,p,t,l => let
           vform = VFIndic MainCl p t ;
           tp = tensePref vform v2.r v2.syl ;
           oc = objConc np.agr v2.r v2.syl ;
@@ -113,7 +113,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           True => tp ++ oc ++ r ++ obj ;
           False => tp ++ r ++ obj
         } ;
-        RelCl => \\a,p,t => let
+        RelCl => \\a,p,t,l => let
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ;
           tp = tensePref vform v2.r v2.syl ;
@@ -141,7 +141,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     } ;
 
     CopLoc loc = {
-      s = loc.s ;
+      s = \\c,a,p,t,l => loc.s!c!a!p!t ;
       comp,advs,iadv = [] ;
       hasComp = True ;
       r = RC ;

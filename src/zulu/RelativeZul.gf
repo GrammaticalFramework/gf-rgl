@@ -71,7 +71,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             -- ++ (tensePref vform)
             -- ++ vp.oc
             -- ++ vp.s!(rform vform_main reqLF)
-            ++ vp.s!RelCl!a!p!t
+            ++ vp.s!RelCl!a!p!t!reqLF
             -- ++ relsuf
             ++ vp.iadv
             ++ vp.comp
@@ -89,7 +89,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             -- naively removed subject
             rp.s ++
             -- pcp ++
-            vp.s!RelCl!a!p!t ++
+            vp.s!RelCl!a!p!t!False ++
             vp.iadv ++
             vp.advs
       } ;
@@ -109,7 +109,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             -- naively removed subject
             rp.s ++
             -- pcp ++
-            vp.s!RelCl!a!p!t ++
+            vp.s!RelCl!a!p!t!False ++
             vp.iadv ++
             vp.advs
       } ;
@@ -124,7 +124,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
             -- naively removed subject
             rp.s ++
             pcp ++
-            vp.s!RelCl!a!p!t ++
+            vp.s!RelCl!a!p!t!False ++
             vp.iadv ++
             vp.advs
       } ;
@@ -140,7 +140,7 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
         in
           rp.s ++
           -- adjpref ++
-          vp.s!RelCl!a!p!t
+          vp.s!RelCl!a!p!t!False
           ++ vp.iadv ++ vp.advs
         } ;
 

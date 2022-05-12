@@ -642,30 +642,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
       t = RelType
     } ;
 
-    -- enumAdj : Str -> { s : AForm => Str ; empty : Str ; t : AType } = \a ->
-    -- {
-    --   s = \\_ => a ;
-    --   -- b = case a of {
-    --   --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
-    --   --   ("m"|"n")+_ => True ;
-    --   --   _ => False
-    --   -- } ;
-    --   empty = [] ;
-    --   t = EnumType
-    -- } ;
-
-    -- relSuf : VForm -> Bool -> Str = \longform ->
-    -- case longform of {
-    --   True => pre { #vowel => [] ; #cons => [] ; "y" => [] ; _ => "yo" } ;
-    --   False => []
-    -- } ;
-
-    rel_yo : Str = pre {
-      #vowel => [] ;
-      #cons => [] ;
-      _ => BIND++"yo"
-    } ;
-
     rel_yo_2 : Str = BIND++"yo" ;
 
     relSuf : VForm -> Str = \vform -> case vform of {
@@ -1203,6 +1179,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --     PerfTense | PresTense => subjConcLookup ! agr ! SC ++BIND++ "be" ; -- NOTE: present tense doesn't make much sense here, so default to perf
     --     FutTense => subjConcLookup ! agr ! SC ++BIND++ "zobe"
     --   } ;
+
+    impPref : Polarity -> Str = \pol -> case pol of {
+      Pos => [] ;
+      Neg => "u" ++BIND++ "nga" ++BIND
+    } ;
 
     icomp_pref : VForm -> Agr -> Str = \vform,agr ->
     let
