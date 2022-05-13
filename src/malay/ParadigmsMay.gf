@@ -27,7 +27,9 @@ noPrep : Prep = mkPrep "" ;
     mkA : (adj : Str) -> A ;
   } ;
 
-  -- mkA2 : Str -> Prep -> A2 ;
+  mkA2 : overload {
+    mkA2 : (adj : Str) -> Prep -> A2 ;
+  } ;
 
 --2 Verbs
 
@@ -57,8 +59,10 @@ noPrep : Prep = mkPrep "" ;
   --   = \s -> lin VA (regV s) ;
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
-  -- mkVS : Str -> VS
-  --   = \s -> lin VS (regV s) ;
+  mkVS : overload {
+    mkV : (root : Str) -> V ; -- Verb that takes meng as a active prefix
+    mkV : (root : Str) -> Prefix -> V  -- Root and prefix
+  } ;
   --
   -- mkV2A : Str -> V2A
   --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
@@ -103,12 +107,23 @@ noPrep : Prep = mkPrep "" ;
     mkN2 : N   -> N2 = \n -> lin N2 (n ** {c2 = dirPrep}) ;
    } ;
 
+  mkN3 = overload {
+    mkN3 : Str -> N3 = \s -> lin N3 (mkNoun s ** {c2,c3 = dirPrep}) ;
+    mkN3 : N   -> N3 = \n -> lin N3 (n ** {c2,c3 = dirPrep}) ;
+    mkN3 : N   -> Prep -> Prep -> N3 = \n,c2,c3 -> lin N3 (n ** {c2,c3 = dirPrep}) ;
+   } ;
+
   mkPN = overload {
     mkPN : Str -> PN = \s -> lin PN {s = \\_ => s} ;
     } ;
 
   mkA = overload {
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
+    } ;
+
+  mkA2 = overload {
+    mkA2 : (adj : Str) -> A = \s -> lin A2 (mkAdj s) ;
+    mkA2 : A -> Prep -> A = \a,p -> lin A2 (a) ;
     } ;
 
   mkV = overload {

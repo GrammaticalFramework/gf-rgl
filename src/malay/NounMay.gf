@@ -39,7 +39,9 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   --   s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
 
   -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
-  --AdvNP,ExtAdvNP = \np,adv -> np ** {} ;
+  AdvNP,ExtAdvNP = \np,adv -> np ** {
+    s = \\pos => np.s ! pos ++ adv.s
+  } ;
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
     RelNP np rs = np ** {

@@ -118,15 +118,17 @@ lin
     s = \\vf,pol => vp.s ! vf ! pol ++ adv.s
     } ;
 
+  -- : AdV -> VP -> VP ;  -- always sleep
+  AdVVP adv vp = vp ** {
+    s = \\vf,pol => vp.s ! vf ! pol ++ adv.s
+    } ;
+
 {-
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
   AdvVPSlash = insertAdv ;
 
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
   ExtAdvVP vp adv =  ;
-
-  -- : AdV -> VP -> VP ;  -- always sleep
-  AdVVP adv vp = vp ** {adv = adv} ;
 
   -- : AdV -> VPSlash -> VPSlash ;  -- always use (it)
   AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;

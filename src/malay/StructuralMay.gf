@@ -57,13 +57,14 @@ lin and_Conj = {s2 = "dan" ; s1 = [] ; n = Pl} ;
 
 
 lin how8many_IDet = mkIdet "berapa" "berapa banyak" "" Sg True;
+lin every_Det = mkDet "semua" "semua" Sg ; -- to check
+
 {-}
 lin all_Predet = {s = ""} ;
 lin not_Predet = { s = "" } ;
 lin only_Predet = { s = "" } ;
 lin most_Predet = {s = ""} ;
 
-lin every_Det = {s = ""} ;
 lin few_Det = R.indefDet "" pl ;
 lin many_Det = R.indefDet "" pl ;
 lin much_Det = R.indefDet "" sg ;
@@ -78,6 +79,9 @@ lin which_IQuant = mkQuant "yang mana" ** {isPre = False} ;
 
 -----
 -- NP
+
+lin somebody_NP = mkNounPhrase "seorang" ; --todo
+
 {-
 lin everybody_NP = defNP "" N.NumPl ;
 lin everything_NP = defNP "" N.NumSg ;
@@ -174,8 +178,8 @@ lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
   passive = "diadakan" ;
 } ;
 -- lin can8know_VV = can_VV ; -- can (capacity)
--- lin can_VV = mkVV "" ;   -- can (possibility)
--- lin must_VV = mkVV "" ;
+lin can_VV = mkVV "boleh" ;   -- can (possibility)
+lin must_VV = mkVV "perlu" ;
 lin want_VV = mkVV "mahu" ;
 
 ------

@@ -11,6 +11,7 @@ concrete PhraseMay of Phrase = CatMay ** open Prelude, ResMay in {
     UttImpSg pol imp = { s = pol.s ++ imp.s ! Sg ! pol.p } ;
     UttImpPol pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p} ;
     UttVP vp = {s = linVP vp} ;
+    UttAP ap = { s = ap.s } ;
 {-
     UttImpSg pol imp =
     UttImpPl pol imp =
@@ -20,7 +21,6 @@ concrete PhraseMay of Phrase = CatMay ** open Prelude, ResMay in {
     UttAdv adv = {s = } ;
     UttCN n = {s = } ;
     UttCard n = {s = } ;
-    UttAP ap = { s = ap.s ! } ;
     UttInterj i = i ;
 -}
     NoPConj = {s = []} ;

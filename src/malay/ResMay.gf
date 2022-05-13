@@ -60,6 +60,12 @@ oper
     empty = []
     } ;
 
+  mkNounPhrase : Str -> NounPhrase = \str -> {
+    s = \\_ => str ;
+    a = NotPron ;
+    empty = []
+    } ;
+
   mkIP : Str -> IPhrase = \str -> {
     s = \\_ => str ;
     a = NotPron ;
