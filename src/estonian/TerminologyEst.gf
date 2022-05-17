@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 
-concrete TerminologyEst of Terminology = CatEst ** open 
+concrete TerminologyEst of Terminology = CatEst ** open
   ResEst,
   ParadigmsEst,
   (G = GrammarEst),
@@ -17,9 +17,9 @@ lincat
   ParameterType = G.N ;
   Parameter = G.N ;
   Modifier = G.A ;
-  
+
   Heading = {s : Str} ;
-  
+
 
 lin
   noun_Category = mkN "käändsõna" ;
@@ -59,7 +59,7 @@ lin
 
   active_Parameter = mkN "isikuline tegumood" ;
   passive_Parameter = mkN "umbsikuline tegumood" ;
-  
+
   imperative_Parameter = mkN "käskiv kõneviis" "käskiva kõneviisi";
   indicative_Parameter = mkN "kindel kõneviis" "kindla kõneviisi";
   conjunctive_Parameter = mkN "konjunktiiv" ;
@@ -67,7 +67,7 @@ lin
 
   present_Parameter = mkN "olevik" ;
   past_Parameter = mkN "lihtminevik" ;
-  future_Parameter = mkN "futuur" ; ---- ??? 
+  future_Parameter = mkN "futuur" ; ---- ???
   conditional_Parameter = mkN "tingiv kõneviis" "tingiva kõneviisi";
   perfect_Parameter = mkN "täisminevik" ;
   quotative_Parameter = mkN "kaudne kõneviis" "kaudse kõneviisi";

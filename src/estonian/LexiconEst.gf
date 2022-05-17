@@ -1,6 +1,6 @@
 concrete LexiconEst of Lexicon = CatEst ** open MorphoEst, ParadigmsEst, Prelude in {
 
-flags 
+flags
   optimize=values ; coding=utf8;
 
 
@@ -65,7 +65,7 @@ lin
   -- Unfortunately, we cannot use a similar trick for the source (*Põltsamaast vs Põltsamaalt).
   distance_N3 = mkN3 (mkN "kaugus") celative (casePrep terminative) ;
   doctor_N = mkN "arst" ;
-  dog_N = mkN "koer" "koera" "koera" ;
+  dog_N = mkN "koer" "koera" "koera" "koerasse" "koerte" "koeri" ;
   door_N = mkN "uks" "ukse" "ust" "uksesse" "uste" "uksi" ;
   drink_V2 = mkV2 (mkV "jooma") cpartitive ;
   easy_A2V = mkA2 (mkA (mkN "lihtne" "lihtsa" "lihtsat" "lihtsasse" "lihtsate" "lihtsaid")) callative ;
@@ -216,7 +216,7 @@ lin
   yellow_A = mkA (mkN "kollane" "kollase" "kollast" "kollasesse" "kollaste" "kollaseid") ;
   young_A = mkA (mkN "noor" "noore" "noort") ;
 
-  do_V2 = mkV2 (mkV "tegema" "teha") ; 
+  do_V2 = mkV2 (mkV "tegema" "teha") ;
 
   now_Adv = mkAdv "nüüd" ;
   already_Adv = mkAdv "juba" ;
@@ -232,7 +232,7 @@ lin
   correct_A = mkA (mkN "õige" "õige" "õiget" "õigesse" "õigete" "õigeid") ;
   dry_A = mkA (mkN "kuiv" "kuiva" "kuiva") "kuivem" "kuiveim" ;
   dull_A = mkA "igav" ;
-  full_A = mkA (mkN "täis" "täie" "täit" "täide" "täied" "täite") "täiem" "täiim" Invariable ; -- 'täis' is one of the non-inflecting adjectives
+  full_A = mkA (mkN "täis" "täie" "täit" "täide" "täite" "täisi") "täiem" "täiim" Invariable ; -- 'täis' is one of the non-inflecting adjectives
   heavy_A = mkA "raske" ;
   near_A = mkA "lähedane" ;
   rotten_A = mkA "mäda" ;
@@ -366,7 +366,7 @@ lin
 
  oper
     mkOrd1 : N -> Ord ;
-    mkOrd1 x = {s = x.s ; lock_Ord = <> } ;
+    mkOrd1 x = lin Ord x ;
     cpartitive = casePrep partitive ;
     ctranslative = casePrep translative ;
     celative = casePrep elative ;

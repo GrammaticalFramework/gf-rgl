@@ -1,11 +1,12 @@
 resource MakeStructuralEst = open CatEst, ParadigmsEst, MorphoEst, Prelude in {
 
-oper 
-  mkConj : Str -> Str -> ParadigmsEst.Number -> Conj = \x,y,n -> 
-    {s1 = x ; s2 = y ; n = n ; lock_Conj = <>} ;
-  mkSubj : Str -> Subj = \x -> 
-    {s = x ; lock_Subj = <>} ;
-  mkIQuant : Str -> IQuant = \s ->
-    {s = \\n,c => s ; lock_IQuant = <>} ; ----
+oper
+  mkConj : Str -> Str -> ParadigmsEst.Number -> Conj = \x,y,n -> lin Conj {
+    s1 = x ;
+    s2 = y ;
+    n = n
+    } ;
+  mkSubj : Str -> Subj = \x -> lin Subj {s = x} ;
+  mkIQuant : Str -> IQuant = \s -> lin IQuant {s = \\n,c => s} ;
 
 }

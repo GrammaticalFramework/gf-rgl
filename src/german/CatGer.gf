@@ -50,11 +50,13 @@ concrete CatGer of Cat =
 
 -- Noun
 
-    CN = {s : Adjf => Number => Case => Str ;
-		  rc : Number => Str ; -- Frage , [rc die ich gestellt habe]
-		  ext : Str ; -- Frage , [sc wo sie schläft])
-		  adv : Str ; -- Frage [a von Max]
-		  g : Gender} ;
+    CN = {
+      s : Adjf => Number => Case => Str ;
+      rc : Number => Str ; -- Frage , [rc die ich gestellt habe]
+      ext : Str ;          -- Frage , [sc wo sie schläft]
+      adv : Str ;          -- Haus    [adv auf dem Hügel]
+      g : Gender
+      } ;
     NP = ResGer.NP ; 
     Pron = {s : NPForm => Str ; a : Agr} ;
     Det, DAP = {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} ;
@@ -86,10 +88,10 @@ concrete CatGer of Cat =
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VS, VQ = ResGer.Verb ; -- = {s : VForm => Str} ;
+    V, VA, VS, VQ = ResGer.Verb ; -- = {s : VForm => Str} ;
     VV = Verb ** {isAux : Bool} ;
-    V2, VA, V2A, V2S, V2Q = Verb ** {c2 : Preposition} ;
-    V2V = Verb ** {c2 : Preposition ; isAux : Bool ; ctrl : Control} ;
+    V2, V2A, V2S, V2Q = Verb ** {c2 : Preposition} ;
+    V2V = Verb ** {c2 : Preposition ; isAux : Bool ; objCtrl : Bool} ;
     V3 = Verb ** {c2, c3 : Preposition} ;
 
     A  = {s : Degree => AForm => Str} ;
@@ -113,7 +115,7 @@ concrete CatGer of Cat =
     ClSlash = \cls -> cls.s ! MIndic ! Pres ! Simul ! Pos ! Main ++ cls.c2.s ;
 
     VP = \vp -> useInfVP False vp ;
-    VPSlash = \vps -> useInfVP False vps ++ vps.c2.s ;
+    VPSlash = \vps -> useInfVP False vps ++ vps.c2.s ++ vps.ext;
 
 	AP = \ap -> ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ++ ap.ext ;
         A2 = \a2 -> a2.s ! Posit ! APred ++ a2.c2.s ;

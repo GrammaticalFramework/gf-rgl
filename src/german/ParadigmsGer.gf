@@ -607,17 +607,17 @@ mkV2 : overload {
 
   mkV2V = overload { -- default: object-control
     mkV2V : V -> V2V 
-      = \v -> dirV2 v ** {isAux = False ; ctrl = ObjC ; lock_V2V = <>} ;
+      = \v -> dirV2 v ** {isAux = False ; objCtrl = True ; lock_V2V = <>} ;  -- ermahne jmdn, sich zu waschen
     mkV2V : V -> Prep -> V2V 
-      = \v,p -> prepV2 v p ** {isAux = False ; ctrl = ObjC ; lock_V2V = <>} ;
+      = \v,p -> prepV2 v p ** {isAux = False ; objCtrl = True ; lock_V2V = <>} ;
     } ;
   auxV2V = overload {
     auxV2V : V -> V2V 
-      = \v -> dirV2 v ** {isAux = True ; ctrl = ObjC ; lock_V2V = <>} ;
+      = \v -> dirV2 v ** {isAux = True ; objCtrl = True ; lock_V2V = <>} ;  -- lasse jmdn sich waschen
     auxV2V : V -> Prep -> V2V 
-      = \v,p -> prepV2 v p ** {isAux = True ; ctrl = ObjC ; lock_V2V = <>} ;
+      = \v,p -> prepV2 v p ** {isAux = True ; objCtrl = True ; lock_V2V = <>} ;
     } ;
-  subjV2V v = v ** {ctrl = SubjC} ;
+  subjV2V v = v ** {objCtrl = False} ;
 
   mkV2A = overload {
     mkV2A : V -> V2A 
