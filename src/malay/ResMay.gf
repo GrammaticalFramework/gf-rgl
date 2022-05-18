@@ -237,7 +237,7 @@ oper
 
   mkVerb2 : Verb -> Preposition -> Verb2 = \v,pr -> v ** {
     c2 = pr ;
-    passive = "di" ++ v.s ! Root
+    passive = "di" ++ BIND ++ v.s ! Root
     } ;
 
   mkVerb3 : Verb -> (p,q : Preposition) -> Verb3 = \v,p,q ->
@@ -246,7 +246,7 @@ oper
   mkVerb4 : Verb -> Preposition -> Str -> Verb4 = \v,pr,str -> v ** {
     s = \\_ => v.s ! Active ++ str;
     c2 = pr ;
-    passive = "di" ++ v.s ! Root + str
+    passive = "di" ++ BIND ++ v.s ! Root ++ str
     } ;
 
   copula : Verb = {s = \\_ => "ada"} ; -- TODO
