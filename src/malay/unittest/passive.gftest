@@ -1,11 +1,19 @@
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN dog_N)) (PassV2 love_V2))
 LangEng: that dog is loved
-LangMay: anjing itu dicinta
+LangMay: anjing itu dicintai
 
 Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN dog_N)) (PassV2 love_V2))
 LangEng: that dog isn't loved
-LangMay: anjing itu tidak dicinta
+LangMay: anjing itu tidak dicintai
 
 Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN dog_N)) (ComplVV want_VV (PassV2 love_V2)))
 LangEng: that dog doesn't want to be loved
-LangMay: anjing itu tidak mahu dicinta
+LangMay: anjing itu tidak mahu dicintai
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN book_N)) (PassV2 read_V2))
+LangEng: that book is read
+LangMay: buku itu dibaca
+
+Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN book_N)) (AdvVP (PassV2 read_V2) (PrepNP to_Prep (UsePron youSg_Pron))))
+LangEng: that book is read to you
+LangMay: buku itu dibacakan kepada kamu

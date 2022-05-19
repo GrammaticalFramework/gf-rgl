@@ -55,15 +55,14 @@ lin and_Conj = {s2 = "dan" ; s1 = [] ; n = Pl} ;
 -----------------
 -- *Det and Quant
 
-
-lin how8many_IDet = mkIdet "berapa" "berapa banyak" Sg True;
+lin how8many_IDet = mkIdet "berapa" "berapa banyak" "" Sg True;
+lin every_Det = mkDet "semua" "semua" Sg ; -- to check
 {-}
 lin all_Predet = {s = ""} ;
 lin not_Predet = { s = "" } ;
 lin only_Predet = { s = "" } ;
 lin most_Predet = {s = ""} ;
 
-lin every_Det = {s = ""} ;
 lin few_Det = R.indefDet "" pl ;
 lin many_Det = R.indefDet "" pl ;
 lin much_Det = R.indefDet "" sg ;
@@ -78,6 +77,9 @@ lin which_IQuant = mkQuant "yang mana" ** {isPre = False} ;
 
 -----
 -- NP
+
+lin somebody_NP = mkNounPhrase "seorang" ; --todo
+
 {-
 lin everybody_NP = defNP "" N.NumPl ;
 lin everything_NP = defNP "" N.NumSg ;
@@ -110,7 +112,18 @@ lin in_Prep = mkPrep "di" ;
 -- lin part_Prep = mkPrep ;
 lin possess_Prep = mkPrep [] ; -- TODO check Mintz p. 39-40, 2.2.1.2
 -- lin through_Prep = mkPrep ;
-lin to_Prep = mkPrep "ke" ;
+-- lin to_Prep = mkPrep "ke"  ;
+lin to_Prep =
+  let ke : Preposition = mkPrep "ke";
+      kepada : Preposition = mkPrep "kepada" ;
+  in ke ** {
+    obj = kepada.obj
+  } ;
+
+-- lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
+--   s = \\_ => "ada" ;
+--   passive = "diadakan" ;
+-- } ;
 -- lin under_Prep = mkPrep "" ;
 lin with_Prep = mkPrep "dengan" ;
 -- lin without_Prep = mkPrep "" ;
@@ -120,9 +133,9 @@ lin with_Prep = mkPrep "dengan" ;
 
 -- Pronouns are closed class, no constructor in ParadigmsMay.
 lin it_Pron = mkPron "dia" P3 ;
-lin i_Pron = mkPron "saya" P1 ;
+lin i_Pron = mkPron "aku" P1 ;
 lin youPol_Pron = mkPron "kamu" P2 ;
-lin youSg_Pron = mkPron "awak" P2 ;
+lin youSg_Pron = mkPron "kamu" P2 ;
 lin he_Pron = mkPron "dia" P3 ;
 lin she_Pron = mkPron "dia" P3 ;
 -- inclusive we
@@ -163,8 +176,8 @@ lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
   passive = "diadakan" ;
 } ;
 -- lin can8know_VV = can_VV ; -- can (capacity)
--- lin can_VV = mkVV "" ;   -- can (possibility)
--- lin must_VV = mkVV "" ;
+lin can_VV = mkVV "boleh" ;   -- can (possibility)
+lin must_VV = mkVV "perlu" ;
 lin want_VV = mkVV "mahu" ;
 
 ------

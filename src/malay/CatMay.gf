@@ -120,4 +120,16 @@ concrete CatMay of Cat = CommonX - [IAdv] ** open ResMay, Prelude in {
     N2 = ResMay.Noun2 ;
     N3 = ResMay.Noun3 ;
     PN = ResMay.PNoun ;
+
+    linref
+        CN = \cn -> cn.s ! NF Sg Bare ++ cn.heavyMod;
+        ClSlash = \cl -> cl.subj ++ cl.pred ! Root ! Pos ++ cl.c2.s;
+        RCl = \cl -> cl.subj ++ cl.pred ! P1 ! Pos;
+        Cl = \cl -> cl.subj ++ cl.pred ! Active ! Pos;
+        Det = linDet ;
 }
+
+--   Determiner : Type = Quant ** {
+--     pr : Str ; -- prefix for numbers
+--     n : NumType ; -- number as in 5 (noun in singular), Sg or Pl
+--     } ;
