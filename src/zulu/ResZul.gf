@@ -216,6 +216,44 @@ resource ResZul = open Prelude,Predef,ParamX in {
       }
     } ;
 
+    dem_pron_na : Distance => Agr => Str = table {
+      Dem1 => table {
+        First Sg => BIND++"na" ;
+        First Pl => [] ;
+        Second Sg => BIND++"na" ;
+        Second Pl => [] ;
+        Third C1_2 Sg => BIND++"na" ;
+        Third C1_2 Pl => [] ;
+        Third C1a_2a Sg => BIND++"na" ;
+        Third C1a_2a Pl => [] ;
+        Third C3_4 Sg => BIND++"na" ;
+        Third C3_4 Pl => BIND++"na" ;
+        Third C5_6 Sg => [] ;
+        Third C5_6 Pl => BIND++"na" ;
+        Third C7_8 Sg => [] ;
+        Third C7_8 Pl => [] ;
+        Third C9_10 Sg => BIND++"na" ;
+        Third C9_10 Pl => [] ;
+        Third C11_10 Sg => [] ;
+        Third C11_10 Pl => [] ;
+        Third C9_6 Sg => BIND++"na" ;
+        Third C9_6 Pl => BIND++"na" ;
+        Third C14 _ => [] ;
+        Third C15 _ => [] ;
+        Third C17 _ => []
+      } ;
+      Dem2 => table {
+        First _ => [] ;
+        Second _ => [] ;
+        Third _ _ => []
+      } ;
+      Dem3 => table {
+        First _ => [] ;
+        Second _ => [] ;
+        Third _ _ => []
+      }
+    } ;
+
     -----------
     -- VERBS --
     -----------
@@ -1617,6 +1655,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Second Sg  => "we" ;
       Second Pl => "no"
     } ;
+
+
 
     -----------------
     -- COPULATIVES --
