@@ -1841,8 +1841,17 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- OTHER
     ----------------------------------------
 
-    link_conj : Str -> Str -> Str -> Bool -> Str = \conj,s_full,s_novow,fix -> case fix of {
-      True => conj ++BIND ++ s_novow ;
-      False => conj ++ s_full
+    link_conj : { s: RInit => Str ; fix : Bool } -> RInit -> Str = \conj,rinit -> case conj.fix of {
+      True => conj.s!rinit ++BIND ;
+      False => conj.s!RC
+    } ;
+
+    compAgr : Agr -> Agr -> Agr = \a1,a2 -> case <a1,a2> of {
+      <First _,(First _ | Second _ | Third _ _)> => First Pl ;
+      <(First _ | Second _ | Third _ _),First _> => First Pl ;
+      <Second _,(First _ | Second _ | Third _ _)> => Second Pl ;
+      <(First _ | Second _ | Third _ _),Second _> => Second Pl ;
+      <Third (C1_2|C1a_2a) _, Third _ _> => Third C1_2 Pl ;
+      <Third _ _,Third c _> => Third c Pl
     } ;
 }
