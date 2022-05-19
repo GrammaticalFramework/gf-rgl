@@ -42,13 +42,13 @@ lin
   where_go_QCl np = mkQCl (lin IAdv (ss "wohin")) (mkCl np (mkVP L.go_V)) ;
   where_come_from_QCl np =  mkQCl (lin IAdv (ss "woher")) (mkCl np (mkVP L.come_V)) ;
   
-  go_here_VP = mkVP (mkVP L.go_V) (mkAdv "her") ;
-  come_here_VP = mkVP (mkVP L.come_V) (mkAdv "her") ;
-  come_from_here_VP = mkVP (mkVP L.come_V) (mkAdv "von hier") ;
+  go_here_VP = mkVP (mkVP L.go_V) (ParadigmsGer.mkAdv "her") ;
+  come_here_VP = mkVP (mkVP L.come_V) (ParadigmsGer.mkAdv "her") ;
+  come_from_here_VP = mkVP (mkVP L.come_V) (ParadigmsGer.mkAdv "von hier") ;
 
-  go_there_VP = mkVP (mkVP L.go_V) (mkAdv "hin") ;
-  come_there_VP = mkVP (mkVP L.come_V) (mkAdv "hin") ;
-  come_from_there_VP = mkVP (mkVP L.come_V) (mkAdv "von dort") ;
+  go_there_VP = mkVP (mkVP L.go_V) (ParadigmsGer.mkAdv "hin") ;
+  come_there_VP = mkVP (mkVP L.come_V) (ParadigmsGer.mkAdv "hin") ;
+  come_from_there_VP = mkVP (mkVP L.come_V) (ParadigmsGer.mkAdv "von dort") ;
 
 lincat
   Weekday = N ;

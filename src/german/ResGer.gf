@@ -101,14 +101,14 @@ resource ResGer = ParamX ** open Prelude in {
 
 --2 For $Verb$
 
-  param VForm = 
+  param VForm =
      VInf Bool           -- True = with the particle "zu"
    | VFin Bool VFormFin  -- True = prefix glued to verb
    | VImper    Number    -- prefix never glued
    | VPresPart AForm     -- prefix always glued
    | VPastPart AForm ;
 
-  param VFormFin = 
+  param VFormFin =
      VPresInd  Number Person
    | VPresSubj Number Person
    | VImpfInd  Number Person --# notpresent
@@ -123,10 +123,6 @@ resource ResGer = ParamX ** open Prelude in {
   param VAux = VHaben | VSein ;
 
   param VType = VAct | VRefl Case ;
-
--- Implicit subject of embedded vp equals subject resp. object of matrix verb v:V2V:
-
-  param Control = SubjC | ObjC | NoC ; -- NoC : verb without infinite vp-complement
 
 -- The order of a sentence depends on whether it is used as a main
 -- clause, inverted, or subordinate.
@@ -258,7 +254,7 @@ resource ResGer = ParamX ** open Prelude in {
      --	 adv : Str ; -- die Frage [a von Max]  -- HL: cannot be extracted
      a : Agr ;
      -- isLight : Bool ;  -- light NPs come before negation in simple clauses (expensive)
-     -- isPron : Bool } ; -- needed to put accPron before datPron
+     -- isPron : Bool  ; -- needed to put accPron before datPron
      w : Weight } ;
 
   mkN  : (x1,_,_,_,_,x6,x7 : Str) -> Gender -> Noun = 
@@ -546,22 +542,23 @@ resource ResGer = ParamX ** open Prelude in {
       } ;
 
    VP : Type = {
-      s  : Verb ;                         -- HL 6/2019: <refl|pron,NP,PP,AP|CN|Adv,ObjInf,EmbedInfs>
-      nn : Agr => Str * Str * Str * Str   --            <sich|ihr,deine Frau,an sie,gut,
-                      * Str * Str ;       -- splitInfExt: (rate) dir, dich zu bemühen mir zu helfen> 
-      a1 : Str ;              -- adv before negation, adV
-      a2 : Str ;              -- heute = adv
-      adj : Str ;             -- adjectival complement ("ich finde dich schön")
-      isAux : Bool ;          -- is a double infinitive
-      inf : {s:Str ; isAux:Bool ; ctrl:Control} ; -- infinitival complement of VV or V2V
-      ext : Str ;             -- dass sie kommt
-      infExt : Str ;	      -- infinitival complements of inf 
-                              -- e.g. ich hoffe [ihr zu helfen] zu versuchen 
-      subjc : Preposition     -- case of subject
+      s  : Verb ;                         -- HL 6/2019: <refl|pron,NP,PP,AP|CN|Adv>
+      nn : Agr => Str * Str * Str * Str ; --            <sich|ihr,deine Frau,an sie,gut>
+      a1 : Str ;              -- was: adV inserted before negation, unused?
+      a2 : Str ;              -- adverb
+      adj : Str ;             -- adjectival complement of V(2)A, e.g. ich finde dich schön
+      isAux : Bool ;          -- is a double infinitive?, e.g. müssen:VV, lassen:V2V
+      ext : Str ;             -- sentential complement of V(2)S, V(2)Q, e.g. dass|ob sie kommt
+      inf : {inpl: (Agr => Str)*Str ; -- infinitival complement of V(2)V       HL 3/2022
+             extr: (Agr => Str)} ;    -- e.g. ihn [] versuchen (lasse) [, ihr zu helfen]
+      c1 : Preposition        -- case of subject
      } ;
 
-  VPSlash = VP ** {c2 : Preposition ; 
-                   objCtrl : Bool } ; -- True = embedded reflexives agree with object 
+  VPSlash = VP ** {c2 : Preposition ; objCtrl : Bool} ;  -- HL 3/2019 objCtr added
+
+  -- objCtrl distinguishes object-control from subject-control verb v:V2V in VP.s:
+  -- if True, reflexives in vp.inf and vp.nn have to agree with c2-object (added
+  -- by ComplSlash), else with subject (added by mkClause).
 
   useVP : VP -> VPC = \vp ->
     let
@@ -604,11 +601,12 @@ resource ResGer = ParamX ** open Prelude in {
         Cond => vf True (wuerde a) vinf [] ;   --# notpresent
         Pres => vf b (vfin b m t a) [] []
         } ;
-      VPFinite m t Anter => case t of {                  --# notpresent
-        Pres | Past => vf True (hat m t a) vpart [] ;    --# notpresent
+      VPFinite m t Anter => case t of {
+        Past => vf True (hat m t a) vpart [] ;           --# notpresent
         Fut  => vf True (wird m a) vpart haben ;         --# notpresent
-        Cond => vf True (wuerde a) vpart haben           --# notpresent 
-        } ;                                              --# notpresent
+        Cond => vf True (wuerde a) vpart haben ;         --# notpresent
+        Pres => vf True (hat m t a) vpart []
+        } ;
       VPImperat False => vf False (verb.s ! VImper (numberAgr a)) [] [] ;
       VPImperat True  => vf False (verb.s ! VFin False (VPresSubj Pl P3)) [] [] ;
       VPInfinit Anter => vf True [] (vpart ++ haben) [] ;   --# notpresent
@@ -616,31 +614,23 @@ resource ResGer = ParamX ** open Prelude in {
       }
     } ;
 
-  predV : Verb -> VPSlash = predVGen False ;
+  predV : Verb -> VP = predVGen False ;
 
   predVc : Verb ** {c2 : Preposition} -> VPSlash = \v -> 
     predV v ** {c2 = v.c2 ; objCtrl = False} ;
 
-  predVGen : Bool -> Verb -> VPSlash = \isAux, verb -> {
-    s = {
-     s = verb.s ;
-     prefix = verb.prefix ;
-     particle = verb.particle ;
-     aux = verb.aux ;
-     vtype = verb.vtype
-     } ;
+  predVGen : Bool -> Verb -> VP = \isAux, verb -> {
+    s = verb ;
     a1,a2  : Str = [] ;
-    nn  : Agr => Str * Str * Str * Str * Str * Str = case verb.vtype of {
-      VAct => \\_ => <[],[],[],[],[],[]> ;
-      VRefl c => \\a => <reflPron ! a ! c,[],[],[],[],[]>
+    nn  : Agr => Str * Str * Str * Str = case verb.vtype of {
+      VAct => \\_ => <[],[],[],[]> ;
+      VRefl c => \\a => <reflPron ! a ! c,[],[],[]>
       } ;
     isAux = isAux ; ----
-    inf = {s=[]; isAux=True; ctrl=NoC} ; -- default infinitive complement 
-    ext,infExt,adj : Str = [] ;          -- (isAux=True => no endcomma)
-    subjc = PrepNom ;
-    -- Dummy values for subtyping.
-    c2 = PrepNom ; 
-    objCtrl = False 
+    -- default infinitival complement:
+    inf = {inpl = <\\_ => [], []>; extr = \\_ => []} ;
+    ext,adj : Str = [] ;
+    c1 = PrepNom
     } ;
 
   auxPerfect : Verb -> VForm => Str = \verb ->
@@ -702,100 +692,109 @@ resource ResGer = ParamX ** open Prelude in {
 
   -- IL 24/04/2018 Fixing the scope of reflexives
   objAgr : { a : Agr } -> VP -> VP = \obj,vp -> vp ** {
-    nn = \\a => vp.nn ! obj.a } ;  
-  -- HL: if reflexive only: <vp.nn.p1 ! np.a, vp.nn.p1 ! a, ..>
+    nn = \\a => vp.nn ! obj.a ;
+    inf = {inpl = <\\a => vp.inf.inpl.p1 ! obj.a, vp.inf.inpl.p2> ;  -- HL 3/2022
+           extr = \\a => vp.inf.extr ! obj.a} } ;                    -- HL 3/2022
 
 -- Extending a verb phrase with new constituents.
 
-  insertObj : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->  -- obj:Comp A|Adv|CN
-    vp ** { nn = \\a => let vpnn = vp.nn ! a 
-              in  <vpnn.p1, vpnn.p2, vpnn.p3, obj ! a ++ vpnn.p4, vpnn.p5, vpnn.p6> } ;
+  insertObj : (Agr => Str) -> VP -> VP = \obj,vp ->  -- obj:Comp A|Adv|CN
+    vp ** { nn = \\a => let vpnn = vp.nn ! a in
+                        <vpnn.p1, vpnn.p2, vpnn.p3, obj ! a ++ vpnn.p4> } ;
 
   insertObjc : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->
     insertObj obj vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl } ;
 
   insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
     let c = case prep.c of { NPC cc => cc ; _ => Nom } ;
-        obj : Agr => Str = \\_ => appPrepNP prep np ;
+        obj = appPrepNP prep np ;
     in vp ** {
-      nn = \\a =>                  -- HL 11/6/19: rough objNP order:                (p5,p6 = splitInfExt)
-        let vpnn = vp.nn ! a in    -- vfin < accPron < refl < (gen|dat)Pron < nonPronNP < neg < prepNP < vinf|comp
-{- less expensive if isLight is removed from NPs:
-       case <np.isPron,prep.isPrep,c> of {
-          -- (assuming v.c2=acc) nonPron: dat < acc|gen  (acc < gen not enforced)
-          <True, False,Acc> => -- <es|ihn sich,  np, pp, comp, _,_>
-            <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ; 
-          <True, False,_  > => -- <sich ihm,     np, pp, comp>
-            <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ; 
-          <False,False,Dat> => -- <prons, dat ++ np, pp, comp>
-            <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ; 
-          <False,False,_  > => -- <prons, np ++ gen|acc, pp, comp>
-            <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ;
-          <_,    True,_   > => -- <prons, np, pp++pp, compl>
-            <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4, vpnn.p5, vpnn.p6>
-        }
--}
--- expensive:  -- vfin < accPron < refl < (gen|dat)Pron < lightNP < neg < heavyNP|PP < vinf|comp
-        case <prep.isPrep, np.w, c> of { 
-          <True, _,_> =>       -- <prons, light, heavy++pp, compl,_,_>
-            <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4, vpnn.p5, vpnn.p6> ;
-          <False,WPron, Acc> => -- <ihn ++ sich, light, heavy, comp, _,_>
-            <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ;
+      nn = \\a =>
+        let vpnn = vp.nn ! a in
+        -- HL 11/6/19: rough object NP order (expensive):
+        -- vfin < accPron < refl < (gen|dat)Pron < lightNP < neg < heavyNP|PP < vinf|comp
+        case <prep.isPrep, np.w, c> of { -- 2 * 3 * 4 = 24 cases
+          <True, _,_> =>       -- <prons, light, heavy++pp, compl>
+            <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> ;
+          <False,WPron, Acc> => -- <ihn ++ sich, light, heavy, comp>
+            <obj ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ;
           <False,WPron, _  > => -- <sich ++ ihm|seiner, light, heavy, comp>
-            <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ; 
-          <False,WLight,Dat> => -- (assuming v.c2=acc) nonPron: dat < acc|gen  
+            <vpnn.p1 ++ obj, vpnn.p2, vpnn.p3, vpnn.p4> ;
+          <False,WLight,Dat> => -- (assuming v.c2=acc) nonPron: dat < acc|gen
                                 -- <prons, dat ++ np, heavy, comp>
-            <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ;
+            <vpnn.p1, obj ++ vpnn.p2, vpnn.p3, vpnn.p4> ;
           <False,WHeavy,Dat> => -- <prons, light, dat ++ np, comp>
-            <vpnn.p1, vpnn.p2, obj ! a ++ vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ; 
+            <vpnn.p1, vpnn.p2, obj ++ vpnn.p3, vpnn.p4> ;
           <False,WLight,_  > => -- <prons, np ++ gen|acc, heavy, comp>
-            <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ; 
+            <vpnn.p1, vpnn.p2 ++ obj, vpnn.p3, vpnn.p4> ;
           <False,WHeavy,_  > => -- <prons, light, dat ++ np, comp>
-            <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4, vpnn.p5, vpnn.p6> } 
+            <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> }
     } ; -- the ordering of objects of v:V3 (and v:V4) is also determined by Slash?V3 (and Slash?V4)
 
   insertObjRefl : VPSlash -> VPSlash = \vp -> -- HL 6/2019, to order reflPron < neg < prep+reflPron
     let prep = vp.c2 ;
-        b = notB prep.isPrep ;
         c = case prep.c of { NPC cc => cc ; _ => Acc } ;
-        obj : Agr => Str = \\a => prep.s ++ reflPron ! a ! c ;
+        obj : Agr => Str = \\a => prep.s ++ reflPron ! a ! c ;  -- HL: to test ReflVP: reflPronSelf
     in vp ** {
       nn = \\a =>
         let vpnn = vp.nn ! a in
-        case b of {
-          True  => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ;
-          False => <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> }
+        case prep.isPrep of {
+          False => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ;
+          True  => <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4> }
     } ;
 
-  insertAdV : Str -> VP -> VP = \adv,vp -> vp ** { -- not used in RGL, so VP.a1 can be skipped
+  insertAdV : Str -> VP -> VP = \adv,vp -> vp ** { -- not used in Ger, so VP.a1 can be skipped
     a1 = adv ++ vp.a1 } ;                          -- cf. AdvVP(Slash),AdVVP(Slash)
 
   insertAdv : Str -> VP -> VP = \adv,vp -> vp ** {
     a2 = vp.a2 ++ adv } ;
 
-  insertExtrapos : Str -> VPSlash -> VPSlash = \ext,vp -> vp ** {
+  insertExtrapos : Str -> VP -> VP = \ext,vp -> vp ** {
     ext = vp.ext ++ ext } ;
 
-  insertInfExt : Str -> VPSlash -> VPSlash = \infExt,vp -> vp ** {
-	infExt = vp.infExt ++ infExt } ;
+  -- HL 3/2022: to do nested infinitival objects in ComplVV, SlashVV, SlashV2V
+  -- embed <sich, helfen> into <ihn, lassen> = <ihn sich, helfen lassen>
+  embedInf : (Agr => Str) * Str -> (Agr => Str) * Str -> (Agr => Str) * Str =
+     \f,g -> <\\a => g.p1!a ++ f.p1!a, f.p2 ++ g.p2> ;
 
-  -- HL: to handle infExt in ComplVV and SlashVV, SlashV2V
-  insertInfExtraObj : (Agr => Str) -> VPSlash -> VPSlash = \objs,vp -> vp ** { 
-    nn = \\a => let vpnn = vp.nn ! a in
-      <vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4, objs ! a ++ vpnn.p5, vpnn.p6> 
-    } ;
-  insertInfExtraInf : (Agr => Str) -> VPSlash -> VPSlash = \inf,vp -> vp ** { 
-    nn = \\a => let vpnn = vp.nn ! a in
-      <vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6 ++ inf ! a>   
-    } ;
+  -- Futur-II:  (ich werde) ihn dir ++ haben ++ helfen lassen
+  insertInf : {inpl:(Agr => Str)*Str ; extr:(Agr => Str)} -> VP -> VP =
+  \inf,vp -> vp ** {inf = {inpl = embedInf inf.inpl vp.inf.inpl ;
+                           extr = \\agr => vp.inf.extr!agr ++ inf.extr!agr}} ;
 
-  insertInf : {s:Str;isAux:Bool;ctrl:Control} -> VPSlash -> VPSlash = \inf,vp -> vp ** {
-    inf = {s = inf.s ++ vp.inf.s ; isAux = inf.isAux ; ctrl=inf.ctrl} } ;
+  glueInpl : (Agr => Str)*Str -> (Agr => Str) =
+      \inplace -> \\agr => (inplace.p1!agr ++ inplace.p2) ;
 
-  insertAdj : Str -> Str * Str -> Str -> VPSlash -> VPSlash = \adj,c,ext,vp -> vp ** {
+  -- HL 3/22: extract infzu-complement, leave inf-complement in-place
+  mkInf : Bool -> Anteriority -> Polarity -> VP ->
+                {inpl : (Agr => Str) * Str ; extr : (Agr => Str)} =
+     \isAux,ant,pol,vp ->
+        let
+            vpi = infVP isAux ant pol vp ;
+            topInpl = <vpi.objs, vpi.pred> ;
+            emptyInpl : (Agr => Str) * Str = <\\_ => [], []> ;
+            comma = bindComma
+        in
+          case <isAux,vp.isAux> of {
+            <True,True> -- 1: {s=will, inpl=<(sich, waschen) können>, extr = []}
+                => {inpl = embedInf vpi.inpl topInpl ;
+                    extr = \\agr => vpi.extr!agr} ;
+            <True,False> -- 2: {s=will; inpl=<[], versuchen>, extr = sich zu waschen}
+                => {inpl = topInpl ;
+                    extr = \\agr => (glueInpl vpi.inpl)!agr ++ vpi.extr!agr} ;
+            <False,True> -- 3: {s=wagt; inpl=<[], []>, extr = (sich, waschen) zu wollen}
+                => {inpl = emptyInpl ;
+                    extr = let moved = embedInf vpi.inpl topInpl
+                           in \\agr => comma ++ (glueInpl moved)!agr ++ vpi.extr!agr} ;
+            <False,False> -- 4: {s=wagt, inpl=<[], []>, extr = zu versuchen, (sich zu waschen)}
+                => {inpl = emptyInpl ;
+                    extr = \\agr => comma ++ (glueInpl topInpl)!agr ++ vpi.extr!agr}
+        } ;
+
+  insertAdj : Str -> Str * Str -> Str -> VP -> VP = \adj,c,ext,vp -> vp ** {
     nn = \\a => 
       let vpnn = vp.nn ! a in <vpnn.p1, vpnn.p2 ++ c.p1, -- der Frau treu
-                               vpnn.p3, vpnn.p4, vpnn.p5, vpnn.p6> ;  
+                               vpnn.p3, vpnn.p4> ;
     adj = vp.adj ++ adj ++ c.p2 ;                        -- neugierig auf das Buch
     ext = vp.ext ++ ext} ;           
 
@@ -809,7 +808,8 @@ resource ResGer = ParamX ** open Prelude in {
     s : Mood => Tense => Anteriority => Polarity => Order => Str
     } ;
 
-  mkClause : Str -> Agr -> VP -> Clause = \subj,agr,vp ->  let vps = useVP vp in {
+  mkClause : Str -> Agr -> VP -> Clause = \subj,agr,vp ->
+    let vps = useVP vp in {
       s = \\m,t,a,b,o =>
         let
           ord   = case o of {
@@ -817,55 +817,39 @@ resource ResGer = ParamX ** open Prelude in {
             _ => False
             } ;
           verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
+          haben = verb.inf2 ;
           neg = negation ! b ;
           obj1  = (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ; -- refl ++ pronouns ++ light nps
           obj2  = (vp.nn ! agr).p3 ;                     -- pp-objects and heavy nps
           obj3  = (vp.nn ! agr).p4 ++ vp.adj ++ vp.a2 ;  -- pred.AP|CN|Adv, via useComp HL 6/2019
           compl = obj1 ++ neg ++ obj2 ++ obj3 ;
-          -- leave inf-complement of +auxV(2)V in place, 
+          infObjs = (vp.inf.inpl.p1)!agr ;
+          infPred = vp.inf.inpl.p2 ;
+          -- leave inf-complement of +auxV(2)V in place,
           -- extract infzu-complement of -auxV(2)V: (ComplVV, SlashV2V)
-          infExt : Str * Str = case vp.inf.isAux of 
-            { True => <(vp.nn!agr).p6,[]> ; _ => <[],(vp.nn!agr).p6> } ;
-          extra = infExt.p2 ++ vp.ext ;
-          infCompls = -- () tun | ihn (es tun) lassen | ihm [es zu tun] versprechen 
-            (vp.nn ! agr).p5 ++ infExt.p1 ++ vp.inf.s ; 
-          comma = case orB vp.isAux (case vp.inf.ctrl of { NoC => True ; _ => False }) of {
-            True => [] ; _ => bindComma} ;
-          inf : Str =
-            case <t,a,vp.isAux> of {
-              <Fut|Cond,Anter,True>  =>                 --# notpresent   
-                --     haben () tun wollen | 
-                -- ihn haben (es tun) lassen wollen () |
-                -- ihm haben () versprechen wollen (, es zu tun)  
-                (vp.nn ! agr).p5 ++ verb.inf2 ++ infExt.p1 ++ vp.inf.s ++ verb.inf ; --# notpresent
-              <_,       Anter,True>  =>                 --# notpresent
-                -- tun wollen [] | ihn (es tun) lassen wollen [] | 
-                -- ihm () versprechen wollen [] (, es zu tun)
-                infCompls ++ verb.inf ++ verb.inf2 ;    --# notpresent
-              <Fut|Cond,Simul,True>  =>                 --# notpresent
-                infCompls ++ verb.inf ++ verb.inf2 ;    --# notpresent
-              <Fut|Cond,Anter,False> =>                 --# notpresent
-              -- gebeten haben , es zu tun () | gebeten haben , ihn (es tun) zu lassen
-                verb.inf ++ verb.inf2 ++ comma ++ infCompls ; --# notpresent 
-              _                      => verb.inf2 ++ verb.inf ++ comma ++ infCompls } ;
-          inffin : Str =
-            case <t,a,vp.isAux> of {
-	           <Fut|Cond,Anter,True>  -- ... wird|würde haben kommen wollen --# notpresent
-                     => (vp.nn ! agr).p5 ++ verb.fin                      --# notpresent
-                     ++ verb.inf2 ++ infExt.p1 ++ vp.inf.s ++ verb.inf ;  --# notpresent
-	           <Pres|Past,Anter,True>                                 --# notpresent
-                     => (vp.nn ! agr).p5 ++ infExt.p1 ++ verb.fin         --# notpresent
-                     ++ vp.inf.s ++ verb.inf ++ verb.inf2 ; -- double inf --# notpresent
-                   <_, _          ,True> 
-                     => infCompls ++ verb.inf ++ verb.inf2 ++ verb.fin ;  -- or just auxiliary vp
-                   <_, _          ,False>
-                     => verb.inf ++ verb.inf2 ++ verb.fin ++ comma ++ infCompls
-            } ;
+          infCompl : Str = case <t,a,vp.isAux> of {
+            <Fut|Cond,Anter,True> => [] ;                                 --# notpresent
+            _ => infObjs ++ infPred } ;
+          pred : {inf, infComplfin : Str} = case <t,a,vp.isAux> of {
+             <Fut|Cond,Anter,True>  =>                                    --# notpresent
+               {inf    = infObjs ++ haben ++ infPred ++ verb.inf ;        --# notpresent Duden 318
+                infComplfin = -- es ++ wird ++ haben ++ tun ++ wollen     --# notpresent
+                   infObjs ++ verb.fin ++ haben ++ infPred ++ verb.inf} ; --# notpresent
+             <_,Anter,True> =>                                            --# notpresent
+               {inf    = verb.inf ++ haben ;                              --# notpresent
+                infComplfin = -- es ++ wird/hat/hatte ++ tun ++ wollen    --# notpresent
+                   infObjs ++ verb.fin ++ infPred ++ verb.inf ++ haben} ; --# notpresent
+              _ =>
+               {inf    = verb.inf ++ haben ;
+                infComplfin = -- es zu tun ++ versucht/[] +[]+ hat/versuchte
+                   infCompl ++ verb.inf ++ haben ++ verb.fin}
+              } ;
+          extra = vp.inf.extr!agr ++ vp.ext ;
         in
-        case o of { 
-	  Main => subj ++ verb.fin ++ compl ++ inf ++ extra ;
-	  Inv  => verb.fin ++ subj ++ compl ++ inf ++ extra ;
-	  Sub  =>             subj ++ compl ++ inffin ++ extra
+        case o of {
+	  Main => subj ++ verb.fin ++ compl ++ infCompl ++ pred.inf ++ extra ;
+	  Inv  => verb.fin ++ subj ++ compl ++ infCompl ++ pred.inf ++ extra ;
+	  Subj =>             subj ++ compl ++   pred.infComplfin   ++ extra
         }
     } ;
 
@@ -886,34 +870,60 @@ resource ResGer = ParamX ** open Prelude in {
   es wird nicht besser
 -}
 
-  infVP : Bool -> VP -> ((Agr => Str) * Str * Str * Str) = 
-    \isAux, vp -> let vps = useVP vp in
+  infVP = overload {
+     infVP : Bool -> VP -> ((Agr => Str) * Str * Str * Str)
+     = infVP_orig ; -- from gf-3.9,
+     infVP : Bool -> Anteriority -> Polarity -> VP
+           -> { objs:(Agr => Str) ; pred:Str; inpl:(Agr=>Str)*Str ; extr:(Agr=>Str) }
+     = infVP_ant ; -- admit infinitive in Anter anteriority and Neg polarity
+  } ;
+
+  infVP_orig : Bool -> VP -> ((Agr => Str) * Str * Str * Str) =
+    \isAux, vp -> let vps = useVP vp ;
+                      infExt = vp.inf.extr ! agrP3 Sg   -- HL 3/22
+    in
     <
      \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4 ++ vp.a2,
      vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit Simul).inf,  -- vp.a1 ! Pos
-     vp.inf.s,
-     vp.infExt ++ vp.ext
+     vp.inf.inpl.p2, -- ! HL
+     infExt ++ vp.ext
     > ;
 
-  useInfVP : Bool -> VP -> Str = \isAux,vp ->
-    let vpi = infVP isAux vp in
-    vpi.p1 ! agrP3 Sg ++ vpi.p3 ++ vpi.p2 ++ vpi.p4 ;
+  infVP_ant : Bool -> Anteriority -> Polarity -> VP  -- HL 3/22
+    -> { objs:(Agr => Str) ; pred:Str ; inpl:(Agr=>Str)*Str ; extr:(Agr=>Str) } =
+      \isAux, ant, pol, vp -> let vps = useVP vp in
+      {
+        objs = \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ negation ! pol ++ (vp.nn ! agr).p3
+          ++ vp.a2 ++ (vp.nn ! agr).p4 ;  -- objects + predicative A|CN|NP
+        pred = vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit ant).inf ;
+        -- inplace and extracted parts of vp.inf:
+        inpl = vp.inf.inpl ;
+        extr = vp.inf.extr
+      } ;
 
-  infzuVP : Bool -> Control -> Anteriority -> Polarity -> VP  -- HL 
-    -> { objs:(Agr => Str) ; pred:{s:Str;isAux:Bool;ctrl:Control} ; inf:Str ; ext:Str } =
-      \isAux, ctrl, ant, pol, vp -> let vps = useVP vp in
+  infVPSlash : Bool -> Anteriority -> Polarity -> VPSlash  -- HL 3/22
+    -> { objs:(Agr => Str) ; pred:Str; inpl:(Agr=>Str)*Str ; extr:(Agr=>Str) } =
+      \isAux, ant, pol, vp -> let vps = useVP vp in
       { objs = \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ negation ! pol ++ (vp.nn ! agr).p3
           ++ vp.a2 ++ (vp.nn ! agr).p4 ;  -- objects + predicative A|CN|NP
-        pred = { s = vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit ant).inf ;
-                 isAux = vp.isAux ; ctrl = ctrl } ;
-        inf = vp.inf.s ;
-        ext = vp.ext
-      } ;
+        pred = vp.inf.inpl.p2 ++ vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit ant).inf ;
+        -- inplace and extracted parts of vp.inf:
+        inpl = <vp.inf.inpl.p1, []> ; -- move the predicate part to pred
+        extr = vp.inf.extr
+      } ** {c2 = vp.c2 ; objCtrl = vp.objCtrl} ;
+
+  -- for CatGer.linref VP and Verb.embedVP:
+  useInfVP : Bool -> VP -> Str = \isAux,vp ->
+    -- let vpi = infVP isAux vp in
+    -- vpi.p1 ! agrP3 Sg ++ vpi.p3 ++ vpi.p2 ++ vpi.p4 ;
+    let vpi = infVP isAux Simul Pos vp ; -- HL 3/2022
+        agr : Agr = (Ag Masc Sg P3) ;
+        glue : (Agr => Str)*Str -> Str =  \i -> i.p1!agr ++ i.p2
+    in
+       glue (embedInf vpi.inpl <vpi.objs, vpi.pred>) ++ vpi.extr!agr ++ vp.ext ;
 
 -- The nominative case is not used as reflexive, but defined here
 -- so that we can reuse this in personal pronouns. 
--- The missing Sg "ihrer" shows that a dependence on gender would
--- be needed.
 
   reflPron : Agr => Case => Str = table {
     Ag _ Sg P1 => caselist "ich" "mich" "mir"  "meiner" ;
@@ -984,12 +994,10 @@ resource ResGer = ParamX ** open Prelude in {
     } ;
 
 -- Function that allows the construction of non-nominative subjects.
-  mkSubj : NP -> Preposition -> Str * Agr = \np, subjc -> 
+  mkSubj : NP -> Preposition -> Str * Agr = \np, prep ->
     let 
-      sub = subjc ;
-      agr = case sub.c of { NPC Nom => np.a ; _ => Ag Masc Sg P3 } ;
-      subj = appPrepNP sub np
+      agr = case prep.c of { NPC Nom => np.a ; _ => Ag Masc Sg P3 } ;
+      subj = appPrepNP prep np
     in <subj , agr> ;
 
 }
-

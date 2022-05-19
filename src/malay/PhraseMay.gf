@@ -13,11 +13,7 @@ concrete PhraseMay of Phrase = CatMay ** open Prelude, ResMay in {
     UttVP vp = {s = linVP vp} ;
     UttAP ap = { s = ap.s } ;
 {-
-    UttImpSg pol imp =
     UttImpPl pol imp =
-    UttImpPol = UttImpSg ;
-
-    UttVP vp = {s = } ;
     UttAdv adv = {s = } ;
     UttCN n = {s = } ;
     UttCard n = {s = } ;
