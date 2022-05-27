@@ -506,7 +506,13 @@ concrete ExtraExtZul of ExtraExt =
     it15_Pron = mkPron (Third C15 Sg) ;
     it17_Pron = mkPron (Third C17 Sg) ;
 
-    yonder_Quant = { s = [] ; dist = Dem3 } ;
+    yonder_Quant = {
+      s = \\b,a => case b of {
+        False => dem_pron!Dem3!a ;
+        True => dem_pron!Dem3!a ++ dem_pron_na!Dem3!a
+      } ;
+      dist = Dem3
+    } ;
 
     at_which_IAdv np = {
       s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (np.s!NFull) ;

@@ -121,7 +121,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     Num  = { s: Str ; n : Number } ;
 --     Card = {s,sp : Bool => Case => Str ; n : Number} ;
 --     ACard = {s : Case => Str ; n : Number} ;
-    Quant = { s : Str ; dist : Distance } ;
+    Quant = { s : Bool => Agr => Str ; dist : Distance } ;
 
 -- Numeral
 

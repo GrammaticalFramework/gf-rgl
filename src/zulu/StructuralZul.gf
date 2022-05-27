@@ -129,8 +129,21 @@ concrete StructuralZul of Structural = CatZul **
     --   youPol_Pron = mkPron "you" "you" "your" "yours" singular P2 human ;
 
   -- Quant (we use this category for demonstratives only)
-    that_Quant = { s = [] ; dist = Dem2 } ;
-    this_Quant = { s = [] ; dist = Dem1 } ;
+    that_Quant = {
+      s = \\b,a => case b of {
+        False => dem_pron!Dem2!a ;
+        True => dem_pron_na!Dem2!a
+      } ;
+      dist = Dem2
+    } ;
+    -- this_Quant = { s = [] ; dist = Dem1 } ;
+    this_Quant = {
+      s = \\b,a => case b of {
+        False => dem_pron!Dem1!a ;
+        True => dem_pron_na!Dem1!a
+      } ;
+      dist = Dem1
+    } ;
   --   no_Quant = mkQuant "no" "no" "none" "none" ;
 
   -- Subj
