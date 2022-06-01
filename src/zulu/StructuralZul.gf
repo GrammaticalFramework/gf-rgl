@@ -130,17 +130,14 @@ concrete StructuralZul of Structural = CatZul **
 
   -- Quant (we use this category for demonstratives only)
     that_Quant = {
-      s = \\b,a => case b of {
-        False => dem_pron!Dem2!a ;
-        True => dem_pron_na!Dem2!a
-      } ;
+      s = \\b,a => dem_pron!Dem2!a ;
       dist = Dem2
     } ;
     -- this_Quant = { s = [] ; dist = Dem1 } ;
     this_Quant = {
       s = \\b,a => case b of {
         False => dem_pron!Dem1!a ;
-        True => dem_pron_na!Dem1!a
+        True => dem_pron!Dem1!a ++ dem_pron_na!a
       } ;
       dist = Dem1
     } ;

@@ -216,8 +216,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       }
     } ;
 
-    dem_pron_na : Distance => Agr => Str = table {
-      Dem1 => table {
+    dem_pron_na : Agr => Str = table {
         First Sg => BIND++"na" ;
         First Pl => [] ;
         Second Sg => BIND++"na" ;
@@ -241,17 +240,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C14 _ => [] ;
         Third C15 _ => [] ;
         Third C17 _ => []
-      } ;
-      Dem2 => table {
-        First _ => [] ;
-        Second _ => [] ;
-        Third _ _ => []
-      } ;
-      Dem3 => table {
-        First _ => [] ;
-        Second _ => [] ;
-        Third _ _ => []
-      }
     } ;
 
     -----------
@@ -976,10 +964,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
       case <cg,n> of
       {
         <C1_2,Sg> => case root of {
+          #vowel+_ => "um"+root ;
           _+#cons+#vowel+#cons+_+#vowel+_ => "um"+root ;
           _ => "umu"+root
         } ; -- umu for single syllables, um for the rest
-        <C1_2,Pl> => "aba"+root ; -- abe for tribes or guilds
+        <C1_2,Pl> => case root of {
+          #vowel+_ => "ab"+root ;
+          _ => "aba"+root  -- abe for tribes or guilds
+        } ;
         <C1a_2a,Sg> => "u"+root ;
         <C1a_2a,Pl> => "o"+root ;
         <C3_4,Sg> => case root of {
@@ -1024,10 +1016,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
         case <cg,n> of
         {
           <C1_2,Sg> => case root of {
+            #vowel+_ => "kum"+root ;
             _+#cons+#vowel+#cons+_+#vowel+_ => "kum"+root ;
             _ => "kumu"+root
           } ; -- umu for single syllables, um for the rest
-          <C1_2,Pl> => "kuba"+root ; -- abe for tribes or guilds
+          <C1_2,Pl> => case root of {
+            #vowel+_ => "kub"+root ;
+            _ => "kuba"+root -- abe for tribes or guilds
+          } ;
           <C1a_2a,Sg> => "ku"+root ;
           <C1a_2a,Pl> => "ko"+root ;
           <C3_4,Sg> => case root of {

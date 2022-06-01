@@ -507,10 +507,7 @@ concrete ExtraExtZul of ExtraExt =
     it17_Pron = mkPron (Third C17 Sg) ;
 
     yonder_Quant = {
-      s = \\b,a => case b of {
-        False => dem_pron!Dem3!a ;
-        True => dem_pron!Dem3!a ++ dem_pron_na!Dem3!a
-      } ;
+      s = \\b,a => dem_pron!Dem3!a ;
       dist = Dem3
     } ;
 
