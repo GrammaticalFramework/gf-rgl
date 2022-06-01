@@ -57,6 +57,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       #nasal_m+x => "m"+r ;
       #nasal_ng+x => "ng"+r ;
       #nasal+x => r ;
+      "p"+x => "mp" + x ;
       _ => "n"+r
     } ;
     --------------
@@ -908,8 +909,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
       } ;
       <C9_10,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
-      <C11_10,Sg> => "o"+root ;
-      <C11_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+      <C11_10,Sg> => case root of {
+        (#vowel+_ | "w"+_) => "ol"+root ;
+        _ => "o"+root
+      } ;
+      <C11_10,Pl> => case root of {
+        (#vowel+_ | "w"+_) => "ezil" + root ;
+        _ => "ezi"+(prefix_nasal root)
+      } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
       <C9_6,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_6,Pl> => case root of {
         "i"+_ => "eme"+root ;
@@ -940,6 +947,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+"mu" => (tk 2 root) + "nyini" ;
         _+("a"|"e") => (init root)+"eni" ;
         _+"i" => (init root)+"ini" ;
+        _+"wu" => (init root)+"ini" ;
+        _+"wo" => (init root)+"eni" ;
         _+"o" => (init root)+"weni" ;
         _+"u" => (init root)+"wini" ;
         _ => (init root)+"ini"
@@ -981,9 +990,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
           _ => "umu"+root
         } ; -- umu for single syllables, um for the rest
         <C3_4,Pl> => "imi"+root ;
-        <C5_6,Sg> => "i"+root ; -- ili long form (not used?)
+        <C5_6,Sg> => case root of {
+          #vowel+_ => "il"+root ;
+          _ => "i"+root  -- ili long form (not used?)
+        } ;
         <C5_6,Pl> => case root of {
           "i"+_ => "ame"+root ;
+          #vowel+_ => "am"+root ;
           _ => "ama"+root
         } ; -- ame for roots starting with i
         <C7_8,Sg> => case root of {
@@ -996,8 +1009,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
         } ;
         <C9_10,Sg> => "i" + prefix_nasal root ;
         <C9_10,Pl> => "izi" + prefix_nasal root ;
-        <C11_10,Sg> => "u"+root ;
-        <C11_10,Pl> => "izi" + prefix_nasal root ;
+        <C11_10,Sg> => case root of {
+          (#vowel+_ | "w"+_) => "ul"+root ;
+          _ => "u"+root
+        } ;
+        <C11_10,Pl> => case root of {
+          (#vowel+_ | "w"+_) => "izil"+root ;
+          _ => "izi" + prefix_nasal root
+        } ;
         <C9_6,Sg> => "i" + prefix_nasal root ;
         <C9_6,Pl> => case root of {
           "i"+_ => "ame"+root ;
@@ -1031,9 +1050,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
             _ => "em"+(addLocSuffix root)
           } ;
           <C3_4,Pl> => "emi"+(addLocSuffix root) ;
-          <C5_6,Sg> => "e"+(addLocSuffix root) ; -- ili long form (not used?)
+          <C5_6,Sg> => case root of {
+            #vowel+_ => "el"+(addLocSuffix root) ;
+            _ => "e"+(addLocSuffix root) -- ili long form (not used?)
+          } ;
           <C5_6,Pl> => case root of {
             "i"+_ => "eme"+(addLocSuffix root) ;
+            #vowel+_ => "em"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
           } ; -- ame for roots starting with i
           <C7_8,Sg> => case root of {
@@ -1046,8 +1069,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
           } ;
           <C9_10,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
-          <C11_10,Sg> => "o"+(addLocSuffix root) ;
-          <C11_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+          <C11_10,Sg> => case root of {
+            (#vowel+_ | "w"+_) => "ol"+(addLocSuffix root) ;
+            _ => "o"+(addLocSuffix root)
+          } ;
+          <C11_10,Pl> => case root of {
+            (#vowel+_ | "w"+_) => "ezil"+(addLocSuffix root) ;
+            _ => "ezi"+(addLocSuffix (prefix_nasal root)) -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+          } ;
           <C9_6,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
             "i"+_ => "eme"+(addLocSuffix root) ;
