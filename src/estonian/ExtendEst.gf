@@ -54,6 +54,9 @@ concrete ExtendEst of Extend =
     VPI2 = X.VPI ** {c2 : Compl} ;
     [VPI2] = X.ListVPI ** {c2 : Compl}  ;
 
+  linref
+    VPS = X.linVPS (agrP3 Sg) ;
+
   lin
     MkVPS = X.MkVPS ;
     BaseVPS = X.BaseVPS ;
@@ -298,8 +301,12 @@ concrete ExtendEst of Extend =
     GerundAdv vp = {s = infVPdefault vp InfDes} ;
 
     -- : VP -> CN    -- publishing of the document (can get a determiner)
-    GerundCN vp = emptyCN ** {s = \\nf => infVPdefault vp InfMine} ;
-
+    GerundCN vp = emptyCN ** {
+      s = \\nf => infVPdefault vp {stem = InfM ; suf = []}
+               ++ ine.s ! nf ;
+      } where {
+        ine : N = mkN "ine" "ise" "ist" "isesse" "iste" "isi"
+      } ;
     -- : VP -> NP    -- publishing the document (by nature definite)
     GerundNP vp = MassNP (GerundCN vp) ;
 
