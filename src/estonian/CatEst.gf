@@ -22,7 +22,7 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
     QCl    = {s : ResEst.Tense => Anteriority => Polarity => Str} ;
     IP     = ResEst.IPhrase ;
     IComp  = {s : Agr => Str} ;
-    IDet   = {s : Case => Str ; n : Number ; isNum : Bool} ;
+    IDet   = ResEst.IDeterminer ;
     IQuant = {s : Number => Case => Str} ;
 
 -- Relative
@@ -98,8 +98,8 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
     NP = linNP (NPCase Nom) ;
     CN = linCN (NCase Sg Nom) ;
     V,VS,VQ = linV ;
-    V2,VA,V2S,V2Q = linV2 ;
-
+    V2,VA,V2S,V2Q,V3 = linV2 ;
+    IDet = linIDet ;
 
 
 }
