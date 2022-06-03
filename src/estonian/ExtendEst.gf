@@ -54,6 +54,9 @@ concrete ExtendEst of Extend =
     VPI2 = X.VPI ** {c2 : Compl} ;
     [VPI2] = X.ListVPI ** {c2 : Compl}  ;
 
+  linref
+    VPS = X.linVPS (agrP3 Sg) ;
+
   lin
     MkVPS = X.MkVPS ;
     BaseVPS = X.BaseVPS ;
