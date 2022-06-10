@@ -11,5 +11,6 @@ abstract CatExt = {
     -- INAdv ; -- which/-phi?
 
     Postdet ;
+    SubCl ;
 
 }
