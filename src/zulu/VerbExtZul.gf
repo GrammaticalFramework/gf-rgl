@@ -14,7 +14,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
             pcp ++ adjpref ++ cop_base ;
           RelCl => \\a,p,t,l => let
             vform = VFIndic RelCl p t ;
-            rcp = shortRelConc!a ; -- o-
+            rcp = (adjConcCop vform a RC) ; -- o-
             pcp = ap_cop_pref vform a AdjType ; -- [] / -nge- / zoba / -be- / -benge- -waye- / -wayenge-
             adjpref =  adjPref a vform ; -- m-
             cop_base = ap.s!(aformN a) -- khulu

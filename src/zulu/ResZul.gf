@@ -1325,8 +1325,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- ADJECTIVE ANTECEDENT AGREEMENT MORPHEME --
 
-    relAdjPrefLookup : Agr => Str = --table {
-      -- Pos =>
+    relAdjPrefLookup : Agr => Str = 
       table {
         Third C1_2 Sg => "m" ;
         Third C1_2 Pl => "" ;
@@ -1348,29 +1347,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C15 _ => "ku" ;
         Third C17 _ => "ku" ;
         (First _ | Second _ )  => "m"
-      -- } ;
-      -- Neg => table {
-      --   Third C1_2 Sg => "ongem" ;
-      --   Third C1_2 Pl => "angeba" ;
-      --   Third C1a_2a Sg => "ongem" ;
-      --   Third C1a_2a Pl => "angeba" ;
-      --   Third C3_4 Sg  => "ongem" ;
-      --   Third C3_4 Pl => "engemi" ;
-      --   Third C5_6 Sg => "engeli" ;
-      --   Third C5_6 Pl => "angema" ;
-      --   Third C7_8 Sg => "engesi" ;
-      --   Third C7_8 Pl => "engezi" ;
-      --   Third C9_10 Sg => "enge" ;
-      --   Third C9_10 Pl => "engezi" ;
-      --   Third C11_10 Sg => "ongelu" ;
-      --   Third C11_10 Pl => "engezi" ;
-      --   Third C9_6 Sg => "enge" ;
-      --   Third C9_6 Pl => "angema" ;
-      --   Third C14 _ => "ongebu" ;
-      --   Third C15 _ => "ongeku" ;
-      --   Third C17 _ => "ongeku" ;
-      --   (First _ | Second _ )  => "ongem"
-      -- }
     } ;
 
     -- RELATIVE ANTECEDENT AGREEMENT MORPHEME --
@@ -1409,6 +1385,18 @@ resource ResZul = open Prelude,Predef,ParamX in {
       }
     } ;
 
+    adjConcCop : VForm -> Agr -> RInit ->Str = \vform,a,r -> case vform of {
+      VFIndic _ Pos PresTense => shortRelConc!a ;
+      VFIndic _ Neg PresTense => adjConcLookup!a!RC ;
+      VFIndic _ _ FutTense => adjConcLookup!a!RC ;
+      VFIndic _ _ RemFutTense => adjConcLookup!a!RC ;
+      VFIndic _ _ PastTense => relCopConcBeLookup!a ;
+      VFIndic _ _ RemPastTense => case a of {
+        Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
+        (First _ | Second _ | Third _ _ ) => shortRelConc!a  --++ subjConcLookup!a!SCRP
+      }
+    } ;
+
     relConcLookup : Agr => RInit => Str =
       table {
         Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
@@ -1417,6 +1405,33 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C1a_2a Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
         Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
         Third C3_4 Pl => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
+        Third C5_6 Sg => table { RC => "eli"++BIND ; _ => "el"++BIND } ;
+        Third C5_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
+        Third C7_8 Sg => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
+        Third C7_8 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
+        Third C9_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C11_10 Sg => table { RC => "olu"++BIND ; (RA|RE) => "olw" ; _ => "ol"++BIND } ;
+        Third C11_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey" ; _ => "e"++BIND } ;
+        Third C9_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
+        Third C14 _ => table { RC => "obu"++BIND ; _ => "ob"++BIND } ;
+        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
+        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
+        First Sg => table { RC => "engi"++BIND ; _ => "eng"++BIND } ;
+        First Pl => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
+        Second Sg  => table { RE => "ow"++BIND ; _ => "o"++BIND } ;
+        Second Pl => table { RC => "eni"++BIND ; _ => "en"++BIND }
+    } ;
+
+    adjConcLookup : Agr => RInit => Str =
+      table {
+        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1_2 Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
+        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1a_2a Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
+        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C3_4 Pl => table { RC => "emi"++BIND ; _ => "em"++BIND } ;
         Third C5_6 Sg => table { RC => "eli"++BIND ; _ => "el"++BIND } ;
         Third C5_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
         Third C7_8 Sg => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
