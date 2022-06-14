@@ -57,6 +57,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       #nasal_m+x => "m"+r ;
       #nasal_ng+x => "ng"+r ;
       #nasal+x => r ;
+      "p"+x => "mp" + x ;
       _ => "n"+r
     } ;
     --------------
@@ -214,6 +215,32 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C15 _ => "lokhuya" ;
         Third C17 _ => "laphaya"
       }
+    } ;
+
+    dem_pron_na : Agr => Str = table {
+        First Sg => BIND++"na" ;
+        First Pl => [] ;
+        Second Sg => BIND++"na" ;
+        Second Pl => [] ;
+        Third C1_2 Sg => BIND++"na" ;
+        Third C1_2 Pl => [] ;
+        Third C1a_2a Sg => BIND++"na" ;
+        Third C1a_2a Pl => [] ;
+        Third C3_4 Sg => BIND++"na" ;
+        Third C3_4 Pl => BIND++"na" ;
+        Third C5_6 Sg => [] ;
+        Third C5_6 Pl => BIND++"na" ;
+        Third C7_8 Sg => [] ;
+        Third C7_8 Pl => [] ;
+        Third C9_10 Sg => BIND++"na" ;
+        Third C9_10 Pl => [] ;
+        Third C11_10 Sg => [] ;
+        Third C11_10 Pl => [] ;
+        Third C9_6 Sg => BIND++"na" ;
+        Third C9_6 Pl => BIND++"na" ;
+        Third C14 _ => [] ;
+        Third C15 _ => [] ;
+        Third C17 _ => []
     } ;
 
     -----------
@@ -711,10 +738,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
       } ;
 
       adjPref : Agr -> VForm -> Str = \agr,vform -> case vform of {
-        VFIndic RelCl Pos PresTense => case agr of {
-          (First Sg | Second Sg | Third C1_2 Sg | Third C1a_2a Sg | Third C3_4 Sg) => "m"++BIND ;
-          (First Pl | Second Pl | Third _ _) => []
-        } ;
+        -- VFIndic RelCl Pos PresTense => case agr of {
+        --   -- (First Sg | Second Sg | Third C1_2 Sg | Third C1a_2a Sg | Third C3_4 Sg) => "m"++BIND ;
+        --   -- Third C3_4 Pl => "mi" ++BIND ;
+        --   -- (First Pl | Second Pl | Third _ _) => []
+        --   relAdjPrefLookup!agr
+        -- } ;
         VFIndic _ _ _ => adjPrefLookup!agr!vform
       } ;
 
@@ -863,13 +892,18 @@ resource ResZul = open Prelude,Predef,ParamX in {
       <C1a_2a,Sg> => "ku"+root ;
       <C1a_2a,Pl> => "ko"+root ;
       <C3_4,Sg> => case root of {
-        ("m"|"n")+_ => "e"+root ;
+        "m"+_ => "e"+root ;
         _ => "em"+root
       } ;
       <C3_4,Pl> => "emi"+root ;
-      <C5_6,Sg> => "e"+root ; -- ili long form (not used?)
+      <C5_6,Sg> => case root of {
+        "i"+_ => "e" + (last root)  ;
+        #vowel+_ => "el" + root ;
+        _ => "e"+root -- ili long form (not used?)
+      } ;
       <C5_6,Pl> => case root of {
-        "i"+_ => "eme"+root ;
+        "i"+_ => "eme"+ (last root) ;
+        #vowel+_ => "em"+root ;
         _ => "ema"+root
       } ; -- ame for roots starting with i
       <C7_8,Sg> => case root of {
@@ -882,8 +916,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
       } ;
       <C9_10,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
-      <C11_10,Sg> => "o"+root ;
-      <C11_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+      <C11_10,Sg> => case root of {
+        #vowel+_ => "olw" + root ;
+        "w"+_ => "ol"+root ;
+        _ => "o"+root
+      } ;
+      <C11_10,Pl> => case root of {
+        #vowel+_ => "ezilw" + root ;
+        "w"+_ => "ezil" + root ;
+        _ => "ezi"+(prefix_nasal root)
+      } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
       <C9_6,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_6,Pl> => case root of {
         "i"+_ => "eme"+root ;
@@ -914,6 +956,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+"mu" => (tk 2 root) + "nyini" ;
         _+("a"|"e") => (init root)+"eni" ;
         _+"i" => (init root)+"ini" ;
+        _+"wu" => (init root)+"ini" ;
+        _+"wo" => (init root)+"eni" ;
         _+"o" => (init root)+"weni" ;
         _+"u" => (init root)+"wini" ;
         _ => (init root)+"ini"
@@ -938,22 +982,31 @@ resource ResZul = open Prelude,Predef,ParamX in {
       case <cg,n> of
       {
         <C1_2,Sg> => case root of {
+          #vowel+_ => "um"+root ;
           _+#cons+#vowel+#cons+_+#vowel+_ => "um"+root ;
           _ => "umu"+root
         } ; -- umu for single syllables, um for the rest
-        <C1_2,Pl> => "aba"+root ; -- abe for tribes or guilds
+        <C1_2,Pl> => case root of {
+          #vowel+_ => "ab"+root ;
+          _ => "aba"+root  -- abe for tribes or guilds
+        } ;
         <C1a_2a,Sg> => "u"+root ;
         <C1a_2a,Pl> => "o"+root ;
         <C3_4,Sg> => case root of {
-          ("m"|"n")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
+          "m"+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
           _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um"+root ;
           "o"+_ => "um"+root ;
           _ => "umu"+root
         } ; -- umu for single syllables, um for the rest
         <C3_4,Pl> => "imi"+root ;
-        <C5_6,Sg> => "i"+root ; -- ili long form (not used?)
+        <C5_6,Sg> => case root of {
+          "i"+_ => root ;
+          #vowel+_ => "il"+root ;
+          _ => "i"+root  -- ili long form (not used?)
+        } ;
         <C5_6,Pl> => case root of {
-          "i"+_ => "ame"+root ;
+          "i"+_ => "ame"+(drop 1 root) ;
+          #vowel+_ => "am"+root ;
           _ => "ama"+root
         } ; -- ame for roots starting with i
         <C7_8,Sg> => case root of {
@@ -966,8 +1019,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
         } ;
         <C9_10,Sg> => "i" + prefix_nasal root ;
         <C9_10,Pl> => "izi" + prefix_nasal root ;
-        <C11_10,Sg> => "u"+root ;
-        <C11_10,Pl> => "izi" + prefix_nasal root ;
+        <C11_10,Sg> => case root of {
+          #vowel+_ => "ulw"+root ;
+          "w"+_ => "ul"+root ;
+          _ => "u"+root
+        } ;
+        <C11_10,Pl> => case root of {
+          #vowel+_ => "izilw"+root ;
+          "w"+_ => "izil"+root ;
+          _ => "izi" + prefix_nasal root
+        } ;
         <C9_6,Sg> => "i" + prefix_nasal root ;
         <C9_6,Pl> => case root of {
           "i"+_ => "ame"+root ;
@@ -986,20 +1047,29 @@ resource ResZul = open Prelude,Predef,ParamX in {
         case <cg,n> of
         {
           <C1_2,Sg> => case root of {
+            #vowel+_ => "kum"+root ;
             _+#cons+#vowel+#cons+_+#vowel+_ => "kum"+root ;
             _ => "kumu"+root
           } ; -- umu for single syllables, um for the rest
-          <C1_2,Pl> => "kuba"+root ; -- abe for tribes or guilds
+          <C1_2,Pl> => case root of {
+            #vowel+_ => "kub"+root ;
+            _ => "kuba"+root -- abe for tribes or guilds
+          } ;
           <C1a_2a,Sg> => "ku"+root ;
           <C1a_2a,Pl> => "ko"+root ;
           <C3_4,Sg> => case root of {
-            ("m"|"n")+_ => "e"+(addLocSuffix root) ;
+            "m"+_ => "e"+(addLocSuffix root) ;
             _ => "em"+(addLocSuffix root)
           } ;
           <C3_4,Pl> => "emi"+(addLocSuffix root) ;
-          <C5_6,Sg> => "e"+(addLocSuffix root) ; -- ili long form (not used?)
+          <C5_6,Sg> => case root of {
+            "i"+_ => "e"+(addLocSuffix (drop 1 root)) ;
+            #vowel+_ => "el"+(addLocSuffix root) ;
+            _ => "e"+(addLocSuffix root) -- ili long form (not used?)
+          } ;
           <C5_6,Pl> => case root of {
-            "i"+_ => "eme"+(addLocSuffix root) ;
+            "i"+_ => "eme"+(addLocSuffix (drop 1 root)) ;
+            #vowel+_ => "em"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
           } ; -- ame for roots starting with i
           <C7_8,Sg> => case root of {
@@ -1012,8 +1082,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
           } ;
           <C9_10,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
-          <C11_10,Sg> => "o"+(addLocSuffix root) ;
-          <C11_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+          <C11_10,Sg> => case root of {
+            #vowel+_ => "olw"+(addLocSuffix root) ;
+            "w"+_ => "ol"+(addLocSuffix root) ;
+            _ => "o"+(addLocSuffix root)
+          } ;
+          <C11_10,Pl> => case root of {
+            #vowel+_ => "ezilw"+(addLocSuffix root) ;
+            "w"+_ => "ezil"+(addLocSuffix root) ;
+            _ => "ezi"+(addLocSuffix (prefix_nasal root)) -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+          } ;
           <C9_6,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
             "i"+_ => "eme"+(addLocSuffix root) ;
@@ -1327,7 +1405,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic _ _ PastTense => relCopConcBeLookup!a ;
       VFIndic _ _ RemPastTense => case a of {
         Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
-        (First _ | Second _ | Third _ _ ) => shortRelConc!a ++BIND  --++ subjConcLookup!a!SCRP
+        (First _ | Second _ | Third _ _ ) => shortRelConc!a  --++ subjConcLookup!a!SCRP
       }
     } ;
 
@@ -1445,29 +1523,29 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     shortRelConc : Agr => Str =
       table {
-        Third C1_2 Sg => "o" ;
-        Third C1_2 Pl => "a" ;
-        Third C1a_2a Sg => "o" ;
-        Third C1a_2a Pl => "a" ;
-        Third C3_4 Sg  => "o" ;
-        Third C3_4 Pl => "e" ;
-        Third C5_6 Sg => "e" ;
-        Third C5_6 Pl => "a" ;
-        Third C7_8 Sg => "e" ;
-        Third C7_8 Pl => "e" ;
-        Third C9_10 Sg => "e" ;
-        Third C9_10 Pl => "e" ;
-        Third C11_10 Sg => "o" ;
-        Third C11_10 Pl => "e" ;
-        Third C9_6 Sg => "e" ;
-        Third C9_6 Pl => "a" ;
-        Third C14 _ => "o" ;
-        Third C15 _ => "o" ;
-        Third C17 _ => "o" ;
-        First Sg => "e" ;
-        First Pl => "e" ;
-        Second Sg  => "o" ;
-        Second Pl => "e"
+        Third C1_2 Sg => "o" ++BIND ;
+        Third C1_2 Pl => "a" ++BIND ;
+        Third C1a_2a Sg => "o" ++BIND ;
+        Third C1a_2a Pl => "a" ++BIND ;
+        Third C3_4 Sg  => "o" ++BIND ;
+        Third C3_4 Pl => "e" ++BIND ;
+        Third C5_6 Sg => "e" ++BIND ;
+        Third C5_6 Pl => "a" ++BIND ;
+        Third C7_8 Sg => "e" ++BIND ;
+        Third C7_8 Pl => "e" ++BIND ;
+        Third C9_10 Sg => "e" ++BIND ;
+        Third C9_10 Pl => "e" ++BIND ;
+        Third C11_10 Sg => "o" ++BIND ;
+        Third C11_10 Pl => "e" ++BIND ;
+        Third C9_6 Sg => "e" ++BIND ;
+        Third C9_6 Pl => "a" ++BIND ;
+        Third C14 _ => "o" ++BIND ;
+        Third C15 _ => "o" ++BIND ;
+        Third C17 _ => "o" ++BIND ;
+        First Sg => "e" ++BIND ;
+        First Pl => "e" ++BIND ;
+        Second Sg  => "o" ++BIND ;
+        Second Pl => "e" ++BIND
       } ;
 
     -- POSSESSIVE ANTECEDENT AGREEMENT MORPHEME --
@@ -1617,6 +1695,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
       Second Sg  => "we" ;
       Second Pl => "no"
     } ;
+
+
 
     -----------------
     -- COPULATIVES --
@@ -1841,8 +1921,17 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- OTHER
     ----------------------------------------
 
-    link_conj : Str -> Str -> Str -> Bool -> Str = \conj,s_full,s_novow,fix -> case fix of {
-      True => conj ++BIND ++ s_novow ;
-      False => conj ++ s_full
+    link_conj : { s: RInit => Str ; fix : Bool } -> RInit -> Str = \conj,rinit -> case conj.fix of {
+      True => conj.s!rinit ++BIND ;
+      False => conj.s!RC
+    } ;
+
+    compAgr : Agr -> Agr -> Agr = \a1,a2 -> case <a1,a2> of {
+      <First _,(First _ | Second _ | Third _ _)> => First Pl ;
+      <(First _ | Second _ | Third _ _),First _> => First Pl ;
+      <Second _,(First _ | Second _ | Third _ _)> => Second Pl ;
+      <(First _ | Second _ | Third _ _),Second _> => Second Pl ;
+      <Third (C1_2|C1a_2a) _, Third _ _> => Third C1_2 Pl ;
+      <Third _ _,Third c _> => Third c Pl
     } ;
 }

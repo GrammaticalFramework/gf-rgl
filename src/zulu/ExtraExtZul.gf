@@ -1,5 +1,5 @@
 concrete ExtraExtZul of ExtraExt =
-  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
+  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN,Conj],
   CatExtZul
   ** open ResZul,Prelude,ParamX in {
 
@@ -506,7 +506,10 @@ concrete ExtraExtZul of ExtraExt =
     it15_Pron = mkPron (Third C15 Sg) ;
     it17_Pron = mkPron (Third C17 Sg) ;
 
-    yonder_Quant = { s = [] ; dist = Dem3 } ;
+    yonder_Quant = {
+      s = \\b,a => dem_pron!Dem3!a ;
+      dist = Dem3
+    } ;
 
     at_which_IAdv np = {
       s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (np.s!NFull) ;
@@ -569,6 +572,21 @@ concrete ExtraExtZul of ExtraExt =
     kakhulu_Adv = { s = "kakhulu" ; reqLocS = False } ;
 
     AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
+
+    ExtConjNP np1 conj np2 = {
+      s = \\nform => np1.s!nform ++ (link_conj conj np2.i) ++ np2.s!NReduced ;
+      agr = compAgr np1.agr np2.agr ;
+      i = np1.i ;
+      proDrop = andB np1.proDrop np2.proDrop ;
+      isPron = np1.isPron ;
+      heavy = orB np1.heavy np2.heavy ;
+      empty = np1.empty ++ np2.empty
+    } ;
+
+    with_Conj = {
+      s = withPref ;
+      fix = True
+    } ;
 
     -- Deverb15 v =
     -- let

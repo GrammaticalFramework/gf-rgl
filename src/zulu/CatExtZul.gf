@@ -11,5 +11,6 @@ concrete CatExtZul of CatExt = open ResZul,Prelude,ParamX in {
     -- INAdv = { s : Str ; postIAdv : Bool } ;
 
     Postdet = { s : Agr => Str } ;
+    SubCl = { s : Polarity => BasicTense => Str } ;
 
 }

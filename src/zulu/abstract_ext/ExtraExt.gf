@@ -1,5 +1,5 @@
 abstract ExtraExt =
-  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
+  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN,Conj],
   CatExt ** {
 
   fun
@@ -125,6 +125,10 @@ abstract ExtraExt =
     khona_Loc : Loc ;
 
     kakhulu_Adv : Adv ;
+
+    ExtConjNP : NP -> Conj -> NP -> NP ;
+
+    with_Conj : Conj ;
 
     -- Deverb15 : V -> N ;
 

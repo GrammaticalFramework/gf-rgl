@@ -454,6 +454,7 @@ abstract MultiLex = Cat ** {
     sock_N : N ;
     soil_N : N ;
     soldier_N : N ;
+    son_N : N ;
     song_N : N ;
     south_N : N ;
     spade_N : N ;

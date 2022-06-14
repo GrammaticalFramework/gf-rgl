@@ -19,15 +19,15 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     } ;
 
     DemPostdet q = {
-      s = \\a => dem_pron!q.dist!a ++ q.s
+      s = \\a => q.s!True!a
     } ;
 
     QuantDemPostdet q d = {
-      s = \\a => q.s!a  ++ dem_pron!d.dist!a ++ d.s
+      s = \\a => q.s!a ++ d.s!True!a
     } ;
 
     DemQuantPostdet d q = {
-      s = \\a => dem_pron!d.dist!a ++ q.s!a ++ d.s
+      s = \\a => d.s!True!a ++ q.s!a
     } ;
 
     DetNum n = n ; -- ** { spec = Spec } ;
@@ -93,12 +93,12 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     } ;
 
     DemPredet q = {
-      s = \\a => dem_pron!q.dist!a ++ q.s ;
+      s = \\a => q.s!False!a ;
       hasDem = True
     } ;
 
     QuantDemPredet q d = {
-      s = \\a => q.s!a ++ dem_pron!d.dist!a ++ d.s ;
+      s = \\a => q.s!a ++ d.s!False!a ;
       hasDem = True
     } ;
 
