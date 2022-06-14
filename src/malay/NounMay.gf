@@ -19,8 +19,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
       } ;
 
   -- : PN -> NP ;
---  UsePN pn = pn ** {
---    } ;
+    UsePN pn = MassNP (UseN pn) ;
 
   -- : Pron -> NP ;
     UsePron pron = pron ** {
@@ -40,7 +39,9 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   --   s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
 
   -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
-  --AdvNP,ExtAdvNP = \np,adv -> np ** {} ;
+  AdvNP,ExtAdvNP = \np,adv -> np ** {
+    s = \\pos => np.s ! pos ++ adv.s
+  } ;
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
     RelNP np rs = np ** {
@@ -51,7 +52,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
 
   -- : Det -> NP ;
     DetNP det = emptyNP ** {
-      s = \\_ => det.s ;
+      s = \\_ => linDet det ;
       } ;
 
   -- MassNP : CN -> NP ;
@@ -68,13 +69,17 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
     DetQuant quant num = quant ** {
       pr = num.s ; -- if it's not a number or digit, num.s is empty
       s = quant.s ;
-      n = num.n
+      n = num.n ;
+      count = "ke" ++ BIND ++ num.s ++ BIND ++ "-" ++ BIND ++ num.s;
       } ;
 
-  -- : Quant -> Num -> Ord -> Det ;  -- these five best
-  -- DetQuantOrd quant num ord =
-  --   let theseFive = DetQuant quant num in theseFive ** {
-  --     } ;
+  -- : Quant -> Num -> Ord -> Det ;
+    DetQuantOrd quant num ord = quant ** {
+      pr = num.s ;
+      n = num.n ;
+      s = ord.s ++ quant.s ;
+      count = "" ;
+    } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
 -- cardinal.
@@ -107,18 +112,21 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
 -}
   -- : Numeral -> Ord ;
-  -- OrdNumeral num = num ** {
-  --   s = \\_ => num.ord
-  --   } ;
+  OrdNumeral num = {
+    s = num.ord
+    } ;
 
   -- : A       -> Ord ;
-  -- OrdSuperl a = {
-  --   } ;
+  OrdSuperl a = {
+    s = "ter" ++ BIND ++ a.s
+    } ;
 
 -- One can combine a numeral and a superlative.
 
   -- : Numeral -> A -> Ord ; -- third largest
-  -- OrdNumeralSuperl num a = num ** {  } ;
+  OrdNumeralSuperl num a = {
+    s = num.ord ++ "ter" ++ BIND ++ a.s
+  } ;
 
   -- : Quant
   DefArt = mkQuant [] ;
@@ -167,6 +175,11 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
     heavyMod = cn.heavyMod ++ rs.s ! P3
     } ;
 
+  -- : CN -> Adv -> CN ;
+  AdvCN cn adv = cn ** {
+    heavyMod = cn.heavyMod ++ adv.s
+    } ;
+
 {-
   -- : CN -> Adv -> CN ;
   AdvCN cn adv = cn ** {  } ;
@@ -198,6 +211,14 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
       _ => cn.s ! nf ++ np.s ! Bare
       }
     } ;
+
+
+  -- : Det -> NP -> NP ;
+  CountNP det np = np **
+    {
+      s = \\pos => det.count ++ np.s ! pos;
+    } ; -- Nonsense for DefArt or IndefArt
+
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   -- PartNP cn np = cn ** {

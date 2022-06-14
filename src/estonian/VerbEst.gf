@@ -75,6 +75,10 @@ concrete VerbEst of Verb = CatEst ** open Prelude, ResEst in {
 
     AdvVP vp adv = insertAdv adv.s vp ;
 
+    AdvVPSlash vp adv = insertAdv adv.s vp ** vp ;
+
+    VPSlashPrep vp prep = vp ** {c2 = prep} ;
+
     AdVVP adv vp = insertAdv adv.s vp ;
 
     ReflVP v = insertObjPre (\\fin,b,agr => appCompl fin b v.c2 (reflPron agr)) v ;

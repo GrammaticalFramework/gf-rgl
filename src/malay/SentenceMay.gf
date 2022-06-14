@@ -24,6 +24,19 @@ lin
   -- : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
   SlashPrep cl prep = cl ** {c2 = prep} ;
 
+
+--2 Imperatives
+  -- : VP -> Imp ;
+  ImpVP vp = {
+    s = \\num,pol => case pol of {
+      Neg => "jangan" ++ vp.s ! Imperative ! Pos;
+      Pos => vp.s ! Imperative ! Pos
+    }
+  } ;
+
+  -- : VP -> SC ;
+  EmbedVP vp = {s = vp.s ! Root ! Pos} ;
+
  {-
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
   SlashVS np vs ss = {} ;
@@ -34,7 +47,7 @@ lin
 
 --2 Imperatives
   -- : VP -> Imp ;
-  ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
+  -- ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
 
 --2 Embedded sentences
 

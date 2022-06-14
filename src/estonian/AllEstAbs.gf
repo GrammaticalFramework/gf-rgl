@@ -1,4 +1,4 @@
 abstract AllEstAbs =
   Lang,
-  ExtraEstAbs
+  Extend
   ** {} ;

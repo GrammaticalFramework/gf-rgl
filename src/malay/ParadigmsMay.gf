@@ -9,6 +9,7 @@ oper
 -- should always use these constants instead of the constructors
 -- defined in $ResSom$.
 
+noPrep : Prep = mkPrep "" ;
 
 --2 Nouns
 
@@ -26,7 +27,9 @@ oper
     mkA : (adj : Str) -> A ;
   } ;
 
-  -- mkA2 : Str -> Prep -> A2 ;
+  mkA2 : overload {
+    mkA2 : (adj : Str) -> Prep -> A2 ;
+  } ;
 
 --2 Verbs
 
@@ -56,8 +59,10 @@ oper
   --   = \s -> lin VA (regV s) ;
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
-  -- mkVS : Str -> VS
-  --   = \s -> lin VS (regV s) ;
+  mkVS : overload {
+    mkV : (root : Str) -> V ; -- Verb that takes meng as a active prefix
+    mkV : (root : Str) -> Prefix -> V  -- Root and prefix
+  } ;
   --
   -- mkV2A : Str -> V2A
   --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
@@ -93,6 +98,7 @@ oper
 
   mkN = overload {
     mkN : Str -> N = \s -> lin N (mkNoun s) ;
+    mkN : Str -> Animacy -> N = \s,a -> lin N (mkNoun s) ;
     } ;
 
 
@@ -101,12 +107,23 @@ oper
     mkN2 : N   -> N2 = \n -> lin N2 (n ** {c2 = dirPrep}) ;
    } ;
 
+  mkN3 = overload {
+    mkN3 : Str -> N3 = \s -> lin N3 (mkNoun s ** {c2,c3 = dirPrep}) ;
+    mkN3 : N   -> N3 = \n -> lin N3 (n ** {c2,c3 = dirPrep}) ;
+    mkN3 : N   -> Prep -> Prep -> N3 = \n,c2,c3 -> lin N3 (n ** {c2,c3 = dirPrep}) ;
+   } ;
+
   mkPN = overload {
     mkPN : Str -> PN = \s -> lin PN {s = \\_ => s} ;
     } ;
 
   mkA = overload {
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
+    } ;
+
+  mkA2 = overload {
+    mkA2 : (adj : Str) -> A = \s -> lin A2 (mkAdj s) ;
+    mkA2 : A -> Prep -> A = \a,p -> lin A2 (a) ;
     } ;
 
   mkV = overload {
@@ -131,6 +148,12 @@ oper
       lin V3 (mkVerb3 v dirPrep dirPrep) ;
     mkV3 : V -> (p,q : Prep) -> V3 = \v,p,q ->
       lin V3 (mkVerb3 v p q)
+    } ;
+
+  mkV4 = overload {
+    mkV4 : Str       -> Str -> V2 = \v2,str  ->
+      lin V2 (mkVerb4 (mkVerb v2 Meng) dirPrep str) ;
+    mkV4 : V -> Prep -> Str -> V2 = \v,p,str -> lin V2 (mkVerb4 v p str)
     } ;
 
  mkVV = overload {
