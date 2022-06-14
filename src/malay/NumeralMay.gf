@@ -96,6 +96,7 @@ oper
     } ;
 
   -- To make Sub* funs directly from a string.
+  -- ordnumeral from here
   mkNum : Str -> LinNumber = \s -> {
     n = Pl ;
     s = \\_ => s ; -- Indep vs. Attrib only matters for number 1

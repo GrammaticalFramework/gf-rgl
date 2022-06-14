@@ -160,7 +160,7 @@ lin
   science_N = mkN "teadus" ;
   sea_N = mkN "meri" "mere" "merd" "merre" "merede" "meresid" ;
   seek_V2 = mkV2 (mkV "otsima") cpartitive ;
-  see_V2 = mkV2 (mkV "nägema" "näha") ;
+  see_V2 = mkV2 (mkV "nägema" "näha") cpartitive ;
   sell_V3 = mkV3 (mkV "müüma" "müüa" "müüb" "müüakse" "müüge" "müüs" "müünud" "müüdud") accPrep callative ;
   send_V3 = mkV3 (mkV "saatma") accPrep callative ;
   sheep_N = mkN "lammas" "lamba" "lammast" ;

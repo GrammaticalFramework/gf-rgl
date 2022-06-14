@@ -48,6 +48,7 @@ concrete StructuralEst of Structural = CatEst **
   how8much_IAdv = ss "kui palju" ;
   how8many_IDet = {
     s = \\c => "kui" ++ (mkN "mitu" "mitme" "mitut" "TODO" "TODO" "TODO").s ! NCase Sg c ;
+    post = \\c => [] ;
     n = Sg ;
     isNum = False
   } ;

@@ -4,6 +4,11 @@ concrete AdjectiveMay of Adjective = CatMay ** open ResMay, Prelude in {
 
   lin
 
+  -- : AP -> Adv -> AP ; -- warm by nature
+  AdvAP  ap adv = ap ** {
+    s = ap.s ++ adv.s ;
+  } ;
+
   -- : A  -> AP ;
   PositA a = a ** {
     compar = [] ;
@@ -39,6 +44,8 @@ concrete AdjectiveMay of Adjective = CatMay ** open ResMay, Prelude in {
   -- AdjOrd ord = ord ** {
   --   compar = []
   --   } ;
+  -- AdjOrd : Ord -> AP  =
+  AdjOrd ord = ord ;
 
 -- Sentence and question complements defined for all adjectival
 -- phrases, although the semantics is only clear for some adjectives.
@@ -56,7 +63,6 @@ concrete AdjectiveMay of Adjective = CatMay ** open ResMay, Prelude in {
 
 -- It can also be postmodified by an adverb, typically a prepositional phrase.
 
-  -- : AP -> Adv -> AP ; -- warm by nature
-  -- AdvAP  ap adv = ap ** {} ;
+
 
 }

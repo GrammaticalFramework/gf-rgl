@@ -46,6 +46,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
     infVPIF : NPForm -> Polarity -> Agr -> VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
       infVPAnt Simul sc pol agr vp {stem=if ; suf="a"} ;
 
+   linVPS : Agr -> {s : Agr => Str} -> Str = \agr,vps -> vps.s ! agr ;
 
   lincat
     VPS = {
