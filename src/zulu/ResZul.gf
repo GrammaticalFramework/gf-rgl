@@ -738,10 +738,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
       } ;
 
       adjPref : Agr -> VForm -> Str = \agr,vform -> case vform of {
-        VFIndic RelCl Pos PresTense => case agr of {
-          (First Sg | Second Sg | Third C1_2 Sg | Third C1a_2a Sg | Third C3_4 Sg) => "m"++BIND ;
-          (First Pl | Second Pl | Third _ _) => []
-        } ;
+        -- VFIndic RelCl Pos PresTense => case agr of {
+        --   -- (First Sg | Second Sg | Third C1_2 Sg | Third C1a_2a Sg | Third C3_4 Sg) => "m"++BIND ;
+        --   -- Third C3_4 Pl => "mi" ++BIND ;
+        --   -- (First Pl | Second Pl | Third _ _) => []
+        --   relAdjPrefLookup!agr
+        -- } ;
         VFIndic _ _ _ => adjPrefLookup!agr!vform
       } ;
 
@@ -1403,7 +1405,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic _ _ PastTense => relCopConcBeLookup!a ;
       VFIndic _ _ RemPastTense => case a of {
         Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
-        (First _ | Second _ | Third _ _ ) => shortRelConc!a ++BIND  --++ subjConcLookup!a!SCRP
+        (First _ | Second _ | Third _ _ ) => shortRelConc!a  --++ subjConcLookup!a!SCRP
       }
     } ;
 
@@ -1521,29 +1523,29 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     shortRelConc : Agr => Str =
       table {
-        Third C1_2 Sg => "o" ;
-        Third C1_2 Pl => "a" ;
-        Third C1a_2a Sg => "o" ;
-        Third C1a_2a Pl => "a" ;
-        Third C3_4 Sg  => "o" ;
-        Third C3_4 Pl => "e" ;
-        Third C5_6 Sg => "e" ;
-        Third C5_6 Pl => "a" ;
-        Third C7_8 Sg => "e" ;
-        Third C7_8 Pl => "e" ;
-        Third C9_10 Sg => "e" ;
-        Third C9_10 Pl => "e" ;
-        Third C11_10 Sg => "o" ;
-        Third C11_10 Pl => "e" ;
-        Third C9_6 Sg => "e" ;
-        Third C9_6 Pl => "a" ;
-        Third C14 _ => "o" ;
-        Third C15 _ => "o" ;
-        Third C17 _ => "o" ;
-        First Sg => "e" ;
-        First Pl => "e" ;
-        Second Sg  => "o" ;
-        Second Pl => "e"
+        Third C1_2 Sg => "o" ++BIND ;
+        Third C1_2 Pl => "a" ++BIND ;
+        Third C1a_2a Sg => "o" ++BIND ;
+        Third C1a_2a Pl => "a" ++BIND ;
+        Third C3_4 Sg  => "o" ++BIND ;
+        Third C3_4 Pl => "e" ++BIND ;
+        Third C5_6 Sg => "e" ++BIND ;
+        Third C5_6 Pl => "a" ++BIND ;
+        Third C7_8 Sg => "e" ++BIND ;
+        Third C7_8 Pl => "e" ++BIND ;
+        Third C9_10 Sg => "e" ++BIND ;
+        Third C9_10 Pl => "e" ++BIND ;
+        Third C11_10 Sg => "o" ++BIND ;
+        Third C11_10 Pl => "e" ++BIND ;
+        Third C9_6 Sg => "e" ++BIND ;
+        Third C9_6 Pl => "a" ++BIND ;
+        Third C14 _ => "o" ++BIND ;
+        Third C15 _ => "o" ++BIND ;
+        Third C17 _ => "o" ++BIND ;
+        First Sg => "e" ++BIND ;
+        First Pl => "e" ++BIND ;
+        Second Sg  => "o" ++BIND ;
+        Second Pl => "e" ++BIND
       } ;
 
     -- POSSESSIVE ANTECEDENT AGREEMENT MORPHEME --
