@@ -32,7 +32,7 @@ lin
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (lin NP (mkNP <lin Card card : Card> (lin CN cn))))) (lin A a) ;
 
 {-
-  glass_of_CN  np =  mkCN (lin N2 (mkN2 (mkN "klaas") (mkPrep partitive))) (lin NP np) | mkCN (lin N2 (mkN2 (mkN "klaasitäis") (mkPrep partitive))) (lin NP np) ;
+  glass_of_CN  np =  mkCN (lin N2 (mkN2 (mkN "klaas") (casePrep partitive))) (lin NP np) | mkCN (lin N2 (mkN2 (mkN "klaasitäis") (casePrep partitive))) (lin NP np) ;
 
 
   where_go_QCl np = mkQCl (lin IAdv (ss "kuhu")) (mkCl np (mkVP L.go_V)) ;

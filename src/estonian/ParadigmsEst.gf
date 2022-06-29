@@ -83,6 +83,12 @@ oper
   postGenPrep :         Str -> Prep ;  -- genitive postposition, e.g. "taga"
   casePrep    : Case ->        Prep ;  -- just case, e.g. adessive
 
+  mkPrep : overload {
+    mkPrep : Str -> Prep ;         -- API-friendly version of postGenPrep—many applications assume there is a `mkX : Str -> X' available for any X
+    mkPrep : Case -> Prep ;        -- API-friendly version of casePrep
+    mkPrep : Case -> Str -> Prep ; -- API-friendly version of postPrep
+  } ;
+
 
 --2 Conjunctions, adverbs
 
@@ -311,19 +317,25 @@ oper
   infDa = InfDa ; infMa = InfMa ; infMast = InfMast ;
   infDes = InfDes ; infMas = InfMas ; infMaks = InfMaks ; infMata = InfMata ; infMine = InfMine ;
 
-  mkPrep : (isPre : Bool) -> Case -> Str ->  Prep = \isPre,c,p -> lin Prep {
+  mkAdposition : (isPre : Bool) -> Case -> Str ->  Prep = \isPre,c,p -> lin Prep {
     c = casep2npformp c ;
     s = p ;
     isPre = isPre
     } ;
-  prePrep  : Case -> Str -> Prep = mkPrep True ;
-  postPrep : Case -> Str -> Prep = mkPrep False ;
+  prePrep  : Case -> Str -> Prep = mkAdposition True ;
+  postPrep : Case -> Str -> Prep = mkAdposition False ;
   postGenPrep : Str -> Prep = postPrep genitive ;
+  mkPrep = overload {
+    mkPrep : Str -> Prep  = postGenPrep ;
+    mkPrep : Case -> Prep = casePrep ;
+    mkPrep : Case -> Str -> Prep = postPrep ;
+    mkPrep : (isPre : Bool) -> Case -> Str -> Prep = mkAdposition
+  } ;
 
   -- The Prep's isPre field is used in a special (hacky) way in mkN3 and mkN2.
   -- Used to be able to match whether the Prep's case is Gen, but now several
   -- Preps use the genitive stem, so we need to check if it's actually genitive.
-  casePrep : Case -> Prep = \c -> mkPrep (isActuallyGenitive c) c [] ;
+  casePrep : Case -> Prep = \c -> mkAdposition (isActuallyGenitive c) c [] ;
 
   -- NPAcc is different, it's not formed from a Case(Plus)
   accPrep : Prep = lin Prep {
