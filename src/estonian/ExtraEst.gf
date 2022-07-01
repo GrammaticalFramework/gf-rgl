@@ -28,10 +28,19 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
       } ;
 
   lincat
-    VPI   = {s : InfStem => Str} ;
-    [VPI] = {s1,s2 : InfStem => Str} ;
-    -- VPI   = {s : Str} ;
-    -- [VPI] = {s1,s2 : Str} ;
+    VPI   = LinVPI ;
+    [VPI] = LinListVPI ;
+
+  oper
+    LinVPI     : Type = {s     : InfStem => Str} ;
+    LinListVPI : Type = {s1,s2 : InfStem => Str} ;
+
+    linVPI : InfForms -> LinVPI -> Str = \inf,vpi -> vpi.s ! inf.stem ;
+
+    -- Version that uses InfStem
+    infVPIF : NPForm -> Polarity -> Agr -> VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
+      infVPAnt Simul sc pol agr vp {stem=if ; suf="a"} ;
+
   lin
     BaseVPI = twoTable InfStem ;
     ConsVPI = consrTable InfStem comma ;
@@ -41,23 +50,20 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
     ComplVPIVV vv vpi =
       insertObj (\\_,_,_ => vpi.s ! vv.vi.stem) (predV vv) ;
 
-  oper
-    -- Version that uses InfStem
-    infVPIF : NPForm -> Polarity -> Agr -> VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
-      infVPAnt Simul sc pol agr vp {stem=if ; suf="a"} ;
-
-   linVPS : Agr -> {s : Agr => Str} -> Str = \agr,vps -> vps.s ! agr ;
-
   lincat
-    VPS = {
+    VPS   = LinVPS ;
+    [VPS] = LinListVPS ;
+  oper
+    LinVPS : Type = {
       s   : Agr  => Str ;
       sc  : NPForm ;  --- can be different for diff parts
       } ;
-
-    [VPS] = {
+    LinListVPS : Type = {
       s1,s2 : Agr  => Str ;
       sc    : NPForm ;  --- take the first: minä osaan kutoa ja täytyy virkata
       } ;
+
+    linVPS : Agr -> {s : Agr => Str} -> Str = \agr,vps -> vps.s ! agr ;
 
   lin
     BaseVPS x y = twoTable Agr x y ** {sc = x.sc} ;

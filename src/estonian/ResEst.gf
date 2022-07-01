@@ -207,6 +207,8 @@ param
 
   Compl : Type = {s : Str ; c : NPFormPlus ; isPre : Bool} ;
 
+  emptyCompl : Compl = {s = "" ; c = case2npformp NPAcc ; isPre = False} ;
+
   npfplus2compl : NPFormPlus -> Compl = \npf -> {s = [] ; c = npf ; isPre = False} ;
 
   appCompl : Bool -> Polarity -> Compl -> NPhrase -> Str = \isFin,b,co,np ->

@@ -56,6 +56,7 @@ concrete ExtendEst of Extend =
 
   linref
     VPS = X.linVPS (agrP3 Sg) ;
+    VPI = X.linVPI InfMa ;
 
   lin
     MkVPS = X.MkVPS ;
