@@ -65,6 +65,26 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
 
     linVPS : Agr -> {s : Agr => Str} -> Str = \agr,vps -> vps.s ! agr ;
 
+    -- This internal oper isn't used in any of the RGL linearisations, but can be useful for application grammars
+    -- It produces a telegraphic style in past participle, 'võetud …' instead of 'on/oli võetud …'.
+    -- It differs from PastPartAP in word order, and it also takes polarity.
+    TelegraphicPastPartPassVPS : Pol -> ResEst.VP -> VPS = \p,vp ->
+      let sentIsPos : Bool = case p.p of {
+            Neg => False ;
+            Pos => True } ;
+          neg : Str = case p.p of {
+            Neg => "ei" ;
+            Pos => [] } ;
+       in lin VPS {
+            s = \\a => neg                            -- ei
+                    ++ vp.v.s ! (PastPart Pass)       -- võetud
+                    ++ vp.s2 ! sentIsPos ! p.p ! a    -- vereanalüüs
+                    ++ vp.adv                         -- eile
+                    ++ vp.p
+                    ++ vp.ext ;
+            sc = vp.sc
+          };
+
   lin
     BaseVPS x y = twoTable Agr x y ** {sc = x.sc} ;
     ConsVPS x y = consrTable Agr comma x y ** {sc = x.sc} ;
