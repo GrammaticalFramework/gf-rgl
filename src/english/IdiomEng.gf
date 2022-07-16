@@ -44,4 +44,3 @@ concrete IdiomEng of Idiom = CatEng ** open Prelude, ResEng in {
       } ;
 
 }
-

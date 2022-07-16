@@ -9,12 +9,12 @@ concrete PhraseEst of Phrase = CatEst ** open ResEst, (P = Prelude) in {
     UttImpPl  pol imp = {s = pol.s ++ imp.s ! pol.p ! Ag Pl P2} ;
     UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! AgPol} ;
 
-    UttIP ip = {s = ip.s ! NPCase Nom} ;
+    UttIP ip = {s = linIP (NPCase Nom) ip} ;
     UttIAdv iadv = iadv ;
-    UttNP np = {s = np.s ! NPCase Nom} ;
-    UttVP vp = {s = infVP (NPCase Nom) Pos (agrP3 Sg) vp InfDa} ;
+    UttNP np = {s = linNP (NPCase Nom) np} ;
+    UttVP vp = {s = infVP (NPCase Nom) Pos (agrP3 Sg) vp InfMa} ;
     UttAdv adv = adv ;
-    UttCN np = {s = np.s ! NCase Sg Nom} ;
+    UttCN cn = {s = linCN (NCase Sg Nom) cn} ;
     UttAP np = {s = np.s ! P.False ! NCase Sg Nom} ;
     UttCard n = {s = n.s ! Sg ! Nom} ;
     UttInterj i = i ;
@@ -23,6 +23,6 @@ concrete PhraseEst of Phrase = CatEst ** open ResEst, (P = Prelude) in {
     PConjConj conj = {s = conj.s2} ;
 
     NoVoc = {s = []} ;
-    VocNP np = {s = "," ++ np.s ! NPCase Nom} ;
+    VocNP np = {s = "," ++ linNP (NPCase Nom) np} ;
 
 }

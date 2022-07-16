@@ -60,6 +60,12 @@ oper
     empty = []
     } ;
 
+  mkNounPhrase : Str -> NounPhrase = \str -> {
+    s = \\_ => str ;
+    a = NotPron ;
+    empty = []
+    } ;
+
   mkIP : Str -> IPhrase = \str -> {
     s = \\_ => str ;
     a = NotPron ;
@@ -81,9 +87,14 @@ oper
     isPre : Bool ;
   } ;
 
+  linDet : Determiner -> Str = \det -> det.pr ++ det.s ;
+
+-- add field in determiner for kedua-dua numbers
+
   Determiner : Type = Quant ** {
     pr : Str ; -- prefix for numbers
     n : NumType ; -- number as in 5 (noun in singular), Sg or Pl
+    count: Str ;
     } ;
 
   CardNum : Type = {
@@ -127,16 +138,17 @@ oper
     sp = \\_ => str
     } ;
 
-  mkDet : Str -> Number -> Determiner = \str, num -> mkQuant str ** {
+  mkDet : Str -> Str -> Number -> Determiner = \cnt, str, num -> mkQuant str ** {
     pr = "" ;
     n = NoNum num ;
+    count = "" ;
   } ;
 
-  mkIdet : Str -> Str -> Number -> Bool -> Determiner = \str, standalone, num, isPre -> mkDet str num ** {
+  mkIdet : Str -> Str -> Str -> Number -> Bool -> Determiner = \cnt, str, standalone, num, isPre -> mkDet cnt str num ** {
     pr = case isPre of {True => str ; False => [] } ;
     -- if isPre is True, then: "berapa kucing"
     s = case isPre of { False => str ; True => [] };
-
+    count = cnt ;
     sp = \\_ => standalone ;
   } ;
 
@@ -209,22 +221,34 @@ oper
     c3 : Preposition
     } ;
 
+  Verb4 : Type = Verb ** {
+    c2 : Preposition ;
+    passive : Str
+    } ;
+
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
   mkVerb : Str -> Prefix -> Verb = \str,p -> {
     s = table {
       Root => str ;
-      Active => prefix p str
+      Active => prefix p str ;
+      Imperative => str ++ BIND ++ "kan"
       }
     } ;
 
   mkVerb2 : Verb -> Preposition -> Verb2 = \v,pr -> v ** {
     c2 = pr ;
-    passive = "di" + v.s ! Root -- TODO check
+    passive = "di" ++ BIND ++ v.s ! Root
     } ;
 
   mkVerb3 : Verb -> (p,q : Preposition) -> Verb3 = \v,p,q ->
     mkVerb2 v p ** {c3 = q} ;
+
+  mkVerb4 : Verb -> Preposition -> Str -> Verb4 = \v,pr,str -> v ** {
+    s = \\_ => v.s ! Active ++ str;
+    c2 = pr ;
+    passive = "di" ++ BIND ++ v.s ! Root ++ str
+    } ;
 
   copula : Verb = {s = \\_ => "ada"} ; -- TODO
 ------------------
@@ -259,6 +283,9 @@ oper
     s = \\vf,pol => nounneg pol ++ s ;
     } ;
 
+  linVP : VerbPhrase -> Str = \vp -> vp.s ! Active ! Pos;
+
+-- https://www.reddit.com/r/indonesian/comments/gsizsv/when_to_use_tidak_bukan_jangan_belum/
 
   verbneg : Polarity -> Str = \pol -> case pol of {
     Neg => "tidak" ; -- or "tak"?
@@ -269,6 +296,11 @@ oper
     Neg => "bukan" ;
     Pos => []
     } ;
+
+  impneg : Polarity -> Str = \pol -> case pol of {
+    Neg => "jangan" ;
+    Pos => []
+  } ;
 --------------------------------------------------------------------------------
 -- Cl, S
 

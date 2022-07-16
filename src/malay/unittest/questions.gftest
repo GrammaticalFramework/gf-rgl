@@ -16,11 +16,11 @@ LangMay: berapa banyak kucing
 
 Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))
 LangEng: do you teach the cat
-LangMay: adakah awak mengajar kucing
+LangMay: adakah kamu mengajar kucing
 
 Lang: UseQCl (TTAnt TPres ASimul) PNeg (QuestCl (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a teach_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N)))))
 LangEng: don't you teach the cat
-LangMay: adakah awak tidak mengajar kucing
+LangMay: adakah kamu tidak mengajar kucing
 
 Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a teach_V2) (UsePron he_Pron)))
 LangEng: which cat teaches him
@@ -28,19 +28,19 @@ LangMay: kucing yang mana mengajar dia
 
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv where_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
 LangEng: where did you go
-LangMay: awak pergi mana
+LangMay: kamu pergi mana
 
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
 LangEng: why did you go
-LangMay: mengapa awak pergi
+LangMay: mengapa kamu pergi
 
 Lang: UseQCl (TTAnt TPast ASimul) PNeg (QuestIAdv why_IAdv (PredVP (UsePron youSg_Pron) (UseV go_V)))
 LangEng: why didn't you go
-LangMay: mengapa awak tidak pergi
+LangMay: mengapa kamu tidak pergi
 
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash (IdetCN (IdetQuant which_IQuant NumSg) (UseN woman_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a see_V2)))
 LangEng: which woman did you see
-LangMay : awak melihat perempuan yang mana
+LangMay : kamu melihat perempuan yang mana
 
 # -- should be to whom did mother give the meat
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whoSg_IP (SlashVP (MassNP (UseN2 mother_N2))  (Slash3V3 give_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N)))))
@@ -50,7 +50,7 @@ LangMay: ibu memberi daging kepada siapa
 # -- should be to whom did mother talk the meat
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestSlash whoSg_IP (SlashVP (MassNP (UseN2 mother_N2))  (Slash3V3 talk_V3 (DetCN (DetQuant DefArt NumSg) (UseN meat_N)))))
 LangEng: whom did mother talk about the meat to
-LangMay: ibu bercakap daging dengan siapa
+LangMay: ibu bercakap tentang daging dengan siapa
 
 Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplVV want_VV (UseV go_V)))
 LangEng: who wants to go
@@ -62,7 +62,7 @@ LangMay: siapa kucing
 
 Lang: UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv how_IAdv (PredVP (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (UseN2 mother_N2)) (ComplSlash (SlashV2A paint_V2A (PositA black_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))))
 LangEng: how does your mother paint the house black
-LangMay: bagaimana ibu awak mengecat rumah hitam
+LangMay: bagaimana ibu kamu mengecat rumah hitam
 
 Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestIAdv why_IAdv (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumSg) (UseN meat_N)))))
 LangEng: why did she eat the meat
