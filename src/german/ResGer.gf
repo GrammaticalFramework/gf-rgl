@@ -47,6 +47,7 @@ resource ResGer = ParamX ** open Prelude in {
   oper 
     NPNom : PCase = NPC Nom ;
     PrepNom : Preposition = {s,s2 = "" ; isPrep = False ; c = NPNom} ; 
+
     prepC : PCase -> {s : Str ; c : Case} = \cp -> case cp of {
       NPC c      => {s = []   ; c = c} ;
       NPP CAnDat => {s = "an" ; c = Dat} ;
@@ -54,11 +55,14 @@ resource ResGer = ParamX ** open Prelude in {
       NPP CInDat => {s = "in" ; c = Dat} ;
       NPP CZuDat => {s = "zu" ; c = Dat} ;
       NPP CVonDat => {s = "von" ; c = Dat}
-
       } ;
 
     usePrepC : PCase -> (Case -> Str) -> Str = \c,fs -> 
       let sc = prepC c in sc.s ++ fs sc.c ;
+
+    appPrepC : Preposition -> (Case => Str) -> Str = \prep,arg ->
+      let sc = prepC prep.c
+      in prep.s ++ sc.s ++ arg ! sc.c ++ prep.s2 ;
 
   oper
     mkAgr : {g : Gender ; n : Number ; p : Person} -> Agr = \r ->
@@ -251,11 +255,8 @@ resource ResGer = ParamX ** open Prelude in {
      s : PCase => Str ;
      rc : Str ;  -- die Frage , [rc die ich gestellt habe]
      ext : Str ; -- die Frage , [sc wo sie schläft] ; die Regel , [vp kein Fleisch zu essen] | [s dass ...]
-     --	 adv : Str ; -- die Frage [a von Max]  -- HL: cannot be extracted
      a : Agr ;
-     -- isLight : Bool ;  -- light NPs come before negation in simple clauses (expensive)
-     -- isPron : Bool  ; -- needed to put accPron before datPron
-     w : Weight } ;
+     w : Weight } ; -- light NPs come before negation in simple clauses (expensive)
 
   mkN  : (x1,_,_,_,_,x6,x7 : Str) -> Gender -> Noun = 
     \Mann, Mannen, Manne, Mannes, Maenner, Maennern, Mann_, g -> {
@@ -441,6 +442,14 @@ resource ResGer = ParamX ** open Prelude in {
 
   noPreposition : Case -> Preposition = \c -> 
     {s,s2 = [] ; c = NPC c ; isPrep = False} ;
+
+-- To build passive: accusative object -> nom subject; others -> same case or prep
+
+  subjPrep : Preposition -> Preposition = \prep ->
+    case <prep.c,prep.isPrep> of {
+      <NPC Acc,False> => prep ** {c = NPC Nom} ;
+      _ => prep
+    } ;
 
 -- Pronouns and articles
 -- Here we define personal and relative pronouns.
@@ -990,7 +999,7 @@ resource ResGer = ParamX ** open Prelude in {
       <GPl,Gen>     => "deren" ;
       _ => artDef ! gn ! c
       } ;
-    RSentence => "was"
+    RSentence => (caselist "was" "was" "was" "wessen") ! c   -- wessen HL 4/2022
     } ;
 
 -- Function that allows the construction of non-nominative subjects.

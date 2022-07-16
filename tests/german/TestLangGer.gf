@@ -2,9 +2,12 @@
 -- use the modified files in gf-rgl/src/german
 
 concrete TestLangGer of TestLang = 
-  GrammarGer - [SlashVP, RelSlash]
+  GrammarGer - [SlashVP,RelSlash,QuestSlash,AdvSlash,SlashPrep,SlashVS,UseSlash]
   , TestLexiconGer
   , ConstructionGer
+  , ExtraGer[RNP,ReflRNP,ReflPron,ReflPoss,PredetRNP
+               ,RNPList,ConjRNP --,Base_rr_RNP,Base_nr_RNP,Base_rn_RNP,Cons_rr_RNP,Cons_nr_RNP
+    ]
   ** open ResGer,Prelude,(P=ParadigmsGer) in {
 
   flags startcat = Phr ; unlexer = text ; lexer = text ;
@@ -28,42 +31,34 @@ concrete TestLangGer of TestLang =
       (insertObjRefl (predVc v3) ** {c2 = v3.c3}); 
 
     PassV2Q v q =
-      let c = case <v.c2.c, v.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
-          vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = v.c2 ** {c = c} }
+      let vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
+            ** { c1 = subjPrep v.c2 }
       in insertExtrapos (bindComma ++ q.s ! QIndir) vp ;
 
     PassV2S v s =
-      let c = case <v.c2.c, v.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
-          vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = v.c2 ** {c = c} }
+      let vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
+            ** { c1 = subjPrep v.c2 }
       in insertExtrapos (bindComma ++ conjThat ++ s.s ! Sub) vp ;
 
     PassV2V v vp = 
-      let
-          inf = mkInf v.isAux Simul Pos vp ;             -- ok for v.isAux=False, v.c2.c=Acc
-          c = case <v.c2.c, v.c2.isPrep> of {            --        v.objCtrl=True   HL 3/22
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
+      let                                                -- ok for v.isAux=False,
+          inf = mkInf v.isAux Simul Pos vp ;             -- v.c2.c=Acc, v.objCtrl=True   HL 3/22
           vp2 = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = v.c2 ** {c = c} } ;
+            ** { c1 = subjPrep v.c2 } ;
         in insertInf inf vp2 ;                           -- v=lassen needs in-place inf instead
 
-    PassVPSlash vp = 
-      let c = case <vp.c2.c,vp.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => vp.c2.c} ;
-          ctrl = case vp.objCtrl of { True => False ; _ => True }  -- always False?
-      in -- insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass ** {c1 = vp.c2 ** {c = c}})
-          insertObj (\\_ => vp.s.s ! (VPastPart APred))
-                      (predV werdenPass ** {nn = vp.nn ; c1 = vp.c2 ** {c = c}})
-           ** {ext = vp.ext ; inf = vp.inf ; c2 =vp.c2 ; objCtrl = ctrl } ;  -- c2 ?
-       -- Scharolta: passivised object: acc object -> nom subject; all others: same case/prep
+    PassVPSlash vp =  -- less correct in ExtraGer.gf with inserting
+      let             -- (\\_ => (PastPartAP vp).s ! APred)
+        ctrl = case vp.objCtrl of { True => False ; _ => True }  -- always False?
+      in
+      insertObj (\\_ => vp.a2 ++ vp.adj ++ vp.s.s ! (VPastPart APred))
+        (predV werdenPass ** {nn = vp.nn ; c1 = subjPrep vp.c2})
+      ** {ext = vp.ext ; inf = vp.inf ; c2 = vp.c2 ; objCtrl = ctrl } ;  -- c2 ?
        -- HL: does not work for vp = (Slash2V3 v np): uns wird *den Beweis erklärt
        -- 3/22 works for        vp = (SlashV2V v2v reflVP): wir werden gebeten, uns zu waschen
 
     PastPartAP vp = {
-      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++ 
+      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++
         (vp.nn ! agrP3 Sg).p3 ++ (vp.nn ! agrP3 Sg).p4 ++ vp.adj ++ vp.a2 
         ++ vp.inf.inpl.p2 ++ vp.s.s ! VPastPart af ;
       isPre = True ;
@@ -164,29 +159,49 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
       } ;
 
   lin
+
     SlashVP np vp =
       let subj = mkSubj np vp.c1
       in mkClSlash subj.p1 subj.p2 vp ** { c2 = vp.c2 } ;
 
     RelSlash rp cls = lin RCl {
       s = \\m,t,a,p,gn =>
-          appPrep cls.c2 (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ++
-          cls.s ! m ! t ! a ! p ! Sub ! gn ;
+          appPrepC cls.c2 (rp.s ! gn) ++
+            cls.s ! m ! t ! a ! p ! Sub ! gn ;
       c = (prepC cls.c2.c).c
       } ;
-{-
-    QuestSlash ip slash = {
+
+    QuestSlash ip slash = let gn : GenNum = case ip.n of {Sg => GSg Masc ; _ => GPl} in {
       s = \\m,t,a,p => 
             let 
               cls = slash.s ! m ! t ! a ! p ;
-              who = appPrep slash.c2 (\\k => usePrepC k (\c -> ip.s ! c)) ;
+              who = appPrepC slash.c2 ip.s ;
             in table {
-              QDir   => who ++ cls ! Inv ;
-              QIndir => who ++ cls ! Sub
+              QDir   => who ++ cls ! Inv ! (RGenNum gn);
+              QIndir => who ++ cls ! Sub ! (RGenNum gn)
               }
       } ;
--}
 
+    AdvSlash slash adv = {
+      s  = \\m,t,a,b,o,gn => slash.s ! m ! t ! a ! b ! o ! gn ++ adv.s ;
+      c2 = slash.c2
+      } ;
+
+    SlashPrep cl prep = {
+      s = \\m,t,a,p,o,gn => cl.s ! m ! t ! a ! p ! o ;
+      c2 = prep
+      } ;
+
+    SlashVS np vs slash =
+      let subj = mkSubj np PrepNom ;
+          vps = insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)
+                   ** {c2 = slash.c2 ; objCtrl = False}  -- default objCtrl guessed
+      in mkClSlash subj.p1 subj.p2 vps ;
+
+    UseSlash t p cl = {
+      s = \\o => t.s ++ p.s ++ cl.s ! t.m ! t.t ! t.a ! p.p ! o ! RSentence ;
+      c2 = cl.c2
+      } ;
 
   oper
     gnToAgr : RelGenNum -> Agr = \gn ->

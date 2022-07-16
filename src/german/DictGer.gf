@@ -15315,6 +15315,7 @@ lin
   glans_N = mkN  "Glans" "Glandes" feminine ;
   glanzleistung_N = mkN "Glanzleistung" ;
   glaren_V = regV "glaren" ;
+  glas_N = mkN  "Glas" "Gläser" neuter ;
   glasampulle_N = mkN  "Glasampulle" "Glasampullen" feminine ;
   glasauge_N = mkN  "Glasauge" "Glasaugen" neuter ;
   glasbaustein_N = mkN  "Glasbaustein" "Glasbausteine" masculine ;

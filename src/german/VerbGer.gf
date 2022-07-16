@@ -129,8 +129,8 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
-    -- adj slot not used here for e.g. "ich bin alt" but same behaviour as NPs?
-	-- "ich bin nicht alt" "ich bin nicht Doris"
+    -- SS: adj slot not used here for e.g. "ich bin alt" but same behaviour as NPs?
+    --     "ich bin nicht alt" "ich bin nicht Doris"
 
     UseCopula = predV sein_V ;
 

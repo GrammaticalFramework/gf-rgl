@@ -36,7 +36,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
     SlashVP np vp =
       let subj = mkSubj np vp.c1 ;                       -- HL 3/2022: need a mkClSlash to prevent
       in mkClause subj.p1 subj.p2 vp ** { c2 = vp.c2 } ; -- reflexives in vp instantiated to np.a
-
+                                                         -- cf. tests/german/TestLangGer.gf
     AdvSlash slash adv = {
       s  = \\m,t,a,b,o => slash.s ! m ! t ! a ! b ! o ++ adv.s ;
       c2 = slash.c2
@@ -75,7 +75,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 
     SSubjS a s b = {s = \\o => a.s ! o ++ "," ++ s.s ++ b.s ! Sub} ;
 
-	RelS s r = {s = \\o => s.s ! o ++ "," ++ r.s ! RSentence} ; --- "was"
+    RelS s r = {s = \\o => s.s ! o ++ "," ++ r.s ! RSentence} ; --- "was"
 
 
 }

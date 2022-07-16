@@ -193,3 +193,14 @@ DetCN (DetQuant DefArt NumSg) (RelCN (UseN boy_N) (UseRCl (TTAnt TPres ASimul) P
 
 PredVP (UsePN john_PN) (ComplVS say_VS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV want_VV (ComplSlash (SlashV2V lassen_V2V (ComplSlash (SlashV2V helfen_V2V (ComplSlash (SlashV2A paint_V2A (PositA blue_A)) (DetCN (DetQuant DefArt NumSg) (UseN house_N)))) (UsePron he_Pron))) (DetCN (DetQuant DefArt NumPl) (UseN child_N)))))))
 
+-- aci
+
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2V sehen_V2V (UseV sleep_V)) (DetCN (DetQuant DefArt NumSg) (UseN dog_N)))))) NoVoc
+
+PredVP (UsePron we_Pron) (ComplSlash (SlashV2VNP hoeren_V2V (DetCN (DetQuant DefArt NumPl) (UseN man_N)) (Slash2V3 talk_V3 (UsePron he_Pron))) (DetCN (DetQuant (PossPron they_Pron) NumPl) (UseN wife_N)))
+
+PredVP (UsePron we_Pron) (ComplSlash (SlashV2V hoeren_V2V (ComplSlash (Slash2V3 talk_V3 (UsePron he_Pron)) (DetCN (DetQuant (PossPron they_Pron) NumPl) (UseN wife_N)))) (DetCN (DetQuant DefArt NumPl) (UseN man_N)))
+
+PredVP (UsePron we_Pron) (ComplSlash (SlashV2V hoeren_V2V (ComplSlash (Slash3V3 talk_V3 (DetCN (DetQuant (PossPron they_Pron) NumPl) (UseN wife_N))) (UsePron he_Pron))) (DetCN (DetQuant DefArt NumPl) (UseN man_N)))
+
+
