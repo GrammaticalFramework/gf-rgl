@@ -48,7 +48,7 @@ oper
   dative     : Case ;
   genitive   : Case ;
 
-  anDat_Case : Case ; -- preposition "an" accusative with contraction "am" --%
+  anDat_Case : Case ; -- preposition "an" dative with contraction "am" --%
   inAcc_Case : Case ; -- preposition "in" accusative with contraction "ins" --%
   inDat_Case : Case ; -- preposition "in" dative with contraction "im" --%
   zuDat_Case : Case ; -- preposition "zu" dative with contractions "zum", "zur" --%
