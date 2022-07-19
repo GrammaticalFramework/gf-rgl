@@ -1,4 +1,4 @@
-concrete StructuralGer of Structural = CatGer ** 
+concrete StructuralGer of Structural' = CatGer **
 
   open MorphoGer, MakeStructuralGer, (X = ConstructX), 
        (P = ParadigmsGer), IrregGer, Prelude in {
@@ -11,6 +11,7 @@ concrete StructuralGer of Structural = CatGer **
   above_Prep = mkPrep "über" P.dative ;
   after_Prep = mkPrep "nach" P.dative ;
   all_Predet = {s = appAdj (regA "all") ; c = noCase ; a = PAgNone} ;
+  all_Predet' = {s = appAdj' (regA "all") ; c = noCase ; a = PAgNone} ;
   almost_AdA, almost_AdN = ss "fast" ;
   although_Subj = ss "obwohl" ;
   always_AdV = ss "immer" ;
@@ -49,12 +50,14 @@ concrete StructuralGer of Structural = CatGer **
   if_Subj = ss "wenn" ; --- no variants in the RGL! | ss "falls" ;
   in8front_Prep = mkPrep "vor" P.dative ;
   i_Pron = mkPronPers "ich" "mich" "mir" "meiner" "mein" Masc Sg P1 ;
-  in_Prep = mkPrep [] (NPP CInDat) ;
+--  in_Prep = mkPrep [] (NPP CInDat) ;
+  in_Prep = P.inDat_Prep ; -- HL 7/2022
   it_Pron = mkPronPers "es" "es" "ihm" "seiner" "sein"  Neutr Sg P3 ;
   less_CAdv = X.mkCAdv "weniger" "als" ;
   many_Det = detLikeAdj False Pl "viel" ;
   more_CAdv = X.mkCAdv "mehr" "als" ;
   most_Predet = {s = appAdj (regA "meist") ; c = noCase ; a = PAgNone} ;
+  most_Predet' = {s = appAdj' (regA "meist") ; c = noCase ; a = PAgNone} ;
   much_Det = {s = \\_,_ => "viel" ; sp = \\_,_ => "vieles" ; n = Sg ; a = Weak ; isDef = False} ;
   must_VV = auxVV 
       (mkV 

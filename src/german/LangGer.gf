@@ -1,10 +1,10 @@
 --# -path=.:../abstract:../common:../api:../prelude
 
-concrete LangGer of Lang = 
+concrete LangGer of Lang' =
   GrammarGer,
   LexiconGer
-  ,ConstructionGer
-  ,DocumentationGer --# notpresent
+--  ,ConstructionGer
+--  ,DocumentationGer --# notpresent
   ,MarkupGer - [stringMark]
   ** {
 

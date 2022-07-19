@@ -1,20 +1,9 @@
-concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
+concrete VerbGer of Verb' = CatGer ** open Prelude, ResGer, Coordination in {
 
   flags optimize=all_subs ;
 
   lin
     UseV = predV ;
-{-
-    ComplVV v vp = 
-      let 
-        vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ;
-      in
-       insertExtrapos vpi.p4 (
-        insertInfExt vpi.p3 (
-          insertInf vpi.p2 (
-            insertObjc vpi.p1 vps))) ;
--}  
 
     ComplVV v vp = -- HL 3/22: leave inf-complement in-place, extract infzu-complement
       let
@@ -32,25 +21,14 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
     SlashV2a v = (predVc v) ; 
       
-    Slash2V3 v np = insertObjNP np v.c2 (predVc v) ** {c2 = v.c3} ; 
-    Slash3V3 v np = insertObjNP np v.c3 (predVc v) ; 
+    Slash2V3 v np = insertObjNP' np v.c2 (predVc v) ** {c2 = v.c3} ;
+    Slash3V3 v np = insertObjNP' np v.c3 (predVc v) ;
 
     SlashV2S v s = 
       insertExtrapos (comma ++ conjThat ++ s.s ! Sub) (predV v) ** {c2 = v.c2; objCtrl = False} ;
     SlashV2Q v q = 
       insertExtrapos (comma ++ q.s ! QIndir) (predV v) ** {c2 = v.c2; objCtrl = False} ;
-{-
-    SlashV2V v vp = 
-      let 
-        vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ** {c2 = v.c2} ;
-      in vps ** 
-       insertExtrapos vpi.p4 ( -- inplace vp; better extract it!
-        insertInfExt vpi.p3 (
-          insertInf vpi.p2 (
-            insertObjc vpi.p1 vps))) ;
 
--}
     SlashV2V v vp =  -- (jmdn) bitten, sich zu waschen | sich waschen lassen  HL 7/19
       let
         vps = predVGen v.isAux v ; -- e.g. verspricht|bittet.isAux=False | läßt.isAux=True
@@ -62,23 +40,14 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     SlashV2A v ap =
       insertAdj (ap.s ! APred) ap.c ap.ext (predV v) ** {c2 = v.c2; objCtrl = False} ;
 
+-- to save compile time, comment out:
     ComplSlash vps np =
       -- IL 24/04/2018 force reflexive in the VPSlash to take the agreement of np.
       -- HL 3/22 better before inserting np, using objCtrl
       let vp = case vps.objCtrl of { True => objAgr np vps ; _  => vps }
                ** { c2 = vps.c2 ; objCtrl = vps.objCtrl } ;
-      in insertObjNP np vps.c2 vp ;
-
-{-
-    SlashVV v vp = 
-      let
-        vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ** {c2 = vp.c2 } ;
-      in vps **
-      insertExtrapos vpi.p3 (
-        insertInf vpi.p2 (
-          insertObj vpi.p1 vps)) ;
--}
+      in insertObjNP' np vps.c2 vp ;
+    -- compiler: + ComplSlash' 414720 (199680,352)
 
     -- SlashVV v vps is like ComplVV v vp, but infinite vps should not be extracted
     SlashVV v vp =                                                    --  HL 3/2022
@@ -123,9 +92,11 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
    -- expensive: + SlashV2VNP 503.884.800 (2880,540), reaches memory limit with SlashVV
    -- does not work for nested uses: the nn-levels are confused  HL 3/22
 
-   SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
-      insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
-
+   -- SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
+   --    insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
+-- to save compile time, comment out:
+   SlashV2VNP' v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
+      insertObjNP' np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
 
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
@@ -159,7 +130,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
     PassV2 v = -- acc object -> nom subject; all others: same PCase
       let c = case <v.c2.c, v.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c}
+            <Acc, isCase> => Nom ; _ => v.c2.c}
       in insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass) ** { c1 = v.c2 ** {c = c} } ;
 
 {- HL: The construction VPSlashPrep : VP -> Prep -> VPSlash does not exist

@@ -1,8 +1,8 @@
 --# -path=.:../abstract:../common:prelude
 
-concrete GrammarGer of Grammar = 
+concrete GrammarGer of Grammar' =
   NounGer, 
-  VerbGer, 
+  VerbGer, -- to save compile time during development HL 7/22
   AdjectiveGer,
   AdverbGer,
   NumeralGer,

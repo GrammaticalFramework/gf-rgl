@@ -185,7 +185,8 @@ lin
   sock_N = reg2N "Strumpf" "Strümpfe" masculine ;
   song_N = reg2N "Lied" "Lieder" neuter ;
   speak_V2 = dirV2 Irreg.sprechen_V ;
-  star_N = mkN "Sterne" ;
+--  star_N = mkN "Sterne" ;
+  star_N = mkN "Stern" ; -- HL 7/22
   steel_N = mkN "Stahl" ;
   stone_N = mkN "Stein" ;
   stop_V = seinV Irreg.halten_V ;

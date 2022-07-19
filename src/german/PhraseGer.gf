@@ -1,4 +1,5 @@
-concrete PhraseGer of Phrase = CatGer ** open Prelude, ResGer in {
+--# -path=.:../abstract:../common:prelude -- HL
+concrete PhraseGer of Phrase' = CatGer ** open Prelude, ResGer in {
 
   flags optimize=all_subs ;
 
@@ -13,7 +14,7 @@ concrete PhraseGer of Phrase = CatGer ** open Prelude, ResGer in {
 
     UttIP ip = {s = ip.s ! Nom} ; --- Acc also
     UttIAdv iadv = iadv ;
-    UttNP np = {s = np.s ! NPC Nom ++ bigNP np} ;
+    UttNP np = {s = (np.s ! Nom).p1 ++ (np.s ! Nom).p2 ++ bigNP' np} ;
     UttVP vp = {s = useInfVP True vp} ;  -- without zu
     UttAdv adv = adv ;
     UttCN n = {s = n.s ! Strong ! Sg ! Nom ++ n.adv ++ n.ext ++ n.rc ! Sg} ;
@@ -25,6 +26,6 @@ concrete PhraseGer of Phrase = CatGer ** open Prelude, ResGer in {
     PConjConj conj = ss (conj.s2) ;
 
     NoVoc = {s = []} ;
-    VocNP np = {s = "," ++ np.s ! NPC Nom ++ bigNP np} ;
+    VocNP np = {s = "," ++ (np.s ! Nom).p1 ++ (np.s ! Nom).p2 ++ bigNP' np} ;
 
 }

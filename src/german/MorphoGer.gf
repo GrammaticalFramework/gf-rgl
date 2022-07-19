@@ -17,15 +17,15 @@ oper
 
 -- For $StructuralGer$.
 
-  mkPrep : Str -> PCase -> Preposition = \s,c -> 
-    {s = s ; s2 = [] ; c = c ; isPrep = True} ;
+  mkPrep : Str -> Case -> Preposition' = \s,c ->
+    {s = s ; s2 = [] ; c = c ; sg = \\_ => [] ; isPrep = isPrep} ;
 
-  nameNounPhrase : {s : Case => Str} ->  {s : PCase => Str ; a : Agr ; 
+  nameNounPhrase : {s : Case => Str} ->  {s : PCase => Str ; a : Agr ;
                                           -- isLight, isPron : Bool ; 
                                           w : Weight ;
                                           ext,rc : Str} = \name -> heavyNP {
       s = \\c => usePrepC c (\k -> name.s ! k) ;
-      a = agrP3 Sg 
+      a = agrP3 Sg
       } ;
 
   detLikeAdj : Bool -> Number -> Str -> 
@@ -35,6 +35,14 @@ oper
   detUnlikeAdj : Bool -> Number -> Str -> 
     {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies -> 
       {s,sp = appAdj (regDetA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
+
+  -- HL: to reduce PCase to Case:
+  detLikeAdj' : Bool -> Number -> Str ->
+    {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies ->
+      {s,sp = appAdj' (regA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
+  detUnlikeAdj' : Bool -> Number -> Str ->
+    {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies ->
+      {s,sp = appAdj' (regDetA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
 
   mkOrd : {s : Degree => AForm => Str} -> {s : AForm => Str} = \a ->
     {s = a.s ! Posit} ;

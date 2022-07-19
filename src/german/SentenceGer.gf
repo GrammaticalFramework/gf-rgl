@@ -1,11 +1,11 @@
-concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
+concrete SentenceGer of Sentence' = CatGer ** open ResGer, Prelude in {
 
   flags optimize=all_subs ;
 
   lin
 
     PredVP np vp =
-      let subj = mkSubj np vp.c1
+      let subj = mkSubj' np vp.c1
       in mkClause subj.p1 subj.p2 vp ;
 
 	{- applies verb's subject case to subject ;
@@ -34,7 +34,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
     } ; 
 
     SlashVP np vp =
-      let subj = mkSubj np vp.c1 ;                       -- HL 3/2022: need a mkClSlash to prevent
+      let subj = mkSubj' np vp.c1 ;                      -- HL 3/2022: need a mkClSlash to prevent
       in mkClause subj.p1 subj.p2 vp ** { c2 = vp.c2 } ; -- reflexives in vp instantiated to np.a
 
     AdvSlash slash adv = {
@@ -45,7 +45,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
     SlashPrep cl prep = cl ** {c2 = prep} ;
 
     SlashVS np vs slash =
-		let subj = mkSubj np PrepNom 
+		let subj = mkSubj' np PrepNom'
 		in mkClause subj.p1 subj.p2 
 			(insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)) **
         			{c2 = slash.c2} ;

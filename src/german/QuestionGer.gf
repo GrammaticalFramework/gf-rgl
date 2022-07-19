@@ -1,4 +1,4 @@
-concrete QuestionGer of Question = CatGer ** open ResGer in {
+concrete QuestionGer of Question' = CatGer ** open ResGer in {
 
   flags optimize=all_subs ;
 
@@ -28,7 +28,8 @@ concrete QuestionGer of Question = CatGer ** open ResGer in {
       s = \\m,t,a,p => 
             let 
               cls = slash.s ! m ! t ! a ! p ;
-              who = appPrep slash.c2 (\\k => usePrepC k (\c -> ip.s ! c)) ;
+--              who = appPrep slash.c2 (\\k => usePrepC k (\c -> ip.s ! c)) ;
+              who = appPrep' slash.c2 ip.s ;
             in table {
               QDir   => who ++ cls ! Inv ;
               QIndir => who ++ cls ! Sub
@@ -50,7 +51,7 @@ concrete QuestionGer of Question = CatGer ** open ResGer in {
       s = \\m,t,a,p => 
             let 
               vp  = predV sein_V ** {ext = icomp.ext};
-	      subj = mkSubj np vp.c1 ;
+	      subj = mkSubj' np vp.c1 ;
               cls = (mkClause subj.p1 subj.p2 vp).s ! m ! t ! a ! p ;
               why = icomp.s ! np.a
             in table {

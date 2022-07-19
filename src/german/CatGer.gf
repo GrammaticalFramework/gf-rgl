@@ -1,4 +1,5 @@
-concrete CatGer of Cat = 
+--# -path=.:../abstract:../common:../prelude
+concrete CatGer of Cat' =
   CommonX - [Tense,Temp] ** 
   open ResGer, Prelude in {
 
@@ -11,14 +12,14 @@ concrete CatGer of Cat =
     S  = {s : Order => Str} ;
     QS = {s : QForm => Str} ;
     RS = {s : RelGenNum => Str ; c : Case} ;
-    SSlash = {s : Order => Str} ** {c2 : Preposition} ;
+    SSlash = {s : Order => Str} ** {c2 : Preposition'} ;
 
 -- Sentence
 
     Cl = {s : Mood => ResGer.Tense => Anteriority => Polarity => Order => Str} ;
     ClSlash = {
       s : Mood => ResGer.Tense => Anteriority => Polarity => Order => Str ; 
-      c2 : Preposition
+      c2 : Preposition'
       } ;
     Imp = {s : Polarity => ImpForm => Str} ;
 
@@ -71,6 +72,24 @@ concrete CatGer of Cat =
       c : {p : Str ; k : PredetCase} ;
       a : PredetAgr -- if an agr is forced, e.g. jeder von uns ist ...
       } ;
+
+    -- HL: To reduce PCase to Case:
+    NP' = ResGer.NP' ;
+    Det' = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
+    Quant' = {
+      s   : Bool => Number => Gender => Case => Str ;  -- Bool is True if a cardinal number is present
+      sp  : Bool => Number => Gender => Case => Str ;
+      a   : Adjf ;
+      aPl : Adjf ;  --- to distinguish "meine guten Freunde" / "gute Freunde"
+      hasDefArt : Bool
+      } ;
+    Predet' = {
+      s : Number => Gender => Case => Str ;
+      c : {p : Str ; k : PredetCase} ;
+      a : PredetAgr -- if an agr is forced, e.g. jeder von uns ist ...
+      } ;
+
+
     Num = {s : Gender => Case => Str ; n : Number ; isNum : Bool} ;
     Card = {s : Gender => Case => Str ; n : Number} ;
     Ord = {s : AForm => Str} ;
@@ -85,21 +104,22 @@ concrete CatGer of Cat =
     Conj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
     Prep = Preposition ;
+    Prep' = Preposition' ;
 
 -- Open lexical classes, e.g. Lexicon
 
     V, VA, VS, VQ = ResGer.Verb ; -- = {s : VForm => Str} ;
     VV = Verb ** {isAux : Bool} ;
-    V2, V2A, V2S, V2Q = Verb ** {c2 : Preposition} ;
-    V2V = Verb ** {c2 : Preposition ; isAux : Bool ; objCtrl : Bool} ;
-    V3 = Verb ** {c2, c3 : Preposition} ;
+    V2, V2A, V2S, V2Q = Verb ** {c2 : Preposition'} ;
+    V2V = Verb ** {c2 : Preposition' ; isAux : Bool ; objCtrl : Bool} ;
+    V3 = Verb ** {c2, c3 : Preposition'} ;
 
     A  = {s : Degree => AForm => Str} ;
-    A2 = {s : Degree => AForm => Str ; c2 : Preposition} ;
+    A2 = {s : Degree => AForm => Str ; c2 : Preposition'} ;
 
     N  = ResGer.Noun ;
-    N2 = ResGer.Noun ** {c2 : Preposition} ;
-    N3 = ResGer.Noun ** {c2,c3 : Preposition} ;
+    N2 = ResGer.Noun ** {c2 : Preposition'} ;
+    N3 = ResGer.Noun ** {c2,c3 : Preposition'} ;
     PN = {s : Case => Str; g : Gender} ;
 
 -- tense with possibility to choose conjunctive forms
@@ -109,6 +129,7 @@ concrete CatGer of Cat =
 
   linref
     NP = \np -> np.s!(NPC Nom) ++ np.ext ++ np.rc ; -- HL 6/2019
+    NP' = \np -> (np.s!Nom).p1 ++ (np.s!Nom).p2 ++ np.ext ++ np.rc ; -- HL 6/2019
     CN = \cn -> cn.s ! Strong ! Pl ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Pl ;
 
     SSlash = \ss -> ss.s ! Main ++ ss.c2.s  ;

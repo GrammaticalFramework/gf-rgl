@@ -1,4 +1,4 @@
-concrete ConjunctionGer of Conjunction = 
+concrete ConjunctionGer of Conjunction' = 
   CatGer ** open ResGer, Coordination, Prelude in {
 
   flags optimize=all_subs ;
@@ -9,7 +9,7 @@ concrete ConjunctionGer of Conjunction =
 
     ConjAdv conj ss = conjunctDistrSS conj ss ;
 
-    ConjNP conj ss = heavyNP (conjunctDistrTable PCase conj ss ** {
+    ConjNP conj ss = heavyNP' (conjunctDistrTable Case conj ss ** {
       a = Ag Fem (conjNumber conj.n (numberAgr ss.a)) (personAgr ss.a) ;
       }) ;
 
@@ -39,11 +39,11 @@ concrete ConjunctionGer of Conjunction =
     BaseAdv = twoSS ;
     ConsAdv = consrSS comma ;
     BaseNP x y = {
-		s1 = \\c => x.s ! c ++ bigNP x ;
+		s1 = \\c => (x.s ! c).p1 ++ (x.s ! c).p2 ++ bigNP x ;
 		s2 = \\c => y.s ! c ++ bigNP y ;
 		a = conjAgr x.a y.a } ;
     ConsNP xs x = {
-		s1 = \\c => xs.s ! c ++ bigNP xs ++ comma ++ x.s1 ! c ;
+		s1 = \\c => (x.s ! c).p1 ++ (x.s ! c).p2 ++ bigNP xs ++ comma ++ x.s1 ! c ;
 		s2 = x.s2 ;
 		a = conjAgr xs.a x.a } ;
     BaseAP x y = {

@@ -1,4 +1,4 @@
-concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
+concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -38,8 +38,8 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
 
     ComplA2 a np = 
 	  let CExt = case a.c2.isPrep of {
-			False => <appPrepNP a.c2 np, []> ;
-			True => <[], appPrepNP a.c2 np> } 
+			isCase => <appPrepNP' a.c2 np, []> ;
+			_ => <[], appPrepNP' a.c2 np> } -- HL: check 7/22
 		in {
       s = a.s ! Posit ;
       isPre = True ;
@@ -49,10 +49,11 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
 
     ReflA2 a = 
 	  let 
-		compl = appPrep a.c2 (\\k => usePrepC k (\c -> reflPron ! agrP3 Sg ! c)) ;
+--		compl = appPrep a.c2 (\\k => usePrepC k (\c -> reflPron ! agrP3 Sg ! c)) ;
+		compl = appPrep' a.c2 (reflPron ! agrP3 Sg) ;
 		CExt = case a.c2.isPrep of
-			{False => <compl, []> ;
-			True => <[], compl> }
+			{isCase => <compl, []> ;
+			_ => <[], compl> }  -- HL Check isPrepDefArt
 	  in {
       s = a.s ! Posit ;
       isPre = True ;

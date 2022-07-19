@@ -1,4 +1,4 @@
-concrete RelativeGer of Relative = CatGer ** open ResGer in {
+concrete RelativeGer of Relative' = CatGer ** open ResGer in {
 
   flags optimize=all_subs ;
 
@@ -28,13 +28,16 @@ concrete RelativeGer of Relative = CatGer ** open ResGer in {
 
     RelSlash rp slash = {
       s = \\m,t,a,p,gn => 
-          appPrep slash.c2 (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ++ 
+--          appPrep slash.c2 (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ++ 
+          appPrep' slash.c2 (rp.s ! gn) ++ 
           slash.s ! m ! t ! a ! p ! Sub ;
-      c = (prepC slash.c2.c).c
+--      c = (prepC slash.c2.c).c
+      c = slash.c2.c
       } ;
 
     FunRP p np rp = {
-      s = \\gn,c => np.s ! NPC c ++ appPrep p (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ;
+--      s = \\gn,c => np.s ! NPC c ++ appPrep p (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ;
+      s = \\gn,c => (np.s ! c).p1 ++ (np.s !c).p2 ++ appPrep' p (rp.s ! gn) ;
       a = RAg (numberAgr np.a) (personAgr np.a)
       } ;
 

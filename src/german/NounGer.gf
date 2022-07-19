@@ -1,4 +1,5 @@
-concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
+--# -path=.:../abstract:../common:
+concrete NounGer of Noun' = CatGer ** open ResGer, MorphoGer, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -15,6 +16,24 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       rc = cn.rc ! det.n ;   
       ext = cn.ext 
+      } ;
+
+    -- HL:
+    DetCN' det' cn = {
+      s = \\c => <det'.s ! cn.g ! c, cn.s ! (adjfCase det'.a c) ! det'.n ! c ++ cn.adv> ;
+      a = agrgP3 cn.g det'.n ;
+      -- isLight = det.isDef ;  -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
+      -- isPron = False ;       -- HL 6/2019 (but:) sehe (die|einige) Männer nicht
+                                --                  don't see a|no man = sehe keinen Mann
+      -- w = case det'.isDef of { True => WLight' ; _ => WHeavy' } ;
+      -- Would be clearer with w:Weight and hasDefArt:Bool with |NP|=|Agr|*3*2 = 108
+      -- instead of the more efficient w:Weigth' with |NP|=|Agr|*4 = 18*4 = 54
+      w = case det'.isDef of { True => case det'.hasDefArt of { True => WDefArt ;
+                                                                _ => WLight' } ;
+                               _ => WHeavy'
+        } ;
+      rc = cn.rc ! det'.n ;
+      ext = cn.ext
       } ;
 
     DetNP det = {
@@ -105,6 +124,18 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
         a = case n of {Sg => a ; Pl => quant.aPl} ;
         isDef = case <quant.a, quant.aPl> of {<Strong,Strong> => False ; _ => True} ;
         } ;
+    DetQuant' quant num =
+      let
+        n = num.n ;
+        a = quant.a
+      in {
+        s  = \\g,c => quant.s  ! num.isNum ! n ! g ! c ++ num.s!g!c ;
+        sp = \\g,c => quant.sp ! num.isNum ! n ! g ! c ++ num.s!g!c ; -- HL: der+er,den+en ; der drei,den drei+en
+        n = n ;
+        a = case n of {Sg => a ; Pl => quant.aPl} ;
+        isDef = case <quant.a, quant.aPl> of {<Strong,Strong> => False ; _ => True} ;
+        hasDefArt = quant.hasDefArt ;
+        } ;
 
 
     PossPron p = {
@@ -163,6 +194,16 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
         } ;
       a, aPl = Strong 
       } ;
+    -- HL
+    DefArt' = {
+      s = \\_,n,g,c => artDef ! (gennum g n) ! c ;
+      sp = \\_,n,g,c  => case <n,c> of {
+        <Pl,Dat> => "denen" ; -- HL 6/2019
+        <Pl,Gen> => "derer" ; -- HL 6/2019
+        _ => artDef ! (gennum g n) ! c } ;
+      a, aPl = Weak ;
+      hasDefArt = True
+      } ;
 
     MassNP cn = {
       s = \\c => usePrepC c (\k -> cn.s ! Strong ! Sg ! k) ++ cn.adv ;
@@ -182,20 +223,20 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
 
     ComplN2 f x = {
-      s = \\_,n,c => f.s ! n ! c ++ appPrepNP f.c2 x ;
+      s = \\_,n,c => f.s ! n ! c ++ appPrepNP' f.c2 x ;
       g = f.g ;
 	  rc = \\_ => [] ;
-	  ext,adv = [] 
+	  ext,adv = []
       } ;
 
     ComplN3 f x = {
-      s = \\n,c => f.s ! n ! c ++ appPrepNP f.c2 x ;
-      co = f.co ++ appPrepNP f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
+      s = \\n,c => f.s ! n ! c ++ appPrepNP' f.c2 x ;
+      co = f.co ++ appPrepNP' f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
       uncap = {
-        s = \\n,c => f.uncap.s ! n ! c ++ appPrepNP f.c2 x ;
-        co = f.uncap.co ++ appPrepNP f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
+        s = \\n,c => f.uncap.s ! n ! c ++ appPrepNP' f.c2 x ;
+        co = f.uncap.co ++ appPrepNP' f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
        } ;
-      g = f.g ; 
+      g = f.g ;
       c2 = f.c3 ;
       } ;
 
@@ -205,11 +246,11 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       c2 = f.c3;
       } ;
 
-    AdjCN ap cn = 
+    AdjCN ap cn =
       let 
-        g = cn.g 
+        g = cn.g
       in cn ** {
-        s = \\a,n,c => 
+        s = \\a,n,c =>
                preOrPost ap.isPre
                  (ap.c.p1 ++ ap.c.p2 ++ ap.s ! agrAdj g a n c ++ ap.ext)
                  (cn.s ! a ! n ! c) ;
@@ -222,8 +263,8 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     
     RelNP np rs = np ** {
       rc = (np.rc ++ embedInCommas (rs.s ! RGenNum (gennum (genderAgr np.a) (numberAgr np.a)))) ;
-      -- isPron = False 
-      w = case isPron np of { True => WLight ; _ => np.w } 
+      -- isPron = False
+      w = case isPron np of { True => WLight ; _ => np.w }
       } ;
 
     SentCN cn s = cn ** {ext = cn.ext ++ embedInCommas s.s} ;

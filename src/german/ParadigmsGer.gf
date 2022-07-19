@@ -48,12 +48,6 @@ oper
   dative     : Case ;
   genitive   : Case ;
 
-  anDat_Case : Case ; -- preposition "an" accusative with contraction "am" --%
-  inAcc_Case : Case ; -- preposition "in" accusative with contraction "ins" --%
-  inDat_Case : Case ; -- preposition "in" dative with contraction "im" --%
-  zuDat_Case : Case ; -- preposition "zu" dative with contractions "zum", "zur" --%
-  vonDat_Case : Case ;
-
 -- To abstract over number names, we define the following.
 
   Number    : Type ; 
@@ -108,7 +102,7 @@ mkN : overload {
   mkN2 : overload {
     mkN2 : Str -> N2 ; --%
     mkN2 : N ->   N2 ; -- noun + von
-    mkN2 : N -> Prep -> N2 -- noun + other preposition
+    mkN2 : N -> Prep' -> N2 -- noun + other preposition
     } ;   
 
 -- Use the function $mkPrep$ or see the section on prepositions below to  
@@ -117,7 +111,7 @@ mkN : overload {
 --
 -- Three-place relational nouns ("die Verbindung von x nach y") need two prepositions.
 
-  mkN3 : N -> Prep -> Prep -> N3 ; -- noun + two prepositions
+  mkN3 : N -> Prep' -> Prep' -> N3 ; -- noun + two prepositions
 
 --3 Proper names and noun phrases
 --
@@ -174,7 +168,7 @@ mkN : overload {
 
 -- Two-place adjectives are formed by adding a preposition to an adjective.
 
-  mkA2 : A -> Prep -> A2 ; -- e.g. teilbar + durch
+  mkA2 : A -> Prep' -> A2 ; -- e.g. teilbar + durch
 
 --2 Adverbs
 
@@ -188,24 +182,24 @@ mkN : overload {
 -- A preposition is formed from a string and a case.
 
   mkPrep : overload {
-    mkPrep : Str -> Case -> Prep ; -- e.g. "durch" + accusative
-    mkPrep : Case -> Str -> Prep ; -- postposition
-    mkPrep : Str -> Case -> Str -> Prep ; -- both sides
+    mkPrep : Str -> Case -> Prep' ; -- e.g. "durch" + accusative
+    mkPrep : Case -> Str -> Prep' ; -- postposition
+    mkPrep : Str -> Case -> Str -> Prep' ; -- both sides
     } ;
 
 -- Often just a case with the empty string is enough.
 
-  accPrep : Prep ; -- no string, just accusative case
-  datPrep : Prep ; -- no string, just dative case
-  genPrep : Prep ; -- no string, just genitive case
+  accPrep : Prep' ; -- no string, just accusative case
+  datPrep : Prep' ; -- no string, just dative case
+  genPrep : Prep' ; -- no string, just genitive case
 
 -- A couple of common prepositions (the first two always with the dative).
 
-  von_Prep : Prep ; -- von + dative
-  zu_Prep  : Prep ; -- zu + dative, with contractions zum, zur
-  anDat_Prep : Prep ; -- an + dative, with contraction am
-  inDat_Prep : Prep ; -- in + dative, with contraction ins
-  inAcc_Prep : Prep ; -- in + accusative, with contraction im
+  von_Prep : Prep' ; -- von + dative
+  zu_Prep  : Prep' ; -- zu + dative, with contractions zum, zur
+  anDat_Prep : Prep' ; -- an + dative, with contraction am
+  inDat_Prep : Prep' ; -- in + dative, with contraction ins
+  inAcc_Prep : Prep' ; -- in + accusative, with contraction im
 
 --2 Verbs
 
@@ -275,7 +269,7 @@ mkV2 : overload {
 
 -- Two-place verbs with a preposition.
 
-  mkV2 : V -> Prep -> V2 ; -- preposition for complement
+  mkV2 : V -> Prep' -> V2 ; -- preposition for complement
 
 -- Two-place verbs with object in the given case.
 
@@ -289,11 +283,11 @@ mkV2 : overload {
 -- the first one or both can be absent.
 
   accdatV3 : V -> V3 ;                  -- geben + dat(c2) + acc(c3) (Eng: no prepositions)
-  dirV3    : V -> Prep -> V3 ;          -- senden + acc + nach (preposition on second arg)
+  dirV3    : V -> Prep' -> V3 ;          -- senden + acc + nach (preposition on second arg)
 
   mkV3 : overload {
     mkV3     : V ->                 V3 ;  -- geben + dat(c3) + acc(c2) (Eng: give sth to-sb)
-    mkV3     : V -> Prep -> Prep -> V3 ;  -- sprechen + mit + über
+    mkV3     : V -> Prep' -> Prep' -> V3 ;  -- sprechen + mit + über
     } ;
 
 --3 Other complement patterns
@@ -315,16 +309,16 @@ mkV2 : overload {
   subjV2V : V2V -> V2V ; -- force subject-control
 
   mkV2A : overload {
-    mkV2A : V -> V2A ; 
-    mkV2A : V -> Prep -> V2A ;
+    mkV2A : V -> V2A ;
+    mkV2A : V -> Prep' -> V2A ;
     } ;
   mkV2S : overload {
     mkV2S : V -> V2S ;
-    mkV2S : V -> Prep -> V2S ;
+    mkV2S : V -> Prep' -> V2S ;
     } ;
   mkV2Q : overload {
     mkV2Q : V -> V2Q ;
-    mkV2Q : V -> Prep -> V2Q ;
+    mkV2Q : V -> Prep' -> V2Q ;
     } ;
 
 
@@ -340,9 +334,9 @@ mkV2 : overload {
 
 
   mkAS  : A -> AS ; --%
-  mkA2S : A -> Prep -> A2S ; --%
+  mkA2S : A -> Prep' -> A2S ; --%
   mkAV  : A -> AV ; --%
-  mkA2V : A -> Prep -> A2V ; --%
+  mkA2V : A -> Prep' -> A2V ; --%
 
 -- Notice: categories $AS, A2S, AV, A2V$ are just $A$, 
 -- and the second argument is given as an adverb. Likewise 
@@ -364,20 +358,15 @@ mkV2 : overload {
 
 
   Gender = MorphoGer.Gender ;
-  Case = MorphoGer.PCase ;
+  Case = MorphoGer.Case ;
   Number = MorphoGer.Number ;
   masculine = Masc ;
   feminine  = Fem ;
   neuter = Neutr ;
-  nominative = NPC Nom ;
-  accusative = NPC Acc ;
-  dative = NPC Dat ;
-  genitive = NPC Gen ;
-  anDat_Case = NPP CAnDat ;
-  inAcc_Case = NPP CInAcc ;
-  inDat_Case = NPP CInDat ;
-  zuDat_Case = NPP CZuDat ;
-  vonDat_Case = NPP CVonDat ;
+  nominative = Nom ;
+  accusative = Acc ;
+  dative = Dat ;
+  genitive = Gen ;
 
   singular = Sg ;
   plural = Pl ;
@@ -454,11 +443,11 @@ mkV2 : overload {
   mkN2 = overload {
     mkN2 : Str -> N2 = \s -> vonN2 (regN s) ;
     mkN2 : N ->   N2 = vonN2 ;
-    mkN2 : N -> Prep -> N2 = mmkN2
+    mkN2 : N -> Prep' -> N2 = mmkN2
     } ;   
 
 
-  mmkN2  : N -> Prep -> N2 = \n,p -> n ** {c2 = p ; lock_N2 = <>} ;
+  mmkN2  : N -> Prep' -> N2 = \n,p -> n ** {c2 = p ; lock_N2 = <>} ;
   vonN2 : N -> N2 = \n -> n ** {c2 = von_Prep ; lock_N2 = <>} ;
 
   mkN3 = \n,p,q -> n ** {c2 = p ; c3 = q ; lock_N3 = <>} ;
@@ -509,20 +498,28 @@ mkV2 : overload {
   mkAdv s = {s = s ; lock_Adv = <>} ;
 
   mkPrep = overload {
-    mkPrep : Str -> PCase -> Prep = \s,c -> {s = s ; s2 = [] ; c = c ; isPrep = True ; lock_Prep = <>} ;
-    mkPrep : PCase -> Str -> Prep = \c,s -> {s = [] ; s2 = s ; c = c ; isPrep = True ; lock_Prep = <>} ;
-    mkPrep : Str -> PCase -> Str -> Prep = \s,c,t -> {s = s ; s2 = t ; c = c ; isPrep = True ; lock_Prep = <>}
+    mkPrep : Str -> Case -> Prep' = \s,c -> {s = s ; s2 = [] ; sg = \\_ => [] ;
+                                             c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
+    mkPrep : Case -> Str -> Prep' = \c,s -> {s = [] ; s2 = s ; sg = \\_ => [] ;
+                                            c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
+    mkPrep : Str -> Case -> Str -> Prep' = \s,c,t -> {s = s ; s2 = t ; sg = \\_ => [] ;
+                                                     c = c ; isPrep = isPrep ; lock_Prep' = <>}
     } ;
-  accPrep = {s,s2 = [] ; c = accusative ; isPrep = False ; lock_Prep = <>} ;
-  datPrep = {s,s2 = [] ; c = dative ; isPrep = False ; lock_Prep = <>} ;
-  genPrep = {s,s2 = [] ; c = genitive ; isPrep = False ; lock_Prep = <>} ;
-  --von_Prep = mkPrep "von" dative ;
-  von_Prep = mkPrep [] vonDat_Case ;
-  zu_Prep = mkPrep [] zuDat_Case ;
-  anDat_Prep = mkPrep [] anDat_Case ;
-  inDat_Prep = mkPrep [] inDat_Case ; 
-  inAcc_Prep = mkPrep [] inAcc_Case ; 
+  accPrep = {s,s2 = [] ; sg = \\_ => [] ; c = accusative ; isPrep = isCase ; lock_Prep' = <>} ;
+  datPrep = {s,s2 = [] ; sg = \\_ => [] ; c = dative ; isPrep = isCase ; lock_Prep' = <>} ;
+  genPrep = {s,s2 = [] ; sg = \\_ => [] ; c = genitive ; isPrep = isCase ; lock_Prep' = <>} ;
 
+  --von_Prep = mkPrep "von" dative ;
+  von_Prep = {s = "von"; s2=[]; sg = table{ Masc|Neutr => "vom" ; Fem => "von der" } ;
+              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
+  zu_Prep = {s = "zu"; s2=[]; sg = table{ Masc|Neutr => "zum" ; Fem => "zur" } ;
+              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
+  anDat_Prep = {s = "an"; s2=[]; sg = table{ Masc|Neutr => "am" ; Fem => "an der" } ;
+              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
+  inDat_Prep = {s = "in"; s2=[]; sg = table{ Masc|Neutr => "im" ; Fem => "in der" } ;
+              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
+  inAcc_Prep = {s = "in"; s2=[]; sg = table{ Masc => "in den" ; Fem => "in die" ; Neutr => "ins" } ;
+              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
 
   mk6V geben gibt gib gab gaebe gegeben = 
     let
@@ -562,7 +559,7 @@ mkV2 : overload {
 
   habenV v = v ** {aux = VHaben} ;
   seinV v = v ** {aux = VSein} ;
-  reflV v c = v ** {aux = VHaben ; vtype = VRefl (prepC c).c} ;
+  reflV v c = v ** {aux = VHaben ; vtype = VRefl c} ;
 
   no_geV v = let vs = v.s in v ** {
     s = table {
@@ -587,7 +584,7 @@ mkV2 : overload {
   mkV3 = overload {
     mkV3 : V -> V3 
       = \v -> lin V3 (v ** {c2 = accPrep ; c3 = datPrep}) ;
-    mkV3 : V -> Prep -> Prep -> V3
+    mkV3 : V -> Prep' -> Prep' -> V3
       = \v,c,d -> lin V3 (v ** {c2 = c ; c3 = d}) ;
     } ;
 
@@ -606,41 +603,40 @@ mkV2 : overload {
   mkV0  v = v ** {lock_V = <>} ;
 
   mkV2V = overload { -- default: object-control
-    mkV2V : V -> V2V 
+    mkV2V : V -> V2V
       = \v -> dirV2 v ** {isAux = False ; objCtrl = True ; lock_V2V = <>} ;  -- ermahne jmdn, sich zu waschen
-    mkV2V : V -> Prep -> V2V 
+    mkV2V : V -> Prep' -> V2V
       = \v,p -> prepV2 v p ** {isAux = False ; objCtrl = True ; lock_V2V = <>} ;
     } ;
   auxV2V = overload {
-    auxV2V : V -> V2V 
+    auxV2V : V -> V2V
       = \v -> dirV2 v ** {isAux = True ; objCtrl = True ; lock_V2V = <>} ;  -- lasse jmdn sich waschen
-    auxV2V : V -> Prep -> V2V 
+    auxV2V : V -> Prep' -> V2V
       = \v,p -> prepV2 v p ** {isAux = True ; objCtrl = True ; lock_V2V = <>} ;
     } ;
   subjV2V v = v ** {objCtrl = False} ;
 
   mkV2A = overload {
-    mkV2A : V -> V2A 
-      = \v -> dirV2 v ** {isAux = False ; lock_V2A = <>} ;
-    mkV2A : V -> Prep -> V2A 
+    mkV2A : V -> V2A = \v -> dirV2 v ** {isAux = False ; lock_V2A = <>} ;
+    mkV2A : V -> Prep' -> V2A
       = \v,p -> prepV2 v p ** {isAux = False ; lock_V2A = <>} ;
     } ;
   mkV2S = overload {
     mkV2S : V -> V2S 
       = \v -> dirV2 v ** {isAux = False ; lock_V2S = <>} ;
-    mkV2S : V -> Prep -> V2S 
+    mkV2S : V -> Prep' -> V2S
       = \v,p -> prepV2 v p ** {isAux = False ; lock_V2S = <>} ;
     } ;
   mkV2Q = overload {
-    mkV2Q : V -> V2Q 
+    mkV2Q : V -> V2Q
       = \v -> dirV2 v ** {isAux = False ; lock_V2Q = <>} ;
-    mkV2Q : V -> Prep -> V2Q 
+    mkV2Q : V -> Prep' -> V2Q
       = \v,p -> prepV2 v p ** {isAux = False ; lock_V2Q = <>} ;
     } ;
 
   mkVA = overload {
     mkVA : V -> VA = \v -> lin VA (dirV2 v) ;
-    mkVA : V -> Prep -> VA = \v,p -> lin VA (v ** {c2 = p}) ;
+    mkVA : V -> Prep' -> VA = \v,p -> lin VA (v ** {c2 = p}) ;
     } ;
 
   mkAS  v = v ** {lock_A = <>} ;
@@ -711,7 +707,7 @@ mkV2 : overload {
     };
 
 
-  prepV2  : V -> Prep -> V2 ;
+  prepV2  : V -> Prep' -> V2 ;
 
   dirV2 : V -> V2 ;
 
@@ -720,8 +716,9 @@ mkV2 : overload {
   mkV2 = overload {
     mkV2 : Str -> V2 = \s -> dirV2 (regV s) ;
     mkV2 : V -> V2 = dirV2 ;
-    mkV2 : V -> Prep -> V2 = prepV2;
-    mkV2 : V -> Case -> V2 = \v,c -> prepV2 v (lin Prep {s,s2 = [] ; c = c ; isPrep = False}) ;
+    mkV2 : V -> Prep' -> V2 = prepV2;
+    mkV2 : V -> Case -> V2 = \v,c ->
+      prepV2 v (lin Prep' {s,s2 = [] ; sg = \\_ => [] ; c = c ; isPrep = isCase}) ;
     } ;
 
 }
