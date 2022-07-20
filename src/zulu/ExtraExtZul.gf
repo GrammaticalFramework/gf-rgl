@@ -160,9 +160,16 @@ concrete ExtraExtZul of ExtraExt =
 
     PossLocNP locn np = {
       empty = np.empty ;
-      s = \\n,nform => locn.s ;
-      mod = \\num => poss_concord!(C17)!Sg!np.i ++BIND++ (poss_NP np) ;
+      s = \\n,nform => locn.s ++ poss_concord!(C17)!n!np.i ++BIND++ (poss_NP np);
+      -- mod = \\num => poss_concord!(C17)!Sg!np.i ++BIND++ (poss_NP np) ;
       c = C17 ;
+      emph = False
+    } ;
+
+    PossNPLoc cn np = {
+      empty = np.empty ;
+      s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++"s"++BIND++ (loc_NP np);
+      c = cn.c ;
       emph = False
     } ;
 

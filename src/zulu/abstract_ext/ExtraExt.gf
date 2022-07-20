@@ -28,6 +28,7 @@ abstract ExtraExt =
     -- RelV : CN -> V -> Temp -> Pol -> CN ; -- lights that flash
 
     PossLocNP : LocN -> NP -> CN ;
+    PossNPLoc : CN -> NP -> CN ; -- zasepulazini
 
     InstrNPAdv : NP -> Adv ; -- ngokuhlinzwa
     InstrAdvNPAdv : Adv -> NP -> Adv ; -- cishe ngehora

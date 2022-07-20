@@ -960,7 +960,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+"wo" => (init root)+"eni" ;
         _+"o" => (init root)+"weni" ;
         _+"u" => (init root)+"wini" ;
-        _ => (init root)+"ini"
+        _ => root+"ini"
       } ;
 
     drop_init_vowel : Str -> Str = \s ->
@@ -1154,16 +1154,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
       loc_NP : {
         empty : Str ;
         s : NForm => Str ;
-        mod : Str ;
-        dem : Str ;
-        predet_pre : Str ;
-        predet_post : Str ;
+        -- mod : Str ;
+        -- dem : Str ;
+        -- predet_pre : Str ;
+        -- predet_post : Str ;
         agr : Agr ;
         proDrop : Bool ;
         isPron : Bool ;
         -- reqLocS : Bool ;
-        qdef : QuantDef
-      } -> Str = \np -> np.s!NLoc ++ np.dem ++ np.mod ++ np.predet_pre ++ np.predet_post ;
+        -- qdef : QuantDef
+      } -> Str = \np -> np.s!NLoc ;
 
       poss_NP : {
         empty : Str ;
@@ -1325,7 +1325,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- ADJECTIVE ANTECEDENT AGREEMENT MORPHEME --
 
-    relAdjPrefLookup : Agr => Str = 
+    relAdjPrefLookup : Agr => Str =
       table {
         Third C1_2 Sg => "m" ;
         Third C1_2 Pl => "" ;

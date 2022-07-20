@@ -77,6 +77,7 @@ oper
   } ;
 
   mkPN = overload {
+    mkPN : (John : Str) -> N  = \n -> lin N (regNoun n C1a_2a) ;   
     mkPN : (John : Str) -> ClassGender -> N  = \n,c -> lin N (regNoun n c) ;   -- "thing" nouns
     mkPN : (nyaka,onyakeni,eminyakeni : Str) -> ClassGender -> N = \n,ls,lp,c -> lin N (semiRegNoun n ls lp c) ;
     mkPN : (iso,amehlo,esweni,emehlweni : Str) -> ClassGender -> N = \ns,np,ls,lp,c -> lin N (mkNoun ns np ls lp c) ;
