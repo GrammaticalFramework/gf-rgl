@@ -82,6 +82,12 @@ resource ResGer = ParamX ** open Prelude in {
   oper
     noCase : {p : Str ; k : PredetCase} = {p = [] ; k = NoCase} ;
 
+  param 
+    PredetCase' = NoCase' | PredCase' Case ;
+--    PredetAgr = PAg Number | PAgNone ;
+  oper
+    noCase' : {p : Str ; k : PredetCase'} = {p = [] ; k = NoCase'} ;
+
 -- Pronominal nps are ordered differently, and light nps come before negation in clauses.
 -- (To save space, reduce isPron * isLight = 4 values to the following three.) HL 9/19
   param
@@ -95,11 +101,11 @@ resource ResGer = ParamX ** open Prelude in {
   -- To reduce c:PCase to c:Case in Preposition' and NP.s:PCase => Str to NP'.s:Case => Str*Str:
   param
     Weight' = WPron' | WLight' | WHeavy' | WDefArt ;
-  -- oper
-  --   isPron : {w : Weight} -> Bool = \np ->
-  --     case np.w of {WPron => True ; _ => False} ;
-  --   isLight : {w : Weight} -> Bool = \np ->
-  --     case np.w of {WHeavy => False ; _ => True} ;
+  oper
+    isPron' : {w : Weight'} -> Bool = \np ->
+      case np.w of {WPron' => True ; _ => False} ;
+    isLight' : {w : Weight'} -> Bool = \np ->
+      case np.w of {WHeavy' => False ; _ => True} ;
 
 --2 For $Adjective$
 
@@ -512,6 +518,8 @@ resource ResGer = ParamX ** open Prelude in {
   Dat' : Preposition' = {s=""; s2=""; sg = \\c => []; c=Dat; isPrep=isCase} ;
   mit' : Preposition' = {s="zusammen mit"; s2=""; sg = \\_ => []; c=Dat; isPrep=isPrep} ;
 
+  vonDat' : Preposition' = {s="von"; s2=""; sg = table{Fem => "von der"; _ => "vom"}; c=Dat; isPrep=isPrep} ;
+
   zuDat' : Preposition' = {s="zu"; s2="herein"; sg = \\_ => ""; c=Dat; isPrep=isPrep} ;
   zum'   : Preposition' = {s="zu"; s2="herein"; sg = table{Masc=>"zum"; Fem=>"zur"; Neutr=>"zum"};
                            c=Dat; isPrep=isPrepDefArt} ;
@@ -848,9 +856,8 @@ resource ResGer = ParamX ** open Prelude in {
 
 
   insertObjRefl : VPSlash -> VPSlash = \vp -> -- HL 6/2019, to order reflPron < neg < prep+reflPron
-    let prep = vp.c2 ;
-        c = prep.c ;                          -- HL 7/22 reduced to c:Case
-        obj : Agr => Str = \\a => prep.s ++ reflPron ! a ! c ++ prep.s2 ;
+    let prep = vp.c2 ;                        -- HL 7/22 reduced to c:Case
+        obj : Agr => Str = \\a => prep.s ++ reflPron ! a ! prep.c ++ prep.s2 ;
     in vp ** {
       nn = \\a =>
         let vpnn = vp.nn ! a in

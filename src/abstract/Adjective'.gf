@@ -9,12 +9,12 @@ abstract Adjective' = Cat' ** {
 -- elliptic-relational.
 
     PositA  : A  -> AP ;        -- warm
-    ComparA : A  -> NP -> AP ;  -- warmer than I
+    ComparA : A  -> NP' -> AP ;  -- warmer than I
     ComplA2 : A2 -> NP' -> AP ;  -- married to her
     ReflA2  : A2 -> AP ;        -- married to itself
     UseA2   : A2 -> AP ;        -- married
     UseComparA : A  -> AP ;     -- warmer
-    CAdvAP  : CAdv -> AP -> NP -> AP ; -- as cool as John
+    CAdvAP  : CAdv -> AP -> NP' -> AP ; -- as cool as John
 
 -- The superlative use is covered in $Ord$.
 

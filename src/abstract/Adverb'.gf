@@ -13,7 +13,7 @@ abstract Adverb' = Cat' ** {
 -- Comparative adverbs have a noun phrase or a sentence as object of
 -- comparison.
 
-    ComparAdvAdj  : CAdv -> A -> NP -> Adv ; -- more warmly than John
+    ComparAdvAdj  : CAdv -> A -> NP' -> Adv ; -- more warmly than John
     ComparAdvAdjS : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
 
 -- Adverbs can be modified by 'adadjectives', just like adjectives.

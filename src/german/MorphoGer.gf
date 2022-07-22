@@ -27,6 +27,16 @@ oper
       s = \\c => usePrepC c (\k -> name.s ! k) ;
       a = agrP3 Sg
       } ;
+  nameNounPhrase' : Gender -> {s : Case => Str} -> {s : Case => Str * Str;
+                                                    a : Agr ;
+                                                    w : Weight' ;
+                                                    ext,rc : Str} =
+    \g,name -> {
+      s = \\c => <[],name.s ! c> ;
+      a = agrgP3 g Sg ;
+      ext,rc = [] ;
+      w = WHeavy' -- ok?
+      } ;
 
   detLikeAdj : Bool -> Number -> Str -> 
     {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies -> 

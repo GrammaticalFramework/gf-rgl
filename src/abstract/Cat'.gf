@@ -1,1 +1,1 @@
-abstract Cat' =  Cat ** {cat NP'; Det'; Quant'; Predet'; Prep'; } 
+abstract Cat' =  Cat ** {cat NP'; Det'; Quant'; Predet'; Prep'; DAP' ;} 

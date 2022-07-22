@@ -137,10 +137,10 @@ mkN : overload {
 
     } ;
 
--- To extract the number of a noun phrase
+-- To extract the number of a noun phrase  --never used in RGL
 
-    ifPluralNP : NP -> Bool
-      = \np -> case (numberAgr np.a) of {Sg => False ; Pl => True} ;
+    -- ifPluralNP : NP -> Bool 
+    --   = \np -> case (numberAgr np.a) of {Sg => False ; Pl => True} ;
 
 
 --2 Adjectives
@@ -185,6 +185,9 @@ mkN : overload {
     mkPrep : Str -> Case -> Prep' ; -- e.g. "durch" + accusative
     mkPrep : Case -> Str -> Prep' ; -- postposition
     mkPrep : Str -> Case -> Str -> Prep' ; -- both sides
+    -- for preposition glued with DefArt in singular:
+    -- e.g. "auf" "auf den" "auf die" "aufs" + accusative
+    mkPrep : Str -> Str -> Str -> Str-> Case -> Prep' ; 
     } ;
 
 -- Often just a case with the empty string is enough.
@@ -195,11 +198,11 @@ mkN : overload {
 
 -- A couple of common prepositions (the first two always with the dative).
 
-  von_Prep : Prep' ; -- von + dative
+  von_Prep : Prep' ; -- von + dative, with contraction vom
   zu_Prep  : Prep' ; -- zu + dative, with contractions zum, zur
   anDat_Prep : Prep' ; -- an + dative, with contraction am
-  inDat_Prep : Prep' ; -- in + dative, with contraction ins
-  inAcc_Prep : Prep' ; -- in + accusative, with contraction im
+  inDat_Prep : Prep' ; -- in + dative, with contraction im
+  inAcc_Prep : Prep' ; -- in + accusative, with contraction ins
 
 --2 Verbs
 
@@ -503,7 +506,10 @@ mkV2 : overload {
     mkPrep : Case -> Str -> Prep' = \c,s -> {s = [] ; s2 = s ; sg = \\_ => [] ;
                                             c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
     mkPrep : Str -> Case -> Str -> Prep' = \s,c,t -> {s = s ; s2 = t ; sg = \\_ => [] ;
-                                                     c = c ; isPrep = isPrep ; lock_Prep' = <>}
+                                                     c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
+    mkPrep : Str -> Str -> Str -> Str-> Case -> Prep' = \s,masc,fem,neutr, c ->
+      {s = s ; s2 = [] ; sg = table{Masc => masc ; Fem => fem ; Neutr => neutr} ;
+       c = c ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
     } ;
   accPrep = {s,s2 = [] ; sg = \\_ => [] ; c = accusative ; isPrep = isCase ; lock_Prep' = <>} ;
   datPrep = {s,s2 = [] ; sg = \\_ => [] ; c = dative ; isPrep = isCase ; lock_Prep' = <>} ;

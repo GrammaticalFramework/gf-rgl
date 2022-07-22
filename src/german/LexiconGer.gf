@@ -13,6 +13,7 @@ flags
 lin
   add_V3 = dirV3 (prefixV "hinzu" (regV "fügen")) zu_Prep ;
   airplane_N = mkN "Flugzeug" "Flugzeuge" neuter ;
+  alas_Interj = {s = "ach" } ;
   already_Adv = mkAdv "schon" ;
   answer_V2S = mkV2S (regV "antworten") datPrep ;
   apartment_N = mkN "Wohnung" ;
@@ -212,7 +213,8 @@ lin
     dirV2 (irregV "verstehen" "versteht" "verstand" "verstände" "verstanden") ;
   university_N = reg2N "Universität" "Universitäten" feminine  ;
   village_N = reg2N "Dorf" "Dörfer" neuter ;
-  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" accusative) ;
+--  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" accusative) ;
+  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" "auf den" "auf die" "aufs" accusative) ;
   walk_V = seinV Irreg.gehen_V ;
   warm_A = mk3A "warm" "wärmer" "wärmste" ;
   war_N = mkN "Krieg" ;

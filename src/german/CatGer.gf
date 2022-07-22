@@ -75,7 +75,8 @@ concrete CatGer of Cat' =
 
     -- HL: To reduce PCase to Case:
     NP' = ResGer.NP' ;
-    Det' = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
+    Det' = {s,sp : Gender => Case => {quant,num:Str}; n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
+    DAP' = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
     Quant' = {
       s   : Bool => Number => Gender => Case => Str ;  -- Bool is True if a cardinal number is present
       sp  : Bool => Number => Gender => Case => Str ;
@@ -85,10 +86,9 @@ concrete CatGer of Cat' =
       } ;
     Predet' = {
       s : Number => Gender => Case => Str ;
-      c : {p : Str ; k : PredetCase} ;
+      c : {p : Str ; k : PredetCase'} ;
       a : PredetAgr -- if an agr is forced, e.g. jeder von uns ist ...
       } ;
-
 
     Num = {s : Gender => Case => Str ; n : Number ; isNum : Bool} ;
     Card = {s : Gender => Case => Str ; n : Number} ;
@@ -129,7 +129,7 @@ concrete CatGer of Cat' =
 
   linref
     NP = \np -> np.s!(NPC Nom) ++ np.ext ++ np.rc ; -- HL 6/2019
-    NP' = \np -> (np.s!Nom).p1 ++ (np.s!Nom).p2 ++ np.ext ++ np.rc ; -- HL 6/2019
+    NP' = \np -> (np.s!Nom).p1 ++ (np.s!Nom).p2 ++ np.ext ++ np.rc ; -- HL 7/2022
     CN = \cn -> cn.s ! Strong ! Pl ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Pl ;
 
     SSlash = \ss -> ss.s ! Main ++ ss.c2.s  ;
@@ -149,4 +149,8 @@ concrete CatGer of Cat' =
     V2V = \v -> useInfVP v.isAux (predVGen v.isAux v) ++ v.c2.s ;
 
     Conj = \c -> c.s1 ++ c.s2 ;
+
+    Det' = \det -> (det.s ! Masc ! Nom).quant ++ (det.s ! Masc ! Nom).num ;
+    Prep' = \prep -> case prep.isPrep of {PrepDefArf => prep.sg ! Masc ;
+                                          _ => prep.s ++ prep.s2 } ;
 }

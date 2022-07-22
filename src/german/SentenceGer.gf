@@ -32,7 +32,7 @@ concrete SentenceGer of Sentence' = CatGer ** open ResGer, Prelude in {
 --        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
         verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ++ negation ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
     } ; 
-
+-- to save (67299 - 27432 = 39863 msec) compile time: HL 7/22, comment out:
     SlashVP np vp =
       let subj = mkSubj' np vp.c1 ;                      -- HL 3/2022: need a mkClSlash to prevent
       in mkClause subj.p1 subj.p2 vp ** { c2 = vp.c2 } ; -- reflexives in vp instantiated to np.a

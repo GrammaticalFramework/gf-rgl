@@ -14,8 +14,7 @@ abstract Structural' = Cat' ** {
 
   above_Prep : Prep' ;
   after_Prep : Prep' ;
-  all_Predet : Predet ;
-  all_Predet' : Predet' ;
+  all_Predet : Predet' ;
   almost_AdA : AdA ;
   almost_AdN : AdN ;
   although_Subj : Subj ;
@@ -35,12 +34,12 @@ abstract Structural' = Cat' ** {
   during_Prep : Prep' ;
   either7or_DConj : Conj ; -- either...or
 ---b  either7or_DConj : DConj ;
-  every_Det : Det ;
-  everybody_NP : NP ;  -- everybody
-  everything_NP : NP ;
+  every_Det : Det' ;
+  everybody_NP : NP' ;  -- everybody
+  everything_NP : NP' ;
   everywhere_Adv : Adv ;
 ---  first_Ord : Ord ; DEPRECATED
-  few_Det : Det ;
+  few_Det : Det' ;
   for_Prep : Prep' ;
   from_Prep : Prep' ;
   he_Pron : Pron ;
@@ -56,17 +55,16 @@ abstract Structural' = Cat' ** {
   in_Prep : Prep' ;
   it_Pron : Pron ;
   less_CAdv : CAdv ;
-  many_Det : Det ;
+  many_Det : Det' ;
   more_CAdv : CAdv ;
-  most_Predet : Predet ;
-  most_Predet' : Predet' ;
-  much_Det : Det ;
+  most_Predet : Predet' ;
+  much_Det : Det' ;
   must_VV : VV ;
 ---b  no_Phr : Phr ;
   no_Utt : Utt ;
   on_Prep : Prep' ;
 ---  one_Quant : QuantSg ; DEPRECATED
-  only_Predet : Predet ;
+  only_Predet : Predet' ;
   or_Conj : Conj ;
   otherwise_PConj : PConj ;
   part_Prep : Prep' ;
@@ -75,19 +73,19 @@ abstract Structural' = Cat' ** {
   quite_Adv : AdA ;
   she_Pron : Pron ;
   so_AdA : AdA ;
-  someSg_Det : Det ;
-  somePl_Det : Det ;
-  somebody_NP : NP ;
-  something_NP : NP ;
+  someSg_Det : Det' ;
+  somePl_Det : Det' ;
+  somebody_NP : NP' ;
+  something_NP : NP' ;
   somewhere_Adv : Adv ;
-  that_Quant : Quant ;
+  that_Quant : Quant' ;
   that_Subj : Subj ;
   there_Adv : Adv ;
   there7to_Adv : Adv ; -- to there
   there7from_Adv : Adv ; -- from there
   therefore_PConj : PConj ;
   they_Pron : Pron ;
-  this_Quant : Quant ;
+  this_Quant : Quant' ;
   through_Prep : Prep' ;
   to_Prep : Prep' ;
   too_AdA : AdA ;
@@ -112,13 +110,13 @@ abstract Structural' = Cat' ** {
   youPl_Pron : Pron ; -- you (plural)
   youPol_Pron : Pron ; -- you (polite)
 
-  no_Quant : Quant ;
-  not_Predet : Predet ;
+  no_Quant : Quant' ;
+  not_Predet : Predet' ;
   if_then_Conj : Conj ;
   at_least_AdN : AdN ;
   at_most_AdN : AdN ;
-  nobody_NP : NP ;
-  nothing_NP : NP ;
+  nobody_NP : NP' ;
+  nothing_NP : NP' ;
   except_Prep : Prep' ;
 
   as_CAdv : CAdv ;

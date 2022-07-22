@@ -2,7 +2,7 @@
 
 concrete GrammarGer of Grammar' =
   NounGer, 
-  VerbGer, -- to save compile time during development HL 7/22
+  VerbGer,
   AdjectiveGer,
   AdverbGer,
   NumeralGer,
