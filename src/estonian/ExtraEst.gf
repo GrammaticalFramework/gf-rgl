@@ -135,7 +135,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
             (\\_,b,_ => linNP (NPCase Nom) np)
             (predV (verbOlema ** {sc = NPCase Nom}))) ;
       in
-      cl.s ! t ! ant ! bo ! SDecl ;
+        cl.s ! t ! ant ! bo ;
       c = NPCase Nom
       } ;
 
@@ -144,18 +144,20 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
         (\\_,b,_ => linNP (NPCase Nom) np) (predV v)) ;
 
     ICompExistNP adv np =
-      let cl = mkClause (\_ -> adv.s ! np.a) np.a (insertObj
-        (\\_,b,_ => linNP (NPCase Nom) np) (predV (verbOlema ** {sc = NPCase Nom}))) ;
-      in  {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-      } ;
+      let subj : Polarity -> Str = \_ -> adv.s ! np.a ;
+          pred : VP = insertObj
+                        (\\_,b,_ => linNP (NPCase Nom) np)
+                        (predV (verbOlema ** {sc = NPCase Nom})) ;
+       in mkClause subj np.a pred ;
+
 
     IAdvPredNP iadv v np =
-      let cl = mkClause (\_ -> iadv.s) np.a (insertObj
-                 (\\_,b,_ => linNP v.sc np) (predV v)) ;
-      in  {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-      } ;
+      let subj : Polarity -> Str = \_ -> iadv.s ;
+          pred : VP = insertObj
+                        (\\_,b,_ => linNP v.sc np)
+                        (predV v) ;
+       in mkClause subj np.a pred ;
+
 
 --    i_implicPron = mkPronoun [] "minun" "minua" "minuna" "minuun" Sg P1 ;
     whatPart_IP = emptyIP ** {

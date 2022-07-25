@@ -5,15 +5,10 @@ concrete QuestionEst of Question = CatEst ** open ResEst, Prelude in {
   lin
 
     QuestCl cl = {
-      s = \\t,a,p => cl.s ! t ! a ! p ! SQuest
+      s = \\t,a,p => "kas" ++ cl.s ! t ! a ! p
       } ;
 
-    QuestVP ip vp =
-      let
-        cl = mkClause (subjForm (ip ** {isPron = False ; a = agrP3 ip.n}) vp.sc) (agrP3 ip.n) vp
-      in {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-        } ;
+    QuestVP ip vp = mkClause (subjForm (ip ** {isPron = False ; a = agrP3 ip.n}) vp.sc) (agrP3 ip.n) vp ;
 
     QuestSlash ip slash = {
       s = \\t,a,p =>
@@ -25,7 +20,7 @@ concrete QuestionEst of Question = CatEst ** open ResEst, Prelude in {
       } ;
 
     QuestIAdv iadv cl = {
-      s = \\t,a,p => iadv.s ++ cl.s ! t ! a ! p ! SDecl
+      s = \\t,a,p => iadv.s ++ cl.s ! t ! a ! p
       } ;
 
     QuestIComp icomp np = {
@@ -34,7 +29,7 @@ concrete QuestionEst of Question = CatEst ** open ResEst, Prelude in {
           vp = predV (verbOlema ** {sc = NPCase Nom}) ;
           cl = mkClause (subjForm np vp.sc) np.a vp ;
         in
-        icomp.s ! np.a ++ cl.s ! t ! a ! p ! SDecl
+        icomp.s ! np.a ++ cl.s ! t ! a ! p
       } ;
 
     PrepIP p ip = {s =

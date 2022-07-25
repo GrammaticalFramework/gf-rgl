@@ -5,23 +5,17 @@ concrete IdiomEst of Idiom = CatEst **
 
   lin
     ExistNP np =
-      let
-        cas : Polarity -> NPForm = \p -> case p of {
-          Pos => NPCase Nom ; -- on olemas lammas
-          Neg => NPCase Part  -- ei ole olemas lammast
-          } ;
-        vp = insertObj (\\_,b,_ => "olemas" ++ linNP (cas b) np) (predV olla)
-      in
-      existClause noSubj (agrP3 Sg) vp ;
+      let cas : Polarity -> NPForm = \p -> case p of {
+            Pos => NPCase Nom ;    -- on olemas lammas
+            Neg => NPCase Part } ; -- ei ole olemas lammast
+          vp = insertObj (\\_,b,_ => "olemas" ++ linNP (cas b) np) (predV olla)
+       in existClause noSubj (agrP3 Sg) vp ;
 
     ExistIP ip =
-      let
-        cas : NPForm = NPCase Nom ; ---- also partitive in Extra
-        vp = insertObj (\\_,b,_ => "olemas") (predV olla) ;
-        cl = existClause (subjForm (ip ** {isPron = False ; a = agrP3 ip.n}) cas) (agrP3 Sg) vp
-      in {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-        } ;
+      let cas : NPForm = NPCase Nom ; ---- also partitive in Extra
+          vp : VP = insertObj (\\_,b,_ => "olemas") (predV olla) ;
+          subj : NP = ip ** {isPron = False ; a = agrP3 ip.n} ;
+       in existClause (subjForm subj cas) (agrP3 Sg) vp ;
 
 -- Notice the nominative in the cleft $NP$: "se on Matti josta Liisa pitÃ¤Ã¤"
 -- Est: "see on Mati, kellest Liis lugu peab"

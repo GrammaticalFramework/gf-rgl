@@ -180,8 +180,6 @@ oper
     glue (vf  ! Inf   if.stem) if.suf ;
 
 param
-  SType = SDecl | SQuest | SInv ;
-
 --2 For $Relative$
 
     RAgr = RNoAg | RAg Agr ;
@@ -365,51 +363,34 @@ oper
 -- For $Sentence$.
 
   Clause : Type = {
-    s : Tense => Anteriority => Polarity => SType => Str
+    s : Tense => Anteriority => Polarity => Str
     } ;
 
   ClausePlus : Type = {
     s : Tense => Anteriority => Polarity => {subj,fin,inf,compl,adv,p,ext : Str}
     } ;
 
-  -- The Finnish version of SQuest featured a word order change and
-  -- the question particle "ko". The Estonian version just prefixes the
-  -- declarative sentence with the yes/no-queryword "kas".
-  -- SQuest: "kas" + SDecl
-  -- It would be also correct to use the Finnish structure, just without the ko-particle.
-  -- Inari: added a third SType, SInv.
-  -- Not sure if SInv is needed, but keeping it for possible future use.
-  -- There's need for an inverted word order with auxiliary verbs; infVP handles that. ComplVV calls infVP, which inverts the word order for the complement VP, and puts it into the resulting VP's `compl' field.
-  -- SInv made by mkClause would be for cases where you just need to construct an inverted word order, and then call it from some other place; application grammar (TODO: api oper for SType) or ExtraEst.
   mkClause : (Polarity -> Str) -> Agr -> VP -> Clause = \sub,agr,vp ->
    { s = \\t,a,b =>
       let
         c = (mkClausePlus sub agr vp).s ! t ! a ! b ;
-        --                 saan              sinust     aru    0
-        --       ma        olen     täna     sinust     aru    saanud
-        declCl = c.subj ++ c.fin ++ c.adv ++ c.compl ++ c.p ++ c.inf ++ c.ext ;
-        --                                [sind näha]  0      tahtnud
-        --      täna     olen     ma        sinust     aru    saanud
-        invCl = c.adv ++ c.fin ++ c.subj ++ c.compl ++ c.p ++ c.inf ++ c.ext
       in
-         table {
-           SDecl  => declCl ;
-           SQuest => "kas" ++ declCl ;
-           SInv   => invCl
-         }
-      } ;
+        --        saan              sinust     aru
+        -- ma     olen     täna     sinust     aru    saanud
+        c.subj ++ c.fin ++ c.adv ++ c.compl ++ c.p ++ c.inf ++ c.ext ;
+   } ;
 
   existClause : (Polarity -> Str) -> Agr -> VP -> Clause = \sub,agr,vp ->
    { s = \\t,a,b =>
       let
         c = (mkClausePlus sub agr vp).s ! t ! a ! b ;
-        --       (mis)     on       olnud    olemas (lammas)
-        declCl = c.subj ++ c.fin ++ c.inf ++ c.compl ;
       in
-         table {
-           SQuest => "kas" ++ declCl ;
-           _      => declCl
-         }
+        -- c.subj ++ c.fin ++ c.inf ++ c.compl ;
+        --        saan              sinust     aru
+        -- ma     olen     täna     sinust     aru    saanud
+        -- (mis)  on       olnud    täna            olemas …
+        c.subj ++ c.fin ++ c.inf ++ c.adv ++ c.p ++ c.compl ++ c.ext ;
+
     } ;
 
   mkClausePlus : (Polarity -> Str) -> Agr -> VP -> ClausePlus =
