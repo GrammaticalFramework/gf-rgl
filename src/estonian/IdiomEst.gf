@@ -13,8 +13,8 @@ concrete IdiomEst of Idiom = CatEst **
 
     ExistIP ip =
       let cas : NPForm = NPCase Nom ; ---- also partitive in Extra
-          vp : VP = insertObj (\\_,b,_ => "olemas") (predV olla) ;
-          subj : NP = ip ** {isPron = False ; a = agrP3 ip.n} ;
+          vp : MorphoEst.VP = insertObj (\\_,b,_ => "olemas") (predV olla) ;
+          subj : MorphoEst.NPhrase = ip ** {isPron = False ; a = agrP3 ip.n} ;
        in existClause (subjForm subj cas) (agrP3 Sg) vp ;
 
 -- Notice the nominative in the cleft $NP$: "se on Matti josta Liisa pitÃ¤Ã¤"

@@ -73,7 +73,7 @@ oper
       }
     } ;
 
-  nBIND : Number -> Str = \n -> case n of {Sg => [] ; _ => BIND} ; -- no BIND after silent 1
+  nBIND : MorphoEst.Number -> Str = \n -> case n of {Sg => [] ; _ => BIND} ; -- no BIND after silent 1
 
 param
   NumPlace = NumIndep | NumAttr  ;
