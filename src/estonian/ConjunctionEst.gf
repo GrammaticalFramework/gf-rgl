@@ -7,7 +7,9 @@ concrete ConjunctionEst of Conjunction =
 
     ConjS = conjunctDistrSS ;
 
-    ConjAdv = conjunctDistrSS ;
+    ConjAdv,
+    ConjAdV,
+    ConjIAdv = conjunctDistrSS ;
 
     ConjCN conj ss = conjunctDistrTable NForm conj ss ** ss ;
 
@@ -27,8 +29,8 @@ concrete ConjunctionEst of Conjunction =
 
     BaseS = twoSS ;
     ConsS = consrSS comma ;
-    BaseAdv = twoSS ;
-    ConsAdv = consrSS comma ;
+    BaseAdv, BaseAdV, BaseIAdv = twoSS ;
+    ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
     BaseCN x y = twoTable NForm (mergeCN x) y ** {postmod = y.postmod} ;
     ConsCN x xs = consrTable NForm comma (mergeCN x) xs ** xs ;
     BaseNP x y = twoTable NPForm (mergeNP x) y ** {a = conjAgr x.a y.a ; postmod = y.postmod} ;
@@ -41,26 +43,29 @@ concrete ConjunctionEst of Conjunction =
   lincat
     [S] = {s1,s2 : Str} ;
     [Adv] = {s1,s2 : Str} ;
+    [AdV] = {s1,s2 : Str} ;
+    [IAdv] = {s1,s2 : Str} ;
     [CN] = {s1,s2 : NForm => Str ; postmod : Str} ;
     [NP] = {s1,s2 : NPForm => Str ; a : Agr ; postmod : Str} ;
-    [AP] = {s1,s2 : {s : Bool => NForm => Str ; infl : Infl }} ;
+    [AP] = LinListAP ;
     [RS] = {s1,s2 : Agr => Str ; c : NPForm} ;
 
   oper
+
+    LinListAP : Type = {s1,s2 : {s : Bool => NForm => Str ; infl : Infl}} ;
+
     --Modified from prelude/Coordination.gf generic functions
-    twoTableAdj : (_,_ : AP) -> [AP] = \x,y ->
-    lin ListAP {
+    twoTableAdj : (_,_ : ResEst.APhrase) -> LinListAP = \x,y -> {
       s1 = x ;
       s2 = y
     } ;
 
-    consrTableAdj : Str -> APhrase -> [AP] -> [AP] = \c,x,xs ->
+    consrTableAdj : Str -> ResEst.APhrase -> LinListAP -> LinListAP = \c,x,xs ->
       let
         ap1 = xs.s1 ;
         ap2 = xs.s2
-      in
-       lin ListAP {s1 =
-             {s = \\isMod,nf =>
+      in {
+        s1 = {s = \\isMod,nf =>
                 case isMod of {
                   True => case <ap1.infl, ap2.infl> of {
                             <(Participle|Invariable),(Participle|Invariable)> =>
@@ -74,16 +79,15 @@ concrete ConjunctionEst of Conjunction =
                   False => ap1.s ! isMod ! nf ++ c ++ ap2.s ! isMod ! nf --kassid on valmid ja suured
                   } ;
               infl = Regular } ;
-       s2 = x ;
+        s2 = x ;
       } ;
 
 
-    conjunctDistrTableAdj : ConjunctionDistr -> [AP] -> AP =  \or,xs ->
+    conjunctDistrTableAdj : ConjunctionDistr -> LinListAP -> APhrase =  \or,xs ->
       let
         ap1 = xs.s1 ;
         ap2 = xs.s2 ;
-      in
-      lin AP {s = \\isMod,nf =>
+      in {s = \\isMod,nf =>
                 case isMod of {
                   True => case <ap1.infl, ap2.infl> of {
                             <(Participle|Invariable),(Participle|Invariable)> =>

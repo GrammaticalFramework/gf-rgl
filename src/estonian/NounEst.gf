@@ -216,8 +216,7 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
 
   oper
     numN : NForm -> Number = \nf -> case nf of {
-      NCase n _ => n ;
-      _ => Sg ---
+      NCase n _ => n
       } ;
 
 
