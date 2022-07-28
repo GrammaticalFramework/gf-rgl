@@ -713,7 +713,15 @@ mkVS = overload {
     mkA : V -> A = presActA ;
     } ;
 
-  mkA_1 : Str -> A = \x -> lin A (noun2adjDeg (mk1N x)) ;
+  -- Adjectives that are not really adjectives are given in WordNet like "sähkö-"
+  -- We can at least make them into prefixA to make slightly better linearisation.
+  mkA_1 : Str -> A = \x ->
+    case x of {
+      prefix + "-"
+        => let regA : A = noun2adjDeg (mk1N prefix) ;
+            in prefixA prefix regA ;
+      _ => noun2adjDeg (mk1N x)
+    } ;
 
 -- auxiliaries
   mkAdjective : (_,_,_ : SAdj) -> A = \hyva,parempi,paras -> lin A
