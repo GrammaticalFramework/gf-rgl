@@ -266,7 +266,13 @@ oper
 
 --2 Proper Names
 --
+
+  masculine : Gender = Masc ;
+  feminine : Gender = Fem ;
+  neutr : Gender = Neut ;
+
   mkPN = overload {
+    mkPN : Str -> PN = \s -> {s = s; gn = GSg Masc ; lock_PN = <>} ;
     mkPN : Str -> Gender -> PN = 
       \s,g -> {s = s; gn = GSg g ; lock_PN = <>} ;
     mkPN : Str -> GenNum -> PN = 

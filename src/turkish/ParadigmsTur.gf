@@ -142,6 +142,11 @@ resource ParadigmsTur = open
     -- Paradigm for regular noun
     regN : Str -> N ;
 
+    mkPN = overload {
+        mkPN : Str -> PN = regPN ;
+        mkPN : Str -> Str -> PN = makePN ;
+    } ;
+    
     -- Paradigm for proper noun
     regPN : Str -> PN ;
 
@@ -405,7 +410,7 @@ resource ParadigmsTur = open
             pln
             har ;
 
-    makePN sn sy = makeHarPN sn sy (getHarmony sn) ;
+    makePN sn sy = lin PN (makeHarPN sn sy (getHarmony sn)) ;
 
     linkNoun n1 n2 lt ct =
         let n1sn = n1.s ! Sg ! Nom ;--tere
