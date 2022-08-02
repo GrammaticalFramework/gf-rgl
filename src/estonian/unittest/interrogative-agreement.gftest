@@ -1,0 +1,52 @@
+-- Test cases related to the agreement of interrogative pronouns
+-- for tests about interrogative agreement in comitative, see comitative.gftest
+
+-- As object: case of the numberal is determined by the verb's object case
+
+-- For comparison, the Finnish linearisation is
+-- LangFin: mitkä kahdeksan opiskelijaa sinä näet
+-- Estonian partitive here comes from see_V2
+Lang: QuestSlash (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) (UseN student_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a see_V2))
+LangEng: which eight students do you see
+LangEst: mis kaheksat tudengit sina näed
+
+-- In Finnish, partitive comes from the number (mitkä kahdeksan opiskelijaa sinä myyt opettajille)
+-- In Estonian, we have eight and student both in genitive.
+Lang: QuestSlash (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) (UseN student_N)) (SlashVP (UsePron youSg_Pron) (Slash3V3 sell_V3 (DetCN (DetQuant DefArt NumPl) (UseN teacher_N))))
+LangEng: which eight students do you sell to the teachers
+LangEst: mis kaheksa tudengi sina müüd õpetajatele
+
+-- Both Finnish and Estonian inflect eight and student, Finnish also inflects which (mistä kahdeksasta opiskelijasta sinä pidät)
+Lang: QuestSlash (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) (UseN student_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a like_V2))
+LangEng: which eight students do you like
+LangEst: mis kaheksast tudengist sina pead lugu
+
+-- For comparison, this is Finnish partitive coming from the verb: the word "eight" is also inflected
+Lang: QuestSlash (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) (UseN student_N)) (SlashVP (UsePron youSg_Pron) (SlashV2a love_V2))
+LangEng: which eight students do you love
+LangEst: mis kaheksat tudengit sina armastad
+-- LangFin: mitä kahdeksaa opiskelijaa sinä rakastat
+
+
+-- As subject
+
+-- No numeral in IDet
+Lang: QuestVP (IdetCN (IdetQuant which_IQuant NumSg) (UseN horse_N)) (UseV play_V)
+LangEng: which horse plays
+LangEst: mis hobune mängib
+
+Lang: QuestVP (IdetCN (IdetQuant which_IQuant NumPl) (UseN horse_N)) (UseV play_V)
+LangEng: which horses play
+LangEst: mis hobused mängivad
+
+-- With numeral
+
+-- Number 1 doesn't behave like numerals
+Lang: QuestVP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01))))))) (UseN horse_N)) (UseV play_V)
+LangEng: which one horse plays
+LangEst: mis üks hobune mängib
+
+
+Lang: QuestVP (IdetCN (IdetQuant which_IQuant (NumCard (NumNumeral (num (pot2as3 (pot1as2 (pot0as1 (pot0 n8)))))))) (UseN horse_N)) (UseV play_V)
+LangEng: which eight horses play
+LangEst: mis kaheksa hobust mängivad

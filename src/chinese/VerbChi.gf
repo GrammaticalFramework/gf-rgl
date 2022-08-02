@@ -7,14 +7,14 @@ concrete VerbChi of Verb = CatChi ** open ResChi, Prelude in {
 
     SlashV2a v = predV v v.part ** {c2 = v.c2 ; isPre = v.hasPrep} ;
 
-    Slash2V3 v np = insertAdv (mkNP (ba_s ++      np.s)) (predV v v.part) ** {c2 = v.c3 ; isPre = v.hasPrep} ;  -- slot for third argument 
+    Slash2V3 v np = insertAdv (mkNP (ba_s ++      np.s)) (predV v v.part) ** {c2 = v.c3 ; isPre = v.hasPrep} ;  -- slot for third argument
     Slash3V3 v np = insertObj (mkNP (appPrep v.c3 np.s)) (predV v v.part) ** {c2 = v.c2 ; isPre = True} ;   -- slot for ba object
 
-    SlashV2A v ap = insertObj ap (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ; 
+    SlashV2A v ap = insertObj {s = ap.s ! Pred} (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
 
     SlashV2V v vp = insertObj (mkNP (infVP vp))   (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
-    SlashV2S v s  = insertObj (ss (say_s ++ s.s)) (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ; 
-    SlashV2Q v q  = insertObj (ss (say_s ++ q.s ! False)) (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ; 
+    SlashV2S v s  = insertObj (ss (say_s ++ linS s)) (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
+    SlashV2Q v q  = insertObj (ss (say_s ++ q.s ! False)) (predV v v.part) ** {c2 = v.c2 ; isPre = v.hasPrep} ;
 
     ComplVV v vp = {
       verb = v ;
@@ -23,9 +23,9 @@ concrete VerbChi of Verb = CatChi ** open ResChi, Prelude in {
       isAdj = False ;
       } ;
 
-    ComplVS v s  = insertObj s  (predV v []) ; 
-    ComplVQ v q  = insertObj (ss (q.s ! False)) (predV v []) ; 
-    ComplVA v ap = insertObj ap (predV v []) ; 
+    ComplVS v s  = insertObj (ss (linS s))  (predV v []) ;
+    ComplVQ v q  = insertObj (ss (q.s ! False)) (predV v []) ;
+    ComplVA v ap = insertObj {s = ap.s ! Pred} (predV v []) ;
 
     ComplSlash vp np = case vp.isPre of {
 ---      True  => insertAdv (mkNP (ba_s ++       np.s)) vp ; --- ba or vp.c2 ?
@@ -39,7 +39,7 @@ concrete VerbChi of Verb = CatChi ** open ResChi, Prelude in {
     SlashVV v vp = ---- too simple?
       insertObj (mkNP (infVP vp)) (predV v []) ** {c2 = vp.c2 ; isPre = vp.isPre} ;
 
-    SlashV2VNP v np vp = 
+    SlashV2VNP v np vp =
       insertObj np
         (insertObj (mkNP (infVP vp)) (predV v v.part)) ** {c2 = vp.c2 ; isPre = vp.isPre} ;
 
@@ -56,19 +56,19 @@ concrete VerbChi of Verb = CatChi ** open ResChi, Prelude in {
       ATTime | ATPoss => insertTopic adv vp                                  -- *today* he here sleeps
       } ;
 
-    AdVVP adv vp = insertAdv adv vp ; 
-    
+    AdVVP adv vp = insertAdv adv vp ;
+
     ReflVP vp = insertObj (mkNP reflPron) vp ;
 
     PassV2 v = insertAdv (mkNP passive_s) (predV v v.part) ; ----
 
-    CompAP ap = insertObj (mkNP (ap.s ++ de_s)) (predV copula []) ** {isAdj = True} ;
+    CompAP ap = insertObj (mkNP (ap.s ! Pred ++ de_s)) (predV copula []) ** {isAdj = True} ;
 
 {-
     CompAP ap = case ap.hasAdA of {
-      True  => insertObj (mkNP ap.s) (predV nocopula []) ; 
+      True  => insertObj (mkNP ap.s) (predV nocopula []) ;
       False => insertObj (mkNP (ap.s ++ de_s)) (predV copula [])
-      } ; 
+      } ;
 -}
 
     CompNP np = insertObj np (predV copula []) ; ----

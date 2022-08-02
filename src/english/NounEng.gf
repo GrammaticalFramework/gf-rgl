@@ -56,7 +56,7 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
 
     DetNP det = {
       -- s = case det.hasNum of {True => \\_ => det.s ; _ => \\c => det.sp ! c} ;
-      s = det.sp ! Neutr ! False ;
+      s = \\c => det.sp ! Neutr ! False ! c ;
       a = agrP3 det.n
       } ;
 

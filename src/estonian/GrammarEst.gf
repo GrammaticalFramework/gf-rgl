@@ -1,6 +1,6 @@
-concrete GrammarEst of Grammar = 
-  NounEst, 
-  VerbEst, 
+concrete GrammarEst of Grammar =
+  NounEst,
+  VerbEst,
   AdjectiveEst,
   AdverbEst,
   NumeralEst,

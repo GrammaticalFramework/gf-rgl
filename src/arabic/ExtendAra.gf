@@ -6,7 +6,7 @@ concrete ExtendAra of Extend =
     EmptyRelSlash, PredAPVP,
     ComplDirectVS, ComplDirectVQ, -- because of Utt
     VPS, MkVPS, PredVPS, BaseVPS, ConsVPS, ConjVPS,
-    EmbedSSlash, AdjAsNP
+    EmbedSSlash, AdjAsNP, GerundNP
 ]
   with (Grammar=GrammarAra)
   ** open
@@ -44,7 +44,7 @@ lin
   DetNPFem det = emptyNP ** {s = det.s ! NoHum ! Fem} ;
 
   -- : AP -> NP
-  AdjAsNP ap = 
+  AdjAsNP ap =
   let adjAsN : Noun = {
         s = ap.s ! NoHum ! Masc ;
         s2 = emptyNTable ;
@@ -58,6 +58,11 @@ lin
 
   -- : SSlash -> SC
   EmbedSSlash = Grammar.EmbedS ;
+
+  -- : VP -> NP
+  GerundNP vp = emptyNP ** {
+    s = \\_ => uttVP VPGer vp ! Masc ; -- NB. NP should inflect in case, but there are no cases for masdar in the inflection table of VP. If desired, can add here with BIND. /IL
+    } ; -- The Gender param here doesn't make a difference, because the VPGer in VP's inflection table doesn't have gender to start with. So we could equally well choose Fem too.
 
 lincat
   VPS   = {s : PerGenNum => Str} ;  -- finite VP's with tense and polarity

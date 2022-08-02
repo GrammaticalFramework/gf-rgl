@@ -1,0 +1,30 @@
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (MassNP (UseN cat_N)) (UseComp (CompCN (UseN dog_N))))
+LangEng: cat isn't a dog
+LangChi:  猫 不 是 狗
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant this_Quant NumPl) (UseN cat_N)) (UseComp (CompAP (PositA green_A))))
+LangEng: these cats aren't green
+LangChi: 这 些 猫 不 是 绿 色 的
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant that_Quant NumPl) (UseN cat_N)) (UseComp (CompAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN house_N))))))
+LangEng: those cats aren't in the house
+LangChi: 那 些 猫 不 在 房 子 中
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant this_Quant NumPl) (UseN cat_N)) (ComplVV can8know_VV (UseV walk_V)))
+LangChi: 这 些 猫 不 会 走
+LangEng: these cats can't walk
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant this_Quant NumPl) (UseN cat_N)) (ComplVV can_VV (UseV walk_V)))
+LangChi: 这 些 猫 不 能 走
+LangEng: these cats can't walk
+
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant this_Quant NumPl) (UseN cat_N)) (ComplVV want_VV (UseV walk_V)))
+LangChi: 这 些 猫 不 想 走
+LangEng: these cats don't want to walk
+
+-- this tree does not make semantic sense in chinese but is compositionally correct due to the direct word for word translation for "must"
+Lang: UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant that_Quant NumPl) (UseN cat_N)) (ComplVV must_VV (UseV walk_V)))
+LangChi: 那 些 猫 不 必 须 走
+LangEng: those cats mustn't walk
+
+-- 没有 and must not , bu ke yi

@@ -3,7 +3,7 @@
 
 Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))
 LangEng: a cat that walks
-LangMay: kucing yang jalan
+LangMay: kucing yang berjalan
 
 Lang: DetCN (DetQuant IndefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
 LangEng: a cat that drinks milk
@@ -17,7 +17,7 @@ LangMay: susu yang kucing minum
 -- We can find another RGL tree that produces the more natural variant. This tree produces this variant.
 Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashPrep (PredVP (DetCN (DetQuant DefArt NumSg) (UseN dog_N)) (UseV walk_V)) with_Prep))))
 LangEng: the cat that the dog walks with
-LangMay: kucing yang anjing jalan dengannya
+LangMay: kucing yang anjing berjalan dengannya
 
 --------------------------------------------------------------
 -- Determiner placement
@@ -25,30 +25,31 @@ LangMay: kucing yang anjing jalan dengannya
 -- TODO check determiner placement?
 Lang: DetCN (DetQuant this_Quant NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))
 LangEng: this cat that walks
-LangMay: kucing ini yang jalan
+LangMay: kucing ini yang berjalan
 
 Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))
 LangEng: my cat that drinks milk
-LangMay: kucing saya yang minum susu
+LangMay: kucing aku yang minum susu
 
 
 -- TODO verb form?
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant this_Quant NumSg)) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV walk_V))))))))
 LangEng: this is the cat that walks
-LangMay: ini kucing yang jalan
+LangMay: ini kucing yang berjalan
 
 
 --------------------------------------------------------------
 -- Complex example: "the book that his/her father gave him/her"
 
 -- 1. His father gave him a book
+-- should be "memberikan buku" as book is dead
 Lang: UseCl (TTAnt TPast ASimul) PPos (PredVP (MassNP (ComplN2 father_N2 (UsePron he_Pron))) (ComplSlash (Slash2V3 give_V3 (MassNP (UseN book_N))) (UsePron he_Pron)))
 LangMay: bapanya memberi buku kepadanya
 
 -- 2. A book that her father gave her
 -- TODO: would it be better as "buku yang bapanya beri kepadanya"? (Or any other variation?)
 Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron she_Pron))) (Slash3V3 give_V3 (UsePron she_Pron))))))
-LangMay: buku yang bapanya beri dia
+LangMay: buku yang bapanya memberi kepada dia
 
 -- The preposition "kepada" comes from the definition of give_V3 in LexiconMay.gf.
 -- If "buku yang bapanya beri kepadanya" is correct in general, but sometimes
@@ -61,14 +62,14 @@ LangMay: buku yang bapanya beri dia
 -- then we can do it in the resource grammar.
 
 -- I want to read the book that my father gave me
--- TODO check: would "saya mahu baca buku yang bapaku beri kepadaku" be better?
+-- TODO check: would "aku mahu baca buku yang bapaku beri kepadaku" be better?
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron i_Pron))) (Slash3V3 give_V3 (UsePron i_Pron)))))))))
-LangMay: saya mahu baca buku yang bapaku beri saya
+LangMay: aku mahu membaca buku yang bapaku memberi kepada aku
 
 -- I want to read the book that my father read
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron i_Pron))) (SlashV2a read_V2))))))))
-LangMay: saya mahu baca buku yang bapaku baca
+LangMay: aku mahu membaca buku yang bapaku membaca
 
--- bonus tree: we can also generate "bapa saya", not just "bapaku"
+-- bonus tree: we can also generate "bapa aku", not just "bapaku"
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN2 father_N2)) (SlashV2a read_V2)))))))))
-LangMay: saya mahu baca buku yang bapa saya baca
+LangMay: aku mahu membaca buku yang bapa aku membaca

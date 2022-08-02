@@ -1,33 +1,37 @@
 -- IdRP: no difference between animate/inanimate
-Lang: RelCN (UseN friend_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP everybody_NP (SlashV2a love_V2))))
-LangEng: friend that everybody loves
+AllEngAbs: RelCN (UseN friend_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP everybody_NP (SlashV2a love_V2))))
+AllEng: friend that everybody loves
 
-Lang: RelCN (UseN computer_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP everybody_NP (SlashV2a love_V2))))
-LangEng: computer that everybody loves
+AllEngAbs: RelCN (UseN computer_N) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash IdRP (SlashVP everybody_NP (SlashV2a love_V2))))
+AllEng: computer that everybody loves
 
 
--- IdRP possessive, RelVP
-Lang: RelCN (UseN teacher_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (DetCN every_Det (UseN friend_N)) IdRP) (UseV run_V)))
-LangEng: teacher whose every friend runs
+-- IdRP + possess_Prep, RelSlash
+AllEngAbs: PredVP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN boss_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP possess_Prep (MassNP (UseN computer_N)) IdRP) (SlashVP everybody_NP (SlashV2a love_V2))))) (UseComp (CompAdv here_Adv))
+AllEng: the boss , computer of which everybody loves , is here
 
-Lang: RelCN (UseN car_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (FunRP possess_Prep (MassNP (UseN oil_N)) IdRP) (UseV run_V)))
-LangEng: car whose oil runs
+-- IdRP + part_Prep, RelSlash
+AllEngAbs: RelNP (MassNP (UseN butter_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP part_Prep (DetCN (DetQuant IndefArt NumSg) (UseN stick_N)) IdRP) (SlashVP (UsePron i_Pron) (SlashV2a eat_V2))))
+AllEng: butter , a stick of which I eat
 
--- IdRP possessive, RelSlash
-Lang: RelNP (DetCN (DetQuant DefArt NumSg) (UseN boss_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP possess_Prep (MassNP (UseN computer_N)) IdRP) (SlashVP everybody_NP (SlashV2a love_V2))))
-LangEng: the boss , whose computer everybody loves
+-- GenRP + RelVP
+-- NB. with GenRP, can't parse "teacher whose every friend runs", because GenRP takes only a CN
+AllEngAbs: RelCN (UseN teacher_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (GenRP NumSg (UseN friend_N)) (UseV run_V)))
+AllEng: teacher whose friend runs
 
-Lang: RelNP (DetCN (DetQuant DefArt NumSg) (UseN restaurant_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP possess_Prep (MassNP (UseN fruit_N)) IdRP) (SlashVP everybody_NP (SlashV2a love_V2))))
-LangEng: the restaurant , whose fruit everybody loves
+AllEngAbs: RelCN (UseN car_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP (GenRP NumSg (UseN oil_N)) (UseV run_V)))
+AllEng: car whose oil runs
 
--- Note that every instance of "of" is not possessive—with part_Prep, we get "beer, a glass of which I drink"
--- unfortunately glass_N is not in lexicon, so I substituted words with others
-Lang: RelNP (MassNP (UseN butter_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (FunRP part_Prep (DetCN (DetQuant IndefArt NumSg) (UseN stick_N)) IdRP) (SlashVP (UsePron i_Pron) (SlashV2a eat_V2))))
-LangEng: butter , a stick of which I eat
+-- GenRP + RelSlash
+AllEngAbs: PredVP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN boss_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (GenRP NumSg (UseN computer_N)) (SlashVP everybody_NP (SlashV2a love_V2))))) (UseComp (CompAdv here_Adv))
+AllEng: the boss , whose computer everybody loves , is here
+
+AllEngAbs: PredVP (RelNP (DetCN (DetQuant DefArt NumSg) (UseN restaurant_N)) (UseRCl (TTAnt TPres ASimul) PPos (RelSlash (GenRP NumSg (UseN fruit_N)) (SlashVP everybody_NP (SlashV2a love_V2))))) (UseComp (CompAdv here_Adv))
+AllEng: the restaurant , whose fruit everybody loves , is here
 
 -- IdRP other, RelSlash
 -- RelVP really doesn't make sense–the preposition in FunRP looks like an object complement?
--- e.g. "Paris , the best city *in* which *I have lived* -- gap: "I have loved *in Paris*
+-- e.g. "Paris , the best city *in* which *I have lived* -- gap: "I have lived *in Paris*
 -- for RelVP, the noun is a subject:
 -- e.g. "Paris , the best city ∅    which sleeps"     -- no gap: "Paris sleeps"
 
@@ -38,16 +42,18 @@ LangEng: butter , a stick of which I eat
 
 -- Transitive verb + preposition in RP
 -- The RP is the whole [the best city in which]
-Lang: RelNP (UsePN paris_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP in_Prep (DetCN (DetQuantOrd DefArt NumSg (OrdSuperl good_A)) (UseN city_N)) IdRP) (SlashVP (UsePron i_Pron) (SlashV2a love_V2))))
-LangEng: Paris , the best city in which I have loved
+-- We can't even do "lived in", because because live_V is intransitive and RelSlash requires transitive.
+-- So let's switch to love_V2 instead.
+AllEngAbs: RelNP (UsePN paris_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP in_Prep (DetCN (DetQuantOrd DefArt NumSg (OrdSuperl good_A)) (UseN city_N)) IdRP) (SlashVP (UsePron i_Pron) (SlashV2a love_V2))))
+AllEng: Paris , the best city in which I have loved
 
 -- Intransitive verb + preposition in ClSlash
 -- The RP is just [that]
-Lang: RelNP (UsePN paris_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashPrep (PredVP (UsePron i_Pron) (UseV live_V)) in_Prep)))
-LangEng: Paris , that I have lived in
+AllEngAbs: RelNP (UsePN paris_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashPrep (PredVP (UsePron i_Pron) (UseV live_V)) in_Prep)))
+AllEng: Paris , that I have lived in
 
-Lang: PredVP (UsePN paris_PN) (UseComp (CompNP (DetCN (DetQuantOrd DefArt NumSg (OrdSuperl good_A)) (RelCN (UseN city_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashPrep (PredVP (UsePron i_Pron) (UseV live_V)) in_Prep)))))))
-LangEng: Paris is the best city that I have lived in
+AllEngAbs: PredVP (UsePN paris_PN) (UseComp (CompNP (DetCN (DetQuantOrd DefArt NumSg (OrdSuperl good_A)) (RelCN (UseN city_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashPrep (PredVP (UsePron i_Pron) (UseV live_V)) in_Prep)))))))
+AllEng: Paris is the best city that I have lived in
 
 -- to get "… city I have lived in", use Extend.EmptyRelSlash in place of RelSlash
 
@@ -55,36 +61,33 @@ LangEng: Paris is the best city that I have lived in
 -- Now let's do complicated structures!
 
 -- FunRP + ditransitive verb. The whole string is the RS, and the substring [the first car to which] is the RP.
-Lang: UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP to_Prep (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN car_N)) IdRP) (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN oil_N)))))
-LangEng: the first car to which I have given oil
+AllEngAbs: UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP to_Prep (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN car_N)) IdRP) (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN oil_N)))))
+AllEng: the first car to which I have given oil
 
 -- IdRP + ditransitive verb. The whole string is now a NP, and RS is just a small part of it: [[that]:RP I have given oil]:RS
-Lang: DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN car_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN oil_N)))))))
-LangEng: the first car that I have given oil
+AllEngAbs: DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN car_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN oil_N)))))))
+AllEng: the first car that I have given oil
 
 -- IdRP + ditransitive verb, but the verb has an inherent preposition
-Lang: DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN country_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash2V3 sell_V3 (MassNP (UseN oil_N)))))))
-LangEng: the first country that I have sold oil to
+AllEngAbs: DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN country_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash2V3 sell_V3 (MassNP (UseN oil_N)))))))
+AllEng: the first country that I have sold oil to
 
 -- let's test with Slash3V3 for completeness' sake
-Lang: DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN oil_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash3V3 sell_V3 (DetCN (DetQuant IndefArt NumSg) (UseN country_N)))))))
-LangEng: the first oil that I have sold to a country
+AllEngAbs: DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN oil_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash3V3 sell_V3 (DetCN (DetQuant IndefArt NumSg) (UseN country_N)))))))
+AllEng: the first oil that I have sold to a country
 
 
 -- FunRP + ditransitive verb, now in a context
 -- Suppose that I have a car named John. Now the relative pronoun "which" is chosen after the noun "car".
-Lang: RelNP (UsePN john_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP to_Prep (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN car_N)) IdRP) (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN oil_N))))))
-LangEng: John , the first car to which I have given oil
+AllEngAbs: RelNP (UsePN john_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP to_Prep (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN car_N)) IdRP) (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN oil_N))))))
+AllEng: John , the first car to which I have given oil
 
 -- Suppose that I have a friend named John. Now the relative pronoun "who" is chosen after the noun "friend".
-Lang: RelNP (UsePN john_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP to_Prep (DetCN (DetQuantOrd (PossPron i_Pron) NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN friend_N)) IdRP) (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN beer_N))))))
-LangEng: John , my first friend to who I have given beer
+AllEngAbs: RelNP (UsePN john_PN) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash (FunRP to_Prep (DetCN (DetQuantOrd (PossPron i_Pron) NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (UseN friend_N)) IdRP) (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN beer_N))))))
+AllEng: John , my first friend to who I have given beer
 
 
 -- If I really wanted to describe "John , my first friend […]", I would prefer using Extend.ApposNP to get a tree that makes more sense
 -- this doesn't linearise in core RGL, but here's the tree:
--- ApposNP (UsePN john_PN) (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN friend_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN beer_N))))))))
--- approximating with ApposCN (which doesn't add comma):
-
-Lang: ApposCN (UseN boy_N) (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN friend_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN beer_N))))))))
-LangEng: boy the first friend that I have given beer
+AllEngAbs: ApposNP (UsePN john_PN) (DetCN (DetQuantOrd DefArt NumSg (OrdNumeral (num (pot2as3 (pot1as2 (pot0as1 pot01)))))) (RelCN (UseN friend_N) (UseRCl (TTAnt TPres AAnter) PPos (RelSlash IdRP (SlashVP (UsePron i_Pron) (Slash2V3 give_V3 (MassNP (UseN beer_N))))))))
+AllEng: John , the first friend that I have given beer

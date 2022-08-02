@@ -15,12 +15,15 @@ lin very_AdA = mkAdA "" ;
 lin as_CAdv = { s = "" ; p = [] } ;
 lin less_CAdv = { s = "" ; p = [] } ;
 lin more_CAdv = { s = "" ; p = [] } ;
-lin how_IAdv = ss "" :
 
 lin how8much_IAdv = ss "" ;
 lin when_IAdv = ss "" ;
-lin where_IAdv = ss "" :
-lin why_IAdv = ss "" :
+-}
+lin how_IAdv = { s = "bagaimana"; isPre = True ; vf = Active } ;
+lin where_IAdv = { s = "mana"; isPre = False ; vf = Root } ;
+lin why_IAdv = {s = "mengapa"; isPre = True ; vf = Root } ;
+{-
+
 
 lin always_AdV = ss "" ;
 
@@ -52,15 +55,14 @@ lin and_Conj = {s2 = "dan" ; s1 = [] ; n = Pl} ;
 -----------------
 -- *Det and Quant
 
-{-
-lin how8many_IDet = ;
-
+lin how8many_IDet = mkIdet "berapa" "berapa banyak" "" Sg True;
+lin every_Det = mkDet "semua" "semua" Sg ; -- to check
+{-}
 lin all_Predet = {s = ""} ;
 lin not_Predet = { s = "" } ;
 lin only_Predet = { s = "" } ;
 lin most_Predet = {s = ""} ;
 
-lin every_Det = {s = ""} ;
 lin few_Det = R.indefDet "" pl ;
 lin many_Det = R.indefDet "" pl ;
 lin much_Det = R.indefDet "" sg ;
@@ -71,12 +73,14 @@ lin someSg_Det =
 lin no_Quant = -}
 lin that_Quant = mkQuant "itu" ;
 lin this_Quant = mkQuant "ini" ;
-{-lin which_IQuant =
-
+lin which_IQuant = mkQuant "yang mana" ** {isPre = False} ;
 
 -----
 -- NP
 
+lin somebody_NP = mkNounPhrase "seorang" ; --todo
+
+{-
 lin everybody_NP = defNP "" N.NumPl ;
 lin everything_NP = defNP "" N.NumSg ;
 lin nobody_NP = mkVerb; ""
@@ -108,38 +112,51 @@ lin in_Prep = mkPrep "di" ;
 -- lin part_Prep = mkPrep ;
 lin possess_Prep = mkPrep [] ; -- TODO check Mintz p. 39-40, 2.2.1.2
 -- lin through_Prep = mkPrep ;
-lin to_Prep = mkPrep "ke" ;
+-- lin to_Prep = mkPrep "ke"  ;
+lin to_Prep =
+  let ke : Preposition = mkPrep "ke";
+      kepada : Preposition = mkPrep "kepada" ;
+  in ke ** {
+    obj = kepada.obj
+  } ;
+
+-- lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
+--   s = \\_ => "ada" ;
+--   passive = "diadakan" ;
+-- } ;
 -- lin under_Prep = mkPrep "" ;
 lin with_Prep = mkPrep "dengan" ;
 -- lin without_Prep = mkPrep "" ;
-
 
 -------
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsMay.
-  -- it_Pron =
-lin i_Pron = mkPron "saya" P1 ;
--- lin youPol_Pron = mkPron "" P3 ;
--- lin youSg_Pron =
+lin it_Pron = mkPron "dia" P3 ;
+lin i_Pron = mkPron "aku" P1 ;
+lin youPol_Pron = mkPron "kamu" P2 ;
+lin youSg_Pron = mkPron "kamu" P2 ;
 lin he_Pron = mkPron "dia" P3 ;
 lin she_Pron = mkPron "dia" P3 ;
-lin we_Pron = mkPron "kami" P1 ;
--- lin youPl_Pron =
+-- inclusive we
+lin we_Pron = mkPron "kita" P1 ;
+lin youPl_Pron = mkPron "kamu" P2;
 lin they_Pron = mkPron "mereka" P3 ;
 
 --lin whatPl_IP = ;
---lin whatSg_IP = :
+lin whatSg_IP = mkIP "apa";
 --lin whoPl_IP = ;
---lin whoSg_IP = ;
+lin whoSg_IP = mkIP "siapa";
 
+-- expected: {s : ParamMay.Possession => Str; a : ParamMay.NPAgr;
+--  empty : Str; sp : ParamMay.NForm => Str}
 -------
 -- Subj
 
 -- lin although_Subj =
 -- lin because_Subj =
 lin if_Subj = ss "sekiranya" ;
--- lin that_Subj =
+lin that_Subj = ss "yang" ;
 lin when_Subj = ss "kalau" ;
 
 
@@ -154,10 +171,13 @@ lin language_title_Utt = ss "bahasa Melayu" ;
 -------
 -- Verb
 
---lin have_V2 = mkV2 have_V ;
+lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
+  s = \\_ => "ada" ;
+  passive = "diadakan" ;
+} ;
 -- lin can8know_VV = can_VV ; -- can (capacity)
--- lin can_VV = mkVV "" ;   -- can (possibility)
--- lin must_VV = mkVV "" ;
+lin can_VV = mkVV "boleh" ;   -- can (possibility)
+lin must_VV = mkVV "perlu" ;
 lin want_VV = mkVV "mahu" ;
 
 ------

@@ -179,7 +179,8 @@ oper
         <6, Stressed, _>  => stem1 + "е" + end;
         <6, _, _>         => stem1 + "и" + end;
         <5, _, _ + ("ь"|"й") + #consonant> => stem2 + "е" + end;
-        <3, _, _ + ("й" |"ж"|"ц"|"ч"|"ш"|"щ") + #consonant> => stem1 + "е" + stemEnd1 + end;  -- бабушка
+        <3, _, _ + "й" + #consonant> => stem2 + "е" + stemEnd1 + end;  -- стройка
+        <3, _, _ + ("ж"|"ц"|"ч"|"ш"|"щ") + #consonant> => stem1 + "е" + stemEnd1 + end;  -- бабушка
         <3, _, _ + #consonant> => stem1 + "о" + stemEnd1 + end ;  -- ^жшчщц - голубка
         <1, Stressed, _ + ("ь"|"й") + #consonant> => stem2 + "ё" + stemEnd1 + end ;
         <1, _, _ + ("ь"|"й") + #consonant> => stem2 + "е" + stemEnd1 + end ;

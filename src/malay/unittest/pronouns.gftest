@@ -14,18 +14,18 @@ LangMay: kucing-kucingku dengan orang itu
 -- to get "memukulnya", we need to define it in the entry of hit_V2 at the moment.
 -- if that should be variable on a more general level, let me know.
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a hit_V2) (UsePron he_Pron)))
-LangMay: saya memukul dia
+LangMay: aku memukul dia
 
 -------------
 -- Possession
 
 -- that is my cat
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP (DetQuant that_Quant NumSg)) (UseComp (CompNP (DetCN (DetQuant (PossPron i_Pron) NumSg) (UseN cat_N)))))
-LangMay: itu kucing saya
+LangMay: itu kucing aku
 
 -- that cat is mine
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)) (UseComp (CompNP (DetNP (DetQuant (PossPron i_Pron) NumSg)))))
-LangMay: kucing itu saya
+LangMay: kucing itu aku
 
 -- his/her cat is green
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron he_Pron) NumSg) (UseN cat_N)) (UseComp (CompAP (PositA green_A))))
@@ -33,14 +33,14 @@ LangMay: kucing dia hijau
 
 -- I read his/her book -- two variants, different trees
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant IndefArt NumSg) (PossNP (UseN book_N) (UsePron she_Pron)))))
-LangMay: saya membaca bukunya
+LangMay: aku membaca bukunya
 
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant (PossPron he_Pron) NumSg) (UseN book_N))))
-LangMay: saya membaca buku dia
+LangMay: aku membaca buku dia
 
 -- I read his/her father's book
 Lang: UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a read_V2) (DetCN (DetQuant DefArt NumSg) (PossNP (UseN book_N) (DetCN (DetQuant DefArt NumSg) (PossNP (UseN2 father_N2) (UsePron she_Pron)))))))
-LangMay: saya membaca buku bapanya
+LangMay: aku membaca buku bapanya
 
 -- Only the noun phrase
 Lang: MassNP (PossNP (UseN book_N) (UsePron he_Pron))
@@ -66,4 +66,4 @@ LangMay: kucingku dia
 
 Lang: DetCN (DetQuant (PossPron i_Pron) NumSg) (PossNP (UseN cat_N) (UsePron she_Pron))
 LangEng: my cat of hers
-LangMay: kucingnya saya
+LangMay: kucingnya aku

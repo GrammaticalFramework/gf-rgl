@@ -1,6 +1,6 @@
 abstract ExtraEstAbs = Extra [
-  GenNP,GenIP,GenRP,
-  PassVPSlash, PassAgentVPSlash,
+  GenNP,GenIP,GenRP,IP,IQuant,Num,CN,RP,
+  PassVPSlash, PassAgentVPSlash, VPSlash,
   VPI,ListVPI,BaseVPI,ConsVPI,MkVPI,ComplVPIVV,ConjVPI,
   VPS,ListVPS,BaseVPS,ConsVPS,ConjVPS,MkVPS,PredVPS,ConjVPS,Tense,Temp,Pol,S,
   VV,VP,Conj,NP,Quant,IAdv,IComp,ICompAP,IAdvAdv,Adv,AP, Pron, ProDrop] ** {
@@ -33,7 +33,7 @@ abstract ExtraEstAbs = Extra [
     me_Pron : Pron ;
     te_Pron : Pron ;
     nad_Pron : Pron ;
-    
+
     OmaPoss : Quant ;                     -- Reflexive possessive "oma"
     ProDropPoss : Pron -> Quant ;         -- vaimoni --TODO Is this relevant in Estonian? Is the agreement of pronoun ever needed, or is it the same as oma?
 

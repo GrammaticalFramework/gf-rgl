@@ -16,6 +16,9 @@ import argparse
 from subprocess import Popen, PIPE
 from glob import glob
 
+GF_PROCESS = 'gf -run'
+## For WSL on windows replace the GF_PROCESS with following line
+##GF_PROCESS = 'gf.exe -run'
 GRAMMARDIR = '../src'
 ENCODING = 'utf-8'
 
@@ -92,7 +95,7 @@ def collect_testcases(testlines):
         elif ':' in line:
             lang, sentence = stripstrings(line.split(':', 1))
             langfile = importfile(linenr, lang)
-            is_tree = '/abstract/' in langfile
+            is_tree = ('/abstract/' in langfile) or 'Abs' in langfile
             test.append((is_tree, linenr, lang, langfile, sentence))
         else:
             error(linenr, "Ill-formatted line in test file:", line)
@@ -161,7 +164,7 @@ def runtest(testlines, args):
         print()
 
     # calling GF from a subprocess:
-    command = 'gf -run'.split()
+    command = GF_PROCESS.split()
     gfinput = '\n'.join(gfscript) + '\n'
     gf = Popen(command, stdin=PIPE, stdout=PIPE)
     stdout, _stderr = gf.communicate(gfinput.encode(ENCODING))
@@ -182,7 +185,7 @@ def runtest(testlines, args):
             linenr, lang = alltrees.pop(0).split()
             if args.verbose:
                 print('---+ line %s (%s), result from GF:' % (linenr, lang))
-                for tree in alltrees: 
+                for tree in alltrees:
                     print('   |', tree)
             if len(alltrees) == 0 or gferror("\n".join(alltrees)):
                 theerror = "\n".join(alltrees) if alltrees else "No parse trees found"
@@ -195,7 +198,7 @@ def runtest(testlines, args):
                 if besterrors > 0:
                     for oldlinenr, oldlang, oldtrees in oldresults:
                         if besttree not in oldtrees:
-                            error(linenr, 
+                            error(linenr,
                                     "The result of line %s (%s):\n    %s\n"
                                     "is not among the results of line %s (%s):\n    %s"
                                     % (linenr, lang, besttree, oldlinenr, oldlang, "\n    ".join(oldtrees)))

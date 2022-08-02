@@ -4,8 +4,10 @@
 concrete TestLangEng of TestLang = 
   GrammarEng
   , TestLexiconEng
---  , ConstructionEng
-  ** open (R=ResEng), (P=ParadigmsEng), Prelude, (E=ExtendEng)
+  , ConstructionEng
+  , ExtendEng[PastPartAP,PassVPSlash,
+              RNP,ReflRNP,ReflPron,ReflPoss,PredetRNP,AdvRNP,ReflA2RNP,PossPronRNP,ReflPossPron]
+  ** open (R=ResEng), (P=ParadigmsEng), Prelude --, (E=ExtendEng)
   in {
 
   flags 
@@ -43,8 +45,8 @@ concrete TestLangEng of TestLang =
       let vps = R.insertObj (\\_ => v.s ! R.VPPart ++ v.p) (R.predAux R.auxBe) ** {c2 = v.c2} 
       in R.insertObj (\\_ => vps.c2 ++ np.s ! R.NPAcc) vps ;
 
-    PastPartAP = E.PastPartAP ;
-    PassVPSlash = E.PassVPSlash ;
+--    PastPartAP = E.PastPartAP ;
+--    PassVPSlash = E.PassVPSlash ;
 
     Pass2V4 v np =
       let vpss = R.insertObj (\\_ => v.s ! R.VPPart ++ v.p) (R.predAux R.auxBe) ** {c2 = v.c3 ; c3 = v.c4} 

@@ -2,5 +2,5 @@
 
 -- documentation of Estonian in English
 
-concrete DocumentationEstEng of Documentation = CatEst ** 
+concrete DocumentationEstEng of Documentation = CatEst **
   DocumentationEstFunctor with (Terminology = TerminologyEng) ;

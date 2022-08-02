@@ -15313,6 +15313,7 @@ fun
   glans_N : N ;
   glanzleistung_N : N ;
   glaren_V : V ;
+  glas_N : N ;
   glasampulle_N : N ;
   glasauge_N : N ;
   glasbaustein_N : N ;

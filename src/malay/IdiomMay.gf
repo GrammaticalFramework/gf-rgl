@@ -1,7 +1,7 @@
 
 --1 Idiom: Idiomatic Expressions
 
-concrete IdiomMay of Idiom = CatMay ** open Prelude, ResMay, VerbMay, NounMay, StructuralMay in {
+concrete IdiomMay of Idiom = CatMay ** open Prelude, ResMay, VerbMay, QuestionMay, NounMay, StructuralMay in {
 
 -- This module defines constructions that are formed in fixed ways,
 -- often different even in closely related languages.
@@ -14,10 +14,17 @@ concrete IdiomMay of Idiom = CatMay ** open Prelude, ResMay, VerbMay, NounMay, S
        subj = [] ;
        pred = \\vf,pol => vp.s ! Root ! pol  -- force no prefix -- TODO check if legit?
        } ;
-{-
-    -- GenericCl : VP -> Cl ;        -- one sleeps
-    GenericCl = \vp -> predVP impersNP (passVP vp) ;
 
+      -- : NP -> Cl ;        -- there is a house
+      ExistNP np = predVP np (useV copula) ;
+
+      -- ExistIP   : IP -> QCl ;       -- which houses are there
+      ExistIP ip = QuestVP ip (useV copula) ;
+
+    -- GenericCl : VP -> Cl ;        -- one sleeps
+    GenericCl = \vp -> predVP emptyNP vp ;
+
+{-
     CleftNP   : NP  -> RS -> Cl ; -- it is I who did it
     CleftAdv  : Adv -> S  -> Cl ; -- it is here she slept
 

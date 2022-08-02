@@ -50,7 +50,7 @@ concrete QuestionGer of Question = CatGer ** open ResGer in {
       s = \\m,t,a,p => 
             let 
               vp  = predV sein_V ** {ext = icomp.ext};
-	      subj = mkSubj np vp.subjc ;
+	      subj = mkSubj np vp.c1 ;
               cls = (mkClause subj.p1 subj.p2 vp).s ! m ! t ! a ! p ;
               why = icomp.s ! np.a
             in table {
