@@ -8,6 +8,7 @@ concrete ExtendFin of Extend =
     ,CompoundN, GenNP, GenIP, AdvIsNP, EmbedSSlash
     ,PassVPSlash, PassAgentVPSlash
     ,CardCNCard
+    ,UttAccNP
     ]
   with
     (Grammar = GrammarFin) **
@@ -17,6 +18,7 @@ concrete ExtendFin of Extend =
     ResFin,
     StemFin,
     (S=StemFin),
+    (P=PhraseFin),
     IdiomFin,
     Coordination,
     Prelude,
@@ -233,5 +235,7 @@ lin CardCNCard card cn = {
     in card.s ! n ! c ++ cn.s ! NCase Sg k ;
   n = Pl
   } ;
+
+lin UttAccNP np = {s = P.addNegation np.isNeg ++ np.s ! NPAcc} ;
 
 }
