@@ -5115,6 +5115,7 @@ zuka_1a_2a_N = mkN "zuka" C1a_2a ;
 zulu_1a_2a_N = mkN "zulu" C1a_2a ;
 zwa_1a_2a_N = mkN "zwa" C1a_2a ;
 zwelonke_1a_2a_N = mkN "zwelonke" C1a_2a ;
+zwekazi_5_6_N = mkN "zwekazi" C5_6 ;
 
    -- verb roots
    ab_V = mkV "ab" ;

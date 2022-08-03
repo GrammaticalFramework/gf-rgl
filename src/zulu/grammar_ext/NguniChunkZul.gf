@@ -6,6 +6,7 @@ concrete NguniChunkZul of NguniChunk =
   ExtraExtZul,
   NounExtZul,
   VerbExtZul,
+  PhraseExtZul,
   -- MonoLexZul,
   PChunkZul,
   SymbolZul - [Symb]

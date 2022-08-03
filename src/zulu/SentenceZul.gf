@@ -95,7 +95,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 --       c2 = cl.c2
 --     } ;
 --
---     AdvS a s = {s = a.s ++ s.s} ;
+    AdvS a s = {s = a.s ++ s.s} ;
 --     ExtAdvS a s = {s = a.s ++ frontComma ++ s.s} ;
 --
 --     SSubjS a s b = {s = a.s ++ frontComma ++ s.s ++ b.s} ;

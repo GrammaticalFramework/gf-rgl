@@ -19,6 +19,19 @@ concrete ExtraExtZul of ExtraExt =
     } ;
 
   lin
+    ExistNP np = {
+      s = let
+          cp = (id_cop_pref np.agr) ; -- ng-
+          cop_base = np.s!NFull -- umfundi
+        in
+          cp ++ cop_base ;
+    } ;
+    GreetSg = {
+      s = "sawubona"
+    } ;
+    GreetPl = {
+      s = "sanibonani"
+    } ;
     -- PotQS pol qcl = {
     --   s = pol.s ++ qcl.potqcl!pol.p!Princ ;
     --   qword_pre = qcl.qword_pre ;

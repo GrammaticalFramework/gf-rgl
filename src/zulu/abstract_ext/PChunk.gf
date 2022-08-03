@@ -3,8 +3,10 @@ abstract PChunk = Cat, CatExt, Symbol [Symb] ** {
 cat
   Chunks ;
   Chunk ;
+  Chunk_Phr ;
   Chunk_AP ;
   Chunk_Adv ;
+  Chunk_Imp ;
   Chunk_S ;
   Chunk_RS ;
   Chunk_QS ;
@@ -21,8 +23,10 @@ fun
   PlusChunk : Chunk -> Chunks -> Chunks ;
   ChunkPhr : Chunks -> Phr ;
 
+  Phr_Chunker : Chunk_Phr -> Chunk ;
   -- AP_Chunker : Chunk_AP -> Chunk ;
   Adv_Chunker : Chunk_Adv -> Chunk ;
+  Imp_Chunker : Chunk_Imp -> Chunk ;
   S_Chunker : Chunk_S -> Chunk ;
   RS_Chunker : Chunk_RS -> Chunk ;
   QS_Chunker : Chunk_QS -> Chunk ;
@@ -33,8 +37,10 @@ fun
   Postdet_Chunker : Chunk_Postdet -> Chunk ;
   Symb_Chunker : Chunk_Symb -> Chunk ;
 
+  Phr_Chunk : Phr -> Chunk_Phr ;
   -- AP_Chunk  : AP  -> Chunk_AP ;
   Adv_Chunk : Adv -> Chunk_Adv ;
+  Imp_Chunk : Imp -> Chunk_Imp ;
   S_Chunk      : S   -> Chunk_S ;
   RS_Chunk     : RS -> Chunk_RS ;
   QS_Chunk     : QS  -> Chunk_QS ;

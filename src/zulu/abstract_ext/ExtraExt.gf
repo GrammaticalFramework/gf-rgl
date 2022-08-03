@@ -6,6 +6,9 @@ abstract ExtraExt =
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
 
   fun
+    ExistNP : NP -> S ;
+    GreetSg : Utt ;
+    GreetPl : Utt ;
     -- PotQS : Pol -> QCl -> QS ;
     -- SubjunctS : S -> Utt ;
 

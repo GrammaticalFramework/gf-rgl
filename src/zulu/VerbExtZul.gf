@@ -149,4 +149,52 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       vptype = CopLoc
     } ;
 
+    -- CopPoss np = {
+    --   s = table {
+    --     MainCl => \\a,p,t,l => let
+    --       vform = VFIndic MainCl p t ;
+    --       pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
+    --       cp = (id_cop_pref np.agr) ; -- ng-
+    --       cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
+    --     in
+    --       pcp ++ cp ++ cop_base ;
+    --     RelCl => \\a,p,t,l => let
+    --       vform = VFIndic RelCl p t ;
+    --       rcp = (relConcCop vform a RC) ; -- o-
+    --       pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
+    --       cp = (id_cop_pref np.agr) ; -- ng-
+    --       cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
+    --     in
+    --       rcp ++ pcp ++ cp ++ cop_base
+    --   } ;
+    --   comp, iadv, advs = [] ;
+    --   hasComp = np.heavy ;
+    --   r = RC ; -- should not be used
+    --   syl = SylMult ;
+    --   vptype = CopIdent
+    -- } ;
+
+    CopQuant qs = {
+      s = table {
+          MainCl => \\a,p,t,l => let
+            vform = VFIndic MainCl p t ;
+            pcp = ap_cop_pref vform a RelType ; -- u-
+            cop_base = qs.s!a -- qotho
+          in
+            pcp ++ cop_base ;
+          RelCl => \\a,p,t,l => let
+            vform = VFIndic RelCl p t ;
+            rcp = (relConcCop vform a RC) ; -- o-
+            pcp = ap_cop_pref vform a RelType ; -- [] / -nge- / zoba / -benge-
+            cop_base = qs.s!a -- qotho
+          in
+            rcp ++ pcp ++ cop_base
+      } ;
+      comp, iadv, advs = [] ;
+      hasComp = True ;
+      r = RC ; -- should not be used
+      syl = SylMult ;
+      vptype = CopDescr
+    } ;
+
 }

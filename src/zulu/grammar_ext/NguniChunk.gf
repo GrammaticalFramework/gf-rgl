@@ -6,6 +6,7 @@ abstract NguniChunk =
   ExtraExt,
   NounExt,
   VerbExt,
+  PhraseExt,
   -- MonoLexAbs,
   PChunk,
   Symbol - [Symb]

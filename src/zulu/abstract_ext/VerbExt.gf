@@ -7,6 +7,9 @@ abstract VerbExt = Cat,CatExt ** {
     CopNPAssoc : NP -> VP ;
     CopLoc : Loc -> VP ;
 
+    -- CopPoss : NP -> VP ;
+    CopQuant : QuantStem -> VP ;
+
     -- BecomeAP : AP -> VP ;
     -- BecomeNP : NP -> VP ;
     -- BecomeNPAssoc : NP -> VP ;

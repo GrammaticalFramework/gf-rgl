@@ -57,7 +57,17 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       }
     } ;
 
-    -- PredetNP, PPartNP, AdvNP, ExtAdvNP : not implemented
+    -- PredetNP, PPartNP, ExtAdvNP : not implemented
+
+    AdvNP np adv = {
+      empty = np.empty ;
+      s = \\nform => np.s!nform ++ adv.s ;
+      agr = np.agr ;
+      i = np.i ;
+      proDrop = False ; -- probably right?
+      isPron = np.isPron ;
+      heavy = True
+    } ;
 
     -- TODO: refactor
     RelNP np rs = {

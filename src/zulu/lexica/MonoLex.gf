@@ -5114,6 +5114,7 @@ zozo_1a_2a_N : N ;
 zuka_1a_2a_N : N ;
 zulu_1a_2a_N : N ;
 zwa_1a_2a_N : N ;
+zwekazi_5_6_N : N ;
 zwelonke_1a_2a_N : N ;
 
    -- verb roots

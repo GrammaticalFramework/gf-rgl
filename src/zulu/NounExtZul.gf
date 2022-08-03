@@ -57,7 +57,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     -- TODO : check mod
     ApposCN cn n = {
-      s = \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
+      s = \\num,nform => cn.s!num!nform ++ n.s!num!NFull ;
       -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
       c = cn.c ; -- takes agr of cn
       empty = cn.empty ;
@@ -66,7 +66,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     -- TODO : check mod
     ApposN cn n = {
-      s = \\num,nform => cn.s!num!nform ++ n.s!num!nform ;
+      s = \\num,nform => cn.s!num!nform ++ n.s!num!NFull ;
       -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
       c = n.c ; -- takes agr of n
       empty = cn.empty ;

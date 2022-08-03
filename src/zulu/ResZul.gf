@@ -48,16 +48,28 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     prefix_nasal : Str -> Str = \r -> case r of {
       "ph"+x => "mp" + x ;
+      "Ph"+x => "mP" + x ;
       "bh"+x => "mb" + x ;
-      #nasal_de_asp+"h"+x => "n"+(take 1 r) + x ;
+      "Bh"+x => "mB" + x ;
+      (#nasal_de_asp|#nasal_de_asp_cap)+"h"+x => "n"+(take 1 r) + x ;
       "hl"+x => "nhl"+x ;
+      "Hl"+x => "Nhl"+x ;
       "h"+x => "nk"+x ;
+      "H"+x => "Nk"+x ;
       "sh"+x => "ntsh"+x ;
+      "Sh"+x => "Ntsh"+x ;
       "l"+x => "nd"+x ;
+      "L"+x => "Nd"+x ;
       #nasal_m+x => "m"+r ;
+      #nasal_m_cap+x => "M"+r ;
       #nasal_ng+x => "ng"+r ;
+      #nasal_ng_cap+x => "Ng"+r ;
       #nasal+x => r ;
+      #nasal_cap+x => r ;
       "p"+x => "mp" + x ;
+      "P"+x => "Mp" + x ;
+      #vowel_cap+x => "N" + r ;
+      #cons_cap+x => "N" + r ;
       _ => "n"+r
     } ;
     --------------
@@ -892,49 +904,49 @@ resource ResZul = open Prelude,Predef,ParamX in {
       <C1a_2a,Sg> => "ku"+root ;
       <C1a_2a,Pl> => "ko"+root ;
       <C3_4,Sg> => case root of {
-        "m"+_ => "e"+root ;
+        ("m"|"M")+_ => "e"+root ;
         _ => "em"+root
       } ;
       <C3_4,Pl> => "emi"+root ;
       <C5_6,Sg> => case root of {
-        "i"+_ => "e" + (last root)  ;
-        #vowel+_ => "el" + root ;
+        ("i"|"I")+_ => "e" + (last root)  ;
+        (#vowel|#vowel_cap)+_ => "el" + root ;
         _ => "e"+root -- ili long form (not used?)
       } ;
       <C5_6,Pl> => case root of {
-        "i"+_ => "eme"+ (last root) ;
-        #vowel+_ => "em"+root ;
+        ("i"|"I")+_ => "eme"+ (last root) ;
+        (#vowel|#vowel_cap)+_ => "em"+root ;
         _ => "ema"+root
       } ; -- ame for roots starting with i
       <C7_8,Sg> => case root of {
-        #vowel+_ => "es"+root ;
+        (#vowel|#vowel_cap)+_ => "es"+root ;
         _ => "esi"+root
       } ; -- is for roots starting with vowel
       <C7_8,Pl> => case root of {
-        #vowel+_ => "ez"+root ;
+        (#vowel|#vowel_cap)+_ => "ez"+root ;
         _ => "ezi"+root  -- iz for roots starting with vowel
       } ;
       <C9_10,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
       <C11_10,Sg> => case root of {
-        #vowel+_ => "olw" + root ;
-        "w"+_ => "ol"+root ;
+        (#vowel|#vowel_cap)+_ => "olw" + root ;
+        ("w"|"W")+_ => "ol"+root ;
         _ => "o"+root
       } ;
       <C11_10,Pl> => case root of {
-        #vowel+_ => "ezilw" + root ;
-        "w"+_ => "ezil" + root ;
+        (#vowel|#vowel_cap)+_ => "ezilw" + root ;
+        ("w"|"W")+_ => "ezil" + root ;
         _ => "ezi"+(prefix_nasal root)
       } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
       <C9_6,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_6,Pl> => case root of {
-        "i"+_ => "eme"+root ;
+        ("i"|"I")+_ => "eme"+root ;
         _ => "ema"+root
       } ; -- ame for roots starting with i
       <C14,_> => "ebu"+root ;
       <C15,_> => case root of {
-        ("a"|"e")+_ => "ekw"+root ;
-        (#cons|"y")+_ => "eku"+root ;
+        ("a"|"e"|"A"|"E")+_ => "ekw"+root ;
+        (#cons|"y"|#cons_cap|"Y")+_ => "eku"+root ;
         _ => "ek"+root
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
       <C17,_> => "eku"+root  -- sometimes ukw
@@ -970,74 +982,80 @@ resource ResZul = open Prelude,Predef,ParamX in {
     } ;
 
     vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
+    vowel_cap : pattern Str = #("A"|"E"|"I"|"O"|"U") ;
     cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"y"|"z") ;
+    cons_cap : pattern Str = #("B"|"C"|"D"|"F"|"G"|"H"|"J"|"K"|"L"|"M"|"N"|"P"|"Q"|"R"|"S"|"T"|"V"|"W"|"X"|"Y"|"Z") ;
     labial_cons : pattern Str = #("p"|"b"|"f"|"v"|"w") ;
     alveolar_cons : pattern Str = #("s"|"d"|"t"|"z") ;
     nasal_de_asp : pattern Str = #("t"|"k"|"x"|"c"|"q") ;
+    nasal_de_asp_cap : pattern Str = #("T"|"K"|"X"|"C"|"Q") ;
     nasal_m : pattern Str = #("v"|"f"|"b") ;
+    nasal_m_cap : pattern Str = #("V"|"F"|"B") ;
     nasal_ng : pattern Str = #("x"|"c"|"q") ;
+    nasal_ng_cap : pattern Str = #("X"|"C"|"Q") ;
     nasal : pattern Str = #("n"|"m") ;
+    nasal_cap : pattern Str = #("N"|"M") ;
 
     nomNoun : Str -> Number -> ClassGender -> Str = \root,n,cg ->
       case <cg,n> of
       {
         <C1_2,Sg> => case root of {
-          #vowel+_ => "um"+root ;
+          (#vowel|#vowel_cap)+_ => "um"+root ;
           _+#cons+#vowel+#cons+_+#vowel+_ => "um"+root ;
           _ => "umu"+root
         } ; -- umu for single syllables, um for the rest
         <C1_2,Pl> => case root of {
-          #vowel+_ => "ab"+root ;
+          (#vowel|#vowel_cap)+_ => "ab"+root ;
           _ => "aba"+root  -- abe for tribes or guilds
         } ;
         <C1a_2a,Sg> => "u"+root ;
         <C1a_2a,Pl> => "o"+root ;
         <C3_4,Sg> => case root of {
-          "m"+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
+          ("m"|"M")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
           _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um"+root ;
-          "o"+_ => "um"+root ;
+          ("o"|"O")+_ => "um"+root ;
           _ => "umu"+root
         } ; -- umu for single syllables, um for the rest
         <C3_4,Pl> => "imi"+root ;
         <C5_6,Sg> => case root of {
-          "i"+_ => root ;
-          #vowel+_ => "il"+root ;
+          ("i"|"I")+_ => root ;
+          (#vowel|#vowel_cap)+_ => "il"+root ;
           _ => "i"+root  -- ili long form (not used?)
         } ;
         <C5_6,Pl> => case root of {
-          "i"+_ => "ame"+(drop 1 root) ;
-          #vowel+_ => "am"+root ;
+          ("i"|"I")+_ => "ame"+(drop 1 root) ;
+          (#vowel|#vowel_cap)+_ => "am"+root ;
           _ => "ama"+root
         } ; -- ame for roots starting with i
         <C7_8,Sg> => case root of {
-          #vowel+_ => "is"+root ;
+          (#vowel|#vowel_cap)+_ => "is"+root ;
           _ => "isi"+root
         } ; -- is for roots starting with vowel
         <C7_8,Pl> => case root of {
-          #vowel+_ => "iz"+root ;
+          (#vowel|#vowel_cap)+_ => "iz"+root ;
           _ => "izi" + root
         } ;
         <C9_10,Sg> => "i" + prefix_nasal root ;
         <C9_10,Pl> => "izi" + prefix_nasal root ;
         <C11_10,Sg> => case root of {
-          #vowel+_ => "ulw"+root ;
-          "w"+_ => "ul"+root ;
+          (#vowel|#vowel_cap)+_ => "ulw"+root ;
+          ("w"|"W")+_ => "ul"+root ;
           _ => "u"+root
         } ;
         <C11_10,Pl> => case root of {
-          #vowel+_ => "izilw"+root ;
-          "w"+_ => "izil"+root ;
+          (#vowel|#vowel_cap)+_ => "izilw"+root ;
+          ("w"|"W")+_ => "izil"+root ;
           _ => "izi" + prefix_nasal root
         } ;
         <C9_6,Sg> => "i" + prefix_nasal root ;
         <C9_6,Pl> => case root of {
-          "i"+_ => "ame"+root ;
+          ("i"|"I")+_ => "ame"+root ;
           _ => "ama"+root
         } ; -- ame for roots starting with i
         <C14,_> => "ubu"+root ;
         <C15,_> => case root of {
-          ("a"|"e")+_ => "ukw"+root ;
-          (#cons|"y")+_ => "uku"+root ;
+          ("a"|"e"|"A"|"E")+_ => "ukw"+root ;
+          (#cons|#cons_cap|"y"|"Y")+_ => "uku"+root ;
           _ => "uk"+root
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
         <C17,_> => "uku"+root  -- sometimes ukw
@@ -1047,64 +1065,65 @@ resource ResZul = open Prelude,Predef,ParamX in {
         case <cg,n> of
         {
           <C1_2,Sg> => case root of {
-            #vowel+_ => "kum"+root ;
+            (#vowel|#vowel_cap)+_ => "kum"+root ;
             _+#cons+#vowel+#cons+_+#vowel+_ => "kum"+root ;
             _ => "kumu"+root
           } ; -- umu for single syllables, um for the rest
           <C1_2,Pl> => case root of {
-            #vowel+_ => "kub"+root ;
+            (#vowel|#vowel_cap)+_ => "kub"+root ;
             _ => "kuba"+root -- abe for tribes or guilds
           } ;
           <C1a_2a,Sg> => "ku"+root ;
           <C1a_2a,Pl> => "ko"+root ;
           <C3_4,Sg> => case root of {
-            "m"+_ => "e"+(addLocSuffix root) ;
+            ("m"|"M")+_ => "e"+(addLocSuffix root) ;
             _ => "em"+(addLocSuffix root)
           } ;
           <C3_4,Pl> => "emi"+(addLocSuffix root) ;
           <C5_6,Sg> => case root of {
-            "i"+_ => "e"+(addLocSuffix (drop 1 root)) ;
-            #vowel+_ => "el"+(addLocSuffix root) ;
+            ("i"|"I")+_ => "e"+(addLocSuffix (drop 1 root)) ;
+            (#vowel|#vowel_cap)+_ => "el"+(addLocSuffix root) ;
             _ => "e"+(addLocSuffix root) -- ili long form (not used?)
           } ;
           <C5_6,Pl> => case root of {
-            "i"+_ => "eme"+(addLocSuffix (drop 1 root)) ;
-            #vowel+_ => "em"+(addLocSuffix root) ;
+            ("i"|"I")+_ => "eme"+(addLocSuffix (drop 1 root)) ;
+            (#vowel|#vowel_cap)+_ => "em"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
           } ; -- ame for roots starting with i
           <C7_8,Sg> => case root of {
-            #vowel+_ => "es"+(addLocSuffix root) ;
+            (#vowel|#vowel_cap)+_ => "es"+(addLocSuffix root) ;
             _ => "esi"+(addLocSuffix root)
           } ; -- is for roots starting with vowel
           <C7_8,Pl> => case root of {
-            #vowel+_ => "ez"+(addLocSuffix root) ;
+            (#vowel|#vowel_cap)+_ => "ez"+(addLocSuffix root) ;
             _ => "ezi"+(addLocSuffix root)  -- iz for roots starting with vowel
           } ;
           <C9_10,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
           <C11_10,Sg> => case root of {
-            #vowel+_ => "olw"+(addLocSuffix root) ;
-            "w"+_ => "ol"+(addLocSuffix root) ;
+            (#vowel|#vowel_cap)+_ => "olw"+(addLocSuffix root) ;
+            ("w"|"W")+_ => "ol"+(addLocSuffix root) ;
             _ => "o"+(addLocSuffix root)
           } ;
           <C11_10,Pl> => case root of {
-            #vowel+_ => "ezilw"+(addLocSuffix root) ;
-            "w"+_ => "ezil"+(addLocSuffix root) ;
+            (#vowel|#vowel_cap)+_ => "ezilw"+(addLocSuffix root) ;
+            ("w"|"W")+_ => "ezil"+(addLocSuffix root) ;
             _ => "ezi"+(addLocSuffix (prefix_nasal root)) -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
           } ;
           <C9_6,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
-            "i"+_ => "eme"+(addLocSuffix root) ;
+            ("i"|"I")+_ => "eme"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
           } ; -- ame for roots starting with i
           <C14,_> => "ebu"+(addLocSuffix root) ;
           <C15,_> => case root of {
-            ("a"|"e")+_ => "ekw"+(addLocSuffix root) ;
-            (#cons|"y")+_ => "eku"+root ;
+            ("a"|"e"|"A"|"E")+_ => "ekw"+(addLocSuffix root) ;
+            (#cons|"y"|#cons_cap|"Y")+_ => "eku"+root ;
             _ => "ek"+(addLocSuffix root)
             } ; -- ukw for roots starting with a/e, uk for roots starting with o
           <C17,_> => "eku"+(addLocSuffix root)  -- sometimes ukw
         } ;
+
 
       locS : Agr => Str = table {
         Third C1_2 _ => [] ;

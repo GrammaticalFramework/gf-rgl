@@ -23,6 +23,6 @@ concrete PhraseZul of Phrase = CatZul ** open Prelude, ResZul in {
   --   PConjConj conj = {s = conj.s2} ; ---
 
     NoVoc = {s = []} ;
-  --   VocNP np = {s = frontComma ++ np.s ! npNom} ;
+    VocNP np = {s = np.s ! NReduced } ;
 
 }

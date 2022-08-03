@@ -5,7 +5,8 @@ abstract NguniLang =
   Backward[ComplV2,ComplV3],
   ExtraExt,
   NounExt,
-  VerbExt
+  VerbExt,
+  PhraseExt
   -- MonoLexAbs,
   -- Chunk
   -- Symbol - [Symb],
