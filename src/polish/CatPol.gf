@@ -126,6 +126,7 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
   linref
     A = \a -> a.pos.s1 ;
     A2 = \a -> a.pos.s1 ++ a.c.s ;
+    PN = \pn -> pn.nom ;
 
 };
 
