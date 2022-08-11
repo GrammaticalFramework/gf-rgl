@@ -1,7 +1,7 @@
 --# -path=.:../abstract
 
-concrete ConstructionGer of Construction = CatGer ** 
-  open SyntaxGer, SymbolicGer, ParadigmsGer, 
+concrete ConstructionGer of Construction' = CatGer **
+  open SyntaxGer, SymbolicGer, ParadigmsGer,
        (L = LexiconGer), (E = ExtraGer), (G = GrammarGer), (I = IrregGer), (R = ResGer), (N = NounGer), Prelude in {
 flags coding=utf8 ;
 

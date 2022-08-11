@@ -11,7 +11,7 @@ concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
       ext = []
       } ;
     ComparA a np =
-      let nps = (np.s ! Nom).p1 ++ (np.s ! Nom).p2 ++ bigNP' np 
+      let nps = np.s ! False ! Nom ++ bigNP' np
       in {
       s = \\af => a.s ! Compar ! af ++ conjThan ++ nps ;
       isPre = True ;
@@ -19,7 +19,7 @@ concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
       ext = []
       } ;
     CAdvAP ad ap np =
-      let nps = (np.s ! Nom).p1 ++ (np.s ! Nom).p2 ++ bigNP' np in 
+      let nps = np.s ! False ! Nom ++ bigNP' np in
       ap ** {
       s = \\af => ad.s ++ ap.s ! af ++ ad.p ++ nps ;
       isPre = False 

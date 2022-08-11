@@ -1,3 +1,3 @@
 --# -path=.:alltenses:prelude
 
-resource ConstructorsGer = Constructors with (Grammar = GrammarGer) ;
+resource ConstructorsGer = Constructors' with (Grammar = GrammarGer) ;

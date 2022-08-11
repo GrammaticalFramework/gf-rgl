@@ -58,8 +58,9 @@ concrete CatGer of Cat' =
       adv : Str ;          -- Haus    [adv auf dem Hügel]
       g : Gender
       } ;
-    NP = ResGer.NP ; 
+--    NP = ResGer.NP ;
     Pron = {s : NPForm => Str ; a : Agr} ;
+{-
     Det, DAP = {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} ;
     Quant = {
       s   : Bool => Number => Gender => PCase => Str ;  -- Bool is True if a cardinal number is present
@@ -72,14 +73,15 @@ concrete CatGer of Cat' =
       c : {p : Str ; k : PredetCase} ;
       a : PredetAgr -- if an agr is forced, e.g. jeder von uns ist ...
       } ;
-
+-}
     -- HL: To reduce PCase to Case:
     NP' = ResGer.NP' ;
-    Det' = {s,sp : Gender => Case => {quant,num:Str}; n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
+    Det' = {s,sp : Bool => Gender => Case => Str ; -- True if DefArt is dropped
+            n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
     DAP' = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
-    Quant' = {
-      s   : Bool => Number => Gender => Case => Str ;  -- Bool is True if a cardinal number is present
-      sp  : Bool => Number => Gender => Case => Str ;
+    Quant' = { -- HL 7/2022: first Bool = True if used to glue in Sg with preposition
+      s   : Bool => Bool => Number => Gender => Case => Str ;  -- second Bool is True if a cardinal number is present
+      sp  : Bool => Bool => Number => Gender => Case => Str ;
       a   : Adjf ;
       aPl : Adjf ;  --- to distinguish "meine guten Freunde" / "gute Freunde"
       hasDefArt : Bool
@@ -103,7 +105,7 @@ concrete CatGer of Cat' =
 
     Conj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
-    Prep = Preposition ;
+--    Prep = Preposition ;
     Prep' = Preposition' ;
 
 -- Open lexical classes, e.g. Lexicon
@@ -128,29 +130,29 @@ concrete CatGer of Cat' =
     Tense = {s : Str ; t : ResGer.Tense ; m : Mood} ;
 
   linref
-    NP = \np -> np.s!(NPC Nom) ++ np.ext ++ np.rc ; -- HL 6/2019
-    NP' = \np -> (np.s!Nom).p1 ++ (np.s!Nom).p2 ++ np.ext ++ np.rc ; -- HL 7/2022
+--    NP = \np -> np.s!(NPC Nom) ++ np.ext ++ np.rc ; -- HL 6/2019
+    NP' = \np -> np.s ! False ! Nom ++ np.ext ++ np.rc ; -- HL 7/2022 Bool added
     CN = \cn -> cn.s ! Strong ! Pl ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Pl ;
 
-    SSlash = \ss -> ss.s ! Main ++ ss.c2.s  ;
-    ClSlash = \cls -> cls.s ! MIndic ! Pres ! Simul ! Pos ! Main ++ cls.c2.s ;
+    SSlash = \ss -> ss.s ! Main ++ ss.c2.s ! GPl ;
+    ClSlash = \cls -> cls.s ! MIndic ! Pres ! Simul ! Pos ! Main ++ cls.c2.s ! GPl ;
 
     VP = \vp -> useInfVP False vp ;
-    VPSlash = \vps -> useInfVP False vps ++ vps.c2.s ++ vps.ext;
+    VPSlash = \vps -> useInfVP False vps ++ vps.c2.s ! GPl ++ vps.ext;
 
-	AP = \ap -> ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ++ ap.ext ;
-        A2 = \a2 -> a2.s ! Posit ! APred ++ a2.c2.s ;
+    AP = \ap -> ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ++ ap.ext ;
+    A2 = \a2 -> a2.s ! Posit ! APred ++ a2.c2.s ! GPl ;
 
     V, VS, VQ, VA = \v -> useInfVP False (predV v) ;
-    V2, V2A, V2Q, V2S = \v -> useInfVP False (predV v) ++ v.c2.s ;
-    V3 = \v -> useInfVP False (predV v) ++ v.c2.s ++ v.c3.s ;
+    V2, V2A, V2Q, V2S = \v -> useInfVP False (predV v) ++ v.c2.s ! GPl ;
+    V3 = \v -> useInfVP False (predV v) ++ v.c2.s ! GPl ++ v.c3.s ! GPl;
 
     VV = \v -> useInfVP v.isAux (predVGen v.isAux v) ;
-    V2V = \v -> useInfVP v.isAux (predVGen v.isAux v) ++ v.c2.s ;
+    V2V = \v -> useInfVP v.isAux (predVGen v.isAux v) ++ v.c2.s ! GPl ;
 
     Conj = \c -> c.s1 ++ c.s2 ;
 
-    Det' = \det -> (det.s ! Masc ! Nom).quant ++ (det.s ! Masc ! Nom).num ;
-    Prep' = \prep -> case prep.isPrep of {PrepDefArf => prep.sg ! Masc ;
-                                          _ => prep.s ++ prep.s2 } ;
+    Det' = \det -> det.s ! False ! Masc ! Nom ;
+    Prep' = \prep -> case prep.isPrep of {isPrepDefArt => prep.s ! GSg Masc ;
+                                          _ => prep.s ! GPl } ;
 }

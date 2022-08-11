@@ -214,7 +214,8 @@ lin
   university_N = reg2N "Universität" "Universitäten" feminine  ;
   village_N = reg2N "Dorf" "Dörfer" neuter ;
 --  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" accusative) ;
-  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" "auf den" "auf die" "aufs" accusative) ;
+--  wait_V2 = prepV2 (regV "warten") ((mkPrep "auf" "auf den" "auf die" "aufs" accusative) | (mkPrep "auf" accusative));
+  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" "auf den" "auf die" ("aufs" | "auf das") accusative);
   walk_V = seinV Irreg.gehen_V ;
   warm_A = mk3A "warm" "wärmer" "wärmste" ;
   war_N = mkN "Krieg" ;

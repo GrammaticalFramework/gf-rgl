@@ -148,11 +148,11 @@ abstract Noun' = Cat' ** {
 
 -- This is different from the partitive, as shown by many languages.
 
-    CountNP : Det -> NP -> NP ;    -- three of them, some of the boys
+    CountNP : Det' -> NP' -> NP' ;    -- three of them, some of the boys
 
 --3 Conjoinable determiners and ones with adjectives
 
-    AdjDAP : DAP -> AP -> DAP ;    -- the large (one)
+    AdjDAP : DAP' -> AP -> DAP' ;    -- the large (one)
     DetDAP : Det' -> DAP' ;          -- this (or that) 
 
 }

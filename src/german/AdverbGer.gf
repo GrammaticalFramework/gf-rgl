@@ -4,7 +4,7 @@ concrete AdverbGer of Adverb' = CatGer ** open ResGer, Prelude in {
     PositAdvAdj a = {s = a.s ! Posit ! APred} ;
 
     ComparAdvAdj cadv a np =
-      let nps = (np.s ! Nom).p1 ++ (np.s ! Nom).p2 ++ bigNP' np in
+      let nps = np.s ! False ! Nom ++ bigNP' np in
       {
       s = cadv.s ++ a.s ! Posit ! APred ++ cadv.p ++ nps
       } ;

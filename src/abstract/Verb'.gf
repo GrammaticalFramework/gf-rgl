@@ -29,8 +29,7 @@ abstract Verb' = Cat' ** {
     ComplSlash : VPSlash -> NP' -> VP ; -- love it
 
     SlashVV    : VV  -> VPSlash -> VPSlash ;       -- want to buy
-    SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
-    SlashV2VNP' : V2V -> NP' -> VPSlash -> VPSlash ; -- beg me to buy
+    SlashV2VNP : V2V -> NP' -> VPSlash -> VPSlash ; -- beg me to buy
 
 --2 Other ways of forming verb phrases
 

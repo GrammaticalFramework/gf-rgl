@@ -61,7 +61,7 @@ concrete QuestionGer of Question' = CatGer ** open ResGer in {
       } ;
 
     PrepIP p ip = {
-      s = appPrep p (\\k => usePrepC k (\c -> ip.s ! c)) ;
+      s = appPrep' p ip.s ;
       } ;
 
     AdvIP ip adv = {

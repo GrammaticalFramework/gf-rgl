@@ -20,12 +20,12 @@ abstract Conjunction' = Cat' ** {
     ConjS    : Conj -> ListS -> S ;       -- he walks and she runs
     ConjRS   : Conj -> ListRS -> RS ;     -- who walks and whose mother runs
     ConjAP   : Conj -> ListAP -> AP ;     -- cold and warm
-    ConjNP'   : Conj -> ListNP' -> NP' ;     -- she or we
+    ConjNP   : Conj -> ListNP' -> NP' ;     -- she or we
     ConjAdv  : Conj -> ListAdv -> Adv ;   -- here or there
     ConjAdV  : Conj -> ListAdV -> AdV ;   -- always or sometimes
     ConjIAdv : Conj -> ListIAdv -> IAdv ; -- where and with whom
     ConjCN   : Conj -> ListCN -> CN ;     -- man and woman
-    ConjDet  : Conj -> ListDAP -> Det ;   -- his or her
+    ConjDet  : Conj -> ListDAP -> Det' ;   -- his or her
 
 --2 Categories
 

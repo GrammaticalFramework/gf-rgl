@@ -18,35 +18,19 @@ oper
 -- For $StructuralGer$.
 
   mkPrep : Str -> Case -> Preposition' = \s,c ->
-    {s = s ; s2 = [] ; c = c ; sg = \\_ => [] ; isPrep = isPrep} ;
+    {s = \\_ => s ; s2 = [] ; c = c ; isPrep = isPrep} ;
 
-  nameNounPhrase : {s : Case => Str} ->  {s : PCase => Str ; a : Agr ;
-                                          -- isLight, isPron : Bool ; 
-                                          w : Weight ;
-                                          ext,rc : Str} = \name -> heavyNP {
-      s = \\c => usePrepC c (\k -> name.s ! k) ;
-      a = agrP3 Sg
-      } ;
-  nameNounPhrase' : Gender -> {s : Case => Str} -> {s : Case => Str * Str;
+  nameNounPhrase' : Gender -> {s : Case => Str} -> {s : Bool => Case => Str ;
                                                     a : Agr ;
                                                     w : Weight' ;
                                                     ext,rc : Str} =
     \g,name -> {
-      s = \\c => <[],name.s ! c> ;
+      s = \\_,c => name.s ! c ;
       a = agrgP3 g Sg ;
       ext,rc = [] ;
       w = WHeavy' -- ok?
       } ;
 
-  detLikeAdj : Bool -> Number -> Str -> 
-    {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies -> 
-      {s,sp = appAdj (regA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
-
-  detUnlikeAdj : Bool -> Number -> Str -> 
-    {s,sp : Gender => PCase => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies -> 
-      {s,sp = appAdj (regDetA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
-
-  -- HL: to reduce PCase to Case:
   detLikeAdj' : Bool -> Number -> Str ->
     {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies ->
       {s,sp = appAdj' (regA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;

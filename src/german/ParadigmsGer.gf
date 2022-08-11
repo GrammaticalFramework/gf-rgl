@@ -188,6 +188,7 @@ mkN : overload {
     -- for preposition glued with DefArt in singular:
     -- e.g. "auf" "auf den" "auf die" "aufs" + accusative
     mkPrep : Str -> Str -> Str -> Str-> Case -> Prep' ; 
+    mkPrep : Case -> Prep' ;        -- convert case to preposition
     } ;
 
 -- Often just a case with the empty string is enough.
@@ -501,31 +502,30 @@ mkV2 : overload {
   mkAdv s = {s = s ; lock_Adv = <>} ;
 
   mkPrep = overload {
-    mkPrep : Str -> Case -> Prep' = \s,c -> {s = s ; s2 = [] ; sg = \\_ => [] ;
-                                             c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
-    mkPrep : Case -> Str -> Prep' = \c,s -> {s = [] ; s2 = s ; sg = \\_ => [] ;
-                                            c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
-    mkPrep : Str -> Case -> Str -> Prep' = \s,c,t -> {s = s ; s2 = t ; sg = \\_ => [] ;
-                                                     c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
+    mkPrep : Str -> Case -> Prep' = \s,c ->
+      {s = \\_ => s ; s2 = [] ; c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
+    mkPrep : Case -> Str -> Prep' = \c,s ->
+      {s = \\_ => [] ; s2 = s ; c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
+    mkPrep : Str -> Case -> Str -> Prep' = \s,c,t ->
+      {s = \\_ => s ; s2 = t ;  c = c ; isPrep = isPrep ; lock_Prep' = <>} ;
     mkPrep : Str -> Str -> Str -> Str-> Case -> Prep' = \s,masc,fem,neutr, c ->
-      {s = s ; s2 = [] ; sg = table{Masc => masc ; Fem => fem ; Neutr => neutr} ;
-       c = c ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
+      {s = table{GPl => s ; GSg Masc => masc ; GSg Fem => fem ; GSg Neutr => neutr} ;
+       s2 = [] ; c = c ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
+    mkPrep : Case -> Prep' = \c ->
+      {s = \\_ => [] ; s2 = [] ; c = c ; isPrep = isCase ; lock_Prep' = <>} ;
     } ;
-  accPrep = {s,s2 = [] ; sg = \\_ => [] ; c = accusative ; isPrep = isCase ; lock_Prep' = <>} ;
-  datPrep = {s,s2 = [] ; sg = \\_ => [] ; c = dative ; isPrep = isCase ; lock_Prep' = <>} ;
-  genPrep = {s,s2 = [] ; sg = \\_ => [] ; c = genitive ; isPrep = isCase ; lock_Prep' = <>} ;
+  
+  accPrep = mkPrep accusative ;
+  datPrep = mkPrep dative ;
+  genPrep = mkPrep genitive ;
 
   --von_Prep = mkPrep "von" dative ;
-  von_Prep = {s = "von"; s2=[]; sg = table{ Masc|Neutr => "vom" ; Fem => "von der" } ;
-              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
-  zu_Prep = {s = "zu"; s2=[]; sg = table{ Masc|Neutr => "zum" ; Fem => "zur" } ;
-              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
-  anDat_Prep = {s = "an"; s2=[]; sg = table{ Masc|Neutr => "am" ; Fem => "an der" } ;
-              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
-  inDat_Prep = {s = "in"; s2=[]; sg = table{ Masc|Neutr => "im" ; Fem => "in der" } ;
-              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
-  inAcc_Prep = {s = "in"; s2=[]; sg = table{ Masc => "in den" ; Fem => "in die" ; Neutr => "ins" } ;
-              c = dative ; isPrep = isPrepDefArt ; lock_Prep' = <>} ;
+  von_Prep   = mkPrep "von" "vom" "von der" "vom" dative ;
+  zu_Prep    = mkPrep "zu" "zum" "zur" "zum" dative ;
+  inDat_Prep = mkPrep "in" "im" "in der" "im" dative ;
+  inAcc_Prep = mkPrep "in" "in den" "in die" "ins" accusative ;
+  anDat_Prep = mkPrep "an" "am" "an der" "am" dative ;
+  anAcc_Prep = mkPrep "an" "an den" "an die" "ans" accusative ;
 
   mk6V geben gibt gib gab gaebe gegeben = 
     let
@@ -594,7 +594,7 @@ mkV2 : overload {
       = \v,c,d -> lin V3 (v ** {c2 = c ; c3 = d}) ;
     } ;
 
-  dirV3 v p = mkV3 v accPrep p ;        -- accPrep sets isPrep=False
+  dirV3 v p = mkV3 v accPrep p ;
   accdatV3 v = mkV3 v datPrep accPrep ; -- to fit to Eng ditransitives (no preposition): 
                                         -- give sb(indir) sth(dir) = geben jmdm(dat) etwas(acc)
   mkVS v = v ** {lock_VS = <>} ;
@@ -723,8 +723,7 @@ mkV2 : overload {
     mkV2 : Str -> V2 = \s -> dirV2 (regV s) ;
     mkV2 : V -> V2 = dirV2 ;
     mkV2 : V -> Prep' -> V2 = prepV2;
-    mkV2 : V -> Case -> V2 = \v,c ->
-      prepV2 v (lin Prep' {s,s2 = [] ; sg = \\_ => [] ; c = c ; isPrep = isCase}) ;
+    mkV2 : V -> Case -> V2 = \v,c -> prepV2 v (mkPrep c) ;
     } ;
 
 }

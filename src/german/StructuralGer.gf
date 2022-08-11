@@ -48,7 +48,7 @@ concrete StructuralGer of Structural' = CatGer **
   here_Adv = ss "hier" ;
   how_IAdv = ss "wie" ;
   how8much_IAdv = ss "wieviel" ;
-  how8many_IDet = {s = \\g,c => (detUnlikeAdj False Pl "wie viel").s ! g ! NPC c ; n = Pl} ;
+  how8many_IDet = {s = \\g,c => (detUnlikeAdj' False Pl "wie viel").s ! g ! c ; n = Pl} ;
   if_Subj = ss "wenn" ; --- no variants in the RGL! | ss "falls" ;
   in8front_Prep = mkPrep "vor" P.dative ;
   i_Pron = mkPronPers "ich" "mich" "mir" "meiner" "mein" Masc Sg P1 ;
@@ -77,9 +77,9 @@ concrete StructuralGer of Structural' = CatGer **
   on_Prep = P.mkPrep "auf" "auf den" "auf die" "aufs" P.accusative ; -- test HL 7/2022
   or_Conj = {s1 = [] ; s2 = "oder" ; n = Sg} ;
   otherwise_PConj = ss "sonst" ;
-  part_Prep = P.von_Prep ; -- mkPrep "von" P.dative ;
+  part_Prep = P.von_Prep ;    -- obsolete, use PartNP cn np
   please_Voc = ss "bitte" ;
-  possess_Prep = P.von_Prep ;-- mkPrep "von" P.dative ;
+  possess_Prep = P.von_Prep ; -- obsolete, use PossNP cn np
   quite_Adv = ss "ziemlich" ;
   she_Pron = mkPronPers "sie" "sie" "ihr" "ihrer" "ihr" Fem Sg P3 ;
   so_AdA = ss "so" ;
@@ -97,7 +97,7 @@ concrete StructuralGer of Structural' = CatGer **
   somewhere_Adv = ss "irgendwo" ;
   that_Quant = let 
      jener : Number => Gender => Case => Str = \\n => (detUnlikeAdj' True n "jen").s in 
-     {s,sp = \\_ => jener ; a,aPl = Weak ; hasDefArt = False} ;
+     {s,sp = \\_,_ => jener ; a,aPl = Weak ; hasDefArt = False} ;
 ---b  that_NP = nameNounPhrase {s = caselist "das" "das" "denem" "dessen"} ; ----
   there_Adv = ss "da" ; --- no variants in the rgl | ss "dort" ;
   there7to_Adv = ss "dahin" ;
@@ -107,7 +107,7 @@ concrete StructuralGer of Structural' = CatGer **
   they_Pron = mkPronPers "sie" "sie" "ihnen" "ihrer" "ihr" Fem Pl P3 ;
   this_Quant = let 
      dieser : Number => Gender => Case => Str = \\n => (detUnlikeAdj' True n "dies").s in 
-     {s,sp = \\_ => dieser ; a,aPl = Weak ; hasDefArt = False} ;
+     {s,sp = \\_,_ => dieser ; a,aPl = Weak ; hasDefArt = False} ;
 ---b  this_NP = nameNounPhrase {s = caselist "dies" "dies" "diesem" "dieses"} ; ----
 ---b  those_NP = {s = caselist "jene" "jene" "jenen" "jener" ; a = agrP3 Pl} ;
   through_Prep = mkPrep "durch" P.accusative ;
@@ -148,7 +148,7 @@ concrete StructuralGer of Structural' = CatGer **
        Pl => (detUnlikeAdj' False Pl "kein").s
        }
      in 
-     {s,sp = \\_ => keiner ; a = Strong ; aPl = Weak ; hasDefArt = False} ;   ---- sp
+     {s,sp = \\_,_ => keiner ; a = Strong ; aPl = Weak ; hasDefArt = False} ;   ---- sp
   if_then_Conj = {s1 = "wenn" ; s2 = "dann" ; n = Sg ; lock_Conj = <>} ;
   nobody_NP = 
     nameNounPhrase' Masc {s = caselist "niemand" "niemanden" "niemandem" "niemands"} ;
@@ -165,8 +165,8 @@ concrete StructuralGer of Structural' = CatGer **
   lin language_title_Utt = ss "Deutsch" ;
 
   oper
-    asQuant : (Gender => Case => Str) -> (Gender => Case => {quant,num:Str}) =
-      \tab -> \\g,c => {quant = tab ! g ! c; num = []} ;
+    asQuant : (Gender => Case => Str) -> (Bool => Gender => Case => Str) =
+      \tab -> \\_,g,c => tab ! g ! c ; 
     asNum : (Gender => Case => Str) -> (Gender => Case => {quant,num:Str}) =
       \tab -> \\g,c => {quant = []; num = tab ! g ! c} ;
     pairTable : (Gender => Case => Str) -> (Gender => Case => Str) -> (Gender => Case => {quant,num:Str})

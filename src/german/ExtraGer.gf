@@ -1,4 +1,4 @@
-concrete ExtraGer of ExtraGerAbs = CatGer ** 
+concrete ExtraGer of ExtraGerAbs' = CatGer **
   open ResGer, Coordination, Prelude, IrregGer, (P = ParadigmsGer) in {
   flags coding=utf8 ;
 
@@ -34,30 +34,27 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     IAdvAdv adv = {s = "wie" ++ adv.s} ;
 
     DetNPMasc det = {
-      s = \\c => det.sp ! Masc ! c ; ---- genders
-      a = agrP3 det.n ;
-      w = WLight ;
+      s = \\b,c => det.sp ! b ! Masc ! c ;
+      a = agrgP3 Masc det.n ;
+      w = case det.isDef of { True => WLight' ; _ => WHeavy' } ;
       ext, rc = []
       } ;
 
     DetNPFem det = {
-      s = \\c => det.sp ! Fem ! c ; ---- genders
-      a = agrP3 det.n ;
-      w = WLight ;
+      s = \\b,c => det.sp ! b ! Fem ! c ;
+      a = agrgP3 Fem det.n ;
+      w = case det.isDef of { True => WLight' ; _ => WHeavy' } ;
       ext, rc = []
       } ;
 
     EmptyRelSlash slash = {
       s = \\m,t,a,p,gn => 
-          appPrep slash.c2 (\\k => usePrepC k (\c -> relPron ! gn ! c)) ++ 
-          slash.s ! m ! t ! a ! p ! Sub ;
-      c = (prepC slash.c2.c).c
+          appPrep' slash.c2 (relPron ! gn) ++ slash.s ! m ! t ! a ! p ! Sub ;
+      c = slash.c2.c
       } ;
 
     PassVPSlash vp = 
-      let c = case <vp.c2.c,vp.c2.isPrep> of {
-            <NPC Acc,False> => NPC Nom ;
-            _ => vp.c2.c}
+      let c = case <vp.c2.c,vp.c2.isPrep> of {<Acc,isCase> => Nom ; _ => vp.c2.c}
       in insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
           { c1 = vp.c2 ** {c = c}} ;
     -- regulates passivised object: accusative objects -> nom; all others: same case
@@ -70,7 +67,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     Pass3V3 v = -- HL 7/19
       let bekommenPass : Verb = P.habenV (P.irregV "bekommen" "bekommt" "bekam" "bekäme" "bekommen") 
       in insertObj (\\_ => (v.s ! VPastPart APred)) (predV bekommenPass) **
-           { c1 = PrepNom ; c2 = v.c2 ; objCtrl = False } ;
+           { c1 = PrepNom' ; c2 = v.c2 ; objCtrl = False } ;
 
     PastPartAP vp =
       let a = agrP3 Sg in {
@@ -83,11 +80,11 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     PastPartAgentAP vp np =
       let a = agrP3 Sg ;
-          agent = appPrepNP P.von_Prep np
+          agent = appPrepNP' P.von_Prep np
       in {
       s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
                   ++ vp.a2 ++ agent ++ vp.inf.inpl.p2
-                  ++ vp.c2.s                         -- junk if not TV
+                  ++ vp.c2.s ! GPl                         -- junk if not TV
                   ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
       isPre = True ;
       c = <[],[]> ;
@@ -104,7 +101,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     PredVPS np vpi = 
       let
-        subj = np.s ! NPC Nom ++ bigNP np ;
+        subj = np.s ! False ! Nom ++ bigNP' np ;
         agr  = np.a ;
       in {
         s = \\o => 
@@ -178,8 +175,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     RNP = {s : Agr => Case => Str} ;
   lin
     ReflRNP vps rnp =
-      insertObj (\\a => appPrep vps.c2 
-        (\\k => usePrepC k (\c -> rnp.s ! a ! c))) vps ;
+      insertObj (\\a => appPrep' vps.c2 (rnp.s ! a)) vps ;
 
     ReflPoss num cn = {s = \\a,c => num.s ! cn.g ! c ++ possPron a num.n cn.g c ++ cn.s ! adjfCase Strong c ! num.n ! c} ;
 
@@ -206,7 +202,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 	
   lin 
     FocObj np cl =
-      let n = appPrepNP cl.c2 np in mkFoc n cl ;
+      let n = appPrepNP' cl.c2 np in mkFoc n cl ;
 
     FocAdv adv cl = mkFoc adv.s cl ;
 
@@ -218,7 +214,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
                -- "treu ist sie ihm"
                -- "froh ist sie dass er da ist"
                -- "stolz ist sie auf ihn"
-          subj = mkSubj np vp.c1 ;
+          subj = mkSubj' np vp.c1 ;
           cl = mkClause subj.p1 subj.p2 vp
       in mkFoc adj cl ;
 
@@ -243,7 +239,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 -- "es wird gelacht"; generating formal sentences
 
   lincat
-    FClause = ResGer.VP ** {subj : ResGer.NP} ;
+    FClause = ResGer.VP ** {subj : ResGer.NP'} ;
 
   lin
     VPass v =
@@ -254,7 +250,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     AdvFor adv fcl = fcl ** {a2 = adv.s} ;
 	
 	FtoCl cl = 
-		let subj = mkSubj cl.subj cl.c1
+		let subj = mkSubj' cl.subj cl.c1
 		in DisToCl subj.p1 subj.p2 cl ;
 
 
@@ -263,11 +259,11 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     mkFoc : Str -> Cl -> Foc = \focus, cl ->
 		lin Foc {s = \\m,t,a,p => focus ++ cl.s ! m ! t ! a ! p ! Inv} ;
 
-    esSubj : CatGer.NP = lin NP {
-      s = \\_ => "es" ;
+    esSubj : CatGer.NP' = lin NP' {
+      s = \\_,_ => "es" ;
       rc, ext = [] ;
       a = Ag Neutr Sg P3 ;
-      w = WPron
+      w = WPron'
     } ;
 
     DisToCl : Str -> Agr -> FClause -> Clause = \subj,agr,vp ->

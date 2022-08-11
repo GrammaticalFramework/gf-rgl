@@ -45,10 +45,9 @@ concrete SentenceGer of Sentence' = CatGer ** open ResGer, Prelude in {
     SlashPrep cl prep = cl ** {c2 = prep} ;
 
     SlashVS np vs slash =
-		let subj = mkSubj' np PrepNom'
-		in mkClause subj.p1 subj.p2 
-			(insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)) **
-        			{c2 = slash.c2} ;
+      let subj = mkSubj' np PrepNom' ;
+          vp = (insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)) 
+      in mkClause subj.p1 subj.p2 vp ** {c2 = slash.c2} ;
 
     EmbedS  s  = {s = conjThat ++ s.s ! Sub} ;  -- no leading comma, if sentence-initial
     EmbedQS qs = {s = qs.s ! QIndir} ;

@@ -26,12 +26,11 @@ lin
     ext,rc = [] -- added
     } ;
   CNNumNP cn i = {
-    s = \\c => artDefContr (GSg cn.g) c ++ cn.s ! Weak ! Sg ! Nom ++ i.s ! Neutr ! (prepC c).c ;
+--    s = \\c => artDefContr (GSg cn.g) c ++ cn.s ! Weak ! Sg ! Nom ++ i.s ! Neutr ! c ;
+    s = \\c => artDef (GSg cn.g) c ++ cn.s ! Weak ! Sg ! Nom ++ i.s ! Neutr ! c ;
     a = agrP3 Sg ;
-    -- isPron = False ;
-    -- isLight = True ; 
     w = WLight ;
-    ext,rc = [] -- added
+    ext,rc = []
     } ;
 
   SymbS sy = {s = \\_ => sy.s} ;

@@ -1,4 +1,4 @@
-concrete RelativeGer of Relative' = CatGer ** open ResGer in {
+concrete RelativeGer of Relative' = CatGer ** open Prelude, ResGer in {
 
   flags optimize=all_subs ;
 
@@ -37,7 +37,7 @@ concrete RelativeGer of Relative' = CatGer ** open ResGer in {
 
     FunRP p np rp = {
 --      s = \\gn,c => np.s ! NPC c ++ appPrep p (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ;
-      s = \\gn,c => (np.s ! c).p1 ++ (np.s !c).p2 ++ appPrep' p (rp.s ! gn) ;
+      s = \\gn,c => np.s ! False ! c ++ appPrep' p (rp.s ! gn) ;
       a = RAg (numberAgr np.a) (personAgr np.a)
       } ;
 

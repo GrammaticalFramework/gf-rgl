@@ -28,7 +28,7 @@ abstract Question' = Cat' ** {
 
 -- Interrogative adverbs can be formed prepositionally.
 
-    PrepIP    : Prep -> IP -> IAdv ;     -- with whom
+    PrepIP    : Prep' -> IP -> IAdv ;     -- with whom
 
 -- They can be modified with other adverbs.
 

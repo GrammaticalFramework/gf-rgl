@@ -9,9 +9,11 @@ concrete ConjunctionGer of Conjunction' =
 
     ConjAdv conj ss = conjunctDistrSS conj ss ;
 
-    ConjNP conj ss = heavyNP' (conjunctDistrTable Case conj ss ** {
+    -- ConjNP   : Conj -> ListNP' -> NP' ;     -- she or we
+
+    ConjNP conj ss = { s = \\_ => (conjunctDistrTable Case conj { s1 = ss.s1 ; s2 = ss.s2 }).s } ** {
       a = Ag Fem (conjNumber conj.n (numberAgr ss.a)) (personAgr ss.a) ;
-      }) ;
+      w = WHeavy' ; ext,rc = [] } ;
 
     ConjAP conj ss = conjunctDistrTable AForm conj ss ** {
       isPre = ss.isPre ; c = ss.c ; ext = ss.ext} ;
@@ -38,12 +40,12 @@ concrete ConjunctionGer of Conjunction' =
 
     BaseAdv = twoSS ;
     ConsAdv = consrSS comma ;
-    BaseNP x y = {
-		s1 = \\c => (x.s ! c).p1 ++ (x.s ! c).p2 ++ bigNP x ;
-		s2 = \\c => y.s ! c ++ bigNP y ;
+    BaseNP' x y = {
+		s1 = \\c => x.s ! False ! c ++ bigNP' x ;
+		s2 = \\c => y.s ! False ! c ++ bigNP' y ;
 		a = conjAgr x.a y.a } ;
-    ConsNP xs x = {
-		s1 = \\c => (x.s ! c).p1 ++ (x.s ! c).p2 ++ bigNP xs ++ comma ++ x.s1 ! c ;
+    ConsNP' xs x = {
+		s1 = \\c => xs.s ! False ! c ++ bigNP' xs ++ comma ++ x.s1 ! c ;
 		s2 = x.s2 ;
 		a = conjAgr xs.a x.a } ;
     BaseAP x y = {
@@ -75,7 +77,8 @@ concrete ConjunctionGer of Conjunction' =
   lincat
     [S] = {s1,s2 : Order => Str} ;
     [Adv] = {s1,s2 : Str} ;
-    [NP] = {s1,s2 : PCase => Str ; a : Agr} ;
+--    [NP] = {s1,s2 : PCase => Str ; a : Agr} ;
+    [NP'] = {s1,s2 : Case => Str ; a : Agr} ;
     [AP] = {s1,s2 : AForm => Str ; isPre : Bool; c : Str * Str ; ext : Str} ;
     [RS] = {s1,s2 : RelGenNum => Str ; c : Case} ;
     [CN] = {s1,s2 : Adjf => Number => Case => Str ; g : Gender} ;

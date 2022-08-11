@@ -21,4 +21,3 @@ abstract Grammar' =
   Tense,
   Transfer'
   ;
-

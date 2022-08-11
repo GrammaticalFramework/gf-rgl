@@ -94,11 +94,12 @@ concrete VerbGer of Verb' = CatGer ** open Prelude, ResGer, Coordination in {
 
    -- SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
    --    insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
-{-
+
+    -- without: 205539 msec
 -- to save (571098 = 83669 = 487429 msec) compile time (in 58% memory), comment out:
-   SlashV2VNP' v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
-      insertObjNP' np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
--}
+    -- SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
+    --    insertObjNP' np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
+
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
     -- adj slot not used here for e.g. "ich bin alt" but same behaviour as NPs?
@@ -107,7 +108,7 @@ concrete VerbGer of Verb' = CatGer ** open Prelude, ResGer, Coordination in {
     UseCopula = predV sein_V ;
 
     CompAP ap = {s = \\_ => ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ; ext = ap.ext} ;
-    CompNP np = {s = \\_ => (np.s ! Nom).p1 ++ (np.s ! Nom).p2 ++ np.rc ; ext = np.ext} ;
+    CompNP np = {s = \\_ => np.s ! False ! Nom ++ np.rc ; ext = np.ext} ;
     CompAdv a = {s = \\_ => a.s ; ext = []} ;
 
     CompCN cn = {s = \\a => case numberAgr a of {
