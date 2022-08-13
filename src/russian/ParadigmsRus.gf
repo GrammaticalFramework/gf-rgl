@@ -170,6 +170,7 @@ oper
     mkV3 : V -> Prep -> Prep -> V3 ;
   } ;
 
+   mkVA  : V -> VA ;
    mkVS  : V -> VS ;
    mkVQ  : V -> VQ ;
    mkV2V : overload {
@@ -188,6 +189,26 @@ oper
   dirV2 : V -> V2 ;
   tvDirDir : V -> V3 ;
   mkVV : V -> VV;
+
+  compoundV : V -> Str -> V = \v,s -> v ** {
+    inf = v.inf ++ s ;
+    infrefl = v.infrefl ++ s ;
+    prsg1 = v.prsg1 ++ s ;
+    prsg2 = v.prsg2 ++ s ;
+    prsg3 = v.prsg2 ++ s ;
+    prpl1 = v.prpl1 ++ s ;
+    prpl2 = v.prpl2 ++ s ;
+    prpl3 = v.prpl3 ++ s ;
+    psgm = v.psgm ++ s ;
+    psgs = v.psgs ++ s ;
+    isg2 = v.isg2 ++ s ;
+    ipl1 = v.ipl1 ++ s ;
+    isg2refl = v.isg2refl ++ s ;
+    ppps = v.ppps ++ s ;
+    pppss = v.pppss ++ s ;
+    prtr = v.prtr ++ s ;
+    ptr = v.ptr ++ s
+  } ;
 
 ------------------------
 --2 Adverbs, prepositions, conjunctions, ...
@@ -413,6 +434,7 @@ oper
   tvDirDir v = mkV3 v Acc Dat ;
   mkVV = \v -> lin VV {v=v; modal=\\a=>[]} ;
 
+  mkVA v = lin VA v ;
   mkVS v = lin VS v ;
   mkVQ v = lin VQ v ;
   mkV2V = overload {
@@ -447,6 +469,15 @@ oper
     mkAdv : Str -> Adv
       = \s -> lin Adv (makeAdverb s) ;
     } ;
+
+  mkAdV : Str -> AdV
+    = \s -> lin AdV (makeAdverb s) ;
+
+  mkAdA : Str -> AdA
+    = \s -> lin AdA (makeAdverb s) ;
+
+  mkAdN : Str -> AdN
+    = \s -> lin AdN (makeAdverb s) ;
 
   mkIAdv : Str -> IAdv
     = \s -> lin IAdv (makeAdverb s) ;
