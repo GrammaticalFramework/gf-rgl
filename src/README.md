@@ -26,13 +26,7 @@ http://www.grammaticalframework.org/lib/doc/rgl-tutorial/index.html
 
 The below graphic is an alternative graphic explaining the relations, taken from private correspondence with Inari.
 
-     Lang
-     /   \
-Lexicon  Grammar
-         / | | | \
-    Adjective Adverb Noun Verb Phrase …
-     \ | | | | | | | | | | | | | | /
-                Cat
+![File Hierarchy](gr-rgl\src\FileHierarchy.png)
 
 CatLang defines the categories, and the modules AdjectiveLang, NounLang, SentenceLang, PhraseLang, and so on, all extend Cat. The Grammar is defined as a collection of all those AdjectiveLang, NounLang, SentenceLang, and so on modules. LangLang is defined as the collection GrammarLang and LexiconLang and is where you will be checking your program. You may ignore:
 
