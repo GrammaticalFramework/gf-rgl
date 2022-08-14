@@ -6,4 +6,3 @@ abstract AllTamAbs =
   ** {
     fun sing_V2: V2;
   } ;
-}

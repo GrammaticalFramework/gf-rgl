@@ -3,7 +3,7 @@
 ## Language info
 
 - English name: Tamil
-- Autonym: Tam
+- Autonym: தமிழ்
 - ISO code: Tam
 
 ## History

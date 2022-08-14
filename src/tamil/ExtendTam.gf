@@ -1,9 +1,9 @@
 --# -path=.:../common:../abstract
 
 concrete ExtendTam of Extend = CatTam
-  ** ExtendFunctor - [
+{-  ** ExtendFunctor - [
     VPS           -- finite VP's with tense and polarity
-    , ListVPS
+   , ListVPS
     , VPI
     , ListVPI -- infinitive VP's (TODO: with anteriority and polarity)
     , MkVPS
@@ -27,7 +27,7 @@ concrete ExtendTam of Extend = CatTam
     -- [VPI2] {2} ;  -- to love, to hate
 
 ]
-  with (Grammar=GrammarTam)
+  with (Grammar=GrammarTam) -}
   ** open Prelude, Coordination, ResTam, NounTam in {
 --    lincat
 --      VPS, VPI = SS ;
