@@ -2877,6 +2877,7 @@ abstract MonoLex = Cat ** {
    phothwe_5_6_N : N ;
    phoyinti_5_6_N : N ;
    phoyisa_5_6_N : N ;
+   phrojekthi_5_6_N : N ;
    phucuko_9_N : N ;
    phucuzeko_9_10_N : N ;
    phuhle_5_6_N : N ;
@@ -11932,6 +11933,8 @@ zwelonke_1a_2a_N : N ;
    seshis_V2 : V2 ;
    seshisek_V : V ;
    seshisek_V2 : V2 ;
+   setshenzisw_V : V ;
+   setshenzisw_V2 : V2 ;
    sev_V : V ;
    sev_V2 : V2 ;
    sevel_V : V ;
