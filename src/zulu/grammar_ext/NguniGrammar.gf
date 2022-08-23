@@ -2,7 +2,7 @@
 
 abstract NguniGrammar =
   Noun [DetCN, UsePron, DetQuant, NumSg, NumPl, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP,AdvNP], -- MassNP,AdvCN, AdvNP,
-  Verb [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash],
+  Verb [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   Adjective [PositA, AdAP],
   Adverb [PositAdvAdj, SubjS],
   -- Numeral,

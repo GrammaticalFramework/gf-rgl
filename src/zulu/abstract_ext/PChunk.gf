@@ -10,6 +10,7 @@ cat
   Chunk_S ;
   Chunk_RS ;
   Chunk_QS ;
+  Chunk_VP ;
   Chunk_CN ;
   Chunk_NP ;
   Chunk_N ;
@@ -30,6 +31,7 @@ fun
   S_Chunker : Chunk_S -> Chunk ;
   RS_Chunker : Chunk_RS -> Chunk ;
   QS_Chunker : Chunk_QS -> Chunk ;
+  VP_Chunker : Chunk_VP -> Chunk ;
   CN_Chunker : Chunk_CN -> Chunk ;
   NP_Chunker : Chunk_NP -> Chunk ;
   N_Chunker : Chunk_N -> Chunk ;
@@ -38,18 +40,22 @@ fun
   Symb_Chunker : Chunk_Symb -> Chunk ;
 
   Phr_Chunk : Phr -> Chunk_Phr ;
-  -- AP_Chunk  : AP  -> Chunk_AP ;
+  AP_Chunk  : AP  -> Chunk_AP ;
   Adv_Chunk : Adv -> Chunk_Adv ;
   Imp_Chunk : Imp -> Chunk_Imp ;
   S_Chunk      : S   -> Chunk_S ;
-  RS_Chunk     : RS -> Chunk_RS ;
+  RS_Chunk     : Pron -> RS -> Chunk_RS ;
   QS_Chunk     : QS  -> Chunk_QS ;
+  VP_RelYo_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
+  VP_Rel_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
   CN_Pl_Chunk  : CN -> Chunk_CN ;
   CN_Sg_Chunk  : CN -> Chunk_CN ;
   NP_Nom_Chunk : NP -> Chunk_NP ;
-  NP_Gen_Chunk : NP -> Chunk_NP ;
-  Predet_Chunk : Predet -> Chunk_Predet ;
-  Postdet_Chunk : Postdet -> Chunk_Postdet ;
+  NP_Loc_Chunk : NP -> Chunk_NP ;
+  NP_Gen_Chunk : Pron -> NP -> Chunk_NP ;
+  -- NP_Gen_Chunk : NP -> Chunk_NP ;
+  Predet_Chunk : Pron -> Predet -> Chunk_Predet ;
+  Postdet_Chunk : Pron -> Postdet -> Chunk_Postdet ;
   -- N_Sg_Chunk : N -> Chunk_N ;
   -- N_Pl_Chunk : N -> Chunk_N ;
 

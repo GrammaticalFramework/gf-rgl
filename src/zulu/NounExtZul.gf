@@ -136,35 +136,74 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       heavy = True
     } ;
 
-    Deverb15 v =
-    let
-      agr = Third C15 Sg ;
-    in
-    {
-      s = \\_ => table {
-        NFull => case v.r of {
-          RC => "uku"++BIND++(v.s!R_a) ;
-          (RA|RE) => "ukw"++BIND++(v.s!R_a) ;
-          _ => "uk"++BIND++(v.s!R_a)
+    -- Deverb15 v =
+    -- let
+    --   agr = Third C15 Sg ;
+    -- in
+    -- {
+    --   s = \\_ => table {
+    --     NFull => case v.r of {
+    --       RC => "uku"++BIND++(v.s!R_a) ;
+    --       (RA|RE) => "ukw"++BIND++(v.s!R_a) ;
+    --       _ => "uk"++BIND++(v.s!R_a)
+    --     } ;
+    --     NReduced => case v.r of {
+    --       RC => "ku"++BIND++(v.s!R_a) ;
+    --       (RA|RE) => "kw"++BIND++(v.s!R_a) ;
+    --       _ => "k"++BIND++(v.s!R_a)
+    --     } ;
+    --     NPoss => case v.r of {
+    --       RC => "ku"++BIND++(v.s!R_a) ;
+    --       (RA|RE) => "kw"++BIND++(v.s!R_a) ;
+    --       _ => "k"++BIND++(v.s!R_a)
+    --     } ;
+    --     NLoc => case v.r of {
+    --       RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
+    --       (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
+    --       _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
+    --     }
+    --   } ;
+    --   c = C15 ;
+    --   empty = []
+    -- } ;
+
+    -- not built to work for copulative VPs for now (specifically for agreement)
+    Deverb15 pol vp =
+      let
+        agr = Third C15 Sg ;
+        v = vp.s!MainCl!(Third C15 Sg)!pol.p!PresTense!False
+      in
+      {
+        s = table {
+          NFull => case <pol.p,vp.r> of {
+            <Neg,_ > => "uku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,RC> => "uku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,(RA|RE)> => "ukw"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,_> => "uk"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
+          } ;
+          NReduced => case <pol.p,vp.r> of {
+            <Neg,_ > => "ku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,RC> => "ku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,(RA|RE)> => "kw"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,_> => "k"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
+          } ;
+          NPoss => case <pol.p,vp.r> of {
+            <Neg,_ > => "ku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,RC> => "ku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,(RA|RE)> => "kw"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,_> => "k"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
+          } ;
+          NLoc => case <pol.p,vp.r> of {
+            <Neg,_ > => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
+            <_,_> => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
+          }
         } ;
-        NReduced => case v.r of {
-          RC => "ku"++BIND++(v.s!R_a) ;
-          (RA|RE) => "kw"++BIND++(v.s!R_a) ;
-          _ => "k"++BIND++(v.s!R_a)
-        } ;
-        NPoss => case v.r of {
-          RC => "ku"++BIND++(v.s!R_a) ;
-          (RA|RE) => "kw"++BIND++(v.s!R_a) ;
-          _ => "k"++BIND++(v.s!R_a)
-        } ;
-        NLoc => case v.r of {
-          RC => "eku"++BIND++(v.s!R_e)++BIND++"ni" ;
-          (RA|RE) => "ekw"++BIND++(v.s!R_e)++BIND++"ni" ;
-          _ => "ek"++BIND++(v.s!R_e)++BIND++"ni"
-        }
-      } ;
-      c = C15 ;
-      empty = []
+        agr = agr ;
+        i = RU ;
+        proDrop = False ;
+        isPron = False ;
+        heavy = True ;
+        empty = []
     } ;
 
     LocNP np = {
@@ -191,28 +230,76 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       } ;
     } ;
 
-    LocNLoc locn = {
+    -- LocNLoc locn = {
+    --   s = table {
+    --     MainCl => \\a,p,t => let
+    --       vform = VFIndic MainCl p t ;
+    --       pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
+    --       cop_base = locn.s
+    --     in
+    --       case vform of {
+    --         VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
+    --         VFIndic _ _ _ => pcp ++ cop_base
+    --       } ;
+    --     RelCl => \\a,p,t => let
+    --       vform = VFIndic RelCl p t ;
+    --       rcp = (relConcCop vform a RC) ; -- o- / onge-
+    --       pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
+    --       cop_base = locn.s
+    --     in
+    --       case vform of {
+    --         VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
+    --         VFIndic _ _ _ => rcp ++ pcp ++ cop_base
+    --       }
+    --   } ;
+    -- } ;
+
+    -- LocNPossNP locn np = {
+    --   s = locn.s ++ poss_concord_agr!(Third C17 Sg)!(np.i) ++BIND++ np.s!NPoss;
+    -- } ;
+
+    LocAdvLoc locadv = {
       s = table {
         MainCl => \\a,p,t => let
           vform = VFIndic MainCl p t ;
           pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
-          cop_base = locn.s
+          s = case locadv.reqLocS of {
+            True => "s"++BIND ;
+            False => []
+          } ;
+          cop_base = locadv.s
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => pcp ++ cop_base
+            VFIndic _ _ _ => pcp ++ s ++ cop_base
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
-          cop_base = locn.s
+          s = case locadv.reqLocS of {
+            True => "s"++BIND ;
+            False => []
+          } ;
+          cop_base = locadv.s
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => rcp ++ pcp ++ cop_base
+            VFIndic _ _ _ => rcp ++ pcp ++ s ++ cop_base
           }
       } ;
+      imp_s = table {
+        Sg => table {
+          Pos => "yiba" ++ "s"++BIND++ locadv.s ;
+          Neg => "ungabi" ++ "s"++BIND++ locadv.s
+        } ;
+        Pl => table {
+          Pos => "yibani" ++ "s"++BIND++ locadv.s ;
+          Neg => "ningabi" ++ "s"++BIND++ locadv.s
+        }
+      }
     } ;
+
+
 
 }

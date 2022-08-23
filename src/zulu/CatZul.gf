@@ -23,7 +23,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 --       s : ResZul.Tense => Anteriority => CPolarity => Order => Str ;
 --       c2 : Str
 --       } ;
-    Imp = { s : Polarity => Str } ;
+    Imp = { s : Number => Polarity => Str } ;
 
 -- Question
 
@@ -47,6 +47,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
     VP = {
       s : CType => Agr => Polarity => BasicTense => Bool => Str ; -- TODO: mood
+      imp_s : Number => Polarity => Str ;
       -- oc : Str ;
       comp : Str ;
       iadv : Str ;
@@ -137,7 +138,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 --     CAdv = {s : Polarity => Str; p : Str} ;
 
 -- Open lexical classes, e.g. Lexicon
-    V,V2,VA,VS,V3 = {
+    V,V2,VA,VS,V3,VV = {
       s : RForm => Str ;
       r : RInit ;
       syl : Syl ;

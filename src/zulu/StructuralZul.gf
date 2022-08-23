@@ -163,7 +163,7 @@ concrete StructuralZul of Structural = CatZul **
 
   -- VV
   --   can8know_VV
-  --   can_VV
+    can_VV = lin VV (mkV "yakwaz" "yakwazi") ;
   --   must_VV
 
 }

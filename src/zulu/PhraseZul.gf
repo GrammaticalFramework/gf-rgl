@@ -1,12 +1,12 @@
-concrete PhraseZul of Phrase = CatZul ** open Prelude, ResZul in {
+concrete PhraseZul of Phrase = CatZul ** open Prelude, ParamX, ResZul in {
 
   lin
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
   --
     UttS sent = { s = sent.s } ;
     UttQS sent = { s = sent.qword_pre ++ sent.s ++ sent.qword_post } ;
-    UttImpSg pol imp = { s = pol.s ++ imp.s!pol.p } ;
-  --   UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Pl False} ;
+    UttImpSg pol imp = { s = pol.s ++ imp.s!Sg!pol.p } ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s!Pl!pol.p } ;
   --   UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! ImpF Sg True} ;
 
   --   UttIP ip = {s = ip.s ! npNom} ; --- Acc also

@@ -27,6 +27,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | NoComp | VSCompl | AdvComp | CopLoc ; -- VACompl |
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
     AType = AdjType | RelType ;
+    LocAdvType = KwaAdv | NaAdv ;
 
     AForm = AF1 | AF2 | AF3 ; -- two forms for implementing sound changes Poulos+Msimang p143, one for monosyllabic
     SCForm = SC | SCVow | SCNeg | SCNegVow | SCPS | SCPart | SCVowP | SCBe | SCRP ;
@@ -265,10 +266,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         R_ile => case root of {
           _+"el" => root ++BIND++ "e" ;
           _+"al" => (tk 2 root) + "el" ++BIND++ "e" ;
+          _+"an" => (tk 2 root) + "en" ++BIND++ "e" ;
           _ => root ++BIND++ "ile"
         } ;
         R_e => case root of {
-          _+"al" => (tk 2 root) + "el" ++BIND++ "e" ;
+          _+"an" => (tk 2 root) + "en" ++BIND++ "e" ;
           _ => root ++BIND++ "e"
         } ;
         R_i => root ++BIND++ "i" ;
@@ -1656,48 +1658,48 @@ resource ResZul = open Prelude,Predef,ParamX in {
         }
       } ;
 
-    poss_concord_c1a : ClassGender => Number => RInit => Str =
+    poss_concord_c1a : ClassGender => Number => Str =
       table {
         C1_2 => table {
-          Sg => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" } ;
-          Pl => table {(RA|RC) => "baka" ; (RE|RI) => "bake" ; (RO|RU) => "bako" }
+          Sg => "ka" ;
+          Pl => "baka"
         } ;
         C1a_2a => table {
-          Sg => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" } ;
-          Pl => table {(RA|RC) => "baka" ; (RE|RI) => "bake" ; (RO|RU) => "bako" }
+          Sg => "ka" ;
+          Pl => "baka"
         } ;
         C3_4 => table {
-          Sg => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" } ;
-          Pl => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" }
+          Sg => "ka" ;
+          Pl => "ka"
         } ;
         C5_6 => table {
-          Sg => table {(RA|RC) => "lika" ; (RE|RI) => "like" ; (RO|RU) => "liko" } ;
-          Pl => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" }
+          Sg => "lika" ;
+          Pl => "ka"
         } ;
         C7_8 => table {
-          Sg => table {(RA|RC) => "sika" ; (RE|RI) => "sike" ; (RO|RU) => "siko" } ;
-          Pl => table {(RA|RC) => "zika" ; (RE|RI) => "zike" ; (RO|RU) => "ziko" }
+          Sg => "sika" ;
+          Pl => "zika"
         } ;
         C9_10 => table {
-          Sg => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" } ;
-          Pl => table {(RA|RC) => "zika" ; (RE|RI) => "zike" ; (RO|RU) => "ziko" }
+          Sg => "ka" ;
+          Pl => "zika"
         } ;
         C11_10 => table {
-          Sg => table {(RA|RC) => "luka" ; (RE|RI) => "luke" ; (RO|RU) => "luko" } ;
-          Pl => table {(RA|RC) => "zika" ; (RE|RI) => "zike" ; (RO|RU) => "ziko" }
+          Sg => "luka" ;
+          Pl => "zika"
         } ;
         C9_6 => table {
-          Sg => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" } ;
-          Pl => table {(RA|RC) => "ka" ; (RE|RI) => "ke" ; (RO|RU) => "ko" }
+          Sg => "ka" ;
+          Pl => "ka"
         } ;
         C14 => table {
-          _ => table {(RA|RC) => "buka" ; (RE|RI) => "buke" ; (RO|RU) => "buko" }
+          _ => "buka"
         } ;
         C15 => table {
-          _ => table {(RA|RC) => "kuka" ; (RE|RI) => "kuke" ; (RO|RU) => "kuko" }
+          _ => "kuka"
         } ;
         C17 => table {
-          _ => table {(RA|RC) => "kuka" ; (RE|RI) => "kuke" ; (RO|RU) => "kuko" }
+          _ => "kuka"
         }
       } ;
 

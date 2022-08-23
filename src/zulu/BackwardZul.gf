@@ -9,18 +9,25 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
 
 -- from Verb 19/4/2008
 
-    ComplV2 v2 np = {
+    ComplV2 v2 np = let
+      oc = objConc np.agr v2.r v2.syl ;
+      longform = case np.heavy of {
+        True => False ;
+        False => True
+      } ;
+      obj = np.s!NFull
+    in {
       s = table {
         MainCl => \\a,p,t,l => let
           vform = (VFIndic MainCl p t) ;
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
-          oc = objConc np.agr v2.r v2.syl ; -- [] / m -
-          longform = case np.heavy of {
-            True => False ;
-            False => True
-          } ;
+          -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          -- longform = case np.heavy of {
+          --   True => False ;
+          --   False => True
+          -- } ;
           r = v2.s!(rform (VFIndic MainCl p t) longform) ; -- bona / boni
-          obj = np.s!NFull -- [] / inkomo
+          -- obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
           True => tp ++ oc ++ r ++ obj ;
           False => tp ++ r ++ obj
@@ -29,16 +36,38 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ; -- o- / onga-
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
-          oc = objConc np.agr v2.r v2.syl ; -- [] / m -
-          longform = case np.heavy of {
-            True => False ;
-            False => True
-          } ;
+          -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          -- longform = case np.heavy of {
+          --   True => False ;
+          --   False => True
+          -- } ;
           r = v2.s!(rform vform longform) ; -- bona / boni
-          obj = np.s!NFull -- [] / inkomo
+          -- obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
           True => rc ++ tp ++ oc ++ r ++ obj ;
           False => rc ++ tp ++ r ++ obj
+        }
+      } ;
+      imp_s = table {
+        Sg => table {
+          Pos => case np.proDrop of {
+            True => oc ++ v2.s!R_e ++ obj ;
+            False => v2.s!R_a ++ obj
+          } ;
+          Neg => case np.proDrop of {
+            True => "unga" ++BIND++ oc ++ v2.s!R_i ++ obj ;
+            False => "unga" ++BIND++ v2.s!R_i ++ obj
+          }
+        } ;
+        Pl => table {
+          Pos => case np.proDrop of {
+            True => oc ++ v2.s!R_e ++BIND++"ni" ++ obj ;
+            False => v2.s!R_a ++BIND++"ni" ++ obj
+          } ;
+          Neg => case np.proDrop of {
+            True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj ;
+            False => "ninga" ++BIND++ v2.s!R_i ++ obj
+          }
         }
       } ;
       iadv, advs, comp = [] ;

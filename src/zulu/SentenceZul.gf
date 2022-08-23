@@ -26,37 +26,52 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
 --     PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
-    ImpVP vp = let
-      np = {
-        empty = [] ;
-        s = table {NFull|NReduced|NPoss|NLoc => []} ;
-        -- loc = [] ;
-        -- desc = [] ;
-        -- det = [] ;
-        agr = Second Sg ;
-        i = nominit!(Second Sg) ;
-        proDrop = True ;
-        isPron = True ;
-        heavy = False
-        -- reqLocS = True ;
-        -- qdef = Article Spec
-      } ;
-      impTense = PresTense
-    in case vp.vptype of {
-      VNPCompl => {
-        s = table {
-          Pos => vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
-          Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
-        }
-      } ;
+    -- ImpVP vp = let
+    --   np = {
+    --     empty = [] ;
+    --     s = table {NFull|NReduced|NPoss|NLoc => []} ;
+    --     -- loc = [] ;
+    --     -- desc = [] ;
+    --     -- det = [] ;
+    --     agr = Second Sg ;
+    --     i = nominit!(Second Sg) ;
+    --     proDrop = True ;
+    --     isPron = True ;
+    --     heavy = False
+    --     -- reqLocS = True ;
+    --     -- qdef = Article Spec
+    --   } ;
+    --   impTense = PresTense
+    -- in case vp.vptype of {
+    --   NoComp => let
+    --     yi = case vp.syl of {
+    --       SylMono => "yi"++BIND ;
+    --       _ => []
+    --     }
+    --   in {
+    --     s = table {
+    --       Pos => yi ++ vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
+    --       Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
+    --     }
+    --   } ;
+    --   VNPCompl => {
+    --     s = table {
+    --       Pos => vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
+    --       Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
+    --     }
+    --   } ;
+    --
+    --   CopIdent => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
+    --   CopAssoc => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
+    --   CopDescr => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
+    --   CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!impTense } ;
+    --   -- VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
+    --   AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!impTense } ;
+    --   _ => {s = \\pol => (imp_verb_predicate np vp).s!pol!impTense }
+    -- } ;
 
-      CopIdent => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-      CopAssoc => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-      CopDescr => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-      CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!impTense } ;
-      -- VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
-      AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!impTense } ;
-      _ => {s = \\pol => (imp_verb_predicate np vp).s!pol!impTense }
+    ImpVP vp = {
+      s = \\n,p => vp.imp_s!n!p ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
 
 --     SlashVP np vp =
@@ -189,8 +204,6 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
           <_,_,PresTense,RC> => False ;
           <_,_,PresTense,_> => True ;
-          -- <_,Pos,PerfTense,RC> => False ;
-          -- <_,Pos,PerfTense,_> => True ;
           <_,_,PastTense,RC> => False ;
           <_,_,PastTense,_> => True ;
           <_,_,RemPastTense,RC> => False ;
