@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:prelude
 
-concrete GrammarGer of Grammar' =
+concrete GrammarGer of Grammar =
   NounGer, 
   VerbGer,
   AdjectiveGer,

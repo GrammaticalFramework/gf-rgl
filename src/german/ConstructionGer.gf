@@ -1,6 +1,6 @@
 --# -path=.:../abstract
 
-concrete ConstructionGer of Construction' = CatGer **
+concrete ConstructionGer of Construction = CatGer **
   open SyntaxGer, SymbolicGer, ParadigmsGer,
        (L = LexiconGer), (E = ExtraGer), (G = GrammarGer), (I = IrregGer), (R = ResGer), (N = NounGer), Prelude in {
 flags coding=utf8 ;
@@ -63,9 +63,9 @@ lin
 
   monthAdv m = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det m) ;
   yearAdv y = SyntaxGer.mkAdv (mkPrep "im Jahr" dative) y ; ----
-  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17 Mai
+  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17 Mai
   monthYearAdv m y = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det (mkCN m y)) ; -- im Mai 2012
-  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! accusative) ; -- am 17 Mai 2013
+  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! False ! accusative) ; -- am 17 Mai 2013
 
   intYear = symb ;
   intMonthday = symb ;

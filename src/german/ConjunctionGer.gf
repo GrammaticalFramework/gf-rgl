@@ -1,4 +1,4 @@
-concrete ConjunctionGer of Conjunction' = 
+concrete ConjunctionGer of Conjunction = 
   CatGer ** open ResGer, Coordination, Prelude in {
 
   flags optimize=all_subs ;
@@ -40,21 +40,21 @@ concrete ConjunctionGer of Conjunction' =
 
     BaseAdv = twoSS ;
     ConsAdv = consrSS comma ;
-    BaseNP' x y = {
-		s1 = \\c => x.s ! False ! c ++ bigNP' x ;
-		s2 = \\c => y.s ! False ! c ++ bigNP' y ;
+    BaseNP x y = {
+		s1 = \\c => x.s ! False ! c ++ bigNP x ;
+		s2 = \\c => y.s ! False ! c ++ bigNP y ;
 		a = conjAgr x.a y.a } ;
-    ConsNP' xs x = {
-		s1 = \\c => xs.s ! False ! c ++ bigNP' xs ++ comma ++ x.s1 ! c ;
+    ConsNP xs x = {
+		s1 = \\c => xs.s ! False ! c ++ bigNP xs ++ comma ++ x.s1 ! c ;
 		s2 = x.s2 ;
 		a = conjAgr xs.a x.a } ;
-    BaseAP x y = {
+    BaseAP x y = lin AP {
 		s1 = bigAP x ;
 		s2 = bigAP y ;
 		isPre = andB x.isPre y.isPre ;
 		c = <[],[]> ;
 	  	ext = []} ;
-   ConsAP xs x = {
+   ConsAP xs x = lin AP {
 		s1 = \\a => (bigAP xs) ! a ++ comma ++ x.s1 ! a ;
 		s2 = x.s2 ;
 		isPre = andB x.isPre xs.isPre ;
@@ -62,12 +62,12 @@ concrete ConjunctionGer of Conjunction' =
 	  	ext = []} ;
     BaseRS x y = twoTable RelGenNum x y ** {c = y.c} ;
     ConsRS xs x = consrTable RelGenNum comma xs x ** {c = xs.c} ;
-    BaseCN x y = {
+    BaseCN x y = lin CN {
       s1 = bigCN x ;
       s2 = bigCN y ;
       g  = x.g ; --- gender of first CN, used e.g. in articles
       } ; 
-    ConsCN x xs = {
+    ConsCN x xs = lin CN {
       s1 = \\a,n,c => bigCN x ! a ! n ! c ++ comma ++ xs.s1 ! a ! n ! c ;
       s2 = xs.s2 ;
       g  = x.g ; --- gender of first CN, used e.g. in articles
@@ -77,8 +77,7 @@ concrete ConjunctionGer of Conjunction' =
   lincat
     [S] = {s1,s2 : Order => Str} ;
     [Adv] = {s1,s2 : Str} ;
---    [NP] = {s1,s2 : PCase => Str ; a : Agr} ;
-    [NP'] = {s1,s2 : Case => Str ; a : Agr} ;
+    [NP] = {s1,s2 : Case => Str ; a : Agr} ;
     [AP] = {s1,s2 : AForm => Str ; isPre : Bool; c : Str * Str ; ext : Str} ;
     [RS] = {s1,s2 : RelGenNum => Str ; c : Case} ;
     [CN] = {s1,s2 : Adjf => Number => Case => Str ; g : Gender} ;

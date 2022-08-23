@@ -4,7 +4,7 @@
 concrete TestLangGer of TestLang = 
   GrammarGer - [SlashVP, RelSlash]
   , TestLexiconGer
-  , ConstructionGer
+--  , ConstructionGer
   ** open ResGer,Prelude,(P=ParadigmsGer) in {
 
   flags startcat = Phr ; unlexer = text ; lexer = text ;
@@ -28,15 +28,15 @@ concrete TestLangGer of TestLang =
       (insertObjRefl (predVc v3) ** {c2 = v3.c3}); 
 
     PassV2Q v q =
-      let c = case <v.c2.c, v.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
+      let c = case <v.c2.c, isaPrep v.c2> of {
+            <Acc, False> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
           vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
             ** { c1 = v.c2 ** {c = c} }
       in insertExtrapos (bindComma ++ q.s ! QIndir) vp ;
 
     PassV2S v s =
-      let c = case <v.c2.c, v.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
+      let c = case <v.c2.c, isaPrep v.c2> of {
+            <Acc, False> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
           vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
             ** { c1 = v.c2 ** {c = c} }
       in insertExtrapos (bindComma ++ conjThat ++ s.s ! Sub) vp ;
@@ -44,15 +44,15 @@ concrete TestLangGer of TestLang =
     PassV2V v vp = 
       let
           inf = mkInf v.isAux Simul Pos vp ;             -- ok for v.isAux=False, v.c2.c=Acc
-          c = case <v.c2.c, v.c2.isPrep> of {            --        v.objCtrl=True   HL 3/22
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
+          c = case <v.c2.c, isaPrep v.c2> of {           --        v.objCtrl=True   HL 3/22
+            <Acc, False> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
           vp2 = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
             ** { c1 = v.c2 ** {c = c} } ;
         in insertInf inf vp2 ;                           -- v=lassen needs in-place inf instead
 
     PassVPSlash vp = 
-      let c = case <vp.c2.c,vp.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => vp.c2.c} ;
+      let c = case <vp.c2.c, isaPrep vp.c2> of {
+            <Acc, False> => Nom ; _ => vp.c2.c} ;
           ctrl = case vp.objCtrl of { True => False ; _ => True }  -- always False?
       in -- insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass ** {c1 = vp.c2 ** {c = c}})
           insertObj (\\_ => vp.s.s ! (VPastPart APred))
@@ -164,15 +164,17 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
       } ;
 
   lin
+{- too expensive 60% memory, then killed:
     SlashVP np vp =
       let subj = mkSubj np vp.c1
       in mkClSlash subj.p1 subj.p2 vp ** { c2 = vp.c2 } ;
-
+-}
     RelSlash rp cls = lin RCl {
       s = \\m,t,a,p,gn =>
-          appPrep cls.c2 (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ++
+--          appPrep cls.c2 (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ++
+          appPrep cls.c2 (rp.s ! gn) ++
           cls.s ! m ! t ! a ! p ! Sub ! gn ;
-      c = (prepC cls.c2.c).c
+      c = cls.c2.c
       } ;
 {-
     QuestSlash ip slash = {

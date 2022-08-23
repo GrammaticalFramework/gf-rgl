@@ -1,4 +1,4 @@
-concrete StructuralGer of Structural' = CatGer **
+concrete StructuralGer of Structural = CatGer **
 
   open MorphoGer, MakeStructuralGer, (X = ConstructX), 
        (P = ParadigmsGer), IrregGer, Prelude in {

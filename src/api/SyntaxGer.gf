@@ -1,4 +1,4 @@
 --# -path=../abstract:.:alltenses:prelude:
 
-instance SyntaxGer of Syntax' = ConstructorsGer, CatGer, StructuralGer, CombinatorsGer ;
+instance SyntaxGer of Syntax = ConstructorsGer, CatGer, StructuralGer, CombinatorsGer ;
 

@@ -1,4 +1,4 @@
-concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
+concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -11,7 +11,7 @@ concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
       ext = []
       } ;
     ComparA a np =
-      let nps = np.s ! False ! Nom ++ bigNP' np
+      let nps = np.s ! False ! Nom ++ bigNP np
       in {
       s = \\af => a.s ! Compar ! af ++ conjThan ++ nps ;
       isPre = True ;
@@ -19,7 +19,7 @@ concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
       ext = []
       } ;
     CAdvAP ad ap np =
-      let nps = np.s ! False ! Nom ++ bigNP' np in
+      let nps = np.s ! False ! Nom ++ bigNP np in
       ap ** {
       s = \\af => ad.s ++ ap.s ! af ++ ad.p ++ nps ;
       isPre = False 
@@ -42,8 +42,8 @@ concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
 
     ComplA2 a np = 
       let CExt = case a.c2.isPrep of {
-	    isCase => <appPrepNP' a.c2 np, []> ;
-	    _ => <[], appPrepNP' a.c2 np> } -- HL: check 7/22
+	    isCase => <appPrepNP a.c2 np, []> ;
+	    _ => <[], appPrepNP a.c2 np> } -- HL: check 7/22
       in {
         s = a.s ! Posit ;
         isPre = True ;
@@ -53,7 +53,7 @@ concrete AdjectiveGer of Adjective' = CatGer ** open ResGer, Prelude in {
 
     ReflA2 a = 
       let
-	compl = appPrep' a.c2 (reflPron ! agrP3 Sg) ;
+	compl = appPrep a.c2 (reflPron ! agrP3 Sg) ;
 	CExt = case a.c2.isPrep of
 	  {isCase => <compl, []> ; _ => <[], compl> }
       in {

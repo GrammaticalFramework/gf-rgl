@@ -11,14 +11,14 @@ oper
     {s = \\_,_,_ => s ; lock_IQuant = <>} ;
 
   mkPredet = overload {
-    mkPredet : A -> Predet' = \a ->
-      lin Predet' {
+    mkPredet : A -> Predet = \a ->
+      lin Predet {
         s = appAdj' a ;
         c = noCase' ;
         a = PAgNone
         } ;
-    mkPredet : A -> Str -> Case -> Bool -> Number -> Predet' = \a,p,c,b,n ->
-      lin Predet' {
+    mkPredet : A -> Str -> Case -> Bool -> Number -> Predet = \a,p,c,b,n ->
+      lin Predet {
         s = appAdj' a ;
         c = {p = p ; k = PredCase' c} ;
         a = case b of {True => PAg n ; _ => PAgNone}
@@ -26,11 +26,11 @@ oper
       } ;
 
  -- e.g. das selbe
- mmkQuant : Quant' -> A -> Quant' = \q,a -> q ** {
+ mmkQuant : Quant -> A -> Quant = \q,a -> q ** {
    s,sp = \\b,x,n,g,c => q.s ! b ! x ! n ! g ! c ++ a.s ! Posit ! agrAdj g q.a n c
    } ;
  -- e.g. derjenige
- mmbQuant : Quant' -> A -> Quant' = \q,a -> q ** {
+ mmbQuant : Quant -> A -> Quant = \q,a -> q ** {
    s,sp = \\b,x,n,g,c => q.s ! b ! x ! n ! g ! c + a.s ! Posit ! agrAdj g q.a n c
    } ;
 

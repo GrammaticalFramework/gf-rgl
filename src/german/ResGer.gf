@@ -228,7 +228,7 @@ resource ResGer = ParamX ** open Prelude in {
     g : Gender
     } ;
 
-  NP' : Type = { -- HL 7/22: Bool = True if DefArt is dropped to combine with prep of type isPrepDefArt
+  NP : Type = { -- HL 7/22: Bool = True if DefArt is dropped to combine with prep of type isPrepDefArt
      s : Bool => Case => Str ;
      rc : Str ;  -- die Frage , [rc die ich gestellt habe]
      ext : Str ; -- die Frage , [sc wo sie schläft] ; die Regel , [vp kein Fleisch zu essen] | [s dass ...]
@@ -405,18 +405,18 @@ resource ResGer = ParamX ** open Prelude in {
     PrepType = isCase | isPrep | isPrepDefArt ;
 
   oper
-    Preposition' : Type = {s : GenNum => Str ; s2:Str ; c : Case ; isPrep : PrepType} ;
+    Preposition : Type = {s : GenNum => Str ; s2:Str ; c : Case ; isPrep : PrepType} ;
 
-  isaCase : Preposition' -> Bool = \p -> case p.isPrep of {isCase => True ; _ => False} ;
-  isaPrep : Preposition' -> Bool = \p -> case p.isPrep of {isPrep => True ; _ => False} ;
-  isaPrepDefArt : Preposition' -> Bool = \p -> case p.isPrep of {isPrepDefArt => True ; _ => False} ;
+  isaCase : Preposition -> Bool = \p -> case p.isPrep of {isCase => True ; _ => False} ;
+  isaPrep : Preposition -> Bool = \p -> case p.isPrep of {isPrep => True ; _ => False} ;
+  isaPrepDefArt : Preposition -> Bool = \p -> case p.isPrep of {isPrepDefArt => True ; _ => False} ;
 
 -- To apply a preposition to a complement.
 
-  appPrep' : Preposition' -> (Case => Str) -> Str = \prep,arg ->
+  appPrep : Preposition -> (Case => Str) -> Str = \prep,arg ->
      prep.s ! GPl ++ arg ! prep.c ++ prep.s2 ;
 
-  appPrepNP' : Preposition' -> NP' -> Str = \prep,np ->
+  appPrepNP : Preposition -> NP -> Str = \prep,np ->
     let
       g = (genderAgr np.a) ;
       n = (numberAgr np.a) ;
@@ -428,27 +428,36 @@ resource ResGer = ParamX ** open Prelude in {
           prep.s ! (GSg g) ++ nps ++ np.ext ++ prep.s2 ++ np.rc ;
         _ =>  prep.s ! GPl ++ nps ++ np.ext ++ prep.s2 ++ np.rc
         } ;
-
-  bigNP' : NP' -> Str = \np -> np.ext ++ np.rc ;
+{-
+  -- Simplify to test the effect on grammar compilation complexity (without SlashV2VNP):
+  -- with glues = False: 27096 msec, 3,2M VerbGer.gfo, 854K SentenceGer.gfo
+  --     and SlashV2VNP:102597 msec, 16 M VerbGer.gfo, 854K SentenceGer.gfo (good!)
+  appPrepNP : Preposition -> NP -> Str = \prep,np ->
+    let
+      glues = False ;
+      nps = np.s ! glues ! prep.c
+    in prep.s ! GPl ++ nps ++ np.ext ++ prep.s2 ++ np.rc ;
+-}
+  bigNP : NP -> Str = \np -> np.ext ++ np.rc ;
   
 -- To build a preposition from just a case.  -- HL 9/19: moved to mkPrep in ParadigmsGer
 
-  PrepNom' : Preposition' = {s = \\_ => []; isPrep = isCase ; c = Nom ; s2 = []} ;
+  PrepNom : Preposition = {s = \\_ => []; isPrep = isCase ; c = Nom ; s2 = []} ;
 
-  vonDat' : Preposition' = {s=table{GPl => "von" ; GSg Fem => "von der"; _ => "vom"};
-                            s2=[]; c=Dat; isPrep=isPrepDefArt} ;
+  vonDat  : Preposition = {s=table{GPl => "von" ; GSg Fem => "von der"; _ => "vom"};
+                           s2=[]; c=Dat; isPrep=isPrepDefArt} ;
   -- for testing:
-  Dat' : Preposition' = {s = \\_ => []; s2 = []; c=Dat; isPrep=isCase} ;
-  mit' : Preposition' = {s = \\_ => "zusammen mit"; s2 = []; c=Dat; isPrep=isPrep} ;
+  Dat' : Preposition = {s = \\_ => []; s2 = []; c=Dat; isPrep=isCase} ;
+  mit' : Preposition = {s = \\_ => "zusammen mit"; s2 = []; c=Dat; isPrep=isPrep} ;
 
-  zuDat' : Preposition' = {s=\\_ => "zu"; s2="herein"; c=Dat; isPrep=isPrep} ;
-  zum'   : Preposition' = {s= table{GPl => "zu"; GSg Fem =>"zur"; _ => "zum"};
+  zuDat' : Preposition = {s=\\_ => "zu"; s2="herein"; c=Dat; isPrep=isPrep} ;
+  zum'   : Preposition = {s= table{GPl => "zu"; GSg Fem =>"zur"; _ => "zum"};
                            s2="herein"; c=Dat; isPrep=isPrepDefArt} ;
-  inDat' : Preposition' = {s= \\_ => "in" ; s2="drin"; c=Dat; isPrep=isPrep} ;
-  im'    : Preposition' = {s= table{GPl => "in"; GSg Fem=>"in der"; _ =>"im"};
+  inDat' : Preposition = {s= \\_ => "in" ; s2="drin"; c=Dat; isPrep=isPrep} ;
+  im'    : Preposition = {s= table{GPl => "in"; GSg Fem=>"in der"; _ =>"im"};
                            s2="drin"; c=Dat; isPrep=isPrepDefArt} ;
-  inAcc' : Preposition' = {s=\\_ => "in"; s2="hinein"; c=Acc; isPrep=isPrep} ;
-  ins'   : Preposition' = {s=table{GPl => "in"; GSg Masc=>"in den"; GSg Fem=>"in die"; GSg Neutr=>"ins"};
+  inAcc' : Preposition = {s=\\_ => "in"; s2="hinein"; c=Acc; isPrep=isPrep} ;
+  ins'   : Preposition = {s=table{GPl => "in"; GSg Masc=>"in den"; GSg Fem=>"in die"; GSg Neutr=>"ins"};
                            s2="hinein"; c=Acc; isPrep=isPrepDefArt} ;
 
 -- Pronouns and articles
@@ -558,9 +567,9 @@ resource ResGer = ParamX ** open Prelude in {
       ext : Str ;             -- sentential complement of V(2)S, V(2)Q, e.g. dass|ob sie kommt
       inf : {inpl: (Agr => Str)*Str ; -- infinitival complement of V(2)V       HL 3/2022
              extr: (Agr => Str)} ;    -- e.g. ihn [] versuchen (lasse) [, ihr zu helfen]
-      c1 : Preposition'       -- case of subject
+      c1 : Preposition       -- case of subject
      } ;
-  VPSlash = VP ** {c2 : Preposition' ; objCtrl : Bool} ;  -- HL 3/2019 objCtr added
+  VPSlash = VP ** {c2 : Preposition ; objCtrl : Bool} ;  -- HL 3/2019 objCtr added
 
   -- objCtrl distinguishes object-control from subject-control verb v:V2V in VP.s:
   -- if True, reflexives in vp.inf and vp.nn have to agree with c2-object (added
@@ -622,7 +631,7 @@ resource ResGer = ParamX ** open Prelude in {
 
   predV : Verb -> VP = predVGen False ;
 
-  predVc : Verb ** {c2 : Preposition'} -> VPSlash = \v ->
+  predVc : Verb ** {c2 : Preposition} -> VPSlash = \v ->
     predV v ** {c2 = v.c2 ; objCtrl = False} ;
 
   predVGen : Bool -> Verb -> VP = \isAux, verb -> {
@@ -636,7 +645,7 @@ resource ResGer = ParamX ** open Prelude in {
     -- default infinitival complement:
     inf = {inpl = <\\_ => [], []>; extr = \\_ => []} ;
     ext,adj : Str = [] ;
-    c1 = PrepNom'
+    c1 = PrepNom
     } ;
 
   auxPerfect : Verb -> VForm => Str = \verb ->
@@ -711,16 +720,20 @@ resource ResGer = ParamX ** open Prelude in {
   insertObjc : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->
     insertObj obj vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl } ;
 
-  insertObjNP' : NP' -> Preposition' -> VPSlash -> VPSlash = \np,prep,vp ->
-    let c = prep.c ;
-        obj = appPrepNP' prep np ;
-        isPrep : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
-    in vp ** {
+  insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
+    let obj = appPrepNP prep np ;
+        b : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
+        w = np.w ;
+        c = prep.c
+    in insertObj' obj b w c vp ;
+
+  insertObj' : Str -> Bool -> Weight' -> Case -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
+    vp ** {
       nn = \\a =>
         let vpnn = vp.nn ! a in
         -- HL 11/6/19: rough object NP order (expensive):
         -- vfin < accPron < refl < (gen|dat)Pron < lightNP < neg < heavyNP|PP < vinf|comp
-        case <isPrep, np.w, c> of { -- 2 * 3 * 4 = 24 cases
+        case <isPrep, w, c> of { -- 2 * 3 * 4 = 24 cases
           <True, _,_> =>       -- <prons, light, heavy++pp, compl>
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> ;
           <False,WPron', Acc> => -- <ihn ++ sich, light, heavy, comp>
@@ -732,8 +745,8 @@ resource ResGer = ParamX ** open Prelude in {
             <vpnn.p1, obj ++ vpnn.p2, vpnn.p3, vpnn.p4> ;
           <False,WLight',_  > => -- <prons, np ++ gen|acc, heavy, comp>
             <vpnn.p1, vpnn.p2 ++ obj, vpnn.p3, vpnn.p4> ;
-          -- <False,WHeavy'|WDefArt,Dat> => -- <prons, light, dat ++ np, comp>
-          --   <vpnn.p1, vpnn.p2, obj ++ vpnn.p3, vpnn.p4> ;
+          <False,WHeavy'|WDefArt,Dat> => -- <prons, light, dat ++ np, comp>
+            <vpnn.p1, vpnn.p2, obj ++ vpnn.p3, vpnn.p4> ;
           <False,WHeavy'|WDefArt,_  > => -- <prons, light, np ++ gen|acc, comp>
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> }
     } ; -- the ordering of objects of v:V3 (and v:V4) is also determined by Slash?V3 (and Slash?V4)
@@ -983,7 +996,7 @@ resource ResGer = ParamX ** open Prelude in {
  
   infPart : Bool -> Str = \b -> if_then_Str b [] "zu" ;
 
-  heavyNP' : 
+  heavyNP : 
     {s : Bool => Case => Str ; a : Agr} -> {s : Bool => Case => Str ; a : Agr ; w : Weight' ; ext,rc : Str} = \np ->
     np ** {w = WHeavy' ; ext,rc = []} ; -- this could be wrong
 
@@ -1002,10 +1015,10 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- Function that allows the construction of non-nominative subjects.
 
-  mkSubj' : NP' -> Preposition' -> Str * Agr = \np, prep ->
+  mkSubj : NP -> Preposition -> Str * Agr = \np, prep ->
     let
       agr = case prep.c of { Nom => np.a ; _ => Ag Masc Sg P3 } ;
-      subj = appPrepNP' prep np
+      subj = appPrepNP prep np
     in <subj , agr> ;
 
 }

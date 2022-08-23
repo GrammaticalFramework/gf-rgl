@@ -1,4 +1,4 @@
-concrete VerbGer of Verb' = CatGer ** open Prelude, ResGer, Coordination in {
+concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
   flags optimize=all_subs ;
 
@@ -21,8 +21,8 @@ concrete VerbGer of Verb' = CatGer ** open Prelude, ResGer, Coordination in {
 
     SlashV2a v = (predVc v) ; 
       
-    Slash2V3 v np = insertObjNP' np v.c2 (predVc v) ** {c2 = v.c3} ;
-    Slash3V3 v np = insertObjNP' np v.c3 (predVc v) ;
+    Slash2V3 v np = insertObjNP np v.c2 (predVc v) ** {c2 = v.c3} ;
+    Slash3V3 v np = insertObjNP np v.c3 (predVc v) ;
 
     SlashV2S v s = 
       insertExtrapos (comma ++ conjThat ++ s.s ! Sub) (predV v) ** {c2 = v.c2; objCtrl = False} ;
@@ -46,7 +46,7 @@ concrete VerbGer of Verb' = CatGer ** open Prelude, ResGer, Coordination in {
       -- HL 3/22 better before inserting np, using objCtrl
       let vp = case vps.objCtrl of { True => objAgr np vps ; _  => vps }
                ** { c2 = vps.c2 ; objCtrl = vps.objCtrl } ;
-      in insertObjNP' np vps.c2 vp ;
+      in insertObjNP np vps.c2 vp ;
     -- compiler: + ComplSlash' 414720 (199680,352)
 
     -- SlashVV v vps is like ComplVV v vp, but infinite vps should not be extracted
@@ -92,13 +92,17 @@ concrete VerbGer of Verb' = CatGer ** open Prelude, ResGer, Coordination in {
    -- expensive: + SlashV2VNP 503.884.800 (2880,540), reaches memory limit with SlashVV
    -- does not work for nested uses: the nn-levels are confused  HL 3/22
 
-   -- SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
-   --    insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
-
-    -- without: 205539 msec
--- to save (571098 = 83669 = 487429 msec) compile time (in 58% memory), comment out:
-    -- SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
-    --    insertObjNP' np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
+    -- to save a lot compile time and memory, avoid insertObjNP with glueing of prep+DefArt:
+    SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
+    --     insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;    
+      let prep = v.c2 ;
+          obj = appPrep prep (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
+          b : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
+          c = prep.c ;
+          w = np.w ;
+          vps = (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl})
+      in
+      insertObj' obj b w c vps ;
 
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used

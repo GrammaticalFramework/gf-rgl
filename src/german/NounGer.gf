@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:
-concrete NounGer of Noun' = CatGer ** open ResGer, MorphoGer, Prelude in {
+concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -183,18 +183,18 @@ concrete NounGer of Noun' = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
 
     ComplN2 f x = {
-      s = \\_,n,c => f.s ! n ! c ++ appPrepNP' f.c2 x ;
+      s = \\_,n,c => f.s ! n ! c ++ appPrepNP f.c2 x ;
       g = f.g ;
 	  rc = \\_ => [] ;
 	  ext,adv = []
       } ;
 
     ComplN3 f x = {
-      s = \\n,c => f.s ! n ! c ++ appPrepNP' f.c2 x ;
-      co = f.co ++ appPrepNP' f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
+      s = \\n,c => f.s ! n ! c ++ appPrepNP f.c2 x ;
+      co = f.co ++ appPrepNP f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
       uncap = {
-        s = \\n,c => f.uncap.s ! n ! c ++ appPrepNP' f.c2 x ;
-        co = f.uncap.co ++ appPrepNP' f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
+        s = \\n,c => f.uncap.s ! n ! c ++ appPrepNP f.c2 x ;
+        co = f.uncap.co ++ appPrepNP f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
        } ;
       g = f.g ;
       c2 = f.c3 ;
@@ -231,15 +231,15 @@ concrete NounGer of Noun' = CatGer ** open ResGer, MorphoGer, Prelude in {
     AdvCN cn a = cn ** {adv = cn.adv ++ a.s} ;
 
     ApposCN  cn np = let g = cn.g in cn ** {
-      s = \\a,n,c => cn.s ! a ! n ! c ++ np.s ! False ! c ++ bigNP' np } ;
+      s = \\a,n,c => cn.s ! a ! n ! c ++ np.s ! False ! c ++ bigNP np } ;
 
     -- PossNP cn np = cn ** {
     --   s = \\a,n,c => cn.s ! a ! n ! c ++ np.s ! NPP CVonDat ++ bigNP np } ;
     PossNP cn np = cn ** {
-      s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep' vonDat' (np.s ! False) ++ bigNP' np } ;  -- HL, ad hoc
+      s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep vonDat (np.s ! False) ++ bigNP np } ;  -- HL, ad hoc
 
     PartNP cn np = case np.w of {
-      WPron' => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep' vonDat' (np.s ! False) ++ np.rc} ;
+      WPron' => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep vonDat (np.s ! False) ++ np.rc} ;
       _      => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ np.s ! False ! Gen}    -- HL 7/2022, ad hoc
         };         -- glass of wine
 
@@ -247,7 +247,7 @@ concrete NounGer of Noun' = CatGer ** open ResGer, MorphoGer, Prelude in {
                      -- det or numeral? np or rather (DefArt +) cn?  drei (einiger Kinder) ?
       let g = genderAgr np.a
       in {
-        s = \\b,c => det.s ! b ! g ! c ++ appPrepNP' vonDat' np ++ bigNP' np ;
+        s = \\b,c => det.s ! b ! g ! c ++ appPrepNP vonDat np ++ bigNP np ;
         a = agrgP3 g det.n ;
         w = case det.isDef of { True => WLight' ; _ => WHeavy' } ;
         rc = np.rc ;
