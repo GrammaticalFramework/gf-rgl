@@ -8,7 +8,7 @@ import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
 import System.Exit (ExitCode(..),exitFailure)
 import System.Environment (getArgs,lookupEnv)
-import System.Process (rawSystem)
+import System.Process (rawSystem,readProcess)
 import System.FilePath ((</>),splitSearchPath) -- ,takeFileName,addExtension,dropExtension)
 import System.Directory (createDirectoryIfMissing,copyFile,getDirectoryContents,removeDirectoryRecursive,findFile)
 #if __GLASGOW_HASKELL__>=800
@@ -61,7 +61,7 @@ errLocation = unlines $
   [ "Unable to determine where to install the RGL. Please do one of the following:"
   , " - Pass the " ++ destination_flag ++ "... flag to this script"
   , " - Set the GF_LIB_PATH environment variable"
-  , " - Compile & install GF from the gf-core repository (must be in same directory as gf-rgl)"
+  , " - Compile & install GF from the gf-core repository"
   ]
 
 -- | Copy single file between directories
@@ -116,10 +116,11 @@ data Info = Info
 mkInfo :: IO Info
 mkInfo = do
   args <- getArgs
+  let gf = maybe default_gf id (getFlag gf_flag args)
   -- Look for install location in a few different places
   let mflag = getFlag destination_flag args
-  mbuilt <- catchIOError (readFile "../gf-core/DATA_DIR" >>= \d -> return (Just (d </> "lib"))) (\e -> return Nothing)
   menvar <- lookupEnv "GF_LIB_PATH" >>= return . fmap (head . splitSearchPath)
+  mbuilt <- catchIOError (readProcess gf ["--version"] "" >>= return . getPath) (\e -> return Nothing)
   let
     inst_dir =
       case catMaybes [mflag,menvar,mbuilt] of
@@ -129,11 +130,17 @@ mkInfo = do
   return $ Info
     { infoBuildDir = "dist"
     , infoInstallDir = inst_dir
-    , infoGFPath = maybe default_gf id (getFlag gf_flag args)
+    , infoGFPath = gf
     , infoVerbose = verbose
     }
   where
     default_gf = "gf"
+
+    getPath s =
+      let l = last (lines s)
+      in if take 14 l == "Shared folder:"
+           then Just (drop 14 l </> "lib")
+           else Nothing
 
 getRGLBuildDir :: Info -> Mode -> FilePath
 getRGLBuildDir info mode = infoBuildDir info </> getRGLBuildSubDir mode

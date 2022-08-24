@@ -38,15 +38,15 @@ done
 if [ -z "$dest" ]; then
   dest=$(echo "$GF_LIB_PATH" | sed 's/:.*$//')
 fi
-if [ -z "$dest" ] && [ -f "../gf-core/DATA_DIR" ]; then
-  dest=$(cat ../gf-core/DATA_DIR)
+if [ -z "$dest" ] && [ "$(gf --version | tail -1 | cut -c -14)" == "Shared folder:" ]; then
+  dest=$(gf --version | tail -1 | cut -c 16-)/lib
   if [ -n "$dest" ]; then dest="${dest}/lib"; fi
 fi
 if [ -z "$dest" ]; then
   echo "Unable to determine where to install the RGL. Please do one of the following:"
   echo " - Pass the --dest=... flag to this script"
   echo " - Set the GF_LIB_PATH environment variable"
-  echo " - Compile & install GF from the gf-core repository (must be in same directory as gf-rgl)"
+  echo " - Compile & install GF from the gf-core repository"
   exit 1
 fi
 
