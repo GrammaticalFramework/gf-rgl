@@ -35,17 +35,13 @@ for arg in "$@"; do
 done
 
 # Try to determine install location
-if [ -z "$dest" ]; then
-  dest=$(echo "$GF_LIB_PATH" | sed 's/:.*$//')
-fi
 if [ -z "$dest" ] && [ "$(gf --version | tail -1 | cut -c -14)" == "Shared folder:" ]; then
-  dest=$(gf --version | tail -1 | cut -c 16-)/lib
+  dest=$(gf --version | tail -1 | cut -c 16-)
   if [ -n "$dest" ]; then dest="${dest}/lib"; fi
 fi
 if [ -z "$dest" ]; then
   echo "Unable to determine where to install the RGL. Please do one of the following:"
   echo " - Pass the --dest=... flag to this script"
-  echo " - Set the GF_LIB_PATH environment variable"
   echo " - Compile & install GF from the gf-core repository"
   exit 1
 fi
