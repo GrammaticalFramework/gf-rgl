@@ -27,9 +27,21 @@ REM Check command line options
 goto Loop
 :Continue
 
+REM Try to determine install location
+if "%dest%"=="" (
+  REM Separate paths with search path separator ; and pick first one
+  for %%p in ("%GF_LIB_PATH:;=";"%") do (
+    set dest=%%~p
+    goto BreakLibPath
+  )
+)
+:BreakLibPath
+
 if "%dest%"=="" (
   echo Unable to determine where to install the RGL. Please do one of the following:
   echo  - Pass the --dest=... flag to this script
+  echo  - Set the GF_LIB_PATH environment variable
+  REM echo  - Compile & install GF from the gf-core repository (must be in same directory as gf-rgl)
   exit /b
 )
 
