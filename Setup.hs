@@ -139,7 +139,7 @@ mkInfo = do
     getPath s =
       let l = last (lines s)
       in if take 14 l == "Shared folder:"
-           then Just (drop 14 l </> "lib")
+           then Just (drop 15 l </> "lib")
            else Nothing
 
 getRGLBuildDir :: Info -> Mode -> FilePath
