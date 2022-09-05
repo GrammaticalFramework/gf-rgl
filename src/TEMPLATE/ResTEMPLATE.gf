@@ -12,8 +12,8 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 -- ** File structure **
 -- The rest of this module is organised as follows:
 
-      ------------
-      -- GF cat(s)
+      -----------------------------
+      -- Grammatical categor(y|ies)
 
       {-
       General comments on the cat(s)
@@ -28,8 +28,8 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 
 {-The param Number comes from common/ParamX, and has the values Sg and Pl.
     * If your language doesn't have number, remove Number from all records.
-    * If your language has number with more than 2 values, define your own number here
-      (or in a separate ParamTEMPLATE module if you like) and use that instead of ParamX.Number.
+    * If your language has number with more than 2 values, define your own number in this module
+      (e.g. uncomment line 56) and use that Number instead of ParamX.Number.
 
   The param Gender is defined here, and has the values Gender1 and Gender2.
   Currently it's only as a suggestion to be an inherent field in LinN.
@@ -39,8 +39,7 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
       the g : Gender field from the definition of LinN.
 
   If your nouns inflect in more things, like case, you can do one of the following
-    * Make the table 2-dimensional, like this:
-        param Case = Whatever | Cases | You | Have ;
+    * Replace the placeholder cases on line 53 and make the table 2-dimensional, like this:
         oper LinN : Type = {s : ParamX.Number => Case => Str ; …} ;
     * Make your own parameter that combines all the relevant features, like this:
         param NForm = Whatever | You | Need | For | Noun | Inflection ;
@@ -50,25 +49,28 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
  -}
 
 param
-  Gender = Gender1 | Gender2 ; -- Just a placeholder, see lines 11-16 above
+  Gender = Gender1 | Gender2 ;   -- Just a placeholder, see lines 34-39 above
+  Case = Case1 | Case2 | Case3 ; -- Just a placeholder, see lines 41-48 above
+  -- Number = Num1 | Num2 | Num3 ; -- If your language has numbers other than Sg and Pl, comment out this line and change the placeholders to the real number values (e.g. Singular, Dual, Plural)
 
 oper
   LinN : Type = {
     s : ParamX.Number => Str ; -- variable number
-  --  g : Gender ;        -- inherent gender/noun class
+  --  g : Gender ;        -- inherent gender/noun class, if your language has that
     } ;
 
   -- Very often, the lincat for CN is the same as N, with possibly some additional fields.
-  -- Here we prepare for a postmodifier, just in case.
-  -- If you find that you don't need such a field, feel free to remove it and put everything in s.
+  -- However, sometimes you need more fields than just the s field, e.g. if your language has suffixes that are not part of the inflection of nouns, like possessive suffixes (expressing 'my cat' as 'cat-my'), then you'll probably need a postmodifier field for anything that comes after the noun. Likewise, if you have prefixes that are not part of the inflection table, you might need a field for premodifier.
+  -- If you don't know what the previous line means, you can get started with just a single s field.
+  -- You'll notice later whether you need such a field or not.
   LinCN : Type = LinN
-    -- ** {postmod : Str}  -- heavy stuff like relative clauses might behave weirdly and maybe you need a different field?
+    -- ** {postmod/premod : Str} -- if your language has prefixes/suffixes that are not part of the inflection table
     ;
 
   LinPN : Type = {
     s : Str ;
     n : ParamX.Number ; -- Proper nouns often have already an inherent number; you don't usually say "a Paris / many Parises"
-    -- g : Gender ; -- inherent gender, if your language uses one
+    -- g : Gender ; -- inherent gender/noun class, if your language has that
   } ;
 
   -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
@@ -76,8 +78,8 @@ oper
     s = table {
       _ => str -- TODO: actual morphology
       } ;
-      -- If your nouns have gender, it should come here as inherent field
-      -- Usually you need to give the gender as an argument to mkNoun, and then just put it here
+      -- If your nouns have gender, it should come here as inherent field.
+      -- Usually you need to give the gender as an argument to mkNoun.
     } ;
 
 
@@ -88,7 +90,7 @@ oper
     * If your language doesn't inflect in person, you may be able to remove Person from all records.
       - However, consider if it's really never present? How about e.g. reflexive ("myself", "yourself" etc?)
     * If your language is more fine-grained than {P1,P2,P3} x {Sg,Pl} (for instance gender and familiarity),
-      you can define your own param. We provide an example called Agr to take inspiration from, remove if
+      you can define your own param. We provide an example called Agr to take inspiration from—remove if
       not needed, or use and refine if needed.
 -}
 
@@ -102,11 +104,13 @@ param
 
 oper
   LinPron : Type = {
-    s : Str ; -- If there is case in your language, do pronouns inflect in that?
+    s : Str ;
+    -- Alternative if your language has case and pronouns inflect in case (e.g. English I/me/my, she/her/hers)
+    -- s : Case => Str ;
     n : ParamX.Number ;
     p : ParamX.Person ;
     -- Alternative to the `n` and `p` fields:
-    -- a : Agr -- sketched above, lines 97-101
+    -- a : Agr -- sketched above, lines 97-103
     } ;
 
   mkPron : (_ : Str) -> Person -> Number -> LinPron = \str,per,num -> {
@@ -133,7 +137,9 @@ That's why I'm copying over the definition below, instead of the neater `LinNP :
 -}
 
   LinNP : Type = {
-    s : Str ; -- If anything inflects in case (nouns, pronouns), NP has to also inflect in case.
+    s : Str ;
+    -- Alternative: If anything inflects in case (nouns, pronouns), NP has to also inflect in case!
+    -- s : Case => Str ;
     n : ParamX.Number ;
     p : ParamX.Person ;
     -- Alternative to the `n` and `p` fields:
@@ -171,14 +177,28 @@ That's why I'm copying over the definition below, instead of the neater `LinNP :
     n = num
   } ;
 
----- ******* Everything below: TODO
-
 --------------------------------------------------------------------------------
--- Prepositions
+-- Adpositions
 
+{- The main use of Prep is in the fun
+
+      PrepNP : Prep -> NP -> Adv
+
+   Despite the name of the RGL category, a 'Prep' can be a preposition, postposition,
+   or just an instruction to choose a particular case from the NP.
+   A language may use one, two or all these strategies.
+
+-}
+
+oper
   LinPrep : Type = {
-    s : Str ;             -- dengan
---    c2 : Case ; -- if your language has cases, and if adverbials can be just like, the word in a case
+    s : Str ;
+
+    -- If your language has cases, and different prepositions choose different cases.
+    -- c2 : Case ;
+
+    -- If your language has both pre- and postpositions, you need an inherent parameter in Prep to record which one a given Prep is.
+    -- position : PreOrPost ;
     } ;
 
 
