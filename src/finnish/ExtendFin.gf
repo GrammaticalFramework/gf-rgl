@@ -9,6 +9,7 @@ concrete ExtendFin of Extend =
     ,PassVPSlash, PassAgentVPSlash
     ,CardCNCard
     ,UttAccNP
+    ,AdjAsCN, AdjAsNP
     ]
   with
     (Grammar = GrammarFin) **
@@ -237,5 +238,6 @@ lin CardCNCard card cn = {
   } ;
 
 lin UttAccNP np = {s = P.addNegation np.isNeg ++ np.s ! NPAcc} ;
-
+lin AdjAsCN ap = {s = ap.s ! True ; postmod = \\_ => ap.p ; h = Back} ; ---- Harmony just a guess
+lin AdjAsNP ap = MassNP (AdjAsCN ap) ;
 }
