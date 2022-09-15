@@ -477,7 +477,7 @@ mkVS = overload {
   mkN = overload {
     mkN : (talo : Str) -> N = mk1N ;
     --  \s -> nforms2snoun (nForms1 s) ;
-    mkN : (talo,talon : Str) -> N = mk2N ;
+    mkN : (talo,taloja : Str) -> N = mk2N ;
     --  \s,t -> nforms2snoun (nForms2 s t) ;
     mkN : (talo,talon,taloja : Str) -> N = mk3N ;
     --  \s,t,u -> nforms2snoun (nForms3 s t u) ;
@@ -499,7 +499,8 @@ mkVS = overload {
 ----  mkNA : N -> A = snoun2sadj ;
 
   mk1N : (talo : Str) -> N = \s -> lin N (nforms2snoun (nForms1 s)) ;
-  mk2N : (talo,talon : Str) -> N = \s,t -> lin N (nforms2snoun (nForms2 s t)) ;
+  mk2N : (talo,taloja : Str) -> N = \s,t -> lin N (nforms2snoun (nForms2 s t)) ;
+  mk2NsgGen : (talo,talon : Str) -> N = \sgnom,sggen -> lin N (nforms2snoun (nForms2sgGen sgnom sggen)) ; -- When we have access to the singular genitive but not plural partitive, e.g. from some dump of lemmatised nouns
   mk3N : (talo,talon,taloja : Str) -> N = \s,t,u -> lin N (nforms2snoun (nForms3 s t u)) ;
   mk4N : (talo,talon,taloa,taloja : Str) -> N = \s,t,u,v ->
       lin N (nforms2snoun (nForms4 s t u v)) ;
@@ -659,9 +660,32 @@ mkVS = overload {
             ukon ++ ukkoja ++ ukkoa)
       } ;
 
+--- this is used by a mkN instance hidden from the API. Like nForms2, but the second argument is actually singular genitive
+  nForms2sgGen : (sydan,sydamen : Str) -> NForms = \sydan,sydamen ->
+    let
+      regSydan : NForms = nForms1 sydan ;
+      regSydamen : Str = regSydan ! 1 ; -- SgGen from NForms constructed of only SgNom
+    in
+    case (pbool2bool (Predef.eqStr sydamen regSydamen)) of {
+      True => regSydan ; -- singular genitive was as predicted by 1-arg paradigm
+      _  => case <sydan,sydamen> of {
+              <_ + "s",         _ + "ksen"> => dJalas sydan ;
+              <_ + "s",         _ + "den"> => dLujuus sydan ;
+              <_ + ("as"|"äs"), _ + ("aan"|"ään")> => dRae sydan sydamen ;
+              <_ + "n",         _ + "men"> => dLiitin sydan sydamen ;
+              <_ + "in",        _ + ("imman"|"immän")> => dSuurin sydan ;
+              <_ + "in",        _ + ("man"|"män")> => dLämmin sydan sydamen ;
+              <_ + "i",         _ + "en"> => dArpi sydan sydamen ;
+              <_ + "mpi",       _ + ("emman" | "emmän")> => dSuurempi sydan ;
+              <_ + "e",         _ + "een"> => dRae sydan sydamen ;
+              <_ + "e",         _ + "en"> => dNukke sydan sydamen ;
+              _ => regSydan  -- TODO: see what cases still fail and if SgGen helps
+           }
+      } ;
+
 --- this is a paradigm hidden from the API. It should not be used without caution
   invarN : Str -> N = \s -> <lin N {s = \\_ => s ; h = Back} : N> ;
-  
+
   mkN2 = overload {
     mkN2 : N -> N2 = \n -> mmkN2 n (casePrep genitive) ;
     mkN2 : N -> Prep -> N2 = mmkN2
