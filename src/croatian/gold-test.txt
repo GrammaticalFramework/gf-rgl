@@ -268,3 +268,63 @@ s . Pl => Voc => taksiji
 s . Pl => Loc => taksijima
 s . Pl => Ins => taksijima
 g . Masc Inanim
+s . Sg => Nom => koljeno
+s . Sg => Gen => koljena
+s . Sg => Dat => koljenu
+s . Sg => Acc => koljeno
+s . Sg => Voc => koljeno
+s . Sg => Loc => koljenu
+s . Sg => Ins => koljenom
+s . Pl => Nom => koljena
+s . Pl => Gen => koljena
+s . Pl => Dat => koljenima
+s . Pl => Acc => koljena
+s . Pl => Voc => koljena
+s . Pl => Loc => koljenima
+s . Pl => Ins => koljenima
+g . Neutr
+s . Sg => Nom => jedro
+s . Sg => Gen => jedra
+s . Sg => Dat => jedru
+s . Sg => Acc => jedro
+s . Sg => Voc => jedro
+s . Sg => Loc => jedru
+s . Sg => Ins => jedrom
+s . Pl => Nom => jedra
+s . Pl => Gen => jedara
+s . Pl => Dat => jedrima
+s . Pl => Acc => jedra
+s . Pl => Voc => jedra
+s . Pl => Loc => jedrima
+s . Pl => Ins => jedrima
+g . Neutr
+s . Sg => Nom => polje
+s . Sg => Gen => polja
+s . Sg => Dat => polju
+s . Sg => Acc => polje
+s . Sg => Voc => polje
+s . Sg => Loc => polju
+s . Sg => Ins => poljem
+s . Pl => Nom => polja
+s . Pl => Gen => polja
+s . Pl => Dat => poljima
+s . Pl => Acc => polja
+s . Pl => Voc => polja
+s . Pl => Loc => poljima
+s . Pl => Ins => poljima
+g . Neutr
+s . Sg => Nom => žena
+s . Sg => Gen => žene
+s . Sg => Dat => ženi
+s . Sg => Acc => ženu
+s . Sg => Voc => ženo
+s . Sg => Loc => ženi
+s . Sg => Ins => ženom
+s . Pl => Nom => žene
+s . Pl => Gen => žena
+s . Pl => Dat => ženama
+s . Pl => Acc => žene
+s . Pl => Voc => žene
+s . Pl => Loc => ženama
+s . Pl => Ins => ženama
+g . Fem

@@ -35,6 +35,8 @@ oper
 
    animate = Masc Anim ;
    inanimate = Masc Inanim ;
+   feminine = Fem ;
+   neuter = Neutr ;
 
 palatalize : Str -> Str = \s -> case s of {
   x + "ki" => x + "ci" ;
@@ -265,6 +267,50 @@ palatalize : Str -> Str = \s -> case s of {
 
     taksiN : DeclensionType = ziriN ;
 
+---- Danilo, Hrvoje, raščupànko skipped
+
+    koljenoN : DeclensionType = \koljeno ->
+      let
+        koljen = init koljeno
+      in izvorN koljen ** {
+        snom, sacc, svoc = koljeno ;
+	pnom, pacc, pvoc = koljen + "a" ;
+        } ;
+
+    jedroN : DeclensionType = \jedro ->
+      let
+        jed = Predef.tk 2 jedro ;
+	r = last (init jedro) ; 
+      in koljenoN jedro ** {
+        pgen = jed + "a" + r + "a" ;
+        } ;
+
+---- drvo - drveta skipped, can also decline as koljeno
+---- oči, čudo skipped
+
+    poljeN : DeclensionType = \polje ->
+      koljenoN polje ** {
+        pdat = init polje + "ima" ;
+        } ;
+    
+---- sunce, uže, zvonce, rame, podne, doba
+
+---- no tables given in the sources for feminine nouns, so guessing from ending tables
+
+    zenaN : DeclensionType = \zena -> 
+      let
+        zen = init zena
+      in {
+        snom = zena ;
+	sgen = zen + "e" ;
+	sdat = zen + "i" ;
+	sacc = zen + "u" ;
+	svoc = zen + "o" ; ---- o/a in Wiki ; o in https://sh.wiktionary.org/wiki/%C5%BEena
+	sins = zen + "om" ;
+	pnom, pacc, pvoc = zen + "e" ;
+	pdat = zen + "ama" ;
+	pgen = zen + "a" ;
+        } ;
 
 {-
 
