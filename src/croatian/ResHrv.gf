@@ -58,7 +58,7 @@ palatalize : Str -> Str = \s -> case s of {
 
 -- so this is the lincat of N
 
-  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
+  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sins,pnom,pgen,pdat,pacc : Str ; g : Gender} ;
 
 -- But traditional tables make agreement easier to handle in syntax
 -- so this is the lincat of CN
@@ -76,7 +76,7 @@ palatalize : Str -> Str = \s -> case s of {
 	  Dat => forms.sdat ;
 	  Acc => forms.sacc ;
 	  Voc => forms.svoc ;
-	  Loc => forms.sloc ;
+	  Loc => forms.sdat ;
 	  Ins => forms.sins
 	  } ;
         Pl => table {
@@ -85,8 +85,8 @@ palatalize : Str -> Str = \s -> case s of {
 	  Dat => forms.pdat ;
 	  Acc => forms.pacc ;
 	  Voc => forms.pnom ;
-	  Loc => forms.ploc ;
-	  Ins => forms.pins
+	  Loc => forms.pdat ;
+	  Ins => forms.pdat
 	  }
 	} ;
       g = forms.g
@@ -155,18 +155,18 @@ palatalize : Str -> Str = \s -> case s of {
 
   izvorN : Animacy -> DeclensionType = \anim, izvor ->
     {
-      snom      = izvor ;
-      sgen      = izvor + "a" ;
-      sdat,sloc = izvor + "u" ;
-      sacc      = ifAnim anim (izvor + "a") izvor ;
-      svoc      = palatalize (izvor + "e") ;
-      sins      = ifSoft izvor
+      snom = izvor ;
+      sgen = izvor + "a" ;
+      sdat = izvor + "u" ;
+      sacc = ifAnim anim (izvor + "a") izvor ;
+      svoc = palatalize (izvor + "e") ;
+      sins = ifSoft izvor
                     (palatalize (izvor + "e") + "m") 
                     (izvor + "om") ;
 
-      pnom,pvoc = palatalize (izvor + "i") ;
-      pgen      = izvor + "a" ;
-      pdat,ploc,pins =
+      pnom = palatalize (izvor + "i") ;
+      pgen = izvor + "a" ;
+      pdat =
         ifSoft izvor
 	  (palatalize (izvor + "e") + "vima")
 	  (palatalize (izvor + "i") + "ma") ;
@@ -188,10 +188,10 @@ palatalize : Str -> Str = \s -> case s of {
         gradan = Predef.tk 2 gradanin ;
         gradanN = izvorN anim gradan 
       in izvorN anim gradanin ** {
-        pnom,pvoc = gradanN.pnom ;
-        pgen      = gradanN.pgen ;
-        pdat,ploc,pins = gradanN.pdat ;
-        pacc      = gradanN.pacc ;
+        pnom = gradanN.pnom ;
+        pgen = gradanN.pgen ;
+        pdat = gradanN.pdat ;
+        pacc = gradanN.pacc ;
         } ;
   
    -- vojnik, bubreg, trbuh, stric by izvorN, čvórak, klinac by nokatN
