@@ -141,7 +141,7 @@ s . Sg => Voc => prištu
 s . Sg => Loc => prištu
 s . Sg => Ins => prištem
 s . Pl => Nom => prištevi
-s . Pl => Gen => prištava
+s . Pl => Gen => prišteva
 s . Pl => Dat => prištevima
 s . Pl => Acc => prišteve
 s . Pl => Voc => prištevi
@@ -245,7 +245,7 @@ s . Sg => Acc => žiri
 s . Sg => Voc => žiriju
 s . Sg => Loc => žiriju
 s . Sg => Ins => žirijem
-s . Pl => Nom => žirji
+s . Pl => Nom => žiriji
 s . Pl => Gen => žirija
 s . Pl => Dat => žirijima
 s . Pl => Acc => žirije

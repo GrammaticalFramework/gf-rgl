@@ -24,7 +24,6 @@ param
 -- phonology
 
 oper
-  hardConsonant : pattern Str = #("d"|"t"|"g"|"h"|"k"|"n"|"r") ; ----
   softConsonant : pattern Str = #("c"|"č"|"ć"|"đ"|"j"|"lj"|"nj"|"š"|"ž"|"št") ;
   --- wiki "and sometimes r"; BCMS slightly different
 
@@ -34,6 +33,8 @@ oper
       _ => shard
       } ;
 
+   animate = Masc Anim ;
+   inanimate = Masc Inanim ;
 
 palatalize : Str -> Str = \s -> case s of {
   x + "ki" => x + "ci" ;
@@ -42,7 +43,7 @@ palatalize : Str -> Str = \s -> case s of {
   x + "ge" => x + "že" ;
   x + "hi" => x + "si" ;
   x + "he" => x + "še" ;
-  x + "ce" => x + "če" ; ---- TODO stric but check sins: stricem, klincem, pacc klince
+  x + "ce" => x + "če" ;
   _ => s
   } ;
 
@@ -58,7 +59,7 @@ palatalize : Str -> Str = \s -> case s of {
 
 -- so this is the lincat of N
 
-  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sins,pnom,pgen,pdat,pacc : Str ; g : Gender} ;
+  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sins,pnom,pgen,pdat,pacc : Str} ;
 
 -- But traditional tables make agreement easier to handle in syntax
 -- so this is the lincat of CN
@@ -67,14 +68,17 @@ palatalize : Str -> Str = \s -> case s of {
 
 -- this is used in UseN
 
-  nounFormsNoun : NounForms -> Noun
-    = \forms -> {
+  nounFormsNoun : NounForms -> Gender -> Noun
+    = \forms, g -> {
       s = table {
         Sg => table {
 	  Nom => forms.snom ;
 	  Gen => forms.sgen ;
 	  Dat => forms.sdat ;
-	  Acc => forms.sacc ;
+	  Acc => case g of {
+	    Masc Anim | Fem => forms.sacc ;
+	    _ => forms.snom
+	    } ;
 	  Voc => forms.svoc ;
 	  Loc => forms.sdat ;
 	  Ins => forms.sins
@@ -89,7 +93,7 @@ palatalize : Str -> Str = \s -> case s of {
 	  Ins => forms.pdat
 	  }
 	} ;
-      g = forms.g
+      g = g
       } ;
 
 
@@ -144,24 +148,20 @@ palatalize : Str -> Str = \s -> case s of {
 
 -}
 
-  ifAnim : Animacy -> (anim, inanim : Str) -> Str = \anim, sanim, sinanim ->
-    case anim of {
-      Anim => sanim ;
-      Inanim => sinanim
-      } ;
-
 -- the traditional declensions, following Wiki
 -- they are also exported in ParadigmsHrv with names izvorN etc
 
-  izvorN : Animacy -> DeclensionType = \anim, izvor ->
+  izvorN : DeclensionType = \izvor ->
     {
       snom = izvor ;
       sgen = izvor + "a" ;
       sdat = izvor + "u" ;
-      sacc = ifAnim anim (izvor + "a") izvor ;
-      svoc = palatalize (izvor + "e") ;
+      sacc = izvor + "a" ;
+      svoc = ifSoft izvor
+                    (izvor + "u")
+		    (palatalize (izvor + "e")) ;
       sins = ifSoft izvor
-                    (palatalize (izvor + "e") + "m") 
+                    (izvor + "em") 
                     (izvor + "om") ;
 
       pnom = palatalize (izvor + "i") ;
@@ -170,38 +170,100 @@ palatalize : Str -> Str = \s -> case s of {
         ifSoft izvor
 	  (palatalize (izvor + "e") + "vima")
 	  (palatalize (izvor + "i") + "ma") ;
-      pacc      = palatalize (izvor + "e") ;
-      g = Masc anim
+      pacc      = izvor + "e" ;
       } ;
 
-   nokatN : Animacy -> DeclensionType = \anim, nokat ->
+   nokatN : DeclensionType = \nokat ->
       let
         nokt = Predef.tk 2 nokat + last nokat
-      in izvorN anim nokt ** {
+      in izvorN nokt ** {
         snom = nokat ;
-	sacc = ifAnim anim (nokt + "a") nokat ;
+	sacc = nokt + "a" ;
 	pgen = nokat + "a" ;
         } ;
 	
-   gradaninN : Animacy -> DeclensionType = \anim, gradanin ->
+   gradaninN : DeclensionType = \gradanin ->
       let
         gradan = Predef.tk 2 gradanin ;
-        gradanN = izvorN anim gradan 
-      in izvorN anim gradanin ** {
-        pnom = gradanN.pnom ;
-        pgen = gradanN.pgen ;
-        pdat = gradanN.pdat ;
-        pacc = gradanN.pacc ;
+        gradanN = izvorN gradan 
+      in numbersNounForms (izvorN gradanin) gradanN ;
+
+   numbersNounForms : (sg, pl : NounForms) -> NounForms =
+     \sg, pl -> sg ** {
+        pnom = pl.pnom ;
+        pgen = pl.pgen ;
+        pdat = pl.pdat ;
+        pacc = pl.pacc ;
         } ;
   
-   -- vojnik, bubreg, trbuh, stric by izvorN, čvórak, klinac by nokatN
-   ---- TODO 
+   vojnikN : DeclensionType = izvorN ;
+   bubregN : DeclensionType = izvorN ;
+   trbuhN : DeclensionType = izvorN ;
+   cvorakN : DeclensionType = nokatN ;
 
+   panjN : DeclensionType = \panj ->
+     numbersNounForms (izvorN panj) (izvorN (palatalize (panj + "e") + "v")) ;
 
+   suzanjN : DeclensionType = \suzanj ->
+     let
+       suznj = Predef.tk 3 suzanj + Predef.dp 2 suzanj
+     in
+     numbersNounForms
+       (izvorN suzanj)
+       (izvorN suznj ** {
+         pgen = "sužanja" ;
+         pdat = "sužnjima"
+         }) ;
 
+    pristN : DeclensionType = panjN ;
+    
+    stricN : DeclensionType = \stric ->
+      panjN stric ** {
+        svoc = palatalize (stric + "e")
+	} ;
 
+    klinacN : DeclensionType = \klinac ->
+      let
+        klinc = Predef.tk 2 klinac + last klinac
+      in nokatN klinac ** {
+        svoc = palatalize (klinc + "e") ;
+	pdat = klinc + "ima" ;
+	} ;
 
+    posjetilacN : DeclensionType = \posjetilac ->
+      let
+        posjetioc = Predef.tk 3 posjetilac + "oc"
+      in izvorN posjetioc ** {
+        snom = posjetilac ;
+	svoc = palatalize (posjetioc + "e") ;
+	sins = palatalize (posjetioc + "e") + "m" ;
+	pgen = posjetilac + "a" ;
+	pdat = palatalize (posjetioc + "i") + "ma" ;
+        } ;
 
+    pepeoN : DeclensionType = \pepeo ->
+      let
+        pepel = init pepeo + "l"
+      in izvorN pepel ** {snom = pepeo} ;
+
+    ugaoN : DeclensionType = \ugao ->
+      let
+        ugal = init ugao + "l" ;
+	ugl = Predef.tk 2 ugal + last ugal
+      in numbersNounForms
+           (nokatN ugal ** {snom = ugao})
+	   (izvorN (ugl + "ov")) ;
+	   
+    bifeN : DeclensionType = \bife ->
+      izvorN bife ** {svoc = bife + "u"} ;
+      
+    ziriN : DeclensionType = \ziri ->
+      bifeN (ziri + "j") ** {
+        snom = ziri ;
+	pdat = ziri + "jima" ;
+	} ;
+
+    taksiN : DeclensionType = ziriN ;
 
 
 {-
