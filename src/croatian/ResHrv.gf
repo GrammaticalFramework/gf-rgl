@@ -312,7 +312,6 @@ palatalize : Str -> Str = \s -> case s of {
 	pgen = zen + "a" ;
         } ;
 
-{-
 
 
 ---------------------------
@@ -328,19 +327,17 @@ palatalize : Str -> Str = \s -> case s of {
     msnom, fsnom, nsnom : Str ; 
     msgen, fsgen : Str ;        -- nsgen = msgen
     msdat : Str ;               -- nsdat = msdat
-    fsacc : Str ;               -- amsacc = msgen, imsacc = msnom, nsacc = nsnom
-    msloc : Str ;               -- fsloc = fsdat, nsloc = msloc
-    msins, fsins : Str ;        -- nsins = msins, pdat = msins
-
-    ampnom : Str ;              -- *pnom = nsnom
+    fsdat : Str ;               -- fsloc = fsdat
+    fsacc : Str ;               -- 
+    msloc : Str ;               -- nsloc, fsins = msloc
+    msins : Str ;        -- nsins, pdat, ploc, pins = msins
+    mpnom : Str ;               -- mpvoc = mpnom
     pgen : Str ;                --
-                                -- pdat = msins, ampacc = pgen, *pacc = nsnom, ploc = pgen
-    pins : Str ;
     } ;
 
 invarAdjForms : Str -> AdjForms = \s -> {
-    msnom, fsnom, nsnom, msgen, fsgen, msdat, fsacc,
-    msloc, msins, fsins, ampnom, pgen, pins = s ;
+    msnom, fsnom, nsnom, msgen, fsgen, msdat,
+    fsdat, fsacc, msloc, msins, fsins, mpnom, pgen = s ;
     } ;
 
 -- used in PositA but will also work in Compar and Superl by calling their record fields
@@ -348,30 +345,29 @@ invarAdjForms : Str -> AdjForms = \s -> {
 adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   s = \\g,n,c => case <n,c,g> of {
 
-    <Sg, Nom, Masc _>
-      | <Sg, Acc, Masc Inanim>  => afs.msnom ;
-    <Sg, Nom, Fem>              => afs.fsnom ;
-    <Sg, Nom|Acc, Neutr>    
-      | <Pl, Nom|Acc, Masc Inanim|Fem|Neutr> => afs.nsnom ;
+    <Sg, Nom|Voc, Masc _>
+      | <Sg, Acc, Masc Inanim>   => afs.msnom ;
+    <Sg, Nom|Voc, Fem>
+      | <Pl, Nom|Acc|Voc, Neutr> => afs.fsnom ;
+    <Sg, Nom|Acc|Voc, Neutr>     => afs.nsnom ;
     <Sg, Gen, Masc _ | Neutr>
-      | <Sg,Acc,Masc Anim>     => afs.msgen ;
-    <Sg, Gen|Dat|Loc, Fem>     => afs.fsgen ;
-    <Sg, Dat, Masc _|Neutr>    => afs.msdat ;
-
-    <Sg, Acc, Fem>             => afs.fsacc ;
-    <Sg, Loc, Masc _|Neutr>    => afs.msloc ;
+      | <Sg, Acc, Masc Anim>     => afs.msgen ;
+    <Sg, Gen, Fem>
+      | <Pl, Nom|Acc|Voc, Fem>
+      | <Pl, Acc, Masc _>        => afs.fsgen ;
+    <Sg, Dat, Masc _|Neutr>      => afs.msdat ;
+    <Sg, Dat|Loc, Fem>           => afs.fsdat ;
+    <Sg, Acc, Fem>               => afs.fsacc ;
+    <Sg, Loc, Masc _|Neutr>
+      | <Sg, Ins, Fem>           => afs.msloc ;
     <Sg, Ins, Masc _|Neutr>
-      | <Pl,Dat,_>             => afs.msins ;
-    <Sg, Ins, Fem>             => afs.fsins ;
-
-    <Pl, Nom, Masc Anim>       => afs.ampnom ;
-    <Pl, Gen|Loc,_> 
-      | <Pl, Acc, Masc Anim>   => afs.pgen ;
-    <Pl, Ins,_>     => afs.pins
+      | <Pl,Dat|Loc|Ins, _>      => afs.msins ;
+    <Pl, Nom|Voc, Masc _>        => afs.mpnom ;
+    <Pl, Gen,_>                  => afs.pgen
     }
-
     } ;
 
+{-
   guessAdjForms : Str -> AdjForms
     = \s -> case s of {
         _ + "ý"  => peknyA s ;
@@ -381,28 +377,25 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         _ + ("ov"|"in") => otcovA s ;
         _ => otcovA (""+s)  ---- Predef.error ("no mkA for" ++ s)
         } ;
+-}
 
-
--- hard consonant + y
-
-  peknyA : Str -> AdjForms = \pekny ->
-    let pekn = init pekny
-    in {
-      msnom   = pekn + "ý" ;
-      fsnom   = pekn + "á" ;
-      nsnom   = pekn + "é" ;
-      msgen   = pekn + "ého" ;
-      fsgen   = pekn + "ej" ;
-      msdat   = pekn + "ému" ;
-      fsacc   = pekn + "ú" ;
-      msloc   = pekn + "om" ;
-      msins   = pekn + "ým" ;
-      fsins   = pekn + "ou" ;
-      ampnom  = pekn + "í" ;
-      pgen    = pekn + "ých" ;
-      pins    = pekn + "ými" ;
+  velikA : Str -> AdjForms = \velik ->
+    {
+      msnom   = velik ;
+      fsnom   = velik + "a" ;
+      nsnom   = velik + "o" ;
+      msgen   = velik + "og" ;
+      fsgen   = velik + "e" ;
+      msdat   = velik + "omu" ;
+      fsdat   = velik + "oj" ;
+      fsacc   = velik + "u" ;
+      msloc   = velik + "om" ;
+      msins   = velik + "im" ;
+      mpnom   = velik + "i" ;
+      pgen    = velik + "ih" ;
       } ;
 
+{-
 -- if the penultimate has accent, e.g. krásny, the last accent disappears
   krasnyA : Str -> AdjForms = \krasny ->
     let

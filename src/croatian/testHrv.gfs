@@ -23,3 +23,5 @@ cc -table -unqual nounFormsNoun (poljeN "polje") neuter
 
 cc -table -unqual nounFormsNoun (zenaN "žena") feminine
 
+cc -table -unqual adjFormsAdjective (velikA "velik")
+
