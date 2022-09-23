@@ -2,7 +2,7 @@ import json
 
 # https://kaikki.org/dictionary/rawdata.html
 
-FILE = 'raw-wiktextract-data.json'
+FILE = 'data/raw-wiktextract-data.json'
 
 MYLANG = 'Serbo-Croatian'
 
@@ -25,6 +25,35 @@ NOUN_CASES = {
         }
     }
 
+ADJ_CASES = {
+    'masculine': {
+         'singular': {
+            'nominative': 'msnom',
+            'genitive': 'msgen',
+            'dative': 'msdat',
+            'locative': 'msloc',
+            'instrumental': 'msins'
+            },
+        'plural': {
+            'nominative': 'mpnom',
+            'genitive': 'pgen'
+            }
+        },
+    'feminine': {
+         'singular': {
+            'nominative': 'fsnom',
+            'genitive': 'fsgen',
+            'dative': 'fsdat',
+            'accusative': 'fsacc'
+            }
+        },
+    'neuter': {
+         'singular': {
+            'nominative': 'nsnom'
+            }
+        }
+    }
+
 
 
 def get_forms(pos, forms):
@@ -40,6 +69,21 @@ def get_forms(pos, forms):
                     for case in NOUN_CASES[num]:
                         if case in tags:
                             dict[NOUN_CASES[num][case]] = f['form']
+    elif pos == 'adj':
+        print(forms) 
+        for f in forms:
+            tags = f.get('tags', [])
+            if 'positive' in tags and 'indefinite' in tags:
+                for g in ADJ_CASES:
+                    if g in tags:
+                        for n in ADJ_CASES[g]:
+                            if n in tags:
+                                for c in ADJ_CASES[g][n]:
+                                    if c in tags:
+                                        dict[ADJ_CASES[g][n][c]] = f['form']
+        
+    else:
+        dict['forms'] = forms[:10] ####
     return dict
 
 

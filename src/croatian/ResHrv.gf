@@ -49,6 +49,15 @@ palatalize : Str -> Str = \s -> case s of {
   _ => s
   } ;
 
+voicing : Str -> Str = \s -> case s of {
+  x + "b"  => x + "p" ;
+  x + "d"  => x + "t" ;
+  x + "đ"  => x + "ć" ;
+  x + "z"  => x + "s" ;
+  x + "dž" => x + "č" ;
+  x + "ž"  => x + "š" ;
+  _ => s
+  } ;
 ---------------
 -- Nouns
 ---------------
@@ -380,117 +389,32 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 -}
 
   velikA : Str -> AdjForms = \velik ->
-    {
+    let
+      velk : Str = case velik of {
+        vel + "stan" => vel + "sn" ;
+        vel + "ao" => vel + "l" ;
+        vel + "ak" => voicing vel + "k" ;
+        vel + "a" + k@? => vel + k ;
+	_ => velik
+        }
+    in {
       msnom   = velik ;
-      fsnom   = velik + "a" ;
-      nsnom   = velik + "o" ;
-      msgen   = velik + "og" ;
-      fsgen   = velik + "e" ;
-      msdat   = velik + "omu" ;
-      fsdat   = velik + "oj" ;
-      fsacc   = velik + "u" ;
-      msloc   = velik + "om" ;
-      msins   = velik + "im" ;
-      mpnom   = velik + "i" ;
-      pgen    = velik + "ih" ;
+      fsnom   = velk + "a" ;
+      nsnom   = ifSoft velik
+                  (velk + "e")
+                  (velk + "o") ;
+      msgen   = velk + "og" ;
+      fsgen   = velk + "e" ;
+      msdat   = velk + "omu" ;
+      fsdat   = velk + "oj" ;
+      fsacc   = velk + "u" ;
+      msloc   = velk + "om" ;
+      msins   = velk + "im" ;
+      mpnom   = velk + "i" ;
+      pgen    = velk + "ih" ;
       } ;
 
-{-
--- if the penultimate has accent, e.g. krásny, the last accent disappears
-  krasnyA : Str -> AdjForms = \krasny ->
-    let
-      krasn = init krasny ;
-    in peknyA krasny ** {
-      msnom   = krasn + "y" ;
-      fsnom   = krasn + "a" ;
-      nsnom   = krasn + "e" ;
-      msgen   = krasn + "eho" ;
-      msdat   = krasn + "emu" ;
-      fsacc   = krasn + "u" ;
-      msins   = krasn + "ym" ;
-      ampnom  = krasn + "i" ;
-      pgen    = krasn + "ych" ;
-      pins    = krasn + "ymi" ;
-      } ;
-
--- soft consonant + i
-
-  cudziA : Str -> AdjForms = \cudzi ->
-    let
-      cudz = init cudzi ;
-      pcudz = palatal cudz ;
-    in {
-      msnom   = pcudz + "í" ;
-      fsnom   = pcudz + "ia" ;
-      nsnom   = pcudz + "ie" ;
-      msgen   = pcudz + "ieho" ;
-      fsgen   = pcudz + "ej" ;
-      msdat   = pcudz + "iemu" ;
-      fsacc   = pcudz + "iu" ;
-      msloc   = cudz + "om" ;
-      msins   = pcudz + "ím" ;
-      fsins   = cudz + "ou" ;
-      ampnom  = pcudz + "í" ;
-      pgen    = pcudz + "ích" ;
-      pins    = pcudz + "ími" ;
-      } ;
-
--- accented vowel + soft consonant + i
-  rydziA : Str -> AdjForms = \rydzi ->
-    let
-      rydz = init rydzi ;
-      prydz = palatal rydz ;
-    in peknyA rydzi ** {
-      msnom   = prydz + "i" ;
-      fsnom   = rydz + "a" ;
-      nsnom   = prydz + "e" ;
-      msgen   = prydz + "eho" ;
-      msdat   = prydz + "emu" ;
-      fsacc   = rydz + "u" ;
-      msins   = prydz + "im" ;
-      ampnom  = prydz + "i" ;
-      pgen    = prydz + "ich" ;
-      pins    = prydz + "imi" ;
-      } ;
-
--- masculine possession: the same endings as in feminine
-
-  otcovA : Str -> AdjForms = \otcov ->
-     {
-      msnom   = otcov ;
-      fsnom   = otcov + "a" ;
-      nsnom   = otcov + "o" ;
-      msgen   = otcov + "ho" ;
-      fsgen   = otcov + "ej" ;
-      msdat   = otcov + "mu" ;
-      fsacc   = otcov + "u" ;
-      msloc   = otcov + "om" ;
-      msins   = otcov + "ým" ;
-      fsins   = otcov + "ou" ;
-      ampnom  = otcov + "i" ;
-      pgen    = otcov + "ých" ;
-      pins    = otcov + "ými" ;
-      } ;
-
-  paviA : Str -> AdjForms = \pavi ->
-    let
-      pav = init pavi ;
-    in {
-      msnom = pav + "í" ;
-      fsnom = pav + "ia" ;
-      nsnom = pav + "ie" ;
-      msgen = pav + "ieho" ;
-      fsgen = pav + "ej" ;
-      msdat = pav + "iemu" ;
-      fsacc = pav + "iu" ;
-      msloc = pav + "om" ;
-      msins = pav + "ím" ; 
-      fsins = pav + "ou" ;
-      ampnom = pav + "í" ; ----
-      pgen = pav + "ich" ; ----
-      pins = pav + "imi" ; ----
-      } ;
- 
+{- 
 ---------------------
 -- Verbs
 -- https://en.wikipedia.org/wiki/Slovak_language#Verbs

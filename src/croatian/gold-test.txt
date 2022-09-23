@@ -384,3 +384,171 @@ s . Neutr => Pl => Acc => velika
 s . Neutr => Pl => Voc => velika
 s . Neutr => Pl => Loc => velikim
 s . Neutr => Pl => Ins => velikim
+s . Masc Anim => Sg => Nom => mastan
+s . Masc Anim => Sg => Gen => masnog
+s . Masc Anim => Sg => Dat => masnomu
+s . Masc Anim => Sg => Acc => masnog
+s . Masc Anim => Sg => Voc => mastan
+s . Masc Anim => Sg => Loc => masnom
+s . Masc Anim => Sg => Ins => masnim
+s . Masc Anim => Pl => Nom => masni
+s . Masc Anim => Pl => Gen => masnih
+s . Masc Anim => Pl => Dat => masnim
+s . Masc Anim => Pl => Acc => masne
+s . Masc Anim => Pl => Voc => masni
+s . Masc Anim => Pl => Loc => masnim
+s . Masc Anim => Pl => Ins => masnim
+s . Masc Inanim => Sg => Nom => mastan
+s . Masc Inanim => Sg => Gen => masnog
+s . Masc Inanim => Sg => Dat => masnomu
+s . Masc Inanim => Sg => Acc => mastan
+s . Masc Inanim => Sg => Voc => mastan
+s . Masc Inanim => Sg => Loc => masnom
+s . Masc Inanim => Sg => Ins => masnim
+s . Masc Inanim => Pl => Nom => masni
+s . Masc Inanim => Pl => Gen => masnih
+s . Masc Inanim => Pl => Dat => masnim
+s . Masc Inanim => Pl => Acc => masne
+s . Masc Inanim => Pl => Voc => masni
+s . Masc Inanim => Pl => Loc => masnim
+s . Masc Inanim => Pl => Ins => masnim
+s . Fem => Sg => Nom => masna
+s . Fem => Sg => Gen => masne
+s . Fem => Sg => Dat => masnoj
+s . Fem => Sg => Acc => masnu
+s . Fem => Sg => Voc => masna
+s . Fem => Sg => Loc => masnoj
+s . Fem => Sg => Ins => masnom
+s . Fem => Pl => Nom => masne
+s . Fem => Pl => Gen => masnih
+s . Fem => Pl => Dat => masnim
+s . Fem => Pl => Acc => masne
+s . Fem => Pl => Voc => masne
+s . Fem => Pl => Loc => masnim
+s . Fem => Pl => Ins => masnim
+s . Neutr => Sg => Nom => masno
+s . Neutr => Sg => Gen => masnog
+s . Neutr => Sg => Dat => masnomu
+s . Neutr => Sg => Acc => masno
+s . Neutr => Sg => Voc => masno
+s . Neutr => Sg => Loc => masnom
+s . Neutr => Sg => Ins => masnim
+s . Neutr => Pl => Nom => masna
+s . Neutr => Pl => Gen => masnih
+s . Neutr => Pl => Dat => masnim
+s . Neutr => Pl => Acc => masna
+s . Neutr => Pl => Voc => masna
+s . Neutr => Pl => Loc => masnim
+s . Neutr => Pl => Ins => masnim
+s . Masc Anim => Sg => Nom => gladan
+s . Masc Anim => Sg => Gen => gladnog
+s . Masc Anim => Sg => Dat => gladnomu
+s . Masc Anim => Sg => Acc => gladnog
+s . Masc Anim => Sg => Voc => gladan
+s . Masc Anim => Sg => Loc => gladnom
+s . Masc Anim => Sg => Ins => gladnim
+s . Masc Anim => Pl => Nom => gladni
+s . Masc Anim => Pl => Gen => gladnih
+s . Masc Anim => Pl => Dat => gladnim
+s . Masc Anim => Pl => Acc => gladne
+s . Masc Anim => Pl => Voc => gladni
+s . Masc Anim => Pl => Loc => gladnim
+s . Masc Anim => Pl => Ins => gladnim
+s . Masc Inanim => Sg => Nom => gladan
+s . Masc Inanim => Sg => Gen => gladnog
+s . Masc Inanim => Sg => Dat => gladnomu
+s . Masc Inanim => Sg => Acc => gladan
+s . Masc Inanim => Sg => Voc => gladan
+s . Masc Inanim => Sg => Loc => gladnom
+s . Masc Inanim => Sg => Ins => gladnim
+s . Masc Inanim => Pl => Nom => gladni
+s . Masc Inanim => Pl => Gen => gladnih
+s . Masc Inanim => Pl => Dat => gladnim
+s . Masc Inanim => Pl => Acc => gladne
+s . Masc Inanim => Pl => Voc => gladni
+s . Masc Inanim => Pl => Loc => gladnim
+s . Masc Inanim => Pl => Ins => gladnim
+s . Fem => Sg => Nom => gladna
+s . Fem => Sg => Gen => gladne
+s . Fem => Sg => Dat => gladnoj
+s . Fem => Sg => Acc => gladnu
+s . Fem => Sg => Voc => gladna
+s . Fem => Sg => Loc => gladnoj
+s . Fem => Sg => Ins => gladnom
+s . Fem => Pl => Nom => gladne
+s . Fem => Pl => Gen => gladnih
+s . Fem => Pl => Dat => gladnim
+s . Fem => Pl => Acc => gladne
+s . Fem => Pl => Voc => gladne
+s . Fem => Pl => Loc => gladnim
+s . Fem => Pl => Ins => gladnim
+s . Neutr => Sg => Nom => gladno
+s . Neutr => Sg => Gen => gladnog
+s . Neutr => Sg => Dat => gladnomu
+s . Neutr => Sg => Acc => gladno
+s . Neutr => Sg => Voc => gladno
+s . Neutr => Sg => Loc => gladnom
+s . Neutr => Sg => Ins => gladnim
+s . Neutr => Pl => Nom => gladna
+s . Neutr => Pl => Gen => gladnih
+s . Neutr => Pl => Dat => gladnim
+s . Neutr => Pl => Acc => gladna
+s . Neutr => Pl => Voc => gladna
+s . Neutr => Pl => Loc => gladnim
+s . Neutr => Pl => Ins => gladnim
+s . Masc Anim => Sg => Nom => nizak
+s . Masc Anim => Sg => Gen => niskog
+s . Masc Anim => Sg => Dat => niskomu
+s . Masc Anim => Sg => Acc => niskog
+s . Masc Anim => Sg => Voc => nizak
+s . Masc Anim => Sg => Loc => niskom
+s . Masc Anim => Sg => Ins => niskim
+s . Masc Anim => Pl => Nom => niski
+s . Masc Anim => Pl => Gen => niskih
+s . Masc Anim => Pl => Dat => niskim
+s . Masc Anim => Pl => Acc => niske
+s . Masc Anim => Pl => Voc => niski
+s . Masc Anim => Pl => Loc => niskim
+s . Masc Anim => Pl => Ins => niskim
+s . Masc Inanim => Sg => Nom => nizak
+s . Masc Inanim => Sg => Gen => niskog
+s . Masc Inanim => Sg => Dat => niskomu
+s . Masc Inanim => Sg => Acc => nizak
+s . Masc Inanim => Sg => Voc => nizak
+s . Masc Inanim => Sg => Loc => niskom
+s . Masc Inanim => Sg => Ins => niskim
+s . Masc Inanim => Pl => Nom => niski
+s . Masc Inanim => Pl => Gen => niskih
+s . Masc Inanim => Pl => Dat => niskim
+s . Masc Inanim => Pl => Acc => niske
+s . Masc Inanim => Pl => Voc => niski
+s . Masc Inanim => Pl => Loc => niskim
+s . Masc Inanim => Pl => Ins => niskim
+s . Fem => Sg => Nom => niska
+s . Fem => Sg => Gen => niske
+s . Fem => Sg => Dat => niskoj
+s . Fem => Sg => Acc => nisku
+s . Fem => Sg => Voc => niska
+s . Fem => Sg => Loc => niskoj
+s . Fem => Sg => Ins => niskom
+s . Fem => Pl => Nom => niske
+s . Fem => Pl => Gen => niskih
+s . Fem => Pl => Dat => niskim
+s . Fem => Pl => Acc => niske
+s . Fem => Pl => Voc => niske
+s . Fem => Pl => Loc => niskim
+s . Fem => Pl => Ins => niskim
+s . Neutr => Sg => Nom => nisko
+s . Neutr => Sg => Gen => niskog
+s . Neutr => Sg => Dat => niskomu
+s . Neutr => Sg => Acc => nisko
+s . Neutr => Sg => Voc => nisko
+s . Neutr => Sg => Loc => niskom
+s . Neutr => Sg => Ins => niskim
+s . Neutr => Pl => Nom => niska
+s . Neutr => Pl => Gen => niskih
+s . Neutr => Pl => Dat => niskim
+s . Neutr => Pl => Acc => niska
+s . Neutr => Pl => Voc => niska
+s . Neutr => Pl => Loc => niskim
+s . Neutr => Pl => Ins => niskim
