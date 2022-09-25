@@ -28,3 +28,6 @@ cc -table -unqual adjFormsAdjective (velikA "mastan")
 cc -table -unqual adjFormsAdjective (velikA "gladan")
 cc -table -unqual adjFormsAdjective (velikA "nizak")
 
+cc -table -unqual aeiVerbForms ("čitati")
+cc -table -unqual aeiVerbForms ("raditi")
+

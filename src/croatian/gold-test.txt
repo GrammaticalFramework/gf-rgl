@@ -552,3 +552,34 @@ s . Neutr => Pl => Acc => niska
 s . Neutr => Pl => Voc => niska
 s . Neutr => Pl => Loc => niskim
 s . Neutr => Pl => Ins => niskim
+VInf => čitati
+VPres Sg P1 => čitam
+VPres Sg P2 => čitaš
+VPres Sg P3 => čita
+VPres Pl P1 => čitamo
+VPres Pl P2 => čitate
+VPres Pl P3 => čitaju
+VPastPart (Masc Anim) Sg => čitao
+VPastPart (Masc Anim) Pl => čitali
+VPastPart (Masc Inanim) Sg => čitao
+VPastPart (Masc Inanim) Pl => čitali
+VPastPart Fem Sg => čitala
+VPastPart Fem Pl => čitale
+VPastPart Neutr Sg => čitalo
+VPastPart Neutr Pl => čitala
+VInf => raditi
+VPres Sg P1 => radim
+VPres Sg P2 => radiš
+VPres Sg P3 => radi
+VPres Pl P1 => radimo
+VPres Pl P2 => radite
+VPres Pl P3 => rade
+VPastPart (Masc Anim) Sg => radio
+VPastPart (Masc Anim) Pl => radili
+VPastPart (Masc Inanim) Sg => radio
+VPastPart (Masc Inanim) Pl => radili
+VPastPart Fem Sg => radila
+VPastPart Fem Pl => radile
+VPastPart Neutr Sg => radilo
+VPastPart Neutr Pl => radila
+aarnes-mbp-2:croatian aarne$ 

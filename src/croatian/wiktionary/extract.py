@@ -8,7 +8,7 @@ MYLANG = 'Serbo-Croatian'
 
 GENDERS = ['masculine', 'feminine', 'neuter']
 
-NOUN_CASES = {
+NOUN_FORMS = {
     'singular': {
         'nominative': 'snom',
         'genitive': 'sgen',
@@ -25,7 +25,7 @@ NOUN_CASES = {
         }
     }
 
-ADJ_CASES = {
+ADJ_FORMS = {
     'masculine': {
          'singular': {
             'nominative': 'msnom',
@@ -54,6 +54,33 @@ ADJ_CASES = {
         }
     }
 
+VERB_FORMS = {
+    'present': {
+        'singular': {
+            'first-person': 'pres_sg_1',
+            'second-person': 'pres_sg_2',
+            'third-person': 'pres_sg_3'
+            },
+        'plural': {
+            'first-person': 'pres_pl_1',
+            'second-person': 'pres_pl_2',
+            'third-person': 'pres_pl_3'
+            }
+        },
+    'participle': {
+        'singular': {
+            'masculine': 'ppart_masc_sg',
+            'feminine': 'ppart_fem_sg',
+            'neuter': 'ppart_neutr_sg'
+            },
+        'plural': {
+            'masculine': 'ppart_masc_pl',
+            'feminine': 'ppart_fem_pl',
+            'neuter': 'ppart_neutr_pl'
+            }
+        }
+    }
+
 
 
 def get_forms(pos, forms):
@@ -64,24 +91,33 @@ def get_forms(pos, forms):
                 if g in f.get('tags', []):
                     dict['gender'] = g
             tags = f.get('tags', [])
-            for num in NOUN_CASES:
+            for num in NOUN_FORMS:
                 if num in tags:
-                    for case in NOUN_CASES[num]:
+                    for case in NOUN_FORMS[num]:
                         if case in tags:
-                            dict[NOUN_CASES[num][case]] = f['form']
+                            dict[NOUN_FORMS[num][case]] = f['form']
     elif pos == 'adj':
-        print(forms) 
         for f in forms:
             tags = f.get('tags', [])
             if 'positive' in tags and 'indefinite' in tags:
-                for g in ADJ_CASES:
+                for g in ADJ_FORMS:
                     if g in tags:
-                        for n in ADJ_CASES[g]:
+                        for n in ADJ_FORMS[g]:
                             if n in tags:
-                                for c in ADJ_CASES[g][n]:
+                                for c in ADJ_FORMS[g][n]:
                                     if c in tags:
-                                        dict[ADJ_CASES[g][n][c]] = f['form']
-        
+                                        dict[ADJ_FORMS[g][n][c]] = f['form']
+    elif pos == 'verb':
+        for f in forms:
+            tags = f.get('tags', [])
+            for t in VERB_FORMS:
+                if t in tags:
+                    for n in VERB_FORMS[t]:
+                        if n in tags:
+                            for g in VERB_FORMS[t][n]:
+                               if g in tags:
+                                   dict[VERB_FORMS[t][n][g]] = f['form']
+
     else:
         dict['forms'] = forms[:10] ####
     return dict

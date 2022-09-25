@@ -17,6 +17,13 @@ param
 
   Person = P1 | P2 | P3 ;
 
+  VForm =
+      VInf
+    | VPres Number Person
+    | VPastPart Gender Number
+    ;
+    ---- TODO aorist, imperfect
+
   Agr = Ag Gender Number Person ;
 
   CTense = CTPres | CTPast ; ----- TODO complete the tense system to match BCS verb morphology
@@ -414,30 +421,20 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       pgen    = velk + "ih" ;
       } ;
 
-{- 
 ---------------------
 -- Verbs
--- https://en.wikipedia.org/wiki/Slovak_language#Verbs
+-- Wiki
 
-  VerbForms : Type = {          ---- TODO more forms to add ?
-    inf,
-    pressg1, pressg2, pressg3,
-    prespl1, prespl2, prespl3,
-    pastpmasc, pastpfem, pastpneutr : Str
-    } ;
+  VerbForms : Type = VForm => Str ;
 
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
 
-  verbAgr : VerbForms -> Agr -> Bool -> Str   ---- TODO tenses
-    = \vf,a,b -> case a of {
-      Ag _ Sg P1 => vf.pressg1 ;
-      Ag _ Sg P2 => vf.pressg2 ;
-      Ag _ Sg P3 => vf.pressg3 ;
-      Ag _ Pl P1 => vf.prespl1 ;
-      Ag _ Pl P2 => vf.prespl2 ;
-      Ag _ Pl P3 => vf.prespl3
+  verbAgr : VerbForms -> Agr -> CTense -> Str   ---- TODO tenses
+    = \vf,a,b -> case <a,b> of {
+      <Ag _ n p, CTPres> => vf ! VPres n p ;
+      <Ag g n _, CTPast> => vf ! VPastPart g n
       } ;
-
+{-
   copulaVerbForms : VerbForms = {
     inf = "byť" ;
     pressg1 = "som" ;
@@ -463,29 +460,36 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     pastpfem = "mala" ;
     pastpneutr = "malo" ;
     } ;
+-}
 
 -- just an example of a traditional paradigm
 ---- TODO other traditional paradigms
 
-  iii_kupovatVerbForms : Str -> VerbForms = \kupovat ->
+  aeiVerbForms : Str -> VerbForms = \citati ->
    let
-     kupo = Predef.tk 3 kupovat ;
-     kupu = Predef.tk 1 kupo + "u"
-   in
-   {
-    inf = kupovat ;
-    pressg1 = kupu + "jem" ;
-    pressg2 = kupu + "ješ" ;
-    pressg3 = kupu + "je" ;
-    prespl1 = kupu + "jeme" ;
-    prespl2 = kupu + "jete" ;
-    prespl3 = kupu + "jú" ;
-    pastpmasc = "kupoval" ;
-    pastpfem = "kupovala" ;
-    pastpneutr = "kupovalo" ;    
+     cita = Predef.tk 2 citati ;
+     u = case last cita of {
+        "a" => "aju" ;
+	"e" => "u" ;
+	"i" => "e"
+        } ;
+   in table {
+      VInf => citati ;
+      VPres Sg P1 => cita + "m" ;
+      VPres Sg P2 => cita + "š" ;
+      VPres Sg P3 => cita ;
+      VPres Pl P1 => cita + "mo" ;
+      VPres Pl P2 => cita + "te" ;
+      VPres pl P3 => init cita + u ;
+      VPastPart (Masc _) Sg => cita + "o" ;
+      VPastPart Fem Sg => cita + "la" ;
+      VPastPart Neutr Sg => cita + "lo" ;
+      VPastPart (Masc _) Pl => cita + "li" ;
+      VPastPart Fem Pl => cita + "le" ;
+      VPastPart Neutr Pl => cita + "la"
     } ;
 
-
+{-
 ---------------------------
 -- Pronouns
 
