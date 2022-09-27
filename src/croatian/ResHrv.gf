@@ -465,14 +465,15 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 -- just an example of a traditional paradigm
 ---- TODO other traditional paradigms
 
-  aeiVerbForms : Str -> VerbForms = \citati ->
+  aeiVerbForms : Str -> Str -> Str -> VerbForms = \citati, citam, citao ->
    let
-     cita = Predef.tk 2 citati ;
+     cita = init citam ;
      u = case last cita of {
         "a" => "aju" ;
 	"e" => "u" ;
 	"i" => "e"
         } ;
+     cital = init citao + "l" ;
    in table {
       VInf => citati ;
       VPres Sg P1 => cita + "m" ;
@@ -481,176 +482,131 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       VPres Pl P1 => cita + "mo" ;
       VPres Pl P2 => cita + "te" ;
       VPres pl P3 => init cita + u ;
-      VPastPart (Masc _) Sg => cita + "o" ;
-      VPastPart Fem Sg => cita + "la" ;
-      VPastPart Neutr Sg => cita + "lo" ;
-      VPastPart (Masc _) Pl => cita + "li" ;
-      VPastPart Fem Pl => cita + "le" ;
-      VPastPart Neutr Pl => cita + "la"
+      VPastPart (Masc _) Sg => citao ;
+      VPastPart Fem Sg => cital + "a" ;
+      VPastPart Neutr Sg => cital + "o" ;
+      VPastPart (Masc _) Pl => cital + "i" ;
+      VPastPart Fem Pl => cital + "e" ;
+      VPastPart Neutr Pl => cital + "a"
     } ;
 
-{-
+
+-- copula
+
+  jesam_Copula : {short, long, negative : Number => Person => Str} =
+    let
+      sam : Number => Person => Str = table {
+        Sg => table {
+	  P1 => "sam" ;
+	  P2 => "si" ;
+	  P3 => "je"
+	  } ;
+        Pl => table {
+	  P1 => "smo" ;
+	  P2 => "ste" ;
+	  P3 => "su"
+	  }
+	}
+     in {
+       short = sam ;
+       long = \\n,p => case <n,p> of {
+         <Sg,P3> => "jeste" ; --- wiki: jest(e)
+	 _ => sam ! n ! p
+	 } ;
+       negative = \\n,p => "ni" + sam ! n ! p
+       } ;
+
+    biti_VerbForms : VerbForms = aeiVerbForms "biti" "budem" "bio" ;
+
+    imati_VerbForms : VerbForms = aeiVerbForms "imati" "imam" "imao" ;
+
+
 ---------------------------
 -- Pronouns
 
   PronForms : Type = {
-    nom, cnom,       -- cnom is the pro-drop subject
-    gen, cgen,pgen,  -- bare, clitic, prepositional
-    acc, cacc,pacc,
-    dat, cdat,pdat,
-    loc,
-    ins,pins        : Str ;
+    nom, 
+    gen, cgen,  -- bare, clitic (also as Acc)
+    dat, cdat,  -- also as Loc
+    ins        : Str ;
     a : Agr
     } ;
-
----- TODO: possessives
 
   personalPron : Agr -> PronForms = \a ->
     {a = a ; cnom = []} **
     case a of {
       Ag _ Sg P1 => {
         nom = "ja" ;
-        gen,acc,pgen,pacc = "mňa" ;
-        cgen,cacc = "ma" ;
-        dat,pdat,loc = "mne" ;
+        gen = "mene" ;
+        cgen = "ma" ;
+        dat = "meni" ;
         cdat = "mi" ;
-        ins,pins = "mnou"
+        ins = "mnom"
         } ;
       Ag _ Sg P2 => {
-        nom = "ty" ;
-        gen,acc,pgen,pacc = "teba" ;
-        cgen,cacc = "ťa" ;
-        dat,pdat,loc = "tebe" ;
+        nom = "ti" ;
+        gen = "tebe" ;
+        cgen = "te" ;
+        dat = "tebi" ;
         cdat = "ti" ;
-        ins,pins = "tebou"
-        } ;
-      Ag (Masc _) Sg P3 => {
-        nom = "on" ;
-        gen,acc = "jeho" ;
-        cgen,cacc = "ho" ;
-        pgen,pacc = "neho" ;
-        ---- pgen = "ňho"; ---- bind, only with prepositions "do", "u"
-        ---- pgen = "ň"; ---- bind, only with preposition "do", "u"
-        dat = "jemu" ;
-        ---- pacc = "eň" ; ---- bind, only with preposition "cez" 
-        ---- pacc = "ňho" ; ---- bind, only with prepositions "na", "pre", "za"
-        ---- pacc = "ň" ; ---- bind, only with preposition "na", "pre", "za"
-	cdat = "mu" ;
-	pdat = "nemu" ;
-	loc = "ňom" ;
-	ins,pins = "ním" ;
+        ins = "tobom"
         } ;
       Ag Fem Sg P3 => {
         nom = "ona" ;
-        gen,cgen,pgen,acc,cacc,pacc = "ju" ;
-        cdat = "jej" ;
-	dat,pdat,loc = "nej" ;
-        ins,pins = "ní" ;
+        gen = "nje" ;
+        cgen = "je" ;
+        dat = "njoj" ;
+        cdat = "joj" ;
+        ins = "njom"
         } ;
-      Ag Neutr Sg P3 => {
-        nom = "ono" ;
-        gen, acc = "jeho" ;
-        cgen,cacc = "ho" ;
-        pgen = "neho" ;
-        ---- pgen = "ňho"; ---- bind, only with prepositions "do", "u"
-        ---- pgen = "ň"; ---- bind, only with preposition "do", "u"
-        dat = "jemu" ; 
-        ---- pacc = "eň" ; ---- bind, only with preposition "cez" 
-        ---- pacc = "ňho" ; ---- bind, only with prepositions "na", "pre", "za"
-        ---- pacc = "ň" ; ---- bind, only with preposition "na", "pre", "za"
-        pacc = "jeho"; ---- doublecheck
-	cdat = "mu" ;
-	pdat = "nemu" ;
-	loc = "ňom" ;
-	ins,pins = "ním" ;
+      Ag g Sg P3 => {
+        nom = case g of {
+	  Masc _ => "on" ;
+	  _ => "ono"
+	  } ;
+        gen = "njega" ;
+        cgen = "ga" ;
+        dat = "njemu" ;
+        cdat = "mu" ;
+        ins = "njim"
         } ;
+
       Ag _ Pl P1 => {
-        nom = "my" ;
-        gen,acc,
-          cgen,cacc,
-          pgen,pacc,
-	  loc  = "nás" ;
-        dat,cdat,pdat = "nám" ;
-	ins,pins = "nami" ;
+        nom = "mi" ;
+        gen, cgen = "nas" ;
+        dat, ins = "nama" ;
+        cdat = "nam"
         } ;
       Ag _ Pl P2 => {
-        nom = "vy" ;
-        gen,acc,
-          cgen,cacc,
-          pgen,pacc,
-	  loc  = "vás" ;
-        dat,cdat,pdat = "vám" ;
-	ins,pins = "vami" ;
+        nom = "vi" ;
+        gen, cgen = "vas" ;
+        dat, ins = "vama" ;
+        cdat = "vam"
         } ;
-      Ag (Masc Anim) Pl P3 => {
-        nom = "oni" ;
-	gen,cgen,acc,cacc = "ich" ;
-	pgen,pacc = "nich" ;
-	dat,cdat = "im" ;
-	pdat = "nim" ;
-	loc = "nich" ;
-	ins,pins = "nimi" ;
-	} ;
-      Ag _ Pl P3 => {
-        nom = "ony" ;
-	gen,cgen,acc,cacc = "ich" ;
-	pgen,pacc = "ne" ;
-	dat,cdat = "im" ;
-	pdat = "nim" ;
-	loc = "nich" ;
-	ins,pins = "nimi" ;
-	}
-
+      Ag g Pl P3 => {
+        nom = case g of {
+	  Masc _ => "oni" ;
+	  Fem => "one" ;
+	  Neutr => "ona"
+	  } ;
+        gen = "njih" ;
+        cgen = "ih" ;
+        dat, ins = "njima" ;
+        cdat = "im" 
+        }
       } ;
 
-  possessivePron : Agr -> DemPronForms = \a -> case a of {
-
-      Ag _ Sg P1 => otcovA "moj" ** {
-        msnom = "môj" ; msgen = "môjho" ; msdat = "môjmu" ;
-	msins = "mojím" ;
-	ampnom = "moji" ;
-	nsnom, fpnom = "moje" ;
-	pgen = "mojich" ;
-	pdat = "mojim" ;
-	pins = "mojimi" ;
-	} ;
-	
-      Ag _ Sg P2 => otcovA "tvoj" ** {
-        msnom = "tvoj" ; msgen = "tvojho" ; msdat = "tvojmu" ;
-	msins = "tvojím" ;
-	ampnom = "tvoji" ;
-	nsnom, fpnom = "tvoje" ;
-	pgen = "tvojich" ;
-	pdat = "tvojim" ;
-	pins = "tvojimi" ;
-	} ;
-
-      Ag _ Pl P1 => otcovA "naš" ** {
-        msnom = "náš" ; msgen = "nášho" ; msdat = "nášmu" ;
-	msins = "naším" ;
-	ampnom = "naši" ;
-	nsnom, fpnom = "naše" ;
-	pgen = "našich" ;
-	pdat = "našim" ;
-	pins = "našimi" ;
-	} ;
-	
-      Ag _ Pl P2 => otcovA "vaš" ** {
-        msnom = "váš" ; msgen = "vášho" ; msdat = "vášmu" ;
-	msins = "vaším" ;
-	ampnom = "vaši" ;
-	nsnom, fpnom = "vaše" ;
-	pgen = "vašich" ;
-	pdat = "vašim" ;
-	pins = "vašimi" ;
-	} ;
-	
-      Ag (Masc _ | Neutr) Sg P3 => invarDemPronForms "jeho" ** {pdat = "jeho"} ;
-      Ag Fem Sg P3 => invarDemPronForms "jej" ** {pdat = "jej"} ;
-      Ag _ Pl P3 => invarDemPronForms "ich" ** {pdat = "ich"}
-
+  possessivePron : Agr -> AdjForms = \a -> case a of {
+      Ag _ Sg P1 => velikA "moj" ;
+      Ag _ Sg P2 => velikA "tvoj" ;
+      Ag (Masc _) Sg P3 => velikA "njegov" ;
+      Ag (Fem|Neutr) Sg P3 => velikA "njezin" ; -- BCMS: Hrv: otherwise njen
+      Ag _ Pl P1 => velikA "naš" ;
+      Ag _ Pl P2 => velikA "vaš" ;
+      Ag _ Pl P3 => velikA "njihov"
     } ;
 
+{-
   reflPossessivePron : DemPronForms = otcovA "svoj" ** {
         msnom = "svoj" ; msgen = "svojho" ; msdat = "svojmu" ;
 	msins = "svojím" ;
@@ -660,10 +616,12 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 	pdat = "svojim" ;
 	pins = "svojimi" ;
 	} ;
+-}
 
-  mkPron : Agr -> PronForms ** {poss : DemPronForms} = \a ->
+  mkPron : Agr -> PronForms ** {poss : AdjForms} = \a ->
     personalPron a ** {poss = possessivePron a} ;
-
+    
+{-
 --------------------------------
 -- demonstrative pronouns, used for Quant and Det
 
