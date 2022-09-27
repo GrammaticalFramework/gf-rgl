@@ -103,26 +103,24 @@ lin pot2plus d e = {
 
 lin pot2as3 n = n ;
 
-{-
-lin pot3 n = bigNumeral (mkTh (determinerStr n) n.size) ;
+
+lin pot3 n = bigNumeral (mkThousand n.s.fsnom n.size) ;
 
 lin pot3plus n m = {
-  s = (invarNumeral (mkTh (determinerStr n) n.size ++ determinerStr m)).s ;  ---- TODO inflection?
-  size = tfSize m.size
+  s = invarAdjForms (mkThousand n.s.fsnom n.size ++ m.s.msnom) ;  ---- TODO inflect m
+  size = m.size
   } ;
 
-oper tfSize : NumSize -> NumSize = \sz -> 
-  table {Num1 => Num5 ; other => other} ! sz ; 
+----oper tfSize : NumSize -> NumSize = \sz -> 
+----  table {Num1 => Num5 ; other => other} ! sz ; 
 
-oper mkTh : Str -> NumSize -> Str = \attr,size -> 
+oper mkThousand : Str -> NumSize -> Str = \attr,size -> 
   case size of {
-    Num1 => "tisíc" ; 
-    Num2_4 => attr ++ "tisíc" ; 
-    Num5 => attr ++ "tisí"
+    NS_1 => "tisuću" ;            -- BMS: hiljadu etc
+    NS_2_4 => attr ++ "tisuće" ; 
+    _ => attr ++ "tisuća"
     } ;
 
-oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
--}
 
 -- -- Numerals as sequences of digits have a separate, simpler grammar
   lincat Dig = {s : Str ; size : NumSize} ;
