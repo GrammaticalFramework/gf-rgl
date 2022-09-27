@@ -1,19 +1,22 @@
 concrete NumeralHrv of Numeral =
 
-  CatHrv [Numeral,Digits] **
+----  CatHrv [Numeral, Digits] **
   
   open
     ResHrv,
     Prelude
   in {
 
--- from gf-contrib/numerals/czech.gf, added inflections
--- AR 2020-03-20
+-- AR 2022-09-27
 ---- TODO ordinal forms
 
+lincat Numeral = LinNumeral ; ---- TODO move to Cat
+lincat Digits = {s : Str ; size : NumSize} ;
 
-oper LinNumeral = Determiner ; -- {s : NumeralForms ; size : NumSize} ;
-oper LinDigit = {unit : Gender => Case => Str ; teen, ten, hundred : Str ; size : NumSize} ;
+param NumSize = NS_1 | NS_2_4 | NS_5_20 | NS_20_ ;
+
+oper LinNumeral = {s : AdjForms ; size : NumSize} ;
+oper LinDigit = {unit : AdjForms ; teen, ten, hundred : Str ; size : NumSize} ;
 
 lincat Digit = LinDigit ;
 lincat Sub10 = LinDigit ;
@@ -22,62 +25,85 @@ lincat Sub100 = LinNumeral ;
 lincat Sub1000 = LinNumeral ;
 lincat Sub1000000 = LinNumeral ;
 
-oper mkNum : Determiner -> Str -> Str -> Str -> LinDigit = 
-  \dva, dvanast, dvadsat, dveste -> {
-    unit = dva.s ;
-    teen = dvanast + "náct" ;
-    ten  = dvadsat ;
-    hundred = dveste ;
-    size = dva.size ;
+oper mkDigit : AdjForms -> Str -> Str -> Str -> NumSize -> LinDigit = 
+  \dva, dvanaest, dvadeset, dvjesto, size -> {
+    unit = dva ;
+    teen = dvanaest ;
+    ten  = dvadeset ;
+    hundred = dvjesto ;
+    size = size
    } ;
 
-oper mk2Num : Determiner -> Str -> Str -> Str -> LinDigit =
-  \unit, teenbase, tenbase, hundred ->  
-    mkNum unit teenbase (tenbase + "cet") hundred ; 
-
-oper mk5Num : Str -> Str -> Str -> Str -> Str -> Str -> LinDigit =
-  \unit,unitich,unitim,unitimi, teenbase, tenbase ->  
-  mkNum (regNumeral unit unitich unitim unitimi) teenbase (tenbase + "desiat") (unit ++ "sto") ;
-
-oper bigNumeral : Str -> LinNumeral = \s -> invarNumeral s ;
+oper mkBigDigit : (unit, teen, ten, hundred : Str) -> LinDigit =
+  \unit,ten,teen,hundred -> mkDigit (invarAdjForms unit) ten teen hundred NS_5_20 ;
+  
+oper bigNumeral : Str -> LinNumeral = \s -> {
+  s = invarAdjForms s ;
+  size = NS_20_
+  } ;
 
 lin num x = x ;
 
-lin n2 = mk2Num twoNumeral "dva" "dva" ("dve" ++ "sto") ;
-lin n3 = mk2Num threeNumeral "tri" "tri" ("tri" ++ "sto") ;
-lin n4 = mk2Num fourNumeral "štr" "štyři" ("styri" ++ "sto") ;
-lin n5 = mk5Num "päť" "piatich" "piatim" "piatimi" "pät" "pät" ; ----
-lin n6 = mk5Num "šest" "šestich" "šestim" "šestimi" "šest" "šest" ; ----
-lin n7 = mk5Num "sedem" "sedemich" "sedemim" "sedemimi" "sedem" "sedem"; ----
-lin n8 = mk5Num "osem" "osemich" "osemim" "osemimi" "osem" "osem";
-lin n9 = mk5Num "deväť" "deviatich" "deviatim" "deviatimi" "deväť" "deväť" ;
+lin n2 =
+  let
+    dva = invarAdjForms "dva" ** {  --- BCMS: cases rarely used
+      fsnom, fsacc = "dvije" ;
+      msgen = "dvaju" ;
+      fsgen = "dviju" ;
+      msdat = "dvama" ;
+      fsdat = "dvjema"
+      }
+  in mkDigit dva "dvanaest" "dvadeset" "dvjesto" NS_2_4 ;
+  
+lin n3 =
+  let
+    tri = invarAdjForms "tri" ** {  --- BCMS: cases rarely used
+      msgen, fsgen = "triju" ;
+      msdat, fsdat, msloc, mksins = "trima"
+      }
+  in
+  mkDigit tri "trinaest" "trideset" "tristo" NS_2_4 ;
+  
+lin n4 =
+  let
+    cetiri = invarAdjForms "četiri" ** {  --- BCMS: cases rarely used
+      msgen, fsgen = "četiriju" ;
+      msdat, fsdat, msloc, mksins = "četirima"
+      }
+  in
+  mkDigit cetiri "četrnaest" "četrdeset" "četiristo" NS_2_4 ;
+  
+lin n5 = mkBigDigit "pet" "petnaest" "pedeset" "petsto" ;
+lin n6 = mkBigDigit "šest" "šesnaest" "šezdeset" "šeststo" ;
+lin n7 = mkBigDigit "sedam" "sedamnaest" "sedamdeset" "sedamsto" ;
+lin n8 = mkBigDigit "osam" "osamnaest" "osamdeset" "osamsto" ;
+lin n9 = mkBigDigit "devet" "devetnaest" "devedeset" "devetsto" ;
 
-lin pot01 = {
-  unit = oneNumeral.s ; hundred = "sto" ; ten = "desať" ; teen = "jedenásť" ;
-  size = Num1
-  } ; 
+lin pot01 = mkDigit (velikA "jedan") "jedanaest" "deset" "sto" NS_1 ; 
 lin pot0 d = d ; 
 
-lin pot110 = bigNumeral "desať" ;
-lin pot111 = bigNumeral "jedenásť" ;
+
+lin pot110 = bigNumeral "deset" ;
+lin pot111 = bigNumeral "jedanaest" ;
 lin pot1to19 d = bigNumeral d.teen ;
 
 lin pot0as1 n = {s = n.unit ; size = n.size} ;
 lin pot1 d = bigNumeral d.ten ;
 lin pot1plus d e = {
-  s = (invarNumeral (d.ten ++ determinerStr (e ** {s = e.unit}))).s ; ---- TODO inflection?
-  size = tfSize e.size
+  s = invarAdjForms (d.ten ++ e.unit.msnom) ; ---- TODO inflection of e
+  size = e.size
   } ;
-  ---- variants { d.s ! ten ++ e.s ! unit ; glue (glue (e.s ! unit) "a") (d.s ! ten)} ; size = tfSize e.size} ;
 
 lin pot1as2 n = n ;
 lin pot2 d = bigNumeral d.hundred ;
 lin pot2plus d e = {
-  s = (invarNumeral (d.hundred ++ determinerStr e)).s ;  ---- TODO inflection?
-  size = tfSize e.size
+  s = invarAdjForms (d.hundred ++ e.s.msnom) ;  ---- TODO inflection of e
+  size = e.size
   } ;
 
 lin pot2as3 n = n ;
+
+{-
 lin pot3 n = bigNumeral (mkTh (determinerStr n) n.size) ;
 
 lin pot3plus n m = {
@@ -96,25 +122,25 @@ oper mkTh : Str -> NumSize -> Str = \attr,size ->
     } ;
 
 oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
-
+-}
 
 -- -- Numerals as sequences of digits have a separate, simpler grammar
-  lincat Dig = {s:Str ; size : NumSize} ;
+  lincat Dig = {s : Str ; size : NumSize} ;
 
   lin
     IDig d = d ;
     
-    IIDig d dd = {s = d.s ++ Predef.BIND ++ dd.s ; size = Num5} ; ---- leading zeros ??
+    IIDig d dd = {s = d.s ++ Predef.BIND ++ dd.s ; size = dd.size} ;
 
-    D_0 = { s = "0" ; size = Num1} ; ---- ??
-    D_1 = { s = "1" ; size = Num1} ; 
-    D_2 = { s = "2" ; size = Num2_4} ;
-    D_3 = { s = "3" ; size = Num2_4} ;
-    D_4 = { s = "4" ; size = Num2_4} ;
-    D_5 = { s = "5" ; size = Num5} ;
-    D_6 = { s = "6" ; size = Num5} ;
-    D_7 = { s = "7" ; size = Num5} ;
-    D_8 = { s = "8" ; size = Num5} ;
-    D_9 = { s = "9" ; size = Num5} ;
+    D_0 = { s = "0" ; size = NS_1} ; ---- ??
+    D_1 = { s = "1" ; size = NS_1} ; 
+    D_2 = { s = "2" ; size = NS_2_4} ;
+    D_3 = { s = "3" ; size = NS_2_4} ;
+    D_4 = { s = "4" ; size = NS_2_4} ;
+    D_5 = { s = "5" ; size = NS_5_20} ;
+    D_6 = { s = "6" ; size = NS_5_20} ;
+    D_7 = { s = "7" ; size = NS_5_20} ;
+    D_8 = { s = "8" ; size = NS_5_20} ;
+    D_9 = { s = "9" ; size = NS_5_20} ;
 
 }
