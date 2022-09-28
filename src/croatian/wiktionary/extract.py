@@ -6,10 +6,14 @@ import sys
 # Proceedings of the 13th Conference on Language Resources and Evaluation (LREC),
 # pp. 1317-1325, Marseille, 20-25 June 2022. 
 
-FILE = 'data/raw-wiktextract-data.json'
+WIKTIONARY_FILE = 'data/raw-wiktextract-data.json'
 
 MYLANG = 'Serbo-Croatian'
 REFLANG = 'English'
+
+MORPHO_OUTPUT_FILE = 'm.json'
+TRANS_OUTPUT_FILE = 't.json'
+
 
 GENDERS = ['masculine', 'feminine', 'neuter']
 
@@ -129,23 +133,36 @@ def get_forms(pos, forms):
 
 
 def lexinfo(data):
-    return {'pos': data['pos'],
-            'word': data['word'],
-            'forms': get_forms(data['pos'], data['forms'])
-            }
-
-def morpho(mylang, data):
-    if data.get('lang', '') == mylang and (
-            all([x in data for x in ['pos', 'word', 'forms']])):
-        print(lexinfo(data))
+    return data['word'], {
+        'pos': data['pos'], 'forms': get_forms(data['pos'], data['forms'])}
 
 
-def translations(mylang, reflang, data):
-    if data.get('lang', '') == reflang and (
-            all([x in data for x in ['pos', 'word']])):
-        for t in [t for t in data.get('translations', [])
-                    if t['lang'] == mylang]:
-            print(data['word'], data['pos'], t.get('word'))
+# write morphology of mylang in m.json
+def morpho(mylang, lines):
+    with open(MORPHO_OUTPUT_FILE, 'w', encoding="utf-8") as file:
+        for line in lines:
+            data = json.loads(line)
+            if data.get('lang', '') == mylang and (
+                  all([x in data for x in ['pos', 'word', 'forms']])):
+                word, info = lexinfo(data)
+                file.write(json.dumps({word: info})+'\n')
+
+
+# write translations from reflang to mylang in t.json
+def translations(mylang, reflang, lines):
+    with open(TRANS_OUTPUT_FILE, 'w', encoding="utf-8") as file:
+        for line in lines:
+            data = json.loads(line)
+            if data.get('lang', '') == reflang and (
+                  all([x in data for x in ['pos', 'word']])):
+                for t in [t for t in data.get('translations', [])
+                            if t['lang'] == mylang]:
+                    file.write(json.dumps(
+                        {data['word']:
+                           {'pos': data['pos'],
+                            'trans': t.get('word'),
+                            'sense': t.get('sense')}
+                        })+'\n')
 
 
 def main():
@@ -156,18 +173,13 @@ def main():
     mylang, reflang = MYLANG, REFLANG
     if sys.argv[3:]:
         mylang, reflang = sys.argv[2:]
-    with open(FILE, "r", encoding="utf-8") as f:
-        for line in f:
-            data = json.loads(line)
+    with open(WIKTIONARY_FILE, "r", encoding="utf-8") as lines:
             if mode == 'trans':
-                translations(mylang, reflang, data)
-            else:
-                morpho(mylang, data)
+                translations(mylang, reflang, lines)
+            elif mode == 'morpho':
+                morpho(mylang, lines)
+
 
 if __name__ == '__main__':
     main()
-
-
-
-# noun plata [{'form': 'pláta', 'tags': ['canonical', 'feminine']}, {'form': 'пла́та', 'tags': ['Cyrillic']}, {'form': '', 'source': 'Declension', 'tags': ['table-tags']}, {'form': 'plata', 'tags': ['nominative', 'singular'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['nominative', 'plural'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['genitive', 'singular'], 'source': 'Declension'}, {'form': 'plata', 'tags': ['genitive', 'plural'], 'source': 'Declension'}, {'form': 'plati', 'tags': ['dative', 'singular'], 'source': 'Declension'}, {'form': 'platama', 'tags': ['dative', 'plural'], 'source': 'Declension'}, {'form': 'platu', 'tags': ['accusative', 'singular'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['accusative', 'plural'], 'source': 'Declension'}, {'form': 'plato', 'tags': ['singular', 'vocative'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['plural', 'vocative'], 'source': 'Declension'}, {'form': 'plati', 'tags': ['locative', 'singular'], 'source': 'Declension'}, {'form': 'platama', 'tags': ['locative', 'plural'], 'source': 'Declension'}, {'form': 'platom', 'tags': ['instrumental', 'singular'], 'source': 'Declension'}, {'form': 'platama', 'tags': ['instrumental', 'plural'], 'source': 'Declension'}]
 
