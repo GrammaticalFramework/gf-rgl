@@ -1,4 +1,5 @@
 import json
+import sys
 
 # https://kaikki.org/dictionary/rawdata.html
 # Tatu Ylonen: Wiktextract: Wiktionary as Machine-Readable Structured Data,
@@ -8,6 +9,7 @@ import json
 FILE = 'data/raw-wiktextract-data.json'
 
 MYLANG = 'Serbo-Croatian'
+REFLANG = 'English'
 
 GENDERS = ['masculine', 'feminine', 'neuter']
 
@@ -132,15 +134,39 @@ def lexinfo(data):
             'forms': get_forms(data['pos'], data['forms'])
             }
 
+def morpho(mylang, data):
+    if data.get('lang', '') == mylang and (
+            all([x in data for x in ['pos', 'word', 'forms']])):
+        print(lexinfo(data))
 
 
-if __name__ == '__main__':
+def translations(mylang, reflang, data):
+    if data.get('lang', '') == reflang and (
+            all([x in data for x in ['pos', 'word']])):
+        for t in [t for t in data.get('translations', [])
+                    if t['lang'] == mylang]:
+            print(data['word'], data['pos'], t.get('word'))
+
+
+def main():
+    if not sys.argv[1:]:
+        print('usage: extract.py (morpho|trans) mylang reflang')
+        return
+    mode = sys.argv[1]
+    mylang, reflang = MYLANG, REFLANG
+    if sys.argv[3:]:
+        mylang, reflang = sys.argv[2:]
     with open(FILE, "r", encoding="utf-8") as f:
         for line in f:
             data = json.loads(line)
-            if data.get('lang', '') == MYLANG and (
-                    all([x in data for x in ['pos', 'word', 'forms']])):
-                print(lexinfo(data))
+            if mode == 'trans':
+                translations(mylang, reflang, data)
+            else:
+                morpho(mylang, data)
+
+if __name__ == '__main__':
+    main()
+
 
 
 # noun plata [{'form': 'pláta', 'tags': ['canonical', 'feminine']}, {'form': 'пла́та', 'tags': ['Cyrillic']}, {'form': '', 'source': 'Declension', 'tags': ['table-tags']}, {'form': 'plata', 'tags': ['nominative', 'singular'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['nominative', 'plural'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['genitive', 'singular'], 'source': 'Declension'}, {'form': 'plata', 'tags': ['genitive', 'plural'], 'source': 'Declension'}, {'form': 'plati', 'tags': ['dative', 'singular'], 'source': 'Declension'}, {'form': 'platama', 'tags': ['dative', 'plural'], 'source': 'Declension'}, {'form': 'platu', 'tags': ['accusative', 'singular'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['accusative', 'plural'], 'source': 'Declension'}, {'form': 'plato', 'tags': ['singular', 'vocative'], 'source': 'Declension'}, {'form': 'plate', 'tags': ['plural', 'vocative'], 'source': 'Declension'}, {'form': 'plati', 'tags': ['locative', 'singular'], 'source': 'Declension'}, {'form': 'platama', 'tags': ['locative', 'plural'], 'source': 'Declension'}, {'form': 'platom', 'tags': ['instrumental', 'singular'], 'source': 'Declension'}, {'form': 'platama', 'tags': ['instrumental', 'plural'], 'source': 'Declension'}]
