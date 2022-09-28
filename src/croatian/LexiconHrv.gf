@@ -57,8 +57,8 @@ concrete LexiconHrv of Lexicon =
     green_A = mkA "zelený" ;
     yellow_A = mkA "žltý" ;
 
-    buy_V2 = mkV2 (iii_kupovatVerbForms "kupovať") ;
-    love_V2 = mkV2 (iii_kupovatVerbForms "milovať") ;
+----    buy_V2 = mkV2 (iii_kupovatVerbForms "kupovať") ;
+----    love_V2 = mkV2 (iii_kupovatVerbForms "milovať") ;
 
 }
 

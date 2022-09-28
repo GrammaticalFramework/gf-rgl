@@ -14,19 +14,19 @@ lin
       } ;
 
     UseCl temp pol cl = {
-      s = temp.s ++ cl.subj ++ cl.clit ++ pol.s ++ verbAgr cl.verb cl.a pol.p ++ cl.compl ;
-      } ;
+      s = temp.s ++ cl.subj ++ cl.clit ++ pol.s ++ verbAgr cl.verb cl.a CTPres ++ cl.compl ;
+      } ; ---- TODO tense, negation
 
     --- TODO is inversion the standard? ; add indirect questions
     UseQCl temp pol cl = {
-      s = temp.s ++ cl.clit ++ pol.s ++ verbAgr cl.verb cl.a pol.p ++ cl.subj ++ cl.compl ; 
-      } ;
+      s = temp.s ++ cl.clit ++ pol.s ++ verbAgr cl.verb cl.a CTPres ++ cl.subj ++ cl.compl ; 
+      } ; ---- TODO tenses
 
     UseRCl temp pol rcl = {
       s = \\a => temp.s ++
                  rcl.subj ! a ++ rcl.clit ! a ++
-		 pol.s ++ verbAgr rcl.verb a pol.p ++
+		 pol.s ++ verbAgr rcl.verb a CTPres ++
 		 rcl.compl ! a ;
-      } ;
+      } ;  ---- TODO tenses
     
 }

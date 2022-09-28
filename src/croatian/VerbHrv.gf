@@ -2,7 +2,7 @@ concrete VerbHrv of Verb = CatHrv ** open ResHrv, Prelude in {
 
 lin
     UseV v = {
-      verb = v ;
+      verb = v.s ;
       clit,compl = \\_ => []
       } ;
     
@@ -16,13 +16,13 @@ lin
       } ;
 
     SlashV2a v = {
-      verb = v ;
+      verb = v.s ;
       clit,compl = \\_ => [] ;
       c = v.c
       } ;
 
     UseComp comp = {
-      verb  = copulaVerbForms ;
+      verb  = biti_VerbForms ; ---- TODO: jesam
       clit = \\_ => [] ;
       compl = comp.s
       } ;

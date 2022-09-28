@@ -24,39 +24,27 @@ lin
 
     DefArt = {s = \\_,_,_ => []} ;
     IndefArt = {s = \\_,_,_ => []} ;
-    NumPl = {s = \\_,_ => [] ; size = Num2_4} ; ---- size
-    NumSg = {s = \\_,_ => [] ; size = Num1} ;
+    NumPl = {s = \\_,_ => [] ; size = NS_20_} ; ---- size
+    NumSg = {s = \\_,_ => [] ; size = NS_1} ;
 
     UsePron pron = {
-      s = table {
-        Nom => pron.nom ;
-	Gen => pron.gen ;
-	Dat => pron.dat ;
-	Acc => pron.acc ;
-	Loc => pron.loc ;
+      s, prep = table {  ---- TODO check prep
+        Nom | Voc => pron.nom ;
+	Gen | Acc => pron.gen ;
+	Dat | Loc => pron.dat ;
 	Ins => pron.ins
         } ;
-      clit = table {
-        Nom => pron.cnom ;
-	Gen => pron.cgen ;
-	Dat => pron.cdat ;
-	Acc => pron.cacc ;
-	Loc => pron.loc ;
+      clit = table {  ---- TODO check prep
+        Nom | Voc => pron.nom ;
+	Gen | Acc => pron.cgen ;
+	Dat | Loc => pron.cdat ;
 	Ins => pron.ins
-        } ;
-      prep = table {
-        Nom => pron.nom ;
-	Gen => pron.pgen ;
-	Dat => pron.pdat ;
-	Acc => pron.pacc ;
-	Loc => pron.loc ;
-	Ins => pron.pins
         } ;
       a = pron.a ;
       hasClit = True ;
       } ;
       
-    PossPron pron = justDemPronFormsAdjective pron.poss ;
+    PossPron pron = adjFormsAdjective pron.poss ;
 
     UsePN pn = {
       s,clit,prep = \\c => pn.s ! c ;
@@ -86,7 +74,7 @@ lin
       hasClit = False ;
       } ;
       
-    UseN n = nounFormsNoun n ;
+    UseN n = nounFormsNoun n n.g ;
 
     ApposCN cn np = {
       s = \\n,c => cn.s ! n ! c ++ np.s ! c ; ---- TODO check apposition order
@@ -95,7 +83,10 @@ lin
       
     NumCard c = c ;
     NumDigits ds = ds ** {s = \\_,_ => ds.s} ;
-    NumNumeral nu = nu ;
+    NumNumeral nu = {
+      s = \\g,c => (adjFormsAdjective nu.s).s ! g ! Sg ! c ; ---- TODO Sg?
+      size = nu.size
+      } ;
 
 
 }

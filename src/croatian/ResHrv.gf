@@ -143,28 +143,15 @@ voicing : Str -> Str = \s -> case s of {
 
       _ => dubN (""+snom) ** {pgen = pgen} ---- Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
       } ** {pgen = pgen ; g = g} ;
-
+-}
 -- the "smartest" one-argument mkN
 
-  guessNounForms : Str -> NounForms
+  guessNounForms : Str -> NounForms ** {g : Gender}
     = \snom -> case snom of {
-        _ + ("i"|"y"|"e")           => ponyN snom ;
-        _ + #softConsonant          => strojN snom ;
-        _ + #hardConsonant          => dubN snom ;
-        _ + #neutralConsonant       => dubN snom ;
-        _ + #hardConsonant + "a"    => zenaN snom ;
-        _ + #neutralConsonant + "a" => zenaN snom ;
-        _ + #softConsonant + "a"    => ulicaN snom ;
-        _ + ("ia"|"ya")             => ulicaN snom ;
-        _ + "o"                     => mestoN snom ;
-        _ + "ie"                    => vysvedcenieN snom ;
-        _ + "e"                     => srdceN snom ;
-        _ + "ä"                     => dievcaN snom ;
 
-        _ => dubN (""+snom) ---- Predef.error ("cannot guess declension type for" ++ snom)
+---- TODO
+        _ => izvorN snom ** {g = inanimate} 
       } ;
-
--}
 
 -- the traditional declensions, following Wiki
 -- they are also exported in ParadigmsHrv with names izvorN etc
@@ -666,12 +653,17 @@ oper
         _ => adjAdj.s ! g ! n ! c
         }
       } ;
+-}
 
+param NumSize = NS_1 | NS_2_4 | NS_5_20 | NS_20_ ;
+
+oper
   Determiner : Type = {
     s : Gender => Case => Str ;
     size : NumSize
     } ;
 
+{-
   mkDemPronForms : Str -> DemPronForms = \jedn -> {
       msnom   = jedn + "y" ; -- should be "jeden"
       fsnom   = jedn + "a" ;
@@ -810,19 +802,17 @@ oper
     regNumeral sto sto sto sto ;
 
   invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
+-}
 
 --------------------------------
 -- combining nouns with numerals
 
-param
-  NumSize = Num1 | Num2_4 | Num5 ; -- CEG 6.1
-
 oper
   numSizeForm : (Number => Case => Str) -> NumSize -> Case -> Str
     = \cns,n,c -> case n of {
-        Num1   => cns ! Sg ! c ;
-	Num2_4 => cns ! Pl ! c ;
-	Num5   => case c of {
+        NS_1   => cns ! Sg ! c ;
+	NS_2_4 => cns ! Pl ! c ;
+	_ => case c of {
 	  Nom | Acc => cns ! Pl ! Gen ;
 	  _ => cns ! Pl ! c
 	  }
@@ -830,14 +820,14 @@ oper
 
   numSizeAgr : Gender -> NumSize -> Person -> Agr
     = \g,ns,p -> case ns of {
-        Num5   => Ag Neutr Sg p ; -- essential grammar 6.1.4
-	Num2_4 => Ag g Pl p ;
-	Num1   => Ag g Sg p
+    	NS_1   => Ag g Sg p ;
+	NS_2_4 => Ag g Pl p ;
+	_   => Ag Neutr Sg p ---- TODO verify
 	} ;
 
   numSizeNumber : NumSize -> Number = \ns -> case ns of {
-    Num1 => Sg ;
+    NS_1 => Sg ;
     _ => Pl      ---- TO CHECK
     } ;
--}
+
 }

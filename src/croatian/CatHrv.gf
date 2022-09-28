@@ -22,9 +22,9 @@ concrete CatHrv of Cat =
 
     VP = {verb : VerbForms ; clit,compl : Agr => Str} ; ---- more fields probably needed
     VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase} ; ----
-    V  = ResHrv.VerbForms ;
-    V2 = ResHrv.VerbForms ** {c : ComplementCase} ;
-    VS,VQ  = ResHrv.VerbForms ;
+    V  = {s : VerbForms} ;
+    V2 = {s : VerbForms ; c : ComplementCase} ;
+    VS,VQ  = {s : VerbForms} ;
 
     A  = ResHrv.AdjForms ;
     AP = ResHrv.Adjective ** {isPost : Bool} ; -- {s : Gender => Number => Case => Str}
@@ -32,7 +32,7 @@ concrete CatHrv of Cat =
     
     AdA = {s : Str} ;
 
-    N  = ResHrv.NounForms ;
+    N  = ResHrv.NounForms ** {g : Gender} ;
     CN = ResHrv.Noun ;      -- {s : Number => Case => Str ; g : Gender}
     NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit : Bool} ; -- clit,prep differ for pronouns
     PN = {s : Case => Str ; g : Gender} ; 
@@ -40,7 +40,7 @@ concrete CatHrv of Cat =
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;
     Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; 
-    Pron = PronForms ** {poss : DemPronForms} ;
+    Pron = PronForms ** {poss : AdjForms} ;
 
     Adv  = {s : Str} ;
     Prep = ResHrv.ComplementCase ; -- {s : Str ; c : Case ; hasPrep : Bool} ;
@@ -64,8 +64,7 @@ concrete CatHrv of Cat =
     A = \s -> s.msnom ;
 
 
-  lincat Numeral = Determiner ; ---- TODO: should contain Ord as well
-  lincat Digits = {s:Str ; size : NumSize} ;
-
+  lincat Numeral = {s : AdjForms ; size : NumSize} ;
+  lincat Digits = {s : Str ; size : NumSize} ;
 
 }

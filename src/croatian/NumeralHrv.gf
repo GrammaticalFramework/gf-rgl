@@ -1,6 +1,6 @@
 concrete NumeralHrv of Numeral =
 
-----  CatHrv [Numeral, Digits] **
+  CatHrv [Numeral, Digits] **
   
   open
     ResHrv,
@@ -9,11 +9,6 @@ concrete NumeralHrv of Numeral =
 
 -- AR 2022-09-27
 ---- TODO ordinal forms
-
-lincat Numeral = LinNumeral ; ---- TODO move to Cat
-lincat Digits = {s : Str ; size : NumSize} ;
-
-param NumSize = NS_1 | NS_2_4 | NS_5_20 | NS_20_ ;
 
 oper LinNumeral = {s : AdjForms ; size : NumSize} ;
 oper LinDigit = {unit : AdjForms ; teen, ten, hundred : Str ; size : NumSize} ;
