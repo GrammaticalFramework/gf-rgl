@@ -380,6 +380,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         vel + "ao" => vel + "l" ;
         vel + "ak" => voicing vel + "k" ;
         vel + "a" + k@? => vel + k ;
+	vel + "i" => vel ;
 	_ => velik
         }
     in {
@@ -415,6 +416,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
   smartVerbForms : Str -> VerbForms = \s -> case s of {
     cit + "ati" => aeiVerbForms s (cit + "am") (cit + "ao") ;
+    vid + "jeti" => aeiVerbForms s (vid + "im") (vid + "io") ;
     radi + "ti" => aeiVerbForms s (init radi + "em") (radi + "o") ;
     _ => Predef.error ("expect infinitive form \"-ti\", found" ++ s)
     } ;
