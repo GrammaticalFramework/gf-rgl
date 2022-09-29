@@ -7,7 +7,7 @@ lin
 ----    few_Det = invarNumeral "málo" ; -- see notes
     for_Prep = mkPrep "pre" accusative ;
     from_Prep = mkPrep "iz" Gen ;
-    have_V2 = mkV2 imati_VerbForms ;
+    have_V2 = mkV2 (mkV imati_VerbForms) ;
     in_Prep = mkPrep "u" Loc ; 
 ----    many_Det = regNumeral "mnoho" "mnohých" "mnohým" "mnohými" ; ---- alternative: invarNumeral "veľa" ;
     or_Conj = mkConj "alebo" ;

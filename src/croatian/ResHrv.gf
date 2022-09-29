@@ -3,7 +3,8 @@ resource ResHrv = open Prelude in {
 -- AR September 2022
 -- sources:
 -- Wiki = https://en.wikipedia.org/wiki/Serbo-Croatian_grammar
--- BCMS = Bosnian, Croatian, Montenegrin and Serbian: An Essential Grammar (Routledge Essential Grammars) 1st Edition, by Željko Vrabec
+-- BCMS = Bosnian, Croatian, Montenegrin and Serbian:
+--   An Essential Grammar (Routledge Essential Grammars) 1st Edition, by Željko Vrabec
 
 -- parameters
 
@@ -65,6 +66,7 @@ voicing : Str -> Str = \s -> case s of {
   x + "ž"  => x + "š" ;
   _ => s
   } ;
+  
 ---------------
 -- Nouns
 ---------------
@@ -83,6 +85,10 @@ voicing : Str -> Str = \s -> case s of {
 -- so this is the lincat of CN
 
   Noun : Type = {s : Number => Case => Str ; g : Gender} ;
+
+-- for lexical nouns N, we also need the gender but keep the minimal set of forms
+
+  LexNoun : Type = NounForms ** {g : Gender} ;
 
 -- this is used in UseN
 
@@ -114,44 +120,41 @@ voicing : Str -> Str = \s -> case s of {
       g = g
       } ;
 
+-- a declension type produces these forms from a string
 
--- terminology of CEG
   DeclensionType : Type = Str -> NounForms ;
-{-
-  declensionNounForms : (snom,pgen : Str) -> Gender -> NounForms
-    = \snom,pgen,g -> case <g, snom, pgen> of {
-      <Masc Anim,   _ + "a"           , _ + "ov">   => hrdinaN snom ;
-      <Masc _,      _ + ("i"|"y"|"e") , _ + "ov">   => ponyN snom ; ----
-      <Masc Anim,   _                 , _ + "ov">   => chlapN snom ;
-      
-      <Masc Inanim, _ + #softConsonant,   _ + "ov"> => strojN snom ;
-      <Masc Ianim,  _ + #hardConsonant,   _ + "ov"> => dubN snom ;
-      <Masc Ianim,  _ + #neutralConsonant,_ + "ov"> => dubN snom ;
 
-      <Fem,         _ + #hardConsonant + "a",    _ + #consonant>  => zenaN snom ;
-      <Fem,         _ + #neutralConsonant + "a", _ + #consonant>  => zenaN snom ;
-      <Fem,         _ + #softConsonant + "a",    _ + #consonant>  => ulicaN snom ;
-      <Fem,         _ + ("ia"|"ya"),             _>               => ulicaN snom ;
-      <Fem,         _ + ("c"|"s"|"p"|"v"|"sť"),  _ + "í">         => kostN snom pgen ;
-      <Fem,         _ + #consonant            ,  _ + "í">         => dlanN snom pgen ;
+-- smart paradigms
 
-      <Neutr,       _ + "o"                   ,  _      >         => mestoN snom ;
-      <Neutr,       _ + "ie"                  ,  _ + "í">         => vysvedcenieN snom ;
-      <Neutr,       _ + "e"                   ,  _      >         => srdceN snom ;
-      <Neutr,       _ + ("a"|"ä")             ,  _ + "iec">       => dievceniecN snom ;
-      <Neutr,       _ + ("a"|"ä")             ,  _        >       => dievcaN snom ;
+  smartLexNoun : Str -> LexNoun = \s -> case s of {
+    _ + "a"       => zenaN s ** {g = feminine} ;
+    _ + "i"       => ziriN s ** {g = inanimate} ; ---- TODO feminine i
+    _ + "e"       => poljeN s ** {g = neuter} ; ---- TODO sunce, uze, zvonce, rame
+    _ + "ao"      => ugaoN s ** {g = inanimate} ;
+    _ + "eo"      => pepeoN s ** {g = inanimate} ;
+    _ + "o"       => koljenoN s ** {g = neuter} ; ---- TODO jedro
+    _ + "lac"     => posjetilacN s ** {g = inanimate} ;
+    _ + "anj"     => suzanjN s ** {g = inanimate} ;
+    _ + "nj"      => panjN s ** {g = inanimate} ;
+    _ + "št"      => pristN s ** {g = inanimate} ;
+    _ + "ac"      => klinacN s ** {g = neuter} ;
+    _ + "c"       => stricN s ** {g = inanimate} ;
+    _ + "in"      => gradaninN s ** {g = neuter} ;
+    _ + "ak"      => cvorakN s ** {g = inanimate} ;
+    _ + "a" + ?   => nokatN s ** {g = inanimate} ;
+    _ + "g"       => bubregN s ** {g = inanimate} ;
+    _ + "h"       => trbuhN s ** {g = inanimate} ;
+    _ + "k"       => vojnikN s ** {g = inanimate} ;
+    _             => izvorN s ** {g = inanimate}
+    } ;
 
-      _ => dubN (""+snom) ** {pgen = pgen} ---- Predef.error ("cannot infer declension type for" ++ snom ++ pgen)
-      } ** {pgen = pgen ; g = g} ;
--}
--- the "smartest" one-argument mkN
+  mkgLexNoun : Str -> Gender -> LexNoun = \s,g -> case <s,g> of {
+    <_ + "i", Masc _> => ziriN s ** {g = g} ;
+    <_ + "e", Masc _> => bifeN s ** {g = g} ;
+    <_ + "o", Masc _> => bifeN s ** {g = g} ;
+    <_, g> => smartLexNoun s ** {g = g}
+    } ;
 
-  guessNounForms : Str -> NounForms ** {g : Gender}
-    = \snom -> case snom of {
-
----- TODO
-        _ => izvorN snom ** {g = inanimate} 
-      } ;
 
 -- the traditional declensions, following Wiki
 -- they are also exported in ParadigmsHrv with names izvorN etc
@@ -323,7 +326,7 @@ voicing : Str -> Str = \s -> case s of {
 -- to be used for AP: 56 forms for each degree
   Adjective : Type = {s : Gender => Number => Case => Str} ;
 
--- to be used for A, in three degrees: 15 forms in each
+-- to be used for A, in three degrees: 12 forms in each
 ---- TODO other degrees than positive
 
   AdjForms : Type = {
@@ -370,18 +373,6 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     }
     } ;
 
-{-
-  guessAdjForms : Str -> AdjForms
-    = \s -> case s of {
-        _ + "ý"  => peknyA s ;
-        _ + "y"  => krasnyA s ;
-        _ + "í"  => cudziA s ;
-        _ + "i"  => rydziA s ;
-        _ + ("ov"|"in") => otcovA s ;
-        _ => otcovA (""+s)  ---- Predef.error ("no mkA for" ++ s)
-        } ;
--}
-
   velikA : Str -> AdjForms = \velik ->
     let
       velk : Str = case velik of {
@@ -421,35 +412,14 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       <Ag _ n p, CTPres> => vf ! VPres n p ;
       <Ag g n _, CTPast> => vf ! VPastPart g n
       } ;
-{-
-  copulaVerbForms : VerbForms = {
-    inf = "byť" ;
-    pressg1 = "som" ;
-    pressg2 = "si" ;
-    pressg3 = "je" ;
-    prespl1 = "sme" ;
-    prespl2 = "ste" ;
-    prespl3 = "sú" ;
-    pastpmasc = "bol" ;
-    pastpfem = "bola" ;
-    pastpneutr = "bolo" ;
+
+  smartVerbForms : Str -> VerbForms = \s -> case s of {
+    cit + "ati" => aeiVerbForms s (cit + "am") (cit + "ao") ;
+    radi + "ti" => aeiVerbForms s (init radi + "em") (radi + "o") ;
+    _ => Predef.error ("expect infinitive form \"-ti\", found" ++ s)
     } ;
 
-  haveVerbForms : VerbForms = {
-    inf = "mať" ;
-    pressg1 = "mám" ;
-    pressg2 = "máš" ;
-    pressg3 = "má" ;
-    prespl1 = "máme" ;
-    prespl2 = "máte" ;
-    prespl3 = "majú" ;
-    pastpmasc = "mal" ;
-    pastpfem = "mala" ;
-    pastpneutr = "malo" ;
-    } ;
--}
-
--- just an example of a traditional paradigm
+-- an traditional paradigm type, with a slight abstraction
 ---- TODO other traditional paradigms
 
   aeiVerbForms : Str -> Str -> Str -> VerbForms = \citati, citam, citao ->

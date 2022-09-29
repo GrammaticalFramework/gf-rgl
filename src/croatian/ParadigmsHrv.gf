@@ -27,7 +27,7 @@ oper
   accusative : Case
     = Acc ;
   vocative : Case
-    = Voc ;
+    = R.Voc ;
   locative : Case
     = Loc ;
   instrumental : Case
@@ -39,26 +39,64 @@ oper
 oper
 
   mkN = overload {
-    mkN : (nom : Str) -> N
-      = \nom -> lin N (guessNounForms nom) ;
-    mkN : (nom,gen : Str) -> Gender -> N ---- TODO
-      = \nom,gen,g -> lin N (guessNounForms nom) ;
+    mkN : (sgnom : Str) -> N        -- guessing gender
+      = \sgnom -> lin N (smartLexNoun sgnom) ;
+    mkN : (sgnom : Str) -> Gender -> N 
+      = \sgnom, g -> lin N (mkgLexNoun sgnom g) ;
+    mkN : NForms -> Gender -> N     -- the worst case
+      = \nfs,g -> lin N (nfs ** {g = g}) ;
     } ;
 
 -- The following standard declensions can be used with good accuracy.
 -- However, they have some defaults that may have to be overwritten.
 -- This can be done easily by overriding those formes with record extension (**).
--- The default extensions are shown in comments; if the default is correct, no extension is needed.
--- Notice that some paradigms take two arguments, some take one.
 
----- TODO
+  NForms = {snom,sgen,sdat,sacc,svoc,sins,pnom,pgen,pdat,pacc : Str} ;
 
--- The full definition of the noun record is
--- {
---  snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ;
---  g : Gender
--- }
-
+  izvorNForms : Str -> NForms
+    = izvorN ;
+  nokatNForms : Str -> NForms
+    = nokatN ;
+  gradaninNForms : Str -> NForms
+    = gradaninN ;
+  vojnikNForms : Str -> NForms
+    = vojnikN ;
+  bubregNForms : Str -> NForms
+    = bubregN ;
+  trbuhNForms : Str -> NForms
+    = trbuhN ;
+  cvorakNForms : Str -> NForms
+    = cvorakN ;
+  panjNForms : Str -> NForms
+    = panjN ;
+  suzanjNForms : Str -> NForms
+    = suzanjN ;
+  pristNForms : Str -> NForms
+    = pristN ;
+  stricNForms : Str -> NForms
+    = stricN ;
+  klinacNForms : Str -> NForms
+    = klinacN ;
+  posjetilacNForms : Str -> NForms
+    = posjetilacN ;
+  pepeoNForms : Str -> NForms
+    = pepeoN ;
+  ugaoNForms : Str -> NForms
+    = ugaoN ;
+  bifeNForms : Str -> NForms
+    = bifeN ;
+  ziriNForms : Str -> NForms
+    = ziriN ;
+  taksiNForms : Str -> NForms
+    = taksiN ;
+  koljenoNForms : Str -> NForms
+    = koljenoN ;
+  jedroNForms : Str -> NForms
+    = jedroN ;
+  poljeNForms : Str -> NForms
+    = poljeN ;
+  zenaNForms : Str -> NForms
+    = zenaN ;
 
 ---------------------
 -- Adjectives
@@ -67,27 +105,51 @@ oper
 
   mkA = overload {
     mkA : Str -> A
-      = \s -> lin A (velikA s)
+      = \s -> lin A (velikA s) ;
+    mkA : AForms -> A
+      = \s -> lin A s ;
     } ;
 
+  invarA : Str -> A
+    = \s -> lin A (invarAForms s) ;
 
--- the full definition of the adjective record is
--- {
---    msnom, fsnom, nsnom, msgen, fsgen, msdat, fsacc, msloc, msins, fsins,
---    ampnom, pgen, pins : Str
--- }
---
+  AForms : Type
+    = R.AdjForms ;
+
+-- the complete definition of AForms is
+--   {msnom, fsnom, nsnom, msgen, fsgen, msdat,
+--    fsdat, fsacc, msloc, msins, fsins, mpnom, pgen : Str} ;
+
+  velikAForms : Str -> AForms
+    = velikA ;
+    
+  invarAForms : Str -> AForms
+    = \s -> invarAdjForms s ;
+
 
 -------------------------
 -- Verbs
 
+  mkV = overload {
+    mkV : (raditi : Str) -> V
+      = \s -> lin V {s = smartVerbForms s} ;
+    mkV : (raditi, radem, radio : Str) -> V
+      = \raditi, radem, radio ->
+           lin V {s = aeiVerbForms raditi radem radio} ;
+    mkV : VerbForms -> V
+      = \vf -> lin V {s = vf} ;
+    } ;
+
+
   mkV2 = overload {
-    mkV2 : VerbForms -> V2
-      = \vf -> lin V2 {s = vf ; c = {s = [] ; c = Acc ; hasPrep = False}} ;
-    mkV2 : VerbForms -> Case -> V2
-      = \vf,c -> lin V2 {s = vf ; c = {s = [] ; c = c ; hasPrep = False}} ;
-    mkV2 : VerbForms -> ComplementCase -> V2 
-      = \vf,c -> lin V2 {s = vf ; c = c} ;
+    mkV2 : V -> V2
+      = \v -> lin V2 {s = v.s ;
+           c = {s = [] ; c = accusative ; hasPrep = False}} ;
+    mkV2 : V -> Case -> V2
+      = \v,c -> lin V2 {s = v.s ;
+           c = {s = [] ; c = c ; hasPrep = False}} ;
+    mkV2 : V -> Prep -> V2 
+      = \v,c -> lin V2 {s = v.s ; c = c} ;
     } ;
 
 ------------------------
@@ -96,8 +158,14 @@ oper
   mkAdv : Str -> Adv
     = \s -> lin Adv {s = s} ;
 
-  mkPrep : Str -> Case -> Prep
-    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ; ---- True if s /= ""
+  mkPrep = overload {
+    mkPrep : Str -> Prep    -- genitive prepositions
+      = \s -> lin Prep {s = s ; c = genitive ; hasPrep = True} ;
+    mkPrep : Case -> Prep   -- oblique cases, empty string
+      = \c -> lin Prep {s = [] ; c = c ; hasPrep = False} ;
+    mkPrep : Str -> Case -> Prep
+      = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
+    } ;
     
   mkConj : Str -> Conj
     = \s -> lin Conj {s1 = [] ; s2 = s} ;
