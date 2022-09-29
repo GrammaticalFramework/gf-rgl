@@ -12,7 +12,7 @@ lin
 	  } 
       } ;
       
-    IdRP = mkA "který" ; 
+    IdRP = mkA "koji" ; 
 
 
 }

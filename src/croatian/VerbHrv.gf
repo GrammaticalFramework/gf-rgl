@@ -34,7 +34,7 @@ lin
       } ;
       
     CompNP np = {
-      s = \\a_ => np.s ! Nom ; ---- InstrC in Pol
+      s = \\a_ => np.s ! Nom ;
       } ;
       
     CompAdv adv = {

@@ -2,7 +2,7 @@ concrete StructuralHrv of Structural = CatHrv **
   open ParadigmsHrv, ResHrv, Prelude in {
 
 lin
-    and_Conj = mkConj "a" ;
+    and_Conj = mkConj "i" ;
 ----    by8agent_Prep = mkPrep "" Ins ; 
 ----    few_Det = invarNumeral "málo" ; -- see notes
     for_Prep = mkPrep "pre" accusative ;
@@ -28,4 +28,7 @@ lin
     we_Pron = mkPron (Ag (Masc Anim) Pl P1) ;
     youPl_Pron = mkPron (Ag (Masc Anim) Pl P2) ;
     they_Pron = mkPron (Ag (Masc Anim) Pl P3) ;
+
+    somewhere_Adv = mkAdv "negdje" ;
+
 }

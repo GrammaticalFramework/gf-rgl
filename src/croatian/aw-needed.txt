@@ -41,7 +41,7 @@ NounEng.PossPron
 NounEng.RelCN
 NounEng.UsePron
 ParadigmsEng.mkAdN
-aradigmsEng.mkAdv
+ParadigmsEng.mkAdv
 ParadigmsEng.mkOrd
 ParadigmsEng.regA
 PhraseEng.NoPConj

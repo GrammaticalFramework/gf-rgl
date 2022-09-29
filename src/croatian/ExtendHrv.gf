@@ -32,7 +32,8 @@ open
   ResHrv
 in {
 
-lin ReflPossPron = justDemPronFormsAdjective reflPossessivePron ;
+---lin ReflPossPron = justDemPronFormsAdjective reflPossessivePron ;
 
+--AW2 CardCNCard
 
 }

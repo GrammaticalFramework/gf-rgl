@@ -87,6 +87,10 @@ lin
       s = \\g,c => (adjFormsAdjective nu.s).s ! g ! Sg ! c ; ---- TODO Sg?
       size = nu.size
       } ;
+      
+--AW2 AdNum
+--AW2 PossNP
+--AW2 OrdSuperl
 
 
 }

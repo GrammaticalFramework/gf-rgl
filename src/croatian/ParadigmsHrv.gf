@@ -170,5 +170,7 @@ oper
   mkConj : Str -> Conj
     = \s -> lin Conj {s1 = [] ; s2 = s} ;
 
+--AW2 mkAdN
+--AW2 mkOrd
 
 }
