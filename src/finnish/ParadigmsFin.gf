@@ -499,6 +499,16 @@ mkVS = overload {
 ----  mkNA : N -> A = snoun2sadj ;
 
   mk1N : (talo : Str) -> N = \s -> lin N (nforms2snoun (nForms1 s)) ;
+
+  -- Best results for 2-argument smart paradigm come with Pl Part as second argument.
+  -- But we allow Sg Gen + Pl Nom as well, since they could be common mistakes.
+  -- For other numbers and cases as the 2nd argument, see mk2Nsg{Gen,Par,Ill} (hidden from API).
+  mk2N : (talo,taloja : Str) -> N = \s,t -> case t of {
+    sydame + "n" => mk2NsgGen s t ;            -- Sg Gen
+    sydame + "t" => mk2NsgGen s (sydame+"n") ; -- Pl Nom
+    _ => lin N (nforms2snoun (nForms2 s t))    -- Default: Pl Par
+  } ;
+
   -- When we have access to the some other form than plural partitive, e.g. from some dump of lemmatised nouns
   mk2NsgGen : (talo,talon : Str) -> N =
     \sgnom,sggen -> lin N (nforms2snoun (nForms2sgGen sgnom sggen)) ;
@@ -750,10 +760,6 @@ mkVS = overload {
         <_ + "s",  _ + "heen"> => d42 sydan ;
         _ => nForms1 sydan }
     } ;
-
-
-
-
 
 
   --- this is a paradigm hidden from the API. It should not be used without caution
