@@ -28,7 +28,7 @@ lin
     } ;
   pot0 d = {s = \\f,g => d.s ! f ! g ; n = Pl} ;
   pot110 = numPl (cardReg "ti") ;
-  pot111 = numPl (cardOrd "elve" "elfte") ;
+  pot111 = numPl (cardOrd "elleve" "ellevte") ;
   pot1to19 d = numPl (d.s ! ton) ;
   pot0as1 n = {s = n.s ! ental ; n = n.n} ;
   pot1 d = numPl (d.s ! tiotal) ;
