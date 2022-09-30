@@ -8,8 +8,8 @@ lin
   MkSymb s = s ;
   SymbPN s = lin PN {s = \\_ => s.s ; g = Neutr} ;
 
---AW SymbolEng.IntPN
---AW SymbolEng.SymbNum
---AW SymbolicEng.mkSymb
+  IntPN s = lin PN {s = \\_ => s.s ; g = Neutr} ;
+
+  SymbNum s = lin Card {s = \\_,_ => s.s ; size = NS_20_} ; --- size
 
 }

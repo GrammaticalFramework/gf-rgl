@@ -391,7 +391,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
                   (velk + "o") ;
       msgen   = velk + "og" ;
       fsgen   = velk + "e" ;
-      msdat   = velk + "omu" ;
+      msdat   = velk + "om" ;
       fsdat   = velk + "oj" ;
       fsacc   = velk + "u" ;
       msloc   = velk + "om" ;
