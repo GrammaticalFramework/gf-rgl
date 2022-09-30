@@ -1,6 +1,7 @@
 concrete ExtendHrv of Extend = CatHrv ** 
   ExtendFunctor - [
-    ReflPossPron
+    --- ReflPossPron
+    CardCNCard
     ---- constant not found (yet)
     ,youPolFem_Pron
     ,UttVPShort
@@ -34,6 +35,9 @@ in {
 
 ---lin ReflPossPron = justDemPronFormsAdjective reflPossessivePron ;
 
---AW2 CardCNCard
+lin CardCNCard card cn = {
+  s = \\g,c => card.s ! g ! c ++ numSizeForm cn.s card.size c ;
+  size = NS_20_
+  } ;
 
 }

@@ -39,7 +39,8 @@ concrete CatHrv of Cat =
     Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; -- can contain a numeral, therefore NumSize
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;
-    Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; 
+    Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
+    Ord = AdjForms ;
     Pron = PronForms ** {poss : AdjForms} ;
 
     Adv  = {s : Str} ;

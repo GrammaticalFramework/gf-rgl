@@ -98,6 +98,18 @@ oper
   zenaNForms : Str -> NForms
     = zenaN ;
 
+  mkPN = overload {
+    mkPN : Str -> PN
+      = \s -> 
+        let
+	  nf = smartLexNoun s ;
+	  n = nounFormsNoun nf nf.g
+	in lin PN {
+	  s = \\c => n.s ! Sg ! c ; ---- TODO check this
+          g = nf.g
+          } ;
+    } ;
+
 ---------------------
 -- Adjectives
 
@@ -170,7 +182,16 @@ oper
   mkConj : Str -> Conj
     = \s -> lin Conj {s1 = [] ; s2 = s} ;
 
---AW2 mkAdN
---AW2 mkOrd
+  mkAdN : Str -> AdN
+    = \s -> lin AdN {s = s} ;
+    
+  mkOrd : Str -> Ord
+    = \s -> lin Ord (velikA s) ;
+
+  ifPluralNP : NP -> Bool
+    = \np -> case np.a of {
+      Ag _ Pl _ => True ;
+      _ => False
+      } ;
 
 }

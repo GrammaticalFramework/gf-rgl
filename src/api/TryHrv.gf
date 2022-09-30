@@ -1,6 +1,6 @@
 --# -path=.:../slovak:../common:../abstract:../prelude
 
-resource TryHrv = SyntaxHrv, LexiconHrv, ParadigmsHrv -[mkAdv, mkDet,mkQuant]** 
+resource TryHrv = SyntaxHrv, LexiconHrv, ParadigmsHrv -[mkAdv, mkAdN, mkOrd, mkDet, mkQuant]** 
   open (P = ParadigmsHrv) in {
 
 -- oper

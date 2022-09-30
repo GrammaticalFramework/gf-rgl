@@ -15,6 +15,7 @@ lin
     } ;
   ASimul = {s = [] ; t = CTPres} ;
   TPres  = {s = [] ; t = CTPres} ;
+  TPast  = {s = [] ; t = CTPast} ;
   TTAnt  t a = {s = t.s ++ a.s ; t = t.t} ; ----
 
 }

@@ -11,6 +11,12 @@ lin
         hasClit = False ;
       } ;
 
+    DetNP det = {
+        s,prep,clit = \\c => det.s ! Neutr ! c ;
+        a = numSizeAgr Neutr det.size P3 ;
+        hasClit = False ;
+      } ;
+
     MassNP cn = {
       s,prep,clit = \\c => cn.s ! Sg ! c ;
       a = Ag cn.g Sg P3 ;
@@ -88,9 +94,8 @@ lin
       size = nu.size
       } ;
       
---AW2 AdNum
---AW2 PossNP
---AW2 OrdSuperl
+    AdNum adn card = card ** {s = \\g,c => adn.s ++ card.s ! g ! c} ;
+    OrdSuperl a = a ; ---- TODO superl
 
 
 }

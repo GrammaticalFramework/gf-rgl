@@ -6,7 +6,7 @@ concrete AdjectiveHrv of Adjective = CatHrv ** open ResHrv, Prelude in {
     
     AdAP ada ap = ap ** {s = \\g,n,c => ada.s ++ ap.s ! g ! n ! c} ;
 
---AW2 AdjOrd
+    AdjOrd a = adjFormsAdjective a ** {isPost = False} ;
 
     ComplA2 a np =
       let ap = adjFormsAdjective a

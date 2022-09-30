@@ -5,5 +5,5 @@ lin
     PrepNP prep np = {
       s = prep.s ++ np.prep ! prep.c
       } ;
-
+    AdnCAdv a = a ;
 }
