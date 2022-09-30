@@ -1,4 +1,4 @@
-resource MissingHrv = open GrammarHrv, Prelude in {
+resource MissingHrv = open GrammarHrv, SymbolHrv, Prelude, PredefCnc in {
 
 -- temporary definitions to enable the compilation of RGL API
 oper AAnter : Ant = notYet "AAnter" ;
@@ -47,7 +47,6 @@ oper OrdSuperl : A -> Ord = notYet "OrdSuperl" ;
 oper PPartNP : NP -> V2 -> NP = notYet "PPartNP" ;
 oper PassV2 : V2 -> VP = notYet "PassV2" ;
 oper PositAdvAdj : A -> Adv = notYet "PositAdvAdj" ;
-oper PossPron : Pron -> Quant = notYet "PossPron" ;
 oper PredSCVP : SC -> VP -> Cl = notYet "PredSCVP" ;
 oper PredetNP : Predet -> NP -> NP = notYet "PredetNP" ;
 oper PrepIP : Prep -> IP -> IAdv = notYet "PrepIP" ;
@@ -90,13 +89,19 @@ oper UttImpSg : Pol -> Imp -> Utt = notYet "UttImpSg" ;
 oper UttQS : QS -> Utt = notYet "UttQS" ;
 oper UttVP : VP -> Utt = notYet "UttVP" ;
 oper by8agent_Prep : Prep = notYet "by8agent_Prep" ;
-oper it_Pron : Pron = notYet "it_Pron" ;
-oper they_Pron : Pron = notYet "they_Pron" ;
-oper we_Pron : Pron = notYet "we_Pron" ;
 oper whatSg_IP : IP = notYet "whatSg_IP" ;
 oper which_IQuant : IQuant = notYet "which_IQuant" ;
 oper whoSg_IP : IP = notYet "whoSg_IP" ;
-oper youPl_Pron : Pron = notYet "youPl_Pron" ;
 oper youPol_Pron : Pron = notYet "youPol_Pron" ;
+
+oper BaseSymb : Symb -> Symb -> [Symb] = notYet "BaseSymb" ;
+oper CNIntNP : CN -> PredefCnc.Int -> NP = notYet "CNIntNP" ;
+oper CNNumNP : CN -> Card -> NP = notYet "CNumNP" ;
+oper CNSymbNP : Det -> CN -> [Symb] -> NP = notYet "CNSymbNP" ;
+oper ConsSymb : Symb -> [Symb] -> [Symb] = notYet "ConsSymb" ;
+oper FloatPN : PredefCnc.Float -> PN = notYet "FloatPN" ;
+oper NumPN : Card -> PN = notYet "NumPN" ;
+oper SymbOrd : Symb -> Ord = notYet "SymbOrd" ;
+oper SymbS : Symb -> S = notYet "SymbS" ;
 
 }

@@ -2,6 +2,7 @@
 
 concrete AllHrv of AllHrvAbs =
   LangHrv,
-  ExtendHrv
+  ExtendHrv,
+  MissingHrv
   ;
 
