@@ -22,7 +22,7 @@ lin
       } ;
 
     UseComp comp = {
-      verb  = biti_VerbForms ; ---- TODO: jesam
+      verb  = copula_VerbForms ;
       clit = \\_ => [] ;
       compl = comp.s
       } ;

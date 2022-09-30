@@ -400,6 +400,17 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       pgen    = velk + "ih" ;
       } ;
 
+  regComparAForms : AdjForms -> AdjForms
+    = \aposit -> case init aposit.fsnom of {
+        grub@(_ + "b"|"p"|"v"|"h") => velikA (grub + "lji") ;
+        star => velikA (star + "iji")
+	} ;
+
+  superlAForms : AdjForms -> AdjForms
+    = \acompar -> velikA ("naj" + acompar.msnom) ;
+
+  od_Str = "od" ;
+
 ---------------------
 -- Verbs
 -- Wiki
@@ -474,6 +485,15 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 	 } ;
        negative = \\n,p => "ni" + sam ! n ! p
        } ;
+       
+-- Wiki: some grammars (chiefly Serbian ones) treat jesam as a defective verb
+-- having only present tense. Others treat these forms as two realizations
+-- of the same irregular verb biti, jesam being imperfective and budem perfective.
+
+    copula_VerbForms : VerbForms = table {
+      VPres n p => jesam_Copula.short ! n ! p ;
+      v => biti_VerbForms ! v
+      } ;
 
     biti_VerbForms : VerbForms = aeiVerbForms "biti" "budem" "bio" ;
 
@@ -580,52 +600,6 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   mkPron : Agr -> PronForms ** {poss : AdjForms} = \a ->
     personalPron a ** {poss = possessivePron a} ;
     
-{-
---------------------------------
--- demonstrative pronouns, used for Quant and Det
-
-oper
-  DemPronForms : Type = {
-    msnom, fsnom, nsnom, 
-    msgen, fsgen, pgen,
-    msdat, -- fsdat = fsgen unlike AdjForms
-    fsacc,
-    msloc,
-    msins, fsins,
-    ampnom, fpnom, -- mpacc = fpacc = fpnom
-    pgen,
-    pdat,  -- NOT msins like AdjForms
-    pins : Str
-    } ;
-
-  demPronFormsAdjective : DemPronForms -> Str -> Adjective =
-    \dem,s ->
-    let
-      demAdj = dem ** {fsdat = dem.fsgen} ;
-      adjAdj = adjFormsAdjective demAdj
-    in {
-      s = \\g,n,c => case <g,n,c> of {
-        <_,Pl,Dat> => dem.pdat ;
-	<Masc Anim,         Pl,     Acc> => dem.pgen ;
-	<Masc Inanim | Fem | Neutr, Pl, Nom|Acc> => dem.fpnom ;
-        _ => adjAdj.s ! g ! n ! c
-        } + s
-      } ;
-      
-  justDemPronFormsAdjective : DemPronForms -> Adjective =
-    \dem ->
-    let
-      demAdj = dem ** {fsdat = dem.fsgen} ;
-      adjAdj = adjFormsAdjective demAdj
-    in {
-      s = \\g,n,c => case <g,n,c> of {
-        <_,Pl,Dat> => dem.pdat ;
-	<Masc Anim,         Pl,     Acc> => dem.pgen ;
-	<Masc Inanim | Fem | Neutr, Pl, Nom|Acc> => dem.fpnom ;
-        _ => adjAdj.s ! g ! n ! c
-        }
-      } ;
--}
 
 param NumSize = NS_1 | NS_2_4 | NS_5_20 | NS_20_ ;
 
@@ -636,49 +610,7 @@ oper
     } ;
 
 {-
-  mkDemPronForms : Str -> DemPronForms = \jedn -> {
-      msnom   = jedn + "y" ; -- should be "jeden"
-      fsnom   = jedn + "a" ;
-      nsnom   = jedn + "o" ;
-      msgen   = jedn + "ého" ;
-      fsgen   = jedn + "ej" ;
-      msdat   = jedn + "ému" ;
-      fsacc   = jedn + "u" ;
-      msloc   = jedn + "om" ;
-      msins   = jedn + "ým" ;
-      fsins   = jedn + "ou" ;
-      ampnom  = jedn + "i" ;
-      fpnom   = jedn + "y" ;
-      pgen    = jedn + "ých" ;
-      pdat    = jedn + "ým" ;
-      pins    = jedn + "ými" ;
-    } ;
-    
-  tenDemPronForms : Str -> DemPronForms = \tam -> {
-      msnom   = tam + "ten" ;
-      fsnom   = tam + "tá" ;
-      nsnom   = tam + "to" ;
-      msgen   = tam + "toho" ;
-      fsgen   = tam + "tej" ;
-      msdat   = tam + "tomu" ;
-      fsacc   = tam + "tú" ;
-      msloc   = tam + "tom" ;
-      msins   = tam + "tým" ;
-      fsins   = tam + "tou" ;
-      ampnom  = tam + "tí" ;
-      fpnom   = tam + "tie" ;
-      pgen    = tam + "tých" ;
-      pdat    = tam + "tým" ;
-      pins    = tam + "tými" ;
-    } ;
-
-  invarDemPronForms : Str -> DemPronForms = \s -> {
-    msnom, fsnom, nsnom, msgen, fsgen,
-    msdat, fsacc, msloc, msins, fsins,
-    ampnom, fpnom, pgen, pdat, pins = s ;
-    } ;
-
--- interrogatives
+-- interrogatives TODO
 
  ktoForms : Case => Str = table {
    Nom => "kto" ;
@@ -695,86 +627,8 @@ oper
    Loc => "čom" ;
    Ins => "čím"
    } ;
-
--- Numerals
-
-  -- singular forms of demonstratives
-  NumeralForms : Type = {
- ----   amsnom,
-    msnom, fsnom, nsnom,
-    msgen, fsgen,
-    msdat,
-    fsacc,
-    msloc,
-    msins, fsins : Str
-    } ;
-
-  numeralFormsDeterminer : NumeralForms -> NumSize -> Determiner =
-    \nume,size ->
-    let
-      dem = nume **
-        {ampnom, fpnom, pgen, pdat, pins = nume.msnom} ; --- plural forms not used
-      demAdj = dem ** {fsdat = dem.fsgen} ;
-      adjAdj = adjFormsAdjective demAdj
-    in {
-      s = \\g,c => case <g,c> of {
-----         <Masc Anim, Nom> => nume.amsnom ;
-         _ => adjAdj.s ! g ! Sg ! c
-	 } ;
-      size = size
-      } ;
-
-  -- example: number 1
-  oneNumeral : Determiner = numeralFormsDeterminer ((mkDemPronForms "jedn") ** {msnom = "jeden"}) Num1 ;
-
-  -- numbers 2,3,4 ---- to check if everything comes out right with the determiner type
-  twoNumeral : Determiner =
-    let forms = {
-----    amsnom = "dvaja" ;
-      msnom = "dva" ; fsnom, nsnom, fsacc = "dve" ; 
-      msgen, fsgen, msloc = "dvoch" ;
-      msdat = "dvom" ;
-      msins, fsins = "dvoma"
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
-
-  threeNumeral : Determiner =
-    let forms = {
-      ---- amsnom = "traja" ;
-      msnom, fsnom, nsnom, fsacc = "tri" ; ---- amsacc = "troch"
-      msgen, fsgen = "troch" ;
-      msdat = "trom" ;
-      msloc = "troch" ;
-      msins,fsins = "tromi" ;
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
-
-  fourNumeral : Determiner =
-      let forms = {
-      ---- amsnom = "štyria" ;
-      msnom, fsnom, nsnom, fsacc = "štyri" ; ---- amsacc = "štyroch"
-      msgen, fsgen = "štyroch" ;
-      msdat = "štyrom" ;
-      msloc = "štyroch" ;
-      msins,fsins = "štyrmi" ;
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
-
-  -- for the numbers 5 upwards
-  regNumeral : Str -> Str -> Str -> Str -> Determiner = \pät,piatich,piatim,piatimi ->
-    let forms = {
-      msnom,fsnom,nsnom, fsacc = pät ;
-      msgen, fsgen, msloc = piatich ;
-      msdat = piatim ;
-      msins, fsins = piatimi ;
-      }
-    in numeralFormsDeterminer forms Num5 ;
-
-  invarDeterminer : Str -> NumSize -> Determiner = \sto,size ->
-    regNumeral sto sto sto sto ;
-
-  invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
 -}
+
 
 --------------------------------
 -- combining nouns with numerals

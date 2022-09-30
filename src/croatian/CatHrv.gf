@@ -26,7 +26,7 @@ concrete CatHrv of Cat =
     V2 = {s : VerbForms ; c : ComplementCase} ;
     VS,VQ  = {s : VerbForms} ;
 
-    A  = ResHrv.AdjForms ;
+    A  = {posit, compar, superl : AdjForms} ;
     AP = ResHrv.Adjective ** {isPost : Bool} ; -- {s : Gender => Number => Case => Str}
     A2 = ResHrv.AdjForms ** {c : ComplementCase} ;
     
@@ -62,7 +62,8 @@ concrete CatHrv of Cat =
 
   linref
     N = \s -> s.snom ;
-    A = \s -> s.msnom ;
+    A = \s -> s.posit.msnom ;
+    V = \v -> v.s ! VInf ;
 
 
   lincat Numeral = {s : AdjForms ; size : NumSize} ;

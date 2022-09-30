@@ -117,13 +117,31 @@ oper
 
   mkA = overload {
     mkA : Str -> A
-      = \s -> lin A (velikA s) ;
-    mkA : AForms -> A
-      = \s -> lin A s ;
+      = \s ->
+        let
+	  velik = velikA s ;
+	  velikiji = regComparAForms velik ; 
+	in lin A {
+	  posit = velik ;
+	  compar = velikiji ;
+	  superl = superlAForms velikiji
+	  } ;
+    mkA : (pos, comp : Str) -> A
+      = \pos, comp -> lin A {
+          posit = velikA pos ;
+	  compar = velikA comp ;
+	  superl = superlAForms (velikA comp)
+	  } ;
+    mkA : (posit, compar : AForms) -> A
+      = \posit,compar -> lin A {
+          posit = posit ;
+	  compar = compar ;
+	  superl = superlAForms compar
+	  } ;
     } ;
 
   invarA : Str -> A
-    = \s -> lin A (invarAForms s) ;
+    = \s -> lin A {posit,compar,superl = invarAForms s} ; ---- TODO compar, superl?
 
   AForms : Type
     = R.AdjForms ;

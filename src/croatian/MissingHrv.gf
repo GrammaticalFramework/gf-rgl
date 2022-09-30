@@ -14,7 +14,6 @@ oper CleftNP : NP -> RS -> Cl = notYet "CleftNP" ;
 oper CompCN : CN -> Comp = notYet "CompCN" ;
 oper CompIAdv : IAdv -> IComp = notYet "CompIAdv" ;
 oper CompIP : IP -> IComp = notYet "CompIP" ;
-oper ComparA : A -> NP -> AP = notYet "ComparA" ;
 oper ComparAdvAdj : CAdv -> A -> NP -> Adv = notYet "ComparAdvAdj" ;
 oper ComparAdvAdjS : CAdv -> A -> S -> Adv = notYet "ComparAdvAdjS" ;
 oper ComplN2 : N2 -> NP -> CN = notYet "ComplN2" ;

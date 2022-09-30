@@ -12,7 +12,7 @@ lin
 	  } 
       } ;
       
-    IdRP = mkA "koji" ; 
+    IdRP = (mkA "koji").posit ; 
 
 
 }

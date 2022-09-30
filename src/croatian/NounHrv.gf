@@ -95,7 +95,7 @@ lin
       } ;
       
     AdNum adn card = card ** {s = \\g,c => adn.s ++ card.s ! g ! c} ;
-    OrdSuperl a = a ; ---- TODO superl
+    OrdSuperl a = a.superl ;
 
 
 }
