@@ -332,18 +332,18 @@ voicing : Str -> Str = \s -> case s of {
   AdjForms : Type = {
     msnom, fsnom, nsnom : Str ; 
     msgen, fsgen : Str ;        -- nsgen = msgen
-    msdat : Str ;               -- nsdat = msdat
+    msdat : Str ;               -- msloc,nsdat,nsloc = msdat
     fsdat : Str ;               -- fsloc = fsdat
     fsacc : Str ;               -- 
-    msloc : Str ;               -- nsloc, fsins = msloc
     msins : Str ;        -- nsins, pdat, ploc, pins = msins
+    fsins : Str ;               -- no o/e variation like in msdat
     mpnom : Str ;               -- mpvoc = mpnom
     pgen : Str ;                --
     } ;
 
 invarAdjForms : Str -> AdjForms = \s -> {
     msnom, fsnom, nsnom, msgen, fsgen, msdat,
-    fsdat, fsacc, msloc, msins, fsins, mpnom, pgen = s ;
+    fsdat, fsacc, msins, fsins, mpnom, pgen = s ;
     } ;
 
 -- used in PositA but will also work in Compar and Superl by calling their record fields
@@ -361,13 +361,12 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     <Sg, Gen, Fem>
       | <Pl, Nom|Acc|Voc, Fem>
       | <Pl, Acc, Masc _>        => afs.fsgen ;
-    <Sg, Dat, Masc _|Neutr>      => afs.msdat ;
+    <Sg, Dat|Loc, Masc _|Neutr>  => afs.msdat ;
     <Sg, Dat|Loc, Fem>           => afs.fsdat ;
     <Sg, Acc, Fem>               => afs.fsacc ;
-    <Sg, Loc, Masc _|Neutr>
-      | <Sg, Ins, Fem>           => afs.msloc ;
     <Sg, Ins, Masc _|Neutr>
       | <Pl,Dat|Loc|Ins, _>      => afs.msins ;
+    <Sg, Ins, Fem>               => afs.fsins ;
     <Pl, Nom|Voc, Masc _>        => afs.mpnom ;
     <Pl, Gen,_>                  => afs.pgen
     }
@@ -382,20 +381,19 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         vel + "a" + k@? => vel + k ;
 	vel + "i" => vel ;
 	_ => velik
-        }
+        } ;
+      oe : Str = ifSoft velik "e" "o"
     in {
       msnom   = velik ;
       fsnom   = velk + "a" ;
-      nsnom   = ifSoft velik
-                  (velk + "e")
-                  (velk + "o") ;
-      msgen   = velk + "og" ;
+      nsnom   = velk + oe ;
+      msgen   = velk + oe + "g" ;
       fsgen   = velk + "e" ;
-      msdat   = velk + "om" ;
+      msdat   = velk + oe + "m" ;
       fsdat   = velk + "oj" ;
       fsacc   = velk + "u" ;
-      msloc   = velk + "om" ;
       msins   = velk + "im" ;
+      fsins   = velk + "om" ;
       mpnom   = velk + "i" ;
       pgen    = velk + "ih" ;
       } ;
