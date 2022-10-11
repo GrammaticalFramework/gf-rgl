@@ -210,29 +210,36 @@ def translations(mylang, reflang, lines):
                         })+'\n')
 
 # write GF lexical entry
-def print_gf_code(data):
+def print_gf_code(data, i):
+
+    lemma = list(data.keys())[0]
+    if any([c in cyrillic for c in lemma]):
+        return
     
-    def prrec(fs, lemma):
-        if fs.get('status') == 'NOFORMS':
+    cats = {
+        'name': ('PN', 7),
+        'noun': ('N', 11),
+        'adj': ('A', 12),
+        'verb': ('V', 12)
+        }    
+    pos = data[lemma]['pos']
+     
+    def prrec(fs, lemma, expected):
+        if fs.get('status') == 'NOFORMS' or len(fs) != expected:  
             return '"' + lemma + '"'
         else:
             s = '{'
             for f in fs:
                 s += f + ' = ' + '"' + str(fs[f]) + '"' + ' ; '
             return s[:-3] + '}'  # removing last ;
-
-    cats = {'noun': 'N', 'adv': 'Adv', 'adj': 'A', 'verb': 'V'}
-    
-    lemma = list(data.keys())[0]
-    
-    if any([c in cyrillic for c in lemma]):
-        return
-    
-    if data[lemma]['pos'] in cats:
-        cat = cats[data[lemma]['pos']]
-        fun =  lemma + '_' + cat
-        print(' '.join(['fun', fun, ':', cat, ';']))
-        print(' '.join(['lin', fun, '=', 'mk'+cat, prrec(data[lemma]['forms'], lemma),';']))
+        
+    if pos in cats:
+        cat, expected = cats[pos]
+        fun =  "'" + lemma + '_' + str(i) + '_' + cat + "'"
+        if len(data[lemma]['forms']) == expected:
+            print(' '.join(['fun', fun, ':', cat, ';']))
+            print(' '.join(['lin', fun, '=',
+                  'mk'+cat, prrec(data[lemma]['forms'], lemma, expected),';']))
     else:
         pass
 
@@ -248,9 +255,9 @@ def main():
         
     if mode == 'gf':
         with open(MORPHO_FINAL_FILE, "r", encoding="utf-8") as lines:
-            for line in lines:
+            for line, i in zip(lines, range(100000)):
                 data = json.loads(line)
-                print_gf_code(data)
+                print_gf_code(data, i)
             
     with open(WIKTIONARY_FILE, "r", encoding="utf-8") as lines:
             if mode == 'trans':
