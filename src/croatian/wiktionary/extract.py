@@ -14,6 +14,7 @@ REFLANG = 'English'
 MORPHO_OUTPUT_FILE = 'm.json'
 TRANS_OUTPUT_FILE = 't.json'
 
+MORPHO_FINAL_FILE = 'morpho-hr.json'  ###
 
 GENDERS = ['masculine', 'feminine', 'neuter']
 
@@ -90,7 +91,36 @@ VERB_FORMS = {
         }
     }
 
+def unaccent(word):
+    w = []
+    for c in word:
+        if c in "ÀȀȂ":
+            w.append('A')
+        elif c in "ÈÈ":
+            w.append('E')
+        elif c in "ÌÍȊ̂":
+            w.append('I')
+        elif c in "Ò":
+            w.append('O')
+        elif c in "Ù":
+            w.append('U')
+        elif c in "àáâāȁȃ":
+            w.append('a')
+        elif c in "èéēȅȇê":
+            w.append('e')
+        elif c in "ìíīȉȋîî":
+            w.append('i')
+        elif c in "òóôōȍȏ":
+            w.append('o')
+        elif c in "ùúȕȗ̀́̄̏̑ū":
+            w.append('u')
+        elif c in "ŕȑȓ":
+            w.append('r')
+        else:
+            w.append(c)
+    return ''.join(w)
 
+cyrillic = 'ЀЈЉЊЋЍЏАБВГДЕЖЗИКЛМНОПРСТУФХЦЧШабвгдежзиклмнопрстуфхцчшыѐђјљњћѝџӣӯ'
 
 def get_forms(pos, forms):
     dict = {}
@@ -104,7 +134,18 @@ def get_forms(pos, forms):
                 if num in tags:
                     for case in NOUN_FORMS[num]:
                         if case in tags:
-                            dict[NOUN_FORMS[num][case]] = f['form']
+                            dict[NOUN_FORMS[num][case]] = unaccent(f['form'])
+    elif pos == 'name':
+        for f in forms:
+            for g in GENDERS:
+                if g in f.get('tags', []):
+                    dict['gender'] = g
+            tags = f.get('tags', [])
+            for num in NOUN_FORMS:
+                if num in tags:
+                    for case in NOUN_FORMS[num]:
+                        if case in tags:
+                            dict[NOUN_FORMS[num][case]] = unaccent(f['form'])
     elif pos == 'adj':
         for f in forms:
             tags = f.get('tags', [])
@@ -115,7 +156,7 @@ def get_forms(pos, forms):
                             if n in tags:
                                 for c in ADJ_FORMS[g][n]:
                                     if c in tags:
-                                        dict[ADJ_FORMS[g][n][c]] = f['form']
+                                        dict[ADJ_FORMS[g][n][c]] = unaccent(f['form'])
     elif pos == 'verb':
         for f in forms:
             tags = f.get('tags', [])
@@ -125,10 +166,13 @@ def get_forms(pos, forms):
                         if n in tags:
                             for g in VERB_FORMS[t][n]:
                                if g in tags:
-                                   dict[VERB_FORMS[t][n][g]] = f['form']
+                                   dict[VERB_FORMS[t][n][g]] = unaccent(f['form'])
 
     else:
         dict['forms'] = forms[:10] ####
+        dict['status'] = 'NOFORMS-'+pos
+    if not dict:
+        dict['status'] = 'NOFORMS'
     return dict
 
 
@@ -145,7 +189,8 @@ def morpho(mylang, lines):
             if data.get('lang', '') == mylang and (
                   all([x in data for x in ['pos', 'word', 'forms']])):
                 word, info = lexinfo(data)
-                file.write(json.dumps({word: info})+'\n')
+                json.dump({word: info}, file, ensure_ascii=False)
+                file.write('\n')
 
 
 # write translations from reflang to mylang in t.json
@@ -164,7 +209,34 @@ def translations(mylang, reflang, lines):
                             'sense': t.get('sense')}
                         })+'\n')
 
+# write GF lexical entry
+def print_gf_code(data):
+    
+    def prrec(fs, lemma):
+        if fs.get('status') == 'NOFORMS':
+            return '"' + lemma + '"'
+        else:
+            s = '{'
+            for f in fs:
+                s += f + ' = ' + '"' + str(fs[f]) + '"' + ' ; '
+            return s[:-3] + '}'  # removing last ;
 
+    cats = {'noun': 'N', 'adv': 'Adv', 'adj': 'A', 'verb': 'V'}
+    
+    lemma = list(data.keys())[0]
+    
+    if any([c in cyrillic for c in lemma]):
+        return
+    
+    if data[lemma]['pos'] in cats:
+        cat = cats[data[lemma]['pos']]
+        fun =  lemma + '_' + cat
+        print(' '.join(['fun', fun, ':', cat, ';']))
+        print(' '.join(['lin', fun, '=', 'mk'+cat, prrec(data[lemma]['forms'], lemma),';']))
+    else:
+        pass
+
+                    
 def main():
     if not sys.argv[1:]:
         print('usage: extract.py (morpho|trans) mylang reflang')
@@ -173,6 +245,13 @@ def main():
     mylang, reflang = MYLANG, REFLANG
     if sys.argv[3:]:
         mylang, reflang = sys.argv[2:]
+        
+    if mode == 'gf':
+        with open(MORPHO_FINAL_FILE, "r", encoding="utf-8") as lines:
+            for line in lines:
+                data = json.loads(line)
+                print_gf_code(data)
+            
     with open(WIKTIONARY_FILE, "r", encoding="utf-8") as lines:
             if mode == 'trans':
                 translations(mylang, reflang, lines)
