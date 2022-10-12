@@ -100,6 +100,8 @@ oper
   zenaNForms : Str -> NForms
     = zenaN ;
 
+  PNForms : Type = {snom, sgen, sdat, sacc, svoc, sins : Str} ;
+
   mkPN = overload {
     mkPN : Str -> PN
       = \s -> 
@@ -110,6 +112,18 @@ oper
 	  s = \\c => n.s ! Sg ! c ; ---- TODO check this
           g = nf.g
           } ;
+    mkPN : PNForms -> Gender -> PN
+      = \fs, g -> lin PN {
+        s = table {
+          Nom => fs.snom ;
+          Gen => fs.sgen ;
+          Dat | Loc => fs.sdat ;
+          Acc => fs.sacc ;
+          Voc => fs.svoc ;
+          Ins => fs.sins 
+          } ;
+	g = g
+        } ;
     } ;
 
 ---------------------

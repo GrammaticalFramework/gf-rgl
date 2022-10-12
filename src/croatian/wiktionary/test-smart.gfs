@@ -1,0 +1,9 @@
+gt -cat=N | l -list | wf -file=N-list.tmp
+gt -cat=A | l -list | wf -file=A-list.tmp
+gt -cat=PN | l -list | wf -file=PN-list.tmp
+gt -cat=V | l -list | wf -file=V-list.tmp
+gt -cat=N | l -table | wf -file=N-table.tmp
+gt -cat=A | l -table | wf -file=A-table.tmp
+gt -cat=PN | l -table | wf -file=PN-table.tmp
+gt -cat=V | l -table | wf -file=V-table.tmp
+

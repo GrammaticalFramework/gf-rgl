@@ -427,6 +427,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     cit + "ati" => aeiVerbForms s (cit + "am") (cit + "ao") ;
     vid + "jeti" => aeiVerbForms s (vid + "im") (vid + "io") ;
     radi + "ti" => aeiVerbForms s (init radi + "em") (radi + "o") ;
+    radi + ? => aeiVerbForms s (init radi + "em") (radi + "o") ; ----
     _ => Predef.error ("expect infinitive form \"-ti\", found" ++ s)
     } ;
 
