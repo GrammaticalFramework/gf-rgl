@@ -127,7 +127,9 @@ def get_forms(pos, forms, word):
     if pos == 'noun':
         for f in forms:
             for g in GENDERS:
-                if g in f.get('tags', []):
+                if 'animate' in f.get('tags', []):
+                    dict['gender'] = 'mascAnimate'
+                elif g in f.get('tags', []):
                     dict['gender'] = g
             tags = f.get('tags', [])
             for num in NOUN_FORMS:
@@ -138,7 +140,9 @@ def get_forms(pos, forms, word):
     elif pos == 'name':
         for f in forms:
             for g in GENDERS:
-                if g in f.get('tags', []):
+                if 'animate' in f.get('tags', []):
+                    dict['gender'] = 'mascAnimate'
+                elif g in f.get('tags', []):
                     dict['gender'] = g
             tags = f.get('tags', [])
             for num in NOUN_FORMS:
@@ -148,8 +152,9 @@ def get_forms(pos, forms, word):
                             dict[NOUN_FORMS[num][case]] = unaccent(f['form'])
     elif pos == 'adj':
         for f in forms:
+##            print(f)
             tags = f.get('tags', [])
-            if 'positive' in tags and 'indefinite' in tags:
+            if 'positive' in tags and 'indefinite' not in tags:
                 for g in ADJ_FORMS:
                     if g in tags:
                         for n in ADJ_FORMS[g]:
