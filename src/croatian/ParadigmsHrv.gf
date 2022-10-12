@@ -13,6 +13,8 @@ oper
     = Masc Anim ;
   mascInanimate : Gender
     = Masc Inanim ;
+  masculine : Gender
+    = Masc Inanim ;
   feminine : Gender
     = Fem ;
   neuter : Gender
@@ -132,12 +134,27 @@ oper
 	  compar = velikA comp ;
 	  superl = superlAForms (velikA comp)
 	  } ;
+    mkA : (posit : AForms) -> (compar : Str) -> A
+      = \posit,compar -> lin A {
+          posit = posit ;
+	  compar = velikA compar ;
+	  superl = superlAForms (velikA compar)
+	  } ;
     mkA : (posit, compar : AForms) -> A
       = \posit,compar -> lin A {
           posit = posit ;
 	  compar = compar ;
 	  superl = superlAForms compar
 	  } ;
+    mkA : (posit : AForms) -> A
+      = \posit ->
+          let
+            compar = regComparAForms posit
+          in lin A {
+            posit = posit ;
+	    compar = compar ;
+	    superl = superlAForms compar
+	    } ;
     } ;
 
   invarA : Str -> A

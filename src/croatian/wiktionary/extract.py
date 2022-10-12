@@ -40,13 +40,11 @@ ADJ_FORMS = {
          'singular': {
             'nominative': 'msnom',
             'genitive': 'msgen',
-            'dative': 'msdat',
-            'locative': 'msloc',
-            'instrumental': 'msins'
+            'dative': 'msdat'
             },
         'plural': {
             'nominative': 'mpnom',
-            'genitive': 'pgen'
+            'genitive': 'mpgen'
             }
         },
     'feminine': {
@@ -54,7 +52,8 @@ ADJ_FORMS = {
             'nominative': 'fsnom',
             'genitive': 'fsgen',
             'dative': 'fsdat',
-            'accusative': 'fsacc'
+            'accusative': 'fsacc',
+            'instrumental': 'fsins'
             }
         },
     'neuter': {
@@ -122,7 +121,7 @@ def unaccent(word):
 
 cyrillic = 'ЀЈЉЊЋЍЏАБВГДЕЖЗИКЛМНОПРСТУФХЦЧШабвгдежзиклмнопрстуфхцчшыѐђјљњћѝџӣӯ'
 
-def get_forms(pos, forms):
+def get_forms(pos, forms, word):
     dict = {}
     if pos == 'noun':
         for f in forms:
@@ -157,6 +156,9 @@ def get_forms(pos, forms):
                                 for c in ADJ_FORMS[g][n]:
                                     if c in tags:
                                         dict[ADJ_FORMS[g][n][c]] = unaccent(f['form'])
+            elif all([t in tags for t in [
+                  'comparative', 'masculine', 'singular', 'nominative']]):
+                dict['cmsnom'] = unaccent(f['form'])
     elif pos == 'verb':
         for f in forms:
             tags = f.get('tags', [])
@@ -167,6 +169,8 @@ def get_forms(pos, forms):
                             for g in VERB_FORMS[t][n]:
                                if g in tags:
                                    dict[VERB_FORMS[t][n][g]] = unaccent(f['form'])
+        if dict:
+            dict['infin'] = unaccent(word)
 
     else:
         dict['forms'] = forms[:10] ####
@@ -178,7 +182,7 @@ def get_forms(pos, forms):
 
 def lexinfo(data):
     return data['word'], {
-        'pos': data['pos'], 'forms': get_forms(data['pos'], data['forms'])}
+        'pos': data['pos'], 'forms': get_forms(data['pos'], data['forms'], data['word'])}
 
 
 # write morphology of mylang in m.json
@@ -219,7 +223,7 @@ def print_gf_code(data, i):
     cats = {
         'name': ('PN', 7),
         'noun': ('N', 11),
-        'adj': ('A', 12),
+        'adj': ('A', 13),
         'verb': ('V', 12)
         }    
     pos = data[lemma]['pos']
@@ -230,7 +234,10 @@ def print_gf_code(data, i):
         else:
             s = '{'
             for f in fs:
-                s += f + ' = ' + '"' + str(fs[f]) + '"' + ' ; '
+                if f == 'gender':
+                    s += f + ' = P.' + str(fs[f]) + ' ; '
+                else:
+                    s += f + ' = ' + '"' + str(fs[f]) + '"' + ' ; '
             return s[:-3] + '}'  # removing last ;
         
     if pos in cats:

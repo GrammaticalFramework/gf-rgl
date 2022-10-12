@@ -30,7 +30,7 @@ lin
 
     DefArt = {s = \\_,_,_ => []} ;
     IndefArt = {s = \\_,_,_ => []} ;
-    NumPl = {s = \\_,_ => [] ; size = NS_20_} ; ---- size
+    NumPl = {s = \\_,_ => [] ; size = NS_2_4} ; ---- size
     NumSg = {s = \\_,_ => [] ; size = NS_1} ;
 
     UsePron pron = {

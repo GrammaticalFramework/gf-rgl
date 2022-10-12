@@ -338,12 +338,12 @@ voicing : Str -> Str = \s -> case s of {
     msins : Str ;        -- nsins, pdat, ploc, pins = msins
     fsins : Str ;               -- no o/e variation like in msdat
     mpnom : Str ;               -- mpvoc = mpnom
-    pgen : Str ;                --
+    mpgen : Str ;               --
     } ;
 
 invarAdjForms : Str -> AdjForms = \s -> {
     msnom, fsnom, nsnom, msgen, fsgen, msdat,
-    fsdat, fsacc, msins, fsins, mpnom, pgen = s ;
+    fsdat, fsacc, msins, fsins, mpnom, mpgen = s ;
     } ;
 
 -- used in PositA but will also work in Compar and Superl by calling their record fields
@@ -368,7 +368,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       | <Pl,Dat|Loc|Ins, _>      => afs.msins ;
     <Sg, Ins, Fem>               => afs.fsins ;
     <Pl, Nom|Voc, Masc _>        => afs.mpnom ;
-    <Pl, Gen,_>                  => afs.pgen
+    <Pl, Gen,_>                  => afs.mpgen
     }
     } ;
 
@@ -395,7 +395,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       msins   = velk + "im" ;
       fsins   = velk + "om" ;
       mpnom   = velk + "i" ;
-      pgen    = velk + "ih" ;
+      mpgen   = velk + "ih" ;
       } ;
 
   regComparAForms : AdjForms -> AdjForms
