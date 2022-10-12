@@ -40,7 +40,8 @@ ADJ_FORMS = {
          'singular': {
             'nominative': 'msnom',
             'genitive': 'msgen',
-            'dative': 'msdat'
+            'dative': 'msdat',
+            'instrumental': 'msins'
             },
         'plural': {
             'nominative': 'mpnom',
@@ -224,7 +225,7 @@ def print_gf_code(data, i):
         'name': ('PN', 7),
         'noun': ('N', 11),
         'adj': ('A', 13),
-        'verb': ('V', 12)
+        'verb': ('V', 13)
         }    
     pos = data[lemma]['pos']
      

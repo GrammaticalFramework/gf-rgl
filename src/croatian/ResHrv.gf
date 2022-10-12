@@ -439,7 +439,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
      u = case last cita of {
         "a" => "aju" ;
 	"e" => "u" ;
-	"i" => "e"
+	"i" => "e" ;
+	_ => "e" ---- should not happen
         } ;
      cital = init citao + "l" ;
    in table {
