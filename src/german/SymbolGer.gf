@@ -3,10 +3,10 @@
 concrete SymbolGer of Symbol = CatGer ** open Prelude, ResGer in {
 
 lin
-  SymbPN i = {s = \\c => i.s ; g = Neutr} ; --- c
-  IntPN i  = {s = \\c => i.s ; g = Neutr} ; --- c
-  FloatPN i  = {s = \\c => i.s ; g = Neutr} ; --- c
-  NumPN i  = {s = i.s ! Neutr ; g = Neutr} ; --- c
+  SymbPN i = {s = \\c => i.s ; g = Neutr ; n = Sg} ; --- c
+  IntPN i  = {s = \\c => i.s ; g = Neutr ; n = Sg} ; --- c
+  FloatPN i  = {s = \\c => i.s ; g = Neutr ; n = Sg} ; --- c
+  NumPN i  = {s = i.s ! Neutr ; g = Neutr ; n = Sg} ; --- c
 
   CNIntNP cn i = {
     s = \\c => cn.s ! Weak ! Sg ! Nom ++ i.s ;

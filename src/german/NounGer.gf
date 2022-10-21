@@ -28,7 +28,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
     UsePN pn = {
       s = \\c => usePrepC c (\k -> pn.s ! k) ;
-      a = agrgP3 pn.g Sg ;
+      a = agrgP3 pn.g pn.n ;
 --      isLight = True ;  -- means: this is not a heavy NP, but comes before negation
 --      isPron = False ;  -- HL 6/2019: to regulate Pron/NonPronNP order 
       w = WLight ;  

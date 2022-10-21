@@ -127,6 +127,7 @@ mkN : overload {
 
   mkPN : overload {
     mkPN : Str -> PN ; -- regular name with genitive in "s", masculine
+    mkPN : Str -> Number -> PN ; -- regular name with genitive in "s", masculine
     mkPN : Str -> Gender -> PN ; -- regular name with genitive in "s"
 
 -- If only the genitive differs, two strings are needed.
@@ -464,18 +465,19 @@ mkV2 : overload {
   mkN3 = \n,p,q -> n ** {c2 = p ; c3 = q ; lock_N3 = <>} ;
 
   mk2PN = \karolus, karoli, g -> 
-    {s = table {Gen => karoli ; _ => karolus} ; g = g ; lock_PN = <>} ;
+    {s = table {Gen => karoli ; _ => karolus} ; g = g ; n = Sg ; lock_PN = <>} ;
   regPN = \horst, g -> 
     mk2PN horst (ifTok Tok (Predef.dp 1 horst) "s" horst (horst + "s")) g ;
 
   mkPN = overload {
     mkPN : Str -> PN = \s -> regPN s Masc ;
+    mkPN : Str -> Number -> PN = \s,n -> regPN s Masc ** {n=n} ;
     mkPN : Str -> Gender -> PN = regPN ;
-    mkPN : N -> PN = \n -> lin PN {s = n.s ! Sg; g = n.g} ;
+    mkPN : N -> PN = \n -> lin PN {s = n.s ! Sg; g = n.g; n = Sg} ;
     mkPN : (nom,gen : Str) -> Gender -> PN = mk2PN ;
     mkPN : (nom,acc,dat,gen : Str) -> Gender -> PN = \nom,acc,dat,gen,g ->
       {s = table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
-       g = g ; lock_PN = <>} 
+       g = g ; n = Sg ; lock_PN = <>} 
     } ;
 
   mk2PN  : (karolus, karoli : Str) -> Gender -> PN ; -- karolus, karoli
