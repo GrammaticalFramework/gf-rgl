@@ -699,9 +699,15 @@ mkVS = overload {
               <_ + "e",         _ + "en"> => dNukke sydan sydamen ;
               <_ + "ut",        _ + "een"> => dOttanut sydan ;  -- kuollut, kuolleen
               <_ + "ut",        _ + "en"> => dRae sydan sydamen ; -- olut, oluen
-              _ => regSydan  -- TODO: see what cases still fail and if SgGen helps
+              <_,               _ + ":n"> => dSDP sydan ;
+              <_ + #consonant,  _ + #consonant + "in"> => dUnix sydan ;
+              _ => table { -- TODO: see what cases still fail and if SgGen helps
+                1 => sydamen ;
+                x => regSydan ! x }
            }
       } ;
+
+  consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
 
   -- like nForms2, but 2nd argument is Sg Partitive
   nForms2sgPar : (sydan,sydanta : Str) -> NForms = \sydan,sydanta ->
@@ -718,6 +724,7 @@ mkVS = overload {
       -- then we form a full paradigm with a genitive guessed from the SgNom+SgPar
       guessedSydan : NForms = case <sydan,sydanta> of {
         <_ + "i", _ + ("ea"|"eä")> => dArpi sydan oven ;
+        <_ + "e", _ + ("ea"|"eä")> => dNukke sydan (sydan + "n") ;
         <_ + "nsi", _ + "ntt" + ("a"|"ä")> => dArpi sydan kynnen ;
         <_ + ("psi"|"tsi"), _ + ("sta"|"stä")> => dArpi sydan oven ; -- laps|i|->|en|,  veits|i|->|en|
         <_ + "i", _ + ("nta"|"ntä")> => dArpi sydan oven ;
@@ -728,6 +735,8 @@ mkVS = overload {
         <_ + ("us"|"ys"), ("tta"|"ttä")> => dLujuus sydan ; -- can't distinguish between dLujuus and dKaunis from Sg Par only
         <_ + "s"        , ("tta"|"ttä")> => dKaunis sydan ;
         <_ + "t"        , ("tta"|"ttä")> => dRae sydan oven ; -- olu|t| -> |en| — can't distinguish between kuollut and olut
+        <_ + #consonant, _ + #consonant + ("ia"|"iä")> => dUnix sydan ;
+        <_, _ + ":" + ("ta"|"tä"|"aa"|"ää")> => dSDP sydan ;
         _ => nForms1 sydan }
       } ;
 
@@ -758,6 +767,10 @@ mkVS = overload {
         <_ + "s",  _ + "teen"> => dLujuus sydan ;
         <_ + "s",  _ + "seen"> => dKaunis sydan ;
         <_ + "s",  _ + "heen"> => d42 sydan ;
+        <_ + "mpi", _ + ("mpaan"|"mpään")> => dSuurempi sydan ;
+        <_ + #consonant, _ + #consonant + "iin"> => dUnix sydan ;
+        <_, _ + ":" + ("han"|"hen"|"hin"|"hon"|"hun"|"hyn"|"hän"|"hön"|"aan"|"ään")> => dSDP sydan ;
+
         _ => nForms1 sydan }
     } ;
 
