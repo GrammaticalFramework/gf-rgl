@@ -46,6 +46,8 @@ lincat
   Sub100 = {s : CardOrd => Placement => Str ; n : Number} ;
   Sub1000 = {s : CardOrd => Placement => Str ; n : Number} ;
   Sub1000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => Str ; n : Number} ;
 
 lin num x0 = x0 ;
 
@@ -138,6 +140,9 @@ lin pot3 n =
 lin pot3plus n m =
   {s = \\g => (n.s ! NCard Masc !  attr) ++  "mille" ++ m.s ! g ! postpo ; n =
   Pl} ;
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 oper hyphen = BIND ++ "-" ++ BIND ;
 

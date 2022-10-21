@@ -21,6 +21,8 @@ lincat Sub10 = LinDigit ;
 lincat Sub100 = LinNumeral ;
 lincat Sub1000 = LinNumeral ;
 lincat Sub1000000 = LinNumeral ;
+lincat Sub1000000000 = LinNumeral ;
+lincat Sub1000000000000 = LinNumeral ;
 
 oper mkNum : Determiner -> Str -> Str -> Str -> LinDigit = 
   \dva, dvanast, dvadsat, dveste -> {
@@ -84,6 +86,9 @@ lin pot3plus n m = {
   s = (invarNumeral (mkTh (determinerStr n) n.size ++ determinerStr m)).s ;  ---- TODO inflection?
   size = tfSize m.size
   } ;
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 oper tfSize : NumSize -> NumSize = \sz -> 
   table {Num1 => Num5 ; other => other} ! sz ; 

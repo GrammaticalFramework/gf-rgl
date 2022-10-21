@@ -4,7 +4,7 @@ concrete NumeralSwe of Numeral = CatSwe [Numeral,Digits] ** open ResSwe, MorphoS
 lincat 
   Digit = {s : DForm => CardOrd => Str} ;
   Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
-  Sub100, Sub1000, Sub1000000 = 
+  Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000 = 
           {s :          CardOrd => Str ; n : Number} ;
 
 lin 
@@ -27,24 +27,47 @@ lin
     n = Sg
     } ;
   pot0 d = {s = \\f,g => d.s ! f ! g ; n = Pl} ;
+  pot0as1 n = {s = n.s ! ental ; n = n.n} ;
+
   pot110 = numPl (cardReg "tio") ;
   pot111 = numPl (cardOrd "elva" "elfte") ;
   pot1to19 d = numPl (d.s ! ton) ;
-  pot0as1 n = {s = n.s ! ental ; n = n.n} ;
   pot1 d = numPl (d.s ! tiotal) ;
   pot1plus d e = {s = \\g => d.s ! tiotal ! invNum ++ BIND ++ e.s ! ental ! g ; n = Pl} ;
   pot1as2 n = n ;
+
+  pot21 = numPl (cardOrd "hundra" "hundrade") ;
   pot2 d = 
     numPl (\\g => d.s ! ental ! invNum ++ BIND ++ cardOrd "hundra" "hundrade" ! g) ;
   pot2plus d e = 
     {s = \\g => d.s ! ental ! invNum ++ BIND ++ "hundra" ++ e.s ! g ; n = Pl} ;
   pot2as3 n = n ;
+
+  pot31 = numPl (cardOrd "tusen" "tusende") ;
   pot3 n = 
     numPl (\\g => n.s ! invNum ++ cardOrd "tusen" "tusende" ! g) ;
   pot3plus n m = 
     {s = \\g => n.s ! invNum ++ BIND ++ "tusen" ++ m.s ! g ; n = Pl} ;
+  pot3as4 n = n ;
 
-  lincat 
+  pot41 = numPl (cardOrd "miljon" "miljonde") ;
+  pot4 n =
+    numPl (\\g => n.s ! NCard Utr ++ cardOrd "miljon" "miljonde" ! g) ;
+  pot4plus n m =
+    {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljon" ++ m.s ! g ; n = Pl} ;
+  pot4as5 n = n ;
+  pot4float f = 
+    numPl (\\g => f.s ++ cardOrd "miljoner" "miljonde" ! g) ;
+
+  pot51 = numPl (cardOrd "miljard" "miljarde") ;
+  pot5 n =
+    numPl (\\g => n.s ! NCard Utr ++ cardOrd "miljard" "miljarde" ! g) ;
+  pot5plus n m =
+    {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljard" ++ m.s ! g ; n = Pl} ;
+  pot5float f = 
+    numPl (\\g => f.s ++ cardOrd "miljarder" "miljarde" ! g) ;
+
+  lincat
     Dig = TDigit ;
 
   lin

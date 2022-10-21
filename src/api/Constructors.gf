@@ -121,9 +121,9 @@ incomplete resource Constructors = open Grammar in {  --%
       mkText : QS  ->  Text    -- Did she sleep?
         = \q -> TQuestMark (PhrUtt NoPConj (UttQS q) NoVoc) TEmpty ;  --%
       mkText : (Pol) -> Imp ->  Text    -- Don't sleep!
-        = \p,i -> TExclMark (PhrUtt NoPConj (UttImpSg p i) NoVoc) TEmpty; --%
+        = \p,i -> TExclMark (PhrUtt NoPConj (UttImpSg p i) NoVoc) TEmpty ; --%
       mkText : Imp ->  Text    -- Sleep! --%
-        = \i -> TExclMark (PhrUtt NoPConj (UttImpSg PPos i) NoVoc) TEmpty; --%
+        = \i -> TExclMark (PhrUtt NoPConj (UttImpSg PPos i) NoVoc) TEmpty ; --%
 
 -- Finally, two texts can be combined into a text.
 
@@ -374,11 +374,11 @@ incomplete resource Constructors = open Grammar in {  --%
     mkCl = overload {
 
       mkCl : NP -> V -> Cl                -- she sleeps
-      = \s,v -> PredVP s (UseV v); --%
+      = \s,v -> PredVP s (UseV v) ; --%
       mkCl : NP -> V2 -> NP -> Cl         -- she loves him
-      = \s,v,o -> PredVP s (ComplV2 v o); --%
+      = \s,v,o -> PredVP s (ComplV2 v o) ; --%
       mkCl : NP -> V3 -> NP -> NP -> Cl   -- she sends it to him
-      = \s,v,o,i -> PredVP s (ComplV3 v o i); --%
+      = \s,v,o,i -> PredVP s (ComplV3 v o i) ; --%
       mkCl : NP  -> VV -> VP -> Cl        -- she wants to sleep
         = \s,v,vp -> PredVP s (ComplVV v vp) ; --%
       mkCl : NP  -> VS -> S  -> Cl        -- she says that she sleeps
@@ -1006,9 +1006,9 @@ incomplete resource Constructors = open Grammar in {  --%
 
 
       mkCN :  A ->  N  -> CN     -- big house
-      = \x,y -> AdjCN (PositA x) (UseN y); --%
+      = \x,y -> AdjCN (PositA x) (UseN y) ; --%
       mkCN :  A -> CN  -> CN     -- big blue house
-      = \x,y -> AdjCN (PositA x) y; --%
+      = \x,y -> AdjCN (PositA x) y ; --%
       mkCN : AP ->  N  -> CN     -- very big house
       = \x,y -> AdjCN x (UseN y) ; --%
       mkCN : AP -> CN  -> CN     -- very big blue house
@@ -1211,11 +1211,11 @@ incomplete resource Constructors = open Grammar in {  --%
       mkQCl : IP -> VP -> QCl               -- who sleeps  --:
       = QuestVP ; --%
       mkQCl : IP -> V -> QCl                -- who sleeps
-      = \s,v -> QuestVP s (UseV v); --%
+      = \s,v -> QuestVP s (UseV v) ; --%
       mkQCl : IP -> V2 -> NP -> QCl         -- who loves her
-      = \s,v,o -> QuestVP s (ComplV2 v o); --%
+      = \s,v,o -> QuestVP s (ComplV2 v o) ; --%
       mkQCl : IP -> V3 -> NP -> NP -> QCl   -- who sends it to her
-      = \s,v,o,i -> QuestVP s (ComplV3 v o i); --%
+      = \s,v,o,i -> QuestVP s (ComplV3 v o i) ; --%
       mkQCl : IP  -> VV -> VP -> QCl        -- who wants to sleep
         = \s,v,vp -> QuestVP s (ComplVV v vp) ; --%
       mkQCl : IP  -> VS -> S  -> QCl        -- who says that she sleeps
@@ -1408,11 +1408,11 @@ incomplete resource Constructors = open Grammar in {  --%
       = RelVP     ; --%
 
       mkRCl : RP -> V -> RCl                -- who sleeps
-      = \s,v -> RelVP s (UseV v); --%
+      = \s,v -> RelVP s (UseV v) ; --%
       mkRCl : RP -> V2 -> NP -> RCl         -- who loves her
-      = \s,v,o -> RelVP s (ComplV2 v o); --%
+      = \s,v,o -> RelVP s (ComplV2 v o) ; --%
       mkRCl : RP -> V3 -> NP -> NP -> RCl   -- who sends it to her
-      = \s,v,o,i -> RelVP s (ComplV3 v o i); --%
+      = \s,v,o,i -> RelVP s (ComplV3 v o i) ; --%
       mkRCl : RP  -> VV -> VP -> RCl        -- who wants to sleep
         = \s,v,vp -> RelVP s (ComplVV v vp) ; --%
       mkRCl : RP  -> VS -> S  -> RCl        -- who says that she sleeps
