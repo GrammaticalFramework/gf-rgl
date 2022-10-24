@@ -512,6 +512,8 @@ mkVS = overload {
   -- When we have access to the some other form than plural partitive, e.g. from some dump of lemmatised nouns
   mk2NsgGen : (talo,talon : Str) -> N =
     \sgnom,sggen -> lin N (nforms2snoun (nForms2sgGen sgnom sggen)) ;
+  mk2NplGen : (talo,talojen : Str) -> N =
+    \sgnom,plgen -> lin N (nforms2snoun (nForms2plGen sgnom plgen)) ;
   mk2NsgPar : (talo,taloa : Str) -> N =
     \sgnom,sgpar -> lin N (nforms2snoun (nForms2sgPar sgnom sgpar)) ;
   mk2NsgIll : (talo,taloon : Str) -> N =
@@ -708,6 +710,31 @@ mkVS = overload {
       } ;
 
   consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
+
+  -- like nForms2, but 2nd argument is Pl Genitive
+  nForms2plGen : (sydan,sydanten : Str) -> NForms = \sydan,sydanten ->
+    table {
+      5 => sydanten ; -- insert the given Sg Par form in the table
+      n => guessedSydan ! n} -- otherwise, use the guessed forms
+    where {
+      a : Str = case guessHarmony sydan of {
+        Back => "a" ; Front => "ä" } ;
+      sydamia : Str = case <sydan,sydanten> of {
+        <_ + "n",    syda + "nten">   => syda + "mi" + a ;
+        <_ + "r",    sisa + "rten">   => sisa + "ri" + a ;
+        <_ + "l",    omme + "lten">   => strongGrade omme + "li" + a ; -- very ad hoc
+        <lap + "si", la + "sten">     => lap + "si" + a ; -- veit + si + ä
+        <_ + "i",    pien + "ten">    => pien + "i" + a ;
+        <_ + "nen",  nai + "sten">    => nai + "si" + a ;
+        <_ + "s",    vastau + "sten"> => vastau + "ksi" + a ;
+        <_ + "mpi",  vanhe + "mpien"> => vanhe + "mpi" + a ;
+        <_ + "i",    rist + "ien">    => rist + "ej" + a ; -- no way to distinguish between ovi and risti here; choosing risti because it's more common
+        <_, kalleuks + "ien">         => kalleuks + "i" + a ;
+        <_, valtioi + ("den"|"tten")> => valtioi + "t" + a ;
+        <_, palvelu + "jen">          => palvelu + "j" + a ;
+        _ => Predef.error ("nForms2plGen: Expected Pl Gen, got" ++ sydanten) } ;
+      guessedSydan : NForms = nForms2 sydan sydamia ;
+    } ;
 
   -- like nForms2, but 2nd argument is Sg Partitive
   nForms2sgPar : (sydan,sydanta : Str) -> NForms = \sydan,sydanta ->
