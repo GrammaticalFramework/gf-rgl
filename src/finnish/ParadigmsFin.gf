@@ -765,7 +765,6 @@ mkVS = overload {
         <_ + "s",  _ + "kseen"> => dJalas sydan ; -- Sg Ill can distinguish between jalas, lujuus, kahdeksas, kaunis and mies
         <_ + "s",  _ + "nteen"> => d45 sydan ;
         <_ + "s",  _ + "teen"> => dLujuus sydan ;
-        <_ + "s",  _ + "seen"> => dKaunis sydan ;
         <_ + "s",  _ + "heen"> => d42 sydan ;
         <_ + "mpi", _ + ("mpaan"|"mpään")> => dSuurempi sydan ;
         <_ + #consonant, _ + #consonant + "iin"> => dUnix sydan ;
