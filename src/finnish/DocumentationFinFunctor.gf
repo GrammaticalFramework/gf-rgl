@@ -30,6 +30,12 @@ lin
     s1 = heading1 (heading noun_Category) ;
     s2 = inflNoun (\nf -> (snoun2nounSep noun).s ! nf)
     } ;
+    
+  InflectionPN = \pn -> {
+    t  = "s" ;
+    s1 = heading1 (heading noun_Category) ;
+    s2 = inflPN (\c -> pn.s ! c)
+    } ;
 
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
@@ -288,6 +294,22 @@ oper
           tr (th (heading abessive_Parameter) ++ td (nouns (NCase Sg Abess)) ++ td (nouns (NCase Pl Abess))) ++
           tr (th (heading comitative_Parameter)  ++ td "" ++ td (nouns (NComit))) ++
           tr (th (heading instructive_Parameter) ++ td "" ++ td (nouns (NInstruct)))
+          ) ;
+	  
+  inflPN : (Case -> Str) -> Str = \nouns ->
+    frameTable (
+          tr (th (heading nominative_Parameter) ++ td (nouns (Nom))) ++ 
+          tr (th (heading genitive_Parameter) ++ td (nouns (Gen))) ++ 
+          tr (th (heading partitive_Parameter) ++ td (nouns (Part))) ++ 
+          tr (th (heading translative_Parameter) ++ td (nouns (Transl))) ++ 
+          tr (th (heading essive_Parameter) ++ td (nouns (Ess))) ++ 
+          tr (th (heading inessive_Parameter) ++ td (nouns (Iness))) ++ 
+          tr (th (heading elative_Parameter) ++ td (nouns (Elat))) ++ 
+          tr (th (heading illative_Parameter) ++ td (nouns (Illat))) ++ 
+          tr (th (heading adessive_Parameter) ++ td (nouns (Adess))) ++ 
+          tr (th (heading ablative_Parameter) ++ td (nouns (Ablat))) ++ 
+          tr (th (heading allative_Parameter) ++ td (nouns (Allat))) ++ 
+          tr (th (heading abessive_Parameter) ++ td (nouns (Abess))) 
           ) ;
 
 lin
