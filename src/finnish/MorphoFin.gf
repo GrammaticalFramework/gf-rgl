@@ -320,6 +320,16 @@ resource MorphoFin = ResFin ** open Prelude in {
           <"n","tä","nä","hön","iden","itä","inä","issä","ihin"> ;
       "Y" =>
           <"n","tä","nä","hyn","iden","itä","inä","issä","ihin"> ;
+      "1" | "5" =>
+          <"n","tä","nä","een","ien","iä","inä","issä","iin"> ;
+      "2" | "6" =>
+          <"n","ta","na","een","ien","ia","ina","issa","iin"> ;
+      "4" | "7" | "9" =>
+          <"n","ää","nä","ään","ien","iä","inä","issä","iin"> ;
+      "3" =>
+          <"n","a","na","een","ien","ia","ina","issa","iin"> ;
+      "0" | "8" =>
+          <"n","aa","na","aan","ien","ia","ina","issa","iin"> ;
       _ => Predef.error (["illegal abbreviation"] ++ errorMsg) } ;
 
 
