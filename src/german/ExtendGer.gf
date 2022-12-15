@@ -140,5 +140,11 @@ lin
       (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! NPC c ;
     n = Pl
     } ;
-  
+
+lin GivenName, Surname = \n -> n ** { n = Sg } ;
+lin FullName gn sn = {
+       s = \\c => gn.s ! Nom ++ sn.s ! c ;
+       g = gn.g ;
+       n = Sg
+    } ;
 }

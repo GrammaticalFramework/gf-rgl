@@ -37,6 +37,18 @@ lin
     s2 = inflPN (\c -> pn.s ! c)
     } ;
 
+  InflectionGN = \pn -> {
+    t  = "s" ;
+    s1 = heading1 "Etunimi" ;
+    s2 = inflPN (\c -> pn.s ! c)
+    } ;
+
+  InflectionSN = \pn -> {
+    t  = "s" ;
+    s1 = heading1 "Sukunimi" ;
+    s2 = inflPN (\c -> pn.s ! c)
+    } ;
+
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 (heading adjective_Category) ;

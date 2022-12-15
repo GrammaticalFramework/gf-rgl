@@ -57,5 +57,12 @@ lin
   youPolPl_Pron  = youPol_Pron ;
   youPolPlFem_Pron = youPlFem_Pron ;
 
+lin GivenName, Surname = \n -> n ** {n = Sg} ;
+lin FullName gn sn = {
+       s = \\c => gn.s ! Nom ++ sn.s ! c ;
+       g = gn.g ;
+       n = Sg
+    } ;
+
 }
 

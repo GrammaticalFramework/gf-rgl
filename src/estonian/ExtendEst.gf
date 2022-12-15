@@ -437,4 +437,9 @@ concrete ExtendEst of Extend =
     WithoutVP vp = {s = "ilma" ++ infVPdefault vp InfMata} ;
 
 
+lin GivenName, Surname = \n -> n ;
+lin FullName gn sn = {
+       s = \\c => gn.s ! Nom ++ sn.s ! c
+    } ;
+
 }

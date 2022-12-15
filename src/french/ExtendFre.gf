@@ -38,6 +38,10 @@ lin
 oper
   de_Quant : Quant = IndefArt ** {s = \\_,_,_,_ => elisDe} ;
 
+lin GivenName, Surname = \n -> n ;
+lin FullName gn sn = {
+       s = gn.s ++ sn.s ;
+       g = gn.g
+    } ;
 
-
-    }
+}

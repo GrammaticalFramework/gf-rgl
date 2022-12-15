@@ -44,6 +44,30 @@ lin
            )
      } ;
 
+  InflectionGN = \pn -> {
+    t  = "fnm" ;
+    s1 = heading1 ("Förnamn" ++ case pn.g of {
+                                  Utr   => "(utr)" ;
+                                  Neutr => "(neutr)"
+                                }) ;
+    s2 = frameTable (
+           tr (th "nom" ++ td (pn.s ! Nom)) ++
+           tr (th "gen" ++ td (pn.s ! Gen))
+           )
+     } ;
+
+  InflectionSN = \pn -> {
+    t  = "enm" ;
+    s1 = heading1 ("Efternamn" ++ case pn.g of {
+                                    Utr   => "(utr)" ;
+                                    Neutr => "(neutr)"
+                                  }) ;
+    s2 = frameTable (
+           tr (th "nom" ++ td (pn.s ! Nom)) ++
+           tr (th "gen" ++ td (pn.s ! Gen))
+           )
+     } ;
+
   InflectionA, InflectionA2 = \adj -> { 
     t  = "a" ;
     s1 = heading1 "Adjektiv" ;

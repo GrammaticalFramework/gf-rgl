@@ -92,6 +92,30 @@ lin
     s3 = ""
     } ;
 
+  InflectionGN = \pn -> {
+    t = "същ.с.л." ;
+    s1= heading1 ("Собствено Име"++
+                  case pn.g of {
+                    Masc => "(м.р.)" ;
+                    Fem  => "(ж.р.)" ;
+                    Neut => "(ср.р.)"
+                  }) ;
+    s2 = pn.s ;
+    s3 = ""
+    } ;
+
+  InflectionSN = \pn -> {
+    t = "същ.с.ф." ;
+    s1= heading1 ("Фамилно Име"++
+                  case pn.g of {
+                    Masc => "(м.р.)" ;
+                    Fem  => "(ж.р.)" ;
+                    Neut => "(ср.р.)"
+                  }) ;
+    s2 = pn.s ;
+    s3 = ""
+    } ;
+
   InflectionA, InflectionA2 = \a -> {
     t = "пр" ;
     s1= heading1 ("Прилагателно") ;

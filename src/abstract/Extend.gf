@@ -292,4 +292,8 @@ cat X ; -- for words that are difficult to classify, mainly for MorphoDict
 fun
   CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
 
+  GivenName : GN -> PN ;
+  Surname   : SN -> PN ;
+  FullName  : GN -> SN -> PN ;
+
 }

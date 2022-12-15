@@ -28,6 +28,18 @@ lin
     s2 = paragraph (pn.s ! NPNom)
     } ;
 
+  InflectionGN = \pn -> {
+    t  = "vnm" ;
+    s1 = heading1 "Voornaam" ;
+    s2 = paragraph (pn.s ! NPNom)
+    } ;
+
+  InflectionSN = \pn -> {
+    t  = "van" ;
+    s1 = heading1 "Van" ;
+    s2 = paragraph (pn.s ! NPNom)
+    } ;
+
   InflectionA, InflectionA2 = \adj ->
     let
       gforms : AForm -> Str = \a ->

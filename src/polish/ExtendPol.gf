@@ -37,4 +37,13 @@ oper
     p = P3        
   };
 
+lin GivenName, Surname = \n -> n ;
+lin FullName gn sn = {
+       nom = gn.nom ++ sn.nom ;
+       voc = gn.nom ++ sn.voc ;
+       dep = \\c => gn.nom ++ sn.dep ! c ;
+       gn = gn.gn ;
+       p  = gn.p
+    } ;
+
 }

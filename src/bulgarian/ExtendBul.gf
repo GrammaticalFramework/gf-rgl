@@ -300,5 +300,14 @@ lin UseDAP dap = {
       p  = NounP3 dap.p
       } ;
 
+lin GivenName, Surname = \n -> {
+       s  = n.s ;
+       gn = GSg n.g
+    } ;
+lin FullName gn sn = {
+       s  = gn.s ++ sn.s ; 
+       gn = GSg gn.g
+    } ;
+
 }
 

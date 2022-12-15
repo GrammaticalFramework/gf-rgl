@@ -71,6 +71,6 @@ concrete CatTha of Cat = CommonX ** open ResTha, Prelude in {
     N = ResTha.Noun ;
     N2 = ResTha.Noun ** {c2 : Str} ;
     N3 = ResTha.Noun ** {c2,c3 : Str} ;
-    PN = ResTha.NP ;
+    GN, SN, PN = ResTha.NP ;
 
 }

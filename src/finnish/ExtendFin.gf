@@ -240,4 +240,11 @@ lin CardCNCard card cn = {
 lin UttAccNP np = {s = P.addNegation np.isNeg ++ np.s ! NPAcc} ;
 lin AdjAsCN ap = {s = ap.s ! True ; postmod = \\_ => ap.p ; h = Back} ; ---- Harmony just a guess
 lin AdjAsNP ap = MassNP (AdjAsCN ap) ;
+
+lin GivenName, Surname = \n -> n ;
+lin FullName gn sn = {
+       s = \\c => gn.s ! Nom ++ sn.s ! c
+    } ;
+
+
 }
