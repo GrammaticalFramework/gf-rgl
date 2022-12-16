@@ -48,11 +48,12 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     VP = {
       s : CType => Agr => Polarity => BasicTense => Bool => Str ; -- TODO: mood
       imp_s : Number => Polarity => Str ;
+      inf_s : NForm => Polarity => Str ;
       -- oc : Str ;
       comp : Str ;
       iadv : Str ;
       advs : Str ;
-      hasComp : Bool ;
+      hasComp : Bool ; -- indicates whether to use long form
       r : RInit ;
       syl : Syl ;
       -- asp : Aspect ;

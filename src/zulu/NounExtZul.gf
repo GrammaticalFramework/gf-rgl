@@ -170,34 +170,34 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     -- not built to work for copulative VPs for now (specifically for agreement)
     Deverb15 pol vp =
       let
-        agr = Third C15 Sg ;
-        v = vp.s!MainCl!(Third C15 Sg)!pol.p!PresTense!False
+        agr = Third C15 Sg
       in
       {
-        s = table {
-          NFull => case <pol.p,vp.r> of {
-            <Neg,_ > => "uku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,RC> => "uku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,(RA|RE)> => "ukw"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,_> => "uk"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
-          } ;
-          NReduced => case <pol.p,vp.r> of {
-            <Neg,_ > => "ku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,RC> => "ku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,(RA|RE)> => "kw"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,_> => "k"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
-          } ;
-          NPoss => case <pol.p,vp.r> of {
-            <Neg,_ > => "ku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,RC> => "ku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,(RA|RE)> => "kw"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,_> => "k"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
-          } ;
-          NLoc => case <pol.p,vp.r> of {
-            <Neg,_ > => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s ;
-            <_,_> => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++v ++ vp.comp ++ vp.advs ++ vp.iadv ++ pol.s
-          }
-        } ;
+        s = \\nform => vp.inf_s!nform!pol.p ++ pol.s ;
+        -- s = table {
+        --   NFull => case <pol.p,vp.r> of {
+        --     <Neg,_ > => "uku"++BIND++"nga"++BIND++v.s!R_i ;
+        --     <_,RC> => "uku"++BIND++v.s!R_a ;
+        --     <_,(RA|RE)> => "ukw"++BIND++v.s!R_a ;
+        --     <_,_> => "uk"++BIND++v.s!R_a
+        --   } ;
+        --   NReduced => case <pol.p,vp.r> of {
+        --     <Neg,_ > => "ku"++BIND++"nga"++BIND++v.s!R_i ;
+        --     <_,RC> => "ku"++BIND++v.s!R_a ;
+        --     <_,(RA|RE)> => "kw"++BIND++v.s!R_a ;
+        --     <_,_> => "k"++BIND++v.s!R_a
+        --   } ;
+        --   NPoss => case <pol.p,vp.r> of {
+        --     <Neg,_ > => "ku"++BIND++"nga"++BIND++v.s!R_i ;
+        --     <_,RC> => "ku"++BIND++v.s!R_a ;
+        --     <_,(RA|RE)> => "kw"++BIND++v.s!R_a ;
+        --     <_,_> => "k"++BIND++v.s!R_a
+        --   } ;
+        --   NLoc => case <pol.p,vp.r> of {
+        --     <Neg,_ > => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++v.s!R_i ;
+        --     <_,_> => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++v.s!R_a
+        --   }
+        -- } ;
         agr = agr ;
         i = RU ;
         proDrop = False ;
@@ -296,6 +296,24 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         Pl => table {
           Pos => "yibani" ++ "s"++BIND++ locadv.s ;
           Neg => "ningabi" ++ "s"++BIND++ locadv.s
+        }
+      } ;
+      -- inf_s = table {
+      --   Pos => "ukuba" ++ "s"++BIND++ locadv.s ;
+      --   Neg => "ukungabi" ++ "s"++BIND++ locadv.s
+      -- } ;
+      inf_s = table {
+        NFull => table {
+          Pos => "ukuba" ++ "s"++BIND++ locadv.s ;
+          Neg => "ukungabi" ++ "s"++BIND++ locadv.s
+        } ;
+        NReduced | NPoss => table {
+          Pos => "kuba" ++ "s"++BIND++ locadv.s ;
+          Neg => "kungabi" ++ "s"++BIND++ locadv.s
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "s"++BIND++ locadv.s ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "s"++BIND++ locadv.s
         }
       }
     } ;

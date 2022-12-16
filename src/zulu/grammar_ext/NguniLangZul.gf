@@ -5,6 +5,7 @@ concrete NguniLangZul of NguniLang =
   BackwardZul[ComplV2,ComplV3],
   ExtraExtZul,
   NounExtZul,
+  RelativeExtZul,
   VerbExtZul,
   PhraseExtZul
   -- MonoLexZul,

@@ -19,7 +19,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           False => True
         }
       in {
-        s = \\p,t => np.s!NFull ++ (verb_prefix vp p t np.agr) ++ vp.s!MainCl!np.agr!p!t!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        s = \\p,t => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
       } ;
       _ => cl_with_verb_predicate np vp
     } ;
@@ -183,42 +183,42 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           }
         in
           subj
-          ++ (verb_prefix vp p t np.agr)
+          -- ++ (verb_prefix vp p t np.agr)
           ++ vp.s!MainCl!np.agr!p!t!longform_suffix
           ++ vp.iadv
           ++ vp.comp
           ++ vp.advs
     } ;
 
-    verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
-      let
-        lfya = case <vp.hasComp,p,t,vp.r> of {
-          <False,Pos,PresTense,RC> => "ya" ++BIND ;
-          <False,Pos,PresTense,_> => "y" ++BIND ;
-          <_,_,_> => []
-        } ;
-        -- vow = case <vp.hasComp,vp.r,p,t> of {
-        vow = case <vp.hasComp,p,t,vp.r> of {
-          <False,Pos,PresTense,RC> => False ; -- force the compiler to understand the table
-          <False,Pos,PresTense,_> => False ; -- long form ya
-
-          <_,_,PresTense,RC> => False ;
-          <_,_,PresTense,_> => True ;
-          <_,_,PastTense,RC> => False ;
-          <_,_,PastTense,_> => True ;
-          <_,_,RemPastTense,RC> => False ;
-          <_,_,RemPastTense,_> => True ;
-          <_,_,_,_> => False
-        } ;
-        vform = VFIndic MainCl p t
-      in
-          (negPref vform)
-       -- ++ (exclSePref vform_main)
-       ++ (subjConc vform agr vow)
-       -- ++ (negPref2 vform_main)
-       ++ lfya
-       -- ++ (tensePref vform)
-    ;
+    -- verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
+    --   let
+    --     lfya = case <vp.hasComp,p,t,vp.r> of {
+    --       <False,Pos,PresTense,RC> => "ya" ++BIND ;
+    --       <False,Pos,PresTense,_> => "y" ++BIND ;
+    --       <_,_,_> => []
+    --     } ;
+    --     -- vow = case <vp.hasComp,vp.r,p,t> of {
+    --     vow = case <vp.hasComp,p,t,vp.r> of {
+    --       <False,Pos,PresTense,RC> => False ; -- force the compiler to understand the table
+    --       <False,Pos,PresTense,_> => False ; -- long form ya
+    --
+    --       <_,_,PresTense,RC> => False ;
+    --       <_,_,PresTense,_> => True ;
+    --       <_,_,PastTense,RC> => False ;
+    --       <_,_,PastTense,_> => True ;
+    --       <_,_,RemPastTense,RC> => False ;
+    --       <_,_,RemPastTense,_> => True ;
+    --       <_,_,_,_> => False
+    --     } ;
+    --     vform = VFIndic MainCl p t
+    --   in
+    --       (negPref vform)
+    --    -- ++ (exclSePref vform_main)
+    --    ++ (subjConc vform agr vow)
+    --    -- ++ (negPref2 vform_main)
+    --    ++ lfya
+    --    -- ++ (tensePref vform)
+    -- ;
 
     -- TODO: aspect
     cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {

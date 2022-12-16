@@ -108,7 +108,7 @@ oper
     mkV : (hamb : Str) -> V  = \hamb -> lin V (regVerb hamb) ;
     mkV : (th,thi : Str) -> V  = \th,thi -> lin V (th_Verb th thi) ;
     mkV : (guqubal,guqubala,guqubele : Str) -> V = \guqubal,guqubala,guqubele -> lin V (three_Verb guqubal guqubala guqubele) ;
-    mkV : (guqubal,guqubala,guqubele,guqubele_2 : Str) -> V = \guqubal,guqubala,guqubele,guqubele_2 -> lin V (four_Verb guqubal guqubala guqubele guqubele_2) ;
+    mkV : (dlal,dlala,dlalile,dlale : Str) -> V = \dlal,dlala,dlalile,dlale -> lin V (four_Verb dlal dlala dlalile dlale) ;
   } ;
 
   passV = overload {

@@ -6,7 +6,7 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
   lincat
     Chunks = {s : Str} ;
     Chunk = {s : Str};
-    Chunk_Phr, Chunk_AP, Chunk_Adv, Chunk_Imp, Chunk_S, Chunk_RS, Chunk_QS, Chunk_VP, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
+    Chunk_Phr, Chunk_AP, Chunk_Adv, Chunk_Imp, Chunk_S, Chunk_RS, Chunk_QS, Chunk_VP, Chunk_V, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
 
     VC = V ;
 
@@ -22,6 +22,7 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     RS_Chunker c = c ;
     QS_Chunker c = c ;
     VP_Chunker c = c ;
+    V_Chunker c = c ;
     CN_Chunker c = c ;
     NP_Chunker c = c ;
     N_Chunker c = c ;
@@ -41,6 +42,9 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     } ;
     VP_Rel_Chunk temp pol pron vp = {
       s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!False
+    } ;
+    V_Chunk v = {
+      s = variants { v.s!R_a ; v.s!R_ile ; v.s!R_e ; v.s!R_i ; v.s!R_anga }
     } ;
     CN_Sg_Chunk cn = {
       s = cn.s!Sg!NFull

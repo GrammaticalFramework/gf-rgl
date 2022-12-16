@@ -74,13 +74,6 @@ abstract ExtraExt =
     -- painful_RelStem : RelStem ;
     -- sharp_RelStem : RelStem ;
 
-    -- TPerfPast : Temp ;
-    -- TPastPast : Temp ;
-    -- TPresPres : Temp ;
-    -- TPastPres : Temp ;
-    -- TPastPerf : Temp ;
-    -- TPerfPerf : Temp ;
-
     -- PredNP : NP -> Cl ;
     -- IAdvQS : NP -> INAdv -> QS ; -- where is the wine? iwayini liphi?
     -- IAdvQCl : NP -> INAdv -> QCl ; -- where is the wine? iwayini liphi?
@@ -138,6 +131,7 @@ abstract ExtraExt =
     ngemuva_LocAdv : LocAdv ;
     emuva_LocAdv : LocAdv ;
     ecaleni_LocAdv : LocAdv ;
+    ngaphezu_LocAdv : LocAdv ;
 
     lapha_Loc : Loc ;
     khona_Loc : Loc ;

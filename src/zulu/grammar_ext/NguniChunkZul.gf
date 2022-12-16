@@ -5,6 +5,7 @@ concrete NguniChunkZul of NguniChunk =
   BackwardZul[ComplV2,ComplV3],
   ExtraExtZul,
   NounExtZul,
+  RelativeExtZul,
   VerbExtZul,
   PhraseExtZul,
   -- MonoLexZul,

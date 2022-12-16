@@ -272,7 +272,10 @@ concrete ExtraExtZul of ExtraExt =
     } ;
 
     NPAdv np = {
-      s = np.s!NFull ;
+      s = case np.proDrop of {
+        False => np.s!NFull ;
+        True => "*" ++ np.s!NFull
+      } ;
       reqLocS = False
     } ;
 
@@ -577,9 +580,11 @@ concrete ExtraExtZul of ExtraExt =
     phakade_LocN = { s = "phakade" ; empty = [] } ;
     phezulu_LocN = { s = "phezulu" ; empty = [] } ;
 
+
     ngemuva_LocAdv = { s = "ngemuva" ; reqLocS = False } ;
     emuva_LocAdv = { s = "emuva" ; reqLocS = False } ;
     ecaleni_LocAdv = { s = "ecaleni" ; reqLocS = False } ;
+    ngaphezu_LocAdv = { s = "ngaphezu" ; reqLocS = False } ;
 
     lapha_Loc = {
       s = table {
@@ -612,6 +617,20 @@ concrete ExtraExtZul of ExtraExt =
           Pos => "yibani" ++ "lapha" ;
           Neg => "ningabi" ++ "lapha"
         }
+      } ;
+      inf_s = table {
+        NFull => table {
+          Pos => "ukuba" ++ "lapha" ;
+          Neg => "ukungabi" ++ "lapha"
+        } ;
+        NReduced | NPoss => table {
+          Pos => "kuba" ++ "lapha" ;
+          Neg => "kungabi" ++ "lapha"
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "lapha" ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "lapha"
+        }
       }
     } ;
 
@@ -625,6 +644,20 @@ concrete ExtraExtZul of ExtraExt =
         Pl => table {
           Pos => "yibani" ++ "khona" ;
           Neg => "ningabi" ++ "khona"
+        }
+      } ;
+      inf_s = table {
+        NFull => table {
+          Pos => "ukuba" ++ "khona" ;
+          Neg => "ukungabi" ++ "khona"
+        } ;
+        NReduced | NPoss => table {
+          Pos => "kuba" ++ "khona" ;
+          Neg => "kungabi" ++ "khona"
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "khona" ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "khona"
         }
       }
     } ;

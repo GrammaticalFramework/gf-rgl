@@ -11,6 +11,7 @@ cat
   Chunk_RS ;
   Chunk_QS ;
   Chunk_VP ;
+  Chunk_V ;
   Chunk_CN ;
   Chunk_NP ;
   Chunk_N ;
@@ -32,6 +33,7 @@ fun
   RS_Chunker : Chunk_RS -> Chunk ;
   QS_Chunker : Chunk_QS -> Chunk ;
   VP_Chunker : Chunk_VP -> Chunk ;
+  V_Chunker : Chunk_V -> Chunk ; -- wordnet
   CN_Chunker : Chunk_CN -> Chunk ;
   NP_Chunker : Chunk_NP -> Chunk ;
   N_Chunker : Chunk_N -> Chunk ;
@@ -48,6 +50,7 @@ fun
   QS_Chunk     : QS  -> Chunk_QS ;
   VP_RelYo_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
   VP_Rel_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
+  V_Chunk : V -> Chunk_V ;
   CN_Pl_Chunk  : CN -> Chunk_CN ;
   CN_Sg_Chunk  : CN -> Chunk_CN ;
   NP_Nom_Chunk : NP -> Chunk_NP ;

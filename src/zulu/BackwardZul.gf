@@ -20,6 +20,8 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       s = table {
         MainCl => \\a,p,t,l => let
           vform = (VFIndic MainCl p t) ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.r a ;
+          vpref_with_oc = verb_prefix_with_oc vform l a ;
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           -- longform = case np.heavy of {
@@ -29,8 +31,8 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           r = v2.s!(rform (VFIndic MainCl p t) longform) ; -- bona / boni
           -- obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
-          True => tp ++ oc ++ r ++ obj ;
-          False => tp ++ r ++ obj
+          True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ;
+          False => vpref_no_oc ++ tp ++ r ++ obj
         } ;
         RelCl => \\a,p,t,l => let
           vform = (VFIndic RelCl p t) ;
@@ -68,6 +70,26 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
             True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj ;
             False => "ninga" ++BIND++ v2.s!R_i ++ obj
           }
+        }
+      } ;
+      inf_s = let
+        inf_oc = case np.proDrop of {
+          True => oc ;
+          False => []
+        }
+      in
+      table {
+        NFull => table {
+          Pos => "uku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => "uku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj
+        } ;
+        NReduced | NPoss => table {
+          Pos => "ku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => "ku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj
         }
       } ;
       iadv, advs, comp = [] ;
