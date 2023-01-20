@@ -41,11 +41,7 @@
 	param SubstForm = SF Number Case ;
 
 
-    -- oper used in NounMorphoPol.gf
-    -- type of N, _not_ CN
-  oper CommNoun = {s : SubstForm => Str; g : Gender};
-  oper CommNoun2 = CommNoun ** { c : Complement } ;
-  oper CommNoun3 = CommNoun2 ** { c2 : Complement } ;
+  oper Noun = {s : SubstForm => Str; g : Gender};
 
 
 --2 Verbs   

@@ -113,11 +113,11 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
 
 
 -- Substantives moreover have an inherent gender. 
-    N  = CommNoun;   
+    N  = Noun;
 
-    N2 = CommNoun2;
+    N2 = Noun ** { c : Complement } ;
 
-    N3 = CommNoun3;-- ** { c, c2 : Complement } ;
+    N3 = Noun ** { c1, c2 : Complement } ;
 
     GN, SN, PN = NounPhrase;
     
