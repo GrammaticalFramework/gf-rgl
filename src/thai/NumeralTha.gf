@@ -8,7 +8,7 @@ lincat
   Sub10      = {s : DForm => Str} ;
   Sub100     = {s : NForm => Str} ;
   Sub1000    = {s : NForm => Str} ;
-  Sub1000000 = {s : Str} ;
+  Sub1000000, Sub1000000000, Sub1000000000000 = {s : Str} ;
 
 lin 
   num x = x ;
@@ -49,6 +49,9 @@ lin
   pot2as3 n = {s = n.s ! Unit} ;
   pot3 n = {s = n.s ! Thousand} ;
   pot3plus n m = {s = thbind (n.s ! Thousand) (m.s ! Unit)} ;
+  pot3as4 n = n ;
+
+  pot4as5 n = n ;
 
 param 
   DForm = Indep | ModTen | After ;
