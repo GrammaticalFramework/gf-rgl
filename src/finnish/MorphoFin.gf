@@ -330,8 +330,8 @@ resource MorphoFin = ResFin ** open Prelude in {
           <"n","a","na","een","ien","ia","ina","issa","iin"> ;
       "0" | "8" =>
           <"n","aa","na","aan","ien","ia","ina","issa","iin"> ;
-      _ => Predef.error (["illegal abbreviation"] ++ errorMsg) } ;
-
+      _ => --- NB. not even trying to match every special character, add your own if needed!
+          <"n","a","na","iin","ien","ia","ina","issa","ihin"> } ;
 
 -- for adjective comparison
 

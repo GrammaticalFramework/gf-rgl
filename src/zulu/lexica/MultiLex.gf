@@ -1147,5 +1147,4 @@ abstract MultiLex = Cat ** {
 
     -- adjectivals
     colourful_R : A ;
-    big_A : A ;
 }

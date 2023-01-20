@@ -3,6 +3,7 @@ abstract CatExt = {
   cat
     Loc ;
     LocN ;
+    LocAdv ;
     QuantStem ;
     RelStem ;
     VAux ;
