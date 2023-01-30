@@ -102,7 +102,10 @@ oper
   d27 : Str -> NForms -- 23 vuosi
     = \s -> dArpi s (Predef.tk 2 s + "den") ;
   d28 : Str -> NForms -- 13 virsi
-    = \s -> dArpi s (Predef.tk 2 s + "ren") ;
+    = \s -> let vir : Str = Predef.tk 2 s ;
+                r : Str = last vir ; -- vi[r]si, ky[n]si
+                ren : Str = r + "en" ; -- vir[ren], kyn[nen]
+             in dArpi s (vir + ren) ;
   d28A : Str -> NForms -- 1 jälsi
     = \s -> dArpi s (Predef.tk 2 s + "len") ;
   d29 : Str -> NForms -- 1 lapsi
