@@ -116,7 +116,7 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
     youPolPlFem_Pron = pronAgr youPolPl_Pron Fem Pl P2 ;
     theyFem_Pron = mkPronFrom S.they_Pron "elas" "as" "lhes" "elas" Fem Pl P3 ;
 
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
        s = gn.s ++ sn.s ;
        g = gn.g

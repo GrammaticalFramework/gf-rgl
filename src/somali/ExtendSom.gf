@@ -17,7 +17,7 @@ lin
   -- FocusAdV : AdV -> S       -> Utt ;   -- never will I sleep
   -- FocusAP  : AP  -> NP      -> Utt ;   -- green was the tree
 
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
        s = gn.s ++ sn.s ;
        a = gn.a

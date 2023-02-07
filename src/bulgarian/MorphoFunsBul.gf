@@ -271,13 +271,16 @@ oper
   feminine : Gender = Fem ;
   neutr : Gender = Neut ;
 
-  mkGN : Str -> Gender -> GN =
+  male : Sex = Male ;
+  female : Sex = Female ;
+
+  mkGN : Str -> Sex -> GN =
      \s,g -> lin GN {s = s; g = g} ;
   mkSN = overload {
     mkSN : Str -> SN =
-      \s -> lin SN {s = s; g = Masc} ;
-    mkSN : Str -> Gender -> SN =
-      \s,g -> lin SN {s = s; g = g} ;
+      \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN =
+      \m,f,pl -> lin SN {s = table Sex [m; f]; pl = pl} ;
   } ;
 
   mkPN = overload {

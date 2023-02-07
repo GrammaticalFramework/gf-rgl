@@ -4,6 +4,7 @@ param
   Case = Nom | Gen | Dat | Acc | Loc | Instr;
   Number = Sg | Dl | Pl ;
   Gender = Masc | Fem | Neut ;
+  Sex = Male | Female ;
   Person = P1 | P2 | P3 ;
   Species = Indef | Def ;
   Animacy = Animate | Inanimate ;
@@ -178,6 +179,12 @@ oper
       Masc => AMasc Inanimate ;
       Fem  => AFem ;
       Neut => ANeut
+    } ;
+
+  sex2agender : Sex -> AGender = \g ->
+    case g of {
+      Male => AMasc Animate ;
+      Female => AFem
     } ;
 
 }

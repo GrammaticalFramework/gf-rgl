@@ -25,6 +25,7 @@ resource ResGer = ParamX ** open Prelude in {
   param
     Case = Nom | Acc | Dat | Gen ;
     Gender = Masc | Fem | Neutr ;
+    Sex = Male | Female ;
 
 -- Complex $CN$s, like adjectives, have strong and weak forms.
 
@@ -1008,5 +1009,11 @@ resource ResGer = ParamX ** open Prelude in {
       agr = case prep.c of { NPC Nom => np.a ; _ => Ag Masc Sg P3 } ;
       subj = appPrepNP prep np
     in <subj , agr> ;
+
+  sex2gender : Sex -> Gender = \g ->
+    case g of {
+      Male => Masc ;
+      Female => Fem
+    } ;
 
 }

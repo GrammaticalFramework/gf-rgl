@@ -393,7 +393,7 @@ lin UseDAPMasc, UseDAPFem = \dap ->
 lin CardCNCard card cn =
   {s = \\g => card.s ! cn.g ++ cn.s ! card.n ! DIndef ! Nom ; n = Pl} ;
 
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
        s = \\c => gn.s ! Nom ++ sn.s ! c ; 
        g = gn.g

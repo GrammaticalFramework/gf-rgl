@@ -217,7 +217,7 @@ lin
 oper
   rus_quoted : Str -> Str = \s -> "«" ++ s ++ "»" ; ---- TODO bind ; move to Prelude?
 
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
 lin FullName gn sn = {
        snom  = gn.snom ++ sn.snom ;
        sgen  = gn.snom ++ sn.sgen ;

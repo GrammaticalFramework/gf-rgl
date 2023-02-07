@@ -17,7 +17,7 @@ concrete ExtendChi of Extend = CatChi **
     mkAdv : Str -> Adv ;
     mkAdv str = lin Adv {s = str ; advType = ATManner ; hasDe = False} ;
   
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
 lin FullName gn sn = {
        s = gn.s ++ sn.s
     } ;

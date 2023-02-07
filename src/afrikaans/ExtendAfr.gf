@@ -6,7 +6,7 @@ concrete ExtendAfr of Extend =
   open
     ResAfr in {
 
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
        s = \\c => gn.s ! NPNom ++ sn.s ! c ; 
     } ;

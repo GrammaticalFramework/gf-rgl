@@ -472,7 +472,7 @@ lin CardCNCard card cn =
   {s,sp = \\d,c => card.s ! d ! Nom ++ cn.s ! card.n ! c ; n = Pl} ;
 
 lin GivenName gn = gn ;
-lin Surname sn = sn ;
+lin MaleSurname, FemaleSurname = \sn -> sn ;
 lin FullName gn sn = {
        s = \\c => gn.s ! Nom ++ sn.s ! c ; 
        g = gn.g

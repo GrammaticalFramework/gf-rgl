@@ -37,7 +37,7 @@ oper
     p = P3        
   };
 
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
        nom = gn.nom ++ sn.nom ;
        voc = gn.nom ++ sn.voc ;

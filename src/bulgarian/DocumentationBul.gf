@@ -92,27 +92,23 @@ lin
     s3 = ""
     } ;
 
-  InflectionGN = \pn -> {
+  InflectionGN = \gn -> {
     t = "същ.с.л." ;
-    s1= heading1 ("Собствено Име"++
-                  case pn.g of {
-                    Masc => "(м.р.)" ;
-                    Fem  => "(ж.р.)" ;
-                    Neut => "(ср.р.)"
+    s1= heading1 (case gn.g of {
+                    Male   => "Мъжко Име" ;
+                    Female => "Женско Име"
                   }) ;
-    s2 = pn.s ;
+    s2 = gn.s ;
     s3 = ""
     } ;
 
-  InflectionSN = \pn -> {
+  InflectionSN = \sn -> {
     t = "същ.с.ф." ;
-    s1= heading1 ("Фамилно Име"++
-                  case pn.g of {
-                    Masc => "(м.р.)" ;
-                    Fem  => "(ж.р.)" ;
-                    Neut => "(ср.р.)"
-                  }) ;
-    s2 = pn.s ;
+    s1= heading1 ("Фамилно Име") ;
+    s2 = frameTable (
+          tr (th "мъжко" ++ td (sn.s ! Male)) ++
+          tr (th "женско" ++ td (sn.s ! Female)) ++
+          tr (th "семейно" ++ td sn.pl))  ;
     s3 = ""
     } ;
 

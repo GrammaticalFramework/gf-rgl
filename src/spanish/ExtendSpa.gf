@@ -100,7 +100,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
         cop = serCopula
       } ;
 
-lin GivenName, Surname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
        s = gn.s ++ sn.s ;
        g = gn.g
