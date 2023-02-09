@@ -7,7 +7,7 @@ concrete ExtendGer of Extend =
     VPS, ListVPS, VPI, ListVPI,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, 
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
-    CardCNCard
+    CardCNCard, PassVPSlash, PassAgentVPSlash, CompoundN
     ]
   with
     (Grammar = GrammarGer) **
@@ -150,4 +150,26 @@ lin FullName gn sn = {
        g = sex2gender gn.g ;
        n = Sg
     } ;
+
+lin PassVPSlash vp = 
+      insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
+          { c1 = subjPrep vp.c2 } ;
+    -- this also gives "mit dir wird gerechnet" ;
+    -- the alternative linearisation ("es wird mit dir gerechnet") is not implemented
+
+lin PassAgentVPSlash vp np = ---- "von" here, "durch" in StructuralGer
+      insertObj (\\_ => (PastPartAgentAP (lin VPSlash vp) (lin NP np)).s ! APred) (predV werdenPass) ;
+
+lin CompoundN a x =
+       let s = a.co in
+       lin N {
+          s  = \\n,c => s ++ Predef.BIND ++ x.uncap.s ! n ! c ; 
+          co = s ++ Predef.BIND ++ x.uncap.co ;
+          uncap = {
+            s  = \\n,c => a.uncap.co  ++ Predef.BIND ++ x.uncap.s ! n ! c ; 
+            co = a.uncap.co  ++ Predef.BIND ++ x.uncap.co ;
+            } ;
+          g = x.g
+          } ;
+
 }
