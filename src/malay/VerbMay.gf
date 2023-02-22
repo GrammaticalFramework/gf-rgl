@@ -62,7 +62,7 @@ lin
     } ;
 
   -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
-  insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
+  -- insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
 
 
   SlashV2A v2 adj = useV {
@@ -73,7 +73,7 @@ lin
   } ;
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  SlashV2V v2v vp = ;
+  -- SlashV2V v2v vp = ;
 
 
  {-

@@ -34,9 +34,12 @@ lincat
   [S] = {s1,s2 : Str} ;
 
 lin
-  BaseAdv, BaseAdV, BaseIAdv, BaseS = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv, ConsS = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
+  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
+  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
+  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
+  BaseS = twoSS ;
+  ConsS = consrSS comma ;
+  ConjS = conjunctDistrSS ;
 
 
 {-

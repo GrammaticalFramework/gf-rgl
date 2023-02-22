@@ -178,8 +178,6 @@ lin have_V2 = let have' : V2 = mkV2 "ada" in have' ** {
 -- lin can8know_VV = can_VV ; -- can (capacity)
 lin can_VV = mkVV "boleh" ;   -- can (possibility)
 lin must_VV = mkVV "perlu" ;
-lin may_VV = mkVV "mungkin" ;
-lin shall_VV = mkVV "hendaklah" ;
 lin want_VV = mkVV "mahu" ;
 
 ------
