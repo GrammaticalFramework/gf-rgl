@@ -191,13 +191,13 @@ concrete ExtendEng of Extend =
             inf = verb.adv ++ vp.ad ! a ++ verb.fin ++ verb.inf ++ vp.p ++ compl} ;
       } ;
 
-    linVPS : Agr -> {s : Order => Agr => {fin,inf : Str}} -> Str = \agr,vps -> let vpss = vps.s ! ODir True ! agr in vpss.fin ++ vpss.inf ;
+    linVPS : Agr -> {s : Order => Agr => {fin,inf : Str}} -> Str = \agr,vps -> let vpss = vps.s ! ODir False ! agr in vpss.fin ++ vpss.inf ;
 
     mkVPI : VP -> VPI = \vp -> lin VPI {
       s = table {
-            VVAux      => \\a =>         vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ;
-            VVInf      => \\a => "to" ++ vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ;
-            VVPresPart => \\a =>         vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a
+            VVAux      => \\a =>         vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ++ vp.ext ;
+            VVInf      => \\a => "to" ++ vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ++ vp.ext ;
+            VVPresPart => \\a =>         vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a ++ vp.ext
             }
       } ;
 
@@ -470,5 +470,12 @@ lin UseDAPFem dap = {
 
 lin CardCNCard card cn =
   {s,sp = \\d,c => card.s ! d ! Nom ++ cn.s ! card.n ! c ; n = Pl} ;
+
+lin GivenName gn = gn ;
+lin MaleSurname, FemaleSurname = \sn -> sn ;
+lin FullName gn sn = {
+       s = \\c => gn.s ! Nom ++ sn.s ! c ; 
+       g = gn.g
+    } ;
 
 }

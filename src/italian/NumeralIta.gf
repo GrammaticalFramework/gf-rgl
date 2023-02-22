@@ -7,6 +7,8 @@ lincat
   Sub100 = {s : CardOrd => Str ; n : Number} ;
   Sub1000 = {s : CardOrd => Str ; n : Number} ;
   Sub1000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => Str ; n : Number} ;
 
 lin num x = x ;
 
@@ -71,6 +73,9 @@ lin pot3 n = spl (\\co => n.s ! NCard Masc ++ nBIND n.n ++
   (mkTall (mille ! n.n) [] [] [] "mill").s ! ental indip ! co ) ;
 
 lin pot3plus n m = {s = \\g => n.s ! NCard Masc ++ nBIND n.n ++ mille ! n.n ++ "e" ++ m.s ! g ; n = Pl} ;
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 oper
   nBIND : Number -> Str = \n -> case n of {Sg => [] ; _ => BIND} ; -- no BIND after silent 1

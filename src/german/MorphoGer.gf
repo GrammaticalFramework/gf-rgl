@@ -20,12 +20,13 @@ oper
   mkPrep : Str -> PCase -> Preposition = \s,c -> 
     {s = s ; s2 = [] ; c = c ; isPrep = True} ;
 
-  nameNounPhrase : {s : Case => Str} ->  {s : PCase => Str ; a : Agr ; 
-                                          -- isLight, isPron : Bool ; 
-                                          w : Weight ;
-                                          ext,rc : Str} = \name -> heavyNP {
+  nameNounPhrase : Gender -> {s : Case => Str} ->  {s : PCase => Str ;
+                                                    a : Agr ;
+                                                    w : Weight ;
+                                                    ext,rc : Str} =
+    \g,name -> heavyNP {
       s = \\c => usePrepC c (\k -> name.s ! k) ;
-      a = agrP3 Sg 
+      a = agrgP3 g Sg
       } ;
 
   detLikeAdj : Bool -> Number -> Str -> 

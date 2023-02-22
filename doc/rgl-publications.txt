@@ -159,7 +159,7 @@ The GF Resource Grammar Library.
 //Linguistic Issues in Language Technology//,
 2 (2),
 2009.
-[PDF http://elanguage.net/journals/index.php/lilt/article/viewFile/214/158]
+[PDF https://journals.colorado.edu/index.php/lilt/article/view/1205/1047]
 #BR
 //A systematic presentation of the library from the linguistic point of view.//
 //Not only about English, but English examples abound.//

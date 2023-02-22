@@ -100,7 +100,9 @@ concrete CatGer of Cat =
     N  = ResGer.Noun ;
     N2 = ResGer.Noun ** {c2 : Preposition} ;
     N3 = ResGer.Noun ** {c2,c3 : Preposition} ;
-    PN = {s : Case => Str; g : Gender} ;
+    GN = {s : Case => Str; g : Sex} ;
+    SN = {s : Sex => Case => Str} ;
+    PN = {s : Case => Str; g : Gender; n : Number} ;
 
 -- tense with possibility to choose conjunctive forms
 

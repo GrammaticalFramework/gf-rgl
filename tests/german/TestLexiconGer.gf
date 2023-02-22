@@ -69,5 +69,7 @@ lin
   -- subject control verb:
   versprechen_dat_V2V = subjV2V (mkV2V (irregV "versprechen" "verspricht"
                                                "versprach" "verspräche" "versprochen") datPrep) ;
-
+  -- aci verb:
+  sehen_V2V  = auxV2V (irregV "sehen" "sieht" "sah" "sähe" "gesehen") accPrep ;
+  hoeren_V2V = auxV2V (regV "hören") accPrep ;
 }

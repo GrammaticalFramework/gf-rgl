@@ -24,4 +24,10 @@ concrete ExtraMlt of ExtraMltAbs = CatMlt **
       a = p.a ;
       } ;
 
+lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
+lin FullName gn sn = {
+       s = gn.s ++ sn.s ;
+       a = gn.a
+    } ;
+
 }

@@ -5,7 +5,7 @@
 --
 -- Adam Slaski, 2009 <adam.slaski@gmail.com>
 --
-resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=AdjectiveMorphoPol) in {
+resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=AdjectiveMorphoPol) in {
 
      flags  coding=utf8; 
 
@@ -329,17 +329,17 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
 
 -- 3 Verb types definition   
 
-  mkV : Str ->  ConjCl -> Str ->  ConjCl -> Verb; 
+  mkV : Str ->  ConjCl -> Str ->  ConjCl -> V; 
   mkV = mkVerb;	   
   
-  mkV1 : Str ->  ConjCl -> Str ->  ConjCl -> Verb; 
+  mkV1 : Str ->  ConjCl -> Str ->  ConjCl -> V; 
   mkV1 s c s2 c2 = mkItVerb (mkVerb s c s2 c2);	   
 
   
 -- reflexive verbs
   
-  oper mkReflVerb : Verb -> Verb = 
-	 \v -> 
+  oper mkReflVerb : V -> V = 
+	 \v -> lin V
 	 {si = v.si;
 	  sp = v.sp;
 	  refl = "się";
@@ -350,20 +350,20 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
  
 -- intransitive verbs
 
-  oper mkItVerb : Verb -> Verb = 
-	 \v -> 
+  oper mkItVerb : V -> V = 
+	 \v -> lin V
 	 {si = v.si;
 	  sp = v.sp;
 	  refl = v.refl;
 	  asp = v.asp;
-	  ppartp = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = "["++v.si!VInfM ++ [": the participle form does not exist]"]};
-	  pparti = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = "["++v.si!VInfM ++ [": the participle form does not exist]"]}
+	  ppartp = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist };
+	  pparti = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist }
 	 };
 	 
 -- monoaspective verbs
 
-  oper mkMonoVerb : Str -> ConjCl -> Aspect -> Verb = 
-	 \s, c, a -> let tmp = (c s) in 
+  oper mkMonoVerb : Str -> ConjCl -> Aspect -> V = 
+	 \s, c, a -> let tmp = (c s) in lin V
 	 {si = tmp.s;
 	 sp = tmp.s; 
 	 refl = "";
@@ -374,8 +374,8 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
 
 -- normal verbs
   
-  oper mkVerb : Str -> ConjCl -> Str -> ConjCl -> Verb = 
-	 \s, c, s2, c2 -> let tmpp = (c2 s2); tmpi = (c s) in 
+  oper mkVerb : Str -> ConjCl -> Str -> ConjCl -> V = 
+	 \s, c, s2, c2 -> let tmpp = (c2 s2); tmpi = (c s) in lin V
 	 {si = tmpi.s;
 	 sp = tmpp.s;
 	 refl = "";
@@ -389,13 +389,13 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
 -- can't be translated directly into one Polish word, so I introduced this (little bit
 -- unnatural) construction.
 
-  oper mkComplicatedVerb : Verb -> Str -> Verb = 
-	 \v,s -> 
+  oper mkComplicatedVerb : V -> Str -> V =
+	 \v,s -> lin V
 	 {si = \\form => v.si !form ++ s;
 	 sp = \\form => v.sp !form ++ s;
 	 refl = v.refl; asp = v.asp;
-	 ppartp = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = "["++v.si!VInfM ++s++ [": the participle form does not exist]"]};
-	 pparti = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = "["++v.si!VInfM ++s++ [": the participle form does not exist]"]}
+	 ppartp = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist};
+	 pparti = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist}
 	 };
 
   
@@ -403,19 +403,19 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
 -- Two-place verbs, and the special case with a direct object. Note that
 -- a particle can be included in a $V$.
   
-  mkV2 : Verb -> Str -> Case -> V2;  
+  mkV2 : V -> Str -> Case -> V2;  
   mkV2 v p cas = v ** { c = mkCompl p cas; lock_V2 = <> }; 
   
-  mkV3 : Verb -> Str -> Str -> Case -> Case -> V3; 
+  mkV3 : V -> Str -> Str -> Case -> Case -> V3; 
   mkV3 v s1 s2 c1 c2 = v ** { c = mkCompl s1 c1; c2 = mkCompl s2 c2; lock_V3 = <> };  
   
-  dirV2 : Verb -> V2; -- a typical case ie. "kochać", "pisać"
+  dirV2 : V -> V2; -- a typical case ie. "kochać", "pisać"
   dirV2 v = mkV2 v [] Acc;
 
-  dirV3 : Verb -> V3; -- a typical case ie. "zabrać", "dać"
+  dirV3 : V -> V3; -- a typical case ie. "zabrać", "dać"
   dirV3 v = mkV3 v "" "" Acc Dat; 
 	   
-    indicative_form : Verb -> Bool -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
+    indicative_form : V -> Bool -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
     indicative_form verb imienne pol = 
         case imienne of {True => imienne_form verb pol; False => 
             let nie = case pol of { Pos => "" ; Neg => "nie" }; in
@@ -433,7 +433,7 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
             }
         };
         
-    imienne_form : Verb -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
+    imienne_form : V -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
     imienne_form verb pol =
         let byc    = (case verb.asp of { Perfective   => conj3 "zostać"; _ => conj1 "być"    }).s; in
         let zostac = (case verb.asp of { Imperfective => conj1 "być";    _ => conj3 "zostać" }).s; in
@@ -461,7 +461,7 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
         <Pl, P3> => "będą"
     };
     
-    imperative_form : Verb -> Bool -> Polarity ->  GenNum -> Person -> Str;
+    imperative_form : V -> Bool -> Polarity ->  GenNum -> Person -> Str;
     imperative_form verb imienne pol gn p = 
         case imienne of {
             True =>
@@ -493,7 +493,7 @@ resource VerbMorphoPol = ResPol ** open Prelude, CatPol, (Predef=Predef), (Adj=A
                 }
         };
         
-    infinitive_form : Verb -> Bool -> Polarity -> GenNum -> Str;
+    infinitive_form : V -> Bool -> Polarity -> GenNum -> Str;
     infinitive_form verb imienne pol gn = 
         case imienne of {
             True =>

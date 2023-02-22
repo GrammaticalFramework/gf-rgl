@@ -13,7 +13,7 @@ concrete NumeralPol of Numeral = CatPol [Numeral,Digits] ** open ResPol,Prelude,
     Sub10 =  { unit,hundred:   Case * Gender => Str; 
                ounit,ohundred: AForm => Str;
                a:Accom; n:Number };       -- 1..9
-    Sub100, Sub1000, Sub1000000 = 
+    Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000 = 
              { s:Case * Gender => Str; 
                o:AForm => Str;
                a:Accom; n:Number }; 
@@ -513,7 +513,10 @@ n9 = { unit = table {
         a = case s2.n of { Sg => TysiacA; _=> s2.a } ;
         n = Pl
     };
-    
+
+    pot3as4 n = n ;
+    pot4as5 n = n ;
+
 oper tysiac = table {
     <(Nom|Acc), Sg> => "tysiąc";
     <Gen,       Sg> => "tysiąca";

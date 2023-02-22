@@ -39,6 +39,9 @@ oper
   feminine  : Gender ;
   neuter    : Gender ;
 
+  male : Sex ;
+  female : Sex ;
+
 -- To abstract over case names, we define the following.
 
   Case       : Type ; 
@@ -48,7 +51,7 @@ oper
   dative     : Case ;
   genitive   : Case ;
 
-  anDat_Case : Case ; -- preposition "an" accusative with contraction "am" --%
+  anDat_Case : Case ; -- preposition "an" dative with contraction "am" --%
   inAcc_Case : Case ; -- preposition "in" accusative with contraction "ins" --%
   inDat_Case : Case ; -- preposition "in" dative with contraction "im" --%
   zuDat_Case : Case ; -- preposition "zu" dative with contractions "zum", "zur" --%
@@ -127,6 +130,7 @@ mkN : overload {
 
   mkPN : overload {
     mkPN : Str -> PN ; -- regular name with genitive in "s", masculine
+    mkPN : Str -> Number -> PN ; -- regular name with genitive in "s", masculine
     mkPN : Str -> Gender -> PN ; -- regular name with genitive in "s"
 
 -- If only the genitive differs, two strings are needed.
@@ -141,6 +145,24 @@ mkN : overload {
 
     mkPN : N -> PN ; -- use the singular forms of a noun
 
+    } ;
+
+  mkGN : overload {
+    mkGN : Str -> Sex -> GN ; -- regular name with genitive in "s"
+    mkGN : (nom,gen : Str) -> Sex -> GN ;  -- name with other genitive
+    mkGN : (nom,acc,dat,gen : Str) -> Sex -> GN ; -- name with all case forms
+    } ;
+
+  mkSN : overload {
+    mkSN : Str -> GN ; -- regular name with genitive in "s", masculine
+
+-- If only the genitive differs, two strings are needed.
+
+    mkSN : (nom,gen : Str) -> GN ;  -- name with other genitive
+
+-- In the worst case, all four forms are needed.
+
+    mkSN : (nom,acc,dat,gen : Str) -> GN ; -- name with all case forms
     } ;
 
 -- To extract the number of a noun phrase
@@ -369,6 +391,8 @@ mkV2 : overload {
   masculine = Masc ;
   feminine  = Fem ;
   neuter = Neutr ;
+  male = Male ;
+  female  = Female ;
   nominative = NPC Nom ;
   accusative = NPC Acc ;
   dative = NPC Dat ;
@@ -464,24 +488,46 @@ mkV2 : overload {
   mkN3 = \n,p,q -> n ** {c2 = p ; c3 = q ; lock_N3 = <>} ;
 
   mk2PN = \karolus, karoli, g -> 
-    {s = table {Gen => karoli ; _ => karolus} ; g = g ; lock_PN = <>} ;
+    {s = table {Gen => karoli ; _ => karolus} ; g = g ; n = Sg ; lock_PN = <>} ;
   regPN = \horst, g -> 
     mk2PN horst (ifTok Tok (Predef.dp 1 horst) "s" horst (horst + "s")) g ;
 
   mkPN = overload {
     mkPN : Str -> PN = \s -> regPN s Masc ;
+    mkPN : Str -> Number -> PN = \s,n -> regPN s Masc ** {n=n} ;
     mkPN : Str -> Gender -> PN = regPN ;
-    mkPN : N -> PN = \n -> lin PN {s = n.s ! Sg; g = n.g} ;
+    mkPN : N -> PN = \n -> lin PN {s = n.s ! Sg; g = n.g; n = Sg} ;
     mkPN : (nom,gen : Str) -> Gender -> PN = mk2PN ;
     mkPN : (nom,acc,dat,gen : Str) -> Gender -> PN = \nom,acc,dat,gen,g ->
       {s = table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
-       g = g ; lock_PN = <>} 
+       g = g ; n = Sg ; lock_PN = <>} 
     } ;
 
   mk2PN  : (karolus, karoli : Str) -> Gender -> PN ; -- karolus, karoli
   regPN : (Johann : Str) -> Gender -> PN ;  
     -- Johann, Johanns ; Johannes, Johannes
 
+  mkGN = overload {
+    mkGN : Str -> Sex -> GN = \nom,g -> lin GN {s = (regPN nom (sex2gender g)).s; g = g} ; -- regular name with genitive in "s"
+    mkGN : (nom,gen : Str) -> Sex -> GN = \nom,gen,g -> lin GN {s = (mk2PN nom gen (sex2gender g)).s; g = g} ;  -- name with other genitive
+    mkGN : (nom,acc,dat,gen : Str) -> Sex -> GN = \nom,acc,dat,gen,g ->
+      {s = table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+       g = g ; lock_GN = <>}
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => (regPN s Masc).s} ; -- regular name with genitive in "s", masculine
+
+-- If only the genitive differs, two strings are needed.
+
+    mkSN : (nom,gen : Str) -> SN = \nom,gen -> lin SN {s = \\_ => (mk2PN nom gen Masc).s} ;  -- name with other genitive
+
+-- In the worst case, all four forms are needed.
+
+    mkSN : (nom,acc,dat,gen : Str) -> SN = \nom,acc,dat,gen ->
+      {s = \\_ => table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+       lock_SN = <>}
+    } ;
 
   mk3A : (gut,besser,beste : Str) -> A = \a,b,c ->
     let aa : Str = case a of {

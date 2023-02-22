@@ -477,7 +477,7 @@ mkVS = overload {
   mkN = overload {
     mkN : (talo : Str) -> N = mk1N ;
     --  \s -> nforms2snoun (nForms1 s) ;
-    mkN : (talo,talon : Str) -> N = mk2N ;
+    mkN : (talo,taloja : Str) -> N = mk2N ;
     --  \s,t -> nforms2snoun (nForms2 s t) ;
     mkN : (talo,talon,taloja : Str) -> N = mk3N ;
     --  \s,t,u -> nforms2snoun (nForms3 s t u) ;
@@ -499,7 +499,27 @@ mkVS = overload {
 ----  mkNA : N -> A = snoun2sadj ;
 
   mk1N : (talo : Str) -> N = \s -> lin N (nforms2snoun (nForms1 s)) ;
-  mk2N : (talo,talon : Str) -> N = \s,t -> lin N (nforms2snoun (nForms2 s t)) ;
+
+  -- Best results for 2-argument smart paradigm come with Pl Part as second argument.
+  -- But we allow Sg Gen + Pl Nom as well, since they could be common mistakes.
+  -- For other numbers and cases as the 2nd argument, see mk2Nsg{Gen,Par,Ill} (hidden from API).
+  mk2N : (talo,taloja : Str) -> N = \s,t -> case t of {
+    sydame + "n" => mk2NsgGen s t ;            -- Sg Gen
+    sydame + "t" => mk2NsgGen s (sydame+"n") ; -- Pl Nom
+    _ => lin N (nforms2snoun (nForms2 s t))    -- Default: Pl Par
+  } ;
+
+  -- When we have access to the some other form than plural partitive, e.g. from some dump of lemmatised nouns
+  mk2NsgGen : (talo,talon : Str) -> N =
+    \sgnom,sggen -> lin N (nforms2snoun (nForms2sgGen sgnom sggen)) ;
+  mk2NplGen : (talo,talojen : Str) -> N =
+    \sgnom,plgen -> lin N (nforms2snoun (nForms2plGen sgnom plgen)) ;
+  mk2NsgPar : (talo,taloa : Str) -> N =
+    \sgnom,sgpar -> lin N (nforms2snoun (nForms2sgPar sgnom sgpar)) ;
+  mk2NsgIll : (talo,taloon : Str) -> N =
+    \sgnom,sgill -> lin N (nforms2snoun (nForms2sgIll sgnom sgill)) ;
+
+
   mk3N : (talo,talon,taloja : Str) -> N = \s,t,u -> lin N (nforms2snoun (nForms3 s t u)) ;
   mk4N : (talo,talon,taloa,taloja : Str) -> N = \s,t,u,v ->
       lin N (nforms2snoun (nForms4 s t u v)) ;
@@ -659,9 +679,131 @@ mkVS = overload {
             ukon ++ ukkoja ++ ukkoa)
       } ;
 
---- this is a paradigm hidden from the API. It should not be used without caution
+--- this is used by a mkN instance hidden from the API. Like nForms2, but the second argument is actually singular genitive
+  nForms2sgGen : (sydan,sydamen : Str) -> NForms = \sydan,sydamen ->
+    let
+      regSydan : NForms = nForms1 sydan ;
+      regSydamen : Str = regSydan ! 1 ; -- SgGen from NForms constructed of only SgNom
+    in
+    case (pbool2bool (Predef.eqStr sydamen regSydamen)) of {
+      True => regSydan ; -- singular genitive was as predicted by 1-arg paradigm
+      _  => case <sydan,sydamen> of {
+              <_ + "s",         _ + "ksen"> => dJalas sydan ;
+              <_ + "s",         _ + "den"> => dLujuus sydan ;
+              <_ + "s",         _ + "hen"> => d42 sydan ;
+              <_ + ("as"|"äs"), _ + ("aan"|"ään")> => dRae sydan sydamen ;
+              <_ + "n",         _ + "men"> => dLiitin sydan sydamen ;
+              <_ + "in",        _ + ("imman"|"immän")> => dSuurin sydan ;
+              <_ + "in",        _ + ("man"|"män")> => dLämmin sydan sydamen ;
+              <_ + "i",         _ + "en"> => dArpi sydan sydamen ;
+              <_ + "mpi",       _ + ("emman" | "emmän")> => dSuurempi sydan ;
+              <_ + "e",         _ + "een"> => dRae sydan sydamen ;
+              <_ + "e",         _ + "en"> => dNukke sydan sydamen ;
+              <_ + "ut",        _ + "een"> => dOttanut sydan ;  -- kuollut, kuolleen
+              <_ + "ut",        _ + "en"> => dRae sydan sydamen ; -- olut, oluen
+              <_,               _ + ":n"> => dSDP sydan ;
+              <_ + #consonant,  _ + #consonant + "in"> => dUnix sydan ;
+              _ => table { -- TODO: see what cases still fail and if SgGen helps
+                1 => sydamen ;
+                x => regSydan ! x }
+           }
+      } ;
+
+  consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
+
+  -- like nForms2, but 2nd argument is Pl Genitive
+  nForms2plGen : (sydan,sydanten : Str) -> NForms = \sydan,sydanten ->
+    table {
+      5 => sydanten ; -- insert the given Sg Par form in the table
+      n => guessedSydan ! n} -- otherwise, use the guessed forms
+    where {
+      a : Str = case guessHarmony sydan of {
+        Back => "a" ; Front => "ä" } ;
+      sydamia : Str = case <sydan,sydanten> of {
+        <_ + "n",    syda + "nten">   => syda + "mi" + a ;
+        <_ + "r",    sisa + "rten">   => sisa + "ri" + a ;
+        <_ + "l",    omme + "lten">   => strongGrade omme + "li" + a ; -- very ad hoc
+        <lap + "si", la + "sten">     => lap + "si" + a ; -- veit + si + ä
+        <_ + "i",    pien + "ten">    => pien + "i" + a ;
+        <_ + "nen",  nai + "sten">    => nai + "si" + a ;
+        <_ + "s",    vastau + "sten"> => vastau + "ksi" + a ;
+        <_ + "mpi",  vanhe + "mpien"> => vanhe + "mpi" + a ;
+        <_ + "i",    rist + "ien">    => rist + "ej" + a ; -- no way to distinguish between ovi and risti here; choosing risti because it's more common
+        <_, kalleuks + "ien">         => kalleuks + "i" + a ;
+        <_, valtioi + ("den"|"tten")> => valtioi + "t" + a ;
+        <_, palvelu + "jen">          => palvelu + "j" + a ;
+        _ => Predef.error ("nForms2plGen: Expected Pl Gen, got" ++ sydanten) } ;
+      guessedSydan : NForms = nForms2 sydan sydamia ;
+    } ;
+
+  -- like nForms2, but 2nd argument is Sg Partitive
+  nForms2sgPar : (sydan,sydanta : Str) -> NForms = \sydan,sydanta ->
+    table {
+      2 => sydanta ; -- insert the given Sg Par form in the table
+      n => guessedSydan ! n} -- otherwise, use the guessed forms
+    where {
+      -- a couple of guesses for genitive
+      oven : Str = init sydan + "en" ;            --  ov|i|  -> |en|
+      kynnen : Str = init (init sydan) + "nen" ;  -- kyn|si| -> |nen|
+      r : Str = case last sydan of {"n" => "m" ; x => x} ; -- gen stem consonant for piennar, liitin
+      pientaren : Str = strongGrade (init sydan) + r + "en" ;
+
+      -- then we form a full paradigm with a genitive guessed from the SgNom+SgPar
+      guessedSydan : NForms = case <sydan,sydanta> of {
+        <_ + "i", _ + ("ea"|"eä")> => dArpi sydan oven ;
+        <_ + "e", _ + ("ea"|"eä")> => dNukke sydan (sydan + "n") ;
+        <_ + "nsi", _ + "ntt" + ("a"|"ä")> => dArpi sydan kynnen ;
+        <_ + ("psi"|"tsi"), _ + ("sta"|"stä")> => dArpi sydan oven ; -- laps|i|->|en|,  veits|i|->|en|
+        <_ + "i", _ + ("nta"|"ntä")> => dArpi sydan oven ;
+        <_ + "r", _ + ("rta"|"rtä")> => dPiennar sydan pientaren ;
+        <_ + ("on"|"ön"), _ + ("nta"|"ntä")> => dOnneton sydan ;
+        <_ + "in", _ + ("nta"|"ntä")> => dLiitin sydan pientaren ; -- can't distinguish between dLämmin or dLiitin from Sg Par only
+        <_ + "s", ("sta"|"stä")> => dJalas sydan ;
+        <_ + ("us"|"ys"), ("tta"|"ttä")> => dLujuus sydan ; -- can't distinguish between dLujuus and dKaunis from Sg Par only
+        <_ + "s"        , ("tta"|"ttä")> => dKaunis sydan ;
+        <_ + "t"        , ("tta"|"ttä")> => dRae sydan oven ; -- olu|t| -> |en| — can't distinguish between kuollut and olut
+        <_ + #consonant, _ + #consonant + ("ia"|"iä")> => dUnix sydan ;
+        <_, _ + ":" + ("ta"|"tä"|"aa"|"ää")> => dSDP sydan ;
+        _ => nForms1 sydan }
+      } ;
+
+  -- like nForms2, but 2nd argument is Sg Illative
+  nForms2sgIll : (sydan,sydameen : Str) -> NForms = \sydan,sydameen ->
+    table {
+      4 => sydameen ; -- insert the given Sg Ill form in the table
+      n => guessedSydan ! n} -- otherwise, use the guessed forms
+    where {
+      -- a couple of guesses for genitive
+      oven : Str = init (init sydameen) + "n" ; -- keep grade from Ill: ove|en| -> ove|n| ; liittime|en| -> liittime|n|
+      käden : Str = weakGrade (init (init sydameen)) + "n" ; -- weaken grade from Ill: kä|tee|n  -> kä|de|n
+      rakeen : Str = strongGrade sydan + "en" ;              -- strong grade from Nom: ra||e -> ra|k|e+en
+
+      guessedSydan : NForms = case <sydan,sydameen> of {
+        <_ + ("aa"|"ää"|"uu"|"yy"|"oo"|"öö"),
+                   _ + "seen"> => dPaluu sydan ;
+        <_ + "si", _ + "teen"> => dArpi sydan käden ; -- käsi, kynsi
+        <_ + "i",  _ + "een"> => dArpi sydan oven ; -- ovi, lapsi, virsi
+        <_ + "e",  _ + "eeseen"> => dRae sydan rakeen ; -- hame, rae
+        <_ + "e",  _ + "een"> => dNukke sydan käden ; -- nukke
+        <_ + "t",  _ + "eeseen"> => dOttanut sydan ; -- kuollut
+        <_ + "t",  _ + "een"> => dRae sydan oven ; -- olut
+        <_ + "n",  _ + "meen"> => dLiitin sydan oven ;
+        <_ + "n",  _ + ("maan"|"mään")> => dOnneton sydan ;
+        <_ + "s",  _ + "kseen"> => dJalas sydan ; -- Sg Ill can distinguish between jalas, lujuus, kahdeksas, kaunis and mies
+        <_ + "s",  _ + "nteen"> => d45 sydan ;
+        <_ + "s",  _ + "teen"> => dLujuus sydan ;
+        <_ + "s",  _ + "heen"> => d42 sydan ;
+        <_ + "mpi", _ + ("mpaan"|"mpään")> => dSuurempi sydan ;
+        <_ + #consonant, _ + #consonant + "iin"> => dUnix sydan ;
+        <_, _ + ":" + ("han"|"hen"|"hin"|"hon"|"hun"|"hyn"|"hän"|"hön"|"aan"|"ään")> => dSDP sydan ;
+
+        _ => nForms1 sydan }
+    } ;
+
+
+  --- this is a paradigm hidden from the API. It should not be used without caution
   invarN : Str -> N = \s -> <lin N {s = \\_ => s ; h = Back} : N> ;
-  
+
   mkN2 = overload {
     mkN2 : N -> N2 = \n -> mmkN2 n (casePrep genitive) ;
     mkN2 : N -> Prep -> N2 = mmkN2
@@ -713,7 +855,15 @@ mkVS = overload {
     mkA : V -> A = presActA ;
     } ;
 
-  mkA_1 : Str -> A = \x -> lin A (noun2adjDeg (mk1N x)) ;
+  -- Adjectives that are not really adjectives are given in WordNet like "sähkö-"
+  -- We can at least make them into prefixA to make slightly better linearisation.
+  mkA_1 : Str -> A = \x ->
+    case x of {
+      prefix + "-"
+        => let regA : A = noun2adjDeg (mk1N prefix) ;
+            in prefixA prefix regA ;
+      _ => noun2adjDeg (mk1N x)
+    } ;
 
 -- auxiliaries
   mkAdjective : (_,_,_ : SAdj) -> A = \hyva,parempi,paras -> lin A

@@ -28,7 +28,7 @@ incomplete concrete ConjunctionScand of Conjunction =
     ConjIAdv = conjunctDistrSS ;   
 
     ConjCN co ns = conjunctDistrTable3 Number DetSpecies Case co ns ** 
-      {g = neutrum ; isMod = False} ; ----
+      {g = ns.g ; isMod = ns.isMod} ;
 
     ConjDet conj ss = let css = (conjunctDistrTable2 Bool NGender conj ss).s in {
       s,sp = css ;
@@ -57,8 +57,8 @@ incomplete concrete ConjunctionScand of Conjunction =
     ConsRS xs x = consrTable2 Agr RCase comma xs x ** {c = xs.c} ;
     BaseIAdv = twoSS ;
     ConsIAdv = consrSS comma ;
-    BaseCN = twoTable3 Number DetSpecies Case ;
-    ConsCN = consrTable3 Number DetSpecies Case comma ;
+    BaseCN x y = twoTable3 Number DetSpecies Case x y ** {g = x.g; isMod=x.isMod} ;
+    ConsCN x xs = consrTable3 Number DetSpecies Case comma x xs ** {g = x.g; isMod=x.isMod} ;
 
     BaseDAP x y = twoTable2 Bool NGender x y ** {n = y.n ; det = y.det} ;
     ConsDAP x xs = consrTable2 Bool NGender comma x xs ** {n = xs.n ; det = xs.det} ;
@@ -70,7 +70,7 @@ incomplete concrete ConjunctionScand of Conjunction =
     [NP] = {s1,s2 : NPForm => Str ; a : Agr} ;
     [AP] = {s1,s2 : AFormPos => Str ; isPre : Bool} ;
     [RS] = {s1,s2 : Agr => RCase => Str ; c : NPForm} ;
-    [CN] = {s1,s2 : Number => DetSpecies => Case => Str} ; --- g : NGender ; isMod : Bool} ;
+    [CN] = {s1,s2 : Number => DetSpecies => Case => Str ; g : NGender ; isMod : Bool} ;
     [DAP] = {s1,s2 : Bool => NGender => Str ; n : Number ; det : DetSpecies} ;
 
 

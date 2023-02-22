@@ -56,6 +56,8 @@ lincat
   N2 = {s : Case => Number => Str; g : AGender; c : Prep} ;
   N3 = {s : Case => Number => Str; g : AGender; c : Prep} ;
 
+  GN = {s : Case => Str; g : Sex};
+  SN = {s : Sex => Case => Str};
   PN = {s : Case => Str; g : AGender; n : Number};
 
 linref

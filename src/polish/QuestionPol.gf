@@ -29,7 +29,7 @@ lin
 --     QuestIComp  : IComp -> NP -> QCl ;   -- where is John
     QuestIComp ic np = { 
         s = \\p,a,t => ic.s ++ 
-          (imienne_form {si = \\_=>[]; sp = \\_=>[]; asp = Dual; refl = ""; pparti,ppartp=\\_=>""} p !<t,a,np.gn,np.p>) ++ np.nom
+          (imienne_form (lin V {si = \\_=>[]; sp = \\_=>[]; asp = Dual; refl = ""; pparti,ppartp=\\_=>""}) p ! <t,a,np.gn,np.p>) ++ np.nom
     };
  
 --     IdetCN    : IDet -> CN -> IP ;       -- which five songs

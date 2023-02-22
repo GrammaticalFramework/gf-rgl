@@ -98,12 +98,12 @@
     mkNGender = overload { 
       -- 1 string
       mkNGender : Str -> Gender -> N = \sgnom,gender ->
-        let ntable : SubstForm => Str = guess_paradigm_basic sgnom in
-        lin N (NM.mkN ntable gender) ;
+        let ntable : SubstForm => Str = guess_paradigm_basic sgnom
+        in NM.mkN ntable gender ;
       -- 2 string
       mkNGender : Str -> Str -> Gender -> N = \sgnom,sggen,gender ->
-       let ntable : SubstForm => Str = guess_paradigm sgnom in
-       lin N (NM.mkN ntable gender) ;
+       let ntable : SubstForm => Str = guess_paradigm sgnom
+       in NM.mkN ntable gender ;
      };
 
     guess_paradigm = overload {

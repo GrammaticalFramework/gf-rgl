@@ -132,6 +132,7 @@ oper
   mkPN : overload {
 
     mkPN : Str -> PN ;
+    mkPN : Str -> Gender -> PN ;
 
 -- Sometimes a common noun can be reused as a proper name, e.g. "Bank"
 
@@ -435,6 +436,7 @@ mkVoc s = lin Voc (ss s) ;
 
   mkPN = overload {
     mkPN : Str -> PN = regPN ;
+    mkPN : Str -> Gender -> PN = regGenPN ;
     mkPN : N -> PN = nounPN
   } ;
 

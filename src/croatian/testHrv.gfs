@@ -1,0 +1,33 @@
+cc -table -unqual nounFormsNoun (izvorN "izvor") inanimate
+cc -table -unqual nounFormsNoun (nokatN "nokat") inanimate
+cc -table -unqual nounFormsNoun (gradaninN "građanin") animate
+cc -table -unqual nounFormsNoun (vojnikN "vojnik") animate
+cc -table -unqual nounFormsNoun (bubregN "bubreg") animate
+cc -table -unqual nounFormsNoun (trbuhN "trbuh") animate
+cc -table -unqual nounFormsNoun (cvorakN "čvorak") animate
+cc -table -unqual nounFormsNoun (panjN "panj") inanimate
+cc -table -unqual nounFormsNoun (suzanjN "sužanj") inanimate
+cc -table -unqual nounFormsNoun (pristN "prišt") inanimate
+cc -table -unqual nounFormsNoun (stricN  "stric") animate
+cc -table -unqual nounFormsNoun (klinacN "klinac") inanimate
+cc -table -unqual nounFormsNoun (posjetilacN "posjetilac") animate
+cc -table -unqual nounFormsNoun (pepeoN "pepeo") inanimate
+cc -table -unqual nounFormsNoun (ugaoN "ugao") inanimate
+cc -table -unqual nounFormsNoun (bifeN "bife") inanimate
+cc -table -unqual nounFormsNoun (ziriN "žiri") inanimate
+cc -table -unqual nounFormsNoun (taksiN "taksi") inanimate
+
+cc -table -unqual nounFormsNoun (koljenoN "koljeno") neuter
+cc -table -unqual nounFormsNoun (jedroN "jedro") neuter
+cc -table -unqual nounFormsNoun (poljeN "polje") neuter
+
+cc -table -unqual nounFormsNoun (zenaN "žena") feminine
+
+cc -table -unqual adjFormsAdjective (velikA "velik")
+cc -table -unqual adjFormsAdjective (velikA "mastan")
+cc -table -unqual adjFormsAdjective (velikA "gladan")
+cc -table -unqual adjFormsAdjective (velikA "nizak")
+
+cc -table -unqual aeiVerbForms "čitati" "čitam" "čitao"
+cc -table -unqual aeiVerbForms "raditi" "radem" "radio"
+

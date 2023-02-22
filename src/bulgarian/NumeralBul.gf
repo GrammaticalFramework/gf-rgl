@@ -4,11 +4,13 @@ concrete NumeralBul of Numeral = CatBul [Numeral,Digits] ** open Prelude, ResBul
 
 
 lincat 
-  Digit      = {s : DForm => CardOrd => Str} ;
-  Sub10      = {s : DForm => CardOrd => Str; n : Number} ;
-  Sub100     = {s : CardOrd => NumF => Str; n : Number; i : Bool} ;
-  Sub1000    = {s : CardOrd => NumF => Str; n : Number; i : Bool} ;
-  Sub1000000 = {s : CardOrd => NumF => Str; n : Number} ;
+  Digit            = {s : DForm => CardOrd => Str} ;
+  Sub10            = {s : DForm => CardOrd => Str; n : Number} ;
+  Sub100           = {s : CardOrd => NumF => Str; n : Number; i : Bool} ;
+  Sub1000          = {s : CardOrd => NumF => Str; n : Number; i : Bool} ;
+  Sub1000000       = {s : CardOrd => NumF => Str; n : Number} ;
+  Sub1000000000    = {s : CardOrd => NumF => Str; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => NumF => Str; n : Number} ;
 
 lin num x = {s = \\c => x.s ! c ! Formal; n=x.n} ;
 lin n2 = mkDigit "два"    "двама"    "две"    "втори"    "двайсет"    "двеста" "двестата" ;
@@ -52,24 +54,33 @@ lin pot01 =
       ;n = Sg
       } ;
 lin pot0 d = d ** {n = Pl} ;
+lin pot0as1 n = {s = \\c,nf => n.s ! unit ! c; n = n.n; i = True} ;
 
 lin pot110 = {s=\\c,nf => pot01.s ! ten nf ! c;  n = Pl; i = True} ;
 lin pot111 = {s=\\c,nf => pot01.s ! teen nf ! c; n = Pl; i = True} ;
 lin pot1to19 d = {s = \\c,nf => d.s ! teen nf ! c; n = Pl; i = True} ;
-lin pot0as1 n = {s = \\c,nf => n.s ! unit ! c; n = n.n; i = True} ;
 lin pot1 d = {s = \\c,nf => d.s ! ten nf ! c; n = Pl; i = True} ;
 lin pot1plus d e = {
    s = \\c,nf => d.s ! ten nf ! NCard (CFMasc Indef NonHuman) ++ "и" ++ e.s ! unit ! c ; n = Pl; i = False} ;
-
 lin pot1as2 n = n ;
+
+lin pot21 = {
+      s = \\o,_ => mkCardOrd100 "сто" "стоте" "стотен" ! o ;
+      i = False ;
+      n = Pl
+    } ;
 lin pot2 n = {s = \\c,nf => n.s ! hundred ! c; n = Pl; i = True} ;
 lin pot2plus d e = {
   s = \\c,nf => d.s ! hundred ! NCard (CFMasc Indef NonHuman) ++ case e.i of {False => []; True  => "и"} ++ e.s ! c ! nf ;
   n = Pl ;
   i = False
   } ;
-
 lin pot2as3 n = n ;
+
+lin pot31 = {
+      s = \\o,_ => mkCardOrd100 "хиляда" "хилядата" "хиляден" ! o ;
+      n = Pl
+    } ;
 lin pot3 n = {
   s = \\c,nf => case n.n of {
                   Sg => mkCardOrd100 "хиляда" "хилядата" "хиляден" ! c ;
@@ -85,7 +96,52 @@ lin pot3plus n m = {
                 ++ case m.i of {False => []; True  => "и"} ++ m.s ! c ! nf ;
   n = Pl
   } ;
+lin pot3as4 n = n ;
+lin pot3float f = {
+  s = \\c,nf => f.s ++ mkCardOrd100 "хиляди" "хилядите" "хиляден" ! c ;
+  n = Pl
+  } ;
 
+lin pot41 = {
+      s = \\o,_ => mkCardOrd100 "милион" "милионите" "милионен" ! o ;
+      n = Pl
+    } ;
+lin pot4 n = {
+      s = \\c,nf => case n.n of {
+                  Sg => mkCardOrd100 "милион" "милионите" "милионен" ! c ;
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиони" "милионите" "милионен" ! c
+                } ;
+      n = Pl
+    } ;
+lin pot4plus n1 n2 = {
+      s = \\o,f => (pot4 n1).s ! o ! f ++ "и" ++ n2.s ! o ! f;
+      n = Pl
+    } ;
+lin pot4as5 n = n ;
+lin pot4float f = {
+  s = \\c,nf => f.s ++ mkCardOrd100 "милиона" "милиона" "милионен" ! c ;
+  n = Pl
+  } ;
+
+lin pot51 = {
+      s = \\o,_ => mkCardOrd100 "милиярд" "милиярдите" "милиярден" ! o ;
+      n = Pl
+    } ;
+lin pot5 n = {
+      s = \\c,nf => case n.n of {
+                  Sg => mkCardOrd100 "милиярд" "милиярдите" "милиярден" ! c ;
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиярд" "милиярдите" "милиярден" ! c
+                } ;
+      n = Pl
+    } ;
+lin pot5plus n1 n2 = {
+      s = \\o,f => (pot5 n1).s ! o ! f ++ "и" ++ n2.s ! o ! f;
+      n = Pl
+    } ;
+lin pot5float f = {
+  s = \\c,nf => f.s ++ mkCardOrd100 "милиярда" "милиярда" "милиярден" ! c ;
+  n = Pl
+  } ;
 
 -- numerals as sequences of digits
 

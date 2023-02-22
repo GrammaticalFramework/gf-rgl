@@ -115,4 +115,9 @@ lin
     isPron = False
     } ;
 
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
+lin FullName gn sn = {
+       s = \\c => gn.s ! NPNom ++ sn.s ! c
+    } ;
+
 }

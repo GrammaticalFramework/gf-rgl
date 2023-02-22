@@ -49,7 +49,12 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, HarmonyTur, Prelud
     N  = Noun ;
     N2 = Noun ** {c : Prep} ;
     N3 = Noun ** {c1,c2 : Prep} ;
-    PN = Noun ;
+    GN, SN, PN = {
+      s   : Case => Str ;
+      h   : Harmony ;
+      n   : Number
+    } ;
+
 
 linref
     V = \v -> v.s ! VInfinitive ;

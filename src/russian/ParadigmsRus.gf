@@ -170,6 +170,7 @@ oper
     mkV3 : V -> Prep -> Prep -> V3 ;
   } ;
 
+   mkVA  : V -> VA ;
    mkVS  : V -> VS ;
    mkVQ  : V -> VQ ;
    mkV2V : overload {
@@ -188,6 +189,26 @@ oper
   dirV2 : V -> V2 ;
   tvDirDir : V -> V3 ;
   mkVV : V -> VV;
+
+  compoundV : V -> Str -> V = \v,s -> v ** {
+    inf = v.inf ++ s ;
+    infrefl = v.infrefl ++ s ;
+    prsg1 = v.prsg1 ++ s ;
+    prsg2 = v.prsg2 ++ s ;
+    prsg3 = v.prsg2 ++ s ;
+    prpl1 = v.prpl1 ++ s ;
+    prpl2 = v.prpl2 ++ s ;
+    prpl3 = v.prpl3 ++ s ;
+    psgm = v.psgm ++ s ;
+    psgs = v.psgs ++ s ;
+    isg2 = v.isg2 ++ s ;
+    ipl1 = v.ipl1 ++ s ;
+    isg2refl = v.isg2refl ++ s ;
+    ppps = v.ppps ++ s ;
+    pppss = v.pppss ++ s ;
+    prtr = v.prtr ++ s ;
+    ptr = v.ptr ++ s
+  } ;
 
 ------------------------
 --2 Adverbs, prepositions, conjunctions, ...
@@ -242,6 +263,85 @@ oper
           anim=anim;
           mayben=BothSgPl ;
           g=g
+        } ;
+  } ;
+
+  compoundN = overload {
+    compoundN : A -> N -> N
+      = \a, n -> applyMaybeNumber
+           {snom = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsnom n.snom ;
+                     Masc => preOrPost (notB a.p) a.msnom n.snom ;
+                     Neut => preOrPost (notB a.p) a.nsnom n.snom
+                   } ;
+            sgen = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsgen n.sgen ;
+                     _    => preOrPost (notB a.p) a.msgen n.sgen
+                   } ;
+            sdat = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsgen n.sdat ;
+                     _    => preOrPost (notB a.p) a.msdat n.sdat
+                   } ;
+            sacc = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsacc n.sacc ;
+                     Masc => case n.anim of {
+                               Inanimate => preOrPost (notB a.p) a.msnom n.sacc ;
+                               Animate   => preOrPost (notB a.p) a.msgen n.sacc
+                             } ;
+                     Neut => preOrPost (notB a.p) a.nsnom n.sacc
+                   } ;
+            sins = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsins n.sins ;
+                     _    => preOrPost (notB a.p) a.msins n.sins
+                   } ;
+            sprep= case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsgen  n.sprep ;
+                     _    => preOrPost (notB a.p) a.msprep n.sprep
+                   } ;
+            sloc = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsgen  n.sloc ;
+                     _    => preOrPost (notB a.p) a.msprep n.sloc
+                   } ;
+            sptv = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsgen  n.sptv ;
+                     _    => preOrPost (notB a.p) a.msgen  n.sptv
+                   } ;
+            svoc = case n.g of {
+                     Fem  => preOrPost (notB a.p) a.fsnom n.svoc ;
+                     Masc => preOrPost (notB a.p) a.msnom n.svoc ;
+                     Neut => preOrPost (notB a.p) a.nsnom n.svoc
+                   } ;
+            pnom = preOrPost (notB a.p) a.pnom  n.pnom ;
+            pgen = preOrPost (notB a.p) a.pgen  n.pgen ;
+            pdat = preOrPost (notB a.p) a.msins n.pdat ;
+            pacc = case n.anim of {
+                     Inanimate => preOrPost (notB a.p) a.pnom n.pacc ;
+                     Animate   => preOrPost (notB a.p) a.pgen n.pacc
+                   } ;
+            pins = preOrPost (notB a.p) a.pins  n.pins ;
+            pprep= preOrPost (notB a.p) a.pgen  n.sprep ;
+            anim=n.anim;
+            mayben=n.mayben ;
+            g=n.g
+           } ;
+
+    compoundN : N -> Str -> N
+      = \n, adv -> n ** {
+           snom = n.snom ++ adv;
+           sgen = n.sgen ++ adv;
+           sdat = n.sdat ++ adv;
+           sacc = n.sacc ++ adv;
+           sins = n.sins ++ adv;
+           sprep = n.sprep ++ adv;
+           sloc = n.sloc ++ adv;
+           sptv = n.sptv ++ adv;
+           svoc = n.svoc ++ adv;
+           pnom = n.pnom ++ adv;
+           pgen = n.pgen ++ adv;
+           pdat = n.pdat ++ adv;
+           pacc = n.pacc ++ adv;
+           pins = n.pins ++ adv;
+           pprep = n.pprep ++ adv
         } ;
   } ;
 
@@ -413,6 +513,7 @@ oper
   tvDirDir v = mkV3 v Acc Dat ;
   mkVV = \v -> lin VV {v=v; modal=\\a=>[]} ;
 
+  mkVA v = lin VA v ;
   mkVS v = lin VS v ;
   mkVQ v = lin VQ v ;
   mkV2V = overload {
@@ -447,6 +548,15 @@ oper
     mkAdv : Str -> Adv
       = \s -> lin Adv (makeAdverb s) ;
     } ;
+
+  mkAdV : Str -> AdV
+    = \s -> lin AdV (makeAdverb s) ;
+
+  mkAdA : Str -> AdA
+    = \s -> lin AdA (makeAdverb s) ;
+
+  mkAdN : Str -> AdN
+    = \s -> lin AdN (makeAdverb s) ;
 
   mkIAdv : Str -> IAdv
     = \s -> lin IAdv (makeAdverb s) ;

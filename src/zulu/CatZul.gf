@@ -23,7 +23,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 --       s : ResZul.Tense => Anteriority => CPolarity => Order => Str ;
 --       c2 : Str
 --       } ;
-    Imp = { s : Polarity => Str } ;
+    Imp = { s : Number => Polarity => Str } ;
 
 -- Question
 
@@ -47,11 +47,13 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
     VP = {
       s : CType => Agr => Polarity => BasicTense => Bool => Str ; -- TODO: mood
+      imp_s : Number => Polarity => Str ;
+      inf_s : NForm => Polarity => Str ;
       -- oc : Str ;
       comp : Str ;
       iadv : Str ;
       advs : Str ;
-      hasComp : Bool ;
+      hasComp : Bool ; -- indicates whether to use long form
       r : RInit ;
       syl : Syl ;
       -- asp : Aspect ;
@@ -121,7 +123,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     Num  = { s: Str ; n : Number } ;
 --     Card = {s,sp : Bool => Case => Str ; n : Number} ;
 --     ACard = {s : Case => Str ; n : Number} ;
-    Quant = { s : Str ; dist : Distance } ;
+    Quant = { s : Bool => Agr => Str ; dist : Distance } ;
 
 -- Numeral
 
@@ -137,7 +139,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 --     CAdv = {s : Polarity => Str; p : Str} ;
 
 -- Open lexical classes, e.g. Lexicon
-    V,V2,VA,VS,V3 = {
+    V,V2,VA,VS,V3,VV = {
       s : RForm => Str ;
       r : RInit ;
       syl : Syl ;

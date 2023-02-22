@@ -54,6 +54,10 @@ concrete ExtendEst of Extend =
     VPI2 = X.VPI ** {c2 : Compl} ;
     [VPI2] = X.ListVPI ** {c2 : Compl}  ;
 
+  linref
+    VPS = X.linVPS (agrP3 Sg) ;
+    VPI = X.linVPI InfMa ;
+
   lin
     MkVPS = X.MkVPS ;
     BaseVPS = X.BaseVPS ;
@@ -256,12 +260,12 @@ concrete ExtendEst of Extend =
     -- : NP -> VS -> Utt -> Cl ;      -- "I am here", she said
     FrontComplDirectVS np vs utt =
       let cl : Cl = PredVP np (UseV vs) ;
-       in cl ** {s = \\t,a,p,o => utt.s ++ bindComma ++ cl.s ! t ! a ! p ! o} ;
+       in cl ** {s = \\t,a,p => utt.s ++ bindComma ++ cl.s ! t ! a ! p} ;
 
     -- : NP -> VQ -> Utt -> Cl ;      -- "where", she asked
     FrontComplDirectVQ np vq utt =
       let cl : Cl = PredVP np (UseV vq) ;
-       in cl ** {s = \\t,a,p,o => utt.s ++ bindComma ++ cl.s ! t ! a ! p ! o} ;
+       in cl ** {s = \\t,a,p => utt.s ++ bindComma ++ cl.s ! t ! a ! p} ;
 
 
 ---------------------------------
@@ -298,8 +302,12 @@ concrete ExtendEst of Extend =
     GerundAdv vp = {s = infVPdefault vp InfDes} ;
 
     -- : VP -> CN    -- publishing of the document (can get a determiner)
-    GerundCN vp = emptyCN ** {s = \\nf => infVPdefault vp InfMine} ;
-
+    GerundCN vp = emptyCN ** {
+      s = \\nf => infVPdefault vp {stem = InfM ; suf = []}
+               ++ ine.s ! nf ;
+      } where {
+        ine : N = mkN "ine" "ise" "ist" "isesse" "iste" "isi"
+      } ;
     -- : VP -> NP    -- publishing the document (by nature definite)
     GerundNP vp = MassNP (GerundCN vp) ;
 
@@ -345,7 +353,7 @@ concrete ExtendEst of Extend =
 
     -- : VPSlash -> AP ;    -- täna leitud
     PastPartAP vp = {
-      s = \\_,_ => vp2adv vp True (VIPass Past) ;
+      s = \\_,_ => vp2adv <vp : VP> <True : Bool> <PastPart Pass : VForm> ;
       infl = Invariable
       } ;
 
@@ -357,7 +365,8 @@ concrete ExtendEst of Extend =
 
     -- : VPSlash -> NP -> AP    -- hobisukeldujate poolt leitud (süvaveepomm)
     PastPartAgentAP vp np = {
-      s = \\_,_ => appCompl True Pos by8agent_Prep np ++ vp2adv vp True (VIPass Past) ;
+      s = \\_,_ => appCompl True Pos by8agent_Prep np
+                ++ vp2adv <vp : VP> <True : Bool> <PastPart Pass : VForm> ;
       infl = Invariable
       } ;
 
@@ -385,17 +394,25 @@ concrete ExtendEst of Extend =
     -- calling infVP with the "default arguments": NPCase Nom, Pos, agrP3 Sg
     infVPdefault : VP -> InfForms -> Str = infVP (NPCase Nom) Pos (agrP3 Sg) ;
 
-    vp2adv : R.VP -> Bool -> VIForm -> Str = \vp,sentIsPos,vif ->
-      let vpforms : {fin,inf : Str} = case vif of {
-            VIInf if => applyInfFormsVP {stem=if ; suf="a"} vp ; --- this oper shouldn't be used if you want to use an InfForm but just trying to be robust here
-            _        => mkVPForms vp.v ! vif ! Simul ! Pos ! agrP3 Sg} ;
-       in  vp.s2 ! sentIsPos ! Pos ! agrP3 Sg  -- raamatut
-        ++ vp.adv                           -- paremini
-        ++ vp.p                             -- ära
-        ++ vpforms.fin -- tunda/tundes/tundmata/...
-        ++ vpforms.inf -- TODO is this necessary???
-        ++ vp.ext ;
+    vp2adv = overload {
 
+      vp2adv : R.VP -> Bool -> VIForm -> Str = \vp,sentIsPos,vif ->
+        let vpforms : {fin,inf : Str} = case vif of {
+              VIInf if => applyInfFormsVP {stem=if ; suf="a"} vp ; --- this oper shouldn't be used if you want to use an InfForm but just trying to be robust here
+              _        => mkVPForms vp.v ! vif ! Simul ! Pos ! agrP3 Sg} ;
+        in  vp.s2 ! sentIsPos ! Pos ! agrP3 Sg  -- raamatut
+          ++ vp.adv                           -- paremini
+          ++ vp.p                             -- ära
+          ++ vpforms.fin -- tunda/tundes/tundmata/...
+          ++ vpforms.inf -- TODO is this necessary???
+          ++ vp.ext ;
+      vp2adv : R.VP -> Bool -> VForm -> Str = \vp,sentIsPos,vf ->
+          vp.s2 ! sentIsPos ! Pos ! agrP3 Sg  -- raamatut
+          ++ vp.adv                           -- paremini
+          ++ vp.p                             -- ära
+          ++ vp.v.s ! vf                      -- tuntud
+          ++ vp.ext
+    } ;
 ---------------------------------
 -- S - W
 
@@ -419,5 +436,10 @@ concrete ExtendEst of Extend =
     -- : VP -> Adv ;  -- ilma raamatut nägemata
     WithoutVP vp = {s = "ilma" ++ infVPdefault vp InfMata} ;
 
+
+lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
+lin FullName gn sn = {
+       s = \\c => gn.s ! Nom ++ sn.s ! c
+    } ;
 
 }

@@ -59,5 +59,7 @@ lin
   warnen_V2V = defaultV2V (regV "warn") ;               -- typ=VVInf
   versprechen_dat_V2V = defaultV2V (regV "promise") ;   -- typ=VVInf
   lassen_V2V = ParadigmsEng.mkV2V (I.let_V) ;           -- typ=VVAux
-
+  -- aci verb:
+  sehen_V2V  = mkV2V (I.see_V) ;
+  hoeren_V2V = mkV2V (I.hear_V) ;
 }

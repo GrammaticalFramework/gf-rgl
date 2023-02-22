@@ -153,8 +153,8 @@ abstract ExtraGrcAbs = Extra, Numeral[Sub1000000] ** {
     Sub10000 ;     -- 1..9999
 
   data
-    pot4 : Sub10000 -> Sub1000000 ;                 -- m * 10000
-    pot4plus : Sub10000 -> Sub10000 -> Sub1000000 ; -- m * 10000 + n
+    pot3X : Sub10000 -> Sub1000000 ;                 -- m * 10000
+    pot3Xplus : Sub10000 -> Sub10000 -> Sub1000000 ; -- m * 10000 + n
 
 -- Conjunctions: 
 

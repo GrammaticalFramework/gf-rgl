@@ -19,9 +19,9 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
     UsePron p = p ;
 
     UsePN pn = { 
-      s = \\c => pn.s ! Sg ! c;
+      s = \\c => pn.s ! c;
       h = pn.h;
-      a = {n = Sg; p = P3}
+      a = {n = pn.n; p = P3}
     } ;
 
     PossPron p = {s = []; useGen = YesGen p.a} ;

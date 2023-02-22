@@ -33,6 +33,9 @@ fun
   warnen_V2V : V2V ;          -- -aux,         object control
   versprechen_dat_V2V : V2V ; -- -aux,         subject control
   lassen_V2V : V2V ;          -- +aux(inf),    object control
+  -- aci verb:                -- +aux(inf),    object control
+  sehen_V2V : V2V ;
+  hoeren_V2V : V2V ; 
 
 cat 
   V4 ;

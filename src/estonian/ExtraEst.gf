@@ -23,15 +23,24 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
 ---      a = RAg (agrP3 num.n)
       } ;
   oper
-    caseCN : CasePlus -> NP -> CN -> CN = \c,np,cn -> cn ** {
+    caseCN : CasePlus -> NPhrase -> CNoun -> CNoun = \c,np,cn -> cn ** {
       s = \\nf => appCompl True Pos (P.casePrep c) np ++ cn.s ! nf
       } ;
 
   lincat
-    VPI   = {s : InfStem => Str} ;
-    [VPI] = {s1,s2 : InfStem => Str} ;
-    -- VPI   = {s : Str} ;
-    -- [VPI] = {s1,s2 : Str} ;
+    VPI   = LinVPI ;
+    [VPI] = LinListVPI ;
+
+  oper
+    LinVPI     : Type = {s     : InfStem => Str} ;
+    LinListVPI : Type = {s1,s2 : InfStem => Str} ;
+
+    linVPI : InfForms -> LinVPI -> Str = \inf,vpi -> vpi.s ! inf.stem ;
+
+    -- Version that uses InfStem
+    infVPIF : NPForm -> Polarity -> Agr -> ResEst.VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
+      infVPAnt Simul sc pol agr vp {stem=if ; suf="a"} ;
+
   lin
     BaseVPI = twoTable InfStem ;
     ConsVPI = consrTable InfStem comma ;
@@ -41,22 +50,40 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
     ComplVPIVV vv vpi =
       insertObj (\\_,_,_ => vpi.s ! vv.vi.stem) (predV vv) ;
 
-  oper
-    -- Version that uses InfStem
-    infVPIF : NPForm -> Polarity -> Agr -> VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
-      infVPAnt Simul sc pol agr vp {stem=if ; suf="a"} ;
-
-
   lincat
-    VPS = {
+    VPS   = LinVPS ;
+    [VPS] = LinListVPS ;
+  oper
+    LinVPS : Type = {
       s   : Agr  => Str ;
       sc  : NPForm ;  --- can be different for diff parts
       } ;
-
-    [VPS] = {
+    LinListVPS : Type = {
       s1,s2 : Agr  => Str ;
       sc    : NPForm ;  --- take the first: minä osaan kutoa ja täytyy virkata
       } ;
+
+    linVPS : Agr -> {s : Agr => Str} -> Str = \agr,vps -> vps.s ! agr ;
+
+    -- This internal oper isn't used in any of the RGL linearisations, but can be useful for application grammars
+    -- It produces a telegraphic style in past participle, 'võetud …' instead of 'on/oli võetud …'.
+    -- It differs from PastPartAP in word order, and it also takes polarity.
+    TelegraphicPastPartPassVPS : Pol -> ResEst.VP -> VPS = \p,vp ->
+      let sentIsPos : Bool = case p.p of {
+            Neg => False ;
+            Pos => True } ;
+          neg : Str = case p.p of {
+            Neg => "ei" ;
+            Pos => [] } ;
+       in lin VPS {
+            s = \\a => neg                            -- ei
+                    ++ vp.v.s ! (PastPart Pass)       -- võetud
+                    ++ vp.s2 ! sentIsPos ! p.p ! a    -- vereanalüüs
+                    ++ vp.adv                         -- eile
+                    ++ vp.p
+                    ++ vp.ext ;
+            sc = vp.sc
+          };
 
   lin
     BaseVPS x y = twoTable Agr x y ** {sc = x.sc} ;
@@ -108,7 +135,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
             (\\_,b,_ => linNP (NPCase Nom) np)
             (predV (verbOlema ** {sc = NPCase Nom}))) ;
       in
-      cl.s ! t ! ant ! bo ! SDecl ;
+        cl.s ! t ! ant ! bo ;
       c = NPCase Nom
       } ;
 
@@ -117,18 +144,20 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
         (\\_,b,_ => linNP (NPCase Nom) np) (predV v)) ;
 
     ICompExistNP adv np =
-      let cl = mkClause (\_ -> adv.s ! np.a) np.a (insertObj
-        (\\_,b,_ => linNP (NPCase Nom) np) (predV (verbOlema ** {sc = NPCase Nom}))) ;
-      in  {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-      } ;
+      let subj : Polarity -> Str = \_ -> adv.s ! np.a ;
+          pred : ResEst.VP = insertObj
+                               (\\_,b,_ => linNP (NPCase Nom) np)
+                               (predV (verbOlema ** {sc = NPCase Nom})) ;
+       in mkClause subj np.a pred ;
+
 
     IAdvPredNP iadv v np =
-      let cl = mkClause (\_ -> iadv.s) np.a (insertObj
-                 (\\_,b,_ => linNP v.sc np) (predV v)) ;
-      in  {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-      } ;
+      let subj : Polarity -> Str = \_ -> iadv.s ;
+          pred : ResEst.VP = insertObj
+                               (\\_,b,_ => linNP v.sc np)
+                               (predV v) ;
+       in mkClause subj np.a pred ;
+
 
 --    i_implicPron = mkPronoun [] "minun" "minua" "minuna" "minuun" Sg P1 ;
     whatPart_IP = emptyIP ** {

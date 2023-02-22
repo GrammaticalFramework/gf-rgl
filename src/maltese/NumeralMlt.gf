@@ -63,6 +63,8 @@ concrete NumeralMlt of Numeral = CatMlt [Numeral,Digits] ** open Prelude,ResMlt 
     Sub100 = Form2 ;
     Sub1000 = Form2 ;
     Sub1000000 = Form2 ;
+    Sub1000000000 = Form2 ;
+    Sub1000000000000 = Form2 ;
 
   oper
 
@@ -334,6 +336,9 @@ concrete NumeralMlt of Numeral = CatMlt [Numeral,Digits] ** open Prelude,ResMlt 
       n = case n.n of { NumX Sg => Num1 ; Num2 => Num3_10 ; _ => n.n } ;
       f = Hund ; -- NOT IMPORTANT
     } ;
+
+    pot3as4 m = m ;
+    pot4as5 m = m ;
 
   oper
       -- Build "x thousand" table

@@ -16,12 +16,12 @@ lin
     let n_years_AdA : AdA = lin AdA (mkUtt (lin NP (mkNP <lin Card card : Card> L.year_N)))
     in  mkVP (mkAP n_years_AdA L.old_A) ;
 
-  have_name_Cl x y = mkCl (mkNP (E.GenNP x) L.name_N) (lin NP y) ;
-  married_Cl x y = mkCl (mkNP and_Conj (lin NP x) (lin NP y)) (ParadigmsEst.mkAdv "abielus") ;
+  have_name_Cl x y = mkCl (mkNP (E.GenNP x) L.name_N) <lin NP y : NP> ;
+  married_Cl x y = mkCl (mkNP and_Conj <lin NP x : NP> <lin NP y : NP>) (ParadigmsEst.mkAdv "abielus") ;
 
   what_name_QCl x = mkQCl (mkIComp whatSg_IP) (mkNP (E.GenNP x) L.name_N) ;
-  how_old_QCl x = mkQCl (E.ICompAP (mkAP L.old_A)) (lin NP x) ;
-  how_far_QCl x = mkQCl (E.IAdvAdv L.far_Adv) (lin NP x) ;
+  how_old_QCl x = mkQCl (E.ICompAP (mkAP L.old_A)) <lin NP x : NP> ;
+  how_far_QCl x = mkQCl (E.IAdvAdv L.far_Adv) <lin NP x : NP> ;
 
 -- some more things
   weather_adjCl ap = mkCl (mkVP (lin AP ap)) ;
@@ -29,10 +29,13 @@ lin
   is_right_VP = mkVP have_V2 (lin NP (mkNP (ParadigmsEst.mkN "õigus"))) ;
   is_wrong_VP = mkVP (ParadigmsEst.mkV "eksima") ;
 
-  n_units_AP card cn a = mkAP (lin AdA (mkUtt (lin NP (mkNP <lin Card card : Card> (lin CN cn))))) (lin A a) ;
+  n_units_AP card cn a =
+    let x_inches_NP : NP = mkNP <lin Card card : Card> <lin CN cn : CN> ;
+        x_inches_AdA : AdA = lin AdA (mkUtt x_inches_NP) ;
+     in mkAP x_inches_AdA <lin A a : A> ;
 
 {-
-  glass_of_CN  np =  mkCN (lin N2 (mkN2 (mkN "klaas") (mkPrep partitive))) (lin NP np) | mkCN (lin N2 (mkN2 (mkN "klaasitäis") (mkPrep partitive))) (lin NP np) ;
+  glass_of_CN  np =  mkCN (lin N2 (mkN2 (mkN "klaas") (casePrep partitive))) (lin NP np) | mkCN (lin N2 (mkN2 (mkN "klaasitäis") (casePrep partitive))) (lin NP np) ;
 
 
   where_go_QCl np = mkQCl (lin IAdv (ss "kuhu")) (mkCl np (mkVP L.go_V)) ;

@@ -111,9 +111,9 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
       g = n2.g
     };
     
-    ComplN3 n3 np = {
+    ComplN3 n3 np = lin N2 {
       s =
-        \\sf => n3.s ! sf ++ n3.c.s ++ np.dep ! n3.c.c ;
+        \\sf => n3.s ! sf ++ n3.c1.s ++ np.dep ! n3.c1.c ;
       c = n3.c2;
       g = n3.g
     };
@@ -126,7 +126,7 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     Use2N3 n3 = {
       s = n3.s;
       g = n3.g;
-      c = n3.c
+      c = n3.c1
     };
 
     Use3N3 n3 = {

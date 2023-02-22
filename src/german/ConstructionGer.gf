@@ -36,7 +36,7 @@ lin
 
   bottle_of_CN np = N.ApposCN (mkCN (mkN "Flasche")) np ;
   cup_of_CN np    = N.ApposCN (mkCN (mkN "Tasse"))   np ;
-  glass_of_CN np  = N.ApposCN (mkCN (mkN "Glas"))    np ;
+  glass_of_CN np  = N.ApposCN (mkCN (mkN "Glas" "Gläser" neuter)) np ;
 
 -- spatial deixis and motion verbs
   where_go_QCl np = mkQCl (lin IAdv (ss "wohin")) (mkCl np (mkVP L.go_V)) ;

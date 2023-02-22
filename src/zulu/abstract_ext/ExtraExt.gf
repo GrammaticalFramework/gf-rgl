@@ -1,11 +1,14 @@
 abstract ExtraExt =
-  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
+  Cat [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN,Conj],
   CatExt ** {
 
   fun
     ProDrop : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
 
   fun
+    ExistNP : NP -> S ;
+    GreetSg : Utt ;
+    GreetPl : Utt ;
     -- PotQS : Pol -> QCl -> QS ;
     -- SubjunctS : S -> Utt ;
 
@@ -27,17 +30,28 @@ abstract ExtraExt =
     -- PossPronZul : CN -> Pron -> CN ; -- of you (yours)
     -- RelV : CN -> V -> Temp -> Pol -> CN ; -- lights that flash
 
-    PossLocNP : LocN -> NP -> CN ;
+    -- PossLocNP : LocN -> NP -> CN ;
+    PossNPLoc : CN -> NP -> CN ; -- zasepulazini
 
     InstrNPAdv : NP -> Adv ; -- ngokuhlinzwa
     InstrAdvNPAdv : Adv -> NP -> Adv ; -- cishe ngehora
-    LocNPAdv : NP -> Adv ;   -- emahoreni
-    LocAdvNPAdv : Adv -> NP -> Adv ;   -- cishe emahoreni
+
+    LocAdvNPAdv : Adv -> NP -> Adv ;   -- cishe emahoreni amabili
     KwaNPAdv : NP -> Adv ; -- kwa-Laurette
-    -- KwaAdvNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
+    -- KwaAdvNPAdv : LocAdv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
     KuNPAdv : NP -> Adv ; -- kwixesha [elingangeyure enye egqithileyo]
     KuAdvNPAdv : Adv -> NP -> Adv ; -- ngaphezu kwamahora amabili adlule
     NaNPAdv : NP -> Adv ;
+
+    -- LocNAdv : LocN -> Adv ; -- phansi kwetafula
+
+    LocAdvAdv : LocAdv -> Adv ;
+    LocAdvNP : LocAdv -> NP -> LocAdv ; -- ngaphezu kwamahora amabili adlule
+    LocNAdv : LocN -> LocAdv ;
+    LocNNgaAdv : LocN -> LocAdv ;
+    LocNPAdv : NP -> LocAdv ;   -- emahoreni
+
+    NPAdv : NP -> Adv ; -- sonke lesi sikhathi
 
     -- InstrAdvNP   : NP -> NP -> NP ; -- questions about your pregnancy
 
@@ -59,13 +73,6 @@ abstract ExtraExt =
 
     -- painful_RelStem : RelStem ;
     -- sharp_RelStem : RelStem ;
-
-    -- TPerfPast : Temp ;
-    -- TPastPast : Temp ;
-    -- TPresPres : Temp ;
-    -- TPastPres : Temp ;
-    -- TPastPerf : Temp ;
-    -- TPerfPerf : Temp ;
 
     -- PredNP : NP -> Cl ;
     -- IAdvQS : NP -> INAdv -> QS ; -- where is the wine? iwayini liphi?
@@ -121,10 +128,22 @@ abstract ExtraExt =
     phakade_LocN : LocN ;
     phezulu_LocN : LocN ;
 
+    ngemuva_LocAdv : LocAdv ;
+    emuva_LocAdv : LocAdv ;
+    ecaleni_LocAdv : LocAdv ;
+    ngaphezu_LocAdv : LocAdv ;
+
     lapha_Loc : Loc ;
     khona_Loc : Loc ;
 
     kakhulu_Adv : Adv ;
+
+    ExtConjNP : NP -> Conj -> NP -> NP ;
+
+    with_Conj : Conj ;
+
+    want_VV : VV ;
+    prepare_to_VV : VV ;
 
     -- Deverb15 : V -> N ;
 

@@ -3,6 +3,7 @@ abstract CatExt = {
   cat
     Loc ;
     LocN ;
+    LocAdv ;
     QuantStem ;
     RelStem ;
     VAux ;
@@ -11,5 +12,6 @@ abstract CatExt = {
     -- INAdv ; -- which/-phi?
 
     Postdet ;
+    SubCl ;
 
 }

@@ -1,5 +1,5 @@
 concrete ExtraExtZul of ExtraExt =
-  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN],
+  CatZul [NP,VP,CN,V,Temp,S,Cl,Adv,Pron,QCl,QS,A,RS,IAdv,IComp,Pol,Det,Quant,N,PN,Conj,VV],
   CatExtZul
   ** open ResZul,Prelude,ParamX in {
 
@@ -19,6 +19,19 @@ concrete ExtraExtZul of ExtraExt =
     } ;
 
   lin
+    ExistNP np = {
+      s = let
+          cp = (id_cop_pref np.agr) ; -- ng-
+          cop_base = np.s!NFull -- umfundi
+        in
+          cp ++ cop_base ;
+    } ;
+    GreetSg = {
+      s = "sawubona"
+    } ;
+    GreetPl = {
+      s = "sanibonani"
+    } ;
     -- PotQS pol qcl = {
     --   s = pol.s ++ qcl.potqcl!pol.p!Princ ;
     --   qword_pre = qcl.qword_pre ;
@@ -160,9 +173,16 @@ concrete ExtraExtZul of ExtraExt =
 
     PossLocNP locn np = {
       empty = np.empty ;
-      s = \\n,nform => locn.s ;
-      mod = \\num => poss_concord!(C17)!Sg!np.i ++BIND++ (poss_NP np) ;
+      s = \\n,nform => locn.s ++ poss_concord!(C17)!n!np.i ++BIND++ (poss_NP np);
+      -- mod = \\num => poss_concord!(C17)!Sg!np.i ++BIND++ (poss_NP np) ;
       c = C17 ;
+      emph = False
+    } ;
+
+    PossNPLoc cn np = {
+      empty = np.empty ;
+      s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++"s"++BIND++ (loc_NP np);
+      c = cn.c ;
       emph = False
     } ;
 
@@ -184,14 +204,14 @@ concrete ExtraExtZul of ExtraExt =
       reqLocS = False
     } ;
 
-    LocNPAdv np = {
-      s = np.s!NLoc ;
-      -- asp = Null ;
-      reqLocS = case np.isPron of {
-        False => True ;
-        True => False -- ki-
-      } ;
-    } ;
+    -- LocNPAdv np = {
+    --   s = np.s!NLoc ;
+    --   -- asp = Null ;
+    --   reqLocS = case np.isPron of {
+    --     False => True ;
+    --     True => False -- ki-
+    --   } ;
+    -- } ;
 
     LocAdvNPAdv adv np = {
       s = adv.s ++ (np.s!NLoc) ;
@@ -207,23 +227,11 @@ concrete ExtraExtZul of ExtraExt =
       reqLocS = False
     } ;
 
-    -- -- NOTE: this seems to be a specific construction. Not yet found in Poulos+Msimang
-    -- KwaAdvNPAdv adv np =
-    --   let
-    --     c = case np.agr of {
-    --       (First _ | Second _) => C1_2 ; -- people class as default
-    --       Third c _ => c
-    --     } ;
-    --     n = case np.agr of {
-    --       (First Sg | Second Sg | Third _ Sg) => Sg ;
-    --       (First Pl | Second Pl | Third _ Pl) => Pl
-    --     }
-    --   in
-    --   {
-    --     s = adv.s ++ poss_concord!C15!Sg!(initNP np.isPron np.agr) ++BIND++ np.s!Reduced ++ np.mod ++ np.predet_pre ++ np.predet_post ;
-    --     -- asp = adv.asp ;
-    --     reqLocS = False
-    --   } ;
+    -- NOTE: this seems to be a specific construction. Not yet found in Poulos+Msimang
+    KwaAdvNPAdv adv np = {
+      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
+      reqLocS = False
+    } ;
 
     -- locative ku
     KuNPAdv np = {
@@ -261,6 +269,37 @@ concrete ExtraExtZul of ExtraExt =
       s = withPref ! (initNP np.isPron np.agr) ++BIND++ (np.s!NReduced) ;
       -- asp = Null ;
       reqLocS = False
+    } ;
+
+    NPAdv np = {
+      s = case np.proDrop of {
+        False => np.s!NFull ;
+        True => "*" ++ np.s!NFull
+      } ;
+      reqLocS = False
+    } ;
+
+    LocAdvAdv l = l ** { reqLocS = False } ;
+
+    LocAdvNP adv np = {
+      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
+      reqLocS = False
+    } ; -- ngaphezu kwamahora amabili adlule
+
+    LocNAdv locn = locn ** { reqLocS = False } ;
+
+    LocNNgaAdv locn = {
+      s = "nga" ++BIND++ locn.s ;
+      reqLocS = False
+    } ;
+
+    LocNPAdv np = {
+      s = np.s!NLoc ;
+      -- asp = Null ;
+      reqLocS = case np.isPron of {
+        False => True ;
+        True => False -- ki-
+      } ;
     } ;
 
     RelAdv adv = {
@@ -506,7 +545,10 @@ concrete ExtraExtZul of ExtraExt =
     it15_Pron = mkPron (Third C15 Sg) ;
     it17_Pron = mkPron (Third C17 Sg) ;
 
-    yonder_Quant = { s = [] ; dist = Dem3 } ;
+    yonder_Quant = {
+      s = \\b,a => dem_pron!Dem3!a ;
+      dist = Dem3
+    } ;
 
     at_which_IAdv np = {
       s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (np.s!NFull) ;
@@ -538,6 +580,12 @@ concrete ExtraExtZul of ExtraExt =
     phakade_LocN = { s = "phakade" ; empty = [] } ;
     phezulu_LocN = { s = "phezulu" ; empty = [] } ;
 
+
+    ngemuva_LocAdv = { s = "ngemuva" ; reqLocS = False } ;
+    emuva_LocAdv = { s = "emuva" ; reqLocS = False } ;
+    ecaleni_LocAdv = { s = "ecaleni" ; reqLocS = False } ;
+    ngaphezu_LocAdv = { s = "ngaphezu" ; reqLocS = False } ;
+
     lapha_Loc = {
       s = table {
         MainCl => \\a,p,t => let
@@ -559,16 +607,82 @@ concrete ExtraExtZul of ExtraExt =
           VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
           VFIndic _ _ _ => rcp ++ pcp ++ cop_base
         }
+      } ;
+      imp_s = table {
+        Sg => table {
+          Pos => "yiba" ++ "lapha" ;
+          Neg => "ungabi" ++ "lapha"
+        } ;
+        Pl => table {
+          Pos => "yibani" ++ "lapha" ;
+          Neg => "ningabi" ++ "lapha"
+        }
+      } ;
+      inf_s = table {
+        NFull => table {
+          Pos => "ukuba" ++ "lapha" ;
+          Neg => "ukungabi" ++ "lapha"
+        } ;
+        NReduced | NPoss => table {
+          Pos => "kuba" ++ "lapha" ;
+          Neg => "kungabi" ++ "lapha"
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "lapha" ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "lapha"
+        }
       }
     } ;
 
     khona_Loc = {
       s = \\c,a,p,t => kho_cop (VFIndic c p t) a ;
+      imp_s = table {
+        Sg => table {
+          Pos => "yiba" ++ "khona" ;
+          Neg => "ungabi" ++ "khona" -- this is a guess
+        } ;
+        Pl => table {
+          Pos => "yibani" ++ "khona" ;
+          Neg => "ningabi" ++ "khona"
+        }
+      } ;
+      inf_s = table {
+        NFull => table {
+          Pos => "ukuba" ++ "khona" ;
+          Neg => "ukungabi" ++ "khona"
+        } ;
+        NReduced | NPoss => table {
+          Pos => "kuba" ++ "khona" ;
+          Neg => "kungabi" ++ "khona"
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "khona" ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "khona"
+        }
+      }
     } ;
 
     kakhulu_Adv = { s = "kakhulu" ; reqLocS = False } ;
 
     AdvQS adv qs = { s = adv.s ++ qs.s ; qword_pre = [] ; qword_post = [] } ;
+
+    ExtConjNP np1 conj np2 = {
+      s = \\nform => np1.s!nform ++ (link_conj conj np2.i) ++ np2.s!NReduced ;
+      agr = compAgr np1.agr np2.agr ;
+      i = np1.i ;
+      proDrop = andB np1.proDrop np2.proDrop ;
+      isPron = np1.isPron ;
+      heavy = orB np1.heavy np2.heavy ;
+      empty = np1.empty ++ np2.empty
+    } ;
+
+    with_Conj = {
+      s = withPref ;
+      fix = True
+    } ;
+
+    want_VV = regVerb "fun" ;
+    prepare_to_VV = regVerb "lungiselel" ;
 
     -- Deverb15 v =
     -- let

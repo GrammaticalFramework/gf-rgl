@@ -6,7 +6,7 @@ flags optimize = all_subs ;
 lincat 
   Digit = {s : DForm => CardOrd => Str} ;
   Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
-  Sub100, Sub1000, Sub1000000 = 
+  Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000 = 
           {s :          CardOrd => Str ; n : Number} ;
 
 lin 
@@ -29,23 +29,35 @@ lin
     n = Sg
     } ;
   pot0 d = {s = \\f,g => d.s ! f ! g ; n = Pl} ;
+  pot0as1 n = {s = n.s ! DUnit; n = n.n } ;
+
   pot110 = {s = cardReg "zehn"; n = Pl} ;
   pot111 = {s = cardReg "elf"; n = Pl} ;
   pot1to19 d = {s = d.s ! DTeen; n = Pl} ;
-  pot0as1 n = {s = n.s ! DUnit; n = n.n } ;
   pot1 d = {s = d.s ! DTen; n = Pl} ;
   pot1plus d e = {s = \\g => 
     e.s ! DUnit ! invNum ++ BIND ++ "und" ++ BIND ++ d.s ! DTen ! g; n = Pl} ;
   pot1as2 n = n ;
+
   pot2 d = {s = \\g => 
     multiple (d.s ! DUnit) d.n ++ cardOrd "hundert" "hunderte" ! g ; n = Pl} ;
   pot2plus d e = {s = \\g => 
     multiple (d.s ! DUnit) d.n ++ "hundert" ++ BIND ++ e.s ! g ; n = Pl} ;
   pot2as3 n = n ;
+
   pot3 n = {s = \\g => 
     multiple n.s n.n ++ cardOrd "tausend" "tausendte" ! g ; n = Pl} ; ----
   pot3plus n m = {s = \\g => 
     multiple n.s n.n ++ "tausend" ++ m.s ! g ; n = Pl} ;
+  pot3as4 n = n ;
+  pot3float f = {s = \\g =>
+    f.s ++ cardOrd "tausend" "tausendte" ! g ; n = Pl} ; ----
+
+  pot4as5 n = n ;
+  pot4float f = {s = \\g =>
+    f.s ++ cardOrd "Millionen" "Millionte" ! g ; n = Pl} ; ----
+
+  pot51 = {s = \\g => "einer Milliarde"; n = Pl} ;  -- KA: case inflection missing
 
 oper
   multiple : (CardOrd => Str) -> Number -> Str = \d,n -> 

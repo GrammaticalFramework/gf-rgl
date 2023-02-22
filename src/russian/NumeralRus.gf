@@ -11,7 +11,7 @@ lincat Digit = {s : DForm => DetTable ; size : NumSize ; o : DForm => PronForms}
 lincat Sub10 = {s : Place => DForm => DetTable ; size : NumSize ; o : Place => DForm => PronForms ; just1 : Bool} ;
 lincat Sub100 = {s : Place => DetTable ; size : NumSize ; o : Place => PronForms; just1 : Bool} ;
 lincat Sub1000 = {s : Place => DetTable ; size : NumSize ; o : Place => PronForms; just1 : Bool} ;
-lincat Sub1000000 = {s : DetTable ; size : NumSize ; o : PronForms; just1 : Bool} ;
+lincat Sub1000000, Sub1000000000, Sub1000000000000 = {s : DetTable ; size : NumSize ; o : PronForms; just1 : Bool} ;
 -- just1 to correctly generate exactly 1000
 
 -- : Sub1000000 -> Numeral ; -- 123456 [coercion to top category]
@@ -403,6 +403,9 @@ lin pot3plus n m = {
   just1 = False ;
   size = Num5
   } ;
+lin pot3as4 n = n ;
+
+lin pot4as5 n = n ;
 
 -- numerals as sequences of digits
 

@@ -6,7 +6,9 @@ lincat
   Sub10,
   Sub100,
   Sub1000,
-  Sub1000000 = ResKor.Numeral ;
+  Sub1000000,
+  Sub1000000000,
+  Sub1000000000000 = ResKor.Numeral ;
 
 lin
   -- : Sub1000000 -> Numeral ;              -- 123456 [coercion to top category]
@@ -83,6 +85,9 @@ lin
 
   -- : Sub1000 -> Sub1000 -> Sub1000000 ;   -- m * 1000 + n
   pot3plus m n = TODO ;
+
+  pot3as4 x = x ;
+  pot4as5 x = x ;
 
 oper
   LinDigit : Type = ResKor.Numeral ** {isTwo : Bool ; ten : Str} ;

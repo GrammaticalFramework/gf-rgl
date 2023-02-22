@@ -47,7 +47,8 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
   param
     Gender = Masc | Fem | Neut ;
-    
+    Sex = Male | Female ;
+
     Species = Indef | Def ;
  
 -- The plural never makes a gender distinction.
@@ -851,4 +852,11 @@ resource ResBul = ParamX ** open Prelude, Predef in {
         APl Indef      => "свои" ;
         APl Def        => "своите"
       } ;
+      
+    sex2gender : Sex -> Gender = \g ->
+      case g of {
+        Male => Masc ;
+        Female => Fem
+      } ;
+
 }
