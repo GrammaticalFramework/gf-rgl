@@ -267,6 +267,7 @@ abstract Extend = Cat ** {
   weFem_Pron     : Pron ; -- we (Fem)
   youPlFem_Pron  : Pron ; -- you plural (Fem)
   theyFem_Pron   : Pron ; -- they (Fem)
+  theyNeutr_Pron : Pron ; -- they (Neutr)
   youPolFem_Pron : Pron ; -- you polite (Fem)
   youPolPl_Pron  : Pron ; -- you polite plural (Masc)
   youPolPlFem_Pron : Pron ; -- you polite plural (Fem)
@@ -297,5 +298,8 @@ fun
   FemaleSurname : SN -> PN ;
   PlSurname     : SN -> PN ;
   FullName  : GN -> SN -> PN ;
+
+fun
+  AnaphPron : NP -> Pron ;
 
 }
