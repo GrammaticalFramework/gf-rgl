@@ -89,4 +89,5 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 
 linref
     S = linS ;
+    Prep = linPrep ;
 }
