@@ -31,11 +31,12 @@ concrete ConjunctionMay of Conjunction =
 -- Adverb and other simple {s : Str} types.
 lincat
   [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
+  [S] = {s1,s2 : Str} ;
 
 lin
-  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
+  BaseAdv, BaseAdV, BaseIAdv, BaseS = twoSS ;
+  ConsAdv, ConsAdV, ConsIAdv, ConsS = consrSS comma ;
+  ConjAdv, ConjAdV, ConjIAdv, ConjS = conjunctDistrSS ;
 
 
 {-

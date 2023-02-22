@@ -62,7 +62,8 @@ lin
     } ;
 
   -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
-  --   insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
+  insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
+
 
   SlashV2A v2 adj = useV {
     s = \\vf => v2.s ! vf;
@@ -71,12 +72,15 @@ lin
     adjCompl = adj.s
   } ;
 
+  -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
+  SlashV2V v2v vp = ;
+
+
  {-
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2s s =
 
-  -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  SlashV2V v2v vp = ;
+
 
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
   SlashV2Q v2q qs = ;
