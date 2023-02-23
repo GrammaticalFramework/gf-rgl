@@ -1,4 +1,4 @@
-abstract ParseEngAbs = 
+abstract ParseEngAbs =
   Tense,
   Cat,
   Noun - [PPartNP],
@@ -51,11 +51,11 @@ fun CompoundSgCN : CN -> CN -> CN ;
     SlashVPIV2V : V2V -> Pol -> VPI -> VPSlash ;
 
     SlashSlashV2V : V2V -> Ant -> Pol -> VPSlash -> VPSlash ;
-    
+
     ComplVV : VV -> Ant -> Pol -> VP -> VP ;
 
     PredVPosv,PredVPovs : NP -> VP -> Cl ;
-    
+
     that_RP : RP ;
     who_RP : RP ;
 
