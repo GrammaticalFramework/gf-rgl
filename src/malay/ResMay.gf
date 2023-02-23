@@ -330,6 +330,7 @@ oper
 
   Sentence : Type = {s : Str} ;
 
+
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
     subj = np.s ! Bare ;
     pred = vp.s
@@ -337,6 +338,9 @@ oper
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
     predVP np <vps : VerbPhrase> ** {c2 = vps.c2} ;
+
+  linS : Sentence -> Str = \sent -> sent.s ;
+
 
   -- mkClause : Str -> NounPhrase -> VPSlash -> Clause = \str,np,vp -> {
   --   subj = str ++ np.s ! Bare;

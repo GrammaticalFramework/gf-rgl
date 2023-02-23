@@ -9,7 +9,7 @@ oper
 -- should always use these constants instead of the constructors
 -- defined in $ResSom$.
 
-noPrep : Prep = mkPrep "" ;
+  noPrep : Prep = mkPrep "" ;
 
 --2 Nouns
 
@@ -54,16 +54,17 @@ noPrep : Prep = mkPrep "" ;
     mkVV : Str -> VV ;
    } ;
 
+  mkVS : overload {
+    mkVS : V -> VS ;
+  } ;
   --
   mkVA : overload {
     mkVA : V -> VA ;
   } ;
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
-  mkVS : overload {
-    mkV : (root : Str) -> V ; -- Verb that takes meng as a active prefix
-    mkV : (root : Str) -> Prefix -> V  -- Root and prefix
-  } ;
+
+
   --
   -- mkV2A : Str -> V2A
   --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
@@ -158,10 +159,17 @@ noPrep : Prep = mkPrep "" ;
     mkV4 : V -> Prep -> Str -> V2 = \v,p,str -> lin V2 (mkVerb4 v p str)
     } ;
 
- mkVV = overload {
-   mkVV : Str -> VV = \vv -> lin VV (ss vv)
-   } ;
+  mkVV = overload {
+    mkVV : Str -> VV = \vv -> lin VV (ss vv)
+    } ;
 
+  mkVS = overload {
+    mkVS : V -> VS = \v -> lin VS (v)
+    } ;
+
+  mkVA = overload {
+    mkVA : V -> VA = \v -> lin VA (v)
+    } ;
 --------------------------------------------------------------------------------
 
 }

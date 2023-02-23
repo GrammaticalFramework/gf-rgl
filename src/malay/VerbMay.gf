@@ -23,13 +23,14 @@ lin
   ComplVA va ap = ResMay.insertComp ap (useV va) ;
 
   -- : VS  -> S  -> VP ;
-  -- ComplVS vs s =
-  --   let vps = useV vs ;
-  --       subord = SubjS {s=""} s ;
-  --    in vps ** {} ;
+  ComplVS vs s = ResMay.insertObj (linS s) (useV vs) ;
+
+    -- let vps = useV vs ;
+    --     subord = SubjS {s=""} s ;
+    --  in vps ** {} ;
 
 {-
-  -- : VQ -> QS -> VP ;
+  -- : VQ -> QS -> VP ;s
   ComplVQ vq qs = ;
 
 
