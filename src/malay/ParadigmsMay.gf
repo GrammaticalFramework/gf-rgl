@@ -57,9 +57,14 @@ oper
   mkVS : overload {
     mkVS : V -> VS ;
   } ;
-  --
+
   mkVA : overload {
     mkVA : V -> VA ;
+  } ;
+
+  mkV2V : overload {
+    mkV2V : Str -> V2V ;
+    mkV2V : V -> Prep -> Prep -> V2V ;
   } ;
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
@@ -170,6 +175,15 @@ oper
   mkVA = overload {
     mkVA : V -> VA = \v -> lin VA (v)
     } ;
+
+  mkV2V = overload {
+    mkV2V : Str -> V2V = \v -> lin V2V (mkVerb2 (mkVerb v Meng) dirPrep) ;
+    mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> lin V2V (mkVerb3 v p1 p2)
+  } ;
+--   lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
+--   s = \\_ => "suka" ;
+--   passive = "disukai" ;
+-- } ;
 --------------------------------------------------------------------------------
 
 }
