@@ -18,7 +18,7 @@ concrete ExtendEng of Extend =
     PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj,  PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
     UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash,
-    CardCNCard, ProDrop
+    CardCNCard, ProDrop, theyFem_Pron, theyNeutr_Pron
    ]
   with
     (Grammar = GrammarEng) **
@@ -471,11 +471,28 @@ lin UseDAPFem dap = {
 lin CardCNCard card cn =
   {s,sp = \\d,c => card.s ! d ! Nom ++ cn.s ! card.n ! c ; n = Pl} ;
 
+lin theyFem_Pron = mkPron "they" "them" "their" "theirs" plural P3 feminine ;
+lin theyNeutr_Pron = mkPron "they" "them" "their" "theirs" plural P3 nonhuman ;
+
 lin GivenName gn = gn ;
 lin MaleSurname, FemaleSurname = \sn -> sn ;
 lin FullName gn sn = {
        s = \\c => gn.s ! Nom ++ sn.s ! c ; 
        g = gn.g
+    } ;
+
+lin AnaphPron np =
+      case np.a of {
+        AgP1 Sg      => i_Pron ;
+        AgP1 Pl      => we_Pron ;
+        AgP2 Sg      => youSg_Pron ;
+        AgP2 Pl      => youPl_Pron ;
+        AgP3Sg Masc  => he_Pron ;
+        AgP3Sg Fem   => she_Pron ;
+        AgP3Sg Neutr => it_Pron ;
+        AgP3Pl Masc  => they_Pron ;
+        AgP3Pl Fem   => theyFem_Pron ;
+        AgP3Pl Neutr => theyNeutr_Pron
     } ;
 
 }
