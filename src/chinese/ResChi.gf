@@ -290,6 +290,8 @@ oper
     hasDe = advTypeHasDe at ;
     } ;
 
+  linPrep : Preposition -> Str = \p -> p.prepPre ++ p.prepPost ;
+
   advTypeHasDe : AdvType -> Bool = \at -> case at of {
       ATPoss => True ;
       _ => False
