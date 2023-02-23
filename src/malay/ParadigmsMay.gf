@@ -9,7 +9,7 @@ oper
 -- should always use these constants instead of the constructors
 -- defined in $ResSom$.
 
-noPrep : Prep = mkPrep "" ;
+  noPrep : Prep = mkPrep "" ;
 
 --2 Nouns
 
@@ -54,15 +54,22 @@ noPrep : Prep = mkPrep "" ;
     mkVV : Str -> VV ;
    } ;
 
-  --
-  -- mkVA : Str -> VA
-  --   = \s -> lin VA (regV s) ;
+  mkVS : overload {
+    mkVS : V -> VS ;
+  } ;
+
+  mkVA : overload {
+    mkVA : V -> VA ;
+  } ;
+
+  mkV2V : overload {
+    mkV2V : Str -> V2V ;
+    mkV2V : V -> Prep -> Prep -> V2V ;
+  } ;
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
-  mkVS : overload {
-    mkV : (root : Str) -> V ; -- Verb that takes meng as a active prefix
-    mkV : (root : Str) -> Prefix -> V  -- Root and prefix
-  } ;
+
+
   --
   -- mkV2A : Str -> V2A
   --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
@@ -123,6 +130,7 @@ noPrep : Prep = mkPrep "" ;
 
   mkA2 = overload {
     mkA2 : (adj : Str) -> A = \s -> lin A2 (mkAdj s) ;
+    mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = emptyPrep}) ;
     mkA2 : A -> Prep -> A = \a,p -> lin A2 (a) ;
     } ;
 
@@ -156,10 +164,26 @@ noPrep : Prep = mkPrep "" ;
     mkV4 : V -> Prep -> Str -> V2 = \v,p,str -> lin V2 (mkVerb4 v p str)
     } ;
 
- mkVV = overload {
-   mkVV : Str -> VV = \vv -> lin VV (ss vv)
-   } ;
+  mkVV = overload {
+    mkVV : Str -> VV = \vv -> lin VV (ss vv)
+    } ;
 
+  mkVS = overload {
+    mkVS : V -> VS = \v -> lin VS (v)
+    } ;
+
+  mkVA = overload {
+    mkVA : V -> VA = \v -> lin VA (v)
+    } ;
+
+  mkV2V = overload {
+    mkV2V : Str -> V2V = \v -> lin V2V (mkVerb2 (mkVerb v Meng) dirPrep) ;
+    mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> lin V2V (mkVerb3 v p1 p2)
+  } ;
+--   lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
+--   s = \\_ => "suka" ;
+--   passive = "disukai" ;
+-- } ;
 --------------------------------------------------------------------------------
 
 }

@@ -37,13 +37,16 @@ lin
   -- : VP -> SC ;
   EmbedVP vp = {s = vp.s ! Root ! Pos} ;
 
+  -- : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
+  UseSlash t p cl = {
+    s = cl.subj ++ t.s ++ p.s ++ cl.pred ! Active ! p.p;
+    } ;
+
  {-
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
   SlashVS np vs ss = {} ;
 
 
-  -- : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
-  UseSlash t p cls = {} ;
 
 --2 Imperatives
   -- : VP -> Imp ;

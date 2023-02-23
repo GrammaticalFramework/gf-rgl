@@ -49,6 +49,7 @@ concrete ExtendMay of Extend = CatMay
         s = np.s ! Bare ++ vps.s ;
       } ;
       -- SQuestVPS  : NP   -> VPS -> QS ;         -- has she walked
+      SQuestVPS np vps = {s = np.s ++ vps.s} ;
       -- QuestVPS   : IP   -> VPS -> QS ;         -- who has walked
       -- RelVPS     : RP   -> VPS -> RS ;         -- which won't sleep
 

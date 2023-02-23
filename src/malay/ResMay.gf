@@ -251,6 +251,16 @@ oper
     } ;
 
   copula : Verb = {s = \\_ => "ada"} ; -- TODO
+
+  -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
+  -- insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
+  insertObj : Str -> VerbPhrase -> VerbPhrase = \str,vp -> vp ** {
+    s = \\vf,pol => vp.s ! Active ! Pos ++ str ;
+    } ;
+
+  insertComp : AdjPhrase -> VerbPhrase -> VerbPhrase = \ap,vp -> vp ** {
+  s = \\vf,pol => vp.s ! Active ! Pos ++ ap.s ;
+  } ;
 ------------------
 -- Adv
 
@@ -320,6 +330,7 @@ oper
 
   Sentence : Type = {s : Str} ;
 
+
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
     subj = np.s ! Bare ;
     pred = vp.s
@@ -327,6 +338,8 @@ oper
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
     predVP np <vps : VerbPhrase> ** {c2 = vps.c2} ;
+
+  linS : Sentence -> Str = \sent -> sent.s ;
 
 
   -- mkClause : Str -> NounPhrase -> VPSlash -> Clause = \str,np,vp -> {
