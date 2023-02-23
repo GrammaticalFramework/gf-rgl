@@ -55,8 +55,9 @@ noPrep : Prep = mkPrep "" ;
    } ;
 
   --
-  -- mkVA : Str -> VA
-  --   = \s -> lin VA (regV s) ;
+  mkVA : overload {
+    mkVA : V -> VA ;
+  } ;
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
   mkVS : overload {
@@ -123,6 +124,7 @@ noPrep : Prep = mkPrep "" ;
 
   mkA2 = overload {
     mkA2 : (adj : Str) -> A = \s -> lin A2 (mkAdj s) ;
+    mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = emptyPrep}) ;
     mkA2 : A -> Prep -> A = \a,p -> lin A2 (a) ;
     } ;
 

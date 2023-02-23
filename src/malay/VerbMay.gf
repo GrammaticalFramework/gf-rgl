@@ -19,6 +19,9 @@ lin
     s = \\vf => vv.s ++ linVP vp
     } ;
 
+  -- : VA -> AP -> VP ;  -- they become red
+  ComplVA va ap = ResMay.insertComp ap (useV va) ;
+
   -- : VS  -> S  -> VP ;
   -- ComplVS vs s =
   --   let vps = useV vs ;
@@ -29,8 +32,6 @@ lin
   -- : VQ -> QS -> VP ;
   ComplVQ vq qs = ;
 
-  -- : VA -> AP -> VP ;  -- they become red
-  ComplVA va ap = ResMay.insertComp (CompAP ap).s (useV va) ;
 
 -}
 --------
@@ -61,8 +62,6 @@ lin
       adjCompl = []
     } ;
 
-  -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
-  -- insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
 
 
   SlashV2A v2 adj = useV {
@@ -71,6 +70,14 @@ lin
     c2 = v2.c2;
     adjCompl = adj.s
   } ;
+
+  -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
+  -- SlashV2S v2 s = useV {
+  --   s = \\vf => v2.s ! vf;
+  -- } ** {
+  --   c2 = v2.c2;
+  --   sCompl = s.s
+  -- } ;
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
   -- SlashV2V v2v vp = ;
