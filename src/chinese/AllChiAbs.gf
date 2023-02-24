@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:prelude
 
-abstract AllChiAbs = 
+abstract AllChiAbs =
   Lang,
-  ExtraChiAbs ;
+  Extend ;
