@@ -133,9 +133,9 @@ oper
     } ;
 
   mkA2 = overload {
-    mkA2 : (adj : Str) -> A = \s -> lin A2 (mkAdj s) ;
+    mkA2 : (adj : Str) -> A2 = \s -> lin A2 ((mkAdj s) ** {c2 = emptyPrep}) ;
     mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = emptyPrep}) ;
-    mkA2 : A -> Prep -> A = \a,p -> lin A2 (a) ;
+    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {c2 = p}) ;
     } ;
 
   mkV = overload {
