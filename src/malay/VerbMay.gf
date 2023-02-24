@@ -81,12 +81,10 @@ lin
 
 
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
-  -- SlashV2S v2 s = useV {
-  --   s = \\vf => v2.s ! vf;
-  -- } ** {
-  --   c2 = v2.c2;
-  --   sCompl = s.s
-  -- } ;
+  SlashV2S v2 s = useV v2 ** {
+    c2 = v2.c2;
+    adjCompl = "yang" ++ s.s ; -- TODO check /Inari
+  } ;
 
 
  {-

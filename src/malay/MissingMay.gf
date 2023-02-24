@@ -102,7 +102,6 @@ oper SelfNP : NP -> NP  = notYet "SelfNP" ;
 oper SentAP : AP -> SC -> AP  = notYet "SentAP" ;
 oper SentCN : CN -> SC -> CN  = notYet "SentCN" ;
 oper SlashV2Q : V2Q -> QS -> VPSlash  = notYet "SlashV2Q" ;
-oper SlashV2S : V2S -> S -> VPSlash  = notYet "SlashV2S" ;
 oper SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash  = notYet "SlashV2VNP" ;
 oper SlashVS : NP -> VS -> SSlash -> ClSlash  = notYet "SlashVS" ;
 oper Use2N3 : N3 -> N2  = notYet "Use2N3" ;

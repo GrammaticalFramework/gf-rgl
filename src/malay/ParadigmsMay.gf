@@ -66,6 +66,12 @@ oper
     mkV2V : Str -> V2V ;
     mkV2V : V -> Prep -> Prep -> V2V ;
   } ;
+
+  mkV2S : overload {
+    mkV2S : Str -> V2S ;
+    mkV2S : V -> Prep -> V2S ;
+  } ;
+
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
 
@@ -73,8 +79,6 @@ oper
   --
   -- mkV2A : Str -> V2A
   --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
-  -- mkV2V : Str -> V2V
-  --   = \s -> lin V2V (regV s ** {c2 = noPrep}) ;
   -- mkV2Q : Str -> V2Q
   --   = \s -> lin V2Q (regV s ** {c2 = noPrep}) ;
 
@@ -180,6 +184,12 @@ oper
     mkV2V : Str -> V2V = \v -> lin V2V (mkVerb2 (regVerb v Meng) dirPrep) ;
     mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> lin V2V (mkVerb3 v p1 p2)
   } ;
+
+  mkV2S = overload {
+    mkV2S : Str -> V2S = \v -> lin V2S (mkVerb2 (regVerb v Meng) dirPrep) ;
+    mkV2S : V -> Prep -> V2S = \v,p -> lin V22 (mkVerb2 v p)
+  } ;
+
 --   lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
 --   s = table {Passive => "disukai" ; _ => "suka"} ;
 -- } ;
