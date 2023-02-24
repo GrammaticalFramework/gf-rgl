@@ -13,6 +13,7 @@ oper
   CNoun : Type = Noun ** {
     heavyMod : Str ; -- heavy stuff like relative clauses after determiner
     } ;
+  linCN : CNoun -> Str = \cn -> cn.s ! NF Sg Bare ++ cn.heavyMod ;
 
   PNoun : Type = Noun ;
 
@@ -320,14 +321,19 @@ oper
     pred : VForm => Polarity => Str -- Cl may become relative clause, need to keep open VForm
     } ;
 
+  linCl : Clause -> Str = \cl -> cl.subj ++ cl.pred ! Active ! Pos ;
+
   RClause : Type = {
     subj : Str ;
     pred : Person => Polarity => Str
     } ;
 
+  linRCl : RClause -> Str = \cl -> cl.subj ++ cl.pred ! P1 ! Pos ;
+
   RS : Type = {s : Person => Str} ;
 
   ClSlash : Type = Clause ** {c2 : Preposition} ;
+  linClSlash : ClSlash -> Str = \cl -> cl.subj ++ cl.pred ! Root ! Pos ++ cl.c2.s ;
 
   Sentence : Type = {s : Str} ;
 
