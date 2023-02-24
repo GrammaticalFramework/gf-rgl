@@ -4,21 +4,19 @@ concrete ExtendMay of Extend = CatMay
   ** ExtendFunctor - [
     VPS           -- finite VP's with tense and polarity
     , ListVPS
-    , VPI
+    , VPI, MkVPI, ComplVPIVV
     , ListVPI -- infinitive VP's (TODO: with anteriority and polarity)
     , MkVPS
-    , PredVPS
+    , PredVPS, RelVPS, QuestVPS, SQuestVPS
 
     -- excluded because RGL funs needed for them not implemented yet
-    , SlashBareV2S
     , PredAPVP
-    , ComplBareVS
 
 
     ,PresPartAP, PastPartAP
     ,GenModNP, GenNP, GenRP
     ,CompoundN
-    ,GerundNP
+    ,GerundNP, GerundAdv
 
 
     -- VPS2 ;        -- have loved (binary version of VPS)
@@ -49,9 +47,13 @@ concrete ExtendMay of Extend = CatMay
         s = np.s ! Bare ++ vps.s ;
       } ;
       -- SQuestVPS  : NP   -> VPS -> QS ;         -- has she walked
-      SQuestVPS np vps = {s = np.s ++ vps.s} ;
+      SQuestVPS np vps = {s = "adakah" ++ np.s ! Bare ++ vps.s} ;
+
       -- QuestVPS   : IP   -> VPS -> QS ;         -- who has walked
+      QuestVPS ip vps = {s = ip.s ! Bare ++ vps.s} ;
+
       -- RelVPS     : RP   -> VPS -> RS ;         -- which won't sleep
+      RelVPS rp vps = {s = \\person => rp.s ++ vps.s} ;
 
       -- MkVPI      : VP -> VPI ;                 -- to sleep (TODO: Ant and Pol)
       MkVPI vp = {s = linVP vp} ;
@@ -92,6 +94,8 @@ concrete ExtendMay of Extend = CatMay
       GerundNP vp = emptyNP ** {
         s = \\_ => linVP vp
       } ;
+
+      GerundAdv vp = ss (linVP vp) ;
 
 
       -- MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
