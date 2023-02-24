@@ -142,6 +142,7 @@ param
   VForm =
       Root  -- infinitive, imperative, …
     | Active
+    | Passive
     | Imperative
     ;
 

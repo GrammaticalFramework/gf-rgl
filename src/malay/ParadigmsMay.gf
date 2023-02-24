@@ -66,6 +66,12 @@ oper
     mkV2V : Str -> V2V ;
     mkV2V : V -> Prep -> Prep -> V2V ;
   } ;
+
+  mkV2S : overload {
+    mkV2S : Str -> V2S ;
+    mkV2S : V -> Prep -> V2S ;
+  } ;
+
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
 
@@ -73,8 +79,6 @@ oper
   --
   -- mkV2A : Str -> V2A
   --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
-  -- mkV2V : Str -> V2V
-  --   = \s -> lin V2V (regV s ** {c2 = noPrep}) ;
   -- mkV2Q : Str -> V2Q
   --   = \s -> lin V2Q (regV s ** {c2 = noPrep}) ;
 
@@ -129,14 +133,14 @@ oper
     } ;
 
   mkA2 = overload {
-    mkA2 : (adj : Str) -> A = \s -> lin A2 (mkAdj s) ;
+    mkA2 : (adj : Str) -> A2 = \s -> lin A2 ((mkAdj s) ** {c2 = emptyPrep}) ;
     mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = emptyPrep}) ;
-    mkA2 : A -> Prep -> A = \a,p -> lin A2 (a) ;
+    mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {c2 = p}) ;
     } ;
 
   mkV = overload {
-    mkV : Str           -> V = \v   -> lin V (mkVerb v Ber) ;
-    mkV : Str -> Prefix -> V = \v,p -> lin V (mkVerb v p)
+    mkV : Str           -> V = \v   -> lin V (regVerb v Ber) ;
+    mkV : Str -> Prefix -> V = \v,p -> lin V (regVerb v p)
     } ;
 
   prefixV : V -> V = \v -> v ** {
@@ -147,7 +151,7 @@ oper
     } ;
 
   mkV2 = overload {
-    mkV2 : Str       -> V2 = \v2  -> lin V2 (mkVerb2 (mkVerb v2 Meng) dirPrep) ;
+    mkV2 : Str       -> V2 = \v2  -> lin V2 (mkVerb2 (regVerb v2 Meng) dirPrep) ;
     mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (mkVerb2 v p)
     } ;
 
@@ -160,7 +164,7 @@ oper
 
   mkV4 = overload {
     mkV4 : Str       -> Str -> V2 = \v2,str  ->
-      lin V2 (mkVerb4 (mkVerb v2 Meng) dirPrep str) ;
+      lin V2 (mkVerb4 (regVerb v2 Meng) dirPrep str) ;
     mkV4 : V -> Prep -> Str -> V2 = \v,p,str -> lin V2 (mkVerb4 v p str)
     } ;
 
@@ -177,12 +181,17 @@ oper
     } ;
 
   mkV2V = overload {
-    mkV2V : Str -> V2V = \v -> lin V2V (mkVerb2 (mkVerb v Meng) dirPrep) ;
+    mkV2V : Str -> V2V = \v -> lin V2V (mkVerb2 (regVerb v Meng) dirPrep) ;
     mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> lin V2V (mkVerb3 v p1 p2)
   } ;
+
+  mkV2S = overload {
+    mkV2S : Str -> V2S = \v -> lin V2S (mkVerb2 (regVerb v Meng) dirPrep) ;
+    mkV2S : V -> Prep -> V2S = \v,p -> lin V22 (mkVerb2 v p)
+  } ;
+
 --   lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
---   s = \\_ => "suka" ;
---   passive = "disukai" ;
+--   s = table {Passive => "disukai" ; _ => "suka"} ;
 -- } ;
 --------------------------------------------------------------------------------
 

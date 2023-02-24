@@ -9,7 +9,7 @@ lin
   UseV = ResMay.useV ;
 
   --  : V2 -> VP ; -- be loved
-  PassV2 v2 = useV {s = \\_ => v2.passive} ;
+  PassV2 v2 = useV {s = \\_ => v2.s ! Passive} ;
 
   -- : VPSlash -> VP ;
   -- ReflVP = ResMay.insertRefl ;
@@ -64,7 +64,6 @@ lin
     } ;
 
 
-
   SlashV2A v2 adj = useV {
     s = \\vf => v2.s ! vf;
   } ** {
@@ -72,16 +71,20 @@ lin
     adjCompl = adj.s
   } ;
 
-  -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
-  -- SlashV2S v2 s = useV {
-  --   s = \\vf => v2.s ! vf;
-  -- } ** {
-  --   c2 = v2.c2;
-  --   sCompl = s.s
-  -- } ;
-
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  -- SlashV2V v2v vp = ;
+  SlashV2V v2 vp = vp ** useV {
+     s = \\vf => v2.s ! vf ++ (linVP vp);
+  } ** {
+    c2 = v2.c2;
+    adjCompl = [] ;
+  } ;
+
+
+  -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
+  SlashV2S v2 s = useV v2 ** {
+    c2 = v2.c2;
+    adjCompl = "yang" ++ s.s ; -- TODO check /Inari
+  } ;
 
 
  {-
@@ -108,16 +111,8 @@ lin
   -- : VV  -> VPSlash -> VPSlash ;
   SlashVV vv vps = ComplVV vv vps ** {
     c2 = vps.c2 ; -- like ComplVV except missing object
-    passive = vv.s ++ vps.passive;
     adjCompl = vps.adjCompl ;
     } ;
-
-  -- SlashVV vv vp = vp ** useV {
-  --   s = \\vf => vv.s ++ linVP vp ;
-  --   c2 = vp.c2 ;
-  --   passive = vv.s ++ vp.passive;
-  --   adjCompl = vp.adjCompl ;
-  --   } ;
 
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
   -- SlashV2VNP v2v np vps =
