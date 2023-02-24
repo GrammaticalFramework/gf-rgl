@@ -5,12 +5,13 @@ concrete ExtendChi of Extend = CatChi **
     VPS, ListVPS, VPI, ListVPI
   , MkVPS, BaseVPS, ConsVPS, ConjVPS
   , PredVPS, SQuestVPS, RelVPS --, QuestVPS -- TODO
-  , MkVPI, BaseVPI, ConsVPI, ConjVPI --, ComplVPIVV -- TODO
+  , MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV
   , VPS2, ListVPS2, VPI2, ListVPI2
   , MkVPS2, BaseVPS2, ConsVPS2, ConjVPS2, ComplVPS2, ReflVPS2
   , MkVPI2, BaseVPI2, ConsVPI2, ConjVPI2, ComplVPI2
   , ProDrop, ComplDirectVS, ComplDirectVQ
-  , PassVPSlash, PassAgentVPSlash ]
+  , PassVPSlash, PassAgentVPSlash
+  , GerundAdv, GerundNP ]
   with (Grammar=GrammarChi) ** open
      Prelude
    , Coordination
@@ -60,6 +61,12 @@ concrete ExtendChi of Extend = CatChi **
     BaseVPI2 v w = twoSS v w ** w ;
     ConsVPI2 v vs = consrSS duncomma v vs ** vs ;
 
+    ComplVPIVV vv vpi = predV vv [] ** {
+      compl = vpi.s ;
+      } ;
+
+    GerundAdv vp = mkAdv (infVP vp) ;
+    GerundNP vp = ResChi.mkNP (infVP vp) ;
 
     GenNP np =  {s,pl = np.s ++ possessive_s ; detType = DTPoss} ;
     GenRP nu cn = {s = \\_ => cn.s ++ relative_s} ;
