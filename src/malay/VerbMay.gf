@@ -9,7 +9,7 @@ lin
   UseV = ResMay.useV ;
 
   --  : V2 -> VP ; -- be loved
-  PassV2 v2 = useV {s = \\_ => v2.passive} ;
+  PassV2 v2 = useV {s = \\_ => v2.s ! Passive} ;
 
   -- : VPSlash -> VP ;
   -- ReflVP = ResMay.insertRefl ;
@@ -113,16 +113,8 @@ lin
   -- : VV  -> VPSlash -> VPSlash ;
   SlashVV vv vps = ComplVV vv vps ** {
     c2 = vps.c2 ; -- like ComplVV except missing object
-    passive = vv.s ++ vps.passive;
     adjCompl = vps.adjCompl ;
     } ;
-
-  -- SlashVV vv vp = vp ** useV {
-  --   s = \\vf => vv.s ++ linVP vp ;
-  --   c2 = vp.c2 ;
-  --   passive = vv.s ++ vp.passive;
-  --   adjCompl = vp.adjCompl ;
-  --   } ;
 
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
   -- SlashV2VNP v2v np vps =
