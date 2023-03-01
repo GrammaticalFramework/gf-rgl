@@ -257,7 +257,7 @@ oper
   -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
   -- insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
   insertObj : Str -> VerbPhrase -> VerbPhrase = \str,vp -> vp ** {
-    s = \\vf,pol => vp.s ! Active ! Pos ++ str ;
+    s = \\vf,pol => str ++ vp.s ! Active ! Pos ;
     } ;
 
   insertComp : AdjPhrase -> VerbPhrase -> VerbPhrase = \ap,vp -> vp ** {
