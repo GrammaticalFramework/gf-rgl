@@ -136,11 +136,12 @@ oper
     mkA2 : (adj : Str) -> A2 = \s -> lin A2 ((mkAdj s) ** {c2 = emptyPrep}) ;
     mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = emptyPrep}) ;
     mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {c2 = p}) ;
+    mkA2 : (adj : Str) -> Prep -> A2 = \a,p -> lin A2 ((mkAdj a) ** {c2 = p}) ;
     } ;
 
   mkV = overload {
     mkV : Str           -> V = \v   -> lin V (regVerb v Ber) ;
-    mkV : Str -> Prefix -> V = \v,p -> lin V (regVerb v p)
+    mkV : Str -> Prefix -> V = \v,p -> lin V (regVerb v p) ;
     } ;
 
   prefixV : V -> V = \v -> v ** {
