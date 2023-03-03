@@ -86,7 +86,7 @@ lin cow_N = mkN "embu" ;
 ----
 -- D
 
--- lin day_N = mkN "" ;
+lin day_N = mkN "hari" ;
 -- lin die_V = mkV "" ;
 -- lin dig_V = mkV "" ;
 -- lin dirty_A = mkA "" ;
@@ -423,7 +423,7 @@ lin woman_N = mkN "perempuan" ;
 -- lin wood_N = mkN "" ;
 -- lin worm_N = mkN "" ;
 lin write_V2 = mkV2 "tulis" ;
--- lin year_N = mkN "" ;
+lin year_N = mkN "tahun" ;
 -- lin yellow_A = mkA "" ;
 lin young_A = mkA "muda" ;
 
