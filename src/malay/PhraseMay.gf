@@ -8,21 +8,19 @@ concrete PhraseMay of Phrase = CatMay ** open Prelude, ResMay in {
     UttIAdv iadv = iadv ;
     UttNP np = {s = np.s ! Bare} ;
     UttIP ip = {s = ip.sp ! NF Sg Bare} ;
-    UttImpSg pol imp = { s = pol.s ++ imp.s ! Sg ! pol.p } ;
+    UttImpSg pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p } ;
     UttImpPol pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p} ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s ! Pl ! pol.p} ;
     UttVP vp = {s = linVP vp} ;
-    UttAP ap = { s = ap.s } ;
-{-
-    UttImpPl pol imp =
-    UttAdv adv = {s = } ;
-    UttCN n = {s = } ;
-    UttCard n = {s = } ;
+    UttAP ap = {s = ap.s} ;
+    UttAdv adv = adv ;
+    UttCN n = {s = linCN n} ;
+    UttCard c = c ;
     UttInterj i = i ;
--}
     NoPConj = {s = []} ;
---    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
+    PConjConj conj = {s = conj.s1 ++ conj.s2} ;
 
     NoVoc = {s = []} ;
---    VocNP np = { s = "," ++ np.s ! … } ; -}
+    VocNP np = { s = "," ++ np.s ! Bare} ;
 
 }
