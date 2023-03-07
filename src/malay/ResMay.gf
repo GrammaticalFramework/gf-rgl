@@ -206,7 +206,9 @@ oper
 
   mkAdj : Str -> Adjective = \str -> {s = str} ;
 
-  AdjPhrase : Type = Adjective ; -- ** {compar : Str} ;
+  AdjPhrase = {
+    s : Str
+    } ; -- ** {compar : Str} ;
 --------------------------------------------------------------------------------
 -- Verbs
 
