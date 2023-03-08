@@ -118,7 +118,7 @@ lin
   -- SlashV2VNP v2v np vps =
 
   -- : Comp -> VP ;
-  UseComp comp = comp ;
+  UseComp comp = comp;
 
   -- : VP -> Adv -> VP ;  -- sleep here
   AdvVP vp adv = vp ** {
