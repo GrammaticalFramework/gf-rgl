@@ -4,7 +4,8 @@ concrete ExtendFre of Extend =
   CatFre ** ExtendFunctor -
    [
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
-   ExistCN, ExistMassCN, ExistPluralCN
+   ExistCN, ExistMassCN, ExistPluralCN,
+   PassVPSlash, PassAgentVPSlash
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarFre) **
@@ -37,6 +38,20 @@ lin
 
 oper
   de_Quant : Quant = IndefArt ** {s = \\_,_,_,_ => elisDe} ;
+
+lin PassVPSlash vps = passVPSlash vps [] ;
+    PassAgentVPSlash vps np = passVPSlash 
+      vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
+
+oper
+    passVPSlash : VPSlash -> Str -> VP = \vps, agent -> 
+      let auxvp = predV auxPassive 
+      in
+      vps ** {
+         s = auxvp.s ;
+         agr = auxvp.agr ;
+         comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
+        } ;
 
 lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
