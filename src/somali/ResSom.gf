@@ -145,14 +145,14 @@ oper
 
   NounPhrase : Type = BaseNP ** {s : Case => Str} ;
 
-  NPLite : Type = {s : Str ; a : PrepAgr} ; -- Used in Adv and as an object in VP
+  NPLite : Type = {s : Str ; a : AdpObjAgr} ; -- Used in Adv and as an object in VP
 
   nplite : NounPhrase -> NPLite = \np ->
-    let pagr : PrepAgr = agr2pagr np.a in
+    let objAgr : AdpObjAgr = agr2objAgr np.a in
     case <np.isPron,isP3 np.a> of {
-      <False,_>   => {s = np.s ! Abs ; a = pagr} ;
-      -- <True,True> => {s = objpron np ! Abs ; a = pagr} ; -- uncomment if you want to add long object pronoun for 3rd person object
-      _ => {s = np.empty ; a = pagr} } ; -- no long object for other pronouns
+      <False,_>   => {s = np.s ! Abs ; a = objAgr} ;
+      -- <True,True> => {s = objpron np ! Abs ; a = objAgr} ; -- uncomment if you want to add long object pronoun for 3rd person object
+      _ => {s = np.empty ; a = objAgr} } ; -- no long object for other pronouns
 
   objpron : NounPhrase -> Case => Str = \np -> case np.isPron of {
     True => \\c => np.empty ++ (pronTable ! np.a).sp ! c ;
@@ -250,19 +250,19 @@ oper
       poss = {s, short = quantTable "ood" ; sp = gnTable "ood" "ood" "uwood"}
       } ;
     Impers => {
-      s = \\_ => [] ; -- the string `la' comes from Passive (: PrepCombination)
+      s = \\_ => [] ; -- the string `la' comes from the AdpCombination value `ImpersSubj Adposition`
       a = Impers ; isPron = True ; sp = \\_ => "" ;
       empty = [] ; st = Definite ;
       poss = {s, short = quantTable "iis" ; sp = gnTable "iis" "iis" "uwiis"}
       }
     } ;
 
-  secondObject : PrepAgr => Str = table {
-    Sg1_Prep      => "kay" ;
-    Sg2_Prep      => "kaa" ;
-    Pl1_Prep Excl => "kayo" ;
-    Pl1_Prep Incl => "keen" ;
-    Pl2_Prep      => "kiin" ;
+  secondObject : AdpObjAgr => Str = table {
+    Sg1Obj      => "kay" ;
+    Sg2Obj      => "kaa" ;
+    Pl1Obj Excl => "kayo" ;
+    Pl1Obj Incl => "keen" ;
+    Pl2Obj      => "kiin" ;
     _             => []
     } ;
 
@@ -350,30 +350,30 @@ oper
     } ;
 
 --------------------------------------------------------------------------------
--- Prepositions
+-- Adpositions
 
   Prep : Type = {
-    s : PrepAgr => Str ;
-    c2 : Preposition ;
+    s : AdpObjAgr => Str ;
+    c2 : Adposition ;
     isPoss : Bool ;
     berri, sii, dhex : Str ;
     hoostiisa : Agreement => Str } ;
 
-  mkPrep : (x1,_,_,_,_,x6 : Str) -> {s : PrepAgr => Str} = \ku,ii,kuu,noo,idiin,isku -> {
+  mkPrep : (x1,_,_,_,_,x6 : Str) -> {s : AdpObjAgr => Str} = \ku,ii,kuu,noo,idiin,isku -> {
     s = table {
-          P3_Prep       => ku ;
-          Sg1_Prep      => ii ;
-          Sg2_Prep      => kuu ;
-          Pl2_Prep      => idiin ;
-          Pl1_Prep Excl => noo ;
-          Pl1_Prep Incl => "i" + noo ;
-          Reflexive_Prep => isku
+          ZeroObj     => ku ;
+          Sg1Obj      => ii ;
+          Sg2Obj      => kuu ;
+          Pl2Obj      => idiin ;
+          Pl1Obj Excl => noo ;
+          Pl1Obj Incl => "i" + noo ;
+          ReflexiveObj => isku
         }
     } ;
-  prep : Preposition -> {s : PrepAgr => Str ; c2 : Preposition} = \p ->
+  prep : Adposition -> {s : AdpObjAgr => Str ; c2 : Adposition} = \p ->
     prepTable ! p ** {c2 = p} ;
 
-  prepTable : Preposition => {s : PrepAgr => Str} = table {
+  prepTable : Adposition => {s : AdpObjAgr => Str} = table {
     Ku => mkPrep "ku" "igu" "kugu" "nagu" "idinku" "isku" ;
     Ka => mkPrep "ka" "iga" "kaa"  "naga" "idinka" "iska" ;
     La => mkPrep "la" "ila" "kula" "nala" "idinla" "isla" ;
@@ -381,45 +381,68 @@ oper
     _  => mkPrep []  "i"  "ku"  "na"  "idin"  "is"
   } ;
 
-  prepCombTable : PrepAgr => PrepCombination => Str = table {
-    Sg1_Prep => table {
+  allContractions : AdpObjAgr => AdpCombination => Str = table {
+    Sg1Obj => table {
                    Ugu => "iigu" ; Uga => "iiga" ; Ula => "iila" ;
                    Kaga => "igaga" ; Kula => "igula" ; Kala => "igala" ;
-                   Passive => "la i" ; Loo => "la ii" ; Lala => "la ila" ;
-                   Lagu => "laygu" ; Laga => "layga" ;
-                   Single p => (prepTable ! p).s ! Sg1_Prep } ;
-    Sg2_Prep => table { Ugu => "kuugu" ; Uga => "kaaga" ; Ula => "kuula" ;
+                   ImpersSubj NoAdp => "lay" ;
+                   ImpersSubj U => "la ii" ;
+                   ImpersSubj La => "??la ila" ; ---- not in morgan's table
+                   ImpersSubj Ku => "laygu" ;
+                   ImpersSubj Ka => "layga" ;
+                   Single p => (prepTable ! p).s ! Sg1Obj } ;
+    Sg2Obj => table {
+                   Ugu => "kuugu" ; Uga => "kaaga" ; Ula => "kuula" ;
                    Kaga => "kaaga" ; Kula => "kugula" ; Kala => "kaala" ;
-                   Passive => "lagu" ; Loo => "laguu" ; Lala => "lagula" ;
-                   Lagu => "lagugu" ; Laga => "lagaa" ;
-                   Single p => (prepTable ! p).s ! Sg2_Prep } ;
-    Pl1_Prep Excl =>
+                   ImpersSubj NoAdp => "lagu" ; -- Lagu 1: ku = Sg2Obj
+                   ImpersSubj U => "??laguu" ; ---- not in morgan's table
+                   ImpersSubj La => "lagula" ;
+                   ImpersSubj Ku => "??lagugu" ; ---- not in morgan's table
+                   ImpersSubj Ka => "??lagaa" ; ---- not in morgan's table
+                   Single p => (prepTable ! p).s ! Sg2Obj } ;
+    Pl1Obj Excl =>
            table { Ugu => "noogu" ; Uga => "nooga" ; Ula => "noola" ;
                    Kaga => "nagaga" ; Kula => "nagula" ; Kala => "nagala" ;
-                   Passive => "nala" ; Loo => "???" ; Lala => "???" ;
-                   Lagu => "nalagu" ; Laga => "nalaga" ;
-                   Single p => (prepTable ! p).s ! Pl1_Prep Excl } ;
-    Pl1_Prep Incl =>
+                   ImpersSubj NoAdp => "nala" ;
+                   ImpersSubj U => "??la noo" ;      ---- not in morgan's table
+                   ImpersSubj La => "??la nala" ;    ---- not in morgan's table
+                   ImpersSubj Ku => "??la nagu" ;     ---- not in morgan's table
+                   ImpersSubj Ka => "??la naga" ;     ---- not in morgan's table
+                   Single p => (prepTable ! p).s ! Pl1Obj Excl } ;
+    Pl1Obj Incl =>
            table { Ugu => "inoogu" ; Uga => "inooga" ; Ula => "inoola" ;
                    Kaga => "inagaga" ; Kula => "inagula" ; Kala => "inagala" ;
-                   Passive => "inala" ; Loo => "???" ; Lala => "???" ;
-                   Lagu => "inalagu" ; Laga => "inalaga" ;
-                   Single p => (prepTable ! p).s ! Pl1_Prep Incl } ;
-    Pl2_Prep => table { Ugu => "idiinku" ; Uga => "idiinka" ; Ula => "idiinla" ;
+                   ImpersSubj NoAdp => "??inala" ;  ----  none of following in morgan's table
+                   ImpersSubj U => "??la inoo" ;
+                   ImpersSubj La => "??la inala" ;
+                   ImpersSubj Ku => "??la inagu" ;
+                   ImpersSubj Ka => "??la inaga" ;
+                   Single p => (prepTable ! p).s ! Pl1Obj Incl } ;
+    Pl2Obj =>
+           table { Ugu => "idiinku" ; Uga => "idiinka" ; Ula => "idiinla" ;
                    Kaga => "idinkaga" ; Kula => "idinkula" ; Kala => "idinkala" ;
-                   Passive => "laydin" ; Loo => "laydiin" ; Lala => "laydinla" ;
-                   Lagu => "laydinku" ; Laga => "laydinka" ;
-                   Single p => (prepTable ! p).s ! Pl2_Prep } ;
-    Reflexive_Prep => -- TODO check every form
-           table { Ugu => "isugu" ; Uga => "isuga" ; Ula => "isula" ;
-                   Kaga => "iskaga" ; Kula => "iskula" ; Kala => "iskala" ;
-                   Passive => "lays" ; Loo => "???" ; Lala => "???" ;
-                   Lagu => "laysku" ; Laga => "layska" ;
-                   Single p => (prepTable ! p).s ! Reflexive_Prep } ;
+                   ImpersSubj NoAdp => "laydin" ; ---- none of following in morgan's table
+                   ImpersSubj U => "??laydiin" ;
+                   ImpersSubj La => "??laydinla" ;
+                   ImpersSubj Ku => "??laydinku" ;
+                   ImpersSubj Ka => "??laydinka" ;
+                   Single p => (prepTable ! p).s ! Pl2Obj } ;
+    ReflexiveObj =>
+           table { Ugu => "isugu" ; Uga => "isaga" ;
+                   Ula => "??isula" ; Kaga => "??iskaga" ; Kula => "??iskula" ; Kala => "??iskala" ;  ---- not in morgan's table
+                   ImpersSubj NoAdp => "lays" ;
+                   ImpersSubj U => "laysu" ;
+                   ImpersSubj La => "laysla" ;
+                   ImpersSubj Ku => "laysku" ;
+                   ImpersSubj Ka => "layska" ;
+                   Single p => (prepTable ! p).s ! ReflexiveObj } ;
     a   => table { Ugu => "ugu" ; Uga => "uga" ; Ula => "ula" ;
                    Kaga => "kaga" ; Kula => "kula" ; Kala => "kala" ;
-                   Passive => "la" ; Loo => "loo" ; Lala => "lala" ;
-                   Lagu => "lagu" ; Laga => "laga" ;
+                   ImpersSubj NoAdp => "la" ;
+                   ImpersSubj U => "loo" ;
+                   ImpersSubj La => "lala" ;
+                   ImpersSubj Ku => "lagu" ; -- Lagu 2: ku = Adp
+                   ImpersSubj Ka => "laga" ;
                    Single p => (prepTable ! p).s ! a }
   } ;
 
@@ -429,7 +452,7 @@ oper
 -- Sequences of adjectives follow the rules for restrictive relatives clauses, i.e. are linked by oo 'and' on an indefinite head NounPhrase and by ee 'and' on a definite NounPhrase (8.1).
 
   Adjective : Type = {s : AForm => Str} ;
-  Adjective2 : Type = Adjective ** {c2 : Preposition} ;
+  Adjective2 : Type = Adjective ** {c2 : Adposition} ;
 
   duplA : Str -> Adjective = \yar ->
     let yaryar = duplicate yar
@@ -474,8 +497,8 @@ oper
     dhex : Str ; -- closed class of adverbials: hoos, kor, dul, dhex, …
     isCopula : Bool ;
     } ;
-  Verb2 : Type = Verb ** {c2 : Preposition} ;
-  Verb3 : Type = Verb2 ** {c3 : Preposition} ;
+  Verb2 : Type = Verb ** {c2 : Adposition} ;
+  Verb3 : Type = Verb2 ** {c3 : Adposition} ;
 
   VV : Type = Verb ** {vvtype : VVForm} ;
 
@@ -704,7 +727,7 @@ oper
     } ;
 
   Adverb : Type = BaseAdv ** {
-    c2 : Preposition ; -- adverbs can contribute to preposition contraction.
+    c2 : Adposition ; -- adverbs can contribute to Adposition contraction.
     np : NPLite ; -- NP from PrepNP can be promoted into a core argument.
     } ;
 
@@ -733,8 +756,8 @@ oper
     } ;
 
   VerbPhrase : Type = BaseVerb ** Complement ** BaseAdv ** {
-    c2 : PrepCombination ; -- Prepositions can combine together and with object pronoun.
-    obj : NPLite ; -- {s : Str ; a : PrepAgr}
+    c2 : AdpCombination ; -- Adpositions can combine together and with object pronoun.
+    obj : NPLite ; -- {s : Str ; a : AdpObjAgr}
     obj2 : Str ; -- if two overt pronoun objects
     vComp : {subjunc : Str ; -- "waa in" or subjunctive construction: "in" is placed here
               inf : Str ; -- auxiliary VV with infinitive argument
@@ -754,8 +777,8 @@ oper
     vComp = {subjunc, inf = [] ;
              subcl = \\_ => []} ;
     berri,miscAdv = [] ;
-    c2 = Single NoPrep ;
-    obj = {s = [] ; a = P3_Prep} ;
+    c2 = Single NoAdp ;
+    obj = {s = [] ; a = ZeroObj} ;
     obj2 = []
     } ;
 
@@ -771,12 +794,12 @@ oper
 
   passVP : VerbPhrase -> VerbPhrase = \vp -> vp ** {
     c2 = case vp.c2 of {
-      Single p => combinePassive p ;
-      _             => vp.c2 }
+      Single p => ImpersSubj p ;
+      _        => vp.c2 } -- TODO: do combinations of La + 2 adpositions exist?
     } ;
 
   insertRefl : VPSlash -> VPSlash = \vps -> vps ** {
-    obj = vps.obj ** {a = Reflexive_Prep} ;
+    obj = vps.obj ** {a = ReflexiveObj} ;
 
     -- If old obj was something else than P3, it is now shown in obj2
     obj2 = vps.obj2 ++ secondObject ! vps.obj.a ;
@@ -796,7 +819,7 @@ oper
 
   -- To generalise insertAdv and insertComp
   VPLite : Type = {
-    c2 : PrepCombination ;
+    c2 : AdpCombination ;
     obj : NPLite ;
     sii,dhex,berri,miscAdv,obj2 : Str} ;
 
@@ -804,7 +827,7 @@ oper
     case vp.obj.a of {
       -- If the old object is 3rd person (or nonexistent), we replace its agreement.
       -- We keep both old and new string (=noun, if there was one) in obj.s.
-      P3_Prep =>
+      ZeroObj =>
         vp ** {obj = nplite ** {
                   s = nplite.s ++ vp.obj.s}
                   } ; -- no obj2, because there's ≤1 non-3rd-person pronoun.
@@ -820,12 +843,13 @@ oper
 
   insertAdvLite : VPLite -> Adverb -> VPLite = \vp,adv ->
     case adv.c2 of {
-      NoPrep => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
+      NoAdp => vp ** adv'' ; -- the adverb is not formed with PrepNP, e.g. "tomorrow"
       _ => case vp.c2 of {
              -- if free complement slots, introduce adv.np with insertComp
-             Single NoPrep => insertCompLite (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
+             Single NoAdp => insertCompLite (vp ** {c2 = Single adv.c2}) adv.np ** adv' ;
              Single p => insertCompLite (vp ** {c2 = combine p adv.c2}) adv.np ** adv' ;
-             Passive => insertCompLite (vp ** {c2 = combinePassive adv.c2}) adv.np ** adv' ;
+             ImpersSubj NoAdp => insertCompLite (vp ** {c2 = ImpersSubj adv.c2}) adv.np ** adv' ;
+             -- ImpersSubj p => insertCompLite (vp ** {c2 = ??? }) adv.np ** adv' ; -- TODO: is this allowed?
 
              -- if complement slots are full, just insert strings.
              _ => vp ** adv''
@@ -852,7 +876,7 @@ oper
     subj : {noun, pron : Str ; isP3 : Bool} ; -- noun and subject pronoun if applicable
     obj : NPLite ;
     obj2 : Str ;
-    c2 : PrepCombination ; -- NB. QuestIAdv can add more prepositions
+    c2 : AdpCombination ; -- NB. QuestIAdv can add more Adpositions
     aComp : Str ;
     nComp : Str ;
     vComp : {inf,subcl,subjunc : Str} ;
@@ -930,12 +954,12 @@ oper
     s = \\t,a,p =>
       let -- Put all arguments in their right place
           --cl : ClSlash = complCl incomplCl ;
-          prepComb = prepCombTable ! cl.obj.a ! cl.c2 ;
+          prepComb = allContractions ! cl.obj.a ! cl.c2 ;
 
           -- Contractions
           bind : Str = case <isPassive cl, cl.obj.a, cl.c2> of {
-            <False,P3_Prep,Single NoPrep> => [] ; -- nothing to attach to the STM
-            _                             => BIND } ; -- something to attach, use BIND
+            <False,ZeroObj,Single NoAdp> => [] ; -- nothing to attach to the STM
+            _                            => BIND } ; -- something to attach, use BIND
           prepCombNeg : Str = case <cltyp,p> of {
              <Statement,Neg> => prepComb ++ bind ;
              _ => []
@@ -975,7 +999,7 @@ oper
     ++ cl.subj.noun -- subject if it's a noun
     ++ statementNounObj -- noun object if it's a statement
 
-    ++ prepCombNeg  -- prepositions and pron. objects in negative statement
+    ++ prepCombNeg  -- Adpositions and pron. objects in negative statement
     ++ stm
 
     ++ cl.vComp.subjunc  -- "waa in" construction /
@@ -985,7 +1009,7 @@ oper
     ++ cl.aComp          -- AP complement, regardless of cltype
     ++ statementNounComp -- NP complement if it's direct statement
 
-    ++ prepCombPos -- prepositions + pron. objects in positive sentence
+    ++ prepCombPos -- Adpositions + pron. objects in positive sentence
 
     ++ cl.sii   -- restricted set of particles
     ++ cl.dhex  -- restricted set of nouns/adverbials
@@ -1095,7 +1119,7 @@ oper
 
   linVP : VForm -> ClType -> VerbPhrase -> Str = \vf,cltyp,vp ->
     let pred = vp.s ! vf ;
-        pr = prepCombTable ! vp.obj.a ! vp.c2 ;
+        pr = allContractions ! vp.obj.a ! vp.c2 ;
         neg = case <cltyp,isNeg vf> of {
                 <Subord,True> => "aan" ;
                 _             => []
@@ -1114,7 +1138,7 @@ oper
      ++ case cltyp of {
           Subord => vp.obj.s ; -- noun object if it's subordinate clause
           _      => [] }
-     ++ vp.aComp ! pagr2agr vp.obj.a  -- AP complement agreeing with object
+     ++ vp.aComp ! objAgr2agr vp.obj.a  -- AP complement agreeing with object
      ++ pr       -- object if it's a pronoun
      ++ vp.sii   -- restricted set of particles
      ++ vp.dhex  -- restricted set of nouns/adverbials

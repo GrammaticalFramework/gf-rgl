@@ -4,7 +4,7 @@ concrete LexiconSom of Lexicon = CatSom **
 ----
 -- A
 
-lin add_V3 = mkV3 "dar" ku NoPrep ;
+lin add_V3 = mkV3 "dar" ku noPrep ;
 -- lin airplane_N = mkN "" ;
 -- lin alas_Interj = mkInterj "" ;
 -- lin already_Adv = mkA "" ;

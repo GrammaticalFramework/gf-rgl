@@ -81,7 +81,7 @@ concrete QuestionSom of Question = CatSom ** open
 -- They can be modified with other adverbs.
 
   -- : IAdv -> Adv -> IAdv ;    -- where in Paris
-  --  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ adv.berri} ; -- TODO do we need PrepCombination in IAdv?
+  --  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ adv.berri} ; -- TODO do we need AdpCombination in IAdv?
 
 -- Interrogative complements to copulas can be both adverbs and
 -- pronouns.

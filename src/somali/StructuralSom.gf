@@ -189,7 +189,7 @@ lin want_VV = mkVV (mkV "rabid" "rab" "rab") subjunctive ;
 lin please_Voc = ss "" ;
 -}
 oper
-  mkIAdv : Preposition -> Str -> Bool -> ResSom.IAdv = \pr ->
+  mkIAdv : Adposition -> Str -> Bool -> ResSom.IAdv = \pr ->
     let pr' : Prep = ParadigmsSom.mkPrep pr ;
      in prepIP pr' ;
 
