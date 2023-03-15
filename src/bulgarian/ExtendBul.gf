@@ -321,6 +321,8 @@ lin FullName gn sn = {
        gn = GSg (sex2gender gn.g)
     } ;
 
+lin ProDrop pro = pro ;
+
 lin AnaphPron np =
       case <np.gn, np.p> of {
         <GSg _, PronP1> => i_Pron ;
