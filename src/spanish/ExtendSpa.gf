@@ -19,7 +19,8 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  youPlFem_Pron,
  youPolFem_Pron,
  youPolPlFem_Pron,
- youPolPl_Pron
+ youPolPl_Pron,
+ PassVPSlash, PassAgentVPSlash
     ]                   -- don't forget to put the names of your own
                        -- definitions here
   with
@@ -105,5 +106,19 @@ lin FullName gn sn = {
        s = gn.s ++ sn.s ;
        g = gn.g
     } ;
+
+lin PassVPSlash vps = passVPSlash vps [] ;
+    PassAgentVPSlash vps np = passVPSlash 
+      vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
+
+oper
+    passVPSlash : VPSlash -> Str -> VP = \vps, agent -> 
+      let auxvp = predV auxPassive 
+      in
+      vps ** {
+         s = auxvp.s ;
+         agr = auxvp.agr ;
+         comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
+        } ;
 
 } ;
