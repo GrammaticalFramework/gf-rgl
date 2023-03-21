@@ -1,4 +1,4 @@
-concrete VerbMay of Verb = CatMay ** open ResMay, AdverbMay, Prelude in {
+concrete VerbMay of Verb = CatMay ** open ResMay, AdverbMay, StructuralMay, Prelude in {
 
 
 lin
@@ -72,11 +72,11 @@ lin
   } ;
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  SlashV2V v2 vp = vp ** useV {
-     s = \\vf => v2.s ! vf ++ (linVP vp);
+  SlashV2V v2 vp = useV {
+     s = \\vf => v2.s ! vf ++ for_Prep.s ++ vp.s ! Root ! Pos;
   } ** {
     c2 = v2.c2;
-    adjCompl = [] ;
+    adjCompl = [];
   } ;
 
 
@@ -85,6 +85,11 @@ lin
     c2 = v2.c2;
     adjCompl = "yang" ++ s.s ; -- TODO check /Inari
   } ;
+
+  -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
+  -- SlashV2Q v2q qs = useV v2q ** {
+  --   s =
+  -- };
 
 
  {-
@@ -102,11 +107,8 @@ lin
   -- : VPSlash -> NP -> VP
   ComplSlash vps np = vps ** {
     s = \\vf,pol =>
-      vps.s ! vf ! pol
-      ++ applyPrep vps.c2 np ++ vps.adjCompl
-    -- s = \\vf,pol => vps.s ! vf ! pol ++ applyPrep vps.c2 np
+      vps.s ! vf ! pol ++ vps.adjCompl ++ applyPrep vps.c2 np
     } ;
-
 
   -- : VV  -> VPSlash -> VPSlash ;
   SlashVV vv vps = ComplVV vv vps ** {
@@ -141,7 +143,12 @@ lin
   AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;
 -}
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  -- VPSlashPrep vp prep = vp ** {c2 = prep} ;
+  VPSlashPrep vp prep = vp ** {
+    s = \\vf,pol => vp.s ! vf ! pol ;
+    } ** {
+      c2 = prep ;
+      adjCompl =[] ;
+    } ;
 
 
 --2 Complements to copula
