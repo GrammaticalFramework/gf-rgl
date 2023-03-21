@@ -72,9 +72,10 @@ Lang: UseQCl (TTAnt TPast ASimul) PPos (QuestVP whatSg_IP (UseComp (CompNP (DetC
 LangEng: what was the meat that was eaten
 LangMay: apa daging yang dimakan
 
-AllEngAbs: (PastPartAP (VPSlashPrep (ComplSlash (SlashV2V beg_V2V (UseV go_V)) (UsePron i_Pron)) by8agent_Prep))
-AllEng: begged by me to go
-AllMay: diseru aku untuk pergi
-
-AllEngAbs:  l (PassAgentVPSlash (SlashV2V beg_V2V (UseV go_V)) (UsePron i_Pron))
+AllEngAbs: (PassAgentVPSlash (SlashV2V beg_V2V (UseV go_V)) (UsePron i_Pron))
 AllEng: be begged to go by me
+AllMay: diseru untuk pergi olehku
+
+AllEngAbs: (PassVPSlash (SlashV2V beg_V2V (UseV sleep_V)))
+AllEng: be begged to sleep
+AllMay: diseru untuk tidur

@@ -101,7 +101,7 @@ concrete ExtendMay of Extend = CatMay
 
 
       -- PassVPSlash : VPS -> VP ;
-      -- be forced to sleep
+      -- be begged to sleep
       PassVPSlash vps = vps ** {
         s = \\vf,pol => vps.s ! Passive ! pol ;
       };
