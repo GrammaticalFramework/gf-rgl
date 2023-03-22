@@ -95,8 +95,9 @@ lin day_N = mkN "hari" ;
 -- lin doctor_N = mkN "" ;
 lin dog_N = mkN "anjing" ;
 lin door_N = mkN "pintu" ;
-lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** {
-  s = \\_ => "minum" ;
+lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** { s = table {
+    Passive => "diminum" ;
+    _ => "minum"} ;
 };
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
@@ -108,7 +109,9 @@ lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** {
 -- lin ear_N = mkN "" ;
 -- lin earth_N = mkN "" ;
 lin eat_V2 = let eat' : V2 = mkV2 "makan" in eat' ** {
-  s = \\_ => "makan" ;
+  s = table {
+    Passive => "dimakan" ;
+    _ => "makan"} ;
 };
 -- lin egg_N = mkN "" ;
 -- lin empty_A = mkA "" ;
@@ -214,9 +217,10 @@ lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
 -- lin leg_N = mkN "" ;
 -- lin lie_V = mkV "" ;
 lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
-  s = \\_ => "suka" ;
-  passive = "disukai" ;
-} ;
+  s = table {
+    Passive => "disukai" ;
+    _ => "suka"} ;
+};
 -- lin listen_V2 = mkV2 "" ;
 -- lin live_V = mkV "";
 -- lin liver_N = mkN "" ;

@@ -107,7 +107,7 @@ lin
   -- : VPSlash -> NP -> VP
   ComplSlash vps np = vps ** {
     s = \\vf,pol =>
-      vps.s ! vf ! pol ++ vps.adjCompl ++ applyPrep vps.c2 np
+      vps.s ! vf ! pol ++ applyPrep vps.c2 np ++ vps.adjCompl
     } ;
 
   -- : VV  -> VPSlash -> VPSlash ;
