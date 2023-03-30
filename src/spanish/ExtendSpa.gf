@@ -20,7 +20,8 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  youPolFem_Pron,
  youPolPlFem_Pron,
  youPolPl_Pron,
- PassVPSlash, PassAgentVPSlash
+ PassVPSlash, PassAgentVPSlash,
+ UseComp_estar, UseComp_ser
     ]                   -- don't forget to put the names of your own
                        -- definitions here
   with
@@ -31,7 +32,8 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
   MorphoSpa,
   Coordination,
   Prelude,
-  ParadigmsSpa in {
+  ParadigmsSpa,
+  (I=IrregSpa) in {
     -- put your own definitions here
 
   lin
@@ -100,6 +102,9 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
         s = \\agr => ant.s ++ p.s ++ "de" ++ neg.p1 ++ infVP vp RPos agr ;
         cop = serCopula
       } ;
+
+lin UseComp_estar comp = insertComplement comp.s (predV I.estar_V) ;
+    UseComp_ser comp = insertComplement comp.s (predV copula) ;
 
 lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {

@@ -300,6 +300,9 @@ lin UseDAP dap = {
       p  = NounP3 dap.p
       } ;
 
+lin UseComp_estar = UseComp ;
+    UseComp_ser = UseComp ;
+
 lin GivenName = \n -> {
        s  = n.s ;
        gn = GSg (sex2gender n.g)

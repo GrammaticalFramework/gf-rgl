@@ -137,6 +137,10 @@ lincat
   X = {s : Str} ;
 
 lin
+  UseComp_estar = UseComp ;
+  UseComp_ser = UseComp ;
+
+lin
   CardCNCard = variants {} ;
 
 oper
