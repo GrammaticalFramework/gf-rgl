@@ -106,7 +106,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
 lin UseComp_estar comp = insertComplement comp.s (predV I.estar_V) ;
     UseComp_ser comp = insertComplement comp.s (predV copula) ;
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
 lin FullName gn sn = {
        s = gn.s ++ sn.s ;
        g = gn.g
@@ -125,5 +125,7 @@ oper
          agr = auxvp.agr ;
          comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
         } ;
+
+lin AnaphPron np = agr2pron ! np.a ;
 
 } ;
