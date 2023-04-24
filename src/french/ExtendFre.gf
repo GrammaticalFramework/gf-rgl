@@ -5,7 +5,7 @@ concrete ExtendFre of Extend =
    [
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
    ExistCN, ExistMassCN, ExistPluralCN,
-   PassVPSlash, PassAgentVPSlash
+   PassVPSlash, PassAgentVPSlash, ApposNP
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarFre) **
@@ -52,6 +52,12 @@ oper
          agr = auxvp.agr ;
          comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
         } ;
+
+lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
+      s = \\c => np1.s ! c ** {ton  =(np1.s ! c).ton  ++ "," ++ (np2.s ! Nom).ton;
+                               comp =(np1.s ! c).comp ++ "," ++ (np2.s ! Nom).comp
+                              } ;
+    } ;
 
 lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
 lin FullName gn sn = {
