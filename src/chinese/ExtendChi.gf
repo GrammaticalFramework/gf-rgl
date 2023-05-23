@@ -11,7 +11,7 @@ concrete ExtendChi of Extend = CatChi **
   , MkVPI2, BaseVPI2, ConsVPI2, ConjVPI2, ComplVPI2
   , ProDrop, ComplDirectVS, ComplDirectVQ
   , PassVPSlash, PassAgentVPSlash
-  , GerundAdv, GerundNP ]
+  , GerundAdv, GerundNP, ByVP ]
   with (Grammar=GrammarChi) ** open
      Prelude
    , Coordination
@@ -67,6 +67,10 @@ concrete ExtendChi of Extend = CatChi **
 
     GerundAdv vp = mkAdv (infVP vp) ;
     GerundNP vp = ResChi.mkNP (infVP vp) ;
+
+    ByVP vp =
+     let adv : Adv = GerundAdv vp
+       in adv ** {s = adv.s ++ "来" ; advType = ATTime} ;
 
     GenNP np =  {s,pl = np.s ++ possessive_s ; detType = DTPoss} ;
     GenRP nu cn = {s = \\_ => cn.s ++ relative_s} ;
