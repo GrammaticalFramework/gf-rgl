@@ -17,6 +17,7 @@ concrete ExtendMay of Extend = CatMay
     ,GenModNP, GenNP, GenRP
     ,CompoundN
     ,GerundNP, GerundAdv
+    ,ByVP
 
 
     -- VPS2 ;        -- have loved (binary version of VPS)
@@ -97,6 +98,7 @@ concrete ExtendMay of Extend = CatMay
 
       GerundAdv vp = ss (linVP vp) ;
 
+      ByVP vp = cc2 by8means_Prep (GerundAdv vp) ;
 
       -- MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
       -- ConjVPS2  : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates
