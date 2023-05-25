@@ -184,7 +184,7 @@ oper
   emptyPrep : Preposition = mkPrep [] ;
 
   mkpNP : Str -> CatChi.NP
-    = \s -> lin NP {s = word s} ;
+    = \s -> lin NP {s = word s ; det = []} ;
   mkAdV : Str -> AdV
     = \s -> lin AdV {s = word s} ;
   mkAdN : Str -> AdN

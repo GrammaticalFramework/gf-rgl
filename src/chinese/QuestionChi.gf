@@ -14,11 +14,11 @@ concrete QuestionChi of Question = CatChi **
       s = \\_,p,a => ip.s ++ vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl
       } ;
 
-    QuestSlash ip cls = {s = \\_ => (mkClauseCompl cls.np (insertObj (ss (appPrep cls.c2 ip.s)) cls.vp) []).s} ;
+    QuestSlash ip cls = {s = \\_ => (mkClauseCompl cls.np (insertObj (mkNP (appPrep cls.c2 ip.s)) cls.vp) []).s} ;
 
     QuestIAdv iadv cl = {s = \\_ => (mkClauseCompl cl.np (insertAdv iadv cl.vp) []).s} ;
 
-    QuestIComp icomp np = {s = \\_,p,a => np.s ++ icomp.s} ; ---- order
+    QuestIComp icomp np = {s = \\_,p,a => linNP np ++ icomp.s} ; ---- order
 
     PrepIP p ip = ss (appPrep p ip.s) ;
 
