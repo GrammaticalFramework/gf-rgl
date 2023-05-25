@@ -3,7 +3,7 @@
 concrete ExtendMay of Extend = CatMay
   ** ExtendFunctor - [
     VPS           -- finite VP's with tense and polarity
-    , ListVPS
+    , ListVPS, BaseVPS, ConsVPS, ConjVPS
     , VPI, MkVPI, ComplVPIVV
     , ListVPI -- infinitive VP's (TODO: with anteriority and polarity)
     , MkVPS
@@ -38,11 +38,11 @@ concrete ExtendMay of Extend = CatMay
         } ;
 
       -- BaseVPS : VPS -> VPS -> ListVPS ;
-      BaseVPS vps vps2 = twoSS vps vps2 ;
+      BaseVPS = twoSS ;
       -- ConsVPS : VPS -> ListVPS -> ListVPS ;
-      ConsVPS str listvps vps = consSS "," listvps vps ;
+      ConsVPS = consrSS ",";
       -- ConjVPS    : Conj -> [VPS] -> VPS ;      -- has walked and won't sleep
-      ConjVPS conj listvps = conjunctX conj listvps ;
+      ConjVPS = conjunctDistrSS ;
       -- PredVPS    : NP   -> VPS -> S ;          -- she [has walked and won't sleep]
       PredVPS np vps = {
         s = np.s ! Bare ++ vps.s ;

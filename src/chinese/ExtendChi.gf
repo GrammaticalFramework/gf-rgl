@@ -27,7 +27,7 @@ concrete ExtendChi of Extend = CatChi **
 
   lin
     PassVPSlash vps = insertAdv (mkNP passive_s) vps ;
-    PassAgentVPSlash vps np = insertAdv (ss (appPrep S.by8agent_Prep np.s)) (insertAdv (mkNP passive_s) vps) ;
+    PassAgentVPSlash vps np = insertAdv (ss (appPrep S.by8agent_Prep (linNP np))) (insertAdv (mkNP passive_s) vps) ;
 
     MkVPS t p vp = {s = t.s ++ p.s ++ (mkClause [] vp).s ! p.p ! t.t} ;
     ConjVPS c = conjunctDistrSS (c.s ! CSent) ;
@@ -35,16 +35,16 @@ concrete ExtendChi of Extend = CatChi **
     ConsVPS = consrSS duncomma ;
 
     -- : NP -> VPS -> S ;          -- she [has walked and won't sleep]
-    PredVPS np vps = {preJiu = np.s ; postJiu = vps.s} ;
+    PredVPS np vps = {preJiu = (linNP np) ; postJiu = vps.s} ;
 
     -- : NP -> VPS -> QS ;         -- has she walked
-    SQuestVPS np vps = {s = \\_ => np.s ++ vps.s ++ question_s} ;
+    SQuestVPS np vps = {s = \\_ => linNP np ++ vps.s ++ question_s} ;
 
     -- : IP -> VPS -> QS ;         -- who has walked
     -- QuestVPS ip vps = -- TODO: probably need to change structure of VPS
 
     -- : RP -> VPS -> RS ;         -- which won't sleep
-    RelVPS rp vps = {s = rp.s ! True ++ vps.s} ;
+    RelVPS rp vps = {s = rp.s ! True ++ vps.s ++ "的"} ;
 
     MkVPI vp = {s = (mkClause [] vp).s ! Pos ! APlain} ;
     ConjVPI c = conjunctDistrSS (c.s ! CSent) ;
@@ -72,7 +72,7 @@ concrete ExtendChi of Extend = CatChi **
      let adv : Adv = GerundAdv vp
        in adv ** {s = adv.s ++ "来" ; advType = ATTime} ;
 
-    GenNP np =  {s,pl = np.s ++ possessive_s ; detType = DTPoss} ;
+    GenNP np =  {s,pl = linNP np ++ possessive_s ; detType = DTPoss} ;
     GenRP nu cn = {s = \\_ => cn.s ++ relative_s} ;
 
     ProDrop pron = pron ** {s = []} ;
