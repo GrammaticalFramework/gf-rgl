@@ -44,7 +44,7 @@ concrete ExtendChi of Extend = CatChi **
     -- QuestVPS ip vps = -- TODO: probably need to change structure of VPS
 
     -- : RP -> VPS -> RS ;         -- which won't sleep
-    RelVPS rp vps = {s = rp.s ! True ++ vps.s} ;
+    RelVPS rp vps = {s = rp.s ! True ++ vps.s ++ "的"} ;
 
     MkVPI vp = {s = (mkClause [] vp).s ! Pos ! APlain} ;
     ConjVPI c = conjunctDistrSS (c.s ! CSent) ;
