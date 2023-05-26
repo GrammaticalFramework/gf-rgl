@@ -59,6 +59,7 @@ concrete AdjectiveMay of Adjective = CatMay ** open ResMay, Prelude in {
 
   -- : AdA -> AP -> AP ;
   -- AdAP ada ap = ap ** { } ;
+  
 
 
 -- It can also be postmodified by an adverb, typically a prepositional phrase.

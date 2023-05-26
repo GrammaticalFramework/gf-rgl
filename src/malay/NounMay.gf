@@ -13,7 +13,7 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
         -- TODO classifier is necessary if numeral comes after noun. See Mintz p. 298.
         -- ++ if_then_Str (isNum det.n) "buah" [] -- TODO store classifier in CN
         ++ case det.poss of {
-          Bare => cn.s ! NF (toNum det.n) poss ;
+          Bare => cn.s ! NF (toNum det.n) det.poss ;
           _ => cn.s ! NF (toNum det.n) det.poss -- TODO check if this make sense
         } ++ det.s ++ cn.heavyMod ;
       } ;
