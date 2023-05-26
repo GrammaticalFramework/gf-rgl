@@ -291,6 +291,10 @@ fun UseDAP     : DAP -> NP ;
 cat X ; -- for words that are difficult to classify, mainly for MorphoDict
 
 fun
+  UseComp_estar : Comp -> VP ; -- esta lleno, as opposed to es lleno
+  UseComp_ser : Comp -> VP ; -- es lleno, as opposed to esta lleno
+
+fun
   CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
 
   GivenName : GN -> PN ;

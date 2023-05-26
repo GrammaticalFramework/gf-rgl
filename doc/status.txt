@@ -7,8 +7,6 @@ Aarne Ranta
 The following table gives the languages currently available in the
 GF Resource Grammar Library.
 
-For another view, see the
-[The Resource Grammar Library coverage map http://www.postcrashgames.com/gf_world/] .
 
 Corrections and additions are welcome! Notice that only those parts of implementations
 that are currently available via https://github.com/GrammaticalFramework/gf-rgl/

@@ -5,7 +5,7 @@ concrete AdjectiveChi of Adjective = CatChi ** open ResChi, Prelude in {
     PositA  a = a ** {hasAdA = False} ;
 
     ComparA a np = a ** {
-      s = table {_=> than_s ++ np.s ++ a.s!Attr};
+      s = table {_=> than_s ++ linNP np ++ a.s!Attr};
       hasAdA = False
 
     };
@@ -26,11 +26,11 @@ concrete AdjectiveChi of Adjective = CatChi ** open ResChi, Prelude in {
     };
 
     CAdvAP ad ap np = ap ** {
-      s = table {adjPlace => ad.s ++ np.s ++ ad.p ++ ap.s!adjPlace}
+      s = table {adjPlace => ad.s ++ linNP np ++ ad.p ++ ap.s!adjPlace}
     };
 
     ComplA2 a np = a ** {
-       s= table { adjPlace => appPrep a.c2 np.s ++ a.s!adjPlace};
+       s= table { adjPlace => appPrep a.c2 (linNP np) ++ a.s!adjPlace};
        hasAdA = False
      };
 

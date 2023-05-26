@@ -579,11 +579,12 @@ mkV2 : overload {
       gabst = verbST gab ;
       gaben = pluralN gab ;
       gabt  = verbT gab
-    in 
-    MorphoGer.mkV 
+    in case geben of {
+      _ + "n" => MorphoGer.mkV 
       geben gebe gibst gibt gebt gib gab gabst gaben gabt gaebe gegeben
       [] VHaben ** {lock_V = <>} ;
-
+      _ => Predef.error (geben + ": invalid infinitive form, should end with 'n'")
+      } ;
   regV fragen = 
     let
       frag    = stemVerb fragen ;

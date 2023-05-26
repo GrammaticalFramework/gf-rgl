@@ -9,7 +9,7 @@ concrete RelativeChi of Relative = CatChi ** open ResChi, Prelude in {
 	 } ;
        } ; ---- ??
     RelSlash rp slash = {s = \\p,a => slash.s ! p ! a ++ appPrep slash.c2 (rp.s ! False)} ;
-    FunRP p np rp = {s = \\a => appPrep p np.s ++ rp.s ! a} ; ---- ??
+    FunRP p np rp = {s = \\a => appPrep p (linNP np) ++ rp.s ! a} ; ---- ??
     IdRP = {s = table {True => [] ; False => relative_s}} ;
 
 }
