@@ -206,10 +206,11 @@ oper
         planeg  = neg ++ negForms ! Plain ;
         polneg  = neg ++ negForms ! Polite ;
         formneg = neg ++ negForms ! Formal ;
-     in mkVerbFull stem attrpos attrneg plain polite formal planeg polneg formneg ;
+        impneg = neg ++ "마새요" ;
+     in mkVerbFull stem attrpos attrneg plain polite formal planeg polneg formneg impneg ;
 
-  mkVerbFull : (x1,_,_,_,_,_,_,_,x9 : Str) -> Verb =
-    \stem,attrpos,attrneg,plain,polite,formal,planeg,polneg,formneg -> {
+  mkVerbFull : (x1,_,_,_,_,_,_,_,_,x10 : Str) -> Verb =
+    \stem,attrpos,attrneg,plain,polite,formal,planeg,polneg,formneg,impneg -> {
       s = table {
         VStem Pos => stem ;
         VStem Neg => init planeg ;
@@ -220,7 +221,8 @@ oper
         VF Polite Pos => polite ;
         VF Polite Neg => polneg ;
         VF Formal Pos => formal ;
-        VF Formal Neg => formneg
+        VF Formal Neg => formneg ;
+        VImpNeg => impneg
       } ;
       sc   = Subject ;
       p    = if_then_else Phono (vowFinal stem)          Vowel Consonant ;
@@ -236,7 +238,8 @@ oper
     "입니다"
     "아니다"
     "아니에요"
-    "아닙니다" ;
+    "아닙니다"
+    "있지마세요" ;
 
   copulaAfterVowel : Verb = copula ** {
     s = \\vf => case vf of {
@@ -255,7 +258,8 @@ oper
     "있습니다"
     "없다"
     "없어요"
-    "없습니다" ;
+    "없습니다"
+    "없지 마새요" ;
 
   -- For building an adjective. Different attr from do_V.
   do_A : Verb = mkVerbReg
