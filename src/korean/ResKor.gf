@@ -385,7 +385,7 @@ oper
 --------------------------------------------------------------------------------
 -- linrefs
 
-linVerb : Verb -> Str = \v -> v.s ! linVF ;
+linVerb : Verb -> Str = \v -> v.s ! VF Polite Pos ;
 linVP : VForm -> VerbPhrase -> Str = \vf,vp -> vp.nObj ! DeclObj ++ vp.adv ++ vp.s ! vf ;
 linImp : Polarity -> VerbPhrase -> Str = \pol,vp ->
   let vf : VForm = case pol of {
