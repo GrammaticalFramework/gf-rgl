@@ -29,13 +29,13 @@ lin
   --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
   UseSlash t p cls = {
     } ;
-
+-}
 --2 Imperatives
   -- : VP -> Imp ;
-  ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
+  ImpVP vp = {s = \\pol => linVP (VF Polite pol) vp} ;
 
 --2 Embedded sentences
--}
+
   -- : S  -> SC ;
   EmbedS s = {s = s.s ! Subord ++ "것이"} ; -- TODO check subject case
 
