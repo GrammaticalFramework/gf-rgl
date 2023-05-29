@@ -108,6 +108,9 @@ param
     | Imperative
     | Propositive ;
 
+  ObjectForm =          -- sometimes need to override V2's object case for Imp
+      DeclObj
+    | ImpObj ;
 
   -- TODO: include Aspect and SentenceType.
   -- These are all Generic and Declarative.

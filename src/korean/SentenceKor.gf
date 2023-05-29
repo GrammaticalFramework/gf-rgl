@@ -32,7 +32,7 @@ lin
 -}
 --2 Imperatives
   -- : VP -> Imp ;
-  ImpVP vp = {s = \\pol => linVP (VF Polite pol) vp} ;
+  ImpVP vp = {s = \\pol => linImp pol vp} ;
 
 --2 Embedded sentences
 

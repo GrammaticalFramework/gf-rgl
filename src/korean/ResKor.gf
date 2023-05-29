@@ -320,17 +320,14 @@ oper
 
   BaseVP : Type = {
     adv,
-    nObj,
-    vComp : Str
-            -- {subjunc : Str ; -- inflected verb complement
-            --  inf : Str ; -- infinitive verb complement
-            --  subcl : Str} -- clause complement
+    vComp : Str ;
+    nObj : ObjectForm => Str ; -- may need diff form for imperative vs. declarative sentences
     } ;
 
   baseVP : BaseVP = {
     adv,
-    nObj,
     vComp = [] ;
+    nObj = \\_ => []
   } ;
 
   VerbPhrase : Type = BaseVerb ** Complement ** BaseVP ;
@@ -342,7 +339,9 @@ oper
   useVc : Verb2 -> VPSlash = \v2 -> baseVP ** v2 ;
 
   insertComp : VPSlash -> NounPhrase -> VerbPhrase = \v2,np -> useV v2 ** {
-    nObj = np.s ! v2.c2 ++ v2.p2.s ! np.p
+    nObj = table {
+      DeclObj => np.s ! v2.c2 ++ v2.p2.s ! np.p ;
+      ImpObj => np.s ! Object ++ v2.p2.s ! np.p } -- use 을/를 always for imperative
   } ;
 
   insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s ++ vp.adv} ;
@@ -378,7 +377,7 @@ oper
                       WithConj => VStem p ;
                       Statement st => VF st p } -- TODO: more tenses
             in np
-            ++ vp.nObj -- an object, not copula complement
+            ++ vp.nObj ! DeclObj -- an object, not copula complement
             ++ vp.adv
             ++ vp.s ! vf
     } ;
@@ -387,6 +386,11 @@ oper
 -- linrefs
 
 linVerb : Verb -> Str = \v -> v.s ! linVF ;
-linVP : VForm -> VerbPhrase -> Str = \vf,vp -> vp.nObj ++ vp.adv ++ vp.s ! vf ;
+linVP : VForm -> VerbPhrase -> Str = \vf,vp -> vp.nObj ! DeclObj ++ vp.adv ++ vp.s ! vf ;
+linImp : Polarity -> VerbPhrase -> Str = \pol,vp ->
+  let vf : VForm = case pol of {
+                     Pos => VF Polite Pos ;
+                     Neg => VImpNeg }
+   in vp.nObj ! ImpObj ++ vp.adv ++ vp.s ! vf ;
 linAP : AdjPhrase -> Str = \ap -> ap.compar ++ ap.s ! linVF ;
 }
