@@ -9,6 +9,10 @@
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron))))) NoVoc
 LangSom: waa sugaa
 
+-- LangEng: I/he waited (for him/her/it)
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron))))) NoVoc
+LangSom: waa sugay
+
 -- Interrogative
 -- LangEng: does he/she/it wait (for him/her/it)
 Lang: PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestCl (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))))) NoVoc
@@ -29,6 +33,21 @@ LangSom: waa sugi lahaa
 
 -- Optative and potential not implemented (yet?)
 
+
+-- Imperative and Masc3_Sg1 past tense from
+
+-- Imperative
+-- LangEng: buy it (sg)
+Lang: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))) NoVoc
+LangSom: iibso
+
+Lang: PhrUtt NoPConj (UttImpPl PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))) NoVoc
+LangSom: iibsada
+
+
+-- LangEng: I/he bought it
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron))))) NoVoc
+LangSom: waa iibsaday
 
 --------------
 -- Negative --
