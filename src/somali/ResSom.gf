@@ -385,56 +385,56 @@ oper
     Sg1Obj => table {
                    Ugu => "iigu" ; Uga => "iiga" ; Ula => "iila" ;
                    Kaga => "igaga" ; Kula => "igula" ; Kala => "igala" ;
-                   ImpersSubj NoAdp => "lay" ;
+                   ImpersSubj NoAdp => "lay" ; -- alt. "la i"
                    ImpersSubj U => "la ii" ;
-                   ImpersSubj La => "??la ila" ; ---- not in morgan's table
-                   ImpersSubj Ku => "laygu" ;
-                   ImpersSubj Ka => "layga" ;
+                   ImpersSubj La => "layla" ; -- alt. "la ila"
+                   ImpersSubj Ku => "laygu" ; -- alt. "la igu"
+                   ImpersSubj Ka => "layga" ; -- alt. "la iga"
                    Single p => (prepTable ! p).s ! Sg1Obj } ;
     Sg2Obj => table {
                    Ugu => "kuugu" ; Uga => "kaaga" ; Ula => "kuula" ;
                    Kaga => "kaaga" ; Kula => "kugula" ; Kala => "kaala" ;
                    ImpersSubj NoAdp => "lagu" ; -- Lagu 1: ku = Sg2Obj
-                   ImpersSubj U => "??laguu" ; ---- not in morgan's table
+                   ImpersSubj U => "laguu" ;
                    ImpersSubj La => "lagula" ;
-                   ImpersSubj Ku => "??lagugu" ; ---- not in morgan's table
-                   ImpersSubj Ka => "??lagaa" ; ---- not in morgan's table
+                   ImpersSubj Ku => "lagugu" ;
+                   ImpersSubj Ka => "lagaa" ;
                    Single p => (prepTable ! p).s ! Sg2Obj } ;
     Pl1Obj Excl =>
            table { Ugu => "noogu" ; Uga => "nooga" ; Ula => "noola" ;
                    Kaga => "nagaga" ; Kula => "nagula" ; Kala => "nagala" ;
                    ImpersSubj NoAdp => "nala" ;
-                   ImpersSubj U => "??la noo" ;      ---- not in morgan's table
-                   ImpersSubj La => "??la nala" ;    ---- not in morgan's table
-                   ImpersSubj Ku => "??la nagu" ;     ---- not in morgan's table
-                   ImpersSubj Ka => "??la naga" ;     ---- not in morgan's table
+                   ImpersSubj U => "naloo" ;   -- alt. "lanoo"
+                   ImpersSubj La => "nalala" ; -- alt. "lanala"
+                   ImpersSubj Ku => "nalagu" ; -- alt. "lanagu"
+                   ImpersSubj Ka => "nalaga" ; -- alt. "lanaga"
                    Single p => (prepTable ! p).s ! Pl1Obj Excl } ;
     Pl1Obj Incl =>
            table { Ugu => "inoogu" ; Uga => "inooga" ; Ula => "inoola" ;
                    Kaga => "inagaga" ; Kula => "inagula" ; Kala => "inagala" ;
-                   ImpersSubj NoAdp => "??inala" ;  ----  none of following in morgan's table
-                   ImpersSubj U => "??la inoo" ;
-                   ImpersSubj La => "??la inala" ;
-                   ImpersSubj Ku => "??la inagu" ;
-                   ImpersSubj Ka => "??la inaga" ;
+                   ImpersSubj NoAdp => "inala" ;
+                   ImpersSubj U => "laynoo" ; -- alt. "la inoo" ;
+                   ImpersSubj La => "laynala" ; -- alt. "la inala" ;
+                   ImpersSubj Ku => "laynagu" ; -- alt. "la inagu" ;
+                   ImpersSubj Ka => "laynaga" ; -- alt. "la inaga" ;
                    Single p => (prepTable ! p).s ! Pl1Obj Incl } ;
     Pl2Obj =>
            table { Ugu => "idiinku" ; Uga => "idiinka" ; Ula => "idiinla" ;
                    Kaga => "idinkaga" ; Kula => "idinkula" ; Kala => "idinkala" ;
-                   ImpersSubj NoAdp => "laydin" ; ---- none of following in morgan's table
-                   ImpersSubj U => "??laydiin" ;
-                   ImpersSubj La => "??laydinla" ;
-                   ImpersSubj Ku => "??laydinku" ;
-                   ImpersSubj Ka => "??laydinka" ;
+                   ImpersSubj NoAdp => "laydin" ;
+                   ImpersSubj U => "laydiin" ; -- alt. "la idiin"
+                   ImpersSubj La => "laydinla" ; -- alt. "la idinla"
+                   ImpersSubj Ku => "laydinku" ; -- alt. "la idinku"
+                   ImpersSubj Ka => "laydinka" ; -- alt. "la idinka"
                    Single p => (prepTable ! p).s ! Pl2Obj } ;
     ReflexiveObj =>
            table { Ugu => "isugu" ; Uga => "isaga" ;
-                   Ula => "??isula" ; Kaga => "??iskaga" ; Kula => "??iskula" ; Kala => "??iskala" ;  ---- not in morgan's table
+                   Ula => "isula" ; Kaga => "iskaga" ; Kula => "iskula" ; Kala => "iskala" ;
                    ImpersSubj NoAdp => "lays" ;
-                   ImpersSubj U => "laysu" ;
-                   ImpersSubj La => "laysla" ;
-                   ImpersSubj Ku => "laysku" ;
-                   ImpersSubj Ka => "layska" ;
+                   ImpersSubj U => "laysu" ;   -- alt. "la isu"
+                   ImpersSubj La => "laysla" ; -- alt. "la isla"
+                   ImpersSubj Ku => "laysku" ; -- alt. "la isku"
+                   ImpersSubj Ka => "layska" ; -- alt. "la iska"
                    Single p => (prepTable ! p).s ! ReflexiveObj } ;
     a   => table { Ugu => "ugu" ; Uga => "uga" ; Ula => "ula" ;
                    Kaga => "kaga" ; Kula => "kula" ; Kala => "kala" ;
