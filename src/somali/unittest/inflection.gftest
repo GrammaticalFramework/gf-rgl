@@ -34,9 +34,7 @@ LangSom: waa sugi lahaa
 -- Optative and potential not implemented (yet?)
 
 
--- Imperative and Masc3_Sg1 past tense from
-
--- Imperative
+-- Imperatives
 -- LangEng: buy it (sg)
 Lang: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))) NoVoc
 LangSom: iibso
@@ -44,6 +42,13 @@ LangSom: iibso
 Lang: PhrUtt NoPConj (UttImpPl PPos (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))) NoVoc
 LangSom: iibsada
 
+
+-- LangEng: see it (sg)
+Lang: PhrUtt NoPConj (UttImpSg PPos (ImpVP (ComplSlash (SlashV2a see_V2) (UsePron it_Pron)))) NoVoc
+LangSom: arag
+
+Lang: PhrUtt NoPConj (UttImpPl PPos (ImpVP (ComplSlash (SlashV2a see_V2) (UsePron it_Pron)))) NoVoc
+LangSom: arka
 
 -- LangEng: I/he bought it
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron))))) NoVoc
@@ -74,6 +79,18 @@ LangSom: ha sugin
 
 Lang: PhrUtt NoPConj (UttImpPl PNeg (ImpVP (ComplSlash (SlashV2a wait_V2) (UsePron it_Pron)))) NoVoc
 LangSom: ha sugina
+
+Lang: PhrUtt NoPConj (UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))) NoVoc
+LangSom: ha iibsan
+
+Lang: PhrUtt NoPConj (UttImpPl PNeg (ImpVP (ComplSlash (SlashV2a buy_V2) (UsePron it_Pron)))) NoVoc
+LangSom: ha iibsanina
+
+Lang: PhrUtt NoPConj (UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a see_V2) (UsePron it_Pron)))) NoVoc
+LangSom: ha arkin
+
+Lang: PhrUtt NoPConj (UttImpPl PNeg (ImpVP (ComplSlash (SlashV2a see_V2) (UsePron it_Pron)))) NoVoc
+LangSom: ha arkina
 
 -- Conditional
 -- LangEng: he/she/it wouldn't wait (for him/her/it)
