@@ -214,19 +214,25 @@ oper
 
   mkV = overload {
     mkV : (imp : Str) -> V = \v -> lin V (regV v) ;
-    mkV : (imp,pl2,sg1 : Str) -> V = \i,p,s -> lin V (mkVerb i p s) ;
+    mkV : (imp, sg1 : Str) -> V = \i,s1 -> lin V (reg2V i s1) ;
+    mkV : (imp,sg1,sg2,pl2 : Str) -> V = \i,s1,_,_ -> lin V (reg2V i s1) ; -- TODO: 4-place constructor
     mkV : Str -> V -> V = \s,v -> lin V (prefixV s v)
   } ;
 
   copula = ResSom.copula ;
 
   regV : Str -> Verb = \s -> case s of {
-    _ + #c + #c + "o" => cJoogso s ;
-    _           + "o" => cQaado s ; ----
-    _           + "i" => cKari s ;
-    _          + "ee" => cYaree s ;
-    _                 => cSug s
+    _ + #c + #c + "o" => mkVerb (cJoogso s) ;
+    _           + "o" => mkVerb (cQaado s) ; ----
+    _           + "i" => mkVerb (cKari s) ;
+    _          + "ee" => mkVerb (cYaree s) ;
+    _                 => mkVerb (cSug s)
     } ;
+
+  reg2V : Str -> Str -> Verb = \arag,arkaa -> case arag of {
+    _ + #c => mkVerb (cArag arag arkaa) ;
+    _ => regV arag
+  } ;
 
   mkV2 = overload {
     mkV2 : Str -> V2 = \s -> lin V2 (regV s ** {c2 = noPrep}) ;

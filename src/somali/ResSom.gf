@@ -505,99 +505,72 @@ oper
   -- Saeed page 79:
   -- "… the reference form is the imperative singular form
   -- since it corresponds to the form of the basic root."
-  mkVerb : (imperative,sg1,pl2 : Str) -> Verb = \qaado,qaat,ark ->
-    let stems : {p1 : Str ; p2 : Str} = case ark of {
-          a + r@#c + k@#c -- two consonants need a vowel in between
-            => <ark + "i", a + r + a + voiced k> ;
-          _ + #c -- if the pl2 root ends in consonant, infinitive needs a vowel
-            => <ark + "i", ark> ;
-          yar + "ee"  -- double e turns into ey
-            => <ark + "n", yar + "ey"> ;
-          _ => <ark + "n", ark> -- no changes, just add n for infinitive
-        } ;
-        arki = stems.p1 ;
-        arag = stems.p2 ;
-        arkin = case last arki of { -- The negative past tense ends in n:
-                  "n" => arki ;         -- if infinitive ends in n, no change;
-                   _  => arki + "n" } ; -- otherwise add n.
 
+  VerbRoots8 : Type = {imper,sg1stem,sg2stem,pl1stem,progr,inf,negpast,impernegpl : Str} ;
 
-        progr : Str = case qaat of { -- Progressive
-               _ + "eey"     => stems.p2 + "nay" ; -- bireey -> bireynay
-               _ + ("y"|"n") => init qaat + "nay" ; -- akhriy -> akhrinay ; gashad -> gashanay
-               _ + #v + "t"  => qaat + "ay" ;
-               _ + #c + "t"  => init qaat + "anay" ;
-               _             => qaat + "ay" } ;
-
-        -- Some predictable sound changes
-        t : Str = case arag of { -- kari+seen, bixi noq+deen, (sug|joogsa|qaada)+teen,
-               _ + ("i"|"y") => "s" ;     -- t changes into s in front of i/y
-               _ + ("x"|"q"|"c") => "d" ; -- t changes into d in front of x/q/c
-               _             => "t" } ;
-        ay : Str = case ark of {
-               _ + ("i"|"e") => "ey" ;
-               _             => "ay" } ;
-        n : Str = case arag of {
-               _ + #v  => "nn" ; -- n duplicates after vowel
-               _ + "r" => "r" ; -- Saeed p. 35: agreement marker n (1PL)
-               _ + "l" => "l" ; -- assimilates to stem final r or.
-               _       => "n" } ;
-        an : Str = case qaado of {
-               _ + "o" => "an" ; -- Allomorph for imperatives
-               _       => "in" } ;
-
-   in { s = table {
+  mkVerb : VerbRoots8 -> Verb = \vr ->
+    let arag : Str = vr.imper ;
+        qaat : Str = vr.sg1stem ;    -- +aa  -- hayst,  boogd,  joogsad, bilaab, ark,   akhriy,
+        hadash : Str = vr.sg2stem ;  -- +aa  -- haysat, booqat, joogsat, bilowd, aragt, akhris,
+        qaadann : Str = vr.pl1stem ; -- +aa  --
+        arki : Str = vr.inf ;
+        arkin : Str = vr.negpast ;
+        qaada : Str = init vr.negpast ; -- TODO: is this correct? is 2sg neg imperative same as negative past root?
+        ay : Str = case arag of {
+            _ + ("i"|"e") => "ey" ;
+            _             => "ay" } ;
+    in {
+      s = table {
           VPres Simple Sg1_Sg3Masc pol
                                     => qaat     + if_then_Pol pol "aa" "o" ;
           VPres Simple Sg2_Sg3Fem pol
-                                    => arag + t + if_then_Pol pol "aa" "o" ;
-          VPres Simple Pl1_ pol     => arag + n + if_then_Pol pol "aa" "o"  ;
-          VPres Simple Pl2_ pol     => arag + t + "aan" ;
-          VPres Simple Pl3_ pol     => qaat     + "aan" ;
+                                    => hadash  + if_then_Pol pol "aa" "o" ;
+          VPres Simple Pl1_ pol     => qaadann + if_then_Pol pol "aa" "o"  ;
+          VPres Simple Pl2_ pol     => hadash  + "aan" ;
+          VPres Simple Pl3_ pol     => qaat    + "aan" ;
 
           VPres Progressive Sg1_Sg3Masc pol
-                                     => progr + if_then_Pol pol "aa" "o" ;
+                                     => vr.progr + if_then_Pol pol "aa" "o" ;
           VPres Progressive Sg2_Sg3Fem pol
-                                     => progr + if_then_Pol pol "saa" "so" ;
+                                     => vr.progr + if_then_Pol pol "saa" "so" ;
           VPres Progressive Pl1_ pol
-                                     => progr + if_then_Pol pol "naa" "no"  ;
-          VPres Progressive Pl2_ pol => progr + "saan" ;
-          VPres Progressive Pl3_ pol => progr + "aan" ;
+                                     => vr.progr + if_then_Pol pol "naa" "no"  ;
+          VPres Progressive Pl2_ pol => vr.progr + "saan" ;
+          VPres Progressive Pl3_ pol => vr.progr + "aan" ;
 
           VPast Simple Sg1_Sg3Masc
-                                  => qaat     + ay ;
-          VPast Simple Sg2_Sg3Fem => arag + t + ay ; -- t, d or s
-          VPast Simple Pl1_       => arag + n + ay ;
-          VPast Simple Pl2_       => arag + t + "een" ; -- t, d or s
-          VPast Simple Pl3_       => qaat     + "een" ;
+                                  => qaat    + ay ;
+          VPast Simple Sg2_Sg3Fem => hadash  + ay ;
+          VPast Simple Pl1_       => qaadann + ay ;
+          VPast Simple Pl2_       => hadash  + "een" ;
+          VPast Simple Pl3_       => qaat    + "een" ;
 
-          VPast Progressive Sg1_Sg3Masc
-                                          => progr + "ey" ;
-          VPast Progressive Sg2_Sg3Fem => progr + "sey" ;
-          VPast Progressive Pl1_       => progr + "ney" ;
-          VPast Progressive Pl2_       => progr + "seen" ;
-          VPast Progressive Pl3_       => progr + "een" ;
+          VPast Progressive Sg1_Sg3Masc => vr.progr + "ey" ;
+          VPast Progressive Sg2_Sg3Fem  => vr.progr + "sey" ;
+          VPast Progressive Pl1_        => vr.progr + "ney" ;
+          VPast Progressive Pl2_        => vr.progr + "seen" ;
+          VPast Progressive Pl3_        => vr.progr + "een" ;
 
           VNegPast Simple      => arkin ;
-          VNegPast Progressive => progr + "n" ;
+          VNegPast Progressive => vr.progr + "n" ;
 
           -- TODO check conjugations 2 and 3
-          VNegCond PlInv  => arag + n + "een" ;
-          VNegCond SgMasc => qaat     + "een" ; -- for most verbs same as VPast Simple Pl3_
-          VNegCond SgFem  => arag + t + "een" ; -- for most verbs same as VPast Simple Pl2_
+          VNegCond SgMasc => qaat    + "een" ; -- for most verbs same as VPast Simple Pl3_
+          VNegCond SgFem  => hadash  + "een" ; -- for most verbs same as VPast Simple Pl2_
+          VNegCond PlInv  => qaadann + "een" ; --
 
           VImp Sg Pos   => arag ;
           VImp Pl Pos   => qaat + "a" ;
-          VImp Sg Neg   => arag + an ;
-          VImp Pl Neg   => qaat + "ina" ;
+          VImp Sg Neg   => qaada + "n" ;
+          VImp Pl Neg   => vr.impernegpl ;
 
           VInf          => arki ;
           VRel SgMasc   => qaat + "a" ;
-          VRel SgFem    => arag + t + "a" ;
-          VRel PlInv    => arag + "na" ;
+          VRel SgFem    => hadash + "a" ;
+          VRel PlInv    => qaadann + "a" ;
           VRelNeg       => qaat + "o"  -- TODO check
 
-           } ;
+          } ;
         sii, dhex = [] ;
         isCopula = False ;
       } ;
@@ -605,33 +578,101 @@ oper
 -------------------------
 -- Regular verb paradigms
 
-  cSug, cKari, cYaree, cJoogso, cQaado : Str -> Verb ;
+  cSug, cBilaab, cKari, cYaree, cHayso, cJoogso, cQaado : Str -> VerbRoots8 ;
+  cArag : (arag,arkaa : Str) -> VerbRoots8 ;
 
   -- 1: Root verbs with no lexical affixes, e.g. sug TR 'wait for', kar INTR 'boil, cook';
+  -- NB. imperative unable to distinguish whether stem consonant is K or G: sug~sugaa vs. bug~bukaa
   cSug sug =
     let cabb : Str = case sug of {
-          _ + "b" => sug + "b" ; -- TODO: more duplication patterns
-          _       => sug }
-     in mkVerb sug cabb sug ;
+          ca + "b" => ca + "bb" ; -- TODO: more duplication patterns
+          _       => sug } ;
+     in cArag sug (cabb+"aa") ;
+
+  -- Imperative only cannot distinguish whether the vowel is epenthetic, and whether stem consonant is G/K or N/M
+  cArag arag arkaa = -- analogously: bug~bukaa, tartan~tartamaa
+    let ark : Str = init (init arkaa) ;
+        n : Str = case arag of {
+               _ + #v  => "nn" ; -- n duplicates after vowel
+               _ + "r" => "r" ; -- Saeed p. 35: agreement marker n (1PL)
+               _ + "l" => "l" ; -- assimilates to stem final r or.
+               _       => "n" } ;
+        t : Str = case arag of { -- kari+saa, noq+daa, (sug|joogsa|qaada)+taa, hadh+aa
+          _ + ("x"|"q"|"c") => "d" ; -- t changes into d after x/q/c
+          _ + "dh"          => [] ; -- duplicates after dh, but not written
+          _                 => "t" } ;
+        hadash : Str = case arag of {
+          hada + "l" => hada + "sh" ;
+          _ => arag + t
+        } ;
+
+     in { imper = arag ;
+          sg1stem = ark ;
+          sg2stem = hadash ;
+          pl1stem = arag + n ;
+          inf = ark + "i" ;
+          progr = ark + "ay" ;
+          negpast = ark + "in" ;
+          impernegpl = ark + "ina" } ;
+
+
+
+  -- Predictable stem alterations: aab->ow
+  cBilaab bilaab =
+    let bilow : Str = init (init (init bilaab)) + "ow" ;
+     in cArag bilaab (bilaab + "aa") ** {
+          sg2stem = bilow + "d" ;
+          pl1stem = bilow + "n" } ;
+
 
   -- 2A: Verbs derived from root verbs by the causative affix -i/-is, e.g. kari TR 'cook' (from conjugation 1 kar INTR 'boil, cook');
   -- 2B: Verbs derived from nouns and adjectives by the causative/factitive affix -eel-ayn, e.g. yaree 'make small' (from yar ADJ 'small');
-  cKari, cYaree = \kari -> mkVerb kari (kari+"y") kari ;
+  cKari kari = { imper = kari ;
+                 sg1stem = kari + "y" ;
+                 sg2stem = kari + "s" ;
+                 pl1stem = kari + "nn" ;
+                 inf, negpast = kari + "n" ;
+                 progr = kari + "nay" ;
+                 impernegpl = kari + "nina" } ;
+
+  cYaree yaree =
+    let yar : Str = init (init yaree) ;
+        yarey : Str = case yaree of {
+          yar + "ee" => yar + "ey" ;
+          _ => yaree + "n" -- ideally shouldn't happen; this constructor should only be applied to imperatives that end in ee
+        } ;
+    in { imper = yaree ;
+         sg1stem = yaree + "y" ;
+         sg2stem = yarey + "s" ;
+         pl1stem = yarey + "n" ;
+         inf, negpast = yarey + "n" ;
+         progr = yarey + "nay" ;
+         impernegpl = yar + "aynina" } ;
+
 
   -- 3A: Verbs derived from verbal stems by the middle voice affix -ol­/at
   -- e.g. karsó 'cook for oneself (from conjugation 2 kâri TR 'cook');
   cJoogso joogso =
     let joogsa = init joogso + "a" ;
-     in mkVerb joogso (joogsa + "d") joogsa ;
+     in { imper = joogso ;
+          sg1stem = joogsa + "d" ;
+          sg2stem = joogsa + "t" ;
+          pl1stem = joogsa + "nn" ;
+          inf, negpast = joogsa + "n" ;
+          progr = joogsa + "nay" ;
+          impernegpl = joogsa + "nina" } ;
+
+  cHayso hayso = -- otherwise like joogso, but sg1 is different
+    let hays  : Str = init hayso ;
+     in cJoogso hayso ** {sg1stem = hays + "t"} ;
+
 
   -- 3B: As conjugation 3A but verbs whose syllable structure triggers
   -- stem contraction and subsequent sandhi rules, e.g. qaadó 'take for oneself
   -- (from conjugation 1 qàad TR 'take').
   cQaado qaado =
     let qaa = init (init qaado)
-     in mkVerb qaado  -- Imperative sg, with the vowel
-              (qaa + "t")    -- Per1 Sg, Per3 Pl and Per3 Sg Masc
-              (qaa + "da") ; -- Per2 Pl and others
+     in cJoogso qaado ** { sg1stem = qaa + "t" } ;
 
   -- Constructs verbs like u baahan+ahay
   prefixV : Str -> Verb -> Verb = \s,v -> v ** {
@@ -676,7 +717,7 @@ oper
      } ;
 
   have_V : Verb =
-   let hold_V = mkVerb "hayso" "haysat" "haysa" in hold_V ** {
+   let hold_V = mkVerb (cHayso "hayso") in hold_V ** {
     s = table {
           VPres _ Sg1_Sg3Masc Pos => "leeyahay" ;
           VPres _ Sg2_Sg3Fem  Pos => "leedahay" ;
@@ -700,7 +741,7 @@ oper
     } ;
 
   fail_V : Verb =
-   let waa_V : Verb = cSug "waay" in waa_V ** {
+   let waa_V : Verb = mkVerb (cSug "waay") in waa_V ** {
     s = table {
       VPres _ Sg2_Sg3Fem _
                       => "waayday" ;
@@ -1037,9 +1078,9 @@ oper
       <Pres,Simul> => presV vp ;
       <Past,Simul> => pastV vp ;
       <Pres,Anter> => vp.s ! VInf ++ presCopula ! agrPol ; ---- just guessing
-      <Past,Anter> => vp.s ! VInf ++ pastV (cSug "jir")  ;
-      <Fut,Simul>  => vp.s ! VInf ++ presV (cSug "doon") ;
-      <Fut,Anter>  => vp.s ! VInf ++ pastV (cSug "doon")
+      <Past,Anter> => vp.s ! VInf ++ pastV (mkVerb (cSug "jir"))  ;
+      <Fut,Simul>  => vp.s ! VInf ++ presV (mkVerb (cSug "doon")) ;
+      <Fut,Anter>  => vp.s ! VInf ++ pastV (mkVerb (cSug "doon"))
       }
     where {
       agrPol : {agr:Agreement ; pol:Polarity} = {agr=agr; pol=p} ;
