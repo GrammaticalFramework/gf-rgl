@@ -46,7 +46,7 @@ lin
   ComplVS vs s =
     let vps = useV vs ;
         subord = SubjS {s="in"} s ;
-     in vps ** {obj = {s = subord.berri ; a = P3_Prep}} ;
+     in vps ** {obj = {s = subord.berri ; a = ZeroObj}} ;
 
 {-
   -- : VQ -> QS -> VP ;
@@ -71,7 +71,7 @@ lin
   SlashV2S v2s s =
     let vps = useVc v2s ;
         subord = SubjS {s="in"} s ;
-     in vps ** {obj = {s = subord.berri ; a = P3_Prep}} ;
+     in vps ** {obj = {s = subord.berri ; a = ZeroObj}} ;
 
 {-
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go

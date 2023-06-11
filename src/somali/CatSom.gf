@@ -120,11 +120,11 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
     N3 = ResSom.Noun3 ;
     GN, SN, PN = ResSom.PNoun ;
 
-    Adv = ResSom.Adverb ; -- Preposition of an adverbial can merge with obligatory complements of the verb.
+    Adv = ResSom.Adverb ; -- Adposition of an adverbial can merge with obligatory complements of the verb.
 
 linref
     -- Cl = linCl ;
     VP = infVP ;
     CN = linCN ;
-    Prep = \prep -> prep.s ! P3_Prep ++ prep.sii ++ prep.dhex ++ prep.hoostiisa ! Sg3 Masc ;
+    Prep = \prep -> prep.s ! ZeroObj ++ prep.sii ++ prep.dhex ++ prep.hoostiisa ! Sg3 Masc ;
 }

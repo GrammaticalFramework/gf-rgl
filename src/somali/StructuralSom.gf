@@ -180,7 +180,7 @@ lin have_V2 = mkV2 have_V noPrep ; -- TODO: check if {sii = "l" ++ BIND ; isCopu
 lin can8know_VV = can_VV ; -- can (capacity)
 lin can_VV = mkVV "kar" ;   -- can (possibility)
 lin must_VV = mkVV waa_in ;
-lin want_VV = mkVV (mkV "rabid" "rab" "rab") subjunctive ;
+lin want_VV = mkVV (mkV "rab" "rabaa") subjunctive ;
 
 
 ------
@@ -189,7 +189,7 @@ lin want_VV = mkVV (mkV "rabid" "rab" "rab") subjunctive ;
 lin please_Voc = ss "" ;
 -}
 oper
-  mkIAdv : Preposition -> Str -> Bool -> ResSom.IAdv = \pr ->
+  mkIAdv : Adposition -> Str -> Bool -> ResSom.IAdv = \pr ->
     let pr' : Prep = ParadigmsSom.mkPrep pr ;
      in prepIP pr' ;
 
