@@ -49,7 +49,7 @@ lin or_Conj = {s2 = "atau" ; s1 = [] ; n = Sg} ;
 --
 lin but_PConj = ss "tetapi" ;
 -- lin otherwise_PConj = ss "" ;
--- lin therefore_PConj = ss "" ;
+lin therefore_PConj = ss "oleh itu" ;
 
 
 -----------------
