@@ -47,7 +47,7 @@ lin or_Conj = {s2 = "atau" ; s1 = [] ; n = Sg} ;
 -- lin both7and_DConj = mkConj "" "" pl ;
 -- lin either7or_DConj = {s2 = \\_ => "" ; s1 = "" ; n = Sg} ;
 --
--- lin but_PConj = ss "" ;
+lin but_PConj = ss "tetapi" ;
 -- lin otherwise_PConj = ss "" ;
 -- lin therefore_PConj = ss "" ;
 

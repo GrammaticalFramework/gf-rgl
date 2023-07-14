@@ -349,7 +349,8 @@ lin small_A = mkA "kecil" ;
 -- lin snow_N = mkN "" ;
 -- lin sock_N = mkN "" ;
 lin song_N = mkN "lagu" ;
--- lin speak_V2 = mkV2 "" ;
+lin speak_V2 = mkV2 (prefixV (mkV "cakap" Ber)) emptyPrep  ;
+
 -- lin spit_V = mkV "" ;
 -- lin split_V2 = mkV2 "" ;
 -- lin squeeze_V2 = mkV2 "" ;
