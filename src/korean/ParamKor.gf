@@ -108,6 +108,9 @@ param
     | Imperative
     | Propositive ;
 
+  ObjectForm =          -- sometimes need to override V2's object case for Imp
+      DeclObj
+    | ImpObj ;
 
   -- TODO: include Aspect and SentenceType.
   -- These are all Generic and Declarative.
@@ -115,7 +118,8 @@ param
   VForm =
       VStem Polarity -- for adding conjunctions
     | VAttr Polarity -- for subordinate clauses
-    | VF Style Polarity ;
+    | VF Style Polarity
+    | VImpNeg ;
 
 oper
   -- Default style used in the whole grammar. Change here for another style.
@@ -141,7 +145,8 @@ oper
     VF Polite Pos => "s (VF Polite Pos)" ;
     VF Polite Neg => "s (VF Polite Neg)" ;
     VF Plain Pos  => "s (VF Plain Pos)" ;
-    VF Plain Neg  => "s (VF Plain Neg)" } ;
+    VF Plain Neg  => "s (VF Plain Neg)" ;
+    VImpNeg => "s VImpNeg" } ;
 
 --------------------------------------------------------------------------------
 -- Clauses
