@@ -4,9 +4,9 @@ concrete AdverbChi of Adverb = CatChi **
   lin
     PositAdvAdj a = {s = a.s!Attr ++ "地" ; advType = ATManner ; hasDe = False} ; ---- for all adjs?
 
-    PrepNP prep np = ss (appPrep prep np.s) ** {advType = prep.advType ; hasDe = prep.hasDe} ; --- should depend on np too ?
+    PrepNP prep np = ss (appPrep prep (linNP np)) ** {advType = prep.advType ; hasDe = prep.hasDe} ; --- should depend on np too ?
 
-    ComparAdvAdj cadv a np = ss (a.s!Attr ++ cadv.s ++ cadv.p ++ np.s) ** {advType = ATManner ; hasDe = False} ;
+    ComparAdvAdj cadv a np = ss (a.s!Attr ++ cadv.s ++ cadv.p ++ (linNP np)) ** {advType = ATManner ; hasDe = False} ;
 
     ComparAdvAdjS cadv a s = ss (a.s!Attr ++ cadv.s ++ cadv.p ++ linS s) ** {advType = ATManner ; hasDe = False} ;
 

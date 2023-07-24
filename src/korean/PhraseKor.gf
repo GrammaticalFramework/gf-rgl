@@ -8,11 +8,11 @@ concrete PhraseKor of Phrase = CatKor ** open Prelude, ResKor in {
     UttIAdv iadv = iadv ;
     UttAdv adv = adv ;
     UttInterj i = i ;
-{-
-    UttImpSg pol imp =
-    UttImpPl pol imp =
+
+    UttImpSg pol imp = {s = imp.s ! pol.p} ;
+    UttImpPl,
     UttImpPol = UttImpSg ;
-    -}
+
     UttIP ip = {s = ip.s ! Bare} ;
 
     UttNP np = {s = np.s ! Bare} ;

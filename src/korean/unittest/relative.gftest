@@ -9,8 +9,8 @@ LangKor: 지금 우유를 마시는 고양이
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a like_V2) (DetCN (DetQuant IndefArt NumPl) (RelCN (UseN cat_N) (ConjRS and_Conj (BaseRS (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (UseV laugh_V))) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a drink_V2) (MassNP (UseN milk_N))))))))))))) NoVoc
 LangEng: I like cats that laugh and that drink milk
-LangKor: 저는 웃 &+ 고 우유를 마시는 고양이를 좋아해요
+LangKor: 저는 웃 &+ 고 우유를 마시는 고양이 &+ 들을 좋아합니다
 
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a like_V2) (DetCN (DetQuant IndefArt NumPl) (RelCN (UseN cat_N) (UseRCl (TTAnt TPres ASimul) PPos (RelVP IdRP (ComplSlash (SlashV2a like_V2) (UsePron i_Pron)))))))))) NoVoc
 LangEng: I like cats that like me
-LangKor: 저는 저를 좋아하는 고양이가 좋아요
+LangKor: 저는 저를 좋아하는 고양이 &+ 들을 좋아합니다
