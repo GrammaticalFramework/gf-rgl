@@ -85,6 +85,8 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
 
+    NumFloat n1 n2 = {s = \\g,c => n1.s ! NCard Utr Nom ++ BIND ++ "." ++ BIND ++ n2.s ! NCard g c; n = Pl } ;
+
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdNumeral numeral = {s = let tiende : AForm => Str = \\af => numeral.s ! NOrd af
                                in table {APred => tiende ! AAttr Utr ;

@@ -58,6 +58,7 @@ abstract Noun = Cat ** {
 
   data
     NumDigits  : Digits  -> Card ;  -- 51
+    NumFloat   : Digits -> Digits -> Card ;  -- 3.14
     NumNumeral : Numeral -> Card ;  -- fifty-one
 
 -- The construction of numerals is defined in [Numeral Numeral.html].

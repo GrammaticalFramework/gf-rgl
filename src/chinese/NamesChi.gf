@@ -1,8 +1,9 @@
 concrete NamesChi of Names = CatChi ** {
 
-lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
+lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ** {det = []} ;
 lin FullName gn sn = {
-       s = gn.s ++ sn.s
+       s = gn.s ++ sn.s ;
+       det = []
     } ;
 
 }

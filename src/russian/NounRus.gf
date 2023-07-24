@@ -87,6 +87,8 @@ lin
   -- : Digits -> Card ;  -- 51
   NumDigits n = {s = \\_,_,_ => n.s ; size = n.size } ;
 
+  NumFloat n1 n2 = {s = \\_,_,_ => n1.s ++ BIND ++ "." ++ BIND ++ n2.s ; size = n1.size } ;
+
   -- : Quant -> Num -> Det ;  -- these five
   DetQuant quant num = {
     s=\\g,anim,cas => quant.s ! (gennum g (numSizeNumber num.size)) ! anim ! cas ++ num.s ! g ! anim ! cas ;

@@ -77,6 +77,8 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
 
+    NumFloat n1 n2 = {s = \\g,c => n1.s ! NCard Neutr Nom ++ BIND ++ "." ++ BIND ++ n1.s ! NCard g c; n = Pl } ;
+
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdNumeral numeral = {s = \\af => numeral.s ! NOrd af} ;
 

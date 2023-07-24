@@ -120,6 +120,11 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
       } ;
     OrdDigits numeral = {s = \\nc => numeral.s ! NOrd nc} ;
 
+    NumFloat n1 n2 = {
+      s = \\n,c => n1.s ! NCard (NCase Sg Nom) ++ BIND ++ "." ++ BIND ++ n2.s ! NCard (NCase n c) ;
+      n = Pl
+      } ;
+
     NumNumeral numeral = {
       s = \\n,c => numeral.s ! NCard (NCase n c) ;
       n = numeral.n
