@@ -142,16 +142,6 @@ lin
     n = Pl
     } ;
 
-lin GivenName = \n -> { s = n.s; g = sex2gender n.g; n = Sg } ;
-lin MaleSurname = \n -> { s = n.s ! Male ; g = Masc; n = Sg } ;
-lin FemaleSurname = \n -> { s = n.s ! Female ; g = Fem; n = Sg } ;
-lin PlSurname = \n -> { s = n.s ! Male ; g = Masc; n = Pl } ;
-lin FullName gn sn = {
-       s = \\c => gn.s ! Nom ++ sn.s ! gn.g ! c ;
-       g = sex2gender gn.g ;
-       n = Sg
-    } ;
-
 lin PassVPSlash vp = 
       insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
           { c1 = subjPrep vp.c2 } ;

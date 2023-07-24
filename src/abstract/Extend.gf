@@ -297,12 +297,6 @@ fun
 fun
   CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
 
-  GivenName : GN -> PN ;
-  MaleSurname   : SN -> PN ;
-  FemaleSurname : SN -> PN ;
-  PlSurname     : SN -> PN ;
-  FullName  : GN -> SN -> PN ;
-
 fun
   AnaphPron : NP -> Pron ;
 

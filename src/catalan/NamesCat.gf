@@ -1,0 +1,9 @@
+concrete NamesCat of Names = CatCat ** open ResCat in {
+
+lin GivenName, MaleSurname, FemaleSurname = \n -> pn2np n ;
+lin FullName gn sn = pn2np {
+       s = gn.s ++ sn.s ; 
+       g = gn.g
+    } ;
+
+}

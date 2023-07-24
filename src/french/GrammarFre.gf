@@ -14,7 +14,8 @@ concrete GrammarFre of Grammar =
   TextX - [SC,Temp,Tense,Pol,PPos,PNeg],
   IdiomFre,
   StructuralFre,
-  TenseFre
+  TenseFre,
+  NamesFre
   ** {
 
 flags startcat = Phr ; 

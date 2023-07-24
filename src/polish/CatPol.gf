@@ -119,7 +119,7 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
 
     N3 = Noun ** { c1, c2 : Complement } ;
 
-    GN, SN, PN = NounPhrase;
+    GN, SN, LN, PN = NounPhrase;
     
     CAdv = {s,p,sn,pn : Str} ;
 

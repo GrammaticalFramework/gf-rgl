@@ -12,7 +12,8 @@ concrete GrammarKor of Grammar =
   TextX,
   StructuralKor,
   IdiomKor,
-  TenseX
+  TenseX,
+  NamesKor
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

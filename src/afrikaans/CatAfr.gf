@@ -83,6 +83,6 @@ concrete CatAfr of Cat =
     N  = Noun ;
     N2 = {s : NForm => Str ; g : Gender} ** {c2 : Preposition} ;
     N3 = {s : NForm => Str ; g : Gender} ** {c2,c3 : Preposition} ;
-    GN, SN, PN = {s : NPCase => Str} ;
+    GN, SN, LN, PN = {s : NPCase => Str} ;
 
 }

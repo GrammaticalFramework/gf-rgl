@@ -7,12 +7,4 @@ concrete ExtendTur of Extend = CatTur ** open ResTur in {
       a = {n=num.n; p=P3} ;
     } ;
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ** {n = Sg};
-lin PlSurname = \n -> n ** {n = Pl};
-lin FullName gn sn = {
-       s = \\c => gn.s ! Nom ++ sn.s ! c ;
-       h = sn.h ;
-       n = Sg
-    } ;
-
 }

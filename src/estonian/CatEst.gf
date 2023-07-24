@@ -91,7 +91,7 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
             c2,c3 : Compl ;
             isPre,isPre2 : Bool
             } ;
-    GN, SN, PN = {s : Case  => Str} ;
+    GN, SN, LN, PN = {s : Case  => Str} ;
 
   linref
     VP = \vp -> linV vp.v ;

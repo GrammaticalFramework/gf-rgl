@@ -59,10 +59,4 @@ lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
                               } ;
     } ;
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       s = gn.s ++ sn.s ;
-       g = gn.g
-    } ;
-
 }

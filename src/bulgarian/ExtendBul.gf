@@ -303,27 +303,6 @@ lin UseDAP dap = {
 lin UseComp_estar = UseComp ;
     UseComp_ser = UseComp ;
 
-lin GivenName = \n -> {
-       s  = n.s ;
-       gn = GSg (sex2gender n.g)
-    } ;
-lin MaleSurname = \n -> {
-       s  = n.s ! Male ;
-       gn = GSg Masc
-    } ;
-lin FemaleSurname = \n -> {
-       s  = n.s ! Female;
-       gn = GSg Fem
-    } ;
-lin PlSurname = \n -> {
-       s  = n.pl ;
-       gn = GPl
-    } ;
-lin FullName gn sn = {
-       s  = gn.s ++ sn.s ! gn.g ; 
-       gn = GSg (sex2gender gn.g)
-    } ;
-
 lin ProDrop pro = pro ;
 
 lin AnaphPron np =

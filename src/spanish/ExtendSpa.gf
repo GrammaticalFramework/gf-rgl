@@ -106,12 +106,6 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
 lin UseComp_estar comp = insertComplement comp.s (predV I.estar_V) ;
     UseComp_ser comp = insertComplement comp.s (predV copula) ;
 
-lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
-lin FullName gn sn = {
-       s = gn.s ++ sn.s ;
-       g = gn.g
-    } ;
-
 lin PassVPSlash vps = passVPSlash vps [] ;
     PassAgentVPSlash vps np = passVPSlash 
       vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;

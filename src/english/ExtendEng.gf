@@ -474,13 +474,6 @@ lin CardCNCard card cn =
 lin theyFem_Pron = mkPron "they" "them" "their" "theirs" plural P3 feminine ;
 lin theyNeutr_Pron = mkPron "they" "them" "their" "theirs" plural P3 nonhuman ;
 
-lin GivenName gn = gn ;
-lin MaleSurname, FemaleSurname = \sn -> sn ;
-lin FullName gn sn = {
-       s = \\c => gn.s ! Nom ++ sn.s ! c ; 
-       g = gn.g
-    } ;
-
 lin AnaphPron np =
       case np.a of {
         AgP1 Sg      => i_Pron ;

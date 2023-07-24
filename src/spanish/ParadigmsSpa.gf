@@ -137,6 +137,25 @@ oper
 -- Proper names need a string and a gender.
 -- The default gender is feminine for names ending with "a", otherwise masculine.
 
+  mkLN = overload {
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              p = {s = "en"; c = Nom; isDir = True} ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+
+    mkLN : Str -> Gender -> Number -> LN = \s,g,num ->
+      lin LN {s = s ;
+              p = {s = "en"; c = Nom; isDir = True} ;
+              art = NoArt ;
+              g = g ;
+              num = num} ;
+  } ;
+
+
+  defLN : LN -> LN = \n -> n ** {art = UseArt} ;
+
   mkPN : overload {
     mkPN : (Anna : Str) -> PN ; -- feminine for "-a"
     mkPN : (Pilar : Str) -> Gender -> PN ; -- force gender

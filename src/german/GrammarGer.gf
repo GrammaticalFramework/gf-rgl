@@ -14,7 +14,8 @@ concrete GrammarGer of Grammar =
   TextX - [Tense,Temp],
   IdiomGer,
   StructuralGer,
-  TenseGer
+  TenseGer,
+  NamesGer
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

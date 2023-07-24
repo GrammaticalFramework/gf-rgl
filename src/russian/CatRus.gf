@@ -1,7 +1,7 @@
 concrete CatRus of Cat = CommonX ** open ResRus, Prelude in {
 flags coding=utf8 ; optimize=all ;
 lincat
-  N, GN, SN, PN = ResRus.NounForms ;
+  N, GN, SN, LN, PN = ResRus.NounForms ;
   N2 = ResRus.Noun2Forms ;
   N3 = ResRus.Noun3Forms ;
 

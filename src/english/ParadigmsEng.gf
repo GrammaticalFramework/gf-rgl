@@ -129,6 +129,24 @@ oper
 --
 -- Proper names, with a regular genitive, are formed from strings.
 
+oper
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = table {Gen => s + "'s" ; _ => s} ; 
+              p = "in" ;
+              art = False ;
+              a = agrP3 Sg} ;
+
+    mkLN : Str -> Number -> LN = \s,n ->
+      lin LN {s = table {Gen => s + "'s" ; _ => s} ;
+              p = "in" ;
+              art = False ;
+              a = agrP3 n} ;
+  } ;
+
+  defLN : LN -> LN = \n -> n ** {art = True} ;
+  prepLN : LN -> Str -> LN = \n,s -> n ** {p = s} ;
+
   mkPN : overload {
 
     mkPN : Str -> PN ;

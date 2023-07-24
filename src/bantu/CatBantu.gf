@@ -81,7 +81,7 @@ incomplete concrete CatBantu of Cat =
 --    N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Prep} ; 
     N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Prep} ; 
-    GN, SN, PN = {s : Case => Str ; g : Gender} ;
+    GN, SN, LN, PN = {s : Case => Str ; g : Gender} ;
    --Tense = {s : Str ; t : ResKam.Tense} ;
 
   linref

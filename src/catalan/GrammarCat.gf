@@ -14,7 +14,8 @@ concrete GrammarCat of Grammar =
   TextX - [SC,Temp,Tense,Pol,PPos,PNeg],
   IdiomCat,
   StructuralCat,
-  TenseCat
+  TenseCat,
+  NamesCat
 
   ** {
 

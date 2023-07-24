@@ -218,4 +218,6 @@ oper
     stare_V : Verb ;
     stare_V = essere_V ;
 
+  param HasArt ;
+
 } ;

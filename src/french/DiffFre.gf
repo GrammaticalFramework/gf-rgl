@@ -338,4 +338,7 @@ instance DiffFre of DiffRomance - [
 
   verbHyphen : Verb -> Str = \v -> v.s ! (VInfin True) ; --- kluge: use this field to store - or -t-
 
+param
+  HasArt = NoArt | UseArt | AlwaysArt ;
+
 } ;
