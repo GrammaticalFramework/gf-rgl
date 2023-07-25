@@ -850,4 +850,7 @@ oper
     
   vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
   consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"r"|"s"|"t"|"v"|"x"|"z") ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

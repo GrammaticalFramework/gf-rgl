@@ -240,4 +240,17 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
                      p = dap.p
                     } ;
     DetDAP det = det ;
+
+    QuantityNP n m = {
+      s = \\role => preOrPost m.isPre m.s (n.s ! NCard (CFMasc Indef NonHuman)) ;
+      gn = gennum (AMasc NonHuman) n.n ;
+      p  = NounP3 Pos
+      } ;
+
+    QuantityFloatNP n1 n2 m = {
+      s = \\role => preOrPost m.isPre m.s (n1.s ! NCard (CFMasc Indef NonHuman) ++ BIND ++ "." ++ BIND ++ n2.s ! NCard (CFMasc Indef NonHuman)) ;
+      gn = gennum (AMasc NonHuman) Pl ;
+      p  = NounP3 Pos
+      } ;
+
 }

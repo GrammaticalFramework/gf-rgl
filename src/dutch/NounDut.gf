@@ -201,4 +201,16 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
 
     DetDAP det = det ;
 
+    QuantityNP n m = noMerge ** {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard Utr Nom) ;
+      a = agrP3 n.n ;
+      isPron = False
+      } ;
+
+    QuantityFloatNP n1 n2 m = noMerge ** {
+      s = \\role => preOrPost m.isPre m.s (n1.s ! NCard Utr Nom ++ BIND ++ "." ++ BIND ++ n2.s ! NCard Utr Nom) ;
+      a = agrP3 Pl ;
+      isPron = False
+      } ;
+
 }

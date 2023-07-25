@@ -210,4 +210,18 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
 
     DetDAP d = d ;
 
+    QuantityNP n m = {
+      nom,voc = preOrPost m.isPre m.s n.s;
+      dep = \\cc => preOrPost m.isPre m.s n.s ;
+      gn = OthersPl;
+      p = P3
+      } ;
+
+    QuantityFloatNP n1 n2 m = {
+      nom,voc = preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
+      dep = \\cc => preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
+      gn = OthersPl;
+      p = P3
+      } ;
+
 }

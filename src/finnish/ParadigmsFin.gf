@@ -1050,4 +1050,6 @@ mkVS = overload {
   mkAV  v = v ** {lock_A = <>} ;
 ---  mkA2V v p = mkA2 <v : A> p ** {lock_A2 = <>} ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 } ;

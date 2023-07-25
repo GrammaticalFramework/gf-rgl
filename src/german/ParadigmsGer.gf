@@ -771,4 +771,6 @@ mkV2 : overload {
     mkV2 : V -> Case -> V2 = \v,c -> prepV2 v (lin Prep {s,s2 = [] ; c = c ; isPrep = False}) ;
     } ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

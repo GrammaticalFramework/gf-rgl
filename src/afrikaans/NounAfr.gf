@@ -179,4 +179,16 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
       isMod = cn.isMod
       } ;
 
+    QuantityNP n m = {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard Neutr Nom) ;
+      a = agrP3 n.n ;
+      isPron = False
+      } ;
+
+    QuantityFloatNP n1 n2 m = {
+      s = \\c => preOrPost m.isPre m.s (n1.s ! NCard Neutr Nom ++ BIND ++ "." ++ BIND ++ n1.s ! NCard Neutr Nom) ;
+      a = agrP3 Pl ;
+      isPron = False
+      } ;
+
 }

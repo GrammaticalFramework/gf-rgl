@@ -241,4 +241,16 @@ lin
     preferShort=PreferFull
     } ;
 
+  QuantityNP n m = {
+    s = \\cas => preOrPost m.isPre m.s n.s;
+    pron=False ;
+    a=Ag (gennum Masc (numSizeNumber n.size)) P3
+    } ;
+
+  QuantityFloatNP n1 n2 m = {
+    s = \\cas => preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
+    pron=False ;
+    a=Ag GPl P3
+    } ;
+
 }

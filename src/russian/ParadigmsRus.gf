@@ -597,4 +597,7 @@ oper
       Second | SecondA => (Z.sg1StemFromVerb sg1) + "ит" ;
       _ => (Z.sg1StemFromVerb sg1) + "ет"
       } in (guessVerbForms asp Transitive inf sg1 sg3) ** {lock_V=<>} ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

@@ -176,4 +176,14 @@ concrete NounEng of Noun = CatEng ** open MorphoEng, ResEng, Prelude in {
 
     DetDAP d = d ;
 
+    QuantityNP n m = {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard ! Nom) ;
+      a = agrgP3 n.n Neutr
+    } ;
+
+    QuantityFloatNP n1 n2 m = {
+      s = \\c => preOrPost m.isPre m.s (n1.s ! NCard ! Nom ++ BIND ++ "." ++ BIND ++ n2.s ! NCard ! Nom) ;
+      a = agrgP3 Pl Neutr
+    } ;
+
 }

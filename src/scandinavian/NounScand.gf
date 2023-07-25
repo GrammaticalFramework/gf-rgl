@@ -263,4 +263,16 @@ incomplete concrete NounScand of Noun =
 
     DetDAP d = d ;
 
+    QuantityNP n m = {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard neutrum);
+      a = agrP3 Utr n.n ;
+      isPron = False
+      } ;
+
+    QuantityFloatNP n1 n2 m = {
+      s = \\c => preOrPost m.isPre m.s (n1.s ! NCard neutrum ++ BIND ++ "." ++ BIND ++ n2.s ! NCard neutrum) ;
+      a = agrP3 Utr Pl ;
+      isPron = False
+      } ;
+
 }

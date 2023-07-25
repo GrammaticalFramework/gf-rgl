@@ -207,4 +207,16 @@ incomplete concrete NounRomance of Noun =
 
     DetDAP det = det ;
 
+    QuantityNP n m = heavyNPpol False {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard Masc);
+      a = agrP3 Masc n.n ;
+      hasClit = False
+      } ;
+
+    QuantityFloatNP n1 n2 m = heavyNPpol False {
+      s = \\c => preOrPost m.isPre m.s (n1.s ! NCard Masc ++ BIND ++ "." ++ BIND ++ n2.s ! NCard Masc) ;
+      a = agrP3 Masc Pl ;
+      hasClit = False
+      } ;
+
 }

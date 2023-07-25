@@ -574,5 +574,6 @@ oper
     _ => VFalse  -- prend-il
     } ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 } ;

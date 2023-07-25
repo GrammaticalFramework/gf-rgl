@@ -240,4 +240,20 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
     DetDAP det = det ;
 
+    QuantityNP dig m = {
+      s = \\c => preOrPost m.isPre m.s (dig.s ! invNum) ;
+      a = agrP3 Pl ;
+      w = WLight ;
+      rc = "" ;
+      ext = "" ;
+      } ;
+
+    QuantityFloatNP dig1 dig2 m = {
+      s = \\c => preOrPost m.isPre m.s (dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! invNum) ;
+      a = agrP3 Pl ;
+      w = WLight ;
+      rc = "" ;
+      ext = "" ;
+      } ;
+
 }

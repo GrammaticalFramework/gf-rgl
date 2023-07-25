@@ -156,4 +156,9 @@ abstract Noun = Cat ** {
     AdjDAP : DAP -> AP -> DAP ;    -- the large (one)
     DetDAP : Det -> DAP ;          -- this (or that) 
 
+--2 Quantities
+
+    QuantityNP : Digits -> MU -> NP ;
+    QuantityFloatNP : Digits -> Digits -> MU -> NP ;
+
 }

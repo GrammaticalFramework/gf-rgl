@@ -922,4 +922,6 @@ oper
   mkAV  a = a ;
   mkA2V a p = mkA2 a p ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 } ;

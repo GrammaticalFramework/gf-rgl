@@ -795,6 +795,8 @@ mkVoc s = lin Voc (ss s) ;
   mk2Conj : Str -> Str -> Number -> Conj = \x,y,n ->
     lin Conj (sd2 x y ** {n = n}) ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 ---- obsolete
 
 -- Comparison adjectives may two more forms.
