@@ -13,7 +13,7 @@ concrete ConjunctionGer of Conjunction =
 
     ConjNP conj ss = { s = \\_ => (conjunctDistrTable Case conj { s1 = ss.s1 ; s2 = ss.s2 }).s } ** {
       a = Ag Fem (conjNumber conj.n (numberAgr ss.a)) (personAgr ss.a) ;
-      w = WHeavy' ; ext,rc = [] } ;
+      w = WHeavy ; ext,rc = [] } ;
 
     ConjAP conj ss = conjunctDistrTable AForm conj ss ** {
       isPre = ss.isPre ; c = ss.c ; ext = ss.ext} ;

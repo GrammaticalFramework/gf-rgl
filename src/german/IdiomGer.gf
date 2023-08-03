@@ -58,7 +58,7 @@ concrete IdiomGer of Idiom = CatGer **
       } ;
 
     ImpP3 np vp = {
-      s = (mkClause ((mkSubj np vp.c1).p1) np.a vp).s !
+      s = (mkClause ((mkSubject np vp.c1).s) np.a vp).s !
                            MConjunct ! Pres ! Simul ! Pos ! Inv 
       } ;
 

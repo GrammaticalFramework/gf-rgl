@@ -166,8 +166,8 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
   lin
 {- too expensive 60% memory, then killed:
     SlashVP np vp =
-      let subj = mkSubj np vp.c1
-      in mkClSlash subj.p1 subj.p2 vp ** { c2 = vp.c2 } ;
+      let subj = mkSubject np vp.c1
+      in mkClSlash subj.s subj.a vp ** { c2 = vp.c2 } ;
 -}
     RelSlash rp cls = lin RCl {
       s = \\m,t,a,p,gn =>
@@ -214,7 +214,7 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
           obj2  = (vp.nn ! ag).p3 ;                    -- pp-objects and heavy nps
           obj3  = (vp.nn ! ag).p4 ++ vp.adj ++ vp.a2 ; -- pred.AP|CN|Adv, via useComp HL 6/2019
           compl : Str = obj1 ++ obj2 ++ neg ++ obj3 ;
-          infObjs = (vp.inf.inpl.p1) ! ag ;
+          infObjs = vp.inf.inpl.p1 ! ag ;
           infPred = vp.inf.inpl.p2 ;
           infCompl : Str = case <t,a,vp.isAux> of {
                  <Fut|Cond,Anter,True> => [] ;  _ => infObjs ++ infPred } ;

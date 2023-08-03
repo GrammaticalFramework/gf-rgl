@@ -13,15 +13,15 @@ concrete QuestionGer of Question = CatGer ** open ResGer in {
               }
       } ;
 
-    QuestVP qp vp = {
-      s = \\m,t,a,b,q => 
-        let 
-          cl = (mkClause (qp.s ! Nom) (agrP3 qp.n) vp).s ! m ! t ! a ! b
-        in
-        case q of {
-            QIndir => cl ! Sub ;
-            _      => cl ! Main
-            }
+    QuestVP ip vp = {
+      s = \\m,t,a,p => 
+        let
+          who = appPrep vp.c1 ip.s ;
+          cl = (mkClause who (agrP3 ip.n) vp).s ! m ! t ! a ! p
+        in table {
+          QDir   => cl ! Main ;
+          QIndir => cl ! Sub
+          }
       } ;
 
     QuestSlash ip slash = {
@@ -50,8 +50,8 @@ concrete QuestionGer of Question = CatGer ** open ResGer in {
       s = \\m,t,a,p => 
             let 
               vp  = predV sein_V ** {ext = icomp.ext};
-	      subj = mkSubj np vp.c1 ;
-              cls = (mkClause subj.p1 subj.p2 vp).s ! m ! t ! a ! p ;
+	      subj = mkSubject np vp.c1 ;
+              cls = (mkClause subj.s subj.a vp).s ! m ! t ! a ! p ;
               why = icomp.s ! np.a
             in table {
               QDir   => why ++ cls ! Inv ;

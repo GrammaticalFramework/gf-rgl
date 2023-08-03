@@ -491,7 +491,7 @@ mkV2 : overload {
     dunk + "el" => mk3A a (dunk + "ler") (dunk + "leste") ;
     te + "uer" => mk3A a (te + "urer") (te + "ureste") ;
     _ + "e"    => mk3A a (a + "r") (a + "ste") ;
-     _ + ("t" | "d" | "s" | "sch" | "z") => mk3A a (a + "er") (a + "este") ;
+    _ + ("t" | "d" | "s" | "ß" | "sch" | "z" | "au" | "eu") => mk3A a (a + "er") (a + "este") ;
     _          => mk3A a (a + "er") (a + "ste")
     } ;
 

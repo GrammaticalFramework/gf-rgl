@@ -56,22 +56,22 @@ resource ResGer = ParamX ** open Prelude in {
 -- den Menschen").
 
   param 
-    PredetCase' = NoCase' | PredCase' Case ;
+    PredetCase = NoCase | PredCase Case ;
     PredetAgr = PAg Number | PAgNone ;
 
   oper
-    noCase' : {p : Str ; k : PredetCase'} = {p = [] ; k = NoCase'} ;
+    noCase : {p : Str ; k : PredetCase} = {p = [] ; k = NoCase} ;
 
 -- Pronominal nps are ordered differently, and light nps come before negation in clauses.
 -- (To save space, reduce isPron * isLight = 4 values to the following three.) HL 9/19
 
   param
-    Weight' = WPron' | WLight' | WHeavy' | WDefArt ;  -- HL: may need WIndefArt for nicht+ein => kein
-  oper                                                --     to handle clause negation properly
-    isPron' : {w : Weight'} -> Bool = \np ->
-      case np.w of {WPron' => True ; _ => False} ;
-    isLight' : {w : Weight'} -> Bool = \np ->
-      case np.w of {WHeavy' => False ; _ => True} ;
+    Weight = WPron | WLight | WHeavy | WDefArt ;  -- HL: may need WIndefArt for nicht+ein => kein
+  oper                                            --     to handle clause negation properly
+    isPron : {w : Weight} -> Bool = \np ->
+      case np.w of {WPron => True ; _ => False} ;
+    isLight : {w : Weight} -> Bool = \np ->
+      case np.w of {WHeavy => False ; _ => True} ;
 
 --2 For $Adjective$
 
@@ -233,7 +233,7 @@ resource ResGer = ParamX ** open Prelude in {
      rc : Str ;  -- die Frage , [rc die ich gestellt habe]
      ext : Str ; -- die Frage , [sc wo sie schläft] ; die Regel , [vp kein Fleisch zu essen] | [s dass ...]
      a : Agr ;
-     w : Weight' } ; -- light NPs come before negation in simple clauses
+     w : Weight } ; -- light NPs come before negation in simple clauses
 
   mkN  : (x1,_,_,_,_,x6,x7 : Str) -> Gender -> Noun = 
     \Mann, Mannen, Manne, Mannes, Maenner, Maennern, Mann_, g -> {
@@ -367,7 +367,7 @@ resource ResGer = ParamX ** open Prelude in {
 
   regA : Str -> Adjective = \blau ->
    let blauest : Str = case blau of {
-     _ + ("t" | "d" | "s" | "sch" | "z") => blau + "est" ;
+     _ + ("t" | "d" | "s" | "ß" | "sch" | "z" | "au" | "eu") => blau + "est" ;
      _ => blau + "st"
    }
    in
@@ -397,12 +397,13 @@ resource ResGer = ParamX ** open Prelude in {
       legte ("ge" + legt) 
       [] VHaben ;
 
--- Prepositions are of three types: (i) cases, (ii) pure pre-, post- and circum-positions,
--- and (iii) prepositions glued with definite article in singular (using s!(GSg g)).
 -- Prepositions indicate the case of their complement noun phrase.
 
+-- There are three types: (i) cases, (ii) pure pre-, post- and circum-positions, 
+-- and (iii) prepositions glued with definite article in singular (using s!(GSg g)).
+
   param
-    PrepType = isCase | isPrep | isPrepDefArt ;
+    PrepType = isCase | isPrep | isPrepDefArt ;                  -- HL 7/2022
 
   oper
     Preposition : Type = {s : GenNum => Str ; s2:Str ; c : Case ; isPrep : PrepType} ;
@@ -462,8 +463,7 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- Pronouns and articles
 -- Here we define personal and relative pronouns.
--- All personal pronouns, except "ihr", conform to the simple
--- pattern $mkPronPers$.
+-- All personal pronouns, except "ihr", conform to the simple pattern $mkPronPers$.
 
   mkPronPers : (x1,_,_,_,x5 : Str) -> Gender -> Number -> Person -> 
                {s : NPForm => Str ; a : Agr} = 
@@ -513,7 +513,7 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- This is used when forming determiners that are like adjectives.
 
-  appAdj' : Adjective -> Number => Gender => Case => Str = \adj ->
+  appAdj : Adjective -> Number => Gender => Case => Str = \adj ->
     let
       ad : GenNum -> Case -> Str = \gn,c ->
         adj.s ! Posit ! AMod gn c
@@ -727,7 +727,7 @@ resource ResGer = ParamX ** open Prelude in {
         c = prep.c
     in insertObj' obj b w c vp ;
 
-  insertObj' : Str -> Bool -> Weight' -> Case -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
+  insertObj' : Str -> Bool -> Weight -> Case -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
     vp ** {
       nn = \\a =>
         let vpnn = vp.nn ! a in
@@ -736,18 +736,18 @@ resource ResGer = ParamX ** open Prelude in {
         case <isPrep, w, c> of { -- 2 * 3 * 4 = 24 cases
           <True, _,_> =>       -- <prons, light, heavy++pp, compl>
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> ;
-          <False,WPron', Acc> => -- <ihn ++ sich, light, heavy, comp>
+          <False,WPron, Acc> => -- <ihn ++ sich, light, heavy, comp>
             <obj ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ;
-          <False,WPron', _  > => -- <sich ++ ihm|seiner, light, heavy, comp>
+          <False,WPron, _  > => -- <sich ++ ihm|seiner, light, heavy, comp>
             <vpnn.p1 ++ obj, vpnn.p2, vpnn.p3, vpnn.p4> ;
-          <False,WLight',Dat> => -- (assuming v.c2=acc) nonPron: dat < acc|gen
+          <False,WLight,Dat> => -- (assuming v.c2=acc) nonPron: dat < acc|gen
                                 -- <prons, dat ++ np, heavy, comp>
             <vpnn.p1, obj ++ vpnn.p2, vpnn.p3, vpnn.p4> ;
-          <False,WLight',_  > => -- <prons, np ++ gen|acc, heavy, comp>
+          <False,WLight,_  > => -- <prons, np ++ gen|acc, heavy, comp>
             <vpnn.p1, vpnn.p2 ++ obj, vpnn.p3, vpnn.p4> ;
-          <False,WHeavy'|WDefArt,Dat> => -- <prons, light, dat ++ np, comp>
+          <False,WHeavy|WDefArt,Dat> => -- <prons, light, dat ++ np, comp>
             <vpnn.p1, vpnn.p2, obj ++ vpnn.p3, vpnn.p4> ;
-          <False,WHeavy'|WDefArt,_  > => -- <prons, light, np ++ gen|acc, comp>
+          <False,WHeavy|WDefArt,_  > => -- <prons, light, np ++ gen|acc, comp>
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> }
     } ; -- the ordering of objects of v:V3 (and v:V4) is also determined by Slash?V3 (and Slash?V4)
 
@@ -997,8 +997,8 @@ resource ResGer = ParamX ** open Prelude in {
   infPart : Bool -> Str = \b -> if_then_Str b [] "zu" ;
 
   heavyNP : 
-    {s : Bool => Case => Str ; a : Agr} -> {s : Bool => Case => Str ; a : Agr ; w : Weight' ; ext,rc : Str} = \np ->
-    np ** {w = WHeavy' ; ext,rc = []} ; -- this could be wrong
+    {s : Bool => Case => Str ; a : Agr} -> {s : Bool => Case => Str ; a : Agr ; w : Weight ; ext,rc : Str} = \np ->
+    np ** {w = WHeavy ; ext,rc = []} ; -- this could be wrong
 
   relPron :  RelGenNum => Case => Str = \\rgn,c =>
     case rgn of {
@@ -1015,10 +1015,25 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- Function that allows the construction of non-nominative subjects.
 
-  mkSubj : NP -> Preposition -> Str * Agr = \np, prep ->
+  mkSubject : NP -> Preposition -> {s:Str ; a:Agr} = \np, prep ->
     let
-      agr = case prep.c of { Nom => np.a ; _ => Ag Masc Sg P3 } ;
-      subj = appPrepNP prep np
-    in <subj , agr> ;
+      subj = appPrepNP prep np ;
+      agr = case prep.c of { Nom => np.a ; _ => Ag Masc Sg P3 }
+    in {s = subj ; a = agr} ;
 
+-- Function to construct a glued Prep+RelPron or a IAdv from a preposition. HL 7/23
+
+  woStr : Str -> Case -> Str = \prep,c -> case prep of {
+    "in" => case c of {Acc => "wohin" ; _ => "worin" } ; -- wohin, worin
+    ("a"|"u") + _ => "wor" + prep ;                  -- e.g. woran, worauf, woraus, worum
+    _             => case c of {Gen => "wes"+ prep;  -- e.g. weshalb(er), weswegen
+                                _   => "wo" + prep } -- e.g. wodurch, wofür, womit, wozu
+    } ;
+
+  mkIAdv : Preposition -> {s:Str} = \prep -> case isaPrep prep of {
+     False => { s = "Bug mkIAdv" } ;
+     _     => { s = woStr (prep.s ! GPl) prep.c }
+     };
+
+  -- Todo: construct relative clauses like (das Haus) [worin ich wohne | woran ich denke]
 }

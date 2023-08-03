@@ -36,14 +36,14 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     DetNPMasc det = {
       s = \\b,c => det.sp ! b ! Masc ! c ;
       a = agrgP3 Masc det.n ;
-      w = case det.isDef of { True => WLight' ; _ => WHeavy' } ;
+      w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       ext, rc = []
       } ;
 
     DetNPFem det = {
       s = \\b,c => det.sp ! b ! Fem ! c ;
       a = agrgP3 Fem det.n ;
-      w = case det.isDef of { True => WLight' ; _ => WHeavy' } ;
+      w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       ext, rc = []
       } ;
 
@@ -214,8 +214,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
                -- "treu ist sie ihm"
                -- "froh ist sie dass er da ist"
                -- "stolz ist sie auf ihn"
-          subj = mkSubj np vp.c1 ;
-          cl = mkClause subj.p1 subj.p2 vp
+          subj = mkSubject np vp.c1 ;
+          cl = mkClause subj.s subj.a vp
       in mkFoc adj cl ;
 
     UseFoc t p f = {s = t.s ++ p.s ++ f.s ! t.m ! t.t ! t.a ! p.p} ;
@@ -239,7 +239,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 -- "es wird gelacht"; generating formal sentences
 
   lincat
-    FClause = ResGer.VP ** {subj : ResGer.NP} ;
+    FClause = ResGer.VP ** {subj : ResGer.NP ; lock_FClause : {}} ;
 
   lin
     VPass v =
@@ -250,8 +250,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     AdvFor adv fcl = fcl ** {a2 = adv.s} ;
 	
 	FtoCl cl = 
-		let subj = mkSubj cl.subj cl.c1
-		in DisToCl subj.p1 subj.p2 cl ;
+		let subj = mkSubject cl.subj cl.c1
+		in DisToCl subj.s subj.a cl ;
 
 
   oper -- extra operations for ExtraGer
@@ -263,7 +263,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       s = \\_,_ => "es" ;
       rc, ext = [] ;
       a = Ag Neutr Sg P3 ;
-      w = WPron'
+      w = WPron
     } ;
 
     DisToCl : Str -> Agr -> FClause -> Clause = \subj,agr,vp ->

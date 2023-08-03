@@ -59,7 +59,7 @@ lin
   clever_A = mk3A "klug" "klüger" "klügste" ;
   close_V2 = dirV2 Irreg.schließen_V ;
   coat_N = mkN "Jacke" | mkN "Mantel" "Mantel" masculine;
-  cold_A = regA "kalt" ;
+  cold_A = mk3A "kalt" "kälter" "kälteste" ;
   come_V = seinV (mk6V "kommen" "kommt" "komm" "kam" "käme" "gekommen") ;
   computer_N = reg2N "Rechner" "Rechner" masculine ;
   country_N = reg2N "Land" "Länder" neuter ;
@@ -239,14 +239,14 @@ lin
   dry_A = regA "trocken" ;
   dull_A = regA "stumpf" ;
   full_A = regA "voll" ;
-  heavy_A = mkA "schwer" "schwere" "schwerer" "schwerste" ;
+  heavy_A = mkA "schwer" "schwerer" "schwerste" ;
   near_A = mk3A "nahe" "näher" "nächste" ;
   rotten_A = regA "verdorben" ;
   round_A = regA "rund" ;
   sharp_A = mk3A "scharf" "schärfer" "schärfste" ;
   smooth_A = regA "glatt" ;
   straight_A = regA "gerade" ;
-  wet_A = regA "naß" ;
+  wet_A = mk4A "naß" "nass" "nasser" "nasseste" ;
   wide_A = regA "breit" ;
   animal_N = reg2N "Tier" "Tiere" neuter ;
   ashes_N = mkN "Asche" ;

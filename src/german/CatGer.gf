@@ -42,7 +42,7 @@ concrete CatGer of Cat =
     VPSlash = ResGer.VPSlash ;
     Comp = {s : Agr => Str ; ext : Str} ; 
 
--- Adjective
+-- Adjective  (HL 7/23: we need c : Agr => Str * Str to handle reflexive objects, cf ReflA2)
 
     AP = {s : AForm => Str ; isPre : Bool ; c: Str * Str ; ext : Str} ; 
     -- ich bin [c1 ihm] treu 
@@ -76,7 +76,7 @@ concrete CatGer of Cat =
       } ;
     Predet = {
       s : Number => Gender => Case => Str ;
-      c : {p : Str ; k : PredetCase'} ;
+      c : {p : Str ; k : PredetCase} ;
       a : PredetAgr -- if an agr is forced, e.g. jeder von uns ist ...
       } ;
 
