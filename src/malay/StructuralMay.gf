@@ -3,11 +3,11 @@ concrete StructuralMay of Structural = CatMay **
 
 -------
 -- Ad*
+lin at_least_AdN = ss "sekurangnya" ;
+lin at_most_AdN = ss "paling tua" ;
 {-
 lin almost_AdA = mkAdA "" ;
 lin almost_AdN = ss "" ;
-lin at_least_AdN = ss "" ;
-lin at_most_AdN = ss "" ;
 lin so_AdA = ss "" ;
 lin too_AdA = ss "" ;
 lin very_AdA = mkAdA "" ;
@@ -154,7 +154,7 @@ lin whoSg_IP = mkIP "siapa";
 -- Subj
 
 -- lin although_Subj =
--- lin because_Subj =
+lin because_Subj = ss "kerana" ;
 lin if_Subj = ss "sekiranya" ;
 lin that_Subj = ss "yang" ;
 lin when_Subj = ss "kalau" ;
