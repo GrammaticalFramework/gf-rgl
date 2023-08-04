@@ -5,5 +5,5 @@ concrete AllGer of AllGerAbs =
   IrregGer,
 ----  ExtendGer, ---- to replace ExtraGer
   ExtraGer
-  --  ** open ExtendGer in {} ---- to force compilation   HL 7/22 todo: ListNP' in ExtendGer
+  ** open ExtendGer in {} ---- to force compilation
   ;

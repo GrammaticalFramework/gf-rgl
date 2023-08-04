@@ -197,13 +197,15 @@ mkN : overload {
   datPrep : Prep ; -- no string, just dative case
   genPrep : Prep ; -- no string, just genitive case
 
--- A couple of common prepositions (the first two always with the dative).
+-- A couple of common prepositions (the first three always with the dative).
 
-  von_Prep : Prep ; -- von + dative, with contraction vom
-  zu_Prep  : Prep ; -- zu + dative, with contractions zum, zur
-  anDat_Prep : Prep ; -- an + dative, with contraction am
-  inDat_Prep : Prep ; -- in + dative, with contraction im
-  inAcc_Prep : Prep ; -- in + accusative, with contraction ins
+  von_Prep    : Prep ; -- von + dative, with contraction vom
+  zu_Prep     : Prep ; -- zu + dative, with contractions zum, zur
+  bei_Prep    : Prep ; -- bei + dative, with contraction beim
+  anDat_Prep  : Prep ; -- an + dative, with contraction am
+  inDat_Prep  : Prep ; -- in + dative, with contraction im
+  inAcc_Prep  : Prep ; -- in + accusative, with contraction ins
+  aufAcc_Prep : Prep ; -- auf + accusative, with contraction aufs
 
 --2 Verbs
 
@@ -522,10 +524,12 @@ mkV2 : overload {
   --von_Prep = mkPrep "von" dative ;
   von_Prep   = mkPrep "von" "vom" "von der" "vom" dative ;
   zu_Prep    = mkPrep "zu" "zum" "zur" "zum" dative ;
+  bei_Prep   = mkPrep "bei" "beim" "bei der" "beim" dative ;
   inDat_Prep = mkPrep "in" "im" "in der" "im" dative ;
   inAcc_Prep = mkPrep "in" "in den" "in die" "ins" accusative ;
   anDat_Prep = mkPrep "an" "am" "an der" "am" dative ;
   anAcc_Prep = mkPrep "an" "an den" "an die" "ans" accusative ;
+  aufAcc_Prep = mkPrep "auf" "auf den" "auf die" "aufs" accusative ;
 
   mk6V geben gibt gib gab gaebe gegeben = 
     let

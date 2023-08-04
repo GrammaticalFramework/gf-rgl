@@ -7,6 +7,7 @@ concrete ExtendGer of Extend =
     VPS, ListVPS, VPI, ListVPI,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, 
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
+    GenModNP,
     CardCNCard
     ]
   with
@@ -24,9 +25,9 @@ concrete ExtendGer of Extend =
     VPS   = {s : Order => Agr => Str} ;
     [VPS] = {s1,s2 : Order => Agr => Str} ;
 
-lin
+  lin
 
-  InOrderToVP vp = {s = "um" ++ useInfVP False vp} ;
+    InOrderToVP vp = {s = "um" ++ useInfVP False vp} ;
 
     BaseVPI = twoTable Bool ;
     ConsVPI = consrTable Bool comma ;
@@ -43,7 +44,7 @@ lin
 
     PredVPS np vpi = 
       let
-        subj = np.s ! NPC Nom ++ bigNP np ;
+        subj = np.s ! False ! Nom ++ bigNP np ;
         agr  = np.a ;
       in {
         s = \\o => 
@@ -114,31 +115,30 @@ lin
     ConjVPS = conjunctDistrTable2 Order Agr ;
     
     UseDAP det = {
-      s = \\c => det.sp ! Neutr ! c ;
+      s = \\b,c => det.sp ! Neutr ! c ;
       a = agrP3 det.n ;
       w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       rc, ext = []
       } ;
 
     UseDAPMasc det = {
-      s = \\c => det.sp ! Masc ! c ;
+      s = \\_,c => det.sp ! Masc ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
       } ;
 
     UseDAPFem det = {
-      s = \\c => det.sp ! Fem ! c ;
+      s = \\_,c => det.sp ! Fem ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
       } ;
 
-lin
-  CardCNCard card cn = {
-    s = \\g,c =>
-      (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! NPC c ;
-    n = Pl
-    } ;
+    CardCNCard card cn = {
+      s = \\g,c =>
+        (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! False ! c ;
+      n = Pl
+      } ;
   
 }

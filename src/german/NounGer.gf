@@ -4,17 +4,18 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
   flags optimize=all_subs ;
 
 -- Remark: np.isLight makes ResGer.insertObjNP expensive, for ComplSlash, SlashVP
+--         np.isLight = True and np.isPron = True are now part of np.w
+
+    -- HL 21.7.2022: the dropping of DefArt in Prep+DefArt works by selecting from
+    -- np.s via b = det.hasDefArt = True the forms without det.s and from prep.s
+    -- the preposition glued with definite article singular, depending on gender, case.
 
   lin
     DetCN det cn = {
       s = \\b,c => det.s ! b ! cn.g ! c ++ cn.s ! (adjfCase det.a c) ! det.n ! c ++ cn.adv ;
       a = agrgP3 cn.g det.n ;
       -- isLight = det.isDef ;  -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
-      -- isPron = False ;       -- HL 6/2019 (but:) sehe (die|einige) Männer nicht
-                                --                  don't see a|no man = sehe keinen Mann
-      -- w = case det.isDef of { True => WLight ; _ => WHeavy } ;
-      -- Would be clearer with w:Weight and hasDefArt:Bool with |NP|=|Agr|*3*2 = 108
-      -- instead of the more efficient w:Weigth' with |NP|=|Agr|*4 = 18*4 = 54
+      -- HL 6/2019 (but:) sehe (die|einige) Männer nicht; don't see a|no man = sehe keinen Mann
       w = case det.isDef of { True => case det.hasDefArt of { True => WDefArt ;
                                                               _ => WLight } ;
                               _ => WHeavy } ;
@@ -25,7 +26,6 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     DetNP det = { -- more genders in ExtraGer -- HL: der+er,den+en ; der drei,den drei+en
       s = \\b,c => det.sp ! b ! Neutr ! c ;
       a = agrP3 det.n ;
-      -- isLight = det.isDef ;
       -- isPron = False ; -- HL 6/2019: don't apply pronoun switch: ich gebe ihr das  vs. ich gebe es ihr
       w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       rc, ext = []
@@ -70,15 +70,6 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       s = \\b,c => np.s ! b ! c ++ (embedInCommas adv.s) ;
       w = WHeavy
       } ;
-
-    -- HL 21.7.2022: the dropping of DefArt in Prep+DefArt via hasDefArt works by splitting the
-    -- np.s into det':Str and cn:Str and (det.s ! g ! n) into {quant:Str; num:Str}, so that in
-    -- PrepNP in_Prep np we can replace "in" + "das" by "im" to get
-    --    PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (warme Meer)) => im warmen Meer
-    -- But parsing "im warmen Meer" results in a 
-    --    PrepNP in_Prep (DetCN (DetQuant ? NumSg) (AdjCN ... ))
-    -- because (DetQuant.s!g!c).quant is ignored, but the .num is part of (np.s!c).p2.
-    -- To avoid the metavariable ?, we have to made Det.s and NP.s depend on t:PrepType = isPrep.
 
     DetQuantOrd quant num ord = 
       let
@@ -167,9 +158,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     MassNP cn = {
       s = \\_,c => cn.s ! Strong ! Sg ! c ++ cn.adv ;
       a = agrgP3 cn.g Sg ;
-      -- isLight = True ;  -- ich trinke Bier nicht vs. ich trinke kein Bier
-      -- isPron = False ;
-      w = WLight ;
+      w = WLight ; -- ich trinke Bier nicht vs. ich trinke kein Bier
       rc = cn.rc ! Sg ;
       ext = cn.ext ;
       hasDefArt = False

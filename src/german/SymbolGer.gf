@@ -11,18 +11,12 @@ lin
   CNIntNP cn i = {
     s = \\b,c => cn.s ! Weak ! Sg ! Nom ++ i.s ;
     a = agrP3 Sg ;
-    -- isPron = False ;
-    -- isLight = True ; 
     w = WLight ;
     ext,rc = [] -- added
     } ;
   CNSymbNP det cn xs = let g = cn.g in {
-    s = \\b,c => det.s ! b ! g ! c ++ 
---               (let k = (prepC c).c in cn.s !  adjfCase det.a k ! det.n ! k) ++ xs.s ; 
-               (let k = c in cn.s !  adjfCase det.a k ! det.n ! k) ++ xs.s ; 
+    s = \\b,c => det.s ! b ! g ! c ++ cn.s ! adjfCase det.a c ! det.n ! c ++ xs.s ; 
     a = agrP3 det.n ;
-    -- isPron = False ;
-    -- isLight = True ; 
     w = WLight ;
     ext,rc = [] -- added
     } ;

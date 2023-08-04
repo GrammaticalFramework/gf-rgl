@@ -73,8 +73,7 @@ concrete StructuralGer of Structural = CatGer **
   only_Predet = {s = \\_,_,_ => "nur" ; c = noCase ; a = PAgNone} ;
   no_Utt = ss "nein" ;
 ---b  no_Phr = ss "nein" ;
---  on_Prep = mkPrep "auf" P.dative ;
-  on_Prep = P.mkPrep "auf" "auf den" "auf die" "aufs" P.accusative ; -- test HL 7/2022
+  on_Prep = mkPrep "auf" P.dative ;
   or_Conj = {s1 = [] ; s2 = "oder" ; n = Sg} ;
   otherwise_PConj = ss "sonst" ;
   part_Prep = P.von_Prep ;    -- obsolete, use PartNP cn np
