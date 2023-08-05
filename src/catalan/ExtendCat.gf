@@ -15,5 +15,4 @@ concrete ExtendCat of Extend = CatCat ** ExtendRomanceFunctor--  -
   ParadigmsCat in {
     -- put your own definitions here
 
-
 } ;

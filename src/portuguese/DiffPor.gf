@@ -291,4 +291,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
     -- make a verb of type haver
     verboV v = verbBesch v ** {vtyp = VTer ; p = [] } ;
 
+param
+  HasArt = NoArt | UseArt ;
+
 } ;

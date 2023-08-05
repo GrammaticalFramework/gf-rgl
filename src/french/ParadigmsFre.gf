@@ -132,6 +132,27 @@ oper
 -- Proper names need a string and a gender. If no gender is given, the
 -- feminine is used for strings ending with "e", the masculine for other strings.
 
+  mkLN = overload {
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              p =  {s=""; c=CPrep P_a; isDir=True} ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+
+    mkLN : Str -> Gender -> Number -> LN = \s,g,num ->
+      lin LN {s = s ;
+              p = {s=""; c=CPrep P_a; isDir=True} ;
+              art = NoArt ;
+              g = g ;
+              num = num} ;
+  } ;
+
+
+  defLN : LN -> LN = \n -> n ** {art = AlwaysArt} ;
+  useDefLN : LN -> LN = \n -> n ** {art = UseArt} ;
+  prepLN : LN -> Compl -> LN = \n,s -> n ** {p = s} ;
+
   mkPN  : overload {
     mkPN : Str -> PN ; -- feminine if ends with "e", otherwise masculine
     mkPN : Str -> Gender -> PN ; -- gender deviant from the simple rule
@@ -553,5 +574,6 @@ oper
     _ => VFalse  -- prend-il
     } ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 } ;

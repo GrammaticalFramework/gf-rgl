@@ -225,4 +225,7 @@ oper
 
     polNegDirSubj = RPos ;
 
+param
+  HasArt = NoArt | UseArt ;
+
 }

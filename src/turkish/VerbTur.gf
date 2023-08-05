@@ -2,7 +2,7 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
 
   lin
     UseV v = v ;
-    SlashV2a v = v ;
+    SlashV2a v = lin VP v ;
 
     Slash2V3 v = variants {} ;
     Slash3V3 v = variants {} ;

@@ -12,6 +12,8 @@ lincat
   Sub100 = { s : CardOrd => Gender => Case => Str ; num : Number } ;
   Sub1000 = { s : CardOrd => Gender => Case => Str ; num : Number } ;
   Sub1000000 = { s : CardOrd => Gender => Case => Str ; num : Number } ;
+  Sub1000000000 = { s : CardOrd => Gender => Case => Str ; num : Number } ;
+  Sub1000000000000 = { s : CardOrd => Gender => Case => Str ; num : Number } ;
 
 lin
 
@@ -79,6 +81,9 @@ lin
     s = \\o,g,c => d.s ! NCard ! Masc ! Nom ++ tuukstotis ! NCard ! Masc ! d.num ! Nom ++ e.s ! o ! g ! c ;
     num = e.num
   } ;
+
+  pot3as4 n = n ;
+  pot4as5 n = n ;
 
 -- Numerals as sequences of digits:
 

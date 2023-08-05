@@ -11,6 +11,8 @@ lincat Sub10 = {s : CardOrd => DForm => Placement => Str ; size : Size} ;
 lincat Sub100 = {s : CardOrd => NumF => Placement => Str ; size : Size} ;
 lincat Sub1000 = {s : CardOrd => NumF => Placement => Str ; size : Size } ;
 lincat Sub1000000 = { s : CardOrd => NumF => Placement => Str; size : Size } ;
+lincat Sub1000000000 = { s : CardOrd => NumF => Placement => Str; size : Size } ;
+lincat Sub1000000000000 = { s : CardOrd => NumF => Placement => Str; size : Size } ;
 
 
 
@@ -195,6 +197,9 @@ lin pot3plus n m =
  {s = \\c, f, p => mkmie n.size (n.s ! (NCard Fem) ! f ! indep)  ++ m.s ! c ! f ! attr;                  
   size = m.size                              
    };
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 oper mksute : Size -> Str = \sz -> table {sg => "sută" ; _ => "sute" } ! sz ; 
 oper mkSute : Size -> Gender -> Str = \sz, g -> 

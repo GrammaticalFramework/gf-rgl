@@ -6,7 +6,7 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
   lincat
     Chunks = {s : Str} ;
     Chunk = {s : Str};
-    Chunk_AP, Chunk_Adv, Chunk_S, Chunk_RS, Chunk_QS, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
+    Chunk_Phr, Chunk_AP, Chunk_Adv, Chunk_Imp, Chunk_S, Chunk_RS, Chunk_QS, Chunk_VP, Chunk_V, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
 
     VC = V ;
 
@@ -15,10 +15,14 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     PlusChunk c cs = cc2 c cs ;
     ChunkPhr c = ss ("*" ++ c.s) | c ;
 
+    Phr_Chunker c = c ;
     Adv_Chunker c = c ;
+    Imp_Chunker c = c ;
     S_Chunker c = c ;
     RS_Chunker c = c ;
     QS_Chunker c = c ;
+    VP_Chunker c = c ;
+    V_Chunker c = c ;
     CN_Chunker c = c ;
     NP_Chunker c = c ;
     N_Chunker c = c ;
@@ -26,10 +30,22 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     Postdet_Chunker c = c ;
     Symb_Chunker c = c ;
 
+    Phr_Chunk p = {s = p.s } ;
     Adv_Chunk a = { s = a.s } ;
+    Imp_Sg_Chunk i = { s = variants { i.s!Sg!Pos ; i.s!Sg!Neg} } ;
+    Imp_Pl_Chunk i = { s = variants { i.s!Pl!Pos ; i.s!Pl!Neg} } ;
     S_Chunk s = { s = s.s } ;
-    RS_Chunk rs = { s = rs.s!agr_vars } ;
+    RS_Chunk pron rs = { s = pron.s!NFull ++ rs.s!pron.agr } ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
+    VP_RelYo_Chunk temp pol pron vp = {
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!True
+    } ;
+    VP_Rel_Chunk temp pol pron vp = {
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!False
+    } ;
+    V_Chunk v = {
+      s = variants { v.s!R_a ; v.s!R_ile ; v.s!R_e ; v.s!R_i ; v.s!R_anga }
+    } ;
     CN_Sg_Chunk cn = {
       s = cn.s!Sg!NFull
     } ;
@@ -42,14 +58,20 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
           np.s!NReduced
       }
     } ;
-    NP_Gen_Chunk np = {
-      s = poss_concord_agr!agr_vars!np.i ++BIND++ np.s!NPoss
+    NP_Loc_Chunk np = {
+      s = np.s!NLoc
     } ;
-    Predet_Chunk predet = {
-      s = predet.s!agr_vars
+    NP_Gen_Chunk pron np = {
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr!np.i ++BIND++ np.s!NPoss
     } ;
-    Postdet_Chunk postdet = {
-      s = postdet.s!agr_vars
+    -- NP_Gen_Chunk np = {
+    --   s = poss_concord_agr!agr_vars!np.i ++BIND++ np.s!NPoss
+    -- } ;
+    Predet_Chunk pron predet = {
+      s = pron.s!NFull ++ predet.s!pron.agr
+    } ;
+    Postdet_Chunk pron postdet = {
+      s = pron.s!NFull ++ postdet.s!pron.agr
     } ;
 
   -- for unknown words that are not names
@@ -95,5 +117,7 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
         Second Sg ;
         Second Pl
       } ;
+
+      bool_vars : Bool = variants { True | False } ;
 
 }

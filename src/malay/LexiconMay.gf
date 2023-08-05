@@ -9,7 +9,7 @@ lin airplane_N = mkN "kapal terbang" ;
 -- lin alas_Interj = mkInterj "" ;
 lin already_Adv = mkA "sudah" ;
 lin animal_N = mkN "haiwan" ;
--- lin answer_V2S = mkV2S "jawab" ;
+lin answer_V2S = mkV2S "jawab" ;
 lin apartment_N = mkN "pangsapuri" ;
 lin apple_N = mkN "epal" ;
 lin art_N = mkN "seni" ;
@@ -86,7 +86,7 @@ lin cow_N = mkN "embu" ;
 ----
 -- D
 
--- lin day_N = mkN "" ;
+lin day_N = mkN "hari" ;
 -- lin die_V = mkV "" ;
 -- lin dig_V = mkV "" ;
 -- lin dirty_A = mkA "" ;
@@ -407,7 +407,7 @@ lin walk_V = mkV "jalan" ;
 -- lin warm_A = mkA "" ;
 -- lin wash_V2 = mkV2 "" ;
 -- lin watch_V2 = mkV2 "" ;
--- lin water_N = mkNoun "" ;
+lin water_N = mkN "air" ;
 -- lin wet_A = mkA "" ;
 -- lin white_A = mkA "" ;
 -- lin wide_A = mkA "" ;
@@ -423,7 +423,7 @@ lin woman_N = mkN "perempuan" ;
 -- lin wood_N = mkN "" ;
 -- lin worm_N = mkN "" ;
 lin write_V2 = mkV2 "tulis" ;
--- lin year_N = mkN "" ;
+lin year_N = mkN "tahun" ;
 -- lin yellow_A = mkA "" ;
 lin young_A = mkA "muda" ;
 

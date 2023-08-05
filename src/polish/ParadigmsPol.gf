@@ -4,7 +4,7 @@
 -- Inari Listenmaa, 2020
 
    resource ParadigmsPol = open
-     CatPol, MorphoPol, ResPol, (NM=NounMorphoPol)
+     CatPol, MorphoPol, ResPol, (NM=NounMorphoPol), Prelude
   in
      {
   flags  coding=utf8;
@@ -98,12 +98,12 @@
     mkNGender = overload { 
       -- 1 string
       mkNGender : Str -> Gender -> N = \sgnom,gender ->
-        let ntable : SubstForm => Str = guess_paradigm_basic sgnom in
-        lin N (NM.mkN ntable gender) ;
+        let ntable : SubstForm => Str = guess_paradigm_basic sgnom
+        in NM.mkN ntable gender ;
       -- 2 string
       mkNGender : Str -> Str -> Gender -> N = \sgnom,sggen,gender ->
-       let ntable : SubstForm => Str = guess_paradigm sgnom in
-       lin N (NM.mkN ntable gender) ;
+       let ntable : SubstForm => Str = guess_paradigm sgnom
+       in NM.mkN ntable gender ;
      };
 
     guess_paradigm = overload {
@@ -382,5 +382,7 @@
         -- NB: Covered in 2-string, including all alternatives: mkNTable0308,mkNTable0364,mkNTable0644,mkNTable0701,mkNTable1022,mkNTable0013,mkNTable0014,mkNTable0020,mkNTable0021,mkNTable0055,mkNTable0060,mkNTable0073,mkNTable0088,mkNTable0099,mkNTable0100,mkNTable0110,mkNTable0159,mkNTable0161,mkNTable0175,mkNTable0189,mkNTable0253,mkNTable0254,mkNTable0274,mkNTable0283,mkNTable0287,mkNTable0300,mkNTable0302,mkNTable0352,mkNTable0382,mkNTable0411,mkNTable0501,mkNTable0504,mkNTable0530,mkNTable0546,mkNTable0565,mkNTable0576,mkNTable0580,mkNTable0614,mkNTable0630,mkNTable0702,mkNTable0721,mkNTable0727,mkNTable0755,mkNTable0760,mkNTable0921,mkNTable0950,mkNTable0990,mkNTable1045
         _ => NM.mkNTable0171 sgnom  -- Alternatives: mkNTable0000,mkNTable0001,mkNTable0002,mkNTable0003,mkNTable0010,mkNTable0015,mkNTable0028,mkNTable0037,mkNTable0043,mkNTable0044,mkNTable0053,mkNTable0064,mkNTable0067,mkNTable0075,mkNTable0091,mkNTable0096,mkNTable0111,mkNTable0117,mkNTable0118,mkNTable0129,mkNTable0131,mkNTable0168,mkNTable0171,mkNTable0173,mkNTable0176,mkNTable0181,mkNTable0191,mkNTable0197,mkNTable0213,mkNTable0243,mkNTable0244,mkNTable0247,mkNTable0248,mkNTable0271,mkNTable0281,mkNTable0282,mkNTable0286,mkNTable0304,mkNTable0309,mkNTable0312,mkNTable0315,mkNTable0324,mkNTable0333,mkNTable0338,mkNTable0348,mkNTable0350,mkNTable0365,mkNTable0373,mkNTable0375,mkNTable0428,mkNTable0444,mkNTable0467,mkNTable0495,mkNTable0497,mkNTable0500,mkNTable0503,mkNTable0514,mkNTable0516,mkNTable0518,mkNTable0519,mkNTable0523,mkNTable0539,mkNTable0542,mkNTable0550,mkNTable0552,mkNTable0570,mkNTable0578,mkNTable0583,mkNTable0589,mkNTable0648,mkNTable0662,mkNTable0691,mkNTable0696,mkNTable0717,mkNTable0773,mkNTable0803,mkNTable0826,mkNTable0828,mkNTable0859,mkNTable0868,mkNTable0869,mkNTable0944,mkNTable0964,mkNTable0965,mkNTable0966,mkNTable0970,mkNTable0981,mkNTable0991,mkNTable0995
      } ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 }

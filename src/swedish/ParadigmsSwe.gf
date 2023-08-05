@@ -821,5 +821,6 @@ oper
 
   dirV2 : V -> V2 ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 } ;

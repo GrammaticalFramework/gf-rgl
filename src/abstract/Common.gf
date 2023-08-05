@@ -44,4 +44,8 @@ abstract Common = {
     Pol ;   -- polarity                            e.g. positive, negative
     Ant ;   -- anteriority                         e.g. simultaneous, anterior
 
+--2 Measures
+
+    MU ;       -- unit of measurement              e.g. "km", "cm", "%"
+
 }

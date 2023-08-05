@@ -4,5 +4,6 @@
 
 concrete LangPol of Lang = 
   GrammarPol,
-  LexiconPol 
+  LexiconPol, 
+  DocumentationPol --# notpresent
   ** { flags  startcat = Phr ; unlexer = text ; lexer = text; } ;

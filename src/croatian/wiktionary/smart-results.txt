@@ -1,0 +1,30 @@
+gf -run MorphoDictHrv.gf <test-smart.gfs
+mv *.tmp full/
+gf -run MorphoDictHrvSmart.gf <test-smart.gfs
+mv *.tmp smart/
+
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/N-list.tmp smart/N-list.tmp | wc
+   10509  147652 1331546
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/N-list.tmp smart/N-list.tmp | grep "|" | wc
+    5877   86924  749699
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/N-table.tmp smart/N-table.tmp | grep "|" | wc
+   22354  156623  994255
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/N-table.tmp smart/N-table.tmp | wc
+  105080  652941 4161921
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/A-table.tmp smart/A-table.tmp | wc
+   50760  416532 3014404
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/A-table.tmp smart/A-table.tmp | grep "|" | wc
+   10452   94068  648853
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/V-table.tmp smart/V-table.tmp | wc
+   69555  896719 5053646
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/V-table.tmp smart/V-table.tmp | grep "|" | wc
+   44589  607381 3485218
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/A-list.tmp smart/A-list.tmp | grep "|" | wc
+    1361   16068  173486
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/A-list.tmp smart/A-list.tmp | wc
+    1410   16661  179955
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/V-list.tmp smart/V-list.tmp | wc
+    4632   65408  590028
+Aarnes-MacBook-Pro:wiktionary aarne$ diff -y full/V-list.tmp smart/V-list.tmp | grep "|" | wc
+    3979   56003  507444
+Aarnes-MacBook-Pro:wiktionary aarne$ 

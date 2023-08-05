@@ -431,6 +431,7 @@ mkN2 = overload {
   regPN    : Str ->Gender -> PN ;          
    nounPN : N -> PN ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 
 } 

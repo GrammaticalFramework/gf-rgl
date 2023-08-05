@@ -106,7 +106,12 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
     N = {s : Number => Case => Str ; g : Gender} ;
     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
     N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
-    PN = {s : Case => Str ; g : Gender} ;
+    GN, SN, PN = {s : Case => Str ; g : Gender} ;
+    LN = {s  : Case => Str;
+          p  : Str;   -- preposition "in Scandinavia", "on the Balkans"
+          art : Bool; -- plain name "United States" vs "the United States"
+          a  : Agr;
+         } ;
 
   lindef
     SSlash = \s -> {s = s; c2 = ""} ;

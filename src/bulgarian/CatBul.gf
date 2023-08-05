@@ -86,7 +86,9 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV] ** open ResBul, Prelude, Predef, (
     N  = {s : NForm => Str; rel : AForm => Str; relType : NRelType; g : AGender} ;
     N2 = {s : NForm => Str; rel : AForm => Str; relType : NRelType; g : AGender} ** {c2 : Preposition} ;
     N3 = {s : NForm => Str; rel : AForm => Str; relType : NRelType; g : AGender} ** {c2,c3 : Preposition} ;
-    PN = {s : Str; gn : GenNum} ;
+    GN = {s : Str; g : Sex} ;
+    SN = {s : Sex => Str; pl : Str} ;
+    LN, PN = {s : Str; gn : GenNum} ;
 
   lindef
     SSlash = \s -> {s = \\_ => s; c2 = {s=""; c=Acc}};

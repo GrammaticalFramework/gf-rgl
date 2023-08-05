@@ -118,7 +118,7 @@ concrete CatMlt of Cat = CommonX - [Adv] ** open ResMlt, Prelude in {
     N  = Noun ;
     N2 = Noun ** {c2 : Compl} ;
     N3 = Noun ** {c2, c3 : Compl} ;
-    PN = ProperNoun ;
+    GN, SN, LN, PN = ProperNoun ;
 
 -- Overridden from CommonX
 

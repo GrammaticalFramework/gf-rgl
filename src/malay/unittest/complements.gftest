@@ -4,3 +4,10 @@ LangMay: dia memberi kucing kepadaku
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (Slash3V3 give_V3 (UsePron i_Pron)) (MassNP (UseN cat_N)))))
 LangMay: dia memberi aku kucing
+
+-- Sentence complements
+
+-- added by Inari, TODO check
+Lang: PredVP (UsePron she_Pron) (ComplSlash (SlashV2S answer_V2S (UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (UseN dog_N)) (ComplSlash (SlashV2a eat_V2) (MassNP (UseN cat_N)))))) (UsePron i_Pron))
+LangMay: dia menjawab aku yang anjing makan kucing
+

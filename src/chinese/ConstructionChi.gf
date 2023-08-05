@@ -1,6 +1,6 @@
 --# -path=.:../abstract
 
-concrete ConstructionChi of Construction = CatChi ** 
+concrete ConstructionChi of Construction = CatChi **
   open SyntaxChi, ParadigmsChi, (L = LexiconChi), (E = ExtraChi), (G = GrammarChi), (R = ResChi), Prelude in {
 flags coding=utf8 ;
 
@@ -24,9 +24,9 @@ lin
 
 -- some more things
   weather_adjCl ap = mkCl (mkVP (lin AP ap)) ;
-   
-  is_right_VP = mkVP (ParadigmsChi.mkA "对") ; 
-  is_wrong_VP = mkVP (ParadigmsChi.mkA "错") ; 
+
+  is_right_VP = mkVP (ParadigmsChi.mkA "对") ;
+  is_wrong_VP = mkVP (ParadigmsChi.mkA "错") ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ; ----
 
@@ -47,8 +47,8 @@ lin
   monthYearAdv m y = lin Adv {s = y.s ++ "年" ++ m.s ; advType = timeAdvType ; hasDe = False} ;
   dayMonthYearAdv d m y = lin Adv {s = y.s ++ "年"  ++ m.s ++ d.s ++ "日" ; advType = timeAdvType ; hasDe = False} ;
 
-  intYear i = lin NP i ;
-  intMonthday i = lin NP i ;
+  intYear i = lin NP (R.mkNP i.s) ;
+  intMonthday i = lin NP (R.mkNP i.s) ;
 
 lincat Language = N ;
 
@@ -74,9 +74,9 @@ lin friday_Weekday = mkN "星期五" ;
 lin saturday_Weekday = mkN "星期六" ;
 lin sunday_Weekday = mkN "星期日" ;
 
-lin january_Month = mkN "一月" ; 
-lin february_Month = mkN "二月" ; 
-lin march_Month = mkN "三月" ; 
+lin january_Month = mkN "一月" ;
+lin february_Month = mkN "二月" ;
+lin march_Month = mkN "三月" ;
 lin april_Month = mkN "四月" ;
 lin may_Month = mkN "五月" ;
 lin june_Month = mkN "六月" ;

@@ -110,6 +110,8 @@ incomplete concrete NounScand of Noun =
     NumDigits nu = {s = \\g => nu.s ! NCard g ; n = nu.n} ;
     OrdDigits nu = {s = nu.s ! NOrd SupWeak} ;
 
+    NumFloat n1 n2 = {s = \\g => n1.s ! NCard neutrum ++ BIND ++ "." ++ BIND ++ n2.s ! NCard g ; n = Pl} ;
+
     NumNumeral nu = {s = \\g => nu.s ! NCard g ; n = nu.n} ;
     OrdNumeral nu = {s = nu.s ! NOrd SupWeak} ;
 
@@ -260,5 +262,17 @@ incomplete concrete NounScand of Noun =
       } ;
 
     DetDAP d = d ;
+
+    QuantityNP n m = {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard neutrum);
+      a = agrP3 Utr n.n ;
+      isPron = False
+      } ;
+
+    QuantityFloatNP n1 n2 m = {
+      s = \\c => preOrPost m.isPre m.s (n1.s ! NCard neutrum ++ BIND ++ "." ++ BIND ++ n2.s ! NCard neutrum) ;
+      a = agrP3 Utr Pl ;
+      isPron = False
+      } ;
 
 }

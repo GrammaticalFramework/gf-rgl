@@ -10,9 +10,9 @@ concrete QuestionSom of Question = CatSom ** open
 
   -- : IP -> VP -> QCl ;
   QuestVP ip vp = -- TODO: if we want to contract baa + subj. pronoun, change ResSom.predVP
-    let cls : ClSlash = predVP ip vp ;
+    let cls : ResSom.ClSlash = predVP ip vp ;
         baan : Str = case ip.contractSTM of {True => "aan" ; _ => "baa aan"} ;
-        cl : ClSlash = cls ** {
+        cl : ResSom.ClSlash = cls ** {
                 stm = modSTM "baa" baan cls.stm
         } ;
      in cl2qcl PolarQuestion (notB ip.contractSTM) cl ;
@@ -33,9 +33,9 @@ concrete QuestionSom of Question = CatSom ** open
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk
   QuestIAdv iadv cls =
-    let clRaw : ClSlash = insertIAdv iadv cls ;
+    let clRaw : ResSom.ClSlash = insertIAdv iadv cls ;
         sbj = clRaw.subj ;
-        cl : ClSlash = clRaw ** {
+        cl : ResSom.ClSlash = clRaw ** {
             stm = \\clt,p => case <clt,p> of {
                                 -- IAdv is focused with baa, and subject comes after
                                 <_,Pos> => case iadv.contractSTM of {
@@ -81,7 +81,7 @@ concrete QuestionSom of Question = CatSom ** open
 -- They can be modified with other adverbs.
 
   -- : IAdv -> Adv -> IAdv ;    -- where in Paris
-  --  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ adv.berri} ; -- TODO do we need PrepCombination in IAdv?
+  --  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ adv.berri} ; -- TODO do we need AdpCombination in IAdv?
 
 -- Interrogative complements to copulas can be both adverbs and
 -- pronouns.
@@ -117,13 +117,13 @@ oper
   } ;
 
   -- Question clauses: subject pronoun not included, STM is
-  cl2qcl : ClType -> Bool -> ClSlash -> Clause = \cltyp ->
+  cl2qcl : ClType -> Bool -> ResSom.ClSlash -> Clause = \cltyp ->
     let hasSubjPron : Bool = False ;
         isRel : Bool = False ;
      in mkClause cltyp isRel hasSubjPron ;
 
   -- Question clause with wh-word as object: subject pronoun is included
-  cl2qclslash : Bool -> ClSlash -> Clause =
+  cl2qclslash : Bool -> ResSom.ClSlash -> Clause =
     let hasSubjPron : Bool = True ;
         isRel : Bool = False ;
      in mkClause PolarQuestion isRel hasSubjPron ;

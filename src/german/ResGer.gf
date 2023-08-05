@@ -25,6 +25,7 @@ resource ResGer = ParamX ** open Prelude in {
   param
     Case = Nom | Acc | Dat | Gen ;
     Gender = Masc | Fem | Neutr ;
+    Sex = Male | Female ;
 
 -- Complex $CN$s, like adjectives, have strong and weak forms.
 
@@ -460,6 +461,14 @@ resource ResGer = ParamX ** open Prelude in {
   inAcc' : Preposition = {s=\\_ => "in"; s2="hinein"; c=Acc; isPrep=isPrep} ;
   ins'   : Preposition = {s=table{GPl => "in"; GSg Masc=>"in den"; GSg Fem=>"in die"; GSg Neutr=>"ins"};
                            s2="hinein"; c=Acc; isPrep=isPrepDefArt} ;
+
+-- To build passive: accusative object -> nom subject; others -> same case or prep
+
+  subjPrep : Preposition -> Preposition = \prep ->
+    case <prep.c,prep.isPrep> of {
+      <Acc,isCase> => prep ** {c = Nom} ;
+      _ => prep
+    } ;
 
 -- Pronouns and articles
 -- Here we define personal and relative pronouns.
@@ -1010,7 +1019,7 @@ resource ResGer = ParamX ** open Prelude in {
       <GPl,Gen>     => "deren" ;
       _ => artDef ! gn ! c
       } ;
-    RSentence => "was"
+    RSentence => (caselist "was" "was" "was" "wessen") ! c   -- wessen HL 4/2022
     } ;
 
 -- Function that allows the construction of non-nominative subjects.
@@ -1021,19 +1030,10 @@ resource ResGer = ParamX ** open Prelude in {
       agr = case prep.c of { Nom => np.a ; _ => Ag Masc Sg P3 }
     in {s = subj ; a = agr} ;
 
--- Function to construct a glued Prep+RelPron or a IAdv from a preposition. HL 7/23
-
-  woStr : Str -> Case -> Str = \prep,c -> case prep of {
-    "in" => case c of {Acc => "wohin" ; _ => "worin" } ; -- wohin, worin
-    ("a"|"u") + _ => "wor" + prep ;                  -- e.g. woran, worauf, woraus, worum
-    _             => case c of {Gen => "wes"+ prep;  -- e.g. weshalb(er), weswegen
-                                _   => "wo" + prep } -- e.g. wodurch, wofür, womit, wozu
+  sex2gender : Sex -> Gender = \g ->
+    case g of {
+      Male => Masc ;
+      Female => Fem
     } ;
 
-  mkIAdv : Preposition -> {s:Str} = \prep -> case isaPrep prep of {
-     False => { s = "Bug mkIAdv" } ;
-     _     => { s = woStr (prep.s ! GPl) prep.c }
-     };
-
-  -- Todo: construct relative clauses like (das Haus) [worin ich wohne | woran ich denke]
 }

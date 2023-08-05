@@ -14,7 +14,8 @@ concrete GrammarEng of Grammar =
   TextX - [Pol,PPos,PNeg,SC,CAdv],
   StructuralEng,
   IdiomEng,
-  TenseX - [Pol,PPos,PNeg,SC,CAdv]
+  TenseX - [Pol,PPos,PNeg,SC,CAdv],
+  NamesEng
   ** open ResEng, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

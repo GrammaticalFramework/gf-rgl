@@ -96,6 +96,8 @@ incomplete concrete NounRomance of Noun =
     NumDigits nu = {s = \\g => nu.s ! NCard g ; n = nu.n} ;
     OrdDigits nu = {s = \\a => nu.s ! NOrd a.g a.n} ;
 
+    NumFloat n1 n2 = {s = \\g => n1.s ! NCard Masc ++ BIND ++ "." ++ BIND ++ n2.s ! NCard g ; n = Pl} ;
+
     NumNumeral nu = {s = \\g => nu.s ! NCard g ; n = nu.n} ;
     OrdNumeral nu = {s = \\a => nu.s ! NOrd a.g a.n} ;
 
@@ -204,5 +206,17 @@ incomplete concrete NounRomance of Noun =
       } ;
 
     DetDAP det = det ;
+
+    QuantityNP n m = heavyNPpol False {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard Masc);
+      a = agrP3 Masc n.n ;
+      hasClit = False
+      } ;
+
+    QuantityFloatNP n1 n2 m = heavyNPpol False {
+      s = \\c => preOrPost m.isPre m.s (n1.s ! NCard Masc ++ BIND ++ "." ++ BIND ++ n2.s ! NCard Masc) ;
+      a = agrP3 Masc Pl ;
+      hasClit = False
+      } ;
 
 }

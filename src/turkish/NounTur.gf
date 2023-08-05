@@ -19,9 +19,9 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
     UsePron p = p ;
 
     UsePN pn = { 
-      s = \\c => pn.s ! Sg ! c;
+      s = \\c => pn.s ! c;
       h = pn.h;
-      a = {n = Sg; p = P3}
+      a = {n = pn.n; p = P3}
     } ;
 
     PossPron p = {s = []; useGen = YesGen p.a} ;
@@ -174,6 +174,10 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
 
     NumDigits n = {
       s = n.s ! NCard ; n = n.n
+    } ;
+
+    NumFloat n1 n2 = {
+      s = \\n,c => n1.s ! NCard ! Sg ! Nom ++ BIND ++ "." ++ BIND ++ n2.s ! NCard ! n ! c ; n = Pl
     } ;
 
     OrdNumeralSuperl n a = {

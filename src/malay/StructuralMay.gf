@@ -3,11 +3,11 @@ concrete StructuralMay of Structural = CatMay **
 
 -------
 -- Ad*
+lin at_least_AdN = ss "sekurangnya" ;
+lin at_most_AdN = ss "paling tua" ;
 {-
 lin almost_AdA = mkAdA "" ;
 lin almost_AdN = ss "" ;
-lin at_least_AdN = ss "" ;
-lin at_most_AdN = ss "" ;
 lin so_AdA = ss "" ;
 lin too_AdA = ss "" ;
 lin very_AdA = mkAdA "" ;
@@ -42,7 +42,7 @@ lin there_Adv = ss "" ;
 -- Conj
 
 lin and_Conj = {s2 = "dan" ; s1 = [] ; n = Pl} ;
--- lin or_Conj = {s2 = \\_ => "" ; s1 = [] ; n = Sg} ;
+lin or_Conj = {s2 = "atau" ; s1 = [] ; n = Sg} ;
 -- lin if_then_Conj = mkConj
 -- lin both7and_DConj = mkConj "" "" pl ;
 -- lin either7or_DConj = {s2 = \\_ => "" ; s1 = "" ; n = Sg} ;
@@ -96,8 +96,8 @@ oper
 -- Prep
 
 -- lin above_Prep = mkPrep ""
--- lin after_Prep = mkPrep ""
--- lin before_Prep = mkPrep "" ;
+lin after_Prep = mkPrep "selepas" ;
+lin before_Prep = mkPrep "sebelum" ;
 -- lin behind_Prep = mkPrep ""  ;
 -- lin between_Prep = = mkPrep "" ;
 lin by8agent_Prep = mkPrep "oleh" ; -- for pronoun agent, see Mintz p. 170, 5.4.1
@@ -108,7 +108,7 @@ lin by8means_Prep = mkPrep "dengan" ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep "" ;
 lin in_Prep = mkPrep "di" ;
--- lin on_Prep = mkPrep "" ;
+lin on_Prep = mkPrep "pada" ;
 -- lin part_Prep = mkPrep ;
 lin possess_Prep = mkPrep [] ; -- TODO check Mintz p. 39-40, 2.2.1.2
 -- lin through_Prep = mkPrep ;
@@ -154,7 +154,7 @@ lin whoSg_IP = mkIP "siapa";
 -- Subj
 
 -- lin although_Subj =
--- lin because_Subj =
+lin because_Subj = ss "kerana" ;
 lin if_Subj = ss "sekiranya" ;
 lin that_Subj = ss "yang" ;
 lin when_Subj = ss "kalau" ;

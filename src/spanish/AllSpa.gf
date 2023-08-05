@@ -4,5 +4,5 @@ concrete AllSpa of AllSpaAbs =
   LangSpa,
   IrregSpa,
   ExtendSpa
-----  ExtraSpa 
+--  ExtraSpa 
   ** {} ;

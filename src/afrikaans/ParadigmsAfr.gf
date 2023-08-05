@@ -494,4 +494,6 @@ oper
 --
 --}
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

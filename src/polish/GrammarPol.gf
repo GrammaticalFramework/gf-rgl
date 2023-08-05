@@ -15,6 +15,7 @@ concrete GrammarPol of Grammar =
   PhrasePol,
   TenseX - [CAdv],
   TextX - [CAdv],
+  NamesPol,
   StructuralPol,
   IdiomPol
    ** { flags  startcat = Phr ; unlexer = text ; lexer = text ;} ;

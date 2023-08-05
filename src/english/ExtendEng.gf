@@ -18,7 +18,7 @@ concrete ExtendEng of Extend =
     PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj,  PredVPSVV, PredetRNP, PrepCN,
     EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
     UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash,
-    CardCNCard, ProDrop
+    CardCNCard, ProDrop, theyFem_Pron, theyNeutr_Pron
    ]
   with
     (Grammar = GrammarEng) **
@@ -191,13 +191,13 @@ concrete ExtendEng of Extend =
             inf = verb.adv ++ vp.ad ! a ++ verb.fin ++ verb.inf ++ vp.p ++ compl} ;
       } ;
 
-    linVPS : Agr -> {s : Order => Agr => {fin,inf : Str}} -> Str = \agr,vps -> let vpss = vps.s ! ODir True ! agr in vpss.fin ++ vpss.inf ;
+    linVPS : Agr -> {s : Order => Agr => {fin,inf : Str}} -> Str = \agr,vps -> let vpss = vps.s ! ODir False ! agr in vpss.fin ++ vpss.inf ;
 
     mkVPI : VP -> VPI = \vp -> lin VPI {
       s = table {
-            VVAux      => \\a =>         vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ;
-            VVInf      => \\a => "to" ++ vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ;
-            VVPresPart => \\a =>         vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a
+            VVAux      => \\a =>         vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ++ vp.ext ;
+            VVInf      => \\a => "to" ++ vp.ad ! a ++ vp.inf ++ vp.p ++ vp.s2 ! a ++ vp.ext ;
+            VVPresPart => \\a =>         vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a ++ vp.ext
             }
       } ;
 
@@ -470,5 +470,22 @@ lin UseDAPFem dap = {
 
 lin CardCNCard card cn =
   {s,sp = \\d,c => card.s ! d ! Nom ++ cn.s ! card.n ! c ; n = Pl} ;
+
+lin theyFem_Pron = mkPron "they" "them" "their" "theirs" plural P3 feminine ;
+lin theyNeutr_Pron = mkPron "they" "them" "their" "theirs" plural P3 nonhuman ;
+
+lin AnaphPron np =
+      case np.a of {
+        AgP1 Sg      => i_Pron ;
+        AgP1 Pl      => we_Pron ;
+        AgP2 Sg      => youSg_Pron ;
+        AgP2 Pl      => youPl_Pron ;
+        AgP3Sg Masc  => he_Pron ;
+        AgP3Sg Fem   => she_Pron ;
+        AgP3Sg Neutr => it_Pron ;
+        AgP3Pl Masc  => they_Pron ;
+        AgP3Pl Fem   => theyFem_Pron ;
+        AgP3Pl Neutr => theyNeutr_Pron
+    } ;
 
 }

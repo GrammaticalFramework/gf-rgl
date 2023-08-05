@@ -4,9 +4,11 @@ open Prelude,DiffSwa,MorphoSwa in {
 lincat 
   Digit = {s : DForm => CardOrd => Gender => Str} ;
   Sub10 = {s : DForm => CardOrd => Gender => Str ; n : Number} ;
-  Sub100     = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000    = {s : CardOrd => Gender => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd => Gender => Str ; n : Number} ;
+  Sub100           = {s : CardOrd => Gender => Str ; n : Number} ;
+  Sub1000          = {s : CardOrd => Gender => Str ; n : Number} ;
+  Sub1000000       = {s : CardOrd => Gender => Str ; n : Number} ;
+  Sub1000000000    = {s : CardOrd => Gender => Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => Gender => Str ; n : Number} ;
 
 lin num x = x ;
 lin n2 = mkNumn "ili"   "ishirini"  "pili" ;
@@ -35,7 +37,7 @@ lin pot2plus d e = {s = table {
       NCard => \\g => d.s ! hund ! NCard ! g ++  "na" ++ e.s !NCard ! g ;
       NOrd => \\g =>Ordprefix g++ d.s ! hund ! NCard ! g ++  "na" ++ e.s ! NCard ! g } ;
                    n = Pl} ;
- lin pot2as3 n = n ;
+lin pot2as3 n = n ;
 lin pot3 n = { s = table {
       NCard => \\g => mkCard NCard "elfu" ! g ++ n.s ! NCard ! g ;
       NOrd => \\g =>Ordprefix g++ mkCard NCard "elfu" ! g ++ n.s ! NCard ! g } ;
@@ -44,6 +46,9 @@ lin pot3plus n m = { s = table {
       NCard => \\g => "elfu" ++ n.s ! NCard !g ++  m.s ! NCard ! g ;
       NOrd => \\g =>Ordprefix g++ "elfu" ++ n.s ! NCard !g ++  m.s ! NCard ! g} ;
                  n = Pl} ;
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 -- numerals as sequences of digits0'
 

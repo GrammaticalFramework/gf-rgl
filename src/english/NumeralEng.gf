@@ -4,8 +4,10 @@ lincat
   Digit = {s : DForm => CardOrd => Case => Str} ;
   Sub10 = {s : DForm => CardOrd => Case => Str ; n : Number} ;
   Sub100     = {s : CardOrd => Case => Str ; n : Number} ;
-  Sub1000    = {s : Bool => CardOrd => Case => Str ; n : Number} ;
-  Sub1000000 = {s : Bool => CardOrd => Case => Str ; n : Number} ;
+  Sub1000          = {s : Bool => CardOrd => Case => Str ; n : Number} ;
+  Sub1000000       = {s : Bool => CardOrd => Case => Str ; n : Number} ;
+  Sub1000000000    = {s : Bool => CardOrd => Case => Str ; n : Number} ;
+  Sub1000000000000 = {s : Bool => CardOrd => Case => Str ; n : Number} ;
 
 lin num x = x ;
 lin n2 = let two = mkNum "two"   "twelve"   "twenty" "second" in
@@ -25,22 +27,71 @@ lin n9 = mkNum "nine" "nineteen" "ninety" "ninth" ;
 
 lin pot01 = mkNum "one" "eleven" "ten" "first" ** {n = Sg} ;
 lin pot0 d = d ** {n = Pl} ;
+lin pot0as1 n = {s = n.s ! unit}  ** {n = n.n} ;
+
 lin pot110 = regCardOrd "ten" ** {n = Pl} ;
 lin pot111 = regCardOrd "eleven" ** {n = Pl} ;
 lin pot1to19 d = {s = d.s ! teen} ** {n = Pl} ;
-lin pot0as1 n = {s = n.s ! unit}  ** {n = n.n} ;
 lin pot1 d = {s = d.s ! ten} ** {n = Pl} ;
 lin pot1plus d e = {
    s = \\o,c => d.s ! ten ! NCard ! Nom ++ BIND ++ "-" ++ BIND ++ e.s ! unit ! o ! c ; n = Pl} ;
 lin pot1as2 n = {s = \\_ => n.s; n=n.n} ;
+
+lin pot21 = {
+      s = \\d,o,c => case d of {True => []; False => "a"} ++
+                     (regCardOrd "hundred").s ! o ! c;
+      n = Pl
+    } ;
 lin pot2 d = {s = \\_,o,c => d.s ! unit ! NCard ! Nom ++ mkCard o "hundred" ! c}  ** {n = Pl} ;
 lin pot2plus d e = {
   s = \\_,o,c => d.s ! unit ! NCard ! Nom ++ "hundred" ++ "and" ++ e.s ! o ! c ; n = Pl} ;
 lin pot2as3 n = n ;
+
+lin pot31 = {
+      s = \\d,o,c => case d of {True => []; False => "a"} ++
+                     (regCardOrd "thousand").s ! o ! c;
+      n = Pl
+    } ;
 lin pot3 n = {
   s = \\d,o,c => n.s ! d ! NCard ! Nom ++ mkCard o "thousand" ! c ; n = Pl} ;
 lin pot3plus n m = {
   s = \\d,o,c => n.s ! d ! NCard ! Nom ++ "thousand" ++ m.s ! False ! o ! c; n = Pl} ;
+lin pot3as4 n = n ;
+lin pot3float f = {
+  s = \\d,o,c => f.s ++ mkCard o "thousand" ! c ; n = Pl} ;
+
+lin pot41 = {
+      s = \\d,o,c => case d of {True => []; False => "a"} ++
+                     (regCardOrd "million").s ! o ! c;
+      n = Pl
+    } ;
+lin pot4 n = {
+      s = \\d,o,c => n.s ! d ! NCard ! Nom ++ pot41.s ! True ! o ! c ;
+      n = Pl
+    } ;
+lin pot4plus n1 n2 = {
+      s = \\d,o,c => n1.s ! d ! NCard ! Nom ++ pot41.s ! True ! NCard ! Nom ++ "and" ++ n2.s ! True ! o ! c;
+      n = Pl
+    } ;
+lin pot4as5 n = n ;
+lin pot4float f = {
+  s = \\d,o,c => f.s ++ pot41.s ! True ! o ! c ; n = Pl} ;
+
+lin pot51 = {
+      s = \\d,o,c => case d of {True => []; False => "a"} ++
+                     (regCardOrd "billion").s ! o ! c;
+      n = Pl
+    } ;
+lin pot5 n = {
+      s = \\d,o,c => n.s ! d ! NCard ! Nom ++ pot51.s ! True ! o ! c ;
+      n = Pl
+    } ;
+lin pot5plus n1 n2 = {
+      s = \\d,o,c => n1.s ! d ! NCard ! Nom ++ pot51.s ! True ! NCard ! Nom ++ "and" ++ n2.s ! True ! o ! c;
+      n = Pl
+    } ;
+lin pot5float f = {
+  s = \\d,o,c => f.s ++ pot51.s ! True ! o ! c ; n = Pl} ;
 
 -- numerals as sequences of digits
 

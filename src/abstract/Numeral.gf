@@ -20,11 +20,13 @@
 abstract Numeral = Cat [Numeral,Digits] ** {
 
 cat 
-  Digit ;       -- 2..9
-  Sub10 ;       -- 1..9
-  Sub100 ;      -- 1..99
-  Sub1000 ;     -- 1..999
-  Sub1000000 ;  -- 1..999999
+  Digit ;            -- 2..9
+  Sub10 ;            -- 1..9
+  Sub100 ;           -- 1..99
+  Sub1000 ;          -- 1..999
+  Sub1000000 ;       -- 1..999999
+  Sub1000000000 ;    -- 1..999999999
+  Sub1000000000000 ; -- 1..999999999999
 
 data 
   num : Sub1000000 -> Numeral ; -- 123456 [coercion to top category]
@@ -33,18 +35,36 @@ data
 
   pot01 : Sub10 ;                               -- 1
   pot0 : Digit -> Sub10 ;                       -- d * 1
+  pot0as1 : Sub10 -> Sub100 ;                   -- coercion of 1..9
+
   pot110 : Sub100 ;                             -- 10
   pot111 : Sub100 ;                             -- 11
   pot1to19 : Digit -> Sub100 ;                  -- 10 + d
-  pot0as1 : Sub10 -> Sub100 ;                   -- coercion of 1..9
   pot1 : Digit -> Sub100 ;                      -- d * 10
   pot1plus : Digit -> Sub10 -> Sub100 ;         -- d * 10 + n
   pot1as2 : Sub100 -> Sub1000 ;                 -- coercion of 1..99
+
+  pot21 : Sub1000 ;                             -- a hundred instead of one hundred
   pot2 : Sub10 -> Sub1000 ;                     -- m * 100
   pot2plus : Sub10 -> Sub100 -> Sub1000 ;       -- m * 100 + n
   pot2as3 : Sub1000 -> Sub1000000 ;             -- coercion of 1..999
+
+  pot31 : Sub1000000 ;                          -- a thousand instead of one thousand
   pot3 : Sub1000 -> Sub1000000 ;                -- m * 1000
   pot3plus : Sub1000 -> Sub1000 -> Sub1000000 ; -- m * 1000 + n
+  pot3as4 : Sub1000000 -> Sub1000000000 ;       -- coercion of 1..999999
+  pot3float : Float -> Sub1000000 ;             -- 3.5 thousand
+
+  pot41 : Sub1000000000 ;                                    -- a million instead of one million
+  pot4  : Sub1000 -> Sub1000000000 ;                         -- m * 1000000000
+  pot4plus : Sub1000 -> Sub1000000 -> Sub1000000000 ;        -- m * 1000000000 + n
+  pot4as5 : Sub1000000000 -> Sub1000000000000 ;              -- coercion of 1..999999999
+  pot4float : Float -> Sub1000000000 ;                       -- 3.5 million
+
+  pot51 : Sub1000000000000 ;                                 -- a billion instead of one billion
+  pot5  : Sub1000 -> Sub1000000000000 ;                      -- m * 1000000000
+  pot5plus : Sub1000 -> Sub1000000000 -> Sub1000000000000 ;  -- m * 1000000000 + n
+  pot5float : Float -> Sub1000000000000 ;                    -- 3.5 billion
 
 -- Numerals as sequences of digits have a separate, simpler grammar
 

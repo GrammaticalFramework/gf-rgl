@@ -18,7 +18,7 @@ oper
   -- sounds and sound changes
   vowel : pattern Str = #( "a" | "e" | "o" | "u" | "y" );
   semivowel : pattern Str = #( "j" | "w" );
-  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "qu" | "h" );
+--  consonant : pattern Str = #( "p" | "b" | "f" | "v" | "m" | "t" | "d" | "s" | "z" | "n" | "r" | "c" | "g" | "l" | "q" | "qu" | "h" );
   stop : pattern Str = #( "p" | "b" | "t" | "d" | "c" | "q" | "q" ); 
   fricative : pattern Str = #( "f" | "v" | "s" | "z" | "h" );
   nasal : pattern Str = #( "m" | "n" );

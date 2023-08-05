@@ -5,7 +5,7 @@ concrete SentenceChi of Sentence = CatChi **
 
   lin
 
-    PredVP np vp = mkClause np.s vp ;
+    PredVP np vp = mkClause (linNP np) vp ;
 
     PredSCVP sc vp = mkClause sc.s vp ;
 
@@ -17,10 +17,10 @@ concrete SentenceChi of Sentence = CatChi **
       } ;
 
     SlashVP np vp =
-      mkClauseCompl np.s vp []
+      mkClauseCompl (linNP np) vp []
       ** {c2 = vp.c2} ;
 
-    SlashVS np vs sslash = <mkClause np.s vs sslash.s : Clause> ** {c2 = sslash.c2} ;
+    SlashVS np vs sslash = <mkClause (linNP np) vs sslash.s : Clause> ** {c2 = sslash.c2} ;
 
 
     -- yet another reason for discontinuity of clauses

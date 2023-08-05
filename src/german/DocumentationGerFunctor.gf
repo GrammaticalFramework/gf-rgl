@@ -163,7 +163,7 @@ oper
      let 
        vfin : VForm -> Str = \f ->
          verb.s ! f ++ verb.prefix ; 
-       gforms : Number -> Person -> Str = \n,p -> 
+       gforms : ParadigmsGer.Number -> Person -> Str = \n,p -> 
          td (vfin (VFin False (VPresInd  n p))) ++
          td (vfin (VFin False (VPresSubj n p)))
          ++ td (vfin (VFin False (VImpfInd  n p))) --# notpresent

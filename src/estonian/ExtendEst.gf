@@ -260,12 +260,12 @@ concrete ExtendEst of Extend =
     -- : NP -> VS -> Utt -> Cl ;      -- "I am here", she said
     FrontComplDirectVS np vs utt =
       let cl : Cl = PredVP np (UseV vs) ;
-       in cl ** {s = \\t,a,p,o => utt.s ++ bindComma ++ cl.s ! t ! a ! p ! o} ;
+       in cl ** {s = \\t,a,p => utt.s ++ bindComma ++ cl.s ! t ! a ! p} ;
 
     -- : NP -> VQ -> Utt -> Cl ;      -- "where", she asked
     FrontComplDirectVQ np vq utt =
       let cl : Cl = PredVP np (UseV vq) ;
-       in cl ** {s = \\t,a,p,o => utt.s ++ bindComma ++ cl.s ! t ! a ! p ! o} ;
+       in cl ** {s = \\t,a,p => utt.s ++ bindComma ++ cl.s ! t ! a ! p} ;
 
 
 ---------------------------------
@@ -435,6 +435,5 @@ concrete ExtendEst of Extend =
 
     -- : VP -> Adv ;  -- ilma raamatut nägemata
     WithoutVP vp = {s = "ilma" ++ infVPdefault vp InfMata} ;
-
 
 }

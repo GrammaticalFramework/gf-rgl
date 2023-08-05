@@ -8,7 +8,8 @@ concrete ExtendGer of Extend =
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, 
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
     GenModNP,
-    CardCNCard
+    CardCNCard, CompoundN,
+    PassVPSlash, PassAgentVPSlash, PastPartAP, PastPartAgentAP
     ]
   with
     (Grammar = GrammarGer) **
@@ -141,4 +142,49 @@ concrete ExtendGer of Extend =
       n = Pl
       } ;
   
+
+lin PassVPSlash vp = 
+      insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
+          { c1 = subjPrep vp.c2 } ;
+    -- this also gives "mit dir wird gerechnet" ;
+    -- the alternative linearisation ("es wird mit dir gerechnet") is not implemented
+
+lin PassAgentVPSlash vp np = ---- "von" here, "durch" in StructuralGer
+      insertObj (\\_ => (PastPartAgentAP (lin VPSlash vp) (lin NP np)).s ! APred) (predV werdenPass) ;
+
+lin PastPartAP vp =
+      let a = agrP3 Sg in {
+        s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3 ++ vp.a2 ++ vp.adj
+                    ++ vp.inf.inpl.p2 ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+        isPre = True ;
+        c = <[],[]> ;
+        ext = vp.ext
+      } ;
+
+lin PastPartAgentAP vp np =
+      let a = agrP3 Sg ;
+          agent = appPrepNP von_Prep np
+      in {
+      s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
+                  ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
+                  ++ vp.c2.s                         -- junk if not TV
+                  ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+      isPre = True ;
+      c = <[],[]> ;
+      ext = []
+      } ;
+
+lin CompoundN a x =
+       let s = a.co in
+       lin N {
+          s  = \\n,c => s ++ Predef.BIND ++ x.uncap.s ! n ! c ; 
+          co = s ++ Predef.BIND ++ x.uncap.co ;
+          uncap = {
+            s  = \\n,c => a.uncap.co  ++ Predef.BIND ++ x.uncap.s ! n ! c ; 
+            co = a.uncap.co  ++ Predef.BIND ++ x.uncap.co ;
+            } ;
+          g = x.g
+          } ;
+
+>>>>>>> master
 }

@@ -3,95 +3,34 @@ concrete ConjunctionMay of Conjunction =
 
   flags optimize=all_subs ;
 
-    {- Conjunction for category X needs four things:
-       lincat [X]
-       lin BaseX
-       lin ConsX
-       lin ConjX
+  lincat
+    [Adv],[AdV] = {s1,s2 : Str} ;
+    [S] = {s1,s2 : Str} ;
+    [AP] = {s1,s2 : Str} ;
+    [NP] = {s1,s2 : Possession => Str} ;
+    [CN] = {s1,s2 : NForm => Str ; heavyMod : Str} ;
 
-    For example, if X is defined as
+  lin
+    BaseAdv, BaseAdV = twoSS ;
+    ConsAdv, ConsAdV = consrSS comma ;
+    ConjAdv, ConjAdV = conjunctDistrSS ;
 
-      lincat X   = {s     : Number => Str ;   g : Gender} ;
+    BaseS = twoSS ;
+    ConsS = consrSS comma ;
+    ConjS = conjunctDistrSS ;
 
-    then [X] will split its s field into two, and retain its other fields as is:
+    BaseAP = twoSS ;
+    ConsAP = consrSS comma ;
+    ConjAP = conjunctDistrSS ;
 
-      lincat [X] = {s1,s2 : Number => Str ;   g : Gender} ;
+    BaseNP = twoTable Possession ;
+    ConsNP = consrTable Possession comma ;
+    ConjNP co nps = emptyNP ** conjunctDistrTable Possession co nps ;
 
-    Let us look at a simple case: Adv is of type {s : Str}
-    Then [Adv] is {s1,s2 : Str}.
-    BaseAdv, ConsAdv and ConjAdv can all use functions defined in prelude/Coordination:
+    BaseCN x y = y ** twoTable NForm (mergeCN x) y ;
+    ConsCN x xs = xs ** consrTable NForm comma (mergeCN x) xs ;
+    ConjCN conj ss = ss ** conjunctDistrTable NForm conj ss ;
 
-      BaseAdv = twoSS ;
-      ConsAdv = consrSS comma ;
-      ConjAdv = conjunctSS ;
-
-    --}
-
-
--- Adverb and other simple {s : Str} types.
-lincat
-  [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
-
-lin
-  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
-
-
-{-
--- RS depends on X, Y and Z, otherwise exactly like previous.
--- RS can modify CNs, which are open for …, and have inherent …
-lincat
-  [RS] = {s1,s2 : … => Str} ;
-
-lin
-  BaseRS = twoTable3 … ;
-  ConsRS = consrTable3 … comma ;
-  ConjRS = conjunctRSTable ;
-
-
-lincat
-  [S] = {} ;
-
-lin
-  BaseS x y = y ** { } ;
-  ConsS x xs =
-    xs ** { } ;
-  ConjS co xs = {} ;
-
-lincat
-  [AP] = {} ;
-
-lin
-  BaseAP x y = twoTable … x y ** y ; --choose all the other fields from second argument
-  ConsAP as a = consrTable … comma as a ** as ;
-  ConjAP co as = conjunctDistrTable … co as ** as ;
-
-lincat
-  [CN] = { } ;
-
-lin
-  BaseCN = {} ;
-  ConsCN = {} ;
-  ConjCN co cs = conjunctDistrTable Agr co cs ** cs ;
-
-lincat
-  [DAP] =
-
-lin
-  BaseDAP x y = x **
-  ConsDAP xs x = xs **
-  ConjDet conj xs = xs **
-
-
--- Noun phrases
-lincat
-  [NP] =
-
-lin
-  BaseNP x y =
-  ConsNP x xs =
-  ConjNP conj xs =
-
--}
+  oper
+    mergeCN : CNoun -> CNoun = \cn -> cn ** {s = \\nf => linCN cn} ;  -- put postmod in s field
 }

@@ -14,7 +14,8 @@ concrete GrammarSwe of Grammar =
   TextX -[Tense,Temp],
   IdiomSwe,
   StructuralSwe,
-  TenseSwe
+  TenseSwe,
+  NamesSwe
   ** {
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ;

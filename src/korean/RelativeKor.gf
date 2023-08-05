@@ -8,7 +8,7 @@ lin
   -- : RP -> VP -> RCl ;
   RelVP rp vp = vp ** { -- TODO no tenses yet in the grammar
     s = \\t,a,p,cltyp =>
-           rp.s ++ vp.adv ++ vp.nObj ++
+           rp.s ++ vp.adv ++ vp.nObj ! DeclObj ++
            case cltyp of {
              WithConj => vp.s ! VStem p ;
              _        => vp.s ! VAttr p } ;

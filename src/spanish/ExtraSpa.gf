@@ -79,6 +79,7 @@ concrete ExtraSpa of ExtraSpaAbs = ExtraRomanceSpa **
       mkClause [] True False np.a (insertComplement (\\_ => (np.s ! Nom).ton) (predV (mkV "existir"))) ;
 
     UseComp_estar comp = insertComplement comp.s (predV I.estar_V) ;
+    UseComp_ser comp = insertComplement comp.s (predV copula) ;
 
     cual_IComp = {
       s = aagrForms "cual" "cual" "cuáles" "cuáles" ;

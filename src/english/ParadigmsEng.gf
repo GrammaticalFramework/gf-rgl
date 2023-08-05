@@ -129,9 +129,28 @@ oper
 --
 -- Proper names, with a regular genitive, are formed from strings.
 
+oper
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = table {Gen => s + "'s" ; _ => s} ; 
+              p = "in" ;
+              art = False ;
+              a = agrP3 Sg} ;
+
+    mkLN : Str -> Number -> LN = \s,n ->
+      lin LN {s = table {Gen => s + "'s" ; _ => s} ;
+              p = "in" ;
+              art = False ;
+              a = agrP3 n} ;
+  } ;
+
+  defLN : LN -> LN = \n -> n ** {art = True} ;
+  prepLN : LN -> Str -> LN = \n,s -> n ** {p = s} ;
+
   mkPN : overload {
 
     mkPN : Str -> PN ;
+    mkPN : Str -> Gender -> PN ;
 
 -- Sometimes a common noun can be reused as a proper name, e.g. "Bank"
 
@@ -435,6 +454,7 @@ mkVoc s = lin Voc (ss s) ;
 
   mkPN = overload {
     mkPN : Str -> PN = regPN ;
+    mkPN : Str -> Gender -> PN = regGenPN ;
     mkPN : N -> PN = nounPN
   } ;
 
@@ -596,6 +616,8 @@ mkVoc s = lin Voc (ss s) ;
   us_britishV : Str -> V = \s -> case s of {
     _ + ("el" | "al" | "ol") => regV s | mkV s (s + "s") (s + "led") (s + "led") (s + "ling") ;
     _ + "or" => regV s | regV (Predef.tk 2 s + "our") ;
+    _ + "ise" => regV (Predef.tk 2 s + "ze") | regV s ;
+    _ + "ize" => regV s | regV (Predef.tk 2 s + "se") ;
     _ => regV s
     } ;
 
@@ -774,6 +796,8 @@ mkVoc s = lin Voc (ss s) ;
 
   mk2Conj : Str -> Str -> Number -> Conj = \x,y,n ->
     lin Conj (sd2 x y ** {n = n}) ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 ---- obsolete
 

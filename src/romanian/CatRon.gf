@@ -131,7 +131,7 @@ concrete CatRon of Cat =
 
     N3 = Noun  ** {c2,c3 : Compl} ;
 
-    PN = {s : NCase => Str ; g : Gender ; n : Number; a : Animacy} ;
+    GN, SN, LN, PN = {s : NCase => Str ; g : Gender ; n : Number; a : Animacy} ;
    
     Comp = {s : Agr => Str} ;
    

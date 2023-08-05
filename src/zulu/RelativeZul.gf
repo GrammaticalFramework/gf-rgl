@@ -50,29 +50,11 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
               True => False ;
               False => True
             } ;
-            relsuf = case vp.hasComp of {
-              True => [] ;
-              False => relSuf vform
-            } ;
-            rcform = RelC ; -- case vform_main of {
-            --   VFIndic Part Pos PastTense _ => RelCA ;
-            --   VFIndic _ _ _ _ => RelC ;
-            --   VFPot _ _ _ => RelC ;
-            --   VFSubj _ => RelC
-            -- } ;
+            rcform = RelC ;
           in
             -- naively only took out the subject
             rp.s
-            -- ++ (negPref vform_main)
-            -- -- ++ (exclSePref vform_main)
-            -- ++ relConc!a!rcform ++BIND
-            -- -- ++ (negPref2 vform_main)
-            -- -- ++ (exclKaPref vform)
-            -- ++ (tensePref vform)
-            -- ++ vp.oc
-            -- ++ vp.s!(rform vform_main reqLF)
             ++ vp.s!RelCl!a!p!t!reqLF
-            -- ++ relsuf
             ++ vp.iadv
             ++ vp.comp
             ++ vp.advs

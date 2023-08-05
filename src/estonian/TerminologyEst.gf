@@ -91,7 +91,7 @@ lin
   nounHeading n = ss (n.s ! NCase Sg Nom) ;
   nounPluralHeading n = ss (n.s ! NCase Pl Nom) ;
 
-  formGF_N = mkN "vorm" ;
+  formGr_N = mkN "vorm" ;
   exampleGr_N = mkN "näide" ;
 
 }

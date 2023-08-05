@@ -20,8 +20,8 @@ concrete AdjectiveMay of Adjective = CatMay ** open ResMay, Prelude in {
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
-  -- ComplA2 a2 np = a2 ** { } ;
 
+  ComplA2 a np = {s = a.s ++ np.s ! Bare} ;
   -- : A2 -> AP ;        -- married to itself
   -- ReflA2 a2 = a2 ** { } ;
 
