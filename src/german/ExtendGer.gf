@@ -186,5 +186,4 @@ lin CompoundN a x =
           g = x.g
           } ;
 
->>>>>>> master
 }
