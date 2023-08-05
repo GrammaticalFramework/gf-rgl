@@ -266,7 +266,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
 
     QuantityNP dig m = {
-      s = \\c => preOrPost m.isPre m.s (dig.s ! invNum) ;
+      s = \\_,c => preOrPost m.isPre m.s (dig.s ! invNum) ;
       a = agrP3 Pl ;
       w = WLight ;
       rc = "" ;
@@ -274,7 +274,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
 
     QuantityFloatNP dig1 dig2 m = {
-      s = \\c => preOrPost m.isPre m.s (dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! invNum) ;
+      s = \\_,c => preOrPost m.isPre m.s (dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! invNum) ;
       a = agrP3 Pl ;
       w = WLight ;
       rc = "" ;

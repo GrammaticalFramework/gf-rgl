@@ -234,7 +234,7 @@ resource ResGer = ParamX ** open Prelude in {
      rc : Str ;  -- die Frage , [rc die ich gestellt habe]
      ext : Str ; -- die Frage , [sc wo sie schläft] ; die Regel , [vp kein Fleisch zu essen] | [s dass ...]
      a : Agr ;
-     w : Weight } ; -- light NPs come before negation in simple clauses (expensive)
+     w : Weight } ; -- light NPs come before negation in simple clauses
 
   mkN  : (x1,_,_,_,_,x6,x7 : Str) -> Gender -> Noun = 
     \Mann, Mannen, Manne, Mannes, Maenner, Maennern, Mann_, g -> {
@@ -466,7 +466,7 @@ resource ResGer = ParamX ** open Prelude in {
 
   subjPrep : Preposition -> Preposition = \prep ->
     case <prep.c,prep.isPrep> of {
-      <NPC Acc,False> => prep ** {c = NPC Nom} ;
+      <Acc,isCase> => prep ** {c = Nom} ;
       _ => prep
     } ;
 

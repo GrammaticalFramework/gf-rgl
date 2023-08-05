@@ -210,36 +210,36 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     PredetRNP pred rnp = rnp ** {                        -- HL 5/2022
       s = \\a,c => let n = case pred.a of {PAg n => n ; _ => numberAgr a} ;
                        g = genderAgr a ;
-                       d = case pred.c.k of {NoCase => c ; PredCase k => (prepC k).c} ;
+                       d = case pred.c.k of {NoCase => c ; PredCase k => k} ;
         in case rnp.isPron of {
-          True => pred.s ! Pl ! Masc ! (NPC c) ++ "von" ++ rnp.s ! a ! Dat ;
-          _ => pred.s ! n ! genderAgr a ! (NPC c) ++ pred.c.p ++ rnp.s ! a ! d} ;
+          True => pred.s ! Pl ! Masc ! c ++ "von" ++ rnp.s ! a ! Dat ;
+          _ => pred.s ! n ! genderAgr a ! c ++ pred.c.p ++ rnp.s ! a ! d} ;
       ext = rnp.ext ; rc = rnp.rc ;
       isPron = False} ;
       -- ok: alle von uns; die meisten von uns ; wrong: *nur von uns =/= nur wir
 
-    AdvRNP np prep rnp = {s = \\a,c => np.s ! (NPC c)
-                            ++ appPrepC prep (rnp.s ! a) ++ rnp.ext ++ rnp.rc ;
+    AdvRNP np prep rnp = {s = \\a,c => np.s ! False ! c
+                            ++ appPrep prep (rnp.s ! a) ++ rnp.ext ++ rnp.rc ;
                           ext = np.ext ; rc = np.rc ; isPron = False} ;
 
     AdvRAP ap prep rnp =
       let                                         -- ? adv ++ ap.s ! af
-        adv = appPrepC prep (rnp.s ! agrP3 Sg) ;  -- bug: fixed agreement
+        adv = appPrep prep (rnp.s ! agrP3 Sg) ;   -- bug: fixed agreement
       in ap ** { s = \\af => ap.s ! af ++ adv } ; -- e.g. unknown in one's youth
 
     ReflA2RNP adj rnp = -- would need AP.c : Agr => Str*Str, not AP.c : Str*Str
       let                                            -- as we have no reflexive AP,
-        compl = appPrepC adj.c2 (rnp.s ! agrP3 Sg) ; -- we use a fixed agreement
+        compl = appPrep adj.c2 (rnp.s ! agrP3 Sg) ;  -- we use a fixed agreement
       in {
         s = adj.s ! Posit ;
         isPre = True ;
-        c = case adj.c2.isPrep of {False => <compl, []> ; True => <[], compl>} ;
+        c = case adj.c2.isPrep of {isCase => <compl, []> ; _ => <[], compl>} ;
         ext = rnp.ext ++ rnp.rc
       } ;
 
     PossPronRNP pron num cn rnp =
       N.DetCN (N.DetQuant (N.PossPron pron) num)
-      (N.PossNP cn (lin NP {s = \\pc => usePrepC pc (\c -> rnp.s ! pron.a ! c) ;
+      (N.PossNP cn (lin NP {s = \\_,c => rnp.s ! pron.a ! c ;
                             a = pron.a ;
                             w = WLight ;
                             ext = rnp.ext ;
@@ -253,11 +253,11 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       ** {isPron = False ; ext,rc = []} ;
 
     Base_rr_RNP x y = twoTable2 Agr Case x y ;
-    Base_nr_RNP x y = twoTable2 Agr Case {s = \\_,c => x.s ! (NPC c) ++ x.ext ++ x.rc} y ;
-    Base_rn_RNP x y = twoTable2 Agr Case x {s = \\_,c => y.s ! (NPC c) ++ y.ext ++ y.rc} ;
+    Base_nr_RNP x y = twoTable2 Agr Case {s = \\_,c => x.s ! False ! c ++ x.ext ++ x.rc} y ;
+    Base_rn_RNP x y = twoTable2 Agr Case x {s = \\_,c => y.s ! False ! c ++ y.ext ++ y.rc} ;
 
     Cons_rr_RNP x xs = consrTable2 Agr Case comma x xs ;
-    Cons_nr_RNP x xs = consrTable2 Agr Case comma {s = \\_,c => x.s ! (NPC c) ++ x.ext ++ x.rc} xs ;
+    Cons_nr_RNP x xs = consrTable2 Agr Case comma {s = \\_,c => x.s ! False ! c ++ x.ext ++ x.rc} xs ;
 
   oper
     reflPronSelf : Agr => Case => Str = \\a => \\c => reflPron ! a ! c ++ "selbst" ;
@@ -269,16 +269,16 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     insertObjReflNP : ResGer.VPSlash -> RNP -> ResGer.VP = -- HL 5/2022
       \vp,rnp ->                                           -- generalize ResGer.insertObjRefl
       let prep = vp.c2 ;
-          c = case prep.c of { NPC cc => cc ; _ => Acc } ; -- put rnp.ext ++ rnp.rc to vp.ext ?
-          obj : Agr => Str = \\a => prep.s ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
+          c = case prep.isPrep of { isCase => prep.c ; _ => Acc } ; -- put rnp.ext ++ rnp.rc to vp.ext ?
+          obj : Agr => Str = \\a => prep.s ! GPl ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
       in vp ** {
         nn = \\a =>
           let vpnn = vp.nn ! a in
           case <prep.isPrep, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
-            <False,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
-            <False,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
-            <False,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
-            <True,_,_>       => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
+            <isCase,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
+            <isCase,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
+            <isCase,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
+            <_,_,_>           => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
       } ;
 
 -- SS: implementation of some of the relevant Foc rules from Extra

@@ -61,11 +61,10 @@ concrete StructuralGer of Structural = CatGer **
   more_CAdv = X.mkCAdv "mehr" "als" ;
   most_Predet = {                                                           -- HL 5/2022
     s = \\n,g,c => let gn = R.gennum g n ;
-                        k = (R.prepC c).c ;
                       adj = (P.mkA "viel" "mehr" "meiste").s ! Superl
                    in
-                      R.usePrepC c (\k -> R.artDef ! gn ! k ++ adj ! (agrAdj g Weak n k)) ;
-    c = {p = [] ; k = PredCase (NPC Gen)} ;
+                      R.artDef ! gn ! c ++ adj ! (agrAdj g Weak n c) ;
+    c = {p = [] ; k = PredCase Gen} ;
     a = PAg Pl} ;
   much_Det = {s = asQuant (\\_,_ => "viel") ; sp = asQuant (\\_,_ => "vieles") ;
               n = Sg ; a = Weak ; isDef = False ; hasDefArt = False} ;
@@ -178,7 +177,7 @@ concrete StructuralGer of Structural = CatGer **
     pairTable : (Gender => Case => Str) -> (Gender => Case => Str) -> (Gender => Case => {quant,num:Str})
       = \qt,nt -> \\g,c => {quant = qt ! g ! c; num = nt ! g ! c} ;
 
-    appAdjDegAdjf : Adjective -> Degree -> Adjf -> Number => Gender => PCase => Str =
-      \adj,deg,adjf -> \\n,g,c => R.usePrepC c (\k -> adj.s ! deg ! (agrAdj g adjf n k)) ;
+    appAdjDegAdjf : Adjective -> Degree -> Adjf -> Number => Gender => Case => Str =
+      \adj,deg,adjf -> \\n,g,c => adj.s ! deg ! (agrAdj g adjf n c) ;
 
 }

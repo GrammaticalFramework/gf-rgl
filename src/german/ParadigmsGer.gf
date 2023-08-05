@@ -382,16 +382,20 @@ mkV2 : overload {
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
-
-
   Gender = MorphoGer.Gender ;
   Case = MorphoGer.Case ;
   Number = MorphoGer.Number ;
+
   masculine = Masc ;
   feminine  = Fem ;
-  neuter = Neutr ;
-  male = Male ;
-  female  = Female ;
+  neuter    = Neutr ;
+  male      = Male ;
+  female    = Female ;
+
+  nominative = Nom ;
+  accusative = Acc ;
+  dative     = Dat ;
+  genitive   = Gen ;
 
   singular = Sg ;
   plural = Pl ;
