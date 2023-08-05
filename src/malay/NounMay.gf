@@ -104,13 +104,13 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
   -- : Numeral -> Card ;
   NumNumeral num = num ;
 
-{-
+
   -- : AdN -> Card -> Card ;
   AdNum adn card = card ** { s = adn.s ++ card.s } ;
 
   -- : Digits  -> Ord ;
   OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
--}
+
   -- : Numeral -> Ord ;
   OrdNumeral num = {
     s = num.ord

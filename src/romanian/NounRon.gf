@@ -172,6 +172,9 @@ in {
                     isPre = True
                     };
 
+    NumFloat n1 n2 = {s,sp = \\g => n1.s ! NCard g ++ BIND ++ "." ++ BIND ++ n2.s ! NCard g ;
+                      size = n1.n; n = Pl };
+
     NumNumeral nu = {s = \\g => nu.s ! ANomAcc ! (NCard g) ! Formal ; 
                      sp = \\g => nu.sp ! ANomAcc ! (NCard g) ! Formal ;
                      n = getNumber nu.size ; size = nu.size };
@@ -304,6 +307,5 @@ in {
       needsRefForm = cn.needsRefForm;
       isComp = True
       } ;
-
 
 }; 

@@ -13,7 +13,7 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
 
 -- Sentence
 
-    Cl    = {s : ResEst.Tense => Anteriority => Polarity => SType => Str} ;
+    Cl    = {s : ResEst.Tense => Anteriority => Polarity => Str} ;
     ClSlash = {s : ResEst.Tense => Anteriority => Polarity => Str ; c2 : Compl} ;
     Imp   = {s : Polarity => Agr => Str} ;
 
@@ -91,7 +91,7 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
             c2,c3 : Compl ;
             isPre,isPre2 : Bool
             } ;
-    PN = {s : Case  => Str} ;
+    GN, SN, LN, PN = {s : Case  => Str} ;
 
   linref
     VP = \vp -> linV vp.v ;

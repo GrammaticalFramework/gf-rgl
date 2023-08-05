@@ -5,9 +5,11 @@ concrete NumeralGrc of Numeral = CatGrc ** open ResGrc, MorphoGrc in {
 lincat 
   Digit = {s : DForm => CardOrd => Str} ;
   Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
-  Sub100     = {s : CardOrd => Str ; n : Number} ;
-  Sub1000    = {s : CardOrd => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub100           = {s : CardOrd => Str ; n : Number} ;
+  Sub1000          = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000       = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000    = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => Str ; n : Number} ;
 
 lin num x = x ;
 
@@ -52,6 +54,8 @@ lin -- mkDigit   d       (d+10)           (d*10)          d-th         d-times
   pot3plus d m = {
      s = \\f => d.s ! NAdv ++ thousand ! f ++ "kai`" ++ m.s ! f ; n = Pl} ;
 
+  pot3as4 n = n ;
+  pot4as5 n = n ;
 
 -- numerals as sequences of digits
 

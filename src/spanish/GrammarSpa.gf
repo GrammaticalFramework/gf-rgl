@@ -14,7 +14,8 @@ concrete GrammarSpa of Grammar =
   TextSpa - [SC,Temp,Tense,Pol,PPos,PNeg],      -- special punctuation
   IdiomSpa,
   StructuralSpa,
-  TenseSpa
+  TenseSpa,
+  NamesSpa
 
   ** {
 

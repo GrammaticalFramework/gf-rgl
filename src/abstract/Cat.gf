@@ -126,7 +126,10 @@ abstract Cat = Common ** {
     N ;     -- common noun                         e.g. "house"
     N2 ;    -- relational noun                     e.g. "son"
     N3 ;    -- three-place relational noun         e.g. "connection"
-    PN ;    -- proper name                         e.g. "Paris"
+    GN ;    -- given name                          e.g. "George"
+    SN ;    -- second name                         e.g. "Washington"
+    LN ;    -- location name                       e.g. "Sweden"
+    PN ;    -- proper name
 
 -- DEPRECATED: QuantSg, QuantPl
 ---    QuantSg ;-- quantifier ('nucleus' of sing. Det) e.g. "every"

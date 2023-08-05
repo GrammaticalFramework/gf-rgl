@@ -78,7 +78,11 @@ resource ParadigmsMlt = open
       mkNDual : Str -> Str -> Str -> Str -> Gender -> N ; -- Noun paradigm 4x: Explicit gender
       } ;
 
-    mkPN : Str -> Gender -> Number -> ProperNoun ; -- Proper noun
+    mkPN : overload {
+      mkPN : Str -> PN ;
+      mkPN : Str -> Gender -> PN ;
+      mkPN : Str -> Gender -> Number -> PN ;
+    } ;
 
     mkN2 : overload {
       mkN2 : N -> Prep -> N2 ;
@@ -324,8 +328,14 @@ resource ParadigmsMlt = open
         }
       ) ;
 
+    mkPN = overload {
+      mkPN : Str -> PN = \s -> regPN s masculine singular ;
+      mkPN : Str -> Gender -> PN = \s,g -> regPN s g singular ;
+      mkPN : Str -> Gender -> Number -> PN = \s,g,n -> regPN s g n ;
+    } ;
+
     -- Proper noun
-    mkPN : Str -> Gender -> Number -> ProperNoun = \name,g,n -> {
+    regPN : Str -> Gender -> Number -> PN = \name,g,n -> lin PN {
       s = name ;
       a = mkAgr n P3 g ;
       } ;
@@ -1412,5 +1422,7 @@ resource ParadigmsMlt = open
       } ;
 
     mkOrd : Str -> Ord = \x -> lin Ord { s = \\c => x };
+
+    mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 }

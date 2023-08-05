@@ -142,8 +142,8 @@ either7or_DConj = {s = table { -- modified by chenpeng 11.19
                     conjType = NotJiu ;
                 } ;
 
-everybody_NP = ssword "每个人" ; -- [mark] "每个人": 每(every)+个(classifier)+人(person)
-everything_NP = ssword "每件事" ; -- [mark] "每件事": 每(every)+件(classifier)+事(thing)
+everybody_NP = mkNP (ssword "每个人").s ; -- [mark] "每个人": 每(every)+个(classifier)+人(person)
+everything_NP = mkNP (ssword "每件事").s ; -- [mark] "每件事": 每(every)+件(classifier)+事(thing)
 everywhere_Adv = mkAdv "到处" ;
 here7from_Adv = mkAdv "从这里" ; -- from here
 here7to_Adv = mkAdv "到这里" ; -- to here
@@ -161,13 +161,13 @@ if_then_Conj = {s = table { -- added by chenpeng 11.19
                     } ;
                     conjType = Jiu ;
                 } ;
-nobody_NP = ssword "没人" ;
-nothing_NP = ssword "没有什么" ;
+nobody_NP = mkNP (ssword "没人").s ;
+nothing_NP = mkNP (ssword "没有什么").s ;
 on_Prep = mkPrep "在" "上"  ;
 only_Predet = ssword "只有" ; -- only John
 so_AdA = ssword "如此" ;
-somebody_NP = ssword "某人" ;
-something_NP = ssword "某事" ; -- [mark] in sent, it depends on the context
+somebody_NP = mkNP (ssword "某人").s ;
+something_NP = mkNP (ssword "某事").s ; -- [mark] in sent, it depends on the context
 somewhere_Adv = mkAdv "某处" ;
 that_Subj = mkSubj [] chcomma ; -- that + S [mark] comma
 there7from_Adv = mkAdv "从那里" ; -- from there

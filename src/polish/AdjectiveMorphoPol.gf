@@ -6,7 +6,7 @@
 -- Adam Slaski, 2009 <adam.slaski@gmail.com>
 
 
-resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
+resource AdjectiveMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef) in {
 
      flags  coding=utf8; 
 
@@ -116,8 +116,8 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
     
   oper model_comp : Str -> adj11forms = \comp -> model4 comp ((Predef.tk 2 comp)+"i");
 
-  oper mkAForms : adj11forms -> Str -> Adj =
-      \pos, comp -> {
+  oper mkAForms : adj11forms -> Str -> A =
+      \pos, comp -> lin A {
           pos = pos;
           comp = model_comp comp;
           super = model_comp ("naj"+comp) ;
@@ -127,9 +127,9 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
         };
 
   oper mkA = overload {
-    mkA : adj11forms -> Adj =
+    mkA : adj11forms -> A =
       \pos -> mkAForms pos ("bardziej" ++ pos.s1) ;
-    mkA : adj11forms -> Str -> Adj = mkAForms ;
+    mkA : adj11forms -> Str -> A = mkAForms ;
     } ;
 
   oper guess_model : Str -> adj11forms = \form ->
@@ -167,8 +167,8 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
   -- oper for simple forms
   
   oper mkRegAdj = overload {
-    mkRegAdj : Str -> Str -> Str -> Str -> Adj =
-    \pos, comp, advpos, advcomp -> {
+    mkRegAdj : Str -> Str -> Str -> Str -> A =
+    \pos, comp, advpos, advcomp -> lin A {
       pos = guess_model pos;
       comp = model_comp comp;
       super = model_comp ("naj" + comp);
@@ -176,8 +176,8 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
       advcomp = advcomp;
       advsuper = "naj" + advcomp;
     };
-    mkRegAdj : Str -> Str -> Adj =
-    \pos, comp -> {
+    mkRegAdj : Str -> Str -> A =
+    \pos, comp -> lin A {
       pos = guess_model pos;
       comp = model_comp comp;
       super = model_comp ("naj" + comp);
@@ -188,8 +188,8 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
   };
   
   oper mkCompAdj = overload {
-    mkCompAdj : Str -> Str -> Adj =
-    \pos, advpos -> {
+    mkCompAdj : Str -> Str -> A =
+    \pos, advpos -> lin A {
       pos = guess_model pos;
       comp = guess_model ("bardziej" ++ pos);
       super = guess_model ("najbardziej" ++ pos);
@@ -197,8 +197,8 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
       advcomp = ("bardziej" ++ advpos);
       advsuper = ("najbardziej" ++ advpos);
     };
-    mkCompAdj : Str -> Adj =
-    \pos -> {
+    mkCompAdj : Str -> A =
+    \pos -> lin A {
       pos = guess_model pos;
       comp = guess_model ("bardziej" ++ pos);
       super = guess_model ("najbardziej" ++ pos);
@@ -207,12 +207,8 @@ resource AdjectiveMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
       advsuper = "["++pos ++ [": the adverb superlative form does not exist]"]
     };
   };
-  
-  addComplToAdj : Adj -> Str -> Case -> (Adj ** { c:Complement });
-  addComplToAdj a s c = { pos = a.pos; comp=a.comp; super=a.super;
-    advpos=a.advpos; advcomp=a.advcomp; advsuper=a.advsuper;
-    c = mkCompl s c
-  };
 
+  addComplToAdj : A -> Str -> Case -> A2 ;
+  addComplToAdj a s c = a ** {c = mkCompl s c } ;
 
 }

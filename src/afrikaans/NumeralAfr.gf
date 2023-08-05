@@ -7,7 +7,7 @@ flags optimize = all_subs ;
 lincat 
   Digit = {s : DForm => CardOrd => Str ; en : Str} ;
   Sub10 = {s : DForm => CardOrd => Str ; n : Number ; en : Str ; attr : Str} ;
-  Sub100, Sub1000, Sub1000000 = 
+  Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000 = 
           {s :          CardOrd => Str ; n : Number ; attr : Str} ;
 
 lin 
@@ -50,6 +50,8 @@ lin
   pot3plus n m = 
     addAttr {s = \\g => n.attr ++ "duisend" ++ m.s ! g ; n = Pl} ;
 
+  pot3as4 n = n ;
+  pot4as5 n = n ;
 
   lincat 
     Dig = TDigit ;

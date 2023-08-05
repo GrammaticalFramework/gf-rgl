@@ -16,7 +16,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     Cl = ResKor.ClSlash ;
     ClSlash = ResKor.ClSlash ;
     SSlash  = ResKor.Sentence ; -- sentence missing NP; e.g. "she has looked at"
-    Imp     = {s : Number => Polarity => Str} ; -- imperative             e.g. "look at this"
+    Imp     = {s : Polarity => Str} ; -- imperative             e.g. "look at this"
 
 --2 Questions and interrogatives
 
@@ -115,7 +115,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     N = ResKor.Noun ;
     N2 = ResKor.Noun2 ;
     N3 = ResKor.Noun3 ;
-    PN = ResKor.NounPhrase ;
+    GN, SN, LN, PN = ResKor.NounPhrase ;
 
 linref
   V, V2, V3 = linVerb ;

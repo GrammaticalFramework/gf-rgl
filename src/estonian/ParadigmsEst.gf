@@ -617,9 +617,10 @@ oper
     mkA : N -> A = \n -> noun2adjDeg n ** {infl = Regular} ;
     mkA : N -> (parem,parim : Str) -> A = regAdjective ;
     mkA : N -> (infl : Infl) -> A = \n,infl -> noun2adjDeg n ** {infl = infl} ;
-    -- TODO: temporary usage of regAdjective1
     mkA : N -> (valmim,valmeim : Str) -> (infl : Infl) -> A =
-		\n,c,s,infl -> (regAdjective1 n c s) ** {infl = infl} ;
+		\n,c,s,infl ->
+      let regA : A = regAdjective n c s
+       in regA ** {infl = infl} ;
   } ;
 
   invA balti = lin A {s = \\_,_ => balti ; infl = Invariable} ;
@@ -643,11 +644,6 @@ oper
       (noun2adj posit)
       (noun2adjComp False (nForms2N (hjk_type_IVb_audit compar "a")))
       (noun2adjComp False (nForms2N (hjk_type_IVb_audit superl "a"))) ;
-
-  -- TODO: this is a temporary hack that converts A ~> Adjective.
-  -- The caller needs this otherwise ** fails.
-  -- This should be cleaned up but I don't know how (K).
-  regAdjective1 : Noun -> Str -> Str -> Adjective = regAdjective ;
 
   -- Adjectives whose comparison forms can be derived from the sg gen.
   -- In case of comparative this fails only for 70 adjectives.
@@ -925,5 +921,7 @@ oper
   mkA2S a p = mkA2 a p ;
   mkAV  a = a ;
   mkA2V a p = mkA2 a p ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 } ;

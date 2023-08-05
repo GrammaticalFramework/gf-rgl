@@ -288,34 +288,50 @@ resource MorphoFin = ResFin ** open Prelude in {
       (jalaksi + "n" + a) (jalaksi + "ss" + a) (jalaksi + "in") ;
 
   dSDP : Str -> NForms = \SDP ->
-    let
-      c = case Predef.toUpper (last SDP) of {
-        "A" =>
-           <"n","ta","na","han","iden","ita","ina","issa","ihin"> ;
-        "B" | "C" | "D" | "E" | "G" | "P" | "T" | "V" | "W" =>
-           <"n","tä","nä","hen","iden","itä","inä","issä","ihin"> ;
-        "F" | "L" | "M" | "N" | "R" | "S" | "X" =>
-           <"n","ää","nä","ään","ien","iä","inä","issä","iin"> ;
-        "H" | "K" | "O" | "Å" =>
-           <"n","ta","na","hon","iden","ita","ina","issa","ihin"> ;
-        "I" | "J" =>
-           <"n","tä","nä","hin","iden","itä","inä","issä","ihin"> ;
-        "Q" | "U" =>
-           <"n","ta","na","hun","iden","ita","ina","issa","ihin"> ;
-        "Z" =>
-           <"n","aa","na","aan","ojen","oja","oina","oissa","oihin"> ;
-        "Ä" =>
-           <"n","tä","nä","hän","iden","itä","inä","issä","ihin"> ;
-        "Ö" =>
-           <"n","tä","nä","hön","iden","itä","inä","issä","ihin"> ;
-        "Y" =>
-           <"n","tä","nä","hyn","iden","itä","inä","issä","ihin"> ;
-        _ => Predef.error (["illegal abbreviation"] ++ SDP)
-        } ;
+    let c : Str*Str*Str*Str*Str*Str*Str*Str*Str = case SDP of {
+          _ + P@? + (")"|"]"|"!"|"?"|"-") -- ignore punctuation after vowel, e.g. Poly(A):n
+                  => getCases P SDP ;
+          _ + P@? => getCases P SDP } ;
     in nForms10
       SDP (SDP + ":" + c.p1) (SDP + ":" + c.p2) (SDP + ":" + c.p3)
       (SDP + ":" + c.p4) (SDP + ":" + c.p5) (SDP + ":" + c.p6)
       (SDP + ":" + c.p7) (SDP + ":" + c.p8) (SDP + ":" + c.p9) ;
+
+    -- Helper function for dSDP
+    getCases : Str -> Str -> Str*Str*Str*Str*Str*Str*Str*Str*Str ;
+    getCases c errorMsg = case Predef.toUpper c of {
+      "A" =>
+          <"n","ta","na","han","iden","ita","ina","issa","ihin"> ;
+      "B" | "C" | "D" | "E" | "G" | "P" | "T" | "V" | "W" =>
+          <"n","tä","nä","hen","iden","itä","inä","issä","ihin"> ;
+      "F" | "L" | "M" | "N" | "R" | "S" | "X" =>
+          <"n","ää","nä","ään","ien","iä","inä","issä","iin"> ;
+      "H" | "K" | "O" | "Å" =>
+          <"n","ta","na","hon","iden","ita","ina","issa","ihin"> ;
+      "I" | "J" =>
+          <"n","tä","nä","hin","iden","itä","inä","issä","ihin"> ;
+      "Q" | "U" =>
+          <"n","ta","na","hun","iden","ita","ina","issa","ihin"> ;
+      "Z" =>
+          <"n","aa","na","aan","ojen","oja","oina","oissa","oihin"> ;
+      "Ä" =>
+          <"n","tä","nä","hän","iden","itä","inä","issä","ihin"> ;
+      "Ö" =>
+          <"n","tä","nä","hön","iden","itä","inä","issä","ihin"> ;
+      "Y" =>
+          <"n","tä","nä","hyn","iden","itä","inä","issä","ihin"> ;
+      "1" | "5" =>
+          <"n","tä","nä","een","ien","iä","inä","issä","iin"> ;
+      "2" | "6" =>
+          <"n","ta","na","een","ien","ia","ina","issa","iin"> ;
+      "4" | "7" | "9" =>
+          <"n","ää","nä","ään","ien","iä","inä","issä","iin"> ;
+      "3" =>
+          <"n","a","na","een","ien","ia","ina","issa","iin"> ;
+      "0" | "8" =>
+          <"n","aa","na","aan","ien","ia","ina","issa","iin"> ;
+      _ => --- NB. not even trying to match every special character, add your own if needed!
+          <"n","a","na","iin","ien","ia","ina","issa","ihin"> } ;
 
 -- for adjective comparison
 

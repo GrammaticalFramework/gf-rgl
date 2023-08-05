@@ -142,6 +142,11 @@ resource ParadigmsTur = open
     -- Paradigm for regular noun
     regN : Str -> N ;
 
+    mkPN = overload {
+        mkPN : Str -> PN = regPN ;
+        mkPN : Str -> Str -> PN = makePN ;
+    } ;
+    
     -- Paradigm for proper noun
     regPN : Str -> PN ;
 
@@ -150,7 +155,7 @@ resource ParadigmsTur = open
 
     -- digits can be seen as proper noun, but we need an additional harmony argument
     -- since harmony information can not be extracted from digit string.
-    makeHarPN : Str -> Str -> Harmony -> Noun ;
+    makeHarNoun : Str -> Str -> Harmony -> Noun ;
 
     -- Link two nouns, e.g. zeytin (olive) + yağ (oil) -> zeytinyağı (olive oil)
     linkNoun : (tere,yag : N) -> Species -> Contiguity -> N ;
@@ -388,24 +393,28 @@ resource ParadigmsTur = open
 
     regPN sn = makePN sn sn ;
 
-    makeHarPN sn sy har =
+    makeHarNoun sn sy har =
       let bn = sn + "'" ;
           by = sy + "'" ;
-          pln = add_number Pl bn har.vow ;
-      in
-      mkNoun sn
-            (addSuffix by har accSuffix)
-            (addSuffix by har datSuffix)
-      (addSuffix by har genSuffix)
-      (addSuffix bn har locSuffix)
-      (addSuffix bn har ablatSuffix)
-            (addSuffix bn har abessPosSuffix)
-      (addSuffix bn har abessNegSuffix)
-      by
-            pln
-            har ;
+          pln = add_number Pl bn har.vow
+      in mkNoun sn
+                (addSuffix by har accSuffix)
+                (addSuffix by har datSuffix)
+                (addSuffix by har genSuffix)
+                (addSuffix bn har locSuffix)
+                (addSuffix bn har ablatSuffix)
+                (addSuffix bn har abessPosSuffix)
+                (addSuffix bn har abessNegSuffix)
+                by
+                pln
+                har ;
 
-    makePN sn sy = makeHarPN sn sy (getHarmony sn) ;
+    makePN sn sy = 
+      let noun = makeHarNoun sn sy (getHarmony sn)
+      in lin PN { s = \\c => noun.s ! Sg ! c ;
+                  h = noun.h ;
+                  n = Sg
+                } ;
 
     linkNoun n1 n2 lt ct =
         let n1sn = n1.s ! Sg ! Nom ;--tere
@@ -565,8 +574,8 @@ resource ParadigmsTur = open
       in
       {
         s = table {
-    NCard => (makeHarPN card card harCard).s ;
-    NOrd  => (makeHarPN ordi ordi harOrd).s
+              NCard => (makeHarNoun card card harCard).s ;
+              NOrd  => (makeHarNoun ordi ordi harOrd).s
         } ;
         n = num
       } ;
@@ -622,5 +631,8 @@ resource ParadigmsTur = open
                       -- (here is the list: al-, bil-, bul-, dur-, gel-, gör-,
                       -- kal-, ol-, öl-, var-, ver-, vur-, san- )
       | SgSylConReg ; -- one syllable ending with consonant, takes -er
+
+  oper
+    mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 }

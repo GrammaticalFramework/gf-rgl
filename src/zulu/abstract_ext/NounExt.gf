@@ -38,10 +38,15 @@ abstract NounExt = Cat,CatExt ** {
 
     UsePNPl : PN -> NP ;
 
-    Deverb15 : V -> N ;
+    Deverb15 : Pol -> VP -> NP ;
+    -- DeverbV215 : Pol -> V2 -> NP -> NP ;
 
-    LocNP : NP -> Loc ;
+    -- LocNP : NP -> Loc ;
 
-    LocNLoc : LocN -> Loc ;
+    -- LocNLoc : LocN -> Loc ;
+
+    -- LocNPossNP : LocN -> NP -> LocN ;
+
+    LocAdvLoc : LocAdv -> Loc ;
 
 }

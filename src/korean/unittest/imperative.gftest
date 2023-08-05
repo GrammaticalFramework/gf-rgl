@@ -1,0 +1,86 @@
+-- Imperative forms, positive and negative
+
+-- Intransitive verbs, positive
+Lang: UttImpSg PPos (ImpVP (UseV come_V))
+LangEng: come
+LangKor: 와요
+
+Lang: UttImpSg PPos (ImpVP (UseV go_V))
+LangEng: go
+LangKor: 가요
+
+Lang: UttImpSg PPos (ImpVP (UseV laugh_V))
+LangEng: laugh
+LangKor: 웃어요
+
+Lang: UttImpSg PPos (ImpVP (UseV sing_V))
+LangEng: sing
+LangKor: 노래해요
+
+-- Intransitive verbs, negative
+Lang: UttImpSg PNeg (ImpVP (UseV come_V))
+LangEng: don't come
+LangKor: 오지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (UseV go_V))
+LangEng: don't go
+LangKor: 가지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (UseV laugh_V))
+LangEng: don't laugh
+LangKor: 웃지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (UseV sing_V))
+LangEng: don't sing
+LangKor: 노래하지 마새요
+
+
+-- Transitive verbs, positive
+Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a do_V2) something_NP))
+LangEng: do something
+LangKor: 무엇을 해요
+
+Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a drink_V2) something_NP))
+LangEng: drink something
+LangKor: 무엇을 마셔요
+
+Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a eat_V2) something_NP))
+LangEng: eat something
+LangKor: 무엇을 먹어요
+
+Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a have_V2) something_NP))
+LangEng: have something
+LangKor: 무엇을 있어요
+
+Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a like_V2) something_NP))
+LangEng: like something
+LangKor: 무엇을 좋아해요
+
+Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a see_V2) something_NP))
+LangEng: see something
+LangKor: 무엇을 봐요
+
+-- Transitive verbs, negative
+Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a do_V2) something_NP))
+LangEng: don't do something
+LangKor: 무엇을 하지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a drink_V2) something_NP))
+LangEng: don't drink something
+LangKor: 무엇을 마시지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a eat_V2) something_NP))
+LangEng: don't eat something
+LangKor: 무엇을 먹지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a have_V2) something_NP))
+LangEng: don't have something
+LangKor: 무엇을 없지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a like_V2) something_NP))
+LangEng: don't like something
+LangKor: 무엇을 좋아하지 마새요
+
+Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a see_V2) something_NP))
+LangEng: don't see something
+LangKor: 무엇을 보지 마새요

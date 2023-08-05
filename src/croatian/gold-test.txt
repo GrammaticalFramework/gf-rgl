@@ -1,0 +1,585 @@
+s . Sg => Nom => izvor
+s . Sg => Gen => izvora
+s . Sg => Dat => izvoru
+s . Sg => Acc => izvor
+s . Sg => Voc => izvore
+s . Sg => Loc => izvoru
+s . Sg => Ins => izvorom
+s . Pl => Nom => izvori
+s . Pl => Gen => izvora
+s . Pl => Dat => izvorima
+s . Pl => Acc => izvore
+s . Pl => Voc => izvori
+s . Pl => Loc => izvorima
+s . Pl => Ins => izvorima
+g . Masc Inanim
+s . Sg => Nom => nokat
+s . Sg => Gen => nokta
+s . Sg => Dat => noktu
+s . Sg => Acc => nokat
+s . Sg => Voc => nokte
+s . Sg => Loc => noktu
+s . Sg => Ins => noktom
+s . Pl => Nom => nokti
+s . Pl => Gen => nokata
+s . Pl => Dat => noktima
+s . Pl => Acc => nokte
+s . Pl => Voc => nokti
+s . Pl => Loc => noktima
+s . Pl => Ins => noktima
+g . Masc Inanim
+s . Sg => Nom => građanin
+s . Sg => Gen => građanina
+s . Sg => Dat => građaninu
+s . Sg => Acc => građanina
+s . Sg => Voc => građanine
+s . Sg => Loc => građaninu
+s . Sg => Ins => građaninom
+s . Pl => Nom => građani
+s . Pl => Gen => građana
+s . Pl => Dat => građanima
+s . Pl => Acc => građane
+s . Pl => Voc => građani
+s . Pl => Loc => građanima
+s . Pl => Ins => građanima
+g . Masc Anim
+s . Sg => Nom => vojnik
+s . Sg => Gen => vojnika
+s . Sg => Dat => vojniku
+s . Sg => Acc => vojnika
+s . Sg => Voc => vojniče
+s . Sg => Loc => vojniku
+s . Sg => Ins => vojnikom
+s . Pl => Nom => vojnici
+s . Pl => Gen => vojnika
+s . Pl => Dat => vojnicima
+s . Pl => Acc => vojnike
+s . Pl => Voc => vojnici
+s . Pl => Loc => vojnicima
+s . Pl => Ins => vojnicima
+g . Masc Anim
+s . Sg => Nom => bubreg
+s . Sg => Gen => bubrega
+s . Sg => Dat => bubregu
+s . Sg => Acc => bubrega
+s . Sg => Voc => bubreže
+s . Sg => Loc => bubregu
+s . Sg => Ins => bubregom
+s . Pl => Nom => bubrezi
+s . Pl => Gen => bubrega
+s . Pl => Dat => bubrezima
+s . Pl => Acc => bubrege
+s . Pl => Voc => bubrezi
+s . Pl => Loc => bubrezima
+s . Pl => Ins => bubrezima
+g . Masc Anim
+s . Sg => Nom => trbuh
+s . Sg => Gen => trbuha
+s . Sg => Dat => trbuhu
+s . Sg => Acc => trbuha
+s . Sg => Voc => trbuše
+s . Sg => Loc => trbuhu
+s . Sg => Ins => trbuhom
+s . Pl => Nom => trbusi
+s . Pl => Gen => trbuha
+s . Pl => Dat => trbusima
+s . Pl => Acc => trbuhe
+s . Pl => Voc => trbusi
+s . Pl => Loc => trbusima
+s . Pl => Ins => trbusima
+g . Masc Anim
+s . Sg => Nom => čvorak
+s . Sg => Gen => čvorka
+s . Sg => Dat => čvorku
+s . Sg => Acc => čvorka
+s . Sg => Voc => čvorče
+s . Sg => Loc => čvorku
+s . Sg => Ins => čvorkom
+s . Pl => Nom => čvorci
+s . Pl => Gen => čvoraka
+s . Pl => Dat => čvorcima
+s . Pl => Acc => čvorke
+s . Pl => Voc => čvorci
+s . Pl => Loc => čvorcima
+s . Pl => Ins => čvorcima
+g . Masc Anim
+s . Sg => Nom => panj
+s . Sg => Gen => panja
+s . Sg => Dat => panju
+s . Sg => Acc => panj
+s . Sg => Voc => panju
+s . Sg => Loc => panju
+s . Sg => Ins => panjem
+s . Pl => Nom => panjevi
+s . Pl => Gen => panjeva
+s . Pl => Dat => panjevima
+s . Pl => Acc => panjeve
+s . Pl => Voc => panjevi
+s . Pl => Loc => panjevima
+s . Pl => Ins => panjevima
+g . Masc Inanim
+s . Sg => Nom => sužanj
+s . Sg => Gen => sužanja
+s . Sg => Dat => sužanju
+s . Sg => Acc => sužanj
+s . Sg => Voc => sužanju
+s . Sg => Loc => sužanju
+s . Sg => Ins => sužanjem
+s . Pl => Nom => sužnji
+s . Pl => Gen => sužanja
+s . Pl => Dat => sužnjima
+s . Pl => Acc => sužnje
+s . Pl => Voc => sužnji
+s . Pl => Loc => sužnjima
+s . Pl => Ins => sužnjima
+g . Masc Inanim
+s . Sg => Nom => prišt
+s . Sg => Gen => prišta
+s . Sg => Dat => prištu
+s . Sg => Acc => prišt
+s . Sg => Voc => prištu
+s . Sg => Loc => prištu
+s . Sg => Ins => prištem
+s . Pl => Nom => prištevi
+s . Pl => Gen => prišteva
+s . Pl => Dat => prištevima
+s . Pl => Acc => prišteve
+s . Pl => Voc => prištevi
+s . Pl => Loc => prištevima
+s . Pl => Ins => prištevima
+g . Masc Inanim
+s . Sg => Nom => stric
+s . Sg => Gen => strica
+s . Sg => Dat => stricu
+s . Sg => Acc => strica
+s . Sg => Voc => striče
+s . Sg => Loc => stricu
+s . Sg => Ins => stricem
+s . Pl => Nom => stričevi
+s . Pl => Gen => stričeva
+s . Pl => Dat => stričevima
+s . Pl => Acc => stričeve
+s . Pl => Voc => stričevi
+s . Pl => Loc => stričevima
+s . Pl => Ins => stričevima
+g . Masc Anim
+s . Sg => Nom => klinac
+s . Sg => Gen => klinca
+s . Sg => Dat => klincu
+s . Sg => Acc => klinac
+s . Sg => Voc => klinče
+s . Sg => Loc => klincu
+s . Sg => Ins => klincem
+s . Pl => Nom => klinci
+s . Pl => Gen => klinaca
+s . Pl => Dat => klincima
+s . Pl => Acc => klince
+s . Pl => Voc => klinci
+s . Pl => Loc => klincima
+s . Pl => Ins => klincima
+g . Masc Inanim
+s . Sg => Nom => posjetilac
+s . Sg => Gen => posjetioca
+s . Sg => Dat => posjetiocu
+s . Sg => Acc => posjetioca
+s . Sg => Voc => posjetioče
+s . Sg => Loc => posjetiocu
+s . Sg => Ins => posjetiočem
+s . Pl => Nom => posjetioci
+s . Pl => Gen => posjetilaca
+s . Pl => Dat => posjetiocima
+s . Pl => Acc => posjetioce
+s . Pl => Voc => posjetioci
+s . Pl => Loc => posjetiocima
+s . Pl => Ins => posjetiocima
+g . Masc Anim
+s . Sg => Nom => pepeo
+s . Sg => Gen => pepela
+s . Sg => Dat => pepelu
+s . Sg => Acc => pepeo
+s . Sg => Voc => pepele
+s . Sg => Loc => pepelu
+s . Sg => Ins => pepelom
+s . Pl => Nom => pepeli
+s . Pl => Gen => pepela
+s . Pl => Dat => pepelima
+s . Pl => Acc => pepele
+s . Pl => Voc => pepeli
+s . Pl => Loc => pepelima
+s . Pl => Ins => pepelima
+g . Masc Inanim
+s . Sg => Nom => ugao
+s . Sg => Gen => ugla
+s . Sg => Dat => uglu
+s . Sg => Acc => ugao
+s . Sg => Voc => ugle
+s . Sg => Loc => uglu
+s . Sg => Ins => uglom
+s . Pl => Nom => uglovi
+s . Pl => Gen => uglova
+s . Pl => Dat => uglovima
+s . Pl => Acc => uglove
+s . Pl => Voc => uglovi
+s . Pl => Loc => uglovima
+s . Pl => Ins => uglovima
+g . Masc Inanim
+s . Sg => Nom => bife
+s . Sg => Gen => bifea
+s . Sg => Dat => bifeu
+s . Sg => Acc => bife
+s . Sg => Voc => bifeu
+s . Sg => Loc => bifeu
+s . Sg => Ins => bifeom
+s . Pl => Nom => bifei
+s . Pl => Gen => bifea
+s . Pl => Dat => bifeima
+s . Pl => Acc => bifee
+s . Pl => Voc => bifei
+s . Pl => Loc => bifeima
+s . Pl => Ins => bifeima
+g . Masc Inanim
+s . Sg => Nom => žiri
+s . Sg => Gen => žirija
+s . Sg => Dat => žiriju
+s . Sg => Acc => žiri
+s . Sg => Voc => žiriju
+s . Sg => Loc => žiriju
+s . Sg => Ins => žirijem
+s . Pl => Nom => žiriji
+s . Pl => Gen => žirija
+s . Pl => Dat => žirijima
+s . Pl => Acc => žirije
+s . Pl => Voc => žiriji
+s . Pl => Loc => žirijima
+s . Pl => Ins => žirijima
+g . Masc Inanim
+s . Sg => Nom => taksi
+s . Sg => Gen => taksija
+s . Sg => Dat => taksiju
+s . Sg => Acc => taksi
+s . Sg => Voc => taksiju
+s . Sg => Loc => taksiju
+s . Sg => Ins => taksijem
+s . Pl => Nom => taksiji
+s . Pl => Gen => taksija
+s . Pl => Dat => taksijima
+s . Pl => Acc => taksije
+s . Pl => Voc => taksiji
+s . Pl => Loc => taksijima
+s . Pl => Ins => taksijima
+g . Masc Inanim
+s . Sg => Nom => koljeno
+s . Sg => Gen => koljena
+s . Sg => Dat => koljenu
+s . Sg => Acc => koljeno
+s . Sg => Voc => koljeno
+s . Sg => Loc => koljenu
+s . Sg => Ins => koljenom
+s . Pl => Nom => koljena
+s . Pl => Gen => koljena
+s . Pl => Dat => koljenima
+s . Pl => Acc => koljena
+s . Pl => Voc => koljena
+s . Pl => Loc => koljenima
+s . Pl => Ins => koljenima
+g . Neutr
+s . Sg => Nom => jedro
+s . Sg => Gen => jedra
+s . Sg => Dat => jedru
+s . Sg => Acc => jedro
+s . Sg => Voc => jedro
+s . Sg => Loc => jedru
+s . Sg => Ins => jedrom
+s . Pl => Nom => jedra
+s . Pl => Gen => jedara
+s . Pl => Dat => jedrima
+s . Pl => Acc => jedra
+s . Pl => Voc => jedra
+s . Pl => Loc => jedrima
+s . Pl => Ins => jedrima
+g . Neutr
+s . Sg => Nom => polje
+s . Sg => Gen => polja
+s . Sg => Dat => polju
+s . Sg => Acc => polje
+s . Sg => Voc => polje
+s . Sg => Loc => polju
+s . Sg => Ins => poljem
+s . Pl => Nom => polja
+s . Pl => Gen => polja
+s . Pl => Dat => poljima
+s . Pl => Acc => polja
+s . Pl => Voc => polja
+s . Pl => Loc => poljima
+s . Pl => Ins => poljima
+g . Neutr
+s . Sg => Nom => žena
+s . Sg => Gen => žene
+s . Sg => Dat => ženi
+s . Sg => Acc => ženu
+s . Sg => Voc => ženo
+s . Sg => Loc => ženi
+s . Sg => Ins => ženom
+s . Pl => Nom => žene
+s . Pl => Gen => žena
+s . Pl => Dat => ženama
+s . Pl => Acc => žene
+s . Pl => Voc => žene
+s . Pl => Loc => ženama
+s . Pl => Ins => ženama
+g . Fem
+s . Masc Anim => Sg => Nom => velik
+s . Masc Anim => Sg => Gen => velikog
+s . Masc Anim => Sg => Dat => velikomu
+s . Masc Anim => Sg => Acc => velikog
+s . Masc Anim => Sg => Voc => velik
+s . Masc Anim => Sg => Loc => velikom
+s . Masc Anim => Sg => Ins => velikim
+s . Masc Anim => Pl => Nom => veliki
+s . Masc Anim => Pl => Gen => velikih
+s . Masc Anim => Pl => Dat => velikim
+s . Masc Anim => Pl => Acc => velike
+s . Masc Anim => Pl => Voc => veliki
+s . Masc Anim => Pl => Loc => velikim
+s . Masc Anim => Pl => Ins => velikim
+s . Masc Inanim => Sg => Nom => velik
+s . Masc Inanim => Sg => Gen => velikog
+s . Masc Inanim => Sg => Dat => velikomu
+s . Masc Inanim => Sg => Acc => velik
+s . Masc Inanim => Sg => Voc => velik
+s . Masc Inanim => Sg => Loc => velikom
+s . Masc Inanim => Sg => Ins => velikim
+s . Masc Inanim => Pl => Nom => veliki
+s . Masc Inanim => Pl => Gen => velikih
+s . Masc Inanim => Pl => Dat => velikim
+s . Masc Inanim => Pl => Acc => velike
+s . Masc Inanim => Pl => Voc => veliki
+s . Masc Inanim => Pl => Loc => velikim
+s . Masc Inanim => Pl => Ins => velikim
+s . Fem => Sg => Nom => velika
+s . Fem => Sg => Gen => velike
+s . Fem => Sg => Dat => velikoj
+s . Fem => Sg => Acc => veliku
+s . Fem => Sg => Voc => velika
+s . Fem => Sg => Loc => velikoj
+s . Fem => Sg => Ins => velikom
+s . Fem => Pl => Nom => velike
+s . Fem => Pl => Gen => velikih
+s . Fem => Pl => Dat => velikim
+s . Fem => Pl => Acc => velike
+s . Fem => Pl => Voc => velike
+s . Fem => Pl => Loc => velikim
+s . Fem => Pl => Ins => velikim
+s . Neutr => Sg => Nom => veliko
+s . Neutr => Sg => Gen => velikog
+s . Neutr => Sg => Dat => velikomu
+s . Neutr => Sg => Acc => veliko
+s . Neutr => Sg => Voc => veliko
+s . Neutr => Sg => Loc => velikom
+s . Neutr => Sg => Ins => velikim
+s . Neutr => Pl => Nom => velika
+s . Neutr => Pl => Gen => velikih
+s . Neutr => Pl => Dat => velikim
+s . Neutr => Pl => Acc => velika
+s . Neutr => Pl => Voc => velika
+s . Neutr => Pl => Loc => velikim
+s . Neutr => Pl => Ins => velikim
+s . Masc Anim => Sg => Nom => mastan
+s . Masc Anim => Sg => Gen => masnog
+s . Masc Anim => Sg => Dat => masnomu
+s . Masc Anim => Sg => Acc => masnog
+s . Masc Anim => Sg => Voc => mastan
+s . Masc Anim => Sg => Loc => masnom
+s . Masc Anim => Sg => Ins => masnim
+s . Masc Anim => Pl => Nom => masni
+s . Masc Anim => Pl => Gen => masnih
+s . Masc Anim => Pl => Dat => masnim
+s . Masc Anim => Pl => Acc => masne
+s . Masc Anim => Pl => Voc => masni
+s . Masc Anim => Pl => Loc => masnim
+s . Masc Anim => Pl => Ins => masnim
+s . Masc Inanim => Sg => Nom => mastan
+s . Masc Inanim => Sg => Gen => masnog
+s . Masc Inanim => Sg => Dat => masnomu
+s . Masc Inanim => Sg => Acc => mastan
+s . Masc Inanim => Sg => Voc => mastan
+s . Masc Inanim => Sg => Loc => masnom
+s . Masc Inanim => Sg => Ins => masnim
+s . Masc Inanim => Pl => Nom => masni
+s . Masc Inanim => Pl => Gen => masnih
+s . Masc Inanim => Pl => Dat => masnim
+s . Masc Inanim => Pl => Acc => masne
+s . Masc Inanim => Pl => Voc => masni
+s . Masc Inanim => Pl => Loc => masnim
+s . Masc Inanim => Pl => Ins => masnim
+s . Fem => Sg => Nom => masna
+s . Fem => Sg => Gen => masne
+s . Fem => Sg => Dat => masnoj
+s . Fem => Sg => Acc => masnu
+s . Fem => Sg => Voc => masna
+s . Fem => Sg => Loc => masnoj
+s . Fem => Sg => Ins => masnom
+s . Fem => Pl => Nom => masne
+s . Fem => Pl => Gen => masnih
+s . Fem => Pl => Dat => masnim
+s . Fem => Pl => Acc => masne
+s . Fem => Pl => Voc => masne
+s . Fem => Pl => Loc => masnim
+s . Fem => Pl => Ins => masnim
+s . Neutr => Sg => Nom => masno
+s . Neutr => Sg => Gen => masnog
+s . Neutr => Sg => Dat => masnomu
+s . Neutr => Sg => Acc => masno
+s . Neutr => Sg => Voc => masno
+s . Neutr => Sg => Loc => masnom
+s . Neutr => Sg => Ins => masnim
+s . Neutr => Pl => Nom => masna
+s . Neutr => Pl => Gen => masnih
+s . Neutr => Pl => Dat => masnim
+s . Neutr => Pl => Acc => masna
+s . Neutr => Pl => Voc => masna
+s . Neutr => Pl => Loc => masnim
+s . Neutr => Pl => Ins => masnim
+s . Masc Anim => Sg => Nom => gladan
+s . Masc Anim => Sg => Gen => gladnog
+s . Masc Anim => Sg => Dat => gladnomu
+s . Masc Anim => Sg => Acc => gladnog
+s . Masc Anim => Sg => Voc => gladan
+s . Masc Anim => Sg => Loc => gladnom
+s . Masc Anim => Sg => Ins => gladnim
+s . Masc Anim => Pl => Nom => gladni
+s . Masc Anim => Pl => Gen => gladnih
+s . Masc Anim => Pl => Dat => gladnim
+s . Masc Anim => Pl => Acc => gladne
+s . Masc Anim => Pl => Voc => gladni
+s . Masc Anim => Pl => Loc => gladnim
+s . Masc Anim => Pl => Ins => gladnim
+s . Masc Inanim => Sg => Nom => gladan
+s . Masc Inanim => Sg => Gen => gladnog
+s . Masc Inanim => Sg => Dat => gladnomu
+s . Masc Inanim => Sg => Acc => gladan
+s . Masc Inanim => Sg => Voc => gladan
+s . Masc Inanim => Sg => Loc => gladnom
+s . Masc Inanim => Sg => Ins => gladnim
+s . Masc Inanim => Pl => Nom => gladni
+s . Masc Inanim => Pl => Gen => gladnih
+s . Masc Inanim => Pl => Dat => gladnim
+s . Masc Inanim => Pl => Acc => gladne
+s . Masc Inanim => Pl => Voc => gladni
+s . Masc Inanim => Pl => Loc => gladnim
+s . Masc Inanim => Pl => Ins => gladnim
+s . Fem => Sg => Nom => gladna
+s . Fem => Sg => Gen => gladne
+s . Fem => Sg => Dat => gladnoj
+s . Fem => Sg => Acc => gladnu
+s . Fem => Sg => Voc => gladna
+s . Fem => Sg => Loc => gladnoj
+s . Fem => Sg => Ins => gladnom
+s . Fem => Pl => Nom => gladne
+s . Fem => Pl => Gen => gladnih
+s . Fem => Pl => Dat => gladnim
+s . Fem => Pl => Acc => gladne
+s . Fem => Pl => Voc => gladne
+s . Fem => Pl => Loc => gladnim
+s . Fem => Pl => Ins => gladnim
+s . Neutr => Sg => Nom => gladno
+s . Neutr => Sg => Gen => gladnog
+s . Neutr => Sg => Dat => gladnomu
+s . Neutr => Sg => Acc => gladno
+s . Neutr => Sg => Voc => gladno
+s . Neutr => Sg => Loc => gladnom
+s . Neutr => Sg => Ins => gladnim
+s . Neutr => Pl => Nom => gladna
+s . Neutr => Pl => Gen => gladnih
+s . Neutr => Pl => Dat => gladnim
+s . Neutr => Pl => Acc => gladna
+s . Neutr => Pl => Voc => gladna
+s . Neutr => Pl => Loc => gladnim
+s . Neutr => Pl => Ins => gladnim
+s . Masc Anim => Sg => Nom => nizak
+s . Masc Anim => Sg => Gen => niskog
+s . Masc Anim => Sg => Dat => niskomu
+s . Masc Anim => Sg => Acc => niskog
+s . Masc Anim => Sg => Voc => nizak
+s . Masc Anim => Sg => Loc => niskom
+s . Masc Anim => Sg => Ins => niskim
+s . Masc Anim => Pl => Nom => niski
+s . Masc Anim => Pl => Gen => niskih
+s . Masc Anim => Pl => Dat => niskim
+s . Masc Anim => Pl => Acc => niske
+s . Masc Anim => Pl => Voc => niski
+s . Masc Anim => Pl => Loc => niskim
+s . Masc Anim => Pl => Ins => niskim
+s . Masc Inanim => Sg => Nom => nizak
+s . Masc Inanim => Sg => Gen => niskog
+s . Masc Inanim => Sg => Dat => niskomu
+s . Masc Inanim => Sg => Acc => nizak
+s . Masc Inanim => Sg => Voc => nizak
+s . Masc Inanim => Sg => Loc => niskom
+s . Masc Inanim => Sg => Ins => niskim
+s . Masc Inanim => Pl => Nom => niski
+s . Masc Inanim => Pl => Gen => niskih
+s . Masc Inanim => Pl => Dat => niskim
+s . Masc Inanim => Pl => Acc => niske
+s . Masc Inanim => Pl => Voc => niski
+s . Masc Inanim => Pl => Loc => niskim
+s . Masc Inanim => Pl => Ins => niskim
+s . Fem => Sg => Nom => niska
+s . Fem => Sg => Gen => niske
+s . Fem => Sg => Dat => niskoj
+s . Fem => Sg => Acc => nisku
+s . Fem => Sg => Voc => niska
+s . Fem => Sg => Loc => niskoj
+s . Fem => Sg => Ins => niskom
+s . Fem => Pl => Nom => niske
+s . Fem => Pl => Gen => niskih
+s . Fem => Pl => Dat => niskim
+s . Fem => Pl => Acc => niske
+s . Fem => Pl => Voc => niske
+s . Fem => Pl => Loc => niskim
+s . Fem => Pl => Ins => niskim
+s . Neutr => Sg => Nom => nisko
+s . Neutr => Sg => Gen => niskog
+s . Neutr => Sg => Dat => niskomu
+s . Neutr => Sg => Acc => nisko
+s . Neutr => Sg => Voc => nisko
+s . Neutr => Sg => Loc => niskom
+s . Neutr => Sg => Ins => niskim
+s . Neutr => Pl => Nom => niska
+s . Neutr => Pl => Gen => niskih
+s . Neutr => Pl => Dat => niskim
+s . Neutr => Pl => Acc => niska
+s . Neutr => Pl => Voc => niska
+s . Neutr => Pl => Loc => niskim
+s . Neutr => Pl => Ins => niskim
+VInf => čitati
+VPres Sg P1 => čitam
+VPres Sg P2 => čitaš
+VPres Sg P3 => čita
+VPres Pl P1 => čitamo
+VPres Pl P2 => čitate
+VPres Pl P3 => čitaju
+VPastPart (Masc Anim) Sg => čitao
+VPastPart (Masc Anim) Pl => čitali
+VPastPart (Masc Inanim) Sg => čitao
+VPastPart (Masc Inanim) Pl => čitali
+VPastPart Fem Sg => čitala
+VPastPart Fem Pl => čitale
+VPastPart Neutr Sg => čitalo
+VPastPart Neutr Pl => čitala
+VInf => raditi
+VPres Sg P1 => radim
+VPres Sg P2 => radiš
+VPres Sg P3 => radi
+VPres Pl P1 => radimo
+VPres Pl P2 => radite
+VPres Pl P3 => rade
+VPastPart (Masc Anim) Sg => radio
+VPastPart (Masc Anim) Pl => radili
+VPastPart (Masc Inanim) Sg => radio
+VPastPart (Masc Inanim) Pl => radili
+VPastPart Fem Sg => radila
+VPastPart Fem Pl => radile
+VPastPart Neutr Sg => radilo
+VPastPart Neutr Pl => radila
+aarnes-mbp-2:croatian aarne$ 

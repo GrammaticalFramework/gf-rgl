@@ -6,9 +6,11 @@ concrete NumeralGre of Numeral = CatGre [Numeral,Digits] ** open ResGre,Prelude 
 lincat 
   Digit = {s : DForm => CardOrd => Str} ;
   Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
-  Sub100     = {s : CardOrd =>  Str ; n : Number} ;
-  Sub1000    = {s :  CardOrd => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd =>  Str ; n : Number} ;
+  Sub100           = {s : CardOrd =>  Str ; n : Number} ;
+  Sub1000          = {s :  CardOrd => Str ; n : Number} ;
+  Sub1000000       = {s : CardOrd =>  Str ; n : Number} ;
+  Sub1000000000    = {s : CardOrd =>  Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd =>  Str ; n : Number} ;
 
 
 
@@ -58,6 +60,9 @@ lin pot3plus n m = {
         Sg => Xilias co n.s n.n ++   cardOrdXiliaSg  "χίλια" "χιλιοστός" ! co ++ m.s ! co ;
         Pl =>  Xilias co n.s n.n ++  cardOrdXiliaPl "χιλιάδες"   "χιλιοστός" ! co ++ m.s ! co }
     } ** {n = Pl} ; 
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 
 oper 

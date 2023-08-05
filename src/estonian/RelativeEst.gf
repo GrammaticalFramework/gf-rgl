@@ -5,7 +5,7 @@ concrete RelativeEst of Relative = CatEst ** open Prelude, ResEst, MorphoEst in 
   lin
 
     RelCl cl = {
-      s = \\t,a,p,_ => "nii" ++ "et" ++ cl.s ! t ! a ! p ! SDecl ;
+      s = \\t,a,p,_ => "nii" ++ "et" ++ cl.s ! t ! a ! p ;
       ---- sellainen
       c = NPCase Nom
       } ;
@@ -23,7 +23,7 @@ concrete RelativeEst of Relative = CatEst ** open Prelude, ResEst, MorphoEst in 
                         vp.sc)
                       agr vp
         in
-        cl.s ! t ! ant ! b ! SDecl ;
+        cl.s ! t ! ant ! b ;
       c = NPCase Nom
       } ;
 

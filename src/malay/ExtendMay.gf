@@ -3,22 +3,21 @@
 concrete ExtendMay of Extend = CatMay
   ** ExtendFunctor - [
     VPS           -- finite VP's with tense and polarity
-    , ListVPS
-    , VPI
+    , ListVPS, BaseVPS, ConsVPS, ConjVPS
+    , VPI, MkVPI, ComplVPIVV
     , ListVPI -- infinitive VP's (TODO: with anteriority and polarity)
     , MkVPS
-    , PredVPS
+    , PredVPS, RelVPS, QuestVPS, SQuestVPS
 
     -- excluded because RGL funs needed for them not implemented yet
-    , SlashBareV2S
     , PredAPVP
-    , ComplBareVS
 
 
     ,PresPartAP, PastPartAP
     ,GenModNP, GenNP, GenRP
     ,CompoundN
-    ,GerundNP
+    ,GerundNP, GerundAdv
+    ,ByVP
 
 
     -- VPS2 ;        -- have loved (binary version of VPS)
@@ -39,18 +38,23 @@ concrete ExtendMay of Extend = CatMay
         } ;
 
       -- BaseVPS : VPS -> VPS -> ListVPS ;
-      BaseVPS vps vps2 = twoSS vps vps2 ;
+      BaseVPS = twoSS ;
       -- ConsVPS : VPS -> ListVPS -> ListVPS ;
-      ConsVPS str listvps vps = consSS "," listvps vps ;
+      ConsVPS = consrSS ",";
       -- ConjVPS    : Conj -> [VPS] -> VPS ;      -- has walked and won't sleep
-      ConjVPS conj listvps = conjunctX conj listvps ;
+      ConjVPS = conjunctDistrSS ;
       -- PredVPS    : NP   -> VPS -> S ;          -- she [has walked and won't sleep]
       PredVPS np vps = {
         s = np.s ! Bare ++ vps.s ;
       } ;
       -- SQuestVPS  : NP   -> VPS -> QS ;         -- has she walked
+      SQuestVPS np vps = {s = "adakah" ++ np.s ! Bare ++ vps.s} ;
+
       -- QuestVPS   : IP   -> VPS -> QS ;         -- who has walked
+      QuestVPS ip vps = {s = ip.s ! Bare ++ vps.s} ;
+
       -- RelVPS     : RP   -> VPS -> RS ;         -- which won't sleep
+      RelVPS rp vps = {s = \\person => rp.s ++ vps.s} ;
 
       -- MkVPI      : VP -> VPI ;                 -- to sleep (TODO: Ant and Pol)
       MkVPI vp = {s = linVP vp} ;
@@ -92,6 +96,9 @@ concrete ExtendMay of Extend = CatMay
         s = \\_ => linVP vp
       } ;
 
+      GerundAdv vp = ss (linVP vp) ;
+
+      ByVP vp = cc2 by8means_Prep (GerundAdv vp) ;
 
       -- MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
       -- ConjVPS2  : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates

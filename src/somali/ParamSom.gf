@@ -136,15 +136,15 @@ param
     | Pl1 Inclusion
     | Pl2
     | Pl3
-    | Impers ; -- Verb agrees with Sg3, but needed for preposition contraction
+    | Impers ; -- Verb agrees with Sg3, but needed for contractions
 
-  PrepAgr =
-      Sg1_Prep
-    | Sg2_Prep
-    | Pl1_Prep Inclusion
-    | Pl2_Prep
-    | Reflexive_Prep
-    | P3_Prep ;
+  AdpObjAgr =
+      Sg1Obj
+    | Sg2Obj
+    | Pl1Obj Inclusion
+    | Pl2Obj
+    | ReflexiveObj
+    | ZeroObj ;
 
   State = Definite | Indefinite ;
 
@@ -164,27 +164,27 @@ oper
                   Sg3 _ => Pl3 ;
                   agr   => agr } ;
 
-  agr2pagr : Agreement -> PrepAgr = \a -> case a of {
-    Sg1 => Sg1_Prep ;
-    Sg2 => Sg2_Prep ;
-    Pl1 i => Pl1_Prep i ;
-    Pl2 => Pl2_Prep ;
-    _   => P3_Prep
+  agr2objAgr : Agreement -> AdpObjAgr = \a -> case a of {
+    Sg1 => Sg1Obj ;
+    Sg2 => Sg2Obj ;
+    Pl1 i => Pl1Obj i ;
+    Pl2 => Pl2Obj ;
+    _   => ZeroObj
     } ;
 
-  pagr2agr : PrepAgr -> Agreement = \a -> case a of {
-    Sg1_Prep => Sg1 ;
-    Sg2_Prep => Sg2 ;
-    Pl1_Prep i => Pl1 i ;
-    Pl2_Prep   => Pl2 ;
+  objAgr2agr : AdpObjAgr -> Agreement = \a -> case a of {
+    Sg1Obj => Sg1 ;
+    Sg2Obj => Sg2 ;
+    Pl1Obj i => Pl1 i ;
+    Pl2Obj   => Pl2 ;
     _          => Sg3 Masc
   } ;
 
   isP3 = overload {
     isP3 : Agreement -> Bool = \agr ->
       case agr of {Sg3 _ | Pl3 => True ; _ => False} ;
-    isP3 : PrepAgr -> Bool = \agr ->
-      case agr of {P3_Prep => True ; _ => False} ;
+    isP3 : AdpObjAgr -> Bool = \agr ->
+      case agr of {ZeroObj => True ; _ => False} ;
   } ;
 
 
@@ -234,18 +234,20 @@ oper
   } ;
 
 --------------------------------------------------------------------------------
--- Prepositions
+-- Adpositions
 
 param
-  Preposition = U | Ku | Ka | La | NoPrep ;
+  Adposition = U | Ku | Ka | La | NoAdp ;
 
-  PrepCombination = Ugu | Uga | Ula | Kaga | Kula | Kala
-                  | Passive | Loo | Lagu | Laga | Lala -- TODO all combinations with impersonal la: Loogu, Looga, Loola, Lagaga, Lagula, Lagala
-                  | Single Preposition ;
+  AdpCombination =
+    Single Adposition     -- 0-1 adpositions (0 = NoAdp)
+  | ImpersSubj Adposition -- impersonal subject + 0-1 adpositions
+  | Ugu | Uga | Ula
+  | Kaga | Kula | Kala ;
 
 oper
-  combine : Preposition -> Preposition -> PrepCombination = \p1,p2 ->
-    let oneWay : Preposition => Preposition => PrepCombination = \\x,y =>
+  combine : Adposition -> Adposition -> AdpCombination = \p1,p2 ->
+    let oneWay : Adposition => Adposition => AdpCombination = \\x,y =>
         case <x,y> of {
           <U,U|Ku> => Ugu ;
           <U,Ka>   => Uga ;
@@ -254,25 +256,16 @@ oper
           Ku|Ka> => Kaga ;
           <Ku,La>  => Kula ;
           <Ka,La>  => Kala ;
-          <NoPrep,p> => Single p ;
-          <p,NoPrep> => Single x ;
+          <NoAdp,p> => Single p ;
+          <p,NoAdp> => Single x ;
           <p,_> => Single x } -- for trying both ways
      in case oneWay ! p2 ! p1 of {
           Single _ => oneWay ! p1 ! p2 ;
           z        => z } ;
 
-  combinePassive : Preposition -> PrepCombination = \p ->
-    case p of {
-      U => Loo ;
-      Ku => Lagu ;
-      Ka => Laga ;
-      La => Lala ;
-      _ => Passive
-    } ;
-
-  isPassive : {c2 : PrepCombination} -> Bool = \vp ->
+  isPassive : {c2 : AdpCombination} -> Bool = \vp ->
     case vp.c2 of {
-      Passive | Lagu | Laga | Loo | Lala => True ;
+      ImpersSubj _ => True ;
       _ => False
     } ;
 

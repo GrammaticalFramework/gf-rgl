@@ -2,9 +2,12 @@
 -- use the modified files in gf-rgl/src/german
 
 concrete TestLangGer of TestLang = 
-  GrammarGer - [SlashVP, RelSlash]
+  GrammarGer - [SlashVP,RelSlash,QuestSlash,AdvSlash,SlashPrep,SlashVS,UseSlash]
   , TestLexiconGer
---  , ConstructionGer
+  , ConstructionGer
+  , ExtraGer[RNP,ReflRNP,ReflPron,ReflPoss,PredetRNP
+               ,RNPList,ConjRNP --,Base_rr_RNP,Base_nr_RNP,Base_rn_RNP,Cons_rr_RNP,Cons_nr_RNP
+    ]
   ** open ResGer,Prelude,(P=ParadigmsGer) in {
 
   flags startcat = Phr ; unlexer = text ; lexer = text ;
@@ -47,7 +50,7 @@ concrete TestLangGer of TestLang =
           c = case <v.c2.c, isaPrep v.c2> of {           --        v.objCtrl=True   HL 3/22
             <Acc, False> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
           vp2 = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = v.c2 ** {c = c} } ;
+            ** { c1 = subjPrep v.c2 } ;
         in insertInf inf vp2 ;                           -- v=lassen needs in-place inf instead
 
     PassVPSlash vp = 
@@ -63,7 +66,7 @@ concrete TestLangGer of TestLang =
        -- 3/22 works for        vp = (SlashV2V v2v reflVP): wir werden gebeten, uns zu waschen
 
     PastPartAP vp = {
-      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++ 
+      s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++
         (vp.nn ! agrP3 Sg).p3 ++ (vp.nn ! agrP3 Sg).p4 ++ vp.adj ++ vp.a2 
         ++ vp.inf.inpl.p2 ++ vp.s.s ! VPastPart af ;
       isPre = True ;
@@ -171,24 +174,42 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
 -}
     RelSlash rp cls = lin RCl {
       s = \\m,t,a,p,gn =>
---          appPrep cls.c2 (\\k => usePrepC k (\c -> rp.s ! gn ! c)) ++
           appPrep cls.c2 (rp.s ! gn) ++
           cls.s ! m ! t ! a ! p ! Sub ! gn ;
       c = cls.c2.c
       } ;
-{-
-    QuestSlash ip slash = {
+
+    QuestSlash ip slash = let gn : GenNum = case ip.n of {Sg => GSg Masc ; _ => GPl} in {
       s = \\m,t,a,p => 
             let 
               cls = slash.s ! m ! t ! a ! p ;
-              who = appPrep slash.c2 (\\k => usePrepC k (\c -> ip.s ! c)) ;
+              who = appPrepC slash.c2 ip.s ;
             in table {
-              QDir   => who ++ cls ! Inv ;
-              QIndir => who ++ cls ! Sub
+              QDir   => who ++ cls ! Inv ! (RGenNum gn);
+              QIndir => who ++ cls ! Sub ! (RGenNum gn)
               }
       } ;
--}
 
+    AdvSlash slash adv = {
+      s  = \\m,t,a,b,o,gn => slash.s ! m ! t ! a ! b ! o ! gn ++ adv.s ;
+      c2 = slash.c2
+      } ;
+
+    SlashPrep cl prep = {
+      s = \\m,t,a,p,o,gn => cl.s ! m ! t ! a ! p ! o ;
+      c2 = prep
+      } ;
+
+    SlashVS np vs slash =
+      let subj = mkSubj np PrepNom ;
+          vps = insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)
+                   ** {c2 = slash.c2 ; objCtrl = False}  -- default objCtrl guessed
+      in mkClSlash subj.p1 subj.p2 vps ;
+
+    UseSlash t p cl = {
+      s = \\o => t.s ++ p.s ++ cl.s ! t.m ! t.t ! t.a ! p.p ! o ! RSentence ;
+      c2 = cl.c2
+      } ;
 
   oper
     gnToAgr : RelGenNum -> Agr = \gn ->

@@ -266,7 +266,25 @@ oper
 
 --2 Proper Names
 --
+
+  masculine : Gender = Masc ;
+  feminine : Gender = Fem ;
+  neutr : Gender = Neut ;
+
+  male : Sex = Male ;
+  female : Sex = Female ;
+
+  mkGN : Str -> Sex -> GN =
+     \s,g -> lin GN {s = s; g = g} ;
+  mkSN = overload {
+    mkSN : Str -> SN =
+      \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN =
+      \m,f,pl -> lin SN {s = table Sex [m; f]; pl = pl} ;
+  } ;
+
   mkPN = overload {
+    mkPN : Str -> PN = \s -> {s = s; gn = GSg Masc ; lock_PN = <>} ;
     mkPN : Str -> Gender -> PN = 
       \s,g -> {s = s; gn = GSg g ; lock_PN = <>} ;
     mkPN : Str -> GenNum -> PN = 

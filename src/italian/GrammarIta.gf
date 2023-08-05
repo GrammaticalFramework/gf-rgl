@@ -14,7 +14,8 @@ concrete GrammarIta of Grammar =
   TextX - [SC,Temp,Tense,Pol,PPos,PNeg,TPres,TPast,TFut,TCond],
   IdiomIta,
   StructuralIta,
-  TenseIta
+  TenseIta,
+  NamesIta
 
   ** {
 

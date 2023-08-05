@@ -37,8 +37,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
       s = \\pol,impform => adv.s ++ imp.s ! pol ! impform
     } ;
 
--- to save (67299 - 27432 = 39863 msec) compile time: HL 7/22, comment out:
--- resp. 167061 msec without, 159037 msec with this SlashVP, 53 % memory
+-- to save compile time: HL 7/22, comment SlashVP out:
 -- + SlashV2VNP 199065600 (46080,240)
 -- + SlashVP 414720 (28224,204)
 
@@ -83,7 +82,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 
     SSubjS a s b = {s = \\o => a.s ! o ++ "," ++ s.s ++ b.s ! Sub} ;
 
-	RelS s r = {s = \\o => s.s ! o ++ "," ++ r.s ! RSentence} ; --- "was"
+    RelS s r = {s = \\o => s.s ! o ++ "," ++ r.s ! RSentence} ; --- "was"
 
 
 }

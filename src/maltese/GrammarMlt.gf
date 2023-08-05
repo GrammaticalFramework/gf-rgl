@@ -20,7 +20,8 @@ concrete GrammarMlt of Grammar =
   TextX - [Adv],
   StructuralMlt,
   IdiomMlt,
-  TenseX - [Adv]
+  TenseX - [Adv],
+  NamesMlt
   ** {
 
   flags coding=utf8 ;

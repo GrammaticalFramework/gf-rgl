@@ -7,7 +7,7 @@ flags optimize = all_subs ;
     coding=utf8 ;
 
 lincat
-  Sub1000000 = {s : CardOrd => Str ; n : MorphoFin.Number} ;
+  Sub1000000, Sub1000000000, Sub1000000000000 = {s : CardOrd => Str ; n : MorphoFin.Number} ;
   Digit = {s : CardOrd => Str} ;
   Sub10, Sub100, Sub1000 = {s : NumPlace => CardOrd => Str ; n : MorphoFin.Number} ;
 
@@ -44,21 +44,21 @@ lin
     n = Sg
     } ;
   pot0 d = {n = Pl ; s = \\_ => d.s} ;
+  pot0as1 n = n ;
+
   pot110 =
    {s = \\_ => kymmenenN.s ;
     n = Pl
     } ;
-
   pot111 = {n = Pl ; s = \\_,c => yksiN.s ! c ++ BIND ++ "toista"} ; ---- yhdes
   pot1to19 d = {n = Pl ; s = \\_,c => d.s ! c ++ BIND ++ "toista"} ;
-  pot0as1 n = n ;
-
   pot1 d = {n = Pl ; s = \\_,c => d.s ! c ++ BIND ++ kymmentaN.s ! c} ;
   pot1plus d e = {
     n = Pl ;
     s = \\_,c => d.s ! c ++ BIND ++ kymmentaN.s ! c ++ BIND ++ e.s ! NumIndep ! c
     } ;
   pot1as2 n = n ;
+
   pot2 d = {n = Pl ; s = \\_,c => d.s ! NumAttr ! c ++ nBIND d.n ++ sataaN.s ! d.n ! c} ; ----
   pot2plus d e = {
     n = Pl ;
@@ -66,11 +66,19 @@ lin
                  BIND ++ e.s ! NumIndep ! c
     } ;
   pot2as3 n = {n = n.n  ; s = n.s ! NumIndep} ;
+
   pot3 d = {n = Pl ; s = \\c => d.s ! NumAttr ! c ++ nBIND d.n ++ tuhattaN.s ! d.n ! c} ; ----
   pot3plus d e = {
     n = Pl ;
     s = \\c => d.s ! NumAttr ! c ++ nBIND d.n ++ tuhattaN.s ! d.n ! c ++ e.s ! NumIndep ! c
     } ;
+  pot3as4 n = n ;
+  pot3float f = {n = Pl ; s = \\c => f.s ++ BIND ++ tuhattaN.s ! Pl ! c} ;
+
+  pot4as5 n = n ;
+  pot4float f = {n = Pl ; s = \\c => f.s ++ "miljoonaa"} ;  -- KA: case inflection missing
+
+  pot51 = {n = Pl ; s = \\c => "miljardi"} ;  -- KA: case inflection missing
 
 oper
 --  co : (c,o : {s : NForm => Str}) -> {s : CardOrd => Str} = \c,o -> {

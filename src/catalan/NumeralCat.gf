@@ -12,6 +12,8 @@ lincat
   Sub100 = {s : CardOrd => Str ; n : Number} ;
   Sub1000 = {s : CardOrd => Str ; n : Number} ;
   Sub1000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => Str ; n : Number} ;
 
 	
 -- Auxiliaries
@@ -125,7 +127,9 @@ lin
 	pot3plus n m = 
 		{s= \\co => (table {Sg => []; Pl => (n.s ! co)} ! n.n) ++ "mil" ++ (m.s !co);
 		n= Pl} ;
-	
+
+	pot3as4 n = n ;
+	pot4as5 n = n ;
 
 param
 	DForm = unit | teen | ten | tenplus | Aunit | OrdF ;

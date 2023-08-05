@@ -323,8 +323,8 @@ concrete ExtraGrc of ExtraGrcAbs = CatGrc, NumeralGrc[Sub1000000,tenthousand] **
     Sub10000 = {s : CardOrd => Str ; n : Number} ;   -- TODO: constructors
 
   lin                                                -- d * 10000
-    pot4 d = { s = \\f => d.s ! NAdv ++ (tenthousand ! f) ; n = Pl } ;
-    pot4plus d m = {
+    pot3X d = { s = \\f => d.s ! NAdv ++ (tenthousand ! f) ; n = Pl } ;
+    pot3Xplus d m = {
          s = \\f => d.s ! NAdv ++ tenthousand ! f ++ "kai`" ++ m.s ! f ; n = Pl} ;
 
 

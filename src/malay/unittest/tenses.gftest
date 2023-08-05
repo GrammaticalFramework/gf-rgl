@@ -13,6 +13,9 @@ Lang: UseCl (TTAnt TFut ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (Use
 LangEng: the cat will walk
 LangMay: kucing akan berjalan
 
+Lang: PredVP (UsePron i_Pron) (ComplSlash (SlashV2V beg_V2V (UseV go_V)) (UsePron she_Pron))
+LangEng: I begged her to go
+
 -------------
 -- Conditions
 

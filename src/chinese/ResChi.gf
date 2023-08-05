@@ -112,7 +112,8 @@ oper
     isAdj : Bool ;   -- whether it is an adjectival predication and behaves differently in relative
     } ;
 
-  NP = {s : Str} ;
+  NP = {det,s : Str} ; -- keep Det separate, because RelNP may put in a RS and that goes before the Det
+  linNP : NP -> Str = \np -> np.det ++ np.s ;
 
 -- for morphology
 
@@ -192,11 +193,11 @@ oper
       } ;
 
   insertObj : NP -> VP -> VP = \np,vp -> vp ** {
-     compl = np.s ++ vp.compl ;
+     compl = linNP np ++ vp.compl ;
      } ;
 
   insertObjPost : NP -> VP -> VP = \np,vp -> vp ** {
-     compl = vp.compl ++ np.s ;
+     compl = vp.compl ++ linNP np ;
      } ;
 
    insertAdv : SS -> VP -> VP = \adv,vp -> vp ** {
@@ -215,7 +216,7 @@ oper
      } ;
 
    insertExtra : SS -> VP -> VP = \ext,vp ->
-     insertObjPost ext vp ;
+     insertObjPost (mkNP ext.s) vp ;
 
 -- clauses: keep np and vp separate to enable insertion of IAdv
 
@@ -250,7 +251,7 @@ oper
    mkClauseCompl : Str -> VP -> Str -> Clause = \np,vp,compl -> {
      s = \\p,a => vp.topic ++ np ++ vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl ++ compl ;
      np = vp.topic ++ np ;
-     vp = insertObj (ss compl) vp ;
+     vp = insertObj (mkNP compl) vp ;
      postJiu = \\p,a => vp.prePart ++ useVerb vp.verb ! p ! a ++ vp.compl ++ compl ;
      } ;
 
@@ -278,7 +279,8 @@ oper
     } ;
 
   pronNP : (s : Str) -> NP = \s -> {
-    s = word s
+    s = word s ;
+    det = []
     } ;
 
   Preposition = {prepPre : Str ; prepPost : Str ; advType : AdvType ; hasDe : Bool} ;
@@ -289,6 +291,8 @@ oper
     advType  = at ;
     hasDe = advTypeHasDe at ;
     } ;
+
+  linPrep : Preposition -> Str = \p -> p.prepPre ++ p.prepPost ;
 
   advTypeHasDe : AdvType -> Bool = \at -> case at of {
       ATPoss => True ;
@@ -314,7 +318,7 @@ oper
 
 -- added by AR
 
-  mkNP     : Str -> NP = ss ;  -- not to be used in lexicon building
+  mkNP     : Str -> NP = \s -> {s = s ; det = []} ;  -- not to be used in lexicon building
 
   appPrep : Preposition -> Str -> Str = \prep,s ->
     prep.prepPre ++ s ++ prep.prepPost ;

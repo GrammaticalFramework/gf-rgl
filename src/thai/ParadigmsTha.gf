@@ -100,5 +100,6 @@ oper
   mkPrep : Str -> Prep = 
     \s -> lin Prep (ss s) ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
   
 }

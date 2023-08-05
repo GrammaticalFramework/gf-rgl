@@ -8,6 +8,8 @@ lincat
   Sub100 = {s : CardOrd => Str ; n : Number} ;
   Sub1000 = {s : CardOrd => Str ; n : Number} ;
   Sub1000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => Str ; n : Number} ;
 
 lin num x = x ;
 
@@ -65,6 +67,9 @@ lin pot2plus d e =
 lin pot2as3 n = n ;
 lin pot3 n = spl (\\g => n.s ! NCard Masc ++ mil g) ;
 lin pot3plus n m = {s = \\g => n.s ! NCard Masc ++ mil g ++ m.s ! g ; n = Pl} ;
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 oper
   mkTal : (x1,_,_,_,_,_,_,x8 : Str) -> {s : DForm => CardOrd => Str} =

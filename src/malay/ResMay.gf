@@ -13,6 +13,7 @@ oper
   CNoun : Type = Noun ** {
     heavyMod : Str ; -- heavy stuff like relative clauses after determiner
     } ;
+  linCN : CNoun -> Str = \cn -> cn.s ! NF Sg Bare ++ cn.heavyMod ;
 
   PNoun : Type = Noun ;
 
@@ -205,7 +206,9 @@ oper
 
   mkAdj : Str -> Adjective = \str -> {s = str} ;
 
-  AdjPhrase : Type = Adjective ; -- ** {compar : Str} ;
+  AdjPhrase = {
+    s : Str
+    } ; -- ** {compar : Str} ;
 --------------------------------------------------------------------------------
 -- Verbs
 
@@ -214,7 +217,6 @@ oper
     } ;
   Verb2 : Type = Verb ** {
     c2 : Preposition ;
-    passive : Str
     } ;
 
   Verb3 : Type = Verb2 ** {
@@ -223,22 +225,24 @@ oper
 
   Verb4 : Type = Verb ** {
     c2 : Preposition ;
-    passive : Str
     } ;
 
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
-  mkVerb : Str -> Prefix -> Verb = \str,p -> {
+  regVerb : Str -> Prefix -> Verb = \str,p ->
+    mkVerb str (prefix p str) ("di" + str) (str + "kan") ;
+
+  mkVerb : (makan, memakan, dimakan, makankan : Str) -> Verb = \rt,act,pass,imp -> {
     s = table {
-      Root => str ;
-      Active => prefix p str ;
-      Imperative => str ++ BIND ++ "kan"
+      Root => rt ;
+      Active => act ;
+      Passive => pass ;
+      Imperative => imp
       }
     } ;
 
   mkVerb2 : Verb -> Preposition -> Verb2 = \v,pr -> v ** {
     c2 = pr ;
-    passive = "di" ++ BIND ++ v.s ! Root
     } ;
 
   mkVerb3 : Verb -> (p,q : Preposition) -> Verb3 = \v,p,q ->
@@ -251,6 +255,16 @@ oper
     } ;
 
   copula : Verb = {s = \\_ => "ada"} ; -- TODO
+
+  -- insertObjc : (Agr => Str) -> SlashVP -> SlashVP = \obj,vp ->
+  -- insertObj obj vp ** {c2 = vp.c2 ; gapInMiddle = vp.gapInMiddle ; missingAdv = vp.missingAdv } ;
+  insertObj : Str -> VerbPhrase -> VerbPhrase = \str,vp -> vp ** {
+    s = \\vf,pol => str ++ vp.s ! Active ! Pos ;
+    } ;
+
+  insertComp : AdjPhrase -> VerbPhrase -> VerbPhrase = \ap,vp -> vp ** {
+  s = \\vf,pol => vp.s ! Active ! Pos ++ ap.s ;
+  } ;
 ------------------
 -- Adv
 
@@ -309,16 +323,22 @@ oper
     pred : VForm => Polarity => Str -- Cl may become relative clause, need to keep open VForm
     } ;
 
+  linCl : Clause -> Str = \cl -> cl.subj ++ cl.pred ! Active ! Pos ;
+
   RClause : Type = {
     subj : Str ;
     pred : Person => Polarity => Str
     } ;
 
+  linRCl : RClause -> Str = \cl -> cl.subj ++ cl.pred ! P1 ! Pos ;
+
   RS : Type = {s : Person => Str} ;
 
   ClSlash : Type = Clause ** {c2 : Preposition} ;
+  linClSlash : ClSlash -> Str = \cl -> cl.subj ++ cl.pred ! Root ! Pos ++ cl.c2.s ;
 
   Sentence : Type = {s : Str} ;
+
 
   predVP : NounPhrase -> VerbPhrase -> Clause = \np,vp -> {
     subj = np.s ! Bare ;
@@ -327,6 +347,8 @@ oper
 
   predVPSlash : NounPhrase -> VPSlash -> ClSlash = \np,vps ->
     predVP np <vps : VerbPhrase> ** {c2 = vps.c2} ;
+
+  linS : Sentence -> Str = \sent -> sent.s ;
 
 
   -- mkClause : Str -> NounPhrase -> VPSlash -> Clause = \str,np,vp -> {

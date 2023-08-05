@@ -38,6 +38,34 @@ lin
          )
     } ;
 
+  InflectionGN = \pn -> {
+    t  = "gn" ;
+    s1 = heading1 ("Given Name" ++
+                    case pn.g of {
+                      Neutr => "";
+                      Masc  => "(masc)";
+                      Fem   => "(fem)"
+                    }) ;
+    s2 = frameTable (
+           tr (th "nom"        ++ th "gen") ++
+           tr (td (pn.s ! Nom) ++ td (pn.s ! Gen))
+         )
+    } ;
+
+  InflectionSN = \pn -> {
+    t  = "sn" ;
+    s1 = heading1 ("Secondary Name" ++
+                    case pn.g of {
+                      Neutr => "";
+                      Masc  => "(masc)";
+                      Fem   => "(fem)"
+                    }) ;
+    s2 = frameTable (
+           tr (th "nom"        ++ th "gen") ++
+           tr (td (pn.s ! Nom) ++ td (pn.s ! Gen))
+         )
+    } ;
+
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 "Adjective" ;

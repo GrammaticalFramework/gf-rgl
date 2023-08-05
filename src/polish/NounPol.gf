@@ -111,9 +111,9 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
       g = n2.g
     };
     
-    ComplN3 n3 np = {
+    ComplN3 n3 np = lin N2 {
       s =
-        \\sf => n3.s ! sf ++ n3.c.s ++ np.dep ! n3.c.c ;
+        \\sf => n3.s ! sf ++ n3.c1.s ++ np.dep ! n3.c1.c ;
       c = n3.c2;
       g = n3.g
     };
@@ -126,7 +126,7 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     Use2N3 n3 = {
       s = n3.s;
       g = n3.g;
-      c = n3.c
+      c = n3.c1
     };
 
     Use3N3 n3 = {
@@ -163,6 +163,8 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     
 --     NumDigits  : Digits  -> Card ;  -- 51
     NumDigits n =  { s=\\_,_ => n.s; a=n.a; n=n.n };
+
+    NumFloat n1 n2 =  { s=\\_,_ => n1.s ++ BIND ++ "." ++ BIND ++ n2.s; a=n1.a; n=Pl };
     
 --     NumCard : Card -> Num ;
     NumCard c = c ** { hasCard = True };
@@ -207,5 +209,19 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     };
 
     DetDAP d = d ;
+
+    QuantityNP n m = {
+      nom,voc = preOrPost m.isPre m.s n.s;
+      dep = \\cc => preOrPost m.isPre m.s n.s ;
+      gn = OthersPl;
+      p = P3
+      } ;
+
+    QuantityFloatNP n1 n2 m = {
+      nom,voc = preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
+      dep = \\cc => preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
+      gn = OthersPl;
+      p = P3
+      } ;
 
 }

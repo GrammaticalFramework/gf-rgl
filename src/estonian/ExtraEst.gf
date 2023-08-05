@@ -23,7 +23,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
 ---      a = RAg (agrP3 num.n)
       } ;
   oper
-    caseCN : CasePlus -> NP -> CN -> CN = \c,np,cn -> cn ** {
+    caseCN : CasePlus -> NPhrase -> CNoun -> CNoun = \c,np,cn -> cn ** {
       s = \\nf => appCompl True Pos (P.casePrep c) np ++ cn.s ! nf
       } ;
 
@@ -38,7 +38,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
     linVPI : InfForms -> LinVPI -> Str = \inf,vpi -> vpi.s ! inf.stem ;
 
     -- Version that uses InfStem
-    infVPIF : NPForm -> Polarity -> Agr -> VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
+    infVPIF : NPForm -> Polarity -> Agr -> ResEst.VP -> InfStem -> Str = \sc,pol,agr,vp,if ->
       infVPAnt Simul sc pol agr vp {stem=if ; suf="a"} ;
 
   lin
@@ -135,7 +135,7 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
             (\\_,b,_ => linNP (NPCase Nom) np)
             (predV (verbOlema ** {sc = NPCase Nom}))) ;
       in
-      cl.s ! t ! ant ! bo ! SDecl ;
+        cl.s ! t ! ant ! bo ;
       c = NPCase Nom
       } ;
 
@@ -144,18 +144,20 @@ concrete ExtraEst of ExtraEstAbs = CatEst **
         (\\_,b,_ => linNP (NPCase Nom) np) (predV v)) ;
 
     ICompExistNP adv np =
-      let cl = mkClause (\_ -> adv.s ! np.a) np.a (insertObj
-        (\\_,b,_ => linNP (NPCase Nom) np) (predV (verbOlema ** {sc = NPCase Nom}))) ;
-      in  {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-      } ;
+      let subj : Polarity -> Str = \_ -> adv.s ! np.a ;
+          pred : ResEst.VP = insertObj
+                               (\\_,b,_ => linNP (NPCase Nom) np)
+                               (predV (verbOlema ** {sc = NPCase Nom})) ;
+       in mkClause subj np.a pred ;
+
 
     IAdvPredNP iadv v np =
-      let cl = mkClause (\_ -> iadv.s) np.a (insertObj
-                 (\\_,b,_ => linNP v.sc np) (predV v)) ;
-      in  {
-        s = \\t,a,p => cl.s ! t ! a ! p ! SDecl
-      } ;
+      let subj : Polarity -> Str = \_ -> iadv.s ;
+          pred : ResEst.VP = insertObj
+                               (\\_,b,_ => linNP v.sc np)
+                               (predV v) ;
+       in mkClause subj np.a pred ;
+
 
 --    i_implicPron = mkPronoun [] "minun" "minua" "minuna" "minuun" Sg P1 ;
     whatPart_IP = emptyIP ** {

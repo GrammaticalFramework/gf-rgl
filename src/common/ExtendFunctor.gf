@@ -114,6 +114,7 @@ lin
   weFem_Pron = we_Pron ;  -- DEFAULT we (masc)
   youPlFem_Pron = youPl_Pron ;  -- DEFAULT you plural (masc)
   theyFem_Pron = they_Pron ;  -- DEFAULT they (masc)
+  theyNeutr_Pron = they_Pron ;  -- DEFAULT they (masc)
   youPolFem_Pron = youPol_Pron ;  -- DEFAULT you polite (masc)
   youPolPl_Pron = youPl_Pron ;  -- DEFAULT you plural (masc)
   youPolPlFem_Pron = youPl_Pron ;  -- DEFAULT you plural (masc)
@@ -134,6 +135,10 @@ lin
 
 lincat
   X = {s : Str} ;
+
+lin
+  UseComp_estar = UseComp ;
+  UseComp_ser = UseComp ;
 
 lin
   CardCNCard = variants {} ;

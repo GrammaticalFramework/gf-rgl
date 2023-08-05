@@ -16,6 +16,9 @@ oper
   feminine  = AFem;
   neuter    = ANeut;
 
+  male = Male ;
+  female = Female ;
+
   singular : Number = Sg ;
   dual : Number = Dl ;
   plural : Number = Pl ;
@@ -197,6 +200,44 @@ oper
              };
          g = g ;
          n = n
+      };
+    } ;
+
+  mkGN = overload {
+    mkGN : Str -> Sex -> GN =
+      \s,g -> lin GN {
+         s = \\_ => s ;
+         g = g
+      };
+    mkGN : (_,_,_,_,_,_ : Str) -> Sex -> GN =
+      \nom,gen,dat,acc,loc,instr,g -> lin GN {
+         s = table {
+               Nom   => nom;
+               Gen   => gen;
+               Dat   => dat;
+               Acc   => acc;
+               Loc   => loc;
+               Instr => instr
+             };
+         g = g
+      };
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN =
+      \s -> lin SN {
+         s = \\_,_ => s
+      };
+    mkPN : (_,_,_,_,_,_ : Str) -> SN =
+      \nom,gen,dat,acc,loc,instr -> lin SN {
+         s = \\_ => table {
+               Nom   => nom;
+               Gen   => gen;
+               Dat   => dat;
+               Acc   => acc;
+               Loc   => loc;
+               Instr => instr
+             }
       };
     } ;
 
@@ -809,4 +850,7 @@ oper
     
   vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
   consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"r"|"s"|"t"|"v"|"x"|"z") ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

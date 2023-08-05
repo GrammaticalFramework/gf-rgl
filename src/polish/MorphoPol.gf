@@ -8,11 +8,10 @@
 -- Description of the Polish morphology
 
 resource MorphoPol = 
-    ResPol, 
     VerbMorphoPol, 
     PronounMorphoPol,
     AdjectiveMorphoPol,
-    NounMorphoPol ** {
+    NounMorphoPol ** open CatPol, ResPol in {
 
      flags  coding=utf8; 
 
@@ -23,14 +22,14 @@ oper
 
 -- Nouns used as functions need a preposition. The most common is with Genitive.
 
-  mkN2 : CommNoun -> CommNoun2 ;
+  mkN2 : N -> N2 ;
   mkN2 n = mkFun n nullPrep ;
 
-  mkFun  : CommNoun -> Complement -> CommNoun2;
-  mkFun f p = { s = f.s; g = f.g; c = { c = p.c; s=p.s} } ;
+  mkFun  : N -> Complement -> N2;
+  mkFun f c = f ** { c = c } ;
 
-  mkN3 : CommNoun -> Complement -> Complement -> CommNoun3;
-  mkN3 f p r = { s = f.s; g = f.g; c = {s=p.s; c=p.c} ; c2 = {s=r.s; c=r.c} }; 
+  mkN3 : N -> Complement -> Complement -> N3;
+  mkN3 f c1 c2 = f ** { c1 = c1 ; c2 = c2 }; 
 
 -- Prepositions   
 

@@ -16,4 +16,5 @@ lin
   -- FocusAdv : Adv -> S       -> Utt ;   -- today I will sleep
   -- FocusAdV : AdV -> S       -> Utt ;   -- never will I sleep
   -- FocusAP  : AP  -> NP      -> Utt ;   -- green was the tree
+
 } ;

@@ -57,7 +57,17 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       }
     } ;
 
-    -- PredetNP, PPartNP, AdvNP, ExtAdvNP : not implemented
+    -- PredetNP, PPartNP, ExtAdvNP : not implemented
+
+    AdvNP np adv = {
+      empty = np.empty ;
+      s = \\nform => np.s!nform ++ adv.s ;
+      agr = np.agr ;
+      i = np.i ;
+      proDrop = False ; -- probably right?
+      isPron = np.isPron ;
+      heavy = True
+    } ;
 
     -- TODO: refactor
     RelNP np rs = {
@@ -91,7 +101,10 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     -- TODO: check refactor (no change?)
     PossNP cn np = {
       empty = cn.empty ;
-      s = \\num,nform => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!NPoss;
+      s = \\num,nform => case np.agr of {
+        Third C1a_2a Sg => cn.s!num!nform ++ poss_concord_c1a!cn.c!num ++BIND++ np.s!NPoss ;
+        (First _ | Second _ | Third _ _) => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!NPoss
+      }  ;
       -- mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!np.i ++BIND++ (poss_NP np) ;
       c = cn.c ;
       emph = cn.emph

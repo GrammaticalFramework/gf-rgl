@@ -26,7 +26,7 @@ open MorphoGer, ResGer, ParadigmsGer, SyntaxGer, Prelude, HTML in {
 flags literal=Symb ; coding = utf8 ;
 
 lin
-    ComplVV v ant p vp = 
+{-    ComplVV v ant p vp =
       let 
         vpi = infVP v.isAux vp 
       in
@@ -35,6 +35,14 @@ lin
           insertInf vpi.p2 (
             insertObj vpi.p1 (
               predVGen v.isAux v)))) ;
+-}
+    ComplVV v ant pol vp = -- HL 4/22
+      let
+        vps = predVGen v.isAux v ;
+        inf = mkInf v.isAux ant pol vp
+      in
+      insertExtrapos vp.ext (
+        insertInf inf vps) ;
 
     PastPartRS ant pol sl = {   -- guessed by KA, some fields in sl are ignored!!
       s = \\gn => let agr = agrgP3 Masc (numGenNum gn)
