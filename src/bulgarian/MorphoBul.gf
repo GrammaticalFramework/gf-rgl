@@ -165,6 +165,7 @@ oper
           NF Sg Indef => sg ;
           NF Sg Def   => case sg of {
                            _+"а"=>sg+"та" ;
+                           _+"ю"=>sg+"та" ;
                            _+"я"=>sg+"та" ;
                            _+"о"=>sg+"то" ;
                            _+"у"=>sg+"то" ;
