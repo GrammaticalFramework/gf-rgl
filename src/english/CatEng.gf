@@ -110,7 +110,7 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
     LN = {s  : Case => Str;
           p  : Str;   -- preposition "in Scandinavia", "on the Balkans"
           art : Bool; -- plain name "United States" vs "the United States"
-          a  : Agr;
+          n  : Number;
          } ;
 
   lindef

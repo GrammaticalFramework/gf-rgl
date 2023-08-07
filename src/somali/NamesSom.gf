@@ -15,4 +15,11 @@ lin FullName gn sn = {
        empty = [] ;
     } ;
 
+  UseLN pn = pn ** {
+    s = \\c => pn.s ;
+    isPron = False ;
+    st = Definite ;
+    empty = [] ;
+    } ;
+
 }

@@ -11,4 +11,12 @@ lin FullName gn sn = {
       isPron = False
       } ;
 
+    UseLN, PlainLN = \n -> {
+      s = \\c => n.s ! caseNP c ; 
+      a = agrP3 n.g n.n ;
+      isPron = False
+      } ;
+
+    InLN n = {s = n.c.s ++ n.s ! caseNP accusative} ;
+
 }

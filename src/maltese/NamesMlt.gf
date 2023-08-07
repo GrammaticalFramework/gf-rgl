@@ -13,4 +13,11 @@ lin FullName gn sn = {
       isDefn = False
       } ;
 
+lin UseLN pn = {
+      s = \\c => pn.s ;
+      a = pn.a ;
+      isPron = False ;
+      isDefn = False ;
+      } ;
+
 }

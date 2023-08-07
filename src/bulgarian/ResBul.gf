@@ -859,4 +859,9 @@ resource ResBul = ParamX ** open Prelude, Predef in {
         Female => Fem
       } ;
 
+    vyv_Str : Str
+      = pre { "в" ; 
+              "във" / strs {"в" ; "ф" ; "В" ; "Ф"}
+            } ;
+
 }

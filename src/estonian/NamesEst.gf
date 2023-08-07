@@ -11,4 +11,10 @@ lin FullName gn sn = emptyNP ** {
       isPron = False
       } ;
 
+lin UseLN pn = emptyNP ** {
+      s = \\c => pn.s ! npform2case Sg c ;
+      a = agrP3 Sg ;
+      isPron = False
+      } ;
+
 }

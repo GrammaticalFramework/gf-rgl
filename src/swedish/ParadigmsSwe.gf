@@ -154,6 +154,14 @@ oper
 
     geoPN : Str -> PN ;  -- neuter, with identical genitive if ends in a vowel
 
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> lin LN (regPN s) ** {c={s="i";hasPrep=True}; n=Sg};   -- default gender utrum
+    mkLN : Str -> Gender -> LN = \s,g -> lin LN (regGenPN s g) ** {c={s="i";hasPrep=True}; n=Sg} ; -- set other gender
+    mkLN : Str -> Gender -> Number -> LN = \s,g,n -> lin LN (regGenPN s g) ** {c={s="i";hasPrep=True}; n=n} ; -- set other gender
+    } ;
+    
+  prepLN : LN -> Prep -> LN = \n,p -> n ** {c = mkComplement p.s} ;
+
 --2 Adjectives
 
 -- Adjectives need one to seven forms. 

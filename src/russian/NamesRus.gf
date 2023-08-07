@@ -22,4 +22,10 @@ lin FullName gn sn =
         a=Ag (gennum gn.g Sg) P3
       } ;
 
+  UseLN pn = {
+    s=\\cas => (nounFormsNoun pn).s ! Sg ! cas ;
+    pron=False;
+    a=Ag (gennum pn.g Sg) P3
+    } ;   -- Does NP need animacy?
+
 }

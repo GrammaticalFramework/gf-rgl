@@ -28,6 +28,12 @@ lin
     s2 = paragraph (pn.s ! NPNom)
     } ;
 
+  InflectionLN = \ln -> {
+    t  = "ln" ;
+    s1 = heading1 "Naam" ;
+    s2 = paragraph (ln.s ! NPNom)
+    } ;
+
   InflectionGN = \pn -> {
     t  = "vnm" ;
     s1 = heading1 "Voornaam" ;

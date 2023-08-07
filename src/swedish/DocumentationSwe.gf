@@ -32,16 +32,18 @@ lin
            )
      } ;
 
-  InflectionPN = \pn -> {
+  InflectionLN = \n -> {
     t  = "nm" ;
-    s1 = heading1 ("Namn" ++ case pn.g of {
-                               Utr   => "(utr)" ;
-                               Neutr => "(neutr)"
-                             }) ;
+    s1 = heading1 ("Platsnamn" ++ case n.g of {
+                                    Utr   => "(utr)" ;
+                                    Neutr => "(neutr)"
+                                  }) ;
     s2 = frameTable (
-           tr (th "nom" ++ td (pn.s ! Nom)) ++
-           tr (th "gen" ++ td (pn.s ! Gen))
-           )
+           tr (th "nom" ++ td (n.s ! Nom)) ++
+           tr (th "gen" ++ td (n.s ! Gen))
+           ) ++
+         heading1 ("Adverb") ++
+         paragraph (n.c.s ++ n.s ! caseNP accusative) ;
      } ;
 
   InflectionGN = \pn -> {

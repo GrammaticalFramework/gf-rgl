@@ -9,4 +9,6 @@ lin FullName gn sn = {
        p  = gn.p
     } ;
 
+lin UseLN n = n;
+
 }

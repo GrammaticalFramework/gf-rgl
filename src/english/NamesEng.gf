@@ -9,12 +9,12 @@ lin UseLN n = {
                    True  => "the" ++ n.s ! npcase2case c ;
                    False => n.s ! npcase2case c
                  } ;
-      a = n.a
+      a = agrP3 n.n
     } ;
 
 lin PlainLN n = {
       s = \\c => n.s ! npcase2case c ;
-      a = n.a
+      a = agrP3 n.n
     } ;
 
 lin InLN n = {
@@ -25,7 +25,7 @@ lin InLN n = {
     } ;
     
 lin AdjLN ap n = n ** {
-      s = \\c => preOrPost ap.isPre (ap.s ! n.a) (n.s ! c) ;
+      s = \\c => preOrPost ap.isPre (ap.s ! agrP3 n.n) (n.s ! c) ;
     } ;
 
 }

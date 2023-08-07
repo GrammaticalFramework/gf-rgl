@@ -38,6 +38,23 @@ lin
          )
     } ;
 
+  InflectionLN = \n -> {
+    t  = "ln" ;
+    s1 = heading1 ("Location Name" ++
+                    case n.n of {
+                      Sg => "";
+                      Pl => "(plural)"
+                    }) ;
+    s2 = frameTable (
+           tr (th "nom"        ++ th "gen") ++
+           tr (td (n.s ! Nom) ++ td (n.s ! Gen))
+         ) ++
+         heading1 ("Adverb") ++
+         paragraph (n.p ++ case n.art of {
+                             True  => "the" ++ n.s ! Nom ;
+                             False => n.s ! Nom}) ;
+    } ;
+
   InflectionGN = \pn -> {
     t  = "gn" ;
     s1 = heading1 ("Given Name" ++

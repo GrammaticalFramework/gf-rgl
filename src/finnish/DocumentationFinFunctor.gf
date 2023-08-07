@@ -37,6 +37,12 @@ lin
     s2 = inflPN (\c -> pn.s ! c)
     } ;
 
+  InflectionLN = \pn -> {
+    t  = "s" ;
+    s1 = heading1 (heading noun_Category) ;
+    s2 = inflPN (\c -> pn.s ! c)
+    } ;
+
   InflectionGN = \pn -> {
     t  = "s" ;
     s1 = heading1 "Etunimi" ;

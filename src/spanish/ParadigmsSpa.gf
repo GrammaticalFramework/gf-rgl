@@ -155,6 +155,7 @@ oper
 
 
   defLN : LN -> LN = \n -> n ** {art = UseArt} ;
+  prepLN : LN -> Prep -> LN = \n,p -> n ** {p = p} ;
 
   mkPN : overload {
     mkPN : (Anna : Str) -> PN ; -- feminine for "-a"

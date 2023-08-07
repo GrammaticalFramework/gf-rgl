@@ -6,4 +6,6 @@ lin FullName gn sn = {
        det = []
     } ;
 
+lin UseLN pn = pn ** {det = []} ;
+
 }

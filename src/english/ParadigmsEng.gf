@@ -135,13 +135,13 @@ oper
       lin LN {s = table {Gen => s + "'s" ; _ => s} ; 
               p = "in" ;
               art = False ;
-              a = agrP3 Sg} ;
+              n = Sg} ;
 
     mkLN : Str -> Number -> LN = \s,n ->
       lin LN {s = table {Gen => s + "'s" ; _ => s} ;
               p = "in" ;
               art = False ;
-              a = agrP3 n} ;
+              n = n} ;
   } ;
 
   defLN : LN -> LN = \n -> n ** {art = True} ;

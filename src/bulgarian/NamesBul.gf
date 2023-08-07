@@ -36,4 +36,21 @@ lin FullName gn sn = {
        p = NounP3 Pos
     } ;
 
+lin UseLN, PlainLN = \n -> {
+      s = table { RObj c => linCase c Pos ++ n.s ! Def ; 
+                  _      => n.s ! Def
+                } ;
+      gn = n.gn ;
+      p = NounP3 Pos
+    } ;
+
+    InLN n = {s = n.c.s ++ linCase n.c.c Pos ++ n.s ! Def} ;
+
+    AdjLN ap n = n ** {
+      s = \\sp => case ap.isPre of {
+                    True  => ap.s ! aform n.gn sp RSubj ! P3 ++ n.s ! Indef ;
+                    False => n.s ! sp ++ ap.s ! aform n.gn sp RSubj ! P3
+                  }
+      } ;
+
 }

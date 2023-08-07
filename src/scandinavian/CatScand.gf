@@ -108,7 +108,8 @@ incomplete concrete CatScand of Cat =
       -- {s : Number => Species => Case => Str ; g : Gender} ;
     N2   = Noun  ** {c2 : Complement} ;
     N3   = Noun  ** {c2,c3 : Complement} ;
-    GN, SN, LN, PN = {s : Case => Str ; g : Gender} ;
+    LN = {s : Case => Str ; c : Complement ; g : Gender ; n : Number} ;
+    GN, SN, PN = {s : Case => Str ; g : Gender} ;
 
 
 

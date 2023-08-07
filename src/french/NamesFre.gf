@@ -7,10 +7,9 @@ lin FullName gn sn = pn2np {
     } ;
 
 lin PlainLN n = heavyNP {
-      s = \\c => n.s; 
+      s = \\c => n.s;
       a = {g = n.g ; n = n.num ; p = P3}
       } ;
-
 
 lin UseLN n = heavyNP {
       s = \\c => case n.art of {

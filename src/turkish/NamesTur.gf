@@ -16,4 +16,10 @@ lin FullName gn sn = {
       a = {n = Sg; p = P3}
     } ;
 
+lin UsePN pn = { 
+      s = \\c => pn.s ! c;
+      h = pn.h;
+      a = {n = pn.n; p = P3}
+    } ;
+
 }

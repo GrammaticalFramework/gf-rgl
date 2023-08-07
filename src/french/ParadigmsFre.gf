@@ -151,7 +151,7 @@ oper
 
   defLN : LN -> LN = \n -> n ** {art = AlwaysArt} ;
   useDefLN : LN -> LN = \n -> n ** {art = UseArt} ;
-  prepLN : LN -> Compl -> LN = \n,s -> n ** {p = s} ;
+  prepLN : LN -> Prep -> LN = \n,p -> n ** {p = p} ;
 
   mkPN  : overload {
     mkPN : Str -> PN ; -- feminine if ends with "e", otherwise masculine

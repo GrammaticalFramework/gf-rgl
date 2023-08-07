@@ -92,6 +92,21 @@ lin
     s3 = ""
     } ;
 
+  InflectionLN = \n -> {
+    t = "същ.с." ;
+    s1= heading1 ("Име за Място"++
+                  case n.gn of {
+                    GSg Masc => "(м.р.)" ;
+                    GSg Fem  => "(ж.р.)" ;
+                    GSg Neut => "(ср.р.)" ;
+                    GPl      => "(мн.ч.)"
+                  }) ;
+    s2 = paragraph (n.s ! Indef) ++
+         heading1 ("Наречие") ++
+         paragraph (n.c.s ++ linCase n.c.c Pos ++ n.s ! Def) ;
+    s3 = ""
+    } ;
+
   InflectionGN = \gn -> {
     t = "същ.с.л." ;
     s1= heading1 (case gn.g of {

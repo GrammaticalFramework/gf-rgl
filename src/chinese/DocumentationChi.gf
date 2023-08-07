@@ -117,6 +117,12 @@ lin
     s2 = n.s
     } ;
 
+  InflectionLN = \n -> {
+    t  = "v" ;
+    s1 = heading1 "Location Name" ;
+    s2 = n.s
+    } ;
+
   InflectionGN = \n -> {
     t  = "v" ;
     s1 = heading1 "Given Name" ;

@@ -35,4 +35,11 @@ lin FullName gn sn = {
       rc, ext = []
       } ;
 
+lin UseLN pn = {
+      s = \\c => usePrepC c (\k -> pn.s ! k) ;
+      a = agrgP3 pn.g pn.n ;
+      w = WLight ;  
+      rc, ext = []
+      } ;
+
 }

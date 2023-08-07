@@ -6,4 +6,6 @@ lin FullName gn sn = {
        p = gn.p
     } ;
 
+  UseLN pn = pn ;
+
 }

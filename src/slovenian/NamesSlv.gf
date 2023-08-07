@@ -21,4 +21,10 @@ lin FullName gn sn = {
       isPron = False
       } ;
 
+lin UseLN pn = {
+      s = pn.s;
+      a = {g=agender2gender pn.g; n=pn.n; p=P3};
+      isPron = False
+      } ;
+
 }
