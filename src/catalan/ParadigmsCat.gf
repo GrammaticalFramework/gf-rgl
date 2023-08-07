@@ -139,6 +139,12 @@ oper
     mkPN : N -> PN ;
     } ;
 
+  mkLN : Str -> LN = \s ->
+    lin LN {s = s ;
+            p =  {s=""; c=CPrep P_a; isDir=True} ;
+            art = NoArt ;
+            g = Masc ;
+            num = Sg} ;
 
 --2 Adjectives
 

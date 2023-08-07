@@ -206,6 +206,13 @@ oper
       = \n -> lin PN {s = n.s ! Sg ; g = n.g} ;
     } ;
 
+  mkLN : Str -> LN = \s ->
+    lin LN {s = s ;
+            p =  {s=""; c=CPrep P_a; isDir=True} ;
+            art = NoArt ;
+            g = Masc ;
+            num = Sg} ;
+
 --2 Adjectives
   compADeg : Adj -> A ; --%
   compADeg a = lin A
