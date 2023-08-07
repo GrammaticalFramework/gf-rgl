@@ -616,6 +616,8 @@ mkVoc s = lin Voc (ss s) ;
   us_britishV : Str -> V = \s -> case s of {
     _ + ("el" | "al" | "ol") => regV s | mkV s (s + "s") (s + "led") (s + "led") (s + "ling") ;
     _ + "or" => regV s | regV (Predef.tk 2 s + "our") ;
+    _ + "ise" => regV (Predef.tk 2 s + "ze") | regV s ;
+    _ + "ize" => regV s | regV (Predef.tk 2 s + "se") ;
     _ => regV s
     } ;
 

@@ -1,4 +1,4 @@
-concrete ConstructionMay of Construction = CatMay ** open ParadigmsMay in {
+concrete ConstructionMay of Construction = CatMay ** open ParadigmsMay, (L=LexiconMay), SyntaxMay in {
 
 lincat
   Timeunit = N ;
@@ -6,8 +6,15 @@ lincat
   Monthday = NP ;
   Month = N ;
   Year = NP ;
-{-
+
 lin
+
+  has_age_VP card = mkVP umur_V2 (mkNP <lin Card card : Card> L.year_N) ;
+
+oper
+  umur_V2 : V2 = mkV2 (mkV "umur") noPrep ;
+
+{-
 
   timeunitAdv n time =
   let n_card : Card   = n ;
