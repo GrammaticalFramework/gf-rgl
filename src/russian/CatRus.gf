@@ -105,6 +105,7 @@ lincat
 linref
   N = \s -> s.snom ;
   PN = \s -> s.snom ;
+  LN = \s -> s.snom ;
   Pron = \s -> s.nom ;
   N2 = \s -> s.snom ++ s.c2.s ;
   N3 = \s -> s.snom ++ s.c2.s ++ s.c3.s ;
