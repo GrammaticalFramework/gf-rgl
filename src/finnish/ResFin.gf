@@ -30,7 +30,7 @@ resource ResFin = ParamX ** open Prelude in {
 
 --- These cases are possible for subjects.
 
-    SubjCase = SCNom | SCGen | SCPart | SCIness | SCElat | SCAdess | SCAblat ;
+    SubjCase = SCNom | SCGen | SCPart | SCIness | SCElat | SCAdess | SCAblat | SCAcc ;
 
 oper
   appSubjCase : SubjCase -> ResFin.NP -> Str = \sc,np -> np.s ! subjcase2npform sc ;
@@ -42,7 +42,8 @@ oper
     SCIness => NPCase Iness ;
     SCElat => NPCase Elat ;
     SCAdess => NPCase Adess ;
-    SCAblat => NPCase Ablat
+    SCAblat => NPCase Ablat ;
+    SCAcc => NPAcc 
     } ;
 
   npform2subjcase : NPForm -> SubjCase = \sc -> case sc of {
@@ -52,6 +53,7 @@ oper
     NPCase Elat => SCElat ;
     NPCase Adess => SCAdess ;
     NPCase Ablat => SCAblat ;
+    NPAcc => SCAcc ; 
     _ => SCNom
     } ;
 
