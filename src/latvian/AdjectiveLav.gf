@@ -21,12 +21,12 @@ lin
   -- e.g. "married to her"
   ComplA2 a np = {
     s = \\d,g,n,c => case np.isPron of {
-      False => a.s ! (AAdj Posit d g n c) ++ a.prep.s ++ np.s ! (a.prep.c ! (fromAgr np.agr).num) ;
-      True  => a.prep.s ++ np.s ! (a.prep.c ! (fromAgr np.agr).num) ++ a.s ! (AAdj Posit d g n c)
+      False => a.s ! (AAdj Posit d g n c) ++ a.prep.s ++ np.s ! partcase2case (a.prep.c ! (fromAgr np.agr).num) ;
+      True  => a.prep.s ++ np.s ! partcase2case (a.prep.c ! (fromAgr np.agr).num) ++ a.s ! (AAdj Posit d g n c)
     }
   } ;
 
-  ReflA2 a = { s = \\d,g,n,c => a.s ! (AAdj Posit d g n c) ++ a.prep.s ++ reflPron ! (a.prep.c ! n) } ;
+  ReflA2 a = { s = \\d,g,n,c => a.s ! (AAdj Posit d g n c) ++ a.prep.s ++ reflPron ! partcase2case (a.prep.c ! n) } ;
 
   AdAP ada ap = { s = \\d,g,n,c => ada.s ++ ap.s ! d ! g ! n ! c } ;
 

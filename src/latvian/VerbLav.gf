@@ -98,7 +98,7 @@ lin
   -- V3 -> NP -> VPSlash
   -- e.g. 'give it (to her)'
   Slash2V3 v3 np = insertObjSlash
-    (\\_ => v3.rightVal2.s ++ np.s ! (v3.rightVal2.c ! (fromAgr np.agr).num))
+    (\\_ => v3.rightVal2.s ++ np.s ! partcase2case (v3.rightVal2.c ! (fromAgr np.agr).num))
     {
       v        = v3 ;
       compl    = \\_ => [] ;  -- will be overriden
@@ -116,7 +116,7 @@ lin
   -- V3 -> NP -> VPSlash
   -- e.g. 'give (it) to her'
   Slash3V3 v3 np = insertObjSlash
-    (\\_ => v3.rightVal2.s ++ np.s ! (v3.rightVal2.c ! (fromAgr np.agr).num))
+    (\\_ => v3.rightVal2.s ++ np.s ! partcase2case (v3.rightVal2.c ! (fromAgr np.agr).num))
     {
       v        = v3 ;
       compl    = \\_ => [] ;  -- will be overriden
@@ -194,8 +194,8 @@ lin
         }
       } ++ vpslash.compl ! agr ;
       -}
-      compl    = \\agr => vpslash.rightVal.s ++ 
-                          np.s ! (vpslash.rightVal.c ! (fromAgr agr).num) ++ 
+      compl    = \\agr => vpslash.rightVal.s ++
+                          np.s ! partcase2case (vpslash.rightVal.c ! (fromAgr agr).num) ++
                           vpslash.compl ! agr ;
       voice    = vpslash.voice ;
       leftVal  = vpslash.leftVal ;
@@ -221,7 +221,7 @@ lin
   -- V2V -> NP -> VPSlash -> VPSlash
   -- e.g. '-- beg me to buy'
   SlashV2VNP v2v np vpslash = insertObjSlash
-    (\\_ => v2v.rightVal.s ++ np.s ! (v2v.rightVal.c ! (fromAgr np.agr).num))
+    (\\_ => v2v.rightVal.s ++ np.s ! partcase2case (v2v.rightVal.c ! (fromAgr np.agr).num))
     {
       v        = v2v ;
       compl    = \\agr => buildVP vpslash Pos VInf agr ;
@@ -238,7 +238,7 @@ lin
   -- VPSlash -> VP
   -- e.g. 'love himself'
   ReflVP vpslash = insertObjPre
-    (\\agr => vpslash.rightVal.s ++ reflPron ! (vpslash.rightVal.c ! (fromAgr agr).num))
+    (\\agr => vpslash.rightVal.s ++ reflPron ! partcase2case (vpslash.rightVal.c ! (fromAgr agr).num))
     vpslash ;
 
   -- Comp -> VP
@@ -247,7 +247,7 @@ lin
     v        = mkV "būt" ;
     compl    = \\agr => comp.s ! agr ;
     voice    = Act ;
-    leftVal  = Nom ;
+    leftVal  = PartNom ;
     rightAgr = AgrP3 Sg Masc ;
     rightPol = Pos ;
     objPron  = False
@@ -313,7 +313,7 @@ lin
 oper
 
   -- FIXME: the type of the participle form - depending on what?! (currently fixed)
-  buildVerb : Verb -> VMood -> Polarity -> Agreement -> Polarity -> Polarity -> Str = 
+  buildVerb : Verb -> VMood -> Polarity -> Agreement -> Polarity -> Polarity -> Str =
   \v,mood,pol,agr,leftPol,rightPol ->
     let
       finalPol : Polarity = case <leftPol, rightPol> of {
@@ -323,7 +323,7 @@ oper
       } ;
       agr = fromAgr agr
       ;  --# notpresent
-      part = v.s ! Pos ! (VPart Pass agr.gend agr.num Nom)  --# notpresent
+      part = v.s ! Pos ! (VPart Pass agr.gend agr.num PartNom)  --# notpresent
     in case mood of {
       Ind Simul tense => v.s ! finalPol ! (VInd agr.pers agr.num tense)
       ;  --# notpresent
@@ -337,7 +337,7 @@ oper
       Deb Simul tense => (mkV "būt").s ! finalPol ! (VInd P3 Sg tense) ++  --# notpresent
         v.s ! Pos ! VDeb ;  --# notpresent
       Deb Anter tense => (mkV "būt").s ! finalPol ! (VInd P3 Sg tense) ++  --# notpresent
-        (mkV "būt").s ! Pos ! (VPart Pass Masc Sg Nom) ++  --# notpresent
+        (mkV "būt").s ! Pos ! (VPart Pass Masc Sg PartNom) ++  --# notpresent
         v.s ! Pos ! VDeb ;  --# notpresent
 
       Condit Simul => v.s ! finalPol ! (VInd agr.pers agr.num ParamX.Cond) ;  --# notpresent

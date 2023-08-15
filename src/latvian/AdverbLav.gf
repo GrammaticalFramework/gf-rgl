@@ -16,7 +16,7 @@ lin
   -- Prep -> NP -> Adv
   -- e.g. "in the house"
   -- FIXME: postpozīcijas prievārdi
-  PrepNP prep np = {s = prep.s ++ np.s ! (prep.c ! (fromAgr np.agr).num) ; isPron = np.isPron} ;
+  PrepNP prep np = {s = prep.s ++ np.s ! partcase2case (prep.c ! (fromAgr np.agr).num) ; isPron = np.isPron} ;
 
   -- CAdv -> A -> NP -> Adv
   -- e.g. "more warmly than John"

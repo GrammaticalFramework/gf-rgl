@@ -101,18 +101,18 @@ oper
   } ;
 
   mkVS = overload {
-    mkVS : V -> Subj ->         VS = \v,c   -> lin VS {s = v.s ; leftVal = Nom ; conj = c} ;
-    mkVS : V -> Subj -> Case -> VS = \v,c,s -> lin VS {s = v.s ; leftVal = s   ; conj = c} ;
+    mkVS : V -> Subj ->         VS = \v,c   -> lin VS {s = v.s ; leftVal = PartNom ; conj = c} ;
+    mkVS : V -> Subj -> Case -> VS = \v,c,s -> lin VS {s = v.s ; leftVal = case2partcase s   ; conj = c} ;
   } ;
 
   mkVQ = overload {
-    mkVQ : V ->         VQ = \v   -> lin VQ {s = v.s ; leftVal = Nom} ;
-    mkVQ : V -> Case -> VQ = \v,c -> lin VQ {s = v.s ; leftVal = c} ;
+    mkVQ : V ->         VQ = \v   -> lin VQ {s = v.s ; leftVal = PartNom} ;
+    mkVQ : V -> Case -> VQ = \v,c -> lin VQ {s = v.s ; leftVal = case2partcase c} ;
   } ;
 
   mkVV = overload {
-    mkVV : V ->         VV = \v   -> lin VV {s = v.s ; leftVal = Nom} ;
-    mkVV : V -> Case -> VV = \v,c -> lin VV {s = v.s ; leftVal = c} ;
+    mkVV : V ->         VV = \v   -> lin VV {s = v.s ; leftVal = PartNom} ;
+    mkVV : V -> Case -> VV = \v,c -> lin VV {s = v.s ; leftVal = case2partcase c} ;
   } ;
 
   mkV3 = overload {
@@ -131,8 +131,8 @@ oper
   -- Prepositions
 
   mkPrep = overload {
-    mkPrep : Str -> Case -> Case -> Prep = \p,sg,pl -> lin Prep {s = p  ; c = table {Sg => sg ; Pl => pl}} ;
-    mkPrep :                Case -> Prep = \c       -> lin Prep {s = [] ; c = \\_ => c} ;
+    mkPrep : Str -> Case -> Case -> Prep = \p,sg,pl -> lin Prep {s = p  ; c = table {Sg => case2partcase sg ; Pl => case2partcase pl}} ;
+    mkPrep :                Case -> Prep = \c       -> lin Prep {s = [] ; c = \\_ => case2partcase c} ;
   } ;
 
   nom_Prep : Prep = mkPrep Nom ;

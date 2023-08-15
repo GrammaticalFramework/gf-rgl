@@ -48,8 +48,30 @@ param
     | VDeb
     | VImp Number
     | VDebRel  -- the relative subtype of debitive
-    | VPart Voice Gender Number Case ;
+    | VPart Voice Gender Number PartCase ;
 
+  PartCase = PartNom | PartGen | PartDat | PartAcc | PartLoc ;
+
+oper
+
+  partcase2case : PartCase -> Case = \c -> case c of {
+    PartNom => Nom ;
+    PartDat => Dat ;
+    PartGen => Gen ;
+    PartAcc => Acc ;
+    PartLoc => Loc
+  } ;
+
+  case2partcase : Case -> PartCase = \c -> case c of {
+    Nom => PartNom ;
+    Gen => PartGen ;
+    Dat => PartDat ;
+    Acc => PartAcc ;
+    Loc => PartLoc ;
+    _ => PartNom
+  } ;
+
+param
   -- Number and gender has to be agreed in predicative nominal clauses
   Agreement =
       AgrP1 Number Gender
@@ -68,20 +90,20 @@ oper
   Noun : Type = {s : Number => Case => Str ; gend : Gender} ;
 
   ProperNoun : Type = {s : Case => Str ; gend : Gender ; num : Number} ;
-  
+
   Pronoun : Type = {s : Case => Str ; agr : Agreement ; poss : Gender => Number => Case => Str ; pol : Polarity} ;
 
   Adjective : Type = {s : AForm => Str} ;
 
-  Preposition : Type = {s : Str ; c : Number => Case} ;
+  Preposition : Type = {s : Str ; c : Number => PartCase} ;
 
-  Verb : Type = {s : Polarity => VForm => Str ; leftVal : Case} ;
+  Verb : Type = {s : Polarity => VForm => Str ; leftVal : PartCase} ;
 
   VP : Type = {
     v        : Verb ;
     compl    : Agreement => Str ;  -- the subject-complement agreement
     voice    : Voice ;
-    leftVal  : Case ;              -- the left valence (typically, the subject)
+    leftVal  : PartCase ;          -- the left valence (typically, the subject)
     rightAgr : Agreement ;         -- for the potential subject-verb agreement (the subject can be on the right side)
     rightPol : Polarity ;          -- for the potential double negation
     objPron  : Bool                -- true, if object is a Pron (for modifying the neutral word order)
@@ -145,7 +167,7 @@ oper
       Masc => Masc
     } ;
 
-  closeRelCl : Bool -> Str = \isRel -> 
+  closeRelCl : Bool -> Str = \isRel ->
     case isRel of {
       True => "," ;
       False => []

@@ -54,7 +54,7 @@ lin
   -- NP -> V2 -> NP
   -- e.g. 'the man seen'
   PPartNP np v2 = {
-    s      = \\c => v2.s ! Pos ! (VPart Pass (fromAgr np.agr).gend (fromAgr np.agr).num c) ++ np.s ! c ;
+    s      = \\c => v2.s ! Pos ! (VPart Pass (fromAgr np.agr).gend (fromAgr np.agr).num (case2partcase c)) ++ np.s ! c ;
     agr    = np.agr ;
     pol    = np.pol ;
     isRel  = np.isRel ;
@@ -180,8 +180,8 @@ lin
   -- N2 -> NP -> CN
   -- e.g. 'mother of the king'
   ComplN2 n2 np = {
-    s     = \\_,num,c => preOrPost n2.isPre 
-              (n2.prep.s ++ np.s ! (n2.prep.c ! (fromAgr np.agr).num) ++ closeRelCl np.isRel) 
+    s     = \\_,num,c => preOrPost n2.isPre
+              (n2.prep.s ++ np.s ! partcase2case (n2.prep.c ! (fromAgr np.agr).num) ++ closeRelCl np.isRel)
               (n2.s ! num ! c) ;
     gend  = n2.gend ;
     isRel = False
@@ -190,8 +190,8 @@ lin
   -- N3 -> NP -> N2
   -- e.g. 'distance from this city (to Paris)'
   ComplN3 n3 np = {
-    s     = \\num,c => preOrPost n3.isPre1 
-              (n3.prep1.s ++ np.s ! (n3.prep1.c ! (fromAgr np.agr).num) ++ closeRelCl np.isRel) 
+    s     = \\num,c => preOrPost n3.isPre1
+              (n3.prep1.s ++ np.s ! partcase2case (n3.prep1.c ! (fromAgr np.agr).num) ++ closeRelCl np.isRel)
               (n3.s ! num ! c) ;
     gend  = n3.gend ;
     prep  = n3.prep2 ;
@@ -246,7 +246,7 @@ lin
 
   -- CN -> NP -> CN
   -- e.g. 'city Paris', 'numbers x and y'
-  ApposCN cn np = 
+  ApposCN cn np =
     let num : Number = (fromAgr np.agr).num in {
       s     = \\defin,num,c => cn.s ! defin ! num ! c ++ np.s ! c ;
       gend  = cn.gend ;

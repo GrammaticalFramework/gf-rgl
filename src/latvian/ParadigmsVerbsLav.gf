@@ -14,7 +14,7 @@ oper
       Pos => (mkVerb_Pos lemma conj).s ;
       Neg => (filter_Neg (mkVerb_Pos ("ne"+lemma) conj)).s
     } ;
-    leftVal = leftVal
+    leftVal = case2partcase leftVal
   } ;
 
   -- First conjugation
@@ -23,7 +23,7 @@ oper
       Pos => (mkVerbC1_Pos lemma lemma2 lemma3).s ;
       Neg => (filter_Neg (mkVerbC1_Pos ("ne"+lemma) ("ne"+lemma2) ("ne"+lemma3))).s
     } ;
-    leftVal = leftVal
+    leftVal = case2partcase leftVal
   } ;
 
   mkVerb_Pos : Str -> Conjugation -> Verb_TMP = \lemma,conj ->
@@ -378,7 +378,7 @@ oper
         x => (mkVerb_C1 "nebūt" "neesu" "nebiju").s ! x -- the incorrect 'neesu' will be overriden
       }
     } ;
-    leftVal = leftVal
+    leftVal = case2partcase leftVal
   } ;
 
   mkVerb_Irreg_Go : Case -> Verb = \leftVal -> mkVerb_Irreg_Go_Prefix "" leftVal ;
@@ -397,7 +397,7 @@ oper
         x => (mkVerb_C1 ("ne" + pref + "iet") ("ne" + pref + "eju") ("ne" + pref + "gāju")).s ! x
       }
     } ;
-    leftVal = leftVal
+    leftVal = case2partcase leftVal
   } ;
 
   mkVerb_Irreg_Sleep : Case -> Verb = \leftVal -> {
@@ -429,7 +429,7 @@ oper
         x => (mkVerb_C3 "negulēt").s ! x
       }
     } ;
-    leftVal = leftVal
+    leftVal = case2partcase leftVal
   } ;
 
   -- Auxiliaries: palatalization rules
@@ -548,122 +548,110 @@ oper
   -- TODO: -ot, -am, -ām; -dams/dama, -damies/damās; -ams/ama, -āms/āma
   -- -ošs/oša ir tikai adjektīvi! Divdabji - tikai verbālās formas! (sk. Baibas sarakstu)
 
-  mkParticiple_IsUsi : Gender -> Number -> Case -> Str -> Str = \g,n,c,stem ->
+  mkParticiple_IsUsi : Gender -> Number -> PartCase -> Str -> Str = \g,n,c,stem ->
     case g of {
       Masc => case n of {
         Sg => case c of {
-          Nom => stem + "is" ;
-          Gen => stem + "uša" ;
-          Dat => stem + "ušam" ;
-          Acc => stem + "ušu" ;
-          Loc => stem + "ušā" ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "is" ;
+          PartGen => stem + "uša" ;
+          PartDat => stem + "ušam" ;
+          PartAcc => stem + "ušu" ;
+          PartLoc => stem + "ušā"
         } ;
         Pl => case c of {
-          Nom => stem + "uši" ;
-          Gen => stem + "ušu" ;
-          Dat => stem + "ušiem" ;
-          Acc => stem + "ušus" ;
-          Loc => stem + "ušos" ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "uši" ;
+          PartGen => stem + "ušu" ;
+          PartDat => stem + "ušiem" ;
+          PartAcc => stem + "ušus" ;
+          PartLoc => stem + "ušos"
         }
       } ;
       Fem => case n of {
         Sg => case c of {
-          Nom => stem + "usi" ;
-          Gen => stem + "ušas" ;
-          Dat => stem + "ušai" ;
-          Acc => stem + "ušu" ;
-          Loc => stem + "ušā" ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "usi" ;
+          PartGen => stem + "ušas" ;
+          PartDat => stem + "ušai" ;
+          PartAcc => stem + "ušu" ;
+          PartLoc => stem + "ušā"
         } ;
         Pl => case c of {
-          Nom => stem + "ušas" ;
-          Gen => stem + "ušu" ;
-          Dat => stem + "ušām" ;
-          Acc => stem + "ušas" ;
-          Loc => stem + "ušās" ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "ušas" ;
+          PartGen => stem + "ušu" ;
+          PartDat => stem + "ušām" ;
+          PartAcc => stem + "ušas" ;
+          PartLoc => stem + "ušās"
         }
       }
     } ;
 
-  mkParticiple_TsTa : Gender -> Number -> Case -> Str -> Str = \g,n,c,stem ->
+  mkParticiple_TsTa : Gender -> Number -> PartCase -> Str -> Str = \g,n,c,stem ->
     case g of {
       Masc => case n of {
         Sg => case c of {
-          Nom => stem + "ts" ;
-          Gen => stem + "ta" ;
-          Dat => stem + "tam" ;
-          Acc => stem + "tu" ;
-          Loc => stem + "tā" ;
-          Voc => NON_EXISTENT     -- FIXME: -tais ?
+          PartNom => stem + "ts" ;
+          PartGen => stem + "ta" ;
+          PartDat => stem + "tam" ;
+          PartAcc => stem + "tu" ;
+          PartLoc => stem + "tā"
         } ;
         Pl => case c of {
-          Nom => stem + "ti" ;
-          Gen => stem + "tu" ;
-          Dat => stem + "tiem" ;
-          Acc => stem + "tus" ;
-          Loc => stem + "tos" ;
-          Voc => NON_EXISTENT     -- FIXME: -tie ?
+          PartNom => stem + "ti" ;
+          PartGen => stem + "tu" ;
+          PartDat => stem + "tiem" ;
+          PartAcc => stem + "tus" ;
+          PartLoc => stem + "tos"
         }
       } ;
       Fem => case n of {
         Sg => case c of {
-          Nom => stem + "ta" ;
-          Gen => stem + "tas" ;
-          Dat => stem + "tai" ;
-          Acc => stem + "tu" ;
-          Loc => stem + "tā" ;
-          Voc => NON_EXISTENT     -- FIXME: -tā ?
+          PartNom => stem + "ta" ;
+          PartGen => stem + "tas" ;
+          PartDat => stem + "tai" ;
+          PartAcc => stem + "tu" ;
+          PartLoc => stem + "tā"
         } ;
         Pl => case c of {
-          Nom => stem + "tas" ;
-          Gen => stem + "tu" ;
-          Dat => stem + "tām" ;
-          Acc => stem + "tas" ;
-          Loc => stem + "tās" ;
-          Voc => NON_EXISTENT     -- FIXME: -tās ?
+          PartNom => stem + "tas" ;
+          PartGen => stem + "tu" ;
+          PartDat => stem + "tām" ;
+          PartAcc => stem + "tas" ;
+          PartLoc => stem + "tās"
         }
       }
     } ;
 
-  mkParticiple_IesUsies : Gender -> Number -> Case -> Str -> Str = \g,n,c,stem ->
+  mkParticiple_IesUsies : Gender -> Number -> PartCase -> Str -> Str = \g,n,c,stem ->
     case g of {
       Masc => case n of {
         Sg => case c of {
-          Nom => stem + "ies" ;
-          Gen => NON_EXISTENT ;
-          Dat => NON_EXISTENT ;
-          Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "ies" ;
+          PartGen => NON_EXISTENT ;
+          PartDat => NON_EXISTENT ;
+          PartAcc => stem + "ušos" ;
+          PartLoc => NON_EXISTENT
         } ;
         Pl => case c of {
-          Nom => stem + "ušies" ;
-          Gen => stem + "ušos" ;
-          Dat => NON_EXISTENT ;
-          Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "ušies" ;
+          PartGen => stem + "ušos" ;
+          PartDat => NON_EXISTENT ;
+          PartAcc => stem + "ušos" ;
+          PartLoc => NON_EXISTENT
         }
       } ;
       Fem => case n of {
         Sg => case c of {
-          Nom => stem + "usies" ;
-          Gen => stem + "ušās" ;
-          Dat => NON_EXISTENT ;
-          Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "usies" ;
+          PartGen => stem + "ušās" ;
+          PartDat => NON_EXISTENT ;
+          PartAcc => stem + "ušos" ;
+          PartLoc => NON_EXISTENT
         } ;
         Pl => case c of {
-          Nom => stem + "ušās" ;
-          Gen => stem + "ušos" ;
-          Dat => NON_EXISTENT ;
-          Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          PartNom => stem + "ušās" ;
+          PartGen => stem + "ušos" ;
+          PartDat => NON_EXISTENT ;
+          PartAcc => stem + "ušos" ;
+          PartLoc => NON_EXISTENT
         }
       }
     } ;

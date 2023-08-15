@@ -65,10 +65,10 @@ oper
   --       Praksē lielākoties pietiek ar palīgverba noliegumu?
   -- TODO: Jāpieliek parametrs Tense: present = ziedošs, izsalkstošs; past = ziedējis, izsalcis.
   --       Vai arī jāpadod Str "-is"/"-ošs" un pa tiešo jāizsauc mkParticiple, bet
-  --       kā šis mkA(Str) atšķirsies no citiem mkA(Str)? 
+  --       kā šis mkA(Str) atšķirsies no citiem mkA(Str)?
   mkAdjective_Participle : Verb -> Voice -> Adjective = \v,p -> {
     s = table {
-      AAdj Posit Indef g n c => v.s ! Pos ! (VPart p g n c) ;
+      AAdj Posit Indef g n c => v.s ! Pos ! (VPart p g n (case2partcase c)) ;
       _ => NON_EXISTENT
     }
   };

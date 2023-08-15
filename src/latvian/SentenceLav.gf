@@ -66,8 +66,8 @@ lin
 
 oper
   -- TODO: PassV2 verbs jāsaskaņo ar objektu, nevis subjektu (by8means_Prep: AgP3 Sg Masc)
-  mkClause : NP -> CatLav.VP -> Cl = \np,vp ->  
-    let agr : Agreement = case <vp.voice, vp.leftVal> of {
+  mkClause : NP -> CatLav.VP -> Cl = \np,vp ->
+    let agr : Agreement = case <vp.voice, partcase2case vp.leftVal> of {
       <Act,  Nom> => np.agr ;
       <Act,  _  > => vp.rightAgr ;
       <Pass, Acc> => vp.rightAgr ;
@@ -77,7 +77,7 @@ oper
       s = \\mood,pol =>
         case mood of {                                           -- subject
           Deb _ _ => np.s ! Dat ;  --# notpresent
-          _       => np.s ! vp.leftVal
+          _       => np.s ! partcase2case vp.leftVal
         } ++
         closeRelCl np.isRel ++                                   -- comma, if necessary
         case vp.objPron of {

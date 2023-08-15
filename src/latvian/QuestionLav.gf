@@ -17,7 +17,7 @@ lin
 
   QuestVP ip vp = { s = \\m,p => ip.s ! Nom ++ buildVerb vp.v m p (AgrP3 ip.num Masc) Pos vp.rightPol } ;
 
-  QuestSlash ip slash = { s = \\m,p => slash.prep.s ++ ip.s ! (slash.prep.c ! ip.num) ++ slash.s ! m ! p } ;
+  QuestSlash ip slash = { s = \\m,p => slash.prep.s ++ ip.s ! partcase2case (slash.prep.c ! ip.num) ++ slash.s ! m ! p } ;
 
   QuestIAdv iadv cl = { s = \\m,p => iadv.s ++ cl.s ! m ! p } ;
 
@@ -38,7 +38,7 @@ lin
     num = ip.num
   } ;
 
-  PrepIP p ip = { s = p.s ++ ip.s ! (p.c ! ip.num) } ;
+  PrepIP p ip = { s = p.s ++ ip.s ! partcase2case (p.c ! ip.num) } ;
 
   IdetCN idet cn = {
     s = \\c => idet.s ! cn.gend ++ cn.s ! Def ! idet.num ! c ;

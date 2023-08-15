@@ -19,8 +19,8 @@ lin
 oper
 
   -- TODO: PassV2 verbs jāsaskaņo ar objektu, nevis subjektu (by8means_Prep: AgP3 Sg Masc) - done?
-  mkRelClause : RP -> CatLav.VP -> RCl = \rp,vp ->  
-    let subjInTopic : Bool = case <vp.voice, vp.leftVal> of {
+  mkRelClause : RP -> CatLav.VP -> RCl = \rp,vp ->
+    let subjInTopic : Bool = case <vp.voice, partcase2case vp.leftVal> of {
       <Act,  Nom> => True ;
       <Act,  _  > => False ;
       <Pass, Acc> => False ;
@@ -34,7 +34,7 @@ oper
         } in
         case mood of {  -- subject
           Deb _ _ => rp.s ! Masc ! Dat ;  --# notpresent
-          _       => rp.s ! Masc ! vp.leftVal
+          _       => rp.s ! Masc ! partcase2case vp.leftVal
         } ++
         case vp.objPron of {
           False => verb ++ vp.compl ! agr ;
@@ -47,13 +47,13 @@ lin
   -- FIXME: vārdu secība - nevis 'kas mīl viņu' bet 'kas viņu mīl' (?)
   -- FIXME: Masc varētu nebūt labi
   RelSlash rp slash = {
-    s = \\m,p,ag => slash.prep.s ++ rp.s ! Masc ! (slash.prep.c ! Sg) ++  slash.s ! m ! p
+    s = \\m,p,ag => slash.prep.s ++ rp.s ! Masc ! partcase2case (slash.prep.c ! Sg) ++  slash.s ! m ! p
   } ;
 
   -- FIXME: placeholder
   -- TODO: jātestē, kautkas nav labi ar testpiemēru
   FunRP p np rp = {
-    s = \\g,c => p.s ++ rp.s ! g ! c ++ np.s ! (p.c ! (fromAgr np.agr).num)
+    s = \\g,c => p.s ++ rp.s ! g ! c ++ np.s ! partcase2case (p.c ! (fromAgr np.agr).num)
   } ;
 
   IdRP = {
