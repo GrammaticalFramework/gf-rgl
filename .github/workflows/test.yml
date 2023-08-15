@@ -24,7 +24,7 @@ jobs:
 
     - name: Install GF
       run: |
-        sudo dpkg -i gf-${GF_VERSION}-ubuntu-20.04.deb'
+        sudo dpkg -i gf-${GF_VERSION}-ubuntu-20.04.deb
 
     - name: Build RGL
       run: |
