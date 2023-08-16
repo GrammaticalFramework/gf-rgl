@@ -165,6 +165,32 @@ mkN : overload {
     mkSN : (nom,acc,dat,gen : Str) -> GN ; -- name with all case forms
     } ;
 
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> regLN s Masc ; -- regular name with genitive in "s", masculine
+    mkLN : Str -> Number -> LN = \s,n -> regLN s Masc ** {n=n} ; -- regular name with genitive in "s", masculine
+    mkLN : Str -> Gender -> LN = regLN ; -- regular name with genitive in "s"
+
+-- If only the genitive differs, two strings are needed.
+
+    mkLN : (nom,gen : Str) -> Gender -> LN = mk2LN ;  -- name with other genitive
+
+-- In the worst case, all four forms are needed.
+
+    mkLN : (nom,acc,dat,gen : Str) -> Gender -> LN = \nom,acc,dat,gen,g ->
+      lin LN {s = \\a => table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+              g = g ; n = Sg ;
+              hasArt = False}
+
+    } ;
+
+  defLN : LN -> LN = \n -> n ** {hasArt = True} ;
+
+  mk2LN  : (karolus, karoli : Str) -> Gender -> LN = \karolus, karoli, g -> 
+    lin LN {s = \\a => table {Gen => karoli ; _ => karolus} ; g = g ; n = Sg ;
+            hasArt = False} ;
+  regLN : (horst : Str) -> Gender -> LN = \horst, g -> 
+    mk2LN horst (ifTok Tok (Predef.dp 1 horst) "s" horst (horst + "s")) g ;
+
 -- To extract the number of a noun phrase
 
     ifPluralNP : NP -> Bool

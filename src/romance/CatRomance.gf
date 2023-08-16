@@ -110,14 +110,14 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     N  = Noun ;
     N2 = Noun  ** {c2 : Compl} ;
     N3 = Noun  ** {c2,c3 : Compl} ;
-    GN, SN, PN = {s : Str ; g : Gender} ;
-    
-    lincat LN = {s  : Str;
-                 p  : Compl;
-                 art : HasArt;
-                 g : Gender;
-                 num : Number;
-                } ;
+    GN, PN = {s : Str ; g : Gender} ;
+    SN = {s : Gender => Str ; pl : Str} ;
+    LN = {s  : Str;
+          onPrep : Bool;
+          art : HasArt;
+          g : Gender;
+          num : Number;
+         } ;
 
 -- tense augmented with passé simple
   lincat

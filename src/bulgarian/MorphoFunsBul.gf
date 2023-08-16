@@ -292,16 +292,16 @@ oper
   } ;
 
   mkLN = overload {
-    mkLN : Str -> LN = \s -> lin LN {s = \\_ => s; c = {s = vyv_Str; c = CPrep}; gn = GSg Masc} ;
+    mkLN : Str -> LN = \s -> lin LN {s = \\_ => s; onPrep = False; gn = GSg Masc} ;
     mkLN : Str -> Gender -> LN =
-      \s,g -> lin LN {s = \\_ => s; c = {s = vyv_Str; c = CPrep}; gn = GSg g} ;
+      \s,g -> lin LN {s = \\_ => s; onPrep = False; gn = GSg g} ;
     mkLN : Str -> GenNum -> LN =
-      \s,gn -> lin LN {s = \\_ => s; c = {s = vyv_Str; c = CPrep}; gn = gn} ;
+      \s,gn -> lin LN {s = \\_ => s; onPrep = False; gn = gn} ;
     mkLN : Str -> Str -> GenNum -> LN =
-      \s1,s2,gn -> lin LN {s = table Species [s2; s1]; c = {s = vyv_Str; c = CPrep}; gn = gn} ;
+      \s1,s2,gn -> lin LN {s = table Species [s2; s1]; onPrep = False; gn = gn} ;
   } ;
 
-  prepLN : LN -> Prep -> LN = \n,p -> n ** {c = p} ;
+  onLN : LN -> LN = \n -> n ** {onPrep = True} ;
 
 --2 IAdv
 --

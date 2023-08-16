@@ -1,6 +1,6 @@
 --1 Russian Lexical Paradigms
 
-resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=InflectionRus), Prelude, Maybe in {
+resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=InflectionRus), Prelude, Maybe, MorphoRus in {
 
 --2 Parameters
 --
@@ -13,6 +13,11 @@ oper
     = Fem ;
   neuter : Gender
     = Neut ;
+
+  male : Sex
+    = Male ;
+  female : Sex
+    = Female ;
 
 -- Abstracting numbers. Number is a parameter for mkPN, mkConj
   singular : Number
@@ -378,6 +383,130 @@ oper
       = \word, g, anim, z -> lin PN (noMinorCases (Z.makeNoun word g anim z)) ;
     mkPN : Str -> Gender -> Animacy -> Str -> PN
       = \word, g, anim, zi -> lin PN (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
+  } ;
+
+  mkGN = overload {
+    mkGN : Str -> GN
+      = \nom -> let nf = guessNounForms nom
+                in lin GN {
+                     s = (nounFormsNoun nf).s ! Sg ;
+                     g = case nf.g of {
+                           Fem => Female ;
+                           _   => Male
+                         }
+                   } ;
+    mkGN : Str -> Sex -> GN
+      = \nom, sex -> 
+                let g  = case sex of {
+                           Male => Masc ;
+                           Female => Fem
+                         } ;
+                    nf = guessLessNounForms nom g Animate
+                in lin GN {
+                     s = (nounFormsNoun nf).s ! Sg ;
+                     g = sex
+                   } ;
+    mkGN : Str -> Sex -> Z.ZNIndex -> GN
+      = \nom, sex, z -> 
+                let g  = case sex of {
+                           Male => Masc ;
+                           Female => Fem
+                         } ;
+                    nf = noMinorCases (Z.makeNoun nom g Animate z)
+                in lin GN {
+                     s = (nounFormsNoun nf).s ! Sg ;
+                     g = sex
+                   } ;
+    mkGN : Str -> Sex -> Str -> GN
+      = \nom, sex, zi -> 
+                let g  = case sex of {
+                           Male => Masc ;
+                           Female => Fem
+                         } ;
+                    nf = noMinorCases (Z.makeNoun nom g Animate (Z.parseIndex zi))
+                in lin GN {
+                     s = (nounFormsNoun nf).s ! Sg ;
+                     g = sex
+                   } ;
+  } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN
+      = \nom -> lin SN {
+                  s = table {
+                        Male   => (nounFormsNoun (guessLessNounForms nom Masc Animate)).s ! Sg ;
+                        Female => (nounFormsNoun (guessLessNounForms nom Fem Animate)).s ! Sg
+                      } ;
+                  p = (nounFormsNoun (guessLessNounForms nom Masc Animate)).s ! Pl ;
+                } ;
+    mkSN : Str -> Str -> SN
+      = \male,female -> lin SN {
+                  s = table {
+                        Male   => (nounFormsNoun (guessLessNounForms male Masc Animate)).s ! Sg ;
+                        Female => (nounFormsNoun (guessLessNounForms female Fem Animate)).s ! Sg
+                      } ;
+                  p = (nounFormsNoun (guessLessNounForms male Masc Animate)).s ! Pl ;
+                } ;
+    mkSN : Str -> Z.ZNIndex -> Str -> Z.ZNIndex -> SN
+      = \male,zm,female,zf -> lin SN {
+                  s = table {
+                        Male   => (nounFormsNoun (noMinorCases (Z.makeNoun male Masc Animate zm))).s ! Sg ;
+                        Female => (nounFormsNoun (noMinorCases (Z.makeNoun female Masc Animate zf))).s ! Sg
+                      } ;
+                  p = (nounFormsNoun (noMinorCases (Z.makeNoun male Masc Animate zm))).s ! Pl ;
+                } ;
+  } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN
+      = \nom -> let nf = guessNounForms nom
+                in lin LN {
+                     s = (nounFormsNoun nf).s ! Sg ;
+                     anim = nf.anim ;
+                     c = mkPrep v_prep_mod Loc ;
+                     g = nf.g ;
+                     n = Sg
+                   } ;
+    mkLN : Str -> Gender -> LN
+      = \nom, g -> 
+                let nf = guessLessNounForms nom g Animate
+                in lin LN {
+                     s = (nounFormsNoun nf).s ! Sg ;
+                     anim = nf.anim ;
+                     c = mkPrep v_prep_mod Loc ;
+                     g = nf.g ;
+                     n = Sg
+                   } ;
+    mkLN : Str -> Gender -> Number -> LN
+      = \nom, g, n -> 
+                let nf = guessLessNounForms nom g Animate
+                in lin LN {
+                     s = (nounFormsNoun nf).s ! n ;
+                     anim = nf.anim ;
+                     c = mkPrep v_prep_mod Loc ;
+                     g = nf.g ;
+                     n = n
+                   } ;
+    mkLN : Str -> Gender -> Number -> Z.ZNIndex -> LN
+      = \nom, g, n, z -> 
+                let nf = noMinorCases (Z.makeNoun nom g Animate z)
+                in lin LN {
+                     s = (nounFormsNoun nf).s ! n ;
+                     anim = nf.anim ;
+                     c = mkPrep v_prep_mod Loc ;
+                     g = nf.g ;
+                     n = n
+                   } ;
+    mkLN : Str -> Gender -> Number -> Str -> LN
+      = \nom, g, n, zi -> 
+                let nf = noMinorCases (Z.makeNoun nom g Animate (Z.parseIndex zi))
+                in lin LN {
+                     s = (nounFormsNoun nf).s ! n ;
+                     anim = nf.anim ;
+                     c = mkPrep v_prep_mod Loc ;
+                     g = nf.g ;
+                     n = n
+                   } ;
   } ;
 
 ---------------------

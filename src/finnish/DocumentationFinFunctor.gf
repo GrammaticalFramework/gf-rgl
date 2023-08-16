@@ -33,26 +33,29 @@ lin
     
   InflectionPN = \pn -> {
     t  = "s" ;
-    s1 = heading1 (heading noun_Category) ;
+    s1 = heading1 "Oikea Nimi" ;
     s2 = inflPN (\c -> pn.s ! c)
     } ;
 
-  InflectionLN = \pn -> {
+  InflectionLN ln = {
     t  = "s" ;
-    s1 = heading1 (heading noun_Category) ;
-    s2 = inflPN (\c -> pn.s ! c)
+    s1 = heading1 "Paikannimi" ;
+    s2 = inflPN (\c -> ln.s ! c)
     } ;
 
-  InflectionGN = \pn -> {
+  InflectionGN gn = {
     t  = "s" ;
-    s1 = heading1 "Etunimi" ;
-    s2 = inflPN (\c -> pn.s ! c)
+    s1 = heading1 "Etunimi"++case gn.g of {
+                               Male   => "(mies)" ;
+                               Female => "(nainen)"
+                             } ;
+    s2 = inflPN (\c -> gn.s ! c)
     } ;
 
-  InflectionSN = \pn -> {
+  InflectionSN sn = {
     t  = "s" ;
     s1 = heading1 "Sukunimi" ;
-    s2 = inflPN (\c -> pn.s ! c)
+    s2 = inflPN (\c -> (sn.s ! Male).s ! c)
     } ;
 
   InflectionA, InflectionA2 = \adj -> {

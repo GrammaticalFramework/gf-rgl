@@ -95,7 +95,10 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     N  = SNoun ;
     N2 = SNoun ** {c2 : Compl ; isPre : Bool ; postmod : Number => Str} ;
     N3 = SNoun ** {c2,c3 : Compl ; isPre,isPre2 : Bool} ;
-    GN, SN, LN, PN = SPN ;
+    PN = SPN ;
+    LN = SPN ** {n : Number} ;
+    GN = SPN ** {g : Sex} ;
+    SN = {s : Sex => SPN; pl : SPN} ;
 
   linref
     SSlash = \ss -> ss.s ++ ss.c2.s.p1  ;

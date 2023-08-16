@@ -132,17 +132,38 @@ oper
 -- Proper names need a string and a gender. If no gender is given, the
 -- feminine is used for strings ending with "e", the masculine for other strings.
 
+  mkPN  : overload {
+    mkPN : Str -> PN ; -- feminine if ends with "e", otherwise masculine
+    mkPN : Str -> Gender -> PN ; -- gender deviant from the simple rule
+    mkPN : N -> PN ; -- gender inherited from noun
+    } ;
+
+  mkGN = overload {
+    mkGN : (Anna : Str) -> GN = \s -> lin GN (regPN s) ; -- feminine for "-a", otherwise masculine
+    mkGN : (Pilar : Str) -> Gender -> GN = \s,g -> lin GN (mk2PN s g) ; -- force gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Masc=>male; Fem=>female}; pl = pl} ;
+    } ;
+
   mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = s ;
+              onPrep=False ;
+              art = NoArt ;
+              g = Masc ;
+              num = Sg} ;
     mkLN : Str -> Gender -> LN = \s,g ->
       lin LN {s = s ;
-              p =  {s=""; c=CPrep P_a; isDir=True} ;
+              onPrep=False ;
               art = NoArt ;
               g = g ;
               num = Sg} ;
-
     mkLN : Str -> Gender -> Number -> LN = \s,g,num ->
       lin LN {s = s ;
-              p = {s=""; c=CPrep P_a; isDir=True} ;
+              onPrep=False ;
               art = NoArt ;
               g = g ;
               num = num} ;
@@ -151,14 +172,7 @@ oper
 
   defLN : LN -> LN = \n -> n ** {art = AlwaysArt} ;
   useDefLN : LN -> LN = \n -> n ** {art = UseArt} ;
-  prepLN : LN -> Prep -> LN = \n,p -> n ** {p = p} ;
-
-  mkPN  : overload {
-    mkPN : Str -> PN ; -- feminine if ends with "e", otherwise masculine
-    mkPN : Str -> Gender -> PN ; -- gender deviant from the simple rule
-    mkPN : N -> PN ; -- gender inherited from noun
-    } ;
-
+  enLN : LN -> LN = \n -> n ** {onPrep = True} ;
 
 
 --2 Adjectives
@@ -355,8 +369,10 @@ oper
 
   Gender = MorphoFre.Gender ;
   Number = MorphoFre.Number ;
-  masculine = Masc ;
-  feminine = Fem ;
+  masculine, male = Masc ;
+  feminine, female = Fem ;
+  male = Masc ;
+  female = Fem ;
   singular = Sg ;
   plural = Pl ;
 

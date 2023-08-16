@@ -42,6 +42,9 @@ resource ParadigmsEst = open
 -- defined in $ResEst$.
 
 oper
+  male = Male ;
+  female = Female ;
+
   Number   : Type ;
 
   singular : Number ;
@@ -609,6 +612,55 @@ oper
     } ;
 
   mkPN_1 : Str -> PN = \s -> lin PN {s = \\c => (mk1N s).s ! NCase Sg c} ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = 
+      \s -> lin LN {s = \\c => (mk1N s).s ! NCase Sg c ;
+                    n = Sg} ;
+    mkLN : Str -> Number -> LN =
+      \s,n -> lin LN {s = \\c => (mk1N s).s ! NCase n c ;
+                      n = n} ;
+    mkLN : N -> LN = 
+      \noun -> lin LN {s = \\c => noun.s ! NCase Sg c ;
+                       n = Sg} ;
+    mkLN : N -> Number -> LN =
+      \noun,n -> lin LN {s = \\c => noun.s ! NCase n c ;
+                         n = n} ;
+    } ;
+
+  mkGN = overload {
+    mkGN : Str -> GN = 
+      \s -> lin GN {s = \\c => (mk1N s).s ! NCase Sg c ;
+                    g = Male} ;
+    mkGN : Str -> Sex -> GN =
+      \s,g -> lin GN {s = \\c => (mk1N s).s ! NCase Sg c ;
+                      g = g} ;
+    mkGN : N -> GN = 
+      \noun -> lin GN {s = \\c => noun.s ! NCase Sg c ;
+                       g = Male} ;
+    mkGN : N -> Sex -> GN =
+      \noun,g -> lin GN {s = \\c => noun.s ! NCase Sg c ;
+                         g = g} ;
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = 
+      \s -> lin SN {s = \\_,c => (mk1N s).s ! NCase Sg c ;
+                    pl = \\c => (mk1N s).s ! NCase Sg c} ;
+    mkSN : Str -> Str -> Str -> SN = 
+      \male,female,pl -> lin SN {s = table {Male  =>\\c => (mk1N male).s ! NCase Sg c ;
+                                            Female=>\\c => (mk1N female).s ! NCase Sg c} ;
+                                 pl = \\c => (mk1N pl).s ! NCase Sg c} ;
+    mkSN : N -> SN =
+      \noun -> lin SN {s = \\_,c => noun.s ! NCase Sg c ;
+                       pl = \\c => noun.s ! NCase Sg c} ;
+    mkSN : N -> N -> N -> SN =
+      \male,female,pl -> lin SN {s = table {Male  =>\\c => male.s ! NCase Sg c ;
+                                            Female=>\\c => female.s ! NCase Sg c} ;
+                                 pl = \\c => pl.s ! NCase Sg c} ;
+    } ;
+
+  prepLN : LN -> Prep -> LN = \n,s -> n ** {c = s} ;
 
 -- adjectives
 

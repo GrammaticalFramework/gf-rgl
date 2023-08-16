@@ -103,7 +103,11 @@ lin
                   }) ;
     s2 = paragraph (n.s ! Indef) ++
          heading1 ("Наречие") ++
-         paragraph (n.c.s ++ linCase n.c.c Pos ++ n.s ! Def) ;
+         paragraph (case n.onPrep of {
+                      True  => linCase Dat Pos ;
+                      False => vyv_Str
+                    } ++
+                    n.s ! Def) ;
     s3 = ""
     } ;
 
@@ -160,7 +164,7 @@ lin
     } ;
 
   InflectionPrep = \prep -> {
-    t = "пр" ;
+    t = "пред" ;
     s1= heading1 ("Предлог") ;
     s2= paragraph (prep.s) ;
     s3= ""

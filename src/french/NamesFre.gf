@@ -1,8 +1,14 @@
 concrete NamesFre of Names = CatFre ** open Prelude, ResFre, CommonRomance, PhonoFre in {
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> pn2np n ;
+lin GivenName = \n -> pn2np n ;
+lin MaleSurname = \n -> pn2np {s = n.s ! Masc; g = Masc} ;
+lin FemaleSurname = \n -> pn2np {s = n.s ! Fem; g = Fem} ;
+lin PlSurname = \n -> heavyNPpol False {
+       s = \\c => prepCase c ++ n.pl ;
+       a = agrP3 Masc Pl
+    } ;
 lin FullName gn sn = pn2np {
-       s = gn.s ++ sn.s ;
+       s = gn.s ++ sn.s ! gn.g ;
        g = gn.g
     } ;
 
@@ -21,10 +27,15 @@ lin UseLN n = heavyNP {
 
 
 lin InLN n = {
-      s = n.p.s ++ case n.art of {
-        AlwaysArt => artDef True n.g n.num n.p.c ++ n.s;
-        _         => prepCase n.p.c ++ n.s
-        } ;
+      s = let p : {s : Str; c:Prepos} =
+                case n.onPrep of {
+                  True  => {s="en"; c=PNul} ;
+                  False => {s="";   c=P_a}
+                }
+          in p.s ++ case n.art of {
+                      AlwaysArt => artDef True n.g n.num (CPrep p.c) ++ n.s;
+                      _         => prepCase (CPrep p.c) ++ n.s
+                    } ;
   } ;
 
 

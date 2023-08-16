@@ -145,13 +145,38 @@ oper
     mkPN : N -> PN ;  -- get gender from noun
   } ;
 
-  mkLN : Str -> LN = \s ->
-    lin LN {s = s ;
-            p =  {s=""; c=CPrep P_a; isDir=True} ;
-            art = NoArt ;
-            g = Masc ;
-            num = Sg} ;
+  mkGN = overload {
+    mkGN : (Anna : Str) -> GN = \s -> lin GN (regPN s) ; -- feminine for "-a", otherwise masculine
+    mkGN : (Pilar : Str) -> Gender -> GN = \s,g -> lin GN (mk2PN s g) ; -- force gender
+    } ;
 
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Masc=>male; Fem=>female}; pl = pl} ;
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = Masc ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> Number -> LN = \s,g,n ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = n}
+  } ;
+
+  defLN : LN -> LN = \n -> n ** {art = UseArt} ;
 
 --2 Adjectives
 
@@ -333,8 +358,8 @@ oper
 
   Gender = MorphoIta.Gender ;
   Number = MorphoIta.Number ;
-  masculine = Masc ;
-  feminine = Fem ;
+  masculine, male = Masc ;
+  feminine, female = Fem ;
   singular = Sg ;
   plural = Pl ;
 

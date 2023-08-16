@@ -25,7 +25,6 @@ resource ResGer = ParamX ** open Prelude in {
   param
     Case = Nom | Acc | Dat | Gen ;
     Gender = Masc | Fem | Neutr ;
-    Sex = Male | Female ;
 
 -- Complex $CN$s, like adjectives, have strong and weak forms.
 

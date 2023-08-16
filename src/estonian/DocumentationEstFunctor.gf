@@ -36,6 +36,33 @@ lin
     s2 = inflNoun (caseplus2nf noun)
     } ;
 
+  InflectionPN = \pn -> {
+    t  = "s" ;
+    s1 = heading1 "Õige Nimi" ;
+    s2 = inflPN pn.s
+    } ;
+
+  InflectionLN = \ln -> {
+    t  = "s" ;
+    s1 = heading1 "Asukoha Nimi" ;
+    s2 = inflPN ln.s
+    } ;
+
+  InflectionGN = \gn -> {
+    t  = "s" ;
+    s1 = heading1 "Eesnimi"++case gn.g of {
+                               Male   => "(mees)" ;
+                               Female => "(naine)"
+                             } ;
+    s2 = inflPN gn.s
+    } ;
+
+  InflectionSN = \sn -> {
+    t  = "s" ;
+    s1 = heading1 "Perekonnanimi" ;
+    s2 = inflPN (sn.s ! Male)
+    } ;
+
   InflectionA, InflectionA2 = \adj ->
     let posit  : (AForm => Str) = adj.s ! Posit ;
        	compar : (AForm => Str) = adj.s ! Compar ;
@@ -270,6 +297,20 @@ oper
           tr (th (heading abessive_Parameter)    ++ td (nouns Sg Abessive)    ++ td (nouns Pl Abessive)) ++
           tr (th (heading comitative_Parameter)  ++ td (nouns Sg Comitative)  ++ td (nouns Pl Comitative)) ++
           tr (th (heading instructive_Parameter) ++ td (nouns Sg Terminative) ++ td (nouns Pl Terminative))
+          ) ;
+
+  inflPN : (ResEst.Case => Str) -> Str = \pn ->
+    frameTable (
+          tr (th (heading nominative_Parameter)  ++ td (pn ! Nom)) ++
+          tr (th (heading genitive_Parameter)    ++ td (pn ! Gen)) ++
+          tr (th (heading partitive_Parameter)   ++ td (pn ! Part)) ++
+          tr (th (heading translative_Parameter) ++ td (pn ! Transl)) ++
+          tr (th (heading illative_Parameter)    ++ td (pn ! Illat)) ++
+          tr (th (heading inessive_Parameter)    ++ td (pn ! Iness)) ++
+          tr (th (heading elative_Parameter)     ++ td (pn ! Elat)) ++
+          tr (th (heading allative_Parameter)    ++ td (pn ! Allat)) ++
+          tr (th (heading adessive_Parameter)    ++ td (pn ! Adess)) ++
+          tr (th (heading ablative_Parameter)    ++ td (pn ! Ablat))
           ) ;
 
 lin

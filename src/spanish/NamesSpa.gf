@@ -1,8 +1,14 @@
 concrete NamesSpa of Names = CatSpa ** open Prelude, ResSpa, CommonRomance in {
 
-lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> pn2np n ;
+lin GivenName = \n -> pn2np n ;
+lin MaleSurname = \n -> pn2np {s = n.s ! Masc; g = Masc} ;
+lin FemaleSurname = \n -> pn2np {s = n.s ! Fem; g = Fem} ;
+lin PlSurname = \n -> heavyNPpol False {
+       s = \\c => prepCase c ++ n.pl ;
+       a = agrP3 Masc Pl
+    } ;
 lin FullName gn sn = pn2np {
-       s = gn.s ++ sn.s ;
+       s = gn.s ++ sn.s ! gn.g ;
        g = gn.g
     } ;
 
@@ -30,18 +36,19 @@ lin UseLN n = heavyNP {
 
 
 lin InLN n = {
-      s = n.p.s ++ case n.art of {
-        UseArt => case n.g of {
-          Fem => case n.num of {
-            Sg => "la" ++ n.s;
-            Pl => "las" ++ n.s} ;
-          Masc => case n.num of {
-            Sg => "el" ++ n.s;
-            Pl => "los" ++ n.s
-             }
-            } ;
-        NoArt => n.s
-        } ;
+      s = "en" ++
+          case n.art of {
+            UseArt => case n.g of {
+                        Fem  => case n.num of {
+                                  Sg => "la" ++ n.s;
+                                  Pl => "las" ++ n.s} ;
+                        Masc => case n.num of {
+                                  Sg => "el" ++ n.s;
+                                  Pl => "los" ++ n.s
+                                }
+                      } ;
+            NoArt => n.s
+          } ;
   } ;
 
 

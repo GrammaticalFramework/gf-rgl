@@ -73,6 +73,25 @@ oper
     mkPN : Str -> PN ; -- proper name
     } ;
 
+  mkGN = overload {  -- given name
+    mkGN : Str -> GN = \s -> lin GN {s = \\_ => s; g = Male} ;
+    mkGN : Str -> Sex -> GN = \s,g -> lin GN {s = \\_ => s; g = g} ;
+    } ;
+
+  mkSN = overload {  -- given name
+    mkSN : Str -> SN = \s -> lin SN {s = \\_,_ => s; pl = \\_=>s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Male=>\\_=>male; Female=>\\_=>female}; pl=\\_=>pl} ;
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN  -- location name
+     = \s -> lin LN {s = \\_,_ => s; hasArt = False; n = Sg} ;
+    mkLN : Str -> Number -> LN  -- location name
+     = \s,n -> lin LN {s = \\_,_ => s; hasArt = False; n = n} ;
+    } ;
+
+  defLN : LN -> LN = \n -> n ** {hasArt = True} ;
+
 
 --2 Adjectives
 
@@ -205,6 +224,8 @@ oper
   feminine  = Neutr ;
   het,neuter = Neutr ;
   de,utrum = Neutr ;
+  male = Male ;
+  female = Female ;
 
   mkA = overload {
     mkA : (vers : Str) -> A = \a -> lin A (regAdjective a) ;

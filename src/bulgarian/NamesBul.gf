@@ -1,4 +1,4 @@
-concrete NamesBul of Names = CatBul ** open ResBul in {
+concrete NamesBul of Names = CatBul ** open ResBul, Prelude in {
 
 lin GivenName = \n -> {
        s  = table { RObj c => linCase c Pos ++ n.s;
@@ -44,7 +44,13 @@ lin UseLN, PlainLN = \n -> {
       p = NounP3 Pos
     } ;
 
-    InLN n = {s = n.c.s ++ linCase n.c.c Pos ++ n.s ! Def} ;
+    InLN n = {
+      s = case n.onPrep of {
+            True  => linCase Dat Pos ;
+            False => vyv_Str
+          } ++
+          n.s ! Def
+      } ;
 
     AdjLN ap n = n ** {
       s = \\sp => case ap.isPre of {

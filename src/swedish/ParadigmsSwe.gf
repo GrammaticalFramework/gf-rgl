@@ -155,12 +155,24 @@ oper
     geoPN : Str -> PN ;  -- neuter, with identical genitive if ends in a vowel
 
   mkLN = overload {
-    mkLN : Str -> LN = \s -> lin LN (regPN s) ** {c={s="i";hasPrep=True}; n=Sg};   -- default gender utrum
-    mkLN : Str -> Gender -> LN = \s,g -> lin LN (regGenPN s g) ** {c={s="i";hasPrep=True}; n=Sg} ; -- set other gender
-    mkLN : Str -> Gender -> Number -> LN = \s,g,n -> lin LN (regGenPN s g) ** {c={s="i";hasPrep=True}; n=n} ; -- set other gender
+    mkLN : Str -> LN = \s -> lin LN (regPN s) ** {n=Sg};   -- default gender utrum
+    mkLN : Str -> Gender -> LN = \s,g -> lin LN (regGenPN s g) ** {n=Sg} ; -- set other gender
+    mkLN : Str -> Gender -> Number -> LN = \s,g,n -> lin LN (regGenPN s g) ** {n=n} ; -- set other gender and number
     } ;
-    
-  prepLN : LN -> Prep -> LN = \n,p -> n ** {c = mkComplement p.s} ;
+
+  mkGN = overload {
+    mkGN : Str -> GN = \s -> lin GN {s = \\c => mkCase c s ; g = Male};   -- default gender utrum
+    mkGN : Str -> Sex -> GN = \s,g -> lin GN {s = \\c => mkCase c s ; g = g} ; -- set other gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_,c => mkCase c s; pl = \\c => mkCase c s};   -- default gender utrum
+    mkSN : Str -> Str -> Str -> SN = 
+      \male,female,pl -> lin SN {s  = table {Male => \\c => mkCase c male;
+                                             Female => \\c => mkCase c female} ;
+                                 pl = \\c => mkCase c pl
+                                } ;
+    } ;
 
 --2 Adjectives
 
@@ -359,6 +371,8 @@ oper
   utrum = Utr ; 
   neutrum = Neutr ;
   neuter = Neutr ;
+  male = Male ;
+  female = Female ;
   singular = Sg ;
   plural = Pl ;
   nominative = Nom ;

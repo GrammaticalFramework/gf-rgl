@@ -47,7 +47,6 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
   param
     Gender = Masc | Fem | Neut ;
-    Sex = Male | Female ;
 
     Species = Indef | Def ;
  
