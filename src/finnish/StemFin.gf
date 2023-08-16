@@ -378,7 +378,8 @@ oper
       s = \\t,a,b =>
         let
           agrfin = case vp.sc of {
-                    SCNom => <agr,True> ;
+                    SCNom => <agr, True> ;
+		    SCAcc => <agrP3 Sg, True> ;
                     _ => <agrP3 Sg,False>      -- minun täytyy, minulla on
                     } ;
           verb  = vp.s ! VIFin t ! a ! b ! agrfin.p1 ;

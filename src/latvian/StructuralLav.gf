@@ -266,7 +266,7 @@ lin
   can8know_VV = mkVV (mkV "varēt" third_conjugation) ;
   must_VV = mkVV (mkV "vajadzēt" third_conjugation Dat) ;
 
-  please_Voc = ss "lūdzu" ;
+  please_Voc = ss ", lūdzu" ;
 
 oper
   
