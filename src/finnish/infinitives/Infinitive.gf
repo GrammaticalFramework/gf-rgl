@@ -4,21 +4,23 @@ abstract Infinitive =
   Lexicon
     ** {
 
-fun
+flags startcat = Utt ;
+
+data
   PresPartPassSubjVP : VP -> VP ;      -- (minun) on mentävä
   PresPartPassObjVP : VPSlash -> VP ;  -- (oluesta) on pidettävä
 
   PastPartPassAdv : NP -> VP -> Adv ;  -- junan mentyä
 
-  PresPartActAP  : VP -> AP ;   -- (lihaa) syövä      
-  PastPartActAP  : VP -> AP ;   -- (lihaa) syönyt
+  PresPartActAP  : VP -> AP ;        -- (lihaa) syövä      
+  PastPartActAP  : VP -> AP ;        -- (lihaa) syönyt
   PresPartPassAP : VPSlash -> AP ;   -- (tänään) syötävä      
   PastPartPassAP : VPSlash -> AP ;   -- (tänään) syöty
 
   AgentPartAP   : NP -> VPSlash -> AP ;  -- koiran syömä      
 
 
-  Inf2InessAdv : NP -> VP -> Adv ;     -- junan mennessä
+  Inf2InessAdv : NP -> VP -> Adv ;       -- junan mennessä
   
   Inf2InessPassAdv    : VP -> Adv ;             -- odotettaessa (junaa), touhuttaessa (junan kanssa)
   Inf2InessPassInvAdv : NP -> VPSlash -> Adv ;  -- junaa odotettaessa, junan kanssa touhutessa
@@ -52,7 +54,6 @@ fun
   ComplPresPartPassVS   : VS -> NP -> VPSlash -> VP ;  -- sanoa junaa odotettavan
   ComplPastPartPassVS   : VS -> NP -> VPSlash -> VP ;  -- sanoa junaa odotetun
 
-  
   
 
 }
