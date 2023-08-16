@@ -1,7 +1,7 @@
 --# -path=..:alltenses
 
 concrete InfinitiveFin of Infinitive =
-    GrammarFin,
+    GrammarFin - [VPSlashPrep],
     LexiconFin
   ** open
     ResFin,
@@ -27,7 +27,31 @@ lin
 	vp.adv ! Pos ++
 	vp.ext
 	} ;
-	
+
+  PresPartActAP vp = {
+    s = \\_, nf => preCompVP vp (PresPartAct (AN nf)) ;
+    hasPrefix = False ;
+    p = []
+    } ;
+    
+  PastPartActAP vp = {
+    s = \\_, nf => preCompVP vp (PastPartAct (AN nf)) ;
+    hasPrefix = False ;
+    p = []
+    } ;
+    
+  PresPartPassAP vp = {
+    s = \\_, nf => preCompVP <vp : VP> (PresPartPass (AN nf)) ;
+    hasPrefix = False ;
+    p = []
+    } ;
+    
+  PastPartPassAP vp = {
+    s = \\_, nf => preCompVP <vp : VP> (PastPartPass (AN nf)) ;
+    hasPrefix = False ;
+    p = []
+    } ;
+    
   AgentPartAP np vp = {
     s = \\_, nf =>
           np.s ! NPCase Gen ++
@@ -45,21 +69,117 @@ lin
         infVP SCNom Pos np.a vp Inf2Iness
     } ;
     
-  Inf2InessPassAdv np vps = {
-    s = np.s ! NPCase Part ++
+  Inf2InessPassAdv vp = {
+    s = infVP SCNom Pos infAdvAgr vp Inf2InessPass
+    } ;
+
+  Inf2InessPassInvAdv np vps = {
+    s = infAppCompl vps.c2 np ++
         infVP SCNom Pos np.a <vps : VP> Inf2InessPass
     } ;
 
+  Inf2InstrAdv vp = {
+    s = infVP SCNom Pos infAdvAgr vp Inf2Instr
+    } ;
+    
+  Inf2InstrInvAdv np vps = {
+    s = infAppCompl vps.c2 np ++
+        infVP SCNom Pos np.a <vps : VP> Inf2Instr
+    } ;
+    
+  Inf3InessAdv vp = {
+    s = infVP SCNom Pos infAdvAgr vp Inf3Iness
+    } ;
+    
+  Inf3InessInvAdv np vps = {
+    s = infAppCompl vps.c2 np ++
+        infVP SCNom Pos np.a <vps : VP> Inf3Iness
+    } ;
 
+  Inf3ElatAdv vp = {
+    s = infVP SCNom Pos infAdvAgr vp Inf3Elat
+    } ;
+    
+  Inf3ElatInvAdv np vps = {
+    s = infAppCompl vps.c2 np ++
+        infVP SCNom Pos np.a <vps : VP> Inf3Elat
+    } ;
+
+  Inf3IllatAdv vp = {
+    s = infVP SCNom Pos infAdvAgr vp Inf3Illat
+    } ;
+    
+  Inf3IllatInvAdv np vps = {
+    s = infAppCompl vps.c2 np ++
+        infVP SCNom Pos np.a <vps : VP> Inf3Illat
+    } ;
+
+
+  Inf3AdessAdv vp = {
+    s = infVP SCNom Pos infAdvAgr vp Inf3Adess
+    } ;
+    
+  Inf3AdessInvAdv np vps = {
+    s = infAppCompl vps.c2 np ++
+        infVP SCNom Pos np.a <vps : VP> Inf3Adess
+    } ;
+
+
+  Inf3AbessAdv vp = {
+    s = infVP SCNom Pos infAdvAgr vp Inf3Abess
+    } ;
+    
+  Inf3AbessInvAdv np vps = {
+    s = infAppCompl vps.c2 np ++
+        infVP SCNom Pos np.a <vps : VP> Inf3Abess
+    } ;
+
+  ComplPresPartActVS vs np vp  =
+    insertExtrapos (subjPartVP np vp (NPCase Gen) (PresPartAct (AN (NCase Sg Gen)))) (predSV vs) ;
+  ComplPastPartActVS vs np vp  =
+    insertExtrapos (subjPartVP np vp (NPCase Gen) (PastPartAct (AN (NCase Sg Gen)))) (predSV vs) ;
+
+  ComplPresPartActAgrVS vs vp  =
+    insertObj (\\_,_,agr => subjPartAgrVP vp (PresPartAct (AN (NPossGen Sg))) agr) (predSV vs) ;
+  ComplPastPartActAgrVS vs vp  =
+    insertObj (\\_,_,agr => subjPartAgrVP vp (PastPartAct (AN (NPossGen Sg))) agr) (predSV vs) ;
+
+  ComplPresPartPassVS vs np vps  =
+    insertExtrapos (subjPartVP np <vps : VP> (NPCase Part) (PresPartPass (AN (NCase Sg Gen)))) (predSV vs) ;
+  ComplPastPartPassVS vs np vps  =
+    insertExtrapos (subjPartVP np <vps : VP> (NPCase Part) (PastPartPass (AN (NCase Sg Gen)))) (predSV vs) ;
   
---  {s = vp.s.s ! Inf Inf1Long} ;
---  {s = vp.s.s ! Inf Inf2Instr} ;
-
---  {s = vp.s.s ! Inf Inf2InessPass} ;
---  {s = vp.s.s ! Inf Inf2Adess} ;
---  {s = vp.s.s ! Inf InfPresPart} ;
 
 
+oper
+  infAppCompl : Compl -> ResFin.NP -> Str = \co, np ->
+    appCompl False Neg co np ;  -- not fin, Acc becomes Part
+
+  infAdvAgr : Agr = agrP3 Sg ; --- ?
+
+  -- hänen syövän, häntä syödyn, häntä syötävän
+  subjPartVP : ResFin.NP -> StemFin.VP -> NPForm -> VForm -> Str = \np, vp, npform, vform ->
+    np.s ! NPCase Gen ++
+    vp.s.s ! vform ++ 
+    vp.s2 ! True ! Pos ! np.a ++
+    vp.adv ! Pos ++
+    vp.ext ;
+
+  -- tiedän syöväni, tiedän syöneeni
+  subjPartAgrVP : StemFin.VP -> VForm -> Agr -> Str = \vp, vform, agr ->
+    vp.s.s ! vform ++ BIND ++
+    case vp.s.h of {Back => possSuffix agr ; Front => possSuffixFront agr} ++
+    vp.s2 ! True ! Pos ! agr ++
+    vp.adv ! Pos ++
+    vp.ext ;
+
+
+  -- ruohoa syövä, Ranskassa valmistettu
+  preCompVP : StemFin.VP -> VForm -> Str = \vp, vform ->
+    vp.s2 ! True ! Pos ! infAdvAgr ++
+    vp.adv ! Pos ++
+    vp.s.s ! vform ++ 
+    vp.ext ;
 
   
 }
