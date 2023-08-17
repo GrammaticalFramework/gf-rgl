@@ -18,12 +18,14 @@ data Fact = Fact {
 
 initFact = Fact Nothing Nothing Nothing Nothing Nothing Nothing Nothing
 
-factTree fact = case (agent fact, action fact) of
-  (Just np, Just vp) ->
+factTree fact = case action fact of
+  (Just vp) ->
      GUttS $ GUseCl
        (maybe presentTense id (tense fact))
        (maybe positivePol id (polarity fact))
-       (GPredVP np vp)
+       (GPredVP 
+          (maybe Gsomebody_NP id (agent fact))
+          vp)
   _ -> GUttNP Gnothing_NP
 
 presentTense = GTTAnt GTPres GASimul
@@ -31,6 +33,7 @@ pastTense = GTTAnt GTPast GASimul
 perfectTense = GTTAnt GTPres GAAnter
 pluperfectTense = GTTAnt GTPast GAAnter
 positivePol = GPPos
+negativePol = GPNeg
 
 
 facts :: Infinitive.Tree a -> [Fact]
@@ -38,7 +41,15 @@ facts t = case t of
   GComplPresPartActVS vs np vp ->
     [initFact{attitude = Just vs, agent = Just np, action = Just vp}]
   GComplPastPartActVS vs np vp ->
-    [initFact{tense = Just perfectTense, attitude = Just vs, agent = Just np, action = Just vp}]
+    [initFact{tense = Just perfectTense, attitude = Just vs,
+     agent = Just np, action = Just vp}]
+  GInf3AbessAdv vp ->
+    [initFact{polarity = Just negativePol, action = Just vp}]
+  GComplPresPartPassVS vs np vpslash -> 
+    [initFact{attitude = Just vs, action = Just (GComplSlash vpslash np)}]
+  GComplPastPartPassVS vs np vpslash -> 
+    [initFact{tense = Just perfectTense, attitude = Just vs,
+     action = Just (GComplSlash vpslash np)}]
   _ -> composOpMPlus facts t
 
 

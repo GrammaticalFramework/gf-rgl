@@ -159,7 +159,7 @@ oper
 
   -- hänen syövän, häntä syödyn, häntä syötävän
   subjPartVP : ResFin.NP -> StemFin.VP -> NPForm -> VForm -> Str = \np, vp, npform, vform ->
-    np.s ! NPCase Gen ++
+    np.s ! npform ++
     vp.s.s ! vform ++ 
     vp.s2 ! True ! Pos ! np.a ++
     vp.adv ! Pos ++
