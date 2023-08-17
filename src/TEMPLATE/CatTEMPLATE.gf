@@ -1,4 +1,4 @@
-concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination, Prelude in {
+concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -13,7 +13,7 @@ concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
-    Cl = SS ;
+    Cl = ResTEMPLATE.LinCl ;
     ClSlash = SS ;
     SSlash  = SS ; -- sentence missing NP; e.g. "she has looked at"
     Imp     = SS ; -- imperative             e.g. "look at this"
@@ -27,7 +27,6 @@ concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination
     IDet = SS ;  -- interrogative determiner            e.g. "how many"
     IQuant = SS ;     -- interrogative quantifier            e.g. "which"
     IP = SS ;    -- interrogative pronoun               e.g. "who"
-    IAdv = SS ;
 
 --2 Subord clauses and pronouns
 
@@ -38,7 +37,7 @@ concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination
 
 -- Constructed in VerbTEMPLATE.
 
-    VP = SS ;
+    VP = ResTEMPLATE.LinVP ;
     VPSlash = SS ;
     Comp = SS ;
 
@@ -55,17 +54,14 @@ concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination
 -- Constructed in NounTEMPLATE.
 -- Many atomic noun phrases e.g. "everybody"
 -- are constructed in StructuralTEMPLATE.
--- The determiner structure is
--- ``` Predet (QuantSg | QuantPl Num) Ord
--- as defined in NounTEMPLATE.
 
-    CN = SS ;
-    NP = SS ;
-    Pron = SS ; -- Pronouns need enough info to turn it into NP or Quant.
-    Det = SS ;
+    CN = ResTEMPLATE.LinCN ;
+    NP = ResTEMPLATE.LinNP ;
+    Pron = SS ; -- NB. Pronouns need enough info to become NP or Quant.
+    Det = ResTEMPLATE.LinDet ; -- s : Str , n : Number
     Predet = SS ;
-    Quant = SS ;
-    Num = SS ;
+    Quant = ResTEMPLATE.LinQuant ; -- s : Number => Str
+    Num = ResTEMPLATE.LinDet ;
     Ord = SS ;
     DAP = SS ;
 
@@ -74,9 +70,9 @@ concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination
 
 -- Constructed in NumeralTEMPLATE.
 
-    Card = SS ;
-    Numeral = SS ;
-    Digits = SS ;
+    Card = ResTEMPLATE.LinNumeral ;
+    Numeral = ResTEMPLATE.LinNumeral ;
+    Digits = ResTEMPLATE.LinNumeral ;
 
 
 
@@ -98,7 +94,7 @@ concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination
     VS,    -- sentence-complement verb            e.g. "claim"
     VQ,    -- question-complement verb            e.g. "wonder"
     VA,    -- adjective-complement verb           e.g. "look"
-    V = SS ;
+    V = ResTEMPLATE.LinV ;
 
     VV     -- verb-phrase-complement verb         e.g. "want"
       = SS ;
@@ -113,9 +109,9 @@ concrete CatTEMPLATE of Cat = CommonX - [IAdv] ** open ResTEMPLATE, Coordination
     A = SS ;
     A2  = SS ;
 
-    N = SS ;
-    N2 = SS ;
-    N3 = SS ;
+    N = ResTEMPLATE.LinN ;
+    N2 = ResTEMPLATE.LinN ;
+    N3 = ResTEMPLATE.LinN ;
     PN = SS ;
 
 }

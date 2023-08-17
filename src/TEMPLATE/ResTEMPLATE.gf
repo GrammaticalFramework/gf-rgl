@@ -82,6 +82,17 @@ oper
       -- Usually you need to give the gender as an argument to mkNoun.
     } ;
 
+  linCN : LinCN -> Str = \cn -> cn.s ! Sg ;
+
+---------------------------------------------
+-- Numeral
+
+-- Used in NumeralTEMPLATE
+  param
+    CardOrd = NCard | NOrd ;
+
+  oper
+    LinNumeral : Type = {s : CardOrd => Str ; n : Number} ;
 
 ---------------------------------------------
 -- Pronoun
@@ -146,6 +157,13 @@ That's why I'm copying over the definition below, instead of the neater `LinNP :
     -- a : Agr -- sketched on lines 97-101
     } ;
 
+  linNP : LinNP -> Str = \np -> np.s ; -- Change when you change LinNP
+
+  emptyNP : LinNP = { -- Change when you change LinNP
+    s = [] ;
+    n = Sg ;
+    p = P3 ;
+  } ;
 
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
@@ -215,7 +233,7 @@ oper
 -- Verbs
 
 param
-  VForm = TODOVF ;
+  VForm = TODOVF Number Person ;
 
 oper
   LinV : Type = {
@@ -241,19 +259,19 @@ oper
     s : VForm => Str ;
     } ;
 
-  VPSlash : Type = LinVP ** {
+  LinVPSlash : Type = LinVP ** {
     c2 : LinPrep ;
     } ;
 
---  linVP : LinVP -> Str = \vp -> vp.s ! Active ! Pos;
-
+  linVP : LinVP -> Str = \vp -> vp.s ! TODOVF Sg P3 ;
 
 --------------------------------------------------------------------------------
 -- Cl, S
 
-
-
---------------------------------------------------------------------------------
--- linrefs
+  -- Operations for clauses, sentences
+  LinCl : Type = {
+    subj : Str ;
+    pred : Str ; -- TODO: depend on Temp and Pol
+  } ;
 
 }
