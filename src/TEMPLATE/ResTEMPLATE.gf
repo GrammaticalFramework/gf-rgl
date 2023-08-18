@@ -1,4 +1,4 @@
-resource ResTEMPLATE = ParamX ** open Prelude, Predef in {
+resource ResTEMPLATE = open Prelude, Predef in {
 
 --------------------------------------------------------------------------------
 -- General notes
@@ -29,7 +29,7 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 {-The param Number comes from common/ParamX, and has the values Sg and Pl.
     * If your language doesn't have number, remove Number from all records.
     * If your language has number with more than 2 values, define your own number in this module
-      (e.g. uncomment line 56) and use that Number instead of ParamX.Number.
+      (e.g. uncomment line 56) and use that Number instead of Number.
 
   The param Gender is defined here, and has the values Gender1 and Gender2.
   Currently it's only as a suggestion to be an inherent field in LinN.
@@ -40,7 +40,7 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 
   If your nouns inflect in more things, like case, you can do one of the following
     * Replace the placeholder cases on line 53 and make the table 2-dimensional, like this:
-        oper LinN : Type = {s : ParamX.Number => Case => Str ; …} ;
+        oper LinN : Type = {s : Number => Case => Str ; …} ;
     * Make your own parameter that combines all the relevant features, like this:
         param NForm = Whatever | You | Need | For | Noun | Inflection ;
         oper LinN : Type = {s : NForm => Str ; …} ;
@@ -51,25 +51,32 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 param
   Gender = Gender1 | Gender2 ;   -- Just a placeholder, see lines 34-39 above
   Case = Case1 | Case2 | Case3 ; -- Just a placeholder, see lines 41-48 above
-  -- Number = Num1 | Num2 | Num3 ; -- If your language has numbers other than Sg and Pl, comment out this line and change the placeholders to the real number values (e.g. Singular, Dual, Plural)
+  Number = Sg
+         | Pl
+--       | Dual -- If your language has numbers other than Sg and Pl, add them to the parameter
+         ;
+  Person = P1 | P2 | P3 ;
 
 oper
   LinN : Type = {
-    s : ParamX.Number => Str ; -- variable number
-  --  g : Gender ;        -- inherent gender/noun class, if your language has that
+    s :
+--      Case =>     -- uncomment if your language has case
+        Number =>   -- variable number: table {Sg => "house" ; Pl => "houses"}
+        Str ;
+  --  g : Gender ;  -- inherent gender/noun class, if your language has that
     } ;
 
-  -- Very often, the lincat for CN is the same as N, with possibly some additional fields.
-  -- However, sometimes you need more fields than just the s field, e.g. if your language has suffixes that are not part of the inflection of nouns, like possessive suffixes (expressing 'my cat' as 'cat-my'), then you'll probably need a postmodifier field for anything that comes after the noun. Likewise, if you have prefixes that are not part of the inflection table, you might need a field for premodifier.
+  -- Most often, the lincat for CN is the same as N, with possibly some additional fields.
+  -- However, sometimes you need more fields than just the s field, e.g. to keep word order flexible, or to add clitics and make sure they attach to the head, not modifiers.
   -- If you don't know what the previous line means, you can get started with just a single s field.
   -- You'll notice later whether you need such a field or not.
   LinCN : Type = LinN
-    -- ** {postmod/premod : Str} -- if your language has prefixes/suffixes that are not part of the inflection table
+    -- ** {postmod/premod/… : Str} -- if needed
     ;
 
   LinPN : Type = {
     s : Str ;
-    n : ParamX.Number ; -- Proper nouns often have already an inherent number; you don't usually say "a Paris / many Parises"
+    n : Number ; -- Proper nouns often have already an inherent number; you don't usually say "a Paris / many Parises"
     -- g : Gender ; -- inherent gender/noun class, if your language has that
   } ;
 
@@ -118,8 +125,8 @@ oper
     s : Str ;
     -- Alternative if your language has case and pronouns inflect in case (e.g. English I/me/my, she/her/hers)
     -- s : Case => Str ;
-    n : ParamX.Number ;
-    p : ParamX.Person ;
+    n : Number ;
+    p : Person ;
     -- Alternative to the `n` and `p` fields:
     -- a : Agr -- sketched above, lines 97-103
     } ;
@@ -151,8 +158,8 @@ That's why I'm copying over the definition below, instead of the neater `LinNP :
     s : Str ;
     -- Alternative: If anything inflects in case (nouns, pronouns), NP has to also inflect in case!
     -- s : Case => Str ;
-    n : ParamX.Number ;
-    p : ParamX.Person ;
+    n : Number ;
+    p : Person ;
     -- Alternative to the `n` and `p` fields:
     -- a : Agr -- sketched on lines 97-101
     } ;
