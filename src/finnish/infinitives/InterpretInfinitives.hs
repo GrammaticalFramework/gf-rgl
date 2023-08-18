@@ -24,7 +24,7 @@ factTree fact = case action fact of
        (maybe presentTense id (tense fact))
        (maybe positivePol id (polarity fact))
        (GPredVP 
-          (maybe Gsomebody_NP id (agent fact))
+          (maybe (maybe Gsomebody_NP id (source fact)) id (agent fact))
           vp)
   _ -> GUttNP Gnothing_NP
 
@@ -38,18 +38,53 @@ negativePol = GPNeg
 
 facts :: Infinitive.Tree a -> [Fact]
 facts t = case t of
+  GAdjCN (GAgentPartAP np vpslash) cn ->
+    [initFact{
+              tense = Just perfectTense,
+              agent = Just np,
+	      action = Just (GComplSlash vpslash (GMassNP cn))}]
+  GPredVP np (GComplPresPartActAgrVS vs vp) -> 
+    [initFact{
+              attitude = Just vs,
+	      source = Just np,
+	      action = Just vp}]
+  GPredVP np (GComplPastPartActAgrVS vs vp) -> 
+    [initFact{tense = Just perfectTense,
+              attitude = Just vs,
+	      source = Just np,
+	      action = Just vp}]
+  GPredVP np (GAdvVP vp adv) ->
+    [f{source = Just np} | f <- facts vp ++ facts adv]
+  GPredVP np vp ->
+    [f{source = Just np} | f <- facts vp]
+  GUseV v ->
+    [initFact{
+              action = Just t}]
   GComplPresPartActVS vs np vp ->
-    [initFact{attitude = Just vs, agent = Just np, action = Just vp}]
+    [initFact{
+              attitude =
+	      Just vs,
+	      agent = Just np,
+	      action = Just vp}]
   GComplPastPartActVS vs np vp ->
-    [initFact{tense = Just perfectTense, attitude = Just vs,
-     agent = Just np, action = Just vp}]
+    [initFact{
+              tense = Just perfectTense,
+	      attitude = Just vs,
+              agent = Just np,
+	      action = Just vp}]
   GInf3AbessAdv vp ->
-    [initFact{polarity = Just negativePol, action = Just vp}]
+    [initFact{
+              polarity = Just negativePol,
+	      action = Just vp}]
   GComplPresPartPassVS vs np vpslash -> 
-    [initFact{attitude = Just vs, action = Just (GComplSlash vpslash np)}]
+    [initFact{
+              attitude = Just vs,
+	      action = Just (GComplSlash vpslash np)}]
   GComplPastPartPassVS vs np vpslash -> 
-    [initFact{tense = Just perfectTense, attitude = Just vs,
-     action = Just (GComplSlash vpslash np)}]
+    [initFact{
+              tense = Just perfectTense,
+	      attitude = Just vs,
+              action = Just (GComplSlash vpslash np)}]
   _ -> composOpMPlus facts t
 
 
