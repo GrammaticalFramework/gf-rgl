@@ -6,7 +6,6 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 
 --2 Sentences and clauses
 -- Constructed in SentenceTEMPLATE, and also in IdiomTEMPLATE
-
     S  = SS ;
     QS = SS ;
     RS = SS ;
@@ -21,12 +20,11 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 --2 Questions and interrogatives
 
 -- Constructed in QuestionTEMPLATE.
-
     QCl = SS ;
-    IComp = SS ;                -- interrogative complement of copula  e.g. "where"
-    IDet = SS ;  -- interrogative determiner            e.g. "how many"
-    IQuant = SS ;     -- interrogative quantifier            e.g. "which"
-    IP = SS ;    -- interrogative pronoun               e.g. "who"
+    IComp = SS ;   -- interrogative complement of copula  e.g. "where"
+    IDet = SS ;    -- interrogative determiner            e.g. "how many"
+    IQuant = SS ;  -- interrogative quantifier            e.g. "which"
+    IP = SS ;      -- interrogative pronoun               e.g. "who"
 
 --2 Subord clauses and pronouns
 
@@ -36,18 +34,14 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 --2 Verb phrases
 
 -- Constructed in VerbTEMPLATE.
-
     VP = ResTEMPLATE.LinVP ;
     VPSlash = SS ;
     Comp = SS ;
 
-
 --2 Adjectival phrases
 
 -- Constructed in AdjectiveTEMPLATE.
-
     AP = SS ;
-
 
 --2 Nouns and noun phrases
 
@@ -74,8 +68,6 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
     Numeral = ResTEMPLATE.LinNumeral ;
     Digits = ResTEMPLATE.LinNumeral ;
 
-
-
 --2 Structural words
 
 -- Constructed in StructuralTEMPLATE.
@@ -101,7 +93,7 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 
     V2A,   -- verb with NP and AP complement      e.g. "paint"
     V2V,   -- verb with NP and V complement       e.g. "cause"
-    V2S,   -- Reverb with NP and S complement       e.g. "tell"
+    V2S,   -- verb with NP and S complement       e.g. "tell"
     V2Q,   -- verb with NP and Q complement       e.g. "ask"
     V2 = SS ;
     V3 = SS ;
@@ -113,5 +105,8 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
     N2 = ResTEMPLATE.LinN ;
     N3 = ResTEMPLATE.LinN ;
     PN = SS ;
+
+  linref
+    Cl = linCl ;
 
 }

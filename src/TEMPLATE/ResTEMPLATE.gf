@@ -257,7 +257,7 @@ oper
       }
     } ;
 
-  copula : LinV = {s = \\_ => "TODO"} ; -- often useful
+  copula : LinV = {s = \\_ => "TODO: copula"} ; -- often useful
 
 ------------------
 -- VP
@@ -280,5 +280,7 @@ oper
     subj : Str ;
     pred : Str ; -- TODO: depend on Temp and Pol
   } ;
+
+  linCl : LinCl -> Str = \cl -> cl.subj ++ cl.pred ;
 
 }

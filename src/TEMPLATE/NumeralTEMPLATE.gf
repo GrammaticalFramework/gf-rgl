@@ -6,7 +6,10 @@ concrete NumeralTEMPLATE of Numeral = CatTEMPLATE [Numeral,Digits] **
     Sub10,                    -- 1..9
     Sub100,                   -- 1..99
     Sub1000,                  -- 1..999
-    Sub1000000 = LinNumeral ; -- 1..999999
+    Sub1000000,               -- 1..999999
+    Sub1000000000,            -- 1..999999999
+    Sub1000000000000          -- 1..999999999999
+     = LinNumeral ;
 
 -- param CardOrd   defined in ResTEMPLATE
 -- type LinNumeral  -""-
@@ -77,6 +80,7 @@ oper
       } ;
     n = Pl ; -- TODO: handle singular in number 1
     } ;
+
 
 --------------------------------------------------------------------------------
 -- Numerals as sequences of digits have a separate, simpler grammar

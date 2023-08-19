@@ -152,35 +152,22 @@ concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
   -- : N3 -> N2 ;          -- distance (to Paris)
   Use3N3 n3 = lin N2 n3 ;
 
--}
-
   -- : AP -> CN -> CN
-  AdjCN ap cn = cn ** {
-    s = \\nf => cn.s ! nf ++ ap.s
-    } ;
-
-{-
+  AdjCN ap cn =
 
   -- : CN -> RS -> CN ;
-  RelCN cn rs = cn ** {
-    s =
-    } ;
+  RelCN cn rs =
 
 
   -- : CN -> Adv -> CN ;
-  AdvCN cn adv = cn ** {
-    s =
-    } ;
+  AdvCN cn adv =
 
 -- Nouns can also be modified by embedded sentences and questions.
 -- For some nouns this makes little sense, but we leave this for applications
 -- to decide. Sentential complements are defined in VerbTEMPLATE.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
-  SentCN cn sc = cn ** {
-    s =
-    } ;
-
+  SentCN cn sc =
 
 --2 Apposition
 
@@ -192,33 +179,20 @@ concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
     } ;
 
 --2 Possessive and partitive constructs
+-- NB. Below this, the functions are not in the API, so lower prio to implement
 
   -- : PossNP  : CN -> NP -> CN ;
   -- in English: book of someone; point is that we can add a determiner to the CN,
   -- so it can become "a book of someone" or "the book of someone"
-  PossNP cn np = cn ** {
-    s =
-    } ;
+  PossNP cn np =
 
 
-  -- : Det -> NP -> NP ;
-  CountNP det np = np ** {
-      s =
-    } ; -- Nonsense for DefArt or IndefArt, but don't worry about that! RGL can overgenerate and it's fine.
+  -- : Det -> NP -> NP ; -- three of them, some of the boys
+  CountNP det np = -- Nonsense for DefArt or IndefArt, but don't worry about that! RGL can contain weird sentences, as long as it contains the non-weird stuff we want
 
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
-  PartNP cn np = cn ** {
-    } ;
-
-
--- This is different from the partitive, as shown by many languages.
-
-  -- : Det -> NP -> NP ;
-  CountNP det np = np ** {
-    s =
-    } ; -- Nonsense for DefArt or IndefArt, but don't worry about that! RGL can overgenerate and it's fine.
-
+  PartNP cn np =
 
 --3 Conjoinable determiners and ones with adjectives
 

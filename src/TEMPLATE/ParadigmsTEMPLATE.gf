@@ -17,7 +17,7 @@ oper
 --2 Nouns
 
   mkN : overload {
-    mkN : Str-> N ; -- Predictable nouns
+    mkN : Str -> N ; -- Predictable nouns
   } ;
 
   mkPN : overload {
@@ -64,7 +64,6 @@ oper
   mkVQ : overload {
     mkVQ : V -> VQ ;
    } ;
-
 
   mkVS : overload {
     mkV : V -> VS ;
