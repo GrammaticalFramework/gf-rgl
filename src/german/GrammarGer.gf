@@ -14,8 +14,8 @@ concrete GrammarGer of Grammar =
   TextX - [Tense,Temp],
   IdiomGer,
   StructuralGer - [part_Prep,possess_Prep], -- use PartNP, PossNP instead
-  TenseGer,
-  NamesGer
+  TenseGer
+----  NamesGer -- notYet!
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;
