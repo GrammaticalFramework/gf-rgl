@@ -13,7 +13,7 @@ concrete GrammarGer of Grammar =
   PhraseGer,
   TextX - [Tense,Temp],
   IdiomGer,
-  StructuralGer - [part_Prep,possess_Prep], -- use PartNP, PossNP instead
+  StructuralGer, -- AR: keep for BW comp - [part_Prep,possess_Prep], -- use PartNP, PossNP instead
   TenseGer
 ----  NamesGer -- notYet!
   ** {
