@@ -7,7 +7,7 @@ import PGF
 import Data.List
 
 data Fact = Fact {
-  content  :: Maybe Fact,
+  content  :: [Fact],
   tense    :: Maybe GTemp,
   polarity :: Maybe GPol,
   source   :: Maybe GNP,
@@ -16,7 +16,7 @@ data Fact = Fact {
   action   :: Maybe GVP
   }
 
-initFact = Fact Nothing Nothing Nothing Nothing Nothing Nothing Nothing
+initFact = Fact [] Nothing Nothing Nothing Nothing Nothing Nothing
 
 factTree fact = case action fact of
   (Just vp) ->

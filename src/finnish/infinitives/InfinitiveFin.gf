@@ -1,15 +1,28 @@
 --# -path=..:alltenses
 
 concrete InfinitiveFin of Infinitive =
-    GrammarFin - [VPSlashPrep],
+    GrammarFin - [
+      VPSlashPrep,
+      PassV2],
     LexiconFin
   ** open
     ResFin,
     StemFin,
-    Prelude
+    Prelude,
+    ParadigmsFin
   in {
 
+lincat
+  RAdv = {s : Agr => Str} ;
+  
 lin
+  UseV2 v2 = predSV v2 ;
+  RAdvVP vp radv =  insertObj (\\_,_ => radv.s) vp ; ---- can be wrong word order
+
+  X_NP = MassNP (UseN (mkN "X" "X:n")) ;
+  Y_NP = MassNP (UseN (mkN "Y" "Z:n")) ;
+  Z_NP = MassNP (UseN (mkN "Z" "Z:n")) ;
+
   PresPartPassSubjVP vp = vp ** {
     s = vpVerbOlla ** {sc = SCGen} ;
     s2 = \\b,p,a => vp.s.s ! PresPartPass (AN (NCase Sg Nom)) ++ vp.s2 ! b ! p ! a ;
@@ -64,6 +77,12 @@ lin
 	p = []
 	} ;
 
+  Inf1LongRAdv vp = {
+    s = \\a => 
+          infVP SCNom Pos infAdvAgr vp Inf1Long ++ BIND ++
+          case vp.s.h of {Back => possSuffix a ; Front => possSuffixFront a}
+    } ;
+    
   Inf2InessAdv np vp = {
     s = np.s ! NPCase Gen ++
         infVP SCNom Pos np.a vp Inf2Iness
