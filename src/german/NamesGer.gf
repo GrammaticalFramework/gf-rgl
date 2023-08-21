@@ -36,32 +36,32 @@ lin FullName gn sn = {
       } ;
 
 -- UseLN : LN -> NP ;
-lin UseLN ln = notYet "UseLN" ;
-{- Old version by Krasimir: {
-      s = \\c => case ln.hasArt of {
-                   True  => artDefContr (gennum ln.g ln.n) c ++ usePrepC c (\k -> ln.s ! Weak ! k) ;
-                   False => usePrepC c (\k -> ln.s ! adjfCase Strong k ! k)
-                 } ;
+lin UseLN ln = {
+      s = \\b,c => case ln.hasArt of {
+                     True  => case b of {
+                                True  => [] ; -- defart dropped
+                                False => artDef ! (gennum ln.g ln.n) ! c
+                              } ++
+                              ln.s ! (adjfCase Weak c) ! c ;
+                     False => ln.s ! Strong ! c
+                   } ;
       a = agrgP3 ln.g ln.n ;
       w = WLight ;
       rc, ext = []
       } ;
--}
 
 -- PlainLN : LN -> NP ;
-lin PlainLN ln = notYet "PlainLN" ;
-{- {
-      s = \\c => usePrepC c (\k -> ln.s ! adjfCase Strong k ! k) ;
+lin PlainLN ln = {
+      s = \\_,c => ln.s ! Strong ! c ;
       a = agrgP3 ln.g ln.n ;
       w = WLight ;
       rc, ext = []
       } ;
--}
 
+{-
 -- InLN : LN -> Adv ;
-lin InLN ln = notYet "InLN" ;
-{- {
-      s = let c = NPP CInDat
+lin InLN ln = {
+      s = let c = CInDat
           in case ln.hasArt of {
                True  => artDefContr (gennum ln.g ln.n) c ++ usePrepC c (\k -> ln.s ! Weak ! k) ;
                False => usePrepC c (\k -> ln.s ! adjfCase Strong k ! k)
