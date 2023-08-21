@@ -56,6 +56,8 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
     Predet = SS ;
     Quant = ResTEMPLATE.LinQuant ; -- s : Number => Str
     Num = ResTEMPLATE.LinDet ;
+    Card = ResTEMPLATE.LinNumeral ;
+    ACard = SS ;
     Ord = SS ;
     DAP = SS ;
 
@@ -64,7 +66,6 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 
 -- Constructed in NumeralTEMPLATE.
 
-    Card = ResTEMPLATE.LinNumeral ;
     Numeral = ResTEMPLATE.LinNumeral ;
     Digits = ResTEMPLATE.LinNumeral ;
 
@@ -105,6 +106,11 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
     N2 = ResTEMPLATE.LinN ;
     N3 = ResTEMPLATE.LinN ;
     PN = SS ;
+
+    -- From the Names module, not in the official API as of 2023-08
+    GN = SS ; -- Given name,    e.g. "George"
+    SN = SS ; -- Second name,   e.g. "Washington"
+    LN = SS ; -- Location name, e.g. "Sweden"
 
   linref
     Cl = linCl ;
