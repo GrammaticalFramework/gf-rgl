@@ -33,7 +33,8 @@ fun
 
   Inf1LongRAdv : VP -> RAdv ; -- mennäkse (ni/si/...)
   
-  Inf2InessAdv : NP -> VP -> Adv ;       -- junan mennessä
+  Inf2InessAdv : NP -> VP -> Adv ;  -- junan mennessä
+  Inf2InessRAdv : VP -> RAdv ;       -- mennessään
   
   Inf2InessPassAdv    : VP -> Adv ;             -- odotettaessa (junaa), touhuttaessa (junan kanssa)
   Inf2InessPassInvAdv : NP -> VPSlash -> Adv ;  -- junaa odotettaessa, junan kanssa touhutessa
@@ -59,8 +60,8 @@ fun
   ComplPresPartActVS    : VS -> NP -> VP -> VP ;  -- sanoa junan menevän
   ComplPastPartActVS    : VS -> NP -> VP -> VP ;  -- sanoa junan menneen
   
-  ComplPresPartActAgrVS : VS -> VP -> VP ;        -- sanoa menevänsä
-  ComplPastPartActAgrVS : VS -> VP -> VP ;        -- sanoa menneensä
+  ComplPresPartActReflVS : VS -> VP -> VP ;        -- sanoa menevänsä
+  ComplPastPartActReflVS : VS -> VP -> VP ;        -- sanoa menneensä
 
   ComplPresPartPassVS   : VS -> NP -> VPSlash -> VP ;  -- sanoa junaa odotettavan
   ComplPastPartPassVS   : VS -> NP -> VPSlash -> VP ;  -- sanoa junaa odotetun

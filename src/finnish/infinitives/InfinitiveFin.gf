@@ -87,7 +87,14 @@ lin
     s = np.s ! NPCase Gen ++
         infVP SCNom Pos np.a vp Inf2Iness
     } ;
+
+  Inf2InessRAdv vp = {
+    s = \\a => 
+          infVP SCNom Pos infAdvAgr vp Inf2Iness ++ BIND ++
+          case vp.s.h of {Back => possSuffix a ; Front => possSuffixFront a}
+    } ;
     
+
   Inf2InessPassAdv vp = {
     s = infVP SCNom Pos infAdvAgr vp Inf2InessPass
     } ;
@@ -158,9 +165,9 @@ lin
   ComplPastPartActVS vs np vp  =
     insertExtrapos (subjPartVP np vp (NPCase Gen) (PastPartAct (AN (NCase Sg Gen)))) (predSV vs) ;
 
-  ComplPresPartActAgrVS vs vp  =
+  ComplPresPartActReflVS vs vp  =
     insertObj (\\_,_,agr => subjPartAgrVP vp (PresPartAct (AN (NPossGen Sg))) agr) (predSV vs) ;
-  ComplPastPartActAgrVS vs vp  =
+  ComplPastPartActReflVS vs vp  =
     insertObj (\\_,_,agr => subjPartAgrVP vp (PastPartAct (AN (NPossGen Sg))) agr) (predSV vs) ;
 
   ComplPresPartPassVS vs np vps  =

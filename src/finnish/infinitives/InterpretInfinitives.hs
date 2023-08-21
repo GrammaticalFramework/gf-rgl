@@ -10,23 +10,20 @@ data Fact = Fact {
   content  :: [Fact],
   tense    :: Maybe GTemp,
   polarity :: Maybe GPol,
-  source   :: Maybe GNP,
-  attitude :: Maybe GVS,
   agent    :: Maybe GNP,
-  action   :: Maybe GVP
+  action   :: Either GVS GVP
   }
 
-initFact = Fact [] Nothing Nothing Nothing Nothing Nothing Nothing
+initFact = Fact [] Nothing Nothing Nothing (Left undefined)
 
-factTree fact = case action fact of
-  (Just vp) ->
-     GUttS $ GUseCl
-       (maybe presentTense id (tense fact))
-       (maybe positivePol id (polarity fact))
-       (GPredVP 
-          (maybe (maybe Gsomebody_NP id (source fact)) id (agent fact))
-          vp)
-  _ -> GUttNP Gnothing_NP
+factTree fact = GUseCl mtense mpolarity (GPredVP magent mvp)
+  where
+    mvp = case action fact of
+      Left vs -> GComplVS vs (factTree (head (content fact))) ---- head -> ambiguity 
+      Right vp -> vp
+    mtense = maybe presentTense id (tense fact)
+    mpolarity = maybe positivePol id (polarity fact)
+    magent = maybe GX_NP id (agent fact)
 
 presentTense = GTTAnt GTPres GASimul
 pastTense = GTTAnt GTPast GASimul
@@ -38,28 +35,53 @@ negativePol = GPNeg
 
 facts :: Infinitive.Tree a -> [Fact]
 facts t = case t of
+  GUseCl temp pol s ->
+    [f{
+              tense = Just temp,
+	      polarity = Just pol
+	      } | f <- facts s]
   GAdjCN (GAgentPartAP np vpslash) cn ->
     [initFact{
               tense = Just perfectTense,
               agent = Just np,
-	      action = Just (GComplSlash vpslash (GMassNP cn))}]
-  GPredVP np (GComplPresPartActAgrVS vs vp) -> 
+	      action = Right (GComplSlash vpslash (GMassNP cn))}]
+  GPredVP ag (GUseComp (GCompAP (GAgentPartAP np vpslash))) ->
     [initFact{
-              attitude = Just vs,
-	      source = Just np,
-	      action = Just vp}]
-  GPredVP np (GComplPastPartActAgrVS vs vp) -> 
-    [initFact{tense = Just perfectTense,
-              attitude = Just vs,
-	      source = Just np,
-	      action = Just vp}]
+              tense = Just perfectTense,
+              agent = Just np,
+	      action = Right (GComplSlash vpslash ag)}]
+  GPredVP np (GComplPresPartActReflVS vs vp) -> 
+    [initFact{
+              agent = Just np,
+	      action = Left vs,
+	      content = [
+	        initFact{
+		  agent = Just np,
+		  action = Right vp
+		  }]}]
+  GPredVP np (GComplPastPartActReflVS vs vp) ->
+      [initFact{
+              agent = Just np,
+	      action = Left vs,
+	      content = [
+	        initFact{
+		  tense = Just perfectTense,
+		  agent = Just np,
+		  action = Right vp
+		  }]}]
   GPredVP np (GAdvVP vp adv) ->
-    [f{source = Just np} | f <- facts vp ++ facts adv]
+    [f{agent = Just np} | f <- facts vp ++ facts adv]
+----  GPredVP np (GRAdvVP vp (GInf1LongRAdv vpa)) ->
+----    [f{agent = Just np, action = } | f <- facts vp ++ facts adv]
   GPredVP np vp ->
-    [f{source = Just np} | f <- facts vp]
+    [f{agent = Just np} | f <- facts vp]
   GUseV v ->
     [initFact{
-              action = Just t}]
+              action = Right t}]
+  GUseV2 v ->
+    [initFact{
+              action = Right (GComplSlash (GSlashV2a v) GY_NP)}]
+{-
   GComplPresPartActVS vs np vp ->
     [initFact{
               attitude =
@@ -85,6 +107,7 @@ facts t = case t of
               tense = Just perfectTense,
 	      attitude = Just vs,
               action = Just (GComplSlash vpslash np)}]
+-}
   _ -> composOpMPlus facts t
 
 
