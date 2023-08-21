@@ -330,8 +330,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
   lin
     VPass v =
       let vp = predV werdenPass
-      in vp ** {subj = esSubj ;
-		inf = vp.inf ** {s = v.s ! VPastPart APred } } ; -- construct the formal clause
+      in lin FClause (vp ** {subj = esSubj ;
+		                     inf = vp.inf ** {s = v.s ! VPastPart APred } }) ; -- construct the formal clause
 
     AdvFor adv fcl = fcl ** {a2 = adv.s} ;
 	
