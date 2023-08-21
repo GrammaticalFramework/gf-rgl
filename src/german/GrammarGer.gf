@@ -1,8 +1,8 @@
 --# -path=.:../abstract:../common:prelude
 
-concrete GrammarGer of Grammar = 
+concrete GrammarGer of Grammar =
   NounGer, 
-  VerbGer, 
+  VerbGer,
   AdjectiveGer,
   AdverbGer,
   NumeralGer,
@@ -13,7 +13,7 @@ concrete GrammarGer of Grammar =
   PhraseGer,
   TextX - [Tense,Temp],
   IdiomGer,
-  StructuralGer,
+  StructuralGer - [part_Prep,possess_Prep], -- use PartNP, PossNP instead
   TenseGer,
   NamesGer
   ** {

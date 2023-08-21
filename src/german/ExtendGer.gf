@@ -7,6 +7,7 @@ concrete ExtendGer of Extend =
     VPS, ListVPS, VPI, ListVPI,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, 
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
+    GenModNP,
     CardCNCard, CompoundN,
     PassVPSlash, PassAgentVPSlash, PastPartAP, PastPartAgentAP
     ]
@@ -25,9 +26,9 @@ concrete ExtendGer of Extend =
     VPS   = {s : Order => Agr => Str} ;
     [VPS] = {s1,s2 : Order => Agr => Str} ;
 
-lin
+  lin
 
-  InOrderToVP vp = {s = "um" ++ useInfVP False vp} ;
+    InOrderToVP vp = {s = "um" ++ useInfVP False vp} ;
 
     BaseVPI = twoTable Bool ;
     ConsVPI = consrTable Bool comma ;
@@ -44,7 +45,7 @@ lin
 
     PredVPS np vpi = 
       let
-        subj = np.s ! NPC Nom ++ bigNP np ;
+        subj = np.s ! False ! Nom ++ bigNP np ;
         agr  = np.a ;
       in {
         s = \\o => 
@@ -115,32 +116,32 @@ lin
     ConjVPS = conjunctDistrTable2 Order Agr ;
     
     UseDAP det = {
-      s = \\c => det.sp ! Neutr ! c ;
+      s = \\b,c => det.sp ! Neutr ! c ;
       a = agrP3 det.n ;
       w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       rc, ext = []
       } ;
 
     UseDAPMasc det = {
-      s = \\c => det.sp ! Masc ! c ;
+      s = \\_,c => det.sp ! Masc ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
       } ;
 
     UseDAPFem det = {
-      s = \\c => det.sp ! Fem ! c ;
+      s = \\_,c => det.sp ! Fem ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
       } ;
 
-lin
-  CardCNCard card cn = {
-    s = \\g,c =>
-      (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! NPC c ;
-    n = Pl
-    } ;
+    CardCNCard card cn = {
+      s = \\g,c =>
+        (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! False ! c ;
+      n = Pl
+      } ;
+  
 
 lin PassVPSlash vp = 
       insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
@@ -166,7 +167,7 @@ lin PastPartAgentAP vp np =
       in {
       s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
                   ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
-                  ++ vp.c2.s                         -- junk if not TV
+                  ++ vp.c2.s ! GPl                      -- junk if not TV
                   ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
       isPre = True ;
       c = <[],[]> ;
