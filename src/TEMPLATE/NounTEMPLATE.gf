@@ -50,13 +50,12 @@ concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
     DetNP det = emptyNP ** {
       s = \\_ => linDet det ;
       } ;
-
+-}
   -- MassNP : CN -> NP ;
     MassNP cn = emptyNP ** {
-
+      s = linCN cn
       } ;
 
--}
 
 --2 Determiners
 

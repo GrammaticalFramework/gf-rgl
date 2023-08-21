@@ -89,7 +89,9 @@ oper
       -- Usually you need to give the gender as an argument to mkNoun.
     } ;
 
-  linCN : LinCN -> Str = \cn -> cn.s ! Sg ;
+  linCN : LinCN -> Str = \cn -> cn.s ! Sg
+                     --      ++ cn.postmod   -- If there is another field, use here
+                                ;
 
 ---------------------------------------------
 -- Numeral
@@ -100,6 +102,14 @@ oper
 
   oper
     LinNumeral : Type = {s : CardOrd => Str ; n : Number} ;
+
+    mkNumeral : Str -> LinNumeral = \s -> {
+      s = table {
+        NCard => s ;
+        NOrd  => s + "th"
+        } ;
+      n = Pl ; -- NB. probably singular for number 1
+      } ;
 
 ---------------------------------------------
 -- Pronoun

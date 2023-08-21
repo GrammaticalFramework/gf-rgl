@@ -1,5 +1,5 @@
 concrete StructuralTEMPLATE of Structural = CatTEMPLATE **
-  open Prelude, ResTEMPLATE, (N=NounTEMPLATE), ParadigmsTEMPLATE in {
+  open Prelude, ResTEMPLATE, (Noun=NounTEMPLATE), ParadigmsTEMPLATE in {
 
 -------
 -- Ad*

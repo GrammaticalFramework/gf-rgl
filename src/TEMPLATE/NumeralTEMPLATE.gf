@@ -71,16 +71,6 @@ concrete NumeralTEMPLATE of Numeral = CatTEMPLATE [Numeral,Digits] **
     -- : Sub1000 -> Sub1000 -> Sub1000000 ; -- m * 1000 + n
     pot3plus d e =
 -}
-oper
-
-  mkNumeral : Str -> LinNumeral = \s -> {
-    s = table {
-      NCard => s ;
-      NOrd  => s + "th"
-      } ;
-    n = Pl ; -- TODO: handle singular in number 1
-    } ;
-
 
 --------------------------------------------------------------------------------
 -- Numerals as sequences of digits have a separate, simpler grammar

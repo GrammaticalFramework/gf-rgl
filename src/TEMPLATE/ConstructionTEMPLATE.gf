@@ -113,7 +113,5 @@ lin thai_Language = mkLanguage "Thai" ;
 lin turkish_Language = mkLanguage "Turkish" ;
 lin urdu_Language = mkLanguage "Urdu" ;
 
-—}
-}
 -}
 }

@@ -1,5 +1,5 @@
 concrete QuestionTEMPLATE of Question = CatTEMPLATE ** open
-  Prelude, ResTEMPLATE, ParadigmsTEMPLATE, (V=VerbTEMPLATE), (N=NounTEMPLATE), (S=StructuralTEMPLATE) in {
+  Prelude, ResTEMPLATE, ParadigmsTEMPLATE, (V=VerbTEMPLATE), (Noun=NounTEMPLATE), (S=StructuralTEMPLATE) in {
 
 -- A question can be formed from a clause ('yes-no question') or
 -- with an interrogative.
