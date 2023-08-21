@@ -61,7 +61,8 @@ incomplete concrete CatBantu of Cat =
 
     Numeral = {s : CardOrd => Gender => Str ; n : Number} ;
  
-   Digits  = {s : CardOrd => Gender => Str ; n : Number} ;
+    Digits  = {s : CardOrd => Gender => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Gender => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
 

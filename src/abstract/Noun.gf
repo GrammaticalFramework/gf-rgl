@@ -58,7 +58,7 @@ abstract Noun = Cat ** {
 
   data
     NumDigits  : Digits  -> Card ;  -- 51
-    NumFloat   : Digits -> Digits -> Card ;  -- 3.14
+    NumDecimal : Decimal -> Card ;  -- 3.14, -1, etc
     NumNumeral : Numeral -> Card ;  -- fifty-one
 
 -- The construction of numerals is defined in [Numeral Numeral.html].
@@ -158,7 +158,6 @@ abstract Noun = Cat ** {
 
 --2 Quantities
 
-    QuantityNP : Digits -> MU -> NP ;
-    QuantityFloatNP : Digits -> Digits -> MU -> NP ;
+    QuantityNP : Decimal -> MU -> NP ;
 
 }

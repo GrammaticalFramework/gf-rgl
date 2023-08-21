@@ -93,6 +93,7 @@ abstract Cat = Common ** {
 
     Numeral ; -- cardinal or ordinal in words       e.g. "five/fifth"
     Digits ;  -- cardinal or ordinal in digits      e.g. "1,000/1,000th"
+    Decimal ; -- decimal number                     e.g. "1/2/3.14/-1"
 
 --2 Structural words
 

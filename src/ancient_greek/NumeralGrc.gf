@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../prelude:
 
-concrete NumeralGrc of Numeral = CatGrc ** open ResGrc, MorphoGrc in {
+concrete NumeralGrc of Numeral = CatGrc ** open ResGrc, MorphoGrc, Prelude in {
 
 lincat 
   Digit = {s : DForm => CardOrd => Str} ;
@@ -80,6 +80,8 @@ lin -- mkDigit   d       (d+10)           (d*10)          d-th         d-times
     D_7 = mkDig "z"  "o" "q"  ;
     D_8 = mkDig "h"  "p" "w"  ;
     D_9 = mkDig "v"  "K" "P"  ;  -- TODO: replace K by koppa, P by sampi (not in ut -ancientgreek)
+
+    PosDecimal d = d ** {hasDot=False} ;
 
   oper
     TDigit = {

@@ -1,4 +1,4 @@
-concrete NumeralFin of Numeral = CatFin [Numeral,Digits] **  open Prelude, ParadigmsFin, MorphoFin, StemFin in {
+concrete NumeralFin of Numeral = CatFin [Numeral,Digits,Decimal] **  open Prelude, ParadigmsFin, MorphoFin, StemFin in {
 
 -- Notice: possessive forms are not used. They get wrong, since every
 -- part is made to agree in them.
@@ -73,10 +73,10 @@ lin
     s = \\c => d.s ! NumAttr ! c ++ nBIND d.n ++ tuhattaN.s ! d.n ! c ++ e.s ! NumIndep ! c
     } ;
   pot3as4 n = n ;
-  pot3float f = {n = Pl ; s = \\c => f.s ++ BIND ++ tuhattaN.s ! Pl ! c} ;
+  pot3decimal d = {n = Pl ; s = \\c => d.s ! NCard (NCase Sg Nom) ++ BIND ++ tuhattaN.s ! Pl ! c} ;
 
   pot4as5 n = n ;
-  pot4float f = {n = Pl ; s = \\c => f.s ++ "miljoonaa"} ;  -- KA: case inflection missing
+  pot4decimal d = {n = Pl ; s = \\c => d.s ! NCard (NCase Sg Nom) ++ "miljoonaa"} ;  -- KA: case inflection missing
 
   pot51 = {n = Pl ; s = \\c => "miljardi"} ;  -- KA: case inflection missing
 
@@ -179,6 +179,20 @@ oper
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard (NCase Sg Nom) ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o MorphoFin.Pl ;

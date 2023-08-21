@@ -2,7 +2,7 @@
 
 -- Adam Slaski, 2009, 2010 <adam.slaski@gmail.com>
 
-concrete NumeralPol of Numeral = CatPol [Numeral,Digits] ** open ResPol,Prelude, AdjectiveMorphoPol in {
+concrete NumeralPol of Numeral = CatPol [Numeral,Digits,Decimal] ** open ResPol,Prelude, AdjectiveMorphoPol in {
 
   flags  coding=utf8 ;
 
@@ -552,5 +552,25 @@ oper tysiac = table {
     D_7 = { s = "7"; o="7."; n=Pl; a=PiecA };
     D_8 = { s = "8"; o="8."; n=Pl; a=PiecA };
     D_9 = { s = "9"; o="9."; n=Pl; a=PiecA };
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ BIND ++ d.s;
+      o = "-" ++ BIND ++ d.o;
+      n=Pl;
+      a=d.a;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = d.s ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.s;
+      o = d.o ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.o;
+      n=Pl;
+      a=d.a;
+      hasDot=True
+      } ;
 
 }

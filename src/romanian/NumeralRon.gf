@@ -1,4 +1,4 @@
-concrete NumeralRon of Numeral = CatRon [Numeral,Digits] **
+concrete NumeralRon of Numeral = CatRon [Numeral,Digits,Decimal] **
   open  MorphoRon, CatRon, Prelude in {
 
 flags coding = utf8 ;
@@ -247,6 +247,21 @@ lin
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
 
+lin PosDecimal d = d ** {hasDot=False} ;
+lin NegDecimal d = {
+     s = \\o => "-" ++ BIND ++ d.s ! o ;
+     n = pl;
+     isDig = False ;
+     hasDot=False
+     } ;
+    IFrac d i = {
+     s = \\o => d.s ! NCard Masc ++
+                if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                i.s ! o ;
+     n = pl ;
+     isDig = False ;
+     hasDot=True
+     } ;
 
 oper mkDig : Str -> Dig = \c -> mk3Dig c (c + "lea") (c + "a") less20 ;
 

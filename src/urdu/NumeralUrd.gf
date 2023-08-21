@@ -2,7 +2,7 @@
 -- Modification for Urdu Shafqat Virk
 
 
-concrete NumeralUrd of Numeral = CatUrd [Numeral,Digits] ** open ResUrd,CommonHindustani,ParamX, Prelude in {
+concrete NumeralUrd of Numeral = CatUrd [Numeral,Digits,Decimal] ** open ResUrd,CommonHindustani,ParamX, Prelude in {
 flags coding=utf8 ;
 
 param DForm = unit | ten ;
@@ -110,6 +110,19 @@ lin D_8 = { s = "۸" ; n = Pl};
 lin D_9 = { s = "۹" ; n = Pl};
 lin IDig d = { s = \\_ => d.s ; n = d.n} ;
 lin IIDig d dg = { s = \\df => Prelude.glue (dg.s ! df) d.s ; n = Pl }; 
+lin PosDecimal d = d ** {hasDot=False} ;
+lin NegDecimal d = {
+      s = \\df => Prelude.glue "-" (d.s ! df) ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = \\df => d.s!df ++
+                  if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                  i.s ;
+      n = Pl ;
+      hasDot=True
+      } ;
 
 oper ekhazar : Str = variants {"ہزار" ; "ایک" ++ "ہزار"} ; 
 oper mkhazar : Str -> Size -> Str = \s -> \sz -> table {singl => ekhazar ; _ => s ++ "ہزار"} ! sz ;

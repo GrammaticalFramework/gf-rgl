@@ -72,6 +72,7 @@ concrete NounNep of Noun = CatNep ** open ResNep, Prelude in {
     PossPron p = {s = \\_,_ => p.ps } ;
     
     NumDigits n = {s = n.s ! NCard ; n = n.n} ;
+    NumDecimal n = {s = n.s ! NCard ; n = n.n} ;
     OrdDigits n = {s = n.s ! NOrd  ; n = n.n} ;
 
     NumNumeral numeral = {s = numeral.s ! NCard; n = numeral.n} ;

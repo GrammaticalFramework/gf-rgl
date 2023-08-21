@@ -1,6 +1,7 @@
 --# -path=.:../abstract:../common
 concrete DocumentationEng of Documentation = CatEng ** open
-  ResEng, Prelude,
+  ResEng,
+  Prelude,
   HTML in {
 
 lincat

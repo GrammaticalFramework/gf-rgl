@@ -1,4 +1,4 @@
-concrete NumeralSnd of Numeral = CatSnd [Numeral,Digits] ** open ResSnd, Prelude in {
+concrete NumeralSnd of Numeral = CatSnd [Numeral,Digits,Decimal] ** open ResSnd, Prelude in {
 -- By Harald Hammarstroem
 -- Modification for Punjabi by Shafqat Virk
  flags coding=utf8 ;
@@ -119,6 +119,7 @@ lin D_8 = { s = "۸" ; n = Pl};
 lin D_9 = { s = "۹" ; n = Pl};
 lin IDig d = { s = \\_ => d.s ; n = d.n} ;
 lin IIDig d dg = { s = \\df => Prelude.glue (dg.s ! df) d.s ; n = Pl }; 
+lin PosDecimal d = d ** {hasDot=False} ;
 
 oper ekhazar : Str = variants {"ھزار" ; "ھڪ" ++ "ھزار"} ; 
 oper mkhazar : Str -> Size -> Str = \s -> \sz -> table {singl => ekhazar ; _ => s ++ "ھزار"} ! sz ;

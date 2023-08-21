@@ -2,7 +2,7 @@
 -- Modification for Urdu Shafqat Virk
 
 
-concrete NumeralHin of Numeral = CatHin [Numeral,Digits] ** open ResHin,CommonHindustani,ParamX, Prelude in {
+concrete NumeralHin of Numeral = CatHin [Numeral,Digits,Decimal] ** open ResHin,CommonHindustani,ParamX, Prelude in {
 flags coding=utf8 ;
 
 param DForm = unit | ten ;
@@ -110,6 +110,7 @@ lin D_8 = { s = "८" ; n = Pl};
 lin D_9 = { s = "९" ; n = Pl};
 lin IDig d = { s = \\_ => d.s ; n = d.n} ;
 lin IIDig d dg = { s = \\df => Prelude.glue (dg.s ! df) d.s ; n = Pl }; 
+lin PosDecimal d = d ** {hasDot=False} ;
 
 oper ekhazar : Str = variants {"हज़ार" ; "एक" ++ "हज़ार"} ; 
 oper mkhazar : Str -> Size -> Str = \s -> \sz -> table {singl => ekhazar ; _ => s ++ "हज़ार"} ! sz ;

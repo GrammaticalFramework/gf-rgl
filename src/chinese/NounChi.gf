@@ -62,6 +62,7 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
 
     NumCard n = n ** {numType = NTFull} ;
     NumDigits d = d ** {numType = NTFull} ;
+    NumDecimal d = d ** {numType = NTFull} ;
     OrdDigits d = {s = ordinal_s ++ d.s} ;
 
     NumNumeral numeral = {s = numeral.p} ; -- liang instead of yi

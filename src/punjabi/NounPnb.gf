@@ -64,6 +64,8 @@ concrete NounPnb of Noun = CatPnb ** open ResPnb, Prelude in {
     NumDigits n = {s = n.s ! NCard ; n = n.n} ;
     OrdDigits n = {s = n.s ! NOrd; n = n.n} ;
 
+    NumDecimal n = {s = n.s ! NCard ; n = n.n} ;
+
     NumNumeral numeral = {s = numeral.s ! NCard; n = numeral.n} ;
     OrdNumeral numeral = {s = numeral.s ! NOrd ; n = numeral.n} ;
 

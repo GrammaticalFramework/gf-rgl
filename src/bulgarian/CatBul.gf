@@ -64,6 +64,7 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV] ** open ResBul, Prelude, Predef, (
 
     Numeral = {s : CardOrd => Str; n : Number} ;
     Digits  = {s : CardOrd => Str; n : Number; tail : DTail} ;
+    Decimal = {s : CardOrd => Str; n : Number; hasDot : Bool} ;
 
 -- Structural
 

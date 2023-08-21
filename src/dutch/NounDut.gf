@@ -85,7 +85,7 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
 
-    NumFloat n1 n2 = {s = \\g,c => n1.s ! NCard Utr Nom ++ BIND ++ "." ++ BIND ++ n2.s ! NCard g c; n = Pl } ;
+    NumDecimal numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
 
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdNumeral numeral = {s = let tiende : AForm => Str = \\af => numeral.s ! NOrd af
@@ -204,12 +204,6 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
     QuantityNP n m = noMerge ** {
       s = \\c => preOrPost m.isPre m.s (n.s ! NCard Utr Nom) ;
       a = agrP3 n.n ;
-      isPron = False
-      } ;
-
-    QuantityFloatNP n1 n2 m = noMerge ** {
-      s = \\role => preOrPost m.isPre m.s (n1.s ! NCard Utr Nom ++ BIND ++ "." ++ BIND ++ n2.s ! NCard Utr Nom) ;
-      a = agrP3 Pl ;
       isPron = False
       } ;
 

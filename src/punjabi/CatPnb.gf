@@ -61,7 +61,8 @@ concrete CatPnb of Cat = CommonX - [Adv] ** open ResPnb, Prelude in {
 ---- Numeral
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
-    Digits  = {s : CardOrd => Str ; n : Number } ;
+    Digits  = {s : CardOrd => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Str ; n : Number; hasDot : Bool} ;
 
 ---- Structural
 

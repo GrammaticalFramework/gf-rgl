@@ -83,6 +83,8 @@ concrete NounGrc of Noun = CatGrc ** open Prelude, ResGrc, (M = MorphoGrc) in {
     -- TODO: check the following two:
     NumDigits digits = let num : Number = case digits.unit of {one => Sg ; _ => Pl}
                         in {s = \\g,c => digits.s ++ "'"; n = num ; isCard = True} ;
+    NumDecimal digits = let num : Number = case digits.unit of {one => Sg ; _ => Pl}
+                        in {s = \\g,c => digits.s ++ "'"; n = num ; isCard = True} ;
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
 
     AdNum adn num = {s = \\g,c => adn.s ++ num.s ! g ! c ; n = num.n} ;

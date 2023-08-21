@@ -82,6 +82,7 @@ lincat
   Num = NumDet ;
   Card = NumDet ;
   Digits = {s : Str ; size: NumSize} ;
+  Decimal = {s : Str ; size: NumSize; hasDot : Bool} ;
 
   QS  = {s : QForm => Str} ;
   QCl = {

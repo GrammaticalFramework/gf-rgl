@@ -172,8 +172,8 @@ in {
                     isPre = True
                     };
 
-    NumFloat n1 n2 = {s,sp = \\g => n1.s ! NCard g ++ BIND ++ "." ++ BIND ++ n2.s ! NCard g ;
-                      size = n1.n; n = Pl };
+    NumDecimal nu = {s,sp = \\g => nu.s ! NCard g ;
+                     size = nu.n; n = getNumber nu.n };
 
     NumNumeral nu = {s = \\g => nu.s ! ANomAcc ! (NCard g) ! Formal ; 
                      sp = \\g => nu.sp ! ANomAcc ! (NCard g) ! Formal ;

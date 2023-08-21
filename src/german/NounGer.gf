@@ -117,7 +117,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
 
-    NumFloat dig1 dig2 = {s = \\g,c => dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! NCard g c ; n = Pl } ;
+    NumDecimal numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
 
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdNumeral numeral = {s = \\af => numeral.s ! NOrd af} ;
@@ -256,14 +256,6 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
     QuantityNP dig m = {
       s = \\_,c => preOrPost m.isPre m.s (dig.s ! invNum) ;
-      a = agrP3 Pl ;
-      w = WLight ;
-      rc = "" ;
-      ext = "" ;
-      } ;
-
-    QuantityFloatNP dig1 dig2 m = {
-      s = \\_,c => preOrPost m.isPre m.s (dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! invNum) ;
       a = agrP3 Pl ;
       w = WLight ;
       rc = "" ;

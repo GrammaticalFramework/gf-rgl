@@ -81,6 +81,7 @@ concrete CatEng of Cat = CommonX - [Pol,CAdv] ** open ResEng, Prelude in {
 
     Numeral = {s : Bool => CardOrd => Case => Str ; n : Number} ;
     Digits  = {s : CardOrd => Case => Str ; n : Number ; tail : DTail} ;
+    Decimal = {s : CardOrd => Case => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
 

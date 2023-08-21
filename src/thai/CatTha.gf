@@ -51,6 +51,7 @@ concrete CatTha of Cat = CommonX ** open ResTha, Prelude in {
 -- Numeral
 
     Numeral, Card, Digits = {s : Str} ;
+    Decimal = {s : Str; hasDot : Bool} ;
 
 -- Structural
 

@@ -1,4 +1,4 @@
-concrete NumeralEng of Numeral = CatEng [Numeral,Digits] ** open Prelude, ResEng in {
+concrete NumeralEng of Numeral = CatEng [Numeral,Digits,Decimal] ** open Prelude, ResEng in {
 
 lincat
   Digit = {s : DForm => CardOrd => Case => Str} ;
@@ -57,8 +57,8 @@ lin pot3 n = {
 lin pot3plus n m = {
   s = \\d,o,c => n.s ! d ! NCard ! Nom ++ "thousand" ++ m.s ! False ! o ! c; n = Pl} ;
 lin pot3as4 n = n ;
-lin pot3float f = {
-  s = \\d,o,c => f.s ++ mkCard o "thousand" ! c ; n = Pl} ;
+lin pot3decimal f = {
+  s = \\d,o,c => f.s ! NCard ! Nom  ++ mkCard o "thousand" ! c ; n = Pl} ;
 
 lin pot41 = {
       s = \\d,o,c => case d of {True => []; False => "a"} ++
@@ -74,8 +74,8 @@ lin pot4plus n1 n2 = {
       n = Pl
     } ;
 lin pot4as5 n = n ;
-lin pot4float f = {
-  s = \\d,o,c => f.s ++ pot41.s ! True ! o ! c ; n = Pl} ;
+lin pot4decimal f = {
+  s = \\d,o,c => f.s ! NCard ! Nom ++ pot41.s ! True ! o ! c ; n = Pl} ;
 
 lin pot51 = {
       s = \\d,o,c => case d of {True => []; False => "a"} ++
@@ -90,8 +90,8 @@ lin pot5plus n1 n2 = {
       s = \\d,o,c => n1.s ! d ! NCard ! Nom ++ pot51.s ! True ! NCard ! Nom ++ "and" ++ n2.s ! True ! o ! c;
       n = Pl
     } ;
-lin pot5float f = {
-  s = \\d,o,c => f.s ++ pot51.s ! True ! o ! c ; n = Pl} ;
+lin pot5decimal f = {
+  s = \\d,o,c => f.s ! NCard ! Nom ++ pot51.s ! True ! o ! c ; n = Pl} ;
 
 -- numerals as sequences of digits
 
@@ -117,6 +117,16 @@ lin pot5float f = {
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+lin PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {s=\\o,c=>"-" ++ BIND ++ d.s ! o ! c;  hasDot=False; n = Pl} ;
+    IFrac d i = {
+        s=\\o,c=>d.s ! NCard ! Nom ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ! c ;
+        hasDot=True;
+        n = Pl
+    } ;
 
   oper
     commaIf : DTail -> Str = \t -> case t of {

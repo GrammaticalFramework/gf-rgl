@@ -80,6 +80,7 @@ concrete CatRon of Cat =
               sp : ACase => CardOrd => NumF => Str ; size : Size } ;
    
    Digits  = {s : CardOrd => Str ; n : Size ; isDig : Bool} ;
+   Decimal = {s : CardOrd => Str ; n : Size ; isDig : Bool; hasDot : Bool} ;
 
    Num     = {s : Gender => Str ; sp : Gender => Str ; 
               isNum : Bool ; n : Number; size : Str } ;

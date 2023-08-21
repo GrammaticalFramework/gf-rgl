@@ -209,6 +209,8 @@ concrete NumeralLat of Numeral = CatLat, ParamX[Number] ** open ParadigmsLat, Pr
     D_8 = mkDig "VIII" "XVIII" "LXXX" "DCCC" "(VIII)" "(LXXX)" "(DCCC)" ;
     D_9 = mkDig "IX"   "XIX"   "XC"   "CM"    "(IX)"   "(XC)"   "(CM)" ;
 
+    PosDecimal d = d ** {hasDot=False} ;
+
   oper
     TDig = {
       s : Unit => Str

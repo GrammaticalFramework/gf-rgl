@@ -55,6 +55,7 @@ concrete CatIna of Cat = CommonX ** open ResIna, Prelude in {
     
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : CardOrd => Str ; n : Number ; tail : DTail} ;
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
 

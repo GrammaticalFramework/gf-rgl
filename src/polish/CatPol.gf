@@ -75,6 +75,7 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
                 a:Accom; n:Number };
     Ord = {  s: AForm => Str };
     Digits = { s:Str; o:Str; a:Accom; n:Number };
+    Decimal = { s:Str; o:Str; a:Accom; n:Number; hasDot : Bool };
 
 
 ---- Structural

@@ -125,6 +125,7 @@ concrete NounEus of Noun = CatEus ** open ResEus, Prelude in {
 
   -- : Digits  -> Card ;
   NumDigits dig = { s = dig.s ! NCard ; n = dig.n } ;
+  NumDecimal dec = { s = dec.s ! NCard ; n = dec.n } ;
 
   -- : Numeral -> Card ;
   NumNumeral num = num ;

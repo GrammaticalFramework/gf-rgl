@@ -109,7 +109,7 @@ lin
  
  NumCard n = n ** {isNum = True} ;
  
- NumDigits,NumNumeral = \numeral -> {
+ NumDigits,NumNumeral,NumDecimal = \numeral -> {
     s = numeral.s ! NCard ;
     sp = \\_ => numeral.s ! NCard ;
     n = numeral.n 

@@ -63,6 +63,7 @@ concrete CatEst of Cat = CommonX ** open HjkEst, ResEst, Prelude in {
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : CardOrd => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
 

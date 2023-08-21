@@ -57,6 +57,7 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 
     Numeral = {s,p : Str} ;
     Card, Digits = {s : Str} ;
+    Decimal = {s : Str ; hasDot : Bool} ;
 
 -- Structural
 

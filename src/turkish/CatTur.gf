@@ -30,6 +30,7 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, HarmonyTur, Prelud
 
     Numeral = {s : CardOrd => Number => Case => Str ; n : Number} ;
     Digits  = {s : CardOrd => Number => Case => Str ; n : Number; tail : DTail} ;
+    Decimal  = {s : CardOrd => Number => Case => Str ; n : Number; hasDot : Bool} ;
 
     -- Adjective
     AP = {s : Number => Case => Str; h : Harmony} ;

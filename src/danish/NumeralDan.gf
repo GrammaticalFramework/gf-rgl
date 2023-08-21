@@ -1,4 +1,4 @@
-concrete NumeralDan of Numeral = CatDan [Numeral,Digits] ** open MorphoDan,Prelude in {
+concrete NumeralDan of Numeral = CatDan [Numeral,Digits,Decimal] ** open MorphoDan,Prelude in {
   flags coding=utf8 ;
 
 
@@ -66,6 +66,20 @@ lin n9 = mkTal "ni"   "nitten"  "halvfems"   "niende" "halvfemsindstyvende" ;
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+      s=\\o=>d.s ! NCard neutrum ++
+             if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+             i.s ! o;
+      hasDot=True;
+      n = Pl
+    } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

@@ -1,4 +1,4 @@
-concrete NumeralIce of Numeral = CatIce [Numeral,Digits] ** open Prelude, ResIce in {
+concrete NumeralIce of Numeral = CatIce [Numeral,Digits,Decimal] ** open Prelude, ResIce in {
 
 	param
 		DForm = unit | teen | ten ;
@@ -202,6 +202,20 @@ concrete NumeralIce of Numeral = CatIce [Numeral,Digits] ** open Prelude, ResIce
 		D_7 = mkDig "7" ;
 		D_8 = mkDig "8" ;
 		D_9 = mkDig "9" ;
+
+        PosDecimal d = d ** {hasDot=False} ;
+        NegDecimal d = {
+		  s = \\o => "-" ++ BIND ++ d.s ! o ;
+		  n = Pl ;
+          hasDot=False
+          } ;
+        IFrac d i = {
+          s = \\o => d.s ! NCard Sg Masc Nom ++
+                     if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                     i.s ! o ;
+          n = Pl ;
+          hasDot=True
+          } ;
 
 	oper
 

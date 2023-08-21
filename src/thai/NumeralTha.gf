@@ -89,4 +89,6 @@ oper
     D_8 = ss "๘" ;
     D_9 = ss "๙" ;
 
+    PosDecimal d = d ** {hasDot=False} ;
+
 }

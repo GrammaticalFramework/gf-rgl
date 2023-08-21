@@ -164,7 +164,7 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
 --     NumDigits  : Digits  -> Card ;  -- 51
     NumDigits n =  { s=\\_,_ => n.s; a=n.a; n=n.n };
 
-    NumFloat n1 n2 =  { s=\\_,_ => n1.s ++ BIND ++ "." ++ BIND ++ n2.s; a=n1.a; n=Pl };
+    NumDecimal n =  { s=\\_,_ => n.s; a=n.a; n=n.n };
     
 --     NumCard : Card -> Num ;
     NumCard c = c ** { hasCard = True };
@@ -213,13 +213,6 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     QuantityNP n m = {
       nom,voc = preOrPost m.isPre m.s n.s;
       dep = \\cc => preOrPost m.isPre m.s n.s ;
-      gn = OthersPl;
-      p = P3
-      } ;
-
-    QuantityFloatNP n1 n2 m = {
-      nom,voc = preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
-      dep = \\cc => preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
       gn = OthersPl;
       p = P3
       } ;

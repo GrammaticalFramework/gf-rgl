@@ -107,9 +107,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
     numtype = IsDig
     } ;
 
-  NumFloat dig1 dig2 = baseNum ** {
-    s = \\_,_ => dig1.s ! NCard ++ BIND ++ "." ++ BIND ++ dig2.s ! NCard ;
-    n = Pl ;
+  NumDecimal dec = baseNum ** {
+    s = \\_,_ => dec.s ! NCard ;
+    n = dec.n ;
     numtype = IsDig
     } ;
 

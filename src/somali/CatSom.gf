@@ -80,6 +80,7 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
     Card = BaseNum ;
     Numeral = ResSom.Numeral ;
     Digits = {s : CardOrd => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Str ; n : Number; hasDot : Bool} ;
 
 
 

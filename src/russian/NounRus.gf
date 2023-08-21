@@ -87,7 +87,7 @@ lin
   -- : Digits -> Card ;  -- 51
   NumDigits n = {s = \\_,_,_ => n.s ; size = n.size } ;
 
-  NumFloat n1 n2 = {s = \\_,_,_ => n1.s ++ BIND ++ "." ++ BIND ++ n2.s ; size = n1.size } ;
+  NumDecimal n = {s = \\_,_,_ => n.s ; size = n.size } ;
 
   -- : Quant -> Num -> Det ;  -- these five
   DetQuant quant num = {
@@ -245,12 +245,6 @@ lin
     s = \\cas => preOrPost m.isPre m.s n.s;
     pron=False ;
     a=Ag (gennum Masc (numSizeNumber n.size)) P3
-    } ;
-
-  QuantityFloatNP n1 n2 m = {
-    s = \\cas => preOrPost m.isPre m.s (n1.s ++ BIND ++ "." ++ BIND ++ n2.s) ;
-    pron=False ;
-    a=Ag GPl P3
     } ;
 
 }

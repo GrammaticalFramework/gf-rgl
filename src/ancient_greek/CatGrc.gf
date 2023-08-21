@@ -90,6 +90,7 @@ concrete CatGrc of Cat = CommonX - [Temp,Tense] ** open ResGrc, Prelude in {
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : Str ; unit : Unit} ;
+    Decimal = {s : Str ; unit : Unit ; hasDot : Bool} ;
 
 -- Structural
 

@@ -31,6 +31,8 @@ lincat
 
   -- Numeral
   Numeral = {s : Gender => Case => Str ; n : NumAgr} ;
+  Digits = {s : Str ; n : NumAgr} ;
+  Decimal = {s : Str ; n : NumAgr ; hasDot : Bool} ;
 
   -- Structural
   Conj = {s : Str; n : Number} ;

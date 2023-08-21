@@ -78,8 +78,7 @@ concrete CatKor of Cat = CommonX ** open ResKor, Prelude in {
     Card = ResKor.Num ;
     Numeral = ResKor.Numeral ;
     Digits = {s : CardOrd => Str ; n : Number} ;
-
-
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 --2 Structural words
 

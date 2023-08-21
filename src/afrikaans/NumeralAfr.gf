@@ -1,5 +1,5 @@
 
-concrete NumeralAfr of Numeral = CatAfr [Numeral,Digits] ** open ResAfr, Prelude in {
+concrete NumeralAfr of Numeral = CatAfr [Numeral,Digits,Decimal] ** open ResAfr, Prelude in {
 
 flags optimize = all_subs ;
   coding=utf8 ;
@@ -74,6 +74,20 @@ lin
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = \\o => d.s ! invNum ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o;
+      n = Pl ;
+      hasDot=True
+    } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

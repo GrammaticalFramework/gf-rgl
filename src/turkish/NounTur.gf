@@ -176,8 +176,8 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
       s = n.s ! NCard ; n = n.n
     } ;
 
-    NumFloat n1 n2 = {
-      s = \\n,c => n1.s ! NCard ! Sg ! Nom ++ BIND ++ "." ++ BIND ++ n2.s ! NCard ! n ! c ; n = Pl
+    NumDecimal n = {
+      s = n.s ! NCard ; n = n.n
     } ;
 
     OrdNumeralSuperl n a = {

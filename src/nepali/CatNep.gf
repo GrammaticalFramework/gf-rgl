@@ -68,6 +68,7 @@ concrete CatNep of Cat = CommonX - [Adv] ** open ResNep, Prelude in {
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : CardOrd => Str ; n : Number } ;
+    Decimal = {s : CardOrd => Str ; n : Number; hasDot : Bool} ;
 
 ---- Structural
 
