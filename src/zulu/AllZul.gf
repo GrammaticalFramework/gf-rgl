@@ -1,5 +1,5 @@
---# -path=.:../abstract:../common:../api
+--# -path=.:../abstract:../common:../zulu/abstract_ext
 
 concrete AllZul of AllZulAbs =
-  CatZul ** {
+  LangZul ** {
 }
