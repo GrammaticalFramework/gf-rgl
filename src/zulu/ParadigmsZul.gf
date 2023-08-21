@@ -133,12 +133,12 @@ oper
     mkV3 : (guqubal,guqubala,guqubele,guqubele_2 : Str) -> V3 = \guqubal,guqubala,guqubele,guqubele_2 -> lin V3 (four_Verb guqubal guqubala guqubele guqubele_2) ;
   } ;
 
-  mkV2V = overload {
-    mkV2V : (hamb : Str) -> V2V  = \hamb -> lin V2V (regVerb hamb) ;
-    mkV2V : (th,thi : Str) -> V2V  = \th,thi -> lin V2V (th_Verb th thi) ;
-    mkV2V : (guqubal,guqubala,guqubele : Str) -> V2V = \guqubal,guqubala,guqubele -> lin V2V (three_Verb guqubal guqubala guqubele) ;
-    mkV2V : (guqubal,guqubala,guqubele,guqubele_2 : Str) -> V2V = \guqubal,guqubala,guqubele,guqubele_2 -> lin V2V (four_Verb guqubal guqubala guqubele guqubele_2) ;
-  } ;
+--  mkV2V = overload {
+--    mkV2V : (hamb : Str) -> V2V  = \hamb -> lin V2V (regVerb hamb) ;
+--    mkV2V : (th,thi : Str) -> V2V  = \th,thi -> lin V2V (th_Verb th thi) ;
+--    mkV2V : (guqubal,guqubala,guqubele : Str) -> V2V = \guqubal,guqubala,guqubele -> lin V2V (three_Verb guqubal guqubala guqubele) ;
+--    mkV2V : (guqubal,guqubala,guqubele,guqubele_2 : Str) -> V2V = \guqubal,guqubala,guqubele,guqubele_2 -> lin V2V (four_Verb guqubal guqubala guqubele guqubele_2) ;
+--  } ;
 
   mkVA = overload {
     mkVA : (b : Str) -> VA  = \b -> lin VA (regVerb b) ;
@@ -148,10 +148,10 @@ oper
     mkVV : (f : Str) -> VV  = \f -> lin VV (regVerb f)
   } ;
 
-  mkVS = overload {
-    mkVS : (cel : Str) -> SType -> VS  = \cel,st -> lin VS ((regVerb cel) ** { s_type = st } ) ;
-    mkVS : (az,azi : Str) -> SType -> VS  = \az,azi,st -> lin VS ((th_Verb az azi) ** { s_type = st } ) ;
-  } ;
+  -- mkVS = overload {
+  --   mkVS : (cel : Str) -> SType -> VS  = \cel,st -> lin VS ((regVerb cel) ** { s_type = st } ) ;
+  --   mkVS : (az,azi : Str) -> SType -> VS  = \az,azi,st -> lin VS ((th_Verb az azi) ** { s_type = st } ) ;
+  -- } ;
 
   -- yourPl_Det = overload {
   --   yourPl_Det : Det = lin Det { s = "jou" ; n = Pl ; p = TPos } ;
