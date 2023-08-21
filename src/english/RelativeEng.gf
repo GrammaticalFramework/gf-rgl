@@ -22,8 +22,8 @@ concrete RelativeEng of Relative = CatEng ** open ResEng, Prelude in {
       c = npNom
       } ;
 
--- Pied piping: "that we are looking at". Pied piping and empty
--- relative are defined in $ExtraEng.gf$ ("at which we are looking",
+-- Preposition stranding: "that we are looking at". Pied piping and empty
+-- relative are defined in $ExtendEng.gf$ ("at which we are looking",
 -- "we are looking at").
 
     RelSlash rp slash = {

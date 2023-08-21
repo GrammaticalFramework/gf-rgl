@@ -16,7 +16,8 @@ concrete ExtendEng of Extend =
     FocusAP, FocusAdV, FocusAdv, FocusObj, GenIP, GenModIP, GenModNP, GenNP, GenRP,
     GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP, InOrderToVP, NominalizeVPSlashNP,
     PassAgentVPSlash, PassVPSlash, ProgrVPSlash, PastPartAP, PastPartAgentAP, PositAdVAdj,  PredVPSVV, PredetRNP, PrepCN,
-    EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
+    EmbedSSlash, PredIAdvVP, PresPartAP, PurposeVP, ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V,
+    StrandQuestSlash, StrandRelSlash, PiedPipingQuestSlash, PiedPipingRelSlash,
     UncontractedNeg, UttAccIP, UttAccNP, UttAdV, UttDatIP, UttDatNP, UttVPShort, WithoutVP, A2VPSlash, N2VPSlash,
     CardCNCard, ProDrop, theyFem_Pron, theyNeutr_Pron
    ]
@@ -49,6 +50,15 @@ concrete ExtendEng of Extend =
 
     GenModNP num np cn = DetCN (DetQuant (GenNP (lin NP np)) num) cn ;
     GenModIP num ip cn = IdetCN (IdetQuant (GenIP (lin IP ip)) num) cn ;
+
+    PiedPipingRelSlash rp slash = {
+      s = \\t,a,p,agr =>
+          slash.c2 ++ rp.s ! RPrep (fromAgr agr).g ++ slash.s ! t ! a ! p ! oDir ;
+      c = NPAcc
+      } ;
+
+    PiedPipingQuestSlash ip slash =
+      mkQuestion (ss (slash.c2 ++ ip.s ! NPAcc)) slash ;
 
     StrandQuestSlash ip slash =
       {s = \\t,a,b,q =>
