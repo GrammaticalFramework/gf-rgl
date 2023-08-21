@@ -1,12 +1,24 @@
 abstract Infinitive =
 
-  Grammar - [VPSlashPrep], ---- to avoid certain spurious ambiguities, to be fixed
+  Grammar - [
+    VPSlashPrep,   --- to avoid certain spurious ambiguities, to be fixed
+    PassV2         ---- temporarily disabled, to be fixed
+    ],
   Lexicon
     ** {
 
 flags startcat = Utt ;
 
-data
+cat
+  RAdv ;  -- reflexive adverbs, e.g. mennäkse (ni/si/...)
+
+fun
+  UseV2 : V2 -> VP ;        -- to use V2 intransitively, suppressing object
+  RAdvVP : VP -> RAdv -> VP ; -- syödä elääkseni
+
+  X_NP, Y_NP, Z_NP : NP ;   -- unknown subjects and objects
+  tulla_VV : VV ;           -- tulla (tekemään), explicit future tense
+
   PresPartPassSubjVP : VP -> VP ;      -- (minun) on mentävä
   PresPartPassObjVP : VPSlash -> VP ;  -- (oluesta) on pidettävä
 
@@ -19,13 +31,12 @@ data
 
   AgentPartAP   : NP -> VPSlash -> AP ;  -- koiran syömä      
 
-
+  Inf1LongRAdv : VP -> RAdv ; -- mennäkse (ni/si/...)
+  
   Inf2InessAdv : NP -> VP -> Adv ;       -- junan mennessä
   
   Inf2InessPassAdv    : VP -> Adv ;             -- odotettaessa (junaa), touhuttaessa (junan kanssa)
   Inf2InessPassInvAdv : NP -> VPSlash -> Adv ;  -- junaa odotettaessa, junan kanssa touhutessa
-  Inf2InstrAdv        : VP -> Adv ;             -- odottaen (junaa)
-  Inf2InstrInvAdv     : NP -> VPSlash -> Adv ;  -- junaa odottaen
 
   Inf2InstrAdv    : VP -> Adv ;             -- odottaen (junaa)
   Inf2InstrInvAdv : NP -> VPSlash -> Adv ;  -- junaa odottaen

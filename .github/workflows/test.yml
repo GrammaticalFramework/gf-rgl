@@ -1,7 +1,8 @@
 name: Check that the RGL can successfully build
 
 on:
-  push
+  - push
+  - pull_request
 
 jobs:
   build:
