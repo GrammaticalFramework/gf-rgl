@@ -1,4 +1,4 @@
-concrete NamesGer of Names = CatGer ** open ResGer, Prelude in {
+concrete NamesGer of Names = CatGer ** open ResGer, Prelude, (P=ParadigmsGer) in {
 
 lin GivenName gn = {
       s = \\_,c => gn.s ! c ;
@@ -58,16 +58,22 @@ lin PlainLN ln = {
       rc, ext = []
       } ;
 
-{-
 -- InLN : LN -> Adv ;
 lin InLN ln = {
-      s = let c = CInDat
-          in case ln.hasArt of {
-               True  => artDefContr (gennum ln.g ln.n) c ++ usePrepC c (\k -> ln.s ! Weak ! k) ;
-               False => usePrepC c (\k -> ln.s ! adjfCase Strong k ! k)
-             } ;
+      s = appPrepNP P.inDat_Prep {
+             s = \\b,c => case ln.hasArt of {
+                            True  => case b of {
+                                       True  => [] ; -- defart dropped
+                                       False => artDef ! (gennum ln.g ln.n) ! c
+                                     } ++
+                                     ln.s ! (adjfCase Weak c) ! c ;
+                            False => ln.s ! Strong ! c
+                          } ;
+             a = agrgP3 ln.g ln.n ;
+             w = WLight ;
+             rc, ext = []
+      }
       } ;
--}
 
 -- AdjLN : AP -> LN -> LN ;
 lin AdjLN ap ln = ln ** {
