@@ -1,5 +1,5 @@
-concrete RelativeTEMPLATE of Relative = CatTEMPLATE ** open
-  ResTEMPLATE, Prelude in {
+concrete RelativeTMP of Relative = CatTMP ** open
+  ResTMP, Prelude in {
 
 {-
 lin

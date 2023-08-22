@@ -1,25 +1,25 @@
-concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude in {
+concrete CatTMP of Cat = CommonX ** open ResTMP, Coordination, Prelude in {
 
   flags optimize=all_subs ;
 
   lincat
 
 --2 Sentences and clauses
--- Constructed in SentenceTEMPLATE, and also in IdiomTEMPLATE
+-- Constructed in SentenceTMP, and also in IdiomTMP
     S  = SS ;
     QS = SS ;
     RS = SS ;
     -- relative sentence. Tense and polarity fixed,
     -- but agreement may depend on the CN/NP it modifies.
 
-    Cl = ResTEMPLATE.LinCl ;
+    Cl = ResTMP.LinCl ;
     ClSlash = SS ;
     SSlash  = SS ; -- sentence missing NP; e.g. "she has looked at"
     Imp     = SS ; -- imperative             e.g. "look at this"
 
 --2 Questions and interrogatives
 
--- Constructed in QuestionTEMPLATE.
+-- Constructed in QuestionTMP.
     QCl = SS ;
     IComp = SS ;   -- interrogative complement of copula  e.g. "where"
     IDet = SS ;    -- interrogative determiner            e.g. "how many"
@@ -33,30 +33,30 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 
 --2 Verb phrases
 
--- Constructed in VerbTEMPLATE.
-    VP = ResTEMPLATE.LinVP ;
+-- Constructed in VerbTMP.
+    VP = ResTMP.LinVP ;
     VPSlash = SS ;
     Comp = SS ;
 
 --2 Adjectival phrases
 
--- Constructed in AdjectiveTEMPLATE.
+-- Constructed in AdjectiveTMP.
     AP = SS ;
 
 --2 Nouns and noun phrases
 
--- Constructed in NounTEMPLATE.
+-- Constructed in NounTMP.
 -- Many atomic noun phrases e.g. "everybody"
--- are constructed in StructuralTEMPLATE.
+-- are constructed in StructuralTMP.
 
-    CN = ResTEMPLATE.LinCN ;
-    NP = ResTEMPLATE.LinNP ;
+    CN = ResTMP.LinCN ;
+    NP = ResTMP.LinNP ;
     Pron = SS ; -- NB. Pronouns need enough info to become NP or Quant.
-    Det = ResTEMPLATE.LinDet ; -- s : Str , n : Number
+    Det = ResTMP.LinDet ; -- s : Str , n : Number
     Predet = SS ;
-    Quant = ResTEMPLATE.LinQuant ; -- s : Number => Str
-    Num = ResTEMPLATE.LinDet ;
-    Card = ResTEMPLATE.LinNumeral ;
+    Quant = ResTMP.LinQuant ; -- s : Number => Str
+    Num = ResTMP.LinDet ;
+    Card = ResTMP.LinDet ;
     ACard = SS ;
     Ord = SS ;
     DAP = SS ;
@@ -64,15 +64,18 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 
 --2 Numerals
 
--- Constructed in NumeralTEMPLATE.
+-- Constructed in NumeralTMP.
 
-    Numeral = ResTEMPLATE.LinNumeral ;
-    Digits = ResTEMPLATE.LinNumeral ;
+    Numeral = ResTMP.LinNumeral ;
+    Digits = ResTMP.LinNumeral ;
 
 --2 Structural words
 
--- Constructed in StructuralTEMPLATE.
-    Conj = Coordination.ConjunctionDistr ;
+-- Constructed in StructuralTMP.
+    Conj = Coordination.ConjunctionDistr ** {
+        n : Number -- The number of the NP that results from
+                   -- coordinating a list of NPs with that Conj.
+        } ;        -- "[Ann and Bob] are children" → and_Conj.n = Pl
     Subj = SS ;
     Prep = SS ;
 
@@ -80,14 +83,14 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
 
 --2 Words of open classes
 
--- These are constructed in LexiconTEMPLATE and in
+-- These are constructed in LexiconTMP and in
 -- additional lexicon modules.
 
     -- TODO: eventually different lincats
     VS,    -- sentence-complement verb            e.g. "claim"
     VQ,    -- question-complement verb            e.g. "wonder"
     VA,    -- adjective-complement verb           e.g. "look"
-    V = ResTEMPLATE.LinV ;
+    V = ResTMP.LinV ;
 
     VV     -- verb-phrase-complement verb         e.g. "want"
       = SS ;
@@ -102,9 +105,9 @@ concrete CatTEMPLATE of Cat = CommonX ** open ResTEMPLATE, Coordination, Prelude
     A = SS ;
     A2  = SS ;
 
-    N = ResTEMPLATE.LinN ;
-    N2 = ResTEMPLATE.LinN ;
-    N3 = ResTEMPLATE.LinN ;
+    N = ResTMP.LinN ;
+    N2 = ResTMP.LinN ;
+    N3 = ResTMP.LinN ;
     PN = SS ;
 
     -- From the Names module, not in the official API as of 2023-08

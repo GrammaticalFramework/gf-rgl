@@ -1,4 +1,4 @@
-concrete PhraseTEMPLATE of Phrase = CatTEMPLATE ** open Prelude, ResTEMPLATE in {
+concrete PhraseTMP of Phrase = CatTMP ** open Prelude, ResTMP in {
 
   lin
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;

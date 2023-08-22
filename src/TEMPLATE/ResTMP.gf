@@ -1,4 +1,4 @@
-resource ResTEMPLATE = open Prelude, Predef in {
+resource ResTMP = open Prelude, Predef in {
 
 --------------------------------------------------------------------------------
 -- General notes
@@ -96,7 +96,7 @@ oper
 ---------------------------------------------
 -- Numeral
 
--- Used in NumeralTEMPLATE
+-- Used in NumeralTMP
   param
     CardOrd = NCard | NOrd ;
 

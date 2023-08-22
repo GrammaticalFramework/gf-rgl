@@ -1,4 +1,4 @@
-concrete ConstructionTEMPLATE of Construction = CatTEMPLATE ** open ParadigmsTEMPLATE in {
+concrete ConstructionTMP of Construction = CatTMP ** open ParadigmsTMP in {
 
 lincat
   Timeunit = N ;
@@ -12,7 +12,7 @@ lin
   timeunitAdv n time =
   let n_card : Card   = n ;
       n_hours_NP : NP = mkNP n_card time ;
-  in  SyntaxTEMPLATE.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
+  in  SyntaxTMP.mkAdv for_Prep n_hours_NP | mkAdv (n_hours_NP.s ! R.npNom) ;
 
   weekdayPunctualAdv w = ;         -- on Sunday
   weekdayHabitualAdv w = ;         -- on Sundays
@@ -21,9 +21,9 @@ lin
 
   monthAdv m = mkAdv in_Prep (mkNP m) ;
   yearAdv y = mkAdv in_Prep y ;
-  dayMonthAdv d m  =  ; -- on 17 TEMPLATE
-  monthYearAdv m y =  ; -- in TEMPLATE 2012
-  dayMonthYearAdv d m y =  ; -- on 17 TEMPLATE 2013
+  dayMonthAdv d m  =  ; -- on 17 TMP
+  monthYearAdv m y =  ; -- in TMP 2012
+  dayMonthYearAdv d m y =  ; -- on 17 TMP 2013
 
   intYear = symb ;
   intMonthday = symb ;

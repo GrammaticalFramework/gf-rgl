@@ -1,4 +1,4 @@
-concrete NamesTEMPLATE of Names = CatTEMPLATE ** open Prelude in {
+concrete NamesTMP of Names = CatTMP ** open Prelude in {
 
 -- An API layer to deal with names
 -- Not part of the RGL API, but used in the AW project

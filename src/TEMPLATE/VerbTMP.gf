@@ -1,4 +1,4 @@
-concrete VerbTEMPLATE of Verb = CatTEMPLATE ** open ResTEMPLATE, AdverbTEMPLATE, Prelude in {
+concrete VerbTMP of Verb = CatTMP ** open ResTMP, AdverbTMP, Prelude in {
 
 
 lin

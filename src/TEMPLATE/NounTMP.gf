@@ -1,4 +1,4 @@
-concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
+concrete NounTMP of Noun = CatTMP ** open ResTMP, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -64,7 +64,7 @@ concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
 
   -- : Quant -> Num -> Det ;
     DetQuant quant num = quant ** {
-      s = quant.s ! num.n ;
+      s = quant.s ! num.n ++ num.s ;
       n = num.n ;
       } ;
 
@@ -84,14 +84,17 @@ concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
   NumPl = {s = [] ; n = Pl} ;
 
 {-
-  -- : Card -> Num ;
-  NumCard card =
+  -- : Card -> Num ;    -- two
+  NumCard card = card ;
 
   -- : Digits  -> Card ;
-  NumDigits dig =
+  NumDigits dig = -- probably like OrdDigits, but choose the NCard form
 
   -- : Numeral -> Card ;
-  NumNumeral num = num ;
+  NumNumeral num = {
+    s = num.s ! NCard ;
+    n = num.n -- inherits grammatical number (Sg, Pl, …) from the Numeral
+    } ;
 
   -- : AdN -> Card -> Card ;
   AdNum adn card = card ** { s = adn.s ++ card.s } ;
@@ -124,7 +127,7 @@ concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
   IndefArt = mkQuant "a" [] ;
 
 {-
-  -- : Pron -> Quant
+  -- : Pron -> Quant        -- my
   PossPron pron = mkQuant pron.s ** {
 
     } ;
@@ -163,7 +166,7 @@ concrete NounTEMPLATE of Noun = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
 
 -- Nouns can also be modified by embedded sentences and questions.
 -- For some nouns this makes little sense, but we leave this for applications
--- to decide. Sentential complements are defined in VerbTEMPLATE.
+-- to decide. Sentential complements are defined in VerbTMP.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
   SentCN cn sc =

@@ -1,7 +1,7 @@
 --# -path=.:../abstract:../common:../prelude
 
-concrete SymbolTEMPLATE of Symbol = CatTEMPLATE **
-  open Prelude, ParadigmsTEMPLATE, ResTEMPLATE, (Noun=NounTEMPLATE) in {
+concrete SymbolTMP of Symbol = CatTMP **
+  open Prelude, ParadigmsTMP, ResTMP, (Noun=NounTMP) in {
 
 lin
 

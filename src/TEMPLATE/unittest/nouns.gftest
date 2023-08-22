@@ -3,7 +3,7 @@
 -----------------------------------
 
 Lang: DetCN (DetQuant IndefArt NumSg) (UseN blood_N)
-LangTEMPLATE: a blood
+LangTMP: a blood
 
 Lang: DetCN (DetQuant DefArt NumSg) (UseN blood_N)
-LangTEMPLATE: the blood
+LangTMP: the blood

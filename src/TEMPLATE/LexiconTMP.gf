@@ -1,5 +1,5 @@
-concrete LexiconTEMPLATE of Lexicon = CatTEMPLATE **
-  open ParadigmsTEMPLATE, ResTEMPLATE in {
+concrete LexiconTMP of Lexicon = CatTMP **
+  open ParadigmsTMP, ResTMP in {
 
 ----
 -- A
@@ -35,8 +35,8 @@ lin bird_N = mkN "" ;
 lin bite_V2 = mkV2 "" ;
 lin black_A = mkA "" ; -}
 lin blood_N = mkN "blood" ;
-lin blow_V = mkV "blow" ;
-{-lin blue_A = mkA "blue" ;
+{-lin blow_V = mkV "" ;
+lin blue_A = mkA "" ;
 lin boat_N = mkN "" ;
 lin bone_N = mkN "" ;
 lin boot_N = mkN "" ;
@@ -86,9 +86,9 @@ lin cut_V2 = mkV2 "" ;
 ----
 -- D
 
-lin day_N = mkN "" ;
-lin die_V = mkV "" ;
-lin dig_V = mkV "" ;
+lin day_N = mkN "" ; -}
+lin die_V = mkV "die" ;
+{-lin dig_V = mkV "" ;
 lin dirty_A = mkA "" ;
 lin distance_N3 = mkN3 (mkN "") ;
 lin do_V2 = mkV2 "" ;

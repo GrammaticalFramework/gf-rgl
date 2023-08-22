@@ -1,4 +1,4 @@
-concrete AdverbTEMPLATE of Adverb = CatTEMPLATE ** open ResTEMPLATE, ParamTEMPLATE, ParadigmsTEMPLATE, Prelude in {
+concrete AdverbTMP of Adverb = CatTMP ** open ResTMP, ParadigmsTMP, Prelude in {
 {-
 lin
 

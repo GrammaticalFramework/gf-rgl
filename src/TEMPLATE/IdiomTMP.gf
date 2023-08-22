@@ -1,7 +1,7 @@
 
 --1 Idiom: Idiomatic Expressions
 
-concrete IdiomTEMPLATE of Idiom = CatTEMPLATE ** open Prelude, ResTEMPLATE, VerbTEMPLATE, QuestionTEMPLATE, NounTEMPLATE, StructuralTEMPLATE in {
+concrete IdiomTMP of Idiom = CatTMP ** open Prelude, ResTMP, VerbTMP, QuestionTMP, NounTMP, StructuralTMP in {
 
 -- This module defines constructions that are formed in fixed ways,
 -- often different even in closely related languages.

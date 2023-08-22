@@ -1,6 +1,6 @@
 
-concrete SentenceTEMPLATE of Sentence = CatTEMPLATE ** open
-  TenseX, ResTEMPLATE, (AM=AdverbTEMPLATE), Prelude in {
+concrete SentenceTMP of Sentence = CatTMP ** open
+  TenseX, ResTMP, (AM=AdverbTMP), Prelude in {
 
 flags optimize=all_subs ;
 

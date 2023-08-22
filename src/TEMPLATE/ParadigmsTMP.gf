@@ -1,4 +1,4 @@
-resource ParadigmsTEMPLATE = open CatTEMPLATE, ResTEMPLATE, ParamTEMPLATE, NounTEMPLATE, Prelude in {
+resource ParadigmsTMP = open CatTMP, ResTMP, NounTMP, Prelude in {
 
 oper
 
@@ -108,7 +108,7 @@ oper
 -- The definitions should not bother the user of the API. So they are
 -- hidden from the document.
 
-  Prep = CatTEMPLATE.Prep ;
+  Prep = CatTMP.Prep ;
   noPrep = mkPrep [] ;
 
   -- Add more overload instances if needed for all categories!
@@ -117,7 +117,7 @@ oper
   -- https://inariksit.github.io/gf/2018/05/25/subtyping-gf.html#lock-fields
 
   mkN = overload {
-    mkN : Str -> N = \s -> lin N (ResTEMPLATE.mkNoun s) ;
+    mkN : Str -> N = \s -> lin N (ResTMP.mkNoun s) ;
     -- TODO: more overload instances
   } ;
 

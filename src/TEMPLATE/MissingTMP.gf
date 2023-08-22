@@ -1,4 +1,4 @@
-resource MissingTEMPLATE = open GrammarTEMPLATE, Prelude in {
+resource MissingTMP = open GrammarTMP, Prelude in {
 -- temporary definitions to enable the compilation of RGL API
 oper AdAP : AdA -> AP -> AP  = notYet "AdAP" ;
 oper AdAdv : AdA -> Adv -> Adv  = notYet "AdAdv" ;
@@ -262,17 +262,13 @@ oper otherwise_PConj : PConj  = notYet "otherwise_PConj" ;
 oper part_Prep : Prep  = notYet "part_Prep" ;
 oper please_Voc : Voc  = notYet "please_Voc" ;
 oper possess_Prep : Prep  = notYet "possess_Prep" ;
-oper pot0 : Digit -> Sub10  = notYet "pot0" ;
 oper pot01 : Sub10  = notYet "pot01" ;
-oper pot0as1 : Sub10 -> Sub100  = notYet "pot0as1" ;
 oper pot1 : Digit -> Sub100  = notYet "pot1" ;
 oper pot110 : Sub100  = notYet "pot110" ;
 oper pot111 : Sub100  = notYet "pot111" ;
-oper pot1as2 : Sub100 -> Sub1000  = notYet "pot1as2" ;
 oper pot1plus : Digit -> Sub10 -> Sub100  = notYet "pot1plus" ;
 oper pot1to19 : Digit -> Sub100  = notYet "pot1to19" ;
 oper pot2 : Sub10 -> Sub1000  = notYet "pot2" ;
-oper pot2as3 : Sub1000 -> Sub1000000  = notYet "pot2as3" ;
 oper pot2plus : Sub10 -> Sub100 -> Sub1000  = notYet "pot2plus" ;
 oper pot3 : Sub1000 -> Sub1000000  = notYet "pot3" ;
 oper pot3plus : Sub1000 -> Sub1000 -> Sub1000000  = notYet "pot3plus" ;

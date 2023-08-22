@@ -1,4 +1,4 @@
-concrete AdjectiveTEMPLATE of Adjective = CatTEMPLATE ** open ResTEMPLATE, Prelude in {
+concrete AdjectiveTMP of Adjective = CatTMP ** open ResTMP, Prelude in {
 
   flags optimize=all_subs ;
 

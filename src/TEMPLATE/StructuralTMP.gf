@@ -1,29 +1,27 @@
-concrete StructuralTEMPLATE of Structural = CatTEMPLATE **
-  open Prelude, ResTEMPLATE, (Noun=NounTEMPLATE), ParadigmsTEMPLATE in {
+concrete StructuralTMP of Structural = CatTMP **
+  open Prelude, ResTMP, (Noun=NounTMP), ParadigmsTMP in {
 
 -------
 -- Ad*
 {-
-lin almost_AdA = mkAdA "" ;
-lin almost_AdN = ss "" ;
-lin at_least_AdN = ss "" ;
-lin at_most_AdN = ss "" ;
-lin so_AdA = ss "" ;
-lin too_AdA = ss "" ;
-lin very_AdA = mkAdA "" ;
+lin almost_AdA =
+lin almost_AdN =
+lin at_least_AdN =
+lin at_most_AdN =
+lin so_AdA =
+lin too_AdA =
+lin very_AdA =
 
-lin as_CAdv = { s = "" ; p = [] } ;
-lin less_CAdv = { s = "" ; p = [] } ;
-lin more_CAdv = { s = "" ; p = [] } ;
+lin as_CAdv =
+lin less_CAdv =
+lin more_CAdv =
 
-lin how8much_IAdv = ss "" ;
-lin when_IAdv = ss "" ;
+lin how8much_IAdv =
+lin when_IAdv =
 
 lin how_IAdv =
 lin where_IAdv =
 lin why_IAdv =
-
-
 
 lin always_AdV = ss "" ;
 
@@ -41,15 +39,19 @@ lin there_Adv = ss "" ;
 -------
 -- Conj
 
+-- The lincat of Conj is Coordination.ConjunctionDistr ** {n:Number}
+-- which means that there are two fields for the strings, and
+-- n:Number which specifies the number of the resulting NP.
+
 lin and_Conj = {s1 = [] ; s2 = "and" ; n = Pl} ;
--- lin or_Conj = {s2 = \\_ => "" ; s1 = [] ; n = Sg} ;
--- lin if_then_Conj = mkConj
--- lin both7and_DConj = mkConj "" "" pl ;
--- lin either7or_DConj = {s2 = \\_ => "" ; s1 = "" ; n = Sg} ;
---
--- lin but_PConj = ss "" ;
--- lin otherwise_PConj = ss "" ;
--- lin therefore_PConj = ss "" ;
+-- lin or_Conj =
+-- lin if_then_Conj =
+lin both7and_DConj = {s1 = "both" ; s2 = "and" ; n = Pl} ;
+-- lin either7or_DConj =
+
+-- lin but_PConj =
+-- lin otherwise_PConj =
+-- lin therefore_PConj =
 
 
 -----------------
@@ -78,41 +80,37 @@ lin which_IQuant = mkQuant "" ;
 -----
 -- NP
 
-lin somebody_NP = mkNounPhrase "seorang" ; --todo
+lin somebody_NP =
 
 
-lin everybody_NP = defNP "" N.NumPl ;
-lin everything_NP = defNP "" N.NumSg ;
-lin nobody_NP = mkVerb; ""
-lin nothing_NP = defNP "" N.NumSg ;
-lin somebody_NP = defNP "" N.NumSg ;
-lin something_NP = defNP "" N.NumSg ;
-
-oper
- defNP : Str -> Num -> NP = {} ;
-
+lin everybody_NP =
+lin everything_NP =
+lin nobody_NP =
+lin nothing_NP =
+lin somebody_NP =
+lin something_NP =
 
 -------
 -- Prep
 
-lin above_Prep = mkPrep ""
-lin after_Prep = mkPrep ""
+lin above_Prep = mkPrep "" ;
+lin after_Prep = mkPrep "" ;
 lin before_Prep = mkPrep "" ;
 lin behind_Prep = mkPrep ""  ;
 lin between_Prep = = mkPrep "" ;
 lin by8agent_Prep = mkPrep "" ;
 lin by8means_Prep = mkPrep "" ;
-lin during_Prep = mkPrep ;
-lin except_Prep = mkPrep ;
-lin for_Prep = mkPrep ;
+lin during_Prep = mkPrep "" ;
+lin except_Prep = mkPrep "" ;
+lin for_Prep = mkPrep "" ;
 lin from_Prep = mkPrep "" ;
 lin in8front_Prep = mkPrep "" ;
-lin in_Prep = mkPrep "di" ;
+lin in_Prep = mkPrep "" ;
 lin on_Prep = mkPrep "" ;
 lin part_Prep = mkPrep ;
-lin possess_Prep = mkPrep [] ;
-lin through_Prep = mkPrep ;
-lin to_Prep = mkPrep "ke"  ;
+lin possess_Prep = mkPrep "" ;
+lin through_Prep = mkPrep "" ;
+lin to_Prep = mkPrep "k" ;
 lin under_Prep = mkPrep "" ;
 lin with_Prep = mkPrep "" ;
 lin without_Prep = mkPrep "" ;
@@ -120,7 +118,7 @@ lin without_Prep = mkPrep "" ;
 -------
 -- Pron
 
--- Pronouns are closed class, no constructor in ParadigmsTEMPLATE.
+-- Pronouns are closed class, no constructor in ParadigmsTMP.
 lin it_Pron =
 lin i_Pron =
 lin youPol_Pron =
@@ -149,7 +147,7 @@ lin when_Subj =
 ------
 -- Utt
 
-lin language_title_Utt =
+lin language_title_Utt = ss "" ;
 lin no_Utt = ss "" ;
 lin yes_Utt = ss "" ;
 

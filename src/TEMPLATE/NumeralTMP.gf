@@ -1,5 +1,5 @@
-concrete NumeralTEMPLATE of Numeral = CatTEMPLATE [Numeral,Digits] **
-  open Prelude, ResTEMPLATE in {
+concrete NumeralTMP of Numeral = CatTMP [Numeral,Digits] **
+  open Prelude, ResTMP in {
 
   lincat
     Digit = LinNumeral ;      -- 2..9
@@ -11,7 +11,7 @@ concrete NumeralTEMPLATE of Numeral = CatTEMPLATE [Numeral,Digits] **
     Sub1000000000000          -- 1..999999999999
      = LinNumeral ;
 
--- param CardOrd   defined in ResTEMPLATE
+-- param CardOrd   defined in ResTMP
 -- type LinNumeral  -""-
 
 
@@ -28,49 +28,48 @@ concrete NumeralTEMPLATE of Numeral = CatTEMPLATE [Numeral,Digits] **
     n7 = mkNumeral "seven" ;
     n8 = mkNumeral "eight" ;
     n9 = mkNumeral "nine" ;
-{-
+
     -- : Sub10 ;                            -- 1
-    pot01 =
+    -- pot01 =
 
     -- : Digit -> Sub10 ;                   -- d * 1
-    pot0 d =
+    pot0 d = d ;
 
     -- : Sub100 ;                           -- 10
-    pot110 = mkNum "ten" ;
+    -- pot110 = mkNum "ten" ;
 
     -- : Sub100 ;                           -- 11
-    pot111 = mkNum "eleven" ;
+    -- pot111 = mkNum "eleven" ;
 
     -- : Digit -> Sub100 ;                  -- 10 + d
-    pot1to19 d =
+    -- pot1to19 d =
 
     -- : Sub10 -> Sub100 ;                  -- coercion of 1..9
     pot0as1 n = n ;
 
     -- : Digit -> Sub100 ;                  -- d * 10
-    pot1 d =
+    -- pot1 d =
 
     -- : Digit -> Sub10 -> Sub100 ;         -- d * 10 + n
-    pot1plus d e =
+    -- pot1plus d e =
 
     -- : Sub100 -> Sub1000 ;                -- coercion of 1..99
     pot1as2 n = n ;
 
     -- : Sub10 -> Sub1000 ;                 -- m * 100
-    pot2 d =
+    -- pot2 d =
 
     -- : Sub10 -> Sub100 -> Sub1000 ;       -- m * 100 + n
-    pot2plus d e =
+    -- pot2plus d e =
 
     -- : Sub1000 -> Sub1000000 ;            -- coercion of 1..999
     pot2as3 n = n ;
 
     -- : Sub1000 -> Sub1000000 ;            -- m * 1000
-    pot3 d =
+    -- pot3 d =
 
     -- : Sub1000 -> Sub1000 -> Sub1000000 ; -- m * 1000 + n
-    pot3plus d e =
--}
+    -- pot3plus d e =
 
 --------------------------------------------------------------------------------
 -- Numerals as sequences of digits have a separate, simpler grammar

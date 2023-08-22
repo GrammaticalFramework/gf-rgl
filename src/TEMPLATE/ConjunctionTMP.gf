@@ -1,5 +1,5 @@
-concrete ConjunctionTEMPLATE of Conjunction =
-  CatTEMPLATE ** open ResTEMPLATE, Coordination, Prelude in {
+concrete ConjunctionTMP of Conjunction =
+  CatTMP ** open ResTMP, Coordination, Prelude in {
 
   flags optimize=all_subs ;
 

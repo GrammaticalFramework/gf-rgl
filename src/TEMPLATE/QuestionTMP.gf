@@ -1,5 +1,5 @@
-concrete QuestionTEMPLATE of Question = CatTEMPLATE ** open
-  Prelude, ResTEMPLATE, ParadigmsTEMPLATE, (V=VerbTEMPLATE), (Noun=NounTEMPLATE), (S=StructuralTEMPLATE) in {
+concrete QuestionTMP of Question = CatTMP ** open
+  Prelude, ResTMP, ParadigmsTMP, (V=VerbTMP), (Noun=NounTMP), (S=StructuralTMP) in {
 
 -- A question can be formed from a clause ('yes-no question') or
 -- with an interrogative.
@@ -9,11 +9,11 @@ concrete QuestionTEMPLATE of Question = CatTEMPLATE ** open
 {-
 lin
   -- : IDet -> CN -> IP ;       -- which five songs
-  IdetCN idet cn = N.DetCN idet cn ** {
+  IdetCN idet cn = Noun.DetCN idet cn ** {
     } ;
 
   -- : IDet       -> IP ;       -- which five
-  IdetIP idet = N.DetNP idet ** {sp = idet.sp};
+  IdetIP idet = Noun.DetNP idet ** {sp = idet.sp};
 
   -- : IQuant -> Num -> IDet ;  -- which (five)
   IdetQuant iquant num = iquant ** {
@@ -57,12 +57,12 @@ lin
 -- They can be modified with adverbs.
 
   -- : IP -> Adv -> IP ;        -- who in Paris
-  AdvIP = N.AdvNP ;
+  AdvIP = Noun.AdvNP ;
 
 -- Interrogative quantifiers have number forms and can take number modifiers.
 
   -- : IQuant -> Num -> IDet ;  -- which (five)
-  IdetQuant = N.DetQuant ;
+  IdetQuant = Noun.DetQuant ;
 
 -- Interrogative adverbs can be formed prepositionally.
   -- : Prep -> IP -> IAdv ;     -- with whom
@@ -84,14 +84,21 @@ lin
 
 -- Wh questions with two or more question words require a new, special category.
 
-  cat
-    QVP ;          -- buy what where
-  fun
-    ComplSlashIP  : VPSlash -> IP -> QVP ;   -- buys what
-    AdvQVP        : VP  ->   IAdv -> QVP ;   -- lives where
-    AddAdvQVP     : QVP ->   IAdv -> QVP ;   -- buys what where
+  lincat
+    -- buy what where
+    QVP =
+  lin
+    -- : VPSlash -> IP -> QVP ;   -- buys what
+    ComplSlashIP vps ip =
 
-    QuestQVP      : IP -> QVP -> QCl ;       -- who buys what where
+    -- : VP  ->   IAdv -> QVP ;   -- lives where
+    AdvQVP vp iadv =
+
+    -- : QVP ->   IAdv -> QVP ;   -- buys what where
+    AddAdvQVP qvp iadv =
+
+    -- : IP -> QVP -> QCl ;       -- who buys what where
+    QuestQVP ip qvp =
 -}
 
 
