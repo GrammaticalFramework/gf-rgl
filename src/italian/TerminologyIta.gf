@@ -31,7 +31,7 @@ lin
   singular_Parameter = mkN "singolare" ;
   plural_Parameter = mkN "plurale" ;
 
-  masculine_Parameter = mkN "maschio" ;
+  masculine_Parameter = mkN "maschile" ;
   feminine_Parameter = mkN "femminile" ;
   neuter_Parameter = mkN "neutro" ;
 
