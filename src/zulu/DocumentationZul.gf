@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 concrete DocumentationZul of Documentation = CatZul ** open
-  ResZul,
+  ResZul,ParamX,Prelude,
   HTML in {
 
 lincat
@@ -9,21 +9,32 @@ lincat
   Document = {s : Str} ;
   Tag      = {s : Str} ;
 
--- lin
---   InflectionN, InflectionN2, InflectionN3 = \noun -> {
---     t  = "n" ;
---     s1 = heading1 ("Noun" ++ case noun.g of {
---                                Neutr => "";
---                                Masc  => "(masc)";
---                                Fem   => "(fem)"
---                              }) ;
---     s2 = frameTable (
---            tr (th ""   ++ th "nom"               ++ th "gen") ++
---            tr (th "sg" ++ td (noun.s ! Sg ! Nom) ++ td (noun.s ! Sg ! Gen)) ++
---            tr (th "pl" ++ td (noun.s ! Pl ! Nom) ++ td (noun.s ! Pl ! Gen))
---          )
---     } ;
---
+lin
+  InflectionN, InflectionN2, InflectionN3 = \noun -> {
+    t  = "n" ;
+    s1 = heading1 ("Noun (class" ++
+                   case noun.c of {
+                     C1_2 => "1/2";
+                     C1a_2a => "1a/2a";
+                     C3_4 => "3/4";
+                     C5_6 => "5/6";
+                     C7_8 => "7/8";
+                     C9_10 => "9/10";
+                     C11_10 => "11/10";
+                     C9_6 => "9/6";
+                     C14 => "14";
+                     C15 => "15";
+                     C17 => "17"
+                   } ++ BIND ++ ")") ;
+    s2 = frameTable (
+           tr (th ""   ++ th "sg"               ++ th "pl") ++
+           tr (th "full" ++ td (noun.s ! Sg ! NFull) ++ td (noun.s ! Pl ! NFull)) ++
+           tr (th "reduced" ++ td (noun.s ! Sg ! NReduced) ++ td (noun.s ! Pl ! NReduced)) ++
+           tr (th "poss" ++ td (noun.s ! Sg ! NPoss) ++ td (noun.s ! Pl ! NPoss)) ++
+           tr (th "loc" ++ td (noun.s ! Sg ! NLoc) ++ td (noun.s ! Pl ! NLoc))
+         )
+    } ;
+
 --   InflectionA, InflectionA2 = \adj -> {
 --     t  = "a" ;
 --     s1 = heading1 "Adjective" ;
@@ -178,13 +189,13 @@ lincat
 --
 --   pp : Str -> Str = \s -> "&lt;"+s+"&gt;";
 --
--- lin
---   NoDefinition   t     = {s=t.s};
---   MkDefinition   t d   = {s="<p><b>Definition:</b>"++t.s++d.s++"</p>"};
---   MkDefinitionEx t d e = {s="<p><b>Definition:</b>"++t.s++d.s++"</p><p><b>Example:</b>"++e.s++"</p>"};
---
--- lin
---   MkDocument d i e = {s = i.s1 ++ d.s ++ i.s2 ++ paragraph e.s} ;
---   MkTag i = {s = i.t} ;
+lin
+  NoDefinition   t     = {s=t.s};
+  MkDefinition   t d   = {s="<p><b>Definition:</b>"++t.s++d.s++"</p>"};
+  MkDefinitionEx t d e = {s="<p><b>Definition:</b>"++t.s++d.s++"</p><p><b>Example:</b>"++e.s++"</p>"};
+
+lin
+  MkDocument d i e = {s = i.s1 ++ d.s ++ i.s2 ++ paragraph e.s} ;
+  MkTag i = {s = i.t} ;
 
 }
