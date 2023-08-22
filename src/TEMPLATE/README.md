@@ -6,11 +6,13 @@ This is a starting point to clone a new RGL language. It has some pre-populated 
 
 **If you want a 100% just strings template**, you can find that in [github.com/daherb/gf-rgl-template](https://github.com/daherb/gf-rgl-template). If you choose that one, you can still read this document for suggestions about which functions to start with.
 
-# How to use
+
+
+# How to use this tutorial
 
 If you haven't done so yet, clone your language from this template as instructed [here](../README.md#from-a-generic-template). The cloning doesn't include README.md, so there's only one copy of this README document.
 
-You open the grammar in a GF shell and see its functions as follows. (I'm using here the `TMP` concrete syntax, but you should have cloned it to some other concrete syntax with a different extension, so substitute as necessary.)
+You can open the grammar in a GF shell and see its functions as follows. (I'm using here the `TMP` concrete syntax, but you should have cloned it to some other concrete syntax with a different extension, so substitute as necessary.)
 
 ```
 $ gf LangTMP.gf
@@ -22,11 +24,11 @@ LangTMP: the blood die
 There are also a couple of unit tests in the [`unittest`](/unittest) directory. To see how to use them, see the [instructions](https://github.com/GrammaticalFramework/gf-rgl/tree/master/unittest#readme).
 
 
-# Function grouped in clusters
+# Guided tour: what to implement first?
 
 In this section, I group the RGL functions in clusters and suggest an implementation order. If you have different needs, e.g. you're making the resource grammar for a particular application and need specific RGL functions for that, feel free to prioritise your needs. I'm giving this list as a suggestion for people who just want something to start from.
 
-## N-CN-NP
+## 1. N-CN-NP(-AP)
 
 Most of these are in the Noun module. This is the cluster that has most work done in this template.
 
@@ -64,14 +66,23 @@ Once you're happy with the morphology, you can start with other lins and lincats
 
 Some things in the Noun module will have to wait for other categories to be done. For instance, `AdjCN` relies on adjectives, `RelCN` on relatives, `NumCard` and `NumNumeral` on numerals, none of which is (properly) implemented in this template. So feel free to leave all the rest for a later pass.
 
-#### A word about MassNP
+#### Side note: a word about MassNP
 In the Noun module, there is a function called `MassNP : CN -> NP`. This is a *mass construction*, which is usually applied to mass nouns like "water".
 
 However, the RGL does not contain a semantic distinction between mass and count nouns, and thus the `MassNP` function can be applied to any CN. Sometimes this results in semantically weird results.
 
 As a resource grammarian, don't worry if `MassNP` applied to count nouns sounds weird. It's the application grammarian's problem to choose when to use MassNP and when DetCN. If `MassNP` sounds good when applied to mass nouns, then you're doing it right.
 
-## V-VP
+### How about adjectives?
+
+In some languages, adjectives behave like nouns. In other languages, they behave like verbs. In yet other languages, they behave like neither. If your language happens to be one where adjectives are like nouns, it's pretty cheap to just implement adjectives here as well. The minimal set is as follows:
+
+- lincat for `A` and `AP`
+- lin for `PositA` and `AdjCN`
+
+But if adjectives are rather like verbs (e.g. Korean), or just more complex than nouns (e.g. German), feel free to postpone it for later.
+
+## 2. V-VP
 
 ### Already implemented
 
@@ -107,14 +118,77 @@ The most important are the following:
 
 If you have done a thorough implementation on noun morphology, you might find it useful here. For instance, if verbs mark their arguments with cases, now is a great time to add those cases as *inherent* argument in the verbs.
 
-Another way to make VPs is to use adjectives, noun phrases and adverbials as complements. By this point, you should have morphology for nouns and verbs, and hopefully adjectives behave like one of those in your language! We will talk about adjectives more in a while, so if they are more complex than that, feel free to postpone adjectival complements ("the car **is big**") for now. But the other complements should be in reach already, so the next most important are the following:
+Another way to make VPs is to use adjectives, noun phrases and adverbials as complements. If you haven't implemented adjectives yet, feel free to skip them at this step. But the other complements should be in reach already, so the next most important steps are the following:
 
 - lincat for `Comp`
-- lin for `CompNP`, (`CompAdv`) and `UseComp`.
+- lin for `CompNP`, (`CompAdv`) and `UseComp`
+- (If you already have AP: lin for `CompAP`)
 
-Regardless of whether your language has an explicit copula or not, this is the place to use other things than V❋ as a complement.
+These functions don't care whether your language has an explicit copula or not. Just implement whatever strategy that it uses for non-V❋ predication.
 
-## Cl-S-Utt-Phr
+## 3. Cl-S-Utt-Phr
+
+At this level, there is rarely new morphology to be added, but there can be interesting decisions about e.g. word order or subordination.
+
+### Already implemented
+
+The following rarely need any changes. By the time an `Utt` is reached, the grammatical decisions should have been already made, and the lincats of `Utt` and `Phr` should be just `{s : Str}`.
+- `PhrUtt`
+- `NoPConj`, `NoVoc`
+- `UttS`
+
+The following functions, and the lincats they operate on, are implemented in the most naive only-strings way, and they need to be changed.
+- `UseCl`
+- `TTAnt`, `TPres`, `TPast`, `TFut`, `TCond`, `ASimul`, `AAnter`
+- `PPos`, `PNeg`
+- `PredVP`
+
+### Next steps
+
+If you have added verb inflection in the V❋ and VP categories, then you need to connect them to the Cl category. `PredVP : NP → VP → Cl` picks the correct person inflection from its VP argument, but any tense and polarity is still open. So in most languages, the lincat of `Cl` should have an inflection table, and only `UseCl : Temp → Pol → Cl → S` will choose the final form.
+
+Sometimes even the lincat of `S` has an inflection table or it is discontinuous. That's because `S` can be used in a VP or an Adv, and in those cases, it may have a different word order or inflectional form than as standalone sentence.
+
+If you're not sure whether the lincat of `S` should be still open for something, try to implement the following functions and see if it needs tweaking.
+
+- `ComplVS : VS → S → VP`
+- `SubjS : Subj → S → Adv`
+
+### Unused or nonexistent forms?
+
+What if your language has no form that corresponds to e.g. future anterior negative (*won't have walked*)? That's fine, you can put some other form in that slot and go on.
+
+What if your language has tenses, aspects, moods, politeness forms or any others that aren't accessible via the core RGL? That's fine too, you can always create a language-specific extra module with functions that do access them. If you're working towards a specific application that needs such forms, then you should of course prioritise them. But if covering the core RGL that is in the API is the most important, feel free to postpone all the verbal inflection that is not accessible via the core.
+
+# Choose your own adventure: what to implement next
+
+If you've implemented the first cluster, you already have a nice chunk of the RGL! You have tackled many of the hard decisions, so it's natural that these things can take a long time, and you may need to revise often.
+
+The following set doesn't have to be followed in any particular order.
+
+## Questions
+Shares similarities with the implementation of declarative clauses and sentences. If you did clauses recently, it's a natural continuation to do questions: here you may need to tackle more word orders.
+Forming of IPs (interrogative phrases) may be similar to NPs.
+
+To get started, the easier ones in the Question module are the following:
+- lincat for `IP` and `IDet`, lin for `IDetCN` and `IdetQuant`
+- lincat for `QCl`, lin for `QuestCl` and `QuestVP`
+- lincat for `IAdv`, lin for `QuestIAdv` (+ some `IAdv`s in Structural!)
+- lincat for `IComp`, lin for `CompIAdv` and `QuestIComp`
+
+## Adjectives
+
+If you haven't implemented adjectives yet, it's about time! If your adjectives are more of the nouny type, I hope it's rather straightforward to do them. The minimal cluster is the following:
+
+- lincat for `A` and `AP`
+- lin for `PositA` and `AdjCN`
+- lin for `CompAP`, check whether you have to update lincat for `Comp`
+
+If adjectives behave like verbs, then the lincat for `Comp` and lin for `CompAP` can reuse the lincats and lins of the V-VP cluster. But `AdjCN` can be a bit difficult. Based on previous RGL languages that have verby adjectives, you get a lot of synergy with the Relative module. Basically, APs as modifiers behave just like relative clauses, so `AdjCN` and `RelCN` are similar or even identical.
+
+## Relative clauses
+
+These may be complicated, so feel free to postpone until further. But if your APs are verby, it makes sense to implement these in parallel with `AdjCN`, because you will need some way of making verby/clause-y things into modifiers.
 
 ## Numerals
 
@@ -131,24 +205,14 @@ Once you have some kind of implementation of the Numeral module, you can connect
 
 With these, you get a `Num` that can be used in `DetQuant` to make a Det, and that unlocks numerals as determiners, like "two cats".
 
+### Conjunctions
 
 
--- The stuff that is kind of default and rarely needs to be changed
-PhrUtt
-NoPConj
-NoVoc
-TTAnt
-ASimul, AAnter
-TPres, TPast, TFut, TCond
-TEmpty
-PPos, PNeg
-PredVP
-UttS
-UseCl
 
-and_Conj
+### Idioms
+
 
 
 ### Functions that are clearly lower priority
 
-What is low or high priority depends on the application. But if you want some general guidelines, these are usually less used
+What is low or high priority depends on the application. But if you want some general guidelines, these are usually less used, or not in the API at all.
