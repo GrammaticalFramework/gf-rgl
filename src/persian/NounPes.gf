@@ -97,6 +97,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     NumCard n = n ** {isNum = True} ;
 
     NumDigits n = n ** {s = n.s ! NCard; isNum = True} ;
+    NumDecimal n = n ** {s = n.s ! NCard; isNum = True} ;
     OrdDigits n = n ** {s = n.s ! NOrd ; isNum = True ; isPre=False} ;
 
     NumNumeral n = n ** {s = n.s ! NCard; isNum = True} ;

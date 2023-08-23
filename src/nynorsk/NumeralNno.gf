@@ -1,4 +1,4 @@
-concrete NumeralNno of Numeral = CatNno [Numeral,Digits] ** open MorphoNno, Prelude in {
+concrete NumeralNno of Numeral = CatNno [Numeral,Digits,Decimal] ** open MorphoNno, Prelude in {
   flags coding=utf8 ;
 
 lincat
@@ -67,6 +67,20 @@ lin
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+     s = \\o => d.s ! NCard neutrum ++
+                if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                i.s ! o ;
+     n = Pl ;
+     hasDot=True
+     } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

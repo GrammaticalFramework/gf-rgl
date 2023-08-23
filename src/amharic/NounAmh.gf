@@ -94,6 +94,7 @@ lin
 	NumCard n = {s = \\s,c => n.s!Masc!Sg!s!c ; n = Pl; hasCard = True} ;
 
 	NumDigits n = {s = n.s ! NCard } ;
+	NumDecimal n = {s = n.s ! NCard } ;
 	
 	NumNumeral numeral = {s = numeral.s ! NCard} ;
 

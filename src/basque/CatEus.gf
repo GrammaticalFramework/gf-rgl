@@ -85,6 +85,7 @@ concrete CatEus of Cat = CommonX ** open ResEus, Prelude in {
 
     Numeral = { s : Str ; n : Number } ; 
     Digits = { s : CardOrd => Str ; n : Number } ;
+    Decimal = { s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 
 

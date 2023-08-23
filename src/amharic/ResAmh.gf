@@ -161,6 +161,10 @@ resource ResAmh =  PatternsAmh** open Prelude,MorphoAmh,ParamX in {
                             s : CardOrd=>Gender=>Number=>Species=>Case => Str ; 
                             tail : DTail
                           } ;
+    		Decimal  = {
+                            s : CardOrd=>Gender=>Number=>Species=>Case => Str ; 
+                            hasDot : Bool
+                          } ;
 
  		Ord =  {s : Gender=>Number=>Species=>Case => Str} ;
 

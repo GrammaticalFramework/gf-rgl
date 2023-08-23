@@ -2116,4 +2116,7 @@ oper
 
   adjAdv : A -> Str -> A =
     \a,adv -> a ** {adv = adv} ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

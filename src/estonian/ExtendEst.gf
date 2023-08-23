@@ -436,10 +436,4 @@ concrete ExtendEst of Extend =
     -- : VP -> Adv ;  -- ilma raamatut nägemata
     WithoutVP vp = {s = "ilma" ++ infVPdefault vp InfMata} ;
 
-
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       s = \\c => gn.s ! Nom ++ sn.s ! c
-    } ;
-
 }

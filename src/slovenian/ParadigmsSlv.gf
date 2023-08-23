@@ -1,4 +1,4 @@
-resource ParadigmsSlv = open CatSlv, ResSlv, Prelude, Predef in {
+resource ParadigmsSlv = open CatSlv, ResSlv, ParamX, Prelude, Predef in {
 
 oper
   nominative : Case = Nom ;
@@ -33,6 +33,10 @@ oper
     mkN : (noun,gensg,nompl : Str) -> N = irregMasc ;
     mkN : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> AGender -> N = worstN ;
     } ;
+
+  compoundN = overload {
+    compoundN : N -> Str -> N = \noun,adv -> noun ** {s = \\c,n => noun.s ! c ! n ++ adv} ;
+  } ;
 
   mkN2 : N -> Prep -> N2 = \n,c -> n ** {c=c} ;
 
@@ -238,6 +242,44 @@ oper
                Loc   => loc;
                Instr => instr
              }
+      };
+    } ;
+
+  mkLN = overload {
+    mkLN : N -> LN = \noun -> lin LN {
+      s = \\c => noun.s ! c ! Sg ;
+      g = noun.g ;
+      n = Sg
+    };
+    mkLN : N -> Number -> LN = \noun,nr -> lin LN {
+      s = \\c => noun.s ! c ! nr ;
+      g = noun.g ;
+      n = nr
+    }; 
+    mkLN : Str -> LN =
+      \s -> lin LN {
+         s = \\_ => s ;
+         g = AMasc Inanimate ;
+         n = Sg
+      };
+    mkLN : Str -> AGender -> Number -> LN =
+      \s,g,n -> lin LN {
+         s = \\_ => s ;
+         g = g ;
+         n = n
+      };
+    mkLN : (_,_,_,_,_,_ : Str) -> AGender -> Number -> LN =
+      \nom,gen,dat,acc,loc,instr,g,n -> lin LN {
+         s = table {
+               Nom   => nom;
+               Gen   => gen;
+               Dat   => dat;
+               Acc   => acc;
+               Loc   => loc;
+               Instr => instr
+             };
+         g = g ;
+         n = n
       };
     } ;
 
@@ -850,4 +892,7 @@ oper
     
   vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
   consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"r"|"s"|"t"|"v"|"x"|"z") ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

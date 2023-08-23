@@ -116,6 +116,7 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
     NumCard n = {s=n.s; nn=n.nn; nonEmpty = True} ;
 
     NumDigits n = {s = \\gspec => n.s ! NCard gspec; nn = case n.n of {Sg => NNum Sg; Pl => NCountable}} ;
+    NumDecimal n = {s = \\gspec => n.s ! NCard gspec; nn = case n.n of {Sg => NNum Sg; Pl => NCountable}} ;
     OrdDigits n = {s = \\aform => n.s ! NOrd aform} ;
 
     NumNumeral numeral = {s = \\gspec => numeral.s ! NCard gspec; nn = case numeral.n of {Sg => NNum Sg; Pl => NCountable}} ;
@@ -238,4 +239,11 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
                      p = dap.p
                     } ;
     DetDAP det = det ;
+
+    QuantityNP n m = {
+      s = \\role => preOrPost m.isPre m.s (n.s ! NCard (CFMasc Indef NonHuman)) ;
+      gn = gennum (AMasc NonHuman) n.n ;
+      p  = NounP3 Pos
+      } ;
+
 }

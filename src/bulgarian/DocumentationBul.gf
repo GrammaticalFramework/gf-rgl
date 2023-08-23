@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 concrete DocumentationBul of Documentation = CatBul ** open 
-  ResBul,
+  ResBul, Prelude,
   HTML in {
 flags coding=utf8 ;
 
@@ -92,6 +92,25 @@ lin
     s3 = ""
     } ;
 
+  InflectionLN = \n -> {
+    t = "същ.с." ;
+    s1= heading1 ("Име за Място"++
+                  case n.gn of {
+                    GSg Masc => "(м.р.)" ;
+                    GSg Fem  => "(ж.р.)" ;
+                    GSg Neut => "(ср.р.)" ;
+                    GPl      => "(мн.ч.)"
+                  }) ;
+    s2 = paragraph (n.s ! Indef) ++
+         heading1 ("Наречие") ++
+         paragraph (case n.onPrep of {
+                      True  => linCase Dat Pos ;
+                      False => vyv_Str
+                    } ++
+                    n.s ! Def) ;
+    s3 = ""
+    } ;
+
   InflectionGN = \gn -> {
     t = "същ.с.л." ;
     s1= heading1 (case gn.g of {
@@ -145,7 +164,7 @@ lin
     } ;
 
   InflectionPrep = \prep -> {
-    t = "пр" ;
+    t = "пред" ;
     s1= heading1 ("Предлог") ;
     s2= paragraph (prep.s) ;
     s3= ""

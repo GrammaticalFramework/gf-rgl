@@ -68,5 +68,6 @@ concrete CatHrv of Cat =
 
   lincat Numeral = {s : AdjForms ; size : NumSize} ;
   lincat Digits = {s : Str ; size : NumSize} ;
+  lincat Decimal = {s : Str ; size : NumSize ; hasDot : Bool} ;
 
 }

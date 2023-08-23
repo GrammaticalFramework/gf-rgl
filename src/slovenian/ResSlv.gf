@@ -4,7 +4,6 @@ param
   Case = Nom | Gen | Dat | Acc | Loc | Instr;
   Number = Sg | Dl | Pl ;
   Gender = Masc | Fem | Neut ;
-  Sex = Male | Female ;
   Person = P1 | P2 | P3 ;
   Species = Indef | Def ;
   Animacy = Animate | Inanimate ;

@@ -111,6 +111,30 @@ lin
     s2 = inflVerb verb
     } ;
 
+  InflectionPN = \n -> {
+    t  = "pn" ;
+    s1 = heading1 "Proper Name" ;
+    s2 = n.s
+    } ;
+
+  InflectionLN = \n -> {
+    t  = "pn" ;
+    s1 = heading1 "Location Name" ;
+    s2 = n.s
+    } ;
+
+  InflectionGN = \n -> {
+    t  = "pn" ;
+    s1 = heading1 "Given Name" ;
+    s2 = n.s
+    } ;
+
+  InflectionSN = \n -> {
+    t  = "pn" ;
+    s1 = heading1 "Family Name" ;
+    s2 = n.s
+    } ;
+
 oper
   inflVerb : Verb -> Str = \verb ->
     let vtbl = useVerb verb

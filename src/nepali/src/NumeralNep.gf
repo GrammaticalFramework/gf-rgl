@@ -114,6 +114,8 @@ lin IDig d = { s = \\_ => d.s ; n = d.n} ;
 
 lin IIDig d dg = { s = \\df => Prelude.glue d.s (dg.s ! df) ; n = Pl }; 
 
+lin PosDecimal d = d ** {hasDot=False} ;
+
 oper ekhazar : Str = variants {"e:k" ++ "hjar" ; "hjar"} ; 
 oper mkhazar : Str -> Size -> Str = \s -> \sz -> table {singl => ekhazar ; _ => s ++ "hjar"} ! sz ;
 oper mksau : Str -> DSize -> Str = \s -> \sz -> table {sg => "e:k" ++ "sy" ; _ => s ++ "sy"} ! sz ;

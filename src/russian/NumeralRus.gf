@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../../prelude
 
-concrete NumeralRus of Numeral = CatRus [Numeral,Digits] ** open ResRus, InflectionRus, Prelude in {
+concrete NumeralRus of Numeral = CatRus [Numeral,Digits,Decimal] ** open ResRus, InflectionRus, Prelude in {
 
 flags  coding=utf8 ;
 
@@ -431,6 +431,22 @@ lin
   D_7 = mk2Dig "7" Num5 ;
   D_8 = mk2Dig "8" Num5 ;
   D_9 = mk2Dig "9" Num5 ;
+  
+  PosDecimal d = d ** {hasDot=False} ;
+  NegDecimal d = {
+    s = "-" ++ BIND ++ d.s ;
+    n = Pl ;
+    size = d.size ;
+    hasDot=False
+  } ;
+  IFrac d i = {
+    s=d.s ++
+      if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+      i.s;
+    n = Pl ;
+    size = d.size ;
+    hasDot=True
+  } ;
 
 oper
   mk3Dig : Str -> Str -> NumSize -> TDigit = \c,o,size -> mk4Dig c o Pl size ;

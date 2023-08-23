@@ -1,4 +1,4 @@
-concrete NumeralZul of Numeral = CatZul [Numeral,Digits] ** open Prelude, ResZul in {
+concrete NumeralZul of Numeral = CatZul [Numeral,Digits,Decimal] ** open Prelude, ResZul in {
 
 -- lincat
 --   Digit = {s : DForm => CardOrd => Case => Str} ;
@@ -42,54 +42,35 @@ concrete NumeralZul of Numeral = CatZul [Numeral,Digits] ** open Prelude, ResZul
 -- lin pot3plus n m = {
 --   s = \\d,o,c => n.s ! d ! NCard ! Nom ++ "thousand" ++ m.s ! False ! o ! c; n = Pl} ;
 --
--- -- numerals as sequences of digits
---
---   lincat
---     Dig = TDigit ;
---
---   lin
---     IDig d = d ** {tail = T1} ;
---
---     IIDig d i = {
---       s = \\o,c => d.s ! NCard ! Nom ++ commaIf i.tail ++ i.s ! o ! c ;
---       n = Pl ;
---       tail = inc i.tail
---     } ;
---
---     D_0 = mkDig "0" ;
---     D_1 = mk3Dig "1" "1st" Sg ;
---     D_2 = mk2Dig "2" "2nd" ;
---     D_3 = mk2Dig "3" "3rd" ;
---     D_4 = mkDig "4" ;
---     D_5 = mkDig "5" ;
---     D_6 = mkDig "6" ;
---     D_7 = mkDig "7" ;
---     D_8 = mkDig "8" ;
---     D_9 = mkDig "9" ;
---
---   oper
---     commaIf : DTail -> Str = \t -> case t of {
---       T3 => BIND ++ "," ++ BIND ;
---       _  => BIND
---       } ;
---
---     inc : DTail -> DTail = \t -> case t of {
---       T1 => T2 ;
---       T2 => T3 ;
---       T3 => T1
---       } ;
---
---     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
---     mkDig : Str -> TDigit = \c -> mk2Dig c (c + "th") ;
---
---     mk3Dig : Str -> Str -> Number -> TDigit = \c,o,n -> {
---       s = table {NCard => regGenitiveS c ; NOrd => regGenitiveS o} ;
---       n = n
---       } ;
---
---     TDigit = {
---       n : Number ;
---       s : CardOrd => Case => Str
---     } ;
+-- numerals as sequences of digits
+lincat Dig = {s:Str} ;
+
+lin
+  IDig d = d ;
+
+  IIDig d dd = {s = d.s ++ Predef.BIND ++ dd.s} ;
+
+  D_0 = { s = "0"} ;
+  D_1 = { s = "1"} ;
+  D_2 = { s = "2"} ;
+  D_3 = { s = "3"} ;
+  D_4 = { s = "4"} ;
+  D_5 = { s = "5"} ;
+  D_6 = { s = "6"} ;
+  D_7 = { s = "7"} ;
+  D_8 = { s = "8"} ;
+  D_9 = { s = "9"} ;
+
+  PosDecimal d = d ** {hasDot=False} ;
+  NegDecimal d = {
+    s = "-" ++ Predef.BIND ++ d.s ;
+    hasDot=False
+    } ;
+  IFrac d i = {
+    s = d.s ++
+        if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+        i.s ;
+    hasDot=True
+    } ;
 
 }

@@ -14,4 +14,5 @@ concrete GrammarAfr of Grammar =
   TextX,
   IdiomAfr,
   StructuralAfr,
-  TenseX ;
+  TenseX,
+  NamesAfr ;

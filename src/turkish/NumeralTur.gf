@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../../prelude
 
-concrete NumeralTur of Numeral = CatTur [Numeral,Digits] ** open Prelude, ResTur, ParadigmsTur in {
+concrete NumeralTur of Numeral = CatTur [Numeral,Digits,Decimal] ** open Prelude, ResTur, ParadigmsTur in {
 
 flags
   coding = utf8 ;
@@ -72,6 +72,21 @@ lin
   D_7 = mkDig "7" ;
   D_8 = mkDig "8" ;
   D_9 = mkDig "9" ;
+
+  PosDecimal d = d ** {hasDot=False} ;
+  NegDecimal d = {
+    s = \\t,num,c => "-" ++ BIND ++ d.s ! t ! num ! c;
+    n = Pl;
+    hasDot=False
+    } ;
+  IFrac d i = {
+    s=\\t,num,c => d.s ! NCard ! Sg ! Nom ++
+                   if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                   i.s ! t ! num ! c;
+    n = Pl ;
+    hasDot=True
+  } ;
+
 oper
   commaIf : DTail -> Str = \t -> case t of {
 				   T3 => BIND++","++BIND ;

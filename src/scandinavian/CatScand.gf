@@ -87,6 +87,7 @@ incomplete concrete CatScand of Cat =
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : CardOrd => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
 
@@ -108,8 +109,10 @@ incomplete concrete CatScand of Cat =
       -- {s : Number => Species => Case => Str ; g : Gender} ;
     N2   = Noun  ** {c2 : Complement} ;
     N3   = Noun  ** {c2,c3 : Complement} ;
-    GN, SN, PN = {s : Case => Str ; g : Gender} ;
-
+    PN = {s : Case => Str ; g : Gender} ;
+    LN = {s : Case => Str ; g : Gender ; n : Number} ;
+    GN = {s : Case => Str ; g : Sex} ;
+    SN = {s : Sex => Case => Str; pl : Case => Str} ;
 
 
   lincat

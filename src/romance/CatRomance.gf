@@ -88,6 +88,7 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : CardOrd => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
 
@@ -110,7 +111,14 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     N  = Noun ;
     N2 = Noun  ** {c2 : Compl} ;
     N3 = Noun  ** {c2,c3 : Compl} ;
-    GN, SN, PN = {s : Str ; g : Gender} ;
+    GN, PN = {s : Str ; g : Gender} ;
+    SN = {s : Gender => Str ; pl : Str} ;
+    LN = {s  : Str;
+          onPrep : Bool;
+          art : HasArt;
+          g : Gender;
+          num : Number;
+         } ;
 
 -- tense augmented with passé simple
   lincat

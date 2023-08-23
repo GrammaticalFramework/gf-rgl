@@ -61,6 +61,7 @@ concrete NounIna of Noun = CatIna ** open ResIna, Prelude in {
     NumCard c = c ;
 
     NumDigits n = {s = n.s ! NCard ; n = n.n} ;
+    NumDecimal n = {s = n.s ! NCard ; n = n.n} ;
 
     OrdDigits n = {s = n.s ! NOrd} ;
 

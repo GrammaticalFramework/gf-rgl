@@ -252,6 +252,8 @@ lin pot3plus n m =
     D_8 = mk2Dig "8" plg ;
     D_9 = mk2Dig "9" plg ;
 
+    PosDecimal d = d ** {hasDot=False} ;
+
   oper
     mk3Dig : Str -> Str -> Size -> TDigit = \c,o,size -> mk4Dig c o Pl size ;
     mk2Dig : Str -> Size -> TDigit = \c,size -> mk3Dig c (c + "o") size ;

@@ -84,7 +84,8 @@ lincat
    Num  = {s : Str ; sp : RCase => Str ; n : Number ; isNum : Bool} ; 
    Card = {s : Str ; sp : RCase => Str ; n : Number} ;
    Numeral = {s : CardOrd => Str; n : Number} ;
-   Digits = {s : CardOrd => Str ; n : Number} ; 
+   Digits = {s : CardOrd => Str ; n : Number} ;
+   Decimal = {s : CardOrd => Str ; n : Number; hasDot : Bool} ;
 
 -- Structural
 

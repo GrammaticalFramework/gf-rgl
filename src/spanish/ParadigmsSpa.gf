@@ -143,6 +143,39 @@ oper
     mkPN : N -> PN ;   -- gender from noun
     } ;
 
+  mkGN = overload {
+    mkGN : (Anna : Str) -> GN = \s -> lin GN (regPN s) ; -- feminine for "-a", otherwise masculine
+    mkGN : (Pilar : Str) -> Gender -> GN = \s,g -> lin GN (mk2PN s g) ; -- force gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Masc=>male; Fem=>female}; pl = pl} ;
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = Masc ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> Number -> LN = \s,g,num ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = num} ;
+  } ;
+
+
+  defLN : LN -> LN = \n -> n ** {art = UseArt} ;
 
 --2 Adjectives
 
@@ -330,8 +363,8 @@ oper
   Gender = MorphoSpa.Gender ;
   Number = MorphoSpa.Number ;
   CopulaType = DiffSpa.CopulaType ;
-  masculine = Masc ;
-  feminine = Fem ;
+  masculine, male = Masc ;
+  feminine, female = Fem ;
   singular = Sg ;
   plural = Pl ;
   serCopula = DiffSpa.serCopula ;
@@ -584,5 +617,7 @@ oper
     } ;
   mk2V2  : V -> Prep -> V2 ;
   dirV2 : V -> V2 ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 } ;

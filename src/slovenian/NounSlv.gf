@@ -58,7 +58,15 @@ concrete NounSlv of Noun = CatSlv ** open ResSlv,Prelude in {
 
     NumCard n = n ;
 
-    NumNumeral numeral = {s = numeral.s; n = numeral.n} ;
+    NumNumeral numeral = numeral ;
+    NumDigits digits = {
+      s = \\g,c => digits.s;
+      n = digits.n
+      } ;
+    NumDecimal decimal = {
+      s = \\g,c => decimal.s;
+      n = decimal.n
+      } ;
 
     DefArt = {
       s    = \\_,_,_ => "" ;

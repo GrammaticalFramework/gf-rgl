@@ -23,7 +23,7 @@ lincat
 
 lin
   noun_Category = mkN "nome" ;
-  adjective_Category = mkN "addiettivo" ;
+  adjective_Category = mkN "aggettivo" ;
   verb_Category = mkN "verbe" masculine ;
 
   gender_ParameterType = mkN "genere" masculine ;
@@ -31,7 +31,7 @@ lin
   singular_Parameter = mkN "singolare" ;
   plural_Parameter = mkN "plurale" ;
 
-  masculine_Parameter = mkN "maschio" ;
+  masculine_Parameter = mkN "maschile" ;
   feminine_Parameter = mkN "femminile" ;
   neuter_Parameter = mkN "neutro" ;
 

@@ -52,6 +52,25 @@ lin
          )
     } ;
 
+  InflectionLN = \pn -> {
+    t  = "im" ;
+    s1 = heading1 ("Imię" ++ case pn.gn of {
+                               MascPersSg|MascAniSg|MascInaniSg|MascPersPl => "(męskorzeczowy)";
+                               FemSg  => "(żeński)";
+                               NeutSg => "(nijaki)";
+                               _      => ""
+                             }) ;
+    s2 = frameTable (
+           tr (th "mianownik" ++ td (pn.nom)) ++
+           tr (th "dopełniacz" ++ td (pn.dep ! GenPrep)) ++
+           tr (th "celownik" ++ td (pn.dep ! DatPrep)) ++
+           tr (th "biernik" ++ td (pn.dep ! AccPrep)) ++
+           tr (th "narzędnik" ++ td (pn.dep ! InstrC)) ++
+           tr (th "miejscownik" ++ td (pn.dep ! LocPrep)) ++
+           tr (th "wołacz" ++ td (pn.voc))
+         )
+    } ;
+
   InflectionGN = \pn -> {
     t  = "im" ;
     s1 = heading1 ("Imię" ++ case pn.gn of {

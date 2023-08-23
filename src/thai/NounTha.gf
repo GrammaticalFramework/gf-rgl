@@ -38,6 +38,7 @@ concrete NounTha of Noun = CatTha ** open StringsTha, ResTha, Prelude in {
 
     NumCard n = n ** {hasC = True} ;
     NumDigits d = d ;
+    NumDecimal d = d ;
     OrdDigits d = {s = thbind thii_s d.s} ;
 
     NumNumeral numeral = numeral ** {hasC = True} ;

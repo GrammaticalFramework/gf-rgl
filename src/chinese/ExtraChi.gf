@@ -11,21 +11,21 @@ concrete ExtraChi of ExtraChiAbs = CatChi **
 
   lin
     PassVPSlash vps = insertAdv (mkNP passive_s) vps ;
-    PassAgentVPSlash vps np = insertAdv (ss (appPrep S.by8agent_Prep np.s)) (insertAdv (mkNP passive_s) vps) ;
+    PassAgentVPSlash vps np = insertAdv (ss (appPrep S.by8agent_Prep (linNP np))) (insertAdv (mkNP passive_s) vps) ;
 
     MkVPS t p vp = {s = t.s ++ p.s ++ (mkClause [] vp).s ! p.p ! t.t} ;
     ConjVPS c = conjunctDistrSS (c.s ! CSent) ;
     BaseVPS = twoSS ;
     ConsVPS = consrSS duncomma ;
 
-    PredVPS np vps = {preJiu = np.s ; postJiu = vps.s} ;
+    PredVPS np vps = {preJiu = (linNP np) ; postJiu = vps.s} ;
 
     MkVPI vp = {s = (mkClause [] vp).s ! Pos ! APlain} ; --- ?? almost just a copy of VPS
     ConjVPI c = conjunctDistrSS (c.s ! CSent) ;
     BaseVPI = twoSS ;
     ConsVPI = consrSS duncomma ;
 
-    GenNP np =  {s,pl = np.s ++ possessive_s ; detType = DTPoss} ;
+    GenNP np =  {s,pl = linNP np ++ possessive_s ; detType = DTPoss} ;
 
     GenRP nu cn = {s = \\_ => cn.s ++ relative_s} ; ---- ??
 

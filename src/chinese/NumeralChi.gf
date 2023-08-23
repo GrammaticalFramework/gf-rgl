@@ -1,4 +1,4 @@
-concrete NumeralChi of Numeral = CatChi [Numeral,Digits] ** open ResChi, Prelude in {
+concrete NumeralChi of Numeral = CatChi [Numeral,Digits,Decimal] ** open ResChi, Prelude in {
 
 flags coding = utf8 ;
 
@@ -161,5 +161,17 @@ lin pot4as5 n = n ;
     D_7 = ss "7" ;
     D_8 = ss "8" ;
     D_9 = ss "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ BIND ++ d.s ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s=d.s ++
+        if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+        i.s;
+      hasDot=True
+    } ;
 
 }

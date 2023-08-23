@@ -1,4 +1,4 @@
-concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
+concrete NumeralPor of Numeral = CatPor [Numeral,Digits,Decimal] **
   open CommonRomance, ResRomance, MorphoPor, Prelude, Predef in {
 
   flags coding=utf8 ;
@@ -206,6 +206,20 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits] **
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard Masc ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.s ! o;
+      n = Pl ;
+      hasDot=True
+      } ;
 
   oper
     mk4Dig : Str -> Str -> Str -> Number -> TDigit = \c,o,a,n -> {

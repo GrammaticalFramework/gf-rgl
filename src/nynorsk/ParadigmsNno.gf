@@ -276,8 +276,8 @@ oper
   Gender = MorphoNno.NGender ;
   Number = MorphoNno.Number ;
   Case = MorphoNno.Case ;
-  masculine = NUtr Masc ;
-  feminine = NUtr Fem ;
+  masculine = NUtr Male ;
+  feminine = NUtr Female ;
   neutrum = NNeutr ;
   singular = Sg ;
   plural = Pl ;

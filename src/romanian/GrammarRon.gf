@@ -15,7 +15,8 @@ concrete GrammarRon of Grammar =
   TextX - [CAdv,Temp,Tense],
 --  Prelude, MorphoRon, Coordination,
   StructuralRon,
-  TenseRon
+  TenseRon,
+  NamesRon
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

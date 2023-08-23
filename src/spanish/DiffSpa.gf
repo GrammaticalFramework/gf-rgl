@@ -237,4 +237,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
 
     polNegDirSubj = RPos ;
 
+param
+  HasArt = NoArt | UseArt ;
+
 }

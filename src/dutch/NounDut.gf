@@ -85,6 +85,8 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
 
+    NumDecimal numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
+
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdNumeral numeral = {s = let tiende : AForm => Str = \\af => numeral.s ! NOrd af
                                in table {APred => tiende ! AAttr Utr ;
@@ -198,5 +200,11 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
       } ;
 
     DetDAP det = det ;
+
+    QuantityNP n m = noMerge ** {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard Utr Nom) ;
+      a = agrP3 n.n ;
+      isPron = False
+      } ;
 
 }

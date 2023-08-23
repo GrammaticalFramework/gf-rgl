@@ -138,6 +138,7 @@ lin
   -- Digits -> Card
   -- e.g. '51'
   NumDigits digits = { s = \\_,_ => digits.s ! NCard ; num = digits.num } ;
+  NumDecimal dec = { s = \\_,_ => dec.s ! NCard ; num = dec.num } ;
 
   -- Numeral -> Card
   -- e.g. 'fifty-one'

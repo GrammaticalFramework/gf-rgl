@@ -78,6 +78,7 @@ lincat
   Numeral = {s : CardOrd => Gender => Case => Str ; num : Number} ;
 
   Digits = {s : CardOrd => Str ; num : Number} ;
+  Decimal = {s : CardOrd => Str ; num : Number ; hasDot : Bool} ;
 
   -- Structural words
 

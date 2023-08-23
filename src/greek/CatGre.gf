@@ -68,6 +68,8 @@ concrete CatGre of Cat = CommonGre ** open ResGre, Prelude in {
     Numeral = {s : CardOrd => Str ; n : Number } ;
 
     Digits  = {s : CardOrd => Str ; n : Number} ;
+    
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
    

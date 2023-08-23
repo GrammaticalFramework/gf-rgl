@@ -9,7 +9,7 @@ concrete GrammarZul of Grammar =
   SentenceZul,
   QuestionZul,
   RelativeZul,
-  ConjunctionZul,
+--  ConjunctionZul,
   PhraseZul,
   TextX - [Temp,Adv,IAdv],
   StructuralZul,

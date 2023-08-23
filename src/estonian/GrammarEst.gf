@@ -12,7 +12,8 @@ concrete GrammarEst of Grammar =
   TextX,
   IdiomEst,
   StructuralEst,
-  TenseX
+  TenseX,
+  NamesEst
   ** {
 
 flags startcat = Phr ; unlexer = finnish ; lexer = text ;

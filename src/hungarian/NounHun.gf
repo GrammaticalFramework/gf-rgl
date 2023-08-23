@@ -137,6 +137,10 @@ concrete NounHun of Noun = CatHun ** open
     s = \\place => dig.s ! NCard ;
     } ;
 
+  NumDecimal dec = dec ** {
+    s = \\place => dec.s ! NCard ;
+    } ;
+
   -- : Numeral -> Card ;
   NumNumeral num = num ;
 

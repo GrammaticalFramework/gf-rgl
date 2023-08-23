@@ -1,28 +1,33 @@
 concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
 
   lin
-    DetCN det cn = case det.detType of {
-            DTFull Sg => {s = det.s ++ cn.c  ++ cn.s} ;  -- this house
-            DTFull Pl => {s = det.s ++ xie_s ++ cn.s} ;  -- these houses
-            DTNum     => {s = det.s ++ cn.c  ++ cn.s} ;  -- (these) five houses
-            DTPoss    => {s = det.s          ++ cn.s}    -- our (five) houses
-      } ;
-    UsePN pn = pn ;
-    UsePron p = p ;
+    DetCN det cn = cn ** {
+         det = case det.detType of {
+            DTFull Sg => det.s ++ cn.c  ;  -- this house
+            DTFull Pl => det.s ++ xie_s ;  -- these houses
+            DTNum     => det.s ++ cn.c  ;  -- (these) five houses
+            DTPoss    => det.s             -- our (five) houses
+      }
+    } ;
 
-    DetNP det = {s = case det.detType of {
+    UsePN pn = pn ** {det = []} ;
+    UsePron p = p ** {det = []} ;
+
+    DetNP det = {
+      s = [] ;
+      det = case det.detType of {
                    DTFull Pl => det.s ++ xie_s ;
                    DTPoss    => det.s ;
                    _         => det.s ++ ge_s
                    } ;
-                } ; ----
+      } ; ----
 
-    PredetNP pred np = mkNP (pred.s ++ np.s) ; ---- possessive_s ++ np.s) ;
+    PredetNP pred np = np ** {s = pred.s ++ np.s} ; ---- possessive_s ++ np.s) ;
 
-    PPartNP np v2 = mkNP ((predV v2 v2.part).verb.s ++ possessive_s ++ np.s) ; ---- ??
+    PPartNP np v2 = np ** {s = (predV v2 v2.part).verb.s ++ possessive_s ++ np.s} ; ---- ??
 
-    AdvNP np adv = mkNP (adv.s ++ possessiveIf adv.hasDe ++ np.s) ;
-    ExtAdvNP np adv = mkNP (adv.s ++ possessiveIf adv.hasDe ++ embedInCommas np.s) ; ---- commas?
+    AdvNP np adv = np ** {s = adv.s ++ possessiveIf adv.hasDe ++ np.s} ;
+    ExtAdvNP np adv = np ** {s = adv.s ++ possessiveIf adv.hasDe ++ embedInCommas np.s} ; ---- commas?
 
     DetQuant quant num = {
       s = case num.numType of {
@@ -57,6 +62,7 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
 
     NumCard n = n ** {numType = NTFull} ;
     NumDigits d = d ** {numType = NTFull} ;
+    NumDecimal d = d ** {numType = NTFull} ;
     OrdDigits d = {s = ordinal_s ++ d.s} ;
 
     NumNumeral numeral = {s = numeral.p} ; -- liang instead of yi
@@ -70,15 +76,15 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
     DefArt = mkQuant [] [] DTPoss ;          -- use that_Quant if you want the_s
     IndefArt = mkQuant yi_s [] DTNum ; -- (DTFull Sg) ;    -- empty in the plural
 
-    MassNP cn = cn ;
+    MassNP cn = mkNP cn.s ;
 
     UseN n = n ;
     UseN2 n = n ;
     Use2N3 f = {s = f.s ; c = f.c ; c2 = f.c2} ;
     Use3N3 f = {s = f.s ; c = f.c ; c2 = f.c3} ;
 
-    ComplN2 f x = {s = appPrep f.c2 x.s ++ f.s ; c = f.c} ;
-    ComplN3 f x = {s = appPrep f.c2 x.s ++ f.s ; c = f.c ; c2 = f.c3} ;
+    ComplN2 f x = {s = appPrep f.c2 (linNP x) ++ f.s ; c = f.c} ;
+    ComplN3 f x = {s = appPrep f.c2 (linNP x) ++ f.s ; c = f.c ; c2 = f.c3} ;
 
     AdjCN ap cn = case ap.monoSyl of {
             True => {s = ap.s ! Attr ++ cn.s ; c = cn.c} ;
@@ -88,13 +94,13 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
     RelCN cn rs = {s = rs.s ++ cn.s ; c = cn.c} ;
     AdvCN cn ad = {s = ad.s ++ possessiveIf ad.hasDe ++ cn.s ; c = cn.c} ;
     SentCN cn cs = {s = cs.s ++ cn.s ; c = cn.c} ;
-    ApposCN cn np = {s = np.s ++ cn.s ; c = cn.c} ;
+    ApposCN cn np = {s = linNP np ++ cn.s ; c = cn.c} ;
 
-    RelNP np rs = mkNP (rs.s ++ np.s) ;
+    RelNP np rs = np ** {s = rs.s ++ np.s} ;
 
-    PossNP cn np = {s = np.s ++ possessive_s ++ cn.s ; c = cn.c} ;
-    PartNP cn np = {s = np.s ++ possessive_s ++ cn.s ; c = cn.c} ;
+    PossNP cn np = {s = linNP np ++ possessive_s ++ cn.s ; c = cn.c} ;
+    PartNP cn np = {s = linNP np ++ possessive_s ++ cn.s ; c = cn.c} ;
 
-    CountNP det np = {s = det.s ++ ge_s ++ possessive_s ++ np.s} ; --- classifier from NP?
+    CountNP det np = np ** {det = det.s ++ ge_s ++ possessive_s ++ np.det} ; --- classifier from NP?
 
 }

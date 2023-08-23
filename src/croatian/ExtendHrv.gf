@@ -26,6 +26,8 @@ concrete ExtendHrv of Extend = CatHrv **
     ,ComplBareVS
     ,CompIQuant
     ,CompBareCN
+    ,PiedPipingQuestSlash
+    ,PiedPipingRelSlash
     ]
   with (Grammar = GrammarHrv)
     **

@@ -1,4 +1,4 @@
-concrete NumeralNep of Numeral = CatNep [Numeral,Digits] ** open ResNep, Prelude in {
+concrete NumeralNep of Numeral = CatNep [Numeral,Digits,Decimal] ** open ResNep, Prelude in {
 -- By Harald Hammarstroem
 -- Modification for Nepali by Dinesh Simkhada and Shafqat Virk - 2011
  flags coding=utf8 ;
@@ -113,6 +113,16 @@ lin D_9 = { s = "९" ; n = Pl};
 lin IDig d = { s = \\_ => d.s ; n = d.n} ;
 
 lin IIDig d dg = { s = \\df => Prelude.glue d.s (dg.s ! df) ; n = Pl }; 
+
+lin PosDecimal d = d ** {hasDot=False} ;
+lin NegDecimal d = { s = \\df => Prelude.glue "-" (d.s ! df) ; n = Pl ; hasDot=False } ;
+    IFrac d i = {
+      s=\\df=>d.s ! df ++
+              if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+              i.s ;
+      hasDot=True;
+      n = Pl
+    } ;
 
 oper ekhazar : Str = variants {"एक" ++ "हजार" ; "हजार"} ; 
 oper mkhazar : Str -> Size -> Str = \s -> \sz -> table {singl => ekhazar ; _ => s ++ "हजार"} ! sz ;

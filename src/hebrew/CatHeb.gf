@@ -34,6 +34,7 @@ concrete CatHeb of Cat = CommonX - [Utt,Tense,Temp]  ** open ResHeb, Prelude, Pa
 A2 = {s : Str} ; 
 Conj = {s : Str} ;
 Digits = {s : Str} ;
+Decimal = {s : Str; hasDot : Bool} ;
 IComp = {s : Str} ;
 IDet = {s : Str} ;
 IP = {s : Str} ;

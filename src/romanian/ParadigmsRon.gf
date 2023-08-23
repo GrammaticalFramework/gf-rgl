@@ -559,6 +559,7 @@ mkPronoun :(_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Number -> Person -> Pron =\eu,
 -- in this case we add a case to the complement, so that the right gender is chosen.
  
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 
 } ;

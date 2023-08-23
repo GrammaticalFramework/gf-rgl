@@ -75,6 +75,7 @@ concrete CatLit of Cat = CommonX - [CAdv, Adv] ** open ResLit, Prelude, (R = Par
                 numAgr:NumComb; nb:Number };
     Ord = {  s:AForm => Str };
     Digits = { s:Str; o:Str; numAgr:NumComb; nb:Number };
+    Decimal = { s:Str; o:Str; numAgr:NumComb; nb:Number; hasDot : Bool };
 
 
 ---- Structural

@@ -90,6 +90,7 @@ lincat
         } ;
   Numeral = {s : Res.CardOrd=>Res.Agreement=> Str ; g : Res.Gender;  n: Res.Number} ;
   Digits  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number ; tail : Px.DTail} ;
+  Decimal  = {s : Res.CardOrd => Res.Agreement=>Str ; n : Res.Number; hasDot : Bool} ;
   Ord  = {s :Res.Agreement=>Str; position:Res.Position} ;
   Card = {s :Res.Agreement=>Str; n : Res.Number} ;
   A2 =  Res.Adjective ** { c2 : Str ; isPre : Bool} ;

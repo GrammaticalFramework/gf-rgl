@@ -1,4 +1,4 @@
-concrete NumeralPnb of Numeral = CatPnb [Numeral,Digits] ** open ResPnb, Prelude in {
+concrete NumeralPnb of Numeral = CatPnb [Numeral,Digits,Decimal] ** open ResPnb, Prelude in {
 -- By Harald Hammarstroem
 -- Modification for Punjabi by Shafqat Virk
  flags coding=utf8 ;
@@ -119,6 +119,19 @@ lin D_8 = { s = "۸" ; n = Pl};
 lin D_9 = { s = "۹" ; n = Pl};
 lin IDig d = { s = \\_ => d.s ; n = d.n} ;
 lin IIDig d dg = { s = \\df => Prelude.glue (dg.s ! df) d.s ; n = Pl }; 
+lin PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
+lin IFrac d i = {
+      s = \\o => d.s ! o ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s;
+      n = Pl ;
+      hasDot=True
+      } ;
 
 oper ekhazar : Str = variants {"ہزار" ; "اك" ++ "ہزار"} ; 
 oper mkhazar : Str -> Size -> Str = \s -> \sz -> table {singl => ekhazar ; _ => s ++ "ہزار"} ! sz ;

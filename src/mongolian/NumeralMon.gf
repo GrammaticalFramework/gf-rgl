@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../prelude
 
-concrete NumeralMon of Numeral = CatMon [Numeral,Digits] ** open ResMon, MorphoMon, Prelude in {
+concrete NumeralMon of Numeral = CatMon [Numeral,Digits,Decimal] ** open ResMon, MorphoMon, Prelude in {
 
  flags  coding=utf8 ;
 
@@ -157,6 +157,20 @@ lin
  D_7 = mkDig "7" ;
  D_8 = mkDig "8" ;
  D_9 = mkDig "9" ;
+
+ PosDecimal d = d ** {hasDot=False} ;
+ NegDecimal d = {
+    s = \\co => "-" ++ BIND ++ d.s ! co ;
+    n = Pl ;
+    hasDot=False
+    } ;
+ IFrac d i = {
+    s = \\co => d.s ! NCard ++
+                if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                i.s ! co;
+    n = Pl ;
+    hasDot=True
+    } ;
 
 oper
  mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

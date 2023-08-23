@@ -7,7 +7,9 @@ concrete ExtendGer of Extend =
     VPS, ListVPS, VPI, ListVPI,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, 
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
-    CardCNCard, PassVPSlash, PassAgentVPSlash, CompoundN
+    GenModNP,
+    CardCNCard, CompoundN,
+    PassVPSlash, PassAgentVPSlash, PastPartAP, PastPartAgentAP
     ]
   with
     (Grammar = GrammarGer) **
@@ -24,9 +26,9 @@ concrete ExtendGer of Extend =
     VPS   = {s : Order => Agr => Str} ;
     [VPS] = {s1,s2 : Order => Agr => Str} ;
 
-lin
+  lin
 
-  InOrderToVP vp = {s = "um" ++ useInfVP False vp} ;
+    InOrderToVP vp = {s = "um" ++ useInfVP False vp} ;
 
     BaseVPI = twoTable Bool ;
     ConsVPI = consrTable Bool comma ;
@@ -43,7 +45,7 @@ lin
 
     PredVPS np vpi = 
       let
-        subj = np.s ! NPC Nom ++ bigNP np ;
+        subj = np.s ! False ! Nom ++ bigNP np ;
         agr  = np.a ;
       in {
         s = \\o => 
@@ -114,42 +116,32 @@ lin
     ConjVPS = conjunctDistrTable2 Order Agr ;
     
     UseDAP det = {
-      s = \\c => det.sp ! Neutr ! c ;
+      s = \\b,c => det.sp ! Neutr ! c ;
       a = agrP3 det.n ;
       w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       rc, ext = []
       } ;
 
     UseDAPMasc det = {
-      s = \\c => det.sp ! Masc ! c ;
+      s = \\_,c => det.sp ! Masc ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
       } ;
 
     UseDAPFem det = {
-      s = \\c => det.sp ! Fem ! c ;
+      s = \\_,c => det.sp ! Fem ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
       } ;
 
-lin
-  CardCNCard card cn = {
-    s = \\g,c =>
-      (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! NPC c ;
-    n = Pl
-    } ;
-
-lin GivenName = \n -> { s = n.s; g = sex2gender n.g; n = Sg } ;
-lin MaleSurname = \n -> { s = n.s ! Male ; g = Masc; n = Sg } ;
-lin FemaleSurname = \n -> { s = n.s ! Female ; g = Fem; n = Sg } ;
-lin PlSurname = \n -> { s = n.s ! Male ; g = Masc; n = Pl } ;
-lin FullName gn sn = {
-       s = \\c => gn.s ! Nom ++ sn.s ! gn.g ! c ;
-       g = sex2gender gn.g ;
-       n = Sg
-    } ;
+    CardCNCard card cn = {
+      s = \\g,c =>
+        (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! False ! c ;
+      n = Pl
+      } ;
+  
 
 lin PassVPSlash vp = 
       insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
@@ -159,6 +151,28 @@ lin PassVPSlash vp =
 
 lin PassAgentVPSlash vp np = ---- "von" here, "durch" in StructuralGer
       insertObj (\\_ => (PastPartAgentAP (lin VPSlash vp) (lin NP np)).s ! APred) (predV werdenPass) ;
+
+lin PastPartAP vp =
+      let a = agrP3 Sg in {
+        s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3 ++ vp.a2 ++ vp.adj
+                    ++ vp.inf.inpl.p2 ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+        isPre = True ;
+        c = <[],[]> ;
+        ext = vp.ext
+      } ;
+
+lin PastPartAgentAP vp np =
+      let a = agrP3 Sg ;
+          agent = appPrepNP von_Prep np
+      in {
+      s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
+                  ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
+                  ++ vp.c2.s ! GPl                      -- junk if not TV
+                  ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+      isPre = True ;
+      c = <[],[]> ;
+      ext = []
+      } ;
 
 lin CompoundN a x =
        let s = a.co in

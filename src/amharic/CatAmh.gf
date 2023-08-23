@@ -22,6 +22,7 @@ lincat
 	Prep = ResAmh.Prep;
 	Numeral = ResAmh.Numeral; --{s : CardOrd => Case => Str ; n : Number} ;
 	Digits  = ResAmh.Digits;--{s : CardOrd => Case => Str ; n : Number ; tail : DTail} ;
+	Decimal = ResAmh.Decimal;
 	Ord = ResAmh.Ord ; --{ s : Case => Str } ;
 	Num  = ResAmh.Num;--{s : Case => Str ; n : Number ; hasCard : Bool} ;
 	Card = ResAmh.Card;--{s : Case => Str ; n : Number} ;

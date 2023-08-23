@@ -67,6 +67,8 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
                n : Size } ;
     Digits = {s : Str;
               n : Size};
+    Decimal = {s : Str;
+              n : Size; hasDot : Bool};
 
 -- Structural
 

@@ -31,6 +31,8 @@ lincat
 
   -- Numeral
   Numeral = {s : Gender => Case => Str ; n : NumAgr} ;
+  Digits = {s : Str ; n : NumAgr} ;
+  Decimal = {s : Str ; n : NumAgr ; hasDot : Bool} ;
 
   -- Structural
   Conj = {s : Str; n : Number} ;
@@ -56,9 +58,10 @@ lincat
   N2 = {s : Case => Number => Str; g : AGender; c : Prep} ;
   N3 = {s : Case => Number => Str; g : AGender; c : Prep} ;
 
-  GN = {s : Case => Str; g : Sex};
-  SN = {s : Sex => Case => Str};
   PN = {s : Case => Str; g : AGender; n : Number};
+  LN = {s : Case => Str; g : AGender; n : Number};
+  GN = {s : Case => Str; g : P.Sex};
+  SN = {s : P.Sex => Case => Str};
 
 linref
   V, VA, VS, V2, V3, V2A, V2S, V2Q, V2V = \v -> v.s ! VInf ++ v.refl ++ v.p;

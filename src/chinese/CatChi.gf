@@ -43,7 +43,8 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 -- Noun
 
     CN = ResChi.Noun ;
-    NP, Pron = ResChi.NP ;
+    NP = ResChi.NP ;
+    Pron = SS ;
     Det = Determiner ;
     Quant = Determiner ** {pl : Str} ;
     Predet = {s : Str} ; ----
@@ -56,6 +57,7 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
 
     Numeral = {s,p : Str} ;
     Card, Digits = {s : Str} ;
+    Decimal = {s : Str ; hasDot : Bool} ;
 
 -- Structural
 
@@ -79,7 +81,7 @@ concrete CatChi of Cat = CommonX - [Tense, Temp, Ant, Adv] ** open ResChi, Prelu
     N = ResChi.Noun ;
     N2 = ResChi.Noun ** {c2 : Preposition} ;
     N3 = ResChi.Noun ** {c2,c3 : Preposition} ;
-    GN, SN, PN = ResChi.NP ;
+    GN, SN, LN, PN = SS ;
 
 -- overridden
 
@@ -91,4 +93,5 @@ linref
     S = linS ;
     Prep = linPrep ;
     VP = infVP ;
+    NP = \np -> np.det ++ np.s ;
 }

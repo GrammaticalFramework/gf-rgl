@@ -163,6 +163,8 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     
 --     NumDigits  : Digits  -> Card ;  -- 51
     NumDigits n =  { s=\\_,_ => n.s; a=n.a; n=n.n };
+
+    NumDecimal n =  { s=\\_,_ => n.s; a=n.a; n=n.n };
     
 --     NumCard : Card -> Num ;
     NumCard c = c ** { hasCard = True };
@@ -207,5 +209,12 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     };
 
     DetDAP d = d ;
+
+    QuantityNP n m = {
+      nom,voc = preOrPost m.isPre m.s n.s;
+      dep = \\cc => preOrPost m.isPre m.s n.s ;
+      gn = OthersPl;
+      p = P3
+      } ;
 
 }

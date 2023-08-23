@@ -126,6 +126,7 @@ concrete CatIce of Cat = CommonX ** open ResIce, Prelude in {
 
 		Numeral = {s : CardOrd => Str ; n : Number} ;
 		Digits = {s : CardOrd => Str ; n : Number} ;
+		Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 
 		--2 Structural words
