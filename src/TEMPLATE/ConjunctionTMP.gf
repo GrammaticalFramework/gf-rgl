@@ -27,7 +27,7 @@ concrete ConjunctionTMP of Conjunction =
 
     --}
 
-
+-----------------------------------------------------------------------------
 -- Adverb and other simple {s : Str} types.
 lincat
   [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
@@ -37,61 +37,111 @@ lin
   ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
   ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
 
-
 {-
--- RS depends on X, Y and Z, otherwise exactly like previous.
+
+-----------------------------------------------------------------------------
+-- S is sometimes already {s : Str}, sometimes open for mood or word order.
+-- Simply take the lincat of S, and split the s field into s1 and s2.
+-- Then make sure that all of the other fields are retained.
+
+lincat
+  [S] = {s1, s2 : …} ;
+
+lin
+  -- : S -> S -> ListS ;      -- John walks, Mary runs
+  BaseS x y =
+
+  -- : S -> ListS -> ListS ;  -- John walks, Mary runs, Bill swims
+  ConsS x xs =
+
+  -- : Conj -> ListS -> S ;       -- he walks and she runs
+  ConjS conj xs =
+
+-----------------------------------------------------------------------------
+-- RS is variable on … and has inherent …
 -- RS can modify CNs, which are open for …, and have inherent …
+
 lincat
   [RS] = {s1,s2 : … => Str} ;
 
 lin
-  BaseRS = twoTable3 … ;
-  ConsRS = consrTable3 … comma ;
-  ConjRS = conjunctRSTable ;
+
+  -- : RS -> RS -> ListRS ;       -- who walks, whom I know
+  BaseRS x y =
+
+  -- : RS -> ListRS -> ListRS ;   -- who wals, whom I know, who is here
+  ConsRS x xs =
+
+  -- : Conj -> ListRS -> RS ;     -- who walks and whose mother runs
+  ConjRS conj xs =
 
 
-lincat
-  [S] = {} ;
-
-lin
-  BaseS x y = y ** { } ;
-  ConsS x xs =
-    xs ** { } ;
-  ConjS co xs = {} ;
-
-lincat
-  [AP] = {} ;
-
-lin
-  BaseAP x y = twoTable … x y ** y ; --choose all the other fields from second argument
-  ConsAP as a = consrTable … comma as a ** as ;
-  ConjAP co as = conjunctDistrTable … co as ** as ;
+-----------------------------------------------------------------------------
+-- NP  is variable on … and has inherent …
 
 lincat
-  [CN] = { } ;
+  [NP] = {s1, s2 : …} ;
 
 lin
-  BaseCN = {} ;
-  ConsCN = {} ;
-  ConjCN co cs = conjunctDistrTable Agr co cs ** cs ;
-
-lincat
-  [DAP] =
-
-lin
-  BaseDAP x y = x **
-  ConsDAP xs x = xs **
-  ConjDet conj xs = xs **
-
-
--- Noun phrases
-lincat
-  [NP] =
-
-lin
+  -- : NP -> NP -> ListNP ;      -- John, Mary
   BaseNP x y =
+
+  -- : NP -> ListNP -> ListNP ;  -- John, Mary, Bill
   ConsNP x xs =
+
+  -- : Conj -> ListNP -> NP ;     -- she or we
   ConjNP conj xs =
 
+-----------------------------------------------------------------------------
+-- AP  is variable on … and has an inherent …
+
+lincat
+  [AP] = {s1, s2 : …} ;
+
+lin
+  -- : AP -> AP -> ListAP ;       -- red, white
+  BaseAP x y =
+
+  -- : AP -> ListAP -> ListAP ;   -- red, white, blue
+  ConsAP x xs =
+
+  -- : Conj -> ListAP -> AP ;     -- cold and warm
+  ConjAP conj xs =
+
+-----------------------------------------------------------------------------
+-- CN  is variable on …
+-- CN conjunction is not in the API, so this can be lower prio
+
+lincat
+  [CN] = {s1, s2 : …} ;
+
+lin
+  -- : CN -> CN -> ListCN ;      -- man, woman
+  BaseCN x y =
+
+  -- : CN -> ListCN -> ListCN ;  -- man, woman, child
+  ConsCN x xs =
+
+  -- : Conj -> ListCN -> CN ;     -- man and woman
+  ConjCN conj xs =
+
+-----------------------------------------------------------------------------
+-- Det and DAP
+-- Note that there is no [Det], the way to coordinate Dets is to make them
+-- into DAP first, using Noun.DetDAP : Det -> DAP ;
+-- DAP ("three small") isn't used in any API functions, so lower prio.
+
+lincat
+  [DAP] = {s1, s2 : …} ;
+
+lin
+  -- : DAP -> DAP -> ListDAP ;
+  BaseDAP x y =
+
+  -- : DAP -> ListDAP -> ListDAP ;
+  ConsDAP xs x =
+
+  -- : Conj -> ListDAP -> Det ;   -- his or her
+  ConjDet conj xs =
 -}
 }

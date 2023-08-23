@@ -25,8 +25,8 @@ This is a starting point to clone a new RGL language. It has some pre-populated 
   * [Adjectives](#adjectives)
   * [Relative clauses](#relative-clauses)
   * [Numerals](#numerals)
-    + [Conjunctions](#conjunctions)
-    + [Idioms](#idioms)
+  * [Conjunctions](#conjunctions)
+  * [Idioms](#idioms)
   * [Functions that are clearly lower priority](#functions-that-are-clearly-lower-priority)
 
 # How to use this tutorial
@@ -138,7 +138,7 @@ The most important are the following:
 - lincat for `V2` and `VPSlash`
 - lin for `SlashV2a` and `ComplSlash`
 
-If you have done a thorough implementation on noun morphology, you might find it useful here. For instance, if verbs mark their arguments with cases, now is a great time to add those cases as *inherent* argument in the verbs.
+If you have done a thorough implementation on noun morphology, you might find it useful here. For instance, if verbs mark their arguments with cases, now is a great time to add those cases as *inherent* argument in the verbs. (For explanation on parametric vs. inherent, see [GF tutorial](https://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc54)).
 
 Another way to make VPs is to use adjectives, noun phrases and adverbials as complements. If you haven't implemented adjectives yet, feel free to skip them at this step. But the other complements should be in reach already, so the next most important steps are the following:
 
@@ -216,7 +216,7 @@ These may be complicated, so feel free to postpone until further. But if your AP
 
 There is a tentative lincat for numerals, and linearisations for the digits `D_0..D_9` and `n2..n9`, as well as the simple coercions `pot0`, `pot0as1`, `pot1as2`, `pot2as3` and `num`. However, it's possible that the simple lincat needs to be changed, and so I haven't implemented any of the lins that do something complex.
 
-The numeral module the oldest piece of code in the RGL, and hence it looks pretty strange compared to the rest of the RGL. If you don't understand it, don't worry–just leave it aside until you have other parts implemented. Nothing depends on it, and in fact, I would recommend that your N-CN-NP cluster is really solid before you do numerals, because then you know better which inflectional features are needed in numerals.
+The numeral module the oldest piece of code in the RGL, and hence it looks pretty strange compared to the rest of the RGL. If you don't understand it, don't worry–just leave it aside until you have other parts implemented. Nothing depends on it, and in fact, I would recommend that your N-CN-NP cluster is solid before you do numerals, because then you know better which inflectional features are needed in numerals.
 
 But eventually the time comes to tackle numerals. First tip is to check in https://github.com/GrammaticalFramework/gf-contrib/tree/master/numerals whether someone has already implemented them for your language, or a close relative that behaves similarly. Second tip is to look at the existing implementation of any RGL language that you know, and try to reverse engineer based on that. But even if these tips don't work, please submit your grammar to gf-rgl anyway! A grammar without full numeral implementation is much better than no grammar at all.
 
@@ -227,11 +227,88 @@ Once you have some kind of implementation of the Numeral module, you can connect
 
 With these, you get a `Num` that can be used in `DetQuant` to make a Det, and that unlocks numerals as determiners, like "two cats".
 
-### Conjunctions
+## Conjunctions
+
+Conjunction for category X needs 4 things:
+
+- lincat for `[X]`
+- lin for `BaseX`
+- lin for `ConsX`
+- lin for `ConjX`
+
+For example, if `X` is defined as
+```haskell
+lincat X   = {s     : Case => Str ;   a : Agr} ;
+```
+then `[X]` will split its s field into two, and retain its other fields as is:
+
+```haskell
+lincat [X] = {s1,s2 : Case => Str ;   a : Agr} ;
+```
+
+### List without inflection table and single field
+
+Let's start with a simple case: Adv is of type `{s : Str}`. Then `[Adv]` is `{s1,s2 : Str}`.
+`BaseAdv`, `ConsAdv` and `ConjAdv` can all use functions defined in [prelude/Coordination](../prelude/Coordination.gf):
+
+```haskell
+lin BaseAdv = twoSS ;
+lin ConsAdv = consrSS comma ;
+lin ConjAdv = conjunctSS ;
+```
+
+### List with inflection table and multiple fields
+
+Let's take the previous example and call it NP. Our lincats are as follows:
+```haskell
+lincat
+  NP  = {s     : Case => Str ; a : Agr} ; -- in Cat
+ [NP] = {s1,s2 : Case => Str ; a : Agr} ; -- in Conjunction
+```
+
+Now we need to do a bit more work in our linearisations.
+```haskell
+lin
+ BaseNP x y = twoTable Case x y ** {a = conjAgr x.a y.a} ;
+
+oper
+  conjAgr : Agr -> Agr -> Agr ;
+  conjAgr agr1 agr2 = -- TODO actual implementation
+```
+First, we use the [twoTable](https://github.com/GrammaticalFramework/gf-rgl/blob/master/src/prelude/Coordination.gf#L57-L60) oper from Coordination, which puts the right values in the right fields.
+
+But it doesn't deal with the rest of the fields, `g : Agr` in our case, and so we need to put it in manually. That's what happens in the *record extension* with the two stars. To combine two Agrs into one Agr, we define an oper `conjAgr`, that takes two Agrs and returns their combination.
+
+Then let's do the rest of the linearisations.
+
+```haskell
+lin
+  ConsNP x xs = consrTable NPCase comma x xs ** {a = conjAgr xs.a x.a} ;
+  ConjNP conj xs = conjunctDistrTable NPCase conj xs ** {
+      a = -- xs.a, with possible Number input from the Conj
+      } ;
+```
+ConsNP is similar to BaseNP, except that we will now include the separator character. `comma` is defined as the string "," in Prelude, but other languages use other characters, e.g. **、** in Chinese.
+
+ConjNP puts together a NP from the list of NPs, using a conjunction: "Inari, Krasimir and Aarne". This resulting NP has to also have an `a` field, and in this final stage, we are putting together the `conjAgr` from all the arguments, and also taking into account the Conj itself. For instance, in [English style guides](https://editorsmanual.com/articles/compound-subject-singular-or-plural/),
+
+> Two or more nouns joined by and form a plural compound subject, which takes plural verbs. But when a compound subject contains or or nor, the verb should agree with the part of the subject closest to it.
+
+So in the English resource grammar, `and_Conj` has an inherent number Pl, and `or_Conj` has an inherent number Sg. If your language doesn't do that, then it's just the list of NPs that determines the agreement of the resulting coordinated NP.
+
+### Inspiration from existing RGL languages
+
+Most existing RGL languages use the Coordination module and its opers that are rather cryptic. Sometimes you can copy and paste an existing RGL language, just adjust the arity of the opers (e.g. call `twoTable3` instead of `twoTable2`) and which `param`s are given to those opers as argument. Other times you need to do more manual tweaking.
+
+Here are some examples of [coordination strategies that are more complex than English](https://inariksit.github.io/gf/2021/02/22/lists.html#natural-language-strategies-beyond-a-b-and-c). The more your language differs from English, the more work you need to do in the internal params.
+
+Some of the categories that have list instances may not be able to coordinate in your language. In such a case, you can decide whether to leave it unimplemented (thus trying to use it via the API gives an exception), or linearise something ungrammatical.
+
+## Idioms
 
 
 
-### Idioms
+## Symbol
 
 
 
