@@ -1,4 +1,4 @@
-concrete NumeralSlv of Numeral = CatSlv [Numeral,Digits] ** open Prelude, ResSlv in {
+concrete NumeralSlv of Numeral = CatSlv [Numeral,Digits,Decimal] ** open Prelude, ResSlv in {
 
 lincat 
   Digit            = {s : DForm  => Case => Str; n : NumAgr} ;
@@ -200,12 +200,12 @@ oper mkDigit2 : (_,_,_,_,_,_ : Str) -> Gender => Case => Str;
     Dig = TDigit ;
 
   lin
-    IDig d = d ;
+    IDig d = d ** {n=UseNum d.n};
 
     IIDig d i = {
       s = d.s ++ BIND ++ i.s ;
 ----      s = \\o => d.s ! NCard Masc ++ BIND ++ i.s ! o ;
-      n = Pl
+      n = UseNum Pl
     } ;
 
     D_0 = mkDig "0" ;
@@ -218,6 +218,20 @@ oper mkDigit2 : (_,_,_,_,_,_ : Str) -> Gender => Case => Str;
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ BIND ++ d.s ;
+      n = UseNum Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = d.s ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.s ;
+      n = UseNum Pl ;
+      hasDot=True
+      } ;
 
   oper
     mkDig : Str -> TDigit = \c -> mk2Dig c Pl ;

@@ -1,4 +1,4 @@
-concrete NumeralSom of Numeral = CatSom [Numeral,Digits] **
+concrete NumeralSom of Numeral = CatSom [Numeral,Digits,Decimal] **
   open Prelude, ResSom, ParamSom in {
 
 oper
@@ -161,5 +161,18 @@ lin D_9 = mkDig "9" ;
 lin IDig dig = dig ;
     -- : Dig -> Digits -> Digits ;
 lin IIDig dig digs = digs ** {s = \\co => glue (dig.s ! co) (digs.s ! co) } ;
+lin PosDecimal d = d ** {hasDot=False} ;
+lin NegDecimal d = {
+      s = \\co => glue "-" (d.s ! co) ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+      s = \\co => d.s ! co ++
+                  if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                  i.s ! co;
+      n = Pl ;
+      hasDot=True
+    } ;
 
 }

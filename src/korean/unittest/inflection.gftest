@@ -8,7 +8,7 @@
 Lang: eat_V2
 LangKor: 먹어요
 
-Lang: UseComp (CompAP (PositA good_A))
+Lang: ImpVP (UseComp (CompAP (PositA good_A)))
 LangKor: 좋아요
 
 -- Final ㅏ or ㅓ does not repeat itself
@@ -16,7 +16,7 @@ Lang: go_V
 LangKor: 가요
 
 -- Monosyllabic 으-final is dropped
-Lang: UseComp (CompAP (PositA big_A))
+Lang: ImpVP (UseComp (CompAP (PositA big_A)))
 LangKor: 커요
 
 -- Final ㅗ + -아요  becomes ㅘ요

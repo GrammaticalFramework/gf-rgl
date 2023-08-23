@@ -1,4 +1,4 @@
-concrete NumeralIna of Numeral = CatIna [Numeral,Digits] ** open ResIna,Prelude in {
+concrete NumeralIna of Numeral = CatIna [Numeral,Digits,Decimal] ** open ResIna,Prelude in {
 
   lincat 
   Digit = {s : DForm => CardOrd => Str} ;
@@ -65,6 +65,20 @@ concrete NumeralIna of Numeral = CatIna [Numeral,Digits] ** open ResIna,Prelude 
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o;
+      n = Pl ;
+      hasDot=True
+    } ;
 
   oper
     commaIf : DTail -> Str = \t -> case t of {

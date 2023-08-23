@@ -14,7 +14,8 @@ concrete GrammarFin of Grammar =
   TextX,
   IdiomFin,
   StructuralFin,
-  TenseX
+  TenseX,
+  NamesFin
   ** {
 
 flags startcat = Phr ; unlexer = finnish ; lexer = text ;

@@ -70,6 +70,7 @@ incomplete concrete CatHindustani of Cat =
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : CardOrd => Str ; n : Number } ;
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 ---- Structural
 

@@ -19,7 +19,9 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  youPlFem_Pron,
  youPolFem_Pron,
  youPolPlFem_Pron,
- youPolPl_Pron
+ youPolPl_Pron,
+ PassVPSlash, PassAgentVPSlash,
+ UseComp_estar, UseComp_ser
     ]                   -- don't forget to put the names of your own
                        -- definitions here
   with
@@ -30,7 +32,8 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
   MorphoSpa,
   Coordination,
   Prelude,
-  ParadigmsSpa in {
+  ParadigmsSpa,
+  (I=IrregSpa) in {
     -- put your own definitions here
 
   lin
@@ -100,10 +103,23 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
         cop = serCopula
       } ;
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       s = gn.s ++ sn.s ;
-       g = gn.g
-    } ;
+lin UseComp_estar comp = insertComplement comp.s (predV I.estar_V) ;
+    UseComp_ser comp = insertComplement comp.s (predV copula) ;
+
+lin PassVPSlash vps = passVPSlash vps [] ;
+    PassAgentVPSlash vps np = passVPSlash 
+      vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
+
+oper
+    passVPSlash : VPSlash -> Str -> VP = \vps, agent -> 
+      let auxvp = predV auxPassive 
+      in
+      vps ** {
+         s = auxvp.s ;
+         agr = auxvp.agr ;
+         comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
+        } ;
+
+lin AnaphPron np = agr2pron ! np.a ;
 
 } ;

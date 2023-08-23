@@ -14,7 +14,8 @@ concrete GrammarSwa of Grammar =
   TextX,
   StructuralSwa,
   IdiomSwa,
-  TenseX
+  TenseX,
+  NamesSwa
   **  {
 
 flags startcat = Phr ;

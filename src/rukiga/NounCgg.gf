@@ -116,6 +116,7 @@ lin
 
     --NumDigits  : Digits  -> Card ;  -- 51
     NumDigits dig  = {s = dig.s!NCard ; n=dig.n};
+    NumDecimal dec  = {s = dec.s!NCard ; n=dec.n};
     --NumNumeral : Numeral -> Card ;  -- fifty-one
     NumNumeral numeral = {s=numeral.s!NCard; n=numeral.n};
     --OrdDigits  : Digits  -> Ord ;  -- 51st

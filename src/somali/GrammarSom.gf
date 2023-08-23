@@ -12,7 +12,8 @@ concrete GrammarSom of Grammar =
   TextX - [Adv,IAdv],
   StructuralSom,
   IdiomSom,
-  TenseX - [Adv,IAdv]
+  TenseX - [Adv,IAdv],
+  NamesSom
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

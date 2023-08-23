@@ -14,8 +14,8 @@ resource MorphoNno = CommonScand, ResNno ** open Prelude, Predef in {
 -- genders
 
 oper
-  masc  = NUtr Masc ;
-  fem   = NUtr Fem ;
+  masc  = NUtr Male ;
+  fem   = NUtr Female ;
   neutr = NNeutr ;
 
 -- type synonyms

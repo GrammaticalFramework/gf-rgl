@@ -1,4 +1,4 @@
-concrete NumeralEst of Numeral = CatEst [Numeral,Digits] **  open Prelude, ParadigmsEst, MorphoEst in {
+concrete NumeralEst of Numeral = CatEst [Numeral,Digits,Decimal] **  open Prelude, ParadigmsEst, MorphoEst in {
 
 -- Notice: possessive forms are not used. They get wrong, since every
 -- part is made to agree in them.
@@ -145,6 +145,20 @@ oper
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard (NCase Sg Nom) ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o MorphoEst.Pl ;

@@ -1,4 +1,4 @@
-concrete CommonX of Common = open (R = ParamX) in {
+concrete CommonX of Common = open (R = ParamX), Prelude in {
 
   lincat
     Text = {s : Str} ; 
@@ -19,5 +19,7 @@ concrete CommonX of Common = open (R = ParamX) in {
     Tense = {s : Str ; t : R.Tense} ;
     Ant   = {s : Str ; a : R.Anteriority} ;
     Pol   = {s : Str ; p : R.Polarity} ;
+
+    MU = {s : Str ; isPre : Bool} ;
 
 }

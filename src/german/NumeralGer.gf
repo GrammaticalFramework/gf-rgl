@@ -1,4 +1,4 @@
-concrete NumeralGer of Numeral = CatGer [Numeral,Digits] ** open MorphoGer, Prelude in {
+concrete NumeralGer of Numeral = CatGer [Numeral,Digits,Decimal] ** open MorphoGer, Prelude in {
 
 flags optimize = all_subs ;
     coding=utf8 ;
@@ -50,12 +50,12 @@ lin
   pot3plus n m = {s = \\g => 
     multiple n.s n.n ++ "tausend" ++ m.s ! g ; n = Pl} ;
   pot3as4 n = n ;
-  pot3float f = {s = \\g =>
-    f.s ++ cardOrd "tausend" "tausendte" ! g ; n = Pl} ; ----
+  pot3decimal d = {s = \\g =>
+    d.s ! invNum ++ cardOrd "tausend" "tausendte" ! g ; n = Pl} ; ----
 
   pot4as5 n = n ;
-  pot4float f = {s = \\g =>
-    f.s ++ cardOrd "Millionen" "Millionte" ! g ; n = Pl} ; ----
+  pot4decimal d = {s = \\g =>
+    d.s ! invNum ++ cardOrd "Millionen" "Millionte" ! g ; n = Pl} ; ----
 
   pot51 = {s = \\g => "einer Milliarde"; n = Pl} ;  -- KA: case inflection missing
 
@@ -87,6 +87,20 @@ oper
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+      s=\\o=>d.s ! invNum ++
+             if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+             i.s ! o;
+      n = Pl;
+      hasDot=True
+    } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

@@ -1,4 +1,4 @@
-concrete NumeralKor of Numeral = CatKor [Numeral,Digits] **
+concrete NumeralKor of Numeral = CatKor [Numeral,Digits,Decimal] **
   open Prelude, ResKor in {
 
 lincat
@@ -154,6 +154,16 @@ lin
   D_7 = mkDig "7" ;
   D_8 = mkDig "8" ;
   D_9 = mkDig "9" ;
+  
+  PosDecimal d = d ** {hasDot=False} ;
+  NegDecimal d = {s=\\o=>"-" ++ BIND ++ d.s ! o; hasDot=False; n = Pl} ;
+  IFrac d i = {
+    s=\\o=>d.s ! NCard ++
+           if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+           i.s ! o ;
+    hasDot=True;
+    n = Pl
+    } ;
 
 oper
   mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o numNumber ;

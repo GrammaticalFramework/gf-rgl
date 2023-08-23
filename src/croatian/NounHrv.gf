@@ -89,6 +89,7 @@ lin
       
     NumCard c = c ;
     NumDigits ds = ds ** {s = \\_,_ => ds.s} ;
+    NumDecimal dec = dec ** {s = \\_,_ => dec.s} ;
     NumNumeral nu = {
       s = \\g,c => (adjFormsAdjective nu.s).s ! g ! Sg ! c ; ---- TODO Sg?
       size = nu.size

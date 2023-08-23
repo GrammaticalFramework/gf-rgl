@@ -2,11 +2,11 @@
 
 concrete ExtendPol of Extend =
   CatPol ** ExtendFunctor - [
-    iFem_Pron, youFem_Pron, theyFem_Pron, ProDrop
+    iFem_Pron, youFem_Pron, theyFem_Pron, ProDrop, PassVPSlash
   ]
   with
     (Grammar = GrammarPol) **
-  open PronounMorphoPol in {
+  open PronounMorphoPol, Prelude in {
 
 lin iFem_Pron = pronJa FemSg ;
 lin youFem_Pron = pronTy FemSg ;
@@ -37,13 +37,7 @@ oper
     p = P3        
   };
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       nom = gn.nom ++ sn.nom ;
-       voc = gn.nom ++ sn.voc ;
-       dep = \\c => gn.nom ++ sn.dep ! c ;
-       gn = gn.gn ;
-       p  = gn.p
-    } ;
+-- KA: PassVPSlash is derived from PassV2. Objects might be ignored
+lin PassVPSlash vps = setImienne vps True; 
 
 }

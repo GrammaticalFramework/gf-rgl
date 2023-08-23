@@ -89,6 +89,20 @@ lin pot1 d = {s = \\nf => d.s ! NInstr ++ "qulillit"} ;  ---- inflection of quli
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
 
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard neutrum ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ;
+      n = Pl ;
+      hasDot=True
+      } ;
+
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
     mkDig : Str -> TDigit = \c -> mk2Dig c (c + ":e") ;

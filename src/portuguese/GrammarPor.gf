@@ -14,7 +14,8 @@ concrete GrammarPor of Grammar =
   TextPor - [SC,Temp,Tense,Pol,PPos,PNeg],      -- special punctuation
   IdiomPor,
   StructuralPor,
-  TensePor
+  TensePor,
+  NamesPor
 
   ** {
 

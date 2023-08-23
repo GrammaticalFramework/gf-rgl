@@ -32,23 +32,23 @@ lin
            )
      } ;
 
-  InflectionPN = \pn -> {
+  InflectionLN = \n -> {
     t  = "nm" ;
-    s1 = heading1 ("Namn" ++ case pn.g of {
-                               Utr   => "(utr)" ;
-                               Neutr => "(neutr)"
-                             }) ;
+    s1 = heading1 ("Platsnamn" ++ case n.g of {
+                                    Utr   => "(utr)" ;
+                                    Neutr => "(neutr)"
+                                  }) ;
     s2 = frameTable (
-           tr (th "nom" ++ td (pn.s ! Nom)) ++
-           tr (th "gen" ++ td (pn.s ! Gen))
-           )
+           tr (th "nom" ++ td (n.s ! Nom)) ++
+           tr (th "gen" ++ td (n.s ! Gen))
+           ) ;
      } ;
 
   InflectionGN = \pn -> {
     t  = "fnm" ;
     s1 = heading1 ("Förnamn" ++ case pn.g of {
-                                  Utr   => "(utr)" ;
-                                  Neutr => "(neutr)"
+                                  Male   => "(man)" ;
+                                  Female => "(kvinna)"
                                 }) ;
     s2 = frameTable (
            tr (th "nom" ++ td (pn.s ! Nom)) ++
@@ -58,13 +58,10 @@ lin
 
   InflectionSN = \pn -> {
     t  = "enm" ;
-    s1 = heading1 ("Efternamn" ++ case pn.g of {
-                                    Utr   => "(utr)" ;
-                                    Neutr => "(neutr)"
-                                  }) ;
+    s1 = heading1 "Efternamn" ;
     s2 = frameTable (
-           tr (th "nom" ++ td (pn.s ! Nom)) ++
-           tr (th "gen" ++ td (pn.s ! Gen))
+           tr (th "nom" ++ td (pn.s ! Male ! Nom)) ++
+           tr (th "gen" ++ td (pn.s ! Male ! Gen))
            )
      } ;
 

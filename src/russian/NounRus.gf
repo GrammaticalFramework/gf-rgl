@@ -87,6 +87,8 @@ lin
   -- : Digits -> Card ;  -- 51
   NumDigits n = {s = \\_,_,_ => n.s ; size = n.size } ;
 
+  NumDecimal n = {s = \\_,_,_ => n.s ; size = n.size } ;
+
   -- : Quant -> Num -> Det ;  -- these five
   DetQuant quant num = {
     s=\\g,anim,cas => quant.s ! (gennum g (numSizeNumber num.size)) ! anim ! cas ++ num.s ! g ! anim ! cas ;
@@ -237,6 +239,12 @@ lin
     g=Neut ;
     size=Num1 ;
     preferShort=PreferFull
+    } ;
+
+  QuantityNP n m = {
+    s = \\cas => preOrPost m.isPre m.s n.s;
+    pron=False ;
+    a=Ag (gennum Masc (numSizeNumber n.size)) P3
     } ;
 
 }

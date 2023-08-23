@@ -69,6 +69,20 @@ lin pot3plus n m = { s = table {
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
 
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o,g => "-" ++ BIND  ++ d.s ! o ! g ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+     s = \\o,g => d.s ! NCard ! g ++
+                  if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                  i.s ! o ! g ;
+     n = Pl ;
+     hasDot=True
+     } ;
+
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
     mkDig : Str -> TDigit = \c -> mk2Dig c (c ) ;

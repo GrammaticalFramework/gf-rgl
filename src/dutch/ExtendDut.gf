@@ -5,7 +5,8 @@ concrete ExtendDut of Extend =
    - [PastPartAP,ICompAP,IAdvAdv,
       VPS,
       BaseVPS, ConsVPS,
-      MkVPS, ConjVPS, PredVPS
+      MkVPS, ConjVPS, PredVPS,
+      PassVPSlash, PassAgentVPSlash
      ]
   with
     (Grammar = GrammarDut) **
@@ -102,6 +103,11 @@ lin
 
   IAdvAdv adv = {s = "hoe" ++ adv.s} ;
 
+lin PassVPSlash vps = 
+      insertInf (vps.s.s ! VPerf APred) (predV ResDut.worden_V) ;
+    PassAgentVPSlash vps np = 
+      insertAdv (appPrep (mkPrep "door") np) (insertInf (vps.s.s ! VPerf APred) (predV ResDut.worden_V)) ;
+
 lin
   UseDAP dap = dap ** {
     s = \\_ => dap.sp ! Neutr ;
@@ -113,11 +119,6 @@ lin
     s = \\_ => dap.sp ! Utr ;
     a = agrP3 dap.n ;
     isPron = False
-    } ;
-
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       s = \\c => gn.s ! NPNom ++ sn.s ! c
     } ;
 
 }

@@ -134,6 +134,7 @@ flags coding = utf8 ;
     NumCard card = card ** {inclCard = True} ;
 
     NumDigits num = num ** {postpositive = []} ;
+    NumDecimal num = num ** {postpositive = []} ;
 
     NumNumeral num = num ** {postpositive = []} ;
 

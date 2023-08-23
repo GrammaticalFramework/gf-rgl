@@ -111,6 +111,7 @@ concrete NounGre of Noun = CatGre ** open  ResGre, ParadigmsGre, Prelude in {
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
 
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
+    NumDecimal numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
 
     AdNum adn num = {s = \\g,c => adn.s ++ num.s!g!c; n = num.n } ;
 

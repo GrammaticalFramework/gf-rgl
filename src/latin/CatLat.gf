@@ -63,6 +63,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
 --
     Numeral = ResLat.TNumeral ;
     Digits  = {s : Str ; unit : Unit} ;
+    Decimal = {s : Str ; unit : Unit ; hasDot : Bool} ;
 --
 ---- Structural
 --

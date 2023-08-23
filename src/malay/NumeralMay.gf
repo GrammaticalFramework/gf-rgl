@@ -1,6 +1,6 @@
 -- David Wahlstedt 2002 (cardinal numbers)
 -- Inari Listenmaa 2020 (ordinals + cosmetic changes)
-concrete NumeralMay of Numeral = CatMay [Numeral,Digits] **
+concrete NumeralMay of Numeral = CatMay [Numeral,Digits,Decimal] **
   open Prelude, ResMay in {
 
   lincat
@@ -150,6 +150,16 @@ oper
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {s=\\o=>"-" ++ BIND ++ d.s ! o;  hasDot=False} ;
+    IFrac d i = {
+        s=\\o=>d.s ! NCard ++
+               if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+               i.s ! o ;
+        hasDot=True;
+        n = Pl
+    } ;
 
   oper
     mkDig : Str -> DigNum = \s -> {

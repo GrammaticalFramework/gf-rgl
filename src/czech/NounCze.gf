@@ -96,6 +96,7 @@ lin
 
     NumCard c = c ;
     NumDigits ds = ds ** {s = \\_,_ => ds.s} ;
+    NumDecimal ds = ds ** {s = \\_,_ => ds.s} ;
     NumNumeral nu = nu ;
 
 

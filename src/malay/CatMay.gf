@@ -80,6 +80,7 @@ concrete CatMay of Cat = CommonX - [IAdv] ** open ResMay, Prelude in {
     Card = ResMay.CardNum ;
     Numeral = ResMay.CardOrdNum ;
     Digits = ResMay.DigNum ;
+    Decimal = ResMay.DigNum**{hasDot : Bool} ;
 
 
 

@@ -1,6 +1,6 @@
 --# -path=.:../prelude:../abstract:../common
 
-concrete NumeralCgg of Numeral = CatCgg [Numeral,Digits] **
+concrete NumeralCgg of Numeral = CatCgg [Numeral,Digits,Decimal] **
   open ResCgg, Prelude in {
 
 lincat 
@@ -99,6 +99,16 @@ lin pot3plus n m = let
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {s=\\o,a=>"-" ++ BIND ++ d.s ! o ! a;  hasDot=False; n = Pl} ;
+    IFrac d i = {
+        s=\\o,a=>d.s ! NCard ! a ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ! a ;
+        hasDot=True;
+        n = Pl
+    } ;
 
   oper
     commaIf : DTail -> Str = \t -> case t of {

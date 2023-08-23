@@ -25,6 +25,7 @@ oper
   masc : Gender ;
   fem : Gender ;
 
+-- Export the adposition type with the more usual/mainstream name Preposition
   Preposition : Type ;
   ka : Preposition ;
   ku : Preposition ;
@@ -141,7 +142,7 @@ oper
   mkAdv : Str -> Adv = \s -> lin Adv {
     berri = s ;
     c2 = noPrep ;
-    np = {s = [] ; a = P3_Prep} ;
+    np = {s = [] ; a = ZeroObj} ;
     sii,dhex,miscAdv = []
     } ;
 
@@ -172,12 +173,12 @@ oper
   masc = Masc ;
   fem = Fem ;
 
-  Preposition = ResSom.Preposition ;
+  Preposition = ResSom.Adposition ;
   ka = ResSom.Ka ;
   ku = ResSom.Ku ;
   la = ResSom.La ;
   u  = ResSom.U ;
-  noPrep = ResSom.NoPrep ;
+  noPrep = ResSom.NoAdp ;
 
   VVForm = ResSom.VVForm ;
   infinitive = Infinitive ;
@@ -213,30 +214,36 @@ oper
 
   mkV = overload {
     mkV : (imp : Str) -> V = \v -> lin V (regV v) ;
-    mkV : (imp,pl2,sg1 : Str) -> V = \i,p,s -> lin V (mkVerb i p s) ;
+    mkV : (imp, sg1 : Str) -> V = \i,s1 -> lin V (reg2V i s1) ;
+    mkV : (imp,sg1,sg2,pl2 : Str) -> V = \i,s1,_,_ -> lin V (reg2V i s1) ; -- TODO: 4-place constructor
     mkV : Str -> V -> V = \s,v -> lin V (prefixV s v)
   } ;
 
   copula = ResSom.copula ;
 
   regV : Str -> Verb = \s -> case s of {
-    _ + #c + #c + "o" => cJoogso s ;
-    _           + "o" => cQaado s ; ----
-    _           + "i" => cKari s ;
-    _          + "ee" => cYaree s ;
-    _                 => cSug s
+    _ + #c + #c + "o" => mkVerb (cJoogso s) ;
+    _           + "o" => mkVerb (cQaado s) ; ----
+    _           + "i" => mkVerb (cKari s) ;
+    _          + "ee" => mkVerb (cYaree s) ;
+    _                 => mkVerb (cSug s)
     } ;
+
+  reg2V : Str -> Str -> Verb = \arag,arkaa -> case arag of {
+    _ + #c => mkVerb (cArag arag arkaa) ;
+    _ => regV arag
+  } ;
 
   mkV2 = overload {
     mkV2 : Str -> V2 = \s -> lin V2 (regV s ** {c2 = noPrep}) ;
-    mkV2 : Str -> Preposition -> V2 = \s,p -> lin V2 (regV s ** {c2 = p}) ;
-    mkV2 : V -> Preposition -> V2 = \v,p -> lin V2 (v ** {c2 = p}) ;
+    mkV2 : Str -> Adposition -> V2 = \s,p -> lin V2 (regV s ** {c2 = p}) ;
+    mkV2 : V -> Adposition -> V2 = \v,p -> lin V2 (v ** {c2 = p}) ;
     } ;
 
   mkV3 = overload {
     mkV3 : (sug : Str) -> V3 = \s -> lin V3 (regV s ** {c2,c3 = noPrep}) ;
-    mkV3 : (sug : Str) -> (_,_ : Preposition) -> V3 = \s,p,q -> lin V3 (regV s ** {c2 = p ; c3 = q}) ;
-    mkV3 : V -> (_,_ : Preposition) -> V2 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
+    mkV3 : (sug : Str) -> (_,_ : Adposition) -> V3 = \s,p,q -> lin V3 (regV s ** {c2 = p ; c3 = q}) ;
+    mkV3 : V -> (_,_ : Adposition) -> V2 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
     } ;
 
   mkVV = overload {
@@ -252,11 +259,11 @@ oper
    } ;
 
    mkV2S = overload {
-     mkV2S : Str -> V2S -- Predictable verb, no preposition.
+     mkV2S : Str -> V2S -- Predictable verb, no Adposition.
      = \s -> lin V2S (regV s ** {c2 = noPrep}) ;
-     mkV2S : Str -> Preposition -> V2S -- Predictable verb, preposition given as second argument.
+     mkV2S : Str -> Adposition -> V2S -- Predictable verb, Adposition given as second argument.
        = \s,pr -> lin V2S (regV s ** {c2 = pr}) ;
-     mkV2S : V -> Preposition -> V2S -- Unpredictable verb, preposition.
+     mkV2S : V -> Adposition -> V2S -- Unpredictable verb, Adposition.
        = \v,pr -> lin V2S (v ** {c2 = pr})
   } ;
 
@@ -278,5 +285,7 @@ oper
     isPoss = False
   } ;
 --------------------------------------------------------------------------------
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 }

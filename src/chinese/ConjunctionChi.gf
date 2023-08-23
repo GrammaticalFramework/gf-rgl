@@ -11,7 +11,7 @@ concrete ConjunctionChi of Conjunction = CatChi ** open ResChi, Prelude, Coordin
                    postJiu = ss.postJiu}
         } ;
     ConjAdv c as = conjunctDistrSS (c.s ! CSent) as ** {advType = as.advType ; hasDe = as.hasDe} ; ---- ??
-    ConjNP c = conjunctDistrSS (c.s ! CPhr CNPhrase) ;
+    ConjNP c nps = conjunctDistrSS (c.s ! CPhr CNPhrase) nps ** {det = []} ;
     ConjAP c as = conjunctDistrTable AdjPlace (c.s ! CPhr CAPhrase) as ** {monoSyl = notB as.monoSyl ; hasAdA = True} ; ---- add de iff as doesn't
     ConjRS c = conjunctDistrSS (c.s ! CSent) ;
     ConjCN c ns = conjunctDistrSS (c.s ! CPhr CNPhrase) ns ** {c = ns.c} ;
@@ -28,8 +28,8 @@ concrete ConjunctionChi of Conjunction = CatChi ** open ResChi, Prelude, Coordin
 
     BaseAdv x y = twoSS x y ** {advType = x.advType ; hasDe = y.hasDe} ; ---- ??
     ConsAdv x xs = consrSS duncomma x xs ** {advType = x.advType ; hasDe = xs.hasDe} ; ---- ??
-    BaseNP = twoSS ;
-    ConsNP = consrSS duncomma ;
+    BaseNP np1 np2 = twoSS (mergeNP np1) (mergeNP np2) ;
+    ConsNP np nps = consrSS duncomma (mergeNP np) nps ;
     BaseAP x y = twoTable AdjPlace x y ** {monoSyl = y.monoSyl} ;
     ConsAP x xs = consrTable AdjPlace duncomma x xs ** {monoSyl = xs.monoSyl} ;
     BaseRS = twoSS ;
@@ -45,6 +45,9 @@ concrete ConjunctionChi of Conjunction = CatChi ** open ResChi, Prelude, Coordin
     [AP] = {s1,s2 : AdjPlace => Str ; monoSyl : Bool} ;
     [RS] = {s1,s2 : Str} ;
     [CN] = {s1,s2 : Str ; c : Str} ;
+
+  oper
+    mergeNP : ResChi.NP -> SS = \np -> ss (linNP np) ;
 
 
 }

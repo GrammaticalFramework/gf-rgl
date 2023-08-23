@@ -1,0 +1,33 @@
+name: Check that the RGL can successfully build
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      GF_VERSION: 3.11
+      DEST: gf-rgl
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download GF
+      uses: dsaltares/fetch-gh-release-asset@1.1.1
+      with:
+        repo: 'GrammaticalFramework/gf-core'
+        version: 'tags/${{ env.GF_VERSION }}'
+        file: 'gf-${{ env.GF_VERSION }}-ubuntu-20.04.deb'
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install GF
+      run: |
+        sudo dpkg -i gf-${GF_VERSION}-ubuntu-20.04.deb
+
+    - name: Build RGL
+      run: |
+        mkdir -p ${DEST}
+        bash Setup.sh --dest=${DEST} --gf=gf --verbose

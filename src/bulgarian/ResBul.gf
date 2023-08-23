@@ -47,7 +47,6 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
   param
     Gender = Masc | Fem | Neut ;
-    Sex = Male | Female ;
 
     Species = Indef | Def ;
  
@@ -858,5 +857,10 @@ resource ResBul = ParamX ** open Prelude, Predef in {
         Male => Masc ;
         Female => Fem
       } ;
+
+    vyv_Str : Str
+      = pre { "в" ; 
+              "във" / strs {"в" ; "ф" ; "В" ; "Ф"}
+            } ;
 
 }

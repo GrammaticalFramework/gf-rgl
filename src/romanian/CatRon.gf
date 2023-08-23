@@ -80,6 +80,7 @@ concrete CatRon of Cat =
               sp : ACase => CardOrd => NumF => Str ; size : Size } ;
    
    Digits  = {s : CardOrd => Str ; n : Size ; isDig : Bool} ;
+   Decimal = {s : CardOrd => Str ; n : Size ; isDig : Bool; hasDot : Bool} ;
 
    Num     = {s : Gender => Str ; sp : Gender => Str ; 
               isNum : Bool ; n : Number; size : Str } ;
@@ -131,7 +132,7 @@ concrete CatRon of Cat =
 
     N3 = Noun  ** {c2,c3 : Compl} ;
 
-    GN, SN, PN = {s : NCase => Str ; g : Gender ; n : Number; a : Animacy} ;
+    GN, SN, LN, PN = {s : NCase => Str ; g : Gender ; n : Number; a : Animacy} ;
    
     Comp = {s : Agr => Str} ;
    

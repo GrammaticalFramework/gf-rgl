@@ -86,6 +86,10 @@ concrete NounIce of Noun = CatIce ** open MorphoIce, ResIce, Prelude in {
 			s = \\g,c => d.s ! NCard d.n g c;
 			n = d.n
 		} ;
+		NumDecimal d = {
+			s = \\g,c => d.s ! NCard d.n g c;
+			n = d.n
+		} ;
 
 		NumNumeral d = {
 			s = \\g,c => d.s ! NCard Sg g c;

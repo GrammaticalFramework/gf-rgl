@@ -19,6 +19,9 @@ resource ParamX = open Prelude in {
      ;
 
   param
+    Sex = Male | Female ;
+
+  param
 
     Polarity    = Pos | Neg ;
 

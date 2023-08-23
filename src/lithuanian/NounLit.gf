@@ -249,6 +249,7 @@ concrete NounLit of Noun = CatLit ** open ResLit, Prelude, MorphoLit, Predef in 
     
 --     NumDigits  : Digits  -> Card ;  -- 51
     NumDigits n =  { s=\\_,_ => n.s; numAgr=n.numAgr; nb=n.nb };
+    NumDecimal n =  { s=\\_,_ => n.s; numAgr=n.numAgr; nb=n.nb };
     
 --     NumCard : Card -> Num ;
     NumCard c = c ** { hasCard = True };

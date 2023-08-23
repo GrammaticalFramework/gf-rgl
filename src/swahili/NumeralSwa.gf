@@ -1,4 +1,4 @@
-concrete NumeralSwa of Numeral = CatSwa [Numeral,Digits] ** 
+concrete NumeralSwa of Numeral = CatSwa [Numeral,Digits,Decimal] ** 
 open Prelude,DiffSwa,MorphoSwa in {
 
 lincat 
@@ -75,6 +75,16 @@ lin pot4as5 n = n ;
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {s=\\o,g=>"-" ++ BIND ++ d.s ! o ! g;  hasDot=False; n = Pl} ;
+    IFrac d i = {
+        s=\\o,g=>d.s ! NCard ! g ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ! g ;
+        hasDot=True;
+        n = Pl
+    } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

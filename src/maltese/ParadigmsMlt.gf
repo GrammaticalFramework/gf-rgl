@@ -1423,4 +1423,6 @@ resource ParadigmsMlt = open
 
     mkOrd : Str -> Ord = \x -> lin Ord { s = \\c => x };
 
+    mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

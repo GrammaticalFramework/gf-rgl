@@ -28,6 +28,12 @@ lin
     s2 = paragraph (pn.s ! NPNom)
     } ;
 
+  InflectionLN = \ln -> {
+    t  = "pn" ;
+    s1 = heading1 "Naam" ;
+    s2 = paragraph (ln.s ! Strong ! NPNom)
+    } ;
+
   InflectionGN = \pn -> {
     t  = "vnm" ;
     s1 = heading1 "Voornaam" ;
@@ -37,7 +43,7 @@ lin
   InflectionSN = \pn -> {
     t  = "van" ;
     s1 = heading1 "Van" ;
-    s2 = paragraph (pn.s ! NPNom)
+    s2 = paragraph (pn.s ! Male ! NPNom)
     } ;
 
   InflectionA, InflectionA2 = \adj ->

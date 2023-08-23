@@ -189,6 +189,8 @@ concrete NounMlt of Noun = CatMlt ** open ResMlt, Prelude, Maybe in {
     -- 51
     NumDigits d = {s = d.s ; n = d.n} ;
 
+    NumDecimal d = {s = d.s ; n = d.n} ;
+
     -- Digits -> Ord
     -- 51st
     OrdDigits d = {s = d.s} ;

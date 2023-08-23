@@ -40,6 +40,52 @@ lin
            )
     } ;
 
+  InflectionPN = \pn -> {
+    t = "pn" ;
+    s1 = heading1 ("Nom Propre" ++
+                   case pn.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = pn.s
+    } ;
+
+  InflectionGN = \gn -> {
+    t = "pn" ;
+    s1 = heading1 ("Prénom" ++
+                   case gn.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = gn.s
+    } ;
+
+  InflectionSN = \gn -> {
+    t = "pn" ;
+    s1 = heading1 "Nom de Famille" ;
+    s2 = gn.s ! Masc
+    } ;
+
+  InflectionLN = \ln -> {
+    t = "nl" ;
+    s1 = heading1 ("Nom de la Localisation" ++
+                   case ln.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = paragraph ln.s ++
+         heading2 "Adverbe" ++
+         paragraph (let p : {s : Str; c:Prepos} =
+                          case ln.onPrep of {
+                            True  => {s="en"; c=PNul} ;
+                            False => {s="";   c=P_a}
+                          }
+                    in p.s ++ case ln.art of {
+                                AlwaysArt => artDef True ln.g ln.num (CPrep p.c) ++ ln.s;
+                                _         => prepCase (CPrep p.c) ++ ln.s
+                              })
+    } ;
+
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 (nounHeading adjective_Category).s ;

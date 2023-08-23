@@ -130,6 +130,10 @@ lin
     s = \\_,_,_ => digits.s ;
     isNum = True
     };
+  NumDecimal dec = dec ** {
+    s = \\_,_,_ => dec.s ;
+    isNum = True
+    };
 
   NumNumeral numeral = numeral ** {
     s = numeral.s ! NCard ;
