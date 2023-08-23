@@ -11,7 +11,12 @@ lin
   -- : NP -> VP -> Cl
   PredVP np vp = {
     subj = np.s ; -- ! Nom, if there are cases
-    pred = vp.s ! TODOVF np.n np.p
+    pred =
+     -- table {something with tense+polarity =>
+            vp.s ! TODOVF np.n np.p
+            -- TODO: all of the VP's tense and polarity should be open here!
+            -- PredVP only decides the subject.
+     -- }
   } ;
 
 {-

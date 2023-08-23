@@ -24,7 +24,7 @@ lin
 
     } ;
 
-  -- : Subj -> Pred -> QCl ;
+  -- : Cl -> QCl ;
   QuestCl cl = cl ** {
     };
 

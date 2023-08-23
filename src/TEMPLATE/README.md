@@ -63,6 +63,7 @@ Once you're happy with the morphology, you can start with other lins and lincats
 - lincat for `Pron`, lin for `UsePron` and `PossPron`, plus some actual pronouns in Structural
 - lincat for `PN`, lin for `UsePN`, plus some actual PNs in Lexicon
 - `AdvCN`, plus some actual Advs in Lexicon
+- lins for more `Quant`s, `Det`s etc. in Structural
 
 Some things in the Noun module will have to wait for other categories to be done. For instance, `AdjCN` relies on adjectives, `RelCN` on relatives, `NumCard` and `NumNumeral` on numerals, none of which is (properly) implemented in this template. So feel free to leave all the rest for a later pass.
 
