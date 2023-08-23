@@ -7,6 +7,27 @@ This is a starting point to clone a new RGL language. It has some pre-populated 
 **If you want a 100% just strings template**, you can find that in [github.com/daherb/gf-rgl-template](https://github.com/daherb/gf-rgl-template). If you choose that one, you can still read this document for suggestions about which functions to start with.
 
 
+- [How to use this tutorial](#how-to-use-this-tutorial)
+- [Guided tour: what to implement first?](#guided-tour-what-to-implement-first)
+  * [1. N-CN-NP(-AP)](#1-n-cn-np-ap)
+    + [Already implemented](#already-implemented)
+    + [Next steps](#next-steps)
+    + [How about adjectives?](#how-about-adjectives)
+  * [2. V-VP](#2-v-vp)
+    + [Already implemented](#already-implemented-1)
+    + [Next steps](#next-steps-1)
+  * [3. Cl-S-Utt-Phr](#3-cl-s-utt-phr)
+    + [Already implemented](#already-implemented-2)
+    + [Next steps](#next-steps-2)
+    + [Unused or nonexistent forms?](#unused-or-nonexistent-forms)
+- [Choose your own adventure: what to implement next](#choose-your-own-adventure-what-to-implement-next)
+  * [Questions](#questions)
+  * [Adjectives](#adjectives)
+  * [Relative clauses](#relative-clauses)
+  * [Numerals](#numerals)
+    + [Conjunctions](#conjunctions)
+    + [Idioms](#idioms)
+  * [Functions that are clearly lower priority](#functions-that-are-clearly-lower-priority)
 
 # How to use this tutorial
 
