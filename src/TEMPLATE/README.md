@@ -2,9 +2,9 @@
 
 This is a starting point to clone a new RGL language. It has some pre-populated lincats and lins, mostly in the `Noun` module, but also a few minimal things for verbs and sentences.
 
-**Note that this is not 100% just strings.** Some of the lincats have a more complex lincat, like an inflection table with `Number` as a parameter. In addition, the modules contain comments and suggestions aimed for new grammarians.
+**Note that this is not 100% just strings.** Some of the categories have a more complex lincat, like an inflection table with `Number` or `Person` as a parameter. In addition, the modules contain comments and suggestions aimed for new grammarians.
 
-**If you want a 100% just strings template**, you can find that in [github.com/daherb/gf-rgl-template](https://github.com/daherb/gf-rgl-template). If you choose that one, you can still read this document for suggestions about which functions to start with.
+**If you want a 100% just strings template**, you can find that in [github.com/daherb/gf-rgl-template](https://github.com/daherb/gf-rgl-template). If you choose the string-only template, you can still read this document for suggestions about implementation order.
 
 
 - [How to use this tutorial](#how-to-use-this-tutorial)
@@ -189,14 +189,30 @@ If you've implemented the first cluster, you already have a nice chunk of the RG
 The following set doesn't have to be followed in any particular order.
 
 ## Questions
-Shares similarities with the implementation of declarative clauses and sentences. If you did clauses recently, it's a natural continuation to do questions: here you may need to tackle more word orders.
-Forming of IPs (interrogative phrases) may be similar to NPs.
 
-To get started, the easier ones in the Question module are the following:
-- lincat for `IP` and `IDet`, lin for `IDetCN` and `IdetQuant`
-- lincat for `QCl`, lin for `QuestCl` and `QuestVP`
-- lincat for `IAdv`, lin for `QuestIAdv` (+ some `IAdv`s in Structural!)
-- lincat for `IComp`, lin for `CompIAdv` and `QuestIComp`
+The Question module introduces interrogative noun phrases (`IP`) like *who* or *whose car*, and question clauses (`QCl`) and sentences (`QS`). Their implementation is often similar to that of noun phrases and declarative clauses and sentences.
+
+Compared to declarative sentences, questions may require more variation in word order. You may need to make some fields discontinuous, e.g. splitting a single `s` field (e.g. *eat porridge*) of a VP into `verb` (*eat*) and `complement` (*porridge*).
+
+The minimal set to get questions is the following:
+- lincat for `QCl`
+- lin for `QuestCl`
+With these, you get yes/no questions, like "do you walk".
+
+To get wh-questions, like "who walks", you first need the `IP` category for interrogative noun phrases. Here's a full set for wh-questions with the IP as a subject.
+- lincat for `IP`, `IDet` and `IQuant`
+- lin for `IDetCN`, `IdetQuant`
+- lin for some `IQuant`s and `IP`s in Structural
+- lin for `QuestVP`
+
+The next thing to add is `IAdv` for interrogative adverbs, like "why" or "where". With these, you can ask questions like "why do you walk" and "where are you".
+- lincat for `IAdv`
+- lin for `QuestIAdv`
+- lin for some `IAdv`s in Structural
+- lincat for `IComp`
+- lin for `CompIAdv` and `QuestIComp`
+
+Probably the hardest concept here is using `IP` as an object, like "who do you like".
 
 ## Adjectives
 
@@ -312,6 +328,6 @@ Some of the categories that have list instances may not be able to coordinate in
 
 
 
-### Functions that are clearly lower priority
+# Functions outside the API or otherwise lower priority
 
 What is low or high priority depends on the application. But if you want some general guidelines, these are usually less used, or not in the API at all.
