@@ -13,6 +13,7 @@ This is a starting point to clone a new RGL language. It has some pre-populated 
     + [Already implemented](#already-implemented)
     + [Next steps](#next-steps)
     + [How about adjectives?](#how-about-adjectives)
+    + [Side note: a word about MassNP](#side-note-a-word-about-massnp)
   * [2. V-VP](#2-v-vp)
     + [Already implemented](#already-implemented-1)
     + [Next steps](#next-steps-1)
@@ -26,9 +27,12 @@ This is a starting point to clone a new RGL language. It has some pre-populated 
   * [Relative clauses](#relative-clauses)
   * [Numerals](#numerals)
   * [Conjunctions](#conjunctions)
+    + [List without inflection table and single field](#list-without-inflection-table-and-single-field)
+    + [List with inflection table and multiple fields](#list-with-inflection-table-and-multiple-fields)
+    + [Inspiration from existing RGL languages](#inspiration-from-existing-rgl-languages)
   * [Idioms](#idioms)
-  * [Functions that are clearly lower priority](#functions-that-are-clearly-lower-priority)
-
+  * [Symbol](#symbol)
+- [Functions outside the API or otherwise lower priority](#functions-outside-the-api-or-otherwise-lower-priority)
 # How to use this tutorial
 
 If you haven't done so yet, clone your language from this template as instructed [here](../README.md#from-a-generic-template). The cloning doesn't include README.md, so there's only one copy of this README document.
@@ -79,30 +83,36 @@ Check the categories and params in `ResTMP`: how well do they apply to your lang
 If so, then I would suggest adding the missing morphology before implementing any new syntactic functions. Whenever you change a lincat, e.g. by making something that used to be a Str into an inflection table, all the lins that handle that lincat will break. So it's less painful to change the lincats when the amount of lins is still small.
 
 #### More syntax
-Once you're happy with the morphology, you can start with other lins and lincats. For instance:
+Once you're happy with the morphology, you can start with other lins and lincats. In addition to nouns, the RGL allows making NPs out of pronouns and proper nouns:
+- lincat for `Pron`
+- lin for `UsePron` and `PossPron`
+- lin for some `Pron`s in Structural
+- lincat for `PN`
+- lin for `UsePN`
+- lin for `john_PN` and `paris_PN` in Lexicon
 
-- lincat for `Pron`, lin for `UsePron` and `PossPron`, plus some actual pronouns in Structural
-- lincat for `PN`, lin for `UsePN`, plus some actual PNs in Lexicon
-- `AdvCN`, plus some actual Advs in Lexicon
+You can also make the NPs a bit more varied by adding more quantifiers and modifiers:
 - lins for more `Quant`s, `Det`s etc. in Structural
 
-Some things in the Noun module will have to wait for other categories to be done. For instance, `AdjCN` relies on adjectives, `RelCN` on relatives, `NumCard` and `NumNumeral` on numerals, none of which is (properly) implemented in this template. So feel free to leave all the rest for a later pass.
+Some things in the Noun module will have to wait for other categories to be done. For instance, `AdjCN` relies on adjectives, `RelCN` on relatives, `NumCard` and `NumNumeral` on numerals, none of which is (properly) implemented in this template. So feel free to postpone the rest.
 
-#### Side note: a word about MassNP
+### How about adjectives?
+
+In some languages, adjectives behave like nouns. In other languages, they behave like verbs. In yet other languages, the situation is more complicated. But if your language happens to be one where adjectives are like nouns, it's pretty cheap to just implement adjectives here as well. The minimal set is as follows:
+
+- lincat for `A` and `AP`
+- lin for some `A`s from Lexicon
+- lin for `PositA` and `AdjCN`
+
+But if adjectives are rather like verbs (e.g. Korean), or there are other complications (e.g. Zulu), just postpone their implementation.
+
+
+### Side note: a word about MassNP
 In the Noun module, there is a function called `MassNP : CN -> NP`. This is a *mass construction*, which is usually applied to mass nouns like "water".
 
 However, the RGL does not contain a semantic distinction between mass and count nouns, and thus the `MassNP` function can be applied to any CN. Sometimes this results in semantically weird results.
 
 As a resource grammarian, don't worry if `MassNP` applied to count nouns sounds weird. It's the application grammarian's problem to choose when to use MassNP and when DetCN. If `MassNP` sounds good when applied to mass nouns, then you're doing it right.
-
-### How about adjectives?
-
-In some languages, adjectives behave like nouns. In other languages, they behave like verbs. In yet other languages, they behave like neither. If your language happens to be one where adjectives are like nouns, it's pretty cheap to just implement adjectives here as well. The minimal set is as follows:
-
-- lincat for `A` and `AP`
-- lin for `PositA` and `AdjCN`
-
-But if adjectives are rather like verbs (e.g. Korean), or just more complex than nouns (e.g. German), feel free to postpone it for later.
 
 ## 2. V-VP
 
@@ -125,9 +135,11 @@ LangTMP: die
 
 #### Add morphology
 
-Just like with nouns, look at the `VForm` param in the Res module, and add the inflectional features that are missing. If verbs are very complex in your language, it's fine to start with a smaller subset, e.g. only indicative mood, or only a couple of tenses.
+Just like with nouns, look at the `VForm` param in the Res module, and add the missing inflectional features. If verbs are very complex in your language, it's fine to start with a smaller subset, e.g. only indicative mood, or only a couple of tenses.
 
-Again, you should extend the `VForm` param, and change the lincats of `V` and `VP` in other ways, if needed. In addition, you could implement some morphological paradigms, so that you can add some verbs in the lexicon.
+Again, you should extend the `VForm` param, and change the lincats of `V` and `VP` in other ways, if needed. It is very common that the lincat for `VP` has many fields, so that it
+
+In addition, you could implement some morphological paradigms, so that you can add some verbs in the lexicon.
 
 #### Add syntax
 
@@ -136,6 +148,7 @@ In addition to intransitive verbs (`V`), the GF RGL has a large set of verb subc
 The most important are the following:
 
 - lincat for `V2` and `VPSlash`
+- lin for some `V2`s from Lexicon
 - lin for `SlashV2a` and `ComplSlash`
 
 If you have done a thorough implementation on noun morphology, you might find it useful here. For instance, if verbs mark their arguments with cases, now is a great time to add those cases as *inherent* argument in the verbs. (For explanation on parametric vs. inherent, see [GF tutorial](https://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc54)).
@@ -147,6 +160,8 @@ Another way to make VPs is to use adjectives, noun phrases and adverbials as com
 - (If you already have AP: lin for `CompAP`)
 
 These functions don't care whether your language has an explicit copula or not. Just implement whatever strategy that it uses for non-V❋ predication.
+
+In terms of word order, you could consider how adverbials attach to verbs.
 
 ## 3. Cl-S-Utt-Phr
 
@@ -178,13 +193,14 @@ If you're not sure whether the lincat of `S` should be still open for something,
 
 ### Unused or nonexistent forms?
 
-What if your language has no form that corresponds to e.g. future anterior negative (*won't have walked*)? That's fine, you can put some other form in that slot and go on.
+What if your language has no form that corresponds to e.g. future anterior negative (*won't have walked*)? That's fine, you can put some other form in that slot and move on.
 
-What if your language has tenses, aspects, moods, politeness forms or any others that aren't accessible via the core RGL? That's fine too, you can always create a language-specific extra module with functions that do access them. If you're working towards a specific application that needs such forms, then you should of course prioritise them. But if covering the core RGL that is in the API is the most important, feel free to postpone all the verbal inflection that is not accessible via the core.
+What if your language has tenses, aspects, moods, politeness forms or any other inflection that isn't accessible via the core RGL? That's fine too, you can always create a language-specific extra module with functions that do access them. If you're working towards a specific application that needs such forms, then you should of course prioritise them. But if covering the core RGL that is in the API is the most important, feel free to postpone all the verbal inflection that is not accessible via the core.
 
 # Choose your own adventure: what to implement next
 
-If you've implemented the first cluster, you already have a nice chunk of the RGL! You have tackled many of the hard decisions, so it's natural that these things can take a long time, and you may need to revise often.
+If you've implemented the first 3 clusters, you already have a nice chunk of the RGL!
+You have tackled many of the hard decisions, so it's natural that these things can take a long time, and you may need to revise often.
 
 The following set doesn't have to be followed in any particular order.
 
@@ -207,12 +223,14 @@ To get wh-questions, like "who walks", you first need the `IP` category for inte
 
 The next thing to add is `IAdv` for interrogative adverbs, like "why" or "where". With these, you can ask questions like "why do you walk" and "where are you".
 - lincat for `IAdv`
+- lin for some `IAdv`s in Structural, and/or `PrepIP` in Question
 - lin for `QuestIAdv`
-- lin for some `IAdv`s in Structural
 - lincat for `IComp`
-- lin for `CompIAdv` and `QuestIComp`
+- lin for `CompIAdv`, `CompIP` and `QuestIComp`
 
-Probably the hardest concept here is using `IP` as an object, like "who do you like".
+Finally, we can also make a question using `IP` as an object, e.g. "who do you like". Where previously we have formed QCls from a normal VP with a special subject (`IP` instead of `NP`), here we introduce a new category `ClSlash`, which is a `Cl` missing an object. So you need the following:
+- lincat for `ClSlash`
+- lin for `QuestSlash`
 
 ## Adjectives
 
