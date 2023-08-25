@@ -1,11 +1,8 @@
 # TEMPLATE
 
-This is a starting point to clone a new RGL language. It has some pre-populated lincats and lins, mostly in the `Noun` module, but also a few minimal things for verbs and sentences.
-
-**Note that this is not 100% just strings.** Some of the categories have a more complex lincat, like an inflection table with `Number` or `Person` as a parameter. In addition, the modules contain comments and suggestions aimed for new grammarians.
+This is a starting point to clone a new RGL language. It has some pre-populated lincats and lins, mostly in the `Noun` module, but also a few minimal things for verbs and sentences. This README contains a guided tour of lincats and lins to implement first, and the modules also contain comments and suggestions aimed for new grammarians.
 
 **If you want a 100% just strings template**, you can find that in [github.com/daherb/gf-rgl-template](https://github.com/daherb/gf-rgl-template). If you choose the string-only template, you can still read this document for suggestions about implementation order.
-
 
 - [How to use this tutorial](#how-to-use-this-tutorial)
 - [Guided tour: what to implement first?](#guided-tour-what-to-implement-first)
@@ -182,6 +179,8 @@ The following functions, and the lincats they operate on, are implemented in the
 
 ### Next steps
 
+#### Declarative sentences
+
 If you have added verb inflection in the V❋ and VP categories, then you need to connect them to the Cl category. `PredVP : NP → VP → Cl` picks the correct person inflection from its VP argument, but any tense and polarity is still open. So in most languages, the lincat of `Cl` should have an inflection table, and only `UseCl : Temp → Pol → Cl → S` will choose the final form.
 
 Sometimes even the lincat of `S` has an inflection table or it is discontinuous. That's because `S` can be used in a VP or an Adv, and in those cases, it may have a different word order or inflectional form than as standalone sentence.
@@ -190,6 +189,10 @@ If you're not sure whether the lincat of `S` should be still open for something,
 
 - `ComplVS : VS → S → VP`
 - `SubjS : Subj → S → Adv`
+
+#### Imperatives
+
+In the Sentence module, there are also functions to construct imperatives. Depending on your language, it could be rather easy to implement them after you've added declarative sentences. But nothing depends on imperatives, so you can as well postpone them.
 
 ### Unused or nonexistent forms?
 
@@ -338,14 +341,43 @@ Here are some examples of [coordination strategies that are more complex than En
 
 Some of the categories that have list instances may not be able to coordinate in your language. In such a case, you can decide whether to leave it unimplemented (thus trying to use it via the API gives an exception), or linearise something ungrammatical.
 
+## Phrases
+
+In the Phrase module, there are functions that create standalone utterances of multiple RGL categories. They are usually rather easy to implement: the `Utt` category should be just a `{s : Str}`, and the task is to decide which of the inflection forms is the standalone form.
+
 ## Idioms
 
+The Idiom module defines constructions that are formed in idiosyncratic ways. Examples of its constructions are impersonal and generic clauses ("it is warm") and clefts ("it is John who sleeps"). This module is not a dependency of any other module, and its constructions are less frequent than the core modules like Noun and Verb. So this can be done whenever you like.
 
 
 ## Symbol
 
+The Symbol module (exported in the API as Symbolic) is used for embedding symbolic notation in natural-language text, e.g. "level 4". This module is not a dependency of any other, and it mostly depends on Noun. So it can be done any time after the N-CN-NP cluster is solid.
 
+## Extend
+
+As the name suggests, this is an extension and not in the API. See [here](https://inariksit.github.io/gf/2021/02/15/rgl-api-core-extensions.html#extend) for more explanation.
+
+In my experience, the generalisations of VP are useful: `VPS` (VP with a tense and polarity), `VPI` (infinitival VP) and their transitive counterparts `VPS2` and `VPI2`. With these, you can do VP conjunctions, like "she runs and sings", "to eat and sleep".
+
+Extend is a rather large module, and not all funs have meaningful lins in all languages. So don't feel pressured to fill Extend all at once; often grammarians just add linearisations when the need arises for a particular structure.
 
 # Functions outside the API or otherwise lower priority
 
 What is low or high priority depends on the application. But if you want some general guidelines, these are usually less used, or not in the API at all.
+
+### Not in the API
+
+- The category DAP + its functions
+- CountNP, PossNP, PartNP
+- OrdNumeralSuperl
+- List instance for CN
+TODO: continue the list
+
+### Expensive
+
+- `SlashV2VNP` is often expensive, because it has so many arguments.
+
+For any function that turns out to be expensive, you can comment it out when implementing other parts of the grammar.
+
+###
