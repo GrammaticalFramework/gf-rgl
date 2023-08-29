@@ -69,7 +69,10 @@ lin
           tr (intagAttr "th" "rowspan=\"3\"" "ед.ч." ++ 
               th "нечленувано" ++ td (n.s ! (NF Sg Indef))) ++
           tr (th "членувано" ++ td (n.s ! (NF Sg Def))) ++
-          tr (th "пълен член" ++ td (n.s ! NFSgDefNom)) ++
+          (case n.g of {
+            AMasc _ => tr (th "пълен член" ++ td (n.s ! NFSgDefNom)) ;
+            _       => ""
+          }) ++
           tr (intagAttr "th" "rowspan=\"2\"" "мн.ч." ++ 
               th "нечленувано" ++ td (n.s ! (NF Pl Indef))) ++
           tr (th "членувано" ++ td (n.s ! (NF Pl Def))) ++
@@ -101,7 +104,16 @@ lin
                     GSg Neut => "(ср.р.)" ;
                     GPl      => "(мн.ч.)"
                   }) ;
-    s2 = paragraph (n.s ! Indef) ++
+    s2 = paragraph (case n.hasArt of {
+                      True  => frameTable (
+                                 tr (th "нечленувано" ++ td (n.s ! Indef)) ++
+                                 tr (th "членувано" ++ td (n.s ! Def)) ++
+                                 (case n.gn of {
+                                    GSg Masc => tr (th "пълен член" ++ td n.defNom) ;
+                                    _        => ""
+                                  })) ;
+                      False => n.s ! Indef
+                    }) ++
          heading1 ("Наречие") ++
          paragraph (case n.onPrep of {
                       True  => linCase Dat Pos ;

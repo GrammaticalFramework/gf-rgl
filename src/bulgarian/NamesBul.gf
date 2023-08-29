@@ -36,9 +36,18 @@ lin FullName gn sn = {
        p = NounP3 Pos
     } ;
 
-lin UseLN, PlainLN = \n -> {
-      s = table { RObj c => linCase c Pos ++ n.s ! Def ; 
-                  _      => n.s ! Def
+lin UseLN = \n -> {
+      s = table { RSubj   => n.defNom ;
+                  RObj c  => linCase c Pos ++ n.s ! Def ;
+                  RVoc    => n.s ! Indef
+                } ;
+      gn = n.gn ;
+      p = NounP3 Pos
+    } ;
+
+lin PlainLN = \n -> {
+      s = table { RObj c => linCase c Pos ++ n.s ! Indef ;
+                  _      => n.s ! Indef
                 } ;
       gn = n.gn ;
       p = NounP3 Pos
@@ -53,10 +62,16 @@ lin UseLN, PlainLN = \n -> {
       } ;
 
     AdjLN ap n = n ** {
-      s = \\sp => case ap.isPre of {
-                    True  => ap.s ! aform n.gn sp RSubj ! P3 ++ n.s ! Indef ;
-                    False => n.s ! sp ++ ap.s ! aform n.gn sp RSubj ! P3
-                  }
+      s = \\sp => case <ap.isPre,n.hasArt> of {
+                    <True,True > => ap.s ! aform n.gn sp    RSubj ! P3 ++ n.s ! Indef ;
+                    <True,False> => ap.s ! aform n.gn Indef RSubj ! P3 ++ n.s ! Indef ;
+                    <False,_>    => n.s ! sp ++ ap.s ! aform n.gn Indef RSubj ! P3
+                  } ;
+      defNom =    case <ap.isPre,n.hasArt> of {
+                    <True,True > => ap.s ! ASgMascDefNom          ! P3 ++ n.s ! Indef ;
+                    <True,False> => ap.s ! aform n.gn Indef RSubj ! P3 ++ n.s ! Indef ;
+                    <False,_>    => n.defNom ++ ap.s ! aform n.gn Indef RSubj ! P3
+                  } ;
       } ;
 
 }
