@@ -32,6 +32,12 @@ lin FullName gn sn = {
       isPron = False
       } ;
 
+    AdjLN ap ln = ln ** {
+      s = \\c => preOrPost ap.isPre 
+                   (ap.s ! agrAdj (gennum (ngen2gen ln.g) ln.n) (DDef Def))
+                   (ln.s ! c) ;
+      } ;
+
     InLN n = {s = "i" ++ n.s ! caseNP accusative} ;
 
 }
