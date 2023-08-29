@@ -1,0 +1,9 @@
+-----------------------------------
+-- Just some simple noun phrases --
+-----------------------------------
+
+Lang: DetCN (DetQuant IndefArt NumSg) (UseN blood_N)
+LangTMP: a blood
+
+Lang: DetCN (DetQuant DefArt NumSg) (UseN blood_N)
+LangTMP: the blood
