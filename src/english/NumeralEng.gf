@@ -86,10 +86,6 @@ lin pot5 n = {
       s = \\d,o,c => n.s ! d ! NCard ! Nom ++ pot51.s ! True ! o ! c ;
       n = Pl
     } ;
-lin pot5art = {
-      s = \\d,o,c => case d of {True => []; False => artIndef};
-      n = Sg
-    } ;
 lin pot5plus n1 n2 = {
       s = \\d,o,c => n1.s ! d ! NCard ! Nom ++ pot51.s ! True ! NCard ! Nom ++ "and" ++ n2.s ! True ! o ! c;
       n = Pl

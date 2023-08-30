@@ -65,13 +65,6 @@ lin
     numPl (\\g => d.s ! NCard Utr ++ cardOrd "miljoner" "miljonde" ! g) ;
 
   pot51 = numPl (cardOrd "miljard" "miljarde") ;
-  pot5art = {
-    s = table {
-          NCard g => case g of {Neutr => "ett" ; _ => "en"} ;
-          _ => "första"
-          } ;
-    n = Sg
-    } ;
   pot5 n =
     numPl (\\g => n.s ! NCard Utr ++
                   cardOrd (case n.n of {

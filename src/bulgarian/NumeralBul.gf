@@ -146,10 +146,6 @@ lin pot5 n = {
                 } ;
       n = Pl
     } ;
-lin pot5art = {
-      s = \\o,_ => "" ;
-      n = Sg
-    } ;
 lin pot5plus n1 n2 = {
       s = \\o,f => (pot5 n1).s ! o ! f ++ "и" ++ n2.s ! o ! f;
       n = Pl
