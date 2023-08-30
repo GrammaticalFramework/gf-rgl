@@ -52,7 +52,12 @@ lin
 
   pot41 = numPl (cardOrd "miljon" "miljonde") ;
   pot4 n =
-    numPl (\\g => n.s ! NCard Utr ++ cardOrd "miljon" "miljonde" ! g) ;
+    numPl (\\g => n.s ! NCard Utr ++
+                  cardOrd (case n.n of {
+                             Sg => "miljon" ;
+                             Pl => "miljoner"
+                           })
+                          "miljonde" ! g) ;
   pot4plus n m =
     {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljon" ++ m.s ! g ; n = Pl} ;
   pot4as5 n = n ;
@@ -60,8 +65,20 @@ lin
     numPl (\\g => d.s ! NCard Utr ++ cardOrd "miljoner" "miljonde" ! g) ;
 
   pot51 = numPl (cardOrd "miljard" "miljarde") ;
+  pot5art = {
+    s = table {
+          NCard g => case g of {Neutr => "ett" ; _ => "en"} ;
+          _ => "första"
+          } ;
+    n = Sg
+    } ;
   pot5 n =
-    numPl (\\g => n.s ! NCard Utr ++ cardOrd "miljard" "miljarde" ! g) ;
+    numPl (\\g => n.s ! NCard Utr ++
+                  cardOrd (case n.n of {
+                             Sg => "miljard" ;
+                             Pl => "miljarder"
+                           })
+                          "miljarde" ! g) ;
   pot5plus n m =
     {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljard" ++ m.s ! g ; n = Pl} ;
   pot5decimal d = 

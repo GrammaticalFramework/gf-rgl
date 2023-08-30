@@ -63,6 +63,7 @@ data
 
   pot51 : Sub1000000000000 ;                                 -- a billion instead of one billion
   pot5  : Sub1000 -> Sub1000000000000 ;                      -- m * 1000000000
+  pot5art : Sub1000000000000 ;                               -- a/an instead of one
   pot5plus : Sub1000 -> Sub1000000000 -> Sub1000000000000 ;  -- m * 1000000000 + n
   pot5decimal : Decimal -> Sub1000000000000 ;                -- 3.5 billion
 

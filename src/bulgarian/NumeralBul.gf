@@ -112,7 +112,7 @@ lin pot41 = {
 lin pot4 n = {
       s = \\c,nf => case n.n of {
                   Sg => mkCardOrd100 "милион" "милионите" "милионен" ! c ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиони" "милионите" "милионен" ! c
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиона" "милионите" "милионен" ! c
                 } ;
       n = Pl
     } ;
@@ -142,9 +142,13 @@ lin pot51 = {
 lin pot5 n = {
       s = \\c,nf => case n.n of {
                   Sg => mkCardOrd100 "милиярд" "милиярдите" "милиярден" ! c ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиярд" "милиярдите" "милиярден" ! c
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиярда" "милиярдите" "милиярден" ! c
                 } ;
       n = Pl
+    } ;
+lin pot5art = {
+      s = \\o,_ => "" ;
+      n = Sg
     } ;
 lin pot5plus n1 n2 = {
       s = \\o,f => (pot5 n1).s ! o ! f ++ "и" ++ n2.s ! o ! f;
@@ -154,7 +158,7 @@ lin pot5decimal d = {
   s = \\c,nf => d.s ! NCard (CFFem Indef) ++
                 case d.n of {
                   Sg => mkCardOrd100 "милиярд" "милиярда" "милиярден" ! c ;
-                  Pl => mkCardOrd100 "милиярди" "милиярдите" "милиярден" ! c
+                  Pl => mkCardOrd100 "милиярда" "милиярдите" "милиярден" ! c
                 } ;
   n = Pl
   } ;
