@@ -1,4 +1,4 @@
-resource ParadigmsSlv = open CatSlv, ResSlv, ParamX, Prelude, Predef in {
+resource ParadigmsSlv = open CatSlv, ResSlv, (P=ParamX), Prelude, Predef in {
 
 oper
   nominative : Case = Nom ;
@@ -16,12 +16,12 @@ oper
   feminine  = AFem;
   neuter    = ANeut;
 
-  male = Male ;
-  female = Female ;
+  male = P.Male ;
+  female = P.Female ;
 
-  singular : Number = Sg ;
-  dual : Number = Dl ;
-  plural : Number = Pl ;
+  singular : ResSlv.Number = ResSlv.Sg ;
+  dual : ResSlv.Number = Dl ;
+  plural : ResSlv.Number = ResSlv.Pl ;
 
   definite : Species = Def ;
   indefinite : Species = Indef ; 
@@ -45,7 +45,7 @@ oper
 --In case the genitive singular has an extra vowel in the end, it is dropped before coming here.  
 
   mascAll : (_,_ : Str) -> Animacy -> N = \oce,ocet,anim ->
-    let accsg = case anim of {Animate => ocet + "a"; _ => oce}; --Special case: Masc Sg Acc Animate
+    let accsg = case anim of {Animate => ocet + "a"; _ => oce}; --Special case: Masc ResSlv.Sg Acc Animate
         oceto : Str
               = case ocet of {
                   _ + ("c"|"j"|"ž"|"š"|"č") => ocet+"e" ;
@@ -208,12 +208,12 @@ oper
     } ;
 
   mkGN = overload {
-    mkGN : Str -> Sex -> GN =
+    mkGN : Str -> P.Sex -> GN =
       \s,g -> lin GN {
          s = \\_ => s ;
          g = g
       };
-    mkGN : (_,_,_,_,_,_ : Str) -> Sex -> GN =
+    mkGN : (_,_,_,_,_,_ : Str) -> P.Sex -> GN =
       \nom,gen,dat,acc,loc,instr,g -> lin GN {
          s = table {
                Nom   => nom;

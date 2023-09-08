@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 concrete DocumentationSlv of Documentation = CatSlv ** open 
-  ResSlv, ParamX,
+  ResSlv, (P=ParamX),
   HTML in {
 flags coding=utf8 ;
 
@@ -73,8 +73,8 @@ lin
     t = "li" ;
     s1= heading1 ("Dano Ime"++
                   case n.g of {
-                    Male   => "(moški)" ;
-                    Female => "(ženski)"
+                    P.Male   => "(moški)" ;
+                    P.Female => "(ženski)"
                   }) ;
     s2= frameTable (
           tr (th "imen." ++ td (n.s!Nom))++
@@ -90,12 +90,12 @@ lin
     t = "li" ;
     s1= heading1 "Družinsko Ime" ;
     s2= frameTable (
-          tr (th "imen." ++ td (n.s!Male!Nom))++
-          tr (th "rod." ++ td (n.s!Male!Gen))++
-          tr (th "daj." ++ td (n.s!Male!Dat))++
-          tr (th "tož." ++ td (n.s!Male!Acc))++
-          tr (th "mest." ++ td (n.s!Male!Loc))++
-          tr (th "orod."++td (n.s!Male!Instr))
+          tr (th "imen." ++ td (n.s!P.Male!Nom))++
+          tr (th "rod." ++ td (n.s!P.Male!Gen))++
+          tr (th "daj." ++ td (n.s!P.Male!Dat))++
+          tr (th "tož." ++ td (n.s!P.Male!Acc))++
+          tr (th "mest." ++ td (n.s!P.Male!Loc))++
+          tr (th "orod."++td (n.s!P.Male!Instr))
         )
   } ;
 

@@ -1,4 +1,4 @@
-concrete NamesSlv of Names = CatSlv ** open ResSlv, ParamX, Prelude in {
+concrete NamesSlv of Names = CatSlv ** open ResSlv, (P=ParamX), Prelude in {
 
 lin GivenName = \n -> {
       s = n.s;
@@ -6,12 +6,12 @@ lin GivenName = \n -> {
       isPron = False
       } ;
 lin MaleSurname = \n -> {
-      s = n.s ! Male;
+      s = n.s ! P.Male;
       a = {g=Masc; n=Sg; p=P3};
       isPron = False
       } ;
 lin FemaleSurname = \n -> {
-      s = n.s ! Female;
+      s = n.s ! P.Female;
       a = {g=Fem; n=Sg; p=P3};
       isPron = False
       } ;
