@@ -11,7 +11,7 @@ concrete GrammarPor of Grammar =
   RelativePor,
   ConjunctionPor,
   PhrasePor,
-  TextPor - [SC,Temp,Tense,Pol,PPos,PNeg],      -- special punctuation
+  TextPor - [SC,Temp,Tense,Pol,PPos,PNeg,MU],      -- special punctuation
   IdiomPor,
   StructuralPor,
   TensePor,

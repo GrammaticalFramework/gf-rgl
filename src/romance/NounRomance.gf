@@ -208,9 +208,12 @@ incomplete concrete NounRomance of Noun =
     DetDAP det = det ;
 
     QuantityNP n m = heavyNPpol False {
-      s = \\c => preOrPost m.isPre m.s (n.s ! NCard Masc);
+      s = \\c => case <c,m.hasArt> of {
+                  <Acc,True>|<CPrep _,True> => artDef False Masc Sg c ++ preOrPost m.isPre m.s (n.s ! NCard Masc);
+                  _ => preOrPost m.isPre m.s (n.s ! NCard Masc)};
+                  
       a = agrP3 Masc n.n ;
       hasClit = False
       } ;
+    }
 
-}

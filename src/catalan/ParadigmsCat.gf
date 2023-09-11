@@ -588,6 +588,6 @@ oper
   mk2V2  : V -> Prep -> V2 ;
   dirV2 : V -> V2 ;
 
-  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False; hasArt=False} ;
 
 } ;
