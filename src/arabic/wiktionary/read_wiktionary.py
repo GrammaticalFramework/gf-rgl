@@ -2,6 +2,7 @@ import gzip
 import json
 
 WIKTIONARY_DUMP = 'raw-wiktextract-data.json.gz'
+FILTERED_WIKT = 'wikt_arabic.jsonl'
 
 
 def get_gzip_json(file, sample=100000, langs=[]):
@@ -71,27 +72,108 @@ buckwalter_dict = {
   }
 
 def to_buckwalter(s):
-    return ''.join(list(map(lambda c: buckwalter_dict.get(ord(c), '?'), s)))
+    return ''.join([buckwalter_dict.get(ord(c), '?') for c in s])
 
+
+def unvocalize(s):
+    return ''.join([c for c in s if 0x621 <= ord(c) <= 0x64a])
 
 def is_arabic(s):
     return s and any(1574 <= ord(c) <= 1616 for c in s)
 
-"""
-with open('wikt_arabic.jsonl') as file:
+
+def gf_fun(s, pos):
+    return ''.join(["'", s, "_", pos, "'"])
+
+
+def forms_for_pos(obj):
+    forms = {
+        form['form']:
+          form.get('tags', []) for
+            form in obj.get('forms', []) if
+               'romanization' not in form.get('tags', []) and
+                   is_arabic(form['form'])
+        }.items()
+    if obj['pos'] == 'noun':
+        lemma = [form[:-1] for form, descr in forms
+                         if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
+        return {
+            'gf_fun': gf_fun(lemma[0], 'N') if lemma else None, 
+            'singular': lemma,  
+            'plural': [form[:-1] for form, descr in forms
+                         if all([w in descr for w in ['construct', 'nominative', 'plural']])][:1],
+            'gender': 'Fem' if 'Arabic feminine nouns' in obj['categories']
+                            else ('Masc' if  'Arabic masculine nouns' in obj['categories']
+                                else None)
+            } 
+    elif obj['pos'] == 'verb':
+        lemma = [form for form, descr in forms
+                      if all([w in descr for
+                              w in ["active", "indicative", "masculine", "past", "perfective", "singular", "third-person"]])][:1]
+        return {
+          'gf_fun': gf_fun(lemma[0], 'V') if lemma else None, 
+          'perfect': lemma, 
+          'imperfect': [form for form, descr in forms
+                      if all([w in descr for
+                              w in ["active", "indicative", "masculine", "non-past", "imperfective", "singular", "third-person"]])][:1],
+          'verbclass': max([n for n in ['I', 'II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','']
+                            if n in ' '.join([c for c in obj['categories'] if c.endswith('verbs') and any([n in c for n in 'IVX'])])],
+                           key=len)
+          }
+    elif obj['pos'] == 'adj':
+        lemma = [form for form, descr in forms
+                         if all([w in descr for w in ['indefinite', 'masculine', 'singular', 'informal']])][:1]
+        return {
+            'gf_fun': gf_fun(lemma[0], 'A') if lemma else None, 
+            'masc_singular': lemma,   
+            'masc_plural': [form for form, descr in forms
+                         if all([w in descr for w in ['indefinite', 'masculine', 'plural', 'informal']])][:1],
+            'fem_singular': [form for form, descr in forms
+                         if all([w in descr for w in ['indefinite', 'feminine', 'singular', 'informal']])][:1],  
+            'fem_plural': [form for form, descr in forms
+                         if all([w in descr for w in ['indefinite', 'feminine', 'plural', 'informal']])][:1],
+            } 
+
+    else:
+        return {f: d for f, d in forms}
+
+
+# "root": ["ش ر ح (š-r-ḥ)"]
+def find_root(s):
+    return ''.join([c for c in s if is_arabic(c)])
+    
+
+
+with open(FILTERED_WIKT) as file:
     for line in file:
         obj = json.loads(line)
         if 'Arabic lemmas' in obj.get('categories', []):
             entry = {
                 'pos': obj['pos'],
-                'forms': {form['form']: form.get('tags', []) for
-                          form in obj.get('forms', []) if
-                          'romanization' not in form.get('tags', []) and
-                          is_arabic(form['form'])
-                          },
-                'senses': obj.get('senses', [])
+                'root': [find_root(t['expansion']) for t in obj.get('etymology_templates', []) if t.get('name', None) =='ar-root'][:1],
+                'forms': forms_for_pos(obj),
+                'senses': [sense['glosses'] for sense in obj.get('senses', [])
+                           if 'glosses' in sense]
                 }
-            entry['n_forms'] = len(entry['forms'])
-            print(entry['pos'], entry['n_forms'])
-#            print(json.dumps(entry, ensure_ascii=False))
+#            entry['n_forms'] = len(entry['forms'])
+#            print(entry['pos'], entry['n_forms'])
+            print(json.dumps(entry, ensure_ascii=False))
+
+            
+"""
+"senses": [
+    {"examples": [
+        {"text": "10th century, Al-Mutanabbi\nذُو الْعَقْلِ يَشْقَى فِي النَّعِيمِ بِعَقْلِهِ / وَأَخُو الْجَهَالَةِ فِي الشَّقَاوَةِ يَنْعَمُ\nḏū l-ʕaqli yašqā fī an-naʕīmi biʕaqlihi / waʔaḵū l-jahālati fī š-šaqāwati yanʕamu", "english": "(please add an English translation of this quotation)", "type": "quotation"}],
+     "links": [
+         ["bliss", "bliss#English"], ["delight", "delight#English"]],
+     "categories": ["Arabic terms with quotations", "Requests for translations of Arabic quotations"],
+     "glosses": ["bliss, delight"]
+     },
+    {"links": [
+        ["heaven", "heaven"], ["Heaven", "Heaven"], ["paradise", "paradise"], ["Paradise", "Paradise"]],
+     "synonyms": [{"word": "فِرْدَوس"}, {"word": "جَنَّة"}],
+     "antonyms": [{"word": "سَعِير"}, {"word": "لَظَىٰ"}, {"word": "النَّار"}, {"word": "جَهَنَّم"}, {"word": "جَحِيم"}, {"word": "حُطَمَة"}, {"word": "سَقَر"}, {"word": "هَاوِيَة"}],
+     "raw_glosses": ["(figurative) heaven, the Heaven, paradise, the Paradise"],
+     "glosses": ["heaven, the Heaven, paradise, the Paradise"],
+     "tags": ["figuratively"]}]
 """
