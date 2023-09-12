@@ -82,8 +82,9 @@ def is_arabic(s):
     return s and any(1574 <= ord(c) <= 1616 for c in s)
 
 
-def gf_fun(s, pos):
-    return ''.join(["'", s, "_", pos, "'"])
+def gf_fun(s, pos, disamb=0):
+    discrim = '_' + str(disamb) if disamb else ''
+    return ''.join(["'", s, discrim, "_", pos, "'"])
 
 
 def forms_for_pos(obj):
@@ -97,23 +98,25 @@ def forms_for_pos(obj):
     if obj['pos'] == 'noun':
         lemma = [form[:-1] for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
-        return {
-            'gf_fun': gf_fun(lemma[0], 'N') if lemma else None,
-            'gf_cat': 'N',
-            'singular': lemma,  
-            'plural': [form[:-1] for form, descr in forms
-                         if all([w in descr for w in ['construct', 'nominative', 'plural']])][:1],
-            'gender': 'Fem' if 'Arabic feminine nouns' in obj['categories']
+        plural = [form[:-1] for form, descr in forms
+                         if all([w in descr for w in ['construct', 'nominative', 'plural']])][:1]
+        gender = ('Fem' if 'Arabic feminine nouns' in obj['categories']
                             else ('Masc' if  'Arabic masculine nouns' in obj['categories']
-                                else None)
+                                else None))
+        gf_entry = {
+            'cat': 'N',
+            'lemma': lemma,
+            'singular': lemma,  
+            'plural': plural,
+            'gender': gender
             } 
     elif obj['pos'] == 'verb':
         lemma = [form for form, descr in forms
                       if all([w in descr for
                               w in ["active", "indicative", "masculine", "past", "perfective", "singular", "third-person"]])][:1]
-        return {
-          'gf_fun': gf_fun(lemma[0], 'V') if lemma else None,
-          'gf_cat': 'V',
+        gf_entry = {
+          'cat': 'V',
+          'lemma': lemma,
           'perfect': lemma, 
           'imperfect': [form for form, descr in forms
                       if all([w in descr for
@@ -125,9 +128,9 @@ def forms_for_pos(obj):
     elif obj['pos'] == 'adj':
         lemma = [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'masculine', 'singular', 'informal']])][:1]
-        return {
-            'gf_fun': gf_fun(lemma[0], 'A') if lemma else None,
-            'gf_cat': 'A',
+        gf_entry = {
+            'cat': 'A',
+            'lemma': lemma,
             'masc_singular': lemma,   
             'masc_plural': [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'masculine', 'plural', 'informal']])][:1],
@@ -138,9 +141,16 @@ def forms_for_pos(obj):
             } 
 
     else:
-        return {f: d for f, d in forms}
+        gf_entry = {f: d for f, d in forms}
+        
+    if 'lemma' in gf_entry and gf_entry['lemma']:
+        gf_entry['lemma'] = gf_entry['lemma'][0]
+        form = gf_entry['imperfect'][0] if gf_entry['cat'] == 'V' and gf_entry['imperfect'] else gf_entry['lemma']
+        gf_entry['lin'] = ''.join(['mk', gf_entry['cat'], ' "' + form + '"']) 
 
+    return gf_entry
 
+    
 # "root": ["ش ر ح (š-r-ḥ)"]
 def find_root(s):
     return ''.join([c for c in s if is_arabic(c)])
@@ -148,17 +158,23 @@ def find_root(s):
 import sys
 MODE = sys.argv[1]
 
-if MODE == 'gf':
-    print('abstract MorphoDictAraAbs = Cat ** {') 
+if MODE == 'gf-abs':
+    print('abstract MorphoDictAraAbs = Cat ** {')    
+if MODE == 'gf-cnc':
+    print('concrete MorphoDictAra of MorphoDictAraAbs = CatAra ** open ParadigmsAra in {') 
+
 
 with open(FILTERED_WIKT) as file:
-    seen_gf_funs = set()
+    seen_gf_funs = {}
     for line in file:
         obj = json.loads(line)
+        root = [find_root(t['expansion']) for
+                t in obj.get('etymology_templates', []) if
+                t.get('name', None) =='ar-root'][:1]
         if 'Arabic lemmas' in obj.get('categories', []):
             entry = {
                 'pos': obj['pos'],
-                'root': [find_root(t['expansion']) for t in obj.get('etymology_templates', []) if t.get('name', None) =='ar-root'][:1],
+                'root': root, 
                 'forms': forms_for_pos(obj),
                 'senses': [sense['glosses'] for sense in obj.get('senses', [])
                            if 'glosses' in sense]
@@ -168,14 +184,23 @@ with open(FILTERED_WIKT) as file:
             if MODE == 'json':
                 print(json.dumps(entry, ensure_ascii=False))
 
-            if MODE == 'gf':
+            if MODE.startswith('gf'):
 
-                if 'gf_fun' in entry['forms'] and entry['forms']['gf_fun']:
-                    if entry['forms']['gf_fun'] not in seen_gf_funs:
-                        print('fun', entry['forms']['gf_fun'], ':', entry['forms']['gf_cat'], ';', '--', entry['senses'])
-                        seen_gf_funs.add(entry['forms']['gf_fun'])
+                lemma = entry['forms'].get('lemma', None)
+                if lemma:
+                    cat = entry['forms']['cat']
+                    lin = entry['forms']['lin']
+                    discrim = seen_gf_funs.get((lemma, cat), 0)
+                    fun = gf_fun(lemma, cat, discrim)
+                        
+                    if MODE == 'gf-abs':
+                        print('fun', fun, ':', cat, ';', '--', entry['senses'])
+                    if MODE == 'gf-cnc':
+                        print('lin', fun, '=', lin, ';')
+                            
+                    seen_gf_funs[(lemma, cat)] = discrim + 1
 
                 # to do: rename duplicate function names: of 13762 names, 12946 are unique
 
-if MODE == 'gf':            
+if MODE.startswith('gf'):            
     print('}')
