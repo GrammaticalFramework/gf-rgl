@@ -598,7 +598,7 @@ oper
 
   reflVerboV : Verbum -> V = \ve -> reflV (lin V (verboV ve)) ; --%
 
-  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False; hasArt=False} ;
 
 
 } ;

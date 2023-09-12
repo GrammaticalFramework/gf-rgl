@@ -1,4 +1,4 @@
-incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
+incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
   ** open Prelude, CommonRomance, ResRomance, (R = ParamX) in {
 
   flags optimize=all_subs ;
@@ -147,4 +147,8 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     N = \n -> n.s ! Sg ;
     N2 = \n -> n.s ! Sg ++ n.c2.s ;
     N3 = \n -> n.s ! Sg ++ n.c2.s ++ n.c3.s ;
+
+  lincat MU = {s : Str ; isPre : Bool ; hasArt : Bool} ;
+
+
 }
