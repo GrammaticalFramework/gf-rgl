@@ -98,7 +98,8 @@ def forms_for_pos(obj):
         lemma = [form[:-1] for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
         return {
-            'gf_fun': gf_fun(lemma[0], 'N') if lemma else None, 
+            'gf_fun': gf_fun(lemma[0], 'N') if lemma else None,
+            'gf_cat': 'N',
             'singular': lemma,  
             'plural': [form[:-1] for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'plural']])][:1],
@@ -111,7 +112,8 @@ def forms_for_pos(obj):
                       if all([w in descr for
                               w in ["active", "indicative", "masculine", "past", "perfective", "singular", "third-person"]])][:1]
         return {
-          'gf_fun': gf_fun(lemma[0], 'V') if lemma else None, 
+          'gf_fun': gf_fun(lemma[0], 'V') if lemma else None,
+          'gf_cat': 'V',
           'perfect': lemma, 
           'imperfect': [form for form, descr in forms
                       if all([w in descr for
@@ -124,7 +126,8 @@ def forms_for_pos(obj):
         lemma = [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'masculine', 'singular', 'informal']])][:1]
         return {
-            'gf_fun': gf_fun(lemma[0], 'A') if lemma else None, 
+            'gf_fun': gf_fun(lemma[0], 'A') if lemma else None,
+            'gf_cat': 'A',
             'masc_singular': lemma,   
             'masc_plural': [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'masculine', 'plural', 'informal']])][:1],
@@ -142,9 +145,14 @@ def forms_for_pos(obj):
 def find_root(s):
     return ''.join([c for c in s if is_arabic(c)])
     
+import sys
+MODE = sys.argv[1]
 
+if MODE == 'gf':
+    print('abstract MorphoDictAraAbs = Cat ** {') 
 
 with open(FILTERED_WIKT) as file:
+    seen_gf_funs = set()
     for line in file:
         obj = json.loads(line)
         if 'Arabic lemmas' in obj.get('categories', []):
@@ -157,23 +165,17 @@ with open(FILTERED_WIKT) as file:
                 }
 #            entry['n_forms'] = len(entry['forms'])
 #            print(entry['pos'], entry['n_forms'])
-            print(json.dumps(entry, ensure_ascii=False))
+            if MODE == 'json':
+                print(json.dumps(entry, ensure_ascii=False))
 
-            
-"""
-"senses": [
-    {"examples": [
-        {"text": "10th century, Al-Mutanabbi\nذُو الْعَقْلِ يَشْقَى فِي النَّعِيمِ بِعَقْلِهِ / وَأَخُو الْجَهَالَةِ فِي الشَّقَاوَةِ يَنْعَمُ\nḏū l-ʕaqli yašqā fī an-naʕīmi biʕaqlihi / waʔaḵū l-jahālati fī š-šaqāwati yanʕamu", "english": "(please add an English translation of this quotation)", "type": "quotation"}],
-     "links": [
-         ["bliss", "bliss#English"], ["delight", "delight#English"]],
-     "categories": ["Arabic terms with quotations", "Requests for translations of Arabic quotations"],
-     "glosses": ["bliss, delight"]
-     },
-    {"links": [
-        ["heaven", "heaven"], ["Heaven", "Heaven"], ["paradise", "paradise"], ["Paradise", "Paradise"]],
-     "synonyms": [{"word": "فِرْدَوس"}, {"word": "جَنَّة"}],
-     "antonyms": [{"word": "سَعِير"}, {"word": "لَظَىٰ"}, {"word": "النَّار"}, {"word": "جَهَنَّم"}, {"word": "جَحِيم"}, {"word": "حُطَمَة"}, {"word": "سَقَر"}, {"word": "هَاوِيَة"}],
-     "raw_glosses": ["(figurative) heaven, the Heaven, paradise, the Paradise"],
-     "glosses": ["heaven, the Heaven, paradise, the Paradise"],
-     "tags": ["figuratively"]}]
-"""
+            if MODE == 'gf':
+
+                if 'gf_fun' in entry['forms'] and entry['forms']['gf_fun']:
+                    if entry['forms']['gf_fun'] not in seen_gf_funs:
+                        print('fun', entry['forms']['gf_fun'], ':', entry['forms']['gf_cat'], ';', '--', entry['senses'])
+                        seen_gf_funs.add(entry['forms']['gf_fun'])
+
+                # to do: rename duplicate function names: of 13762 names, 12946 are unique
+
+if MODE == 'gf':            
+    print('}')
