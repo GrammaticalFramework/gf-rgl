@@ -19,7 +19,6 @@ def get_gzip_json(file, sample=100000, langs=[]):
 
 # get_gzip_json(WIKTIONARY_DUMP, 1, ['Arabic'])  
 # python3 read_wiktionary.py >wikt_arabic.jsonl
-# 621-671
 
 # https://en.wikipedia.org/wiki/Buckwalter_transliteration
 buckwalter_dict = {
@@ -100,15 +99,17 @@ def forms_for_pos(obj):
                          if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
         plural = [form[:-1] for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'plural']])][:1]
-        gender = ('Fem' if 'Arabic feminine nouns' in obj['categories']
-                            else ('Masc' if  'Arabic masculine nouns' in obj['categories']
-                                else None))
+        gender = (['Fem'] if 'Arabic feminine nouns' in obj['categories']
+                            else (['Masc'] if  'Arabic masculine nouns' in obj['categories']
+                                  else []))
         gf_entry = {
             'cat': 'N',
             'lemma': lemma,
-            'singular': lemma,  
-            'plural': plural,
-            'gender': gender
+            'args': {
+                'sg': lemma,  
+                'pl': plural,
+                'g': gender
+                }
             } 
     elif obj['pos'] == 'verb':
         lemma = [form for form, descr in forms
@@ -117,13 +118,15 @@ def forms_for_pos(obj):
         gf_entry = {
           'cat': 'V',
           'lemma': lemma,
-          'perfect': lemma, 
-          'imperfect': [form for form, descr in forms
+          'args': {
+              'perfect': lemma, 
+              'imperfect': [form for form, descr in forms
                       if all([w in descr for
                               w in ["active", "indicative", "masculine", "non-past", "imperfective", "singular", "third-person"]])][:1],
-          'verbclass': max([n for n in ['I', 'II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','']
+              'cls': [max([n for n in ['I', 'II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII', 'XIV', 'XV', '']
                             if n in ' '.join([c for c in obj['categories'] if c.endswith('verbs') and any([n in c for n in 'IVX'])])],
-                           key=len)
+                           key=len)]
+              }
           }
     elif obj['pos'] == 'adj':
         lemma = [form for form, descr in forms
@@ -131,13 +134,15 @@ def forms_for_pos(obj):
         gf_entry = {
             'cat': 'A',
             'lemma': lemma,
-            'masc_singular': lemma,   
-            'masc_plural': [form for form, descr in forms
+            'args': {
+                'masc_sg': lemma,   
+                'masc_pl': [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'masculine', 'plural', 'informal']])][:1],
-            'fem_singular': [form for form, descr in forms
+                'fem_sg': [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'feminine', 'singular', 'informal']])][:1],  
-            'fem_plural': [form for form, descr in forms
+                'fem_pl': [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'feminine', 'plural', 'informal']])][:1],
+                }
             } 
 
     else:
@@ -145,11 +150,11 @@ def forms_for_pos(obj):
         
     if 'lemma' in gf_entry and gf_entry['lemma']:
         gf_entry['lemma'] = gf_entry['lemma'][0]
-        form = gf_entry['imperfect'][0] if gf_entry['cat'] == 'V' and gf_entry['imperfect'] else gf_entry['lemma']
-        gf_entry['lin'] = ''.join(['mk', gf_entry['cat'], ' "' + form + '"']) 
+        gf_entry['args']['root'] = obj['root']
+        args = [r + ' = ' + '"' + x[0] + '"' for r, x in gf_entry['args'].items() if x]
+        gf_entry['lin'] = 'wmk' + gf_entry['cat'] + ' {' + ' ; '.join(args) + '}' 
 
     return gf_entry
-
     
 # "root": ["ش ر ح (š-r-ḥ)"]
 def find_root(s):
@@ -171,10 +176,10 @@ with open(FILTERED_WIKT) as file:
         root = [find_root(t['expansion']) for
                 t in obj.get('etymology_templates', []) if
                 t.get('name', None) =='ar-root'][:1]
+        obj['root'] = root
         if 'Arabic lemmas' in obj.get('categories', []):
             entry = {
                 'pos': obj['pos'],
-                'root': root, 
                 'forms': forms_for_pos(obj),
                 'senses': [sense['glosses'] for sense in obj.get('senses', [])
                            if 'glosses' in sense]
