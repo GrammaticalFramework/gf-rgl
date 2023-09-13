@@ -868,4 +868,71 @@ formV : (root : Str) -> VerbForm -> V = \s,f -> case f of {
 param VerbForm =
   FormI | FormII | FormIII | FormIV | FormV | FormVI | FormVII | FormVIII | FormX | FormXI ;
 
+-- paradigms for Wiktionary extraction
+---- TODO: better usage of information in Wiktionary
+
+oper
+  wmkN = overload {
+    wmkN : {sg, pl : Str ; g : Gender} -> N
+      = \r -> mkN r.sg r.pl r.g nohum ;  --- hum/nohum not in Wikt
+    wmkN : {sg : Str} -> N
+      = \r -> smartN r.sg ; 
+    wmkN : {sg : Str ; g : Gender ; root : Str} -> N
+      = \r -> smartN r.sg ** {g = r.g} ; ----
+    wmkN : {sg : Str; g : Gender} -> N
+      = \r -> smartN r.sg ** {g = r.g} ;
+    wmkN : {sg : Str; pl : Str; g : Gender; root : Str} -> N
+      = \r -> mkN r.sg r.pl r.g nohum ;   --- hum/nohum not in Wikt
+    wmkN : {sg : Str; pl : Str} -> N
+      = \r -> mkN r.sg r.pl masc nohum ; ---- ** {g = (smartN r.sg).g} ;
+    wmkN : {sg : Str; root : Str} -> N 
+      = \r -> smartN r.sg ; 
+    } ;
+
+  wmkA = overload {
+    wmkA : {root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; fem_pl : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; fem_sg : Str; fem_pl : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; fem_sg: Str ; masc_pl : Str; fem_pl : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; fem_sg : Str; fem_pl : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
+    mkA : {masc_sg : Str; fem_sg : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; fem_sg : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
+    mkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; fem_pl : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
+    mkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
+    mkA : {masc_sg : Str; masc_pl : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; masc_pl : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
+    mkA : {masc_sg : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
+    } ;
+
+  wmkV = overload {
+    wmkV : {perfect : Str; cls : VerbForm; root : Str} -> V
+      = \r -> mkV r.root r.cls ; ----
+    wmkV : {perfect : Str; cls : VerbForm} -> V
+      = \r -> mkV r.perfect r.cls ; ----
+    wmkV : {perfect : Str; imperfect : Str; cls : VerbForm; root : Str} -> V
+      = \r -> mkV r.root r.cls ; ----
+    wmkV : {perfect : Str; imperfect : Str; cls : VerbForm} -> V
+      = \r -> variants {} ; ---- mkV r.imperfect ; ----
+    wmkV : {root : Str ; cls : VerbForm} -> V
+      = \r -> mkV r.root r.cls ;
+    wmkV : {imperfect : Str} -> V
+      = \r -> variants {} ; ---- mkV r.imperfect ;
+    } ;
+
 } ;
