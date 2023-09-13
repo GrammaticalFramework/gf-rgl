@@ -108,14 +108,76 @@ def gf_fun(s, pos, disamb=0):
     return ''.join(["'", s, discrim, "_", pos, "'"])
 
 
-def forms_for_pos(obj):
-    forms = {
+rgl_features = {
+    # V
+    'VPerf': 'perfective',
+    'Act': 'active',
+    'Pas': 'passive',
+    'Per3': 'third-person',
+    'Per2': 'second-person',
+    'Masc': 'masculine',
+    'Fem': 'feminine',
+    'Sg': 'singular',
+    'Pl': 'plural',
+    'Dl': 'dual',
+    'VImpf': 'imperfective',
+    'Ind': 'indicative',
+    'Cnj': 'subjunctive',
+    'Jus': 'jussive',
+    'VImp': 'imperative',
+    # N: also Sg, Pl, Dl
+    'Def': 'definite',
+    'Indef': 'indefinite',
+    'Nom': 'nominative',
+    'Acc': 'accusative',
+    'Gen': 'genitive',
+#    'Bare':
+#    'Dat':
+    'Const': 'construct',
+#    'Poss':
+    #A: also N features
+    'APosit': 'positive',
+    'AComp': 'comparative'
+    }
+
+
+# format of GF table: MorphoDictAra: s (VPerf Act (Per3 Masc Sg)) : أَجْرََ    
+def compare_tables(gf, wikt):
+    report = {}    
+    for line in gf:
+        gf_form = line  #''.join([c for c in line if 1574 <= ord(c) <= 1616])
+        gf_tags = tuple(word for word in
+                    line.replace('(', ' ').replace(')', ' ').split()
+                      if word in rgl_features)
+        wikt_tags = {rgl_features[tag] for tag in gf_tags}
+        wikt_form = None
+        for form, descr in wikt:
+            if all([tag in descr for tag in wikt_tags]):
+                wikt_form = form
+                break
+        report[gf_tags] = {
+            'gf_form': gf_form,
+            'wikt_form': wikt_form
+            }
+        if wikt_form:
+            report[gf_tags]['voc_match'] = int(gf_form == wikt_form)
+            report[gf_tags]['unvoc_match'] = int(unvocalize(gf_form) == unvocalize(wikt_form))
+    return report
+
+
+
+def wikt_forms_for_pos(obj):
+    return {
         form['form']:
           form.get('tags', []) for
             form in obj.get('forms', []) if
                'romanization' not in form.get('tags', []) and
                    is_arabic(form['form'])
         }.items()
+
+
+def forms_for_pos(obj):
+    forms = wikt_forms_for_pos(obj)
     if obj['pos'] == 'noun':
         lemma = [form[:-1] for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
@@ -136,7 +198,8 @@ def forms_for_pos(obj):
     elif obj['pos'] == 'verb':
         lemma = [form for form, descr in forms
                       if all([w in descr for
-                              w in ["active", "indicative", "masculine", "past", "perfective", "singular", "third-person"]])][:1]
+                              w in ["active", "indicative", "masculine", "past",
+                                        "perfective", "singular", "third-person"]])][:1]
         gf_entry = {
           'cat': 'V',
           'lemma': lemma,
@@ -193,14 +256,16 @@ if MODE == 'gf-abs':
 if MODE == 'gf-cnc':
     print('concrete MorphoDictAra of MorphoDictAraAbs = CatAra ** open ParadigmsAra in {') 
 
-if MODE != 'raw':
+if MODE not in ['raw', 'eval']:
   with open(FILTERED_WIKT) as file:
     seen_gf_funs = {}
+    number = 1
     for line in file:
         try:
             obj = json.loads(line)
         except:
             continue
+        number += 1
         root = [find_root(t['expansion']) for
                 t in obj.get('etymology_templates', []) if
                 t.get('name', None) =='ar-root'][:1]
@@ -227,7 +292,7 @@ if MODE != 'raw':
                     fun = gf_fun(lemma, cat, discrim)
                         
                     if MODE == 'gf-abs':
-                        print('fun', fun, ':', cat, ';', '--', entry['senses'])
+                        print('fun', fun, ':', cat, ';', '--', number, entry['senses'])
                     if MODE == 'gf-cnc':
                         print('lin', fun, '=', lin, ';')
                             
@@ -237,3 +302,13 @@ if MODE != 'raw':
 
 if MODE.startswith('gf'):            
     print('}')
+
+    
+if MODE == 'eval':
+    with open('pot.gftbl') as file:
+        gf = [line.strip() for line in file]
+    with open('pot.json') as file:
+        wikt = wikt_forms_for_pos(json.loads(file.read()))
+    for line in compare_tables(gf, wikt).items():
+        print(line)
+
