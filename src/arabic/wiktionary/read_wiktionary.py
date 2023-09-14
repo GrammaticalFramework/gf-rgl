@@ -2,10 +2,47 @@ import gzip
 import json
 import sys
 import unicodedata
+import pgf
+
 
 # data from https://kaikki.org/dictionary/rawdata.html
 # thanks Tatu Ylonen: Wiktextract: Wiktionary as Machine-Readable Structured Data,
-# Proceedings of the 13th Conference on Language Resources and Evaluation (LREC), pp. 1317-1325, Marseille, 20-25 June 2022. 
+# Proceedings of the 13th Conference on Language Resources and Evaluation (LREC), pp. 1317-1325, Marseille, 20-25 June 2022.
+
+"""
+This file converts Wiktionary data to GF morphological dictionary files.
+It words for Arabic but some functionalities could be modified to other languges.
+
+The steps to take are the following:
+
+fetch data:
+
+  raw-wiktextract-data.json.gz from https://kaikki.org/dictionary/rawdata.html
+
+filter Arabic entries:
+
+  $ python3 read_wiktionary.py raw >wikt_arabic.jsonl
+
+create GF files:
+
+  $ python3 read_wiktionary.py gf-abs >MorphoDictAraAbs.gf
+  $ python3 read_wiktionary.py gf-cnc >MorphoDictAra.gf
+
+automatic evaluation:
+
+  $ gf -make MorphoDictAra.gf
+  $ python3 read_wiktionary.py gf-map >function_sources_arabic.jsonl
+  $ python3 read_wiktionary.py eval
+
+TODO:
+- better generation of GF
+- better paradigms to use Wiktionary data
+- refactor the code so that it can be used for other languages
+
+"""
+
+
+
 
 MODE = ''
 
@@ -27,13 +64,20 @@ FILTERED_WIKT = 'wikt_arabic.jsonl'
 # created with option gf-map
 FUNCTION_SOURCE_MAP = 'function_sources_arabic.jsonl'
 
+PGF_FILE = 'MorphoDictAraAbs.pgf'
+CONCRETE_MODULE = 'MorphoDictAra'
+
 
 def read_function_source_map():
     with open(FUNCTION_SOURCE_MAP) as file:
         sourcemap = {}
         for line in file:
-            obj = json.loads(line)
-            sourcemap[obj['fun']] = obj['source']
+            try:
+                obj = json.loads(line)
+                sourcemap[obj['fun']] = obj['source']
+            except:
+                continue
+    return sourcemap
             
 
 def get_gzip_json(file, sample=100000, langs=[]):
@@ -134,9 +178,9 @@ def reorder_shadda(s):
 
 
 # quote forms but not parameters
-def quote_if(s, cond=is_arabic):
+def quote_if(s, cond=is_arabic, change=reorder_shadda):
     if cond(s):
-        return '"' + s + '"'
+        return '"' + change(s) + '"'
     else:
         return s
 
@@ -181,14 +225,19 @@ rgl_features = {
     }
 
 
+# obsolote:
 # format of GF table: MorphoDictAra: s (VPerf Act (Per3 Masc Sg)) : أَجْرََ    
 # coming from 'l -treebank -table'
-def compare_tables(gf, wikt):
+# now used:
+#  {'s (AComp Def Bare)': 'الأَيَُونَانِ'}
+# coming from tabularLinearize
+
+def compare_tables(gf, wikt, fun):
     report = {}    
-    for line in gf:
-        gf_form = line.split()[-1] # ''.join([c for c in line if 1574 <= ord(c) <= 1616])
+    for pair in gf.items():
+        gf_form = pair[1]
         gf_tags = tuple(word for word in
-                    line.replace('(', ' ').replace(')', ' ').split()
+                    pair[0].replace('(', ' ').replace(')', ' ').split()
                       if word in rgl_features)
         if not gf_tags:
             continue
@@ -211,7 +260,7 @@ def compare_tables(gf, wikt):
             report[gf_tags]['voc_match'] = int(normal(gf_form) == normal(wikt_form))
             report[gf_tags]['unvoc_match'] = int(normal(unvocalize(gf_form)) == normal(unvocalize(wikt_form)))
     ritems = tuple(report.items())  # need an unmutable structure, because otherwise ints are added to items
-    report['fun'] = gf[0].split()[-1]
+    report['fun'] = fun
     report['total_found'] = len([f for f, v  in ritems if v['wikt_form'] is not None ])
     report['total_voc'] = sum([v.get('voc_match', 0) for f, v in ritems])
     report['total_unvoc'] = sum([v.get('unvoc_match', 0) for f, v in ritems])
@@ -293,7 +342,7 @@ def forms_for_pos(obj):
         
     if 'lemma' in gf_entry and gf_entry['lemma']:
         gf_entry['lemma'] = gf_entry['lemma'][0]
-        if obj['root']:
+        if obj['root'] and obj['root'][0].strip():
             gf_entry['args']['root'] = obj['root']
         args = [r + ' = ' + quote_if(x[0]) for r, x in gf_entry['args'].items() if x]
         gf_entry['lin'] = 'wmk' + gf_entry['cat'] + ' {' + ' ; '.join(args) + '}' 
@@ -309,7 +358,8 @@ if MODE == 'gf-abs':
 if MODE == 'gf-cnc':
     print('concrete MorphoDictAra of MorphoDictAraAbs = CatAra ** open ParadigmsAra in {') 
 
-if MODE not in ['raw', 'eval']:
+    
+if MODE.startswith('gf') or MODE=='json':
   with open(FILTERED_WIKT) as file:
     seen_gf_funs = {}
     number = 1
@@ -360,17 +410,52 @@ if MODE.startswith('gf'):
     print('}')
 
     
+def eval_all(gr, funmap, concrete=CONCRETE_MODULE):
+    lang = gr.languages[CONCRETE_MODULE]
+    funs = gr.functions
+    reports = []
+    for fun in funs:
+        funn = "'" + fun + "'"
+        if funn not in funmap:
+            print(funn, 'not found')
+            continue
+        wikt = wikt_forms_for_pos(funmap[funn])
+        gf = lang.tabularLinearize(pgf.Expr(fun, []))
+        report = compare_tables(gf, wikt, fun)
+        reports.append(report)
+    return reports
+
+
+def first_error(report):
+    for f, v in report.items():
+        if 'voc_match' in v:
+            if v['voc_match'] == 0:
+                return f, v
+
+
 if MODE.startswith('eval'):
-    with open('pot.gftbl') as file:
-        gf = [line.strip() for line in file]
-    with open('pot.json') as file:
-        wikt = wikt_forms_for_pos(json.loads(file.read()))
-    report = compare_tables(gf, wikt)
-    
-    if MODE == 'eval-verbose':
-        for line in report.items():
-            print(line)
-    else:
-        print(report['fun'], 'forms', report['total_found'],
-              'voc', report['total_voc'], 'unvoc', report['total_unvoc'])
+    gr = pgf.readPGF(PGF_FILE)
+    print('using', PGF_FILE)
+    funmap = read_function_source_map()
+    print(len(funmap), 'functions')
+    for report in eval_all(gr, funmap):    
+
+        if MODE == 'eval-verbose':
+            for line in report.items():
+                print(line)
+        else:
+            if report['total_found'] == 0:
+                verdict = 'NOT_FOUND'
+            elif report['total_found'] == report['total_voc']:
+                verdict = 'PERFECT'
+            elif report['total_found'] == report['total_unvoc']:
+                verdict = 'PERFECT_UNVOC ' + str(first_error(report))
+            elif report['total_voc'] == 0:
+                verdict = 'TOTALLY_WRONG ' + str(first_error(report))
+            else:
+                verdict = 'PARTIAL ' + str(first_error(report))
+            print(report['fun'], 'forms', report['total_found'],
+                  'voc', report['total_voc'], 'unvoc', report['total_unvoc'],
+                  verdict
+                  )
 
