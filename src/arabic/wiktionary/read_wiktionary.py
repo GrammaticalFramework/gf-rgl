@@ -1,17 +1,21 @@
 import gzip
 import json
 import sys
+import unicodedata
 
 # data from https://kaikki.org/dictionary/rawdata.html
 # thanks Tatu Ylonen: Wiktextract: Wiktionary as Machine-Readable Structured Data,
 # Proceedings of the 13th Conference on Language Resources and Evaluation (LREC), pp. 1317-1325, Marseille, 20-25 June 2022. 
 
-if not sys.argv[1:]:
-    print('usage: read_wiktionary (raw | gf-cnc | gf-abs)')
-    exit()
+MODE = ''
 
-MODE = sys.argv[1]  # 
+if __name__ == '__main__':
+    if not sys.argv[1:]:
+        print('usage: read_wiktionary (raw | gf-cnc | gf-abs | gf-map | eval | eval-verbose)')
+        exit()
+    MODE = sys.argv[1]  # 
 
+    
 # step 1: extract data from this file using the raw option
 WIKTIONARY_DUMP = 'raw-wiktextract-data.json.gz'
 
@@ -19,6 +23,18 @@ WIKTIONARY_DUMP = 'raw-wiktextract-data.json.gz'
 # in the sequel, use this file with gf-abs or gf-cnc option
 FILTERED_WIKT = 'wikt_arabic.jsonl'
 
+# map each successfully extracted GF function to its source record in Wiktionary
+# created with option gf-map
+FUNCTION_SOURCE_MAP = 'function_sources_arabic.jsonl'
+
+
+def read_function_source_map():
+    with open(FUNCTION_SOURCE_MAP) as file:
+        sourcemap = {}
+        for line in file:
+            obj = json.loads(line)
+            sourcemap[obj['fun']] = obj['source']
+            
 
 def get_gzip_json(file, sample=100000, langs=[]):
     with gzip.open(file) as decompressed:
@@ -86,15 +102,36 @@ buckwalter_dict = {
   0x671: '{'   # ٱ
   }
 
+buckwalter_dict_rev = {b: chr(a) for a, b in buckwalter_dict.items()}
+
+
 def to_buckwalter(s):
-    return ''.join([buckwalter_dict.get(ord(c), '?') for c in s])
+    return ''.join([buckwalter_dict.get(ord(c), c) for c in s])
+
+
+def from_buckwalter(s):
+    return ''.join([buckwalter_dict_rev.get(c, c) for c in s])
 
 
 def unvocalize(s):
     return ''.join([c for c in s if 0x621 <= ord(c) <= 0x64a])
 
+
 def is_arabic(s):
     return s and any(1574 <= ord(c) <= 1616 for c in s)
+
+def normal(s):
+    return unicodedata.normalize('NFD', s)
+
+
+# Wikt uses vowel+shadda which is a Unicode normalization
+# GF uses shadda+vowel which is linguistically correct
+# see https://stackoverflow.com/questions/58559390/in-unicode-should-u0651-arabic-shadda-be-before-or-after-kasra
+# unicodedata.normalize does this wrong, as noted by Ariel Gutman 
+## todo: more direct implementation
+def reorder_shadda(s):
+    return from_buckwalter(to_buckwalter(s).replace('a~', '~a').replace('u~', '~u').replace('i~', '~i'))
+
 
 # quote forms but not parameters
 def quote_if(s, cond=is_arabic):
@@ -115,8 +152,11 @@ rgl_features = {
     'Pas': 'passive',
     'Per3': 'third-person',
     'Per2': 'second-person',
+    'Per1': 'first-person',
     'Masc': 'masculine',
     'Fem': 'feminine',
+    'Sing': 'singular',
+    'Plur': 'plural',
     'Sg': 'singular',
     'Pl': 'plural',
     'Dl': 'dual',
@@ -142,26 +182,39 @@ rgl_features = {
 
 
 # format of GF table: MorphoDictAra: s (VPerf Act (Per3 Masc Sg)) : أَجْرََ    
+# coming from 'l -treebank -table'
 def compare_tables(gf, wikt):
     report = {}    
     for line in gf:
-        gf_form = line  #''.join([c for c in line if 1574 <= ord(c) <= 1616])
+        gf_form = line.split()[-1] # ''.join([c for c in line if 1574 <= ord(c) <= 1616])
         gf_tags = tuple(word for word in
                     line.replace('(', ' ').replace(')', ' ').split()
                       if word in rgl_features)
+        if not gf_tags:
+            continue
         wikt_tags = {rgl_features[tag] for tag in gf_tags}
         wikt_form = None
+        wikt_descr = None
         for form, descr in wikt:
             if all([tag in descr for tag in wikt_tags]):
-                wikt_form = form
+                wikt_form = reorder_shadda(form)
+                wikt_descr = descr
                 break
         report[gf_tags] = {
             'gf_form': gf_form,
-            'wikt_form': wikt_form
+            'wikt_form': wikt_form,
+            'gf_form_rom': to_buckwalter(gf_form) if gf_form else None,
+            'wikt_form_rom': to_buckwalter(wikt_form) if wikt_form else None,
+            'wikt_descr': wikt_descr
             }
         if wikt_form:
-            report[gf_tags]['voc_match'] = int(gf_form == wikt_form)
-            report[gf_tags]['unvoc_match'] = int(unvocalize(gf_form) == unvocalize(wikt_form))
+            report[gf_tags]['voc_match'] = int(normal(gf_form) == normal(wikt_form))
+            report[gf_tags]['unvoc_match'] = int(normal(unvocalize(gf_form)) == normal(unvocalize(wikt_form)))
+    ritems = tuple(report.items())  # need an unmutable structure, because otherwise ints are added to items
+    report['fun'] = gf[0].split()[-1]
+    report['total_found'] = len([f for f, v  in ritems if v['wikt_form'] is not None ])
+    report['total_voc'] = sum([v.get('voc_match', 0) for f, v in ritems])
+    report['total_unvoc'] = sum([v.get('unvoc_match', 0) for f, v in ritems])
     return report
 
 
@@ -295,6 +348,9 @@ if MODE not in ['raw', 'eval']:
                         print('fun', fun, ':', cat, ';', '--', number, entry['senses'])
                     if MODE == 'gf-cnc':
                         print('lin', fun, '=', lin, ';')
+                    if MODE == 'gf-map':
+                        mapitem = {'fun': fun, 'source': obj}
+                        print(json.dumps(mapitem, ensure_ascii=False))
                             
                     seen_gf_funs[(lemma, cat)] = discrim + 1
 
@@ -304,11 +360,17 @@ if MODE.startswith('gf'):
     print('}')
 
     
-if MODE == 'eval':
+if MODE.startswith('eval'):
     with open('pot.gftbl') as file:
         gf = [line.strip() for line in file]
     with open('pot.json') as file:
         wikt = wikt_forms_for_pos(json.loads(file.read()))
-    for line in compare_tables(gf, wikt).items():
-        print(line)
+    report = compare_tables(gf, wikt)
+    
+    if MODE == 'eval-verbose':
+        for line in report.items():
+            print(line)
+    else:
+        print(report['fun'], 'forms', report['total_found'],
+              'voc', report['total_voc'], 'unvoc', report['total_unvoc'])
 
