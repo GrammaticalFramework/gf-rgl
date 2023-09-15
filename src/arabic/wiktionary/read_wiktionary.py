@@ -31,7 +31,7 @@ create GF files:
 automatic evaluation:
 
   $ gf -make MorphoDictAra.gf
-  $ python3 read_wiktionary.py gf-map >function_sources_arabic.jsonl
+  $ python3 read_wiktionary.py gf-map >source_of_MorphoDictAra.jsonl
   $ python3 read_wiktionary.py eval
 
 TODO:
@@ -40,8 +40,6 @@ TODO:
 - refactor the code so that it can be used for other languages
 
 """
-
-
 
 
 MODE = ''
@@ -53,8 +51,9 @@ if __name__ == '__main__':
     MODE = sys.argv[1]  # 
 
     
-# step 1: extract data from this file using the raw option
+# step 1: extract Arabic data from this file using the raw option
 WIKTIONARY_DUMP = 'raw-wiktextract-data.json.gz'
+EXTRACTED_LANGUAGE = 'Arabic'
 
 # the following file is generated.
 # in the sequel, use this file with gf-abs or gf-cnc option
@@ -62,24 +61,18 @@ FILTERED_WIKT = 'wikt_arabic.jsonl'
 
 # map each successfully extracted GF function to its source record in Wiktionary
 # created with option gf-map
-FUNCTION_SOURCE_MAP = 'function_sources_arabic.jsonl'
+FUNCTION_SOURCE_MAP = 'source_of_MorphoDictAra.jsonl'
 
+# created with $ gf -make MorphoDictAra.gf
 PGF_FILE = 'MorphoDictAraAbs.pgf'
+
+# module to linearize with
 CONCRETE_MODULE = 'MorphoDictAra'
 
-
-def read_function_source_map():
-    with open(FUNCTION_SOURCE_MAP) as file:
-        sourcemap = {}
-        for line in file:
-            try:
-                obj = json.loads(line)
-                sourcemap[obj['fun']] = obj['source']
-            except:
-                continue
-    return sourcemap
             
-
+# read a gzipped jsonl file (one object per line),
+# showing lines where one of a list of languages is present
+# This can be sampled to one of 100k lines by default, 1 for total recall.
 def get_gzip_json(file, sample=100000, langs=[]):
     with gzip.open(file) as decompressed:
         n = 0
@@ -91,10 +84,13 @@ def get_gzip_json(file, sample=100000, langs=[]):
                     print(line.decode("utf-8"))
 #        print(n)
 
-if MODE == 'raw':
-    get_gzip_json(WIKTIONARY_DUMP, 1, ['Arabic'])  
 
+# to perform the first step of data extraction, pipe this into a file:
 # python3 read_wiktionary.py raw >wikt_arabic.jsonl
+if MODE == 'raw':
+    get_gzip_json(WIKTIONARY_DUMP, 1, [EXTRACTED_LANGUAGE])
+    exit()
+
 
 # https://en.wikipedia.org/wiki/Buckwalter_transliteration
 buckwalter_dict = {
@@ -177,19 +173,22 @@ def reorder_shadda(s):
     return from_buckwalter(to_buckwalter(s).replace('a~', '~a').replace('u~', '~u').replace('i~', '~i'))
 
 
-# quote forms but not parameters
+# quote word forms but not parameters
 def quote_if(s, cond=is_arabic, change=reorder_shadda):
     if cond(s):
         return '"' + change(s) + '"'
     else:
         return s
 
+
+# generate word_d_C functions starting with d=0, but show d only when >= 1
 def gf_fun(s, pos, disamb=0):
     discrim = '_' + str(disamb) if disamb else ''
     return ''.join(["'", s, discrim, "_", pos, "'"])
 
 
-rgl_features = {
+# mapping from GF to Wikt features
+arabic_rgl_features = {
     # V
     'VPerf': 'perfective',
     'Act': 'active',
@@ -224,62 +223,22 @@ rgl_features = {
     'AComp': 'comparative'
     }
 
-
-# obsolote:
-# format of GF table: MorphoDictAra: s (VPerf Act (Per3 Masc Sg)) : أَجْرََ    
-# coming from 'l -treebank -table'
-# now used:
-#  {'s (AComp Def Bare)': 'الأَيَُونَانِ'}
-# coming from tabularLinearize
-
-def compare_tables(gf, wikt, fun):
-    report = {}    
-    for pair in gf.items():
-        gf_form = pair[1]
-        gf_tags = tuple(word for word in
-                    pair[0].replace('(', ' ').replace(')', ' ').split()
-                      if word in rgl_features)
-        if not gf_tags:
-            continue
-        wikt_tags = {rgl_features[tag] for tag in gf_tags}
-        wikt_form = None
-        wikt_descr = None
-        for form, descr in wikt:
-            if all([tag in descr for tag in wikt_tags]):
-                wikt_form = reorder_shadda(form)
-                wikt_descr = descr
-                break
-        report[gf_tags] = {
-            'gf_form': gf_form,
-            'wikt_form': wikt_form,
-            'gf_form_rom': to_buckwalter(gf_form) if gf_form else None,
-            'wikt_form_rom': to_buckwalter(wikt_form) if wikt_form else None,
-            'wikt_descr': wikt_descr
-            }
-        if wikt_form:
-            report[gf_tags]['voc_match'] = int(normal(gf_form) == normal(wikt_form))
-            report[gf_tags]['unvoc_match'] = int(normal(unvocalize(gf_form)) == normal(unvocalize(wikt_form)))
-    ritems = tuple(report.items())  # need an unmutable structure, because otherwise ints are added to items
-    report['fun'] = fun
-    report['total_found'] = len([f for f, v  in ritems if v['wikt_form'] is not None ])
-    report['total_voc'] = sum([v.get('voc_match', 0) for f, v in ritems])
-    report['total_unvoc'] = sum([v.get('unvoc_match', 0) for f, v in ritems])
-    return report
-
-
-
-def wikt_forms_for_pos(obj):
+    
+# the inflection forms in a wiktionary entry
+def wikt_forms_from_obj(obj):
     return {
         form['form']:
           form.get('tags', []) for
             form in obj.get('forms', []) if
                'romanization' not in form.get('tags', []) and
                    is_arabic(form['form'])
-        }.items()
+        }
 
 
+# selection of forms for a given POS from Wikt: noun, adj, or verb
+# return a linearization function
 def forms_for_pos(obj):
-    forms = wikt_forms_for_pos(obj)
+    forms = wikt_forms_from_obj(obj).items()
     if obj['pos'] == 'noun':
         lemma = [form[:-1] for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
@@ -345,46 +304,60 @@ def forms_for_pos(obj):
         if obj['root'] and obj['root'][0].strip():
             gf_entry['args']['root'] = obj['root']
         args = [r + ' = ' + quote_if(x[0]) for r, x in gf_entry['args'].items() if x]
-        gf_entry['lin'] = 'wmk' + gf_entry['cat'] + ' {' + ' ; '.join(args) + '}' 
+        gf_entry['lin'] = 'wmk' + gf_entry['cat'] + ' {' + ' ; '.join(sorted(args)) + '}' 
 
     return gf_entry
+
     
 # "root": ["ش ر ح (š-r-ḥ)"]
 def find_root(s):
     return ''.join([c for c in s if is_arabic(c)])
     
+    
+# GF code generation
+
+# start with the header of the desired GF module
+
 if MODE == 'gf-abs':
     print('abstract MorphoDictAraAbs = Cat ** {')    
 if MODE == 'gf-cnc':
     print('concrete MorphoDictAra of MorphoDictAraAbs = CatAra ** open ParadigmsAra in {') 
 
-    
+# go through the Arabic Wiktionary entries
+# generate functions with unique names
+
 if MODE.startswith('gf') or MODE=='json':
   with open(FILTERED_WIKT) as file:
-    seen_gf_funs = {}
+    seen_gf_funs = {}  # to disambiguate names if needed
     number = 1
     for line in file:
         try:
             obj = json.loads(line)
         except:
             continue
-        number += 1
+        number += 1   # if you find the same word_C again, mark it word_1_C
+
+        # the root (three radicals) is found in this place if at all
         root = [find_root(t['expansion']) for
                 t in obj.get('etymology_templates', []) if
                 t.get('name', None) =='ar-root'][:1]
         obj['root'] = root
+
+        # only take entries that are marked as lemmas 
         if 'Arabic lemmas' in obj.get('categories', []):
             entry = {
                 'pos': obj['pos'],
                 'forms': forms_for_pos(obj),
+                'all_forms': wikt_forms_from_obj(obj),
                 'senses': [sense['glosses'] for sense in obj.get('senses', [])
                            if 'glosses' in sense]
                 }
-#            entry['n_forms'] = len(entry['forms'])
-#            print(entry['pos'], entry['n_forms'])
+
+            # if you only want to see the Wikt information used GF generation
             if MODE == 'json':
                 print(json.dumps(entry, ensure_ascii=False))
-
+                
+            # if you want to proceed to GF generation
             if MODE.startswith('gf'):
 
                 lemma = entry['forms'].get('lemma', None)
@@ -393,23 +366,74 @@ if MODE.startswith('gf') or MODE=='json':
                     lin = entry['forms']['lin']
                     discrim = seen_gf_funs.get((lemma, cat), 0)
                     fun = gf_fun(lemma, cat, discrim)
-                        
+
+                    # abstract syntax, save in MorphoDictAraAbs.gf
                     if MODE == 'gf-abs':
                         print('fun', fun, ':', cat, ';', '--', number, entry['senses'])
-                    if MODE == 'gf-cnc':
+                        
+                    # concrete syntax, save in MorphoDictAra.gf
+                    elif MODE == 'gf-cnc':
                         print('lin', fun, '=', lin, ';')
-                    if MODE == 'gf-map':
-                        mapitem = {'fun': fun, 'source': obj}
+                        
+                    # function-source map, save in source_of_MorphoDictAra.jsonl
+                    elif MODE == 'gf-map':
+                        mapitem = {'fun': fun, 'source': wikt_forms_from_obj(obj)}
                         print(json.dumps(mapitem, ensure_ascii=False))
                             
-                    seen_gf_funs[(lemma, cat)] = discrim + 1
+                    seen_gf_funs[(lemma, cat)] = discrim + 1  # next word_d_C will get a new number
 
-                # to do: rename duplicate function names: of 13762 names, 12946 are unique
-
-if MODE.startswith('gf'):            
+# terminate the GF file with a closing brace
+if MODE in ['gf-abs', 'gf-cnc']:            
     print('}')
 
-    
+
+# evaluation:
+# linearize all words to tables
+# compare them to the forms found in Wiktionary
+# report on matches
+
+# format of GF table:
+#  {'s (AComp Def Bare)': 'الأَيَُونَانِ'}
+# coming from pgf tabularLinearize
+
+def compare_tables(gf, wikt, fun, show_buckwalter=True):
+    report = {}    
+    for pair in gf.items():
+        gf_form = pair[1]
+        gf_params = pair[0]
+        gf_tags = tuple(word for word in
+                    pair[0].replace('(', ' ').replace(')', ' ').split()
+                      if word in arabic_rgl_features)
+        if not gf_tags:
+            continue  # if gf_tags match no Wikt tags, do not include this form
+        wikt_tags = {arabic_rgl_features[tag] for tag in gf_tags}
+        wikt_form = None
+        wikt_descr = None
+        for form, descr in wikt:
+            if all([tag in descr for tag in wikt_tags]):
+                wikt_form = reorder_shadda(form)
+                wikt_descr = descr
+                break
+        report[gf_tags] = {          # flat param description with only Wikt-relevant tags
+            'gf_params': gf_params,  # full param description
+            'gf_form': gf_form,
+            'wikt_form': wikt_form,
+            'wikt_descr': wikt_descr
+            }
+        if show_buckwalter:
+            report[gf_tags]['gf_form_rom'] = to_buckwalter(gf_form) if gf_form else None,
+            report[gf_tags]['wikt_form_rom'] = to_buckwalter(wikt_form) if wikt_form else None,
+        if wikt_form:
+            report[gf_tags]['voc_match'] = int(normal(gf_form) == normal(wikt_form))
+            report[gf_tags]['unvoc_match'] = int(normal(unvocalize(gf_form)) == normal(unvocalize(wikt_form)))
+    ritems = tuple(report.items())  # need an unmutable structure, because otherwise ints are added to items
+    report['fun'] = fun
+    report['total_found'] = len([f for f, v  in ritems if v['wikt_form'] is not None ])
+    report['total_voc'] = sum([v.get('voc_match', 0) for f, v in ritems])
+    report['total_unvoc'] = sum([v.get('unvoc_match', 0) for f, v in ritems])
+    return report
+
+
 def eval_all(gr, funmap, concrete=CONCRETE_MODULE):
     lang = gr.languages[CONCRETE_MODULE]
     funs = gr.functions
@@ -419,13 +443,14 @@ def eval_all(gr, funmap, concrete=CONCRETE_MODULE):
         if funn not in funmap:
             print(funn, 'not found')
             continue
-        wikt = wikt_forms_for_pos(funmap[funn])
+        wikt = funmap[funn].items()
         gf = lang.tabularLinearize(pgf.Expr(fun, []))
         report = compare_tables(gf, wikt, fun)
         reports.append(report)
     return reports
 
 
+# in the summary report: print the first error if anything gets wrong
 def first_error(report):
     for f, v in report.items():
         if 'voc_match' in v:
@@ -433,6 +458,20 @@ def first_error(report):
                 return f, v
 
 
+# having stored the Wiktionary object for each GF function
+# read it back from a file
+def read_function_source_map():
+    with open(FUNCTION_SOURCE_MAP) as file:
+        sourcemap = {}
+        for line in file:
+            try:
+                obj = json.loads(line)
+                sourcemap[obj['fun']] = obj['source']
+            except:
+                continue
+    return sourcemap
+
+            
 if MODE.startswith('eval'):
     gr = pgf.readPGF(PGF_FILE)
     print('using', PGF_FILE)
@@ -443,6 +482,10 @@ if MODE.startswith('eval'):
         if MODE == 'eval-verbose':
             for line in report.items():
                 print(line)
+        if MODE == 'eval-tables':
+            for gftags, value in report.items():
+                if v := value['wikt_form']:
+                    print(' ', value['gf_params'][2:], '=>', '"' + v + '" ;')
         else:
             if report['total_found'] == 0:
                 verdict = 'NOT_FOUND'

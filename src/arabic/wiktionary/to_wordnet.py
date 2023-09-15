@@ -4,7 +4,11 @@ import json
 # to run: python3 to_wordnet.py >arabic-wn-morpho.jsonl
 # the following are assumed
 
+
+# from https://www.grammaticalframework.org/~krasimir/arabic.tsv.gz
 WN_TSV = 'arabic.tsv'
+
+# built as explained in ./read_wiktionary.py
 MORPHO_GF = 'MorphoDictAraAbs.gf'
 
 def is_arabic(s):
@@ -36,7 +40,7 @@ with open(WN_TSV) as wnfile:
 ##    wnreader = csv.reader(wnfile, delimiter='\t')
     for row in wnfile:
 ##        word = row[-1].strip()   # does not show tha arabic, but the second-last word
-        word = get_arabic(row)
+        word = unvocalize(get_arabic(row))
         wnfun = row.split()[0]
         cat = [c for c in wnfun if c.isalpha()][-1]  # the last letter; the dict only contains N, A, V
         funs = funmap.get((word, cat), [])
