@@ -226,19 +226,28 @@ arabic_rgl_features = {
     
 # the inflection forms in a wiktionary entry
 def wikt_forms_from_obj(obj):
-    return {
+    forms = {
         form['form']:
           form.get('tags', []) for
             form in obj.get('forms', []) if
                'romanization' not in form.get('tags', []) and
                    is_arabic(form['form'])
         }
+    # the root (three radicals) is found in this place if at all
+    root = [find_root(t['expansion']) for
+                t in obj.get('etymology_templates', []) if
+                t.get('name', None) =='ar-root'][:1]
+    if root and root[0].strip():
+        forms['root'] = root[0].strip()
+
+    return forms
 
 
 # selection of forms for a given POS from Wikt: noun, adj, or verb
 # return a linearization function
 def forms_for_pos(obj):
-    forms = wikt_forms_from_obj(obj).items()
+    dforms = wikt_forms_from_obj(obj)
+    forms = dforms.items()
     if obj['pos'] == 'noun':
         lemma = [form[:-1] for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
@@ -301,8 +310,8 @@ def forms_for_pos(obj):
         
     if 'lemma' in gf_entry and gf_entry['lemma']:
         gf_entry['lemma'] = gf_entry['lemma'][0]
-        if obj['root'] and obj['root'][0].strip():
-            gf_entry['args']['root'] = obj['root']
+        if 'root' in dforms:
+            gf_entry['args']['root'] = [dforms['root']]
         args = [r + ' = ' + quote_if(x[0]) for r, x in gf_entry['args'].items() if x]
         gf_entry['lin'] = 'wmk' + gf_entry['cat'] + ' {' + ' ; '.join(sorted(args)) + '}' 
 
@@ -336,12 +345,6 @@ if MODE.startswith('gf') or MODE=='json':
         except:
             continue
         number += 1   # if you find the same word_C again, mark it word_1_C
-
-        # the root (three radicals) is found in this place if at all
-        root = [find_root(t['expansion']) for
-                t in obj.get('etymology_templates', []) if
-                t.get('name', None) =='ar-root'][:1]
-        obj['root'] = root
 
         # only take entries that are marked as lemmas 
         if 'Arabic lemmas' in obj.get('categories', []):
