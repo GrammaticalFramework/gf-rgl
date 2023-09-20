@@ -69,6 +69,8 @@ PGF_FILE = 'MorphoDictAraAbs.pgf'
 # module to linearize with
 CONCRETE_MODULE = 'MorphoDictAra'
 
+# concrete syntax file, to debug sources of linearizations
+CONCRETE_FILE = CONCRETE_MODULE + '.gf'
             
 # read a gzipped jsonl file (one object per line),
 # showing lines where one of a list of languages is present
@@ -144,6 +146,9 @@ buckwalter_dict = {
 
 buckwalter_dict_rev = {b: chr(a) for a, b in buckwalter_dict.items()}
 
+arabic_vowels = {chr(c) for c in {0x64b, 0x64c, 0x64d, 0x64e, 0x64f, 0x650}}
+
+sound_consonants = {chr(c) for c in range(0x628, 0x648)}  # excluding alif, waw, ya
 
 def to_buckwalter(s):
     return ''.join([buckwalter_dict.get(ord(c), c) for c in s])
@@ -157,11 +162,27 @@ def unvocalize(s):
     return ''.join([c for c in s if 0x621 <= ord(c) <= 0x64a])
 
 
+def drop_final_vowel(s):
+    if s[-1] in arabic_vowels:
+        return s[:-1]
+    else:
+        return s
+
+
 def is_arabic(s):
     return s and any(1574 <= ord(c) <= 1616 for c in s)
 
 def normal(s):
     return unicodedata.normalize('NFD', s)
+
+# heuristic for finding the three radicals from certain forms
+# works only for sound (strong) 3-radical roots, otherwise None
+def get_sound_trigram_root(s):
+    sounds = [c for c in s if c in sound_consonants]
+    if len(sounds) == 3:
+        return ''.join(sounds)
+    else:
+        return None
 
 
 # Wikt uses vowel+shadda which is a Unicode normalization
@@ -216,18 +237,18 @@ arabic_rgl_features = {
     'Gen': 'genitive',
 #    'Bare':
 #    'Dat':
-    'Const': 'construct',
+    'Const': 'construct'
 #    'Poss':
-    #A: also N features
-    'APosit': 'positive',
-    'AComp': 'comparative'
+    #A: also N features; degree features cannot be found
+#    'APosit': 'positive',
+#    'AComp': 'comparative'
     }
 
     
 # the inflection forms in a wiktionary entry
 def wikt_forms_from_obj(obj):
     forms = {
-        form['form']:
+        reorder_shadda(form['form']):
           form.get('tags', []) for
             form in obj.get('forms', []) if
                'romanization' not in form.get('tags', []) and
@@ -249,9 +270,9 @@ def forms_for_pos(obj):
     dforms = wikt_forms_from_obj(obj)
     forms = dforms.items()
     if obj['pos'] == 'noun':
-        lemma = [form[:-1] for form, descr in forms
+        lemma = [drop_final_vowel(form) for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'singular']])][:1]
-        plural = [form[:-1] for form, descr in forms
+        plural = [drop_final_vowel(form) for form, descr in forms
                          if all([w in descr for w in ['construct', 'nominative', 'plural']])][:1]
         gender = (['fem'] if 'Arabic feminine nouns' in obj['categories']
                             else (['masc'] if  'Arabic masculine nouns' in obj['categories']
@@ -312,8 +333,11 @@ def forms_for_pos(obj):
         gf_entry['lemma'] = gf_entry['lemma'][0]
         if 'root' in dforms:
             gf_entry['args']['root'] = [dforms['root']]
-        args = [r + ' = ' + quote_if(x[0]) for r, x in gf_entry['args'].items() if x]
-        gf_entry['lin'] = 'wmk' + gf_entry['cat'] + ' {' + ' ; '.join(sorted(args)) + '}' 
+        elif root := get_sound_trigram_root(gf_entry['lemma']):
+            gf_entry['args']['root'] = [root]
+        args = sorted([(r, quote_if(x[0])) for r, x in gf_entry['args'].items() if x])
+        gf_entry['lin'] = 'wmk' + gf_entry['cat'] + ' {' + ' ; '.join([r + ' = ' + v for (r, v) in args]) + '}'
+        gf_entry['labels'] = ','.join([r for r, v in args])
 
     return gf_entry
 
@@ -367,6 +391,7 @@ if MODE.startswith('gf') or MODE=='json':
                 if lemma:
                     cat = entry['forms']['cat']
                     lin = entry['forms']['lin']
+                    labels = entry['forms']['labels']
                     discrim = seen_gf_funs.get((lemma, cat), 0)
                     fun = gf_fun(lemma, cat, discrim)
 
@@ -380,7 +405,9 @@ if MODE.startswith('gf') or MODE=='json':
                         
                     # function-source map, save in source_of_MorphoDictAra.jsonl
                     elif MODE == 'gf-map':
-                        mapitem = {'fun': fun, 'source': wikt_forms_from_obj(obj)}
+                        source = wikt_forms_from_obj(obj)
+                        source['gf_labels'] = labels
+                        mapitem = {'fun': fun, 'source': source}
                         print(json.dumps(mapitem, ensure_ascii=False))
                             
                     seen_gf_funs[(lemma, cat)] = discrim + 1  # next word_d_C will get a new number
@@ -399,6 +426,7 @@ if MODE in ['gf-abs', 'gf-cnc']:
 #  {'s (AComp Def Bare)': 'الأَيَُونَانِ'}
 # coming from pgf tabularLinearize
 
+# compare the table for one function, returning a report as a dict
 def compare_tables(gf, wikt, fun, show_buckwalter=True):
     report = {}    
     for pair in gf.items():
@@ -412,7 +440,7 @@ def compare_tables(gf, wikt, fun, show_buckwalter=True):
         wikt_tags = {arabic_rgl_features[tag] for tag in gf_tags}
         wikt_form = None
         wikt_descr = None
-        for form, descr in wikt:
+        for form, descr in wikt.items():
             if all([tag in descr for tag in wikt_tags]):
                 wikt_form = reorder_shadda(form)
                 wikt_descr = descr
@@ -424,84 +452,90 @@ def compare_tables(gf, wikt, fun, show_buckwalter=True):
             'wikt_descr': wikt_descr
             }
         if show_buckwalter:
-            report[gf_tags]['gf_form_rom'] = to_buckwalter(gf_form) if gf_form else None,
-            report[gf_tags]['wikt_form_rom'] = to_buckwalter(wikt_form) if wikt_form else None,
+            report[gf_tags]['gf_form_rom'] = to_buckwalter(gf_form) if gf_form else None
+            report[gf_tags]['wikt_form_rom'] = to_buckwalter(wikt_form) if wikt_form else None
         if wikt_form:
             report[gf_tags]['voc_match'] = int(normal(gf_form) == normal(wikt_form))
             report[gf_tags]['unvoc_match'] = int(normal(unvocalize(gf_form)) == normal(unvocalize(wikt_form)))
     ritems = tuple(report.items())  # need an unmutable structure, because otherwise ints are added to items
     report['fun'] = fun
+    report['labels'] = wikt['gf_labels']
     report['total_found'] = len([f for f, v  in ritems if v['wikt_form'] is not None ])
     report['total_voc'] = sum([v.get('voc_match', 0) for f, v in ritems])
     report['total_unvoc'] = sum([v.get('unvoc_match', 0) for f, v in ritems])
     return report
 
 
-def eval_all(gr, funmap, concrete=CONCRETE_MODULE):
-    lang = gr.languages[CONCRETE_MODULE]
-    funs = gr.functions
-    reports = []
-    for fun in funs:
-        funn = "'" + fun + "'"
-        if funn not in funmap:
-            print(funn, 'not found')
-            continue
-        wikt = funmap[funn].items()
-        gf = lang.tabularLinearize(pgf.Expr(fun, []))
-        report = compare_tables(gf, wikt, fun)
-        reports.append(report)
-    return reports
+# with a given grammar and function, prepare input for compare_tables
+# and produce a report, possibly summarizing it
+def eval_with_wikt(gr, lang, fun, wikt, verbose=False):
+    if fun not in gr.functions:
+        print(fun, 'not found in grammar')
+        return
+    gf = {p: s for (p, s) in lang.tabularLinearize(pgf.Expr(fun, [])).items()
+              if p.startswith('s ')}  # require the s field, exclude s2
+    report = compare_tables(gf, wikt, fun)
+    if verbose:
+        return report
+    else:
+        if report['total_found'] == 0:
+            verdict = 'NOT_FOUND'
+            flaws = False
+        elif report['total_found'] == report['total_voc']:
+            verdict = 'PERFECT'
+            flaws = False
+        elif report['total_found'] == report['total_unvoc']:
+            verdict = 'PERFECT_UNVOC'
+            flaws = True
+        elif report['total_voc'] == 0:
+            verdict = 'TOTALLY_WRONG'
+            flaws = True
+        else:
+            verdict = 'PARTIAL'
+            flaws = True
+        summary = {
+            'fun': report['fun'],
+            'forms': report['total_found'],
+            'voc': report['total_voc'],
+            'unvoc': report['total_unvoc'],
+            'verdict': verdict,
+            'labels': report['labels']
+            }
 
-
-# in the summary report: print the first error if anything gets wrong
-def first_error(report):
-    for f, v in report.items():
-        if 'voc_match' in v:
-            if v['voc_match'] == 0:
-                return f, v
-
-
-# having stored the Wiktionary object for each GF function
-# read it back from a file
-def read_function_source_map():
-    with open(FUNCTION_SOURCE_MAP) as file:
-        sourcemap = {}
-        for line in file:
-            try:
-                obj = json.loads(line)
-                sourcemap[obj['fun']] = obj['source']
-            except:
-                continue
-    return sourcemap
+        if flaws:
+            for f, v in report.items():
+                if v.get('voc_match', 1) == 0:
+                    summary['first_error'] = v
+                    break
+        return summary
 
             
+def eval_grammar(pgffile, concretename, mapfile, show=True, verbose=False): 
+    gr = pgf.readPGF(pgffile)
+    concrete = gr.languages[concretename]
+
+    totals = {'A': {}, 'N': {}, 'V': {}}
+
+    with open(mapfile) as file:
+        for line in file:
+            obj = json.loads(line)
+            fun = obj['fun'][1:-1]
+            report = eval_with_wikt(gr, concrete, fun, obj['source'], verbose)
+
+            cat = fun[-1]
+            if 'verdict' in report:
+                rep = report['verdict']
+                totals[cat][rep] = totals[cat].get(rep, 0) + 1 
+
+            if show:
+                print(report)
+
+    print(totals)
+    
+
 if MODE.startswith('eval'):
-    gr = pgf.readPGF(PGF_FILE)
-    print('using', PGF_FILE)
-    funmap = read_function_source_map()
-    print(len(funmap), 'functions')
-    for report in eval_all(gr, funmap):    
+    verbose = MODE=='eval-verbose'
+    show = verbose or MODE=='eval-funs'
+    eval_grammar(PGF_FILE, CONCRETE_MODULE, FUNCTION_SOURCE_MAP, show, verbose)
 
-        if MODE == 'eval-verbose':
-            for line in report.items():
-                print(line)
-        if MODE == 'eval-tables':
-            for gftags, value in report.items():
-                if v := value['wikt_form']:
-                    print(' ', value['gf_params'][2:], '=>', '"' + v + '" ;')
-        else:
-            if report['total_found'] == 0:
-                verdict = 'NOT_FOUND'
-            elif report['total_found'] == report['total_voc']:
-                verdict = 'PERFECT'
-            elif report['total_found'] == report['total_unvoc']:
-                verdict = 'PERFECT_UNVOC ' + str(first_error(report))
-            elif report['total_voc'] == 0:
-                verdict = 'TOTALLY_WRONG ' + str(first_error(report))
-            else:
-                verdict = 'PARTIAL ' + str(first_error(report))
-            print(report['fun'], 'forms', report['total_found'],
-                  'voc', report['total_voc'], 'unvoc', report['total_unvoc'],
-                  verdict
-                  )
-
+    
