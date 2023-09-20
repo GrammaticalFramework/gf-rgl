@@ -885,8 +885,10 @@ oper
       = \r -> mkN r.sg r.pl r.g nohum ;   --- hum/nohum not in Wikt
     wmkN : {sg : Str; pl : Str} -> N
       = \r -> mkN r.sg r.pl masc nohum ; ---- ** {g = (smartN r.sg).g} ;
+    wmkN : {sg, pl : Str ; root : Str} -> N
+      = \r -> mkN r.sg r.pl masc nohum ;  ---- 
     wmkN : {sg : Str; root : Str} -> N 
-      = \r -> smartN r.sg ; 
+      = \r -> smartN r.sg ;
     } ;
 
   wmkA = overload {
@@ -928,7 +930,7 @@ oper
     wmkV : {perfect : Str; imperfect : Str; cls : VerbForm; root : Str} -> V
       = \r -> mkV r.root r.cls ; ----
     wmkV : {perfect : Str; imperfect : Str; cls : VerbForm} -> V
-      = \r -> variants {} ; ---- mkV r.imperfect ; ----
+      = \r -> mkV r.perfect r.cls ; ----
     wmkV : {root : Str ; cls : VerbForm} -> V
       = \r -> mkV r.root r.cls ;
     wmkV : {imperfect : Str} -> V
