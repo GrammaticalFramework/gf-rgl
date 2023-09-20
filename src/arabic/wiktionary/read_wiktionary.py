@@ -122,7 +122,7 @@ buckwalter_dict = {
   0x638: 'Z',  # ظ
   0x639: 'E',  # ع
   0x63a: 'g',  # غ
-  0x641: 'f',  # ف
+  0x641: 'f',  # ف  
   0x642: 'q',  # ق
   0x643: 'k',  # ك
   0x644: 'l',  # ل
@@ -143,6 +143,7 @@ buckwalter_dict = {
   0x670: '`',  # '
   0x671: '{'   # ٱ
   }
+
 
 buckwalter_dict_rev = {b: chr(a) for a, b in buckwalter_dict.items()}
 
@@ -184,6 +185,24 @@ def get_sound_trigram_root(s):
     else:
         return None
 
+    
+# reverse engineer fcl pattern from a given form, with a sound trigram root
+# one more condition: each of the root letters occurs exactly ones
+# TODO: better use the given root of the lex entry
+def get_sound_fcl_pattern(s):
+    if root := get_sound_trigram_root(s):
+        if len([c in s for c in root]) == 3:
+            p = list(s)
+            r = s.find(root[0])
+            p[r] = chr(0x641)
+            r += s[r+1:].find(root[1]) + 1
+            p[r] = chr(0x639)
+            r += s[r+1:].find(root[2]) + 1
+            p[r] = chr(0x644)
+            p = ''.join(p)
+##            print('---PATT', s, root, p)
+            return p
+    
 
 # Wikt uses vowel+shadda which is a Unicode normalization
 # GF uses shadda+vowel which is linguistically correct
@@ -324,7 +343,12 @@ def forms_for_pos(obj):
                 'fem_pl': [form for form, descr in forms
                          if all([w in descr for w in ['indefinite', 'feminine', 'plural', 'informal']])][:1],
                 }
-            } 
+            }
+        for patt in ['masc_sg', 'masc_pl']:
+            if patt in gf_entry['args']:
+                if form := gf_entry['args'][patt]:
+                    if spatt := get_sound_fcl_pattern(form[0]):
+                        gf_entry['args'][patt[5:]+'_patt'] = [spatt]  # sg_patt, pl_patt
 
     else:
         gf_entry = {f: d for f, d in forms}

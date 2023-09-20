@@ -898,12 +898,30 @@ oper
       = \r -> mkA r.root ;
     mkA : {masc_sg : Str; fem_sg : Str; fem_pl : Str; root : Str} -> A
       = \r -> mkA r.root ;
-    mkA : {masc_sg : Str; fem_sg: Str ; masc_pl : Str; fem_pl : Str; root : Str} -> A
-      = \r -> mkA r.root ;
+    mkA : {masc_sg, fem_sg, masc_pl, fem_pl, root, sg_patt, pl_patt : Str} -> A
+      = \r -> mkA r.root r.sg_patt r.pl_patt ;
+    mkA : {masc_sg, fem_sg, masc_pl, root, sg_patt, pl_patt : Str} -> A
+      = \r -> mkA r.root r.sg_patt r.pl_patt ;
+    mkA : {fem_pl : Str; fem_sg : Str; masc_sg : Str; root : Str; sg_patt : Str} -> A
+      = \r -> mkA r.root r.sg_patt ;
+    mkA : {fem_pl : Str; fem_sg : Str; masc_sg, masc_pl, root, sg_patt : Str} -> A
+      = \r -> mkA r.root r.sg_patt ;
+    mkA : {masc_sg, root, sg_patt : Str} -> A
+      = \r -> mkA r.root r.sg_patt ;
+    mkA : {masc_sg, masc_pl, root, sg_patt : Str} -> A
+      = \r -> mkA r.root r.sg_patt ;
+    mkA : {masc_sg, fem_sg, masc_pl, fem_pl, root, pl_patt : Str} -> A
+      = \r -> mkA r.root ; ----
+    mkA : {masc_sg, fem_sg, masc_pl, fem_pl, root : Str} -> A
+      = \r -> mkA r.root ; ----
+    mkA : {masc_sg, fem_sg, root : Str} -> A
+      = \r -> mkA r.root ; ----
+    mkA : {masc_sg, fem_sg, masc_pl, fem_pl, pl_patt : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
     mkA : {masc_sg : Str; fem_sg : Str; fem_pl : Str} -> A
       = \r -> mkA r.masc_sg ; ----
-    mkA : {masc_sg : Str; fem_sg : Str; root : Str} -> A
-      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; fem_sg : Str; root : Str ; sg_patt : Str} -> A
+      = \r -> mkA r.root r.sg_patt ;
     mkA : {masc_sg : Str; fem_sg : Str} -> A
       = \r -> mkA r.masc_sg ; ----
     mkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; fem_pl : Str} -> A
@@ -914,7 +932,13 @@ oper
       = \r -> mkA r.masc_sg ; ----
     mkA : {masc_sg : Str; masc_pl : Str; root : Str} -> A
       = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; masc_pl, pl_patt : Str; root : Str} -> A
+      = \r -> mkA r.root ;
+    mkA : {masc_sg : Str; masc_pl, pl_patt, sg_patt : Str; root : Str} -> A
+      = \r -> mkA r.sg_patt r.pl_patt ;
     mkA : {masc_sg : Str; masc_pl : Str} -> A
+      = \r -> mkA r.masc_sg ; ----
+    mkA : {masc_sg : Str; masc_pl, pl_patt : Str} -> A
       = \r -> mkA r.masc_sg ; ----
     mkA : {masc_sg : Str; root : Str} -> A
       = \r -> mkA r.root ;

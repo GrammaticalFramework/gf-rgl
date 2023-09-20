@@ -153,7 +153,8 @@ oper
         w + "ف" + x + "ع" + y + "ل" + z
           => { h = w ; m1 = x; m2 = y; t = z} ;
         w + "ف" + x + ("ع"|"ل") + y
-          => { h = w ; m1 = x; m2 = ""; t = y}
+          => { h = w ; m1 = x; m2 = ""; t = y} ;
+	_ => Predef.error("cannot get FCL pattern from" ++ pat)
       } ;
 
   --opers to interdigitize (make words out of roots and patterns:
@@ -204,7 +205,8 @@ oper
                     => mkAssimilated pat (mkRoot3 rS) ;
             ? + ? + _ => mkBilit pat (mkRoot2 rS) ; --2=>
             _=> error rS ---- AR error "expected 3--6"
-        }
+        } ;
+     _ => Predef.error("cannot get FCL pattern from" ++ pS)
     };
 
 -----------------------------------------------------------------------------
