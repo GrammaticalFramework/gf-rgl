@@ -104,8 +104,9 @@ if MODE == 'error-analysis':
         for line in file:
             row = json.loads(line)
             if labels := row.get('labels', None):
+                cat = row['fun'][-1]
                 verdict = row['verdict']
-                evals[(labels, verdict)] = evals.get((labels, verdict), 0) + 1
+                evals[(cat, labels, verdict)] = evals.get((cat, labels, verdict), 0) + 1
     for labverdict, n in sorted(list(evals.items())):
         print(labverdict, n)
 
