@@ -4,4 +4,4 @@ all:
 	python3 read_wiktionary.py gf-map >source_of_MorphoDictAra.jsonl 
 	gf -make MorphoDictAra.gf
 	python3 read_wiktionary.py eval-funs >1-eval.txt 
-	python3 to_wordnet.py >wornet-arabic.jsonl
+	python3 to_wordnet.py >wordnet-arabic.jsonl

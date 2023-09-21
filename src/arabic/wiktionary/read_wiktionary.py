@@ -71,6 +71,10 @@ CONCRETE_MODULE = 'MorphoDictAra'
 
 # concrete syntax file, to debug sources of linearizations
 CONCRETE_FILE = CONCRETE_MODULE + '.gf'
+
+# evaluation result file, created with mode eval-funs
+EVAL_FILE = 'eval.jsonl'
+
             
 # read a gzipped jsonl file (one object per line),
 # showing lines where one of a list of languages is present
@@ -93,6 +97,17 @@ if MODE == 'raw':
     get_gzip_json(WIKTIONARY_DUMP, 1, [EXTRACTED_LANGUAGE])
     exit()
 
+    
+if MODE == 'error-analysis':
+    evals = {}
+    with open(EVAL_FILE) as file:
+        for line in file:
+            row = json.loads(line)
+            if labels := row.get('labels', None):
+                verdict = row['verdict']
+                evals[(labels, verdict)] = evals.get((labels, verdict), 0) + 1
+    for labverdict, n in sorted(list(evals.items())):
+        print(labverdict, n)
 
 # https://en.wikipedia.org/wiki/Buckwalter_transliteration
 buckwalter_dict = {
@@ -378,7 +393,7 @@ def find_root(s):
 if MODE == 'gf-abs':
     print('abstract MorphoDictAraAbs = Cat ** {')    
 if MODE == 'gf-cnc':
-    print('concrete MorphoDictAra of MorphoDictAraAbs = CatAra ** open ParadigmsAra in {') 
+    print('concrete MorphoDictAra of MorphoDictAraAbs = CatAra ** open ParadigmsAra, MoreAra in {') 
 
 # go through the Arabic Wiktionary entries
 # generate functions with unique names
@@ -552,9 +567,9 @@ def eval_grammar(pgffile, concretename, mapfile, show=True, verbose=False):
                 totals[cat][rep] = totals[cat].get(rep, 0) + 1 
 
             if show:
-                print(report)
+                print(json.dumps(report, ensure_ascii=False))
 
-    print(totals)
+        print(json.dumps(totals, ensure_ascii=False))
     
 
 if MODE.startswith('eval'):
