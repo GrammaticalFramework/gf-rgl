@@ -1,6 +1,8 @@
 import csv
 import json
 
+from arabic_utilities import *
+
 # to run: python3 to_wordnet.py >arabic-wn-morpho.jsonl
 # the following are assumed
 
@@ -11,15 +13,6 @@ WN_TSV = 'ar2en_words_gf.csv'  # Zarzoura
 
 # built as explained in ./read_wiktionary.py
 MORPHO_GF = 'MorphoDictAraAbs.gf'
-
-def is_arabic(s):
-    return s and any(1574 <= ord(c) <= 1616 for c in s)
-
-def get_arabic(s):
-    return ''.join([c for c in s if is_arabic(c)])
-
-def unvocalize(s):
-    return ''.join([c for c in s if 0x621 <= ord(c) <= 0x64a])
 
 
 # fun 'دُبُ_N' : N ; -- 10 [['bear']]
