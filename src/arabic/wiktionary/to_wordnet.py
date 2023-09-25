@@ -6,7 +6,8 @@ import json
 
 
 # from https://www.grammaticalframework.org/~krasimir/arabic.tsv.gz
-WN_TSV = 'arabic.tsv'
+# WN_TSV = 'arabic.tsv'  # Krasimir
+WN_TSV = 'ar2en_words_gf.csv'  # Zarzoura
 
 # built as explained in ./read_wiktionary.py
 MORPHO_GF = 'MorphoDictAraAbs.gf'
@@ -41,7 +42,7 @@ with open(WN_TSV) as wnfile:
     for row in wnfile:
 ##        word = row[-1].strip()   # does not show tha arabic, but the second-last word
         word = unvocalize(get_arabic(row))
-        wnfun = row.split()[0]
+        wnfun = row.split()[-1]  # 0 in Krasimir
         cat = [c for c in wnfun if c.isalpha()][-1]  # the last letter; the dict only contains N, A, V
         funs = funmap.get((word, cat), [])
         result = {'wnfun': wnfun, 'sought': word, 'found': funs}
