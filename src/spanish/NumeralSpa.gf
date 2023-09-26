@@ -143,7 +143,7 @@ param
                  if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
                  i.s ! o ;
       n = Pl ;
-      hasDot=False
+      hasDot=True
       } ;
 
   oper
