@@ -13,27 +13,18 @@ lin FullName gn sn = pn2np {
     } ;
 
 lin PlainLN n = heavyNP {
-      s = \\c => n.s; 
+      s = \\c => prepCase c ++ n.s; 
       a = {g = n.g ; n = n.num ; p = P3}
       } ;
 
 
 lin UseLN n = heavyNP {
       s = \\c => case n.art of {
-        UseArt => case n.g of {
-          Fem => case n.num of {
-            Sg => "la" ++ n.s;
-            Pl => "las" ++ n.s} ;
-          Masc => case n.num of {
-            Sg => "el" ++ n.s;
-            Pl => "los" ++ n.s
-            }
-            } ;
-        NoArt => n.s
-        } ;
+                   UseArt => artDef False n.g n.num c ++ n.s;
+                   NoArt  => prepCase c ++ n.s
+                 } ;
       a = {g = n.g ; n = n.num ; p = P3}
       } ;
-
 
 lin InLN n = {
       s = "en" ++
