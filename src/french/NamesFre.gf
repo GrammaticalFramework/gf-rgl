@@ -13,7 +13,7 @@ lin FullName gn sn = pn2np {
     } ;
 
 lin PlainLN n = heavyNP {
-      s = \\c => n.s;
+      s = \\c => prepCase c ++ n.s;
       a = {g = n.g ; n = n.num ; p = P3}
       } ;
 
