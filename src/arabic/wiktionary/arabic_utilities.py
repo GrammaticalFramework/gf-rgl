@@ -4,7 +4,9 @@
 #
 #   % python3 arabic_utilities.py to <MorphoDictAra.gf | python3 arabic_utilities.py from >b.tmp
 #   % diff MorphoDictAra.gf b.tmp 
-#   % 
+#   %
+
+import unicodedata
 
 def is_arabic(s):
     return s and any(1574 <= ord(c) <= 1616 for c in s)

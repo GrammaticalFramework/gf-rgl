@@ -84,15 +84,15 @@ oper
     wmkV : {perfect : Str; cls : VerbForm; root : Str} -> V
       = \r -> mkV r.root r.cls ; ----
     wmkV : {perfect : Str; cls : VerbForm} -> V
-      = \r -> mkV r.perfect r.cls ; ----
+      = \r -> mkV r.perfect r.cls ; ---- expects root
     wmkV : {perfect : Str; imperfect : Str; cls : VerbForm; root : Str} -> V
       = \r -> mkV r.root r.cls ; ----
     wmkV : {perfect : Str; imperfect : Str; cls : VerbForm} -> V
-      = \r -> mkV r.perfect r.cls ; ----
+      = \r -> mkV r.perfect r.cls ; ---- expects root
     wmkV : {root : Str ; cls : VerbForm} -> V
       = \r -> mkV r.root r.cls ;
     wmkV : {imperfect : Str} -> V
-      = \r -> variants {} ; ---- mkV r.imperfect ;
+      = \r -> variants {} ; ---- mkV r.imperfect ; -- expects cls I
     } ;
 
 }
