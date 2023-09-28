@@ -44,6 +44,7 @@ oper
     = \s -> case s of {
               x + "aaka" => dSilakka s (x+"aa'an") (x+"aakoja") ;
               x + "aika" => dSilakka s (x+"ajan") (x+"aikoja") ; -- lots of compound words in NewDictFin that end in aika, but are not analysed as compounds
+              x + "ahka" => dSilakka s (x+"ahan") (x+"ahkoja") ; -- nahka~nahan not covered by weakGrade
               _  => let a = last s
                      in dSilakka s
                           (weakGrade s + "n")
@@ -55,7 +56,10 @@ oper
              _       => dSilakka s (s + "n") (init s + "i" + vowelHarmony (last s))
     } ;
   d10A : Str -> NForms -- 284 änkkä
-    = \s -> dSilakka s (weakGrade s + "n") (init s + "i" + vowelHarmony (last s)) ;
+    = \s -> case s of {
+              x + "hka" => dSilakka s (x+"han") (x+"hkia") ; -- tuhka, uhka
+              _ => dSilakka s (weakGrade s + "n") (init s + "i" + vowelHarmony (last s))
+    } ;
   d11 : Str -> NForms -- 46 ödeema
     = \s -> dSilakka s (weakGrade s + "n") (init s + "i" + vowelHarmony (last s)) ;
   d12 : Str -> NForms -- 1125 örinä
