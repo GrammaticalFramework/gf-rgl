@@ -244,14 +244,22 @@ lin AdjAsCN ap = {s = ap.s ! True ; postmod = \\_ => ap.p ; h = Back} ; ---- Har
 lin AdjAsNP ap = MassNP (AdjAsCN ap) ;
 lin ApposNP np1 np2 = np1 ** {s = \\npf => np1.s ! npf ++ np2.s ! NPSep} ;
 lin PresPartAP vp = {
-      s = \\_,nf => vp.s.s ! PresPartAct (AN nf) ;
+      s = \\_,nf => preCompVP vp (PresPartAct (AN nf)) ;
       p = [] ;
       hasPrefix = False
       } ;
 lin PastPartAP vps = {
-      s = \\_,nf => vps.s.s ! PastPartAct (AN nf) ;
+      s = \\_,nf => preCompVP <vps : VP>  (PastPartAct (AN nf)) ;
       p = vps.c2.s.p1 ;
       hasPrefix = False
       } ;
+
+oper
+  -- ruohoa syövä, Ranskassa valmistettu
+  preCompVP : S.VP -> VForm -> Str = \vp, vform ->
+    vp.s2 ! True ! Pos ! agrP3 Sg ++
+    vp.adv ! Pos ++
+    vp.s.s ! vform ++
+    vp.ext ;
 
 }
