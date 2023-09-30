@@ -1,4 +1,3 @@
---# -path=.:../abstract:../common:prelude -- HL
 concrete PhraseGer of Phrase = CatGer ** open Prelude, ResGer in {
 
   flags optimize=all_subs ;

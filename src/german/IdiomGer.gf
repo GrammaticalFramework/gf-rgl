@@ -8,24 +8,25 @@ concrete IdiomGer of Idiom = CatGer **
     ImpersCl vp = mkClause "es" (agrP3 Sg) vp ;
     GenericCl vp = mkClause "man" (agrP3 Sg) vp ;
 
-    CleftNP np rs = mkClause "es" (agrP3 Sg)
+    CleftNP np rs = mkClause "es" (agrP3 Sg) 
       (insertExtrapos (rs.s ! RGenNum (gennum (genderAgr np.a) (numberAgr np.a))) ----
-         (insertObj (\\_ => (np.s ! False ! rs.c ++ bigNP np)) (predV MorphoGer.sein_V))) ; --HL
+        (insertObj (\\_ => np.s ! False ! rs.c ++ bigNP np) (predV MorphoGer.sein_V))) ;
 
-    CleftAdv ad s = mkClause "es" (agrP3 Sg)
+    CleftAdv ad s = mkClause "es" (agrP3 Sg) 
       (insertExtrapos (conjThat ++ s.s ! Sub)
         (insertObj (\\_ => ad.s) (predV MorphoGer.sein_V))) ;
 
 
     ExistNP np = 
-      mkClause "es" (agrP3 Sg)
+      mkClause "es" (agrP3 Sg) 
         (insertObj (\\_ => appPrep geben.c2 (np.s ! False) ++ bigNP np)
           (predV geben)) ;
 
     ExistIP ip = {
-      s = \\m,t,a,p =>
-            let
-              cls = (mkClause "es" (agrP3 Sg)  (predV geben)).s ! m ! t ! a ! p ;
+      s = \\m,t,a,p => 
+            let 
+              cls = 
+                (mkClause "es" (agrP3 Sg)  (predV geben)).s ! m ! t ! a ! p ;
               who = ip.s ! Acc
             in table {
               QDir   => who ++ cls ! Inv ;
@@ -53,7 +54,7 @@ concrete IdiomGer of Idiom = CatGer **
     ProgrVP = insertAdv "eben" ; ----
 
     ImpPl1 vp = {s = 
-      (mkClause "wir" (Ag Fem Pl P1) vp).s ! 
+      (mkClause "wir" (AgPl P1) vp).s !
                            MConjunct ! Pres ! Simul ! Pos ! Inv 
       } ;
 
@@ -65,7 +66,7 @@ concrete IdiomGer of Idiom = CatGer **
   SelfAdvVP vp = insertAdv "selbst" vp ;
   SelfAdVVP vp = insertAdv "selbst" vp ;
   SelfNP np = np ** {
-      s = \\_,c => np.s ! False ! c ++ "selbst" ++ bigNP np ;
+      s = \\b,c => np.s ! b ! c ++ "selbst" ++ bigNP np ;
       isPron = False ;
       } ;
 

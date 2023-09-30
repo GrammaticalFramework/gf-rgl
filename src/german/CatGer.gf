@@ -58,18 +58,15 @@ concrete CatGer of Cat =
       adv : Str ;          -- Haus    [adv auf dem Hügel]
       g : Gender
       } ;
-    Pron = {s : NPForm => Str ; a : Agr} ;
-
-    -- simplified PCase to Case in NP, Det, DAP, Quant, Predet  HL 8/22
     NP = ResGer.NP ;
-    Det = {s,sp : Bool => Gender => Case => Str ; -- True if DefArt is dropped  HL 8/22
-           n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
-    DAP = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef, hasDefArt : Bool } ;
-
+    Pron = {s : NPForm => Str ; a : Agr} ;
+    Det = {s,sp : Bool => Gender => Case => Str ; -- True if DefArt is dropped, HL 8/22
+           n : Number ; a : Adjf ; isDef, hasDefArt : Bool} ;
+    DAP = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef,hasDefArt : Bool} ;
     -- HL 7/2022: first Bool = True if used to glue in Sg with preposition
     -- second Bool is True if a cardinal number is present
-    Quant = { 
-      s, sp : Bool => Bool => Number => Gender => Case => Str ;  
+    Quant = {
+      s, sp : Bool => Bool => Number => Gender => Case => Str ;
       a   : Adjf ;
       aPl : Adjf ;  --- to distinguish "meine guten Freunde" / "gute Freunde"
       hasDefArt : Bool
@@ -145,4 +142,5 @@ concrete CatGer of Cat =
     Det = \det -> det.s ! False ! Masc ! Nom ;
     Prep = \prep -> case prep.isPrep of {isPrepDefArt => prep.s ! GSg Masc ;
                                          _ => prep.s ! GPl } ;
+
 }
