@@ -1,6 +1,6 @@
---# -path=.:../abstract:../common
+--# -path=.:../abstract:../common:../prelude:
 
-concrete MarkupGer of Markup = CatGer, MarkHTMLX ** {
+concrete MarkupGer of Markup = CatGer, MarkHTMLX ** open Prelude in {
 
 lin
   MarkupCN   m cn  = cn ** {s = \\a,n,c => appMark m (cn.s ! a ! n ! c)} ; --- other fields e.g ext intact

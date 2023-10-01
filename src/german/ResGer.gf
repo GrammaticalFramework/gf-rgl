@@ -745,10 +745,10 @@ resource ResGer = ParamX ** open Prelude in {
 
   insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
     let obj = appPrepNP prep np ;
-        b : Bool = case isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
+        b : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
         w = np.w ;
         c = prep.c
-     in insertObj' obj b w c vp ;
+    in insertObj' obj b w c vp ;
 
   insertObj' : Str -> Bool -> Weight -> Case -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
     vp ** {

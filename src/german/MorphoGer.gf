@@ -20,21 +20,20 @@ oper
   mkPrep : Str -> Case -> Preposition = \s,c ->
     {s = \\_ => s ; s2 = [] ; c = c ; isPrep = isPrep} ;
 
-  nameNounPhrase : Gender -> {s : Case => Str} ->  {s : Bool => Case => Str ;
-                                                    a : Agr ;
-                                                    w : Weight ;
-                                                    ext,rc : Str} =
+  nameNounPhrase : Gender -> {s : Case => Str} -> {s : Bool => Case => Str ;
+                                                   a : Agr ;
+                                                   w : Weight ;
+                                                   ext,rc : Str} =
     \g,name -> {
       s = \\_,c => name.s ! c ;
       a = agrgP3 g Sg ;
-      ext, rc = [] ;
+      ext,rc = [] ;
       w = WHeavy -- ok?
       } ;
 
-  detLikeAdj : Bool -> Number -> Str -> 
+  detLikeAdj : Bool -> Number -> Str ->
     {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies ->
       {s,sp = appAdj (regA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;
-
   detUnlikeAdj : Bool -> Number -> Str ->
     {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef : Bool} = \isDef,n,dies ->
       {s,sp = appAdj (regDetA dies) ! n ; n = n ; a = Weak ; isDef = isDef} ;

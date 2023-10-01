@@ -1,27 +1,28 @@
+--# -path=.:../abstract:../common:
 concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
   flags optimize=all_subs ;
 
--- Remark: np.isLight makes ResGer.insertObjNP expensive, for ComplSlash, SlashVP
+    -- HL 21.7.2022: the dropping of DefArt in Prep+DefArt works by selecting from
+    -- np.s via b = det.hasDefArt = True the forms without det.s and from prep.s
+    -- the preposition glued with definite article singular, depending on gender, case.
 
   lin
     DetCN det cn = {
-      s = \\b,c => det.s ! b ! cn.g ! c ++ cn.s ! adjfCase det.a c ! det.n ! c ++ cn.adv ;
-      a = agrgP3 cn.g det.n ;  
+      s = \\b,c => det.s ! b ! cn.g ! c ++ cn.s ! (adjfCase det.a c) ! det.n ! c ++ cn.adv ;
+      a = agrgP3 cn.g det.n ;
       -- isLight = det.isDef ;  -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
-      -- isPron = False ;       -- HL 6/2019 (but:) sehe (die|einige) Männer nicht
-                                --                  don't see a|no man = sehe keinen Mann
-      w = case det.isDef of { True => case det.hasDefArt of {True => WDefArt ;
-                                                             _ => WLight } ;
+      -- HL 6/2019 (but:) sehe (die|einige) Männer nicht; don't see a|no man = sehe keinen Mann
+      w = case det.isDef of { True => case det.hasDefArt of { True => WDefArt ;
+                                                              _ => WLight } ;
                               _ => WHeavy } ;
-      rc = cn.rc ! det.n ;   
-      ext = cn.ext 
+      rc = cn.rc ! det.n ;
+      ext = cn.ext
       } ;
 
-    DetNP det = {
-      s = \\b,c => det.sp ! b ! Neutr ! c ; -- more genders in ExtraGer -- HL: der+er,den+en ; der drei,den drei+en
+    DetNP det = { -- more genders in ExtraGer -- HL: der+er,den+en ; der drei,den drei+en
+      s = \\b,c => det.sp ! b ! Neutr ! c ;
       a = agrP3 det.n ;
-      -- isLight = det.isDef ;
       -- isPron = False ; -- HL 6/2019: don't apply pronoun switch: ich gebe ihr das  vs. ich gebe es ihr
       w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       rc, ext = []
@@ -115,6 +116,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
 
     NumFloat dig1 dig2 = {s = \\g,c => dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! NCard g c ; n = Pl } ;
+    NumDecimal numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
 
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdNumeral numeral = {s = \\af => numeral.s ! NOrd af} ;
@@ -158,9 +160,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     MassNP cn = {
       s = \\_,c => cn.s ! Strong ! Sg ! c ++ cn.adv ;
       a = agrgP3 cn.g Sg ;
-      -- isLight = True ;  -- ich trinke Bier nicht vs. ich trinke kein Bier
-      -- isPron = False ;
-      w = WLight ;
+      w = WLight ; -- ich trinke Bier nicht vs. ich trinke kein Bier
       rc = cn.rc ! Sg ;
       ext = cn.ext ;
       hasDefArt = False

@@ -158,6 +158,6 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
               (ist verheiratet:VP mit:Prep):VPSlash,
         ComplA2 is used to parse "sie ist verheiratet mit mir"
 -}
-   VPSlashPrep vp prep = vp ** {c2 = prep ; objCtrl = False} ;  -- HL 7.8.23
+    VPSlashPrep vp prep = vp ** {c2 = prep ; objCtrl = False} ;
 
 }

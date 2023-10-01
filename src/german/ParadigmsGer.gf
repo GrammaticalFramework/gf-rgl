@@ -2,7 +2,7 @@
 
 --1 German Lexical Paradigms
 --
--- Aarne Ranta, Harald Hammarström and Björn Bringert 2003--2007
+-- Aarne Ranta, Harald Hammarström and Björn Bringert2003--2007
 --
 -- This is an API for the user of the resource grammar 
 -- for adding lexical items. It gives functions for forming
@@ -141,6 +141,7 @@ mkN : overload {
 
     } ;
 
+
   mkGN : overload {
     mkGN : Str -> Sex -> GN ; -- regular name with genitive in "s"
     mkGN : (nom,gen : Str) -> Sex -> GN ;  -- name with other genitive
@@ -159,10 +160,36 @@ mkN : overload {
     mkSN : (nom,acc,dat,gen : Str) -> GN ; -- name with all case forms
     } ;
 
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> regLN s Masc ; -- regular name with genitive in "s", masculine
+    mkLN : Str -> Number -> LN = \s,n -> regLN s Masc ** {n=n} ; -- regular name with genitive in "s", masculine
+    mkLN : Str -> Gender -> LN = regLN ; -- regular name with genitive in "s"
+
+-- If only the genitive differs, two strings are needed.
+
+    mkLN : (nom,gen : Str) -> Gender -> LN = mk2LN ;  -- name with other genitive
+
+-- In the worst case, all four forms are needed.
+
+    mkLN : (nom,acc,dat,gen : Str) -> Gender -> LN = \nom,acc,dat,gen,g ->
+      lin LN {s = \\a => table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+              g = g ; n = Sg ;
+              hasArt = False}
+
+    } ;
+
+  defLN : LN -> LN = \n -> n ** {hasArt = True} ;
+
+  mk2LN  : (karolus, karoli : Str) -> Gender -> LN = \karolus, karoli, g -> 
+    lin LN {s = \\a => table {Gen => karoli ; _ => karolus} ; g = g ; n = Sg ;
+            hasArt = False} ;
+  regLN : (horst : Str) -> Gender -> LN = \horst, g -> 
+    mk2LN horst (ifTok Tok (Predef.dp 1 horst) "s" horst (horst + "s")) g ;
+
 -- To extract the number of a noun phrase
 
-    ifPluralNP : CatGer.NP -> Bool
-      = \np -> case (numberAgr np.a) of {Sg => False ; Pl => True} ;
+    -- ifPluralNP : NP -> Bool 
+    --   = \np -> case (numberAgr np.a) of {Sg => False ; Pl => True} ;
 
 
 --2 Adjectives
@@ -219,14 +246,16 @@ mkN : overload {
   datPrep : Prep ; -- no string, just dative case
   genPrep : Prep ; -- no string, just genitive case
 
--- A couple of common prepositions (the first two always with the dative).
+-- A couple of common prepositions (the first three always with the dative).
 
-  von_Prep : Prep ; -- von + dative, with contraction vom
-  zu_Prep  : Prep ; -- zu + dative, with contractions zum, zur
-  anDat_Prep : Prep ; -- an + dative, with contraction am
-  inDat_Prep : Prep ; -- in + dative, with contraction im
-  anAcc_Prep : Prep ; -- an + accusative, with contraction ans
-  inAcc_Prep : Prep ; -- in + accusative, with contraction ins
+  von_Prep    : Prep ; -- von + dative, with contraction vom
+  zu_Prep     : Prep ; -- zu + dative, with contractions zum, zur
+  bei_Prep    : Prep ; -- bei + dative, with contraction beim
+  anDat_Prep  : Prep ; -- an + dative, with contraction am
+  anAcc_Prep  : Prep ; -- an + accusative, with contraction ans
+  inDat_Prep  : Prep ; -- in + dative, with contraction im
+  inAcc_Prep  : Prep ; -- in + accusative, with contraction ins
+  aufAcc_Prep : Prep ; -- auf + accusative, with contraction aufs
 
 --2 Verbs
 
@@ -383,8 +412,9 @@ mkV2 : overload {
 -- hidden from the document.
 
   Gender = MorphoGer.Gender ;
-  Case   = MorphoGer.Case ;
+  Case = MorphoGer.Case ;
   Number = MorphoGer.Number ;
+
   masculine = Masc ;
   feminine  = Fem ;
   neuter    = Neutr ;
@@ -537,7 +567,7 @@ mkV2 : overload {
     dunk + "el" => mk3A a (dunk + "ler") (dunk + "leste") ;
     te + "uer" => mk3A a (te + "urer") (te + "ureste") ;
     _ + "e"    => mk3A a (a + "r") (a + "ste") ;
-     _ + ("t" | "d" | "s" | "ß" | "sch" | "z" | "au" | "eu") => mk3A a (a + "er") (a + "este") ;
+    _ + ("t" | "d" | "s" | "ß" | "sch" | "z" | "au" | "eu") => mk3A a (a + "er") (a + "este") ;
     _          => mk3A a (a + "er") (a + "ste")
     } ;
 
@@ -567,10 +597,12 @@ mkV2 : overload {
 
   von_Prep   = mkPrep "von" "vom" "von der" "vom" dative ;
   zu_Prep    = mkPrep "zu" "zum" "zur" "zum" dative ;
+  bei_Prep   = mkPrep "bei" "beim" "bei der" "beim" dative ;
   inDat_Prep = mkPrep "in" "im" "in der" "im" dative ;
   inAcc_Prep = mkPrep "in" "in den" "in die" "ins" accusative ;
   anDat_Prep = mkPrep "an" "am" "an der" "am" dative ;
   anAcc_Prep = mkPrep "an" "an den" "an die" "ans" accusative ;
+  aufAcc_Prep = mkPrep "auf" "auf den" "auf die" "aufs" accusative ;
 
   mk6V geben gibt gib gab gaebe gegeben = 
     let
@@ -655,35 +687,34 @@ mkV2 : overload {
   mkV0  v = v ** {lock_V = <>} ;
 
   mkV2V = overload { -- default: object-control
-    mkV2V : V -> V2V 
+    mkV2V : V -> V2V
       = \v -> dirV2 v ** {isAux = False ; objCtrl = True ; lock_V2V = <>} ;  -- ermahne jmdn, sich zu waschen
-    mkV2V : V -> Prep -> V2V 
+    mkV2V : V -> Prep -> V2V
       = \v,p -> prepV2 v p ** {isAux = False ; objCtrl = True ; lock_V2V = <>} ;
     } ;
   auxV2V = overload {
-    auxV2V : V -> V2V 
+    auxV2V : V -> V2V
       = \v -> dirV2 v ** {isAux = True ; objCtrl = True ; lock_V2V = <>} ;  -- lasse jmdn sich waschen
-    auxV2V : V -> Prep -> V2V 
+    auxV2V : V -> Prep -> V2V
       = \v,p -> prepV2 v p ** {isAux = True ; objCtrl = True ; lock_V2V = <>} ;
     } ;
   subjV2V v = v ** {objCtrl = False} ;
 
   mkV2A = overload {
-    mkV2A : V -> V2A 
-      = \v -> dirV2 v ** {isAux = False ; lock_V2A = <>} ;
-    mkV2A : V -> Prep -> V2A 
+    mkV2A : V -> V2A = \v -> dirV2 v ** {isAux = False ; lock_V2A = <>} ;
+    mkV2A : V -> Prep -> V2A
       = \v,p -> prepV2 v p ** {isAux = False ; lock_V2A = <>} ;
     } ;
   mkV2S = overload {
     mkV2S : V -> V2S 
       = \v -> dirV2 v ** {isAux = False ; lock_V2S = <>} ;
-    mkV2S : V -> Prep -> V2S 
+    mkV2S : V -> Prep -> V2S
       = \v,p -> prepV2 v p ** {isAux = False ; lock_V2S = <>} ;
     } ;
   mkV2Q = overload {
-    mkV2Q : V -> V2Q 
+    mkV2Q : V -> V2Q
       = \v -> dirV2 v ** {isAux = False ; lock_V2Q = <>} ;
-    mkV2Q : V -> Prep -> V2Q 
+    mkV2Q : V -> Prep -> V2Q
       = \v,p -> prepV2 v p ** {isAux = False ; lock_V2Q = <>} ;
     } ;
 

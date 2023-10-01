@@ -13,6 +13,7 @@ flags
 lin
   add_V3 = dirV3 (prefixV "hinzu" (regV "fügen")) zu_Prep ;
   airplane_N = mkN "Flugzeug" "Flugzeuge" neuter ;
+  alas_Interj = {s = "ach"} ;
   already_Adv = mkAdv "schon" ;
   answer_V2S = mkV2S (regV "antworten") datPrep ;
   apartment_N = mkN "Wohnung" ;
@@ -58,7 +59,7 @@ lin
   clever_A = mk3A "klug" "klüger" "klügste" ;
   close_V2 = dirV2 Irreg.schließen_V ;
   coat_N = mkN "Jacke" | mkN "Mantel" "Mantel" masculine;
-  cold_A = regA "kalt" ;
+  cold_A = mk3A "kalt" "kälter" "kälteste" ;
   come_V = seinV (mk6V "kommen" "kommt" "komm" "kam" "käme" "gekommen") ;
   computer_N = reg2N "Rechner" "Rechner" masculine ;
   country_N = reg2N "Land" "Länder" neuter ;
@@ -185,7 +186,7 @@ lin
   sock_N = reg2N "Strumpf" "Strümpfe" masculine ;
   song_N = reg2N "Lied" "Lieder" neuter ;
   speak_V2 = dirV2 Irreg.sprechen_V ;
-  star_N = mkN "Sterne" ;
+  star_N = mkN "Stern" ;
   steel_N = mkN "Stahl" ;
   stone_N = mkN "Stein" ;
   stop_V = seinV Irreg.halten_V ;
@@ -211,7 +212,8 @@ lin
     dirV2 (irregV "verstehen" "versteht" "verstand" "verstände" "verstanden") ;
   university_N = reg2N "Universität" "Universitäten" feminine  ;
   village_N = reg2N "Dorf" "Dörfer" neuter ;
-  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" accusative) ;
+--  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" accusative) ;
+  wait_V2 = prepV2 (regV "warten") (mkPrep "auf" "auf den" "auf die" ("aufs" | "auf das") accusative);
   walk_V = seinV Irreg.gehen_V ;
   warm_A = mk3A "warm" "wärmer" "wärmste" ;
   war_N = mkN "Krieg" ;
@@ -235,14 +237,14 @@ lin
   dry_A = regA "trocken" ;
   dull_A = regA "stumpf" ;
   full_A = regA "voll" ;
-  heavy_A = mkA "schwer" "schwere" "schwerer" "schwerste" ;
+  heavy_A = mkA "schwer" "schwerer" "schwerste" ;
   near_A = mk3A "nahe" "näher" "nächste" ;
   rotten_A = regA "verdorben" ;
   round_A = regA "rund" ;
   sharp_A = mk3A "scharf" "schärfer" "schärfste" ;
   smooth_A = regA "glatt" ;
   straight_A = regA "gerade" ;
-  wet_A = regA "naß" ;
+  wet_A = mk4A "naß" "nass" "nasser" "nasseste" ;
   wide_A = regA "breit" ;
   animal_N = reg2N "Tier" "Tiere" neuter ;
   ashes_N = mkN "Asche" ;
@@ -295,7 +297,7 @@ lin
   sand_N = mkN "Sand" ;
   seed_N = mkN "Same" ;
   skin_N = mkN "Haut" "Häute" feminine ;
-  sky_N = mkN "Himmel" ;  ---- pl
+  sky_N = mkN "Himmel" ;
   smoke_N = mkN "Rauch" ;
   snow_N = mkN "Schnee" "Schneen" masculine ; ---- pl
   stick_N = mkN "Stock" "Stöcke" masculine ;

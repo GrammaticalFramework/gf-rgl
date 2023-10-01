@@ -36,14 +36,14 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     DetNPMasc det = {
       s = \\b,c => det.sp ! b ! Masc ! c ;
       a = agrgP3 Masc det.n ;
-      w = WLight ;
+      w = case det.isDef of {True => WLight ; _ => WHeavy} ;
       ext, rc = []
       } ;
 
     DetNPFem det = {
       s = \\b,c => det.sp ! b ! Fem ! c ;
       a = agrgP3 Fem det.n ;
-      w = WLight ;
+      w = case det.isDef of {True => WLight ; _ => WHeavy} ;--WLight ;
       ext, rc = []
       } ;
 
@@ -207,11 +207,10 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     PredetRNP pred rnp = rnp ** {                        -- HL 5/2022
       s = \\a,c => let n : Number = case pred.a of {PAg n => n ; _ => numberAgr a} ;
-                       g : Gender = genderAgr a ;
+                       g = genderAgr a ;
                        d = case pred.c.k of {NoCase => c ; PredCase k => k} ;
         in case rnp.isPron of {
-          True => pred.s ! Pl ! Masc ! c
-          ++ "von" ++ rnp.s ! a ! Dat ;
+          True => pred.s ! Pl ! Masc ! c ++ "von" ++ rnp.s ! a ! Dat ;
           _ => pred.s ! n ! genderAgr a ! c ++ pred.c.p ++ rnp.s ! a ! d} ;
       ext = rnp.ext ; rc = rnp.rc ;
       isPron = False} ;
@@ -228,11 +227,11 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     ReflA2RNP adj rnp = -- would need AP.c : Agr => Str*Str, not AP.c : Str*Str
       let                                            -- as we have no reflexive AP,
-        compl = appPrep adj.c2 (rnp.s ! agrP3 Sg) ; -- we use a fixed agreement
+        compl = appPrep adj.c2 (rnp.s ! agrP3 Sg) ;  -- we use a fixed agreement
       in {
         s = adj.s ! Posit ;
         isPre = True ;
-        c = case adj.c2.isPrep of {isPrep => <[], compl> ; _ => <compl, []>} ;
+        c = case adj.c2.isPrep of {isCase => <compl, []> ; _ => <[], compl>} ;
         ext = rnp.ext ++ rnp.rc
       } ;
 
@@ -252,7 +251,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       ** {isPron = False ; ext,rc = []} ;
 
     Base_rr_RNP x y = twoTable2 Agr Case x y ;
-    Base_nr_RNP x y = twoTable2 Agr Case {s = \\a,c => x.s ! False ! c ++ x.ext ++ x.rc} y ;
+    Base_nr_RNP x y = twoTable2 Agr Case {s = \\_,c => x.s ! False ! c ++ x.ext ++ x.rc} y ;
     Base_rn_RNP x y = twoTable2 Agr Case x {s = \\_,c => y.s ! False ! c ++ y.ext ++ y.rc} ;
 
     Cons_rr_RNP x xs = consrTable2 Agr Case comma x xs ;

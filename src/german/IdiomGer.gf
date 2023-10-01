@@ -25,8 +25,7 @@ concrete IdiomGer of Idiom = CatGer **
     ExistIP ip = {
       s = \\m,t,a,p => 
             let 
-              cls = 
-                (mkClause "es" (agrP3 Sg)  (predV geben)).s ! m ! t ! a ! p ;
+              cls = (mkClause "es" (agrP3 Sg)  (predV geben)).s ! m ! t ! a ! p ;
               who = ip.s ! Acc
             in table {
               QDir   => who ++ cls ! Inv ;
