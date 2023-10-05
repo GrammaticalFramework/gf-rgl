@@ -262,7 +262,7 @@ oper
   c65 : Str -> VForms -- 1 käydä
     = \s -> let kay = Predef.tk 2 s ; kavi = init kay + "vi" in
       vForms12 s (kay + "n") kay (kay + "vät") (kay + "kää") (kay + "dään")
-        (kavi + "n") kavi (kavi + "si") (kay + "nyt") (kay + "tty")
+        (kavi + "n") kavi (kavi + "si") (kay + "nyt") (kay + "ty")
         (kay + "nee") ; -- just one verb
   c66 : Str -> VForms -- 268 öristä
     = \s -> cKuunnella s (Predef.tk 2 s + "in") ;
