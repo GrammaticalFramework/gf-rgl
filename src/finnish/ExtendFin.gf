@@ -10,6 +10,8 @@ concrete ExtendFin of Extend =
     ,CardCNCard
     ,UttAccNP
     ,AdjAsCN, AdjAsNP
+    ,ApposNP
+    ,PresPartAP, PastPartAP
     ]
   with
     (Grammar = GrammarFin) **
@@ -240,5 +242,24 @@ lin CardCNCard card cn = {
 lin UttAccNP np = {s = P.addNegation np.isNeg ++ np.s ! NPAcc} ;
 lin AdjAsCN ap = {s = ap.s ! True ; postmod = \\_ => ap.p ; h = Back} ; ---- Harmony just a guess
 lin AdjAsNP ap = MassNP (AdjAsCN ap) ;
+lin ApposNP np1 np2 = np1 ** {s = \\npf => np1.s ! npf ++ np2.s ! NPSep} ;
+lin PresPartAP vp = {
+      s = \\_,nf => preCompVP vp (PresPartAct (AN nf)) ;
+      p = [] ;
+      hasPrefix = False
+      } ;
+lin PastPartAP vps = {
+      s = \\_,nf => preCompVP <vps : VP>  (PastPartAct (AN nf)) ;
+      p = vps.c2.s.p1 ;
+      hasPrefix = False
+      } ;
+
+oper
+  -- ruohoa syövä, Ranskassa valmistettu
+  preCompVP : S.VP -> VForm -> Str = \vp, vform ->
+    vp.s2 ! True ! Pos ! agrP3 Sg ++
+    vp.adv ! Pos ++
+    vp.s.s ! vform ++
+    vp.ext ;
 
 }

@@ -46,7 +46,7 @@ MODE = ''
 
 if __name__ == '__main__':
     if not sys.argv[1:]:
-        print('usage: read_wiktionary (raw | gf-cnc | gf-abs | gf-map | eval | eval-verbose)')
+        print('usage: read_wiktionary (raw | gf-cnc | gf-abs | gf-map | eval | eval-funs | eval-verbose | error-analysis)')
         exit()
     MODE = sys.argv[1]  # 
 
