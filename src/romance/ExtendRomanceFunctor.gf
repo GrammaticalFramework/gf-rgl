@@ -302,7 +302,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
       vps ** {
         s = auxvp.s ;
         agr = auxvp.agr ;
-        comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
+        comp  = \\a => (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ vps.comp ! a ++ agent ;
       } ;
 
 } ;

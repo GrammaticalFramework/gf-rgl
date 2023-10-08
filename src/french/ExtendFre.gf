@@ -5,7 +5,7 @@ concrete ExtendFre of Extend =
    [
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
    ExistCN, ExistMassCN, ExistPluralCN,
-   PassVPSlash, PassAgentVPSlash, ApposNP
+   PassVPSlash, PassAgentVPSlash, ApposNP, CompoundN
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarFre) **
@@ -50,7 +50,7 @@ oper
       vps ** {
          s = auxvp.s ;
          agr = auxvp.agr ;
-         comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
+         comp  = \\a => (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ vps.comp ! a ++ agent ;
         } ;
 
 lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
@@ -58,5 +58,7 @@ lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
                                comp =(np1.s ! c).comp ++ "," ++ (np2.s ! Nom).comp
                               } ;
     } ;
+
+lin CompoundN a b = lin N {s = \\n => b.s ! n ++ a.s ! Sg ; g = b.g} ; -- connessione internet = internet connection
 
 }
