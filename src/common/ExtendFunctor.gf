@@ -127,7 +127,7 @@ lin
   UttDatIP ip = UttAccIP (lin IP ip) ; -- whom (dative) ; DEFAULT who
   UttVPShort = UttVP ; -- have fun, as opposed to "to have fun" ; DEFAULT UttVP
 
-  TPasseSimple = Grammar.TPast ;   --# notpresent
+  TPastSimple = Grammar.TPast ;   --# notpresent
 
   SQuestVPS = variants {} ; -- : NP   -> VPS -> QS ;         -- has she walked
   QuestVPS = variants {} ; --  : IP   -> VPS -> QS ;         -- who has walked

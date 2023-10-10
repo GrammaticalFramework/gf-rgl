@@ -278,7 +278,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     UttDatIP ip = UttAccIP (lin IP ip) ; -- whom (dative) ; DEFAULT who
     UttVPShort = UttVP ;
 
-    TPasseSimple = {s = []} ** {t = RPasse} ;   --# notpresent
+    TPastSimple = {s = []} ** {t = RPasse} ;   --# notpresent
 
   oper
     quoted : Str -> Str = \s -> "\"" ++ s ++ "\"" ; ---- TODO bind ; move to Prelude?

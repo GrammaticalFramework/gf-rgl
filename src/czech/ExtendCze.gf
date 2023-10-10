@@ -27,7 +27,7 @@ concrete ExtendCze of Extend = CatCze **
     ,CompBareCN
     ,PiedPipingQuestSlash
     ,PiedPipingRelSlash
-    ,TPasseSimple
+    ,TPastSimple
     ]
   with (Grammar = GrammarCze)
     **

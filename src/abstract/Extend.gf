@@ -303,6 +303,6 @@ fun
   AnaphPron : NP -> Pron ;
 
 fun
-  TPasseSimple : Tense ;
+  TPastSimple : Tense ;
 
 }
