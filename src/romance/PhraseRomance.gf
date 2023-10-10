@@ -26,6 +26,6 @@ incomplete concrete PhraseRomance of Phrase =
     PConjConj conj = {s = conj.s2} ;
 
     NoVoc = {s = []} ;
-    VocNP np = {s = "," ++ (np.s ! Nom).ton} ;
+    VocNP np = {s = SOFT_BIND ++ "," ++ (np.s ! Nom).ton} ;
 
 }
