@@ -477,7 +477,7 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
 
     ia2e : Str -> Str =           -- to be used when the next syllable has vowel different from "а","ъ","о" or "у"
       \s -> case s of {
-              x + "я" + y@(["бвгджзклмнпрстфхцчш"]*)
+              x@(?+_) + "я" + y@(["бвгджзклмнпрстфхцчш"]*)
                 => x+"е"+y;
               _ => s
             };
