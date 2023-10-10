@@ -1,5 +1,5 @@
 --# -coding=utf8
-concrete CatBul of Cat = CommonX - [IAdv,AdV] ** open ResBul, Prelude, Predef, (R = ParamX) in {
+concrete CatBul of Cat = CommonX - [Temp,Tense,IAdv,AdV] ** open ResBul, Prelude, Predef, (R = ParamX) in {
 
   lincat
 -- Tensed/Untensed
@@ -10,6 +10,9 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV] ** open ResBul, Prelude, Predef, (
     SSlash = {s : Agr => Str ; c2 : Preposition} ;
 
 -- Sentence
+
+    Temp  = {s : Str ; t : ResBul.Tense ; a : R.Anteriority} ;
+    Tense = {s : Str ; t : ResBul.Tense} ;
 
     Cl = {s : ResBul.Tense => Anteriority => Polarity => Order => Str} ;
     ClSlash = {
@@ -115,7 +118,7 @@ concrete CatBul of Cat = CommonX - [IAdv,AdV] ** open ResBul, Prelude, Predef, (
     
   linref
     SSlash = \ss -> ss.s ! agrP3 (GSg Masc) ++ ss.c2.s;
-    ClSlash = \cl -> cl.s ! agrP3 (GSg Masc) ! Pres ! Simul ! Pos ! Main ++ cl.c2.s;
+    ClSlash = \cl -> cl.s ! agrP3 (GSg Masc) ! VPresent ! Simul ! Pos ! Main ++ cl.c2.s;
 
     VP = \vp -> linrefVP vp;
     VPSlash = \vps -> let vp : ResBul.VP

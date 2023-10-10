@@ -29,6 +29,7 @@ concrete IdiomBul of Idiom = CatBul ** open Prelude, ParadigmsBul, ResBul in {
                                  
                   present = verb ! (VPres   (numGenNum agr.gn) agr.p) ;
                   aorist  = verb ! (VAorist (numGenNum agr.gn) agr.p) ;
+                  imperfect = verb ! (VImperfect (numGenNum agr.gn) agr.p) ;
                   perfect = verb ! (VPerfect (aform agr.gn Indef (RObj Acc))) ;
                                  
                   auxPres    = auxBe ! VPres (numGenNum agr.gn) agr.p ;
@@ -37,14 +38,16 @@ concrete IdiomBul of Idiom = CatBul ** open Prelude, ParadigmsBul, ResBul in {
 
                   v : {aux1:Str; aux2:Str; main:Str}
                         = case <t,a> of {
-                            <Pres,Simul> => {aux1=[]; aux2=[]; main=present} 
+                            <VPresent,Simul> => {aux1=[]; aux2=[]; main=present} 
                ;  --# notpresent
-                            <Pres,Anter> => {aux1=[]; aux2=auxPres;   main=perfect} ;  --# notpresent
-                            <Past,Simul> => {aux1=[]; aux2=[]; main=aorist} ;  --# notpresent
-                            <Past,Anter> => {aux1=[]; aux2=auxAorist; main=perfect} ;  --# notpresent
-                            <Fut, Simul> => {aux1="ще"; aux2=[]; main=present} ;  --# notpresent
-                            <Fut, Anter> => {aux1="ще"++auxPres; aux2=[]; main=perfect} ;  --# notpresent
-                            <Cond,_>     => {aux1=auxCondS; aux2=[]; main=perfect}  --# notpresent
+                            <VPresent,Anter> => {aux1=[]; aux2=auxPres;   main=perfect} ;  --# notpresent
+                            <VPastSimple,Simul> => {aux1=[]; aux2=[]; main=aorist} ;  --# notpresent
+                            <VPastSimple,Anter> => {aux1=[]; aux2=auxAorist; main=perfect} ;  --# notpresent
+                            <VPastImperfect,Simul> => {aux1=[]; aux2=[]; main=imperfect} ;  --# notpresent
+                            <VPastImperfect,Anter> => {aux1=[]; aux2=auxAorist; main=perfect} ;  --# notpresent
+                            <VFut, Simul> => {aux1="ще"; aux2=[]; main=present} ;  --# notpresent
+                            <VFut, Anter> => {aux1="ще"++auxPres; aux2=[]; main=perfect} ;  --# notpresent
+                            <VCond,_>     => {aux1=auxCondS; aux2=[]; main=perfect}  --# notpresent
                           } ;
 
 	          in case o of {
