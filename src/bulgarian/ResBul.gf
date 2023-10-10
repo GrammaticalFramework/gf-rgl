@@ -541,7 +541,7 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
           present = verb.s ! asp ! (VPres   (numGenNum clitic.agr.gn) clitic.agr.p) ;
           presentImperf = verb.s ! Imperf ! (VPres   (numGenNum clitic.agr.gn) clitic.agr.p) ;
           aorist = verb.s ! asp ! (VAorist (numGenNum clitic.agr.gn) clitic.agr.p) ;
-          imperfect = verb.s ! asp ! (VImperfect (numGenNum clitic.agr.gn) clitic.agr.p) ;
+          imperfect = verb.s ! Imperf ! (VImperfect (numGenNum clitic.agr.gn) clitic.agr.p) ;
           perfect = verb.s ! asp ! (VPerfect (aform clitic.agr.gn Indef (RObj Acc))) ;
 
           auxPres   = auxBe ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ;
