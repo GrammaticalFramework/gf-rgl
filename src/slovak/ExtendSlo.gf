@@ -27,6 +27,7 @@ concrete ExtendSlo of Extend = CatSlo **
     ,CompBareCN
     ,PiedPipingQuestSlash
     ,PiedPipingRelSlash
+    ,TPasseSimple
     ]
   with (Grammar = GrammarSlo)
     **

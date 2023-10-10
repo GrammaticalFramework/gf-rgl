@@ -302,4 +302,7 @@ fun
 fun
   AnaphPron : NP -> Pron ;
 
+fun
+  TPasseSimple : Tense ;
+
 }
