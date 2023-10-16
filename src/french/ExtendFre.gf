@@ -61,4 +61,32 @@ lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
 
 lin CompoundN a b = lin N {s = \\n => b.s ! n ++ a.s ! Sg ; g = b.g} ; -- connessione internet = internet connection
 
+lin UseDAP = \dap ->
+      let
+        g = Masc ;
+        n = dap.n
+      in heavyNPpol dap.isNeg {
+        s = dap.spn ;
+        a = agrP3 g n ;
+        hasClit = False
+        } ;
+    UseDAPMasc = \dap ->
+      let
+        g = Masc ;
+        n = dap.n
+      in heavyNPpol dap.isNeg {
+        s = dap.sp ! g ;
+        a = agrP3 g n ;
+        hasClit = False
+        } ;
+    UseDAPFem dap =
+      let
+        g = Fem ;
+        n = dap.n
+      in heavyNPpol dap.isNeg {
+           s = dap.sp ! g ;
+           a = agrP3 g n ;
+           hasClit = False
+           } ;
+
 }

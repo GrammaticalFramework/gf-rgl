@@ -35,7 +35,10 @@ lin
   during_Prep = mkPrep "durante" ;
   either7or_DConj = {s1,s2 = "o" ; n = Sg} ;
   everybody_NP = makeNP ["todos"] Masc Pl ;
-  every_Det = mkDeterminer "cada" "cada" Sg False ;
+  every_Det = mkDeterminer "cada" "cada" Sg False ** {
+                 sp  = \\g,c => prepCase c ++ genForms "todos" "todas" ! g ;
+                 spn = \\c => prepCase c ++ "todo"
+              };
   everything_NP = pn2np (mkPN ["todo"] Masc) ;
   everywhere_Adv = ss ["en todas partes"] ;
   except_Prep = mkPrep "excepto" ;
@@ -75,7 +78,8 @@ lin
         }
     in {
       s = \\_ => ningun ;
-      sp = ningun ;
+      sp = \\_,_,_ => "nadie" ;
+      spn= \\c => prepCase c ++ "nada" ;
       s2 = [] ; isNeg = True
     } ;
   no_Utt = ss "no" ;
@@ -100,13 +104,13 @@ lin
   someSg_Det = mkDeterminer "algún" "alguna" Sg False ;
   something_NP = pn2np (mkPN ["algo"] Masc) ;
   somewhere_Adv = ss ["en alguna parte"] ;
-  that_Quant = mkQuantifier "ese" "esa" "esos" "esas" ;
+  that_Quant = mkQuantifier "ese" "esa" "esos" "esas" "eso" ;
   there_Adv = mkAdv "allí" ; -- allá
   there7to_Adv = mkAdv ["para allí"] ;
   there7from_Adv = mkAdv ["de allí"] ;
   therefore_PConj = ss ["por eso"] ;
   they_Pron = agr2pron ! {g=Masc ; n=Pl ; p=P3} ;
-  this_Quant = mkQuantifier "este" "esta" "estos" "estas" ;
+  this_Quant = mkQuantifier "este" "esta" "estos" "estas" "esto" ;
   through_Prep = mkPrep "por" ;
   too_AdA = ss "demasiado" ;
   to_Prep = complDat ;

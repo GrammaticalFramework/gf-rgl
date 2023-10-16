@@ -39,6 +39,7 @@ concrete ExtraIta of ExtraItaAbs = ExtraRomanceIta **
     PossFamQuant p = {
       s = \\_,n,g,c => case n of {Sg => prepCase c ; _ => possCase g n c} ++ p.poss ! n ! g ;
       sp = \\ n,g,c => case n of {Sg => prepCase c ; _ => possCase g n c} ++ p.poss ! n ! g ;
+      spn= \\ c => prepCase c ++ p.poss ! Sg ! Masc ;
       s2 = [] ; isNeg = False
       } ;
 

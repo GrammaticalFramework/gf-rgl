@@ -67,12 +67,14 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
       n : Number ;
       s2 : Str ;            -- -ci
       sp : Gender => Case => Str ;   -- substantival: mien, mienne
+      spn: Case => Str ;
       isNeg : Bool -- negative element, e.g. aucun
       } ;
     Quant = {
       s  : Bool => Number => Gender => Case => Str ;
       s2 : Str ;
       sp : Number => Gender => Case => Str ;
+      spn: Case => Str ;  -- neutral Spa: esto, eso, Por: isto, isso
       isNeg : Bool -- negative element, e.g. aucun
       } ;
     Predet  = {

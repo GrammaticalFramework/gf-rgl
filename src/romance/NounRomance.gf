@@ -55,6 +55,8 @@ incomplete concrete NounRomance of Noun =
     DetQuantOrd quant num ord = {
       s,sp = \\g,c => quant.s ! num.isNum ! num.n ! g ! c ++ num.s ! g ++
                    ord.s ! aagr g num.n ;
+      spn  = \\c => quant.s ! num.isNum ! num.n ! Masc ! c ++ num.s ! Masc ++
+                    ord.s ! aagr Masc num.n ;
       s2 = quant.s2 ;
       n = num.n ;
       isNeg = quant.isNeg
@@ -65,6 +67,10 @@ incomplete concrete NounRomance of Noun =
       sp = \\g,c => case num.isNum of {
         True  => quant.s ! True ! num.n ! g ! c ++ num.s ! g ;
         False => quant.sp ! num.n ! g ! c ++ num.s ! g
+        } ;
+      spn= \\c => case num.isNum of {
+        True  => quant.s ! True ! num.n ! Masc ! c ++ num.s ! Masc ;
+        False => quant.spn ! c ++ num.s ! Masc
         } ;
       s2 = quant.s2 ;
       n  = num.n ;
@@ -84,6 +90,7 @@ incomplete concrete NounRomance of Noun =
     PossPron p = {
       s = \\_,n,g,c => possCase g n c ++ p.poss ! n ! g ; ---- il mio!
       sp = \\ n,g,c => possCase g n c ++ p.poss ! n ! g ; ---- not for Fre
+      spn= \\ c => possCase Masc Sg c ++ p.poss ! Sg ! Masc ; ---- not for Fre
       s2 = [] ;
       isNeg = False
       } ;
@@ -117,6 +124,7 @@ incomplete concrete NounRomance of Noun =
     DefArt = {
       s = \\_,n,g,c => artDef False g n c ;
       sp = \\n,g,c => artDef True g n c ;
+      spn= \\c => artDef True Masc Sg c ;
       s2 = [] ;
       isNeg = False
       } ;
@@ -124,6 +132,7 @@ incomplete concrete NounRomance of Noun =
     IndefArt = {
       s = \\b,n,g,c => if_then_Str b (prepCase c) (artIndef False g n c) ;
       sp = \\n,g,c => artIndef True g n c ;
+      spn= \\c => artIndef True Masc Sg c ;
       s2 = [] ;
       isNeg = False
       } ;
@@ -202,6 +211,7 @@ incomplete concrete NounRomance of Noun =
       n = det.n ;
       s2 = det.s2 ;   -- -ci
       sp = \\g,c => det.s ! g ! c ++ ap.s ! genNum2Aform g det.n ;
+      spn= \\c => det.s ! Masc ! c ++ ap.s ! genNum2Aform Masc det.n ;
       isNeg = det.isNeg
       } ;
 

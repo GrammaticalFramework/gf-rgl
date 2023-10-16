@@ -239,29 +239,27 @@ oper
     s = \\ag => adj.s ! genNum2Aform ag.g ag.n ;
     } ;
 
-  mkQuantifier : (ese,esa,esos,esas : Str) -> Quant = \ese,esa,esos,esas->
+  mkQuantifier : (ese,esa,esos,esas,eso : Str) -> Quant = \ese,esa,esos,esas,eso->
     let
-      se  : Str = Predef.drop 1 ese ;
-      sa  : Str = Predef.drop 1 esa ;
-      sos : Str = Predef.drop 1 esos ;
-      sas : Str = Predef.drop 1 esas ;
-      E   : Str = "é" ;
       attrforms : Number => Gender => Case => Str = table {
         Sg => \\g,c => prepCase c ++ genForms ese esa ! g ;
         Pl => \\g,c => prepCase c ++ genForms esos esas ! g ----
         } ;
       npforms : Number => Gender => Case => Str = table {
-        Sg => \\g,c => prepCase c ++ genForms (E + se)  (E + sa)  ! g ;
-        Pl => \\g,c => prepCase c ++ genForms (E + sos) (E + sas) ! g }
+        Sg => \\g,c => prepCase c ++ genForms ese  esa  ! g ;
+        Pl => \\g,c => prepCase c ++ genForms esos esas ! g }
     in lin Quant {
       s = \\_ => attrforms ;
       s2 = [] ;
-      sp = npforms  ; isNeg = False
+      sp = npforms ;
+      spn= \\c => prepCase c ++ eso ;
+      isNeg = False
       } ;
 
   mkDeterminer : (mucho,mucha : Str) -> Number -> Bool -> Det = \mucho,mucha,number,neg ->
     lin Det {
       s,sp = \\g,c => prepCase c ++ genForms mucho mucha ! g ;
+      spn = \\c => prepCase c ++ mucho ;
       n = number;
       s2 = [] ;
       isNeg = neg

@@ -23,6 +23,7 @@ oper
     in lin Quant {
     s = \\_ => aucun ;
     sp = aucun ;
+    spn= \\c => prepCase c ++ sm ;
     s2 = [] ;
     isNeg = False
     } ;
@@ -38,9 +39,15 @@ oper
 
   mkInterj : Str -> Interj = \s -> lin Interj (ss s) ;
   mkDet = overload {
-    mkDet : Str -> Det = \s -> lin Det {s,sp = \\_,c => prepCase c ++ s ; n = Sg ; s2 = [] ; isNeg = False} ;
+    mkDet : Str -> Det = \s -> lin Det {
+      s,sp = \\_,c => prepCase c ++ s ;
+      spn = \\c => prepCase c ++ s ;
+      n = Sg ; s2 = [] ; isNeg = False
+    } ;
     mkDet : Str -> Str -> Number -> Det = \m,f,n -> lin Det {
-      s,sp = \\g,c => prepCase c ++ case g of {Masc => m ; Fem => f} ; n = n ; s2 = [] ; isNeg = False
+      s,sp = \\g,c => prepCase c ++ case g of {Masc => m ; Fem => f} ;
+      spn = \\c => prepCase c ++ m ;
+      n = n ; s2 = [] ; isNeg = False
       } ;
     } ;
 

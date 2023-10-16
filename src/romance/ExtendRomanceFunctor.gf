@@ -27,6 +27,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
       let denp = (np.s ! ResRomance.genitive).ton in {
         s = \\_,_,_,_ => [] ;
         sp = \\_,_,_ => denp ;
+        spn= \\_ => denp ;
         s2 = denp ;
         isNeg = False ;
       } ;
@@ -240,7 +241,16 @@ incomplete concrete ExtendRomanceFunctor of Extend =
            } ;
 
 
-    UseDAP, UseDAPMasc = \dap ->
+    UseDAP = \dap ->
+      let
+        g = Masc ;
+        n = dap.n
+      in heavyNPpol dap.isNeg {
+        s = dap.spn ;
+        a = agrP3 g n ;
+        hasClit = False
+        } ;
+    UseDAPMasc = \dap ->
       let
         g = Masc ;
         n = dap.n

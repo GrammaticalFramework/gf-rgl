@@ -36,13 +36,17 @@ lin
   every_Det = {
     s  = \\_,c => prepCase c ++ "chaque" ;
     sp = \\g,c => prepCase c ++ genForms "chacun" "chacune" ! g ;
-    n = Sg ; 
+    spn= \\c => prepCase c ++ "tout" ;
+    n = Sg ;
     s2 = [] ;
     isNeg = False
     } ;
   everything_NP = pn2np (mkPN ["tout"] Masc) ;
   everywhere_Adv = ss "partout" ;
-  few_Det  = {s,sp = \\g,c => prepCase c ++ "peu" ++ elisDe ; n = Pl ; s2 = [] ; isNeg = False} ;
+  few_Det  = {
+    s,sp = \\g,c => prepCase c ++ "peu" ++ elisDe ;
+    spn  = \\c => prepCase c ++ "peu" ++ elisDe ;
+    n = Pl ; s2 = [] ; isNeg = False} ;
 --- DEPREC first_Ord = {s = \\ag => (regA "premier").s ! Posit ! AF ag.g ag.n} ;
   for_Prep = mkPreposition "pour" ;
   from_Prep = complGen ; ---
@@ -68,10 +72,15 @@ lin
       "il" (elision "l") "lui" "lui" "son" (elisPoss "s") "ses"
       Masc Sg P3 ;
   less_CAdv = X.mkCAdv "moins" conjThan ;
-  many_Det = {s,sp = \\_,c => prepCase c ++ "plusieurs" ; n = Pl ; s2 = [] ; isNeg = False} ;
+  many_Det = {
+    s,sp = \\_,c => prepCase c ++ "plusieurs" ;
+    spn = \\c => prepCase c ++ "plusieurs" ;
+    n = Pl ; s2 = [] ; isNeg = False} ;
   more_CAdv = X.mkCAdv "plus" conjThan ;
   most_Predet = {s = \\_,c => prepCase c ++ ["la plupart"] ; c = CPrep P_de ; a = PNoAg} ;
-  much_Det = {s,sp = \\_,c => prepCase c ++ "beaucoup" ++ elisDe ; n = Pl ; s2 = [] ; isNeg = False} ;
+  much_Det = {s,sp = \\_,c => prepCase c ++ "beaucoup" ++ elisDe ;
+              spn = \\c => prepCase c ++ "beaucoup" ++ elisDe ;
+              n = Pl ; s2 = [] ; isNeg = False} ;
   must_VV = mkVV (devoir_V2 ** {lock_V = <>}) ;
 ---b  no_Phr = ss "non" ;
   no_Utt = ss "non" ;
@@ -91,8 +100,14 @@ lin
 
   so_AdA = ss "si" ;
   somebody_NP = pn2np (mkPN ["quelqu'un"] Masc) ;
-  somePl_Det = {s,sp = \\_,c => prepCase c ++ "quelques" ; n = Pl ; s2 = [] ; isNeg = False} ; ---- sp
-  someSg_Det = {s,sp = \\_,c => prepCase c ++ "quelque" ; n = Sg ; s2 = [] ; isNeg = False} ; ----sp
+  somePl_Det = {
+    s,sp = \\_,c => prepCase c ++ "quelques" ;
+    spn = \\c => prepCase c ++ "quelque chose" ;
+    n = Pl ; s2 = [] ; isNeg = False} ; ---- sp
+  someSg_Det = {
+    s,sp = \\_,c => prepCase c ++ "quelque" ;
+    spn = \\c => prepCase c ++ "quelque chose" ;
+    n = Sg ; s2 = [] ; isNeg = False} ; ----sp
   something_NP = pn2np (mkPN ["quelque chose"] Masc) ;
   somewhere_Adv = ss ["quelque part"] ; --- ne - pas
 
@@ -106,6 +121,7 @@ lin
       Sg => \\g,c => prepCase c ++ genForms "celui-là" "celle-là" ! g ;
       Pl => \\g,c => prepCase c ++ genForms "ceux-là" "celles-là" ! g
       } ;
+    spn= \\c => prepCase c ++ "celui-là" ;
     s2 = [] ; ---- "-là" ;
     isNeg = False
     } ;
@@ -130,6 +146,7 @@ lin
       Sg => \\g,c => prepCase c ++ genForms "celui-ci" "celle-ci" ! g ;
       Pl => \\g,c => prepCase c ++ genForms "ceux-ci" "celles-ci" ! g
       } ;
+    spn= \\c => prepCase c ++ "cela" ;
     s2 = [] ; ---- "-ci"
     isNeg = False
     } ;
@@ -188,6 +205,7 @@ lin
     in {
     s = \\_ => aucun ;
     sp = aucun ;
+    spn= aucun ! Sg ! Masc ;
     s2 = [] ;
     isNeg = True
     } ;

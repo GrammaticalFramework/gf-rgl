@@ -31,10 +31,16 @@ lin
   during_Prep = mkPrep "durante" ;
   either7or_DConj = {s1,s2 = "o" ; n = Sg} ;
   everybody_NP = makeNP ["tutti"] Masc Pl ;
-  every_Det = {s,sp = \\_,_ => "ogni" ; n = Sg ; s2 = [] ; isNeg = False} ;
+  every_Det = {
+    s,sp = \\_,_ => "ogni" ;
+    spn = \\c => prepCase c ++ "tutto" ;
+    n = Sg ; s2 = [] ; isNeg = False} ;
   everything_NP = pn2np (mkPN ["tutto"] Masc) ;
   everywhere_Adv = ss "dappertutto" ;
-  few_Det  = {s,sp = \\g,c => prepCase c ++ genForms "pochi" "poche" ! g ; n = Pl ; s2 = [] ; isNeg = False} ;
+  few_Det  = {
+    s,sp = \\g,c => prepCase c ++ genForms "pochi" "poche" ! g ;
+    spn = \\c => prepCase c ++ "pochi" ;
+    n = Pl ; s2 = [] ; isNeg = False} ;
 ----  first_Ord = {s = \\ag => (regA "primo").s ! Posit ! AF ag.g ag.n} ;
   for_Prep = mkPrep "per" ;
   from_Prep = da_Prep ;
@@ -60,11 +66,17 @@ lin
       "lui" "lo" "gli" "glie" "lui" "suo" "sua" "suoi" "sue"
       Masc Sg P3 ;
   less_CAdv = X.mkCAdv "meno" conjThan ;
-  many_Det = {s,sp = \\g,c => prepCase c ++ genForms "molti" "molte" ! g ; n = Pl ; s2 = [] ; isNeg = False} ;
+  many_Det = {
+    s,sp = \\g,c => prepCase c ++ genForms "molti" "molte" ! g ;
+    spn = \\c => prepCase c ++ "molto" ;
+    n = Pl ; s2 = [] ; isNeg = False} ;
   more_CAdv = X.mkCAdv "più" conjThan ;
   most_Predet = {s = \\_,c => prepCase c ++ ["la maggior parte"] ; c = CPrep P_di ;
     a = PNoAg} ;
-  much_Det = {s,sp = \\g,c => prepCase c ++ genForms "molto" "molta" ! g ; n = Sg ; s2 = [] ; isNeg = False} ;
+  much_Det = {
+    s,sp = \\g,c => prepCase c ++ genForms "molto" "molta" ! g ;
+    spn = \\c => prepCase c ++ "molto" ;
+    n = Sg ; s2 = [] ; isNeg = False} ;
   must_VV = mkVV (verboV (dovere_47 "dovere")) ;
   no_Utt = ss "no" ;
   on_Prep = {s = [] ; c = CPrep P_su ; isDir = False} ;
@@ -83,8 +95,14 @@ lin
       Fem Sg P3 ;
   so_AdA = ss "così" ;
   somebody_NP = pn2np (mkPN ["qualcuno"] Masc) ;
-  somePl_Det = {s,sp = \\_,c => prepCase c ++ "qualche" ; n = Pl ; s2 = [] ; isNeg = False} ;
-  someSg_Det = {s,sp = \\_,c => prepCase c ++ "qualche" ; n = Sg ; s2 = [] ; isNeg = False} ;
+  somePl_Det = {
+    s,sp = \\_,c => prepCase c ++ "qualche" ;
+    spn = \\c => prepCase c ++ "qualche cosa" ;
+    n = Pl ; s2 = [] ; isNeg = False} ;
+  someSg_Det = {
+    s,sp = \\_,c => prepCase c ++ "qualche" ;
+    spn = \\c => prepCase c ++ "qualche cosa" ;
+    n = Sg ; s2 = [] ; isNeg = False} ;
   something_NP = pn2np (mkPN ["qualche cosa"] Masc) ;
   somewhere_Adv = ss ["qualche parte"] ;
   that_Quant = let
@@ -98,6 +116,7 @@ lin
         quello (elision "quel" "quell'" "quello") 
                (elision "quei" "quegli" "quegli")  ;
       sp = quello "quello" "quelli" ;
+      spn= \\c => prepCase c ++ "quello" ;
       s2 = [] ;
     isNeg = False
       } ;
@@ -118,6 +137,7 @@ lin
     in {
       s = \\_ => questo ;
       sp = questo ;
+      spn= \\c => prepCase c ++ "questo" ;
       s2 = [] ;
     isNeg = False
       } ;
@@ -169,6 +189,7 @@ lin
     in {
     s = \\_ => aucun ;
     sp = aucun ;
+    spn= \\c => prepCase c ++ "nessuno" ;
     s2 = [] ;
     isNeg = True
     } ;

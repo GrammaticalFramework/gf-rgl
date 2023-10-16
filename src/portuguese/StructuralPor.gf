@@ -102,6 +102,7 @@ concrete StructuralPor of Structural = CatPor **
       in {
         s = \\_ => nenhum ;
         sp = nenhum ;
+        spn= \\c => prepCase c ++ "nada" ;
         s2 = [] ; isNeg = True
       } ;
     no_Utt = ss "não" ;
@@ -124,13 +125,13 @@ concrete StructuralPor of Structural = CatPor **
     someSg_Det = mkDeterminer "algum" "alguma" Sg False ;
     something_NP = pn2np (mkPN "algo" Masc) ;
     somewhere_Adv = ss ["em algum lugar"] ;
-    that_Quant = mkQuantifier "esse" "essa" "esses" "essas" ;
+    that_Quant = mkQuantifier "esse" "essa" "esses" "essas" "isso" ;
     there_Adv = mkAdv "ali" ; -- lá
     there7to_Adv = mkAdv ["para lá"] ;
     there7from_Adv = mkAdv "dali" ;
     therefore_PConj = ss ["por isso"] ;
 
-    this_Quant = mkQuantifier "este" "esta" "estes" "estas" ;
+    this_Quant = mkQuantifier "este" "esta" "estes" "estas" "isto" ;
     through_Prep = mkPrep [] ablative ; -- por
     too_AdA = ss "demasiado" ; -- o certo seria demais como postfix
     to_Prep = complDat ;
