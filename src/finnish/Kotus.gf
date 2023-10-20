@@ -1,5 +1,5 @@
 
-resource Kotus = open MorphoFin, Prelude in {
+resource Kotus = open MorphoFin, Prelude, Predef in {
   flags coding=utf8 ;
 
 -- interpretations of paradigms in KOTUS word list, used in DictFin.
@@ -100,9 +100,21 @@ oper
   d24 : Str -> NForms -- 20 uni
     = \s -> dArpi s (init s + "en") ;
   d25 : Str -> NForms -- 9 tuomi
-    = \s -> dArpi s (init s + "en") ;
+    -- Class 25 is a bit heterogeneous, lumi~lunta,liemi~lientä vs. luomi~luomea (?luonta).
+    -- To force e.g. toimi~tointa, use the 4-argument smart paradigm. /IL 2023
+    -- TODO: how about forcing pl genitive also with nt?
+    = \s ->
+       let defaultNForms : NForms = dArpi s (init s + "en") ;
+        in case s of {
+            "lumi"  => exceptSgPart defaultNForms "lunta" ;
+            "liemi" => exceptSgPart defaultNForms "lientä" ;
+            _       => defaultNForms } ;
   d26 : Str -> NForms -- 113 ääri
-    = \s -> dArpi s (init s + "en") ;
+-- kielten,puolten,vuorten; default mkN gives kielien,puolien,vuorien
+    = \s ->
+       let defaultNForms : NForms = dArpi s (init s + "en") ;
+           puolten : Str = init s + "ten" ;
+        in exceptPlGen defaultNForms puolten ;
   d27 : Str -> NForms -- 23 vuosi
     = \s -> dArpi s (Predef.tk 2 s + "den") ;
   d28 : Str -> NForms -- 13 virsi
@@ -132,7 +144,13 @@ oper
   d33 : Str -> NForms -- 168 väistin
     = \s -> dLiitin s (init s + "men") ;
   d33A : Str -> NForms -- 181 yllytin
-    = \s -> dLiitin s (strongGrade (init s) + "men") ;
+    = \s -> let
+        pyyhkimen : Str = case s of { -- strongGrade doesn't work for all
+          x + "hin" => x + "hkimen" ;  -- pyyhin~pyyhkimen
+          x + "jin" => x + "kimen" ;   -- suljin~sulkimen
+          _ => strongGrade (init s) + "men"
+        } ;
+      in dLiitin s pyyhkimen ;
   d34 : Str -> NForms -- 1 alaston
     = \s -> let alastom = init s in
       nForms10
@@ -322,5 +340,17 @@ oper
 --- this is a lot slower
   fcompoundNK : (Str -> NForms) -> Str -> Str -> NForms = \d,x,y ->
     let ys = d y in \\v => x + ys ! v ;
+
+-- 25, 26 etc. should override the default dArpi on singular partitive and plural genitive
+-- lunta, *lumea, puolten, *puolien
+  exceptSgPart : NForms -> Str -> NForms = \defaultNForms,lunta ->
+    table {
+      2 => lunta ;
+      m => defaultNForms ! m } ;
+
+  exceptPlGen : NForms -> Str -> NForms = \defaultNForms,puolten ->
+    table {
+      5 => puolten ;
+      m => defaultNForms ! m } ;
 
 }
