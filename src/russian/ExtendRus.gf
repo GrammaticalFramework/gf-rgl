@@ -23,6 +23,9 @@ concrete ExtendRus of Extend =
     --ConjRNP, Cons_nr_RNP, Cons_rr_RNP,
     DetNPMasc,
     DetNPFem,
+    UseDAP,
+    UseDAPMasc,
+    UseDAPFem,
     -- EmbedPresPart, EmptyRelSlash,
     ExistsNP,
     -- ExistCN, ExistMassCN, ExistPluralCN,
@@ -204,6 +207,41 @@ lin
 
   -- : Det -> NP ;
   DetNPMasc det =
+    let g = Masc in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
+
+  UseDAP det =
+    let g = det.g in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
+
+  -- : DAP -> NP ;
+  UseDAPFem det =
+    let g = Fem in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
+
+  -- : Det -> NP ;
+  UseDAPMasc det =
     let g = Masc in {
       s=case det.type of {
         EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
