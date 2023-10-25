@@ -140,6 +140,8 @@ interface DiffRomance = open CommonRomance, Prelude in {
 param
   Case = Nom | Acc | CPrep Prepos ;
 
+  NRelType = NRelPrep Prepos | NRelNoPrep ; -- How do build a compound noun
+
 oper
   Verb = {s : VF => Str ; vtyp : VType ; p : Str} ;
 

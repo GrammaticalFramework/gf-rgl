@@ -102,7 +102,7 @@ oper
 --2 Nouns
 
   regN : Str -> N ; --%
-  regN x = lin N (mkNomReg x) ;
+  regN x = lin N (mkNomReg x ** {relType=NRelPrep P_de}) ;
 
   femN  : N -> N ; --%
   femN n = n ** {g = feminine} ;
@@ -111,7 +111,7 @@ oper
   mascN n = n ** {g = masculine} ;
 
   mk2N : (bastão, bastões : Str) -> Gender -> N ; --%
-  mk2N x y g = lin N (mkNounIrreg x y g) ;
+  mk2N x y g = lin N (mkNounIrreg x y g ** {relType=NRelPrep P_de}) ;
 
   -- The regular function takes the singular form and the gender, and
   -- computes the plural and the gender by a heuristic (see MorphoPor

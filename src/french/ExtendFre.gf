@@ -59,7 +59,16 @@ lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
                               } ;
     } ;
 
-lin CompoundN a b = lin N {s = \\n => b.s ! n ++ a.s ! Sg ; g = b.g} ; -- connessione internet = internet connection
+lin CompoundN a b = lin N {
+      s = \\n => b.s ! n ++
+                 case b.relType of {
+                   NRelPrep p => prepCase (CPrep p) ;  -- tasa de suicidio
+                   NRelNoPrep => []                    -- connessione internet = internet connection
+                 } ++
+                 a.s ! Sg ;
+      g = b.g ;
+      relType = b.relType
+      } ;
 
 lin UseDAP = \dap ->
       let

@@ -393,16 +393,16 @@ oper
   regGenN : Str -> Gender -> N ;
   regN : Str -> N ;
   mk2N  : (oeil,yeux : Str) -> Gender -> N ;
-  mk2N x y g = mkCNomIrreg x y g ** {lock_N = <>} ;
+  mk2N x y g = mkCNomIrreg x y g ** {relType = NRelPrep P_de; lock_N = <>} ;
   regN x = regGenN x g where {
     g = case <x : Str> of {
      _ + ("e" | "ion") => Fem ;
      _ => Masc
      }
     } ;
-  regGenN x g = mkNomReg x g ** {lock_N = <>} ;
+  regGenN x g = mkNomReg x g ** {relType = NRelPrep P_de; lock_N = <>} ;
   compN : N -> Str -> N ;
-  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; lock_N = <>} ;
+  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; relType = NRelPrep P_de ; lock_N = <>} ;
 
   mkN = overload {
     mkN : Str -> N = regN ;

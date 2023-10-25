@@ -110,9 +110,9 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
     A  = {s : AForm => Str ; compar : ComparAgr => Str ; isPre : Bool ; copTyp : CopulaType ; isDeg : Bool} ;
     A2 = {s : AForm => Str ; compar : ComparAgr => Str ; c2 : Compl ; copTyp : CopulaType ; isDeg : Bool} ;
 
-    N  = Noun ;
-    N2 = Noun  ** {c2 : Compl} ;
-    N3 = Noun  ** {c2,c3 : Compl} ;
+    N  = Noun  ** {relType : NRelType};
+    N2 = Noun  ** {relType : NRelType; c2 : Compl} ;
+    N3 = Noun  ** {relType : NRelType; c2,c3 : Compl} ;
     GN, PN = {s : Str ; g : Gender} ;
     SN = {s : Gender => Str ; pl : Str} ;
     LN = {s  : Str;

@@ -67,10 +67,14 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
 
   lin
     CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
-      s = \\n => noun2.s ! n
-        ++ variants {"de" ; genForms "do" "da" ! noun.g}
-        ++ noun.s ! Sg ;
-      g = noun2.g
+      s = \\n => noun2.s ! n ++
+                 case noun2.relType of {
+                   NRelPrep p => artDef True noun.g Sg (CPrep p) ;  -- tasa de suicidio
+                   NRelNoPrep => []                        -- connessione internet = internet connection
+                 } ++
+                 noun.s ! Sg ;
+      g = noun2.g ;
+      relType = noun2.relType
       } ;
 
     CompoundAP noun adj = {

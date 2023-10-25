@@ -378,11 +378,11 @@ oper
   in_Prep = {s = [] ; c = CPrep P_in ; isDir = False ; lock_Prep = <>} ;
   su_Prep = {s = [] ; c = CPrep P_su ; isDir = False ; lock_Prep = <>} ;
 
-  mk2N x y g = mkNounIrreg x y g ** {lock_N = <>} ;
-  regN x = mkNomReg x ** {lock_N = <>} ;
-  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; lock_N = <>} ;
-  femN x = {s = x.s ; g = feminine ; lock_N = <>} ;
-  mascN x = {s = x.s ; g = masculine ; lock_N = <>} ;
+  mk2N x y g = mkNounIrreg x y g ** {relType=NRelPrep P_da; lock_N = <>} ;
+  regN x = mkNomReg x ** {relType=NRelPrep P_da; lock_N = <>} ;
+  compN x y = x ** {s = \\n => x.s ! n ++ y} ;
+  femN x = {s = x.s ; g = feminine ; relType=NRelPrep P_da; lock_N = <>} ;
+  mascN x = {s = x.s ; g = masculine ; relType=NRelPrep P_da; lock_N = <>} ;
 
 
   mk2N2 = \n,p -> n ** {lock_N2 = <> ; c2 = p} ;
@@ -518,7 +518,7 @@ oper
 
   mkN = overload {
     mkN : (cane : Str) -> N = regN ;
-    mkN : (carne : Str) -> Gender -> N = \n,g -> {s = (regN n).s ; g = g ; lock_N = <>} ;
+    mkN : (carne : Str) -> Gender -> N = \n,g -> (regN n) ** {g = g} ;
     mkN : (uomo,uomini : Str) -> Gender -> N = mk2N ;
     mkN : N -> Str -> N = compN
     } ;

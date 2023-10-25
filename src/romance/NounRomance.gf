@@ -158,11 +158,13 @@ incomplete concrete NounRomance of Noun =
     ComplN2 f x = {
       s = \\n => f.s ! n ++ appCompl f.c2 x ;
       g = f.g ;
+      relType = f.relType
       } ;
 
     ComplN3 f x = {
       s = \\n => f.s ! n ++ appCompl f.c2 x ;
       g = f.g ;
+      relType = f.relType ;
       c2 = f.c3
       } ;
 
