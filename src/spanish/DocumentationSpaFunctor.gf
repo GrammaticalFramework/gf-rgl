@@ -88,7 +88,7 @@ lin
            True => heading2 (heading comparative_Parameter) ++
                    frameTable (
                      tr (th (heading singular_Parameter)   ++ th (heading plural_Parameter)) ++
-                     tr (td (adj.s ! genNum2Aform Masc Sg) ++ td (adj.s ! genNum2Aform Masc Pl))
+                     tr (td (adj.compar ! Sg) ++ td (adj.compar ! Pl))
                    ) ;
            False=> []
          }
