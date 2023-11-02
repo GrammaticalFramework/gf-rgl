@@ -83,7 +83,15 @@ lin
            tr (th ""                            ++ th (heading singular_Parameter)  ++ th  (heading plural_Parameter)) ++
            tr (th (heading masculine_Parameter) ++ td (adj.s ! genNum2Aform Masc Sg) ++ td (adj.s ! genNum2Aform Masc Pl)) ++
            tr (th (heading feminine_Parameter)  ++ td (adj.s ! genNum2Aform Fem Sg)  ++ td (adj.s ! genNum2Aform Fem Pl))
-         )
+         ) ++
+         case adj.isDeg of {
+           True => heading2 (heading comparative_Parameter) ++
+                   frameTable (
+                     tr (th (heading singular_Parameter)   ++ th (heading plural_Parameter)) ++
+                     tr (td (adj.s ! genNum2Aform Masc Sg) ++ td (adj.s ! genNum2Aform Masc Pl))
+                   ) ;
+           False=> []
+         }
     } ;
 
   InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
