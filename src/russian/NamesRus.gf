@@ -41,7 +41,7 @@ lin FullName gn sn =
     a=Ag (gennum ln.g ln.n) P3
     } ;   -- Does NP need animacy?
 
-  InLN ln = ss (applyPrep {s=v_prep_mod; c=Loc; hasPrep=True} {
+  InLN ln = ss (applyPrep ln.c {
     s=ln.s ;
     pron=False;
     a=Ag (gennum ln.g ln.n) P3

@@ -12,6 +12,7 @@ lincat
   } ;
   LN = {
     s : Case => Str ;
+    c : ResRus.ComplementCase ;
     g : Gender ;
     n : Number ;
     anim : Animacy
