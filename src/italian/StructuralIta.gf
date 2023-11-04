@@ -34,13 +34,13 @@ lin
   every_Det = {
     s,sp = \\_,_ => "ogni" ;
     spn = \\c => prepCase c ++ "tutto" ;
-    n = Sg ; s2 = [] ; isNeg = False} ;
+    n = Sg ; s2 = \\g => [] ; isNeg = False} ;
   everything_NP = pn2np (mkPN ["tutto"] Masc) ;
   everywhere_Adv = ss "dappertutto" ;
   few_Det  = {
     s,sp = \\g,c => prepCase c ++ genForms "pochi" "poche" ! g ;
     spn = \\c => prepCase c ++ "pochi" ;
-    n = Pl ; s2 = [] ; isNeg = False} ;
+    n = Pl ; s2 = \\g => [] ; isNeg = False} ;
 ----  first_Ord = {s = \\ag => (regA "primo").s ! Posit ! AF ag.g ag.n} ;
   for_Prep = mkPrep "per" ;
   from_Prep = da_Prep ;
@@ -69,14 +69,14 @@ lin
   many_Det = {
     s,sp = \\g,c => prepCase c ++ genForms "molti" "molte" ! g ;
     spn = \\c => prepCase c ++ "molto" ;
-    n = Pl ; s2 = [] ; isNeg = False} ;
+    n = Pl ; s2 = \\g => [] ; isNeg = False} ;
   more_CAdv = X.mkCAdv "più" conjThan ;
   most_Predet = {s = \\_,c => prepCase c ++ ["la maggior parte"] ; c = CPrep P_di ;
     a = PNoAg} ;
   much_Det = {
     s,sp = \\g,c => prepCase c ++ genForms "molto" "molta" ! g ;
     spn = \\c => prepCase c ++ "molto" ;
-    n = Sg ; s2 = [] ; isNeg = False} ;
+    n = Sg ; s2 = \\g => [] ; isNeg = False} ;
   must_VV = mkVV (verboV (dovere_47 "dovere")) ;
   no_Utt = ss "no" ;
   on_Prep = {s = [] ; c = CPrep P_su ; isDir = False} ;
@@ -98,11 +98,11 @@ lin
   somePl_Det = {
     s,sp = \\_,c => prepCase c ++ "qualche" ;
     spn = \\c => prepCase c ++ "qualche cosa" ;
-    n = Pl ; s2 = [] ; isNeg = False} ;
+    n = Pl ; s2 = \\g => [] ; isNeg = False} ;
   someSg_Det = {
     s,sp = \\_,c => prepCase c ++ "qualche" ;
     spn = \\c => prepCase c ++ "qualche cosa" ;
-    n = Sg ; s2 = [] ; isNeg = False} ;
+    n = Sg ; s2 = \\g => [] ; isNeg = False} ;
   something_NP = pn2np (mkPN ["qualche cosa"] Masc) ;
   somewhere_Adv = ss ["qualche parte"] ;
   that_Quant = let

@@ -65,7 +65,7 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
     Det,DAP = {
       s : Gender => Case => Str ;
       n : Number ;
-      s2 : Str ;            -- -ci
+      s2 : Gender => Str ;            -- -ci
       sp : Gender => Case => Str ;   -- substantival: mien, mienne
       spn: Case => Str ;
       isNeg : Bool -- negative element, e.g. aucun
@@ -84,7 +84,7 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
       } ;
     Num     = {s : Gender => Str ; isNum : Bool ; n : Number} ;
     Card    = {s : Gender => Str ; n : Number} ;
-    Ord     = {s : AAgr   => Str} ;
+    Ord     = {s, s2 : AAgr => Str} ;
 
 -- Numeral
 
@@ -145,6 +145,9 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
 
     A = \a -> a.s ! genNum2Aform Masc Sg ;
     A2 = \a -> a.s ! genNum2Aform Masc Sg ++ a.c2.s ;
+
+    Det = \d -> d.s ! Masc ! Nom ++ d.s2 ! Masc ;
+    Ord = \o -> o.s ! aagr Masc Sg ++ o.s2 ! aagr Masc Sg ;
 
     N = \n -> n.s ! Sg ;
     N2 = \n -> n.s ! Sg ++ n.c2.s ;

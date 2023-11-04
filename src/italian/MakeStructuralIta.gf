@@ -66,7 +66,7 @@ oper
       s,sp = \\_,_ => piu ;
       spn = \\_ => piu ;
       n = n ;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = False
     } ;
     -- Inflects for number
@@ -77,7 +77,7 @@ oper
       } ;
       spn = \\_ => alcuni ;
       n = n ;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = False
     } ;
   } ;

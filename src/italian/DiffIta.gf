@@ -254,4 +254,7 @@ instance DiffIta of DiffRomance - [contractInf] = open CommonRomance, PhonoIta, 
 param
   HasArt = NoArt | UseArt ;
 
+oper
+  superlCanBePost = True ;
+
 }

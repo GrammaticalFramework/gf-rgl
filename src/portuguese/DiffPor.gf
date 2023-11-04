@@ -294,4 +294,7 @@ instance DiffPor of DiffRomance - [iAdvQuestionInv,chooseTA,otherInv,partAgr,sta
 param
   HasArt = NoArt | UseArt ;
 
+oper
+  superlCanBePost = False ;
+
 } ;

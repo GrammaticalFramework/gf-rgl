@@ -341,4 +341,7 @@ instance DiffFre of DiffRomance - [
 param
   HasArt = NoArt | UseArt | AlwaysArt ;
 
+oper
+  superlCanBePost = False ;
+
 } ;

@@ -228,4 +228,7 @@ oper
 param
   HasArt = NoArt | UseArt ;
 
+oper
+  superlCanBePost = False ;
+
 }

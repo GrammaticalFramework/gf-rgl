@@ -64,7 +64,7 @@ interface DiffRomance = open CommonRomance, Prelude in {
 --    e.g. un bon amic (Cat), una gran parte (Spa) vs. predicative bo/bona, grande
   oper AForm : PType ;
   oper Adj : Type = {s : AForm => Str} ;
-  oper mkOrd : Adj -> {s : AAgr => Str} = \x -> {s = \\ag => x.s ! aagr2aform ag} ;
+  oper mkOrd : Adj -> {s,s2 : AAgr => Str} = \x -> {s = \\ag => x.s ! aagr2aform ag; s2 = \\_ => []} ;
 
   oper aform2aagr : AForm -> AAgr ;
   oper aform2gender : AForm -> Gender = \af -> (aform2aagr af).g ;
@@ -221,5 +221,8 @@ oper
     stare_V = essere_V ;
 
   param HasArt ;
+  
+  oper
+    superlCanBePost : Bool ;
 
 } ;

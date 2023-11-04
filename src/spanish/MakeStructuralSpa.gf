@@ -60,7 +60,7 @@ oper
       s,sp = \\_,c => prepCase c ++ piu ;
       spn = \\c => prepCase c ++ piu ;
       n = n ;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = False
     } ;
     -- Inflects for number
@@ -68,7 +68,7 @@ oper
       s,sp = \\g,c => prepCase c ++ genForms alcuni alcune ! g ;
       spn = \\c => prepCase c ++ alcuni ;
       n = n ;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = False
     } ;
   } ;

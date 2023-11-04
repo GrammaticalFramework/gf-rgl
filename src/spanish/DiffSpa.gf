@@ -240,4 +240,7 @@ instance DiffSpa of DiffRomance - [iAdvQuestionInv,otherInv,partAgr,stare_V,vpAg
 param
   HasArt = NoArt | UseArt ;
 
+oper
+  superlCanBePost = True ;
+
 }

@@ -42,12 +42,12 @@ oper
     mkDet : Str -> Det = \s -> lin Det {
       s,sp = \\_,c => prepCase c ++ s ;
       spn = \\c => prepCase c ++ s ;
-      n = Sg ; s2 = [] ; isNeg = False
+      n = Sg ; s2 = \\g => [] ; isNeg = False
     } ;
     mkDet : Str -> Str -> Number -> Det = \m,f,n -> lin Det {
       s,sp = \\g,c => prepCase c ++ case g of {Masc => m ; Fem => f} ;
       spn = \\c => prepCase c ++ m ;
-      n = n ; s2 = [] ; isNeg = False
+      n = n ; s2 = \\g => [] ; isNeg = False
       } ;
     } ;
 

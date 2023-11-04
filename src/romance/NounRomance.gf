@@ -9,7 +9,7 @@ incomplete concrete NounRomance of Noun =
         g = cn.g ;
         n = det.n
       in heavyNPpol det.isNeg {
-        s = \\c => det.s ! g ! c ++ cn.s ! n ++ det.s2 ;
+        s = \\c => det.s ! g ! c ++ cn.s ! n ++ det.s2 ! g ;
         a = agrP3 g n ;
         hasClit = False
         } ;
@@ -53,11 +53,13 @@ incomplete concrete NounRomance of Noun =
       } ;
 
     DetQuantOrd quant num ord = {
-      s,sp = \\g,c => quant.s ! num.isNum ! num.n ! g ! c ++ num.s ! g ++
+      s = \\g,c => quant.s ! num.isNum ! num.n ! g ! c ++ num.s ! g ++
                    ord.s ! aagr g num.n ;
-      spn  = \\c => quant.s ! num.isNum ! num.n ! Masc ! c ++ num.s ! Masc ++
-                    ord.s ! aagr Masc num.n ;
-      s2 = quant.s2 ;
+      s2 = \\g => quant.s2 ++ ord.s2 ! aagr g num.n ;
+      sp  = \\g,c => quant.s ! num.isNum ! num.n ! g ! c ++ num.s ! g ++
+                     ord.s ! aagr g num.n ++ ord.s2 ! aagr g num.n ;
+      spn = \\c => quant.s ! num.isNum ! num.n ! Masc ! c ++ num.s ! Masc ++
+                   ord.s ! aagr Masc num.n ++ ord.s2 ! aagr Masc num.n ;
       n = num.n ;
       isNeg = quant.isNeg
       } ;
@@ -72,7 +74,7 @@ incomplete concrete NounRomance of Noun =
         True  => quant.s ! True ! num.n ! Masc ! c ++ num.s ! Masc ;
         False => quant.spn ! c ++ num.s ! Masc
         } ;
-      s2 = quant.s2 ;
+      s2 = \\_ => quant.s2 ;
       n  = num.n ;
       isNeg = quant.isNeg
       } ;
@@ -101,25 +103,40 @@ incomplete concrete NounRomance of Noun =
     NumCard n = n ** {isNum = True} ;
 
     NumDigits nu = {s = \\g => nu.s ! NCard g ; n = nu.n} ;
-    OrdDigits nu = {s = \\a => nu.s ! NOrd a.g a.n} ;
+    OrdDigits nu = {s = \\a => nu.s ! NOrd a.g a.n ; s2 = \\_ => []} ;
 
     NumDecimal nu = {s = \\g => nu.s ! NCard g ; n = nu.n} ;
 
     NumNumeral nu = {s = \\g => nu.s ! NCard g ; n = nu.n} ;
-    OrdNumeral nu = {s = \\a => nu.s ! NOrd a.g a.n} ;
+    OrdNumeral nu = {s = \\a => nu.s ! NOrd a.g a.n ; s2 = \\_ => []} ;
 
     AdNum adn num = {s = \\a => adn.s ++ num.s ! a ; isNum = num.isNum ; n = num.n} ;
 
-    OrdSuperl adj = {
-      s = \\a => case adj.isDeg of {
-        True => adj.compar ! aagr2compar a ;
-        False => piuComp ++ adj.s ! genNum2Aform a.g a.n }
+    OrdSuperl adj =
+      case <adj.isDeg, superlCanBePost> of {
+        <True, _>      => { s  = \\a => adj.compar ! aagr2compar a ;
+                            s2 = \\_ => []
+                          } ;
+        <False, True>  => { s  = \\_ => [] ;
+                            s2 = \\a => piuComp ++ adj.s ! genNum2Aform a.g a.n
+                          } ;
+        <False, False> => { s  = \\a => piuComp ++ adj.s ! genNum2Aform a.g a.n ;
+                            s2 = \\_ => []
+                          }
       } ;
 
     OrdNumeralSuperl num adj =
-      let ordSuperl : Ord = OrdSuperl adj
-      in {s = \\a => num.s ! NOrd a.g a.n ++ ordSuperl.s ! a} ; -- la terza più grande
-    ---- could be discontinuous: la terza città più grande
+      case <adj.isDeg, superlCanBePost> of {
+        <True, _>      => { s  = \\a => num.s ! NOrd a.g a.n ++ adj.compar ! aagr2compar a ;
+                            s2 = \\_ => []
+                          } ;
+        <False, True>  => { s  = \\a => num.s ! NOrd a.g a.n ;
+                            s2 = \\a => piuComp ++ adj.s ! genNum2Aform a.g a.n
+                          } ;
+        <False, False> => { s  = \\a => num.s ! NOrd a.g a.n ++ piuComp ++ adj.s ! genNum2Aform a.g a.n ;
+                            s2 = \\_ => []
+                          }
+      } ;
 
     DefArt = {
       s = \\_,n,g,c => artDef False g n c ;

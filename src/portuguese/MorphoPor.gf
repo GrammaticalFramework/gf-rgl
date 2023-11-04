@@ -252,6 +252,7 @@ oper
   mkOrdinal : A -> Ord = \adj ->
   lin Ord {
     s = \\ag => adj.s ! genNum2Aform ag.g ag.n ;
+    s2 = \\_ => []
     } ;
 
   mkQuantifier : (esse,essa,esses,essas,esso : Str) -> Quant = \esse,essa,esses,essas,esso->
@@ -273,7 +274,7 @@ oper
       s,sp = \\g,c => prepCase c ++ genForms muito muita ! g ;
       spn = \\c => prepCase c ++ muito ;
       n = number;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = neg
       } ;
 
