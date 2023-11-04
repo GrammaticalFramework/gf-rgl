@@ -196,7 +196,7 @@ lin pot5decimal d = {
 
   oper
     spaceIf : DTail -> Str = \t -> case t of {
-      T3 => SOFT_BIND ;
+      T3 => SOFT_SPACE ;
       _  => BIND
       } ;
 
