@@ -27,13 +27,23 @@ oper
 lin
   InflectionN, InflectionN2, InflectionN3 = \noun -> {
     t  = "сущ." ;
-    s1 = heading1 (heading noun_Category) ;
+    s1 = heading1 (heading noun_Category ++
+                   case noun.g of {
+                     Masc => "(м.р.)" ;
+                     Fem  => "(ж.р.)" ;
+                     Neut => "(ср.р.)"
+                   }) ;
     s2 = inflNoun noun
     } ;
 
   InflectionPN = \pn -> {
     t  = "сущ.с." ;
-    s1 = heading1 "Существительное Собственное" ;
+    s1 = heading1 ("Существительное Собственное" ++
+                   case pn.g of {
+                     Masc => "(м.р.)" ;
+                     Fem  => "(ж.р.)" ;
+                     Neut => "(ср.р.)"
+                   }) ;
     s2 = frameTable (
           tr (th (heading nominative_Parameter) ++ td (pn.snom)) ++
           tr (th (heading genitive_Parameter) ++ td (pn.sgen)) ++ 
@@ -49,7 +59,10 @@ lin
 
   InflectionGN = \gn -> {
     t  = "сущ.с." ;
-    s1 = heading1 "Личное Имя" ;
+    s1 = heading1 (case gn.g of {
+                     Male   => "Мужское Личное Имя" ;
+                     Female => "Женское Личное Имя"
+                   });
     s2 = frameTable (
           tr (th (heading nominative_Parameter) ++ td (gn.s ! Nom)) ++
           tr (th (heading genitive_Parameter) ++ td (gn.s ! Gen)) ++ 
@@ -81,7 +94,12 @@ lin
 
   InflectionLN = \ln -> {
     t  = "сущ.с." ;
-    s1 = heading1 "Название Местоположения" ;
+    s1 = heading1 ("Название Местоположения" ++
+                   case ln.g of {
+                     Masc => "(м.р.)" ;
+                     Fem  => "(ж.р.)" ;
+                     Neut => "(ср.р.)"
+                   }) ;
     s2 = frameTable (
           tr (th (heading nominative_Parameter) ++ td (ln.s ! Nom)) ++
           tr (th (heading genitive_Parameter) ++ td (ln.s ! Gen)) ++ 
@@ -119,7 +137,18 @@ lin
   InflectionPrep p = {
     t  = "пред" ;
     s1 = heading1 (heading preposition_Category) ;
-    s2 = paragraph ((S.mkAdv (lin Prep p) S.it_NP).s ++ ";" ++ (S.mkAdv (lin Prep p) S.we_NP).s)
+    s2 = paragraph (p.s ++ "+" ++
+                    case p.c of {
+                      Nom   => "именительный" ;
+                      Gen   => "родительный" ;
+                      Dat   => "дательный" ;
+                      Acc   => "винительный" ;
+                      Ins   => "творительный" ;
+                      Pre   => "предложный" ;
+                      Ptv   => "разделительный" ;
+                      Loc   => "местный" ;
+                      VocRus=>"звательный"
+                    })
     } ;
 
   InflectionV v = {
