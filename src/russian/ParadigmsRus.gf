@@ -513,6 +513,16 @@ oper
                   } ;
   } ;
 
+  invarLN : Str -> Gender -> Number -> LN
+      = \s, g, n -> 
+            lin LN {
+              s = \\c => s ;
+              anim = Inanimate ;
+              c = mkPrep v_prep_mod Loc ;
+              g = g ;
+              n = n
+            } ;
+
 ---------------------
 -- Adjectives
 
