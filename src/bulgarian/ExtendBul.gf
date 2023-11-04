@@ -183,22 +183,31 @@ lin
   ComplSlashPartLast = ComplSlash ;
 
 lincat
-  RNP = {s : Role => Str; gn : GenNum} ;
+  RNP = {s : Role => Str; gn : GenNum; isPron : Bool} ;
 
 lin
   ReflRNP slash rnp = {
     s   = slash.s ;
     ad  = slash.ad ;
     clitics = slash.clitics ;
-    compl = \\a => slash.compl1 ! a ++ slash.c2.s ++ rnp.s ! RObj slash.c2.c ++ slash.compl2 ! agrP3 rnp.gn ;
-    vtype = slash.vtype ;
+    compl = \\a => slash.compl1 ! a ++ slash.c2.s ++
+                   case <rnp.isPron, slash.c2.c> of {
+                     <True, Acc | Dat> => [] ;
+                     _                 => rnp.s ! RObj slash.c2.c
+                   } ++ 
+                   slash.compl2 ! agrP3 rnp.gn ;
+    vtype = case <rnp.isPron, slash.c2.c> of {
+              <True, Acc | Dat> => VMedial slash.c2.c ;
+              _                 => slash.vtype
+            } ;
     p     = slash.p ;
     isSimple = False
   } ;
 
   ReflPron =
       { s  = \\role => "себе си";
-        gn = GSg Masc
+        gn = GSg Masc;
+        isPron = True
       } ;
 
   ReflPoss num cn =
@@ -219,15 +228,17 @@ lin
                      RObj c => linCase c Pos ++ s;
                      _      => s
                    } ;
-        gn = gennum cn.g (numnnum num.nn)
+        gn = gennum cn.g (numnnum num.nn) ;
+        isPron = False
       } ;
 
   PredetRNP pred rnp = {
     s  = \\c => pred.s ! rnp.gn ++ rnp.s ! c ;
-    gn = rnp.gn
+    gn = rnp.gn ;
+    isPron = False
   } ;
 
-  AdvRNP np prep rnp = {s = \\role => np.s ! role ++ prep.s ++ rnp.s ! RObj prep.c; gn = np.gn; p = np.p} ;
+  AdvRNP np prep rnp = {s = \\role => np.s ! role ++ prep.s ++ rnp.s ! RObj prep.c; gn = np.gn; p = np.p; isPron = False} ;
   AdvRVP vp prep rnp = insertObj (\\a => prep.s ++ rnp.s ! RObj prep.c) Pos vp ;
   AdvRAP ap prep rnp = {
     s = \\aform,p => ap.s ! aform ! p ++ prep.s ++ rnp.s ! RObj prep.c ;
