@@ -507,6 +507,10 @@ oper
                      g = nf.g ;
                      n = n
                    } ;
+    mkLN : A -> LN -> LN
+      = \a, ln -> ln ** {
+                     s = \\cas => (adjFormsAdjective a).s ! (gennum ln.g ln.n) ! ln.anim ! cas ++ ln.s ! cas
+                  } ;
   } ;
 
 ---------------------
