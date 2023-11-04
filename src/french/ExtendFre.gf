@@ -4,7 +4,7 @@ concrete ExtendFre of Extend =
   CatFre ** ExtendFunctor -
    [
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
-   ExistCN, ExistMassCN, ExistPluralCN,
+   ExistCN, ExistMassCN, ExistPluralCN, RNP, ReflRNP,
    PassVPSlash, PassAgentVPSlash, ApposNP, CompoundN
    ]                   -- put the names of your own definitions here
   with
@@ -18,6 +18,9 @@ concrete ExtendFre of Extend =
     Prelude,
     ParadigmsFre in {
     -- put your own definitions here
+
+lincat
+  RNP = {s : Agr => Case => Str} ;
 
 lin
    ExistCN cn =
@@ -42,6 +45,17 @@ oper
 lin PassVPSlash vps = passVPSlash vps [] ;
     PassAgentVPSlash vps np = passVPSlash 
       vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
+
+    ReflRNP v rnp =      -- VPSlash -> RNP -> VP ; -- love my family and myself
+      case v.c2.isDir of {
+        True  => insertRefl v ;
+        False => insertComplement
+                   (\\a => let agr = verbAgr a in v.c2.s ++ rnp.s ! agr ! v.c2.c) v
+      } ;
+
+    ReflPron = {         -- RNP ; -- myself
+      s = \\agr,c => reflPron agr.n agr.p c
+    } ;
 
 oper
     passVPSlash : VPSlash -> Str -> VP = \vps, agent -> 
