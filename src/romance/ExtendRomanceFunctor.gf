@@ -2,8 +2,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
   Cat ** open Grammar, ResRomance in {
 
   lincat
-    RNP = Grammar.NP ;
-    RNPList = Grammar.ListNP ;
+    RNP = {s : Agr => Case => Str} ;
 
   ---- these come from ExtraRomance: how to avoid the repetition?
   ---- can't seem to be able to use two functors
@@ -153,8 +152,17 @@ incomplete concrete ExtendRomanceFunctor of Extend =
       } ;
 
   lin
-    ReflRNP = variants {} ;     -- VPSlash -> RNP -> VP ; -- love my family and myself
-    ReflPron = variants {} ;     -- RNP ; -- myself
+    ReflRNP v rnp =      -- VPSlash -> RNP -> VP ; -- love my family and myself
+      case v.c2.isDir of {
+        True  => insertRefl v ;
+        False => insertComplement
+                   (\\a => let agr = verbAgr a in v.c2.s ++ rnp.s ! agr ! v.c2.c) v
+      } ;
+
+    ReflPron = {         -- RNP ; -- myself
+      s = \\agr,c => reflPron agr.n agr.p c
+    } ;
+
     ReflPoss = variants {} ;     -- Num -> CN -> RNP ; -- my car(s)
     PredetRNP = variants {} ;     -- Predet -> RNP -> RNP ; -- all my brothers
     ConjRNP = variants {} ;     -- Conj -> RNPList -> RNP ; -- my family, John and myself
