@@ -110,9 +110,7 @@ lin
           tr (th (heading partitive_Parameter) ++ td (ln.s ! Ptv)) ++
           tr (th ("местный") ++ td (ln.s ! Loc)) ++
           tr (th ("звательный") ++ td (ln.s ! VocRus))
-          ) ++
-          heading2 (heading adverb_Category) ++
-          paragraph "adv.s"
+          )
     } ;
 
   InflectionA, InflectionA2 = \adj -> {
