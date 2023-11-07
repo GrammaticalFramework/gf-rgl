@@ -712,8 +712,6 @@ mkVS = overload {
            }
       } ;
 
-  consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
-
   -- like nForms2, but 2nd argument is Pl Genitive
   nForms2plGen : (sydan,sydanten : Str) -> NForms = \sydan,sydanten ->
     table {
