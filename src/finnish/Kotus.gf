@@ -32,11 +32,15 @@ oper
     = \s -> dArpi s (init s + "en") ;
   d07A : Str -> NForms -- 70 väki
     = \s -> dArpi s (init (weakGrade s) + "en") ;
-  d08 : Str -> NForms -- 99 à la carte
-    = \s -> dNukke s (s + "n") ;
+  d08 : Str -> NForms -- 99 nalle
+    = \s -> let defaultNForms : NForms = dNukke s (s + "n") ;
+                nallejen : Str = s + "jen" ;
+             in exceptPlGen defaultNForms nallejen ;
   d08A : Str -> NForms -- 5 vinaigrette
-    = \s -> dNukke s (weakGrade s + "n") ;
-  d09 : Str -> NForms -- 696 ääriraja
+    = \s -> let defaultNForms : NForms = dNukke s (weakGrade s + "n") ;
+                nukkejen : Str = s + "jen" ;
+             in exceptPlGen defaultNForms nukkejen ;
+  d09 : Str -> NForms -- 696 kala
     = \s -> let a = last s in dSilakka s
               (s + "n")
               (init s + case a of {"a" => "o" ; _ => "ö"} + "j" + a) ;
@@ -152,7 +156,7 @@ oper
         } ;
       in dLiitin s pyyhkimen ;
   d34 : Str -> NForms -- 1 alaston
-    = \s -> let alastom = init s in
+    = \s -> let alastom = init s + "m" in
       nForms10
         s (alastom + "an") (s + "ta") (alastom + "ana") (alastom + "aan")
         (alastom + "ien") (alastom + "ia") (alastom + "ina") (alastom + "issa")
@@ -197,7 +201,7 @@ oper
     = \s -> let kevä = init s in
       nForms10
         s (kevä + "än") (s + "tä") (kevä + "änä") (kevä + "äseen")
-        (s + "iden") (kevä + "itä") (kevä + "inä") (kevä + "issä")
+        (kevä + "iden") (kevä + "itä") (kevä + "inä") (kevä + "issä")
         (kevä + "isiin") ;
   d45 : Str -> NForms -- 23 yhdes
     = \s -> let yhde = init s ; a = vowelHarmony s in
