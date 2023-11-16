@@ -2,7 +2,8 @@
   description = "Grammatical Framework's Resouce Grammar Library";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.gf-core.url ="/Users/timpierson/Work/gf-core";
+  
+  inputs.gf-core.url ="github:BeFunctional/gf-core?ref=tp_nix_flake";
 
   outputs = { self, nixpkgs, flake-utils, gf-core }: 
     flake-utils.lib.eachDefaultSystem (system:

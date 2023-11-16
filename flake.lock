@@ -80,14 +80,18 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1700164085,
-        "narHash": "sha256-3ZiXDZBlbeC1goVxmR0/Ao+n4Wdo0oqG52v+F4ABaR8=",
-        "type": "git",
-        "url": "file:///Users/timpierson/Work/gf-core"
+        "lastModified": 1700166742,
+        "narHash": "sha256-iWowi7+D4l4A6Hb1NMU6Qdm9pBp0lEmEm+KPGTXUYSA=",
+        "owner": "BeFunctional",
+        "repo": "gf-core",
+        "rev": "11c733fce48b19b2bb9c5778efcd1a017afdeb42",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///Users/timpierson/Work/gf-core"
+        "owner": "BeFunctional",
+        "ref": "tp_nix_flake",
+        "repo": "gf-core",
+        "type": "github"
       }
     },
     "gitignore": {
