@@ -37,18 +37,18 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- Agreement of $NP$ has three parts: gender, number and person.
 
-    -- These 3*2*3 = 18 values can be reduced to 8, since gender is used only
+    -- These 3*2*3 = 18 values can be reduced to 9, since gender is used only
     -- in 3rd person singular. To select reflexive and possessive forms for "Sie"
-    -- in (mkClause str agr vp), add a value AgPlPol, for "man", add AgSgP3Gen.  HL 29.9.2023
+    -- in (mkClause str agr vp), add a value AgPlPol, for "man", use AgSgP3 Masc.  HL 29.9.2023
 
-    Agr = AgSgP1 | AgSgP2 | AgSgP3 Gender | AgSgP3Gen | AgPl Person | AgPlPol ;
+    Agr = AgSgP1 | AgSgP2 | AgSgP3 Gender | AgPl Person | AgPlPol ;
 
   oper
     genderAgr : Agr -> Gender = \r -> case r of {AgSgP3 g => g ; _ => Masc} ;
 
     numberAgr = overload {
       numberAgr : Agr -> Number = \r -> case r of {
-        AgSgP1 | AgSgP2 | AgSgP3 _ | AgSgP3Gen => Sg ;
+        AgSgP1 | AgSgP2 | AgSgP3 _ => Sg ;
         AgPl _ | AgPlPol => Pl
       } ;
       numberAgr : VAgr -> Number = \r -> case r of {VAg n _ => n} ;
@@ -57,8 +57,7 @@ resource ResGer = ParamX ** open Prelude in {
       personAgr : Agr -> Person = \r -> case r of {
         AgSgP1 | AgPl P1 => P1 ;
         AgSgP2 | AgPl P2 => P2 ;
-        AgSgP3 _ | AgSgP3Gen => P3 ;
-        AgPl P3 | AgPlPol => P3
+        AgSgP3 _ | AgPl P3 | AgPlPol => P3
       } ;
       personAgr : VAgr -> Person = \r -> case r of {VAg _ p => p}
       } ;
@@ -215,11 +214,11 @@ resource ResGer = ParamX ** open Prelude in {
         } ;
 
     agr2vagr : Agr -> VAgr = \r -> case r of {
-       AgSgP1  => VAg Sg P1 ;
-       AgSgP2  => VAg Sg P2 ;
-       AgSgP3 _ | AgSgP3Gen => VAg Sg P3 ;
-       AgPl p => VAg Pl p ;
-       AgPlPol => VAg Pl P3
+       AgSgP1   => VAg Sg P1 ;
+       AgSgP2   => VAg Sg P2 ;
+       AgSgP3 g => VAg Sg P3 ;
+       AgPl p   => VAg Pl p ;
+       AgPlPol  => VAg Pl P3
      } ;
 
     vagrP3 : Number -> VAgr = \n -> VAg n P3 ;
@@ -960,8 +959,8 @@ resource ResGer = ParamX ** open Prelude in {
     -- let vpi = infVP isAux vp in
     -- vpi.p1 ! agrP3 Sg ++ vpi.p3 ++ vpi.p2 ++ vpi.p4 ;
     let vpi = infVP isAux Simul Pos vp ; -- HL 3/2022
-        agr : Agr = AgSgP3Gen ;          -- HL 17.8.2023
-        glue : (Agr => Str)*Str -> Str =  \i -> i.p1!agr ++ i.p2
+        agr = agrP3 Sg ;
+        glue : (Agr => Str)*Str -> Str =  \i -> i.p1 ! agr ++ i.p2
     in
        glue (embedInf vpi.inpl <vpi.objs, vpi.pred>) ++ vpi.extr!agr ++ vp.ext ;
 
@@ -974,11 +973,11 @@ resource ResGer = ParamX ** open Prelude in {
     AgSgP3 Masc  => caselist "er" "sich" "sich" "seiner" ;
     AgSgP3 Fem   => caselist "sie" "sich" "sich" "ihrer" ;
     AgSgP3 Neutr => caselist "es" "sich" "sich" "seiner" ;
-    AgSgP3Gen    => caselist "man selbst" "sich" "sich" "seiner" ; -- älter als man selbst sein
     AgPl P1      => caselist "wir" "uns"  "uns"  "unser" ;
     AgPl P2      => caselist "ihr" "euch" "euch" "euer" ;
     AgPl P3      => caselist "sie" "sich" "sich" "ihrer" ;
     AgPlPol      => caselist "Sie" "sich" "sich" "Ihrer"              -- HL 8/2023
+    -- AgSgP3Gen    => caselist "man selbst" "sich" "sich" "seiner" ; -- älter als man selbst sein
     -- ; AgPlReci  => caselist "man" "einander" "einander" "einander" -- reciPron ?
     } ;
 
@@ -1001,11 +1000,6 @@ resource ResGer = ParamX ** open Prelude in {
     <AgSgP3 _,Sg,Fem>   => caselist "seine" "seine"  "seiner"  "seiner" ! c ;
     <AgSgP3 _,Sg,Neutr> => caselist "sein"  "sein"   "seinem"  "seines" ! c ;
     <AgSgP3 _,Pl,_>     => caselist "seine" "seine"  "seinen"  "seiner" ! c ;
-
-    <AgSgP3Gen,Sg,Masc>  => caselist "sein"  "seinen" "seinem"  "seines" ! c ;
-    <AgSgP3Gen,Sg,Fem>   => caselist "seine" "seine"  "seiner"  "seiner" ! c ;
-    <AgSgP3Gen,Sg,Neutr> => caselist "sein"  "sein"   "seinem"  "seines" ! c ;
-    <AgSgP3Gen,Pl,_>     => caselist "seine" "seine"  "seinen"  "seiner" ! c ;
 
     <AgPl P1,Sg,Masc>  => caselist "unser"  "unseren" "unserem"  "unseres" ! c ;
     <AgPl P1,Sg,Fem>   => caselist "unsere" "unsere"  "unserer"  "unserer" ! c ;
