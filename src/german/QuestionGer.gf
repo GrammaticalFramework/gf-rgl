@@ -14,14 +14,14 @@ concrete QuestionGer of Question = CatGer ** open ResGer in {
       } ;
 
     QuestVP ip vp = {
-      s = \\m,t,a,p => 
+      s = \\m,t,a,p =>
         let
           who = appPrep vp.c1 ip.s ;
           cl = (mkClause who (agrP3 ip.n) vp).s ! m ! t ! a ! p
         in table {
-          QDir   => cl ! Main ;
-          QIndir => cl ! Sub
-          }
+            QDir   => cl ! Main ;
+            QIndir => cl ! Sub
+            }
       } ;
 
     QuestSlash ip slash = {

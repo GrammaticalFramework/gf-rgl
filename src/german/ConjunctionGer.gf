@@ -9,11 +9,15 @@ concrete ConjunctionGer of Conjunction =
 
     ConjAdv conj ss = conjunctDistrSS conj ss ;
 
-    -- ConjNP   : Conj -> ListNP' -> NP' ;     -- she or we
-
-    ConjNP conj ss = { s = \\_ => (conjunctDistrTable Case conj { s1 = ss.s1 ; s2 = ss.s2 }).s } ** {
-      a = Ag Fem (conjNumber conj.n (numberAgr ss.a)) (personAgr ss.a) ;
-      w = WHeavy ; ext,rc = [] } ;
+    ConjNP conj ss = heavyNP (
+    {s = \\_ => (conjunctDistrTable Case conj ss).s ;
+     a = let n : Number = (conjNumber conj.n (numberAgr ss.a)) ;
+             p : Person = personAgr ss.a ;
+             agr : Agr = case <n,p> of {<Pl,q> => AgPl q ;
+                                        <Sg,P3> => AgSgP3 Neutr ;
+                                        <Sg,P1> => AgSgP1 ;
+                                        <Sg,P2> => AgSgP2 }
+         in (conjAgr agr ss.a) }) ;
 
     ConjAP conj ss = conjunctDistrTable AForm conj ss ** {
       isPre = ss.isPre ; c = ss.c ; ext = ss.ext} ;

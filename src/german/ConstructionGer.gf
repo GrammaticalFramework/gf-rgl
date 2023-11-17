@@ -19,7 +19,7 @@ oper
   neuter = P.neuter ;
   regV = P.regV ;
   invarA = P.invarA ;
-  
+
 lin
   hungry_VP = mkVP (P.mkA "hungrig") ;
   thirsty_VP = mkVP (P.mkA "durstig") ;
@@ -42,14 +42,11 @@ lin
 -- some more things
   weather_adjCl ap = mkCl (mkVP (lin AP ap)) ;
    
-  is_right_VP = mkVP have_V2 (mkNP (ParadigmsGer.mkN "Recht")) ;
-  is_wrong_VP = mkVP have_V2 (mkNP (ParadigmsGer.mkN "Unrecht")) ;
+  is_right_VP = mkVP have_V2 (mkNP (P.mkN "Recht")) ;
+  is_wrong_VP = mkVP have_V2 (mkNP (P.mkN "Unrecht")) ;
 
---  n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
-  n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP card cn))) a ;
-
---  n_unit_CN card unit cn = mkCN (invarA (mkUtt (mkNP <lin Card card : Card> (lin CN unit))).s) cn ;
-  n_unit_CN card unit cn = mkCN (invarA ((mkUtt card).s ++ (mkUtt unit).s)) cn ;
+  n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+  n_unit_CN card unit cn = mkCN (invarA (mkUtt (mkNP <lin Card card : Card> (lin CN unit))).s) cn ;
 
   bottle_of_CN np = N.ApposCN (mkCN (P.mkN "Flasche")) np ;
   cup_of_CN np    = N.ApposCN (mkCN (P.mkN "Tasse"))   np ;
@@ -177,9 +174,9 @@ lin
 
   monthAdv m = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det m) ;
   yearAdv y = SyntaxGer.mkAdv (mkPrep "im Jahr" dative) y ; ----
-  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17 Mai
+  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17. Mai
   monthYearAdv m y = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det (mkCN m y)) ; -- im Mai 2012
-  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! False ! accusative) ; -- am 17 Mai 2013
+  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! True ! accusative) ; -- am 17. Mai 2013
 
   intYear = symb ;
   intMonthday = symb ;

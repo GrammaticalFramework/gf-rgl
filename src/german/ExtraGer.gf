@@ -1,6 +1,5 @@
 concrete ExtraGer of ExtraGerAbs = CatGer ** 
   open ResGer, Coordination, Prelude, IrregGer, (P = ParadigmsGer), (N = NounGer) in {
-
   flags coding=utf8 ;
 
   lincat
@@ -30,21 +29,21 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     ICompAP ap = {s = \\_ => "wie" ++ ap.s ! APred ;
                   ext = ap.c.p1 ++ ap.c.p2 ++ ap.ext} ;
 
-    CompIQuant iq = {s = table {Ag g n p => iq.s ! n ! g ! Nom} ; ext = ""} ;
+    CompIQuant iq = {s = table {a => iq.s ! numberAgr a ! genderAgr a ! Nom} ; ext = ""} ;
 
     IAdvAdv adv = {s = "wie" ++ adv.s} ;
 
     DetNPMasc det = {
       s = \\b,c => det.sp ! b ! Masc ! c ;
       a = agrgP3 Masc det.n ;
-      w = case det.isDef of { True => WLight ; _ => WHeavy } ;
+      w = case det.isDef of {True => WLight ; _ => WHeavy} ;
       ext, rc = []
       } ;
 
     DetNPFem det = {
       s = \\b,c => det.sp ! b ! Fem ! c ;
       a = agrgP3 Fem det.n ;
-      w = case det.isDef of { True => WLight ; _ => WHeavy } ;
+      w = case det.isDef of {True => WLight ; _ => WHeavy} ;--WLight ;
       ext, rc = []
       } ;
 
@@ -55,10 +54,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       } ;
 
     PassVPSlash vp = 
-      let c = case <vp.c2.c,vp.c2.isPrep> of {<Acc,isCase> => Nom ; _ => vp.c2.c}
-      in insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
-          { c1 = vp.c2 ** {c = c} } ;
-    -- regulates passivised object: accusative objects -> nom; all others: same case
+      insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass) **
+          { c1 = subjPrep vp.c2 } ;
     -- this also gives "mit dir wird gerechnet" ;
     -- the alternative linearisation ("es wird mit dir gerechnet") is not implemented
 
@@ -85,7 +82,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       in {
       s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
                   ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
-                  ++ vp.c2.s ! GPl                         -- junk if not TV
+                  ++ vp.c2.s ! GPl                      -- junk if not TV
                   ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
       isPre = True ;
       c = <[],[]> ;
@@ -122,12 +119,13 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
             Sub => True ;  -- glue prefix to verb
             _ => False
             } ;
+          vagr = agr2vagr agr ;
           b = p.p ;
           a = tm.a ;
           t = tm.t ;
           m = tm.m ;
           subj  = [] ++ tm.s ++ p.s ;
-          verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
+          verb  = vps.s  ! ord ! vagr ! VPFinite m t a ;
           haben = verb.inf2 ;
           neg   = tm.s ++ p.s ++ vp.a1 ++ negation ! b ; -- HL 8/19 ++ vp.a1 ! b ;
           -- obj1  = (vp.nn ! agr).p1 ;
@@ -179,13 +177,13 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     RNPList = {s1,s2 : Agr => Case => Str} ;
 
   linref
-    RNP = \rnp -> rnp.s ! (Ag Masc Sg P3) ! Acc ++ rnp.ext ++ rnp.rc ;
+    RNP = \rnp -> rnp.s ! AgSgP3 Masc ! Acc ++ rnp.ext ++ rnp.rc ;
 
   lin
     ReflRNP vps rnp =
-      insertObj (\\a => appPrep vps.c2 (rnp.s ! a)) vps ;
+      insertObjReflNP rnp vps ;
 
-    ReflPron = {            -- personal pronoun, with "sich" in P3 Sg
+    ReflPron = { -- with personal pronoun nominative
       s = ResGer.reflPron ; rc,ext = [] ; isPron = True } ;
 
     -- We might define ReflPron by the stronger reflPronSelf below, using "selbst"
@@ -208,7 +206,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     --   er|sie|es kennt seine|ihre Fehler  vs. er|sie|es kennt seine|ihre|seine eigenen Fehler
 
     PredetRNP pred rnp = rnp ** {                        -- HL 5/2022
-      s = \\a,c => let n = case pred.a of {PAg n => n ; _ => numberAgr a} ;
+      s = \\a,c => let n : Number = case pred.a of {PAg n => n ; _ => numberAgr a} ;
                        g = genderAgr a ;
                        d = case pred.c.k of {NoCase => c ; PredCase k => k} ;
         in case rnp.isPron of {
@@ -266,10 +264,13 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       let eigen = adjForms "eigen" "eigen" in
          \a,n,g,c -> possPron a n g c ++ (eigen ! (AMod (gennum g n) c)) ;
 
-    insertObjReflNP : ResGer.VPSlash -> RNP -> ResGer.VP = -- HL 5/2022
-      \vp,rnp ->                                           -- generalize ResGer.insertObjRefl
-      let prep = vp.c2 ;
-          c = case prep.isPrep of { isCase => prep.c ; _ => Acc } ; -- put rnp.ext ++ rnp.rc to vp.ext ?
+    insertObjReflNP : RNP -> ResGer.VPSlash -> ResGer.VP = -- HL 5/2022
+      \rnp,vp -> insertObjRNP rnp vp.c2 vp ;
+
+    insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VP = -- HL 5/2022
+      \rnp,prep,vp ->                                           -- generalize ResGer.insertObjRefl
+      let -- prep = vp.c2 ;
+          c : Case = case prep.c of { cc => cc ; _ => Acc } ; -- put rnp.ext ++ rnp.rc to vp.ext ?
           obj : Agr => Str = \\a => prep.s ! GPl ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
       in vp ** {
         nn = \\a =>
@@ -280,7 +281,20 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
             <isCase,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
             <_,_,_>           => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
       } ;
-
+{-    insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VPSlash = -- HL 8/2023
+      \rnp,prep,vp ->                                              -- generalize ResGer.insertObjNP
+      let c = case prep.c of { NPC cc => cc ; _ => Acc } ;
+          obj : Agr => Str = \\a => prep.s ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
+      in vp ** {
+        nn = \\a =>
+          let vpnn = vp.nn ! a in
+          case <prep.isPrep, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
+            <False,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
+            <False,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
+            <False,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
+            <True,_,_>       => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
+      } ;
+-}
 -- SS: implementation of some of the relevant Foc rules from Extra
 
   lincat 
@@ -325,19 +339,19 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 -- "es wird gelacht"; generating formal sentences
 
   lincat
-    FClause = ResGer.VP ** {subj : ResGer.NP ; lock_FClause : {}} ;
+    FClause = ResGer.VP ** {subj : ResGer.NP} ;
 
   lin
     VPass v =
       let vp = predV werdenPass
-      in lin FClause (vp ** {subj = esSubj ;
-		                     inf = vp.inf ** {s = v.s ! VPastPart APred } }) ; -- construct the formal clause
+      in vp ** {subj = esSubj ;
+		inf = vp.inf ** {s = v.s ! VPastPart APred } } ; -- construct the formal clause
 
     AdvFor adv fcl = fcl ** {a2 = adv.s} ;
 	
-	FtoCl cl = 
-		let subj = mkSubject cl.subj cl.c1
-		in DisToCl subj.s subj.a cl ;
+    FtoCl cl =
+      let subj = mkSubject cl.subj cl.c1
+      in DisToCl subj.s subj.a cl ;
 
 
   oper -- extra operations for ExtraGer
@@ -348,7 +362,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     esSubj : CatGer.NP = lin NP {
       s = \\_,_ => "es" ;
       rc, ext = [] ;
-      a = Ag Neutr Sg P3 ;
+      a = AgSgP3 Neutr ;
       w = WPron
     } ;
 
@@ -360,7 +374,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
             Sub => True ;  -- glue prefix to verb
             _ => False
             } ;
-          verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
+          verb  = vps.s  ! ord ! agr2vagr agr ! VPFinite m t a ;
           neg   = vp.a1 ++ negation ! b ; -- HL 8/19 vp.a1 ! b ;
           obj1  = (vp.nn ! agr).p1 ;
           obj2  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ;

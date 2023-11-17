@@ -25,13 +25,13 @@ oper
 lin
   InflectionN, InflectionN2, InflectionN3 = \noun -> {
     t  = "s" ;
-    s1 = heading1 (heading noun_Category ++ 
+    s1 = heading1 (heading noun_Category ++
                    case noun.g of {
-                     Masc   => "("+heading masculine_Parameter+")" ; 
+                     Masc   => "("+heading masculine_Parameter+")" ;
                      Fem    => "("+heading feminine_Parameter+")" ;
                      Neutr  => "("+heading neuter_Parameter+")"
                    }) ;
-    s2 = frameTable ( 
+    s2 = frameTable (
            tr (th "" ++ th (heading singular_Parameter)            ++ th (heading plural_Parameter)   ) ++
            tr (th (heading nominative_Parameter) ++ td (noun.s ! Sg ! Nom) ++ td (noun.s ! Pl ! Nom)) ++
            tr (th (heading genitive_Parameter)   ++ td (noun.s ! Sg ! Gen) ++ td (noun.s ! Pl ! Gen)) ++
@@ -42,9 +42,9 @@ lin
 
   InflectionPN = \pn -> {
     t  = "pn" ;
-    s1 = heading1 ("Eigenname" ++ 
+    s1 = heading1 ("Eigenname" ++
                    "("+case <pn.g,pn.n> of {
-                         <Masc,Sg>   => heading masculine_Parameter ; 
+                         <Masc,Sg>   => heading masculine_Parameter ;
                          <Fem,Sg>    => heading feminine_Parameter ;
                          <Neutr,Sg>  => heading neuter_Parameter ;
                          <_,Pl>      => heading plural_Parameter
@@ -59,9 +59,9 @@ lin
 
   InflectionGN = \gn -> {
     t  = "vn" ;
-    s1 = heading1 ("Vorname" ++ 
+    s1 = heading1 ("Vorname" ++
                    case gn.g of {
-                     Male   => "(männlich)" ; 
+                     Male   => "(männlich)" ;
                      Female => "(weiblich)"
                    }) ;
     s2 = frameTable (
@@ -85,9 +85,9 @@ lin
 
   InflectionLN = \ln -> {
     t  = "pn" ;
-    s1 = heading1 ("Standortnamen" ++ 
+    s1 = heading1 ("Standortnamen" ++
                    "("+case <ln.g,ln.n> of {
-                         <Masc,Sg>   => heading masculine_Parameter ; 
+                         <Masc,Sg>   => heading masculine_Parameter ;
                          <Fem,Sg>    => heading feminine_Parameter ;
                          <Neutr,Sg>  => heading neuter_Parameter ;
                          <_,Pl>      => heading plural_Parameter
@@ -108,8 +108,8 @@ lin
         td (adj.s ! d ! (AMod (GSg Neutr) c)) ++
         td (adj.s ! d ! (AMod GPl         c)) ;
       dtable : Parameter -> Degree -> Str = \s,d ->
-        paragraph (heading2 (heading s) ++ frameTable ( 
-          tr (th []  ++ th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter) ++ 
+        paragraph (heading2 (heading s) ++ frameTable (
+          tr (th []  ++ th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter) ++
                         th (heading plural_Parameter)) ++
           tr (th (heading nominative_Parameter) ++ gforms d Nom) ++
           tr (th (heading genitive_Parameter)   ++ gforms d Gen) ++
