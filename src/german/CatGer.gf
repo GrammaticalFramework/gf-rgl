@@ -84,7 +84,7 @@ concrete CatGer of Cat =
 -- Numeral
 
     Numeral = {s : CardOrd => Str ; n : Number } ;
-    Digits = {s : CardOrd => Str ; n : Number } ;
+    Digits = {s : CardOrd => Str ; n : Number ; isDig, tail1to19 : Bool} ;
     Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
