@@ -119,7 +119,7 @@ concrete CatGer of Cat =
 
   linref
     NP = \np -> np.s ! False ! Nom ++ np.ext ++ np.rc ; -- HL 7/2022 Bool added
-    CN = \cn -> cn.s ! Strong ! Pl ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Pl ;
+    CN = \cn -> cn.s ! Strong ! Sg ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Sg ;
 
     SSlash = \ss -> ss.s ! Main ++ ss.c2.s ! GPl ;
     ClSlash = \cls -> cls.s ! MIndic ! Pres ! Simul ! Pos ! Main ++ cls.c2.s ! GPl ;

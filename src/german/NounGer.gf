@@ -113,20 +113,26 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     NumSg = {s = \\g,c => []; n = Sg ; isNum = False} ; 
 
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
-    OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
+    OrdDigits numeral = {s = table{APred => "am" ++ numeral.s ! NOrd APred ++ BIND ++ "en" ;
+                                   af => numeral.s ! NOrd af}} ;
 
     NumFloat dig1 dig2 = {s = \\g,c => dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! NCard g c ; n = Pl } ;
     NumDecimal numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
 
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
-    OrdNumeral numeral = {s = \\af => numeral.s ! NOrd af} ;
+    OrdNumeral numeral = {s = table{APred => "am" ++ numeral.s ! NOrd APred ++ BIND ++ "en" ;
+                                    af => numeral.s ! NOrd af}} ;
 
     AdNum adn num = {s = \\g,c => adn.s ++ num.s!g!c; n = num.n } ;
 
-    OrdSuperl a = {s = a.s ! Superl} ;
+    OrdSuperl a = {s = table {APred => "am" ++ a.s ! Superl ! APred ++ BIND ++ "en" ;
+                              af => a.s ! Superl ! af}} ;
 
-    OrdNumeralSuperl n a = {s = \\af => n.s ! NOrd APred ++ Predef.BIND ++ a.s ! Superl ! af} ; -- drittbeste
-
+    OrdNumeralSuperl n a =
+      {s = table {APred => "am" ++ n.s ! NOrd APred ++ Predef.BIND
+                           ++ a.s ! Superl ! APred ++ BIND ++ "en" ;      -- am drittbesten
+                  af => n.s ! NOrd APred ++ Predef.BIND ++ a.s ! Superl ! af} -- drittbeste
+      } ;
     DefArt = {
       s = table{True => \\_,n,g,c => [] ; -- definite article dropped
                 False => \\_,n,g,c => artDef ! (gennum g n) ! c} ;
