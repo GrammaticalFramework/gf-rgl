@@ -1,4 +1,4 @@
-concrete NumeralGer of Numeral = CatGer [Numeral,Digits] ** open MorphoGer, Prelude in {
+concrete NumeralGer of Numeral = CatGer [Numeral,Digits,Decimal] ** open MorphoGer, Prelude in {
 
 flags optimize = all_subs ;
     coding=utf8 ;
@@ -12,14 +12,14 @@ lincat
 lin 
   num x = x ;
 
-  n2 = mkDigit  "zwei"  "zwölf"   "zwanzig"   "zweite" ;
+  n2 = mkDigit  "zwei"  "zwölf"    "zwanzig"  "zweite" ;
   n3 = mkDigit  "drei"  "dreizehn" "dreissig" "dritte" ;
-  n4 = regDigit  "vier" ;
-  n5 = regDigit  "fünf" ;
-  n6 = regDigit  "sechs" ;
-  n7 = mkDigit  "sieben"  "siebzehn" "siebzig" "siebte" ;
-  n8 = mkDigit  "acht" "achzehn"   "achzig"   "achte" ;
-  n9 = regDigit  "neun" ;
+  n4 = regDigit "vier" ;
+  n5 = regDigit "fünf" ;
+  n6 = mkDigit  "sechs"  "sechzehn" "sechzig" "sechste" ;
+  n7 = mkDigit  "sieben" "siebzehn" "siebzig" "siebte" ;
+  n8 = mkDigit  "acht"   "achtzehn" "achtzig" "achte" ;
+  n9 = regDigit "neun" ;
 
   pot01 = {
     s = \\f => table {
@@ -50,12 +50,12 @@ lin
   pot3plus n m = {s = \\g => 
     multiple n.s n.n ++ "tausend" ++ m.s ! g ; n = Pl} ;
   pot3as4 n = n ;
-  pot3float f = {s = \\g =>
-    f.s ++ cardOrd "tausend" "tausendte" ! g ; n = Pl} ; ----
+  pot3decimal d = {s = \\g =>
+    d.s ! invNum ++ cardOrd "tausend" "tausendte" ! g ; n = Pl} ; ----
 
   pot4as5 n = n ;
-  pot4float f = {s = \\g =>
-    f.s ++ cardOrd "Millionen" "Millionte" ! g ; n = Pl} ; ----
+  pot4decimal d = {s = \\g =>
+    d.s ! invNum ++ cardOrd "Millionen" "Millionte" ! g ; n = Pl} ; ----
 
   pot51 = {s = \\g => "einer Milliarde"; n = Pl} ;  -- KA: case inflection missing
 
@@ -69,17 +69,33 @@ oper
     Dig = TDigit ;
 
   lin
-    IDig d = d ; 
+    IDig d = {s = table{NCard g c => d.s ! NCard g c ;
+                        NOrd APred => "am" ++ d.s ! invNum ++ BIND ++ "ten";
+                        NOrd amod  => d.s ! NOrd amod} ;
+              n = d.n ;
+              isDig = True ;
+              tail1to19 = notB d.isZero} ;
 
-    IIDig d i = {
-      s = \\o => d.s ! invNum ++ BIND ++ i.s ! o ;
-      n = Pl
-    } ;
+    -- HL 11/2023 added case endings or ordinals to digits
+    -- NCard Masc Nom (= invNum):       0,1,     19,    20,21,...
+    -- NOrd (AMid (GSg Masc) Nom): 0ter,1ter,...,19ter, 20ster,21ster,...,99ster, 100ster
+    --                                101ter,...,119ter,120ster,...             , 200ster
+    IIDig d i =
+      let isPld : Bool = case d.n of {Sg => False ; _ => True} ;
+          b : Bool = case i.isDig of {True => isPld ; _ => notB i.tail1to19} ;
+          i' : Digits = case b of {True => IDig (mkDig (i.s ! invNum ++ BIND ++ "s")) ;
+                                   _  => i }
+      in {s = table {NCard g c => d.s ! invNum ++ BIND ++ i.s ! NCard g c ;
+                     NOrd APred => "am" ++ d.s ! invNum ++ BIND ++ i'.s ! invNum ++ BIND ++ "ten" ;
+                     NOrd af => d.s ! invNum ++ BIND ++ i'.s ! NOrd af} ;
+          n = Pl ;
+          isDig = False ;
+          tail1to19 = case i.isDig of {True => notB isPld ; False => i.tail1to19}
+      } ;
 
-    ---- TODO: case endings of ordinals
-    D_0 = mkDig "0" ;
-    D_1 = mk3Dig "1" "1e" Sg ;
-    D_2 = mk2Dig "2" "2e" ;
+    D_0 = mk2Dig "0" Sg ** {isZero = True} ;
+    D_1 = mk2Dig "1" Sg ;
+    D_2 = mkDig "2" ;
     D_3 = mkDig "3" ;
     D_4 = mkDig "4" ;
     D_5 = mkDig "5" ;
@@ -88,18 +104,38 @@ oper
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
 
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => case o of {
+        NOrd APred => "am" ++ "-" ++ BIND ++ d.s ! NOrd (AMod GPl Dat) ;
+        _ => "-" ++ BIND ++ d.s ! o} ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+      s=\\o=>d.s ! invNum ++
+             if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+             i.s ! o;
+      n = Pl;
+      hasDot=True
+    } ;
+
   oper
-    mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
-    mkDig : Str -> TDigit = \c -> mk2Dig c (c + "e") ;
+    mkDig : Str -> TDigit = \c -> mk2Dig c Pl ;
+
+    mk2Dig : Str -> Number -> TDigit = \c,n -> mk3Dig c (c + "t") n ; -- like Duden 464 (4.Auflage)
 
     mk3Dig : Str -> Str -> Number -> TDigit = \c,o,n -> {
-      s = table {NCard _ _ => c ; NOrd _ => o} ;
-      n = n
+      s = table {NCard _ _ => c ;                      -- 0,...,9
+                 NOrd af => (regA o).s ! Posit ! af} ; -- (ein) 0ter .. 9ter | (der) 0te ... 9te
+      n = n ;                                          -- NOrd APred: "0",... or "am 0ten",... ?
+      isZero = False
       } ;
 
     TDigit = {
       n : Number ;
-      s : CardOrd => Str
+      s : CardOrd => Str ;
+      isZero : Bool
     } ;
 
 }

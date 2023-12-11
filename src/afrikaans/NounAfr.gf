@@ -77,6 +77,8 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
     NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
 
+    NumDecimal dec = {s = \\g,c => dec.s ! NCard g c; n = dec.n } ;
+
     NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
     OrdNumeral numeral = {s = \\af => numeral.s ! NOrd af} ;
 
@@ -175,6 +177,12 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
       s = \\a,nc => cn.s ! a ! nc ++ np.s ! NPNom ;
       g = g ;
       isMod = cn.isMod
+      } ;
+
+    QuantityNP n m = {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard Neutr Nom) ;
+      a = agrP3 n.n ;
+      isPron = False
       } ;
 
 }

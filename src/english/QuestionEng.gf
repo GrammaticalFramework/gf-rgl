@@ -21,7 +21,7 @@ concrete QuestionEng of Question = CatEng ** open ResEng, Prelude in {
       {s = \\t,a,b,q =>
          (mkQuestion (ss (ip.s ! NPAcc)) slash).s ! t ! a ! b ! q ++ slash.c2
       } ;
-      --- changed AR 5/6/2016: uses stranding; pied-piping in ExtraEng
+      --- changed AR 5/6/2016: uses stranding; pied-piping in ExtraEng and ExtendEng
 
     QuestIAdv iadv cl = mkQuestion iadv cl ;
 

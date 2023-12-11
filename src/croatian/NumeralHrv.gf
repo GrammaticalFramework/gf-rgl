@@ -1,6 +1,6 @@
 concrete NumeralHrv of Numeral =
 
-  CatHrv [Numeral, Digits] **
+  CatHrv [Numeral, Digits, Decimal] **
   
   open
     ResHrv,
@@ -124,6 +124,20 @@ oper mkThousand : Str -> NumSize -> Str = \attr,size ->
     IDig d = d ;
     
     IIDig d dd = {s = d.s ++ Predef.BIND ++ dd.s ; size = dd.size} ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ Predef.BIND ++ d.s ;
+      size = d.size ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = d.s ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.s;
+      size = d.size ;
+      hasDot=True
+      } ;
 
     D_0 = { s = "0" ; size = NS_1} ; ---- ??
     D_1 = { s = "1" ; size = NS_1} ; 

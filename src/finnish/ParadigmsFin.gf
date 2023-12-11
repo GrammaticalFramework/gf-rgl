@@ -422,6 +422,9 @@ mkVS = overload {
   Case = MorphoFin.Case ;
   Number = MorphoFin.Number ;
 
+  male = Male ;
+  female = Female ;
+
   singular = Sg ;
   plural = Pl ;
 
@@ -709,8 +712,6 @@ mkVS = overload {
            }
       } ;
 
-  consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
-
   -- like nForms2, but 2nd argument is Pl Genitive
   nForms2plGen : (sydan,sydanten : Str) -> NForms = \sydan,sydanten ->
     table {
@@ -841,6 +842,36 @@ mkVS = overload {
       }
     } ;
 
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> lin LN (snoun2spn (mk1N s) ** {n = Sg}) ;
+    mkLN : Str -> Number -> LN = \s,n -> lin LN (snoun2spn (mk1N s) ** {n = n}) ;
+    mkLN : N -> LN = \noun -> lin LN (snoun2spn noun ** {n = Sg}) ;
+    mkLN : N -> Number -> LN = \noun,n -> lin LN (snoun2spn noun ** {n = n}) ;
+  } ;
+
+  mkGN = overload {
+    mkGN : Str -> GN = \s -> lin GN (snoun2spn (mk1N s) ** {g = Male}) ;
+    mkGN : Str -> Sex -> GN = \s,g -> lin GN (snoun2spn (mk1N s) ** {g = g}) ;
+    mkGN : N -> GN = \noun -> lin GN (snoun2spn noun ** {g = Male}) ;
+    mkGN : N -> Sex -> GN = \noun,g -> lin GN (snoun2spn noun ** {g = g}) ;
+  } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> let spn = snoun2spn (mk1N s) in lin SN {s = \\_=>spn; pl=spn} ;
+    mkSN : Str -> Str -> Str -> SN
+         = \male,female,pl -> lin SN {
+               s = table {Male  =>snoun2spn (mk1N male);
+                          Female=>snoun2spn (mk1N female)};
+               pl= snoun2spn (mk1N pl)
+           } ;
+    mkSN : N -> SN = \noun -> let spn = snoun2spn noun in lin SN {s = \\_=>spn; pl=spn} ;
+    mkSN : N -> N -> N -> SN
+         = \male,female,pl -> lin SN {
+               s = table {Male  =>snoun2spn male;
+                          Female=>snoun2spn female};
+               pl= snoun2spn pl
+           } ;
+  } ;
 
 -- adjectives
 
@@ -1049,5 +1080,7 @@ mkVS = overload {
 ---  mkA2S v p = mkA2 <v : A> p ** {lock_A = <>} ;
   mkAV  v = v ** {lock_A = <>} ;
 ---  mkA2V v p = mkA2 <v : A> p ** {lock_A2 = <>} ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 } ;

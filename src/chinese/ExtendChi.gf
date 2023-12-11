@@ -11,7 +11,7 @@ concrete ExtendChi of Extend = CatChi **
   , MkVPI2, BaseVPI2, ConsVPI2, ConjVPI2, ComplVPI2
   , ProDrop, ComplDirectVS, ComplDirectVQ
   , PassVPSlash, PassAgentVPSlash
-  , GerundAdv, GerundNP, ByVP ]
+  , GerundAdv, GerundNP, ByVP, ApposNP ]
   with (Grammar=GrammarChi) ** open
      Prelude
    , Coordination
@@ -83,13 +83,11 @@ concrete ExtendChi of Extend = CatChi **
       AdvVP (UseV <lin V vq : V>)
             (mkAdv (":" ++ quoted utt.s)) ; -- DEFAULT complement added as Adv in quotes
 
+  lin
+    ApposNP np1 np2 = {s = np1.s ++ np2.s; det = np1.det} ;
+
   oper
     mkAdv : Str -> CatChi.Adv ;
     mkAdv str = lin Adv {s = str ; advType = ATManner ; hasDe = False} ;
-
-lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
-lin FullName gn sn = {
-       s = gn.s ++ sn.s
-    } ;
 
 };

@@ -14,7 +14,8 @@ concrete GrammarTur of Grammar =
   StructuralTur,
   PhraseTur,
   IdiomTur,
-  TenseX - [CAdv, AdN]
+  TenseX - [CAdv, AdN],
+  NamesTur
   ** {
 
   flags startcat = Phr ;

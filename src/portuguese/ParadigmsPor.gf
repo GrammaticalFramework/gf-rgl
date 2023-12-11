@@ -49,11 +49,11 @@ oper
   Gender : Type ;
   Gender = MorphoPor.Gender ;
 
-  masculine : Gender ;
-  masculine = Masc ;
+  masculine, male : Gender ;
+  masculine, male = Masc ;
 
-  feminine  : Gender ;
-  feminine = Fem ;
+  feminine, female : Gender ;
+  feminine, female = Fem ;
 
 -- To abstract over number names, we define the following.
 
@@ -102,7 +102,7 @@ oper
 --2 Nouns
 
   regN : Str -> N ; --%
-  regN x = lin N (mkNomReg x) ;
+  regN x = lin N (mkNomReg x ** {relType=NRelPrep P_de}) ;
 
   femN  : N -> N ; --%
   femN n = n ** {g = feminine} ;
@@ -111,7 +111,7 @@ oper
   mascN n = n ** {g = masculine} ;
 
   mk2N : (bastão, bastões : Str) -> Gender -> N ; --%
-  mk2N x y g = lin N (mkNounIrreg x y g) ;
+  mk2N x y g = lin N (mkNounIrreg x y g ** {relType=NRelPrep P_de}) ;
 
   -- The regular function takes the singular form and the gender, and
   -- computes the plural and the gender by a heuristic (see MorphoPor
@@ -205,6 +205,40 @@ oper
     mkPN : N -> PN -- build proper noun from noun, taking gender and singular form
       = \n -> lin PN {s = n.s ! Sg ; g = n.g} ;
     } ;
+
+  mkGN = overload {
+    mkGN : (Anna : Str) -> GN = \s -> lin GN (regPN s) ; -- feminine for "-a", otherwise masculine
+    mkGN : (Pilar : Str) -> Gender -> GN = \s,g -> lin GN (mk2PN s g) ; -- force gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Masc=>male; Fem=>female}; pl = pl} ;
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = Masc ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+
+    mkLN : Str -> Gender -> Number -> LN = \s,g,num ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = num} ;
+  } ;
+
+  defLN : LN -> LN = \n -> n ** {art = UseArt} ;
 
 --2 Adjectives
   compADeg : Adj -> A ; --%
@@ -563,6 +597,8 @@ oper
                   isNeg = False} ** {lock_NP = <>} ;
 
   reflVerboV : Verbum -> V = \ve -> reflV (lin V (verboV ve)) ; --%
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False; hasArt=False} ;
 
 
 } ;

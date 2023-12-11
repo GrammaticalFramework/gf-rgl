@@ -23,6 +23,9 @@ concrete ExtendRus of Extend =
     --ConjRNP, Cons_nr_RNP, Cons_rr_RNP,
     DetNPMasc,
     DetNPFem,
+    UseDAP,
+    UseDAPMasc,
+    UseDAPFem,
     -- EmbedPresPart, EmptyRelSlash,
     ExistsNP,
     -- ExistCN, ExistMassCN, ExistPluralCN,
@@ -214,29 +217,42 @@ lin
       a=Ag (gennum g (numSizeNumber det.size)) P3
       } ;
 
+  UseDAP det =
+    let g = det.g in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
+
+  -- : DAP -> NP ;
+  UseDAPFem det =
+    let g = Fem in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
+
+  -- : Det -> NP ;
+  UseDAPMasc det =
+    let g = Masc in {
+      s=case det.type of {
+        EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
+        _ => \\cas => det.s ! g ! Inanimate ! cas
+        } ;
+      pron=False ;
+      a=Ag (gennum g (numSizeNumber det.size)) P3
+      } ;
+
 oper
   rus_quoted : Str -> Str = \s -> "«" ++ s ++ "»" ; ---- TODO bind ; move to Prelude?
-
-lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
-lin FullName gn sn = {
-       snom  = gn.snom ++ sn.snom ;
-       sgen  = gn.snom ++ sn.sgen ;
-       sdat  = gn.snom ++ sn.sdat ;
-       sacc  = gn.snom ++ sn.sacc ;
-       sins  = gn.snom ++ sn.sins ;
-       sprep = gn.snom ++ sn.sprep ;
-       sloc  = gn.snom ++ sn.sloc ;
-       sptv  = gn.snom ++ sn.sptv ;
-       svoc  = gn.snom ++ sn.svoc ;
-       pnom  = gn.snom ++ sn.pnom ;
-       pgen  = gn.snom ++ sn.pgen ;
-       pdat  = gn.snom ++ sn.pdat ;
-       pacc  = gn.snom ++ sn.pacc ;
-       pins  = gn.snom ++ sn.pins ;
-       pprep = gn.snom ++ sn.pprep ;
-       g = gn.g ;
-       mayben = gn.mayben ;
-       anim = gn.anim
-    } ;
 
 } ;

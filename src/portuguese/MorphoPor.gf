@@ -252,9 +252,10 @@ oper
   mkOrdinal : A -> Ord = \adj ->
   lin Ord {
     s = \\ag => adj.s ! genNum2Aform ag.g ag.n ;
+    s2 = \\_ => []
     } ;
 
-  mkQuantifier : (esse,essa,esses,essas : Str) -> Quant = \esse,essa,esses,essas->
+  mkQuantifier : (esse,essa,esses,essas,esso : Str) -> Quant = \esse,essa,esses,essas,esso->
     let
       attrforms : Number => Gender => Case => Str = table {
         Sg => \\g,c => prepCase c ++ genForms esse essa ! g ;
@@ -264,14 +265,16 @@ oper
       s = \\_ => attrforms ;
       s2 = [] ;
       sp = attrforms  ; -- in spanish it was different
+      spn= \\c => prepCase c ++ esso ;
       isNeg = False
       } ;
 
   mkDeterminer : (muito,muita : Str) -> Number -> Bool -> Det = \muito,muita,number,neg ->
     lin Det {
       s,sp = \\g,c => prepCase c ++ genForms muito muita ! g ;
+      spn = \\c => prepCase c ++ muito ;
       n = number;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = neg
       } ;
 

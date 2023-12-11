@@ -17,7 +17,7 @@
 -- parts of a numeral, which is often incorrect - more work on
 -- (un)lexing is needed to solve this problem.
 
-abstract Numeral = Cat [Numeral,Digits] ** {
+abstract Numeral = Cat [Numeral,Digits,Decimal] ** {
 
 cat 
   Digit ;            -- 2..9
@@ -53,18 +53,18 @@ data
   pot3 : Sub1000 -> Sub1000000 ;                -- m * 1000
   pot3plus : Sub1000 -> Sub1000 -> Sub1000000 ; -- m * 1000 + n
   pot3as4 : Sub1000000 -> Sub1000000000 ;       -- coercion of 1..999999
-  pot3float : Float -> Sub1000000 ;             -- 3.5 thousand
+  pot3decimal : Decimal -> Sub1000000 ;         -- 3.5 thousand
 
   pot41 : Sub1000000000 ;                                    -- a million instead of one million
   pot4  : Sub1000 -> Sub1000000000 ;                         -- m * 1000000000
   pot4plus : Sub1000 -> Sub1000000 -> Sub1000000000 ;        -- m * 1000000000 + n
   pot4as5 : Sub1000000000 -> Sub1000000000000 ;              -- coercion of 1..999999999
-  pot4float : Float -> Sub1000000000 ;                       -- 3.5 million
+  pot4decimal : Decimal -> Sub1000000000 ;                   -- 3.5 million
 
   pot51 : Sub1000000000000 ;                                 -- a billion instead of one billion
   pot5  : Sub1000 -> Sub1000000000000 ;                      -- m * 1000000000
   pot5plus : Sub1000 -> Sub1000000000 -> Sub1000000000000 ;  -- m * 1000000000 + n
-  pot5float : Float -> Sub1000000000000 ;                    -- 3.5 billion
+  pot5decimal : Decimal -> Sub1000000000000 ;                -- 3.5 billion
 
 -- Numerals as sequences of digits have a separate, simpler grammar
 
@@ -76,5 +76,9 @@ data
   IIDig : Dig -> Digits -> Digits ; -- 876
 
   D_0, D_1, D_2, D_3, D_4, D_5, D_6, D_7, D_8, D_9 : Dig ;
+
+  PosDecimal : Digits -> Decimal ;        --  8
+  NegDecimal : Digits -> Decimal ;        -- -8
+  IFrac : Decimal -> Dig -> Decimal ;     -- 3.14 -> 3.141
 
 }

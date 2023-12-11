@@ -1,4 +1,4 @@
-concrete NumeralSwe of Numeral = CatSwe [Numeral,Digits] ** open ResSwe, MorphoSwe, Prelude in {
+concrete NumeralSwe of Numeral = CatSwe [Numeral,Digits,Decimal] ** open ResSwe, MorphoSwe, Prelude in {
   flags coding=utf8 ;
 
 lincat 
@@ -52,20 +52,30 @@ lin
 
   pot41 = numPl (cardOrd "miljon" "miljonde") ;
   pot4 n =
-    numPl (\\g => n.s ! NCard Utr ++ cardOrd "miljon" "miljonde" ! g) ;
+    numPl (\\g => n.s ! NCard Utr ++
+                  cardOrd (case n.n of {
+                             Sg => "miljon" ;
+                             Pl => "miljoner"
+                           })
+                          "miljonde" ! g) ;
   pot4plus n m =
     {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljon" ++ m.s ! g ; n = Pl} ;
   pot4as5 n = n ;
-  pot4float f = 
-    numPl (\\g => f.s ++ cardOrd "miljoner" "miljonde" ! g) ;
+  pot4decimal d = 
+    numPl (\\g => d.s ! NCard Utr ++ cardOrd "miljoner" "miljonde" ! g) ;
 
   pot51 = numPl (cardOrd "miljard" "miljarde") ;
   pot5 n =
-    numPl (\\g => n.s ! NCard Utr ++ cardOrd "miljard" "miljarde" ! g) ;
+    numPl (\\g => n.s ! NCard Utr ++
+                  cardOrd (case n.n of {
+                             Sg => "miljard" ;
+                             Pl => "miljarder"
+                           })
+                          "miljarde" ! g) ;
   pot5plus n m =
     {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljard" ++ m.s ! g ; n = Pl} ;
-  pot5float f = 
-    numPl (\\g => f.s ++ cardOrd "miljarder" "miljarde" ! g) ;
+  pot5decimal d = 
+    numPl (\\g => d.s ! NCard Utr ++ cardOrd "miljarder" "miljarde" ! g) ;
 
   lincat
     Dig = TDigit ;
@@ -88,6 +98,20 @@ lin
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard neutrum ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o;
+      n = Pl ;
+      hasDot=True
+    } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

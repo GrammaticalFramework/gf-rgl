@@ -29,7 +29,7 @@ abstract ExtraGerAbs = Extra [
 
     Pass3V3 : V3 -> VPSlash ; -- wir bekommen den Beweis erklärt
 
-    -- further constructions usin RNP, declared in abstract/Extra.gf:
+    -- further constructions using RNP, declared in abstract/Extra.gf or Extend.gf:
 
     AdvRNP : NP -> Prep -> RNP -> RNP ;   -- a dispute with his wife
     AdvRVP : VP -> Prep -> RNP -> VP ;    -- lectured about her travels
@@ -39,4 +39,5 @@ abstract ExtraGerAbs = Extra [
                                                -- NOTE: generalizes ReflA2
 
     PossPronRNP : Pron -> Num -> CN -> RNP -> NP ; -- his abandonment of his wife and children
+
 }

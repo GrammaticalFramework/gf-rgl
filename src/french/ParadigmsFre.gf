@@ -138,6 +138,41 @@ oper
     mkPN : N -> PN ; -- gender inherited from noun
     } ;
 
+  mkGN = overload {
+    mkGN : (Anna : Str) -> GN = \s -> lin GN (regPN s) ; -- feminine for "-a", otherwise masculine
+    mkGN : (Pilar : Str) -> Gender -> GN = \s,g -> lin GN (mk2PN s g) ; -- force gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Masc=>male; Fem=>female}; pl = pl} ;
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = s ;
+              onPrep=False ;
+              art = NoArt ;
+              g = Masc ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              onPrep=False ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> Number -> LN = \s,g,num ->
+      lin LN {s = s ;
+              onPrep=False ;
+              art = NoArt ;
+              g = g ;
+              num = num} ;
+  } ;
+
+
+  defLN : LN -> LN = \n -> n ** {art = AlwaysArt} ;
+  useDefLN : LN -> LN = \n -> n ** {art = UseArt} ;
+  enLN : LN -> LN = \n -> n ** {onPrep = True} ;
 
 
 --2 Adjectives
@@ -334,8 +369,10 @@ oper
 
   Gender = MorphoFre.Gender ;
   Number = MorphoFre.Number ;
-  masculine = Masc ;
-  feminine = Fem ;
+  masculine, male = Masc ;
+  feminine, female = Fem ;
+  male = Masc ;
+  female = Fem ;
   singular = Sg ;
   plural = Pl ;
 
@@ -356,16 +393,16 @@ oper
   regGenN : Str -> Gender -> N ;
   regN : Str -> N ;
   mk2N  : (oeil,yeux : Str) -> Gender -> N ;
-  mk2N x y g = mkCNomIrreg x y g ** {lock_N = <>} ;
+  mk2N x y g = mkCNomIrreg x y g ** {relType = NRelPrep P_de; lock_N = <>} ;
   regN x = regGenN x g where {
     g = case <x : Str> of {
      _ + ("e" | "ion") => Fem ;
      _ => Masc
      }
     } ;
-  regGenN x g = mkNomReg x g ** {lock_N = <>} ;
+  regGenN x g = mkNomReg x g ** {relType = NRelPrep P_de; lock_N = <>} ;
   compN : N -> Str -> N ;
-  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; lock_N = <>} ;
+  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; relType = NRelPrep P_de ; lock_N = <>} ;
 
   mkN = overload {
     mkN : Str -> N = regN ;
@@ -553,5 +590,6 @@ oper
     _ => VFalse  -- prend-il
     } ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False; hasArt=False} ;
 
 } ;

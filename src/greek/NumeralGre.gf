@@ -1,4 +1,4 @@
-concrete NumeralGre of Numeral = CatGre [Numeral,Digits] ** open ResGre,Prelude in {
+concrete NumeralGre of Numeral = CatGre [Numeral,Digits,Decimal] ** open ResGre,Prelude in {
 
  flags coding= utf8 ;
 
@@ -290,6 +290,20 @@ Xilias : CardOrd -> (CardOrd => Str) -> Number -> Str = \co,d,n ->
     D_7 = mk2Dig "7" Pl;
     D_8 = mk2Dig "8" Pl;
     D_9 = mk2Dig "9" Pl ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard Neut Nom ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ;
+      n = Pl ;
+      hasDot=False
+      } ;
 
   oper
   

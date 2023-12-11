@@ -15,10 +15,4 @@ concrete ExtendCat of Extend = CatCat ** ExtendRomanceFunctor--  -
   ParadigmsCat in {
     -- put your own definitions here
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       s = gn.s ++ sn.s ; 
-       g = gn.g
-    } ;
-
 } ;

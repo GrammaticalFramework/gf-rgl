@@ -143,6 +143,39 @@ oper
     mkPN : N -> PN ;   -- gender from noun
     } ;
 
+  mkGN = overload {
+    mkGN : (Anna : Str) -> GN = \s -> lin GN (regPN s) ; -- feminine for "-a", otherwise masculine
+    mkGN : (Pilar : Str) -> Gender -> GN = \s,g -> lin GN (mk2PN s g) ; -- force gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Masc=>male; Fem=>female}; pl = pl} ;
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = Masc ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> Number -> LN = \s,g,num ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = num} ;
+  } ;
+
+
+  defLN : LN -> LN = \n -> n ** {art = UseArt} ;
 
 --2 Adjectives
 
@@ -330,8 +363,8 @@ oper
   Gender = MorphoSpa.Gender ;
   Number = MorphoSpa.Number ;
   CopulaType = DiffSpa.CopulaType ;
-  masculine = Masc ;
-  feminine = Fem ;
+  masculine, male = Masc ;
+  feminine, female = Fem ;
   singular = Sg ;
   plural = Pl ;
   serCopula = DiffSpa.serCopula ;
@@ -347,11 +380,11 @@ oper
   } ;
 
 
-  mk2N x y g = mkNounIrreg x y g ** {lock_N = <>} ;
-  regN x = mkNomReg x ** {lock_N = <>} ;
-  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; lock_N = <>} ;
-  femN x = {s = x.s ; g = feminine ; lock_N = <>} ;
-  mascN x = {s = x.s ; g = masculine ; lock_N = <>} ;
+  mk2N x y g = mkNounIrreg x y g ** {relType=NRelPrep P_de; lock_N = <>} ;
+  regN x = mkNomReg x ** {relType=NRelPrep P_de; lock_N = <>} ;
+  compN x y = x ** {s = \\n => x.s ! n ++ y} ;
+  femN x = {s = x.s ; g = feminine ; relType=NRelPrep P_de; lock_N = <>} ;
+  mascN x = {s = x.s ; g = masculine ; relType=NRelPrep P_de; lock_N = <>} ;
 
   mkN2 = \n,p -> n ** {lock_N2 = <> ; c2 = p} ;
   deN2 n = mkN2 n genitive ;
@@ -517,7 +550,7 @@ oper
 
   mkN = overload {
     mkN : (luz : Str) -> N = regN ;
-    mkN : Str -> Gender -> N = \s,g -> {s = (regN s).s ; g = g ; lock_N = <>};
+    mkN : Str -> Gender -> N = \s,g -> (regN s) ** {g = g};
     mkN : (baston,bastones : Str) -> Gender -> N = mk2N ;
     mkN : N -> Str -> N = compN ;
     } ;
@@ -584,5 +617,7 @@ oper
     } ;
   mk2V2  : V -> Prep -> V2 ;
   dirV2 : V -> V2 ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False ; hasArt=False} ;
 
 } ;

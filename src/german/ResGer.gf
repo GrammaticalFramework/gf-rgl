@@ -25,7 +25,6 @@ resource ResGer = ParamX ** open Prelude in {
   param
     Case = Nom | Acc | Dat | Gen ;
     Gender = Masc | Fem | Neutr ;
-    Sex = Male | Female ;
 
 -- Complex $CN$s, like adjectives, have strong and weak forms.
 
@@ -36,41 +35,40 @@ resource ResGer = ParamX ** open Prelude in {
     GenNum = GSg Gender | GPl ;
     RelGenNum = RGenNum GenNum | RSentence ;
 
--- Agreement of $NP$ has three parts.
+-- Agreement of $NP$ has three parts: gender, number and person.
 
-    Agr = Ag Gender Number Person ;
+    -- These 3*2*3 = 18 values can be reduced to 9, since gender is used only
+    -- in 3rd person singular. To select reflexive and possessive forms for "Sie"
+    -- in (mkClause str agr vp), add a value AgPlPol, for "man", use AgSgP3 Masc.  HL 29.9.2023
 
--- Case of $NP$ extended to deal with contractions like "zur", "im".
-
-    PCase = NPC Case | NPP CPrep ;
-    CPrep = CAnDat | CInAcc | CInDat | CZuDat | CVonDat ;
-
-  oper 
-    NPNom : PCase = NPC Nom ;
-    PrepNom : Preposition = {s,s2 = "" ; isPrep = False ; c = NPNom} ; 
-
-    prepC : PCase -> {s : Str ; c : Case} = \cp -> case cp of {
-      NPC c      => {s = []   ; c = c} ;
-      NPP CAnDat => {s = "an" ; c = Dat} ;
-      NPP CInAcc => {s = "in" ; c = Acc} ;
-      NPP CInDat => {s = "in" ; c = Dat} ;
-      NPP CZuDat => {s = "zu" ; c = Dat} ;
-      NPP CVonDat => {s = "von" ; c = Dat}
-      } ;
-
-    usePrepC : PCase -> (Case -> Str) -> Str = \c,fs -> 
-      let sc = prepC c in sc.s ++ fs sc.c ;
-
-    appPrepC : Preposition -> (Case => Str) -> Str = \prep,arg ->
-      let sc = prepC prep.c
-      in prep.s ++ sc.s ++ arg ! sc.c ++ prep.s2 ;
+    Agr = AgSgP1 | AgSgP2 | AgSgP3 Gender | AgPl Person | AgPlPol ;
 
   oper
-    mkAgr : {g : Gender ; n : Number ; p : Person} -> Agr = \r ->
-      Ag r.g r.n r.p ;
-    genderAgr : Agr -> Gender = \r -> case r of {Ag g _ _ => g} ;
-    numberAgr : Agr -> Number = \r -> case r of {Ag _ n _ => n} ;
-    personAgr : Agr -> Person = \r -> case r of {Ag _ _ p => p} ;
+    genderAgr : Agr -> Gender = \r -> case r of {AgSgP3 g => g ; _ => Masc} ;
+
+    numberAgr = overload {
+      numberAgr : Agr -> Number = \r -> case r of {
+        AgSgP1 | AgSgP2 | AgSgP3 _ => Sg ;
+        AgPl _ | AgPlPol => Pl
+      } ;
+      numberAgr : VAgr -> Number = \r -> case r of {VAg n _ => n} ;
+    } ;
+    personAgr = overload {
+      personAgr : Agr -> Person = \r -> case r of {
+        AgSgP1 | AgPl P1 => P1 ;
+        AgSgP2 | AgPl P2 => P2 ;
+        AgSgP3 _ | AgPl P3 | AgPlPol => P3
+      } ;
+      personAgr : VAgr -> Person = \r -> case r of {VAg _ p => p}
+      } ;
+
+    conjAgr : Agr -> Agr -> Agr = \a,b ->
+      let n : Number = conjNumber (numberAgr a) (numberAgr b) ;
+          p : Person = conjPerson (personAgr a) (personAgr b)
+      in case <n,p> of {<Pl,p> => AgPl p ;
+                        <Sg,P3> => AgSgP3 Neutr ;
+                        <Sg,P1> => AgSgP1 ;
+                        <Sg,P2> => AgSgP2 } ;
 
 -- Pronouns are the worst-case noun phrases, which have both case
 -- and possessive forms.
@@ -78,11 +76,11 @@ resource ResGer = ParamX ** open Prelude in {
   param NPForm = NPCase Case | NPPoss GenNum Case ;
 
 -- Predeterminers sometimes require a case ("ausser mir"), sometimes not ("nur ich").
--- A number is sometimes inherited ("alle Menschen"), 
--- sometimes forced ("jeder von den Menschen").
+-- A number is sometimes inherited ("alle Menschen"), sometimes forced ("jeder von
+-- den Menschen").
 
   param 
-    PredetCase = NoCase | PredCase PCase ;
+    PredetCase = NoCase | PredCase Case ;
     PredetAgr = PAg Number | PAgNone ;
   oper
     noCase : {p : Str ; k : PredetCase} = {p = [] ; k = NoCase} ;
@@ -90,11 +88,11 @@ resource ResGer = ParamX ** open Prelude in {
 -- Pronominal nps are ordered differently, and light nps come before negation in clauses.
 -- (To save space, reduce isPron * isLight = 4 values to the following three.) HL 9/19
   param
-    Weight = WPron | WLight | WHeavy ;  
+    Weight = WPron | WLight | WHeavy | WDefArt ;
   oper
-    isPron : {w : Weight} -> Bool = \np -> 
+    isPron : {w : Weight} -> Bool = \np ->
       case np.w of {WPron => True ; _ => False} ;
-    isLight : {w : Weight} -> Bool = \np -> 
+    isLight : {w : Weight} -> Bool = \np ->
       case np.w of {WHeavy => False ; _ => True} ;
 
 --2 For $Adjective$
@@ -105,6 +103,9 @@ resource ResGer = ParamX ** open Prelude in {
 
 
 --2 For $Verb$
+
+  param VAgr =           -- Gender is irrelevant for verb forms, HL 8/2023
+    VAg Number Person ;  -- except participles
 
   param VForm =
      VInf Bool           -- True = with the particle "zu"
@@ -154,8 +155,10 @@ resource ResGer = ParamX ** open Prelude in {
   oper
     agrP3 : Number -> Agr = agrgP3 Neutr ;
 
-    agrgP3 : Gender -> Number -> Agr = \g,n -> 
-      Ag g n P3 ;
+    agrgP3 : Gender -> Number -> Agr = \g,n -> case n of {
+      Sg => AgSgP3 g ;
+      Pl => AgPl P3    -- no gender in Pl
+      } ;
 
     gennum : Gender -> Number -> GenNum = \g,n ->
       case n of {
@@ -196,10 +199,10 @@ resource ResGer = ParamX ** open Prelude in {
          _ => Weak
          } ;      
 
-    vFin : Bool -> Mood -> Tense -> Agr -> VForm = \b,m,t,a ->
+    vFin : Bool -> Mood -> Tense -> VAgr -> VForm = \b,m,t,a ->
       let
-        an = numberAgr a ;
-        ap = personAgr a ;
+        an : Number = numberAgr a ;
+        ap : Person = personAgr a ;
       in
       case <t,m> of {
         <Pres,MIndic>    => VFin b (VPresInd   an ap) ;
@@ -210,11 +213,15 @@ resource ResGer = ParamX ** open Prelude in {
         _ => VInf False --# notpresent
         } ;
 
-    conjAgr : Agr -> Agr -> Agr = \a,b -> mkAgr {
-      g = Neutr ; ----
-      n = conjNumber (numberAgr a) (numberAgr b) ;
-      p = conjPerson (personAgr a) (personAgr b)
-      } ;
+    agr2vagr : Agr -> VAgr = \r -> case r of {
+       AgSgP1   => VAg Sg P1 ;
+       AgSgP2   => VAg Sg P2 ;
+       AgSgP3 g => VAg Sg P3 ;
+       AgPl p   => VAg Pl p ;
+       AgPlPol  => VAg Pl P3
+     } ;
+
+    vagrP3 : Number -> VAgr = \n -> VAg n P3 ;
 
 --------------------------------------------
 --TYPE DEFINITIONS + WORST-CASE CONSTRUCTORS
@@ -252,12 +259,12 @@ resource ResGer = ParamX ** open Prelude in {
     g : Gender
     } ;
 
-  NP : Type = {
-     s : PCase => Str ;
+  NP : Type = { -- HL 7/22: Bool = True if DefArt is dropped to combine with prep of type isPrepDefArt
+     s : Bool => Case => Str ;
      rc : Str ;  -- die Frage , [rc die ich gestellt habe]
      ext : Str ; -- die Frage , [sc wo sie schläft] ; die Regel , [vp kein Fleisch zu essen] | [s dass ...]
      a : Agr ;
-     w : Weight } ; -- light NPs come before negation in simple clauses (expensive)
+     w : Weight } ; -- light NPs come before negation in simple clauses
 
   mkN  : (x1,_,_,_,_,x6,x7 : Str) -> Gender -> Noun = 
     \Mann, Mannen, Manne, Mannes, Maenner, Maennern, Mann_, g -> {
@@ -391,7 +398,7 @@ resource ResGer = ParamX ** open Prelude in {
 
   regA : Str -> Adjective = \blau ->
    let blauest : Str = case blau of {
-     _ + ("t" | "d" | "s" | "sch" | "z") => blau + "est" ;
+     _ + ("t" | "d" | "s" | "ß" | "sch" | "z" | "au" | "eu") => blau + "est" ;
      _ => blau + "st"
    }
    in
@@ -421,44 +428,77 @@ resource ResGer = ParamX ** open Prelude in {
       legte ("ge" + legt) 
       [] VHaben ;
 
--- Prepositions for complements indicate the complement case.
+-- Prepositions indicate the case of their complement noun phrase.
 
-  Preposition : Type = {s : Str ; s2 : Str ; c : PCase ; isPrep : Bool} ;
+-- There are three types: (i) cases, (ii) pure pre-, post- and circum-positions, 
+-- and (iii) prepositions glued with definite article in singular (using s!(GSg g)).
 
-  -- HL 7/19: German has very few circumpositions: um (Gen) Willen, von (Adv) an|ab|aus
-  -- ? bis (Adv) hin|her. So maybe we should skip s2 (and save readings with empty preps).
+  param
+    PrepType = isCase | isPrep | isPrepDefArt ;                  -- HL 7/2022
+
+  oper
+    Preposition : Type = {s : GenNum => Str ; s2:Str ; c : Case ; isPrep : PrepType} ;
+
+  isaCase : Preposition -> Bool = \p -> case p.isPrep of {isCase => True ; _ => False} ;
+  isaPrep : Preposition -> Bool = \p -> case p.isPrep of {isPrep => True ; _ => False} ;
+  isaPrepDefArt : Preposition -> Bool = \p -> case p.isPrep of {isPrepDefArt => True ; _ => False} ;
 
 -- To apply a preposition to a complement.
 
-  appPrep : Preposition -> (PCase => Str) -> Str = \prep,arg ->
-    prep.s ++ arg ! prep.c ++ prep.s2 ;
+  appPrep : Preposition -> (Case => Str) -> Str = \prep,arg ->
+    prep.s ! GPl ++ arg ! prep.c ++ prep.s2 ;
 
   appPrepNP : Preposition -> NP -> Str = \prep,np ->
-    	prep.s ++ np.s ! prep.c ++ bigNP np ++ prep.s2 ;
-	-- revised appPrep for discontinuous NPs
+    let
+      g : Gender = genderAgr np.a ;
+      n : Number = numberAgr np.a ;
+      glues = case <prep.isPrep,n> of {<isPrepDefArt,Sg> => True ; _ => False} ;
+      nps = np.s ! glues ! prep.c
+    in
+    case <glues, np.w> of {
+        <True, WDefArt> => -- e.g. "zum Hof|zur Tür|zum Fenster herein"
+          prep.s ! (GSg g) ++ nps ++ np.ext ++ prep.s2 ++ np.rc ;
+         _ => prep.s ! GPl ++ nps ++ np.ext ++ prep.s2 ++ np.rc
+         } ;
+
+{- -- Simplify to test the effect on grammar compilation complexity (without SlashV2VNP):
+   -- with glues = False: 27096 msec, 3,2M VerbGer.gfo, 854 SentenceGer.gfo
+   --     and SlashV2VNP:102597 msec, 16 M VerbGer.gfo, 854 SentenceGer.gfo (good!)
+   appPrepNP : Preposition -> NP -> Str = \prep,np ->
+     let
+       glues = False ;
+       nps = np.s ! glues ! prep.c
+     in prep.s ! GPl ++ nps ++ np.ext ++ prep.s2 ++ np.rc ;
+-}
 
   bigNP : NP -> Str = \np -> np.ext ++ np.rc ;
 
 -- To build a preposition from just a case.  -- HL 9/19: no longer used in RGL
 
   noPreposition : Case -> Preposition = \c -> 
-    {s,s2 = [] ; c = NPC c ; isPrep = False} ;
+    {s = \\_ => [] ; s2 = [] ; c = c ; isPrep = isCase} ;
+
+-- To build a preposition from just a case.  -- HL 9/19: moved to mkPrep in ParadigmsGer
+
+  PrepNom : Preposition = {s = \\_ => []; isPrep = isCase ; c = Nom ; s2 = []} ;
+
+  vonDat  : Preposition = {s=table{GPl => "von" ; GSg Fem => "von der"; _ => "vom"};
+                           s2=[]; c=Dat; isPrep=isPrepDefArt} ;
 
 -- To build passive: accusative object -> nom subject; others -> same case or prep
 
   subjPrep : Preposition -> Preposition = \prep ->
     case <prep.c,prep.isPrep> of {
-      <NPC Acc,False> => prep ** {c = NPC Nom} ;
+      <Acc,isCase> => prep ** {c = Nom} ;
       _ => prep
     } ;
 
 -- Pronouns and articles
 -- Here we define personal and relative pronouns.
--- All personal pronouns, except "ihr", conform to the simple
--- pattern $mkPronPers$.
+-- All personal pronouns, except "ihr", conform to the simple pattern $mkPronPers$.
 
-  mkPronPers : (x1,_,_,_,x5 : Str) -> Gender -> Number -> Person -> 
-               {s : NPForm => Str ; a : Agr} = 
+   mkPronPers : (x1,_,_,_,x5 : Str) -> Gender -> Number -> Person ->
+                {s : NPForm => Str ; a : Agr} =
     \ich,mich,mir,meiner,mein,g,n,p -> {
       s = table {
         NPCase c    => caselist ich mich mir meiner ! c ;
@@ -470,7 +510,12 @@ resource ResGer = ParamX ** open Prelude in {
               }
             }
           } ;
-      a = Ag g n p
+      a = case <g,n,p> of {
+            <_,Pl,p > => AgPl p ;
+            <g,Sg,P3> => AgSgP3 g ;
+            <_,Sg,P1> => AgSgP1 ;
+            <_,Sg,P2> => AgSgP2 -- for "man", "Sie", set in StructuralGer  HL
+            }
       } ;
 
   pronEnding : GenNum => Case => Str = table {
@@ -487,32 +532,14 @@ resource ResGer = ParamX ** open Prelude in {
     GPl      => caselist "die" "die" "den" "der"
     } ;
 
-  artDefContr : GenNum -> PCase -> Str = \gn,np -> case np of {
-    NPC c => artDef ! gn ! c ;
-    NPP p => case <p,gn> of {
-      <CAnDat, GSg (Masc | Neutr)> => "am" ;
-      <CInAcc, GSg Neutr>          => "ins" ;
-      <CInDat, GSg (Masc | Neutr)> => "im" ;
-      <CZuDat, GSg Masc>           => "zum" ;
-      <CZuDat, GSg Neutr>          => "zum" ;
-      <CZuDat, GSg Fem>            => "zur" ;
-      <CVonDat, GSg (Masc | Neutr)> => "vom" ;
-      _ => let sp = prepC np in sp.s ++ artDef ! gn ! sp.c
-      }
-    } ;
-
-
 -- This is used when forming determiners that are like adjectives.
 
-  appAdj : Adjective -> Number => Gender => PCase => Str = \adj ->
+  appAdj : Adjective -> Number => Gender => Case => Str = \adj ->
     let
       ad : GenNum -> Case -> Str = \gn,c -> 
         adj.s ! Posit ! AMod gn c
     in
-    \\n,g,c => usePrepC c (\k -> case n of {
-       Sg => ad (GSg g) k ;
-       _  => ad GPl k
-     }) ;
+    \\n,g,c => case n of {Sg => ad (GSg g) c ; _  => ad GPl c} ;
 
 -- This auxiliary gives the forms in each degree of adjectives. 
 
@@ -545,7 +572,7 @@ resource ResGer = ParamX ** open Prelude in {
 -- For $Verb$.
 
   VPC : Type = {
-      s : Bool => Agr => VPForm => { -- True = prefix glued to verb
+      s : Bool => VAgr => VPForm => { -- True = prefix glued to verb
         fin : Str ;          -- wird
         inf, inf2 : Str      -- lesen,[] | gelesen,haben | können,haben (= gekonnt,haben)
         }                    -- HL 11/6/2019 Fut Anter: lesen gekonnt haben => haben lesen können 
@@ -574,26 +601,26 @@ resource ResGer = ParamX ** open Prelude in {
     let
       isAux = vp.isAux ;
       verb = vp.s ;
-      vfin : Bool -> Mood -> Tense -> Agr -> Str = \b,m,t,a -> 
+      vfin : Bool -> Mood -> Tense -> VAgr -> Str = \b,m,t,a ->
         verb.s ! vFin b m t a ;
       vinf = verb.s ! VInf False ;
       vpart = if_then_Str isAux vinf (verb.s ! VPastPart APred) ;
 
       vHaben = auxPerfect verb ;
-      hat : Mood -> Tense -> Agr -> Str = \m,t,a -> 
+      hat : Mood -> Tense -> VAgr -> Str = \m,t,a ->
         vHaben ! vFin False m t a ;
       haben : Str = vHaben ! VInf False ;
 
-      wird : Mood -> Agr -> Str = \m,a -> 
+      wird : Mood -> VAgr -> Str = \m,a ->
         let
-          an = numberAgr a ;
-          ap = personAgr a ;
+          an : Number = numberAgr a ;
+          ap : Person = personAgr a ;
         in
         case m of {
-          MIndic => werden_V.s ! VFin False (VPresInd an ap) ;  
+          MIndic => werden_V.s ! VFin False (VPresInd an ap) ; 
           MConjunct => werden_V.s ! VFin False (VPresSubj an ap)
-        } ;  
-      wuerde : Agr -> Str = \a ->                    --# notpresent
+        } ;
+      wuerde : VAgr -> Str = \a ->                    --# notpresent
         werden_V.s ! VFin False (VImpfSubj (numberAgr a) (personAgr a)) ;  --# notpresent
 
       auf = verb.prefix ;
@@ -626,7 +653,7 @@ resource ResGer = ParamX ** open Prelude in {
 
   predV : Verb -> VP = predVGen False ;
 
-  predVc : Verb ** {c2 : Preposition} -> VPSlash = \v -> 
+  predVc : Verb ** {c2 : Preposition} -> VPSlash = \v ->
     predV v ** {c2 = v.c2 ; objCtrl = False} ;
 
   predVGen : Bool -> Verb -> VP = \isAux, verb -> {
@@ -716,14 +743,19 @@ resource ResGer = ParamX ** open Prelude in {
     insertObj obj vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl } ;
 
   insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
-    let c = case prep.c of { NPC cc => cc ; _ => Nom } ;
-        obj = appPrepNP prep np ;
-    in vp ** {
+    let obj = appPrepNP prep np ;
+        b : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
+        w = np.w ;
+        c = prep.c
+    in insertObj' obj b w c vp ;
+
+  insertObj' : Str -> Bool -> Weight -> Case -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
+    vp ** {
       nn = \\a =>
         let vpnn = vp.nn ! a in
         -- HL 11/6/19: rough object NP order (expensive):
         -- vfin < accPron < refl < (gen|dat)Pron < lightNP < neg < heavyNP|PP < vinf|comp
-        case <prep.isPrep, np.w, c> of { -- 2 * 3 * 4 = 24 cases
+        case <isPrep, w, c> of { -- 2 * 3 * 4 = 24 cases
           <True, _,_> =>       -- <prons, light, heavy++pp, compl>
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> ;
           <False,WPron, Acc> => -- <ihn ++ sich, light, heavy, comp>
@@ -733,24 +765,23 @@ resource ResGer = ParamX ** open Prelude in {
           <False,WLight,Dat> => -- (assuming v.c2=acc) nonPron: dat < acc|gen
                                 -- <prons, dat ++ np, heavy, comp>
             <vpnn.p1, obj ++ vpnn.p2, vpnn.p3, vpnn.p4> ;
-          <False,WHeavy,Dat> => -- <prons, light, dat ++ np, comp>
-            <vpnn.p1, vpnn.p2, obj ++ vpnn.p3, vpnn.p4> ;
           <False,WLight,_  > => -- <prons, np ++ gen|acc, heavy, comp>
             <vpnn.p1, vpnn.p2 ++ obj, vpnn.p3, vpnn.p4> ;
-          <False,WHeavy,_  > => -- <prons, light, dat ++ np, comp>
+          <False,WHeavy|WDefArt,Dat> => -- <prons, light, dat ++ np, comp>
+            <vpnn.p1, vpnn.p2, obj ++ vpnn.p3, vpnn.p4> ;
+          <False,WHeavy|WDefArt,_  > => -- <prons, light, np ++ gen|acc, comp>
             <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4> }
     } ; -- the ordering of objects of v:V3 (and v:V4) is also determined by Slash?V3 (and Slash?V4)
 
   insertObjRefl : VPSlash -> VPSlash = \vp -> -- HL 6/2019, to order reflPron < neg < prep+reflPron
     let prep = vp.c2 ;
-        c = case prep.c of { NPC cc => cc ; _ => Acc } ;
-        obj : Agr => Str = \\a => prep.s ++ reflPron ! a ! c ;  -- HL: to test ReflVP: reflPronSelf
+        obj : Agr => Str = \\a => prep.s ! GPl ++ reflPron ! a ! prep.c ++ prep.s2
     in vp ** {
       nn = \\a =>
         let vpnn = vp.nn ! a in
         case prep.isPrep of {
-          False => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ;
-          True  => <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4> }
+          isCase => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ;
+          _      => <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4> }
     } ;
 
   insertAdV : Str -> VP -> VP = \adv,vp -> vp ** { -- not used in Ger, so VP.a1 can be skipped
@@ -819,14 +850,15 @@ resource ResGer = ParamX ** open Prelude in {
     } ;
 
   mkClause : Str -> Agr -> VP -> Clause = \subj,agr,vp ->
-    let vps = useVP vp in {
+    let vagr = agr2vagr agr ;
+         vps = useVP vp in {
       s = \\m,t,a,b,o =>
         let
           ord   = case o of {
             Sub => True ;  -- glue prefix to verb
             _ => False
             } ;
-          verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
+          verb  = vps.s  ! ord ! vagr ! VPFinite m t a ;
           haben = verb.inf2 ;
           neg = negation ! b ;
           obj1  = (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ; -- refl ++ pronouns ++ light nps
@@ -894,7 +926,7 @@ resource ResGer = ParamX ** open Prelude in {
     in
     <
      \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4 ++ vp.a2,
-     vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit Simul).inf,  -- vp.a1 ! Pos
+     vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! vagrP3 Sg ! VPInfinit Simul).inf,  -- vp.a1 ! Pos
      vp.inf.inpl.p2, -- ! HL
      infExt ++ vp.ext
     > ;
@@ -905,7 +937,7 @@ resource ResGer = ParamX ** open Prelude in {
       {
         objs = \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ negation ! pol ++ (vp.nn ! agr).p3
           ++ vp.a2 ++ (vp.nn ! agr).p4 ;  -- objects + predicative A|CN|NP
-        pred = vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit ant).inf ;
+        pred = vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! vagrP3 Sg ! VPInfinit ant).inf ;
         -- inplace and extracted parts of vp.inf:
         inpl = vp.inf.inpl ;
         extr = vp.inf.extr
@@ -916,7 +948,7 @@ resource ResGer = ParamX ** open Prelude in {
       \isAux, ant, pol, vp -> let vps = useVP vp in
       { objs = \\agr => (vp.nn ! agr).p1 ++ (vp.nn ! agr).p2 ++ negation ! pol ++ (vp.nn ! agr).p3
           ++ vp.a2 ++ (vp.nn ! agr).p4 ;  -- objects + predicative A|CN|NP
-        pred = vp.inf.inpl.p2 ++ vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! agrP3 Sg ! VPInfinit ant).inf ;
+        pred = vp.inf.inpl.p2 ++ vp.a1 ++ vp.adj ++ (vps.s ! (notB isAux) ! vagrP3 Sg ! VPInfinit ant).inf ;
         -- inplace and extracted parts of vp.inf:
         inpl = <vp.inf.inpl.p1, []> ; -- move the predicate part to pred
         extr = vp.inf.extr
@@ -927,55 +959,67 @@ resource ResGer = ParamX ** open Prelude in {
     -- let vpi = infVP isAux vp in
     -- vpi.p1 ! agrP3 Sg ++ vpi.p3 ++ vpi.p2 ++ vpi.p4 ;
     let vpi = infVP isAux Simul Pos vp ; -- HL 3/2022
-        agr : Agr = (Ag Masc Sg P3) ;
-        glue : (Agr => Str)*Str -> Str =  \i -> i.p1!agr ++ i.p2
+        agr = agrP3 Sg ;
+        glue : (Agr => Str)*Str -> Str =  \i -> i.p1 ! agr ++ i.p2
     in
        glue (embedInf vpi.inpl <vpi.objs, vpi.pred>) ++ vpi.extr!agr ++ vp.ext ;
 
 -- The nominative case is not used as reflexive, but defined here
 -- so that we can reuse this in personal pronouns. 
 
-  reflPron : Agr => Case => Str = table {
-    Ag _ Sg P1 => caselist "ich" "mich" "mir"  "meiner" ;
-    Ag _ Sg P2 => caselist "du"  "dich" "dir"  "deiner" ;
-    Ag Masc Sg P3 => caselist "er" "sich" "sich" "seiner" ;
-    Ag Fem  Sg P3 => caselist "sie" "sich" "sich" "ihrer" ;
-    Ag Neutr Sg P3 => caselist "es" "sich" "sich" "seiner" ;
-    Ag _ Pl P1 => caselist "wir" "uns"  "uns"  "unser" ;
-    Ag _ Pl P2 => caselist "ihr" "euch" "euch" "euer" ;
-    Ag _ Pl P3 => caselist "sie" "sich" "sich" "ihrer"
+  reflPron : Agr => Case => Str = table { -- with persPron nominative
+    AgSgP1       => caselist "ich" "mich" "mir"  "meiner" ;
+    AgSgP2       => caselist "du"  "dich" "dir"  "deiner" ;
+    AgSgP3 Masc  => caselist "er" "sich" "sich" "seiner" ;
+    AgSgP3 Fem   => caselist "sie" "sich" "sich" "ihrer" ;
+    AgSgP3 Neutr => caselist "es" "sich" "sich" "seiner" ;
+    AgPl P1      => caselist "wir" "uns"  "uns"  "unser" ;
+    AgPl P2      => caselist "ihr" "euch" "euch" "euer" ;
+    AgPl P3      => caselist "sie" "sich" "sich" "ihrer" ;
+    AgPlPol      => caselist "Sie" "sich" "sich" "Ihrer"              -- HL 8/2023
+    -- AgSgP3Gen    => caselist "man selbst" "sich" "sich" "seiner" ; -- älter als man selbst sein
+    -- ; AgPlReci  => caselist "man" "einander" "einander" "einander" -- reciPron ?
     } ;
 
   possPron : Agr -> Number -> Gender -> Case -> Str = \a,n,g,c -> case <a,n,g> of {
-    <Ag _ Sg P1,Sg,Masc>  => caselist "mein"  "meinen" "meinem"  "meines" ! c ;
-    <Ag _ Sg P1,Sg,Fem>   => caselist "meine" "meine"  "meiner"  "meiner" ! c ;
-    <Ag _ Sg P1,Sg,Neutr> => caselist "mein"  "mein"   "meinem"  "meines" ! c ;
-    <Ag _ Sg P1,Pl,_>     => caselist "meine" "meine"  "meinen"  "meiner" ! c ;
-    <Ag _ Sg P2,Sg,Masc>  => caselist "dein"  "deinen" "deinem"  "deines" ! c ;
-    <Ag _ Sg P2,Sg,Fem>   => caselist "deine" "deine"  "deiner"  "deiner" ! c ;
-    <Ag _ Sg P2,Sg,Neutr> => caselist "dein"  "dein"   "deinem"  "deines" ! c ;
-    <Ag _ Sg P2,Pl,_>     => caselist "deine" "deine"  "deinen"  "deiner" ! c ;
-    
-    <Ag (Masc|Neutr) Sg P3,Sg,Masc>  => caselist "sein"  "seinen" "seinem"  "seines" ! c ;
-    <Ag (Masc|Neutr) Sg P3,Sg,Fem>   => caselist "seine" "seine"  "seiner"  "seiner" ! c ;
-    <Ag (Masc|Neutr) Sg P3,Sg,Neutr> => caselist "sein"  "sein"   "seinem"  "seines" ! c ;
-    <Ag (Masc|Neutr) Sg P3,Pl,_>     => caselist "seine" "seine"  "seinen"  "seiner" ! c ;
+    <AgSgP1,Sg,Masc>  => caselist "mein"  "meinen" "meinem"  "meines" ! c ;
+    <AgSgP1,Sg,Fem>   => caselist "meine" "meine"  "meiner"  "meiner" ! c ;
+    <AgSgP1,Sg,Neutr> => caselist "mein"  "mein"   "meinem"  "meines" ! c ;
+    <AgSgP1,Pl,_>     => caselist "meine" "meine"  "meinen"  "meiner" ! c ;
+    <AgSgP2,Sg,Masc>  => caselist "dein"  "deinen" "deinem"  "deines" ! c ;
+    <AgSgP2,Sg,Fem>   => caselist "deine" "deine"  "deiner"  "deiner" ! c ;
+    <AgSgP2,Sg,Neutr> => caselist "dein"  "dein"   "deinem"  "deines" ! c ;
+    <AgSgP2,Pl,_>     => caselist "deine" "deine"  "deinen"  "deiner" ! c ;
 
-    <Ag _ _ P3,Sg,Masc>  => caselist "ihr"  "ihren" "ihrem"  "ihres" ! c ;
-    <Ag _ _ P3,Sg,Fem>   => caselist "ihre" "ihre"  "ihrer"  "ihrer" ! c ;
-    <Ag _ _ P3,Sg,Neutr> => caselist "ihr"  "ihr"   "ihrem"  "ihres" ! c ;
-    <Ag _ _ P3,Pl,_>     => caselist "ihre" "ihre"  "ihren"  "ihrer" ! c ;
+    <AgSgP3 Fem,Sg,Masc>  => caselist "ihr"  "ihren" "ihrem"  "ihres" ! c ;
+    <AgSgP3 Fem,Sg,Fem>   => caselist "ihre" "ihre"  "ihrer"  "ihrer" ! c ;
+    <AgSgP3 Fem,Sg,Neutr> => caselist "ihr"  "ihr"   "ihrem"  "ihres" ! c ;
+    <AgSgP3 Fem,Pl,_>     => caselist "ihre" "ihre"  "ihren"  "ihrer" ! c ;
 
-    <Ag _ Pl P1,Sg,Masc>  => caselist "unser"  "unseren" "unserem"  "unseres" ! c ;
-    <Ag _ Pl P1,Sg,Fem>   => caselist "unsere" "unsere"  "unserer"  "unserer" ! c ;
-    <Ag _ Pl P1,Sg,Neutr> => caselist "unser"  "unser"   "unserem"  "unseres" ! c ;
-    <Ag _ Pl P1,Pl,_>     => caselist "unsere" "unsere"  "unseren"  "unserer" ! c ;
-    
-    <Ag _ Pl P2,Sg,Masc>  => caselist "euer" "euren" "eurem"  "eures" ! c ;
-    <Ag _ Pl P2,Sg,Fem>   => caselist "eure" "eure"  "eurer"  "eurer" ! c ;
-    <Ag _ Pl P2,Sg,Neutr> => caselist "euer" "euer"  "eurem"  "eures" ! c ;
-    <Ag _ Pl P2,Pl,_>     => caselist "eure" "eure"  "euren"  "eurer" ! c
- 
+    <AgSgP3 _,Sg,Masc>  => caselist "sein"  "seinen" "seinem"  "seines" ! c ;
+    <AgSgP3 _,Sg,Fem>   => caselist "seine" "seine"  "seiner"  "seiner" ! c ;
+    <AgSgP3 _,Sg,Neutr> => caselist "sein"  "sein"   "seinem"  "seines" ! c ;
+    <AgSgP3 _,Pl,_>     => caselist "seine" "seine"  "seinen"  "seiner" ! c ;
+
+    <AgPl P1,Sg,Masc>  => caselist "unser"  "unseren" "unserem"  "unseres" ! c ;
+    <AgPl P1,Sg,Fem>   => caselist "unsere" "unsere"  "unserer"  "unserer" ! c ;
+    <AgPl P1,Sg,Neutr> => caselist "unser"  "unser"   "unserem"  "unseres" ! c ;
+    <AgPl P1,Pl,_>     => caselist "unsere" "unsere"  "unseren"  "unserer" ! c ;
+
+    <AgPl P2,Sg,Masc>  => caselist "euer" "euren" "eurem"  "eures" ! c ;
+    <AgPl P2,Sg,Fem>   => caselist "eure" "eure"  "eurer"  "eurer" ! c ;
+    <AgPl P2,Sg,Neutr> => caselist "euer" "euer"  "eurem"  "eures" ! c ;
+    <AgPl P2,Pl,_>     => caselist "eure" "eure"  "euren"  "eurer" ! c ;
+
+    <AgPl P3,Sg,Masc>  => caselist "ihr"  "ihren" "ihrem"  "ihres" ! c ;
+    <AgPl P3,Sg,Fem>   => caselist "ihre" "ihre"  "ihrer"  "ihrer" ! c ;
+    <AgPl P3,Sg,Neutr> => caselist "ihr"  "ihr"   "ihrem"  "ihres" ! c ;
+    <AgPl P3,Pl,_>     => caselist "ihre" "ihre"  "ihren"  "ihrer" ! c ;
+
+    <AgPlPol,Sg,Masc>  => caselist "Ihr"  "Ihren" "Ihrem"  "Ihres" ! c ;
+    <AgPlPol,Sg,Fem>   => caselist "Ihre" "Ihre"  "Ihrer"  "Ihrer" ! c ;
+    <AgPlPol,Sg,Neutr> => caselist "Ihr"  "Ihr"   "Ihrem"  "Ihres" ! c ;
+    <AgPlPol,Pl,_>     => caselist "Ihre" "Ihre"  "Ihren"  "Ihrer" ! c
     } ;
 
   conjThat : Str = "dass" ;
@@ -987,7 +1031,7 @@ resource ResGer = ParamX ** open Prelude in {
   infPart : Bool -> Str = \b -> if_then_Str b [] "zu" ;
 
   heavyNP : 
-    {s : PCase => Str ; a : Agr} -> {s : PCase => Str ; a : Agr ; w : Weight ; ext,rc : Str} = \np ->
+    {s : Bool => Case => Str ; a : Agr} -> {s : Bool => Case => Str ; a : Agr ; w : Weight ; ext,rc : Str} = \np ->
     np ** {w = WHeavy ; ext,rc = []} ; -- this could be wrong
 
   relPron :  RelGenNum => Case => Str = \\rgn,c =>
@@ -1004,11 +1048,11 @@ resource ResGer = ParamX ** open Prelude in {
     } ;
 
 -- Function that allows the construction of non-nominative subjects.
-  mkSubj : NP -> Preposition -> Str * Agr = \np, prep ->
-    let 
-      agr = case prep.c of { NPC Nom => np.a ; _ => Ag Masc Sg P3 } ;
+  mkSubject : NP -> Preposition -> {s:Str ; a:Agr} = \np, prep ->
+    let
+      agr = case prep.c of { Nom => np.a ; _ => AgSgP3 Masc } ;
       subj = appPrepNP prep np
-    in <subj , agr> ;
+    in {s = subj ; a = agr} ;
 
   sex2gender : Sex -> Gender = \g ->
     case g of {

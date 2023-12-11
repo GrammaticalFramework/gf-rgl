@@ -1,6 +1,6 @@
 concrete NumeralCze of Numeral =
 
-  CatCze [Numeral,Digits] **
+  CatCze [Numeral,Digits,Decimal] **
 
   open
     ResCze,
@@ -116,5 +116,19 @@ oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
     D_7 = { s = "7" ; size = Num5} ;
     D_8 = { s = "8" ; size = Num5} ;
     D_9 = { s = "9" ; size = Num5} ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ Predef.BIND ++ d.s ;
+      size = Num5 ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = d.s ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.s ;
+      size = Num5 ;
+      hasDot=True
+      } ;
 
 }

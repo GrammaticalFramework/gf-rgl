@@ -216,6 +216,21 @@ oper
         }
       } ;
 
+  kukinInt : MorphoFin.Number => MorphoFin.Case => Str =
+    let ku : Noun = nForms2N (dUkko "ku" "kun")
+     in table {
+          Sg => table {
+            Part => "kutakin" ;
+            Illat => "kuhunkin" ;
+            c   => ku.s ! NCase Sg c + "kin"
+          } ;
+          Pl => table {
+            Gen => "kuidenkin" ;
+            Part => "kuitakin" ;
+            c   => ku.s ! NCase Pl c + "kin"
+            }
+          } ;
+
   kukaInt : MorphoFin.Number => (MorphoFin.Case) => Str =
     let
       kuka = snoun2nounBind (mkN "kuka" "kenen" "ketä" "kenä" "keneen"

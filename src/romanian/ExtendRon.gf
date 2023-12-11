@@ -1,7 +1,7 @@
 --# -path=.:../common:../abstract
 
 concrete ExtendRon of Extend =
-  CatRon ** ExtendFunctor - [PassVPSlash, GivenName, MaleSurname, FemaleSurname, FullName]
+  CatRon ** ExtendFunctor - [PassVPSlash]
   with
     (Grammar = GrammarRon) ** 
   open ResRon in {
@@ -16,13 +16,5 @@ lin iFem_Pron = mkPronoun "eu" "mine" "mie" [] [] "meu" "mea" "mei" "mele" Fem S
 
 -- KA: derived from PassV2, objects are ignored
 lin PassVPSlash vps = insertSimpObj (\\a => vps.s ! PPasse a.g a.n Indef ANomAcc) auxPassive ** {lock_VP = <>};
-
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = { -- KA: guessed
-       s = \\c => gn.s ! No ++ sn.s ! c ;
-       g = gn.g ;
-       n = gn.n ;
-       a = gn.a
-    } ;
 
 }

@@ -145,7 +145,38 @@ oper
     mkPN : N -> PN ;  -- get gender from noun
   } ;
 
+  mkGN = overload {
+    mkGN : (Anna : Str) -> GN = \s -> lin GN (regPN s) ; -- feminine for "-a", otherwise masculine
+    mkGN : (Pilar : Str) -> Gender -> GN = \s,g -> lin GN (mk2PN s g) ; -- force gender
+    } ;
 
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => s; pl = s} ;
+    mkSN : Str -> Str -> Str -> SN = \male,female,pl -> lin SN {s = table {Masc=>male; Fem=>female}; pl = pl} ;
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = Masc ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> LN = \s,g ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = Sg} ;
+    mkLN : Str -> Gender -> Number -> LN = \s,g,n ->
+      lin LN {s = s ;
+              onPrep = False ;
+              art = NoArt ;
+              g = g ;
+              num = n}
+  } ;
+
+  defLN : LN -> LN = \n -> n ** {art = UseArt} ;
 
 --2 Adjectives
 
@@ -327,8 +358,8 @@ oper
 
   Gender = MorphoIta.Gender ;
   Number = MorphoIta.Number ;
-  masculine = Masc ;
-  feminine = Fem ;
+  masculine, male = Masc ;
+  feminine, female = Fem ;
   singular = Sg ;
   plural = Pl ;
 
@@ -347,11 +378,11 @@ oper
   in_Prep = {s = [] ; c = CPrep P_in ; isDir = False ; lock_Prep = <>} ;
   su_Prep = {s = [] ; c = CPrep P_su ; isDir = False ; lock_Prep = <>} ;
 
-  mk2N x y g = mkNounIrreg x y g ** {lock_N = <>} ;
-  regN x = mkNomReg x ** {lock_N = <>} ;
-  compN x y = {s = \\n => x.s ! n ++ y ; g = x.g ; lock_N = <>} ;
-  femN x = {s = x.s ; g = feminine ; lock_N = <>} ;
-  mascN x = {s = x.s ; g = masculine ; lock_N = <>} ;
+  mk2N x y g = mkNounIrreg x y g ** {relType=NRelPrep P_da; lock_N = <>} ;
+  regN x = mkNomReg x ** {relType=NRelPrep P_da; lock_N = <>} ;
+  compN x y = x ** {s = \\n => x.s ! n ++ y} ;
+  femN x = {s = x.s ; g = feminine ; relType=NRelPrep P_da; lock_N = <>} ;
+  mascN x = {s = x.s ; g = masculine ; relType=NRelPrep P_da; lock_N = <>} ;
 
 
   mk2N2 = \n,p -> n ** {lock_N2 = <> ; c2 = p} ;
@@ -487,7 +518,7 @@ oper
 
   mkN = overload {
     mkN : (cane : Str) -> N = regN ;
-    mkN : (carne : Str) -> Gender -> N = \n,g -> {s = (regN n).s ; g = g ; lock_N = <>} ;
+    mkN : (carne : Str) -> Gender -> N = \n,g -> (regN n) ** {g = g} ;
     mkN : (uomo,uomini : Str) -> Gender -> N = mk2N ;
     mkN : N -> Str -> N = compN
     } ;
@@ -557,5 +588,7 @@ oper
     } ;
   mk2V2  : V -> Prep -> V2 ;
   dirV2 : V -> V2 ;
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False; hasArt=False} ;
 
 } ;

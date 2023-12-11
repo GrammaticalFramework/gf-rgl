@@ -8,7 +8,7 @@
 -- implement $Test$, it moreover contains regular lexical
 -- patterns needed for $Lex$.
 
-resource ResBul = ParamX ** open Prelude, Predef in {
+resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in {
 
   flags
     coding=utf8 ;  optimize=all ;
@@ -47,7 +47,6 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
   param
     Gender = Masc | Fem | Neut ;
-    Sex = Male | Female ;
 
     Species = Indef | Def ;
  
@@ -69,7 +68,7 @@ resource ResBul = ParamX ** open Prelude, Predef in {
      | VNoun NForm
      | VGerund
      ;
-     
+
     VType =
        VNormal
      | VMedial  Case
@@ -77,6 +76,14 @@ resource ResBul = ParamX ** open Prelude, Predef in {
      ;
 
     VVType = VVInf Aspect | VVGerund ;
+
+    Tense =
+       VPresent
+     | VPastSimple     --# notpresent
+     | VPastImperfect  --# notpresent
+     | VFut            --# notpresent
+     | VCond           --# notpresent
+     ;
 
 -- The order of sentence is needed already in $VP$.
 
@@ -470,7 +477,7 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
     ia2e : Str -> Str =           -- to be used when the next syllable has vowel different from "а","ъ","о" or "у"
       \s -> case s of {
-              x + "я" + y@(["бвгджзклмнпрстфхцчш"]*)
+              x@(?+_) + "я" + y@(["бвгджзклмнпрстфхцчш"]*)
                 => x+"е"+y;
               _ => s
             };
@@ -534,10 +541,12 @@ resource ResBul = ParamX ** open Prelude, Predef in {
           present = verb.s ! asp ! (VPres   (numGenNum clitic.agr.gn) clitic.agr.p) ;
           presentImperf = verb.s ! Imperf ! (VPres   (numGenNum clitic.agr.gn) clitic.agr.p) ;
           aorist = verb.s ! asp ! (VAorist (numGenNum clitic.agr.gn) clitic.agr.p) ;
+          imperfect = verb.s ! Imperf ! (VImperfect (numGenNum clitic.agr.gn) clitic.agr.p) ;
           perfect = verb.s ! asp ! (VPerfect (aform clitic.agr.gn Indef (RObj Acc))) ;
 
           auxPres   = auxBe ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ;
           auxAorist = auxBe ! VAorist (numGenNum clitic.agr.gn) clitic.agr.p ;
+          auxImperf = auxBe ! VImperfect (numGenNum clitic.agr.gn) clitic.agr.p ;
           auxCondS  = auxCond ! numGenNum clitic.agr.gn ! clitic.agr.p ;
 
           apc : Str -> Str = \s ->
@@ -581,14 +590,16 @@ resource ResBul = ParamX ** open Prelude, Predef in {
 
           verbs : {aux:{s1:Str; s2:Str}; main:Str} =
             case <t,a> of {
-              <Pres,Simul> => {aux=vf2 clitic.s;  main=presentImperf}
+              <VPresent,Simul> => {aux=vf2 clitic.s;  main=presentImperf}
               ;                                                    --# notpresent
-              <Pres,Anter> => {aux=vf1 clitic.s;  main=perfect} ; --# notpresent
-              <Past,Simul> => {aux=vf2 clitic.s;  main=aorist} ; --# notpresent
-              <Past,Anter> => {aux=vf4 auxAorist; main=perfect} ; --# notpresent
-              <Fut, Simul> => {aux=vf3 clitic.s;  main=present} ; --# notpresent
-              <Fut, Anter> => {aux=vf3 (apc []);  main=perfect} ; --# notpresent
-              <Cond,_    > => {aux=vf4 auxCondS;  main=perfect} --# notpresent
+              <VPresent,Anter> => {aux=vf1 clitic.s;  main=perfect} ; --# notpresent
+              <VPastSimple,Simul> => {aux=vf2 clitic.s;  main=aorist} ; --# notpresent
+              <VPastSimple,Anter> => {aux=vf4 auxAorist; main=perfect} ; --# notpresent
+              <VPastImperfect,Simul> => {aux=vf2 clitic.s;  main=imperfect} ; --# notpresent
+              <VPastImperfect,Anter> => {aux=vf4 auxImperf; main=perfect} ; --# notpresent
+              <VFut, Simul> => {aux=vf3 clitic.s;  main=present} ; --# notpresent
+              <VFut, Anter> => {aux=vf3 (apc []);  main=perfect} ; --# notpresent
+              <VCond,_    > => {aux=vf4 auxCondS;  main=perfect} --# notpresent
             }
 
       in verb.ad.s ++ li0 ++ verbs.aux.s1 ++ verbs.main ++ verbs.aux.s2 ;
@@ -858,5 +869,10 @@ resource ResBul = ParamX ** open Prelude, Predef in {
         Male => Masc ;
         Female => Fem
       } ;
+
+    vyv_Str : Str
+      = pre { "в" ; 
+              "във" / strs {"в" ; "ф" ; "В" ; "Ф"}
+            } ;
 
 }

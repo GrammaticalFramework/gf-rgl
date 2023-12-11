@@ -1,5 +1,5 @@
 --# -coding=utf8
-concrete NumeralBul of Numeral = CatBul [Numeral,Digits] ** open Prelude, ResBul in {
+concrete NumeralBul of Numeral = CatBul [Numeral,Digits,Decimal] ** open Prelude, ResBul in {
   flags coding=utf8 ;
 
 
@@ -97,8 +97,11 @@ lin pot3plus n m = {
   n = Pl
   } ;
 lin pot3as4 n = n ;
-lin pot3float f = {
-  s = \\c,nf => f.s ++ mkCardOrd100 "хиляди" "хилядите" "хиляден" ! c ;
+lin pot3decimal d = {
+  s = \\c,nf => case d.n of {
+                  Sg => mkCardOrd100 "хиляда" "хилядата" "хиляден" ! NCard (CFMasc Indef NonHuman) ;
+                  Pl => d.s ! NCard (CFFem Indef) ++ mkCardOrd100 "хиляди" "хилядите" "хиляден" ! c
+                } ;
   n = Pl
   } ;
 
@@ -109,7 +112,7 @@ lin pot41 = {
 lin pot4 n = {
       s = \\c,nf => case n.n of {
                   Sg => mkCardOrd100 "милион" "милионите" "милионен" ! c ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиони" "милионите" "милионен" ! c
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиона" "милионите" "милионен" ! c
                 } ;
       n = Pl
     } ;
@@ -118,8 +121,17 @@ lin pot4plus n1 n2 = {
       n = Pl
     } ;
 lin pot4as5 n = n ;
-lin pot4float f = {
-  s = \\c,nf => f.s ++ mkCardOrd100 "милиона" "милиона" "милионен" ! c ;
+lin pot4decimal d = {
+  s = \\c,nf => case c of {
+                  NCard (CFMasc s a) => d.s ! NCard (CFMasc s NonHuman) ;
+                  NCard (CFMascDefNom a) => d.s ! NCard (CFMascDefNom NonHuman) ;
+                  NCard cf => d.s ! NCard cf ;
+                  NOrd _ => d.s ! NCard (CFMasc Indef NonHuman)
+                } ++
+                case d.n of {
+                  Sg => "милион" ;
+                  Pl => "милиона"
+                } ;
   n = Pl
   } ;
 
@@ -130,7 +142,7 @@ lin pot51 = {
 lin pot5 n = {
       s = \\c,nf => case n.n of {
                   Sg => mkCardOrd100 "милиярд" "милиярдите" "милиярден" ! c ;
-                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиярд" "милиярдите" "милиярден" ! c
+                  Pl => n.s ! NCard (CFFem Indef) ! nf ++ mkCardOrd100 "милиярда" "милиярдите" "милиярден" ! c
                 } ;
       n = Pl
     } ;
@@ -138,8 +150,12 @@ lin pot5plus n1 n2 = {
       s = \\o,f => (pot5 n1).s ! o ! f ++ "и" ++ n2.s ! o ! f;
       n = Pl
     } ;
-lin pot5float f = {
-  s = \\c,nf => f.s ++ mkCardOrd100 "милиярда" "милиярда" "милиярден" ! c ;
+lin pot5decimal d = {
+  s = \\c,nf => d.s ! NCard (CFFem Indef) ++
+                case d.n of {
+                  Sg => mkCardOrd100 "милиярд" "милиярда" "милиярден" ! c ;
+                  Pl => mkCardOrd100 "милиярда" "милиярдите" "милиярден" ! c
+                } ;
   n = Pl
   } ;
 
@@ -168,9 +184,19 @@ lin pot5float f = {
     D_8 = mk3Dig "8" "8на" "8ми" Pl ;
     D_9 = mk3Dig "9" "9има" "9ти" Pl ;
 
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {s=\\o=>"-" ++ BIND ++ d.s ! o; hasDot=False; n = Pl} ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard (CFMasc Indef NonHuman) ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o;
+      n = Pl ;
+      hasDot=True
+      } ;
+
   oper
     spaceIf : DTail -> Str = \t -> case t of {
-      T3 => SOFT_BIND ;
+      T3 => SOFT_SPACE ;
       _  => BIND
       } ;
 

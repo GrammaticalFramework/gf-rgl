@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:
-concrete NumeralPes of Numeral = CatPes [Numeral,Digits] ** open ResPes,Prelude in {
+concrete NumeralPes of Numeral = CatPes [Numeral,Digits,Decimal] ** open ResPes,Prelude in {
 
 flags coding = utf8;
 
@@ -83,7 +83,21 @@ lin pot3plus n m = {
     D_9 = mkDig "9" ;
    
   --  lin IDig d = { s = \\_ => d.s ; n = Sg} ;
-    lin IIDig d dg = { s = \\df => d.s ! NCard ++ dg.s ! df   ; n = Pl}; 
+    IIDig d dg = { s = \\df => d.s ! NCard ++ dg.s ! df   ; n = Pl}; 
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\df => "-" ++ d.s ! df ;
+      n = Pl ;
+      hasDot=False
+      };
+    IFrac d i = {
+      s=\\df=>d.s ! NCard ++
+              if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+              i.s ! df;
+      n = Pl;
+      hasDot=True
+    } ;
 
   oper
     commaIf : DTail -> Str = \t -> case t of {

@@ -11,10 +11,11 @@ concrete GrammarSpa of Grammar =
   RelativeSpa,
   ConjunctionSpa,
   PhraseSpa,
-  TextSpa - [SC,Temp,Tense,Pol,PPos,PNeg],      -- special punctuation
+  TextSpa - [SC,Temp,Tense,Pol,PPos,PNeg,MU],      -- special punctuation
   IdiomSpa,
   StructuralSpa,
-  TenseSpa
+  TenseSpa,
+  NamesSpa
 
   ** {
 

@@ -10,10 +10,9 @@ instance DiffNno of DiffScand = open CommonScand, Prelude in {
 
   param
     NGenderNno = NUtr Sex | NNeutr ;
-    Sex    = Masc | Fem ;
 
   oper
-    utrum = NUtr Masc ;
+    utrum = NUtr Male ;
     neutrum = NNeutr ;
 
     detDef : Species = Def ;

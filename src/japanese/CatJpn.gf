@@ -54,6 +54,7 @@ flags coding = utf8 ;
     DAP = Det ;
     Numeral = {s : Str ; n : Number ; tenPlus : Bool} ;
     Digits  = {s : Str ; n : Number ; tenPlus : Bool ; tail : DTail} ;
+    Decimal = {s : Str ; n : Number ; tenPlus : Bool ; hasDot : Bool} ;
     Conj = Conjunction ;          -- {s : Str ; null : Str ; type : ConjType} ;
     Subj = Subjunction ;          -- {s : Str ; type : SubjType} ;
     Prep = Preposition ;          -- {s : Str ; null : Str} ;

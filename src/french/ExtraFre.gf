@@ -74,10 +74,10 @@ concrete ExtraFre of ExtraFreAbs = ExtraRomanceFre **
 
   lin
     tout_Det = {
-    s  = \\g,c => prepCase c ++ genForms "tout" "toute" ! g ;
-    sp = \\g,c => prepCase c ++ genForms "tout" "toute" ! g ;
+    s,sp = \\g,c => prepCase c ++ genForms "tout" "toute" ! g ;
+    spn= \\c => prepCase c ++ "tout" ;
     n = Sg ; 
-    s2 = [] ;
+    s2 = \\c => [] ;
     isNeg = False
     } ;
 

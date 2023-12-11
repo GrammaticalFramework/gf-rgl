@@ -112,20 +112,26 @@ lin
     } ;
 
   InflectionPN = \n -> {
-    t  = "v" ;
+    t  = "pn" ;
     s1 = heading1 "Proper Name" ;
     s2 = n.s
     } ;
 
+  InflectionLN = \n -> {
+    t  = "pn" ;
+    s1 = heading1 "Location Name" ;
+    s2 = n.s
+    } ;
+
   InflectionGN = \n -> {
-    t  = "v" ;
+    t  = "pn" ;
     s1 = heading1 "Given Name" ;
     s2 = n.s
     } ;
 
   InflectionSN = \n -> {
-    t  = "v" ;
-    s1 = heading1 "Surname Name" ;
+    t  = "pn" ;
+    s1 = heading1 "Family Name" ;
     s2 = n.s
     } ;
 

@@ -80,6 +80,7 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
     Card = BaseNum ;
     Numeral = ResSom.Numeral ;
     Digits = {s : CardOrd => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Str ; n : Number; hasDot : Bool} ;
 
 
 
@@ -118,7 +119,7 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
     N = ResSom.Noun ;
     N2 = ResSom.Noun2 ;
     N3 = ResSom.Noun3 ;
-    GN, SN, PN = ResSom.PNoun ;
+    GN, SN, LN, PN = ResSom.PNoun ;
 
     Adv = ResSom.Adverb ; -- Adposition of an adverbial can merge with obligatory complements of the verb.
 

@@ -44,9 +44,7 @@ concrete StructuralBul of Structural = CatBul **
   if_Subj = ss "ако" ;
   in8front_Prep = mkPrep "пред" ;
   i_Pron  = mkPron "аз" "мой" "моя" "моят" "моя" "моята" "мое" "моето" "мои" "моите" (GSg Masc) PronP1 ;
-  in_Prep = mkPrep (pre { "в" ; 
-                          "във" / strs {"в" ; "ф" ; "В" ; "Ф"}
-                        }) ;
+  in_Prep = mkPrep vyv_Str ;
   it_Pron  = mkPron "то" "негов" "неговия" "неговият" "негова" "неговата" "негово" "неговото" "негови" "неговите" (GSg Neut) PronP3 ;
   less_CAdv = X.mkCAdv "по-малко" "от" ;
   many_Det = mkDeterminerPl "много" ;

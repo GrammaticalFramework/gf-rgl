@@ -175,12 +175,12 @@ incomplete concrete SentenceRomance of Sentence =
     } ;
 
     AdvS a s = {s = \\o => a.s ++ s.s ! o} ;
-    ExtAdvS a s = {s = \\o => a.s ++ "," ++ s.s ! o} ;
+    ExtAdvS a s = {s = \\o => a.s ++ SOFT_BIND ++ "," ++ s.s ! o} ;
 
     SSubjS a s b = {s = \\m => a.s ! m ++ s.s ++ b.s ! s.m} ;
 
     RelS s r = {
-      s = \\o => s.s ! o ++ "," ++ partQIndir ++ r.s ! Indic ! agrP3 Masc Sg
+      s = \\o => s.s ! o ++ SOFT_BIND ++ "," ++ partQIndir ++ r.s ! Indic ! agrP3 Masc Sg
       } ;
 
 }

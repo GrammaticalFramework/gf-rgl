@@ -51,6 +51,7 @@ concrete CatTha of Cat = CommonX ** open ResTha, Prelude in {
 -- Numeral
 
     Numeral, Card, Digits = {s : Str} ;
+    Decimal = {s : Str; hasDot : Bool} ;
 
 -- Structural
 
@@ -71,6 +72,6 @@ concrete CatTha of Cat = CommonX ** open ResTha, Prelude in {
     N = ResTha.Noun ;
     N2 = ResTha.Noun ** {c2 : Str} ;
     N3 = ResTha.Noun ** {c2,c3 : Str} ;
-    GN, SN, PN = ResTha.NP ;
+    GN, SN, LN, PN = ResTha.NP ;
 
 }

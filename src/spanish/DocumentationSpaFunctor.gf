@@ -40,6 +40,42 @@ lin
            )
     } ;
 
+  InflectionPN = \pn -> {
+    t = "pn" ;
+    s1 = heading1 ("Nombre Proprio" ++
+                   case pn.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = pn.s
+    } ;
+
+  InflectionGN = \gn -> {
+    t = "pn" ;
+    s1 = heading1 ("Nombre de Pila" ++
+                   case gn.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = gn.s
+    } ;
+
+  InflectionSN = \sn -> {
+    t = "sn" ;
+    s1 = heading1 "Apellido" ;
+    s2 = sn.s ! Masc
+    } ;
+
+  InflectionLN = \ln -> {
+    t = "nl" ;
+    s1 = heading1 ("Nombre del Lugar" ++
+                   case ln.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = paragraph ln.s
+    } ;
+
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 (nounHeading adjective_Category).s ;
@@ -47,7 +83,15 @@ lin
            tr (th ""                            ++ th (heading singular_Parameter)  ++ th  (heading plural_Parameter)) ++
            tr (th (heading masculine_Parameter) ++ td (adj.s ! genNum2Aform Masc Sg) ++ td (adj.s ! genNum2Aform Masc Pl)) ++
            tr (th (heading feminine_Parameter)  ++ td (adj.s ! genNum2Aform Fem Sg)  ++ td (adj.s ! genNum2Aform Fem Pl))
-         )
+         ) ++
+         case adj.isDeg of {
+           True => heading2 (heading comparative_Parameter) ++
+                   frameTable (
+                     tr (th (heading singular_Parameter)   ++ th (heading plural_Parameter)) ++
+                     tr (td (adj.compar ! Sg) ++ td (adj.compar ! Pl))
+                   ) ;
+           False=> []
+         }
     } ;
 
   InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {

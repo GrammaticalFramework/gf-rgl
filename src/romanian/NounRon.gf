@@ -172,6 +172,9 @@ in {
                     isPre = True
                     };
 
+    NumDecimal nu = {s,sp = \\g => nu.s ! NCard g ;
+                     size = nu.n; n = getNumber nu.n };
+
     NumNumeral nu = {s = \\g => nu.s ! ANomAcc ! (NCard g) ! Formal ; 
                      sp = \\g => nu.sp ! ANomAcc ! (NCard g) ! Formal ;
                      n = getNumber nu.size ; size = nu.size };
@@ -304,6 +307,5 @@ in {
       needsRefForm = cn.needsRefForm;
       isComp = True
       } ;
-
 
 }; 

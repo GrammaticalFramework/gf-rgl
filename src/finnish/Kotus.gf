@@ -1,5 +1,5 @@
 
-resource Kotus = open MorphoFin, Prelude in {
+resource Kotus = open MorphoFin, Prelude, Predef in {
   flags coding=utf8 ;
 
 -- interpretations of paradigms in KOTUS word list, used in DictFin.
@@ -32,11 +32,15 @@ oper
     = \s -> dArpi s (init s + "en") ;
   d07A : Str -> NForms -- 70 väki
     = \s -> dArpi s (init (weakGrade s) + "en") ;
-  d08 : Str -> NForms -- 99 à la carte
-    = \s -> dNukke s (s + "n") ;
+  d08 : Str -> NForms -- 99 nalle
+    = \s -> let defaultNForms : NForms = dNukke s (s + "n") ;
+                nallejen : Str = s + "jen" ;
+             in exceptPlGen defaultNForms nallejen ;
   d08A : Str -> NForms -- 5 vinaigrette
-    = \s -> dNukke s (weakGrade s + "n") ;
-  d09 : Str -> NForms -- 696 ääriraja
+    = \s -> let defaultNForms : NForms = dNukke s (weakGrade s + "n") ;
+                nukkejen : Str = s + "jen" ;
+             in exceptPlGen defaultNForms nukkejen ;
+  d09 : Str -> NForms -- 696 kala
     = \s -> let a = last s in dSilakka s
               (s + "n")
               (init s + case a of {"a" => "o" ; _ => "ö"} + "j" + a) ;
@@ -44,6 +48,7 @@ oper
     = \s -> case s of {
               x + "aaka" => dSilakka s (x+"aa'an") (x+"aakoja") ;
               x + "aika" => dSilakka s (x+"ajan") (x+"aikoja") ; -- lots of compound words in NewDictFin that end in aika, but are not analysed as compounds
+              x + "ahka" => dSilakka s (x+"ahan") (x+"ahkoja") ; -- nahka~nahan not covered by weakGrade
               _  => let a = last s
                      in dSilakka s
                           (weakGrade s + "n")
@@ -55,7 +60,10 @@ oper
              _       => dSilakka s (s + "n") (init s + "i" + vowelHarmony (last s))
     } ;
   d10A : Str -> NForms -- 284 änkkä
-    = \s -> dSilakka s (weakGrade s + "n") (init s + "i" + vowelHarmony (last s)) ;
+    = \s -> case s of {
+              x + "hka" => dSilakka s (x+"han") (x+"hkia") ; -- tuhka, uhka
+              _ => dSilakka s (weakGrade s + "n") (init s + "i" + vowelHarmony (last s))
+    } ;
   d11 : Str -> NForms -- 46 ödeema
     = \s -> dSilakka s (weakGrade s + "n") (init s + "i" + vowelHarmony (last s)) ;
   d12 : Str -> NForms -- 1125 örinä
@@ -96,9 +104,21 @@ oper
   d24 : Str -> NForms -- 20 uni
     = \s -> dArpi s (init s + "en") ;
   d25 : Str -> NForms -- 9 tuomi
-    = \s -> dArpi s (init s + "en") ;
+    -- Class 25 is a bit heterogeneous, lumi~lunta,liemi~lientä vs. luomi~luomea (?luonta).
+    -- To force e.g. toimi~tointa, use the 4-argument smart paradigm. /IL 2023
+    -- TODO: how about forcing pl genitive also with nt?
+    = \s ->
+       let defaultNForms : NForms = dArpi s (init s + "en") ;
+        in case s of {
+            "lumi"  => exceptSgPart defaultNForms "lunta" ;
+            "liemi" => exceptSgPart defaultNForms "lientä" ;
+            _       => defaultNForms } ;
   d26 : Str -> NForms -- 113 ääri
-    = \s -> dArpi s (init s + "en") ;
+-- kielten,puolten,vuorten; default mkN gives kielien,puolien,vuorien
+    = \s ->
+       let defaultNForms : NForms = dArpi s (init s + "en") ;
+           puolten : Str = init s + "ten" ;
+        in exceptPlGen defaultNForms puolten ;
   d27 : Str -> NForms -- 23 vuosi
     = \s -> dArpi s (Predef.tk 2 s + "den") ;
   d28 : Str -> NForms -- 13 virsi
@@ -128,9 +148,15 @@ oper
   d33 : Str -> NForms -- 168 väistin
     = \s -> dLiitin s (init s + "men") ;
   d33A : Str -> NForms -- 181 yllytin
-    = \s -> dLiitin s (strongGrade (init s) + "men") ;
+    = \s -> let
+        pyyhkimen : Str = case s of { -- strongGrade doesn't work for all
+          x + "hin" => x + "hkimen" ;  -- pyyhin~pyyhkimen
+          x + "jin" => x + "kimen" ;   -- suljin~sulkimen
+          _ => strongGrade (init s) + "men"
+        } ;
+      in dLiitin s pyyhkimen ;
   d34 : Str -> NForms -- 1 alaston
-    = \s -> let alastom = init s in
+    = \s -> let alastom = init s + "m" in
       nForms10
         s (alastom + "an") (s + "ta") (alastom + "ana") (alastom + "aan")
         (alastom + "ien") (alastom + "ia") (alastom + "ina") (alastom + "issa")
@@ -175,7 +201,7 @@ oper
     = \s -> let kevä = init s in
       nForms10
         s (kevä + "än") (s + "tä") (kevä + "änä") (kevä + "äseen")
-        (s + "iden") (kevä + "itä") (kevä + "inä") (kevä + "issä")
+        (kevä + "iden") (kevä + "itä") (kevä + "inä") (kevä + "issä")
         (kevä + "isiin") ;
   d45 : Str -> NForms -- 23 yhdes
     = \s -> let yhde = init s ; a = vowelHarmony s in
@@ -258,7 +284,7 @@ oper
   c65 : Str -> VForms -- 1 käydä
     = \s -> let kay = Predef.tk 2 s ; kavi = init kay + "vi" in
       vForms12 s (kay + "n") kay (kay + "vät") (kay + "kää") (kay + "dään")
-        (kavi + "n") kavi (kavi + "si") (kay + "nyt") (kay + "tty")
+        (kavi + "n") kavi (kavi + "si") (kay + "nyt") (kay + "ty")
         (kay + "nee") ; -- just one verb
   c66 : Str -> VForms -- 268 öristä
     = \s -> cKuunnella s (Predef.tk 2 s + "in") ;
@@ -318,5 +344,17 @@ oper
 --- this is a lot slower
   fcompoundNK : (Str -> NForms) -> Str -> Str -> NForms = \d,x,y ->
     let ys = d y in \\v => x + ys ! v ;
+
+-- 25, 26 etc. should override the default dArpi on singular partitive and plural genitive
+-- lunta, *lumea, puolten, *puolien
+  exceptSgPart : NForms -> Str -> NForms = \defaultNForms,lunta ->
+    table {
+      2 => lunta ;
+      m => defaultNForms ! m } ;
+
+  exceptPlGen : NForms -> Str -> NForms = \defaultNForms,puolten ->
+    table {
+      5 => puolten ;
+      m => defaultNForms ! m } ;
 
 }

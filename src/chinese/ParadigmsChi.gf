@@ -215,6 +215,8 @@ oper
     = \s -> lin RP {s = table {True => [] ; False => word s}} ;
 
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 --. auxiliary
 
 oper

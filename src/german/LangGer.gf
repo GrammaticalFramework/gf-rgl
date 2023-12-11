@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../api:../prelude
 
-concrete LangGer of Lang = 
+concrete LangGer of Lang =
   GrammarGer,
   LexiconGer
   ,ConstructionGer

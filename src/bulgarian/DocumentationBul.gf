@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 concrete DocumentationBul of Documentation = CatBul ** open 
-  ResBul,
+  ResBul, Prelude,
   HTML in {
 flags coding=utf8 ;
 
@@ -69,7 +69,10 @@ lin
           tr (intagAttr "th" "rowspan=\"3\"" "ед.ч." ++ 
               th "нечленувано" ++ td (n.s ! (NF Sg Indef))) ++
           tr (th "членувано" ++ td (n.s ! (NF Sg Def))) ++
-          tr (th "пълен член" ++ td (n.s ! NFSgDefNom)) ++
+          (case n.g of {
+            AMasc _ => tr (th "пълен член" ++ td (n.s ! NFSgDefNom)) ;
+            _       => ""
+          }) ++
           tr (intagAttr "th" "rowspan=\"2\"" "мн.ч." ++ 
               th "нечленувано" ++ td (n.s ! (NF Pl Indef))) ++
           tr (th "членувано" ++ td (n.s ! (NF Pl Def))) ++
@@ -89,6 +92,34 @@ lin
                     GPl      => "(мн.ч.)"
                   }) ;
     s2 = pn.s ;
+    s3 = ""
+    } ;
+
+  InflectionLN = \n -> {
+    t = "същ.с." ;
+    s1= heading1 ("Име за Място"++
+                  case n.gn of {
+                    GSg Masc => "(м.р.)" ;
+                    GSg Fem  => "(ж.р.)" ;
+                    GSg Neut => "(ср.р.)" ;
+                    GPl      => "(мн.ч.)"
+                  }) ;
+    s2 = paragraph (case n.hasArt of {
+                      True  => frameTable (
+                                 tr (th "нечленувано" ++ td (n.s ! Indef)) ++
+                                 tr (th "членувано" ++ td (n.s ! Def)) ++
+                                 (case n.gn of {
+                                    GSg Masc => tr (th "пълен член" ++ td n.defNom) ;
+                                    _        => ""
+                                  })) ;
+                      False => n.s ! Indef
+                    }) ++
+         heading1 ("Наречие") ++
+         paragraph (case n.onPrep of {
+                      True  => linCase Dat Pos ;
+                      False => vyv_Str
+                    } ++
+                    n.s ! Def) ;
     s3 = ""
     } ;
 
@@ -145,7 +176,7 @@ lin
     } ;
 
   InflectionPrep = \prep -> {
-    t = "пр" ;
+    t = "пред" ;
     s1= heading1 ("Предлог") ;
     s2= paragraph (prep.s) ;
     s3= ""

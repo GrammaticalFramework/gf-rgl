@@ -10,7 +10,7 @@ flags
 oper
     regFN : Str -> N = \s -> femN (regN s) ;
     regMN : Str -> N = \s -> regN s ;
-	irregMN : Str -> Str -> N = \pa,pans -> M.mkNounIrreg pa pans masculine ** {lock_N=<>} ;
+	irregMN : Str -> Str -> N = \pa,pans -> M.mkNounIrreg pa pans masculine ** {relType=D.NRelPrep D.P_de; lock_N=<>} ;
 	saberV : V = verbV (saber_99 "saber") ;
 
 lin

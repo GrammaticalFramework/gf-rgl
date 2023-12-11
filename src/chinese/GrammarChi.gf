@@ -14,7 +14,8 @@ concrete GrammarChi of Grammar =
   TextChi,
   StructuralChi,
   IdiomChi,
-  TenseChi
+  TenseChi,
+  NamesChi
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

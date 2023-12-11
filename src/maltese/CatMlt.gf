@@ -98,6 +98,11 @@ concrete CatMlt of Cat = CommonX - [Adv] ** open ResMlt, Prelude in {
       n : NumForm ;
       tail : DTail ;
     } ;
+    Decimal = {
+      s : NumCase => Str ;      -- No need for CardOrd, i.e. no 1st, 2nd etc in Maltese
+      n : NumForm ;
+      hasDot : Bool ;
+    } ;
 
 -- Structural
 
@@ -118,7 +123,7 @@ concrete CatMlt of Cat = CommonX - [Adv] ** open ResMlt, Prelude in {
     N  = Noun ;
     N2 = Noun ** {c2 : Compl} ;
     N3 = Noun ** {c2, c3 : Compl} ;
-    GN, SN, PN = ProperNoun ;
+    GN, SN, LN, PN = ProperNoun ;
 
 -- Overridden from CommonX
 

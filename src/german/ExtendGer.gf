@@ -4,9 +4,11 @@ concrete ExtendGer of Extend =
   CatGer ** ExtendFunctor
    - [
     InOrderToVP,
-    VPS, ListVPS, VPI, ListVPI,
+    VPS, ListVPS, VPI, ListVPI, RNP, RNPList,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, 
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
+    ComplSlashPartLast,
+    Base_nr_RNP, Base_rn_RNP, Base_rr_RNP, Conj_RNP,
     CardCNCard, CompoundN,
     PassVPSlash, PassAgentVPSlash, PastPartAP, PastPartAgentAP
     ]
@@ -44,7 +46,7 @@ lin
 
     PredVPS np vpi = 
       let
-        subj = np.s ! NPC Nom ++ bigNP np ;
+        subj = np.s ! False ! Nom ++ bigNP np ;
         agr  = np.a ;
       in {
         s = \\o => 
@@ -69,7 +71,7 @@ lin
           t = tm.t ;
           m = tm.m ;
           subj  = [] ;
-          verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
+          verb  = vps.s  ! ord ! agr2vagr agr ! VPFinite m t a ;
           haben = verb.inf2 ;
           neg   = tm.s ++ p.s ++ vp.a1 ++ negation ! b ; -- HL 8/19 ++ vp.a1 ! b ;
           -- obj1  = (vp.nn ! agr).p1 ;
@@ -115,21 +117,21 @@ lin
     ConjVPS = conjunctDistrTable2 Order Agr ;
     
     UseDAP det = {
-      s = \\c => det.sp ! Neutr ! c ;
+      s = \\b,c => det.sp ! Neutr ! c ;
       a = agrP3 det.n ;
       w = case det.isDef of { True => WLight ; _ => WHeavy } ;
       rc, ext = []
       } ;
 
     UseDAPMasc det = {
-      s = \\c => det.sp ! Masc ! c ;
+      s = \\b,c => det.sp ! Masc ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
       } ;
 
     UseDAPFem det = {
-      s = \\c => det.sp ! Fem ! c ;
+      s = \\b,c => det.sp ! Fem ! c ;
       a = agrP3 det.n ;
       w = WLight ;
       rc, ext = []
@@ -138,18 +140,8 @@ lin
 lin
   CardCNCard card cn = {
     s = \\g,c =>
-      (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! NPC c ;
+      (Grammar.DetCN (Grammar.DetQuant Grammar.IndefArt (Grammar.NumCard card)) cn).s ! False ! c ;
     n = Pl
-    } ;
-
-lin GivenName = \n -> { s = n.s; g = sex2gender n.g; n = Sg } ;
-lin MaleSurname = \n -> { s = n.s ! Male ; g = Masc; n = Sg } ;
-lin FemaleSurname = \n -> { s = n.s ! Female ; g = Fem; n = Sg } ;
-lin PlSurname = \n -> { s = n.s ! Male ; g = Masc; n = Pl } ;
-lin FullName gn sn = {
-       s = \\c => gn.s ! Nom ++ sn.s ! gn.g ! c ;
-       g = sex2gender gn.g ;
-       n = Sg
     } ;
 
 lin PassVPSlash vp = 
@@ -176,7 +168,7 @@ lin PastPartAgentAP vp np =
       in {
       s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
                   ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
-                  ++ vp.c2.s                         -- junk if not TV
+                  ++ vp.c2.s ! GPl                     -- junk if not TV
                   ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
       isPre = True ;
       c = <[],[]> ;
@@ -195,4 +187,118 @@ lin CompoundN a x =
           g = x.g
           } ;
 
+
+-- Reflexive noun phrases -- (HL 5/2022: improved and completed, RNPList added)
+
+  lincat
+    RNP = {s : Agr => Case => Str ; rc,ext : Str ; isPron : Bool} ;  -- Case, not PCase !!!
+    RNPList = {s1,s2 : Agr => Case => Str} ;
+
+  linref
+    RNP = \rnp -> rnp.s ! AgSgP3 Masc ! Acc ++ rnp.ext ++ rnp.rc ;
+
+  lin
+    ReflRNP vps rnp =
+      insertObjReflNP rnp vps ;
+
+    ReflPron = { -- with personal pronoun nominative
+      s = ResGer.reflPron ; rc,ext = [] ; isPron = True } ;
+
+    -- We might define ReflPron by the stronger reflPronSelf below, using "selbst"
+    -- to distinguish personal pronoun from reflexive pronoun:
+    --   du kennst mich vs. ich kenne mich selbst
+    --   er kennt ihn   vs. er kennt sich (selbst)
+    --   sie kennen sich (selbst) =/= sie kennen einander
+
+    ReflPoss num cn =
+      {s = \\a,c => let adjf = case num.n of {Sg => Strong ; Pl => Weak} -- Duden 477, HL 5/2022
+         in possPron a num.n cn.g c ++ num.s ! cn.g ! c -- HL 5/2022: meine wenigstens 3 cn,
+            ++ cn.s ! adjfCase adjf c ! num.n ! c       --       not: wenigstens 3 meine cn
+            ++ cn.adv ;
+       ext = cn.ext ; rc = cn.rc ! num.n ;
+       isPron = False} ;
+
+    -- We might define ReflPoss by the stronger reflPossPron below, using "eigen(er)"
+    -- to distinguish possessive pronoun from reflexive possessive pronoun:
+    --   du kennst meine Fehler vs. ich kenne meine eigenen Fehler
+    --   er|sie|es kennt seine|ihre Fehler  vs. er|sie|es kennt seine|ihre|seine eigenen Fehler
+
+    PredetRNP pred rnp = rnp ** {                        -- HL 5/2022
+      s = \\a,c => let n : Number = case pred.a of {PAg n => n ; _ => numberAgr a} ;
+                       g : Gender = genderAgr a ;
+                       d = case pred.c.k of {NoCase => c ; PredCase k => (prepC k).c} ;
+        in case rnp.isPron of {
+          True => pred.s ! Pl ! Masc ! c ++ "von" ++ rnp.s ! a ! Dat ;
+          _ => pred.s ! n ! genderAgr a ! c ++ pred.c.p ++ rnp.s ! a ! d} ;
+      ext = rnp.ext ; rc = rnp.rc ;
+      isPron = False} ;
+      -- ok: alle von uns; die meisten von uns ; wrong: *nur von uns =/= nur wir
+{-
+    AdvRNP np prep rnp = {s = \\a,c => np.s ! c
+                            ++ appPrep prep (rnp.s ! a) ++ rnp.ext ++ rnp.rc ;
+                          ext = np.ext ; rc = np.rc ; isPron = False} ;
+
+    AdvRAP ap prep rnp =
+      let                                         -- ? adv ++ ap.s ! af
+        adv = appPrep prep (rnp.s ! agrP3 Sg) ;   -- bug: fixed agreement
+      in ap ** { s = \\af => ap.s ! af ++ adv } ; -- e.g. unknown in one's youth
+
+    ReflA2RNP adj rnp = -- would need AP.c : Agr => Str*Str, not AP.c : Str*Str
+      let                                            -- as we have no reflexive AP,
+        compl = appPrep adj.c2 (rnp.s ! agrP3 Sg) ; -- we use a fixed agreement
+      in {
+        s = adj.s ! Posit ;
+        isPre = True ;
+        c = case adj.c2.isPrep of {False => <compl, []> ; True => <[], compl>} ;
+        ext = rnp.ext ++ rnp.rc
+      } ;
+
+    PossPronRNP pron num cn rnp =
+      GrammarGer.DetCN (GrammarGer.DetQuant (GrammarGer.PossPron pron) num)
+      (GrammarGer.PossNP cn (lin NP {s = \\pc => -- usePrepC pc (\c -> rnp.s ! pron.a ! c) ;
+                                                    rnp.s ! pron.a ! pc ;
+                            a = pron.a ;
+                            w = WLight ;
+                            ext = rnp.ext ;
+                            rc = rnp.rc})) ;
+
+    -- AdvRVP : VP -> Prep -> RNP -> VP not implemented, as the reflexive adverb (Prep + RNP): Agr => Str
+    -- could only be added to vp.a2:Str with fixed agreement, but can depend on nominal subject or object,
+    -- e.g. "er spricht mit ihr über sein Kind" vs. "er spricht mit ihr über ihr Kind".
+-}
+    ConjRNP conj rnps = conjunctDistrTable2 Agr Case conj rnps
+      ** {isPron = False ; ext,rc = []} ;
+
+    Base_rr_RNP x y = twoTable2 Agr Case x y ;
+    Base_nr_RNP x y = twoTable2 Agr Case {s = \\_,c => x.s ! False ! c ++ x.ext ++ x.rc} y ;
+    Base_rn_RNP x y = twoTable2 Agr Case x {s = \\_,c => y.s ! False ! c ++ y.ext ++ y.rc} ;
+
+    Cons_rr_RNP x xs = consrTable2 Agr Case comma x xs ;
+    Cons_nr_RNP x xs = consrTable2 Agr Case comma {s = \\_,c => x.s ! False ! c ++ x.ext ++ x.rc} xs ;
+{-
+  oper
+--    reflPronSelf : Agr => Case => Str = \\a => \\c => reflPron ! a ! c ++ "selbst" ;
+
+    -- reflPossPron : Agr -> Number -> Gender -> Case -> Str =
+    --   let eigen = adjForms "eigen" "eigen" in
+    --      \a,n,g,c -> possPron a n g c ++ (eigen ! (AMod (gennum g n) c)) ;
+
+    insertObjReflNP : RNP -> ResGer.VPSlash -> ResGer.VP = -- HL 5/2022
+      \rnp,vp -> insertObjRNP rnp vp.c2 vp ;
+
+    insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VP = -- HL 5/2022
+      \rnp,prep,vp ->                                           -- generalize ResGer.insertObjRefl
+      let -- prep = vp.c2 ;
+          c = case prep.c of { NPC cc => cc ; _ => Acc } ; -- put rnp.ext ++ rnp.rc to vp.ext ?
+          obj : Agr => Str = \\a => prep.s ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
+      in vp ** {
+        nn = \\a =>
+          let vpnn = vp.nn ! a in
+          case <prep.isPrep, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
+            <False,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
+            <False,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
+            <False,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
+            <True,_,_>       => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
+      } ;
+-}
 }

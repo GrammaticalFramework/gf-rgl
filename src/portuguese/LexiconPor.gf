@@ -13,7 +13,7 @@ lin
    probable_AS = mkAS (prefixA (mkA "provável")) ;
    fun_AV = mkAV (mkA "divertido") genitive ;
    -- A
-   bad_A       = prefixA (mkA (mkA "mau") (mkA "pior")) ;
+   bad_A       = prefixA (mkA (mkA "mau" "má" "maus" "más") (mkA "pior")) ;
    beautiful_A = prefixA (mkA "belo") ;    -- bela
    big_A       = prefixA (mkA "grande") ;
    black_A     = mkA "preto" ;	-- preta

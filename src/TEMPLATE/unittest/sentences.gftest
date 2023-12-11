@@ -1,0 +1,7 @@
+--------------------------------
+-- Just some simple sentences --
+--------------------------------
+
+-- Replace with some tests that make sense for your language!
+Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN blood_N)) (UseV die_V)))) NoVoc
+LangTMP: the blood die

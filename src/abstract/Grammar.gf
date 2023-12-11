@@ -19,6 +19,6 @@ abstract Grammar =
   Structural,
   Idiom,
   Tense,
+  Names,
   Transfer 
   ;
-

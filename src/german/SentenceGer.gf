@@ -5,8 +5,8 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
   lin
 
     PredVP np vp =
-      let subj = mkSubj np vp.c1
-      in mkClause subj.p1 subj.p2 vp ;
+      let subj = mkSubject np vp.c1
+      in mkClause subj.s subj.a vp ;
 
 	{- applies verb's subject case to subject ;
 	   forces 3rd person sg agreement for any non-nom subjects -->
@@ -21,22 +21,36 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
       s = \\pol,n => 
         let 
           ps = case n of {
-            ImpF _ True => <P3,"Sie",True> ; -- setzen Sie sich
-            _ => <P2,[],False>
-            } ;
-          agr  = Ag Fem (numImp n) ps.p1 ; --- g does not matter
-          verb = vps.s ! False ! agr ! VPImperat ps.p3 ;
+            ImpF _ True => <P3,"Sie",True> ; -- setzen Sie sich Ihren Hut auf
+            _ => <P2,[],False>               -- but: nimm [ihren | deinen | *Ihren] Hut
+            } ;                              -- vp should be reflexive, ComplRSlash
+          vagr = VAg (numImp n) ps.p1 ;
+          verb = vps.s ! False ! vagr ! VPImperat ps.p3 ;
+          agr = case <numImp n, ps.p1, ps.p3> of {
+                  <_, P3,True>  => AgPlPol ;  -- sich | Ihr-
+                  <Sg,P2,False> => AgSgP2 ;   -- dich | dein-
+                  <Pl,P2,False> => AgPl P2 ;  -- euch | euer-
+                  _ => AgSgP1 -- default, does not occur
+                  } ;
+          neg  = negation ! pol ;
           inf  = vp.inf.inpl.p2 ++ verb.inf ;  -- HL .s/.inpl.p2
-          obj  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4
+          obj  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4 ++ vp.adj
         in
---        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
-        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ++ negation ! pol ++ obj ++ vp.a2 ++ inf ++ vp.ext
-    } ; 
+        verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ++ neg ++ obj ++ vp.a2 ++ inf ++ vp.ext
+    } ;
+
+    AdvImp adv imp = {
+      s = \\pol,impform => adv.s ++ imp.s ! pol ! impform
+    } ;
+
+-- to save compile time: HL 7/22, comment SlashVP out:
+-- + SlashV2VNP 199065600 (46080,240)
+-- + SlashVP 414720 (28224,204)
 
     SlashVP np vp =
-      let subj = mkSubj np vp.c1 ;                       -- HL 3/2022: need a mkClSlash to prevent
-      in mkClause subj.p1 subj.p2 vp ** { c2 = vp.c2 } ; -- reflexives in vp instantiated to np.a
-                                                         -- cf. tests/german/TestLangGer.gf
+      let subj = mkSubject np vp.c1 ;                  -- HL 3/2022: need a mkClSlash to prevent
+      in mkClause subj.s subj.a vp ** { c2 = vp.c2 } ; -- reflexives in vp instantiated to np.a
+                                                       -- cf. tests/german/TestLangGer.gf
     AdvSlash slash adv = {
       s  = \\m,t,a,b,o => slash.s ! m ! t ! a ! b ! o ++ adv.s ;
       c2 = slash.c2
@@ -45,10 +59,9 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
     SlashPrep cl prep = cl ** {c2 = prep} ;
 
     SlashVS np vs slash =
-		let subj = mkSubj np PrepNom 
-		in mkClause subj.p1 subj.p2 
-			(insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)) **
-        			{c2 = slash.c2} ;
+      let subj = mkSubject np PrepNom ;
+          vp = insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)
+      in mkClause subj.s subj.a vp ** {c2 = slash.c2} ;
 
     EmbedS  s  = {s = conjThat ++ s.s ! Sub} ;  -- no leading comma, if sentence-initial
     EmbedQS qs = {s = qs.s ! QIndir} ;

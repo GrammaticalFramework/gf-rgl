@@ -155,9 +155,9 @@ resource MorphoFin = ResFin ** open Prelude in {
       silakk = init silakka ;
       silaka = init silakan ;
       silak  = init silaka ;
-      silakkaa = silakka + case o of {
-        "o" | "ö" => "t" + a ;  -- radiota
-        _ => a                  -- sammakkoa
+      silakkaa = silakka + case silakka of {
+        _ + #vowel + ("o" | "ö") => "t" + a ;  -- radiota
+        _ => a                               -- sammakkoa
         } ;
       silakoiden = case <silakoita : Str> of {
         _ + "i" + ("a" | "ä") =>                    -- asemia
@@ -726,6 +726,11 @@ resource MorphoFin = ResFin ** open Prelude in {
       _ => "y"
       } ;
 
+    oöHarmony : Str -> Str = \a -> case a of {
+      "a" => "o" ;
+      _ => "ö"
+      } ;
+
     VForms : Type = Predef.Ints 11 => Str ;
 
     vForms12 : (x1,_,_,_,_,_,_,_,_,_,_,x12 : Str) -> VForms =
@@ -858,6 +863,10 @@ resource MorphoFin = ResFin ** open Prelude in {
 -----------------------------------------
 -- Auxiliaries
 -----------------------------------------
+
+  vowel : pattern Str = #("a"|"e"|"i"|"o"|"u"|"y"|"ä"|"ö") ;
+
+  consonant : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"z") ;
 
 -- The following function defines how grade alternation works if it is active.
 -- In general, *whether there is* grade alternation must be given in the lexicon

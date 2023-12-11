@@ -1,4 +1,4 @@
-incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
+incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
   ** open Prelude, CommonRomance, ResRomance, (R = ParamX) in {
 
   flags optimize=all_subs ;
@@ -65,14 +65,16 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     Det,DAP = {
       s : Gender => Case => Str ;
       n : Number ;
-      s2 : Str ;            -- -ci
+      s2 : Gender => Str ;            -- -ci
       sp : Gender => Case => Str ;   -- substantival: mien, mienne
+      spn: Case => Str ;
       isNeg : Bool -- negative element, e.g. aucun
       } ;
     Quant = {
       s  : Bool => Number => Gender => Case => Str ;
       s2 : Str ;
       sp : Number => Gender => Case => Str ;
+      spn: Case => Str ;  -- neutral Spa: esto, eso, Por: isto, isso
       isNeg : Bool -- negative element, e.g. aucun
       } ;
     Predet  = {
@@ -82,12 +84,13 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
       } ;
     Num     = {s : Gender => Str ; isNum : Bool ; n : Number} ;
     Card    = {s : Gender => Str ; n : Number} ;
-    Ord     = {s : AAgr   => Str} ;
+    Ord     = {s, s2 : AAgr => Str} ;
 
 -- Numeral
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
     Digits  = {s : CardOrd => Str ; n : Number} ;
+    Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural
 
@@ -107,10 +110,17 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     A  = {s : AForm => Str ; compar : ComparAgr => Str ; isPre : Bool ; copTyp : CopulaType ; isDeg : Bool} ;
     A2 = {s : AForm => Str ; compar : ComparAgr => Str ; c2 : Compl ; copTyp : CopulaType ; isDeg : Bool} ;
 
-    N  = Noun ;
-    N2 = Noun  ** {c2 : Compl} ;
-    N3 = Noun  ** {c2,c3 : Compl} ;
-    GN, SN, PN = {s : Str ; g : Gender} ;
+    N  = Noun  ** {relType : NRelType};
+    N2 = Noun  ** {relType : NRelType; c2 : Compl} ;
+    N3 = Noun  ** {relType : NRelType; c2,c3 : Compl} ;
+    GN, PN = {s : Str ; g : Gender} ;
+    SN = {s : Gender => Str ; pl : Str} ;
+    LN = {s  : Str;
+          onPrep : Bool;
+          art : HasArt;
+          g : Gender;
+          num : Number;
+         } ;
 
 -- tense augmented with passé simple
   lincat
@@ -136,7 +146,14 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol]
     A = \a -> a.s ! genNum2Aform Masc Sg ;
     A2 = \a -> a.s ! genNum2Aform Masc Sg ++ a.c2.s ;
 
+    Det = \d -> d.s ! Masc ! Nom ++ d.s2 ! Masc ;
+    Ord = \o -> o.s ! aagr Masc Sg ++ o.s2 ! aagr Masc Sg ;
+
     N = \n -> n.s ! Sg ;
     N2 = \n -> n.s ! Sg ++ n.c2.s ;
     N3 = \n -> n.s ! Sg ++ n.c2.s ++ n.c3.s ;
+
+  lincat MU = {s : Str ; isPre : Bool ; hasArt : Bool} ;
+
+
 }

@@ -40,6 +40,42 @@ lin
            )
     } ;
 
+  InflectionGN = \gn -> {
+    t = "pn" ;
+    s1 = heading1 ("Prenom" ++
+                   case gn.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = gn.s
+    } ;
+
+  InflectionSN = \gn -> {
+    t = "pn" ;
+    s1 = heading1 "Família" ;
+    s2 = gn.s ! Masc
+    } ;
+
+  InflectionPN = \pn -> {
+    t = "pn" ;
+    s1 = heading1 ("Nom Propi" ++
+                   case pn.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = pn.s
+    } ;
+
+  InflectionLN = \ln -> {
+    t = "nl" ;
+    s1 = heading1 ("Nom de la Ubicació" ++
+                   case ln.g of {
+                     Masc => "("+heading masculine_Parameter+")" ;
+                     Fem  => "("+heading feminine_Parameter+")"
+                   }) ;
+    s2 = paragraph ln.s
+    } ;
+
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 (nounHeading adjective_Category).s ;

@@ -291,6 +291,19 @@ oper
       \s,gn -> {s = s; gn = gn ; lock_PN = <>} ;
   } ;
 
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> lin LN {s = \\_ => s; defNom=s; onPrep = False; hasArt = False; gn = GSg Masc} ;
+    mkLN : Str -> Gender -> LN =
+      \s,g -> lin LN {s = \\_ => s; defNom=s; onPrep = False; hasArt = False; gn = GSg g} ;
+    mkLN : Str -> GenNum -> LN =
+      \s,gn -> lin LN {s = \\_ => s; defNom=s; onPrep = False; hasArt = False; gn = gn} ;
+    mkLN : Str -> Str -> GenNum -> LN =
+      \s1,s2,gn -> lin LN {s = table Species [s2; s1]; defNom=s2; onPrep = False; hasArt = True; gn = gn} ;
+    mkLN : Str -> Str -> Str -> LN =
+      \s1,s2,s3 -> lin LN {s = table Species [s3; s2]; defNom=s1; onPrep = False; hasArt = True; gn = GSg Masc} ;
+  } ;
+
+  onLN : LN -> LN = \n -> n ** {onPrep = True} ;
 
 --2 IAdv
 --

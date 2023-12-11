@@ -128,7 +128,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Numeral
 
 --     Numeral = {s : Bool => CardOrd => Case => Str ; n : Number} ;
---     Digits  = {s : CardOrd => Case => Str ; n : Number ; tail : DTail} ;
+   Digits  = {s : Str} ;
+   Decimal = {s : Str; hasDot : Bool} ;
 
 -- Structural
 

@@ -17,7 +17,7 @@ oper
         c = noCase ;
         a = PAgNone
         } ;     
-    mkPredet : A -> Str -> PCase -> Bool -> Number -> Predet = \a,p,c,b,n ->
+    mkPredet : A -> Str -> Case -> Bool -> Number -> Predet = \a,p,c,b,n ->
       lin Predet {
         s = appAdj a ; 
         c = {p = p ; k = PredCase c} ; 
@@ -27,11 +27,11 @@ oper
 
  -- e.g. das selbe
  mmkQuant : Quant -> A -> Quant = \q,a -> q ** {
-   s,sp = \\x,n,g,c => q.s ! x ! n ! g ! c ++ a.s ! Posit ! agrAdj g q.a n ((prepC c).c)   
+   s,sp = \\b,x,n,g,c => q.s ! b ! x ! n ! g ! c ++ a.s ! Posit ! agrAdj g q.a n c
    } ;
  -- e.g. derjenige
  mmbQuant : Quant -> A -> Quant = \q,a -> q ** {
-   s,sp = \\x,n,g,c => q.s ! x ! n ! g ! c + a.s ! Posit ! agrAdj g q.a n ((prepC c).c)   
+   s,sp = \\b,x,n,g,c => q.s ! b ! x ! n ! g ! c + a.s ! Posit ! agrAdj g q.a n c
    } ;
 
 }

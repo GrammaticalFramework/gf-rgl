@@ -4,17 +4,6 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
   lin
     UseV = predV ;
-{-
-    ComplVV v vp = 
-      let 
-        vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ;
-      in
-       insertExtrapos vpi.p4 (
-        insertInfExt vpi.p3 (
-          insertInf vpi.p2 (
-            insertObjc vpi.p1 vps))) ;
--}  
 
     ComplVV v vp = -- HL 3/22: leave inf-complement in-place, extract infzu-complement
       let
@@ -39,18 +28,6 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       insertExtrapos (comma ++ conjThat ++ s.s ! Sub) (predV v) ** {c2 = v.c2; objCtrl = False} ;
     SlashV2Q v q = 
       insertExtrapos (comma ++ q.s ! QIndir) (predV v) ** {c2 = v.c2; objCtrl = False} ;
-{-
-    SlashV2V v vp = 
-      let 
-        vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ** {c2 = v.c2} ;
-      in vps ** 
-       insertExtrapos vpi.p4 ( -- inplace vp; better extract it!
-        insertInfExt vpi.p3 (
-          insertInf vpi.p2 (
-            insertObjc vpi.p1 vps))) ;
-
--}
     SlashV2V v vp =  -- (jmdn) bitten, sich zu waschen | sich waschen lassen  HL 7/19
       let
         vps = predVGen v.isAux v ; -- e.g. verspricht|bittet.isAux=False | läßt.isAux=True
@@ -68,17 +45,6 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
       let vp = case vps.objCtrl of { True => objAgr np vps ; _  => vps }
                ** { c2 = vps.c2 ; objCtrl = vps.objCtrl } ;
       in insertObjNP np vps.c2 vp ;
-
-{-
-    SlashVV v vp = 
-      let
-        vpi = infVP v.isAux vp ;
-        vps = predVGen v.isAux v ** {c2 = vp.c2 } ;
-      in vps **
-      insertExtrapos vpi.p3 (
-        insertInf vpi.p2 (
-          insertObj vpi.p1 vps)) ;
--}
 
     -- SlashVV v vps is like ComplVV v vp, but infinite vps should not be extracted
     SlashVV v vp =                                                    --  HL 3/2022
@@ -123,9 +89,18 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
    -- expensive: + SlashV2VNP 503.884.800 (2880,540), reaches memory limit with SlashVV
    -- does not work for nested uses: the nn-levels are confused  HL 3/22
 
+   -- to save a lot compile time and memory, avoid insertObjNP with glueing of prep+DefArt:
+   -- + SlashV2VNP 110.592.000 (46080,240)
    SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
-      insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
-
+   --     insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
+     let prep = v.c2 ;
+         obj = appPrep prep (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
+         b : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
+         c = prep.c ;
+         w = np.w ;
+         vps = (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl})
+     in
+     insertObj' obj b w c vps ;
 
     UseComp comp =
        insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
@@ -135,7 +110,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     UseCopula = predV sein_V ;
 
     CompAP ap = {s = \\_ => ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ; ext = ap.ext} ;
-    CompNP np = {s = \\_ => np.s ! NPC Nom ++ np.rc ; ext = np.ext} ;
+    CompNP np = {s = \\_ => np.s ! False ! Nom ++ np.rc ; ext = np.ext} ;
     CompAdv a = {s = \\_ => a.s ; ext = []} ;
 
     CompCN cn = {s = \\a => case numberAgr a of {
@@ -153,13 +128,12 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     AdvVPSlash vp adv = vp ** insertAdv adv.s vp ;
     AdVVPSlash adv vp = vp ** insertAdv adv.s vp ;
 
-    -- ReflVP vp = insertObj (\\a => appPrep vp.c2 
-    --   (\\k => usePrepC k (\c -> reflPron ! a ! c))) vp ;
+    -- ReflVP vp = insertObj (\\a => appPrep vp.c2 (reflPron ! a)) vp ;
     ReflVP vp = insertObjRefl vp ; -- HL, 19/06/2019
 
     PassV2 v = -- acc object -> nom subject; all others: same PCase
       let c = case <v.c2.c, v.c2.isPrep> of {
-            <NPC Acc, False> => NPC Nom ; _ => v.c2.c}
+            <Acc, isCase> => Nom ; _ => v.c2.c}
       in insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass) ** { c1 = v.c2 ** {c = c} } ;
 
 {- HL: The construction VPSlashPrep : VP -> Prep -> VPSlash does not exist

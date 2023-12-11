@@ -23,27 +23,27 @@ lincat
 
 lin
   noun_Category = mkN "nome" ;
-  adjective_Category = mkN "addiettivo" ;
-  verb_Category = mkN "verbe" masculine ;
+  adjective_Category = mkN "aggettivo" ;
+  verb_Category = mkN "verbo" ;
 
   gender_ParameterType = mkN "genere" masculine ;
 
   singular_Parameter = mkN "singolare" ;
   plural_Parameter = mkN "plurale" ;
 
-  masculine_Parameter = mkN "maschio" ;
+  masculine_Parameter = mkN "maschile" ;
   feminine_Parameter = mkN "femminile" ;
   neuter_Parameter = mkN "neutro" ;
 
   nominative_Parameter = mkN "nominativo" ;
   genitive_Parameter = mkN "genitivo" ;
   dative_Parameter = mkN "dativo" ;
-  accusative_Parameter = mkN "accusativi" ;
+  accusative_Parameter = mkN "accusativo" ;
   
   imperative_Parameter = mkN "imperativo" ;
   indicative_Parameter = mkN "indicativo" ;
   conjunctive_Parameter = mkN "congiuntivo" ;
-  infinitive_Parameter = mkN "infinitivo" ;
+  infinitive_Parameter = mkN "infinito" ;
 
   present_Parameter = mkN "presente" ;
   past_Parameter = mkN "passato" ;
@@ -59,7 +59,7 @@ lin
   positive_Parameter = mkN "positivo" ;
   comparative_Parameter = mkN "comparativo" ;
   superlative_Parameter = mkN "superlativo" ;
-  predicative_Parameter = mkN "prédicativo" ;
+  predicative_Parameter = mkN "predicativo" ;
 
   nounHeading n = ss (n.s ! Sg) ;
 

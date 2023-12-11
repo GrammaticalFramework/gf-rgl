@@ -16,12 +16,10 @@ oper
     "Sb" ; "Sc" ; "Sd" ; "Sf" ; "Sg" ; "Sh" ; "Sl" ; "Sm" ; "Sn" ; "Sp" ; "Sq" ; "Sr" ; "St" ; "Sv"
     } ;
 
-  z : Strs = strs {
-    "z" ; "Z"
-  } ;
-
-  x : Strs = strs {
-    "x" ; "X"
+  xyz : Strs = strs {
+    "x" ; "X" ;
+    "z" ; "Z" ;
+    "y" ; "Y"
   } ;
 
   gn : Strs = strs {
@@ -38,7 +36,7 @@ oper
 
   elision : (_,_,_ : Str) -> Str = \il, l', lo -> 
     let ll = case last l' of {"'" => l' ++ Predef.BIND ; _ => l'} in
-    pre {il ; ll / vocale ; lo / sImpuro ; lo / z ; lo / x ; lo / gn ; lo / pn ; lo / ps } ;
+    pre {il ; ll / vocale ; lo / sImpuro ; lo / xyz ; lo / gn ; lo / pn ; lo / ps } ;
 ---    pre {vocale => l' ;  sImpuro => lo ; _ => il} ;  --- doesn't work properly 15/4/2014
 
 }

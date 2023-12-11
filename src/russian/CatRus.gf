@@ -1,7 +1,22 @@
 concrete CatRus of Cat = CommonX ** open ResRus, Prelude in {
 flags coding=utf8 ; optimize=all ;
 lincat
-  N, GN, SN, PN = ResRus.NounForms ;
+  N, PN = ResRus.NounForms ;
+  GN = {
+    s : Case => Str ;
+    g : Sex ;
+  } ;
+  SN = {
+    s : Sex => Case => Str ;
+    p : Case => Str ;
+  } ;
+  LN = {
+    s : Case => Str ;
+    c : ResRus.ComplementCase ;
+    g : Gender ;
+    n : Number ;
+    anim : Animacy
+  } ;
   N2 = ResRus.Noun2Forms ;
   N3 = ResRus.Noun3Forms ;
 
@@ -68,6 +83,7 @@ lincat
   Num = NumDet ;
   Card = NumDet ;
   Digits = {s : Str ; size: NumSize} ;
+  Decimal = {s : Str ; size: NumSize; hasDot : Bool} ;
 
   QS  = {s : QForm => Str} ;
   QCl = {
@@ -105,6 +121,7 @@ lincat
 linref
   N = \s -> s.snom ;
   PN = \s -> s.snom ;
+  LN = \s -> s.s ! Nom ;
   Pron = \s -> s.nom ;
   N2 = \s -> s.snom ++ s.c2.s ;
   N3 = \s -> s.snom ++ s.c2.s ++ s.c3.s ;

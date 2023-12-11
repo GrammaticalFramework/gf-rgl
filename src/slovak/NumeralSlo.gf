@@ -1,6 +1,6 @@
 concrete NumeralSlo of Numeral =
 
-  CatSlo [Numeral,Digits] **
+  CatSlo [Numeral,Digits,Decimal] **
   
   open
     ResSlo,
@@ -121,5 +121,19 @@ oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
     D_7 = { s = "7" ; size = Num5} ;
     D_8 = { s = "8" ; size = Num5} ;
     D_9 = { s = "9" ; size = Num5} ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ Predef.BIND ++ d.s ;
+      size = d.size ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = d.s ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.s;
+      size = d.size ;
+      hasDot=True
+      } ;
 
 }

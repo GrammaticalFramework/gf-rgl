@@ -40,13 +40,4 @@ oper
 -- KA: PassVPSlash is derived from PassV2. Objects might be ignored
 lin PassVPSlash vps = setImienne vps True; 
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       nom = gn.nom ++ sn.nom ;
-       voc = gn.nom ++ sn.voc ;
-       dep = \\c => gn.nom ++ sn.dep ! c ;
-       gn = gn.gn ;
-       p  = gn.p
-    } ;
-
 }

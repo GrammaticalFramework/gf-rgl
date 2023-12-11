@@ -1,6 +1,7 @@
 --# -path=.:../abstract:../common
 concrete DocumentationEng of Documentation = CatEng ** open
   ResEng,
+  Prelude,
   HTML in {
 
 lincat
@@ -38,31 +39,48 @@ lin
          )
     } ;
 
-  InflectionGN = \pn -> {
-    t  = "gn" ;
-    s1 = heading1 ("Given Name" ++
-                    case pn.g of {
-                      Neutr => "";
-                      Masc  => "(masc)";
-                      Fem   => "(fem)"
+  InflectionLN = \n -> {
+    t  = "ln" ;
+    s1 = heading1 ("Location Name" ++
+                    case n.n of {
+                      Sg => "";
+                      Pl => "(plural)"
                     }) ;
     s2 = frameTable (
            tr (th "nom"        ++ th "gen") ++
-           tr (td (pn.s ! Nom) ++ td (pn.s ! Gen))
+           tr (td (n.s ! Nom) ++ td (n.s ! Gen))
+         ) ++
+         heading1 ("Adverb") ++
+         paragraph (case n.prep of {
+                      InPrep => "in" ;
+                      OnPrep => "on" ;
+                      AtPrep => "at"
+                    } ++ 
+                    case n.art of {
+                      True  => "the" ++ n.s ! Nom ;
+                      False => n.s ! Nom
+                    }) ;
+    } ;
+
+  InflectionGN = \gn -> {
+    t  = "gn" ;
+    s1 = heading1 ("Given Name" ++
+                    case gn.g of {
+                      Male   => "(male)";
+                      Female => "(female)"
+                    }) ;
+    s2 = frameTable (
+           tr (th "nom"        ++ th "gen") ++
+           tr (td (gn.s ! Nom) ++ td (gn.s ! Gen))
          )
     } ;
 
   InflectionSN = \pn -> {
     t  = "sn" ;
-    s1 = heading1 ("Secondary Name" ++
-                    case pn.g of {
-                      Neutr => "";
-                      Masc  => "(masc)";
-                      Fem   => "(fem)"
-                    }) ;
+    s1 = heading1 "Secondary Name" ;
     s2 = frameTable (
            tr (th "nom"        ++ th "gen") ++
-           tr (td (pn.s ! Nom) ++ td (pn.s ! Gen))
+           tr (td (pn.s ! Male ! Nom) ++ td (pn.s ! Male ! Gen))
          )
     } ;
 

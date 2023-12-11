@@ -1,4 +1,4 @@
-concrete NumeralHun of Numeral = CatHun [Numeral,Digits] **
+concrete NumeralHun of Numeral = CatHun [Numeral,Digits,Decimal] **
   open Prelude, ResHun in {
 
 lincat
@@ -114,6 +114,13 @@ oper
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecinal d = {
+      s = \\x => "-" ++ BIND ++ d.s ! x ;
+      n = numNumber ;
+      hasDot=False
+    } ;
 
   oper
     mkDig : Str -> TDigit = \s -> {

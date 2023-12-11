@@ -66,6 +66,7 @@ concrete CatCze of Cat =
 
   lincat Numeral = Determiner ; ---- TODO: should contain Ord as well
   lincat Digits = {s:Str ; size : NumSize} ;
+  lincat Decimal = {s:Str ; size : NumSize ; hasDot : Bool} ;
 
 
 }

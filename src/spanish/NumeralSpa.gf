@@ -1,4 +1,4 @@
-concrete NumeralSpa of Numeral = CatSpa [Numeral,Digits] ** 
+concrete NumeralSpa of Numeral = CatSpa [Numeral,Digits,Decimal] ** 
   open CommonRomance, ResRomance, MorphoSpa, Prelude in {
   flags coding=utf8 ;
 
@@ -131,6 +131,20 @@ param
     D_7 = mkDig "7" ;
     D_8 = mkDig "8" ;
     D_9 = mkDig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = \\o => "-" ++ BIND ++ d.s ! o ;
+      n = Pl ;
+      hasDot=False
+    } ;
+    IFrac d i = {
+      s = \\o => d.s ! NCard Masc ++
+                 if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                 i.s ! o ;
+      n = Pl ;
+      hasDot=True
+      } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;

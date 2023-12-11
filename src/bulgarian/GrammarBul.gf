@@ -15,7 +15,8 @@ concrete GrammarBul of Grammar =
   TextBul,
   StructuralBul,
   IdiomBul,
-  TenseX - [CAdv,IAdv,AdV,SC]
+  TenseBul,
+  NamesBul
   ** {
   flags coding=utf8 ;
 

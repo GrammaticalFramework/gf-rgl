@@ -345,4 +345,21 @@ oper simtas : Case * Number => Str
     D_8 = { s = "8"; o="8."; nb=Pl; numAgr=AgrComb };
     D_9 = { s = "9"; o="9."; nb=Pl; numAgr=AgrComb };
 
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ BIND ++ d.s;
+      o = "-" ++ BIND ++ d.o;
+      nb=Pl;
+      numAgr=d.numAgr;
+      hasDot=False
+      } ;
+    IFrac d i = {
+      s = d.s ++
+          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          i.s;
+      nb = Pl ;
+      numAgr=d.numAgr;
+      hasDot=True
+    } ;
+
 }

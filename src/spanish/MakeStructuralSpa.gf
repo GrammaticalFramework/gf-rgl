@@ -28,11 +28,12 @@ oper
       in lin Quant {
         s = \\b => questo ;
         sp = questo ;
+        spn= \\c => prepCase c ++ s ;
         s2 = [] ;
         isNeg = False
       } ;
     -- Inflects for number and gender
-    mkQuant : Str -> Str -> Str -> Str -> Quant = \tutto,tutta,tutti,tutte ->
+    mkQuant : Str -> Str -> Str -> Str -> Str -> Quant = \tutto,tutta,tutti,tutte,esto ->
       let
         questo : Number => Gender => Case => Str = table {
           Sg => table {
@@ -47,6 +48,7 @@ oper
       in lin Quant {
         s = \\b => questo ;
         sp = questo ;
+        spn= \\c => prepCase c ++ "esto" ;
         s2 = [] ;
         isNeg = False
       } ;
@@ -56,15 +58,17 @@ oper
     -- Does not inflect for number
     mkDet : Str -> Number -> Det = \piu,n -> lin Det {
       s,sp = \\_,c => prepCase c ++ piu ;
+      spn = \\c => prepCase c ++ piu ;
       n = n ;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = False
     } ;
     -- Inflects for number
     mkDet : Str -> Str -> Number -> Det = \alcuni,alcune,n -> lin Det {
       s,sp = \\g,c => prepCase c ++ genForms alcuni alcune ! g ;
+      spn = \\c => prepCase c ++ alcuni ;
       n = n ;
-      s2 = [] ;
+      s2 = \\g => [] ;
       isNeg = False
     } ;
   } ;

@@ -66,11 +66,11 @@ lin
   weekdayLastAdv w = SyntaxSpa.mkAdv noPrep (mkNP the_Det (mkCN (mkA "pasado") w)) ; -- il lunedí scorso
   weekdayNextAdv w = SyntaxSpa.mkAdv noPrep (mkNP the_Det (mkCN (mkA "próximo") w)) ; -- il lunedí prossimo
 
-  monthAdv m = lin Adv {s = "en" ++ m.s ! C.Sg} ;         -- in mggio
+  monthAdv m = lin Adv {s = "en" ++ m.s ! C.Sg} ;         -- en mayo
   yearAdv y = SyntaxSpa.mkAdv (mkPrep "en") y ; ----
-  dayMonthAdv d m = ParadigmsSpa.mkAdv ("el" ++ (d.s ! R.Nom).comp ++ m.s ! C.Sg) ; -- le 17 mai 
-  monthYearAdv m y = lin Adv {s = "en" ++ m.s ! C.Sg ++ (y.s ! R.Nom).comp} ;         -- in maggio 2012
-  dayMonthYearAdv d m y = ParadigmsSpa.mkAdv ("el" ++ (d.s ! R.Nom).comp ++ m.s ! C.Sg ++ (y.s ! R.Nom).comp) ; -- il 17 maggio 2013
+  dayMonthAdv d m = ParadigmsSpa.mkAdv ("el" ++ (d.s ! R.Nom).comp ++ "de" ++ m.s ! C.Sg) ; -- el 17 de mayo 
+  monthYearAdv m y = lin Adv {s = "en" ++ m.s ! C.Sg ++ "de" ++ (y.s ! R.Nom).comp} ;         -- en mayo de 2012
+  dayMonthYearAdv d m y = ParadigmsSpa.mkAdv ("el" ++ (d.s ! R.Nom).comp ++ "de" ++ m.s ! C.Sg ++ "de" ++ (y.s ! R.Nom).comp) ; -- el 17 de mayo de 2013
 
   intYear = symb ;
   intMonthday = symb ;

@@ -73,10 +73,14 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
          (predV (mkV "existir"))) ;
 
     CompoundN noun noun2 = { -- order is different because that's needed for correct translation from english
-      s = \\n => noun2.s ! n
-        ++ variants {"de" ; genForms "del" "de la" ! noun.g}
-        ++ noun.s ! Sg ;
-      g = noun2.g
+      s = \\n => noun2.s ! n ++
+                 case noun2.relType of {
+                   NRelPrep p => prepCase (CPrep p) ;  -- tasa de suicidio
+                   NRelNoPrep => []                    -- connessione internet = internet connection
+                 } ++
+                 noun.s ! Sg ;
+      g = noun2.g ;
+      relType = noun2.relType
       } ;
 
     CompoundAP noun adj = {
@@ -105,12 +109,6 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
 
 lin UseComp_estar comp = insertComplement comp.s (predV I.estar_V) ;
     UseComp_ser comp = insertComplement comp.s (predV copula) ;
-
-lin GivenName, MaleSurname, FemaleSurname, PlSurname = \n -> n ;
-lin FullName gn sn = {
-       s = gn.s ++ sn.s ;
-       g = gn.g
-    } ;
 
 lin PassVPSlash vps = passVPSlash vps [] ;
     PassAgentVPSlash vps np = passVPSlash 

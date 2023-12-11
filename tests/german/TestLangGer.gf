@@ -31,29 +31,37 @@ concrete TestLangGer of TestLang =
       (insertObjRefl (predVc v3) ** {c2 = v3.c3}); 
 
     PassV2Q v q =
-      let vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = subjPrep v.c2 }
+      let c = case <v.c2.c, isaPrep v.c2> of {
+            <Acc, False> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
+          vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
+            ** { c1 = v.c2 ** {c = c} }
       in insertExtrapos (bindComma ++ q.s ! QIndir) vp ;
 
     PassV2S v s =
-      let vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = subjPrep v.c2 }
+      let c = case <v.c2.c, isaPrep v.c2> of {
+            <Acc, False> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
+          vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
+            ** { c1 = v.c2 ** {c = c} }
       in insertExtrapos (bindComma ++ conjThat ++ s.s ! Sub) vp ;
 
     PassV2V v vp = 
-      let                                                -- ok for v.isAux=False,
-          inf = mkInf v.isAux Simul Pos vp ;             -- v.c2.c=Acc, v.objCtrl=True   HL 3/22
+      let
+          inf = mkInf v.isAux Simul Pos vp ;             -- ok for v.isAux=False, v.c2.c=Acc
+          c = case <v.c2.c, isaPrep v.c2> of {           --        v.objCtrl=True   HL 3/22
+            <Acc, False> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
           vp2 = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
             ** { c1 = subjPrep v.c2 } ;
         in insertInf inf vp2 ;                           -- v=lassen needs in-place inf instead
 
-    PassVPSlash vp =  -- less correct in ExtraGer.gf with inserting
-      let             -- (\\_ => (PastPartAP vp).s ! APred)
-        ctrl = case vp.objCtrl of { True => False ; _ => True }  -- always False?
-      in
-      insertObj (\\_ => vp.a2 ++ vp.adj ++ vp.s.s ! (VPastPart APred))
-        (predV werdenPass ** {nn = vp.nn ; c1 = subjPrep vp.c2})
-      ** {ext = vp.ext ; inf = vp.inf ; c2 = vp.c2 ; objCtrl = ctrl } ;  -- c2 ?
+    PassVPSlash vp = 
+      let c = case <vp.c2.c, isaPrep vp.c2> of {
+            <Acc, False> => Nom ; _ => vp.c2.c} ;
+          ctrl = case vp.objCtrl of { True => False ; _ => True }  -- always False?
+      in -- insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass ** {c1 = vp.c2 ** {c = c}})
+          insertObj (\\_ => vp.s.s ! (VPastPart APred))
+                      (predV werdenPass ** {nn = vp.nn ; c1 = vp.c2 ** {c = c}})
+           ** {ext = vp.ext ; inf = vp.inf ; c2 =vp.c2 ; objCtrl = ctrl } ;  -- c2 ?
+       -- Scharolta: passivised object: acc object -> nom subject; all others: same case/prep
        -- HL: does not work for vp = (Slash2V3 v np): uns wird *den Beweis erklärt
        -- 3/22 works for        vp = (SlashV2V v2v reflVP): wir werden gebeten, uns zu waschen
 
@@ -159,16 +167,16 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
       } ;
 
   lin
-
+{- too expensive 60% memory, then killed:
     SlashVP np vp =
-      let subj = mkSubj np vp.c1
-      in mkClSlash subj.p1 subj.p2 vp ** { c2 = vp.c2 } ;
-
+      let subj = mkSubject np vp.c1
+      in mkClSlash subj.s subj.a vp ** { c2 = vp.c2 } ;
+-}
     RelSlash rp cls = lin RCl {
       s = \\m,t,a,p,gn =>
-          appPrepC cls.c2 (rp.s ! gn) ++
-            cls.s ! m ! t ! a ! p ! Sub ! gn ;
-      c = (prepC cls.c2.c).c
+          appPrep cls.c2 (rp.s ! gn) ++
+          cls.s ! m ! t ! a ! p ! Sub ! gn ;
+      c = cls.c2.c
       } ;
 
     QuestSlash ip slash = let gn : GenNum = case ip.n of {Sg => GSg Masc ; _ => GPl} in {
@@ -227,7 +235,7 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
           obj2  = (vp.nn ! ag).p3 ;                    -- pp-objects and heavy nps
           obj3  = (vp.nn ! ag).p4 ++ vp.adj ++ vp.a2 ; -- pred.AP|CN|Adv, via useComp HL 6/2019
           compl : Str = obj1 ++ obj2 ++ neg ++ obj3 ;
-          infObjs = (vp.inf.inpl.p1) ! ag ;
+          infObjs = vp.inf.inpl.p1 ! ag ;
           infPred = vp.inf.inpl.p2 ;
           infCompl : Str = case <t,a,vp.isAux> of {
                  <Fut|Cond,Anter,True> => [] ;  _ => infObjs ++ infPred } ;

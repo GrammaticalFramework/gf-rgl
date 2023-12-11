@@ -12,11 +12,31 @@ This Readme was written by Nemo and edited by Inari on 14th August 2022.
 
 # Creating a new resource grammar
 
-If you are working on an RGL for a new language, you will need to run "Clone.hs" in the "src" folder so that you can clone a project from another language to your language to give you a basis to start with. 
+If you are working on an RGL for a new language, you will need to run "Clone.hs" in the "src" folder so that you can clone a project from another language to your language to give you a basis to start with.
 
-As per the instructions, the syntax is "Clone fromdir todir fromlang tolang", e.g. "runghc Clone swedish danish Swe Dan". You may want to add the option --comment-body after the word "Clone" to comment out every line in the body of the files to start fresh. 
+### From an existing RGL language
 
-This is especially useful if your new language has very little in common with the language you are copying from because they come from different language families.
+If your language already has a close relative in the RGL, then you can clone your language from that one, in order reuse the same structures with only minor modifications. As per the instructions, the syntax is `Clone fromdir todir fromlang tolang`.Suppose you want to clone Slovak from Czech, then do as follows:
+
+```bash
+$ runghc Clone czech slovak Cze Slo
+```
+
+You may want to add the option `--comment-body` after the word `Clone` to comment out every line in the body of the files.
+
+```bash
+$ runghc Clone --comment-body czech slovak Cze Slo
+```
+
+### From a generic template
+
+Often it is easier to start from a rather clean slate, so the recommended way is to clone the [TEMPLATE](TEMPLATE/) module. So suppose you want to start a resource grammar for Albanian, do it as follows:
+
+```bash
+$ runghc Clone TEMPLATE albanian TMP Sqi
+```
+
+You will see more detailed instructions on how to continue from the cloned template in the [README file](template/README.md).
 
 # File hierarchy
 
@@ -43,7 +63,7 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 
 # Main goal
 
-You may think of your long-term goal as eventually implementing all the abstract functions found in the "abstract" folder. In other words, you are somewhat constrained by the available categories in Cat.gf and functions in relevant e.g. Noun.gf, Verb.gf etc. files. 
+You may think of your long-term goal as eventually implementing all the abstract functions found in the "abstract" folder. In other words, you are somewhat constrained by the available categories in Cat.gf and functions in relevant e.g. Noun.gf, Verb.gf etc. files.
 
 In the future, if you find that the available functions do not apply to your language, you may search in the Extend.gf file for more optional functions, or in Extra.gf. if it doesn't exist, create your own ExtraLangAbs.gf with the concrete ExtraLang.gf, all in the same directory gf-rgl/src/lang. This blog post contains more information.
 

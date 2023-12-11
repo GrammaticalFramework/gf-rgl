@@ -12,9 +12,4 @@ lin PassVPSlash vps =
     PassAgentVPSlash vps np = 
       insertAdv (appPrep "door" np.s) (insertInf (vps.s.s ! VPerf) (predV word_V)) ;
 
-lin GivenName, MaleSurname, FemaleSurname = \n -> n ;
-lin FullName gn sn = {
-       s = \\c => gn.s ! NPNom ++ sn.s ! c ; 
-    } ;
-
 }

@@ -4,7 +4,7 @@ concrete LangZul of Lang =
   GrammarZul,
   LexiconZul
   -- ,ConstructionZul
-  -- ,DocumentationZul --# notpresent
+  ,DocumentationZul --# notpresent
   -- ,MarkupZul - [stringMark]
   ** {
 

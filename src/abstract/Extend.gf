@@ -27,9 +27,11 @@ abstract Extend = Cat ** {
 
     CompBareCN  : CN -> Comp ;        -- (is) teacher
 
+    PiedPipingQuestSlash : IP -> ClSlash -> QCl ;   -- with whom does John live
+    PiedPipingRelSlash   : RP -> ClSlash -> RCl ;   -- with whom John lives
     StrandQuestSlash : IP -> ClSlash -> QCl ;   -- whom does John live with
-    StrandRelSlash   : RP -> ClSlash -> RCl ;   -- that he lives in
-    EmptyRelSlash    : ClSlash       -> RCl ;   -- he lives in
+    StrandRelSlash   : RP -> ClSlash -> RCl ;   -- that he lives with
+    EmptyRelSlash    : ClSlash       -> RCl ;   -- he lives with
 
 
 -- $VP$ conjunction, separate categories for finite and infinitive forms (VPS and VPI, respectively)
@@ -297,13 +299,10 @@ fun
 fun
   CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
 
-  GivenName : GN -> PN ;
-  MaleSurname   : SN -> PN ;
-  FemaleSurname : SN -> PN ;
-  PlSurname     : SN -> PN ;
-  FullName  : GN -> SN -> PN ;
-
 fun
   AnaphPron : NP -> Pron ;
+
+fun
+  TPastSimple : Tense ;
 
 }

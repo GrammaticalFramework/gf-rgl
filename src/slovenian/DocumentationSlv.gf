@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 concrete DocumentationSlv of Documentation = CatSlv ** open 
-  ResSlv,
+  ResSlv, (P=ParamX),
   HTML in {
 flags coding=utf8 ;
 
@@ -28,6 +28,74 @@ lin
           tr (th "tož." ++ td (n.s!Acc!Sg) ++ td (n.s!Acc!Dl) ++ td (n.s!Acc!Pl))++
           tr (th "mest." ++ td (n.s!Loc!Sg) ++ td (n.s!Loc!Dl) ++ td (n.s!Loc!Pl))++
           tr (th "orod."++td (n.s!Instr!Sg)++td (n.s!Instr!Dl)++td (n.s!Instr!Pl))
+        )
+  } ;
+
+  InflectionPN = \n -> {
+    t = "li" ;
+    s1= heading1 ("Lastno Ime"++
+                  case n.g of {
+                    AMasc Animate   => "(m.s.ž.)" ;
+                    AMasc Inanimate => "(m.s.)" ;
+                    AFem            => "(ž.s.)" ;
+                    ANeut           => "(s.s.)"
+                  }) ;
+    s2= frameTable (
+          tr (th "imen." ++ td (n.s!Nom))++
+          tr (th "rod." ++ td (n.s!Gen))++
+          tr (th "daj." ++ td (n.s!Dat))++
+          tr (th "tož." ++ td (n.s!Acc))++
+          tr (th "mest." ++ td (n.s!Loc))++
+          tr (th "orod."++td (n.s!Instr))
+        )
+  } ;
+
+  InflectionLN = \n -> {
+    t = "li" ;
+    s1= heading1 ("Ime Lokacije"++
+                  case n.g of {
+                    AMasc Animate   => "(m.s.ž.)" ;
+                    AMasc Inanimate => "(m.s.)" ;
+                    AFem            => "(ž.s.)" ;
+                    ANeut           => "(s.s.)"
+                  }) ;
+    s2= frameTable (
+          tr (th "imen." ++ td (n.s!Nom))++
+          tr (th "rod." ++ td (n.s!Gen))++
+          tr (th "daj." ++ td (n.s!Dat))++
+          tr (th "tož." ++ td (n.s!Acc))++
+          tr (th "mest." ++ td (n.s!Loc))++
+          tr (th "orod."++td (n.s!Instr))
+        )
+  } ;
+
+  InflectionGN = \n -> {
+    t = "li" ;
+    s1= heading1 ("Dano Ime"++
+                  case n.g of {
+                    P.Male   => "(moški)" ;
+                    P.Female => "(ženski)"
+                  }) ;
+    s2= frameTable (
+          tr (th "imen." ++ td (n.s!Nom))++
+          tr (th "rod." ++ td (n.s!Gen))++
+          tr (th "daj." ++ td (n.s!Dat))++
+          tr (th "tož." ++ td (n.s!Acc))++
+          tr (th "mest." ++ td (n.s!Loc))++
+          tr (th "orod."++td (n.s!Instr))
+        )
+  } ;
+
+  InflectionSN = \n -> {
+    t = "li" ;
+    s1= heading1 "Družinsko Ime" ;
+    s2= frameTable (
+          tr (th "imen." ++ td (n.s!P.Male!Nom))++
+          tr (th "rod." ++ td (n.s!P.Male!Gen))++
+          tr (th "daj." ++ td (n.s!P.Male!Dat))++
+          tr (th "tož." ++ td (n.s!P.Male!Acc))++
+          tr (th "mest." ++ td (n.s!P.Male!Loc))++
+          tr (th "orod."++td (n.s!P.Male!Instr))
         )
   } ;
 

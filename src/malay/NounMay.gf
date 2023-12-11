@@ -101,16 +101,20 @@ concrete NounMay of Noun = CatMay ** open ResMay, Prelude in {
     s = dig.s ! NCard
     } ;
 
+  NumDecimal dec = {
+    s = dec.s ! NCard
+    } ;
+
   -- : Numeral -> Card ;
   NumNumeral num = num ;
 
-{-
+
   -- : AdN -> Card -> Card ;
   AdNum adn card = card ** { s = adn.s ++ card.s } ;
 
   -- : Digits  -> Ord ;
   OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
--}
+
   -- : Numeral -> Ord ;
   OrdNumeral num = {
     s = num.ord

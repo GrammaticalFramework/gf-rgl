@@ -632,4 +632,7 @@ resource ParadigmsTur = open
                       -- kal-, ol-, öl-, var-, ver-, vur-, san- )
       | SgSylConReg ; -- one syllable ending with consonant, takes -er
 
+  oper
+    mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 }

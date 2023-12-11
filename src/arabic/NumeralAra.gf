@@ -1,4 +1,4 @@
-concrete NumeralAra of Numeral = CatAra [Numeral,Digits] **
+concrete NumeralAra of Numeral = CatAra [Numeral,Digits,Decimal] **
   open Predef, Prelude, ResAra, MorphoAra in {
 
 flags coding=utf8 ;
@@ -135,6 +135,20 @@ lincat
     D_7 = mk1Dig "7" ;
     D_8 = mk1Dig "8" ;
     D_9 = mk1Dig "9" ;
+
+    PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {
+      s = "-" ++ BIND ++ d.s;
+      n = ThreeTen ;
+      hasDot=False
+      } ;
+    IFrac d i = {
+     s = d.s ++
+         if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+         i.s ;
+     n = ThreeTen ;
+     hasDot=True
+     } ;
 
   oper
 

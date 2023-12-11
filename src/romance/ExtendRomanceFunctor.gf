@@ -2,8 +2,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
   Cat ** open Grammar, ResRomance in {
 
   lincat
-    RNP = Grammar.NP ;
-    RNPList = Grammar.ListNP ;
+    RNP = {s : Agr => Case => Str} ;
 
   ---- these come from ExtraRomance: how to avoid the repetition?
   ---- can't seem to be able to use two functors
@@ -27,6 +26,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
       let denp = (np.s ! ResRomance.genitive).ton in {
         s = \\_,_,_,_ => [] ;
         sp = \\_,_,_ => denp ;
+        spn= \\_ => denp ;
         s2 = denp ;
         isNeg = False ;
       } ;
@@ -126,7 +126,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     ExistPluralCN cn = ExistNP (DetCN (DetQuant IndefArt NumPl) cn) ;
     AdvIsNP adv np = mkClause adv.s False False np.a (UseComp_estar (CompNP np)) ;
     AdvIsNPAP adv np ap = -- <aquí:Adv> está <documentada:AP> <la examinación:NP>
-      let emptyN : N = lin N {s = \\_ => [] ; g = np.a.g} ; -- To match the gender of the N
+      let emptyN : N = lin N {s = \\_ => [] ; relType = NRelNoPrep ; g = np.a.g} ; -- To match the gender of the N
           indef : Quant = IndefArt ** {s = \\b,n,g,c => []} ;
           det : Det = case np.a.n of {Sg => DetQuant indef NumSg ; Pl => DetQuant indef NumPl} ;
           apAsNP : NP = DetCN det (AdjCN ap (UseN emptyN)) ; -- NP where the string comes only from AP
@@ -152,8 +152,17 @@ incomplete concrete ExtendRomanceFunctor of Extend =
       } ;
 
   lin
-    ReflRNP = variants {} ;     -- VPSlash -> RNP -> VP ; -- love my family and myself
-    ReflPron = variants {} ;     -- RNP ; -- myself
+    ReflRNP v rnp =      -- VPSlash -> RNP -> VP ; -- love my family and myself
+      case v.c2.isDir of {
+        True  => insertRefl v ;
+        False => insertComplement
+                   (\\a => let agr = verbAgr a in v.c2.s ++ rnp.s ! agr ! v.c2.c) v
+      } ;
+
+    ReflPron = {         -- RNP ; -- myself
+      s = \\agr,c => reflPron agr.n agr.p c
+    } ;
+
     ReflPoss = variants {} ;     -- Num -> CN -> RNP ; -- my car(s)
     PredetRNP = variants {} ;     -- Predet -> RNP -> RNP ; -- all my brothers
     ConjRNP = variants {} ;     -- Conj -> RNPList -> RNP ; -- my family, John and myself
@@ -165,7 +174,16 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     ComplGenVV = variants {} ;     -- VV -> Ant -> Pol -> VP -> VP ; -- want not to have slept
     ComplSlashPartLast = ComplSlash ;
 
-    CompoundN a b = lin N {s = \\n => b.s ! n ++ a.s ! Sg ; g = b.g} ; -- connessione internet = internet connection
+    CompoundN a b = lin N {
+      s = \\n => b.s ! n ++
+                 case b.relType of {
+                   NRelPrep p => prepCase (CPrep p) ;  -- tasa de suicidio
+                   NRelNoPrep => []                    -- connessione internet = internet connection
+                 } ++
+                 a.s ! Sg ;
+      g = b.g ;
+      relType = b.relType
+      } ;
     CompoundAP = variants {} ;     -- N -> A -> AP ; -- language independent / language-independent
 
   lin
@@ -240,7 +258,16 @@ incomplete concrete ExtendRomanceFunctor of Extend =
            } ;
 
 
-    UseDAP, UseDAPMasc = \dap ->
+    UseDAP = \dap ->
+      let
+        g = Masc ;
+        n = dap.n
+      in heavyNPpol dap.isNeg {
+        s = dap.spn ;
+        a = agrP3 g n ;
+        hasClit = False
+        } ;
+    UseDAPMasc = \dap ->
       let
         g = Masc ;
         n = dap.n
@@ -278,6 +305,8 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     UttDatIP ip = UttAccIP (lin IP ip) ; -- whom (dative) ; DEFAULT who
     UttVPShort = UttVP ;
 
+    TPastSimple = {s = []} ** {t = RPasse} ;   --# notpresent
+
   oper
     quoted : Str -> Str = \s -> "\"" ++ s ++ "\"" ; ---- TODO bind ; move to Prelude?
 
@@ -302,7 +331,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
       vps ** {
         s = auxvp.s ;
         agr = auxvp.agr ;
-        comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
+        comp  = \\a => (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ vps.comp ! a ++ agent ;
       } ;
 
 } ;
