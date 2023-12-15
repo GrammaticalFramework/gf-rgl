@@ -4,10 +4,6 @@ incomplete concrete DocumentationRusFunctor of Documentation = CatRus ** open
   Terminology, -- the interface
   ResRus,
   ParadigmsRus,
-  (G = GrammarRus),
-  (S = SyntaxRus),
-  (ST = StructuralRus),
-  (L = LexiconRus),
   Prelude,
   HTML
 in {
@@ -151,85 +147,22 @@ lin
                     })
     } ;
 
-  InflectionV v = {
+  InflectionV, InflectionV2, InflectionV3,
+  InflectionV2V, InflectionV2S, InflectionV2Q,
+  InflectionV2A, InflectionVS, InflectionVQ,
+  InflectionVA = \v -> {
     t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v)) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionV2 v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v S.something_NP)) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionV3 v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v S.something_NP S.something_NP)) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionV2V v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v S.we_NP (S.mkVP (L.sleep_V)))) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionV2S v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v S.we_NP (lin S {s : Mood=>Str = \\m=>"..."}))) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionV2Q v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v S.we_NP (lin QS {s: QForm=>Str = \\m=>"..."}))) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionV2A v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v S.we_NP L.beautiful_A)) ;
+    s1 = heading1 (heading verb_Category) ;
     s2 = inflVerb v
     } ;
 
   InflectionVV vv = {
     t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP vv (S.mkVP (L.sleep_V)))) ;
+    s1 = heading1 (heading verb_Category) ;
     s2 = inflVerb vv.v
     } ;
 
-  InflectionVS v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v (lin S {s : Mood=>Str = \\m=>"..."}))) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionVQ v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v (lin QS {s : Mood=>Str = \\m=>"..."}))) ;
-    s2 = inflVerb v
-    } ;
-
-  InflectionVA v = {
-    t  = "гл" ;
-    s1 = heading1 (heading verb_Category) ++
-         paragraph (verbExample (S.mkCl S.she_NP v L.beautiful_A)) ;
-    s2 = inflVerb v
-    } ;
-
 oper
-  verbExample : CatRus.Cl -> Str = \cl -> (S.mkUtt cl).s ;
 {-
 -} --# notpresent
   inflVerb : CatRus.V -> Str = \v ->
