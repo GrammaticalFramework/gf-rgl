@@ -15,7 +15,6 @@ concrete ConjunctionRus of Conjunction =
       preferShort : ShortFormPreference
       } ;
     [DAP] = {s1,s2 : DetTable ;
-      g : Gender ;
       c : Case ;
       size : NumSize
       } ;
@@ -67,7 +66,6 @@ concrete ConjunctionRus of Conjunction =
 
     -- : DAP -> DAP -> ListDAP ;       --
     BaseDAP x y = twoTable3 Gender Animacy Case x y ** {
-      g = conjGender x.g y.g ;
       c = y.c ;
       size = conjSize x.size y.size ;  -- different genders -> plural?
       } ;

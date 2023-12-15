@@ -45,7 +45,7 @@ lin
 
   -- : Det -> NP ;        -- these five
   DetNP det =
-    let g = det.g in {
+    let g = Neut in {
       s=case det.type of {
         EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
         EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
@@ -102,7 +102,7 @@ lin
   DetQuantOrd quant num ord = {
     s=\\g,a,cas => num.s ! g ! a ! cas
       ++ quant.s ! (gennum g (numSizeNumber num.size)) ! a ! cas
-      ++ (adjFormsAdjective ord).s ! gennum quant.g (animNumSizeNum Inanimate cas num.size) ! Inanimate ! numSizeCase cas num.size ;
+      ++ (adjFormsAdjective ord).s ! gennum g (animNumSizeNum Inanimate cas num.size) ! Inanimate ! numSizeCase cas num.size ;
     type=quant.type ;
     g=quant.g ;
     c=quant.c ;
@@ -139,7 +139,6 @@ lin
     s=mkPronTable pron.poss ;
     type=NormalDet ;
     short=\\a=>[] ;
-    g=Neut ;
     c=Nom ;
     preferShort=PreferFull
     } ;
@@ -226,7 +225,6 @@ lin
     type=EmptyDef ;
     short=\\a=>[] ;
     c=Nom ;
-    g=Neut ;
     size=Num1 ;
     preferShort=PreferFull
     } ;
@@ -236,7 +234,6 @@ lin
     type=EmptyIndef ;
     short=\\a=>[] ;
     c=Nom ;
-    g=Neut ;
     size=Num1 ;
     preferShort=PreferFull
     } ;
