@@ -7,4 +7,6 @@ concrete ExtendTur of Extend = CatTur ** open ResTur in {
       a = {n=num.n; p=P3} ;
     } ;
 
+    TPastSimple = {s = []} ** {t = Past} ;  --# notpresent
+
 }
