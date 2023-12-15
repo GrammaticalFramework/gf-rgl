@@ -191,7 +191,7 @@ lin
 
   -- : CN -> NP -> CN ;     -- house of Paris, house of mine
   PossNP cn np = cn ** {
-    s=\\n,cas => np.s ! Gen ++ cn.s ! n ! cas ;   -- TODO: possessive pronouns P1, P2
+    s=\\n,cas => cn.s ! n ! cas ++ np.s ! Gen ;   -- TODO: possessive pronouns P1, P2
     } ;
 
   -- : CN -> NP -> CN ;     -- glass of wine - стакан чаю (чая)
