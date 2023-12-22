@@ -579,16 +579,16 @@ mkV2 : overload {
 
   mkPrep = overload {
     mkPrep : Str -> Case -> Prep = \s,c ->
-      {s = \\_ => s ; s2 = [] ; c = c ; isPrep = isPrep ; lock_Prep = <>} ;
+      {s = \\_ => s ; s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>} ;
     mkPrep : Case -> Str -> Prep = \c,s ->
-      {s = \\_ => [] ; s2 = s ; c = c ; isPrep = isPrep ; lock_Prep = <>} ;
+      {s = \\_ => [] ; s2 = s ; c = c ; t = isPrep ; lock_Prep = <>} ;
     mkPrep : Str -> Case -> Str -> Prep = \s,c,t ->
-      {s = \\_ => s ; s2 = t ; c = c ; isPrep = isPrep ; lock_Prep = <>} ;
+      {s = \\_ => s ; s2 = t ; c = c ; t = isPrep ; lock_Prep = <>} ;
     mkPrep : Str -> Str -> Str -> Str -> Case -> Prep = \s,masc,fem,neutr,c ->
       {s = table{GPl => s ; GSg Masc => masc ; GSg Fem => fem ; GSg Neutr => neutr} ;
-       s2 = [] ; c = c ; isPrep = isPrepDefArt ; lock_Prep = <>} ;
+       s2 = [] ; c = c ; t = isPrepDefArt ; lock_Prep = <>} ;
     mkPrep : Case -> Prep = \c ->
-      {s = \\_ => [] ; s2 = [] ; c = c ; isPrep = isCase ; lock_Prep = <>}
+      {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>}
     } ;
 
   accPrep = mkPrep accusative ;
@@ -672,7 +672,7 @@ mkV2 : overload {
       = \v,c,d -> lin V3 (v ** {c2 = c ; c3 = d}) ;
     } ;
 
-  dirV3 v p = mkV3 v accPrep p ;        -- accPrep sets isPrep=False
+  dirV3 v p = mkV3 v accPrep p ;        -- accPrep, datPrep have t=isCase
   accdatV3 v = mkV3 v datPrep accPrep ; -- to fit to Eng ditransitives (no preposition): 
                                         -- give sb(indir) sth(dir) = geben jmdm(dat) etwas(acc)
   mkVS v = v ** {lock_VS = <>} ;

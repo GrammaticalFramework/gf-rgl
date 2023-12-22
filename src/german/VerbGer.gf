@@ -95,7 +95,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
    --     insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
      let prep = v.c2 ;
          obj = appPrep prep (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
-         b : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
+         b : Bool = case prep.t of {isPrep | isPrepDefArt => True ; _ => False} ;
          c = prep.c ;
          w = np.w ;
          vps = (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl})
@@ -132,7 +132,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     ReflVP vp = insertObjRefl vp ; -- HL, 19/06/2019
 
     PassV2 v = -- acc object -> nom subject; all others: same PCase
-      let c = case <v.c2.c, v.c2.isPrep> of {
+      let c = case <v.c2.c, v.c2.t> of {
             <Acc, isCase> => Nom ; _ => v.c2.c}
       in insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass) ** { c1 = v.c2 ** {c = c} } ;
 

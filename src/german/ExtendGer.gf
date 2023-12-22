@@ -249,7 +249,7 @@ lin CompoundN a x =
       in {
         s = adj.s ! Posit ;
         isPre = True ;
-        c = case adj.c2.isPrep of {False => <compl, []> ; True => <[], compl>} ;
+        c = case adj.c2.t of {False => <compl, []> ; True => <[], compl>} ;
         ext = rnp.ext ++ rnp.rc
       } ;
 
@@ -294,7 +294,7 @@ lin CompoundN a x =
       in vp ** {
         nn = \\a =>
           let vpnn = vp.nn ! a in
-          case <prep.isPrep, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
+          case <prep.t, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
             <False,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
             <False,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
             <False,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal

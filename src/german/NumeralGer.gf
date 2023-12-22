@@ -23,7 +23,8 @@ lin
 
   pot01 = {
     s = \\f => table {
-          NCard g c => "ein" + pronEnding ! GSg g ! c ;
+          NCard (AMod gn c) => "ein" + pronEnding ! gn ! c ;
+          NCard APred => "ein" ;
           NOrd af => (regA "erst").s ! Posit ! af
           } ; 
     n = Sg
@@ -69,8 +70,7 @@ oper
     Dig = TDigit ;
 
   lin
-    IDig d = {s = table{NCard g c => d.s ! NCard g c ;
-                        NOrd amod  => d.s ! NOrd amod} ;
+    IDig d = {s = d.s ;
               n = d.n ;
               isDig = True ;
               tail1to19 = notB d.isZero} ;
@@ -84,7 +84,7 @@ oper
           b : Bool = case i.isDig of {True => isPld ; _ => notB i.tail1to19} ;
           i' : Digits = case b of {True => IDig (mkDig (i.s ! invNum ++ BIND ++ "s")) ;
                                    _  => i }
-      in {s = table {NCard g c => d.s ! invNum ++ BIND ++ i.s ! NCard g c ;
+      in {s = table {NCard af => d.s ! invNum ++ BIND ++ i.s ! NCard af ;
                      NOrd af => d.s ! invNum ++ BIND ++ i'.s ! NOrd af} ;
           n = Pl ;
           isDig = False ;
@@ -120,14 +120,14 @@ oper
     mkDig : Str -> TDigit = \c -> mk3Dig c (c + "t") Pl ; -- like Duden 464 (4.Auflage)
 
     mk3Dig : Str -> Str -> Number -> TDigit = \c,o,n -> {
-      s = table {NCard _ _ => c ;                      -- 0,...,9
+      s = table {NCard _ => c ;                        -- 0,...,9
                  NOrd af => (regA o).s ! Posit ! af} ; -- (ein) 0ter .. 9ter | (der) 0te ... 9te
       n = n ;                                          -- NOrd APred: "0",... or "am 0ten",... ?
       isZero = False
       } ;
 
     mk2Dig : Str -> TDigit = \crd ->
-      {s = table {NCard g c => crd ;
+      {s = table {NCard af => crd ;
                   NOrd af => (regA (crd + "t")).s ! Posit ! af} ;
        n = Sg ;
        isZero = False
