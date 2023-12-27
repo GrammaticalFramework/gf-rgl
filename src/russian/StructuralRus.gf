@@ -27,21 +27,18 @@ lin
   this_Quant = (adjFormsAdjective this_forms) ** {
     type=NormalDet ;
     preferShort=PreferFull ;
-    g=Neut ;
     c=Nom
     } ;
   -- : Quant ;
   that_Quant = (adjFormsAdjective that_forms) ** {
     type=NormalDet ;
     preferShort=PreferFull ;
-    g=Neut ;
     c=Nom
     } ;
   -- : Quant ;
   no_Quant = (adjFormsAdjective (makeAdjectiveForms "никакой" "" "3b" PreferFull)) ** {
     type=NormalDet ;
     preferShort=PreferFull ;
-    g=Neut ;
     c=Nom
     } ;
 
