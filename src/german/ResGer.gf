@@ -319,8 +319,8 @@ resource ResGer = ParamX ** open Prelude in {
     {s = table {
        Posit  => adjForms gut gute ; 
        Compar => adjForms besser besser ; 
-       Superl => adjForms best best -- HL 12/2023: build ("am" ++ besten) via (OrdSuperl a)
-       }                            -- to get zweitbeste, am zweitbesten; *zweit am besten
+       Superl => adjForms besten best -- HL 12/2023: build ("am" ++ besten) via (OrdSuperl a)
+       }                              -- to get zweitbeste, am zweitbesten; *zweit am besten
     } ;
 
 -- Verbs need as many as 12 forms, to cover the variations with

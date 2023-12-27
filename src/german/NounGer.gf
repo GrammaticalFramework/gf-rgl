@@ -154,13 +154,12 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
     AdNum adn num = {s = \\af => adn.s ++ num.s ! af ; n = num.n } ;
 
-    OrdSuperl a = {s = table {APred => "am" ++ a.s ! Superl ! APred ++ BIND ++ "en" ;
+    OrdSuperl a = {s = table {APred => "am" ++ a.s ! Superl ! APred ;
                               af => a.s ! Superl ! af}} ;
 
     OrdNumeralSuperl n a =
-      {s = table {APred => "am" ++ n.s ! NOrd APred ++ Predef.BIND
-                           ++ a.s ! Superl ! APred ++ BIND ++ "en" ;      -- am drittbesten
-                  af => n.s ! NOrd APred ++ Predef.BIND ++ a.s ! Superl ! af} -- drittbeste
+      {s = table {APred => "am" ++ n.s ! NOrd APred ++ BIND ++ a.s ! Superl ! APred ; -- am drittbesten
+                  af => n.s ! NOrd APred ++ BIND ++ a.s ! Superl ! af}                -- drittbeste
       } ;
     DefArt = {
       s = \\gn,c => artDef ! gn ! c ;
