@@ -167,8 +167,6 @@ concrete StructuralGer of Structural = CatGer **
   lin language_title_Utt = ss "Deutsch" ;
 
 oper
-  asQuant : (Gender => Case => Str) -> (Bool => Gender => Case => Str) =
-    \tab -> \\_,g,c => tab ! g ! c ;
   asNum : (Gender => Case => Str) -> (Gender => Case => {quant,num:Str}) =
     \tab -> \\g,c => {quant = []; num = tab ! g ! c} ;
   pairTable : (Gender => Case => Str) -> (Gender => Case => Str) -> (Gender => Case => {quant,num:Str})
