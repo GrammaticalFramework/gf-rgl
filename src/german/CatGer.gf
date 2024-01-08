@@ -67,7 +67,7 @@ concrete CatGer of Cat =
     Quant = {
       s,sp : GenNum => Case => Str ;
       a : Adjf ;
-      hasDefArt : Bool ;
+      isDefArt : Bool ;
       delCardOne : Bool -- delete following cardinal 1 (IndefArt and no_Quant)
       } ;
     Predet = {
@@ -94,18 +94,19 @@ concrete CatGer of Cat =
 
 -- Open lexical classes, e.g. Lexicon
 
-    V, VA, VS, VQ = ResGer.Verb ; -- = {s : VForm => Str} ;
+    V, VA, VS, VQ = Verb ; -- = {s : VForm => Str} ;
     VV = Verb ** {isAux : Bool} ;
     V2, V2A, V2S, V2Q = Verb ** {c2 : Preposition} ;
     V2V = Verb ** {c2 : Preposition ; isAux : Bool ; objCtrl : Bool} ;
     V3 = Verb ** {c2, c3 : Preposition} ;
 
-    A  = {s : Degree => AForm => Str} ;
-    A2 = {s : Degree => AForm => Str ; c2 : Preposition} ;
+    A  = Adjective ; -- = {s : Degree => AForm => Str} ;
+    A2 = Adjective ** {c2 : Preposition} ;
 
-    N  = ResGer.Noun ;
-    N2 = ResGer.Noun ** {c2 : Preposition} ;
-    N3 = ResGer.Noun ** {c2,c3 : Preposition} ;
+    N  = Noun ; -- {s : Number => Case => Str ; co : Str ;
+                --  uncap : {s: Number => Case => Str ; co : Str} ; g : Gender}
+    N2 = Noun ** {c2 : Preposition} ;
+    N3 = Noun ** {c2,c3 : Preposition} ;
     GN = {s : Case => Str; g : Sex} ;
     SN = {s : Sex => Case => Str} ;
     PN = {s : Case => Str; g : Gender; n : Number} ;

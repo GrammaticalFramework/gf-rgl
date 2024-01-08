@@ -40,7 +40,7 @@ concrete StructuralGer of Structural = CatGer **
   everywhere_Adv = ss "überall" ;
   few_Det = {
     s,sp = \\_,g,c => "wenig" + adjEnding ! (gennum g Pl) ! c ;
-    n = Pl ; a = Weak ; isDef = False ; hasDefArt = False} ;
+    n = Pl ; a = Strong ; isDef = False ; hasDefArt = False} ;
 ----  first_Ord = {s = (regA "erst").s ! Posit} ;
   for_Prep = mkPrep "für" P.accusative ;
   from_Prep = mkPrep "aus" P.dative ;
@@ -59,7 +59,7 @@ concrete StructuralGer of Structural = CatGer **
   less_CAdv = X.mkCAdv "weniger" "als" ;
   many_Det = {
     s,sp = \\_,g,c => "viel" + adjEnding ! (gennum g Pl) ! c ;
-    n = Pl ; a = Weak ; isDef = False ; hasDefArt = False} ;
+    n = Pl ; a = Strong ; isDef = False ; hasDefArt = False} ;
   more_CAdv = X.mkCAdv "mehr" "als" ;
 --  most_Predet = {s = appAdj (regA "meist") ; c = noCase ; a = PAgNone} ;
   most_Predet = {                                                           -- HL 5/2022
@@ -70,8 +70,9 @@ concrete StructuralGer of Structural = CatGer **
     c = {p = [] ; k = PredCase Gen} ;
     a = PAg Pl} ;
   much_Det = {
-    s = \\_,_,_ => "viel" ; sp = \\_,_,_ => "vieles" ;
-    n = Sg ; a = Weak ; isDef = False ; hasDefArt = False} ;
+    s = \\_,g,c => "viel" ;
+    sp = \\_,g,c => "viel" + detEnding ! (gennum g Sg) ! c ;  ---- (GSg _ Sg) ! Gen ?
+    n = Sg ; a = Strong ; isDef = False ; hasDefArt = False} ;
   must_VV = auxVV 
       (mkV 
         "müssen" "muss" "musst" "muss" "müsst" "müss" 
@@ -94,16 +95,16 @@ concrete StructuralGer of Structural = CatGer **
   somebody_NP = nameNounPhrase Masc {s = caselist "jemand" "jemanden" "jemandem" "jemands"} ;
   somePl_Det = {
     s,sp = \\_,g,c => "einig" + adjEnding ! (gennum g Pl) ! c ;
-    n = Pl ; a = Weak ; isDef = True ; hasDefArt = False} ;
+    n = Pl ; a = Strong ; isDef = True ; hasDefArt = False} ;
   someSg_Det = {
-      s = \\_,g,c => "ein" + pronEnding ! GSg g ! c ;  -- ein, eine, ein
-      sp = \\_,g,c => "ein" + detEnding ! GSg g ! c ;  -- einer, eine, eines
-      n = Sg ; a = Strong ; hasNum = True ; isDef = False ; hasDefArt = False
-      } ;
+    s = \\_,g,c => "ein" + pronEnding ! GSg g ! c ;  -- ein, eine, ein
+    sp = \\_,g,c => "ein" + detEnding ! GSg g ! c ;  -- einer, eine, eines
+    n = Sg ; a = Mixed ; isDef = False ; hasDefArt = False
+    } ;
   something_NP = nameNounPhrase Neutr {s = \\_ => "etwas"} ;
   somewhere_Adv = ss "irgendwo" ;
   that_Quant = {
-    s,sp = \\gn,c => "jen" + detEnding ! gn ! c ; a = Weak ; hasDefArt,delCardOne = False} ;
+    s,sp = \\gn,c => "jen" + detEnding ! gn ! c ; a = Weak ; isDefArt,delCardOne = False} ;
 ---b  that_NP = nameNounPhrase Neutr {s = caselist "das" "das" "dem" "dessen"} ; ----
   there_Adv = ss "da" ; --- no variants in the rgl | ss "dort" ;
   there7to_Adv = ss "dahin" ;
@@ -112,7 +113,7 @@ concrete StructuralGer of Structural = CatGer **
 ---b  these_NP = {s = caselist "diese" "diese" "diesen" "dieser" ; a = agrP3 Pl} ;
   they_Pron = mkPronPers "sie" "sie" "ihnen" "ihrer" "ihr" Fem Pl P3 ;
   this_Quant = {
-    s,sp = \\gn,c => "dies" + detEnding ! gn ! c ; a = Weak ; hasDefArt, delCardOne = False} ;
+    s,sp = \\gn,c => "dies" + detEnding ! gn ! c ; a = Weak ; isDefArt, delCardOne = False} ;
 ---b  this_NP = nameNounPhrase Neutr {s = caselist "dies" "dies" "diesem" "dieses"} ; ----
 ---b  those_NP = {s = caselist "jene" "jene" "jenen" "jener" ; a = agrP3 Pl} ;
   through_Prep = mkPrep "durch" P.accusative ;
@@ -150,7 +151,7 @@ concrete StructuralGer of Structural = CatGer **
     s = table {GSg g => \\c => "kein" + pronEnding ! GSg g ! c ;
                GPl   => \\c => "kein" + detEnding ! GPl ! c} ;
     sp = \\gn,c => "kein" + detEnding ! gn ! c ;
-    a = Mixed ; hasDefArt = False ; delCardOne = True} ; -- HL kein+ein(er) => kein(er)
+    a = Mixed ; isDefArt = False ; delCardOne = True} ; -- HL kein+ein(er) => kein(er)
   if_then_Conj = {s1 = "wenn" ; s2 = "dann" ; n = Sg ; lock_Conj = <>} ;
   nobody_NP = 
     nameNounPhrase Masc {s = caselist "niemand" "niemanden" "niemandem" "niemands"} ;

@@ -269,32 +269,18 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VP = -- HL 5/2022
       \rnp,prep,vp ->                                           -- generalize ResGer.insertObjRefl
-      let -- prep = vp.c2 ;
-          c : Case = case prep.c of { cc => cc ; _ => Acc } ; -- put rnp.ext ++ rnp.rc to vp.ext ?
-          obj : Agr => Str = \\a => prep.s ! GPl ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
+      let
+        obj : Agr => Str = \\a => prep.s ! GPl ++ rnp.s ! a ! prep.c ++ rnp.ext ++ rnp.rc
       in vp ** {
         nn = \\a =>
           let vpnn = vp.nn ! a in
-          case <prep.t, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
+          case <prep.t, rnp.isPron, prep.c> of {      -- consider non-pron rnp as light, add to vpnn.p2
             <isCase,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
             <isCase,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
             <isCase,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
             <_,_,_>           => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
       } ;
-{-    insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VPSlash = -- HL 8/2023
-      \rnp,prep,vp ->                                              -- generalize ResGer.insertObjNP
-      let c = case prep.c of { NPC cc => cc ; _ => Acc } ;
-          obj : Agr => Str = \\a => prep.s ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
-      in vp ** {
-        nn = \\a =>
-          let vpnn = vp.nn ! a in
-          case <prep.t, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
-            <False,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
-            <False,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
-            <False,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
-            <True,_,_>       => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
-      } ;
--}
+
 -- SS: implementation of some of the relevant Foc rules from Extra
 
   lincat 

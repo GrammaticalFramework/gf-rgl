@@ -20,7 +20,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       ext = cn.ext
       } ;
 
-    DetNP det = { -- more genders in ExtraGer -- HL: der+er,den+en ; der drei,den drei+en
+    DetNP det = { -- more genders in ExtendGer
       s = \\b,c => det.sp ! b ! Neutr ! c ;
       a = agrP3 det.n ;
       -- isPron = False ; -- HL 6/2019: don't apply pronoun switch: ich gebe ihr das  vs. ich gebe es ihr
@@ -70,65 +70,69 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       w = WHeavy 
       } ;
 
+  oper
+    dropDefArtSg : Number -> Bool -> (GenNum => Case => Str) -> (Bool => GenNum => Case => Str) =
+      \n,isDefArt,qnt -> case <n,isDefArt> of {
+        <Sg,True> => table{True => \\gn,c => [] ; False => qnt} ;
+        _ => \\b => qnt
+      } ;
+    einziger : AForm => Str = table{AMod gn c => "einzig" + adjEnding ! gn ! c ; _ => "einziges"} ;
+
+  lin
     DetQuantOrd quant num ord = 
       let 
         n = num.n ;
         a = quant.a ;
-        isDefArtSg = case n of {Sg => quant.hasDefArt ; _ => False} ;
+        d = quant.isDefArt ;
         isCardOne = case n of {Sg => num.isNum ; _ => False} ;
-        quants : Bool => GenNum => Case => Str =
-          \\b => case andB b isDefArtSg of {True => \\gn,c => [] ; _ => quant.s} ;
+        qunt : Bool => GenNum => Case => Str = dropDefArtSg n d quant.s ;
         nums : AForm => Str = \\af => case af of {
           AMod (GSg g) c => case <quant.delCardOne,isCardOne> of {
-            <True,True> =>  einziger ! af ;  -- (k)ein einziger, drop cardinal "ein" of num
+            <True,True> =>  einziger ! af ;  -- (ein,kein) einziger
             <_,True> => num.sp ! af ;        -- (der,dieser) eine ; (mein) einer
-            _ => num.s ! af } ;
+            _ => num.s ! af } ;              -- (die,diese) zwei  ---- todo inflection
           _ => num.s ! APred}
       in {
-        s = \\b,g,c => let gn = gennum g n in
-          quants ! b ! gn ! c ++ nums ! agrAdj a gn c ++ ord.s ! agrAdj a gn c ;
-        sp = \\b,g,c => let gn = gennum g n in
-          quants ! b ! gn ! c ++ nums ! agrAdj a gn c ++ ord.s ! agrAdj a gn c ;
+        s,sp = \\b,g,c => let gn = gennum g n in
+          qunt ! b ! gn ! c ++ nums ! agrAdj a gn c ++ ord.s ! agrAdj a gn c ;
         n = n ;
         a = a ;
         isDef = case a of {Strong => False ; _ => True} ;
-        hasDefArt = quant.hasDefArt
+        hasDefArt = d
         } ;
 
     DetQuant quant num = 
       let 
         n = num.n ;
         a = quant.a ;
-        isDefArtSg = case n of {Sg => quant.hasDefArt ; _ => False} ;
+        d = quant.isDefArt ;
         isCardOne = case n of {Sg => num.isNum ; _ => False} ;
-        quants : Bool => GenNum => Case => Str =
-          \\b => case andB b isDefArtSg of {True => \\gn,c => [] ; _ => quant.s} ;
-        quantsp' : GenNum => Case => Str =
-          \\gn,c => case num.isNum of {True => quant.s ! gn ! c ;
-                                       False => quant.sp ! gn ! c} ;
+        quants = dropDefArtSg n d quant.s ;
         quantsp : Bool => GenNum => Case => Str =
-          \\b => case andB b isDefArtSg of {True => \\gn,c => [] ; False => quantsp'} ;
+          dropDefArtSg n d (case num.isNum of {True => quant.s ; False => quant.sp}) ;
         nums : AForm => Str = \\af => case af of {
           AMod (GSg g) c => case <quant.delCardOne,isCardOne> of {
             <True,True> =>  einziger ! af ;  -- (k)ein einziger, drop cardinal "ein" of num
             <_,True> => num.sp ! af ;        -- (der,dieser) eine ; (mein) einer
             _ => num.s ! af } ;
-          AMod GPl c => num.s ! APred ;
+          AMod GPl c => num.s ! APred ;      -- (den,diesen) zwei(en)  ---- todo: inflection
           APred => num.s ! APred}
       in {
-        s = \\b,g,c => quants ! b ! (gennum g n) ! c ++ nums ! agrAdj a (gennum g n) c ;
-        sp = \\b,g,c => quantsp ! b ! (gennum g n) ! c ++ nums ! agrAdj a (gennum g n) c ;
+        s = \\b,g,c => let gn = gennum g n in
+          quants ! b ! gn ! c ++ nums ! agrAdj a gn c ;
+        sp = \\b,g,c => let gn = gennum g n in
+          quantsp ! b ! gn ! c ++ nums ! agrAdj a gn c ;
         n = n ;
         a = a ;
         isDef = case a of {Strong => False ; _ => True} ;
-        hasDefArt = quant.hasDefArt
+        hasDefArt = d
       } ;
 
     PossPron p = {
       s  = \\gn,c => p.s ! NPPoss gn c ; -- mein (dritter)
       sp = \\gn,c => p.sp ! PossF gn c ; -- meiner
       a = Mixed ;
-      hasDefArt = False ;
+      isDefArt = False ;
       delCardOne = False ;
       } ;
 
@@ -163,12 +167,15 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
     DefArt = {
       s = \\gn,c => artDef ! gn ! c ;
-      sp = \\gn,c  => case <numGenNum gn,c> of {
-                            <Pl,Dat> => "denen" ; -- HL 6/2019
-                            <Pl,Gen> => "derer" ; -- HL 6/2019
+      sp = \\gn,c  => case <gn,c> of {
+                            <GSg Masc,Gen> => "dessen" ;
+                            <GSg Fem, Gen> => "derer" ;
+                            <GSg Neutr,Gen> => "dessen" ;
+                            <GPl,Dat> => "denen" ; -- HL 6/2019
+                            <GPl,Gen> => "derer" ; -- HL 6/2019
                              _ => artDef ! gn ! c } ;
       a = Weak ;
-      hasDefArt = True ;
+      isDefArt = True ;
       delCardOne = False ;
       } ;
 
@@ -178,7 +185,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       sp = table {GSg g => \\c => "ein" + detEnding ! (GSg g) ! c ;
                   GPl => caselist "einige" "einige" "einigen" "einiger"} ;
       a = MixedStrong ; -- Sg Mixed, Pl Strong
-      hasDefArt = False ;
+      isDefArt = False ;
       delCardOne = True ;
       } ;
 
@@ -261,7 +268,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
                      -- det or numeral? np or rather (DefArt +) cn?  drei (einiger Kinder) ?
       let g : Gender = genderAgr np.a
       in {
-        s = \\b,c => det.s ! b ! g ! c ++ appPrepNP vonDat np ++ bigNP np ;
+        s = \\b,c => det.s ! b ! g ! c ++ appPrepNP vonDat np ;
         a = agrgP3 g det.n ;
         w = case det.isDef of { True => WLight ; _ => WHeavy } ;
         rc = np.rc ;
@@ -293,8 +300,5 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       rc = "" ;
       ext = "" ;
       } ;
-
-  oper
-    einziger : AForm => Str = table{AMod gn c => "einzig" + adjEnding ! gn ! c ; _ => "einziges"} ;
 
 }

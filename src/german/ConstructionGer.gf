@@ -2,7 +2,7 @@
 
 concrete ConstructionGer of Construction = CatGer **
   open SyntaxGer, SymbolicGer, (P = ParadigmsGer),
-       (L = LexiconGer), (E = ExtraGer), (G = GrammarGer), (I = IrregGer), (R = ResGer), (N = NounGer), Prelude in {
+       (L = LexiconGer), (E = ExtendGer), (G = GrammarGer), (I = IrregGer), (R = ResGer), (N = NounGer), Prelude in {
 flags coding=utf8 ;
 
 oper

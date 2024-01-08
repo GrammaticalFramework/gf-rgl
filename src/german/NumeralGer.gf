@@ -88,7 +88,8 @@ oper
                      NOrd af => d.s ! invNum ++ BIND ++ i'.s ! NOrd af} ;
           n = Pl ;
           isDig = False ;
-          tail1to19 = case i.isDig of {True => notB isPld ; False => i.tail1to19}
+          tail1to19 = case i.isDig of {True => notB isPld ; False => i.tail1to19} ;
+          lock_Digits = <>
       } ;
 
     D_0 = mkDig "0" ** {isZero = True} ;
