@@ -1,7 +1,7 @@
 --# -path=.:../abstract:../common
 
 concrete TerminologyGer of Terminology = CatGer ** open 
-  ResGer,
+  (R = ResGer),
   ParadigmsGer,
   (G = GrammarGer),
   (S = SyntaxGer),
@@ -59,7 +59,7 @@ lin
   superlative_Parameter = mkN "Superlativ" ;
   predicative_Parameter = mkN "Prädikativ" ;
 
-  nounHeading n = ss (n.s ! Sg ! Nom) ;
+  nounHeading n = ss (n.s ! R.Sg ! R.Nom) ;
 
   exampleGr_N = mkN "Beispiel" "Beispiele" neuter ;
 
