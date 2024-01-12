@@ -200,5 +200,5 @@ lin
     } ;
 
   -- : VP ;                     -- be
-  UseCopula = {adv=\\a=>[] ; verb=copulaIns; dep=[] ; compl=\\p,a=>[]} ;
+  UseCopula = {adv=\\a=>[] ; verb=copulaIns ; dep=[] ; compl=\\p,a=>[]} ;
 }
