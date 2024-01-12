@@ -79,7 +79,7 @@ lin InLN ln = {
 lin AdjLN ap ln = ln ** {
       s = \\a,c =>
                preOrPost ap.isPre
-                 (ap.c.p1 ++ ap.c.p2 ++ ap.s ! agrAdj ln.g a ln.n c ++ ap.ext)
+                 (ap.c.p1 ++ ap.c.p2 ++ ap.s ! agrAdj a (gennum ln.g ln.n) c ++ ap.ext)
                  (ln.s ! a ! c) ;
       } ;
 

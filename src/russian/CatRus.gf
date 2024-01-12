@@ -72,13 +72,12 @@ lincat
   Det, DAP = {
     s : DetTable ;
     type : DetType ; -- main purpose is to avoid emptiness of articles, but can be reused later for something else
-    g : Gender ;
     c : Case ;
     size : NumSize
     } ;
   Predet = ResRus.Adjective ** {size : NumSize} ;
   IQuant = ResRus.Adjective ** {g: Gender; c: Case} ;
-  Quant = ResRus.Adjective ** {g: Gender; c: Case; type: DetType} ;
+  Quant = ResRus.Adjective ** {c: Case; type: DetType} ;
   Numeral = NumeralForms ;
   Num = NumDet ;
   Card = NumDet ;

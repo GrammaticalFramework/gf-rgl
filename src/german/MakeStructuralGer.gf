@@ -8,7 +8,7 @@ oper
   mkSubj : Str -> Subj = \x -> 
     {s = x ; lock_Subj = <>} ;
   mkIQuant : Str -> IQuant = \s ->
-    {s = \\_,_,_ => s ; lock_IQuant = <>} ;
+    {s = \\_,_ => s ; lock_IQuant = <>} ;
 
   mkPredet = overload {
     mkPredet : A -> Predet = \a ->
@@ -27,11 +27,11 @@ oper
 
  -- e.g. das selbe
  mmkQuant : Quant -> A -> Quant = \q,a -> q ** {
-   s,sp = \\b,x,n,g,c => q.s ! b ! x ! n ! g ! c ++ a.s ! Posit ! agrAdj g q.a n c
+   s,sp = \\gn,c => q.s ! gn ! c ++ a.s ! Posit ! agrAdj q.a gn c
    } ;
  -- e.g. derjenige
  mmbQuant : Quant -> A -> Quant = \q,a -> q ** {
-   s,sp = \\b,x,n,g,c => q.s ! b ! x ! n ! g ! c + a.s ! Posit ! agrAdj g q.a n c
+   s,sp = \\gn,c => q.s ! gn ! c + a.s ! Posit ! agrAdj q.a gn c
    } ;
 
 }

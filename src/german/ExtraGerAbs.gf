@@ -3,6 +3,7 @@ abstract ExtraGerAbs = Extra [
   VPS,ListVPS,BaseVPS,ConsVPS,ConjVPS,MkVPS,PredVPS,EmptyRelSlash,
   VPSlash, PassVPSlash, PassAgentVPSlash, CompIQuant, PastPartAP, PastPartAgentAP,
   Temp,Tense,Pol,S,NP,VV,VP,Conj,IAdv,IQuant,IComp,ICompAP,IAdvAdv,Adv,AP,
+  Cl, Num, CN, Utt, Predet,
   Foc,FocObj,FocAdv,FocAP,UseFoc,
     RNP,ReflRNP,ReflPron,ReflPoss,PredetRNP
     ,RNPList,ConjRNP,Base_rr_RNP,Base_nr_RNP,Base_rn_RNP,Cons_rr_RNP,Cons_nr_RNP

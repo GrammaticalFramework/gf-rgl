@@ -1,4 +1,4 @@
---# -path=.:../common:../../prelude
+--# -path=.:../common:../prelude:
 --
 ----1 A Simple German Resource Morphology
 ----
@@ -18,7 +18,7 @@ oper
 -- For $StructuralGer$.
 
   mkPrep : Str -> Case -> Preposition = \s,c ->
-    {s = \\_ => s ; s2 = [] ; c = c ; isPrep = isPrep} ;
+    {s = \\_ => s ; s2 = [] ; c = c ; t = isPrep} ;
 
   nameNounPhrase : Gender -> {s : Case => Str} -> {s : Bool => Case => Str ;
                                                    a : Agr ;
@@ -83,7 +83,7 @@ oper
 
   cardOrd : Str -> Str -> CardOrd => Str = \drei,dritte ->
     table {
-      NCard _ _ => drei ;
+      NCard _ => drei ;
       NOrd a => (regA (init dritte)).s ! Posit ! a
       } ;
 
@@ -102,7 +102,7 @@ oper
   regDigit : Str -> LinDigit = \vier -> 
     mkDigit vier (vier + "zehn") (vier + "zig") (vier + "te") ;
 
-  invNum : CardOrd = NCard Masc Nom ;
+  invNum : CardOrd = NCard (AMod (GSg Masc) Nom) ;
 
 } ;
 

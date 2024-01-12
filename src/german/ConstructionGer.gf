@@ -2,7 +2,7 @@
 
 concrete ConstructionGer of Construction = CatGer **
   open SyntaxGer, SymbolicGer, (P = ParadigmsGer),
-       (L = LexiconGer), (E = ExtraGer), (G = GrammarGer), (I = IrregGer), (R = ResGer), (N = NounGer), Prelude in {
+       (L = LexiconGer), (E = ExtendGer), (G = GrammarGer), (I = IrregGer), (R = ResGer), (N = NounGer), Prelude in {
 flags coding=utf8 ;
 
 oper
@@ -89,7 +89,7 @@ lin
       in  SyntaxGer.mkAdv (for_Prep | accPrep) n_hours_NP ;
 
     timeunitRange l u time =
-      {s = l.s ! R.Masc ! R.Nom ++ "bis" ++ u.s ! R.Masc ! R.Nom ++ time.s ! R.Pl ! R.Nom} ;
+      {s = l.s ! R.AMod (R.gennum R.Masc l.n) R.Nom ++ "bis" ++ u.s ! R.AMod (R.gennum R.Masc u.n) R.Nom ++ time.s ! R.Pl ! R.Nom} ;
 
   oper
     mkHour : Str -> Str -> Str -> Hour
