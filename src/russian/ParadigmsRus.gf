@@ -511,6 +511,10 @@ oper
       = \a, ln -> ln ** {
                      s = \\cas => (adjFormsAdjective a).s ! (gennum ln.g ln.n) ! ln.anim ! cas ++ ln.s ! cas
                   } ;
+    mkLN : LN -> Str -> LN
+      = \ln, suffix -> ln ** {
+                     s = \\cas =>  ln.s ! cas ++ suffix
+                  } ;
   } ;
 
   invarLN : Str -> Gender -> Number -> LN

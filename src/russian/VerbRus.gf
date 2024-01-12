@@ -188,17 +188,17 @@ lin
     };
 
   -- : NP -> Comp ;            -- (be) the man
-  CompNP np = {s=\\a=>np.s ! Ins ; adv=[] ; cop=InsCopula} ;
+  CompNP np = {s=\\a=>np.s ! Nom ; adv=[] ; cop=NomCopula} ;
 
   -- : Adv -> Comp ;            -- (be) here
   CompAdv adv = {s=\\a=>[] ; adv=adv.s ; cop=ExplicitCopula} ;
   -- : CN -> Comp ;             -- (be) a man/men
   CompCN cn = {
-    s=\\a=>cn.s ! numGenNum (agrGenNum a) ! Ins ;
+    s=\\a=>cn.s ! numGenNum (agrGenNum a) ! Nom ;
     adv=[] ;
-    cop=InsCopula
+    cop=NomCopula
     } ;
 
   -- : VP ;                     -- be
-  UseCopula = {adv=\\a=>[] ; verb=copulaIns ; dep=[] ; compl=\\p,a=>[]} ;
+  UseCopula = {adv=\\a=>[] ; verb=copulaIns; dep=[] ; compl=\\p,a=>[]} ;
 }
