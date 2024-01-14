@@ -71,6 +71,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       let a = agrP3 Sg in {
         s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3 ++ vp.a2 ++ vp.adj
                     ++ vp.inf.inpl.p2 ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+        s2 = \\_ => [] ;
         isPre = True ;
         c = <[],[]> ;
         ext = vp.ext
@@ -84,6 +85,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
                   ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
                   ++ vp.c2.s ! GPl                      -- junk if not TV
                   ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+      s2 = \\_ => [] ;
       isPre = True ;
       c = <[],[]> ;
       ext = [] 
@@ -230,6 +232,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
         compl = appPrep adj.c2 (rnp.s ! agrP3 Sg) ;  -- we use a fixed agreement
       in {
         s = adj.s ! Posit ;
+        s2 = \\_ => [] ;
         isPre = True ;
         c = case adj.c2.t of {isCase => <compl, []> ; _ => <[], compl>} ;
         ext = rnp.ext ++ rnp.rc

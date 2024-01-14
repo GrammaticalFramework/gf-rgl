@@ -44,10 +44,13 @@ concrete CatGer of Cat =
 
 -- Adjective  (HL 7/23: we need c : Agr => Str * Str to handle reflexive objects, cf ReflA2)
 
-    AP = {s : AForm => Str ; isPre : Bool ; c: Str * Str ; ext : Str} ; 
-    -- ich bin [c1 ihm] treu 
-	-- du bist so klug gewesen [ext ihn zu lesen]
-	-- ich bin stolz [c2 auf dich]
+    AP = {
+      s : AForm => Str ;
+      s2 : Case => Str ; -- comparison np, e.g. [s kleineres] (Tier) [s2 als den Hund] HL 1/34
+      isPre : Bool ; -- pre-nominal as attribute, e.g. False with sentential complement
+      c: Str * Str ; -- pp,np-complement, e.g. (ich bin) [c1 ihm] treu ; stolz [c2 auf dich]
+      ext : Str      -- s,inf-complement, (du bist) so klug (gewesen) [ext ihn zu lesen]
+      } ;
 
 -- Noun
 
@@ -127,7 +130,7 @@ concrete CatGer of Cat =
     VP = \vp -> useInfVP False vp ;
     VPSlash = \vps -> useInfVP False vps ++ vps.c2.s ! GPl ++ vps.ext;
 
-    AP = \ap -> ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ++ ap.ext ;
+    AP = \ap -> ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ++ ap.s2 ! Nom ++ ap.ext ;
     A2 = \a2 -> a2.s ! Posit ! APred ++ a2.c2.s ! GPl ;
 
     V, VS, VQ, VA = \v -> useInfVP False (predV v) ;

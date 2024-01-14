@@ -233,10 +233,12 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       let 
         g = cn.g 
       in cn ** {
-        s = \\a,n,c => 
-               preOrPost ap.isPre
+        s = case ap.isPre of { -- HL 1/2023 False only for ap = SentAP ap' sc
+          True => \\a,n,c =>   -- besserer cn als a.s2 [instead: cn, besser als a.s2,]
                  (ap.c.p1 ++ ap.c.p2 ++ ap.s ! agrAdj a (gennum g n) c)
-                 (cn.s ! a ! n ! c) ++ ap.ext ; -- comparison part of ap HL 11/2023;
+            ++   (cn.s ! a ! n ! c) ++ ap.s2 ! c ++ ap.ext ;
+          False => \\a,n,c => cn.s ! a ! n ! c ++ -- postnominal ap with sc
+            embedInCommas (ap.c.p1 ++ ap.c.p2 ++ ap.s ! APred ++ ap.s2 ! c ++ ap.ext)} ;
         g = g
         } ;
 

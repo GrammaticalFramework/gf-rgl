@@ -69,6 +69,7 @@ concrete TestLangGer of TestLang =
       s = \\af => (vp.nn ! agrP3 Sg).p1 ++ (vp.nn ! agrP3 Sg).p2 ++
         (vp.nn ! agrP3 Sg).p3 ++ (vp.nn ! agrP3 Sg).p4 ++ vp.adj ++ vp.a2 
         ++ vp.inf.inpl.p2 ++ vp.s.s ! VPastPart af ;
+      s2 = \\_ => [] ;
       isPre = True ;
       c = <[],[]> ;
       adj = [] ;
@@ -183,7 +184,7 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
       s = \\m,t,a,p => 
             let 
               cls = slash.s ! m ! t ! a ! p ;
-              who = appPrepC slash.c2 ip.s ;
+              who = appPrep slash.c2 ip.s ;
             in table {
               QDir   => who ++ cls ! Inv ! (RGenNum gn);
               QIndir => who ++ cls ! Sub ! (RGenNum gn)
@@ -201,10 +202,10 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
       } ;
 
     SlashVS np vs slash =
-      let subj = mkSubj np PrepNom ;
+      let subj = mkSubject np PrepNom ;
           vps = insertExtrapos (conjThat ++ slash.s ! Sub) (predV vs)
                    ** {c2 = slash.c2 ; objCtrl = False}  -- default objCtrl guessed
-      in mkClSlash subj.p1 subj.p2 vps ;
+      in mkClSlash subj.s subj.a vps ;
 
     UseSlash t p cl = {
       s = \\o => t.s ++ p.s ++ cl.s ! t.m ! t.t ! t.a ! p.p ! o ! RSentence ;
@@ -213,9 +214,9 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
 
   oper
     gnToAgr : RelGenNum -> Agr = \gn ->
-       case gn of {RGenNum (GSg g) => Ag g Sg P3 ;
-                   RGenNum GPl     => Ag Neutr Pl P3 ;
-                   RSentence       => Ag Neutr Sg P3} ;
+       case gn of {RGenNum (GSg g) => AgSgP3 g ;
+                   RGenNum GPl     => AgPl P3 ;
+                   RSentence       => AgSgP3 Neutr} ;
 
 
     mkClSlash : Str -> Agr -> ResGer.VPSlash -> ClauseSlash = \subj,agr,vp ->
@@ -227,7 +228,8 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
             Sub => True ;  -- glue prefix to verb
             _ => False
             } ;
-          verb  = vps.s  ! ord ! agr ! VPFinite m t a ;
+          vagr = agr2vagr agr ;
+          verb  = vps.s  ! ord ! vagr ! VPFinite m t a ;
           haben = verb.inf2 ;
           neg = negation ! b ;
           ag : Agr = case vp.objCtrl of {True => gnToAgr gn ; _ => agr} ;
