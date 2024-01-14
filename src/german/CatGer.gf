@@ -45,10 +45,10 @@ concrete CatGer of Cat =
 -- Adjective  (HL 7/23: we need c : Agr => Str * Str to handle reflexive objects, cf ReflA2)
 
     AP = {
-      s : AForm => Str ;
+      s : AForm => Str ; -- (strong) adjective paradigm
       s2 : Case => Str ; -- comparison np, e.g. [s kleineres] (Tier) [s2 als den Hund] HL 1/34
       isPre : Bool ; -- pre-nominal as attribute, e.g. False with sentential complement
-      c: Str * Str ; -- pp,np-complement, e.g. (ich bin) [c1 ihm] treu ; stolz [c2 auf dich]
+      c: Str * Str ; -- np,pp-complement, e.g. (ich bin) [c1 ihm] treu ; stolz [c2 auf dich]
       ext : Str      -- s,inf-complement, (du bist) so klug (gewesen) [ext ihn zu lesen]
       } ;
 
