@@ -27,11 +27,13 @@ oper
 
  -- e.g. das selbe
  mmkQuant : Quant -> A -> Quant = \q,a -> q ** {
-   s,sp = \\gn,c => q.s ! gn ! c ++ a.s ! Posit ! agrAdj q.a gn c
+   s = \\b,gn,c => q.s ! b ! gn ! c ++ a.s ! Posit ! agrAdj q.a gn c ;
+   sp = \\gn,c => q.s ! False ! gn ! c ++ a.s ! Posit ! agrAdj q.a gn c
    } ;
  -- e.g. derjenige
  mmbQuant : Quant -> A -> Quant = \q,a -> q ** {
-   s,sp = \\gn,c => q.s ! gn ! c + a.s ! Posit ! agrAdj q.a gn c
+   s = \\b,gn,c => q.s ! b ! gn ! c + a.s ! Posit ! agrAdj q.a gn c ;
+   sp = \\gn,c => q.s ! False ! gn ! c + a.s ! Posit ! agrAdj q.a gn c
    } ;
 
 }

@@ -68,7 +68,8 @@ concrete CatGer of Cat =
     DAP = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef,hasDefArt : Bool} ;
 
     Quant = {
-      s,sp : GenNum => Case => Str ;
+      s : Bool => GenNum => Case => Str ; -- True if leading DefArtSg is dropped
+      sp : GenNum => Case => Str ;        --     and contracted with preposition
       a : Adjf ;
       isDefArt : Bool ;
       delCardOne : Bool -- delete following cardinal 1 (IndefArt and no_Quant)

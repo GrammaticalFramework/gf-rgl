@@ -26,11 +26,14 @@ concrete ExtendGer of Extend =
     (P = ParadigmsGer) in {
 
   lin
-    GenNP np = {
-      s,sp = \\gn,c => np.s ! False ! Gen ++ np.ext ++ np.rc ;
-      a = Strong ;
-      isDefArt = False ;
-      delCardOne = False
+    GenNP np =
+      let tab : GenNum => Case => Str =
+            \\gn,c => np.s ! False ! Gen ++ np.ext ++ np.rc
+      in {s = \\_ => tab ;
+          sp = tab ;
+          a = Strong ;
+          isDefArt = False ;
+          delCardOne = False
       } ;
 
     EmptyRelSlash slash = {

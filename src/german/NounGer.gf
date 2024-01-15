@@ -71,11 +71,6 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
 
   oper
-    dropDefArtSg : Number -> Bool -> (GenNum => Case => Str) -> (Bool => GenNum => Case => Str) =
-      \n,isDefArt,qnt -> case <n,isDefArt> of {
-        <Sg,True> => table{True => \\gn,c => [] ; False => qnt} ;
-        _ => \\b => qnt
-      } ;
     einziger : AForm => Str = table{AMod gn c => "einzig" + adjEnding ! gn ! c ; _ => "einziges"} ;
 
   lin
@@ -85,7 +80,6 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
         a = quant.a ;
         d = quant.isDefArt ;
         isCardOne = case n of {Sg => num.isNum ; _ => False} ;
-        qunt : Bool => GenNum => Case => Str = dropDefArtSg n d quant.s ;
         nums : AForm => Str = \\af => case af of {
           AMod (GSg g) c => case <quant.delCardOne,isCardOne> of {
             <True,True> =>  einziger ! af ;  -- (ein,kein) einziger
@@ -94,7 +88,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
           _ => num.s ! APred}
       in {
         s,sp = \\b,g,c => let gn = gennum g n in
-          qunt ! b ! gn ! c ++ nums ! agrAdj a gn c ++ ord.s ! agrAdj a gn c ;
+          quant.s ! b ! gn ! c ++ nums ! agrAdj a gn c ++ ord.s ! agrAdj a gn c ;
         n = n ;
         a = a ;
         isDef = case a of {Strong => False ; _ => True} ;
@@ -107,9 +101,8 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
         a = quant.a ;
         d = quant.isDefArt ;
         isCardOne = case n of {Sg => num.isNum ; _ => False} ;
-        quants = dropDefArtSg n d quant.s ;
         quantsp : Bool => GenNum => Case => Str =
-          dropDefArtSg n d (case num.isNum of {True => quant.s ; False => quant.sp}) ;
+          case num.isNum of {True => quant.s ; False => \\b => quant.sp} ;
         nums : AForm => Str = \\af => case af of {
           AMod (GSg g) c => case <quant.delCardOne,isCardOne> of {
             <True,True> =>  einziger ! af ;  -- (k)ein einziger, drop cardinal "ein" of num
@@ -119,7 +112,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
           APred => num.s ! APred}
       in {
         s = \\b,g,c => let gn = gennum g n in
-          quants ! b ! gn ! c ++ nums ! agrAdj a gn c ;
+          quant.s ! b ! gn ! c ++ nums ! agrAdj a gn c ;
         sp = \\b,g,c => let gn = gennum g n in
           quantsp ! b ! gn ! c ++ nums ! agrAdj a gn c ;
         n = n ;
@@ -129,8 +122,8 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
 
     PossPron p = {
-      s  = \\gn,c => p.s ! NPPoss gn c ; -- mein (dritter)
-      sp = \\gn,c => p.sp ! PossF gn c ; -- meiner
+      s  = \\_,gn,c => p.s ! NPPoss gn c ; -- mein (dritter)
+      sp = \\gn,c => p.sp ! PossF gn c ;   -- meiner
       a = Mixed ;
       isDefArt = False ;
       delCardOne = False ;
@@ -166,7 +159,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
                   af => n.s ! NOrd APred ++ BIND ++ a.s ! Superl ! af}                -- drittbeste
       } ;
     DefArt = {
-      s = \\gn,c => artDef ! gn ! c ;
+      s = \\b,gn,c => case <b,gn> of {<True,GSg _> => [] ; _ => artDef ! gn ! c} ;
       sp = \\gn,c  => case <gn,c> of {
                             <GSg Masc,Gen> => "dessen" ;
                             <GSg Fem, Gen> => "derer" ;
@@ -180,8 +173,8 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       } ;
 
     IndefArt = {
-      s = table {GSg g => \\c => "ein" + pronEnding ! (GSg g) ! c ;
-                 GPl => \\c => []} ;
+      s = \\_ => table {GSg g => \\c => "ein" + pronEnding ! (GSg g) ! c ;
+                        GPl => \\c => []} ;
       sp = table {GSg g => \\c => "ein" + detEnding ! (GSg g) ! c ;
                   GPl => caselist "einige" "einige" "einigen" "einiger"} ;
       a = MixedStrong ; -- Sg Mixed, Pl Strong
