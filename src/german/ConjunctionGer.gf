@@ -20,6 +20,7 @@ concrete ConjunctionGer of Conjunction =
          in (conjAgr agr ss.a) }) ;
 
     ConjAP conj ss = conjunctDistrTable AForm conj ss ** {
+      s2 = \\c => [] ; -- comparison np of ap = {s:AForm => Str; s2:Case => Str} HL 1/23
       isPre = ss.isPre ; c = ss.c ; ext = ss.ext} ;
 
     ConjRS conj ss = conjunctDistrTable RelGenNum conj ss ** {
@@ -87,8 +88,8 @@ concrete ConjunctionGer of Conjunction =
     [CN] = {s1,s2 : Adjf => Number => Case => Str ; g : Gender} ;
 
   oper
-    bigAP : AP -> AForm => Str = \ap ->
-		\\a => ap.c.p1 ++ ap.s ! a ++ ap.c.p2 ++ ap.ext;
+    bigAP : AP -> AForm => Str = \ap ->                                         -- HL 1/23: not always ok:
+		\\a => ap.c.p1 ++ ap.s ! a ++ ap.c.p2 ++ ap.ext ++ ap.s2 ! Nom ; -- comparison np in Nom
     bigCN : CN -> Adjf => Number => Case => Str = \cn ->
 		\\a,n,c => cn.s ! a ! n ! c ++ cn.adv ++ cn.ext ++ cn.rc ! n ;
 		

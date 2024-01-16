@@ -37,7 +37,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInf inf vps) ** {c2 = v.c2 ; objCtrl = v.objCtrl} ;
 
     SlashV2A v ap =
-      insertAdj (ap.s ! APred) ap.c ap.ext (predV v) ** {c2 = v.c2; objCtrl = False} ;
+      insertAdj (ap.s ! APred ++ ap.s2 ! Nom) ap.c ap.ext (predV v) ** {c2 = v.c2; objCtrl = False} ;
 
     ComplSlash vps np =
       -- IL 24/04/2018 force reflexive in the VPSlash to take the agreement of np.
