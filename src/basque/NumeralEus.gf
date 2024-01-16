@@ -123,7 +123,7 @@ lin IFrac d i = {
                   if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
                   i.s ! co ;
       n = Pl ;
-      hasDot=False
+      hasDot=True
       } ;
 
 }
