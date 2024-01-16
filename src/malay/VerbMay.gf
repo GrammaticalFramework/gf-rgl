@@ -56,7 +56,7 @@ lin
 
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash3V3 v3 iobj = useV {
-    s = \\vf => v3.s ! vf ++ applyPrep v3.c2 iobj ;
+    s = \\vf => v3.s ! vf ++ applyPrep v3.c2 iobj ++ applyPrep v3.c3 emptyNP ;
     --iobj.s ! Bare -- applyPrep v3.c3 iobj -- TODO check if this works for all -- probably not
     } ** {
       c2 = v3.c2 ;-- Now the VPSlash is missing only the direct object
