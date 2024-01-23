@@ -108,14 +108,14 @@ LangMay: sekiranya tidak hujan sekarang , aku akan berjalan
 
 Lang: UttImpSg PPos (ImpVP (ComplSlash (SlashV2a open_V2) (DetCN (DetQuant DefArt NumSg) (UseN door_N))))
 LangEng: open the door
-LangMay: buka pintu
+LangMay: bukakan pintu
 
 Lang: UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a open_V2) (DetCN (DetQuant DefArt NumSg) (UseN door_N))))
 LangEng: don't open the door
-LangMay: jangan buka pintu
+LangMay: jangan bukakan pintu
 
 Lang: UttImpPol PPos (ImpVP (ComplSlash (SlashV2a open_V2) (DetCN (DetQuant DefArt NumSg) (UseN door_N))))
 LangEng: open the door
-LangMay: bukakan pintu
+LangMay: tolong bukakan pintu
 ----------------------------------------
 -- Questions
