@@ -27,8 +27,11 @@ oper
 
   prefix : Prefix -> Str -> Str = \p -> case p of {
     Meng => prefixMeng ;
-    Ber  => prefixBer
+    Ber  => prefixBer ;
+    NoPrefix => prefixNone
     } ;
+  
+  prefixNone : Str -> Str = \belajar -> belajar ;
 
   prefixMeng : Str -> Str = \makan -> case makan of {
 
@@ -63,8 +66,6 @@ oper
     } ;
 
   prefixBer : Str -> Str = \jalan -> case jalan of {
-    -- Exception
-    "ajar" => "belajar" ;
 
     -- Drop the r
     (#c  + "er" + _  -- be+kerja
@@ -149,6 +150,7 @@ param
  Prefix =
       Meng
     | Ber
+    | NoPrefix
     ; -- TODO more?
 
 --------------------------------------------------------------------------------
