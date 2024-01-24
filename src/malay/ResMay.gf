@@ -292,8 +292,11 @@ oper
   useV : Verb -> VerbPhrase = \v -> v ** {
     s = \\vf,pol => verbneg pol ++ v.s ! vf
     } ;
-
+  
   useComp : Str -> VerbPhrase = \s -> {
+    s = \\vf,pol => verbneg pol ++ s ;
+    } ;
+  useCompN : Str -> VerbPhrase = \s -> {
     s = \\vf,pol => nounneg pol ++ s ;
     } ;
 

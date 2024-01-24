@@ -159,10 +159,10 @@ lin
   CompAP ap = useComp ap.s ;
 
   -- : CN  -> Comp ;
-  CompCN cn = useComp (cn.s ! NF Sg Bare) ;
+  CompCN cn = useCompN (cn.s ! NF Sg Bare) ;
 
   --  NP  -> Comp ;
-  CompNP np = useComp (np.s ! Bare) ;
+  CompNP np = useCompN (np.s ! Bare) ;
 
   -- : Adv  -> Comp ;
   --"Both bukan and tidak may negate prepositional phrases. The choice of either
