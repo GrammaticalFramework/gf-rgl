@@ -74,8 +74,8 @@ LangMay: apa daging yang dimakan
 
 AllEngAbs: (PassAgentVPSlash (SlashV2V beg_V2V (UseV go_V)) (UsePron i_Pron))
 AllEng: be begged to go by me
-AllMay: diseru untuk pergi olehku
+AllMay: dirayu untuk pergi olehku
 
 AllEngAbs: (PassVPSlash (SlashV2V beg_V2V (UseV sleep_V)))
 AllEng: be begged to sleep
-AllMay: diseru untuk tidur
+AllMay: dirayu untuk tidur

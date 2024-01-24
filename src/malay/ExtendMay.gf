@@ -105,13 +105,17 @@ concrete ExtendMay of Extend = CatMay
       -- PassVPSlash : VPS -> VP ;
       -- be begged to sleep
       PassVPSlash vps = vps ** {
-        s = \\vf,pol => vps.s ! Passive ! pol ;
+        s = \\vf,pol => vps.s ! Passive ! pol ++ vps.adjCompl;
       };
 
     -- PassAgentVPSlash : VPSlash -> NP -> VP ;  -- be begged by her to go
       PassAgentVPSlash vps np = {
-        s = \\vf,pol => vps.s ! Passive ! pol ++ (applyPrep by8agent_Prep np) ;
+        s = \\vf,pol => vps.s ! Passive ! pol ++ vps.adjCompl ++ (applyPrep by8agent_Prep np);
       };
+      --      PassAgentVPSlash vps np = {
+      --   s = \\vf,pol => vps.s ! Passive ! pol ++ (applyPrep by8agent_Prep np) ;
+      -- };
+
 
 
       -- MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
