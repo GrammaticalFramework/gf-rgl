@@ -49,7 +49,7 @@ LangMay: bapanya memberi buku kepadanya
 -- 2. A book that her father gave her
 -- TODO: would it be better as "buku yang bapanya beri kepadanya"? (Or any other variation?)
 Lang: DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron she_Pron))) (Slash3V3 give_V3 (UsePron she_Pron))))))
-LangMay: buku yang bapanya memberi kepada dia
+LangMay: buku yang bapanya memberi kepadanya
 
 -- The preposition "kepada" comes from the definition of give_V3 in LexiconMay.gf.
 -- If "buku yang bapanya beri kepadanya" is correct in general, but sometimes
@@ -64,7 +64,7 @@ LangMay: buku yang bapanya memberi kepada dia
 -- I want to read the book that my father gave me
 -- TODO check: would "aku mahu baca buku yang bapaku beri kepadaku" be better?
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron i_Pron))) (Slash3V3 give_V3 (UsePron i_Pron)))))))))
-LangMay: aku mahu membaca buku yang bapaku memberi kepada aku
+LangMay: aku mahu membaca buku yang bapaku memberi kepadaku
 
 -- I want to read the book that my father read
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashVV want_VV (SlashV2a read_V2)) (DetCN (DetQuant DefArt NumSg) (RelCN (UseN book_N) (UseRCl (TTAnt TPast ASimul) PPos (RelSlash IdRP (SlashVP (DetCN (DetQuant DefArt NumSg) (ComplN2 father_N2 (UsePron i_Pron))) (SlashV2a read_V2))))))))

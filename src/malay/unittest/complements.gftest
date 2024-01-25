@@ -2,8 +2,9 @@
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (Slash2V3 give_V3 (MassNP (UseN cat_N))) (UsePron i_Pron))))
 LangMay: dia memberi kucing kepadaku
 
--- Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (Slash3V3 give_V3 (UsePron i_Pron)) (MassNP (UseN cat_N)))))
--- LangMay: dia memberi aku kucing
+Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (Slash3V3 give_V3 (UsePron i_Pron)) (MassNP (UseN cat_N)))))
+LangMay: dia memberi aku kucing
+-- dia memberi aku kepada kucing
 
 -- Sentence complements
 
