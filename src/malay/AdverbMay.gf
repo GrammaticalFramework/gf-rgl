@@ -20,9 +20,13 @@ lin
     --AdAdv  : AdA -> Adv -> Adv ;             -- very quickly
   -- AdAdv ada adv = adv **
 -- Like adverbs, adadjectives can be produced by adjectives.
+  AdAdv ada adv = adv ** {
+    s = ada.s ++ adv.s ;
+  } ;
 
   -- : A -> AdA ;                 -- extremely
   --  PositAdAAdj a = { } ;
+  -- PositAdAAdj a = {s = a.s} ;
 
   -- Subordinate clauses can function as adverbs.
 

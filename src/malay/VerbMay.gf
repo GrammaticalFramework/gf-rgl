@@ -1,4 +1,4 @@
-concrete VerbMay of Verb = CatMay ** open ResMay, AdverbMay, Prelude in {
+concrete VerbMay of Verb = CatMay ** open ResMay, AdverbMay, StructuralMay, Prelude in {
 
 
 lin
@@ -16,7 +16,7 @@ lin
 
   -- : VV  -> VP -> VP ;
   ComplVV vv vp = vp ** useV {
-    s = \\vf => vv.s ++ linVP vp
+    s = \\vf => vv.s ++ vp.s ! Root! Pos;
     } ;
 
   -- : VA -> AP -> VP ;  -- they become red
@@ -56,7 +56,13 @@ lin
 
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
   Slash3V3 v3 iobj = useV {
-    s = \\vf => v3.s ! vf ++ applyPrep v3.c3 emptyNP ++ iobj.s ! Bare;
+    s = \\vf => v3.s ! vf ++ 
+      case iobj.a of {
+        IsPron p => applyPrep v3.c2 emptyNP ++ applyPrep v3.c3 iobj ;
+        _ => applyPrep v3.c2 iobj ++ applyPrep v3.c3 emptyNP
+      }
+    -- ++ applyPrep v3.c2 iobj ++ 
+    -- applyPrep v3.c3 emptyNP ;
     --iobj.s ! Bare -- applyPrep v3.c3 iobj -- TODO check if this works for all -- probably not
     } ** {
       c2 = v3.c2 ;-- Now the VPSlash is missing only the direct object
@@ -72,19 +78,23 @@ lin
   } ;
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  SlashV2V v2 vp = vp ** useV {
-     s = \\vf => v2.s ! vf ++ (linVP vp);
+  SlashV2V v2 vp = useV {
+     s = \\vf => v2.s ! vf;
   } ** {
-    c2 = v2.c2;
-    adjCompl = [] ;
+    c2 = v2.c2 ;
+    adjCompl = for_Prep.s ++ vp.s ! Root ! Pos;
   } ;
-
 
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2 s = useV v2 ** {
     c2 = v2.c2;
     adjCompl = "yang" ++ s.s ; -- TODO check /Inari
   } ;
+
+  -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
+  -- SlashV2Q v2q qs = useV v2q ** {
+  --   s =
+  -- };
 
 
  {-
@@ -102,11 +112,8 @@ lin
   -- : VPSlash -> NP -> VP
   ComplSlash vps np = vps ** {
     s = \\vf,pol =>
-      vps.s ! vf ! pol
-      ++ applyPrep vps.c2 np ++ vps.adjCompl
-    -- s = \\vf,pol => vps.s ! vf ! pol ++ applyPrep vps.c2 np
+      vps.s ! vf ! pol ++ applyPrep vps.c2 np ++ vps.adjCompl
     } ;
-
 
   -- : VV  -> VPSlash -> VPSlash ;
   SlashVV vv vps = ComplVV vv vps ** {
@@ -141,7 +148,12 @@ lin
   AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;
 -}
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  -- VPSlashPrep vp prep = vp ** {c2 = prep} ;
+  VPSlashPrep vp prep = vp ** {
+    s = \\vf,pol => vp.s ! vf ! pol ;
+    } ** {
+      c2 = prep ;
+      adjCompl =[] ;
+    } ;
 
 
 --2 Complements to copula
@@ -152,10 +164,10 @@ lin
   CompAP ap = useComp ap.s ;
 
   -- : CN  -> Comp ;
-  CompCN cn = useComp (cn.s ! NF Sg Bare) ;
+  CompCN cn = useCompN (cn.s ! NF Sg Bare) ;
 
   --  NP  -> Comp ;
-  CompNP np = useComp (np.s ! Bare) ;
+  CompNP np = useCompN (np.s ! Bare) ;
 
   -- : Adv  -> Comp ;
   --"Both bukan and tidak may negate prepositional phrases. The choice of either

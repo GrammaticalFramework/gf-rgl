@@ -8,9 +8,18 @@ concrete QuestionMay of Question = CatMay ** open
 -- determiners, with or without a noun.
 lin
   -- : IDet -> CN -> IP ;       -- which five songs
-  IdetCN idet cn = NM.DetCN idet cn ** {
-    sp = \\nf => idet.sp ! nf ++ cn.s ! nf
-  } ;
+--   IdetCN idet cn = NM.DetCN idet cn ** {
+--     sp = \\nf => idet.sp ! nf ++ cn.s ! nf
+-- } ;
+  IdetCN idet cn = emptyNP ** {
+    s = \\poss =>
+      idet.pr
+      ++ case idet.poss of {
+        Bare => cn.s ! NF (toNum idet.n) idet.poss ;
+        _ => cn.s ! NF (toNum idet.n) idet.poss -- TODO check if this make sense
+      } ++ idet.s ++ cn.heavyMod ;
+    sp = \\nf => idet.sp ! nf ++ cn.s ! nf;
+    } ;
 
   -- : IDet       -> IP ;       -- which five
   IdetIP idet = NM.DetNP idet ** {sp = idet.sp};

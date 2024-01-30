@@ -7,9 +7,9 @@ concrete PhraseMay of Phrase = CatMay ** open Prelude, ResMay in {
     UttQS qs = qs ;
     UttIAdv iadv = iadv ;
     UttNP np = {s = np.s ! Bare} ;
-    UttIP ip = {s = ip.sp ! NF Sg Bare} ;
+    UttIP ip = {s = ip.s ! Bare} ;
     UttImpSg pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p } ;
-    UttImpPol pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p} ;
+    UttImpPol pol imp = {s = "tolong" ++ pol.s ++ imp.s ! Sg ! pol.p} ;
     UttImpPl pol imp = {s = pol.s ++ imp.s ! Pl ! pol.p} ;
     UttVP vp = {s = linVP vp} ;
     UttAP ap = {s = ap.s} ;

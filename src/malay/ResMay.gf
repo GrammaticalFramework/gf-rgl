@@ -230,7 +230,7 @@ oper
 --  VV : Type = Verb ** {vvtype : VVForm} ;
 
   regVerb : Str -> Prefix -> Verb = \str,p ->
-    mkVerb str (prefix p str) ("di" + str) (str + "kan") ;
+    mkVerb str (prefix p str) ("di" + str) (str ++ BIND ++ "kan") ;
 
   mkVerb : (makan, memakan, dimakan, makankan : Str) -> Verb = \rt,act,pass,imp -> {
     s = table {
@@ -251,7 +251,7 @@ oper
   mkVerb4 : Verb -> Preposition -> Str -> Verb4 = \v,pr,str -> v ** {
     s = \\_ => v.s ! Active ++ str;
     c2 = pr ;
-    passive = "di" ++ BIND ++ v.s ! Root ++ str
+    -- passive = "di" ++ BIND ++ v.s ! Root ++ str
     } ;
 
   copula : Verb = {s = \\_ => "ada"} ; -- TODO
@@ -292,8 +292,11 @@ oper
   useV : Verb -> VerbPhrase = \v -> v ** {
     s = \\vf,pol => verbneg pol ++ v.s ! vf
     } ;
-
+  
   useComp : Str -> VerbPhrase = \s -> {
+    s = \\vf,pol => verbneg pol ++ s ;
+    } ;
+  useCompN : Str -> VerbPhrase = \s -> {
     s = \\vf,pol => nounneg pol ++ s ;
     } ;
 

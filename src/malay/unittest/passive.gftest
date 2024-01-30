@@ -16,4 +16,4 @@ LangMay: buku itu dibaca
 
 Lang: UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN book_N)) (AdvVP (PassV2 read_V2) (PrepNP to_Prep (UsePron youSg_Pron))))
 LangEng: that book is read to you
-LangMay: buku itu dibacakan kepada kamu
+LangMay: buku itu dibaca kepadamu
