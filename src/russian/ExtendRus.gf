@@ -218,7 +218,7 @@ lin
       } ;
 
   UseDAP det =
-    let g = det.g in {
+    let g = Neut in {
       s=case det.type of {
         EmptyIndef => \\cas => a_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;
         EmptyDef => \\cas => the_Det.s ! g ! Inanimate ! cas ++ det.s ! g ! Inanimate ! cas ;

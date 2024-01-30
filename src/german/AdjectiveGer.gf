@@ -3,29 +3,28 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
   flags optimize=all_subs ;
 
   lin
-
     PositA  a = {
       s = a.s ! Posit ;
+      s2 = \\_ => [] ;
       isPre = True ;
       c = <[],[]> ;
       ext = []
       } ;
-    ComparA a np =
-      let nps = np.s ! False ! Nom ++ bigNP np
-      in {
-      s = \\af => a.s ! Compar ! af ++ conjThan ++ nps ;
+    ComparA a np = {
+      s = \\af => a.s ! Compar ! af ;
+      s2 = \\c => conjThan ++ np.s ! False ! c ++ np.ext ++ np.rc ;
       isPre = True ;
       c = <[],[]> ;
       ext = []
       } ;
-    CAdvAP ad ap np =
-      let nps = np.s ! False ! Nom ++ bigNP np in
-      ap ** {
-      s = \\af => ad.s ++ ap.s ! af ++ ad.p ++ nps ;
-      isPre = False 
+    CAdvAP adv ap np = ap ** {
+      s = \\af => adv.s ++ ap.s ! af ;
+      s2 = \\c => adv.p ++ np.s ! False ! c ++ np.ext ++ np.rc ;
+      isPre = True -- HL 1/2023
       } ;
     UseComparA a = {
       s = \\af => a.s ! Compar ! af ;
+      s2 = \\_ => [] ;
       isPre = True ;
       c = <[],[]> ;
       ext = []
@@ -33,6 +32,7 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
 
     AdjOrd a = {
       s = a.s ;
+      s2 = \\_ => [] ;
       isPre = True ;
       c = <[],[]> ;
       ext = []
@@ -41,25 +41,24 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
 -- $SuperlA$ belongs to determiner syntax in $Noun$.
 
     ComplA2 a np =
-      let CExt = case a.c2.isPrep of {
-            isCase => <appPrepNP a.c2 np, []> ;
-	    _ => <[], appPrepNP a.c2 np> }
+      let
+        obj = appPrepNP a.c2 np
       in {
-           s = a.s ! Posit ;
-           isPre = True ;
-           c = CExt ;
-           ext = []
+        s = a.s ! Posit ;
+        s2 = \\_ => [] ;
+        isPre = True ;
+        c = case a.c2.t of {isCase => <obj, []> ; _ => <[], obj>} ;
+        ext = []
       } ;
 
     ReflA2 a = 
       let
-	compl = appPrep a.c2 (reflPron ! agrP3 Sg) ;
-	CExt = case a.c2.isPrep of
-		{isCase => <compl, []> ; _ => <[], compl> }
+	obj = appPrep a.c2 (reflPron ! agrP3 Sg) ;
       in {
         s = a.s ! Posit ;
+        s2 = \\_ => [] ;
         isPre = True ;
-        c = CExt ;
+        c = case a.c2.t of {isCase => <obj, []> ; _ => <[], obj>} ;
         ext = []
       } ;
 
@@ -72,9 +71,12 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
 
     UseA2 a = {
       s = a.s ! Posit ;
+      s2 = \\_ => [] ;
       isPre = True ;
       c = <[],[]> ;
       ext = []
       } ;
+
+    AdvAP ap adv = ap ** {s = \\a => adv.s ++ ap.s ! a} ; -- HL 1/2024
 
 }

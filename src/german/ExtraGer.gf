@@ -29,7 +29,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     ICompAP ap = {s = \\_ => "wie" ++ ap.s ! APred ;
                   ext = ap.c.p1 ++ ap.c.p2 ++ ap.ext} ;
 
-    CompIQuant iq = {s = table {a => iq.s ! numberAgr a ! genderAgr a ! Nom} ; ext = ""} ;
+    CompIQuant iq = {s = table {a => iq.s ! (gennum (genderAgr a) (numberAgr a))! Nom} ; ext = ""} ;
 
     IAdvAdv adv = {s = "wie" ++ adv.s} ;
 
@@ -71,6 +71,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       let a = agrP3 Sg in {
         s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3 ++ vp.a2 ++ vp.adj
                     ++ vp.inf.inpl.p2 ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+        s2 = \\_ => [] ;
         isPre = True ;
         c = <[],[]> ;
         ext = vp.ext
@@ -84,6 +85,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
                   ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
                   ++ vp.c2.s ! GPl                      -- junk if not TV
                   ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
+      s2 = \\_ => [] ;
       isPre = True ;
       c = <[],[]> ;
       ext = [] 
@@ -194,7 +196,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     ReflPoss num cn =
       {s = \\a,c => let adjf = case num.n of {Sg => Strong ; Pl => Weak} -- Duden 477, HL 5/2022
-         in possPron a num.n cn.g c ++ num.s ! cn.g ! c -- HL 5/2022: meine wenigstens 3 cn,
+         in possPron a num.n cn.g c ++ num.s ! AMod (gennum cn.g num.n) c -- HL 5/2022: meine wenigstens 3 cn,
             ++ cn.s ! adjfCase adjf c ! num.n ! c       --       not: wenigstens 3 meine cn
             ++ cn.adv ;
        ext = cn.ext ; rc = cn.rc ! num.n ;
@@ -230,8 +232,9 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
         compl = appPrep adj.c2 (rnp.s ! agrP3 Sg) ;  -- we use a fixed agreement
       in {
         s = adj.s ! Posit ;
+        s2 = \\_ => [] ;
         isPre = True ;
-        c = case adj.c2.isPrep of {isCase => <compl, []> ; _ => <[], compl>} ;
+        c = case adj.c2.t of {isCase => <compl, []> ; _ => <[], compl>} ;
         ext = rnp.ext ++ rnp.rc
       } ;
 
@@ -269,32 +272,18 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VP = -- HL 5/2022
       \rnp,prep,vp ->                                           -- generalize ResGer.insertObjRefl
-      let -- prep = vp.c2 ;
-          c : Case = case prep.c of { cc => cc ; _ => Acc } ; -- put rnp.ext ++ rnp.rc to vp.ext ?
-          obj : Agr => Str = \\a => prep.s ! GPl ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
+      let
+        obj : Agr => Str = \\a => prep.s ! GPl ++ rnp.s ! a ! prep.c ++ rnp.ext ++ rnp.rc
       in vp ** {
         nn = \\a =>
           let vpnn = vp.nn ! a in
-          case <prep.isPrep, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
+          case <prep.t, rnp.isPron, prep.c> of {      -- consider non-pron rnp as light, add to vpnn.p2
             <isCase,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
             <isCase,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
             <isCase,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
             <_,_,_>           => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
       } ;
-{-    insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VPSlash = -- HL 8/2023
-      \rnp,prep,vp ->                                              -- generalize ResGer.insertObjNP
-      let c = case prep.c of { NPC cc => cc ; _ => Acc } ;
-          obj : Agr => Str = \\a => prep.s ++ rnp.s ! a ! c ++ rnp.ext ++ rnp.rc
-      in vp ** {
-        nn = \\a =>
-          let vpnn = vp.nn ! a in
-          case <prep.isPrep, rnp.isPron, c> of {           -- consider non-pron rnp as light, add to vpnn.p2
-            <False,True,Acc> => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ; -- pronoun switch:
-            <False,True,_>   => <vpnn.p1 ++ obj ! a, vpnn.p2, vpnn.p3, vpnn.p4> ; -- accPron < pron
-            <False,False,_>  => <vpnn.p1, vpnn.p2 ++ obj ! a, vpnn.p3, vpnn.p4> ; -- < non-pron nominal
-            <True,_,_>       => <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj ! a, vpnn.p4> } --   or prepositional
-      } ;
--}
+
 -- SS: implementation of some of the relevant Foc rules from Extra
 
   lincat 

@@ -90,7 +90,7 @@ concrete QuestionGer of Question = CatGer ** open ResGer in {
       let 
         n = num.n
       in {
-      s = \\g,c => idet.s ! n ! g ! c ++ num.s!g!c  ; 
+      s = \\g,c => idet.s ! (gennum g n) ! c ++ num.s ! AMod (gennum g n) c ;
       n = n
       } ;
 

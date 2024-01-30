@@ -26,7 +26,7 @@ lin PlSurname sn =
       } ;   -- Does NP need animacy?
 
 lin FullName gn sn =
-      { s=\\cas => gn.s ! Nom ++ sn.s ! gn.g ! cas ;
+      { s=\\cas => gn.s ! cas ++ sn.s ! gn.g ! cas ;
         pron=False;
         a=let g = case gn.g of {
                     Male => Masc ;

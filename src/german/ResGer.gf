@@ -28,7 +28,7 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- Complex $CN$s, like adjectives, have strong and weak forms.
 
-    Adjf = Strong | Weak ;
+    Adjf = Strong | Weak | Mixed | MixedStrong ;
 
 -- Gender distinctions are only made in the singular. 
 
@@ -74,6 +74,10 @@ resource ResGer = ParamX ** open Prelude in {
 -- and possessive forms.
 
   param NPForm = NPCase Case | NPPoss GenNum Case ;
+
+-- Possessive pronouns have special forms for stand-alone usage as NP (mein.sp = meiner).
+
+  param PossForm = PossF GenNum Case ;
 
 -- Predeterminers sometimes require a case ("ausser mir"), sometimes not ("nur ich").
 -- A number is sometimes inherited ("alle Menschen"), sometimes forced ("jeder von
@@ -147,7 +151,7 @@ resource ResGer = ParamX ** open Prelude in {
 
 --2 For $Numeral$
 
-    CardOrd = NCard Gender Case | NOrd AForm ;
+    CardOrd = NCard AForm | NOrd AForm ;
     DForm = DUnit  | DTeen  | DTen ;
 
 --2 Transformations between parameter types
@@ -166,7 +170,7 @@ resource ResGer = ParamX ** open Prelude in {
         Pl => GPl
         } ;
 
--- Needed in $RelativeGer$.
+-- Needed in $RelativeGer$ and $NounGer$.
 
     numGenNum : GenNum -> Number = \gn -> 
       case gn of {
@@ -174,23 +178,31 @@ resource ResGer = ParamX ** open Prelude in {
         GPl   => Pl
         } ;
 
+    genGenNum : GenNum -> Gender = \gn ->
+      case gn of {GSg g => g ; GPl => Masc} ;
+
 -- Used in $NounGer$.
 
-    agrAdj : Gender -> Adjf -> Number -> Case -> AForm = \g,a,n,c ->
+    agrAdj : Adjf -> GenNum -> Case -> AForm = \a,gn,c ->
       let
-        gn = gennum g n ;
         e  = AMod (GSg Fem) Nom ;
         en = AMod (GSg Masc) Acc ;
       in
       case a of {
         Strong => AMod gn c ;
-        _ => case <gn,c> of {
+        Weak => case <gn,c> of {
           <GSg _,   Nom> => e ;
           <GSg Masc,Acc> => en ;
           <GSg _,   Acc> => e ;
-          _              => en 
-        }
+          _              => en } ;
+        Mixed => case <gn,c> of {
+          <GSg g, Nom|Acc> => AMod gn c ;
+          _ => en } ;
+        MixedStrong => case <gn,c> of {
+          <GSg _, Dat|Gen> => en ;
+          _                => AMod gn c }
       } ;
+
 
 -- This is used twice in NounGer.
 
@@ -307,8 +319,8 @@ resource ResGer = ParamX ** open Prelude in {
     {s = table {
        Posit  => adjForms gut gute ; 
        Compar => adjForms besser besser ; 
-       Superl => adjForms ("am" ++ besten) best
-       }
+       Superl => adjForms besten best -- HL 12/2023: build ("am" ++ besten) via (OrdSuperl a)
+       }                              -- to get zweitbeste, am zweitbesten; *zweit am besten
     } ;
 
 -- Verbs need as many as 12 forms, to cover the variations with
@@ -437,11 +449,11 @@ resource ResGer = ParamX ** open Prelude in {
     PrepType = isCase | isPrep | isPrepDefArt ;                  -- HL 7/2022
 
   oper
-    Preposition : Type = {s : GenNum => Str ; s2:Str ; c : Case ; isPrep : PrepType} ;
+    Preposition : Type = {s : GenNum => Str ; s2:Str ; c : Case ; t : PrepType} ;
 
-  isaCase : Preposition -> Bool = \p -> case p.isPrep of {isCase => True ; _ => False} ;
-  isaPrep : Preposition -> Bool = \p -> case p.isPrep of {isPrep => True ; _ => False} ;
-  isaPrepDefArt : Preposition -> Bool = \p -> case p.isPrep of {isPrepDefArt => True ; _ => False} ;
+  isaCase : Preposition -> Bool = \p -> case p.t of {isCase => True ; _ => False} ;
+  isaPrep : Preposition -> Bool = \p -> case p.t of {isPrep => True ; _ => False} ;
+  isaPrepDefArt : Preposition -> Bool = \p -> case p.t of {isPrepDefArt => True ; _ => False} ;
 
 -- To apply a preposition to a complement.
 
@@ -452,7 +464,7 @@ resource ResGer = ParamX ** open Prelude in {
     let
       g : Gender = genderAgr np.a ;
       n : Number = numberAgr np.a ;
-      glues = case <prep.isPrep,n> of {<isPrepDefArt,Sg> => True ; _ => False} ;
+      glues = case <prep.t,n> of {<isPrepDefArt,Sg> => True ; _ => False} ;
       nps = np.s ! glues ! prep.c
     in
     case <glues, np.w> of {
@@ -476,19 +488,19 @@ resource ResGer = ParamX ** open Prelude in {
 -- To build a preposition from just a case.  -- HL 9/19: no longer used in RGL
 
   noPreposition : Case -> Preposition = \c -> 
-    {s = \\_ => [] ; s2 = [] ; c = c ; isPrep = isCase} ;
+    {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase} ;
 
 -- To build a preposition from just a case.  -- HL 9/19: moved to mkPrep in ParadigmsGer
 
-  PrepNom : Preposition = {s = \\_ => []; isPrep = isCase ; c = Nom ; s2 = []} ;
+  PrepNom : Preposition = {s = \\_ => [] ; t = isCase ; c = Nom ; s2 = []} ;
 
   vonDat  : Preposition = {s=table{GPl => "von" ; GSg Fem => "von der"; _ => "vom"};
-                           s2=[]; c=Dat; isPrep=isPrepDefArt} ;
+                           s2=[]; c=Dat; t=isPrepDefArt} ;
 
 -- To build passive: accusative object -> nom subject; others -> same case or prep
 
   subjPrep : Preposition -> Preposition = \prep ->
-    case <prep.c,prep.isPrep> of {
+    case <prep.c,prep.t> of {
       <Acc,isCase> => prep ** {c = Nom} ;
       _ => prep
     } ;
@@ -498,7 +510,7 @@ resource ResGer = ParamX ** open Prelude in {
 -- All personal pronouns, except "ihr", conform to the simple pattern $mkPronPers$.
 
    mkPronPers : (x1,_,_,_,x5 : Str) -> Gender -> Number -> Person ->
-                {s : NPForm => Str ; a : Agr} =
+                {s : NPForm => Str ; a : Agr ; sp : PossForm => Str} =
     \ich,mich,mir,meiner,mein,g,n,p -> {
       s = table {
         NPCase c    => caselist ich mich mir meiner ! c ;
@@ -515,13 +527,16 @@ resource ResGer = ParamX ** open Prelude in {
             <g,Sg,P3> => AgSgP3 g ;
             <_,Sg,P1> => AgSgP1 ;
             <_,Sg,P2> => AgSgP2 -- for "man", "Sie", set in StructuralGer  HL
-            }
+        } ;
+      sp = table {PossF (GSg Masc) Nom => mein + "er" ;             -- HL 12/23
+                  PossF (GSg Neutr) (Nom|Acc) => mein + "es" ;
+                  PossF gn c  => mein + (pronEnding ! gn ! c)} ;
       } ;
 
   pronEnding : GenNum => Case => Str = table {
     GSg Masc => caselist ""  "en" "em" "es" ;
     GSg Fem  => caselist "e" "e"  "er" "er" ;
-    GSg Neutr => caselist ""  ""   "em" "es" ;
+    GSg Neutr => caselist ""  ""  "em" "es" ;
     GPl      => caselist "e"  "e" "en" "er"
     } ;
 
@@ -544,16 +559,16 @@ resource ResGer = ParamX ** open Prelude in {
 -- This auxiliary gives the forms in each degree of adjectives. 
 
   adjForms : (x1,x2 : Str) -> AForm => Str = \teuer,teur ->
-   table {
-    APred => teuer ;
-    AMod (GSg Masc) c => 
-      caselist (teur+"er") (teur+"en") (teur+"em") (teur+"en") ! c ;
-    AMod (GSg Fem) c => 
-      caselist (teur+"e") (teur+"e") (teur+"er") (teur+"er") ! c ;
-    AMod (GSg Neutr) c => 
-      caselist (teur+"es") (teur+"es") (teur+"em") (teur+"en") ! c ;
-    AMod GPl c => 
-      caselist (teur+"e") (teur+"e") (teur+"en") (teur+"er") ! c
+    table {
+      APred => teuer ;
+      AMod gn c => teur + adjEnding ! gn ! c  -- Strong Adjf
+    } ;
+
+  adjEnding : GenNum => Case => Str = table {
+    GSg Masc  => caselist "er" "en" "em" "en" ;
+    GSg Fem   => caselist "e"  "e"  "er" "er" ;
+    GSg Neutr => caselist "es" "es" "em" "en" ;
+    GPl       => caselist "e"  "e"  "en" "er"
     } ;
 
   -- for some determiners, Gen form -es rather than -en
@@ -564,6 +579,13 @@ resource ResGer = ParamX ** open Prelude in {
      AMod (GSg Masc| GSg Neutr) Gen => teur + "es" ;
      a => adj ! a
      } ;
+
+  detEnding : GenNum => Case => Str = table {
+    GSg Masc  => caselist "er" "en" "em" "es" ;
+    GSg Fem   => caselist "e"  "e"  "er" "er" ;
+    GSg Neutr => caselist "es" "es" "em" "es" ;
+    GPl       => caselist "e"  "e"  "en" "er"
+    } ;
 
 --------------------------------------------
 --VP CONSTRUCTION
@@ -744,7 +766,7 @@ resource ResGer = ParamX ** open Prelude in {
 
   insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
     let obj = appPrepNP prep np ;
-        b : Bool = case prep.isPrep of {isPrep | isPrepDefArt => True ; _ => False} ;
+        b : Bool = case prep.t of {isPrep | isPrepDefArt => True ; _ => False} ;
         w = np.w ;
         c = prep.c
     in insertObj' obj b w c vp ;
@@ -779,7 +801,7 @@ resource ResGer = ParamX ** open Prelude in {
     in vp ** {
       nn = \\a =>
         let vpnn = vp.nn ! a in
-        case prep.isPrep of {
+        case prep.t of {
           isCase => <obj ! a ++ vpnn.p1, vpnn.p2, vpnn.p3, vpnn.p4> ;
           _      => <vpnn.p1, obj ! a ++ vpnn.p2, vpnn.p3, vpnn.p4> }
     } ;

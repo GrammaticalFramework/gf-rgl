@@ -9,7 +9,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
 
   lin
     DetCN det cn = {
-      s = \\b,c => det.s ! b ! cn.g ! c ++ cn.s ! (adjfCase det.a c) ! det.n ! c ++ cn.adv ;
+      s = \\b,c => det.s ! b ! cn.g ! c ++ cn.s ! det.a ! det.n ! c ++ cn.adv ;
       a = agrgP3 cn.g det.n ;
       -- isLight = det.isDef ;  -- ich sehe den Mann nicht vs. ich sehe nicht einen Mann
       -- HL 6/2019 (but:) sehe (die|einige) Männer nicht; don't see a|no man = sehe keinen Mann
@@ -20,11 +20,13 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       ext = cn.ext
       } ;
 
-    DetNP det = { -- more genders in ExtraGer -- HL: der+er,den+en ; der drei,den drei+en
+    DetNP det = { -- more genders in ExtendGer
       s = \\b,c => det.sp ! b ! Neutr ! c ;
       a = agrP3 det.n ;
       -- isPron = False ; -- HL 6/2019: don't apply pronoun switch: ich gebe ihr das  vs. ich gebe es ihr
-      w = case det.isDef of { True => WLight ; _ => WHeavy } ;
+      w = case det.isDef of { True => case det.hasDefArt of { True => WDefArt ;
+                                                              _ => WLight } ;
+                              _ => WHeavy } ;
       rc, ext = []
       } ;
 
@@ -68,93 +70,116 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       w = WHeavy 
       } ;
 
+  oper
+    einziger : AForm => Str = table{AMod gn c => "einzig" + adjEnding ! gn ! c ; _ => "einziges"} ;
+
+  lin
     DetQuantOrd quant num ord = 
       let 
         n = num.n ;
-        a = quant.a
+        a = quant.a ;
+        d = quant.isDefArt ;
+        isCardOne = case n of {Sg => num.isNum ; _ => False} ;
+        nums : AForm => Str = \\af => case af of {
+          AMod (GSg g) c => case <quant.delCardOne,isCardOne> of {
+            <True,True> =>  einziger ! af ;  -- (ein,kein) einziger
+            <_,True> => num.sp ! af ;        -- (der,dieser) eine ; (mein) einer
+            _ => num.s ! af } ;              -- (die,diese) zwei  ---- todo inflection
+          _ => num.s ! APred}
       in {
-        s  = \\b,g,c => quant.s  ! b ! num.isNum ! n ! g ! c ++ num.s!g!c
-                        ++ ord.s ! agrAdj g (adjfCase a c) n c ;
-        sp = \\b,g,c => quant.sp ! b ! num.isNum ! n ! g ! c ++ num.s!g!c
-                        ++ ord.s ! agrAdj g (adjfCase quant.aPl c) n c ;
+        s,sp = \\b,g,c => let gn = gennum g n in
+          quant.s ! b ! gn ! c ++ nums ! agrAdj a gn c ++ ord.s ! agrAdj a gn c ;
         n = n ;
-        a = case n of {Sg => a ; Pl => quant.aPl} ;
-        isDef = case <quant.a, quant.aPl> of {<Strong,Strong> => False ; _ => True} ;
-        hasDefArt = quant.hasDefArt ;
+        a = a ;
+        isDef = case a of {Strong => False ; _ => True} ;
+        hasDefArt = d
         } ;
 
     DetQuant quant num = 
       let 
         n = num.n ;
         a = quant.a ;
-        b = andB quant.hasDefArt (case num.n of {Sg => True ; _ => False})
+        d = quant.isDefArt ;
+        isCardOne = case n of {Sg => num.isNum ; _ => False} ;
+        quantsp : Bool => GenNum => Case => Str =
+          case num.isNum of {True => quant.s ; False => \\b => quant.sp} ;
+        nums : AForm => Str = \\af => case af of {
+          AMod (GSg g) c => case <quant.delCardOne,isCardOne> of {
+            <True,True> =>  einziger ! af ;  -- (k)ein einziger, drop cardinal "ein" of num
+            <_,True> => num.sp ! af ;        -- (der,dieser) eine ; (mein) einer
+            _ => num.s ! af } ;
+          AMod GPl c => num.s ! APred ;      -- (den,diesen) zwei(en)  ---- todo: inflection
+          APred => num.s ! APred}
       in {
-        s  = \\b,g,c => quant.s  ! b ! num.isNum ! n ! g ! c ++ num.s ! g ! c ;
-        sp = \\_,g,c => quant.sp ! False ! num.isNum ! n ! g ! c ++ num.s ! g ! c ;
-        -- HL: der+er,den+en ; der drei,den drei+en
+        s = \\b,g,c => let gn = gennum g n in
+          quant.s ! b ! gn ! c ++ nums ! agrAdj a gn c ;
+        sp = \\b,g,c => let gn = gennum g n in
+          quantsp ! b ! gn ! c ++ nums ! agrAdj a gn c ;
         n = n ;
-        a = case n of {Sg => a ; Pl => quant.aPl} ;
-        isDef = case <quant.a, quant.aPl> of {<Strong,Strong> => False ; _ => True} ;
-        hasDefArt = quant.hasDefArt ;
-        } ;
-
-
-    PossPron p = {
-      s  = \\_,_,n,g,c => p.s ! NPPoss (gennum g n) c ;
-      sp = \\_,_,n,g,c => p.s ! NPPoss (gennum g n) c ;
-      a = Strong ;
-      aPl = Weak ;
-      hasDefArt = False ;
+        a = a ;
+        isDef = case a of {Strong => False ; _ => True} ;
+        hasDefArt = d
       } ;
 
-    NumCard n = n ** {isNum = True} ;
+    PossPron p = {
+      s  = \\_,gn,c => p.s ! NPPoss gn c ; -- mein (dritter)
+      sp = \\gn,c => p.sp ! PossF gn c ;   -- meiner
+      a = Mixed ;
+      isDefArt = False ;
+      delCardOne = False ;
+      } ;
 
-    NumPl = {s = \\g,c => []; n = Pl ; isNum = False} ; 
-    NumSg = {s = \\g,c => []; n = Sg ; isNum = False} ; 
+    NumCard n = n ** {
+      isNum = True ;
+      sp = table {AMod gn c => n.s ! APred ++ BIND ++ adjEnding ! gn ! c ;
+                  APred => n.s ! APred}
+      } ;
 
-    NumDigits numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
-    OrdDigits numeral = {s = \\af => numeral.s ! NOrd af} ;
+    NumPl = {s,sp = \\_ => []; n = Pl ; isNum = False} ;
+    NumSg = {s,sp = \\_ => []; n = Sg ; isNum = False} ;
+
+    NumDigits digits = {s = \\af => digits.s ! NCard af ; n = digits.n} ;
+    OrdDigits digits = {s = table{APred => "am" ++ digits.s ! NOrd APred ++ BIND ++ "en" ;
+                                  af => digits.s ! NOrd af}} ;
 
     NumFloat dig1 dig2 = {s = \\g,c => dig1.s ! invNum ++ BIND ++ "." ++ BIND ++ dig2.s ! NCard g c ; n = Pl } ;
-    NumDecimal numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
+    NumDecimal decimal = {s = \\af => decimal.s ! NCard af ; n = decimal.n } ;
 
-    NumNumeral numeral = {s = \\g,c => numeral.s ! NCard g c; n = numeral.n } ;
-    OrdNumeral numeral = {s = \\af => numeral.s ! NOrd af} ;
+    NumNumeral numeral = {s = \\af => numeral.s ! NCard af ; n = numeral.n } ;
+    OrdNumeral numeral = {s = table{APred => "am" ++ numeral.s ! NOrd APred ++ BIND ++ "en" ;
+                                    af => numeral.s ! NOrd af}} ;
 
-    AdNum adn num = {s = \\g,c => adn.s ++ num.s!g!c; n = num.n } ;
+    AdNum adn num = {s = \\af => adn.s ++ num.s ! af ; n = num.n } ;
 
-    OrdSuperl a = {s = a.s ! Superl} ;
+    OrdSuperl a = {s = table {APred => "am" ++ a.s ! Superl ! APred ;
+                              af => a.s ! Superl ! af}} ;
 
-    OrdNumeralSuperl n a = {s = \\af => n.s ! NOrd APred ++ Predef.BIND ++ a.s ! Superl ! af} ; -- drittbeste
-
+    OrdNumeralSuperl n a =
+      {s = table {APred => "am" ++ n.s ! NOrd APred ++ BIND ++ a.s ! Superl ! APred ; -- am drittbesten
+                  af => n.s ! NOrd APred ++ BIND ++ a.s ! Superl ! af}                -- drittbeste
+      } ;
     DefArt = {
-      s = table{True => \\_,n,g,c => [] ; -- definite article dropped
-                False => \\_,n,g,c => artDef ! (gennum g n) ! c} ;
-      sp = \\_,_,n,g,c  => case <n,c> of {
-                             <Pl,Dat> => "denen" ; -- HL 6/2019
-                             <Pl,Gen> => "derer" ; -- HL 6/2019
-                             _ => artDef ! (gennum g n) ! c } ;  -- von den+en
-      a, aPl = Weak ;
-      hasDefArt = True 
+      s = \\b,gn,c => case <b,gn> of {<True,GSg _> => [] ; _ => artDef ! gn ! c} ;
+      sp = \\gn,c  => case <gn,c> of {
+                            <GSg Masc,Gen> => "dessen" ;
+                            <GSg Fem, Gen> => "derer" ;
+                            <GSg Neutr,Gen> => "dessen" ;
+                            <GPl,Dat> => "denen" ; -- HL 6/2019
+                            <GPl,Gen> => "derer" ; -- HL 6/2019
+                             _ => artDef ! gn ! c } ;
+      a = Weak ;
+      isDefArt = True ;
+      delCardOne = False ;
       } ;
 
     IndefArt = {
-      s = \\_ => table {
-        True => \\_,_,c => [] ;
-        False => table {
-          Sg => \\g,c => "ein" + pronEnding ! GSg g ! c ;
-          Pl => \\_,c => []
-          }
-        } ; 
-      sp = \\_ => table {
-        True => \\_,_,c => [] ;
-        False => table {
-          Sg => \\g,c => (detUnlikeAdj False Sg "ein").s ! g ! c ;
-          Pl => \\_,c => caselist "einige" "einige" "einigen" "einiger" ! c
-          }
-        } ;
-      a, aPl = Strong ;
-      hasDefArt = False
+      s = \\_ => table {GSg g => \\c => "ein" + pronEnding ! (GSg g) ! c ;
+                        GPl => \\c => []} ;
+      sp = table {GSg g => \\c => "ein" + detEnding ! (GSg g) ! c ;
+                  GPl => caselist "einige" "einige" "einigen" "einiger"} ;
+      a = MixedStrong ; -- Sg Mixed, Pl Strong
+      isDefArt = False ;
+      delCardOne = True ;
       } ;
 
     MassNP cn = {
@@ -201,10 +226,12 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       let 
         g = cn.g 
       in cn ** {
-        s = \\a,n,c => 
-               preOrPost ap.isPre
-                 (ap.c.p1 ++ ap.c.p2 ++ ap.s ! agrAdj g a n c ++ ap.ext)
-                 (cn.s ! a ! n ! c) ;
+        s = case ap.isPre of { -- HL 1/2023 False only for ap = SentAP ap' sc
+          True => \\a,n,c =>   -- besserer cn als a.s2 [instead: cn, besser als a.s2,]
+                 (ap.c.p1 ++ ap.c.p2 ++ ap.s ! agrAdj a (gennum g n) c)
+            ++   (cn.s ! a ! n ! c) ++ ap.s2 ! c ++ ap.ext ;
+          False => \\a,n,c => cn.s ! a ! n ! c ++ -- postnominal ap with sc
+            embedInCommas (ap.c.p1 ++ ap.c.p2 ++ ap.s ! APred ++ ap.s2 ! c ++ ap.ext)} ;
         g = g
         } ;
 
@@ -236,7 +263,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
                      -- det or numeral? np or rather (DefArt +) cn?  drei (einiger Kinder) ?
       let g : Gender = genderAgr np.a
       in {
-        s = \\b,c => det.s ! b ! g ! c ++ appPrepNP vonDat np ++ bigNP np ;
+        s = \\b,c => det.s ! b ! g ! c ++ appPrepNP vonDat np ;
         a = agrgP3 g det.n ;
         w = case det.isDef of { True => WLight ; _ => WHeavy } ;
         rc = np.rc ;
