@@ -38,7 +38,9 @@ oper
 
   SPN : Type = {s : Case  => Str} ;
 
-  snoun2spn : SNoun -> SPN = \n -> {s = \\c => n.s ! NCase Sg c} ;
+
+  snoun2spn : SNoun -> SPN = \n -> snoun2spnGen n Sg ;
+  snoun2spnGen : SNoun -> Number -> SPN = \n,nb -> {s = \\c => n.s ! NCase nb c} ;
 
   exceptNomSNoun : SNoun -> Str -> SNoun = \noun,nom -> {
       s = table {

@@ -844,9 +844,9 @@ mkVS = overload {
 
   mkLN = overload {
     mkLN : Str -> LN = \s -> lin LN (snoun2spn (mk1N s) ** {n = Sg}) ;
-    mkLN : Str -> Number -> LN = \s,n -> lin LN (snoun2spn (mk1N s) ** {n = n}) ;
+    mkLN : Str -> Number -> LN = \s,n -> lin LN (snoun2spnGen (mk1N s) n ** {n = n}) ;
     mkLN : N -> LN = \noun -> lin LN (snoun2spn noun ** {n = Sg}) ;
-    mkLN : N -> Number -> LN = \noun,n -> lin LN (snoun2spn noun ** {n = n}) ;
+    mkLN : N -> Number -> LN = \noun,n -> lin LN (snoun2spnGen noun n ** {n = n}) ;
   } ;
 
   mkGN = overload {
