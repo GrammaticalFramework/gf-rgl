@@ -89,7 +89,7 @@ incomplete concrete CatRomance of Cat = CommonX - [SC,Pol,MU]
 -- Numeral
 
     Numeral = {s : CardOrd => Str ; n : Number} ;
-    Digits  = {s : CardOrd => Str ; n : Number} ;
+    Digits  = {s : CardOrd => Str ; n : Number ; tail : DTail} ;
     Decimal = {s : CardOrd => Str ; n : Number ; hasDot : Bool} ;
 
 -- Structural

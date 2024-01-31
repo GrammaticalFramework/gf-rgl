@@ -153,11 +153,12 @@ oper hyphen = BIND ++ "-" ++ BIND ;
     Dig = TDigit ;
 
   lin
-    IDig d = d ;
+    IDig d = d ** {tail = T1} ;
 
     IIDig d i = {
-      s = \\o => d.s ! NCard Masc ++ BIND ++ i.s ! o ;
-      n = Pl
+      s = \\o => d.s ! NCard Masc ++ spaceIf i.tail ++ i.s ! o ;
+      n = Pl ;
+      tail = inc i.tail
     } ;
 
     D_0 = mkDig "0" ;
@@ -179,11 +180,23 @@ oper hyphen = BIND ++ "-" ++ BIND ;
       } ;
     IFrac d i = {
      s = \\o => d.s ! NCard Masc ++
-                if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+                if_then_Str d.hasDot BIND (BIND++","++BIND) ++
                 i.s ! o ;
      n = Pl ;
      hasDot=True
      } ;
+
+  oper
+    spaceIf : DTail -> Str = \t -> case t of {
+      T3 => SOFT_SPACE ;
+      _  => BIND
+      } ;
+
+    inc : DTail -> DTail = \t -> case t of {
+      T1 => T2 ;
+      T2 => T3 ;
+      T3 => T1
+      } ;
 
   oper
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
