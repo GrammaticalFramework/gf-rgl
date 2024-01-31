@@ -33,7 +33,7 @@ lin
     
   InflectionPN = \pn -> {
     t  = "s" ;
-    s1 = heading1 "Oikea Nimi" ;
+    s1 = heading1 "Erisnimi" ;
     s2 = inflPN (\c -> pn.s ! c)
     } ;
 
