@@ -18,16 +18,16 @@ lin
   InflectionN, InflectionN2, InflectionN3 = \noun -> {
     t  = "n" ;
     s1 = heading1 ("Noun" ++ case noun.g of {
-                               Masc  => "(masc)";
-                               Fem   => "(fem)"
+                               Masc  => "(masculine)";
+                               Fem   => "(feminine)"
                              }) ;
     s2 = frameTable (
-           tr (th ""   ++ th "nom"               ++ th "gen"    ++ th "acc") ++
-           tr (th "sg" ++ td (noun.s ! Sg ! Indef ! Nom) ++ td (noun.s ! Sg ! Indef ! Gen) ++
+           tr (th ""   ++ th "nominative"               ++ th "genitive"    ++ th "accusative") ++
+           tr (th "singular" ++ td (noun.s ! Sg ! Indef ! Nom) ++ td (noun.s ! Sg ! Indef ! Gen) ++
 	       td (noun.s ! Sg ! Indef ! Acc)) ++
-           tr (th "dl" ++ td (noun.s ! Dl ! Indef ! Nom) ++ td (noun.s ! Dl ! Indef ! Gen) ++
+           tr (th "dual" ++ td (noun.s ! Dl ! Indef ! Nom) ++ td (noun.s ! Dl ! Indef ! Gen) ++
 	       td (noun.s ! Dl ! Indef ! Acc)) ++
-           tr (th "pl" ++ td (noun.s ! Pl ! Indef ! Nom) ++ td (noun.s ! Pl ! Indef ! Gen) ++
+           tr (th "plural" ++ td (noun.s ! Pl ! Indef ! Nom) ++ td (noun.s ! Pl ! Indef ! Gen) ++
 	       td (noun.s ! Pl ! Indef ! Acc)) 
          )
     } ;
@@ -36,11 +36,11 @@ lin
     t  = "pn" ;
     s1 = heading1 ("Proper Name" ++
                     case pn.g of {
-                      Masc  => "(masc)";
-                      Fem   => "(fem)"
+                      Masc  => "(masculine)";
+                      Fem   => "(feminine)"
                     }) ;
     s2 = frameTable (
-           tr (th "nom"        ++ th "gen"        ++ th "acc") ++
+           tr (th "nominative"        ++ th "genitive"        ++ th "accusative") ++
            tr (td (pn.s ! Nom) ++ td (pn.s ! Gen) ++ td (pn.s ! Acc))
          )
     } ;
@@ -75,7 +75,9 @@ lin
     s3= ""
     } ;
 
-  InflectionV v = {
+  InflectionV,
+    InflectionV3,  InflectionV2A,  InflectionV2Q,  InflectionV2S,  InflectionV2V, InflectionVA,  InflectionVQ,  InflectionVS,  InflectionVV ----  
+    = \v -> {
     t = "v" ;
     s1= heading1 "Verb" ++
         paragraph (v.s ! (VPerf Act (Per3 Masc Sg)) ++
@@ -195,9 +197,37 @@ lin
 oper
   inflVerb : Verb -> Str = \verb ->
     frameTable (
-      tr (th "perfect"       ++ td (verb.s ! (VPerf Act (Per3 Masc Sg)))) ++
-      tr (th "imperfect"     ++ td (verb.s ! (VImpf Ind Act (Per3 Masc Sg))))
+      tr (th "Active" ++ th "Perfect" ++ th "Imperfect Indicative" ++ th "Conjunctive" ++ th "Jussive" ++ th "Imperative") ++
+      inflVerbRow "3 Masculine Singular" (Per3 Masc Sg) verb ++
+      inflVerbRow "3 Feminine Singular"  (Per3 Fem  Sg) verb ++
+      inflVerbRow "2 Masculine Singular" (Per2 Masc Sg) verb ++
+      inflVerbRow "2 Feminine Singular"  (Per2 Fem  Sg) verb ++
+      inflVerbRow "1 Singular"           (Per1 Sing) verb ++
+      inflVerbRow "3 Masculine Dual"     (Per3 Masc Dl) verb ++
+      inflVerbRow "3 Feminine Dual"      (Per3 Fem  Dl) verb ++
+      inflVerbRow "2 Dual"               (Per2 Masc Dl) verb ++
+      inflVerbRow "3 Masculine Plural"   (Per3 Masc Pl) verb ++
+      inflVerbRow "3 Feminine Plural"    (Per3 Fem  Pl) verb ++
+      inflVerbRow "2 Masculine Plural"   (Per2 Masc Pl) verb ++
+      inflVerbRow "2 Feminine Plural"    (Per2 Fem  Pl) verb ++
+      inflVerbRow "1 Plural"             (Per1 Plur) verb
     ) ;
+
+  inflVerbRow : (h : Str) -> (pgn : PerGenNum) -> (verb : Verb) -> Str = \h, pgn, verb ->
+      tr (th h  ++
+          td (verb.s ! (VPerf Act pgn)) ++
+          td (verb.s ! (VImpf Ind Act pgn)) ++
+          td (verb.s ! (VImpf Cnj Act pgn)) ++
+          td (verb.s ! (VImpf Jus Act pgn)) ++
+	  td (imperativeForm pgn verb)
+	  ) ;
+
+   imperativeForm : PerGenNum -> Verb -> Str = \pgn, verb ->
+     case pgn of {
+       Per2 g n => verb.s ! VImp g n ;
+       _ => "-"
+       } ;
+    
 
   pp : Str -> Str = \s -> "&lt;"+s+"&gt;";
 
